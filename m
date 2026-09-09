@@ -1,928 +1,229 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDF157F73E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27C9568FAC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962868; cv=none; b=a+OMOYAUWDF2biH5eHt538D5XdZTM5bQ70b3TQ9mGVa824Z7UfeofGydNL5qC7+C85Mc1DXsBseh29n+WnoXJUGxK6DeggS7rYmrXg7pQb7ASQDPlM5QAkGmtp/QQTH1ihY1rJOqodoTJTVnK/67Bo1AYjhRpine1X5an40GDe4=
+	t=1788962885; cv=none; b=hPvW74MSTOkSgNsLh6L6PdTjqwn5UDybaY1eA7Gx0D85ZkkuKNqzTe6YrgjoZbz2aItz3ohVs/IVgiy5C59trOLrGutnLIqXi4FE7jVuATELZUCnIWToJ+GyVtLV0lWKfSuvzj/aFPNm4PonrT6k+M02ZElREBj6XMsmn1NsKp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962868; c=relaxed/simple;
-	bh=MMJ6WoUH0bJSC62+CibBdbIZ4f1vNyReAZIMSZnTvV8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M4wxL1aFOIK+7OalK4ERtI4h1nLUhjAOG9gsbQvFT32iyfHRxSKXI9QUZUHr5ZBKxL3pqrhvdhqSnFEEElCBKQ48yFPNJMuiWa+yA+QZKBzX1+sPiNZzS8wWvzyfq87kiy99q7PIkBgeWJO8v+sgbUBUpG2iOoX4XFIWScYO/TQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=Ma1G3MRm; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788962885; c=relaxed/simple;
+	bh=RWamXQB5lXNQZK4wY26JhvFyuxLqlBrnxJnzqcIbJto=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eP3zoSgkhM0DvBEMmVtFzAfJrSC0BZW9VFe797I6PDXeXox0jaM1b2ZsLtWX+KeHUMho+NvoEacTeo1rAylA3Egen3UepIDidvJTGzPh2TT0k4xAyTZ919DMvPwfriV3P71a/WE7crdkR9iAgIX5ZQdQo4hqQvdI9M9JWtGbzs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHiQnsD7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="Ma1G3MRm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788962854;
-	bh=QnO1nc1K0d982KAo+kP7NIOhiY2NMQFMv1F53E+MIcs=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=Ma1G3MRmpywunbUiIn7RELH1/DsMB54AmPyK/6nQVvJDn5wPcVKEfFX4La4rkjqJC
-	 5qKeNh0UpJ/0J0E0C5Dx6BFaVRrx+ZJ5WC2Ralltneo3B+70r71dW4qIaJWWLTGH2a
-	 0Uf26n/fGCcnoZvK8O0CoDaBp/7sIASm6vMNgHDk=
-X-QQ-mid: esmtpsz10t1788962853tf408563b
-X-QQ-Originating-IP: WNIxRnk1s6XuJVI+VNdzWT8eq256IVsHu2C8KgoeCE4=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 09 Sep 2026 22:07:30 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13866533234236857726
-EX-QQ-RecipientCnt: 12
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Wed, 09 Sep 2026 22:07:05 +0800
-Subject: [PATCH 5/5] clk: spacemit: safely synchronize PLL parameters
- during init
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHiQnsD7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9011A1F00A3A;
+	Wed,  9 Sep 2026 14:07:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788962883;
+	bh=VDyWmM40aiKxKbQ6FoW/MOveUW0JhOGKh0dq4VK12n0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fHiQnsD74keMxuuA2tajHNZcaFeCB4NkxmK8z2CQ7BeRU2CpuTeQCmXhPg7N3FRV5
+	 EjuYtAjpIbsL3Ro+Z9NrrC+e8MazPnwsUteb74EApWrDV08qjGM/hUQfkcOxtWJSf6
+	 7rF6NYfn0N4Dp/Mc3H6QAUF2jZoYrbp+DZWKNTazmi/WhMkbIrjZzEzBWE82fXLyt0
+	 clmrkMabbXuBy/vXbGLcU6ib701LtotePPJghNZXVPYgi80eJmKVef9GFYXnfhxZJU
+	 kebP2Abi03MXzEmX+3WAYSf4jDdwPQewH5jBt/41TQWaEBl5kyEMblFBrEng1mEk7o
+	 ezXBT/E2eDUtQ==
+Message-ID: <0569af12-8e32-457d-9d1f-9b879d6485d0@kernel.org>
+Date: Wed, 9 Sep 2026 16:07:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/14] mm/zsmalloc: replace PG_private with pointer
+ comparison
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Minchan Kim <minchan@kernel.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-1-6ae22f9d9272@nvidia.com>
+ <60fe39c2-d92f-4bd0-be33-04d702f8f753@kernel.org>
+ <DLA1CJU4WHQE.3Q2C0RE1IW97Y@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <DLA1CJU4WHQE.3Q2C0RE1IW97Y@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-spacemit-pll-init-v1-5-b3065ad5a4ac@linux.spacemit.com>
-References: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
-In-Reply-To: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Yixun Lan <dlan@kernel.org>, 
- Alex Elder <elder@riscstar.com>, Inochi Amaoto <inochiama@outlook.com>, 
- Haylen Chu <heylenay@4d2.org>
-Cc: linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=30962;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=MMJ6WoUH0bJSC62+CibBdbIZ4f1vNyReAZIMSZnTvV8=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFkLM3iqRVk9xdYJFFXsUVa8f9r+h9H8m7df/LD6s8rDP
- PYi71bJjlIWBjEuBlkxRZbuBzzbCnyibAsECn1h5rAygQxh4OIUgImsnszwv2bOxoAshc0/P840
- YZdLa9DIrWjLe1HYzuFyc9b/jS01uxgZ5sikTGLdvcfny8rb3urvV1rEaXBHT75ZyF4stPfSxfS
- t3AA=
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NRKrrPIB11wHSOoe3xBFi4QO/Rd1mpaqlOe4+VZ9B0dxOSUd8i7wWQmo
-	MwCjFQH6Ekj4A6zFXp7CC/RsOQEDzTz2MwTxGgCr/3bndMyUVSHqlQ/i6KlRcDceRDxJtdn
-	Pzdu2Esa5CkopTrBxndsHC3so3kIUMMISA87wxDfpvaLPONy2wPC7mvagikSJcecMEb/jvm
-	Elxp/umKH+GaDGuJ/NGnfu1U6VA/wNvFvzsmblEDHxs7/Q9/VkwWyXnQmvUXuQ/kGStFBhZ
-	gMQ+JPKOxoGZA88Cz6BinvkgL4xd16X9nnKmxduaROOvTFdMRQN2Q9Rla6vsLfUo0yT1zLH
-	tcsdHhVOuvJjh9K/6ZwDSW1kg3/juMmNSSEj1jkb7xK4jjWqrJL7s8WHyDkdoaI9msFUsuW
-	O8mC66ctIXBsyeqwORUQXojupk23psldFsvxEaFOAtMVFjgU3/aLI1FQ09fIJvZAtJ5mwML
-	zcL8ycIFXmxWO0y3MG82gvdMMK3aEKoonT+Un7oKUIgBgoeetJ2pQ/bva+HNxbrsza7a8Kl
-	ugV4c/Jry22LaoMWOzgSL6Ua/t043k6vVBH39alg+MZG7HNvp3eONO4rz7Iibw4GpioouWI
-	wXjRXRgFWrVVgs2LpDN5hTeyK26drSND4YEuRgtCP623lwBkYGvaKQj/RFXDMq2hn/oJ8MI
-	VGAx9eQ0QczDS5iG05Cxkffl9gmva1v/0DdlIC4yzHiHlbQayAOlOc/fYoHMVm2QUZvlzQK
-	Gn332r0UFeKVGxDZte59LWnyK0EIsvkzAT/dx47pvNzol125ac0lA/A241NMjqAazDvP8VL
-	MlsED21GiUVLsB5l/AcApvhomaXcF4YVyvcvOZ4S4KvTJHF24WLAHm9GDyST0e9Rjegnpfz
-	NEUnpKAo4RessM+EcnY8hU5maxi8GMwL0WHuQ9QuR/LiL6+VlE+a9O5cmfXTmqhCjoGBw6t
-	W9lXtj4p17npoPrIUFaRttscss56JVI9htQCS+/fLSIPdjrKDbhORZUZwWOWUv4o4Zw1hRl
-	0q/PMDYh/cPuhHVVIEbWHUSoQnqoVOjXpi6MKW4cTlHb+6tX7pI2TSxJgPzmIhMJ8F6vVu9
-	dZSY2FDrcIPJiJodIhS/QVdwJfORx9YDd7F8kZevNArjpB9jJEo54yS+Os+1IzWQjx1GYQr
-	ONXtusqQX97eSjGmAA855zClwMPJx/KFsTmkdNLt8FXBewA=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 
-Firmware PLL settings can be valid without matching a rate-table entry.
-Falling back to the first entry during init can halt CPUs by disabling
-their clock source.
+On 9/8/26 17:21, Zi Yan wrote:
+> On Tue Sep 8, 2026 at 11:07 AM EDT, David Hildenbrand (Arm) wrote:
+>> On 9/8/26 04:56, Zi Yan wrote:
+>>> zsmalloc uses PG_private to indicate first zpdesc in a zspage chain. It is
+>>> equivalent to check zpdesc == zspage->first_zpdesc. Replace
+>>> is_first_zpdesc() with zpdesc == zspage->first_zpdesc in obj_allocated().
+>>>
+>>> For get_first_zpdesc(), first_zpdesc is from zspage->first_zpdesc, so
+>>> replace is_first_zpdesc() with first_zpdesc->zspage == zspage, the second
+>>> requirement of a zspage chain, where all zpdescs point to the same zspage.
+>>>
+>>> is_first_zpdesc(), is only used in VM_BUG_ON_PAGE(), so performance impact
+>>> should be negligible. While at it, change VM_BUG_ON() to
+>>> VM_WARN_ON_ONCE_PAGE().
+>>>
+>>> It prepares for a future commit that remove PG_private.
+>>>
+>>> No functional change intended.
+>>>
+>>> Assisted-by: Claude:claude-opus-4-8
+>>> Assisted-by: Codex:gpt-5
+>>
+>> Assied-by: LLM :)
+>>
+>>> To: Minchan Kim <minchan@kernel.org>
+>>> To: Sergey Senozhatsky <senozhatsky@chromium.org>
+>>> To: Andrew Morton <akpm@linux-foundation.org>
+>>> Cc: linux-mm@kvack.org
+>>> Cc: linux-kernel@vger.kernel.org
+>>> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>> ---
+>>
+>> Nice cleanup, one comment below.
+>>
+>> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Thanks.
+>>
+>>>  mm/zpdesc.h   |  2 +-
+>>>  mm/zsmalloc.c | 24 ++++++------------------
+>>>  2 files changed, 7 insertions(+), 19 deletions(-)
+>>>
+>>> diff --git a/mm/zpdesc.h b/mm/zpdesc.h
+>>> index b8258dc78548d..4fd81c2e80769 100644
+>>> --- a/mm/zpdesc.h
+>>> +++ b/mm/zpdesc.h
+>>> @@ -26,8 +26,8 @@
+>>>   * with memcg_data.
+>>>   *
+>>>   * Page flags used:
+>>> - * * PG_private identifies the first component page.
+>>>   * * PG_locked is used by page migration code.
+>>> + * The first component page has zpdesc->zspage->first_zpdesc == zpdesc
+>>>   */
+>>>  struct zpdesc {
+>>>  	unsigned long flags;
+>>> diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+>>> index 825022a7a328f..24526185fd31f 100644
+>>> --- a/mm/zsmalloc.c
+>>> +++ b/mm/zsmalloc.c
+>>> @@ -290,11 +290,6 @@ struct zs_pool {
+>>>  	atomic_t compaction_in_progress;
+>>>  };
+>>>  
+>>> -static inline void zpdesc_set_first(struct zpdesc *zpdesc)
+>>> -{
+>>> -	SetPagePrivate(zpdesc_page(zpdesc));
+>>> -}
+>>> -
+>>>  static inline void zpdesc_inc_zone_page_state(struct zpdesc *zpdesc)
+>>>  {
+>>>  	inc_zone_page_state(zpdesc_page(zpdesc), NR_ZSPAGES);
+>>> @@ -476,11 +471,6 @@ static void record_obj(unsigned long handle, unsigned long obj)
+>>>  	WRITE_ONCE(*(unsigned long *)handle, obj);
+>>>  }
+>>>  
+>>> -static inline bool __maybe_unused is_first_zpdesc(struct zpdesc *zpdesc)
+>>> -{
+>>> -	return PagePrivate(zpdesc_page(zpdesc));
+>>> -}
+>>
+>> I would keep this helper, reworking it and moving all comments regarding *how*
+>> first detection works in there
+>>
+>> -static inline bool __maybe_unused is_first_zpdesc(struct zpdesc *zpdesc)
+>> +static inline bool __maybe_unused is_first_zpdesc(const struct zpdesc *zpdesc)
+>>  {
+>> -       return PagePrivate(zpdesc_page(zpdesc));
+>> +       /* Only the first zpdesc has its zspage->first_zpdesc set to itself. */
+>> +       return zpdesc == zpdesc->zspage->first_zpdesc;
+>>  }
+> 
+> That is the version I had in RFC[1]. But how it works is not only
 
-Replace that fallback with opt-in parameter synchronization. Preserve
-unlisted rates and PLLs without a sync descriptor, including PLL1. Leave
-already matching parameters unchanged. For differing parameters, require
-an entry that decodes to the same rate and no enabled outputs outside
-the described CPU paths.
+Ah, great minds think alike.
 
-Park mapped CPU consumers on validated PLL1 branches no faster than
-their current clock before stopping their PLL and programming the
-matching entry. Re-enable previously enabled PLLs and wait for lock
-before restoring CPU parents; leave initially disabled PLLs disabled.
-Handle K1 PLL3 and K3 PLL3/4/5/8, parking sharing clusters first and
-restoring them last. K3 CPU parking still depends on firmware cluster
-initialization for FC completion.
+> 1) "Only the first zpdesc has its zspage->first_zpdesc set to itself.", but also
+> 2) all zpdescs point to the same zspage.
+> 
+> obj_allocated() checks for 1, since zspage comes from zspage and
+> the requirment 2 is tautology.
+> 
+> get_first_zpdesc() checks for 2, since first_zpdesc comes from zspage's
+> first_zpdesc, another tautology.
+> 
+> I also had a version to spell out both[2], but Johannes did not lik it,
 
-After a programming or relock failure, attempt to restore the old PLL
-parameters. Leave parked CPUs on PLL1 if PLL recovery fails, and keep
-the fallback gates critical in case an FC handshake does not complete.
+yeah, agreed.
 
-Keep synchronization in init, before CCF links the PLL to its children.
+> because it[2] is a "super predicates", making the required checks unclear.
 
-Fixes: 1b72c59db0ad ("clk: spacemit: Add clock support for SpacemiT K1 SoC")
-Fixes: 3a086236c600 ("clk: spacemit: ccu_pll: add plla type clock")
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- drivers/clk/spacemit/ccu-k1.c  |  52 ++++-
- drivers/clk/spacemit/ccu-k3.c  |  90 +++++++--
- drivers/clk/spacemit/ccu_pll.c | 447 +++++++++++++++++++++++++++++++----------
- drivers/clk/spacemit/ccu_pll.h |  43 +++-
- 4 files changed, 485 insertions(+), 147 deletions(-)
+Oh well :)
 
-diff --git a/drivers/clk/spacemit/ccu-k1.c b/drivers/clk/spacemit/ccu-k1.c
-index 40cc96c4ee876..0085179f8d7a7 100644
---- a/drivers/clk/spacemit/ccu-k1.c
-+++ b/drivers/clk/spacemit/ccu-k1.c
-@@ -41,17 +41,47 @@ static const struct ccu_pll_rate_tbl pll3_rate_tbl[] = {
- 	CCU_PLL_RATE(3200000000UL, 0x0050dd67, 0x43eaaaab),
- };
- 
--CCU_PLL_DEFINE(pll1, pll1_rate_tbl, APBS_PLL1_SWCR1, APBS_PLL1_SWCR3, MPMU_POSR, POSR_PLL1_LOCK,
--	       CLK_SET_RATE_GATE);
--CCU_PLL_DEFINE(pll2, pll2_rate_tbl, APBS_PLL2_SWCR1, APBS_PLL2_SWCR3, MPMU_POSR, POSR_PLL2_LOCK,
--	       CLK_SET_RATE_GATE);
--CCU_PLL_DEFINE(pll3, pll3_rate_tbl, APBS_PLL3_SWCR1, APBS_PLL3_SWCR3, MPMU_POSR, POSR_PLL3_LOCK,
--	       CLK_SET_RATE_GATE);
--
--CCU_FACTOR_GATE_DEFINE(pll1_d2, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(1), 2, 1);
-+/* PLL1 supplies the fallback and must retain its firmware configuration. */
-+CCU_PLL_SYNC_DEFINE(pll1, pll1_rate_tbl, APBS_PLL1_SWCR1, APBS_PLL1_SWCR2,
-+		    APBS_PLL1_SWCR3, MPMU_POSR, POSR_PLL1_LOCK,
-+		    CLK_SET_RATE_GATE, NULL);
-+
-+static const struct ccu_pll_sync pll2_sync = {
-+	.safe_pll = &pll1,
-+};
-+
-+static const struct ccu_pll_cpu_mux pll3_cpu_muxes[] = {
-+	{ APMU_CPU_C1_CLK_CTRL, GENMASK(2, 0), 5 },
-+	{ APMU_CPU_C1_CLK_CTRL, GENMASK(2, 0), 7 },
-+	{ APMU_CPU_C0_CLK_CTRL, GENMASK(2, 0), 5 },
-+	{ APMU_CPU_C0_CLK_CTRL, GENMASK(2, 0), 7 },
-+};
-+
-+static const struct ccu_pll_sync pll3_sync = {
-+	.safe_pll = &pll1,
-+	.apmu_compatible = "spacemit,k1-syscon-apmu",
-+	.muxes = pll3_cpu_muxes,
-+	.num_muxes = ARRAY_SIZE(pll3_cpu_muxes),
-+	.cpu_outputs = GENMASK(2, 0),
-+	.safe_sel = 4,
-+	.slow_sel = 3,
-+	.reg_safe_gate = MPMU_ACGR,
-+};
-+
-+CCU_PLL_SYNC_DEFINE(pll2, pll2_rate_tbl, APBS_PLL2_SWCR1, APBS_PLL2_SWCR2,
-+		    APBS_PLL2_SWCR3, MPMU_POSR, POSR_PLL2_LOCK,
-+		    CLK_SET_RATE_GATE, &pll2_sync);
-+CCU_PLL_SYNC_DEFINE(pll3, pll3_rate_tbl, APBS_PLL3_SWCR1, APBS_PLL3_SWCR2,
-+		    APBS_PLL3_SWCR3, MPMU_POSR, POSR_PLL3_LOCK,
-+		    CLK_SET_RATE_GATE, &pll3_sync);
-+
-+/* A failed CPU FC handshake must not lose either fallback clock. */
-+CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_d2, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(1), 2, 1,
-+			     CLK_IS_CRITICAL);
- CCU_FACTOR_GATE_DEFINE(pll1_d3, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(2), 3, 1);
- CCU_FACTOR_GATE_DEFINE(pll1_d4, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(3), 4, 1);
--CCU_FACTOR_GATE_DEFINE(pll1_d5, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(4), 5, 1);
-+CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_d5, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(4), 5, 1,
-+			     CLK_IS_CRITICAL);
- CCU_FACTOR_GATE_DEFINE(pll1_d6, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(5), 6, 1);
- CCU_FACTOR_GATE_DEFINE(pll1_d7, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(6), 7, 1);
- CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_d8, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(7), 8, 1,
-@@ -111,7 +141,7 @@ CCU_FACTOR_DEFINE(pll1_d3072_0p8, CCU_PARENT_HW(pll1_d384_6p4), 8, 1);
- CCU_GATE_DEFINE(pll1_d6_409p6, CCU_PARENT_HW(pll1_d6), MPMU_ACGR, BIT(0), 0);
- CCU_FACTOR_GATE_DEFINE(pll1_d12_204p8, CCU_PARENT_HW(pll1_d6), MPMU_ACGR, BIT(5), 2, 1);
- 
--CCU_GATE_DEFINE(pll1_d5_491p52, CCU_PARENT_HW(pll1_d5), MPMU_ACGR, BIT(21), 0);
-+CCU_GATE_DEFINE(pll1_d5_491p52, CCU_PARENT_HW(pll1_d5), MPMU_ACGR, BIT(21), CLK_IS_CRITICAL);
- CCU_FACTOR_GATE_DEFINE(pll1_d10_245p76, CCU_PARENT_HW(pll1_d5), MPMU_ACGR, BIT(18), 2, 1);
- 
- CCU_GATE_DEFINE(pll1_d4_614p4, CCU_PARENT_HW(pll1_d4), MPMU_ACGR, BIT(15), 0);
-@@ -120,7 +150,7 @@ CCU_FACTOR_GATE_DEFINE(pll1_d78_31p5, CCU_PARENT_HW(pll1_d4), MPMU_ACGR, BIT(6),
- 
- CCU_GATE_DEFINE(pll1_d3_819p2, CCU_PARENT_HW(pll1_d3), MPMU_ACGR, BIT(14), 0);
- 
--CCU_GATE_DEFINE(pll1_d2_1228p8, CCU_PARENT_HW(pll1_d2), MPMU_ACGR, BIT(16), 0);
-+CCU_GATE_DEFINE(pll1_d2_1228p8, CCU_PARENT_HW(pll1_d2), MPMU_ACGR, BIT(16), CLK_IS_CRITICAL);
- 
- CCU_GATE_DEFINE(slow_uart, CCU_PARENT_NAME(osc), MPMU_ACGR, BIT(1), CLK_IGNORE_UNUSED);
- CCU_DDN_DEFINE(slow_uart1_14p74, pll1_d16_153p6, MPMU_SUCCR, 16, 13, 0, 13, 2, 0);
-diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
-index 2f0bd74f7da4d..b01f2ce5d394f 100644
---- a/drivers/clk/spacemit/ccu-k3.c
-+++ b/drivers/clk/spacemit/ccu-k3.c
-@@ -55,25 +55,77 @@ static const struct ccu_pll_rate_tbl pll8_rate_tbl[] = {
- 
- CCU_PLLA_DEFINE(pll1, pll1_rate_tbl, APBS_PLL1_SWCR1, APBS_PLL1_SWCR2, APBS_PLL1_SWCR3,
- 		MPMU_POSR, POSR_PLL1_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll2, pll2_rate_tbl, APBS_PLL2_SWCR1, APBS_PLL2_SWCR2, APBS_PLL2_SWCR3,
--		MPMU_POSR, POSR_PLL2_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll3, pll3_rate_tbl, APBS_PLL3_SWCR1, APBS_PLL3_SWCR2, APBS_PLL3_SWCR3,
--		MPMU_POSR, POSR_PLL3_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll4, pll4_rate_tbl, APBS_PLL4_SWCR1, APBS_PLL4_SWCR2, APBS_PLL4_SWCR3,
--		MPMU_POSR, POSR_PLL4_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll5, pll5_rate_tbl, APBS_PLL5_SWCR1, APBS_PLL5_SWCR2, APBS_PLL5_SWCR3,
--		MPMU_POSR, POSR_PLL5_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll6, pll6_rate_tbl, APBS_PLL6_SWCR1, APBS_PLL6_SWCR2, APBS_PLL6_SWCR3,
--		MPMU_POSR, POSR_PLL6_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll7, pll7_rate_tbl, APBS_PLL7_SWCR1, APBS_PLL7_SWCR2, APBS_PLL7_SWCR3,
--		MPMU_POSR, POSR_PLL7_LOCK, CLK_SET_RATE_GATE);
--CCU_PLLA_DEFINE(pll8, pll8_rate_tbl, APBS_PLL8_SWCR1, APBS_PLL8_SWCR2, APBS_PLL8_SWCR3,
--		MPMU_POSR, POSR_PLL8_LOCK, CLK_SET_RATE_GATE);
--
--CCU_FACTOR_GATE_DEFINE(pll1_d2, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(1), 2, 1);
-+
-+/* PLLs without a managed CPU path require all output gates to be off. */
-+static const struct ccu_pll_sync idle_pll_sync = {
-+	.safe_pll = &pll1,
-+};
-+
-+/* Park the secondary cluster first when it shares the primary cluster PLL. */
-+static const struct ccu_pll_cpu_mux pll3_cpu_muxes[] = {
-+	{ APMU_CPU_C1_CLK_CTRL, BIT(13) | GENMASK(2, 0), BIT(13) | 7 },
-+	{ APMU_CPU_C0_CLK_CTRL, GENMASK(2, 0), 7 },
-+};
-+
-+static const struct ccu_pll_cpu_mux pll4_cpu_muxes[] = {
-+	{ APMU_CPU_C1_CLK_CTRL, BIT(13) | GENMASK(2, 0), 7 },
-+};
-+
-+static const struct ccu_pll_cpu_mux pll5_cpu_muxes[] = {
-+	{ APMU_CPU_C3_CLK_CTRL, BIT(13) | GENMASK(2, 0), BIT(13) | 7 },
-+	{ APMU_CPU_C2_CLK_CTRL, GENMASK(2, 0), 7 },
-+};
-+
-+static const struct ccu_pll_cpu_mux pll8_cpu_muxes[] = {
-+	{ APMU_CPU_C3_CLK_CTRL, BIT(13) | GENMASK(2, 0), 7 },
-+};
-+
-+#define K3_CPU_PLL_SYNC(_pll)							\
-+static const struct ccu_pll_sync _pll##_sync = {				\
-+	.safe_pll = &pll1,							\
-+	.apmu_compatible = "spacemit,k3-syscon-apmu",				\
-+	.muxes = _pll##_cpu_muxes,						\
-+	.num_muxes = ARRAY_SIZE(_pll##_cpu_muxes),				\
-+	.cpu_outputs = BIT(0),							\
-+	.safe_sel = 5,								\
-+	.slow_sel = 1,								\
-+	.reg_safe_gate = MPMU_ACGR,						\
-+}
-+
-+K3_CPU_PLL_SYNC(pll3);
-+K3_CPU_PLL_SYNC(pll4);
-+K3_CPU_PLL_SYNC(pll5);
-+K3_CPU_PLL_SYNC(pll8);
-+
-+CCU_PLLA_SYNC_DEFINE(pll2, pll2_rate_tbl, APBS_PLL2_SWCR1, APBS_PLL2_SWCR2,
-+		     APBS_PLL2_SWCR3, MPMU_POSR, POSR_PLL2_LOCK,
-+		     CLK_SET_RATE_GATE, &idle_pll_sync);
-+CCU_PLLA_SYNC_DEFINE(pll3, pll3_rate_tbl, APBS_PLL3_SWCR1, APBS_PLL3_SWCR2,
-+		     APBS_PLL3_SWCR3, MPMU_POSR, POSR_PLL3_LOCK,
-+		     CLK_SET_RATE_GATE, &pll3_sync);
-+CCU_PLLA_SYNC_DEFINE(pll4, pll4_rate_tbl, APBS_PLL4_SWCR1, APBS_PLL4_SWCR2,
-+		     APBS_PLL4_SWCR3, MPMU_POSR, POSR_PLL4_LOCK,
-+		     CLK_SET_RATE_GATE, &pll4_sync);
-+CCU_PLLA_SYNC_DEFINE(pll5, pll5_rate_tbl, APBS_PLL5_SWCR1, APBS_PLL5_SWCR2,
-+		     APBS_PLL5_SWCR3, MPMU_POSR, POSR_PLL5_LOCK,
-+		     CLK_SET_RATE_GATE, &pll5_sync);
-+CCU_PLLA_SYNC_DEFINE(pll6, pll6_rate_tbl, APBS_PLL6_SWCR1, APBS_PLL6_SWCR2,
-+		     APBS_PLL6_SWCR3, MPMU_POSR, POSR_PLL6_LOCK,
-+		     CLK_SET_RATE_GATE, &idle_pll_sync);
-+CCU_PLLA_SYNC_DEFINE(pll7, pll7_rate_tbl, APBS_PLL7_SWCR1, APBS_PLL7_SWCR2,
-+		     APBS_PLL7_SWCR3, MPMU_POSR, POSR_PLL7_LOCK,
-+		     CLK_SET_RATE_GATE, &idle_pll_sync);
-+CCU_PLLA_SYNC_DEFINE(pll8, pll8_rate_tbl, APBS_PLL8_SWCR1, APBS_PLL8_SWCR2,
-+		     APBS_PLL8_SWCR3, MPMU_POSR, POSR_PLL8_LOCK,
-+		     CLK_SET_RATE_GATE, &pll8_sync);
-+
-+/* A failed CPU FC handshake must not lose either fallback clock. */
-+CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_d2, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(1), 2, 1,
-+			     CLK_IS_CRITICAL);
- CCU_FACTOR_GATE_DEFINE(pll1_d3, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(2), 3, 1);
- CCU_FACTOR_GATE_DEFINE(pll1_d4, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(3), 4, 1);
--CCU_FACTOR_GATE_DEFINE(pll1_d5, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(4), 5, 1);
-+CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_d5, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(4), 5, 1,
-+			     CLK_IS_CRITICAL);
- CCU_FACTOR_GATE_DEFINE(pll1_d6, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(5), 6, 1);
- CCU_FACTOR_GATE_DEFINE(pll1_d7, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(6), 7, 1);
- CCU_FACTOR_GATE_FLAGS_DEFINE(pll1_d8, CCU_PARENT_HW(pll1), APBS_PLL1_SWCR2, BIT(7), 8, 1,
-@@ -178,7 +230,7 @@ CCU_FACTOR_DEFINE(pll1_d3072_0p8, CCU_PARENT_HW(pll1_d384_6p4), 8, 1);
- CCU_GATE_DEFINE(pll1_d6_409p6, CCU_PARENT_HW(pll1_d6), MPMU_ACGR, BIT(0), 0);
- CCU_FACTOR_GATE_DEFINE(pll1_d12_204p8, CCU_PARENT_HW(pll1_d6), MPMU_ACGR, BIT(5), 2, 1);
- 
--CCU_GATE_DEFINE(pll1_d5_491p52, CCU_PARENT_HW(pll1_d5), MPMU_ACGR, BIT(21), 0);
-+CCU_GATE_DEFINE(pll1_d5_491p52, CCU_PARENT_HW(pll1_d5), MPMU_ACGR, BIT(21), CLK_IS_CRITICAL);
- CCU_FACTOR_GATE_DEFINE(pll1_d10_245p76, CCU_PARENT_HW(pll1_d5), MPMU_ACGR, BIT(18), 2, 1);
- 
- CCU_GATE_DEFINE(pll1_d4_614p4, CCU_PARENT_HW(pll1_d4), MPMU_ACGR, BIT(15), 0);
-@@ -187,7 +239,7 @@ CCU_FACTOR_GATE_DEFINE(pll1_d78_31p5, CCU_PARENT_HW(pll1_d4), MPMU_ACGR, BIT(6),
- 
- CCU_GATE_DEFINE(pll1_d3_819p2, CCU_PARENT_HW(pll1_d3), MPMU_ACGR, BIT(14), 0);
- 
--CCU_GATE_DEFINE(pll1_d2_1228p8, CCU_PARENT_HW(pll1_d2), MPMU_ACGR, BIT(16), 0);
-+CCU_GATE_DEFINE(pll1_d2_1228p8, CCU_PARENT_HW(pll1_d2), MPMU_ACGR, BIT(16), CLK_IS_CRITICAL);
- 
- static const struct clk_parent_data apb_parents[] = {
- 	CCU_PARENT_HW(pll1_d96_25p6),
-diff --git a/drivers/clk/spacemit/ccu_pll.c b/drivers/clk/spacemit/ccu_pll.c
-index 2573b8396cefa..3d8624c4ce5d1 100644
---- a/drivers/clk/spacemit/ccu_pll.c
-+++ b/drivers/clk/spacemit/ccu_pll.c
-@@ -8,6 +8,8 @@
- #include <linux/clk-provider.h>
- #include <linux/math.h>
- #include <linux/math64.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- 
- #include "ccu_common.h"
-@@ -34,6 +36,15 @@
- #define PLLA_SWCR3_PREDIV	GENMASK(21, 20)
- #define PLL_FRAC_BITS		22
- 
-+#define PLL_OUTPUT_GATES	GENMASK(7, 0)
-+#define PLL_POWERDOWN_BYPASS	BIT(23)
-+#define PLL_SAFE_OUTPUT_GATE	(BIT(1) | BIT(4))
-+#define PLL_SAFE_MPMU_GATE	(BIT(16) | BIT(21))
-+#define PLL_CPU_SEL		GENMASK(2, 0)
-+#define PLL_CPU_FC		BIT(12)
-+#define PLL_CPU_TIMEOUT_US	10000
-+#define PLL_MAX_CPU_MUXES	4
-+
- static const struct ccu_pll_rate_tbl *ccu_pll_lookup_best_rate(struct ccu_pll *pll,
- 							       unsigned long rate)
- {
-@@ -55,26 +66,6 @@ static const struct ccu_pll_rate_tbl *ccu_pll_lookup_best_rate(struct ccu_pll *p
- 	return best_entry;
- }
- 
--static const struct ccu_pll_rate_tbl *ccu_pll_lookup_matched_entry(struct ccu_pll *pll)
--{
--	struct ccu_pll_config *config = &pll->config;
--	u32 swcr1, swcr3;
--	int i;
--
--	swcr1 = ccu_read(&pll->common, swcr1);
--	swcr3 = ccu_read(&pll->common, swcr3);
--	swcr3 &= PLL_SWCR3_MASK;
--
--	for (i = 0; i < config->tbl_num; i++) {
--		const struct ccu_pll_rate_tbl *entry = &config->rate_tbl[i];
--
--		if (swcr1 == entry->swcr1 && swcr3 == entry->swcr3)
--			return entry;
--	}
--
--	return NULL;
--}
--
- static int ccu_pll_update_param(struct ccu_pll *pll, const struct ccu_pll_rate_tbl *entry)
- {
- 	struct ccu_common *common = &pll->common;
-@@ -158,24 +149,6 @@ static int ccu_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 	return ccu_pll_update_param(pll, entry);
- }
- 
--static int ccu_pll_get_params(struct ccu_pll *pll,
--			      struct ccu_pll_rate_tbl *params, bool plla)
--{
--	struct ccu_common *common = &pll->common;
--	int ret;
--
--	ret = regmap_read(common->regmap, common->reg_swcr1, &params->swcr1);
--	if (ret)
--		return ret;
--	params->swcr2 = 0;
--	if (plla) {
--		ret = regmap_read(common->regmap, common->reg_swcr2, &params->swcr2);
--		if (ret)
--			return ret;
--	}
--	return regmap_read(common->regmap, common->reg_swcr3, &params->swcr3);
--}
--
- static unsigned long ccu_pll_calc_rate(const struct ccu_pll_rate_tbl *params,
- 				      unsigned long parent_rate)
- {
-@@ -199,39 +172,6 @@ static unsigned long ccu_pll_calc_rate(const struct ccu_pll_rate_tbl *params,
- 	return DIV_ROUND_CLOSEST_ULL(rate, BIT_ULL(PLL_FRAC_BITS));
- }
- 
--static unsigned long ccu_plla_calc_rate(const struct ccu_pll_rate_tbl *params,
--				       unsigned long parent_rate)
--{
--	u32 swcr1 = params->swcr1, swcr2 = params->swcr2;
--	u32 swcr3 = params->swcr3, prediv, frac;
--	u64 divider, rate;
--
--	/* Decode the software-controlled mode described by the PLL calculator. */
--	if (!(swcr1 & PLLA_SWCR1_USER_MODE) ||
--	    (swcr1 & PLLA_SWCR1_REFSEL))
--		return 0;
--
--	prediv = FIELD_GET(PLLA_SWCR3_PREDIV, swcr3) + 1;
--	frac = FIELD_GET(PLLA_SWCR1_FRAC, swcr1) << 8;
--	frac |= FIELD_GET(PLLA_SWCR2_MASK, swcr2);
--	divider = (u64)FIELD_GET(PLLA_SWCR1_INT, swcr1) << PLL_FRAC_BITS;
--	divider += frac;
--
--	/* Fvco = Fref * Npre * (Nint + Nfrac), with an unsigned fraction. */
--	rate = (u64)parent_rate * prediv * divider;
--	return DIV_ROUND_CLOSEST_ULL(rate, BIT_ULL(PLL_FRAC_BITS));
--}
--
--static unsigned long ccu_pll_recalc_rate(struct clk_hw *hw,
--					 unsigned long parent_rate)
--{
--	struct ccu_pll_rate_tbl params;
--
--	if (ccu_pll_get_params(hw_to_ccu_pll(hw), &params, false))
--		return 0;
--	return ccu_pll_calc_rate(&params, parent_rate);
--}
--
- static int ccu_pll_determine_rate(struct clk_hw *hw,
- 				  struct clk_rate_request *req)
- {
-@@ -246,42 +186,6 @@ static int ccu_pll_determine_rate(struct clk_hw *hw,
- 	return 0;
- }
- 
--static int ccu_pll_init(struct clk_hw *hw)
--{
--	struct ccu_pll *pll = hw_to_ccu_pll(hw);
--
--	if (ccu_pll_lookup_matched_entry(pll))
--		return 0;
--
--	ccu_pll_disable(hw);
--	ccu_pll_update_param(pll, &pll->config.rate_tbl[0]);
--
--	return 0;
--}
--
--static const struct ccu_pll_rate_tbl *ccu_plla_lookup_matched_entry(struct ccu_pll *pll)
--{
--	struct ccu_pll_config *config = &pll->config;
--	const struct ccu_pll_rate_tbl *entry;
--	u32 i, swcr1, swcr2, swcr3;
--
--	swcr1 = ccu_read(&pll->common, swcr1);
--	swcr2 = ccu_read(&pll->common, swcr2);
--	swcr2 &= PLLA_SWCR2_MASK;
--	swcr3 = ccu_read(&pll->common, swcr3);
--
--	for (i = 0; i < config->tbl_num; i++) {
--		entry = &config->rate_tbl[i];
--
--		if (swcr1 == entry->swcr1 &&
--		    swcr2 == entry->swcr2 &&
--		    swcr3 == entry->swcr3)
--			return entry;
--	}
--
--	return NULL;
--}
--
- static int ccu_plla_update_param(struct ccu_pll *pll, const struct ccu_pll_rate_tbl *entry)
- {
- 	struct ccu_common *common = &pll->common;
-@@ -356,6 +260,68 @@ static int ccu_plla_set_rate(struct clk_hw *hw, unsigned long rate,
- 	return ccu_plla_update_param(pll, entry);
- }
- 
-+static unsigned long ccu_plla_calc_rate(const struct ccu_pll_rate_tbl *params,
-+				       unsigned long parent_rate)
-+{
-+	u32 swcr1 = params->swcr1, swcr2 = params->swcr2;
-+	u32 swcr3 = params->swcr3, prediv, frac;
-+	u64 divider, rate;
-+
-+	/* Decode the software-controlled mode described by the PLL calculator. */
-+	if (!(swcr1 & PLLA_SWCR1_USER_MODE) ||
-+	    (swcr1 & PLLA_SWCR1_REFSEL))
-+		return 0;
-+
-+	prediv = FIELD_GET(PLLA_SWCR3_PREDIV, swcr3) + 1;
-+	frac = FIELD_GET(PLLA_SWCR1_FRAC, swcr1) << 8;
-+	frac |= FIELD_GET(PLLA_SWCR2_MASK, swcr2);
-+	divider = (u64)FIELD_GET(PLLA_SWCR1_INT, swcr1) << PLL_FRAC_BITS;
-+	divider += frac;
-+
-+	/* Fvco = Fref * Npre * (Nint + Nfrac), with an unsigned fraction. */
-+	rate = (u64)parent_rate * prediv * divider;
-+	return DIV_ROUND_CLOSEST_ULL(rate, BIT_ULL(PLL_FRAC_BITS));
-+}
-+
-+static int ccu_pll_get_params(struct ccu_pll *pll,
-+			      struct ccu_pll_rate_tbl *params, bool plla)
-+{
-+	struct ccu_common *common = &pll->common;
-+	int ret;
-+
-+	ret = regmap_read(common->regmap, common->reg_swcr1, &params->swcr1);
-+	if (ret)
-+		return ret;
-+	params->swcr2 = 0;
-+	if (plla) {
-+		ret = regmap_read(common->regmap, common->reg_swcr2, &params->swcr2);
-+		if (ret)
-+			return ret;
-+	}
-+	return regmap_read(common->regmap, common->reg_swcr3, &params->swcr3);
-+}
-+
-+static bool ccu_pll_params_equal(const struct ccu_pll_rate_tbl *a,
-+				 const struct ccu_pll_rate_tbl *b, bool plla)
-+{
-+	if (a->swcr1 != b->swcr1)
-+		return false;
-+	if (plla)
-+		return a->swcr3 == b->swcr3 &&
-+		       !((a->swcr2 ^ b->swcr2) & PLLA_SWCR2_MASK);
-+	return !((a->swcr3 ^ b->swcr3) & PLL_SWCR3_MASK);
-+}
-+
-+static unsigned long ccu_pll_recalc_rate(struct clk_hw *hw,
-+					 unsigned long parent_rate)
-+{
-+	struct ccu_pll_rate_tbl params;
-+
-+	if (ccu_pll_get_params(hw_to_ccu_pll(hw), &params, false))
-+		return 0;
-+	return ccu_pll_calc_rate(&params, parent_rate);
-+}
-+
- static unsigned long ccu_plla_recalc_rate(struct clk_hw *hw,
- 					  unsigned long parent_rate)
- {
-@@ -366,19 +332,278 @@ static unsigned long ccu_plla_recalc_rate(struct clk_hw *hw,
- 	return ccu_plla_calc_rate(&params, parent_rate);
- }
- 
--static int ccu_plla_init(struct clk_hw *hw)
-+struct ccu_pll_park {
-+	struct regmap *apmu;
-+	u32 saved[PLL_MAX_CPU_MUXES];
-+	u32 selected[PLL_MAX_CPU_MUXES];
-+	unsigned long parked;
-+};
-+
-+static int ccu_pll_select_cpu(struct regmap *regmap, u32 reg, u32 sel)
-+{
-+	u32 val;
-+	int ret;
-+
-+	ret = regmap_update_bits(regmap, reg, PLL_CPU_SEL, sel);
-+	if (ret)
-+		return ret;
-+	ret = regmap_update_bits(regmap, reg, PLL_CPU_FC, PLL_CPU_FC);
-+	if (ret)
-+		return ret;
-+	ret = regmap_read_poll_timeout_atomic(regmap, reg, val,
-+					     !(val & PLL_CPU_FC), PLL_DELAY_US,
-+					     PLL_CPU_TIMEOUT_US);
-+	if (ret)
-+		return ret;
-+	return (val & PLL_CPU_SEL) == sel ? 0 : -EIO;
-+}
-+
-+static void ccu_pll_unpark(const struct ccu_pll_sync *sync,
-+			   struct ccu_pll_park *park)
-+{
-+	int i;
-+
-+	/* Restore sharing-capable secondary clusters last. */
-+	for (i = sync->num_muxes - 1; i >= 0; i--) {
-+		if (!(park->parked & BIT(i)))
-+			continue;
-+		if (!ccu_pll_select_cpu(park->apmu, sync->muxes[i].reg,
-+					park->saved[i] & PLL_CPU_SEL))
-+			park->parked &= ~BIT(i);
-+	}
-+
-+	/*
-+	 * The fallback gates remain critical: after an FC timeout the selector
-+	 * register alone cannot prove that the CPU has left the temporary path.
-+	 */
-+}
-+
-+static int ccu_pll_park_cpus(const struct ccu_pll_sync *sync,
-+			     struct ccu_pll_park *park, bool plla,
-+			     unsigned long rate, unsigned long parent_rate)
-+{
-+	struct ccu_pll *pll1 = sync->safe_pll;
-+	struct ccu_common *safe = &pll1->common;
-+	struct ccu_pll_rate_tbl params;
-+	struct device_node *np;
-+	unsigned long safe_rate;
-+	u32 val;
-+	u32 i;
-+	int ret;
-+	bool needed = false;
-+
-+	if (!sync->num_muxes)
-+		return 0;
-+	if (sync->num_muxes > PLL_MAX_CPU_MUXES)
-+		return -EINVAL;
-+	/* Like CCU probe, create the regmap before its clocks are registered. */
-+	np = of_find_compatible_node(NULL, NULL, sync->apmu_compatible);
-+	if (!np)
-+		return -ENODEV;
-+	park->apmu = device_node_to_regmap(np);
-+	of_node_put(np);
-+	if (IS_ERR(park->apmu))
-+		return PTR_ERR(park->apmu);
-+
-+	for (i = 0; i < sync->num_muxes; i++) {
-+		const struct ccu_pll_cpu_mux *mux = &sync->muxes[i];
-+
-+		ret = regmap_read(park->apmu, mux->reg, &park->saved[i]);
-+		if (ret)
-+			return ret;
-+		if (park->saved[i] & PLL_CPU_FC)
-+			return -EBUSY;
-+		/* K3 selector 4 is unmodeled; do not infer a live parent. */
-+		if (plla && (park->saved[i] & PLL_CPU_SEL) == 4)
-+			return -EINVAL;
-+		needed |= (park->saved[i] & mux->mask) == mux->value;
-+	}
-+	if (!needed)
-+		return 0;
-+
-+	/* PLL1 is never repaired here, nor used as a fallback if unrecognized. */
-+	if (!safe->regmap || !safe->lock_regmap)
-+		return -ENODEV;
-+	if (!pll1->config.tbl_num)
-+		return -EINVAL;
-+	ret = ccu_pll_get_params(pll1, &params, plla);
-+	if (ret)
-+		return ret;
-+	if (!ccu_pll_params_equal(&params, &pll1->config.rate_tbl[0], plla))
-+		return -EINVAL;
-+	ret = regmap_read(safe->lock_regmap, pll1->config.reg_lock, &val);
-+	if (ret)
-+		return ret;
-+	if (!(val & pll1->config.mask_lock))
-+		return -EBUSY;
-+
-+	safe_rate = plla ? ccu_plla_calc_rate(&params, parent_rate) :
-+			   ccu_pll_calc_rate(&params, parent_rate);
-+	for (i = 0; i < sync->num_muxes; i++) {
-+		u32 old = park->saved[i], sel = old & PLL_CPU_SEL;
-+		u32 div = ((old >> 3) & 7) + 1;
-+		unsigned long cpu_rate, fast_rate, slow_rate;
-+
-+		if ((old & sync->muxes[i].mask) != sync->muxes[i].value)
-+			continue;
-+		if (plla) {
-+			cpu_rate = rate;
-+			fast_rate = safe_rate / 2;
-+		} else {
-+			cpu_rate = rate / (sel == 5 ? 3 : (old & BIT(13) ? 1 : 2));
-+			cpu_rate /= div;
-+			fast_rate = safe_rate / 2 / div;
-+		}
-+		slow_rate = safe_rate / 5 / div;
-+		/* Never increase a CPU's rate without a corresponding voltage vote. */
-+		if (fast_rate <= cpu_rate)
-+			park->selected[i] = sync->safe_sel;
-+		else if (slow_rate <= cpu_rate)
-+			park->selected[i] = sync->slow_sel;
-+		else
-+			return -ERANGE;
-+	}
-+	/* Both candidate parents are derived from the always-on PLL1. */
-+	ret = ccu_update(safe, swcr2, PLL_SAFE_OUTPUT_GATE, PLL_SAFE_OUTPUT_GATE);
-+	if (ret)
-+		return ret;
-+	ret = regmap_update_bits(safe->lock_regmap, sync->reg_safe_gate,
-+				 PLL_SAFE_MPMU_GATE, PLL_SAFE_MPMU_GATE);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < sync->num_muxes; i++) {
-+		const struct ccu_pll_cpu_mux *mux = &sync->muxes[i];
-+
-+		if ((park->saved[i] & mux->mask) != mux->value)
-+			continue;
-+		park->parked |= BIT(i);
-+		ret = ccu_pll_select_cpu(park->apmu, mux->reg, park->selected[i]);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+static int ccu_pll_stop(struct ccu_pll *pll, bool plla)
-+{
-+	struct ccu_common *common = &pll->common;
-+	u32 val;
-+	int ret;
-+
-+	ret = plla ? ccu_update(common, swcr2, PLLA_SWCR2_EN, 0) :
-+		     ccu_update(common, swcr3, PLL_SWCR3_EN, 0);
-+	if (ret)
-+		return ret;
-+	/* Hardware or firmware may override the software enable bit. */
-+	return regmap_read_poll_timeout_atomic(common->lock_regmap,
-+					      pll->config.reg_lock, val,
-+					      !(val & pll->config.mask_lock),
-+					      PLL_DELAY_US, PLL_TIMEOUT_US);
-+}
-+
-+static int ccu_pll_sync_init(struct clk_hw *hw, bool plla)
- {
- 	struct ccu_pll *pll = hw_to_ccu_pll(hw);
-+	const struct ccu_pll_sync *sync = pll->config.sync;
-+	const struct ccu_pll_rate_tbl *entry = NULL;
-+	unsigned long (*calc)(const struct ccu_pll_rate_tbl *params,
-+			      unsigned long parent_rate);
-+	int (*update)(struct ccu_pll *pll, const struct ccu_pll_rate_tbl *params);
-+	int (*enable)(struct clk_hw *hw);
-+	struct ccu_pll_rate_tbl old;
-+	struct ccu_pll_park park = {};
-+	struct clk_hw *parent;
-+	unsigned long parent_rate, rate;
-+	u32 outputs, lock, i;
-+	bool enabled;
-+	int ret;
- 
--	if (ccu_plla_lookup_matched_entry(pll))
-+	/* Synchronization is opt-in; in particular PLL1 has no sync descriptor. */
-+	if (!sync)
-+		return 0;
-+	parent = clk_hw_get_parent_by_index(hw, 0);
-+	if (!parent)
-+		return 0;
-+	parent_rate = clk_hw_get_rate(parent);
-+	calc = plla ? ccu_plla_calc_rate : ccu_pll_calc_rate;
-+	update = plla ? ccu_plla_update_param : ccu_pll_update_param;
-+	enable = plla ? ccu_plla_enable : ccu_pll_enable;
-+	ret = ccu_pll_get_params(pll, &old, plla);
-+	if (ret)
-+		goto warn;
-+	rate = calc(&old, parent_rate);
-+	if (!rate)
- 		return 0;
- 
--	ccu_plla_disable(hw);
--	ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
-+	/* Compare encoded rates, including fractional-divider quantization. */
-+	for (i = 0; i < pll->config.tbl_num; i++) {
-+		if (rate == calc(&pll->config.rate_tbl[i], parent_rate)) {
-+			entry = &pll->config.rate_tbl[i];
-+			break;
-+		}
-+	}
-+	if (!entry || ccu_pll_params_equal(&old, entry, plla))
-+		return 0;
-+	if ((plla ? old.swcr3 : old.swcr1) & PLL_POWERDOWN_BYPASS)
-+		return 0;
-+	ret = regmap_read(pll->common.regmap, pll->common.reg_swcr2, &outputs);
-+	if (ret)
-+		goto warn;
-+	/* Do not interrupt peripheral users, including unregistered consumers. */
-+	if (outputs & PLL_OUTPUT_GATES & ~sync->cpu_outputs)
-+		return 0;
-+	ret = regmap_read(pll->common.lock_regmap, pll->config.reg_lock, &lock);
-+	if (ret)
-+		goto warn;
-+	enabled = plla ? old.swcr2 & PLLA_SWCR2_EN : old.swcr3 & PLL_SWCR3_EN;
-+	if (enabled != !!(lock & pll->config.mask_lock))
-+		return 0;
- 
-+	/*
-+	 * .init runs under the CCF prepare lock, before this PLL is linked to
-+	 * its children. Restore the hardware muxes before CCF adopts them.
-+	 */
-+	ret = ccu_pll_park_cpus(sync, &park, plla, rate, parent_rate);
-+	if (ret)
-+		goto unpark;
-+	ret = ccu_pll_stop(pll, plla);
-+	if (ret)
-+		goto restart;
-+	ret = update(pll, entry);
-+	if (!ret && enabled)
-+		ret = enable(hw);
-+	if (!ret)
-+		goto unpark;
-+
-+	/* Restore the old parameters before considering the original parents. */
-+	if (ccu_pll_stop(pll, plla) || update(pll, &old))
-+		goto warn;
-+restart:
-+	if (enabled && enable(hw))
-+		goto warn;
-+unpark:
-+	ccu_pll_unpark(sync, &park);
-+	if (park.parked)
-+		ret = -ETIMEDOUT;
-+warn:
-+	if (ret)
-+		pr_warn("%s: PLL synchronization failed: %d; retaining safe clocks\n",
-+			clk_hw_get_name(hw), ret);
-+	/* Failed synchronization must not unwind clocks needed to keep booting. */
- 	return 0;
- }
- 
-+static int ccu_pll_init(struct clk_hw *hw)
-+{
-+	return ccu_pll_sync_init(hw, false);
-+}
-+
-+static int ccu_plla_init(struct clk_hw *hw)
-+{
-+	return ccu_pll_sync_init(hw, true);
-+}
-+
- const struct clk_ops spacemit_ccu_pll_ops = {
- 	.init		= ccu_pll_init,
- 	.enable		= ccu_pll_enable,
-diff --git a/drivers/clk/spacemit/ccu_pll.h b/drivers/clk/spacemit/ccu_pll.h
-index e41db5c97c1a8..f77afafddba55 100644
---- a/drivers/clk/spacemit/ccu_pll.h
-+++ b/drivers/clk/spacemit/ccu_pll.h
-@@ -46,11 +46,31 @@ struct ccu_pll_rate_tbl {
- 
- struct ccu_pll_config {
- 	const struct ccu_pll_rate_tbl *rate_tbl;
-+	const struct ccu_pll_sync *sync;
- 	u32 tbl_num;
- 	u32 reg_lock;
- 	u32 mask_lock;
- };
- 
-+/* A CPU mux selection which consumes this PLL. */
-+struct ccu_pll_cpu_mux {
-+	u32 reg;
-+	u32 mask;
-+	u32 value;
-+};
-+
-+/* Only CPU-exclusive outputs may remain gated on during synchronization. */
-+struct ccu_pll_sync {
-+	struct ccu_pll *safe_pll;
-+	const char *apmu_compatible;
-+	const struct ccu_pll_cpu_mux *muxes;
-+	u32 num_muxes;
-+	u32 cpu_outputs;
-+	u32 safe_sel;
-+	u32 slow_sel;
-+	u32 reg_safe_gate;
-+};
-+
- #define CCU_PLL_RATE(_rate, _swcr1, _swcr3) \
- 	{									\
- 		.rate	= _rate,						\
-@@ -71,12 +91,13 @@ struct ccu_pll {
- 	struct ccu_pll_config	config;
- };
- 
--#define CCU_PLL_CONFIG(_table, _reg_lock, _mask_lock) \
-+#define CCU_PLL_CONFIG(_table, _reg_lock, _mask_lock, _sync)			\
- 	{									\
- 		.rate_tbl	= _table,					\
- 		.tbl_num	= ARRAY_SIZE(_table),				\
- 		.reg_lock	= (_reg_lock),					\
- 		.mask_lock	= (_mask_lock),					\
-+		.sync		= _sync,					\
- 	}
- 
- #define CCU_PLL_COMMON_HWINIT(_name, _ops, _flags)				\
-@@ -89,9 +110,9 @@ struct ccu_pll {
- 	})
- 
- #define CCU_PLL_X_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2, _reg_swcr3,	\
--		       _reg_lock, _mask_lock, _ops, _flags)			\
-+			 _reg_lock, _mask_lock, _ops, _flags, _sync)		\
- static struct ccu_pll _name = {							\
--	.config	= CCU_PLL_CONFIG(_table, _reg_lock, _mask_lock),		\
-+	.config	= CCU_PLL_CONFIG(_table, _reg_lock, _mask_lock, _sync),		\
- 	.common = {								\
- 		.reg_swcr1	= _reg_swcr1,					\
- 		.reg_swcr2	= _reg_swcr2,					\
-@@ -103,12 +124,22 @@ static struct ccu_pll _name = {							\
- #define CCU_PLL_DEFINE(_name, _table, _reg_swcr1, _reg_swcr3, _reg_lock,	\
- 		       _mask_lock, _flags)					\
- 	CCU_PLL_X_DEFINE(_name, _table, _reg_swcr1, 0, _reg_swcr3,		\
--		       _reg_lock, _mask_lock, &spacemit_ccu_pll_ops, _flags)
-+		       _reg_lock, _mask_lock, &spacemit_ccu_pll_ops, _flags, NULL)
-+
-+#define CCU_PLL_SYNC_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2,		\
-+			    _reg_swcr3, _reg_lock, _mask_lock, _flags, _sync)	\
-+	CCU_PLL_X_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2, _reg_swcr3,	\
-+		       _reg_lock, _mask_lock, &spacemit_ccu_pll_ops, _flags, _sync)
- 
- #define CCU_PLLA_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2, _reg_swcr3,	\
--		       _reg_lock, _mask_lock, _flags)				\
-+			_reg_lock, _mask_lock, _flags)				\
-+	CCU_PLL_X_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2, _reg_swcr3,	\
-+		       _reg_lock, _mask_lock, &spacemit_ccu_plla_ops, _flags, NULL)
-+
-+#define CCU_PLLA_SYNC_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2,		\
-+			     _reg_swcr3, _reg_lock, _mask_lock, _flags, _sync)	\
- 	CCU_PLL_X_DEFINE(_name, _table, _reg_swcr1, _reg_swcr2, _reg_swcr3,	\
--		       _reg_lock, _mask_lock, &spacemit_ccu_plla_ops, _flags)
-+		       _reg_lock, _mask_lock, &spacemit_ccu_plla_ops, _flags, _sync)
- 
- static inline struct ccu_pll *hw_to_ccu_pll(struct clk_hw *hw)
- {
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-2.55.0
+Cheers,
 
+David
