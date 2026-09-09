@@ -1,75 +1,75 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A50358F079
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEE057983B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986664; cv=none; b=czoZ8UolfxTbQYtThSpphZmQblQQ+ZyDGGFpckS66bi03mspHo7TpKIhYZaLPjzQPHn3bG0LpRK92MphylLGLGkX00ojuHNFN9R+r6/iC+kQlHrey9pHM6dr6LEQ2gbArQK85JoR93v3SFKBCB0OdeI7pKn0lxdAwzhDsXdBOp0=
+	t=1788986753; cv=none; b=XlzFuhtK75tsM+OFOWJDjddW0Ud2/eL2xjOh5PYF+jkBe12wnm8AciEmgZtkNGu4OjOrinsaqQOCz1z+JootZItQgB+mt5rOnHywzhkCOeH/bkfn+j3CP22kKUgGSwYVF8Ela3TLcF8YZ9hm3wwBAKGbx/vOmJQIzXghqfV+xFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986664; c=relaxed/simple;
-	bh=50nCYJPjbqQUb9GuXVSadJfp9i5nwJt7sQqIe3gmZNE=;
+	s=arc-20240116; t=1788986753; c=relaxed/simple;
+	bh=EgZSCh+L2dZNhexxdGTyMKZa85FUePBVH8pPZX8mW+c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a3WiplNRD06CecYt9a6cGbY9VhihGYixo4+ZRwYlJO9dkUk80r/rorhE9xOukkugUNfbi9izc9HZ8G3RjHUK2fCP+dm5vInkBvzpL7S4GuIfPGtbk7uoIb7n+R3OvQiq2r9YS/a1y3afaNJ9H9sdGUzH/39SDh+1C31sB25oHzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DyQmSBlT; arc=none smtp.client-ip=209.85.215.179
+	 Content-Type:Content-Disposition:In-Reply-To; b=YtvSFPPWLqKBtaAgKTJunZHx9IUPDZJIhl0bRTNKCYqs2vu89YSie9ZdkDzEM4Ra40ZHz0HYz84Qky2YKsAGZD87GOX3DWigJvEC+EUEHGvhuWZHk/4aXTnj+dWfm3n8UhPqHW8/rccj6ZHn0YZJ7uYAsqg/He8/m/AkbW3+4Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V6TYGPtP; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DyQmSBlT"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4b28b358eso86740a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:44:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V6TYGPtP"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4aa0220f2so539622a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:45:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788986647; x=1789591447; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788986742; x=1789591542; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=C9fkP2hJvytILEzpGHVJRqCYsbQTF7+11HBlBKosjXQ=;
-        b=DyQmSBlT9Q/L8ySaZ190Qb0hO5LHTaUHDL/8x7plTZLIJOMCSAE/UyiCGeD0+7UK3F
-         /RtnZU/JvN9PZAYLpvFmOEBrmw6I6uu0F/4BDfaLAugx6gN0tr2ly/5CNc9FrzkedC/7
-         7J7MMD8JPafiiZ/SXYiBbzqdNvf3NCd1ly3C7Roy0jIU/fPBsCQ5bLXzBNFlgNL2oo8v
-         Ve92+ckWqFZkPwhUOBcI3x61px4tsYng4pg2CXuMgcIunqLh2LF+9uYuc8uSN8lzwSL9
-         NGhicqv4GZEKmSIYCY/vd//6rK6dMisIchmXUlc9n7NwgcRuusMy7oaewzpltD51O4sQ
-         gqHg==
+        bh=Qt0NOIhyNLN5/KCcLAm6TLa7xwx0XIh9TdrbTwlVTtE=;
+        b=V6TYGPtP7X173cZbWvfgflv88LpDQAHR5DX+jVBFGXjj5rDVNoFSUL0nHOsYmSQ5pO
+         zDfK36JmA2Kq3lV1cKWGkQZWbfRQZh3f1W6zyiOxa7dEHij12uzWJTGPRpgLx/wnk8V8
+         zpUws/FJAw0iZmLsbmAdsGP7419DPtpHBHZroRi2KU15L2kkC5dYCeKECKgWDkHeLar1
+         YycDRFlAEBXulusLFhD9recGKVFM2jAg/AzskXrhEwVbuXa/dUTwyAzDvdueAdHl6jPv
+         LHMBKdaEFtvn9TTiUUGqlsDUFkETBA14uxbzDPAI7HpXc5EzcuXMO8PH07DaHfK4RBkQ
+         SoGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788986647; x=1789591447;
+        d=1e100.net; s=20251104; t=1788986742; x=1789591542;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=C9fkP2hJvytILEzpGHVJRqCYsbQTF7+11HBlBKosjXQ=;
-        b=dSdZCBOrr4mmrpQP/6YO4PlK7mFKGoQccxcFmHnpDg9nunbi+DMsYtedXJm7LzEAD8
-         QFFSOzS5JuoDDFe1mM02IJ25Es0KVwnFGk2WbBt4o55p4wvRdoKiZad26Eky9LtdP+Tg
-         uSOCTp64AxsIwRTiLEYsf90pBTkHQvRM0F3jq4XhRGVB3/K+Pvd72XNCx9nWAwwhGI9L
-         SQRUPuRIYgTx+U7NYjw52TpTrIk+5ag65DVgL3REOZnSTvFw+89PbEP1K+RMoDU+R566
-         Km7iVuZ6aTQtRhy4q7fv8KEaRXZWX329ALVta8rgdDh7j9kt4nHUXH4k4yUEgnQ7NfQM
-         ayGA==
-X-Forwarded-Encrypted: i=1; AKwUvBz3OSZZWavJeIm/Q+1+PQWhOPyDQVMkuOugoZtIm7d6RghxH/OQ4BOU76KH/EdyAnHpm10/TM1hxvZwk3o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfnQh3yTIpFdr22FBZh+sf7UoxHMZxryPPTv/0csFOdcske7+N
-	vi9xxVVGxbYSFA0QpEbVYYW8ruoFoRK0OGdKiFYlGMw5AsdOSNY0Oh7l
-X-Gm-Gg: AYBFou1gjJcnoQQeKM7Ed8XxRJfwREDG1TJJFxZnBK2cGxi5pWZ6DEg9w4kPUk6uuuG
-	Vsm/RL3lEKfRN0t1CBHZQxQshzmITbqRTJkj5Uf+P216gsXI9cO2SFJb0D2yLdCmdATPO4fEYPD
-	MGYd8RJHSh8dUCaohfqlVy6nPgYla8vkr6oHVCHP9ygj7IPEy5xLwlfukjsOnwPGqBFXmQwreFb
-	iYoSVuEVq2IAWX3C43fIVTgbnyZSaq9hHdzj4OwQ2QtJa44hTKpcMf0gU1JdsOQ70aHGxpH1Qdz
-	6djlqsohzuA4kUddZ0XrYglXYmoEUIPiinBrYmthjiI8ClLWf6Qg/JqB3C2fIjsCfwp2fHHwQ/h
-	xYSDNEYglhuZBugF+hVpjdGiF6k4juZcXaD0CsxE9GM3LjsWfSKniMdvP//YeGaNQNnG2q+zkhV
-	njh7oCmdbCJEhkzrOaguxBMOwXzSg9n3ORi0IevDrx71KbbsiB5jJzXHbScFwW5ZqT41kNtIsn5
-	4ermoQ4maU0
-X-Received: by 2002:a05:6a20:72a6:b0:3d1:e510:905f with SMTP id adf61e73a8af0-3da39b3a6b3mr52747720637.1.1788986647535;
-        Wed, 09 Sep 2026 13:44:07 -0700 (PDT)
+        bh=Qt0NOIhyNLN5/KCcLAm6TLa7xwx0XIh9TdrbTwlVTtE=;
+        b=Xb2G/f6IJt1nH2pNV+p31Ou3N2ulL2sjfseZhB6sjkwYwMvp47iUzvKQBJ1TzoOxps
+         MfRLn4oeEEvS+g6tPy5YpHMlhJALq0JFmIZcs0L0UC0051uci39WW63BOalbRdUL4oAc
+         2fA0z+O+LzCXSaU31FKkhKIeFakRbEzTiUZBnqyvmMWYshRwPckcISwcb5t6g1Le+CqL
+         I9NRfVJj/qHELjAQNeY0EUoysmJI4nHTp39SKZCTr5kdeRTyJcGTZTEW81MM1+YwRyWX
+         ySIm7EjdRYC6F+irEcj5p9oi4BMuVrZD3TxYuRPl8jMwZ8OctdEDZos8oni5xLoI0d4B
+         Fc5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwJzd9jQBVWcOdplS47OXpb3Ny/iJmRQsDxeoxHEsbENhfQX1WmbIi1yusrStl0ahCnH7l3J83Vcaxhe9U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJ+9Bx5OxlVqVuBJtPw5FMPxhWeUr8jHcQ+9uein7pXq+NiKHQ
+	ZJ5CbaqiVRuY+aohvdROurFOeKLrFVQvxJT5sEXMglcFFimSencKWu0M
+X-Gm-Gg: AYBFou0TMX+gabkRu73EP611f2agUo2fkZEDGxDyHaH4ZrsKWKtrTiqp4CkFFA6v3Mm
+	YArEQFQwoCB/R8TPSshrirhnFkTCWZEIfu5gi6hCC/kjBnzIZYo+HjhTMxb0ALOedSnxauS2csW
+	nuxYnR7JfSEdNv5tl3pCM7GVYsA+epnm/QtOTFdKEq0bxFdQx9CHYuMLiAaogp+UVdkOij8FZKW
+	c6X5+Yq+q/mdQhFEcSW4Wu7jLaBK5tSPfUvAWLwhLtwJ4PHwaYCYar0vkU17x9niqpWzWlxYIye
+	Gw6glhXhWiQNbWhd4MB6BbXyl6JELg6uhNnsDe2SummjhKS+A8OluOoQMZWYdvSC/zhZWkrGOz8
+	ere21bFCZ2sG8lM7Qpo6qapM+hhM0Vd77mVLW5qlFYw+SxpTPBvGzYVrxwa+83YLghl7vI6FS0Y
+	TMh445JJkOJch5cORbFdtEFF18Ps+yonw0BZ14oPsiipiLm1+AP7K6ZnQPhVKLF2ZAbt14wUMs1
+	tDQni00maw+r6baByn0ERs=
+X-Received: by 2002:a17:90b:5826:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39b261b07b6mr57273151a91.10.1788986741452;
+        Wed, 09 Sep 2026 13:45:41 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45542dbbesm7256657a12.13.2026.09.09.13.44.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770a018fsm1431244a91.2.2026.09.09.13.45.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:44:06 -0700 (PDT)
+        Wed, 09 Sep 2026 13:45:40 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 13:44:05 -0700
+Date: Wed, 9 Sep 2026 13:45:39 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] watchdog: i6300esb: do not stop an already running
- watchdog
-Message-ID: <b52365f7-27d4-4c5e-885f-65413c7d2bd6@roeck-us.net>
-References: <ea413e5d-9f37-46b8-8d93-863aa065a784@siemens.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, linux-kernel@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 1/2] watchdog: fix typos in comments
+Message-ID: <af8dede4-ac67-49aa-8f60-bbd5cea798b6@roeck-us.net>
+References: <20260904113744.19872-1-hemanth.selam@gmail.com>
+ <20260904113744.19872-2-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,19 +78,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ea413e5d-9f37-46b8-8d93-863aa065a784@siemens.com>
+In-Reply-To: <20260904113744.19872-2-hemanth.selam@gmail.com>
 
-On Wed, Sep 09, 2026 at 01:15:33PM +0200, Jan Kiszka wrote:
-> From: Jan Kiszka <jan.kiszka@siemens.com>
+On Fri, Sep 04, 2026 at 05:07:40PM +0530, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 > 
-> esb_initdevice() unconditionally disabled the WDT, stopping a
-> watchdog that firmware had left running instead of taking over its
-> care. Detect the enable bit in the lock register, set
-> WDOG_HW_RUNNING like the other watchdog drivers do, and simply
-> reset the timeout to the configured value.
-> 
-> Assisted-by: opencode:Qwen3.8-27B
-> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
 Applied.
 
