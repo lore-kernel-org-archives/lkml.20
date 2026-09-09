@@ -1,311 +1,227 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010047.outbound.protection.outlook.com [52.101.69.47])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D3352941B;
-	Wed,  9 Sep 2026 10:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC10A52B1DB;
+	Wed,  9 Sep 2026 10:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950241; cv=fail; b=DZMhJBNWwGgsTkPa+UtNbI0DseJG7s04R3I/ny9l1g3hvv6QTOS84i736fQaUNwBpC7SRMtRSZE1QQAVpLg7QMvSIOcxF/1F1OMOJgVO8sUv5c6CNNGH0NCbYpFbsLizoCkRkjQbfz9qFuS5fkiYRtnBOdj54H/XPrmP8fZhduo=
+	t=1788950249; cv=fail; b=Wvv/AvjfnBaAoHcQy7re8ireUPx7FZ6TD7G47NLOrMiSA9wUwRyr1JSr42pQTRzIMmhh5Dk1iUNYFWYqK8/NRcduwu+ZWwWWR4aFkldOfHpv81udn231Y91l4LCj5BqBokuEfQVHhp02AxXmxgSYyOUJl+MaR9mPFHuVCc+ZPD4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950241; c=relaxed/simple;
-	bh=DWadPBeCmVppvUsm2e+AoYJpeAGxax0Epr7A2eiKWpg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YH2awkTmJ9mw0tbWnHu6DSLSctaHx0kNqKqsIr0UThoaR+tFLxdote/wc/TiB6PDR/14NoWs+Y430V3yfJaQbIMFp0y1YM174Sor14h6N2zUjhzk895w9jUZltd/ZdM4YjlqfZsKwTqJ74zKtB9d/oBwCJNjnH7FBUeAVOXmyak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=MTxmcfE5; arc=fail smtp.client-ip=52.101.69.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788950249; c=relaxed/simple;
+	bh=t81OhMZqREE+tFBXyPJULPsCvQ57w9/P3WrBz0GpZwE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gboAObpbi9zveyYIml2wROMeR2OFhkRYY1ZBoseXoVbqyYZuYyW24ZKP5B6QZLQ1HYk8OlKnviGqybtk5LAjXtn4GQ/OpoyJ9sDg1YRl+kTWUoe8SWp1TgLAb1ROBjOAJkvqCRk1RDyLidJVpp6zy7Kf+RU39g5/S5KT+XD5h1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=dzO/Zffc; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FD28fxWn; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="MTxmcfE5"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="dzO/Zffc";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FD28fxWn"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6898omMA4083185;
+	Wed, 9 Sep 2026 05:37:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=proofpoint-05-2026; bh=90h64WVg3svZDYE
+	0pawCt/9NCmZcIXdTtEVzn1vGyu8=; b=dzO/ZffcXC79t81etsdztIeRbZzMJiq
+	OoYucrKp9lZ9ZHJHdNDTBhR89tTDktTBXbDllA+d3aMQWik2kLcWMmRpBSj8Z0Ip
+	3lDP0oIpnUy2uirbL9kfAitqIVZv99B4CMI/v6fXhHKK6fc0bkrQnaKa8DkHoAnH
+	z9KUhUwGFzYrf/fiNiGVdxEFnRKhtMq9n7ADe+7MzFc+1x9nGpiLmEXJdnn/ZDh3
+	5EZowP9KXEWRMq5jRfp711qOPNPKzkeA+OyRmmlCvopjGrxwxh15FevtJ33f6DGo
+	gFsblauHpJtG6iHdKMnoukCPctgB0+KPfh3Di8HOw0zafWnysH6c3pg==
+Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011011.outbound.protection.outlook.com [52.101.52.11])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gk4a8gey6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 05:37:15 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K5PGME0o9JNBf51m/mTBUm36RumTHeU61LdcnveVQUEHQ5lgQJhFSPlR+5X4INthM+zF0bi6fm+vs+bESj6NNza71dLehDVYQh1YqsV1v6RvqDo0vfrBBYoo6nYBT9I/UoJ3m+e6l8W+lTnLlWuFAHJLb7VURqqrShlZtD50aQraYHN1Of+XZfZ2zMtrWi2oABqq2M8jw7cLqMYLGGu2pKfGbjgtGzCnNGPOGyb4Rxc1yjHGS3Z2eJMOi6qYsWlGD5IvD3wUuqV7tJ68dsIboCxgWRbbnyz5xRj06zXGPCIisnZV9GVBdCHPItBtUk+7/1RWTFPfvi6GGYIkAiovZw==
+ b=wrn5uAEqqj8/ihr3pECCwh+fdicmy3Yffp7a2CamE6p4hP3+CW8DOs+Vm3UBGoS2s+mJZ+tPXvR/IIhysZQNKH/HGs44VlCDS6hJBujcdD5oJ0cFHO0bYLFhaUoBLhW22oobUsc0OSt5qItUk4Nm2fX2HTtIe5zXgWfvURWyHYBCCvREfa3WmI/ymd5/ycQbrYYNy5FnlCk1Sk6Qzoi8HmyrUtNnh1tZkuHiVfjYCysh+UK74tcQwOzlwBhIrQEF4cSiG1KlBlHz9sRtUQ+hq9Gu11AVKTzm+8ExWB/RkegwBDakBdJBf1dL6EPAClNNlIETYi8tOxz5vbvj+aefJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p2hl++nnOmqrN9WOhV4kjB0ssgfich5k6ZDwc/Gkz3I=;
- b=sznfFO4Z+OhcO00dll6qo7GkjaUavOCnNz0vPqdDc83pgCpbREchOR56w0K3/opqu8q466XcMwbo1PvPpBaLZaLXMh6vjIPYMfymvMddL4CiITc0Zmzasb8KDSxyRJhaq4wbcgL/yT0HQq8b/woInk7LyDW8fqyKI/0T6H/E4dH20ZkL74l2WfEIjbqGBs5Kf0yK35nuVMw8t7GusUJgh6z5wIE4vdK4R4kGtkTIVi8YpktheLalpmYWaw0rUXjxena/5yrRN4tEz7NHhpkGiWsvNT7gcUl/pqxIZyQhU7+BQ590FP3CIHAit8RrKLx+Irk3s7kk4j5wkNufXV8IoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=90h64WVg3svZDYE0pawCt/9NCmZcIXdTtEVzn1vGyu8=;
+ b=O9oqeC8lH5fGgX99Lte+1ogxloaZT5qMG2gN+LNdFeaS2fcv8metsJLULrzxu8Gdk/b1wVz0t1XjF5vnnFXBEJRIVBqLHAc2Tk1jAzkIz38+SNpuSsVoS2G/40PKSEJlEeD9PSrv+JfMyNTCU2YEChOgkAjaoky1ahrkueGO15ks4NQXBaNlHCHWBr+piz3HEbmW030kbr1M5TXd+N+d0GDFpPvDjWau434rL1nnO5AvcoLtiY8wxPDW0qDgNOBmdbSDOzbjuVnsxa1oLQERdiZAll7XqSyoe7imkOvvHbbTkyWJLRc2iagpCrLMr+awYjJUbixrdlEZrKtUsxBimQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p2hl++nnOmqrN9WOhV4kjB0ssgfich5k6ZDwc/Gkz3I=;
- b=MTxmcfE5CxI6ZRKoRCis/1hwX1eetpQfEZSyascSBoxG6R6X4xnAGPT7Ul41k7JKL0f3KVbMu6WkYLY3IwraZjA3u8WfPQG7X0NKkr6Nm8nL19FQTObqwGhGOw/Z5U+HY8rs6DFxDPfsjOXPAXdTB8tqCxqrVkxfduhP5hThbR0+xZ8PUsxyDhFPYtRHmXocjZesmnKutyJOMkCFXPtIka3uv/HUzilu/Q2OzEg7Qf6SjGpvUroQeLWjLdti4mwPN3FrRDqmylTzYfbmF4F13amwV/FtWDAB2OLn0I/EkG6/mVzpW4Fubm8sb8agvHWBmWx/CsHXVXaOM3dICa/APA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by AMBPR04MB617387.eurprd04.prod.outlook.com (2603:10a6:20b:7ae::7) with
+ bh=90h64WVg3svZDYE0pawCt/9NCmZcIXdTtEVzn1vGyu8=;
+ b=FD28fxWnnkMGgO6FL7A2DHCNPHxnzViirBQbdeYjCz0bejmeqdcyQiiPUAZBe2XnTDQBDMUd2HQtIWMlkm5zjAykVHUQDIda7OsUyui2kq1aog5WGXw2ep7EsLmNN1eoW7caVCY5AnPC2uQVOZ1cYiTeWr6zYkdVK6nbO/YTyg4=
+Received: from BN0PR08CA0024.namprd08.prod.outlook.com (2603:10b6:408:142::14)
+ by PH7PR10MB6578.namprd10.prod.outlook.com (2603:10b6:510:205::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Wed, 9 Sep 2026
- 10:37:16 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 10:37:16 +0000
-From: wei.fang@oss.nxp.com
-To: claudiu.manoil@nxp.com,
-	vladimir.oltean@nxp.com,
-	xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux@armlinux.org.uk
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 net-next 15/15] net: enetc: add ndo_get_vf_config() support
-Date: Wed,  9 Sep 2026 18:07:33 +0800
-Message-Id: <20260909100733.1139689-16-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260909100733.1139689-1-wei.fang@oss.nxp.com>
-References: <20260909100733.1139689-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0149.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::14) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 10:37:10 +0000
+Received: from BN3PEPF00022BCC.namprd03.prod.outlook.com
+ (2603:10b6:408:142:cafe::7e) by BN0PR08CA0024.outlook.office365.com
+ (2603:10b6:408:142::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Wed, 9
+ Sep 2026 10:37:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN3PEPF00022BCC.mail.protection.outlook.com (10.167.248.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 10:37:10 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 9 Sep
+ 2026 05:36:46 -0500
+Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 9 Sep
+ 2026 05:36:46 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 9 Sep 2026 05:36:46 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 689AakmV128060;
+	Wed, 9 Sep 2026 05:36:46 -0500
+Date: Wed, 9 Sep 2026 05:36:46 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Judith Mendez <jm@ti.com>
+CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mmc: dts: am654: Add 650ms power off delay for proper
+ MMC power cycle
+Message-ID: <20260909103646.7jk5vwvyc7tku5yv@kennel>
+References: <20260908170635.238775-1-jm@ti.com>
+ <20260908171613.bpd6eo53cjtlrztr@macaw>
+ <e8abc328-578e-48cb-a469-1e3edec6780a@ti.com>
+ <20260908174934.pbbvtrfhlnjinipu@constable>
+ <f99dff87-6fcb-4a19-ba3b-4d31e3835726@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <f99dff87-6fcb-4a19-ba3b-4d31e3835726@ti.com>
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AMBPR04MB617387:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bd4cc52-6b7d-45be-f810-08df0e5e5167
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCC:EE_|PH7PR10MB6578:EE_
+X-MS-Office365-Filtering-Correlation-Id: e06d6419-9b90-4552-f766-08df0e5e4df4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|366016|1800799024|10067099003|6133799003|3023799007|22082099003|56012099006|11063799006|18002099003|921020;
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|6133799003|13003099007|18002099003|22082099003|4143699003|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	h9DoavntkiF0QH0pUVDm9Xu6oyIqGMRHxsn9l25LopKLVylcBQTDJeHgaVw+zoGYxjvJhcb6rdZ1sjNQRV3cVqUE2Auv0lS4oCkyxVE2Xk9cShvwc14rH5mGBOK+CNCai24hsHEncF6mXwD/OC17QZHk2jUt6U5TGL86nSKnGqq1UVzTNnzFAJ+CWYy8wZdqRQrBbP8cXU7CuXZEJyW/Ce8xrMy48A6y36l9L3DsvM7b0DiMtCEeIHRLgSfymy1EFLedpmNrkKkbGd/uMAp1lBtFleIcUM9cIPQyCjfBN7rAUvMWU3/fOmLVvz5WJurEZa3Xg/JrEv4cEQ1qFTKNfEth7Q1a4L8CkUslnOAWNDQhxH0ISGqfRNJ6mYhClNgrko5ekRXQEWY9yTiZl9fHzX8983SxKbuw4m2C0WJkAIwH17jPHubzoMcUGflDiwrVmyIcbArI6PsBU58+0JVWWWbl8EaM6iYXtLab03tw8Im/mhvIe9vSBMcmom7FgRV3IO/221UivBUlywxiGdc8gxN+V2Kz4ZrEvs7O1TV9qEqAAJ7G3EprHh+IVu3ncRXmgcPvb/Si8Rw+xfQsTKMqgk3pJewZZnRwChefPq5Rqnk47roDtbW3kMoe0yKb3QaLGA8RJocyhkqoEsOJxuqpnbG+C5Wc1bHaWpyXHgXO3FqCmEB8Lk/NI4qwQzha0jpK3uvDCwl8hLah6PewF3K07A==
+	GGzOwUQWL4JuQd+tAkKX4bdDGA3HFT7HpBMXuY1dh2lql71pCSTeFTrNGWqzkM0fMinb71iRdERdCUMFBhlBHzF/a5SpbUyJWDHMZiHFB1QaTQqLa3KvfBBXGSIHc/TuIQv4ujIfjt28qzyTx3m4EoXtotn0bBpcoNwoDdFQPwKdCBiYyyj7v8Q0kOBpPLLrIdox8900nLaG70P8wrPZ2Sj1HmYBqfiqa8/PwlDSENRiu03YLRr6xPo0YhNNYaBD1iEOj6U5ZlTL3y+JBCx+4lSQDXtMKkUR9JDE/d5R5SG69ZqJ5FL7ufRW961Z97K5DUa7diZ9dLwR2mVHh55dy3tJGsaFKqCcxxaUxDGzs7iBQYOps5jcV83bNujKtBi3LpsrhoFcYXnFUpZ5AxhjRzIgJ2Le+Tj1Ilm0rzxShlRkGRQzFnfuf4K9RugdvCpBQM4SkyTwacs0Nazw8a9Q2EWDgWHpWeQ2q49HpdoodFacxzgqfMw/IwEvg+z9E2ZHCCUwDzs61lzr/+qbWFxwb0+zFof+qlZmAmAKwgvbGJZ97hPcYiIXmsrT6r3BBFHiQKKoBIkQrhiQA410trKxYVlhUjwHaukqb1OQ+vNOzUAAbtsle+ujX1XecaQMKEwDVidr5hcpOJQ2pMYOMn2LjlLphozhTqz9WT9GCQsguCT6R2DaiPt25dio1Ar/grPzZhxWh+d3wX+DRFtuarDAEg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(6133799003)(3023799007)(22082099003)(56012099006)(11063799006)(18002099003)(921020);DIR:OUT;SFP:1101;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(6133799003)(13003099007)(18002099003)(22082099003)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?okG97+3uOsYASZZwiXlN0C6RcnlM/9c6G31LiiBiyWgxA50sa4nFKL6hmmmw?=
- =?us-ascii?Q?nHBTejNtVD2b9EkmFbhuMLH2wEIY6wE5aiqpf4phAEZOBZCN0Y9GRRVxpch7?=
- =?us-ascii?Q?JfnapjM5BJSdD5765BqYtOKOdga6lAf+AqXGiyJDRjhIZ5oYZ9o0ji4i7Gcz?=
- =?us-ascii?Q?ALYD9IZ7LBaLPVbwBZGies2sMahFivsd3gKxBqSG56hUlOKZfiwc1bY5CMxG?=
- =?us-ascii?Q?/9fE6aY/h/sbuatHnBwzNyvc7nFL36+nbbAtD5xQ+iQ4t62nydu2/53Ni4YE?=
- =?us-ascii?Q?7W1Tpacg++qDtTZ+sAsk7ALG2ur3L49K9XxaamQ9cBscBO4cj+fdxJNf2HSf?=
- =?us-ascii?Q?9mLV5mreB1BDtLKveUgOW9qf29DbV2dfFEbiGNcBnWtNoTvKp0AWmDIYhtvY?=
- =?us-ascii?Q?fkJnVZsKZDsj1cNZ+IqHO/qtf4F1fk8yPlCdkdIVccVMYBeZG8h5ZXNGV890?=
- =?us-ascii?Q?NH5cdMOXQ7X/NlFamBFiQ/YLkowX/gZGIsvgEdAj764U3GbfXshFYsbdGCjj?=
- =?us-ascii?Q?omSbkOmuKMU8ZieVrfRSqUzmEZd12+jLI+U0mKX5pba8NmjBoM2w0U2PGh9P?=
- =?us-ascii?Q?35c0fGkdwinFZrA8m21bv/2valq9Po4vWYHdR33iMaEHJIyvWgWlVZdBJiP/?=
- =?us-ascii?Q?HuQgbXiK2x7SriAor78Y813v2e8xZuXP9SghwMXgn04qnNU31kCzk1gHaMX/?=
- =?us-ascii?Q?x5AzPbewvn3nRGabMJvyGyWUIGgZ2Ufj8OwhnLOuZ18d7irh1b0ziffvviLz?=
- =?us-ascii?Q?U3xXHqZjum5G/iv+7UzB22jsaXE4/qcH9C9ZfpwJCQJIGjABvgqqhlr4tpwy?=
- =?us-ascii?Q?hjMC3Z0ss7fL0w9D/8/zTHj30v9D59cRRz7ul7tyLbEbkgtxWJYi8YEj2oct?=
- =?us-ascii?Q?o4Bi3tzxZxw5KUjMSNtfTMCplffemHgauLlViwas9nQ9v1wF3Gnpoj+Bqpu9?=
- =?us-ascii?Q?7Q+R2vtHUwsjZghtCybjqDQCmboar5/5m9JLV14kQrs2TuWI3fqPNJZyzpdN?=
- =?us-ascii?Q?7SP5nV2cT7nZkGcu3SavUZmAdTOzKJOArGISHQO8qrRXvVRyT6XsW4q/bdw8?=
- =?us-ascii?Q?KToS6I8+8V8k42nNpHh4MT6RvsB/p2DXgM/j4L1OiqsScEe9e4EnX9LxmSo2?=
- =?us-ascii?Q?BkInp+JHJqiCQx66D5aoX1NEGeoTYWfrJuv5iB/n2OCam3Grndv8IwSetKFB?=
- =?us-ascii?Q?bI/KT3H+AhQTraAQOwIBPoUGleN7NVaaK9MI8oA0hYySgFUpXT/gBSMRqqsC?=
- =?us-ascii?Q?vFxiuZpYdVVD52S8gPKNImGipY+Ce7dF2GpXhz+tPHJEwnsotLSA3E8daoqq?=
- =?us-ascii?Q?gEQ4/HhEV79Ly4aEEVR/LQFbscoSK0q4ovvEHt9Gy74NKe2PPScHSsCCJhEH?=
- =?us-ascii?Q?WdrygfaCwiJra6NP1eNGEauyEojKuD6XFJP3vMg6IvsgN6yY/R2svzaybJr6?=
- =?us-ascii?Q?+1YV6jcCDHooAMceM5UBhNog/WofqGB9Xy9vduMRjjkKy44e9UgIDByotNum?=
- =?us-ascii?Q?s/iWWpPIQa0skotYkKxq1QUF62lGgvmbCoVtQPGrKKeqWSqYwJYY2DCw4xeY?=
- =?us-ascii?Q?ka5QyqV1x+zx7Yy7wZYd5NAVuXtHvv1vNJ3NZAICvjimcDFk5BvV0r5GC2uC?=
- =?us-ascii?Q?s+1OBpSyvqO1ySfBRTpkHorE04cH4iIy0+vbUj/apSbR/FszjRz2M16yLB+t?=
- =?us-ascii?Q?h4rs6MsFuUOZCwg6NrYoGcWnghzHa3Yxd/SqriIHF7bdif1bNt/lDzU1/5nd?=
- =?us-ascii?Q?0jdCyshpgJQMbe6dqBFsEMnZc9zKhbiohXL/DF64ykZpeXT3TvMp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bd4cc52-6b7d-45be-f810-08df0e5e5167
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 10:37:16.6505
+	+oAnWBJ4/DwLsSnMCKunYEJB2ySxvFBPI2CKN2tsa9Iio9YzLYYjRaFjox4WiMEjNXujaqgDLwRcGvZif5kskbTeClKFWaNYyeWJMJpPf8NlKm8YXBb64xl41pfvWwcvDRiHTfrHWdYZBmt9f6Np8Qu9kVXr11p27mSUsG4L0+v+pcXkCILqCVfFrPNCRHhVmYRNFe9CHkO3eKqixXs2wkbkaEjKmGamcIbURsLH3leNMuSLZKd5iYuLCAZRtLPBA5/BfwrVEduGzKjNj2WWwMXUXXEZmv/sDhn+Sm+gsl8RqR/vyFeKb83/NZN5WEUVivRm+XyDIKRWIQ7hZ635edPOnXvv9BFPz/ft5XApuoYH8oh3FDqAusSiAvvfSUp91V7YYijU5NC43lbCAO57I9vXVRbdSoEqgR+2Qbk2uu4ffswMaAi6bYIVYMuPcPtd
+X-Exchange-RoutingPolicyChecked:
+	5h5nog70UNw3J+xqQtOnIK610kVVejzOinP9A+9dYQif67Lc1PmDOy8ZK/+AiEwkaDhSBwnVuYq8ZT/k0UdShHCaBVGXy+UOSgPxDeOuj1gIs/pA36ttz8QxirmaYSMI8UPApUPvpisSSdF4vDpAdrkqucrDG2/ANqr3omyniiWpKXYXLyn5YRGcAoP1dl688qlDt+PUnuEWd1bxwsMnDTxFS/05B0wq8yTjzT7t60zkzBuKxKAoe3ax+4KPybFcU8tvRcB+/skViB1y7YUthkUxW1ZlM/Tz8kKcTXlqlsXA6lcooDFkinNgVpSM0aH9PHAQTrogz1aiEedHMYiByg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 10:37:10.6259
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6A2Xa+LBXI7SKRjE7uUqaar6ckcPO147nOZYC8M+ZSyByj01/HxCSRJM10E30gZt/CHwFgxO7yPeU8N0yYY5t8M4DcloUlKyx9NXhxEZr8jAR6weUm+DY3YUfsLEjJmp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB617387
+X-MS-Exchange-CrossTenant-Network-Message-Id: e06d6419-9b90-4552-f766-08df0e5e4df4
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BCC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6578
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDExOCBTYWx0ZWRfXyOdQix6rgwLL
+ /NtZg1yLBe3rTFaqe/W7oE4gkk3dKfDY5p7dVf+kZIfb79co1q4d5Ot1Jcy9n+ujWvaFPp4zaUA
+ SJu3xhptDdDb/iGApGCY3At8pcxwcO6sOlVHr2tmrQpazfFYtbfzHrPzLEkfmq1ZAb3mWrXBAzr
+ 3w5hDAt7y9v3oore+KGRXU/eufoS3KW+h39tYUpVSPphjFhDPQPQhNpyDfDHEJJdfkp3DTj7Mth
+ z0byyRHRJRD7Of5Nih6U63wTYf0X4QQaPd+tTUNVOZ3ECfM1r1AxgGLhlKRy3K10MQqFZK6uuCA
+ Edf2tQ4Y3DVLClf4TFVsP5VPcU3d+PzNpL60MBkNajtOMUv6zGYoFqMJRi+D1/TY0JjIgbh8X5+
+ RzVudRgd/vBHAT7D4m1cHa8A/u4ypui5qlIoeBfc35omAhxafSV0UrukcHepYN5+9QRvRvhpRoj
+ JfOlQLvjcq4xUqdrX6A==
+X-Authority-Analysis: v=2.4 cv=cObQdFeN c=1 sm=1 tr=0 ts=6aa136db cx=c_pps
+ a=+4AL93Ollhzyglb1kYk7Zw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=CvZwwOHjOIMOI0BzBgAA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: yD3JPOP9sBzA52XlivfnLxTWUKU_KF7b
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDExOCBTYWx0ZWRfX9dMzg3AQC6VQ
+ IIJ3BcsH19xMWP7m4p425hmBWpyJk9YMxmrM/PMqU3iMasXfQp5HdtLzrKwpQYs6XkBincR41jg
+ x8g1F1xMgEofLXDzEeSldrB+nhC4WPE=
+X-Proofpoint-GUID: yD3JPOP9sBzA52XlivfnLxTWUKU_KF7b
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090118
 
-From: Wei Fang <wei.fang@nxp.com>
+On 13:13-20260908, Judith Mendez wrote:
+> Hi Nishanth,
+> 
+> On 9/8/26 12:49, Nishanth Menon wrote:
+> > On 12:29-20260908, Judith Mendez wrote:
+> > > Hi Nishanth,
+> > > 
+> > > On 9/8/26 12:16, Nishanth Menon wrote:
+> > > > On 12:06-20260908, Judith Mendez wrote:
+> > > > > The AM65x EVM MMC1 VDD rail discharges slowly through RC circuit.
+> > > > > SD spec (section 6.4.1.3) requires VDD < 0.5V for minimum 1ms during
+> > > > > power cycle. Measured discharge time on this board is ~632.97ms to
+> > > > > reach < 0.5V threshold.
+> > > > > 
+> > > > > During boot, MMC power cycles between boot stages. Without power off
+> > > > > delay, VDD doesn't fully discharge. Card retains 1.8V signaling state
+> > > > > from previous stages. When U-Boot initializes, card no longer asserts
+> > > > > S18A in ACMD41 response (already switched to 1.8V). Host misinterprets
+> > > > > card state and forces 1.8V anyway, falling into a bad state and causing
+> > > > > a boot failure.
+> > > > > 
+> > > > > Add power-off-delay-us = 650000 (650ms) to ensure proper VDD discharge
+> > > > > during power cycles, allowing card to fully reset state between boot
+> > > > > stages.
+> > > > > 
+> > > > > Signed-off-by: Judith Mendez <jm@ti.com>
+> > > > 
+> > > > Fixes ?
+> > > 
+> > > Fix is really for u-boot, don't think I can point to a u-boot
+> > > commit here can I?
+> > 
+> > You'd face the same problem if you are starting from a different boot
+> > media and then enable MMC in linux kernel, right? what was described in
+> > the patch sounds like a discharge latency of the evm. This was missed in
+> > the original commit?
+> > 
+> 
+> Not exactly. The failure is only seen at u-boot specifically with
+> SD card boot. Very specifically due to the MMC driver in u-boot and
+> commit [0] which is not reverted since it is technically correct.
+> The commit just happened to expose our EVM's issue first. According to
+> the discussion, mirror Linux patch may be coming soon, which we are
+> now prepared for with this patch and [1].
+> 
+> [0]
+> https://lore.kernel.org/u-boot/d17a810c-e2db-4a24-a37d-2d7e02466ce9@ti.com/
+> [1] https://lore.kernel.org/linux-mmc/20260806162202.657512-1-jm@ti.com/
 
-Without ndo_get_vf_config(), userspace tools such as 'ip link show'
-cannot query the current VF configuration from the PF.
+This context is useful in diffstat. I see the driver fix in kernel which
+can use this property not present in previous kernels, hence no fixes.
 
-To support this, extend struct enetc_vf_state to track the per-VF VLAN
-and spoofchk settings, and update the corresponding setter callbacks to
-persist their state when the hardware is programmed.
+That said, please fix $subject for v2 and repost. I suggest:
+arm64: dts: ti: k3-am654-base-board: Add power off delay for proper MMC power cycle
 
-enetc_pf_get_vf_config() reads back the persisted state and reports MAC
-address, VLAN parameters, spoofchk, and trust state through struct
-ifla_vf_info.
-
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- .../net/ethernet/freescale/enetc/enetc4_pf.c  |  1 +
- .../net/ethernet/freescale/enetc/enetc_pf.c   | 24 +++++++++++++
- .../net/ethernet/freescale/enetc/enetc_pf.h   |  4 +++
- .../freescale/enetc/enetc_pf_common.c         | 34 +++++++++++++++++++
- .../freescale/enetc/enetc_pf_common.h         |  2 ++
- 5 files changed, 65 insertions(+)
-
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-index 24c1fd869c2c..71c971618388 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-@@ -597,6 +597,7 @@ static const struct net_device_ops enetc4_ndev_ops = {
- 	.ndo_hwtstamp_set	= enetc_hwtstamp_set,
- 	.ndo_set_vf_trust	= enetc_pf_set_vf_trust,
- 	.ndo_set_vf_mac		= enetc_pf_set_vf_mac,
-+	.ndo_get_vf_config	= enetc_pf_get_vf_config,
- };
- 
- static struct phylink_pcs *
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf.c b/drivers/net/ethernet/freescale/enetc/enetc_pf.c
-index 523c71324780..d77a07cece28 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf.c
-@@ -195,6 +195,7 @@ static int enetc_pf_set_vf_vlan(struct net_device *ndev, int vf, u16 vlan,
- {
- 	struct enetc_ndev_priv *priv = netdev_priv(ndev);
- 	struct enetc_pf *pf = enetc_si_priv(priv->si);
-+	struct enetc_vf_state *vf_state;
- 
- 	if (priv->si->errata & ENETC_ERR_VLAN_ISOL)
- 		return -EOPNOTSUPP;
-@@ -207,6 +208,17 @@ static int enetc_pf_set_vf_vlan(struct net_device *ndev, int vf, u16 vlan,
- 		return -EPROTONOSUPPORT;
- 
- 	enetc_set_isol_vlan(&priv->si->hw, vf + 1, vlan, qos);
-+
-+	vf_state = &pf->vf_state[vf];
-+	mutex_lock(&vf_state->lock);
-+	/* Currently only C-tags is supported, so tpid is always 0,
-+	 * which indicates ETH_P_8021Q.
-+	 */
-+	vf_state->tpid = 0;
-+	vf_state->qos = qos;
-+	vf_state->vid = vlan;
-+	mutex_unlock(&vf_state->lock);
-+
- 	return 0;
- }
- 
-@@ -214,6 +226,7 @@ static int enetc_pf_set_vf_spoofchk(struct net_device *ndev, int vf, bool en)
- {
- 	struct enetc_ndev_priv *priv = netdev_priv(ndev);
- 	struct enetc_pf *pf = enetc_si_priv(priv->si);
-+	struct enetc_vf_state *vf_state;
- 	u32 cfgr;
- 
- 	if (vf >= pf->total_vfs)
-@@ -223,6 +236,16 @@ static int enetc_pf_set_vf_spoofchk(struct net_device *ndev, int vf, bool en)
- 	cfgr = (cfgr & ~ENETC_PSICFGR0_ASE) | (en ? ENETC_PSICFGR0_ASE : 0);
- 	enetc_port_wr(&priv->si->hw, ENETC_PSICFGR0(vf + 1), cfgr);
- 
-+	vf_state = &pf->vf_state[vf];
-+	mutex_lock(&vf_state->lock);
-+
-+	if (en)
-+		vf_state->flags |= ENETC_VF_FLAG_SPOOFCHK;
-+	else
-+		vf_state->flags &= ~ENETC_VF_FLAG_SPOOFCHK;
-+
-+	mutex_unlock(&vf_state->lock);
-+
- 	return 0;
- }
- 
-@@ -476,6 +499,7 @@ static const struct net_device_ops enetc_ndev_ops = {
- 	.ndo_xdp_xmit		= enetc_xdp_xmit,
- 	.ndo_hwtstamp_get	= enetc_hwtstamp_get,
- 	.ndo_hwtstamp_set	= enetc_hwtstamp_set,
-+	.ndo_get_vf_config	= enetc_pf_get_vf_config,
- };
- 
- static struct phylink_pcs *
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf.h b/drivers/net/ethernet/freescale/enetc/enetc_pf.h
-index 1a9fa3714c3c..1f92d16d8ca8 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf.h
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf.h
-@@ -13,6 +13,7 @@ enum enetc_vf_flags {
- 	ENETC_VF_FLAG_TRUSTED		= BIT(1),
- 	ENETC_VF_FLAG_UC_PROMISC	= BIT(2),
- 	ENETC_VF_FLAG_MC_PROMISC	= BIT(3),
-+	ENETC_VF_FLAG_SPOOFCHK		= BIT(4),
- };
- 
- struct enetc_vf_state {
-@@ -20,6 +21,9 @@ struct enetc_vf_state {
- 	enum enetc_vf_flags flags;
- 	/* Number of consecutive failures to send PF-to-VF messages */
- 	int msg_fail_cnt;
-+	u8 tpid; /* SI-based VLAN TPID (0: 0x8100, 1: 0x88a8) */
-+	u8 qos; /* SI-based VLAN QOS (priority) bits */
-+	u16 vid; /* SI-based VLAN ID */
- };
- 
- struct enetc_port_caps {
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-index 86958f1e9cd3..8206884294a4 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-@@ -682,5 +682,39 @@ int enetc_pf_set_vf_mac(struct net_device *ndev, int vf, u8 *mac)
- }
- EXPORT_SYMBOL_GPL(enetc_pf_set_vf_mac);
- 
-+int enetc_pf_get_vf_config(struct net_device *ndev, int vf,
-+			   struct ifla_vf_info *ivi)
-+{
-+	struct enetc_ndev_priv *priv = netdev_priv(ndev);
-+	struct enetc_pf *pf = enetc_si_priv(priv->si);
-+	struct enetc_vf_state *vf_state;
-+
-+	if (vf >= pf->total_vfs)
-+		return -EINVAL;
-+
-+	vf_state = &pf->vf_state[vf];
-+	mutex_lock(&vf_state->lock);
-+
-+	ivi->vf = vf;
-+	/* ENETC v4 has not support spoofchk yet */
-+	if (is_enetc_rev1(priv->si))
-+		ivi->spoofchk = !!(vf_state->flags & ENETC_VF_FLAG_SPOOFCHK);
-+
-+	ivi->trusted = !!(vf_state->flags & ENETC_VF_FLAG_TRUSTED);
-+	enetc_get_si_hw_addr(pf, vf + 1, ivi->mac);
-+
-+	if (vf_state->vid) {
-+		ivi->vlan = vf_state->vid;
-+		ivi->qos = vf_state->qos;
-+		ivi->vlan_proto = vf_state->tpid ? htons(ETH_P_8021AD) :
-+						   htons(ETH_P_8021Q);
-+	}
-+
-+	mutex_unlock(&vf_state->lock);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(enetc_pf_get_vf_config);
-+
- MODULE_DESCRIPTION("NXP ENETC PF common functionality driver");
- MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h
-index 7d7e67a12278..c9eed879d5a3 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.h
-@@ -24,6 +24,8 @@ void enetc_set_si_mc_hash_filter(struct enetc_si *si, int si_id, u64 hash);
- void enetc_set_si_vlan_promisc(struct enetc_si *si, int si_id, bool promisc);
- int enetc_pf_set_vf_trust(struct net_device *ndev, int vf, bool setting);
- int enetc_pf_set_vf_mac(struct net_device *ndev, int vf, u8 *mac);
-+int enetc_pf_get_vf_config(struct net_device *ndev, int vf,
-+			   struct ifla_vf_info *ivi);
- 
- static inline u16 enetc_get_ip_revision(struct enetc_hw *hw)
- {
 -- 
-2.34.1
-
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
