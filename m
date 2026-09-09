@@ -1,154 +1,171 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F40C2E266C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0044E3AAF68;
+	Wed,  9 Sep 2026 06:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935581; cv=none; b=QFBYC8YO7nOwge+c9PBsjswUZxNFWNAy/3PpOsFC7F0GdDFUox2GIxo1YXB6ABPe1LAVNaaoM/t60k0fGdJadNM8N2XTgDCB3+d0VlwDddfzXWM6Ot94MudEpKv5bI/DcTZmyckJly8eu8vtwabSnm65V+pKE34KOO4zDWaNQa8=
+	t=1788935598; cv=none; b=DfFrVUmPh8yzWZl9Jis0jBzxI1/fVLFgaPAQcFZzGnWVasX43XCC0j1my87lhaPuZOgiNFDfLQn9iIYn/CL2hmywl9VsWggPTD/LcSt+DaFnQTzlmawUPAl9mZphcmUnKbu/cVFDsUU4RpbfVa/xx9SXqrztrOJAwVhIs+Mxd0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935581; c=relaxed/simple;
-	bh=bC9ZGyGmBp9fDHyuGpE9S+oHZAi6oA9dM8Wix+xNEp4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Is2OJP1HcGyB1swDJG8/kUrcsHKl0F3OiYyuJdxb8NcIUFHqtY1RzXisKfxEBMFo0rcAC7msy8Dru42M++HFVLGZ2cTSK15wzuEE7QGBolhJWF1k3C8DJOHdWHK364viC81peJvPDMkAEBZIi4eUiKUGEmO12PNBpwyPxAUUGi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e9ee20bde0so6810868a34.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:32:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788935578; x=1789540378;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0GbK2YZ2wA9OapREmocMo0LRct5jz7bBnq+fHC+waGI=;
-        b=dmAuvEAMSf3p2ql4YX1Jn4IbcunPU+jUeOn7aDfypYEedN13QP9O4nPqVulDmFHvWh
-         0pmNsovWk3AMsObZGd9JJ0t+SA56TCTN+9Qxcjj52ZBnBOkjaalyJVcPsOM0NyQFGXEt
-         3EvbgIUg0oy4kW0G26mfSGAMg9Mq98Yl+pe8pgdEv16B3gufO3ZG4hrXbf4tLcxp8f92
-         qMgjDfUejwavryoQ8xFJI3RZHEFn6xIgkfLNcpMZAIKFg6QTawnhFrD4t+o9O3DVCNZM
-         rjT/FSHWXQrgWvFMhg8/xPGoXNBMa4h557F3iBi1qCqLWDWwX1EvHnTBK3Tz8lZsEChL
-         1+xQ==
-X-Gm-Message-State: AFuF++lb8wQ8npazGHtEYTO4n/XOLS/lJvlSQDLjYkSTR0DOSQzdmUIF
-	Hz1kMIvs/y4Y+sGdTk6vj4zomcghszzKLO3ysVLfE8g6Oy35kmdu1k5bBQQuzQN9VK3bleLZufR
-	cava4MmnAzPZQKXq6YD+atvrzdiAyizIRX57mk+bRouyej43XVBe8r+YrGkI=
+	s=arc-20240116; t=1788935598; c=relaxed/simple;
+	bh=l00oCkrhB8WApv2kI0s93DjO2XwABobiv71k96Z/pKI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bXDhzQy9rvavvSKp37of8WkAkqyLsyzJrmpOlfIhP4QtqfckHS0CFl2JsK9f6WgN5OgrfHhnLHz/9aNWL0s2B5nbVbkSkYSYi+n8/7cTGTKl0zSwSY0+r7upS7kYMrAOWX02SG6/gfY1OWN2ZqyM26ivRjdXqqUnuUIXHn0qzXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okNla4MV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okNla4MV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B7F81F00A3A;
+	Wed,  9 Sep 2026 06:33:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788935596;
+	bh=S0bomz74P8D+80x6eEKJyPlObj99M34NHG7wV6ZKtYM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=okNla4MVzJz3oTgtcVtm8L6dxBQwpMJ9/xgwaBkBKqwjCYcFUE994Kno4NtouQsCt
+	 JnUNSrsOTj7Iprgp/uZSMm7eyYYoiCiWBTMqZwIbgOwpYV3qQropKOSC8yrlh03RYz
+	 F4ms81uyhE9rFkREw3mDB8wExDFYnXEK+dgqbROrH64nFfHh0FX+rJ3tZDm5wPokSY
+	 R3649hj/p0EwKB5ArJKKa4xoRlxsszNphB9hYULppV2dJMKvicKjI/ZWEkP+G+ceJf
+	 EQtg6NfbPMkfusbtVPV5ZYIG9gpmRUv9maw2AcSolYGRwLDqzJlWF1YHB5scW3+Bwi
+	 TvqWqym2u8EeA==
+Subject: Re: [PATCH net-next v6 1/5] net: pse-pd: add notifier chain for
+ controller lifecycle events
+From: netdev-bot+sashiko@kernel.org
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, corey@leavitt.info,
+ jelonek.jonas@gmail.com, horms@kernel.org, olek2@wp.pl,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 06:33:15 +0000
+Message-ID: <178893559565.219967.17359688741683052582@kernel.org>
+In-Reply-To: <20260906153102.959217-2-github@szelinsky.de>
+References: <20260906153102.959217-2-github@szelinsky.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b10:b0:6b3:5741:591f with SMTP id
- 006d021491bc7-6b6fea866b5mr32499694eaf.26.1788935578498; Tue, 08 Sep 2026
- 23:32:58 -0700 (PDT)
-Date: Tue, 08 Sep 2026 23:32:58 -0700
-In-Reply-To: <6a6d375e.2d659fcc.1d46f5.01a4.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa0fd9a.f81106d8.285f0a.000a.GAE@google.com>
-Subject: Forwarded: Re: test patch
-From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-***
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-Subject: Re: test patch
-Author: syedtayyabfarooq08@gmail.com
+- [Low] Claim: the patch adds a blocking notifier chain and two
+  EXPORT_SYMBOL_GPL() entry points…
 
-#syz test
+--
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..4435cc42d1c0 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	if (!tport)
-+		return -ENODEV;
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-  * gs_open sets up the link between a gs_port and its associated TTY.
-  * That link is broken *only* by TTY close(), and all driver methods
-@@ -911,6 +946,8 @@ static int gs_get_icount(struct tty_struct *tty,
- static const struct tty_operations gs_tty_ops = {
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.install =		gs_install,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1203,6 +1240,18 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+
- static int
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
-@@ -1222,6 +1271,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1258,8 +1308,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
+net: pse-pd: add notifier chain for controller lifecycle events
+
+This adds a blocking notifier chain to pse_core along with
+pse_register_notifier() and pse_unregister_notifier() as the subscriber
+interface, plus enum pse_controller_event describing PSE_REGISTERED and
+PSE_UNREGISTERED. Nothing fires the chain and nothing subscribes to it in
+this patch.
+
+No Link: tags present in the commit header.
+
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> index 69dbdbde9d71a..3c4d09f1d6e4f 100644
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
+
+[ ... ]
+
+> @@ -23,6 +24,39 @@ static LIST_HEAD(pse_controller_list);
+>  static DEFINE_XARRAY_ALLOC(pse_pw_d_map);
+>  static DEFINE_MUTEX(pse_pw_d_mutex);
+>  
+> +static BLOCKING_NOTIFIER_HEAD(pse_controller_notifier);
+> +
+> +/**
+> + * pse_register_notifier - register a callback for PSE controller events
+> + * @nb: notifier block to register
+> + *
+> + * See enum pse_controller_event for events fired and their subscriber
+> + * contract. Callbacks run in process context; they may sleep, take
+> + * rtnl, and call of_pse_control_get(). The chain fires synchronously,
+> + * so a PSE controller driver's probe/unbind path must not hold any
+> + * such lock when calling pse_controller_register() or
+> + * pse_controller_unregister().
+> + *
+> + * Return: 0 on success, negative error code otherwise.
+> + */
+> +int pse_register_notifier(struct notifier_block *nb)
+> +{
+> +	return blocking_notifier_chain_register(&pse_controller_notifier, nb);
+> +}
+> +EXPORT_SYMBOL_GPL(pse_register_notifier);
+> +
+> +/**
+> + * pse_unregister_notifier - unregister a previously registered callback
+> + * @nb: notifier block previously passed to pse_register_notifier()
+> + *
+> + * Return: 0 on success, negative error code otherwise.
+> + */
+> +int pse_unregister_notifier(struct notifier_block *nb)
+> +{
+> +	return blocking_notifier_chain_unregister(&pse_controller_notifier, nb);
+> +}
+> +EXPORT_SYMBOL_GPL(pse_unregister_notifier);
+
+[Severity: Low]
+This isn't a bug, just a note on something that stood out while reading the
+patch on its own.
+
+At this commit, pse_register_notifier() and pse_unregister_notifier() in
+drivers/net/pse-pd/pse_core.c are exported with no in-tree caller, and the
+event-data contract documented for enum pse_controller_event has no producer
+yet, so the documented semantics cannot be checked from this patch alone.
+
+Following the series forward, the producer side shows up in the next commit,
+with pse_controller_register() and pse_controller_unregister() doing:
+
+	blocking_notifier_call_chain(&pse_controller_notifier,
+				     PSE_REGISTERED, pcdev);
+
+	blocking_notifier_call_chain(&pse_controller_notifier,
+				     PSE_UNREGISTERED, pcdev);
+
+and the first subscriber lands in phy_init() in drivers/net/phy/phy_device.c:
+
+	rc = pse_register_notifier(&phy_pse_notifier);
+
+Both call sites pass pcdev, which matches what the kerneldoc for enum
+pse_controller_event promises, and the commit message states outright that
+nothing fires or subscribes yet.
+
+So nothing to fix here, this is the usual "add the API, then use it" split.
+
+[ ... ]
+
+> diff --git a/include/linux/pse-pd/pse.h b/include/linux/pse-pd/pse.h
+> index 4e5696cfade7c..78fe3a2b1ea84 100644
+> --- a/include/linux/pse-pd/pse.h
+> +++ b/include/linux/pse-pd/pse.h
+
+[ ... ]
+
+> @@ -366,6 +385,9 @@ int pse_ethtool_set_prio(struct pse_control *psec,
+>  bool pse_has_podl(struct pse_control *psec);
+>  bool pse_has_c33(struct pse_control *psec);
+>  
+> +int pse_register_notifier(struct notifier_block *nb);
+> +int pse_unregister_notifier(struct notifier_block *nb);
+> +
+>  #else
+
+[ ... ]
+
+No other regressions found.  The CONFIG_PSE_CONTROLLER=n stubs returning 0
+match the existing stub style in include/linux/pse-pd/pse.h, and placing
+enum pse_controller_event outside the IS_ENABLED() guard is consistent with
+the stated goal of letting subscribers reference the values in dead-code
+paths.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906153102.959217-1-github%40szelinsky.de
