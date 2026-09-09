@@ -1,105 +1,228 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1763C4B6F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08735908A9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988118; cv=none; b=YmVPS8fX30zZ8wMjvy6hKnERxOCxO+E+pyigYfkuv+NNIqJjwpPFBHKMCMCJCM9ZgAp/7m9NBsqm4S/aQfK1FTI7THJILJt7DKzLIleNr1YedcSphn0ZFfG76nuns5MpP3gM9Ui8EyfPtbJyDmfU5ndHavXoaw/ZqjbuqEGsJcg=
+	t=1788988122; cv=none; b=gey6C9aBGOSmvHaUXro6BQWWsjSvWRFsiLfb4+qEWOeRtnrpg8u8MIhteWu+cCJ+vY+0rJ1zKDxE68s9Hu+ibluqEJq0GBYasZhqhv2up+rhk9rcYEYTWYhdNl+D/PuyJCUD2jK07ENYi2/Q58EMRyOR1MNJ4yrQKP63KDZdHaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988118; c=relaxed/simple;
-	bh=Gajsr1kiLHqQCQ9SqWmRz8Vv502++7s2iR3vCVPs+KA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LCRBFQfedAuSQXV0gyyMeRmzYGdWb70CSHWVTaWaHoe+VXvtOFGFhTu5oi5SgaVefJYXGJXCYTQAkj31vYgOnNV/loJeBhZv7pkFVpRkisGWpjF03FFuripQo7QeWS6rjetxTb9U9l4m81Mfr8VNgVsHaIF1eM4XKs9cAKTvvVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYAvu2PS; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788988122; c=relaxed/simple;
+	bh=v6XN1bSzrdiOZsy+gxDBorIxvgzRZF1Y/gKavtMSJdc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VthHx39mOxJDv6334LJ67qgocTqD7ah7UvD9s/rhH5LNMaRyRV3R0ysmvlacZLtKv5ac1L3HExJdjpG5/tyvLEEkhgmXEgZrHlIyGWLgYmpw69QivPxaNE9OfTyb343AkLf2BNguRqe41oBECUcpsUU2Hl3JkS3TkiUhTwhipog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=coTraDnG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hrgxgPCb; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYAvu2PS"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-39675172593so5311619a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:08:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="coTraDnG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hrgxgPCb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788988119;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JeCu1I7ci4XqifONO9NCiEC08kQGS9StekRATuRZUpY=;
+	b=coTraDnGs/wAD8KBc82xncnv4L+tv6tvaG8lrH7NRfim4G3CLJ9XNx5MAHhdtFvfOrmTg4
+	WE5fEJGK4KMe0TPhpzBVOpHVaISsia7XAW42t8Ep2WyqTwl3hVlX74pbCAyukTl6nxdyLt
+	zNKbdSLZWufU5I91ecKHh8Ze66HliK4=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-678-BF2AzGBLPMCv3QgOaTnNvQ-1; Wed, 09 Sep 2026 17:08:38 -0400
+X-MC-Unique: BF2AzGBLPMCv3QgOaTnNvQ-1
+X-Mimecast-MFC-AGG-ID: BF2AzGBLPMCv3QgOaTnNvQ_1788988118
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5308a3825deso61735451cf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:08:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788988116; x=1789592916; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UEK5sBdqDEjQeev2uIIR4l83OCeaIGTj3CDKY7Pw4J8=;
-        b=rYAvu2PSoGHzDIP4wVJdKWIpRX+vtswYW802CsIbMIxuhNml2C4dLqE3DLFBK9SNNa
-         QTpAvGOpTuWljLZsBDdDJNBGPPYBEBuvdSWMd9gzw4KK4+sMhPUFPTs5O/J0P/Yhzdn/
-         mAs2qRPYVh6KJked+j5xTlAoLYbwzBz/hLWG5Y0ekNE/661xL7y94uSokxHZcU/Prsss
-         G2yfIAZ2YqCBTfqYcQeiBm20R64QVb3Avp0VaOAS5f5gaG9uEieew4wKvy1R4TG7yhR8
-         DwaqnsSKg+sopQjKx+cWfadcelhf2hHsqDBmas46984wfDIQHYDGPEmAvMXIcMgnV2Fh
-         HEwg==
+        d=redhat.com; s=google; t=1788988118; x=1789592918; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JeCu1I7ci4XqifONO9NCiEC08kQGS9StekRATuRZUpY=;
+        b=hrgxgPCbI+s2W6pD4vzacl4WpRBvQfuv4h0IzPeK3MG2bd7YCv9lzyixwuWci6j4zC
+         VDWCz3ZdETVEeyMEnmPFtKukP58YhG6WXGO91YyfdHEqCgUO01ehWMaxAYdaGwHhh7WP
+         bCrcsCQKeGli+uI0sbi7DY9YsLmw/2pNRB+ELdcWLMm3hawoWzCdDfcMssftK5ltNXmR
+         ZtISmNxU3Hrodujh6PmggJg4/v1lyxj7nZLTu9a5I16r4k9ZVKjOpM33Xi85hWQgyo1C
+         wRvO+fQ7L7VYbQqSnrxEdUgAKKUz3E3qKnjI1PPNsfe98EsDKJvnwMXYZjZLk5X6Npdr
+         zUsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788988116; x=1789592916;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UEK5sBdqDEjQeev2uIIR4l83OCeaIGTj3CDKY7Pw4J8=;
-        b=LCQ/U9vyKLCrhHQOmheButGF8+lvC83D4x55qNnbijCWUl85wr11Kd/sBHaRg6KHgz
-         A/TA5IZI7V9vi20z/hG9gC6mcjIECcJR41BMphlVdzUVZAn8/6pvssDUK9bBww9yz6eg
-         DMkA3JaDqqT7nwbDcJ+wxqlYrmjuwVV4Ij0E1TcLZcbk2nVivsFCzxq2bW8D8RElQE2Q
-         voAIrvUcqs1aS6bcuNgmGSWJ+Lnz/q/9ZcJ5ORxLiPQ9NsbMnWf4zccOSmtEGvnp75En
-         rfxScWzoxZTEnhFx6K54KTcUQxIBAGruQQrUVZLadPD/A8bCEy0Czhbn9vvJiw023/Im
-         G6cA==
-X-Forwarded-Encrypted: i=1; AKwUvBzHfk3jmgcUM8SF59dAsAswaUkjy0M8rB9d5x0ruqXprbma6cF924NAp1LLpgRv7rFWOhcdZWSahZhTrDc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZKJjA7HYTdY4Czyk6Y3Fj4MLBfW6OPNdklI2ZY4STg5S7IOWE
-	C/LlPyL1HRlpsdfRaMywZnHW7v7781WZUZB7S1VdgLDriFt45L8MVnhcCPIcvQ==
-X-Gm-Gg: AYBFou3/Z2wbwJi6cq3UrLw01uQxoJSd9u0BnnoJkoP6S3Nay2BBvxTKGCOVtE+dxst
-	bnE8Hox5wquAjdMPfsP6E8lL48V50kdg/zyJ4FRQleHtpZvW/7Eg4Pjqxre/VVvotxQW9S5lSWs
-	TL0ExBRn7ZWG1Hs5ugC1bpJMg/ETUJ+tA8/ijc22gBE4ZutbqnptiIxfhLywMDNvJo0wU3JRKL4
-	RbjjA8pf2HzrZ/CKdphC257xI7XtK3OeIqeW8+xgVowotw7EmnupWe/FtN7Zkvnvfs6mHYXlWIG
-	8tVKhRkBZ4PlghiczUR5Tk9C53J0lbe5AZnCv5kLW+dEtPuSWeejCBPdC+VMmTV3f5ukMnoYgnw
-	mjP3Y88bDLbhTXYsUwnx0Y3/JKCMQrElDl6pXKZmToWGYSY89GYDfSy4Cq3e5larawEovG5ydrk
-	mkLRd5IAksRM5AmmCW4qks2fzSADyepwrFtXw0esYhKKRDpwFz7DXqP7vpS/+QnQTki3YSEZHQD
-	Ei9Ce/B0MHpHtzSxtQg+tY=
-X-Received: by 2002:a17:90b:1a8f:b0:38e:9045:babe with SMTP id 98e67ed59e1d1-39b2612ed35mr52904411a91.7.1788988116308;
+        d=1e100.net; s=20251104; t=1788988118; x=1789592918;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JeCu1I7ci4XqifONO9NCiEC08kQGS9StekRATuRZUpY=;
+        b=YmJlRpIcSQ9bPPDH9lhrflPDTx9/217Pa/IgBs/aI3dck4dOTSZ2IPLRLJELcvKzJ7
+         YmFxSoiC2VEWiInAO5jXZeFtvuC9P3YuqgZycISR/+eqxxv1T/3oUNHgtOXXqS+K92Uy
+         fOtQXE+OO6ljkDKi7lpO2xnmuJjtXno3MqDJFzZmm4IkKggO/hSdzeMepaqrSis5kMZC
+         wtG15Y7nleax5O5jFxkx7S14vyaTFrgumDC3rrGCjmPSpipMSSi5a1iyfjc5Ncx5EzFB
+         PqlCkCZAvHEjHoamWtNdWCF3hiYRiqxMsuhWXQFoqANjK2wxGWXZWg3wSqnY8UU2hqeK
+         pxpw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9w4SzWVcJZnKvP0hr23VJPBPfwphoJwc0VpazipLqNCtOpkcUT8xNFipNOQV95LH2K6Auomfrua5mOyM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGBFBsk/UQ0aRE28ttIqiaFHA9jbaoxXzYxWlVAtjr+E/nRq3B
+	HfvAFsEtl7vq3JaZH8iVQh3PYANYqXEfprsZrDdRzaD2DFiGZ1px8WNYkpB2zPBswodYO404tqJ
+	t+JRGMvGMzHii/hi4QOvp9NnPGOLWZ6H0zeIocTdnBYThoRWE9h8i3Bw6fzfDyD1bhQ==
+X-Gm-Gg: AYBFou1AbvuG4y5e4kCeacfrFc8BEZ4EbkEFsawBcL20NykGpw9D2bDyOWRZVgJDYuR
+	LYNnMp0Njv07Uk4eyV6XcVvPnKoDVDveKekAZHmtWG+gilE8cNXCfPtcINdfKaVGZS8qwIxdTTH
+	Fm8QKRI4QLUVYBEzElSKsbDcA60gz4ObBNeAvV0CBSyf7T9eBoNykuD+7k5oI4izREhRIrDJC5x
+	cdoTi5ql8pKTkw/JpRM65WyOWodSp/u3iDnuReOPBZJCkvRKgDy9UoAPnovSeF9m95FmbIA0t1A
+	ZUrsJznnsQ55F4ZivypRTKTrPA5VFKVGy8GH4IJQuenm8SbvSfwQlXOWw68sQk5r6pCEJV35KYA
+	yInPBxWKQuw31DQk68PdWSQigTX3s6U1u0lgQ5iMr
+X-Received: by 2002:ac8:5cc1:0:b0:530:b2e2:2f1 with SMTP id d75a77b69052e-530b2e23739mr27765601cf.51.1788988117881;
+        Wed, 09 Sep 2026 14:08:37 -0700 (PDT)
+X-Received: by 2002:ac8:5cc1:0:b0:530:b2e2:2f1 with SMTP id d75a77b69052e-530b2e23739mr27764751cf.51.1788988117237;
+        Wed, 09 Sep 2026 14:08:37 -0700 (PDT)
+Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104049d30asm153786676d6.0.2026.09.09.14.08.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Wed, 09 Sep 2026 14:08:36 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770a010dsm1359550a91.3.2026.09.09.14.08.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 14:08:35 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 14:08:35 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/9] watchdog: msc313e: Avoid division by zero
-Message-ID: <2c0b963e-6379-46a4-bae8-92ec2d76f8da@roeck-us.net>
-References: <20260828161348.13212-1-tzungbi@kernel.org>
- <20260828161348.13212-3-tzungbi@kernel.org>
+Message-ID: <317dd59c-819f-4bbe-a196-3946c30eb0a3@redhat.com>
+Date: Wed, 9 Sep 2026 16:08:34 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828161348.13212-3-tzungbi@kernel.org>
+User-Agent: Mozilla Thunderbird
+Reply-To: sorenson@redhat.com
+Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination
+ unreadable, SIGBUS on cifs with signing
+To: David Howells <dhowells@redhat.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>,
+ linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+ CIFS <linux-cifs@vger.kernel.org>, linux-kernel@vger.kernel.org
+References: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com>
+ <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com>
+ <1714046.1788952509@warthog.procyon.org.uk>
+ <1730052.1788974127@warthog.procyon.org.uk>
+Content-Language: en-US
+From: Frank Sorenson <sorenson@redhat.com>
+In-Reply-To: <1730052.1788974127@warthog.procyon.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 29, 2026 at 12:13:41AM +0800, Tzung-Bi Shih wrote:
-> clk_get_rate() could return 0.  Avoid a division by zero panic.
-> 
-> Fixes: e9800b799464 ("watchdog: Add Mstar MSC313e WDT driver")
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
-Applied.
+On 9/9/26 12:15 PM, David Howells wrote:
+> Try #3...
+>
+> David
+
+retested successfully with v3
+
+
+Frank
 
 > ---
-> Simply browsed code under drivers/watchdog/, the following drivers also
-> use clk_get_rate() as a denominator directly:
-> - drivers/watchdog/digicolor_wdt.c
-> - drivers/watchdog/rtd119x_wdt.c
-> - drivers/watchdog/rzv2h_wdt.c
-> 
-> Let me know if you think we should fix them as well.
+> commit 05abad6ef207137fd3a2559d6ac242d1f94c60aa
+> Author: David Howells <dhowells@redhat.com>
+> Date:   Wed Sep 9 11:36:30 2026 +0100
+>
+>      netfs: Fix netfs_read_gaps() to use separate sink folios
+>      
+>      Fix netfs_read_gaps() to use separate folios rather than re-using a single
+>      sink folio to discard the unwanted data so that cifs checksum checking sees
+>      all the data that was fetched.
+>      
+>      Fixes: 7f84a7b9892d ("netfs: Make netfs_read_folio() handle streaming-write pages")
+>      Reported-by: Frank Sorenson <sorenson@redhat.com>
+>      Closes: https://lore.kernel.org/r/a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com/
+>      Signed-off-by: David Howells <dhowells@redhat.com>
+>      Tested-by: Frank Sorenson <sorenson@redhat.com>
+>      cc: Paulo Alcantara <pc@manguebit.org>
+>      cc: Namjae Jeon <linkinjeon@kernel.org>
+>      cc: netfs@lists.linux.dev
+>      cc: linux-cifs@vger.kernel.org
+>      cc: linux-fsdevel@vger.kernel.org
+>
+> diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
+> index 424df70a5c30..105194de6e13 100644
+> --- a/fs/netfs/buffered_read.c
+> +++ b/fs/netfs/buffered_read.c
+> @@ -482,15 +482,14 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
+>   	struct netfs_group *group = netfs_folio_group(folio);
+>   	struct netfs_folio *finfo = netfs_folio_info(folio);
+>   	struct netfs_inode *ctx = netfs_inode(mapping->host);
+> -	struct folio *sink = NULL;
+> -	struct bio_vec *bvec;
+> +	struct bio_vec *bvec = NULL;
+>   	unsigned int from = finfo->dirty_offset;
+>   	unsigned int to = from + finfo->dirty_len;
+> -	unsigned int off = 0, i = 0;
+> +	unsigned int off = 0;
+>   	size_t flen = folio_size(folio);
+>   	size_t nr_bvec = flen / PAGE_SIZE + 2;
+>   	size_t part;
+> -	int ret;
+> +	int ret, i = 0, sink_from = -1, sink_to = -1;
+>   
+>   	_enter("%lx", folio->index);
+>   
+> @@ -515,24 +514,23 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
+>   	if (!bvec)
+>   		goto discard;
+>   
+> -	sink = folio_alloc(GFP_KERNEL, 0);
+> -	if (!sink) {
+> -		kfree(bvec);
+> -		goto discard;
+> -	}
+> -
+>   	trace_netfs_folio(folio, netfs_folio_trace_read_gaps);
+>   
+> -	rreq->direct_bv = bvec;
+> -	rreq->direct_bv_count = nr_bvec;
+>   	if (from > 0) {
+>   		bvec_set_folio(&bvec[i++], folio, from, 0);
+>   		off = from;
+>   	}
+> +	sink_from = i;
+>   	while (off < to) {
+> +		struct folio *sink = folio_alloc(GFP_KERNEL, 0);
+> +
+> +		if (!sink)
+> +			goto discard;
+>   		part = min_t(size_t, to - off, PAGE_SIZE);
+> -		bvec_set_folio(&bvec[i++], sink, part, 0);
+> +		bvec_set_folio(&bvec[i], sink, part, 0);
+>   		off += part;
+> +		sink_to = i;
+> +		i++;
+>   	}
+>   	if (to < flen)
+>   		bvec_set_folio(&bvec[i++], folio, flen - to, to);
+> @@ -553,8 +551,10 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
+>   		folio_mark_uptodate(folio);
+>   	}
+>   
+> -	if (sink)
+> -		folio_put(sink);
+> +	if (sink_to >= 0)
+> +		for (; sink_from <= sink_to; sink_from++)
+> +			folio_put(bvec_folio(&bvec[sink_from]));
+> +	kfree(bvec);
+>   	folio_unlock(folio);
+>   	netfs_put_request(rreq, netfs_rreq_trace_put_return);
+>   	return ret < 0 ? ret : 0;
+> @@ -563,6 +563,10 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
+>   	netfs_put_failed_request(rreq);
+>   alloc_error:
+>   	folio_unlock(folio);
+> +	if (sink_to >= 0)
+> +		for (; sink_from <= sink_to; sink_from++)
+> +			folio_put(bvec_folio(&bvec[sink_from]));
+> +	kfree(bvec);
+>   	return ret;
+>   }
+>   
 
-Yes, we should.
+-- 
+Frank Sorenson
+sorenson@redhat.com
+Principal Software Maintenance Engineer, filesystems
+Red Hat
 
-Thanks,
-Guenter
