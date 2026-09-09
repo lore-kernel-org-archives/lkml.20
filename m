@@ -1,192 +1,102 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73286324B20
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788929932; cv=pass; b=Cqxow9lUtvqKBu1WsU4u1OKmpxIaU+wtyYlkzb8FzHsfpzMupBlJNrucCcezwQy4gIKUb1G52wJM/yE1EBp0+IWxwkA+4JWK0gQMCBNaxaluiCoxBKWOzEMwQ4t0gWipVEEGIZVrgwp7AXY3KzgAAdjDicreIXEH76VCmnA/6Ts=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788929932; c=relaxed/simple;
-	bh=6BSVwfZXLQVl5JnJAKqT01FUDTNPH8UPXa4syTmMYh8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c9iyk59tVv4bnDynx23v5cB1l3ZlsrMnESUwDdRo5OkiY0jqpELglc1EJTmIBmQHRj3E522/+4mDyfOdDMArwwe/AH1Mgv8UqExl1OOHuGjrrsleyYhcL2YbsJ0qMVCoAiYWk0y2nmKHSMiTotncVpgo/h8HpkYPgIdSBAIMENw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Wz2ZEf3a; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D3817DFFA;
+	Wed,  9 Sep 2026 05:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788930140; cv=none; b=ZDROfcVGOSlA1nVD6zA9HYQfZhF0yMgIQe3W9pe1F0wNHoeBC7wMOahSCgksWiUmEtGp5txhyz8MLc5UNl5jZZAqh9KRxj2Q3BvErWS7qdkVu1rSVhb247SD5KmT9KxUkzrxMR2wDpkN0QRSED9QfUKjCsJeiMah5HD9ZsjmOjo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788930140; c=relaxed/simple;
+	bh=EbQKPk8Edtr8+SbwXIm5uJcFAa79MqHyJzFocHtRzgk=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=q+tTKF0XjLJRXzLlwK4wwE2dxt4Zj9MOBiDrvZ13ddoYAASBvfeb0DvcqrHXc6LIiRS9woRFHsrn7UDwTEDvIATjvzfjhBJESpu1NG90vMm+jJzznU2hw1hcA1ULWsJOsmAqvPpblakNzsqcMQXKTeGHpReZXnYRu1EQnGpEosc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxBOvtcY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Wz2ZEf3a"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff15fadfso5081651fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:58:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788929927; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VbKryyrOZ4H+Y1k33ZnX+09V+vrHfuUnB6dXp0UoQoW8iDwDogZSu+0T4bvBr7jyUP
-         0JWrEVtuQZvw41Jq/x9hvH9aFzOz28hNw5NCs13dTljtJWC/3UzrjCrUVd2fZFrjJlqN
-         uTZrutZTC//ByI497TsyKLULcl7F7a7Upwh2+RXo+eZv6JLkC2KPyBBNyw1BSgdaaHE6
-         Vc41pjhJlrIiA9Y7ppgwF6FMH6jHLgTWnlGqdtP0D3ZTj6NpNj3pH7qUHEImcvqUW/5p
-         yyuwEz4ZXEkpPIFNHY9x8W8ohWRsSE3k3/V+WzT8O8ovhjONYXsfvDlMgOuqDjhD2i7w
-         rRhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s9VFBDAskaJjI+w62/ArkmTkSfDF0OWlLydsynpPx70=;
-        fh=6vCLwbcsLsOeRNW8+F4xlV2uPLLKtMI1mcLg95WPMb8=;
-        b=YHKO0SOIYy7JrkCp/JD7/17nutQd3W4WSQUZcWRU0hAx3G/cFqV8mQHne1hgfl/T3X
-         RQ4OwFDgd9Qzgxu9Az2X6Dla8epd11PWwxo12saRMMSaAB3pmjD0KuN5jyIOwSZGSb0S
-         yQH/9KfSlpQRx7oZpi6lDqUzmubaFMOESiBd6pEKj3rkWZ6O8V78KJYCGL6tWaKhvZia
-         8TaayWp/eCaiSjHGjm86cMl5G/VLcDojqoja1dc9vgmTMGj7Xy3R8UEqdOypGx52N7Fx
-         5WhbMeTOiEA4lRpJ8NA5xuiz5yjxfXHZN9fdKdQHgvr0JaH5BOyzjwZWEAi3W6QfEddp
-         p06A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788929927; x=1789534727; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s9VFBDAskaJjI+w62/ArkmTkSfDF0OWlLydsynpPx70=;
-        b=Wz2ZEf3alJY8lfT9VbS2GAYJIkGpbpIqZywjiMU1ePmzdADjIGSFi3k0tufwV8ritb
-         +RL2qHBpvzW/+uvI4n3+GDedYx+MhG8q3xKQHG+ACoF6dnzKbl2MqAdFmdz3rBi+JD9N
-         Dc5igON1tRBA0Dkm2jIiZ7/ScB/RVXSXP4ex+3sjb1dry0LsEMIj1Sb/1wfJSGI6tuAj
-         Ma0zG13YxXuFUDV6K4MvKQl10Y1uC6+kz1ADechk4NrEmloKDMoQ41K59K2ly12lcBQ0
-         ZUugN4qqb1N3aWkU+Nls8LbsnScbT2Jvuo/YqVinegP8lND8RoMwXwVFyhjhpa/4DgaV
-         phOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788929927; x=1789534727;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s9VFBDAskaJjI+w62/ArkmTkSfDF0OWlLydsynpPx70=;
-        b=iAwVQoZMrk11LdBXHn0twsEsqulJ/XWVi2qf5od2e5qGciI/DGA1mIZzY1CNUjw17M
-         hYKV2uMOIL+16ThHcGmjjz/xIC1j3tbWCOc/rhyhW0YrBrhRt6ZXc0OedkwKoi9Xagwr
-         rzdbyJ9LPomLW479MiuHlbC95J+vKJP0y8CkiUaGKCbqp/98m+beeCZprIhBGg0+BrhP
-         U+rWiHnTWo53gWlMphEzjQ4nHLJHQjE8FGbYCJqgP86uRNKZsAuktqpGFnSNYoVGN2Vp
-         4ltvhcqXUP6dI+/yXYh4xCWj4vE7z1Th1brC/rYDuxwYyiEK7ii4yUbYGyVFHntFbUk2
-         CFDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSS3Lrc4O0duDFWG/QFLRDIyN5vJBiyGP6yo0RQsh+hsaPM5lpPJEzLE/EmITJzXCoDBgMkfAqsP8WRCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUEOG+4VJJ7fNo24isrO1EonUmXwKPFhOowrKDa7CSWmlnyAkG
-	IJ5nFasOcbIPsOJpbr96Liogdw2dGqh6yikGinFDNlDX0RYqgKzOlMA7ewuMwThF36uzztjJfEI
-	cWmPIdPEq1ULbJ3tjgzknxelK1uCPbtnrR0cH47sWa0Q=
-X-Gm-Gg: AYBFou1JGZBCJbU7Mw/EgMkgWD3mZnNZjsASE8oLpg2a37oj12ZeAi4yRikBVvavE20
-	e+NjdFaU0e5d3rGZW1FvGyZR5hBl3TaDRd84aMNf/8Iu38BxZ8lFzw4ytuT3Zd6ireFSDisPck1
-	+DJgtwPqUFi7Y2XvR8ICPxutSRA5pX1/iB0r0A3mLoKIeLZbo9UakeYDLHkP6ddgU9gQMhx3vj3
-	55mYXejvfSrHHnSOI3eTxXMaxR4guSmdRdLuvNLMmjJksu6eWg7YdyTshFM++mkjkrE+oiTRru/
-	tgJRTRMwFDlDriNQhtN95TNDuHlU0zOW0h6v2z1/pAzOifjbO8zYZ3+aKJELwnqs4MyWCS22gvB
-	/heKN9LP/MsDHQwMTFFV0
-X-Received: by 2002:a2e:bcd2:0:b0:39c:a24b:f0b8 with SMTP id
- 38308e7fff4ca-3a4881c1db7mr11397781fa.2.1788929927221; Tue, 08 Sep 2026
- 21:58:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxBOvtcY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79551F00A3A;
+	Wed,  9 Sep 2026 05:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788930139;
+	bh=T8Bla745+w/b0iArnpuRM8La28Hu6qO74a4kNJJ8Du8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=cxBOvtcYZZF0grfnjCtt0K6OBFzbzAfYIMbbbld256UPz/LXKoeC5+pyzsCw43MyL
+	 /4+txAEaw+wDtW+MgGxZnrp5iIh2RMJ8Fr4g7tnGauiXlfHVHjj3vyQOE8hj/Pk+0U
+	 CXosXmz+E7CIwQm4abm/JeyiLj8GXQH2z1RopzamrrDUBIC2CZ9LUDXHNa7vrluT+H
+	 LS0GkEGlC2IDDJ/GDljiBmRrP4TOKT17/2eo8ecSEwOl2XH4IxXinf6tGnyZStaBsQ
+	 m5h9qMXeUeTr5fn3MN0iaKApjUGB9Vz/gdw7+K0c/k424Ihinw1S6EGgxeq2K3GwVU
+	 mBpGM6+5FUaAw==
+Content-Type: multipart/mixed; boundary="===============1148094006327105392=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai>
- <20260908121740.432088-1-horms@kernel.org>
-In-Reply-To: <20260908121740.432088-1-horms@kernel.org>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Wed, 9 Sep 2026 12:58:35 +0800
-X-Gm-Features: AcwNN1XLjO4F21biATQaD_969-WKwl2sd6yzBtfOuB3Ma_LEzaAoVfhJP4tHTRo
-Message-ID: <CAANe3eSNAtgh0wiN56TEk_fKhDrLoJGJxhEA+ZBJ14-PK-rjvA@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, dhowells@redhat.com, marc.dionne@auristor.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <215847032d4dff7aca8efa133be82c023c10397517d285aac794ecb92622846b@mail.kernel.org>
+In-Reply-To: <20260909042433.1775591-1-tweek@google.com>
+References: <20260909042433.1775591-1-tweek@google.com>
+Subject: Re: [PATCH bpf-next v2 1/3] bpftool: Skip non-autoload programs when generating light skeletons
+From: bot+bpf-ci@kernel.org
+To: tweek@google.com,qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,shuah@kernel.org,tweek@google.com,kpsingh@kernel.org,leon.hwang@linux.dev,emil@etsalapatis.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed,  9 Sep 2026 05:02:17 +0000 (UTC)
 
-On Tue, Sep 8, 2026 at 8:17=E2=80=AFPM Simon Horman <horms@kernel.org> wrot=
-e:
+--===============1148094006327105392==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+> index a50540ef6521..e9a1a018f270 100644
+> --- a/tools/bpf/bpftool/gen.c
+> +++ b/tools/bpf/bpftool/gen.c
+
+[ ... ]
+
+> @@ -701,9 +710,9 @@ static void codegen_destroy(struct bpf_object *obj, const char *obj_name)
+>  		obj_name);
+>  }
 >
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/a2bd6=
-f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai?part=
-=3D1
-> ---
-> > diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
-> > --- a/net/rxrpc/io_thread.c
-> > +++ b/net/rxrpc/io_thread.c
-> > @@ -52,6 +50,19 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_b=
-uff *skb)
-> >       }
-> >  #endif
-> >
-> > +     if (atomic_read(&udp_sk->sk_rmem_alloc) >=3D READ_ONCE(udp_sk->sk=
-_rcvbuf) ||
-> > +         !sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
-> > +             sk_drops_inc(udp_sk);
-> > +             kfree_skb(skb);
-> > +             return 0;
-> > +     }
-> > +
-> > +     skb->dev =3D NULL;
-> > +     skb_set_owner_r(skb, udp_sk);
-> > +     skb_dst_force(skb);
-> > +
-> > +     skb->mark =3D RXRPC_SKB_MARK_PACKET;
-> > +     rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
-> >       skb_queue_tail(rx_queue, skb);
-> >       wake_up_process(io_thread);
-> >       return 0;
+> -static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *header_guard)
+> +static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *header_guard,
+> +		     const struct gen_loader_opts *opts)
+>  {
+> -	DECLARE_LIBBPF_OPTS(gen_loader_opts, opts);
+>  	struct bpf_load_and_run_opts sopts = {};
+>  	char sig_buf[MAX_SIG_SIZE];
+>  	__u8 prog_sha[SHA256_DIGEST_LENGTH];
+> @@ -712,19 +721,6 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
+>  	char ident[256];
+>  	int err = 0;
 >
-> [Severity: High]
-> This borrows UDP's rmem accounting without borrowing the lock that
-> protects it.
->
-> rxrpc_encap_rcv() is called from the UDP receive path in softirq
-> context with neither lock_sock(udp_sk) nor
-> udp_sk->sk_receive_queue.lock held, and nothing serialises two CPUs
-> delivering to the same local endpoint. Both new accounting calls in
-> this hunk perform an unsynchronised read-modify-write on
-> udp_sk->sk_forward_alloc: sk_rmem_schedule() reaches
-> __sk_mem_schedule()/sk_forward_alloc_add(), and skb_set_owner_r()
-> calls sk_mem_charge(), which is the same non-atomic
-> WRITE_ONCE(sk->sk_forward_alloc, ...) update. The newly added
-> skb_orphan() in rxrpc_io_thread() closes the loop from the kthread
-> side: sock_rfree() -> sk_mem_uncharge() does the same non-atomic
-> update concurrently with softirq enqueues on other CPUs. Note that
-> only sk_rmem_alloc is atomic_t here; sk_forward_alloc is not, so the
-> atomic_read() guard at the top of the hunk does not make any of this
-> safe.
->
-> The normal UDP path does not have this problem because
-> __udp_enqueue_schedule_skb() performs the forward-alloc bookkeeping
-> and the skb_set_owner_r() under sk->sk_receive_queue.lock, and
-> udp_rmem_release() takes the same lock before reclaiming. The
-> consequence of losing that serialisation is not confined to this
-> socket: the drifted sk_forward_alloc is eventually handed to
-> __sk_mem_reduce_allocated(), which subtracts it from the protocol-wide
-> udp_prot memory_allocated counter, so a flood of RxRPC-shaped packets
-> can skew global UDP memory accounting for every UDP socket on the
-> machine. That is a worse failure mode than the unbounded rx_queue this
-> patch is trying to fix.
->
-> How do you want to serialise this? Options I can see are enqueueing
-> via the existing UDP receive-queue locking rather than open-coding the
-> charge, or holding local->rx_queue.lock across both the charge in
-> rxrpc_encap_rcv() and the skb_orphan() in rxrpc_io_thread() so the
-> charge and uncharge sides are mutually exclusive. Please say which you
-> intend, and make sure the answer covers the I/O-thread uncharge path
-> too, not just the two enqueue-side calls.
+> -	if (sign_progs)
+> -		opts.gen_hash = true;
+> -
+> -	err = bpf_object__gen_loader(obj, &opts);
+> -	if (err)
+> -		return err;
+> -
+> -	err = bpf_object__load(obj);
+> -	if (err) {
+> -		p_err("failed to load object file");
+> -		goto out;
+> -	}
+> -
+>  	/* If there was no error during load then gen_loader_opts
+>  	 * are populated with the loader program.
+>  	 */
 
-Thanks for the review. I agree this is racy: sk_forward_alloc is not
-atomic, so a BH encap_rcv() on another CPU can update it while the
-I/O thread orphans the skb.
+This isn't a bug, but now that the bpf_object__load() call moved to
+do_skeleton(), would this comment be clearer next to the new call site, or
+reworded as a precondition on the opts parameter? The comment currently sits
+at the top of gen_trace() followed immediately by another unrelated comment,
+and a reader has to look at the caller to find the load it refers to.
 
-I intend to keep the skbs on the RxRPC local queue and serialise UDP
-rmem with sk->sk_receive_queue.lock, the same lock UDP uses:
 
-- rxrpc_encap_rcv() already runs in BH, so it can take spin_lock()
-  around sk_rmem_schedule() and skb_set_owner_r();
-- the I/O thread takes spin_lock_bh() around skb_orphan() for PACKET
-  skbs charged in encap_rcv(), so a concurrent BH charge cannot run
-  at the same time.
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-I will not enqueue these packets on the UDP receive queue.
-
-A v4 addressing this is coming shortly.
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34311359322
+--===============1148094006327105392==--
