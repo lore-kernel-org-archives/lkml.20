@@ -1,132 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FE3368D40
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B21437646A;
+	Wed,  9 Sep 2026 17:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974601; cv=none; b=JbXzet5Ntoswi4oiqGi4JYHjWK0s2DKBC7JbPcPTfzkzbXkpCgytVVw1OrJGJgJs5TT76dq9iU1lugzEtIpOHVUxuc4U1xhoEkgRfEV34tty3l7wIT2ulBrtvcgSApaGWY7qM+SwJ/qG8/BS94okh6XNOmo52aWLABUX81ezuXs=
+	t=1788974603; cv=none; b=XZkhEaj7ZhrG0W5qJ6E9PWeOwKJzAao9BUpr1eTU1PVOrTcvtML+GweC7K5gCX1c3o51QJKUCU5C4U/HnSHWAGCtJGHEgwNe+bKfKsWXB6SQq9ya/FKSFQI56iS3fO2h236O9K8eHvmx5r17s6qLCiHogo7TeSdCcYOjK4AC/8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974601; c=relaxed/simple;
-	bh=QRQeyGbvB6uWFyozMaw+B+k+NOkOMlgBgEc3+7+aDms=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=WGy2Z9Yday0aEzxKiCQAuyg3wR1SlM5GJ4RK2XA3SuA2tXi05hfbzPG1MUdz44OVJwMPDzeuv+QM7FNnby4EgLDVv+A2AbkLDj9adMrqhwlGXqaATRVzBFlXlIO9AvAUXZEcGz32Uh2LKZeAtd19em17A6Olc989Jfj/SwMB7EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JnUwVxuj; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788974603; c=relaxed/simple;
+	bh=FaqonzSisf7fzRpv8fncwVVioCLlYc2ZWkzdQpFYJjw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a/OH2e0HlZnWTdkkCW7ZKU6tKWxJhr4L4+OzXOIJmPBvQUGN6eW62edI6YOnVm2/nsRvdfARmUMz6cyIcCQoyNoxL868zcXHNd+7a0ScxZOypJhybZ1dGxsIHQj70Djevxv2AEI/D0Zqw/XJS1vHqAS7f9tD4W0arwJ/CqhuQsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDYa0m6y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JnUwVxuj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788974599; x=1820510599;
-  h=date:from:to:cc:subject:message-id;
-  bh=QRQeyGbvB6uWFyozMaw+B+k+NOkOMlgBgEc3+7+aDms=;
-  b=JnUwVxujMN55FeRzS+SSbgN6bkiLM2T/aUt0iZXDZAE8R6IwcvH6VgBI
-   yzWAPv4nSZTiLtVJ/w/suz/JXJo7bm90JVDMweYfJr7oxlhDOw3LeEa5t
-   hEUT9Vxbm1r1+1PBHDvrwX/ZI2EeAVOeG1b/KzSQOK1rK9gsN6SP4WjbY
-   FRfFQtsQg1jhpYe4OgVfDN5Y9sZFHakAC2bpEmiTmeV3UKG06jOgD5XFL
-   ro5JDmuoLC2/3EIlg2AiDQWoA3VQagCULSBTObUeHyKyFUtaO5uGRsuwx
-   Zosi64ASUMbmEq52u5Nno2ztr0cMcfAufBjpnfSepMzAiJHfTNKzPqFN7
-   A==;
-X-CSE-ConnectionGUID: Uq5HLVSWQmW9oBhzIxmfJg==
-X-CSE-MsgGUID: LNlv2+ybRWKBxQaEc4BJbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91928487"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="91928487"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 10:23:18 -0700
-X-CSE-ConnectionGUID: NO8JRf7GT0ukM4Ssh8/i3g==
-X-CSE-MsgGUID: 7aDOgVIdRzm9bACwb8o+NQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="275152080"
-Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 09 Sep 2026 10:23:17 -0700
-Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4M0w-000000000h0-47F9;
-	Wed, 09 Sep 2026 17:23:14 +0000
-Date: Thu, 10 Sep 2026 01:22:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:x86:mm] BUILD SUCCESS
- ebaf7c9bbb1e16523d7036e7e1225ad2dfcc6482
-Message-ID: <202609100112.85vhF5lU-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDYa0m6y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563E01F000FF;
+	Wed,  9 Sep 2026 17:23:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788974602;
+	bh=MCHSdPZk4zbn59kxK4VxfMJiTngtjItSycfJsFzJGs4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bDYa0m6ymveTw0HTGhDflIHkFJVZ6GnutFwAxlS0dnTV93M0i+vTGPjDB/xLJrUNQ
+	 1a0DPsSCrlJe2SPeOdeGGqCukduQ+BHvb6mMYVy4+V4ZLwJWeT2XDAckf22U215/P7
+	 hUHXF+M1stjZ7/4DPBQw9qxLMfak2L3FlpuRHlpJ+c/2EgbEpz2gLU0GyRgmO92zlA
+	 ZNKBf+MuuUntdCZet/bCi1BSWnv0+EUx0ZcJJd6V4JezjZRGitiNmaGuuxRIZk+BGw
+	 SHxdlwNKF5h85NTEXdvIIhjzcNbqGPJEdvLZVa73xGq4hC7cfgCi68gUdJfX87c1eO
+	 MlaqchPPFVn/Q==
+Message-ID: <19e428e5-d8bc-4abb-b052-e23442464cba@kernel.org>
+Date: Wed, 9 Sep 2026 19:23:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] proc/task_mmu: read proc/pid/smaps_rollup under
+ per-vma lock
+To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
+Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
+ willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20260907063918.3432401-1-surenb@google.com>
+ <20260907063918.3432401-5-surenb@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907063918.3432401-5-surenb@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/mm
-branch HEAD: ebaf7c9bbb1e16523d7036e7e1225ad2dfcc6482  x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()
 
-elapsed time: 1119m
+> -	vma_start = vma->vm_start;
+> -	do {
+> -		smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> -		last_vma_end = vma->vm_end;
+> +	if (!IS_ERR(vma) && vma != get_gate_vma(lock_ctx->mm))
+> +		vma_start = vma->vm_start;
+> +
+> +	while (vma) {
+> +		if (IS_ERR(vma)) {
+> +			ret = PTR_ERR(vma);
+> +			goto out_unlock;
+> +		}
+> +
 
-configs tested: 55
-configs skipped: 28
+Can we add a comment whey we break (and not e.g., continue) whenw e hit the gate
+VMA?
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+(I seriously don't kmow ... should I know? :) )
 
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc          allmodconfig    clang-24
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arm           allnoconfig    gcc-16.1.0
-arm          allyesconfig    clang-24
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-m68k         allyesconfig    clang-24
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips         allmodconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    clang-20
-openrisc      allnoconfig    clang-24
-parisc       allmodconfig    gcc-16.1.0
-parisc        allnoconfig    clang-24
-parisc       allyesconfig    clang-17
-powerpc      allmodconfig    gcc-16.1.0
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-riscv        allyesconfig    clang-24
-s390         allmodconfig    clang-17
-s390          allnoconfig    clang-24
-s390         allyesconfig    gcc-16.1.0
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sh           allyesconfig    clang-17
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um           allmodconfig    clang-17
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    clang-20
+> +		if (vma == get_gate_vma(lock_ctx->mm))
+> +			break;
+>  
+>  		/*
+> -		 * Release mmap_lock temporarily if someone wants to
+> -		 * access it for write request.
+> +		 * If after retaking the lock, already reported VMA grew or
+> +		 * merged with the next one, smap_gather_stats() will gather
+> +		 * stats for the remaining portion by starting at last_vma_end.
+>  		 */
+> -		if (mmap_lock_is_contended(mm)) {
+> -			vma_iter_invalidate(&vmi);
+> -			unlock_ctx_mm(&priv->lock_ctx);
+> -			ret = lock_ctx_mm(&priv->lock_ctx);
+> -			if (ret) {
+> -				release_task_mempolicy(priv);
+> -				goto out_put_mm;
+> -			}
+> +		smap_gather_stats(priv, vma, &mss, last_vma_end);
+> +		last_vma_end = vma->vm_end;
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I skimmed over the remaining bits, hoping the VMA lock experts will review in
+detail :)
+
+-- 
+Cheers,
+
+David
