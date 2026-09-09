@@ -1,146 +1,163 @@
-Received: from mail-m49230.qiye.163.com (mail-m49230.qiye.163.com [45.254.49.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B24A212550;
-	Wed,  9 Sep 2026 01:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.230
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788916356; cv=none; b=nAsvgVyE52UrZUvRSoSmyGjIhOuFRfB636fKXpy8okwr7ivjVkHkp2w1pua1Tun0YWwO+YY2kLB/d1g5bBiNZ0H3T29yEUjoAecLilBX4SG4CS4RnO6YWSZm3YAkeV4/Hzh41dapLobucZJEtKb8dICG4xS296G//ICVCx6M7bo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788916356; c=relaxed/simple;
-	bh=AmXAISq+H+bqIf5oxGF6dj30yrX2tlJUIyGrO1l0Nbg=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=B7wsuHmDJbLj0G+YXT98KAyu7/CGdoWw+/fCD/lhYExi0TeUqgPH5JLc+lTc9YQF/75TUvY+97NY9VFZxEO/QXyiGlk1+b5hcJPgW/Ou1+IIhCTKXev3vXA2zmLNsVsV6Xk1Q+ZfyKONyKPMskKEf5NVqSzEygFw5J2RcZB6n6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=BPSKVn6h; arc=none smtp.client-ip=45.254.49.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D1725A2A4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788916383; cv=pass; b=gRSWG2+Uw0ZONNMUEe77xdROjxPRq0M9zt7fDxTJndJbWbaYPvWDaBA6Ri8W6kbyMjy2DWw5lZiFhsZYiTpyYN+H/p4x6InMO9Q2xNS8wqCKE0Ykt8TA7fFxdC3Qvfe1VVU5ODNt7gHCzhLmPvxuxOXwb4tm1qYYBgaVmhhXNBs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788916383; c=relaxed/simple;
+	bh=bdCoTddfKaTHsPTx0EilFSFAt/yUFrkOn9TGBFgiMp8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DrxgnkVEy8HT6L/tpi1DwAxV7pnfZaShLfGhEWXKysbYLiLOz9y8TaDCazONyYlioCbjy+pO6RY3q0Sc8QgEhnGTJzFw131emWQNow+P2tu8qV8dnYLAzpIc1QDl1Vdd5iaIN/pRjSbGjnLe54J76gqxAU5ndtj/HrL5sQ2jVj0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aq/9bYn+; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="BPSKVn6h"
-Received: from [172.16.12.48] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d098a741;
-	Wed, 9 Sep 2026 09:07:11 +0800 (GMT+08:00)
-Message-ID: <5e4f9b07-f11b-4d52-b1d4-3b680b457eb3@rock-chips.com>
-Date: Wed, 9 Sep 2026 09:07:10 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aq/9bYn+"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485843116d2so405109f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:13:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788916380; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oo71txTTC50HHnGoIOqZLd+0T5rfOewPnOKNzsDq+7rOmQNTi5Vqu9Ef9gtjHO8qfY
+         7u5LkukKnYxHtkwOGKcL75XkM8ALPCKuURHJ6GU+9l3kJaJZX23F0W5iRC1ZMPJ+E+JR
+         zj5t2ViK2kjqQmNJkRVJfvup3HH8P19k0lAoDQLSiqXZ/OBGoCwkunPj/LdBwsdhMygT
+         TDxxv+r+gX/8tl3+CkbfBC9BM6ssFaX0Wao7GXd7tF5uyf0DQCch/gX3oepANyj+n0BJ
+         OoDshL6iXl6gzZZWQItPGAU9d6rZoPaglbUesswa7eI5HMmLNKipVgs5BVHiLnJg8QZO
+         hn2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q/pbXnjBJcdoF7CaGTuOgdcdmxNeEQ1orWGBuh7m6GU=;
+        fh=pWYhDjtK28zTUcHDffEz6ELIyTEZE7re3Abr8r7RHIE=;
+        b=jY36fNEhouZaNogUKAwQ6ahh60Q6mb73Gw9ggtvDADS2pOGwjWl3VpW+cSo5VTRL6H
+         fOnVW6k9c5m/XFuRml1HxAOF4o0S7/NXoHjRhAmPHJfrgLFyo+50huvVBu2Hfdaqd/0x
+         eIQ6h4703b3cuuFYVrgI5PkZNUbecqw6k9GN+CN7GuUaFtJDC/NzjDCdJg/5IrWVI8sL
+         VHQnPdkauPgLVoQnGzhY7O6KuhJZEEpaOc3rFROivDBhV2qziKnQOwayp8MMqC0KIJdo
+         RbY5gGtlOZC5V1aLxxFGda9HAh8f2l0jMwoYXhIQnb6tf7Gf1zFJB+Prfh4MyI/kHAah
+         cZ5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788916380; x=1789521180; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q/pbXnjBJcdoF7CaGTuOgdcdmxNeEQ1orWGBuh7m6GU=;
+        b=Aq/9bYn+lD1RlsDV8e6QORn4WDYfGwWFOf7/q+I7miqsR2SuV2Mw5LdRVlr/YkGw75
+         MG8T/YB3sZA+1xoFM1EofdQRgxpOc5f6BdJcG4RuiECJn36F+LisY3Vqxp36byv8uCry
+         7AYNTRwOIAP6fxxgDK+JBJn6Idnz70rJ5HvLpCh14i6La3S28odxr26mEDr1ZbAE0vlT
+         61+LJjRfMileNuN2GDiVA7wNgShWRRkbFvl9i0RJ1eekeaw7V9p2fNMzaPL/NoKXDsWt
+         EneC8VfrdWbxpoVbhtKpSg9JbAPlFs9gXrg4fmimKEBEZ5wmAB3inEkKTlH9mC8yAfAk
+         AmDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788916380; x=1789521180;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q/pbXnjBJcdoF7CaGTuOgdcdmxNeEQ1orWGBuh7m6GU=;
+        b=exrPhXd1wMb4lM1UFMTUYva9aseD65dIRjqQ1Grh4JeDGetwn4yT68l+q9MRCI1080
+         VuPmsIYU6bodniDXg2yrqiI8kI6w0+N4ui6SHVgcr6A5e+c8IKyOhqHzKq3ktJ8h+FYJ
+         ZMOkyJjoepd+0PHaiIST35KFpcfA/+vg4tA+Z53yj5bdZeW/shtFaZjyX+caFi7c7KDK
+         WxbIKv9johmoneg4KIrLlHR0SEkCS8jEvfYwulTOQzA2lm/2hY2B+h1RGEMc33sY8MQp
+         5OBl5QM3kxi8+XGx19v1YMiCj7WU1xf7hbJbXhgNHXq+x0rG4RSQ2zQ7KVoAuYndw0mx
+         ppyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjk6PEjbnA50omtfe8FwQ+TWkKmm3sCYmxGGx2r1xjikNEIHcrEeroXdeOmjWonyKb9IcjwJFMi6f2Ndo=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/9srlT4yq/pg//VOi4inCq374pxtYG3uL9Ms7580rehJUyyx/
+	YFOYSDFd2ysXH9eDqgy1LlK/23Lvqq2SPHtwJApTRWHR1fP8P20oB1L1RGsxP4UTMZjwPil3j79
+	CIQRxJMDsaXCaX6G962r0lGKw/oursbfyFbSE
+X-Gm-Gg: AYBFou3BBfbkbtSbT/5zTrwka7KZcSmjCHfKwsZ9dzSL1DK1qdiQHeSVJY1N2gyl+wd
+	qzdq3jBBTYLfW7/uze7xNu5aaEhV5veht+h2DhKdS6garnINavllpfcYId3mV8oV8eBUi9F3UzD
+	UdxA0cKmAgXaCLZ6z0y2MY7rGCFEepwh8GW1Xf08YKf5t3fOAg6g60Yq33GiTAaPsqtsNecQTiQ
+	pX6W4Dsc28BJe0HQ7Xe9oj4cmwx08HPFQ1HpGU5zVIIBq+JBmlLmva0/zMbbRnJjFtK075mvMzg
+	0/lLa3oxwrzf3y9HFr93Eh3ed6Usq9YMP7hzkU9NrUkFqicLay8KBPKG
+X-Received: by 2002:a05:6000:144e:b0:485:8d31:ccf9 with SMTP id
+ ffacd0b85a97d-485907ef7a6mr22363733f8f.4.1788916380195; Tue, 08 Sep 2026
+ 18:13:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v6 07/10] PCI: dw-rockchip: Add pme_turn_off support
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
- <20260908-rockchip-pcie-system-suspend-v6-7-fbabcca9921b@collabora.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-7-fbabcca9921b@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa083b45eab03a4kunma4967f8f441eaa
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQh9LSVZJTE5LHxgaTk
-	5DQkxWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=BPSKVn6h6LN29eN2GrvbN/1+zF4JRqE/CggubnWskTRYkjICKOsaiYGhd489E3P5YTXfIGIdIFXhk0ak0Pzfs+tVgHPiVJVCqwo6hIP5KE7e/rA4Cj5arkRjcoz4e+MM0s1H1MwPxVBp9b3zolVMrF7Q/27lgrCu4HTuAS1rFjI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=8O3sEMbdttlkjB7YR4EWG8ZoEn7yeFuuCH+g88V++TQ=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260824131729.3694378-1-chao@kernel.org>
+In-Reply-To: <20260824131729.3694378-1-chao@kernel.org>
+From: Zhiguo Niu <niuzhiguo84@gmail.com>
+Date: Wed, 9 Sep 2026 09:12:48 +0800
+X-Gm-Features: AcwNN1Vcn3h2XagHNWBx2qCvHznDVYzJaDWMaestGz_GrOmdGRLa4VxE9UXUXkg
+Message-ID: <CAHJ8P3+KBs1cQnDPsfpHOyjxNA+JNQ5DPCbrF_JqTLcmoyzB1w@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to avoid potential deadloop in f2fs_fsync_node_pages()
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, stable@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
-> Prepare Rockchip PCIe controller for system suspend support by
-> adding the PME turn off operation.
-> 
-
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+=E4=BA=8E2026=E5=B9=B48=E6=9C=8824=E6=97=A5=E5=91=A8=E4=B8=80 21:19=E5=86=
+=99=E9=81=93=EF=BC=9A
+>
+> There is potential deadloop in race condition:
+>
+> Thread A                                Thread B
+> - fsync
+>  - f2fs_do_sync_file
+>   - f2fs_fsync_node_pages
+>    - last_fsync_dnode
+>     - folio_get(last_folio)
+>                                         - f2fs_setattr
+>                                          - f2fs_truncate
+>                                           - f2fs_truncate_blocks
+>                                            - f2fs_do_truncate_blocks
+>                                             - f2fs_truncate_inode_blocks
+>                                              - truncate_dnode
+>                                               - truncate_node
+>                                                - invalidate_mapping_pages
+>                                                 - folio->mapping =3D NULL
+>    - is_node_folio alwasy return false
+>    - atomic && !marked is always true,
+>      then goto retry
+>
+> Cc: stable@kernel.org
+> Fixes: 608514deba38 ("f2fs: set fsync mark only for the last dnode")
+> Signed-off-by: Chao Yu <chao@kernel.org>
 > ---
->   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 44 +++++++++++++++++++++++++++
->   1 file changed, 44 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> index 1e48099e36e4..17530507e41b 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -45,6 +45,7 @@
->   #define  PCIE_CLIENT_LD_RQ_RST_GRT	FIELD_PREP_WM16(BIT(3), 1)
->   #define  PCIE_CLIENT_ENABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 1)
->   #define  PCIE_CLIENT_DISABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 0)
-> +#define PCIE_CLIENT_INTR_STATUS_MSG_RX	0x04
->   
->   /* Interrupt Status Register Related to Legacy Interrupt */
->   #define PCIE_CLIENT_INTR_STATUS_LEGACY	0x8
-> @@ -64,6 +65,11 @@
->   
->   /* Interrupt Mask Register Related to Miscellaneous Operation */
->   #define PCIE_CLIENT_INTR_MASK_MISC	0x24
-> +#define PCIE_CLIENT_POWER		0x2c
-> +#define PCIE_CLIENT_MSG_GEN		0x34
-> +#define PME_READY_ENTER_L23		BIT(3)
-> +#define PME_TURN_OFF			FIELD_PREP_WM16(BIT(4), 1)
-> +#define PME_TO_ACK			FIELD_PREP_WM16(BIT(9), 1)
->   
->   /* Power Management Control Register */
->   #define PCIE_CLIENT_POWER_CON		0x2c
-> @@ -452,8 +458,46 @@ static int rockchip_pcie_host_init(struct dw_pcie_rp *pp)
->   	return 0;
->   }
->   
-> +static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> +	struct rockchip_pcie *rockchip = to_rockchip_pcie(pci);
-> +	struct device *dev = rockchip->pci.dev;
-> +	u32 status;
-> +	int ret;
-> +
-> +	/* 1. Broadcast PME_Turn_Off Message, bit 4 self-clear once done */
-> +	rockchip_pcie_writel_apb(rockchip, PME_TURN_OFF, PCIE_CLIENT_MSG_GEN);
-> +	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_MSG_GEN,
-> +				 status, !(status & BIT(4)), PCIE_PME_TO_L2_TIMEOUT_US / 10,
-> +				 PCIE_PME_TO_L2_TIMEOUT_US);
-> +	if (ret) {
-> +		dev_warn(dev, "Failed to send PME_Turn_Off\n");
-> +		return;
-> +	}
-> +
-> +	/* 2. Wait for PME_TO_Ack, bit 9 will be set once received */
-> +	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_INTR_STATUS_MSG_RX,
-> +				 status, status & BIT(9), PCIE_PME_TO_L2_TIMEOUT_US / 10,
-> +				 PCIE_PME_TO_L2_TIMEOUT_US);
-> +	if (ret) {
-> +		dev_warn(dev, "Failed to receive PME_TO_Ack\n");
-> +		return;
-> +	}
-> +
-> +	/* 3. Clear PME_TO_Ack and Wait for ready to enter L23 message */
-> +	rockchip_pcie_writel_apb(rockchip, PME_TO_ACK, PCIE_CLIENT_INTR_STATUS_MSG_RX);
-> +	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_POWER,
-> +				 status, status & PME_READY_ENTER_L23,
-> +				 PCIE_PME_TO_L2_TIMEOUT_US / 10,
-> +				 PCIE_PME_TO_L2_TIMEOUT_US);
-> +	if (ret)
-> +		dev_err(dev, "Failed to get ready to enter L23 message\n");
-> +}
-> +
->   static const struct dw_pcie_host_ops rockchip_pcie_host_ops = {
->   	.init = rockchip_pcie_host_init,
-> +	.pme_turn_off = rockchip_pcie_pme_turn_off,
->   };
->   
->   /*
-> 
+>  fs/f2fs/node.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+> index 968e5ed38816..86c2e67e43b6 100644
+> --- a/fs/f2fs/node.c
+> +++ b/fs/f2fs/node.c
+> @@ -2016,6 +2016,11 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi=
+, struct inode *inode,
+>                 f2fs_debug(sbi, "Retry to write fsync mark: ino=3D%u, idx=
+=3D%lx",
+>                            ino, last_folio->index);
+>                 folio_lock(last_folio);
+> +               if (unlikely(!is_node_folio(last_folio))) {
+Hi Chao,
+is_node_folio->NODE_MAPPING(F2FS_F_SB(folio))->F2FS_M_SB(folio->mappping)->=
+F2FS_I_SB(mapping->host)
+if mapping=3D=3DNULL, panic will occur here?
+just like  commit msg in  mai: "f2fs: parameterize node helpers and macros"
+thanks=EF=BC=81
 
+> +                       f2fs_folio_put(last_folio, true);
+> +                       ret =3D -EAGAIN;
+> +                       goto out;
+> +               }
+>                 f2fs_folio_wait_writeback(last_folio, NODE, true, true);
+>                 folio_mark_dirty(last_folio);
+>                 folio_unlock(last_folio);
+> --
+> 2.49.0
+>
+>
+>
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
