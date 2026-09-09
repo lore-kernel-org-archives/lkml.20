@@ -1,273 +1,133 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010031.outbound.protection.outlook.com [52.101.56.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1653BB9F4;
-	Wed,  9 Sep 2026 06:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936365; cv=fail; b=cvUsdjRZzN6LaLJbaqyMQm3ZE7dksj7/NnyS111ylZ8ZYg36xRonBDCwEn7SkYKzlXDn/4niW6aLzv0fcFecuZFW7xYjHR0ndZZzirT3KGnRQWl8Qw9MnffQQK/uIR8RZVeQL+Gy3txfNxI4b1UI0ZUasbA21N2gE5qNHE6jGjY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936365; c=relaxed/simple;
-	bh=XauiHze1p/Ot4GwEziW/Y5XfPRwg5V/nYoGq4smROeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JFQkQqSXqsQGimfqlsjBy0rVtoIaniN3H5HeDwke+ruMzJzKjwtQmk22XmeXlZxNHtBrSnnzs+Znx4XM3WsPP4k8HytxDSo6xsuDOXf8xmeWXMpoMSyvpeF3gE1qEfmUQ8d9r3CNH/Wf+X5vkc4zqNvDK8p5nQbhHOveUnSP+jU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KKRH7kzm; arc=fail smtp.client-ip=52.101.56.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101F53BCD01
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788936367; cv=none; b=R/P1xQUQgbVknGqSw4qPf47jqmY7lls1ta5SB34WII4jxINIRVdF8wkVOiWIKvP9Gl1yAsigFys8kDMGeA/XlqZxgs43fOzdm8wtVEyBt5QEFWCbJlA3gWdBPgrswn47S65utaa1bFahR+IDwXcGarzB9DrVS/TOhC7wB7A8lhM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788936367; c=relaxed/simple;
+	bh=aw4Rhoh3RwfLskd+wz0l+G13x6bu+xwyiBwtb7+fPgc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qmn6b8DrJNA28IdPHDFO04sz+tAJy14lVEJ4rsYn6cltek0KG2NSMjOqxyNkSKDoVzqt56Ur+P31XBg3CqOj7j/u6kzMZfAvch/h1+TH6rfEm4kckV4Bi8Mf9p2irAvgYYJKTYoOEh4TnFA6mmC8TAwGbkKfS5Glo5tlTTzyX7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ctS7YgEL; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KKRH7kzm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S4pRjNMqGQTPm61G+0uYnFHDnK1tyAPlRLW8ZqpF4FgiIjsocCe9V9Y/SHXB5EJ+H6nrVl2G1xxADM29on2VEn+LJvScfeytyUqTw4MG51e3/YHw+GkuMfNxGzoF5aBGctwv1JmbVw6sPAXIyLiV/Quq9F4y/Sr97PdETThsoQCRQ2u7PP2a1lbh6ORfO4oQiINIJMr5+Phdk6BYzvI3imFPSfYPkI/NZCxl3T7XODroII5PpBLKWPALhiAfugHl7uSluIFKjza7dH49+jzXMpIl45FqKDQU0MnR5kK3vbzTkDoHuX9qSK85GxoZRD6gUXlBhysCIg0K9sZqB9nLUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kxo/en7VUEldr3mI7k370GfU200/lTyjP4LqTtSTYAM=;
- b=GQ6tP70eljRNLy5Afq+rrSxr9Hl9ksoipH0kg6W8zDK5pYr1xZQ5b8inZc8wa8Sxtaqnlhn65UFRLt0kSmml60q7fuZOECxDUtX0UdaaS/8wzGVJhJrsanW2fPE8KenluCfUHU4Qn01y4muhg4d9jNV3rCkw8DF6a2yLyjmuOFQRRn6efdsRYplW9yHu9giFfNu0LuZ/Mj8MDUb25sfUp2cgJmqe9DS+0tP7be2EdhyMCLMAEihLnpeHeGvh1HLWkuI4khu25NJcxgymptZmOKpNrF0XVEyiHfzruCG/MzUhQpfY9X06vi3mXIJOUTDhSmrnW+/avYy5mvytqxTMUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kxo/en7VUEldr3mI7k370GfU200/lTyjP4LqTtSTYAM=;
- b=KKRH7kzmkvImm67W+EWTvngDtEjbtUT22g2p0xkpHo90IRaDmsJi0b8TLb6R1oHGaeHebF716D7V9C+/bs87nBvtEuSAxdmhKdF8Ygftj2W3Z8uSs51DRUjKnda6ot6omaA4S7R6Nhh/S8iyIgU6uzPYcDTDUxW1lnQMny5R75FIkNcvnTE1aMxKswrcqK19trAz8rNpDXCWsqnZKS/wLq77nxFWThyUudJnFq0N1GQ1IQy6kBERQfPEDn/d9rTgLOtE4da4px91BCqOvPp2D+Q+dUN79nRI7zmpNOp2S0s20FsezlwUgkMDIXf0RxvbxJZBRPuWmLMKX7brZI/tAg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by IA0PR12MB7697.namprd12.prod.outlook.com (2603:10b6:208:433::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 06:45:58 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 06:45:58 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: rust-for-linux@vger.kernel.org,
-	nova-gpu <nova-gpu@lists.linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>,
-	M Henning <mhenning@darkrefraction.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v6 08/13] drm: nova: Add usable VRAM size to GPU info
-Date: Wed,  9 Sep 2026 16:45:01 +1000
-Message-ID: <20260909064506.910162-9-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909064506.910162-1-apopple@nvidia.com>
-References: <20260909064506.910162-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY6PR01CA0162.ausprd01.prod.outlook.com
- (2603:10c6:10:1ba::20) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ctS7YgEL"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so6314333f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:46:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788936363; x=1789541163; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IYl1RTu0H7T966MjgfIs9rrG8GCdvOEJmaLrbPw3sSg=;
+        b=ctS7YgELjtx3ZBQ/TzWyUOTuX2/1Qkv0ivafG7k0s5vHBMwiHF0+Tv+qZqhWGL6nYk
+         bx9ayfzupqOghxM/0czxl5jVmVdLGE3ogpFcD4vD4Nlx4VnUea5gZOpZh2+p/rjchWYx
+         9BewLDl+iWsspYsX0JR1vScBE3zb0CkffqNeV23GNJqDoczDe1bUH6nxDJ/DTlJD/bS2
+         AHRWN2H3ABb90NdpbF2tONd4bgKUDGqWnZAcaLKIPeBCv1FFTDVsg0uVaIRDTj9ypkD4
+         8mbKChDxTebXjoyxco42M8MkdzPB8HSvbJb9pGLK5G+Z++ppGW5Jt4RLqBre8QMcA8z3
+         zMUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788936363; x=1789541163;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IYl1RTu0H7T966MjgfIs9rrG8GCdvOEJmaLrbPw3sSg=;
+        b=sKdcm2rghG5qsNwcd7DUEfwzi/R6J9KIoM8cs34npp0/k+LGQrlhAPjMPZoKXDn9Ds
+         i8jQi9sNQF2VbRrUndmvzFMddgeVnzaIIC/hZXCFyzdlyZe9RtUMms6IWgk1e4AWX2Mm
+         9U0NYCNuxFhEDpXWMzOnKd1YP7cUQt9vxavZr6jlnEVXcZkQfLVNFgWO8YhFN9NJQWie
+         wUfBUnSwY9esL6T2nZXtLVRN4ikyYSEiQHf+FmsT/P7dlZqzbwG350YJlikNJmBqhsqL
+         WdtBxW0U/WpzN7jr8D4jhAewhWajFAoxvgUFIXwozroqisdjvfA3q0vKyYtDA/JA0f3D
+         KSjA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKsmRkhj2IjhH8/NFKoIoHAf+HVCpqkFUq5UuLj5wjhevVtdKaxW0jOd/Vc2IfCfrcN2yatoy9mIClY9Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3Mzau2VuLgwr766DD8SLIrR3GIF1nwg5zNhgfU9aZ7IF4x02f
+	ah6jL4GHDSR1ipuGHHfmYsEoK5yAqL6cQd2ul/DG04g1EnBiLDOkMx6I
+X-Gm-Gg: AYBFou0XZN1pUIjmL26Scxpi0t2Rx05jL+j/OQiXxQTN/hrM+J4f+wMVXcSTAoGO54l
+	xDfPl+k0brw5+NlocXoSqB3gfWJhG+nBomhCDNFd9Uq4Sf64REhHBTc84c/OIsXhY6wKAX555Y2
+	xIxIAf4IO9Q2pJBSKq6wcIFrrj3kl8CApHKPB206kQecSovxWEdfze5DBQaS/A2/6+bDbAnplSU
+	Ox7h12YlVDz0TP6C02RbOCFuIJnh4Q74ylCjfXU1rNGN6Jg/WGJj391lF7InuUcFMz/2CfpUk+v
+	p7irMJSbA2jblHKOVrtEo+4t0wIIQyl73QCdjaZNnHdIMNlmRhJfYlUpjH/wx7rCmrpYU4HDKLW
+	vwpIYDKtEp38Vp+MgWPfBZLRjdPav5mEdEeOdAN6zKmB7SwkJFlc/eLgiQz0GVcKRSn+/YrVjFo
+	HMgBFnYXQ/i8cnEu2K0Myh2blC+ULvqh26ROXODcmiX7HnSZ+GzIX0p3QKQsgCuOrJTFYRuyq31
+	NM4FDmk2zAhpAIWzDornGzzXdZHkm4G7KpdyuptcevSG2alY0MKoyzlRGvWQeTA6oDFLQjNtB6N
+	q24jNXBQKMDgNNaNaLfRlFSakMZeZFyu0G/Qothp6Hels2oSvT6Q
+X-Received: by 2002:a05:600c:1914:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49cf8269fdfmr325273315e9.13.1788936362969;
+        Tue, 08 Sep 2026 23:46:02 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fc1be3sm17238355e9.4.2026.09.08.23.46.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 23:46:02 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Nicolas Pitre <npitre@baylibre.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ARM: dma-mapping: split cache maintenance at highmem boundary
+Date: Wed,  9 Sep 2026 08:44:43 +0200
+Message-Id: <20260909064443.90544-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|IA0PR12MB7697:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44af8012-9b5b-4957-23da-08df0e3e017f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|56012099006|10067099003|11063799006|6133799003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	BNjes4gTVl6E5qwCZsfNCIMJjsqH88VIPYrv3z+fEyvfOG92OhDpSIgMF8rjszMPdsqjMqmRzzMbVKyFSpSNDVa6oAk4JuUIKy/5LlwI01z3R3b6lXGV0ftLu8ytXnDdhafuJpSBaIkp+NcnnaI6G8BkHAhsWsZRCX3/+pcGq397fQtH+k9QJ77tgsLzAZaspc6YopRVpaNPwTl9ZpBPXXSHFpaMG4lYWOCHZGaEylZfCwIwDrWa8JLWRxXhyg32M4jxFH8Z29KxMyMHMemDpGYkAdflBmN+IRKocJXnwkQUhSlcwf6Mc1FT/3IeKv5XZmkYj1NtT6aAecr6W9WZJBvFqhJeYCb1g6wD6j+y/L6P32+0rfvyXquTti0cAf3CKhRhTrq1UrUpGrERq9COxBAVdKSQ6XIdNu3AzMM6nqZDFquGYtB928Mq4SEpO4ZiJtd6tU+NCAWNzR97yOMFcBkaa3439QYuR/vK0G9c+N4e5iyfZaRhKAlVRHa1mVGnnjXrJDuBWraa9fRinaaMnJqy/TeM1sBQIok3o61r+ZorORQDZPSyf3lIS3hBHfO0V0k2Vd9ouLvb7Vkz9RdHo7nH5cQuc4JBN7SJV8W7pikSInN7noIdEcl8LBCg5x3cgWGTr22WqHIvC6JrBWWIv53Kom32rYUXTMn6K4/JZ5o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(6133799003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uMCjLtXucCH/UM3gbdzEKcTl0x/Mj6LR251DqPg8w8KtvqxxZi31/E0xLSX/?=
- =?us-ascii?Q?5jW1uIhWTsJbkAKRVVIPYxBfwbwFKM5TBHQkeVkHKV8DmHx/tibxmFcbXSNv?=
- =?us-ascii?Q?q8+INyK1Qpc3VmG7k8q8rzQv/KNfsOOk2mH2aXW3HcXXNFVWr9Vdubusfi2W?=
- =?us-ascii?Q?DBY/fBWdVeizRYOXkFQN3Gt6gGEgPb4juzZxJXMlm6SPyFmYvKfwBP9lniSm?=
- =?us-ascii?Q?gaLH4yw/IozEOsHIDz6MRereCjNPUzzd6zH0/hROe6zJIY+jHnudcC0OVuwM?=
- =?us-ascii?Q?kmqGSKSvo4nEhVXvFmRbHpPpDSAjZhrhhdKs0hM8BBGuH+a5M/ZZnpd/UtsZ?=
- =?us-ascii?Q?tuMcUTU4RHiqTYu/alVGXXxi/u2O/5OOw3vnDbgeyoIIs05TW0laQHEhvZ5B?=
- =?us-ascii?Q?Yq5wRP8JMICj83YaUo2zbvP4xusNfmTHTjo5agSNwtOyDdAr10z/hyaOmpuw?=
- =?us-ascii?Q?1EcUE0VfLCL6k+S4AT12/dVXa9Qhlvf9bv4U2vo48cfQPoaRsv22un9aMrBp?=
- =?us-ascii?Q?w7DrwD2+QWpwQ4rSNYmUgSDrduJnupRDVfN5e5CvdT2sLI/Ms48HAErH7jAE?=
- =?us-ascii?Q?0/rsSGJAR4DzTpdQb3ll3KJzsYTCl7DwHlndJqlB94gn0zaVUArcqSCh7T6K?=
- =?us-ascii?Q?dn0Jagphmg13pw+wVbq8BeQBCat95nl/0hJUcWgcLBD8sbZvLqsP4vqP2uJ6?=
- =?us-ascii?Q?rw5JqBWgaBTUqtspsq2wsnwY72JrBX86HMw6wyl7FW+cAznTvfOaTYnR+X1Q?=
- =?us-ascii?Q?ZNgtfeDYqjFWciRoExWEHhNUUipabHnQVzE3hvV0esKo1lizJUaTpVMzA4Hq?=
- =?us-ascii?Q?EL3wThuWnlMjKTLBHQVTa3TfllKAkRnFSpkhLk0TAQngQlP8BIGcf+HQc2fd?=
- =?us-ascii?Q?I1yMraNAG40XyC0CXquHraZ05WZ7a4hK7TfTFcGcjz3NMUYqpwyGDkmGHnjN?=
- =?us-ascii?Q?9cj+YWsK/4w51cOr2grbnAuC+ID20Z16fA7a38MLVkyjQfkRPlZT144C7cg+?=
- =?us-ascii?Q?YzNN+xYrXArm5TKVlgzvjLHfy61Mqqd+4zj938qJsAXadJVa+gbs6rHmL7qa?=
- =?us-ascii?Q?r6gps/h4UMk67xfKDv3Wue91JS6RlrsYEqIaL9BG6Qtd6fPO+1j4pglFKuOb?=
- =?us-ascii?Q?Oh3IC5fB+5ir+/KMiqPFMC6HsNkw7AcHMV1hUQYv3MnPxrenB/OFtqhGVlRr?=
- =?us-ascii?Q?Y6R1pVIxgH1fXiIeS2YXyNchF1D3FhgLf3u0KAfIRYKAVS8+glm+sUVWUTp8?=
- =?us-ascii?Q?plYfHUR9k95L3vNy7od+dgUK3Ur8FxOrrOmJusq52peADDlq8J4XoByYSmTw?=
- =?us-ascii?Q?YnQfgtYuEevEcy/rTt7VTTSMsuja8uc1fNraSAnVcQ148wYWPQOYIR6RBcTJ?=
- =?us-ascii?Q?jULD9cJ94NG7JM8nuXQY0fUD/RmUaV4g/0Q9tPQNi24rFcB/XpvgMW3mHDBA?=
- =?us-ascii?Q?GTl6GezQifv4kO9Qfjf+qrJVEPl5giBrMtuX19RRFlYBb8oPfZhbhM82Lm+3?=
- =?us-ascii?Q?7Hquggp4nQXsxq4+oDHj7LTLAuJe/iV+Oznm3Trf6LbKEtmCF0O0uOEVrVZz?=
- =?us-ascii?Q?qLq8ulAqH2ZT4cXvpOY1BCws8Z3vv9mnyjZUAR35MJYzvN9IMpj4S2xo2z49?=
- =?us-ascii?Q?2Qaneq0dA+bCY7uSJCzj7qkflhu80eTimNLS7jFUfrYMhBHsO/lted+4W/bC?=
- =?us-ascii?Q?T33p3H4y8zzdXenPOHQfgom0QaF0L8c4CcZfzd4dCsJPX2xjqwvq0zeRSQ5Z?=
- =?us-ascii?Q?qnRTM/o/8A=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44af8012-9b5b-4957-23da-08df0e3e017f
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:45:58.7400
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qfRsGV397DI/+0cm8yRz7yBaaZYYmXQSEX0Ta8VPTc1Tte2JbVvlc+rqcIY8Js07duU/JBD8ofr0hIDt/H7vmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7697
+Content-Transfer-Encoding: 8bit
 
-Add a field to the GPU info structure containing the total usable
-framebuffer size. The usable framebuffer excludes GSP carveouts and
-other protected regions, so it may differ from the BAR size and total
-physical VRAM.
+dma_cache_maint_page() processes highmem pages one at a time, but passes
+the complete remaining range to a cache operation when the current page
+is lowmem. If a physically contiguous range starts in lowmem and crosses
+into highmem, the operation continues beyond high_memory through virtual
+addresses which do not map the highmem pages.
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+On a Raspberry Pi 400 running an ARM32 LPAE kernel, an 8 KiB scatterlist
+entry crossing this boundary caused a deterministic data abort at f0000000
+in v7_dma_clean_range().
 
+Limit the crossing lowmem iteration to the end of its page. Subsequent
+iterations advance page by page until the existing highmem path takes
+over. Keep the bulk operation for ranges contained in lowmem.
+
+Fixes: 43377453af83 ("[ARM] introduce dma_cache_maint_page()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
+Testing:
 
-Changes since v5:
+- Raspberry Pi 400, ARM32 LPAE, 8 KiB scatterlist entry crossing the
+  0x30000000 lowmem/highmem boundary: all four unpatched boots panicked at
+  f0000000 in v7_dma_clean_range(). All four patched boots completed. Three
+  100-iteration patched runs checked 409,600 bytes in each DMA direction
+  with zero mismatches.
+- W=1 builds of arch/arm/mm/dma-mapping.o passed with CONFIG_HIGHMEM=y and
+  CONFIG_HIGHMEM=n. They emitted only five pre-existing kernel-doc warnings.
 
- - Expose the GSP static info through a NovaCoreApi::gsp_static_info()
-   accessor and read the VRAM size from it rather than adding a
-   forwarding method, as suggested by Danilo
+The hardware kernels used base 986c24e0fe44. dma-mapping.c is unchanged
+between that commit and this patch's base, 893e11787f78.
 
-Changes since v3:
+ arch/arm/mm/dma-mapping.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- - Partially new for v4 - previously a separate scalar GETPARAM
-   parameter
----
- drivers/gpu/drm/nova/file.rs          |  2 ++
- drivers/gpu/nova-core/api.rs          |  6 ++++++
- drivers/gpu/nova-core/gpu.rs          |  6 ++----
- drivers/gpu/nova-core/gsp/commands.rs | 10 +++++++++-
- include/uapi/drm/nova_drm.h           |  6 ++++++
- 5 files changed, 25 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 4a65bec0fbce..d0ab3df6bcd2 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -38,10 +38,12 @@ impl GpuInfo {
-     /// another documented default instead.
-     fn new(reg_data: &DrmRegData<'_>) -> Result<Self> {
-         let spec = reg_data.api.with(|api| api.get_ref().spec());
-+        let gsp_static_info = reg_data.api.with(|api| api.get_ref().gsp_static_info());
- 
-         let info = uapi::drm_nova_info_gpu {
-             architecture: spec.chipset.arch() as u32,
-             chipid: spec.chipset as u32,
-+            vram_size: gsp_static_info.vram_size(),
-         };
-         Ok(Self(info))
-     }
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-index 876451dcc051..64f9ea442278 100644
---- a/drivers/gpu/nova-core/api.rs
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -15,6 +15,7 @@
- pub use crate::gpu::Spec;
- 
- use crate::gpu::Gpu;
-+use crate::gsp::commands::GetGspStaticInfoReply;
- 
- /// API handle for the auxiliary bus child drivers to interact with nova-core.
- pub struct NovaCoreApi<'bound> {
-@@ -28,6 +29,11 @@ pub fn of(adev: &auxiliary::Device<Bound>) -> Result<NovaCoreApiHandle<'_>> {
-         NovaCoreApiHandle::of(adev)
-     }
- 
-+    /// Returns the GPU [`GetGspStaticInfoReply`].
-+    pub fn gsp_static_info(&self) -> &GetGspStaticInfoReply {
-+        &self.gpu.gsp_static_info
-+    }
-+
-     /// Returns the GPU [`Spec`].
-     pub fn spec(&self) -> &Spec {
-         &self.gpu.spec
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 91db64dcaea7..b9fba3a79b1e 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -301,7 +301,7 @@ struct GspResources<'gpu> {
- pub(crate) struct Gpu<'gpu> {
-     pub(crate) spec: Spec,
-     /// Static GPU information as provided by the GSP.
--    gsp_static_info: GetGspStaticInfoReply,
-+    pub(crate) gsp_static_info: GetGspStaticInfoReply,
-     /// GSP and its resources.
-     #[pin]
-     gsp_resources: GspResources<'gpu>,
-@@ -422,9 +422,7 @@ pub(crate) fn new<'a>(
-                     dev_dbg!(
-                         dev,
-                         "Total usable VRAM: {} MiB\n",
--                        info.usable_fb_regions.iter().fold(0u64, |res, region| res
--                            .saturating_add(region.end - region.start))
--                            / u64::SZ_1M
-+                        info.vram_size() / u64::SZ_1M
-                     );
-                 }
- 
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index ffc25fd8c47b..5c1f9d296198 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -212,7 +212,7 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
- }
- 
- /// The reply from the GSP to the [`GetGspStaticInfo`] command.
--pub(crate) struct GetGspStaticInfoReply {
-+pub struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-     /// Usable FB (VRAM) regions for driver memory allocation.
-     pub(crate) usable_fb_regions: KVec<Range<u64>>,
-@@ -261,6 +261,14 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
-             .to_str()
-             .map_err(GpuNameError::InvalidUtf8)
-     }
-+
-+    /// Returns the total usable VRAM size in bytes, i.e. the summed lengths of all usable FB
-+    /// regions.
-+    pub fn vram_size(&self) -> u64 {
-+        self.usable_fb_regions.iter().fold(0, |size, region| {
-+            size.saturating_add(region.end - region.start)
-+        })
-+    }
- }
- 
- pub(crate) use fw::commands::PowerStateLevel;
-diff --git a/include/uapi/drm/nova_drm.h b/include/uapi/drm/nova_drm.h
-index 26a5e7ca5425..946bd4bf8fbd 100644
---- a/include/uapi/drm/nova_drm.h
-+++ b/include/uapi/drm/nova_drm.h
-@@ -180,6 +180,12 @@ struct drm_nova_info_gpu {
- 	 * currently known chips.
- 	 */
- 	__u32 chipid;
-+
-+	/**
-+	 * @vram_size: Amount of usable FB, excluding GSP carveouts and protected
-+	 * regions.
-+	 */
-+	__u64 vram_size;
- };
- 
- #define DRM_NOVA_GETPARAM		0x00
+diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+index 7761099dde9e..887209a09226 100644
+--- a/arch/arm/mm/dma-mapping.c
++++ b/arch/arm/mm/dma-mapping.c
+@@ -663,6 +663,9 @@ static void dma_cache_maint_page(phys_addr_t phys, size_t size,
+ 		} else {
+ 			phys += offset;
+ 			vaddr = phys_to_virt(phys);
++			if (IS_ENABLED(CONFIG_HIGHMEM) &&
++			    len > (unsigned long)high_memory - (unsigned long)vaddr)
++				len = PAGE_SIZE - offset;
+ 			op(vaddr, len, dir);
+ 		}
+ 		offset = 0;
 -- 
-2.54.0
-
+2.53.0
