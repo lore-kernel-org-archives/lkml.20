@@ -1,190 +1,133 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F43D47DF85
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C6447DF85;
+	Wed,  9 Sep 2026 09:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947496; cv=none; b=lpzoi6m9TC01nWSjmwxKRIOLidWlazRMF3tT9DfFw1HJrz/G/pe6ldSLd47vq50LNQn5CaSDo3LDF0LzBvjrwtu+5M568SbdIKaaNPGRWpDABeSzvqj3/rFa7h8oPTsfNBojajYedHrt5ZLwNQopfa0GLVNVaWgteysRSWYuP18=
+	t=1788947557; cv=none; b=hcu692cUE3QclIhz5YPhUpvJoxfzqv9Pza+dHu61mxB1heTGp8SgHWtC+Tm1vSCwwdFHd/4mAryMV4RiazhKhEWLW8ZKkS2OVgO2M9CUObRwTC/0Hjy6jt1llW+1ADuEbcwB2V82/e8Sbx6360GMf6sGEYUyItELVBRWQ0Jha/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947496; c=relaxed/simple;
-	bh=zEN3i+bht4wJK9nMYZ0X1V5lt+UAKAX+zLdvRlqVUhs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=OYgvVnLVdXLGksBZRAifsZklMhPd0aSiu+ecF9YRBLqCdyKfMOaXsPO9zm77nYwoYXSHC9o3tSJ35sVH0ly/w6gytnuBdpzzGIofTi6CIj7dgD1BvPwm9IcJgvudalqrcrDSppOD3Rs2732epOfYMat4WTnJ7RIPg7jsI9fkRHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kGnX2DKj; arc=none smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788947557; c=relaxed/simple;
+	bh=/v8FyrdGsbUZw+j3BUzd/Kxabdh1Cx/DyaS/EF65d74=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vn55s3mbMwIzCCMUBcwjzt2UGh5tuH2ZmQNlgKGGNgTX80P/+Tu6vzBRsPGny1uVaWoLhk3n0mm9TrkeGW881kqbDv4J0BHHgtrL0tMVhMGkcuSgqUvnPzpRpsCNXL0a+ZNOn5BERgGVlqb1OqeHIfH2mWdQnjl4uy8XHtr7ilU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBv3HfYq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kGnX2DKj"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66fa10f35caso5178187d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:51:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788947494; x=1789552294; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mn+TRjSVVIAZoTaeIYbM//CzX6IvKNmptuaikzRYa5A=;
-        b=kGnX2DKj5lnH5TOHANwvHWEMVwQIEp3f4GgGRZXADv0eNY2m2fw8q33D3/MO9JfAwT
-         1ZcJZVgZQkSIDSzb6T5+E8sqTQg50xUC0+CCDRjDctfJAGKrlcSwy3UTnhB9Z4ENzo3x
-         OPnvb4MBYE4UpXz6RCRFEQL/jktk64V0atEPf3rIwAcfpW9cTn0oThrLP9Y5xzRATvnx
-         Mn0HTU8OPvLjn2OPvXDmGjOAJH7D//Mz7uj5WB9LCAYmppi0mer7j62U++HoqKCUsCgW
-         SDECqbINvgOIRG6fubgzAGl3hGUrza5t3QDpB8YQpDTH1uuxa70krfzzYAD8aCv5vA4m
-         4W5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788947494; x=1789552294;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mn+TRjSVVIAZoTaeIYbM//CzX6IvKNmptuaikzRYa5A=;
-        b=qnYH9T63+SIveztyB/UBZwKiTcNMnsz0pZwku74DlKwUbGsrFB5yUI1lKGQj9chRdQ
-         aK0jT7N6e3iURY7ZkFxGoN94uggF5Lyc05dqypbA41QuiOUESVIEeBnnXqxPOLOgiEPw
-         VklqShZOJU/7nrZjGjuIjQsdkiEOPIBq7UoHyjMOBwD9nw/PluJBMQLkleMTKr4LLfVU
-         zdWPN+A7eaWPMFai7geBUVXBjl4111Qg4vZLdKw01q4ezIjDxHtW3Z3qgnzw9d8hiWhg
-         HsQDYzxWNRsGrfgzPt+hp1WjL94t9Lwp+EuL8YokHNHGubqr501DJVRjUQ0e5c0Yz0zF
-         iTiw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwpEShonH78uHYZe2qMwbdgT/Ozq7h1mrwPLVZEUrIPoW3m12EpFeNcrzOTbsKe20GfmBfhyAE1ngu93Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++n57yFfEnyY3RsvoA6BQKXYxKie7w9d+AQOGlxfFRfgS0uejLyq
-	Xoz574iRtSwYDNu0bKXQbEwEApP1h9RAdwhKCeYPlX73TpNGKyt69IS373V3S4sGww==
-X-Gm-Gg: AYBFou3ECV87Qu9zKUJApTIL0gMtLk2N/G1z4jdR+v/A/0fEsjOgcJxXi4dpQbST0Z8
-	VQGFOCguzJm6iE9NeNorTiDGZivXQ62Ceh6zvpA0jvl9p/92tGBnp6DpXlrK0g7Gm/zJZOvOeBL
-	gOWN/W//cs52HUxLUROC8bsZSg/ZMDmxcFbOC3aReUW4je/V5mZdw+v8xS4L83gc/h14gj7Doj0
-	m1v7y+ALuZv0HP+yc3kqm0PF9aeWh/q0ssEWewRP17eSMpSbGEkd4y2WXHajPZEMfwH1hlm4x35
-	7evXDDbpNmc7hivbbkySm9ZlVnri2vHvPh/NuFUYDW9xsd6nTDUOvugpWUoB7aI3Ye9SS0tr5er
-	0egfpYeHLKxlFd2Z1/HjpZ6yXMx0gkd55YYdEQcGoBl1+mzzEffvJp4iH4CjfL9U3ByGcMubPog
-	lfmPhoAChuuGYsI04DCkO/WrU4f+Ja0q46Qz8juyNL7wYGDbO8HSRuBDLAXbmZU1pMQKB56Dr5O
-	dXPXXxJy/IvGHkDf9ngSETpaLih9QculC4TvdG7ZwzuevwcdBxZBxlsUCU=
-X-Received: by 2002:a05:690e:b8d:b0:66f:c774:5b4 with SMTP id 956f58d0204a3-66fc77411b8mr7040210d50.78.1788947493066;
-        Wed, 09 Sep 2026 02:51:33 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8749af79c56sm78820707b3.22.2026.09.09.02.51.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:51:32 -0700 (PDT)
-Date: Wed, 9 Sep 2026 02:51:27 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 05/26] mm/fbatch: lru_add_del_folio()+folio_add_lru()
- after clear_lru()
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <b2e312f3-6909-5496-195f-ab71b45970ac@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBv3HfYq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2D81F00A3F;
+	Wed,  9 Sep 2026 09:52:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788947555;
+	bh=A1mH6YXkKjYveaMEEmKxLa8h3j6vD8suFECLiBU+ZF8=;
+	h=From:To:Cc:Subject:Date;
+	b=EBv3HfYqinuqKoW5fn1TxTz4ApjsNiRStVFwX3lcFVJMpxaRcSERfMH5Qnj/3eIgj
+	 Tl4WtM1ZAUbbgW4znyiugv6zJvlP0PtKiQzT/dYmBhf4qGg8vNDnyiq3n9LfwO6EgV
+	 QaZqG6mBVr6DQCgefS+dJ98MLveQvBwYyTB2GZKw8HKrK2DjMdnTZvq6KyECkU1ILF
+	 0BX3fAtRjg2kk/aOL9U67awk4PU0xlNNrVm0dXwiz5+frLQbokFBOhYLFpk86TkYPw
+	 7B5yfEEkN00U1kNRdNwYmHpN6v20tiQa8gzeNMYUNYPObbhBVdoEO6rBxEZUmjOwCA
+	 9Gk4rN0Zc4Rog==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 4F86F1980050;
+	Wed,  9 Sep 2026 05:52:31 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Wed, 09 Sep 2026 05:52:32 -0400
+X-ME-Sender: <xms:XiyhastfpMYf09d1ttYArPCf7TJBaJTfLsoEyodPKoLrS6KorUpcfA>
+    <xme:XiyhagaJFLDFQglul_8JnD0j5JfMtpnMX5kaOgmY1vz6qiGk7GC2FCTBdtV5fh3m-
+    n0Y4aOn2BlD1NkbZ9hluORZSO49RKDdtOWLYogaPOFGv07qTiyos_XD>
+X-ME-Received: <xmr:Xiyhas0NUaO0EI_z-v8rH5KEZANLC4mn0RkTj8msTBYbpoxcqGG1S2MvpcA>
+X-ME-Proxy-Cause: dmFkZTFdXEAt8Xoifn3HkMvmPrf3pdMTyQIQP6Aj3OujnVUZN6058eZl0xTCRZuAYJ+0HC
+    8qc4gz01mjgRj+9r0kfXnzkY1H+KSr3uvCg/aQhbrf2lEreUjRytWz8OvpgHDh1c1a/rwH
+    KO5/1ykH2rj8erZ+bSyokXSFrp8mX0/cyxOcNFl8y96joF53k5aRibyS/SShSTu6chBfYJ
+    741Ug35JL3m8/wMe3559u2iJNdscI97Ja4MxvUprYMMMEOZ48IQH7BY8BVxwNDzJy8V0C2
+    0deKwBYVFl0QBnpADvehmKoeLOgkYECDl8/Ukd5upAlpXGD851ILq+CLZ1ZzJg8SPyD3l5
+    EMOg3u7PNME81Ch4t4yaBJHfb4jUZMvWKM6lOtY80loYkRwUAMWiICXCkUBrgNog1fi4ja
+    063KZhqOn59ljj65C6vQ7nk/qpSbw+ahWlhYL6QkOP22NkX+6V5LrwCg6epGo8rxeMVKz7
+    uuQSKzb8vpX0Ay0nKOT1vvUzzNOeXc0CYQ+f0ZkHaj/FDcWEERf/q27ganz5MBC/6SaP9+
+    t9OApQn23jNdRDHbAZZm+3b7mrfJnKyamCQBS8IZPnnMwnKYHEJGVd+wkyak41iz6adQhV
+    3hd5uCAH25srvblyvSv41IlZNyJM2UTR965FsoJGKshx3DWWxvzR1/x56cNg
+X-ME-Proxy: <xmx:XiyhamVGm__Wd8wgJ3VTxeyP9ikGxJIUkNhU_-W47-CMTel4LJCABQ>
+    <xmx:Xiyhanur1uuJPAMztkiXUApBkD1kEUnCERpIgh7l2EnKlSw0Czthig>
+    <xmx:XiyhatVcrYRIED6j61FYUUpZeiD0e7GHvWeBJKEHUkAWMeiAgHTGlg>
+    <xmx:XiyhajUt4LyHthI4m1uORmxaMOZ0uSYN8r-ChEzUvYoOLr4KBfztlQ>
+    <xmx:Xiyhancs8FIZe3ZN_PtgD2z5d1IzGWxBDAjoqnbAnPnGtPJfInT9xpUb>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Sep 2026 05:52:30 -0400 (EDT)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Nicolin Chen <nicolinc@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Breno Leitao <leitao@debian.org>,
+	Kyle McMartin <jkkm@meta.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	kernel-team@meta.com,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH v6 0/2] iommu/arm-smmu-v3: Make the queue depths tunable, and shrink them in a kdump kernel
+Date: Wed,  9 Sep 2026 10:52:26 +0100
+Message-ID: <20260909095228.2174031-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-Most callers of folio_test_clear_lru() then proceed to remove the folio
-from its lru, and add it back at the end when they're done (if still in
-use). But isolate_migratepages_block() and check_move_unevictable_pages()
-sometimes decide against, and release immediately with a folio_set_lru().
+The queues are sized from the IDR1 maxima and allocated at probe, costing
+megabytes per queue per SMMU instance. A kdump capture kernel pays that out
+of a small crashkernel reservation, for queues it barely uses and two of
+which it switches off anyway.
 
-Which usually works fine: but there's now a small chance that while they
-held the folio with lru bit cleared, an lru_add fbatch drain came along,
-and had to skip that folio because its lru bit was transiently cleared
-(previously, the lru_add fbatch drain relied on finding lru bit never yet
-set). This risks leaving that folio off lru, unreclaimable until freed.
+Patch 1 adds a cmdq_max_n_shift module parameter, decided in a per-queue
+helper and floored at one page. Patch 2 has a kdump kernel default all
+three depths to one page through the same helper. An explicit
+cmdq_max_n_shift still wins.
 
-Fix such cases by trying lru_add_del_folio() (which only takes action and
-returns true if the folio was on an lru_add fbatch), then folio_add_lru()
-if it succeeded: invalidating the old fbatch slot, appending in a new one.
+Measured per instance under QEMU on -M virt,iommu=smmuv3, through a real
+panic and kexec into a capture kernel:
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- mm/compaction.c | 13 +++++++++++--
- mm/vmscan.c     | 16 +++++++++-------
- 2 files changed, 20 insertions(+), 9 deletions(-)
+                        4K page          64K page
+      cmdq         1 MB -> 4 KB      8 MB -> 64 KB
+      evtq         1 MB -> 4 KB     16 MB -> 64 KB
 
-diff --git a/mm/compaction.c b/mm/compaction.c
-index a049415512c6..9e045a90ba21 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -1204,7 +1204,13 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
- 				     !cc->alloc_contig)) {
- 				low_pfn += folio_nr_pages(folio) - 1;
- 				nr_scanned += folio_nr_pages(folio) - 1;
--				folio_set_lru(folio);
-+				if (lru_add_del_folio(folio)) {
-+					lruvec_unlock_irqrestore(locked, flags);
-+					folio_add_lru(folio);
-+					locked = NULL;
-+				} else {
-+					folio_set_lru(folio);
-+				}
- 				goto isolate_fail_put;
- 			}
- 		}
-@@ -1293,7 +1299,10 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
- 	if (locked)
- 		lruvec_unlock_irqrestore(locked, flags);
- 	if (folio) {
--		folio_set_lru(folio);
-+		if (lru_add_del_folio(folio))
-+			folio_add_lru(folio);
-+		else
-+			folio_set_lru(folio);
- 		folio_put(folio);
- 	}
- 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f11491ee9ed5..4e8d5cc34f07 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -8093,17 +8093,19 @@ void check_move_unevictable_folios(struct folio_batch *fbatch)
- 			folio_clear_unevictable(folio);
- 			lruvec_add_folio(lruvec, folio);
- 			pgrescued += nr_pages;
-+		} else if (lru_add_del_folio(folio)) {
-+			lruvec_unlock_irq(lruvec);
-+			folio_add_lru(folio);
-+			lruvec = NULL;
- 		}
--		folio_set_lru(folio);
-+		if (lruvec)
-+			folio_set_lru(folio);
- 	}
- 
--	if (lruvec) {
--		__count_vm_events(UNEVICTABLE_PGRESCUED, pgrescued);
--		__count_vm_events(UNEVICTABLE_PGSCANNED, pgscanned);
-+	if (lruvec)
- 		lruvec_unlock_irq(lruvec);
--	} else if (pgscanned) {
--		count_vm_events(UNEVICTABLE_PGSCANNED, pgscanned);
--	}
-+	count_vm_events(UNEVICTABLE_PGRESCUED, pgrescued);
-+	count_vm_events(UNEVICTABLE_PGSCANNED, pgscanned);
- }
- EXPORT_SYMBOL_GPL(check_move_unevictable_folios);
- 
+Every clamped queue lands on exactly one page. cmdq_max_n_shift moves the
+command queue alone and beats the kdump default; the capture kernel
+attached four devices with no CMD_SYNC timeout, GERROR or context fault.
+QEMU exposes no PRI queue, which takes the same path. Build-tested across
+4K/16K/64K, TEGRA241_CMDQV=n, CRASH_DUMP=n and =m, every commit
+warning-free.
+
+v6:
+ - Take the parameter as a log2 depth and call it cmdq_max_n_shift (Nicolin).
+ - Nicolin's Reviewed-by and Tested-by from v5 are not carried over, as
+   the parameter changed shape.
+
+v5: https://lore.kernel.org/all/20260907095835.1233352-1-kas@kernel.org/
+v4: https://lore.kernel.org/all/20260902121724.3494954-1-kas@kernel.org/
+v3: https://lore.kernel.org/all/20260706084708.8072-1-kas@kernel.org/
+
+Kiryl Shutsemau (Meta) (2):
+  iommu/arm-smmu-v3: Add a cmdq_max_n_shift module parameter
+  iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
+
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 75 +++++++++++++++++--
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  1 +
+ .../iommu/arm/arm-smmu-v3/tegra241-cmdqv.c    |  2 +-
+ 3 files changed, 70 insertions(+), 8 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.51.0
+2.54.0
 
