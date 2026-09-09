@@ -1,172 +1,218 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022080.outbound.protection.outlook.com [52.101.66.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE34F4349BA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948849; cv=none; b=PVgwwtakF++NwEOK7sHV7rkFpRN2FXPYu6iqp3qUqF6jICGYdkMrrhb2RduO+mkW6W13v9+HS9AxM8kUzyHoqx2oA7N5SHWKGK2N9y0YhUG/+7x4BydZgVsumZLB0rAFl2PSBVUXRmM/L4IRMUc5DRes1V/CI0yID3hihbwhg6U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948849; c=relaxed/simple;
-	bh=8wkVR54HKtCmvT4epnFFfFoh7l/x4A5Z8r0EQJHwXbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c4u5XjhxrruttHyZYtKSXr36TH+xXgUPKuVZ+B/0gO98Tp/h6VNvLOb/kYCxp7tAlSZaY1TqWuv7Dfms5QYBrmJRUERB5XFh36Ev2LkK7QglQRBrTi4cvftasmT/BWYoT+9ljYHlVX7frb++YCBxsNetZMWBcfIOV3uoCcI9fq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e0mmCYgB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A1A4B66C2;
+	Wed,  9 Sep 2026 10:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.80
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788948843; cv=fail; b=Jo0clTDHHgFhzCOsab24PZ0BAU9Y4pzTpYNszoKw5v4eusxY4ftkWT3JDvO/MKyv9sALaRKtiBU7zuAUmlq4lbGZ9eC6KZ0vBYp8lcYXbxlYqYdycXui2SwzT+X0IqvZFoVE6CD3pb1AWkizpB0SRxBtQCZ/fA42J8bKs2PgdQk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788948843; c=relaxed/simple;
+	bh=Gr1YAJALi3AouD4e5XuzJ0v8KAWvpwPWlcL6zTI5+54=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=BVmfGhuLl+Aw5E5ys8FTYq+xzTeLFKUMRV6Q0q3bdJ2aJ2nNuYPgipCXlSVI51VZfknkSXt/wCJ/B3VaOrN4ozCtS4yiRw4xNNrOt2KCXS3HQOvEbLXyBK2Jn4bZgs1llOk05H34UTLDCC7ZPvIMrE++I7WCjuTyne4arBtKjIQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=DM9UbdnI; arc=fail smtp.client-ip=52.101.66.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e0mmCYgB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so5165045e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:14:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788948841; x=1789553641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L3wFqSlIV4kXpf46Lk+RTfPnzO0CcPwpy1/grqIwRVw=;
-        b=e0mmCYgByrZO++YUpPtjPuHNXiRbLqqCuD7lmAJx+/bIix8YVQifSIM+AYJ3LazzO3
-         FuBGLWCXjBTPMt/nxM7o/0DxTAZ6HLuZMRzSbxPz5f0384J+kNaDFmZzdi8Q7ZolZCSp
-         RnKMVlk2md7ub6P73TMruid7fbe467pow52qMrphIhbATVKv54J/h9GwsVGLdK6BePhG
-         C3+VIUaaQXdx9TBu6jySmi5YvUYr+8dnllVo7cLal8/kVKtjvVnX1YQwgnsXJGUv1mgs
-         wIh9oUuMyOCmF78vzNqeUY7FTJ661989MYTyqDB/SidRIlmj8i5aVPIRhM9YTrYzDlRT
-         MB8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948841; x=1789553641;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L3wFqSlIV4kXpf46Lk+RTfPnzO0CcPwpy1/grqIwRVw=;
-        b=KLwA15rZLEHEK25+18y1K4aHW7X6iaNBwJvUlebJW5HPsrMHPMwvr7NbWS418K1Zph
-         EifKN15Jf7fBVX0OzKpYm5ncPzpPKvN/I+3hV7+witB33Zm9Ow9PfO+fOxTqRoWf9qUY
-         27ArFUUb/GzxkXFth8b76yt3VX/lnvJXj94HEc9L4OPnqtf1Rs2O6LpHl5cZsg0q5DgY
-         I4o71QDfQ+17Zpj9vn2bZW0o0CphZjEHCEfCacUvZDQ9c//yCjgTi05vVLAhiCMowbio
-         nQOefJQLO4X1hLkXcZiOrGNM82AJb+U9qiCDDXe1a01R2YIQoxkbGAhq0aQpbQ1WuMUU
-         kaFg==
-X-Forwarded-Encrypted: i=1; AKwUvByKA4skP2sT0PJ9wEUi7vzaslSi6lPvL1WjCmJcEdFKdoFJIvYr/YVn+dJ9Re8/HZapg+bYILOHoNBK6BU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0I3oY9f+92Nz/723hFVN9fSpB6CI0S/22jbo8fbjecQYZFIP3
-	K6tjjwqgNbiz4U4hCrYAaUYr+kuNNwGsMpq5k+AwKpKhSvLJgX5EWS8i
-X-Gm-Gg: AYBFou0LYtxp4vM4cyVKCNWx49Chu/MP+9F0nRdnqgLJ5JeUoRe3MjTkN03kdLxejM/
-	lUR7QD9wXoqM3Dg2m/kFiMb4dBrYOh6Ug1hTsD7Wq/Xgn1fGSQH2N1d3umtb6EL2Yir36/tjBdW
-	KwBxlFcauozRsyRquOA+IFY8D63zMBHzQjUwmikKcnFe66Lm28pOd9NDsKs4aTqOz5YmDBzvOOP
-	+HC6Bgwpz6DCZK7urwJq84p+VSPXr9n0PCy4InIlOu80LUn18brdCpbqPamxFX3J26UyGupuvam
-	86CNOXUXc55XWROU2J0+Ijdl2WN6pJNLD8XurVftlpucK1/tcIsJchdnSk4iqet5wsHpwh6HaRX
-	k23rOh5ZiavAmZS5gHQGUke50VWoLFbHaeAafkiLmn4y42ZNHwv3HCtLAyMlTStc4XvL8GBHZQh
-	kEkbWTFeK0kCP2zUrjjGd3A2tmgtWgWQA2p3tRqgKEqvb7c2WeUbrqUmW2kxV7k12TWHAB1GVWJ
-	Fj+eDEMw4mAyyB4W0Ct
-X-Received: by 2002:a05:600c:3b1f:b0:49d:5ff:f408 with SMTP id 5b1f17b1804b1-49d1f37bb1bmr82227985e9.15.1788948840941;
-        Wed, 09 Sep 2026 03:14:00 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:c51:e108:e113:5dfd:782e:8bfa])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm336040765e9.8.2026.09.09.03.13.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:14:00 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: dsa: realtek: rtl8365mb: wait out the full chip reset time
-Date: Wed,  9 Sep 2026 12:13:55 +0200
-Message-ID: <20260909101355.25660-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAJq09z4qBz+poVQR3tEQzB-_4se5ka76Xq1mwEM0RvEnTuGLNw@mail.gmail.com>
-References: <CAJq09z4qBz+poVQR3tEQzB-_4se5ka76Xq1mwEM0RvEnTuGLNw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="DM9UbdnI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rzNENLB7YkXXHJRbjBIh69q8Dpw4X/34/6wxzqq7dASWfb9QWKJvN9jcd7arRuSufSoADCMnWyjC7nuGY2hYTXbk1/hZQ0hy8N3WSX+XhKKZJgR1pSXSPK6GaONpv7mXiOiSAIiwyP1v43D2wK6pi8j09TyoFw0OSRXXuHY9PGA0FGrV/kf4IgTxpniYnT/6m+iKZ9mnBm2B9yduSTGA/1SOHq34GUQxJpSkXEbbeuukWWBlGcohC0avtJZH6rZVBjaMaCMzaOEmlkcXSw4Pi8CA/4dumE2Qs2Ih89gFuQMDer5xzRCIoPN28j0vYicapdzXcjW4hQjeEXVDqWFnwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
+ b=M+r5yThMfNl9xb5Dqpv4ItNtqFd86m5ALy2CvxDS2aaQ0RzDR/zuUkvAc28A9zPchOaIIyczCAGGiP1UcbW/uQ/stiYvhetIAfL2axv7QWrKAvIqqlqCsy6zIWTVi/a1pk8QuQN7w/2qwykAIWis92YCyI1xYxcpmcVBWh7ctrLRgEOYacudO0wyvv4XUTwfqFxwp5B2dtmI7Lh+L101YQW0GviwAYr8Eqx68ba61xaOEgm5HmBDLoETGbstF/Z/9tbFaqDtPzBhghe3H7KcBBTX1hf5F2PSkScce2+xoaY9i0Cjrunvpgb9tb7v+QUJlw2tFr9FGwHiE+A9PTGxrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
+ b=DM9UbdnI9kXJfWwENBihKvuGsuAnt6/jtomhuqLtZ8oQ2q05U6UDAhWL6NqNT5VePJNyrznuRTsXNDY3KWIlxU49rgZ1TFdMXwVyc+5t2DD4vzdWHcVtDDxqpneCHvIknnyzLbwrw5i4p5rS7vXro3pygkjVrnYl1ECgd6TRunhs0fwlTA18pvpF5xV/c4oKtOcWmFvU2D6bvRc2Mz1vkPZIWb1D7+5AUZGNt0UfA3htd15u9Tb5wGN8ro2faT4YvqqM1ezJmhD92L1XI3tFF3KR5o0n3ejuxLDFKTFWaFy22VFShVJEw+v+H9HJ6HhZf7dv4DKPVfr4l+o5oCeIEw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
+ by PA1PR06MB9209.eurprd06.prod.outlook.com (2603:10a6:102:465::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 10:13:46 +0000
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17%3]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 10:13:46 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Wed, 09 Sep 2026 10:13:31 +0000
+Subject: [PATCH v4 1/2] dt-bindings: mux: gpio-mux: Add enable-gpios
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-add-external-mux-enable-gpio-v4-1-3b12a767bb94@vaisala.com>
+References: <20260909-add-external-mux-enable-gpio-v4-0-3b12a767bb94@vaisala.com>
+In-Reply-To: <20260909-add-external-mux-enable-gpio-v4-0-3b12a767bb94@vaisala.com>
+To: Peter Rosin <peda@lysator.liu.se>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788948825; l=2577;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=Gr1YAJALi3AouD4e5XuzJ0v8KAWvpwPWlcL6zTI5+54=;
+ b=4z9Bj7dC1pVctXuyodk3PqLPVJPulBOIgdfV2IMPA+fj/ZZtJmVukLHMEv8im1R/U9Y5HQKEl
+ 5l5WWqNIiHFA0izRztR+L2SItnXsXJs/ZC5KwmabHhp5SWnPbpRNYKB
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: GVZP280CA0009.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:273::7) To AM9PR06MB7907.eurprd06.prod.outlook.com
+ (2603:10a6:20b:3a6::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|PA1PR06MB9209:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d5ff2d3-032c-409d-0257-08df0e5b08f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|52116014|376014|38350700014|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	OuOLGZge5BH3ZnNb54YKQ7atY7jO4w8pEgiiYqdTD3fWbGU+684/AgvFNFwqp0qwveaixRmuxjGsVc9wRAwSNaHcJ9lu3KQ91xhg3U/pY+/gZpb2dRUBVJqYvSZhIbvDuMXoD7AfEt2r/J749TDYS8LygUp6ZtW+PNlwS6b8L25q9b3eatwj62C5MJcLkBa7hiCuTLAspc96B3LO63FYfSflYXmzwPn7WVYbdnFR9SgRzCHJbfGtvZNu+ySvfbHhm4RGOGIeCSMffZSJWn2SpqIMj+RMQFR55sKv5VyjH6qLX+3dwE9ZwsjvQpFh0q6BNNokmh3UND/TzJPBEKic1DzcC80GqcMGmi6ibFN6mdosUlQx1AP8nXZ0iPi0kep3lCvYPMUokmQY7mh8y31bVN5bKgW4YAehT34pqbaExrHZCsxlVpdxj9ioAXisco103KX/J4Wjic0AgZocDfclCpHZbvJaojbMen4FTR1uiD3Y+KnGZEay03y+Pn1C3amyWWIuWHN8VuZamQC+/rWaQeidE9KHcb0jyKtqYzc4ehCAn6Fp91n8zxisCg1WogKm88AI25BOMwr0O72Ri77LZHke+Fdgo9BOvsawGc/T8RuBOgxajgzKpYAaQiuyatHzdNQUG8oJXJLxjU+v7CsfczST11Am3jQA32MmJaNjZeSvwpnWPoRzvB4FurfYhLHyKvJKCW7ETmOXgkWoZ9wn3w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(52116014)(376014)(38350700014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TWtyWmxBanFwVjVmUlQxdnJCdVVXVUtZTW5OMHlvRGt6TUF1cE5maGNUWFpI?=
+ =?utf-8?B?dXNCWUVsdjZIS2RiUFVNUEU1eVNZYWowYkVkb0pERXdJVUQwUE9GdHcvbVVo?=
+ =?utf-8?B?aFFMQVl4YlFiRzl3Qm9pdVdBeTZpdDgrRDlHT215NWdwK2xxTk5May9sWWNy?=
+ =?utf-8?B?MElmNEdMUHQzZ3U0VkJsMGVqVmdtTmJHdFZLRSt0S1ZEUThneFRvQ21kR2pQ?=
+ =?utf-8?B?T090OXF3ek1qV2o2WmRuSUlkcVdhMEJZdThBVzBCWEFpckc0TlVHeEt3aExt?=
+ =?utf-8?B?aDVnSis5T3BMSUl4VjBFYjBwWGJ5VkZzRy9RUm9oOFlIYlRhUVd6RzVOdjlx?=
+ =?utf-8?B?L0loMThJL1BJNHRMSy9kNUJ0TlFtSEhvWEVWNXZZWUROdWVvMDFPY2ltNHhW?=
+ =?utf-8?B?c3l1ek9uSVhXcGR3djVtOEdleTkxNTMvL3M3M1d5UGtJUGk1RkIrQWpUaFIv?=
+ =?utf-8?B?dDZ5T2MvNXQwanBrMDF1QVhhakFiOEl0dXVMYWtlZ0hHSmtwQlpCbWxLTm9O?=
+ =?utf-8?B?akxmUEsrSnJIb0xRNG9UWlVIYmdXNVNRM0JFUWR2TmNHVEVKMytGVUNSUmNX?=
+ =?utf-8?B?enZNaFU5bzdjYk9tcXRsa1hRVmdseTBMenUrTkxUSkdZZ0p4Q3BLTlVtME91?=
+ =?utf-8?B?cGtjZ000OWlKSWt4RGFJeXV1V0ovYnkyT3E5dmFhZk5RZEhJK0pGQ0NlRENp?=
+ =?utf-8?B?OTdCYncyb1cwdk44MURBblpwUVhXeFhKaE85QnZQWnYyeUUvZnpOV01lVFZ6?=
+ =?utf-8?B?TW5KQUc5RDJFNjVoMHh2T3N4MWE4bGFjWnBlUHNoak5Jb0xzTmxRYzRveW43?=
+ =?utf-8?B?VTZrb0p5MWpYNW5zbk9PeHJDcGY1eEJtamthbGg4S0FpeCsrZEJFUkxjNEZQ?=
+ =?utf-8?B?dVBqWmxyK2lqOXdFZkJvSUJKeXdCTGFJTzFZVkFDL1FydUg2bG8ySWhCOXdq?=
+ =?utf-8?B?ci9XeHNQM1ZmZGpMY2J3V0pEcXN4d0RHcVlvMVE4S2lxMmNkYmpENzE3d3JJ?=
+ =?utf-8?B?Nks1czFmMGYwNTFoWmc2VkQvOG5KbVhscDNkRzBxT3JLMlJIL1pDdW1odWcz?=
+ =?utf-8?B?SWFYRWNMa0pSK1hwa1ZDODZHZHErOXpKbGNpSEZMMjAyOGV6MWlHY092aHY2?=
+ =?utf-8?B?YnA2V3Y5dktFUUczY0k3YUFHYXpMUjBzMW44NXNHTHhWdWZ0RkFoNm45REtH?=
+ =?utf-8?B?VVNMc1BJVGQ2eC93Z3pVVEY0L1ozcWNnYld3MWFoMm9Ka1pneDJSRWZGdDF5?=
+ =?utf-8?B?c3FBSGJ5WjVPeCs4KytqV1BXZUREVVlrTmNNZGEwVk9GSWorR3RuMEJyWkVu?=
+ =?utf-8?B?YkxJQ0syNDJIQ0l0YktxeVJ0cVErdnRuWnVFVE83VE43UFowUVZvenB4TFl0?=
+ =?utf-8?B?YWN2V3A2Wm80dGRpVFp1TzFDNFgxZUZsTnNMUnFta1hJYlF6VXBmVkxTaWhs?=
+ =?utf-8?B?enNIM3Z6dzd1UGJTeGNDTkZmUXo3VzVtME9qd1dsZnV3cnZWaW9RblRpT1dZ?=
+ =?utf-8?B?Q3plSTVsVUZnd3N5akRCeS9vajRmKzV0aTBGUUFGMFk3MkZoQ0VRb3dHYUQw?=
+ =?utf-8?B?dWtkZE82UkVTVnNWRnBoT3RZUUU0L2YzaTJ5TEk5MXFWQUJvVmpxMWZmR1Nt?=
+ =?utf-8?B?RkxCNkU3elhMd1dVQlNRQ2Y5YWNhRFVzQ2NDdk1QcFB2YlhXQXlZZnJCOWNN?=
+ =?utf-8?B?ekQwQ1BiVDloUUdrSnJ5VDFXa0lvQmd1LzVPQzM2NUdWNGdSYU9vbS9qNVlU?=
+ =?utf-8?B?Si9ZUC9IWkt1MnlLM2owTWhLa25rUDNLWmRPUlZEOW9ZckdVVk4wNHVXRVht?=
+ =?utf-8?B?bk14TlplU3JESTJwWG55R0Y2V2lmYVJTYzR1QmNPaTNWRmZXSGppbStnOWg5?=
+ =?utf-8?B?M05YSkJyd2VibXVCZjVTY3BMdVdpMXFCd2lHRlpDU0lNQVFFKysybmZiYWZN?=
+ =?utf-8?B?c0tPMVNoUnZPMVBUUWwrVDBEVy95RHBXTnA5TW9jQjl4RjVFOHZ3b3l0d3p5?=
+ =?utf-8?B?K3FObW5DTWNqVkRWM1lpK3VvTm0vb0pLS1hsSEJVSHZ1Y3J5MmJUSHBReDhT?=
+ =?utf-8?B?WUw1dDZ2MUVwQ1lTekcwaVZQNEE4UmxTdTdBbVlETXVpOWdmcFVZQnJGMW1h?=
+ =?utf-8?B?Y09yNkZ0NDVhaTF5a0xoWUphSGhTMk1KR2Z3bFYwOGppV1B5MDFwNHZlMnd3?=
+ =?utf-8?B?aUxwUmxRcXg3d084SFN1QnR4Z0owUmxOd1ZjajhMZHlZR2pzeVpQdmlwWEh3?=
+ =?utf-8?B?Nm9wQnYxYWhJSG0xOUN4RW0vNmwvS3E5WWJzN1o3dTZZclZNL1lueXJrVEI3?=
+ =?utf-8?B?SkFVOGtZZTA3UnJmWEgxcTJ0bTM5MGt0aDhUN1ZWbXh1aytLK3dyNkhVRXFP?=
+ =?utf-8?Q?DMeN6UKXzdVgVCtE=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d5ff2d3-032c-409d-0257-08df0e5b08f2
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 10:13:46.5444
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wXyh+/69Af8PtopwHTXWZh3aXeBXf4YM5sCBojyTJkdiViYFJq0aobMzUAm2A8xPD9VRzoqlOzUMNJiuaI03Ibp/WEyL8Z1Xi57VyT7teu4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR06MB9209
 
-Hi Luiz,
+Analog multiplexers have an enable input besides the address inputs. On a
+74HC4051 it is the E input: with E high, all eight switches are in the
+high-impedance off state, independent of S0 to S2. A 74HC4067 works the
+same way with four address inputs.
 
-Thanks - all three points are fair, and the first one I owe you a
-correction on.
+Two things need that input. The mux-controller binding describes an idle
+state of disconnect, which a gpio-mux cannot reach today because the
+address inputs always select a channel. And the address inputs are plain
+gpios that may live on different gpio controllers, so they are not
+updated in one go and the mux passes through the intermediate addresses
+on every channel change unless it is disabled meanwhile.
 
+Add enable-gpios to describe the enable input, and require it for an idle
+state of disconnect.
 
-The power supply
-----------------
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/mux/gpio-mux.yaml          | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-That July message was too broadly worded, and I should have followed up
-in that thread rather than leaving it as the last word.
+diff --git a/Documentation/devicetree/bindings/mux/gpio-mux.yaml b/Documentation/devicetree/bindings/mux/gpio-mux.yaml
+index ef7e33ec85d479ce57c5fe4a780f81a08a6ab6ba..2dd94704fd7bde238af4e84af87c2ad8e955eb14 100644
+--- a/Documentation/devicetree/bindings/mux/gpio-mux.yaml
++++ b/Documentation/devicetree/bindings/mux/gpio-mux.yaml
+@@ -29,6 +29,14 @@ properties:
+     description:
+       Regulator to power on the multiplexer.
+ 
++  enable-gpios:
++    maxItems: 1
++    description:
++      Enable input of the multiplexer, which disconnects all channels when
++      deasserted, independent of mux-gpios. Deasserted while the mux-gpios
++      are updated and for an idle state of disconnect, which cannot be
++      reached with the mux-gpios alone and thus requires this gpio.
++
+   '#mux-control-cells':
+     enum: [ 0, 1 ]
+ 
+@@ -47,11 +55,23 @@ anyOf:
+   - required:
+       - "#mux-state-cells"
+ 
++allOf:
++  - if:
++      properties:
++        idle-state:
++          const: -2
++      required:
++        - idle-state
++    then:
++      required:
++        - enable-gpios
++
+ additionalProperties: false
+ 
+ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/mux/mux.h>
+ 
+     mux: mux-controller {
+         compatible = "gpio-mux";
+@@ -59,6 +79,8 @@ examples:
+ 
+         mux-gpios = <&pioA 0 GPIO_ACTIVE_HIGH>,
+               <&pioA 1 GPIO_ACTIVE_HIGH>;
++        enable-gpios = <&pioA 2 GPIO_ACTIVE_LOW>;
++        idle-state = <MUX_IDLE_DISCONNECT>;
+     };
+ 
+     adc-mux {
 
-What the A/B/A established still holds, but for a narrower fault than I
-claimed. The July signature was link up at 2.5G/Full with 326 FCS errors
-and 326 drop events on the switch's CPU-facing port; swapping the supply
-made it go away and putting the old one back brought it straight back.
-I have no reason to doubt that part.
+-- 
+2.47.3
 
-What I got wrong was declaring the cold-start problem closed. On the new
-supply the board later came up broken again, several times, with a
-different signature: no FCS errors, no drop events, no CRC or symbol
-errors anywhere - the switch simply never forwards what the CPU sends,
-and the MIB TX counters on the user ports stay at zero. A power cycle or
-a driver re-probe clears it. That is the failure these patches address,
-and it happens on a supply that is not faulty.
-
-So: two faults, one supply-related and settled, one not. I conflated
-them in July.
-
-
-Why unbind/rebind always works
-------------------------------
-
-I do not have a measurement that settles this, so treat what follows as
-a hypothesis.
-
-At rebind the chip has been powered for minutes or hours, so whatever
-internal power-on sequence it runs is long finished; the driver's reset
-then only restarts the register blocks, and they come back quickly. From
-cold, the reset lands while that power-on initialisation is still in
-progress, and the two overlap. That would explain why the extra wait
-only ever matters on the first probe after power-on, and why every warm
-path - rebind, reboot, sysupgrade - is clean regardless.
-
-It also fits your RTL8367R observation: if the reset bit reflects the
-register-level reset rather than the completion of the internal boot,
-then how much slack there is after the bit clears is a property of the
-part, and a driver that keys off the bit alone is relying on that slack
-being zero.
-
-
-The deadline arithmetic
------------------------
-
-I have no attachment to the implementation, but I would rather not
-change it on my own judgement here, because you and Linus have landed on
-opposite sides: he reviewed this version specifically liking the
-deadline optimisation, and you would rather see the complexity gone.
-
-If you two settle on the simple form I will send a v3 with
-
-	msleep(RTL8365MB_CHIP_RESET_TIME_MS);
-
-up front and a single read of RTL8365MB_CHIP_RESET_HW_MASK afterwards,
-returning -ETIMEDOUT if it is still set. Total probe time is the same
-either way; what the current version buys is only that a chip whose poll
-already took the full second does not wait twice, which on reflection is
-not worth the arithmetic if it reads as complexity to the people
-maintaining this.
-
-
-Numbers
--------
-
-One thing I should be straight about: the "one cold boot in seven"
-figure was measured with both patches applied together, so it does not
-attribute the failures to either one on its own. Johan raised the same
-point on the OpenWrt PR. I am running per-arm cold-boot counts now -
-neither patch, 714-01 alone, both - on the only board I have that
-reproduces this, and I will report the counts when I have enough boots
-for them to mean anything. If 714-01 alone turns out to be sufficient,
-the second patch should be dropped rather than respun.
-
-Best regards,
-Stanislaw
