@@ -1,132 +1,133 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6348D341650
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982445; cv=pass; b=hz0R+NU2TYLgTMEpQkWP3HvpKtv9cYycdH3sGQpppHueYp+EyKdy9pu5KMg3LRRQHmBYcQ+YPHoyx2zLhc9+QApo3L5NTDmH2XmASXFZUOxvLV5irmZed6RAEg2/kUoJjNOgj3KuK5gjKLpr++46C8YoSBYoqphe7WMGLqE7Tfc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982445; c=relaxed/simple;
-	bh=BVdtMSWxf7icB7wBjmlVHIP4GsX+nPXsq5J6fcR2a6o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fWzpiEmEQYjFGLAr2G9pyYJaSPXmWT4p8ewEMiKmZXhD+YthmBX2jN41onSdPiQr+KT0FTlVsAg7BExMkyKZlVROwvV6y+tc9clPajoz19PPzqgzqdk8JjiZ2GqDkGNCdCE9/ML0uqt/3IA3/oO03AYuz4Xz3N+8actJUzIyVS0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEbhBIti; arc=pass smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D192D41A8F;
+	Wed,  9 Sep 2026 19:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788982449; cv=none; b=t+O2FbQ3bJJ+Jq8pstv/VlRyF8hxQhWFmsKsVu5g1LEXqcsw3pTe9BfzyLZyneRl7/4Av4LhTGxO3kwDrFLRPjS1YFzLdXzCaqXjtPuUTHuWhNXnWqEZmKhujB8IIy9N1zeZ3Vw5qQ+lidXRLoi0OQXXysVLozLPEX1UUKtK7K0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788982449; c=relaxed/simple;
+	bh=t6WvPZKDUa+XIMc5MJIp9UjPq4fgZb3FxkTKoMvc1Bo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=L/9BfTpBkMIpFe0Ovn38VkG3UXnfJeupZYhO6H+QjccorE2cpZfiOPg1kuDuc3mAeYljphkZ4r7sqqwDT7QLBE+Gbmty+/GWJNIFtDdh/ghHzhAPnfwC/WjDzXvHe6SCRg4tSKKEXPm3pmzBD3WyUc9hnwy1yqDu7IHTwzaylcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=gofX7hrQ; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEbhBIti"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b4af730f8aso6921155e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:34:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788982441; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z60/5vyyOn8SE2KhNQfki/EmObXLD2487vb26uHrYe4Lzb3cihX6SaniCSbIgqzzW6
-         pisWbbhWW1Nk9K9QSU7Ss63fy5bOys0sknacZcEiaoJwvGIHqFu3sqgZTIfWhrQee8Eb
-         TBHPmvklWdMxOIlyuGOp9nGz2p+FCP6SwF+Pj9Yt6GTRu90JNqAFP7vdnVa0YdO3Gqoq
-         8ZNp931D1W9kf1JKTPbtZvVW287Dc64wZn+BtchdR5DNFvf0nHAN1NQoXUIvzNiqWy80
-         I2+CIahqYNJpD5pHQTRs6qsIRkSPys6q1Beim0INJEOdOn44FhlCibkJaDC/PAK4g+b8
-         sS7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BVdtMSWxf7icB7wBjmlVHIP4GsX+nPXsq5J6fcR2a6o=;
-        fh=bqC5t4X5MNxNIQ+k/c8GsnTd18HqHdThsGuO5ncgUaQ=;
-        b=rW5ymGbt2GGlofqtEahBUv97tdGAezwNKcOZcJyBkbuJXP8dn/TlmeUP+tDWxDYh2/
-         lK1tOyszIDwTv3UV6i5tAsa7dd+pyjNhD3wVbQsg8UaFzIJfTKqi2lI5On1PqgNb2z+1
-         v8sXu0Zc9XBO7uTXSYBcgZyJD4lZj0hpFseUDgd0RcRxzFe7Y9Br8a70cXyQ/rbBSE2G
-         Q6DjEzeAft7Hop4jNG4vu1tj4GkI5jds7LhYNjdTtS6UPbkazUpyTQaGRugjHIJvu2DG
-         qYV2/x6vWcGco5jWE138kD7bciWMSeHjXIeiMcscVGkP9/AtYLCPa+GGNRyLAmPzRrTR
-         Ny5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788982441; x=1789587241; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BVdtMSWxf7icB7wBjmlVHIP4GsX+nPXsq5J6fcR2a6o=;
-        b=pEbhBItiM/zUP9Tama2bCZVKMAuhvkClXl8CdUEC7ZAVeANAoVApLiIwGW8BJVzfnM
-         sMXbBOqe6VG3pCzXwEeRCuBsfB4GbdLv4OhfiSqFMFz5TsGaVTcaO4EV2Yzrp0kIJ07o
-         1p0yPNWDtcwLmnc2Fzj6Z39fuxaQNEC6kef0rAne/vm3e6b24RPCkAYT9hM8snGYBDYw
-         9Yr/Jj3KpSrc/UxV9r4dEyErmXxl5xXxOvTjXpFHwUyY+35fRSaSo0evzdLsDkA9olSl
-         w3ea+nOLmplGIRXC7p+97HnxhrmGU2Kno5CulLCG8LHOOAQKqvYWlG1f94Mb25D7G5gk
-         EESQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982441; x=1789587241;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BVdtMSWxf7icB7wBjmlVHIP4GsX+nPXsq5J6fcR2a6o=;
-        b=W3UP75AvdUMW010S5Fzge95Pj0XMDQFO1/i1ITIv5rlAyn/FaB5XjMPGddlrw2+Ft5
-         ++5WpX07LxmChpVmFwwzFx44cgvK4rwTawq5LZ3b36SlDQAQg1q9UlAbI1R5HpmdVKSh
-         ILoTssgUkCuH8nuwXo/wuAs40H9cJdLpybFoTvCAQmY1MJ0MxtBqPaNr0EkVOlwF8T2/
-         14yf9EuWEp1zBbxyrue5/uhn02C6MU9yjx7pFzw1LSDB++Nz+dGm8h0BPWdbie0vRNtR
-         uDD1tGOWanQfye0iyoGC1WrDxTzB08xvTb1hRblZIK8caqKpmXz01u41jeVRLW9886nU
-         NLDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPj7G7vajPabtJuuWLOGlE0aNAPVwUaxMo1pQLElHP9qH7JQIFwAevfnTDANQ28W6wR4E5y2wMYx9LTQM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2botTaW0sAE8L6+XuGcWpE94WXNycPyTzaRJYANhVRnJVPWwe
-	Rb+uWxBXwf+m/g2GO5sGrXU84IYCjvuICf8Rag8W2Mbqyi4cKbp6qISWKW4H4wmKwfn69/WmtAL
-	zOzFH9+tFszevVezyC/Uqvft9Mmi/J/Y=
-X-Gm-Gg: AYBFou3OFUM6rtXchUIvm6C9jx5+xcnUEPw6Dl186aRjCfXjCPnxyWELTJENLXcUthy
-	rdbVV3u33Fd3GQtLxKQ7wB9TTP3kJpIHIzJicZnW++5AQLRjcRvz4xk/upPFZIyhSBgDpF5kUma
-	dxlN339UusOu6lhe59UQt9Kxbh6H/xlAzNL+8p29JmJj9CSx/wLm3kesN3e1sgZJD3vR4M8dvCj
-	WJP1BjwHoKunPDNYTBbuNCxt/piniSOdD6aiqk6dMDv/Lr+DIAIoK0kvArAWrjcMMOuyOKzz/T4
-	P6/bVrmKZk7Niyd7aEOyA9x63BuwOmYPdL3VeAbZsVFPkM5qAaum7FcnNhBoNdM8RGSwO1s65Dn
-	0cZDC6A7w3JHvoW1ESR1BVMY2w3Rg1vGDhe0HWlkf32Mgzbn1OV3k5Ok=
-X-Received: by 2002:a05:6512:1093:b0:5b6:183c:5c91 with SMTP id
- 2adb3069b0e04-5b6183c5e10mr6124641e87.47.1788982440939; Wed, 09 Sep 2026
- 12:34:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="gofX7hrQ"
+Received: from ehlo.thunderbird.net ([172.59.163.39])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 689JW0Ri241996
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Wed, 9 Sep 2026 12:32:01 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 689JW0Ri241996
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026082801; t=1788982324;
+	bh=+dGDqKIiorLm4PMRWZf+lcjSymk+duftPVKL8h3BRa8=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=gofX7hrQMbsXkfAGKbIB5EEVBWalAWuw926LqzLEOVYYNLyZUfbWEzWPGDLj9bbmQ
+	 WFie+ve7lUQ9pYuRVmVYjV+EqzzAArpgHRWshxY1qKfnMcxxPUBe/xs1MmeSmnGIOJ
+	 dPgyxNew5qsHsjhQOA41SlBB/MQHD0m+r1YFZE3wLCs3umtpLH2oSsE4iYDyt3+j/i
+	 rnjM7tEna8nBlg7YqDxC5Ptjf5+Rcrbt1/0XzPeibvb/+oRmhKO1xpHus1ynWSXLJ8
+	 MI9bdFysgi5uqG5wVEpJJTL/7pSn2oMlC1a/K6We8WFSaRVoteYLUt+37PBgC/p1jC
+	 eVbxDJsilqYjA==
+Date: Wed, 09 Sep 2026 12:31:53 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+        =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
+CC: Paul Walmsley <paul.walmsley@sifive.com>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+        Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        Andy Lutomirski <luto@kernel.org>,
+        Vincenzo Frascino <vincenzo.frascino@arm.com>,
+        Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Richard Weinberger <richard@nod.at>,
+        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Russell King <linux@armlinux.org.uk>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+        Gary Guo <gary@garyguo.net>,
+        =?ISO-8859-1?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas Hindborg <a.hindborg@kernel.org>,
+        Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+        Danilo Krummrich <dakr@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Christophe Leroy <chleroy@kernel.org>, Boqun Feng <boqun@kernel.org>,
+        Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org,
+        linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+        linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev,
+        linux-s390@vger.kernel.org, linux-mips@vger.kernel.org,
+        rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org,
+        Jan Stancek <jstancek@redhat.com>,
+        Arnaldo Carvalho de Melo <acme@redhat.com>,
+        Alexandre Ghiti <alexghiti@rivosinc.com>
+Subject: Re: [PATCH v5 12/24] vdso: Add the vdsocheck tool
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260908071911.GU4120091@noisy.programming.kicks-ass.net>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de> <20260908-vdso-absolute-reloc-v5-12-3a93791af1cf@linutronix.de> <20260908071911.GU4120091@noisy.programming.kicks-ass.net>
+Message-ID: <ABBC0C50-847F-406A-B426-55D0C2BE15EA@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CACOAw_yO+CyS=xBDA1iRTfjZtm_40wLGwD6TZQLRN2nFmuw7xQ@mail.gmail.com>
- <20260907114553.2551964-1-zhaonanzhe@xiaomi.com>
-In-Reply-To: <20260907114553.2551964-1-zhaonanzhe@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Wed, 9 Sep 2026 12:33:48 -0700
-X-Gm-Features: AcwNN1WUDSWydzjn3Er-hR5IhocfCQTX_w3kug0YfdBpl4DCR5cKCHHj57XQObQ
-Message-ID: <CACOAw_wBMigWOu1cyZgsqd2EVH_mO_HN+y=g3ryBdMSFtX6cig@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH 07/14] f2fs: make GC migration large-folio aware
-To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-Cc: Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net, 
-	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
-	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <David.Hildenbrand@arm.com>, Bo Zhang <zhangbo56@xiaomi.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, Jaegeuk Kim <jaegeuk@kernel.org>, 
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 7, 2026 at 4:46=E2=80=AFAM Nanzhe Zhao <nzzhao.sigma@gmail.com>=
- wrote:
+On September 8, 2026 12:19:11 AM PDT, Peter Zijlstra <peterz@infradead=2Eor=
+g> wrote:
+>On Tue, Sep 08, 2026 at 08:33:46AM +0200, Thomas Wei=C3=9Fschuh wrote:
+>> All vDSO code needs to be completely position independent=2E Symbol
+>> references are marked as hidden so the compiler emits PC-relative
+>> relocations=2E However there are cases where the compiler may still
+>> emit absolute relocations, as they are valid in regular PIC DSO code=2E
+>> These would be resolved by the linker and will break at runtime=2E
+>> This has been observed on arm64, see commit 0c314cda9325 ("arm64: vdso:
+>> Work around invalid absolute relocations from GCC")
+>>=20
+>> Introduce a tool to check for absolute relocations during the build,
+>> as the current inline-shell logic is not expressive enough=2E
+>> The check is done on the object files as the relocations will not exist
+>> anymore in the final DSO=2E As there is no extension point for the
+>> compilation of each object file, perform the validation in vdso_check=
+=2E
+>>=20
+>> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas=2Eweissschuh@linutronix=2E=
+de>
+>> ---
+>>  Makefile                    |  19 ++
+>>  lib/vdso/Kconfig            |   5 +
+>>  lib/vdso/Makefile           |   2 +
+>>  lib/vdso/Makefile=2Einclude   |  14 ++
+>>  lib/vdso/check/=2Egitignore   |   3 +
+>>  lib/vdso/check/Makefile     |  34 +++
+>>  lib/vdso/check/elf=2Ers       | 498 ++++++++++++++++++++++++++++++++++=
+++++++++++
+>>  lib/vdso/check/vdsocheck=2Ers | 154 ++++++++++++++
+>>  8 files changed, 729 insertions(+)
 >
-> On Fri, 28 Aug 2026 10:20:40 -0700, Daeho Jeong wrote:
-> > Under Patch 08, a cleanly read large folio may NOT have
-> > f2fs_folio_state allocated
-> > (folio->private =3D=3D NULL), right?
-> >
-> > When foreground/background GC tries to migrate a 4KB block in such a fo=
-lio,
-> > `ffs` is NULL, and `atomic_inc(&ffs->write_pages_pending)` will instant=
-ly crash
-> > with a NULL pointer dereference!
-> >
-> > Fix: Call `ffs =3D f2fs_ffs_find_or_alloc(folio);` before accessing `ff=
-s`.
->
-> In move_data_page(), the folio is obtained via
-> f2fs_get_read_data_folio() / f2fs_get_lock_data_folio(), where
-> f2fs_folio_state is allocated unconditionally for large folios. So
-> there shouldn't be a NULL pointer dereference here, right?
->
-> Thanks,
-> Nanzhe
+>Urgh, does this mean I have to have rust installed just to build a
+>kernel now?
 
-Ah, I was confused. You're right.
-
-Thanks for checking!
-Daeho
+It was going to happen, and now we'll have to suffer the instability of ru=
+st=2E=2E=2E
