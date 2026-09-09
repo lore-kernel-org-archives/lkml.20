@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
+Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278A225F99F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3853A7F49
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939981; cv=none; b=O0HOA7/bVhtUgMbqkuZ0e7ZTkl245W04HLyTSYp2MewJMhveKe2e0dzMTaoGTixW3mkY9r0GBqHj/t2cagzy4GAGlQYiYt10SdgfzxH6EkbswtcGWlBA20u6A+iYFjFHkAAmb5emo4kKuspmlrtnJP2IhIbmwOdMNMB5M7PULI4=
+	t=1788939987; cv=none; b=sIxVvts5yLCwhMRudP2B8PtaC3/rBAt7N/zLfXghMjHcAIRmJnPx0v5QUPkhmIZwaIfZhtyYKRl4qIETw1WsqvIiXw12WJFLhPBktDNffc9l9Xk7QpYtC4F5onamyTIft1rWCVcWFgw1IoIXObgTHNyOZaCex2CXfqyPTVB+/CQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939981; c=relaxed/simple;
-	bh=1HiIcPTQpatgTULQZq+hKSjJxRyFSlBPlKLxkQTGBJc=;
+	s=arc-20240116; t=1788939987; c=relaxed/simple;
+	bh=bzxSM15rzJHsp6riBpQ3uZbf0JigR6jvr11t70GGikw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RYcBC6eLu57vxmO2QLbHNVq4P9b/fZ+wQu7z/pPQijiNT3YkZerjuz8jToKRH2pN44tX3yEYjGr/TTCVlHPL/JPIY0ys1e0vRRTOkcPt2Q1CYTJfRtumrQCOYEOKNMXkjs4LBRPNL9POXHhaLmUFbxZhLXUSA1HrwEVJKeXly0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=coLEw6CS; arc=none smtp.client-ip=95.215.58.72
+	 MIME-Version; b=YZ7DJIxPyJJqrlY1g/Z4QfuAvIagLtnuxtNnh+MLGKGUccefiY8CvzDY0P4PNbao2RbsaTxCjdmXR3sMvB3fSWyLoha4YyKyggOk82yaMkDvBeM205MxF3Hw5Q/YQlthejsB3U7Kc6xIbiFFmsf/At87zggGXgU+FbuD70StlGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YqvuFNWP; arc=none smtp.client-ip=91.218.175.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="coLEw6CS"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YqvuFNWP"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1HiIcPTQpatgTULQZq+hKSjJxRyFSlBPlKLxkQTGBJc=;
+DKIM-Signature: a=rsa-sha256; bh=bzxSM15rzJHsp6riBpQ3uZbf0JigR6jvr11t70GGikw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788939977; v=1; x=1789544777;
- b=coLEw6CS11UEyfIKmGB6/shFa1kz53s+d0aPO4zmlEZRrd8jUoBOnwyth7Ex50gnRJnQ3FZ0
- HtZpbWvk8qzdCDwCtzThDe5+q2fXLFZlCVp+GSUGhXi1GzxCVr+n+vrU+Va6N1U0FyctRMTANLw
- vWMLHILGtEVfM2RGI066ARbY=
+ t=1788939982; v=1; x=1789544782;
+ b=YqvuFNWPB35XxwNnv9svJPxW5il/ZSY5j445VXwB5rNmW0lUl3xHZBu5GhW9Uhl+sJaZX5pa
+ 8JKVbuDs34c6v3GBi24FVA5cCJXUinnEwFUiL9mlIgsSJ90iK7sAJ/IcBhMIO/Qkp0N4PGbG2O9
+ JzhSyfRE7WCazcWhVL0HVf5c=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa9e0f830415ec3f;
-	Wed, 09 Sep 2026 07:46:17 +0000
-X-Mizu-Trace-ID: fa9e0f830415ec3f
+Received: by smtp.migadu.com with ESMTPS id f19ea53a44304837;
+	Wed, 09 Sep 2026 07:46:22 +0000
+X-Mizu-Trace-ID: f19ea53a44304837
 X-Migadu-Flow: FLOW_OUT
 From: luka.gejak@linux.dev
 To: Ping-Ke Shih <pkshih@realtek.com>
@@ -37,9 +37,9 @@ Cc: linux-wireless@vger.kernel.org,
 	Peter Robinson <pbrobinson@gmail.com>,
 	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
 	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH v11 2/7] wifi: rtw88: rx: mark zero length packets on RTL8723BS
-Date: Wed,  9 Sep 2026 09:45:51 +0200
-Message-ID: <20260909074556.55709-3-luka.gejak@linux.dev>
+Subject: [PATCH v11 3/7] wifi: rtw88: tx: extend the TX report purge timeout to RTL8723BS
+Date: Wed,  9 Sep 2026 09:45:52 +0200
+Message-ID: <20260909074556.55709-4-luka.gejak@linux.dev>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260909074556.55709-1-luka.gejak@linux.dev>
 References: <20260909074556.55709-1-luka.gejak@linux.dev>
@@ -53,16 +53,20 @@ Content-Transfer-Encoding: 8bit
 
 From: Luka Gejak <luka.gejak@linux.dev>
 
-Like the RTL8703B, the RTL8723BS reports receive descriptors with a zero
-packet length, which the vendor driver drops outright. rtw88 already
-flags these as having no PSDU for the RTL8703B, so extend the same
-handling rather than passing an empty frame up.
+Commit c80788f7c5ae ("wifi: rtw88: increase TX report timeout to fix
+race condition") raised the purge timeout to 2500 ms for the RTL8723DU,
+because the firmware can stay off channel during background scans for
+longer than the 500 ms default, which delays the TX reports and lets the
+purge timer drop the tracking skbs. The host stack then reads the missing
+status as loss and collapses TCP throughput.
 
-This is gated on the SDIO interface rather than the chip id, because it
-has only been observed there; the USB variant is not known to do it.
+The RTL8723BS runs the same vendor firmware over a slower SDIO host and
+hits the same race. Testers on ARM SDIO boards see "failed to get tx
+report from firmware" under load, with the same throughput collapse.
+Extend the 2500 ms timeout to the RTL8723BS.
 
-Co-developed-by: Michael Straube <straube.linux@gmail.com>
-Signed-off-by: Michael Straube <straube.linux@gmail.com>
+Reported-by: Peter Robinson <pbrobinson@gmail.com>
+Closes: https://lore.kernel.org/all/CALeDE9PgQmpMfDt1DgfLD4tBFGH0MZ7GncV6RUEOHhHbKF+TdQ@mail.gmail.com/
 Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
 Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 ---
@@ -74,32 +78,29 @@ Notes:
     Changes in v8: none.
     Changes in v7: none.
     Changes in v6: none.
-    Changes in v5: the zero length test now evaluates pkt_stat->pkt_len
-    first, so the unlikely case short circuits before the chip test.
+    Changes in v5: none. Restored in v4 after being dropped in v2, because
+    testers on slower ARM SDIO hosts hit the warning that commit
+    c80788f7c5ae already fixes for the RTL8723DU.
 
- drivers/net/wireless/realtek/rtw88/rx.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/net/wireless/realtek/rtw88/tx.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/rx.c b/drivers/net/wireless/realtek/rtw88/rx.c
-index 01fd299abb7f..fde21c840ac0 100644
---- a/drivers/net/wireless/realtek/rtw88/rx.c
-+++ b/drivers/net/wireless/realtek/rtw88/rx.c
-@@ -253,10 +253,12 @@ static void rtw_rx_fill_rx_status(struct rtw_dev *rtwdev,
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
+index 8786bbb421c2..4e110a457e71 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.c
++++ b/drivers/net/wireless/realtek/rtw88/tx.c
+@@ -208,8 +208,9 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+ 	__skb_queue_tail(&tx_report->queue, skb);
+ 	spin_unlock_irqrestore(&tx_report->q_lock, flags);
  
- 	rtw_rx_addr_match(rtwdev, pkt_stat, hdr);
+-	if (rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
+-	    rtwdev->hci.type == RTW_HCI_TYPE_USB)
++	if ((rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
++	     rtwdev->hci.type == RTW_HCI_TYPE_USB) ||
++	    rtw_is_8723bs(rtwdev))
+ 		timeout = msecs_to_jiffies(2500);
  
--	/* Rtl8723cs driver checks for size < 14 or size > 8192 and
--	 * simply drops the packet.
-+	/*
-+	 * Rtl8723cs and rtl8723bs drivers check for size < 14 or size > 8192
-+	 * and simply drop the packet.
- 	 */
--	if (rtwdev->chip->id == RTW_CHIP_TYPE_8703B && pkt_stat->pkt_len == 0) {
-+	if (pkt_stat->pkt_len == 0 &&
-+	    (rtwdev->chip->id == RTW_CHIP_TYPE_8703B || rtw_is_8723bs(rtwdev))) {
- 		rx_status->flag |= RX_FLAG_NO_PSDU;
- 		rtw_dbg(rtwdev, RTW_DBG_RX, "zero length packet");
- 	}
+ 	mod_timer(&tx_report->purge_timer, jiffies + timeout);
 -- 
 2.55.0
 
