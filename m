@@ -1,153 +1,126 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EE65678FC
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E73FF55409C;
+	Wed,  9 Sep 2026 15:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967626; cv=none; b=cgTjLoLnlHD9bXKvh/gIAookOhggAA3Q7Hp3+CHIhb7PotpYJ9mYgqb0VkLktDWu3maBy3eWwR/xiJLlSWys8dpjWARDUpBHR1jK3RXd2cxugTd9Y+APZfCzquTXxo1K7+aNtPTqdb1pcZ2S3D4TLsKfLX2XG9Ts71LUlRjgAEQ=
+	t=1788967685; cv=none; b=clDMbyLzY39XQ8peGGHeUVsvI7+WG+WE9koDi0y1NJVciwzTYuklAoS9MieRQYyD+yzUHcXIc5sFp6iFRc0Ph9QExZm1gMRS8Q+tRbVyfXXqDBqkvfXdwhypKRejiNxPTWVhgZz45JvTpVejLMikAjKwxoYa0cJeOtQlXd8OxRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967626; c=relaxed/simple;
-	bh=t3yqbvSqtFoLUHow+WwPXXOfeaEh7bClm80fMM9rQTg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h493stHHu4BvbUX8dJ8WF14nuhwhM1wcjYcivfd974V2/WOqzy9fppvLjhrSS1LTMfOqAr07n7WkW8xuvG3ibhsqHO675+ShsDndtpwcHuNw17RICKFD6vhCJLVFGesDoaS0QhUi5YJFESriRjvxyLMAZAojf0JbLDnx1hxatoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dWWjxsx3; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dWWjxsx3"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso7671857a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1788967622; x=1789572422; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/FowYqhA2IUhImtOTNUOvZbuU0tnu+Lv5LcROnzCHgI=;
-        b=dWWjxsx3vOAB63KDzDEmsM3O1VLGIjC7p9JJgGsk3wnbelifabuG9SHGQDwBZlVfux
-         HUH2xA8DjA7ELN6q7f1eAggrY+FZ/l6vsDSxLj/vQw0V7OyD7zxelRtHyGJ3guvTi7zp
-         87xyxUN76J8UhQZa4MUkLncIcYMrKmppESk2c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788967622; x=1789572422;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/FowYqhA2IUhImtOTNUOvZbuU0tnu+Lv5LcROnzCHgI=;
-        b=NhfPNOnZRj7kPS1EELivUpTWsxmKMnzboaXtRbg+Vcxo0ACZgeXO5vpr5/N51nKjWg
-         SKlbweDLkOO45Z7A2uPl4q6VZ1hHnAnExh4ylwkYfKznRbozSpaq59L4vGJ9vDah7/TJ
-         SbfcPejPiPuObKAD+HWb1ZKrkBXBWZYvfGnzEDGxcCwWfnXjQKAFXgJ5z/XLlYOf73wq
-         1AXqkV+kpfdNcS1fgszUKBQfIZG9fFLuzXGolJPYLMjw9zaumlGyGNCT+FRyTyblQ0mu
-         LNgpuIjQlmihJygYfzxlsG+dLeBPLdoVxOmr8/UxeX6h8MjUHlPZ0/JuOMFN5hscCF+d
-         Qgjw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwg92KkLHVotuUpmhKLNBvaxt+rubMmFHPR41QJw9PlqFcgpkowwQC0gQlaH2NSOz4o92faz0URzFN11Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmOYpbsoxNvuMIe9HZ7dSeU2vJNx+aj6E0lOYcUh3Vqy7ijOzd
-	dXi5t7iTxkbmZGpgzYKw6bNWHYXdwwWXjhGYsV8RieiLPDh8efzKYzWfPsHaKcmUIvDRHt6WG2H
-	OJgh05d+fNA==
-X-Gm-Gg: AYBFou1MlWiIfrO3ylE5W9aZ9MmYhuDlGvmoLiSDI7OoVNbuSRpZDG6BsCCIF+ckJyY
-	pE+/RKcHzwpqizYs1hCwI+GWzWQ5a59NhT2MKG0Ve6OFHOxBhk8RxTClMigWyknA8mkq78893/T
-	J0FuF+OHmdbKaLAKJvaM2tckIgMzOpF7xf3dskP8EW4bmsaGuPNHphwsteCy+jzLs1tAbJMnnDo
-	vkh8T7Owk5YvR4zT88i8YQnBgqJUzmQ1JsdOP7U1MQwaJRsJ6Qf/+T3C426y36LghHnhR0in+90
-	3bcYUcNOtLflVzxooulK/uGYkecKfJ7Y38umk3DJW/e6u07mX8PWqPWb4UQhRZL1X2VYHf1hEnP
-	bYWAwYai1qy0cpvI2RuZwiJM6mT+jJpWEEQY7moJsocIsegy78DlVivi+uzwYUku2pBgSRN+5+k
-	cZXtpYt9gMZjyt23To7T++IxUmjsfgGpiGc+uDROIe1lHpkfaCOrZsBzHeGRxYJq91M1Ux0upV/
-	VX2aSadswwUBUFVCsUwsnnCDtHxqLEHrKKSscWdz8O9+i9b
-X-Received: by 2002:a05:6402:2786:b0:6a7:f5b1:273c with SMTP id 4fb4d7f45d1cf-6a7f5b12877mr10178234a12.3.1788967621778;
-        Wed, 09 Sep 2026 08:27:01 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9863cb3d6sm1682320a12.0.2026.09.09.08.26.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 08:27:00 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2544ff970dso893392666b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:26:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwLJ2zgJNitXRVRer440FQ9fUjnzsXhG4ojMwcvn0qf+LSKJ3aVjxGkZh/EQX3PIJQAELpBKirstaxSkRw=@vger.kernel.org
-X-Received: by 2002:a17:907:da4:b0:c26:1649:47af with SMTP id
- a640c23a62f3a-c26164955fcmr1368813666b.37.1788967618809; Wed, 09 Sep 2026
- 08:26:58 -0700 (PDT)
+	s=arc-20240116; t=1788967685; c=relaxed/simple;
+	bh=GbQE/C5EL3goLl9+Xf5dk6SfdFav9LFstn5nK7k2Z0E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BTr+jDWOKs0m0at+o4TCYNjWEfVCXmf1P0bdD/Zfj8Fl2enxuBCOHBnjcS2Tc+2hTLm8b995J+dkz2PNDWGdZourl564uWTlcvXZ4OhUxUu1+LlCPryX7z68eQv3KYxllsrhVYLH+NIrP30kfkrsOa4iVQ9Wqr7jA4LUOuGm3io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDn7zf5eqFqsqUDAQ--.35929S3;
+	Wed, 09 Sep 2026 23:27:53 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgCHUXX5eqFqcvgLBQ--.14715S2;
+	Wed, 09 Sep 2026 23:27:53 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: alexandre.belloni@bootlin.com,
+	cl634@andestech.com
+Cc: linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] rtc: atcrtc100: cancel alarm work on remove
+Date: Wed,  9 Sep 2026 15:26:51 +0000
+Message-Id: <20260909152651.712614-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org> <20260908-build-speedup-v1-11-5dc1ac01672d@kernel.org>
-In-Reply-To: <20260908-build-speedup-v1-11-5dc1ac01672d@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 9 Sep 2026 08:26:42 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiA_UJbKiu8fOezKV=MfEcaFuzZiuk8Fto-Bc1KrA=43Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UWYYtk4z7iDc5cI-l9BNT1_XTZBZ1EzZVT-QGEk4RrzSdK76DVFXE4iKE
-Message-ID: <CAHk-=wiA_UJbKiu8fOezKV=MfEcaFuzZiuk8Fto-Bc1KrA=43Q@mail.gmail.com>
-Subject: Re: [PATCH 11/23] kbuild: implement and use depcheck to check
- dependency timestamps
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgCHUXX5eqFqcvgLBQ--.14715S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?1GNiTgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WPkJOV2rqO1KNC8oE4y/Lr6IwZ8o0fuNPjhcAwmE/jJ3xxa
+	GkfmUcmsO0hiCFspzh+p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWw17ArW7Ar45Cr45KFy8JFc_yoW5XFyfpF
+	WfXF98WrWDKr4aqw42vr4jvF1UCw1Sq3y5GF1xZwna93s5JF9xZFyrZFW8W398JrZ5Ga1a
+	yFWjy3y5CFWUCFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
+	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUcXo2UUUUU
 
-On Tue, 8 Sept 2026 at 13:57, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
->
-> Each object's .cmd file lists its header dependencies, which often
-> consists of over a thousand dependencies.
->
-> When little has changed in the tree, this is what make spends most of its
-> time doing, spending over a second, single-threaded when parsing larger
-> directory trees.
+The alarm interrupt handler atcrtc_alarm_isr() queues rtc_work on the
+system workqueue to clear the alarm. The handler atcrtc_alarm_clear()
+dereferences the devm-managed atcrtc_dev through container_of(), takes
+rtc_lock() on the RTC device and writes the regmap.
 
-Side note: from some kernel build profiles I did long ago, I have this
-memory of it being made much worse by the fact that we use
+The driver has no remove callback, and the devres cleanup only frees
+the interrupt before the remaining resources. free_irq() waits for the
+interrupt handler, but it does not cancel work the handler already
+queued. A pending atcrtc_alarm_clear() can therefore run after the
+regmap, the I/O mapping and finally the device structure have been
+released, and dereference freed memory.
 
-    "$(wildcard xyzzy)"
+Add a remove callback that frees the interrupt first, so no new work
+can be queued, and then cancels the alarm work, following the same
+pattern as rtc-ds1374 and rtc-ds1305.
 
-for all our config header files in those .cmd.o files. That then
-causes extra work for 'make' for all of this.
+It also clears the wake IRQ and disables the wakeup source configured
+in probe. These are not devres-managed, and the driver core only
+releases them when the device itself is removed, not on unbind.
+Without this cleanup, a later bind would fail probe with -EEXIST:
+device_wakeup_attach() rejects a second wakeup source for the same
+device, and the leftover wake IRQ would make dev_pm_set_wake_irq()
+fail with -EEXIST and a WARN as well.
 
-And we do that 'wildcard' thing not because we want to actually match
-a pattern, but because that was the only way to have 'make' not
-complain about missing config headers.
+This issue was found by an in-house static analysis tool.
 
-I'm not even sure the original reason for it is relevant any more -
-this is all a very dim memory from years and years ago when I actually
-tried to look at profiles of 'make' itself (normally when I do kernel
-build profiles I only look at the what the kernel part of the build
-is, not user mode).
+Fixes: 7adca706fe16 ("rtc: atcrtc100: Add ATCRTC100 RTC driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/rtc/rtc-atcrtc100.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+diff --git a/drivers/rtc/rtc-atcrtc100.c b/drivers/rtc/rtc-atcrtc100.c
+index 9808fc2c5a49..3c7313218da5 100644
+--- a/drivers/rtc/rtc-atcrtc100.c
++++ b/drivers/rtc/rtc-atcrtc100.c
+@@ -337,6 +337,16 @@ static int atcrtc_probe(struct platform_device *pdev)
+ 	return devm_rtc_register_device(atcrtc_dev->rtc_dev);
+ }
+ 
++static void atcrtc_remove(struct platform_device *pdev)
++{
++	struct atcrtc_dev *atcrtc_dev = platform_get_drvdata(pdev);
++
++	dev_pm_clear_wake_irq(&pdev->dev);
++	device_init_wakeup(&pdev->dev, false);
++	devm_free_irq(&pdev->dev, atcrtc_dev->alarm_irq, atcrtc_dev);
++	cancel_work_sync(&atcrtc_dev->rtc_work);
++}
++
+ static int atcrtc_resume(struct device *dev)
+ {
+ 	struct atcrtc_dev *rtc = dev_get_drvdata(dev);
+@@ -372,6 +382,7 @@ static struct platform_driver atcrtc_platform_driver = {
+ 		.pm = pm_sleep_ptr(&atcrtc_pm_ops),
+ 	},
+ 	.probe = atcrtc_probe,
++	.remove = atcrtc_remove,
+ };
+ 
+ module_platform_driver(atcrtc_platform_driver);
 
-I just tried removing the 'wildcard' generation from
-scripts/basic/fixdep.c and the kernel build didn't care about it at
-all. The whole 'wildcard' trick goes all the way back to the original
-commit that added that whole 'fixdep.c' phase.
-
-Maybe the whole thing is entirely stale now and should be removed. I
-probably just didn't trigger the situation where those extra
-'wildcard' things matter. That whole thing is from a quarter century
-ago, and nobody has dared look at that code since..
-
-Or maybe 'make' is better at those wildcards these days - or other
-things have shifted.
-
-From those dim memories, make spent a lot of time doing filesystem
-lookups (directory reading  and 'stat()' calls - the wildcard thing
-triggered more getdents calls), but even more time just in string
-handling.
-
-               Linus
