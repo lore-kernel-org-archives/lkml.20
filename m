@@ -1,89 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE3922576E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089CD552926;
+	Wed,  9 Sep 2026 12:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957033; cv=none; b=P53HiFxzaBMSuhcYUXYL1VAM7a6NxXlFDQ4uVcIR9CmhUADOHQTd4wRL3xa8Kw9oaZrAGX19mcfHzbjO5fAgkHLm0iP7c7qVyt9WLGG9gcYs2a2m7luqY44FAV+FyjnDzgM2UzGwTw0ot1iyDL+a7slMKNVH55Rqvp1poSlBPS8=
+	t=1788957074; cv=none; b=RPCEJVlyP75d17ahvPK+thfA8tchSCgVJDRDOqvgbo1v07jhsAXHdy/DWJPkIPMYJIC5nFlLruRs72PiYEQnbvU0rzuIp82FHEdkA2xeuSFopKlJ8lnbQed0GM0jDNaexPF7rjr5s+ykofYY+dC9N99ty2649p3GR/RTNrOQwRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957033; c=relaxed/simple;
-	bh=Q62aGpTiVW4XYJsbDvrAMc7X+wDBqwqw18bgdCN/+iI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C9QbGCvCOYEtqiGTEJXWEbE9KP1KA0rXVmgLX795kvlx4aQurdIzBiEaTZZMo6Cpe2Tr7HcpNS7GqR7eHTAb/B5YSi5ec7WB6Iuj8qWxebuVgUDY6smGq47M2Q/dQ2dSb692N44R+leWknSrhQzx6RVYkehIgXiKq0eXvap19Ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SohZv6HJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788957074; c=relaxed/simple;
+	bh=7afWyJrgsN57alnTpiCGsFn56XEnuhrNtY5V8paD4gY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mpDOb+7xUPKTF2isV8yQpiwEyQYulBeu0S/lcMB8fX//DokB2Cs/r8aO+h92FeG49WVNGvxKJuH4L/LgLHKesEx9u5B88pidhMAUXXD04AuKM0r/RvXNwJRXrq5DDawALYKUrOuROE+F0zT6x5eD1R/JVJj6+eGkE5QD35jNFO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=RZWJ2x2b; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SohZv6HJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35EC1F00ACA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:30:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788957031;
-	bh=Q62aGpTiVW4XYJsbDvrAMc7X+wDBqwqw18bgdCN/+iI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SohZv6HJiX1RLYidT1ogBnh4p5p9+OBT0nOEij5d+C8G3Ns1GEVINNOmN3X21EZIR
-	 b59O9XFgfiKEO9KPznp4H1uPCka5ibaCGE/ygkCB6XHyhHj+kB6ISKuG28I+PGZ+Hn
-	 COhO0sUSdMj+oZpLFapa6ttumyf2BkpnosvNgKW7lmYRLja2aqNBJORHvSjbT0mBeQ
-	 M3Y76XpUPtRAhKA0JSKmENSrb9StwZTncHxSgBE3MllDL1xnNpEhSyF2dg6uzQsPbP
-	 ezCEp93PAqF/h0lV+SntSX64gp0KoDYkVQn4W5SbI1WmJuxxFc+bl2gyEe9Nlt1fwS
-	 frcLq9+QorrlA==
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-46fdd5884d0so1868638fac.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:30:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByA8qTEvYRM9sZVabmQbjsaQG8rhjV1fce2CpgQz5YxMdNEDnWhjRejvyZMTCfA7PrOhoJksV7TyxMIoUA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG5oVeeSFqtrwMANqlHt3K4ygYGlEoNHOhJg002SQuOFOsmu+z
-	EohbwqpklBUuHd1w0vBlDiUx1oZP+PE0y2/uR+SxpC/Zl400XKx3rsD3pPWwJ/otbtQc34+2zv7
-	XTAh9rjPylu9WoHcV2RCpQq/XgBUqFwc=
-X-Received: by 2002:a05:6870:450d:b0:43c:44c9:b87e with SMTP id
- 586e51a60fabf-47550f21cedmr22056135fac.3.1788957031012; Wed, 09 Sep 2026
- 05:30:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="RZWJ2x2b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788956999;
+	bh=aeduXdi3SI6oI4pP0SAUmrHkqfi0yxLPGaWIRs91kj0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=RZWJ2x2bYLWDDzhDPe1MLA2eM9FcY84bTxjWyhtgRfJ+y7p32To0uob5WKEKzdr0N
+	 6EovMSvr/ZMokJlw1I4sOIdnqMP7j9jvsxLLzPC6zmwvOyLkgdxbeB8o5IXfk6kvn1
+	 JjsU8gzEevUSBDeMlmK0cbs8gD1fjvlQc0bnRBlc=
+X-QQ-mid: zesmtpgz3t1788956992tc3d62d03
+X-QQ-Originating-IP: J4TZjWEglTlVV6Shn61/s20jdDhPdX9NmfYn/tUuNMk=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 09 Sep 2026 20:29:49 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12943038780183731438
+EX-QQ-RecipientCnt: 21
+Message-ID: <6979EDB8BC55840B+13690640-896a-4b3a-afa7-09079192b695@linux.spacemit.com>
+Date: Wed, 9 Sep 2026 20:29:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909120825.33350-1-kuncy7@gmail.com>
-In-Reply-To: <20260909120825.33350-1-kuncy7@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 9 Sep 2026 14:30:13 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm4KOheiTFeJsBNABap4vMa3NhfYaX-rWAiNs5VRTOJOA@mail.gmail.com>
-X-Gm-Features: AcwNN1W2DYoIkPvzSX0TVbttuF3jrcW8F65nUfzdcQual4KBLp4XXAbykoWfifQ
-Message-ID: <CAD++jLm4KOheiTFeJsBNABap4vMa3NhfYaX-rWAiNs5VRTOJOA@mail.gmail.com>
-Subject: Re: [PATCH net-next v3] net: dsa: realtek: rtl8365mb: wait out the
- full chip reset time
-To: Stanislaw Pal <kuncy7@gmail.com>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/9] dt-bindings: usb: ci-hdrc-usb2: require clocks and
+ resets for spacemit,k1-usb2
+To: Conor Dooley <conor@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Ze Huang <huang.ze@linux.dev>
+References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
+ <20260908-b4-spacemit-k1-usb2-v2-2-f07342ffa051@linux.spacemit.com>
+ <20260908-tapering-panic-e76cb4114d92@spud>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <20260908-tapering-panic-e76cb4114d92@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: N24fqzDYEFI9r/JvjUF4+JSd1XvAKu1Gp/czPXEY1nJpx9WlFEv2ofUW
+	NgdGunUZ3OaXJh0b2Y5RX+FzPygRgXBSOh+dM7OfwsjglNdJwoVejZdmm5fJJ0Y2X5tTEt4
+	ca7zQ3QWdB+fS7bRvUUzMgOdf9HH6HuRWKRbUVuuSVjz9oXsuOepXg7lMpi5JR2GZhFwG/8
+	S9m/EIu2EtLQNYSmzXEa1Kwv/KpVx1bYbXv4rnq1rFQsuY4KsEiTbNDSK0asrsbjzlsxSQS
+	a9t34WI2U+1w/+u7jLQjjddI5X7iWcSUNkUxjT+xeyxeTwF5CgSYZEfWWkOsY61eTEwrgjw
+	VlmLjU00iBIPT8BFnBUXo/CSO8PwUqJU4R/T3GfZq5hyPL881GQOas5uGQkFo2T1GMUDUAO
+	3FV1/89kwWwHjqUFSGrkp+oScmfI7efgsIuNs074ZmwLyFgjzNoLx1FHpplQPC6OKgmgZC5
+	ErocrnhIzhnUfdjzlwn0GxcjpLIVao21SDw8i8iIHF9TyiHZECQ442WyBV9LEIQX4bOXR77
+	odxHNzK6fovTsC57hJWus+Cu3J01b2q13uxm0mdkUiLufLwK7OJo67Ew3Q9aKXqyETLw7u5
+	v5OBlh1eZZBbOl7X1I1GvK3Id9fYKKY12K1cyZtePtSmjuJVlt/yktgDiiAguneNqCATBNg
+	vDHDsp+BR/jn5GOtseL8rSWNDzEczJb90OzdAjQA07O+vvgnwS3qQBV4QQIn7e22l3JFGZ4
+	3vsv0adXmcs52o6PjGONNnf4aql8yguuWKjnJXiWBQvEvTbUK4+ct3o3BBiZg11p+WjjNUS
+	UDif5N9jFXn9Lm/ZshhkrEhrbobOT0rahpMc0cKDCsTiAK21I3OnU0Rm+Gqw9Jv3ulQpQno
+	T7po6STj4Wee8Bzanl+NkGg/x9VDXUiRdMnt/zxwZ0wx7NtjvgTiNsjIUDaQt7DqJApSltN
+	kJWv8OOS5i/I6ijHSAHA4FFmVV+2dTciXBtoYNK7ay8zuTflKwlAMOHUPk/qTTQhnQ2mKcI
+	fZw5hmWdskABobGJ2M9Xc5ogrco7IF09tKoZ/nRBfRdgHaMrMrhjqb4DROeQKEN+lME2fR4
+	uCmjxwwg5YY+9x9MNgyXSWnDf0hmI/VP5qjtqdOeBpfmV3DV75E9g9mbZrndzPtcQ==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Sep 9, 2026 at 2:08=E2=80=AFPM Stanislaw Pal <kuncy7@gmail.com> wro=
-te:
+On 9/9/2026 1:50 AM, Conor Dooley wrote:
+> On Tue, Sep 08, 2026 at 05:48:39PM +0800, Junzhong Pan wrote:
+>> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
+>> work, add constraints for it.
+>>
+>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> 
+> Squash this into patch 1.
 
-> Realtek documentation gives the chip 1 second to reset, and the driver
-> says so in a comment, but it only sleeps 100 ms and then polls the reset
-> bit and continues as soon as that bit clears. The bit reports that the
-> register block is back, not that the chip has finished its internal
-> bring-up: Luiz notes that older parts such as the RTL8367R need
-> noticeable extra time after it clears, so a driver that keys off the bit
-> alone is relying on that margin being zero.
->
-> Sleep out the documented second before touching anything, then read the
-> bit once and fail with -ETIMEDOUT if the chip has not come out of reset.
->
-> Probe therefore takes 1 s on every chip the driver supports, not only on
-> the part this was found on.
->
-> Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
-(...)
-> I have deliberately not carried Linus's Reviewed-by from v2, since this
-> revision replaces the implementation he reviewed.
+Ok, thanks
 
-OK this works too, I was too quick in endorsing the hairy microoptimization=
-.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+> 
+>> ---
+>>  Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 14 ++++++++++++++
+>>  1 file changed, 14 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+>> index 6f8d88a0681d..5c2b7eb1a6ff 100644
+>> --- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+>> +++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+>> @@ -114,6 +114,20 @@ allOf:
+>>            maxItems: 2
+>>          clock-names:
+>>            maxItems: 2
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: spacemit,k1-usb2
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          maxItems: 1
+>> +        resets:
+>> +          minItems: 1
+>> +      required:
+>> +        - clocks
+>> +        - resets
+>>  
+>>  unevaluatedProperties: false
+>>  
+>>
+>> -- 
+>> 2.34.1
+>>
 
-Yours,
-Linus Walleij
