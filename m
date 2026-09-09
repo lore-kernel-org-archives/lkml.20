@@ -1,252 +1,290 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC55592EC
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980123; cv=none; b=VWF8r4Xj/9bDUNaivuh9Ly1U0W3HkKejd1omaSmNvEcb9dunjZKUXyyGNXY5L+lBN/uHtdClQ0v9kWCBqJYI/sdGeks3dhktGwsNzFgAF5HvkiIDdHj5mr9kLESGe2433EdcXKlEITaEEFHE40wb51UKDVZ/qm+FC8QBHRheYyw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980123; c=relaxed/simple;
-	bh=U1NdQA2aJNUMNdQHV1yvInMQLf5QuGfXhDOBIEUVFTg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gqq+Tnpykxd2aUBNR4Fvz626mFyvYXJSgjmyQ88hobnEDAYtMt6Dm2V4i8gzEiATerMLd+gykYwqoI8nSfQ9C+zpVgI9BpIjfi08w2zRjwRACCSWciI987ANAOEDDctmE1oBxbaHIeK40HiyOJ26X+bu0ZCrIlMJ7Ab596HfgSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UBKV82pF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IirCt3Gu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39B63D1CAC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788980268; cv=pass; b=V4Oh3HMSxCXd35kmWpIIKbJtgCp9Pc7bb82Cn4orTmA5aVCCwBj3YZ1bYuOC+O8I9JAz8nQAGcPLt7Y8IvqOnsXjcet23Ld6mxsNjrwA6rRYaAU8bBISOvlqCn56hXiLr24gcr77IgJhYYwq4QNu2mmGUi7l2zYTPjCDRN4x3eU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788980268; c=relaxed/simple;
+	bh=WbeG64AorhHsTdCsQYdSDMzovN06CfdjHTIjqvGTqSc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JtL/5JNP41xolGQklff6BSZ8GXOG18Z40IRaTun9OyiQVk7rpYVjJv5Z6WR3NzTRGtKZdKBB9DxlxxBUoUXxricVpUtJLibG0vCjM73iU13eCe0SbUdx0fB8GsnPjLkM8zqj3ZC8irxi3jNlZNp0zWSMpLnDE3KOeKOGQb0qb2A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PDKyLBwQ; arc=pass smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UBKV82pF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IirCt3Gu"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689IgDfh3140067
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 18:55:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=M5rvIWGTIvOTCE3UxEp1CtwJ
-	p24SA8aalhpVBxX9P4c=; b=UBKV82pFgJhLWH2fGpTDOEjWYD13vt/8iJpHl8CP
-	Wr99KKnwqJFy13Qd4uny+m/WphgkXa5cJ/2iqk8KchWGMv5GOzJvBZtqW0J53X5e
-	DWwKK2h8e1LdBzzOU2ilj3+96RVr853RiUg4DYPAh/ekLdJUW2vgs6Qah9bZKqzn
-	KKlCQF1AO6wDQd7rTmmaXaUUWjurunrQcUcPH50lY3way1V77/rcx5jZnZSdakXk
-	QoFrzV2r0wmw4j+vXJLlgjQk80PSz1wG92C0GQiY8FcFYOZsu2bsWmlCXHsExeCK
-	TOAWRQYBg3W1cogKlmAWR3bNqjA89QvEyn6+ocAG5M1UEA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg01ms-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:55:18 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-78fa7ff1a44so342650137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:55:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PDKyLBwQ"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so5235344a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:57:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788980265; cv=none;
+        d=google.com; s=arc-20260327;
+        b=arNjUkY9PYbkzpteqJulNUUJLFXbqhcRN2jEzLUjGUT92r0qVXiPOvI4Qt5kL/3yCr
+         vuh/xVo3WGXmgkJWNDZ0rHufnMzJJbGy7o17j813QpxGtTMZKk+nzs7KgUmp8ysKjM2n
+         z83PYPZ75VFGtLwULWGlmJZjOBHDuX83gH8hDnwAUYSP+NTgPLvrgB/4LGEft/d1A+mI
+         vr1gCk65/lsKSi3EmsSSjVwYSkndkYUrzOu2aXz2phxkuXSUwaO2u4RWAEMNMn1qMBO/
+         88Ejxk/ko3l4O66cA7e+MUp323IoDU8Cu+cRNq5Og12ySDuUE4DHpsoVUElsCd0Q+JVj
+         iaPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/exTjUH+gs9Yy4hX5uQ5ycgwaqSVDjVmti5Tk/GIvvg=;
+        fh=FnI0TE+zcIzbe+qOo6W9S46dP3RdQ1iNBSCAsDw7QyA=;
+        b=p3b2ubli4BHmGsqmNZ4ecIYMNcASUpm3UCuctmzQl1+yqiF5f1QMOx8IJ1eYEb3dUL
+         8MV8GI6xGHLdpeqa/F13wrOwctA/ZmNKvsmJS4w0HpyD16t1l03SI5Sa5Iy357hfuDk4
+         hFze8cz8ho6doln6Qe1X2ajUFHDiGAJWa6Ac/+Ua9jpgkPkf9oGHi8z3yWvRPG0JsGWr
+         yju6BLJXUry1y+qgOcf6975fYco1Z/fLvlhoicqRoWDUzMuhxGMv2dCqwtKxjkTvFklw
+         RWkhVsmK3ys1j+WnkMIfRUdZGvOTFvS2aSDhAhx0T4KrCc2rQPxZbHntvxpxZSmIgYqt
+         pcMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788980118; x=1789584918; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788980265; x=1789585065; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=M5rvIWGTIvOTCE3UxEp1CtwJp24SA8aalhpVBxX9P4c=;
-        b=IirCt3GuGiCMboTbA3d4HgfwpRQGh4tvs3IA9686PXb2KsPWswH4WeZ7rkML9EJX60
-         NAo+k+NA+ipBJu/MOAH5VNnroxp9po9TqPOmO/0U+f0TslYncH+WDxbM8JdajdY1bK2U
-         8YsuMxbkXM5rZ0DjAzyQUb0GymdPbHcH+cLhdULSiNh2M+9V38ahujt2O4Pcz5ZqTHjA
-         hife1/IjTndzyC/NiXfBiKnlzbw+wOk4nqcyCfq4fcJltMhGygPVjwdOlkd+DPvGfZI6
-         jHtDWEW4+lRiaiSfADliZPDbmpBtzoaOpQkU33bkLl052XejRxlgrYCfUgYmJnT7r0SJ
-         gANw==
+        bh=/exTjUH+gs9Yy4hX5uQ5ycgwaqSVDjVmti5Tk/GIvvg=;
+        b=PDKyLBwQ1Ltlto3n9u8zqpjedLyUi29J078n7QvqUySB/ud3zs4pyErTLxLRwYtcn8
+         LEmOkc7QFrGamNJrFpZeMHJGPsmbB+K3g77bTiX1Oh/9rquJJerEhyzjzjYkxbgrsETt
+         h61Ov8/2OFZ4CK5hKNoW2kvc2O7DeEdA+ap/kNfnPt8mM4mqmzdPu0MZa0Oyz2ebUgJX
+         iFMZXpUyEBvFaxT7E7WEL6kwmOjcOKuygqtRECO42dzGKUmIiUfPFZOyWCxI1+05YSCw
+         2oMHJeeypCfxCV0oeTneqqpg6Ln6TUg1p9mQmBvLifjzua4SLfQDa827c7u0/Mc0Iq1K
+         +Caw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788980118; x=1789584918;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788980265; x=1789585065;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M5rvIWGTIvOTCE3UxEp1CtwJp24SA8aalhpVBxX9P4c=;
-        b=r08IkOXY2l7vriVtAo6N7Fk67BB70g5q6iXPEDnFBV1UzudYtyiQFVNouvkUkXQqR6
-         jx1JDuZpywD0uGO6b4AIzjK5Sw1t95tS31v85xXhCYMZOPso/HKOJGRgHvXFaMAb1IqG
-         49dzb9hm/U2h4YyE4fYstAR3q0GTGP0eQ8zotrNpxe5GkmjibNny/7A8U+lUo+uvIcfs
-         xiV5VoP/rsY/Hz56xnFC4VoHWI5A71/qRR5vq+8nqG8ovrVp1QVyRCVbzUa/2kFLum0W
-         KfEspukjoPqlb2z3Y6musgOUtOFMidio3f7qjrAOUR48aOYG8M4/QlrPa1W9crw+sE7Q
-         u7hA==
-X-Forwarded-Encrypted: i=1; AKwUvBwUxqwVPNIH0VHPtULu1mhuopfnaXvY43KnUhQiWJ8uSjGazFcmX/wlYfxQ1EExeizG3tPeembUJItbOFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk4sW7sWyyK/vaCcxgaKDVPS8SCorTZRbTq4I5LmTX32vjTNaw
-	F/RzzIR0QiUdCOUjIVkG4V/OTtnyKOq3IR0S4gSbZQq1Gi7ZL//IhBC9a2olTv7AiHyzn/1LsLy
-	Mg5kCKeu8ta9bI9kR+IjKUaEzd8xxO4hYx7f9JNa010WvO5w4aMVbbVVMBz/sIQmexaU=
-X-Gm-Gg: AYBFou17Zajya5OAdaYSta8UoBWMP4xXx8hIF1Xd8HB2n53QwHmCSDleUzrNvg0LcLX
-	AdkvSvqpgh0RzxoSvRUBPAMlbHXlQhPjQsGdmgBwGTTzHhUjSKFno+R3V2W3VfE2GI82lmUbIzd
-	8PcM+YToZMmGkqkJfbh1MZouPNVmG+uGWdUZtz9VrFEGJuKROaiou084DNwLGD0eRAyeLlQinvs
-	fI2y5FYsYFShndOlxppB0yxqhHRQHH9LSXZ/N1YGdNJyq8JvfE1bxhJF7Bylow7Nsgm4EvkQ1KF
-	YRPF2YTzgtaNZ1bsgo+nA6vI9XJaXj2RYWQBLl4ikxD45PeR58HcxoJ0GJlScvGmghfgakDc32I
-	015J1WaA7vUOBXQ==
-X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id ada2fe7eead31-78a4a6c8a04mr16623457137.4.1788980117660;
-        Wed, 09 Sep 2026 11:55:17 -0700 (PDT)
-X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id ada2fe7eead31-78a4a6c8a04mr16623409137.4.1788980116994;
-        Wed, 09 Sep 2026 11:55:16 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26d49d57sm9738765e9.14.2026.09.09.11.55.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:55:15 -0700 (PDT)
-Date: Wed, 9 Sep 2026 20:55:15 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v2 9/9] net: stmmac: qcom-ethqos: add Shikra
- EMAC support
-Message-ID: <aqGrk9TLx8RJ4Xzr@lore-desk>
-References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
- <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
+        bh=/exTjUH+gs9Yy4hX5uQ5ycgwaqSVDjVmti5Tk/GIvvg=;
+        b=rbQbCS1WiWVvJl2adZ3OVNaiOjJNjOUGimOR+DdwkVTbYKN3zoOKHmJhqRcSRnEeEY
+         BViwRcPnfIYIzttLijp4o0q/gfHmcMM347bTtPVai4xraQf1e4CmyM9b8ztltDdlyQ0e
+         50SzJwfWd1+l/dXhEIHGTcVPTNWujPKzKtkLFIybAOy20GXpA1zDePZ7NAszDhlbnrka
+         nd1QcoIFTKuYnvd6DP8VCvkf8D/+bNcsXmi8ztBNW1pdDqFj18COhf6cjiif1TXhTt2H
+         okJ8nrDugW1wOnegb3QmVSvj+3tCNHOXbInlCUywwW7ciTR0BIt7C2u8koX9PEZs/tuQ
+         wfww==
+X-Forwarded-Encrypted: i=1; AKwUvBwWWYsAMitVtGNVmPLLdXzW3Y2srg1Qm8G4i4AfCygbz9QIRHJfQe770JEncEcIRgEgB+i75YO6apxl5V8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n73IXdTXiZM2QmTJ711yxgMkaKw/VOa9xzMYqP+YPaCxw6Dq6q
+	ybTv1kZIzhW2CorEGGQZwARXVSyu8wqYqOXz0BrFvKst1FKFQwP7l7wNUk5B7cbT6n/E/rG2Zsv
+	dqLP389FOayPukabncS+kp6cPv4iVu3w=
+X-Gm-Gg: AYBFou3ut255mHllQn2TjZBOjqRI09rztbcMpoZu6JCxtBjor9kiP4u8lrGfflUo5r/
+	SoeTStwYjL+9o4LkRGbV9NvWhjoqXPFC+sSG9JThAQOsVFjJg1HDpmeIgm4HHpx1DQ1SPgADqoG
+	UTfGJ34nlBEYAP4MkanK3kSjbIOhtWI2h0JxjDtUScV+NZPRwhm07IENbAbugfpPTtbRr+I6QXS
+	akZSHfha4QSb4FM5bmdA2aoxw4EvkleaBygTUe4P5T5mg9N4SpO81l/ZFbYGhrbJrHrCMIK9Igm
+	tan/fdz/6gks/aTUIGpWQDKK79Z/GGT7sBciEdigYBm0W/AjTPMzKBoIJhxg6H6Gsv25PPEdpAE
+	QGphvHBAuIJwd/KvZKdpzoBtb9+xVbzjMZ8Qf43AY
+X-Received: by 2002:a17:90b:274c:b0:398:9be9:ab92 with SMTP id
+ 98e67ed59e1d1-39b2629b27fmr57161061a91.23.1788980264796; Wed, 09 Sep 2026
+ 11:57:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hx4+qUIsDXNsQO4F"
-Content-Disposition: inline
-In-Reply-To: <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=YZYodARf c=1 sm=1 tr=0 ts=6aa1ab96 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=DFbXc3gujWXi7Ms4cGQA:9 a=CjuIK1q_8ugA:10 a=AyJwBSL0_NbV6ZD5tKsA:9
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIxMSBTYWx0ZWRfX9EcrYo8rpZUs
- R5SxeOhj5SojGJoiwMMdJAdscvN60l4K7GRYcLxjRIvGnDgC1r0y/Q7Yn5bcXGh079Oe+kRPeOq
- L1O8TJukpZld8VoXoyVdgB6NxTvrjmo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIxMSBTYWx0ZWRfX7/UV2jPbPfIV
- sW8t4LUPnWgK3+wEojbXwY6bIduaUD5uEc4Ut0VQiw55fzkNRUINF1e2K4NiVyBobpiRHfo3zdU
- /qK1FmQR3DkCkv0pcFn3oxu5YbDhwetpMEsiYBaRbmIFTRrreCk2Xz8X17Ktc70xskHfwvr65tu
- 3tEJU65x81EdWNfTEdWO5CZfXNfJqzmsAasRb31YXO2H6C06gZB7TQQmEyB+Fm5/ZGqmCead02+
- MC5/dBMTodxIfcPfFEsOYHlE1jw5XVoWT285je+x0rxU+smxjhk/Fh3gJrElDRJHJOLO1wjb7KQ
- luO02H5MrCcivaP7tBCJuMJqKBTGtklR9p0bA7nuP+8gRPZvBRKaFkZz97U9d73BFmCCgNf5DTl
- iNOABKlg8fq8l89S4Ei7n6+De5Q63dKiDYeh3SVmrvXGQq6RJka89MrLcbo9eOR1g2kDF5UMcGT
- xKOf3DOdMtB2IfwMBqg==
-X-Proofpoint-GUID: B_gwYcYDmUEPhBVy4BsM3oW0G1t8qVJk
-X-Proofpoint-ORIG-GUID: B_gwYcYDmUEPhBVy4BsM3oW0G1t8qVJk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
- bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609090211
-
---hx4+qUIsDXNsQO4F
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <CALMSewJPfQXRX5q4X3gJf=LT6m2FnusTM=DBiWsBqRFiyNP_Gw@mail.gmail.com>
+ <CALMSewK17jG3MXTHv4Rj+tFVriw9+tqNuAMcX4KGQGy5NQP_MQ@mail.gmail.com> <c0fb5a98-436b-42a5-8e2d-2ffdc6e53e25@infradead.org>
+In-Reply-To: <c0fb5a98-436b-42a5-8e2d-2ffdc6e53e25@infradead.org>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Thu, 10 Sep 2026 03:57:32 +0900
+X-Gm-Features: AcwNN1UGFTJqKofzEk9iPH0HSBbnTV2M63ynTpBswdUwBjrcLA_4VXVSLlRRTGo
+Message-ID: <CALMSewJ2oAVBicSTNbfKU42UEwg24w4L0QNmSx5tQ0v=y9vb9Q@mail.gmail.com>
+Subject: Re: [PATCH v9 2/5] Documentation: iio: add Open Sensor Fusion driver overview
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: jic23@kernel.org, linux-iio@vger.kernel.org, dlechner@baylibre.com, 
+	nuno.sa@analog.com, andy@kernel.org, linux-kernel@vger.kernel.org, 
+	joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com, julianbraha@gmail.com, 
+	corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-> Shikra integrates two Qualcomm ETHQOS controllers based on the Synopsys
-> GMAC IP, similar to previous platforms.  Register qcom,shikra-ethqos
-> backed by a new shikra_data descriptor that enables the three NOC clocks
-> required for DMA memory access (axi-noc, pcie-tile-axi-noc, stmmaceth)
-> all at 120 MHz, and the 36-bit DMA address width.
->=20
-> As part of the NOC clock voting logic, the qcom-ethqos glue driver takes
-> a second enable reference on the "stmmaceth" clock, which is already
-> enabled by the stmmac core. All three clocks in shikra_noc_clks[] must
-> run at 120 MHz for NOC access, and managing "stmmaceth" through the same
-> clk_bulk path keeps the rate-setting and enable/disable together.
->=20
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 31 ++++++++++++++++=
-++++++
->  1 file changed, 31 insertions(+)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 8871d285941162c72e2a8f79d2eef915d9283796..c474f1e5a043777a52bcbff8a=
-488640f6dbdca30 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -328,6 +328,36 @@ static const struct ethqos_emac_driver_data emac_v4_=
-0_0_data =3D {
->  	},
->  };
-> =20
-> +static const struct ethqos_noc_clk_cfg shikra_noc_clks[] =3D {
-> +	{ "axi-noc", 120000000 },
-> +	{ "pcie-tile-axi-noc", 120000000 },
-> +	{ "stmmaceth", 120000000 },
-> +};
-> +
-> +static const struct ethqos_emac_driver_data shikra_data =3D {
-> +	.dma_addr_width =3D 36,
-> +	.has_emac_ge_3 =3D true,
-> +	.noc_clk_cfg =3D shikra_noc_clks,
-> +	.num_noc_clks =3D ARRAY_SIZE(shikra_noc_clks),
-> +	.rgmii_config_loopback_en =3D false,
-> +	.dwmac4_addrs =3D {
+Hi Randy,
 
-nit: this part seems in common between emac_v3_0_0, emac_v4_0_0 and
-shikraemac_v3_0_0, emac_v3_0_0 and shikra.
-Can we add a common definition? E.g.
+> What email client did you use to send this patch?
 
-static const struct dwmac4_addrs qcom_emac_dwmac4_addrs {
-	...
-};
+I used a tool that sends through the Gmail API.
 
-Regards,
-Lorenzo
+I'll check the received raw messages to investigate the line wrapping.
 
-> +		.dma_chan =3D 0x00008100,
-> +		.dma_chan_offset =3D 0x1000,
-> +		.mtl_chan =3D 0x00008000,
-> +		.mtl_chan_offset =3D 0x1000,
-> +		.mtl_ets_ctrl =3D 0x00008010,
-> +		.mtl_ets_ctrl_offset =3D 0x1000,
-> +		.mtl_txq_weight =3D 0x00008018,
-> +		.mtl_txq_weight_offset =3D 0x1000,
-> +		.mtl_send_slp_cred =3D 0x0000801c,
-> +		.mtl_send_slp_cred_offset =3D 0x1000,
-> +		.mtl_high_cred =3D 0x00008020,
-> +		.mtl_high_cred_offset =3D 0x1000,
-> +		.mtl_low_cred =3D 0x00008024,
-> +		.mtl_low_cred_offset =3D 0x1000,
-> +	},
-> +};
-> +
->  static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
->  {
->  	struct device *dev =3D &ethqos->pdev->dev;
-> @@ -962,6 +992,7 @@ static const struct of_device_id qcom_ethqos_match[] =
-=3D {
->  	{ .compatible =3D "qcom,qcs404-ethqos", .data =3D &emac_v2_3_0_data},
->  	{ .compatible =3D "qcom,sa8775p-ethqos", .data =3D &emac_v4_0_0_data},
->  	{ .compatible =3D "qcom,sc8280xp-ethqos", .data =3D &emac_v3_0_0_data},
-> +	{ .compatible =3D "qcom,shikra-ethqos", .data =3D &shikra_data},
->  	{ .compatible =3D "qcom,sm8150-ethqos", .data =3D &emac_v2_1_0_data},
->  	{ }
->  };
->=20
-> --=20
-> 2.34.1
->=20
->=20
+Thanks,
 
---hx4+qUIsDXNsQO4F
-Content-Type: application/pgp-signature; name=signature.asc
+Jinseob
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqGrkwAKCRA6cBh0uS2t
-rArrAP9R8xEG+zLWVTIluHMbwn06eRZVDw4njA5XwSEu+LwHrQEAo4TJM5euvbra
-4jutQknO4Wvvhxx1ELycGgKuzOGCTw0=
-=m+rn
------END PGP SIGNATURE-----
-
---hx4+qUIsDXNsQO4F--
+2026=EB=85=84 9=EC=9B=94 10=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 1:02, R=
+andy Dunlap <rdunlap@infradead.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Hi,
+>
+> On 9/9/26 8:05 AM, Jinseob Kim wrote:
+> > Document the Linux IIO mapping for Open Sensor Fusion devices.
+> >
+> > The overview explains that sensor channels are discovered at runtime
+> > from mandatory capability reports. It also documents that OSF0 is a
+> > wire-format detail and that protocol_major and protocol_minor carry
+> > protocol compatibility information.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+> > ---
+> >  Documentation/iio/index.rst              |  1 +
+> >  Documentation/iio/open-sensor-fusion.rst | 84 ++++++++++++++++++++++++
+> >  MAINTAINERS                              |  1 +
+> >  3 files changed, 86 insertions(+)
+> >  create mode 100644 Documentation/iio/open-sensor-fusion.rst
+> >
+>
+> What email client did you use to send this patch?
+> It is wrapping (longer) lines for you, in a way that's not good.
+> It causes malformed patches.
+> You can see it below or at
+> https://lore.kernel.org/linux-doc/CALMSewK17jG3MXTHv4Rj+tFVriw9+tqNuAMcX4=
+KGQGy5NQP_MQ@mail.gmail.com/T/#u
+>
+>
+> > diff --git a/Documentation/iio/open-sensor-fusion.rst
+> > b/Documentation/iio/open-sensor-fusion.rst
+> > new file mode 100644
+> > index 000000000000..15d41202eb66
+> > --- /dev/null
+> > +++ b/Documentation/iio/open-sensor-fusion.rst
+> > @@ -0,0 +1,84 @@
+> > +.. SPDX-License-Identifier: GPL-2.0-only
+> > +
+> > +Open Sensor Fusion
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Open Sensor Fusion is a sensor aggregation hub interface. The Linux II=
+O driver
+> > +receives OSF protocol frames from an attached device and registers mat=
+ching IIO
+> > +devices for the sensor classes supported by the driver. The actual sen=
+sor
+> > +channels are discovered at runtime from mandatory OSF capability repor=
+ts.
+> > +
+> > +This document is a driver-facing overview for the Linux IIO mapping. T=
+he full
+> > +wire protocol, firmware behavior, and hardware model details belong in=
+ the Open
+> > +Sensor Fusion project documentation.
+> > +
+> > +Device Model
+> > +------------
+> > +
+> > +An OSF device sends binary frames from the device to the host.
+> > Devices using the
+>
+> ^^^ Should be one line, not two.
+>
+> > +``opensensorfusion,osf`` compatible are expected to provide
+> > +``CAPABILITY_REPORT`` messages so the host can discover which sensor
+> > streams are
+>
+> Same.
+>
+> > +available. Device Tree describes the attached OSF sensor aggregation
+> > hub; it does
+>
+> Same.
+>
+> > +not enumerate the individual sensors discovered at runtime.
+> > +
+> > +The currently supported Linux subset exposes:
+> > +
+> > +* accelerometer samples as ``IIO_ACCEL`` X/Y/Z channels,
+> > +* gyroscope samples as ``IIO_ANGL_VEL`` X/Y/Z channels,
+> > +* magnetometer samples as ``IIO_MAGN`` X/Y/Z channels, and
+> > +* temperature samples as ``IIO_TEMP``.
+> > +
+> > +Protocol Scope
+> > +---------------
+> > +
+> > +The driver supports OSF protocol major version 0 for the IIO receive p=
+ath.
+> > +The current wire magic is ``OSF0``; that string is a wire-format detai=
+l and is
+> > +not the Linux driver identity. Device Tree keeps the generic
+> > +``opensensorfusion,osf`` compatible rather than naming a product such =
+as OSF
+> > +GREEN or a wire magic value.
+> > +
+> > +Protocol versioning is carried by the ``protocol_major`` and ``protoco=
+l_minor``
+> > +fields at fixed offsets in the OSF frame header. The driver currently
+> > +supports ``protocol_major`` 0. ``protocol_minor`` changes within major=
+ version
+> > +0 are intended to remain backward-compatible within the fixed header l=
+ayout.
+> > +Incompatible wire-format changes require a new ``protocol_major``. A f=
+uture
+> > +device that cannot expose compatible version discovery through that fi=
+xed
+> > +header layout would need a different Device Tree compatible.
+> > +
+> > +The Linux driver handles device-to-host frames for:
+> > +
+> > +* ``SENSOR_SAMPLE`` buffered and direct-mode sample data,
+> > +* ``CAPABILITY_REPORT`` based IIO device registration, and
+> > +* ``DEVICE_STATUS`` cache updates.
+> > +
+> > +Vendor-private message types are ignored. Command transport, calibrati=
+on
+> > +control ABI, fusion output ABI, and runtime capability removal are out=
+side the
+> > +Linux IIO receive path.
+> > +
+> > +Timestamps
+> > +----------
+> > +
+> > +OSF frames include a device-side ``timestamp_us`` field. Buffered IIO
+> > samples use
+>
+> Same.
+>
+> > +an IIO timestamp captured on the host when samples are pushed to IIO b=
+uffers.
+> > +The driver does not correlate the device timestamp with the host IIO
+> > +clock.
+> > +
+> > +Compatibility Notes
+> > +-------------------
+> > +
+> > +This overview describes the implemented receive path, not a normative =
+wire
+> > +specification. A publicly versioned specification covering reserved fi=
+elds,
+> > +extensions and physical scale units remains needed for interoperabilit=
+y review.
+> > +
+> > +The decoder requires the fixed header size and the exact payload lengt=
+hs of
+> > +known messages. It ignores unsupported protocol majors, unknown messag=
+e types
+> > +and frames with nonzero header reserved fields. Unsupported capability=
+ entries
+> > +are skipped individually; malformed known payloads are rejected. Appen=
+ding data
+> > +to an existing known message is therefore not a compatible extension f=
+or this
+> > +receiver.
+> > +
+> > +IIO scale is taken from the initial capability report and is not updat=
+ed by
+> > +sample frames. Devices must supply scales in the units required by eac=
+h IIO
+> > +channel type, including gauss for magnetometers. Historical OSF draft =
+documents
+> > +differ on reserved-field handling, trailing extensions and magnetomete=
+r units;
+> > +those drafts do not establish a canonical specification for this drive=
+r.
+>
+> There is some help for various email clients in Documentation/process/ema=
+il-clients.rst
+> that may help you (or not).
+>
+> --
+> ~Randy
+>
