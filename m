@@ -1,420 +1,127 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142514477FA;
-	Wed,  9 Sep 2026 18:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D160B39C017
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978417; cv=none; b=jIX+otUQ7fXCEKKfpP53fpOi9mxUZxhhpH2AkqtqsKpQpzNxqd6GWsMVJRd10auKXVF7ztOoIkO0/DMR2n7IREdpgO4FrNVMDCuNAWZxLJqtPwoxtZjFcQ2EmzoN8zgRjYazOgdIn0WH999LuUloDejjQ2R1U1tEzOwb0WQYGrc=
+	t=1788978470; cv=none; b=nZEZM/LNcZUTgjYEqE7bCs02aGCc0MRyhWoDIMPsQ5nMweGyMvpmVpPncsm0ajrLijKEjW+qfC88I7oaCFpZlAS3e3/NhAXrVfp+RbwFNmcH/HeIoYKsvbc2hgzWNqC9ujqZjz3xn6zcHcBnHEgd/zjWE8IiGO6N/TvH+Eur/fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978417; c=relaxed/simple;
-	bh=/eGVllQ3Fi0HqUzDZXjwQ4j/z+W1aSyf45FqCFQiQMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HcSyoVPU0ZLdSOxuy57alsJgcyi6oSiodcc8YmX+c1xZNe/XlzruHs7GxEoxvkKxM3Kj3e76b9CU2SyU0zbwbY3KMk70Yv5HxW1OBNqpGo4TwHmud9SI20Zh79XFzRaANook7K5hhywxjnzArQE23Q88p5oL+05D2TXhbxeT3YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gDzO7eoh; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788978470; c=relaxed/simple;
+	bh=jpVDW6nqXT3bwXZCXv2EI+3UUbOFqSMc60wFkeXbAgk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To; b=lc6H17zyAHxB/RAfdVJWx9YSkIwAR5bDDMsWn1976KpHWyw37ak/I0asbP+F/LhKTUp30WRmBNH/pfQVjT+5GZR2Fz31myB+8kpsnk1ZaYyBs5MbH9Odes053/E0WhxkBEcEH/8ekywnzd+rqc9rw1V8RnT7ec60FDOFUhl4zsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qeX0in1d; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gDzO7eoh"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0BD93102AD6;
-	Wed, 09 Sep 2026 20:26:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788978409; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1Wg7ENZe68tYnBvM7KrefHw01PjvjPra7kg4z+FggwU=;
-	b=gDzO7eohwLt3Qe+C8Qd9pn8up2gjS6VhXrnbxqkJma2v7dTcfCmnrFRfMCKkJI+MwmFUTN
-	+TNIcQ18EnorZ80Jye8JVIYG3HX33TyokLfpEK/0Il35M6HvCf/sOimAYclN2FMyF0RsWb
-	1+I5aUujV58ttSM32NPe+YOKecFmMJTWctkwP4jfAVtNd+lB80ZG3iI40J4VKdVhEqjCkx
-	cPEoAN+QU+8D2v8nQ+ABwTlEMyHFf4HFRXzoNjGRfFnLhDd+NDm/uEvaKjynYTR5fdklOR
-	WpadlhXpXYoD58vx6N6edvt8XwZzOshdGpQ3EEf6VJ1vqxJ1T25Ixxa4uTSixg==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
-Date: Wed,  9 Sep 2026 20:26:05 +0200
-Message-ID: <20260909182641.165383-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909182641.165383-1-marex@nabladev.com>
-References: <20260909182641.165383-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qeX0in1d"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso60929865e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788978465; x=1789583265; darn=vger.kernel.org;
+        h=to:from:subject:cc:message-id:date:content-type
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JzzpRVmc6Qf1040g7Lq6SnAgBrX6WGAOi89cdyMonLo=;
+        b=qeX0in1dIzu48J9x5R8KqoTgevc4Ha9nGP+vm5qnQuFRJAQAKFfvLkerixsPp9wrN7
+         NQceb6BXTODR7Uphy1FCizGjrECYncTVVgc1vN2ooJ+LPAdnQz5D9+KSM5WHRWJz4xx2
+         1Whs9gaD89BhX3DwW6WYIlZbM1W04FhS3wmCLrNH0F+NU9p4Pq2N6FC7TQUCDXcQi3sl
+         JcahU8yX7q51iL1NCo1/NHpl4qaLgqd2YrcNgpkFlSD+lj4cnz8brt1/YPyI/4X67Vnn
+         ItI8xIPR7iVaPcyP29zq//wxxgPmLmPevJP8BQed3TRGKlFXEzO5NsmlFmeBjMbtyrNw
+         PI7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788978465; x=1789583265;
+        h=to:from:subject:cc:message-id:date:content-type
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JzzpRVmc6Qf1040g7Lq6SnAgBrX6WGAOi89cdyMonLo=;
+        b=LPb6eb0SxsfTy57NNEJQBAvGHseP/xWMdz0r9SCs6IlMzaHICLeQ9LDJ9BSsBKlovB
+         xb7uDfS/R4zgCfxne4R3e6neTmImNvzFgoSYMqFO72Z4ThfI2gs5vsut5NbgQUBryY1+
+         bxbGn8wUL5ihmYMwX51lLeXj9EvXYSbmPMMeV6YXYJEkx4mdUBsZgMIYwxrb/f4qmoCs
+         Vh0M6Fb+C2cdOShjaWgcFhTQXn8cdVvHFfa8wq5KiR2YRqZRWVuq8bHdjngTD0c6CWkO
+         gBOy3sm84ntFGEVIxBPyLZ/ipX/5bEUjxb8lrLYxrZGCAOijD25XkWR8dpg2KI0orjci
+         /R2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ3H1AwvRfV6GKan/5DCrYKW1MWZCwsAL0g3glO3g0EOBjtHDT/VUXbW2dxAMBLCb1MIPcjxuWeTh6ofA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nw4DLDhHObfNOlcN35K0JZVFB5yDeuKvo/iPczUpqiZBJhr6RL
+	S97YlXW46VAO3dW7dtGv+DH1abYFH0ZL++30nTnQukJF5OTCWUDWdCwLjRPpIUU3AGY=
+X-Gm-Gg: AYBFou0o325Ab///LdYxLOQxayGt36tGUr+WoglzmSKbVcLObEc9XEP4KdxDQBTpwIw
+	iG0b2mKH+6ms46ImFwEaNTt6p0eTcmsxBp2f9hY8SVfLCyT+vbS5BEAPPatoa5U2N9vd+9sOCWK
+	HzN8dSANUWZVEoR3rdfMnjzDwfmYIEVDFbFK43mRvsM6GQU94mencCDl+2GpNfD3+f5I2Db+dUq
+	rRUei3FaMVJd4nL0Km9zeT5Bhlj7JleO2PRAowKVz1QseXPkMlQ3InlDmAt2zyTglf2S59pZ20m
+	kS3/yGIKhqmdOm1OMy+L5Qx/b6CcMWtrvUyZ0mjWFAeqS9W4Cyi8TyVuPn2a5ZXSGPgjIfwRB7n
+	WHGhJw3WyaLRLsA3raIZiChZ5jnIkVTkkBlKpVurN8cJF0ZgL95pMlPf0/+Heo8PS7vK2Xrd7f7
+	/gY6TYwH6ZTS3Pp7vm5q29uDH8olT6gFkR7rMwnBfbLTzifntCiEqtNWS4HXSLki9AaYFIhKnWU
+	oKZUCNw3niCLnYxLgsZhI/y8sxj+0UOF7sZqxO9ExfR0XWtAheF7rDv1BS+
+X-Received: by 2002:a05:600c:64c6:b0:49c:fa20:cc02 with SMTP id 5b1f17b1804b1-49cfa20ccaemr335752275e9.25.1788978465474;
+        Wed, 09 Sep 2026 11:27:45 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c07c17sm11855715e9.14.2026.09.09.11.27.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 11:27:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 19:27:44 +0100
+Message-Id: <DLAZXSNZK6QC.1VFAX37XCXBOV@linaro.org>
+Cc: <linux-clk@vger.kernel.org>, "Sam Protsenko"
+ <semen.protsenko@linaro.org>, "Tudor Ambarus" <tudor.ambarus@linaro.org>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>, "Peter Griffin"
+ <peter.griffin@linaro.org>, "Sylwester Nawrocki" <s.nawrocki@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, <linux-samsung-soc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [question] [Exynos850] ACPM firmware doesn't implement
+ ->recalc_rate for acpm clocks
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
+ <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>
+X-Mailer: aerc 0.21.0
 
-Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
-The board is populated with four ethernet ports, QSPI NOR,
-eMMC, UART and USB host interfaces.
+Hi all,
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Michal Simek <michal.simek@amd.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
-NOTE: Checkpatch complains about ethernet-phy-id2000.a240 being
-      undocumented, but the TI DP83822I is generic C45 PHY that
-      is valided by Documentation/devicetree/bindings/net/ethernet-phy.yaml
----
-V2: - Rename lm75 node to sensor@
-    - Use GPIO_ACTIVE_LOW macro
----
- arch/arm64/boot/dts/xilinx/Makefile           |   1 +
- .../dts/xilinx/zynqmp-vhip6-evalboard.dts     | 321 ++++++++++++++++++
- 2 files changed, 322 insertions(+)
- create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
+I'm working on Exynos850 platform support and currently trying to deal with
+ACPM firmware clocks. ACPM is firmware running on separate co-processor
+(like SCPI/SCMI thingy for instance).
 
-diff --git a/arch/arm64/boot/dts/xilinx/Makefile b/arch/arm64/boot/dts/xilinx/Makefile
-index 70fac0b276df0..936ddf6eb80a6 100644
---- a/arch/arm64/boot/dts/xilinx/Makefile
-+++ b/arch/arm64/boot/dts/xilinx/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_ZYNQMP) += avnet-ultra96-rev1.dtb
-+dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-vhip6-evalboard.dtb
- dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zc1232-revA.dtb
- dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zc1254-revA.dtb
- dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zc1751-xm015-dc1.dtb
-diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts b/arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
-new file mode 100644
-index 0000000000000..0108f3d505a7f
---- /dev/null
-+++ b/arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
-@@ -0,0 +1,321 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * ifm Zynq UltraScale+ MPSoC VHIP6 Evaluation Board
-+ *
-+ * Copyright (C) 2022-2026 Fedor Ross, ifm ecomatic gmbh
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/phy/phy.h>
-+
-+#include "zynqmp.dtsi"
-+#include "zynqmp-clk-ccf.dtsi"
-+
-+/ {
-+	model = "ifm ZynqMP VHIP6 Evaluation Board";
-+	compatible = "ifm,zynqmp-vhip6-evalboard", "ifm,zynqmp-vhip6", "xlnx,zynqmp";
-+
-+	aliases {
-+		ethernet0 = &gem0;
-+		ethernet1 = &gem1;
-+		ethernet2 = &gem2;
-+		ethernet3 = &gem3;
-+		gpio0 = &gpio;
-+		i2c0 = &i2c0;
-+		i2c1 = &i2c1;
-+		rtc0 = &i2crtc;
-+		serial0 = &uart0;
-+		spi0 = &qspi;
-+		usb0 = &usb0;
-+		usb1 = &usb1;
-+	};
-+
-+	chosen {
-+		bootargs = "clk_ignore_unused";
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x0 0x0 0x40000000>;
-+	};
-+};
-+
-+&dwc3_1 {
-+	dr_mode = "host";
-+	maximum-speed = "high-speed";
-+	status = "okay";
-+};
-+
-+&gem0 {
-+	phy-handle = <&phy0>;
-+	phy-mode = "mii";
-+	status = "okay";
-+
-+	mdio0: mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy0: phy@1 {	/* TI DP83822I */
-+			compatible = "ethernet-phy-id2000.a240",
-+				     "ethernet-phy-ieee802.3-c45";
-+			reg = <1>;
-+			reset-gpios = <&gpio 78 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10>;
-+			reset-deassert-us = <10>;
-+		};
-+	};
-+};
-+
-+&gem1 {
-+	phy-handle = <&phy1>;
-+	phy-mode = "rgmii-rxid";
-+	status = "okay";
-+
-+	mdio1: mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy1: phy@1 {	/* TI DP83822I */
-+			compatible = "ethernet-phy-id2000.a240",
-+				     "ethernet-phy-ieee802.3-c45";
-+			reg = <1>;
-+			max-speed = <100>;
-+			reset-gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10>;
-+			reset-deassert-us = <10>;
-+			tx-internal-delay-ps = <1>;
-+		};
-+	};
-+};
-+
-+&gem2 {
-+	phy-handle = <&phy2>;
-+	phy-mode = "mii";
-+	status = "okay";
-+
-+	mdio2: mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy2: phy@1 {	/* TI DP83822I */
-+			compatible = "ethernet-phy-id2000.a240",
-+				     "ethernet-phy-ieee802.3-c45";
-+			reg = <1>;
-+			reset-gpios = <&gpio 79 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10>;
-+			reset-deassert-us = <10>;
-+		};
-+	};
-+};
-+
-+&gem3 {
-+	phy-handle = <&phy3>;
-+	phy-mode = "mii";
-+	status = "okay";
-+
-+	mdio3: mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy3: phy@1 {	/* TI DP83822I */
-+			compatible = "ethernet-phy-id2000.a240",
-+				     "ethernet-phy-ieee802.3-c45";
-+			reg = <1>;
-+			reset-gpios = <&gpio 80 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10>;
-+			reset-deassert-us = <10>;
-+		};
-+	};
-+};
-+
-+&gpio {
-+	status = "okay";
-+	gpio-line-names =
-+		/* GPIO 0 - 77 */
-+		"", "", "", "", "", "", "", "", "", "",	"", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "",
-+		"ifm_device_info_eeprom_wp",
-+		"", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/* EMIO 0 - 96 */
-+		"", "", "", "", "", "", "", "",	"", "",	"", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "";
-+};
-+
-+&i2c0 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	sensor@48 {
-+		compatible = "national,lm75";
-+		reg = <0x48>;
-+	};
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c128";
-+		reg = <0x50>;
-+		label = "ifm-logging";
-+		wp-gpios = <&gpio 36 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&i2c1 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c128";
-+		reg = <0x51>;
-+		label = "ifm-deviceinfo";
-+		wp-gpios = <&gpio 37 GPIO_ACTIVE_HIGH>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			vhip-signature@0 {
-+				reg = <0x0 0x4>;
-+			};
-+
-+			vhip-version@4 {
-+				reg = <0x4 0x4>;
-+			};
-+
-+			vhip-size@8 {
-+				reg = <0x8 0x4>;
-+			};
-+
-+			device-serial@c {
-+				reg = <0xc 0x10>;
-+			};
-+
-+			order-number@1c {
-+				reg = <0x1c 0x20>;
-+			};
-+
-+			article-name@3c {
-+				reg = <0x3c 0x20>;
-+			};
-+
-+			article-rev@5c {
-+				reg = <0x5c 0x4>;
-+			};
-+
-+			hardware-rev@60 {
-+				reg = <0x60 0x4>;
-+			};
-+
-+			product-type@64 {
-+				reg = <0x64 0x20>;
-+			};
-+
-+			software-compatibility@84 {
-+				reg = <0x84 0x4>;
-+			};
-+
-+			manufacturing-date@88 {
-+				reg = <0x88 0x20>;
-+			};
-+
-+			production-order-number@a8 {
-+				reg = <0xa8 0x20>;
-+			};
-+
-+			/* Each MAC address is padded to 8 Bytes */
-+			cfg_eeprom_mac1: mac-address-1@c8 {
-+				reg = <0xc8 0x8>;
-+			};
-+
-+			cfg_eeprom_mac2: mac-address-2@d0 {
-+				reg = <0xd0 0x8>;
-+			};
-+
-+			cfg_eeprom_mac3: mac-address-3@d8 {
-+				reg = <0xd8 0x8>;
-+			};
-+
-+			cfg_eeprom_mac4: mac-address-4@e0 {
-+				reg = <0xe0 0x8>;
-+			};
-+
-+			cfg_eeprom_mac5: mac-address-5@e8 {
-+				reg = <0xe8 0x8>;
-+			};
-+
-+			cfg_eeprom_mac6: mac-address-6@f0 {
-+				reg = <0xf0 0x8>;
-+			};
-+
-+			cfg_eeprom_mac7: mac-address-7@f8 {
-+				reg = <0xf8 0x8>;
-+			};
-+
-+			cfg_eeprom_mac8: mac-address-8@100 {
-+				reg = <0x100 0x8>;
-+			};
-+
-+			next-block-offset@108 {
-+				reg = <0x108 0x4>;
-+			};
-+
-+			section-crc@10c {
-+				reg = <0x10c 0x4>;
-+			};
-+		};
-+	};
-+
-+	i2crtc: rtc@52 {
-+		compatible = "microcrystal,rv3028";
-+		reg = <0x52>;
-+	};
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0x0>;
-+		spi-max-frequency = <80000000>;
-+		spi-tx-bus-width = <1>;
-+		spi-rx-bus-width = <4>;
-+	};
-+};
-+
-+&sdhci0 {
-+	xlnx,mio-bank = <0x0>;
-+	status = "okay";
-+};
-+
-+&spi0 {
-+	status = "okay";
-+
-+	eeprom@0 {
-+		compatible = "atmel,at25";
-+		reg = <0x0>;
-+		address-width = <16>;
-+		pagesize = <64>;
-+		size = <32768>;
-+		spi-max-frequency = <60000000>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&usb1 {
-+	reset-gpios = <&gpio 77 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
--- 
-2.53.0
+Unlike gs101, the ACPM firmware clocks protocol on Exynos850 does not
+implement get_rate() ACPM IPC call. Set_rate works fine, but get_rate
+returns 0. Downstream reads MMIO registers directly to obtain the rate for
+these clocks.
 
+The file is drivers/clk/samsung/clk-acpm.c
+static const struct clk_ops acpm_clk_ops =3D {
+	.recalc_rate =3D acpm_clk_recalc_rate, <-- not impl by firmware
+	.determine_rate =3D acpm_clk_determine_rate,
+	.set_rate =3D acpm_clk_set_rate,
+};
+
+Currently I made ACPM clocks childs of corresponding parent clocks, for
+instance, for CPU clocks:
+	clocks =3D <&cmu_cpucl0 CLK_FOUT_CPUCL0_PLL>,
+		 <&cmu_cpucl1 CLK_FOUT_CPUCL1_PLL>;
+	clock-names =3D "cpucl0", "cpucl1";
+and just return parent_rate from ->recalc_rate().
+
+The problem is that stale (cached) value is returned all the time despite
+CLK_GET_RATE_NOCACHE. I tried different approaches but don't see smth
+upstreameable because clock rates are changed behind Linux and I need
+to trigger something like clk_get_rate(parent_clock) to let the new rate
+propagate down the tree.
+
+Which pattern is preferred for upstream acceptance here?
+
+1. Return parent_rate as is and live with stale parent rate.
+2. Cache the set value in ->set_rate() and return it in ->recalc_rate().
+3. Utilise clock rate change notifiers somehow and upon POST_RATE_CHANGE
+   do smth like clk_set_rate(parent, new_rate) but that probably breaks
+   locking and mixes clk-provider with clk-consumer.
+4. Maybe use/play with CLK_SET_RATE_PARENT?
+
+Or something else?
+Best regards,
+Alexey
