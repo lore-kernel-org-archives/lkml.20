@@ -1,131 +1,249 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA5A496906;
-	Wed,  9 Sep 2026 09:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D798C49893A;
+	Wed,  9 Sep 2026 09:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947719; cv=none; b=ZKoT582g/h12JCd/+w6lG7913WKL9C+Usds4au+9CQ0v0Qd9hLOxKiUa6g95lx6CS+Aq6IFKGua3Nms6c4lu6R1Fss81yZvPEkt2lktbEH66nZzOQQF6yDRixraQsu/Tr9IJ5zonfZUyLQSHXKupuKPOazea1N/FTA81Yf4qhTw=
+	t=1788947734; cv=none; b=moeCjr8/dDhqEHAjWIOXD2rJZGpzLz581N0CWkIyuyE1YzD1JR+CMC9epE8IB+1yxHR878xVqYMjBV8LPhIdZ70Xi95Tbt1aHNsXB/NxJoXZs35dcU1yDqqbUOuP1651xRjmRYZUGdsbYoOYb/q28nRGH/+cPJpb1S/julXxgao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947719; c=relaxed/simple;
-	bh=V6FHdhUWrIEL3GO8EPY321wFuOQCAemUWAucw3gXr10=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b42ZKjffINs0Jd1zRR55oV3mZqkPFH/2cwWn/fApvGlx3sV58/cB+5j8mn1Xb1iSrYN+WoPOkTaLG+Z4GD+4SgkZSTCKNlEG5Pyu8RlaJwfAJjpohlkEUc4DiF5sqDrqqt+RKOJDR/Rob4fMNYsZ+9FymmYRhs1dcym6WD1zaA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rJ0azai2; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788947734; c=relaxed/simple;
+	bh=bmb7F/KmHSolAVosZ3/3evD9wdGrdLkhhTytnse9zzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bWCKRcLD9rmWKAgc22I20aUkDfKBkbA5WqVE9XAq6u8gv71YUBySgSqh93TShdO3lQEH79xgMXxlua7WlctyDYgJ1cTeYmB4QkESmkChnOTO+TcAKD/wVo18tz2/Cm+cqKUPzvOTc+dPpk4WK0z8+63/BX8wyLJnMCrTQBXET94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EESciEDl; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rJ0azai2"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788947705; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=DpTZv98TBCym8APZzjiS1eCA+OF2OQMSUEHKxCalkBI=;
-	b=rJ0azai2gqRBInbl30R5EMya3fcOTo01AKaR2D4sBokSNt+s1dqp30jZLTmXN/ap6K+dI6hIa7xXRiC40tkUtO+1LOzr18WROqFj8y9k8HbrVflrmz97VU6GOvzZAUY15cKzA2HcsVKzESYf00IRR7fMzNgxbw5SbyoukXZ/Tqo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XAeWyTK_1788947701;
-Received: from 30.74.144.119(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAeWyTK_1788947701 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 09 Sep 2026 17:55:03 +0800
-Message-ID: <4e064b9d-aea9-485a-8547-3830999cff01@linux.alibaba.com>
-Date: Wed, 9 Sep 2026 17:55:01 +0800
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EESciEDl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=r5XQn9SuvKZL4DTuoGdXOdgvz47Ewuz3TXXvq+vUgwo=; b=EESciEDlQ+xy8dwFvNTaXVYvjH
+	r/fYBv2OR8M3Fc/UYGG6H8n/TyMsO1jBQEf5eL15O/v6X5dgYRxUx/AcfdqlXbApM/wiEDdFD14XY
+	8c/s17Ts7fPtA79hc+zmeCeEmV46ohXVAdjJmxfIbU2lZDcG2M6Jr3XupaGqslzi8cwh8fg16DJDz
+	LUxMU4nMSsIwsUIoQEA3OoP2L4NMSZiAHGJCKj3hCY+dOMPHRjpexqCoPr7XOyeJYrh54ra4n2HAz
+	iRl62mwuk0DK5GNH87SFSlD/ZYXJUJhrIimRmmBTwi8S1cJcoG8kU5HXi3SZ+izbiAjTllOLb8SK2
+	jsscZ/Og==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4F1U-00000003gfr-0SNO;
+	Wed, 09 Sep 2026 09:55:20 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 02DC23005AF; Wed, 09 Sep 2026 11:55:19 +0200 (CEST)
+Date: Wed, 9 Sep 2026 11:55:18 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/19] selftests/mm: stop khugepaged during the
- MADV_COLLAPSE cases
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, rppt@kernel.org
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
- nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
- hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
- ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
- vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
- kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-7-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260908125105.1510704-7-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ecf223n4.ffs@fw13>
 
-
-
-On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On Wed, Sep 09, 2026 at 11:08:31AM +0200, Thomas Gleixner wrote:
+> On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
+> > On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
+> > Let me try and have a go :-)
+> >
+> >
+> > do_exit()				de_thread() 			posix_timer_fn()
+> >   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
+> >     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
+> >     tsk->flags |= PF_EXITING; 						    LOCK siglock
+> >     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
+> >     					    LOCK tasklist_lock
+> >     flush_sigqueue_list();		    if (leader->exit_state)
+> > 					      break;
+> >   ...                                       transfer_pid()
+> > 					    UNLOCK tasklist_lock
+> >   exit_notify()
+> >     LOCK tasklist_lock
+> >     tsk->exit_state = EXIT_ZOMBIE;
+> >     UNLOCK tasklist_lock
+> >
+> >
+> >
+> > Then there is indeed nothing that makes sure posix_timer_fn() sees
+> > sigqueue updates done by do_exit(), because those are ordered by
+> > tasklist_lock, but posix_timer_fn() doesn't care about that.
 > 
-> __madvise_collapse() turns THP off before each MADV_COLLAPSE, both to keep
-> khugepaged out of the range and to prove MADV_COLLAPSE ignores the setting.
-> It clears the global controls only, which is no longer enough.  A per-order
-> control overrides them, and -s, which makes the cases fault in folios of
-> one order, leaves that order's control at "always".  khugepaged then
-> collapses the very range the case is working on, and the case fails on a
-> collapse that was interfered with rather than refused.
+> That's irrelevant because in the above scenario posix_timer_fn() 't'
+> points to the exiting old leader (on the left) because the PID store has
+> not happened yet and it therefore observes PF_EXITING on it so it won't
+> touch the sigqueue. Note, that setting and checking PF_EXITING is
+> serialized by sighand lock, so this is fine.
 
-Right. So I think the correct fix tag is b7f16963efe7 ("mm/khugepaged: 
-run khugepaged for all orders"), because before this commit, khugepaged 
-would not try to collapse this range since it only checked whether the 
-PMD order was suitable for collapse.
+There is nothing that constraints the 3rd column from happening before,
+it could happen after transfer_pid().
 
-> Clear the per-order controls too, setting them to "inherit" rather than
-> "never": khugepaged honours the global never and stays out, while
-> MADV_COLLAPSE on shmem still finds an order to build.
+> > The easy solution would probably be to do transfer_pid() while holding
+> > siglock?
 > 
-> Fixes: 9f0704eae8a4 ("selftests/mm/khugepaged: enlighten for multi-size THP")
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->   tools/testing/selftests/mm/khugepaged.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
+> That'd be only relevant for the situation Frederic is concerned about,
+> i.e. the case where the third party observes the TID swap.
+
+That is the case I was aiming at.
+
+> Because with that visible 't' in posix_timer_send_sigqueue() won't be
+> old_leader, which has PF_EXITING set, it will be new_leader which has it
+> not set.
+
+Same as above, there is nothing constraining the 3rd column from sliding
+up or down. If it manages to see the new_leader, I don't see why it
+would see the sigqueue flush.
+
+> So Frederic is concerned that posix_timer_send_sigqueue() can observe
+> the PID store but not observe the sigqueue stores.
 > 
-> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-> index 398430c33872..e9bc8fe8a1f8 100644
-> --- a/tools/testing/selftests/mm/khugepaged.c
-> +++ b/tools/testing/selftests/mm/khugepaged.c
-> @@ -533,8 +533,8 @@ static bool is_anon(struct mem_ops *ops)
->   static void __madvise_collapse(const char *msg, char *p, int nr_hpages,
->   			       struct mem_ops *ops, bool expect)
->   {
-> -	int ret;
->   	struct thp_settings settings = *thp_current_settings();
-> +	int ret, i;
->   
->   	ksft_print_msg("%s...", msg);
->   
-> @@ -547,9 +547,16 @@ static void __madvise_collapse(const char *msg, char *p, int nr_hpages,
->   	/*
->   	 * Prevent khugepaged interference and tests that MADV_COLLAPSE
->   	 * ignores /sys/kernel/mm/transparent_hugepage/enabled
-> +	 *
-> +	 * "inherit" rather than "never" so that MADV_COLLAPSE on shmem still
-> +	 * finds an order to build.
->   	 */
->   	settings.thp_enabled = THP_NEVER;
->   	settings.shmem_enabled = SHMEM_NEVER;
-> +	for (i = 0; i < NR_ORDERS; i++) {
-> +		settings.hugepages[i].enabled = THP_INHERIT;
-> +		settings.shmem_hugepages[i].enabled = SHMEM_INHERIT;
-> +	}
+> I argue that's not possible:
+> 
+> A:  sigqueue stores
+> 
+> B:   AQUIRE tasklist
+> 
+> C:   exit_state store
+> 
+> D:   RELEASE tasklist
+>      // sigqueue and exit_state stores become globally visible
+>  ------------------------------------------------------------------------
+> 
+> E                               ACQUIRE tasklist
+>  ------------------------------------------------------------------------
+> F                                if (exit_state)
+> 				   swap_pid()
+> G                                     STORE_PID
+> 
+> 				// The PID store can become visible in the
+> 				// system right here so F can observe them before
+> 				// RELEASE tasklist
 
-This looks like a workaround to me. Shouldn't we fix this in shmem 
-instead? Since MADV_COLLAPSE is supposed to ignore the THP setting, the 
-fix should be something like this?
+The STORE_PID is not a STORE_RELEASE.
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index c92ed17dbc4a..e0c0901c34a4 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2050,7 +2050,7 @@ unsigned long shmem_allowable_huge_orders(struct 
-inode *inode,
-         global_orders = shmem_huge_global_enabled(inode, index, write_end,
-                                                   shmem_huge_force, 
-vma, vm_flags);
-         /* Tmpfs huge pages allocation */
--       if (!vma || !vma_is_anon_shmem(vma))
-+       if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
-                 return global_orders;
+> H                                                             READ PID
 
-         /*
+And this READ is not LOAD_AQUIRE; although the LOCK siglock is probably
+sufficient here. The READ MUST happen before LOCK siglock by means of
+data dependency, and then the LOCK will constrain later loads.
+
+> 							      ....
+> I                                		              ACQUIRE siglock
+> 
+> After #A the sigqueue stores are maybe visible
+> 
+> After #C the exit_state store is maybe visible
+> 
+> After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
+> the system and cannot become magically become invisible after that
+> point.
+
+No, that is not in fact how Power (or ARM) works AFAICT. Memory ordering
+is not global. It is entirely possible some CPUs see a store while
+others do not.
+
+The only guarantee here is that IF you acquire tasklist_lock (you
+observe the store that unlocked it), you will also observe preceding
+stores.  But since the posix_timer_fn() column does not in fact observe
+or care about tasklist_lock, there is no ordering.
+
+> The new leader cannot swap PIDs before acquiring task list lock and
+> before it observed exit_state != 0 under it. That's fully serialized
+> against the old leader as both hold task list lock for their operations.
+> 
+> #F creates a control dependency, so if the new leader acquires task list
+>    lock before the old it will observe 0, drop the lock and wait. No PID
+>    store obviously.
+
+A control dependency only ensure *that* CPU will complete the exit_state
+load before the store, it is a local LOAD->STORE ordering.
+
+> #G can be come visible immediately but is only guaranteed to be visible
+>    globally at the RELEASE of tasklist lock.
+
+Nope, not at all. Can be randomly visible to random sets of CPUs.
+
+> #H can only observe the PID store after the store actually happened in
+>    #G. So it either reads the original PID or the swapped PID.
+
+Sure. But that has no bearing on if it sees the sigqueue stores at A.
+
+> #I is not really relevant for this. It's only relevant for PF_EXITING
+>    and other stuff which is directly protected by it. And it does not
+>    matter whether it locks the old or the new sighand.
+> 
+> Now let's look at the full chain and what can possibly be visible or not
+> and when:
+> 
+> #A can trickle into the tasklist held section, but not after #D.
+
+Yup.
+
+> #C cannot be reordered against #B and #D
+
+Agreed.
+
+> #A is therefore guaranteed to be globally visible _before_ new leader
+>    observes exit_state != 0 in #F under task list lock
+
+Nope, A is therefore visible if you acquire tasklist_lock, specifically,
+when you observe the store from D. And only if that matching LOAD is a
+LOAD-ACQUIRE, such that subsequent loads are forced to be later.
+
+> #G cannot be reordered against #F and obviously not against #E either.
+
+Indeed.
+
+>    It can become visible at any point after the store, but as argued
+>    above that visibility can't be reordered before #A (sigqueue stores)
+>    became visible.
+
+Let G' be the unnamed RELEASE after G.
+
+Now, I have deleted and rewritten this tail end at least twice now. And
+I *think* I'm agreeing with you. Let me explain:
+
+It all hinges on D-E and H-I.
+
+D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
+RELEASE+ACQUIRE. Specifically, we have:
+
+  RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
+  UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
+
+So while earlier I was arguing with RCpc in mind, in which case D-E
+completely goes away and we can consider B-G' to be one big critical
+section from the PoV of a third CPU (our posix_timer_fn() one). In this
+case we can push A down and G up and have them cross.
+
+*However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
+which is RCtso and that *does* impose store order, so A stores must
+happen before G stores
+
+Combine with H-I, which has a data dependency from the LOAD to the LOCK
+and thereby constraints later LOADs, those sigqueue loads that come
+after I must in fact observe the A stores.
+
+
