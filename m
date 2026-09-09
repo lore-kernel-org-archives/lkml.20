@@ -1,102 +1,151 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E1353A896;
-	Wed,  9 Sep 2026 11:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AAC5237AD;
+	Wed,  9 Sep 2026 11:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951898; cv=none; b=hr3YMK4Sfu7XvDlHaveNQHPjueEsyBYbY/NN6SMLMX92M7ztmV6lpeZzPY3gIq0oVkQ8ifkFHvxaUBgqkfa49l2XkFS5aJXAM3Hrj8Sx6dKcpjpr2nnJvXexUPOVGye4z+NCPy8Ozmf3hk3frQFnj0Dtf33iBGRX9dCiTML09/A=
+	t=1788951988; cv=none; b=qcW/frKkhmrSWoEx9WG8grfzTEWnGnrBmRxMV4+rs1Ksed/G2jaZUl0FmhpeMjmVasaBKV24Xtprs4ydhCJOXur67ekrSDaXFVFi0vqyT5f2GMRVrz1OEQFZ6dDNfPcX5Ndv4FO8K5+kVWRGRQrhDctz0Dlfg/t11LLQA2r2ddE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951898; c=relaxed/simple;
-	bh=Flbku7aOBVzPcGp1UQX9kx1DmUdK6V/ghIx6P5gZNJc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f/fA7L5lK8CudwyuT0P8qiKOAHsmE4hWDKwb3vLTRg31V8Ez5y1s0M/UuMeUoquYQ75a/lxFNGId5sM1d3f+jHl1sVa3A40FbSOn5t6cHYN2VaqcuE/ZiabjbTH4KLIN7ImVp07FcIOCFvxUwqds45rDd8YMot0HpcDmqwNwekE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OGguqtQE; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788951988; c=relaxed/simple;
+	bh=xYQGAF0ve5ncKxvXj69wlunj82ZvZpm+BXA3PMT0rGk=;
+	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=OTko/cyIKvse1JyDgrP4AffK9dX5FENn9EjPU9IJziQEuuRG4h473hEE7hqRXdBio0j9Za4E47IehsEBoKm4bwOdr7gMLJ01T9IXkTn0eNl4iuZQozYcvZnKYcPQknDjYdUAuukb4QlAZJ43WmpspttbPTd8c0QKtuN34VAFFXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=jR8fGYTA; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OGguqtQE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=OI9vxMrjFq9PqVHr06PfRNT+t2ZxihmWB4FPPKpYImo=; b=OGguqtQE1H70nB0LEoX3R6wMHt
-	iT7Pr66utb/m4aIqnsW3IRnwlVp6elg8dbM8mG+0gwxT+o2HQmlRL0CjB5cxhbpoGyPNVlioIdWPj
-	SPXfdO2hYSkl6/SXnybnWwsCq8R2KD47ukF0ETu2apoKKu+GpK2Ns48UuGeC7PDeoIoqdWANipmcH
-	gs0LQFhsrSswS1olEFMKlzmueN46+kdymTGlTUZ/BBNQvQEkOPwNdppzr6EB6/5dIMSiWZd3DCqgd
-	Z0jn5OPB1vuTGuSSfga2BN1x+kkAdZyjgkf6BUhJPCWrajcjbhqVx1lqWmg9FFDTYHOlaH0wYXKK7
-	+r2WjZug==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4G6Z-000000016Gu-2pa6;
-	Wed, 09 Sep 2026 11:04:39 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id BBC753005AF; Wed, 09 Sep 2026 13:04:38 +0200 (CEST)
-Date: Wed, 9 Sep 2026 13:04:38 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Hui Su <sh_def@163.com>
-Cc: mingo@redhat.com, tim.c.chen@linux.intel.com, yu.c.chen@intel.com,
-	kprateek.nayak@amd.com, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, connoro@google.com, jstultz@google.com,
-	arighi@nvidia.com, tj@kernel.org, void@manifault.com,
-	changwoo@igalia.com, linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Subject: Re: [PATCH v4 4/5] sched/rt: Fix RT watchdog accounting for proxy
- execution
-Message-ID: <20260909110438.GA4120091@noisy.programming.kicks-ass.net>
-References: <20260909092901.2989564-1-sh_def@163.com>
- <20260909092901.2989564-5-sh_def@163.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="jR8fGYTA"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=sm5hZKlRG1kdRKEeS9E+CM4U4vHBPHrbqoe03Kq/6mc=;
+	b=jR8fGYTA5LjNiB7N9ItZ9pJxW4LBxJ3N3Frsepxkpkhe28tWmq4rYbOr9sddAxn1bjyDvl001
+	afuH0mFsR17hmPwenRdyx7RCX3hQTzW5vUEUjN5TfSaOLeAbr3R+NMux6obhhlXwjCtwUmkf7/T
+	+xjJ4d3KSw1xejM4c16gk0k=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hfyQ00gqSz1prMB;
+	Wed,  9 Sep 2026 18:55:20 +0800 (CST)
+Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
+	by mail.maildlp.com (Postfix) with ESMTPS id 101954056E;
+	Wed,  9 Sep 2026 19:06:16 +0800 (CST)
+Received: from [10.67.120.192] (10.67.120.192) by
+ kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 9 Sep 2026 19:06:15 +0800
+Message-ID: <9284cd9f-88fb-4067-be39-3e0025dee2c4@huawei.com>
+Date: Wed, 9 Sep 2026 19:06:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909092901.2989564-5-sh_def@163.com>
+User-Agent: Mozilla Thunderbird
+CC: <shaojijie@huawei.com>, Yury Norov <ynorov@nvidia.com>, Rasmus Villemoes
+	<linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 6/9] net: avoid copies before linkmode_and()
+To: Yury Norov <yury.norov@gmail.com>, Andrew Lunn <andrew@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, Raju
+ Rangoju <Raju.Rangoju@amd.com>, Prashanth Kumar K R
+	<PrashanthKumar.K.R@amd.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Jian Shen
+	<shenjian15@huawei.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <intel-wired-lan@lists.osuosl.org>,
+	<linux-usb@vger.kernel.org>
+References: <20260907215439.409858-1-ynorov@nvidia.com>
+ <20260907215439.409858-7-ynorov@nvidia.com>
+From: Jijie Shao <shaojijie@huawei.com>
+In-Reply-To: <20260907215439.409858-7-ynorov@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemo500018.china.huawei.com (7.202.195.199)
 
-On Wed, Sep 09, 2026 at 06:29:00PM +0900, Hui Su wrote:
 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 05e599665fdd..d8a785bec639 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -6768,6 +6768,14 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
->  		return false;
->  	}
->  
-> +	/*
-> +	 * Proxy execution can keep a mutex-blocked task on the runqueue, so it
-> +	 * may not pass through ENQUEUE_WAKEUP, which normally resets the RT
-> +	 * watchdog interval.
-> +	 */
-> +	if (sched_proxy_exec() && p->rt.timeout)
-> +		p->rt.timeout = 0;
-> +
->  	p->is_blocked = 1;
->  
->  	/*
-> @@ -7243,6 +7251,16 @@ static void __sched notrace __schedule(int sched_mode)
->  		rq_set_donor(rq, next);
->  	}
->  
-> +	/*
-> +	 * End a previous RT proxy watchdog interval once neither context is
-> +	 * in the RT class. Preserve the interval for an RT-policy task that is
-> +	 * temporarily PI-boosted into the DL class.
-> +	 */
-> +	if (sched_proxy_exec() && !task_has_rt_policy(next) &&
-> +	    !rt_prio(next->prio) &&
-> +	    !rt_prio(rq->donor->prio) && next->rt.timeout)
-> +		next->rt.timeout = 0;
-> +
->  picked:
->  	clear_tsk_need_resched(prev);
->  	clear_preempt_need_resched();
+on 2026/9/8 5:54, Yury Norov wrote:
+> Avoid separate linkmode_copy() calls by passing the original source
+> bitmap directly to linkmode_and().
+>
+> In phy_ethtool_ksettings_set(), also use the return value of
+> linkmode_and() when validating that the requested advertisement
+> contains a supported link mode.
 
-It might come as no surprise that this isn't going to fly. I've not
-though about the problem yet, but we're not going to be sprinkling rt
-bits like this in the middle of __schedule().
+Please include "hns3" in the subject prefix (e.g., "net: hns3: ...")
+so it's clear which driver this patch belongs to. I didn't immediately
+find the hns3 driver modifications from the current title.
+
+>
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+>   drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c | 5 ++---
+>   drivers/net/phy/phy.c                                   | 7 +++----
+>   2 files changed, 5 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+> index cf881108fa57..5801da6100b8 100644
+> --- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+> +++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+> @@ -205,7 +205,6 @@ int hclge_mac_connect_phy(struct hnae3_handle *handle)
+>   	struct hclge_dev *hdev = vport->back;
+>   	struct net_device *netdev = hdev->vport[0].nic.netdev;
+>   	struct phy_device *phydev = hdev->hw.mac.phydev;
+> -	__ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = { 0, };
+>   	int ret;
+>   
+>   	if (!phydev)
+> @@ -223,8 +222,8 @@ int hclge_mac_connect_phy(struct hnae3_handle *handle)
+>   		return ret;
+>   	}
+>   
+> -	linkmode_copy(mask, hdev->hw.mac.supported);
+> -	linkmode_and(phydev->supported, phydev->supported, mask);
+> +	linkmode_and(phydev->supported, phydev->supported,
+> +		     hdev->hw.mac.supported);
+>   	linkmode_copy(phydev->advertising, phydev->supported);
+>   
+>   	/* supported flag is Pause and Asym Pause, but default advertising
+> diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+> index fce9bc7be330..cd71186cd842 100644
+> --- a/drivers/net/phy/phy.c
+> +++ b/drivers/net/phy/phy.c
+> @@ -1160,6 +1160,7 @@ int phy_ethtool_ksettings_set(struct phy_device *phydev,
+>   			      const struct ethtool_link_ksettings *cmd)
+>   {
+>   	__ETHTOOL_DECLARE_LINK_MODE_MASK(advertising);
+> +	bool has_advertising;
+>   	u8 autoneg = cmd->base.autoneg;
+>   	u8 duplex = cmd->base.duplex;
+>   	u32 speed = cmd->base.speed;
+> @@ -1167,17 +1168,15 @@ int phy_ethtool_ksettings_set(struct phy_device *phydev,
+>   	if (cmd->base.phy_address != phydev->mdio.addr)
+>   		return -EINVAL;
+>   
+> -	linkmode_copy(advertising, cmd->link_modes.advertising);
+> -
+>   	/* We make sure that we don't pass unsupported values in to the PHY */
+> -	linkmode_and(advertising, advertising, phydev->supported);
+> +	has_advertising = linkmode_and(advertising, cmd->link_modes.advertising, phydev->supported);
+
+
+To keep the file clean, could you please update this part to match thesurrounding code style?
+Specifically, we order local variables fromlongest to shortest (reverse Christmas tree) and
+enforce an 80-characterline limit.
+
+Thanks,
+Jijie Shao
+
+
+>   
+>   	/* Verify the settings we care about. */
+>   	if (autoneg != AUTONEG_ENABLE && autoneg != AUTONEG_DISABLE)
+>   		return -EINVAL;
+>   
+>   	if (autoneg == AUTONEG_ENABLE &&
+> -	    (linkmode_empty(advertising) ||
+> +	    (!has_advertising ||
+>   	     !linkmode_test_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
+>   				phydev->supported)))
+>   		return -EINVAL;
