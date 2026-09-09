@@ -1,218 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C7E1DDC37;
-	Wed,  9 Sep 2026 12:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988753E1228
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957777; cv=none; b=Im9W8RQ+GU1LPWXuk3DDkpow+DC7kxHCaOcXkCf2hG2nq53ZNxSO02YVFlvSU2p8dHL1++en3ggJ5k9CGq5PE2T56GqguIQPh385FgG+tMonl0XpQNRMDSRgXDQoyiteE5MvKVZzeY9KjbkGz6FXRYcrx0oeANApVy6YYRXaoHc=
+	t=1788957791; cv=none; b=mBdMYpXEcKrkrR1JVmIqUfVI8u4dzrKy7nNMm2rOAotrI75lhyGWunezTcV4egcejo82Y+dPDiF5vr4hpe2iexfBealRnKkwXsbj82fp43ZmBPbl12EX86WFeNc4QHH7VaePgpPQP4TogfX24UwRA7SAW+2L6Aq/hjhkeDfmjsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957777; c=relaxed/simple;
-	bh=bi96cR2MbkjCxENpmuXx2IGtS0oTleBROA7ts9a+KYU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ucjc4QlWJvyxUtJ3BNnVAj+ghUA9atkWbSerzJgm1Byi7MGC7++U6zHNiAiBmg0bMdVLXeFqhbehwji3RqX5LwuSQX7nxXS46/0W0jGl3rGjUqHctuIZfO2XoPlNnGLRfpWtsOEJIbGUscCKcjjUWc8rGnXBI9nTo0SAXCC5SBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSSVrAre; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788957791; c=relaxed/simple;
+	bh=mzTZ/S7+IJMli97Pl3huO2xHKYlikMJEbLwPxRSRxlE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MPUPq9fzH8xM6WND4HvUABWT60dDtNZpSAx4UUvd1BWQoJnd0ETXBAyHu4BkoYTDhYK7ratPP8fJ39LBDfIQ0tOhRAIG7whCnZOaMERmAyh+8abm5NJ1+EO5nyGYYsLisOOUng4fzcj/vz6xDw5ABz+8I2nXAOZUUYrM8CUARVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=klN1P6bb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HHWdJTM2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSSVrAre"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412BD1F00A3A;
-	Wed,  9 Sep 2026 12:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788957775;
-	bh=ikJtf8AGAZQE/o0BEx3Jt+E1xqpjR1+NOsBnOVGV+zY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HSSVrAreFKyEIyVDz5d5h0NhJQa5U17Xm5sdF6CzQ2gzzvtcydF32r6dzQaaU8479
-	 PpUjwf+1dAwdvMz7lk+BtzNEYLHAM/69W5imaUYSHDhS0QyCn40J2zKzERSOidncJN
-	 Rs7v3c2R04icw+vKD2JO8XGJp0L16DRAUM9ngWpI8kUbEiFN8gtvpmY5JCWskIeZud
-	 BjZ0+MujG2cbeHotAu0fVuF6EiJuUWYIj3P9+fHugOq/UuUEtkeKRwuKg/VXHntZ7A
-	 +vZBKJKAEQxufSwDS/anvU6tEK6PFbG9jd3znT0pMuxVLRrzWiMfS83yTFYRWa+IjH
-	 OL94rb3m5tD7w==
-Subject:
- Re: [PATCH 4/4] selftests: openvswitch: suppress pylint complexity warnings
-From: netdev-bot+sashiko@kernel.org
-To: houminxi@gmail.com
-Cc: netdev@vger.kernel.org, aconole@redhat.com, davem@davemloft.net,
- dev@openvswitch.org, echaudro@redhat.com, edumazet@google.com,
- i.maximets@ovn.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, pabeni@redhat.com, shuah@kernel.org,
- horms@kernel.org
-Date: Wed, 09 Sep 2026 12:42:53 +0000
-Message-ID: <178895777380.219967.10666141690600175241@kernel.org>
-In-Reply-To: <20260905104026.3776396-5-houminxi@gmail.com>
-References: <20260905104026.3776396-5-houminxi@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="klN1P6bb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HHWdJTM2"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689CAS381233040
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:43:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	I4h5BXcebG+P+PaqL01o6HAlbOlizJ6FcqLSIe5pdf4=; b=klN1P6bbHCPgPlve
+	NnwHMq3xl3dQD5vMbBxlHuf2TFWL91G5renrlOXpc33xRUn+HtAXFRdVcLqCSWwh
+	Z/MFSGwQF6nKrTjqTR6wBO4OUTeesnETVnqZWZ8ocsCG9OCLynhSHIZ5yYjC28SM
+	UWi+Yo9Ye6HjBotQHrUb7TrBuH3hrkJhld5M0xy5dX7F6tNYcwVuuYsJxa5HJKFK
+	fAZZPFTPBtXPojBkxIkCrVltGgEQjBjkxpofzSk6hbLA68KO4888N01/QGRmr3LD
+	qqY1YPYBAYQGwBTfVbiRI3EIGPE+7NqsiZ4B+M2sYwPNkfOc9+lhd0qqCdhaFHot
+	YfYWSg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk77vg3bg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:43:09 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e661ce1dcso74629285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:43:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788957789; x=1789562589; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I4h5BXcebG+P+PaqL01o6HAlbOlizJ6FcqLSIe5pdf4=;
+        b=HHWdJTM2CJn1Nv0Y9NL8maK+WEI/re3GZXWM1aSQ0MOPR47lrc+LSkmuybON+YnO8p
+         6GsuTxsfd+ReKkMFBAGzb5/uvyRFvBnEEQNyss9CqamEkq7QXzbLusQfg23Q82qZmP6D
+         QkajqAMYXWFT9gOo17vX67etXUPNQkXMnAAxRAlmRb35zupBidg9OC7c5OUcJ7TsvE+D
+         bsQaV7o0KJu+JUuhB+zsrwYxRRLQYKkTWliAo0VAnJ2lasNGLwT1UTfwdM+RHouT12rF
+         6ttEo0VPwLH2qqWYxOmIn00gqWIW3jQiiAQHdE2APIyN3aFtY8Rngpo/vVsmOQ/WGfq4
+         w2Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788957789; x=1789562589;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I4h5BXcebG+P+PaqL01o6HAlbOlizJ6FcqLSIe5pdf4=;
+        b=P8+LF6+8T0eOF601nZShgdkOs9yF/VuJp6SgUqTvQyn8Ahx5ByoUtVIm5itEo+CGAy
+         jKULyxSDOloCKi4ZV7495aw3eivLLf2MdxWPpDVySXb0vwrtxlFN00Ii0HiFrli2/wTN
+         uMNSC2zCwOPVu5O4FRd0EIovv1gos8KjfU9Of7xXStiGvUZT1zQkN7jp9/Swomox87iY
+         FlO4eJtq9LvcNyH0XiInZ3qcGZAfo9Zt7o+pnh60avJYf8ly5XDLltGwTDyRTnzT6AF2
+         DnvU8o/MXBUr7kOkg5yMVPl+nPtvdplUmhyViUU7cCytyfGidGfjZONw670g+2VjAuyK
+         nMJA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuX/pCXnAj4vCQu1I4PCZ4wWxCcfp8HxuYv13+FXvhn8DppTDtWlmbVHnPN8w4doyayu0aeZ5aywBiPCo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nL/hiIzeJFgcWloBckyTIlQPeNRez085RiIidSXwfIqH6OGB7Z
+	DrTIhgIsUzYrHZk/SZr9iKX7o1y0+WVc5zz4mElZ44BTet4UA8qqFPZje/7ygMfjexvZTlCLtQs
+	WMTF+UsaE/IoTs91Qs2XMetKSXhvap9BZ5ROp86TCLR28HXNj3cZ91Vg6+PObvENv5Ag=
+X-Gm-Gg: AYBFou1WRVu2Mlvx1KzPZ22A1OkDOqR3E3bIjsm4rU1/07GO8Fo00b5Vaj8wn4R4nVJ
+	tfhY0rw3yRXa+4wsW0xyS7GQU5GcVhfhuEARlvnvFfjt2h/4/IBzfPeE9YOaXWmLbQavq9ycAP9
+	izkRku95XTMloq7N8hLoy9kziSVGe6sHrO40Lo8VHfcYsbexR7U3Qn+Sd4WYc8GKKFWy5SlrLxG
+	ULIFse7i7ZZKbkGQ7TgOak+FZ/1UwcdHGQmGWWeSFNnO+HRw9X5W0Jlz5o3R1xlfbmiJt4uIFcS
+	QVI7pGblVno5uYg6n4LsTzsLsTZyetkZC2gxxud4R4GO0Y3dUh88SfcNpj3ZwHCk++s5M2miTqF
+	bT0Js9EBFH02HhWnQddYHgw==
+X-Received: by 2002:a05:620a:43a3:b0:939:b8da:1242 with SMTP id af79cd13be357-939b8da136dmr1186916885a.0.1788957788130;
+        Wed, 09 Sep 2026 05:43:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:43a3:b0:939:b8da:1242 with SMTP id af79cd13be357-939b8da136dmr1186912585a.0.1788957787673;
+        Wed, 09 Sep 2026 05:43:07 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68e9679sm6609508a12.20.2026.09.09.05.43.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 05:43:06 -0700 (PDT)
+Message-ID: <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 14:43:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
+ sensor on CSIPHY4
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=GKk41ONK c=1 sm=1 tr=0 ts=6aa1545d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=KKAkSRfTAAAA:8 a=cUeywdAnc2UWe6fb0OEA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: knJZ7q7UxVIimQm4VHEgFyPoXGZzB5cJ
+X-Proofpoint-GUID: knJZ7q7UxVIimQm4VHEgFyPoXGZzB5cJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0MSBTYWx0ZWRfX/SGVAFb1jtz/
+ pPjgL83tAlD6FHa4/4zNSjdcxEeqAouDiBqFlYQJgpvnSEOwIKllErtF+XTAzuLqWuDCvTWcDvj
+ 4762+ZaXyxzED6hG9KIPTNn9KYMLExI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0MSBTYWx0ZWRfX9Xvj2D1/EreW
+ owGIlMji164bPlfThuwBhyL/A+VTIKp4bhspbch392kxcx6Tm87zvmpDf5v9QG0HI7yCw7MQcrV
+ 6Ewwg3niCNfGeKQAkry3ft6hnYUqDgtetABCHYMiRlE+/8Dval8nZdDMpMk/2zb6vHErjdtZL2S
+ OuHo0yNl4RqL77G02tqG4s6sT+wVJA9/vYPAYVM1bnBRbqI6bjspK2Fj3XLBc9vsVDIxpAaBPen
+ oOi61gcFmvUw1rbDUo19dzacu5yH8JXkFnLTCuKVoSWYv/Zv83LUMvTNmVi1p5R9flk/xytqIoL
+ tJ822b8oGK0rGwncH/pMBTOmAJDP0m/GGQYObXQFRCQcvCAT8uObuPjg6uDFVG6VZUzDjFxmvK8
+ gqfsvsrdhqWiLomZOjxDgaITR9kGcrVX2wp6XkmT/nQDIqTVIYd9Qn1Ptd1bI/qW7eFlMC+2c6q
+ AIu7/nhg6RJQBIa0e/w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 priorityscore=1501 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090141
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+On 9/6/26 4:20 PM, Bryan O'Donoghue wrote:
+> Define ov08x40 on cci1_i2c1. The RGB sensor appears on the AON CCI pins
+> connected to CSIPHY4 in four lane mode.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-- [Medium] Commit message mischaracterizes the change: the subject says
-  "complexity warnings" and the body claims all suppressed warnings are…
-- [Medium] The docstrings added by this series' commit "selftests:
-  openvswitch: add missing docstrings in ovs-dpctl.py" document the…
-- [Low] The file-wide `broad-exception-caught` (W0718) disable suppresses
-  a warning that this patch series itself created, not a pyroute2…
+[...]
 
---
+> +&camss {
+> +	status = "okay";
+> +
+> +	ports {
+> +		/*
+> +		 * port0 => csiphy0
+> +		 * port1 => csiphy1
+> +		 * port2 => csiphy2
+> +		 * port3 => csiphy4
+> +		 */
+> +		port@3 {
+> +			camss_csiphy4_inep: endpoint {
+> +				data-lanes = <1 2 3 4>;
+> +				remote-endpoint = <&csiphy4_out_ep>;
+> +			};
+> +		};
 
-selftests: openvswitch: suppress pylint complexity warnings
+This port should be defined in the SoC DTSI
 
-This adds a block of file-level pylint disable comments to
-tools/testing/selftests/net/openvswitch/ovs-dpctl.py, covering 16 message
-names.  The commit message attributes all of them to pyroute2 framework
-constraints and reports a resulting score of 9.93/10.  A few questions
-about the scope of the suppression and about docstrings added earlier in
-this series follow.
+[...]
 
-> diff --git a/tools/testing/selftests/net/openvswitch/ovs-dpctl.py b/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
-> index 5b29aeb4b50e2..5948471ffe63c 100644
-> --- a/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
-> +++ b/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
-> @@ -1,6 +1,14 @@
->  #!/usr/bin/env python3
->  # SPDX-License-Identifier: GPL-2.0
->  """OVS datapath control utility for kernel selftests."""
-> +# pylint: disable=invalid-name,too-many-lines
-> +# pylint: disable=too-many-ancestors,too-many-arguments
-> +# pylint: disable=too-many-positional-arguments,too-many-branches
-> +# pylint: disable=too-many-locals,too-many-statements
-> +# pylint: disable=too-many-return-statements,too-many-nested-blocks
-> +# pylint: disable=unused-argument,broad-exception-caught
-> +# pylint: disable=no-member,not-callable
-> +# pylint: disable=non-parent-init-called,super-init-not-called
 
-[Severity: Medium]
-Does the commit message match what this block actually does?  The subject
-says "complexity warnings" and the body says the warnings are "caused by
-pyroute2 framework constraints that cannot be fixed without restructuring
-the netlink attribute hierarchy", but only too-many-ancestors,
-non-parent-init-called, super-init-not-called and partly invalid-name come
-from subclassing pyroute2 nla/genlmsg.
+> +&cci1_i2c1 {
+> +	camera@36 {
+> +		compatible = "ovti,ov08x40";
+> +		reg = <0x36>;
+> +
+> +		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
+> +		pinctrl-0 = <&cam_rgb_default>;
+> +		pinctrl-names = "default";
+> +
+> +		clocks = <&camcc CAM_CC_MCLK4_CLK>;
+> +		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
+> +		assigned-clock-rates = <19200000>;
+> +
+> +		orientation = <0>; /* front facing */
 
-The complexity metrics come from this script's own functions, not from
-pyroute2.  main() is a roughly 200-line if/elif chain, and
-ovsactions.parse(), ovskey.parse() and ovskey.dpstr() are similarly large:
+include/dt-bindings/media/video-interface-devices.h
+MEDIA_ORIENTATION_FRONT
 
-    def main(argv):
-        """Entry point for ovs-dpctl utility."""
-        nlmsg_atoms.encap_ovskey = encap_ovskey
-        ...
+[...]
 
-Those are reachable by ordinary refactoring, so is "cannot be fixed"
-accurate for too-many-branches, too-many-locals, too-many-statements,
-too-many-return-statements, too-many-nested-blocks, too-many-arguments and
-too-many-positional-arguments?
+> +&csiphy4 {
+> +	vdda-0p9-supply = <&vreg_l2c_0p8>;
+> +	vdda-1p2-supply = <&vreg_l1c_1p2>;
+> +
+> +	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@0 {
+> +			reg = <0>;
+> +			csiphy4_in_ep: endpoint {
+> +				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +				clock-lanes = <0>;
+> +				data-lanes = <1 2 3 4>;
+> +				remote-endpoint = <&ov08x40_out_ep>;
+> +			};
+> +		};
+> +
+> +		port@1 {
+> +			reg = <1>;
+> +			csiphy4_out_ep: endpoint {
+> +				remote-endpoint = <&camss_csiphy4_inep>;
+> +			};
+> +		};
 
-Separately, no-member and not-callable are correctness checks (misspelled
-attribute, calling a non-callable).  Disabling them for the whole 3190-line
-file means pylint will no longer flag an attribute typo or an API misuse
-anywhere in this file for any future edit.  Could those two be scoped to the
-specific pyroute2 dynamic-attribute sites instead?
+Likewise, define in SoC DTSI and only override necessary properties
 
-The file already shows the narrow form working:
-
-    class dec_ttl(nla):  # pylint: disable=invalid-name
-        """Nested OVS_DEC_TTL_ATTR_* sub-attributes."""
-
-That inline disable is now dead, since invalid-name is disabled file-wide by
-this patch.  Should it be dropped, or should the file-wide invalid-name be
-dropped in favour of per-site disables?
-
-[Severity: Low]
-On the broad-exception-caught entry specifically: was that warning created by
-this series rather than by pyroute2?  At the baseline commit 9eab111e there is
-no "except Exception" in the file at all; it had a bare "except:".  An earlier
-commit in this series converted it, and the result is the only W0718 site in
-the file:
-
-    try:
-        print_str += datum.dpstr(more)
-    except Exception:
-        print_str += f"{{ATTR: {field[0]} not decoded}}"
-
-Since that is a single call site in ovsactions.dpstr(), would an inline
-disable on that line, or catching a narrower set such as
-"except (KeyError, TypeError, ValueError)", be preferable to a file-wide
-disable?
-
-Also, could the commit message mention that this warning came from the
-series itself instead of attributing it to pyroute2?
-
-[Severity: Medium]
-Not about this hunk, but while looking at the file for the pylint scope
-question: the docstrings added by the earlier series commit "selftests:
-openvswitch: add missing docstrings in ovs-dpctl.py" appear to be shifted by
-one definition, so each one describes a neighbouring member.
-
-In OvsDatapath:
-
-    def info(self, dpname, ifindex=0):
-        """Create a new datapath."""
-        msg["cmd"] = OVS_DP_CMD_GET
-
-    def create(self, dpname, shouldUpcall=False, versionStr=None, p=OvsPacket()):
-        """Destroy a datapath."""
-        msg["cmd"] = OVS_DP_CMD_NEW
-
-    def destroy(self, dpname):
-        """Look up a datapath by name."""
-        msg["cmd"] = OVS_DP_CMD_DEL
-
-Should destroy(), which sends OVS_DP_CMD_DEL, be documented as a lookup?
-
-The same shift runs through five OvsVport methods: info() sends
-OVS_VPORT_CMD_GET but says "Create a new vport.", attach() sends
-OVS_VPORT_CMD_NEW but says "Get info about a vport.", reset_upcall() sends
-OVS_VPORT_CMD_SET but says "Attach a vport to a datapath.", detach() sends
-OVS_VPORT_CMD_DEL but says "Reset a vport.", and upcall_handler(), which only
-forwards to the packet handler, says "Remove a vport from a datapath."
-
-The OvsFlow upcall helpers are affected too:
-
-    def miss(self, packetmsg):
-        """Dump all flows for a datapath."""
-        ...
-        print(f"MISS upcall[{int(seq)}/{pktpres}]: {keystr}", flush=True)
-
-    def execute(self, packetmsg):
-        """Delete a flow from a datapath."""
-        print("userspace execute command", flush=True)
-
-    def action(self, packetmsg):
-        """Add a flow to a datapath."""
-        print("userspace action command", flush=True)
-
-And the psample side:
-
-    class psample_sample(genlmsg):
-        """psample generic netlink event handler."""
-        ...
-        def dpstr(self):
-            """Start receiving psample events."""
-
-    class PsampleEvent(EventSocket):
-        ...
-        def read_samples(self):
-            """Set the psample group to listen on."""
-            print("listening for psample events", flush=True)
-            while True:
-
-The nested field structs show it as well: vportstats, whose fields are
-rx_packets/tx_packets/..., is documented as "Tunnel options attributes.",
-flowstats (packets/bytes) as "Flow key/mask/actions message.", dpstats
-(hit/missed/lost/flows) as "Datapath info message." and megaflowstats as
-"Datapath statistics."
-
-Given that the shift covers at least 18 members, would it make sense to
-re-audit all 88 added docstrings rather than fixing them one at a time?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260905104026.3776396-1-houminxi%40gmail.com
+Konrad
