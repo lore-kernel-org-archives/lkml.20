@@ -1,157 +1,147 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013067.outbound.protection.outlook.com [40.107.162.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67C852940A;
-	Wed,  9 Sep 2026 10:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950178; cv=fail; b=sYqK+ktoGlClU80XToIpRJ6CDBxrVG38sc6ko5MYh/KtkLdt6qMM8V0sGrCJAa1QGyJq6QBd4y41JDEeRvWFR20phlb+7pCDZJ0gCE1Yu2vyc9YYn3lE18BR3AHdx1lehkEKmraQWFn4Knk5Ny+k6RXS3rk5F3ttM8Q/nkTXihA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950178; c=relaxed/simple;
-	bh=Za7SMqOVkW9ROk1fPourKrPBXJDfEVpFkeC6rdSZ2Fs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GAT48/jBx94RgcEbxcUMTICS43+My/8jS/SCLrq+FaSbHCRMoXJSBRmotwp43j8rC2e1PVWlUJvknbFQrVKyBqvbK+Jwlubv9HOyhsYQ8s7ZRoZ9kiOC1EJEm1IeNP+GEarRrVFmM/4TnshTHbV64qJIV0LkiWyM7owo72dPLI8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=kY3QZ5gI; arc=fail smtp.client-ip=40.107.162.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D51728DB54;
+	Wed,  9 Sep 2026 10:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788950190; cv=none; b=c5/PakEPYC7rjjFj4aJQMVz6lMaUXV41XGiGJPoGzpc5QB9UqvLcmlzM8R9hNFNfTFDiv8ekZn6RbutpwGLg4w+dtM1WJSXanvIXzjugh4Xw6KeRdbdZOHGkXbj9KBpW6G7i1ilhJ1gwu++apw00YSvqmRlwvqo2zkcg9Sy0AE0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788950190; c=relaxed/simple;
+	bh=JUMIVFPWF4YZ6cpd761izjnc4QCq/Z8L9frn7R5KxBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MwkcO1Sjqm5BH1zYZeuHdu58EKNk24W2M9hMucQAP2fyjQovoo8DElbJjTRccwPQBUAsEaBzpUjU71MqHw0URAew4u8LA+IJoOa1izfOjbpUaY7/3hPRRtD8l0mi/PnPwGvqGSku/yMy9O1dZipTSGpG5shyTA9kddZR24heUlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckRY4jzD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kY3QZ5gI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nBjICfSxaclauKd3eMQF1DfRYLh0BBz+TB6QSSp82ZB3pqjgRjkh/XwSpbKanr4K+wlzERru7RAbWZ3dlMJvVr32FMtt52eh/Z3vP1ZXEm+SRJUGlb/66ePSFQYBHqf0BnZiGHhQPYuFPkwteByiJ136jxqFliMUwoFy8RPQq4zx/tC7tVNX/o3+KuQEyJzNKcYA7A0Yng3hKZ2CTBYPmdQFzj4R8Tmln8oJE4x+KllH9SMx4u7xQ6K/kIU4dFaeP3RIuDLKF4ycE9wxrodtcB/gijWM03iQjah6zwrz5VwKJHD0W/dnHxQn7RGRYdNg/cTvgdZnpeoFJyxE6jp95Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3+g4u22iR/ROj4smlyHwiq0AsxgvM1x+IAErPDXluIY=;
- b=bH+sGV1QdajKexHg5zZHGaV0nCxn92dVYiVDA1Hr+Gfw7NejvjQSb38OvR5E20VQEhTxHexI8aKguWNd0tznqIYG36hN7+GStJdGCj7drjvYcCevDJ4F+tE+07eLPCSM9mUxiSdZY8km4jFT8DUGepUY/PEIGmmHMc88YcP811DpjuOoc/PupIYRPPL3YQDH8zF/knTSjABkhBrhlbgEiPVFUUhO77KjFbrVhLvEMkSfBc+vGxu02CAFHNA37fZd6tEy4WQHtnKSaNw5rq/YtfFI5t5coSRwaL2eTUCwEUaW6psUVhfbFeQaHQW4v7GWAbBaZu6b8gaUK6mmYG/jyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3+g4u22iR/ROj4smlyHwiq0AsxgvM1x+IAErPDXluIY=;
- b=kY3QZ5gIFsCy2jovHPg3bqrladxCNoItFK2Vt35ftYZ49iiVoT9S8DUSRTEDgqZlJXB6FDlK1ZYLRBeWAAXWO4vtztjZfcJNI7IczWwx00RmIeUrmr1C5+TrxisAd43CRSdaoNZiTRnjI82lUXCj5GA3AWxIH55cD1V+5vuR4k+fZB4fBwmDbBXm6UVPfhKLegFtAijW6Jh1uXcFUuQ0QrMtclcAh8qjmlulrtEeh9FWyVEHA6gOzFWN6SUmPOKYTk2E9EtZe8zLe6sWtFU4U6WM9lJk6sNEQrJlXJP1lsc+hx119EjPrrtM7K3kxB8Qbi7SmsWVZ/EsTfe/eDaiMQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by DB8PR04MB7066.eurprd04.prod.outlook.com (2603:10a6:10:12e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 10:36:14 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 10:36:14 +0000
-From: wei.fang@oss.nxp.com
-To: claudiu.manoil@nxp.com,
-	vladimir.oltean@nxp.com,
-	xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux@armlinux.org.uk
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 net-next 07/15] net: enetc: add .ndo_set_vf_mac() to the enetc v4 driver
-Date: Wed,  9 Sep 2026 18:07:25 +0800
-Message-Id: <20260909100733.1139689-8-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260909100733.1139689-1-wei.fang@oss.nxp.com>
-References: <20260909100733.1139689-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:177::16) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckRY4jzD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5897B1F00A3D;
+	Wed,  9 Sep 2026 10:36:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788950188;
+	bh=kN6kXYgX1rYfFabYyhrxIsfX8ptCfYay5szDUrnpxUg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ckRY4jzDsV7TtTU18KEwCRhMczCKZxzbj9OK6+aFcyC1Rb/JgYY3X6/eWEtBQiAWh
+	 o34OzCerFZjtE8g9nzCR4X+DAMzGKs9BBq67OHucrvAAS+444+w3UG0Rr61UpXtWHf
+	 KqzjDL72Xzc3mOH61KitSSpgIvMFMwl78gUnqw5J4UlWpqfU0lUDoUEaBxCOJFqL3a
+	 jj1rI9q5EP6esFvQA8tMDb8VLF+WhqA7GSlym/wJLqO6fjun9cOtBpxTmVssxrBbg8
+	 MOdpjhXkgfeIU1vCPNF2CDj9L8+xa7RZBtxWqRnCzzA09tkhlYXF4NSVB6AoX/vk95
+	 c9KeudaCkup2w==
+Date: Wed, 9 Sep 2026 12:36:23 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 02/10] af_unix: record the pid of the sending thread
+Message-ID: <20260909-kredenzen-stock-hyperaktiv-121c1eec9f98@brauner>
+References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org>
+ <20260831-work-unix-passpidfd-v1-2-70cbfda0c7ba@kernel.org>
+ <CAJqdLrooAYAcgzug=+idiPfqsZ0HGaqi29STuw7uzDh7eEB1xQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|DB8PR04MB7066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 058973d3-f2d0-43c6-f94b-08df0e5e2c16
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	PvKAumbUd9/i519wMIcrn1BzKysy0/5O1Lg7BuiusmJv00exXGCLn+2kBl7vuoCtA7kw7QyXbf2+19b8Ub9VaspiRcI03+qCVsfmCT7y5g4lNSplncfm9IVajwO/Wq1uLIaEwATAcFFXQ8fOztK/EVHI5huKMjB/4lQTCOHUI3Z5PwUq1jNi5WxJvh2A5ub7+ryEDc3d1jmpsh/eIAeiYcMJB4DMTdMbda4g3AVeIAPOokaDKUBgV2vj+PQxhnCCa48hekjv4KBWkztuor501CiJzD/36tqTVn4K2PG9Ctb8iFLMA98pXpDcbidXrQ7kzluaoVqJIeq3kMdDHrUfreEOll3DCJ3KIIL8O0gZghvGkIT+TbYyiR/8fiEIboowry/sgN0/gnxIDp07qVzCIfcwUqh5lu7FPV5rTIpddiLxhKKjhJn4Kmb1j6E2p1bfXCTSN8qBBvtFP1kQ6LhKbexMNuT1sMXp9jnE/zNPjKfjXlIT8fQIH1TDz0py4M/Si9j4y85g/hYHf0uNky1+JpIXSRS5opWu+Ck/LyByMetWFsJdWtrR6cSeDEoRqnr6zWZABYunblfRjZeMv1ELEQ5ZLZdgSL1ASnweea+BGnq4f3Tfw+T6x0hzcjq3b+tnfHZeJNoDfA7CO89+5S5hAvXjALTLkKYLXorsB2xeSUxczqZaDEc6Dw4uwx14mBeSz9stqnBGduj/s9rFD+ckqQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NjJT1+plHmeFHghJ5Nd1ux6uamOuupKBYIinj9DDk3ZSf2pEmbr38HRfhhWZ?=
- =?us-ascii?Q?UXFDEoj0V6yEbuEtCJsBxlBZqxEFOJBPIoaw2QMAEpPAc9Nq7CmK4XqTGvex?=
- =?us-ascii?Q?RqQNDb8g5UzE5RKzSTS7vb93r3jDCBRCHYt7PW/UV7tITui9L/cZXvcPmLHF?=
- =?us-ascii?Q?GjePkehXzNuz9fIfR9r44zy1QjlvAvmNktna7lLn0AK/w6juN5XuJIsmYpgi?=
- =?us-ascii?Q?27AK8idfAW3fyfs0T27UUm10Itqb/jgJuVLOTxLMu14IPn8lmm9K1FxxwQV2?=
- =?us-ascii?Q?WXEPLdvBM5V9ZicnhMv0gELaPliC+0oFo2eTaDZnh5p385+d0SMBXjVhsDDX?=
- =?us-ascii?Q?M212Ap7MLrU1seIte46DNrqDGN9sU0Qxge4vcJDI7l6WMUFq7t0+jJkdiuds?=
- =?us-ascii?Q?62MqfCvcvV0cNz6tPO+Qm3p2G7AQa4F3F8p0BFFIJsj/YILHyf3QLM/vIGtL?=
- =?us-ascii?Q?KFCC0km7zHA4P+z7y1HC0ID3pzvRzLHaswoscPZL9SexjXsajZpGWVxVtqJL?=
- =?us-ascii?Q?DnjZvknxt/Fg3jVR7apsG/1jQq0uVsA2UbmLLzfXYGgGXefO8crdsUAHcIfr?=
- =?us-ascii?Q?VWVnGBTPIzbgm8H9EsHO4CfvgwGFXebxX9ds8boUUjuh2W/ZCC2D6o5IDO2p?=
- =?us-ascii?Q?QyqYeieHKRMFIKsMUS4L0m812yFMJk+F5g/03B/KnBg4ZGM9TckAAF3Rhui+?=
- =?us-ascii?Q?c+aE/1Ltn3aRbeIAa26zQTHhd4uyWSyQjPAsmcfxvDqBQCXOhgMgz6cU6xcj?=
- =?us-ascii?Q?7pa/GGZ8uZRkhbmxUZ6fGOMgJJ5UdOVrE/X/qvUcQnVYljSevq9PeKjKzbtg?=
- =?us-ascii?Q?UYzT6q+5d8edBvvyyeZaMvP0U+4kqomtzUln4XaybQM70t7XpMtDXJpgQ51m?=
- =?us-ascii?Q?EzrOZ4hXVyQlh2KuyHf0da2Ra5xUg/Pfc88pXplxCBxV4WyH4rn/d2sQt1eT?=
- =?us-ascii?Q?3G/zETlwHLijLGOGbylPwrNLrCeYPW8Amfsn8w/AAJ31Zjbb6+DHqhi5VQc8?=
- =?us-ascii?Q?MIr5y9BI4caT3yAfh7SmpzRbhmp2SIytAh/PCEJXlqjyUga28R/JGy+phG7Z?=
- =?us-ascii?Q?dA7ulfCncIBDakPmb3hnl3MiyhELj/HcvMf3V5nxbYs+7560I0fJuv4Yq3NX?=
- =?us-ascii?Q?vFXcS/1Liya4DaKoVjkajY2JG4TIhgB9ERjTlNNX37PTZj4yOgBBUUZ8o0KK?=
- =?us-ascii?Q?frekDkJNO752oPDP7oKDi3aehnPV4kKd9yR0595rwYEIJsmKU7A/gkAMHaQg?=
- =?us-ascii?Q?q5DZI0Qjni44gqriD/rywfLfq+G51tSQAFcG988mHxFXzH3MesALPYoqg2mB?=
- =?us-ascii?Q?LtZtBmA1dcK4vq+IarYMUAM9rRQNkW1CNBPBwy03x9MYD+Zu6qSkuwUNNkMp?=
- =?us-ascii?Q?S9ZzjnqjeyTrQlCzBO36WrM/jt9jBAL4MbLxv9EEH6GfTSbj6jTMlZ9ZGuOg?=
- =?us-ascii?Q?WcTshLMvjUpmBjTsAkgXUTlasQpH/IjNJ2MQO/DbFfus+KLynykLETIDzEEc?=
- =?us-ascii?Q?LDHLOGD6iGiGUf1o5ZhalneRNWo01bSLknF5wNCteGoowHd2wXIPYxKf2VS0?=
- =?us-ascii?Q?uswnA2H3r39I4gfM4RnqMBe/2k3RbnMz31jMQJJ5ZUbO+F0zJY1B9zfpk0lh?=
- =?us-ascii?Q?RpMpz2SYFwvxqgJT7Vapnd1EDtwrJPgSwPkYG2r/ZUNRpXjCeICb1tuRIpML?=
- =?us-ascii?Q?/LMfI55TmJhlrLuJpJcNNrGnFAm3KCr64hHqJ/pY2DBQXW30p6H+qGWEYqwR?=
- =?us-ascii?Q?wHU5jqeVdEN0lZFxzCIHhH6FORgZw7C5JxauX+tIPYOYT/46ABsQ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 058973d3-f2d0-43c6-f94b-08df0e5e2c16
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 10:36:14.0368
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xuSr6iqSct8kuQgYAWDRzzeVLSonP8/wNTL5DZmIA2hvDJ6dM3WJ3QqacoGlm3MRBiOAA6op9vu+7Cd8AzJ1Ot1zlALtO/FEbdxMa2RrjON5jaJbAlMOnL1pE3AlVnjs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7066
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAJqdLrooAYAcgzug=+idiPfqsZ0HGaqi29STuw7uzDh7eEB1xQ@mail.gmail.com>
 
-From: Wei Fang <wei.fang@nxp.com>
+On Mon, Sep 07, 2026 at 11:55:23AM +0200, Alexander Mikhalitsyn wrote:
+> Am Mo., 31. Aug. 2026 um 13:21 Uhr schrieb Christian Brauner
+> <brauner@kernel.org>:
+> >
+> > Currently only the struct pid of the thread-group leader is recorded.
+> > The identity of the actual thread that sent the message or is connected
+> > to a given socket cannot be retrieved.
+> >
+> > Add the plumbing to make it possible to retrieve a pidfd for the sender.
+> > Nothing uses the thread-specific struct pid yet. No functional changes.
+> >
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > ---
+> >  include/net/scm.h  |  7 +++----
+> >  net/core/scm.c     | 21 +++++++++++++++++----
+> >  net/unix/af_unix.c | 23 +++++++++++++----------
+> >  net/unix/af_unix.h |  3 ++-
+> >  4 files changed, 35 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/include/net/scm.h b/include/net/scm.h
+> > index 86ae6bc109ec..aa7d15c5fc27 100644
+> > --- a/include/net/scm.h
+> > +++ b/include/net/scm.h
+> > @@ -42,7 +42,7 @@ struct scm_fp_list {
+> >  };
+> >
+> >  struct scm_cookie {
+> > -       struct pid              *pid;           /* Skb credentials */
+> > +       DECLARE_PIDS(pid, PIDTYPE_TGID);        /* Skb credentials by pid type */
+> >         struct scm_fp_list      *fp;            /* Passed files         */
+> >         struct scm_creds        creds;          /* Skb credentials      */
+> >  #ifdef CONFIG_SECURITY_NETWORK
+> > @@ -69,7 +69,7 @@ static __inline__ void unix_get_peersec_dgram(struct socket *sock, struct scm_co
+> >  static __inline__ void scm_set_cred(struct scm_cookie *scm,
+> >                                     struct pid *pid, kuid_t uid, kgid_t gid)
+> >  {
+> > -       scm->pid = get_pid(pid);
+> > +       scm->pid[PIDTYPE_TGID] = get_pid(pid);
+> >         scm->creds.pid = pid_vnr(pid);
+> >         scm->creds.uid = uid;
+> >         scm->creds.gid = gid;
+> > @@ -77,8 +77,7 @@ static __inline__ void scm_set_cred(struct scm_cookie *scm,
+> >
+> >  static __inline__ void scm_destroy_cred(struct scm_cookie *scm)
+> >  {
+> > -       put_pid(scm->pid);
+> > -       scm->pid = NULL;
+> > +       put_pids(scm->pid);
+> >  }
+> >
+> >  static __inline__ void scm_destroy(struct scm_cookie *scm)
+> > diff --git a/net/core/scm.c b/net/core/scm.c
+> > index f0d44ecdb11f..9b9e119c353a 100644
+> > --- a/net/core/scm.c
+> > +++ b/net/core/scm.c
+> > @@ -149,6 +149,7 @@ EXPORT_SYMBOL(__scm_destroy);
+> >
+> >  static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
+> >  {
+> > +       struct pid *thread_pid;
+> >         int err;
+> >
+> >         /* drop all previous references */
+> > @@ -158,7 +159,18 @@ static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
+> >         if (unlikely(err))
+> >                 return err;
+> >
+> > -       scm->pid = pid;
+> > +       /* A sender naming its own thread-group sends from the current thread. */
+> > +       if (pid == task_tgid(current))
+> > +               thread_pid = task_pid(current);
+> > +       else
+> > +               thread_pid = pid;
+> 
+> Hi Christian,
+> 
+> The patch looks good to me, but this spot raised some doubts for me.
+> 
+> If scm_replace_pid() is called with pid == task_tgid(current) then all
+> good, because we
+> get scm->pid[PIDTYPE_TGID] == pid and  scm->pid[PIDTYPE_PID] ==
+> task_pid(current). All good.
+> 
+> If scm_replace_pid() is supplied with pid that has a type PIDTYPE_TGID, then:
+> - scm->pid[PIDTYPE_TGID] == pid. Good.
+> - scm->pid[PIDTYPE_PID] = pid. Doesn't looks correct, shoudn't we do
 
-Add .ndo_set_vf_mac() to the enetc v4 driver to configure the MAC
-addresses of VFs.
+After chatting with you, I think I get the concern. You think that
+scm->pid[PIDTYPE_PID] always points to a thread-group leader if pid ==
+task_tgid(current). Yes, that's true but that's intended and fine. The
+thread-group leader is just a thread in the thread-group just with
+magical behavior (that we would really like to get rid of but can't
+easily...).
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- drivers/net/ethernet/freescale/enetc/enetc4_pf.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-index e20989b6f8b4..a44d50b7fd2a 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-@@ -579,6 +579,7 @@ static const struct net_device_ops enetc4_ndev_ops = {
- 	.ndo_hwtstamp_get	= enetc_hwtstamp_get,
- 	.ndo_hwtstamp_set	= enetc_hwtstamp_set,
- 	.ndo_set_vf_trust	= enetc_pf_set_vf_trust,
-+	.ndo_set_vf_mac		= enetc_pf_set_vf_mac,
- };
- 
- static struct phylink_pcs *
--- 
-2.34.1
-
+Thanks for looking closely at this though!
