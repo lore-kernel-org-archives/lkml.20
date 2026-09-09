@@ -1,108 +1,97 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D531D3C1D62;
-	Wed,  9 Sep 2026 19:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9413CA491
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983595; cv=none; b=ZljetkiDvW6xctNVqCW8eazft2Hj4XgSZmUQbljIlhg5R23KYb0Xvvyr0i/Em5kNOnuiugCYsjnipa3hLEI+WIKrUljHta/Q+erLnlqqWkOHxM8Kjx6bEwsOjL3oGNzZv1orw/uBSe5O/ZCPzchTyihCfhJclrPk6zho2x7R3Bs=
+	t=1788983665; cv=none; b=VCt4o/eCzCCyjpxqSY9yR28Av01Ad2DD1T5j5kh+xZXWNWBNUqmg+b01zdOfIkbXcMjl9JwhV6Sbl7rC0iUlDU4PYpfcUdrKWVazvn+mGbhvuak2dm81BkZmj0js+THJt7xz9K1sBbQGODbhIYyUyJxxYq0l/SAaGTXcjAwuoPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983595; c=relaxed/simple;
-	bh=847sgO0ksGozPNuXNxnF4btPlgQ7SR2Ukr2n2buyng0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=H1/cONzdH1rTCPsUATqe1n47ccI5O1n0diCqpJNWEHXYlSDZWdtCVKOIx2qQ36MuKzBiv+99AWa/wR+tWfLUELOEWrixEJwkfL1ePxBJ4oegNyidjVIoohEO4T+WfJoULSPfcCPD/q/R1TAwK3D4skQNhdesxfV0pBZggMZmymY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gMcWiQ/Z; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788983665; c=relaxed/simple;
+	bh=DmP9k88nHDbbEKxSUwAEPVESr/VeuCRYcMP7DI/pGrA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YsQGlb1ZOZvi2fGtSMKYAmxNjtXpgv1UKQZJA8RnJn8T+7JYllu2qYVR+3mCujs27Y8MZ6dxc8e0h+p1Ns0Z5ICvZ3KTswhXEtG7qdLSPvwYxOvV3UCMbKt9UJBF0D6dr6o/hFwZcNbAoo2+7wqyEBnGhFgDzo7ufY4nh34QHD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ZW+AD6pC; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gMcWiQ/Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788983504;
-	bh=w+e0CFCNccox73yGiNG/BFtBobIPS+RYstEA96SzeSs=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=gMcWiQ/ZKsJ+Hyjs/xh5kqVDBWzfj3I5I2sIpblmOmm8zMr6QjydKUXJatNzgf8xw
-	 b2gTQeD+ULI9ydCDuOnrgchPaZ7CpVwBl7hzAHZh/F6cO9XyqvkgDu002SbPOM6CXO
-	 ESUt0yS+NwYH8uiKxSviIhmWY2HVG/ig//KRI2Z4=
-X-QQ-mid: zesmtpgz5t1788983497t1275e637
-X-QQ-Originating-IP: d7YA61bGw3SKUwANztmKXguhPOXYeUL97DAfFI4k5/o=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 03:51:34 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 7115221183154363354
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
-Date: Thu, 10 Sep 2026 03:51:32 +0800
-Message-Id: <20260909195132.1623875-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ZW+AD6pC"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7B80C40E020D;
+	Wed,  9 Sep 2026 19:54:20 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id tOZjEoCN9gv1; Wed,  9 Sep 2026 19:54:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788983650; bh=H781Eci5CnOTdf5iHK/Yy0v/MuBeJ+xyuXMHO9afQNk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZW+AD6pCB69vYkuiylMtk6FX6FGrYL3KvopeuBxxwwiCOVefOqniE5buvqDvSKHA3
+	 kXHARnrO5IjxhdYVs+aYP0/fv6aKiHW4GRaZoZrx2GkS8d9KTpeDiaPq7xLcCw7O4O
+	 8oQrnJVxGx/eo+TiAXQPY2NSQ4Dri0JpHe+j4gohGZIr+LpZ66S5JiHVmveEXz+dpS
+	 UcTeGzD4nNzk2UhUoT8GTj0H862bbrJsmojUvg2tgyZ/TG6cokiz0xNBvNpojMKvK3
+	 OCdabf6Cy46sjVg161tOaJ/RkTcxUAcDS68OVvvRaxLwpY/XveCryfe6tapQ8I6D4z
+	 wh+MMgFHmL2QJ2cDaPktFojn5Q5WsDQPJy3MBuUHLEjAMr9A3czNBmFQY+O/jeNqR6
+	 crCRUWxhPzZkXa/wWUhS8OG1woCV6VOpD8GOfGtB/H5fDHHQ17b217shKxoblWA0Vs
+	 RqbWPSbmLV+YwO+cpKXKlo2N+xeYBIFlYtsv84PK13zAr3fFgqeWRS/br4RFTAXPQr
+	 mCX0InwP4x8xysc6OkA7seyK0r9vELNKx8tBi0FcoE06o3nmld0ALweOeURqJz4OFu
+	 +GZmGdDOSLShsKsjPjWtHBLmFWsAmu6ExzkZfSclSKSLZeJny3koaZskRM8RA24rwy
+	 c1enPRy7sq8sbise8I6u7PwM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id F1FAB40E01E1;
+	Wed,  9 Sep 2026 19:54:05 +0000 (UTC)
+Date: Wed, 9 Sep 2026 12:54:03 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Melody Wang <huibo.wang@amd.com>
+Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH v1 5/8] x86/sev: Add a function to contain all
+ SEV-specific setup operations
+Message-ID: <20260909195403.GAaqG5W9gR-p3fMFYc@fat_crate.local>
+References: <cover.1787973545.git.huibo.wang@amd.com>
+ <9f24b2d1cd0bfd0c658219a38840415515593f1c.1787973545.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Njs2StTnUbMA/QqYbAHAntHRFMTwSVxqVWoSM3NIBnl9uqCojCKq+WOv
-	0dRCDNboHBg3rk1XvWEkReuoeFj/QIl+YzcM+E0OoCZErjOcUKEgr4dnApI1LF9A8uq12Wu
-	2Z6eLOeWaGOwWXEDwuTXdqay9iekZGWngkTGte/4G3JJbQ0rzTqT64IBtrz9yJsAMy8QfYL
-	K7pGjRZ31A3hJw8k9oIscNyJxcapubHGVuvvh3E5xLhBoSyPrXOkKwyjx2Up8a7nejLSeMt
-	CgGCuTFlfwZUc5lGbS2GWmta8cgqpM88Mzd9W7HDmiAydSOXiEtQLJBTsbIb1scHo0yJewk
-	ivdeAMsIBLBGD/diiE2Ww9+9KZ+MUIsj/lyhZVweNqxhT06+STUMyJLhH0v9l45mIdbUqZN
-	rHDvBM9RNvdhSlP1yC66nzbaNoGSM77mBu6yL6WsbG+fRU4UUSOFHxomb28tqm1aPu0NliA
-	EkahJ0EKU3wakZEHhV0C3UpZFm0I2LVEs7feI1DyRjq50Oe0UKR+GioTPW3A5nbdV3gJZuY
-	PfXtUBlVQJHTq0Fm5VgDfxt8fg5hcTmDC5kjCJFcDInp/X2iuWma0kl3Qt5WkyLrwrp7R37
-	4cAELYRAYvdjpPlRi0bPJQOZxkBf0RIWohJVoQvyrEkB2+NdEtA+LVZm5mJSz+LXFKcTqap
-	JtVY7lgThh4ui9g2e9Ds0aJB+TCjG2/KPOzomtDzJSoNan/bindmKuK86IlgRJxEQ4gOIHZ
-	XDRAourRvMtWyotslapwL4hGsG8vlm6ODbSQtuMmBA2RWsCLVKV/kyM3FtzMeCk1RaCIpLZ
-	dmhubtBOeOopSz7uQnADqVSSIOo6zjuW0BFQknsPIQpfCvvxB5PZwPNf6qZmHJzdkWpRcql
-	I26k7M0m+Pt+wVEwdMaukcwL6GEvp348UeDo2+kJr1e3kkuTn/eoZkUE0Sk+o3ANiYk/4Jl
-	58hsgSVAWRdvr4wOenlNX417GMkhgkMNIoTGsrf3HutlaBJpzAuCmhtSIanW4cUIYXkV7wZ
-	Xoy5CkEPELBId+5HjhGMjstXRlN94rAeRZ33Lbs7twk8ZV4yjxMDilNmMkCTae1PRyqJAwu
-	Q==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9f24b2d1cd0bfd0c658219a38840415515593f1c.1787973545.git.huibo.wang@amd.com>
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+On Sat, Aug 29, 2026 at 03:39:43AM +0000, Melody Wang wrote:
+> +bool sev_prepare(void)
+> +{
+> +	u64 unsupported = snp_get_unsupported_features(sev_get_status());
+> +	if (unsupported) {
+> +		error("Unsupported SEV-SNP features detected\n");
+> +		return true;
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+Sashiko says here:
 
-Best Regards
-Wentao Guan
+| Does calling error() here inadvertently cause a silent system hang?
+| Since error() is a __noreturn function that halts the system via an infinite
+| asm("hlt") loop, the return statement directly below it becomes unreachable
+| dead code.
 
-Log:
-Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Wed Sep  9 23:55:33 CST 2026
-Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Thu Sep 10 00:10:35 CST 2026
-Linux version 6.18.51-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.18.51-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Thu Sep 10 00:25:26 CST 2026
-Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.18.51-rc1-g4cfd5b1359b0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Sep  9 23:33:53 CST 2026
+Yes dear Sashiko, it used to do that before too with
 
+	efi_exit(handle, EFI_UNSUPPORTED);
+
+| Additionally, the early diagnostic output from error() might fail because the
+| console lines and cols are not yet initialized in the EFI stub context before
+| extract_kernel() runs, resulting in dropped diagnostic information.
+
+Not a big surprise there.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
