@@ -1,219 +1,347 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CA053FD54
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1370A582B9F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973199; cv=none; b=VLkX0Lzi9Y8PlfDneVKwQB7F7KQdh6i/rww1b2UB+1MCf+TRgw8HJ5fiWsdBYalA2lQ+tFQL+mG5UkjabmLEF+uaLLjKKxZmJcwefTpHuby+EMWQk0E+pYfBvdofJ4biZrPLH2Ge7JHz183kPcNKt27pIFI5oEPSNeFxAKBCR0M=
+	t=1788973206; cv=none; b=jMVTx/aD3oW7EEv3uBlzkZWD71pKOaaZM46PrTZ+lPZcDtYOyugjkNkglX1gEo4eWViyaeak4ut2nyfXlbx2jv4YRoDXpqqNnhFxaMpt/YPJKh8kJLoxpVwNBh5QkY2mZQPuio2/jhLcx7LGfQ0nIDH874jH7KAoSoGNeCr6KIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973199; c=relaxed/simple;
-	bh=3ZoTCmvqkdETJBOj3O8zkoBbtgKjyIAK4uQI6bwSwY4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Iq7rvy2wRifeHrOTkxXSOpiWe8h9XehRtWJwgbnfNTBwwejI4/Ru2zSyn1a0hRC84Rbfid84TdjdKtMkPyKl7Biyyp7Xt5lRDbMTlcuylOrWt3JUkrRRBhQw6ufhX4Bn4ed2VqKSfK2c4gZpUOYWA7gW6aknN1EYlS43HQIJrR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HGxHi5X1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788973206; c=relaxed/simple;
+	bh=4yKGBmZ8q0SLPjJAWZMCALUblu8YmWmpdr/tDYhAUEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o0xxn0Ix7v7bK41Y7rYlrCH050/9EkRZqVf8e1XPW0wmzv1IHalcGzd8quVYKRcyNwbh/gbhHk7P8imhSTo0Kxg4Zu84T+YOMabG7dR3p2Lf+jnsEyKVj8S//GYnevrlMpYvJUVSY1Zirc/CGTFgLxXRHtCzC6duTiXCpNj7bB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EmF6vOLy; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HGxHi5X1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C81A1F000FF;
-	Wed,  9 Sep 2026 16:59:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973196;
-	bh=P6G4VNpwhpXlLhjVq/kdRQP+Q5U8JxjhnWl2ivHdL58=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HGxHi5X1wkkztSUobbCILvTlRsfOY7LnJ3KTOjPX0l7odb6o+J/uI1/R4WGZxpeRU
-	 XPCYkK7HhyFgwz2d2/SvcVzlAvFJcpQ3+2z2lcc86ZH0TsW45xY00eBI8jNnRmLeWU
-	 kA35nBILIMVHtdySHkZ8M+wNEKBFLCEWZS2JEgzNIM86ZS0lkdTEzIlEwKjEtBNr8x
-	 YqZHodcEhWYOhxQA0+cTt52EuqjmEA8ls55FqclzZriy0oHpCymA8EPlYTETCzQwy3
-	 U3HLWZTfIe9w80700dWV3ZI25HSrA4Zl0+9bkoouf7MiwmbmKnbtkSbQsUkeKB1DCC
-	 /2blUit7vaygQ==
-Message-ID: <d1ede193-bc56-46de-9d0d-fc037ddf835d@kernel.org>
-Date: Wed, 9 Sep 2026 18:59:52 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EmF6vOLy"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484399babcaso562052f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:00:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788973202; x=1789578002; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FXW4rsfWsl/qV1jQizp21oY8xUg2xuC2B9JemfOPbJA=;
+        b=EmF6vOLyh001EjPp+DSLunJiT1MWaVUKy6ROi2nZ5mq+U7FJvkZ1qtHu53A/Kpp9df
+         uaq47k05WTw5Ldeh3Mi/m3Nqt5PzoQSXr52ZWZ4cJ1vkbSgNmVYcN3Ie+qK4QOVi7BQO
+         C0RQf/VablB0VyFzQ8XI1wk9JKMJItXEnTZJaxAhjqej8t2tWp9GdXFuOW0DB7oz6/rI
+         56IS0KVMpynDDHEAK5dy3J+kd0Fxdqg+RgVYwQwVYESw9Zh8F09DqD3rVV/aEI6/6SFc
+         /Uz0fx+sc6TI0/24Dc1wBMmggzk/4dY1IsAVcffVylJ4xW54C8+OGZNQDcL+XOwjg6bA
+         BuLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788973202; x=1789578002;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FXW4rsfWsl/qV1jQizp21oY8xUg2xuC2B9JemfOPbJA=;
+        b=bP25nN9jcSmURFJ/YyeH3K+7HjWBo1qw++OfMZ/xPwNHL1zWxIuF0iXWrG5ngeS4dd
+         Pgg78LIiAbGMoOLoH1QBVnEn6WFpsH2rDqEeRnHBt7micPjKd+LuD4RvtFOTlmO0EVzo
+         yy0aSd0SsxjzLlQZKONoMxrxfmXbZviF/tgJeDNpqWojthYwj/dLM+ypbUOnX6msfShJ
+         AvbKHw9vGieio1z5c+V6fxkcvko6UxThgEF4QiiRnvoOotHakQb/jqf4kcjPGTwQE2ts
+         A5AQPmNB0jv3bsPYDfuVIoIuWFLoot5dQyuwTEZ/1IWFigxfDN+gb6l3S4TCj/zWFMRM
+         Ii/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxjfEHTZIYN+sXrGn1tPMUbR1rIEo6rCQjnkMfpUWZT5puAbKw/rU5bmEaIZUpssm3AATKbIcJeRM6dMRA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltnc6ltpcb2RB9WYl6V0UXbkxTErg5bUziERQtmi7wNa100Y0V
+	S3jM4vfSAEgDpIrkdfIaC9RQBsrdfqSywDPukTdqVZYO4c7YDQplnh4S
+X-Gm-Gg: AYBFou2F6kf4IneqwyKfPiIjWF/Yb15ypHPaF03U5p62Q5W1CFDLbWZHJMe6KhaCLqB
+	7Myq4JvmRUggItuxtHy83Ce14pSr3GMYN8LHtZUk8Xk5CtlkyyebOXPK/sMgL8hc4D1skKNFew7
+	WeQxLt082S09/mm28bzzywhzNgUIL6dflessgt0ul0/OmdjhewRy+Pc09TiQ+5Dt2dLj6V893ns
+	1mZ0PS+gfeFmlVVgGKLVCnSZ4pfGg9pyLZKdY6T9luOXJjDShq+UIMsaTeZ5PCHZCQ0CkodYfv6
+	4sIUzi/wUcJBzEpk1UL+FLmZRprcVQJZafobFWyo1+C4x4LZyVSt5cuY/TJGH5sA4xplEHbePA+
+	q3oFLwKYS/KsnoN0WdNlbQkg//IPm/GQY2vI6Tgjhq8l+DxbHC3j/6bkPfy2TJ8DFfvXOP9EmlB
+	Wh72pJECLQdaNfnplsZNJ4gSTggYGPVvfSTgiTT15hzR6nr0uDEqZ6kWvthrcHmKFDen4Wnoxbe
+	T0u9hhEbW28FwOcPxQpQFKIbgs1OY9Q8kT9AGkNY4/jLTFNAW6BLDDtVM2Zf1WFZmG4lftGuAH8
+	Sho=
+X-Received: by 2002:adf:e001:0:20b0:485:a9b4:9883 with SMTP id ffacd0b85a97d-485a9b498b4mr6458294f8f.1.1788973201948;
+        Wed, 09 Sep 2026 10:00:01 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B836900B0110705BF092680.dsl.pool.telekom.hu. [2001:4c4e:1b83:6900:b011:705:bf09:2680])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm47864373f8f.30.2026.09.09.10.00.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:00:01 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] arm64: dts: rockchip: rk3588: add an OPP table for the NPU
+Date: Wed,  9 Sep 2026 18:59:02 +0200
+Message-ID: <20260909165903.8472-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9af28de2a07f7965300b898994481ccf194a30da.camel@ndufresne.ca>
+References: <9af28de2a07f7965300b898994481ccf194a30da.camel@ndufresne.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
-To: Li Zhe <lizhe.67@bytedance.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, aiqi.i7@bytedance.com
-References: <20260831091023.66581-1-lizhe.67@bytedance.com>
- <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org>
- <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org>
- <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/8/26 09:09, Li Zhe wrote:
-> On 9/7/26 11:29 PM, David Hildenbrand (Arm) wrote:
->> On 9/1/26 02:32, Andrew Morton wrote:
->>>
->>> Thanks.
->>>
->>> So a modest performance improvement?
->> Is that worth the complexity, though?
-> 
-> 
-> That is a fair concern.
+Hi Nicolas,
 
-In you setup, are the page tables ever being shared? I suspect you just run a VM
-with no other processes actually sharing the memory?
+> If you can script the test, I can run it on Rock5B later on.
 
-One idea would be to just remember whether any sharing ever happened for a
-hugetlb file.
+Here it is. I ran this exact script on my board before sending it, so it
+is the same code, not a cleaned-up retelling of what I did.
 
-> 
-> I tried to simplify the approach. Instead of computing the exact PUD
-> sub-ranges that contain shared PMD tables, this version keeps the
-> existing adjust_range_if_pmd_sharing_possible() logic unchanged and only
-> adds an actual shared-PMD check as a gate before it.
-> 
-> So the behavior becomes:
-> 
->    - if no shared PMD table is found, keep the notifier range unchanged;
->    - if any shared PMD table is found, fall back to the existing
->      conservative PUD-sized expansion.
-> 
-> This should still avoid the unnecessary 1G KVM invalidation for the
-> common unshared-PMD case, while keeping the range expansion policy
-> unchanged when a shared PMD is present.
-> 
-> The resulting diff would look like this:
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 816dde7..7a61fc3 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -5355,10 +5357,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *vma,
->       if (!vma->vm_file)    /* hugetlbfs_file_mmap error */
->           return;
-> 
-> -    adjust_range_if_pmd_sharing_possible(vma, start, end);
->       hugetlb_vma_lock_write(vma);
-> -    if (vma->vm_file)
-> +    if (vma->vm_file) {
->           i_mmap_lock_write(vma->vm_file->f_mapping);
-> +        if (range_has_shared_pmd(vma, *start, *end))
-> +            adjust_range_if_pmd_sharing_possible(vma, start, end);
-> +    }
->   }
-> 
->   void __hugetlb_zap_end(struct vm_area_struct *vma,
-> @@ -5397,7 +5401,9 @@ void unmap_hugepage_range(struct vm_area_struct 
-> *vma, unsigned long start,
-> 
->       mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
->                   start, end);
-> -    adjust_range_if_pmd_sharing_possible(vma, &range.start, &range.end);
-> +    if (range_has_shared_pmd(vma, range.start, range.end))
-> +        adjust_range_if_pmd_sharing_possible(vma, &range.start,
-> +                             &range.end);
->       mmu_notifier_invalidate_range_start(&range);
->       tlb_gather_mmu(&tlb, vma->vm_mm);
-> 
-> @@ -6958,6 +6964,52 @@ void adjust_range_if_pmd_sharing_possible(struct 
-> vm_area_struct *vma,
->           *end = ALIGN(*end, PUD_SIZE);
->   }
-> 
-> +static bool range_has_shared_pmd(struct vm_area_struct *vma,
-> +                 unsigned long start, unsigned long end)
-> +{
-> +    unsigned long v_start = ALIGN(vma->vm_start, PUD_SIZE);
-> +    unsigned long v_end = ALIGN_DOWN(vma->vm_end, PUD_SIZE);
-> +    struct hstate *h = hstate_vma(vma);
-> +    struct mm_struct *mm = vma->vm_mm;
-> +    unsigned long address;
-> +
-> +    if (huge_page_size(h) != PMD_SIZE)
-> +        return false;
-> +
-> +    /*
-> +     * First apply the same cheap test as
-> +     * adjust_range_if_pmd_sharing_possible(). Only the PUD-aligned
-> +     * intersection can contain shared PMD tables.
-> +     */
-> +    if (!(vma->vm_flags & VM_MAYSHARE) || !(v_end > v_start) ||
-> +        end <= v_start || start >= v_end)
-> +        return false;
-> +
-> +    start = max(ALIGN_DOWN(start, PUD_SIZE), v_start);
-> +    end = min(ALIGN(end, PUD_SIZE), v_end);
-> +
-> +    hugetlb_vma_assert_locked(vma);
-> +    i_mmap_assert_write_locked(vma->vm_file->f_mapping);
-> +
-> +    for (address = start; address < end; address += PUD_SIZE) {
-> +        pte_t *ptep;
-> +        bool shared;
-> +
-> +        ptep = hugetlb_walk(vma, address, PMD_SIZE);
-> +        if (!ptep)
-> +            continue;
-> +
-> +        spin_lock(huge_pte_lockptr(h, mm, ptep));
-> +        shared = ptdesc_pmd_is_shared(virt_to_ptdesc(ptep));
-> +        spin_unlock(huge_pte_lockptr(h, mm, ptep));
+It answers one question and refuses to answer anything else. Two modes:
 
-I really don't like this piece of code to optimize something that is already
-questionable in practice: overcommiting hugetlb folios for VMs.
+  ./rk3588-npu-devfreq-check.sh --check     # discovery and gates only
+  NPU_LOAD_CMD='...' ./rk3588-npu-devfreq-check.sh
 
-Can you share some more details which mechanism ends up zapping hugetlb folios
-for the VM?
+The load command is yours - anything that keeps the NPU busy for about
+25 s and exits. I did not want to ship my benchmark, both because it is
+not interesting and because the point is that the result should not
+depend on which load you use.
 
-If it's virtio-balloon's free-page-reporting, you should likely disable that for
-the VM.
+The gates matter more than the measurement, so let me say what they do.
+It refuses to run if the governor is not simple_ondemand, if min_freq or
+max_freq are pinned (then the governor decides nothing and the number is
+meaningless), or if the loaded rocket module is not the one belonging to
+the running kernel. That last one caught me: my everyday kernel carries
+an out-of-tree rocket with its own OPP list built by dev_pm_opp_add()
+with no voltages, and no opp-table-npu in DT at all. A measurement there
+would have described a different program. It warns rather than refuses
+when there is no DT table, or when the table carries opp-suspend, since
+both change what is being measured rather than invalidating it.
 
--- 
-Cheers,
+Everything is discovered, nothing is hardcoded: the devfreq device by
+name, the lowest and highest OPP from available_frequencies, the supply
+by regulator name. That last one is not paranoia - on my board the NPU
+regulator was regulator.2, .6, .7 and .8 across four boots today.
 
-David
+It needs no sudo. Passwordless sudo, if present, only adds a clock
+summary sample from debugfs; without it the script says so and goes on.
+
+The verdict is deliberately narrow. It looks only at the window after
+the load stops, and it wants the device to reach the lowest OPP and stay
+there, not merely touch it - simple_ondemand dips to the bottom between
+batches while the load is still running, and an earlier version of this
+script counted that as success. It also prints the trans_stat delta for
+the idle window, which is the part I would trust most if we disagree.
+
+If it says INVALID, that is the intended outcome for a run that cannot
+support a conclusion, not a bug.
+
+What it says here, on an Orange Pi 5 Plus with the series applied,
+in-tree rocket, the 3/7 table read out of DT, 25 s of load then 60 s
+idle:
+
+  under load : peak 1000 MHz, 700-850 mV
+  after load : 200 MHz immediately, held for the whole 59.8 s, 700 mV
+  trans_stat : +60055 ms at 200 MHz in the idle window, 0 ms elsewhere
+  RESULT: YES
+
+That is worth one remark. I had already measured this earlier today with
+a different script of my own, which reported 60129 ms at 200 MHz for the
+same window. Two differently written tools, the same answer to within
+their sampling noise - which is a better reason to believe it than one
+tool run twice. Neither of them, though, is a second board, which is why
+your offer is worth more than either.
+
+The script follows below.
+
+Igor
+---
+
+#!/bin/bash
+# Does the NPU devfreq governor return to the lowest OPP after the load stops?
+#
+# Written for the discussion on "[PATCH 3/7] arm64: dts: rockchip: rk3588: add an
+# OPP table for the NPU", where the question was whether opp-suspend is needed.
+# It answers exactly that one question and nothing else.
+#
+#   ./rk3588-npu-devfreq-check.sh --check          # discovery + gates only, no load
+#   NPU_LOAD_CMD='...' ./rk3588-npu-devfreq-check.sh
+#
+# The load command is yours: anything that keeps the NPU busy for LOAD_S seconds
+# and then exits. It is run in the foreground and its exit status is checked.
+#
+# Requires: bash, python3, awk. No sudo for the measurement itself; sudo is used
+# only to read the clock summary in debugfs, and the script works without it.
+set -u
+
+CHECK_ONLY=0
+[ "${1:-}" = "--check" ] && CHECK_ONLY=1
+
+LOAD_S=${LOAD_S:-25}          # how long the load runs
+IDLE_S=${IDLE_S:-60}          # how long we watch after it stops
+SETTLE_S=${SETTLE_S:-20}      # how long it must stay at the low OPP to count
+OUT=${OUT:-$PWD/npu-devfreq-$(date +%Y%m%d-%H%M%S)}
+
+die() { echo "FAIL: $*" >&2; exit 1; }
+ok()  { echo "  ok   $*"; }
+note(){ echo "  --   $*"; }
+
+echo "=== rk3588 npu devfreq check, $(date '+%F %T %Z') ==="
+echo "kernel: $(uname -r)"
+
+# ---------------------------------------------------------------- discovery
+D=""
+for d in /sys/class/devfreq/*; do
+  [ -e "$d/available_frequencies" ] || continue
+  case "$(basename "$d")" in *npu*) D="$d"; break;; esac
+done
+[ -n "$D" ] || die "no NPU devfreq device under /sys/class/devfreq"
+ok "devfreq device: $D"
+
+MINF=$(tr ' ' '\n' < "$D/available_frequencies" | grep -v '^$' | sort -n | head -1)
+MAXF=$(tr ' ' '\n' < "$D/available_frequencies" | grep -v '^$' | sort -n | tail -1)
+ok "OPPs: $(tr ' ' '\n' < "$D/available_frequencies" | grep -cv '^$') steps, $((MINF/1000000))-$((MAXF/1000000)) MHz"
+
+REG=""
+for f in /sys/class/regulator/*/name; do
+  case "$(cat "$f" 2>/dev/null)" in *npu*) REG=$(dirname "$f"); break;; esac
+done
+if [ -n "$REG" ]; then ok "supply: $(cat "$REG/name") = $(cat "$REG/microvolts") uV  ($REG)"
+else note "no NPU regulator found by name - voltage will not be sampled"; fi
+
+SUDO=0; sudo -n true 2>/dev/null && SUDO=1
+[ $SUDO = 1 ] && ok "sudo available - clock summary will be sampled" \
+              || note "no passwordless sudo - clock summary will be skipped"
+
+# ---------------------------------------------------------------- gates
+GOV=$(cat "$D/governor"); MIN=$(cat "$D/min_freq"); MAX=$(cat "$D/max_freq")
+[ "$GOV" = simple_ondemand ] || die "governor is '$GOV'; this test only means something with simple_ondemand"
+ok "governor: $GOV"
+[ "$MIN" = "$MINF" ] && [ "$MAX" = "$MAXF" ] \
+  || die "min_freq/max_freq are pinned ($MIN/$MAX); the governor decides nothing. Reset them first."
+ok "limits not pinned: $MIN / $MAX"
+
+DTOPP=/proc/device-tree/opp-table-npu
+[ -d "$DTOPP" ] && ok "OPP table comes from DT ($DTOPP)" \
+                || note "no $DTOPP - the driver is building its own OPP list, results describe that instead"
+if [ -d "$DTOPP" ] && ls "$DTOPP"/opp-*/opp-suspend >/dev/null 2>&1; then
+  note "the DT table carries opp-suspend - that changes what is being measured"
+fi
+
+SRC_LIVE=$(cat /sys/module/rocket/srcversion 2>/dev/null || echo -)
+SRC_TREE=$(modinfo -F srcversion "/lib/modules/$(uname -r)/kernel/drivers/accel/rocket/rocket.ko" 2>/dev/null || echo -)
+if [ "$SRC_LIVE" != - ] && [ "$SRC_TREE" != - ] && [ "$SRC_LIVE" != "$SRC_TREE" ]; then
+  die "the loaded rocket module ($SRC_LIVE) is not this kernel's ($SRC_TREE) - out-of-tree module in the way"
+fi
+ok "rocket module matches the running kernel"
+
+if [ $CHECK_ONLY = 1 ]; then
+  echo
+  echo "=== --check only: everything above passed, no load was run ==="
+  echo "To measure, give it a load command, for example:"
+  echo "  NPU_LOAD_CMD='your-inference-tool --seconds $LOAD_S' $0"
+  exit 0
+fi
+
+[ -n "${NPU_LOAD_CMD:-}" ] || die "set NPU_LOAD_CMD to something that keeps the NPU busy for ~${LOAD_S}s and exits"
+
+# ---------------------------------------------------------------- measure
+mkdir -p "$OUT" || die "cannot create $OUT"
+cp "$D/trans_stat" "$OUT/trans_stat.begin" 2>/dev/null
+
+SAMPLES=$OUT/samples.txt; : > "$SAMPLES"
+( while :; do
+    printf '%s %s %s\n' "$(date +%s.%N)" "$(cat "$D/cur_freq" 2>/dev/null || echo 0)" \
+      "$([ -n "$REG" ] && cat "$REG/microvolts" 2>/dev/null || echo 0)" >> "$SAMPLES"
+    sleep 0.2
+  done ) &
+SPID=$!
+cleanup(){ kill $SPID 2>/dev/null; }
+trap 'cleanup; echo; echo "INTERRUPTED - result is not valid"; exit 130' INT TERM
+trap cleanup EXIT
+
+echo
+echo "--- load: $NPU_LOAD_CMD"
+T0=$(date +%s.%N)
+if ! eval "$NPU_LOAD_CMD" > "$OUT/load.log" 2>&1; then
+  cleanup; die "the load command exited non-zero - see $OUT/load.log"
+fi
+T1=$(date +%s.%N)
+cp "$D/trans_stat" "$OUT/trans_stat.load_end" 2>/dev/null
+[ $SUDO = 1 ] && sudo -n cat /sys/kernel/debug/clk/clk_summary 2>/dev/null | grep -i npu > "$OUT/clk.load_end"
+
+echo "--- load ran for $(python3 -c "print(f'{$T1-$T0:.1f}')") s; now watching for ${IDLE_S}s, keep the machine idle"
+sleep "$IDLE_S"
+T2=$(date +%s.%N)
+cp "$D/trans_stat" "$OUT/trans_stat.end" 2>/dev/null
+[ $SUDO = 1 ] && sudo -n cat /sys/kernel/debug/clk/clk_summary 2>/dev/null | grep -i npu > "$OUT/clk.end"
+cleanup; trap - EXIT INT TERM
+
+python3 - "$SAMPLES" "$T0" "$T1" "$T2" "$SETTLE_S" "$IDLE_S" "$LOAD_S" "$MINF" <<'PY' | tee "$OUT/verdict.txt"
+import sys
+f,t0,t1,t2,settle,idle_s,load_s,minf = sys.argv[1], *map(float,sys.argv[2:8]), int(sys.argv[8])
+S=[]
+for line in open(f):
+    p=line.split()
+    if len(p)==3:
+        try: S.append((float(p[0]),int(p[1]),int(p[2])))
+        except ValueError: pass
+load=[x for x in S if t0<=x[0]<=t1]; post=[x for x in S if x[0]>t1]
+mhz=lambda v: v//1000000
+bad=[]
+if (t1-t0) < 0.9*load_s: bad.append(f"load ran {t1-t0:.1f}s, expected ~{load_s:.0f}s")
+if not post: bad.append("no samples after the load")
+elif post[-1][0]-t1 < 0.95*idle_s: bad.append(f"idle window only {post[-1][0]-t1:.1f}s of {idle_s:.0f}s")
+peak = max((x[1] for x in load), default=0)
+print()
+print(f"under load : peak {mhz(peak)} MHz, {len(load)} samples"
+      + (f", {min(x[2] for x in load)//1000}-{max(x[2] for x in load)//1000} mV" if load and load[0][2] else ""))
+first=tail=None
+if post:
+    t=post[0][0]
+    for ts,v,u in post:
+        if v==minf: first=ts-t; break
+    tail=0.0
+    for ts,v,u in reversed(post):
+        if v==minf: tail=post[-1][0]-ts
+        else: break
+    print(f"after load : first {mhz(minf)} MHz after {'never' if first is None else f'{first:.1f}s'}, "
+          f"continuously at {mhz(minf)} MHz for the last {tail:.1f}s (need >= {settle:.0f}s)"
+          + (f", {min(x[2] for x in post)//1000}-{max(x[2] for x in post)//1000} mV" if post[0][2] else ""))
+print()
+if bad:
+    print("RESULT: INVALID -", "; ".join(bad))
+elif peak <= minf:
+    print(f"RESULT: INVALID - the NPU never went above {mhz(minf)} MHz; the load did not reach it")
+elif first is not None and tail>=settle:
+    print(f"RESULT: YES - the governor returned to {mhz(minf)} MHz on its own and stayed there")
+elif first is not None:
+    print(f"RESULT: PARTIAL - it reached {mhz(minf)} MHz but did not stay; try a longer IDLE_S")
+else:
+    print(f"RESULT: NO - it did not return to {mhz(minf)} MHz within {idle_s:.0f}s")
+PY
+
+echo
+echo "trans_stat delta (ms per OPP, idle window only):"
+python3 - "$OUT/trans_stat.load_end" "$OUT/trans_stat.end" <<'PY'
+import sys
+def parse(p):
+    out={}
+    try:
+        for l in open(p):
+            l=l.strip().lstrip('*').strip()
+            if ':' in l and l.split(':')[0].strip().isdigit():
+                k=int(l.split(':')[0]); c=l.split(':')[1].split()
+                if c: out[k]=int(c[-1])
+    except OSError: pass
+    return out
+a,b=parse(sys.argv[1]),parse(sys.argv[2])
+for k in sorted(set(a)|set(b)):
+    d=b.get(k,0)-a.get(k,0)
+    if d: print(f"  {k//1000000:>5} MHz: +{d} ms")
+PY
+echo
+echo "everything written to: $OUT"
