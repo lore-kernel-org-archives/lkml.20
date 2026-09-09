@@ -1,164 +1,111 @@
-Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656DC387581
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED945581FB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957726; cv=none; b=uaEDymbYSFHsNZeGHnhdHmdBfvAM/xJ4a4HPnwx0jqEfflwwvTbQ09hzewBj2IRlrg+P9TT+JB7uxM7Xba/JRLaOYpkzpOq67qoOiGG+OyPPbGQzFwAijiGk13jvuvIkKan3bIF2JXTG71/4FsI+E35+ogZLsTCL6vqx/0Bg14U=
+	t=1788957728; cv=none; b=WcwMDT/+m/026zxexZrnlzoRA7sZbEqOb474SY5bRlWpN3yH55pabuAy5JCAhkPFeYSL17i3ODcfRbGfXki6UaRh3WlzUNJ2Rri8lcMj4HKJU+ySogsP5f1fCigkbNhI0eXrIRK/U8c08dTy9cSOESyMwGSs7PHsX2ksZ+UrSJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957726; c=relaxed/simple;
-	bh=d8jOBmpijeiru+KyfV/xClA5cJs9GP6kquk0D6tgcF8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C9zTDRWVmESzOPl+zqm0d+SKatA6LG5VGDa+p76uiOrsU7JUhOj39R/H45aRRT2FgxdFG3c3FOUluG1R+aleVbqemQvKuKm9Lr34FC19lhJG6syUCASax7mHHocKdSaQg11VQms8dOSVjC4mKTp0cOHt801HpN32WWR+48y1NxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xSw/p9ko; arc=none smtp.client-ip=95.215.58.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788957728; c=relaxed/simple;
+	bh=GJNMZQbHSmwBr+zVeFr9A/dvc+rKaXGmrgl80slAuJ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GLXeMjGV4BuYQLeDNhkNktvY6x21uTslXfoFjqxmF4h20iPZZU60N5anqkjZH2hQwZywT4q3q+zNymoWBEcJDWg7TAbi0Ss5auOAJcYhpU8ywuYSurhN3MRcNtV61XxixO7cbURdQvMqNHwQhrrJk46EoC/5friGlKU0NjBAEsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fQo5xu37; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xSw/p9ko"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d8jOBmpijeiru+KyfV/xClA5cJs9GP6kquk0D6tgcF8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788957720; v=1; x=1789562520;
- b=xSw/p9koyXMYiY/Qog7jA4msd62ZO1zS01MvGoNJGhzgBvgd6QI5r2qZStT2MCI0q7SVE5U5
- O9Y/pe02GxroT3564z5wwVwFuDSLUmhC/O+G+sksM2vA/ln6DkQybF6mWOisfUu406a36G5rk4E
- IENzYujCEIkY6opp74ZSb6nI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id addb3024c47d7683;
-	Wed, 09 Sep 2026 12:41:59 +0000
-X-Mizu-Trace-ID: addb3024c47d7683
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <acb81c51-318b-4a00-aad9-515929076662@linux.dev>
-Date: Wed, 9 Sep 2026 20:41:49 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fQo5xu37"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 651884E415A4;
+	Wed,  9 Sep 2026 12:42:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D9A160448;
+	Wed,  9 Sep 2026 12:42:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1B80311C7AF5C;
+	Wed,  9 Sep 2026 14:41:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788957721; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=h9+wKzPa6JcporMdRfFhDFtBgO7SIKlB0UBH49rnfV0=;
+	b=fQo5xu37RTwShDHIC2oOZlp+NwSKioDt2qv5+gAB1pv8i9p+xJQbpBXEwU+2wNL2W4bc8r
+	5cdb/8tcsinfXdAF55wQjGfmArjpUrnYw4Dwco2XE/SlnHXnjcm/SZpd+T85a2MnDnA5cj
+	I3SHBVAWhlYv2l8rgrX5gjNqlPBVFcZZmIn2oh7yHqY859T6YrMyKFUUAhgpuCNlxyhc10
+	OiAeT05poKOLR0VWpwX3AYkmSmv6vensv1/nsp8wCJD7M129KP1VZIPp7XUsgL1XhmBn6B
+	5oUZeTpanwQJifomjKg1GJWn4SAVptG5WZkcER8lGg69/mFX7Lp5cN8lxf3sWg==
+Date: Wed, 9 Sep 2026 14:41:53 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-omap@vger.kernel.org
+Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
+Message-ID: <202609091241532edd8277@mail.local>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-13-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/2] mm/mglru: add tracepoint for folio isolation
-To: Barry Song <baohua@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260907042447.2450663-1-ridong.chen@linux.dev>
- <20260907042447.2450663-2-ridong.chen@linux.dev>
- <CAGsJ_4zT0HcbkQjdPFPBeaqbGcYp4WE6sghDzz=0evhhupCs3g@mail.gmail.com>
- <102f6ff6-46f9-4734-a056-694eb2c0129b@linux.dev>
- <CAGsJ_4wxZ0pc0UMAXe3xKW0=PTzYv31ieoJa1v01SoLczPVOCA@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4wxZ0pc0UMAXe3xKW0=PTzYv31ieoJa1v01SoLczPVOCA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908152808.3928630-13-arnd@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-
-
-On 9/9/2026 8:11 PM, Barry Song wrote:
-> On Wed, Sep 9, 2026 at 8:00 PM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->>
->>
->> On 9/9/2026 2:40 PM, Barry Song wrote:
->>> On Mon, Sep 7, 2026 at 12:25 PM Ridong Chen <ridong.chen@linux.dev> wrote:
->>>>
->>>> From: Ridong Chen <chenridong@xiaomi.com>
->>>>
->>>> MGLRU's scan_folios() and evict_folios() emit the classic-LRU
->>>> tracepoints trace_mm_vmscan_lru_isolate() and
->>>> trace_mm_vmscan_lru_shrink_inactive(). Those predate MGLRU and are
->>>> indistinguishable from the classic-LRU path: they carry no generation,
->>>> sequence, memcg or swappiness context, so a trace of an MGLRU run cannot
->>>> tell which memcg a given scan/evict belongs to, nor how far reclaim has
->>>> progressed through the generations.
->>>>
->>>> Add mm_mglru_isolate_folios, emitted once per isolate_folios() call with
->>>> the memcg id, the type actually scanned, the effective swappiness, the
->>>> scanned/isolated counts, and the anon/file min_seq and max_seq. The
->>>> min_seq/max_seq triplet ties each isolation to the generation layout it
->>>> ran against, which the classic-LRU tracepoints cannot express.
->>>>
->>>> This is emitted at the isolate_folios() layer, which is MGLRU-specific
->>>> and has no classic-LRU counterpart, so it neither changes nor duplicates
->>>> the existing scan/evict tracepoints.
->>>>
->>>
->>> I have no objection to MGLRU having some tracepoints. However, one
->>> major concern is that the code is changing rapidly, so the tracepoints
->>> may not be stable. We would need to maintain them as the code evolves.
->>>
->>
->> Indeed. GEN-LRU has been available for several years now, and many vendors are
->> already using it, so adding tracepoints is a necessary step.
->>
->>>> Assisted-by: Claude:claude-opus-4-8
->>>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->>>> ---
->>>>    include/trace/events/vmscan.h | 47 +++++++++++++++++++++++++++++++++++
->>>>    mm/vmscan.c                   |  9 ++++++-
->>>>    2 files changed, 55 insertions(+), 1 deletion(-)
->>>>
->>> [...]
->>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
->>>> index 8409ea4bbf37..771fe6827939 100644
->>>> --- a/mm/vmscan.c
->>>> +++ b/mm/vmscan.c
->>> [...]
->>>> @@ -4876,6 +4877,12 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->>>>                   goto retry;
->>>>           }
->>>>
->>>> +done:
->>>> +       trace_mm_mglru_isolate_folios(mem_cgroup_id(lruvec_memcg(lruvec)),
->>>> +                                     type, swappiness, total_scanned, *isolated,
->>>> +                                     lrugen->min_seq[LRU_GEN_ANON],
->>>> +                                     lrugen->min_seq[LRU_GEN_FILE],
->>>> +                                     lrugen->max_seq);
->>>
->>> Maybe `scan_folios()` would be a better place for this, as it can more
->>> directly reflect what we're doing for each type.
->>>
->>
->> scan_folios() already contains the trace_mm_vmscan_lru_isolate
->> tracepoint(traditional tracepoint), but it lacks any GEN-LRU-specific
->> information. Adding another tracepoint there would be redundant. Therefore, I
->> placed the new tracepoint in isolate_folios(), where it can capture GEN-LRU's
->> specific details. Additionally, it can indicate whether a fallback to the other
->> type has occurred.
+On 08/09/2026 17:28:02+0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> if `trace_mm_vmscan_lru_isolate` is located in `scan_folios()`, that
-> would be strong evidence that `scan_folios()` is a better place for
-> adding a new tracepoint for LRU gen.
+> The Atmel at91 line, now known as Microchip SAM contains both
+> SoCs using ARM926 and Cortex-A CPUs as well as a number of
+> microcontrollers. Only a single one of those MCUs currently
+> has Linux support, and has no known users.
 > 
-> There is no need to avoid this location just because we already have a
-> tracepoint here. In fact, I think this is evidence that it is a better
-> place, not the opposite.
+> The samv7 platform was deprecated in Linux-7.3LTS, which will
+> remain supported a while longer after it is gone from mainline.
 > 
+> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Good point.
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Thank you very much, that does make sense.
-
-> BTW, `isolate_folios()` might be deleted soon, depending on how we
-> improve MGLRU and on some ongoing work from Kairui. But `scan_folios()`
-> should be long-lived, as we need to scan folios in any case. Therefore,
-> adding tracepoints to `isolate_folios()` doesn't seem to be related to
-> the stable ABI concern mentioned in your cover letter.
-> 
-> Best Regards
-> Barry
 
 -- 
-Best regards
-Ridong
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
