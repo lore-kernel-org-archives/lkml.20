@@ -1,297 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEDB30D3F1;
-	Wed,  9 Sep 2026 14:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965564; cv=none; b=P2olnhzf924FOXlBe0ztsuGNdnIUZye71rFbYa2CKk3Go5Wl5dPgJri3Toky/ZOC2q4tHU+Kf1xISn1BphsidwvQHyTOWj8eJO6SPiGys/MRfHSpu+n7UOqxHfVhdQwSVUgOzRB+oyM4Y1rZSJ8hxNyy1rcOFoCY7HhFkkqaMyw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965564; c=relaxed/simple;
-	bh=DkcbBCEeBjItlrEFmgH2ykYdrnaurag5bbzAMpCmNLM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G7Wf31NhvN/6tSZ9Evpzz0S+OBysPR9x6f//F+SxFBgVM+XFujODBBZgmMWrQ/p5p+pmDyF1GPUwtUOqLwHu8yYpDHJLLRyaxlYvVKDjlpsEUq2W72vqnsBVjuzok9Bdd+eHwd3QMGwnEwD0E20HBM69v7Sxv/0SiKpRUoqkWc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNMxlvFM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64D24F55A5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788965568; cv=pass; b=E50g6BE9NBCzv6q/AU8x0ROdt6odE29oIway8zKBjfRTMnOunH9E5I0KMNpk/FpcWt1yTd3Yt8FUWR2mDEI1UYb11okmfX97QW8o/MIncweWpeL3uQtjBhgOgZ8eUA3Y+rMKyBiatGan/DDP+3OmEFlnffuoVuzNFM4iTqpqub0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788965568; c=relaxed/simple;
+	bh=nlL495Rwgq5pTxpggaWR4Kyh0bctH6OQcmcJP4kB+LI=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pwr2wtXcaVMQYjOzsTRWg2d2xfuVp2HnLmQJityZy5+JNyH730Z74fDDL+mEPrQDF/ddCqkVrTqvRJId5IA3pAVUeVeNnyTU6T3NqhPOfQNg35gi7mvaVic4tB/mLtpmiElJ7mZS0TE4NnRWUoNyJ/b/qXj35UF6VHu8MBI2KKo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q8i3qMhU; arc=pass smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNMxlvFM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC0C1F00A3A;
-	Wed,  9 Sep 2026 14:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965562;
-	bh=9fuZ0PCsn/VJJZGyAkfrVmhfxC95j9+FcuBO33Q5GlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oNMxlvFMh3nkWfdqpO07nnImsjxS6npgBEForPIuUT6MqTzrlrZXMVtAuDsgUev+A
-	 vR7xa5HZKk46AzPFNrNiek4FrAfUlctY2WFuEYZsnu7HlJ3qq1BWF1QlOYHP9RkgBX
-	 mO5SytYL608S8RYxXJ+Rm+aTbiJgWSxZ/fgklGrPuGYgbY474V8caKQgDIDptfOzg7
-	 nGeEwUZ4IOn6BbgsdnSrOgwpPhmT+WuBrkzLnvPN5VeRV/1ik7fsx5IM4qg4iSepG2
-	 6BTnGEgkCHum8VHh6wtmCGRaXJ+jf0EWSj9Xav0LzO9Vt7oEuMgWzZdUBq/lsCfcaX
-	 Z+ui0mJa2TL7w==
-Date: Wed, 9 Sep 2026 10:52:40 -0400
-From: Namhyung Kim <namhyung@kernel.org>
-To: Tengda Wu <wutengda@huaweicloud.com>
-Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
-	Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v5 03/26] perf annotate-arm64: Generalize
- arm64_mov__parse to support more instructions
-Message-ID: <aqFyuD_waCJpfaTv@google.com>
-References: <cover.1788872630.git.wutengda@huaweicloud.com>
- <872f51108191d20f65fc12f17c796863a36166da.1788872630.git.wutengda@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q8i3qMhU"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-878ed0f17bfso38577417b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:52:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788965565; cv=none;
+        d=google.com; s=arc-20260327;
+        b=riEz0UiAzGxfRpkLSXLlHw+7kQF9OPTIsMFpxeK4/IzcF79JgMPHSQXYISR3ocDmeH
+         hV6NQWnEUzIcf+yVD+OF5ZWc+aYJtCOXhuMKm6DKxMuCkFXe4IoPt28A6uORV6oEHAs/
+         q/XhkFB0iH5CmtxhfIvFzxBwXlksHn/c62lo6+/QHHjiU5pTVdpUd3m6AUVkqwpyJikY
+         lycb6nCcBFdDzPZdGLNj7ei1SQVrw/QyQ6tD54WLuRXCLshDmna++V+ZHMiJjp+1xorV
+         gqNivkcRThOAg5lRc38T5yXz/e5RWc590OT/ifMFF6CCH8rlZeQ4ShvX9Q+g7ORBHJ5x
+         Alvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=QRvd1Tt7kpHM/AxQHBaJz2yfsVBadJLI9GFkxk7vpJA=;
+        fh=MmM3aem3J9TuOaNJUfB3I47bovupH9TbadrrM1r4r8s=;
+        b=dLMkXTJ1SRzicQjOJaMuZRjQ1TKvZhq3pC2pfiOSwl9sSiA7/CIn+ThpPjR7LQ6A4x
+         tRL0tL7NrIa/r8NwuIFT99O/gcnImisYmDDgaj1FWiWFtv4Ys2sD1rPCPk0CzC7rq3Ex
+         iFj5UhC4xMsjMPhgXv2anr/y93dTEbfreSUfU59XG+vYbHEVdun6k4ZLSResk/ZmjAxy
+         MCqhpl4SMpapeRKpADteqG8YqRtx1C20yTJqP9bcO6Xy7hL2QjzRSzFEQ5LrDw2AA5fl
+         vamBZfacPeQWvUOICD90iPUOSiGZ5Xgngc3EAS3YYa5QagPKa3tfAd+KDlkdh9gXBgwd
+         ZnGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788965565; x=1789570365; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QRvd1Tt7kpHM/AxQHBaJz2yfsVBadJLI9GFkxk7vpJA=;
+        b=q8i3qMhUp5t5ZXPUqJ2Q7wyst4pkqzz6PPNiA9qPABvr5TxyN6xE+mJfG4pvM4uaZ1
+         hXgisclAU/Lka+Zv9mMs6hWHgsuGeUiSnXazvtjRlDl+mRcyhK0QxGsFG2fOHKEJuLDa
+         uSnTA6nhxga6hmxGoPw6Bvm5LBSqKV83ZZFkqSv3vX8KHfOO6/t2ZvUNFNJbwxl7oaU8
+         cGzs9DnJlC6Bly13MaOpMSLyMWnKPMOMtGDtRzL+H4BuT2m4ucPCGKrl063UZ+FXGWOO
+         HUnv3V4svnbBaQst4Gv9XvhVy8D2/4PMcgO6j6/BMPC0aGQEZjOtYe/60bQqzO9HDEVV
+         X3Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788965565; x=1789570365;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QRvd1Tt7kpHM/AxQHBaJz2yfsVBadJLI9GFkxk7vpJA=;
+        b=aX10rcLFLWKBaNN9/EIg+n/bpjgDCAQ1godRbWGolxilYxWJCEHsPRn7vyZMlOLSdm
+         NGE1IYFNd2YKGACNEq89ESZZE3HaQzZDBX5uvTcJ3AK8Jp16AqN/daDkueWL8xVczSeJ
+         PDk7SwR6Yj2h+q+xWlPLLod6qwoiXEn6Au2pTHnn/Ob//sLu4UEKkdOY0kQJohPgHJ8v
+         TRANFmDN4N2RNmJQzuJjdXpqLtI9HUxnCibr0u+yfao5edj8WX7LcFtFZyS/K4sO556s
+         /9mFZu0xaKqG/i3UJykfHMAZqT0fqX4Kb8MbBUmeWlI3ctWf+HqEYjy3RWZpPmvjQ6Iv
+         AX0w==
+X-Forwarded-Encrypted: i=1; AKwUvBztPGAngvMl6AORtgiE3NUZzpyq0lvB7bW9MrSRnXcxRCm+HAw5+ztg/StXXv2DcbDgJI55aDZ8kSOdtzs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0J9GZrrxpw3kmUbVYz6SodTVg+9n1ej4K4NixP9NmbQvBH3Lt
+	RSulFUjCqlXpoMQEaNEFVWgn9ra47rHu9QcWt6m/9oCHWHJfsIdF0ycGj6ZzRpm1ZBAZlwyfNac
+	unwLCATTC8rksjYzhqyueLz+hJySyp/Y4zdEfJPKY
+X-Gm-Gg: AYBFou15DydHZQwuuTQGMAv3s3XF8m1EHmNZTe2iww9gTW59EjMD+JkYQmzGwp0bxvo
+	/lcdKhNeG4vofvKQ0W2Gg1JmhCRt5gI1cq68eVEs6S9KrjtnZqYh8HPDm8SIyV18Q9AZ6/NXr71
+	BxqBiX/nA8sKY60bz0F2mxa1y9owYxBwb+uh0jC6k9sr/BZoGHhRyCS4rjuxKy38gV120lpQDVU
+	ua4V9vgJ3ak7qYrIxjmOAtH3JLWThIM/Y60xrlScx8Nv0SYpftLLWyS0IX/QvzEJXAA1DFnlivP
+	Udxo8c8eqhA0YlIWBobMEfvMaZnGBqqZZbyF7lSckMID0VeR/XB6ramw9cDMBlab/AXe6FDbqKw
+	F75EpeMj1slw=
+X-Received: by 2002:a05:690c:6b88:b0:845:ddf4:a3a7 with SMTP id
+ 00721157ae682-87126aa77dcmr145268997b3.16.1788965563207; Wed, 09 Sep 2026
+ 07:52:43 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:52:42 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:52:42 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <CA+EHjTyU1Ldbw-qqdQOx_P8jrt85QEcKSGae2h+AahsDQdbmLw@mail.gmail.com>
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-14-85e5fd25252a@google.com> <CA+EHjTyU1Ldbw-qqdQOx_P8jrt85QEcKSGae2h+AahsDQdbmLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <872f51108191d20f65fc12f17c796863a36166da.1788872630.git.wutengda@huaweicloud.com>
+Date: Wed, 9 Sep 2026 07:52:42 -0700
+X-Gm-Features: AcwNN1XhqWHW23-sQN5ajMsWY1WhBdcubAUAi4IgbeOekiJ8g-YJ7YTjJ4UYzFA
+Message-ID: <CAEvNRgG36aXk8UW=Mi7ey-6vUe1EOKnkgNRNzdSUz-QJih4uAw@mail.gmail.com>
+Subject: Re: [PATCH v12 14/45] KVM: guest_memfd: Add base support for KVM_SET_MEMORY_ATTRIBUTES2
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 08, 2026 at 01:05:06PM +0000, Tengda Wu wrote:
-> As the default parser for arm64 instructions, arm64_mov__parse()
-> currently only supports parsing instructions with the 'addr <symbol>'
-> suffix. Other instructions are not supported, causing a lack of
-> source and target information for most regular instructions.
-> 
-> Generalize arm64_mov__parse to extend its parsing capabilities:
-> 1. Parse 'ops->target.raw' and 'ops->source.raw' by default.
-> 2. Utilize arm64__check_multi_regs() to identify if source and
->    target contain multiple registers.
-> 3. Maintain backward compatibility for instructions containing the
->    'addr <symbol>' suffix.
-> 
-> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Fuad Tabba <fuad.tabba@linux.dev> writes:
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> Hi Ackerley,
+>
+> On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+> <devnull+ackerleytng.google.com@kernel.org> wrote:
+>>
+>> From: Ackerley Tng <ackerleytng@google.com>
+> ...
+>> +.. _KVM_SET_MEMORY_ATTRIBUTES2:
+>> +
+>> +4.145 KVM_SET_MEMORY_ATTRIBUTES2
+>
+> This section number collides with the existing 4.145 (KVM_PPC_GET_COMPAT_CAPS)
+> below, so api.rst ends up with two 4.145 sections. One of them needs
+> renumbering.
+>
+> ...
 
-Thanks,
-Namhyung
+I'll add KVM_SET_MEMORY_ATTRIBUTES2 as 4.146 below
+KVM_PPC_GET_COMPAT_CAPS. Thanks, good catch!
 
-> ---
->  .../perf/util/annotate-arch/annotate-arm64.c  | 166 ++++++++++++++----
->  1 file changed, 134 insertions(+), 32 deletions(-)
-> 
-> diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
-> index 33080fdca125..151184210691 100644
-> --- a/tools/perf/util/annotate-arch/annotate-arm64.c
-> +++ b/tools/perf/util/annotate-arch/annotate-arm64.c
-> @@ -3,6 +3,8 @@
->  #include <errno.h>
->  #include <stdlib.h>
->  #include <string.h>
-> +#include <linux/ctype.h>
-> +#include <linux/string.h>
->  #include <linux/zalloc.h>
->  #include <regex.h>
->  #include "../annotate.h"
-> @@ -14,59 +16,158 @@ struct arch_arm64 {
->  	regex_t jump_insn;
->  };
->  
-> -static int arm64_mov__parse(const struct arch *arch __maybe_unused,
-> +static bool arm64__is_reg(const char *op)
-> +{
-> +	if (!op || !*op)
-> +		return false;
-> +
-> +	/*
-> +	 * General-purpose registers: x0-x30, w0-w30.
-> +	 * Check for 'x' or 'w' prefix followed by a numeric index.
-> +	 */
-> +	if ((op[0] == 'x' || op[0] == 'w') && isdigit(op[1]))
-> +		return true;
-> +
-> +	/* Special-purpose registers: sp, wzr, xzr. */
-> +	if (!strncmp(op, "sp", 2) || !strncmp(op, "xzr", 3) ||
-> +	    !strncmp(op, "wzr", 3))
-> +		return true;
-> +
-> +	/* TODO: Support more registers. */
-> +	return false;
-> +}
-> +
-> +static bool arm64__check_multi_regs(const struct arch *arch, const char *op)
-> +{
-> +	const char *p = op;
-> +	int reg_count = 0;
-> +
-> +	while (p && *p) {
-> +		p = skip_spaces(p);
-> +		if (*p == arch->objdump.memory_ref_char)
-> +			p++;
-> +
-> +		if (arm64__is_reg(p))
-> +			reg_count++;
-> +
-> +		if (reg_count >= 2)
-> +			return true;
-> +
-> +		/* Move to next operand after comma */
-> +		p = strchr(p, ',');
-> +		if (p)
-> +			p++;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/*
-> + * Duplicate @insn, stripping the comment and trailing whitespace.
-> + * Returns a newly allocated string which the caller must free(),
-> + * or NULL on allocation failure or if @insn is NULL.
-> + */
-> +static char *rstrip_space_and_comment(const char *insn, char comment_char)
-> +{
-> +	const char *end, *comment;
-> +	size_t len;
-> +	char *result;
-> +
-> +	if (insn == NULL)
-> +		return NULL;
-> +
-> +	comment = strchr(insn, comment_char);
-> +	if (comment != NULL)
-> +		end = comment;
-> +	else
-> +		end = insn + strlen(insn);
-> +
-> +	while (end > insn && isspace(end[-1]))
-> +		--end;
-> +
-> +	len = end - insn;
-> +	result = malloc(len + 1);
-> +	if (result == NULL)
-> +		return NULL;
-> +
-> +	memcpy(result, insn, len);
-> +	result[len] = '\0';
-> +
-> +	return result;
-> +}
-> +
-> +static int arm64_mov__parse(const struct arch *arch,
->  			    struct ins_operands *ops,
->  			    struct map_symbol *ms __maybe_unused,
->  			    struct disasm_line *dl __maybe_unused)
->  {
-> -	char *s = strchr(ops->raw, ','), *target, *endptr;
-> +	char *s = strchr(ops->raw, ','), *source, *endptr;
->  
->  	if (s == NULL)
->  		return -1;
->  
-> +	/* Parse target */
->  	*s = '\0';
-> -	ops->source.raw = strdup(ops->raw);
-> +	ops->target.raw = strdup(ops->raw);
->  	*s = ',';
->  
-> -	if (ops->source.raw == NULL)
-> -		return -1;
-> -
-> -	target = ++s;
-> -	ops->target.raw = strdup(target);
->  	if (ops->target.raw == NULL)
-> -		goto out_free_source;
-> +		return -1;
->  
-> -	ops->target.addr = strtoull(target, &endptr, 16);
-> -	if (endptr == target)
-> -		goto out_free_target;
-> +	ops->target.multi_regs = arm64__check_multi_regs(arch, ops->target.raw);
->  
-> -	s = strchr(endptr, '<');
-> -	if (s == NULL)
-> -		goto out_free_target;
-> -	endptr = strchr(s + 1, '>');
-> -	if (endptr == NULL)
-> -		goto out_free_target;
-> -
-> -	*endptr = '\0';
-> -	*s = ' ';
-> -	ops->target.name = strdup(s);
-> -	*s = '<';
-> -	*endptr = '>';
-> -	if (ops->target.name == NULL)
-> -		goto out_free_target;
-> +	/* Parse source, stripping comment if present */
-> +	source = skip_spaces(++s);
-> +	ops->source.raw = rstrip_space_and_comment(source, arch->objdump.comment_char);
-> +	if (ops->source.raw == NULL) {
-> +		zfree(&ops->target.raw);
-> +		return -1;
-> +	}
-> +
-> +	ops->source.multi_regs = arm64__check_multi_regs(arch, ops->source.raw);
-> +
-> +	/*
-> +	 * Parse 'addr <symbol>' from source (if any).
-> +	 *
-> +	 * A raw hex string may be a scalar immediate, not an address.
-> +	 * Only validate 'source.addr' if accompanied by a '<symbol>' tag,
-> +	 * otherwise reset it to 0 to avoid false positive address tracking.
-> +	 */
-> +	ops->source.addr = strtoull(ops->source.raw, &endptr, 16);
-> +	if (endptr != ops->source.raw) {
-> +		s = strchr(endptr, '<');
-> +		if (s == NULL) {
-> +			ops->source.addr = 0;
-> +			return 0;
-> +		}
-> +		endptr = strrchr(s + 1, '>');
-> +		if (endptr == NULL) {
-> +			ops->source.addr = 0;
-> +			return 0;
-> +		}
-> +
-> +		*endptr = '\0';
-> +		ops->source.name = strdup(s + 1);
-> +		*endptr = '>';
-> +		if (ops->source.name == NULL) {
-> +			ops->source.addr = 0;
-> +			return 0;
-> +		}
-> +	}
->  
->  	return 0;
-> +}
->  
-> -out_free_target:
-> -	zfree(&ops->target.raw);
-> -out_free_source:
-> -	zfree(&ops->source.raw);
-> -	return -1;
-> +static int arm64_mov__scnprintf(const struct ins *ins, char *bf, size_t size,
-> +				struct ins_operands *ops, int max_ins_name)
-> +{
-> +	return scnprintf(bf, size, "%-*s %s, %s", max_ins_name, ins->name,
-> +			 ops->target.raw, ops->source.name ?: ops->source.raw);
->  }
->  
->  static const struct ins_ops arm64_mov_ops = {
->  	.parse	   = arm64_mov__parse,
-> -	.scnprintf = mov__scnprintf,
-> +	.scnprintf = arm64_mov__scnprintf,
->  };
->  
->  static const struct ins_ops *arm64__associate_instruction_ops(struct arch *arch, const char *name)
-> @@ -103,6 +204,7 @@ const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
->  	arch->id = *id;
->  	arch->objdump.comment_char	  = '/';
->  	arch->objdump.skip_functions_char = '+';
-> +	arch->objdump.memory_ref_char	  = '[';
->  	arch->associate_instruction_ops   = arm64__associate_instruction_ops;
->  
->  	/* bl, blr */
-> -- 
-> 2.34.1
-> 
+>>  4.145 KVM_PPC_GET_COMPAT_CAPS
+>
+> Cheers,
+> /fuad
