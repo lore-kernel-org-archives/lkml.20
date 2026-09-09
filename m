@@ -1,263 +1,260 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE297549364;
-	Wed,  9 Sep 2026 13:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9843A563FC2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962267; cv=none; b=S2gKgcF0I2V5ggov9yTLCN90xRA79n26v2Mco9qwX+t7cZTorLAC329PxOBKM3lgiBlp88FasZf4pNlhvt7sJ+mMKQOTP6rJ0DwvipwlxSKjCLH7fVOTYhogZBMtbsJIGVSTgLwmuPEtFst4RVRIEGelJUXIVVq5RCr3TlCy7eg=
+	t=1788962281; cv=none; b=cdzKXfOLTZk9ViLmFvq82e+V8qoor/t6VcD7123+qmUm4gjUEF9578b+oB+OnNWSDrBZMu8W3JXZMYJfS+zouNnvSFLB/iz/uA726u3U7S52Lupyue8JZeBPSTj/6zLdRKafwHdPCxOGRWKSX+ufd4I3SFvSMNhLPakibi6e1k0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962267; c=relaxed/simple;
-	bh=97yJ0THLB4cf6SqyTlFhdn7NOun/2YQV++5NA2pinEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QzUj43wffWgBcw29zuBLPB2eIvGuFZVMjO2ifnkGtjz/BMVOdT3xkbHz5JzpiWczb/XKMkQJI2jkQdSXXsIjfdTs+NbTRB7g8cOFToyW9xLB01I0dOAJLxJuuKDfGWkUwgAuTwQnUDIkW1hXWq8QjmTirhHr0XsTLcjJF7GvNmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YSMsvmPi; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788962281; c=relaxed/simple;
+	bh=MmOEf0Y78rR1tMkddC4OuotKqVBFJ6fwGa+NFgTsabw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SFQMPRVfr/CFy7s+UfjEbMwkUv9hQ7+ryGtTZjGwrUEyqoPtzfwpgWIZCaWje/4bN9UEv2zEtWHCFItGQRbNDa2HWKaRZNWM1nfALtSvZuqIxexMKXMLREmGMr0QG8jVLO2XDEu6cfunvHgIJbVKWXGbjrLAPXTVwBdqCCU9k+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PJnqHc63; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YSMsvmPi"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1c4W3839630;
-	Wed, 9 Sep 2026 13:57:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=nUq4ue
-	THD/OEH31225VtVI5W8hjEc/+402p4LxaJaHc=; b=YSMsvmPiadmPdUHjECRylH
-	OUDxNbbfMvt6awjnK3znp6PayeygMHRphQs2axaHuP6KFdnqalP/sDMFn9eAuudo
-	NkO9xjzm0rEFN7jc5Zs98eesZW0nPSeAYgmrp2X6SsF0B2c4g4wF5VRTTBP9Hv6r
-	DpuWhW7ZLYk3te11qap+o48fhrksg22wG8a4MtfMiTKurbhlEwzAtJILF6mnzBej
-	CWQFbIPVZMRxmkrv6MJRKMKw9E4giWSqv/93zDw63QthhcuK649boDFixSYFdRCK
-	FqnvXj32suSNNnPbqfp0uyn/nDtOZQQHaYmmsJO4mUTw/nOpcxXEYmgsIqV05JIg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf5vj8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 13:57:22 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689DuF6Y026462;
-	Wed, 9 Sep 2026 13:57:21 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymgjevr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 13:57:21 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689DvG2J38273430
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 13:57:17 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8391820043;
-	Wed,  9 Sep 2026 13:57:16 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2AF1620040;
-	Wed,  9 Sep 2026 13:57:06 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.210.73])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  9 Sep 2026 13:57:05 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org,
-        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
-        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
-Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
-        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
-        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: [PATCH v13 04/13] cpumask: Introduce cpu_preferred_mask
-Date: Wed,  9 Sep 2026 19:26:08 +0530
-Message-ID: <20260909135617.871006-5-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909135617.871006-1-sshegde@linux.ibm.com>
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PJnqHc63"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso57466205e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788962278; x=1789567078; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZDzlPxqZjAat9RI0uZbVqWCVCniwXqMbYrmH3owuOfY=;
+        b=PJnqHc63ufGoBQoIVsG9iKDHI8iqnNwiLGXCninY8Mo2K2R8gpzgWp67p4IsXUIZYu
+         wvKHBWuxn58yvOSvR6LyswYxseIELCrj8euu7mbp8N0Cg6nwIhDhyzKOlDK4vhDGx6DZ
+         JdaZsuLseXczlks5SmWbI02MMRWqtX2XDoe2/wXxiMor8N1sNSzL09PE2IlZgM+kCPSm
+         HT0JNw5PjHn8eBHuzFSNfaYlMsXk73tOVUqhIv/SwSZh+3fTEhx/Rt4YE2DNSkZilA1E
+         Mlfxlk3Fs/dtVV/pU8zszzJxde3dwOiV7dawj+s3IG10D94KooCLSg64n3O4gku94Raq
+         PfeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788962278; x=1789567078;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZDzlPxqZjAat9RI0uZbVqWCVCniwXqMbYrmH3owuOfY=;
+        b=Yk0HT6se9Rq5T21ERhcleGu4E7H3QDl4M6bosxPlWE4Gorfp/0szvlDsobyEJCG3o3
+         ofDePdUVreNIuLUa4CBgSxBSsRP9UHcUcCjfcz1VNBfReV/eLofbNzVlbHyNyIWnLDb8
+         QWHOcPHHQSa4OQwOgTr7Dypd8VYKnD0Sj1u4ZSz6iLOVlG43TzZhZZZ80r2c1jSTMZW2
+         6IClZoNuu51n3TuiN19LZTVfXkSCc84HIPSIQDhBRVPJwFl53VT8T4SUdDyAMSkvr1g2
+         lhrMfuZX81ykUI+W/bH5yEvKK1CFvGoaud9t3WIYB2ypNvB488iTX8yJn3WlG6GhcaXV
+         j6yA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0b0FzAY0c/mLz89xFUELCP8nI0SuWyBPKlgU4/rRrWcCBRwICvrtMSEnZ5PMgfek3r8L5wxbg72u62aA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8gYqlLmrPWHKWlBwLAOLIu7gco9W1K66HZGShI1ctKDqAjFZV
+	5BNLDBFj+G2RwO1sqb3CyjiGrpb31Fs+09MDmj71WiKMlD8L8y6EnuDCiIw20zU6Vho=
+X-Gm-Gg: AYBFou0X6yp+YM4ov2hKOGMpHRa/1/kj5d7XI6J3YJVI+fVXbnxJAKcUPne0RCpG73t
+	z5Iv28PS+JN4JK+PQ02RHmOb/BNwkNU6cyAvzC8T2qtuoRbnFDeOg2SQuvsCjUFNMIpHWB/O1L/
+	qvDPadTNtHW7+QxWMghT14rHat7G9fCCUtij+y8k70KaepB1t9R7WaD3c3+RSg5BKS0+zQGQGTJ
+	2+JAhsC8XuLDwJpg30FkZUUkQ74993zbSluCeKHmE8Qz1ZLNGJzeZqR9dPvzTNFgrOoxhEfjIq5
+	dPPAkEwK/3n+LI6YKw7NuUT/YB08gpFT1tyDwEInvCjEooiLZAtHzMukPzin4Sn1M5ncdpx6vtq
+	nHGOP1vypkzOkmFQxWjILZ2dWBk+QR8/gp9NenrVixdtaif35BcZjTp0s1mePZeRvviYWkNZqIf
+	EIKmhoT9m3RxcXgMMU9Ps5ZhAiLzxL+NfCQjvDR77E3ezvqZNmc9MXKQvGK5gUsvmf1vJI78n7f
+	RWbzk+dQbFhcBv37nF06vKZGqOnumug4Fo=
+X-Received: by 2002:a05:600c:5247:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49cf81dadcamr328595095e9.2.1788962277576;
+        Wed, 09 Sep 2026 06:57:57 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm466320805e9.12.2026.09.09.06.57.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 06:57:56 -0700 (PDT)
+Message-ID: <3bd2f451-cbe4-4ef4-a552-81ea227fb15b@suse.com>
+Date: Wed, 9 Sep 2026 15:57:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/4] module: introduce SH_ENTSIZE_STANDALONE for
+ separately allocated sections
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260908092412.115953-1-hao.ge@linux.dev>
+ <20260908092412.115953-4-hao.ge@linux.dev>
+ <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
+ <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
+ <7dbba23e-5530-43c4-9c44-20108cd0cef5@linux.dev>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <7dbba23e-5530-43c4-9c44-20108cd0cef5@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 0sruJmgVoDqcLi2wL8adImIT11s1-duH
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa165c3 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=NEAV23lmAAAA:8
- a=VnNF1IyMAAAA:8 a=LLUen9C-ZHFwCquRYTkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX46M9uVz1eK5O
- 7huZokq/ozS50FLAl1L3oP8Ol0Bjsc1Ht6sSQtxPGk9ovuPioaZRzA8+e7tY1QPrp8rJXE3mr+s
- v1P/dlMycPlPk8817iufCGaDc+aFCaI=
-X-Proofpoint-ORIG-GUID: f1zKI46axJsmvYZ0naL4iQ7H6V6742Nf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX7OJ9aMqTcv5/
- B1ahws71gopZPC2TxiG7p1FSrUTGVRExnRRJkVKIO3V2c2MQohy/ePLs7amCxoFjqhiTrQmreko
- 4D2WKVPBsQgGGxuGSfVpcdSXFNf6meSwTElo4cMz7IyVxwbYSxUzqZl6+2fojFD45dNJ43E3FZr
- isHw5kq+fxn5/1SuR+g8GakuQjBBSh8yoEMTnIUmCVEYBsNtfIl+FJtgh7uIpGW49ZZDp3UE+YE
- gdD8+r757Z0+RnEIvwnR1QNnMZ2TeI61AHe15Z/CSiw3w60ogjPrW2LEaWNmNnTtrvL3K4Yw74E
- vJ9t2vn2fJ5nzUglCe32vuG9+gZQ5OF8TbCq4uIigR06fqM/4rW7A9UkEoFA1+0sqt/Qzu3GyxU
- 7uXtWDHbLQFJgRiKTR2eeeLXRrCi8okIyMIbFe/bq36bDduA0HTwUyXdV100mN9uy1hp7MKE0NX
- BRqe7kGjn+/nNmEpl1g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090151
+Content-Transfer-Encoding: 7bit
 
-Provide the preferred CPU infrastructure. Define get/set macros
-which could be used to get/set CPU state as preferred.
+On 9/9/26 3:08 PM, Hao Ge wrote:
+> On 9/9/26 20:47, Hao Ge wrote:
+>> On 9/9/26 19:30, Petr Pavlu wrote:
+>>> On 9/8/26 11:24 AM, Hao Ge wrote:
+>>>> SHF_ALLOC means, per the ELF spec, that a section occupies memory
+>>>> during process execution. Some module sections occupy memory
+>>>> outside the regular module layout, for example the percpu section
+>>>> with its per-CPU allocations. The loader currently excludes such
+>>>> a section from the layout by clearing its SHF_ALLOC, which
+>>>> overloads the flag with a loader-internal meaning.
+>>>> apply_relocations() needs a special case for the section, and
+>>>> find_sec(".data..percpu") returns different results before and
+>>>> after layout_and_allocate().
+>>>>
+>>>> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
+>>>> allocation. The percpu section is its first user. layout_sections()
+>>>> and move_module() skip marked sections, and apply_relocations() goes
+>>>> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
+>>>>
+>>>> .data..percpu keeps SHF_ALLOC, so it would now show up under
+>>>> /sys/module/*/sections/. The section has one instance per CPU and no
+>>>> single address to report, and the entry never existed before, so
+>>>> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
+>>>> array and skips it too. No functional change otherwise.
+>>>>
+>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
+>>>> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>>> ---
+>>>> [...]
+>>>> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+>>>> index 0fc11e45df9b..49190deae61e 100644
+>>>> --- a/kernel/module/kallsyms.c
+>>>> +++ b/kernel/module/kallsyms.c
+>>>> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct load_info *info)
+>>>>   }
+>>>>     static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+>>>> -               unsigned int shnum, unsigned int pcpundx)
+>>>> +               unsigned int shnum)
+>>>>   {
+>>>>       const Elf_Shdr *sec;
+>>>>       enum mod_mem_type type;
+>>>> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+>>>>           !src->st_name)
+>>>>           return false;
+>>>>   -#ifdef CONFIG_KALLSYMS_ALL
+>>>> -    if (src->st_shndx == pcpundx)
+>>>> -        return true;
+>>>> -#endif
+>>>> -
+>>>>       sec = sechdrs + src->st_shndx;
+>>>>       type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+>>>>       if (!(sec->sh_flags & SHF_ALLOC)
+>>>> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_info *info)
+>>>>       /* Compute total space required for the core symbols' strtab. */
+>>>>       for (ndst = i = 0; i < nsrc; i++) {
+>>>>           if (i == 0 || is_livepatch_module(mod) ||
+>>>> -            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>>>> -                   info->index.pcpu)) {
+>>>> +            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+>>>>               strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
+>>>>               ndst++;
+>>>>           }
+>>>> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct load_info *info)
+>>>>       for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
+>>>>           kallsyms->typetab[i] = elf_type(src + i, info);
+>>>>           if (i == 0 || is_livepatch_module(mod) ||
+>>>> -            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>>>> -                   info->index.pcpu)) {
+>>>> +            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+>>>>               ssize_t ret;
+>>>>                 mod->core_kallsyms.typetab[ndst] =
+>>> FTR These changes in kernel/module/kallsyms.c have a conflict with the
+>>> series "Ignore local labels and mapping symbols during module load" [1],
+>>> which is currently queued on modules-next, but it should be
+>>> straightforward to resolve.
+>>>
+>>>> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
+>>>> index 01c65d608873..f64170344e69 100644
+>>>> --- a/kernel/module/sysfs.c
+>>>> +++ b/kernel/module/sysfs.c
+>>>> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *sect_attrs)
+>>>>       kfree(sect_attrs);
+>>>>   }
+>>>>   +/*
+>>>> + * .data..percpu has a separate allocation per CPU and no single
+>>>> + * address to report.
+>>>> + */
+>>>> +static bool sect_visible(const struct load_info *info, unsigned int i)
+>>>> +{
+>>>> +    return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
+>>>> +}
+>>>> +
+>>>>   static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>>>   {
+>>>>       struct module_sect_attrs *sect_attrs;
+>>>> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>>>         /* Count loaded sections and allocate structures */
+>>>>       for (i = 0; i < info->hdr->e_shnum; i++)
+>>>> -        if (!sect_empty(&info->sechdrs[i]))
+>>>> +        if (sect_visible(info, i))
+>>>>               nloaded++;
+>>>>       sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
+>>>>       if (!sect_attrs)
+>>>> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>>>       for (i = 0; i < info->hdr->e_shnum; i++) {
+>>>>           Elf_Shdr *sec = &info->sechdrs[i];
+>>>>   -        if (sect_empty(sec))
+>>>> +        if (!sect_visible(info, i))
+>>>>               continue;
+>>>>           sysfs_bin_attr_init(sattr);
+>>>>           sattr->attr.name =
+>>>> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
+>>>>         nattr = &notes_attrs->attrs[0];
+>>>>       for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
+>>>> -        if (sect_empty(&info->sechdrs[i]))
+>>>> +        if (!sect_visible(info, i))
+>>>>               continue;
+>>>>           if (info->sechdrs[i].sh_type == SHT_NOTE) {
+>>>>               sysfs_bin_attr_init(nattr);
+>>> add_notes_attrs() has two sect_empty() calls. Both should be changed to
+>>> sect_visible().
+>>
+>>
+>> I kept this part unmodified to preserve the loop's original intent.
+>>
+>> This loop counts SHT_NOTE sections.
+>>
+>> SHT_NOTE refers to ELF note sections, which hold non-executable
+>>
+>> metadata such as build ID and ABI info.
+>>
+>> I wonder if we could keep the current implementation.
+>>
+>> As noted in the comment above, the top part counts SHT_NOTE sections
+>>
+>> and allocates structures, while the lower logic handles control of node attributes.
+>>
+>>
+>> WDYT?
+>>
+>>
+> 
+> Sorry, I've reconsidered this. I think changing it to sect_visible would be better.
+> 
+> sect_visible stands for the count of externally visible note attributes, so the code
+> 
+> above and below can align with each other.
+> 
+> 
+> Sorry for the noise.
 
-CONFIG_PREFERRED_CPU will be selected by the driver which handles
-steal time values. It is going to set/clear preferred CPU state.
-This driver will be called steal_governor and it is introduced in
-subsequent patches. It periodically computes the steal ratio and
-decides on preferred CPU state.
+No worries.
 
-A CPU is set to preferred when it becomes active. Later it may be
-marked as non-preferred depending on steal ratio by the steal_governor.
+One problem with continuing to use sect_empty() in the first loop is
+that it could overallocate the number of required entries if a module
+contains an SHT_NOTE section named .data..percpu. That shouldn't happen,
+but we can trivially avoid it by using sect_visible() there as well.
 
-Always maintain design construct of preferred is subset of active.
-i.e. preferred ⊆ active ⊆ online ⊆ present ⊆ possible
+Using the same condition in both loops also makes the code generally
+simpler to understand.
 
-With CONFIG_PREFERRED_CPU=n, ensure set_cpu_preferred is a nop and get
-method returns the active state in that case.
-
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
- include/linux/cpumask.h | 24 ++++++++++++++++++++++++
- kernel/Kconfig.preempt  |  4 ++++
- kernel/cpu.c            |  6 ++++++
- kernel/sched/core.c     |  5 +++++
- 4 files changed, 39 insertions(+)
-
-diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
-index 7c8f16797f94..bf89bb3f30f6 100644
---- a/include/linux/cpumask.h
-+++ b/include/linux/cpumask.h
-@@ -121,12 +121,20 @@ extern struct cpumask __cpu_enabled_mask;
- extern struct cpumask __cpu_present_mask;
- extern struct cpumask __cpu_active_mask;
- extern struct cpumask __cpu_dying_mask;
-+
-+#ifdef CONFIG_PREFERRED_CPU
-+extern struct cpumask __cpu_preferred_mask;
-+#else
-+#define __cpu_preferred_mask __cpu_active_mask
-+#endif
-+
- #define cpu_possible_mask ((const struct cpumask *)&__cpu_possible_mask)
- #define cpu_online_mask   ((const struct cpumask *)&__cpu_online_mask)
- #define cpu_enabled_mask   ((const struct cpumask *)&__cpu_enabled_mask)
- #define cpu_present_mask  ((const struct cpumask *)&__cpu_present_mask)
- #define cpu_active_mask   ((const struct cpumask *)&__cpu_active_mask)
- #define cpu_dying_mask    ((const struct cpumask *)&__cpu_dying_mask)
-+#define cpu_preferred_mask ((const struct cpumask *)&__cpu_preferred_mask)
- 
- extern atomic_t __num_online_cpus;
- extern unsigned int __num_possible_cpus;
-@@ -1181,6 +1189,12 @@ void init_cpu_possible(const struct cpumask *src);
- #define set_cpu_active(cpu, active)	assign_cpu((cpu), &__cpu_active_mask, (active))
- #define set_cpu_dying(cpu, dying)	assign_cpu((cpu), &__cpu_dying_mask, (dying))
- 
-+#ifdef CONFIG_PREFERRED_CPU
-+#define set_cpu_preferred(cpu, preferred) assign_cpu((cpu), &__cpu_preferred_mask, (preferred))
-+#else
-+#define set_cpu_preferred(cpu, preferred) do { } while (0)
-+#endif
-+
- void set_cpu_online(unsigned int cpu, bool online);
- void set_cpu_possible(unsigned int cpu, bool possible);
- 
-@@ -1275,6 +1289,11 @@ static __always_inline bool cpu_dying(unsigned int cpu)
- 	return cpumask_test_cpu(cpu, cpu_dying_mask);
- }
- 
-+static __always_inline bool cpu_preferred(unsigned int cpu)
-+{
-+	return cpumask_test_cpu(cpu, cpu_preferred_mask);
-+}
-+
- #else
- 
- #define num_online_cpus()	1U
-@@ -1313,6 +1332,11 @@ static __always_inline bool cpu_dying(unsigned int cpu)
- 	return false;
- }
- 
-+static __always_inline bool cpu_preferred(unsigned int cpu)
-+{
-+	return cpu == 0;
-+}
-+
- #endif /* NR_CPUS > 1 */
- 
- #define cpu_is_offline(cpu)	unlikely(!cpu_online(cpu))
-diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
-index 985aea617cfe..edc067a0c422 100644
---- a/kernel/Kconfig.preempt
-+++ b/kernel/Kconfig.preempt
-@@ -194,3 +194,7 @@ config SCHED_CLASS_EXT
- 	  For more information:
- 	    Documentation/scheduler/sched-ext.rst
- 	    https://github.com/sched-ext/scx
-+
-+config PREFERRED_CPU
-+	bool
-+	depends on SMP && PARAVIRT
-diff --git a/kernel/cpu.c b/kernel/cpu.c
-index b3c8553d7bd6..376d297a6292 100644
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -3103,6 +3103,11 @@ EXPORT_SYMBOL(__cpu_dying_mask);
- atomic_t __num_online_cpus __read_mostly;
- EXPORT_SYMBOL(__num_online_cpus);
- 
-+#ifdef CONFIG_PREFERRED_CPU
-+struct cpumask __cpu_preferred_mask __read_mostly;
-+EXPORT_SYMBOL_GPL(__cpu_preferred_mask);
-+#endif
-+
- void init_cpu_present(const struct cpumask *src)
- {
- 	cpumask_copy(&__cpu_present_mask, src);
-@@ -3160,6 +3165,7 @@ void __init boot_cpu_init(void)
- 	/* Mark the boot cpu "present", "online" etc for SMP and UP case */
- 	set_cpu_online(cpu, true);
- 	set_cpu_active(cpu, true);
-+	set_cpu_preferred(cpu, true);
- 	set_cpu_present(cpu, true);
- 	set_cpu_possible(cpu, true);
- 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 5a61650f12b7..a689a0cea4eb 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -8582,6 +8582,9 @@ int sched_cpu_activate(unsigned int cpu)
- 	 */
- 	sched_set_rq_online(rq, cpu);
- 
-+	/* preferred is subset of active and follows its state */
-+	set_cpu_preferred(cpu, true);
-+
- 	return 0;
- }
- 
-@@ -8595,6 +8598,8 @@ int sched_cpu_deactivate(unsigned int cpu)
- 	if (ret)
- 		return ret;
- 
-+	set_cpu_preferred(cpu, false);
-+
- 	/*
- 	 * Remove CPU from nohz.idle_cpus_mask to prevent participating in
- 	 * load balancing when not active
 -- 
-2.52.0
-
+Cheers,
+Petr
