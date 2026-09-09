@@ -1,82 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA26471403;
-	Wed,  9 Sep 2026 08:02:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94411471277;
+	Wed,  9 Sep 2026 08:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940942; cv=none; b=jLyuJ4Air8yWMgBOSjA0J6d1Lnmq8iBIQSkATHcw13M5EayMBVUoTMCEUpLRtETFUS4ubBSCi6aKiK+Kd/dHnQleZqt+RmlxR4iBaYrsalSTn/K14wYzW1C1MXH32dU25ThLs8QWT1PksrSIzafggZ96ooqU0dBZtzi/dGfSbBM=
+	t=1788940944; cv=none; b=kinW65nYrV0kr2W3Ngg4oJLL0Xzlj3ldG9whLa+kehWXkbXKgUgPtZlulxTehN+gK/sCxO1YoCpW/t9cMchXH7lWV2RVMkN6VnG8kBPKF4HyQyTwkMrkUmXG5hWvOyl/pD54ZGeSGurKlibWAGriBdokOm2eSNoWKkNhh/S5vIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940942; c=relaxed/simple;
-	bh=V8ENEhea0/045IaOrULyUtODpmtdvKkTlPTex21YVtg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sdA6OO7qDjoIFw26aLvkgismtFGWcFd+bAW2sm4kt19L3xU2/SaCcDEinJEyYtzvPWXDjaTVURRA3ZsNIET9daeIszGMhKmoYPMYVyJ3y1xKcWpOn5CILkn3XDeeXTf4Le3qNTtelauDT63+MCiYJy6qDsLgsQadwZfmnbNCO74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7OzrsvI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788940944; c=relaxed/simple;
+	bh=u2lvRYHXsCWp/lTMMlUC1kU83R9bpR1B3PSOasOvNnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WWhf73I43hS4lDzdL767dLJpELkCrw72bT0BPK9C9279W/i1q6tuhJFtk618iELii+AvFryfs9lNX5cjCd93VMC1CFcqvgG+Tk7EgQr/ostnS5O+0cqpMqVLleUD2RIG0SbxB67RkJJaYhTlTOH05SYoNQjcCbL+xH7gplIMaCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFSBvtL+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7OzrsvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552FA1F00A3A;
-	Wed,  9 Sep 2026 08:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFSBvtL+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31ECF1F00A3A;
+	Wed,  9 Sep 2026 08:02:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788940940;
-	bh=W612c/YDCkd9sV3obaip9FxOejj1359jethIBJsEBkE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j7OzrsvIMBoMfy63XYj4cFEojGCR8j1Nq9GMSWdsJawWwImdjCfTPe+N+iWI/kJzX
-	 afVLmSxN99g5gkk0jAD+V30TFhULJXJHu26HE41r7/Bajn8fLaKsBHn95ZTtsFTD51
-	 2TTxZfT0WOH6JRnoSvg4trBJIGV7IBe8LDl+xUP+ZC7OODzXL6Mh2me7Yzx8/6p1ro
-	 GZRp88OEHXUGfgXo05ApVhRtnIl6fi22RdX1vAGZKqQuP6nd2Tg+Svp9IRNWWitJ0F
-	 ENuHdJyNxIKLdysWZ32ew7fmaCfAPrzUPlj/ifjax1o2lw10HwNhD2j2jIHuHnIAHB
-	 ntZWwikusKr9Q==
-From: Christian Brauner <brauner@kernel.org>
-To: Norbert Szetei <norbert@doyensec.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: Re: [PATCH v2] nstree: check listing permission before taking a namespace reference
-Date: Wed,  9 Sep 2026 10:02:13 +0200
-Message-ID: <20260909-arterien-zutreffen-extra-e2858bdb3209@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ABA32239-733B-438C-B95A-B13ED69FF0F3@doyensec.com>
-References: <ABA32239-733B-438C-B95A-B13ED69FF0F3@doyensec.com>
+	s=k20260515; t=1788940943;
+	bh=FifjGmW6Sh7JjhtvCMK2o/UaNn2Q1/ZuvVfOlpEY4O4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lFSBvtL+UjNsOM5WO8mvehrzUCakIZ0Rhq0vKyliMAyQ25MB30IKHea6kwq5Q0QEh
+	 EKlVe47sJRZOjTXfoGugg0S+kh+xP5b1mJKqfZQsi6OJ/hhn7piWWyRWgBXSJUGFb/
+	 VsQA8WF2SefI2aNkuw0XJTfhil/Vb7UjfPZDpgAaG62pT1zuWS1bvTCulgOJPJga6F
+	 YLozBKg08p+T30heB7NTt/g/VBile7RTxsdo5nM9W366G2+3x1dHpdhTrCdeOrg2Fz
+	 A0nyAnZyqxloC9ATwtMJzE8//36jCiL8KRBi/Oms1KaBRtkM9pcIxvqQsnLA6IDDYw
+	 HevyJhktMfJaQ==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x4DG8-00000001zEV-2JGM;
+	Wed, 09 Sep 2026 10:02:20 +0200
+Date: Wed, 9 Sep 2026 10:02:20 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Jakov Novak <jakovnovak30@gmail.com>,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH] mmc: vub300: fix sleeping function call from invalid
+ context in vub300_inactivity_timer_expired
+Message-ID: <aqESjExZsFW5dEtr@hovoldconsulting.com>
+References: <20260816153809.7067-1-jakovnovak30@gmail.com>
+ <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
+ <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
+ <ap7CaVj82BJZgjf6@hovoldconsulting.com>
+ <CAMuHMdX6JfqpLMGDQJSQ8E8XNobRwr16LOzuphPt3Afs-OZdJA@mail.gmail.com>
+ <aqEDb0THnCM-Q_Vy@hovoldconsulting.com>
+ <CAMuHMdWK8j200+Of062ghV1E7b0BYWsufEAop_4+3Bhmi0sxVQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1496; i=brauner@kernel.org; h=from:subject:message-id; bh=V8ENEhea0/045IaOrULyUtODpmtdvKkTlPTex21YVtg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQtFOpgt/KffXjmM9PW0MgfB8tL5q5QkXHKtzqQw25++ XQCE+vOjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImIKjH8L3FV/hf5NP6X+PwL FUbHeHbM4c11lt19aN0XmcmfLiVmJTH8Mz21/XducPiva1/+xbxrDeUMNPt1+sJZ0ZOCdXJelWt dGAE=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWK8j200+Of062ghV1E7b0BYWsufEAop_4+3Bhmi0sxVQ@mail.gmail.com>
 
-On Mon, 07 Sep 2026 16:22:17 +0200, Norbert Szetei wrote:
-> legitimize_ns() takes a reference on the candidate namespace before
-> may_list_ns() has decided whether the caller may see it. The
-> __free(ns_put) cleanup on the denied path can drop the last reference to a
-> mount namespace while we still hold the rcu read lock, and put_mnt_ns()
-> may sleep there. This is the same problem commit 2ec2aff3c8e2 ("ns: make
-> sure reference are dropped outside of rcu lock") fixed for the put_user()
-> path. Neither ns_requested() nor may_list_ns() needs a reference, both
-> only look at the namespace type and at the caller's own namespaces, so do
-> the checks first and take the reference last.
+On Wed, Sep 09, 2026 at 09:38:24AM +0200, Geert Uytterhoeven wrote:
+> On Wed, 9 Sept 2026 at 08:57, Johan Hovold <johan@kernel.org> wrote:
+> > On Mon, Sep 07, 2026 at 04:48:00PM +0200, Geert Uytterhoeven wrote:
+> > > On Mon, 7 Sept 2026 at 15:55, Johan Hovold <johan@kernel.org> wrote:
+> > > > Sure, but should you be scheduling rescan work before all resources have
+> > > > been set up and the host has been registered?
+> > >
+> > > I would like to defer that question to the TMIO experts.
+> >
+> > Are they on CC?
 > 
-> [...]
+> Ulf was from the beginning; I had added Wolfram in my previous email.
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Thanks for clarifying.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] nstree: check listing permission before taking a namespace reference
-      https://git.kernel.org/vfs/vfs/c/ecfee3a7c9ea
+Johan
