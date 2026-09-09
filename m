@@ -1,192 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0D348C402;
-	Wed,  9 Sep 2026 09:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E2F48A8B4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944916; cv=none; b=KnxydVshxtfW2IB0mVKH0Ogf9oUbUgE4Lhob7Yy2eyfRQpYAc+zQiaQoQ/jzTULIK45ukTseWlPqfgbr6JnR4DgVr7ksqoNjZ5+u1nFTjC3mKVL5FrJp64fP03307vt/gHGp6pofKojpt/TNoIpKkQImDsZvB75MNEZrDBf6vkU=
+	t=1788944929; cv=none; b=gokv15/29PJtBgJZpWulqRSHeuV7jMhn7Nxv8BkEzHQ4exfqXYKBbuRrc26/xwmvNaA6mJlRShj4lFZu56DeH/Qv9UbThtWv6qGheS5G9n++F1erIQIUwpzWl4HUUvFp2KOuV6WYZlLsIpF3Bdb7qEbfcPPuSPOZALmPqYsi3qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944916; c=relaxed/simple;
-	bh=4EFFBgRF1Ln+SQ3SXXVLN+LEdKbDyIsZFmNprV8uEew=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ToVHRyLqnwffpjkZxrWjHukrl+WjSIrNRKLlclZFDx+X0RNMgPH4l5Oer79pW8n+GS3XA23i7PRgc4ZTRQJYCIaZIrpW+OV1a586tEEk082qfeZgrAuFAU7OWkl61jGp1vgQhk4TrsLwFIk7FI6G42xuIgK4Q3WSYIXZSaWGMlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=masU3CVl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788944929; c=relaxed/simple;
+	bh=6YxppO/2I2Ks8Fjh2EFC+veXF0DRkzmq/2qtv0lTkCg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=K/Cr2UP876aYb6kFB7rbmsMpcMIB+c/yBpZx/w5kYAuhuUln6bFy1L2madqWp5E++CV6FTMignN/EUGt4kvSXeRlTa3++p2SenKNx+J1H53VR3mCYqcG6HlDF/13XwlBUb/phHIq46T1WaDvnxyyg+xr2a0FPAGXAjlP2XJT5IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DkiK6ART; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="masU3CVl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A74E1F00A3D;
-	Wed,  9 Sep 2026 09:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944915;
-	bh=9WmWAiR+ErcC3dQcXoDnGK6eZwpnpPVg1IU0OrzRFuQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=masU3CVliFA6CbjIjmTOOvcqq/8lVt3GxALrqVm3MC0QKCTXFQbi7d6maA7NiSNmd
-	 kuKYVHA1ztsEPPg8y3ytWJQznJAqWOpvWYMSiNFlz/ACLOIJ8W1LZn1Msq3JNp8h9z
-	 Xi8gXe0RNhpZbEZ4TYxKtofx2TT7hYLuwMVu5IJYn7NY5lK6FpNHnKYf5oO3uX+mw9
-	 XhB1cXzVhiv45DB8dqKV9ggX2obw7u1Dw0mAQhdtEuyVInVy9EMYtuTNsepH9IYhJv
-	 b6shnqQF+0oP4CCEM8/jhzYsYnfzOd8Ygu2PbMl1sTTC/AW8Gdea1hpTE2JVLvKdbK
-	 6H8A+NxodCYcg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>, Frederic Weisbecker
- <frederic@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
- <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
- <brauner@kernel.org>, John Stultz <jstultz@google.com>, Ingo Molnar
- <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, "Eric W.
- Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-In-Reply-To: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
- <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home> <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
-Date: Wed, 09 Sep 2026 11:08:31 +0200
-Message-ID: <87ecf223n4.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DkiK6ART"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso59590295e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:08:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788944926; x=1789549726; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MrNuzwqRhqvFQLVRvAju0JJb1XGDjs6HTbDtOW9hNGM=;
+        b=DkiK6ARTKQbIGiAfqM875DVEpNxdwWI8O53sQ0mok/rJo0shTCyGWdaeiwWe278Q5p
+         zqgoGxoHC6bCv9XG65n4QmQAyDhgvoblcsc2rbWlmmFRJOGDWMmD0zNnRuquE5tSgRuY
+         rM29M9dCDc7U3VuUfry4Eiq/6w1qVu510kMqwN4lTHMZMUpQZ+i7zqqZrQUBIpt0VziE
+         o4LNuN+1Ya9uZnEbZrbjqisIgndHcR2CQxUubRJOhjHNa/EaTLZsxc/+Y6juZJQBLaQQ
+         cYDdGX8iArrhQl006vVK5rsVR3s0SKptis8am6thf/oGtulGhqq1GVvXCxlbg5/nNtlS
+         mK5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788944926; x=1789549726;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MrNuzwqRhqvFQLVRvAju0JJb1XGDjs6HTbDtOW9hNGM=;
+        b=UBMsGKmXj6o4wTS8HKtFWEk3wDwl+Sh9EAk3xVsGbslG6m/oaFtP19StJXP8JEP247
+         QqkG+XKr/2krdhZaq84WB6u91SsldL8i7lYbYyIGTRvWwyQ9YONDhpLAeR2aW0FaBFuD
+         iBPRk/G8rTNwTWkFcGhPA2iozqCbDLi9nUpmtU+2IByS1LcMyxWjLiyhciANDw+XMyNJ
+         wQzo23T3rdjJFGV+phn15AUzPgng61t8uicCY1qEq0KAJnoER1BcIuUrI16PFfTSi4Mf
+         SRZWa3qlZws9lgTTbJztaSQm7gBQTDQGK3pxd9F4AXQIAWCmGoEkk65noLbFzc2K50eS
+         fcqg==
+X-Forwarded-Encrypted: i=1; AKwUvByd9+72ZeQN8Zc+SvkuxneAv78p6tZ4W21uyyoC85lOvUIZb+713YMTaQlTiud4/RfaRn1yuheiJJNKSrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngAQ5XRgQLrq2TehFvG2KUFpx4esuok6JOhBTk/k3zTL4ctGeC
+	HETdqoVsw62UCpVRXHw029yN2W8apd9RBYKYJsI/j0VltR9yIh0ZCB7zH1LT/dlBWPg=
+X-Gm-Gg: AYBFou1MLQACY0eAbtpfJ2aPy268Ve8l47lWOoeQF0jKdOTBEmTt4ZDQ66SUXIgA7Br
+	Wa+ttzJ2P04saEYHs2QIuuSArRGOXlC6yBWEkRqQriZABqhF1UIN3mlBJajPRbgLJ4qp+p01o0O
+	SDTPk2uQUWk4TpBsBaDL2NMB7OkvluKRHTiRRRFMYKFJR+YscpvV0LNT4wg4YX6RWCBGW0fpAXN
+	Cl3RHdOKRJsu/cCH1APp4Y6rgX5f+hH8ZuQ7orOHSgY8Ig2QHwkaZ1xV5vTkiDwseNEi9azncI6
+	C6k5fPZWepOpPqW0HG6d41LskeU5ix4rkMl2oQaH/A7+ZxGQ58hRwtSrUnrj/hnBcaEnp3PIXQP
+	lL/yMjWNEHWLoZw/uf3nH5AQR0/FwmFaG3BoFO+fY7hFKBN7iE17+1iZynfKb1dABInaO9UBvYU
+	5RhgrKSUc3jGSjeQwE0b+JUzBkPAE8OVuQziWY/hY95KZpWKg0OaFAy5aRcyqBil8XXYwFJdhV7
+	iyG8rjptcKlSZo=
+X-Received: by 2002:a05:600c:a00d:b0:49c:cfbe:5a76 with SMTP id 5b1f17b1804b1-49cf81e4a05mr319450715e9.2.1788944926305;
+        Wed, 09 Sep 2026 02:08:46 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6023edsm517302385e9.7.2026.09.09.02.08.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 02:08:45 -0700 (PDT)
+Date: Wed, 9 Sep 2026 11:08:43 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [GIT PULL] printk for 7.3-rc3
+Message-ID: <aqEiG_01A3T0XhFW@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
-> On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
-> Let me try and have a go :-)
->
->
-> do_exit()				de_thread() 			posix_timer_fn()
->   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
->     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
->     tsk->flags |= PF_EXITING; 						    LOCK siglock
->     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
->     					    LOCK tasklist_lock
->     flush_sigqueue_list();		    if (leader->exit_state)
-> 					      break;
->   ...                                       transfer_pid()
-> 					    UNLOCK tasklist_lock
->   exit_notify()
->     LOCK tasklist_lock
->     tsk->exit_state = EXIT_ZOMBIE;
->     UNLOCK tasklist_lock
->
->
->
-> Then there is indeed nothing that makes sure posix_timer_fn() sees
-> sigqueue updates done by do_exit(), because those are ordered by
-> tasklist_lock, but posix_timer_fn() doesn't care about that.
+Hi Linus,
 
-That's irrelevant because in the above scenario posix_timer_fn() 't'
-points to the exiting old leader (on the left) because the PID store has
-not happened yet and it therefore observes PF_EXITING on it so it won't
-touch the sigqueue. Note, that setting and checking PF_EXITING is
-serialized by sighand lock, so this is fine.
+please pull some printk fixes from
 
- do_exit()
-   exit_signals()
-     LOCK siglock
-     tsk->flags |= PF_EXITING
-     UNLOCK siglock
+  git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git tags/printk-for-7.3-rc3
 
-So after this point anything which looks at tsk->flags under siglock
-will observe PF_EXITING and not touch the sigqueue. Nothing to see here.
+=======================================
 
-> The easy solution would probably be to do transfer_pid() while holding
-> siglock?
+- Use lazy irq_work for waking printk kthreads.
 
-That'd be only relevant for the situation Frederic is concerned about,
-i.e. the case where the third party observes the TID swap.
+- Flush pending irq_work before destroying printk kthreads.
 
-Because with that visible 't' in posix_timer_send_sigqueue() won't be
-old_leader, which has PF_EXITING set, it will be new_leader which has it
-not set.
+- Remove redundant WARN() when a printk kthread can't be created.
 
-So Frederic is concerned that posix_timer_send_sigqueue() can observe
-the PID store but not observe the sigqueue stores.
+- Typo fix.
 
-I argue that's not possible:
+----------------------------------------------------------------
 
-A:  sigqueue stores
+The primary motivation for making the irq_work lazy is that pending
+IRQs block suspending and entering idle states on Tegra20 and Tegra30
+platforms. They even did not boot after converting uart 8250 console
+driver to the nbcon API.
 
-B:   AQUIRE tasklist
+It should be acceptable because printk kthreads are used for
+non-emergency messages. They have to wait until they get
+scheduled anyway.
 
-C:   exit_state store
+This seems to be the least hacky solution which might even have
+some positive effect in reducing the IRQ noise. And it allows
+to keep the converted uart 8250 console driver in 7.3.
 
-D:   RELEASE tasklist
-     // sigqueue and exit_state stores become globally visible
- ------------------------------------------------------------------------
+The discussion about the Tegra problems can be found at
+https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com/
+https://lore.kernel.org/all/20260828155811.270462-1-john.ogness@linutronix.de/
 
-E                               ACQUIRE tasklist
- ------------------------------------------------------------------------
-F                                if (exit_state)
-				   swap_pid()
-G                                     STORE_PID
+----------------------------------------------------------------
 
-				// The PID store can become visible in the
-				// system right here so F can observe them before
-				// RELEASE tasklist
+Johan Hovold (1):
+      console: fix /dev/kmsg reference in flags kernel doc
 
-H                                                             READ PID
-							      ....
-I                                		              ACQUIRE siglock
+John Ogness (2):
+      printk/nbcon: Flush nbcon_irq_work in nbcon_free()
+      printk/nbcon: Change nbcon_irq_work to IRQ_WORK_LAZY
 
-After #A the sigqueue stores are maybe visible
+Petr Mladek (1):
+      Merge branch 'for-7.4-trivial' into for-linus
 
-After #C the exit_state store is maybe visible
+Tetsuo Handa (1):
+      printk: Don't WARN on kthread_run failure.
 
-After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
-the system and cannot become magically become invisible after that
-point.
-
-The new leader cannot swap PIDs before acquiring task list lock and
-before it observed exit_state != 0 under it. That's fully serialized
-against the old leader as both hold task list lock for their operations.
-
-#F creates a control dependency, so if the new leader acquires task list
-   lock before the old it will observe 0, drop the lock and wait. No PID
-   store obviously.
-
-#G can be come visible immediately but is only guaranteed to be visible
-   globally at the RELEASE of tasklist lock.
-
-#H can only observe the PID store after the store actually happened in
-   #G. So it either reads the original PID or the swapped PID.
-
-#I is not really relevant for this. It's only relevant for PF_EXITING
-   and other stuff which is directly protected by it. And it does not
-   matter whether it locks the old or the new sighand.
-
-Now let's look at the full chain and what can possibly be visible or not
-and when:
-
-#A can trickle into the tasklist held section, but not after #D.
-
-#C cannot be reordered against #B and #D
-
-#A is therefore guaranteed to be globally visible _before_ new leader
-   observes exit_state != 0 in #F under task list lock
-
-#G cannot be reordered against #F and obviously not against #E either.
-
-   It can become visible at any point after the store, but as argued
-   above that visibility can't be reordered before #A (sigqueue stores)
-   became visible.
-
-The important part is that the visibility of #A (sigqueue stores) and #G
-(PID store) is fully ordered through task list lock.
-
-So #H _cannot_ observe #G without observing #A - not even on PowerPC or
-similar insanities.
-
-No?
-
-Also doing the PID swap under sighand lock is not solving anything
-either because posix_timer_send_sigqueue() does the lookup without the
-lock simply because it does not know which task it is upfront. So it
-would have to redo and validate the lookup with the lock held.
-
-Thanks,
-
-        tglx
+ include/linux/console.h | 2 +-
+ kernel/printk/nbcon.c   | 6 ++++--
+ kernel/printk/printk.c  | 2 +-
+ 3 files changed, 6 insertions(+), 4 deletions(-)
