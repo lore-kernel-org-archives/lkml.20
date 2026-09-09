@@ -1,194 +1,255 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9D637DEB2
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943177; cv=fail; b=UzWf1cG72hdxRGOq+2n7yiFr4Di50FncFer11/BLmKoNPu/gBlPAMmXrvdYiORT/VKRatdbX43PZCBcMatJ/qWdyWLH5200pfF3Pi1IdBnCEUmmbsG3KfdvLwhbmhnWG/RZVF2vgPPZudICWS98Wfz/Bf3+/YrV6nM6kOzUP3Mw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943177; c=relaxed/simple;
-	bh=LctsjTWCn7jY6g+shkWzuD0YjrGq4vUkmVVKGjGA4VI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=f0JMql8PDlzrcticxgo4zMECcEsZOAGzCksiNRgrXDtaLJdmh12vQnAzq6SNa3RdYGDycaiMydB9RBxPhYIlfB+4G8hFeGtK4Y0CBzFoyiDo/2eF4339/KZOjTZ69DMCd8zIi+2bgdhs7FAN4wyndQoJkBvUUxNdtFgohnBm+B0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sM10aeQV; arc=fail smtp.client-ip=52.101.56.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB6F1472F70;
+	Wed,  9 Sep 2026 08:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788943192; cv=none; b=a/LPzucL5a47qCGS0RzK3pqOQVWWXyT1lGWLwhTMclRyigPV5b+NWPPMhvk5vyuf4V4o9wO4BqHpjFmHE/bbvVW9uPE/ks0jF9xOba/P47cRUJTvS+ZXvozf76AxhrN1rilcS85f8SmBsk/Z5Nr1h/E+RLalHDKdaL1xiI6CX6U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788943192; c=relaxed/simple;
+	bh=4AbRZtzIP0uW3AJ/+JRlRVpE4lXeH9HEYiTBXBQIq3Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iRQRjR+Abw8wtALcDXMr3cbTiqJWVBmqUIjnO2g3NuUq7wYbpXM1kOp79XhMJSHv7SSF+l7e3+/xhg3k/0DlZHY6CVoXLUeEpYCMJ5rRMwuUMeTwafcNjAf489z331hKZuR7vISbjxUr7swTvZRzs53K3jJGIqZZcrPNhi2OdAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NMyI6wZw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sM10aeQV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZOJRbxQTDyte0as3aOLOqeehURo6KbTrs+SZ0nr3g0Lp1MyLCA1NBXsaBlRQFuaTUX2F9s9vXD2laJ8nJREOBxj3RJ+exRumomq8rAG09jMl+f0+M7D4JqRVbCmIVY0B9xAkaL/vLsih4yOHhHAhG6zvTLzYw6WM+U2XGesMG+7WLpzCvF8jiLQvVeP2C9HVSK/RMbeGlTpNhIWpoeOgTfzESk8t6zyXlSDhe1FvX++xlpUKlR9YS/0/VPQIKfSYS52smSgdkisX8YhrWKo/xd91ehweb4xjnVvvy0I55FC5HUnxMBAL55bywBotw8tG5kCdSMJuLiFLRrZpOWN6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LctsjTWCn7jY6g+shkWzuD0YjrGq4vUkmVVKGjGA4VI=;
- b=NEEYJeaNe5WYpO4e59dqFyJvbN/ExilXLzTktpJl9Rlr8OA+v7jrvNlOCl2GL48KirUeSqZRl+SID2ulAvP/WRFk8+tREAWToeh/IY4YOxl9D4eW3UveQmT2tca3hajUxdPnG8NKY/Co/8OOAaYJjUVBET6Zu6EgxlL1io6LD3xM4wQSWQsQdkh332teMv4oVU2eEb3RaQ0dUjwqrtjukjy3JHCMN9bNvGVmo4kxG9cj97hOJopzEhniyFCFOrTyHLAS9pgiE2uQGllY8yITVFayKbEu4TGnc0O1mPULxs7n+1Shk61dbB4Z7ot3TMnz3LJsFHcWGPevXqugWifEiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LctsjTWCn7jY6g+shkWzuD0YjrGq4vUkmVVKGjGA4VI=;
- b=sM10aeQV9Lsl6IHCv7/v2IzxvQvfKSWO0vSgQBuHP1a6hP8MCz7bKH13bHx2k72IhfeZILvKr08Nt9CFMZhaFG5rLyH8yb7GbIwzaP4V8W+Slbn5Pm0C1ver3qpd+BG90zTYFlrIMZUIrM6IjJ4wT6Amlx/IUHma61MqZ5ye/qo=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by LV3PR12MB9093.namprd12.prod.outlook.com (2603:10b6:408:19d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 08:39:31 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 08:39:31 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: Ed Schofield <ed@aicharmers.com>
-CC: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, "Guna R . Bharati"
-	<062bel313@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Koenig, Christian" <Christian.Koenig@amd.com>, "airlied@gmail.com"
-	<airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro
- 5300
-Thread-Topic: [PATCH] drm/amdgpu/smu: Enable UCLK after init in AMD Radeon Pro
- 5300
-Thread-Index: AQHdM/uLjqzkZB8+v0CfrEH3NFaxZLbF5zkQgAAT1oCAAAkRwA==
-Date: Wed, 9 Sep 2026 08:39:30 +0000
-Message-ID:
- <MW4PR12MB680331D488C107E4419315AE8EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com>
- <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
- <20260909080231.85025-1-ed@aicharmers.com>
-In-Reply-To: <20260909080231.85025-1-ed@aicharmers.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-09T08:34:35.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|LV3PR12MB9093:EE_
-x-ms-office365-filtering-correlation-id: 4258058a-7f8f-452a-de0b-08df0e4dde13
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|38070700021|6133799003|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- gDYE8VgbFHNXuT+0d9xaTBKucjm0UrRQe4HzlQlcmBTHjdlxfMyNTmFBzChxAgLINleCpPhav9Iftpv+PZdIhTzVN/RLs4aM8uLaww3sLlpDJvWNmrMrea9RPxmXTsZcYyK/7y4cSgvYt8ByAPAkXJ+oAN8hNVv5+LPpF99c3gAJQgxNPtLfoNpFlZ7gD+3tsNPPUq5NXUCwoE+/AMWD3URJ3YAMPFJ2IttlsAYhQvOfB/aSv5+jMkPJ/KjVe0epYCt5cmHIkS77QIbn57/tdDTdIwpHkRxHKovdOmc+A/R4bQC3HK8T1sU8jVjouP7RaijkadMKB7FRJSIpthmkfgM7Svw+MCuEd4Tla4mMkyYpkBFDi5k46RKVTJ35xIQtirkTjsTGZjgKtCoX61zzeGQkhYtse2zEDlFhC6d7wMcZ64RuoEFLnsYMrfc5/TSbHoN2hVwzeuNXCJcruSWwz+DKQPeB4mD/ZhN666/hCMTtJGU480K03FcbblDiVLnHpu7HcC/Emh9aMoG0WN9qdvWBskZxJ0GpTdwsGk4attXrppKAEHviEFMuqhKNurejtRcEd87O20RVveVXNiYwFSV2HtkPCveS0ipD5n6WSQF90gntfVGgVaDIyuQfUqODkgxs+TvQgPkeEaOTgsHrcf66CgXlSM35VCcfmWsEw+WQ+8XwVtNINYs89JaPGF54nuG6xuNeDRXGh6NAJ7B2vg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6803.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(38070700021)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SVBiL2hsN0RLcDRtUVhneTE4Zkh2WDJiYU42QjJlTUZpODRndkkyTU82Qkx5?=
- =?utf-8?B?Y3ZhY1ByL3I0UW9sMHlrT3U3V0pRdjJiQnJibnYrK3BTYjV5M0NQYjU5cXR2?=
- =?utf-8?B?SFpXNkpWUSs0cStLSFZoYXlYbExEWTJLeXJmNGxKM1VzcmpmYXpiYkIyTnE0?=
- =?utf-8?B?bTBPSzZwQnBGbGVPOFovSU82VXpKTU9IQjRQbTd6dUM5b0JPeTRwb2hoWms1?=
- =?utf-8?B?VlFDTXkvWVNKYTBGVXRVY1ZvTjhvWjA0Mmt5MWxMYm93eGtvQTlNbWZGU1FL?=
- =?utf-8?B?VnhGYk15UnRmU0RsdEM5MkVUQnp1cEM4T3lrRk1ZQWJjM045dit6YnErL3Zy?=
- =?utf-8?B?Nnl3V3h3L0FpNXdocVdRRkNjeHl0a3RYeCttMGdQUDllQU40bGNMUHpFOVNh?=
- =?utf-8?B?YXZZQlFKMEpKb3lCTm9XMFdqazNMRWVKbVM4VG5kZEF1cU1HbURWK1ZoRnRB?=
- =?utf-8?B?czFvT2tyc1VjeUsrUnlmZ1hvTmlrWW5KZHNrQTBqdmZyQXE5MTZxNmVxUU9U?=
- =?utf-8?B?dUhuQVI0MnNGdU95Y1Urb0piN1NYTlY2R1lnNEdydlNrNFVTN2R3eXhJZjRP?=
- =?utf-8?B?K0hvSGc0VkNFdnJLaGFCY0xjOTl0RERYa0pqSHRYNWE2Mms5bFlWVHl3Y1dZ?=
- =?utf-8?B?U25Sd0pJaEVDQVdtalI1dHFxcDMyWGxHajNzdjZsc09kMHliR1dVMEY2T25E?=
- =?utf-8?B?bTNLMTMwWW9TYi9yMjhpeFg0ODJYSUg4eGN1c2JJKzdJajVoQTFwbmZ2THdR?=
- =?utf-8?B?ZmFMVG1zNXBoWEhXOXpadUZ2T1V6THNOUDdiOFF1YklTRkJ2QnlXSHFrOE01?=
- =?utf-8?B?S2dLNnhzVFE2WUl2WTRBZjZZMzhNT09sVGY2VTRSVmtWUHREU25SdllpaFkz?=
- =?utf-8?B?RWRjR2xtL05vQXlpSU16NEFqZnZGclFzSkpDZ1l6WSszL2xHUGxRTGFuNnVv?=
- =?utf-8?B?M3BZVG1BWlRNVzNQaTd2a1p5dTNTYVdXRjQwK2RQMnZabFJWNlVTQVpoRzV6?=
- =?utf-8?B?L1F1NSt0K0FRcU9WbHcvTnZDd0VoNVExMWxrZWhQS29QdkdWMlVodWJ6M0Vz?=
- =?utf-8?B?dnI1dnNidjczVzIvWm5WUkNFY1lVSjc2bUNlaGExTjNVN1orbEEwbHoyNW8w?=
- =?utf-8?B?T0ttdUg5OUVyUEZHcXA5UzlacVZ6RFlMTkJHL211NHN6RGNFZW4yYmk1OHRH?=
- =?utf-8?B?K2tXSStwWFc0VmpQV0NaSmtDOHRqanE1aFBUamxnTmhtdlJtS0VMRmtTbkw2?=
- =?utf-8?B?ZGN5MmRFaGlPNS9VZkU1RTdXNlNLUGlUQzNscHFIcFNtcUFtbGhBbGJvWFFh?=
- =?utf-8?B?Wm9nQ0FxY0pEemo5aUl6Q1NUaGR1SkdTeEUrakpPZWpnTEMwZmZkY0FxcERy?=
- =?utf-8?B?bEZjK2lteGlwZ0tCMEdOWjMyZVNVN3V0R1M1V0xXYVQxOE5NWm1JNGJwbmJC?=
- =?utf-8?B?SnlFeEk5b1hwKzBQMUpsU1RZeTlmQVpuWjYvV25xR0tONldMdXBoL3VnWk9O?=
- =?utf-8?B?ZXZocE5JWDFkNyt4UEhST0NGa0NJc3NVYTRERXE3b3pMRFBXQllRdllOK1NX?=
- =?utf-8?B?anYwakN3NjBCYjJiVytzY2dxVkpSSGNnK2laM2VhQitTT0I4MTc4RW1uYmRX?=
- =?utf-8?B?ZXpNcWxtRlY1bjAzMEtTM1JldnM4YlVxSE1MbEFoYkkvTHExSnlqM2xYdlZn?=
- =?utf-8?B?TE5EWGczK2VaQlVuckRsOFJGMVpwZFo2MkY2eHhtNys2VzIveFNsSEMxeGY2?=
- =?utf-8?B?M2ZJVjFLUStwWlJpd3FWbStWVCs0d3NzSFM2ZGx5aWtmMldOb1BhM2p5Y281?=
- =?utf-8?B?V2VGckpIM2RSem9xdktGaWI4cGdmbTFlTHFHbUlINmRPNm1NS1pTcWtWaHFt?=
- =?utf-8?B?SWpkbUMvL1VnYzdtaWlVWUNINkJUci9OMkNHSWdWcmZsd2hzbFNIb2w4dmFN?=
- =?utf-8?B?ZWtiOEhDNHlwdWR6MXNwUU1IUFZ1MWNuSzRsd2NaNTN2Nnc2ZkhaTTJPVmtj?=
- =?utf-8?B?N0pidkt0UEh6ZjVtSDU1MVNlNGNobkNUTEVYTGgyWm9RV2JhQUJGL2hCL1A5?=
- =?utf-8?B?bXZlNzVuV0h2MGVYSU03SWhLUzFmS2xWREVNWWhBRXgrSDlkeU52MGtteDE5?=
- =?utf-8?B?VG9aRWcrZElFYkRsdnl1ZnY0Nmx4WS9Xd0dVVDRmTzVxdm5idXo0TXI1bGc2?=
- =?utf-8?B?eGFkS3h0NkdCRTdHUGJnT3k0ZGRqckNqTFM5N2ttZEszZ0k4eElpU3IvbFhV?=
- =?utf-8?Q?FncHJ1HxYCJ4gmVHnUJN7+HsqufLB2/2bLqD2Naobw=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NMyI6wZw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 550F91576;
+	Wed,  9 Sep 2026 01:39:46 -0700 (PDT)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA4CB3F7B4;
+	Wed,  9 Sep 2026 01:39:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788943190; bh=4AbRZtzIP0uW3AJ/+JRlRVpE4lXeH9HEYiTBXBQIq3Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NMyI6wZw/NCEboJ0abFf86U+oE5eeHU5OnDFOA34ZhcJmQgj2tu+TMkY/Jqa6vCAH
+	 5WbTkaag4OZl2gI9STO3lNgNnp5ZZ0eiePe9zoh6YBfoHF4xNy4fOkfQeSMvbhWkJi
+	 IXP4CYnGuUCfaiQU5p/mFXtnkEceufCppARjFk50=
+Message-ID: <44f02c8c-db52-4f3e-b5d9-f25c1c8c5f0b@arm.com>
+Date: Wed, 9 Sep 2026 09:39:45 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4258058a-7f8f-452a-de0b-08df0e4dde13
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 08:39:31.0649
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +jHU7y/iQoK+0SZUPf4DR4LsKSuVhxrgAAJ82MifCbPUw9idr8nML2cBTUyB/Kcr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9093
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-2-suzuki.poulose@arm.com>
+ <c9990440-acab-4c6c-b67f-8bde17feddce@redhat.com>
+ <aca629b2-27a0-4c47-acac-87edb3b0d3d9@arm.com>
+ <52e58930-8fa4-4c75-981c-25be42d83f2d@redhat.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <52e58930-8fa4-4c75-981c-25be42d83f2d@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-QU1EIEdlbmVyYWwNCg0KT2ggb2ssIHRoYW5rcyBhIGxvdCwgRWQuDQpTaW5jZSBpdCBpcyBMaW51
-eCwgSSBhc3N1bWUgdGhhdCBBcHBsZSBkb2VzIG5vdCBwYXkgbXVjaCBhdHRlbnRpb24gdG8gaXQu
-DQpPbmNlIHlvdXIgcGF0Y2ggaXMgbWVyZ2VkIHdpdGggQXRoYXJ2YSdzIGFuZCB0ZXN0ZWQsIHRo
-ZW4gd2UgY2FuIHJldmlldyBhbmQgZ2V0IHRoZW0gY2hlY2tlZCBpbi4NCg0KDQotLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogRWQgU2Nob2ZpZWxkIDxlZEBhaWNoYXJtZXJzLmNvbT4N
-ClNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDksIDIwMjYgNDowMiBQTQ0KVG86IEZlbmcsIEtl
-bm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPg0KQ2M6IEF0aGFydmEgVGl3YXJpIDxhdGhhcnZh
-dGl3YXJpbGludXhkZXZAZ21haWwuY29tPjsgR3VuYSBSIC4gQmhhcmF0aSA8MDYyYmVsMzEzQGdt
-YWlsLmNvbT47IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47
-IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBhaXJsaWVkQGdt
-YWlsLmNvbTsgc2ltb25hQGZmd2xsLmNoOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsg
-ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVs
-Lm9yZw0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdS9zbXU6IEVuYWJsZSBVQ0xLIGFm
-dGVyIGluaXQgaW4gQU1EIFJhZGVvbiBQcm8gNTMwMA0KDQpIaSBLZW5uZXRoLCBoaSBBdGhhcnZh
-LA0KDQpUaGFua3MgZm9yIGJyaW5naW5nIHRoZSB0d28gdGhyZWFkcyB0b2dldGhlci4gSSd2ZSB0
-cmllZCB5b3VyIHN1Z2dlc3Rpb24gb24gbXkgaU1hYzIwLDEgKDEwMDI6NzM0MCAvIDEwNmI6MDIx
-OCwgcmV2aXNpb24gMHg0MSksIHdpdGggU01VIGZpcm13YXJlIDUzLjM4LjAuIEkgdHJpZWQgdHdv
-IHdhcm0gYm9vdHMgYW5kIGJvdGggZmFpbGVkLg0KDQpPbiB0aGUgc2FtZSBBTUQgc3RhZ2luZyBi
-YXNlIGFzIG15IFJGQywgSSBtb3ZlZCBVQ0xLIGVuYWJsZW1lbnQgdG8gdGhlIGJlZ2lubmluZyBv
-ZiBuYXZpMTBfc2V0X2RlZmF1bHRfZHBtX3RhYmxlKCksIGFsb25nIHdpdGggdGhlIHJlYWRiYWNr
-IGNoZWNrIGFuZCBzdXBwb3J0ZWQtZmVhdHVyZSB1cGRhdGUuIEkgcmVtb3ZlZCB0aGUgbGF0ZXIg
-ZW5hYmxlIGFuZCByZWZyZXNoIGZyb20gcG9zdC1pbml0LiBVQ0xLIHdhcyBzdGlsbCBleGNsdWRl
-ZCBmcm9tIGVuYWJsZS1hbGwsIGFuZCBib3RoIG1lbW9yeS12b2x0YWdlIGZlYXR1cmVzIHN0YXll
-ZCB0aGUgc2FtZS4gSSBkaWRuJ3QgYWRkIGFueSBkZWxheSBvciBleHRyYSBtYWlsYm94IHRyYWNp
-bmcuDQoNCkJvdGggYm9vdHMgcmVwb3J0ZWQ6DQoNCiAgICBTTVU6IE5vIHJlc3BvbnNlIG1zZ19y
-ZWc6IDggcmVzcF9yZWc6IDANCiAgICBpbiBwYXJhbXM6MDAwMDAwMDgNCiAgICBBcHBsZSAwMjE4
-IGRlZmF1bHQtdGFibGUgVUNMSyBlbmFibGUgZmFpbGVkOiAtNjINCg0KQU1ER1BVIGZhaWxlZCB0
-byBiaW5kIGluIGJvdGggY2FzZXMuIEkgY2hlY2tlZCB0aGF0IHRoZSBleHBlcmltZW50YWwgbW9k
-dWxlIHdhcyBsb2FkZWQgYW5kIHRoZSBmaXJtd2FyZSBmaWxlcyBoYWRuJ3QgY2hhbmdlZC4NCg0K
-VGhpcyBhbHNvIGZpdHMgYW4gZWFybGllciB0ZXN0IHdpdGggVDIgNy4xLjguIFdpdGggVUNMSyBl
-eGNsdWRlZCBmcm9tIGVuYWJsZS1hbGwsIEkgdHJpZWQgZW5hYmxpbmcgaXQgc2VwYXJhdGVseSBp
-bW1lZGlhdGVseSBhZnRlciBzbXVfdjExXzBfc3lzdGVtX2ZlYXR1cmVzX2NvbnRyb2woc211LCB0
-cnVlKSByZXR1cm5lZCBzdWNjZXNzZnVsbHkuIFRoZSB0cmFjZSBzaG93cyBFbmFibGVBbGxTbXVG
-ZWF0dXJlcyByZXR1cm5pbmcgMHgxLCB0aGVuIEVuYWJsZVNtdUZlYXR1cmVzTG93IHdpdGggYXJn
-dW1lbnQgMHg4IHRpbWluZyBvdXQgd2l0aCByZXNwb25zZSAwIGFuZCAtRVRJTUUuDQoNClRoZSBk
-ZWZhdWx0LXRhYmxlIGZ1bmN0aW9uIGlzIHJlYWNoZWQgb25seSBhZnRlciBlbmFibGUtYWxsIHJl
-dHVybnMgc3VjY2Vzc2Z1bGx5LCBzbyB3YWl0aW5nIGZvciB0aGF0IGFja25vd2xlZGdlbWVudCBk
-b2Vzbid0IHNlZW0gdG8gYmUgZW5vdWdoIG9uIHRoaXMgYm9hcmQuIEkgZG9uJ3QgeWV0IGtub3cg
-d2hldGhlciBpdCBuZWVkcyBtb3JlIHRpbWUgb3Igc29tZSBvdGhlciBpbml0aWFsaXphdGlvbiBz
-dGVwLiBJJ2Qga2VlcCBwb3N0LWluaXQgZm9yIG5vdzogdGhhdCB2ZXJzaW9uIHBhc3NlZCB0aGUg
-dGVuIHJlY29yZGVkIEFNRCBzdGFnaW5nIHdhcm0gYm9vdHMuIFRoZXNlIHRlc3RzIGRvbid0IGVz
-dGFibGlzaCB0aGUgZWFybGllc3Qgc2FmZSBwb2ludC4NCg0KQXMgZm9yIEFwcGxlLCBJIGNhbid0
-IHNwZWFrIGZvciBBcHBsZSBvciBjb25maXJtIHRoZWlyIGFwcHJvdmFsLiBJJ20gdGVzdGluZyB0
-aGlzIGFzIGEgTGludXggdXNlci4gRG8gd2UgbmVlZCB0aGVpciBpbnB1dCBiZWZvcmUgbWVyZ2lu
-ZyBhbiBBcHBsZS1zcGVjaWZpYyB3b3JrYXJvdW5kPyBJZiBzbywgY291bGQgQU1EIGhlbHAgZmlu
-ZCB0aGUgcmlnaHQgY29udGFjdD8gSSdkIHN0aWxsIHdlbGNvbWUgYSBmaXggZm9yIHRoZSB1bmRl
-cmx5aW5nIGZpcm13YXJlIHByb2JsZW0uDQoNCkkgYWdyZWUgd2Ugc2hvdWxkIGNvb3JkaW5hdGUg
-dGhlIHR3byBwYXRjaGVzLiBNaW5lIGNvdmVycyBvbmx5IDAyMTgvcmV2IDB4NDE7IEF0aGFydmEn
-cyBjb3ZlcnMgMDIxOS4gV2UnZCBuZWVkIHRvIHRlc3QgdGhlIGNvbWJpbmVkIGNoYW5nZSBvbiBi
-b3RoIGJvYXJkcyBiZWZvcmUgYnJvYWRlbmluZyB0aGUgbWF0Y2guDQoNClRoYW5rcyENCiAgICBF
-ZA0K
+On 08/09/2026 23:41, Gavin Shan wrote:
+> On 9/8/26 8:37 PM, Suzuki K Poulose wrote:
+>> On 08/09/2026 07:19, Gavin Shan wrote:
+>>> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+>>>> From: Steven Price <steven.price@arm.com>
+>>>>
+>>>> The RMM (Realm Management Monitor) provides functionality that can be
+>>>> accessed by SMC calls from the host.
+>>>>
+>>>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
+>>>>
+>>>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
+>>>>
+>>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>
+>> ...
+>>
+>>>> ---
+>>>>   include/linux/arm-smccc-rmi.h | 494 ++++++++++++++++++++++++++++++ 
+>>>> ++++
+>>>>   1 file changed, 494 insertions(+)
+>>>>   create mode 100644 include/linux/arm-smccc-rmi.h
+>>>>
+>>>
+>>> Some nitpicks below, please pick up the commits that look reasonable :)
+>>>
+>>
+>>
+>>>> +
+>>>> +#define RMI_RETURN_STATUS_MASK        (0xFFUL)
+>>>> +#define RMI_RETURN_INDEX_MASK        (0xFFUL << 8)
+>>>> +#define RMI_RETURN_MEMREQ_MASK        (0x3UL << 8)
+>>>> +#define RMI_RETURN_CAN_CANCEL_MASK    (0x1UL << 10)
+>>>> +
+>>>> +#define RMI_RETURN_STATUS(ret) FIELD_GET(RMI_RETURN_STATUS_MASK, ret)
+>>>> +#define RMI_RETURN_INDEX(ret)        
+>>>> FIELD_GET(RMI_RETURN_INDEX_MASK, ret)
+>>>> +#define RMI_RETURN_MEMREQ(ret) FIELD_GET(RMI_RETURN_MEMREQ_MASK, ret)
+>>>> +#define RMI_RETURN_CAN_CANCEL(ret) 
+>>>> FIELD_GET(RMI_RETURN_CAN_CANCEL_MASK, ret)
+>>>> +
+>>>
+>>> If I'm correct enough, RMI_RETURN_{STATUS, INDEX, MEMREQ, CAN_CANEL} 
+>>> _MASK are used
+>>> for once in this header file. So we needn't explicitly expose them 
+>>> and combine their
+>>> definitions with users to fetch the corresponding fields, as below.
+>>>
+>>> #define RMI_RETURN_STATUS(ret)        FIELD_GET(GENMASK(7, 0), ret)
+>>> #define RMI_RETURN_INDEX(ret)        FIELD_GET(GENMASK(15, 8), ret)
+>>> #define RMI_RETURN_MEMREQ(ret)        FIELD_GET(GENMASK(10, 8), ret)
+>>> #define RMI_RETURN_CAN_CANCEL(ret)    FIELD_GEt(GENMASK(10, 10), ret)
+>>
+>> I belive the header files were generated from a tool (by Steven) and
+>> these would make it easier to compare with the generated header file for
+>> any deviation from the spec. So, I am a bit reluctant make these
+>> changes.
+>>
+>> That said, I am happy to convert the mask definitions to GENMASK() for
+>> consistency and readability. i.e., something like:
+>>
+>> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc- 
+>> rmi.h
+>> index 3eb88caf40964..078197284415e 100644
+>> --- a/include/linux/arm-smccc-rmi.h
+>> +++ b/include/linux/arm-smccc-rmi.h
+>> @@ -139,10 +139,10 @@
+>>   #define RMI_ABI_VERSION_GET_MINOR(version) ((version) & 0xFFFF)
+>>   #define RMI_ABI_VERSION(major, minor)      (((major) << 16) | (minor))
+>>
+>> -#define RMI_RETURN_STATUS_MASK         (0xFFUL)
+>> -#define RMI_RETURN_INDEX_MASK          (0xFFUL << 8)
+>> -#define RMI_RETURN_MEMREQ_MASK         (0x3UL << 8)
+>> -#define RMI_RETURN_CAN_CANCEL_MASK     (0x1UL << 10)
+>> +#define RMI_RETURN_STATUS_MASK         GENMASK(7, 0)
+>> +#define RMI_RETURN_INDEX_MASK          GENMASK(15, 8)
+>> +#define RMI_RETURN_MEMREQ_MASK         GENMASK(10, 8)
+>> +#define RMI_RETURN_CAN_CANCEL_MASK     BIT(10)
+>>
+> 
+> Ok.
+> 
+>>>
+>>>> +#define RMI_SUCCESS            0
+>>>> +#define RMI_ERROR_INPUT            1
+>>>> +#define RMI_ERROR_REALM            2
+>>>> +#define RMI_ERROR_REC            3
+>>>> +#define RMI_ERROR_RTT            4
+>>>> +#define RMI_ERROR_NOT_SUPPORTED        5
+>>>> +#define RMI_ERROR_DEVICE        6
+>>>> +#define RMI_ERROR_RTT_AUX        7
+>>>> +#define RMI_ERROR_PSMMU_ST        8
+>>>> +#define RMI_ERROR_DPT            9
+>>>> +#define RMI_BUSY            10
+>>>> +#define RMI_ERROR_GLOBAL        11
+>>>> +#define RMI_ERROR_TRACKING        12
+>>>> +#define RMI_INCOMPLETE            13
+>>>> +#define RMI_BLOCKED            14
+>>>> +#define RMI_ERROR_GPT            15
+>>>> +#define RMI_ERROR_GRANULE        16
+>>>> +
+>>>> +#define RMI_CONTINUE_KEEP_GOING        0
+>>>> +#define RMI_CONTINUE_STOP        1
+>>>> +
+>>>> +#define RMI_OP_MEM_REQ_NONE        0
+>>>> +#define RMI_OP_MEM_REQ_DONATE        1
+>>>> +#define RMI_OP_MEM_REQ_RECLAIM        2
+>>>> +
+>>>> +#define RMI_DONATE_SIZE_MASK        3UL
+>>>> +#define RMI_DONATE_COUNT_MASK        GENMASK(15, 2)
+>>>> +#define RMI_DONATE_CONTIG_MASK        BIT(16)
+>>>> +#define RMI_DONATE_STATE_MASK        GENMASK(18, 17)
+>>>> +
+>>>> +#define RMI_DONATE_SIZE(req)        FIELD_GET(RMI_DONATE_SIZE_MASK, 
+>>>> req)
+>>>> +#define RMI_DONATE_COUNT(req)        
+>>>> FIELD_GET(RMI_DONATE_COUNT_MASK, req)
+>>>> +#define RMI_DONATE_CONTIG(req) FIELD_GET(RMI_DONATE_CONTIG_MASK, req)
+>>>> +#define RMI_DONATE_STATE(req)        
+>>>> FIELD_GET(RMI_DONATE_STATE_MASK, req)
+>>>> +
+>>>
+>>> As above, RMI_DONATE_{SIZE, COUNT, CONTIG, STATE}_MASK are used for 
+>>> once in this
+>>> header file. So their definitions can be dropped by modifying the 
+>>> followup macros,
+>>> as below. Some enhancements are also applicable: (a) Use 'BLOCK' to 
+>>> indicate the
+>>> unit encoded in the request. (b) The macros are put into order from 
+>>> MSB to LSB.
+>>>
+>>> #define RMI_DONATE_STATE(req)        FIELD_GET(GENMASK(18, 17), req)
+>>> #define RMI_DONATE_CONTIG(req)        FIELD_GET(GENMASK(16, 16), req)
+>>> #define RMI_DONATE_BLOCK_COUNT(req)    FIELD_GET(GENMASK(15, 2), req)
+>>> #define RMI_DONATE_BLOCK_SIZE(req)    FIELD_GET(GENMASK(1, 0), req)
+>>
+>> Same as above.
+>>
+> 
+> Please rename RMI_DONATE_{SIZE, COUNT} to RMI_DONATE_BLOCK_{SIZE, COUNT} 
+> if possible.
+
+Sorry, forgot to add that, I have renamed RMI_{DONATE,ADDR_RANGE}_SIZE
+=> RMI_{*}_BLOCK_SIZE, left  the _COUNT as it is.
+
+> 
+>>>
+>>>> +#define RMI_OP_MEM_DELEGATED        0
+>>>> +#define RMI_OP_MEM_UNDELEGATED        1
+>>>> +#define RMI_OP_MEM_CONDITIONAL        2
+>>>> +
+>>>
+>>> B4.6.40 RmiOpMemContig type is missed here and they should be used in 
+>>> the c code.
+>>>
+>>> #define RMI_OP_MEM_NON_CONTIG    0
+>>> #define RMI_OP_MEM_CONTIG    1
+>>>
+>>> In the c code, we shall have:
+>>>
+>>> if (RMI_DONATE_CONTIG(req) == RMI_OP_MEM_CONTIG)) {
+>>>     ...
+>>> } else {
+>>>     ...
+>>> }
+>>>
+>>
+>> Does it make much sense though ? I prefer
+>>
+>> if (RMI_DONATE_CONTIG(req))
+>>
+>> to
+>>
+>>
+>> if (RMI_DONATE_CONTIG(req) == RMI_OP_MEM_CONTIG)) {
+>>
+>>
+>> than having a field for a single bit values. I am happy to change
+>> this if there is strong preference to the other.
+>>
+> 
+> The point is RMM-v2.0-bet3 expose RMI_OP_{MEM, MEM_NON}_CONTIG instead 
+> of true/false
+> to indicate if the requested memory blocks are physically contiguous or 
+> not. So the
+> expression 'if (RMI_DONATE_CONTIG(req) == RMI_OP_MEM_CONTIG)' is 
+> consistent to the
+> RMM-v2.0-bet3 spec.
+
+Agree, but the values are intuitively assigned to indicate whether it is
+1/0. I personally think if (RMI_DONATE_CONTIG(req)) is good enough. But
+to be consistent with the spec, I will change them.
+
+
+Cheers
+Suzuki
