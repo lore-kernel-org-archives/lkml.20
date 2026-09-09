@@ -1,98 +1,98 @@
-Received: from mxd.seznam.cz (mxd.seznam.cz [77.75.76.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BAA5921F4;
-	Wed,  9 Sep 2026 20:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.76.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A50358F079
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986662; cv=none; b=UZN4UBmZ8l33LWDjyBlPycuQnSMRSuuaDtbxphh9eEYIR1liKa7VPX7MFjCN4WEtWGkngit81OVSlegzQZ95BuvCrzxoKUjr8MMaiAkFgciaTIKA6SIHPCmDukkysAwUs7VsE06TZwBSgV6xmfZ9jwBoX2/Ecsphlb1PwzHAnhw=
+	t=1788986664; cv=none; b=czoZ8UolfxTbQYtThSpphZmQblQQ+ZyDGGFpckS66bi03mspHo7TpKIhYZaLPjzQPHn3bG0LpRK92MphylLGLGkX00ojuHNFN9R+r6/iC+kQlHrey9pHM6dr6LEQ2gbArQK85JoR93v3SFKBCB0OdeI7pKn0lxdAwzhDsXdBOp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986662; c=relaxed/simple;
-	bh=ahl0fbg5/UFqv3zZP4WxlKs1WWBhs8EcWi6LeYjxnnc=;
+	s=arc-20240116; t=1788986664; c=relaxed/simple;
+	bh=50nCYJPjbqQUb9GuXVSadJfp9i5nwJt7sQqIe3gmZNE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t+/kgW4W2MH8u/SE/qXRmgmda9g6pQo+CjS4gSg4Ql2NP3xG261NQ/E1rV6RhUKGw/UW+C3hpLLZ3GRvWAVQdv6NqSonhG5SohpKQc2IfcjUz2gM3lwhosrmoPzCOEidatXaqsr4JUgK4YJuCu17SfjgzFN+0mXD2OAyvbJCeCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=email.cz; spf=pass smtp.mailfrom=email.cz; dkim=pass (2048-bit key) header.d=email.cz header.i=@email.cz header.b=yfZz9SDh; arc=none smtp.client-ip=77.75.76.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=email.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=email.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=a3WiplNRD06CecYt9a6cGbY9VhihGYixo4+ZRwYlJO9dkUk80r/rorhE9xOukkugUNfbi9izc9HZ8G3RjHUK2fCP+dm5vInkBvzpL7S4GuIfPGtbk7uoIb7n+R3OvQiq2r9YS/a1y3afaNJ9H9sdGUzH/39SDh+1C31sB25oHzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DyQmSBlT; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=email.cz header.i=@email.cz header.b="yfZz9SDh"
-Received: from email.seznam.cz
-	by smtpc-mxd-7df9bfcc5f-xt28s
-	(smtpc-mxd-7df9bfcc5f-xt28s [2a02:598:96:8a00::1200:70c])
-	id 586156b6d8863c2b5a1568d8;
-	Wed, 09 Sep 2026 22:43:27 +0200 (CEST)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=email.cz; s=szn1;
-	t=1788986607; bh=e/HkKfN6iwJPRcF2XF8+TGEfrSl8EEtM0P3MJRJiMZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	b=yfZz9SDhDASJjvQcZRY02jVG5fiVKRUF1vIQgWkgr6L+Q5/NsXgwVFgTIlLnd/yoA
-	 8aNlzTjYQx+hPaArtBDG1J+7jleBfUDWei3/jlESrOF6E8yWPtB0WuN+Ahx4fSxhv7
-	 1l1Lij6Nqxk1ezn+mg/VbeW2VF3ZjaH8XIm1rpUkRqp+ePr5DYsFBHPHwugTD6EnTW
-	 ICXo1T+ERyM6ERFp7bKu7jbuPTdbbt+H7IkbcpV6Q71yF3zqwgkXxN2SD7x6ogV6iC
-	 qnYVCEUh2FzeU7wyqTw4KPBMhMiZB3UOxpcCwmNWNmq9HhwqisDc7ub0PEGFV7f0e7
-	 AaKXVpJLuq2Vg==
-Received: from arch-zen.localdomain ([2a02:8308:b086:3c00:3636:4bcf:b8c2:e5cf])
-	by smtpd-relay-6ffbffc97b-d7f5l (szn-email-smtpd/2.0.82) with ESMTPA
-	id bb405cae-3d22-42ff-830c-8034b149c070;
-	Wed, 09 Sep 2026 22:43:12 +0200
-Date: Wed, 9 Sep 2026 22:43:11 +0200
-From: Jan Havran <havran.jan@email.cz>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 3/3] net: dsa: lantiq_gswip: fix
- GSWIP_MDIO_PHY_FCONTX_EN value
-Message-ID: <aqHE37RDmQNlA35W@arch-zen.localdomain>
-References: <20260907134818.16670-1-havran.jan@email.cz>
- <20260907134818.16670-4-havran.jan@email.cz>
- <b7d56704-2aed-464f-8295-2ad70e4afa2c@bootlin.com>
- <20260908174322.61223934@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DyQmSBlT"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4b28b358eso86740a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:44:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788986647; x=1789591447; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C9fkP2hJvytILEzpGHVJRqCYsbQTF7+11HBlBKosjXQ=;
+        b=DyQmSBlT9Q/L8ySaZ190Qb0hO5LHTaUHDL/8x7plTZLIJOMCSAE/UyiCGeD0+7UK3F
+         /RtnZU/JvN9PZAYLpvFmOEBrmw6I6uu0F/4BDfaLAugx6gN0tr2ly/5CNc9FrzkedC/7
+         7J7MMD8JPafiiZ/SXYiBbzqdNvf3NCd1ly3C7Roy0jIU/fPBsCQ5bLXzBNFlgNL2oo8v
+         Ve92+ckWqFZkPwhUOBcI3x61px4tsYng4pg2CXuMgcIunqLh2LF+9uYuc8uSN8lzwSL9
+         NGhicqv4GZEKmSIYCY/vd//6rK6dMisIchmXUlc9n7NwgcRuusMy7oaewzpltD51O4sQ
+         gqHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788986647; x=1789591447;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C9fkP2hJvytILEzpGHVJRqCYsbQTF7+11HBlBKosjXQ=;
+        b=dSdZCBOrr4mmrpQP/6YO4PlK7mFKGoQccxcFmHnpDg9nunbi+DMsYtedXJm7LzEAD8
+         QFFSOzS5JuoDDFe1mM02IJ25Es0KVwnFGk2WbBt4o55p4wvRdoKiZad26Eky9LtdP+Tg
+         uSOCTp64AxsIwRTiLEYsf90pBTkHQvRM0F3jq4XhRGVB3/K+Pvd72XNCx9nWAwwhGI9L
+         SQRUPuRIYgTx+U7NYjw52TpTrIk+5ag65DVgL3REOZnSTvFw+89PbEP1K+RMoDU+R566
+         Km7iVuZ6aTQtRhy4q7fv8KEaRXZWX329ALVta8rgdDh7j9kt4nHUXH4k4yUEgnQ7NfQM
+         ayGA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3OSZZWavJeIm/Q+1+PQWhOPyDQVMkuOugoZtIm7d6RghxH/OQ4BOU76KH/EdyAnHpm10/TM1hxvZwk3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfnQh3yTIpFdr22FBZh+sf7UoxHMZxryPPTv/0csFOdcske7+N
+	vi9xxVVGxbYSFA0QpEbVYYW8ruoFoRK0OGdKiFYlGMw5AsdOSNY0Oh7l
+X-Gm-Gg: AYBFou1gjJcnoQQeKM7Ed8XxRJfwREDG1TJJFxZnBK2cGxi5pWZ6DEg9w4kPUk6uuuG
+	Vsm/RL3lEKfRN0t1CBHZQxQshzmITbqRTJkj5Uf+P216gsXI9cO2SFJb0D2yLdCmdATPO4fEYPD
+	MGYd8RJHSh8dUCaohfqlVy6nPgYla8vkr6oHVCHP9ygj7IPEy5xLwlfukjsOnwPGqBFXmQwreFb
+	iYoSVuEVq2IAWX3C43fIVTgbnyZSaq9hHdzj4OwQ2QtJa44hTKpcMf0gU1JdsOQ70aHGxpH1Qdz
+	6djlqsohzuA4kUddZ0XrYglXYmoEUIPiinBrYmthjiI8ClLWf6Qg/JqB3C2fIjsCfwp2fHHwQ/h
+	xYSDNEYglhuZBugF+hVpjdGiF6k4juZcXaD0CsxE9GM3LjsWfSKniMdvP//YeGaNQNnG2q+zkhV
+	njh7oCmdbCJEhkzrOaguxBMOwXzSg9n3ORi0IevDrx71KbbsiB5jJzXHbScFwW5ZqT41kNtIsn5
+	4ermoQ4maU0
+X-Received: by 2002:a05:6a20:72a6:b0:3d1:e510:905f with SMTP id adf61e73a8af0-3da39b3a6b3mr52747720637.1.1788986647535;
+        Wed, 09 Sep 2026 13:44:07 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45542dbbesm7256657a12.13.2026.09.09.13.44.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 13:44:06 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 9 Sep 2026 13:44:05 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Jan Kiszka <jan.kiszka@siemens.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] watchdog: i6300esb: do not stop an already running
+ watchdog
+Message-ID: <b52365f7-27d4-4c5e-885f-65413c7d2bd6@roeck-us.net>
+References: <ea413e5d-9f37-46b8-8d93-863aa065a784@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908174322.61223934@kernel.org>
+In-Reply-To: <ea413e5d-9f37-46b8-8d93-863aa065a784@siemens.com>
 
-V Tue, Sep 08, 2026 at 05:43:22PM -0700, Jakub Kicinski napsal(a):
-> On Mon, 7 Sep 2026 18:28:32 +0200 Maxime Chevallier wrote:
-> > On 9/7/26 15:48, Jan Havran (Advantech Czech) wrote:
-> > > Per the GSW145 data sheet, the FCONTX (bits 8:7) and FCONRX (bits 6:5)
-> > > flow-control fields of the PHY_ADDR_n register both encode 00 = AUTO,
-> > > 01 = EN, 10 = reserved, 11 = DIS. GSWIP_MDIO_PHY_FCONTX_EN was 0x0100,
-> > > i.e. field value 10 (the reserved encoding), instead of 0x0080 (01 = EN);
-> > > FCONRX_EN is already 0x0020 (01). Enabling tx flow control therefore wrote
-> > > the reserved value.
-> > > 
-> > > Set FCONTX_EN to 0x0080. The register is shared by all supported parts.
-> > > 
-> > > Fixes: 14fceff4771e ("net: dsa: Add Lantiq / Intel DSA driver for vrx200")
-> > > Signed-off-by: Jan Havran (Advantech Czech) <havran.jan@email.cz>  
-> > 
-> > Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+On Wed, Sep 09, 2026 at 01:15:33PM +0200, Jan Kiszka wrote:
+> From: Jan Kiszka <jan.kiszka@siemens.com>
 > 
-> Other than this last patch the series reads like net-next material 
-> to me TBH. New board enablement. Is that fair?
+> esb_initdevice() unconditionally disabled the WDT, stopping a
+> watchdog that firmware had left running instead of taking over its
+> care. Detect the enable bit in the lock register, set
+> WDOG_HW_RUNNING like the other watchdog drivers do, and simply
+> reset the timeout to the configured value.
 > 
-> No need to repost either way.
-> 
-> And thanks for quick reviews!
+> Assisted-by: opencode:Qwen3.8-27B
+> Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 
-Hi Jakub,
-it makes sense to me. If there is no other board using different speed than the one
-defined by the straps and also there is no other board running it at 2.5G speed,
-then yes, it is new board enablement.
+Applied.
 
-Sorry for the trouble. I had not thought about looking at it from this perspective.
-
-Regards,
-Jan
+Thanks,
+Guenter
