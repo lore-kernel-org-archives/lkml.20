@@ -1,118 +1,138 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31FD3DC856
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FC03F1075;
+	Wed,  9 Sep 2026 09:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946198; cv=none; b=AEAysLvaJmCCQULOSw/qNduPhQn4SCCzrjocW2bn72r+R4hoglxUeqLOcbVFip+7bGQ6fT/QRjlfORLGD+JK473nWiioqa5aWhheH7o817p5Q2kLxoKD6PBTy2yUBzR2djCIPSACwxthOsAHHBrsw/YRxTxhBZe/aBzUkGJ+/dc=
+	t=1788946237; cv=none; b=MSOCgjPpDrhheIGXGzn7RPjxL4qgeIrz61dDpGDYPDz+endmMCiJUeCQPpBNj7EW5zrgmRJEPkxRMtvCWpuxVVPiWauVvedLDPdA0meMTj9ZpEoQ81uNWepd35GtKv5J5rVsNwEOLopkNLD3BejzCiJnHNA8g3I82jNDo9CmKME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946198; c=relaxed/simple;
-	bh=WmqknmXOa3htBxa5JgdgxRU3H8UZeW31hfcsndjwUiI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Hg+YiHok5mT/Y7i+nal1c0wY0f7vQuznD+jUfHdk0bPOUyGiMrrv56I916RtwSuBp3OW5FRnhD9/c2ETdIt9CJKp71gxHYcYwcj+oNkMzlpQ7XA76ojGoeJC69nwDpvTmzoEHQOPHtWhCVNt+1afxG2rpRqMRRKdQeHSJud0UfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=l1f7NXyS; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788946237; c=relaxed/simple;
+	bh=Uy8+fa3cDu11VwKyL+MkTAWtr9qRvo3T55ynaHdO+DQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GUq6fBhz3WspdMGE+fJf52lG/4/HMQt7r4AZ9u7ISaNZ5A/XGuV+4WCRQQA0HyKRN1dAgnf+CZ8ZxSH/IaGAr52qwD/5fxo1GpAInbLR6wKvMt78kQLiCox7alYG2iSdmPYHvDuj3fpq7gA22JvE2veQEX5oBpAwssz6pWgi4BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OONcIadS; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="l1f7NXyS"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260909092932euoutp019d046af333c48f9d31305dae814fbec2~TnRDYd29x0360103601euoutp01u
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:29:32 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260909092932euoutp019d046af333c48f9d31305dae814fbec2~TnRDYd29x0360103601euoutp01u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788946172;
-	bh=AvCVoTcFv09OSmnOhTviu6CzkkZAHrdDwoUk19+MOkw=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=l1f7NXyS9z5pLwa7iy4HuECv/LXXBTT/waZgNWc2ma7UStHoHRWO2KbNqhjYJkriE
-	 aUcTTGNp7sez08ceiZOsRBOuSPPuzQsrpgqlcluFtxhxfYDHrPIa0Ha6vcD0NtnZys
-	 7hzRVD8ZCqWDQmLpNJZLJE7AwsG5x/Cc/HQFlXaQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260909092932eucas1p12e652b155548553a3fb3860adaf88d99~TnRDE5LTl2633426334eucas1p1u;
-	Wed,  9 Sep 2026 09:29:32 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260909092931eusmtip2fb751ca7efb9f29d5549d7ea01817133~TnRClZNqT2607926079eusmtip2o;
-	Wed,  9 Sep 2026 09:29:31 +0000 (GMT)
-Message-ID: <fb39c105-db6c-4820-aee6-e423bf612cc7@samsung.com>
-Date: Wed, 9 Sep 2026 11:29:31 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OONcIadS"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688N1d7F2126182;
+	Wed, 9 Sep 2026 09:30:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=2+5prjKPMANylfWIFutZLxvCEaQqhpeANJvVheqI3
+	t8=; b=OONcIadSGHKzrBWHjXsBOwtUKhny3nEgAO9qKBbikKSd6nWZnL17YIwU+
+	SBrPArJxcgue0+Zd/GpsBkJxwdanom9oFE7k8p/JGb+RNXxVRGDBEIeRdMaIo/xd
+	KiXP9AWZpQTSzyiQUq1Kgfj9ccJlXo8wCGlVx3WWisqgGoknudw+QekJ9EDgkAdQ
+	Q+PnSuJgT+k+MQJRRkuXNVLrIBp07rhGyf7mBJy8xK4kwrVrBAeFQYVnTh2OTWVR
+	CrQSuGfUbD6aPdQbtc5qCTThGGJuVx4bamSLSgLqY9D9TGSrrmbsI6UO0g0ltwzJ
+	Uv41ndXHVwjETtC4IMKAPGUN2VGHw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj8cknp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 09:30:08 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6899QGvc020749;
+	Wed, 9 Sep 2026 09:30:07 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw9jey-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 09:30:07 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6899U5U152101456
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 09:30:05 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5A05C20043;
+	Wed,  9 Sep 2026 09:30:05 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3C42620040;
+	Wed,  9 Sep 2026 09:30:05 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Wed,  9 Sep 2026 09:30:05 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55390)
+	id 059DC160DFE; Wed, 09 Sep 2026 11:30:05 +0200 (CEST)
+From: Sven Schnelle <svens@linux.ibm.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests/ftrace: Fix unique symbol check in kprobe_non_uniq_symbol.tc
+Date: Wed,  9 Sep 2026 11:29:53 +0200
+Message-ID: <20260909092954.2200558-1-svens@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] dma-coherent: report a failed reserved memory
- assignment
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Andrew Morton
-	<akpm@linux-foundation.org>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260905074727.108029-1-donggeunyoo.kernel@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260909092932eucas1p12e652b155548553a3fb3860adaf88d99
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260905074735eucas1p235b2a9129bc0bb01b5725d57149ed5f5
-X-EPHeader: CA
-X-CMS-RootMailID: 20260905074735eucas1p235b2a9129bc0bb01b5725d57149ed5f5
-References: <CGME20260905074735eucas1p235b2a9129bc0bb01b5725d57149ed5f5@eucas1p2.samsung.com>
-	<20260905074727.108029-1-donggeunyoo.kernel@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: 6pSV8Uo2XJFQeN7f1gTIe3kPkKM4nOwj
+X-Proofpoint-ORIG-GUID: 6pSV8Uo2XJFQeN7f1gTIe3kPkKM4nOwj
+X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6aa12720 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=8iogyDQ46Larf4JUBJoA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEwMCBTYWx0ZWRfX2JGVe8HRpP1I
+ K/pDg858DJMLTsRUFKvRMLCudfChvnDdqgogP0MuE8xaNN5xUK87Mmw9/t/8g3BMQAP1bItL4Cm
+ Filo4f7WHLhVzcorLvAcImoScIc/sFU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEwMCBTYWx0ZWRfXyIvu1WNtEaJ5
+ gyVVCSbbWtFCXH9tC/rt0ynHRMQTnKwdY2V2W09dW1aHx06fQCaif5wWMbKwDKUJKYyRwKNypGt
+ +7Nh/AlMmxXaY+WrjOiqNK7jJaF45TwAKnwdUTuAZ0mRIJdk0MIGXYbO9mUdBGPeNyFuviyZKzV
+ qpHkGer9RPuWGjSuBixOmYmH0d/fHmTi75M8bMJdh0J/Qt9/zCA4tTaEdVmJMekKTmChjH7gF6N
+ KMl3BoQw8Yavr9K+ktSOAr0bNnk/HwVXDrkY7zYH3CmSIk0y6ToqEh6GDQhBaObqoE2aK7pTibb
+ QyFLNB+9uritXQIqUPvmGblYDI+zZf8LW6sgE8nF2nRK01ilmF9EsLlNf9yQY3MWNwxVCxYzYFY
+ gF1iA40eU9erwUgTT7x1Irw2vTyok8DuJvUYqvz3PP/5b3cWRoJMWxNPj7d4R1MLd/j5ZwIdXZ2
+ NZE1UXy/MaXAcSSBrng==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1011 spamscore=0
+ impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090100
 
-On 05.09.2026 09:47, Donggeun Yoo wrote:
-> rmem_dma_device_init() drops the return value of
-> dma_assign_coherent_memory() and always reports success. That call fails
-> with -EBUSY when the device already has a coherent pool, and the file
-> allows only "*one* such region of memory" per device.
->
-> of_reserved_mem_device_init_by_idx() reads the zero as success. It logs
-> "assigned reserved memory node" for a region that was not assigned and
-> records the pairing, so of_reserved_mem_device_release() later runs
-> rmem_dma_device_release() for it. That clears dev->dma_mem without
-> looking at which region it was called for, dropping the pool the device
-> did get and leaving it on ordinary memory.
->
-> dma_declare_coherent_memory() checks the same call and releases the
-> memory on failure, and rmem_swiotlb_device_init() propagates its own
-> errors. Return the error here as well, so a device tree that assigns two
-> pools to one device fails the probe instead of half working.
->
-> Fixes: 7bfa5ab6fa1b ("drivers: dma-coherent: add initialization from device tree")
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+The current regex also matches symbols in modules, which makes the
+test fail on s390 where name_show is present only once in the kernel,
+but also multiple times in modules:
 
-Applied to dma-mapping-fixes, thanks!
+000001b1401cdc20 t name_show
+000001b0c05e6c40 t name_show    [mdev]
+000001b0c0495f30 t name_show    [i2c_core]
 
-> ---
-> Compile-tested only, with CONFIG_DMA_DECLARE_COHERENT=y and
-> CONFIG_OF_RESERVED_MEM=y. I do not have a board that assigns two
-> shared-dma-pool regions to one device; the release path was traced
-> through of_reserved_mem_device_release() and rmem_dma_device_release()
-> rather than observed.
->
->  kernel/dma/coherent.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/kernel/dma/coherent.c b/kernel/dma/coherent.c
-> index 45bbae947f4b..4d0266893bcc 100644
-> --- a/kernel/dma/coherent.c
-> +++ b/kernel/dma/coherent.c
-> @@ -352,8 +352,7 @@ static int rmem_dma_device_init(struct reserved_mem *rmem, struct device *dev)
->  	    min_not_zero(dev->coherent_dma_mask, dev->bus_dma_limit))
->  		dev_warn(dev, "reserved memory is beyond device's set DMA address range\n");
->  
-> -	dma_assign_coherent_memory(dev, mem);
-> -	return 0;
-> +	return dma_assign_coherent_memory(dev, mem);
->  }
->  
->  static void rmem_dma_device_release(struct reserved_mem *rmem,
+Fix this by changing the regular expression to only match the function
+name.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Signed-off-by: Sven Schnelle <svens@linux.ibm.com>
+---
+ .../selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq=
+_symbol.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq=
+_symbol.tc
+index bc9514428dba..07b1177c1634 100644
+--- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol=
+.tc
++++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol=
+.tc
+@@ -6,7 +6,7 @@
+ SYMBOL=3D'name_show'
+=20
+ # We skip this test on kernel where SYMBOL is unique or does not exist.
+-if [ "$(grep -c -E "[[:alnum:]]+ t ${SYMBOL}" /proc/kallsyms)" -le '1' ]=
+; then
++if [ "$(grep -c -E "[[:alnum:]]+ t ${SYMBOL}$" /proc/kallsyms)" -le '1' =
+]; then
+ 	exit_unsupported
+ fi
+=20
+--=20
+2.53.0
 
