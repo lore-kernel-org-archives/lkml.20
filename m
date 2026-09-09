@@ -1,62 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD42531B0B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCA0531B06;
 	Wed,  9 Sep 2026 23:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788998282; cv=none; b=qHD0KiiO//Uq2RJKpmhz8psawTeFOvtdNdst/svG0TP3eHs7joaNQc8Lc9+vt+W14D0VxOPCam/UuPNVeIIFPH+c/pgC0oAHIiQLsgL6v9eVTXGdJEiEuOdwldV14pfnkIz+p3d1Mt1msRQOyhpF9+5cYZ0/tp8HV6jsU7LpCuY=
+	t=1788998282; cv=none; b=pNe/r/WQyVsmmhGWr9w35RaFALRcF/E+BXJlyT56XXahe8RIUgQzD3eBLEqvw/qvUL1/ZClPvHqrL3ker9kTsd1Py6j4/q+p9yaEJClUIHKqmKpE40dzcLzuJUpd++FTsKta7PnrK2KzaD9Kf3sg2xA8w2qFD5Hdt4e9K05dl2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788998282; c=relaxed/simple;
-	bh=8s8ujiEQafhuRdDubcaAhu5p1lgdkPD3Rp/b+htDlho=;
+	bh=X25Hd+Or3p5u6aEZ8yVO9ZVqZYHQt7Y9MwbUIyqt3lw=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=L82B/Zcabtae7HIwsxAhBsWqPNic+ouiOd1TjahCocuu4m+YhN1Ry/qRHyDXQM/Gg1QjJZES4wZONXt2UIF1DGxoA1jwKSDAz0REi9ewBsu7Jp2QW+k5LFmpl7+GTClVfEB/HZ9zG7or7v6/mLdMUiYzvpRjmV9hMFzWWpuxvCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4Nlqi1rH; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zwWQPDO/; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=KxrwmfYEy3CDmqLD84Y2U39t+JGP9KVKyUm9KblGuD9l34rkjNVo5guTBLZ35Q1ZoP8dT8dDUyWvuQKraE/mzeXMp5O4DvKdN3Ldup/0l2kQuakU3c8c4yFe/IzAbFeUMZyMlhakURYNEVfDm/wP1jXeUiUJzJWRyvq7lJhYokw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XFz8TjzE; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hoNBbd72; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4Nlqi1rH";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zwWQPDO/"
-Date: Wed, 09 Sep 2026 23:57:56 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XFz8TjzE";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hoNBbd72"
+Date: Wed, 09 Sep 2026 23:57:53 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788998278;
+	s=2020; t=1788998275;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wjX2ookWASYjpiHdkKM4DkQWc8+fvmh3ENr6Dc/S6WE=;
-	b=4Nlqi1rHFyijAFj7S4a/f5zNxn4bKU/cnVzpgkBHjPc3UQ+xg4mzbItqavY4y7HE/MO8BM
-	8rUuFaos6C1BintoqB8C5E7BeQLxZMjlEtrBgZLc2xZN9U/FBBL7lenvkVOta1Sjc5Bx4J
-	VbJaAlQp4v4s890F8u69gPIQjV14Do+rQPnHVLHqXfpwUqwQEX7omqSBJuIs+Kp+jzV64L
-	iiLOt21DuGhaPvMPVvqdZMTPMDhd9AMIVkN4TdrrirnQKmAmkFnnj4W0ojKFb11Zcv+Vs9
-	xVzdEE3bTrNpqCfvOKZH2hP7921ON4Sw3E+AiIapIyyaUxentgAtfAAL6iz14Q==
+	bh=ObDPOB82iZdj9KZiHK78s6rW27z/xmgFnnxDFFDXNv8=;
+	b=XFz8TjzEeh0d93MfFITtppRXhyvPAS1XbIJlnym5+x/Ryn0u/PIHHj1IGyrs1UJRdgCVqS
+	Dvbeof7A1FxYwFjmH6EBDGJmicoeXA/UYzYWGl3K3HoCEidw3Ltu2DTKjD2TL1Xn75VRGt
+	3LkWpiUkQHdgSjY6ONqkzY6CjZ176W4vL6Po0bi6XjZN4k0AWaZEmZ6RgVnDIZkkXkWs6W
+	XNp7SlQc/zhozFAUanMd29E8lFlOm1xdiwxa40ljgxjEt5WhBXj6RMHIrGxJqWSNPhrJXg
+	cLCe3CktgxEeVBmyY2dtIe2dnyDlIcypUk7nsODRp65L9GdDbk5KyXdbB/SnLA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788998278;
+	s=2020e; t=1788998275;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wjX2ookWASYjpiHdkKM4DkQWc8+fvmh3ENr6Dc/S6WE=;
-	b=zwWQPDO//f/kHAuh13jpB444b/jEwt5TNNiwtaOEmFEYglKZfu8cyV0cVaPuu2/pmXwBWq
-	HJJeknktedxcOnDw==
+	bh=ObDPOB82iZdj9KZiHK78s6rW27z/xmgFnnxDFFDXNv8=;
+	b=hoNBbd726mLRE+YKcWdxP1SxEVMAiInBOKwHGCUyldNl7ARRZRTGdBQtE8t3DKennvaBJw
+	yBBbtIf2ASZ/KaBw==
 From: "tip-bot2 for Eric Biggers" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/fpu] x86/fpu: Remove cpu_has_xfeatures()
+Subject: [tip: x86/fpu] xor: Add AVX-512 optimized xor_gen()
 Cc: Eric Biggers <ebiggers@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Christoph Hellwig <hch@lst.de>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260901145740.42337-7-ebiggers@kernel.org>
-References: <20260901145740.42337-7-ebiggers@kernel.org>
+ David Laight <david.laight.linux@gmail.com>, Christoph Hellwig <hch@lst.de>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260901145740.42337-9-ebiggers@kernel.org>
+References: <20260901145740.42337-9-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178899827671.623050.8514464749794445362.tip-bot2@tip-bot2>
+Message-ID: <178899827377.623050.17963507171496507047.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -66,124 +67,265 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/fpu branch of tip:
 
-Commit-ID:     a5f7ae47667cc69738b2483e085cb0b2d819a9ce
-Gitweb:        https://git.kernel.org/tip/a5f7ae47667cc69738b2483e085cb0b2d81=
-9a9ce
+Commit-ID:     3385af7f674a74f871557755010dad045ca1d428
+Gitweb:        https://git.kernel.org/tip/3385af7f674a74f871557755010dad045ca=
+1d428
 Author:        Eric Biggers <ebiggers@kernel.org>
-AuthorDate:    Tue, 01 Sep 2026 07:57:38 -07:00
+AuthorDate:    Tue, 01 Sep 2026 07:57:40 -07:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Wed, 09 Sep 2026 14:15:12 -07:00
+CommitterDate: Wed, 09 Sep 2026 14:27:57 -07:00
 
-x86/fpu: Remove cpu_has_xfeatures()
+xor: Add AVX-512 optimized xor_gen()
 
-The only remaining caller of cpu_has_xfeatures() is print_xstate_features(),
-which uses it only to check and get the name of a single feature.
+Add an implementation of xor_gen() using AVX-512.
 
-Remove it and just inline the needed code into print_xstate_features().
+It uses 512-bit vectors, i.e. ZMM registers.  It also uses the
+vpternlogq instruction to do three-input XORs when applicable.
 
-This also makes the "unknown xstate feature" entry at index XFEATURE_MAX of
-xfeature_names[] unnecessary, so remove that too.
+It's enabled on x86_64 CPUs that have AVX512F && !PREFER_YMM.  In
+practice that means:
+
+    - AMD Zen 4 and later (client and server)
+    - Intel Sapphire Rapids and later (server)
+    - Intel Rocket Lake (client)
+    - Intel Nova Lake and later (client)
+
+The !PREFER_YMM condition excludes the older AVX-512 implementations in
+Intel Skylake Server and Intel Ice Lake.  They could run this code, but
+they're known to have overly-eager downclocking when ZMM registers are
+used.  This is the same policy that the crypto and CRC code uses.
+
+Results from xor_benchmark on AMD Ryzen 9 9950X (Zen 5):
+
+Before:
+
+    # xor_benchmark:           	 4096 bytes	16384 bytes
+    # xor_benchmark:   4 disks:	  256  GB/s	  185  GB/s
+    # xor_benchmark:   5 disks:	  233  GB/s	  165  GB/s
+    # xor_benchmark:   6 disks:	  243  GB/s	  174  GB/s
+    # xor_benchmark:   7 disks:	  244  GB/s	  176  GB/s
+    # xor_benchmark:   8 disks:	  265  GB/s	  179  GB/s
+    # xor_benchmark:  10 disks:	  249  GB/s	  175  GB/s
+    # xor_benchmark:  12 disks:	  219  GB/s	  173  GB/s
+    # xor_benchmark:  15 disks:	  206  GB/s	  177  GB/s
+    # xor_benchmark:  16 disks:	  212  GB/s	  180  GB/s
+    # xor_benchmark:  32 disks:	  193  GB/s	  177  GB/s
+
+After:
+
+    # xor_benchmark:           	 4096 bytes	16384 bytes
+    # xor_benchmark:   4 disks:	  492  GB/s	  202  GB/s
+    # xor_benchmark:   5 disks:	  436  GB/s	  191  GB/s
+    # xor_benchmark:   6 disks:	  466  GB/s	  193  GB/s
+    # xor_benchmark:   7 disks:	  491  GB/s	  194  GB/s
+    # xor_benchmark:   8 disks:	  513  GB/s	  205  GB/s
+    # xor_benchmark:  10 disks:	  454  GB/s	  199  GB/s
+    # xor_benchmark:  12 disks:	  330  GB/s	  204  GB/s
+    # xor_benchmark:  15 disks:	  266  GB/s	  198  GB/s
+    # xor_benchmark:  16 disks:	  243  GB/s	  177  GB/s
+    # xor_benchmark:  32 disks:	  187  GB/s	  165  GB/s
 
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: David Laight <david.laight.linux@gmail.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Acked-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260901145740.42337-7-ebiggers@kernel.org
+Link: https://patch.msgid.link/20260901145740.42337-9-ebiggers@kernel.org
 ---
- arch/x86/include/asm/fpu/api.h |  9 +-------
- arch/x86/kernel/fpu/xstate.c   | 44 ++-------------------------------
- 2 files changed, 3 insertions(+), 50 deletions(-)
+ lib/raid/xor/Makefile         |   2 +-
+ lib/raid/xor/x86/xor-avx512.c | 122 +++++++++++++++++++++++++++++++++-
+ lib/raid/xor/x86/xor_arch.h   |  30 +++++---
+ 3 files changed, 143 insertions(+), 11 deletions(-)
+ create mode 100644 lib/raid/xor/x86/xor-avx512.c
 
-diff --git a/arch/x86/include/asm/fpu/api.h b/arch/x86/include/asm/fpu/api.h
-index 90c63fe..cfed8b2 100644
---- a/arch/x86/include/asm/fpu/api.h
-+++ b/arch/x86/include/asm/fpu/api.h
-@@ -99,15 +99,6 @@ static inline void fpregs_assert_state_consistent(void) { }
-  */
- extern void switch_fpu_return(void);
+diff --git a/lib/raid/xor/Makefile b/lib/raid/xor/Makefile
+index 9b0fad4..e1e3455 100644
+--- a/lib/raid/xor/Makefile
++++ b/lib/raid/xor/Makefile
+@@ -31,7 +31,7 @@ xor-$(CONFIG_SPARC32)		+=3D sparc/xor-sparc32.o
+ xor-$(CONFIG_SPARC64)		+=3D sparc/xor-sparc64.o sparc/xor-sparc64-glue.o
+ xor-$(CONFIG_S390)		+=3D s390/xor.o
+ xor-$(CONFIG_X86_32)		+=3D x86/xor-avx.o x86/xor-sse.o x86/xor-mmx.o
+-xor-$(CONFIG_X86_64)		+=3D x86/xor-avx.o x86/xor-sse.o
++xor-$(CONFIG_X86_64)		+=3D x86/xor-avx.o x86/xor-sse.o x86/xor-avx512.o
+ obj-y				+=3D tests/
+=20
+ CFLAGS_xor-neon.o		+=3D $(CC_FLAGS_FPU) -I$(src)/$(SRCARCH)
+diff --git a/lib/raid/xor/x86/xor-avx512.c b/lib/raid/xor/x86/xor-avx512.c
+new file mode 100644
+index 0000000..c11d834
+--- /dev/null
++++ b/lib/raid/xor/x86/xor-avx512.c
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * AVX-512 optimized implementation of xor_gen()
++ *
++ * Copyright 2026 Google LLC
++ */
++
++#include <linux/types.h>
++#include <asm/fpu/api.h>
++#include "xor_impl.h"
++#include "xor_arch.h"
++
++/*
++ * Implementation notes:
++ *
++ * Unrolling by the number of buffers (2-5) is very important.
++ *
++ * Unrolling by length is less important, especially when using register-ind=
+exed
++ * addressing with negative indices from the end of the buffers.  That appro=
+ach
++ * results in just two loop control instructions being needed per iteration,
++ * regardless of the number of buffers.
++ *
++ * In fact, benchmarks showed that the 2 and 3 buffer cases require only 2x
++ * unrolling by length, while the 4 and 5 buffer cases don't require any
++ * unrolling by length.  Benchmarks also showed that the register-indexed
++ * addressing isn't a bottleneck either; i.e., we can't do any better by
++ * incrementing the pointers as we go along, even with more unrolling.
++ */
++
++static void xor_avx512_2(long bytes, u8 *p1, const u8 *p2)
++{
++	long i =3D -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 64(%1,%0), %%zmm1\n"
++		     "vpxorq (%2,%0), %%zmm0, %%zmm0\n"
++		     "vpxorq 64(%2,%0), %%zmm1, %%zmm1\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "vmovdqa64 %%zmm1, 64(%1,%0)\n"
++		     "add $128, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes)
++		     : "memory", "cc");
++}
++
++static void xor_avx512_3(long bytes, u8 *p1, const u8 *p2, const u8 *p3)
++{
++	long i =3D -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 64(%1,%0), %%zmm1\n"
++		     "vmovdqa64 (%2,%0), %%zmm2\n"
++		     "vmovdqa64 64(%2,%0), %%zmm3\n"
++		     "vpternlogq $0x96, (%3,%0), %%zmm2, %%zmm0\n"
++		     "vpternlogq $0x96, 64(%3,%0), %%zmm3, %%zmm1\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "vmovdqa64 %%zmm1, 64(%1,%0)\n"
++		     "add $128, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes)
++		     : "memory", "cc");
++}
++
++static void xor_avx512_4(long bytes, u8 *p1, const u8 *p2, const u8 *p3,
++			 const u8 *p4)
++{
++	long i =3D -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 (%2,%0), %%zmm1\n"
++		     "vpxorq (%3,%0), %%zmm0, %%zmm0\n"
++		     "vpternlogq $0x96, (%4,%0), %%zmm1, %%zmm0\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "add $64, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes),
++		       "r"(p4 + bytes)
++		     : "memory", "cc");
++}
++
++static void xor_avx512_5(long bytes, u8 *p1, const u8 *p2, const u8 *p3,
++			 const u8 *p4, const u8 *p5)
++{
++	long i =3D -bytes;
++
++	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
++		     "vmovdqa64 (%2,%0), %%zmm1\n"
++		     "vpternlogq $0x96, (%3,%0), %%zmm1, %%zmm0\n"
++		     "vmovdqa64 (%4,%0), %%zmm1\n"
++		     "vpternlogq $0x96, (%5,%0), %%zmm1, %%zmm0\n"
++		     "vmovdqa64 %%zmm0, (%1,%0)\n"
++		     "add $64, %0\n"
++		     "jnz 1b\n"
++		     : "+&r"(i)
++		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes),
++		       "r"(p4 + bytes), "r"(p5 + bytes)
++		     : "memory", "cc");
++}
++
++DO_XOR_BLOCKS(avx512_inner, xor_avx512_2, xor_avx512_3, xor_avx512_4,
++	      xor_avx512_5);
++
++/*
++ * Preconditions: bytes is a nonzero multiple of 512, and all buffers are
++ * 64-byte aligned.
++ */
++static void xor_gen_avx512(void *dest, void **srcs, unsigned int src_cnt,
++			   unsigned int bytes)
++{
++	kernel_fpu_begin();
++	xor_gen_avx512_inner(dest, srcs, src_cnt, bytes);
++	asm volatile("vzeroupper");
++	kernel_fpu_end();
++}
++
++struct xor_block_template xor_block_avx512 =3D {
++	.name =3D "avx512",
++	.xor_gen =3D xor_gen_avx512,
++};
+diff --git a/lib/raid/xor/x86/xor_arch.h b/lib/raid/xor/x86/xor_arch.h
+index 991abe3..ed5921d 100644
+--- a/lib/raid/xor/x86/xor_arch.h
++++ b/lib/raid/xor/x86/xor_arch.h
+@@ -6,21 +6,31 @@ extern struct xor_block_template xor_block_p5_mmx;
+ extern struct xor_block_template xor_block_sse;
+ extern struct xor_block_template xor_block_sse_pf64;
+ extern struct xor_block_template xor_block_avx;
++extern struct xor_block_template xor_block_avx512;
 =20
 -/*
-- * Query the presence of one or more xfeatures. Works on any legacy CPU as w=
-ell.
+- * When SSE is available, use it as it can write around L2.  We may also be =
+able
+- * to load into the L1 only depending on how the cpu deals with a load to a =
+line
+- * that is being prefetched.
 - *
-- * If 'feature_name' is set then put a human-readable description of
-- * the feature there as well - this can be used to print error (or success)
-- * messages.
-- */
--extern int cpu_has_xfeatures(u64 xfeatures_mask, const char **feature_name);
--
- /* Trap handling */
- extern int  fpu__exception_code(struct fpu *fpu, int trap_nr);
- extern void fpu_sync_fpstate(struct fpu *fpu);
-diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-index 97cfd4f..0b17452 100644
---- a/arch/x86/kernel/fpu/xstate.c
-+++ b/arch/x86/kernel/fpu/xstate.c
-@@ -66,8 +66,8 @@ static const char *xfeature_names[] =3D
- 	"AMX Tile config",
- 	"AMX Tile data",
- 	"APX registers",
--	"unknown xstate feature",
- };
-+static_assert(ARRAY_SIZE(xfeature_names) =3D=3D XFEATURE_MAX);
-=20
- static unsigned short xsave_cpuid_features[] __initdata =3D {
- 	[XFEATURE_FP]				=3D X86_FEATURE_FPU,
-@@ -122,44 +122,6 @@ static inline unsigned int next_xfeature_order(unsigned =
-int i, u64 mask)
- #define XSTATE_FLAG_SUPERVISOR	BIT(0)
- #define XSTATE_FLAG_ALIGNED64	BIT(1)
-=20
--/*
-- * Return whether the system supports a given xfeature.
+- * When AVX2 is available, force using it as it is better by all measures.
 - *
-- * Also return the name of the (most advanced) feature that the caller reque=
-sted:
+- * 32-bit without MMX can fall back to the generic routines.
 - */
--int cpu_has_xfeatures(u64 xfeatures_needed, const char **feature_name)
--{
--	u64 xfeatures_missing =3D xfeatures_needed & ~fpu_kernel_cfg.max_features;
--
--	if (unlikely(feature_name)) {
--		long xfeature_idx, max_idx;
--		u64 xfeatures_print;
--		/*
--		 * So we use FLS here to be able to print the most advanced
--		 * feature that was requested but is missing. So if a driver
--		 * asks about "XFEATURE_MASK_SSE | XFEATURE_MASK_YMM" we'll print the
--		 * missing AVX feature - this is the most informative message
--		 * to users:
--		 */
--		if (xfeatures_missing)
--			xfeatures_print =3D xfeatures_missing;
--		else
--			xfeatures_print =3D xfeatures_needed;
--
--		xfeature_idx =3D fls64(xfeatures_print)-1;
--		max_idx =3D ARRAY_SIZE(xfeature_names)-1;
--		xfeature_idx =3D min(xfeature_idx, max_idx);
--
--		*feature_name =3D xfeature_names[xfeature_idx];
--	}
--
--	if (xfeatures_missing)
--		return 0;
--
--	return 1;
--}
--EXPORT_SYMBOL_GPL(cpu_has_xfeatures);
--
- static bool xfeature_is_aligned64(int xfeature_nr)
+ static __always_inline void __init arch_xor_init(void)
  {
- 	return xstate_flags[xfeature_nr] & XSTATE_FLAG_ALIGNED64;
-@@ -302,9 +264,9 @@ static void __init print_xstate_features(void)
-=20
- 	for (i =3D 0; i < XFEATURE_MAX; i++) {
- 		u64 mask =3D BIT_ULL(i);
--		const char *name;
-+		const char *name =3D xfeature_names[i];
-=20
--		if (cpu_has_xfeatures(mask, &name))
-+		if (fpu_kernel_cfg.max_features & mask)
- 			pr_info("x86/fpu: Supporting XSAVE feature 0x%03Lx: '%s'\n", mask, name);
- 	}
- }
+-	if (boot_cpu_has(X86_FEATURE_AVX)) {
++	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_AVX512F) &&
++	    !boot_cpu_has(X86_FEATURE_PREFER_YMM)) {
++		/*
++		 * Use the AVX-512 code on CPUs that support AVX-512 without
++		 * overly-eager downclocking.  On such CPUs the AVX-512 code
++		 * should always work at least as well as the AVX code, so
++		 * runtime selection is unnecessary.
++		 *
++		 * The AVX-512 code can work on X86_32.  However, due to lack of
++		 * use case for that, for now it's built only for X86_64.
++		 */
++		xor_force(&xor_block_avx512);
++	} else if (boot_cpu_has(X86_FEATURE_AVX)) {
++		/* AVX will be the best; no need to try others. */
+ 		xor_force(&xor_block_avx);
+ 	} else if (IS_ENABLED(CONFIG_X86_64) || boot_cpu_has(X86_FEATURE_XMM)) {
++		/*
++		 * When SSE is available, use it as it can write around L2.  We
++		 * may also be able to load into the L1 only depending on how
++		 * the cpu deals with a load to a line that is being prefetched.
++		 */
+ 		xor_register(&xor_block_sse);
+ 		xor_register(&xor_block_sse_pf64);
+ 	} else if (boot_cpu_has(X86_FEATURE_MMX)) {
