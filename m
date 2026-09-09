@@ -1,119 +1,134 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail.dspace.de (mail2.dspace.de [80.228.58.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F7F48C402
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096EE46C4A9;
+	Wed,  9 Sep 2026 08:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.228.58.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944219; cv=none; b=N4eWKNnLKHU4cAAuxKySGWghUww/algF5CB5LkEUXo/a1+UVoLIjlDlWqze71+SHPvmdwK1IGmLYIXi+Z9P+4r8N5JBpm7EY4O+bM3mjHhnhJ2mvpgN3JoEQ5bmxNqu0F+mVZI9yZqCjMSFVDCy8Y6SvJMM1Y5JLlhBi9Kor11Y=
+	t=1788944313; cv=none; b=Tue7lkfU7qzUmuNev/2j6EZaqTKrNw8wggfmmYOy2audjsUL4961xiv1G3qw2onPG8jTNkOHGCEJlf8YkleccFR988ojqvKciU0Ivi4GOyLXISOjD20s8I/iUaqx4EHlnRkXiNhMmkGS6jjvlwc5imGQl9b3J88+TkOPgLA6tUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944219; c=relaxed/simple;
-	bh=d90VN6Sgs+IL1Mw69zS9BhRCoZnWZ+pucEcqe3us92s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:To:From:
-	 References:In-Reply-To; b=oabBxsYqVifjyurvYTFZSdrMg8xCD6qI2fEb7cGQJUrIJ96g6VhGP4vEmbFSvj0X5njo8LSSF0TdNRPOeS1oUMnzhkA93rkXu4a5OodP7RxU78FCnnshAbgFgna2gKYgSn5VufpD7R9kB9/X0X9GHrz/Y6DxwIHlY/IjI/1y10o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CBX9jFPK; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788944313; c=relaxed/simple;
+	bh=VR5lz6e56CwLHQCzov/eaD5ZDxE3Nsomj2KxU1fy0aA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DYQ8Jot0m0CDs9p+H+kzIQWXohLQ664l83PwGRVWZg+4pZ4oLVhD38fC6c+jrIViy1gCNAjtRbVwgcw9KIebJHPrpgblrJgt3qmZXDIBwL2xSJmCBPmKded/M4gpx+kudFRPogq0z36iyamPQA9f4XeSUHlohSlgT593h3zHIO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dspace.de; spf=pass smtp.mailfrom=dspace.de; dkim=pass (1024-bit key) header.d=dspace.de header.i=@dspace.de header.b=ES3eO9xY; arc=none smtp.client-ip=80.228.58.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dspace.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dspace.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CBX9jFPK"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id EB6D31A1A7A;
-	Wed,  9 Sep 2026 08:56:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BE4BD60448;
-	Wed,  9 Sep 2026 08:56:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 445B711C7AF59;
-	Wed,  9 Sep 2026 10:56:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788944214; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BbanUwdlh/0efY1NZ4m20ixL+A4hAWes9KjfDG53tuM=;
-	b=CBX9jFPKO+68YL1rGGQ6LVLZklYs0sihO6+x4uoIqIZOc++n8DMFBoaMoI6iFR2mULRHXG
-	0QwZZXD8csSJEWLGP1fTCrQAn9pKZFbvcLSu+e05EWjdE6bSrVgzW3D5Jzd2/cMGHIcdrF
-	9BhbuupMcw9I57z0w3/tCbQf7ClLq+e84IhBfeIDfJO5x95V4nv75rZArs9OXzM76qx7B8
-	4dDV/KD7ri1tp3Lqog4uHfmuuHOyntHRhW3YUa9+VoVVIM4eYCzBpbtEX21kHRgVn6q2t6
-	1ZcijlcbpXl/XA36/IPIBPHz41+DWfk3rbigJf6WGtY86LOkZGKBZ+nPKJ/6qw==
+	dkim=pass (1024-bit key) header.d=dspace.de header.i=@dspace.de header.b="ES3eO9xY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=dspace.de; i=@dspace.de; q=dns/txt; s=dkim1;
+  t=1788944308;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=W64OfXJBTXrdEHn01dbecqbXkdcTLtQbrrsQRWJQMCY=;
+  b=ES3eO9xY69RiPQQ8Fep/5u2gqkeW29L/cA7LvOqYC268ILf+SkXOpuzx
+   UEJOZjMYNO7RZJlcxSSZ6uPZS3ZzG2SVi68veCM3kS1bNsRvt08FB9CSl
+   GZiG9ZmatiG/i5hWJSaAXp21aa6UmHtWSPjhCzpwGidpFglQfaFECpuhq
+   0=;
+X-CSE-ConnectionGUID: lesFjaISRZmDooY3588RlQ==
+X-CSE-MsgGUID: WwlpYq3GRcO/083IRCND2A==
+X-IronPort-AV: E=Sophos;i="6.25,270,1779141600"; 
+   d="scan'208";a="5430986"
+Received: from unknown (HELO Z1-1000) ([10.1.1.222])
+  by mail.dspace.de with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 09 Sep 2026 10:57:16 +0200
+Received: from VM-Z1-1000-LIVE.dspace.de (localhost [127.0.0.1])
+	by Z1-1000 (Postfix) with ESMTP id 50DDB60038;
+	Wed,  9 Sep 2026 10:57:16 +0200 (CEST)
+Received: from exchange.dspace.de (EX-DE-PAD-SE.dspace.de [10.100.196.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by Z1-1000 (Postfix) with ESMTPS id 41CED60036;
+	Wed,  9 Sep 2026 10:57:16 +0200 (CEST)
+Received: from PascalKW11-NB.dspace.de (10.71.5.241) by EX-DE-PAD-SE.dspace.de
+ (10.100.196.14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 9 Sep
+ 2026 10:57:15 +0200
+From: Pascal Kneuper <PKneuper@dspace.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+CC: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
+	0x1207@gmail.com, si.yanteng@linux.dev, larysa.zaremba@intel.com,
+	aleksander.lobakin@intel.com, netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	DBaldin@dspace.de
+Subject: Re: [PATCH net v2] net: stmmac: restore NET_IP_ALIGN in the RX DMA
+ offset
+Date: Wed, 9 Sep 2026 10:57:29 +0200 (CEST)
+Message-ID: <20260909085731.108922-1-PKneuper@dspace.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <5aeb6fd1-f1c3-426d-a2c4-1ad45ddc8572@bootlin.com>
+References: <20260813092923.284285-1-PKneuper@dspace.de>  <20260824125014.47862-1-PKneuper@dspace.de>  <09e7cd4b-b79c-47ea-95b6-1c1a96fe7657@bootlin.com>  <5aeb6fd1-f1c3-426d-a2c4-1ad45ddc8572@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 09 Sep 2026 10:56:50 +0200
-Message-Id: <DLANSP0CTANH.6BZRA42J57EC@bootlin.com>
-Subject: Re: [PATCH] staging: media: tegra-video: use BIT() macro instead of
- bitwise shift
-To: "Lalit Shankar Chowdhury" <lalitshankarch@gmail.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Jonathan Hunter" <jonathanh@nvidia.com>,
- "Sowjanya Komatineni" <skomatineni@nvidia.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "open list:TEGRA VIDEO
- DRIVER" <linux-media@vger.kernel.org>, "open list:TEGRA VIDEO DRIVER"
- <linux-tegra@vger.kernel.org>, "open list:STAGING SUBSYSTEM"
- <linux-staging@lists.linux.dev>, "open list" <linux-kernel@vger.kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260907173302.23053-1-lalitshankarch@gmail.com>
-In-Reply-To: <20260907173302.23053-1-lalitshankarch@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+X-ClientProxiedBy: EX-DE-PAD-SE.dspace.de (10.100.196.14) To
+ EX-DE-PAD-SE.dspace.de (10.100.196.14)
+X-C2ProcessedOrg: 563f5800-21cf-4d8d-8aed-fddd1469e4ee
+X-TBoneOriginalFrom: Pascal Kneuper <PKneuper@dspace.de>
+X-TBoneOriginalTo: Maxime Chevallier <maxime.chevallier@bootlin.com>
+X-TBoneOriginalCC: kuba@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk, 0x1207@gmail.com, si.yanteng@linux.dev,
+	larysa.zaremba@intel.com, aleksander.lobakin@intel.com,
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	DBaldin@dspace.de
+X-TBoneDomainSigned: false
 
-Hello,
-
-On Mon Sep 7, 2026 at 7:33 PM CEST, Lalit Shankar Chowdhury wrote:
-> Replace the remaining instances of (1 << X) with BIT(X) to follow the
-> kernel coding style guidelines.
->
-> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-> ---
->  drivers/staging/media/tegra-video/tegra20.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/staging/media/tegra-video/tegra20.c b/drivers/stagin=
-g/media/tegra-video/tegra20.c
-> index eb1fc5b7e2cd..2586a137d9da 100644
-> --- a/drivers/staging/media/tegra-video/tegra20.c
-> +++ b/drivers/staging/media/tegra-video/tegra20.c
-> @@ -177,15 +177,15 @@ enum tegra_vi_out {
->  #define       CSI_SKIP_PACKET_THRESHOLD(n)		(((n) & 0xff) << 16)
->  #define TEGRA_CSI_PIXEL_STREAM_CONTROL0(n)		(0x0018 + (n) * 0x2c)
->  #define       CSI_PP_PAD_FRAME_PAD0S			(0 << 28)
-> -#define       CSI_PP_PAD_FRAME_PAD1S			(1 << 28)
-> +#define       CSI_PP_PAD_FRAME_PAD1S			BIT(28)
->  #define       CSI_PP_PAD_FRAME_NOPAD			(2 << 28)
->  #define       CSI_PP_HEADER_EC_ENABLE			BIT(27)
->  #define       CSI_PP_PAD_SHORT_LINE_PAD0S		(0 << 24)
-> -#define       CSI_PP_PAD_SHORT_LINE_PAD1S		(1 << 24)
-> +#define       CSI_PP_PAD_SHORT_LINE_PAD1S		BIT(24)
->  #define       CSI_PP_PAD_SHORT_LINE_NOPAD		(2 << 24)
->  #define       CSI_PP_EMBEDDED_DATA_EMBEDDED		BIT(20)
->  #define       CSI_PP_OUTPUT_FORMAT_ARBITRARY		(0 << 16)
-> -#define       CSI_PP_OUTPUT_FORMAT_PIXEL		(1 << 16)
-> +#define       CSI_PP_OUTPUT_FORMAT_PIXEL		BIT(16)
->  #define       CSI_PP_OUTPUT_FORMAT_PIXEL_REP		(2 << 16)
->  #define       CSI_PP_OUTPUT_FORMAT_STORE		(3 << 16)
->  #define       CSI_PP_VIRTUAL_CHANNEL_ID(n)		(((n) - 1) << 14)
-> @@ -214,7 +214,7 @@ enum tegra_vi_out {
->  #define       CSI_A_PHY_CIL_DISABLE			0x2
->  #define       CSI_A_PHY_CIL_ENABLE_MASK			0x3
->  #define       CSI_B_PHY_CIL_NOP				(0x0 << 16)
-> -#define       CSI_B_PHY_CIL_ENABLE			(0x1 << 16)
-> +#define       CSI_B_PHY_CIL_ENABLE			BIT(16)
->  #define       CSI_B_PHY_CIL_DISABLE			(0x2 << 16)
->  #define       CSI_B_PHY_CIL_ENABLE_MASK			(0x3 << 16)
->  #define TEGRA_CSI_PHY_CIL_CONTROL0(n)			(0x006c + (n) * 4)
-
-The same change has been rejected multiple times. See the previous
-discussions for the rationale:
-https://lore.kernel.org/all/?q=3Ds%3ABIT+dfb%3ABIT+dfn%3Adrivers%2Fstaging%=
-2Fmedia%2Ftegra-video
-
-If you want to improve this code, use GENMASK() or FIELD_PREP_CONST().
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+On Tue, 08 Sep 2026 22:58:05 +0200, Maxime Chevallier wrote:=0D
+> Hi again,=0D
+>=0D
+> On 9/8/26 10:16, Maxime Chevallier wrote:=0D
+> > Hi,=0D
+> >=0D
+> > On 8/24/26 14:50, Pascal Kneuper wrote:=0D
+> >> Since the RX path was converted to zero-copy, the page pool page is ha=
+nded=0D
+> >> to the stack directly as the skb head, and the offset the DMA engine w=
+rites=0D
+> >> at is what determines the alignment of the packet headers.=0D
+> >>=0D
+> >> Before the conversion the payload was copied into an skb obtained from=
+=0D
+> >> napi_alloc_skb(), which reserves NET_SKB_PAD + NET_IP_ALIGN. The=0D
+> >> conversion moved the headroom into stmmac_rx_offset() but did not carr=
+y=0D
+> >> over NET_IP_ALIGN, so on architectures where NET_IP_ALIGN is 2 the IP=
+=0D
+> >> header now lands misaligned:=0D
+> >>=0D
+> >>   64 (NET_SKB_PAD) + 14 (ethernet) + 20 (IP) =3D 98=0D
+> >>=0D
+> >> Same for the XDP branch:=0D
+> >>=0D
+> >>   256 (XDP_PACKET_HEADROOM) + 14 (ethernet) + 20 (IP) =3D 290=0D
+> >>=0D
+> >> On ARM32 this is fatal, because ldm and ldrd trap on unaligned address=
+es=0D
+> >> even when CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS is set.=0D
+>=0D
+> > This patch breaks the stmmac selftests for Jumbo Frames on dwmac1000 :(=
+=0D
+> So looks like the problem isn't this patch, but rather both the way we se=
+lect=0D
+> the bufsize, and the Jumbo test itself :)=0D
+>=0D
+> This merely surfaces existing problems, I have some fixes that I'll send =
+shortly.=0D
+>=0D
+> Maxime=0D
+>=0D
+=0D
+Great! Thanks for testing and keeping us posted :)=0D
+=0D
+Best=0D
+Pascal=0D
