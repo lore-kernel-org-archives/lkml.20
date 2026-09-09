@@ -1,65 +1,65 @@
-Received: from mail-yx2-f1.google.com (mail-yx2-f1.google.com [74.125.224.129])
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CE0330D29
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233C63976B8
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978074; cv=none; b=KvcN0AyI/chG15sNYIuO99+j6+UamxRXBYBZ57Kg+TfH4059LsVw5spMRDT847lq2aRA/b3BnghstXaZIxWPs3A3t8Wp+Omn1FUdVyrGEZJaDVRsYTm34qgY45ql8/oFQQsu2ZyUqH3Sn87sSDvYHRrjYLT3u1+vYjAPZeVECCM=
+	t=1788978145; cv=none; b=aLJukGVZflTF0E4/LEaHZI/Q3qKJYl7Ff3tXc6HhyVpsROFyvl7iV4VqQii47IMc4vreCRdUh0ZWjkR4WftWKMv5EMPHWSTNeH+XoJXfHDB7HBNZHtSLxNNrZ+17fTo82brkkxij0XM3Htd9JEubdYX2zSZ9DzPm4W4TSoK6RMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978074; c=relaxed/simple;
-	bh=C+OpCeT5gS8c3fbfvJQiNaFeaqhR2+5vFvUmbRntlSk=;
+	s=arc-20240116; t=1788978145; c=relaxed/simple;
+	bh=CMSbUmjBNeTqwH+XPZOLWom9obZHzYZEqa0mzswbC08=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=foxH4PSVl6zewvIXn6v+szPyDdzY5P3KokAGuW+ok/L3Le0G2j6OWuizOp+larhDnrs8W8HDsNNLJ8GbEkf53Vswg8j73snNHySMyGQkX3HQug+ovTukZMJtQr/tGeKqIN1mfOEsrgY1hmytrb75LTtw9gwfq74mIUts8yY/PTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=pfuiC65T; arc=none smtp.client-ip=74.125.224.129
+	 Content-Type:Content-Disposition:In-Reply-To; b=TMutKT7o4PQ3psLmCWxwo4pb/QswCtsoXDA8D0vaFXrCa0nADn1BwfWpdJriQYr8gKT163XBf8f72j4tu7+tlXswXweYrbLGAYqr7dYlisKXPDxDfH22y4SQ7p9tghXfozBh6H0XBIrQyWPZG2YpSZjQURop7nOvrABq+OCCM20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=Ew6ow3XV; arc=none smtp.client-ip=74.125.224.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="pfuiC65T"
-Received: by mail-yx2-f1.google.com with SMTP id 956f58d0204a3-66d27631526so2021122d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:21:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="Ew6ow3XV"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-671061b015eso1550212d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:22:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1788978070; x=1789582870; darn=vger.kernel.org;
+        d=cmpxchg.org; s=google; t=1788978143; x=1789582943; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CUMCov5LhTuYJkVeQH8wQuxKR0Qh1nB1q0JH2zRc7+s=;
-        b=pfuiC65TobxFZbLAXgQfD2CK5cMzsd+fV+skQhg0AAw9ZrPdn7x9HMGHN3JtFD11Oa
-         2VuuKObfrGQZoXnc5UwFbkCnS1o5ZRCIo32YT46rzsWI/v5t9Ry2w1Gd9OAGDqNHlOBy
-         b+MWIN0MAG4xqybTh12fmfpr4y5y89FM7mDq8FtEp0HhL9Z4WA0qkV5eLC5u3UUQgvCN
-         YSUuqoRH+BTz2qeSgR1kmncHSCeY9G/XXlGAOfJsu4VF02LVJrwIpfvSlKoLfVBRJmfw
-         7iDQ9VSjHfeUuinGWLo2oubUyAiRUpOs4LY1mUyO07I3V3i0fEF7G/I2jK1lBtcdDXw6
-         Rb2Q==
+        bh=mdfhQUoai9I947DZmJ0Mq2HjjU3s4/4qoMH6601twbc=;
+        b=Ew6ow3XVoyCFrGeO0WHjGuioN49MFRg8TrCEZhOmWvtpV+kKAXJkmXBPexGnocl8xo
+         VwWuElbJ+l0NgJanqchz5C7+/+6y/rfSFvlEBvyOEbkXjMGZWvB/ylNe5A3HGZJ1JHdr
+         cmIGWVYl6vZsdXrLiG+ILf6eHEvZvWz2sAdg2NtTU+sqkiFLA+LYfrXHSIl0ZLH1sHQy
+         LG5748LdhiXtbN/fIMZccQRiG8niRLo560WisX8qtDr9MNP5L/aISpvTkzi6xOn8+Ayp
+         B5yQhHGzxquhZ2CSkgi1HJMNARjFk+5L5EguzfBvMLQAPWgfKG4UOPRLc11rmZNSjJu8
+         XsGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788978070; x=1789582870;
+        d=1e100.net; s=20251104; t=1788978143; x=1789582943;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CUMCov5LhTuYJkVeQH8wQuxKR0Qh1nB1q0JH2zRc7+s=;
-        b=KWH8YWlBRmkVklVKW59bHbXOUIvnGQ3nYPEhnPHJwy/kT00alFv6AtK2F+xnSQ4K2f
-         H9rAQHSGCWDP8KSonQh8KBBVKgvR1qv0gInYpxrfoVtWDjb5mb9XPGqow6hUmMvqMfvX
-         jI4+w3CYLZ2sO6F03Jm08uPKH8Wmzw11xuKctP+2KU2+FhI39f+dVpZCvBw7vxUzAnkt
-         SnAUJxEMNPQPThs0i9oL/J3oGLA207kXWTlxXhC29VqOBJ+oz4XRRW14dONn/xuYl885
-         AwtL0pPD+3ihAubvM2cKRcRk3gWX6x9MwwrUUNWtOs4oTKqoCoD6SpOmQvn/+SISbcdT
-         QQmA==
-X-Forwarded-Encrypted: i=1; AKwUvByvApBSG1QNEvt0D6W/v2kdXj4IodXggpCkw3q+1cKC07QqIPH+63aL3e4btl/20x4eWoDDpchZLNhzOVc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXy2r1IYTOWjnUVSN6WS12iv6prk1d0qi7qSmmL5qGKdk6x1/3
-	qp9xujx3V5+3/1Jl6i/GtWQT4hOsnNBXH1tgUZjXGyctT264DY5rJb0EVXC33yEKJRI=
-X-Gm-Gg: AYBFou3XfcT+kudafpTafa6qekc1G2g9qk35hg/k7SoAk7g0jnz2UOkWV+asshpGxip
-	ozRju89J0+8ZL77EUN5kNTJ4qqs+Z6st/kyuK5ynwkk3BPJ6VGGlsYqEESAYbI15zviSbCvM+nv
-	BA1Eo4VGTPaWPktjDg+jJTdwNz4+dSMaYne4VRNAGbANWhZRVrKRjWEuVf0Wr9fs3ciWcWT/HXy
-	iipT586+uQVvlHN9buyS8EOs9ltkUKJf/VPXpC8nHC1bHnuWzzb+rTIsmJ1mrK1Pg+D/wdVw41t
-	i1zKLpHTXfjoU4l/NtIQQ48BHZoEMUFKIan8oqHHitSXZg8xOMtuV4O+pCWFkc88tTxW3mzWIAD
-	IL5vrSqVdW8pMqoaYVnQDZ4cDPVblTRXpVcIQ1kGwYwuV1bkjqJEJQCiHYARHMi8vW2b79/ncdy
-	u71PCbPc2Djk3s9OEH9zXLCJb09zFM9Tv7NTLU2FXL1b/qtZLyVIpWPcjqYmmVmVz+c0Tr8zc=
-X-Received: by 2002:a53:e447:0:b0:66f:c1bc:c081 with SMTP id 956f58d0204a3-66fc1bcc626mr7160601d50.73.1788978070364;
-        Wed, 09 Sep 2026 11:21:10 -0700 (PDT)
+        bh=mdfhQUoai9I947DZmJ0Mq2HjjU3s4/4qoMH6601twbc=;
+        b=dVY3ncx4xLWEfOtkMlSsHh0MSlBindR9xXGMMsTiPnmISzj9X+8s/9m2EDLVxSod00
+         9XxakWPl7gunTElJG2xXqxBSTO96cmlB9Lh3TuehVMuI7mpCtiY+T7OmyrcHOOcHMX+V
+         42VseqdJIEwnm8EkG7Axc/czTR4Y8M4IA+kgIxyiUoJ7h+nHL/mCtme0lB+c7C8xAAj6
+         1BpQxuq07Z8EYnSXTn+CILkacYizjzSzmMw5kMgj0y//T6PbNNPi2YJ+ZNttQxGSXaSf
+         UDsqQspkhM8Sw/4Zfk58H1mHsPh3auZ75+7ghSmmKjiYA2pbmPMjY28A7qmWHYJL4iQb
+         Z2ug==
+X-Forwarded-Encrypted: i=1; AKwUvBxUIv4izOfkAkqpW4ze7+rc1Dfd5Tn8ehlEAP+3Sp8a0xJx5FKFbpDbJ5x2rfYnJ+M7Zvt28Bm1/PRnhSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6SViZCIXVmAMZy28ze7NVc6CHJkHypNEEkBE79bUbZDIbUFS6
+	rjjyRv3orOZ5IqMTgIKZnwzl4LRHs6q5hfUQEkjqWlY5DOZW8lpO4AvwY/z7z7e7Xc4=
+X-Gm-Gg: AYBFou09Vgouh7Vogh6Df8ltM8a7EmiPXjPqW6dBj65AzOmFu6TvI0IbXGiFrCPsW1v
+	sH7hr6R4jv35148PMmMr1sptD4rl1auUfvNmBr8ll5Bv6yq/t1ovCnRmXjx2nuBrW0psfAPcTUn
+	PXvyM/c3Pnocb+dsFp8TBssKYyfCkVmokou2u1c7Q5By1i1A9oB8Uwhe3XhHobA/flBivA35+UV
+	rvBg5hR7aQXvkZRfOjNLCVRdGFlGEP0zrPktAbrZc5qRFkEVSUqpLc+Gml1VTDDZuCsrIVRKrEH
+	ms8Fg2psLAjgl26HOOvSUzusEcZsbfpSb54SE5J5WR9GWzDvMrUN5USmJKNAhL8b48FqYl3F0wK
+	66O+dd1E1nFsU7YTJ65e709SuexEh7J+jgZL4JuyzQhTHYC/lsFju9UP13qmivVfuOJWLthicdY
+	Gi0uFzwzWryaUKxLXazyWODdKetp6AkAhL+haA67++vYZwFnTdxmlemPknlg4aBC0QJMbIoA==
+X-Received: by 2002:a05:690e:108a:20b0:66d:28d7:c33b with SMTP id 956f58d0204a3-66fb5ad93b6mr9645565d50.40.1788978143182;
+        Wed, 09 Sep 2026 11:22:23 -0700 (PDT)
 Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406871b6sm152808526d6.32.2026.09.09.11.21.08
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040694c35sm149647686d6.36.2026.09.09.11.22.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:21:08 -0700 (PDT)
-Date: Wed, 9 Sep 2026 14:21:04 -0400
+        Wed, 09 Sep 2026 11:22:21 -0700 (PDT)
+Date: Wed, 9 Sep 2026 14:22:20 -0400
 From: Johannes Weiner <hannes@cmpxchg.org>
 To: Qinyun Tan <qinyuntan@linux.alibaba.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -76,11 +76,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Chengming Zhou <chengming.zhou@linux.dev>,
 	Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org,
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: memcontrol: drop kmemcg_id and use the memcg
- ID for list_lru indexing
-Message-ID: <aqGjkGA7XeYEHA2T@cmpxchg.org>
+Subject: Re: [PATCH v2 2/4] mm: list_lru: keep per-memcg lists with nokmem
+ for NONSLAB-backed lrus
+Message-ID: <aqGj3I87H6MnAZRQ@cmpxchg.org>
 References: <20260907110111.2286932-1-qinyuntan@linux.alibaba.com>
- <20260907110111.2286932-2-qinyuntan@linux.alibaba.com>
+ <20260907110111.2286932-3-qinyuntan@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,149 +89,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907110111.2286932-2-qinyuntan@linux.alibaba.com>
+In-Reply-To: <20260907110111.2286932-3-qinyuntan@linux.alibaba.com>
 
-On Mon, Sep 07, 2026 at 07:01:08PM +0800, Qinyun Tan wrote:
-> kmemcg_id is a copy of the memcg ID assigned in memcg_online_kmem(),
-> and is only used as the list_lru xarray index.  With
-> cgroup.memory=nokmem the assignment never happens, so every memcg
-> resolves to the per-node lists.  The next patch needs the index to
-> work under nokmem as well, so drop the copy and use the memcg ID.
+On Mon, Sep 07, 2026 at 07:01:09PM +0800, Qinyun Tan wrote:
+> With cgroup.memory=nokmem, __list_lru_init() collapses every list_lru
+> into per-node lists.  That is fine for slab objects, which are not
+> charged per memcg without kmem accounting.  But a lru backed by a
+> SHRINKER_NONSLAB shrinker, e.g. the THP deferred split queue or the
+> zswap entries, holds user memory, which is charged regardless of
+> nokmem.  Collapsing such an lru loses the per-memcg view of its
+> objects.  Reclaim can no longer target just the cgroup under pressure.
 > 
-> The ID works just as well as the copy did: root and NULL still
-> return -1 and use the per-node lists, and the ID is only released
-> after the list_lru reparenting, so a stale or recycled ID can never
-> reach a live list_lru entry.
+> Keep such lrus memcg aware under nokmem when their backing shrinker is
+> registered SHRINKER_NONSLAB.
 > 
-> The early return of memcg_offline_kmem() under nokmem is dropped as
-> well, so the reparenting also covers lrus that stay memcg aware
-> without kmem accounting.
+> This leaves the savings of nokmem intact: slab-backed lrus (e.g. the
+> superblock dentry/inode lrus) still fall back to the per-node lists,
+> and the per-memcg lists are allocated only when a memcg actually holds
+> such objects.
 > 
+> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
 > Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> ---
->  include/linux/memcontrol.h |  8 +++++---
->  mm/list_lru.c              | 10 +++++-----
->  mm/memcontrol.c            |  6 ------
->  3 files changed, 10 insertions(+), 14 deletions(-)
-> 
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index fdf4812e1d818..edeb287978934 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -254,7 +254,6 @@ struct mem_cgroup {
->  #if BITS_PER_LONG < 64
->  	seqlock_t		socket_pressure_seqlock;
->  #endif
-> -	int kmemcg_id;
->  
->  #ifdef CONFIG_CGROUP_WRITEBACK
->  	struct list_head cgwb_list;
-> @@ -1775,12 +1774,15 @@ static inline void memcg_kmem_uncharge_page(struct page *page, int order)
->  }
->  
->  /*
-> - * A helper for accessing memcg's kmem_id, used for getting
-> + * A helper for accessing the memcg ID, used for getting
->   * corresponding LRU lists.
->   */
->  static inline int memcg_kmem_id(struct mem_cgroup *memcg)
->  {
-> -	return memcg ? memcg->kmemcg_id : -1;
-> +	if (!memcg || mem_cgroup_is_root(memcg))
-> +		return -1;
-> +
-> +	return memcg->id.id;
->  }
 
-This is a private ID with lifetime only guaranteed for online
-groups. Reparenting happens right before it dies at offlining right
-now, but this is not a great dependency to have.
-
-Use mem_cgroup_id() instead and just get rid of that helper.
-
->  struct mem_cgroup *mem_cgroup_from_virt(void *p);
-> diff --git a/mm/list_lru.c b/mm/list_lru.c
-> index a4522ca93ebcb..6fd4e9af84396 100644
-> --- a/mm/list_lru.c
-> +++ b/mm/list_lru.c
-> @@ -502,7 +502,7 @@ static void memcg_reparent_list_lru_one(struct list_lru *lru, int nid,
->  					struct list_lru_one *src,
->  					struct mem_cgroup *dst_memcg)
->  {
-> -	int dst_idx = dst_memcg->kmemcg_id;
-> +	int dst_idx = memcg_kmem_id(dst_memcg);
->  	struct list_lru_one *dst;
->  
->  	spin_lock_irq(&src->lock);
-> @@ -536,7 +536,7 @@ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *paren
->  		 * allocating a new mlru since CSS_DYING is already set for this
->  		 * memcg a rcu grace period ago.
->  		 */
-> -		mlru = xa_load(&lru->xa, memcg->kmemcg_id);
-> +		mlru = xa_load(&lru->xa, memcg_kmem_id(memcg));
->  		if (!mlru)
->  			continue;
->  
-> @@ -551,7 +551,7 @@ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *paren
->  		for_each_node(i)
->  			memcg_reparent_list_lru_one(lru, i, &mlru->node[i], parent);
->  
-> -		xa_erase_irq(&lru->xa, memcg->kmemcg_id);
-> +		xa_erase_irq(&lru->xa, memcg_kmem_id(memcg));
->  
->  		/*
->  		 * Here all list_lrus corresponding to the cgroup are guaranteed
-> @@ -566,7 +566,7 @@ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *paren
->  static inline bool memcg_list_lru_allocated(struct mem_cgroup *memcg,
->  					    struct list_lru *lru)
->  {
-> -	int idx = memcg->kmemcg_id;
-> +	int idx = memcg_kmem_id(memcg);
->  
->  	return idx < 0 || xa_load(&lru->xa, idx);
->  }
-> @@ -602,7 +602,7 @@ static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
->  			if (!mlru)
->  				return -ENOMEM;
->  		}
-> -		xas_set(&xas, pos->kmemcg_id);
-> +		xas_set(&xas, memcg_kmem_id(pos));
->  		do {
->  			xas_lock_irqsave(&xas, flags);
->  			if (!xas_load(&xas) && !css_is_dying(&pos->css)) {
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 7ce50bccf1264..619d4c1f2e8f2 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -3780,17 +3780,12 @@ static void memcg_online_kmem(struct mem_cgroup *memcg)
->  		return;
->  
->  	static_branch_enable(&memcg_kmem_online_key);
-> -
-> -	memcg->kmemcg_id = memcg->id.id;
->  }
->  
->  static void memcg_offline_kmem(struct mem_cgroup *memcg)
->  {
->  	struct mem_cgroup *parent;
->  
-> -	if (mem_cgroup_kmem_disabled())
-> -		return;
-> -
->  	if (unlikely(mem_cgroup_is_root(memcg)))
->  		return;
-
-Both of these functions do very little now and the asymmetry you're
-adding on the mem_cgroup_kmem_disabled() check looks odd. Please just
-inline them into mem_cgroup_css_online()/offline():
-
-onlining:
-	if (!mem_cgroup_kmem_disabled() && likely(!mem_cgroup_is_root()))
-		static_branch_enable(&memcg_kmem_online_key);
-
-offlining:
-	memcg_reparent_list_lrus(memcg, parent);
-
-The root check is unnecessary because roots are not destroyed. But if
-you'd rather not make that change here, keep the root check, and leave
-its removal to a separate cleanup patch, that's fine too.
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
