@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458CF569F19;
-	Wed,  9 Sep 2026 13:32:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF3A569F20;
+	Wed,  9 Sep 2026 13:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960733; cv=none; b=IvVWjZ45GnE0G6+q0Ve73esq3IVyIRixdl3KsPnEN6E5RmOcp6h9+OeMGZv50N9Mv758DLgUUote626LdtB8LSAn37/yc5YA7KECYWBt8WYGgT6quRpo4lsAYp1rgXzgo9baRLzP4ScGaXh3E/nWq9lKTiPSc2tWuiIeTuKM5Mg=
+	t=1788960735; cv=none; b=fracfuUmsMi+Ezo60nFBok7Vm0jSeXQ9o3jQ1EZQk8vtIMnEmtisih9lwYDy5SE4KfhOUrZaVqENUe9Kx9z18e5QPi6pxsR1ccfCSrjIC3RIgNW/D8vM0mlkyu+Z15EHthmWbTK3PFCx1Ile9j7HUB9ErDjoLXnfH7jOMWz7IWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960733; c=relaxed/simple;
-	bh=rbWcq4iOOpkl01+75USy40jwxg7urEwKUDmL0rcDb04=;
+	s=arc-20240116; t=1788960735; c=relaxed/simple;
+	bh=qW6CyD1H8F1c1L7pGA6h+btoJWHKdQnqRIMsCo4xJWI=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bTgQ+cLn0jZ1SZZpddLSz44vNO5b8pX3Tz6RqdvMMbM7bu/Mp17LFdDTSsmHX6zrsPuoReSXFXaOFnJYoyqlXol0DYpp6bRuHhbJxH+mB69sfZIrcb6/MtM91cYqW1ZjyybegYltVaPDTd7LBgeJIhBamKQsCx2xs4E5RkVPcCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NsnrHWDf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=j35mmnvKyXeNL/47YVuFfx1jrKYRP0K0+TMWEoSfFtaLvOzT98tJl28G4Zlw7zxsBEqT8QuiiINuRXnEZgBxnBzcqPpgEibNKdOb1fOLZzmyGlfDLgysCvRF7IgSJGMsEHurK5WDXu+JGZCw2bn0u5VbKaVg5CDhvhBXZ0bPVxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wc1EVimy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NsnrHWDf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DA161F00A3A;
-	Wed,  9 Sep 2026 13:32:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wc1EVimy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC411F00A3E;
+	Wed,  9 Sep 2026 13:32:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960731;
-	bh=G1KtiNMq2MrgyU7ebFIiMymFaGA3MQPiSgWtzieMtgg=;
+	s=k20260515; t=1788960733;
+	bh=Fvoz9hlnlDgHjUKDOXUkg8ppuFUwK1it+tWdEVQnA3Q=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NsnrHWDfXdbqBUTxpdv4o62bxBuDWaUKDQUBj4V3cWId3PVQ0badRfZOOrbDIPPDP
-	 OiERs9dU6Z6VfQthpNwnEKTb15obNztPkwRW5f5Fqo7BflJmTfSCbMvPKazgSJ6gP7
-	 gDpjWwE8U2QjeO3kyms90ntdW+J4Yz5aUJ/qUsjLOOGvtxPIAn2Ebhuu/goqrbGZxM
-	 2qwH/E+WOAWrRT3qCLnEVJI1iTV+SfHKwkt7NeVih0Kr9UNdzCSRzABnAaern2O3Ix
-	 F/NuCm2r4Jkgrmd6O/FZNkepOmMe8r37DEmjKNnq9P4BEao0LVoFjylcIe/yOg44xW
-	 hxuwboUY4JRdQ==
-Subject: Re: [PATCH net-next v2 4/8] r8152: refactor r8157_hw_phy_cfg
+	b=Wc1EVimyIaGkf1Pfq3X6kURUJ7ivDNwfo7Hhn/FKJ3WIlKWFi1IAHFcGZSGJuxg6u
+	 PjDWoVKUVCiL7jaMQq3VNCyogD5FlSiTQEzdu66rX3DgcGGGAFVtNvaT2Qr2/zXsNx
+	 Jhk04r/yjrqhKAjN6AS7DvzoDCLR2wlNjqmC05jDZl2GYh/nboI97JVp2VfgE9ron1
+	 6wbRq2ARB/5X3h1bv+9gE8sFPyK4TYQLieJVx1pkOlbdBZRX0MGHgMeXxgNs6m0ok6
+	 DmMpiEiWqLGXClIExaqtoORVVNeF93ZqYFjjyBmygda38uLGwZYaXpXhKmeoYycYV7
+	 KardeWSYsHeaQ==
+Subject: Re: [PATCH net-next v2 6/8] r8152: add TGPHY access support
 From: netdev-bot+sashiko@kernel.org
 To: hsu.chih.kai@realtek.com
 Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
  nic_swsd@realtek.com, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch
-Date: Wed, 09 Sep 2026 13:32:10 +0000
-Message-ID: <178896073022.219967.8138929054667142378@kernel.org>
-In-Reply-To: <20260903072852.58695-5-nic_swsd@realtek.com>
-References: <20260903072852.58695-5-nic_swsd@realtek.com>
+Date: Wed, 09 Sep 2026 13:32:12 +0000
+Message-ID: <178896073255.219967.13050155285869902671@kernel.org>
+In-Reply-To: <20260903072852.58695-7-nic_swsd@realtek.com>
+References: <20260903072852.58695-7-nic_swsd@realtek.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -46,276 +46,234 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 2
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
 
-- [Medium] r8159_hw_phy_cfg() (new RTL_VER_17_QFN68/QFN100 callback,
-  drivers/net/usb/r8152.c:8332) drops the unconditional…
-- [Low] The commit is presented as a refactor ('Split r8157_hw_phy_cfg
-  into ... and add sram2 bitwise operation helpers') and only vaguely…
-- [Low] The newly added EN_ALDPS_PLLOFF define in the OCP_POWER_CFG block
-  uses space alignment while all neighbouring defines in the same block…
+- [Medium] The new TGPHY PHY access path silently swallows failures.
+- [Low] wait_tgphy_cmd_ready() (drivers/net/usb/r8152.c:2045-2053) is a
+  functional duplicate of the pre-existing, already parameterised…
 
 Pre-existing issues:
-- [Medium] Both r8157_hw_phy_cfg() and the new r8159_hw_phy_cfg() return
-  early when `rtl_phy_patch_request(tp, true, true)` fails, after ALDPS…
+- [Medium] The new TGPHY helpers make control-flow decisions on, and can
+  return to user space, uninitialized kernel stack bytes.
 
 --
 
-r8152: refactor r8157_hw_phy_cfg
+r8152: add TGPHY access support
 
-This splits the shared r8157_hw_phy_cfg() into r8157_hw_phy_cfg() for
-RTL_VER_16 and a new r8159_hw_phy_cfg() for RTL_VER_17_QFN68/QFN100, adds
-sram2_set_bits()/sram2_clr_bits() helpers, and updates PHY parameters for
-RTL8156B/8157/8159.  A few questions below.
+This adds a TGPHY register access path for RTL8157 and RTL8159 using
+USB_TGPHY_CMD/ADDR/DATA, so PHY registers can be reached without
+reprogramming the OCP GPHY base. It also introduces phy_read/phy_write
+pointers in struct rtl_ops so ocp_reg_read()/ocp_reg_write() dispatch to
+either the existing r8152 path or the new r8157 path.
 
 > diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-> index 6c189790b0ba..679aead731f7 100644
+> index 06fad895fce0..1fcb1cc5b4a1 100644
 > --- a/drivers/net/usb/r8152.c
 > +++ b/drivers/net/usb/r8152.c
-> @@ -655,6 +655,7 @@ enum spd_duplex {
->  /* OCP_POWER_CFG */
->  #define EEE_CLKDIV_EN		0x8000
->  #define EN_ALDPS		0x0004
-> +#define EN_ALDPS_PLLOFF         0x0002
->  #define EN_10M_PLLOFF		0x0001
-
-[Severity: Low]
-This isn't a bug, but the new define uses spaces for alignment while
-EEE_CLKDIV_EN, EN_ALDPS and EN_10M_PLLOFF in the same block use tabs.
-Could it use a tab as well?
 
 [ ... ]
 
-> @@ -8075,6 +8086,9 @@ static void r8156b_hw_phy_cfg(struct r8152 *tp)
->  		sram_write(tp, 0x8074, 0x2417);
->  		sram_write(tp, 0x807a, 0x2417);
+> @@ -511,6 +514,10 @@
+>  #define ADV_CMD_WR		BIT(1)
+>  #define ADV_CMD_IP		BIT(2)
 >  
-> +		/* Nway DACONB parameters */
-> +		ocp_reg_w0w1(tp, 0xa4ca, 0x6000, 0x0040);
+> +/* USB_TGPHY_CMD */
+> +#define TGPHY_CMD_BUSY		BIT(0)
+> +#define TGPHY_CMD_WR		BIT(1)
 > +
->  		/* XG PLL */
->  		ocp_reg_w0w1(tp, 0xbf84, 0xe000, 0xa000);
->  		break;
-
-[Severity: Low]
-The subject says "refactor" and the changelog says "update PHY parameters
-for RTL8156B/57/59", but several hardware behaviour changes for already
-shipped parts are mixed in with the mechanical sram/sram2 helper
-conversions.  Could these be split out, or at least described?
-
-This new Nway DACONB write lands in r8156b_hw_phy_cfg(), reached through
-the RTL_VER_13 fallthrough and the RTL_VER_15 case, so it applies to
-shipped RTL8156B devices even though the commit is about the
-r8157/r8159 split.
-
-In r8157_hw_phy_cfg() below, the 0xd3c8 BIT(0) clear moves out of the
-RTL_VER_17 case into the common preamble, so RTL8157 (RTL_VER_16) now
-also gets the ALDPS clock-bypass change.
-
-In the r8159_hw_phy_cfg() tail below, EN_10M_CLKDIV changes from set to
-cleared and tp->ups_info._10m_ckdiv flips from true to false, which
-changes the UPS flag word programmed on every runtime suspend:
-
-	if (tp->ups_info._10m_ckdiv)
-		ups_flags |= UPS_FLAGS_EN_10M_CKDIV;
-
-0xa5ea additionally clears BIT(2), sram2 0x8ffe changes from 0xf450 to
-0xf4ff, and there are new CLKS latency, CMP_Timer, spdchg_pga1_lpf_cap
-and ENET PLL writes.  What failure modes do these address, and which
-package or revision were they tested on?  Should any of them carry a
-Fixes tag?
-
-> @@ -8151,11 +8165,14 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_PHY_PWR, PFM_PWM_SWITCH);
+>  /* USB_UPS_CTRL */
+>  #define POWER_CUT		0x0100
 >  
->  	/* Advanced Power Saving parameter */
-> -	ocp_reg_set_bits(tp, 0xa430, BIT(0) | BIT(1));
-> +	ocp_reg_set_bits(tp, OCP_POWER_CFG, EN_10M_PLLOFF | EN_ALDPS_PLLOFF);
->  
->  	/* Disable ALDPS force mode */
->  	ocp_reg_clr_bits(tp, 0xa44a, BIT(2));
->  
-> +	/* Disable bypass_turn_off_clk_in_aldps */
-> +	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, 0xd3c8, BIT(0));
-> +
->  	switch (tp->version) {
->  	case RTL_VER_16:
->  		/* XG_INRX parameter */
 
 [ ... ]
 
-> @@ -8277,12 +8294,85 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  		sram2_write_w0w1(tp, 0x807c, 0xff00, 0x5000);
->  		sram2_write_w0w1(tp, 0x809d, 0xff00, 0x5000);
->  		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (rtl_phy_patch_request(tp, true, true))
-> +		return;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the early return without
-rollback is now duplicated into the RTL8159 path as well.  By this point
-r8153_aldps_en(tp, false) and rtl_eee_enable(tp, false) have already run
-and most per-version parameters have been written, and
-rtl_phy_patch_request() can fail on timeout or when RTL8152_INACCESSIBLE
-is set:
-
-	if (request && wait &&
-	    !(ocp_reg_read(tp, OCP_PHY_PATCH_STAT) & PATCH_READY)) {
-		dev_err(&tp->intf->dev, "PHY patch request fail\n");
-		rtl_phy_patch_request(tp, false, false);
-		return -ETIME;
-	}
-
-On that path r8153_aldps_en(tp, true), r8152b_enable_fc() and
-set_bit(PHY_RESET, &tp->flags) are all skipped, so the device is left
-with ALDPS and EEE off, pause advertisement unrefreshed, the freshly
-written SRAM/OCP parameters never latched by a PHY reset, and
-tp->ups_info out of sync with the hardware.  Would it make sense to undo
-the ALDPS/EEE disable before returning?
-
-> +
-> +	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL4, EEE_SPDWN_EN);
-> +
-> +	ocp_reg_w0w1(tp, OCP_DOWN_SPEED, EN_EEE_100 | EN_EEE_1000, EN_10M_CLKDIV);
-> +
-> +	tp->ups_info._10m_ckdiv = true;
-> +	tp->ups_info.eee_plloff_100 = false;
-> +	tp->ups_info.eee_plloff_giga = false;
-> +
-> +	ocp_reg_set_bits(tp, OCP_POWER_CFG, EEE_CLKDIV_EN);
-> +	tp->ups_info.eee_ckdiv = true;
-> +
-> +	rtl_phy_patch_request(tp, false, true);
-> +
-> +	rtl_green_en(tp, test_bit(GREEN_ETHERNET, &tp->flags));
-> +
-> +	ocp_reg_clr_bits(tp, 0xa428, BIT(9));
-> +	ocp_reg_clr_bits(tp, 0xa5ea, BIT(0) | BIT(1));
-> +	tp->ups_info.lite_mode = 0;
-> +
-> +	if (tp->eee_en)
-> +		rtl_eee_enable(tp, true);
-> +
-> +	r8153_aldps_en(tp, true);
-> +	r8152b_enable_fc(tp);
-> +
-> +	set_bit(PHY_RESET, &tp->flags);
+> @@ -1687,6 +1696,16 @@ static void ocp_reg_write(struct r8152 *tp, u16 addr, u16 data)
+>  	ocp_write_word(tp, MCU_TYPE_PLA, ocp_index, data);
+>  }
+>  
+> +static u16 ocp_reg_read(struct r8152 *tp, u16 addr)
+> +{
+> +	return tp->rtl_ops.phy_read(tp, addr);
 > +}
 > +
-> +static void r8159_hw_phy_cfg(struct r8152 *tp)
+> +static void ocp_reg_write(struct r8152 *tp, u16 addr, u16 data)
 > +{
-> +	u16 data;
+> +	tp->rtl_ops.phy_write(tp, addr, data);
+> +}
 > +
-> +	r8156b_wait_loading_flash(tp);
-> +
-> +	ocp_word_test_and_clr_bits(tp, MCU_TYPE_USB, USB_MISC_0, PCUT_STATUS);
-> +
-> +	data = r8153_phy_status(tp, 0);
-> +	switch (data) {
-> +	case PHY_STAT_EXT_INIT:
-> +		rtl8152_apply_firmware(tp, true);
-> +		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
-> +		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
-> +		break;
-> +	case PHY_STAT_LAN_ON:
-> +	case PHY_STAT_PWRDN:
-> +	default:
-> +		rtl8152_apply_firmware(tp, false);
-> +		break;
-> +	}
->  
-> +	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
-> +
-> +	r8153_aldps_en(tp, false);
-> +
-> +	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
-> +	WARN_ON_ONCE(data != PHY_STAT_LAN_ON);
-
-[Severity: Medium]
-Is the missing rtl_eee_enable(tp, false) here intentional?  Before the
-split, RTL_VER_17_QFN68/QFN100 went through the shared
-r8157_hw_phy_cfg() which did:
-
-	r8153_aldps_en(tp, false);
-	rtl_eee_enable(tp, false);
-
-The retained r8157_hw_phy_cfg() still has both calls, and
-r8156b_hw_phy_cfg() carries the same step with the comment
-"/* disable EEE before updating the PHY parameters */", but
-r8159_hw_phy_cfg() only disables ALDPS, so the whole RTL8159
-SRAM/SRAM2/OCP block and the rtl_phy_patch_request() window run with EEE
-still enabled.
-
-The tail of the function is enable-only:
-
-	if (tp->eee_en)
-		rtl_eee_enable(tp, true);
-
-so when the user has turned EEE off via r8152_set_eee() (tp->eee_en ==
-false), nothing clears OCP_EEE_CFG/OCP_EEE_ADV after hw_phy_cfg() runs
-again from rtl_hw_phy_work_func_t() following a power cut, firmware
-reload or resume.  Can hardware EEE state and the tp->eee_en /
-tp->ups_info.eee shadow diverge in that case?  rtl_eee_enable() does
-handle RTL_VER_17_QFN68/QFN100, so this does not look like a hardware
-limitation.
+>  static inline void r8152_mdio_write(struct r8152 *tp, u32 reg_addr, u32 value)
+>  {
+>  	ocp_reg_write(tp, OCP_BASE_MII + reg_addr * 2, value);
 
 [ ... ]
 
-> @@ -8460,8 +8563,15 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  		sram2_write(tp, 0x8ff8, 0xaa5a);
+> @@ -2023,6 +2042,61 @@ static int r8152_mdio_test_and_clr_bit(struct r8152 *tp, u16 addr, u16 clear)
+>  	return data & clear;
+>  }
 >  
->  		sram2_write_w0w1(tp, 0x88d5, 0xff00, 0x0200);
-> -		break;
->  
-> +		/* spdchg_pga1_lpf_cap */
-> +		sram_write_w0w1(tp, 0x84bb, 0xff00, 0x0a00);
-> +		sram_write_w0w1(tp, 0x84c0, 0xff00, 0x1600);
+> +static int wait_tgphy_cmd_ready(struct r8152 *tp)
+> +{
+> +	u16 ocp_data;
 > +
-> +		/* ENET PLL jitter improvement */
-> +		ocp_reg_w0w1(tp, 0xbf8a, 0xfc00, 0x2000);
-> +		ocp_reg_set_bits(tp, 0xbf88, BIT(2));
-> +		break;
->  	default:
->  		break;
->  	}
-> @@ -8471,9 +8581,9 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  
->  	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL4, EEE_SPDWN_EN);
->  
-> -	ocp_reg_w0w1(tp, OCP_DOWN_SPEED, EN_EEE_100 | EN_EEE_1000, EN_10M_CLKDIV);
-> -
-> -	tp->ups_info._10m_ckdiv = true;
-> +	ocp_reg_clr_bits(tp, OCP_DOWN_SPEED,
-> +			 EN_EEE_100 | EN_EEE_1000 | EN_10M_CLKDIV);
-> +	tp->ups_info._10m_ckdiv = false;
->  	tp->ups_info.eee_plloff_100 = false;
->  	tp->ups_info.eee_plloff_giga = false;
->  
-> @@ -8485,7 +8595,7 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  	rtl_green_en(tp, test_bit(GREEN_ETHERNET, &tp->flags));
->  
->  	ocp_reg_clr_bits(tp, 0xa428, BIT(9));
-> -	ocp_reg_clr_bits(tp, 0xa5ea, BIT(0) | BIT(1));
-> +	ocp_reg_clr_bits(tp, 0xa5ea, BIT(0) | BIT(1) | BIT(2));
->  	tp->ups_info.lite_mode = 0;
->  
->  	if (tp->eee_en)
-> @@ -10284,7 +10394,7 @@ static int rtl_ops_init(struct r8152 *tp)
->  		ops->eee_get		= r8153_get_eee;
->  		ops->eee_set		= r8152_set_eee;
->  		ops->in_nway		= rtl8153_in_nway;
-> -		ops->hw_phy_cfg		= r8157_hw_phy_cfg;
-> +		ops->hw_phy_cfg		= r8159_hw_phy_cfg;
->  		ops->autosuspend_en	= rtl8157_runtime_enable;
->  		ops->change_mtu		= rtl8156_change_mtu;
->  		tp->rx_buf_sz		= 48 * 1024;
+> +	return poll_timeout_us(ocp_data = ocp_read_word(tp, MCU_TYPE_USB,
+> +							USB_TGPHY_CMD),
+> +			       !(ocp_data & TGPHY_CMD_BUSY), 2000, 20000,
+> +			       false);
+> +}
+
+[Severity: Low]
+This isn't a bug, but is wait_tgphy_cmd_ready() needed at all?  The driver
+already has a parameterised helper right above ocp_adv_read():
+
+	static int wait_cmd_ready(struct r8152 *tp, u16 cmd)
+	{
+		return poll_timeout_us(u16 ocp_data = ocp_read_word(tp, MCU_TYPE_USB, cmd),
+					!(ocp_data & ADV_CMD_BUSY), 2000, 20000, false);
+	}
+
+ADV_CMD_BUSY and the new TGPHY_CMD_BUSY are both BIT(0), and the poll
+interval and timeout are identical, so wait_cmd_ready(tp, USB_TGPHY_CMD)
+looks like an exact substitute.  With two copies, a later change to the
+timeout or the addition of an RTL8152_INACCESSIBLE early-out would only
+land in one of them.
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but the new
+helper makes a hardware-readiness decision on a value that can be
+uninitialized stack data.  ocp_read_word() does:
+
+	u32 data;
+	__le32 tmp;
+	...
+	generic_ocp_read(tp, index, sizeof(tmp), &tmp, type | byen);
+
+	data = __le32_to_cpu(tmp);
+
+and generic_ocp_read() starts with:
+
+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+		return -ENODEV;
+
+That early return never touches the caller buffer, and the return value is
+not checked, so tmp keeps its stack contents.  A genuine transfer error is
+not affected because get_registers() does memset(data, 0xff, size).
+
+Can that make the poll condition !(ocp_data & TGPHY_CMD_BUSY) true on
+garbage, so rtl_tgphy_access() proceeds to issue the ADDR/CMD writes?
+
+The same value also reaches user space on the read side:
+
+	r8157_phy_read() -> ocp_reg_read() -> r8152_mdio_read()
+	    -> rtl8152_ioctl(SIOCGMIIREG) -> data->val_out
+
+rtl8152_ioctl() only tests RTL8152_INACCESSIBLE once on entry, so if
+rtl_set_unplug() sets the flag while the ioctl is in flight, does val_out
+end up carrying up to two bytes of kernel stack?
+
+> +
+> +static int rtl_tgphy_access(struct r8152 *tp, u16 addr, u16 *data, bool write)
+> +{
+> +	u16 cmd = 0;
+> +	int ret;
+> +
+> +	ret = wait_tgphy_cmd_ready(tp);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	if (write) {
+> +		cmd |= TGPHY_CMD_WR;
+> +		ocp_write_word(tp, MCU_TYPE_USB, USB_TGPHY_DATA, *data);
+> +	}
+> +
+> +	ocp_write_word(tp, MCU_TYPE_USB, USB_TGPHY_ADDR, addr);
+> +
+> +	cmd |= TGPHY_CMD_BUSY;
+> +	ocp_write_word(tp, MCU_TYPE_USB, USB_TGPHY_CMD, cmd);
+> +
+> +	if (!write) {
+> +		ret = wait_tgphy_cmd_ready(tp);
+> +		if (ret < 0)
+> +			goto out;
+> +
+> +		*data = ocp_read_word(tp, MCU_TYPE_USB, USB_TGPHY_DATA);
+> +	}
+> +
+> +out:
+> +	return ret;
+> +}
+> +
+> +static u16 r8157_phy_read(struct r8152 *tp, u16 addr)
+> +{
+> +	u16 data = 0;
+> +
+> +	rtl_tgphy_access(tp, addr, &data, false);
+> +
+> +	return data;
+> +}
+> +
+> +static void r8157_phy_write(struct r8152 *tp, u16 addr, u16 data)
+> +{
+> +	rtl_tgphy_access(tp, addr, &data, true);
+> +}
+
+[Severity: Medium]
+rtl_tgphy_access() carefully produces -ETIMEDOUT when TGPHY_CMD_BUSY stays
+set for the full 20 ms, but both wrappers drop it.  Is that intentional?
+
+On the read side r8157_phy_read() returns the pre-initialised 0 to the
+caller, which cannot tell it apart from a real register value of 0.  Since
+almost every PHY operation in this driver is a read-modify-write, that 0
+gets written straight back into the live register:
+
+	ocp_reg_w0w1()
+		data = ocp_reg_read(tp, addr);
+		data = (data & ~clear) | set;
+		ocp_reg_write(tp, addr, data);
+
+	r8152_mdio_set_bit()
+		data = r8152_mdio_read(tp, addr);
+		r8152_mdio_write(tp, addr, data | set);
+
+so every bit the hardware actually held outside the set mask is cleared.
+The comment in r8152_control_msg() describes what that costs:
+
+	"Much of the code in the driver doesn't check for errors...
+	 Writing back modified garbage like this can fully wedge the
+	 adapter, requiring a power cycle"
+
+A stuck TGPHY_CMD_BUSY is not a USB transfer error, so the
+RTL8152_INACCESSIBLE / usb_queue_reset_device() protection that normally
+catches this does not trigger.
+
+On the write side r8157_phy_write() is void, so a timeout in the entry wait
+skips the DATA/ADDR/CMD programming entirely and returns silently.  Does
+that leave tp->ups_info, the cached speed/EEE state and
+rtl8152_set_link_ksettings() recording settings the PHY never received,
+with nothing in dmesg?
+
+The driver's existing implementation of the same ADDR/DATA/CMD plus BUSY
+protocol propagates the error instead: ocp_adv_read()/ocp_adv_write()
+return int and rtl_bmu_read()/rtl_bmu_write()/rtl_bmu_w0w1() check it.
+Would it be reasonable to at least log the failure, or to give the new
+rtl_ops.phy_read/phy_write callbacks an error channel?
+
+A related question on wait_tgphy_cmd_ready(): it has no
+test_bit(RTL8152_INACCESSIBLE, &tp->flags) early-out, unlike the polling
+loop in rtl_phy_patch_request():
+
+		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+			return -ENODEV;
+
+Once the device is gone, does each PHY access then burn up to 20 ms twice?
+r8157_hw_phy_cfg()/r8159_hw_phy_cfg() perform hundreds of accesses from
+rtl_hw_phy_work_func_t(), and rtl8152_disconnect() waits for that work with
+cancel_delayed_work_sync(&tp->hw_phy_work), so can an unplug turn into a
+multi-second stall?
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903072852.58695-1-nic_swsd%40realtek.com
