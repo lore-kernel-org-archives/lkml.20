@@ -1,77 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59ABF46D0AC;
-	Wed,  9 Sep 2026 09:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0176471429
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946736; cv=none; b=PvevA/bCan1sVbmg4BBGTBFe//tX/IWZBLUH6tItO5MwBHRKcXxuAvBeg/OMOwlri8cmf+DmkwGbemMCDAQM1l+BPfNkksgQNRinDGmk5hEdoZMtzd12DFoXI0T7Lsdl5UV7yzaV3Kf9PuiG+lUiPqjACJIDQLG3DvCGhPgSU9M=
+	t=1788946746; cv=none; b=IaGr9wPj0FwzFOgcc9joQRBQpPHimy/FnyxpjrfwSPf4cgDMiDI95WQyZhBvBccGdRQdqp2Qkx1oK86dUGYGCoKzlWDxhom6sp8qMpRWgyJlBft18F/ivk0PN+KG8GBNjX6aiFwSryXOoWGJ3geNcbRMlMpA1Bgt1Ael67aeq3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946736; c=relaxed/simple;
-	bh=dtvU6hyQvLoT3ygSzF7JKzFsqUKPn6y04wbSG+3qQ4s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dBJjdcCP3mhIRTMIMAxosTt6kFlKfeBVkA03TdTaF7zFgd3wShEOME138wnAolHabMKiCasiSSQrzr9hH4HBN3B2rErydxHa6Wd6n8f6Q62k2wiBcTek9qPv5WZqiliPvH09/4lkgImaib9kAwE68jXfJHpYSpk6fyr+MRxUkh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZdPCF1F; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZdPCF1F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754741F00A3A;
-	Wed,  9 Sep 2026 09:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788946729;
-	bh=e67L0KczgwKtpJjX0XHZNFeOkmTiXaUASOr4nN501DM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mZdPCF1FDEzEhnhUAPihmpsGNSPH/8nXhTKqOYwBsa34v8ywYqTRX4r3fhINtMXld
-	 lMZToeYzoUDaVY/KxLaF3ny2/Ly+Y9lE0/zf1sTRU2aXA8KrPIu30nmNqpyvJPmAs8
-	 2yUZzxC4nAm+GdpzKL1t7JIiMiMYAlXY9FhK+YvSLsMe8n6l78mIVbGRbjrc5r0Z+w
-	 XmaZYeRVOIEK/Vgb1YflfO/Zwh1NpduIc14siQ8ITOOR3M4rjuNH93mbBH+J6yNkGW
-	 Bk1Nd/sY1k4/4wTxTgPc++5aIHh18f8Z6NTHdUMyIg8tEaHfsU8y0pJ6cS/T3oZfVk
-	 pOL8b16bNF9JA==
-Date: Wed, 9 Sep 2026 11:38:45 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sudheendra Sampath <giveback4fun@gmail.com>
-Cc: alexandre.belloni@bootlin.com, ynvich@gmail.com, 
-	devicetree@vger.kernel.org, skhan@linuxfoundation.org, me@brighamcampbell.com, 
-	jkoolstra@xs4all.nl, linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-Subject: Re: [PATCH v2 - dt-bindings: maxim-ds1302: Convert to dt schema v2]
- dt-bindings: maxim-ds1302: Convert to dt schema
-Message-ID: <20260909-lyrical-magnificent-mosquito-98bc1e@quoll>
-References: <20260908190137.1168904-1-giveback4fun@gmail.com>
+	s=arc-20240116; t=1788946746; c=relaxed/simple;
+	bh=K2ByZ1eO/zYJRy0jLEGVZwl73TyJ6lHMu0Nm7od0/kE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UjSlj4q3iDR5tdZNXLlEF/TbU1LYZXx4Y657atcYX8T3q3XQOIEE3MWabSrzJb4Gs+qnhfqwfPiFbsbAS5maxc0zIhppnMFuo86Z+A2lFEKEZ8ED9DNzNm580sXQcMZrFQpiRG9oBQPqjzTi2+hJB5eyv2x/igmeYz6XN6f70qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4292cb60ac3211f19a56ed5b684f684d-20260909
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+	IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c14c31ab-8c0c-44b8-98fe-b4ed70361378,IP:15,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:15
+X-CID-INFO: VERSION:1.3.19,REQID:c14c31ab-8c0c-44b8-98fe-b4ed70361378,IP:15,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:15
+X-CID-META: VersionHash:7db8b62,CLOUDID:ecd0124f8c1ecf4945b9c1e0fac8627b,BulkI
+	D:260909173851GI9TNYRZ,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+	C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+	0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4292cb60ac3211f19a56ed5b684f684d-20260909
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1446183854; Wed, 09 Sep 2026 17:38:49 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: tvrtko.ursulin@igalia.com,
+	sunil.khatri@amd.com,
+	vitaly.prosyak@amd.com,
+	pierre-eric.pelloux-prayer@amd.com,
+	moonafterrain@outlook.com,
+	candice.li@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: remove redundant NULL check in amdgpu_cs_vm_handling
+Date: Wed,  9 Sep 2026 17:37:28 +0800
+Message-Id: <20260909093728.642473-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260908190137.1168904-1-giveback4fun@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 12:01:37PM -0700, Sudheendra Sampath wrote:
-> Convert Maxim DS1302 real-time clock binding to DT schema.
-> Changes based on code review comments.
-> 
-> Signed-off-by: Sudheendra Sampath <giveback4fun@gmail.com>
-> ---
+bo_va is assigned from fpriv->csa_va, which is already verified to be
+non-NULL by the surrounding if statement. The inner NULL check can
+therefore never trigger and is dead code, so remove it.
 
-Where is changelog?
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-And more importantly, how did you figure out the address list without
-using get_maintainers.pl script?
-
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC (and consider --no-git-fallback argument, so you will
-not CC people just because they made one commit years ago). It might
-happen, that command when run on an older kernel, gives you outdated
-entries. Therefore please be sure you base your patches on recent Linux
-kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about 'b4 prep --auto-to-cc' if you added new
-patches to the patchset.
-
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 03b41f803520..c978f042ae1f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1146,8 +1146,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 
+ 	if (fpriv->csa_va) {
+ 		bo_va = fpriv->csa_va;
+-		if (!bo_va)
+-			return -ENOMEM;
+ 		r = amdgpu_vm_bo_update(adev, bo_va, false);
+ 		if (r)
+ 			return r;
+-- 
+2.25.1
 
