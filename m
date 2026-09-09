@@ -1,152 +1,128 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEBE32A3D7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AB458123F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971740; cv=none; b=G8qBgKEzxeQGkf7QCjKaOtROeF1cuibofd671l3hlRONuWz8OFDpI3xJltVO6IOz4kUWoF5eY1hQIOhUWJXczwLeyJ+eWNXLfthh00fI5v+Zkfsf/l6x9lidfxL3gPMu2k50d3ZhOBNkI936C+Mt7Z3eFOydI50F+wc2B7Yxn5g=
+	t=1788971806; cv=none; b=MOI/9Oo6pUf4HSJRhvDWfOQTQo8e58QeDLde6PPUL6p7ftAuTo/U6f6OR5SwG5Ib/TrnbLaJdfbpgVEJkWbUyXL7xgHZ+RhtF/6mHgyGLgw9LRDRCv+3fcCCPK7utTV30BtqS+rwsxEsJc/EwlYgYyJ/eF1tV3SjiRrbgcTc/68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971740; c=relaxed/simple;
-	bh=ITiuVoieKTQOWZnGToTekTb3oEaE28KkiGWSmsyA07E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hv9fzugM019KGFQq9//MSvMkOsBdjPluY/vZ5ih3/qqvnhudcwAlqFPvzEL5j07CveN1ySRiogC+67eyK4Rwv185TnclH/B3HmXtzIimcWW2V0fB5jsbA/HOuKxvt1zxDIkl7eWxLpFKPdDSSKrrNP+NQGCy4d3VrGZkLhx1nv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eeEFFabt; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788971806; c=relaxed/simple;
+	bh=gzUNQn07qEf6tHgnalV7kcZShXzuwXfjXh+7ezu0Iws=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=elhJ5TP4mA/anXUSKy0m1lwml0SQm6AE6xL2+xCQf9SRqSbQS8jNRLONbBkYLZ5AAHkWS2HWyFcNfRSHp2cXPg5e77WGkHH8d+H0nStsUOJJryD2YXZnGJpkYRgGDxqfnAx0b0nHDGQvlujor96MMhS+2nHIOess8vdB0jfTDqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBKesYFn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eeEFFabt"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso59207555e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:35:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788971737; x=1789576537; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ESyFju7TbbiKWIaiTGCNmAIToQRsP0nTPwSbd9PY2d8=;
-        b=eeEFFabt+hpzsNKPJeWzA6A9mqgHJedckm0JuXWyomIh2yPDjHZ9fwhe6qREysvZ8S
-         ge57zmB8jbPft8TctKacresaXFRsOO+DCqK4MJKEekp5q+LhxZO+1524Y+aQWTF1B9r7
-         aTqXFxHmraGwyDmdoahBHOLKiaddZe7Vpm1e6pv9tIjdC9sB6K7vl0L8GpGUAjHOP+bq
-         H3qrau2ybX1+Cc8ivrFS3gW6Nw7Q1LBRZmqmjOJbfmf2UMXNT+PVLBzHCVmCURtkIDZW
-         0Lm4dt4u7Y3rWF26AKCxIDz2nwPDdLE1VcX1O3TTDoIrOL5KoUW0iU6o84RLFNk85aeT
-         FhwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788971737; x=1789576537;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ESyFju7TbbiKWIaiTGCNmAIToQRsP0nTPwSbd9PY2d8=;
-        b=bIMwZUyEdJbUn0Eug2DWzWCfpljl2YbbDWxTO0g8FSe5M3o5poht7PEWdfc+qlhr3h
-         ppYdICDk+KzCwLnon/4s5+7otmWAaKk5KkDF3mEMnr/3kVx5NsXchpAQuJGuQDlLkr55
-         SsOkz8lFOieyHCO3sXPrKc3wgGPqRTO9hyWThJ8HttThQM8JldQcuBnthwqpzWFJm+G2
-         ZUcK1b8iuTKt9Dki2GlIWr1ZH3LA/BEk4hfxUpe0gc8R6BjzT9+HR8J4EzHCPHQ+HJsZ
-         GNlTYu+WlqOTBQAJ57BTVHijzir5w3e+x0CQpPAOzi9ZWEXiGXEw+g6J0A392qwKqpJR
-         xWqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzsR/T8q8VeIrcj9QxWyNtv5BDlYjMpwzMfhjLy74SxWS0VAoORkxAbEZQwBpzOu7TIPK44JJgG/Lar0c0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+XI4q/LYdJpKiYe9tdZLtweO76CeU6V2tCK81Ry7Am08ZfLEW
-	/GWfadQMFO6RR/k8tIb1z6jtOOiIsKnFj4rbpa5GRbaFv/YlwnpqyTOR
-X-Gm-Gg: AYBFou2oa+RqW2w///Ru0iTYNUB/gE3W5j543rMxckLoNpLF/Minvqy0dcKtCs6mKxp
-	dldhQ4fofcuZrfh4SzxCWM67fzOjjlhE6rmRd542zjSChupD8xPYS0iSu2n+qbiBDAdSFLp+P0d
-	l+2rFCSu/G0sUytVPtj6kgxBfHyKAM3zQ/6NRuPFwpN560jQmeQzXDwxUxD++tEzH1g2/V7TyBw
-	DADbX219goHziv3uH2J60BYdyiaS8dCrekwmxzd89wBVvvfpgHtxV4aTbH5Sw40nZF9DT+xbw0N
-	WmYrmw6Qu0WEToyLKEQ0X5LRLWaVZcZdYkfo1u9DgPoHh1d2aSJFnbYuUYfUqpf5vRtWxJR8o1I
-	mw7igYoRwzscYgDIBZP/PDWeChOQU6lwOWJMwtcHmH04jTl9PWeqQyi4YQk3PcU73r2xFtOJ6ck
-	2q6oC8YPvY2l9JqtHZjlVWRZMZcs4H2rA1YsXEPQinDhgI8UlKNo676vpB/10eyuYot+zzWL0j2
-	0pubKOknLIXWv29lv3NaDyfmUBTjAag4Xn41dMIWYf6fEOOgTVNc6t9AyJEG8bgAZWAJRslzqw0
-	ODNoYXv5baTfC/yvBHtEGwgNIu+FMIJDhtI8
-X-Received: by 2002:a05:600c:620b:b0:49c:fa20:cc07 with SMTP id 5b1f17b1804b1-49cff19cbf4mr306075945e9.30.1788971737114;
-        Wed, 09 Sep 2026 09:35:37 -0700 (PDT)
-Received: from ?IPV6:2003:ea:8f3f:2700:d91c:55a7:4a6a:c054? (p200300ea8f3f2700d91c55a74a6ac054.dip0.t-ipconnect.de. [2003:ea:8f3f:2700:d91c:55a7:4a6a:c054])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c46b64sm2112395e9.13.2026.09.09.09.35.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 09:35:36 -0700 (PDT)
-Message-ID: <9c34a1dc-6147-4369-8d12-9c5939d07530@gmail.com>
-Date: Wed, 9 Sep 2026 18:35:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBKesYFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3F31F000FF;
+	Wed,  9 Sep 2026 16:36:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788971805;
+	bh=VP//58Wn8k2qcOTJ9qxFhG0WtvAq1P5Aq/CZfspgCd4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oBKesYFnWiOL6rtCA1WvhldX565pHoDow6cst5O+yiMJV8riZzIgENxvieESVooHj
+	 9uMYjfMx9fCGNW+BWfKgL3GFDiiKJbSTmDPwkfvB/kwVg+OII+EN7eKID2LqBJptbD
+	 Ry5keUUsOTMZ4CUaw9ebSqpsZRULbOse7VVROGG2UZP2AGoKSvWDgoh6QKUb1MzGQI
+	 Pg00ASMSf3TbwzPBbeGqpzKbY9lOurMrc9ZfoPdnkRwn71wsI2xaFsWejZQy3UDtdJ
+	 5DUoLtwEVttzeKCuqBW5+mc0gP6U3G6Ok8ram3hl+LQhgAiMoex5zhuV8FZJVDFaop
+	 NpDwRU0SpznOw==
+Date: Wed, 9 Sep 2026 17:36:34 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+Subject: Re: [PATCH] mm: implement and use vma_is_faulted(), silence KCSAN
+Message-ID: <aqGJx-uQjN8-DEBe@gremlin>
+References: <20260909-vma-is-faulted-v1-1-3a701f48984a@kernel.org>
+ <3a261c3e-4c26-41b3-b55f-5800ae1081f3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] r8169: don't enable chip LTR when the platform has
- not enabled LTR
-To: Yogesh Gaur <yogeshgaur.83@gmail.com>, nic_swsd@realtek.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Javen Xu <javen_xu@realsil.com.cn>
-References: <20260909110554.1977-1-yogeshgaur.83@gmail.com>
-Content-Language: en-US
-From: Heiner Kallweit <hkallweit1@gmail.com>
-In-Reply-To: <20260909110554.1977-1-yogeshgaur.83@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3a261c3e-4c26-41b3-b55f-5800ae1081f3@kernel.org>
 
-On 09.09.2026 13:05, Yogesh Gaur wrote:
-> rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,
-> LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on
-> RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on
-> every ASPM enable, then goes on to let the chip trigger L1.2.
-> 
-> The only gate is tp->aspm_manageable, which records that the OS is allowed
-> to control ASPM. It says nothing about LTR. LTR is a separate PCIe
-> capability that only works if every device on the path to the root port
-> supports it. The PCI core determines that in pci_configure_ltr() and
-> records the result by setting LTR Mechanism Enable in the endpoint's
-> Device Control 2 register; per PCIe r6.0 sec 7.5.3.16 a function must not
-> issue LTR messages while that bit is clear.
-> 
-> So on a platform whose hierarchy has no LTR path, the driver now tells the
-> chip to start sending LTR messages nothing will honour, and ties ALDPS -
-> the PHY's link-down power saving - to them. A report against RTL8125B
-> (rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291
-> link down/up transitions in one eight-hour boot, with repeated downshifts
-> to 100Mbps, against four transitions at boot and then a stable link on the
-> kernel before the LTR change.
-> 
-> Read the endpoint's LTR Mechanism Enable bit and leave the chip's LTR
-> machinery alone when the platform did not enable it.
-> pcie_capability_read_word() zeroes its output on error, so an unreadable
-> capability takes the same safe path.
-> 
+On Wed, Sep 09, 2026 at 06:24:52PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/9/26 18:14, Lorenzo Stoakes (ARM) wrote:
+> > Provide a function to abstract the common task of checking whether
+> > a VMA is faulted in or not.
+> >
+> > A VMA or mmap lock must be held when calling this function. For an attached
+> > VMA the transitions between unfaulted/faulted state are:
+> >
+> >        Transition        |              VMA/mmap Lock state
+> >  ------------------------|-----------------------------------------------
+> >    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
+> >    faulted to unfaulted  | write lock
+> >
+> > So vma_is_faulted() never provides a false positive (the lock precludes
+> > it), but if only a read lock is held, a negative result must be re-checked
+> > with mm->page_table_lock held.
+> >
+> > Detached VMAs cannot be concurrently manipulated as they are removed from
+> > the maple tree so require no guarantees.
+> >
+> > Use data_race() to silence KCSAN about non-existent data races between
+> > concurrent vma->anon_vma read/write on optimistic fault tests.
+> >
+> > Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
+> > dependants.
+> >
+> > Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
+> > preparation callers which test vma->anon_vma directly to use
+> > vma_is_faulted() instead.
+> >
+> > Note that the lockless read in reusable_anon_vma() is doing more than
+> > checking whether the VMA is faulted - it is returning the anon_vma to be
+> > used on fault, so this check is not altered.
+> >
+> > There is one odd one out - file_backed_vma_is_retractable() - which holds
+> > neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
+> >
+> > Therefore just add a comment to explain why the direct vma->anon_vma check
+> > is required.
+> >
+> > Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+> > Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
+> > Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+>
+>
+> Is vma_is_faulted() really the right thing to use when wanting to say that we
+> (likely) faulted in an anon page?
+>
+> I think that's highly confusing, considering just MAP_SHARED mappings where that
+> will never be true.
 
-Thanks for the fix!
+Hmm, yeah.
 
-> Fixes: 9ab94a32af70 ("r8169: enable LTR support")
-> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
-> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
-> ---
->  drivers/net/ethernet/realtek/r8169_main.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> index ec4fc21fa21f..c1ff4e898570 100644
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> @@ -3037,6 +3037,16 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
->  
->  static void rtl_enable_ltr(struct rtl8169_private *tp)
->  {
-> +	u16 ctl2;
-> +
-> +	/* The chip must not issue LTR messages unless the platform enabled
-> +	 * LTR on the whole path up to the root port. The PCI core discovers
-> +	 * that in pci_configure_ltr() and reflects it in LTR Mechanism Enable.
-> +	 */
-> +	pcie_capability_read_word(tp->pci_dev, PCI_EXP_DEVCTL2, &ctl2);
-> +	if (!(ctl2 & PCI_EXP_DEVCTL2_LTR_EN))
-> +		return;
-> +
+I mean there's nowhere you'd do this check where you weren't checking something
+that couldn't at least in theory be anon-faulted. But it's confusing vs. shared
+you're right.
 
-Can't you simply query tp->pci_dev->ltr_path instead of doing this low-level
-PCI register read? When reading through pci_configure_ltr(), I think this
-should do the trick.
+vma_is_anon_faulted()?
 
->  	switch (tp->mac_version) {
->  	case RTL_GIGA_MAC_VER_80:
->  		r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);
+>
+> --
+> Cheers,
+>
+> David
 
+--
+Cheers, Lorenzo
