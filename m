@@ -1,348 +1,217 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9382321F2D;
-	Wed,  9 Sep 2026 02:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EF1492E53
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922101; cv=none; b=ZLSouNWA5+E66GNJJkdcDPnXXKbc/TcnVrb7xybdKfIqQsXat+l2BRnHW7d7L33zJF2nw93m6BrvRS1a+pvaC52icprI3wkBzrpvcECFor6i2OlV1R5NX7r4Hq4JXp6Z9hkaf34st+pj09PUztnnz1JVt6ocvSuPopXGCxpKFlc=
+	t=1788922240; cv=none; b=gXYsFdZCl4xq0x27sFOhVSnKCRVY7Jt7L0Sx3q24QrCfQrvjkCszrIY6z28ZATO0N/qS7bP1NJV4mkzUpJIKWz2KV+fr3oGUVn/V4zclfXuipNmpkJjC0hbyW8EM/AbK/Eh6jEKSWGVb9SQQVppPDsVSIAHer4Ma8hm7tmdYJxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922101; c=relaxed/simple;
-	bh=1MR++Lqmyfznje+D23VGmd3/kpNoNUoCa4yaXI7odyE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=V37rko0LGnO4mngqnnMaouE8KK3xcc0cU6BLedNjamFVJeGGboQITxfQaULcUIHUWOpWGI2fNHbTuRAYcPw6EcO97wucC/3iLhQyEnbVNRao7WEODoUX/Fg6XYfViAx1SagaOFqGmvEr5amgUuCPQk+xYvy4t6kE3yZtB5lnKzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e54d3406abf811f19a56ed5b684f684d-20260909
-X-CID-CACHE: Type:Local,Time:202609091026+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b448e444-1316-41da-85c8-072a19a2bc53,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:e551ac8755f378e249ca632577a5e096,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e54d3406abf811f19a56ed5b684f684d-20260909
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1846690103; Wed, 09 Sep 2026 10:48:11 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/3] ntfs: sync the volume dirty bit with the recorded error state
-Date: Wed,  9 Sep 2026 10:48:02 +0800
-Message-Id: <20260909024803.810556-3-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260909024803.810556-1-zenghongling@kylinos.cn>
-References: <20260909024803.810556-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1788922240; c=relaxed/simple;
+	bh=ZpMWf0mmEjm42iJUxpfB3CY6H9148SV6nnAr/13zjOY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j4WG3I927FaZ9gv8rsdWsyGzC9M/FMiDpjj1nXQzUMNlH0VbcKim+VqAiiZ+hWx69vOqoHSiyaXXOWJKcDBiCsRmmru//bcl7wsyTiVnX1E0eoGfoRquQa5Dma1Lu1jcvTtRGqDVd40Y7FR2fnpJGjQG74VtKk+FtDOwtqvonXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q+zuU2Ye; arc=none smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q+zuU2Ye"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-86cba60d4f2so40096567b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 19:50:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788922236; x=1789527036; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7KcmM3MS3Zo8oEvXtwDuI95pn1nsgMeCw5aYRzAM4f8=;
+        b=Q+zuU2Ye+kLo3qfdiFSfxCq2s8wRT1kD59uBQpQ2YeSB6RoaGROlZR7GbkmLl6wX7l
+         xCXl+H+4rnZSNmGgLPOb0pxrtqyX6XZaF69fb1gVbU/lskPZ2LhMEeCxfMfyYwWSUL61
+         h/k4jGvhfRhce5T9PtcSCo3V6cs2qb3ZAWJ8gzxeoHo5y9GrkaG01WdqdJtp1zWW8WlC
+         Znjdn+U0Z1vNb6GYhDlorkksmo1o7Uo8zHxuzy8Aj2h4c9j4MCJEsJTXR9uRLGamuh/u
+         OuqTYJ3iiR4wXhZBz1gCugYsNwvCxUvQWfEdmVyJorCwBCmy36ZW66pxj9ezrMsm3gtU
+         owNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788922236; x=1789527036;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7KcmM3MS3Zo8oEvXtwDuI95pn1nsgMeCw5aYRzAM4f8=;
+        b=IftfHEZMCl3RJWxInlyp2V07IkWWIJlBQaJCVpNBULJgZz3LFmcYPkR74ss00axrp/
+         ct9YnQpbnAbp41fWhr5Zf75aFtKOzdPWqTZ2SSmqE7AFAN3nmw4gOwG3+qIv6Hm57F/h
+         JBXozF43QmM2i6gZfdHUjpUE8zZ0NIleggpf1EswVmqK4X8IR8K7qoFuA66R5AE8rVoW
+         xTlhE8gpjL3nXoLfOo1CDX80w6LBPADPUI1+pDqeMgTiFOauet46nxxe6xqf7bBapswB
+         jyhRspGmqXj3FL+4LJDs03aT67B1+tkp3ZU6UbDerQqLYQ1Doanr+ny257S37duJi+8z
+         VpiA==
+X-Gm-Message-State: AFuF++mWTyHqnKzWJkSjCxjVx/O+OkWf7cxaG1cQnzjvoI8/hFLb8nhb
+	MMg9fHHSzxB5DA/0Xa8WK/6NFtSA1PfsvJSSqwEu3VyEaReGjBq3JZZG
+X-Gm-Gg: AYBFou1fz0HjyAtdk5HEXB6YEc6H/J1uv0NDfOgGeZpumyViCb/LN7XyKWI2N2hFl6g
+	BvQ1rtlTmp22hW6F/XORxVNgLN3duOzFXSVfyBazZDSdu0jta3VMbtHSFTQvEeVKgQxfFN0GY/e
+	McEA3qchzxeaOwU6YWa3ffJpFARDdiEMof6/h73L2dmt9sDwgqcnXchtbI1yTXHUlzHK64KYeU4
+	NV0QDr2/oRMFvGwIsZdQUQo/HWctuOxiCHtpM6JEBeqUYD81nzh/S6MegVehkCtIf3GL1MlWHHC
+	2Hc/r2qH38zVBsllygALzvoP9hgX4lVwQIAh3lFm2TyXEVcV2obBuxvlLSmpQ7lxRGv5h/InC/H
+	ZbvjgF3fchdAnaen7T7Kh5Tcu3o7hrXHc9m4F/HdaR6enIasZERwkNOqJd5J9qidUd67orh6qf6
+	RiqXND8FxWb3GcGuOpGeAcNj9/sm8nm2sdvo6TplTAuDZ8C8+a0Lz2bwoZvipEMBPrDPpF4Z8=
+X-Received: by 2002:a05:690c:d8f:b0:873:5c6b:a2fa with SMTP id 00721157ae682-8735c6ba696mr91380127b3.40.1788922235924;
+        Tue, 08 Sep 2026 19:50:35 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714bef8930sm104346937b3.46.2026.09.08.19.50.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 19:50:34 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
+Date: Tue, 08 Sep 2026 22:50:33 -0400
+Message-Id: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPwW7DIAwG4FepOI8JDIbQ095j2oE4JkVbm4pU0
+ aYq7z7S29Jx/C1/v+W7mLlknsXxcBeFlzzn6VJD93IQdIqXkWUeahagwKmgnLxySXK8fYJERIr
+ K9r1DEHX/Wjjl70fX+0fNpzzfpvLzqF70Nv2vZdFSSY/O9qlDMDG8jeeYv15pOoutZYGmhCoNE
+ 6Wk0NCg99I0pamSdQLVOdA2qr20TWmrDJ4DMCtf7V5iU+J2s/PWR4cE9umma0pXpQs4aFI6xvj
+ 0p29KX6Vm4s6E1NPfP9d1/QURtNQ1/gEAAA==
+X-Change-ID: 20260906-perf-gtk2-555ca04bb652
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6343; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=ZpMWf0mmEjm42iJUxpfB3CY6H9148SV6nnAr/13zjOY=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIWnKy8zvXJWsjzedy2ileP+aZvc5u7cc+Bxq4rjKruw
+ ipyJy/GdnxkYRDjYpgppsgSt16RZVbbjqU+p6V/wcxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
+ hkCGjlE8RE6PQSOzuLg0tUg3raDIIS+/JLEkMz+vWC+/IDWvIL1ALy0zrSQjI7+oOBVohF5eaom
+ pq6ObkaGBiaWjhZmThaOpibOzk6GTm6Ojs6uTkaW5iYGzpaOJq6U5AxenAMw1xokMf7jupO489S
+ WulIOPd9pklzVGd+SrItZmOT/jvfX5GDPDqauMDM+jFqxZNp2zRuLK/UmO/3d9nPVFQMD9eW7/x
+ Fu/JLgOazACAA==
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-The runtime metadata-corruption paths in fs/ntfs only record the
-in-memory NVolErrors() flag; whether VOLUME_IS_DIRTY ever reaches disk
-depends on ntfs_set_volume_flags() being called by some other path,
-which for most error sites never happens.  A volume can therefore
-unmount with a clean on-disk flag despite recorded corruption, and
-chkdsk will not run on the next mount.
+GTK2 is long dead upstream and increasingly hard to keep building on
+current distros. This series ports perf's GTK-based report browser to
+GTK4 and fixes it up so it's actually loadable at runtime after the
+port.
 
-Persisting the dirty bit from the error paths themselves does not work:
-they run under a wide variety of ntfs locks, and the dirty-bit write
-takes the $Volume mrec_lock and maps the $Volume mft record, which on
-an $MFT page-cache miss takes the $MFT runlist lock for writing.  That
-is enough to self-deadlock or form ABBA cycles from several of them:
-the $MFT extend undo paths hold the $MFT runlist lock and then take
-vol->lcnbmp_lock inside ntfs_cluster_free(); the cluster allocation and
-free rollback paths hold vol->lcnbmp_lock; and the whole mft record
-allocation tree is reachable from ntfs_write_volume_label()'s
-attribute-list maintenance while it holds the $Volume mrec_lock itself.
+Patch 1 does the mechanical port (build system, widget API changes),
+including the leftover-GTK2-call and signal-handling fixes that were a
+separate patch 3 in v4. Patch 2 fixes a runtime issue found after the
+port that prevented the browser from loading. Patch 3 fixes two stack
+buffer overflows in the hierarchy view that predate the port.
 
-Instead, make the persistence a property of the sync paths, which run
-without ntfs locks held.  The new ntfs_sync_volume_dirty_state() sets
-VOLUME_IS_DIRTY when NVolErrors() is recorded and clears it otherwise,
-evaluating the error flag under the $Volume mrec_lock.  It is called
-from ntfs_sync_fs(), from the remount-to-read-only path of
-ntfs_reconfigure(), and from ntfs_put_super(), which previously
-evaluated NVolErrors() outside the lock before clearing the dirty bit
-unconditionally, and which now also persists the dirty bit for volumes
-with recorded errors so they unmount with chkdsk scheduled.
-
-The guarantee this provides is eventual, not instantaneous: the error
-paths record NVolErrors() with a lock-free set_bit(), so a persistence
-point that evaluates the flag just before an error is recorded can
-still leave the on-disk bit clean until the next one.  This is sound
-because NVolErrors() is sticky for the lifetime of the mount and every
-persistence point re-derives the on-disk bit from it; the last one,
-ntfs_put_super(), runs after evict_inodes() on a quiesced filesystem,
-so a volume that is read-write at unmount time cannot unmount clean.
-A volume that is already read-only when the error is recorded
-(errors=remount-ro flips the superblock on the first error, as does an
-earlier remount-ro) has no persistence point left and keeps whatever
-on-disk bit it had; that behaviour is unchanged.  The residual window
-is a crash between the error and the next persistence point.
-
-The persistence paths never write a hibernated volume: resuming Windows
-from a modified image corrupts it.  Record the mount-time hibernation
-verdict in the new NV_Hibernated volume flag and make
-ntfs_sync_volume_dirty_state() a no-op while it is set, so the dirty
-bit is left exactly as it is on disk and only the in-memory error
-state is kept.  Without this, an rw mount of a hibernated volume with
-the default errors=continue would gain a filesystem-internal write on
-the first sync, remount or unmount.  Other writes to such a mount,
-like the mount-time logfile emptying, are pre-existing and unchanged.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- fs/ntfs/super.c  | 113 ++++++++++++++++++++++++++++++++++++-----------
- fs/ntfs/volume.h |   4 ++
- 2 files changed, 90 insertions(+), 27 deletions(-)
+Changes in v8:
+- Fix perf_gtk__add_hierarchy_entries() to restore hpp->buf/hpp->size
+  unconditionally after formatting each entry, not just before
+  recursing into children: leaf entries left the buffer state
+  advanced, so the next sibling in the traversal inherited a
+  shrunk hpp->size and an already-advanced hpp->buf, eventually
+  running hpp->size to 0 and pointing bf past the end of the
+  stack buffer for the strim(bf) call (reported in v7 review)
+- Link to v7: https://lore.kernel.org/r/20260906-perf-gtk2-v7-0-1ece839fbca0@gmail.com
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index ce159ae8169a..4b4af1ea8b09 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -262,6 +262,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
- 	return 0;
- }
- 
-+static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol);
-+
- static int ntfs_reconfigure(struct fs_context *fc)
- {
- 	struct super_block *sb = fc->root->d_sb;
-@@ -312,11 +314,19 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		}
- 	} else if (!sb_rdonly(sb) && (fc->sb_flags & SB_RDONLY)) {
- 		/* Remounting read-only. */
--		if (!NVolErrors(vol)) {
--			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
--				ntfs_warning(sb,
--					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
--		}
-+		/*
-+		 * With errors recorded the dirty bit is set rather than
-+		 * cleared, so it survives until the unmount.  Note that
-+		 * once this remount succeeds no further persistence point
-+		 * exists: ntfs_sync_fs() is only ever invoked for
-+		 * read-write superblocks (all its VFS callers skip
-+		 * read-only ones) and ntfs_put_super() skips them, so an
-+		 * error recorded only after the remount is never
-+		 * persisted.
-+		 */
-+		if (ntfs_sync_volume_dirty_state(vol))
-+			ntfs_warning(sb,
-+				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
- 	}
- 
- 	ntfs_debug("Done.");
-@@ -357,9 +367,10 @@ void ntfs_handle_error(struct super_block *sb)
-  * @vol:	ntfs volume on which to modify the flags
-  * @set_bits:	bits to set in the volume information flags
-  * @clear_bits:	bits to clear in the volume information flags
-+ * @dirty_if_errors:	force VOLUME_IS_DIRTY on when NVolErrors() is set
-  *
-  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-- * instead (see below).
-+ * or ntfs_sync_volume_dirty_state() instead (see below).
-  *
-  * Combine @set_bits and @clear_bits with the current in-memory flag state and
-  * write the result back.  The set/clear helpers pass only the bits to modify,
-@@ -368,11 +379,18 @@ void ntfs_handle_error(struct super_block *sb)
-  * All bit manipulation is done on CPU-endian values, and the result is
-  * converted back to little-endian before storing it.
-  *
-+ * When @dirty_if_errors is true and errors have been recorded on @vol,
-+ * VOLUME_IS_DIRTY is forced on after the requested changes.  NVolErrors() is
-+ * evaluated under the same mrec_lock, which orders this against other
-+ * locked flag updates; the runtime error paths themselves record the flag
-+ * lock-free, so see ntfs_sync_volume_dirty_state() for the guarantee this
-+ * provides against them.
-+ *
-  * Return 0 on success and -errno on error.
-  */
- static int ntfs_write_volume_flags(struct ntfs_volume *vol,
- 		const __le16 set_bits, const __le16 clear_bits,
--		const bool skip_if_errors)
-+		const bool dirty_if_errors)
- {
- 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
- 	struct volume_information *vi;
-@@ -382,12 +400,11 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
- 
- 	mutex_lock(&ni->mrec_lock);
- 
--	if (skip_if_errors && NVolErrors(vol))
--		goto done;
--
- 	flags = le16_to_cpu(vol->vol_flags);
- 	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
- 	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	if (dirty_if_errors && NVolErrors(vol))
-+		flags |= le16_to_cpu(VOLUME_IS_DIRTY);
- 	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
- 			le16_to_cpu(vol->vol_flags), flags);
- 
-@@ -455,15 +472,43 @@ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
- }
- 
- /*
-- * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-- * @vol:	ntfs volume whose dirty bit should be cleared
-+ * ntfs_sync_volume_dirty_state - persist the dirty bit per the error state
-+ * @vol:	ntfs volume whose dirty bit to persist
-+ *
-+ * Set VOLUME_IS_DIRTY if errors have been recorded on @vol and clear it
-+ * otherwise, under the $Volume mrec_lock.
-+ *
-+ * The guarantee this provides is eventual, not instantaneous: the runtime
-+ * error paths record NVolErrors() with a lock-free set_bit(), so a
-+ * persistence point that evaluates the flag just before an error is
-+ * recorded can still leave the on-disk bit clean.  This is sound because
-+ * NVolErrors() is sticky (nothing clears it for the lifetime of the mount)
-+ * and every persistence point re-derives the on-disk bit from it; the
-+ * last one, ntfs_put_super(), runs after evict_inodes() on a quiesced
-+ * filesystem, so a volume that is read-write at unmount time cannot
-+ * unmount clean.  A volume that is already read-only when the error is
-+ * recorded (errors=remount-ro flips the superblock on the first error,
-+ * as does an earlier remount-ro) has no persistence point left and
-+ * keeps whatever on-disk bit it had; that behaviour is unchanged.  The
-+ * residual window is a crash between the error and the next
-+ * persistence point.
-+ *
-+ * This is the single point that persists the in-memory error state to disk.
-+ * The runtime error paths only record NVolErrors() because they run under a
-+ * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
-+ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
-+ * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
-  *
-- * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-- * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-- * recorded.
-+ * A hibernated volume is not written from these persistence paths:
-+ * resuming Windows from a modified image corrupts it, so the dirty bit
-+ * is left as it is on disk and only the in-memory error state is kept.
-+ *
-+ * Return 0 on success and -errno on error.
-  */
--static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-+static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol)
- {
-+	if (NVolHibernated(vol))
-+		return 0;
- 	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
- }
- 
-@@ -1621,6 +1666,11 @@ static bool load_system_files(struct ntfs_volume *vol)
- 			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
- 		}
- 		NVolSetErrors(vol);
-+		/*
-+		 * Remember it for the lifetime of the mount: see
-+		 * ntfs_sync_volume_dirty_state().
-+		 */
-+		NVolSetHibernated(vol);
- 	}
- 
- 	/* If (still) a read-write mount, empty the logfile. */
-@@ -1776,22 +1826,31 @@ static void ntfs_put_super(struct super_block *sb)
- 	ntfs_commit_inode(vol->mft_ino);
- 
- 	/*
--	 * If a read-write mount and no volume errors have occurred, mark the
--	 * volume clean.  Also, re-commit all affected inodes.
-+	 * If a read-write mount, persist the error state in the volume flags:
-+	 * mark the volume clean if no volume errors have occurred, and make
-+	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
-+	 * next mount.  Also, re-commit all affected inodes.
- 	 */
- 	if (!sb_rdonly(sb)) {
-+		if (ntfs_sync_volume_dirty_state(vol)) {
-+			ntfs_warning(sb,
-+				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
-+		} else if (NVolErrors(vol)) {
-+			/*
-+			 * The dirty bit is on disk now; only warn when the
-+			 * sync actually succeeded, or this message would
-+			 * contradict the one above.
-+			 */
-+			ntfs_warning(sb,
-+				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+		}
-+		/* Commits the updated volume flags if they were written. */
-+		ntfs_commit_inode(vol->vol_ino);
- 		if (!NVolErrors(vol)) {
--			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
--				ntfs_warning(sb,
--					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
--			ntfs_commit_inode(vol->vol_ino);
- 			ntfs_commit_inode(vol->root_ino);
- 			if (vol->mftmirr_ino)
- 				ntfs_commit_inode(vol->mftmirr_ino);
- 			ntfs_commit_inode(vol->mft_ino);
--		} else {
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
- 		}
- 	}
- 
-@@ -1890,8 +1949,8 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 		return 0;
- 
- 	/* If there are some dirty buffers in the bdev inode */
--	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
--		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
-+	if (ntfs_sync_volume_dirty_state(vol)) {
-+		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
- 	}
- 	sync_inodes_sb(sb);
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index 65fd3908af26..b946263153db 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -175,6 +175,8 @@ struct ntfs_volume {
-  *				Windows-reserved names (CON, AUX, NUL, COM1,
-  *				LPT1, etc.) or invalid characters.
-  *
-+ * NV_Hibernated		Windows is hibernated on the volume; the sync
-+ *				paths must not write the volume flags.
-  * NV_Discard			Issue discard/TRIM commands for freed clusters.
-  * NV_DisableSparse		Disable creation of sparse regions.
-  * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
-@@ -193,6 +195,7 @@ enum {
- 	NV_ShowHiddenFiles,
- 	NV_HideDotFiles,
- 	NV_CheckWindowsNames,
-+	NV_Hibernated,
- 	NV_Discard,
- 	NV_DisableSparse,
- 	NV_NativeSymlinkRel,
-@@ -231,6 +234,7 @@ DEFINE_NVOL_BIT_OPS(SysImmutable)
- DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
- DEFINE_NVOL_BIT_OPS(HideDotFiles)
- DEFINE_NVOL_BIT_OPS(CheckWindowsNames)
-+DEFINE_NVOL_BIT_OPS(Hibernated)
- DEFINE_NVOL_BIT_OPS(Discard)
- DEFINE_NVOL_BIT_OPS(DisableSparse)
- DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
+Changes in v7:
+- Add patch 3: fix two stack buffer overflows in the hierarchy view
+  (perf_gtk__show_hierarchy()'s unbounded strcat() into a 512-byte
+  buffer, and an advance_hpp() size_t underflow in
+  perf_gtk__add_hierarchy_entries()). Both predate the GTK4 port
+- Link to v6: https://lore.kernel.org/r/20260906-perf-gtk2-v6-0-695d1c01aaa1@gmail.com
+
+Changes in v6:
+- Explicitly include <string.h> in annotate.c (strcpy()) and
+  <stdarg.h>/<stdio.h> in hists.c (va_list, snprintf()) instead of
+  relying on transitive includes, which isn't guaranteed on musl
+- Link to v5: https://lore.kernel.org/r/20260906-perf-gtk2-v5-0-e8747a65c240@gmail.com
+
+Changes in v5:
+- Fold v4's patch 3 into patch 1, since sigprocmask() only blocks
+  delivery to the calling thread: it did nothing to stop the signal
+  handler from running concurrently on another thread and doesn't make
+  the handler's GSList calls async-signal-safe either
+- Defer perf_gtk__exit() on SIGINT/SIGQUIT/SIGTERM to a GLib source via
+  g_unix_signal_add() instead of running it straight out of a real
+  signal handler, so it always runs on the main-loop thread, serialized
+  with perf_gtk__error()'s updates to perf_gtk__error_loops, instead of
+  racing them from arbitrary signal-handler context
+- Keep a real handler for SIGSEGV/SIGFPE, since those are synchronous
+  faults with no "later" to defer to, but pare it down to reporting and
+  reraising the default disposition: there's no safe way to run
+  GTK/GLib code from the faulting context itself
+- Link to v4: https://lore.kernel.org/r/20260906-perf-gtk2-v4-0-97e92ee07214@gmail.com
+
+Changes in v4:
+- Fix gtk_widget_show()/gtk_widget_hide() calls left over from the GTK2
+  port: both were removed in GTK 4. Replace with gtk_widget_set_visible(),
+  adding a small wrapper for the info-bar "response" signal callback
+- Block SIGSEGV/SIGFPE/SIGINT/SIGQUIT/SIGTERM around the
+  perf_gtk__error_loops list updates in perf_gtk__error(): the signal
+  handler (perf_gtk__signal() -> perf_gtk__exit() ->
+  perf_gtk__quit_error_dialog()) walks that same list and could fire
+  mid-update, corrupting it
+- Link to v3: https://lore.kernel.org/r/20260906-perf-gtk2-v3-0-e1f2086214a0@gmail.com
+
+Changes in v3:
+- Fix GMainLoop leak if perf_gtk__error() is called re-entrantly: track
+  active loops in a list instead of a single global pointer
+- Add explicit <stdarg.h>/<stdio.h> includes instead of relying on
+  transitive inclusion, which musl doesn't guarantee
+- Drop the gtk4-infobar feature check and HAVE_GTK_INFO_BAR_SUPPORT:
+  GtkInfoBar has been unconditionally available since well before GTK 4,
+  and the check was failing outright due to its deprecation warning
+- Link to v2: https://lore.kernel.org/r/20260906-perf-gtk2-v2-0-3eccff053cd1@gmail.com
+
+Changes in v2:
+- Fix error dialog's nested GMainLoop hanging if the parent window
+  closes or a signal arrives while the dialog is open (quit from
+  "destroy", not just "response")
+- Fix build with GTK_INFO_BAR_SUPPORT: gtk_info_bar_get_content_area()
+  is gone in GTK 4, use gtk_info_bar_add_child() instead
+- Fix use-after-free in the progress dialog on manual close
+- Fix reuse of an exhausted va_list in the vasprintf() failure path
+- Link to v1: https://lore.kernel.org/r/20260906-perf-gtk2-v1-0-7564bf8523a9@gmail.com
+
+---
+Matt Turner (3):
+      tools: port perf ui from GTK 2 to GTK 4
+      perf tools: make the GTK4 report browser actually loadable at runtime
+      perf tools gtk: fix two hierarchy-view stack buffer overflows
+
+ tools/build/Makefile.feature                     |  4 +-
+ tools/build/feature/Makefile                     | 10 +--
+ tools/build/feature/test-gtk2-infobar.c          | 12 ---
+ tools/build/feature/{test-gtk2.c => test-gtk4.c} |  4 +-
+ tools/perf/Documentation/perf-report.txt         |  2 +-
+ tools/perf/Makefile                              |  2 +-
+ tools/perf/Makefile.config                       | 27 +++----
+ tools/perf/Makefile.perf                         |  6 +-
+ tools/perf/builtin-annotate.c                    |  8 +-
+ tools/perf/builtin-report.c                      |  8 +-
+ tools/perf/scripts/install-build-deps.sh         |  4 +-
+ tools/perf/tests/make                            |  4 +-
+ tools/perf/ui/gtk/annotate.c                     | 36 ++++-----
+ tools/perf/ui/gtk/browser.c                      | 96 ++++++++++++++++++-----
+ tools/perf/ui/gtk/gtk.h                          | 16 ++--
+ tools/perf/ui/gtk/hists.c                        | 72 +++++++++---------
+ tools/perf/ui/gtk/progress.c                     | 40 +++++++---
+ tools/perf/ui/gtk/setup.c                        |  5 +-
+ tools/perf/ui/gtk/util.c                         | 97 ++++++++++++++----------
+ tools/perf/ui/setup.c                            |  2 +-
+ tools/perf/util/annotate.c                       | 11 +++
+ tools/perf/util/annotate.h                       | 12 +--
+ 22 files changed, 278 insertions(+), 200 deletions(-)
+---
+base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
+change-id: 20260906-perf-gtk2-555ca04bb652
+
+Best regards,
 -- 
-2.25.1
+Matt Turner <mattst88@gmail.com>
 
