@@ -1,195 +1,214 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010043.outbound.protection.outlook.com [52.101.85.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AE53A785D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84513A874B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935198; cv=pass; b=dZkXUMh4s+mrbaEdLoHdraFbsklA7N52DF9GbDdJSHnmRF9lP6fMzYXp8dZUSYBMYfg8SmwN/64jFP4qJaLLus4jff4oZ6YAE7z5GEKHqKnGcumjfHz8cHRy/qPu7JYys2+LD0SUl5Xkmr/uYMJzeCnKD0NKE4dHMKI9ASvbi0s=
+	t=1788935232; cv=fail; b=tbJBhP0B1XOB8v4AWtII9egHplwWbW7QB1hQAqoctd6cvRUzMm2cPvJky3ixV3/vaHFk4AvU7Nkr9ZXAl029qMV4mP4RS3RByRjz3PA+Luoc5PR2yrgTXh3bogxWEz3xf/bYSi8zw2hxL64hTwOU8uGKP5kn1p3LV8/Mphya9IE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935198; c=relaxed/simple;
-	bh=NKoJ6JE3E+luIRxglgalTNs8vDhX048M3Yn5LzxShXc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DY1KGDYvFz9DP4qsqjqfMECFzoesAm67L6RAGzqAZHjIuuk0KvqY/An2r2AeJ5+wg1BgIttFhrdHK80lej//Z63fwdsNL4cjJdlpxvNZGEpvSYG0NmwDrJctIbm8wotBSRDEy5giv0U0qIlGYCJICBBwdiZAaff0GG9J18UuUCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L/H5nfBf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A7MPN6HM; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788935232; c=relaxed/simple;
+	bh=3zhnr4vaVuot7X0O/ryQYPJ2LAgkJQkgX3MXoBzf/ng=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=S5UIgNEatN1O8vD33DPqCfISQGPRCy1ZnCgu/KhnrwxwPYoOjJbt4lrsrDWdWVz1ksXb9P0T7PkC+0S+Kpq3z2W8VW4KFTBoJh1Ng4tk/0kYo89In22x6j0sWeZJzVMGcBoZ/PcxzNs9aBDlSw5c0yAHyRBBvRGxUT2yKmJacAA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qJ9H5ENP; arc=fail smtp.client-ip=52.101.85.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L/H5nfBf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A7MPN6HM"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Mg0qr965126
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 06:26:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z9txVF1E2CwqfuIlPlfen4d7jX6bNOZdy7o/BqDBXj4=; b=L/H5nfBf/HUiNmWd
-	unIzWDWxr38VJB/3XxIaweghFfymZGIYjltXc7ElRQUfChY1VY5Rb3/u4PVPAKDa
-	4hYs2GtyWx2f+Tm3bFXHhaZ4L+Tp5fBJybix0R/I1LXJsrto2PAilf8fMuGokstN
-	tmw3NC+20CfJgYJ5b5gDwKoMXvehV1t6CxU+6xwfwTl7WtENZwAnED3jVLPjmInt
-	Oeq5+Dc0qrfWaE/E1AVq2GUGD+0JS6xnWskGiyH2YaOj0YO8d8WyviruKe/gj3mT
-	jTlz1FES2ZiW5AlpvbYwxqkFOrFNmz0TFbTuLl+INGdvflkAT0WRxCPpFrAf0g/1
-	SpJPtg==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqha2j2r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:26:36 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67105617528so1019152d50.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:26:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788935195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KfhtqvFEDBZYGqy0xzMcLmXb+63ecAAWXW4JRkIV+QGqonwhmmOcHqfi/NotiiylPm
-         l8BObxNmeADu2jUz2fGSBm19LLeip2CaEdO7nmaAspGsLQlzwMYI/KI07AR5Noy4kjqW
-         4geM7iQaIsQagultK7TteSyCFEXFyj2VKKs+x7VKhSz54rmg5MpAMcH0+4g9A338nkRU
-         7E3QLkJbNSjLoH+3xmyrQirzZmzZ5w+kOUY6BAjve1UwRONDElvJwUqfwGIv/iTENCDB
-         Q0uykljyVlR8Z850sdRVgJzOMjJNzJokO3wLI2w3zdFElT3+XrfkK1QSgRFLlwtn/4Rx
-         VzqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z9txVF1E2CwqfuIlPlfen4d7jX6bNOZdy7o/BqDBXj4=;
-        fh=6+P8U2fZsRQ/Cqn4/MRjHQcma/+MhMHB0HtIKk0AW8Q=;
-        b=hA0aqii/r4U/XttzENI/dKZpjp1TkEZCN4j4hR43E0G7S0UuapVuwlU9edo6Tg+l1p
-         AUYADdUc/LtI8Xx9alqWHa3teX7FKj/dlvVLDUOged/GLIzqP/pPnDrMGdwo+L46+G77
-         ylAMHrxf98mt+qM/JXWuhY5ePvZKuR5h50y+gfPk7kvSiqQGX7puMZWj40XL+5IUJv00
-         lMbTU8m6OxM0rSHCsFB1pUdhXoTD5XaXUfTEE28j8ziPY0KKKFXMvWv8UjhYmb2I18UC
-         M0b19mLGiUr77NTncuSwE5mHF1suPJZgLcSdEubQtVjHwd9CPT2bYG64wA2clqYK/NeR
-         S+5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788935195; x=1789539995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z9txVF1E2CwqfuIlPlfen4d7jX6bNOZdy7o/BqDBXj4=;
-        b=A7MPN6HMYDrQWv5fC5ucSz0zVoM9rf/CUSaTI7NYEKXyau+hILqsZDVmedrGtc/eSw
-         LIF3pCsJOePH086YjJRAeBqFGp4VBphX4Kp4I365bmvTDeKK9E+9YBY8tXyNl7eZ1zPz
-         yDiZ+QNAjVw80SbuW5LPAL36Mmhpzp9z+Aoo6a4r4nMiMixQSmI7d1WY2XwBhfvR45MK
-         PBdS/4bQQ1nlty8gW885q0AC4YShGQGh2SXnhIwcngs8Bz/Ckpq/ad1M5k6zv1q5v4sa
-         AerlRzzFp7AdQJOGsenT8dVN6VRpfFnq0jBOBzPlQLEBhcTOjcF8aKTgpE8WYzpJowcC
-         VHdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788935195; x=1789539995;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z9txVF1E2CwqfuIlPlfen4d7jX6bNOZdy7o/BqDBXj4=;
-        b=raXDGkASamEmOCQs5qwK9ZA/bA4tPxcwOwV879JYyOIpWy9DTaTlMxpJoL3h9wks/M
-         po1D7U9+znLQvfv8xN62BIXA+oe6xNjws00nYFSczynKu1BRyiSqYP7Em0JBnJMxalqL
-         gqK7klQkxqf8V4sVmqw0fGL1if+5KXpAw0B1TNIL7pchKtA972+Y62hpLwC/FazBnFQi
-         0EoROuL4P9RcLYMYGpi3ijz8K88fW7IVPYbj59puqUjLwctTgDaonPRiNRH2RdXl+kJy
-         6YvLVKrA5KzpSzlRErN9D5HctVXdx/g1cOwzxlNJ4ZL1+FzOAgalyh39bUXo6aGfMrdf
-         B9aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkOsG4CVk5W7F4NKabOmou9SeZskBWppOwRpz2J4wH2/Dj064JaW+lbMLwS+pMvJDaplPgNfzQSFt10F4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8i/2IwdauVzjRlmd3FYHmmI9zx2/BPjsBgo5fzjXodG+oAUYP
-	qkHdQc3aI6wrddq+vYVCHbyuVn5NBQ46DTkZB+HUnmBVc6+ZVL2ScAbJirnNkbszRaIAwDxuA7U
-	551cMHUMIMZSGy+Osa34aTBtAvEkmCS2nHF5Na3zYhzPTNMR0diZqPWj7FHwS676goMsLM0cnPV
-	Km+dqWFqDTnxLTtwDnRJxl78rd5Wl77KQOwp00bo37IQ==
-X-Gm-Gg: AYBFou3dFruFzVxNd6Qxuul8oTttcETqamvGsVazQySSS3+xFJeMeqTljIHiGU7ILn+
-	Fmy65p9ANOEbWHSQ7gpU47i7qG/ISnNUjNpgH6F4wG2KtqQks4ywYlk4U5qF8HEOQzGiKikE413
-	rkHHDaFN6L8mvWp6TMD/7XEX9L6ZkIPkHBPWGrOJvlIgHuU3psaOwQ/6YVmQ==
-X-Received: by 2002:a53:ac9a:0:b0:671:b80:e8ed with SMTP id 956f58d0204a3-6710b80f5b4mr71244d50.34.1788935195175;
-        Tue, 08 Sep 2026 23:26:35 -0700 (PDT)
-X-Received: by 2002:a53:ac9a:0:b0:671:b80:e8ed with SMTP id
- 956f58d0204a3-6710b80f5b4mr71231d50.34.1788935194710; Tue, 08 Sep 2026
- 23:26:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qJ9H5ENP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bbhj8MGC39c3k/0CdT4dmTA4GCD0Vw+U5IWVCi11xkUXxw24qMPRnTv3SbRfBSoMokSIywQjKHGv7cO8RnwjtSO7tujkU81NvwMco0ouGzFKTI2QTv0y3eZIrsLnXRNPMounoqDLo1SoNZ0b9bTsn69Dv+fq4kzsEoonJtDdjeAtUQvDRrDOu9wDDFuPJrHCFbf9ZqqrBCaRyXEMo2PbX5KJHGFz/mpOO5iiuAOqi8NFNHVj6PF5wAG8cRWGW33EqaV0FGhyx2l6X2ST5nicYqsL1Kq4EH/IR6WVmzs7J1DCw1B3ZBpY5y5FpBSjz7XtMTcy8IjqdMYn9f/Ok8mCVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=96yontb+vnZ371iMhYk2gX0QfMLv8wwnjZf0gP8YlkQ=;
+ b=RrhTzRnjrunLQVWGY/yNifw1Bl+eD2ZdlQFyBXynFeX2StzmzruLeKE9ELfQYApCpiwKBnNy8B//H4y+jrGoy6F1RS7yalZYvjpN56iIlT0pw9Guqs1qWkdA8qTjaMuOUTdrCZw2iWGrOGW6KZRCbtFZC9XMKxjn01vKvkYA5Yys+nmja2BQfU1tlYHlnrehFQHdMWtaKUo8M2/AFzC3hxV9BORQoeA0VFbiClBxqbHcyNwnNP84DSJ3aQPIa9fTqeOtWLNDhppQlpRFulr8i+U/n5rp71IPgHH9GoYLk7sDZ7+gJ/P5FwnglgWgQLPq1JMrF56SJ4yyOelYVbitQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=96yontb+vnZ371iMhYk2gX0QfMLv8wwnjZf0gP8YlkQ=;
+ b=qJ9H5ENPvV7+d6vhHCxqE62MkMxrF5Gw/XupGt5SeHCzlNYqqMcEBtY8OKMB2UcP+vV3zv2qSC51KLLzATv8s9gNDvY29t/4Ft1H1Y/TiLvPu+Wjmp+ncxwttwmSSjicboSz2JKxorpNa673IfgjQxIzA67Z9Ljvbv8UijbuqcPmeKcUY/gwyx0ioM45oEPhdFZvOMmhwTNsM6G+rL+GBouUhQYIO4YPcNSFcd/IMwS9IRyC3+Lds4zyJYzB3UVOO61dYj/tOK+SVD9YGhRaozbW1dVsRqvXLaqPcEvXuUQ9eWzMIJZdZAA5x0S3R2jddLl0Cg5jVNpGuYnI4VWyXw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SJ0PR12MB6829.namprd12.prod.outlook.com (2603:10b6:a03:47b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 06:27:03 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0382.014; Wed, 9 Sep 2026
+ 06:27:03 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Breno Leitao <leitao@debian.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/2] sched: Enable preferred SMT siblings on NVIDIA Olympus
+Date: Wed,  9 Sep 2026 08:26:07 +0200
+Message-ID: <20260909062649.469633-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1P293CA0028.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::20) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
- <20260907-b4-qaif-shikra-audio-v5-1-6d8ad9ba5c9f@oss.qualcomm.com> <a69c1fb4-b1cc-4ba2-81d0-7f6488536062@sirena.org.uk>
-In-Reply-To: <a69c1fb4-b1cc-4ba2-81d0-7f6488536062@sirena.org.uk>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 11:56:23 +0530
-X-Gm-Features: AcwNN1UG8vvPTUZsvntZ8kx4jgNLH5GSTTTzIh3U6QIOG3hHK7a5SxUyRoYHjrs
-Message-ID: <CAC-tS8B2CFFZ5XvTmUpWj_FxfJvfZ1mu91xML5wABOz07aiWTw@mail.gmail.com>
-Subject: Re: [PATCH v5 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MSBTYWx0ZWRfX6URfimbnVMKx
- sQUEgWmyv7yRBz0GBw4gKSdSU9Xm9KtMBFpevfSE5+VxYLnpjHbV51mKAIbVlf7lTnvEcWIxjyE
- nV2UT99fMjm1dgWlHLAQ+jW1VzIl/8fr+u0nV1SBvkypHL1Hw0JPbvtEKf5wL73CZY/34qZ6oMR
- Zi7VVHYKMFyWoE+0zg104zQh975frfPPQ13dNK220E3pWYl9yMwLrNXXjkAojFJfgg4lye+NP5e
- g0BZcCrjfVGRc8YWXsp/WeCCMWQHK/fbvbbkhKDflFwg+Pkfo7W++hIOmLf2p/GSiEPVapsnHzr
- /3Eugn3o8d88d9IeIO3KLPYt4Qde74gGLZep5zRs9qJi65V1JvzA5zYynwapLEhZcyWhYBuvv+k
- irheHK+fgLG4bTZWIgNRXQY7iFSPQ8r2LAO8DZb0RZ0nKfbFuAANe53nRqNW1QXQv8c39A/gAqQ
- V0JEYNqLOE1mztb2kCw==
-X-Authority-Analysis: v=2.4 cv=Z5Xc2nRA c=1 sm=1 tr=0 ts=6aa0fc1c cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=CrgXKhL8gDnHMrsOWy4A:9
- a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-GUID: 8UpUkWcvASkmubLA7F6o8YXsVgUcHHiv
-X-Proofpoint-ORIG-GUID: 8UpUkWcvASkmubLA7F6o8YXsVgUcHHiv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MSBTYWx0ZWRfX8/5+hXOdNqrw
- smrWZALEPMiBsqVWaFp4Ct1o525kdkcUWHAU33MCFje0fApqTgQlJ+wUi/wLsqVGIW1CnsEJQ0K
- PgLvv3PmNjiWTcdzBkqaXhrFAm5mNtM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- adultscore=0 phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090071
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SJ0PR12MB6829:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65ae36a1-3899-4527-f98f-08df0e3b5c98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	/0qoHDhyq8zk2akk52fnmSgVGefTMOasVB48BetucBenXa+BmS9YBjNRkKifQsmW0079d5WjQnABUl+k2LtqmPL51odFwGTn5zdu0YcdZ88Zvt78yPpzyTxoFtOTpYrmAZOMHa8A7cuq9Nda6qnnXRnWB3qv4phPVT6fUuuR03YAz3OMRGHUVYzXxmfRO6xiXG66ibkbP3ahI5IWFZLCnhoG4hckmH4+8lsR3mQgqGTeDMGj0j19YanqaiiSZEJroeKBMMOx+NMguuHRmXD/ZhiE4G+rWTFwrBXhxiwBDZJHcYELZM6kd0znW9e1A2kAHmAhnZFp+n23hO3wGJ35mnJez5L3B0oRdhxrCw8av/huLkg0R6/XcGb2x2bIIzEeP5xrVCEEet8Ta8PXYpp1HbAWK/8/WzDkiLClx/JNoEBCpztSea8svVZqrpwoyBGlz1GZOOeqicsaITKQfmzciZdZl+RM0gyiTjj6yulBRqn+/hm+yZ1a65qKBkoCXQzuh1CeP0surJvdMo4HBHuZiu8rO+Bfx4hwKbRlHTF5DnH/jWygSB9QJKkr+ysgSsgxYGcViqRJvQw/2p2yce/JCoe6NG5LzAkSTuJo6cfx1WXi3FdZAeoC2pmcBjCbVPiaWUUN/MyEYHAHATlXZ0BrMdOgflGWKtxl/UAdI94ksco=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?IheFWnep8FjXNfAD3ZYL0EHwb/qU/LBu5BCqi7V+kMuJwoWkZqgNRhFY2L09?=
+ =?us-ascii?Q?aNIoVaO0h1V6K2HZ2eB/9NZHL7c0tBW5Rt0DsBYMKJUzbZCya0cM/shRq2+6?=
+ =?us-ascii?Q?3TM/KTCs4gqSLu0rljlkqEpw1Vp5fsKDrU6cptSAdwM5VG47ss+QMhPkcDdS?=
+ =?us-ascii?Q?jgLB1ZVtmtLgNAi/l9Rb1qAWhbxRrYMWPyJV7lgS9z5bj6y8Psu9BEJ5nfNL?=
+ =?us-ascii?Q?wJG+kLyJsOefR4z3clfonPuewnvbSy8NGjmcWEZ3PjbqmdB8gdz2gxjX1uPc?=
+ =?us-ascii?Q?5qxO1E41+q8lgyRfoXau+R2Lx0Wl9uMxEsby1DDmPtLZ2aUNzE9//IL14Gkj?=
+ =?us-ascii?Q?ZZE10R6Z9kStMwrOJpHLo2qUMCcgvvlNAJuIPwFGG1WOX7Bu3pU8Er6KGPPj?=
+ =?us-ascii?Q?BHVh+Nk30747HY+F+u65s14iWG4SDJu21dY1jT+1NZYE4rdrcHafGH13FPGF?=
+ =?us-ascii?Q?1mRZQHZ7vBHGGJFP40oaaBTjQamyjqmMZrwglFsCl8+JfW1xfaCI5hZ0lNrl?=
+ =?us-ascii?Q?CGDlQA9P4JZt4iTxPDhhg5N9gSwdsfyAlQo8oVJ15g1fWqR4Q4O2XlupCNI9?=
+ =?us-ascii?Q?WGMQDCix7KYMZL3+QEzZUJD/cFj7fwVGGiA/lw1LPliHuPeIB7wdHJzm1PFO?=
+ =?us-ascii?Q?xxnvshGZ7TXgWMYrIT5UluZhnS16ZSF4cZBY2+TWbLpCjnJPrC4fy2TbmohY?=
+ =?us-ascii?Q?gezHSN6pTWN+XRYTiP+KqbnjegtTtlTDFhmj7L5RM3sHEbiPXtYGKtRpPSQ2?=
+ =?us-ascii?Q?VSN0+jYxHkydW5NxElT6KAHxFCfDjsf6BbrElFAPmCtRFoTz8j7FeBJ4m/bA?=
+ =?us-ascii?Q?ZwGh06naJ4/trIjxnpeXmRPBSgZEJddtMND/A6wsrsc7aOw2XAQsI9uuSO+x?=
+ =?us-ascii?Q?8eGFAN08f/oKHc+l1wnR/SEu7t5NcOrRhZsHoXZC/lXPMbsMRfMpyEtKUamL?=
+ =?us-ascii?Q?isqa4TWs4IwZmG2awPFq+9rQpFD2r9exK3gedDS/4HZO3gXa527plcntXvF2?=
+ =?us-ascii?Q?gygjnym8ECtN9YyLrTT4fWpLtptwaN52bcpC9wrh50XHILYzXMLXGhy6wkQs?=
+ =?us-ascii?Q?cuA/IjhD/Vr66TAD9QXHO8a3bBqpTm8G6mIoNek8NCnPKE6etY11rTqMdxS6?=
+ =?us-ascii?Q?lj/b5cnQwv2SoPMILsbdCBiXBVn/7ciYO8cxn5Fmhg6tAML4sG2VmJQOBCpr?=
+ =?us-ascii?Q?vLnYoisuI/+Wqyj4Jgc+coAkVTUp0ioVp2hJrH8sk4sD134WYQs0IgQatDCd?=
+ =?us-ascii?Q?S0XITRml+dnoaJzZs7/IQbyQtEqwonRpXrvk3Pw//eoMsjFwJbgw6TZqQ9wf?=
+ =?us-ascii?Q?W+V87H6vg9UdMoLp/q2WbEhGa8PvU+OJQh7ohP4gqDlslvj5evLEgpM+zlSO?=
+ =?us-ascii?Q?23s2crnwIp49MQyhooSACUzdopgnuUWPefY48T5n7y99lxHJebkQZB4zL5Mo?=
+ =?us-ascii?Q?EP/W004tPuPPml1181PJpYQ6nr3Gsg6mGPCRGrGmHqzMSK1NQYvzpa6Y83lx?=
+ =?us-ascii?Q?6kDw3Fs2F3zAdBKK5Yw1RzO7R54tkyxQqBd8wO4WQqU5RQJD1IdyVXQS1t+c?=
+ =?us-ascii?Q?oRO6J34lB4Fzel8HaBTtLc2Pn8ZGSFd4JtBqXYMt6JkRRtGf75yk919u4LhH?=
+ =?us-ascii?Q?BpqYl4AsCnNX0rIG1q21aQ3KulPxcBnxuvJWjcjB7eOcf/Ki/vER6IiXQg/4?=
+ =?us-ascii?Q?PLjuGv2AqnLVnaA19zn/BFpbZqU8rhOLxyEylx2l/xPMqPg5EyS7x4RuZPB6?=
+ =?us-ascii?Q?V6PT88lyPw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65ae36a1-3899-4527-f98f-08df0e3b5c98
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:27:03.1654
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IejGdlDmK92NuU7LxZHnVYILyT7hZa96YVU+ODlbVwUIuT1a/Kyv8uluPqccRdL7lcAmVUR1q11+fj3NVhz4Vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6829
 
-On Wed, Sep 9, 2026 at 1:19=E2=80=AFAM Mark Brown <broonie@kernel.org> wrot=
-e:
->
-> On Mon, Sep 07, 2026 at 05:39:26PM +0530, Harendra Gautam wrote:
-> > Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU =
-DAI
-> > controller used on the Shikra audio platform, together with a dt-bindin=
-gs
-> > header for QAIF DAI and AIF interface IDs.
->
-> > +  clocks:
-> > +    minItems: 5
-> > +    maxItems: 9
-> > +
-> > +  clock-names:
-> > +    description:
-> > +      The first five clocks are always required. Any further entries a=
-re the
-> > +      per-AIF bit clocks (aif_if<N>_ibit), supplied in order starting =
-from
-> > +      AIF interface 0 for as many serial AIF interfaces as the board u=
-ses.
-> > +    minItems: 5
-> > +    items:
-> > +      - const: lpass_config
-> > +      - const: lpass_core_axim
-> > +      - const: aud_dma
-> > +      - const: aud_dma_mem
-> > +      - const: bus
-> > +      - const: aif_if0_ibit
-> > +      - const: aif_if1_ibit
-> > +      - const: aif_if2_ibit
-> > +      - const: aif_if3_ibit
->
-> The driver doesn't request any of these clocks as optional, are they
-> really optional?  Probably easier to make them all mandatory and then
-> relax later if they can genuinely be optional.
-Thanks for your input. Will make all these clocks mandatory in the next ver=
-sion.
--Harendra
+NVIDIA Olympus implements SMT with two symmetric processing elements (PEs).
+When only one PE is active, the core operates in single-thread mode and
+that PE can use the full core resources. When both PEs are active, the core
+operates in two-thread mode and the PEs share those resources. This
+behavior is common to SMT implementations, but Olympus is particularly
+sensitive to brief sibling activations because returning from two-thread
+mode to single-thread mode after a sibling becomes idle is not immediate.
+As described by commit 293f9611ae735 ("sched/fair: Prefer fully idle cores
+for NOHZ balancing"):
+
+  Briefly activating an otherwise idle sibling can reduce the performance
+  available to the other sibling and this effect does not necessarily end
+  once the activated sibling becomes idle: after the ILB finishes and its
+  CPU enters WFI, full single-thread performance is restored only after the
+  sibling has remained idle for a qualification interval (10 Ki cycles on
+  the tested Vera system).
+
+That change prevents the NOHZ idle load balancer from unnecessarily waking
+a sibling of a busy PE. However, ordinary task placement can still select
+either sibling of an idle core and repeated changes of the active PE can
+keep Olympus cores in two-thread mode despite little or no useful overlap
+between the siblings.
+
+This series makes PE0 the preferred sibling of an Olympus core using
+SD_ASYM_PACKING and teaches the fair scheduler's idle-selection paths to
+honor asymmetric SMT priority. The scheduler first selects a candidate CPU
+and core according to its existing placement and capacity rules, then
+chooses the highest-priority available sibling within that core. The
+generic scheduler behavior is enabled only when an architecture supplies
+an SD_ASYM_PACKING SMT domain.
+
+PE0 and PE1 have equal steady-state capacity, the preference does not
+identify a faster PE. PE0 is used only as a canonical choice when both
+siblings are available. Consistently selecting the same sibling avoids
+alternating the active PE across wakeups, lets PE1 remain idle for longer,
+and allows more cores to remain in, or return to, full-resource
+single-thread mode.
+
+The series was tested on a two-node Vera system using an 88-thread
+single-precision GEMM on the 88 physical cores of NUMA node 0.
+
+With the workload allowed to choose either sibling of every core, observed
+throughput improved from approximately 9.4 TFLOP/s on the baseline kernel
+to approximately 10.1 TFLOP/s with this series applied. Repeated runs also
+became more predictable because the workload consistently settled on PE0
+while PE1 remained quiet.
+
+Changes in v5:
+ - Remove the redundant olympus_prefer_pe0 state (K Prateek Nayak)
+ - Link to v4: https://lore.kernel.org/r/20260908082345.103087-1-arighi@nvidia.com
+
+Changes in v4:
+ - Honor the SMT sibling priority in the slow path (Srikar Dronamraju)
+ - Rename the consolidated helper to select_idle_smt_cpu() (Srikar Dronamraju)
+ - Link to v3: https://lore.kernel.org/r/20260907163513.4172411-1-arighi@nvidia.com
+
+Changes in v3:
+ - Consolidate the SMT-priority adjustment in select_idle_sibling() after an
+   idle candidate has been selected (K Prateek Nayak)
+ - Fold the asym SMT checks into select_idle_smt_priority() and scan the
+   scheduling-domain span directly (K Prateek Nayak)
+ - Link to v2: https://lore.kernel.org/r/20260904091838.3617894-1-arighi@nvidia.com
+
+Changes in v2:
+ - Clarify that the generic scheduler change also covers POWER7 (Dietmar
+   Eggemann)
+ - Simplify sched_smt_asym_prefer() by inspecting the lowest scheduling
+   domain directly (Dietmar Eggemann)
+ - Link to v1: https://lore.kernel.org/r/20260831181800.1668646-1-arighi@nvidia.com
+
+Andrea Righi (2):
+      arm64: topology: Prefer PE0 on NVIDIA Olympus SMT cores
+      sched/fair: Honor asymmetric SMT priority in idle selection
+
+ arch/arm64/include/asm/topology.h |  1 +
+ arch/arm64/kernel/smp.c           |  1 +
+ arch/arm64/kernel/topology.c      | 51 +++++++++++++++++++++++
+ kernel/sched/fair.c               | 85 +++++++++++++++++++++++++++++++--------
+ kernel/sched/sched.h              |  6 +++
+ kernel/sched/topology.c           | 36 +++++++++++++++++
+ 6 files changed, 163 insertions(+), 17 deletions(-)
