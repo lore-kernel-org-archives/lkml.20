@@ -1,192 +1,258 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021077.outbound.protection.outlook.com [52.101.95.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ADA52E054;
-	Wed,  9 Sep 2026 14:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99CA56C62C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964584; cv=fail; b=ShMP9aFBSOY874O8SYkGz4HzVbCJUNSKOFpGGTYQKI2Zx23vWzngkDCm9q/m9DSlr1TbStoOArgUO0eEFqwdWahylXJQH8ESmUABFx3SMVFuD4L8Xnnknzd4Rzu4os+bSsEPomGzjGu1MG0/sPskzu/xQpCtqoGKk8BOSCYjQ1Y=
+	t=1788964589; cv=pass; b=lDcJn4iSDKZEcnZXBCzftZHvGiqyuNyD94TAiHx4gxxaRAZKERKyg0FzwbOww61spwgnRak4T6F2ehYyETFVe5r+tFtlNIZSKC9C2C9kUbVECjRytJEm81p9C58v4F1sCn0W9wEAJBO4LTYQDIolRrajuVPSwLjaS17LZji7v/0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964584; c=relaxed/simple;
-	bh=xObNlwGfpYxSIBHiybyxyA8aKG7A+vNbHqZOO9OsCwM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=Q/Osjs/JwOYdP0BemyAm3t1Bc5/MK9BZWXgiKOmIq1aCAwqlVWEp3yLqxxZvNnAs1y1qIUfC1qQJ3Mz7ds8BmM5RPyRAz+mg8cJBiP/W+5nYTk181/KUmv3XixS4my0+ounexiZ++nZjb1rWAyPVDTFMTukLTKKdOKiBGNQzxME=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=fyygb64y; arc=fail smtp.client-ip=52.101.95.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1788964589; c=relaxed/simple;
+	bh=7AyHAWTKyqNTciVM9XLOxi3jtsvJfGFJongziGZ+beM=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ov9WMWL0/doITrNIRqfA83I1b5hlbTj3DL/6uM2igwGUVUNrD3MLoWl3MPL3pTKo3mgr4PFL/U6pHctvODx8O+T/eddscCwfGf9TqaXghatNz6o0DicckilZiKPHbhhPsBQerSjCwUHtw9txSCo+CIRqH68K9liox3RNuCwlFNQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JFNWjdB1; arc=pass smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="fyygb64y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PeQKenEr3FgOnVYMtdg/jUBhKLpQTkLaFCpTpOA3VRL71/Fyp6Suj9WVi1O3sAo2/Nwnvkj7MrlNspuPmDKDyNbLB8p4R1CMlq9srnKSHU8fnDs1/mmmiXRQR4r28OhZh7nJSpILUdcDiHZ39PU3vjJyABbF/r5vwHiNf2Z89klrYp8n8W6lOV8TTzcxu76vkwF3nrLylu3Y4B7VW9TjhESc3ihNQlLxSaX1I5+Ga85s6SIe7znN7XklLX+assqt4v6jhjh7JNntwTW/+4ptdW6qjYm6OS6+fJdY+CTOm7B1An/3Z6Rylg372K1lgEtb50lU5+DXXSxTkbj9Evyq8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KOLH6zM3c75A0aGKDwxU4Oez/JZWunnybzhzwn3Jh5M=;
- b=CirEuOXX2zUzIHrxt1f1dAsHlvKmSsyeGqXvNBxu0hUSYvju21YT55Dd1MXpA2gD7s+t1qUJCNIZMDTU1bXBzvb0p+zHowa1WExwbPG9gWL/rtQhDpAuJ14ppY6nqiNnDxEZ+GmkM0zeFoQTWaO8dEemEMsCmt79RFCOsfb8uIciEnSb3j30g74z5klNLf2hmj5ZnIRqA8x4DwaEr30Qd5rtFonHRWharDYN9W0esA8ukTRgLWYlcPhVQcn6xhYjUJw78p63Ct2wGrevjFHsj2GvndjkbhORwUnYQ9QTteaOfpHh4r6If4YNl0X4Eo1n+lDLof3RouVt9Yl/RSKt0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KOLH6zM3c75A0aGKDwxU4Oez/JZWunnybzhzwn3Jh5M=;
- b=fyygb64yG/PwVmjxZGGCUVEu0032UnMUfzOHwMXpzYSG4W2U0kE8XWMYhgYVAZKiTZKUfWj2kIEkdL6xm9V/GmJaZxIKfQbQTqsVfm9THBwyG3cP2aO5OktLLCk4ulbM+cx3IN53o6aGP3QGoxlLNU5NZ8DVfqAi3jjlUFEYGng=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB6513.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 14:36:17 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 14:36:17 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 09 Sep 2026 15:36:14 +0100
-Message-Id: <DLAV0JX3XOKM.2OI6E3M1DLZMY@garyguo.net>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] rust: const_eval: add `#[const_eval_only]`
- attribute
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>
-X-Mailer: aerc 0.22.0
-References: <20260903-cv-v2-0-e93b1613e40c@garyguo.net>
- <20260903-cv-v2-1-e93b1613e40c@garyguo.net>
- <DL8YAXFG28GT.11FRAWC7NUBM7@nvidia.com>
-In-Reply-To: <DL8YAXFG28GT.11FRAWC7NUBM7@nvidia.com>
-X-ClientProxiedBy: GV2PEPF0001A331.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:401::68c) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JFNWjdB1"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-9106ffe17e9so7258116d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:36:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788964586; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lGyjkHqLF/R3BHUGBosK+bY8OO+DPYRvyyIYnuQ4Cg0+xWocYgTbNYp3n5qb7U9Tyg
+         dUNFA0UtHvDcpfw0H+0c90umnL+p+Nl5XIDZskYJhVaPtJqEMdj86ncGPh1yYG60b9Ti
+         atQuCzK5xZ6c7poRWJzqgk5lUV3hYOyfNX+4gm8g6Q+SlBbBroKcJIxttB7ViHGHTyL4
+         LrMQC4OINSl+O7dCsppklQ5LxeIGNpvPUrAif/qnosboF27OLEwIsYDScfenM8taHg/U
+         21aFuIig8M4UjIPIZm5pbYiiqHNVtYPBXAzkunc7dKUGRU3eRIcP12oUUusCzdaAmTNP
+         HyRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=WOdNfCxlVFqMCNwG5WAXrbnbeG8MIfsFEPI5I8fCsWw=;
+        fh=j4ndYYjYrfZI+00Vh7PCCr+rnd+XpNrtWU5QcQ7eCsU=;
+        b=sKnj1y/QO9hhcuqiI+FjsbEDp/zqbChhd0S/t2ObAzEtAs0bUsud0KI/JT6Rxrcnho
+         6vPgOI2O4YRS6fnCHWRZbwB3gQwiPYZLnQgZNHGbK7raW8EOB6YsbOnSfwu1PitlOILN
+         /ek3jarcdX74WBw6ld9Sux6hBy50mEQCU3Ym7eSHeFVT2EWkc2b7bOP5McxQvODDXwyD
+         832xFAnptHlupDPhDdOTzyWT3rJb9RAypqqtzzoR9ZqH8M8I6UxMauWn1onHMM2XKae5
+         1UAe+1QY4klxqJeEDh84QCDCDFpvOEdS+2ofVGCsGNzOlj1GbjuVIdEY2a6SMrsNqGxm
+         lL7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788964586; x=1789569386; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WOdNfCxlVFqMCNwG5WAXrbnbeG8MIfsFEPI5I8fCsWw=;
+        b=JFNWjdB1LK2983Xt8mOttl8othUdROYNzK1Frpm9/uzaQXRwhqHJCRh5iUhDcTAPra
+         oCNeNMK1uSnjFnvxW6616xUZrEz2QOu0l4D+ev5uX1yrjgIfX8bWMuNSoyBRGE40bqal
+         KWf1kkzd5ByKVxecibS6XMzS1tdjEbmDGfPXz1e5bac4Gra9cMq8pYqF4tYI5VMBMPSo
+         D1Rv1OCwxf6v94L/rX2PGwgfMzfdWZ+Jgr+8Tie+i19rNs/6gQUrdy7n4RLww/s7uUvh
+         KDBqo1ZhdLv5jgXtsMaUeInZ1Oz89tKW8c9ENlqnjEWr5oUz2zhhTrDoR4paLxqKYpxg
+         e22g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788964586; x=1789569386;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WOdNfCxlVFqMCNwG5WAXrbnbeG8MIfsFEPI5I8fCsWw=;
+        b=KCmMiQtooIo6VCxBSbtjC0FA9s27nsoFSi3rMYzMCqlRno2l2GD4TCbzg7pOmQo4UL
+         1l7RwyVWAM7s4uqfdKLTq/iwgl8XNXnfJLhDiEG2x1AeuZRQaZ6bCAIoc99JwTEkExbv
+         oBHu/VmmVegF2YBppyda7HdMU3SwlELdqX8q3zd1mVqqihSqtdA8m77SZ4CznZAgA23d
+         6LCLeDVKO6kqFWW3wbc72EhCWICZOfU2VxokgIbelpTzs8dudska0KjYM0VRKDZ9eBmw
+         mN9szW9Svpp2AxJ3b319kjyjJQKc1qBokVK6FAYVRJttL2RqueKnjCv+NfVrzXmQuvmp
+         SJ4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzRXXxjWMlLdXnWTVxGU7O/ycvFQXIa7YqnNkq7RQGrn7IbGclOHauHU0ylmSdCL0ATPClCNMmaFa5qluk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq25IjEmlEyHeMLhezsM787miRTqQHpFDpkGMw0PdNZYilf09D
+	qGuXJUZdEWT3oRvagM1DEFVLebympm4OO8AnE4/oKiorv5oza6KjKR6MAGgTScJ8L+Cc6n2CwxK
+	VvpLsAdrxLHB1So+3ISU6ceMQ5XLF1oKXHpFwHJ2f
+X-Gm-Gg: AYBFou3POYSxbbv+x4sA8OA9p65LXbhueELIrL6F8Mponky2hA3gBWaRaeyIeWdfpn6
+	Zt4tq5eGiJ2u0tWF1MJ8xq7BI2oIyCdvDx05ELKGmT2VnHTQTkbq0HrN6Bhu/OBB4SPSXT5hzlS
+	AzB4075E5/dlxU5BjExvW+qC7TAexhlsYLWPv4PWzCBo6TlGGTYDyhrdOXX9Mb9MC8VmUmDL7zD
+	5puOJ4eUn7LLg55JpXriwBot71WJqgnYXQoknlV0Vc9AFBFvIkIAkURphRNOlxffoxVxD3R9wLH
+	FX2/QxLIwnd/CFwEf0Yc5FGlLWfv1B+4mhqzR3dD2YMXTHQmcms8OOe1Kbp5g78pYVAzkE6ebj/
+	ZI/Vrdd40odU=
+X-Received: by 2002:a05:6214:2f8c:b0:910:3451:341 with SMTP id
+ 6a1803df08f44-9103efb48afmr490270826d6.32.1788964580576; Wed, 09 Sep 2026
+ 07:36:20 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:36:19 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:36:19 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <apetw3aqXSawLBt0@yzhao56-desk.sh.intel.com>
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com> <apetw3aqXSawLBt0@yzhao56-desk.sh.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB6513:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bc948b5-d6d6-4726-2aa1-08df0e7fb512
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|10067099003|6133799003|18002099003|22082099003|56012099006|4143699003|921020;
-X-Microsoft-Antispam-Message-Info:
-	GX00gIiuCo69FUgq3C44IGG0Is1yPrjNYkwYLYIjQuQcXjBxnLqv6AcxbuWH9NRhrtdcIPuxCeUq65foy7dA9WWvgyRnkNjCtYsbKd43HtgSOA71E+JI79XdA/NRIb0Isk7+1Zbnu+yvl4sGyCmSdM0wlCRCaLyefAiKRMc581dXsa7K7x+yuol4+eKo/H99BcpxbEZ8JotI2Ndqzz3pCK+irUdrgNL2PZy2OA6xJVKF2/T2KgV3MH3Mu6GHCTItkkUqj3e7GM/8+ziChgKm6Ti14SCcvwBu4ILGmb/RV1F/4L/wWqv4CvR457bBO2S8xbQUXx83rMAfW+O03EGi5fVqvDQoRxcBEqyPHB5rUPDta05FBnSRqXs9tahKmXtHSLfcP34iGHvzS7TZ7gOE4mEt0kHudzEQanpqguIhZCwr7XP/aDzzqV/pjIpcd0EF0Durhn9DQPqxy/sIComTMwRywaeA+mYXzACzlgHkJhpZU0dHVZZseziXOXZp1AEtgPAVXQEe2KTXenMlbkB/cv39K1PYAij2a//sHK5wfI7yHoA6js8zFO7Qg8Ojh77nthntfSjIcqpKlvuQfEDNXJT1bY0eShEBEtXZ9zsE7ttEKQf5fne26wdTYU2VagEpLADAK9fYYUEtlE8E48u6V6rBVKzaqYHdmeaEZ9/zibg30gy1S+QunwXMkerhpOz1a3BSs/cl5pmHHOdZkvJ+vw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3JSZ0dVNzdVM1NTa0hhTjJHc09nSWFkRzkrbUVRK3NObkxuMnlmcDcrUGhK?=
- =?utf-8?B?ZXlrWjZSMnZvVEsyR3FrMjd6ODc1VWluTmxxZTlQL1pDQXJ1V2xqdUZTeUFJ?=
- =?utf-8?B?R2dheVp1ZFhZM0dqZjJGUlA3WTVMWWV5TzdSMGh2eFBSMkM0enc2K21MUXpl?=
- =?utf-8?B?YTF1eTNFUHNlYzdnYWh1aFlBeDFBRkJpRkE1OEtsM3lVZUdCZzVQcFJrUytn?=
- =?utf-8?B?TVI1azZXUzlETzFLUE5Yd1BmRmZSdncrdWx5RURPZFdaeldNZm1FNFd0bzYw?=
- =?utf-8?B?Um1VZVA3NXl6N2g0OXhjcERmRFZSQ0FqcWNBUHNLczR0SmphUnpyUVhYVVNy?=
- =?utf-8?B?b0daaGNGZytWRHhFcSs4aHNWRWk2bWFwbnhiU1hhMndhNkE0QUc4TGVvTkdJ?=
- =?utf-8?B?WUM1MzFrZnNlSlpyZlpEWjNBdWF1VXBhUm1BS2wwd3ArdUZDSk9WVG1tQ1Zi?=
- =?utf-8?B?aGpuRFZBc2RTL05yUGg1U2xBeXczVWN6SFhNQUVYWktxOVdwZEF5dndYTEZ4?=
- =?utf-8?B?UVVZNTBvZHYxNEorQWhVZzVrMDYwNURpYzlQQlZjM3dlbzF0YUFUNExoY0dv?=
- =?utf-8?B?ajdveVo3RGtRSXM3dHNpNTFZMnB2a1ZzQThBckx3VkxvejgwbnFWeHcxSVJU?=
- =?utf-8?B?UldxdUdJSTc4RnYzenJvelBqdXRuM1NYMCsrZGRrMTlkYTBZVWZuaEt4OFY0?=
- =?utf-8?B?N1piWk11T2dHUU9vWEZaL0RtVUZxTnhKK3RTenkxS3JVLys1U3BCcXBIZlJs?=
- =?utf-8?B?ZjJHdkFwUVV5bjBVWExhVGt3dkRHdVhMNExiTzluTXJIOFhkc1Y3K0xTZ0xo?=
- =?utf-8?B?NUt0R3A0eEFNNDBpL2pXdHpRWWRsNDNTZjJqTUlQSi9zMXFNN0NPZmpPNlJK?=
- =?utf-8?B?dGFwcHg5cVdjaTZlLzVKV2tkMTM4ZEUrcWtXYS9uRmNiQS9LYmR3dXlRUng3?=
- =?utf-8?B?aUxla1Jucy95QzVvVi9qV1BQU2syODd3Zkc3SlNUSHoyeDk2eFJ3RUM3UTIv?=
- =?utf-8?B?VEVWbmZTenc0K2VLYnpEbkZpZ0QyQzkyOGdVczdlUTRCUXdZSmgwNVh5OE5Z?=
- =?utf-8?B?Zkdqc28zaFpXc0lOSit0RjJRVFdFLzFIOXRlNUtHd3lqelM2d1ZOanJZZ281?=
- =?utf-8?B?OE5JeVF5SU9UL2ZlQnJIMlo0MUYrNmtncjdjRERENXdmMTZyTXhhYzhpZnlv?=
- =?utf-8?B?aHp4Z1M2UC9rdHlPRFZkY1g3SG9hcXUrVmZSRnNpeFluUFpQRk1kc0VVL1Ux?=
- =?utf-8?B?QVBlUEJFSWY3TjVpYUpnZjdjV3VIdGFqY3hMNHNUd2M4MkZBc1ltbnc0Z3NQ?=
- =?utf-8?B?dnhLcGpJczJ0Q3liTjNSaE52MFpzN1FEWFZXVmFuU20yOXhmRjBBQUwwUlVU?=
- =?utf-8?B?UVVDU1hvMFFLYjR6S282MDRaVjlzWXJFczdqdnJ1WEhNM05MNHdHdnFLOW92?=
- =?utf-8?B?a21iem9CclAwaENPakZWQVA4QVk0T1dmT3hIWTBTYVl6WHNLMVpqWVNWZzVk?=
- =?utf-8?B?Zy9lMlFkYWJ2aHhvLytJVDBJV20vdGhnRWRkTjJDRlpCRHQzSnBRWTRXdEF4?=
- =?utf-8?B?S2ZIWVlSU0lqU0syMERRR1RDcFJQSWFoMHNycWw1U2dtK1dUeE9qbUNkdURo?=
- =?utf-8?B?MG5kdWh3WUt5RDFQZFRqQWhJV2VNcDJLNm50Q0dPRFhNZjF3bmxLL0RrcjBB?=
- =?utf-8?B?NGdORFk5cGlhMkVqSnJpd0VlQlcwVVh5dzVDT3pQNUdrd1JPMDdTNm9yYnVP?=
- =?utf-8?B?a25INUxWbmptRThvOFhFNUpxMjA4UjdpQjlEbmxrVVNVSllJb3NreUs0dkhI?=
- =?utf-8?B?L2YreFVvVmp4YngrK0xQbWJZM0d2dVVWNGhnbnBTbkJ2UEVOWkZDMXZiRy9E?=
- =?utf-8?B?MXRRMmlNYVVrQlVWTFdybi96NXNFSUl1Q2RYOVYxVEY1RmtlbkE3dWwyTnl2?=
- =?utf-8?B?WlN2WVlLUlZiRm9WNndST0Jad0ZWREVQL3BFL2N1cFlVZkR1Y3ltWTRsTHJh?=
- =?utf-8?B?d0pJZFMwbi9nOFgrV2pPVnZmYm5wcU4vRFl1NmFFNDV4ZmJYTnJKakUxZjY4?=
- =?utf-8?B?dFRkUlNnWlQraUs2WUhuVmlid3N0Rml4dEgyeXQzd3BNK1pqZmU5VkpuOXJh?=
- =?utf-8?B?bWxGNmc2NFlWVFpQbHVBMDBqenBJOW4zYWpRWmpzdGxwb1ZPUUZwd2g3TzR2?=
- =?utf-8?B?eG1VVzBMUU5UZUhvcHArbEJWY3luT1B1Q2JVdTQzbmhISldVK1djUjUzaDlU?=
- =?utf-8?B?Z2t4dDdLeElWVXRuMTdsRlNWL1k5MWM2V3ViN1h3RmVDUnpLZVUzemJ5MkpU?=
- =?utf-8?B?UUJnZ2FyZ1FFd0QzN2pxdmNmWGxqOXJzUnV3L0NsNUVYVkk2cHdkQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bc948b5-d6d6-4726-2aa1-08df0e7fb512
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:36:17.2291
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fKE+finsVo5tRkIZZWswohlN657NsAlKR7U8bvQN2v/Elp+JBKQOS/zw6NNfmQqzBq/VhHJ6j3XvEIdczAkGIg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6513
+Date: Wed, 9 Sep 2026 07:36:19 -0700
+X-Gm-Features: AcwNN1VdQII_SBwvozqnLJxonm84Qmsr9AHJ5M73oMtr5q_ETKWllQrAhks6iFI
+Message-ID: <CAEvNRgEmO-R35susJd+U+k-nB_yFE_gfh+ACrnaOR=ECJdWGuA@mail.gmail.com>
+Subject: Re: [PATCH v12 12/45] KVM: guest_memfd: Always fault from guest_memfd
+ if in-place conversion is enabled
+To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	forkloop@google.com, pratyush@kernel.org, suzuki.poulose@arm.com, 
+	aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+	linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon Sep 7, 2026 at 9:45 AM BST, Eliot Courtney wrote:
-> On Fri Sep 4, 2026 at 12:21 AM JST, Gary Guo wrote:
->> We have a lot of helper const functions which are intended to be used
->> during const evaluation only and runtime calls should not be generated. =
-Add
->> a macro to denote this explicitly. This is similar to C++'s consteval
->> keyword.
+Yan Zhao <yan.y.zhao@intel.com> writes:
+
+> On Sun, Aug 30, 2026 at 05:25:13PM -0700, Ackerley Tng via B4 Relay wrote:
+>> From: Ackerley Tng <ackerleytng@google.com>
 >>
->> Convert device_id.rs as an example.
+>> If a guest_memfd memslot is created but the guest_memfd does not have the
+>> GUEST_MEMFD_FLAG_MMAP set, KVM still fulfils guest faults by looking up the
+>> memslot's userspace_addr.
 >>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> Set KVM_MEMSLOT_GMEM_ONLY if in-place conversion is enabled so that the
+>> guest_memfd's memory will be used for both shared and private memory. With
+>> in-place conversion, guest_memfd will be the only backing memory for the
+>> memslot.
+>>
+>> No validation is performed to require userspace_addr to be a mapping from
+>> the associated guest_memfd because even after validation, userspace is free
+>> to remap something else at the provided userspace_addr.
+>>
+>> userspace_addr will still be used by functions like kvm_read_guest(), and
+>> if userspace_addr does not match up with the corresponding memory in the
+>> memslot's guest_memfd (whether userspace_addr points to the wrong offset or
+>> some non-guest_memfd memory, etc), that is a user error.
+>>
+>> Requiring both shared and private memory to come from the only associated
+>> guest_memfd simplifies invalidation in stage 2 page tables. On a PUNCH_HOLE
+>> operation on a guest_memfd, the invalidation is now guaranteed to be
+>> invalidating only memory mapped from the given guest_memfd.
+>>
+>> Suggested-by: Sean Christopherson <seanjc@google.com>
+>> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 >> ---
->>  rust/build_error.rs       |  7 +++++++
->>  rust/kernel/const_eval.rs |  9 +++++++++
->>  rust/kernel/device_id.rs  |  4 ++++
->>  rust/kernel/lib.rs        |  1 +
->>  rust/macros/const_eval.rs | 24 ++++++++++++++++++++++++
->>  rust/macros/lib.rs        | 21 +++++++++++++++++++++
->>  6 files changed, 66 insertions(+)
+>>  Documentation/virt/kvm/api.rst | 22 ++++++++++++++--------
+>>  virt/kvm/guest_memfd.c         |  2 +-
+>>  2 files changed, 15 insertions(+), 9 deletions(-)
 >>
->> diff --git a/rust/build_error.rs b/rust/build_error.rs
->> index fa24eeef9929..b7ef80596f1f 100644
->> --- a/rust/build_error.rs
->> +++ b/rust/build_error.rs
->> @@ -29,3 +29,10 @@
->>  pub const fn build_error(msg: &'static str) -> ! {
->>      panic!("{}", msg);
->>  }
+>> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+>> index 90a29424c54c8..668886f50024d 100644
+>> --- a/Documentation/virt/kvm/api.rst
+>> +++ b/Documentation/virt/kvm/api.rst
+>> @@ -6381,10 +6381,16 @@ mapping for userspace_addr is not required to be valid/populated at the time of
+>>  KVM_SET_USER_MEMORY_REGION2, e.g. shared memory can be lazily mapped/allocated
+>>  on-demand.
+>>
+>> -When mapping a gfn into the guest, KVM selects shared vs. private, i.e consumes
+>> -userspace_addr vs. guest_memfd, based on the state in guest_memfd, which is the
+>> -sole authority on private vs. shared memory.  See :ref:`KVM_CREATE_GUEST_MEMFD`
+>> -to find out more about the creation-time shared/private status.
+>> +When mapping a gfn into the guest, guest faults are always serviced from
+>> +guest_memfd regardless of whether memory is shared or private.  KVM determines
+>> +shared vs. private based on the state in guest_memfd, which is the sole
+>> +authority on private vs. shared memory.  See :ref:`KVM_CREATE_GUEST_MEMFD` to
+>> +find out more about the creation-time shared/private status.
 >> +
->> +/// Assert that the code is in const evaluation.
->> +///
->> +/// Triggers a build error if called at runtime.
->> +#[inline(never)]
->> +#[export_name =3D "rust_const_eval_called_at_runtime"]
->> +pub const fn assert_in_const_eval() {}
+>> +userspace_addr is expected to be the mmap()-ed address corresponding to the
+>> +right offset within the guest_memfd. Any mismatch between userspace_addr and
+>> +guest_memfd is not validated and is a user error. userspace_addr is only used
+>> +for host-side guest accesses such as kvm_read_guest().
+>>
+>>  If in-place conversion is disabled, KVM selects shared vs. private, i.e consumes
+>>  userspace_addr vs. guest_memfd, based on the gfn's KVM_MEMORY_ATTRIBUTE_PRIVATE
+>> @@ -6490,10 +6496,10 @@ specified via KVM_CREATE_GUEST_MEMFD.  Currently defined flags:
+>>                                 page tables. Private memory cannot.
+>>    ============================ ================================================
+>>
+>> -When the KVM MMU performs a PFN lookup to service a guest fault and the backing
+>> -guest_memfd has the GUEST_MEMFD_FLAG_MMAP set, then the fault will always be
+>> -consumed from guest_memfd, regardless of whether it is a shared or a private
+>> -fault.
+>> +When the KVM MMU performs a PFN lookup to service a guest fault, the fault will
+>> +always be consumed from guest_memfd, regardless of whether it is a shared or a
+>> +private fault (unless in-place conversion is disabled and the backing
+>> +guest_memfd does not have the GUEST_MEMFD_FLAG_MMAP flag set).
+>>
+>>  See KVM_SET_USER_MEMORY_REGION2 for additional details.
+>>
+>> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+>> index 0afe1468d2d9d..e41802944756b 100644
+>> --- a/virt/kvm/guest_memfd.c
+>> +++ b/virt/kvm/guest_memfd.c
+>> @@ -746,7 +746,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+>>  	 */
+>>  	WRITE_ONCE(slot->gmem.file, file);
+>>  	slot->gmem.pgoff = start;
+>> -	if (kvm_gmem_supports_mmap(inode))
+>> +	if (gmem_in_place_conversion || kvm_gmem_supports_mmap(inode))
+>>  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+> I like this change, which actually enforces in-place conversion -- when
+> gmem_in_place_conversion is true, if userspace sets slot->userspace_addr to a
+> different backend, the host and guest will no longer be able to access the same
+> backend.
 >
-> IIUC if RUST_BUILD_ASSERT_ALLOW=3Dy then this will not cause a build erro=
-r
-> anything built-in. I don't expect the call will ever fail to be
-> eliminated by link time here, so isn't it better to not use the same
-> mechanism affected by RUST_BUILD_ASSERT_ALLOW=3Dy here? Guess you would
-> need to make a new file for this.
+> However, since gmem_in_place_conversion is globally and statically specified, it
+> essentially disables the coexistence of VMs using out-of-place conversions when
+> gmem_in_place_conversion is true. Previously, VMs using out-of-place conversions
+> could still boot successfully as long as they switched to using per-gmem memory
+> attributes. Is this change intended?
+>
 
-I could do that, but I also think it's not a big deal to also allow for
-RUST_BUILD_ASSERT_ALLOW=3Dy builds just to simplify the build system.
+Yes, this is intended. gmem_in_place_conversion is intended to be global
+for the entire host.
 
-As long as we have people building code with RUST_BUILD_ASSERT_ALLOW=3Dn th=
-en the
-problematic use will be caught.
+> On a separate note, is kvm_gmem_supports_mmap() still a necessary requirement
+> for setting KVM_MEMSLOT_GMEM_ONLY? When gmem_in_place_conversion is false, if
+> userspace mmap()s the gmem but sets slot->userspace_addr to a different backend,
+> should the KVM_MEMSLOT_GMEM_ONLY flag still be set?
+>
 
-Best,
-Gary
+Before this patch, requesting an MMAP-able gmem will set
+KVM_MEMSLOT_GMEM_ONLY, so if we change that behavior, we'd be breaking
+the existing contract.
 
+If userspace requests an MMAP-able gmem and then sets up
+slot->userspace_addr to something else, I think that should be
+considered user error? MMAP-able => use gmem for all faults has been a
+thing since before this patch.
+
+Just like how there's no good way to check and maintain the validity of
+the mapped memory behind slot->userspace_addr in relation to the
+provided guest_memfd, the mapping can't be used to determine whether to
+set KVM_MEMSLOT_GMEM_ONLY either.
+
+>>
+>>  	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+>>
+>> --
+>> 2.55.0.897.gb25b4bd76c-goog
+>>
+>>
