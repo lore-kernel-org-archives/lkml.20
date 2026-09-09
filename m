@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A57576EBA;
-	Wed,  9 Sep 2026 15:53:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FCA57982E;
+	Wed,  9 Sep 2026 15:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969181; cv=none; b=PHxF9gwjiDf8VlluWd3mUcAVD2DIy7OLQleWqhlmYq9aS+yNfxwItL+o0wv63f3l/SbY2tLKEPWhpKZ4FeLGO/8Ahr+kPC7WbEO6a7EPh1I726oOn/0WHCu76K6tYcy3I0VrP5qjV9hkeRCpJF2jlEUBcCUcW27s2espVIcn1NM=
+	t=1788969185; cv=none; b=thq/oH1k8S2K+1c5eKfQbA9nBr0BWZUIeUkDxRYhd54DhB84y7lcwy/oSpowW3BUHKyYq26FSEbT3D9rjRqLGQzfZ4V99z+thFAXKcax8w8JovqmQ1+uD631JZ+2mkhuvtITaA2SKtOTb71NWKzNsjitNgVcDq77IoDskIR/B1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969181; c=relaxed/simple;
-	bh=Z6IeuHN2wYLCdpAybEy7zPVVoprRL7CyTaPqhN2PIM8=;
+	s=arc-20240116; t=1788969185; c=relaxed/simple;
+	bh=BHkLJC0hqDz+ERK3IdSuUXw9+KpoCtq4bWyk1cn/3y4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dB7XOYpiN8RrfNeGNXcFJlP1jOvU7sp8EU0DU8Kmp2nHvZCZnbRGvF3cr8XKkRktz1JLHbWF8/Qz4XnXCAydIZBw4Ouy2HWLKP5NQ+ojnRJNpbOfbzK96C/HgygPkq7GNlCnbDLoZMM4jB4Lat9ifPWljGbgvEZhaTs8GTiycAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZ07dWcw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mGY8Y6aHgNjQ3sNc1J5bWz3aOCUcMiigsLZcPa0rVmSKjEmkjpOAD7154cL/S6xIvP4xvv5zs3dnulyPgNyubGXF/PaoDzDaJCP1/wZpEt/z4JjTnA8iY3QOi3BCT86G6Hzobzezs+xC2e75TEYDE//fF8Y/lTl7JbY2VlBvIzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XTkzP5qc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZ07dWcw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC511F00A3E;
-	Wed,  9 Sep 2026 15:52:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XTkzP5qc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0831F00A3E;
+	Wed,  9 Sep 2026 15:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969180;
-	bh=ygWRkBBeRU244lAb+zP2iWBtYkX+6ckuPk1VTFhikIE=;
+	s=k20260515; t=1788969184;
+	bh=Rlh5eqlcDiuRDrVl3sj4muEfOWGgSVcp82Q1l8QqQEk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BZ07dWcwPN5U3q6B8HpgBBmSrHZh2Bg6irBogU2MiCaskShvimm8yO4yPKkussFad
-	 M6iYJoWddwfo4jx430lshC2xubx6fc1Vs9MEDgrO/jQ4vKZdHFgfGRW5q0GgMh2sjW
-	 F31GR95y6BNl51vsHtvPq9pzMjpoxYJ/oCi+WCOj0KJKUqLQQ0lopHJoJO6pxYIUwO
-	 7yUE3vVdDFKcmw1d/c5ui9ZI7rP5dlMUtWokPallHbdLj/8FkVgPVcdmDe3OG2skto
-	 D7TzQmyqVUgdgK8kpdIHf+vPhFQtKQd8RYBM7LdXeFgfItk0CyRCEzuOi0CGqsxQLp
-	 CKX5zpJvfKOWQ==
+	b=XTkzP5qc5uK3UO1SDtOIa0Es15Hmz7Ms96xp7skfgt5t9j497epANF5LHVMocMVmT
+	 HeA0lT731eUXrjb+7FJ775wRCWOXf2adSz7JHZkXO2LmnzTnB9lkskL/deZvoknFXO
+	 PkpWGWhLgHdU/kbIhxkxiG1oVO6cR6qm4uFyy3eeNGz6jd7PHrv2+u2X8FtRJDvPxf
+	 3CpRpl84wOnyA1qAW0dP97f1q8TabwKidSXsdzTxf+183/JIG9bMrGUHpW5oA8D2ly
+	 I6L4/mpab3SOBM5zsMPdH+Ho9+nP/vUy+R6M3KOH0/NIEqh9znrSyXJGs3mZZFRwtY
+	 vugH6Gza1mGvA==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, 
  Pengpeng Hou <pengpeng@iscas.ac.cn>
 Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
  linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260830141828.34419-1-pengpeng@iscas.ac.cn>
-References: <20260830141828.34419-1-pengpeng@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: nau8822: keep regcache offline while supplies
- are off
-Message-Id: <178896516885.145772.14048806499861715090.b4-ty@b4>
-Date: Wed, 09 Sep 2026 15:46:08 +0100
+In-Reply-To: <20260830141521.33246-1-pengpeng@iscas.ac.cn>
+References: <20260830141521.33246-1-pengpeng@iscas.ac.cn>
+Subject: Re: [PATCH] ASoC: sta32x: make power restoration transactional
+Message-Id: <178895933274.87467.17320712495330559103.b4-ty@b4>
+Date: Wed, 09 Sep 2026 14:08:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,20 +45,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1202; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Z6IeuHN2wYLCdpAybEy7zPVVoprRL7CyTaPqhN2PIM8=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoYDYfB/4xGI6XuLguWzztEy/zWdIT/oKvGqNO
- t6LW2/eDZiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqGA2AAKCRAk1otyXVSH
- 0ILeB/9I4fDZmYD2GBfHW666Pazcbs1EG0hA2g2+58O2gzn7Nv75D26hIhGtQD4ewdWRCzl10Yk
- pGDayAqC3s3ZrmB+59LBwonyi1Jlk+aTzrgenLhnn2GOPYzdgvVitPixkLZ5Ztz91TsX4dnuVYv
- pTbdxDAmC74fa/eoXvunBM44X4nez7NDQsJ3AoKsQ8z+op+QKSqAD5LOQHNLS++zRhxRZ3XFt5R
- SgsAm2lFROqoNeGMzJjIxKzxgO4GRjXmDzbBqmAvVoi/OfIKBu2PHt0UHDD218Wf7ZED0DdSH0y
- VIEguVEkGbVgkwJRanAqFD7eXkf47aZqjMO1YhmJ1QUTmPPp
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=BHkLJC0hqDz+ERK3IdSuUXw9+KpoCtq4bWyk1cn/3y4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoYDcOyALtb6wbfDwimUxPhWoeZBkNuOusIPf9
+ w9bE+EYvImJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqGA3AAKCRAk1otyXVSH
+ 0MYKB/0YkoCmQRVwzBWfP5KdtSPCgY+fX0umuFkLvwo+gvBcR8E9tRU1twLb87nLf8djbgTbi8c
+ Y+vdCIgvzJc9mW7ATwCicMG9KB4lTvyT8NZgl+1hun/9fOa/wWsF1zOK/shuFajA40K4n8uCgHA
+ kjo2GMzBHA5mZ9PgTb2IAWWMLLuwBs3pA3hoVist1IHfihI875qp2PRf+zRZHE4cf4CikQ9QsOe
+ a8uAMGUDfsqqKIqJFTR+V8FEkaNOXTulX6kNp9w5HjvHEo2gIHqd7c0Aq7vF7xj0c6/J7WH3A7I
+ HtpdjcqMOzVJEdC8DVH5Py/UbcFftbs2xD61up9I+KZEEj/1
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 30 Aug 2026 22:18:28 +0800, Pengpeng Hou wrote:
-> ASoC: nau8822: keep regcache offline while supplies are off
+On Sun, 30 Aug 2026 22:15:21 +0800, Pengpeng Hou wrote:
+> ASoC: sta32x: make power restoration transactional
 
 Applied to
 
@@ -67,8 +66,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: nau8822: keep regcache offline while supplies are off
-      https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/commit/?id=9c343445b349422bddebb4cb9668c246bc6f08de
+[1/1] ASoC: sta32x: make power restoration transactional
+      https://git.kernel.org/broonie/sound/c/3e71dc4508bc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
