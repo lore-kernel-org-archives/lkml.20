@@ -1,104 +1,105 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3472B44A3EC;
-	Wed,  9 Sep 2026 08:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941697; cv=none; b=Cf6DSpn7BqgU8mL8CzjSPSmn4L4ymPZ+4vWrsI8WSh+klDRr3htdBaNPw1ytOY3hgwoeA5qhD4w6MMpXSbouuprjMOvahM5K289efPgeP1jlRruhK/757j20weOQQrKOVaegsZEMJQeQgt+TFx+aJIsj/7sx62VWTiwIbCkkmK8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941697; c=relaxed/simple;
-	bh=Fa4pUNoSdbQfDXZLUvClkEdaf9jTtFUz9PAiYriOhXM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ahRYypmx7bvKjDmCCr3ZxeSpM0kPfOx1XsApqMVwvMFyaXWc/MsoGH2UnXS3DkRyrRnIGQl54+CORCvL4pbhQurvnMK9+02U7woYIQMhWYgvo7WLZglxiYudFiDx7LXVZhplRValkw0NbJ3pBnKcvggsbz0H8wz/7OCn0XVMCgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBnIn1tFaFqrYsCAQ--.8187S3;
-	Wed, 09 Sep 2026 16:14:38 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgCH9cptFaFqRxhmBA--.32691S2;
-	Wed, 09 Sep 2026 16:14:37 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dorcas Anono Litunya <anonolitunya@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: vivid: cancel svid ctrl work on release
-Date: Wed,  9 Sep 2026 08:13:41 +0000
-Message-Id: <20260909081341.685686-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C27043FD3F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788941736; cv=pass; b=Sud2FGMa4uWPICGkLNsa8A5Iy+3k2c9e4gJmMd0iw8FZBy36BMOIPRC497ygiTtrJpetJ8eJZRr3VZ8TxX0DKub4X6zi+yu/FtMDVePkUpmWx97sL2XaN6jzT6ErgL4JD7ikVvkQ9GKGG5q2VzAk0XZnl86uJ88MZWjlNC2IkhQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788941736; c=relaxed/simple;
+	bh=1k0YZrSks/fUFsNrSrQtX4TlMWE+gPqMH2XaCVooxz8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kqyJsKU/REee6dc1fMQ+89y/wverd/ugwH6U+7MEziUYBFhi3YIMylHPHIftyb2EKVP8KiSb6eenU9seJmyCfuoFkjPwW//UpwL3szWgboBNdlQR+q35VmcG1AZMIzZer6jxKa4ILjRD1F0wlCY8YCZKBvYtoTF6QlyeeME3eNo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WNN6BcRz; arc=pass smtp.client-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WNN6BcRz"
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6b8e2d8df4fso3128527eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:15:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788941734; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oNUuHPeQtjOIxBKjC9Ht++60JAAGOJYBYiuQzk2yIDr2wF9wrAf0qhAbY4+rngtbW/
+         51yoGHr/Y4ndLa1Qift7amJ0vpVqvmafF/mvDCAvJnF1RvvDpef2z7qQGHHYEr7hLpkE
+         /KGko296Rd5MXShZwa3ww/E4zHdSMCnTGzsv8y1170iqKXx7pnRlRC+R9taEx9C0dYZo
+         9H/jcT2tQMnF6EwmHb2THvfxF/Ii/9sydZAawRZUcOK+f8zbLIl3CEuLkHy2DSYa8W/d
+         hxlNQbYqMsjvPZ46MIHpcGtE/S4GWGoRPsHqq385evB2iv6LwQcaRcWr7hkjHW85GStm
+         u+Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=tZpcmK/1gS5TGkCr6ZKwLD3FmVB89gMuw83dJlLlkos=;
+        fh=vTP0Y7d/57wIdpUiz/o23GzxTrnz1zosb7qud7IKmWg=;
+        b=XatlCaFQQqyUCVHrR051phpvyEL/UFkP2WaHi04xQFfMPHvWcVJvxQtyGMSOvRSc1v
+         KC6K2Nzw0YjpRn33bqKDqhfL32vqfXt//1o1bfXrVaL15gWJ56kG0ivz5GhdGbmdMNlR
+         WX2KjqG4ZDdN1U7JO7HkWP+wsHboQtTr41ZFoLGB4Wr+5KC0GBmJvRRzIHXT6K1h+HeY
+         FddxHs+fjaTN7FSMZYwAVU7SUCk+KUYflxtUKbWwio/xA6r6gBkLTI1GN436ro5BlA2W
+         jUvEA2gbPOMu2LwjinPwXSFsyHYdD4jK6I61pVmQZ9OER7Kv2kOgWeSWCGV6+tbCX7ds
+         x/1A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788941734; x=1789546534; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tZpcmK/1gS5TGkCr6ZKwLD3FmVB89gMuw83dJlLlkos=;
+        b=WNN6BcRzs28uCyr51C4ZK+380gEmA/ni2JH7TKEMQ8v3eN3dnEpEm15818bkre7MFY
+         Q3YrqFwZrkeahdmIy58fKjGDxDv61GJFVUbLY8ySTxPKQ5oS9X3hCks+eH2qUyO6+M46
+         s7OZXU9DA82Wul/bMPuBLI13ZYR9TGg3KLBqOS7NvSXa705hd79e9LTedR2dj0n4ZKKS
+         uf3F5HNANQV23pCwt8ZA2yLumwA3t4lU9xumxXIPfmRHWJ8m2Vt0bLn/JOdBbYx/cjEy
+         xL89Ccid9rMeXjWPKE+Hbagn71OwlKnHN2Rk+TE3qLLt0iXcrZlGPbZszYLfF5Dj8Csm
+         K7PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788941734; x=1789546534;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tZpcmK/1gS5TGkCr6ZKwLD3FmVB89gMuw83dJlLlkos=;
+        b=EMM4hXJxn+ZglzjdR2fLAxVzU2kl+m36N4QRm/gbHmZ6n0Boa8JLyCq2rX3LSoD5b0
+         lFWJnfE75yDG0LQNabK/0k+vJ118niNkS3Gg14oAEor8iDhmtVp3YnXja5ZICIt5Xn8J
+         6NWC6uS8QgDVKljxBgngn98m2Eqt0g2p0m6zsTCzdXaH4ViiYJrc+mwh3vPLxFszOSzT
+         JLx/2i0qE2eSuxIaFxWAO/eB+kB7WpjioIH8rL1xtOw53r2XI8nivz6Kr2msMKK6brSs
+         VziG8ac4Y3V9fm1zFyh4xiQOPO2U1asFACA6bd3HYblWktKfb4GnWzS02jb4NjeykAD0
+         9OTQ==
+X-Gm-Message-State: AFuF++nU/WN4Kaa4Gx6Nq/0c+QfDXDiF4gWFjqjh7bG4f3KFFruDNlXs
+	szcjh2B694utNbCwMGQVTZ2DUvCR1j5KMKxLB3rB+rcCMFCQcmMY4JUNC7/JCtUUkYo6QgRtClv
+	qa+dbvq+x6/EHcPP+7vCVJoVDqTVTuTM=
+X-Gm-Gg: AYBFou1oj+QaMapr61TWK2+YU7RgpH0n9wS1Z59MxmILxGU23fg2WJbvzxAYnICIRAi
+	OLtC4LTzsuC+N5ITTbyAgyafoliq1/ZBTyvR2mGdZSCsT4ALxJx5uxBVB7YaZlUmVS4wW9xCSOC
+	NIKHl6qu+32gtSDJwaXVnPzR6eJM7K24ZH/sKFMCYV6IX6EZ+u2PyBIxlbf33zRcpvbflSfxTM2
+	/B8lPIk5aAW1gYDS2yLjwR0+vnX0RanCH6YxO8nBXf1T9K7stpVU4UsuuIJlhmfW9MD/21SLmtL
+	olTven5eLnKU7lnY7Wdis9QBtuPxvyA28fxn6TZ1sDGl4dPq8rrESg==
+X-Received: by 2002:a05:6820:7082:20b0:6ba:b298:ea39 with SMTP id
+ 006d021491bc7-6bab298f025mr7233706eaf.69.1788941733917; Wed, 09 Sep 2026
+ 01:15:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgCH9cptFaFqRxhmBA--.32691S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?fuMh6QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0K0AVGxL4zBOVAPaWNLeCivAi5QntNhyVtvq7f9umBJhXl
-	WO4yOpNiT2sFnfWodlqp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxJryUGFW5uw18AF13Kw47KFX_yoW8Cw4fp3
-	98GFy3CFZrXF4YvF4DJry7KFyruw1SyayIgry7Z3Z5Wr93AFy5Cw17KFy0yF4UAr9IyFW2
-	yrsIq39xuFWrJrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
+References: <20260827113241.993923-1-khurana.ridham222@gmail.com>
+In-Reply-To: <20260827113241.993923-1-khurana.ridham222@gmail.com>
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+Date: Wed, 9 Sep 2026 13:45:22 +0530
+X-Gm-Features: AcwNN1Vn8yplOdaKFbDy39xEGoIKeoW4yBYnchV3TkVWT-OzB6_OizXULzOq6JU
+Message-ID: <CAOu+XQ+=O4SfYw_ojpoj4kc7CYVUvMZ9hf3T3JHYpKuVqo89Ng@mail.gmail.com>
+Subject: Re: [PATCH] platform: cznic: turris-omnia-mcu: Add missing MODULE_DEVICE_TABLE()
+To: =?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
+	Jori Koolstra <jkoolstra@xs4all.nl>, Brigham Campbell <me@brighamcampbell.com>, 
+	linux-kernel-mentees@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-vivid_dev_release() cancels update_hdmi_ctrl_work but not its sibling
-update_svid_ctrl_work, which vivid_vid_cap_s_ctrl() queues on
-update_svid_ctrls_workqueue when a VIVID_CID_SVID_IS_CONNECTED_TO_OUTPUT
-control is changed. The two work items were added together, but only
-one of them is cancelled on release.
+Hi,
 
-If the svid work is still pending or running when the last v4l2_device
-reference is dropped, update_svid_ctrls_work_handler() runs after
-kfree(dev): the handler iterates the global vivid_devs[] array and
-calls v4l2_ctrl_modify_range() on every vivid_dev instance, including
-this one after it has been freed.
+I sent this patch on 2026-08-27, during the 7.3 merge window, so it may
+well have got lost in the noise.
 
-Add the missing cancel_work_sync() next to the hdmi sibling, before
-vivid_free_controls() releases the control handlers the work uses.
+Do you have any feedback for me?  Is there anything I should change, or
+would you prefer a v2 rebased on the current tree?
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/media/test-drivers/vivid/vivid-core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
-index 62cfb5feb2cf..c042d92db175 100644
---- a/drivers/media/test-drivers/vivid/vivid-core.c
-+++ b/drivers/media/test-drivers/vivid/vivid-core.c
-@@ -854,6 +854,7 @@ static void vivid_dev_release(struct v4l2_device *v4l2_dev)
- 	struct vivid_dev *dev = container_of(v4l2_dev, struct vivid_dev, v4l2_dev);
- 
- 	cancel_work_sync(&dev->update_hdmi_ctrl_work);
-+	cancel_work_sync(&dev->update_svid_ctrl_work);
- 	vivid_free_controls(dev);
- 	v4l2_device_unregister(&dev->v4l2_dev);
- #ifdef CONFIG_MEDIA_CONTROLLER
--- 
-2.39.5
-
+Thanks,
+Ridham Khurana
