@@ -1,33 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3901453A28;
-	Wed,  9 Sep 2026 20:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D933B71A1;
+	Wed,  9 Sep 2026 20:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986990; cv=none; b=P6mV+LRSwx0n5FjOd+p1OxhfzfiMTTqZDNDbYOZIIYrsQVBOXqMWnyy3bui4WSAQppbOxjbFQJjW7ssZOv6SRA8FFaoOSWDhlgCRpu4m3gwOjiRaGQeMosUvNH4bYv12Y5JccOfxaKrycIjoUhhIpPvdFX5XtE8DKe0n/XWGjB8=
+	t=1788986993; cv=none; b=Ihiy9A3NmlyMQkfmAo5IJoOgNIEYK/IOUkvYRuqqRSZ4eo8T7NSBHw1tt/Yog5eYAnU8srCtx70krdmU2lMf8YvXSGQHVZ8uEPiQrW0sNow2YnSKlHrAiz/YnkTR/Ql7BJzt8c6Ef8C4lB5vt/OuriQNswjDxl0LdVkghldByWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986990; c=relaxed/simple;
-	bh=SOSKQ6DMWsIzF51ySe3ch/gTAqxI796K8SC3BfvFJxk=;
+	s=arc-20240116; t=1788986993; c=relaxed/simple;
+	bh=HUZ/6Qcvdbp0mmvie6g7UvbQ2JSJi++qvHcZWQNFsZ4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SdyqRCBv/qNIp/hfYLSPPrsWJ/O4fFpramlgIKyWKaepP6vLJoCt9w6smgiQpH3Lx0POidU5ybLM23ux42b6xmjdhaEeGZ0VbxcHPJ6Qzq+X0e/cXDQewj/K39s/Mmb6UVPWIrM5NpdmGAE/XSsTLWi6WrMLdT/8FftCJjWwwYo=
+	 MIME-Version:Content-Type; b=XwvKPGSXbAFyhml8vJpawSP7Z6aAMqttTmnyyU7cNlE/bcTj9u9sa7qCHlN6a88R99X87tUn0lpZ1sEDU1WWsTQLvj4Ktalw1PPopKgp6QWfCwznNlQKEP+tf8esFNtcFNH/O/KSw20tfOkfRF9gzowzklZhcYc0Zq/rzNGID54=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770531F0089D;
-	Wed,  9 Sep 2026 20:49:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3709E1F00893;
+	Wed,  9 Sep 2026 20:49:35 +0000 (UTC)
 Received: by venus (Postfix, from userid 1000)
-	id EEBD518337B; Wed, 09 Sep 2026 22:49:31 +0200 (CEST)
+	id 2F013183383; Wed, 09 Sep 2026 22:49:32 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
- Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Marek Vasut <marex@denx.de>, Shengzhuo Wei <me@cherr.cc>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260827-bq27xxx-suspend-cancel-sync-v1-1-77a67711cbc3@cherr.cc>
-References: <20260827-bq27xxx-suspend-cancel-sync-v1-1-77a67711cbc3@cherr.cc>
-Subject: Re: [PATCH] power: supply: bq27xxx: synchronize work cancellation
- on suspend
-Message-Id: <178898697196.883277.12662329036916141963.b4-ty@b4>
-Date: Wed, 09 Sep 2026 22:49:31 +0200
+To: Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
+ Purism Kernel Team <kernel@puri.sm>, 
+ Santosh Shilimkar <ssantosh@kernel.org>, 
+ Hemanth Selam <hemanth.selam@gmail.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260907063947.34852-1-hemanth.selam@gmail.com>
+References: <20260907063947.34852-1-hemanth.selam@gmail.com>
+Subject: Re: (subset) [PATCH 0/2] power: fix typos in comments
+Message-Id: <178898697218.883277.18435006047420230731.b4-ty@b4>
+Date: Wed, 09 Sep 2026 22:49:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,22 +41,21 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Thu, 27 Aug 2026 05:22:29 +0800, Shengzhuo Wei wrote:
-> The poll work requeues itself via mod_delayed_work() while the device
-> is not removed. cancel_delayed_work() does not wait for a callback
-> that is already running, so a poll racing with suspend can keep
-> issuing I2C transfers after suspend returns and requeue itself into
-> early resume.
+On Mon, 07 Sep 2026 12:09:45 +0530, Hemanth Selam wrote:
+> This corrects 2 misspellings in comments.  Each is a separate patch so
+> that any one of them can be dropped without touching the rest.
 > 
-> Use cancel_delayed_work_sync() to quiesce polling before suspend
-> completes, as the teardown path already does.
+> Nothing outside comments changes.  Every touched C file was checked by
+> dropping its comments, replacing each string literal with a placeholder
+> and collapsing whitespace; what remained was identical before and after,
+> so the compiled code cannot differ.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] power: supply: bq27xxx: synchronize work cancellation on suspend
-      commit: 5fa10f61bbe255011ca9368b8bd6352b7d724bd3
+[1/2] power: supply: fix typos in comments
+      commit: ee0b9288afbe0af27f7257d17bc0c1d61ca52007
 
 Best regards,
 -- 
