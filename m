@@ -1,185 +1,285 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B3534388D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2A3381EB1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:44:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943451; cv=none; b=XXZhC3GOUNaY8Mi+g/U2x850L3EbtIXCJrbDoHZuKLcbxaEpzF6P0zjhNpUgqYJSyw93xrAl7dWWAP1akTUavRVVMpLYB7f+5UhSVBL5fnCXni63o/Xy/OWsqNEMDXHkhEWALgOMbkJ+1JLxT2gZ3QiDSkEDjkhrXbdS5kU3Ygc=
+	t=1788943489; cv=none; b=FIJ+XX4NKwMPIowivT3TCnLAqRtkezej5NvEUFkUA77OZ12g+MfMvZBrDvlK4vBPxgI9eu+zjDE5mJlRz780Uq7tkrcuj5Rvuho9I74ewC7Bpd1u0mKhVbj5ZhHbKGHqHpWWqKwk2uqokjoj4P2Z4B1sRGb4XPUu9ROwexhdajE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943451; c=relaxed/simple;
-	bh=xys6MsEZcwrHHq7YN0NfAuyBpB8HSgM4kUcuBxXgQ2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=maNIraqN8fnevaB5GVR9VinbHl/PRmV9CRfCu27h7iHgpfKgrTlCzq+4IvKWsu27Ot6J1lUkji+ppb4RFVmJLmWTz4JLe120i/iCXcyOnO2w6segNyLq2qJtYcKaazUcjab9xJmhqQuXKBxdbk8BZ+0NWoMoRY6FyoUvF6c9U40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kEDsUmsI; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788943489; c=relaxed/simple;
+	bh=ePm9i7Kk92Y+hDUY+8+o7WMulCg0zQFnIVps8v3mnJI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B9eQSWtwgrldeS9aJ5la3yOQ+YBXweNlClaTRWTxhLtRc3Q6wYWlNUpyRibWwV+RWWG9sxPMk8OvyoT/TbkbPX9HG/0X2k9vwQu/nDCXilBw0CaM1+9vEqvCbT3sFtcDlmG2VWrWWXaTH6d/3ruPBZzq7fEKdWikKAY6MZ+xRSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=gTkp12CN; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kEDsUmsI"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so3865875e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:44:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="gTkp12CN"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499de29beb7so1424745e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788943448; x=1789548248; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=okMv2+1YfuLx/2dcvT40MlDMYaz4gYQHN5TEnTMZgF8=;
-        b=kEDsUmsINV6NCR6pyc1+8kWei39dPviDnqn7VXO7zZB8Mwix24tTfynLlu88AgCfiJ
-         ALGkyxktB5KagnBzd6rEpKgAzamhzotyVsB1pCa+Xa4MpjdtVnOTR/nw1pF88jwQzVl9
-         1KZEUVNRivT4ccs+DNJw3YxPY1HlzeyD9rpJvhl0Tn5hbSGbxVfMNqlr5rUCh2YXfqXm
-         sUNAPUR59t2z447tzuZACwv7HZbXERvBPd/W56lKtuV/CTSonrwDWCB0/bpGGLmoWcxJ
-         HjDO9Zkfbgtz5pJlP/B9tplKMAYOK/WYECnJhlu2GvHpdyQ5BFe0az5jk8y4Lo7nh4QP
-         BLxg==
+        d=6wind.com; s=google; t=1788943482; x=1789548282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=J8Aqe2ScHV++lSSph7hCxIE0TonE2FREGCTyr4JGGuw=;
+        b=gTkp12CN+DDjYdsD+HU2XVf+PV48ZldoOWLYfYF0Y5Z9EiWv9lLMPa2UGWWLPS/WQg
+         eCKwXgYDfXlCICqbew467uvXmfEch0DicWOeqv0htrgYe4Q5fJy2J3Nqp1FBYvO9OtQz
+         N4l3Q+GdvxaAQNOTshMhJSHlDO0IidVELDGw/mqlTYPDFLpAKdAH0kqzd3M89/vACN8X
+         MU4xEV7QTYTcugJkF4d27L5EXzocN84liWjezrin1f5O/eKUL0OFakjzKobfEj9yHl3k
+         4MWqU0UUc6H34xtJEytMQMZoZKHqDTj+Czp6ZBoL249NjpT9WctWQu/j/N8XLeM6wO9Q
+         yHNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788943448; x=1789548248;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=okMv2+1YfuLx/2dcvT40MlDMYaz4gYQHN5TEnTMZgF8=;
-        b=ZC+3fm9HD8WMJQHYFK4ep40u/OjZnlNcqkPVe+qGW4dhMSRg7Gec4n+3V1zWJHLLg0
-         MsFNCOCnEcPtby4BHlammu7MOvRDoZ3mE5da7u2BgYjCEqdFdu6J9nqgRvPC9YWjKvK2
-         oN6g41NUjf4M8W6+jS3d2xKEk3N4LHntWGZs9wemEcaMV3PHQ6J9HXZPaBhZJaO2/BEx
-         L64rxSaqwb+L7OXDdnjqkKNIpXaW8TH5NjynyQmgKGfr0Q/qAEsf3EZFKRKq6jR9YWyT
-         rFO96MB06hC4sXpkqgyu8Fe2tvEy7r5ZZmFq2inO02kz/gytiyveJH9pSQ8G/j57Skv4
-         FQJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjir/L0SE2TJHVG0IorEgfDHUM+uKWZg7J2MbpJ6atc7ojgNdpJcgSHvKF6rLJK6fwc++A4uIA1tMUNnw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQwDiHdmzfEgkhOc51XoXLT7rwRqfiscaZOvIhFjfn6f0iNPQb
-	+Oi5y6uQosaKDGfD/QklZLQi3FrgWwBTknrI7BPRZmlNy52VpL9OBHfM
-X-Gm-Gg: AYBFou3z2/PfEnKaI86X7SxJ+9VvCfn3YjNvPKSsC089QkYJNJvhUGx5Uqkx9fuJitL
-	WHiMhR62xvvJ1c9/QWKcEqPaZbxCEdZr+5eTmFpBwvEHANM99GUG+Q8+Q/7TeFsOk9J5l/57hkr
-	G6U0FST6LIeeAYLP2W6NQjD+CbhVgOuXpm6HfPc5ODmCha7PDhNcD0X24MQH7eP+WwBKaAGYBe5
-	npc6bZHJuBYmN+VtLsBR6Fv+oFP+GL2mWip/InGzlFJQp2eYieKcN0H4fms7Z0w8vhsaB3BN7R+
-	arqPiOWIadKF3JBqwFGSsGy3jIsxIhhMlsC8JaH/Ohd7jR3oqm+cAoEFy1ujyPPd8mCxznxpcN7
-	W16J+LW55pF95kXzCQGQYEB8UfMock1BM065gItZfx8MJGLSg/2sdEJcrIxLTEKYBiWikmE+Nx3
-	kYDnZqgaoErUcbHrVNaxNX4xm4ysoamHpJYaLw/8ojx/ApKeyyLEfcd1EJzFsAM4zP0hUvwnL1z
-	+KIQ6sr/4Udo0V2N1Par6T50gpJw4o8rpCN
-X-Received: by 2002:a05:600c:3e0d:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49d1f358668mr92609505e9.11.1788943447734;
-        Wed, 09 Sep 2026 01:44:07 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d00031c95sm439337225e9.11.2026.09.09.01.44.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:44:07 -0700 (PDT)
-Date: Wed, 9 Sep 2026 09:43:56 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ajith P V <ajithpv.linux@gmail.com>
-Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5] tipc: replace deprecated strcpy with
- strscpy in tipc_bearer_get_name()
-Message-ID: <20260909094356.00a640dd@pumpkin>
-In-Reply-To: <20260903132718.1616159-1-ajithpv.linux@gmail.com>
-References: <20260903132718.1616159-1-ajithpv.linux@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20251104; t=1788943482; x=1789548282;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J8Aqe2ScHV++lSSph7hCxIE0TonE2FREGCTyr4JGGuw=;
+        b=mx1vkH6905aQeACnUrilqr2hvrtzs1Efvb1q44YpdHj8+t4h+mhTFpuHlkrMtCPOH9
+         TTsNg/MtQwcaz9bXd0tMCwxsPRtMZ8+eM0L5rhcFk6qSSlc8TXgjIrWLyy5p0fpfO94M
+         +1PL5ry85xIFe0gauDQbKqRHHBBbHQwN0h5Wcpt9GPdOKTwkmHAZzGYvyTv/vAlwnXpP
+         1evaLxid+H30XuWRUpT08Pli5etPnrk4V9LY7HCUitq/pgVOrfLUChEtwmbwx6LyOEyK
+         z93ejhX8iZnTazAg5FPmayhIzNYw2DcDepf3tON7EtwpjyBHsY+EHUzNlLyGI3K/7wZt
+         pFMg==
+X-Forwarded-Encrypted: i=1; AKwUvBwzmV6ZdEfM/jMhcXOf0UWpnVufDaXssun70CjaNp8GxhUrxUAcJnK10tiHeoBdwi9WsJHYJgndNKsRNgw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKwGPEHdZqh5hqHjIgjd3Pwv41uDzzzdGMOIILosJq/3Qd41xY
+	AeMzj+Tghi3Idtf4LWUFkbvZA34kwxHBoQliXCcuvTAPOiLt5dRtBZnIuYuTz5z3Z9k=
+X-Gm-Gg: AYBFou3bY3jgZS+vYPGMlGiDdCjZm4CbaooTVSlyfjZCm9fyHOONzJGHxHw1Tqk90Xc
+	HdwvQgCcb+xmGOZistBgu5AyQMi/3nrf+jNXLlORPLD//mx73GEH7trfYJgx1aMGGLlCuryUHfZ
+	YdS5tbqimW9+g3imv0lgdX8nCr3b6M9aXl/U2PDQZI9JOUDB7zneKQuFeM786jEJpFV1zcqi2Uv
+	faKoORXtLPT99zRNNQX5PeEo4L9jwz4YsQbH4izD7vkal84xvG1C6Ro0V61pys0GkLaMw5xtZNx
+	KrsCBOEk/3SiZMDmx2Yq/UshaQEkTNwZOMBwv/iGZ8D7AJrmQFYMgwndJYl2byfEPMbl55porZR
+	H7SaPxOW9gjW36CYFZV69R2IPxaWGbib53JUxlkn4MaRvaQyJHefsGbLmepFD3IF3nBrvu4pEH+
+	stbyW+M59pROF+UP2o4nOh2ybqhBaakKDGAec2Z3OhYbPqAf+q2nnnno8C3RghxAi4Tcdwp5C16
+	ndcs3Su5b2blquZ3AOmBQv52eqYdMwHx7mkKqcPa44uvcq6Tw6G
+X-Received: by 2002:a05:600c:c494:b0:49b:916a:e553 with SMTP id 5b1f17b1804b1-49d010c2a57mr242611125e9.0.1788943482177;
+        Wed, 09 Sep 2026 01:44:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm634667375e9.13.2026.09.09.01.44.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 01:44:41 -0700 (PDT)
+Message-ID: <175b6b01-2f8e-4b77-8504-6f26d9f8df98@6wind.com>
+Date: Wed, 9 Sep 2026 10:44:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net-next v2 1/3] rtnetlink: add AF_PACKET multicast dumps
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, David Ahern
+ <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260909013401.14408-1-sigefriedhyy@gmail.com>
+ <20260909013401.14408-2-sigefriedhyy@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Content-Language: en-US
+Organization: 6WIND
+In-Reply-To: <20260909013401.14408-2-sigefriedhyy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu,  3 Sep 2026 13:27:18 +0000
-Ajith P V <ajithpv.linux@gmail.com> wrote:
+Le 09/09/2026 à 03:33, Yuyang Huang a écrit :
+> RTM_GETMULTICAST dumps IPv4 and IPv6 multicast group memberships, but
+> the device multicast list (dev->mc) is only available through
+> /proc/net/dev_mcast, so "ip maddr show" still has to parse procfs for
+> its link-layer entries.
+> 
+> Handle RTM_GETMULTICAST dumps with ifa_family set to AF_PACKET and
+> report every entry of dev->mc in the existing ifaddrmsg format:
+> 
+>   - IFA_MULTICAST carries the raw link-layer address
+>   - IFA_MC_USERS carries the entry reference count
+>   - IFA_F_PERMANENT marks entries added with SIOCADDMULTI
+>     (netdev_hw_addr::global_use, "static" in "ip maddr")
+The global flag is also set for addresses added via dev_mc_add_excl(), ie by
+some drivers.
 
-> The `strcpy()` function is deprecated and moving towards code-tree
-> elimination. Replacing it with `strscpy()` fixes potential buffer
-> overflow vectors by ensuring safe NULL-termination based on the
-> destination buffer size limit [1][2].
+>   - ifa_scope is RT_SCOPE_LINK
 > 
-> To make the interface safer and more robust for future callers, refactor
-> `tipc_bearer_get_name()` to accept a destination buffer length parameter.
-> Replace `strcpy()` with `strscpy()` and pass through any potential
-> `-E2BIG` truncation error code up to the caller. Update the existing
-> caller in `net/tipc/monitor.c` to pass its array size.
+> This covers every column of /proc/net/dev_mcast. AF_PACKET is the
+> family iproute2 already uses for link-layer addresses ("ip -0"), and
+> AF_UNSPEC keeps its "all families" meaning from RTM_GETADDR.
 > 
-> Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy [1]
-> Link: https://github.com/KSPP/linux/issues/88 [2]
+> The default FDB dump also walks dev->mc, but only for Ethernet devices
+> without an ndo_fdb_dump of their own, so bridge, vxlan or macvlan
+> devices never show their multicast filter there, and it has no users
+> count or SIOCADDMULTI bit. Extending it would change "bridge fdb show"
+> output and add NDA_* attributes, while this dump needs no new uAPI.
 > 
-> Signed-off-by: Ajith P V <ajithpv.linux@gmail.com>
+> There are no legacy users of AF_PACKET requests, so they are always
+> validated: prefixlen, flags and scope must be zero, no attributes are
+> accepted, and a non-zero ifa_index restricts the dump to that device.
+> The dump runs under RCU and netif_addr_lock_bh() and does not need
+> RTNL.
+> 
+> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
 > ---
-> v5:
->   - Cleaned up implementation by removing extra `ret` variable as suggested.
->   - Wrapped long lines to fix checkpatch column-limit warning.
-> v4:
->   - Avoid hard-coding TIPC_MAX_BEARER_NAME in the function body.
->   - Pass size_t len from the caller down to strscpy().
->   - Forward strscpy()'s -E2BIG error up through the existing int return type.
->   - Updated function documentation comment block.
-> v3:
->   - Fix patch title as suggested by Tung Quang Nguyen.
->   - No code changes from v2.
-> v2:
->   - Target net-next tree instead of standard net tree as requested by Tung Quang Nguyen.
->   - No code changes from v1.
+>  net/core/rtnetlink.c | 129 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 129 insertions(+)
 > 
->  net/tipc/bearer.c  | 6 ++++--
->  net/tipc/bearer.h  | 3 ++-
->  net/tipc/monitor.c | 3 ++-
->  3 files changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
-> index 05dcd2f9e887..65fa18928fe3 100644
-> --- a/net/tipc/bearer.c
-> +++ b/net/tipc/bearer.c
-> @@ -195,9 +195,10 @@ struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name)
->  /*     tipc_bearer_get_name - get the bearer name from its id.
->   *     @net: network namespace
->   *     @name: a pointer to the buffer where the name will be stored.
-> + *     @len: size of the destination buffer
->   *     @bearer_id: the id to get the name from.
->   */
-> -int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
-> +int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32 bearer_id)
->  {
->  	struct tipc_net *tn = tipc_net(net);
->  	struct tipc_bearer *b;
-> @@ -209,7 +210,8 @@ int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
->  	if (!b)
->  		return -EINVAL;
->  
-> -	strcpy(name, b->name);
-> +	if (strscpy(name, b->name, len) < 0)
-> +		return -E2BIG;
->  	return 0;
+> diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
+> index 81c5a6104dea..b2febdb6915e 100644
+> --- a/net/core/rtnetlink.c
+> +++ b/net/core/rtnetlink.c
+> @@ -4566,6 +4566,133 @@ static int rtnl_dump_all(struct sk_buff *skb, struct netlink_callback *cb)
+>  	return skb->len ? : ret;
 >  }
 >  
-> diff --git a/net/tipc/bearer.h b/net/tipc/bearer.h
-> index 41eac1ee0c09..9ccc9ffa925a 100644
-> --- a/net/tipc/bearer.h
-> +++ b/net/tipc/bearer.h
-> @@ -226,7 +226,8 @@ int tipc_l2_send_msg(struct net *net, struct sk_buff *buf,
->  void tipc_bearer_add_dest(struct net *net, u32 bearer_id, u32 dest);
->  void tipc_bearer_remove_dest(struct net *net, u32 bearer_id, u32 dest);
->  struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name);
-> -int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id);
-> +int tipc_bearer_get_name(struct net *net, char *name,
-> +			 size_t len, u32 bearer_id);
->  struct tipc_media *tipc_media_find(const char *name);
->  int tipc_bearer_setup(void);
->  void tipc_bearer_cleanup(void);
-> diff --git a/net/tipc/monitor.c b/net/tipc/monitor.c
-> index a94b9b36a700..a8a088fc2a2c 100644
-> --- a/net/tipc/monitor.c
-> +++ b/net/tipc/monitor.c
-> @@ -829,11 +829,12 @@ int __tipc_nl_add_monitor(struct net *net, struct tipc_nl_msg *msg,
->  {
->  	struct tipc_monitor *mon = tipc_monitor(net, bearer_id);
->  	char bearer_name[TIPC_MAX_BEARER_NAME];
-> +	size_t name_len = sizeof(bearer_name);
->  	struct nlattr *attrs;
->  	void *hdr;
->  	int ret;
->  
-> -	ret = tipc_bearer_get_name(net, bearer_name, bearer_id);
-> +	ret = tipc_bearer_get_name(net, bearer_name, name_len, bearer_id);
+> +static int rtnl_fill_mcaddr(struct sk_buff *skb, const struct net_device *dev,
+> +			    const struct netdev_hw_addr *ha, u32 portid,
+> +			    u32 seq, unsigned int flags)
+> +{
+> +	struct ifaddrmsg *ifm;
+> +	struct nlmsghdr *nlh;
+> +
+> +	nlh = nlmsg_put(skb, portid, seq, RTM_GETMULTICAST, sizeof(*ifm),
+> +			flags);
+> +	if (!nlh)
+> +		return -EMSGSIZE;
+> +
+> +	ifm = nlmsg_data(nlh);
+> +	ifm->ifa_family = AF_PACKET;
+> +	ifm->ifa_prefixlen = 0;
+> +	ifm->ifa_flags = ha->global_use ? IFA_F_PERMANENT : 0;
+I wonder if adding a new attribute IFA_F_GLOBAL would not make the API more
+understandable.
 
-There really is no point in the name_len variable.
+> +	ifm->ifa_scope = RT_SCOPE_LINK;
+> +	ifm->ifa_index = dev->ifindex;
+> +
+> +	if (nla_put(skb, IFA_MULTICAST, dev->addr_len, ha->addr) ||
+> +	    nla_put_u32(skb, IFA_MC_USERS, ha->refcount)) {
+> +		nlmsg_cancel(skb, nlh);
+> +		return -EMSGSIZE;
+> +	}
+> +
+> +	nlmsg_end(skb, nlh);
+> +	return 0;
+> +}
+> +
+> +static int rtnl_dump_mcaddr_dev(struct net_device *dev, struct sk_buff *skb,
+> +				struct netlink_callback *cb, int *s_addr_idx,
+> +				unsigned int flags)
+> +{
+> +	struct netdev_hw_addr *ha;
+> +	int addr_idx = 0;
+> +	int err = 0;
+> +
+> +	netif_addr_lock_bh(dev);
+> +	netdev_for_each_mc_addr(ha, dev) {
+> +		if (addr_idx < *s_addr_idx) {
+> +			addr_idx++;
+> +			continue;
+> +		}
+> +		err = rtnl_fill_mcaddr(skb, dev, ha, NETLINK_CB(cb->skb).portid,
+> +				       cb->nlh->nlmsg_seq, flags);
+> +		if (err < 0)
+> +			break;
+> +		addr_idx++;
+> +	}
+> +	netif_addr_unlock_bh(dev);
+> +
+> +	*s_addr_idx = err < 0 ? addr_idx : 0;
+> +
+> +	return err;
+> +}
+> +
+> +static int rtnl_valid_dump_mcaddr_req(const struct nlmsghdr *nlh,
+> +				      struct netlink_ext_ack *extack,
+> +				      int *pifindex)
+> +{
+> +	struct ifaddrmsg *ifm;
+> +
+> +	ifm = nlmsg_payload(nlh, sizeof(*ifm));
+> +	if (!ifm) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "Invalid header for multicast dump request");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (ifm->ifa_prefixlen || ifm->ifa_flags || ifm->ifa_scope) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "Invalid values in multicast dump header");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (nlmsg_attrlen(nlh, sizeof(*ifm))) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "Invalid data after multicast dump header");
+> +		return -EINVAL;
+> +	}
+> +
+> +	*pifindex = ifm->ifa_index;
+> +
+> +	return 0;
+> +}
+> +
+> +static int rtnl_dump_mcaddr(struct sk_buff *skb, struct netlink_callback *cb)
+> +{
+> +	struct net *net = sock_net(skb->sk);
+For consistency with ipv4/ipv6, it would be nice to handle IFA_TARGET_NETNSID.
 
->  	if (ret || !mon)
->  		return 0;
->  
+> +	unsigned int flags = NLM_F_MULTI;
+> +	struct {
+> +		unsigned long ifindex;
+> +		int addr_idx;
+> +	} *ctx = (void *)cb->ctx;
+> +	struct net_device *dev;
+> +	int ifindex;
+> +	int err;
+> +
+> +	err = rtnl_valid_dump_mcaddr_req(cb->nlh, cb->extack, &ifindex);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	rcu_read_lock();
+> +
+> +	if (ifindex) {
+> +		cb->answer_flags |= NLM_F_DUMP_FILTERED;
+> +		flags |= NLM_F_DUMP_FILTERED;
+> +		dev = dev_get_by_index_rcu(net, ifindex);
+> +		if (!dev) {
+> +			err = -ENODEV;
+> +			goto out;
+> +		}
+> +		err = rtnl_dump_mcaddr_dev(dev, skb, cb, &ctx->addr_idx, flags);
+> +		goto out;
+> +	}
+> +
+> +	for_each_netdev_dump(net, dev, ctx->ifindex) {
+> +		err = rtnl_dump_mcaddr_dev(dev, skb, cb, &ctx->addr_idx,
+> +					   flags);
+> +		if (err < 0)
+> +			break;
+> +	}
+> +out:
+> +	rcu_read_unlock();
+> +	return err;
+> +}
+> +
+>  struct sk_buff *rtmsg_ifinfo_build_skb(int type, struct net_device *dev,
+>  				       unsigned int change,
+>  				       u32 event, gfp_t flags, int *new_nsid,
+> @@ -7251,6 +7378,8 @@ static const struct rtnl_msg_handler rtnetlink_rtnl_msg_handlers[] __initconst =
+>  	{.msgtype = RTM_SETSTATS, .doit = rtnl_stats_set},
+>  	{.msgtype = RTM_NEWLINKPROP, .doit = rtnl_newlinkprop},
+>  	{.msgtype = RTM_DELLINKPROP, .doit = rtnl_dellinkprop},
+> +	{.protocol = PF_PACKET, .msgtype = RTM_GETMULTICAST,
+> +	 .dumpit = rtnl_dump_mcaddr, .flags = RTNL_FLAG_DUMP_UNLOCKED},
+>  	{.protocol = PF_BRIDGE, .msgtype = RTM_GETLINK,
+>  	 .dumpit = rtnl_bridge_getlink},
+>  	{.protocol = PF_BRIDGE, .msgtype = RTM_DELLINK,
 
