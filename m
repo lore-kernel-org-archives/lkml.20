@@ -1,83 +1,88 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96409499F04
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A3C46D096;
+	Wed,  9 Sep 2026 08:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940973; cv=none; b=IujHeTJ957ilYpKq+BmbrX3iCTSPBKqlyCqqouekcA+szAiMptUG/dKNTNU/5HOKCUG58wbuBZAgZ0Fw+k4kCwOeP4AbQSeqjT6+iUr7zAa8hmYp+b7747cwHZCv8rYhsfBpDOWuDrsk4AfQqYbq0wMG73xL7cnysNytbcpUVmQ=
+	t=1788940975; cv=none; b=Lu+vHhjco97EJRb7pNpyhXUyTbMhMMRaVC2SGufmkOWI5izSAGtV2qtoO6uBqDvBL2+Y8YxMioobYvZaSE4rAKVUTIiMnZBTWtL1MDpJzWLUKIfvt5mPMjEidN9sD/zxA5+IvIieTxCntIjc+M8sp6D1C5rOAwzvlSICrfVryZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940973; c=relaxed/simple;
-	bh=fNedMvATv88XUN2yXNzYAwN7WlHGUXWXzn+KTQ0e33M=;
+	s=arc-20240116; t=1788940975; c=relaxed/simple;
+	bh=AZf0hTGanZoBX9juw8A4Hkcbr/03el49J34+Wj833zM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UQUsXiPVRA7RYAOYDbIpKy9o8v7Ufy20HfN2TTbphbrWmmvPP1cMcf6eNR6/kJPY34FhmgZPMn4Hsi3U8444CdSWNGFJ7Xlu1gbCndz74bS47OG3fLVSkl1C/DDQoZgdHW4JMF7eLCUBpCC6UApoWIbP6hpiRrRi5hcJ+rJBtvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DI1t4fNk; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=FifWWQNUZkWtT8pCgYUuPWvzO8xArNDqRuhlYTI122H9PHQJJlYKS2oiQHeEbckxo/T5jxN0qvRRioYPgambN9Tiyou1x9V3grJkD9tMcBd6IEAlju7zwoivICM8CrAAG+IdvFNFy4URdzWEhsfeZaQ0irFuIgfTuGC437AU6bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RIraTNUr; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DI1t4fNk"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-484362f5c4aso6675460f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:02:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788940970; x=1789545770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KhCyelSoPVv7zgNsnvURqCzMuI51nbjIqRvKAAsNNuQ=;
-        b=DI1t4fNk4Y3mtXLg07dg9ja0BMfoSBpUcA2qqgwkfIfO7LiH0Os+Wac3FSXt8vCYgd
-         ECT6GEKItbLTkgtzuU5Csoicdsn3B78TVvz6CL4g5vgtRduunu65WTTnfCuHEbo1Iw34
-         OyQQJHJOhXxI0si8uty2G+FY9aDIw0N3sHWPI05+EQ9nFBTWKAejtGMmO9hebyHfJMAx
-         JyGM7jB/JwInw28tA02IbRxArNsk8Dw1otT5ttR/lNqmTLZGieeqDsD0d3KnCfbyJxAZ
-         sDswJDLmsW/sjx7bSYKgYRbENd4BlD+eUyI48+xTtxXBQgl4XO3hsNTWTuFeWZZzUCB8
-         TQUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940970; x=1789545770;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KhCyelSoPVv7zgNsnvURqCzMuI51nbjIqRvKAAsNNuQ=;
-        b=PWVN6sPJHrb7LtO6r1++fI+qXBMOlk2buq3lsWnkupGP0o1mbuAmMmOh6/e1mRJCk0
-         UpwhTXXwOY2yaMyRvbvZN9VEC20Iw3Nk0cD2CFeUXZPFHy4t13fEL0vZXHcebGXqNceU
-         amhUynvPFHYi0ZPgnjI0knVzOVZ0/6D9fefzVS1YHZIG2dFuD4hRnIVbabL537/vz3Rc
-         pUqJWNQP5RAeuum7FnFjvQUh1SIngW6QUSpLBFsVnXwHJCeAu4zcLWr2jX7lpgHXxu4t
-         F+x+bi5UXL+DqmRBdrzk65YuPwrFjcCmGo/2d/sBp4mBDCAXPucxvsbTRk6khdYMs5SE
-         6j3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx5KIqi74kZBxtB39lqvsFa+5bDCdbik/4nkwvISWhmzm830ZaS+kgbCOeURCVf+6kYTt+nOflO13B+kTM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWFIPDGlwJmjNayMUWztmTXJb4Kt02isEJ/PXwXTIcIRX4D0Ex
-	WEK5pJIqoBRdku/xXMV/9xtMiorga13bNgK7voxMmhiviLYKP7m1hkvw
-X-Gm-Gg: AYBFou2QdNX2obryRwcPqU0j3sSAz+NxTLegFOcbAO3I2fuwm/9+TvsMzFEb2eu92nE
-	qceRzAwopIyeZrnt/Rx8p3rlYfuXk3GekfhRoWE95tOOMRGloF+gbsGWi40AGKBG6yqZmYeWHAY
-	NjvbeFgiTFihzo/LQ6oUNJBfngJuLOjferE6zTa8SSErAodTS3jAilfTFGmuR8t7ySm7kLNSvBs
-	TPFjPkzgvxeBicyLfA3EthSmRVf8n4BuO+LG8RcWnZhoiCr9cNEd1BzO4VZIvSGrEc3Xg3gBQmg
-	b9LB8fLFB77aXScBJPQa4q9a4LLlks3exIIcyRw5MhRR+zgXtL0kkK7KQRoFr7d8tXxLwT5ZFIX
-	cA35/PQ4NsuIS5yAedc9CrlL5zbuEnudYlkenOctCgyv6AE5eH4YsafPOpMKhAbwRn5ynaE48Xx
-	Q3o6WHRXgD3A8UD96tylT1RWxasnJs+/KJZ+kqElQ/mfCXK8lx+Z/D0kuB/4cmLP868e40PwNzf
-	on8u4tMAv1h4EYUzUV2RhNe4+K+3zHq76/lo1hRuQ==
-X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr586908475e9.6.1788940969610;
-        Wed, 09 Sep 2026 01:02:49 -0700 (PDT)
-Received: from chubuchnyi-ThinkPad-P1-Gen-4i.lan ([158.173.155.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm412817125e9.3.2026.09.09.01.02.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:02:49 -0700 (PDT)
-From: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	laurent.pinchart@ideasonboard.com,
-	mchehab@kernel.org,
-	mani@kernel.org,
-	michael.riesch@collabora.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	benjamin.mugnier@foss.st.com,
-	sylvain.petinot@foss.st.com
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RIraTNUr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 36D9D1A1A70;
+	Wed,  9 Sep 2026 08:02:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0732F60448;
+	Wed,  9 Sep 2026 08:02:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0BF711C7AF61;
+	Wed,  9 Sep 2026 10:02:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788940966; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eCEDZNLNxkg3C8C9bAECCcFaN+XP6VaQ0+RYJcLH1V4=;
+	b=RIraTNUrkx8rCgnGMdZIZgTAmId6aTvpFsKskmRr8sg58vyK+nsLZw+IEBJ/WApunHb/X8
+	kXXLsF/GCIY7yWlgLuQ1dLYx4qDXo5z3PainBnBqpGjZC9r4sZaUYSm9alaRpm+2RmlaRu
+	lKFOoY5Th4hY02UleIwruKfgCzgUmV1nVSlZKkfIl9QtoePCzkCWZm7RUh9AmyxjdQiCA8
+	zNiQeW4LbncfeogkF85WKGhEA/Nmw/TYjgjiPeocqbZ2x3VGbN+6v/R1FLYbIfVXdS3vC/
+	buGYg/XJLb2IJBYAkx0Xzv0C1QpqFxMk5hvR/nMdJ4e0Ab6CGDzrnrHm8i3Kmg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Richard Cheng <icheng@nvidia.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Lizhi Hou <lizhi.hou@amd.com>
+Cc: driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 3/5] media: i2c: mt9m114: Add missing v4l2_subdev_cleanup() calls
-Date: Wed,  9 Sep 2026 11:02:25 +0300
-Message-ID: <f3340fe13dfc5c331da1444335508fbcc02e0c23.1788940469.git.chubuchnyi@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1788940469.git.chubuchnyi@gmail.com>
-References: <cover.1788940469.git.chubuchnyi@gmail.com>
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	stable+noautosel@kernel.org
+Subject: [PATCH v11 10/10] PCI: of: Avoid np->data usage for the node changeset
+Date: Wed,  9 Sep 2026 10:01:09 +0200
+Message-ID: <20260909080114.591938-11-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909080114.591938-1-herve.codina@bootlin.com>
+References: <20260909080114.591938-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,37 +90,174 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The subdev active state allocated by v4l2_subdev_init_finalize() is leaked
-on unbind, for both the pixel array and the image flow processor subdev.
+of_pci_remove_node() and of_pci_remove_host_bridge_node() check
+whether the node is dynamic but not whether it has valid private data.
 
-Fixes: 24d756e914fc ("media: i2c: Add driver for onsemi MT9M114 camera sensor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
+During the node creation, an OF changeset is used and this changeset is
+stored in np->data to be available for removal functions.
+
+If, for instance, a PCI host bridge is created using a device-tree
+overlay, the related node will have the dynamic flag set but np->data
+will be NULL. This leads to NULL pointer dereferences.
+
+Checking for a non-NULL np->data pointer to determine if the node has
+been created by the PCI node creation process is not enough. Indeed,
+on some platforms like PowerPC, the OF_RECONFIG_ATTACH_NODE notifier
+(e.g., in the pci_dn_reconfig_notifier() function) intercepts node
+additions and populates np->data with its own structure, such as a
+struct pci_dn. In that case, np->data is not NULL but it is not related
+to our changeset stored during the PCI node process creation.
+
+Avoid the usage of np->data to store the changeset used during the PCI
+node creation. Store our changeset in a more relevant structure: either
+struct pci_dev when the node is created for a PCI device or struct
+pci_host_bridge when the node is created for the PCI host bridge.
+
+With that done, no ambiguity remains on removal. Indeed, this changeset,
+if non-NULL, is the one used during PCI node creation. Check and use
+this changeset on the removal process.
+
+Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+Fixes: 1f340724419e ("PCI: of: Create device tree PCI host bridge node")
+Cc: <stable+noautosel@kernel.org> # Issue not triggered but could be a problem
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- drivers/media/i2c/mt9m114.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/pci/of.c    | 28 ++++++++++++++--------------
+ include/linux/pci.h | 11 +++++++++++
+ 2 files changed, 25 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/i2c/mt9m114.c b/drivers/media/i2c/mt9m114.c
-index 848ea06e7..137e8e6df 100644
---- a/drivers/media/i2c/mt9m114.c
-+++ b/drivers/media/i2c/mt9m114.c
-@@ -1482,6 +1482,7 @@ static int mt9m114_pa_init(struct mt9m114 *sensor)
- 
- static void mt9m114_pa_cleanup(struct mt9m114 *sensor)
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+index 0a5797652e18..cd87128c71dd 100644
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -732,15 +732,16 @@ void of_pci_remove_node(struct pci_dev *pdev)
  {
-+	v4l2_subdev_cleanup(&sensor->pa.sd);
- 	v4l2_ctrl_handler_free(&sensor->pa.hdl);
- 	media_entity_cleanup(&sensor->pa.sd.entity);
- }
-@@ -2208,6 +2209,7 @@ static int mt9m114_ifp_init(struct mt9m114 *sensor)
+ 	struct device_node *np;
  
- static void mt9m114_ifp_cleanup(struct mt9m114 *sensor)
- {
-+	v4l2_subdev_cleanup(&sensor->ifp.sd);
- 	v4l2_ctrl_handler_free(&sensor->ifp.hdl);
- 	media_entity_cleanup(&sensor->ifp.sd.entity);
+-	np = pci_device_to_OF_node(pdev);
+-	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
++	if (!pdev->cset)
+ 		return;
+ 
++	np = pci_device_to_OF_node(pdev);
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+ 	device_remove_of_node(&pdev->dev);
+-	of_changeset_revert(np->data);
+-	of_changeset_destroy(np->data);
++	of_changeset_revert(pdev->cset);
++	of_changeset_destroy(pdev->cset);
+ 	of_node_put(np);
++	kfree(pdev->cset);
  }
+ 
+ void of_pci_make_dev_node(struct pci_dev *pdev)
+@@ -800,18 +801,17 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
+ 	if (ret)
+ 		goto out_clear_devlink_dev;
+ 
+-	np->data = cset;
+-
+ 	ret = device_add_of_node(&pdev->dev, np);
+ 	if (ret)
+ 		goto out_revert_cset;
+ 
++	pdev->cset = cset;
++
+ 	kfree(name);
+ 
+ 	return;
+ 
+ out_revert_cset:
+-	np->data = NULL;
+ 	of_changeset_revert(cset);
+ out_clear_devlink_dev:
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+@@ -828,16 +828,17 @@ void of_pci_remove_host_bridge_node(struct pci_host_bridge *bridge)
+ {
+ 	struct device_node *np;
+ 
+-	np = pci_bus_to_OF_node(bridge->bus);
+-	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
++	if (!bridge->cset)
+ 		return;
+ 
++	np = pci_bus_to_OF_node(bridge->bus);
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+ 	device_remove_of_node(&bridge->bus->dev);
+ 	device_remove_of_node(&bridge->dev);
+-	of_changeset_revert(np->data);
+-	of_changeset_destroy(np->data);
++	of_changeset_revert(bridge->cset);
++	of_changeset_destroy(bridge->cset);
+ 	of_node_put(np);
++	kfree(bridge->cset);
+ }
+ 
+ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+@@ -899,8 +900,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+ 	if (ret)
+ 		goto out_clear_devlink_dev;
+ 
+-	np->data = cset;
+-
+ 	/* Add the of_node to host bridge and the root bus */
+ 	ret = device_add_of_node(&bridge->dev, np);
+ 	if (ret)
+@@ -910,6 +909,8 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+ 	if (ret)
+ 		goto out_remove_bridge_dev_of_node;
+ 
++	bridge->cset = cset;
++
+ 	kfree(name);
+ 
+ 	return;
+@@ -917,7 +918,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
+ out_remove_bridge_dev_of_node:
+ 	device_remove_of_node(&bridge->dev);
+ out_revert_cset:
+-	np->data = NULL;
+ 	of_changeset_revert(cset);
+ out_clear_devlink_dev:
+ 	fw_devlink_set_device(&np->fwnode, NULL);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index d31a8d107b1e..7b0ba9ec7b5c 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -339,6 +339,9 @@ struct pcie_link_state;
+ struct pci_sriov;
+ struct pci_p2pdma;
+ struct rcec_ea;
++#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
++struct of_changeset;
++#endif
+ 
+ /* struct pci_dev - describes a PCI device
+  *
+@@ -598,6 +601,10 @@ struct pci_dev {
+ 	u8		tph_mode;	/* TPH mode */
+ 	u8		tph_req_type;	/* TPH requester type */
+ #endif
++
++#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
++	struct of_changeset *cset; /* Changeset used for OF node creation */
++#endif
+ };
+ 
+ static inline struct pci_dev *pci_physfn(struct pci_dev *dev)
+@@ -670,6 +677,10 @@ struct pci_host_bridge {
+ 	unsigned int	broken_l1ss_resume:1;	/* Resuming from L1SS during
+ 						   system suspend is broken */
+ 
++#ifdef CONFIG_PCI_DYNAMIC_OF_NODES
++	struct of_changeset *cset; /* Changeset used for OF node creation */
++#endif
++
+ 	/* Resource alignment requirements */
+ 	resource_size_t (*align_resource)(struct pci_dev *dev,
+ 			const struct resource *res,
 -- 
-2.43.0
+2.55.0
 
