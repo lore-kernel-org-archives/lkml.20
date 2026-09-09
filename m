@@ -1,209 +1,206 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288293B19B4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8623C0635
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945554; cv=none; b=gXzuqTM7pPxvWOI2Fzo3/q9DRK8LnBIs5SVFVDV2M1OFX/t7oEkhS0dhh52//nQ3RWOmkaPvebBKWNVNv2NCC2KaSGH1ZIIPFPmZC/4rGzqxTOgSSz3aYeWbjCJO52CpXO76TEcJlbHO92YETGcPdlvNC7R7ZdKaw6SglCUK+CI=
+	t=1788945614; cv=none; b=NasiFSKVQ3EA8KlwzCcbn84M7sUbmpPUV7+jqm2IB6rCqZt+Yl54rzB80gAFey2cAGG7xsHqV9EKBYL9FOIWSVGiqLGMxErZ/MVSzH9CM5mPvlG5xyo66ejQyo9NKIfKrb1wYQGsJcPisrQen+HOp3rJGQdz8JIvUduFYXQS6Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945554; c=relaxed/simple;
-	bh=W/X0Yntxnp/n7ZFKx0x22n16oHHEbd+BsO1u0txQcFM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t2mod60AGgyi18NBor/3+Y4RwG1/10FePabaPvolitRfdOZr4U/d0xxzGoL3/LZ1SZGnsB4yDIa0BRJPvmDPCJTe4LqdEgZuMByhuXANDe+H92tqXVsaAZCfo+zlAj0lXe9Wad0KsgJ3Knlqx4Mxv8PmYwc0vSiLsBap0AvvrpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L4JP6sBU; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788945614; c=relaxed/simple;
+	bh=PdnZQvO3+oKJZgPjnG+zbfgcH9UOhnj7jaju9sYgC4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WaytLNzknNp1QzDAN4xfn8Gwx40xihvUVV2XfBlcVK7B81NBD0w5kz3cjb4Saqt+MQCR0AvpUkh3zpjZtdkl4U6UyonepJmJbn95GJbK35eW333ch/+9599168qdsYY+dTe+rHL87HqDwDJeIPCPv0dMMpTOV2YnsYk9vZhnhQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=iMWTsOYm; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L4JP6sBU"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843971bdd0so620127f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:19:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="iMWTsOYm"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso48609165e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788945549; x=1789550349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PL9pcPV+bgLn+N8hsfR6afv5u/5q3iwl14xc1NE3dOQ=;
-        b=L4JP6sBU3BzUB3+x72sRHY+MGTnD7RTlUdhxwvkZlpIELH1dIZ+O1DNMqMj4UUiahR
-         OiwTEuBxdyidEdPG0r+L2z03B+SaFaUExJ5vzWGcrrIGLCGErABs1pcn4Y3BVwQLPOOE
-         YZ4D645ihXm/r+qe7ZJhhVfWNrdedeQG3xrWcZS5ccvCDmut47OOUoAaK6zNSavgci78
-         xESMsmMOGiDLqqdyH3ngGSeHd8aXmcQfAl0Y/U5042nEl27+iamK+V/VcfwCNrsjk613
-         EAJac5v5optzH5rWgtC68pfsNl8WmjnDM5U7iY3FNhAwXNG2olgr3M27Zs1mYNU05RX4
-         uoAw==
+        d=baylibre.com; s=google; t=1788945606; x=1789550406; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tEerm9pyUvgRnZ+v5dhjRTsyRhn0zUMJ8+Fd7BMxvcE=;
+        b=iMWTsOYmB/Qh30BpKSrjQbq13s2Fmcdn7raP8fzbjdZHHuRf2kHk00dZwVy9b8J8eV
+         2j18MHd3zy6Q7uLr0sNHJKNcWH68h/EcUCfB3FCNAmeAWd2KnFSTOZLxLvUODuUWSkEF
+         DsWoRhboAB3pTKeFmEynnlN6W0npp6wrvMKOl70Pb1TzDFFsxsu2gwqE3nX85bntO7+g
+         CqGUuagNq9dwV04DXP2bolKtuLurF5K+JUW6PfHVTtj93nfvMOGFayHHU/OH5FlvhDqZ
+         LryJGAnWGay5nU4tbZP6dQIpz2VDlTT++pO56SlVnVS8WXmi3tixNy8RhZjs9SuN4gN+
+         Yuzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788945549; x=1789550349;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PL9pcPV+bgLn+N8hsfR6afv5u/5q3iwl14xc1NE3dOQ=;
-        b=UYIOWBioo2/0PeDMX+WrjzkQDTlGtD90yGoO8UNsMqxHJDU7FamKcwf3hNhN0AuSP9
-         WjHVSddjIVLkO3Xd8vaqN11gmZ7GdGaRIcwK7jx658vLxUk33IRKrZONOfgagf5U6NfZ
-         DXBurdNdszqTh688ncxDh4RzpYH3GHcvYozpQBo133iSdNjMGajqYxUWBAWx8i21R1DB
-         oj/laPfdgLzKH6ULlGF5lAA9G8lh9NBjyraLddVhB7vZaY4blJFt9OpinKSemPOItThT
-         k+6Ik8J9mFqrMT4+gWiA3OkXLsg4Oa+Ebl4ou9s5AYooEQpKjvFULrX3krHn+8/BBlj+
-         KO9g==
-X-Forwarded-Encrypted: i=1; AKwUvBz6Euw6Hh2PhpOcGhIvukvXa3ejyckXMPevxVk/eKN/NE1kxu33Daw98aFeEwGREHEsjRgztM06lVjRtuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxY8kIF5+4jZRuQaIKjcvUHCKIUAEH46JqUFTe27Y/Z0xmUcJ/
-	XAC5zfS+38i0SzHbUiMzfxsUPQNaVzwETB4IglYMnjACjh/1euqHPs1b
-X-Gm-Gg: AYBFou0Jpy2H+I6UEMvh8ah8pDX3XiV4ss2ENuataNeWFI/Qf/vRf9PPY+0u4h9Lc4y
-	E4Uzz5jCH4ER67LHWZjy2vv7SaPYxaNYLAst4WuGOpEBDC5W9QD76OECS68jUIrGh9vEw7YG1lu
-	ayJmMDHS5crYZhZ4vJgWsu5rBK+OVXRJEvSpD693qMnrcsbV00v5/BVLJN1iErwdYpKs8o36gea
-	4jncGBVj7/vS29F4jW6b2Cy1+Chv79QdzfWK2f63e88A94IlJn/kUHzfSWtOFaaN/EpBNuCFQMS
-	tkts6PUz2XMmVFPEUxIXGPrncJb1qOxBlt7UJivr0ejv3BVrWJSOf0evKXb6+VE7vpmuEqqhOib
-	DC07/fyHpFicYd8oX5Gu/K1egVgk1A0TbtWWp1Hcboic37xYOQ/pGMcNr1EGTmjMWRnqt/DKqiw
-	04la8b2bEGj/RJ2xQpxPBNEXv/F+a/5vazIBa1NJm40Inv4snWDMxzHLHQcVcnglfPUbJ/4lVBd
-	eaZyNhLExbyb7ARzLlhR7ULaQpqzlOalRTRnTZ3bPEe33BsDVhX3CQ5/43xEAtqfyaViMLHqN9J
-	i2Ti
-X-Received: by 2002:a05:6000:25ed:b0:485:82f7:9053 with SMTP id ffacd0b85a97d-48589246177mr34007529f8f.1.1788945548438;
-        Wed, 09 Sep 2026 02:19:08 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8369007971AC9F7C06630F.dsl.pool.telekom.hu. [2001:4c4e:1b83:6900:7971:ac9f:7c06:630f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm41822588f8f.3.2026.09.09.02.19.06
+        d=1e100.net; s=20251104; t=1788945606; x=1789550406;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tEerm9pyUvgRnZ+v5dhjRTsyRhn0zUMJ8+Fd7BMxvcE=;
+        b=q73cJxa2a9Fr+pDryA5npp9oU2uSsFB/Xla9hSF0gWwHy7jJCmNYsOtAm67/vwR+sX
+         a/QCMNvgz15SaSF9q2YO1wnyXamWBsEn9LBAaCTY//2oxyaBJZXTaD47+uPZSBA+zuEk
+         31GTNkW0rkPI5RbEams19rLHJatvs5dseB+Vp7aDMViCIj085e5zi+R3CBkVj/N6SGrh
+         H7ldX5Pf3seu4eGYtx84YqRHAA8ZxeI5cw5ei/UDoN8AuyPvRbGG4ZOO7oRMw1ffIYdf
+         atZKzYnQ4DsEoy8KA/ha4F972Mx1ivGapv62vjipKWjrhr3sqGijGYmPcMGe6bnnAiDA
+         8EFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPHfDVvtcMtjKZmsAuO7zgNCEgoTGUC7fnYPqcvHE5ezKmSzLtvqnKjTsD4WbXbPdJSLTfte7yvluXVq0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmPv0t7H6eg2yi2PTsMUCrc1rodno6trDJ+5SWdgk64TmtfUw9
+	xIpnSk/cJH3ZMO2/ZqCGXhEaXv8XaDHXs/T4rVs3Z9VB1HPJ+UXrvIjhAO27kKBdv3A=
+X-Gm-Gg: AYBFou1kK/MSlWdy+sCBAdgSWpvLYBFZxOifraIIuTauF35L89XCey4NpSHsbPJjkAO
+	xD8qnZO/i+pwo/Ju5hTl0Gne7PrOC6B6tT36s7d0L7yPPT5GYYSKsDzWRAWe9z8nM6lm0UpiSos
+	RLgOK2jCrhpFNfsgsz46PTnc3Cct+X44rcqFy3a5up/dFUUZ2bd/MG50e01W/f5CoNMnIDoFHdM
+	KQ83Rrz1fCsbLtJS+mX6TVTkrvTHNy896cWZLrZ23L1xEf6OwrS+AaQ/qRSNSqj2lPo5iJGnqU4
+	YVMaoVVJI9JvHYYyQi0/lXOjGDKU1VXM3EWMbWrlV2702vCZUn+X/s5Q4NMKpYlEkyIJOhj0382
+	aZjzp3Tjb6SgQCCDN01SPmtF6rfxPwkoa2VwLJcwRcvM4AHVJsLfzbNEfNNxQLywOipZeQ0v/+7
+	UMNo+atdiGFBYnwfQmrFkDY2UfYYtgVVRfreeat3yKaLBKAp/oj2tDVjzuxHAtYTYd8VQB0BBOr
+	2za
+X-Received: by 2002:a05:600c:1914:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49cf8269fdfmr332845835e9.13.1788945605501;
+        Wed, 09 Sep 2026 02:20:05 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cfbdacc45sm430466665e9.11.2026.09.09.02.20.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:19:07 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/7] arm64: dts: rockchip: rk3588: add an OPP table for the NPU
-Date: Wed,  9 Sep 2026 11:18:24 +0200
-Message-ID: <20260909091825.10838-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <c58d711ff5c9a01cfd69c2ddf86bfd969b36cc63.camel@ndufresne.ca>
-References: <c58d711ff5c9a01cfd69c2ddf86bfd969b36cc63.camel@ndufresne.ca>
+        Wed, 09 Sep 2026 02:20:03 -0700 (PDT)
+Date: Wed, 9 Sep 2026 11:19:58 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Alexander Usyskin <alexander.usyskin@intel.com>, Dominik Brodowski <linux@dominikbrodowski.net>, 
+	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Danilo Krummrich <dakr@kernel.org>, 
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	linux-pci@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v3] Documentation: Update after split of
+ <linux/mod_devicetable.h>
+Message-ID: <aqEWUBf1pewPP_K2@monoceros>
+References: <20260908070031.32833-1-kmehltretter@gmail.com>
+ <ap_HYy2IVZt-0mxN@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vttone5brkwdkpur"
+Content-Disposition: inline
+In-Reply-To: <ap_HYy2IVZt-0mxN@ashevche-desk.local>
 
-On Mon, 2026-09-08 at 15:44 -0400, Nicolas Dufresne wrote:
 
-Thank you for taking the time on this - and no worries about the PoC not
-being posted; the credit in the commit message was deliberate, the rates
-and voltages really were arrived at twice independently.
+--vttone5brkwdkpur
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3] Documentation: Update after split of
+ <linux/mod_devicetable.h>
+MIME-Version: 1.0
 
-> My impression, and I was to study this properly is that having the same
-> table on every core and adding the opp-shared set on it was actually
-> probably the proper way to describe this "single clock for all"
-> relationship.
-> [...]
-> I'm curious what's the right approach, and what is the real meaning of
-> opp-shared if I got that wrong.
+Hello Andy,
 
-You got it right, and I got it wrong. The binding says (opp-v2-base.yaml):
+On Tue, Sep 08, 2026 at 11:29:23AM +0300, Andy Shevchenko wrote:
+> On Tue, Sep 08, 2026 at 09:00:31AM +0200, Karl Mehltretter wrote:
+> > From: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@baylibre.co=
+m>
+> >=20
+> > Most structs that were defined in <linux/mod_devicetable.h> before were
+> > moved to a bus specific header. Follow the movement to get the struct's
+> > documentation back.
+> >=20
+> > For the list of device ids in basics.rst use an explicit list of all the
+> > headers that have kernel-doc annotations and that are not described
+> > elsewhere (i.e. pci and mei_cl). <linux/device-id/acpi.h> is left out on
+> > purpose, ACPI_DEVICE_CLASS() is not a device id struct.
+>=20
+> Huh?! The device-id/acpi.h provides the ACPI device ID definition.
 
-  opp-shared: Indicates that device nodes using this OPP Table Node's
-  phandle switch their DVFS state together, i.e. they share
-  clock/voltage/current lines. Missing property means devices have
-  independent clock/voltage/current lines, but they share OPP tables.
+<linux/device-id/acpi.h> provides both, struct acpi_device_id and the
+macro ACPI_DEVICE_CLASS. The latter has a kdoc comment, the former
+doesn't. So including <linux/device-id/acpi.h> in the patch makes
+ACPI_DEVICE_CLASS appear in the list of device-id structs, but
+acpi_device_id not.
 
-That is exactly the hardware here: one compute clock and one supply for
-all three cores. And it is not only documentation for non-CPU devices
-either: in drivers/opp/of.c, _managed_opp() only lets several devices
-share a single opp_table instance when the table node carries opp-shared;
-without it each device that points at the same node gets its own table.
+So while this patch doesn't implement the optimum to get acpi_device_id
+explicitly documented, but the purpose of the patch is to restore the
+=66rom before ad428f5811bd, which is accomplished.
 
-So the accurate description is the one you had: the same phandle on
-rknn_core_0/1/2 plus opp-shared on the table. Putting the table on core 0
-alone describes core 0 and says nothing about the other two, which is a
-worse description of the same hardware. I will change this in v2 unless a
-DT maintainer disagrees.
+>=20
+> > Also repair the referencing in the zh_CN translation of pci.rst and
+> > don't duplicate `struct mei_cl_device_id`.
+>=20
+> > Fixes: ad428f5811bd ("mod_devicetable.h: Split into per subsystem heade=
+rs")
+> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
+ylibre.com>
+>=20
+> ...
+>=20
+> > Changes since v2
+> >   https://lore.kernel.org/r/ede7ce64f20e10660ebf6bc1b41836dad750ae3b.17=
+83349758.git.ukleinek@kernel.org/
+> > - use the :file: role for the header path in pcmcia/driver.rst (Randy)
+> > - say in the commit message that <linux/device-id/acpi.h> is left out on
+> >   purpose (question raised by the Sashiko review)
+>=20
+> I am unsatisfied with how the ACPI division was handled in the above ment=
+ioned
+> split. Id est the include/device-id/acpi.h is *the* header that has to be=
+ used
+> for the IDs, not the respective "include all" linux/acpi.h.
+> Hence the documentation has to allow the use of the device-id/*.h directl=
+y in
+> the drivers (most of the cases for ACPI).
 
-One consequence is mine to fix on the driver side, not yours to work
-around in DT: the driver currently picks the core that carries the table
-by taking the first core whose node has operating-points-v2. With three
-carriers that choice - and with it the name under /sys/class/devfreq -
-would follow whichever core bound first. That is a driver bug the moment
-the DT stops being lopsided, so it gets fixed in the same v2.
+I don't care much if drivers include <linux/device-id/acpi.h>
+transitively via <linux/acpi.h> (or another header) or explicitly. My
+preference is the former, but I won't argue if it's done differently.
 
-> We must not justify our DTS choices based on driver behaviours (or miss-
-> behaviour). We must justify it based on how accurate the hardware
-> description is.
-> [...]
-> It should probably be fine to not use opp-suspend, if transition back to
-> 200Mhz works. It not fine if its to avoid a driver deadlock (argually due
-> to a bug).
+> Alternatively the OF ID *and* ACPI ID must be included to the upper lever=
+ bus
+> headers. So, spi.h, i2c.h, platform_device.h and so on has to *always* pr=
+ovide
+> both.
 
-Accepted, and it is a fair hit. The paragraph as written justifies a DT
-choice with a driver limitation, and that is backwards regardless of
-whether the limitation is real. It comes out in v2.
+That is the case today and it's sensible. So without giving a guarantee
+for the next 20 years, I'd say keeping it as is is fine.
+=20
+> > - carried Randy's Reviewed-by and Tested-by from v2, the diff changed in
+> >   one line of markup only
+> > - Uwe asked me to take over the patch:
+> >   https://lore.kernel.org/r/apv6yQ1U-HhNglyV@monoceros/
+> >   It supersedes my PCI-only patch
+> >   https://lore.kernel.org/r/20260905084916.40196-1-kmehltretter@gmail.c=
+om/
+> >=20
+> > Randy's suggestion to add kernel-doc comments to <linux/mei_cl_bus.h> f=
+or
+> > struct mei_cl_driver and include those instead of the duplicated struct=
+ is
+> > left for a separate patch, it touches a header outside Documentation/.
+>=20
+> Uwe, can you fix that?
 
-On the meaning: your interpretation matches mine, and it is stronger than
-"descriptive". The binding says opp-suspend "marks the OPP to be used
-during device suspend", and the devfreq core acts on it directly -
-devfreq_add_device() reads it into devfreq->suspend_freq, and
-devfreq_suspend_device() then sets that rate.
+It's on my idle-todo-list. So unless someone beats me to it, I will
+addresss that eventually.
 
-Which leaves the question you actually asked, so I measured it rather than
-argued it. On an Orange Pi 5 Plus with this series applied, in-tree rocket,
-the OPP table of 3/7 read out of DT, simple_ondemand with min_freq/max_freq
-left alone: 25 s of inference, then 60 s idle.
+Best regards
+Uwe
 
-  - The governor takes it back down on its own. trans_stat records six
-    transitions for the run - 200->1000, 1000->800, 800->1000, 1000->900,
-    900->500, 500->200 - and then 60129 ms at 200 MHz with zero
-    milliseconds at any other level for the rest of the window. The step
-    down happened within one 250 ms sample of the load ending.
+--vttone5brkwdkpur
+Content-Type: application/pgp-signature; name="signature.asc"
 
-  - The transition completed, it was not merely requested. vdd_npu_s0 goes
-    700 -> 850 mV under load and sits flat at 700 mV for the whole idle
-    window. In _set_opp(), when scaling down, config_regulators() runs only
-    after config_clks() has returned success, so the supply could not have
-    come back down to the 200 MHz voltage if the SCMI clock set had failed.
-    All four voltages of the table were exercised: 700, 750, 800 and 850 mV.
+-----BEGIN PGP SIGNATURE-----
 
-  - The clock summary in debugfs agrees, reading 200000000 for scmi_clk_npu
-    after the load. I only sampled it after the load, so I am offering it as
-    consistent rather than as an independent check.
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqhJLQACgkQj4D7WH0S
+/k4CyggAtK1zDtK07mADDeDBynrhpncLSmcf8R0tSjv+Xk9TNGQ/6jg1KnpiwRJ8
+H7gft1ZYewjr67sx4HJUqIAvhu9a6XSuVFFCJL0qpfdnLCV5HB41Sr774yWBmdgL
+Ohg8uXSIiSxaWulydkjyqpAbMoO58YOFBqn9xH5ffXYsEGdjViQnISWry8jcojuO
+We7CP3HzAH8W2U/7U/SjWHExzFUG2EDHty0IkIkhbbsw0WxSnjKwzwadG/u44t+3
+kaCV6vKQ6pdYoUxazoWAU53UeLIg9QsXwcgEh5Jqyib7efudfyzAoMgK3I0PiQj8
+I4Uq5TLA9bE+cMGACDmAQhLm4cmM0A==
+=3eZW
+-----END PGP SIGNATURE-----
 
-So the transition back works here, and by your own criterion it is fine not
-to use opp-suspend. This is one board and one part, so I would not call it
-more than that.
-
-Two things I want to keep apart rather than join with a "therefore", because
-joining them is what made the original paragraph wrong:
-
-  - What guarantees the rate across suspend is the driver, not the governor
-    and not the DT. rocket_devfreq_suspend() in 5/7 sets the recorded boot
-    rate itself on the system suspend path, and 4/7 restores it before the
-    last core goes down and on .shutdown. That is the answer to "is it safe
-    without opp-suspend".
-
-  - Whether the governor walks back down to 200 MHz when the NPU goes idle
-    is a separate fact, and it is the one you asked me to check. It does.
-
-opp-suspend acts on the first of those. Since the driver already puts the
-device back at its boot rate on that path, the property has nothing left to
-do here - and that, rather than any deadlock, is the argument v2 will make.
-
-Worth saying plainly: every number in the cover was taken with the limits
-pinned by hand, so this is the first time the governor was left to decide
-anything on this board. Your question is what exposed that.
-
-> This is irrelevant, I think you can drop this paragraph.
-
-Agreed, dropped in v2.
-
-> Ack, this is safe thing to do.
-
-Thanks.
-
-Regards,
-Igor
+--vttone5brkwdkpur--
