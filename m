@@ -1,337 +1,303 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5DB3A9856;
-	Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7859F3A9856;
+	Wed,  9 Sep 2026 09:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947063; cv=none; b=aavwAdEOhCpKtUonjds9lckIaphMbHYOgUxzMjBf5mgYtKN+kU7MSZZVcn2Cf+1n1gr3FIj0R9WA/AES4ERMWVAxClTqOg1PmF6jjf/DKYSmfeaNmp0jG5aYnW/Ew3js5iSsEMH2bjJL4c2yrC06hLBmQmMlqRB89aC2Sz6nyL4=
+	t=1788947070; cv=none; b=F4Sl9auIR5rXoGXg9FHcUlQIUibIK+dsrMTXa2KeHxaZyYyUdQh7uhyw3fTwZ0ROXPuz6yC0l7fzDWI7v3F2tONVQ5YA41aB9fzZkxeGvzWcW5opFaN1/7Q7SyRCTvH4JG376TrNKiyrLA2KM90tWrBx89l/3Z1iRhCFgfCDO/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947063; c=relaxed/simple;
-	bh=CRNCNFOv1d/GN5B5RDOOI3W6Az4pcT/yOZ7OHd2PmTU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BBVxST5h7z4SaXihnNlvtIQChSlsEd7U6t+61qnqCZeDAYSj4nAMutaFnA4AiOaE7t244srODWKZAguKN714l++30jT0nvFrTUrYjH83m5W3amQyNzksV5zGr/WXaL3VOm5rmxrQkauQMqSiguFJrvfXnHJMS05tUhSVBdW3jTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ca+kykha; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788947070; c=relaxed/simple;
+	bh=F20jaOy0211qVv8rThlOWOZd3AMl5/zgEpZA6DloFFk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DWJECjmaQSqVQ7vKAflBmBavEYDrz1J4/Mqg10P4sr/KiDc6Gx8tBmFCNyQQPbgZIxcrHwFTHEEAcXor5MD8cXU8s+nFgOa4x+jT7SmQXytP1W88q79u3HaQJtjgfLqyokTlJUWWQoied3UOXGavdAv9eho14oKIqh/i696yXFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S45tUg7L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ca+kykha"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A6EB0C4AF0B;
-	Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788947062;
-	bh=CRNCNFOv1d/GN5B5RDOOI3W6Az4pcT/yOZ7OHd2PmTU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Ca+kykhajnNckAaTgWwCtYDMwntf2X0wkKrXlvNUTTINw9pfmajZwXe2mCtVHDXkS
-	 eSzJjxzbPFw+aTWc9xCtU02u6fR0Fduew3A08cvSMVtz5i9fAxyb8eoiApeB+XL1dl
-	 uvP2eAAOTxcPT2MLZXToPLVcJDF+jwUjhY0Vtuqtv7prm0zkdH87TjRBrtX19ZT/2e
-	 fGyIhNRN4Bfb55rxaR5Sa8pvR2jYydZmc5J4NRllPJvBCJFzVTwUvmmRffLXGe4BfQ
-	 f3BnW+tiHI/RNfGA5ewq3n9IwTS5keBbKWxfKx75PoNf+xLoyVyBRkbRHBM/7fVO5g
-	 GG9JeGilqKlgA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 885CCC79F8C;
-	Wed,  9 Sep 2026 09:44:22 +0000 (UTC)
-From: linuszeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
-Date: Wed, 09 Sep 2026 17:44:20 +0800
-Subject: [PATCH v2 2/3] mm: page_counter: track protection state in
- page_counter_protection
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S45tUg7L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0CB1F00A3D;
+	Wed,  9 Sep 2026 09:44:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788947069;
+	bh=4dN3Vm+A/q/0AWxfXoTAWqWfFbdTmy4SeL1/3qbxIyk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=S45tUg7LyI5EaKXJwuZ1sMfOExEKes0ouThD/mYbuZnoKFsV0K4EkDHgy4XUvJ5/E
+	 c+LiZ6EZdMXM0TmHwvM9Ka/ObBZNW91+wSkw1vw4QmCDxpVqpoO9zB1KKtuBwEiRDF
+	 SSzmd23RYV9ghTjF5FzjAfaNCTqQTtwOm3COlvpqOWKE07/2W0iystfe0sW+e3NYYX
+	 QZYIGlXlxQAFnEIvgWFVbVSiaqy7oRc1/P7PXalPY9sZ6jhJ4UwhuQEmaoX+TdLIRB
+	 psq66e8OBLS2J9IsYpxryC0DR/LzE/4O4u6nuYz1BoAqSmwD1vkA/J0gnx85thPTIe
+	 +ubcPZSrZC4nw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x4Eqw-00000006cE9-2rlW;
+	Wed, 09 Sep 2026 09:44:26 +0000
+Date: Wed, 09 Sep 2026 10:44:26 +0100
+Message-ID: <861pb24v45.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: Enable S1PIE for hVHE
+In-Reply-To: <20260908-kvm-arm64-nvhe-pie-v2-1-79e42d28cc08@kernel.org>
+References: <20260908-kvm-arm64-nvhe-pie-v2-1-79e42d28cc08@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-descriptive-name-v2-2-d7dd7c099049@tencent.com>
-References: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
-In-Reply-To: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Jingxiang Zeng <jingxiangzeng.cas@gmail.com>
-Cc: Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linuszeng <linuszeng@tencent.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947061; l=9367;
- i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
- bh=XnbhI6+XRiaUlggWoaB82VSvLpQ+T9RolGkd/4opeEI=;
- b=5VgMCSoPCaXiCqb5wg+bntHG8d6Ak9j8BQa82fZVBGqZccF2FPppQ4a8KIUtrqj7tSklZX58w
- J1XUmGOlDWkCMxeVIF2N7KV/UqP5LXntzd+BqFlzw8g7w4RgPHAeSVX
-X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
- pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
-X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
- auth_id=1017
-X-Original-From: linuszeng <linuszeng@tencent.com>
-Reply-To: linuszeng@tencent.com
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: broonie@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: linuszeng <linuszeng@tencent.com>
+On Tue, 08 Sep 2026 20:40:47 +0100,
+Mark Brown <broonie@kernel.org> wrote:
+> 
+> When FEAT_S1PIE (stage 1 permission indirection) is supported we
+> currently enable and use it in the hypervisor when running in VHE mode
+> but not when running in nVHE or hVHE mode.  While systems with
+> FEAT_S1PIE would normally use VHE users can configure them for nVHE or
 
-Move the read/write side of hierarchical protection from struct
-page_counter to struct page_counter_protection: propagate_protected_usage()
-updates the protection context of the parent, page_counter_set_min()/low()
-and page_counter_calculate_protection() operate on it, and memcg and dmem
-accessors (including dmem_cgroup_below_min()/below_low()) read
-min/low/emin/elow and children_*_usage from it.
+Missing comma after VHE.
 
-struct page_counter keeps its now-unused protection fields for now; they
-are removed in a follow-up commit.
+> hVHE.  Enable FEAT_S1PIE with hVHE only, hVHE is used for protected VMs
+> but there is no real use case for nVHE mode on hardware with this
+> feature.
 
-No functional change.
----
- include/linux/memcontrol.h |  8 +++----
- kernel/cgroup/dmem.c       | 12 +++++-----
- mm/memcontrol.c            |  8 +++----
- mm/page_counter.c          | 59 +++++++++++++++++++++++++++++-----------------
- 4 files changed, 52 insertions(+), 35 deletions(-)
+That's not the reason. The reason is that there is no nVHE-only
+hardware with PIE, and that on VHE-capable HW, nVHE and hVHE are
+strictly equivalent. Therefore there is no need to add support for HW
+that does not exist.
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index ed863f4ed233..44065001a66a 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -591,8 +591,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
- 	if (root == memcg)
- 		return;
- 
--	*min = READ_ONCE(memcg->memory.emin);
--	*low = READ_ONCE(memcg->memory.elow);
-+	*min = READ_ONCE(memcg->memory_prot.emin);
-+	*low = READ_ONCE(memcg->memory_prot.elow);
- }
- 
- void mem_cgroup_calculate_protection(struct mem_cgroup *root,
-@@ -616,7 +616,7 @@ static inline bool mem_cgroup_below_low(struct mem_cgroup *target,
- 	if (mem_cgroup_unprotected(target, memcg))
- 		return false;
- 
--	return READ_ONCE(memcg->memory.elow) >=
-+	return READ_ONCE(memcg->memory_prot.elow) >=
- 		page_counter_read(&memcg->memory);
- }
- 
-@@ -626,7 +626,7 @@ static inline bool mem_cgroup_below_min(struct mem_cgroup *target,
- 	if (mem_cgroup_unprotected(target, memcg))
- 		return false;
- 
--	return READ_ONCE(memcg->memory.emin) >=
-+	return READ_ONCE(memcg->memory_prot.emin) >=
- 		page_counter_read(&memcg->memory);
- }
- 
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index a4bac0d5ac3b..4027d3d309c8 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -212,12 +212,12 @@ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
- 
- static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
- {
--	return pool ? READ_ONCE(pool->cnt.low) : 0;
-+	return pool ? READ_ONCE(pool->cnt.prot->low) : 0;
- }
- 
- static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
- {
--	return pool ? READ_ONCE(pool->cnt.min) : 0;
-+	return pool ? READ_ONCE(pool->cnt.prot->min) : 0;
- }
- 
- static u64 get_resource_max(struct dmem_cgroup_pool_state *pool)
-@@ -388,13 +388,13 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 	dmem_cgroup_calculate_protection(limit_pool, test_pool);
- 
- 	used = page_counter_read(ctest);
--	min = READ_ONCE(ctest->emin);
-+	min = READ_ONCE(ctest->prot->emin);
- 
- 	if (used <= min)
- 		return false;
- 
- 	if (!ignore_low) {
--		low = READ_ONCE(ctest->elow);
-+		low = READ_ONCE(ctest->prot->elow);
- 		if (used > low)
- 			return true;
- 
-@@ -787,7 +787,7 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
- 	 * here.
- 	 */
- 	dmem_cgroup_calculate_protection(root, test);
--	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.emin);
-+	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.prot->emin);
- }
- EXPORT_SYMBOL_GPL(dmem_cgroup_below_min);
- 
-@@ -818,7 +818,7 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
- 	 * here.
- 	 */
- 	dmem_cgroup_calculate_protection(root, test);
--	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.elow);
-+	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.prot->elow);
- }
- EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
- 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index ffa1ced3baae..b4c01a0dfd4f 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -4823,7 +4823,7 @@ static ssize_t memory_peak_write(struct kernfs_open_file *of, char *buf,
- static int memory_min_show(struct seq_file *m, void *v)
- {
- 	return seq_puts_memcg_tunable(m,
--		READ_ONCE(mem_cgroup_from_seq(m)->memory.min));
-+		READ_ONCE(mem_cgroup_from_seq(m)->memory_prot.min));
- }
- 
- static ssize_t memory_min_write(struct kernfs_open_file *of,
-@@ -4846,7 +4846,7 @@ static ssize_t memory_min_write(struct kernfs_open_file *of,
- static int memory_low_show(struct seq_file *m, void *v)
- {
- 	return seq_puts_memcg_tunable(m,
--		READ_ONCE(mem_cgroup_from_seq(m)->memory.low));
-+		READ_ONCE(mem_cgroup_from_seq(m)->memory_prot.low));
- }
- 
- static ssize_t memory_low_write(struct kernfs_open_file *of,
-@@ -6271,6 +6271,6 @@ void mem_cgroup_show_protected_memory(struct mem_cgroup *memcg)
- 		memcg = root_mem_cgroup;
- 
- 	pr_warn("Memory cgroup min protection %lukB -- low protection %lukB",
--		K(atomic_long_read(&memcg->memory.children_min_usage)),
--		K(atomic_long_read(&memcg->memory.children_low_usage)));
-+		K(atomic_long_read(&memcg->memory_prot.children_min_usage)),
-+		K(atomic_long_read(&memcg->memory_prot.children_low_usage)));
- }
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 38cb99f5f50e..401201c8e390 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -21,28 +21,29 @@ static bool track_protection(struct page_counter *c)
- static void propagate_protected_usage(struct page_counter *c,
- 				      unsigned long usage)
- {
-+	struct page_counter_protection *prot = c->prot;
- 	unsigned long protected, old_protected;
- 	long delta;
- 
--	if (!c->parent)
-+	if (!prot || !prot->parent)
- 		return;
- 
--	protected = min(usage, READ_ONCE(c->min));
--	old_protected = atomic_long_read(&c->min_usage);
-+	protected = min(usage, READ_ONCE(prot->min));
-+	old_protected = atomic_long_read(&prot->min_usage);
- 	if (protected != old_protected) {
--		old_protected = atomic_long_xchg(&c->min_usage, protected);
-+		old_protected = atomic_long_xchg(&prot->min_usage, protected);
- 		delta = protected - old_protected;
- 		if (delta)
--			atomic_long_add(delta, &c->parent->children_min_usage);
-+			atomic_long_add(delta, &prot->parent->children_min_usage);
- 	}
- 
--	protected = min(usage, READ_ONCE(c->low));
--	old_protected = atomic_long_read(&c->low_usage);
-+	protected = min(usage, READ_ONCE(prot->low));
-+	old_protected = atomic_long_read(&prot->low_usage);
- 	if (protected != old_protected) {
--		old_protected = atomic_long_xchg(&c->low_usage, protected);
-+		old_protected = atomic_long_xchg(&prot->low_usage, protected);
- 		delta = protected - old_protected;
- 		if (delta)
--			atomic_long_add(delta, &c->parent->children_low_usage);
-+			atomic_long_add(delta, &prot->parent->children_low_usage);
- 	}
- }
- 
-@@ -257,7 +258,10 @@ void page_counter_set_min(struct page_counter *counter, unsigned long nr_pages)
- {
- 	struct page_counter *c;
- 
--	WRITE_ONCE(counter->min, nr_pages);
-+	if (!counter->prot)
-+		return;
-+
-+	WRITE_ONCE(counter->prot->min, nr_pages);
- 
- 	for (c = counter; c; c = c->parent)
- 		propagate_protected_usage(c, atomic_long_read(&c->usage));
-@@ -274,7 +278,10 @@ void page_counter_set_low(struct page_counter *counter, unsigned long nr_pages)
- {
- 	struct page_counter *c;
- 
--	WRITE_ONCE(counter->low, nr_pages);
-+	if (!counter->prot)
-+		return;
-+
-+	WRITE_ONCE(counter->prot->low, nr_pages);
- 
- 	for (c = counter; c; c = c->parent)
- 		propagate_protected_usage(c, atomic_long_read(&c->usage));
-@@ -445,9 +452,18 @@ void page_counter_calculate_protection(struct page_counter *root,
- 				       struct page_counter *counter,
- 				       bool recursive_protection)
- {
-+	struct page_counter_protection *prot = counter->prot;
-+	struct page_counter_protection *parent_prot;
- 	unsigned long usage, parent_usage;
- 	struct page_counter *parent = counter->parent;
- 
-+	/*
-+	 * Only counters with protection support (memory, dmem pools) are
-+	 * ever passed here, but guard anyway.
-+	 */
-+	if (!prot)
-+		return;
-+
- 	/*
- 	 * Effective values of the reclaim targets are ignored so they
- 	 * can be stale. Have a look at mem_cgroup_protection for more
-@@ -463,23 +479,24 @@ void page_counter_calculate_protection(struct page_counter *root,
- 		return;
- 
- 	if (parent == root) {
--		counter->emin = READ_ONCE(counter->min);
--		counter->elow = READ_ONCE(counter->low);
-+		prot->emin = READ_ONCE(prot->min);
-+		prot->elow = READ_ONCE(prot->low);
- 		return;
- 	}
- 
-+	parent_prot = parent->prot;
- 	parent_usage = page_counter_read(parent);
- 
--	WRITE_ONCE(counter->emin, effective_protection(usage, parent_usage,
--			READ_ONCE(counter->min),
--			READ_ONCE(parent->emin),
--			atomic_long_read(&parent->children_min_usage),
-+	WRITE_ONCE(prot->emin, effective_protection(usage, parent_usage,
-+			READ_ONCE(prot->min),
-+			READ_ONCE(parent_prot->emin),
-+			atomic_long_read(&parent_prot->children_min_usage),
- 			recursive_protection));
- 
--	WRITE_ONCE(counter->elow, effective_protection(usage, parent_usage,
--			READ_ONCE(counter->low),
--			READ_ONCE(parent->elow),
--			atomic_long_read(&parent->children_low_usage),
-+	WRITE_ONCE(prot->elow, effective_protection(usage, parent_usage,
-+			READ_ONCE(prot->low),
-+			READ_ONCE(parent_prot->elow),
-+			atomic_long_read(&parent_prot->children_low_usage),
- 			recursive_protection));
- }
- #endif /* CONFIG_MEMCG || CONFIG_CGROUP_DMEM */
+> 
+> AP[1] is one of the bits used to encode the indirected permissions.
+> Since for hVHE this is always 0 we only configure the subset of
+> indirected permissions that the system is expected to use.
+> 
+> With permission indirection read and write permissions must be encoded
+> in the bits used by S1PIE, set DBM for writable mappings.  Only do this
+> when using S1PIE, the hypervisor does not otherwise use DBM so no
+> existing hypervisor code sets that bit.  Since the meaning is assigned
+> via S1PIE this does not actually enable DBM, the mappings we configure
+> just grant write permission.
+> 
+> In order to enable S1PIE we also need to configure TCR2_EL2 which is
+> currently only done in __finalise_el2 which is VHE only, do so when the
+> register is present.  When running in nVHE we leave TCR2_EL2.PIE
+> disabled.  This ensures we have an explicit configuration for TCR2_EL2
+> when it is present in the system.
+>
+> For simplicity we unconditionally initialise PIR_EL2 and PIRE0_EL2 if
+> FEAT_S1PIE is present, this will have no effect in nVHE mode since we
+> set TCR2_EL2.PIE to 0.
+> 
+> This should have no practical impact other than causing any unexpected
+> encodings to map to no permissions instead of their default
+> meanings.
+
+What default meanings?
+
+> It will mean that the configuration is closer to that in VHE mode, and
+> will be required for future work enabling features like D128 and GCS
+> which are only available via indirection.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+> Changes in v2:
+> - Rebase onto v7.3-rc2.
+> - Don't bother cleaning up TCR2_EL2 on hypervisor exit, and squash the
+>   handling into the S1PIE patch.
+> - Remove support for nVHE mode.
+> - Link to v1: https://patch.msgid.link/20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org
+> ---
+>  arch/arm64/include/asm/kvm_arm.h     | 19 +++++++++++++++++++
+>  arch/arm64/include/asm/kvm_asm.h     |  1 +
+>  arch/arm64/include/asm/kvm_pgtable.h |  1 +
+>  arch/arm64/kernel/asm-offsets.c      |  1 +
+>  arch/arm64/kvm/arm.c                 |  8 +++++++-
+>  arch/arm64/kvm/hyp/nvhe/hyp-init.S   | 16 ++++++++++++++--
+>  arch/arm64/kvm/hyp/pgtable.c         |  8 ++++++++
+>  7 files changed, 51 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_arm.h b/arch/arm64/include/asm/kvm_arm.h
+> index 4bfbd827c5aa..eecac91d41e4 100644
+> --- a/arch/arm64/include/asm/kvm_arm.h
+> +++ b/arch/arm64/include/asm/kvm_arm.h
+> @@ -345,4 +345,23 @@
+>  #define VCPU_RESET_PSTATE_SVC	(PSR_AA32_MODE_SVC | PSR_AA32_A_BIT | \
+>  				 PSR_AA32_I_BIT | PSR_AA32_F_BIT)
+>  
+> +/*
+> + * Permission indirection configuration for the hVHE hypervisor when
+> + * we have FEAT_S1PIE. Like the host kernel we configure a mapping
+> + * mostly equivalent to the non-PIE meanings of the bits so the
+> + * page table manipulation code needs minimal updates for PIE.
+> + *
+> + * These mappings are minimal with only things used from the
+> + * hVHE hypervisor, nVHE is not supported.  Write permission is
+> + * controlled via DBM.
+
+They are controlled by PIIndex[1]. Yes, this is the same bit. No, this
+doesn't mean the same thing. When PIE is enabled, DBM is in the PIE
+register.
+
+> + */
+> +
+> +#define KVM_HYP_PIR_IDX(uxn, pxn, dbm, ap1) (((uxn) << 3) | ((pxn) << 2) | \
+> +					     ((dbm) << 1) | (ap1))
+> +
+
+This is not what these bits are called. They are just PIIndex[] bits.
+
+> +#define KVM_HVHE_PIR_EL2 (						\
+> +	PIRx_ELx_PERM_PREP(KVM_HYP_PIR_IDX(0, 0, 0, 0), PIE_RX)	|	\
+> +	PIRx_ELx_PERM_PREP(KVM_HYP_PIR_IDX(1, 1, 0, 0), PIE_R)	|	\
+> +	PIRx_ELx_PERM_PREP(KVM_HYP_PIR_IDX(1, 1, 1, 0), PIE_RW))
+> +
+>  #endif /* __ARM64_KVM_ARM_H__ */
+> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
+> index e5b92ac09e69..eb796436d6eb 100644
+> --- a/arch/arm64/include/asm/kvm_asm.h
+> +++ b/arch/arm64/include/asm/kvm_asm.h
+> @@ -208,6 +208,7 @@ extern void *__vhe_undefined_symbol;
+>  struct kvm_nvhe_init_params {
+>  	unsigned long mair_el2;
+>  	unsigned long tcr_el2;
+> +	unsigned long tcr2_el2;
+>  	unsigned long tpidr_el2;
+>  	unsigned long stack_hyp_va;
+>  	unsigned long stack_pa;
+> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> index 41a8687938eb..7b1b7ab3e88e 100644
+> --- a/arch/arm64/include/asm/kvm_pgtable.h
+> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> @@ -93,6 +93,7 @@ typedef u64 kvm_pte_t;
+>  
+>  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
+>  
+> +#define KVM_PTE_LEAF_ATTR_HI_S1_DBM	BIT(51)
+>  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
+>  
+>  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+> diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
+> index 9c853ed3ceab..baffe58015d6 100644
+> --- a/arch/arm64/kernel/asm-offsets.c
+> +++ b/arch/arm64/kernel/asm-offsets.c
+> @@ -118,6 +118,7 @@ int main(void)
+>    DEFINE(HOST_DATA_CONTEXT,	offsetof(struct kvm_host_data, host_ctxt));
+>    DEFINE(NVHE_INIT_MAIR_EL2,	offsetof(struct kvm_nvhe_init_params, mair_el2));
+>    DEFINE(NVHE_INIT_TCR_EL2,	offsetof(struct kvm_nvhe_init_params, tcr_el2));
+> +  DEFINE(NVHE_INIT_TCR2_EL2,	offsetof(struct kvm_nvhe_init_params, tcr2_el2));
+>    DEFINE(NVHE_INIT_TPIDR_EL2,	offsetof(struct kvm_nvhe_init_params, tpidr_el2));
+>    DEFINE(NVHE_INIT_STACK_HYP_VA,	offsetof(struct kvm_nvhe_init_params, stack_hyp_va));
+>    DEFINE(NVHE_INIT_PGD_PA,	offsetof(struct kvm_nvhe_init_params, pgd_pa));
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8b080804bc90..607a6f808b1c 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -2158,7 +2158,7 @@ static int kvm_init_vector_slots(void)
+>  static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
+>  {
+>  	struct kvm_nvhe_init_params *params = per_cpu_ptr_nvhe_sym(kvm_init_params, cpu);
+> -	unsigned long tcr;
+> +	unsigned long tcr, tcr2;
+>  
+>  	/*
+>  	 * Calculate the raw per-cpu offset without a translation from the
+> @@ -2186,6 +2186,12 @@ static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
+>  	tcr |= TCR_T0SZ(hyp_va_bits);
+>  	params->tcr_el2 = tcr;
+>  
+> +	tcr2 = 0;
+> +	if (cpus_have_final_cap(ARM64_HAS_S1PIE) &&
+> +	    cpus_have_final_cap(ARM64_KVM_HVHE))
+> +		tcr2 |= TCR2_EL2_PIE;
+> +	params->tcr2_el2 = tcr2;
+> +
+>  	params->pgd_pa = kvm_mmu_get_httbr();
+>  	if (is_protected_kvm_enabled())
+>  		params->hcr_el2 = HCR_HOST_NVHE_PROTECTED_FLAGS;
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-init.S b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
+> index 0b3e0b28dfc7..cd5b75c8776f 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-init.S
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
+> @@ -137,8 +137,20 @@ alternative_if ARM64_HAS_CNP
+>  alternative_else_nop_endif
+>  	msr	ttbr0_el2, x2
+>  
+> -	ldr	x0, [x0, #NVHE_INIT_TCR_EL2]
+> -	msr	tcr_el2, x0
+> +	ldr	x1, [x0, #NVHE_INIT_TCR_EL2]
+> +	msr	tcr_el2, x1
+> +
+> +alternative_if ARM64_HAS_S1PIE
+> +	/* S1PIE is only enabled with TCR2_EL2.PIE if we are running hVHE */
+> +	mov_q	x1, KVM_HVHE_PIR_EL2
+> +	msr	REG_PIR_EL2, x1
+> +	msr	REG_PIRE0_EL2, xzr
+> +alternative_else_nop_endif
+> +
+> +alternative_if ARM64_HAS_TCR2
+> +	ldr	x1, [x0, #NVHE_INIT_TCR2_EL2]
+> +	msr	REG_TCR2_EL2, x1
+> +alternative_else_nop_endif
+
+S1PIE implies TCR2. Why the additional alternatives?
+
+>  
+>  	isb
+>  
+> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> index b74dd5ce1efd..5276c2874fe0 100644
+> --- a/arch/arm64/kvm/hyp/pgtable.c
+> +++ b/arch/arm64/kvm/hyp/pgtable.c
+> @@ -349,6 +349,14 @@ static int hyp_set_prot_attr(enum kvm_pgtable_prot prot, kvm_pte_t *ptep)
+>  
+>  		if (system_supports_bti_kernel())
+>  			attr |= KVM_PTE_LEAF_ATTR_HI_S1_GP;
+> +	} else if (cpus_have_final_cap(ARM64_HAS_S1PIE) &&
+> +		   cpus_have_final_cap(ARM64_KVM_HVHE) &&
+> +		   (prot & KVM_PGTABLE_PROT_W)) {
+> +		/*
+> +		 * When using S1PIE for hVHE set DBM for writable
+> +		 * mappings since AP[2] is ineffective.
+
+It's not ineffective. It doesn't exist! See R_JJNHR.
+
+This is totally obfuscating what is really going on, which is really
+simple. We have 4 permission index bits in the PTE, and the both the
+code and comments should reflect that.
+
+> +		 */
+> +		attr |= KVM_PTE_LEAF_ATTR_HI_S1_DBM;
+
+So this sets PIIndex[1]. But It isn't obvious how this takes us from
+R(0x8) to RW(0xC). Where is PIIndex[3] coming from? It is supplied by
+the code following through the UXN/PXN bbits, but it is mind-boggling
+that we should rely on something deals with non-execution to control
+the *READ* permission.
+
+TBH, I think this is completely going the wrong way. Why can't we
+write this as a discrete enumeration of the permission combination we
+support (all 3 of them), and map that to the correct index?
+
+	M.
 
 -- 
-2.43.7
-
-
+Without deviation from the norm, progress is not possible.
