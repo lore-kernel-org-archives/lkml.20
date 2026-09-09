@@ -1,263 +1,109 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4AF55C1D4;
-	Wed,  9 Sep 2026 13:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A96550DC3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962310; cv=none; b=nIDKISrF2zdCyWcKWXBUm5j9ZyJHtCbN1tPcCKmvNOE14rDNIOTFKiAWND8CTCuAk0CdLUOGAWi28wnnUAgTUaxg7+29ZLKhYQJmzwlvOJ5p0jDMbxcdvrs/ThnsCrh5qPDhEAO3Z2OSPnuWzmwnToOfzKq4ROmLsSurz9fTr+E=
+	t=1788962312; cv=none; b=C+a8PI/pz2YSKk5hQHVw3v0nDfuKxuzFpnKyH0qvta3CMBJ5LoiOfGLVDWDbYa9yvy+BpNQbqebvWNqxZgGgVDgBUc7ryAEHrh7Q/G98wkIfiCUzZlUk0slcWyLzRVAm1iCWCMNbF87j4nwW9FcUdYMc+u5pIKYdx5Uo8LVxCBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962310; c=relaxed/simple;
-	bh=MKzNnUi9C9nx/L1eV+TIbD60XIveXsVYaFAM0qa+nz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mRvMp8SYE1IFVlbGlISnFgPr+5XTj4IBQqM668ZgSKyetE1YmdvVXJ2TEX/Y5b6LbR4Ixw2+w7lv4977xI7X5W1AUsdPv7HD7K43Q0/mQlHgf0VdOi4IuISPv/GszYqW9ca1/sLnq3cuhV1ZqLCOOLjtgIBqXyR8POM9KfN2tm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=stLHcuvq; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788962312; c=relaxed/simple;
+	bh=d/eBbI7tkaFqTgPC5XF+SK73NVv7upzyDSz2miC4GFk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gnKddMaldnmp8gY5GdLXxxm6g86/B3Bb9ZMP2bFt7k/8OEJFfAP54joNPGtgpvBARlcK6vZ+byVeqCgjKcs0hvdLBQSN6QpQe6YOjhLM9+sNj1Xv1UxVkevq+/L0ewiJrvWhAYOJFeQ9xJ0NkqFKngJ7q/qdkVapfTDj6x3N0ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nxe+n/om; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="stLHcuvq"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1c4d3839630;
-	Wed, 9 Sep 2026 13:58:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=ZXQkIhxhILBViE0xl
-	UhZxBaRKsFtV/5uBgzscerU6vE=; b=stLHcuvq88LZaKjOu6l20Y/Ob+/GCx9XU
-	XzEVwBeoTiQ0gMf5M3oQKuC107cqUpCau1R9LWudixO39EpZ6ICtujIsta47iFf/
-	SNoMhJVfgjvcP3R8MyxifoGn1D9EmLTGKZaHme9CeIOIKLB1fKCiah86Db3fBWjV
-	8L1aJekh3/hPAHnkhuDx8eNL5qbfL6vf47uQVlSVDaRqTh62ZqNb6qksoTGYCk4m
-	Z9Mgc7O/ky4DS4LtfGJbdo03B16REq01MIO4aIHCLjMyIOfY0L/nKVcQfg+Ym37V
-	eXxYi4NPTcSJm25voPyDyxXz1UMhsMMlaV9olq1blASsb4GAlkzKA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf5vnk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 13:58:06 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689DuD3E020438;
-	Wed, 9 Sep 2026 13:58:05 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03yjd7h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 13:58:05 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689Dw2oP33227074
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 13:58:02 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 18D362004B;
-	Wed,  9 Sep 2026 13:58:02 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8519620043;
-	Wed,  9 Sep 2026 13:57:51 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.210.73])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  9 Sep 2026 13:57:51 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org,
-        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
-        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
-Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
-        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
-        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: [PATCH v13 08/13] sched/core: Push current task from non preferred CPU
-Date: Wed,  9 Sep 2026 19:26:12 +0530
-Message-ID: <20260909135617.871006-9-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909135617.871006-1-sshegde@linux.ibm.com>
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nxe+n/om"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hg2TG6qYbzMlK6;
+	Wed, 09 Sep 2026 15:58:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788962306; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qUrNQ3cA6EZHPhAyCHKqYeA0HtQpB6QZ91fnWn7LXpQ=;
+	b=nxe+n/omBhnsVKEjTdrhXy+avFmV3KIxpCIkK4dHzHMLAlc1AByLRem6iAAHD6zTFiVaj2
+	VS1ioW9nxjhuKKBRaFuq7atMGX1vkO2sVCfs/PHEceAcZqPXNSK1OzK5y0XFNXjk8yBaLw
+	nzI1PVCDaqmcEvqwfCnoPCAieYr4HMPYzDscrg4Esbl3vJQUXrPhKkUyXsdTHe5rowTjPw
+	M5gYksivazd1Nj0ElnamwtxNNknhBo/MHqrjfDpasivtDXj7GlSA6CQNm6OhW122L0wivV
+	P018OkH7xjgHepg/xXCVeqrDV18YHM1oGDYNaACrNUzVuMXkgkskXqdMsDx4GQ==
+Message-ID: <378b2599ada8e62cd772dfc6a751e3e39cfad04a.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] dma-buf/dma-fence: fix checking signaling bit for
+ timeline and driver name
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: christian.koenig@amd.com, malhyuk97@gmail.com, tursulin@ursulin.net, 
+	matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+Date: Wed, 09 Sep 2026 15:58:23 +0200
+In-Reply-To: <20260909131808.2201-2-christian.koenig@amd.com>
+References: <20260909131808.2201-1-christian.koenig@amd.com>
+	 <20260909131808.2201-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: Qof9cDZooZLbNjftznDvL50b_MokrMqu
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa165ef cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=rPhwLmmYJdnLsqmuV48A:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX+fmLVnh0qpl0
- P+wVi4wDVm+Z3XbNywU1OapPyHBTHlUhhaouhngOm99rJyjt/yMVI5eRRz7kigrHfb9tPXDd9Xx
- Stwn8spLa/UvHzsmMMZhXPt+/7MnAM0=
-X-Proofpoint-ORIG-GUID: UZLpCWsnhxQYSry4BUKiwqNtBTUp4S0Q
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX8NQo2Oen/VmJ
- 1ysdx1ENCjFZW2T24TsnVf0dZBD/bUylIobYfF0RzceZFCrExnltrx8UiIiW4mCiffn768QSdQ2
- F+a3y5Rhs6DDTxY2D+/9QVy3YrQdcezcIxbAJyS6fPT3tGlOvQjTDiyDC+zFImIOmmhj4Kp1tyz
- 7UpWKkfHcQF6/wzZuTLEWFl4TcC1Wm2Lr7A+OPhx/WToo1SmJVgLPdwYfUGHrOuNrqMa5U3BBvy
- Cd1fzqDiarV93VovZuXP5Vsd51Tmd9gYOZ96yf7gcflrLHRkFw4q03mtIYNpiCTLbsd5IoJ6zRB
- +VsnIxWYj+uujSGYgOCYNJfasUX3pfVHjIZBCOm2qxcVUMkbSQInJf/95ZPC8cO01rYIr3jG+Be
- Ol/L+2sTSN2QKm2zlsXEf+42Olcl6sMrBAuMUOV2hQkGvfLKzjDe/Un7Si4RvwXDLIv2g/fcPY6
- Fd4CmdT6OTqgTA0QAsg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090151
+X-MBO-RS-META: fe6mxujrfz1degi3t8978ebusrptjxok
+X-MBO-RS-ID: 7b3f6d91a5e071ecba4
 
-Actively push out the current running task on a non-preferred CPU. Since
-the task is currently running, a stopper thread must be queued to push the
-task out. However, if the task is pinned only to non-preferred CPUs,
-it will continue running there. This helps to maintain userspace
-affinities, unlike CPU hotplug or isolated cpusets.
+On Wed, 2026-09-09 at 15:14 +0200, Christian K=C3=B6nig wrote:
+> The patch "dma-buf: dma-fence: Fix potential NULL pointer dereference"
+> changed the check to test for the ops pointer instead of the signaled
+> bit to avoid a potential NULL dereference when the ops pointer has been
+> cleared.
+>=20
+> The problem is now that the ops pointer is cleared only when neither the
+> release nor the wait callback is implemented and this isn't true for a lo=
+t
+> of dma_fence implementations yet. So those implementations lost the RCU
+> protection after signaling of the returned string resulting in potential
+> use after free.
+>=20
+> Add the signaling check additional to the ops pointer check so that we
+> have both the protection against NULL dereference as well as the RCU
+> protection after signaling for the returned string.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Fixes: 035219a760ed ("dma-buf: dma-fence: Fix potential NULL pointer dere=
+ference")
+> CC: stable@vger.kernel.org=C2=A0# 7.2+
+> Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+> Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+> ---
+> =C2=A0drivers/dma-buf/dma-fence.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 05090fb0fd5a..e92f9df8d63c 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1170,7 +1170,7 @@ const char __rcu *dma_fence_driver_name(struct dma_=
+fence *fence)
+> =C2=A0
+> =C2=A0	/* RCU protection is required for safe access to returned string *=
+/
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (ops)
+> +	if (!dma_fence_test_signaled_flag(fence) && ops)
 
-Though the code is similar to __balance_push_cpu_stop and quite close to
-push_cpu_stop, it is kept separate as it provides a cleaner
-implementation specifically for CONFIG_PREFERRED_CPU.
+It's probably a good idea to comment at an appropriate place (I suggest
+here and at dma_fence_ops) why this is necessary, because at all other
+places the ops-pointer can serve as decoupling point.
 
-Add the npc_push_work_pending flag to protect the work buffer.
+Reason is simply to also support drivers that implement release() and=20
+wait(), preventing ops from being set to NULL.
 
-For now, only the currently running task is pushed out. This keeps the code
-simpler. In the future, an optimization may be added to move all queued
-tasks on the runqueue.
 
-This works only for the FAIR scheduling class.
-
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
- kernel/sched/core.c  | 86 ++++++++++++++++++++++++++++++++++++++++++++
- kernel/sched/sched.h |  9 +++++
- 2 files changed, 95 insertions(+)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index b4ef2e92d786..458b8c6fd9af 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5808,6 +5808,9 @@ void sched_tick(void)
- 	unsigned long hw_pressure;
- 	u64 resched_latency;
- 
-+	if (!cpu_preferred(cpu))
-+		sched_push_current_non_preferred_cpu(rq);
-+
- 	if (housekeeping_cpu(cpu, HK_TYPE_KERNEL_NOISE))
- 		arch_scale_freq_tick();
- 
-@@ -11202,3 +11205,86 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		p->sched_class->prio_changed(rq, p, ctx->prio);
- 	}
- }
-+
-+#ifdef CONFIG_PREFERRED_CPU
-+static DEFINE_PER_CPU(struct cpu_stop_work, npc_push_task_work);
-+
-+static int sched_non_preferred_cpu_push_stop(void *arg)
-+{
-+	struct task_struct *p = arg;
-+	struct rq *rq = this_rq();
-+	struct rq_flags rf;
-+	int cpu;
-+
-+	if (cpu_preferred(rq->cpu)) {
-+		scoped_guard(rq_lock_irqsave, rq)
-+			rq->npc_push_work_pending = false;
-+		put_task_struct(p);
-+		return 0;
-+	}
-+
-+	raw_spin_lock_irq(&p->pi_lock);
-+
-+	/*
-+	 * select_fallback_rq() may acquire the rq lock in case of fallback.
-+	 * So call it before grabbing rq lock. If the task migrates to
-+	 * another CPU before the rq lock is acquired, subsequent validation
-+	 * of task's current rq will help to safely bail out.
-+	 */
-+	cpu = select_fallback_rq(rq->cpu, p);
-+	rq_lock(rq, &rf);
-+	rq->npc_push_work_pending = false;
-+	update_rq_clock(rq);
-+
-+	context_unsafe_alias(rq);
-+
-+	if (task_rq(p) == rq && task_on_rq_queued(p) &&
-+	    !is_migration_disabled(p))
-+		rq = __migrate_task(rq, &rf, p, cpu);
-+
-+	rq_unlock(rq, &rf);
-+	raw_spin_unlock_irq(&p->pi_lock);
-+	put_task_struct(p);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Push the current task running on non-preferred CPU(npc).
-+ * Using this non preferred CPU will lead to more contention
-+ * in the host. So it is better not to use this CPU.
-+ *
-+ * Since task is running, call a stopper to push the task out. This is
-+ * similar to how task moves during hotplug. In select_fallback_rq() a
-+ * preferred CPU will be chosen and henceforth task shouldn't come back to
-+ * this CPU again.
-+ *
-+ * Works for FAIR class only.
-+ *
-+ * If task is affined only on non-preferred CPUs, no point in moving it out.
-+ */
-+void sched_push_current_non_preferred_cpu(struct rq *rq)
-+{
-+	struct task_struct *push_task = rq->curr;
-+
-+	scoped_guard(rq_lock, rq) {
-+		/* Push the task if its explicit affinity allows */
-+		if (!task_can_sched_on_preferred(rq->cpu, push_task))
-+			return;
-+
-+		/* There is already a stopper thread. Don't race with it. */
-+		if (rq->npc_push_work_pending)
-+			return;
-+
-+		if (is_migration_disabled(push_task))
-+			return;
-+
-+		rq->npc_push_work_pending = true;
-+	}
-+
-+	/* sched_tick runs with interrupts disabled. */
-+	get_task_struct(push_task);
-+	stop_one_cpu_nowait(rq->cpu, sched_non_preferred_cpu_push_stop,
-+			    push_task, this_cpu_ptr(&npc_push_task_work));
-+}
-+#endif
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c3ad70e58b8..f3129e9e1b62 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1326,6 +1326,9 @@ struct rq {
- #ifdef CONFIG_PARAVIRT_TIME_ACCOUNTING
- 	u64			prev_steal_time_rq;
- #endif
-+#ifdef CONFIG_PREFERRED_CPU
-+	bool			npc_push_work_pending;
-+#endif
- 
- 	/* calc_load related fields */
- 	unsigned long		calc_load_update;
-@@ -4280,4 +4283,10 @@ DEFINE_CLASS_IS_UNCONDITIONAL(sched_change)
- 
- #include "ext/ext.h"
- 
-+#ifdef CONFIG_PREFERRED_CPU
-+void sched_push_current_non_preferred_cpu(struct rq *rq);
-+#else	/* !CONFIG_PREFERRED_CPU */
-+static inline void sched_push_current_non_preferred_cpu(struct rq *rq) { }
-+#endif
-+
- #endif /* _KERNEL_SCHED_SCHED_H */
--- 
-2.52.0
-
+P.
