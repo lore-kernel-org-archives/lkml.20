@@ -1,208 +1,153 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92955335A8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950847; cv=pass; b=V+I+8qeosIBdrWgpZ7rv2W4RlnXfLVRrN6bFsWliD1YTmGoWYuW/T91bMKPzjlUMWudsSEtpfoJl/LeYMJV9oWHk110GqdOXHW9HWUO4OeS3nOmCbRlkSjEQ2+252LUaI/VWdxFynPsSxGAZzTwIowX9el+XAV5g4SQikLene7E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950847; c=relaxed/simple;
-	bh=c8u0G9DIKWY3wWy8HFtAWaGMEPB6ZGP6llC+ZRy104Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vDGOtuYgwu+b2kH0mGTvOhDegneqSVRcCIA6KyYk+5d7uc3RDN8pFi31VJBo/J7o8IstGMYOsOQaEh4RT/v/OsacR22K0mvMqpXds4n7vZeywNhPBC3qBgJjg7xRTnZveSL87LvwrrV8v6bJYhFuvwvjmfxve23KTiqTPlYAFzk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=K5vcrzUt; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A136E52B1DB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788950941; cv=none; b=d1bzif/qkB+eGUOlw/7YIbshWsWxKs8zuDuCuniVgtbLNH6CER1fUsueiZLL34mOeiCGxwa7UuJhWeKnUdJ7ef2fqRODf5mgoxUvVCYoeZzL+oaHDhw+e/efJnRwIHpHq1jT1IegxuNLfAYLqkvxzRQAFMN5k7BZinWalH2dvFk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788950941; c=relaxed/simple;
+	bh=5PUqG+SJgWEA66zGGIWlpzsJipY79JOYTfO+xVztXVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ttzyuCck87yjM9sARcIHMh9LtKJQ3Wwdl9SHaXRR1AbeM/2J+UDBjMGETle5C4CmBgwrS0OxLKWf/cVxVbPjS29xFnof8boYKWG0LeejBvax233txBsw98mHa93UCmgUzENfNrDVozf7FBYg0Vg1eDDbTxG68I1mig6csEKPA6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kh0+QMI2; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="K5vcrzUt"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2938116fefso63845566b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:47:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788950843; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S/Q/1KDs0xeL/YEf/igI292mq5z0fVhge3p2e0I4ZC606qwFy3GjLo0jsBcxuFD7Ug
-         695InhVBUEf5liYcHA23uXVOFNcwmhZILPBmToB9w+14SqNaAoB2/wgUsIniOfELZstv
-         6Gj4Sydy2gbrPCb+7tafDjeuOraNRyTB+ehzmxe4ZE83msvniSNoPbgnJY76H7BP8iOR
-         asPA2fmdy1AHyKERYlzTKXb7hW/uH6VlAwC41lwKHXoCW4uOPkOoysrsHfVvp03JdcAj
-         +ZpTLJYgW0xDww0cXDzXqbc6yzUovbVa1VwOAjNsgsxWdMZG+44zdp8h232sufRMcdWV
-         yHXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KuPrUbZf/fUdetX99DjVi3Kowkh+3S7lPORa/Cu8+p8=;
-        fh=KH4BpYjfQbHk0XbH2LK0opxJQkDIzIL1RIOV6Bw2f04=;
-        b=h6BoFzodA0h3gQ9wtoVHh8vOBT2ePLzxl8ipsMNNWrHACtKnil15D1vGYNRjRFIugk
-         W8RVqasEIfK4dhgOzn0U8IAjtfmS5DQP+/FQo/wyHLgM+wAfSllzs/swqZtDoBf0AX71
-         0RybnAiWSMyuNS8oR8adqjddLwK3Ygr8M3nXQVhaHfXxbnRSxuX5mDLcYvwbvI7iu1Ha
-         kGuiMggk77TXuKRxAH4ydYerq/SKXH5NzJX0xy7re4l1/1M/xtSfkQVMYlC743/9IPdw
-         EdHuUdHwfKsH2NsSEaB8Pn52T8biRTYwANYA3cKsxvx5vR3pW2R8siZbOhTR1hs3A4Nw
-         z44A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh0+QMI2"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so46013a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:48:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mihalicyn.com; s=mihalicyn; t=1788950843; x=1789555643; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KuPrUbZf/fUdetX99DjVi3Kowkh+3S7lPORa/Cu8+p8=;
-        b=K5vcrzUtilChwK/MPJX5CZQ3+nCjlXcsrIfvIDSQcvZ7DoCbsmViIAE+dwn7nHZPsQ
-         BIHDcv2OJNiGyoNcyuxSprar+Z3meDAKbyod7dx0hMYt1VZU9WmLxWwfR43j0iXWPsCE
-         v5sJB9AOS6P2iiv8ZiUYu05Vibq/kmOpg8QMk=
+        d=gmail.com; s=20251104; t=1788950939; x=1789555739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NFSttXHxqg3STxl4CZFUp5gfrywYxhL9Y0vz5R35gLc=;
+        b=Kh0+QMI2etKw3t0rLmgnA56w0J+VMy0q676xryop26wVwQcGgumL66uouz/xFTthPq
+         C/5M5Z2K2sccDD9V0q7DcqqyqPZFwTVE9l+HO08PPQfkfm/2K2USnJoJKLmt1NLevmbW
+         heIDg3+3HiKq4cfRMZs+p1rQ91nm9UwkbWwE416Ua7ZdwracR1jM/MS8wKclMTMH1XS5
+         rYNQcoaZCopci7GlFjrSQt7fq3fwYUu67v1t7OPzMCLTnaKk8FvXpvBCrijoHfqyGbE6
+         2O1Ek4GABmg/6ff5wU0pDel7MGCk+FzyCqECY0/oPo+0kzbwwBT7k6B7Xf4wjlkNvMCK
+         +DoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788950843; x=1789555643;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KuPrUbZf/fUdetX99DjVi3Kowkh+3S7lPORa/Cu8+p8=;
-        b=ousuAfzQQVogQ2wenednaMjGQqsBoDArvV7x5b7QMIpOnuadQ3EucXhhWZWBHBr4Mf
-         U+uyP37LtFP1WjQ3Nl/g8HvcMN1qWZwz+ghL1Adk22hjNJ0CJCZ1z37HuBRWV2fYFzS8
-         5Dt7eHquTdiHpqGVAnicnpXjw2edfuL6oPEPO6MeymGBMtLm+fOpbQutXfwDKh3C71nO
-         cPxkuBGWwLbAYbVh6bBrdchrcZCoMGEpJzQPNuUf86B7OZwatCo3uY00ir1JI/vmAPwW
-         shP7AykLZXR4r37Wn0kqi+dCCqSQzV7jMHtsiDOVCQzErJPJfjK/OM4M87Emu8WTR0X3
-         u2yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx31kmPGSWtByRntGtdG4BzS3AdzKMLUIpDwcnt6KpZxdlhnUV/uX31g+VldHBgOzpQQWH2VZAA8jY/UBE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nF0v/avdz2G9m0K3/xWJcaFbpUOxo7qOLsAweWmTOrLNTxU3HT
-	Z7J4QfaJ1wK7A5ogcrOem7Gdn13b2ZT6Xk+eylWzgcqk+WTUWUx6iv4XnUC5qAuit78DZrXP2HV
-	li8j5RV8QUo5T6z81naIrd0NNnJg7Bo8XkjCD+5RFRQ==
-X-Gm-Gg: AYBFou0sKAQNwIsmdLy/Spu24uw9/mDD7JVIO/XLBasbRQZWoCmv9gV2dPsMVb+qQFU
-	sTlFyy5r/hQxwGr/1RhEKNx3CRgC7cJLzzBUqhUxPX/1hXBpdGIQCwOdATCD4mxXsGZQIw9LVea
-	qYoAV2lwBG7yiS/iU4REreSUauKkPHR6n9vXqDnV7wpukwkbcIYduuDfZe8JSgKfyiYF5XUu0dM
-	t0qoG3NViAHp2OTYsfYyGUE3ZwkqPUYY+1MdhCbfDiy7O4ur+7tcCZkX/uqqWYSYGqMGUHx7o40
-	Aegcmiutk2ClWx2GmFBen+FwW8lJK1Y+F7fHY9r+TnRMamxH++GzK8kjLgJW6UxfRYfTkGthgQC
-	GEzwkcUQ8jg4=
-X-Received: by 2002:a17:907:e1c6:10b0:c26:2c3d:67aa with SMTP id
- a640c23a62f3a-c262c3d7d38mr647675466b.47.1788950843137; Wed, 09 Sep 2026
- 03:47:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788950939; x=1789555739;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NFSttXHxqg3STxl4CZFUp5gfrywYxhL9Y0vz5R35gLc=;
+        b=Nf5lgk8xEie2VBE5k9ybXAQdBcFX61p40XS6tISyVnTc2ujcBEG9G97cW77BUPL8Ei
+         ePtaWxMMt8avWJ763RsYfRE9Wz3A/3Ps6iCEM4WFKq7XFE0rr8Sy8voaWzH7UygIS1xz
+         BHsKdkDWhk7R8sC4Y+xXtccRh0y0LTaP4Nhkrqo3oOit3ddfsC7G/7SIwVsumC1B65et
+         f6ngkst/oR84w54b6HTdL5tlhhCCFiWZt/JQ67+ULcnRGtAHf+qA/qYXowcsXkMij1gz
+         uU6rzopH557kGQjZvUiXd0QxRmnrtZP2daVXgtpQC+uOAiQvco9hm3zjq355aeU1/QeU
+         ipjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByCmkMchuBmlmMj7pMGM2b2bqzHtOuoOSArNX5nSwB7BJQq3Mq5PVsxcfT/UCkOPC5q0FlDcVqAJBI6CFg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1BfWotF1z2pM83do9GJwKvDQJEVq6GK3nzn1/bdwJitJ3m2kT
+	earjgAxhfgxBlFScV848wALuTE5X11hdTCwpErcQH5G9N7cE2QYBdqXTo1JMVts+Tf4=
+X-Gm-Gg: AYBFou2cea1qsV+fj+uJ+gTmW3qZzjyxEXp8s5sXOhIL08ygrOEvd6+vkURTPVSgJrf
+	HbXt7EerpaoYX8f3LmqV//FpYDTuDAUc12Wdwzjos2ZZIP1gFTfne8f6CjnJ3ybd/oQ4wdqOVsp
+	Ipsym5cKwLMKIM7BYAh3W3WCKa4ozCt8kuFjQsWgUM3fsnvx2IL1Sl5GWLxP5aiUwr+xL/p7QDU
+	xfXWf4IyS+tFvKD5SwdjSqRWUYM0T+LBU+m9XjHtzlVAqoq+q42DelyQjiH1FJIwxZ2/tBnb7/S
+	8HxsIz4MoyiNW0V9mVV3Yl00ZjZmVs/ZOsW9l3rCBcmNnnKYwXXWFlQXkqENFFqs26b75kIY+HS
+	ng54/kcWRVdwHzquXTl0rwxy5JgX9NHT2oMS78Vltr1BtuQ1Hqqe3hxu7lL9Wcsqv3v5hshUYX5
+	Kay7nVD4ZzC38qYGTYrpweyvW44qZXEHdluLY4HTzZf6IDQR9kOjl3v5DH+QxDxYWU7Y6v9tU0W
+	IUj+G7115O0u8lGfO/TI2Ju
+X-Received: by 2002:a17:90b:390d:b0:399:149a:3f27 with SMTP id 98e67ed59e1d1-39d70a4f874mr68741a91.9.1788950938698;
+        Wed, 09 Sep 2026 03:48:58 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.135.143])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3396e7e477csm12026723eec.29.2026.09.09.03.48.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:48:58 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+690d666eb12fca6e1e61@syzkaller.appspotmail.com
+Subject: [PATCH 0/6] comedi: validate the IRQ numbers supplied by userspace
+Date: Wed,  9 Sep 2026 16:18:41 +0530
+Message-ID: <20260909104848.1763-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org>
- <20260831-work-unix-passpidfd-v1-2-70cbfda0c7ba@kernel.org>
- <CAJqdLrooAYAcgzug=+idiPfqsZ0HGaqi29STuw7uzDh7eEB1xQ@mail.gmail.com> <20260909-kredenzen-stock-hyperaktiv-121c1eec9f98@brauner>
-In-Reply-To: <20260909-kredenzen-stock-hyperaktiv-121c1eec9f98@brauner>
-From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Date: Wed, 9 Sep 2026 12:47:11 +0200
-X-Gm-Features: AcwNN1XVh-ALE8Pd-F1vhWkAcwoJY8Oak9Or6CODFCYe9Lq9EEeN6slL8DKSSVc
-Message-ID: <CAJqdLrrt_HhKmSmKr72rUip-_j_eOG-41SoBGcJJGZ=i2pUd6w@mail.gmail.com>
-Subject: Re: [PATCH 02/10] af_unix: record the pid of the sending thread
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Am Mi., 9. Sept. 2026 um 12:36 Uhr schrieb Christian Brauner
-<brauner@kernel.org>:
->
-> On Mon, Sep 07, 2026 at 11:55:23AM +0200, Alexander Mikhalitsyn wrote:
-> > Am Mo., 31. Aug. 2026 um 13:21 Uhr schrieb Christian Brauner
-> > <brauner@kernel.org>:
-> > >
-> > > Currently only the struct pid of the thread-group leader is recorded.
-> > > The identity of the actual thread that sent the message or is connected
-> > > to a given socket cannot be retrieved.
-> > >
-> > > Add the plumbing to make it possible to retrieve a pidfd for the sender.
-> > > Nothing uses the thread-specific struct pid yet. No functional changes.
-> > >
-> > > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> > > ---
-> > >  include/net/scm.h  |  7 +++----
-> > >  net/core/scm.c     | 21 +++++++++++++++++----
-> > >  net/unix/af_unix.c | 23 +++++++++++++----------
-> > >  net/unix/af_unix.h |  3 ++-
-> > >  4 files changed, 35 insertions(+), 19 deletions(-)
-> > >
-> > > diff --git a/include/net/scm.h b/include/net/scm.h
-> > > index 86ae6bc109ec..aa7d15c5fc27 100644
-> > > --- a/include/net/scm.h
-> > > +++ b/include/net/scm.h
-> > > @@ -42,7 +42,7 @@ struct scm_fp_list {
-> > >  };
-> > >
-> > >  struct scm_cookie {
-> > > -       struct pid              *pid;           /* Skb credentials */
-> > > +       DECLARE_PIDS(pid, PIDTYPE_TGID);        /* Skb credentials by pid type */
-> > >         struct scm_fp_list      *fp;            /* Passed files         */
-> > >         struct scm_creds        creds;          /* Skb credentials      */
-> > >  #ifdef CONFIG_SECURITY_NETWORK
-> > > @@ -69,7 +69,7 @@ static __inline__ void unix_get_peersec_dgram(struct socket *sock, struct scm_co
-> > >  static __inline__ void scm_set_cred(struct scm_cookie *scm,
-> > >                                     struct pid *pid, kuid_t uid, kgid_t gid)
-> > >  {
-> > > -       scm->pid = get_pid(pid);
-> > > +       scm->pid[PIDTYPE_TGID] = get_pid(pid);
-> > >         scm->creds.pid = pid_vnr(pid);
-> > >         scm->creds.uid = uid;
-> > >         scm->creds.gid = gid;
-> > > @@ -77,8 +77,7 @@ static __inline__ void scm_set_cred(struct scm_cookie *scm,
-> > >
-> > >  static __inline__ void scm_destroy_cred(struct scm_cookie *scm)
-> > >  {
-> > > -       put_pid(scm->pid);
-> > > -       scm->pid = NULL;
-> > > +       put_pids(scm->pid);
-> > >  }
-> > >
-> > >  static __inline__ void scm_destroy(struct scm_cookie *scm)
-> > > diff --git a/net/core/scm.c b/net/core/scm.c
-> > > index f0d44ecdb11f..9b9e119c353a 100644
-> > > --- a/net/core/scm.c
-> > > +++ b/net/core/scm.c
-> > > @@ -149,6 +149,7 @@ EXPORT_SYMBOL(__scm_destroy);
-> > >
-> > >  static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
-> > >  {
-> > > +       struct pid *thread_pid;
-> > >         int err;
-> > >
-> > >         /* drop all previous references */
-> > > @@ -158,7 +159,18 @@ static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
-> > >         if (unlikely(err))
-> > >                 return err;
-> > >
-> > > -       scm->pid = pid;
-> > > +       /* A sender naming its own thread-group sends from the current thread. */
-> > > +       if (pid == task_tgid(current))
-> > > +               thread_pid = task_pid(current);
-> > > +       else
-> > > +               thread_pid = pid;
-> >
-> > Hi Christian,
-> >
-> > The patch looks good to me, but this spot raised some doubts for me.
-> >
-> > If scm_replace_pid() is called with pid == task_tgid(current) then all
-> > good, because we
-> > get scm->pid[PIDTYPE_TGID] == pid and  scm->pid[PIDTYPE_PID] ==
-> > task_pid(current). All good.
-> >
-> > If scm_replace_pid() is supplied with pid that has a type PIDTYPE_TGID, then:
-> > - scm->pid[PIDTYPE_TGID] == pid. Good.
-> > - scm->pid[PIDTYPE_PID] = pid. Doesn't looks correct, shoudn't we do
->
-> After chatting with you, I think I get the concern. You think that
-> scm->pid[PIDTYPE_PID] always points to a thread-group leader if pid ==
-> task_tgid(current). Yes, that's true but that's intended and fine. The
-> thread-group leader is just a thread in the thread-group just with
-> magical behavior (that we would really like to get rid of but can't
-> easily...).
+comedi boards are configured through the COMEDI_DEVCONFIG ioctl, which
+lets userspace pick the interrupt line for ISA-style boards. Fourteen
+drivers hand that value to request_irq(); eight bound it to the
+interrupts the board can actually assert first, six do not.
 
-Yes, my concern was about another case when `pid != task_tgid(current)`, but the
-chunk of code I've suggested makes no sense. When I looked at it with
-a fresh head I realized this.
-In scm_replace_pid, once we've got `pid` pointing to a leader's thread
-we can't really do anything
-other than taking leader thread's TID as a scm->pid[PIDTYPE_PID]...
+On x86 an unbounded value can name an interrupt that belongs to the
+IO-APIC GSI domain of a PCI device. request_irq() succeeds and
+register_handler_proc() creates /proc/irq/<n>/<board>. When that PCI
+device is later unbound, mp_unmap_irq() drops mp_chip_data->count to
+zero and frees the descriptor from under the still-installed comedi
+handler:
 
->
-> Thanks for looking closely at this though!
+	remove_proc_entry: removing non-empty directory 'irq/20', leaking at least 'comedi_parport'
+	WARNING: fs/proc/generic.c:747 at remove_proc_entry+0x4e7/0x610 fs/proc/generic.c:747
+	Call Trace:
+	 <TASK>
+	 unregister_irq_proc+0x206/0x2a0 kernel/irq/proc.c:406
+	 free_desc+0x89/0x330 kernel/irq/irqdesc.c:482
+	 irq_free_descs+0x84/0xc0 kernel/irq/irqdesc.c:865
+	 irq_domain_free_irqs+0x46a/0x5c0 kernel/irq/irqdomain.c:1917
+	 mp_unmap_irq+0xf8/0x130 arch/x86/kernel/apic/io_apic.c:1061
+	 acpi_unregister_gsi_ioapic+0x40/0x60 arch/x86/kernel/acpi/boot.c:722
+	 acpi_pci_irq_disable+0x275/0x360 drivers/acpi/pci_irq.c:517
+	 pci_disable_device+0x130/0x270 drivers/pci/pci.c:2206
+	 pci_device_remove+0xb2/0x1d0 drivers/pci/pci-driver.c:512
+	 device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+	 unbind_store+0xf8/0x110 drivers/base/bus.c:244
+	 </TASK>
 
-LGTM
+The leaked /proc entry the warning names is the mild part.
+mp_chip_data->count tracks GSI mappings rather than request_irq() users,
+and __setup_irq() takes no reference on the descriptor, so the irq_desc
+is freed with the comedi irqaction still attached to it.
 
-Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
+Restricting the value to the ISA range is enough to close this:
+mp_chip_data->isa_irq is set only by alloc_isa_irq_from_domain(), and
+mp_unmap_irq() returns early when it is set, so a legacy interrupt can
+never be freed out from under a requester. It also costs nothing real,
+since every affected driver is for an ISA or PC/104 board.
+
+Each patch bounds one driver, following the check das16m1.c already has.
+Where the driver documents which interrupts its board can assert, that
+set is used; otherwise the bound is the plain 1-15 ISA range. As in
+das16m1.c an out-of-range value is ignored rather than rejected, so the
+board still attaches without interrupt support -- the same thing that
+happens today when request_irq() fails.
+
+syzbot found this through comedi_parport, fixed by patch 1. The other
+five are the same bug reachable the same way; I have no reproducer for
+those, they came out of auditing the callers.
+
+I have none of this hardware, so the change is by inspection only.
+
+Reported-by: syzbot+690d666eb12fca6e1e61@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=690d666eb12fca6e1e61
+
+Yogesh Gaur (6):
+  comedi: comedi_parport: validate the IRQ supplied by userspace
+  comedi: ni_atmio16d: validate the IRQ supplied by userspace
+  comedi: dt2814: validate the IRQ supplied by userspace
+  comedi: dmm32at: validate the IRQ supplied by userspace
+  comedi: pcmmio: validate the IRQ supplied by userspace
+  comedi: pcmuio: validate the IRQs supplied by userspace
+
+ drivers/comedi/drivers/comedi_parport.c | 3 ++-
+ drivers/comedi/drivers/dmm32at.c        | 3 ++-
+ drivers/comedi/drivers/dt2814.c         | 3 ++-
+ drivers/comedi/drivers/ni_atmio16d.c    | 4 +++-
+ drivers/comedi/drivers/pcmmio.c         | 3 ++-
+ drivers/comedi/drivers/pcmuio.c         | 5 +++--
+ 6 files changed, 14 insertions(+), 7 deletions(-)
+
+-- 
+2.55.0.windows.5
+
