@@ -1,166 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC64D3B2FD1;
-	Wed,  9 Sep 2026 09:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5B3444C51F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944704; cv=none; b=YppDmZGie3sPTc6Ri/WB6bboX5hhjeHAjGLZnjn/Iy0QwoOUitygvbhBJoeBMFag3ol5KTrO6wD0WIqD1YqycvHth8ev6h51jKs2NLFz7XrVMi8n9vlwhoNIwNr/9GZkcma0QkUC8rtuscvRb7/jUsKVFyQcMT0rOkB2CjbqLJ0=
+	t=1788944725; cv=none; b=hPf9943h7vdj0DrgOb0MB9N4/uErtNVqORFxWq8wytwe/kdBzQD8LbO7+mC3OEc8MRK/LynQnrmYddL+zatRB6UWrcahvTRlnwXVa+fWRdE7yvnYtb1xizsxCrKEl7kIIOh0AVj0w6xLR0RSW+qxan3DJ80i+uemfHzRnxYMuAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944704; c=relaxed/simple;
-	bh=hfwaaXSTdHWn5dGY4xL49qODKtITstkykViVU/ATm2I=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=KYOhJPuw8kQznM/AWUwKdgutqclUr+qHldfO8QnoHe1taiUG5LmcevW4wGfVp9IvRFZXIwonctSOBAe8MxVcAeNyVIQnL5lb8bxEhQ9AnV0QtpdKuGfEqalC62CDLxg20EwskQ2iQ6OmqxGwKh4Xyo40Nfby/yEiNGMTbyELQtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAPOBb1m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788944725; c=relaxed/simple;
+	bh=q/sP3AsNoR3RmKdfGQqgTWtlCydIYBxW5nIeJqo9DaI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nAqAZMudNx7GlqIrw407Zrg1/Dof6mXx8iXjkie/kY4shyNYD+KBt+zGJ/T/EXwBP61NOaQHkQs5hW60epCMtNTanZqUmohMJPO8ZaVZPRzlbYkjwbzLgKduLvJ1cF5iuKPxS06KnmV3ljU/9EgSrMFzFN41IzGQNDcisNrBH/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VJMzp4kD; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAPOBb1m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7691F00A3A;
-	Wed,  9 Sep 2026 09:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944703;
-	bh=SjM5wCr2+gDn5G0QlL9Q6F4IvozPWkX6FtcI4rtZZaA=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=TAPOBb1m0kucPoM8KgDsdb7EKb8HWrQRHRCEMhz8W8fIzIUstGKnCjTeZwen6bE4c
-	 dDV6T6xJe7fL5pc7Pzgs4QOK+raOA99PDzhq0cUim/zMzNbJxvRFSC8aO4xqY1qLX9
-	 S2uhchRg75BOUa2R2JkJ19vyIHA5J7IzCN8/qvB0wnKakwbKYjDtsTW0/VMbFGKKeT
-	 8/Vei+/e6PPQhEhizyxz/xVw2FxtKO5Y8xKsv/gXgzbivp5CgLgs5Keki7mDFALO6N
-	 3QfGccd1HSEL4UYuUHPJk+jMLkLLPUdb/xbiZK5b6JELOzopyMkCWM5CmnBlDhqtiU
-	 2nEqY7jwbLUmg==
-Message-ID: <a589c1f2-e823-485f-9768-a6e471ffeaca@kernel.org>
-Date: Wed, 9 Sep 2026 11:05:00 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VJMzp4kD"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B4A01576;
+	Wed,  9 Sep 2026 02:05:19 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D90CD3F528;
+	Wed,  9 Sep 2026 02:05:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788944723; bh=q/sP3AsNoR3RmKdfGQqgTWtlCydIYBxW5nIeJqo9DaI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VJMzp4kDduuRf2C4T2Advm8bOQaVcMgWtSvIOXm5Qx7LUZwR1aZjLCwml5W6iorfS
+	 dxr342WEm/vkSDiyGPLiLsBtvdA7xfxvq0bQJ+z3HPA5ime/m3w/JEg+Ga5KlAy9SM
+	 i45FQ7qGO8Gu0jWELoYvPnikdBpTCs7pYHbfgjSs=
+Date: Wed, 9 Sep 2026 10:05:16 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
+Message-ID: <aqEhTIPqoKj98TRS@J2N7QTR9R3>
+References: <20260825205839.14571-1-brads@mainlining.org>
+ <apgpnjnJ4suhHh-v@J2N7QTR9R3.cambridge.arm.com>
+ <B23E199A-2D3D-48B4-A7E9-9664371A7361@mainlining.org>
+ <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
+ <aplRx8f5NprO9dSU@willie-the-truck_quarantine>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: cec: extron: validate response prefixes
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260830130356.159-1-pengpeng@iscas.ac.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20260830130356.159-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aplRx8f5NprO9dSU@willie-the-truck_quarantine>
 
-Hi Pengpeng Hou,
+Hi Will,
 
-On 30/08/2026 15:03, Pengpeng Hou wrote:
-> extron_interrupt() dispatches completed serial lines by comparing fixed
-> prefixes and reading fixed offsets without first checking the current line
-> length. Short lines can therefore consume stale bytes beyond the
-> NUL-terminated message item.
+On Thu, Sep 03, 2026 at 11:53:59AM +0100, Will Deacon wrote:
+> it's worth noting that Bradley's patch _does_ fix one of the
+> hibernation problems and has been tested by Vladimir:
 > 
-> Require each response type to contain the complete dispatch prefix before
-> reading its fixed fields.
+> https://lore.kernel.org/all/20260809213615.11646-1-include@grrlz.net/
 > 
-> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->  .../usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c    | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-> index 3c6ce6f3d93e7..66780b3cf9188 100644
-> --- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-> +++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-> @@ -851,13 +851,13 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
->  		if (debug)
->  			dev_info(extron->dev, "received %s\n", extron->data);
->  		extron->idx = 0;
-> -		if (!memcmp(extron->data, "Sig", 3) &&
-> +		if (extron->len >= 5 && !memcmp(extron->data, "Sig", 3) &&
+> I would prefer to take your complete set of patches, but if you don't
+> want that then should I just take the above for now? Prior to this
+> series, there has been no activity for nearly two years on your branch,
+> so I'd prefer to get _something_ in, even if it only fixes some of the
+> problems.
 
-All these extra checks makes the code fragile (i.e. easy to make mistakes), esp. if new
-prefix checks are added in the future.
+Sorry for the delay.
 
-How about just replace:
+I'd prefer if you picked up Bradley's single patch for now. I'll follow
+up with a respin of the rest of the cleanup and fixes shortly.
 
-                extron->data[extron->len] = 0;
+Could you add a note to the commit message as to how Vladimir was able
+to trigger a hang with CONFIG_PAGE_POISONING=y and page_poison=on? It's
+helpful for anyone testing a backport, etc.
 
-with:
+With that:
 
-                /*
-                 * Prevent the following prefix tests from using stale data
-                 * from beyond extron->len
-                 */
-                memset(extron->data + extron->len, 0,
-                       min(10, sizeof(extron->data) - extron->len));
+Acked-by: Mark Rutland <mark.rutland@arm.com>
 
-This ensures that bytes extron->len to extron->len + 9 are all set to 0 and you won't hit
-stale data.
+For context, when I originally wrote my patches, I hadn't managed to
+trigger failures at top level without additional hacks, and so this
+hadn't been a high priority. Given that Vladimir can trigger this
+specific issue with existing options, it makes sense to pick that up.
 
-Regards,
+I had a vague recollection that this specific fix lead to a secondary
+issue, but digging through my notes I can't see what that would have
+been, and I suspect I had just gotten confused w.r.t. what KVM was
+doing. If I find there was a real secondary issue I'll follow up with a
+fix .
 
-	Hans
-
->  		    extron->data[4] == '*') {
->  			extron_process_signal_change(extron, extron->data + 3);
-> -		} else if (!memcmp(extron->data, "Hdcp", 4) &&
-> +		} else if (extron->len >= 6 && !memcmp(extron->data, "Hdcp", 4) &&
->  			   extron->data[5] == '*') {
->  			extron_process_edid_change(extron, extron->data + 4);
-> -		} else if (!memcmp(extron->data, "DcecI", 5) &&
-> +		} else if (extron->len >= 6 && !memcmp(extron->data, "DcecI", 5) &&
->  			   extron->data[5] >= '1' &&
->  			   extron->data[5] < '1' + extron->num_in_ports) {
->  			unsigned int p = extron->data[5] - '1';
-> @@ -865,7 +865,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
->  			p += extron->num_out_ports;
->  			extron_process_tx_done(extron->ports[p],
->  					       extron->data[extron->len - 1]);
-> -		} else if (!memcmp(extron->data, "Ceci", 4) &&
-> +		} else if (extron->len >= 6 && !memcmp(extron->data, "Ceci", 4) &&
->  			   extron->data[4] >= '1' &&
->  			   extron->data[4] < '1' + extron->num_in_ports &&
->  			   extron->data[5] == '*') {
-> @@ -874,14 +874,14 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
->  			p += extron->num_out_ports;
->  			extron_process_received(extron->ports[p],
->  						extron->data + 6);
-> -		} else if (!memcmp(extron->data, "DcecO", 5) &&
-> +		} else if (extron->len >= 6 && !memcmp(extron->data, "DcecO", 5) &&
->  			   extron->data[5] >= '1' &&
->  			   extron->data[5] < '1' + extron->num_out_ports) {
->  			unsigned int p = extron->data[5] - '1';
->  
->  			extron_process_tx_done(extron->ports[p],
->  					       extron->data[extron->len - 1]);
-> -		} else if (!memcmp(extron->data, "Ceco", 4) &&
-> +		} else if (extron->len >= 6 && !memcmp(extron->data, "Ceco", 4) &&
->  			   extron->data[4] >= '1' &&
->  			   extron->data[4] < '1' + extron->num_out_ports &&
->  			   extron->data[5] == '*') {
-> @@ -889,7 +889,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
->  
->  			extron_process_received(extron->ports[p],
->  						extron->data + 6);
-> -		} else if (!memcmp(extron->data, "Pceco", 5) &&
-> +		} else if (extron->len >= 7 && !memcmp(extron->data, "Pceco", 5) &&
->  			   extron->data[5] >= '1' &&
->  			   extron->data[5] < '1' + extron->num_out_ports) {
->  			unsigned int p = extron->data[5] - '1';
-> @@ -899,7 +899,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
->  				   &tmp_pa[0], &tmp_pa[1]) == 2)
->  				extron_phys_addr_change(extron->ports[p],
->  							tmp_pa[0] << 8 | tmp_pa[1]);
-> -		} else if (!memcmp(extron->data, "Pceci", 5) &&
-> +		} else if (extron->len >= 7 && !memcmp(extron->data, "Pceci", 5) &&
->  			   extron->data[5] >= '1' &&
->  			   extron->data[5] < '1' + extron->num_in_ports) {
->  			unsigned int p = extron->data[5] - '1';
-> @@ -910,7 +910,7 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
->  				   &tmp_pa[0], &tmp_pa[1]) == 2)
->  				extron_phys_addr_change(extron->ports[p],
->  							tmp_pa[0] << 8 | tmp_pa[1]);
-> -		} else if (!memcmp(extron->data, "EdidR", 5) &&
-> +		} else if (extron->len >= 7 && !memcmp(extron->data, "EdidR", 5) &&
->  			   extron->data[5] >= '1' &&
->  			   extron->data[5] < '1' + extron->num_ports &&
->  			   extron->data[6] == '*') {
-> 
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-
+Thanks,
+Mark.
