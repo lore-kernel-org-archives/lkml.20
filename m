@@ -1,166 +1,153 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE72E4F6484;
-	Wed,  9 Sep 2026 23:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E224B52FE41
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788997725; cv=none; b=RCnYl6yIeIb2/xqCi1B3M+ZTUx+HZpdXZp64ZOY+6JDLkSCMe6mUs6s/JvWIACwAGd7BxwmYRCQ+zoMz1Q6uaO/XPIVXhiRJFi1mqmxoYLw4tE8gPAnPVP/u6Jc8BtpQTJoa22Wjb3sdaLYQgLV+xKw5ZMqylL+SDxOnBj2lN4Y=
+	t=1788997728; cv=none; b=gjZuGm3tlWiOFn3KnWtX4LYgvOMV8ROtuGxhTij5sOvXWH9EdP2fOIfYTm487Km/d5B9rjf8UKmdhp4v+JajvQGPkH1Q2Wewueu75MXZO6oSEPe4sZM0SzN7mQ+GIIflBSxCglP4n/q3KQcn2tL74b/xlM/Dpy0sJPXiHr3qHqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788997725; c=relaxed/simple;
-	bh=p5metIfVY3CtI+2oTzxtSM1WtBNXuJaHNZRuFvzc/1A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R6MgsSeyloJzPHVbisnulWWRj0mtcgbRBoTfLb6g6+LWUbJxZTQvvw6hk/tUGDMmeBu8MIlw7vT83sUrkk7xlI0ytKtmRB+2PKqZgX4zMD9j4rN7sNRIvTqYtL24k9To7AlwX63oHHk2AkVtcw9aE6m2bIXVoijXr/oddoPM5xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SO+P7ctG; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788997728; c=relaxed/simple;
+	bh=e8dMr4f1lftzqjuMaGOMoLD/h2xtn1XixeP1l8uWEvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Tibsh/lX1sfSvhVqLejyM3AfN1ap1wgOZOUxYPTPE6Xm0p9n2oMQS+5sH54EKu4G5+voZFOcjbfEwUj1MTLR7UanXezPeOouz3QD+B+gTcU0y6kFAn5KOEXaU2sGkwuDFzv5rQiNm5IkWwnT1uHP9X8Fc+G/3UuZgUF4btM43Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eRAbIhBB; arc=none smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SO+P7ctG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788997722; x=1820533722;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=p5metIfVY3CtI+2oTzxtSM1WtBNXuJaHNZRuFvzc/1A=;
-  b=SO+P7ctGmZKQno/8tZU+M6hlk3QC3syPNBz3XVoPD+/KGUIeZKp0qw7R
-   0bX8mos9m+3dghwdyW3HgLxRiupJqczh/Hh5fH93LTrv97dsoZOHh1VB5
-   TjUAX2r56/5XT/0fgNqLsMUiheB+xa6gcdo/hoE3DNiavRDNj71nsgzmQ
-   56RV+bFGF8fNKutj4EkFtP+d7yD8+rscN1zASTYJ8GruvWDe3mqEbqrAy
-   6XS+WgQEodoZX5j3LFB+C90KePLcH9ds401FKZOffafGlXrsNWmmtrp6e
-   b+TCv/j5mjpRXZuYx43GyuFncPKac+SkQst5j1qdibPTX+5LCjVw7zAx8
-   A==;
-X-CSE-ConnectionGUID: Dv+eIRn2Tw6v6lckV41CmQ==
-X-CSE-MsgGUID: b21dMTgqQa+fcZ0y0Y/2eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="112210650"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="112210650"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 16:48:41 -0700
-X-CSE-ConnectionGUID: xMUZWJzRTSuN4OtwBVjgTA==
-X-CSE-MsgGUID: CZmEZki4Rxm7Mj6cn0lD6g==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 09 Sep 2026 16:48:38 -0700
-Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4S1s-0000000015I-0n14;
-	Wed, 09 Sep 2026 23:48:36 +0000
-Date: Thu, 10 Sep 2026 07:48:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: Oleg Keri <okerixx@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] HID: lenovo: suppress phantom radio control input on
- Yoga Slim 7x Gen 11
-Message-ID: <202609100719.bu2saXPQ-lkp@intel.com>
-References: <20260908091907.5653-1-okerixx@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eRAbIhBB"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b808456308so1215816e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 16:48:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788997710; x=1789602510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BXMJykHKFWPZ0jyTho5hTbIzJ+mvaOVStcU57671ubI=;
+        b=eRAbIhBBrPWDOG94y2ZrSZe5NGSbcho5be8tVbFbFraegQHYCOrxv1EbkHN+H2QPLT
+         BmOa/WCiduCc0EnBpkGGfCmzsxxch3lGvKOSVWtJ0ePOsNrZtnvXanmL/JbO9KN6mrQK
+         enOcWUoWmc00+ifCRlvYBcphKHCefuNQN43lB0/TcN1qO+wc4yTQXVH4BlJWQ+qG9oCY
+         kuqREw5QVTBcZLYagIABZ6JxibJ96ak3H1Dmbza2RFV/JUic4BXRGm/Juq/wC0yJeHTt
+         Td501/bDGDF5sJCw8ENChENa2GuYwKCtCD7lOhGQu8Mn3SEc7pJ95sNvg8yCXHPGtLpQ
+         n4XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788997710; x=1789602510;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BXMJykHKFWPZ0jyTho5hTbIzJ+mvaOVStcU57671ubI=;
+        b=ce1g1PSPbfkEASbjMtxB0Xx9bPlnzoKHUDEtcoC2c1Awl/7HTTlALZqAfHCiKHZODl
+         EBc2bErw6E/VC53N8M1ul0Cb++MvvhlIp0EEs/ODCGianRDQAZ5ra/mEiiXRgTMxvLRY
+         cJcxkzh/BFqocG8zitBzRtJy/LbPPyyHGdZvzr4Cyf9U6NK3999CyFF20mnnz/0FIDeW
+         EFXe9HAzE98iCL0ED/l2a4Ochyx7qEZUlYTQ9lc644hwNU0j1GWPjDT94nzVBaZMR0VF
+         BKtHkoLPqeNocHvhX5x9hs6ZCu8eJI4lEvYgWOC3V9bB4fOGO7qPMRioe2mHHeb/vIL0
+         JgiQ==
+X-Forwarded-Encrypted: i=1; AKwUvByROrA+ZCuLKbBD2w4TiBErmBFk/RhnUcivvVkrVBFC7ZQyjQd228Rf8Lb0W2q9q98pdbVLkGTGLmeuNyI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7BztbVQYvlWxgYyRh+HRU0apYVb/9+7EhYlVVSwZH9o5bcjaZ
+	+tMHKU7BR1h1va4FfDW1i0iGIbqb8hXIClVs5lQeS+qr+v9RxCIruyhu
+X-Gm-Gg: AYBFou0S0Akv16O0QG5E4Q5nQKflE8M0/PER+4FZU7+rte8X9kkUmM0zJJ28DoLIp+Y
+	7FI4d+pDGLZvDx/CrL4c+ILU+kACX3NbSyo/Wcn/3MoAGcr0qgSm3ihCkxepiv6PFeKL83p5zFr
+	cQwk+AMNsWbAx5qxv4+0meFcBlNfdEwdFnyPBcNbcJJRDnF1lBX4RYw+VkafMBIRHMo4Z3w0U3A
+	d18Hq+I4mZRN+c9GLs0GgWCJgK/AMgThSC2OG3c4fF+L2BHoxdjllwCMONQqqvtO/Va0IVdbxUY
+	jfpapL6knEIrhQ1MsadlJkZN9orUTEiSUBk35q6LEZf/up2XCmyUTwNSKRG0aE8hyHpaQ9DKAPj
+	SoYd20QbBwfuVllayfPQczL3cKzBnxD4aYe2oObGaRoOQF2BECNchRJmZIRcAzJh2E3jqnGI52i
+	Bbk6nmSGGuuTNEF1TlefPVofstQo9mwDvn4UJE5Vr9u6zwWHgJguuO9aZVvZDEfZVtg6R4NHzca
+	f0Ia/pxSDi5d1PSgLDPF4DavRmxjJ9JQ1ELfm4d
+X-Received: by 2002:a05:6512:b8d:b0:5b6:1a7c:28 with SMTP id 2adb3069b0e04-5b61a7c0215mr6090288e87.43.1788997709683;
+        Wed, 09 Sep 2026 16:48:29 -0700 (PDT)
+Received: from notebook ([93.189.200.242])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ed4cesm4153300e87.26.2026.09.09.16.48.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 16:48:28 -0700 (PDT)
+From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>
+Cc: David Heidelberg <david@ixit.cz>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	"Andrew F . Davis" <afd@ti.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Subject: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel gauge compatible
+Date: Thu, 10 Sep 2026 02:47:44 +0300
+Message-ID: <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908091907.5653-1-okerixx@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Oleg,
+OnePlus 6 and OnePlus 6T battery packs may contain either a TI
+bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
+so the driver can select the register map from DeviceType at probe
+time.
 
-kernel test robot noticed the following build errors:
+Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
+after booting the new kernel, the battery reported 4.360 V, 100% state
+of charge, 27.8 C, and Full status.
 
-[auto build test ERROR on 5e036ce12de91c6fd674dad33b169c6150be2a7a]
+Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Oleg-Keri/HID-lenovo-suppress-phantom-radio-control-input-on-Yoga-Slim-7x-Gen-11/20260908-111907
-base:   5e036ce12de91c6fd674dad33b169c6150be2a7a
-patch link:    https://lore.kernel.org/r/20260908091907.5653-1-okerixx%40gmail.com
-patch subject: [PATCH] HID: lenovo: suppress phantom radio control input on Yoga Slim 7x Gen 11
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20260910/202609100719.bu2saXPQ-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d1c0cc5e760f9cbb68e2acec80a476c4b8b898b7)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609100719.bu2saXPQ-lkp@intel.com/reproduce)
+Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609100719.bu2saXPQ-lkp@intel.com/
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 948a0dd..8c5cd94 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -790,8 +790,8 @@ &i2c10 {
+ 	status = "okay";
+ 	clock-frequency = <100000>;
+ 
+-	bq27441_fg: bq27441-battery@55 {
+-		compatible = "ti,bq27411";
++	bq27xxx_fg: fuel-gauge@55 {
++		compatible = "ti,bq27xxx";
+ 		status = "okay";
+ 		reg = <0x55>;
+ 	};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 5f01115..cf40842 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+ 	};
+ };
+ 
+-&bq27441_fg {
++&bq27xxx_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 7ffcad2..9436027 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
+ 
+ };
+ 
+-&bq27441_fg {
++&bq27xxx_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
+-- 
+2.55.0
 
-All errors (new ones prefixed by >>):
-
->> drivers/hid/hid-lenovo.c:523:7: error: use of undeclared identifier 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD'
-     523 |         case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
-         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/hid/hid-lenovo.c:1584:27: error: use of undeclared identifier 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD'
-    1584 |                      USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD) },
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/hid/hid-lenovo.c:1588:1: error: definition of variable with array type needs an explicit size or an initializer
-    1588 | MODULE_DEVICE_TABLE(hid, lenovo_devices);
-         | ^
-   include/linux/module.h:256:21: note: expanded from macro 'MODULE_DEVICE_TABLE'
-     256 | static typeof(name) __mod_device_table(type, name)                      \
-         |                     ^
-   include/linux/module.h:247:2: note: expanded from macro '__mod_device_table'
-     247 |         __PASTE(__mod_device_table__,   \
-         |         ^
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:15:1: note: expanded from here
-      15 | __mod_device_table__kmod_hid_lenovo__hid__lenovo_devices
-         | ^
-   3 errors generated.
-
-
-vim +/I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD +523 drivers/hid/hid-lenovo.c
-
-   488	
-   489	static int lenovo_input_mapping(struct hid_device *hdev,
-   490			struct hid_input *hi, struct hid_field *field,
-   491			struct hid_usage *usage, unsigned long **bit, int *max)
-   492	{
-   493		switch (hdev->product) {
-   494		case USB_DEVICE_ID_LENOVO_TPKBD:
-   495			return lenovo_input_mapping_tpkbd(hdev, hi, field,
-   496								usage, bit, max);
-   497		case USB_DEVICE_ID_LENOVO_CUSBKBD:
-   498		case USB_DEVICE_ID_LENOVO_CBTKBD:
-   499			return lenovo_input_mapping_cptkbd(hdev, hi, field,
-   500								usage, bit, max);
-   501		case USB_DEVICE_ID_LENOVO_TPIIUSBKBD:
-   502		case USB_DEVICE_ID_LENOVO_TPIIBTKBD:
-   503			return lenovo_input_mapping_tpIIkbd(hdev, hi, field,
-   504								usage, bit, max);
-   505		case USB_DEVICE_ID_IBM_SCROLLPOINT_III:
-   506		case USB_DEVICE_ID_IBM_SCROLLPOINT_PRO:
-   507		case USB_DEVICE_ID_IBM_SCROLLPOINT_OPTICAL:
-   508		case USB_DEVICE_ID_IBM_SCROLLPOINT_800DPI_OPTICAL:
-   509		case USB_DEVICE_ID_IBM_SCROLLPOINT_800DPI_OPTICAL_PRO:
-   510		case USB_DEVICE_ID_LENOVO_SCROLLPOINT_OPTICAL:
-   511			return lenovo_input_mapping_scrollpoint(hdev, hi, field,
-   512								usage, bit, max);
-   513		case USB_DEVICE_ID_LENOVO_TP10UBKBD:
-   514			return lenovo_input_mapping_tp10_ultrabook_kbd(hdev, hi, field,
-   515								       usage, bit, max);
-   516		case USB_DEVICE_ID_LENOVO_X12_TAB:
-   517		case USB_DEVICE_ID_LENOVO_X12_TAB2:
-   518		case USB_DEVICE_ID_LENOVO_X13_TAB:
-   519		case USB_DEVICE_ID_LENOVO_X1_TAB:
-   520		case USB_DEVICE_ID_LENOVO_X1_TAB2:
-   521		case USB_DEVICE_ID_LENOVO_X1_TAB3:
-   522			return lenovo_input_mapping_x1_tab_kbd(hdev, hi, field, usage, bit, max);
- > 523		case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
-   524			return lenovo_input_mapping_yoga7x_g11_kbd(hdev, hi, field, usage, bit, max);
-   525		default:
-   526			return 0;
-   527		}
-   528	}
-   529	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
