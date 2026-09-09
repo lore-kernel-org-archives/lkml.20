@@ -1,43 +1,74 @@
-Received: from mail-24431.protonmail.ch (mail-24431.protonmail.ch [109.224.244.31])
+Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com [207.54.90.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697C2274FE3;
-	Wed,  9 Sep 2026 02:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710902FBDE0;
+	Wed,  9 Sep 2026 02:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788919287; cv=none; b=iijDwzWR6QRzZX9BxSTA8yReTyUmazpskPWWeYisfc3nQD15aLpADwnb20Qxu/4/XhiHEfTm7m9Dfp0iNr38NtoJdzWPac12NyhU6mN5rft+hWYBSyyJ8gqm3BlfwSY+OF5hIbcGVSFoBtrRhPJ1YUNAL1o/opWxL/Vzrpx/AR0=
+	t=1788919307; cv=none; b=ZTyXHf/PHsjogwcwBv9eJVfJxK8TUtESYLWc3muO1U4g6zA4kTtMehO0/7wx46Va8nwk/JAZcMD92JiKpPEqzMXH8Z9P0y2OmVgDgm+lPJZgV7uZjpx9QfOA9x+ctGgEhKXXgHBRvE32Gd1NFCxPmOC/Ycnkkg/7XzgYBbcGNrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788919287; c=relaxed/simple;
-	bh=9FED0+0cToj5EruOToZ8Pz7W32lWWYgjFsW9rF/pBLU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V/ssnOdkE92roWS3ii4Ts7YBu4N3Yj4w1oLURyVuNPMW9vvsIL5Eil/Pf2rv6I+fqYane1opM7zNmLJOnra7hTQ/Eqfz7t2JzQNBsYX3EWbBcWZWGf5GMUuHKvELoI0qGFWeanzHldTNtodZCb4df/mvCbaophmYqtZMxZmjr3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=SPpwoX4+; arc=none smtp.client-ip=109.224.244.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788919307; c=relaxed/simple;
+	bh=bbB4RUYDKYq3jbJ4FgwHlLtWkDggDt/sjiYHzIdvoYc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OxtZgr41c0C2nVHoA5NToxS7Tg8r4atfXZpXk86TsUgUoAtoeytgbqJmFKmhopwRgutMxbUoKiHYPOFoTBsm4G04QioB/gCwYjzylqgKGFiNwM9zUrgTffCWiK5TYZ2qZqxMPGsi2hKt0mPsPAu3UUvCg2mlD4sxGqFJD18gi8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=pEiZmdXo; arc=none smtp.client-ip=207.54.90.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="SPpwoX4+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1788919273; x=1789178473;
-	bh=LPF3q0P1vel19jW7wZDPg7xJRZ74Ih3BUhDtAItYkk8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=SPpwoX4+NN+p5O8bM0bHfe1suEFf+mn0nzINzoEADFGzjUoF/pJe/zcAYwHrTQIKH
-	 nl1EeMyQEpJUxgCC9b/VP/gro2B/4+RFJ9AmHtNG0z8b8YXuwDYA/270I6XbVsh0fb
-	 ORQbQFqmic6nmXEznJQVu/Hd81zA7iT8Ud3N5/xu8dfWWM89uevKJE80uqHlUsedKh
-	 EnOUitVKrVfwU8fQ5G/fJmK61kcTTzJqaJ74FXDsIOEZU+v9oBBIHy4kR4YpSWpYrj
-	 HL07c3RhAKXFsl/8fORlo24m8GpDBSdf8wXtQOYbfdnOwwyqGDZ2zrD3/eNEAMLpMG
-	 2fdh41dMfeVmA==
-Date: Wed, 09 Sep 2026 02:01:08 +0000
-To: Matthieu Baerts <matttbe@kernel.org>
-From: quanyeyang <quanyeyang@proton.me>
-Cc: Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] tcp: fix data-race in tcp_recv_should_stop
-Message-ID: <AW63XbL1Qe0HLtPs6V1EbRuEJORVpqWA1Q-y-xpkvFfznOfDC7YR_WiqBYKo6kISh-Q-JkL0UBiQCizvHwzI4dgkmpI3S46JWifGIS8cIhs=@proton.me>
-In-Reply-To: <fecc9c2f-c083-406a-b6a1-55b0b0d2798a@kernel.org>
-References: <20260908-mptcp-sk-err-net-v1-1-da71aaec9afd@proton.me> <fecc9c2f-c083-406a-b6a1-55b0b0d2798a@kernel.org>
-Feedback-ID: 206494642:user:proton
-X-Pm-Message-ID: 1a305181539ada12c479e112c9a2ff4b98458033
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="pEiZmdXo"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1788919306; x=1820455306;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bbB4RUYDKYq3jbJ4FgwHlLtWkDggDt/sjiYHzIdvoYc=;
+  b=pEiZmdXo6KzK9peTZEJAA1Fp9SKJ19rNuEA0PcimlEXWOPN9fFKrLrDP
+   b7aZrWTXnk3ae+oGu6exRqZp/KMWo9+WS2Dj0HmcOwxi9CbJXFvJr6ILD
+   A1wbDZlAXOF+usGG8UYhDNUxhXmFrS1AG6WhxlL0G+9BKzrfJkH7LydkT
+   E6qU/3Hz4eCHxTAz1zLlr4dqCS0FIXrgfx0MnC3fftEaxAurcsj6Oc2iV
+   vMkmwYHr5Oi3YckgtPesJ2eNsa552Em2Yg7+f53rLYIXlDKhInFiWfFR/
+   3hC7X3vke36zT+kWnAibOIe99M70V6yvgdjEiB4w2zHoWEbo4Xw3T4syl
+   A==;
+X-CSE-ConnectionGUID: XOuVOTgkT2SImpDEBlvOBA==
+X-CSE-MsgGUID: TjG1rYArQsOYJ6VxTCCKhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="254389063"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779116400"; 
+   d="scan'208";a="254389063"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 11:01:38 +0900
+Received: from az2nlsmgm4.fujitsu.com (unknown [10.150.26.204])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 14E0A100037E;
+	Wed,  9 Sep 2026 02:01:38 +0000 (UTC)
+Received: from az2nlsmom3.fujitsu.com (unknown [10.150.26.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm4.fujitsu.com (Postfix) with ESMTPS id BBF2710000AE;
+	Wed,  9 Sep 2026 02:01:37 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.9.24.243])
+	by az2nlsmom3.fujitsu.com (Postfix) with SMTP id 1B0021001531;
+	Wed,  9 Sep 2026 02:01:28 +0000 (UTC)
+Date: Wed, 9 Sep 2026 11:01:25 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Gavin Shan <gshan@redhat.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, 
+	kvmarm@lists.linux.dev, maz@kernel.org, will@kernel.org, catalin.marinas@arm.com, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com, tabba@google.com, 
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org
+Subject: Re: [PATCH v17 3/7] firmware: arm_rmm: Configure the RMM with the
+ host's page size
+Message-ID: <aqC8b6cwbSNsV7-U@FCCLS0092175.localdomain>
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-4-suzuki.poulose@arm.com>
+ <10893135-4757-44de-91b5-180a9774d868@redhat.com>
+ <ap--9pJdD_Y_j1aY@FCCLS0092175.localdomain>
+ <9706a0b9-b686-4502-bfae-08aabe05fb84@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,21 +76,198 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <9706a0b9-b686-4502-bfae-08aabe05fb84@redhat.com>
 
- > Just to avoid some confusions, this has been reported by MPTCP syzkaller
-> instances, not by Syzbot. So just not to have people trying to get more
-> details on the wrong website:
->=20
-Thanks Matt, I will add the Reported-by and Closes tags in v2.
+Good day Gavin,
 
-Quanye
-> Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
->=20
-> Cheers,
-> Matt
-> --
-> Sponsored by the NGI0 Core fund.
->=20
+On 09/08 20:59, Gavin Shan wrote:
+> Hi Kohei,
+> 
+> On 9/8/26 6:00 PM, Kohei Enju wrote:
+> > Hi Gavin,
+> > 
+> > On 09/08 17:04, Gavin Shan wrote:
+> > > Hi Suzuki,
+> > > 
+> > > On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+> > > > From: Steven Price <steven.price@arm.com>
+> > > > 
+> > > > RMM v2.0 brings the ability to set the RMM's granule size. Check the
+> > > > feature registers and configure the RMM so that it matches the host's
+> > > > page size. This means that operations can be done with a granularity
+> > > > equal to PAGE_SIZE.
+> > > > 
+> > > > Signed-off-by: Steven Price <steven.price@arm.com>
+> > > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > > ---
+> > > >    Changes since v15:
+> > > >     * Actually check the feature register for the host's page-size support.
+> > > >    Changes since v14:
+> > > >     * Move the implementation into drivers/firmware/arm_rmm.
+> > > >    Changes since v13:
+> > > >     * Moved out of KVM.
+> > > > ---
+> > > >    drivers/firmware/arm_rmm/rmi.c | 58 ++++++++++++++++++++++++++++++++++
+> > > >    include/linux/arm-rmi-cmds.h   | 17 ++++++++++
+> > > >    2 files changed, 75 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> > > > index 008a783407b4e..76f91c145e1fd 100644
+> > > > --- a/drivers/firmware/arm_rmm/rmi.c
+> > > > +++ b/drivers/firmware/arm_rmm/rmi.c
+> > > > @@ -77,6 +77,60 @@ static int rmi_read_features(void)
+> > > >    	return 0;
+> > > >    }
+> > > > +static int rmi_configure(void)
+> > > > +{
+> > > > +	unsigned long granule_feature;
+> > > > +	unsigned long granule_size;
+> > > > +	int ret = 0;
+> > > > +	struct rmm_config *config;
+> > > > +
+> > > > +	switch (PAGE_SIZE) {
+> > > > +	case SZ_4K:
+> > > > +		granule_size = RMI_GRANULE_SIZE_4KB;
+> > > > +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
+> > > > +		break;
+> > > > +	case SZ_16K:
+> > > > +		granule_size = RMI_GRANULE_SIZE_16KB;
+> > > > +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
+> > > > +		break;
+> > > > +	case SZ_64K:
+> > > > +		granule_size = RMI_GRANULE_SIZE_64KB;
+> > > > +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
+> > > > +		break;
+> > > > +	default:
+> > > > +		BUILD_BUG();
+> > > > +	}
+> > > > +
+> > > > +	if (!(rmi_feat_reg(1) & granule_feature)) {
+> > > > +		pr_err("RMM does not support %luKB granules\n",
+> > > > +		       PAGE_SIZE >> 10);
+> > > > +		return -ENXIO;
+> > > > +	}
+> > > > +
+> > > > +	config = (struct rmm_config *)get_zeroed_page(GFP_KERNEL);
+> > > > +	if (!config)
+> > > > +		return -ENOMEM;
+> > > 
+> > > An error message is needed here.
+> > > 
+> > > 	if (!config) {
+> > > 		pr_err("Unable to alloc RMM config memory\n");
+> > > 		return -ENOMEM;
+> > > 	}
+> > 
+> > I largely agree with your suggestions, and they look reasonable to me.
+> > 
+> > However, wouldn't this be redundant? Since __GFP_NOWARN is not set, the
+> > page allocator would normally emit an allocation failure warning with a
+> > stack trace anyway.
+> > 
+> > I don't have a strong preference, but as per "14) Allocating memory" in
+> > the coding style, I believe it would be considered unnecessary.
+> > 
+> 
+> You're correct that the error message is most likely redundant here and we
+> needn't it. However, it's notable the allocation failure warning and stack
+> trace isn't 100% raised when looking at mm/page_alloc.c::warn_alloc(). At least,
+> it depends on !__ratelimit(&nopage_rs) even it's less likely to happen. Similarly,
+
+Indeed. I understand your point.
+
+> there are conditions to raise a warning and stack track in case of the injected
+> allocation error in lib/fault-inject.c::fail_dump().
+
+Thanks for the detailed explanation.
+
+Thanks,
+Kohei
+
+> 
+> Thanks,
+> Gavin
+> 
+> > Thanks,
+> > Kohei
+> > 
+> > > 
+> > > > +
+> > > > +	config->rmi_granule_size = granule_size;
+> > > > +
+> > > > +	/*
+> > > > +	 * For now we set the tracking_region_size to 0 which is the only option
+> > > > +	 * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 16KB/64KB).
+> > > > +	 * TODO: Support other tracking sizes via Kconfig option for other
+> > > > +	 * PAGE_SIZES
+> > > > +	 */
+> > > > +	config->tracking_region_size = 0;
+> > > > +
+> > > > +	ret = rmi_rmm_config_set(virt_to_phys(config));
+> > > > +	if (ret) {
+> > > > +		pr_err("RMM config set failed\n");
+> > > > +		ret = -EINVAL;
+> > > > +	}
+> > > 
+> > > The error code from rmi_rmm_config_set() is indicative sometimes. Also, -ENXIO
+> > > would be more appropriate than -EINVAL?
+> > > 
+> > > 	if (ret) {
+> > > 		pr_err("RMM config set failed (%d)\n", ret);
+> > > 		ret = -ENXIO;
+> > > 	}
+> > > 
+> > > > +
+> > > > +	free_page((unsigned long)config);
+> > > > +	return ret;
+> > > > +}
+> > > > +
+> > > >    static int __init arm64_init_rmi(void)
+> > > >    {
+> > > >    	int ret;
+> > > > @@ -90,6 +144,10 @@ static int __init arm64_init_rmi(void)
+> > > >    	if (ret)
+> > > >    		return ret;
+> > > > +	ret = rmi_configure();
+> > > > +	if (ret)
+> > > > +		return ret;
+> > > > +
+> > > >    	return 0;
+> > > >    }
+> > > > diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> > > > index 2fb1f7f86d71e..9aa27697e2377 100644
+> > > > --- a/include/linux/arm-rmi-cmds.h
+> > > > +++ b/include/linux/arm-rmi-cmds.h
+> > > > @@ -12,6 +12,23 @@
+> > > >    unsigned long rmi_feat_reg(unsigned long id);
+> > > > +/**
+> > > > + * rmi_rmm_config_set() - Configure the RMM
+> > > > + * @cfg_ptr: PA of a struct rmm_config
+> > > > + *
+> > > > + * Sets configuration options on the RMM.
+> > > > + *
+> > > > + * Return: RMI return code
+> > > > + */
+> > > > +static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
+> > > > +{
+> > > > +	struct arm_smccc_res res;
+> > > > +
+> > > > +	arm_smccc_1_1_invoke(SMC_RMI_RMM_CONFIG_SET, cfg_ptr, &res);
+> > > > +
+> > > > +	return res.a0;
+> > > > +}
+> > > > +
+> > > 
+> > > rmi_rmm_config_set() is used for once by rmi.c::rmi_configure(), I would not expose
+> > > rmi_rmm_config_set() by combining the logic to rmi.c::rmi_configure().
+> > > 
+> > > >    /**
+> > > >     * rmi_features() - Read feature register
+> > > >     * @index: Feature register index
+> > > 
+> > > Thanks,
+> > > Gavin
+> > > 
+> > 
 > 
