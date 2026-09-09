@@ -1,163 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C61958038B;
-	Wed,  9 Sep 2026 16:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969862; cv=none; b=KrBH4Fnbdk0BZiYhJm6fp7w4Dp1L3WNAGLppq8ixDLxj41pRPISpQnsdtelfgv4vREYatzq+yCbJnx+SHjQ6LLNSA1m9XOyp/MxLR1hHiPWReXPZfdCQkKBAa6Vx4OPJSD/dN9BDLJtwy78RMq1NNsA8+I9wqWgLTVOf4KpgpvQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969862; c=relaxed/simple;
-	bh=ylVAzHN5WSnTzmFrbCkgMZvebBClP/wgCU5mvMgmll0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R/WdErDVfkP7bNDfb6KqIWvxYFcxQUwqSVwlyLwGPTlDMDiOf1KbcOhzlkctvMRAdLdEomPDq6AkFdPOD3JX1Lq+Bb9yW2O9HhqmESaRqbYLNXKsbTPPMP8pdC4omuVT4GYSfdoU3Qhym/9ctdx/ycdOFXpmsVDv/XDLtFFHJHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5Byjyq7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7355A582B93
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788969883; cv=pass; b=Fp6n3Vqit9VKhHxseY3S9qVQfniWHofw8Y27s3BWbcbnTerY7Q6uiIZsx0ecBXnLzz3fMwOv5BbFtjDD1VIBihFUUZ5IOBOLtJh5sKiam3mxvIvoTs0wqKPuEBhDw6vyv+Prr4Uun6BdJMOPLp3dOapoazTHnYRjK964AnTfBNo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788969883; c=relaxed/simple;
+	bh=nGn7Z3t4ZbhWTD8r/y6YkwRq4GQunXuzolHgLynNEiU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EIqD6iaBf+XO8f3ssBWVvrKSdnsdNeQbap2iNkL/JOOwwH7+uA59uWY6h2JdOUqTCQDEkHtct8VXZwTQN8YT+seZ7mkI3CtjbGBHbS1X6NQmkjvDDqOBM0YUkOGpUz3TE56a0pYhJS1I6l7/i0DxWSd3/rvHfTcoZg4JUu/Yyn4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jpu+riMh; arc=pass smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5Byjyq7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA101F00A3D;
-	Wed,  9 Sep 2026 16:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969859;
-	bh=Dk4sipXK68/lmwCc15T8zbjLDSh1adJ4SNP0vi3NXZ4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N5Byjyq7obOB27n73VYuETuGMgxQqZ+4uhJtACmOFqhcEPaUoNKD2aXjdV+ITaH+G
-	 UnPbxBOmzkYV55oRKDkAQbky+J+Vpfri7xM6m3QbpgNkWbe5uTJcxn15Nv/D6cNIvS
-	 tl/lEN++DrWlUG8ihLFwAdERRhpxECLPBAjwSuL/8bmKXMJ6MgTEJlK6EvNYlYI88T
-	 T48dYf95LW8RuQrgH/FByYkSqQVNdGlgkKg5PKSuoYijMxSTnFrRK5RB6zrjjEGw1Z
-	 YGU5DL38OYmPx6qPPWdZzz84LGm+oNBNJtnNRAKKkTzfx+1XAdUdVWFeVpgtUxIicK
-	 JK65Sc+BlJsQw==
-Message-ID: <307df445-8b53-4de9-8e69-3c586a44be9f@kernel.org>
-Date: Wed, 9 Sep 2026 18:03:56 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jpu+riMh"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7fccba9c675so11719a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:04:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788969877; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sTMGOG5tlZHSu2ldPrs+FkVTu4fA7Ggph5BECZklMn9pV6HQVGi1mjodDsbWtbvLmx
+         PI8ShiNxKhoi0vB2k1AZnpefC0hPD0JDhe7iMhBx3EGKBmg5W3hgpWQ6RSc/Hp6gTfG8
+         wDbUuqLKeLX2wS87Ay8zIKqfeQigE5ELA6a7Zi700dREkDutQexLF6sgZlLGgpWAYiQ5
+         UIvjyb2kdguxocLrRd67lCDlF5zOqXs+nbhZeizV0buks6rwrRWXmIwcqyT3mx4Iacrh
+         67ka/P5y5I6HNhhYScbcdYTffuoNlS+R/CV688+Zet3WFaeO2Nr15G3n8fmFXdFgTV4h
+         ah+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pn35Zv80suBYT8EilnQ7EI/ZY6LMkIOpiVZoLSb4gFE=;
+        fh=qDsQqceFf80AhbTozhSs+VUeZ7oqmVKOxB2Pb8x7nZA=;
+        b=Ht9XaCJxPRD6sHstP1rV6k6CMxBVgQCk9cQMxl6/dCKm8SSterfgZF0lnuxqUVeMlP
+         4pdIItwwHKN6E3wouEtI30ClRfv5XW+CGWkw9c9N7TJ882C0DBbsAjrbn9QfASwquLQj
+         5cg7Cz5e3IXOFoZCqTHqnTw2hFmW495WNh4buD4I+QgHro3NaW1vNsygvUQ/Q8SPbF9K
+         03eaQactses32kJTx24BQxTl8rmjOpV3PJVYCS5/veX/GodWx73HotPgK/uqM8FyEhzk
+         2g2ka4VJHLHMUUgLyxJ24q+YjTkNf8s3rRJ+gBtWI++tgD82hOAzzGBupvtZQq6Rb2Qi
+         m24w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788969877; x=1789574677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pn35Zv80suBYT8EilnQ7EI/ZY6LMkIOpiVZoLSb4gFE=;
+        b=jpu+riMh+I1XmvA+rNXwomsIc0lAtPUHtQwp0O8x9dbgJ2zErtxMJzJKW3GliZy6GL
+         HhmAcliEX51stxrZB7HuNSCP94ZYi/GOppEI5rmTPXRNFn45Btaxwaxd3BYaYPYl8BSb
+         N6UBg/EZ5MJNN6GQAKj/LDZnxukeucfHm5NYuFANKEvnhFVITWrQ9EpvaTY2q1WUbP2J
+         oV8S2Aiu7bgHYjw+W/rL66Nvtme0er5xWNAV73a+bJr3Up9aliUmkjfe2zRRx9XBNL88
+         x80iqBTziJaIXl4I8CftQc5K+RlgtZHAwJHteZsi6utTZDf3NkLBqNAG9xoHqCcQy3BM
+         LhYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788969877; x=1789574677;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pn35Zv80suBYT8EilnQ7EI/ZY6LMkIOpiVZoLSb4gFE=;
+        b=A9qJN2tYEe+PoPo7n9YC99MfxuIrUZj83Dm6R9mOEBxGHD/8tPDfxUL9VjC2ybKQcu
+         K8UnVTXB+6BWlFwojRQ3mezMRlV68lIFAX2EtTMpixkkGI/ZuqXywKDvQmNjoI3T+94L
+         aIl2kMWuB+sx4AytrsfnfYr9tLG0B3EW++4gSVr2ZoNhCYdD8KzA3YaLNdgTNz5+n8si
+         ABDuW/jNa7ghrzalru+ht7ZCpBpb2IItB7VBgnAx/FG8uu/RHpZICXxIkMHydCMqnDLE
+         FRyIq4HdEaSyyeHCR9BOTRsbYtjKl+iEC9A4/BlEGNJ+0/abB+t+wmxsfPtebrjrAy+v
+         QmzQ==
+X-Gm-Message-State: AFuF++nIedt29ATV5o4QskgZjv5XXIXRhYesjtHq+SyvT4daUevp8tjR
+	bHWDwY8Qd9KdtByb4HbFfetnilo1u8aMPbZof6XkkYbv5v0M0oiOfzi5FS37bVSzxUp+3a2v6aq
+	gyXIjUjeJI7ue8mZKPS4d08XS//BU/BZvZPwQMLr+
+X-Gm-Gg: AYBFou0gIxR7U+at246NPF2vY8JEjvWcrodyTH+z0cUUNWGmCaI3Pv28YFSThCxF5i/
+	cW8Qkn7Ma17Ga4Yc02KP8Bb9IVNCcS/s+JBGeOfU569anvR+IuzoIaV09g4TE+b3PDapIE5Jfdq
+	GDFD90IkeyLAaZYGKy+Q3VtskejmKm6nOWwj/CFUBKZ4eAH43WunVpYBw4ObsbBjFlzIzS55y4t
+	nX0wWppBwl5BduJUsoZufXuRhfF/kBYOuT1Ug6xu5j5I2ikIVPTR+GtHUcvKTKgC2ie1/6laBLg
+	RKCW4xIAsebayYrCy3pQI0Ej/+BLN3VT2CsQjPKLL7Jsd9R0YiZHK47a/PVUIBXl2MxHG+sjKWq
+	fv2XPsQhWLZBqJUU+ZTqTOvEobk4kblSNa1xFFgtQ4FRGKzyqc6tkghyr1WH6r7YMPaJBjimbez
+	rQAvpp+/loUFCTwYpuMuw=
+X-Received: by 2002:a05:6830:1303:b0:7f9:5a3:c243 with SMTP id
+ 46e09a7af769-7f905a3c495mr12608437a34.26.1788969875996; Wed, 09 Sep 2026
+ 09:04:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 11/45] KVM: guest_memfd: Invalidate both SHARED and
- PRIVATE mappings for in-place conversions
-To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
- binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
- jmattson@google.com, jthoughton@google.com, michael.roth@amd.com,
- oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
- rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
- steven.price@arm.com, willy@infradead.org, wyihan@google.com,
- yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org,
- suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
- linux-coco@lists.linux.dev
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
- <20260830-gmem-inplace-conversion-v12-11-85e5fd25252a@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-11-85e5fd25252a@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <6a73bd79.6851e1c7.236b5a.0003.GAE@google.com>
+In-Reply-To: <6a73bd79.6851e1c7.236b5a.0003.GAE@google.com>
+From: Aleksandr Nogikh <nogikh@google.com>
+Date: Wed, 9 Sep 2026 18:04:24 +0200
+X-Gm-Features: AcwNN1WEL9mmmb28wbdDNKmhZqM-XxgrA8b0qFly8A6ocEiOqFliEfjU9BYITWo
+Message-ID: <CANp29Y5x0qQVcw8TaZ=xCL-=kXoghCuXk9WxqjArVM4goNjWAQ@mail.gmail.com>
+Subject: Re: [syzbot] [ath10k?] WARNING in ath10k_pci_probe
+To: syzbot <syzbot+5c061dd050f2b84b2e1b@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/31/26 02:25, Ackerley Tng via B4 Relay wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> When removing one or more folios from a guest_memfd instance, invalidate
-> both SHARED and PRIVATE mappings if in-place conversion is enabled, because
-> stating the obvious, KVM needs to ensure that all mappings to the folio(s)
-> are dropped.
-> 
-> Opportunistically rename the helper to capture that it returns a filter for
-> all gfns in anticipation of zapping only the previous mapping types on
-> conversion.  I.e. when doing in-place conversion to PRIVATE, only SHARED
-> mappings need to be zapped (ignoring that KVM would ideally not invalidate
-> ranges whose attributes aren't changing in the first place).
-> 
-> Note, precisely zapping only the possible mapping types when in-place
-> conversion is disabled is important for functional correctness, not just
-> for performance.  Specifically, if KVM zaps both when SHARED vs. PRIVATE is
-> tracked per-VM, then a PUNCH_HOLE operation on a PRIVATE guest_memfd will
-> incorrectly zap SHARED mappings that have nothing to do with that gmem
-> instance (because they're mapped via a VMA, not a gmem fd).
-> 
-> The incorrect over-zapping of SHARED memory that doesn't belong to the gmem
-> fd requesting the zapping will be resolved in a later patch, where, if
-> in-place conversion is enabled, KVM will use both shared and private memory
-> from the guest_memfd. If both shared and private memory are from the
-> guest_memfd, invalidation will only zap memory belonging to the given gmem
-> instance.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+#syz invalid
+
+See the discussion at
+https://lore.kernel.org/all/6a88012e.dbb3a75c.13dd47.0007.GAE@google.com/T/
+
+On Thu, Aug 6, 2026 at 12:47=E2=80=AFAM syzbot
+<syzbot+5c061dd050f2b84b2e1b@syzkaller.appspotmail.com> wrote:
+>
+> Hello,
+>
+> syzbot found the following issue on:
+>
+> HEAD commit:    848acc8ffe1b Merge tag 'fsverity-for-linus' of git://git.=
+k..
+> git tree:       upstream
+> console+strace: https://syzkaller.appspot.com/x/log.txt?x=3D16cd13b958000=
+0
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dcb17729fb04b1=
+e3a
+> dashboard link: https://syzkaller.appspot.com/bug?extid=3D5c061dd050f2b84=
+b2e1b
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e25=
+5-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D15b24bb9580=
+000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D1061acc658000=
+0
+>
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/375d27e96ecb/dis=
+k-848acc8f.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/4ba19a656b9d/vmlinu=
+x-848acc8f.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/7c2a17aaee7c/b=
+zImage-848acc8f.xz
+>
+> IMPORTANT: if you fix the issue, please add the following tag to the comm=
+it:
+> Reported-by: syzbot+5c061dd050f2b84b2e1b@syzkaller.appspotmail.com
+>
+> ------------[ cut here ]------------
+> 1
+> WARNING: drivers/net/wireless/ath/ath10k/pci.c:3597 at ath10k_pci_probe+0=
+x6e2/0x1c60 drivers/net/wireless/ath/ath10k/pci.c:3597, CPU#0: kworker/0:2/=
+198
+> Modules linked in:
+> CPU: 0 UID: 0 PID: 198 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT=
+_{RT,(full)}
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS G=
+oogle 07/24/2026
+> Workqueue: sync_wq local_pci_probe_callback
+> RIP: 0010:ath10k_pci_probe+0x6e2/0x1c60 drivers/net/wireless/ath/ath10k/p=
+ci.c:3597
+> Code: 35 fb 45 85 ff 74 50 e8 dc 12 35 fb 48 8b 7c 24 18 48 c7 c6 80 2d 0=
+7 8c 31 d2 44 89 f9 e8 26 a7 9c fa eb 7f e8 bf 12 35 fb 90 <0f> 0b 90 41 bf=
+ a1 ff ff ff e9 7b 01 00 00 e8 ab 12 35 fb 4c 89 ef
+> RSP: 0018:ffffc90003aa7980 EFLAGS: 00010293
+> RAX: ffffffff8690c681 RBX: 00000000ffffffff RCX: ffff88802039dd00
+> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+> RBP: ffffc90003aa7ab0 R08: ffff88802039dd00 R09: 0000000000000009
+> R10: 0000000000000100 R11: 00000000000011ac R12: ffffffff8bcd1d44
+> R13: ffffc90003aa7a40 R14: 1ffffffff179a3a8 R15: ffff888021ad8000
+> FS:  0000000000000000(0000) GS:ffff888125c3e000(0000) knlGS:0000000000000=
+000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 0000200000000000 CR3: 000000003b198000 CR4: 00000000003526f0
+> Call Trace:
+>  <TASK>
+>  local_pci_probe drivers/pci/pci-driver.c:332 [inline]
+>  local_pci_probe_callback+0x120/0x1e0 drivers/pci/pci-driver.c:361
+>  process_one_work kernel/workqueue.c:3322 [inline]
+>  process_scheduled_works+0xa8e/0x14e0 kernel/workqueue.c:3405
+>  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3486
+>  kthread+0x388/0x470 kernel/kthread.c:436
+>  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>  </TASK>
+>
+>
 > ---
-
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-
--- 
-Cheers,
-
-David
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+>
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+>
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+>
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
+>
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+>
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+>
+> If you want to undo deduplication, reply with:
+> #syz undup
+>
+> --
+> You received this message because you are subscribed to the Google Groups=
+ "syzkaller-bugs" group.
+> To unsubscribe from this group and stop receiving emails from it, send an=
+ email to syzkaller-bugs+unsubscribe@googlegroups.com.
+> To view this discussion visit https://groups.google.com/d/msgid/syzkaller=
+-bugs/6a73bd79.6851e1c7.236b5a.0003.GAE%40google.com.
