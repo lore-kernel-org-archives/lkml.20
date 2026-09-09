@@ -1,164 +1,96 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.baidu.com (mx20.baidu.com [111.202.115.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BFD47ECF7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C5E35DA77
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.115.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947214; cv=none; b=R3Bk7IT2y5x8SMERHlivQi0Z4+qFhUdDFu4NVZU2wgLghwUw0G0KOTsYuV0s4BN4mHNHbk9R+W/mBVPcyMQb88nKxgTGaJYyBLBdEej6i/7NIi9jLO21Cy/+8y1uwqMQvM9waAFi1EIbqddbbY+0ZdtDWe0W2rXxVFSMiER+fo8=
+	t=1788947279; cv=none; b=fOVihzW3Bl5SS3eRCFe2Y5izk6n9E+pfpd1rheK/EdhH17qLPBOTfjw6ErcjnipJf2OxgeQPdn4vNYchP4FF7SuMyXE/PC/11YlZVeEnz3Nj8wU5+IWOhRg9t6lnYD/W2qhJN6bxxRO/jiRDaHOcD8ftgDZNikvVcH4NTAeUhR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947214; c=relaxed/simple;
-	bh=yz9phphkpKB30xOl4FfJtCYJLrw/kdVME667JYPkLrw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ZqVSX3m0qrEF1lM8RyW8RhvSXPhFfKNNf6XONWEN7dkCNkKLlHZukP48tn0M3cUdeZqlUSeE3BkgEOHUm4P8E8KUUR2+MqsDinNN+800w6iT5p7PClHN0goWRAek3Rdjx02aJKEGHeC/DAKRZhcB0prhSfnZzBPzcaoW2Q4JrR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YJxIfVzB; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788947279; c=relaxed/simple;
+	bh=svUrFqcj67W6fzYuu+k3OSkc1LKuirm+YzQx623g+Zo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZBqf9h0jMQ6a/etXq+QGCakCpklzSmBZKBqTRhupeVa3lhFa/OFpwXbyT5/wKr6p3hP6dphnfwozpXYOnJU8XIwQtca5WuvhZPpR+aZuRWFo7rT0Z38xErrIpak4kGQi0ZPAnAjgva1fvW4kCTVY/oHQwRRonRAuJlCuTyoVLFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=cf8LBrh1; arc=none smtp.client-ip=111.202.115.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YJxIfVzB"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdccso8525167b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788947211; x=1789552011; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5+7MnKyiB0fAnf+ZBPoUiSQUKpsvD64pam2O0QOh8zY=;
-        b=YJxIfVzBzbyp1rCrC/UYAyN61dhGtbLDcYpDojgpKogDd5Hlbpr4ivQU+2cW8np1xZ
-         nqUT3K59Ak+GAkYkO955repklb+APUlLa5tWbWOWrMJ1gVs+JTM6FQ7GnsdFQtEJQIf/
-         1zOSBORaG59rTroCAbCCwJzErPzg84xeaI3gaL6GuGgUdx+YmaNJptqcxJ14TfXuQP3T
-         QDp26JBdBE2LWOLqRs0TuIJ4rsaEJEy3irRO6aepdcsDgdY/FNymdCHPUc+kz5yRW0tm
-         ixoyD4ohVIKA1geXHlxoXzkkNl2t2jtvoZ/wiKWTk13gog/Ru4VHwTLmJBWV/syA4XrT
-         4k/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788947211; x=1789552011;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5+7MnKyiB0fAnf+ZBPoUiSQUKpsvD64pam2O0QOh8zY=;
-        b=LuOsEVFoUEXQMHIwgkNTp7XXW7Ui0YCnPumv4Gm8i5ZfzuzXEu4yLsQ3GccChjHXPY
-         ZHpvv8tq0n6omnOTAzGl1odKvEffzX7P+Drps5ASNg0D/KhEVsBko1EWXjgp2wlI8vxM
-         8+8M+v8H8cF+EPU0rkLhwt3gHlITc5+7uRIlSnk4pioaIOiLUFwgM7s5uydg6twf04I/
-         fSaLGwOgoiX0yqByuQc+deYY6kXC+O3xZ5qBNhvDxNfOjjOFP7FmZozViMyVYECU5M9/
-         pdf5gP2r//p7GUxAlZPDp9EQRVDOhgU+PP6Z5LNQm4CXZg2NxGDUcca5M1dzDp5iBusi
-         vOpw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoYDIf6nTyGQxEhJ/c6LP9McyRpQivBjRJJ6Bq8lRebL5ib/sHHE+lwUbDyfm9z4+iGYdXEHUSPz7JjT8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNx8EVJpg7pdtaDoA0arukkO9CVVlCNZBWkqeH4mU50ItFG6bD
-	pyaxXuhVaNbeHbNa52lwGKHfTVCHkTd3mQ7vX4oChLZNZJVN9X+oprglkX11bPmEDQ==
-X-Gm-Gg: AYBFou1Gup2wRn2XPlX7JJ8byBzEr6g7I9aiICQ+lfXg1Xk5yJ2hXmGgKblIU2kewrK
-	mBcN7SKKRXo0IgUP65ZIR34uBePLLmKuRiBmbVxGbdEQ/dVi06SRznfAUuXBLztbwKUrqJHQ7QL
-	z30WslEN1ydgRQ2wu39sioLKy+1FZmrDCMZLzTPxrE9XyJL8crCpttn3v9h2xdUPG0y8bl/cEKx
-	xxlcgyX24whlqJtmqtCXNVo4IWg82FFoHhsq0b2OOJzdNOMzzn1RXJ16hZZbmHCAg+NfBBk0wlM
-	z9qT0zwbojwSo9nrOj5pHLFjsxeCxe1WR3LT39aXIuQ2cE4dJnf6apPKQIiWWcWdeWKEgmyQ+Rw
-	r0xrdFXq9MqdR0x3PBLoKcVTCBC5JxtFl3CwnzPlCuic8q9nS6wSUKeUj0TXZtvewKykPUSyZ94
-	f6LITSfwQh+AfhfZrADNq0muGurugTIvs0yXJJMUknSZBQPSXbyXqq7476SPLnQuQI6A2LaZ05E
-	V9tL4VydoF2QmsH+XXbNzkSvAXcTL00I1FST4aoPikZruEqZhlWBH8lbOw=
-X-Received: by 2002:a05:690c:650c:b0:85b:35f6:bc5d with SMTP id 00721157ae682-87f23fe7a98mr24694497b3.13.1788947210602;
-        Wed, 09 Sep 2026 02:46:50 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149316356sm106597417b3.9.2026.09.09.02.46.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:46:49 -0700 (PDT)
-Date: Wed, 9 Sep 2026 02:46:45 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 03/26] mm/fbatch: temporarily disable lazyfree and
- mlock+munlock batching
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <5953f6aa-ca44-c9a2-97e1-a5b3b92e9e50@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="cf8LBrh1"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
+ Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak <kprateek.nayak@amd.com>, <linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH] sched/fair: Preserve newidle cost decay across domains
+Date: Wed, 9 Sep 2026 17:45:23 +0800
+Message-ID: <20260909094523.2314-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc3.internal.baidu.com (172.31.50.47) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1788947135;
+	bh=B+UvKx8b+tLiq0qF1NgW2um9S/6PSofoXIq7wC1IDxA=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=cf8LBrh1EYyJMIbOoYrtOZI79aW+5+xyJfvFbPSn+62XrPXf9DYRjw6QCXp1ebeXL
+	 Js7iAQK0XOhziAVYeboVZ5PhoiVDdUzz0pfelOJ184zyQJB1lT/q6nyoT0cjO1zfCQ
+	 BwxT/DOUK4XQky+FqmI5t8Y00qbGJUHRRls014pe3GvkL7pm6uP1p6y4e60+ZkLMht
+	 4reTnAx9gXJv30eyVznF7Fze4PEEbSYJwXi5C8bcrnTtNBbTSvrAT/bRFB6TbFn4k/
+	 iqMkQpaM3QSgR1mvMDo/V8a+2hrrLjJTsY6LYuM3wi+jO/X8r42Az2tv/FWcEj26HE
+	 BELKynL2p4zaQ==
 
-It will not matter if we occasionally get activation or deactivation
-wrong; but a mistaken lazyfree (MADV_FREE) would likely cause dataloss.
-So disable its batching while reworking the per-cpu fbatch handling,
-then re-enable it with more thought afterwards.
+From: Li RongQing <lirongqing@baidu.com>
 
-Similarly disable mlock+munlock batching temporarily: they will need
-some redesign before re-enabling. Just insert one disabling line for
-now, leaving the rest of the code as it was, for consideration later.
+In sched_balance_domains(), the result of update_newidle_cost() is
+currently assigned directly to need_decay for each scheduling domain.
+As a result, a decay reported by an earlier domain can be overwritten
+by a later domain that does not require decay.
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
-Reviewed-By: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+For example, if an earlier domain reports a decay and the last domain
+does not, need_decay will be cleared before the loop exits. This causes
+the rq-wide max_idle_balance_cost update to be skipped even though one
+of the visited domains has decayed its newidle cost.
+
+Accumulate the result of update_newidle_cost() in need_decay so that a
+decay reported by any visited domain is preserved.
+
+This restores the aggregate semantics of need_decay and ensures that
+rq->max_idle_balance_cost is updated when any visited domain requires
+decay.
+
+This restores the aggregate semantics of need_decay that existed
+before e60b56e46b38 and ensures that rq->max_idle_balance_cost is
+updated when any visited domain requires decay.
+
+Fixes: e60b56e46b38 ("sched/fair: Wait before decaying max_newidle_lb_cost")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
 ---
- mm/folio.c | 2 ++
- mm/mlock.c | 3 +++
- 2 files changed, 5 insertions(+)
+ kernel/sched/fair.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/folio.c b/mm/folio.c
-index ad6c64a4c22c..b9dc4f5e10a6 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -219,6 +219,8 @@ static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
- 		local_lock(&cpu_fbatches.lock);
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index ade1eceb..8c1008a 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -13982,7 +13982,7 @@ static void sched_balance_domains(struct rq *rq, enum cpu_idle_type idle)
+ 		 * Decay the newidle max times here because this is a regular
+ 		 * visit to all the domains.
+ 		 */
+-		need_decay = update_newidle_cost(sd, 0, 0);
++		need_decay  |= update_newidle_cost(sd, 0, 0);
+ 		max_cost += sd->max_newidle_lb_cost;
  
- 	if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
-+			/* XXX Temporarily disable lazyfree batching */
-+			fbatch == &cpu_fbatches.lru_lazyfree ||
- 			!folio_may_be_lru_cached(folio) || lru_cache_disabled())
- 		folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
- 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 39215a3eab1f..929abeac85d0 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -255,6 +255,7 @@ void mlock_folio(struct folio *folio)
- 
- 	folio_get(folio);
- 	if (!folio_batch_add(fbatch, mlock_lru(folio)) ||
-+	    true || /* XXX Temporarily disable mlock batching */
- 	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
- 		mlock_folio_batch(fbatch);
- 	local_unlock(&mlock_fbatch.lock);
-@@ -278,6 +279,7 @@ void mlock_new_folio(struct folio *folio)
- 
- 	folio_get(folio);
- 	if (!folio_batch_add(fbatch, mlock_new(folio)) ||
-+	    true || /* XXX Temporarily disable mlock_new batching */
- 	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
- 		mlock_folio_batch(fbatch);
- 	local_unlock(&mlock_fbatch.lock);
-@@ -299,6 +301,7 @@ void munlock_folio(struct folio *folio)
- 	 */
- 	folio_get(folio);
- 	if (!folio_batch_add(fbatch, folio) ||
-+	    true || /* XXX Temporarily disable munlock batching */
- 	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
- 		mlock_folio_batch(fbatch);
- 	local_unlock(&mlock_fbatch.lock);
+ 		/*
 -- 
-2.51.0
+2.9.4
 
