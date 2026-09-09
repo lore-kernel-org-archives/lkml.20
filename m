@@ -1,166 +1,164 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F783B2FD9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981836; cv=pass; b=CcTX79pGZY4UCRai8PFYu4PZGpRF270cuzuCskQx6eL8pc+eVNxwZopbyNjGr9PLqLU04A4GYKHMym3PbtRnVZgwtDYqNsyTCQoub52mRbo6DCsqG42bVkqkuZo5/1R8exujtVBLDu5E43nC72Pe/H7jQcbBnQU75S63h6XGSEQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981836; c=relaxed/simple;
-	bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kOT/p5WsPfGOJOj91RHynMyvNqJC7fdalrSyTjYOadTn9xkHgnYIZuDX65U7m8FRRVyvppeqVAYXhMW+pVvPjSoZ3OnzA4gmy3iA/TUpMNBah25m/teZzBNwIxrnvEvLEZE2PPl2XKfHeMM54EWN3MK45ssKGRceVs2Y+EculPc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ORHJrD1i; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B987B3DB635
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788981850; cv=none; b=T5VadmUQxvFBEO/LvoH7xeodZ4+JcU0wQTCi1ZY9Yt4cI6zuDXxum1OXTH/xeDf9U5z+ixmM416oEDE6OLkSSVgxh3u52Yyq1BcWjs9DoD6F0sXsVWnR47Q0xddyscM8X3Nn80eEEHpUQWWMBGO/hoMlTkXwpw0mbQNxZm9Uy18=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788981850; c=relaxed/simple;
+	bh=z+PwFWisLAZ8WrSIU6Nq7JGZqrrzKxVDpeLvGJYlMhU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SgRUPlMKqG2lHjgE6e4GP8OYFL/UrYnPenvqaCb/msCSeURN/qYMcO9SvldMLlyNy0P31LaBe/+ZOVwpiY5AH0hU4ilbr0sS/bUwgtoWLJ0hB9B+5b1jvci2BY9ywdUharN3OSdyQNztMdhH0VERdjfmwuGJjMKQEC3Qr6rTMk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ezXVmacU; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ORHJrD1i"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f18010so649749e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:23:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788981832; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gzcDu6pwAaneOunghFdDfFBfGneGnJywVI/8BktjpVvZsV4fSttvi2ckr64spASBPS
-         +58TA13UJmbMIeOLEgreNAuHje9RY/TMpHC9tWbcw946uJ/wtW9d7T2S4UW5W3zTy4/L
-         0DcdvZr333ceZ9zPJGJymcGF0t1Vsje3Sz30dRQurZQoP7iVnSSxRrSyBuZeAnipHccB
-         BuvxKLBjEfcqYtJZ0QfLRH5MBHUweYxsBrka1MLxXBEKc1xqJX/oWA/z4tP8WRztvYgH
-         DQCvRI3IpLyzjr6AujF7KpxciM1e+3DVQ0W7EcF6nbTG6H99o/gYXzo9XhU6GkWM4G/f
-         DdEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
-        fh=D0vab8zdYDSFjcEwrxLemN90wzrWbnuQZhEnan7r2gs=;
-        b=cjMZNkydjfUOaxzCfLNehN6HOWc+ngfni+l8otPOtu1+K7W8Q5fvBZLjCvrKXSj2Nq
-         NKTk8WrfU+pwZ9sOaxOCw1mVGi/7spY+VF0Cgzru3QHxFBxPZO0vRMvg1oL5eWV4PXJY
-         4AeeZCunXvjBNwulYlCADIGQPQRWSVwJZFWRvN2vnQdtcOlKOObOLus2T88JBRXhR/Sz
-         9Lrmd2A5JyWEGME321kG6n1OX4WAXqD8y7wfag3FBYiDTjd6jRaE6gTZplhT7ctUZnG4
-         cgEyRiKwKmIwjl5lp+nTMft/kZMPPScCYanpxGTSn4+XCIdZo7xz3Ee2uqLbaOtREnZ1
-         0uxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ezXVmacU"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0b98d6d0so42084805e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:24:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788981832; x=1789586632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
-        b=ORHJrD1iQbDhoOUGd9zjj7Nb3TX18uab3D7hLe/sYINGOz6+kaL7sgvq2GtTgmNS/Y
-         JOMsbV682Cj+CKMZ+DhEQMorE3SeuLxJgxvyaMUPFqwdeGkaM+UoUgp9UsyTqc2YT+Vd
-         drLB0k5ESLMkb6P2tF59DhhxplXpu3fswl6JvkzwfjWpqNk3Y2KLgUb+2769oLOeicH8
-         woszhWiwPxF10llCQj4L1oQaFo2ga035+zk/7EqO/CuRkiRpCUxzk/hIXK7r38FoNqJz
-         Yog1DZhAPGh8GHyomhvwcy/iIQcjXMzABlqzcJbSqV0ZiKUhM5YWps34UjWgAqV9P7Zw
-         terQ==
+        d=gmail.com; s=20251104; t=1788981845; x=1789586645; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=juSntAU8rs/3fLNwoSR5HtlpUx6UI0vk4BclFthIHvc=;
+        b=ezXVmacUjkLLyIiCq2WYtuGfljXUhZURv4ak6qez1q7Ybl2ClVHFd6pVvSgGcE8sWE
+         4AXa3Zzc/bjENAiaGPuSS7S5Ykn2Uy0fcgMy3KeECUHfHHGga+zAQSK9xbLgZAx6Cncv
+         BQoj116nt7YRUz+GBIW1x0dp9DxNJjcxzl36BV91yLeoIp+8iPKRmP3w7/2kA8iF424+
+         ucGh0O5AH0hv/sUHEjKqJIm3iDsyw2TnvLuvNWBQOLe7SHaNl2qnpYeuwyMO8ZnXL23d
+         dRuPkoq5+MZOqhGuJEE4Cjqiw6VGqxRwi+2yhtOXsRnu/ZbufEgwiF8+HwIb2ve7qWpT
+         DIug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788981832; x=1789586632;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
-        b=Y3twO8MS1XkP2gdIhGQ91in/OamKKxPXYHd4qIyVKD3i0eIRyheThwoV0krii3MY5I
-         5kE2HqOMKEwKCSKGZfrecbsWhnLnTEs/8rMGI5yrfDNl3GMI8kFdUTl8i+LOcTH4EwPV
-         /TLDbNoVrQ2KwT3qlDHlfvBj//3f6VUiJyxxKdQqxT++Be+Y0seQORDqoD5rmz9/bQ6a
-         vnYoV6Lp6RpMK2I2TM1moE+J8pv/+lcKK5ZBPq5csVKPl4e1OGjn08jE4Zlqf9CQ5PTp
-         uteuQzj1ERoPTZff0M2KX2YNkUcjT9LXKV0K3fY6ilNwh51zkVy+EC95gjrgI9j4T1/g
-         qZqA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/JV0G62HQdCRrEmLCR+sB4zlTBcg0LEzpc3yXRN1r6vADfD5UNJ0WYnuCxFFmhHTzfid8nNxv297LQjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVHQeWiVzrkjp9h4AXgR72Ys1puA4qQBItnYfcHEA00X/Xe9v/
-	EIjuOpj9V1A+LKdAtB5pDoc+Qz/Osvr6eDMT5UipHMJlGyaHGvpOhi4NW5ceOEOz8yT32GffH8t
-	IDOY2ERpvKYiEhrXU3n/enVMYB7BC3z4=
-X-Gm-Gg: AYBFou2BkM0f1G4ecEyf4ZiCJVVs3d+JfUITtEWEeqOXpeGsI+Vi4MmaKI7Ud7bgSFe
-	VOi/9e0/pxd+olfYBk1o+8ssZlY4B3txLF3kLR+lNgTRAn324GjFuo1golv2XijJ0HE4iTV/2qz
-	DC5pLuzNT0ri8F2s5fssUy//0TyPCDOdO3LPK/KEz+7igY9dfNtOIyiHfUTMKZSGtiPdVhZRZK0
-	p3CRMbvKi6vBRGc42teJuWgPK45bRBuA9lDFSZw4FvVBIc71arfdsgOfClGfsbOI9T45myPnjX9
-	4Cq2Zfpwn4mllu7BBHAQbZJx7FCR6OCoCBV9uIc5ImzWhtc25nCRVQgvKk44rB1hsKIsZnkp7fs
-	q0jtcj190x5VpXesbH+Un6V+xM0wDubmOADfXAmzJBmJz
-X-Received: by 2002:a05:6512:b28:b0:5b7:651b:1cc2 with SMTP id
- 2adb3069b0e04-5b8980b93a1mr670838e87.6.1788981832445; Wed, 09 Sep 2026
- 12:23:52 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788981845; x=1789586645;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=juSntAU8rs/3fLNwoSR5HtlpUx6UI0vk4BclFthIHvc=;
+        b=UXfYmAlA9GglAnbZSwBrenH6rl7xOQxPZPRecOjoa6BRidqUhEu2GLQOylczxDTL7R
+         FfIt9SGR3ZHiFxu2a1O2xWLDc91mFDgjfFmcbJ7kH03KxFbH+MEd90n/z/24uudpZTh+
+         1S2EcZhByJfJ5smtqZKT4hAPq+OSapk7N36fb5oOzp7CFF49lXf+efR8WchKDm1GIaaG
+         0uGG61XSGbQvnyF6ybsa7WWkeLcNK6txadDivIw8HxTK8a4d9LDoByMpXEx2JMtHXne6
+         yRdc4lMuDRSBUdTIOS0eXPewaeJBJ4YwWM7KSqFOCdesjjmXIIhhfoovcmbbZU2oh6RG
+         fdLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAn48hn9HUqsH0Ls5bgZiByZ2rxW9MWNNjDjPGyXQcJ+Taq8ofy1o1Oc59NTPbDpKLzNkffWcltCpfdTU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFe4l8ot7a+ixbi6O9qNMKUWDbkDN09fRU9ehqk1kAb1glos3K
+	HvPaDiBeLsYMECQzAQH1ZtlwJxlZwTd+cxJPhQN7kzV8vnOy91ElvAyHjpn9FJG0DEp6wg==
+X-Gm-Gg: AYBFou1yeTLTYI5PLNYN8SH2sZW2haX1VZCE2D8LfbWlphZknoQm5Shi+jydk+Kq+lX
+	H0BIvFOq76jN9C0TRqfN7FI8Wg8JsNQEjo+vc5cnV6QTYTydHOKWW5SF90KvODdpCI+ef7X8c7c
+	2t79iq04o2A+J+fO3amJZFv/W3arBiYBaHsRsE578Ox01bAFO9QliKVNuXmFErJMUq8AkcyeBrK
+	R706k9pfNdBazl/bQKeECOlR9seIIFA8fr9UobohfKgCVlEjBNgecS28bxHA3AfmEH/QXc2Eeke
+	yKtRdvP6NSJSQxias1qU2WZq90BzO5WYCA1r4rNWlRCQ3uVR6LcIGWRUZ7qx2WtrbCGeUpe+cWN
+	0Qh8nwJ7icvSaLpOqrNqM00anFARMAswYoHoetbKUZayGgLhFEisfuuoX76G8rr1OiRwJ2TRW3+
+	x3OMcmcRF42noiLtaC4npX67DcqBrKAQvvheFZUYbvc8cl6cIv2VW2rVxnUNuDPHLKLN76dcqCj
+	XAX2R2LwyBILAEBWqYtgZyr1j/59QGAGUyeBxnAL7M=
+X-Received: by 2002:a05:600c:3b18:b0:49c:fa21:1c8a with SMTP id 5b1f17b1804b1-49cfa211d97mr316363405e9.31.1788981845342;
+        Wed, 09 Sep 2026 12:24:05 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d26bf9490sm10925625e9.9.2026.09.09.12.24.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:24:03 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] arm64/cpufreq: report and track frequencies above 4.19 GHz
+Date: Wed,  9 Sep 2026 21:23:49 +0200
+Message-ID: <20260909192351.33910-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CACOAw_ybFr8thjmy3ayzB0u+1f5vSFnR8km67J4bkOE7czSyYw@mail.gmail.com>
- <20260907063342.2300274-1-zhaonanzhe@xiaomi.com>
-In-Reply-To: <20260907063342.2300274-1-zhaonanzhe@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Wed, 9 Sep 2026 12:23:39 -0700
-X-Gm-Features: AcwNN1U5VkqFiMoVvDZffZUiikt238FMeWd_dqJeezEdVeG8xHgapBFftAlD2rc
-Message-ID: <CACOAw_zZPUNNEM_Cdi42ik45S6qA96+igptFZL4ZLrg6tJ-7ug@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH 13/14] f2fs: allow large folio support to
- writeable files
-To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-Cc: Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net, 
-	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
-	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <David.Hildenbrand@arm.com>, Bo Zhang <zhangbo56@xiaomi.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, Jaegeuk Kim <jaegeuk@kernel.org>, 
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 6, 2026 at 11:33=E2=80=AFPM Nanzhe Zhao <nzzhao.sigma@gmail.com=
-> wrote:
->
-> On Fri, 28 Aug 2026 10:44:46 -0700, Daeho Jeong wrote:
-> > In F2FS, newly created files almost always start with inline_data
-> > (`FI_INLINE_DATA`).
-> > Because f2fs_has_inline_data() is true during f2fs_new_inode() / f2fs_i=
-get(),
-> > mapping_set_large_folios is skipped.
-> > When the file later expands and is converted to regular blocks in
-> > f2fs_convert_inline_inode(),
-> > `f2fs_mapping_set_large_folio()` is NEVER called.
-> > As a result, almost NO newly created file will ever use Large Folios
-> > during its lifetime.
-> > Fix: Call `f2fs_mapping_set_large_folio(inode)` inside
-> > `f2fs_convert_inline_inode()` once
-> > inline data is converted. Also consider using the standard
-> > `mapping_set_large_folios(mapping)`
-> > helper instead of `mapping_set_folio_min_order(mapping, 0)`.
->
-> I'm concerned that calling mapping_set_large_folios() here would
-> violate the specification for enabling large folios on a file, because
-> we would be enabling large folios on an active inode. Please take a
-> look at the comment of mapping_set_large_folios() in
-> include/linux/pagemap.h.
+The Snapdragon X2 Elite (Glymur) is the first arm64 laptop part I have
+seen whose boost OPP, 4723200 kHz, sits above 4194304 kHz.  Two
+independent problems become visible there, both of which make the
+kernel believe a boosted CPU is running slower than it is.
 
-Hi Nanzhe,
+Patch 1 fixes an overflow in arch_freq_get_on_cpu(): the u64 product of
+the frequency scale and the reference frequency is truncated to
+unsigned int before being shifted back down, which wraps for any
+reference frequency above 2^32 / SCHED_CAPACITY_SCALE = 4194304 kHz.
 
-Thanks for pointing that out. You are right that calling
-mapping_set_large_folios()
-on an active inode inside f2fs_convert_inline_inode() violates the pagemap.=
-h
-specification due to the non-atomic update on mapping->flags.
+Patch 2 makes capacity_freq_ref follow the boost state.  It is latched
+once on CPUFREQ_CREATE_POLICY, and boost frequencies are excluded from
+policy->cpuinfo.max_freq while boost is off, so on a machine that boots
+with boost disabled it keeps the sustained maximum forever.  On arm64
+that saturates the AMU frequency scale at SCHED_CAPACITY_SCALE, so the
+scheduler cannot distinguish a boosted CPU from one at the sustained
+maximum, and arch_freq_get_on_cpu() cannot report above it.
 
-However, if you look right above that in include/linux/pagemap.h
-(lines 408-414),
-it also explicitly states:
-"The filesystem should call this funliction in its inode constructor...
- Do not tune it based on, eg, i_size."
+The order matters: patch 2 is what raises capacity_freq_ref past
+4194304 kHz on this machine, so patch 1 has to land with or before it.
 
-In F2FS, inline_data is essentially an i_size-based layout optimization (fi=
-les
-<=3D ~3.4KB), not a persistent file property. Virtually all newly created r=
-egular
-files start with FI_INLINE_DATA. Tying large folio support to inline_data a=
-t
-inode creation time violates the rule of not tuning large folio support bas=
-ed on
-file size, and permanently prevents almost all newly created files from eve=
-r
-using large folios even after they grow into large files.
+Measured on a Lenovo Yoga Slim 7x Gen 11 (Glymur, 4032000 kHz
+sustained, 4723200 kHz boost), pinning a policy to a single OPP and
+timing a fixed workload on one of its CPUs:
 
-Therefore, we should enable large folios unconditionally for regular files =
-in
-the inode constructor (f2fs_new_inode() and f2fs_iget()) by removing the
-f2fs_has_inline_data() check from f2fs_mapping_set_large_folio().
+  requested OPP    time     cpuinfo_avg_freq
+  ---------------------------------------------------------
+  4032000 kHz      2.011s   4031325   (0.02% low)
+  4723200 kHz      1.726s    524283   before
+  4723200 kHz      1.726s   4032000   with patch 1 only
+  4723200 kHz      1.726s   4718587   with both  (0.10% low)
 
-Thanks,
+The timings never change: 2.011 / 1.726 = 1.165 against a frequency
+ratio of 4723200 / 4032000 = 1.171, so the hardware was running at the
+requested frequency throughout.  Only the kernel's view of it was wrong.
 
->
-> Thanks,
-> Nanzhe
+Note that cpuinfo_cur_freq still reports 4032000 kHz at the boost OPP
+on this machine.  That is a separate path -- scmi_dvfs_freq_get()
+asking firmware for the current performance level -- with no clamp in
+the kernel, and it is not addressed here.
+
+Changes in v2:
+- Patch 1: fold the multiply and the shift into a single expression, as
+  suggested, instead of reusing the u64 scale variable as scratch.  Same
+  semantics - the multiply and the shift both stay in u64 and only the
+  final value is narrowed to the unsigned int - but it reads better.
+  Suggested-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+- Patch 2: unchanged.
+- Link to v1: https://lore.kernel.org/all/cover.1788712186.git.okerixx@gmail.com/
+
+
+Oleg Keri (2):
+  arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
+  cpufreq: update capacity_freq_ref when the boost state changes
+
+ arch/arm/include/asm/topology.h   |  1 +
+ arch/arm64/include/asm/topology.h |  1 +
+ arch/arm64/kernel/topology.c      |  3 +--
+ arch/riscv/include/asm/topology.h |  1 +
+ drivers/base/arch_topology.c      | 19 +++++++++++++------
+ drivers/cpufreq/cpufreq.c         |  2 ++
+ include/linux/arch_topology.h     |  1 +
+ include/linux/cpufreq.h           |  7 +++++++
+ 8 files changed, 27 insertions(+), 8 deletions(-)
+
+-- 
+2.55.0
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
