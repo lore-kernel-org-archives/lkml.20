@@ -1,83 +1,60 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F86476059
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422DF471261
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940981; cv=none; b=tjxnNIdLmSYckEi5k0FpBI9xn7QyCOJxpVnRjeMRoqjIVd9/mWJ0sUdjKkoEID60jEV4wboCN2IZisRf1FzCAR8nZGQRRsCAOhtBa0knEyBfOcMFP1T+mIspsA3Z1Fqd8jzwDNTHl+N+cbo1oup7wBINK1c/VtRwp8cKSFgx23o=
+	t=1788940991; cv=none; b=dm2hmjZPjVIDOQFnOweuexsYkPzQmEjIanzxtZp8PEmcJMhi7awf/Aob8PcERhMDUOpkGkj3poZflpDOvG4Jkx9j5dqvkgcf3Gj7ZyzYLbQjHAY7DvSx5CU555W8jzBeMOIBoWhTNKpFdZbBSMMadeBK6SkLq69LwuIfEhZlmy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940981; c=relaxed/simple;
-	bh=kJZh6y94i6h+wIueUxNoBcL4CgBSHgSQrOmgm0f33jw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y560EpSIEkKsMxqEBZKPKjnwRSMm0MvWTSnvQvn7UDXFRB/KfmDBQzDRehFJ9seHqNf8VNZatKalkGwW/AvnnNYDLp+6nMpo/uLuFLDhGXI6qwUuPYmY5nk02XwS3ZEfatVgiK4tlVDO2Fr6dPiAFVfE7NN3zDG9NPBJ2htern4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZMsAcUIi; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788940991; c=relaxed/simple;
+	bh=+nSvbWkPPEJCrpBxrms7g4NcRIR0MNVq+yWahQf9Hi8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EmEijZVK/BjrTdckbyfeeky6NeiRJYxiJSByUgVTWBF1ZQqzY4XhDD7Xc6GJUL49jpyXuRmU0UyMgvtp+EftArrGzrGCwqLedF4l0whpgztr0A3dHqKs1AOFMcBRQyHj7DEn1Qfhul3HWwlp/4+u75hVpY3yvT/pvZcqH6tJCN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VM6MkNvd; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZMsAcUIi"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso45324585e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788940978; x=1789545778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E0ImWj6rAclHhabuY+hCcTXmlRAswzPkBoaFWxuqP+A=;
-        b=ZMsAcUIiUF6C3BHL1mLewfKZAyI0WyMqrU0VOXcxtvCPQSC6e2HxnaC7fv182denl0
-         G9lzp8fA/qFbq6ODMUCulMDRXtTgvLdRnGvy9ojjw9XutRty9ICE8r3lt3Um28XyZbYt
-         U5JLXAQyfooNdvGYI04ssVoY25M/M+Q1b4nUEFjRTA8v94JYKez90eXjSwuipGzZWwdJ
-         KQ6XF4CCY3VCKdinF5aMeghd0fQQJxseUz2QXZJMJxlUdv98G6q/S01dwnqCb60FAFeG
-         rE90MH094RudPzF9BizB6UY7VkjeVEw6cXN3XWBo1o7CR78DaLzqTLyPFVQS++cX6wru
-         1tcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940978; x=1789545778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E0ImWj6rAclHhabuY+hCcTXmlRAswzPkBoaFWxuqP+A=;
-        b=aX2x6cGT55uiKFFrixK8WzznOy+kFK3Y7NAQgqpnsMnypnMEK1knWLC3DIyuB87uDv
-         OX5Gxnmvueqh1LI1m6He/rjW6MZco+BpT3G6XAAT5qLVjUBXQ+XMCWk6jbnFHvisHKo4
-         o4/hmgcKH7hzM6PlH6o92SIPspEPxynviMzu5g71MGZtIdQeFOHMlFfnFSIft22Jt+3C
-         4LLdVzUSo2dbIyvDSjjAwI7Uxc7Gf6+dexY9+Xl6Cd59RCKDBPF5/hUFeXxzqnY+9H9C
-         1MESS7V609MI8o7M8EDEcG7U2ilDMAIorKwDlAxjQCBjXw3IYZmwnoz2e/ejDkXowQmW
-         V5ZA==
-X-Forwarded-Encrypted: i=1; AKwUvByGg5smmYYymU5EvSSYgu2nBP3y4l3hZU6atufD7coigzfgpgTc8dcqOQO5spyvHT/SyidObSoVAc0bJ8k=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5gFPti1UL2LYFtJoRfo3AaN5YOcJVoy0uzTxxIuRomRLEgzsV
-	QBvOZilRlj8jx6zPLrxl7AALg8C9pywYTElLoelVIuLdDcQinVUf0j+a
-X-Gm-Gg: AYBFou3dFDcBAo8aURqzumxGmdSM1p25Tw0fxYUsTm/SEwt/kRY3UCJMwcsIaI7sfuo
-	a3NF00No5DaBL18lPt/fbUGu5eYkE/Paxc+YRBIh+Ka7bmF1SsMaTODv3usf3KHtU53NKNMuMZF
-	iTvX8PMOvFaaKlqZGoN3rWSP/QBJK9tSb0yhMTWzAxhalbYw4ou0fRQvlksrVusrDcDqAYK1vrh
-	FnfCWLUoEV+4Q+VUeY6jDnt3yls4B29lExIJalP70O6jIdYIt8kYolEhxSyDciYtvTC68SBN5vc
-	8PCek+VV/Y7A7MX7ef/cb0d1ELdkFiUhEI7lvbZ6s4WFtArhU4IqErc4/PSE8RzNYVxT7aqfRUC
-	uOBguyojXv4qmX9d2itMnVqDHnspR2HHVC+qO+pNxTk8b/yhCC42sADrm+AWv1EJ3oiR0XUijcT
-	8TIyFiUBRGhqo5icJRgCM7+uxMziyx0E/Qv3QNhqXjbuFHJTQOEpGUVRdkZugPhtz/sBK2i5HnQ
-	S2O5eomQgoCElK47yOT4Lw/tkhHO70TaubHLZ9SFA==
-X-Received: by 2002:a05:600c:c3cc:10b0:49d:1d6a:4cfb with SMTP id 5b1f17b1804b1-49d1d6a4d7emr53938015e9.1.1788940977612;
-        Wed, 09 Sep 2026 01:02:57 -0700 (PDT)
-Received: from chubuchnyi-ThinkPad-P1-Gen-4i.lan ([158.173.155.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm412817125e9.3.2026.09.09.01.02.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:02:57 -0700 (PDT)
-From: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	laurent.pinchart@ideasonboard.com,
-	mchehab@kernel.org,
-	mani@kernel.org,
-	michael.riesch@collabora.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	benjamin.mugnier@foss.st.com,
-	sylvain.petinot@foss.st.com
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VM6MkNvd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788940991; x=1820476991;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=+nSvbWkPPEJCrpBxrms7g4NcRIR0MNVq+yWahQf9Hi8=;
+  b=VM6MkNvdM4gr1fIRpxYHU7yfA5gFet/bhVpJhZ+OJw+QsN2+nNsE6FMG
+   Dd1U8LQGzztMtGlMzkxK6bvnzp0zrD1ML5TZ72VIflXZBuwXxd3V9xcWh
+   LOWvNZCUO4lpwaVXBFxkA0Nzym6ZfCaBPdP7FIqSE1TOOm+8RGq4pMRcS
+   q+EfDPMjt1r3Ru5jgwa3/U6DnKIDH/H/8+t/wkN/1I9dvTZTOpjhFAJOA
+   Iuna8ycLMp5IGihsPqULSKoM/E5e+du7SyoZ1Ds8caqJeAEVhCz1eFi5w
+   Jafx3z42axZFt+3QHwea4ZRHv2fkTmcPLJGNbUtd+/DSOcBjZ2baxdJj0
+   w==;
+X-CSE-ConnectionGUID: 6pguhDhsSCew0UfRELn2hQ==
+X-CSE-MsgGUID: aCG1apOpSJ+Cnu8mz7J/cQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106726442"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="106726442"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 01:03:10 -0700
+X-CSE-ConnectionGUID: rLkuDipTR1O7bMFk+r5Ijw==
+X-CSE-MsgGUID: 7wHZi4V5Rk6GjjxeAd2+Kg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="301119234"
+Received: from allen-box.sh.intel.com ([10.239.48.101])
+  by orviesa002.jf.intel.com with ESMTP; 09 Sep 2026 01:03:08 -0700
+From: Lu Baolu <baolu.lu@linux.intel.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 5/5] media: i2c: st-mipid02: Add missing v4l2_subdev_cleanup() call
-Date: Wed,  9 Sep 2026 11:02:27 +0300
-Message-ID: <12ac971583eaf4775a0242a58a6ed0a1fd08cdb3.1788940469.git.chubuchnyi@gmail.com>
+	Lu Baolu <baolu.lu@linux.intel.com>
+Subject: [PATCH 0/7] iommu/vt-d: Fix issues reported by Sashiko
+Date: Wed,  9 Sep 2026 15:50:59 +0800
+Message-ID: <20260909075106.738691-1-baolu.lu@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1788940469.git.chubuchnyi@gmail.com>
-References: <cover.1788940469.git.chubuchnyi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,36 +63,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The subdev active state allocated by v4l2_subdev_init_finalize() is leaked
-on unbind. The driver has no common cleanup helper, so update both sites.
+Hi,
 
-Fixes: 04d170b288b3 ("media: i2c: st-mipid02: use active state to store pad formats")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
----
- drivers/media/i2c/st-mipid02.c | 2 ++
- 1 file changed, 2 insertions(+)
+This collects a number of pre-existing issues that were reported by
+Sashiko while reviewing recent VT-d patches. None of them are
+regressions from the patches under review; they are latent problems in
+code those patches happened to touch.
 
-diff --git a/drivers/media/i2c/st-mipid02.c b/drivers/media/i2c/st-mipid02.c
-index 4675181af..b2f275129 100644
---- a/drivers/media/i2c/st-mipid02.c
-+++ b/drivers/media/i2c/st-mipid02.c
-@@ -919,6 +919,7 @@ static int mipid02_probe(struct i2c_client *client)
- power_off:
- 	mipid02_set_power_off(&client->dev);
- entity_cleanup:
-+	v4l2_subdev_cleanup(&bridge->sd);
- 	media_entity_cleanup(&bridge->sd.entity);
- 
- 	return ret;
-@@ -937,6 +938,7 @@ static void mipid02_remove(struct i2c_client *client)
- 	if (!pm_runtime_status_suspended(&client->dev))
- 		mipid02_set_power_off(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
-+	v4l2_subdev_cleanup(&bridge->sd);
- 	media_entity_cleanup(&bridge->sd.entity);
- }
- 
+Thanks,
+baolu
+
+Lu Baolu (7):
+  iommu/vt-d: Avoid out-of-range shift in qi_desc_dev_iotlb_pasid()
+  iommu/vt-d: Do not ignore context table copy failures
+  iommu/vt-d: Handle DID reservation errors when copying context tables
+  iommu/vt-d: Reserve scalable-mode DIDs from PASID entries during copy
+  iommu/vt-d: Use old domain parameter when attaching the blocking
+    domain
+  iommu/vt-d: Fix iopf refcount leak in nested attach
+  iommu/vt-d: Drop old iopf ref only after attach succeeds
+
+ drivers/iommu/intel/iommu.h  |  17 +++-
+ drivers/iommu/intel/iommu.c  | 152 ++++++++++++++++++++++++++++++-----
+ drivers/iommu/intel/nested.c |   2 +
+ 3 files changed, 149 insertions(+), 22 deletions(-)
+
 -- 
 2.43.0
-
