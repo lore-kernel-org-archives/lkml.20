@@ -1,68 +1,77 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6E1441600
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099A54349B5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788938499; cv=none; b=nN3j46L8II6dLiHNkY4dScxGTkabGrkYt5GSpgaG0qi1GCkQt8BXK7PYp5Q5AWPFvOG0f5jQyyF3VVGtFZjo+7c8eFwp7OumeTVLDVHOfwNIXFZPCqnyWLSXUr3BOYYYWhGxCvFSyfCdrMWAddGDmTtKK3+PKk3nx6aW4iC9XDY=
+	t=1788938504; cv=none; b=lLkig2LqwE4kC0Gm96vuFzqEuGDymSKXMZHxuX2DokQIEYAY9NyPymyCKJNKJ4a07xzsIqkgQLfFzmjkfMfZIR36JHBIIz8awQpjNiv3H0kgNVZ0BS7IRBvX65L9jnKtFdEKEVy/jlohED/kxMZmfBw9d4m/xLvw64xg41LfR7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788938499; c=relaxed/simple;
-	bh=Dq9QzC4Rw+uS4zcZFxnG/iQOlbmorYFisIjxewZuk38=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rbd2ckhknbC+FPAC8dOz9BiRLksJqpJWaRpvjr/nhMXeI6XyTfhQrFWXzL8Mq0X7AwSpk4JlKigK6YN0wqhFgIhn4ugnVkgQJlLXlKHdR6H329lW9CCbZ8RvrephnfbmTl29Nt0D26w+lte+4RLfnuHtB+WaugiXk537k8FSVQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OhMgmFoI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788938504; c=relaxed/simple;
+	bh=bdtfK8hlgNaxrFNODYutQUM199Ay4f+K5uqqRn3MwW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E4BJ+W3+nllh6cOf5/36ty9sCKJcK9ccbbP2XjyVR9oZ1iB86vjiJ6RA4g+/Ii7JZoGBWxuHG/IoUcTOjQIOyMdmmyX5Elo3qeZkxhg74l8HXVZn97HtjLeETPF4zFabsd9E7txOj9KHjgq0WAr19t4GpOOUdV87g3DQwbEJgd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SDBvlvib; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OhMgmFoI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788938491;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=NwTohl+L3wBgxbiNt8Qf67OZRjLUf9WteY3EfU1JFtw=;
-	b=OhMgmFoIu3SCWLjofDcycAHdxj6fMHF61pVluPaaBdM1jN3FM+hjyGw20Lac1TfsG+ivgN
-	4J9thndbSpNrTIlfRdyfGdCks0+MgvGdvq52phD+6wsVZf/rk46LyOXXiCCC/jcKhthr2Z
-	+gpMcZ6mtdACQc8lhRaOmOQhn445jNk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-608-5zXez9ViMRWllKQjIz_I_A-1; Wed,
- 09 Sep 2026 03:21:28 -0400
-X-MC-Unique: 5zXez9ViMRWllKQjIz_I_A-1
-X-Mimecast-MFC-AGG-ID: 5zXez9ViMRWllKQjIz_I_A_1788938486
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 97D8218005B3;
-	Wed,  9 Sep 2026 07:21:24 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C1CB01800446;
-	Wed,  9 Sep 2026 07:21:16 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v13 0/8] netfs: Miscellaneous preparatory changes
-Date: Wed,  9 Sep 2026 08:20:54 +0100
-Message-ID: <20260909072105.1663687-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SDBvlvib"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0b98d6d0so34788305e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:21:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788938494; x=1789543294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
+        b=SDBvlvibwtRp7WxoRjBENUi5Mk7PF4tbHz37lIYZBerv7MR8wWxDs45RYaxKpgFAWV
+         pYI/DkS78MuIAuTGDO/NrjRYSVn8xVNEnDW60UocPGTgW5jSzIjsAkn/p7BynGilfNw/
+         kdsBQsT7VKEX105ExxrK1qdogg9mUsbg4QXYchZS8K9PL85mU5trPa6zwk4GtM0i8CxH
+         9npTCSxiJr2Ln48+KHPLMYHC8cxwbiDOrkPAkywyRhRxmylyzsieYIKOu3Hxo1LJdxYI
+         pVevHD4eqqxqChgmWHfNJpBs+dYl69Yg+DxruqJA0H9OHi+UnZT8u6qZZkT5pkAe3Gjs
+         La5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788938494; x=1789543294;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
+        b=AVpOHmd+6oRJ+pi75KC4x4iQWg9aEE1LswzqtCLuG9J8tnAxEMlAjF8g9Vad3Zk57o
+         koX1AlYZrUZGfCb8EXIm7lU3F5D864Qstg9IJVhqHKT6DnVqHvLy5HD3QRfhbOhAL0Uu
+         9wQcFivD50j04o4/m/I1EopAGlQVpxf+3do0rmRPFGyG7BN+TiELDJgENmutbyimjwGu
+         jcP34Ll+Mitc1tyMpJ24R/MOdKX0EH6tFOvX185Rx5ye5W+kePEO/sl16ifSkGZOmU8G
+         UicgWS/H1dTKOYyggAHju3jQmUJS5Cv9SPPWzMrNzstfiPmphzGmq1CaoAqw79lQYvQA
+         4fxA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5whmVwKRzYmOQxS1kzAdMNIGYZtwHpONpHXJ29+p3DiciEWCmibr2S9YQAYgFMltAIMFgJJOdPtBJlv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqMr5FUeUFtuyeEC/JbDJ1gj7d38lHgjl/oRvJaZWLbaZPPRzH
+	RxqxipEYCmcvyydCMT8CqIws0fHfGDOyciKA+UZ0mFJ/J1RrrXoiwWP4
+X-Gm-Gg: AYBFou1M/vg2EFSVs1ogTLUQIakYTsr7pkccRWuMyxB0rhCgd6CQ8Xl2k1hRee4hxfo
+	4wegLLJziSBDmj+S7D/0C1QlSeb4b1slNaweLTYcVgP5SYHmYerQt9mz7oOsTTtGEeKsA1B/Xc3
+	aF8Mc+1TUZGYySDYeIjgcMdTSOyVXIcLSKFPkCYy1qp9952tWWfgVqrqEtqptDOpTjM4MTtM1zu
+	2+df9Q035VERwTpPLwVT78k1yfJGC84EfvWi5q6Ezk6Gz/g8eyD8p8wAxzzz3gVfnG9wLkDZcGL
+	EyllJFD6DcMbDYDYTiHBDl9TVZFZ9O7mPE9gS14EKdvVbuqLYhiFY+grp5QdvD88jjra0b5t0qP
+	pW/LtC430VPyG5uXx8YKQW7bFrSjBGJKuoGaP4kLI7Y1MiIemZutNCOWH3v0zWCNYOD1Qd6wxSO
+	WW4R5gFJKvhJD/MvZTxI6HJuqWBLAT+ZegOQ9NOBrlVgGv2zGN3HupK4ddFg9rIADo8Po=
+X-Received: by 2002:a05:600c:3511:b0:49c:fa21:1c86 with SMTP id 5b1f17b1804b1-49cfa211cd7mr325233275e9.27.1788938493693;
+        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm46703902f8f.25.2026.09.09.00.21.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Fabien Parent <fparent@baylibre.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH RESEND] arm64: dts: mediatek: mt8516: remove cpu3 armpll clock-name
+Date: Wed,  9 Sep 2026 09:20:14 +0200
+Message-ID: <20260909072051.4627-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,108 +79,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 127.0.0.2
 
-Hi Christian,
+The armpll clock in cpu3 clock-names property comes from MediaTek sources,
+but it's unused in the kernel and not populated in the clocks property.
+Let's remove it and align the node with other cpu nodes of the same SoC.
 
-Could you pull these patches please for -next?  This is the first of four
-batches.  This is based on your vfs.fixes as there are some prerequisite
-patches there.  This was split from v11 of a larger series[1].
+Fixes: 5236347bde42 ("arm64: dts: mediatek: add dtsi for MT8516")
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+ arch/arm64/boot/dts/mediatek/mt8516.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This a collection of miscellaneous modifications to netfslib that I want to
-make ahead of bigger changes, including:
-
- (1) Convert "unsigned long long" to "uoff_t".  This makes it a little more
-     obvious as to the meaning of the value.  Also convert some "loff_t" to
-     "uoff_t" as most of the time it's used the value really should never
-     be negative.
-
- (2) Remove the writethrough code as the locking is really tricky to get
-     right and it looks like it could deadlock with Ceph if snapshots are
-     used.
-
- (3) Adjust some tracepoints, including adding the cache object ID to
-     certain tracepoinits.
-
- (4) Make use of PG_private_2 opt-in.  Use of PG_private_2 is deprecated
-     and the MM people would like their page bit back, so we need to stop
-     using it soon.
-
- (5) Add some helper functions to handle the barriering needed for the
-     NETFS_RREQ_ALL_QUEUED flag.
-
- (6) Set the subrequest type at allocation time so that the allocation
-     trace records the proposed type.
-
-The patches can also be found here:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-1
-
-Thanks,
-David
-
-Changes
-=======
-ver #13)
-- Fixed some sashiko-raised issues:
-  - Fixed netfs_mark_copy_to_cache() to use netfs_using_pgpriv2() rather
-    than checking NETFS_RREQ_USE_PGPRIV2.
-  - Fixed netfs_all_subreqs_queued() to do smp_mb__after_atomic() after
-    setting the NETFS_RREQ_ALL_QUEUED bit.
-  - Fixed netfs_single_dispatch_read() to not immediately contradict its
-    own initialisation of subreq->source.
-
-ver #12)
-- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
-  chain"[1]
-
-[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
-[2] https://sashiko.dev/#/patchset/20260908091031.1506798-1-dhowells%40redhat.com
-
-David Howells (8):
-  netfs: Use uoff_t instead of unsigned long long and loff_t
-  netfs: Remove the writethrough code
-  netfs: trace: Change the "clear" folio traces to "endwb"
-  netfs: trace: Rejig a couple of the tracepoints
-  netfs: Add the cache object ID to netfs_read/write tracepoints
-  netfs: Make deprecated PG_private_2 support opt-in
-  netfs: Add some functions to wrap the all-queued handling
-  netfs: Set subrequest->source at alloc before trace emission
-
- fs/9p/vfs_addr.c                  |   1 -
- fs/afs/file.c                     |   5 +-
- fs/cachefiles/interface.c         |  10 +--
- fs/cachefiles/internal.h          |   4 +-
- fs/cachefiles/io.c                |  25 +++---
- fs/ceph/Kconfig                   |   1 +
- fs/ceph/addr.c                    |   4 +-
- fs/netfs/Kconfig                  |   3 +
- fs/netfs/Makefile                 |   2 +-
- fs/netfs/buffered_read.c          |  37 ++++-----
- fs/netfs/buffered_write.c         |  66 +++------------
- fs/netfs/direct_read.c            |  14 ++--
- fs/netfs/direct_write.c           |   8 +-
- fs/netfs/fscache_cookie.c         |   8 +-
- fs/netfs/fscache_io.c             |  10 +--
- fs/netfs/internal.h               |  68 ++++++++++++---
- fs/netfs/iterator.c               |   2 +-
- fs/netfs/main.c                   |   1 -
- fs/netfs/misc.c                   |  10 +--
- fs/netfs/objects.c                |   6 +-
- fs/netfs/read_collect.c           |  14 ++--
- fs/netfs/read_pgpriv2.c           |  13 ++-
- fs/netfs/read_retry.c             |   5 +-
- fs/netfs/read_single.c            |  12 +--
- fs/netfs/stats.c                  |   4 +-
- fs/netfs/write_collect.c          |  25 +++---
- fs/netfs/write_issue.c            | 123 ++-------------------------
- fs/netfs/write_retry.c            |   5 +-
- fs/nfs/Kconfig                    |   1 +
- include/linux/fscache-cache.h     |   2 +-
- include/linux/fscache.h           |  36 ++++----
- include/linux/netfs.h             |  80 +++++++++---------
- include/trace/events/cachefiles.h |  30 +++----
- include/trace/events/fscache.h    |  10 +--
- include/trace/events/netfs.h      | 134 +++++++++++++++---------------
- 35 files changed, 326 insertions(+), 453 deletions(-)
+diff --git a/arch/arm64/boot/dts/mediatek/mt8516.dtsi b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
+index b5e753759465..596f673a0d88 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8516.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
+@@ -95,7 +95,7 @@ cpu3: cpu@3 {
+ 				<&CPU_SLEEP_0_0 &CPU_SLEEP_0_0 &CPU_SLEEP_0_0>;
+ 			clocks = <&infracfg CLK_IFR_MUX1_SEL>,
+ 				 <&topckgen CLK_TOP_MAINPLL_D2>;
+-			clock-names = "cpu", "intermediate", "armpll";
++			clock-names = "cpu", "intermediate";
+ 			operating-points-v2 = <&cluster0_opp>;
+ 		};
+ 
+-- 
+2.43.0
 
