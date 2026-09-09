@@ -1,77 +1,72 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099A54349B5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230A43D3D16
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788938504; cv=none; b=lLkig2LqwE4kC0Gm96vuFzqEuGDymSKXMZHxuX2DokQIEYAY9NyPymyCKJNKJ4a07xzsIqkgQLfFzmjkfMfZIR36JHBIIz8awQpjNiv3H0kgNVZ0BS7IRBvX65L9jnKtFdEKEVy/jlohED/kxMZmfBw9d4m/xLvw64xg41LfR7w=
+	t=1788938520; cv=none; b=IV5f/EKkp0n9nCyUF9WFS+hs/iviwt3Ucfb3WLGSuluFCOJC2e3OLHXL32OJwjuyvw9koHZMdq5KErQxY3NVJSLLicVx3vDV9cGwCYTn8VErwwHtWOznOnGOkSANt7tYzybzfvPLeeTq0A8awv5KZfCjT/1UdKcsqNMuDPl/YZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788938504; c=relaxed/simple;
-	bh=bdtfK8hlgNaxrFNODYutQUM199Ay4f+K5uqqRn3MwW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E4BJ+W3+nllh6cOf5/36ty9sCKJcK9ccbbP2XjyVR9oZ1iB86vjiJ6RA4g+/Ii7JZoGBWxuHG/IoUcTOjQIOyMdmmyX5Elo3qeZkxhg74l8HXVZn97HtjLeETPF4zFabsd9E7txOj9KHjgq0WAr19t4GpOOUdV87g3DQwbEJgd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SDBvlvib; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788938520; c=relaxed/simple;
+	bh=Kueq/f17B9/LC4Q2/QK5boVmNxxGeGx2k4GIh/FUGVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UU4TuJzpSasezy4pqx7vYGDVkCcDQUthbrhNysjdd5PWJD7RjVI6oam3k6U/wvXOsJm4WLhM5yJDFpm+vG5rjdwb8AE6F2Jzps0p+SlhfAcDaNtbyBcv64kCqZuAnkZz98xD8X6iKKJ0HNjWeqcNIabET0xcuuTkR+Ig5I1RCKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GFg531rd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SDBvlvib"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0b98d6d0so34788305e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788938494; x=1789543294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
-        b=SDBvlvibwtRp7WxoRjBENUi5Mk7PF4tbHz37lIYZBerv7MR8wWxDs45RYaxKpgFAWV
-         pYI/DkS78MuIAuTGDO/NrjRYSVn8xVNEnDW60UocPGTgW5jSzIjsAkn/p7BynGilfNw/
-         kdsBQsT7VKEX105ExxrK1qdogg9mUsbg4QXYchZS8K9PL85mU5trPa6zwk4GtM0i8CxH
-         9npTCSxiJr2Ln48+KHPLMYHC8cxwbiDOrkPAkywyRhRxmylyzsieYIKOu3Hxo1LJdxYI
-         pVevHD4eqqxqChgmWHfNJpBs+dYl69Yg+DxruqJA0H9OHi+UnZT8u6qZZkT5pkAe3Gjs
-         La5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788938494; x=1789543294;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
-        b=AVpOHmd+6oRJ+pi75KC4x4iQWg9aEE1LswzqtCLuG9J8tnAxEMlAjF8g9Vad3Zk57o
-         koX1AlYZrUZGfCb8EXIm7lU3F5D864Qstg9IJVhqHKT6DnVqHvLy5HD3QRfhbOhAL0Uu
-         9wQcFivD50j04o4/m/I1EopAGlQVpxf+3do0rmRPFGyG7BN+TiELDJgENmutbyimjwGu
-         jcP34Ll+Mitc1tyMpJ24R/MOdKX0EH6tFOvX185Rx5ye5W+kePEO/sl16ifSkGZOmU8G
-         UicgWS/H1dTKOYyggAHju3jQmUJS5Cv9SPPWzMrNzstfiPmphzGmq1CaoAqw79lQYvQA
-         4fxA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5whmVwKRzYmOQxS1kzAdMNIGYZtwHpONpHXJ29+p3DiciEWCmibr2S9YQAYgFMltAIMFgJJOdPtBJlv4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqMr5FUeUFtuyeEC/JbDJ1gj7d38lHgjl/oRvJaZWLbaZPPRzH
-	RxqxipEYCmcvyydCMT8CqIws0fHfGDOyciKA+UZ0mFJ/J1RrrXoiwWP4
-X-Gm-Gg: AYBFou1M/vg2EFSVs1ogTLUQIakYTsr7pkccRWuMyxB0rhCgd6CQ8Xl2k1hRee4hxfo
-	4wegLLJziSBDmj+S7D/0C1QlSeb4b1slNaweLTYcVgP5SYHmYerQt9mz7oOsTTtGEeKsA1B/Xc3
-	aF8Mc+1TUZGYySDYeIjgcMdTSOyVXIcLSKFPkCYy1qp9952tWWfgVqrqEtqptDOpTjM4MTtM1zu
-	2+df9Q035VERwTpPLwVT78k1yfJGC84EfvWi5q6Ezk6Gz/g8eyD8p8wAxzzz3gVfnG9wLkDZcGL
-	EyllJFD6DcMbDYDYTiHBDl9TVZFZ9O7mPE9gS14EKdvVbuqLYhiFY+grp5QdvD88jjra0b5t0qP
-	pW/LtC430VPyG5uXx8YKQW7bFrSjBGJKuoGaP4kLI7Y1MiIemZutNCOWH3v0zWCNYOD1Qd6wxSO
-	WW4R5gFJKvhJD/MvZTxI6HJuqWBLAT+ZegOQ9NOBrlVgGv2zGN3HupK4ddFg9rIADo8Po=
-X-Received: by 2002:a05:600c:3511:b0:49c:fa21:1c86 with SMTP id 5b1f17b1804b1-49cfa211cd7mr325233275e9.27.1788938493693;
-        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm46703902f8f.25.2026.09.09.00.21.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Fabien Parent <fparent@baylibre.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH RESEND] arm64: dts: mediatek: mt8516: remove cpu3 armpll clock-name
-Date: Wed,  9 Sep 2026 09:20:14 +0200
-Message-ID: <20260909072051.4627-1-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GFg531rd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788938509;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=As6asS0JuD0AL8ZaPcaYYSszW0C6+/4Lnxo7j95L/p0=;
+	b=GFg531rdK4KSfwi4c4AUchUladbV+WhL3w7A4yA/galeh07ixhArmkCoZG86kbz7lZM4W3
+	jdaqeljwUUwAOh+OjzU2q4gLH2LCXmBlcy+J0Bnazs1g3irmcfTteLnSH6ZFkw/OlwQg2B
+	4a7EnllEEzlwKAM7s8LhR0ga3lJpfKo=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-351-Tel6Hz_jP_GzYFpblR11ag-1; Wed,
+ 09 Sep 2026 03:21:43 -0400
+X-MC-Unique: Tel6Hz_jP_GzYFpblR11ag-1
+X-Mimecast-MFC-AGG-ID: Tel6Hz_jP_GzYFpblR11ag_1788938501
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 621C01800675;
+	Wed,  9 Sep 2026 07:21:40 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.158])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E2D0330001A2;
+	Wed,  9 Sep 2026 07:21:34 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-erofs@lists.ozlabs.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v13 2/8] netfs: Remove the writethrough code
+Date: Wed,  9 Sep 2026 08:20:56 +0100
+Message-ID: <20260909072105.1663687-3-dhowells@redhat.com>
+In-Reply-To: <20260909072105.1663687-1-dhowells@redhat.com>
+References: <20260909072105.1663687-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,30 +74,396 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-The armpll clock in cpu3 clock-names property comes from MediaTek sources,
-but it's unused in the kernel and not populated in the clocks property.
-Let's remove it and align the node with other cpu nodes of the same SoC.
+Remove the netfs writethrough code as it's very tricky to get the locking
+right and it will probably deadlock if used in conjunction with Ceph
+snapshots because it excludes writeback for the duration, but to flush out
+old snapshots, it does a synchronous flush that invokes writeback.
 
-Fixes: 5236347bde42 ("arm64: dts: mediatek: add dtsi for MT8516")
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Instead, O_SYNC writes do a flush after performing the write - which is
+already there as the callers of netfs_perform_write() all call
+generic_write_sync().
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+cc: netfs@lists.linux.dev
+cc: linux-fsdevel@vger.kernel.org
 ---
- arch/arm64/boot/dts/mediatek/mt8516.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/9p/vfs_addr.c             |   1 -
+ fs/afs/file.c                |   1 -
+ fs/netfs/buffered_write.c    |  56 ++-----------------
+ fs/netfs/internal.h          |   7 ---
+ fs/netfs/main.c              |   1 -
+ fs/netfs/stats.c             |   4 +-
+ fs/netfs/write_collect.c     |   2 -
+ fs/netfs/write_issue.c       | 104 +----------------------------------
+ include/linux/netfs.h        |   1 -
+ include/trace/events/netfs.h |   8 +--
+ 10 files changed, 9 insertions(+), 176 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8516.dtsi b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
-index b5e753759465..596f673a0d88 100644
---- a/arch/arm64/boot/dts/mediatek/mt8516.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
-@@ -95,7 +95,7 @@ cpu3: cpu@3 {
- 				<&CPU_SLEEP_0_0 &CPU_SLEEP_0_0 &CPU_SLEEP_0_0>;
- 			clocks = <&infracfg CLK_IFR_MUX1_SEL>,
- 				 <&topckgen CLK_TOP_MAINPLL_D2>;
--			clock-names = "cpu", "intermediate", "armpll";
-+			clock-names = "cpu", "intermediate";
- 			operating-points-v2 = <&cluster0_opp>;
- 		};
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 1ac0b3dcc077..2129fcb0f65c 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -124,7 +124,6 @@ static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
+ 	struct p9_fid *fid;
+ 	struct dentry *dentry;
+ 	bool writing = (rreq->origin == NETFS_READ_FOR_WRITE ||
+-			rreq->origin == NETFS_WRITETHROUGH ||
+ 			rreq->origin == NETFS_UNBUFFERED_WRITE ||
+ 			rreq->origin == NETFS_DIO_WRITE);
  
--- 
-2.43.0
+diff --git a/fs/afs/file.c b/fs/afs/file.c
+index 3380a0d20c0f..99987f6bbc36 100644
+--- a/fs/afs/file.c
++++ b/fs/afs/file.c
+@@ -400,7 +400,6 @@ static int afs_init_request(struct netfs_io_request *rreq, struct file *file)
+ 		}
+ 		break;
+ 	case NETFS_WRITEBACK:
+-	case NETFS_WRITETHROUGH:
+ 	case NETFS_UNBUFFERED_WRITE:
+ 	case NETFS_DIO_WRITE:
+ 		if (S_ISREG(rreq->inode->i_mode))
+diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
+index df496873e4f4..ead22980075f 100644
+--- a/fs/netfs/buffered_write.c
++++ b/fs/netfs/buffered_write.c
+@@ -91,44 +91,14 @@ ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
+ 	struct inode *inode = file_inode(file);
+ 	struct address_space *mapping = inode->i_mapping;
+ 	struct netfs_inode *ctx = netfs_inode(inode);
+-	struct writeback_control wbc = {
+-		.sync_mode	= WB_SYNC_NONE,
+-		.for_sync	= true,
+-		.nr_to_write	= LONG_MAX,
+-		.range_start	= iocb->ki_pos,
+-		.range_end	= iocb->ki_pos + iter->count,
+-	};
+-	struct netfs_io_request *wreq = NULL;
+-	struct folio *folio = NULL, *writethrough = NULL;
++	struct folio *folio = NULL;
+ 	unsigned int bdp_flags = (iocb->ki_flags & IOCB_NOWAIT) ? BDP_ASYNC : 0;
+-	ssize_t written = 0, ret, ret2;
++	ssize_t written = 0, ret;
+ 	uoff_t pos = iocb->ki_pos;
+ 	size_t max_chunk = mapping_max_folio_size(mapping);
+ 	bool maybe_trouble = false;
+ 
+-	if (unlikely(iocb->ki_flags & (IOCB_DSYNC | IOCB_SYNC))
+-	    ) {
+-		wbc_attach_fdatawrite_inode(&wbc, mapping->host);
+-
+-		ret = filemap_write_and_wait_range(mapping, pos, pos + iter->count);
+-		if (ret < 0) {
+-			wbc_detach_inode(&wbc);
+-			goto out;
+-		}
+-
+-		wreq = netfs_begin_writethrough(iocb, iter->count);
+-		if (IS_ERR(wreq)) {
+-			wbc_detach_inode(&wbc);
+-			ret = PTR_ERR(wreq);
+-			wreq = NULL;
+-			goto out;
+-		}
+-		if (!is_sync_kiocb(iocb))
+-			wreq->iocb = iocb;
+-		netfs_stat(&netfs_n_wh_writethrough);
+-	} else {
+-		netfs_stat(&netfs_n_wh_buffered_write);
+-	}
++	netfs_stat(&netfs_n_wh_buffered_write);
+ 
+ 	do {
+ 		enum netfs_folio_trace trace;
+@@ -390,15 +360,8 @@ ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
+ 		pos += copied;
+ 		written += copied;
+ 
+-		if (likely(!wreq)) {
+-			folio_mark_dirty(folio);
+-			folio_unlock(folio);
+-		} else {
+-			netfs_advance_writethrough(wreq, &wbc, folio, copied,
+-						   offset + copied == flen,
+-						   &writethrough);
+-			/* Folio unlocked */
+-		}
++		folio_mark_dirty(folio);
++		folio_unlock(folio);
+ 	retry:
+ 		folio_put(folio);
+ 		folio = NULL;
+@@ -420,15 +383,6 @@ ssize_t netfs_perform_write(struct kiocb *iocb, struct iov_iter *iter,
+ 			ctx->ops->post_modify(inode);
+ 	}
+ 
+-	if (unlikely(wreq)) {
+-		ret2 = netfs_end_writethrough(wreq, &wbc, writethrough);
+-		wbc_detach_inode(&wbc);
+-		if (ret2 == -EIOCBQUEUED)
+-			return ret2;
+-		if (ret == 0 && ret2 < 0)
+-			ret = ret2;
+-	}
+-
+ 	iocb->ki_pos += written;
+ 	_leave(" = %zd [%zd]", written, ret);
+ 	return written ? written : ret;
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index 9bd7ad10cc0c..a4c834e32214 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -157,7 +157,6 @@ extern atomic_t netfs_n_rh_write_zskip;
+ extern atomic_t netfs_n_rh_retry_read_req;
+ extern atomic_t netfs_n_rh_retry_read_subreq;
+ extern atomic_t netfs_n_wh_buffered_write;
+-extern atomic_t netfs_n_wh_writethrough;
+ extern atomic_t netfs_n_wh_dio_write;
+ extern atomic_t netfs_n_wh_writepages;
+ extern atomic_t netfs_n_wh_copy_to_cache;
+@@ -216,12 +215,6 @@ void netfs_issue_write(struct netfs_io_request *wreq,
+ size_t netfs_advance_write(struct netfs_io_request *wreq,
+ 			   struct netfs_io_stream *stream,
+ 			   uoff_t start, size_t len, bool to_eof);
+-struct netfs_io_request *netfs_begin_writethrough(struct kiocb *iocb, size_t len);
+-int netfs_advance_writethrough(struct netfs_io_request *wreq, struct writeback_control *wbc,
+-			       struct folio *folio, size_t copied, bool to_page_end,
+-			       struct folio **writethrough_cache);
+-ssize_t netfs_end_writethrough(struct netfs_io_request *wreq, struct writeback_control *wbc,
+-			       struct folio *writethrough_cache);
+ 
+ /*
+  * write_retry.c
+diff --git a/fs/netfs/main.c b/fs/netfs/main.c
+index 927badf3989d..609e22e8f76a 100644
+--- a/fs/netfs/main.c
++++ b/fs/netfs/main.c
+@@ -44,7 +44,6 @@ static const char *netfs_origins[nr__netfs_io_origin] = {
+ 	[NETFS_DIO_READ]		= "DR",
+ 	[NETFS_WRITEBACK]		= "WB",
+ 	[NETFS_WRITEBACK_SINGLE]	= "W1",
+-	[NETFS_WRITETHROUGH]		= "WT",
+ 	[NETFS_UNBUFFERED_WRITE]	= "UW",
+ 	[NETFS_DIO_WRITE]		= "DW",
+ 	[NETFS_PGPRIV2_COPY_TO_CACHE]	= "2C",
+diff --git a/fs/netfs/stats.c b/fs/netfs/stats.c
+index ab6b916addc4..9a607c4e62dd 100644
+--- a/fs/netfs/stats.c
++++ b/fs/netfs/stats.c
+@@ -32,7 +32,6 @@ atomic_t netfs_n_rh_write_zskip;
+ atomic_t netfs_n_rh_retry_read_req;
+ atomic_t netfs_n_rh_retry_read_subreq;
+ atomic_t netfs_n_wh_buffered_write;
+-atomic_t netfs_n_wh_writethrough;
+ atomic_t netfs_n_wh_dio_write;
+ atomic_t netfs_n_wh_writepages;
+ atomic_t netfs_n_wh_copy_to_cache;
+@@ -58,9 +57,8 @@ int netfs_stats_show(struct seq_file *m, void *v)
+ 		   atomic_read(&netfs_n_rh_read_single),
+ 		   atomic_read(&netfs_n_rh_write_begin),
+ 		   atomic_read(&netfs_n_rh_write_zskip));
+-	seq_printf(m, "Writes : BW=%u WT=%u DW=%u WP=%u 2C=%u\n",
++	seq_printf(m, "Writes : BW=%u DW=%u WP=%u 2C=%u\n",
+ 		   atomic_read(&netfs_n_wh_buffered_write),
+-		   atomic_read(&netfs_n_wh_writethrough),
+ 		   atomic_read(&netfs_n_wh_dio_write),
+ 		   atomic_read(&netfs_n_wh_writepages),
+ 		   atomic_read(&netfs_n_wh_copy_to_cache));
+diff --git a/fs/netfs/write_collect.c b/fs/netfs/write_collect.c
+index 100a5038c61e..244a68e04624 100644
+--- a/fs/netfs/write_collect.c
++++ b/fs/netfs/write_collect.c
+@@ -214,7 +214,6 @@ static void netfs_collect_write_results(struct netfs_io_request *wreq)
+ 	smp_rmb();
+ 	collected_to = ULLONG_MAX;
+ 	if (wreq->origin == NETFS_WRITEBACK ||
+-	    wreq->origin == NETFS_WRITETHROUGH ||
+ 	    wreq->origin == NETFS_PGPRIV2_COPY_TO_CACHE)
+ 		notes = NEED_UNLOCK;
+ 	else
+@@ -411,7 +410,6 @@ bool netfs_write_collection(struct netfs_io_request *wreq)
+ 	switch (wreq->origin) {
+ 	case NETFS_WRITEBACK:
+ 	case NETFS_WRITEBACK_SINGLE:
+-	case NETFS_WRITETHROUGH:
+ 		netfs_wb_end(ictx);
+ 		break;
+ 	default:
+diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
+index 3b33ad5b69c3..5d130df2ff0d 100644
+--- a/fs/netfs/write_issue.c
++++ b/fs/netfs/write_issue.c
+@@ -96,7 +96,6 @@ struct netfs_io_request *netfs_create_write_req(struct address_space *mapping,
+ 	struct netfs_inode *ictx;
+ 	bool is_cacheable = (origin == NETFS_WRITEBACK ||
+ 			     origin == NETFS_WRITEBACK_SINGLE ||
+-			     origin == NETFS_WRITETHROUGH ||
+ 			     origin == NETFS_PGPRIV2_COPY_TO_CACHE);
+ 
+ 	wreq = netfs_alloc_request(mapping, file, start, 0, origin);
+@@ -367,11 +366,7 @@ static int netfs_write_folio(struct netfs_io_request *wreq,
+ 		streamw = true;
+ 	}
+ 
+-	if (wreq->origin == NETFS_WRITETHROUGH) {
+-		to_eof = false;
+-		if (flen > i_size - fpos)
+-			flen = i_size - fpos;
+-	} else if (flen > i_size - fpos) {
++	if (flen > i_size - fpos) {
+ 		flen = i_size - fpos;
+ 		if (!streamw)
+ 			folio_zero_segment(folio, flen, fsize);
+@@ -613,103 +608,6 @@ int netfs_writepages(struct address_space *mapping,
+ }
+ EXPORT_SYMBOL(netfs_writepages);
+ 
+-/*
+- * Begin a write operation for writing through the pagecache.
+- */
+-struct netfs_io_request *netfs_begin_writethrough(struct kiocb *iocb, size_t len)
+-{
+-	struct netfs_io_request *wreq = NULL;
+-	struct netfs_inode *ictx = netfs_inode(file_inode(iocb->ki_filp));
+-
+-	netfs_wb_begin(ictx, false);
+-
+-	wreq = netfs_create_write_req(iocb->ki_filp->f_mapping, iocb->ki_filp,
+-				      iocb->ki_pos, NETFS_WRITETHROUGH);
+-	if (IS_ERR(wreq)) {
+-		netfs_wb_end(ictx);
+-		return wreq;
+-	}
+-
+-	wreq->io_streams[0].avail = true;
+-	__set_bit(NETFS_RREQ_OFFLOAD_COLLECTION, &wreq->flags);
+-	trace_netfs_write(wreq, netfs_write_trace_writethrough);
+-	return wreq;
+-}
+-
+-/*
+- * Advance the state of the write operation used when writing through the
+- * pagecache.  Data has been copied into the pagecache that we need to append
+- * to the request.  If we've added more than wsize then we need to create a new
+- * subrequest.
+- */
+-int netfs_advance_writethrough(struct netfs_io_request *wreq, struct writeback_control *wbc,
+-			       struct folio *folio, size_t copied, bool to_page_end,
+-			       struct folio **writethrough_cache)
+-{
+-	int ret;
+-
+-	_enter("R=%x ic=%zu ws=%u cp=%zu tp=%u",
+-	       wreq->debug_id, wreq->buffer.iter.count, wreq->wsize, copied, to_page_end);
+-
+-	/* The folio is locked. */
+-
+-	if (*writethrough_cache != folio) {
+-		if (*writethrough_cache) {
+-			/* Did the folio get moved? */
+-			folio_put(*writethrough_cache);
+-			*writethrough_cache = NULL;
+-		}
+-		/* We can make multiple writes to the folio... */
+-		if (wreq->len == 0)
+-			trace_netfs_folio(folio, netfs_folio_trace_wthru);
+-		else
+-			trace_netfs_folio(folio, netfs_folio_trace_wthru_plus);
+-		*writethrough_cache = folio;
+-		folio_get(folio);
+-	}
+-
+-	wreq->len += copied;
+-
+-	if (!to_page_end) {
+-		folio_mark_dirty(folio);
+-		folio_unlock(folio);
+-		return 0;
+-	}
+-
+-	ret = netfs_write_folio(wreq, wbc, folio);
+-	folio_put(*writethrough_cache);
+-	*writethrough_cache = NULL;
+-	wreq->submitted = wreq->len;
+-	return ret;
+-}
+-
+-/*
+- * End a write operation used when writing through the pagecache.
+- */
+-ssize_t netfs_end_writethrough(struct netfs_io_request *wreq, struct writeback_control *wbc,
+-			       struct folio *writethrough_cache)
+-{
+-	ssize_t ret;
+-
+-	_enter("R=%x", wreq->debug_id);
+-
+-	if (writethrough_cache) {
+-		folio_lock(writethrough_cache);
+-		netfs_write_folio(wreq, wbc, writethrough_cache);
+-		folio_put(writethrough_cache);
+-		wreq->submitted = wreq->len;
+-	}
+-
+-	netfs_end_issue_write(wreq);
+-
+-	if (wreq->iocb)
+-		ret = -EIOCBQUEUED;
+-	else
+-		ret = netfs_wait_for_write(wreq);
+-	netfs_put_request(wreq, netfs_rreq_trace_put_return);
+-	return ret;
+-}
+-
+ /*
+  * Write some of a pending folio data back to the server and/or the cache.
+  */
+diff --git a/include/linux/netfs.h b/include/linux/netfs.h
+index e239d104f1a5..a3ef0e983a86 100644
+--- a/include/linux/netfs.h
++++ b/include/linux/netfs.h
+@@ -208,7 +208,6 @@ enum netfs_io_origin {
+ 	NETFS_DIO_READ,			/* This is a direct I/O read */
+ 	NETFS_WRITEBACK,		/* This write was triggered by writepages */
+ 	NETFS_WRITEBACK_SINGLE,		/* This monolithic write was triggered by writepages */
+-	NETFS_WRITETHROUGH,		/* This write was made by netfs_perform_write() */
+ 	NETFS_UNBUFFERED_WRITE,		/* This is an unbuffered write */
+ 	NETFS_DIO_WRITE,		/* This is a direct I/O write */
+ 	NETFS_PGPRIV2_COPY_TO_CACHE,	/* [DEPRECATED] This is writing read data to the cache */
+diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
+index 2010c878b0da..ef1185993ba4 100644
+--- a/include/trace/events/netfs.h
++++ b/include/trace/events/netfs.h
+@@ -30,8 +30,7 @@
+ 	EM(netfs_write_trace_dio_write,		"DIO-WRITE")	\
+ 	EM(netfs_write_trace_unbuffered_write,	"UNB-WRITE")	\
+ 	EM(netfs_write_trace_writeback,		"WRITEBACK")	\
+-	EM(netfs_write_trace_writeback_single,	"WB-SINGLE") \
+-	E_(netfs_write_trace_writethrough,	"WRITETHRU")
++	E_(netfs_write_trace_writeback_single,	"WB-SINGLE")
+ 
+ #define netfs_rreq_origins					\
+ 	EM(NETFS_READAHEAD,			"RA")		\
+@@ -43,7 +42,6 @@
+ 	EM(NETFS_DIO_READ,			"DR")		\
+ 	EM(NETFS_WRITEBACK,			"WB")		\
+ 	EM(NETFS_WRITEBACK_SINGLE,		"W1")		\
+-	EM(NETFS_WRITETHROUGH,			"WT")		\
+ 	EM(NETFS_UNBUFFERED_WRITE,		"UW")		\
+ 	EM(NETFS_DIO_WRITE,			"DW")		\
+ 	E_(NETFS_PGPRIV2_COPY_TO_CACHE,		"2C")
+@@ -223,9 +221,7 @@
+ 	EM(netfs_folio_trace_sched_copy,	"sched-copy")	\
+ 	EM(netfs_folio_trace_store,		"store")	\
+ 	EM(netfs_folio_trace_store_copy,	"store-copy")	\
+-	EM(netfs_folio_trace_store_plus,	"store+")	\
+-	EM(netfs_folio_trace_wthru,		"wthru")	\
+-	E_(netfs_folio_trace_wthru_plus,	"wthru+")
++	E_(netfs_folio_trace_store_plus,	"store+")
+ 
+ #define netfs_collect_contig_traces				\
+ 	EM(netfs_contig_trace_collect,		"Collect")	\
 
