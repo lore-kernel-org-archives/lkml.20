@@ -1,180 +1,77 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE7F57269A;
-	Wed,  9 Sep 2026 14:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20941560AD1;
+	Wed,  9 Sep 2026 14:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962670; cv=none; b=iqrWPpbV5U31HznS0oNaTcp+AI1Yt3Zep4Fvf0T2UaPqOexMVHOp6u/DDef0mqeONsfz2oeb5Lkd4zaWcMSgZ9ypUQYTeZdZEkk1ZduwY2ZeYMDUac7FO6Z4c74+2dMuom/tTrWmIO8aSsqSOy7/bBIYs+3spdZqRCEySUW4tAU=
+	t=1788962675; cv=none; b=Hagdf1zMoPm70LBOJo5y5RbmxzDP1dqmoZQhBVLWHOnZqtpMEJorqr3KhpNkcalrhOy1UWhm11NynZYsZ9a4eDN55XGeFMKXgGhUGhLfI9thC32Xk+eTj6dFUlJiAgvwNpjHRUwVJxPcarcU2ZnbajsO6AfciiPBuOl6FhGQVfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962670; c=relaxed/simple;
-	bh=TqpjP5ctdbMBfjdQ3xchi3iQf5+kqiUB8ayK9Hx6gCQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=U/HiCUyKrzJwM3sNfmak78S4RBqpSlSdwcZzyH7SRFRfueoMR2r8Olf/2sDkJz3fYbPmI6x7b28GH3xG1C2jaZO9wmnOBqGPLSguOF8pq5a7wh158inbAjuEvSX9xY+gJW0tK4HwjTVgY6ChnQHBWiZFCj7rcoEB7bYzKQzme5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=ZbStF4YT; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1788962675; c=relaxed/simple;
+	bh=OJD87lMkLHMi6HkTdkYnT32+c3WlOXdiUwjXZ9pd1LA=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OVt0FAI9lZpBEMCYdg8CGCi7HfqD+MLq30fYdTTGDsc2hFlBl01gzb/JNQSJgEymN9tdboMcUdrY2ZVpdp7p56ufqAaGImz4Fkv0RCXSgHuufMkzCTSOfgFXB0SP9efjkHoRRVVzz4txZT0WnkUl7dBg+iipUArO08kYNuAacQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBZYD+Zt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="ZbStF4YT"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CB97A3F5BFC;
-	Wed,  9 Sep 2026 16:04:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1788962665; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=GbZ+kq+bXbuQJ0qyjJXlbpAYIP3f31dn92HzYKo8G1Y=;
-	b=ZbStF4YTtaFAQ8jvtKGVrINmdczm2iC65xOn0/zOyL8ZNKNMXcl3bwuEucXKYgIQhFbrDR
-	jckZm1mOJV88tw436TOeeZrnNCr7Eth14hiEytV9BoUspAs63k7E97xUGHqLydNrlqf667
-	aWEe4nihJcZ2JeTQS9BxwIeZXw2qv5Gpw/hKw25Y1mhaFA4Igsmpb4mWF16o804mTYXH5E
-	U1gSfK9q9DFwvktQG3Rbrp6PgKozIi9ce7uyAPDR67gOlV4JeKPnkBEvmhDhs3C5XdrCHU
-	zxkkUehe36InegeEdBWEvj2Db9Vsp0EZS7uWI10K9cdQIs6bKBOiHmpf82mW2w==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	linux@armlinux.org.uk,
-	arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com,
-	dqfext@gmail.com,
-	sean.wang@mediatek.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	naseefkm@gmail.com,
-	b.larsson@gmx.com,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH net-next 6/7] dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
-Date: Wed,  9 Sep 2026 14:03:45 +0000
-Message-Id: <20260909140346.2861572-7-cjd@cjdns.fr>
-In-Reply-To: <20260909140346.2861572-1-cjd@cjdns.fr>
-References: <20260909140346.2861572-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBZYD+Zt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BAC61F00A3A;
+	Wed,  9 Sep 2026 14:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788962674;
+	bh=J5CYiXhnzzWfqnVyuOqYfQ2GCCsXntkBBPpvhU0KG9U=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=EBZYD+ZtOU7lMsSmSTLz3bh9TnVBlUVqkxGZ7wbKXipbdA82N1RH27rqP6A38FWRU
+	 t68vXYIJRKRxlA8HZnYFeE8aavPtMrhDe4BwS2cKShEgLhsWkQ18NTtGcQg2kEbmnp
+	 3V/SQ7bg6GPmj5pSyDxXSHvTNVdmRhbugnz8nihGCKRLwSf3mt54FgHorYDtHP/Ohx
+	 5gZOq8HaM/unool5vBlwtTsWQeB/0AX15/YTtGO34zIxMqSWSC8RxrOICdaHZjFQgW
+	 x+gwY2VUK50Sg4D30RTzvyNN6e4TjAsKOIkeQKtDqV+RbC/v3riNLaT1xwL/2OOJXp
+	 lUnqSHpqkSpbw==
+Message-ID: <af38d347c93f00a5524de00dddef5ba54f692b87.camel@kernel.org>
+Subject: Re: [PATCH] NFS: replace sprintf() with snprintf() in nfs_root_setup
+From: Trond Myklebust <trondmy@kernel.org>
+To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>, Anna Schumaker
+	 <anna@kernel.org>, "open list:NFS, SUNRPC, AND LOCKD CLIENTS"
+	 <linux-nfs@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Date: Wed, 09 Sep 2026 10:04:32 -0400
+In-Reply-To: <20260908183444.183687-1-lalitshankarch@gmail.com>
+References: <20260908183444.183687-1-lalitshankarch@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
-in the SoC register space. It is similar to the econet,en7528-switch
-except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
-port 5 has no PHY, but is in some implementations connected to a
-downstream MT7530 multi-chip module via a TRGMII link.
+On Tue, 2026-09-08 at 18:34 +0000, Lalit Shankar Chowdhury wrote:
+> Replace sprintf() with snprintf() to perform bounds checking when
+> formatting.
+>=20
+> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+> ---
+> =C2=A0fs/nfs/nfsroot.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/fs/nfs/nfsroot.c b/fs/nfs/nfsroot.c
+> index 432612d22437..d2c26d5378a6 100644
+> --- a/fs/nfs/nfsroot.c
+> +++ b/fs/nfs/nfsroot.c
+> @@ -144,7 +144,7 @@ static int __init nfs_root_setup(char *line)
+> =C2=A0		size_t n =3D strlen(line) + sizeof(NFS_ROOT) - 1;
+> =C2=A0		if (n >=3D sizeof(nfs_root_parms))
+> =C2=A0			line[sizeof(nfs_root_parms) -
+> sizeof(NFS_ROOT) - 2] =3D '\0';
+> -		sprintf(nfs_root_parms, NFS_ROOT, line);
+> +		snprintf(nfs_root_parms, sizeof(nfs_root_parms),
+> NFS_ROOT, line);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	/*
 
-The downstream MT7530 is similar to the MT7621 multi-chip module and
-has all gigabit ports.
-
-Add the econet,en751221-switch compatible with the same constraints as
-the other built-in switches and also add the econet,en751221
-multi-chip-module switch whose port 6 is configured as a DSA link port.
-
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- .../bindings/net/dsa/mediatek,mt7530.yaml     | 43 ++++++++++++++++++-
- 1 file changed, 41 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-index e29fb8693498..106c4087528d 100644
---- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-@@ -29,6 +29,12 @@ description: |
-   and the switch registers are directly mapped into SoC's memory map rather than
-   using MDIO. The DSA driver currently doesn't support MT7620 variants.
- 
-+  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
-+  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
-+  module implementation of the MT7530 as well as the on-die switch. In these
-+  packages, the multi-chip module is connected to port 5 of the on-die switch
-+  via a TRGMII link.
-+
-   There is only the standalone version of MT7531.
- 
-   Port 5 on MT7530 supports various configurations:
-@@ -111,6 +117,14 @@ properties:
-           Built-in switch of the EcoNet EN7528 SoC
-         const: econet,en7528-switch
- 
-+      - description:
-+          Built-in switch of EcoNet EN751221 SoC
-+        const: econet,en751221-switch
-+
-+      - description:
-+          Multi-chip module MT7530 in EN751221 SoC
-+        const: econet,en751221
-+
-   reg:
-     maxItems: 1
- 
-@@ -160,8 +174,8 @@ properties:
-   mediatek,mcm:
-     type: boolean
-     description:
--      Used for MT7621AT, MT7621DAT, MT7621ST and MT7623AI SoCs which the MT7530
--      switch is a part of the multi-chip module.
-+      Used for MT7621AT, MT7621DAT, MT7621ST, MT7623AI and EN751221 SoCs which
-+      the MT7530 switch is a part of the multi-chip module.
- 
-   reset-gpios:
-     description: |
-@@ -223,6 +237,20 @@ $defs:
-                 phy-mode:
-                   const: internal
- 
-+  mt7530-passthrough-dsa-port:
-+    patternProperties:
-+      "^(ethernet-)?ports$":
-+        patternProperties:
-+          "^(ethernet-)?port@[0-6]$":
-+            if:
-+              required: [ link ]
-+            then:
-+              properties:
-+                reg:
-+                  const: 6
-+                phy-mode:
-+                  const: trgmii
-+
-   mt7530-dsa-port:
-     patternProperties:
-       "^(ethernet-)?ports$":
-@@ -330,6 +358,7 @@ allOf:
-             - airoha,en7581-switch
-             - airoha,an7583-switch
-             - econet,en7528-switch
-+            - econet,en751221-switch
-     then:
-       $ref: "#/$defs/builtin-dsa-port"
-       properties:
-@@ -337,6 +366,16 @@ allOf:
-         mediatek,mcm: false
-         reset-names: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - econet,en751221
-+    then:
-+      $ref: "#/$defs/mt7530-passthrough-dsa-port"
-+      required:
-+        - mediatek,mcm
-+
- unevaluatedProperties: false
- 
- examples:
--- 
-2.39.5
-
+Please see the two lines immediately above the one you're replacing.
+--=20
+Trond Myklebust
+Linux NFS client maintainer, Hammerspace
+trondmy@kernel.org, trond.myklebust@hammerspace.com
