@@ -1,166 +1,225 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010022.outbound.protection.outlook.com [52.101.193.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CAD4A13AB;
-	Wed,  9 Sep 2026 10:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948314; cv=fail; b=jn9n2H0I6ncsMlzFP36L5vur424ZhvBm+ezTFLWJPYlbpLigPH46ShCvvpgTvgNSlqM0/Smgn5TvJgRj7Z97hFfxWSZilh/GVfL7F94GFgRqyjOc3EErOQn2V0QUfR5WXIPTqWHeMsdb6TBCzI1XHUwtfLlsvVOwDugWiRWVd8s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948314; c=relaxed/simple;
-	bh=mommDlIfr6v5iIyjDxB9GdHf4/OtrIPvNV3g7Pj7dLQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VqsdbJFzArcOs9GnvdXaa8bdiNkprzXkBYxyoe6PS7+Ub3/xWUuqtoOFv/6r+pkpeR4KqzBg5xLNZYxjJVcxnWd9WsvGs7+tkWbsvvtXksUct1cAHp/kIebjvezSvCobc8W+mnQd8+N6RhejJRTrxhr1aGeLUaleVkAM/wy4DQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kajTagdN; arc=fail smtp.client-ip=52.101.193.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0202649F120
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788948325; cv=none; b=r5ix6BT2WQA84u0RgrPMHywRUB5yZxaHWp/PnLYBcKMD0pNhAsLO1FJ+3s1O/Q7stBpHio0SCFbVGAWqm6yteUXcdhrPeNO/vNHt/eM79tKRqKyMRdTcbkOfq6XtRZMgC9mVAoGrX2GqQjK3ukvL1LoTvatE2SmWNVbi8X7JnCA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788948325; c=relaxed/simple;
+	bh=qMr1bVSK6brdsAbJBgTYmdPhEJSJ4vqK0Yk38H2rNMM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=QKUUW/X0O64nXjpGO145lflyL2Y+O8jaxZb9Ebs73/72k3wU42RUhe6moMPFWf49L2Z9SylDYovDVR771cgcaA/Xh0nuZ1YcSChIFqWJzgXyeCDh2EhgtC46+QJJYKoEJLIuL4R2ZoR0cu9kGF4YYvEiuUQpdF13i+sZubgrtPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qJIdpKn1; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kajTagdN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aBS6E88mfh9XG2ZvfzHH03UYtEzqVaNR+D8RhCi2ut3JoHwgFz8G1P8weLHEY81SVxWWEsZS8+PMbf6n/b00lgSUWAOdAJXwJN1tkhLnaA9HaUYB73Fjp6TStql+yD9QqDutBFOD9+9jkJywS3QeYgUMfr+x9jr2WvuFtJnPqEWA8NXk6Np8wNt27AzigcWxcBl8IyIussAkpCb8uGhLhYT+xpK33H09YK2Tpka55c4RXhGIMX77e5gxdNDGiVcNf79fYrLCUwvqmcSdgUYEMFb2M8zudOVKPsgMxbh/XiSx2cfMwOfTJld+l7Estee+pkYkxuLubCi94VImfhk8Xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yBulYzLuaXm5q0fyfFP1a0ec8oPVMx2WQpmz46oT4sw=;
- b=ZhRDoaEuf43KZcP098tOXS6gFXteP7h46ouq7r+gHgpIJrNF6Dpr4tdqxU2ey6pYa/CTOFKPvuLhayc/0D1lMp3cRBe4/EQIKHyDe5MkQrN5oCvNBM5jVc0FF1orJsu1CjpckvglYQljqnK7nuxZptF4FqacvNYkhkIGYLrBjMwJRrNt2hjJcNIgvMeBh7isTUfNBNZ27MGICo0yMGHnD+7us3Hc9LyS7iVyQLtN9xxGZlfcXTTZEXcAR5ZVkYhYin++b3GLg3dHO4fbGVJADrBwR4vdyjQFMpWJSAgev6fH5ok9QGSiEsATGU0UMSSQUqcNDiBv16nU+SaGaQuYhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=transsion.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yBulYzLuaXm5q0fyfFP1a0ec8oPVMx2WQpmz46oT4sw=;
- b=kajTagdN/qTlYv8iiObdR9rEl2EtEbRGF2SMAXG7l4DQ4mXXCUBn/nnOvepHQhBbPt0Ze318QwXMJNbGUdE90uh/T1cpcn9JevmbNJeloo6/m6jNtQa9V8lSZ63ZdTSFV6JUq+4kHGXsMWIQxQajO+oUPb5hPp8MlbJ/dbOO45o=
-Received: from SJ0PR05CA0013.namprd05.prod.outlook.com (2603:10b6:a03:33b::18)
- by CH3PR12MB7764.namprd12.prod.outlook.com (2603:10b6:610:14e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 10:04:52 +0000
-Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
- (2603:10b6:a03:33b:cafe::43) by SJ0PR05CA0013.outlook.office365.com
- (2603:10b6:a03:33b::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 9
- Sep 2026 10:04:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 10:04:51 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 05:04:51 -0500
-Received: from [10.136.42.177] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 9 Sep 2026 05:04:46 -0500
-Message-ID: <a2466e7d-2dd7-4de9-963f-6eb8c58d4a49@amd.com>
-Date: Wed, 9 Sep 2026 15:34:45 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qJIdpKn1"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8565d77c277so73379707b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:05:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788948323; x=1789553123; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yFQHd4CD2vPDTEJCwRK4KnJHHa5RS0l8x4Ius5m53Xw=;
+        b=qJIdpKn1TDNl8g9xLqgYhGyLTBFmZwLT3uxh4xLIzoB6uOXZ/kkb6TCBUi6sGuyltQ
+         v+Z3Zv2H16MDHZkRD67zgpNvUxTMXYVsrHpgDheD6iGS6mJYgn6KYYTqakiEnpnBvgtd
+         rFGNLbZJq3Z549hPDiaZ2IVFgxtbuSvWkrT7/EmPXP/oUODZbGq8dLOk+2HXp18a2Q/S
+         cfxGp7GsdIQTy8bur5gKlM2+NtSyAdXuqQj2J1AUsqyml8eQWrmyQ7n18yLytFBGh0uP
+         KCqqbNOELV+f/RDtWz2WBhaYkKkxWjWidVHWY6gN7tgXQoR8KJHAmTqQ1Be9uJqc88/j
+         koww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788948323; x=1789553123;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yFQHd4CD2vPDTEJCwRK4KnJHHa5RS0l8x4Ius5m53Xw=;
+        b=Jdhxo8jyGZYJQk9nIbK/2GixjJIDwD0IMs6tP2ExN1oXjhewbf+Czm3o35LD9Qp+C9
+         00oMkU40pzuPgjxVU69VtW4tmPzO8un1HGBPXG6Z241pLM3yPB7k8zKw8TzKthKJrwYM
+         FU4j9LP4hpfnHM+YQmik5QIe3lOBnSCfIgNrqqVHxeDYiLFlBTUMXxzm553ZessrW0cD
+         jVJhZcvJnJzOuDF+AjuSnRpYznTQnUd0zyfHOUY9UNUUfyFLqKOh3kHuD+yR/FeboJJc
+         4D6M4kEl2eENQRfaj+7R6daL5jxHVGveHiTXyLO8Q4BckqO5PBHAMwTb4/Paoef3JCbL
+         wZJw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6S3dMDZBn6yWRkOcegw50hiRr2Gb9Bxv7RIHxhOijFMrQDzOsUzt6SDDdhBY2XjmNfCEHZpY/KGqL/4k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLS6Vr7OPqzi6h37MQ2y7ZWgovKWtS6ukUQJxSMNd2hMB1fvCt
+	0LOjEGMhFEJYyQA9gTUfvBHuQfo7I1JE3GUwqIt5eyyhRmHtSHgODhSbUy9XnsbuZg==
+X-Gm-Gg: AYBFou1T/gTNsmv3w3WikRRvVDgps5pgTef4hftH6vpEwEkLEUzG5ZXOjpYdy0T/IdW
+	GmINV2e279O816hUqhz/kzDCTGcOPtjkLUJloowXmrH2+m0P9dJxpe3ARZ8Bsl+WfT8cFiLnmsc
+	SGEMTYT+7P7Yl9giPs0dJ2kdkzNbykHN4rNoTP9UNugSPNiHLzyxXgfU2xv7jYV2xq/TRBgUA5J
+	JZJg6ZcaWuuIpoelyYfCsDO/wIcaha7p5xDlmNwfbIvuO/2QZP65l/1ieFHWC/Flts6q69N9vHn
+	xUa1uR9o97uRSxq0aQHGVRc7i+fKu0oNlLDKO1SBpBzseJO9qV/uB13XHeCGXvmIH2Lw3CdxKw4
+	EDv8NFqV2/r9uFUIB8f/hFfOmZQtbIhtssde1Bjdny2E7OIrAOK0FXRCaV2L1CH5t2dyK14QLNy
+	s918e+rAZzkoMYH8REMNGw9ifU4jzTISUQKEZvciNUnh8/bH2uk3xMGbktCjdGlApzVEgjLG77w
+	kmqjGa5I5WqJfTYnbhDWye05I12HV9hVBvCqxJTEhJz/Fs9qTvyWInJ6MU=
+X-Received: by 2002:a05:690c:88:b0:864:6f4d:ef7f with SMTP id 00721157ae682-87121acbbc5mr139779397b3.7.1788948322156;
+        Wed, 09 Sep 2026 03:05:22 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714befac64sm107718397b3.47.2026.09.09.03.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:05:21 -0700 (PDT)
+Date: Wed, 9 Sep 2026 03:05:16 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 12/26] mm/fbatch: remove percpu_pvec_drained and
+ folios_put()
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <e5f75b23-a65d-85f0-850d-a3c375ef420a@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/fair: Only apply cpufreq pressure where frequency
- is invariant
-To: Hongyan Xia <hongyan.xia@transsion.com>, jong wu <jianyong.wu@outlook.com>
-CC: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Viresh Kumar <viresh.kumar@linaro.org>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "zhongyuan@hygon.cn" <zhongyuan@hygon.cn>,
-	"huangsj@hygon.cn" <huangsj@hygon.cn>, Vincent Guittot
-	<vincent.guittot@linaro.org>, "Rafael J . Wysocki" <rafael@kernel.org>
-References: <20260821073927.455475-1-wujianyong@hygon.cn>
- <fea033f4-a680-445f-b231-2a0cc1dded8b@transsion.com>
- <F16AADE6-B6B7-4997-9CC1-A2E323498B7F@outlook.com>
- <CAKfTPtCxMA-7BX20LNhdOT+BQysdnOxOALrLvhTFNYJLbdsoCA@mail.gmail.com>
- <SI2PR04MB4931F65C44962845CE345B79E3B72@SI2PR04MB4931.apcprd04.prod.outlook.com>
- <44993024-f1bb-4b4f-802b-a22f95101171@transsion.com>
- <SI2PR04MB49315D05AB89CFA3B0E41BF3E3B62@SI2PR04MB4931.apcprd04.prod.outlook.com>
- <f38d55b1-68f8-4cfa-8b97-47fe58bd9ed7@transsion.com>
- <d709498b-9572-44bd-a93e-bbed23fd7372@amd.com>
- <4e39e935-2339-442b-8b14-a688b605c35e@amd.com>
- <a9dc111b-21cb-4bcb-ac91-f6be04bc2e06@transsion.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <a9dc111b-21cb-4bcb-ac91-f6be04bc2e06@transsion.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|CH3PR12MB7764:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8403efda-aefd-45cc-14bc-08df0e59ca1d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|32650700020|1800799024|376014|7416014|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	/xFaefZvtT3/p4wvmtOvBk/Trt/iTnwbeFU01Hh+QlItsTI9pa1iI3TFqowGbIks0M5kFxE7TsW51W3HQsh9vPLYbxRQ20nVDL/m3cWgl2KiiF2uJ7RH59vIBWUU49IH5KRFfrVteQ1s9DeDFLpY3iRo1Vh0pmWTgGEsTgPkJnhfaJANXva1MDBSHeP+CSU45clv3T2ZQNY11lz9/8aGz0DnYjGdhfMMsOp3HMk5Vuys5B7w4KyWdPLhHWHvHXFXK9kZ1RNMGFFL5Zbi401u80b/haYT9fzNMque7GjQpczmCUo+H2Rw2HaVff1cIBwNHUjjNBmv6/7/arHfs7ap+NUhlKQiBxWB+81PEtHzrqW6q7N8XHigiFsMU20J4iH6xNcKLW12fyKJHLFwo7zqG+RxGEUaucGdNv23xHGut/pk5GNQHVw9cUZ9A8bdgjgv5ETP0oJOn8tIZiiH8GeUem8JVY3ondAUJor2/I3TjZy9WVrcmDM6mxdgDn5kEOVv6M1TgKemJwnkzdr83CPZJxN/XuVVeItOJFqrM5VA1SSewvb54yKFcXwL1yyRo67pQcPc9k5Rje9L60VQuXwp+rj1666avSxOjRflJqHH4yJXpyRjzUTmlSDzwrPBEkU/x6s721SA7wLukeElMhecZfieyLIZ54bvO2yOaw0uRv77nzL1aRSwvKPQPo0oqN9+20uJy8cV7QMMyqBz7+JSBg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(32650700020)(1800799024)(376014)(7416014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kug2vdRF9EInY7oKTC6IXNHcXK7KhFfFBvqCmn/ySjN4ErsfYM7sBORlVYFGainGXvxMmm+/yqqSgqYSA4lqkhzuHAVhUkXk3JD0U3hHnwSghm5GCf7ONXV5y8y6Z9UjC9VNWd8q393SDLKiTEDZPboey5jquCW6D4f6G+96WegPSnMTjKe/erOVNm45snZVvoJPn/iWxxCWfIW9AqCubiQbhtlg3U+0vzJz2mbAG1FI2QCnQc7hPETPbblTg7laX7UDd/nxL+d1vXsixPst38riZDzKoAJfrrio+JHYofCXwy0PyLYTQ2OjF0lG6QQxp8YksQB1x4QUT2WWPcFjvRASESiWW79SH/npPYV6xqqtibKm4M88ysAH6gitwWbBYmIyX+CDE1gJcQUZxNfhC4+d2W1K27WgV8jU6MsgSuW0iZahxj+1SbFMNoRTCbMt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 10:04:51.4675
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8403efda-aefd-45cc-14bc-08df0e59ca1d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7764
+Content-Type: text/plain; charset=US-ASCII
 
-Hello Hongyan,
+Remove the percpu_pvec_drained field from folio_batch, and its only use
+in __folio_batch_release(): remove that now pointless lru_add_drain().
 
-On 9/9/2026 9:39 AM, Hongyan Xia wrote:
->> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
->> index b898b6544069..97f4a3ba5107 100644
->> --- a/drivers/cpufreq/cpufreq.c
->> +++ b/drivers/cpufreq/cpufreq.c
->> @@ -2586,8 +2586,11 @@ static void cpufreq_update_pressure(struct cpufreq_policy *policy)
->>   
->>   	cpu = cpumask_first(policy->related_cpus);
->>   	max_freq = arch_scale_freq_ref(cpu);
->> -	if (!max_freq)
->> -		max_freq = policy->cpuinfo.max_freq;
->> +	if (!max_freq) {
->> +		max_freq = __resolve_freq(policy, policy->cpuinfo.max_freq,
->> +					  policy->cpuinfo.min_freq, policy->cpuinfo.max_freq,
->> +					  CPUFREQ_RELATION_H);
->> +	}
->>   
->>   	capped_freq = policy->max;
->>   
-> 
-> LGTM.
+Which leaves __folio_batch_release() as an exported name for folios_put()
+which is itself just a wrapper for folios_put_refs(): mm/mlock.c and
+mm/folio.c don't need such a wrapper, just say folios_put_refs(,NULL).
 
-Thanks a ton for taking a look at the suggestion.
+Or should folios_put() be the export? But __folio_batch_release() is what
+drivers/gpu and net/sunrpc are using: don't change them in this series.
 
-> 
-> NIT: I do wonder if we need a full __resolve_freq() each time. We could 
-> cache the highest achievable OPP on max_freq updates, but that's future 
-> optimization.
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ include/linux/folio_batch.h |  2 --
+ include/linux/mm.h          | 18 ------------------
+ mm/folio.c                  | 17 +++--------------
+ mm/mlock.c                  |  2 +-
+ 4 files changed, 4 insertions(+), 35 deletions(-)
 
-Sure! We can cache it in the policy object during
-cpufreq_policy_online().
-
-Jianyong Wu would like to take a stab at it? If not, I can send it out
-early next week.
-
+diff --git a/include/linux/folio_batch.h b/include/linux/folio_batch.h
+index e1cc8ae023f1..a3337f70e109 100644
+--- a/include/linux/folio_batch.h
++++ b/include/linux/folio_batch.h
+@@ -27,7 +27,6 @@ struct folio;
+ struct folio_batch {
+ 	unsigned char nr;
+ 	unsigned char i;
+-	bool percpu_pvec_drained;
+ 	struct folio *folios[FOLIO_BATCH_SIZE];
+ };
+ 
+@@ -41,7 +40,6 @@ static inline void folio_batch_init(struct folio_batch *fbatch)
+ {
+ 	fbatch->nr = 0;
+ 	fbatch->i = 0;
+-	fbatch->percpu_pvec_drained = false;
+ }
+ 
+ static inline void folio_batch_reinit(struct folio_batch *fbatch)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index dd09c438fa23..942a9d9ed5c8 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2201,24 +2201,6 @@ typedef union {
+ 
+ void release_pages(release_pages_arg, int nr);
+ 
+-/**
+- * folios_put - Decrement the reference count on an array of folios.
+- * @folios: The folios.
+- *
+- * Like folio_put(), but for a batch of folios.  This is more efficient
+- * than writing the loop yourself as it will optimise the locks which need
+- * to be taken if the folios are freed.  The folios batch is returned
+- * empty and ready to be reused for another batch; there is no need to
+- * reinitialise it.
+- *
+- * Context: May be called in process or interrupt context, but not in NMI
+- * context.  May be called while holding a spinlock.
+- */
+-static inline void folios_put(struct folio_batch *folios)
+-{
+-	folios_put_refs(folios, NULL);
+-}
+-
+ static inline void put_page(struct page *page)
+ {
+ 	struct folio *folio = page_folio(page);
+diff --git a/mm/folio.c b/mm/folio.c
+index 18e97923e527..5021639c5494 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -160,7 +160,7 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
+ 
+ 	if (lruvec)
+ 		lruvec_unlock_irqrestore(lruvec, flags);
+-	folios_put(fbatch);
++	folios_put_refs(fbatch, NULL);
+ }
+ 
+ static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+@@ -1043,22 +1043,11 @@ void release_pages(release_pages_arg arg, int nr)
+ EXPORT_SYMBOL(release_pages);
+ 
+ /*
+- * The folios which we're about to release may be in the deferred lru-addition
+- * queues.  That would prevent them from really being freed right now.  That's
+- * OK from a correctness point of view but is inefficient - those folios may be
+- * cache-warm and we want to give them back to the page allocator ASAP.
+- *
+- * So __folio_batch_release() will drain those queues here.
+- * folio_batch_move_lru() calls folios_put() directly to avoid
+- * mutual recursion.
++ * This used to optimize with a drain before putting: no longer helpful.
+  */
+ void __folio_batch_release(struct folio_batch *fbatch)
+ {
+-	if (!fbatch->percpu_pvec_drained) {
+-		lru_add_drain();
+-		fbatch->percpu_pvec_drained = true;
+-	}
+-	folios_put(fbatch);
++	folios_put_refs(fbatch, NULL);
+ }
+ EXPORT_SYMBOL(__folio_batch_release);
+ 
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 1050010bbe0b..97134eff6b56 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -191,7 +191,7 @@ static void mlock_folio_batch(struct folio_batch *fbatch)
+ 
+ 	if (lruvec)
+ 		lruvec_unlock_irq(lruvec);
+-	folios_put(fbatch);
++	folios_put_refs(fbatch, NULL);
+ }
+ 
+ void mlock_drain_local(void)
 -- 
-Thanks and Regards,
-Prateek
+2.51.0
 
-Disclaimer: Hygon emails are routed differently in our organization.
-Response might be slightly delayed until my NNTP rule finds the email.
-Sorry for any inconvenience.
