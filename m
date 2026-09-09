@@ -1,114 +1,270 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F73F4349B5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD372F549F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788938644; cv=none; b=YYWiyN5lJIlklA5uCFUSwWcDwdcKkrGJ39XkQ0KZPtv7C8mO/zRENqSrp6Mj3gCfth4ztoa6gUC/e54cfMyfCEDmGWC+gkgmImq+fNW7o93JPIx9A3PQnfyKsvog4paCpQ5GFvak/CiTK7ag98EWnWJ9fkaD14OIxmZwfyopnls=
+	t=1788938696; cv=none; b=egyTTWpfh5nuU6FKv57wnH+3OTsCau22LrIOZOxMw+P+kWDpuigDcG4PRowQmDqVHRRdAhEf0URmsjmnOp+EX3s6hgrQlCk8Y0zHhMkjkZFXhF1cGCD1cR1wT6E4gY9QhEJOx0MCEnr4doEAqqDCKtcwCZaYRCZ8V0t1ZwtBfYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788938644; c=relaxed/simple;
-	bh=ryt6UsspmEkzT69KdNUQnoLNqJtJsYqmA+A1mTbhgTQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=g4oIR1xh+swVGton7VpWGwm7E4XlEpGWLg9vHhywmuGYcsj7Y3ksMjRH5YqyvVSojkgsVgknDZ/zQYp4Ey8cBzfe4/HEuWhp0dbgWOF0259wEK6sadujg55Zki4Kz0J9t/1L2LcSH45X86Mq2zqvItVm8b1WaF0ab2HfADSYLX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b9376ed5so6557908eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:24:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788938642; x=1789543442;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6qCaPJDydYgACl5VF4XUWDNeYtUOsOuXabKoqj8+0j0=;
-        b=YdwxNNBAo7ui/XfMZVbZH9vdI6EiF4ckpu5w01WxdoVQpY0m1WPNEzgJHifwA7Sugm
-         fBhduhuQcOkf4iB1mY/Vx0YVHVHQvpYWFscFWkY33MCwLUe4lg1RL+OQD2keARGslwyg
-         CSU9334UvvugvhYca/vCeb4kpA9UIAHGN9vthIz+01RvuRdKIAkEFV0y5trOZ3sRD3cn
-         hzISyTlH58KHCwGUA5Mee/mfH1wZ4Sqcdv42whCRf6UHKegUMo00Oqx1AiQvOScfzm9j
-         kSyWqn8bjxLHa/G/8YgeEMeX3cI7q7qTXETUrCucOBiMCD8+KxjB/SzQw+z7stT0bdqU
-         Vnuw==
-X-Gm-Message-State: AFuF++k9JAmOm1vtf91US36T5RG2PCY3ZGpzs49l+fbTB77Nx1Ze9k95
-	rY7Pkh6IUQZ6ItSiOTTtMK6o/1nUSShZi77DwoyhQRmOEcOQ+Poh76r8HKKhx3RcBM3MpBMqF/m
-	8p5nIDDDRrkn9vw4Y0p9HDCo8W7ONvZ9ASPxYv+X5KRANICHGNEkhTkULsM4=
+	s=arc-20240116; t=1788938696; c=relaxed/simple;
+	bh=xiKI8fz/7WjYJfk9TgDUY/R81wzdazcKK+McmGiarD0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kU7Wctz2wrvkTv71KqXLm0H96jbFiYq0URt454Z3m0BY4uerE0RNTDV2PTeCrk4H4KBRg7ByO1syLXRJuj6qVYmAIqeRtue5NGPigYAmNgjGVvOBrRtKkR6FjYVLxXGN4bLpqeGWk9OaqjfCkNrhuNPqJzKref0vfL/YdESblzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=I4CWrIRE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fKyoB3Tq; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=J60PjoxO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cSvBQJlx; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="I4CWrIRE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fKyoB3Tq";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="J60PjoxO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cSvBQJlx"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 849D821A5F;
+	Wed,  9 Sep 2026 07:24:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788938686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Yl5e06UoiWWNjbj02pNlCdQxULBNGgKJHIdWoNlcIds=;
+	b=I4CWrIREfLJCtEwTXlCpOdYudenaa7pfaVt+Suvua2X3r15aGrasdQOrYjdnQTEwnI4lCl
+	fCwtSazSbLqYA3otofiUJAASY0+mQO9UvJ/1bn8LrGjWzIPMl+RXT6cbiPEEI7j3TxiJM0
+	DgchngiocwflTtVIT5qEOHVdv4x51ZE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788938686;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Yl5e06UoiWWNjbj02pNlCdQxULBNGgKJHIdWoNlcIds=;
+	b=fKyoB3Tqt0RUKa4GnNr1hX4a0Z7NWtRxOGZeKNMHWxTcna1mpOqvbtoJglTa8U5LYexWbH
+	epGqCU5g1RtluEBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=J60PjoxO;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cSvBQJlx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788938682; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Yl5e06UoiWWNjbj02pNlCdQxULBNGgKJHIdWoNlcIds=;
+	b=J60PjoxO1a4bNZcSm4KSwhI/xUHvW4SrS0WShninEMfBe/+bg53KJWdhc6CO4Cb8x6tfz5
+	+EYsdpN2ZX9dBpWX311Z/iHKhlVb62U371qX3p1L0hwa5ucn5RAFeNQnUvOdaNbk+jCewh
+	rwU8ZBTqsBBLuLwAhXDIiWXzWIDQWLc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788938682;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Yl5e06UoiWWNjbj02pNlCdQxULBNGgKJHIdWoNlcIds=;
+	b=cSvBQJlxd1p35vC+AYKgNbnlDTHqTzDvzTnFopPEdLLXXbQvfcF+lsmbHENOLfVHggRNeC
+	uWAJ7Oo+trjV9bAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 047C81347F;
+	Wed,  9 Sep 2026 07:24:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jcVqO7kJoWpUdAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 07:24:41 +0000
+Message-ID: <3c77a62c-13e2-44bd-a7e8-c2ea29dcf352@suse.de>
+Date: Wed, 9 Sep 2026 09:24:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8584:20b0:6ba:3635:8010 with SMTP id
- 006d021491bc7-6ba36359c46mr6546626eaf.67.1788938642225; Wed, 09 Sep 2026
- 00:24:02 -0700 (PDT)
-Date: Wed, 09 Sep 2026 00:24:02 -0700
-In-Reply-To: <20260909071013.7123-1-syedtayyabfarooq08@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa10992.6e6c5f9e.28f11f.001e.GAE@google.com>
-Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Write in tty_init_dev
-From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syedtayyabfarooq08@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/11] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
+ <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
+ Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
+ <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-9-905570f387a4@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908-drm-reset-state-flag-v3-9-905570f387a4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 849D821A5F
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid,suse.com:url];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-Hello,
+Hi
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in gs_close
+Am 08.09.26 um 16:35 schrieb Maxime Ripard:
+[...]
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index 0dbf04d4aa9e..f13bb7c490c4 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -303,10 +303,13 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
+>   		break;
+>   	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
+>   		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
+>   			     dev->mode_config.async_page_flip;
+>   		break;
+> +	case DRM_CAP_ATOMIC_RESET:
+> +		req->value = drm_atomic_can_create_state(dev);
+> +		break;
 
-------------[ cut here ]------------
-1
-WARNING: drivers/usb/gadget/function/u_serial.c:738 at gs_close+0x44c/0xca0 drivers/usb/gadget/function/u_serial.c:738, CPU#2: syz-executor933/6041
-Modules linked in:
-CPU: 2 UID: 0 PID: 6041 Comm: syz-executor933 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:gs_close+0x44c/0xca0 drivers/usb/gadget/function/u_serial.c:738
-Code: 00 c7 83 d0 04 00 00 00 00 00 00 e9 03 02 00 00 e8 19 50 21 fa 31 ff 44 89 ee e8 7f 4a 21 fa 45 85 ed 75 62 e8 05 50 21 fa 90 <0f> 0b 90 e8 fc 4f 21 fa 48 89 ef e8 54 69 e8 03 48 8b 0c 24 48 b8
-RSP: 0018:ffffc90003f376f0 EFLAGS: 00010093
-RAX: 0000000000000000 RBX: ffff8880257b6000 RCX: 0000000000000001
-RDX: ffff88802b12cb00 RSI: ffffffff87eac10b RDI: ffff88802b12cb00
-RBP: ffff8880257b6388 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880257b6184
-R13: 0000000000000000 R14: ffff88803a24a000 R15: 0000000000000000
-FS:  00007f6c62ee46c0(0000) GS:ffff8880d5d5d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000560a83265d20 CR3: 000000003538f000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- tty_release+0x40e/0x1300 drivers/tty/tty_io.c:1718
- tty_open+0x31d/0xe20 drivers/tty/tty_io.c:2119
- chrdev_open+0x234/0x6a0 fs/char_dev.c:411
- do_dentry_open+0x6ab/0x14d0 fs/open.c:996
- vfs_open+0x82/0x3f0 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x19fa/0x2440 fs/namei.c:5000
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f6c6373aa1e
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007f6c62ee4158 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f6c62ee46c0 RCX: 00007f6c6373aa1e
-RDX: 0000000000000002 RSI: 00007f6c63786028 RDI: ffffffffffffff9c
-RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000000 R14: 00007ffeaabd1a60 R15: 00007ffeaabd1b48
- </TASK>
+Looking at this and the other places where _can_create_state is being 
+used, I'd like to present a different design.
 
+Scratch the helper entirely and introduce a dedicated callback in 
+drm_mode_config_funcs that sets up the default state.  Your current 
+helper drm_atomic_commit_fill_with_defaults would be the common 
+implementation. The DRM core could test for the existence of this 
+callback to see if default-reset is available. Sure, we'd have to modify 
+all drivers, but it would be architecturally cleaner IMHO and give full 
+control to the drivers. Best regards Thomas
+>   	default:
+>   		return -EINVAL;
+>   	}
+>   	return 0;
+>   }
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index bc7ef7684099..b6e2f2edd122 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -793,10 +793,20 @@ struct drm_gem_change_handle {
+>    * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
+>    * commits.
+>    */
+>   #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
+>   
+> +/**
+> + * DRM_CAP_ATOMIC_RESET
+> + *
+> + * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
+> + * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
+> + * flag to reset all KMS object states to their defaults before applying
+> + * property changes.
+> + */
+> +#define DRM_CAP_ATOMIC_RESET	0x16
+> +
+>   /* DRM_IOCTL_GET_CAP ioctl argument type */
+>   struct drm_get_cap {
+>   	__u64 capability;
+>   	__u64 value;
+>   };
+> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+> index ed1a660a3dfd..32eb3f650d7a 100644
+> --- a/include/uapi/drm/drm_mode.h
+> +++ b/include/uapi/drm/drm_mode.h
+> @@ -1326,10 +1326,21 @@ struct drm_mode_destroy_dumb {
+>    * To the best of the driver's knowledge, visual artifacts are guaranteed to
+>    * not appear when this flag is not set. Some sinks might display visual
+>    * artifacts outside of the driver's control.
+>    */
+>   #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
+> +/**
+> + * DRM_MODE_ATOMIC_RESET
+> + *
+> + * Reset all KMS object states (CRTCs, planes, connectors, color operations)
+> + * to their default values before applying the properties in this commit.
+> + * Properties not explicitly included in the commit will remain at their
+> + * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
+> + *
+> + * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
+> + */
+> +#define DRM_MODE_ATOMIC_RESET 0x0800
+>   
+>   /**
+>    * DRM_MODE_ATOMIC_FLAGS
+>    *
+>    * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
+> @@ -1338,11 +1349,12 @@ struct drm_mode_destroy_dumb {
+>   #define DRM_MODE_ATOMIC_FLAGS (\
+>   		DRM_MODE_PAGE_FLIP_EVENT |\
+>   		DRM_MODE_PAGE_FLIP_ASYNC |\
+>   		DRM_MODE_ATOMIC_TEST_ONLY |\
+>   		DRM_MODE_ATOMIC_NONBLOCK |\
+> -		DRM_MODE_ATOMIC_ALLOW_MODESET)
+> +		DRM_MODE_ATOMIC_ALLOW_MODESET |\
+> +		DRM_MODE_ATOMIC_RESET)
+>   
+>   struct drm_mode_atomic {
+>   	__u32 flags;
+>   	__u32 count_objs;
+>   	__u64 objs_ptr;
+>
 
-Tested on:
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-commit:         893e1178 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12235749580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=130c2c8e580000
 
