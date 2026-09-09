@@ -1,191 +1,136 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB1F332EA0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974002; cv=none; b=l/bfkIzszxiUcH7e8GKWjOwp6ZWkH4Sc3lJ5Bc5umKglM7f2w1RvPKZ6929y0isk4//Ew/o75XhAzH31OjoIuTckVxFFDCpWaxRhvgfpxhOw8ikBWdF0BiUyv/NInsPxkd/7ib9WkBkOo4vXta7lwjd7dnspRrGAkREstJuwTAk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974002; c=relaxed/simple;
-	bh=Dvelg2xfRPt+GEBXYOdSLVS/wF4eTLVcXc9LhLKkpgo=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=Pzm41MwduiSfRpzFatTxa2V+cmtXzVGbh0vPwG8LY91e9FsOx4u3t/dzvNsMbXlxa9NEE6j7gf61+Ll8cS286eXkyzGJ+1JuXS5VslQIyK0vLopzlQqmjMAAWklcIsilIzXs9ixu02vJpLGykTG/MU/p0DqwuNjVhbAE5YnfU38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YcQzkByQ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6547035E549
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788974014; cv=pass; b=vFpa++Pw3FJ2rSmexR7Utzb6xt95RPtRKNyrcyyBHkWzis/IlCXuFYIjY1nIgp1PoVAgFojkSc6cpRARuShCZCoJMCVSWKRWERSVlyKUEyxvuaELNX/aucHrfyzXIzKiSyY8rmQPFknkMt+x925NpvLYei5R3Xo89/GDSVON5mo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788974014; c=relaxed/simple;
+	bh=BoITJbg+tcqR4yAMRl6LbU3qdaLtqDYLmTuTo1MWr54=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oGSjis4ERkcxnG7dF0uBTk9OQpE6XVayG0x5TXrSkaYFKbU/ZUCDeIcTV8Y+MMF4qrayqOYhV3TlsetwpwZqGCE1TzYqNpRZEaZGHdy4dN7H9vBfCVY3xgovOkL7ew8MuXRrMGIaXir/ofLA2PcpFk2wi/jEJmRvsCsoZu/9RR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lMOncLJx; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YcQzkByQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788973998;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZRfKNGkawxZEEz9tQqGkbnM4yy5E2ATyItYlCc0VsaI=;
-	b=YcQzkByQftwcmRmJy78qQd++OYuToQ1TVukzJF4c6v4k1yS4wicCXUb16iJ5wWF49zXrfz
-	tI6NtmrLlQkcFAOEvuF0gZRSxWEe+vwoHeoPRbV6vQsj9SiD0VvSNCy2nU8CeqY9hclFRm
-	oGrkp+lVVPrSs5tnNjCVZXfiABxblTo=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-690-tCCd9euFNRK1NjEfRlWKug-1; Wed,
- 09 Sep 2026 13:13:12 -0400
-X-MC-Unique: tCCd9euFNRK1NjEfRlWKug-1
-X-Mimecast-MFC-AGG-ID: tCCd9euFNRK1NjEfRlWKug_1788973990
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 64D6D19540C3;
-	Wed,  9 Sep 2026 17:13:10 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 258EE767;
-	Wed,  9 Sep 2026 17:13:07 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com>
-References: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com> <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com> <1714046.1788952509@warthog.procyon.org.uk>
-To: sorenson@redhat.com
-Cc: dhowells@redhat.com, Paulo Alcantara <pc@manguebit.org>,
-    Jeff Layton <jlayton@kernel.org>, linux-fsdevel@vger.kernel.org,
-    netfs@lists.linux.dev, CIFS <linux-cifs@vger.kernel.org>,
-    linux-kernel@vger.kernel.org
-Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination unreadable, SIGBUS on cifs with signing
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lMOncLJx"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso328921cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:13:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788974012; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q6TXD7+mg/Lk2lubpXnIp5vhn7+KeMQTIlQDsbtgqxtfwXosT7pvPq8B6FOJQUfCqc
+         8RDDjpEeNwOVRDQFEFnGQXTGtWJzfNPhchpG9G06H9Ur8c97Rzf4Sy79Ehf4aDhAGHxw
+         A9o0u19zHvDlNdkzw1hI1Q4dFT3/uDk4ZiOEikSSm8bmQM0c3sB8rRpFts/WYjJ8hEID
+         UnMJXkEuWP76XoDMlaGqgYmJB/8rWIi8X8YwAqDpMLgkJAfgKVW06zbdNI48MeUIJFid
+         jJpHQuWFPg0dTuZAA0oxgw//SzCQDumrGFoLeHhyeIAUwTAN/YKl/M6ZCJ/mh8nma2Wz
+         E/PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BoITJbg+tcqR4yAMRl6LbU3qdaLtqDYLmTuTo1MWr54=;
+        fh=JCzmrSNnjKRVyJho1vNNeR4o15CUNRmnCccUPVqW/cw=;
+        b=f/k/FsmDdOL39uNVnxrlICfeN5uDWSLCy8oXfzfIk3LnZ215KPvgIuxkO0JqMz7/vM
+         vMNJH2Pz+jrpZELVb1C6m9oACMC8XQZP5mGQK6w9ql/512ukOihj/xE9Xq/fDC5GCwuk
+         SY94J9dugWecbjr61wSWIvVGTrACxge/E3s5NpLS3SH3Dv4ze0Cdnq30jm1uhY5r0+19
+         yA0y9xGDjVHJQMzy12qfDsrX+o6vCVSlcU1w7RvmD1HpjpFNiVLznWpDaQakWZYIVog9
+         pgx4om2diDAeNXoTEMgNeJFJmRJbLfQ3vSKNdAeQas6sSmy9yHYpJdj203h8be1m+dZK
+         4LhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788974012; x=1789578812; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BoITJbg+tcqR4yAMRl6LbU3qdaLtqDYLmTuTo1MWr54=;
+        b=lMOncLJxINj9R9tafp9eA1n6M4h6oqObsKm3SmUuE9xfP3sFsYnDChggvPHMbofq5Y
+         CzdDiGscEfJCquZ5DWLuCnUBkLB3B6moWZblGJOJ64SRU7ji3vuqaAkAhFL8veHSi5uP
+         VGR3VL10GfW5ERdyu9jKjOXC1RENAeS8YNdhro4Cv6iL7IwTEMeGdlmOIDtgvpRxl9tJ
+         9UzH32aTScoi+WpPHZJUSl+JyfoyZWGl3Y36000Fut03vjZHiLFQ8b/noZ9AR4k6Yz7g
+         DEWE8XQ7FxhfQ/6iOVixakzGF0SyaCZGXD8OgKG9+Mr3+qG+zD+UWheCKEHzB9DfLmdJ
+         H4pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788974012; x=1789578812;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BoITJbg+tcqR4yAMRl6LbU3qdaLtqDYLmTuTo1MWr54=;
+        b=FZ0Vu8mCfw/lE/WkIoS8YYazwJjzfXA/Frg7FH92eEJwBkOrIk9lHBc2s6e5tLtVv4
+         kn8F6TgOSTAVxbXotWuBpsQkwwP8R6NhGax9Q2rUPkHP+7MPIjJsVCet4fQiNnXiRbev
+         nram+GauUhRYiztuSk20qoTLt5rTaPXw2ibDGERTgPChen0C0+WA8WKl2bavg+9jDRkg
+         CwGIx/eoHIHSRQY4S2MyLD5oDBPMr/xdDNAgi5qlL+NjFMM4hEnXEvDsLQzj21iLg6Fz
+         jVzOt2PNgHrgZrsydk8KxBzdUWVQzFOhPPlCNP5hnJcCDGKSkWqF5XJXItEo8cmRNMzD
+         iTpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLhwyHWimIl0pPrMM8WjlgsZFl9reecII8PzjcgEu/w0JnAwR6Ta5sh+E3l3qrg3O/WhbYW+SJoEe4bXk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNtYd6x55RQxFuwVSiFnPjlkseIvKcmbi7cOmVfwWNHQfCOVid
+	Ls3I2UCoTyLmKBTSfg2Ixy5ryIRhQ7Io14hO9J8Y7xQQQjckyqYsiWaOMZFqkRHo8G+2u3O1JaD
+	ziLOl0JN1jLERQJVZhyEVKAaNhrDj3PrTptLZIro/
+X-Gm-Gg: AYBFou3Eaqx3lJnmjyoQQGpd+6ywfC9dD0dMlVBHZqoe0RQlLEhUXpiTOK71S6QDpNv
+	u2o3FEfVoXVkVvIVHwVNNyxPg+BnyI49hSrliFWNriqDCtiJ7C/ASIr3emjHAcQkvYE+cCaHNyQ
+	dSE9q2CwQwxaY7RyP1zewV7/b4jlbo8HJYNnJT2BQpfIvYLDKkDb1/yvkW3+sN89zxD2UD+AMVv
+	jLj+x/aGsA1rLIIBRu6iIMnsFQP1RwPaj9SQGg3DpKBBNL8huswIs1do/hVcKsFahRI+DQCMg8l
+	79UZ5VuOgBnr4eL8iFsimNU1eCrJ/G1s5tXa6sxBJan4AUR0cmXrAU5GnA==
+X-Received: by 2002:a05:622a:400d:b0:50f:b69a:f4a8 with SMTP id
+ d75a77b69052e-530a5f013ddmr15911cf.7.1788974010867; Wed, 09 Sep 2026 10:13:30
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1729857.1788973986.1@warthog.procyon.org.uk>
+References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-2-surenb@google.com>
+ <1d5011f8-26a1-41e1-bb9d-8d72c08b8fe9@kernel.org>
+In-Reply-To: <1d5011f8-26a1-41e1-bb9d-8d72c08b8fe9@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 9 Sep 2026 10:13:18 -0700
+X-Gm-Features: AcwNN1VviiL9YOndRTSyFCutgcsYgAZMb28lE2qZmCuqHAyOyXU8c5SOoH4lvoQ
+Message-ID: <CAJuCfpH25ML1+hdhTtZUoSjgrNcGv9HbQD8o5UErmAdW-7C8Bg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] proc/task_mmu: remove unnecessary helpers
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 18:13:06 +0100
-Message-ID: <1729858.1788973986@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-How's the attached look?
+On Wed, Sep 9, 2026 at 10:06=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 9/7/26 08:39, Suren Baghdasaryan wrote:
+> > When per-vma locks were behind a config option, a number of helper
+> > functions were needed to simplify the locking code. Now that these
+> > locks are universally available, we can do a little cleanup.
+> > Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
+> > query_vma_teardown() helpers.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > ---
+>
+> As Usama says, this could get picked up early independent of the rest (ma=
+ybe
+> even as part of the other patch set)
 
-David
----
-commit bc3adc29e9ed4bd564527690bb553d17ee9a24be
-Author: David Howells <dhowells@redhat.com>
-Date:   Wed Sep 9 11:36:30 2026 +0100
+I can post the 3 cleanup patches separately from the one that switches
+to using per-VMA locks if that's preferable. One downside: I'll have
+to wait until the cleanups are picked up before posting the last
+patch, as it depends on these cleanups. Please let me know if I should
+split them anyway; otherwise, will keep v3 as a single patchset.
 
-    netfs: Fix netfs_read_gaps() to use separate sink folios
-    =
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-    Fix netfs_read_gaps() to use separate folios rather than re-using a si=
-ngle
-    sink folio to discard the unwanted data so that cifs checksum checking=
- sees
-    all the data that was fetched.
-    =
+Thanks!
 
-    Fixes: 7f84a7b9892d ("netfs: Make netfs_read_folio() handle streaming-=
-write pages")
-    Reported-by: Frank Sorenson <sorenson@redhat.com>
-    Closes: https://lore.kernel.org/r/a385053c-1c4a-4060-a3bb-befa007ddb33=
-@redhat.com/
-    Signed-off-by: David Howells <dhowells@redhat.com>
-    Tested-by: Frank Sorenson <sorenson@redhat.com>
-    cc: Paulo Alcantara <pc@manguebit.org>
-    cc: Namjae Jeon <linkinjeon@kernel.org>
-    cc: netfs@lists.linux.dev
-    cc: linux-cifs@vger.kernel.org
-    cc: linux-fsdevel@vger.kernel.org
-
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 424df70a5c30..0f5220461f8e 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -482,15 +482,14 @@ static int netfs_read_gaps(struct file *file, struct=
- folio *folio)
- 	struct netfs_group *group =3D netfs_folio_group(folio);
- 	struct netfs_folio *finfo =3D netfs_folio_info(folio);
- 	struct netfs_inode *ctx =3D netfs_inode(mapping->host);
--	struct folio *sink =3D NULL;
--	struct bio_vec *bvec;
-+	struct bio_vec *bvec =3D NULL;
- 	unsigned int from =3D finfo->dirty_offset;
- 	unsigned int to =3D from + finfo->dirty_len;
--	unsigned int off =3D 0, i =3D 0;
-+	unsigned int off =3D 0;
- 	size_t flen =3D folio_size(folio);
- 	size_t nr_bvec =3D flen / PAGE_SIZE + 2;
- 	size_t part;
--	int ret;
-+	int ret, i =3D 0, sink_from =3D -1, sink_to =3D -1;
- =
-
- 	_enter("%lx", folio->index);
- =
-
-@@ -515,24 +514,23 @@ static int netfs_read_gaps(struct file *file, struct=
- folio *folio)
- 	if (!bvec)
- 		goto discard;
- =
-
--	sink =3D folio_alloc(GFP_KERNEL, 0);
--	if (!sink) {
--		kfree(bvec);
--		goto discard;
--	}
--
- 	trace_netfs_folio(folio, netfs_folio_trace_read_gaps);
- =
-
--	rreq->direct_bv =3D bvec;
--	rreq->direct_bv_count =3D nr_bvec;
- 	if (from > 0) {
- 		bvec_set_folio(&bvec[i++], folio, from, 0);
- 		off =3D from;
- 	}
-+	sink_from =3D i;
- 	while (off < to) {
-+		struct folio *sink =3D folio_alloc(GFP_KERNEL, 0);
-+
-+		if (!sink)
-+			goto discard;
- 		part =3D min_t(size_t, to - off, PAGE_SIZE);
--		bvec_set_folio(&bvec[i++], sink, part, 0);
-+		bvec_set_folio(&bvec[i], sink, part, 0);
- 		off +=3D part;
-+		sink_to =3D i;
-+		i++;
- 	}
- 	if (to < flen)
- 		bvec_set_folio(&bvec[i++], folio, flen - to, to);
-@@ -553,8 +551,10 @@ static int netfs_read_gaps(struct file *file, struct =
-folio *folio)
- 		folio_mark_uptodate(folio);
- 	}
- =
-
--	if (sink)
--		folio_put(sink);
-+	if (sink_to >=3D 0)
-+		for (; sink_from <=3D sink_to; sink_from++)
-+			folio_unlock(bvec_folio(&bvec[sink_from]));
-+	kfree(bvec);
- 	folio_unlock(folio);
- 	netfs_put_request(rreq, netfs_rreq_trace_put_return);
- 	return ret < 0 ? ret : 0;
-@@ -563,6 +563,10 @@ static int netfs_read_gaps(struct file *file, struct =
-folio *folio)
- 	netfs_put_failed_request(rreq);
- alloc_error:
- 	folio_unlock(folio);
-+	if (sink_to >=3D 0)
-+		for (; sink_from <=3D sink_to; sink_from++)
-+			folio_put(bvec_folio(&bvec[sink_from]));
-+	kfree(bvec);
- 	return ret;
- }
- =
-
+>
+> --
+> Cheers,
+>
+> David
+>
