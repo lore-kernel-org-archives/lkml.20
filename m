@@ -1,142 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85B7335067;
-	Wed,  9 Sep 2026 15:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BBF569F08
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:02:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966134; cv=none; b=WIBqzRaBkKJsPckfjUbVeX0eERa6EuXhF8ZWT1lBLXZ9fMZiIZZZtnngjMfF6x1c8Hs7pXA+PHx3fHfu5zMXZs+uISH138yp0/fh7A02PyXhNHJf9CLolKTUwhlUBbMUF2CMQpvW2nkUufRRrdx82UKYYWRaxccfkk+gmkdz0Kg=
+	t=1788966142; cv=none; b=dUewv6fKXLOFcfdAdKH0zDwgvMiVzG+52wunac8tVna/mjn4EmdxGqdOYE5JPKdXtzIhfiqvrvjMXWnZlTDm/Z29S8MuGinPdJri/mEmONBJYWhM0flg61Rdyot3nqfYY2yWO+4Enn4ZiE0saiVE7kZOwe13lVAl0JgIGGBkKnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966134; c=relaxed/simple;
-	bh=DjilDXt3Habf3goWm4WZF5bb/V9YVgsYbQwSBdjkHG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HWRbnXXNgaYNUpGykTVc6CjAtbowkQG6EoAnG95cbLYyFZA3xoQgsw1J4V1HZ1j38qr7yqAeH59gARXg5w1r3LeeSg/aU1fF3yqNz3qEJam/z7rJxeCIWlh6/zPorTyQFL8jhYJKqQoNXcZJbAWit6t7T/siE30ltCDMCtR9VJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeN7pksa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788966142; c=relaxed/simple;
+	bh=JXh+ySSFBwAVApj9Le/1zUflHyghydT0UQICyaCuXFI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QDk1aSNa0af7lBaKGVcAyhW0oJEvwpH5rQtn0AYc9cjc5Zwbqt/uqF0ywbdnmgFeWCJCwH5ej6thCsnW56p71Q5eDPbhVw5BZtag2IPgrP0CIY+yO9VtjEMhJOaebmmvL9X9VhuIgNN5hdyfmXnyiqZjou0lcMLhUN09uxy50z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=La5ODMex; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeN7pksa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4401F00A3A;
-	Wed,  9 Sep 2026 15:02:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="La5ODMex"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF8F1F00A3E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966133;
-	bh=3KfExOA8KS0crEDl2q+9ULW4PP/JesVC+N5DhTICNJs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UeN7pksaadSHMoEPfMk+ZajCW7TpStgfP3pR1FX98wY2nSvCyBtlgh4lBomgTWT1K
-	 hWWiqRn3jREcRJUiJseRXfiYhvS+Q0sy0u4yjQ5ijDmeEkkVXk/Y+KR6iQuMZ3T2oc
-	 lyoG8GepmPSZNc0eLwoWreX1prlhobT7Nwn7/YTRFy9McMoDBwxzV4TIBcxSo7bTSJ
-	 pcAJJSg7bRf7YqfWFqeTWRHhXldo9uS/+EX+uP9aI++4pAcpKtzzHrFGf1Z57epXlk
-	 dYZL2I8XyMCDE13937q0egdsqFp+vA14izbde9eAOtLY7L5xM9ERgL4mfsrDHqN74r
-	 KVfRpbU3j28pQ==
-Message-ID: <bef8f543-ffa9-4cc6-8a7b-6118daf14f76@kernel.org>
-Date: Wed, 9 Sep 2026 17:02:08 +0200
+	s=k20260515; t=1788966141;
+	bh=2xNgHJwejj9KDK/89gxoVNYRjmzMQPLmYU0vVkFjyko=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=La5ODMexIFZ/DUCfb1UN5y4q12JDJCRpxsBqJcK8GjO7Ff5Vbb6QD5Vw8evMgDjuZ
+	 qX58J3kgK7zUspRPFhb8CdSy9HV+YHzkLo1J+e49ufA4GwvRO0zBl/nxFxIlDudmqi
+	 mHXm8kNoOMEMHdAOYCP9SACbJ9mMD/d2t3LNrUb+A2vqidmIgZvpmX+RmRkv4Vq6JQ
+	 /6PRa5KA9BDV2vgPJK0OBsIvb8WcNwAmGQ28i94VDcwZJ8Cyx/m6OObxpQYGsVDeRW
+	 6Kzwk/DtiIzKFBqQWqiqlBJSp4I7ga5Um9f88NPoJxWVVI1QA3ReLp7kHIGLTLoY91
+	 2XJfdx5jyEzlA==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a4a82aa383so5575301fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:02:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByAI7m/+N3gkSX1m2CuRG2Ay9YkiCObmyYYUYcnkEoBiGRwXtwZ7dYzPy2lBLpk/UNWo95sViUUZGKlWno=@vger.kernel.org
+X-Gm-Message-State: AFuF++m48wjtb0+r7SkJQcnFyuF7ebp+lNkv3M74+mf+SDNL/9FrxMRA
+	B1vZsQ57+dzcgthJymYlg/O/dt8sH/yDydSfe8FbRYiycT3ld3t0IZlneR+QdUcUwTcmth9cRoT
+	Nta0yNKiBjDRxBLrujlWzjlsj7IuuWvg=
+X-Received: by 2002:a05:651c:2113:b0:3a3:7681:6d5a with SMTP id
+ 38308e7fff4ca-3a37681747cmr30184461fa.18.1788966139364; Wed, 09 Sep 2026
+ 08:02:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 RESEND 0/2] selftests/mm: Validate selections and scope
- memfd_secret setup
-To: Tianyi Chen <diannaaav@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joel Savitz <jsavitz@redhat.com>
-References: <CACGbirSdR30=YTPQGN-=202jZqiF8gBSewhq+K_fTSNpq=DMhQ@mail.gmail.com>
- <CACGbirTZFsyQhOszpfiHhrd7Red-L_Z_=ke7DbRDe5SQfzi9Pw@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CACGbirTZFsyQhOszpfiHhrd7Red-L_Z_=ke7DbRDe5SQfzi9Pw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260820034848.1693724-1-triet.hoang.dev@gmail.com>
+In-Reply-To: <20260820034848.1693724-1-triet.hoang.dev@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 9 Sep 2026 17:01:08 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ieReSLYvjDxvNSV=y=xjjpjznADYOvTMtqScDh8XWVtw@mail.gmail.com>
+X-Gm-Features: AcwNN1V5IPj8BXRbpSe5osSjYV_7c1dwwuONej-bxlZ9LamUyLywpKSQZZNKzlw
+Message-ID: <CAJZ5v0ieReSLYvjDxvNSV=y=xjjpjznADYOvTMtqScDh8XWVtw@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: SBS: use DEFINE_SIMPLE_DEV_PM_OPS
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/9/26 16:54, Tianyi Chen wrote:
-> Hi David,
-> 
-> Following up on your review:
-> https://lore.kernel.org/r/d6ca7f47-39bb-43b4-92d6-63ccc148ebdd@kernel.org
-> 
->> Who would set it at this point?
->> Can't this just be
->> VM_SELFTEST_ITEMS="default"
-> 
-> V3 makes that change: the default is initialized before getopts, and only
-> -t changes the selection. An explicit empty -t still fails validation.
-> Both patches use Assisted-by: LLM, and patch 2 carries your Acked-by.
-> 
-> I have resent v3 at the start of this new thread from my Gmail address
-> after delivery problems with my previous address. The patches are rebased
-> onto current mm-unstable without changes, and the focused parser and VM
-> selection tests passed again.
+On Thu, Aug 20, 2026 at 5:49=E2=80=AFAM Triet Hoang <triet.hoang.dev@gmail.=
+com> wrote:
+>
+> Convert the deprecated SIMPLE_DEV_PM_OPS
+> to DEFINE_SIMPLE_DEV_PM_OPS
+>
+> Also use pm_sleep_ptr() when assigning the ops to the driver.
+> This allows the removal of the ifdef CONFIG_PM_SLEEP.
+>
+> Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+> ---
+>  drivers/acpi/sbs.c | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+> index 86b7c7975852..543ca5f0defa 100644
+> --- a/drivers/acpi/sbs.c
+> +++ b/drivers/acpi/sbs.c
+> @@ -692,17 +692,13 @@ static void acpi_sbs_remove(struct platform_device =
+*pdev)
+>         kfree(sbs);
+>  }
+>
+> -#ifdef CONFIG_PM_SLEEP
+>  static int acpi_sbs_resume(struct device *dev)
+>  {
+>         acpi_sbs_callback(dev_get_drvdata(dev));
+>         return 0;
+>  }
+> -#else
+> -#define acpi_sbs_resume NULL
+> -#endif
 
-That is new:
+So the function above is going to be unused when CONFIG_PM_SLEEP is
+unset if I'm not mistaken.
 
-$ b4 shazam https://lore.kernel.org/r/CACGbirR9PNt4uhqJFATsOWnwmsNb-v8zau-Rb+9Q5SZmY-=Vug@mail.gmail.com
-Looking up https://lore.kernel.org/all/CACGbirR9PNt4uhqJFATsOWnwmsNb-v8zau-Rb%2B9Q5SZmY-%3DVug@mail.gmail.com/
-Grabbing thread from lore.kernel.org/all/CACGbirR9PNt4uhqJFATsOWnwmsNb-v8zau-Rb%2B9Q5SZmY-%3DVug@mail.gmail.com/t.mbox.gz
-Checking for newer revisions
-Grabbing search results from lore.kernel.org
-Analyzing 4 messages in the thread
-Analyzing 14 code-review messages
-Checking attestation on all messages, may take a moment...
----
-  ✓ [PATCH v3 1/2] selftests/mm: Reject invalid test selections before running tests
-  ✓ [PATCH v3 2/2] selftests/mm: Only prepare ptrace_scope when memfd_secret is selected
-  ---
-  ✓ Signed: DKIM/gmail.com
----
-Total patches: 2
----
-Applying: selftests/mm: Reject invalid test selections before running tests
-Patch failed at 0001 selftests/mm: Reject invalid test selections before running tests
-error: git diff header lacks filename information when removing 1 leading pathname component at /home/dishy/linux/.git/rebase-apply/patch:6
+Is this really an improvement?
 
-
--- 
-Cheers,
-
-David
+> -static SIMPLE_DEV_PM_OPS(acpi_sbs_pm, NULL, acpi_sbs_resume);
+> +static DEFINE_SIMPLE_DEV_PM_OPS(acpi_sbs_pm, NULL, acpi_sbs_resume);
+>
+>  static struct platform_driver acpi_sbs_driver =3D {
+>         .probe =3D acpi_sbs_probe,
+> @@ -710,7 +706,7 @@ static struct platform_driver acpi_sbs_driver =3D {
+>         .driver =3D {
+>                 .name =3D "acpi-sbs",
+>                 .acpi_match_table =3D sbs_device_ids,
+> -               .pm =3D &acpi_sbs_pm,
+> +               .pm =3D pm_sleep_ptr(&acpi_sbs_pm),
+>         },
+>  };
+>
+> --
+> 2.53.0
+>
