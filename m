@@ -1,163 +1,99 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715BC492E3C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8104434982
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985766; cv=none; b=qqA+tAspeP50PKc+EpDuVp+PJXHn27EUbDAr+OC/oog5xLIafiVv6Tdf02QFIfRa2n2RfKyO+EOe5e5XvkvQcKf3wjAT0SFv72SJ/jRuxgqloi5Tba7ifbSH0AKj/INev++FrJBofiIVOOfX24DTml37Y5X1t/ho5xMB1IV497A=
+	t=1788985772; cv=none; b=Z46P5xnIBDYdQfPhRG4FHSkAMXSkzMI29Kx+lrObcFsFhiujSvxCOi+5Z4mF03nZTKA89xcNcz54CCF/5GRPPIz4Q1RLoY905iLj0xeiXfpYF2xuC4Sd7lZHrWA8ROa49wEJBdpq3IKOTXhxE0hkbsHzFq+2orU6i23PqIUCmoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985766; c=relaxed/simple;
-	bh=wzvk+PIYcLaRi8VUDks/VFbo448eW8NNL+sk2s1Kai8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=sIjJA9OlSeu9KOGWzuxoYI9JEh+01plX5x1Xe1Az+IDyQd2uOjl30/ZoBb2CgqXkLU/4wDIVxaf/qchpKlP3Pr4Wg6CW7QwRMQK27jCnarIq5NhDdrClmO1IaInGq1fwl459Iu/cIUuxYJm67QI6SMknEiXPgk8a+vPQCaTstNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6bf7ab47124so40347eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:29:21 -0700 (PDT)
+	s=arc-20240116; t=1788985772; c=relaxed/simple;
+	bh=z+0tLgyCRJJAjKpetPBYp4AGbyWgzkXH+IurDgPiS78=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d4VVvBwq1LL9zV7KQyo9KkjxuLxSxxhBJnITyzmtilyYvmD1j+h85fSzx4Ah9nzAGExvgxGiU1ZckBklKOIWIr9C734jQvN07dpmOBMyJMgJZWgjy3fgjts9BoHWSUsIIgkqEl6uPRRECVxyW8/5EEjHUebuWUMFZoPnSwGfpuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gf870PZ2; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gf870PZ2"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb750so1512859a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788985764; x=1789590564; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QQ2gcX78zM5THDHJgEgcjT08beP/iAweGRJTqOXZ9/c=;
+        b=Gf870PZ22XfKELmiVeXwwnlhYzjqtlrQXqQ9wBwHKGb8IHRo+KZeHFTaQ7GMirOi9y
+         jLzq9swursocWRRd373GQMFM3dR8C9QAQyCzxnKydvS/g2Ja+424sJOuRwJbl97+4ELz
+         Q8tJPE6kQJvgmWWXJUGgrsBurIykQorLwCTcvgP5VtAEIMxE3Kj8tL5PZCupavsKt2mO
+         q635xqibpof/pRz2ktIHUgojQFOchFTx9fmMCHpnUL+gUWh5+g2cDyR2zniaDW5YQnAZ
+         DXNFQ7ArNgz8OIGkOgxnsrITdLBT7TMz/Hgl5D5e258iPZ+Sc/TMqAq7YG/QKwSdwbaM
+         mtvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788985760; x=1789590560;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1pkn/9AEzOjk7gzkQSrpG3lOs/AOyY6JqYGB/S47TL8=;
-        b=o8dtA0aE+OuLYSv7Nm4pGanKlKiLlwHlcHhT6ZR6LYr+/WdSMRR+eluGtkhg6P8ywp
-         RL0GsP/yhjny39XAC/ZgEbsJOFItkIrDHc8R8LysbrDG8deTxRqSFDVvx4LR15rNGWYf
-         xISzm34XbkjAcfrDNQfagk6DcsmNOKmSZbNOnV6aQye5ja4xNne5s24/E9zzixLMXM3O
-         q+FKTnC14VaUp9zSuvvw02Gq5jO3y14cIZ3GyCV+iBWLtcO8L/Ev6fA10BDVpAmi2j4l
-         BWampGPCXc5zwH9E4FRXxMvi4J+8ae1z8dBkKMEm4IA2rpKTwwPSjvzKabzLIjtW1hL2
-         aSLA==
-X-Gm-Message-State: AFuF++nqFQHc4OAAqCv5/ceMp8pm9i343OGbM4BiDw7/tWk19hlq9e+a
-	IUkiraOd7NuMUSGzYxYezkIk9iMUw0AywJ6tcU73pyuOUgg6zxSWW16yZSOe9YQM3432nhiKe9g
-	ALQX58AHKi+vkXJpkSwqiPT6XlTtCcDuShJmtTf3sy1aA+X8Aq0Vbn4urjig=
+        d=1e100.net; s=20251104; t=1788985764; x=1789590564;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QQ2gcX78zM5THDHJgEgcjT08beP/iAweGRJTqOXZ9/c=;
+        b=DhDFl+SOYGZhOSZoLojC7FUCTZjqrOB9uOIOhh7gc4uVXZkwO5NWdG/ifIDPlkYvYO
+         8YEJfiADus69zB00hALgl2PKhzKvZA33NPsr9f5go1n/CCa/M0fVdSlpzn6qzsD3Drvs
+         LqRoTKek1dkC/ANsD/l4B/3Po6kNTPMFrcXj/tLSV4yIHoLscyrKnY+cg8vqHYB222vN
+         ng3wDc1NgrBST1RVvguGlFClCFjxJiUChffhF6qDNRUJQqO0bUkiUUQgXGATpKhBjalE
+         4y3DN7Xdi6zLIusYV0P1ngAHlJInxElEXmGGDN9MG6ZrpN0whY4fv5oTSziuUHj7+0Va
+         SnsA==
+X-Forwarded-Encrypted: i=1; AKwUvByhKvwslkLnTxTZZ2XUOR9TV2um4xkQ2wjKlW7S5jOhGsBge7OZyapscpUZF0oSASjxa7Ev1XfYd24Zkxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSPepVHdrRHdHNQtKF+JYp9D4idj1aa4aaeQLHC89Kb2Ffe/hh
+	cWN4qZMPb2qGMPrnJ+h5sTPmfZlppkD0d701nS8trnaz4H2bHnnQwdCn
+X-Gm-Gg: AYBFou3vXHoX3MhOLFN3TeOSnlLkK2bn5aaxOPvlQCm9n4exzABq21QIWK6FlvNyOB6
+	wYqgzuto3G98JzI1Fp7myWlqftx1PnlJC45u1JDiqHdg7U903h5PK9cqoMw6Djy7FuPDXjLnNph
+	tQuFHtNFcaAp3w5Eeh4PkpKjaU9r6QEwUC3cqQZVNw0nUIYpwKycVdo0u6VKkEszRlUqaB4NsSX
+	GvretSGOoif6ITPzteL6UY6QHFhE4kBElTx5cxiylALeWWV3Nfp/rRnbdG4fDFs3gh5QIXUknE4
+	UsEl8v1+klhZiAYwh8lkZXd0Wp5vXOcXViWWM4do0pDZn+fiy9tox+GEQrzuE3GciVomXL/GxKp
+	D4B9IvMvEIaWCQ0chsXGPxiuSjTeUf2uOlY82c3q6WRxjFsG3EoN0AYwelcj1XSs5gZ0s8KYrPt
+	ulHN4c0XspFMs+UNfa6BdIOxD5pwvvZfS4F2mlOfzs0jds7tI0gK1Q4IU2gwubLqO7LFbGC+SVR
+	WVN/ikaGy9Lx1m7EHIeMMw=
+X-Received: by 2002:a17:90b:17c2:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39bac4571cfmr10334634a91.23.1788985764524;
+        Wed, 09 Sep 2026 13:29:24 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7740383asm1159237a91.7.2026.09.09.13.29.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 13:29:23 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 9 Sep 2026 13:29:23 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Zac Lanzon <lanzonza@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+	Aleksa Savic <savicaleksa83@gmail.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (asus_rog_ryujin) Add ROG Ryujin III 360
+Message-ID: <7e2e3c81-ac92-44ad-ad9f-19add2879be6@roeck-us.net>
+References: <20260903004054.502171-1-lanzonza@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4d04:b0:6a0:f44b:1265 with SMTP id
- 006d021491bc7-6b6fa8e0837mr21380210eaf.4.1788985760428; Wed, 09 Sep 2026
- 13:29:20 -0700 (PDT)
-Date: Wed, 09 Sep 2026 13:29:20 -0700
-In-Reply-To: <6a7a82f8.01d0871a.3a0d52.00b9.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa1c1a0.f2639fcc.29487d.000d.GAE@google.com>
-Subject: Forwarded: [PATCH] usb: gadget: u_serial: fix use-after-free in release_tty
-From: syzbot <syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903004054.502171-1-lanzonza@gmail.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Wed, Sep 02, 2026 at 08:40:54PM -0400, Zac Lanzon wrote:
+> Add the USB product ID of the base ASUS ROG RYUJIN III 360 (0b05:1aa2,
+> USB product string "ROG RYUJIN III"). It uses the same status report
+> layout and cooler duty channel as the RYUJIN III EXTREME, EVA and
+> WHITE editions, so it can share rog_ryujin_iii_info.
+> 
+> Tested on a ROG RYUJIN III 360: coolant temperature, pump speed and
+> internal fan speed report plausible values that track load, and the
+> internal fan follows pwm2 (30% -> 870 RPM, 40% -> 1590 RPM).
+> 
+> Assisted-by: Claude:claude-fable-5-1
+> Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
 
-***
+Applied.
 
-Subject: [PATCH] usb: gadget: u_serial: fix use-after-free in release_tty
-Author: adrianox@gmail.com
-
-#syz test
-gserial_free_line() frees the whole struct gs_port with kfree() once its
-own open counter reaches zero. But the tty core keeps tty->port (which is
-the embedded struct tty_port) for the lifetime of each tty; a concurrent
-struct tty release can still dereference it from release_tty() after the
-port has been freed, on a workqueue, racing the configfs teardown:
-
-  release_tty -> tty->port->itty = NULL   (UAF)
-
-Give the tty_port a proper reference count so it is only destroyed once
-the last open tty releases it:
-  . gs_install holds a tty_port_get() for every opened tty,
-  . .cleanup drops it via tty_port_put(),
-  . the port's ops->destruct kfree()s the enclosing gs_port, and
-  . gserial_free_port just drops the base reference instead of kfree().
----
- drivers/usb/gadget/function/u_serial.c | 55 +++++++++++++++++++++++++-
- 1 file changed, 53 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..5a78deea2904 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -908,7 +908,53 @@ static int gs_get_icount(struct tty_struct *tty,
- 	return 0;
- }
- 
-+static void gs_port_destruct(struct tty_port *port)
-+{
-+	struct gs_port	*gs = container_of(port, struct gs_port, port);
-+
-+	kfree(gs);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct =		gs_port_destruct,
-+};
-+
-+/*
-+ * The tty core stores tty->port and later dereferences it from release_tty()
-+ * on a workqueue, possibly after gserial_free_line() tore the gadget line
-+ * down. Keep a reference to the port for the whole life of each tty so the
-+ * embedded struct tty_port (and the enclosing gs_port) is only freed once no
-+ * tty can reach it.
-+ */
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port	*port;
-+	int		status;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+	tty_port_get(&port->port);
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	status = tty_port_install(&port->port, driver, tty);
-+	if (status)
-+		tty_port_put(&port->port);
-+
-+	return status;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
-+	.cleanup =		gs_cleanup,
- 	.open =			gs_open,
- 	.close =		gs_close,
- 	.write =		gs_write,
-@@ -1222,6 +1268,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1258,8 +1305,12 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	/*
-+	 * Drop the base reference. The tty port is only freed (via
-+	 * gs_port_destruct) once the last open tty also released its
-+	 * install-time reference in gs_cleanup().
-+	 */
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
--- 
-2.51.0
-
+Thanks,
+Guenter
