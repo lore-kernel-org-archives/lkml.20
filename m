@@ -1,121 +1,156 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC45D3905E4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:53:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9273905E4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976428; cv=none; b=QegSeMhzhDha+q48gU7VUQXI8JIntf9THOqSCu8liGY1fIhsdSt789ys3iXwael6d8ctX3weiC8YPzooZlycJxatrvZrgMHgSlkpV1e6bpJUmD0J2YWPaxl1foxOQkKgkVy3Ty27AwdKhxTExCUClYOcDtMmriD+Yg18meh4Tfc=
+	t=1788976444; cv=none; b=r6AoW+/bKf4Sox4juiY1B1duLOxBHF7J0XetR6VH9bfrCSmE2B0wefqc0OpmKyu2GsQfGZhQU5BOl35oSOEXmnOvPgplj+mCkp1+iD75HhmuOQz/a9fU3DfVw4Em+c+I/rlxbvBVcssIC0EqtAFPoFMM3wp2jqOiLDqvM1cWk18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976428; c=relaxed/simple;
-	bh=c/i490OXbFpkfgBsFCReQhspvRl0PoEXDMLnbXAz9Fo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TN8FXi9I67WZdHmuZKWieVyGrqkWfvpcpMa1ejWtlkT8VPG9pR3cDJX6Wn9DDIb6PAHMu1JyWaALYzBFKaBxP2m36l8L1yz9CTgK0Vw6rZik9hOjVPEpOeQ++DBw137n45WX4+p/SOS0YhkUexjnxmnZ5sX+gDGYZmhdQjP6GvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=HvF1LeAh; arc=none smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1788976444; c=relaxed/simple;
+	bh=EMnT4kHchx2+P/lmChz1dpPEcXLACq2mnqCNT6dOulI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bk2BpoCXYce1prRc39imhbilKX7zad25McOx+XGbcvlLASiPV1zUeQxAvqpJ+aeffTev0CSxRQlCd1cwrCx2zeTxIoLPHlHPxlyubFggUdtC3rNEZtjIh6WjqbtoD5qGtZVND4nU+po3mtLbVFSMPfE2dFR1q7eGhBp6Q/oiJrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZXJLnFYf; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="HvF1LeAh"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66f96418909so2219835d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:53:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZXJLnFYf"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cf4f81d86so48264665e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:54:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1788976426; x=1789581226; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XRIgg3iSuevNT11a9+TD/UWqT0ngKKbrlCWnrPVS/0g=;
-        b=HvF1LeAh4DQVg5v4KsaPg4Dv0qbFIjmuxl8+CejoQrKaLsp/LIhchtp+CvOxmi7Jrm
-         u54UL5BCIGdt87ycq/Bo5mTs31Xrdqwss7RZ8k3lEfme8f+nxz+W1vgCI+F18yUOTP7s
-         d3/NmQIofc6J6VDTxijc4hOm2mdCwLNH3buKLKNOo/Hw2gRgad2YJWVSTjorDxUK5Qf+
-         BMieBQpNYNX1Tks7+dM3FFjlCZ1p1ehsrj7h/6CZmuXHvhckKdh8xAloLfdHFHFW2Hk6
-         c83wKGXRISJG5o6+yywDC+x0dKrcxxveARgomkrzIQJcIIVIvPUTSZj8qQxFh6EHKQdE
-         qUiA==
+        d=gmail.com; s=20251104; t=1788976441; x=1789581241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O5n70PUZZye6R/YP7VdE8nN7+zey26ZUi2vpqGJsQtg=;
+        b=ZXJLnFYf5AbyDEjAicmwiejoI3dQ3zCDZgX9pgqwIB3XybJB/YtPaVyfaYRbq/bxfG
+         qPGBFeIPpyT6pKHEtEIqkP+Gu2tdhiKiKU1UlrD5IhjqHLeUmR0Baycz+km7tFgeFuwj
+         v1ULEQsZf94kUetp9r9+L8pnEk2nyv6OFaIepdJt0fIrzFubYEoxAnjagu1cYcDhhSJA
+         LFUUlAX5gdsviJUGAFTwCxRcVwAxouMAPnytckmm9O86r+bBLsaLcbzo8vXxL/bgjNRw
+         BhGvltGkNwlKhE5QVwXQK5j44FkLmEKS8a/R5JbB3ItbzLMxDB1d7a25LDdkO4sbwjhQ
+         dpBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788976426; x=1789581226;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XRIgg3iSuevNT11a9+TD/UWqT0ngKKbrlCWnrPVS/0g=;
-        b=D4wuO6M7NDUF2B4dNIvnWo9vwipwmOxH5iidIFReQ9kZ0Tw6UkdHQdbtI8IYGWGfe6
-         oXZjiO0zB7rB0LVSWqxYEWRODDwCBEDkfV9iZZ9+NVPcHZj8E7dCMGRvQiptr1Qk0mfI
-         qme+jTegO+QHOkR2l848usGsNoSZES4/43JSxTcMQBJ2Yc66Gc3yMtCt0vBRGHfhcv2Y
-         ZsmMIv71pIzOzvoGusc40q5ppOqRv9DtQm6lEq/XIlJhKPy+HTTfNF5TZvcWLpSH0P7t
-         McvQzfBO3UwZz+WeEv2eNqy42Qt2tNkGSvbvAcQwEzZROk+PoQ6RPChYH0JQ82hm7+Tq
-         kXmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRKZAraQSYAjfhJHDZcdWoMlX9rXPg1X6frSujol1GCVV1B1YyoljQzk0pseptY6xq6eccOEHFddQE9co=@vger.kernel.org
-X-Gm-Message-State: AFuF++kK9ueLtV+W9HbIPsCy9deyX6m2fRi+dRtZkPJcajVCX60v6u7w
-	v40yfICbaOfiFL93iMZ4cEI3C4FCTMs8jUP0nC99ZtXjTV/NsmOi0V8QSWgfi7GYTOo=
-X-Gm-Gg: AYBFou3vszsRY51R9OcbLTkyJ6Cz8O0upd6+grIAFbXDBpeEE529hxjwLJwO15staf+
-	LxAT6/+QmfNAyB0kk8vn+dUIW1w/oqoT9ZUhwAqLcNHCPA7twrTvnqOlZhTQ5V4p/FztBhOiMD+
-	udCM0FXniNlQmbAfuXISGMvu8HiUuq776pAe2NwMc5/1AzLIbdpz/x2oKb7nuaGV/pZYXKFmGsA
-	a6TQm2OPLxZYlPSYLqeIU83wLRbCoIGV0avJqiE4RdMnLA9M4ME5a8b4gWVOlGB049m6l0PjQtU
-	upGPaE7n0qgZtGOMf3jTnd/iNJI7QIfwAZyjjtFWOFJzhA+pTa2cPBH8iKIWG+ZhviFL71KUgcK
-	7ibMdU5QchseApOpfTmvkeVnGiCWP8eAQ7N/hSth5LiF2cWPmb8CrAY2fnsMhDPIR64v0F4mSHL
-	DAgzPXlA47pFTpMz/c9hpbF2N0cNCjMZviD7SkDdtDI5jwTlYCeQ==
-X-Received: by 2002:a05:690e:1244:b0:66c:707b:60eb with SMTP id 956f58d0204a3-66fb5a149f7mr11250899d50.23.1788976425617;
-        Wed, 09 Sep 2026 10:53:45 -0700 (PDT)
-Received: from CMGLRV3 ([2a09:bac6:947f:3af::5e:7d])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb7c7e8d7sm11902088d50.14.2026.09.09.10.53.44
+        d=1e100.net; s=20251104; t=1788976441; x=1789581241;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O5n70PUZZye6R/YP7VdE8nN7+zey26ZUi2vpqGJsQtg=;
+        b=fsACO66YyV/5hdxLH9hHZKno2SNADlikkLjxsEoTwnbyTjjDH+7K/R4F+P/Ch7XIhz
+         6M4rWpcvQ8HaWNGh4MCTsIwgbGfOGLCmSFuNT2MwY1aEFAR2oF8qfXWHhSUVCUSbgXtu
+         PB8Ff2AC6rrWTfQvES4t9szwdGJLh+kAXB+Oo12xI+2OHpeb0O7esiRKuGfEjuRVVKrD
+         13y2EGkmOZg6veFHBCMiw1HbAZZCVfr7t2WsdN6DMNj+QMxOZDrNIz/I8CVQnL+KyITT
+         6KzC4P7qQ+4PVcmLY1IviqtoutqMHfhBR3UL2otF0xzeuFfB/pWhmxIjomeD9ZEuoxOM
+         j9cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRBJen+bU+8dhmPifSFCjSee69B0ovHFz9RM4R78Z9f4TWNtGtcASxo2M9OX2smSfDZa1akxpTSOduCyI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpiZEB+wwm9Ab0vJcmkwDC8tO1enZUr2O9T7ju+intvNDZDVzE
+	j4H7axFbhj9LLW9s85N1Fwz0lfZcmVONElDUPXIvm1J1bEgMZAAEgUP0
+X-Gm-Gg: AYBFou0MYvu+lyRxKfDnrM2XohPd+nJoKa20Y5WnsUppJKwXQlqw4II8aZzcgVWw74x
+	wSHJABFlzvdqdxFb92nwD6GmmwKdjql/6erGIlyCGGoelnO0Wayrp0ZE53LUWsyFbOzQACveg8Z
+	TCtS6N00lND7V0xVucPqZouUC2tf06HNEt2gTpOQsu52txT/FH78Q9A2rffZB5i247beYaEoOLZ
+	hILLA3yOocoSlEYZLNmlKOqpblvlplsI7eVOk3PnhCMYu5DSPHUwJ2eY9hUvXO00tci9az+o0xm
+	kMl+87UUIsTrq67GYPWaNJB/aqzDSHIGv4vsoIwfFPe1P5OV1kA7XeUfuswZPihPEaV3SgKfobD
+	0qgnRVg5ZZB8mYKFJcPSXNAupmPrySBp9FVF8Bz3/Z+pKzjppPA3DP56j5gVkm7JrGEJvlGZII2
+	fY63uwtofZtcpVh9kLzF3QnNOuGdSyA/n0OHWInU22LjdcYE93P1APaYivzTMaLyzmRGu1fEG3i
+	l8=
+X-Received: by 2002:a05:600c:4684:b0:49c:fc6c:be14 with SMTP id 5b1f17b1804b1-49cfc6cc10bmr334315895e9.26.1788976441025;
+        Wed, 09 Sep 2026 10:54:01 -0700 (PDT)
+Received: from Empers0n ([193.23.219.104])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fd532dcsm68031755e9.1.2026.09.09.10.53.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:53:45 -0700 (PDT)
-Date: Wed, 9 Sep 2026 12:53:42 -0500
-From: Frederick Lawler <fred@cloudflare.com>
-To: Mimi Zohar <zohar@linux.ibm.com>, 
-	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
-	Eric Snowberg <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-Subject: Re: [PATCH v2 0/3] integrity: Return error codes in audit messages
-Message-ID: <weadqcqqw3e4snwysfnx2fszrxctppkqqgdjrkfyn7uh5poczp@dpnp6tl3mk6u>
-References: <20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com>
+        Wed, 09 Sep 2026 10:54:00 -0700 (PDT)
+From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+To: vkoul@kernel.org,
+	dmaengine@vger.kernel.org
+Cc: Frank.Li@kernel.org,
+	andi.shyti@kernel.org,
+	mukesh.savaliya@oss.qualcomm.com,
+	naresh.maramaina@oss.qualcomm.com,
+	aniket.randive@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+Subject: [PATCH] dmaengine: qcom: gpi: Set IEOB on linked I2C GO TRE to retire TX descriptor
+Date: Thu, 10 Sep 2026 00:53:32 +0700
+Message-ID: <20260909175332.304767-1-sevanevorotov29@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Mimi and Roberto,
+In GPI mode, an I2C read transaction consists of a command phase on the
+TX channel (issuing CONFIG0 and GO TREs) linked to a data phase on the RX
+channel (issuing the DMA TRE to receive data).
 
-On Mon, Jul 27, 2026 at 05:21:46PM -0500, Frederick Lawler wrote:
-> Commit 2f845882ecd2 ("integrity: Add errno field in audit message")
-> introduced an audit log function that can take an error code. It is
-> wrapped by integrity_audit_msg() that implicitly sets the error code
-> argument to zero. The problem is that there are uses of integrity_audit_msg()
-> such as ima_collect_measurement() that hide the failure cause for
-> the message.
-> 
-> This series aims to convert integrity_audit_msg() call sites to
-> integrity_audit_message(), and then expose error codes based on the
-> following criteria:
-> 
->     1. The log depends on a result from earlier callee, and/or
->     2. The caller function itself returns with that result
-> 
-> ima_release_policy() is the only caller I thought made sense to keep as
-> is. The message doesn't correlate with a return code, nor does it
-> depend on a result from an earlier callee in the function.
-> 
-> Signed-off-by: Frederick Lawler <fred@cloudflare.com>
-> ---
-> This is probably a bit more than what was asked from v1, but as I was
-> making changes and looking at other call sites, I didn't think it made
-> sense to keep integrity_audit_msg() around anymore.
-> 
-> Changes in v2:
-> - Changes from v1 are now reflected in patch 3.
-> - Replace all instances of integrity_audit_msg().
-> - Convert to patch series.
-> - Link to v1: https://lore.kernel.org/r/20260716-report-hash-error-v1-1-ac19281112e4@cloudflare.com
-> 
+Commit 656147fb1d4c ("i2c: qcom-geni: Avoid extra TX DMA TRE for single
+read message in GPI mode") avoided programming a dummy TX DMA TRE for read
+messages, leaving only the GO TRE on the TX channel with the TRE_FLAGS_LINK
+flag set.
 
-I think this series may have fallen through the cracks between the merge
-windows. Shall I respin + rebase?
+However, gpi_create_i2c_tre() did not set TRE_FLAGS_IEOB (Interrupt on End
+of Block) on the linked GO TRE. Because no TRE on the TX channel has an
+interrupt flag set, GSI hardware never generates a completion event on
+the TX channel when the GO command finishes. As a result, the TX transfer
+ring read pointer is never advanced and TX descriptors are never retired.
 
-Best,
-Fred
+Under sustained or high-frequency traffic (such as touchscreen controllers
+operating at 120-240 Hz), the TX transfer ring quickly runs out of slots:
+  gpi 900000.dma-controller: not enough space in ring, avail:1 required:3
+  geni_i2c 990000.i2c: prep_slave_sg failed
+  geni_i2c 990000.i2c: GPI transfer failed: -5
+
+Fix this properly by setting TRE_FLAGS_IEOB on the GO TRE when multi_msg
+is true (matching Qualcomm's hardware specification and the existing SPI
+implementation in gpi_create_spi_tre). When the hardware finishes executing
+the GO command block, it generates an MSM_GPI_TCE_EOB event on the TX
+channel. In gpi_process_xfer_compl_event(), handle MSM_GPI_TCE_EOB for
+linked I2C command descriptors without a subsequent TX DMA TRE by
+retiring the descriptor and updating the cookie without invoking the
+client callback, allowing the linked RX channel's DMA completion
+(MSM_GPI_TCE_EOT) to signal final transfer completion to the client.
+Other EOB events fall through to the default transfer completion path.
+
+Fixes: 656147fb1d4c ("i2c: qcom-geni: Avoid extra TX DMA TRE for single read message in GPI mode")
+Signed-off-by: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+---
+ drivers/dma/qcom/gpi.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
+index a5055a6273a..a1ab63bf9f6 100644
+--- a/drivers/dma/qcom/gpi.c
++++ b/drivers/dma/qcom/gpi.c
+@@ -1050,6 +1050,13 @@ static void gpi_process_xfer_compl_event(struct gchan *gchan,
+ 			return;
+ 	}
+ 
++	if (compl_event->code == MSM_GPI_TCE_EOB &&
++	    gchan->protocol == QCOM_GPI_I2C &&
++	    (gpi_desc->tre[gpi_desc->num_tre - 1].dword[3] & TRE_FLAGS_LINK)) {
++		dma_cookie_complete(&vd->tx);
++		goto gpi_free_desc;
++	}
++
+ 	if (compl_event->code == MSM_GPI_TCE_UNEXP_ERR) {
+ 		dev_err(gpii->gpi_dev->dev, "Error in Transaction\n");
+ 		result.result = DMA_TRANS_ABORTED;
+@@ -1668,10 +1675,12 @@ static int gpi_create_i2c_tre(struct gchan *chan, struct gpi_desc *desc,
+ 
+ 		tre->dword[3] = u32_encode_bits(TRE_TYPE_GO, TRE_FLAGS_TYPE);
+ 
+-		if (i2c->multi_msg)
++		if (i2c->multi_msg) {
++			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_IEOB);
+ 			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_LINK);
+-		else
++		} else {
+ 			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
++		}
+ 	}
+ 
+ 	if (i2c->op == I2C_READ || i2c->multi_msg == false) {
+-- 
+2.55.0
+
