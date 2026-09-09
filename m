@@ -1,134 +1,89 @@
-Received: from mail.dspace.de (mail2.dspace.de [80.228.58.149])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096EE46C4A9;
-	Wed,  9 Sep 2026 08:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.228.58.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C2646C4CC;
+	Wed,  9 Sep 2026 08:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944313; cv=none; b=Tue7lkfU7qzUmuNev/2j6EZaqTKrNw8wggfmmYOy2audjsUL4961xiv1G3qw2onPG8jTNkOHGCEJlf8YkleccFR988ojqvKciU0Ivi4GOyLXISOjD20s8I/iUaqx4EHlnRkXiNhMmkGS6jjvlwc5imGQl9b3J88+TkOPgLA6tUI=
+	t=1788944359; cv=none; b=Vlf0aaKf2SC4jdj3iGd1t3acaHwAT6IdQl+K6SP7ltmeGTo4I5OrmqXAYmmxQEjTfHlEr1DNvzSogkMWdHs4WO/GOjyFnE7lXWIrs5n6DMLrtdfWHbOvN7zr+imrJKbAk+23qcQANmIdQmlmDQQyO+zlqenxWkPB1czFWqc9SL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944313; c=relaxed/simple;
-	bh=VR5lz6e56CwLHQCzov/eaD5ZDxE3Nsomj2KxU1fy0aA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DYQ8Jot0m0CDs9p+H+kzIQWXohLQ664l83PwGRVWZg+4pZ4oLVhD38fC6c+jrIViy1gCNAjtRbVwgcw9KIebJHPrpgblrJgt3qmZXDIBwL2xSJmCBPmKded/M4gpx+kudFRPogq0z36iyamPQA9f4XeSUHlohSlgT593h3zHIO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dspace.de; spf=pass smtp.mailfrom=dspace.de; dkim=pass (1024-bit key) header.d=dspace.de header.i=@dspace.de header.b=ES3eO9xY; arc=none smtp.client-ip=80.228.58.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dspace.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dspace.de
+	s=arc-20240116; t=1788944359; c=relaxed/simple;
+	bh=akBep2zaez5YRBgB14fr7beegtFT+3p+FoPXjeTPtxY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=grsqy+ySXc5hLfRvIxspLOY/fl/3KSX2kst/toRjmYvy51uex+dLT588DQs2U4HcFedy/N8HK9UFaJTm4AF/OStoYG0xqRipAoFei69OjNAa2gu/HovTHxvFXF4lVt/shZ2eBe+OHu4pH/Zl7Q41vAwEqh39vXCauUFkuB3Oq6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ajqAJgjW; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=dspace.de header.i=@dspace.de header.b="ES3eO9xY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=dspace.de; i=@dspace.de; q=dns/txt; s=dkim1;
-  t=1788944308;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=W64OfXJBTXrdEHn01dbecqbXkdcTLtQbrrsQRWJQMCY=;
-  b=ES3eO9xY69RiPQQ8Fep/5u2gqkeW29L/cA7LvOqYC268ILf+SkXOpuzx
-   UEJOZjMYNO7RZJlcxSSZ6uPZS3ZzG2SVi68veCM3kS1bNsRvt08FB9CSl
-   GZiG9ZmatiG/i5hWJSaAXp21aa6UmHtWSPjhCzpwGidpFglQfaFECpuhq
-   0=;
-X-CSE-ConnectionGUID: lesFjaISRZmDooY3588RlQ==
-X-CSE-MsgGUID: WwlpYq3GRcO/083IRCND2A==
-X-IronPort-AV: E=Sophos;i="6.25,270,1779141600"; 
-   d="scan'208";a="5430986"
-Received: from unknown (HELO Z1-1000) ([10.1.1.222])
-  by mail.dspace.de with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 09 Sep 2026 10:57:16 +0200
-Received: from VM-Z1-1000-LIVE.dspace.de (localhost [127.0.0.1])
-	by Z1-1000 (Postfix) with ESMTP id 50DDB60038;
-	Wed,  9 Sep 2026 10:57:16 +0200 (CEST)
-Received: from exchange.dspace.de (EX-DE-PAD-SE.dspace.de [10.100.196.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by Z1-1000 (Postfix) with ESMTPS id 41CED60036;
-	Wed,  9 Sep 2026 10:57:16 +0200 (CEST)
-Received: from PascalKW11-NB.dspace.de (10.71.5.241) by EX-DE-PAD-SE.dspace.de
- (10.100.196.14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 9 Sep
- 2026 10:57:15 +0200
-From: Pascal Kneuper <PKneuper@dspace.de>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-CC: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
-	0x1207@gmail.com, si.yanteng@linux.dev, larysa.zaremba@intel.com,
-	aleksander.lobakin@intel.com, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	DBaldin@dspace.de
-Subject: Re: [PATCH net v2] net: stmmac: restore NET_IP_ALIGN in the RX DMA
- offset
-Date: Wed, 9 Sep 2026 10:57:29 +0200 (CEST)
-Message-ID: <20260909085731.108922-1-PKneuper@dspace.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <5aeb6fd1-f1c3-426d-a2c4-1ad45ddc8572@bootlin.com>
-References: <20260813092923.284285-1-PKneuper@dspace.de>  <20260824125014.47862-1-PKneuper@dspace.de>  <09e7cd4b-b79c-47ea-95b6-1c1a96fe7657@bootlin.com>  <5aeb6fd1-f1c3-426d-a2c4-1ad45ddc8572@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ajqAJgjW"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788944345; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=VDpmQwFklX/G6t4avKDv0NRZijMTIcQHDsR0pbaZQl0=;
+	b=ajqAJgjWuaNPrOYOQBL4UbOo8wLMVwt82LRIIY5UA9cn8hJDvUv49I5aDuAOMfnCSCiMA5wt0gLUtpPuNlFuIu2OamvKXOn4NheA6w5O+ZLI3jBiVwT8yHbBxBxSP1in1x1chK6DLfkV1V2UP1kFloQwXU42g6JAnfl7Nw8EXXM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XAeSzYm_1788944341;
+Received: from 30.74.144.119(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAeSzYm_1788944341 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 09 Sep 2026 16:59:02 +0800
+Message-ID: <d489ce9c-f2e5-4daf-9c42-08b56f158e87@linux.alibaba.com>
+Date: Wed, 9 Sep 2026 16:59:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: EX-DE-PAD-SE.dspace.de (10.100.196.14) To
- EX-DE-PAD-SE.dspace.de (10.100.196.14)
-X-C2ProcessedOrg: 563f5800-21cf-4d8d-8aed-fddd1469e4ee
-X-TBoneOriginalFrom: Pascal Kneuper <PKneuper@dspace.de>
-X-TBoneOriginalTo: Maxime Chevallier <maxime.chevallier@bootlin.com>
-X-TBoneOriginalCC: kuba@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk, 0x1207@gmail.com, si.yanteng@linux.dev,
-	larysa.zaremba@intel.com, aleksander.lobakin@intel.com,
-	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	DBaldin@dspace.de
-X-TBoneDomainSigned: false
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/19] selftests/mm: make the swap cases' swapout
+ reliable
+To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
+ david@kernel.org, ljs@kernel.org, rppt@kernel.org
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
+ nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
+ hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
+ ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
+ vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
+ kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+References: <20260908125105.1510704-1-kirill@shutemov.name>
+ <20260908125105.1510704-6-kirill@shutemov.name>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260908125105.1510704-6-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 08 Sep 2026 22:58:05 +0200, Maxime Chevallier wrote:=0D
-> Hi again,=0D
->=0D
-> On 9/8/26 10:16, Maxime Chevallier wrote:=0D
-> > Hi,=0D
-> >=0D
-> > On 8/24/26 14:50, Pascal Kneuper wrote:=0D
-> >> Since the RX path was converted to zero-copy, the page pool page is ha=
-nded=0D
-> >> to the stack directly as the skb head, and the offset the DMA engine w=
-rites=0D
-> >> at is what determines the alignment of the packet headers.=0D
-> >>=0D
-> >> Before the conversion the payload was copied into an skb obtained from=
-=0D
-> >> napi_alloc_skb(), which reserves NET_SKB_PAD + NET_IP_ALIGN. The=0D
-> >> conversion moved the headroom into stmmac_rx_offset() but did not carr=
-y=0D
-> >> over NET_IP_ALIGN, so on architectures where NET_IP_ALIGN is 2 the IP=
-=0D
-> >> header now lands misaligned:=0D
-> >>=0D
-> >>   64 (NET_SKB_PAD) + 14 (ethernet) + 20 (IP) =3D 98=0D
-> >>=0D
-> >> Same for the XDP branch:=0D
-> >>=0D
-> >>   256 (XDP_PACKET_HEADROOM) + 14 (ethernet) + 20 (IP) =3D 290=0D
-> >>=0D
-> >> On ARM32 this is fatal, because ldm and ldrd trap on unaligned address=
-es=0D
-> >> even when CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS is set.=0D
->=0D
-> > This patch breaks the stmmac selftests for Jumbo Frames on dwmac1000 :(=
-=0D
-> So looks like the problem isn't this patch, but rather both the way we se=
-lect=0D
-> the bufsize, and the Jumbo test itself :)=0D
->=0D
-> This merely surfaces existing problems, I have some fixes that I'll send =
-shortly.=0D
->=0D
-> Maxime=0D
->=0D
-=0D
-Great! Thanks for testing and keeping us posted :)=0D
-=0D
-Best=0D
-Pascal=0D
+
+
+On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> collapse_swapin_single_pte() and collapse_max_ptes_swap() swap a range out
+> and then require smaps to report exactly the count they asked for.  Two
+> things keep that count from arriving.
+> 
+> MADV_PAGEOUT is best effort, so the count often turns up a moment late.
+> 
+> And wait_for_scan() leaves the range eligible for collapsing, so
+> khugepaged is still working on it.  Collapsing reads the swapped-out pages
+> back in, so the daemon empties the swap as fast as the case fills it.  On
+> arm64 with 64K pages max_ptes_swap is 1024 pages, which is 64M a step, and
+> the case loses the race:
+> 
+>      # Swapout 1024 of 8192 pages... Fail
+>      not ok 10 collapse_max_ptes_swap
+> 
+> Retry for up to two seconds, holding the range out of khugepaged's reach
+> meanwhile.  The collapse each case runs next restores MADV_HUGEPAGE, so
+> only the setup is affected.
+> 
+> If the pages still won't swap out, skip: no swap, swap too small or full,
+> a memcg cap or busy writeback. None of that is a kernel bug.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+
+Make sense to me. So
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
