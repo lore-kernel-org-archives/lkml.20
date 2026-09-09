@@ -1,442 +1,174 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB294233722
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968580; cv=pass; b=kX0YQNiMkib1xcbaG5oZYputGbibhHd4QCr9wddye/47WhI9ryOUiN4E6Qxh2Izr7xHeBuhcIfzh+jNZFL9HkGaPJom2lZukuxPmcPGNo7CDRlvaLOSjE91H9efjdx3cvFAwJwNEMm/+fTgVeGPbBE2IhhtvoKnONx8FqIgY21U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968580; c=relaxed/simple;
-	bh=OzxwjqScUV85IgjxSzrhF2r0BKjzgbR43lPdreX/BvE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A5FvyJ8+nAmBI+hztUoQEdfQPGidJ7YqCRXMFZ9zMND7cBRRUPfAQW0JXF/30FEOP0UHTe0R3CioxGjP3tuq/SkHAyg68dkdahdOXhY1tujdbbL7Qz3D5M60krAD52QLzbkT6Fsl8tRuNdRt5NkHPhasG47wBRRi0ZFrH1Onlog=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FWTbuCh4; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785B328CF5F;
+	Wed,  9 Sep 2026 15:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788968600; cv=none; b=k4rlI3zNXhskLcN6ja1S5ro1VblqxUcW0gjs20XC3npGUJcKxzCkBk4qIZuyO50PVukpASZXBpiBOpbq1Ale6DoAnpJrsrlId7rUf70IHqPiKHIgf7l1gwiGMLo6aRtPsBq4qJvWn7/2xiRzU34aAMc+zz8lRvbZ+qqHLd/aooQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788968600; c=relaxed/simple;
+	bh=BKOjuZe/TjsyErnkKp4gXbWAgqDfmYIiNG/rqw5kX0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Za5zOXICf1xwD2dOcqdApg4KBr0lFTNBer/uFAo16BCNU87Sl0xm8OhCh/5s4PS1BN9XpCEDnrak+8woa4FcS7j362HRzuDF3gabwBmkfV0QPxsPLaGIo1+RIm6AmoCmydSnyD1NrX70elnxFGqAwX/k1g0piQ3qs3Jr/a3TIko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3xLF1ge; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FWTbuCh4"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a8814f93e0so542915a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:42:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788968576; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mLyCu1WqRrkCXViVihQUkJhhclbUPqJgJRpHzwmcH5FafpINC+7ikUuMPL5Q9LQA9d
-         oMrBOX9BC/Hgw8anjg3ATYw7OLGlb5iiTg7dE99aMFexW5LMWYWLVI1XTLg6FcqKqamZ
-         hWnO+Say5C2EACkTfq4vAoesbqBVK1L9+a1pfrEl3Z5hAvKQcE4pkBSTPmz5zQk4RX5R
-         MngtDBvNUgL3sbm72UhmdBj5/M+IUPxyE8A95XdFiuq7M8pofCOKxMI0cWKMT6LoRQRw
-         KPRAxK1NaL+2qHGZeW0Od1WB+o+dlUqLw4jpZ0Y78KPTt/Rs+Dsofg7HzHCvMxeAO+T9
-         A/fA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=S2m1QvsK2UVPVTQ9fA20HFfbroOfurxqiB9XG3yA/pw=;
-        fh=tUhrwODm2OFnGGVCitqWD+aeN7FMrgpdC0hwEm67VHs=;
-        b=YbftX0ItjVUMA46gHKOASQOHPiT6VE9yFpO+Mlhz6fmWTRpOkWj4Mc1zlFaenCAV0j
-         AdUAW5GxbB1RVP77XrGmjgUlb0G7XRJqT69fO0wgZUu6qPe1+r5a+/1SUPUqkrUhxiYc
-         ljUIFWajBjuxbNE7Jlo1jladnARENVYPiO0cAAQk3rAsYNppwVEUnILMh6BscaljwFIw
-         ooBnN8Pb/revG3I8b/f4sx6Km6xBBK5jUZ8fTI6EyNb/mnTIVWT2y71q10lmiaAf/JaD
-         3xIkjZM6AjuW4vQChnkF/x5wF9Mm4Gvzpozwkwex28cq4rW8WYudrtm7BLvd5Pgtm/qO
-         gOjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788968576; x=1789573376; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S2m1QvsK2UVPVTQ9fA20HFfbroOfurxqiB9XG3yA/pw=;
-        b=FWTbuCh4WO1/JSP1E0MUZXzG4d4ixtYy5mZmdRhTwbfBws7ho3BJJ/ykeQ+icny4TF
-         iDPQ1eBjUkgiNQ+RIQ9Bg+avmmpW4PmxzWB0y8EbsL5VNWg6uzi9ihn9Mk+mS1+sdBrW
-         QknMZZVl5aIIVeVTgeI9aL+MhrqJJ5TuW+xycM2N/7rcyCpETzU8y+cGTnX/AA85U2UW
-         KAqlhshpEolJYkhY4Q2qTJzUwos2QiiVQxf0E87khwjLjlWx786vn0r50yqewKmHBpjN
-         ukV7wePRHtZIYEk83fOknGyAWu/LiZ1CFYRciyIuFDdcol4QFjTp1gkCkxrYwYErHFK2
-         medg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788968576; x=1789573376;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S2m1QvsK2UVPVTQ9fA20HFfbroOfurxqiB9XG3yA/pw=;
-        b=XUt+n3pujOVEQEEbmr49JzQPKSr74BOvOL6vLV7+lJSqBFNbD2UTxSw8XeGrYvE+Vd
-         NDyyYCFQE+GNUpX8dk7Y1lIoO/UXOf7cufRS5hDcwtquiE9UeEdCgNlN2d3CRZs1TT1j
-         JhFYpQIyaqLG39zBrD8Yp9xxTZyduq/jVubRrQr3X2GOHWuLyBFm1mVJTsjZ6en4EiI5
-         CcLwVBWamlqOsvU46FJ4Wdasm6B2P1vJFhzLMsUEKDoN5/UXpSQNu2+YnX9MYVn8i7Xy
-         92XtFPUE44ZUBHPjjAtQVkfv1oEzMEgI1z1GtAmZvV/jjhtT6wlYFEGjNXhKaXMO0KVh
-         A0/A==
-X-Forwarded-Encrypted: i=1; AKwUvBwhNorfElWyNXV6uID+3QRLBjY7wnqV1ry/oIs9nnqS8UShOJeQYInACl1/z/r/6a07PvfGMBeuzABnx3I=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8Y22hzKDH+C1dAuXTA41G15oZi3VNIltHl00k6Es0k0LSh7gR
-	t7SfaVJ8MGCMONJFghe+v4V0Tf2/BnBQc6ftQvQ9OSv083N/ybJv18DFMNmJ+6QKCdeZzF8QoCG
-	r8ZIH/lMOYG6n4qEdizNLzIZdVYKBEsW6xpJWILevoQ==
-X-Gm-Gg: AYBFou1tIBODtHAWX4eqViSgzUVIHOS+DCgzJ72NpDw3bjNGPbt7W5O1CJV2offyosU
-	XgaKoVM+xWE5kJQ1bKh5a2XUaHaN1v3ByClQzRMBZDSIrxSZ7DqnkRLHGVc1YcFHjY4MoF8NFsd
-	3hp5hHpT+Oe/ESiYl41tnhv5rOMDePPFqeNP3hmCrXvkjObCzszpypFPKiXSoIhBAL5lCiHAnEw
-	m6yqq8SMTQvYR/3ztXiU90ysU8ZB8AS/Etniq805oMQDxiRoHBv6rvkpqI4wZIWUM6nJqbgPHPv
-	46WF+xLKIpXYJtrKjJMRJ7DG00AJo4zo5gg5cI5b61/RX30+PhbENfoMILwe+JbzrCzxUimc35g
-	2ibMdd3bxr0cL
-X-Received: by 2002:a17:906:f5aa:b0:c16:84dc:9607 with SMTP id
- a640c23a62f3a-c2941b4be10mr141897166b.19.1788968575694; Wed, 09 Sep 2026
- 08:42:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3xLF1ge"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAC91F00A3D;
+	Wed,  9 Sep 2026 15:43:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788968598;
+	bh=QVOhNByUr6r71RUlJ+rEEyf00velzFdvLZ3C2AMRt2U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=S3xLF1ge328RJxZlMfKf+h+Rr0rHffvj//0Ye1Nj1Yt/3i0Hs+6FpVCIz2UjPtSzt
+	 e+epimZH/KIvzoG2oeXzFOD0U50ZJvPBPStJncIs/6C0r3nsk6FGUgTY6zCR8HNv69
+	 dq3an9Q5ssTHyCNCKLMAeLq0QO9QDq9cEFs4ekvkctLo8VZCdnqI2dF5ps8LSluE/x
+	 nkB5iPG1HttRVac8M9rvpQgB23RrqYPtAKueLaetQFCJEUc5DTCb8R0Y9YBxrdPqbx
+	 kRFiRPgn7mg+NcwDvqbVgyBb6fbw0LEzPcjJ/4xY+6CxdE+1Aeq7+9dVWL6aIZmrOb
+	 U76GUSckln3BQ==
+Message-ID: <cc6eb4bd-3c4d-42f4-ab48-d381f7b6a2f5@kernel.org>
+Date: Wed, 9 Sep 2026 17:43:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908082345.103087-1-arighi@nvidia.com> <20260908082345.103087-3-arighi@nvidia.com>
- <CAKfTPtAQh6ZndkHC+njYvX0hoDafaC+PX2EBfafDumTHvvgFcg@mail.gmail.com> <aqF4sqhjpYjIPgQF@gpd4>
-In-Reply-To: <aqF4sqhjpYjIPgQF@gpd4>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Wed, 9 Sep 2026 17:42:43 +0200
-X-Gm-Features: AcwNN1UV05JQkcUWg6uO4db95fK2YGtk8j3YGV2sIr2FYSgIHdwjsvNp_LI-72M
-Message-ID: <CAKfTPtASXty5hOOgmXokCh95w0idU0y12UDua1_vg9m8teF9Rg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] sched/fair: Honor asymmetric SMT priority in idle selection
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, 
-	Breno Leitao <leitao@debian.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 19/45] KVM: guest_memfd: Zero page while getting pfn
+To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
+ binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
+ jmattson@google.com, jthoughton@google.com, michael.roth@amd.com,
+ oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
+ rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
+ steven.price@arm.com, willy@infradead.org, wyihan@google.com,
+ yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org,
+ suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
+ linux-coco@lists.linux.dev, Xiaoyao Li <xiaoyao.li@intel.com>
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-19-85e5fd25252a@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-19-85e5fd25252a@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 9 Sept 2026 at 17:18, Andrea Righi <arighi@nvidia.com> wrote:
->
-> Hi Vincent,
->
-> On Wed, Sep 09, 2026 at 04:42:44PM +0200, Vincent Guittot wrote:
-> > On Tue, 8 Sept 2026 at 10:24, Andrea Righi <arighi@nvidia.com> wrote:
-> > >
-> > > POWER7 and NVIDIA Olympus use SD_ASYM_PACKING at the shared-capacity SMT
-> > > level to order hardware threads. Idle CPU selection does not consult
-> > > that order, so a task can wake on an arbitrary sibling and remain there
-> > > until load balancing corrects the placement. On these systems, that
-> > > initial choice can prevent the core from entering its preferred
-> > > lower-thread resource mode and cause a large and persistent performance
-> > > loss.
-> > >
-> > > When idle selection finds an available CPU in an SMT core, choose the
-> > > highest-priority available sibling. On SMT2 Olympus this only changes
-> > > selection on fully idle cores. A partially idle core has only one
-> > > available CPU. On wider SMT systems such as POWER7, it also fills
-> > > available siblings in priority order while the core is partially busy.
-> > >
-> > > Apply the preference to idle-core and idle-CPU scans,
-> > > asymmetric-capacity scans, target, previous, recently-used CPU fast
-> > > paths and the slow path. Inspect the lowest scheduling domain directly,
-> > > but require both CPUs to share its span because isolcpus can split
-> > > hardware siblings across scheduling domains.
-> > >
-> > > Keep physical-core capacity selection independent from SMT sibling
-> > > ordering. SD_ASYM_CPUCAPACITY first selects among cores with different
-> > > maximum capacities, then SD_ASYM_PACKING selects the preferred available
-> > > sibling inside the chosen core, whose siblings continue to share equal
-> > > capacity.
-> > >
-> > > Reviewed-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> > > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > > ---
-> > >  kernel/sched/fair.c     | 85 ++++++++++++++++++++++++++++++++---------
-> > >  kernel/sched/sched.h    |  6 +++
-> > >  kernel/sched/topology.c | 36 +++++++++++++++++
-> > >  3 files changed, 110 insertions(+), 17 deletions(-)
-> > >
-> > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > index b8bd308c2d5b1..37837c36288a0 100644
-> > > --- a/kernel/sched/fair.c
-> > > +++ b/kernel/sched/fair.c
-> > > @@ -8587,6 +8587,35 @@ static inline bool test_idle_cores(int cpu)
-> > >         return false;
-> > >  }
-> > >
-> > > +/*
-> > > + * Redirect a CPU to a higher-priority available sibling in its SMT domain,
-> > > + * subject to task affinity.
-> > > + */
-> > > +static inline int select_idle_smt_cpu(struct task_struct *p, int cpu)
-> > > +{
-> > > +       struct sched_domain *sd;
-> > > +       int best = cpu;
-> > > +       int sibling;
-> > > +
-> > > +       if (!sched_smt_asym_active())
-> >
-> > I wonder if it's worth creating a new static key. All other pieces
-> > related to asym packing use sched_smt_active() to opt out the related
-> > code
->
-> The intent was to keep the additional sd dereference and flag checks out of the
-> wakeup path for the more common symmetric SMT systems; sched_smt_active()
-> remains enabled on those systems, the new key lets them return immediately.
->
-> Without it, the additional cost should be small when everything is cache-hot
-> (roughly a couple of dependent loads, flag tests and branches), but this is a
-> hot path and a cache miss could make it more noticeable. I haven't measured
-> whether the saving is significant, though. If the extra key and its topology
-> accounting are not considered worth the potential saving, we can remove it and
-> use sched_smt_active() instead.
+On 8/31/26 02:25, Ackerley Tng via B4 Relay wrote:
+> From: Ackerley Tng <ackerleytng@google.com>
+> 
+> Move the folio initialization logic from kvm_gmem_get_pfn() into
+> __kvm_gmem_get_pfn() to also zero pages if the page is to be used in
+> kvm_gmem_populate().
+> 
+> With in-place conversion, the existing data in a guest_memfd page can be
+> populated into guest memory through platform-specific ioctls.
+> 
+> Without first zeroing the page obtained using __kvm_gmem_get_pfn(), it
+> might contain uninitialized host memory, which would leak to the guest if
+> the populate completes.
+> 
+> guest_memfd pages are zeroed at most once in the page's entire lifetime
+> with guest_memfd, and that is tracked using the uptodate flag.
+> 
+> Zeroing the page in __kvm_gmem_get_pfn() is chosen over zeroing in
+> kvm_gmem_get_folio() since other flows, such as a future write() syscall,
+> can get a page, write to the page and then set page uptodate without
+> zeroing.
+> 
+> There may be some performance penalty due to redundant zeroing, but this
+> would pale in comparison to the cost of actually assigning the page to the
+> VM.
+> 
+> This aligns with the concept of zeroing before first use - the other place
+> where zeroing happens is in kvm_gmem_fault_user_mapping().
+> 
+> On populate failure, the page is not re-zeroed, since on SNP, if firmware
+> rejects a CPUID page, the expected CPUID values provided by firmware are
+> returned to userspace via page contents. More generally, page contents may
+> be modified on populate failure.
+> 
+> Don't mark the page uptodate again after populating, since the page would
+> already be marked uptodate before the post_populate() call.
+> 
+> Reviewed-by: Fuad Tabba <tabba@google.com>
+> Tested-by: Shivank Garg <shivankg@amd.com>
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+> ---
 
-If we start having a static key per sub part of a feature like the
-asym packing, that can quickly become unmanageable. In this case we
-should better have a a static key for whole asym_packing feature
-instead
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Vincent
+-- 
+Cheers,
 
->
-> Thanks for looking at this!
-> -Andrea
->
-> >
-> > Other than that looks good to me
-> >
-> > > +               return cpu;
-> > > +
-> > > +       sd = rcu_dereference_all(cpu_rq(cpu)->sd);
-> > > +       if (!sd || !(sd->flags & SD_SHARE_CPUCAPACITY) ||
-> > > +           !(sd->flags & SD_ASYM_PACKING))
-> > > +               return cpu;
-> > > +
-> > > +       for_each_cpu_and(sibling, sched_domain_span(sd), p->cpus_ptr) {
-> > > +               if (sibling == best || !choose_idle_cpu(sibling, p))
-> > > +                       continue;
-> > > +
-> > > +               if (sched_asym_prefer(sibling, best))
-> > > +                       best = sibling;
-> > > +       }
-> > > +
-> > > +       return best;
-> > > +}
-> > > +
-> > >  /*
-> > >   * Scans the local SMT mask to see if the entire core is idle, and records this
-> > >   * information in sd_balance_shared->has_idle_cores.
-> > > @@ -8971,7 +9000,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >
-> > >         if (choose_idle_cpu(target, p) &&
-> > >             asym_fits_cpu(task_util, util_min, util_max, target))
-> > > -               return target;
-> > > +               goto select_smt_priority;
-> > >
-> > >         /*
-> > >          * If the previous CPU is cache affine and idle, don't be stupid:
-> > > @@ -8981,8 +9010,10 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >             asym_fits_cpu(task_util, util_min, util_max, prev)) {
-> > >
-> > >                 if (!static_branch_unlikely(&sched_cluster_active) ||
-> > > -                   cpus_share_resources(prev, target))
-> > > -                       return prev;
-> > > +                   cpus_share_resources(prev, target)) {
-> > > +                       target = prev;
-> > > +                       goto select_smt_priority;
-> > > +               }
-> > >
-> > >                 prev_aff = prev;
-> > >         }
-> > > @@ -9000,7 +9031,8 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >             prev == smp_processor_id() &&
-> > >             this_rq()->nr_running <= 1 &&
-> > >             asym_fits_cpu(task_util, util_min, util_max, prev)) {
-> > > -               return prev;
-> > > +               target = prev;
-> > > +               goto select_smt_priority;
-> > >         }
-> > >
-> > >         /* Check a recently used CPU as a potential idle candidate: */
-> > > @@ -9014,8 +9046,10 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >             asym_fits_cpu(task_util, util_min, util_max, recent_used_cpu)) {
-> > >
-> > >                 if (!static_branch_unlikely(&sched_cluster_active) ||
-> > > -                   cpus_share_resources(recent_used_cpu, target))
-> > > -                       return recent_used_cpu;
-> > > +                   cpus_share_resources(recent_used_cpu, target)) {
-> > > +                       target = recent_used_cpu;
-> > > +                       goto select_smt_priority;
-> > > +               }
-> > >
-> > >         } else {
-> > >                 recent_used_cpu = -1;
-> > > @@ -9037,7 +9071,11 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >                  */
-> > >                 if (sd) {
-> > >                         i = select_idle_capacity(p, sd, target);
-> > > -                       return ((unsigned)i < nr_cpumask_bits) ? i : target;
-> > > +                       if ((unsigned int)i < nr_cpumask_bits) {
-> > > +                               target = i;
-> > > +                               goto select_smt_priority;
-> > > +                       }
-> > > +                       return target;
-> > >                 }
-> > >         }
-> > >
-> > > @@ -9050,14 +9088,18 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >
-> > >                 if (!has_idle_core && cpus_share_cache(prev, target)) {
-> > >                         i = select_idle_smt(p, sd, prev);
-> > > -                       if ((unsigned int)i < nr_cpumask_bits)
-> > > -                               return i;
-> > > +                       if ((unsigned int)i < nr_cpumask_bits) {
-> > > +                               target = i;
-> > > +                               goto select_smt_priority;
-> > > +                       }
-> > >                 }
-> > >         }
-> > >
-> > >         i = select_idle_cpu(p, sd, has_idle_core, target);
-> > > -       if ((unsigned)i < nr_cpumask_bits)
-> > > -               return i;
-> > > +       if ((unsigned int)i < nr_cpumask_bits) {
-> > > +               target = i;
-> > > +               goto select_smt_priority;
-> > > +       }
-> > >
-> > >         /*
-> > >          * For cluster machines which have lower sharing cache like L2 or
-> > > @@ -9065,12 +9107,19 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> > >          * first. But prev_cpu or recent_used_cpu may also be a good candidate,
-> > >          * use them if possible when no idle CPU found in select_idle_cpu().
-> > >          */
-> > > -       if ((unsigned int)prev_aff < nr_cpumask_bits)
-> > > -               return prev_aff;
-> > > -       if ((unsigned int)recent_used_cpu < nr_cpumask_bits)
-> > > -               return recent_used_cpu;
-> > > +       if ((unsigned int)prev_aff < nr_cpumask_bits) {
-> > > +               target = prev_aff;
-> > > +               goto select_smt_priority;
-> > > +       }
-> > > +       if ((unsigned int)recent_used_cpu < nr_cpumask_bits) {
-> > > +               target = recent_used_cpu;
-> > > +               goto select_smt_priority;
-> > > +       }
-> > >
-> > >         return target;
-> > > +
-> > > +select_smt_priority:
-> > > +       return select_idle_smt_cpu(p, target);
-> > >  }
-> > >
-> > >  /**
-> > > @@ -9747,8 +9796,10 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
-> > >         }
-> > >
-> > >         /* Slow path */
-> > > -       if (unlikely(sd))
-> > > -               return sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
-> > > +       if (unlikely(sd)) {
-> > > +               new_cpu = sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
-> > > +               return select_idle_smt_cpu(p, new_cpu);
-> > > +       }
-> > >
-> > >         /* Fast path */
-> > >         if (wake_flags & WF_TTWU)
-> > > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> > > index 6c3ad70e58b8e..568cb1ed2dd6b 100644
-> > > --- a/kernel/sched/sched.h
-> > > +++ b/kernel/sched/sched.h
-> > > @@ -2240,6 +2240,7 @@ DECLARE_PER_CPU(struct sched_domain __rcu *, sd_asym_packing);
-> > >  DECLARE_PER_CPU(struct sched_domain __rcu *, sd_asym_cpucapacity);
-> > >
-> > >  extern struct static_key_false sched_asym_cpucapacity;
-> > > +extern struct static_key_false sched_smt_asym_packing;
-> > >  extern struct static_key_false sched_cluster_active;
-> > >
-> > >  static __always_inline bool sched_asym_cpucap_active(void)
-> > > @@ -2247,6 +2248,11 @@ static __always_inline bool sched_asym_cpucap_active(void)
-> > >         return static_branch_unlikely(&sched_asym_cpucapacity);
-> > >  }
-> > >
-> > > +static __always_inline bool sched_smt_asym_active(void)
-> > > +{
-> > > +       return static_branch_unlikely(&sched_smt_asym_packing);
-> > > +}
-> > > +
-> > >  struct sched_group_capacity {
-> > >         atomic_t                ref;
-> > >         /*
-> > > diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-> > > index 0248227d983a7..06c40eb5932af 100644
-> > > --- a/kernel/sched/topology.c
-> > > +++ b/kernel/sched/topology.c
-> > > @@ -683,8 +683,24 @@ DEFINE_PER_CPU(struct sched_domain __rcu *, sd_asym_packing);
-> > >  DEFINE_PER_CPU(struct sched_domain __rcu *, sd_asym_cpucapacity);
-> > >
-> > >  DEFINE_STATIC_KEY_FALSE(sched_asym_cpucapacity);
-> > > +DEFINE_STATIC_KEY_FALSE(sched_smt_asym_packing);
-> > >  DEFINE_STATIC_KEY_FALSE(sched_cluster_active);
-> > >
-> > > +static bool has_asym_smt_domain(int cpu)
-> > > +{
-> > > +       struct sched_domain *sd;
-> > > +
-> > > +       for_each_domain(cpu, sd) {
-> > > +               if (!(sd->flags & SD_SHARE_CPUCAPACITY))
-> > > +                       break;
-> > > +
-> > > +               if (sd->flags & SD_ASYM_PACKING)
-> > > +                       return true;
-> > > +       }
-> > > +
-> > > +       return false;
-> > > +}
-> > > +
-> > >  static void update_top_cache_domain(int cpu)
-> > >  {
-> > >         struct sched_domain_shared *sds = NULL;
-> > > @@ -3084,6 +3100,7 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
-> > >         struct rq *rq = NULL;
-> > >         int i, ret = -ENOMEM;
-> > >         bool has_asym = false;
-> > > +       bool has_asym_smt = false;
-> > >         bool has_cluster = false;
-> > >
-> > >         if (WARN_ON(cpumask_empty(cpu_map)))
-> > > @@ -3202,6 +3219,9 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
-> > >
-> > >                 cpu_attach_domain(sd, d.rd, i);
-> > >
-> > > +               if (has_asym_smt_domain(i))
-> > > +                       has_asym_smt = true;
-> > > +
-> > >                 if (lowest_flag_domain(i, SD_CLUSTER))
-> > >                         has_cluster = true;
-> > >         }
-> > > @@ -3210,6 +3230,9 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
-> > >         if (has_asym)
-> > >                 static_branch_inc_cpuslocked(&sched_asym_cpucapacity);
-> > >
-> > > +       if (has_asym_smt)
-> > > +               static_branch_inc_cpuslocked(&sched_smt_asym_packing);
-> > > +
-> > >         if (has_cluster)
-> > >                 static_branch_inc_cpuslocked(&sched_cluster_active);
-> > >
-> > > @@ -3310,11 +3333,24 @@ int __init sched_init_domains(const struct cpumask *cpu_map)
-> > >  static void detach_destroy_domains(const struct cpumask *cpu_map)
-> > >  {
-> > >         unsigned int cpu = cpumask_any(cpu_map);
-> > > +       bool has_asym_smt = false;
-> > >         int i;
-> > >
-> > > +       rcu_read_lock();
-> > > +       for_each_cpu(i, cpu_map) {
-> > > +               if (has_asym_smt_domain(i)) {
-> > > +                       has_asym_smt = true;
-> > > +                       break;
-> > > +               }
-> > > +       }
-> > > +       rcu_read_unlock();
-> > > +
-> > >         if (rcu_access_pointer(per_cpu(sd_asym_cpucapacity, cpu)))
-> > >                 static_branch_dec_cpuslocked(&sched_asym_cpucapacity);
-> > >
-> > > +       if (has_asym_smt)
-> > > +               static_branch_dec_cpuslocked(&sched_smt_asym_packing);
-> > > +
-> > >         if (static_branch_unlikely(&sched_cluster_active))
-> > >                 static_branch_dec_cpuslocked(&sched_cluster_active);
-> > >
-> > > --
-> > > 2.55.0
-> > >
+David
