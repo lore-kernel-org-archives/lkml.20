@@ -1,148 +1,271 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012040.outbound.protection.outlook.com [52.101.48.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02F83A3816;
-	Wed,  9 Sep 2026 09:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947078; cv=fail; b=RD/UirxVQEGpzG+re3r1PzL43u2ppfSVTB93iGTEvjKi+jhmSYoAsxXB49++U7wfhL1qWJum9KKTOOdxQcZei0NA85TgS23NIIDVWz1TJrF2f/qalsVwcONXqipMumN3Kv4lHKCASNPFS7nQKfXhQ2BhbBpe8mr0ESuo+UH5Zt4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947078; c=relaxed/simple;
-	bh=wNxcr851kY/Gm/1qejXUgOgsuClCFjTSi0FHeFAi05I=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=EkPW0gUBnVO498oI5DeTUYVeyyB4nYvBtPbkzUEnP18yu+jd6VqeI/tf6pnirZFZi3B3pColtPitfpKNbrAtZm51c3EkriORQe7BYOkmdoXkup3FROlCzL6vpB5oDyJ3vf6sE8tDvF9KgpIvx5dsn7NqB6841RB6+TsP6Y48Kf8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VJ7LGKoB; arc=fail smtp.client-ip=52.101.48.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6379485CE1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:44:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788947083; cv=none; b=dwCRY/rqbVnKJCW+pRoCYwYF1+dBNIgh3STC2umIDjgLva4pwNzaWN6r16FZgVjCcOt6FYZh7duWmUuQOct6Fb1WlVUX8ZRCpqyY7xtJiztQCUho5yQS9tu//SxsDDTsvicLzRFh5htzxsVbel/jFBldnXZQ0nov3N/f5bkxw5Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788947083; c=relaxed/simple;
+	bh=bTUnCSRZY4G+HM39v0Xkm1aeH5odwpKTGFZaGF+zFkU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=gHLHILadtFoPs4aqQ7SYd6JhkCVuZ3+0t7fIcrRcLZPX/1vWp0SdEQnzyWVdAs0zYzTXjJWsnf7jwr6uB8+umbqqMyBnQQdS5LNDaS9jwiCYXTPOXMe7W2gmW+r4UKrtXIBJaMqvQtGqMvUpPz4NTURoWZzuGxaYOkPmV6B3XRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tdkF8xNK; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VJ7LGKoB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MLkFTTRV4GGZ+umEmqhH47DJVQan9ol9EnVaXaJIBugP2aChQZ0KfOyA7nEUhokSApEui+c546ZpywpAsN6iSUTjtrytIUphk2dJasQUZRWNusZeDr92rTtJegesjD2POHJfnqQKarXL99o7JEHjP1iofD9LIYvIwxiMWZ2fVqnHh3v7s4oQFg4THg7QGNpvHxxXk521TDHZeksfmR75n6wu+8n0iiCAaUZcODWZ86mg1t7i6KvXLEXXU6NWL87wCYhlxcTHnR/+riEW7OxcOiaFmCng1LfxXqyvsIQUfy0FyXLrJPG/MjYqnnsvDQpcID6ufgsQLgP8lYTO7IOzhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OWavlyhl3bRdBX+GzZ5lok6m4s7Vq+Mv6ofJZPkluRs=;
- b=tbfoSPrwBWKChJSzv3mJ1NMePp24G4FL2DOo0FraZwEjxq9op/cbV46bACy5rtpzg/DIqb2RkVCLxmOAFU5DOKAOZkwg1Fqw8pXY3sWp49dOxfmpuqulMl0esiss2RMlTXbldX1HPjvvaopDhOd6IgKu9MEoqg8wO80cWWGDktB39R3KvPrdGHcb4VRR9A1tT+D3QHpNX9Lga8JGC86LEw3UYfzKxLX/MxjDV2z0xoJqAcFcJidwhqmoWoQm89zQoBCzY/sBI3HO8sr0MKCe10WCxXYNHX1nS83MNeQtJP5hZOlVv8nR1PvvayYScB8WkvcpRkGyL+ZIp0gNAbo5yA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OWavlyhl3bRdBX+GzZ5lok6m4s7Vq+Mv6ofJZPkluRs=;
- b=VJ7LGKoB0iAe3yP3bnNgrQTVUdld2kVAmhQ3rRnLAfWNdCsFlFK7d56eS/05fLhAYe81N6j/5c3l3dUtQkG2uZnWARfzIXvbyLon+gIZD0v7yTs4VnVzw4STGimJOi/yUceDaJNxeFD2PEhvt7LpjcVAr/UybaeSW/hfmXgl3J7i2xcKw29Tv+m6kxpJoN6helWb7zrWkiulv/Yxn61F3BgCP5no+16e0v5WxsUiZ/jktOgGo4k2KghCuwnOCmHUxdCI3Kgp30uiReHkFGINRHyhuZHQE6FcE1tj/FVcWOkRXvYOGHZ6Gahdu3mC3QFAnosHjm31Q43iAPPhW6kxcQ==
-Received: from SJ0PR03CA0076.namprd03.prod.outlook.com (2603:10b6:a03:331::21)
- by SA5PPFCB4F033D6.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e2) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 09:44:31 +0000
-Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::24) by SJ0PR03CA0076.outlook.office365.com
- (2603:10b6:a03:331::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
- Sep 2026 09:44:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 09:44:31 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 02:44:13 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 02:44:12 -0700
-Received: from [127.0.1.1] (10.127.8.13) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026
- 02:44:08 -0700
-From: Kartik Rajput <kkartik@nvidia.com>
-Subject: [PATCH 0/2] Add M-PHY support for NVIDIA Tegra264
-Date: Wed, 9 Sep 2026 15:13:57 +0530
-Message-ID: <20260909-tegra264-mphy-v1-0-ce61a80dc065@nvidia.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tdkF8xNK"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-86162c086f8so53598687b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:44:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788947081; x=1789551881; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l/77qcoGASc/bcotpYpu7s8Toxgxo4GzXR5d/4rRuxI=;
+        b=tdkF8xNKlSCsIfsWgL91//5JVWgbkFK8LI9ElBpjlcX2oh0npUSYMyYmAKaCdOFusp
+         lzLiD0XQai4k68ZG54JivS5/UV9clbwroSxZjzDWKC/XRqHNG+PpAPOvrp9xtVCCpVLi
+         w5PywqOGLYlOtNtQ7Mgj4iDroomAxlO8O9QpcHgCKmwr74pp6TDdr/r1CoWVwt9FuiVK
+         O23DIzXJzukdhqm3IXUwBBV984B1jGtcg6hWtagQoz3HgCPFL8v2/vSCaWqekEVJbo8L
+         jh2bXikkE0jWIqw4pouWidbBZb8Kik95aoNPF1D5Ai6yygBz4gICB8vPsBmPSaBfoc8H
+         ve2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788947081; x=1789551881;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l/77qcoGASc/bcotpYpu7s8Toxgxo4GzXR5d/4rRuxI=;
+        b=JN6+KF5bk2DOoMXVQDXh9LACaUHgGfYaFDGYMYHhLf9tiIHjS1rkMdknLTK5O+FcSd
+         nC/ryFOhC7y2rVW9uYUE8VtGk4JunNleCzGgKKZi6hglXK7eGWnRNxfWpqTt11kf4ASh
+         lkn1p7gW73JNfzfJNXrchp4wYFuvt14Bff/2pbVHLhomheMkcFswmv9Yt9g7epDRiEEC
+         0o9pNOC4I6J4TRBRIJeo1j5eGVN+7t0LC8ACKM5PE948r4geamJO1oaCGifOgdIxKJxS
+         lobzLFbDkQFPJa7sMQub5iEpBBnP8J7Z33xLHkifLP3VBZstBWKOHlKmcRl0LfJEEOP3
+         XmSg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3a+9+R0Gdui5+HgfIAg2Jk1t47XioSItQ2Vg6azAC57FUjMnDJjsbgXN72D6Jz5IrK8ckv3Uh/5GOCqc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m64UXN8lYUfyOFtXlMjnoZK2BQ5u5Og10VYg5PHyCQsnJT5BtP
+	eWGQO4QHMmQiYZtQBBO5V1OpHgdSyCph1i7tVOV6YRDz9gQammKyO75YqLC5TjNF6A==
+X-Gm-Gg: AYBFou3je6of3CSiy83Mx4vLvw0rse7K2LrcJDevizTJJR5cdtEZM0EPYUlqJBhP/Lk
+	wmQkKreZQIHi7HIFc0X5V9H1aHXKkJJJjefQ+44D/SGCRaqKDmfAARtu8CNUjkPdA8mfLEYukHW
+	Zh3VDZE78jBMinmSuxWU7rT/4kgvxp3fSR+SfeCvKxrB7UoJmkCfY5fNW4Vy37KUJB5nNoqnUSc
+	KO/7FUU2b1WI5fd2RFlaUqk1ybEmm3kEgmI6hkfz/QJJU8FgI3sRmMnKzssyEFuhH8yV00Z/+ai
+	JW4LARllpAmtKguTryIVJvEGCQKmkm3OrhQ1bmRzxLMJUjrn9Q5ULj/DPa1/hnJAJ2jJb4x2I5N
+	0Bgsl0dJpgpmCQriSSJGaxQepIckpU/PvlCkxlALfjgTSxyHRjMpBJDLJgp8qwhaPd5aMFeWtBL
+	FU9NM0AU5IZvH9ByN06VEKvGt2+zd3s3a8iBOPYMuuv4XzkYrpqe4Tmh9f259X3/rHo7c6Q5Sgd
+	uzSXdlzf9Y6JTW8mRQV0V+Xdib7WSCfcbLWLyyNB47oDigJzQXRkJawXoKy
+X-Received: by 2002:a05:690c:a84:b0:7f0:38f7:6ca6 with SMTP id 00721157ae682-86e6d7905ccmr129247067b3.5.1788947079991;
+        Wed, 09 Sep 2026 02:44:39 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-873194f76e3sm92930227b3.5.2026.09.09.02.44.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 02:44:39 -0700 (PDT)
+Date: Wed, 9 Sep 2026 02:44:34 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 02/26] mm/fbatch: allow folios_put_refs() to skip
+ xa_is_value() entries
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <c441176c-33b7-c8f8-fb7f-51774e1fd853@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAF0qoWoC/yXMQQqAIBBA0avErBPUQqirRAvLsSbIQisK6e5ZL
- d/i/wgBPWGAOovg8aBAi0sQeQb9qN2AjEwySC4Vr3jFNhy8lqpk8zpezBZorLK6LKSA1KweLZ3
- fr2l/h72bsN/eCdz3AzbLdbtxAAAA
-X-Change-ID: 20260909-tegra264-mphy-f3edf6fa4321
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
-	<jonathanh@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>
-CC: Thierry Reding <treding@nvidia.com>, <linux-phy@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Kartik Rajput <kkartik@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947048; l=858;
- i=kkartik@nvidia.com; s=20260909; h=from:subject:message-id;
- bh=wNxcr851kY/Gm/1qejXUgOgsuClCFjTSi0FHeFAi05I=;
- b=ElDkauiJKm43Eef96RrM8I4rNw+3tIfQMX35NHkdAbhqzbG0NbCu3aY0ZfC23fdSYdEKqPQSs
- 4pvoLIPoVy5DX5C5uzDmxVOegy8pg2DRDc5gqw9p5Sf42RmhV12hSrT
-X-Developer-Key: i=kkartik@nvidia.com; a=ed25519;
- pk=V+1YkJqxCruxUVxLXtAG3f5k8O5skT0X4/QIB75KZ64=
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|SA5PPFCB4F033D6:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3b43c7b-58fa-4f07-3205-08df0e56f2dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|7416014|82310400026|1800799024|11063799006|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IA3yxNvg+cwonmpHSehuc5eOS5jTaO2lSe74x8aCKTut2oydBRun4mUYXPLmmKGkBdf5tdP5SRhHRIUBd7ozXYm9lRfZEcfY7zyj7sO9WN5+0/PwIa9YLSg9qPlJ36vKWli+sPULdI4dTRkeoX81LL9l0p9AyeVS+FpULleivdQEHEvzH66ySg1eTqMrFThURNKMfOBd1VycEcbrQX6zdvG6c97MCr+2pVAi0WAxrQS3hz+DCF4QoeZtPN/0BjooIdxe6/VZk9exbgRVjFzNQBhioU5sc1xe2bi9dbkHZBDtbs6a7MgUI+4OjrlF1WeoOtn+eloo4NDHO8BI5GFhxp2B1eNL4v+lHdgSKxuHTzIW/ibmzhd3IptrpWys9+ItWkXoeHZTaM8f3joXllLUCVxtd647UPc+1qyuTpcc8L+i7cFDKTrFb2D7mWXZR7Gn+RrKT64jFcUMi4PUq1iGxi5QLQkTE2FA5JddpKCi6QxJPLAuNwk98rL6pAITrwcMiIx76iWACvw3d7k+WTIEHWK7zwAytFgK3WouxfCGpnV9bNqrZ6xZWdZqP+DW9rAMOIfkoS6zv1iSDMhR/cLj7BzDv109I0BDdh4Gal1fEvB7M2mnrr6G8wKgMj8Oy4zOuUqBQvkbe8eYVn05QIzIsxlPdNtPV+uYM5Ok2ahrLiDV9tezORMrWdnG5h+H694+CK2iS0XGMWA7nRIck6O9jg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(7416014)(82310400026)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	U2DRN3DJSaN/WLREkDtzByBMImSg8EjwW5hLaseYvPaRKnTWv0UuL0Sj0QYxwQ4zxkyPBu0bRw/BxLIMiT8HxPGU8hDf7/AVLt/ueErCWcfRY4ucFE/3kIik+4btgFGT6qZyAzog11w4GVq37S4BEPhERTxi+B7LP8/Gk5BmaNlF/iFcfCZRY3D4SsWjpqYpB0tj6wMiuN8ZZbj21cseBUmpd7ZeP1+syBR+k1yWH8f/w+nqK02gPx4cysDamWbnpncABejbUwQq0kLBBERx8hcunmyxMjiapOhtuRKHD64ZtWg7TnJzkGgvF0M6BRIeh36yA3pGARnQHs3RzD4WC3P93sefhNO5k05lJjB4btO1hO6MBhPHHMn+H7qfIBrDgBJHIBujDrIHB1FBozpiu2X6YZQsT0HGoMh4lIhqOXNtK5lx6pq6qQxqX8RpKIL/
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 09:44:31.2932
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3b43c7b-58fa-4f07-3205-08df0e56f2dd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E64.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCB4F033D6
+Content-Type: text/plain; charset=US-ASCII
 
-Add MIPI M-PHY support for NVIDIA Tegra264 SoCs. The M-PHY is a hardware
-block with two lanes, l0 and l1, used by the Tegra264 UFS host
-controller.
+Let folios_put_refs() (hence folio_batch_release()) skip xa_is_value()
+entries, and therefore remove unneeded folio_batch_remove_exceptionals().
 
-Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
+It made some sense when introduced in 3.1 for shmem swap entries only,
+but workingset shadows popularized exceptional entries in 3.15, and it's
+silly for so many sites to be squashing exceptionals out of the fbatch,
+merely to suit an inadequacy in folios_put_refs().
+
+But remove exceptionals on leaving truncate_folio_batch_exceptionals(),
+one of whose callers then passes the fbatch on to others less tolerant.
+
+No longer essential to this series, since 7.2 commit 9669b87065a6
+("mm/lruvec: preemptively free dead folios during lru_add drain")
+allowed folios_put_refs() to skip NULLs; but still an improvement.
+
+Signed-off-by: Hugh Dickins <hughd@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-By: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
-Kartik Rajput (2):
-      dt-bindings: phy: Add nvidia,tegra264-mphy
-      phy: tegra: Add Tegra264 MPHY driver
+ include/linux/folio_batch.h |  5 +----
+ mm/folio.c                  | 25 ++++---------------------
+ mm/shmem.c                  |  2 --
+ mm/truncate.c               | 16 ++++++++++------
+ 4 files changed, 15 insertions(+), 33 deletions(-)
 
- .../bindings/phy/nvidia,tegra264-mphy.yaml         | 108 +++++
- drivers/phy/tegra/Kconfig                          |  11 +
- drivers/phy/tegra/Makefile                         |   1 +
- drivers/phy/tegra/phy-tegra-mphy.c                 | 459 +++++++++++++++++++++
- include/dt-bindings/phy/nvidia,tegra264-mphy.h     |  12 +
- 5 files changed, 591 insertions(+)
----
-base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
-change-id: 20260909-tegra264-mphy-f3edf6fa4321
-
-Best regards,
---  
-Kartik Rajput <kkartik@nvidia.com>
+diff --git a/include/linux/folio_batch.h b/include/linux/folio_batch.h
+index b45946adc50b..e1cc8ae023f1 100644
+--- a/include/linux/folio_batch.h
++++ b/include/linux/folio_batch.h
+@@ -22,8 +22,7 @@ struct folio;
+  * The folio_batch is used to amortise the cost of retrieving and
+  * operating on a set of folios.  The order of folios in the batch may be
+  * significant (eg delete_from_page_cache_batch()).  Some users of the
+- * folio_batch store "exceptional" entries in it which can be removed
+- * by calling folio_batch_remove_exceptionals().
++ * folio_batch store "exceptional" (xa_is_value) entries in it too.
+  */
+ struct folio_batch {
+ 	unsigned char nr;
+@@ -100,6 +99,4 @@ static inline void folio_batch_release(struct folio_batch *fbatch)
+ 	if (folio_batch_count(fbatch))
+ 		__folio_batch_release(fbatch);
+ }
+-
+-void folio_batch_remove_exceptionals(struct folio_batch *fbatch);
+ #endif /* _LINUX_FOLIO_BATCH_H */
+diff --git a/mm/folio.c b/mm/folio.c
+index c093ca900a3e..ad6c64a4c22c 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -964,6 +964,10 @@ void folios_put_refs(struct folio_batch *folios, unsigned int *refs)
+ 		if (!folio)
+ 			continue;
+ 
++		/* Skip any "exceptional" (workingset or shmem swap) entry. */
++		if (xa_is_value(folio))
++			continue;
++
+ 		if (is_huge_zero_folio(folio))
+ 			continue;
+ 
+@@ -1069,27 +1073,6 @@ void __folio_batch_release(struct folio_batch *fbatch)
+ }
+ EXPORT_SYMBOL(__folio_batch_release);
+ 
+-/**
+- * folio_batch_remove_exceptionals() - Prune non-folios from a batch.
+- * @fbatch: The batch to prune
+- *
+- * find_get_entries() fills a batch with both folios and shadow/swap/DAX
+- * entries.  This function prunes all the non-folio entries from @fbatch
+- * without leaving holes, so that it can be passed on to folio-only batch
+- * operations.
+- */
+-void folio_batch_remove_exceptionals(struct folio_batch *fbatch)
+-{
+-	unsigned int i, j;
+-
+-	for (i = 0, j = 0; i < folio_batch_count(fbatch); i++) {
+-		struct folio *folio = fbatch->folios[i];
+-		if (!xa_is_value(folio))
+-			fbatch->folios[j++] = folio;
+-	}
+-	fbatch->nr = j;
+-}
+-
+ #ifdef CONFIG_MEMCG
+ static void lruvec_reparent_lru(struct lruvec *child_lruvec,
+ 				struct lruvec *parent_lruvec,
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 897fa2b61346..1f2809adec54 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1157,7 +1157,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 				truncate_inode_folio(mapping, folio);
+ 			folio_unlock(folio);
+ 		}
+-		folio_batch_remove_exceptionals(&fbatch);
+ 		folio_batch_release(&fbatch);
+ 		cond_resched();
+ 	}
+@@ -1277,7 +1276,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 			}
+ 			folio_unlock(folio);
+ 		}
+-		folio_batch_remove_exceptionals(&fbatch);
+ 		folio_batch_release(&fbatch);
+ 	}
+ 
+diff --git a/mm/truncate.c b/mm/truncate.c
+index b58ba940be47..4151f7a167e3 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -53,7 +53,7 @@ static void clear_shadow_entries(struct address_space *mapping,
+ /*
+  * Unconditionally remove exceptional entries. Usually called from truncate
+  * path. Note that the folio_batch may be altered by this function by removing
+- * exceptional entries similar to what folio_batch_remove_exceptionals() does.
++ * exceptional entries.
+  * Please note that indices[] has entries in ascending order as guaranteed by
+  * either find_get_entries() or find_lock_entries().
+  */
+@@ -95,7 +95,7 @@ static void truncate_folio_batch_exceptionals(struct address_space *mapping,
+ 				dax_delete_mapping_entry(mapping, indices[i]);
+ 			}
+ 		}
+-		goto out;
++		goto squash;
+ 	}
+ 
+ 	xas_set(&xas, indices[j]);
+@@ -113,8 +113,14 @@ static void truncate_folio_batch_exceptionals(struct address_space *mapping,
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
+ 	spin_unlock(&mapping->host->i_lock);
+-out:
+-	folio_batch_remove_exceptionals(fbatch);
++
++squash:
++	for (i = j + 1; i < nr; i++) {
++		folio = fbatch->folios[i];
++		if (!xa_is_value(folio))
++			fbatch->folios[j++] = folio;
++	}
++	fbatch->nr = j;
+ }
+ 
+ /**
+@@ -575,7 +581,6 @@ unsigned long mapping_try_invalidate(struct address_space *mapping,
+ 		if (xa_has_values)
+ 			clear_shadow_entries(mapping, indices[0], indices[nr-1]);
+ 
+-		folio_batch_remove_exceptionals(&fbatch);
+ 		folio_batch_release(&fbatch);
+ 		cond_resched();
+ 	}
+@@ -732,7 +737,6 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 		if (xa_has_values)
+ 			clear_shadow_entries(mapping, indices[0], indices[nr-1]);
+ 
+-		folio_batch_remove_exceptionals(&fbatch);
+ 		folio_batch_release(&fbatch);
+ 		cond_resched();
+ 	}
+-- 
+2.51.0
 
