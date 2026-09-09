@@ -1,58 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79FA55C1C9;
-	Wed,  9 Sep 2026 16:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9D2580398;
+	Wed,  9 Sep 2026 16:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970466; cv=none; b=EPjPJoHdV1mYtAscvnOienzDLnuT1+HRyuwcmnpV3GvTVKFGXxy9K2BHoAuRsSYNLT1Q49K9f1joRTaM0XKyu3T0Y/wbzCCFVp1C9BSVgvKnYrtFxfLhI2b0l++5prgLGWiiP3TqWteql5x4J5s0VNRKTVX2HSs/imSbCKWrbOI=
+	t=1788970469; cv=none; b=WeMV3JWcTVAoUeZlPfmwfwsGZRZbQbrcCnujicGs5d0xolPI6e3GnPxN6oq2CcM/1Zttr1e5UG54MFZ8fIvChrtRYh4GtTvSTBcoDknjBb2NYgukKTI+gkxiiq7T/zJSe5MpgU66oIVxuCtB/pTADIr9ErdtWV4dDrpVIDjPoUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970466; c=relaxed/simple;
-	bh=CjK29dOxbvlUPL97yDdDfIcDClJ9Ztk1CkqZPS92lHM=;
+	s=arc-20240116; t=1788970469; c=relaxed/simple;
+	bh=ie0mTwcofOxh0NXmlQKCG8ejXh8K8pWzU4OXJwOEXio=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z+xqGzB6GAUskFGFXgt2WD0SjwEh2K4JerVopf7gEeck/LD7BO1U1WqEZG5xfgIt4kDJQPGkQOHgQl5G6TDzWz4SC/vJN1qdomt+p8w+0J+OEEDE/YgdX2wDKyx0BVyMv3J/Y+IwLBESr5U2p9HLmW9i3bI4MQK8ouSt3Z73lH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDR853AH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=H3U2aBq+TOtQ8Rqv5YWoM3xUYD8dpSoM6o+uC6XvJ0G/iyRejPGwwZgbsvV9X+cwSrNnalXu1HyFP+dPb/hOmHFWtEVHbvwa9kvp129VjONN1p1Ms+tvYpb224uG80tXb8zFpMOZlm1RUge8pQgEQs7vtLU+9tQmcW63FCSAtdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ir0VIni2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDR853AH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5694F1F00893;
-	Wed,  9 Sep 2026 16:14:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ir0VIni2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD611F000FF;
+	Wed,  9 Sep 2026 16:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788970465;
-	bh=QhnM1pk1BSw0WnwgL1MI74wdI1unkTvHxP68nkCaJVs=;
+	s=k20260515; t=1788970467;
+	bh=rbdm5hDsbnlk0c+hSr2Azc2QmffaDxhfieJZMMkSDhI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FDR853AHtRy9UwMqL9g5nGlnA+AivbVqQi5x4xHdQRVJ9b6fjUk81bfppYJkpzfzy
-	 UfSwSHgbZTS3j1AS7odxDmGa9cMTxFXCMm5DgPVyMd2NxX0Qm/xVzxwTcHIA1uXnWp
-	 gwCPRzu+Qa4F7WpD1VWo9hCBXDO2Tb2U8PSdLzANQ/l3exA9giNNDbche99ECL4nyB
-	 UoTy6UbBz54VWkNJQqFvK9UJGuEZCTDff3tEH4T1IzQoympt4oebuV5WDCgGsPIwEk
-	 MN8kFl1jsmoxUOz6Dfs9px08+HySKl4vebZLWZCcApOPw6uHtJEXYbEOhwHJjdHAQe
-	 zn7fKC70dEDew==
-Date: Wed, 9 Sep 2026 09:14:25 -0700
-From: Kees Cook <kees@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Documentation: deprecated.rst: add to syntax highlighting
-Message-ID: <202609090913.DA27C376@keescook>
-References: <20260909141255.1367539-2-manuelebnerli@mailbox.org>
- <20260909142527.106469-1-sj@kernel.org>
+	b=ir0VIni2MAQQSr1ASJW77hBN5FPBDaHBUKiEFwzfpt91x5QMTUtoz+k+7dVYsdvV5
+	 wQzX1UqjjskvLtizq+PZ1oCKyLscJB78MXIknFchyDSh8LmYtL9nIBfd+52eD8+qQx
+	 EYOmyKRz0ou1ZZIR+7hIN9CHW3mT/y5zh3SQohp1AJTUp6wK+aAWfk+TT9ird3aWcM
+	 ZVNi+1/OIiPw7WF3oWfwwJkZbme80yvgowhY833HN7J5bdzQFDAlQdUERF5yQo2OvN
+	 m+GoHLWHwGcJFOtQ9zYSqXWz2TdYXCzoV7dOxwrpggKY/P97h+Z9+Ln71MhUGAXGGb
+	 WW5SsAJ1k5mRg==
+Date: Wed, 9 Sep 2026 18:14:12 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v5 5/7] phy: cpcap-usb: add extcon support
+Message-ID: <b7m36qi3rute5q3rmrfq4kp2fu5mfohgw64z6biq35aedts7ys@wbuekxxyz4ya>
+References: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
+ <20260711204210.197144-6-ivo.g.dimitrov.75@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260909142527.106469-1-sj@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711204210.197144-6-ivo.g.dimitrov.75@gmail.com>
 
-On Wed, Sep 09, 2026 at 07:25:26AM -0700, SJ Park wrote:
-> only the paragraph more consistent looks making sense to me.  So, how about
-> doing same to "__counted_by()", too, as it is also in the same paragraph?
+On Sat, Jul 11, 2026 at 11:42:08PM +0300, Ivaylo Dimitrov wrote:
+> Register an Extcon device and report the detected cable state.
+> 
+> The driver already determines the type of cable attached during USB cable
+> detection. Export the detected state through the Extcon framework so
+> other drivers can consume it using a standard kernel interface.
+> 
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-I think that'll get auto-marked by our tooling already because of the
-trailing "()".
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
+- Mani
 
 -- 
-Kees Cook
+மணிவண்ணன் சதாசிவம்
