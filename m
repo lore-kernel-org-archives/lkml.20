@@ -1,104 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FA03B774B;
-	Wed,  9 Sep 2026 19:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981673; cv=none; b=lQwEYuOnAQ1/MbT11Brf8aTgZEtqWSr3XN92CY7kAo93HBRmqHAxUskzi6TgiefeQuvEj3bM6QRj6oJthX2fao2DbbSoKC4qiB+ML1CKZnr6xPBqR8DBkd77JJS/1B5gffRNQABP//5Z3+6xB7NaktVnlVvHykZqXN2Ht5y0JAQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981673; c=relaxed/simple;
-	bh=FnOmKp8lWp4Nwz5Our/7BQIbTjDwUHB6OqKZnUeKN8g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F4OZEAg/g2YsLBTV7RzJ9P2R1UKQAyg7jGSTu/Q8UblgOa0hVXj4aJaAhPnyEAG9Zco4KYtJimoY1zYlhQH58Fqskrh+8LFlKGUvyh+ogblCH1jr1Poc9w5CMJNcc9h9QoE1KkxO5B5oumSO0ml3RbI2Hs28msxgqlEUy7e0128=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICA4k5Za; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F783B2FD9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788981836; cv=pass; b=CcTX79pGZY4UCRai8PFYu4PZGpRF270cuzuCskQx6eL8pc+eVNxwZopbyNjGr9PLqLU04A4GYKHMym3PbtRnVZgwtDYqNsyTCQoub52mRbo6DCsqG42bVkqkuZo5/1R8exujtVBLDu5E43nC72Pe/H7jQcbBnQU75S63h6XGSEQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788981836; c=relaxed/simple;
+	bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kOT/p5WsPfGOJOj91RHynMyvNqJC7fdalrSyTjYOadTn9xkHgnYIZuDX65U7m8FRRVyvppeqVAYXhMW+pVvPjSoZ3OnzA4gmy3iA/TUpMNBah25m/teZzBNwIxrnvEvLEZE2PPl2XKfHeMM54EWN3MK45ssKGRceVs2Y+EculPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ORHJrD1i; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICA4k5Za"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542A81F000FF;
-	Wed,  9 Sep 2026 19:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788981671;
-	bh=GGxKEZTqr82EcGuC2dWFD6B1GTuAj4Hlrhe/WtwmRK0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ICA4k5ZaQ/OI54YJnC+tFzFATlfJ5w0E4dKZp8KEnwYNywLbkPt3hBHnVBiz48KXw
-	 gbxcT+dqOtHTiSOKAqjX3eRJazUUpuKeoa58vla+iUv0yHdkScr7dpWe4GQyIYz75c
-	 fvDuyM8nKMU/bZwztEd93o7OwM/i669ifXWoZxszRg6+JHBY9YFHzd0BRfYEN/dkYP
-	 ZK+ASyoz1Nqsvnh6esU3cqrIROEmkNqYEHFFr5hwfT/CDEhSCk+D46k0aTP3g0xDwJ
-	 bjHp2zCvQjwwNv7j7aDiFBPofXKX+Zg3v1nlfu93AdsIcvI+E8L0kYnWeorr4xjOp5
-	 /tWUN2UAr8FqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 7/8] net: xilinx: tsn: add the endpoint TX
- data path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Neeli" <srinivas.neeli@amd.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260909-patches_v2_external-v2-7-3a40babaff4c@amd.com>
-References: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
- <20260909-patches_v2_external-v2-7-3a40babaff4c@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 19:21:10 +0000
-Message-Id: <20260909192111.542A81F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ORHJrD1i"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f18010so649749e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:23:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788981832; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gzcDu6pwAaneOunghFdDfFBfGneGnJywVI/8BktjpVvZsV4fSttvi2ckr64spASBPS
+         +58TA13UJmbMIeOLEgreNAuHje9RY/TMpHC9tWbcw946uJ/wtW9d7T2S4UW5W3zTy4/L
+         0DcdvZr333ceZ9zPJGJymcGF0t1Vsje3Sz30dRQurZQoP7iVnSSxRrSyBuZeAnipHccB
+         BuvxKLBjEfcqYtJZ0QfLRH5MBHUweYxsBrka1MLxXBEKc1xqJX/oWA/z4tP8WRztvYgH
+         DQCvRI3IpLyzjr6AujF7KpxciM1e+3DVQ0W7EcF6nbTG6H99o/gYXzo9XhU6GkWM4G/f
+         DdEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
+        fh=D0vab8zdYDSFjcEwrxLemN90wzrWbnuQZhEnan7r2gs=;
+        b=cjMZNkydjfUOaxzCfLNehN6HOWc+ngfni+l8otPOtu1+K7W8Q5fvBZLjCvrKXSj2Nq
+         NKTk8WrfU+pwZ9sOaxOCw1mVGi/7spY+VF0Cgzru3QHxFBxPZO0vRMvg1oL5eWV4PXJY
+         4AeeZCunXvjBNwulYlCADIGQPQRWSVwJZFWRvN2vnQdtcOlKOObOLus2T88JBRXhR/Sz
+         9Lrmd2A5JyWEGME321kG6n1OX4WAXqD8y7wfag3FBYiDTjd6jRaE6gTZplhT7ctUZnG4
+         cgEyRiKwKmIwjl5lp+nTMft/kZMPPScCYanpxGTSn4+XCIdZo7xz3Ee2uqLbaOtREnZ1
+         0uxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788981832; x=1789586632; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
+        b=ORHJrD1iQbDhoOUGd9zjj7Nb3TX18uab3D7hLe/sYINGOz6+kaL7sgvq2GtTgmNS/Y
+         JOMsbV682Cj+CKMZ+DhEQMorE3SeuLxJgxvyaMUPFqwdeGkaM+UoUgp9UsyTqc2YT+Vd
+         drLB0k5ESLMkb6P2tF59DhhxplXpu3fswl6JvkzwfjWpqNk3Y2KLgUb+2769oLOeicH8
+         woszhWiwPxF10llCQj4L1oQaFo2ga035+zk/7EqO/CuRkiRpCUxzk/hIXK7r38FoNqJz
+         Yog1DZhAPGh8GHyomhvwcy/iIQcjXMzABlqzcJbSqV0ZiKUhM5YWps34UjWgAqV9P7Zw
+         terQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788981832; x=1789586632;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZYzMItfvZx4mEK7bjd4sez4FOL2n4oCIU1L5QhytUE8=;
+        b=Y3twO8MS1XkP2gdIhGQ91in/OamKKxPXYHd4qIyVKD3i0eIRyheThwoV0krii3MY5I
+         5kE2HqOMKEwKCSKGZfrecbsWhnLnTEs/8rMGI5yrfDNl3GMI8kFdUTl8i+LOcTH4EwPV
+         /TLDbNoVrQ2KwT3qlDHlfvBj//3f6VUiJyxxKdQqxT++Be+Y0seQORDqoD5rmz9/bQ6a
+         vnYoV6Lp6RpMK2I2TM1moE+J8pv/+lcKK5ZBPq5csVKPl4e1OGjn08jE4Zlqf9CQ5PTp
+         uteuQzj1ERoPTZff0M2KX2YNkUcjT9LXKV0K3fY6ilNwh51zkVy+EC95gjrgI9j4T1/g
+         qZqA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/JV0G62HQdCRrEmLCR+sB4zlTBcg0LEzpc3yXRN1r6vADfD5UNJ0WYnuCxFFmhHTzfid8nNxv297LQjk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVHQeWiVzrkjp9h4AXgR72Ys1puA4qQBItnYfcHEA00X/Xe9v/
+	EIjuOpj9V1A+LKdAtB5pDoc+Qz/Osvr6eDMT5UipHMJlGyaHGvpOhi4NW5ceOEOz8yT32GffH8t
+	IDOY2ERpvKYiEhrXU3n/enVMYB7BC3z4=
+X-Gm-Gg: AYBFou2BkM0f1G4ecEyf4ZiCJVVs3d+JfUITtEWEeqOXpeGsI+Vi4MmaKI7Ud7bgSFe
+	VOi/9e0/pxd+olfYBk1o+8ssZlY4B3txLF3kLR+lNgTRAn324GjFuo1golv2XijJ0HE4iTV/2qz
+	DC5pLuzNT0ri8F2s5fssUy//0TyPCDOdO3LPK/KEz+7igY9dfNtOIyiHfUTMKZSGtiPdVhZRZK0
+	p3CRMbvKi6vBRGc42teJuWgPK45bRBuA9lDFSZw4FvVBIc71arfdsgOfClGfsbOI9T45myPnjX9
+	4Cq2Zfpwn4mllu7BBHAQbZJx7FCR6OCoCBV9uIc5ImzWhtc25nCRVQgvKk44rB1hsKIsZnkp7fs
+	q0jtcj190x5VpXesbH+Un6V+xM0wDubmOADfXAmzJBmJz
+X-Received: by 2002:a05:6512:b28:b0:5b7:651b:1cc2 with SMTP id
+ 2adb3069b0e04-5b8980b93a1mr670838e87.6.1788981832445; Wed, 09 Sep 2026
+ 12:23:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <CACOAw_ybFr8thjmy3ayzB0u+1f5vSFnR8km67J4bkOE7czSyYw@mail.gmail.com>
+ <20260907063342.2300274-1-zhaonanzhe@xiaomi.com>
+In-Reply-To: <20260907063342.2300274-1-zhaonanzhe@xiaomi.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Wed, 9 Sep 2026 12:23:39 -0700
+X-Gm-Features: AcwNN1U5VkqFiMoVvDZffZUiikt238FMeWd_dqJeezEdVeG8xHgapBFftAlD2rc
+Message-ID: <CACOAw_zZPUNNEM_Cdi42ik45S6qA96+igptFZL4ZLrg6tJ-7ug@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH 13/14] f2fs: allow large folio support to
+ writeable files
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+Cc: Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net, 
+	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
+	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org, 
+	David Hildenbrand <David.Hildenbrand@arm.com>, Bo Zhang <zhangbo56@xiaomi.com>, 
+	Kalesh Singh <kaleshsingh@google.com>, Jaegeuk Kim <jaegeuk@kernel.org>, 
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incorrect SKB free function used for dropped packets on DMA erro=
-r.
---
+On Sun, Sep 6, 2026 at 11:33=E2=80=AFPM Nanzhe Zhao <nzzhao.sigma@gmail.com=
+> wrote:
+>
+> On Fri, 28 Aug 2026 10:44:46 -0700, Daeho Jeong wrote:
+> > In F2FS, newly created files almost always start with inline_data
+> > (`FI_INLINE_DATA`).
+> > Because f2fs_has_inline_data() is true during f2fs_new_inode() / f2fs_i=
+get(),
+> > mapping_set_large_folios is skipped.
+> > When the file later expands and is converted to regular blocks in
+> > f2fs_convert_inline_inode(),
+> > `f2fs_mapping_set_large_folio()` is NEVER called.
+> > As a result, almost NO newly created file will ever use Large Folios
+> > during its lifetime.
+> > Fix: Call `f2fs_mapping_set_large_folio(inode)` inside
+> > `f2fs_convert_inline_inode()` once
+> > inline data is converted. Also consider using the standard
+> > `mapping_set_large_folios(mapping)`
+> > helper instead of `mapping_set_folio_min_order(mapping, 0)`.
+>
+> I'm concerned that calling mapping_set_large_folios() here would
+> violate the specification for enabling large folios on a file, because
+> we would be enabling large folios on an active inode. Please take a
+> look at the comment of mapping_set_large_folios() in
+> include/linux/pagemap.h.
 
-commit dba43ed8ae5a63ef3cc1b455fd12d3567126babd
-Author: Srinivas Neeli <srinivas.neeli@amd.com>
+Hi Nanzhe,
 
-net: xilinx: tsn: add the endpoint TX data path
+Thanks for pointing that out. You are right that calling
+mapping_set_large_folios()
+on an active inode inside f2fs_convert_inline_inode() violates the pagemap.=
+h
+specification due to the non-atomic update on mapping->flags.
 
-Add the transmit path so the endpoint can send frames. Look up the physical
-DMA channel for the frame's queue through the map built at probe, map the
-frame and submit it to that channel. Stop the queue when the ring runs out
-of space, and wake it from the completion callback once a slot frees up.
+However, if you look right above that in include/linux/pagemap.h
+(lines 408-414),
+it also explicitly states:
+"The filesystem should call this funliction in its inode constructor...
+ Do not tune it based on, eg, i_size."
 
-> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/ne=
-t/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> index 9ed1170794e03..9e9a45169681f 100644
-> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-[ ... ]
-> @@ -300,8 +304,147 @@ static void ep_dma_rx_cb(void *data, const struct d=
-maengine_result *result)
-[ ... ]
-> +static void ep_dma_tx_cb(void *data, const struct dmaengine_result *resu=
-lt)
-> +{
-[ ... ]
-> +	if (unlikely(result->result !=3D DMA_TRANS_NOERROR)) {
-> +		DEV_STATS_INC(ndev, tx_errors);
-> +	} else {
-> +		DEV_STATS_INC(ndev, tx_packets);
-> +		DEV_STATS_ADD(ndev, tx_bytes, len);
-> +	}
-> +
-> +	dev_consume_skb_any(skb);
+In F2FS, inline_data is essentially an i_size-based layout optimization (fi=
+les
+<=3D ~3.4KB), not a persistent file property. Virtually all newly created r=
+egular
+files start with FI_INLINE_DATA. Tying large folio support to inline_data a=
+t
+inode creation time violates the rule of not tuning large folio support bas=
+ed on
+file size, and permanently prevents almost all newly created files from eve=
+r
+using large folios even after they grow into large files.
 
-[Severity: Medium]
-Does this code use the correct SKB free function on the error path?
+Therefore, we should enable large folios unconditionally for regular files =
+in
+the inode constructor (f2fs_new_inode() and f2fs_iget()) by removing the
+f2fs_has_inline_data() check from f2fs_mapping_set_large_folio().
 
-When the DMA transmission fails (result->result !=3D DMA_TRANS_NOERROR) in
-ep_dma_tx_cb() inside drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c, the
-packet is effectively dropped. However, dev_consume_skb_any() is used here
-unconditionally.
+Thanks,
 
-Tracing tools like dropwatch rely on dev_kfree_skb_any() to distinguish
-dropped packets from successfully transmitted ones (which use
-dev_consume_skb_any()). Calling dev_consume_skb_any() on the error path
-will cause these drops to be incorrectly reported as successful transmissio=
-ns.
-
-Should the error path use dev_kfree_skb_any() instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-patches_v2=
-_external-v2-0-3a40babaff4c@amd.com?part=3D7
+>
+> Thanks,
+> Nanzhe
