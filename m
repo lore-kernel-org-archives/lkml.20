@@ -1,313 +1,391 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684814EE866;
-	Wed,  9 Sep 2026 10:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A125F4E80AC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949094; cv=none; b=I6XcUKuItkl/fiEqiCGL1PQ7i/zgq4qr1cw88F5ntxZtpBHwNX2bx6F2kRlbECFAcnRSO7hH/p/w2dDz/2J3k6/wU8B69U4SWUkgUE7vHy3Pk0x2NPSzPNyREQQbFClTDknFJB5Coow2+M8BLJ1r7SIV1ozIwuEM6XFHYtkZmIA=
+	t=1788949100; cv=none; b=CM4v+CU/JWQNDaAu1yxi1Dy3kpIwuIurRdx0N+ptRUI8XZq/5PFl3InU1Kd6PL+AqDj9QTKYpoIdZETle+6FuYes/X3Th6NY37IgULRYMDQTS1b10OoJhe//5Ew26Q6SB2HnRb++Xdq0LgA8idKCVZ7cI0cWLfCchUF2D7qGH38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949094; c=relaxed/simple;
-	bh=ESfukMun3UZJlSPYk/dz2ksbll6RS7m053nZO66LCuU=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=PRRm47sC+mztgPV41jALAOWohwHaY+nsxj/9iyxBI5luzJdXaCHpn9zgW79fl/G5REVbkfm/vo0KAgUUHWNx4Hl305hCkkPRUUnQ6pSirHj0k1b66l0emBi1GEn0KgBTRlkUW3u7I39PLtvj6JUwgck3dFiuL66sjlTGaJF8sBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MKdatVq9; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788949100; c=relaxed/simple;
+	bh=BAoHBLGej7CKU513wAnhWH+90yYgW8iGSWBxT+OzRiU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=u+fcvONKduXftY99uVqoPKK3Q1xW1gkk4L865EFdMSHpwwTzAfIKHiEa5aDutNrpffO/WI6FbIBcdRyho9yt90H/dSN2wWA6c34iMmEv9Cbu76WW9TtoiNvZNNjarNqwIi+wy7aP+S8YkuDolcX8+teKzD7udP0EpFhS3t9eUWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L/ZR8I0o; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MKdatVq9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788949086; x=1820485086;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=ESfukMun3UZJlSPYk/dz2ksbll6RS7m053nZO66LCuU=;
-  b=MKdatVq9attIZ1k/je30aR0sIutFA+Se7ZF4VRW1lQsBlvIj3qkFiiXo
-   oo9MtYl+Ln506C9f3pGBYnWhKls7Bit1dCXw3RrO1grRMFUVjEEiOZvJz
-   RPHnR2vrti2+bz710A1lxMg9Ult6YwzhhHO+mqap1rQ0I4XoQaWL563XY
-   jitfvLC4d4wT/+rxVE1lOJOqq7IinYnLyF3uxXk2tUAmZGgBqyU1ZjiGW
-   QyCl8/BrHhjKCUSTVfAYmF8os9AqPgrjR/pG6DS8dVVWNtdJgWpc0PaeB
-   PQFz2r/DdGaJBvEblcbLQyelZHcpcc+cNVUD3c+7C9lVRHT4kssdBGM8h
-   Q==;
-X-CSE-ConnectionGUID: pdNcFyxBRs63BSLxRUn0eg==
-X-CSE-MsgGUID: EliydpHzSQimDiaV2kccAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88516259"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="88516259"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:17:59 -0700
-X-CSE-ConnectionGUID: Vtoo3Y8BTO2pb7m85djLbQ==
-X-CSE-MsgGUID: /UHi7KrhQ4W4PxO2CYV5sA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="294783282"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:17:55 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 9 Sep 2026 13:17:51 +0300 (EEST)
-To: Liz Fong-Jones <lizf@honeycomb.io>
-cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, regressions@lists.linux.dev, 
-    amd-gfx@lists.freedesktop.org, Jon Nettleton <jon@solid-run.com>, 
-    Jon Nettleton <jon.nettleton@gmail.com>, 
-    Jacob Martin <jacob.martin@canonical.com>, 
-    Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org
-Subject: Re: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
-In-Reply-To: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
-Message-ID: <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
-References: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L/ZR8I0o"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fcf87897fso4327790d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:18:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788949093; x=1789553893; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vqq1bLSj+HyikJMGO2+S/zPhjWI8z39VCLxfhn2Q3b0=;
+        b=L/ZR8I0o54sm99u0HJWpQa6I95wZu5qeb6NPYlTf2EcCcBqivBJ1PhksUmu5XREHaB
+         hK2CSzQbzRHRUYRQzB3Gcp97Bo2NNPRXj8STiVrOoROM37tnbee3r8n9QVcsnMPdkQqL
+         H64tr7/hEt7OTFFBJxWH7KYsBPYM2LyF6ETt1WOCG0WVb4L/Ge3byNnyptRfT/WOlGxI
+         RJEkGbKcXzelwuCkI6nGz8aXBY6MmxH2hUWdGnQGMd24VPxq3COAmgGbrpkaNWfSluP9
+         zSTZuboa0YXAVhBGA7xdRBq/FbI3GOHX9eI2CmVShgCBmrLvyRwOprmpIDaMh2u1bgHQ
+         pXvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788949093; x=1789553893;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vqq1bLSj+HyikJMGO2+S/zPhjWI8z39VCLxfhn2Q3b0=;
+        b=NRAnwnRq7rsi/V2lI1j5RK+K58K6pOagriy6daHpkSEiQXBkPlX5WLpp3Ea1gvL/BW
+         uzW/w4H7iJxwKofBKKCuqPwx4lwRFj1IXLKgeKyy3HgzUy5aHHypq7iepKDbOGJJI1XD
+         I8P0iQy6LXche4Bo/N7QlVdx181thm0RA3i9f2xl2lNZo7odSk0EPw6UZwW9kKBFM83w
+         +pjZ4o+VZtX+5udSVfinWD+pv/8CGgBSjgqX0R+TCmoYTp4A1k64L3e2FsGefTivDC2F
+         jR3qVOs9gUne7oNLcwEb6OxOFhTwztyPwusF4AktYdnFJ632g5UF/2aakEv4vKsjq5P0
+         utGg==
+X-Forwarded-Encrypted: i=1; AKwUvBxM+nKNQRjMgjuMZgOj320CkpuLQbUPayuT+xChIaU4rm43zqOJs4syVs/sBOos067dLWGaOn9Sh/OOz0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyxsEOHEYnkyQjNcDE3Ig2WR/xjiIBjNpRJBqPSERZlKXIxdZ/
+	dKIOzTXbP8UQw5p1YYUTeXLPkMMFFa3Ffj3HEIva2zEaSepIQWpIDQltMtat0w7tCw==
+X-Gm-Gg: AYBFou26IG0w1oSNQ/zNVt4znySA2WmnSb6aX24wM8sN+7m4LpeGeKzIUfnbrAVuvC5
+	+6LDHzg9T+6Cly+9y8Mt+/ZAQhtR84TBNShehYMt9ii1lQoyFycEnuoebIekUlJxE4uniuBnk1+
+	R1HS/iXjiUwlsV4xKQCJ9G4NkOJIgZ1A7YzJQwsC7bChj+minDaHvqVj8UOblselys0x9+oxyJS
+	FS/IM+/ACvz0019JKHDZgtOfKRniSQV+rn1L4ZC6A3uwOLK4eD7KovLhGY5DRvdkgS2n18X2Iuh
+	19JnCgJIyfUXc6RzxsBc9UFmo0ghzJSIaRQru6KOZlgruOErv6khZawFzQYBX5fxfRkBixEb2Gv
+	SMG7SYE5++q//rbMB9ezaR742UHEEygYFt6MSEZlKqKcjkI5hNiEtpwuCmHXi3EPFAqQYUgnFsi
+	Xpxm2e7VMfYRqYSAOazKUXz1r4/FQw7PyhrmWNsnxJ5s7iOZCHsBUQXZFCHbR9ztRMsf5bqtD1N
+	3Bt8wZZ+BFZ8/Az3SqL1eOA9Mmq1IyiGTVh0wsxejEx7L4TCm8Up1aLAt4=
+X-Received: by 2002:a53:ce92:0:b0:66c:c638:8e88 with SMTP id 956f58d0204a3-66fb58dcc41mr7649439d50.2.1788949092561;
+        Wed, 09 Sep 2026 03:18:12 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48d6ea5sm12216161d50.7.2026.09.09.03.18.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:18:11 -0700 (PDT)
+Date: Wed, 9 Sep 2026 03:18:07 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 18/26] mm/fbatch: remove lru_add_drain() and _all() calls
+ from various
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <3af1563f-1db3-5974-659a-41463ad7a4c9@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-1291541364-1788949012=:1156"
-Content-ID: <ac91299a-1cf4-4b45-b9dc-b5931e0d84f3@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Splitting into little patches gets tedious: now that folios on per-cpu
+fbatches no longer hold an extra reference (and have the lru flag set),
+most calls to lru_add_drain(), and more importantly lru_add_drain_all(),
+should be removed.
 
---8323328-1291541364-1788949012=:1156
-Content-Type: text/plain; CHARSET=ISO-8859-2
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <d4054e8f-f2bf-aa5d-601e-5f28a115bd4e@linux.intel.com>
+Remove lru_add_drain() from compact_zone().
+Remove lru_add_drain_all() from compact_nodes() and compact_store().
+Keep lru_add_drain_cpu_zone() in compact_zone(): it was always a bit of
+a hack, a cheap way to get a local_lock() around pcp drain_pages_zone().
 
-On Tue, 8 Sep 2026, Liz Fong-Jones wrote:
+Remove lru_add_drain() and lru_add_drain_all() from generic_fadvise(
+POSIX_FADV_DONTNEED), but still retry once on failure; remove outdated
+comment line from mapping_try_invalidate().
 
-> pci_do_resource_release_and_resize() releases the device BARs that
-> share a bridge window with the BAR being resized, but when the device
-> sits directly on a root bus (pdev->bus->self =3D=3D NULL) it then skips
-> resource assignment entirely and returns success, leaving the BARs it
-> just released unassigned (IORESOURCE_UNSET).
->=20
-> Skipping pbus_reassign_bridge_resources() is correct in that case --
-> there is no bridge window to adjust -- but the device BARs still have
-> to be reassigned. Before the BAR release was consolidated into the PCI
-> core, this case worked for amdgpu because the driver released the BARs
-> itself and then called pci_assign_unassigned_bus_resources()
-> unconditionally after the resize, which assigns unassigned device BARs
-> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-> side BAR release before resize") removed that call, so nothing assigns
-> the released BARs anymore.
->=20
-> This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
-> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-> on the root bus of its segment (there is no root port device, so
-> pdev->bus->self is NULL):
->=20
->   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: =
-releasing
->   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: =
-releasing
->   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
->   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
->   amdgpu 0004:01:00.0: Fatal error during GPU init
->=20
-> No error is logged because the resize path reports success; amdgpu
-> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
->=20
-> When there is no upstream bridge, call pci_bus_assign_resources() on
-> the root bus to place the BARs released above, using the same
-> alignment-sorted algorithm as normal enumeration instead of a manual
-> per-BAR loop. This also walks the rest of the hierarchy under the
-> root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
-> before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
-> release before resize") removed that call -- the core-side fix that
-> commit asked for ("such a problem should be fixed inside
-> pci_resize_resource() instead").
->=20
-> pci_bus_assign_resources() returns void, so failure is detected by
-> checking whether the released BARs are still assigned afterward; if
-> not, roll back as in the bridged case. This is stricter than the
-> bridged path -- it fails on any unplaced resource, not just required
-> ones -- since a root bus typically has one shared window, and failing
-> loudly seemed better than leaving something silently unassigned.
->=20
-> The root bus path also had a locking bug that any fix here necessarily
-> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-> matching down_read() (as does the "goto restore" taken when
-> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-> before the BAR release loop so every path through the function holds
-> it exactly once.
->=20
-> Use pci_upstream_bridge() rather than testing pdev->bus->self
-> directly. The two are usually equivalent, but pci_upstream_bridge()
-> is the canonical test -- pci_is_root_bus(), which it's built on,
-> warns that bus->self =3D=3D NULL doesn't necessarily mean a root bus
-> (SR-IOV virtual buses from virtfn_add_bus() are the same).
->=20
-> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path=
-")
-> Cc: stable@vger.kernel.org
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/215959=
-6
-> Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
-> Suggested-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
-> Assisted-by: Claude:claude-fable-5 checkpatch
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
-> ---
-> #regzbot introduced: 337b1b566db0
->=20
-> Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
-> linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
-> carries this code unmodified, and the affected function is identical
-> to current mainline. By source inspection the regression window is
-> v6.18 (old code paths) to v6.19 (consolidation). Workaround for
-> affected users: amdgpu.rebar=3D0.
->=20
-> On the topology question raised in review: this is physical hardware,
-> not a virtualized guest, running the UEFI/ACPI firmware variant of
-> this board (SolidRun also ships a U-Boot/devicetree variant of the
-> same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
-> exact root complex wiring; see the hardware manual's block diagram:
-> https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-m=
-anual#block-diagram
-> ---
-> Changes in v5:
-> - Per Ilpo J=E4rvinen's review of v4: use pci_bus_assign_resources()
->   instead of a manual per-BAR pci_assign_resource() loop in the
->   root-bus branch. Same outcome for the bug being fixed, but reuses
->   the core's alignment-sorted placement algorithm
+Remove every lru_add_drain() and lru_add_drain_all() from khugepaged.c.
 
-Great, it worked (I was somewhat afraid there might have been some=20
-landmine for the case where there's no bridge).
+Remove lru_add_drain_all() from KSM's scan_get_next_rmap_item() restart.
 
-And yes, it's very important in general case to assign the resource in=20
-correct order because the assignment algorithm is greedy.
+Remove lru_add_drain() from wp_can_reuse_anon_folio() and do_swap_page().
 
-Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+Remove lru_add_drain(), lru_add_drain_all() from migrate_device_unmap().
 
---=20
- i.
+Keep lru_add_drain()s in mm/gup.c populate_vma_page_range() and
+faultin_page_range(): good housekeeping after a bulk operation.
 
->   and matches the
->   design intent stated in db92e3fef53e's commit message, rather than
->   reimplementing assignment ad hoc.
-> - Drop Reviewed-by from Krzysztof Wilczy=F1ski: this revision changes
->   what the root-bus branch actually does (not just a predicate, as
->   in v3's pci_upstream_bridge() change), so his v2 review doesn't
->   carry over. Add Suggested-by for Ilpo instead.
-> - Add Suggested-by for Bjorn Helgaas too: overdue credit for the
->   pci_upstream_bridge() suggestion from v3 review, which only ever
->   made it into the cover letter's changelog, not the actual commit
->   trailers.
-> - Link to v4: https://patch.msgid.link/20260908-pci-rebar-root-bus-v4-1-2=
-780e9c22e08@honeycomb.io
->=20
-> Changes in v4:
-> - No functional changes. Resending per Thorsten Leemhuis (regressions
->   tracking) -- this looked to have fallen through the cracks after
->   v3. Confirmed still broken today on v7.3-rc2 (mainline) and v7.2.4
->   (stable): pci_do_resource_release_and_resize() still has the
->   original "if (!bus->self) goto out;" with no reassignment on that
->   path.
-> - Rebase onto current mainline.
-> - Link to v3: https://patch.msgid.link/20260731-pci-rebar-root-bus-v3-1-6=
-732e233fc99@honeycomb.io
->=20
-> Changes in v3:
-> - Add Reviewed-by from Krzysztof Wilczy=F1ski, received on v2.
-> - Use pci_upstream_bridge() instead of testing pdev->bus->self
->   directly, per Bjorn Helgaas's review: bus->self =3D=3D NULL doesn't
->   necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
->   same), and this function is reachable for VF BAR resizes elsewhere
->   in this file. Doesn't affect the bug being fixed here (not a VF)
->   but is more correct in general. Reviewed-by kept from v2 -- this is
->   a narrow, mechanical change to a path this device doesn't exercise,
->   not a substantive rework of what was reviewed.
-> - Rebase onto current mainline.
-> - Add Jacob Martin to Cc: he independently triaged and accepted the
->   corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
->   team, so he has direct interest in this landing.
-> - Move Ilpo J=E4rvinen to To: for final review, per Bjorn.
-> - Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a=
-1b9107a82dc@honeycomb.io
->=20
-> Changes in v2:
-> - Add Assisted-by tags (missing from v1; required per
->   Documentation/process/coding-assistants.rst)
-> - Add Link: to the corresponding Ubuntu bug report
-> - Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
->   given the Fixes: tag already lets the stable team derive applicable
->   versions (per stable-kernel-rules.rst)
-> - Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-5=
-5df70cbdd88@honeycomb.io
->=20
-> To: Bjorn Helgaas <bhelgaas@google.com>
-> To: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: regressions@lists.linux.dev
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: Jon Nettleton <jon@solid-run.com>
-> Cc: Jon Nettleton <jon.nettleton@gmail.com>
-> Cc: Jacob Martin <jacob.martin@canonical.com>
-> Cc: Thorsten Leemhuis <regressions@leemhuis.info>
-> ---
->  drivers/pci/setup-bus.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-> index e8c94aa1d3c12..ed16ef7c26fa7 100644
-> --- a/drivers/pci/setup-bus.c
-> +++ b/drivers/pci/setup-bus.c
-> @@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_d=
-ev *pdev, int resno, int size
->  =09struct resource *res =3D pci_resource_n(pdev, resno);
->  =09struct pci_dev_resource *dev_res;
->  =09struct pci_bus *bus =3D pdev->bus;
-> +=09struct pci_dev *bridge =3D pci_upstream_bridge(pdev);
->  =09struct resource *b_win, *r;
->  =09LIST_HEAD(saved);
->  =09unsigned int i;
-> @@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_d=
-ev *pdev, int resno, int size
->  =09if (ret)
->  =09=09return ret;
-> =20
-> +=09down_read(&pci_bus_sem);
-> +
->  =09pci_dev_for_each_resource(pdev, r, i) {
->  =09=09if (i >=3D PCI_BRIDGE_RESOURCES)
->  =09=09=09break;
-> @@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci=
-_dev *pdev, int resno, int size
-> =20
->  =09pci_resize_resource_set_size(pdev, resno, size);
-> =20
-> -=09if (!bus->self)
-> -=09=09goto out;
-> +=09if (bridge) {
-> +=09=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
-> +=09=09if (ret)
-> +=09=09=09goto restore;
-> +=09} else {
-> +=09=09/* No bridge window to adjust; let the core reassign the bus. */
-> +=09=09pci_bus_assign_resources(bus);
-> =20
-> -=09down_read(&pci_bus_sem);
-> -=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
-> -=09if (ret)
-> -=09=09goto restore;
-> +=09=09list_for_each_entry(dev_res, &saved, list) {
-> +=09=09=09if (!resource_assigned(dev_res->res)) {
-> +=09=09=09=09ret =3D -ENOSPC;
-> +=09=09=09=09goto restore;
-> +=09=09=09}
-> +=09=09}
-> +=09}
-> =20
->  out:
->  =09up_read(&pci_bus_sem);
->=20
-> ---
-> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
-> change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
->=20
-> Best regards,
-> -- =20
-> Liz Fong-Jones <lizf@honeycomb.io>
->=20
---8323328-1291541364-1788949012=:1156--
+Keep lru_add_drain()s in mm/madvise.c: the ones after a bulk op probably
+do want to "Push any new pages onto the LRU now", and update the stats;
+the ones before a bulk op may be trying to stabilize initial conditions,
+or to minimize draining under ptlock.
+
+Keep lru_add_drain_all() in memcg-v1's mem_cgroup_force_empty():
+it probably does want to push onto the LRU and update the stats.
+
+Keep lru_add_drain() after bulk op in mlock_vma_pages_range(), partly
+for "Unevictable kB" accuracy; but remove the lru_add_drain() before it.
+
+Keep lru_add_drain()s in swap_cluster_readahead(), swap_vma_readahead():
+they do want to "Push any new pages onto the LRU now" (akpm 2.5.46).
+
+Keep lru_add_drain()s and lru_add_drain_all() throughout mm/vmscan.c:
+it works on LRUs, so it does need folios to be on an actual LRU.
+
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ mm/compaction.c     | 12 +-----------
+ mm/fadvise.c        | 17 +----------------
+ mm/khugepaged.c     | 11 -----------
+ mm/ksm.c            | 12 ------------
+ mm/memory.c         | 14 ++------------
+ mm/migrate_device.c |  9 ---------
+ mm/mlock.c          |  1 -
+ mm/truncate.c       |  1 -
+ 8 files changed, 4 insertions(+), 73 deletions(-)
+
+diff --git a/mm/compaction.c b/mm/compaction.c
+index 1290b9170cb2..5944094253b0 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -2652,9 +2652,6 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
+ 
+ 	trace_mm_compaction_begin(cc, start_pfn, end_pfn, sync);
+ 
+-	/* lru_add_drain_all could be expensive with involving other CPUs */
+-	lru_add_drain();
+-
+ 	while ((ret = compact_finished(cc)) == COMPACT_CONTINUE) {
+ 		int err;
+ 		unsigned long iteration_start_pfn = cc->migrate_pfn;
+@@ -2969,9 +2966,6 @@ static int compact_nodes(void)
+ {
+ 	int ret, nid;
+ 
+-	/* Flush pending updates to the LRU lists */
+-	lru_add_drain_all();
+-
+ 	for_each_online_node(nid) {
+ 		ret = compact_node(NODE_DATA(nid), false);
+ 		if (ret)
+@@ -3036,12 +3030,8 @@ static ssize_t compact_store(struct device *dev,
+ {
+ 	int nid = dev->id;
+ 
+-	if (nid >= 0 && nid < nr_node_ids && node_online(nid)) {
+-		/* Flush pending updates to the LRU lists */
+-		lru_add_drain_all();
+-
++	if (nid >= 0 && nid < nr_node_ids && node_online(nid))
+ 		compact_node(NODE_DATA(nid), false);
+-	}
+ 
+ 	return count;
+ }
+diff --git a/mm/fadvise.c b/mm/fadvise.c
+index b63fe21416ff..f788a5020384 100644
+--- a/mm/fadvise.c
++++ b/mm/fadvise.c
+@@ -143,27 +143,12 @@ int generic_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
+ 		if (end_index >= start_index) {
+ 			unsigned long nr_failed = 0;
+ 
+-			/*
+-			 * It's common to FADV_DONTNEED right after
+-			 * the read or write that instantiates the
+-			 * pages, in which case there will be some
+-			 * sitting on the local LRU cache. Try to
+-			 * avoid the expensive remote drain and the
+-			 * second cache tree walk below by flushing
+-			 * them out right away.
+-			 */
+-			lru_add_drain();
+-
+ 			mapping_try_invalidate(mapping, start_index, end_index,
+ 					&nr_failed);
+-
+ 			/*
+-			 * The failures may be due to the folio being
+-			 * in the LRU cache of a remote CPU. Drain all
+-			 * caches and try again.
++			 * Retry if any failures, in case they were transient.
+ 			 */
+ 			if (nr_failed) {
+-				lru_add_drain_all();
+ 				invalidate_mapping_pages(mapping, start_index,
+ 						end_index);
+ 			}
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 75639298efc2..d09f848d3591 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1236,10 +1236,6 @@ static enum scan_result __collapse_huge_page_swapin(struct mm_struct *mm,
+ 	if (pte)
+ 		pte_unmap(pte);
+ 
+-	/* Drain LRU cache to remove extra pin on the swapped in pages */
+-	if (swapped_in)
+-		lru_add_drain();
+-
+ 	result = SCAN_SUCCEED;
+ out:
+ 	trace_mm_collapse_huge_page_swapin(mm, swapped_in, referenced, result,
+@@ -2320,8 +2316,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 					result = SCAN_FAIL;
+ 					goto xa_unlocked;
+ 				}
+-				/* drain lru cache to help folio_isolate_lru() */
+-				lru_add_drain();
+ 			} else if (folio_trylock(folio)) {
+ 				folio_get(folio);
+ 				xas_unlock_irq(&xas);
+@@ -2335,8 +2329,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 				page_cache_sync_readahead(mapping, &file->f_ra,
+ 							  file, index,
+ 							  end - index);
+-				/* drain lru cache to help folio_isolate_lru() */
+-				lru_add_drain();
+ 				folio = filemap_lock_folio(mapping, index);
+ 				if (IS_ERR(folio)) {
+ 					result = SCAN_FAIL;
+@@ -2975,8 +2967,6 @@ static void khugepaged_do_scan(struct collapse_control *cc)
+ 	bool wait = true;
+ 	enum scan_result result = SCAN_SUCCEED;
+ 
+-	lru_add_drain_all();
+-
+ 	cc->progress = 0;
+ 	while (true) {
+ 		cond_resched();
+@@ -3208,7 +3198,6 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+ 	cc->progress = 0;
+ 
+ 	mmgrab(mm);
+-	lru_add_drain_all();
+ 
+ 	for (addr = hstart; addr < hend; addr += HPAGE_PMD_SIZE) {
+ 		enum scan_result result = SCAN_FAIL;
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 49d48d1e0998..890e2c51106d 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -2625,18 +2625,6 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 		advisor_start_scan();
+ 		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
+ 
+-		/*
+-		 * A number of pages can hang around indefinitely in per-cpu
+-		 * LRU cache, raised page count preventing write_protect_page
+-		 * from merging them.  Though it doesn't really matter much,
+-		 * it is puzzling to see some stuck in pages_volatile until
+-		 * other activity jostles them out, and they also prevented
+-		 * LTP's KSM test from succeeding deterministically; so drain
+-		 * them here (here rather than on entry to ksm_do_scan(),
+-		 * so we don't IPI too often when pages_to_scan is set low).
+-		 */
+-		lru_add_drain_all();
+-
+ 		/*
+ 		 * Whereas stale stable_nodes on the stable_tree itself
+ 		 * get pruned in the regular course of stable_tree_search(),
+diff --git a/mm/memory.c b/mm/memory.c
+index 8b0c2c735d3d..e9e2199ba5e9 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4313,9 +4313,6 @@ static bool __wp_can_reuse_large_anon_folio(struct folio *folio,
+ static bool wp_can_reuse_anon_folio(struct folio *folio,
+ 				    struct vm_area_struct *vma)
+ {
+-	const bool maybe_in_lru_cache = !folio_test_lru(folio);
+-	const bool in_swapcache = folio_test_swapcache(folio);
+-
+ 	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && folio_test_large(folio))
+ 		return __wp_can_reuse_large_anon_folio(folio, vma);
+ 
+@@ -4326,16 +4323,9 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
+ 	 *
+ 	 * KSM doesn't necessarily raise the folio refcount.
+ 	 */
+-	if (folio_test_ksm(folio) ||
+-	    folio_ref_count(folio) > 1 + maybe_in_lru_cache + in_swapcache)
++	if (folio_test_ksm(folio))
+ 		return false;
+-	if (maybe_in_lru_cache)
+-		/*
+-		 * We cannot easily detect+handle references from
+-		 * remote LRU caches or references to LRU folios.
+-		 */
+-		lru_add_drain();
+-	if (folio_ref_count(folio) > 1 + in_swapcache)
++	if (folio_ref_count(folio) > 1 + folio_test_swapcache(folio))
+ 		return false;
+ 	if (!folio_trylock(folio))
+ 		return false;
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 009bfa8b212d..7ece4ca0654a 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -575,11 +575,8 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
+ 	struct folio *fault_folio = fault_page ?
+ 		page_folio(fault_page) : NULL;
+ 	unsigned long i, restore = 0;
+-	bool allow_drain = true;
+ 	unsigned long unmapped = 0;
+ 
+-	lru_add_drain();
+-
+ 	for (i = 0; i < npages; ) {
+ 		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+ 		struct folio *folio;
+@@ -600,12 +597,6 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
+ 
+ 		/* ZONE_DEVICE folios are not on LRU */
+ 		if (!folio_is_zone_device(folio)) {
+-			if (!folio_test_lru(folio) && allow_drain) {
+-				/* Drain CPU's lru cache */
+-				lru_add_drain_all();
+-				allow_drain = false;
+-			}
+-
+ 			if (!folio_isolate_lru(folio)) {
+ 				src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
+ 				restore++;
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 97134eff6b56..971430e6251e 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -424,7 +424,6 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 	vma_start_write(vma);
+ 	vma_flags_reset_once(vma, new_vma_flags);
+ 
+-	lru_add_drain();
+ 	walk_page_range_vma(vma, start, end, &mlock_walk_ops, NULL);
+ 	lru_add_drain();
+ 
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 4151f7a167e3..7ea5d513f76a 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -571,7 +571,6 @@ unsigned long mapping_try_invalidate(struct address_space *mapping,
+ 			 */
+ 			if (!ret) {
+ 				deactivate_file_folio(folio);
+-				/* Likely in the lru cache of a remote CPU */
+ 				if (nr_failed)
+ 					(*nr_failed)++;
+ 			}
+-- 
+2.51.0
+
