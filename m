@@ -1,48 +1,92 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E70283FE5;
-	Wed,  9 Sep 2026 02:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF9F326951
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788921607; cv=none; b=dQAoY6+UUl/YUVh+MaP1xqWUlcEGEENyEgALygl/TaMPJOqNxrif20lBS6pknKHlRynhhiDEldODR/io24rPiwgnPbQrWE7X16SSg/rRfe/4DkLC6Ge9vG+Gmz1xwA/zY1zAWdyBNNfnWLoV1hB9BBrUM49ON6KKnYKNisXF5WI=
+	t=1788921629; cv=none; b=mgPHDFI4Wt2mpuedZWF9P2lx8AilojiJALSL6fGWmxBm7Q3WdP3NaDunPkD14EN6xHKI+LUUUur2l3xW78VOPpxNIlZ12w7f1p++zqIru5y4dV+6Y2uhEshfC9Mce1i4ozc1+TZWyfJIKIdt0UlCwchAGm8XlDw5FA7v+Qb7720=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788921607; c=relaxed/simple;
-	bh=U1W1iAGyFVqEqqenpXfU2Evdnv8C6GE9aWa6+2wG4Hs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YlP8vA0d4urLauNGqv9XtgpDGp7gNPE2UWHMXFv2ApV428MK+C5SHDnXb+NKQiRMn9UzdUVLRwDkPvBH6C6FE2er02fjkdxzSbt2EXFW3MiwwV27T5GIsK2FHdcKW4qVY3Zcg/7xA5TB+vKhUhtoWwczSp+ENtZkmm8NGwTBVUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ocd2l2mG; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788921629; c=relaxed/simple;
+	bh=X1Xh75puVEIf2AgK7qiR8Iu8yQ2Qw0GXyTIhKX5ee8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D6QPOAoRq4UsH8FwdMTAGUZu2SEKhn6iWMc1fWqGEQZh8+3JoKsnGQtMKY9uOa6zS+MbAAhCc+QqVNntZmFrm/dkyIKuLIwt8goAIVKbIQDTvv+wrcQ0XM3+QlOFlC83EWzB0muQHHtSM9tuQaVTLjiEjJbDVP7OTA7AAfuYOYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HlGPVekw; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ocd2l2mG"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ofFS1SAZ+nMEI78DdTXpdGSPdjZc/HDA+UHRyJ6P8SE=;
-	b=ocd2l2mGUp8yjfJ1qJM+mz+jn1D2FGo4qtUSfVzAEI74aQuWrq6ryBnCybz6C1D9ksiVgJbpw
-	+AGJKC4LI4Bu63NFtQIPI7I/Oe2W5pvmYlrTY0997zCVhqdzUS9zkzIXXh+eskD+aNj4vhG+zXr
-	2JUxq2QGDn1Xi5SYB2mZj2E=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hfl9s1JJRzmV8g;
-	Wed,  9 Sep 2026 10:29:05 +0800 (CST)
-Received: from kwepemo100017.china.huawei.com (unknown [7.202.195.215])
-	by mail.maildlp.com (Postfix) with ESMTPS id 82CD6402AB;
-	Wed,  9 Sep 2026 10:39:59 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo100017.china.huawei.com (7.202.195.215) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Wed, 9 Sep 2026 10:39:58 +0800
-From: Bowen Yu <yubowen8@huawei.com>
-To: <linuxarm@huawei.com>, <liudingyuan@h-partners.com>,
-	<andi.shyti@kernel.org>, <linux-i2c@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <zhanjie9@hisilicon.com>, <prime.zeng@hisilicon.com>,
-	<wanghuiqiang@huawei.com>, <xuwei5@huawei.com>, <yubowen8@huawei.com>,
-	<zhangpengjie2@huawei.com>
-Subject: [PATCH v3] i2c: hisi: Add I2C bus recovery support
-Date: Wed, 9 Sep 2026 10:39:58 +0800
-Message-ID: <20260909023958.4190890-1-yubowen8@huawei.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HlGPVekw"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8557c3f270eso3508133b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 19:40:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788921626; x=1789526426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/fZqpQBGjzjI/DxAL3lk605xnvz1wTJmXUd/sLpFD+Q=;
+        b=HlGPVekw2RyG3wytO5zN/19Es33hbLKy0WSnXvb1Q841eId/oLFiGJPDTt+RZzssg+
+         YOzXaI2NVXX+kGMo2yyL7i8SpFHfD87TYNEfV+wlalWYmn3I682+KqJXaLK+gCBGrvn0
+         zM5OwWEtjYNyRu2WgFO7wuMjqnwPZAdVEDI56k4C8JiJfCMjVxb07qzjQ1a0AlaodsKk
+         7J8tUnu9CIdi0P6bd0c4p5AssSA9+OkTxOmRqi5cAOqt2IiVLQ1358AxqzM9usZVaCLE
+         ohSFyh3LRXqnHqLWAYnz0CkuuyXEdSTDh858WaPgf3UPeS49bysVo7zk9PAa08/MFDi2
+         ZYQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788921626; x=1789526426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/fZqpQBGjzjI/DxAL3lk605xnvz1wTJmXUd/sLpFD+Q=;
+        b=flbkXZ1Ry+UPqr4N9xw27f/hfadQT/rmxw00danwDmAQ9NdcyOGDdhTtkBmsZmrIo9
+         My7XvgbotlJd05Ov3kKT9/IeSnQw+VQy5GvlpqzTN5fPKLt5f5fxL70O4SbQdDGoCECW
+         mxEnHb6j1VjjoUE2r1tLVvByA6FBz1zEHCO2J9rdOQmCFirQaqgnItlCzX3Q0R7lP74W
+         fxYdlEJ5FA6yXPc4gdJaQCgfhHRj0SSjLDo8wqK3xjUT+HWcjG9OtSiKpSYdwI6piLZ1
+         1hK5lABIGRe6pKFDZOaM9yVKKLk+yYmwXn+rnJRqnpmNXspYrFRFBY0vR7fmF85W6pQf
+         J3tw==
+X-Forwarded-Encrypted: i=1; AKwUvByZzuRkPHEkNd0NclPlOf1zaMwxOJ0cIUvUp3uyqX7WpNkNGpTPf8H8F9ly2ltIoeoGcpfw6wHsODoM5kQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7j2gnDDUi7gtYLKS65OUI4jS6sNO0CxkkhGZT5/YHlAExKPng
+	4t/NkJ5HbqOYVsMbbB4BOfrkkc721lg7NwsaDAfkYeFECdceAOeCoMXZ
+X-Gm-Gg: AYBFou3s6UTriQlcaPkCtaxIpS1ZohiP0r41/iVVYNbfFSiOVofbyk0zDOiwPxYWQ4E
+	g3+naSt87qUxfmHSNkaECAftYT1+/WpvKlJnqlylr43MmND+5BplEz7CY7K38a/qvGp0htXVzFP
+	SzJlBht0trqreMuktSz5E5rzodbspxOaXLnsiOkup95t10LV7j5s4hr/at8VUvwNl3WjfGLr+ZE
+	r9HW2N1zvBE+G3uOvypa/iNdSykKhzCYttUmZC477h0RHfl2VcVCSibeaJdpVkWIuU/XadnpxSY
+	KsiNs7assmKAv4LUOteAN74aEuAnVnDZ6KPeUu6Y0KhXKtWejjZYN85FfgivMtQQ0HFQgiZM4/s
+	pmvm8bdIDnOaVnR3fsr3iBKbi60XzlsEFLdVyBrZfq6g5btnL/51umr8aAECDUbhYhLA4WvZJSh
+	KXWijuocgFKmTOdvRHlavTK8iZQ+h19eZOmrPRp7w0AHrekW3SfNtEh7iAzvmW1NCBw2fJAUuEP
+	YB9tC1X2CBPhcGoG5vFbRIPlOeN41j05oyl1I1ZZjbo3NDh7kg8PCw/T719kvoENW0bN1UeNpi/
+	XMxvO//bDWMV+kaYU/88YRAFzZxJB4yVunWp27tNK3HSWkHpqOpF6/dpLAFdeTfo1gjdHJ9j+5i
+	SHiknodaDr7E4
+X-Received: by 2002:a05:6a00:f0e:b0:847:770f:da4c with SMTP id d2e1a72fcca58-8616b17644bmr44258694b3a.16.1788921625629;
+        Tue, 08 Sep 2026 19:40:25 -0700 (PDT)
+Received: from bad.. ([43.227.225.58])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045f74sm6270814b3a.10.2026.09.08.19.40.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 19:40:25 -0700 (PDT)
+From: Nikhil <nikhilljatt@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	horms@kernel.org,
+	dsahern@gmail.com,
+	hawk@kernel.org,
+	razor@blackwall.org,
+	stable@vger.kernel.org,
+	bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
+Date: Wed,  9 Sep 2026 08:10:11 +0530
+Message-ID: <20260909024011.1252694-1-nikhilljatt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,229 +94,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemo100017.china.huawei.com (7.202.195.215)
 
-When the I2C bus is stuck due to a slave device holding SDA low
-(e.g. during an incomplete transfer), the master has no way to recover
-the bus through normal operation. Add bus recovery support using the
-subctrl register to manually toggle SCL and generate clock pulses to
-release the bus.
+bpf_ipv4_fib_lookup() and bpf_ipv6_fib_lookup() copy the neighbour's
+link layer address into params->dmac without any synchronisation, but
+neigh_update() writes neigh->ha under write_seqlock(&neigh->ha_lock)
+exactly because there are lockless readers.  A BPF program calling
+bpf_fib_lookup() while the neighbour is being updated can therefore be
+handed a torn address, and XDP/tc then forwards the packet to a bogus
+L2 destination.
 
-The recovery is performed via a second register resource (sctrl_base)
-that provides direct control over SCL/SDA lines through mux and
-output-enable bits. After recovery, the I2C controller is reset through
-the ACPI _RST method and reconfigured.
+neigh_ha_snapshot() cannot be used here because it copies dev->addr_len
+bytes while params->dmac is only ETH_ALEN long (an IPoIB egress device
+has addr_len 20 and would overflow into params->smac), so open-code the
+seqlock loop around the ETH_ALEN copy.
 
-Recovery is only registered when the subctrl resource is provided in
-the firmware description, keeping backward compatibility with existing
-platforms.
+Same problem and same fix as commit 57549ab90791 ("net: bridge: arp/nd
+proxy: fix reading neigh ha") and commit b824059a673b ("vxlan: fix
+reading neigh ha").
 
-Signed-off-by: Bowen Yu <yubowen8@huawei.com>
+Reproduced on x86_64 under qemu: a dummy device holds a permanent
+neighbour whose lladdr is flipped between aa:aa:aa:aa:aa:aa and
+bb:bb:bb:bb:bb:bb with RTM_NEWNEIGH, while an XDP program driven by
+BPF_PROG_TEST_RUN calls bpf_fib_lookup() in a loop and checks that all
+six bytes of the returned dmac are equal.  Before this patch: 211 torn
+addresses out of 16300000 lookups (last one aa:aa:aa:aa:bb:bb).  After
+this patch: 0 out of 38060000 lookups.
+
+Fixes: 87f5fc7e48dd ("bpf: Provide helper to do forwarding lookups in kernel FIB table")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikhil <nikhilljatt@gmail.com>
 ---
-v2 -> v3:
-	-Fixed function defined but not used warnings in none ACPI Scenario
----
- drivers/i2c/busses/i2c-hisi.c | 145 ++++++++++++++++++++++++++++++++++
- 1 file changed, 145 insertions(+)
+ net/core/filter.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-hisi.c b/drivers/i2c/busses/i2c-hisi.c
-index ba5c9579ae19..1c90a50a9138 100644
---- a/drivers/i2c/busses/i2c-hisi.c
-+++ b/drivers/i2c/busses/i2c-hisi.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2021 HiSilicon Technologies Co., Ltd.
-  */
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 61940e753552..6fdb85c9af44 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -6298,6 +6298,20 @@ static const struct bpf_func_proto bpf_skb_get_xfrm_state_proto = {
+ #endif
  
-+#include <linux/acpi.h>
- #include <linux/bits.h>
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-@@ -62,6 +63,8 @@
- #define HISI_I2C_INT_CLR		0x0048
- #define HISI_I2C_INT_MASK		0x004C
- #define HISI_I2C_TRANS_STATE		0x0050
-+#define   HISI_I2C_TRANS_STATE_SDA_LEVEL	BIT(5)
-+#define   HISI_I2C_TRANS_STATE_SCL_LEVEL	BIT(6)
- #define HISI_I2C_TRANS_ERR		0x0054
- #define HISI_I2C_VERSION		0x0058
- 
-@@ -86,9 +89,26 @@
- #define NSEC_TO_CYCLES(ns, clk_rate_khz) \
- 	DIV_ROUND_UP_ULL((clk_rate_khz) * (ns), NSEC_PER_MSEC)
- 
-+/*
-+ * SUBCTRL SC_I2C_CTRL register
-+ * Set HISI_I2C_CTRL_DAT_CFG_EN and HISI_I2C_CTRL_SCL_CFG_EN to control
-+ * I2C pin behavior by subctrl controller; use HISI_I2C_CTRL_DAT_OE and
-+ * HISI_I2C_CTRL_CLK_OE to control input or output; use HISI_I2C_CTRL_SDA_OUT
-+ * and HISI_I2C_CTRL_SCL_OUT to control output value.
+ #if IS_ENABLED(CONFIG_INET) || IS_ENABLED(CONFIG_IPV6)
++/* Take a stable snapshot of the neighbour's link layer address.
++ * neigh_ha_snapshot() can not be used here because it copies dev->addr_len
++ * bytes while params->dmac is only ETH_ALEN long.
 + */
-+#define HISI_I2C_CTRL_DAT_CFG_EN BIT(5)
-+#define HISI_I2C_CTRL_SCL_CFG_EN BIT(4)
-+#define HISI_I2C_CTRL_DAT_OE BIT(3)
-+#define HISI_I2C_CTRL_CLK_OE BIT(2)
-+#define HISI_I2C_CTRL_SDA_OUT BIT(1)
-+#define HISI_I2C_CTRL_SCL_OUT BIT(0)
++static void bpf_fib_dmac_snapshot(u8 *dmac, const struct neighbour *neigh)
++{
++	unsigned int seq;
 +
-+#define HISI_I2C_RECOVERY_REG_SIZE 4
++	do {
++		seq = read_seqbegin(&neigh->ha_lock);
++		memcpy(dmac, neigh->ha, ETH_ALEN);
++	} while (read_seqretry(&neigh->ha_lock, seq));
++}
 +
- struct hisi_i2c_controller {
- 	struct i2c_adapter adapter;
- 	void __iomem *iobase;
-+	void __iomem *sctrl_addr;
- 	struct device *dev;
- 	struct clk *clk;
- 	int irq;
-@@ -108,8 +128,14 @@ struct hisi_i2c_controller {
- 	struct i2c_timings t;
- 	u32 clk_rate_khz;
- 	u32 spk_len;
-+
-+	/* Bus recovery */
-+	struct i2c_bus_recovery_info rinfo;
-+	acpi_handle acpi_handle;
- };
+ static int bpf_fib_set_fwd_params(struct net_device *dev,
+ 				  struct bpf_fib_lookup *params,
+ 				  u32 flags, u32 mtu, u32 in_ifindex)
+@@ -6491,7 +6505,7 @@ static int bpf_ipv4_fib_lookup(struct net *net, struct bpf_fib_lookup *params,
  
-+static void hisi_i2c_configure_bus(struct hisi_i2c_controller *ctlr);
-+
- static void hisi_i2c_enable_int(struct hisi_i2c_controller *ctlr, u32 mask)
- {
- 	writel_relaxed(mask, ctlr->iobase + HISI_I2C_INT_MASK);
-@@ -151,6 +177,121 @@ static void hisi_i2c_handle_errors(struct hisi_i2c_controller *ctlr)
- 	}
- }
+ 	if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
+ 		return BPF_FIB_LKUP_RET_NO_NEIGH;
+-	memcpy(params->dmac, neigh->ha, ETH_ALEN);
++	bpf_fib_dmac_snapshot(params->dmac, neigh);
+ 	memcpy(params->smac, dev->dev_addr, ETH_ALEN);
  
-+#ifdef CONFIG_ACPI
-+static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-+
-+	return !!(reg & HISI_I2C_TRANS_STATE_SCL_LEVEL);
-+}
-+
-+static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-+
-+	return !!(reg & HISI_I2C_TRANS_STATE_SDA_LEVEL);
-+}
-+
-+static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	if (val)
-+		reg |= HISI_I2C_CTRL_SCL_OUT;
-+	else
-+		reg &= ~HISI_I2C_CTRL_SCL_OUT;
-+	writel(reg, ctlr->sctrl_addr);
-+}
-+
-+static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	reg |= HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN |
-+		   HISI_I2C_CTRL_CLK_OE | HISI_I2C_CTRL_SCL_OUT;
-+	reg &= ~HISI_I2C_CTRL_DAT_OE;
-+	writel(reg, ctlr->sctrl_addr);
-+}
-+
-+static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-+	u32 reg;
-+
-+	reg = readl(ctlr->sctrl_addr);
-+	reg &= ~(HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN);
-+	writel(reg, ctlr->sctrl_addr);
-+
-+	/*
-+	 * Invokes the specific ACPI method "_RST" to trigger a soft reset
-+	 * of the I2C controller to help the I2C controller recover from
-+	 * the abnormal state after the bus recovery process.
-+	 */
-+	if (ctlr->acpi_handle && acpi_has_method(ctlr->acpi_handle, "_RST")) {
-+		acpi_status status;
-+
-+		status = acpi_evaluate_object(ctlr->acpi_handle, "_RST", NULL, NULL);
-+		if (ACPI_FAILURE(status))
-+			dev_err(ctlr->dev, "_RST method failed: %s\n",
-+				acpi_format_exception(status));
-+	}
-+	hisi_i2c_configure_bus(ctlr);
-+}
-+
-+static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
-+					 struct platform_device *pdev)
-+{
-+	struct resource *res0;
-+
-+	res0 = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-+
-+	if (!res0 || resource_size(res0) != HISI_I2C_RECOVERY_REG_SIZE)
-+		return -ENODEV;
-+
-+	ctlr->sctrl_addr = devm_ioremap_resource(&pdev->dev, res0);
-+	if (IS_ERR(ctlr->sctrl_addr)) {
-+		ctlr->sctrl_addr = NULL;
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
-+
-+static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr)
-+{
-+	struct platform_device *pdev = to_platform_device(ctlr->dev);
-+	struct i2c_adapter *adapter = &ctlr->adapter;
-+	int ret;
-+
-+	if (acpi_disabled)
-+		return -ENODEV;
-+
-+	ret = hisi_i2c_get_bus_recovery_res(ctlr, pdev);
-+	if (ret)
-+		return ret;
-+
-+	ctlr->rinfo = (struct i2c_bus_recovery_info){
-+		.get_scl = hisi_i2c_recovery_get_scl,
-+		.get_sda = hisi_i2c_recovery_get_sda,
-+		.set_scl = hisi_i2c_recovery_set_scl,
-+		.prepare_recovery = hisi_i2c_prepare_recovery,
-+		.unprepare_recovery = hisi_i2c_unprepare_recovery,
-+		.recover_bus = i2c_generic_scl_recovery,
-+	};
-+	adapter->bus_recovery_info = &ctlr->rinfo;
-+	ctlr->acpi_handle = ACPI_HANDLE(ctlr->dev);
-+	return 0;
-+}
-+#else
-+static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr) { return -ENODEV; }
-+#endif /* CONFIG_ACPI */
-+
- static int hisi_i2c_start_xfer(struct hisi_i2c_controller *ctlr)
- {
- 	struct i2c_msg *msg = ctlr->msgs;
-@@ -504,6 +645,10 @@ static int hisi_i2c_probe(struct platform_device *pdev)
- 	adapter->dev.parent = dev;
- 	i2c_set_adapdata(adapter, ctlr);
+ set_fwd_params:
+@@ -6644,7 +6658,7 @@ static int bpf_ipv6_fib_lookup(struct net *net, struct bpf_fib_lookup *params,
+ 	neigh = __ipv6_neigh_lookup_noref(dev, dst);
+ 	if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
+ 		return BPF_FIB_LKUP_RET_NO_NEIGH;
+-	memcpy(params->dmac, neigh->ha, ETH_ALEN);
++	bpf_fib_dmac_snapshot(params->dmac, neigh);
+ 	memcpy(params->smac, dev->dev_addr, ETH_ALEN);
  
-+	ret = hisi_i2c_recovery_init(ctlr);
-+	if (ret)
-+		dev_info(ctlr->dev, "I2C bus recovery not available\n");
-+
- 	ret = devm_i2c_add_adapter(dev, adapter);
- 	if (ret)
- 		return ret;
+ set_fwd_params:
 -- 
-2.33.0
+2.43.0
 
