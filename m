@@ -1,185 +1,178 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721E53B27DB;
-	Wed,  9 Sep 2026 07:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F1356A37;
+	Wed,  9 Sep 2026 07:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788937346; cv=none; b=BJOVODovSj3gig90rDoA462ZmDyMYFn0AMuAS3il07unD2aj9nUvpx3YTZoa7ZmNWBCgZ6eetlaQ7u/3RNobGrXBSBhyCKWMLGXjQ/eH/6w4WXMxhyGVofl6a4Qqa0KAdS7vTBA9c+Z/pZUKsyWt0306JEL+St5vMBqx0K6Thd8=
+	t=1788937362; cv=none; b=r8IzeP/3cbwVAN/dMHpDRRV804cQ+mitnLYws7C2XWdwTrvMoVN/c7ajfmWCt6CYBkeCLyRAujCCpPX+GdohFbSdN0DBcqPSrth+Rz6UQoCZif9Yx7mlfLujUH7CAqGFtMqun7Nc2V6T4sqCtLsnPxlm4CzwWnwYaybsQ6evN1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788937346; c=relaxed/simple;
-	bh=BPDWgjnO8zPPqqaSGWRZhqCzGwaTdoCgpPcw7uJvbSU=;
+	s=arc-20240116; t=1788937362; c=relaxed/simple;
+	bh=X+p/elP5znXz4MB+5bGyv4tE0rEZTl6txlKb1psgtMc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L3sclC5PLyY95lRDakhAvFvhm1OXKYNl3RnwMcnI9TkDv+mPYn7KJ9hiUrKBjfmeVa/qq0mnws2SMPdKxNBPvGibNV4BQQBPNwvqocal00IrFhytYy0l8bNt7RGJbA5B/4M4SHHh8/2G5MC/7TNnbytLXaPqNMSLqRbsfJY2Ufw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=db/Z6G8b; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fu2en4aQCd/We6vCnd0Kma7hKUjV48zSzgaWEeUUdZw6Ec4TUFJsA6kE8TmeZoj4R2Uspf9GkIUE8GuQpId/TFjkqePEYBtiCbLZ51a+0Je1d8/1lI2lRZwUyi5Oh3Sl1WC01EdcF4AXrEs+MSlEH+XuCB2E33QoNnUoo27Sq50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sp7q3RS/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="db/Z6G8b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1788937327;
-	bh=8uMdpzBeDAxGsyfhJ0kdUSvzIE8STgr/5i0Idt1I/W0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=db/Z6G8bTasJul+7TXg/XEQWxRGoO47JvvvOqJO655cml11cqtod/DQ3nDrnAr8hr
-	 Vd59NbZ7r//MwLcMp4yyrAHa0Rj95378l7lDSaAVnEy2ujXUhKzMFmPXIh6KoxX69E
-	 Drcs2nKdnVkGUVC6xGUwsEeIb5WkUg8TIqy08TXsk5Wnlcy1F75aA5N+qEjNMruknr
-	 Ah4oeefAtA+VyWmKi8udFof/IRGEe4NrQVhJuDIx4lo1s8EcZ8R/0Qnp+t5ssTD6j1
-	 8JuY5OPADXt2FfIatBBG/q+Q2TInopdueUtjOzgxzAlWIYbX6ZPlTZ65dMt76tUUlI
-	 o99thajKQ0tUg==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hfsDv47qmz4wKv; Wed, 09 Sep 2026 17:02:07 +1000 (AEST)
-Date: Wed, 9 Sep 2026 17:02:09 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is available
- at offset 0
-Message-ID: <aqEEXIqrR8A1SPig@gractus.seuss>
-References: <apOhk-NQusFgV5Sx@gractus.seuss>
- <20260831140119.1f14b420@bootlin.com>
- <apaBuQ8kn2bOzYcI@gractus.seuss>
- <20260901141826.49b1a1b7@bootlin.com>
- <apfKx_u3v3GBfzOz@gractus.seuss>
- <20260907184641.537cfa49@bootlin.com>
- <ap-t8qMg5VMwh-T9@gractus.seuss>
- <20260908100823.1f474894@bootlin.com>
- <aqD6LcbwtrZkk28m@gractus.seuss>
- <20260909085826.1f80a45b@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sp7q3RS/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B8F1F00A3A;
+	Wed,  9 Sep 2026 07:02:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788937360;
+	bh=MN+dOdcZgKnOYNLGoEa/8edxId6RZtSoX5rv7uwx14c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sp7q3RS/k1YrPFVv5B0KdxlDcBrWuM8hOB+yNshAo8fRKBeoJn0Blhxyn3re1+I8f
+	 WxOIaRR1h6UxwtPTyjr1T/OZzKHuYsAfiJWI/WMXF3/cwR6c3G2fbe6kXRI6AYmDy+
+	 CtfCL7awHNkCHeeqrnBWx9wSGN6rd5UnuH3qnV+/SJqMnEkg//zH+EhtYRRd0KMz3A
+	 RrxTrwNzrkQv5ueS/xj5v9Q6RsCjLyZI3G+RwjU8fFiCTIhDVXH3YGFy+ZIc+iTvIa
+	 K6i40NEM/5m35CZKkv8rs0OEi9Wo+5rij0nJ9r0th1xpR2xbQplhmkDF71xJqnh1/S
+	 K1JJk/ZRUXFZg==
+Date: Wed, 9 Sep 2026 09:02:31 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, James.Bottomley@hansenpartnership.com, 
+	mkp@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	Ziqi Chen <ziqi.chen@oss.qualcomm.com>
+Subject: Re: [PATCH V1 1/2] scsi: ufs: ufs-qcom: Add specified gear support
+ for multi gear scaling
+Message-ID: <4vpqu77mkga4syxisysq2mvby7fhf7qfasasvnzubskj3tq34n@5hm56swqkuqg>
+References: <20260829074355.946543-1-nitin.rawat@oss.qualcomm.com>
+ <20260829074355.946543-2-nitin.rawat@oss.qualcomm.com>
+ <stik7u2o6ydje6ws7cyrltmdw4wz6iyximnxeyegw2f562b2bv@4m2sueuuzisb>
+ <50e348ef-2d9a-4197-84ca-99d3902cbc37@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aaGRyrPPX6vTpRqa"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260909085826.1f80a45b@bootlin.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <50e348ef-2d9a-4197-84ca-99d3902cbc37@oss.qualcomm.com>
 
---aaGRyrPPX6vTpRqa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Sep 09, 2026 at 10:34:58AM +0530, Nitin Rawat wrote:
+> 
+> 
+> On 9/2/2026 9:32 PM, Manivannan Sadhasivam wrote:
+> > On Sat, Aug 29, 2026 at 01:13:54PM +0530, Nitin Rawat wrote:
+> > > From: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
+> > > 
+> > > The UFS clock frequency and gear speed do not necessarily have a strict
+> > > one-to-one correspondence on all platforms. Introduce a device tree
+> > > based configuration interface that allows specifying the HS gear
+> > > speed for each supported operating frequency via the "opp-level"
+> > > property in the OPP table. When this property is not configured, the
+> > > driver falls back to the default frequency-to-gear mapping table.
+> > > 
+> > > Signed-off-by: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
+> > > Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+> > > ---
+> > >   drivers/ufs/host/ufs-qcom.c | 30 ++++++++++++++++++++++++++----
+> > >   1 file changed, 26 insertions(+), 4 deletions(-)
+> > > 
+> > > diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+> > > index 0f2e083b04fd..aa2ac2cd2b69 100644
+> > > --- a/drivers/ufs/host/ufs-qcom.c
+> > > +++ b/drivers/ufs/host/ufs-qcom.c
+> > > @@ -2460,8 +2460,9 @@ static unsigned long ufs_qcom_opp_freq_to_clk_freq(struct ufs_hba *hba,
+> > >   	bool found = false;
+> > > 
+> > >   	opp = dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
+> > > -	if (IS_ERR(opp)) {
+> > > -		dev_err(hba->dev, "Failed to find OPP for exact frequency %lu\n", freq);
+> > > +	if (IS_ERR_OR_NULL(opp)) {
+> > > +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
+> > > +			__func__, freq);
+> > 
+> > Don't bring back the '__func__' marking please...
+> Sure, will take in next patchset
+> 
+> 
+> > 
+> > >   		return 0;
+> > >   	}
+> > > 
+> > > @@ -2489,12 +2490,32 @@ static unsigned long ufs_qcom_opp_freq_to_clk_freq(struct ufs_hba *hba,
+> > > 
+> > >   static u32 ufs_qcom_freq_to_gear_speed(struct ufs_hba *hba, unsigned long freq)
+> > >   {
+> > > -	u32 gear = UFS_HS_DONT_CHANGE;
+> > > +	struct dev_pm_opp *opp;
+> > >   	unsigned long unipro_freq;
+> > > +	u32 gear = UFS_HS_DONT_CHANGE;
+> > 
+> > Nit: Preserve reverse Xmas order.
+> Sure, will take in next patchset
+> 
+> > 
+> > > 
+> > >   	if (!hba->use_pm_opp)
+> > >   		return gear;
+> > > 
+> > > +	opp = dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
+> > > +	if (IS_ERR_OR_NULL(opp)) {
+> > > +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
+> > > +			__func__, freq);
+> > 
+> > Drop '__func__' here and below.
+> Sure, will take in next patchset
+> 
+> > 
+> > > +		return gear;
+> > > +	}
+> > > +
+> > > +	/* Get HS gear speed from 'opp-level' */
+> > > +	gear = dev_pm_opp_get_level(opp);
+> > > +	dev_pm_opp_put(opp);
+> > > +
+> > > +	/*
+> > > +	 * Greater than max gear means that there is no specified gear configured in DT
+> > > +	 * or the specified gear is invalid.
+> > > +	 */
+> > > +	if (gear <= hba->max_pwr_info.info.gear_rx)
+> > > +		return gear;
+> > 
+> > Sashiko pointed out a valid concern with this check, please take a look.
+> 
+> I reviewed the bot's comment. The concern raised applies to the case where
+> the gear value provided through the device tree is higher (for example, 5)
+> than what a UFS 3.x device can support. After link startup and negotiation,
+> hba->max_pwr_info.info.gear_rx would be 4. In this scenario, the condition
+> below evaluates to false:
+> 
+> 
+> > +	if (gear <= hba->max_pwr_info.info.gear_rx)
+> > +		return gear;
+> 
+> Execution then falls back to the switch-case logic. If the current frequency
+> does not match any of the predefined entries, the function returns
+> UFS_HS_DONT_CHANGE, which effectively maps to the minimum gear. Shahiko's
+> suggestion is to instead return the device's maximum negotiated gear using:
+> 
+> A couple of points to note:
+> 
+> 1. If the current frequency does not match any of the expected frequency
+> entries, that is already an existing issue. In such a case, simply returning
+> the maximum negotiated gear may not be correct because we do not know the
+> actual gear corresponding to the currently programmed frequency.
+> 
+> 2. The patch under review does not change this existing behavior. It only
+> addresses the handling of gear values that are within the negotiated device
+> capabilities and does not alter the fallback path when the frequency lookup
+> fails.
+> 
+> 
+> Considering the above points, I believe no changes are required for this
+> patch at this time.
+> We can revisit this behavior separately and evaluate potential optimizations
+> in a future patch if needed.
+> 
 
-On Wed, Sep 09, 2026 at 08:58:26AM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Wed, 9 Sep 2026 16:18:22 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> ...
->=20
-> > >=20
-> > > Having a fdt_root_offset() stop at either FDT_BEGIN_NODE_REF or FDT_B=
-EGIN_NODE
-> > > is "fdt_first_node_offset()". =20
-> >=20
-> > > Let me introduce the internal fdt_first_node_offset_()
-> > > - fdt_root_offset()
-> > >   It calls fdt_first_node_offset_() and check that this node is a
-> > >   FDT_BEGIN_NODE node.
-> > >=20
-> > > - fdt_check_node_offset_()
-> > >   if the offset =3D=3D 0, it updates the value with the offset return=
-ed by
-> > >   fdt_first_node_offset_() =20
-> >=20
-> > Right, that's exactly what I'd suggest.
-> >=20
-> > A possible tweak would be to have fdt_check_node_offset_() only apply
-> > special case 0 handling if the _actual_ offset 0 doesn't look like a
-> > valid node offset.  Not sure if that will make things messier or
-> > cleaner.
-> >=20
-> > > And so, a node offset 0 doesn't means the root node but the first node
-> > > in the dtb (root or orphan). I am totally fine with this definition. =
-=20
-> >=20
-> > Right.  If you don't want that behaviour for addon dtbs, then I think
-> > the way to go would be to explicitly avoid all special case handling
-> > of 0 if the header flags an addon.  Handling addons requires new code,
-> > so we don't have to maintain backwards compatibliity for things that
-> > used 0 assuming it meant root node.
-> >=20
-> > > At some point, maybe users of the API (when addon are involved) will =
-have to
-> > > take care of that and perform something like:
-> > >   root =3D fdt_root_offset();
-> > >   fdt_get_property(fdt, root, "prop", NULL);
-> > >=20
-> > > Or
-> > >   fdt_for_each_orphan(orphan, fdt) {
-> > >      fdt_get_property(fdt, orphan, "prop", NULL);
-> > >      ...
-> > >   }
-> > >=20
-> > > Here also, I am totally fine with that an I already use this kind of =
-sequence
-> > > in libfdt/fdt_addon.c to apply an addon on a base dtb.
-> > >=20
-> > > I will introduce fdt_first_node_offset_() but let me know if you pref=
-er
-> > > having fdt_first_node_offset_() introduced right now in this "structu=
-re
-> > > tags" series or later in the addon series. =20
-> >=20
-> > Either is fine; do whichever results in less code churn.
-> >=20
->=20
-> Ok, I will do that.
->=20
-> Do you want to have an early version of that or having it in the
-> next iteration of the series is fine on you side ?
+Fair enough.
 
-Early is good.  Smaller series are easier to review, and getting them
-fully sorted and merged also makes things easier.
+- Mani
 
-> Of course, before sending a new iteration of the series, I am
-> waiting for your feedback on the "structured tags" part. This part
-> is not going to be impacted by the "offset 0 vs real root offset" we
-> have discussed here and so what is available in this current series
-> is still valid.
-
-Right, the root offset stuff stands on its own, so it can sensibly be
-split off.  Splitting series in such a way that they don't have enough
-context to understand the wouldn't be helpful, of course.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---aaGRyrPPX6vTpRqa
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqhBG0ACgkQzQJF27ox
-2GdAhxAAmUTRK+7unAY3mlQ0Und+Vaw2czThNx//HwDrom0KCpw5N+wemduAbX4S
-OxzX1Ieg0sgDledagPlvmemweqPVmonzKQ4SDTM7p1DbrtFzLEbypecR2TMbW90f
-GdfRxbA8g9U7A/GyIY7bzRkm8BJWzMSmmu8ommajL4uxqzkRhfHQHCBMoNtImdc6
-y1rHxv8OcaCnbtOz7360gFtVCaH1SY5cOBWyh0fAqwUCJxgccrsitxgknfGCcVpP
-5rQJavcSh3CqpFtwxkj3yBd8H6qMjhDZkF2M5hGIbAkxX+T6yBrbXNW0SvJq2I0Q
-UoLRZtceZ7cm9XvqnsnC3nLbPlY02zB87STE27qNhFA7g7wW/KvWxlH7QnyUFir7
-hpi0TEtQYm9XaucGcGKxHDOI3p/b/sHIcHyEVtqYLaz0uj9RzdImq6XWSVUbfg2l
-UiMdF2uW9FcWJKp2BRVQeNhG4W7olBTDpqLe/KhSrP+BjYRgH29XhD06SodsXqTB
-L5UQiwykLLn0xxm5jHgl8H0QCjn7xQ6zZ4jyImyaPltAfRbOd8tA+UqqLaEOYG4Z
-1Dg/R+fcZMy3pSTuQb9CqdW3X1xjgkpJ6hEZ6CWJcd9lW6v6TyC+BFkmko4qHEZ5
-mabKGP7/tpn2wlGnAUq4NBbUlX1DQLusBKD4/lJuCwxctTZ5qt0=
-=WzsM
------END PGP SIGNATURE-----
-
---aaGRyrPPX6vTpRqa--
+-- 
+மணிவண்ணன் சதாசிவம்
