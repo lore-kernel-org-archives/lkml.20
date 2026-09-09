@@ -1,303 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012040.outbound.protection.outlook.com [52.101.48.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7859F3A9856;
-	Wed,  9 Sep 2026 09:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947070; cv=none; b=F4Sl9auIR5rXoGXg9FHcUlQIUibIK+dsrMTXa2KeHxaZyYyUdQh7uhyw3fTwZ0ROXPuz6yC0l7fzDWI7v3F2tONVQ5YA41aB9fzZkxeGvzWcW5opFaN1/7Q7SyRCTvH4JG376TrNKiyrLA2KM90tWrBx89l/3Z1iRhCFgfCDO/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947070; c=relaxed/simple;
-	bh=F20jaOy0211qVv8rThlOWOZd3AMl5/zgEpZA6DloFFk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DWJECjmaQSqVQ7vKAflBmBavEYDrz1J4/Mqg10P4sr/KiDc6Gx8tBmFCNyQQPbgZIxcrHwFTHEEAcXor5MD8cXU8s+nFgOa4x+jT7SmQXytP1W88q79u3HaQJtjgfLqyokTlJUWWQoied3UOXGavdAv9eho14oKIqh/i696yXFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S45tUg7L; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02F83A3816;
+	Wed,  9 Sep 2026 09:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788947078; cv=fail; b=RD/UirxVQEGpzG+re3r1PzL43u2ppfSVTB93iGTEvjKi+jhmSYoAsxXB49++U7wfhL1qWJum9KKTOOdxQcZei0NA85TgS23NIIDVWz1TJrF2f/qalsVwcONXqipMumN3Kv4lHKCASNPFS7nQKfXhQ2BhbBpe8mr0ESuo+UH5Zt4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788947078; c=relaxed/simple;
+	bh=wNxcr851kY/Gm/1qejXUgOgsuClCFjTSi0FHeFAi05I=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=EkPW0gUBnVO498oI5DeTUYVeyyB4nYvBtPbkzUEnP18yu+jd6VqeI/tf6pnirZFZi3B3pColtPitfpKNbrAtZm51c3EkriORQe7BYOkmdoXkup3FROlCzL6vpB5oDyJ3vf6sE8tDvF9KgpIvx5dsn7NqB6841RB6+TsP6Y48Kf8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VJ7LGKoB; arc=fail smtp.client-ip=52.101.48.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S45tUg7L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0CB1F00A3D;
-	Wed,  9 Sep 2026 09:44:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788947069;
-	bh=4dN3Vm+A/q/0AWxfXoTAWqWfFbdTmy4SeL1/3qbxIyk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=S45tUg7LyI5EaKXJwuZ1sMfOExEKes0ouThD/mYbuZnoKFsV0K4EkDHgy4XUvJ5/E
-	 c+LiZ6EZdMXM0TmHwvM9Ka/ObBZNW91+wSkw1vw4QmCDxpVqpoO9zB1KKtuBwEiRDF
-	 SSzmd23RYV9ghTjF5FzjAfaNCTqQTtwOm3COlvpqOWKE07/2W0iystfe0sW+e3NYYX
-	 QZYIGlXlxQAFnEIvgWFVbVSiaqy7oRc1/P7PXalPY9sZ6jhJ4UwhuQEmaoX+TdLIRB
-	 psq66e8OBLS2J9IsYpxryC0DR/LzE/4O4u6nuYz1BoAqSmwD1vkA/J0gnx85thPTIe
-	 +ubcPZSrZC4nw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x4Eqw-00000006cE9-2rlW;
-	Wed, 09 Sep 2026 09:44:26 +0000
-Date: Wed, 09 Sep 2026 10:44:26 +0100
-Message-ID: <861pb24v45.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: arm64: Enable S1PIE for hVHE
-In-Reply-To: <20260908-kvm-arm64-nvhe-pie-v2-1-79e42d28cc08@kernel.org>
-References: <20260908-kvm-arm64-nvhe-pie-v2-1-79e42d28cc08@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VJ7LGKoB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MLkFTTRV4GGZ+umEmqhH47DJVQan9ol9EnVaXaJIBugP2aChQZ0KfOyA7nEUhokSApEui+c546ZpywpAsN6iSUTjtrytIUphk2dJasQUZRWNusZeDr92rTtJegesjD2POHJfnqQKarXL99o7JEHjP1iofD9LIYvIwxiMWZ2fVqnHh3v7s4oQFg4THg7QGNpvHxxXk521TDHZeksfmR75n6wu+8n0iiCAaUZcODWZ86mg1t7i6KvXLEXXU6NWL87wCYhlxcTHnR/+riEW7OxcOiaFmCng1LfxXqyvsIQUfy0FyXLrJPG/MjYqnnsvDQpcID6ufgsQLgP8lYTO7IOzhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OWavlyhl3bRdBX+GzZ5lok6m4s7Vq+Mv6ofJZPkluRs=;
+ b=tbfoSPrwBWKChJSzv3mJ1NMePp24G4FL2DOo0FraZwEjxq9op/cbV46bACy5rtpzg/DIqb2RkVCLxmOAFU5DOKAOZkwg1Fqw8pXY3sWp49dOxfmpuqulMl0esiss2RMlTXbldX1HPjvvaopDhOd6IgKu9MEoqg8wO80cWWGDktB39R3KvPrdGHcb4VRR9A1tT+D3QHpNX9Lga8JGC86LEw3UYfzKxLX/MxjDV2z0xoJqAcFcJidwhqmoWoQm89zQoBCzY/sBI3HO8sr0MKCe10WCxXYNHX1nS83MNeQtJP5hZOlVv8nR1PvvayYScB8WkvcpRkGyL+ZIp0gNAbo5yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OWavlyhl3bRdBX+GzZ5lok6m4s7Vq+Mv6ofJZPkluRs=;
+ b=VJ7LGKoB0iAe3yP3bnNgrQTVUdld2kVAmhQ3rRnLAfWNdCsFlFK7d56eS/05fLhAYe81N6j/5c3l3dUtQkG2uZnWARfzIXvbyLon+gIZD0v7yTs4VnVzw4STGimJOi/yUceDaJNxeFD2PEhvt7LpjcVAr/UybaeSW/hfmXgl3J7i2xcKw29Tv+m6kxpJoN6helWb7zrWkiulv/Yxn61F3BgCP5no+16e0v5WxsUiZ/jktOgGo4k2KghCuwnOCmHUxdCI3Kgp30uiReHkFGINRHyhuZHQE6FcE1tj/FVcWOkRXvYOGHZ6Gahdu3mC3QFAnosHjm31Q43iAPPhW6kxcQ==
+Received: from SJ0PR03CA0076.namprd03.prod.outlook.com (2603:10b6:a03:331::21)
+ by SA5PPFCB4F033D6.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e2) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 09:44:31 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::24) by SJ0PR03CA0076.outlook.office365.com
+ (2603:10b6:a03:331::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
+ Sep 2026 09:44:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 09:44:31 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 02:44:13 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 02:44:12 -0700
+Received: from [127.0.1.1] (10.127.8.13) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026
+ 02:44:08 -0700
+From: Kartik Rajput <kkartik@nvidia.com>
+Subject: [PATCH 0/2] Add M-PHY support for NVIDIA Tegra264
+Date: Wed, 9 Sep 2026 15:13:57 +0530
+Message-ID: <20260909-tegra264-mphy-v1-0-ce61a80dc065@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: broonie@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF0qoWoC/yXMQQqAIBBA0avErBPUQqirRAvLsSbIQisK6e5ZL
+ d/i/wgBPWGAOovg8aBAi0sQeQb9qN2AjEwySC4Vr3jFNhy8lqpk8zpezBZorLK6LKSA1KweLZ3
+ fr2l/h72bsN/eCdz3AzbLdbtxAAAA
+X-Change-ID: 20260909-tegra264-mphy-f3edf6fa4321
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
+	<jonathanh@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>
+CC: Thierry Reding <treding@nvidia.com>, <linux-phy@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Kartik Rajput <kkartik@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947048; l=858;
+ i=kkartik@nvidia.com; s=20260909; h=from:subject:message-id;
+ bh=wNxcr851kY/Gm/1qejXUgOgsuClCFjTSi0FHeFAi05I=;
+ b=ElDkauiJKm43Eef96RrM8I4rNw+3tIfQMX35NHkdAbhqzbG0NbCu3aY0ZfC23fdSYdEKqPQSs
+ 4pvoLIPoVy5DX5C5uzDmxVOegy8pg2DRDc5gqw9p5Sf42RmhV12hSrT
+X-Developer-Key: i=kkartik@nvidia.com; a=ed25519;
+ pk=V+1YkJqxCruxUVxLXtAG3f5k8O5skT0X4/QIB75KZ64=
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|SA5PPFCB4F033D6:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3b43c7b-58fa-4f07-3205-08df0e56f2dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|7416014|82310400026|1800799024|11063799006|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	IA3yxNvg+cwonmpHSehuc5eOS5jTaO2lSe74x8aCKTut2oydBRun4mUYXPLmmKGkBdf5tdP5SRhHRIUBd7ozXYm9lRfZEcfY7zyj7sO9WN5+0/PwIa9YLSg9qPlJ36vKWli+sPULdI4dTRkeoX81LL9l0p9AyeVS+FpULleivdQEHEvzH66ySg1eTqMrFThURNKMfOBd1VycEcbrQX6zdvG6c97MCr+2pVAi0WAxrQS3hz+DCF4QoeZtPN/0BjooIdxe6/VZk9exbgRVjFzNQBhioU5sc1xe2bi9dbkHZBDtbs6a7MgUI+4OjrlF1WeoOtn+eloo4NDHO8BI5GFhxp2B1eNL4v+lHdgSKxuHTzIW/ibmzhd3IptrpWys9+ItWkXoeHZTaM8f3joXllLUCVxtd647UPc+1qyuTpcc8L+i7cFDKTrFb2D7mWXZR7Gn+RrKT64jFcUMi4PUq1iGxi5QLQkTE2FA5JddpKCi6QxJPLAuNwk98rL6pAITrwcMiIx76iWACvw3d7k+WTIEHWK7zwAytFgK3WouxfCGpnV9bNqrZ6xZWdZqP+DW9rAMOIfkoS6zv1iSDMhR/cLj7BzDv109I0BDdh4Gal1fEvB7M2mnrr6G8wKgMj8Oy4zOuUqBQvkbe8eYVn05QIzIsxlPdNtPV+uYM5Ok2ahrLiDV9tezORMrWdnG5h+H694+CK2iS0XGMWA7nRIck6O9jg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(7416014)(82310400026)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	U2DRN3DJSaN/WLREkDtzByBMImSg8EjwW5hLaseYvPaRKnTWv0UuL0Sj0QYxwQ4zxkyPBu0bRw/BxLIMiT8HxPGU8hDf7/AVLt/ueErCWcfRY4ucFE/3kIik+4btgFGT6qZyAzog11w4GVq37S4BEPhERTxi+B7LP8/Gk5BmaNlF/iFcfCZRY3D4SsWjpqYpB0tj6wMiuN8ZZbj21cseBUmpd7ZeP1+syBR+k1yWH8f/w+nqK02gPx4cysDamWbnpncABejbUwQq0kLBBERx8hcunmyxMjiapOhtuRKHD64ZtWg7TnJzkGgvF0M6BRIeh36yA3pGARnQHs3RzD4WC3P93sefhNO5k05lJjB4btO1hO6MBhPHHMn+H7qfIBrDgBJHIBujDrIHB1FBozpiu2X6YZQsT0HGoMh4lIhqOXNtK5lx6pq6qQxqX8RpKIL/
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 09:44:31.2932
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3b43c7b-58fa-4f07-3205-08df0e56f2dd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCB4F033D6
 
-On Tue, 08 Sep 2026 20:40:47 +0100,
-Mark Brown <broonie@kernel.org> wrote:
-> 
-> When FEAT_S1PIE (stage 1 permission indirection) is supported we
-> currently enable and use it in the hypervisor when running in VHE mode
-> but not when running in nVHE or hVHE mode.  While systems with
-> FEAT_S1PIE would normally use VHE users can configure them for nVHE or
+Add MIPI M-PHY support for NVIDIA Tegra264 SoCs. The M-PHY is a hardware
+block with two lanes, l0 and l1, used by the Tegra264 UFS host
+controller.
 
-Missing comma after VHE.
+Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
+---
+Kartik Rajput (2):
+      dt-bindings: phy: Add nvidia,tegra264-mphy
+      phy: tegra: Add Tegra264 MPHY driver
 
-> hVHE.  Enable FEAT_S1PIE with hVHE only, hVHE is used for protected VMs
-> but there is no real use case for nVHE mode on hardware with this
-> feature.
+ .../bindings/phy/nvidia,tegra264-mphy.yaml         | 108 +++++
+ drivers/phy/tegra/Kconfig                          |  11 +
+ drivers/phy/tegra/Makefile                         |   1 +
+ drivers/phy/tegra/phy-tegra-mphy.c                 | 459 +++++++++++++++++++++
+ include/dt-bindings/phy/nvidia,tegra264-mphy.h     |  12 +
+ 5 files changed, 591 insertions(+)
+---
+base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
+change-id: 20260909-tegra264-mphy-f3edf6fa4321
 
-That's not the reason. The reason is that there is no nVHE-only
-hardware with PIE, and that on VHE-capable HW, nVHE and hVHE are
-strictly equivalent. Therefore there is no need to add support for HW
-that does not exist.
+Best regards,
+--  
+Kartik Rajput <kkartik@nvidia.com>
 
-> 
-> AP[1] is one of the bits used to encode the indirected permissions.
-> Since for hVHE this is always 0 we only configure the subset of
-> indirected permissions that the system is expected to use.
-> 
-> With permission indirection read and write permissions must be encoded
-> in the bits used by S1PIE, set DBM for writable mappings.  Only do this
-> when using S1PIE, the hypervisor does not otherwise use DBM so no
-> existing hypervisor code sets that bit.  Since the meaning is assigned
-> via S1PIE this does not actually enable DBM, the mappings we configure
-> just grant write permission.
-> 
-> In order to enable S1PIE we also need to configure TCR2_EL2 which is
-> currently only done in __finalise_el2 which is VHE only, do so when the
-> register is present.  When running in nVHE we leave TCR2_EL2.PIE
-> disabled.  This ensures we have an explicit configuration for TCR2_EL2
-> when it is present in the system.
->
-> For simplicity we unconditionally initialise PIR_EL2 and PIRE0_EL2 if
-> FEAT_S1PIE is present, this will have no effect in nVHE mode since we
-> set TCR2_EL2.PIE to 0.
-> 
-> This should have no practical impact other than causing any unexpected
-> encodings to map to no permissions instead of their default
-> meanings.
-
-What default meanings?
-
-> It will mean that the configuration is closer to that in VHE mode, and
-> will be required for future work enabling features like D128 and GCS
-> which are only available via indirection.
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
-> Changes in v2:
-> - Rebase onto v7.3-rc2.
-> - Don't bother cleaning up TCR2_EL2 on hypervisor exit, and squash the
->   handling into the S1PIE patch.
-> - Remove support for nVHE mode.
-> - Link to v1: https://patch.msgid.link/20260904-kvm-arm64-nvhe-pie-v1-0-29d59f245e6c@kernel.org
-> ---
->  arch/arm64/include/asm/kvm_arm.h     | 19 +++++++++++++++++++
->  arch/arm64/include/asm/kvm_asm.h     |  1 +
->  arch/arm64/include/asm/kvm_pgtable.h |  1 +
->  arch/arm64/kernel/asm-offsets.c      |  1 +
->  arch/arm64/kvm/arm.c                 |  8 +++++++-
->  arch/arm64/kvm/hyp/nvhe/hyp-init.S   | 16 ++++++++++++++--
->  arch/arm64/kvm/hyp/pgtable.c         |  8 ++++++++
->  7 files changed, 51 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_arm.h b/arch/arm64/include/asm/kvm_arm.h
-> index 4bfbd827c5aa..eecac91d41e4 100644
-> --- a/arch/arm64/include/asm/kvm_arm.h
-> +++ b/arch/arm64/include/asm/kvm_arm.h
-> @@ -345,4 +345,23 @@
->  #define VCPU_RESET_PSTATE_SVC	(PSR_AA32_MODE_SVC | PSR_AA32_A_BIT | \
->  				 PSR_AA32_I_BIT | PSR_AA32_F_BIT)
->  
-> +/*
-> + * Permission indirection configuration for the hVHE hypervisor when
-> + * we have FEAT_S1PIE. Like the host kernel we configure a mapping
-> + * mostly equivalent to the non-PIE meanings of the bits so the
-> + * page table manipulation code needs minimal updates for PIE.
-> + *
-> + * These mappings are minimal with only things used from the
-> + * hVHE hypervisor, nVHE is not supported.  Write permission is
-> + * controlled via DBM.
-
-They are controlled by PIIndex[1]. Yes, this is the same bit. No, this
-doesn't mean the same thing. When PIE is enabled, DBM is in the PIE
-register.
-
-> + */
-> +
-> +#define KVM_HYP_PIR_IDX(uxn, pxn, dbm, ap1) (((uxn) << 3) | ((pxn) << 2) | \
-> +					     ((dbm) << 1) | (ap1))
-> +
-
-This is not what these bits are called. They are just PIIndex[] bits.
-
-> +#define KVM_HVHE_PIR_EL2 (						\
-> +	PIRx_ELx_PERM_PREP(KVM_HYP_PIR_IDX(0, 0, 0, 0), PIE_RX)	|	\
-> +	PIRx_ELx_PERM_PREP(KVM_HYP_PIR_IDX(1, 1, 0, 0), PIE_R)	|	\
-> +	PIRx_ELx_PERM_PREP(KVM_HYP_PIR_IDX(1, 1, 1, 0), PIE_RW))
-> +
->  #endif /* __ARM64_KVM_ARM_H__ */
-> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-> index e5b92ac09e69..eb796436d6eb 100644
-> --- a/arch/arm64/include/asm/kvm_asm.h
-> +++ b/arch/arm64/include/asm/kvm_asm.h
-> @@ -208,6 +208,7 @@ extern void *__vhe_undefined_symbol;
->  struct kvm_nvhe_init_params {
->  	unsigned long mair_el2;
->  	unsigned long tcr_el2;
-> +	unsigned long tcr2_el2;
->  	unsigned long tpidr_el2;
->  	unsigned long stack_hyp_va;
->  	unsigned long stack_pa;
-> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-> index 41a8687938eb..7b1b7ab3e88e 100644
-> --- a/arch/arm64/include/asm/kvm_pgtable.h
-> +++ b/arch/arm64/include/asm/kvm_pgtable.h
-> @@ -93,6 +93,7 @@ typedef u64 kvm_pte_t;
->  
->  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
->  
-> +#define KVM_PTE_LEAF_ATTR_HI_S1_DBM	BIT(51)
->  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
->  
->  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
-> diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-> index 9c853ed3ceab..baffe58015d6 100644
-> --- a/arch/arm64/kernel/asm-offsets.c
-> +++ b/arch/arm64/kernel/asm-offsets.c
-> @@ -118,6 +118,7 @@ int main(void)
->    DEFINE(HOST_DATA_CONTEXT,	offsetof(struct kvm_host_data, host_ctxt));
->    DEFINE(NVHE_INIT_MAIR_EL2,	offsetof(struct kvm_nvhe_init_params, mair_el2));
->    DEFINE(NVHE_INIT_TCR_EL2,	offsetof(struct kvm_nvhe_init_params, tcr_el2));
-> +  DEFINE(NVHE_INIT_TCR2_EL2,	offsetof(struct kvm_nvhe_init_params, tcr2_el2));
->    DEFINE(NVHE_INIT_TPIDR_EL2,	offsetof(struct kvm_nvhe_init_params, tpidr_el2));
->    DEFINE(NVHE_INIT_STACK_HYP_VA,	offsetof(struct kvm_nvhe_init_params, stack_hyp_va));
->    DEFINE(NVHE_INIT_PGD_PA,	offsetof(struct kvm_nvhe_init_params, pgd_pa));
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 8b080804bc90..607a6f808b1c 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -2158,7 +2158,7 @@ static int kvm_init_vector_slots(void)
->  static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
->  {
->  	struct kvm_nvhe_init_params *params = per_cpu_ptr_nvhe_sym(kvm_init_params, cpu);
-> -	unsigned long tcr;
-> +	unsigned long tcr, tcr2;
->  
->  	/*
->  	 * Calculate the raw per-cpu offset without a translation from the
-> @@ -2186,6 +2186,12 @@ static void __init cpu_prepare_hyp_mode(int cpu, u32 hyp_va_bits)
->  	tcr |= TCR_T0SZ(hyp_va_bits);
->  	params->tcr_el2 = tcr;
->  
-> +	tcr2 = 0;
-> +	if (cpus_have_final_cap(ARM64_HAS_S1PIE) &&
-> +	    cpus_have_final_cap(ARM64_KVM_HVHE))
-> +		tcr2 |= TCR2_EL2_PIE;
-> +	params->tcr2_el2 = tcr2;
-> +
->  	params->pgd_pa = kvm_mmu_get_httbr();
->  	if (is_protected_kvm_enabled())
->  		params->hcr_el2 = HCR_HOST_NVHE_PROTECTED_FLAGS;
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-init.S b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-> index 0b3e0b28dfc7..cd5b75c8776f 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-init.S
-> @@ -137,8 +137,20 @@ alternative_if ARM64_HAS_CNP
->  alternative_else_nop_endif
->  	msr	ttbr0_el2, x2
->  
-> -	ldr	x0, [x0, #NVHE_INIT_TCR_EL2]
-> -	msr	tcr_el2, x0
-> +	ldr	x1, [x0, #NVHE_INIT_TCR_EL2]
-> +	msr	tcr_el2, x1
-> +
-> +alternative_if ARM64_HAS_S1PIE
-> +	/* S1PIE is only enabled with TCR2_EL2.PIE if we are running hVHE */
-> +	mov_q	x1, KVM_HVHE_PIR_EL2
-> +	msr	REG_PIR_EL2, x1
-> +	msr	REG_PIRE0_EL2, xzr
-> +alternative_else_nop_endif
-> +
-> +alternative_if ARM64_HAS_TCR2
-> +	ldr	x1, [x0, #NVHE_INIT_TCR2_EL2]
-> +	msr	REG_TCR2_EL2, x1
-> +alternative_else_nop_endif
-
-S1PIE implies TCR2. Why the additional alternatives?
-
->  
->  	isb
->  
-> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-> index b74dd5ce1efd..5276c2874fe0 100644
-> --- a/arch/arm64/kvm/hyp/pgtable.c
-> +++ b/arch/arm64/kvm/hyp/pgtable.c
-> @@ -349,6 +349,14 @@ static int hyp_set_prot_attr(enum kvm_pgtable_prot prot, kvm_pte_t *ptep)
->  
->  		if (system_supports_bti_kernel())
->  			attr |= KVM_PTE_LEAF_ATTR_HI_S1_GP;
-> +	} else if (cpus_have_final_cap(ARM64_HAS_S1PIE) &&
-> +		   cpus_have_final_cap(ARM64_KVM_HVHE) &&
-> +		   (prot & KVM_PGTABLE_PROT_W)) {
-> +		/*
-> +		 * When using S1PIE for hVHE set DBM for writable
-> +		 * mappings since AP[2] is ineffective.
-
-It's not ineffective. It doesn't exist! See R_JJNHR.
-
-This is totally obfuscating what is really going on, which is really
-simple. We have 4 permission index bits in the PTE, and the both the
-code and comments should reflect that.
-
-> +		 */
-> +		attr |= KVM_PTE_LEAF_ATTR_HI_S1_DBM;
-
-So this sets PIIndex[1]. But It isn't obvious how this takes us from
-R(0x8) to RW(0xC). Where is PIIndex[3] coming from? It is supplied by
-the code following through the UXN/PXN bbits, but it is mind-boggling
-that we should rely on something deals with non-execution to control
-the *READ* permission.
-
-TBH, I think this is completely going the wrong way. Why can't we
-write this as a discrete enumeration of the permission combination we
-support (all 3 of them), and map that to the correct index?
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
