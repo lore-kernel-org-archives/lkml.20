@@ -1,214 +1,355 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D4552B1D5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16052521223
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950375; cv=none; b=VT4LcG8OcKWHWAvWveNo8fYF2vPIKtfuF7Moaq8rbJVjNZ6XMfY0e3B2HvYO0Mb+fyt5MhZLJxliy2Akv54Y/C9W90yBxN51hfV3ib5Hz7lkcsmJVm7pToMHSkGAAVBRsdrkDZW2mqpoPj2fULrX7ozayGQJPdNDeKd9rXtGO8g=
+	t=1788950469; cv=none; b=qidVUgGzSM43/yq+b2aAGZd5FKcsqYWbv+CPiEfQcTQe4x6MSVlHLOERc6wj99coE2InxyzA4bn85bYrio5rzZ/6krjvB95q5miA0RdLgwkIyrdj0iVyQSP2IcOZ8nbZLa7sufamw641xYMYMk2oYfAr2B3XWepIG2o8X5OmyEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950375; c=relaxed/simple;
-	bh=bw0FcdNE089UrGqxgOxP0tC96Q7Q+avuOnPdcBrOj9Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GyKNe+vcdBnNFEfSVL745/d4DSGNRK/UUReBI3s45VXMuDeZpVa3SO4yoftbJaKE/pV0/USHH9T66XEdE0LYNHMJDLVIBtxP9FPsVpcweSf3UbiXXkWTq8fHmS9HpY53aCFqFhFOO+7QfcoLc62ho+rJSjxwnD/xF2UsInmzJ7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IRzdTMDH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nz+YKWYu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788950469; c=relaxed/simple;
+	bh=wCi3pUhWZvq93WjLW4ifiEYeMwDAkqD4CUEmoBl4gEM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=RZi4A6kKDEzngNB4Dobf50rPmtYVK1ZJqqUIUOtGnAIgvthWKS77gMc9srTMMuYVAtD5UrBf8v7BHrgyEAytUxUkApVkS65TPcp8oKPFXpptoDUr5K2EvhJGTYrSZfBU29YmCpN9A2BKuyLJN3EoaSEPB+8yZ+xEmG+3QRDo0BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uFQXFG0h; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IRzdTMDH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nz+YKWYu"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689ASDFi1883118
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 10:39:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ah1D05y2ARWiyzPYFDN5/jrEHY4yrUD3AP0+uHK2Us4=; b=IRzdTMDHjgyG+q32
-	69dCsbkXfba4JNM3bf8G9jPYyFJjgU6Nd/x3kgpS/ZPEA0FedT3MvqKpbkIyA0oI
-	Jf7hAT0w+lzy+NvCn234JZ5joeMoDsKO0b3XkzjLV23KgLo4EIGAPtHDSoEh22X4
-	G48mWX0HMF0KObEH2rYNtu6ES7hgFJzeRhqZJkYu0nGzBVK+oXiPNPgyIY1vkITL
-	lEGkwrfX4LEBGxD5aIBVmzIbHWLx1VJHvDJjtbmEYDC+ys6BSZJoDpaQqeU5d6nw
-	E5cRfaSxWPRGOn/mDT5BiimIVSm+OuPGBdBpSljQxkOS+4rOmfPtP+OPMnJsFppy
-	QuMFwQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqe7kg4j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:39:31 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso10957930a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:39:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uFQXFG0h"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-878ed0f17bfso34330427b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:41:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788950371; x=1789555171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788950467; x=1789555267; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ah1D05y2ARWiyzPYFDN5/jrEHY4yrUD3AP0+uHK2Us4=;
-        b=Nz+YKWYuH0dhUdQ2pkn1GWn9n5ythD2QId2pM400L3Ti2NYdtMloTo+RfsD56JegBB
-         PR/UmdzEeISrzrvmhchiUllRG1l7OxJBBC+5r6dHQGe8bfz/gaiV1TM8t9WlNROI6gx0
-         KxyiQQISVd6CIFdVzENfC1aCnrzavi/3M4zDPHX2mXUGxTVjfdWfeElfSqZ9bXQGVvsO
-         OODKxgWAEK92NxXV45qY6rx3hZ678j1CnkYxYCaa1SMIn0wphnJHXuZY9UjTlAEdlOPQ
-         0Z7nCHwDwjnT+V0jHtDlSHnJbPEERIm6OaeOBwtCxtcjklTMZbMmBT1M2WiotBfrV2r4
-         psdA==
+        bh=PGN+ybR37+qvtDqf9cFN47582j44el3q/H5/GSGFvrU=;
+        b=uFQXFG0hXoimqiWby6dfpdSvwp1ywbxkEFfD0FeBMdu6eVcVqX/qatRdy77+gn1t28
+         pr3ZJH6p0J62kW32d+tHDLRyOhkmZTfuuM3+aI5rapDZserz+Tnrlkf+ZySE48FhYCtr
+         dNzHT8cG7CB++qH1YjPu0SEFSiDn7z2fU4bqPNI6ym0ohv0YhN3m/4v8A/UVzxCO8iXf
+         opoWMkuRstsNVFOQsaGR6flUmhiIQ93WPekU7RlOjR8zRh4AhDkKbI6dkHFA/Ic6uhYI
+         /wvnbtUiVr9xbHNaCoFf+PEN+tG44AJHK0+HlLZ+FMG/tCQsQL/0S+MmOIJyyOU5ARYT
+         GGkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788950371; x=1789555171;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788950467; x=1789555267;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ah1D05y2ARWiyzPYFDN5/jrEHY4yrUD3AP0+uHK2Us4=;
-        b=g5kmcirzQkCgxrAQqSpMzyEWykDqkjz3vFMEdeM9Lr9UBbqQD7xPA6Fe82C2DZtGbv
-         gKnaOXHVZKnxDuMdhV21sYHHQ6TklMhLVT9wmto4GZAvv0F8KqE+rGI5z9pRBm92NcgH
-         pL3jLK7DKPhfwtnkTvsFwK+WiS4Yf+S0IMAASJZvhhii2tyypC6vxUfrYObLXQ6ttm1y
-         bBsU00o4O+DI2y8YD1B8fE9qwma+bjSuJahOZzy/vKruwPE8m1Aeuz2RYQ2fvZv8qCoS
-         Sp+LMyGWRN/ocSjluksnWAagEwkwMBzmFO6hQQGpV3Hzt0806fHHhO0/0SMXwWGs/grO
-         CQOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwF1wwf6MNIaLdLyZIq6Qg9C6pWSy2Lrt9mZNpFjK6Q+DQGUmA2XiqATezPLbKLfS/4UOyN1a9+IEx3r9o=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+F7okmsaStJ8aWZIFZ1IxSF9NMBthLMDCoRm3tuUPrKgB4N8w
-	HmZq9jiaJbK9ted2jCztMUJhb3mRGpfA89DJtczOoyrS8ZXoU2ETlRnViMdyQMcRYjLUYgElGra
-	7pPD+Mf5N5J+nfpRotk6GkRWafnRbgpx5wM9McOoyqXhm9XxqNvqks1MNDWNM69R2yO8=
-X-Gm-Gg: AYBFou3itcUxSb2al7P20jk4NpFzL3svzC77HREghJJQ0Ijkk9lWbeLJegGiXnMGc7l
-	kNnrUB+SO6yXcDko2qYKV+vpDck0CGBlo3BwP9B4z/x7HtavRmCy/xYFY++SUPgVrTEZkuEB8Ml
-	EzQDMZ+tUXZjKafFdMYy3I2GO5SiRPrmw2jYPsS863wt/HBYbrgQQflfhmFU2k+pF2gMAScKmvY
-	/t5ayZe9xWa/3ZIh9eGa7wEIBjoG+kSeZwzt1VDaIPudR1pVw+BmbtNRNAzzBx8GJqDV69o+hKI
-	NB/+vDsDkuRbvKz2xi8IOfic+X0DcB9yPOugUWGwT1fEDl2zRwa5yARJwons+U5GlokkpUQtq0L
-	YG5cmg1K91O0cpmS3ZZOEhIYFCmeQNg==
-X-Received: by 2002:a17:90b:3d89:b0:398:dcfe:968e with SMTP id 98e67ed59e1d1-39bac3f9063mr7705627a91.20.1788950370709;
-        Wed, 09 Sep 2026 03:39:30 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d89:b0:398:dcfe:968e with SMTP id 98e67ed59e1d1-39bac3f9063mr7705565a91.20.1788950370145;
-        Wed, 09 Sep 2026 03:39:30 -0700 (PDT)
-Received: from [10.218.7.34] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397c13dfb1sm6400531eec.2.2026.09.09.03.39.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 03:39:29 -0700 (PDT)
-Message-ID: <695dfc01-2c1f-4503-9049-2ae266774ed2@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 16:09:20 +0530
+        bh=PGN+ybR37+qvtDqf9cFN47582j44el3q/H5/GSGFvrU=;
+        b=DfA6aTKH6ktHdmMlPchryrmw0fkGqeT8dwPhjNZ8/k6GNzyod16yHuodpmX5q8F5O7
+         koTjx25HjXHkwdBjAnd+bCq+hHMn01KtHP9qY+2uZhE3VK8tavCqwI6qo3PEX4dbNChy
+         BUb1Bj0DGBfFPd6GsMTDhLWsLLRuQPtOr+uzPHdHZiTGY/qYrhCh6FQz+hkXLUVBoCLF
+         3beXlu591cAjonULs4FGV0zTaCJ5gltPrFl6cZYkzdrHXJzwLxuPb6dnkoUi3BsqqNYB
+         Ox8zJAOORM8Z34eqQtvBB15n49A7l5IbE+s12A4VA8ibrY3zKXS5T0sQAb+/WEHpwpV0
+         OtKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtvIp78ZNhIeYChB0GHCcopwOsWYmVLLEfYaMR5mw6MAnpzecJR52+VYYUEiS5povN6eqz6z3bPxMUmoM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk0hI6FMkN21eerlEMmrYOVfuLfzQkbYQ5O4XApBhBsZcPMqmP
+	l8J9m09vTjqZKeXHOmJHcSJj/OISbpBh/C+Oqn1wZIHN13IFvwqDz/IqHNB6td1kjQ==
+X-Gm-Gg: AYBFou31PIxe8kRr8uVHmkZYYctEjmIeO9if+bX2CUQt4NX6deDSfqwxmXmW6OMZneP
+	RLYaL5PKJXOs4LiM2+A/QG0CQTcjj+yzWrFaxEN7PDF1L6K0PyXd0iNXBgaViJE8eKvr1KfkF7m
+	g/eNA2LN58jM7EIoamCsz4XeYuHRXgLcjfwld/L/2GfOiqGQB7ulqbt5HrNOVTK2vbRO+Pp8OE1
+	IxuDTn1q8wf+JKYzZyuIgf9z+28UjhnTnjZ93A61pp86/BSraXiyZELyDbMj9k4X6kpOjGWmI11
+	ira/TxWTLuBKdYzV5t71lZ7u5ydslwkJI6c/MhsCBYZUCb+0H5oP816AJe2wf02aJHYREX1WJ64
+	XoUxbUntG2LQ5pB5S6h4TgDF3FB0sbWaG0WXhrO2BD2xX6NyGIc+p7+qsgnn/tO1/uuf4uDOETX
+	XRkTt95nIZiQZM8Bzbrcv9XXaO92oQZHrPYT2nB4FmZ3IvYWUAoDQa/igKLnv7D8xvgRpv+qHCK
+	LA4Zf6A7DRTj13vTA0pQ7wBZ8kS1Ta3pXP7bX4EEELEqhimlRd4BPmrVaQ=
+X-Received: by 2002:a05:690c:e3e8:b0:81e:9826:942c with SMTP id 00721157ae682-8711c7488c4mr132269777b3.0.1788950466181;
+        Wed, 09 Sep 2026 03:41:06 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714ab77c4dsm108323097b3.34.2026.09.09.03.41.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:41:05 -0700 (PDT)
+Date: Wed, 9 Sep 2026 03:41:01 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 27/26] mm/fbatch: paranoid folio vmstats in
+ folio_batch_move_lru()
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <f86f8e55-3f07-fc87-c64f-f34a3be9a013@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] arm64: dts: qcom: glymur: Add ADC support for Glymur
- CRD
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Priyansh Jain <priyansh.jain@oss.qualcomm.com>
-References: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
- <20260731-pmic5_gen4_adc-v1-6-9c49b2eea6f9@oss.qualcomm.com>
- <52c023c0-a61f-4116-851f-ed19de4d23f2@oss.qualcomm.com>
-Content-Language: en-US
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-In-Reply-To: <52c023c0-a61f-4116-851f-ed19de4d23f2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDExOCBTYWx0ZWRfX2kkV6dbPWCXF
- 4MXdZhGbZOFNhopJgiDkSCuST3UzmZHW30F2ql5YAG8fZOGZA3DnsdqytRUWnIEid+Czq0R82rs
- csNZRjHg07pJQg+37o9/hkCoQlcYRBE=
-X-Proofpoint-ORIG-GUID: vITeVHJ2lrEd34th9r69i58aRqgFYlj9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDExOCBTYWx0ZWRfX4i5G9srhpHMV
- eame27/iUi1W6VMeqPJjJii7CrAIn60NgpTfcLz2zay0AwhNZj7TCs9uDgtL+phKUdP+vxHXgtz
- dabzM30G1awjWtfumKLTfhkMfi1xw+EM9I90Dnpuys5APZ+aX4i6K58qgdxajWQhRzflp1HzknQ
- KaeXAaF2Vh+vv8Ur8ISj3xG725tKFJdkSiPIVQD2gbiAQWF4E2awnSiGrOlim0V/GPPk9yOH4aZ
- BF38r/hittQ3Xhi4SOOGsLfdIKLwpk2B22zT3AhBjBzMmDx8Dee01lmX/J3ruTFZSV34FFqzHkA
- kRq+nGr3pi+oVF0H7SDdCkldrU9qSH6vRGp0kRKtemuU4mS6DKoR776lxnQWyUrqAtp+2RRQjZC
- qeqfarLxT2KYCp3iFxUziqbiZ1sGKfSrS4a39kERiFuIop9Hs4QMg26En0s1dSiJgB7p1pI9nBw
- rQXoJ+UMe1rXfZjy5Dg==
-X-Authority-Analysis: v=2.4 cv=Xey5Co55 c=1 sm=1 tr=0 ts=6aa13763 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=MEGDCpZww2ShHeW_oQkA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: vITeVHJ2lrEd34th9r69i58aRqgFYlj9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- phishscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090118
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Konrad,
+Save mapping and index when adding folio to per-cpu fbatch, check them
+when draining the fbatch, show folio counts at the end of /proc/vmstat
+when CONFIG_DEBUG_VM=y.
 
-On 9/3/2026 2:19 PM, Konrad Dybcio wrote:
-> On 7/31/26 8:06 PM, Jishnu Prakash wrote:
->> Add the ADC channels under the PMK8850 ADC node for the
->> other PMICS on the board with ADC peripherals. This includes
->> die temperature and VPH power channels per PMIC.
-> 
-> [...]
-> 
->> +	thermal-zones {
->> +		sys-0-thermal {
-> 
-> Please name it xo-therm or something similar to make the connection
-> more obvious
+This is a work-in-progress hack, not intended for kernel release:
+hence the 27/26 leaving it out of the series; but a useful framework
+for study and reassurance on stale fbatch entries.
 
-Sure, I'll update the node name to "xo-thermal" and make similar changes
-in the other patch too.
+Could be extended to the mlock_fbatch, but probably nothing new to learn
+there. May be more useful if separate stats kept for the lru_add fbatch
+and (together) the other four - their characteristics are different.
 
-> 
-> [...]
-> 
->> +&pmcx0102_c_e0_temp_alarm {
->> +	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 2)>;
->> +	io-channel-names = "thermal";
->> +};
->> +
->> +&pmcx0102_c_e1_temp_alarm {
->> +	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(1, 2)>;
->> +	io-channel-names = "thermal";
->> +};
->> +
->> +&pmcx0102_d_e0_temp_alarm {
->> +	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 3)>;
->> +	io-channel-names = "thermal";
->> +};
->> +
->> +&pmcx0102_d_e1_temp_alarm {
->> +	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(1, 3)>;
->> +	io-channel-names = "thermal";
->> +};
-> 
-> Are these going to be always wired up this way on all Glymur boards?
+Needs refinement: the current numbers raise more questions than give
+answers. The folio_hoisted, folio_changed, folio_already numbers mostly
+record nothing worse than LRU-eligible folio pages getting freed before
+drain, and soon recycled for fresh LRU-eligible folios: no harm there;
+but these stats do not verify that.
 
-I'm not sure what you mean here - each temp-alarm peripheral here
-is using the die_temp channel from the ADC on the same PMIC to
-read the PMIC die temperature. Die_temp is an internal sensor
-and the die_temp ADC channel is always present on any PMIC
-which has ADC, it is not like thermistors which are optionally
-connected to AMUX/GPIO pins and can change between boards, so
-I think we can consider the above configuration will not change
-between Glymur boards.
+For example, after hours of kernel builds on tmpfs while swapping:
 
-Does this answer your question?
+folio_not_got 65750323
+folio_off_lru 357827
+folio_hoisted 10458363
+folio_matched 2888574439
+folio_swapped 113626282
+folio_changed 11558942
+folio_already 12717475
+folio_skipped 705
 
-Checking some more, I noticed that this file (glymur-crd.dtsi) is
-included in one other board file (mahua-crd.dts) and that board
-lacks a few PMICs used on Glymur, so I'll also make sure to
-delete any Glymur ADC channels absent for that board.
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ include/linux/vm_event_item.h |  10 ++++
+ mm/folio.c                    | 101 +++++++++++++++++++++++++++++++---
+ mm/vmstat.c                   |  10 ++++
+ 3 files changed, 112 insertions(+), 9 deletions(-)
 
-Thanks,
-JIshnu
-
-> 
-> Konrad
+diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
+index 2628ccda076a..4572463fb65f 100644
+--- a/include/linux/vm_event_item.h
++++ b/include/linux/vm_event_item.h
+@@ -179,6 +179,16 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
+ 		NRSWPIN,
+ 		NRSWPOUT,
+ #endif /* CONFIG_SWAP */
++#ifdef CONFIG_DEBUG_VM
++		FOLIO_NOT_GOT,
++		FOLIO_OFF_LRU,
++		FOLIO_HOISTED,
++		FOLIO_MATCHED,
++		FOLIO_SWAPPED,
++		FOLIO_CHANGED,
++		FOLIO_ALREADY,
++		FOLIO_SKIPPED,
++#endif /* CONFIG_DEBUG_VM */
+ 		NR_VM_EVENT_ITEMS
+ };
+ 
+diff --git a/mm/folio.c b/mm/folio.c
+index 7c545e4c090d..9f0cb755595a 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -40,19 +40,35 @@
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/pagemap.h>
+ 
++#ifdef CONFIG_DEBUG_VM
++#define PARANOID_SIZE FOLIO_BATCH_SIZE
++#else
++#define PARANOID_SIZE 0
++#endif
++
++struct mapix {
++	struct address_space *mapping;
++	pgoff_t index;
++};
++
+ struct cpu_fbatches {
+ 	/*
+-	 * The following folio batches are grouped together because they are protected
+-	 * by disabling preemption (and interrupts remain enabled).
++	 * The following folio batches are grouped together because they are
++	 * protected by disabling preemption (and interrupts remain enabled).
+ 	 */
+ 	local_lock_t lock;
+ 	struct folio_batch lru_add;
++	struct mapix mapix0[PARANOID_SIZE];
+ 	struct folio_batch lru_activate;
++	struct mapix mapix1[PARANOID_SIZE];
+ 	struct folio_batch lru_deactivate_file;
++	struct mapix mapix2[PARANOID_SIZE];
+ 	struct folio_batch lru_deactivate;
++	struct mapix mapix3[PARANOID_SIZE];
+ 	/* Protecting the following batches which require disabling interrupts */
+ 	local_lock_t lock_irq;
+ 	struct folio_batch lru_move_tail;
++	struct mapix mapix4[PARANOID_SIZE];
+ };
+ 
+ static DEFINE_PER_CPU(struct cpu_fbatches, cpu_fbatches) = {
+@@ -60,6 +76,57 @@ static DEFINE_PER_CPU(struct cpu_fbatches, cpu_fbatches) = {
+ 	.lock_irq = INIT_LOCAL_LOCK(lock_irq),
+ };
+ 
++#if PARANOID_SIZE
++static void paranoid_count(enum vm_event_item folio_counter)
++{
++	count_vm_event(folio_counter);
++}
++
++static void paranoid_save_mapix(struct folio_batch *fbatch)
++{
++	int i = fbatch->nr - 1;	/* folio has just been added */
++	struct mapix *mapix;
++
++	mapix = (struct mapix *)(fbatch->folios + ARRAY_SIZE(fbatch->folios));
++	mapix += i;
++	mapix->mapping = fbatch->folios[i]->mapping;
++	mapix->index = fbatch->folios[i]->index;
++}
++
++static void paranoid_check_mapix(struct folio_batch *fbatch, int i)
++{
++	struct folio *folio = fbatch->folios[i];
++	enum vm_event_item folio_counter;
++	struct mapix *mapix;
++	unsigned long lru_next = READ_ONCE(folio->lru_next);
++
++	if (lru_next & BIT(LRU_NEXT_BATCHED)) {
++		lru_next ^= (unsigned long)&fbatch->folios[i];
++		if (lru_next & ~(BIT(NR_LRU_NEXT_FLAGS) - 1))
++			paranoid_count(FOLIO_HOISTED);
++	}
++
++	mapix = (struct mapix *)(fbatch->folios + ARRAY_SIZE(fbatch->folios));
++	mapix += i;
++	if (folio->mapping == mapix->mapping && folio->index == mapix->index) {
++		folio_counter = FOLIO_MATCHED;
++	} else if (!folio->mapping || !mapix->mapping) {
++		/* Truncated? Swapcache? Needs more cleverness */
++		if (folio->index == mapix->index)
++			folio_counter = FOLIO_MATCHED;
++		else
++			folio_counter = FOLIO_SWAPPED;
++	} else {
++		folio_counter = FOLIO_CHANGED;
++	}
++	paranoid_count(folio_counter);
++}
++#else
++static void paranoid_count(int event) { }
++static void paranoid_save_mapix(struct folio_batch *fbatch) { }
++static void paranoid_check_mapix(struct folio_batch *fbatch, int i) { }
++#endif
++
+ static void __page_cache_release(struct folio *folio, struct lruvec **lruvecp,
+ 		unsigned long *flagsp)
+ {
+@@ -135,22 +202,32 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
+ 	for (i = 0; i < folio_batch_count(fbatch); i++) {
+ 		struct folio *folio = fbatch->folios[i];
+ 
+-		if (!folio_try_get(folio))
++		if (!folio_try_get(folio)) {
++			paranoid_count(FOLIO_NOT_GOT);
+ 			continue;
++		}
+ 
+-		if (!folio_test_clear_lru(folio))
++		if (!folio_test_clear_lru(folio)) {
++			paranoid_count(FOLIO_OFF_LRU);
+ 			goto restored_lru;
++		}
++
++		paranoid_check_mapix(fbatch, i);
+ 
+ 		/* Do not add to LRU if it has already been added */
+-		if (move_fn == lru_add && !lru_add_del_folio(folio))
++		if (move_fn == lru_add && !lru_add_del_folio(folio)) {
++			paranoid_count(FOLIO_ALREADY);
+ 			goto restore_lru;
++		}
+ 
+ 		folio_lruvec_relock_irqsave(folio, &lruvec, &flags);
+ 		move_fn(lruvec, folio);
+ 
+ 		/* Do add to LRU if not already there (move_fn skipped) */
+-		if (lru_add_del_folio(folio))
++		if (lru_add_del_folio(folio)) {
+ 			lruvec_add_folio(lruvec, folio);
++			paranoid_count(FOLIO_SKIPPED);
++		}
+ restore_lru:
+ 		folio_set_lru(folio);
+ 		/* See mm/vmscan.c move_folios_to_lru() comment on ordering */
+@@ -176,16 +253,21 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
+ static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+ 		struct folio *folio, move_fn_t move_fn, bool disable_irq)
+ {
++	struct folio_batch *cpu_fbatch;
+ 	unsigned long flags;
++	bool full;
+ 
+ 	if (disable_irq)
+ 		local_lock_irqsave(&cpu_fbatches.lock_irq, flags);
+ 	else
+ 		local_lock(&cpu_fbatches.lock);
+ 
+-	if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
+-			!folio_may_be_lru_cached(folio))
+-		folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
++	cpu_fbatch = this_cpu_ptr(fbatch);
++	full = !folio_batch_add(cpu_fbatch, folio);
++	paranoid_save_mapix(cpu_fbatch);
++
++	if (full || !folio_may_be_lru_cached(folio))
++		folio_batch_move_lru(cpu_fbatch, move_fn);
+ 
+ 	if (disable_irq)
+ 		local_unlock_irqrestore(&cpu_fbatches.lock_irq, flags);
+@@ -440,6 +522,7 @@ void __folio_add_lru(struct folio *folio, bool mlockit)
+ 	}
+ 
+ 	full = !folio_batch_add(fbatch, folio);
++	paranoid_save_mapix(fbatch);
+ 
+ 	/* Ensure folio->lru_next visible to folio_test_clear_lru() callers */
+ 	smp_mb__before_atomic();
+diff --git a/mm/vmstat.c b/mm/vmstat.c
+index d66cb67f55ce..cc61ac10782a 100644
+--- a/mm/vmstat.c
++++ b/mm/vmstat.c
+@@ -1507,6 +1507,16 @@ const char * const vmstat_text[] = {
+ 	[I(NRSWPIN)]				= "nrswpin",
+ 	[I(NRSWPOUT)]				= "nrswpout",
+ #endif /* CONFIG_SWAP */
++#ifdef CONFIG_DEBUG_VM
++	[I(FOLIO_NOT_GOT)]			= "folio_not_got",
++	[I(FOLIO_OFF_LRU)]			= "folio_off_lru",
++	[I(FOLIO_HOISTED)]			= "folio_hoisted",
++	[I(FOLIO_MATCHED)]			= "folio_matched",
++	[I(FOLIO_SWAPPED)]			= "folio_swapped",
++	[I(FOLIO_CHANGED)]			= "folio_changed",
++	[I(FOLIO_ALREADY)]			= "folio_already",
++	[I(FOLIO_SKIPPED)]			= "folio_skipped",
++#endif /* CONFIG_DEBUG_VM */
+ #undef I
+ #endif /* CONFIG_VM_EVENT_COUNTERS */
+ };
+-- 
+2.51.0
 
