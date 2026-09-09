@@ -1,299 +1,211 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011054.outbound.protection.outlook.com [40.93.194.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647AC492E46
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:59:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788926383; cv=none; b=pl3LQ7SARpcX5IJ4PKUxfUk3kYZRaZP3ychcK1XqRHe1QqrvYrh7Q8MIWW+NuW4bWoRsT0hRbsFmC324XTUyCi0rD8/3RTAdWx/O7QFFY18U2+v7fjEoLk+2xo4ny1DbKc9XCi80MikWXb26Kq8HzvuGbhK1dkLL0reO2ORadAo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788926383; c=relaxed/simple;
-	bh=2THYNffvwCglri5gcZ2Ebn39/VQBIIwzg0MunjajrU0=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=sXkBO+ZYytMD58+ON7TGf88+We/+GSKIUuigIQuwhHy+HGv4ZeeB/zgUBF+xFASrPg8Vo6Qx/4aXO8A7145vLAMM5Oxmo0f546bh2RwccE1o9O2cOOFtlEXMV3kkh6uijWnuMAg1S7JU3XZg3BFnE9dr2IYwjA12x0y+nuyUaRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ROxV0aJI; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A84A3451AA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788926401; cv=fail; b=lqMNUCHKyN9qSkHfTLXsus1CfVPdcthcRhQBIVWYvUgchDUgWBf+QWWoKtsFMND0C9q3MFJUE91GvgpwUmrHTuwbqdMlbmqNxQ1fTOoBWptePBNKdpC+rzjaLmI3mOFcS/dcLtegpQ2kLtGFXnCRkuh21uuX3+PTOM/IdqbcEW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788926401; c=relaxed/simple;
+	bh=qqguYGprCpa0swZq37MoqYltEUDcP9tnjkr76A68RQg=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=P+gXtKWDIaDTfRnOJMtgQ1O21w6hd6HgvXtePuXC2N3LscSry6z6AIgEzPdzepk/PR4bKuDu4lGr3GjbjjvpNp6gccDVoAVggK6P95vJ7BmTus4FuXlCQVniIuw64j/jwUkhH5iiG+nY9UiAq4p6plAYMj9Dhjflnsjs7ifNRso=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QE5ZCx9l; arc=fail smtp.client-ip=40.93.194.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ROxV0aJI"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688N1xhB2300030;
-	Wed, 9 Sep 2026 03:59:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=2IXyS4
-	dcdYBbk52hJjcl6POTvaPWlpDlJcvd2bgPQD8=; b=ROxV0aJIvB0wo1u01sCtyv
-	Q4z0aY0ah3HR4I4vmB34JGREXKNFyV0eTgHW9mpmnzYVr8/2itDYrk4RN4bVCcmc
-	9LsoVP8+cd2Zz6qPeSvpjnDvJWdrCJdFz8Yr0Emf4cHPnAsnVtQoarsNu1vq1L2L
-	Q+r0JYMJnssJy2V539mSZjhTQ9EQ+MWngGPORTy/nDk89AZzfWGShJsNjCnNDWoI
-	prs9CF4ec2BEUxY67s2KQhEtmt0AFKwMhZm+jK0eQLt6lLKsv2Q4EXDucjslmKJL
-	IJ9/LiXNRCnZ/kex9zeM5NNnoAhcdy15aDTs/rdQ3iSIh+0sd4X5bKqaB2r3Dxww
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf34t5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 03:59:33 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6893fFNn015289;
-	Wed, 9 Sep 2026 03:59:32 GMT
-Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdqg6c4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 03:59:32 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6893xWnJ34996530
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 03:59:32 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1934558059;
-	Wed,  9 Sep 2026 03:59:32 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6EAC758057;
-	Wed,  9 Sep 2026 03:59:30 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.123.0.173])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 03:59:30 +0000 (GMT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QE5ZCx9l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hh22T9mnO9BHm+gthIAHzPytIy3fIBVj+RWfMTSJzYAlSvwajV2nzMnKwhd0jBVc3dQptoCYvuccNfl4WyFsx3TMjVWjbBjxgKlLxINR/AmjP7DxrpWakerKmigN3ZLgZczgT2W8EKqtazYJoYDedIVscKB0WG8+YU69NN6QMVLnsvMvb5q3bjnff4B2BkdoJXtyZpmwM4doNuyPm7FhCtMb29rPHqhB1lPqFg24R91f/tqDKWJH48gz1f9PNptUx++ISWRNlhSObXIu/T0qyJBQbJ2ngHKxU6WL4cqdpI5+ADSDGVi3PRNzpvKSLVHPSrkOuUX1rauYZXf+i/po5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zDNo6ZXTuOpqydKZP/3FiUjabJXPVkcteZcuqk8iuw0=;
+ b=yYboB3z0nZ3ZGzxe3YsDJR7CiCre42zJCu9XVN+jJmxD/CQMl8vU6IJnMAD9bZvTfDH2ol7TiM0UwTYtMoWiGaQtJKocCiGf3MmS4G7lr62wn+QR9TjHQPjL3rbLm45vgCQJsu71U5QjflBKOWrEZEMPddxHcQa5l/vgdvUPzZlQMyprSfwgTx/LRu5hKgziM4SKXq4i/9zRnUkXImtwNuQ08H82sQi/EvKf0IXRDkQzGGS9rsZUVyBPjQf69kji4lPs1ZvOypD0dQcYKbh18G9bwLarFlx1C9VEc2jEc2ZV0bXTEIZi4y1R/BIFECuvcNW2cvAgPbBD3QSyEsaAtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zDNo6ZXTuOpqydKZP/3FiUjabJXPVkcteZcuqk8iuw0=;
+ b=QE5ZCx9lRYPpCWN6ZyjFEkTOO7ezNfg8iGaN4DPISJtgcSz0AUpy4RAe8wM6jWQjr7HxowAkmnp23cUXxuTGcr7OZ2U9M2zURKYPjvRL+1retl/4+TkOg6zvR+FGZRFpSnhRkgArVjiJRFHtc2NsgqKrncvZWEn7O5pnYwtjg1PetC3XXquW1TyNfWV2AvtQjD3IzmfveTnj2lGmVcKrFT8LkBF9hYkG5jmzRzs0Hg+HpJsOo49v1nChIG4DYP/uDVqPguG788vMVO+MJa+dlUHO1S5RQY1icQpi//PLDRvFfBRb2UU5MYrNLgDtB9MAoVFgIqxDeXMTLFCbfzPRGA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA3PR12MB699018.namprd12.prod.outlook.com (2603:10b6:806:510::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 03:59:55 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 03:59:55 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Subject: [PATCH 00/16] gpu: nova-core: GPU page table, vmm, and bar1
+ mapping
+Date: Wed, 09 Sep 2026 12:59:38 +0900
+Message-Id: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOSY7CMBBFrxJ5TUkeyGBfpcWibJfBCCdpO4m6h
+ bg7JvSiN+z+l94f7qxQjlSYae4s0xZLnMZqxKFh7oLjmSD66pnksuMDbyGlTBYLgRCqHSQGy7l
+ iFZ8zhfizV32d3r6s9kpueeX/iEzfa91Y3hjbi9yUUlxMQx1Kp4eBvO6wRYWhFVX35CzqOi2FD
+ TI4zv5/M83+TPMeEs43giUTQaHRQ/kdHaA49toLtIpLs8lP2dlFqH+nNTuCcMNzAduj9xa5Vcd
+ gNsFOj8cTvyFG6y4BAAA=
+X-Change-ID: 20260805-mmrebase-113582afb003
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Zhi Wang <zhiw@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4P286CA0102.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:380::16) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: =?utf-8?Q?Re=3A_=5Bmainline=5D_powerpc/TM=3A_Unexpected_TM_Bad_Th?=
- =?utf-8?Q?ing_during_core_dump_on_POWER9_=287=2E1=E2=80=91rc1=29?=
-From: Venkat <venkat88@linux.ibm.com>
-In-Reply-To: <d18c4a14-c26f-460e-a04f-2998bc4e9e25@linux.ibm.com>
-Date: Wed, 9 Sep 2026 09:29:17 +0530
-Cc: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <DC72ED6B-156C-4EEB-A32B-2F5629F5AC00@linux.ibm.com>
-References: <364996ce-aba2-4213-8d20-7dd481b43fe6@linux.ibm.com>
- <d18c4a14-c26f-460e-a04f-2998bc4e9e25@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: OMpjB8Psd7KYoBm6h9h4Ed69GfUq9F5n
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa0d9a5 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=5KLPUuaC_9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22
- a=VnNF1IyMAAAA:8 a=MYg0dNiN2xP4QECReYwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDAzNyBTYWx0ZWRfX0eYyKAanKhk1
- DZqei4Aqa7Uirr9S4fNWSfZkcf899N7pUhoEoRZMDD8RMq0fm8Dr+y+9q1mT4CZqLeV2u8QKbKh
- Jgj1xMicrzk8sCNkGP36sAzenO0N3fs=
-X-Proofpoint-ORIG-GUID: OMpjB8Psd7KYoBm6h9h4Ed69GfUq9F5n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDAzNyBTYWx0ZWRfX34FZLi13i9HH
- IIsdqcHbFUl7B0MZ5NLvSCofMvO/FyOvTUKpCNrXVWqZ4GN6x+eCmYRZWVUZaX69GJwxwvwVVmp
- 12d8GltfySmU/jQ9mrrbOAbxdFlSC4sPhrHo18OaHmz3UJ4URCod63TA3NoBKBbU7yUnC8EMBGt
- 5AdZHMM5g2mKdHcrf0cPstvGImUTqDtUDEtKECfdHMjIUNdK2FMtQH/ZnHgcatBD7G267KVsb06
- Wa7xHBA3bMKF3sIu33eIx75ivO6d9uH+IMv+0/pmdw0ApzKXhTgLuXBmOwE/xvTSU3TwUpjsz8Y
- LnBnkfbues1hkSIiko3qrS5rq8DhvZrdUCEsPeLr55UOrpc2Rr//OdpgCwpCe68QJzT7nriMyli
- qzeiCc1z4ImCP3RgaKyV5nm5UwjtNO9E9RyKldV3gGc59OAAe7kNNktjKvtCClrrcx/L5N1ewhO
- Me8OLMjW+CWhlk8j7Jg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090037
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA3PR12MB699018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d025fd4-e4a2-406a-a937-08df0e26cedc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10070799003|6133799003|3023799007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	R8Nm9A9ZVwZ1oQzChX955Kb0vBQU31Oo/h+49nbOKk4Ucjf3blrES9KuPWJbkMYKRobmWgfhUzqBaeamhk2ZJaYwH1H+8+DTOhNbiFLdzkjBnAP8iCcAbaF2s+pP+fpfB+0HYlJeuFPhQRTyL/LAVeBBj9+9QAFKg/EmTwyPDhTlvZPu9RWtlnMRHMvrl7neM+87hbV+Gv/mOMcdZF1OBvgdHSbnYG2jFiOMs5eASYUjRouyIQtZFWVBHoZ2okVRiJlFVf7JeBX25/TFeg9NsmK1IJ4TSBvxPrYlOq8T1xhUpeDVb+xPTh/AjRg69ZmYbWn7oDt647jBTIdqfuABXJCo1PDTYbNCuzz+TNj8sbSZjg+v330bT3HL6HyuvXTQVXonJ6YT6RqQc//FIN5+38KZ0REyTiG2hXiR0/fwDhyZbP3+5FjStqVSmmTxz8wWIc69pkLTV8jm/PKFjQSrfMiFUBBseE2k7ThEPlC+blFxQs0j2qXWfBeB2z23um0o7EJSx5fRytzujsB7p8l4IvhPiAta8V41j2E5ii67eczO0Pq+cexxFhqhBCdrTe/xQE6gXRqYqsbH1uy22WObapdW6TZlykh/L3N9NRpdLOcPNd9s2uYj8bgt8vXQGjc//M+5Ec553YFzFXKENA1gMEz+gWNp+IfZUqrDlRQsvD8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10070799003)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cGppNStvTHUxRmpNRTIxOFNCZTRDaUhIMWtGTUUraGpEMCtySDNKWXViTTdl?=
+ =?utf-8?B?aVdNNkR3K1g2YnY4SEVHRW9GaUV5ZUVaNDNDbDZ5dXZZSnY3NXhTZVRBNVRL?=
+ =?utf-8?B?K1NjM3oxa01ueGovM2kzcmNKOUtJMEYvWnhvRlIzNkR6Y1FGaWlRSURCY2kx?=
+ =?utf-8?B?K2dhV20xenJFNDNoUEJQOFFkdjg5QUUxVlowL1oxUlFudkhpNzJid2cxdFlP?=
+ =?utf-8?B?K00xZksxMEdEWktSREtWRnFyYlQ2TE5LZTEwdmhYZ1VzSWtTN282V3NrOVRB?=
+ =?utf-8?B?TWN3dUhQZVdOa3VpY01LY2t5eEhnMDZLUmNXbTBSTGZYMVpMd2E5VmhWU1Ji?=
+ =?utf-8?B?N1RnSWxxaUd6QkxwZWRjaURZeXpTdWlpbEUrZXRadm55ZVIrdFNkVVdENWl4?=
+ =?utf-8?B?ZHRENjhwT1QydGRBbVNZaXBHeVhtbkNDU3d6THpNMkdNQ0U4dzdEWmhsNkdV?=
+ =?utf-8?B?T0F3M2FGTEZrQWV6Zm1iWUNMWTF3TWxhV2hMSmNtWWhoSCtocWx4cXprUmlK?=
+ =?utf-8?B?TEZ0aWlkdFAwaE9BbkdYNDNsZnl5Y3BTTjRRUzBweXVyMERxT0Nkanprc0RB?=
+ =?utf-8?B?eTB6aVRYcXEzNFFmTDdweUFjRE5MeGJaVitJeGFORi9IMTF3bzZJSENDK2lB?=
+ =?utf-8?B?c09DNHZ6RVNxRXNpYTVsYVh2RHJUeVFkTVZ2aXBETVR0K3pqTkNna3U1SlVw?=
+ =?utf-8?B?d2ZTVTBZa2NiK29uN2d0cVVTaExYZFg4ZjlGNXF4b1g4ZHNkWGxPS0dzZ0lJ?=
+ =?utf-8?B?WHBrOFpQOFFJVXJJUVdWWU9XRU51SmoxVXVkYVNhRWI1VDdQeWM5eVd6UFpK?=
+ =?utf-8?B?UDVHWFlQaEt5dnNscmkwMEZDNWtqdXphUFNnT0NWRCtQM3VRRncrRlMrZHc5?=
+ =?utf-8?B?NjR0WFZVSFZKQVZ4MG1aM2FOUGplK1k1RWNhYytlWE9PSGgycG9vT0RsMUl0?=
+ =?utf-8?B?QVBhajh2NXNDMW1tM2cyeVRXSU5mTTZtdEhBbEhXeEdqRCs3TE0raEtTZkNC?=
+ =?utf-8?B?ZlYzaDMzNm94K0c1NElGekhrRnNPV3U5aVdxMnZGeVA5U2JXRkp6VlVXc3Jx?=
+ =?utf-8?B?eDdSV2EyYlphNkpHUHNIOGhqanNLSGFTSXNJMmlGeVJsN3FSb2U2VWo5WkFD?=
+ =?utf-8?B?N1BpL05MWGh4WnIreEcrWEJrQUFlc2w5ZU5tVUxNUkp3Z00yRHVHd1hRVG9K?=
+ =?utf-8?B?UWV4bm9NMjI2ZTl3N2JPMFRNbjQ4UHlNSWNmVDFYUHFlUVptazNHZjBjbHdB?=
+ =?utf-8?B?TGNLRHJMS1BEL2tMOVhYV1RwUzFVa2lPcERwaERFRmk5bmtBRTBLYVBQRytt?=
+ =?utf-8?B?a3JZTkdWMndEWGU2dnQzTmZjRHhkUE1DZVNuV0k5U1dCNVJTR3RZUXlaZ0lt?=
+ =?utf-8?B?Q0VpamhuekNxL1lOREE0VHhVc3Nsc2cyQlk5RE50UzFKQytYVFE1RTR3Wmo4?=
+ =?utf-8?B?SjB6TWlsM29vbkNmS0JVNUs5VHZHZlRjRTEyQUlpMzRVS0xXQURWemw5T1Bu?=
+ =?utf-8?B?b043WW1Cb1BFeFQ0Z1hvQVMrMnVlVy8wckFjd3VRRmZwcWlQeHdZOERVUkd1?=
+ =?utf-8?B?ZmkwRzV2L0ZUekZqQWNtTlR6dkJFQnVjM0RWTE96VFQ3K25LenZrTzhFK1M0?=
+ =?utf-8?B?UUU0ZEg3TGxTV296SWt2SUl5dVlmbFlyVjV3RXpsNEFDYkYvd2VIUzdPak1I?=
+ =?utf-8?B?R1hpU0poTUVuYzhuT0l2TGhmeHlCdFY2Z3hPNnJ5RVd3c05kZzZWYkprRFN0?=
+ =?utf-8?B?U0pubjJTR0xnZ0RrdlRzc1FaVEtSblZvZlo0ZTM0cEExOVdjYWZQQk9zLzdG?=
+ =?utf-8?B?b2ZiWWIyblVZbmc3RHk4WUJnRHJiaE0wVi95N1FobWpIM0QzcFNjYitJL2F0?=
+ =?utf-8?B?RW53eUxmcWdtbzk4NHUwVnlEZXVNc3FxRjJibTUxNG5NU0llN3hSVFk0NEov?=
+ =?utf-8?B?cjV1TC9ZY0hHUElrZlIzTWdiTlQ5cVNNT3F1dmV0bFZYcXNCOWdUNTNidTM2?=
+ =?utf-8?B?RWFlOFQwOE1GQ3crSmxtY1gya2UzcWVwa0JBekNRQytRYVZrNzRacysxb3NM?=
+ =?utf-8?B?UmVCYklqemllTTAxbkpmN2xsbVNqQW5HMW1PZmV5eW5HNEdOeVl5bmQ2L0Ew?=
+ =?utf-8?B?dUhGQ1gzQmdKdEs3YUVReUVCWVd1Z3c0ZmZHQ1BLdUJjQnBLeWVKZ2Fmc1ha?=
+ =?utf-8?B?RmgycjZsTnY4SDNjeFFyaVhYOXJVaXdKK0ZwYit4cWUweUFTWWNoYVFXS28v?=
+ =?utf-8?B?SEVid1NSanVqWU5Oc2w3M0RvVE05MmV3RllzQURJQXZ6aFkwOHBrMzNBWjNt?=
+ =?utf-8?B?SHlWak45SkpSdHl0NVE2UFNEVk03emV6UCtBb3A5TjZLNzFJRzVuM2lXZHh6?=
+ =?utf-8?Q?bRjPi0XCdCiYqNefnH3tOBJMOiJhnS99K/52RCUNcDtTQ?=
+X-MS-Exchange-AntiSpam-MessageData-1: OAPYOOGXhw610Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d025fd4-e4a2-406a-a937-08df0e26cedc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 03:59:55.3623
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LVZyZAZShrmD8K35lYdpEt0fMnS3BPoOhQI7HKP6/NH7DxtQLY9ejBAnewKySySr8Asu0rVO27hE3/1SISjSwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB699018
 
+I am reposting Joel Fernandes's original series [1]. The rebase adapts
+the patches to recent changes in the rust infra, like HRT lifetimes. It
+also adapts to the changes I posted in [2]. It keeps Joel's design and
+patch split.
 
+From Joel's original cover letter:
 
-> On 15 May 2026, at 10:59=E2=80=AFAM, Venkat Rao Bagalkote =
-<venkat88@linux.ibm.com> wrote:
->=20
->=20
-> On 28/04/26 5:48 pm, Venkat Rao Bagalkote wrote:
->> Greetings!!
->>=20
->> IBM CI has reported a kernel crash while running =
-selftests/powerpc/signal on a POWER9 pSeries system.
->>=20
->> I attempted to reproduce this issue manually, but was not successful =
-so far.
->=20
-> I=E2=80=99m now able to reproduce this issue reliably and =
-consistently. The reproduction steps are simple:
->=20
-> Run selftests/powerpc/signal
->=20
+  This series introduces page-table types and a Virtual Memory Manager (VMM)
+  for the nova-core driver, plus a BAR1 user (with selftests) layered on top.
+  The page-table layer uses trait-based generics (PteOps, PdeOps, DualPdeOps,
+  MmuConfig) to dispatch between MMU v2 and v3 formats. The Vmm tracks
+  virtual-address ranges with a maple tree, and the BAR1 user exposes mapped
+  CPU access to VRAM through a small allocation API exercised by the selftests.
 
-This issue is still present in 7.3-rc2 as well. Please let me know, if =
-it=E2=80=99s invalid bug, I will make appropriate changes to my CI set =
-up.
+This series depends on Joel's maple tree Send and Sync patch [3] and his
+PCI resource_flags() accessor [4], which I am reposting separately.
 
-This is blocking for me.
+This series is based on drm-rust-next.
 
-Traces:
+[1] https://lore.kernel.org/all/20260518181126.2493572-1-joelagnelf@nvidia.com/
+[2] https://lore.kernel.org/all/20260827-pramin-split-v3-0-24b24d7afc52@nvidia.com/
+[3] https://lore.kernel.org/all/20260511143604.3848176-1-joelagnelf@nvidia.com/
+[4] https://lore.kernel.org/all/20260518180342.2387845-2-joelagnelf@nvidia.com/
 
-[12689.799298] Unexpected TM Bad Thing exception at c00000000000dbac =
-(msr 0x8000000302a03031) tm_scratch=3D800000010280b033
-[12689.799318] Oops: Unrecoverable exception, sig: 6 [#1]
-[12689.799323] LE PAGE_SIZE=3D64K MMU=3DHash  SMP NR_CPUS=3D8192 NUMA =
-pSeries
-[12689.799330] Modules linked in: nvram(E) rpadlpar_io(E) rpaphp(E) =
-bonding(E) tls(E) rfkill(E) nft_fib_inet(E) nft_fib_ipv4(E) =
-nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reject_ipv4(E) =
-nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) hvcs(E) =
-hvcserver(E) pseries_rng(E) sg(E) vmx_crypto(E) drm(E) fuse(E) =
-drm_panel_orientation_quirks(E) xfs(E) nvme_tcp(E) nvme_fabrics(E) =
-nvme_core(E) sr_mod(E) sd_mod(E) cdrom(E) ibmvscsi(E) ibmveth(E) =
-scsi_transport_srp(E) dm_mirror(E) dm_region_hash(E) dm_log(E) dm_mod(E)
-[12689.799397] CPU: 0 UID: 0 PID: 1159004 Comm: sigfuz Tainted: G        =
-    E       7.3.0-rc2-next-20260907 #1 PREEMPT=20
-[12689.799405] Tainted: [E]=3DUNSIGNED_MODULE
-[12689.799408] Hardware name: IBM,8375-42A POWER9 (architected) 0x4e0202 =
-0xf000005 of:IBM,FW950.80 (VL950_131) hv:phyp pSeries
-[12689.799414] NIP:  c00000000000dbac LR: c0000000008657f0 CTR: =
-0000000000000046
-[12689.799419] REGS: c00000002e86fd60 TRAP: 0700   Tainted: G            =
-E        (7.3.0-rc2-next-20260907)
-[12689.799425] MSR:  8000000302a03031 <SF,VEC,VSX,FP,ME,IR,DR,LE,TM[SE]> =
- CR: 48004840  XER: 00000000
-[12689.799444] CFAR: c00000000000da68 IRQMASK: 0=20
-[12689.799444] PACATMSCRATCH: 800000010280b033=20
-[12689.799444] GPR00: 0000000000000000 c000000050ff7590 c000000001ba8100 =
-c0000003ccf6dd00=20
-[12689.799444] GPR04: c00000031027dd00 0000000000010000 0000000000000000 =
-0000000000002300=20
-[12689.799444] GPR08: 0000000000000000 0000000000000000 0000000000000000 =
-0000000000000000=20
-[12689.799444] GPR12: 0000000000000000 c0000000030d0000 0000000000000000 =
-0000000000000000=20
-[12689.799444] GPR16: 0000000000000000 0000000000000000 0000000000000000 =
-0000000000000000=20
-[12689.799444] GPR20: 0000000000000000 0000000000000000 0000000000000000 =
-c000000045beab00=20
-[12689.799444] GPR24: 0000000000000000 0000000000000001 c00c000000f33d80 =
-0000000010010000=20
-[12689.799444] GPR28: c00000004575fe00 c000000050ff7b38 0000000010000000 =
-c00c000000c409c0=20
-[12689.799507] NIP [c00000000000dbac] =
-interrupt_return_srr_kernel+0x15c/0x18c
-[12689.799518] LR [c0000000008657f0] dump_user_range+0x100/0x570
-[12689.799525] Call Trace:
-[12689.799529] [c000000050ff7690] [c0000000008657f0] =
-dump_user_range+0x100/0x570
-[12689.799536] [c000000050ff7770] [c00000000085aefc] =
-elf_core_dump+0x52c/0x5c0
-[12689.799545] [c000000050ff7980] [c000000000864a20] =
-coredump_write+0xe0/0x410
-[12689.799552] [c000000050ff7a10] [c000000000864e10] =
-do_coredump.constprop.0+0xc0/0x4e0
-[12689.799559] [c000000050ff7af0] [c00000000086558c] =
-vfs_coredump+0x35c/0x4c0
-[12689.799565] [c000000050ff7c30] [c000000000256808] =
-get_signal+0x918/0xad0
-[12689.799573] [c000000050ff7d20] [c000000000021ba8] =
-do_signal+0x78/0x330
-[12689.799582] [c000000050ff7dc0] [c0000000014f6d48] =
-irqentry_exit+0x358/0x990
-[12689.799589] [c000000050ff7e20] [c00000000002f554] =
-program_check_exception+0xd4/0x100
-[12689.799596] [c000000050ff7e50] [c000000000009b2c] =
-program_check_common_virt+0x3bc/0x3c0
-[12689.799604] ---- interrupt: 700 at 0x10001e8c
-[12689.799610] NIP:  0000000010001e8c LR: 0000000010001e74 CTR: =
-00007fffba290590
-[12689.799615] REGS: c000000050ff7e80 TRAP: 0700   Tainted: G            =
-E        (7.3.0-rc2-next-20260907)
-[12689.799620] MSR:  8000000302a0f033 =
-<SF,VEC,VSX,EE,PR,FP,ME,IR,DR,RI,LE,TM[SE]>  CR: 240044a0  XER: 00000000
-[12689.799640] CFAR: 00007fffba2905bc IRQMASK: 0=20
-[12689.799640] PACATMSCRATCH: 800000010280b033=20
-[12689.799640] GPR00: 0000000010001e74 00007fffa2fdd3c0 0000000010027f00 =
-0000000022bde198=20
-[12689.799640] GPR04: 00007fffa2fdd384 00007fffba48004c 00007fffba480090 =
-00007fffba480048=20
-[12689.799640] GPR08: 00000001457bc331 0000000022bde198 0000000000000000 =
-0000000022bde198=20
-[12689.799640] GPR12: 00007fffba290590 00007fffa2fe68e0 0000000000000000 =
-00007fffa2fdf1e0=20
-[12689.799640] GPR16: 0000000000000000 00007fffa2fdf8e0 0000000000000720 =
-0000000000000000=20
-[12689.799640] GPR20: 0000000000000000 00007fffba580000 000000000080e9e0 =
-00007fffa27d0000=20
-[12689.799640] GPR24: 0000000000000001 00007ffff129f3a0 0000000000000000 =
-00007fffa2fde8f8=20
-[12689.799640] GPR28: 000000000000000a 0000000000000000 00000000100201bc =
-000000000011af5c=20
-[12689.799703] NIP [0000000010001e8c] 0x10001e8c
-[12689.799707] LR [0000000010001e74] 0x10001e74
-[12689.799711] ---- interrupt: 700
-[12689.799714] Code: 7c8903a6 7ca103a6 f8010020 e8410040 e8610048 =
-e8810050 e8a10058 40c6001c 7ccff120 e8c10060 e8010030 e8210038 =
-<4c000024> 48000000 7ccff120 f92d0080=20
-[12689.799736] ---[ end trace 0000000000000000 ]---
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+Joel Fernandes (16):
+      gpu: nova-core: mm: Add common types for virtual memory management
+      gpu: nova-core: mm: Add buddy allocator and TLB to GpuMm
+      gpu: nova-core: mm: Add common types for all page table formats
+      gpu: nova-core: mm: pagetable: Add PteOps trait
+      gpu: nova-core: mm: pagetable: Add PdeOps trait
+      gpu: nova-core: mm: pagetable: Add DualPdeOps trait
+      gpu: nova-core: mm: Add MMU v2 page table types
+      gpu: nova-core: mm: Add MMU v3 page table types
+      gpu: nova-core: mm: pagetable: Add MmuConfig trait
+      gpu: nova-core: mm: Add page table walker for MMU v2/v3
+      gpu: nova-core: mm: Add Virtual Memory Manager
+      gpu: nova-core: mm: Add virtual address range tracking to VMM
+      gpu: nova-core: mm: Add multi-page mapping API to VMM
+      gpu: nova-core: Add BAR1 aperture type and size constant
+      gpu: nova-core: mm: Add BAR1 user interface
+      gpu: nova-core: mm: Add BAR1 memory management self-tests
 
-Regards,
-Venkat.
-> Regards,
->=20
-> Venkat.
->=20
->>=20
->> Below are the details of the crash as reported by CI.
->>=20
->> Crash Details:
->>=20
->> [ 9798.880148] Unexpected TM Bad Thing exception at c00000000000dbac
->>               (msr 0x8000000302a03031) tm_scratch=3D800000010280b033
->> [ 9798.880160] Oops: Unrecoverable exception, sig: 6 [#1]
->> [ 9798.880165] LE PAGE_SIZE=3D64K MMU=3DHash SMP NR_CPUS=3D8192 NUMA =
-pSeries
->> [ 9798.880173] Modules linked in: nvram(E) rpadlpar_io(E) rpaphp(E) =
-...
->> [ 9798.880233] CPU: 8 UID: 0 PID: 1039530 Comm: sigfuz
->>               Tainted: G            E       7.1.0-rc1 #1 PREEMPT
->> [ 9798.880245] Hardware name: IBM,8375-42A POWER9 (architected)
->>               hv:phyp pSeries
->> [ 9798.880251] NIP:  c00000000000dbac LR: 0000000010001e58
->> [ 9798.880262] MSR:  8000000302a03031 =
-<SF,VEC,VSX,FP,ME,IR,DR,LE,TM[SE]>
->>=20
->>=20
->> Call Trace:
->>=20
->>=20
->> NIP [c00000000000dbac] interrupt_return_srr_kernel+0x15c/0x18c
->> Call Trace:
->> tm_reclaim_thread
->> flush_tmregs_to_thread
->> vsr_get
->> regset_get_alloc
->> fill_thread_core_info.isra.0
->> fill_note_info
->> elf_core_dump
->> coredump_write
->> do_coredump
->> vfs_coredump
->> get_signal
->> do_signal
->> do_notify_resume
->> interrupt_exit_user_prepare_main
->> interrupt_exit_user_prepare
->> interrupt_return_srr_user
->>=20
->>=20
->> Please let me know if further details are required.
->>=20
->>=20
->> If you happen to fix this issue, please add below tag.
->>=20
->> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
->>=20
->>=20
->>=20
->> Regards,
->>=20
->> Venkat.
->>=20
->>=20
+ drivers/gpu/nova-core/Kconfig              |   1 +
+ drivers/gpu/nova-core/driver.rs            |  45 ++-
+ drivers/gpu/nova-core/gpu.rs               |  68 ++++-
+ drivers/gpu/nova-core/gsp/commands.rs      |   3 +
+ drivers/gpu/nova-core/gsp/fw/commands.rs   |   8 +
+ drivers/gpu/nova-core/mm.rs                | 177 +++++++++++-
+ drivers/gpu/nova-core/mm/bar_user.rs       | 422 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable.rs      | 422 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/map.rs  | 342 +++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/ver2.rs | 271 ++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/ver3.rs | 417 ++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/pagetable/walk.rs | 244 +++++++++++++++++
+ drivers/gpu/nova-core/mm/tlb.rs            | 120 ++++++++
+ drivers/gpu/nova-core/mm/vmm.rs            | 346 +++++++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs              |  68 +++++
+ 15 files changed, 2937 insertions(+), 17 deletions(-)
+---
+base-commit: e6a2c988ed96a5a3af51ed97ecba980521bf2fc0
+change-id: 20260805-mmrebase-113582afb003
+prerequisite-change-id: 20260907-maple-tree-send-sync-a1479d1ab302:v2
+prerequisite-patch-id: 81d532949891e2dd846cca5c420e4ba32e9161a7
+prerequisite-change-id: 20260907-pci-resource-flags-b7addba0b34f:v1
+prerequisite-patch-id: bdd1c2eb4adbedf1c53f1be61ea958743d2a2660
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
 
