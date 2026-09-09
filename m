@@ -1,413 +1,327 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC5E36195A;
-	Wed,  9 Sep 2026 06:31:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDF3298CA5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935476; cv=none; b=BGADst9DHjXOsuGc4slIO3HyaiKIwePU7lCDTtMiFAjuT9jHYj4q9gkoPvjGdFbLCEanadMeL4L2wLQUrZ8sScLwtdYA+8EiIhMOvw0WvJOky+CNMl2KWCHeqYGLJnbqJmamcc0rKpzUAkNcI/cUDEPUKgJgv1OovY+pzdeqgEk=
+	t=1788935543; cv=none; b=lvlm8neAV8BLw2jr/TuN7zDkpB/2I9DT2mYDQqCyDCortGGEiIMVwb94pJsl1UK3MQus40jkbQKXOUWMZw9M3T2CMx1YsKteutveKDVP+eEpsHnhTtRiow+j0ZzRzao5ff8VOnDzkIez0dP35C4tGzBCOuVJkpqn1QlKDa8AEQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935476; c=relaxed/simple;
-	bh=ewjMp4b5pYES1b4fAdpV9ur6lPGOz2d2fYRDls5UXAE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eE9soZW5+H4U3sb1RwlHXyFqaf9OgnsKowoqN0mN2sUy/1TifET2pUlqmsaxhHg1uW/8AUMwrrlDHGRzQsT0zX6JTpf/dXqaLrCR9TLnU9tJZrTCRzjsddcyZOJvCirCrQmaFLBhBbjmQUKts+e+7hzbPO5vexZYLwhJshDX+ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfrX66T2bzYQv0x;
-	Wed,  9 Sep 2026 14:30:14 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id A33D140573;
-	Wed,  9 Sep 2026 14:31:07 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAsh_aBqxXYzBQ--.8536S4;
-	Wed, 09 Sep 2026 14:31:07 +0800 (CST)
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-To: linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	bfoster@redhat.com,
-	joannelkoong@gmail.com,
-	djwong@kernel.org,
-	yi.zhang@huawei.com,
-	yi.zhang@huaweicloud.com,
-	yizhang089@gmail.com,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wangkefeng.wang@huawei.com,
-	yukuai@fnnas.com
-Subject: [PATCH v2] mm/truncate: fix data loss when truncating straddling large folios
-Date: Wed,  9 Sep 2026 14:23:39 +0800
-Message-ID: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1788935543; c=relaxed/simple;
+	bh=lnG791FSODWeZaNNFnoQtuUXHRoTA5gkZ7w6c1f3HKI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XMPQJX1H6lma1JUynwPjlFpLgRq3cvGNtybmEdRG8MrQVoyGHlIFveckDacpuOqlEx14KjtFS9SsRUd/y5plpnzcFAg1PKMlHNh2sllq+plbtnybflQUibhETps8shNZWQcn/FD2Es6et6NHrhGPi3tc8v6i+IrmCO7mR4Z9/n4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DSGDtOXz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VNN8UO5+; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DSGDtOXz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VNN8UO5+"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6893rCLM163960
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 06:32:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+ajphOkjbnMWFf+zls/5ssNbY32CcGa+IxG2/SOuj78=; b=DSGDtOXzrj61WcEY
+	BV4edgvHYUcWAxz8Af3Sto1O+XH7khrgyCvwrRat8e1TBI/LnI7ii5fgk1TKzCa8
+	FROaf9DGOTNDsM1k0YqUmxD7EOQZTDi4B0fU5IqoMHgi4zKQiPxO2EQjS1NAP890
+	fJmQKz5LKnkAwvp3i5sEo5aeUQUY0MVp94ubKo9KNinGBiGPmA6HrhZeqL1+lV0C
+	bADLE9z/JZMG2NWS8Qlwtun/fQ/wpzge5jwkzMhAUfJ8wgdM6S/hJtFvEKr16o6G
+	Z4UMNYmdTrWgcq5whHxIN2kHOkz3nJsuxxD7itjlw9n+FesbquWKydcRlHxhp/5C
+	A4Rcow==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjyxm0ht5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:32:20 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so6933611a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:32:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788935539; x=1789540339; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+ajphOkjbnMWFf+zls/5ssNbY32CcGa+IxG2/SOuj78=;
+        b=VNN8UO5+z44YGiBHwM5i37maOW1bVz4OBJIV+A6gcPkYOphRJ1uztlhbdE54Q/wVup
+         JS/Ly7ivRKl6TyEnCiZvNzUcOzW2C0iS4eGB8aI6dNRVsxSNH7KYFdvGRqHOyP71i+4l
+         nI73y5DZP885ODevrKbhtudQSSazucsAqjE++2OWJNNZccQpU9d5gMOwQne1wr7C2Whg
+         fc2DtdpeXhAm6V8yt6lZjzW4LhBJgKYj7YfpzWl7qyjxFlY+6efLuRgnsnqSHQa7ev4X
+         vVQHDHFciRYYhNbn6fJCORqEnwPEx4q1mdNgIwga0zilpomMRb1xcyrIuHK1hAx8ghYa
+         N5VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788935539; x=1789540339;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ajphOkjbnMWFf+zls/5ssNbY32CcGa+IxG2/SOuj78=;
+        b=oLuea8WBZZujbF6KogiymdO4FH8gOs+vLUF9W7NDZmtwaTYxypC0K/1jWbw9rgkhD/
+         /rCBaUZSKqG61JfyDqJ6xRCsNIRMce4LTzpf811BuC6uMPhm5kKWy04H0x/w3NMi4BDg
+         d/SFPsGqpGf9W//SnamzYE1prUucWloa6Z62X0fRoB6frsQ4iGZl4fShExZ54DN70923
+         +KSfbmFnHwXPe8BVw3QTYNtyHuhDJG7RNGr8WI8StjPlswj9i0/fQcP7uCn84GO5FUIw
+         +vKkwyxaQUfob0vFqiUkJG8i2AF9CtbI/wnDWg0o6nnOkGw57+U87xmUONZ/nGnbVyKY
+         dVlA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjqfth5qQA7hJxVUt4HONCKJpyvfHHPYnhUCKhzS0SYBEWL8FREQPUTC1gQMhPDg8+usyHCF9ASvN9k5Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lULfkUWoQIyt4f88kIlEzLZIJp6+NOGYQRO8Xc1cvci/cOgYOA
+	FgMBXVDm451isGliGuY4kcz4pyYtJLmZtZEaVlKbWWrgfqwwNTmDok0nE0keu5QWFwdMxwbwBN8
+	RWobf0xHQiDO7VPszAULnMpErmRPcnQi5BnrOqje3i8LCDgYHL+Ra9eyw+EOpiyFtun8=
+X-Gm-Gg: AYBFou0MsbkPOb9aNi27AVmuUzXRfIRmtjAX8I/6lteNOXMjgwefrPWMfNHODQwPbBE
+	cQ4le5Hkvp4zOun7MV3crqDbFNduNYTcDN+aNCtLFJ/jVYRQkmsbnWLLcXSLcovZMJptddRpFsW
+	M/Ibhp38fJu1TvEv3biuB2cAzzxKHkl1YKOe0ffgHbN93qdDZ2f4+H4PYEfth2ADVhXzE0rSFS6
+	aCa5E9JEEwev40p2bWikzPHlJpjaMroK+GE5n9tuHoCgBEZM6hEVWmHmRbE2rxYwcEfqxqPHRpY
+	pYqD9fKpFsbAG7VfxTT8h3CbUqUQXaXJqIgeK9jNDJqAxZskKK24AwoGHd0tSxPoiAc8QFY9DaJ
+	jTflOgmqBYXWafB856D9mzg6eNEXwk2Q=
+X-Received: by 2002:a17:90a:d003:b0:398:ba9e:75ff with SMTP id 98e67ed59e1d1-39b26273a40mr51435544a91.21.1788935538952;
+        Tue, 08 Sep 2026 23:32:18 -0700 (PDT)
+X-Received: by 2002:a17:90a:d003:b0:398:ba9e:75ff with SMTP id 98e67ed59e1d1-39b26273a40mr51435476a91.21.1788935538373;
+        Tue, 08 Sep 2026 23:32:18 -0700 (PDT)
+Received: from [10.218.14.97] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm35490264eec.4.2026.09.08.23.32.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 23:32:18 -0700 (PDT)
+Message-ID: <4e7dd5bf-28e2-4c81-8e8b-7629f298b92b@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 12:02:09 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/9] soc: qcom: geni: Derive SE clock configuration
+ from OPP table on SA8255P
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
+        Cristian Marussi <cristian.marussi@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>, mukesh.savaliya@oss.qualcomm.com,
+        chandana.chiluveru@oss.qualcomm.com, arm-scmi@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
+        linux-i2c@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
+ <CAPx+jO9fcvBsxe9yx9oK=0EXmpNwub5ba0a-TGk1WRFaRGsqpA@mail.gmail.com>
+ <177884a8-902f-49be-8fcb-b2bec3ec7d6c@oss.qualcomm.com>
+ <CAPx+jO8bXn2F3cWz87Ozjrh00E+a_UWBrHeUViTEkTL87JHW9Q@mail.gmail.com>
+Content-Language: en-US
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
+In-Reply-To: <CAPx+jO8bXn2F3cWz87Ozjrh00E+a_UWBrHeUViTEkTL87JHW9Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBnUAsh_aBqxXYzBQ--.8536S4
-X-Coremail-Antispam: 1UD129KBjvAXoW3ur4UWw1xWr4kJFy7Zr43KFg_yoW8JF18to
-	WfJws0vr1FqrWkKa1jkFyxJrykX3ZI9ryfJF13Cr4qvF12q34DAw47JwnrGa1fZr1YkF9x
-	W347J3WfArW7Jr1fn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYg7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20EY4v20xva
-	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
-	x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWx
-	JVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7sRiuWl3UUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MiBTYWx0ZWRfX/3kBPiMYqKg5
+ g4SKzacgkSOV44TkARvELVCyBEuocNNBJrZeo1OLJKM2g87CFSFaODg0qDdPYeLOgAmCvWgFB2A
+ UjwBDr4NdOrVdjDU24DdqHB3+Rkh6dYBLb4VzBYV1Kga2bakFvw/QgDLNOKNFm8lfnWpb556Wdf
+ 0NNoI+akNyCbMiHtG5mA7zt2p1L2Hhk3mcyDMUW0pIbP1LbWUlvKz13Gyr/VY6kGLetMHQxeqgn
+ kgFm1Qs2OuzveoUu7vDYhDlZghh5+gBxl0DIC0qcCaV39NT5d1uZKoOvl3F6rhaF6hLcHMS/T/L
+ 45PQci5dG+NVOjBuYR03g+TqqSDE3AOnDYYCfgnCxPZ6Rmjx9KaidxQTBS/qF83X42+25c3Io5o
+ uxlbvMR+fsVIxnUQKwxNIT5H4+wNnIqP4VQmed8Dtl6pVwLT00rpZiHAdelrUnL6LFOrJ4MYtof
+ MHFLkdjFkL+vgOdsMSg==
+X-Proofpoint-ORIG-GUID: orwrafHZot5EbFtAA5gBGtTsNhnkin8n
+X-Proofpoint-GUID: orwrafHZot5EbFtAA5gBGtTsNhnkin8n
+X-Authority-Analysis: v=2.4 cv=Oc6oyBTY c=1 sm=1 tr=0 ts=6aa0fd74 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rpn9IkJt2xtg3tKW1hYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MiBTYWx0ZWRfX1M1HlcaTLy98
+ vF+N6muK0NIK3lyPSJv+bA9DCd/ZsWFuhJKrQ4rFxi0gAiytb/tcWcNQO75wCdCqfMQ0KtiOmXy
+ Iy3PqAXtIG27jiRl+P7gIgjvjqz82j8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 priorityscore=1501
+ impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609090072
 
-From: Zhang Yi <yi.zhang@huawei.com>
+Hi Ulf,
 
-truncate_inode_partial_folio() splits a large folio so that the caller's
-truncate loop can drop the in-range sub-folios while keeping the
-out-of-range tail. The first split at the punch start edge is
-non-uniform, which leaves the sub-folio at the truncation end edge as
-large as possible, this means it may still straddle the range, holding
-both zeroed in-range and valid out-of-range data. The function then
-attempts a second split at offset + length to isolate that tail.
+Thank you for review.
 
-If the second split fails the straddling sub-folio stays merged. The
-function returned true unconditionally on all exit paths of the success
-block, telling the caller it was fully handled. The caller kept its
-default end and the truncate loop truncated every sub-folio below it,
-including the merged straddler, discarding the valid out-of-range tail.
+On 04-09-2026 13:26, Ulf Hansson wrote:
+> On Tue, Sep 1, 2026 at 6:48 PM Praveen Talari
+> <praveen.talari@oss.qualcomm.com> wrote:
+>> Hi Ulf,
+>>
+>> On 01-09-2026 20:22, Ulf Hansson wrote:
+>>> On Thu, Aug 27, 2026 at 7:59 PM Praveen Talari
+>>> <praveen.talari@oss.qualcomm.com> wrote:
+>>>> On firmware-managed platforms such as SA8255P, there is no Linux clock
+>>>> handler available to determine the appropriate SE source clock, source
+>>>> clock index, and divider values for a requested protocol frequency.
+>>>> However, these parameters are required when programming GSI TREs, where
+>>>> the hardware expects an explicit clock source selection and divider
+>>>> configuration for the serial engine.
+>>>>
+>>>> In contrast, platforms using Linux-managed clocks derive these
+>>>> parameters through geni_se_clk_freq_match() using the source clock
+>>>> information stored in clk_perf_tbl. Since the firmware-managed path
+>>>> lacks equivalent clock information, protocol drivers cannot reuse the
+>>>> existing frequency matching logic and instead rely on a direct mapping
+>>>> between protocol-requested frequencies and performance levels. This
+>>>> creates a separate clock configuration flow and prevents
+>>>> firmware-managed platforms from deriving the actual SE clock parameters
+>>>> required for GSI TRE programming.
+>>> Hmm, this sounds like moving backwards when it comes to keeping
+>>> drivers as portable as possible.
+>>>
+>>> I understand geni_se_clk_freq_match() has been around for a while, but
+>>> fortunately its use seems limited to only a few qcom specific drivers.
+>>>
+>>> Rather than continue down this path, would it not be possible to find
+>>> a more generic solution for "geni_se_clk_freq_match()"? Can we replace
+>>> it with a common clock/OPP API? In this way, we would not need to
+>>> sprinkle drivers with calls to platform specific  code.
+>> I agree that protocol drivers should not need to know whether GENI resources
+>> are managed through the clock framework or a firmware-provided
+>> performance domain.
+>>
+>> The intent of this series is actually to move in that direction rather than
+>> introduce a separate flow. Today firmware-managed platforms cannot use
+>> geni_se_clk_freq_match() because clk_perf_tbl is only populated when a
+>> Linux clock
+>> is present. This series derives the same clock-performance
+>> information(clk_perf_tbl) from the OPP
+>> table and populates clk_perf_tbl during geni_se_domain_attach(),
+>> allowing both
+>> resource-management models to reuse the existing
+>> geni_se_clk_freq_match() infrastructure.
+> Right, the goal makes sense, but I am not sure the proposed solution
+> is the way to get there.
+>
+> We really want to avoid having generic drivers like (spi, uart, i2c,
+> etc) calling platform specific functions. This isn't just me, it's the
+> general way for how we do things for drivers. Of course, we have
+> exceptions, but I think you get my point.
+>
+> In this case, why isn't it possible to use the clock and OPP
+> framework? Is there anything missing to make this work?
+I agree that protocol drivers should ideally rely on generic frameworks and
+avoid platform-specific resource management logic.
 
-For example, a 4-page order-2 folio punched from offset 0 to the middle
-of the last page:
+The challenge here is that the OPP framework currently provides a mechanism
+to select and apply an operating point, but it does not expose the 
+GENI-specific
+information required for GSI TRE programming. In addition to selecting 
+an operating
+point, the GSI path needs to derive the corresponding SE source clock 
+frequency,
+clock index and divider values, as these fields must be programmed 
+explicitly into the
+TRE descriptors consumed by the hardware.
 
-  truncate_inode_pages_range()
-    truncate_inode_partial_folio()      # same_folio == true
-      1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
-      folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
-      2nd split of folio2 fails / cannot lock
-      return true                       # BUG: caller keeps default end
-    end = 3
-    loop truncates p0, p1, p2-3        # p3's valid tail is lost
+Today geni_se_clk_freq_match() serves two purposes:
+1. Match a requested protocol frequency against the set of supported SE 
+source
+     clock frequencies.
+2. Derive the GENI-specific parameters (source clock, clock index and 
+divider) associated
+     with the selected frequency.
 
-This became reachable after commit 7460b470a131 ("mm/truncate: use
-folio_split() in truncate operation") replaced the atomic split_folio()
-with folio_split(), whose non-uniform split can partially split a folio
-and leave the end edge merged.
+While OPP can manage clock and performance state selection, it does not 
+currently provide
+an interface to obtain these GENI-specific clock-configuration 
+parameters. This is why the
+existing GENI helper is still required.
 
-It has gone unnoticed because a dirty large folio normally carries the
-filesystem's private data, for example buffer_head, so
-filemap_release_folio() -> iomap_release_folio() returns false on a
-dirty folio and folio_split() aborts with -EBUSY before any split,
-leaving the straddler safely unsplit. The bug is only reachable on paths
-that produce dirty large folios without filesystem private data, and it
-was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
-attached.
+The intent of this series is not to introduce another platform-specific
+clock-selection path. Rather, it allows firmware-managed platforms to 
+use the same
+clock-matching infrastructure already used on clock-managed platforms by 
+deriving the
 
-In addition, even when both splits succeed, data can still be lost when
-the mapping's minimum folio order (min_order) is non-zero. folio_split()
-stops at min_order instead of order 0, so the sub-folio containing a
-split point stays aligned to 1 << min_order rather than to a page. The
-original success path left start at the page-aligned head of the range
-and set end to the exact page index of the end edge, neither of which is
-a folio boundary in general. Either one could land inside the large
-folio at its edge, and the truncate loop would drop that straddling
-folio together with its valid out-of-range tail.
+clock-performance table from the OPP data.
 
-For example, a 64K (order-4) folio with min_order = 2 punched from
-offset 0 to 36K:
+I have removed platform specific set_rate callback in patches for SPI 
+[1] and Serial [2]
 
-  truncate_inode_pages_range()
-    truncate_inode_partial_folio()        # same_folio == true
-      1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
-      folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
-      2nd split of folio2 -> [p8-p11, p12-p15]   # success
-      end = p9                           # BUG: p9 inside [p8-p11]
-    loop truncates ... p8-p11           # p9-p11's valid tail is lost
+[1]https://lore.kernel.org/all/20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-6-091697dbeb02@oss.qualcomm.com/
 
-Rework the contract so the caller is told the page range to discard:
+[2]https://lore.kernel.org/all/20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-5-091697dbeb02@oss.qualcomm.com/
 
-  - Return true only when a split occurred, false otherwise. This
-    clarifies the existing confusing return value semantics.
+>
+>> Likewise, geni_se_set_rate() hides whether the underlying implementation
+>> uses
+>> dev_pm_opp_set_rate() on a perf-domain device or a regular clock-backed
+>> device,
+>> so protocol drivers no longer need platform-specific callbacks. The goal
+>> is to
+>> converge both paths behind common GENI helpers rather than maintain separate
+>> clock-selection mechanisms.
+> The OPP layer already has some capabilities for managing clocks. Can't
+> we use devm_pm_opp_set_config() to prepare an OPP table with the
+> relevant clk data for the devices, as a way to abstract things?
 
-  - Add pgoff_t *pstart and *pend out-parameters that receive the page
-    range fully covered by [lstart, lend] after any split (or none),
-    i.e. the pages wholly within the range and safe to discard. They are
-    aligned up (pstart) and down (pend) to the mapping's minimum folio
-    order so they always fall on a folio boundary.
+devm_pm_opp_set_config() with a .clk_name lets dev_pm_opp_set_rate()
+internally call clk_set_rate() on a named clk — but that requires an actual
+clk provider backing the device. On SA8255P there is no Linux clk object 
+for the
+SE source clock at all: firmware only exposes a set of supported 
+frequencies as OPP
+levels on the performance-domain device, not as a rate-settable clock. 
+So there's
+nothing for devm_pm_opp_set_config()'s clk-integration to attach to — 
+the OPP table
+here isn't describing a DVFS operating point of an existing clock, it's 
+standing in
+for the clock itself.
+>
+>>>> To address this limitation, the performance-domain OPP table is treated
+>>>> as the representation of SE-supported source clock frequencies. During
+>>>> geni_se_domain_attach(), the OPP entries are used to populate
+>>>> clk_perf_tbl and related clock performance data, allowing
+>>>> firmware-managed platforms to leverage the same clock frequency matching
+>>>> infrastructure used by Linux-managed platforms.
+>>>>
+>>>> With this change, protocol drivers can use geni_se_clk_freq_match() to
+>>>> select the closest supported source clock frequency for a requested
+>>>> protocol rate, derive the corresponding source clock index and divider
+>>>> values required for GSI TRE programming, and apply the matched clock
+>>>> through the OPP framework. This removes the dependency on direct
+>>>> protocol-frequency-to-performance-level mappings and provides a common
+>>>> clock selection and configuration mechanism across both firmware-managed
+>>>> and Linux-managed GENI deployments.
+>>> Rather than adding yet another platform specific method, would it be
+>>> possible to extend the generic OPP library with the pieces that are
+>>> missing to make this work in a generic way?
+>> I agree with the goal of using generic infrastructure. However,
+>> geni_se_clk_freq_match()
+>> derives GENI-specific parameters such as the source clock, clock index,
+>> and divider values
+>> required for GSI TRE programming, which are not represented by the
+>> generic OPP interface today.
+>>
+>> This series does not introduce a new clock selection path; it reuses the
+>> existing
+>> geni_se_clk_freq_match() flow on firmware-managed platforms by populating
+>> clk_perf_tbl from OPP data.
+> So geni_se_clk_freq_match() is used by two consumer drivers today,
+> drivers/spi/spi-geni-qcom.c and drivers/tty/serial/qcom_geni_serial.c.
+>
+> Beyond the $subject series, there will be even more consumer drivers
+> that call these platform specific functions. As I said above, I don't
+> think this is moving things in the right direction.
+>
+> If this can't be solved with generic frameworks (clocks and OPP),
+> please clarify why so we can figure out a better way forward.
 
-  - Rename the byte-range parameters start/end to lstart/lend to avoid
-    clashing with the new outputs and to separate byte offsets from
-    folio indices.
+I believe above response can answered your query.
 
-Callers in truncate_inode_pages_range() and shmem_undo_range() pass
-&pstart for the folio at the start edge and &pend for the folio at the
-end edge, so the truncate loop drops exactly the fully covered pages and
-never touches a straddling folio that still holds valid out-of-range
-data.
 
-Suggested-by: Brian Foster <bfoster@redhat.com>
-Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
-Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
----
-v1->v2:
- - Export pstart as a new parameter so that the generic and shmem
-   truncate paths don't need to recompute the start value from the
-   return value. (Brian)
- - When min_order is nonzero, align [pstart, pend] to the inner
-   boundaries of the folio to ensure they do not point into the middle
-   of a large folio, which could otherwise cause valid data within the
-   folio to be incorrectly cleared. (Joanne)
+Thanks,
+Praveen Talari
 
-v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
-
- mm/internal.h |  4 +--
- mm/shmem.c    | 13 +++-----
- mm/truncate.c | 88 +++++++++++++++++++++++++++++++++++----------------
- 3 files changed, 67 insertions(+), 38 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 68db5abd0a4c..6e6ad3187378 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -627,8 +627,8 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
--bool truncate_inode_partial_folio(struct folio *folio, loff_t start,
--		loff_t end);
-+bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-+		loff_t lend, pgoff_t *pstart, pgoff_t *pend);
- long mapping_evict_folio(struct address_space *mapping, struct folio *folio);
- unsigned long mapping_try_invalidate(struct address_space *mapping,
- 		pgoff_t start, pgoff_t end, unsigned long *nr_failed);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 89a1495e55f7..4efbbbba5da5 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1175,11 +1175,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 	if (folio) {
- 		same_folio = lend < folio_next_pos(folio);
- 		folio_mark_dirty(folio);
--		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
--			start = folio_next_index(folio);
--			if (same_folio)
--				end = folio->index;
--		}
-+		truncate_inode_partial_folio(folio, lstart, lend, &start,
-+					     same_folio ? &end : NULL);
- 		folio_unlock(folio);
- 		folio_put(folio);
- 		folio = NULL;
-@@ -1189,8 +1186,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 		folio = shmem_get_partial_folio(inode, lend >> PAGE_SHIFT);
- 	if (folio) {
- 		folio_mark_dirty(folio);
--		if (!truncate_inode_partial_folio(folio, lstart, lend))
--			end = folio->index;
-+		truncate_inode_partial_folio(folio, lstart, lend, NULL, &end);
- 		folio_unlock(folio);
- 		folio_put(folio);
- 	}
-@@ -1258,7 +1254,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 
- 				if (!folio_test_large(folio)) {
- 					truncate_inode_folio(mapping, folio);
--				} else if (truncate_inode_partial_folio(folio, lstart, lend)) {
-+				} else if (truncate_inode_partial_folio(folio,
-+							lstart, lend, NULL, NULL)) {
- 					/*
- 					 * If we split a page, reset the loop so
- 					 * that we pick up the new sub pages.
-diff --git a/mm/truncate.c b/mm/truncate.c
-index b58ba940be47..d88a1b159084 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -206,35 +206,41 @@ static int folio_split_or_unmap(struct folio *folio, struct page *split_at,
- /*
-  * Handle partial folios.  The folio may be entirely within the
-  * range if a split has raced with us.  If not, we zero the part of the
-- * folio that's within the [start, end] range, and then split the folio if
-+ * folio that's within the [lstart, lend] range, and then split the folio if
-  * it's large.  split_page_range() will discard pages which now lie beyond
-  * i_size, and we rely on the caller to discard pages which lie within a
-  * newly created hole.
-  *
-- * Returns false if splitting failed so the caller can avoid
-- * discarding the entire folio which is stubbornly unsplit.
-+ * When @pstart and/or @pend are non-NULL they receive the indexes of the
-+ * page range fully covered by [lstart, lend] after any split (or none),
-+ * i.e. the range of pages that are wholly within [lstart, lend] and so safe
-+ * to discard.
-+ *
-+ * Return %true if the folio was split, %false otherwise.
-  */
--bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
-+bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-+				  loff_t lend, pgoff_t *pstart, pgoff_t *pend)
- {
- 	loff_t pos = folio_pos(folio);
- 	size_t size = folio_size(folio);
- 	unsigned int offset, length;
- 	struct page *split_at, *split_at2;
-+	unsigned long min_nrbytes;
- 	unsigned int min_order;
- 
--	if (pos < start)
--		offset = start - pos;
-+	if (pos < lstart)
-+		offset = lstart - pos;
- 	else
- 		offset = 0;
--	if (pos + size <= (u64)end)
-+	if (pos + size <= (u64)lend)
- 		length = size - offset;
- 	else
--		length = end + 1 - pos - offset;
-+		length = lend + 1 - pos - offset;
- 
- 	folio_wait_writeback(folio);
- 	if (length == size) {
- 		truncate_inode_folio(folio->mapping, folio);
--		return true;
-+		goto no_split;
- 	}
- 
- 	/*
-@@ -248,9 +254,10 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
- 	if (folio_needs_release(folio))
- 		folio_invalidate(folio, offset, length);
- 	if (!folio_test_large(folio))
--		return true;
-+		goto no_split;
- 
- 	min_order = mapping_min_folio_order(folio->mapping);
-+	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
- 	split_at = folio_page(folio, PAGE_ALIGN_DOWN(offset) / PAGE_SIZE);
- 	if (!folio_split_or_unmap(folio, split_at, min_order)) {
- 		/*
-@@ -259,38 +266,67 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
- 		 * for shmem truncate
- 		 */
- 		struct folio *folio2;
-+		bool tail_isolated = true;
-+
-+		if (pend)
-+			*pend = round_down(pos + offset + length,
-+					   min_nrbytes) >> PAGE_SHIFT;
- 
- 		if (offset + length == size)
--			goto no_split;
--
-+			goto split;
-+retry:
- 		split_at2 = folio_page(folio,
- 				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
- 		folio2 = page_folio(split_at2);
- 
- 		if (!folio_try_get(folio2))
--			goto no_split;
-+			goto split;
- 
- 		if (!folio_test_large(folio2))
- 			goto out;
- 
--		if (!folio_trylock(folio2))
-+		if (!folio_trylock(folio2)) {
-+			tail_isolated = false;
- 			goto out;
-+		}
-+
-+		/*
-+		 * split_at2 may no longer belong to folio2 due to concurrent
-+		 * split. Retry to find the correct folio in case it's still
-+		 * large.
-+		 */
-+		if (page_folio(split_at2) != folio2) {
-+			folio_unlock(folio2);
-+			folio_put(folio2);
-+			goto retry;
-+		}
- 
- 		/* make sure folio2 is large and does not change its mapping */
- 		if (folio_test_large(folio2) &&
--		    folio2->mapping == folio->mapping)
--			folio_split_or_unmap(folio2, split_at2, min_order);
-+		    folio2->mapping == folio->mapping &&
-+		    folio_split_or_unmap(folio2, split_at2, min_order))
-+			tail_isolated = false;
- 
- 		folio_unlock(folio2);
- out:
-+		if (!tail_isolated && pend)
-+			*pend = folio2->index;
- 		folio_put(folio2);
--no_split:
-+split:
-+		if (pstart)
-+			*pstart = round_up(pos + offset,
-+					   min_nrbytes) >> PAGE_SHIFT;
- 		return true;
- 	}
--	if (folio_test_dirty(folio))
--		return false;
--	truncate_inode_folio(folio->mapping, folio);
--	return true;
-+	if (!folio_test_dirty(folio))
-+		truncate_inode_folio(folio->mapping, folio);
-+no_split:
-+	if (pstart)
-+		*pstart = offset ? folio_next_index(folio) : folio->index;
-+	if (pend)
-+		*pend = (pos + size > (u64)lend) ? folio->index :
-+						   folio_next_index(folio);
-+	return false;
- }
- 
- /*
-@@ -413,11 +449,8 @@ void truncate_inode_pages_range(struct address_space *mapping,
- 	folio = __filemap_get_folio(mapping, lstart >> PAGE_SHIFT, FGP_LOCK, 0);
- 	if (!IS_ERR(folio)) {
- 		same_folio = lend < folio_next_pos(folio);
--		if (!truncate_inode_partial_folio(folio, lstart, lend)) {
--			start = folio_next_index(folio);
--			if (same_folio)
--				end = folio->index;
--		}
-+		truncate_inode_partial_folio(folio, lstart, lend, &start,
-+					     same_folio ? &end : NULL);
- 		folio_unlock(folio);
- 		folio_put(folio);
- 		folio = NULL;
-@@ -427,8 +460,7 @@ void truncate_inode_pages_range(struct address_space *mapping,
- 		folio = __filemap_get_folio(mapping, lend >> PAGE_SHIFT,
- 						FGP_LOCK, 0);
- 		if (!IS_ERR(folio)) {
--			if (!truncate_inode_partial_folio(folio, lstart, lend))
--				end = folio->index;
-+			truncate_inode_partial_folio(folio, lstart, lend, NULL, &end);
- 			folio_unlock(folio);
- 			folio_put(folio);
- 		}
--- 
-2.52.0
-
+>
+> [...]
+>
+> Kind regards
+> Uffe
