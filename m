@@ -1,163 +1,323 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011049.outbound.protection.outlook.com [52.101.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3515632BE
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965474; cv=none; b=qlWLps/4smClUrNd8U5utWw7ZQvNMH7TIwAHfcd9WVlFcUO9bVRgA6Bt3pDuxliCb/3TIGewp5KK1kotvRPvPyQUdFIGXPPsRKASnZBrd74z51/m5erMrs6r473SRTC/iD9AydOTbeurJ3LFE6P3E3fueqYG6jfOfkrDYZIkM88=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965474; c=relaxed/simple;
-	bh=A3aGdYOvmr1JhLTN/6uBZKFzci+zAci/MMqkgkoBZYU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dSYmLfFo9kw8mQgh+eeKtuJm3f9MHp9leulSp6Or+iQUq0nAVNgKI76VI1u/BFb7jj1d+c3jd8Q1JZnZQnfEFz74h+NBZ+0uTPMQuKHdhaqgfp2Lh30cySPvhn3NGxQi4xvn3JaufR/7QYUpIu/7zGGHcW/e86LsIyaYP8mWAdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VB6w3mjU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z96XIjtp; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBAD2D7DEF;
+	Wed,  9 Sep 2026 14:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788965532; cv=fail; b=hjmqvu4uBHgjzLvcNmwKgJpgVbabPxFDziPTl7hm8bcQumGOedryCNhxdwMwP24kutMnm1URm7/zMnH84vvWLI1kmnJDtzYz9Cg+qGMhiZrrJLk/13ykkWYgm6eHa6Oi+ClN/j4mYpUb8xrem7Tgk3SbedYt19A2JMGc6IK1vJ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788965532; c=relaxed/simple;
+	bh=xhOdL0eNYZDq7k6XSPwwqAwQ35bCdgAstsd+lEygBr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HpPQDHeXeWmHhBbqdJrjj/QQWh6GclMPW01flGQMKooij0t/qATusjEeHlmumCRCkZamTMwQ6S6s4C+zbdq1wyDWelBAfw74JpKQ/8UMJe3hzzdA931r2ho0hRioqoYVTQ1NhWXbV5gPpCwBbqHRkpx8gtCjh+KX7KntfSRkdm0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LtAo661v; arc=fail smtp.client-ip=52.101.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VB6w3mjU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z96XIjtp"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU1281722978
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 14:51:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vGdEBxYhm3Dk5n49dTlwPF9ujc0BQehUrl1y3/Jv5qg=; b=VB6w3mjUHata70mq
-	zzqgp30JtxapAP7Ax3glTlIsVT4xa4wNLV3UvA2ZDJEzihZE0jJP9smVBj2Wxs+A
-	tYHIFt1uhA41APAsazF5Hmp5iZzPq9c93P8B+A8b32xp10w1RpfMh7c2HAbVyD5i
-	ukPgGbABheRyLnett8Gm6Ph5xOFXMB3kEKTrwxLkmuH7DnSqD1XVU2qtL3Eq73Az
-	yjxfhF2iAr42vs2Eh+UCO3QnOQpNvCG4rYRiSuBsNI005WTCoj/LW9puav1fhuU3
-	ayfgbFPOyvSaeRJ8yAWbb3bZ1vmF5qGOnJCJGwlrC+54/cg92QaSCy/eYjPPF7BX
-	hvIe5Q==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5cns600-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:51:11 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9103db79014so16901526d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:51:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788965471; x=1789570271; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vGdEBxYhm3Dk5n49dTlwPF9ujc0BQehUrl1y3/Jv5qg=;
-        b=Z96XIjtp6hxnbm98MqPmUED7p8JpVxrv/KHswh2EFbH4/bC7/cKmdyxoJCFqJuFsTz
-         f8DjprMG+ht7jj8b0Y+aEOsjND92tlBO94I2BU43I6VAoghJaXpmF4ZxmxhWKiD3C9XA
-         CkasJHecGB1k8YoS0KiH8cHJtJW0mkxg/6bf+FYOigYSw+GKbZNBBU+a4f7sxPIf83wD
-         tTKlgQKj7vAr4nX5rpPRfjcrUcrBc0wQ1YD13zhFyATIQpAAK2HvBm8xzj5ccjWjjr7b
-         D3VmAmmecXcmWuKKoEEUYyievORJ3bJG6eJZnNY/6u3CFAI2iVkf2YhUYoNAfDbb8xlu
-         oduw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788965471; x=1789570271;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vGdEBxYhm3Dk5n49dTlwPF9ujc0BQehUrl1y3/Jv5qg=;
-        b=crmAp1OlxP4wTg9cJWvxo3zfbE8C66a8dzkp3Bw/a2C3afVcTEG6oJagob07LHGloP
-         pjgd2BqbPPbwUtcd5GYRwRRmveRcQE2lvdK7M8zBzsu8MODeeIujVMxQmgCnYuQyzI2k
-         lYCBzBsWxgtteKklio6Gn7wsozpgHirRhn69S7bsR9ONgIlkF+wQcyXdUu5xv+fiy612
-         4FEJVQXr3eBEEztRBD3/V2Ltgv8eeN0qHGhs5BFVjBEgIu1N6oEiaa8DuhzWkXCdOecM
-         pe9SZOtN8hF1W6IaPIl4QeZ95hhAvaxRvyWT9JeGkjyWj6VTVWKNbgQvZCBjNNx5Eqyq
-         zw/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwDMG3LDuDOdZmA0M14fIaRPlQwil2gEIghRsu4ZEV9JohEhOjRyGyt4hPNda1lbLFVlxAb4xxKweN7SIE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljHbfKlud7nB0AshKb68JnB1+nsfNa5NDqk9de2nKOesolmQb+
-	v1+22TzW2qk5S08WeBbDyyv547MdnuEziDVd4EdrGKcAFfSlhW3YWJnaHXjIwvv2wVJBkEPc8Ov
-	W/sMhxdEoBRsnxS4CHqryag15mLPJPVlRP+8slpvFS2+o2DWQRHZpsxSwcabfRyrXPlk=
-X-Gm-Gg: AYBFou2oqQxspATX07XXZheYS8KKDrNJxYxvZWXibqky8ynaNtoz1HSWOXHPg62Z3Yb
-	bNMqAUxPZYBPad6rwIYFiJHJU7EbzMVX6s1Ne8J8/W6QATlkSrBjGwp3CoOrUN8mHeXCIg/X1mn
-	+cnOFxG9lAnwSC+2L2aTzI00dskaS6MCtJ55/tV9dJIZqICg2vA7pGVczwOYuuHDelPkb69L+2M
-	C5jKo9uXU+ufYNYhz09XYdmzpHXUtfvr/SM9F4FQ9iBWa0X0j/a8qsQkJ6LgD56V1Gvquz0z3hH
-	avrZZ3w/ZypbQ6i00K9Y3OtYNthj3aym6sp2C23jaDRT9h3L6JjUdG/pI7G7g2SFdi7GOTsm2y8
-	RETWExklnRIBbEFiPJNjuyA==
-X-Received: by 2002:a05:6214:3d8b:b0:907:bdb6:6534 with SMTP id 6a1803df08f44-910477624ffmr74583346d6.3.1788965471165;
-        Wed, 09 Sep 2026 07:51:11 -0700 (PDT)
-X-Received: by 2002:a05:6214:3d8b:b0:907:bdb6:6534 with SMTP id 6a1803df08f44-910477624ffmr74579016d6.3.1788965465810;
-        Wed, 09 Sep 2026 07:51:05 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c262ccca940sm630980566b.18.2026.09.09.07.51.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 07:51:04 -0700 (PDT)
-Message-ID: <7266e78b-6768-47f3-873b-920c4f7e5d80@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 16:51:01 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LtAo661v"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fef+jeWrJXCQEY5PNi9uoBBhuN1mQOQ1t48oE2N9EOl0QshJUg6icRBOZXvTiDWNKdCFOHD8SjopEpRni7NCC6OFyCoB9uOiZuF7cdthOOK3K52+rT0UcSNHOBDZsw2/RbckBhH6vYM7v9x48yKZX1aigHEJecmnVMDNlfIREneUiSMAJnOednIUuHuhlA7OswfzqKgw9ClY5/YNLlg8ud3lCyFWaUE0sZSL323qJWDhSq1fgTa8jDqQT5JfiNKimUPI4JjzkbOvYjKkBhKTH/6ZESc2SJHINUrZgSP/Yy0tmNq5P/cagAwygZ95ojYZLfWTJIpnFB8EiVoOUmcS6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+EBE/7JKLD+6t0plNbBz6LslD9y1KBo3Hgr3QkGm7GQ=;
+ b=N6wAXVMzmLEG1gjUYSdBvZE/k/3wgSL7/5Ifs0joe7miPUhLDOF3ax/m18LI870w5JX18/PuyvOi0JkdtnqibXAQ7J72msAYeZRlmeFGcRbq8F5P9uUCNe3zkZ1yFddNYNRjA2bDJOE/9Vg4seBoLkeP0CMMiJDcc3Ji+SHlem3nv7uVak8VQIKyONjKrLvcy4O6U4QsfOURw/ZsQevFCLkptjIV+lilRX2bxSINgfNHac8lmepUCbeo17al7ZI0aXFrFHkYRGFa4YEvMnxUkw3KPIacFwVLVemuEtCFvV1plKz0aDuHg5rjb8jeP3NA3S3b/KVz0ul2cO8Igxuxfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+EBE/7JKLD+6t0plNbBz6LslD9y1KBo3Hgr3QkGm7GQ=;
+ b=LtAo661v8LbHsfTeG4Vfv+sgRhWEdgbsfa/I2Nvg2xgndR1Is9mcEobG3XvrmOit9uvevDyNhi+hbl346w0K1xzAwruhFo47a5VxZymHs6tixpvAlNIYMaLSYJ7K+0qnkXPQoN1/a5GWH8YkzY4P2Jzxne4DHQiW/35duwD2hmx3zQ6Fs29769ubSqwCKIfgMbensobYJZEfVUEuCV7N4xSVLx6ybYMjNu17p9SJg2JVOZj18HYuKHAIJzyFVnyNnRMGVlywI88Id4jCTn7XE1b1aCJNJm7/QRoNtuOQIZXCD7HMZkS6e8e5KWC5FTMhIFq8X7DQnH/omgLMevHx7A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DSWPR12MB999176.namprd12.prod.outlook.com (2603:10b6:8:36f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 14:52:00 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 14:52:00 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Baoquan He <baoquan.he@linux.dev>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jan Kara <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 14/14] mm/page-flags: remove PG_private
+Date: Wed, 09 Sep 2026 10:51:54 -0400
+X-Mailer: MailMate (3.0r7028)
+Message-ID: <C4E561DE-2E7E-4B8D-AF9D-D9E7418AB530@nvidia.com>
+In-Reply-To: <08c2d8b3-da89-47d9-87b7-fdc179ec4793@kernel.org>
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-14-6ae22f9d9272@nvidia.com>
+ <d8e9b629-4198-4281-a3b2-d54445201fd2@kernel.org>
+ <1BF58667-A9AE-48AA-BA04-F02FB6D5ECF4@nvidia.com>
+ <08c2d8b3-da89-47d9-87b7-fdc179ec4793@kernel.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: CY5PR16CA0004.namprd16.prod.outlook.com
+ (2603:10b6:930:10::13) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: monaco-evk: Add Raspberry Pi
- 7-inch DSI panel overlay
-To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
-References: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
- <20260907-rpi_dts_overlay-v2-1-a4989322ce00@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260907-rpi_dts_overlay-v2-1-a4989322ce00@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: cEEY2RxkoQtH2k0Qq2aUA3kqqR7V9mqX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2NSBTYWx0ZWRfX4fhRw4PLiViO
- lb7jJbQvg1qqqW/urIhBxYuL+3XOhtmXapW7H84xnr67Y1rCcuQPaaxE0/c61XC5rMAYWNz0DM4
- F3dzE7k/1ewyEPKUjA3Cu0opKis+sT0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2NSBTYWx0ZWRfXxXqnR0e4H9B2
- dFK23ZjQ0NFb2L9FVyRyqEi3GUiy98caAz44J0K0lvZG8nw/ZlBVhq18em/s1SZ2Siqv84vZuRu
- bMClDLLNKau+hQuZdBe4WFE3Q22zx2PvYVXclccUfnJu9kizvoQDbsalqv7w9qeCVqp17Lg+A0H
- MzeI38W0sSnT7TAkEJN6g0wz9CCwRDWv8AfzUBki01GKvmMsp+2wg8cong1ZLLKTCqTXi8uFhk1
- N87u3QWDjCopCjVC9uTx1KRwUNx230iPOJC+vaNxLEd7cYRPaceHP46PelbuIwaxszvdHQPN2I2
- VcZFGZx946gcWbb7AaZ8C5u7ZvCh0GTWHwjNtY1jbXVbDDC4scATjNaD1Ga3eqjuzKMoblHB5f7
- VesolZxectqORQBJMxcXwZgJ/TbncxrqJpybgKF8PhrULusq7EYtSZwvOtegOrHwhUWJhW+6QXc
- n/t9X2qm3qbMFBYN17Q==
-X-Authority-Analysis: v=2.4 cv=S+jpBosP c=1 sm=1 tr=0 ts=6aa1725f cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=hExI_PBlCTJWeLBofxcA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: cEEY2RxkoQtH2k0Qq2aUA3kqqR7V9mqX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090165
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DSWPR12MB999176:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ce0dee5-40be-45a0-8bb0-08df0e81e6ef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|6133799003|22082099003|18002099003|56012099006|11063799006|5023799004|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	2UwLiT+xxgfAoW6/YKB2QLQvVTzHj+4yCYlMyPrv4L1WsJ1jIqV73/sezcK2kzhPKZfJvc4RFvlk+PBc2Ap9WegrNtsTQ+PdAwPG8ruRKXq9wgivVRRlCBVPbU6T+Oobbi2oWViU1+vTPgiQdRQc9GTJKZ841wqtiO5l8X3qurwmN833f60fxXYwswDXnocP2VSYr8jKPfgphc/wwm1RfGfcU5oHUy6Pnbh/CX7OujGs9sHzOHoPOM9qSy909KBqdvKqzgpQ/u+uqlLnkVKiBx9hnoHQctdqpAuCj72KUw2qOxfXAsqh6BOOw3c1Wh759d9QFuUJ3zAxlrJGTOCcwS/Ursp0qZBcxIUMPGfzUaQMpl8TdagQHWhfVWdEI3QtEqZ5k8iYdak66V2b23i3e4FmFMkUArpND5DHzsS6Gk8inpythCABlPsHqfdyjYFQPgU7oYr951740rBAbZOzmIVWxAVpEzntyv0DSC7ciG+Hg6WJirTLfzkgRHIiKmRZon6gtwFaodpBu6JLfJ781i70s9MVEv1xTsNwl9ntSlp2SQhk1hniGmDW/83vCCx8dAag/2xNWByXjoTKsCvPtUnqTSlGjZvwLnAHNE3HxLP/gdCo/Gb3JjeQW81oHnzdTftt06oV10VUcZvtfPGqJ3tH8uuRNPaw35t4r3SMcLE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qewnI/61kyWgnTgmEenmdZsFrmApSPD6xsE539iO5jTsJDcKeRcTw19Ryilv?=
+ =?us-ascii?Q?sE7a2qczcWW4t3k3H6OAKvFgH/POWFU/hehxIE0g2D25q4bhCajM6BzbbtAu?=
+ =?us-ascii?Q?pvZMy2CxxBEUekzggFA8HYVJzn7FslSDam7VagAzkK0EW5r/V6nEbfi599wH?=
+ =?us-ascii?Q?d3wSq70CjrEncfvax9Qp6CppgRfnsLLHR06+13Z0IbgWmaUxL0oFPGbwx/QL?=
+ =?us-ascii?Q?idhc/NDJ+l0R+4GrhPHCm+2iERoiII9QUC13QSF8RqRzvjovKgRXHxDkIUPR?=
+ =?us-ascii?Q?tldN1IyAYfCx/hyNxpqHRZZWYWBIB/fePuwMWba4779Z9e3mGj6TEQYo/LCu?=
+ =?us-ascii?Q?jlV0sJNmFimJMp4CJzb9gmxJspkvPJaVB0nbJZmVAQYUCfGM7Wr0NYjDBKro?=
+ =?us-ascii?Q?xd7z6iaBsfHrJHSMZecfadkGglW9E1Sk7by8yPnexaRckLOyYdYo8P1xOI3o?=
+ =?us-ascii?Q?Qu2X9thbZPaKLFslgyyyrRUZpvr+FTRTbX/lrwR/YG6mCcJ7IdWSmdF/R0zb?=
+ =?us-ascii?Q?lIUjYB+evDyy2hwkqb9IcZ5ee6ENlmPKQ7Nig740a/SFH3wBi+ibo139ofOt?=
+ =?us-ascii?Q?yO+STubAoUZzJcYKeBc8Zgpcz6r4WA2mv4UvSY3CCPN+qDkxZEqeuRJR+okJ?=
+ =?us-ascii?Q?L/WUMgDa78eY+aBKbBoi4vLK1QkXXw5unJIXhXrW7Kwu2T/ci/bPxusyPK9J?=
+ =?us-ascii?Q?hC4MeiLQSpwcWH5bLZyTTSk/x0v6SbJfIx1ytf7RNE/OmWpq8DDOUTcSPJ0D?=
+ =?us-ascii?Q?m+R2e4gJ42C6jgL8t1akC+RtAbluBfU2kI4sDwgZ46+fSGp/XkVr4yVxj3p9?=
+ =?us-ascii?Q?cP8XFDGVdbhZDddQ/BHqSzyhbrAn/AVFpa/ZC+twm8KS1GONPwH+B8GGMdJ7?=
+ =?us-ascii?Q?nIc0xY36H4fe7Zxu397rL8SB5djxRRiwmyxDSiG3RDLQlo4DWi7o5aeX/2YJ?=
+ =?us-ascii?Q?/fzYNRe+OGHK9fnLLh/ahICvBYBy4noTmxe/hRCqRamO/qfbzJBRLe2+3P9+?=
+ =?us-ascii?Q?vdOyoCde9YZHWxrX2bfgXlpVCXBtDiL/6OnQLtyQphIg93donIbj6D1sufJs?=
+ =?us-ascii?Q?CLgVVC+JBQHRmoUpbT0j+EEi2kmSdlgdq7tq2QX5iVYCtczUBDjuKDDcjdt/?=
+ =?us-ascii?Q?19cJp2j0UJGldo5V7yqmWsd4eGammtOaHB9LmO0G5Xh73S7kyCUQxxxSNfxB?=
+ =?us-ascii?Q?T99RbvHx9QMGGL7FiTipUnGl7tbrGBjgUuKWwrbRGIMA+XT8SAUM2AGTnTMO?=
+ =?us-ascii?Q?M0556iztWeaTiEIZwLK2nxyQDWbF3aVI9a3+7ty30Br9zPH2NEk5Y3TTzVxq?=
+ =?us-ascii?Q?Z92e12CVNN6RqUchYKqHL+pxH5sdqwr4FGKUVArg6397d5SfLoPv0Kk2Znd1?=
+ =?us-ascii?Q?4t6fxzU8kwr2AVEwBz/AIhGOLVk3M/lWRQxxSRnvk0Yk5n/UHkSqRvQAsB5V?=
+ =?us-ascii?Q?XtPzMIE9B/zv/WBE5w2zBIBIh53U09+kXq2/5KvlDMfMAIgDZo3LevUSy4z3?=
+ =?us-ascii?Q?yeycntjaIEGQJ+u8MY0ANhduc+U93psNx3sL1k1VTjyzr0SfJxMKJJN5jH0t?=
+ =?us-ascii?Q?YV7Ybfud8uv/cijhObC5NIXKuFGe50RDBoOo/BdIc97/PINyBwbNxMDdkJHS?=
+ =?us-ascii?Q?+Ga9wNbTSBxojmjs8k5zBOMa/R/qQhVXOaGnFaOxHUqNtUZA4QqMUz2OsjAe?=
+ =?us-ascii?Q?yxojv7+KuybXrNDpfeQBso6lSdq/CBqQVli0KI/IqQ9bNi6j?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ce0dee5-40be-45a0-8bb0-08df0e81e6ef
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:51:59.9363
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GaH0+KOviNSRCdr7EZsWKpLZOz7AN2eiZEQEO/jX7ljsgnpssYqzKCUkebiq21Hn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999176
 
-On 9/7/26 8:33 AM, Shashank Maurya wrote:
-> Add a DT overlay for the Raspberry Pi 7" DSI touchscreen panel on
-> Monaco EVK, using mdss_dsi0 with 2 data lanes and the panel MCU on
-> I2C8.
-> 
-> Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-> ---
+On 9 Sep 2026, at 10:50, David Hildenbrand (Arm) wrote:
 
-[...]
+> On 9/9/26 16:48, Zi Yan wrote:
+>> On 9 Sep 2026, at 10:31, David Hildenbrand (Arm) wrote:
+>>
+>>> On 9/8/26 04:56, Zi Yan wrote:
+>>>> folio->private !=3D NULL indicates a folio carries private data, rep=
+lacing
+>>>> PG_private. All PG_private users are converted. Remove PG_private an=
+d
+>>>> reserve the space as __PG_folio for future use.
+>>>>
+>>>> __DEF_PAGEFLAG_NAME() is added to show __PG_folio.
+>>>>
+>>>> Also update files in Documentation. hugetlbfs_reserv.rst is outdated=
+ and
+>>>> left unchanged. It should be rewritten.
+>>>>
+>>>> Assisted-by: Claude:claude-opus-4-8
+>>>> Assisted-by: Codex:gpt-5
+>>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>>> To: Andrew Morton <akpm@linux-foundation.org>
+>>>> To: Baoquan He <baoquan.he@linux.dev>
+>>>> To: Mike Rapoport <rppt@kernel.org>
+>>>> To: Pasha Tatashin <pasha.tatashin@soleen.com>
+>>>> To: Pratyush Yadav <pratyush@kernel.org>
+>>>> To: Jonathan Corbet <corbet@lwn.net>
+>>>> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+>>>> To: Jan Kara <jack@suse.cz>
+>>>> To: David Hildenbrand <david@kernel.org>
+>>>> To: Steven Rostedt <rostedt@goodmis.org>
+>>>> To: Masami Hiramatsu <mhiramat@kernel.org>
+>>>> Cc: Dave Young <ruirui.yang@linux.dev>
+>>>> Cc: Shuah Khan <skhan@linuxfoundation.org>
+>>>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+>>>> Cc: "Liam R. Howlett" <liam@infradead.org>
+>>>> Cc: Vlastimil Babka <vbabka@kernel.org>
+>>>> Cc: Suren Baghdasaryan <surenb@google.com>
+>>>> Cc: Michal Hocko <mhocko@suse.com>
+>>>> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>>>> Cc: kexec@lists.infradead.org
+>>>> Cc: linux-doc@vger.kernel.org
+>>>> Cc: linux-kernel@vger.kernel.org
+>>>> Cc: linux-fsdevel@vger.kernel.org
+>>>> Cc: linux-mm@kvack.org
+>>>> Cc: linux-trace-kernel@vger.kernel.org
+>>>> ---
+>>>>  Documentation/admin-guide/kdump/vmcoreinfo.rst |  2 +-
+>>>>  Documentation/filesystems/vfs.rst              |  6 +++---
+>>>>  include/linux/page-flags.h                     | 19 ++-------------=
+----
+>>>>  include/trace/events/mmflags.h                 |  3 ++-
+>>>>  kernel/vmcore_info.c                           |  1 -
+>>>>  5 files changed, 8 insertions(+), 23 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Docume=
+ntation/admin-guide/kdump/vmcoreinfo.rst
+>>>> index 7663c610fe901..5f1df6d080508 100644
+>>>> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
+>>>> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+>>>> @@ -325,7 +325,7 @@ NR_FREE_PAGES
+>>>>  On linux-2.6.21 or later, the number of free pages is in
+>>>>  vm_stat[NR_FREE_PAGES]. Used to get the number of free pages.
+>>>>
+>>>> -PG_lru|PG_private|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_ma=
+sk
+>>>> +PG_lru|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
+>>>>  -------------------------------------------------------------------=
+-------
+>>>>
+>>>>  Page attributes. These flags are used to filter various unnecessary=
+ for
+>>>> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/files=
+ystems/vfs.rst
+>>>> index d3a93eec3945f..dec7816303c6a 100644
+>>>> --- a/Documentation/filesystems/vfs.rst
+>>>> +++ b/Documentation/filesystems/vfs.rst
+>>>> @@ -649,8 +649,8 @@ Writeback.
+>>>>
+>>>>  The first can be used independently to the others.  The VM can try =
+to
+>>>>  release clean pages in order to reuse them.  To do this it can call=
 
-> +	reg_dsi_touch: regulator-touch {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "rpi-touch";
-> +		regulator-min-microvolt = <5500000>;
-> +		regulator-max-microvolt = <5500000>;
-> +		gpio = <&expander3 5 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-always-on;
-> +	};
+>>>> -->release_folio on clean folios with the private
+>>>> -flag set.  Clean pages without PagePrivate and with no external ref=
+erences
+>>>> +->release_folio on clean folios with folio->private set. Clean page=
+s
+>>>> +without folio->private set and with no external references
+>>>>  will be released without notice being given to the address_space.
+>>>
+>>> This reads like it would belong into patch #13?
+>>>
+>>>>
+>>>>  To achieve this functionality, pages need to be placed on an LRU wi=
+th
+>>>> @@ -674,7 +674,7 @@ filemap_fdatawait_range, to wait for all writeba=
+ck to complete.
+>>>>
+>>>>  An address_space handler may attach extra information to a page,
+>>>>  typically using the 'private' field in the 'struct page'.  If such
+>>>> -information is attached, the PG_Private flag should be set.  This w=
+ill
+>>>> +information is attached, non-NULL 'private' field will
+>>>
+>>> Same here?
+>>>
+>>> Likely this could have been restructured to cause less head scratches=
+=2E I'd
+>>> expect any documentation that refers to PG_private to get removed bef=
+ore finally
+>>> removing the bit.
+>>>
+>>> Not the end of the world, just a bit confusing while reviewing.
+>>
+>> Yeah, I will fold the document changes into the corresponding code cha=
+nge patches.
+>>
+>>>
+>>>>  cause various VM routines to make extra calls into the address_spac=
+e
+>>>>  handler to deal with that data.
+>>>>
+>>>> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h=
 
-Does this need to be always-on? There's clearly a consumer for it
+>>>> index ce7fccd90367b..7b7783c0a5216 100644
+>>>> --- a/include/linux/page-flags.h
+>>>> +++ b/include/linux/page-flags.h
+>>>> @@ -44,10 +44,6 @@
+>>>>   * Consequently, PG_reserved for a page mapped into user space can =
+indicate
+>>>>   * the zero page, the vDSO, MMIO pages or device memory.
+>>>>   *
+>>>> - * The PG_private bitflag is set on pagecache pages if they contain=
+ filesystem
+>>>> - * specific data (which is normally at page->private). It can be us=
+ed by
+>>>> - * private allocations for its own usage.
+>>>> - *
+>>>>   * During initiation of disk I/O, PG_locked is set. This bit is set=
+ before I/O
+>>>>   * and cleared when writeback _starts_ or when read _completes_. PG=
+_writeback
+>>>>   * is set before writeback starts and cleared when it finishes.
+>>>> @@ -105,7 +101,7 @@ enum pageflags {
+>>>>  	PG_owner_2,		/* Owner use. If pagecache, fs may use */
+>>>>  	PG_arch_1,
+>>>>  	PG_reserved,
+>>>> -	PG_private,		/* If pagecache, has fs-private data */
+>>>> +	__PG_folio,		/* Do not use: reserved for folio identification */
+>>>
+>>> Do we really have to annotate it with __PG_folio ? I'd just keep it s=
+imple and
+>>> have the comment. That also avoids __DEF_PAGEFLAG_NAME just for this =
+use case.
+>>>
+>>> (sorry if this was discussed in previous review rounds)
+>>
+>> No one complained about this yet. :)
+>>
+>> I do this because I do not want to change PG_* values after PG_private=
+ after
+>> PG_private is removed. And they will be changed back to their original=
+ values
+>> when I add PG_folio. That PG_* value churn might be a headache for kdu=
+mp?
+>> If I add PG_folio the last page flag, it can be a one-time change thou=
+gh.
+>
+> Sorry, I meant that you just use
+>
+> PG_folio,		/* Do not use: reserved for folio identification */
+>
+> Without any further churn. Or is there a problem with this?
 
-Konrad
+Probably not. Let me do that.
+
+Best Regards,
+Yan, Zi
