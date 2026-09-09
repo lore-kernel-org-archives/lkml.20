@@ -1,144 +1,168 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2631E54B1CF;
-	Wed,  9 Sep 2026 12:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6FE54DACA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955853; cv=none; b=mF1gRCIjdMO/ebgU2iXQ3mteEu29p/pSCt+sWSxF9/SrC4w/JhzE3DGbM0TJbdBbkSsGHDg7ozo43OB0sH1+soeY8Dopg3MdAQ5C8WKV10/rjGcbl2nblNDB2RQdul17JOMWf+liRKemOlHVPkB5KikgTznjwkMc9+lW59xendo=
+	t=1788955929; cv=none; b=Xn7+FIw5o7Y7KNKAmW8sNxjyLvbMQfkNRWARap3JugxcshwNkZB0iHh+wBzEuw2SYS7/ldQNU04DbNxxlj30Z3S2BfylXoDiFPeueGATzjh4wXPh03S+Ta+P03NiTmSZoUnvSE8KTEph1eyQyssuKyXy58WXLit/1FsNy2rwcLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955853; c=relaxed/simple;
-	bh=xgVS1uzLmdnK8tSxHFP7Ly7Gbla/oDDL6yT3SDhnOYA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qbKESUIg6jTVxwdOT7NG68yqFY5xoc32XqtQ7Pun406tUhxfNy1sBUsAipnnId+Ej7d4cciRW0bmiLabFM50metpSNhuTxwoedIxJFV462jR3Ivqokys1EV3kegRIy4kG69AqmLaDOTffpQX3ATDBhB70fPCYRaL1q5yz/F4SrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=DclXpt4J; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1788955929; c=relaxed/simple;
+	bh=VEfNxTBF0yKDcirUsmnQrY84ZgUIpVi6XyMaVo/bUX4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=adeIEAdiva0DfBZUdy2+EFNdJV7y/wmcT34aKNMQgDjLj+Fzl17DLWeS9j2R/zanMsM2dZ/nhw6EeLe6khQDwX/XbFPe0jspryNDdwGUpYYxvk1lSV+bC+PUmopsgnlPUrV/DxsjGDc7fYQD6EW7zE9xkgK5ewd6hQWnZPNRdxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T6oBRNue; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="DclXpt4J"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 9A9D6806EC;
-	Wed, 09 Sep 2026 14:10:42 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 4mlIcBAk8Nyv; Wed,  9 Sep 2026 14:10:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1788955841; bh=xgVS1uzLmdnK8tSxHFP7Ly7Gbla/oDDL6yT3SDhnOYA=;
-	h=From:To:Cc:Subject:Date;
-	b=DclXpt4JycLtkgGP82+CSKcIb4KIsj727rrTwkP6WaT5KvoRINBH1u/f/MwAMapsu
-	 QyC2ibx37qEY3AmzgQmDuzb4iH2ld1svx5WpJ73k13jh2Uy8f9NA2IYTqznXiFE2c1
-	 42Fi0ekX2PtzJcsbzeRXOicVp/HzeAYKL9is6kFEwPzzut9trDiqQCR0p26baqDnyO
-	 cnjrSXC0Bcz8zQAKEqLfIGOmbhKNw7OIf2SthmyLdWMH6QyLpAfqXwMbrq2S/uuSJB
-	 cYn4umevscuAamUOwmWVdkX8+qcwCyHwW0tu1Ac+HVGepcg7NmkoicEO4aJ9MM6k8a
-	 C5J8D9o6+WGuA==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: Christian Brauner <brauner@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] nls: fix the Unicode to charset tables of iso8859-14
-Date: Wed,  9 Sep 2026 15:10:25 +0300
-Message-ID: <20260909121032.76647-1-aliamemis@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T6oBRNue"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF1A1F01559
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:12:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788955928;
+	bh=FD1gsvGRC7hkDhQUoluFrtoGkFlmUbPoFR3CsiEk3K8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=T6oBRNueMixlB9U/xFkN2puYBkY3OzQ7loF/gsggucoe2FH9ww8Rwh+bpvtPGkc9d
+	 ccxtKG+EvKTigS9BcX+WZCkd+T0odFJHTgidMiNbEmTYVXgS367thaQvMFSsDVY2pY
+	 5IsekUbgakPOf/Et22zbdIW4DH3fXwnw8ry1J+eeT3BwxTYzxXlGma83UOFx6ymGvJ
+	 AgMFcjjmC/HkX2l0vRifZQLcDauHgDzZ6GbjCGUQUHhA/vgcloXdojnjdWwzZ25udS
+	 Mp/Oa4ZccFJj4kxH17R8oYLo9e31BWkcj0WUYBSYHa1YkcIBhQVD1ZazRPrZXhxx+K
+	 Ud6ZAK/xApJOg==
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-87f4e914a45so12924837b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:12:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzoXQzmJcXadPnyutvpeHGfbEIDNoO7ohMYtBxMQ3uE5MdwQH/KvoYkrvwzW4AhBoulNyL8i/pZR3NKJik=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2bk+8ed3txoYBGFoM7lBldBag/PUfQJEZrJPtmZjKnkmswb/6
+	mjlLqDMnVKEdrZXZSEcS6G2BX8qfns4yPaVo5xkehtPfHwyHO9DWn+q6PRG0ygKBWoHbvQmZXHJ
+	a6G7O3EYP6CxAPrK+B4qn7BNkWBybplw=
+X-Received: by 2002:a05:690c:d8a:b0:873:5ddf:d862 with SMTP id
+ 00721157ae682-8735ddfd9abmr109509577b3.45.1788955927429; Wed, 09 Sep 2026
+ 05:12:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260907042447.2450663-1-ridong.chen@linux.dev>
+ <20260907042447.2450663-2-ridong.chen@linux.dev> <CAGsJ_4zT0HcbkQjdPFPBeaqbGcYp4WE6sghDzz=0evhhupCs3g@mail.gmail.com>
+ <102f6ff6-46f9-4734-a056-694eb2c0129b@linux.dev>
+In-Reply-To: <102f6ff6-46f9-4734-a056-694eb2c0129b@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Wed, 9 Sep 2026 20:11:55 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wxZ0pc0UMAXe3xKW0=PTzYv31ieoJa1v01SoLczPVOCA@mail.gmail.com>
+X-Gm-Features: AcwNN1USPJswSmWSzvVf7WcWGE35FXyfN8FIwgGMrmaqVfupZIYniCIbPs_AXiQ
+Message-ID: <CAGsJ_4wxZ0pc0UMAXe3xKW0=PTzYv31ieoJa1v01SoLczPVOCA@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/2] mm/mglru: add tracepoint for folio isolation
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, David Hildenbrand <david@kernel.org>, 
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-page01 and page1e in nls_iso8859-14.c are identical, so the U+01xx
-table is incorrectly replaced by the U+1Exx table. Both are used by
-page_uni2charset, causing uni2char() to map 29 code points to the wrong
-bytes.
+On Wed, Sep 9, 2026 at 8:00=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev> =
+wrote:
+>
+>
+>
+> On 9/9/2026 2:40 PM, Barry Song wrote:
+> > On Mon, Sep 7, 2026 at 12:25=E2=80=AFPM Ridong Chen <ridong.chen@linux.=
+dev> wrote:
+> >>
+> >> From: Ridong Chen <chenridong@xiaomi.com>
+> >>
+> >> MGLRU's scan_folios() and evict_folios() emit the classic-LRU
+> >> tracepoints trace_mm_vmscan_lru_isolate() and
+> >> trace_mm_vmscan_lru_shrink_inactive(). Those predate MGLRU and are
+> >> indistinguishable from the classic-LRU path: they carry no generation,
+> >> sequence, memcg or swappiness context, so a trace of an MGLRU run cann=
+ot
+> >> tell which memcg a given scan/evict belongs to, nor how far reclaim ha=
+s
+> >> progressed through the generations.
+> >>
+> >> Add mm_mglru_isolate_folios, emitted once per isolate_folios() call wi=
+th
+> >> the memcg id, the type actually scanned, the effective swappiness, the
+> >> scanned/isolated counts, and the anon/file min_seq and max_seq. The
+> >> min_seq/max_seq triplet ties each isolation to the generation layout i=
+t
+> >> ran against, which the classic-LRU tracepoints cannot express.
+> >>
+> >> This is emitted at the isolate_folios() layer, which is MGLRU-specific
+> >> and has no classic-LRU counterpart, so it neither changes nor duplicat=
+es
+> >> the existing scan/evict tracepoints.
+> >>
+> >
+> > I have no objection to MGLRU having some tracepoints. However, one
+> > major concern is that the code is changing rapidly, so the tracepoints
+> > may not be stable. We would need to maintain them as the code evolves.
+> >
+>
+> Indeed. GEN-LRU has been available for several years now, and many vendor=
+s are
+> already using it, so adding tracepoints is a necessary step.
+>
+> >> Assisted-by: Claude:claude-opus-4-8
+> >> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> >> ---
+> >>   include/trace/events/vmscan.h | 47 +++++++++++++++++++++++++++++++++=
+++
+> >>   mm/vmscan.c                   |  9 ++++++-
+> >>   2 files changed, 55 insertions(+), 1 deletion(-)
+> >>
+> > [...]
+> >> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> >> index 8409ea4bbf37..771fe6827939 100644
+> >> --- a/mm/vmscan.c
+> >> +++ b/mm/vmscan.c
+> > [...]
+> >> @@ -4876,6 +4877,12 @@ static int isolate_folios(unsigned long nr_to_s=
+can, struct lruvec *lruvec,
+> >>                  goto retry;
+> >>          }
+> >>
+> >> +done:
+> >> +       trace_mm_mglru_isolate_folios(mem_cgroup_id(lruvec_memcg(lruve=
+c)),
+> >> +                                     type, swappiness, total_scanned,=
+ *isolated,
+> >> +                                     lrugen->min_seq[LRU_GEN_ANON],
+> >> +                                     lrugen->min_seq[LRU_GEN_FILE],
+> >> +                                     lrugen->max_seq);
+> >
+> > Maybe `scan_folios()` would be a better place for this, as it can more
+> > directly reflect what we're doing for each type.
+> >
+>
+> scan_folios() already contains the trace_mm_vmscan_lru_isolate
+> tracepoint(traditional tracepoint), but it lacks any GEN-LRU-specific
+> information. Adding another tracepoint there would be redundant. Therefor=
+e, I
+> placed the new tracepoint in isolate_folios(), where it can capture GEN-L=
+RU's
+> specific details. Additionally, it can indicate whether a fallback to the=
+ other
+> type has occurred.
 
-charset2uni() is unaffected and matches the Unicode 8859-14 mapping.
+if `trace_mm_vmscan_lru_isolate` is located in `scan_folios()`, that
+would be strong evidence that `scan_folios()` is a better place for
+adding a new tracepoint for LRU gen.
 
-For example:
+There is no need to avoid this location just because we already have a
+tracepoint here. In fact, I think this is evidence that it is a better
+place, not the opposite.
 
-U+010A -> 0xa6 -> U+1E0A
-U+010B -> 0xab -> U+1E0B
-U+1E20 -> 0xb2 -> U+0120
+BTW, `isolate_folios()` might be deleted soon, depending on how we
+improve MGLRU and on some ongoing work from Kairui. But `scan_folios()`
+should be long-lived, as we need to scan folios in any case. Therefore,
+adding tracepoints to `isolate_folios()` doesn't seem to be related to
+the stable ABI concern mentioned in your cover letter.
 
-22 code points that are not part of ISO 8859-14 are also incorrectly
-accepted instead of being rejected.
-
-Regenerate page01 and page1e from charset2uni. glibc iconv agrees with
-the resulting mappings, and a full BMP round trip is now lossless.
-
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
----
- fs/nls/nls_iso8859-14.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
-
-diff --git a/fs/nls/nls_iso8859-14.c b/fs/nls/nls_iso8859-14.c
-index c789eccb8a69..60b9400f915a 100644
---- a/fs/nls/nls_iso8859-14.c
-+++ b/fs/nls/nls_iso8859-14.c
-@@ -138,24 +138,23 @@ static const unsigned char page00[256] = {
- };
- 
- static const unsigned char page01[256] = {
--	0x00, 0x00, 0xa1, 0xa2, 0x00, 0x00, 0x00, 0x00, /* 0x00-0x07 */
--	0x00, 0x00, 0xa6, 0xab, 0x00, 0x00, 0x00, 0x00, /* 0x08-0x0f */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x00-0x07 */
-+	0x00, 0x00, 0xa4, 0xa5, 0x00, 0x00, 0x00, 0x00, /* 0x08-0x0f */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x10-0x17 */
--	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb0, 0xb1, /* 0x18-0x1f */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x18-0x1f */
- 	0xb2, 0xb3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x20-0x27 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x28-0x2f */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x30-0x37 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x38-0x3f */
--	0xb4, 0xb5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x40-0x47 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x40-0x47 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x48-0x4f */
--	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb7, 0xb9, /* 0x50-0x57 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x50-0x57 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x58-0x5f */
--	0xbb, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
--	0x00, 0x00, 0xd7, 0xf7, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
- 	0x00, 0x00, 0x00, 0x00, 0xd0, 0xf0, 0xde, 0xfe, /* 0x70-0x77 */
- 	0xaf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
--	
--	0xa8, 0xb8, 0xaa, 0xba, 0xbd, 0xbe, 0x00, 0x00, /* 0x80-0x87 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x80-0x87 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x88-0x8f */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x98-0x9f */
-@@ -169,7 +168,7 @@ static const unsigned char page01[256] = {
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xd8-0xdf */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xe0-0xe7 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xe8-0xef */
--	0x00, 0x00, 0xac, 0xbc, 0x00, 0x00, 0x00, 0x00, /* 0xf0-0xf7 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xf0-0xf7 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xf8-0xff */
- };
- 
-@@ -178,7 +177,7 @@ static const unsigned char page1e[256] = {
- 	0x00, 0x00, 0xa6, 0xab, 0x00, 0x00, 0x00, 0x00, /* 0x08-0x0f */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x10-0x17 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb0, 0xb1, /* 0x18-0x1f */
--	0xb2, 0xb3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x20-0x27 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x20-0x27 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x28-0x2f */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x30-0x37 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x38-0x3f */
-@@ -188,9 +187,8 @@ static const unsigned char page1e[256] = {
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x58-0x5f */
- 	0xbb, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
- 	0x00, 0x00, 0xd7, 0xf7, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
--	0x00, 0x00, 0x00, 0x00, 0xd0, 0xf0, 0xde, 0xfe, /* 0x70-0x77 */
--	0xaf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
--
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x70-0x77 */
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
- 	0xa8, 0xb8, 0xaa, 0xba, 0xbd, 0xbe, 0x00, 0x00, /* 0x80-0x87 */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x88-0x8f */
- 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
--- 
-2.55.0
-
+Best Regards
+Barry
