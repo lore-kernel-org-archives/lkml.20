@@ -1,243 +1,158 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E4F43CE6A;
-	Wed,  9 Sep 2026 07:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE853A0B24
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940329; cv=none; b=R5g60IVldarmENvdPLjuEGD715q8eKbe+dlk6ci4+FtELzMRm7kIktWcB/x2XXsvZFOMY1l3PGEO1S1op2rVTQzWC4Pm+WIOLqExipHWdllBCs6e2iq6qGvR3L98KSWSd4ZhNYPvRYheaO56IdJts4/wEsJZb1/QlddusJUxW/c=
+	t=1788940341; cv=none; b=D/IXJHaX1zyeQv4q1rY5+XsfBdoV5arw/RNu+GIIflqtm/MNjzJ88GFw4chrPsMVEWst3h8XebIwgXtQYs98cgcstX8ReloH8WmI1qQXf2+A+m1tiTyFxObbACF0hUjFZqN9Kg31RYXT6B0L5JvenPOTZNH1Mygd7ICGbJO/uyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940329; c=relaxed/simple;
-	bh=Xo5ZZna6fj0XzdrU3K7w11fQnxYp9Ig+cMNM4zANL/w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=R6BD4TBpb5pw5g+OojPutfz6enk4em9eUo9xo7Us7BPzuB77Hs17xRuy2LunM4hYr+BK8sU+qSkTjAg3QgABvP1iylUkAWXyamXjiE8FhdNe0uQOkuXStfNAUErw/OHu4hB+DaS/ia4uhTaxJ/nSi0o4fkXZPYBsomkyGJyDeuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1788940308t5a964bd1
-X-QQ-Originating-IP: mnQDQc0d55bdRQP8PubdyMMyenO5XvvyaiNu1uisIAs=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 09 Sep 2026 15:51:42 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4351813937813255194
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Wed, 09 Sep 2026 15:51:38 +0800
-Subject: [PATCH v2] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks
- as dma-coherent
+	s=arc-20240116; t=1788940341; c=relaxed/simple;
+	bh=SEHWHx/78gi4uc2v9DjORz7UcTGbXa0aZ5owPsB7y04=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=fdEoPQ5LJoPWraBJ5R/4+Sjl+ZK6vnPeCASNK+r07jy0Uq2X3FNJf81wny2V9w/Z1WKRofCgxmc4WpwpvuQfPIF6GIQ6/zESlLDMsNx2epN6a7UoZj9Nlc1pRHSiCl0usb45QofvMI7ORS5ALZkSNjotWDY6lXKraMjb6Ri1tAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pT/a3oqC; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pT/a3oqC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id ADCCB1A1A73;
+	Wed,  9 Sep 2026 07:52:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7BD1060448;
+	Wed,  9 Sep 2026 07:52:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 603A011C7AF4F;
+	Wed,  9 Sep 2026 09:52:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788940336; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=JAvW8vyFsOHN+djQaHC9viq07f5HEJTSFyQy/FJZP+8=;
+	b=pT/a3oqCMaEh+7KfHHiVbinaY1Rk29A+MNmHdwy2pqPEIffvpg02DAa03svSjfNC58rRf7
+	ZEfEbKh7HH0j/0AaC8UhaRq3QKAgqRTytK/V7LdyB9uIW8uUqFJisaaO1zWGwIujfaUlDf
+	P1sp+QhXS57hjTR9eWOs19rP4cJWDOBq0wucHNMAP01AhXTN1mATAXoGfDzClOxzz/fZRy
+	k/7sKMJL3BKVx4De2IjbhKTP4EftHY9LNBM+SjG93kCFzvEbnIReDYmgNCfbvUjp/xsVR8
+	w7bvg8zstsxSxGMQd1EXNmtIKSIuwJIE90oFU0gsemmxMRKFJ7nXNIy7AV/sbA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-sc8280xp-fastrpc-dma-coherent-v2-1-a112abfd41b4@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr2K6dkxpBIor72FYDNNBagIlnUowh
- LsLeAGXL3l5/y9KOHoWdTstKvLkxYdhA3M+KepweDJ4t7Ey2hQ61yUIWWP1PEKLkuJI4HoECh1
- HHhJcC03cYm5d06itMUZu/Xz0H/WP5d28mNIe3Y3OSwrxcxyYst37d2vKIAOuDLIrq9IW+T2im
- /FCoVf1uq5fvzz6g9wAAAA=
-X-Change-ID: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4578; i=sophon@radxa.com;
- h=from:subject:message-id; bh=Xo5ZZna6fj0XzdrU3K7w11fQnxYp9Ig+cMNM4zANL/w=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkLBfg/veDblbFv9vlpU2/VpIg1Klu+VHx5PKt478Ebm
- rp9Xy3/d5SyMIhxMciKKbIoxDPMZa/MvfZUrFQPZg4rE8gQBi5OAZjI8l6GfyoreqwFojqyDI44
- Ftpt2Wv+VJ/XaX3Yk28L86cYh0VvfMnIsO+XZcOx2exVJdON631eKR56dvbFzclsJUf/zNNIi97
- kygYA
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Mnff/9wu0oJYFCw9CqkLJ8y3ha1ZbM8UntmgUvmwyPQiEVU9RPR4Ncik
-	98Q+e9gsIxd0aeXjt3bxHmgukwJpuPdACUFYbI0U17MYFnk5WQ/a41c9b9211ETIewUTjgm
-	iYGvtRyeVdQ2UQPM2s9G9BjYuy5/s1prxgzS+zIyZJBJrd8U3EbQ/WyfIFfOutzA4L6Rofx
-	zXhHAqrtMepbgIXA+mT5rQ34YepcNICJTK+U9WGa8EnQXmZwgXCwma+mLkA9RU/QQbELgTH
-	JmwME6HLHUoDOKItLLv0WlbHNP4O49Ft5+A9/Ll1RiH8b4RYc1VuAplM8SK3pIXua6vFj6v
-	9YjHAOZy/psjTmDY1r5D6DMKe6G8dJLTWQKJ7PbGG5nZaTUJp6GQiE8fCJnPzRm87gELArs
-	NDrtEZrMIVWQyuw0ZjedMXo20Fe5oGPB6fMUtH0lKS/PsSsC35IMkoJX/oPFEchdJCmExEC
-	H4LIMhU1pPAqeFQ4vAe1L8WRo5FhJK75P7OT+PcfbK58uJcRT2X7t690wo8iSXeil19Du1s
-	DfnA3jO4yo1vCNr19cqXVdIKF3NqHfcKhv3mP9crReeJ2LCQWCWrkipg/j43jRxq3MzIruK
-	E3EJAa1G4Va0AJNuU94C9vKsTjnI2DydcrXb/kc+ZwBFoEwNhBTCM1KHAPk772M86U4q5u5
-	u5yflWkPA+95QPSHni8lEg72Y+2p/H7UI01HouLcEv4zSaQ3dAXJ8VMNn/TiYSpQxANxwFp
-	3L7FeeR2UKFW4qT0CyyBFOoTZsTXJ0HkwU/aloM4skcFn3HZydoRAtBkMovm7SYirY06Rij
-	VVMWxFCYmlMyu7QrWa+FJkQbuFo8LI1dDhjANPUZt8SKUQzGG3ZrLHCwyNhD3QS5tH+Qckj
-	ThHJRH/fh9eEetM209d7OEVJEZM5sjoAeQygZpaxnORFNelvQ4T1mL1FELYe1aHQhEyco1H
-	/rpP/dmcBzI01wATncZ2MEH3RwslJp3cpakZP25ILjYqgFlmLBpTTh0UF7JjvFQn0vF6Vo5
-	Nk4HvNVVyQjq/0SofbnN1qmuBM/aJ+kQl09ZSWZw==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 09:52:05 +0200
+Message-Id: <DLAMF47GKNSA.1PJ5V8Z86U1C6@bootlin.com>
+To: "Jani Nikula" <jani.nikula@linux.intel.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
+ <asrivats@redhat.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?=
+ <ville.syrjala@linux.intel.com>
+X-Mailer: aerc 0.22.0
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+In-Reply-To: <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-The FastRPC context banks are DMA-coherent on SC8280XP. Describe this in
-the device tree so that the DMA API uses the appropriate coherency
-attributes for their mappings.
+Hello Jani,
 
-When FastRPC allocates shared buffers from the system DMA heap, the
-missing property can cause intermittent failures while loading DSP
-libraries. Both fastrpc_test and the QAIRT platform validator can fail
-with DSP loader errors such as "mmap hdrs failed" and "bad address".
+On Tue Sep 8, 2026 at 6:18 PM CEST, Jani Nikula wrote:
+> On Thu, 03 Sep 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
+>> Adding a drm_panel does currently not add a panel_bridge wrapping
+>> it. Usually the panel_bridge creation happens later, when some other dri=
+ver
+>> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and th=
+e
+>> following element in the pipeline is a panel.
+>>
+>> This has some drawbacks:
+>>
+>>  * the bridge API is currently the best practice to access various
+>>    components of the pipeline, especially with complex cards where bridg=
+es
+>>    can be combined in different ways on different hardware
+>>  * the panel_bridge is not created in the context of the driver of the
+>>    underlying physical device (the panel driver), but of some other driv=
+er
+>>  * that other driver is not aware of whether the returned drm_bridge
+>>    pointer is a panel_bridge created on the fly, a pre-existing
+>>    panel_bridge or a non-panel bridge
+>>  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
+>>    but that other driver doesn't know whether this is needed because it
+>>    doesn't know whether it has created a panel_bridge or not
+>>
+>> Other drivers call [a variant of] drm_panel_bridge_add(), which also has
+>> some of the above drawbacks.
+>>
+>> So far the current approach was working mostly because devm and drmm ens=
+ure
+>> the panel bridge would be dealloacted at some later point. However with =
+the
+>> upcoming implementation of bridge hotplug and dynamic bridge lifetime th=
+is
+>> will get more complicated.
+>>
+>> Switch to the new approach: embed a drm_bridge inside every drm_panel,
+>> which behaves just like the current drm_panel_bridge.
+>
+> What does this mean for drivers like i915 that use drm_panel *only* for
+> handling panel followers? We don't need the bridge for anything. It'll
+> just be excess midlayer baggage.
 
-Mark the ADSP and CDSP FastRPC context banks as dma-coherent to fix these
-failures and allow QAIRT applications to run on the CDSP.
+i915 does not call drm_bridge_attach() nor drm_bridge_add(), right? So the
+newly embedded bridge would not even be observable, it would not even be in
+the global bridge_list. The only effect would be some extra allocated
+memory.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
-Changes in v2:
-- Rebased onto v7.3-rc2
-- Rephrase commit message
-- Link to v1: https://patch.msgid.link/20260507-sc8280xp-fastrpc-dma-coherent-v1-1-e92aed797865@radxa.com
+> I'm also concerned about the embedded struct drm_connector being added,
+> since that can't and will not be a drm_connector that we'll use.
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+The drm_connector is added only if drm_bridge_attach() is called (with the
+DRM_BRIDGE_ATTACH_NO_CONNECTOR flag not set). As above, i915 does not call
+drm_bridge_attach() at all, so no drm_connector is added.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index fbcfd3883bbb..dfe7dbaebe62 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -2910,18 +2910,21 @@ compute-cb@1 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <1>;
- 						iommus = <&apps_smmu 0x0521 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@2 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <2>;
- 						iommus = <&apps_smmu 0x0522 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x0523 0x0>;
-+						dma-coherent;
- 					};
- 				};
- 			};
-@@ -6235,84 +6238,98 @@ compute-cb@1 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <1>;
- 						iommus = <&apps_smmu 0x3181 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@2 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <2>;
- 						iommus = <&apps_smmu 0x3182 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x3183 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@4 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <4>;
- 						iommus = <&apps_smmu 0x3184 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@5 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <5>;
- 						iommus = <&apps_smmu 0x3185 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@6 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <6>;
- 						iommus = <&apps_smmu 0x3186 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@7 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <7>;
- 						iommus = <&apps_smmu 0x3187 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@8 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <8>;
- 						iommus = <&apps_smmu 0x3188 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@9 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <9>;
- 						iommus = <&apps_smmu 0x318b 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@10 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <10>;
- 						iommus = <&apps_smmu 0x318b 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@11 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <11>;
- 						iommus = <&apps_smmu 0x318c 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@12 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <12>;
- 						iommus = <&apps_smmu 0x318d 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@13 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <13>;
- 						iommus = <&apps_smmu 0x318e 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@14 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <14>;
- 						iommus = <&apps_smmu 0x318f 0x0420>;
-+						dma-coherent;
- 					};
- 				};
- 			};
+> All of
+> our drm_connector are embedded in intel_connector, and all of our
+> codebase expects this, and we init them ourselves. Having additional
+> drm_connector (not embedded in intel_connector) added by library code
+> *will* oops in our driver.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
+It would be great if you could test this series (even without reviewing if
+you can't). Based on my analysis above there should be no regression, and
+having that confirmed runtime would be helpful.
 
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+And if you can review, this is the one patch that matters. The following
+only affect bridge-based drivers. The previous ones are about moving code
+around across modules and will be different in v4.
 
+> I haven't had the time for an in-depth look, but it feels like this
+> assumes a certain driver model, instead of providing building blocks for
+> drivers to use.
+
+For drivers not using drm_bridge, this patch should be just implementation
+details changes and some more allocated memory.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
