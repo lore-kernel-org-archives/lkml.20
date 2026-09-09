@@ -1,81 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C6447DF85;
-	Wed,  9 Sep 2026 09:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BCF485CFB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:52:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947557; cv=none; b=hcu692cUE3QclIhz5YPhUpvJoxfzqv9Pza+dHu61mxB1heTGp8SgHWtC+Tm1vSCwwdFHd/4mAryMV4RiazhKhEWLW8ZKkS2OVgO2M9CUObRwTC/0Hjy6jt1llW+1ADuEbcwB2V82/e8Sbx6360GMf6sGEYUyItELVBRWQ0Jha/Y=
+	t=1788947560; cv=none; b=t/VyqtTJHdoV8mUo3T8Oor02MMTKOt2OZdTdYMDIgJolofIG2ahYAzBduY7KKKBmgKope24RVylMj0bRfYVqEe0+lYXE1K0taFoT+PM1292LZTw5SQv/yBjdgXLFKp8pLpVtcVBBJ+4fsVX9E1Sl5HOhfmtDecOaGifQqvuOhfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947557; c=relaxed/simple;
-	bh=/v8FyrdGsbUZw+j3BUzd/Kxabdh1Cx/DyaS/EF65d74=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vn55s3mbMwIzCCMUBcwjzt2UGh5tuH2ZmQNlgKGGNgTX80P/+Tu6vzBRsPGny1uVaWoLhk3n0mm9TrkeGW881kqbDv4J0BHHgtrL0tMVhMGkcuSgqUvnPzpRpsCNXL0a+ZNOn5BERgGVlqb1OqeHIfH2mWdQnjl4uy8XHtr7ilU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBv3HfYq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947560; c=relaxed/simple;
+	bh=79ynaHlD2ryUW05tMq9o7KmH45ZnkMpA91fwZbxdotE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pSWNkvaR7ryxxcX3mPmVtjeeNk7gtr+ifzIATZh3tLtxms619Z0pIYbVbEjNwTtYilrtMGz8NIizXq/bMeSZd4K2HsOMN+CZkT/zY6Shy4iPDMo3TMuJMU3L+31rue0zAsLCvYx8w2JMiP+KpUalsF2Z7JhUm3XFL01cVdsmHPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ljbYDde4; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBv3HfYq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2D81F00A3F;
-	Wed,  9 Sep 2026 09:52:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788947555;
-	bh=A1mH6YXkKjYveaMEEmKxLa8h3j6vD8suFECLiBU+ZF8=;
-	h=From:To:Cc:Subject:Date;
-	b=EBv3HfYqinuqKoW5fn1TxTz4ApjsNiRStVFwX3lcFVJMpxaRcSERfMH5Qnj/3eIgj
-	 Tl4WtM1ZAUbbgW4znyiugv6zJvlP0PtKiQzT/dYmBhf4qGg8vNDnyiq3n9LfwO6EgV
-	 QaZqG6mBVr6DQCgefS+dJ98MLveQvBwYyTB2GZKw8HKrK2DjMdnTZvq6KyECkU1ILF
-	 0BX3fAtRjg2kk/aOL9U67awk4PU0xlNNrVm0dXwiz5+frLQbokFBOhYLFpk86TkYPw
-	 7B5yfEEkN00U1kNRdNwYmHpN6v20tiQa8gzeNMYUNYPObbhBVdoEO6rBxEZUmjOwCA
-	 9Gk4rN0Zc4Rog==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 4F86F1980050;
-	Wed,  9 Sep 2026 05:52:31 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 09 Sep 2026 05:52:32 -0400
-X-ME-Sender: <xms:XiyhastfpMYf09d1ttYArPCf7TJBaJTfLsoEyodPKoLrS6KorUpcfA>
-    <xme:XiyhagaJFLDFQglul_8JnD0j5JfMtpnMX5kaOgmY1vz6qiGk7GC2FCTBdtV5fh3m-
-    n0Y4aOn2BlD1NkbZ9hluORZSO49RKDdtOWLYogaPOFGv07qTiyos_XD>
-X-ME-Received: <xmr:Xiyhas0NUaO0EI_z-v8rH5KEZANLC4mn0RkTj8msTBYbpoxcqGG1S2MvpcA>
-X-ME-Proxy-Cause: dmFkZTFdXEAt8Xoifn3HkMvmPrf3pdMTyQIQP6Aj3OujnVUZN6058eZl0xTCRZuAYJ+0HC
-    8qc4gz01mjgRj+9r0kfXnzkY1H+KSr3uvCg/aQhbrf2lEreUjRytWz8OvpgHDh1c1a/rwH
-    KO5/1ykH2rj8erZ+bSyokXSFrp8mX0/cyxOcNFl8y96joF53k5aRibyS/SShSTu6chBfYJ
-    741Ug35JL3m8/wMe3559u2iJNdscI97Ja4MxvUprYMMMEOZ48IQH7BY8BVxwNDzJy8V0C2
-    0deKwBYVFl0QBnpADvehmKoeLOgkYECDl8/Ukd5upAlpXGD851ILq+CLZ1ZzJg8SPyD3l5
-    EMOg3u7PNME81Ch4t4yaBJHfb4jUZMvWKM6lOtY80loYkRwUAMWiICXCkUBrgNog1fi4ja
-    063KZhqOn59ljj65C6vQ7nk/qpSbw+ahWlhYL6QkOP22NkX+6V5LrwCg6epGo8rxeMVKz7
-    uuQSKzb8vpX0Ay0nKOT1vvUzzNOeXc0CYQ+f0ZkHaj/FDcWEERf/q27ganz5MBC/6SaP9+
-    t9OApQn23jNdRDHbAZZm+3b7mrfJnKyamCQBS8IZPnnMwnKYHEJGVd+wkyak41iz6adQhV
-    3hd5uCAH25srvblyvSv41IlZNyJM2UTR965FsoJGKshx3DWWxvzR1/x56cNg
-X-ME-Proxy: <xmx:XiyhamVGm__Wd8wgJ3VTxeyP9ikGxJIUkNhU_-W47-CMTel4LJCABQ>
-    <xmx:Xiyhanur1uuJPAMztkiXUApBkD1kEUnCERpIgh7l2EnKlSw0Czthig>
-    <xmx:XiyhatVcrYRIED6j61FYUUpZeiD0e7GHvWeBJKEHUkAWMeiAgHTGlg>
-    <xmx:XiyhajUt4LyHthI4m1uORmxaMOZ0uSYN8r-ChEzUvYoOLr4KBfztlQ>
-    <xmx:Xiyhancs8FIZe3ZN_PtgD2z5d1IzGWxBDAjoqnbAnPnGtPJfInT9xpUb>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 05:52:30 -0400 (EDT)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Kyle McMartin <jkkm@meta.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	kernel-team@meta.com,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ljbYDde4"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d6d28aa26cso35784695ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:52:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788947558; x=1789552358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=39uM4LNN7batCoHFZc/UGv4aRojKefGSgFxZUzAHFw8=;
+        b=ljbYDde4L8QNlpOPrMyWJi9L3rPLodvpCD9yGb237bsa4aKOn4CuaQ1f7lENtfNkqk
+         ZjsHgF3vqgLkAkRrUx5UPGy/+BOx9n9FyxFs/XhrF3nUNLdYfkBd3PGKgCloVDHb30Ac
+         yY6XbE+YKGg7tOVj41GqPWBO2O4BY9QzIiy4Kwi14XjL7P7w9m6Xs75TmFGYvDifj3TB
+         SHRwfNDQ51oXuwMGG6yQ7fg3y8gHfI4qGaDzKVAZ8t5QntgojjZcs86OA2ZhgVeirsG2
+         Q/TR3kVj0Pz+mlgACf65mWcYTple8DbR0GWCxQKeC2QULC+5fYCrhmLZgbqRdSKmp96y
+         U5Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788947558; x=1789552358;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=39uM4LNN7batCoHFZc/UGv4aRojKefGSgFxZUzAHFw8=;
+        b=Ceb+pYprDwQk3g08wiwmE9Yec0HQzJ5L1ckOyHTVod2HTsTdiXkI2KTNFzRaH0IP37
+         C7N8K0y0nVENGDsVeKUZnarMqqHqxw6C7IhmgZtdMTeCY9wOq+zGfxgnPNn9rUhN9TzF
+         eM0jVDXJx95nqzeO0iuvp+a9PlZli+nuuWwGT6LrUJK4qgBMPyT02F3SL0AtZqknYaga
+         C63/kskZjSRqaaQWd1dnv/u9YQqUnxOBwrXZFvCS6Wa/8P3HQ/nR9R9sU2w2AbgcnsXd
+         bZ0mbRlVYHDAVt8+vYsqVbAEHuoFdj0xwcNcxIOVaZOAeMspMmlYvkwua1HkYogSIqbZ
+         puOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMhaHa1/8UEyVNLGGEfni0yqIzdUJlCe7hfL7cSggb0/xA3i9mL665XV1xB6wJRSt3tJbyUcPGlMo0cdw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2QIK7N2G5Cuz2Q+Js0tlvTrsKwpzmZCCYL7+HpXETyk9BEt3u
+	JCNI7F/sfNhdacunm1lAgb4eFW3v/HKpjDdt3yORfxXjW7yv4zyVZsAI
+X-Gm-Gg: AYBFou167Ph0hf+Lm+N93+cgnErzRJg94YRIAyeGbwBbJAaoERUNF9CChkeaGYibU1A
+	psGGgPaCCT6aBhwAGnVJfcpiqADjF4Bu3eIjm7/ANLBn+mAObrf6ma6Dg5b0z9dU3T6CWPJIVep
+	DcwwDXb5Ypx1r62tLUHw2SRmAz42W+sc4/uaiRmg6buCqfcR7MLrzZ7vBGq2NEiLqtoyi6pl08A
+	w8Pi+7XtiCVs/9I9PDC4oBT+cwjabwlfdnSXxiztL184uN+NtL2IiJQ9uaKGrJQdvSKT8AvCnbn
+	nxwNpwzq33sU3t053eBnHv2e2GphhtH3GyLxBtlv7RSbwENmUJ+h/MP2++l3QnQwa+Ce41I+yKJ
+	9wRGK5Qk29YqDhw9mraxbWnNArQ5Y2YEzUkUTFKvQB5+MUy7nvCLowYfRTrZdxsjl8cCSv6kgpS
+	lp26bH3PGngaQuSt5XcCGhVQcWUJJrEhwAi7ELhbf51osn8P0/lAJzjqbsNG+HVmV4znzDXA==
+X-Received: by 2002:a17:903:1a28:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2db31d514ebmr362436915ad.22.1788947557277;
+        Wed, 09 Sep 2026 02:52:37 -0700 (PDT)
+Received: from gmail.com ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14959954sm70023065ad.27.2026.09.09.02.52.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 02:52:36 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: john <love_goo@163.com>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>,
+	akpm@linux-foundation.org,
+	liuye@kylinos.cn,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	hughd@google.com,
+	mgorman@techsingularity.net,
+	yang@os.amperecomputing.com,
+	zhangqiuhao@huawei.com,
+	wangkefeng.wang@huawei.com,
+	mawupeng1@huwei.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v6 0/2] iommu/arm-smmu-v3: Make the queue depths tunable, and shrink them in a kdump kernel
-Date: Wed,  9 Sep 2026 10:52:26 +0100
-Message-ID: <20260909095228.2174031-1-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	Wupeng Ma <mawupeng1@huawei.com>
+Subject: Re: [PATCH resend 1/2] mm: vmscan: charge isolate overshoot against scan quota
+Date: Wed,  9 Sep 2026 17:52:22 +0800
+Message-ID: <20260909095227.2522994-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901084706.3784449-2-love_goo@163.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,50 +90,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The queues are sized from the IDR1 maxima and allocated at probe, costing
-megabytes per queue per SMMU instance. A kdump capture kernel pays that out
-of a small crashkernel reservation, for queues it barely uses and two of
-which it switches off anyway.
+On Tue,  1 Sep 2026 16:47:05 +0800 john <love_goo@163.com> wrote:
 
-Patch 1 adds a cmdq_max_n_shift module parameter, decided in a per-queue
-helper and floored at one page. Patch 2 has a kdump kernel default all
-three depths to one page through the same helper. An explicit
-cmdq_max_n_shift still wins.
+> From: Wupeng Ma <mawupeng1@huawei.com>
+> 
+> shrink_lruvec() charges the per-LRU budget nr[lru] in SWAP_CLUSTER_MAX
+> (32) chunks, but isolate_lru_folios() may scan far more per call: a
+> large folio can jump scan by many pages at once (a PMD-sized folio
+> counts 512), and a zone-ineligible LRU walks the whole list without
+> feeding scan back.  The overshoot is never refunded, so shrink_lruvec()
+> keeps charging only 32 per round and rescans the same folios.
+> 
+> Have isolate_lru_folios() record its scanned count in sc->nr_isolate_scanned
+> and let shrink_lruvec() subtract the overshoot from the remaining quota so
+> the next round skips already-scanned folios.  The field is reset to 0
 
-Measured per instance under QEMU on -M virt,iommu=smmuv3, through a real
-panic and kexec into a capture kernel:
+I'm not sure this is true across shrink_lruvec() invocations.
 
-                        4K page          64K page
-      cmdq         1 MB -> 4 KB      8 MB -> 64 KB
-      evtq         1 MB -> 4 KB     16 MB -> 64 KB
+isolate_lru_folios() splices folios_skipped back to the head of the LRU, 
+while get_scan_count() provides a fresh nr[lru] each time shrink_lruvec() 
+is entered. Thus, charging sc->nr_isolate_scanned against nr[lru] appears 
+to prevent repeated 32-page scans within the same shrink_lruvec() 
+invocation, but the same ineligible folios can still be encountered 
+again by a subsequent invocation.
 
-Every clamped queue lands on exactly one page. cmdq_max_n_shift moves the
-command queue alone and beats the kdump default; the capture kernel
-attached four devices with no CMD_SYNC timeout, GERROR or context fault.
-QEMU exposes no PRI queue, which takes the same path. Build-tested across
-4K/16K/64K, TEGRA241_CMDQV=n, CRASH_DUMP=n and =m, every commit
-warning-free.
+Is the intended fix specifically to avoid repeated scanning within one 
+shrink_lruvec() invocation, or is there another mechanism that prevents 
+these skipped folios from being rescanned by a subsequent shrink_lruvec() 
+invocation?
 
-v6:
- - Take the parameter as a log2 depth and call it cmdq_max_n_shift (Nicolin).
- - Nicolin's Reviewed-by and Tested-by from v5 are not carried over, as
-   the parameter changed shape.
+Thanks,
+KunWu
 
-v5: https://lore.kernel.org/all/20260907095835.1233352-1-kas@kernel.org/
-v4: https://lore.kernel.org/all/20260902121724.3494954-1-kas@kernel.org/
-v3: https://lore.kernel.org/all/20260706084708.8072-1-kas@kernel.org/
-
-Kiryl Shutsemau (Meta) (2):
-  iommu/arm-smmu-v3: Add a cmdq_max_n_shift module parameter
-  iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
-
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 75 +++++++++++++++++--
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  1 +
- .../iommu/arm/arm-smmu-v3/tegra241-cmdqv.c    |  2 +-
- 3 files changed, 70 insertions(+), 8 deletions(-)
-
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.54.0
+> before each shrink_list() call, as shrink_list() only reaches
+> isolate_lru_folios() on some paths (active + skipped_deactivate,
+> too_many_isolated stall bail out early); a stale value would otherwise
+> be charged.  The budget floor stays nr_to_scan via max() so an empty
+> LRU (sc->nr_isolate_scanned = 0) still advances and cannot deadlock.
+> 
+> Co-developed-by: Qiuhao Zhang <zhangqiuhao@huawei.com>
+> Signed-off-by: Qiuhao Zhang <zhangqiuhao@huawei.com>
+> Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
+> ---
+>  mm/vmscan.c | 32 +++++++++++++++++++++-----------
+>  1 file changed, 21 insertions(+), 11 deletions(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index f11491ee9ed5c..823af9e86efd3 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -166,6 +166,9 @@ struct scan_control {
+>  	/* Incremented by the number of inactive pages that were scanned */
+>  	unsigned long nr_scanned;
+>  
+> +	/* Number of pages that were scanned from isolate_lru_folios() */
+> +	unsigned long nr_isolate_scanned;
+> +
+>  	/* Number of pages freed so far during a call to shrink_zones() */
+>  	unsigned long nr_reclaimed;
+>  
+> @@ -1670,7 +1673,6 @@ static __always_inline void update_lru_sizes(struct lruvec *lruvec,
+>   * @nr_to_scan:	The number of eligible pages to look through on the list.
+>   * @lruvec:	The LRU vector to pull pages from.
+>   * @dst:	The temp list to put pages on to.
+> - * @nr_scanned:	The number of pages that were scanned.
+>   * @sc:		The scan_control struct for this reclaim session
+>   * @lru:	LRU list id for isolating
+>   *
+> @@ -1678,8 +1680,7 @@ static __always_inline void update_lru_sizes(struct lruvec *lruvec,
+>   */
+>  static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
+>  		struct lruvec *lruvec, struct list_head *dst,
+> -		unsigned long *nr_scanned, struct scan_control *sc,
+> -		enum lru_list lru)
+> +		struct scan_control *sc, enum lru_list lru)
+>  {
+>  	struct list_head *src = &lruvec->lists[lru];
+>  	unsigned long nr_taken = 0;
+> @@ -1763,7 +1764,7 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
+>  			skipped += nr_skipped[zid];
+>  		}
+>  	}
+> -	*nr_scanned = total_scan;
+> +	sc->nr_isolate_scanned = total_scan;
+>  	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
+>  				    total_scan, skipped, nr_taken, lru);
+>  	update_lru_sizes(lruvec, lru, nr_zone_taken);
+> @@ -2011,8 +2012,8 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
+>  
+>  	lruvec_lock_irq(lruvec);
+>  
+> -	nr_taken = isolate_lru_folios(nr_to_scan, lruvec, &folio_list,
+> -				     &nr_scanned, sc, lru);
+> +	nr_taken = isolate_lru_folios(nr_to_scan, lruvec, &folio_list, sc, lru);
+> +	nr_scanned = sc->nr_isolate_scanned;
+>  
+>  	__mod_node_page_state(pgdat, NR_ISOLATED_ANON + file, nr_taken);
+>  	item = PGSCAN_KSWAPD + reclaimer_offset(sc);
+> @@ -2068,7 +2069,6 @@ static void shrink_active_list(unsigned long nr_to_scan,
+>  			       enum lru_list lru)
+>  {
+>  	unsigned long nr_taken;
+> -	unsigned long nr_scanned;
+>  	vma_flags_t vma_flags;
+>  	LIST_HEAD(l_hold);	/* The folios which were snipped off */
+>  	LIST_HEAD(l_active);
+> @@ -2082,12 +2082,11 @@ static void shrink_active_list(unsigned long nr_to_scan,
+>  
+>  	lruvec_lock_irq(lruvec);
+>  
+> -	nr_taken = isolate_lru_folios(nr_to_scan, lruvec, &l_hold,
+> -				     &nr_scanned, sc, lru);
+> +	nr_taken = isolate_lru_folios(nr_to_scan, lruvec, &l_hold, sc, lru);
+>  
+>  	__mod_node_page_state(pgdat, NR_ISOLATED_ANON + file, nr_taken);
+>  
+> -	mod_lruvec_state(lruvec, PGREFILL, nr_scanned);
+> +	mod_lruvec_state(lruvec, PGREFILL, sc->nr_isolate_scanned);
+>  
+>  	lruvec_unlock_irq(lruvec);
+>  
+> @@ -6013,10 +6012,21 @@ static void shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
+>  		for_each_evictable_lru(lru) {
+>  			if (nr[lru]) {
+>  				nr_to_scan = min(nr[lru], SWAP_CLUSTER_MAX);
+> -				nr[lru] -= nr_to_scan;
+>  
+> +				sc->nr_isolate_scanned = 0;
+>  				nr_reclaimed += shrink_list(lru, nr_to_scan,
+>  							    lruvec, sc);
+> +				/*
+> +				 * isolate_lru_folios() may scan far more
+> +				 * than nr_to_scan when the LRU holds
+> +				 * ineligible folios (zone-skip) or large
+> +				 * folios. Charge that overshoot against the
+> +				 * remaining quota (clamped by min() so it
+> +				 * cannot go negative) so the next iteration
+> +				 * does not rescan the same skipped folios.
+> +				 */
+> +				nr[lru] -= min(nr[lru],
+> +					       max(nr_to_scan, sc->nr_isolate_scanned));
+>  			}
+>  		}
+>  
+> -- 
+> 2.53.0
+> 
+> 
 
