@@ -1,281 +1,124 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A458433C53D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:16:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ABA51475A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967005; cv=none; b=MWUTIPu7s2tjcO87wBV3tliVvuE7IIhJvWRgrAmluXH5EwAFvPtKFogxtUyU17eumpORIDtDUyZYjhXWBc6LBacIr8UxGIFSV2wsH3BUU62ON7hydRydPuMNyZCZlaxd2J0QI7SClp/ZiFSWHLvf9Qq7sSqZ62IP2uqLZmbGJg8=
+	t=1788967033; cv=none; b=Fg80+IfLqmVe7Wfr/0DbHL5ji9QQpDq/8Lf4/1/mRytlxyR9mRraiHiyGzsEDbjRyWw9OM1wl+jFcepwCs/WfbSgr5dcor3Zw+S3dDC7qlxHbGYQJQ6j0F45/981OhJOnkfMzJeXzV89BHZ1yYLfOhwngaLqJKlLgQyBcLD+M1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967005; c=relaxed/simple;
-	bh=B7yOS7AFBCg3al6xums4bDAZ9Ty0QaL4mBmh7fVXyGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=spB+DNviWDekzwlcn3ID1DEapKFCGnaWQb9rYN+iXDdQPtpGma9Q1WqXlwC8sH4O3dSrNv0ACpveZ+2755NqlwHLAoXBrd13A7f0e6khDc2Q1r8gVpBLvjL2pneUCenOpYIdNQpE5krQbJkCR3/j/x7iaaQb9eTZFkw+B9fvKKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nFGozpJ9; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788967033; c=relaxed/simple;
+	bh=9sJRY1D/bhmVnNJ9xtYfrHKaRhV628XmAaXzS9iY6OM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p0dCZV6Wp0PuwPlmxSEyvJlFVfGE0FoMJyGlK/iarvm8nBApD8HEXh/fPKx1z+prMYnYnT5goSH2b4oVHsDODBOzRSclo7JDRNcW3TJ9nuLxF+66IZPS8G5w27IlIPdohbu/L173yZK5to0y40xz4wkaJPLNzqdAcBCCF0igI2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJwf8pIJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nFGozpJ9"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3964e480f76so6970549a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:16:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788967003; x=1789571803; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+mIv+3jvWNAwAJUgF1+CeaZ3tliEDl+/j1MWKvc5mi4=;
-        b=nFGozpJ9Rpai0Y5Ckt6UjRKRifvuwMcfiSWQBF3pJ+V2Ofw0nNn//phat3fpJeAh63
-         75gggud1a3Ro8Omtxbe0PfNljYT2MajXd2XLiVZwqbYrdrFhzX6bzzI5cHHjL/Mrpnke
-         TtlcN40LXbnzUq8gdWRd7f6xl+RE+o7z4jmEZokKN4TK2I7fcymnsN26IAgmycQusKcl
-         qb/VCNjFUQMKdeEnNygGcYpVVVCcwmL/YKOYWeC9wwj/yD9w2fOpbS+Y7xdUfkuk+JOe
-         VMCqBxO1sDciNNsOLnoC4KmvGYkKpySYx7skPGoiKB0IhW61Bwk7hAwK/weFgEW+e0wp
-         ngSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788967003; x=1789571803;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+mIv+3jvWNAwAJUgF1+CeaZ3tliEDl+/j1MWKvc5mi4=;
-        b=PCMBoJg0Q/CIcQ8Vt7Uon7/3e3O7no3sZ21XWQljs5WjAF5/UDuR+jPnc+3YCP0tG3
-         gKVZH3zW6HuRGyATEj3klvMKM2JzkF+WJRMc3jYyQLGUAYgkIb0ELC6t/Y/a7X1y9EeK
-         b1qNk/kPgt4yE4GESOXniByq+w8wfdTVYMre00rx29G/dbNzxaf2o2xsYNj151EXBvoT
-         93tKuH38/uFqVDEC5OkD07gQxCNfum/yndjF09SaWrpJHuYJ7pjdxC9Mbdp3gd4kZT3N
-         1M/Zl+krFnEaOJLfOCJIEPocgP3D03YbG3cGcDCCTaMRejudeata23GAu8L87aagNfqx
-         7LRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXggu+sr/ixSOYnHuUdRzngfal9i4vA+z/uQcfN5tmwu74rHs5gPpvtCIdsDCXoD5HMgWpORCtrULfhm8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+UlFtXLgkUbhMakX7tRQN/76rr9+OoUahOuerGe4eOBqISKGk
-	R+lYjhZx8istXrNY0YDSRf66Wgi7xfgsi1bBxuJy4rvUDNYRDMOrza3e
-X-Gm-Gg: AYBFou3QCrH0YelxQuzpvhXhRthFTrbXp14Awzc0zUSYcxkahS5pnz1xA5V4P5BxcNu
-	wm48JDhYQCLuiQpF4V9441Won/oWFPVwKMkkUc9TeniFGgezG4v0ERs1Uxgr5w2JSNgzZNQhZkq
-	UzVYrkdjwiZAiIgIer6ZRGdwZgbjHIUATYwmCkfmnptw+nqUrQWc5o9r/ftOPgXS9CT9Wf2iVIx
-	MSIpnHJxu/RYegX2+GftFQlxOfDenTMXzCCISCcZ0xU5oDgFHBi9X0d7ig3GCmHaWd3ql57yC2E
-	lijPvZKJx0LFrv/C7MVoyPzpb0rP+VcNZtawyfIdcVHMtxoDk1hZjulT/4szfABNd06oWn17024
-	WtzrhXWaRTnY0r9CC4Hi1FWJePDq1f7tgdk4Cp+weFlfXAfyePIKk5rYsTszu+vMft7BcE2yBsm
-	VK2QpoXSlcXkvL1oBYK4G/bEu0XTx3qdbcUGiN56VxZp4w1rb/kAcr+zPlQHLiZpiZGFeWeOf/q
-	+Kg5g==
-X-Received: by 2002:a17:90b:274e:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-39b2610fe62mr53548577a91.9.1788967002671;
-        Wed, 09 Sep 2026 08:16:42 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm42144403eec.18.2026.09.09.08.16.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:16:40 -0700 (PDT)
-Date: Wed, 9 Sep 2026 12:17:37 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
- connection mode
-Message-ID: <aqF4kfOCKcZhDZui@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
- <20260903-liquefy-prologue-9ec914cccf04@spud>
- <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
- <aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
- <20260906202630.64d8fa75@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJwf8pIJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB451F00A3A;
+	Wed,  9 Sep 2026 15:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788967031;
+	bh=yMpwt5jk08Xm5DwGlNwjV3jDkm0c7VN2w5E4BNJFyJg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bJwf8pIJ4fb1VkYkGkn9jh7csMatHoWRsh0+x4jVPH0Xe9SW2SoX9ayXbWiM1jjfx
+	 ZXeT4klcknZmthc19OrMRbF2BfbAWxXM84R4e6zrJEKFF+G9OyaX/X7nRQ9SECaAaG
+	 FaPkfhLbpb2f941jVa2RWNEaQYZzOfX5ba5d+eSI+Li12enPOuHkTPVHeCgm4drkhC
+	 oDYHixZdVpzaIHG1i3Ylq0eWuQmM2mt2KAKLOp2EkANf4qRa54hMQ9jVE/RRti3DKz
+	 p7qho55XczRF5YGnwYYsa1XCBpuCil2sblZsIrRL3PVE2i6xWNeHm13J/mJhc32VOO
+	 QlJrT1YNvbzkw==
+Message-ID: <91cf8129-d705-4ebd-b420-129bab7ed261@kernel.org>
+Date: Wed, 9 Sep 2026 17:17:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260906202630.64d8fa75@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] mm/ksm: trylock the mmap lock in the unstable tree
+ walk
+To: xu.xin16@zte.com.cn, xialonglong2025@163.com
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, chengming.zhou@linux.dev,
+ linux-kernel@vger.kernel.org, xialonglong@kylinos.cn
+References: <20260909110228828hKTCgUeuZkOujOBaVtUcL@zte.com.cn>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260909110228828hKTCgUeuZkOujOBaVtUcL@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 09/06, Jonathan Cameron wrote:
-> On Fri, 4 Sep 2026 19:06:44 -0300
-> Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
-> 
-> > On 09/04, Marcelo Schmitt wrote:
-> > > On 09/03, Conor Dooley wrote:  
-> > > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:  
-> > > > > Document how AD4134 chips are connected to the host SPI controller
-> > > > > according to different wiring configurations.
-> > > > > 
-> > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > > > ---
-> > > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++++++
-> > > > >  1 file changed, 22 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > index ea6d7e026419..d843c02a394a 100644
-> > > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > @@ -131,6 +131,28 @@ properties:
-> > > > >      enum: [ free-running, gated ]
-> > > > >      default: gated
-> > > > >  
-> > > > > +  adi,spi-mode:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/string
-> > > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
-> > > > > +    description: |
-> > > > > +      This property indicates the SPI wiring configuration.
-> > > > > +
-> > > > > +      When this property is omitted, it is assumed that the device is using
-> > > > > +      'no-cs' wiring. When this property is present, it indicates that the
-> > > > > +      device is using one of the following wiring configurations:  
-> > > ...  
-> > > > I'd also really appreciate a dts example for a system
-> > > > with one-channel-chain or two-channel-chain looks, given the second
-> > > > device may require different supplies etc. I have no impression in my
-> > > > head of how the dt would be constructed, so I'd like to see wht you have
-> > > > in mind.  
-> > >   
-> > ...
-> > 
-> > Realized what I said doesn't make much sense. The peripherals can all have
-> > the same configuration and thus share CS, SCLK, and controller SDO. The wiring
-> > would be like the following
-> 
-> That mux in the middle is controlled how?
 
-The mux is controlled by a GPIO. I ended up drawing the GPIO among SPI lines in the
-connection diagram but the mux controll signal is not part of the SPI controller.
+>> index 49d48d1e0998..3cfb09a926ff 100644
+>> --- a/mm/ksm.c
+>> +++ b/mm/ksm.c
+>> @@ -820,7 +820,14 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
+>>  	struct folio_walk fw;
+>>  	struct folio *folio;
+>>  
+>> -	mmap_read_lock(mm);
+>> +	/*
+>> +	 * We trylock because we don't want ksmd to wait for an mm that is
+>> +	 * busy changing its memory layout: we prefer to skip this page and
+>> +	 * let the next full scan retry it, like the folio trylock in
+>> +	 * try_to_merge_one_page().
+>> +	 */
+>> +	if (!mmap_read_trylock(mm))
+>> +		return NULL;
+>>  	vma = find_mergeable_vma(mm, addr);
+>>  	if (!vma)
+>>  		goto out;
+>> -- 
+>> 2.43.0
+> Sorry, NACK
 
-> I'd assume we still have separate chip selects and SDO/SDI shared. So I'd expect
-> those to be on one SPI bus and the data to be going into separate buses
-> (maybe all that can be hidden in the backend, not sure).
-> 
-> Or are you suggesting we are just letting all the chained devices see the
-> same register writes?  That might work I guess with no ability to read any register
-> state back other than for first device.
-Correct, that's the proposed configuration for daisy-chaining. Since all
-peripherals will receive the same write commands they shall all retain the same
-register configurations (except maybe for error indication registers). Reading
-from the topmost device in the chain would be enough to figure out the status
-of the other chained devices.
+Agreed. Likely the answer is to switch to per-vma locks here. All we do is a
+folio_walk_start() to look up a page, that's not too crazy :)
 
-> If you want to do the
-> mux magic below you are going to need to treat it as an SPI mux - just with
-> some lines shared. That means this device ends up split into multiple device
-> (even if only one ad4134 which is messy).
-You mean spi-mux.yaml/spi-mux.c? So the goal/intent would be to have one IIO
-device for each peripheral in the chain? I think that would also work. Though,
-the only device bringing ADC sample data is the topmost one so that would be
-the only one buffer capable.
+-- 
+Cheers,
 
-> 
-> So to me this has a simple SPI bus, potentially connected to multiple devices
-> and an IIO backend that deals with DOUT0 etc and the chaining.
-Yeah, the benefit of having the mux is being able to connect both AD4134
-interfaces to a single bus while being able to have ADC sample data on all SDI
-lines as the diagrams in patch 13.
-
-Alternatively, we could have something like
-
-                                                              +-------------+
-  +----------------------+                                    |  DATA HOST  |
-  |       AD4134         |                                    |             |
-  |                      |                                    |             |
-  |Data interface  DOUT0 |----------------------------------->| SDI1        |
-  |for ADC data    DOUT1 |----------------------------------->| SDI2        |
-  |sample read     DOUT2 |----------------------------------->| SDI3        |
-  |                DOUT3 |----------------------------------->| SDI4        |
-  |                DCLK  |<--------------+        +---------->| CS          |
-  |                ODR   |<------------+ |        | +-------->| SCLK        |
-  |                      |             | |        | | +------>| SDO         |
-  |                      |             | |        | | | +---->| SDI         |
-  | SPI interface   CS   |<-------+    | +--------|-|-|-|-----| DCLK        |
-  | for register    SCLK |<-----+ |    |          | | | |     |             |
-  | access          SDI  |<---+ | |    |          | | | |     | TRIGGER     |
-  |                 SDO  |--+ | | |    |          | | | |     +-------------+
-  +----------------------+  | | | |    +----------|-|-|-|---------+
-                            | | | +---------------+ | | |
-                            | | +-------------------+ | |
-                            | +-----------------------+ |
-                            +---------------------------+
-
-The downside of the above is we would need an SPI_MULTI_LANE_MODE_STRIPE to read
-only from SDI1 to SDI4.
-
-> 
-> Jonathan
-> 
-> > 
-> > ::
-> > 
-> >   +-----------------------+                               +-----------------+
-> >   |         AD4134        |                               | SPI Controller  |
-> >   |                       |                               |                 |
-> >   |                       |                               |                 |
-> >   | SPI interface    SCLK |<--------------------+---------| SCLK            |
-> >   | for register       CS |<--------------------|-+-------| CS              |
-> >   | access            SDI |<--------------------|-|-+-----| SDO             |
-> >   |                   SDO |------->|¯¯¯¯\       | | |     |                 |
-> >   |                       |        |MUX  >------|-|-|---->| SDI0            |
-> >   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO            |
-> >   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1            |
-> >   | data read        DCLK |<-------------+------|-|-|-----| DCLK            |
-> >   |                 DOUT2 |<-+           |      | | |     |                 |
-> >   |                 DOUT3 |<-|-+         |      | | |     |                 |
-> >   |                   ODR |<-|-|---------|--+   | | |  +->| Offload Trigger |
-> >   +-----------------------+  | |         |  |   | | |  |  +-----------------+
-> >                              | |         |  |   | | |  +--| PWM1            |
-> >                              | |         |  +---| | | ----| PWM0            |
-> >                              | |         |  |   | | |    +-----------------+
-> >                              | |         |  |   | | |
-> >   +-----------------------+  | |         |  |   | | |
-> >   |         AD4134        |  | |         |  |   | | |
-> >   |                       |  | |         |  |   | | |
-> >   | SPI interface         |  | |         |  |   | | |
-> >   | for register     SCLK |<-|-|---------|--|---+ | |
-> >   | access             CS |<-|-|---------|--|---|-+ |
-> >   |                   SDI |<-|-|---------|--|---|-|-+
-> >   |                   SDO |  | |         |  |   | | |
-> >   | Data interface        |  | |         |  |   | | |
-> >   | for ADC sample  DOUT0 |--+ |         |  |   | | |
-> >   | data read       DOUT1 |----+         |  |   | | |
-> >   |                 DOUT2 |<-+           |  |   | | |
-> >   |                 DOUT3 |<-|-+         |  |   | | |
-> >   |                  DCLK |<-|-|---------+  |   | | |
-> >   |                   ODR |<-|-|---------|--+   | | |
-> >   +-----------------------+  | |         |  |   | | |
-> >                              | |         |  |   | | |
-> >                              | |         |  |   | | |
-> >                              | |         |  |   | | |
-> >   +-----------------------+  | |         |  |   | | |
-> >   |         AD4134        |  | |         |  |   | | |
-> >   |                       |  | |         |  |   | | |
-> >   |                       |  | |         |  |   | | |
-> >   | SPI interface    SCLK |<-|-|---------|--|---+ | |
-> >   | for register       CS |<-|-|---------|--|-----+ |
-> >   | access            SDI |<-|-|---------|--|-------+
-> >   |                       |  | |         |  |
-> >   | Data interface        |  | |         |  |
-> >   | for ADC sample  DOUT0 |--+ |         |  |
-> >   | data read       DOUT1 |----+         |  |
-> >   |                 DOUT2 |              |  |
-> >   |                 DOUT3 |              |  |
-> >   |                  DCLK |<-------------+  |
-> >   |                   ODR |<----------------+
-> >   +-----------------------+
-> > 
-> > 
-> > So we would set them as only one daisy-chained device.
-> > 
-> >     spi {
-> >         ...
-> >         adc@0 {
-> >             compatible = "adi,ad4134";
-> >             reg = <0>;
-> >             spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
-> > 
-> >             <supplies, clock, and other properties ...> 
-> > 
-> >             #daisy-chained-devices = <2>;
-> > 
-> >             adi,spi-mode = "two-channel-chain";
-> >         };
-> >     };
-> > 
-> > Thanks,
-> > Marcelo
-> 
+David
