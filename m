@@ -1,188 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CD048EBFA;
-	Wed,  9 Sep 2026 09:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581E4489893;
+	Wed,  9 Sep 2026 09:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947565; cv=none; b=N7spYiD0RVRMqb5vXfZ4V7dqq2JQra/QcM4yN3fKYS6/8E4qwj5FaiOK2whLdTe7UV49L6w0Nzd2VxDkPALpQfIaefnLtuPyEcZg/KM53y5nV3kYBCvtT2E0ImpslZDvIWC4jMoBLoQVFVAtAIwsmeNlghBz+e9yNuHPt3dJqNw=
+	t=1788947591; cv=none; b=sBrig2HQl6Lq44Z33HHfxtAsRaIDJEb41sMbIKhyd486Gz6Es4o9BdVCvgrAA6HpT2NXDdMJuJvKy4SI36C1d1dXQHYbb7TA51p/WvUKt41TMRmJGR0YRE4Vv/Prm/f8T2y04Bd+A5eyjO6o+LtTZ38xtAomqy4ljdubJoKyUE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947565; c=relaxed/simple;
-	bh=tvkPM+qfQALyCdTqgnh5cRnagJYtrDvXEBAYQavN6dg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFVqTGpHLq3O+9giZ5CqCVaCixdMIRikUsbGOj6Q1X8QJgHFkP2yMGTQz7vi4l4q/s9Qt0MFCQY6d5gpfvliRtq0UF6H4x6pCSpVa0zf1/lVlCf8F3+Ygw+EHT9G+ro6aDhLLgoAU5sxbTloXHYdDgmRZ6EnqxqhX6m9ZDPDeiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oo8bKrgu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947591; c=relaxed/simple;
+	bh=ZoLRYrhsi0rsdSeaR+606R03qSLubwt7gfupiCo9cfQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FdMwKqt+cC/kWz8avN77x7teM4Zb2q1CTbCTinHwmwfilwa0WimhK/g/Ky7QLHmN/6XkGeYtnrKTbOyvzLkY2JCRlyLgIO1UAZL4k9AsW0UUSMU/VD8QMLxsp0ak8V8w17wHYAqV65IM4DfIG9jEVrY8cNh0SbUh64ojRMNY/F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FNhYyLcY; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oo8bKrgu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E9E1F00A3E;
-	Wed,  9 Sep 2026 09:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788947563;
-	bh=xREhCCmQut5OqUhu2FonBsKEd9tAnwUS1SZjlRQn5Tk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oo8bKrguvp0jaON4K1HLlO/wnaHCGzvCjyQ4/R7cLEApbOdQCh8lOa7ERakQm8Y9O
-	 EAaun27xpCVY3rNeVODgVyOyyccCoCRR1An7qtYOAC7Z8zfVfncfoKhFX+WEL7tA7H
-	 s4ZjPINFw7Yxn7G1wiBEnORDTlgFRHij9YMR9ELkvMx4zN+13oWbRm/sc6Fde0M/Fd
-	 f1WY1bcRFuRwfupTJDBGtGmRFG0wdKZWrcvrSIFp3U1ghesvWpk46/79Y9DKvSUtrj
-	 6pdUcKYea0GZRoMy7fUtXmTTidm+Uj2V9c8n1x4CWb4dl8n45xHDOxeuceJOGs0Ocj
-	 8zOD9uTEsZ8IA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id F3F621980050;
-	Wed,  9 Sep 2026 05:52:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 09 Sep 2026 05:52:40 -0400
-X-ME-Sender: <xms:ZiyhaiJ1YlF9a9F-NuOYqtgbEo_2Cm2cAXuoBvveq2onin9PlQ2v1w>
-    <xme:ZiyhahHJY6iqH0e0faksVO9urlk0kvUb4dADFBa2GChmF4QxLuL-O42LkOtmnoq3l
-    _eziuTvRP-DgJ_Iav2NReSI4Kdl61dSVv_56FMQFKcADqfpg2In4L3d>
-X-ME-Received: <xmr:Ziyhanw0vSRha8SHZTNBPvp4LnRFjgtLTh0nwOXt6Ac-6BYPIlaO-zoOlrc>
-X-ME-Proxy-Cause: dmFkZTFwytqU9uv+zciMa5eiBsRpKvX4YmxFZbte5QJE/5T/6q/HSSjzOFSNlPT7p9e1lE
-    PTpgnqChmN3ZbKYH5UbWEuDv8kP6WobXh4X5TpTFdyxGfNaEzASUFSdB0DXqKbp4OIGNfq
-    yJPDG8a7DW6hHbrdiX2lJ6EE068Q3CqPWAseh9kGGCl8d0YIl/umSHyM/XGd1r1u44Mi2i
-    ydjHOJKozyF05s/P175LFkrCOjsBIGAMHr2SJYqGxHktLPF6GwxVb9Ig2s6x+/PsAX4txX
-    AbtuJ6SRYJuN75XjzBaPIwlj/OUrzMbJ3O23dAJnQQynVKjIwTOeab2d7E0OHqSfreuLSj
-    ajcSxHBAUbTpt6rf1wSYqKYHd49lR3TS+53Dj/Xyj5GscSwTkZJp25QCiwjkSmSUv7ZlJH
-    dkyiwSF5HSv5TmDoRSxeMNIMX9Uuth3eLjdprACZT/DDUt0IPNd6XdVKqBS4lJWx1CMaza
-    /jImr+e9YSXieyRkE3FVvXrSgfW8eToCZCmq+FF9YKdpwoptJisD0aDZBoXluifxAdMWBc
-    z0aqYzh7M3snCtB39P9i83J82NriJZwW774lYFLTLftfwWgLILrkVtj5tNpjvLbIgL6mLz
-    I68u3HEhT03mjl3NXlWMgIU6TRBPIto1hFamid8zzPglqbLG7Q1Z5xHT7fFg
-X-ME-Proxy: <xmx:Ziyhauj4vLCLLafTNJRTimoS8w5R2_8rC3PSLVdhrVGpfmYBVgj7pQ>
-    <xmx:ZiyhakJfVcgF_r8n6mfDI2UbmO64YggCG9JVt7nhAPC8X1pF-GpQUQ>
-    <xmx:ZiyhapCymImHRIG16MBYuRSnABRIne2woxIDo3JH_wtrotBZODJFBg>
-    <xmx:ZiyhatSvfXZS1MlLr8cBM2wHp_97zsDG2l35cMBrG3IEvYVmDSBeUA>
-    <xmx:Ziyhaiqk7yr2zq4e9A2RQrQlbQ2BI4BJdjJa6LrKUUGnVx6IPSAlLvwi>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 05:52:37 -0400 (EDT)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Kyle McMartin <jkkm@meta.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	kernel-team@meta.com,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v6 2/2] iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
-Date: Wed,  9 Sep 2026 10:52:28 +0100
-Message-ID: <20260909095228.2174031-3-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909095228.2174031-1-kas@kernel.org>
-References: <20260909095228.2174031-1-kas@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FNhYyLcY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788947587;
+	bh=ZoLRYrhsi0rsdSeaR+606R03qSLubwt7gfupiCo9cfQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FNhYyLcYk+pHG+NuCEBoN9Z9qL4DcRhrU+huzWhiidgEmeCWxspJXn7VJwZ/n0TJt
+	 hBnfmuUwE3ybYGY6GXbQD3iq2Q/ucPpom3qJSpa4w8ax2CP5F8lkk7VKIPj5QC2YQp
+	 +1Wr1BER27HnNb02KA28QvzTOz6zudDz1haVx88h08HrPtMMRT2RsvE9RKR3g3nXLN
+	 RpHf52dq9yke72Y+icPpIfFhsemJllPUfUz1TGqCHcBTB3qTLaiG1bB6J9W1fY3GpT
+	 Fa2jCs+2feOqQGIP1gNJhJfuvqW2cSgGw/DqWhZ50k4SSyNFndlDABnEj1WZLjTlWb
+	 cfVO5CvVgAKIA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BA1F017E093B;
+	Wed, 09 Sep 2026 11:53:06 +0200 (CEST)
+Message-ID: <637ff670-1d12-479a-b35f-9d54b153a832@collabora.com>
+Date: Wed, 9 Sep 2026 11:53:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2] dt-bindings: mediatek: hdmi-ddc: Correct the
+ compatibles for mt7623-mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260908184125.10916-1-l.scorcia@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260908184125.10916-1-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-All three queues are sized from the maxima the hardware advertises in IDR1
-and allocated at probe, up to 4 MB each on a 4K-page kernel. The capture
-kernel already disables two of them: arm_smmu_device_reset() drops
-CR0_EVTQEN and CR0_PRIQEN. It still allocates both at full size.
+On 9/8/26 20:41, Luca Leonardo Scorcia wrote:
+> The HDMI DDC driver for both mt7623 and mt8167 is actually the same as
+> mt8173-hdmi-ddc and the mt7623n.dtsi board include file already uses
+> mt8173-hdmi-ddc compatible as a fallback, but the documentation lists
+> them as separate entries. Correct the binding by adding the correct
+> fallback.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-A kdump capture kernel runs from a small crashkernel reservation, and every
-SMMUv3 instance pays that cost again, up to 12 MB apiece. It goes to queues
-that either serve the handful of devices used to save the dump or are
-switched off outright, and it is memory the dump itself needs.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Default all three depths to one page worth of entries when
-is_kdump_kernel(). The queues carry commands and fault records rather than
-DMA data, so dump throughput is unaffected. A shallower command queue only
-bounds how many commands may be in flight before a sync, which does not
-matter for the few devices that save the dump.
-
-An explicit cmdq_max_n_shift still wins, so a capture kernel that wants a
-deeper command queue can ask for one on the command line.
-
-Suggested-by: Kyle McMartin <jkkm@meta.com>
-Assisted-by: LLM
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 36 +++++++++++++++++----
- 1 file changed, 29 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 78618a9dfa8b..3a6de5e667e0 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -4424,6 +4424,9 @@ static struct iommu_dirty_ops arm_smmu_dirty_ops = {
-  * @ent_sz_shift: log2 of the queue entry size in bytes
-  * @shift: log2 depth asked for, or zero for the default
-  *
-+ * The default is @ceiling, except in a kdump capture kernel, which defaults to
-+ * one page worth of entries.
-+ *
-  * @shift is floored at one page, because coherent DMA is page granular: a
-  * shallower queue occupies the same memory as one that fills the page, and
-  * arm_smmu_init_one_queue() stops shrinking at a page too.
-@@ -4432,10 +4435,30 @@ static u32 arm_smmu_queue_max_n_shift(u32 ceiling, u32 ent_sz_shift, u32 shift)
- {
- 	u32 floor = PAGE_SHIFT - ent_sz_shift;
- 
--	if (!shift)
-+	if (shift)
-+		shift = max(shift, floor);
-+	else if (is_kdump_kernel())
-+		shift = floor;
-+	else
- 		return ceiling;
- 
--	return min(ceiling, max(shift, floor));
-+	return min(ceiling, shift);
-+}
-+
-+static inline u32 arm_smmu_evtq_max_n_shift(u32 ceiling)
-+{
-+	/* Capped to ensure natural alignment */
-+	ceiling = min(EVTQ_MAX_SZ_SHIFT, ceiling);
-+
-+	return arm_smmu_queue_max_n_shift(ceiling, EVTQ_ENT_SZ_SHIFT, 0);
-+}
-+
-+static inline u32 arm_smmu_priq_max_n_shift(u32 ceiling)
-+{
-+	/* Capped to ensure natural alignment */
-+	ceiling = min(PRIQ_MAX_SZ_SHIFT, ceiling);
-+
-+	return arm_smmu_queue_max_n_shift(ceiling, PRIQ_ENT_SZ_SHIFT, 0);
- }
- 
- /*
-@@ -5194,7 +5217,6 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
- 	if (reg & IDR1_ATTR_TYPES_OVR)
- 		smmu->features |= ARM_SMMU_FEAT_ATTR_TYPES_OVR;
- 
--	/* Queue sizes, capped to ensure natural alignment */
- 	smmu->cmdq.q.llq.max_n_shift =
- 		arm_smmu_cmdq_max_n_shift(FIELD_GET(IDR1_CMDQS, reg));
- 	if (smmu->cmdq.q.llq.max_n_shift <= ilog2(CMDQ_BATCH_ENTRIES)) {
-@@ -5209,10 +5231,10 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
- 		return -ENXIO;
- 	}
- 
--	smmu->evtq.q.llq.max_n_shift = min_t(u32, EVTQ_MAX_SZ_SHIFT,
--					     FIELD_GET(IDR1_EVTQS, reg));
--	smmu->priq.q.llq.max_n_shift = min_t(u32, PRIQ_MAX_SZ_SHIFT,
--					     FIELD_GET(IDR1_PRIQS, reg));
-+	smmu->evtq.q.llq.max_n_shift =
-+		arm_smmu_evtq_max_n_shift(FIELD_GET(IDR1_EVTQS, reg));
-+	smmu->priq.q.llq.max_n_shift =
-+		arm_smmu_priq_max_n_shift(FIELD_GET(IDR1_PRIQS, reg));
- 
- 	/* SID/SSID sizes */
- 	smmu->ssid_bits = FIELD_GET(IDR1_SSIDSIZE, reg);
--- 
-2.54.0
+> ---
+> Fixes the following dtbs_check error in mt7623n-rfb-emmc.dts and
+> mt7623n-bananapi-bpi-r2.dts:
+> 
+> i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
+>    ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
+> 
+>   .../bindings/display/mediatek/mediatek,hdmi-ddc.yaml  | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+> index bd8f7b8ae0ff..966127e1ee63 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+> @@ -15,10 +15,13 @@ description: |
+>   
+>   properties:
+>     compatible:
+> -    enum:
+> -      - mediatek,mt7623-hdmi-ddc
+> -      - mediatek,mt8167-hdmi-ddc
+> -      - mediatek,mt8173-hdmi-ddc
+> +    oneOf:
+> +      - const: mediatek,mt8173-hdmi-ddc
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt7623-hdmi-ddc
+> +              - mediatek,mt8167-hdmi-ddc
+> +          - const: mediatek,mt8173-hdmi-ddc
+>   
+>     reg:
+>       maxItems: 1
 
