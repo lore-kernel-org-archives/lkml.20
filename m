@@ -1,183 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C174433F399
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:04:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CDF35C1AE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973487; cv=none; b=VAGTXOJeaYtr/SehWtzXPd8R+wJDcGrj0/F70OE/gjLms3FgF3JLjnSdofhQs7Aj89G1uxYZaluit8t/4VBdYNttgq8im+vzMuk5c2a+93AjgngqXDQ42XotwFklatpU70IM7WNpm54O8ZBMA5dBEuR0u1+y89T+dhfzxXycaUc=
+	t=1788973532; cv=none; b=hHtIUcAKLAIhtHq2ybh3ocdZJo8v9cZKqRdohYxW/fmXrYDlGKjOrFfwBfeKHE235xfFREfbMH8sqgnPXsjYyKiA+8MJWMhg+q8JVgA0YzN23Mq+lPf7lBGJ8Oyseasliew8CoiBHsWkreVb2zxSEjQHMZ+ErVgWkOH4tpnPbmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973487; c=relaxed/simple;
-	bh=LpKlJiaVIsQKsTlyaIZbqHjsJ9yGKW71aQcyPqxS5to=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VMFpsOEpctM5ld1vVSQk282bBw1wR2U11arGwfLKoHEMbxrheJvrFql/7gyo2bsNSPHG6JH0TfydMnUvHmgWbdEybitvgyt/eZiBypUxZYSIYZscNA9Kcc2w/+uxjbMTBDo7tyvqPPl4lIGZIIXUeHB3Pg6vh0RvMRXd8JKvFFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFB6zFOX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788973532; c=relaxed/simple;
+	bh=lW2baFvdOp8T8qIYmYG510KFhnL7nWjspdl9Q2bQKTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qDWVBJkAtprj7YIlOMh8EyZSvhcS0ZCoX5F/GnJl5DXdqKqfCLf6Gc9W6kZkq3S1dxvCD1jijNjNYLtHzynLBjWcv556CuuUU2UBEuM4hUF50K88ALEq+HrbavNS3H/+BXttxCUWdp2hVziKQCmhfppt2sYCO0/+1IcOQ8UxdBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=niwGUIYc; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFB6zFOX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 345F8C2BCF4;
-	Wed,  9 Sep 2026 17:04:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788973487;
-	bh=LpKlJiaVIsQKsTlyaIZbqHjsJ9yGKW71aQcyPqxS5to=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=VFB6zFOXxeYqx/x5OYlOcN6MKkmkPrjbOAZVw/dHIyn5e7N106G9+6xYU1GMK7/Fs
-	 8EHMZXOHg6gDFjgvsAIUCjHlwqeJuBXNFb0poUpElNRi1soabtllxgU+uMLuQ2vm51
-	 ufI/6iAUPXkc26k+qRs9rQenCTvtU7a48+S51sFt9MY+QObiqOrh9sVh5DDjKzAcQJ
-	 uBZlNZ9vy07ez/ZP/fef6gOAqcNbEPTwPMHCGGoq+B7gqqTn+ODbWF+Ybt30up0Tb1
-	 8IF5wvwbYiUkLtBRTMw9+j4SH1Dn3K/UHqAqmLifJ8Z3CCUac8qpOsoY6clPc0If8D
-	 2LlNgGvxq7yVA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BCB0C79FBD;
-	Wed,  9 Sep 2026 17:04:47 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Wed, 09 Sep 2026 19:04:40 +0200
-Subject: [PATCH v2] bus: fsl-mc: register the object drivers after
- misc_class exists
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="niwGUIYc"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so37643255e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:05:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788973527; x=1789578327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VxdZRvXz8X1My70IJ3RwMner0dA2d2QTLo+O2qcpmmE=;
+        b=niwGUIYc7zRKRwOCFQViPVK/AaddsSLpmoQQIIJojBI0R59va5aaoXZq6FHAFoWY+o
+         Ro6XD2OhjQKrFUkoTjE2OjvAk7SWP3WBGcWnIvbB05sMTSpKrXL+iqU+C14CgE1KKW/a
+         5sz/XF3H8kDYW7UrtPKjNbbUfCN3iHNxDS24fBvzCR48T3GPYICNXAp2w4B7aB2DggOJ
+         urB2tJRybQyZ6YijKWLfSGN3mvCA+6WiKnXvIUOEjIsSnIyYz82gQYp4wbQUORGET/pm
+         Q1KA9m/0KuaBfqvBAUcypW+8z2ljzAe9tjULHDMSVYybcc7fi46ayhbLAEsGsBIz1vTp
+         zqZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788973527; x=1789578327;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VxdZRvXz8X1My70IJ3RwMner0dA2d2QTLo+O2qcpmmE=;
+        b=dh/eBB5nXkIeuDQ6MphPokprFKB8t87uyX2764bNaxaKGtugqgNsILUo4sCvtWkY81
+         8TZHFFL1fHTdJ5kXryv1wCOU9+/FFxnqKcwEPdQUCdg2uRXp/ob6/he+vH5W8od1HqPo
+         BrDdizr3JETiz0aaFVa/gbQEMDH2DxlZsfDC6dNhhphaZSebQ7pZ6eXfe6qesa1Lf4e3
+         9Zx3d29KCdXtlpgYJ/AgInA3NhLB3OYUOdsWfOFnsFlS75DbNAOOqMzh2rc8KX1PfhwA
+         38NRNBYL1WkCh9J6F8k4CXEnraTasy0O6Y3LOjOfu2EaK76p+5+O+ynK3spcxYpz5EyI
+         eyZA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1pPaeNcOsYRZzYdVlXdxL49w0711Bifvw5t8tOSaOiVf9WWlRAlZWxsUeMKez11NISS9Uj1kL7zvEmFc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWfaTXB0mqLhoj+V7oUtBqYsgG1R7ZF3W2F4A/wHy0nAOTVG/c
+	ugJLQYGfogAge57idlmGCmyNCkmFyp4BOWXiOwBO+wwWVOT+YbuQq486
+X-Gm-Gg: AYBFou2/6el6rBaIL16B/qAzE8lbzHZJDMrghIOmZZ4x/ZZv6imnUT0pD9RE19At8wM
+	7mENmhYAfWRkPdNTJlzju1xyIjNKAsYO/yZMRArZGOCR0C3Qdfl4QBm3A3u2rZmsczNIm/+ePar
+	8LW3/aMZ8kXkfAnjUucL8y1W6yYB2MgWVfP3qHnMPrp6/X5yLWxVn9G5Pg0OnGTpTOmqO/b4JTh
+	r1mPc+CTfmbASgpEiZ2mxmrsfTcZgwNOXfU9BQTRfeZIopRDIOKlTbio5q3tFTjgACBKCARJr1j
+	LLgYGogP0tbsaGtRrzMAbD0q+qqXD9ULkpHPkubTiui+vZYur5Xc/8UWoLTXGtMB2+JBTmwA978
+	QEjFBZw1ZIK0peDl7UoVne2swKHghc5exxh+MYaMQG4Vyg1KAw5VT4eexbGMJFkzenKNbztdPde
+	eHsxk5cAClYQPfPeXormLu9qnDAoc10ZmgGaAovZSA1IzYBvu0VfEjBRv+ylyxaiPCHNwSe9YJx
+	JTxrdcRkYuqFkOTW1MzkkMWjGxQx6wbiDk7trRBv6TNcUhx640zk9JzxChSeLmMI7/73bHmKg==
+X-Received: by 2002:a05:600c:3ba3:b0:49d:e79:612f with SMTP id 5b1f17b1804b1-49d0e79635amr218836585e9.26.1788973526639;
+        Wed, 09 Sep 2026 10:05:26 -0700 (PDT)
+Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bfb5sm4719445e9.5.2026.09.09.10.05.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:05:25 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: rafael@kernel.org
+Cc: lenb@kernel.org,
+	pavel@kernel.org,
+	akpm@linux-foundation.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] PM: sleep: only allow relevant powerpc platforms to enable PM_SLEEP_SMP
+Date: Wed,  9 Sep 2026 18:05:20 +0100
+Message-ID: <20260909170520.553867-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-for-upstream-fsl-mc-initcall-order-v2-1-b7a04634fcf1@free.fr>
-X-B4-Tracking: v=1; b=H4sIAKeRoWoC/42NSw6CMBBAr0K6dkw/pogr72FYIMzIJEDJFBsN4
- e5W4gFcvrd4b1URhTGqS7EqwcSRw5TBHgrV9s30QOAus7Lael1ZCxQEnnNcBJsRKA4wtsATL20
- zDBCkQwF0znhX6dLYu8qhWZD4tU9udeae4xLkvT+T+dpfXpt/8smAAeeJ8HSm0pfdlQTxSKLqb
- ds+MEjWltIAAAA=
-To: Ioana Ciornei <ioana.ciornei@nxp.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable+noautosel@kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788973486; l=3680;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=4w8EyLodWYbpAxy4IdhaZ8kc0Y8HbWHFCMkpK6NuPbI=;
- b=Rid5LvQoK9miq+gA7+YL1kd3AUGRJD8FeSxJ1xg5zimcVvmU64GZjtoDj5sORC46X9N1xjtkj
- HACM4entDAGAiqmRKDC0kGr5rSInrkDPfoIfd+y7zLR9ubxcwGErk7M
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 8bit
 
-From: Vincent Jardin <vjardin@free.fr>
+PM_SLEEP_SMP selects HOTPLUG_CPU, but on some powerpc platforms, this
+creates an unmet dependency such as:
 
-Unbinding and re-binding the root DPRC fails with:
+WARNING: unmet direct dependencies detected for HOTPLUG_CPU
+  Depends on [n]: SMP [=y] && (PPC_PSERIES [=n] || PPC_PMAC [=n] || PPC_POWERNV [=n] || FSL_SOC_BOOKE [=n])
+  Selected by [y]:
+  - PM_SLEEP_SMP [=y] && SMP [=y] && (ARCH_SUSPEND_POSSIBLE [=y] || ARCH_HIBERNATION_POSSIBLE [=y]) && PM_SLEEP [=y]
 
-  sysfs: cannot create duplicate filename '/dev/char/10:256'
-    misc_register / fsl_mc_uapi_create_device_file /
-    dprc_setup / dprc_probe
+because HOTPLUG_CPU is only available on powerpc platforms IBM pSeries and
+PowerNV, Apple PowerMac, and Freescale Book-E.
 
-It happens when the fsl-mc bus probe is not deferred, without SMMU:
-- the dprc driver is registered at postcore_initcall,
-- the DT node is populated at arch_initcall_sync,
-- the root DPRC probes right there, before misc_init() has
-  registered misc_class at subsys_initcall.
+For powerpc, let's ensure that PM_SLEEP_SMP can only be enabled on those
+systems that support HOTPLUG_CPU.
 
-misc_register() still succeeds but the device gets
-no class, so misc_deregister() at unbind cannot find it:
-the minor is freed while the device and its /sys/dev/char/ link leak,
-and then the next bind collides on the same minor.
-
-Let's move the dprc and allocator drivers registration, and
-platform_driver_register(), to subsys_initcall_sync, after misc_init()
-at subsys_initcall.
-bus_register() and the platform-bus notifier stay at postcore_initcall
-so that fsl_mc_bus_notifier() still pauses the MC before the SMMU is probed.
-
-Cc: stable+noautosel@kernel.org # niche: root DPRC unbind/rebind only
-Fixes: 2cf1e703f066 ("bus: fsl-mc: add fsl-mc userspace support")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Fixes: f3de4be9d5f8 ("PM: Fix dependencies of CONFIG_SUSPEND and CONFIG_HIBERNATION")
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
-Issue found when unbinding/rebinding the root DPRC on an LX2160A.
+ kernel/power/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-The failure is silent at bind time and only shows up as a
-duplicate /dev/char entry on the second bind.
----
-Changes in v2:
-- Commit message: the bug needs a non-deferred fsl-mc bus
-  probe (no SMMU) - Ioana Ciornei
-- No code change
-- Link to v1: https://lore.kernel.org/r/20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr
----
- drivers/bus/fsl-mc/fsl-mc-bus.c | 40 ++++++++++++++++++++++++----------------
- 1 file changed, 24 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
-index 66a4fa73c5b86..7f283844e4500 100644
---- a/drivers/bus/fsl-mc/fsl-mc-bus.c
-+++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
-@@ -1264,35 +1264,43 @@ static int __init fsl_mc_bus_driver_init(void)
- 	error = bus_register(&fsl_mc_bus_type);
- 	if (error < 0) {
- 		pr_err("bus type registration failed: %d\n", error);
--		goto error_cleanup_cache;
-+		return error;
- 	}
+diff --git a/kernel/power/Kconfig b/kernel/power/Kconfig
+index 71165e7f04f4..7cb6495ffaa0 100644
+--- a/kernel/power/Kconfig
++++ b/kernel/power/Kconfig
+@@ -146,6 +146,7 @@ config PM_SLEEP_SMP
+ 	def_bool y
+ 	depends on SMP
+ 	depends on ARCH_SUSPEND_POSSIBLE || ARCH_HIBERNATION_POSSIBLE
++	depends on PPC_PSERIES || PPC_PMAC || PPC_POWERNV || FSL_SOC_BOOKE if PPC
+ 	depends on PM_SLEEP
+ 	select HOTPLUG_CPU
  
--	error = platform_driver_register(&fsl_mc_bus_driver);
--	if (error < 0) {
--		pr_err("platform_driver_register() failed: %d\n", error);
-+	error = bus_register_notifier(&platform_bus_type, &fsl_mc_nb);
-+	if (error < 0)
- 		goto error_cleanup_bus;
--	}
-+
-+	return 0;
-+
-+error_cleanup_bus:
-+	bus_unregister(&fsl_mc_bus_type);
-+	return error;
-+}
-+postcore_initcall(fsl_mc_bus_driver_init);
-+
-+static int __init fsl_mc_bus_drivers_init(void)
-+{
-+	int error;
- 
- 	error = dprc_driver_init();
- 	if (error < 0)
--		goto error_cleanup_driver;
-+		return error;
- 
- 	error = fsl_mc_allocator_driver_init();
- 	if (error < 0)
- 		goto error_cleanup_dprc_driver;
- 
--	return bus_register_notifier(&platform_bus_type, &fsl_mc_nb);
-+	error = platform_driver_register(&fsl_mc_bus_driver);
-+	if (error < 0) {
-+		pr_err("platform_driver_register() failed: %d\n", error);
-+		goto error_cleanup_dprc_driver;
-+	}
-+
-+	return 0;
- 
- error_cleanup_dprc_driver:
- 	dprc_driver_exit();
--
--error_cleanup_driver:
--	platform_driver_unregister(&fsl_mc_bus_driver);
--
--error_cleanup_bus:
--	bus_unregister(&fsl_mc_bus_type);
--
--error_cleanup_cache:
- 	return error;
- }
--postcore_initcall(fsl_mc_bus_driver_init);
-+subsys_initcall_sync(fsl_mc_bus_drivers_init);
-
----
-base-commit: 786262be6048deab760f68c8acc2c85607165894
-change-id: 20260922-for-upstream-fsl-mc-initcall-order-e3316390712b
-
-Best regards,
 -- 
-Vincent Jardin <vjardin@free.fr>
-
+2.55.0
 
