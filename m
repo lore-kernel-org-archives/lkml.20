@@ -1,55 +1,55 @@
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607B554DACA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3329C54DAD4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954961; cv=none; b=Mbs9cGgc/7iheZVEAYQG7kKgsnUp4lZ7jHG6+3EHauhkmwmWTxv80XOAfK6Lsnxy9/4PFXhuWJ54QFeRhn3Dbte4nySiUcphxwToXDEXDkXUt3vFFSI3AtAnTzsKe+2HVnMoWqIC6wJmwJpdGq8Pn8OZ9uKaGhuK4eK1HAgMgl8=
+	t=1788954962; cv=none; b=AcPufm2Z/e4kr37DAbPtlHSN17MaOWlxHU/Etrk3uRIcggPVhb/sJAYZqoi7cBdd9ms6Xw5ixnZWA8+xt0b7ES9kHm5EJGuTRhouUJOQtucWzYz8M/nTqFG7IYKRexYtwVazAcvpHZJR1kYEW2g3cgcJL8xCX/OaF6v4FwCb2DQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954961; c=relaxed/simple;
-	bh=IdKBvI7mqdasCvjDRpPew5rCar4w3KM52tqCqnCnNoQ=;
+	s=arc-20240116; t=1788954962; c=relaxed/simple;
+	bh=tcpQtPG1LqjWHQcdYdyBj3c6VFVNWxy+XZ+d+QXhJr4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=AACYLgZI9371jMWKn/8JAKPgxT16mpiXBWEQx4Ht2kJJQLt3MJvDida/pQVAw90aEHGsIMbUUTcQiR/ZQIo9U/50S/tOL2AycWTC0Vm+NgJQj8lYudTSCZTDRV+4+quXZ74hP36QgYwYe/SV1NAFI7db9Bo2PphAhth1+0bpwD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QUA2wCfa; arc=none smtp.client-ip=209.85.208.72
+	 To:Cc:Content-Type; b=FmU49roPeSae983o+bCN0gP2U4jINOGQiHAG2EZIGZrDk4kc6wj4mnSmc98T5d+EPVjIhVwciyGSp0Ja1Zjt1a/3he5iD6mfXD0LLuubm/dC6MLWUuF6HNoqaEXy73fbm9P1PdPIpx/uQPogymFPuo6GqNKJglRZESQqYx649vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AGES0Dby; arc=none smtp.client-ip=209.85.208.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QUA2wCfa"
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a677b003aaso1676805a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:55:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AGES0Dby"
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a57aa07476so6013539a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788954957; x=1789559757; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788954958; x=1789559758; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DJhrVBAWrexjqr5iinpdHbX84bROtKiyiiaiXCWB80M=;
-        b=QUA2wCfaTNa6lQGgdS53rxkqbZKPtAYPDTn4ij3pvkmsv10S6SW/p1PlFrF3JO02j7
-         r+DGqTI6GGnLw5qp5YpoohilAgTZ6V0HUMX6bhjp1Mbd6/TEKKCOg3tk5CJEpWYafrjp
-         euUopM/+nRYtalEWx0sE7gasZCM1dw+053gGiI9NcGMpiWJxvf3LlG102JR5aEEOhX9u
-         fUEhFCAc7hDsi3HnSr83qiAmTVF8W78tta+fz450mI98H74yPCW5g8FUs4DetiHFFXas
-         hYzBgDPHY6adVu9zNF9FOtwgOyKGz06bJ4y7gdH8EkKOToe5MGye6NC299yzx9Wp/g47
-         r72A==
+        bh=Pd/4A8F8XRZbl4sQpabJjlKenkBbaEXlaZ5AQnmnAzk=;
+        b=AGES0DbySFOzYybzmCWoEYhXnbGh5GuQ5vOHFKZhk9Y20YlXe97iaXOvrXwycocnIL
+         7+U5LU4ct+AWZKk+JRR8+o+CyMIxxn1l4X/6ERfr1722W78ynJXk5tqzKWc/Fvs/p6sX
+         mWcrcZ6EtwaoIdQ/VFsPUsBaHVpi7cV859RB+1WN3ysTYQmXSmXxdiIFN/Zw4KKnF1e9
+         zTiJhzUbcZIXD/0gnvVV8yU3kSRDVh9BRrJmy0h7gmLJdELJ1yaxAijlgyOphx94yWhz
+         CTRYdEL88uDrvUh3vwg/gWtp1rAkMTB30LpG7K34btRLV6/ThvxiKW10AOmXkDLe/I/W
+         LXqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788954957; x=1789559757;
+        d=1e100.net; s=20251104; t=1788954958; x=1789559758;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DJhrVBAWrexjqr5iinpdHbX84bROtKiyiiaiXCWB80M=;
-        b=ixjMRqeRkmF7YNITw+WumgmqYj9gWoCVwEfwyU4yoA6jul7fPdVrs0q3iCwJoCCtDy
-         dnifCn41A/iJjwRqp5+EDNBzy0Fi1XumBBPUB+TSjvCpeIEcnZhAlnS9of8py6zut/ip
-         2RDe/1JWUxaQzLyI0op1kAeG6JkeKnR5xTHSx3pd7PeH5acC0uPhSgsRWEoS39h9zBFJ
-         vvJo4MS6Rx466rEH/IdrdHRX0onDuRSqtybq1aVpWdg7Qx7SZ07XXrZiz5TzHfx0Z5h0
-         5u7chw2kJYpnTWjKtWqQvDYUnHnwvxSDYB+Er9x+/Aw9fJlHCBEeVr5a9Sm4iQJEKDPH
-         H3FA==
-X-Gm-Message-State: AFuF++n0suL1axexa/En74Ik7Pwyf3kVYYYPiJ9mZp54H2FXh5uU3ZoM
-	HbtBfXCs6hFH0UY7gk8YNrNa8SSk5/H6+8E+6j1JlkLfwUU0NZ8KOjCLSTpJnliYNNlpCspQRw=
+        bh=Pd/4A8F8XRZbl4sQpabJjlKenkBbaEXlaZ5AQnmnAzk=;
+        b=Mn4o9uP+/6VmZqvBr6cCnwRE3ACGxpG9zz84oPJVlzNcCAp5tjn8MDtBaBESv2G3CI
+         atmw5XiGhy+NDgllKe/ffUEVCNw0c8eGclhjAP25SJ3wsQk7aJVRK7NmKOr0IN2GP2IN
+         8XPFg9ual3H6M5disDkMzWGJOkQ0ZrH2krCN/PggEAhU8bVkyhBXAM17EaDikyTT0d5z
+         65rEzfTjnmXtUXrXhDb6qImIzholwSMzFa9/0FWsPGN13W3wmmYwHH1//XPHqAfsGfwO
+         bnqh9FlOn1eshJNoCR4t61GTymct4qpdrMXBU+rHGV84I71OsD/NQOmq7uBNDwQYlcGI
+         RRTw==
+X-Gm-Message-State: AFuF++lvLL4BJXhFVfxd/pZmo9a3R9YG8uvzh5zzYEjOqJ/iC7UpPmDa
+	5nUSF7he/pect5ct/4g6TsJeckQWdXQwnLYaIINQDZl9os3rJUKR4q2uIcIHGhc5/ASPf2J8vA=
 	=
-X-Received: from edvj18.prod.google.com ([2002:aa7:de92:0:b0:6a8:5f9:b58f])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:3783:b0:6a6:92ca:40a4
- with SMTP id 4fb4d7f45d1cf-6a696aa6121mr14983854a12.11.1788954957196; Wed, 09
- Sep 2026 04:55:57 -0700 (PDT)
-Date: Wed,  9 Sep 2026 13:55:33 +0200
+X-Received: from edvf14.prod.google.com ([2002:a05:6402:160e:b0:6a8:210f:72ce])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:27ce:b0:6a6:7882:89f2
+ with SMTP id 4fb4d7f45d1cf-6a7e8f9623cmr12327207a12.17.1788954958326; Wed, 09
+ Sep 2026 04:55:58 -0700 (PDT)
+Date: Wed,  9 Sep 2026 13:55:34 +0200
 In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,15 +59,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260909115530.1924665-12-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=873; i=ardb@kernel.org;
- h=from:subject; bh=DCPAKHSt1MvEF3l2OCYFuyQlxzeVLTEHo6sm95Z+hIo=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp+lUMQbN/zXyXlMZ8hNW/ZbrPxhsJv0xLfqpfZqW8
- EqJLqaOUhYGMS4GWTFFFoHZf9/tPD1RqtZ5lizMHFYmkCEMXJwCMBEXKUaGielucQauXj8Cfqqs
- 5C85ZO5hrtlSVm6mJx1l/vuV9tEYhv/RO8/sTCq0itBw2awhH9wRHnOkabmeyAN2idRi0/2X2Bg B
+X-Developer-Signature: v=1; a=openpgp-sha256; l=705; i=ardb@kernel.org;
+ h=from:subject; bh=/LdgSZFzZjtYA02calFNa+IAiCgEi1RyLw02qhfaQIg=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp9nb/j1SGZxHnZ6Ln7iTX91mUVK8sXuaeKjllpfbd
+ /yU5ajsKGVhEONikBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABNZWs3wV7j6vcbHsJrQ5q15
+ c5f/FQsIapx6UzLj0R9F4xdNG0UiWBl+s3TMWFXpkMNsEWGzqnxllszBua//2d8y4V7zd/WmSYW TmAA=
 X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909115530.1924665-14-ardb+git@google.com>
-Subject: [PATCH v2 02/10] lib/ucs2_string: Drop arbitrary input size limit and
- associated WARN()
+Message-ID: <20260909115530.1924665-15-ardb+git@google.com>
+Subject: [PATCH v2 03/10] lib/ucs2_string: Suppress modinfo when
+ __DISABLE_EXPORTS is set
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-efi@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
@@ -76,30 +76,27 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-It's not really the job of library code to WARN and potentially bring
-down the system (with panic_on_warn=1) on a condition that is fairly
-arbitrary to begin with.
-
-So drop the WARN_ON_ONCE() as well as the condition from ucs2_strscpy().
+Allow the UCS-2 string library to be reused in the EFI stub, by
+suppressing the modinfo data that is usually emitted so that the library
+can be built as a module.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- lib/ucs2_string.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/ucs2_string.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
-index 1f7dd4eb640a..d66fef9c9b81 100644
+index d66fef9c9b81..f75fb4f7961a 100644
 --- a/lib/ucs2_string.c
 +++ b/lib/ucs2_string.c
-@@ -57,7 +57,7 @@ ssize_t ucs2_strscpy(ucs2_char_t *dst, const ucs2_char_t *src, size_t count)
- 	 * Ensure that we have a valid amount of space. We need to store at
- 	 * least one NUL-character.
- 	 */
--	if (count == 0 || WARN_ON_ONCE(count > INT_MAX / sizeof(*dst)))
-+	if (count == 0)
- 		return -E2BIG;
+@@ -165,5 +165,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
+ }
+ EXPORT_SYMBOL(ucs2_as_utf8);
  
- 	/*
++#ifndef __DISABLE_EXPORTS
+ MODULE_DESCRIPTION("UCS2 string handling");
+ MODULE_LICENSE("GPL v2");
++#endif
 -- 
 2.55.0.1003.g10538fe699-goog
 
