@@ -1,151 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA423054E4;
-	Wed,  9 Sep 2026 06:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CB3AC0CD;
+	Wed,  9 Sep 2026 06:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936233; cv=none; b=l16aDQzDnIUqmFtFDnDd1aN2/V8Wl34eN0iXuy7U8X6ZLD/UCmdh+hgF0zmWQG8Z7kCHReycfnLJ+Hx+f+E69O3wxkLH+KePatxhcX7Vs2PbA0xlgEXR+cPT68eMQg7FeGIRLfaGyBkCs/ODXKAgaRCbVBu0Wz83WtuI9jo86lc=
+	t=1788936285; cv=none; b=n/g++QDzdqomYIdmCucFTwwhD/p4wUeSm2tdRruxD4Vs8I8YhNbF1NfnhhhSTDBbDt26/rW52WTEuPpwUaLR7RBdS6upRArOCy89WQk5W9uBOzjcVP0M8kmXqeS+J646qvJ/KD+00dR6Nag2ZTToTj7y1loHuBkkNEqY9Qr1KBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936233; c=relaxed/simple;
-	bh=G7gdKpKFflD/3CuK4Pe16Yge2b33nk4BgG6x4bwQVnM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tucTKz0dPh2ARoh25/XU6dHtblr4kqYfsQW4ntH3Sr+dPYXY4V/e1c1KsOa36fyfF/J44vaKros7QkGpUy0BTGzAvci8B8E3xcjOmaMOdg58yfBZkCCOCMy2tBM3oVB+FAElsZd5qHT69ibxsPKdh7ynXcRzldnQOD61b+T6kXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gvqbeL4X; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788936285; c=relaxed/simple;
+	bh=5jt7oTM4/Ju94W9eSpLqE/p9XWrl/t+y9vL3pq6qmr4=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=fFPVi6jGzqVwSzERD/0ze9hmA2PKSTHwbqygzN+BeTeTlpSMjIXu3n6jtYiGkIxKNLTfnC9SEYnvkNuLGjZ5cksgFnoSRD+smE9UZdIHnKi+CqJvEugkCy0i3QhS6zNR1wzxcet79wC2TOAnWYBs3SQfpWCrseqhqadh9Ak8Clk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rF3TQDJ/; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Kb35zW20; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gvqbeL4X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788936231; x=1820472231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=G7gdKpKFflD/3CuK4Pe16Yge2b33nk4BgG6x4bwQVnM=;
-  b=gvqbeL4XbUfRHkVF58EAtSJbYcN+T3NrzjTgvMjc4iMM7sdXT506VtR1
-   W81wKbAukmVLmZ0tgTASi5g8822FaFY+HQamwF3EwTnLky6uNY2lP7DCU
-   4zZISIAYoDTHzKgPufkSkT7TkxvFvu0gAhldiAJ2hwwoBwlzhPYT1Pd8w
-   GxUkHbmmhRlNCZHIqQZFc8A6B69uVe5Z0QLKnKb0lO+rxzerXP/00RE0W
-   yzS87JnZFN0adGZiJmVC7/VUnBtyFCkrG90CM1TTUPls3g2vKF/zOfDrg
-   8/YAUat4HxxvTqjcZyCfIXFz5i5ZixS1/x3W6/OYSHIVhTWc+tH9u4y+4
-   g==;
-X-CSE-ConnectionGUID: hcor7yu8TOOxKsQVZX1Dnw==
-X-CSE-MsgGUID: OPZtlGnlTl6ssi8Ng8CecQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106720254"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="106720254"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 23:43:50 -0700
-X-CSE-ConnectionGUID: +AvCfD0UTCC9gxEHi8A2Ug==
-X-CSE-MsgGUID: whqY3FT3TheW5UMnFrmDHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="276458655"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa005.fm.intel.com with ESMTP; 08 Sep 2026 23:43:47 -0700
-Date: Wed, 9 Sep 2026 14:43:46 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Heiko Schocher <hs@nabladev.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-fpga@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
-	Xu Yilun <yilun.xu@intel.com>, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
- support
-Message-ID: <aqEAImnHDYWcOdc0@yilunxu-OptiPlex-7050>
-References: <20260810062105.299808-1-hs@nabladev.com>
- <ap2Yx8oACWfBKOep@yilunxu-OptiPlex-7050>
- <6a489d2b-b5d1-0455-793f-f4100fd3b3d1@nabladev.com>
- <aqBbFGExUpS0k0yE@yilunxu-OptiPlex-7050>
- <fb783b51-d5cb-c2ae-9d26-11df39e40aa8@nabladev.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rF3TQDJ/";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Kb35zW20"
+Date: Wed, 09 Sep 2026 06:44:39 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788936282;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c7vWj2VEYLG0eNfa+Xm2hiEIYrw7vomuafqPseJgX6U=;
+	b=rF3TQDJ/UDyDb6NMI3OhgcFF7iLvSZAIo+tokzQTwR+1kj50RPiCXOnEgYo+CZ3rg6bcaa
+	ukvIGmtS05Ef8UlyKuvz7PHTmHAqo/yeJirXJtznIEkSG/XyPYxNAZAndyycVhO0ieIpkI
+	qx5Crq8e2m/Hz3p64mDTy2tpRMGgv9rstBE9nateMomyll8R4FW91wevyn4WovnhMZqiT7
+	IKl9eDJzhyOXBczcCk99aLQRLKayOapZ1qGwe1SISCONmYJSlPQEDgyRxGrLVlXPGWT1Qw
+	iSfYT/YnoJevngDdUVh44TniNlmL/HsT9AEI7mxq2agGHU4y7Kc0j/NFRoQP5Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788936282;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c7vWj2VEYLG0eNfa+Xm2hiEIYrw7vomuafqPseJgX6U=;
+	b=Kb35zW20MOUGIbwNDqKALufGAKT2+Tu4Uqpoz79caP4vnz648xk91XQhUYtApXb4bp7jfj
+	dPwyG0V/hNkXTFCQ==
+From: "tip-bot2 for Vernon Yang" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/mm: Fix user-space data loss with MADV_FREE and THP
+Cc: Orson Peters <orsonpeters@gmail.com>,
+ Vernon Yang <yanglincheng@kylinos.cn>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb783b51-d5cb-c2ae-9d26-11df39e40aa8@nabladev.com>
+Message-ID: <178893628000.623050.17168431831484670222.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-> > What if we re-program the 2 FPGAs at the same time? Is there still
-> > chance the 2 CS lines are all asserted? Can they be correctly
-> > re-programmed in this case?
-> 
-> In the FPGA layer, yes. Each FPGA is its own fpga_manager with its own
-> CSI_B, and the only lock the core offers is mgr->ref_mutex, which
-> fpga_mgr_lock() takes per manager. Nothing there serializes two managers
-> that share one SelectMAP port, so both CS lines can be asserted at the
-> same time and then both devices take both bitstreams.
-> 
-> But one layer higher, the only in-tree trigger for a SelectMAP device is
-> of_fpga_region_notify() calling fpga_region_program_fpga(), and
-> of_overlay_fdt_apply() holds of_overlay_phandle_mutex from beginning to
-> end, so two overlay applications cannot overlap, if I see this correct.
-> 
-> I would rather keep this out of this patch.
+The following commit has been merged into the x86/urgent branch of tip:
 
-Yes, that's the way to go.
+Commit-ID:     f7491d7c81db0e7c304a7bd757a76d2fbeaff80e
+Gitweb:        https://git.kernel.org/tip/f7491d7c81db0e7c304a7bd757a76d2fbea=
+ff80e
+Author:        Vernon Yang <yanglincheng@kylinos.cn>
+AuthorDate:    Thu, 03 Sep 2026 11:16:08 +08:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Wed, 09 Sep 2026 08:39:12 +02:00
 
-> 
-> If you want it handled, I can prepare a follow up patch, and it seems to
-> me this can be done with a simple mutex in this driver around the write
-> transfer in xilinx_selectmap_write(), with one lock for all ports.
+x86/mm: Fix user-space data loss with MADV_FREE and THP
 
-"one lock for all ports" is still illogical to me. The FPGAs on
-different ports won't interfere each other, is it?
+Some of users of Polars (a data analytics library) have lost production
+data from this bug. They seem to have just the right combination of
+huge pages, MADV_FREE and heavy reclaim pressure.
 
-> 
-> The port does not have to be held for a whole bitstream, as documentation
-> says, that SelectMAP takes the configuration data non-continuously, with
-> CSI_B deasserted in between, so serializing single transfers already lets
-> two devices be programmed at the same time with each one seeing only its
-> own data.
-> 
-> Should I send such a patch? And if yes, as a follow up to a v5 version of
-> this patch?
-> 
-> Or add both patches into a v5 series?
+pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+silently discarding the hardware dirty bit.  The subsequent
+pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+_PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+stripped from the value, so there is nothing left to transfer.
 
-No, fix the existing problem. 2 FPGAs are another topic.
+Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+the dirty state.
 
-> 
-> I am fine with both ...
-> 
-> > I mean I think this patch does fix the problem of "always assertion",
-> > which is good to me. But the changelog seems stop me, it talks all about
-> > 2 FPGAs sharing the same bus, which seems more complex than just
-> > manipulating the CS.
-> 
-> Agreed. The two FPGAs are how I ran into this, not what the patch is
-> about.
-> 
-> So next proposal for the commit message is:
-> """
-> fpga: xilinx-selectmap: control CSI_B and RDWR_B during configuration
-> 
-> The driver requests the optional CSI_B and RDWR_B GPIOs with
-> GPIOD_OUT_HIGH and never touches them again. That flag carries a
-> logical value, so both signals end up asserted from probe on, whatever
-> polarity the device tree states, and they stay asserted for the
-> lifetime of the device.
-> 
-> Neither signal belongs to the driver's lifetime. CSI_B (Chip Select)
-> selects the device on the SelectMAP port, RDWR_B (Read/Write) selects
-> the transfer direction, so both belong to the data transfer. A device
-> that is never deselected never lets go of the port, and a port pinned
-> to write mode cannot be read back.
-> 
-> Keep the two descriptors in the driver private data, request them
-> deasserted, and assert them only around the configuration data
-> transfer. RDWR_B is asserted first as UG570, note 4 of figure "Continuous
-> x8 SelectMAP Data Loading", warns that changing it while the device is
-> selected causes an ABORT on the next CCLK.
-> """
-> 
-> If fine for you I can send v5, with no code changes, just some
-> comment changes as discussed.
+One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
 
-Good to me.
+    memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+    madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+                                      // folio marked lazyfree
+    memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+    mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+    mprotect(buf, size, PROT_READ|PROT_WRITE);
+    // ... memory pressure ...
+
+Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+no dirty bit set anywhere and frees it in
+__discard_anon_folio_pmd_locked(), even though the data was rewritten
+after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+restores the PMD through pmd_modify() as well.
+
+PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+the dirty bit means rewritten data is never written back.
+
+Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+pte_modify() and pud_modify() do.  The existing
+pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+hardware-dirty <-> saved-dirty transition based on the write bit,
+preserving the shadow-stack encoding rules.
+
+Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=3DcNbNApCWqdthRj=
+d76LThtSPg@mail.gmail.com/
+Reported-by: Orson Peters <orsonpeters@gmail.com>
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260903031608.1194238-1-vernon2gm@gmail.com
+---
+ arch/x86/include/asm/pgtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+index d5f4917..d551120 100644
+--- a/arch/x86/include/asm/pgtable.h
++++ b/arch/x86/include/asm/pgtable.h
+@@ -806,7 +806,7 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newpro=
+t)
+ 	pmdval_t val =3D pmd_val(pmd), oldval =3D val;
+ 	pmd_t pmd_result;
+=20
+-	val &=3D (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
++	val &=3D _HPAGE_CHG_MASK;
+ 	val |=3D check_pgprot(newprot) & ~_HPAGE_CHG_MASK;
+ 	val =3D flip_protnone_guard(oldval, val, PHYSICAL_PMD_PAGE_MASK);
+=20
