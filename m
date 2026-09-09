@@ -1,371 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDCF3F105D;
-	Wed,  9 Sep 2026 15:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85B7335067;
+	Wed,  9 Sep 2026 15:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966097; cv=none; b=LzTfmSGVEjpSBMHYoFT+j4+skt7lZKhXYcVqKZi9a8ydn/0HiV4lxdt036bY2jsIphlOUzzSUoDiA069T1zZsD9AHt83nnIFrd5z1TV422TftQR/h6og4J7FPmfQxm4/JQmmET4FdA2jziedu0gOvOPyqAgCJRSg4gmOcLe/MV8=
+	t=1788966134; cv=none; b=WIBqzRaBkKJsPckfjUbVeX0eERa6EuXhF8ZWT1lBLXZ9fMZiIZZZtnngjMfF6x1c8Hs7pXA+PHx3fHfu5zMXZs+uISH138yp0/fh7A02PyXhNHJf9CLolKTUwhlUBbMUF2CMQpvW2nkUufRRrdx82UKYYWRaxccfkk+gmkdz0Kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966097; c=relaxed/simple;
-	bh=BzoZ634HGOc8Mg7dHqhh1d5cvliBMGjPmOUx6mld/sw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W/I7FsJppXxjwWJzZM/xC60f1/qJLF18nSkgSbGQ9loaXro6WJC2L/gqzhVcABQsP6cRCRjBWRkvDQtAI+a3+W2z0+Nqjc95v3m7g8xjCTSsdIISb3FHiJZha/Hqq/O1VYcpXyIH6+g34GhlGqzbaRW/BEhAPLz/a/HsMptR+1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ln7hZnnT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788966134; c=relaxed/simple;
+	bh=DjilDXt3Habf3goWm4WZF5bb/V9YVgsYbQwSBdjkHG8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HWRbnXXNgaYNUpGykTVc6CjAtbowkQG6EoAnG95cbLYyFZA3xoQgsw1J4V1HZ1j38qr7yqAeH59gARXg5w1r3LeeSg/aU1fF3yqNz3qEJam/z7rJxeCIWlh6/zPorTyQFL8jhYJKqQoNXcZJbAWit6t7T/siE30ltCDMCtR9VJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeN7pksa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ln7hZnnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1FA1F00A3A;
-	Wed,  9 Sep 2026 15:01:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeN7pksa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4401F00A3A;
+	Wed,  9 Sep 2026 15:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966096;
-	bh=Jbiv43kuCfE3AfQ6JAlUY4GrTeO1TozLkhaI4YIBbaQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ln7hZnnT2WmHjU5QJPq5pbq8kn2gV5bwDxGohWz77eEwoE86AdqrSGVPqOtH8b8Bp
-	 0lY+vcI8FVk9guWc8gK87oo2ZBEjbhvA6NCQ+Uj9sRv9+aRv0N213WmC0sBPxYv6Ui
-	 0SJU8UrVilH43OLxy7Hu9BoQjNis64a3k9/FsgA3iUUGQ+zjJPEobYpOh5AevVinpj
-	 6tk6/rDZEZGdkZl2X+SRGwGcKMFZo2F4njeecRQZv3tWi/f6Vr0qBh7MnHpJK2BqRK
-	 GxiGGT5XeQlMpXxi3MJP6S9kRTMcSyb3sSMePN7xluBJtQ8CyN7PmBpi2jUbluhtE5
-	 wuk8tuhlLhnVA==
-Date: Wed, 9 Sep 2026 11:01:33 -0400
-From: Namhyung Kim <namhyung@kernel.org>
-To: Tengda Wu <wutengda@huaweicloud.com>
-Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
-	Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v5 06/26] perf annotate: Introduce extract_op_location
- callback for arch-specific parsing
-Message-ID: <aqF0zceTOQBjRJl1@google.com>
-References: <cover.1788872630.git.wutengda@huaweicloud.com>
- <a9f1bafb17bc2e2c6152f6e3a0c63b9d72a0e657.1788872630.git.wutengda@huaweicloud.com>
+	s=k20260515; t=1788966133;
+	bh=3KfExOA8KS0crEDl2q+9ULW4PP/JesVC+N5DhTICNJs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UeN7pksaadSHMoEPfMk+ZajCW7TpStgfP3pR1FX98wY2nSvCyBtlgh4lBomgTWT1K
+	 hWWiqRn3jREcRJUiJseRXfiYhvS+Q0sy0u4yjQ5ijDmeEkkVXk/Y+KR6iQuMZ3T2oc
+	 lyoG8GepmPSZNc0eLwoWreX1prlhobT7Nwn7/YTRFy9McMoDBwxzV4TIBcxSo7bTSJ
+	 pcAJJSg7bRf7YqfWFqeTWRHhXldo9uS/+EX+uP9aI++4pAcpKtzzHrFGf1Z57epXlk
+	 dYZL2I8XyMCDE13937q0egdsqFp+vA14izbde9eAOtLY7L5xM9ERgL4mfsrDHqN74r
+	 KVfRpbU3j28pQ==
+Message-ID: <bef8f543-ffa9-4cc6-8a7b-6118daf14f76@kernel.org>
+Date: Wed, 9 Sep 2026 17:02:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <a9f1bafb17bc2e2c6152f6e3a0c63b9d72a0e657.1788872630.git.wutengda@huaweicloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 RESEND 0/2] selftests/mm: Validate selections and scope
+ memfd_secret setup
+To: Tianyi Chen <diannaaav@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Joel Savitz <jsavitz@redhat.com>
+References: <CACGbirSdR30=YTPQGN-=202jZqiF8gBSewhq+K_fTSNpq=DMhQ@mail.gmail.com>
+ <CACGbirTZFsyQhOszpfiHhrd7Red-L_Z_=ke7DbRDe5SQfzi9Pw@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CACGbirTZFsyQhOszpfiHhrd7Red-L_Z_=ke7DbRDe5SQfzi9Pw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 01:05:09PM +0000, Tengda Wu wrote:
-> Assembly syntax for operands varies significantly across different
-> architectures, which prevents the operand location (op_loc) parsing
-> logic in annotate_get_insn_location() from being directly reused.
+On 9/9/26 16:54, Tianyi Chen wrote:
+> Hi David,
 > 
-> To simplify the core logic and improve maintainability, move the
-> operand parsing inside the for_each_insn_op_loc loop into arch-specific
-> extract_op_location callbacks. This refactoring is intended to be a
-> cleanup with no functional changes.
+> Following up on your review:
+> https://lore.kernel.org/r/d6ca7f47-39bb-43b4-92d6-63ccc148ebdd@kernel.org
 > 
-> Signed-off-by: Li Huafei <lihuafei1@huawei.com>
-> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+>> Who would set it at this point?
+>> Can't this just be
+>> VM_SELFTEST_ITEMS="default"
+> 
+> V3 makes that change: the default is initialized before getopts, and only
+> -t changes the selection. An explicit empty -t still fails validation.
+> Both patches use Assisted-by: LLM, and patch 2 carries your Acked-by.
+> 
+> I have resent v3 at the start of this new thread from my Gmail address
+> after delivery problems with my previous address. The patches are rebased
+> onto current mm-unstable without changes, and the focused parser and VM
+> selection tests passed again.
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+That is new:
 
-Thanks,
-Namhyung
+$ b4 shazam https://lore.kernel.org/r/CACGbirR9PNt4uhqJFATsOWnwmsNb-v8zau-Rb+9Q5SZmY-=Vug@mail.gmail.com
+Looking up https://lore.kernel.org/all/CACGbirR9PNt4uhqJFATsOWnwmsNb-v8zau-Rb%2B9Q5SZmY-%3DVug@mail.gmail.com/
+Grabbing thread from lore.kernel.org/all/CACGbirR9PNt4uhqJFATsOWnwmsNb-v8zau-Rb%2B9Q5SZmY-%3DVug@mail.gmail.com/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 4 messages in the thread
+Analyzing 14 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+  ✓ [PATCH v3 1/2] selftests/mm: Reject invalid test selections before running tests
+  ✓ [PATCH v3 2/2] selftests/mm: Only prepare ptrace_scope when memfd_secret is selected
+  ---
+  ✓ Signed: DKIM/gmail.com
+---
+Total patches: 2
+---
+Applying: selftests/mm: Reject invalid test selections before running tests
+Patch failed at 0001 selftests/mm: Reject invalid test selections before running tests
+error: git diff header lacks filename information when removing 1 leading pathname component at /home/dishy/linux/.git/rebase-apply/patch:6
 
-> ---
->  .../util/annotate-arch/annotate-powerpc.c     |  9 ++
->  tools/perf/util/annotate-arch/annotate-x86.c  | 79 ++++++++++++++++
->  tools/perf/util/annotate.c                    | 94 +------------------
->  tools/perf/util/annotate.h                    |  2 +
->  tools/perf/util/disasm.h                      |  4 +
->  5 files changed, 99 insertions(+), 89 deletions(-)
-> 
-> diff --git a/tools/perf/util/annotate-arch/annotate-powerpc.c b/tools/perf/util/annotate-arch/annotate-powerpc.c
-> index 218207b52581..00b93296fc94 100644
-> --- a/tools/perf/util/annotate-arch/annotate-powerpc.c
-> +++ b/tools/perf/util/annotate-arch/annotate-powerpc.c
-> @@ -390,6 +390,14 @@ static void update_insn_state_powerpc(struct type_state *state,
->  }
->  #endif /* HAVE_LIBDW_SUPPORT */
->  
-> +static void extract_op_location_powerpc(const struct arch *arch __maybe_unused,
-> +					struct disasm_line *dl,
-> +					const char *op_str __maybe_unused, int op_idx,
-> +					struct annotated_op_loc *op_loc)
-> +{
-> +	get_powerpc_regs(dl->raw.raw_insn, !op_idx, op_loc);
-> +}
-> +
->  const struct arch *arch__new_powerpc(const struct e_machine_and_e_flags *id,
->  				     const char *cpuid __maybe_unused)
->  {
-> @@ -406,5 +414,6 @@ const struct arch *arch__new_powerpc(const struct e_machine_and_e_flags *id,
->  #ifdef HAVE_LIBDW_SUPPORT
->  	arch->update_insn_state = update_insn_state_powerpc;
->  #endif
-> +	arch->extract_op_location = extract_op_location_powerpc;
->  	return arch;
->  }
-> diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
-> index 7e6136536393..1acf31a2c759 100644
-> --- a/tools/perf/util/annotate-arch/annotate-x86.c
-> +++ b/tools/perf/util/annotate-arch/annotate-x86.c
-> @@ -1,6 +1,8 @@
->  // SPDX-License-Identifier: GPL-2.0
->  #include <string.h>
-> +#include <stdlib.h>
->  #include <linux/compiler.h>
-> +#include <linux/ctype.h>
->  #include <linux/zalloc.h>
->  #include <assert.h>
->  #include <inttypes.h>
-> @@ -809,6 +811,82 @@ static void update_insn_state_x86(struct type_state *state,
->  }
->  #endif
->  
-> +/*
-> + * Get register number and access offset from the given instruction.
-> + * It assumes AT&T x86 asm format like OFFSET(REG).
-> + * Fills @reg and @offset when return 0.
-> + */
-> +static int extract_reg_offset(const struct arch *arch, const char *str,
-> +			      struct annotated_op_loc *op_loc)
-> +{
-> +	char *p;
-> +
-> +	if (arch->objdump.register_char == 0)
-> +		return -1;
-> +
-> +	/*
-> +	 * It should start from offset, but it's possible to skip 0
-> +	 * in the asm.  So 0(%rax) should be same as (%rax).
-> +	 *
-> +	 * However, it also start with a segment select register like
-> +	 * %gs:0x18(%rbx).  In that case it should skip the part.
-> +	 */
-> +	if (*str == arch->objdump.register_char) {
-> +		/* FIXME: Handle other segment registers */
-> +		if (!strncmp(str, "%gs:", 4))
-> +			op_loc->segment = INSN_SEG_X86_GS;
-> +
-> +		while (*str && !isdigit(*str) &&
-> +		       *str != arch->objdump.memory_ref_char)
-> +			str++;
-> +	}
-> +
-> +	op_loc->offset = strtol(str, &p, 0);
-> +	op_loc->reg1 = arch__dwarf_regnum(arch, p);
-> +	if (op_loc->reg1 == -1)
-> +		return -1;
-> +
-> +	/* Get the second register */
-> +	if (op_loc->multi_regs)
-> +		op_loc->reg2 = arch__dwarf_regnum(arch, p + 1);
-> +
-> +	return 0;
-> +}
-> +
-> +static void extract_op_location_x86(const struct arch *arch,
-> +				    struct disasm_line *dl __maybe_unused,
-> +				    const char *op_str, int op_idx __maybe_unused,
-> +				    struct annotated_op_loc *op_loc)
-> +{
-> +	if (op_str == NULL)
-> +		return;
-> +
-> +	if (strchr(op_str, arch->objdump.memory_ref_char)) {
-> +		op_loc->mem_ref = true;
-> +		extract_reg_offset(arch, op_str, op_loc);
-> +	} else {
-> +		const char *s = op_str;
-> +		char *p = NULL;
-> +
-> +		/* FIXME: Handle other segment registers */
-> +		if (!strncmp(op_str, "%gs:", 4)) {
-> +			op_loc->segment = INSN_SEG_X86_GS;
-> +			op_loc->offset = strtol(op_str + 4, &p, 0);
-> +			if (p && p != op_str + 4)
-> +				op_loc->imm = true;
-> +			return;
-> +		}
-> +
-> +		if (*s == arch->objdump.register_char) {
-> +			op_loc->reg1 = arch__dwarf_regnum(arch, s);
-> +		} else if (*s == arch->objdump.imm_char) {
-> +			op_loc->offset = strtol(s + 1, &p, 0);
-> +			if (p && p != s + 1)
-> +				op_loc->imm = true;
-> +		}
-> +	}
-> +}
-> +
->  const struct arch *arch__new_x86(const struct e_machine_and_e_flags *id, const char *cpuid)
->  {
->  	struct arch *arch = zalloc(sizeof(*arch));
-> @@ -848,5 +926,6 @@ const struct arch *arch__new_x86(const struct e_machine_and_e_flags *id, const c
->  #ifdef HAVE_LIBDW_SUPPORT
->  	arch->update_insn_state = update_insn_state_x86;
->  #endif
-> +	arch->extract_op_location = extract_op_location_x86;
->  	return arch;
->  }
-> diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
-> index f3d17d153b67..a3d48cf88dad 100644
-> --- a/tools/perf/util/annotate.c
-> +++ b/tools/perf/util/annotate.c
-> @@ -2472,7 +2472,7 @@ int annotate_check_args(void)
->  	return 0;
->  }
->  
-> -static int arch__dwarf_regnum(const struct arch *arch, const char *str)
-> +int arch__dwarf_regnum(const struct arch *arch, const char *str)
->  {
->  	const char *p;
->  	char *regname, *q;
-> @@ -2495,51 +2495,6 @@ static int arch__dwarf_regnum(const struct arch *arch, const char *str)
->  	return reg < 0 ? -1 : reg;
->  }
->  
-> -/*
-> - * Get register number and access offset from the given instruction.
-> - * It assumes AT&T x86 asm format like OFFSET(REG).  Maybe it needs
-> - * to revisit the format when it handles different architecture.
-> - * Fills @reg and @offset when return 0.
-> - */
-> -static int extract_reg_offset(const struct arch *arch, const char *str,
-> -			      struct annotated_op_loc *op_loc)
-> -{
-> -	char *p;
-> -
-> -	if (arch->objdump.register_char == 0)
-> -		return -1;
-> -
-> -	/*
-> -	 * It should start from offset, but it's possible to skip 0
-> -	 * in the asm.  So 0(%rax) should be same as (%rax).
-> -	 *
-> -	 * However, it also start with a segment select register like
-> -	 * %gs:0x18(%rbx).  In that case it should skip the part.
-> -	 */
-> -	if (*str == arch->objdump.register_char) {
-> -		if (arch__is_x86(arch)) {
-> -			/* FIXME: Handle other segment registers */
-> -			if (!strncmp(str, "%gs:", 4))
-> -				op_loc->segment = INSN_SEG_X86_GS;
-> -		}
-> -
-> -		while (*str && !isdigit(*str) &&
-> -		       *str != arch->objdump.memory_ref_char)
-> -			str++;
-> -	}
-> -
-> -	op_loc->offset = strtol(str, &p, 0);
-> -	op_loc->reg1 = arch__dwarf_regnum(arch, p);
-> -	if (op_loc->reg1 == -1)
-> -		return -1;
-> -
-> -	/* Get the second register */
-> -	if (op_loc->multi_regs)
-> -		op_loc->reg2 = arch__dwarf_regnum(arch, p + 1);
-> -
-> -	return 0;
-> -}
-> -
->  /**
->   * annotate_get_insn_location - Get location of instruction
->   * @arch: the architecture info
-> @@ -2595,50 +2550,11 @@ int annotate_get_insn_location(const struct arch *arch, struct disasm_line *dl,
->  		/* Invalidate the register by default */
->  		op_loc->reg1 = -1;
->  		op_loc->reg2 = -1;
-> +		op_loc->mem_ref = mem_ref;
-> +		op_loc->multi_regs = multi_regs;
->  
-> -		if (insn_str == NULL) {
-> -			if (!arch__is_powerpc(arch))
-> -				continue;
-> -		}
-> -
-> -		/*
-> -		 * For powerpc, call get_powerpc_regs function which extracts the
-> -		 * required fields for op_loc, ie reg1, reg2, offset from the
-> -		 * raw instruction.
-> -		 */
-> -		if (arch__is_powerpc(arch)) {
-> -			op_loc->mem_ref = mem_ref;
-> -			op_loc->multi_regs = multi_regs;
-> -			get_powerpc_regs(dl->raw.raw_insn, !i, op_loc);
-> -		} else if (strchr(insn_str, arch->objdump.memory_ref_char)) {
-> -			op_loc->mem_ref = true;
-> -			op_loc->multi_regs = multi_regs;
-> -			extract_reg_offset(arch, insn_str, op_loc);
-> -		} else {
-> -			const char *s = insn_str;
-> -			char *p = NULL;
-> -
-> -			if (arch__is_x86(arch)) {
-> -				/* FIXME: Handle other segment registers */
-> -				if (!strncmp(insn_str, "%gs:", 4)) {
-> -					op_loc->segment = INSN_SEG_X86_GS;
-> -					op_loc->offset = strtol(insn_str + 4,
-> -								&p, 0);
-> -					if (p && p != insn_str + 4)
-> -						op_loc->imm = true;
-> -					continue;
-> -				}
-> -			}
-> -
-> -			if (*s == arch->objdump.register_char) {
-> -				op_loc->reg1 = arch__dwarf_regnum(arch, s);
-> -			}
-> -			else if (*s == arch->objdump.imm_char) {
-> -				op_loc->offset = strtol(s + 1, &p, 0);
-> -				if (p && p != s + 1)
-> -					op_loc->imm = true;
-> -			}
-> -		}
-> +		if (arch->extract_op_location)
-> +			arch->extract_op_location(arch, dl, insn_str, i, op_loc);
->  	}
->  
->  	return 0;
-> diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
-> index fa08d09b80f7..11b6e4780c02 100644
-> --- a/tools/perf/util/annotate.h
-> +++ b/tools/perf/util/annotate.h
-> @@ -492,6 +492,8 @@ int annotate_parse_percent_type(const struct option *opt, const char *_str,
->  
->  int annotate_check_args(void);
->  
-> +int arch__dwarf_regnum(const struct arch *arch, const char *str);
-> +
->  /**
->   * struct annotated_op_loc - Location info of instruction operand
->   * @reg1: First register in the operand
-> diff --git a/tools/perf/util/disasm.h b/tools/perf/util/disasm.h
-> index 06c664fd4fc2..62c2949c4c30 100644
-> --- a/tools/perf/util/disasm.h
-> +++ b/tools/perf/util/disasm.h
-> @@ -16,6 +16,7 @@ struct symbol;
->  struct data_loc_info;
->  struct type_state;
->  struct disasm_line;
-> +struct annotated_op_loc;
->  
->  struct e_machine_and_e_flags {
->  	uint32_t e_flags;
-> @@ -49,6 +50,9 @@ struct arch {
->  				struct data_loc_info *dloc, Dwarf_Die *cu_die,
->  				struct disasm_line *dl);
->  #endif
-> +	void		(*extract_op_location)(const struct arch *arch, struct disasm_line *dl,
-> +					       const char *op_str, int op_idx,
-> +					       struct annotated_op_loc *op_loc);
->  };
->  
->  struct ins {
-> -- 
-> 2.34.1
-> 
+
+-- 
+Cheers,
+
+David
