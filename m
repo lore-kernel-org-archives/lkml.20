@@ -1,257 +1,166 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29917374E4C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAA0348C4C;
+	Wed,  9 Sep 2026 19:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982248; cv=none; b=rYuRAA+aAIcUwfX46/QkmBmcuiFPlgq8Cf+jQU+fxi4UYhugValJoQs2nnF80ZLDrPb9un93e5HogKTRZSigrs8CK30/js7JKaXI4a6F3+U0Xd6nsro9XLMMNTg9Bomwt/GUVh7FEQYFNb6KB91syciNXS/szpEHbitDxCsVn6I=
+	t=1788982260; cv=none; b=WqKBOPJV0P88Im4VATCMyk9Q3B0G8RINfqpd/Sw4LpsL83bHMqJtMxWIpGY8/Ewoth+pC67Yhv1Kw1BtCZwnOwoRkcd6S9lpv9gPnlx2pJbaY7scy4ZSD+2iFsbEgkChL7j21s6PjGVp0ZT2Zbf8UDlJvlGGtnCto2b6epGWpME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982248; c=relaxed/simple;
-	bh=OjwTS77Of0cEI60dHR7L7jYTCrdKX4ImjgWXDc6oBCA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O1DGyDtpyM2lepizsP4eaC8HxMfld1lgwk5uzpBJs+2CQRh8/G0vYWIB3gnv8cDuEQ3AA+xPkevtQH9AiSlavVOJadfRXhwhrjn+RaQ0HelCMLKmCFeLIy7aB1zgZoFEgpE/HKCZ6xr36OtPpi0LDGJzzeX1UDEj7JtbyRxxd3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjQVMRUI; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788982260; c=relaxed/simple;
+	bh=Ev3df10mxNmGPEkApvaW5+98Bhm5asRrNwNxP3EKuO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJgLJcH6LBHCwKJFbbHBMG6DJE3ymIVnVmJHJDjVpy0da+6AyZGtm8kelAMcHzSGnZZe7aSMNPJHiqdWF/X+sBkezx8aQPOmkP2AvWy1cnrdmWeTugW3hF1Knm0lVv8IyhXmb6VBcla+zMzcX4KTKewlVXzdPStANsoOA8U4jAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fU4Hvas7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjQVMRUI"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d05d51553so38897655e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788982244; x=1789587044; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LWEuh4czJmGzJknfeo9JvN82m4WXeS0H/uuWqVtl4ks=;
-        b=PjQVMRUIXeePD7wCZdk0hktW3427lXGGE1twL6OQiKs4P0lcVEt5rHhrYaQU00zTLT
-         S9Nuqmgk+hXNU8IfYHKYdE6Mf9w6YE9HEVmK9A2E0wQ0GOaMyaXGU0HreEJ5gMayE0CG
-         S0mHPDms1q+H+tiOX2ocgC0O5OoIbHG/cQnRgLeHP0dfDVHCxf40kaijhrGxtYBcAfxB
-         07AvdkttK7iYhv/paPG6kXVi+WZ8lrFxZ9A5dGlxnDlPP0t1qrsDNHGd+SB6XRycfdeF
-         8Do2HZjbNiluiuQOT6dKQdX98yQ4EEPw80xUKg1dmgWFa5za0zvOc9JR28n+tAyrv04D
-         ircA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982244; x=1789587044;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LWEuh4czJmGzJknfeo9JvN82m4WXeS0H/uuWqVtl4ks=;
-        b=pPhNBn4H4mjC/AcuLU14ao+EAGf8F7k3QHbXIF49D96+la/pc1jvsx85LsVQWDUM68
-         AdWBukLNlWj383v4Nu3Hzc97O3N2m75nsZlOb7MGpLEE69+EQHNYj/mmICCKBYrnflNZ
-         bXwWYDl2ao/QYiKGE3RtI/Tw5jkGQI+g1Q/Qt9IycKyN6SJ8jQB0L0QTDz0ny8TychIi
-         8GUS03Vm0TW61bM7tARmoQ078D19GZ+rbJLogB3kOIRGpq8ag6IgJcHW9FtNyCZ86bAo
-         OMTuJXnUch5QpFiU+U9AsY6NvpD+vuTvPuJgZh0LjLLxAynhfeKkuAED0+sF2Ws0KJR5
-         Qw/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxWFiQi5CWPAsCKiPKgXmI3doCE2bmEB0KxMSPI1Dkg45AhSln0BmSERaVTEN24LWTeyREkxlrCxn7KhXg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwr1Uyu5rivmFnY0c9K+OMSoPjnEpmVHBKk4J7soKzDOKNHd4B
-	SC3JGMpAirw3H07ZKymmfw0msxI+Ali+xxsnmKyaulkRHeRLCPEHgMeu
-X-Gm-Gg: AYBFou3vQs7ItUTT9/J23Z2b6HzhaXytoVR5VIad2v4jv2+3kG4kkfBR0yOIa9FHwER
-	VceioTNRfs3OER6S4QKmekbFqod+ObosUQwEFtpNH1WPBzSWtmNypbL0SqfJ1THR7aVZFDS2GZT
-	qIQxDej/3qdNJ+3ZLMIsE7bYdeWevc1CQqtRJzYHPDwBvM2dq/cUCFGIKEyimQMG8c0fZgpd6dw
-	HxYh8s3pQNBnBwsnzd8PjmIPw3LzBSlMLHhSQubWH9wmgg2Q7BMQ0LOPcnbUgDCitwUv7s4eW6d
-	QZuzcbhDWtEYsCu/3j1KyrwQoo4wBR58MsT6J51AbfykK1B1x4sNV+b/vsGLW/MjGEiEzHBoOaQ
-	r1bLtJAmz+oPQ2Boz2zPp838hm7OQ9K9Muzvad57BQBuoYWJEcSg57XIoqqRvEyam7ptNSirIRn
-	jy6TsCFpeBdbp9OP4bcgr5u5+81aGpyv9CY3AVnLF3WCbnESwMgvIvJHMSRoimAMubsFktL0D1h
-	yfvKwcwwdXGVOdmtoXgk2C+bpkivIvu05loeE04ixs8gbXc999W6jlSrDuV8pUEjy78dGhmivMl
-	Qk6gAhX5JYCwsR1TRBlhL3btg4+1hZ00qYUaF+WQpuQHDjhvuwUUa6O0KSFJHFoaIKGnY5mGqbE
-	Y7Hw6UDs=
-X-Received: by 2002:a05:600c:3588:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49cfc6ea7d5mr355877335e9.22.1788982243784;
-        Wed, 09 Sep 2026 12:30:43 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b090-6201-5565-e933-e630-1831.310.pool.telefonica.de. [2a02:3100:b090:6201:5565:e933:e630:1831])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26b7332asm13318195e9.0.2026.09.09.12.30.41
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 12:30:43 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Paulo Alcantara <pc@manguebit.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] super: make iterate_supers_type() deletion-safe
-Date: Wed,  9 Sep 2026 21:30:34 +0200
-Message-Id: <20260909193034.7467-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fU4Hvas7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279A81F000FF;
+	Wed,  9 Sep 2026 19:30:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788982258;
+	bh=h0KtUzQENRX3k+Qj7Puxd8aLhSB7ZM+KtB0tKaGla1c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fU4Hvas7aGnAa5dJsVNL8C1FJdMChTrp0kGAH9Wu4G0YznEME05BTWcV8MGyR3+Oy
+	 PHkr7LQhNEysr1eI8z+6eFN4pSQTEXtBeNt0iby1xH+RmaUWtVZ0nqVzp6W2F2YVWS
+	 IxF8oUqykYV7qZj4DOZKM847niUNM7M5yOP0O+f/cQhDeHuG6XOPH9uz1VeMEi+VQj
+	 aAIHT0AHaePlxGuV5tKbYYpVVnEwCJZDoU6gfmqJr43NdIlI+HWXNW/403V9BRuxLD
+	 i46ptSWtnODqtbIFZnUYU+VZqpYYoZUpLxIJm+ciiS0N6iKqQkfp95FmYeP8DbdHA5
+	 1m/kzzQ+vMOIg==
+Date: Wed, 9 Sep 2026 15:30:55 -0400
+From: Namhyung Kim <namhyung@kernel.org>
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ian Rogers <irogers@google.com>,
+	Andi Kleen <ak@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Gennady Kupava <gennady.kupava@gmail.com>,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
+ PERF_SAMPLE_STACK_USER
+Message-ID: <aqGz7324WTIwJ_8U@google.com>
+References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
+ <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
+ <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
+ <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
+ <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
+ <aqAlddsFPYJvRhFr@tassilo>
+ <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
+ <20260909081101.GS4121339@noisy.programming.kicks-ass.net>
+ <19a610df-530a-4397-9fb6-a1e12251c987@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <19a610df-530a-4397-9fb6-a1e12251c987@linux.intel.com>
 
-From: Christian Brauner <brauner@kernel.org>
+Hello,
 
-iterate_supers_type() drops sb_lock while invoking the callback and keeps
-only a passive reference to the current superblock. That reference keeps
-the object allocated, but does not keep its s_instances node linked.
+I missed this thread before sending my previous reply.
 
-After the iterator releases s_umount, final teardown can unlink the current
-s_instances node. The iterator then advances through a reinitialized node.
-With the current hlist it stops without visiting the remaining superblocks.
-The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-the cursor lifetime has been unsafe since the helper was introduced.
+On Wed, Sep 09, 2026 at 05:36:45PM +0800, Mi, Dapeng wrote:
+> 
+> On 9/9/2026 4:11 PM, Peter Zijlstra wrote:
+> > On Tue, Sep 08, 2026 at 01:56:56PM -0700, Ian Rogers wrote:
+> >> On Tue, Sep 8, 2026 at 8:10 AM Andi Kleen <ak@linux.intel.com> wrote:
+> >>>> That's what we already do, no? I have distinct memories of making the
+> >>>> stack unwind use the NMI regs rather then the PEBS regs.
+> >>>>
+> >>>>> In my opinion, it could even make the thing worse. User
+> >>>>> requires to get precise samplings, but perf silently returns imprecise
+> >>>>> records, this would mislead user.
+> >>>> Mostly just the unwind might be off a little, the rest is accurate. This
+> >>>> has been the case 'forever'. Performance analysis isn't for silly
+> >>>> people, if they can't deal with a little fuzz then perhaps they're in
+> >>>> the wrong business.
+> >>> Is the main problem that the stack doesn't agree? Perhaps there
+> >>> could be a check for regs->rsp == pebs->user rsp (if in user space)
+> >>> to detect problematic samples.
+> >>>
+> >>> The question is how to report it and who should do the checking.
+> >>>
+> >>> It may need new fields in the ABI either to communicate the extra PEBS RSP
+> >>> or a bit to indicate that there might be a mismatch.
+> >>>
+> >>> I guess checking in the kernel and reporting an error might be simpler
+> >>> and maybe cleaner, but it would likely limit more advanced recovery
+> >>> possibilities.
+> >>>
+> >>> Are there other mismatches that break the unwinding? Perhaps the same
+> >>> for RBP?
+> >> For DWARF unwinding any register may be the source of a frame pointer
+> >> (e.g. the OpenSSL library would use R11 rather than RBP).
+> >>
+> >> There is redundancy on x86 you can sample the PERF_REG_X86_IP register
+> >> in the user register and there is PERF_SAMPLE_IP in the sample event
+> >> itself.
+> >>
+> >> My understanding is that IBS can only sample IP and so for precise
+> >> samples we can use PERF_SAMPLE_IP as the precise location and the user
+> >> register PERF_REG_X86_IP as the interrupt IP - this would match the
+> >> other register values in the interrupt.
+> >>
+> >> In DWARF unwinding, we initialize the register state using the sampled
+> >> user registers:
+> > Oh, I had trouble reading yesterday :/ This is about USER_STACK, not
+> > CALLCHAIN.
+> 
+> Yes, this is about USR_STACK. The CALLCHAIN doesn't suffer this issue since
+> perf already returns an IP chain and user space can directly map them to
+> the symbols without depending on any register or stack snapshots. :)
+> 
+> 
+> >
+> > I think we should try very hard to not use USER_STACK, it is an
+> > abomination. Instead we really should improve CALLCHAIN to be more
+> > useful. There are a pile of patches for kernel based unwinders,
+> > including for .eh_frame (if only I had time to actually go look at
+> > them).
 
-The CIFS DFS lookup can consequently miss a matching superblock and return
--EINVAL.
+That would be great!
 
-Move removal from fs_supers to put_super(), alongside removal from
-super_blocks, so a passive reference keeps both list nodes linked. Keep
-the filesystem module reference until then, since unlinking s_instances
-may touch type->fs_supers.
+> >
+> > And we should probably look at doing a shadow stack based unwinder as
+> > well.
 
-Make sget_fc() skip SB_DEAD superblocks before invoking test(), and set
-SB_DEAD under sb_lock to serialize with those callbacks. This allows
-kernfs to free its private information after kill_anon_super() returns.
-Keep matching SB_DYING superblocks until SB_DEAD is set so concurrent
-mounts still wait for teardown before retrying.
+Cool. It'd be nice to see that happen.
 
-Fixes: 43e15cdbefea ("new helper: iterate_supers_type()")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Closes: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
-Suggested-by: Jan Kara <jack@suse.cz>
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-Assisted-by: LLM
-[kmehltretter: supplied the commit message]
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- Use Christian's implementation of Jan's suggestion: keep s_instances
-  linked until the last passive reference is dropped and make sget_fc()
-  skip SB_DEAD superblocks under sb_lock.
-- Retain the filesystem module reference until put_super().
-- Attribute authorship to Christian; retain my commit message.
+> >
+> > This USER_STACK is really the absolute worst possible option. And
+> > perhaps refusing PEBS+USER_STACK makes sense.
+> 
+> If no others insist to implement the precise USER_STACK sampling (what Ian
+> suggested), I would give up for sending the drafted precise USER_STACK
+> sampling patches. Per my understanding, refusing precise USER_STACK
+> sampling what current version does is a cleaner and simpler way.
+> Supporting precise USER_STACK sampling inevitably complexes the PEBS/IBS
+> handling.
 
-Testing: All tests run on v1 also passed with Christian's draft. These
-included an x86_64 QEMU deterministic KUnit test using the actual CIFS
-lookup callback and a Samba DFS reconnect test with concurrent CIFS
-mounts and unmounts in the same guest. The deterministic test exercised
-the missed-match case; the network stress did not reproduce the narrow
-race on baseline.
+I think precise is for IP and it's not clear if it applies to other REGS
+too.  But agree that it'd be simpler to reject.
 
-Link to v1: https://lore.kernel.org/r/20260903013336.92081-1-kmehltretter@gmail.com
+> 
+> BTW, currently perf tools already support the events creation fallback. As
+> long as user doesn't explicitly require precise USER_STACK sampling, the
+> USER_STACK sampling (--call-graph dwarf) would automatically fallback to
+> the PMI-based USER_STACK sampling after the initial precise USER_STACK
+> sampling try fails. So it won't really lead to the USER_STACK sampling fails. 
 
-Christian's draft:
-https://lore.kernel.org/r/20260904-rockkonzert-bergtour-dahin-23c9c5c87d0f@brauner
+That's true.  perf tools can fallback to auto-reduce the precise level
+unless it's requested manually.  If we go on this direction, I think we
+should mention this in the man page though.  Probably the condition is
+precise_ip + USER_REGS + USER_STACK.
 
- fs/kernfs/mount.c |  4 ++--
- fs/super.c        | 39 +++++++++++++++++++--------------------
- 2 files changed, 21 insertions(+), 22 deletions(-)
+Thanks,
+Namhyung
 
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index f183a96778b9..a57399021c8b 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -434,8 +434,8 @@ void kernfs_kill_sb(struct super_block *sb)
- 	up_write(&root->kernfs_supers_rwsem);
- 
- 	/*
--	 * Remove the superblock from fs_supers/s_instances
--	 * so we can't find it, before freeing kernfs_super_info.
-+	 * Mark the superblock dead so sget_fc() can't find it,
-+	 * before freeing kernfs_super_info.
- 	 */
- 	kill_anon_super(sb);
- 	kfree(info);
-diff --git a/fs/super.c b/fs/super.c
-index 05e443173038..0f9e13eedb4f 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -433,15 +433,19 @@ static struct super_block *alloc_super(struct file_system_type *type, int flags,
- void put_super(struct super_block *s)
- {
- 	if (refcount_dec_and_test(&s->s_passive)) {
-+		struct file_system_type *type = s->s_type;
- 
- 		spin_lock(&sb_lock);
- 		list_del_init(&s->s_list);
-+		hlist_del_init(&s->s_instances);
- 		spin_unlock(&sb_lock);
- 
- 		WARN_ON(s->s_dentry_lru.node);
- 		WARN_ON(s->s_inode_lru.node);
- 		WARN_ON(s->s_mounts);
- 		call_rcu(&s->rcu, destroy_super_rcu);
-+		/* The unlink above may touch type->fs_supers, so drop it last. */
-+		put_filesystem(type);
- 	}
- }
- 
-@@ -558,17 +562,6 @@ static void kill_super_notify(struct super_block *sb)
- 	if (sb->s_flags & SB_DEAD)
- 		return;
- 
--	/*
--	 * Remove it from @fs_supers so it isn't found by new
--	 * sget_fc() walkers anymore. Any concurrent mounter still
--	 * managing to grab a temporary reference is guaranteed to
--	 * already see SB_DYING and will wait until we notify them about
--	 * SB_DEAD.
--	 */
--	spin_lock(&sb_lock);
--	hlist_del_init(&sb->s_instances);
--	spin_unlock(&sb_lock);
--
- 	/* Drop sget_fc()'s claim; a never-registered entry stays with the sb. */
- 	if (sb->s_super_dev->sd_dev) {
- 		super_dev_put(sb->s_super_dev);
-@@ -577,11 +570,15 @@ static void kill_super_notify(struct super_block *sb)
- 
- 	/*
- 	 * Let concurrent mounts know that this thing is really dead.
--	 * We don't need @sb->s_umount here as every concurrent caller
--	 * will see SB_DYING and either discard the superblock or wait
--	 * for SB_DEAD.
-+	 * sget_fc() skips SB_DEAD superblocks and calls test() under
-+	 * sb_lock, so set it under sb_lock: once we return no test()
-+	 * runs on this superblock anymore and none will start. Everyone
-+	 * else already saw SB_DYING and either discarded the superblock
-+	 * or waits for SB_DEAD.
- 	 */
-+	spin_lock(&sb_lock);
- 	super_wake(sb, SB_DEAD);
-+	spin_unlock(&sb_lock);
- }
- 
- /**
-@@ -608,7 +605,6 @@ void deactivate_locked_super(struct super_block *s)
- 		list_lru_destroy(&s->s_dentry_lru);
- 		list_lru_destroy(&s->s_inode_lru);
- 
--		put_filesystem(fs);
- 		put_super(s);
- 	} else {
- 		super_unlock_excl(s);
-@@ -795,12 +791,12 @@ void generic_shutdown_super(struct super_block *sb)
- 	}
- 	/*
- 	 * Broadcast to everyone that grabbed a temporary reference to this
--	 * superblock before we removed it from @fs_supers that the superblock
--	 * is dying. Every walker of @fs_supers outside of sget_fc() will now
--	 * discard this superblock and treat it as dead.
-+	 * superblock that it is dying. Every walker of @fs_supers outside
-+	 * of sget_fc() will now discard this superblock and treat it as
-+	 * dead.
- 	 *
--	 * We leave the superblock on @fs_supers so it can be found by
--	 * sget_fc() until we passed sb->kill_sb().
-+	 * sget_fc() keeps finding the superblock until SB_DEAD is set, so
-+	 * a concurrent mounter waits until we passed sb->kill_sb().
- 	 */
- 	super_wake(sb, SB_DYING);
- 	super_unlock_excl(sb);
-@@ -879,6 +875,9 @@ struct super_block *sget_fc(struct fs_context *fc,
- 	spin_lock(&sb_lock);
- 	if (test) {
- 		hlist_for_each_entry(old, &fc->fs_type->fs_supers, s_instances) {
-+			/* Only unlinked at the last passive reference. */
-+			if (super_flags(old, SB_DEAD))
-+				continue;
- 			if (test(old, fc))
- 				goto share_extant_sb;
- 		}
--- 
-2.53.0
