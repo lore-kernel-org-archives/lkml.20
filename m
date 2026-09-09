@@ -1,151 +1,112 @@
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27AF47DD6E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A049047DD47
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946828; cv=none; b=GbyJRksVSqmJ8OMk7LrUKsUtFs4awmWNc1yPMK9IHSGqRimEkdaudpfD+rBS9tTv69LMPA+FCDuqKeEKyb64aEJqR7jjJzMGpUrTYWxv+teqfoxz8nKm8v1toOJEyOmdPCWkejkhIXWufwGjFzX/0/CFoiX3bw/cpkKn0IwTmno=
+	t=1788946828; cv=none; b=dw729jhlzmANHm6UBH5PiK8GwrDGe35TymSUyX+YkC6bn+iEcoeQf8OWCyt0dMa/OLHUV51QTW7n0UV5C/Yasiba4kBw1bk/tMvFodjvMmFakhSnLuf2ujYt/MMNgjkfio3Y+cBtiVkVgH6eilkQT1u9mMwjpp2SQchCiJtq62s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788946828; c=relaxed/simple;
-	bh=O8Gh+PyfQ9PmDdZ1SkYgjJPzbf2Jq4ogyeohz4JQ2/Q=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=TOWy+9kxVnkNZaUgb2KxIX5JXMUfwe5gb4WDFsaF5n3SnPmn5JO+KaTA42h/u/vUeeDwKGfwDELB9qhMznWmFGeZi4bW4Fc/nJ8yk2avRcu+i/q+FFBGpnPYLLNkhcEeVVAr9jYws+yE/xAu1SIlxurMijBy1xiPiG1ZBoVaVd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1bf394d3bso773947eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:40:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788946826; x=1789551626;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jQCfiqnP03MsUE6M0/9R/CzKsFDCRp3NZC4z6ROUyo8=;
-        b=LXdNJDDWN1qK2mnDDcS+/1zhCploaqPDgQDY75WqT9m2DMgPMHN45mKVhIPGc24KB1
-         xm0eRyGn68183SKA0zt50sHFgEkXHMt8c4rSWHknrLyGs4UQHyaS2GIkpfMeGge7ZVuM
-         hIx/JWMA2ut8BLjtG57U8M/Kx8HSINxnR303k9Ya8tK3vSsqXL+2e7WjzmdJnYZ73RTp
-         mzkX4ou6UFYasxQJi8g5Jew5irviIkANxMCo7TfGEfkei0pPE7JJ1vvTUNmtgWbLyPoI
-         EJxeCl5WHSA10nPQLaiQtWco2AJBWypbHq9SV20CftRr5N/Xl/Tf/JlmhN3LIyRc/4jr
-         MTUA==
-X-Gm-Message-State: AFuF++l0uZC9EGBrSQVuehsZWuhuKWfvYQ6BvNSF1U987l2WByn6sTN9
-	CyngXEMEdlbF840N8HkBKNYaml81SKxPpMPW4us1OcWnu7DT7k1hFQlCw7QaSnmuJfwec5EzzED
-	ZFfNu6Ty4dtpvgSvJUXnNhYb13a6s+exNWnGTPudrNanNnyzkP9gyoqBkuZW5fw==
+	bh=wX1eVhTPvs0BR+3v4DJaKlXMInFeWjGzLqCd1ESpde0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A8reSbM34BnvPC9+VvVnnSDKI5m2wWPAXL+w0Kvo9utnNCFGA2KrEmKSo4biWLzs2B63eVFI+K5sCj/5QtOBkDo3GERpj+sdFauq2cW8/I06kxy0I2j9jSmr1I51t2tQl7AElZ239XzUb97nFj8b7Ewefy/ZEnnYzFvGlJjiCt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kd/J2fCP; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kd/J2fCP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FED11F00A3A;
+	Wed,  9 Sep 2026 09:40:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788946827;
+	bh=1VV85WMbVpl9aCxFvRU3Tm4r82pU0a1SqZ5v4CYjkFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kd/J2fCP2AIOUJGGJ2gaiqmLrYjdNkyQ9YYjZoD/W93LcobZqDL+qlWPeCd5PydMC
+	 8HWuGuMhJuP0bkR6b9tjKnJS4tYBiu0WnzXkZ0MCmBZ/tKgtNI9N9oGHEImcMLvxv2
+	 6tJ8EwduOihaYigBZPMgn7mOV43nrSOfUo3XObH4MzniGUWsxcRQshpOIWPdAijBqh
+	 CzLQYzww/usyOYZGTXZeAzKY2Wum2ffE+Vl6TgKOnzmh1ms0fUvWqHfnwl8rq9XdQJ
+	 UsA8XB3DcPnsVMWnotwlcU+JVnWxMWoLsuzqR3jKm4ZWDRkbqboc3XPdloq4pCvMZq
+	 K3OrUe6ernohw==
+Date: Wed, 9 Sep 2026 12:40:20 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH] x86/mm/pat: skip RWX verification until kernel text is
+ set to read only
+Message-ID: <aqEphDuTtIZDANnS@kernel.org>
+References: <20260908092730.4002628-1-rppt@kernel.org>
+ <522548e1-ebbf-4785-83d7-e2cc3aa83b62@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:169f:b0:6a1:77ce:1b09 with SMTP id
- 006d021491bc7-6bdc949e1f0mr4816159eaf.6.1788946825709; Wed, 09 Sep 2026
- 02:40:25 -0700 (PDT)
-Date: Wed, 09 Sep 2026 02:40:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa12989.f2639fcc.29487d.0000.GAE@google.com>
-Subject: [syzbot] [raid?] kernel BUG in raid5_run
-From: syzbot <syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <522548e1-ebbf-4785-83d7-e2cc3aa83b62@intel.com>
 
-Hello,
+On Tue, Sep 08, 2026 at 05:15:46PM -0700, Dave Hansen wrote:
+> On 9/8/26 02:27, Mike Rapoport wrote:
+> > --- a/arch/x86/mm/pat/set_memory.c
+> > +++ b/arch/x86/mm/pat/set_memory.c
+> > @@ -708,6 +708,10 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
+> >  	if (!(__supported_pte_mask & _PAGE_NX))
+> >  		return new;
+> >  
+> > +	/* skip verification until kernel text is set to read only */
+> > +	if (!kernel_set_to_readonly)
+> > +		return new;
+> 
+> If someone sets up a W+X mapping, such a mapping could persist until
+> after boot and this would suppress the warning. Right?
+> 
+> Sure, you can _get_ checking with debug_checkwx(). But that's a debug
+> option and it's kinda weird to shift the burden from an always-on thing
+> like verify_rwx() to a literal debug option.
+> 
+> That said, I think you're completely on target for thinking that it's
+> silly for verify_rwx() to even *try* to spew warnings in boot.
+> 
+> How about we add a kernel_strict_rwx() helper:
+> 
+> bool strict_kernel_rwx(void)
+> {
+> 	return IS_ENABLED(CONFIG_STRICT_KERNEL_RWX) && rodata_enabled;
+> }
+>
+> Have verify_rwx() check *that*.
 
-syzbot found the following issue on:
+Checking only that will bring the warning about ITS pages back :)
 
-HEAD commit:    654ae5d73c05 Merge tag 'drm-fixes-2026-09-05' of https://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1305d4f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=1f5a7de91d547763f4c8
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
+Both CONFIG_STRICT_KERNEL_RWX and rodata_enabled are set before the
+alternatives patching. 
 
-Unfortunately, I don't have any reproducer for this issue yet.
+And rodata_enabled is kinda arm64 specific thingy :)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-654ae5d7.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/79c29503032d/vmlinux-654ae5d7.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a650a484f62c/bzImage-654ae5d7.xz
+The check for (!kernel_set_to_readonly) has to stay to actually rule
+out the silly checks at boot and it covers your strict_kernel_rwx() because
+kernel_set_to_readonly is only set when strict_kernel_rwx() will be true.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com
+> Also, make the DEBUG_WX functionality mandatory for STRICT_KERNEL_RWX
+> (with appropriate renaming) so that it can be depended upon.  I assume
+> all the distros are turning DEBUG_WX on already (Ubuntu seems to).
 
-md/raid
-md/raid:md0: not clean -- starting background reconstruction
-------------[ cut here ]------------
-kernel BUG at drivers/md/raid5.c:8117!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 2 UID: 0 PID: 25223 Comm: syz.2.6302 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:raid5_run+0x11a7/0x1670 drivers/md/raid5.c:8117
-Code: 03 00 00 41 8b ae d0 01 00 00 31 ff 89 ee e8 30 51 84 f9 48 c7 44 24 10 00 00 00 00 85 ed 0f 84 44 f4 ff ff e8 aa 56 84 f9 90 <0f> 0b e8 a2 56 84 f9 49 8d 86 e0 00 00 00 48 89 c2 48 89 44 24 60
-RSP: 0000:ffffc90025aef9d8 EFLAGS: 00010287
-RAX: 00000000000008eb RBX: 0000000000000000 RCX: ffffc90007a8a000
-RDX: 0000000000080000 RSI: ffffffff8886e586 RDI: ffff8880722aa580
-RBP: 0000000000000002 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000002 R11: 0000000000000001 R12: 0000000000000008
-R13: 0000000000000000 R14: ffff88804c9e4000 R15: ffff88804c9e4028
-FS:  0000000000000000(0000) GS:ffff888096b63000(0063) knlGS:00000000f5456b40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 000000005658921c CR3: 000000004ff23000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- md_run+0xc2f/0x2510 drivers/md/md.c:6779
- do_md_run+0x36/0x660 drivers/md/md.c:6880
- array_state_store+0x9c5/0xcf0 drivers/md/md.c:4765
- md_attr_store+0x1c5/0x330 drivers/md/md.c:6158
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7f97fec
-Code: Unable to access opcode bytes at 0xf7f97fc2.
-RSP: 002b:00000000f545650c EFLAGS: 00000292 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 000000000000000a RCX: 00000000800007c0
-RDX: 0000000000000006 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:raid5_run+0x11a7/0x1670 drivers/md/raid5.c:8117
-Code: 03 00 00 41 8b ae d0 01 00 00 31 ff 89 ee e8 30 51 84 f9 48 c7 44 24 10 00 00 00 00 85 ed 0f 84 44 f4 ff ff e8 aa 56 84 f9 90 <0f> 0b e8 a2 56 84 f9 49 8d 86 e0 00 00 00 48 89 c2 48 89 44 24 60
-RSP: 0000:ffffc90025aef9d8 EFLAGS: 00010287
-RAX: 00000000000008eb RBX: 0000000000000000 RCX: ffffc90007a8a000
-RDX: 0000000000080000 RSI: ffffffff8886e586 RDI: ffff8880722aa580
-RBP: 0000000000000002 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000002 R11: 0000000000000001 R12: 0000000000000008
-R13: 0000000000000000 R14: ffff88804c9e4000 R15: ffff88804c9e4028
-FS:  0000000000000000(0000) GS:ffff888096b63000(0063) knlGS:00000000f5456b40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7f76ec0 CR3: 000000004ff23000 CR4: 0000000000352ef0
+Just checked my Debian config, it does.
+ 
+> Maybe just do the strict_kernel_rwx() to start and then circle back
+> around to muck with making DEBUG_WX mandatory?
 
+I though about making DEBUG_WX mandatory right away, but that's surely not a
+oneliner, so I kept it for later. Maybe should have mentioned in the
+changelog, though.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+Sincerely yours,
+Mike.
