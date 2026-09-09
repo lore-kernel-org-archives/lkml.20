@@ -1,685 +1,187 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012032.outbound.protection.outlook.com [52.101.53.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E216252ED5E;
-	Wed,  9 Sep 2026 13:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962231; cv=none; b=W8TivuZa7J/FY+hcRGKatPDfplpG07PU314HFnXbrDlqkinqm6gMnEZsouahZY80PchV73nWtUkbrYQLW7S1Aba0C4psnzQbvYywxzLtBguB6RLdUHY7iw0LZXsY5UFqF8KU6Fau7wRgT5KIzcIq2oAgnpOsiFaR9umkvBrqBOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962231; c=relaxed/simple;
-	bh=e0GwVeaIyZRpqgCAnD5SgkrduYAg/DXTGlUx50sfbS4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=s1A5yt72bQBDyM2XFPmb37VSAVongcjNiJt/3ZeUunZAzGguzGRpJPFVhOHJb2TR7HFsRAw9Hftk4HPMz8H53oW7fVICFOAeTnws7a1S1nn9uVFT1bvPYQX6BUXniMuxALFQRshK/hKeYRAA3W3lzCL7ckwBpLvKZVbL+DSOQTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=dhGirCd0; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A899F476049
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788962238; cv=fail; b=UpnB5iGmheOtp+6vxRZFM7RuAm6GXShPQb6/qt5P07u2z0uLfBJLtQVy1eVhSZl1IAuo5Y+rpZPkbFoRaAD/to+N8+mtnn0MyUQ2gS5AhHgrD7tj5rP51wIwQO5BjNTfKFN7F0dOppi7nTdi/oNgy1WVTC6y6pYBiacjh/Vz6o8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788962238; c=relaxed/simple;
+	bh=ItBrIOyGhPmfuGo4t7BHQoIYMhGCzhqHkunbJc8656Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rqaaOujaGgSemTzOVCPyA3qWN8TFU/c1OGwF7ASnG+cmA9KlKboJ65NH6iW5M4LtXUhDJlF5039JWc1g3DEU9qY8nQbycjruUI3RdIUZmMfKSymRaGvEVUKmBMSB01pPJc6336mK3EBqWrPBKLmNLJKpGtN6tnvy68EHgDPoIxU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=W05s4Wah; arc=fail smtp.client-ip=52.101.53.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="dhGirCd0"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1Rmx3801964;
-	Wed, 9 Sep 2026 13:56:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=XtPBxrZ1ZI3IM06bbyRYVodD6LFH
-	RAUxGpfSacAb8e0=; b=dhGirCd0IXL1KUdV9WLnJYG2t80+9RsY749iQvp5RDm8
-	tMnrTSBZnCk0LS6E3Z7KZi+7uaUlN9kvGGsISDNBYk92CktYlu6KybzuM4qVU2I6
-	Mc90CRowClLPEQ2LQ0d6bmFm8cu7KiR2mFxA20WuFNnJPCEtcr5GcMPrqQ1fM9m+
-	SZOwwBeYdNzDrXGLCsVB39yPWaKVM7di9PGWuzXF4T5bVyJaOTKQ9p3VdpwPlAs+
-	ORuRP0oREe2NFnTarllpDzvk2Ya/vfQqNqKttNnww5Fk5a7RlgFB25JclKUjCiIj
-	OfEjGriYEAKfesV5JJVHo63Cr0vhRJO9bBXj/bcwPQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhkx9fk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 13:56:37 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689DuG4s026478;
-	Wed, 9 Sep 2026 13:56:36 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymgjesu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 13:56:36 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689DuVIc49807708
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 13:56:31 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8C76C20040;
-	Wed,  9 Sep 2026 13:56:31 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C32382004D;
-	Wed,  9 Sep 2026 13:56:19 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.210.73])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  9 Sep 2026 13:56:19 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org,
-        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
-        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
-Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
-        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
-        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: [PATCH v13 00/13] sched, steal_governor: Introduce preferred CPUs and steal-driven vCPU backoff
-Date: Wed,  9 Sep 2026 19:26:04 +0530
-Message-ID: <20260909135617.871006-1-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="W05s4Wah"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iVxGlTCOOqkkK+0A8jRvx0u8IL6gO/oO4E2h5xKqypZvptyHfmQLPd1lewnVYWZLiC7m8WaCDs52WAw4QKoajaFKoQlVRIxDCB27wx8ehDeXF+2UD5nXTtOM4G1UCWKVqlvN3jz01QTy9DIg7Bf3EyHhmYLy7d1jsiVGeVuKgNC+v8/8yv8rn6touQt1f2E0znGhGdBCaLTEQriFJ8rWAQuD4nUL9nXIQgoYPq+7JiompM02Sc51mV0q35SdgOa/6/Bacfc8h1mjTl4gfjpVn/Uy2c6s9DWPiUnEJfHe6uyGF0/pDz2+X7949MbwITBX9WnNLrrPAUk1VEtiMNgREw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j3VMbNmywhVlar9ZuhJoEpWNBCtC2idH5q8rDCnOAA0=;
+ b=AFSww96QkgCd4hpaSsHuTPHJQ/8saX40vXpwETa5l9gveMfEdwxZNALXpoGE9McDd6Dlow6gCr+9LjxVA3A7ITALJZYzxdp7HPz6vRQ2mk2OBba+TXAyyzLGHMq8eJQWVw4HHmF9N6qof8SQKCElKBkiwddVytE3+XhbX1Q+nX0LdUbjaycDuirmRsgnUHgxDlyBvsRjqhkUcYPmhqkifa80Q4mAVkzKZGHOXioamDRSpPW+zBmlHjWHns0LALxJixJhwvFKdRxzzNsIwGPtWLBw13JGlMM9X9Xq0kEAjIL5BUCi7CWF+xYfv6DjKe5Skh160o83LK3PQnAcBsHwDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j3VMbNmywhVlar9ZuhJoEpWNBCtC2idH5q8rDCnOAA0=;
+ b=W05s4WahjUwSjTCyjz4p0fT48dw9DNF92+V0vzHf17FtVmXS92/h5HaNbnNS+k1BIhnZcq4tH0CP0sf/F4RSG10Qnr4ir/FjB+dRTs2TI5O1ggDS6l36JlhMvM7tJ+swpe2+vqM06uX03gFk5BrQWhlCaGfAY2dw1KMEW5o0XYc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB9516.namprd12.prod.outlook.com (2603:10b6:806:45b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 13:57:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 13:57:12 +0000
+Message-ID: <5cfbf5d7-8729-4924-8ed6-eabfb53600cb@amd.com>
+Date: Wed, 9 Sep 2026 15:57:08 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/sched: document the RCU dependency
+To: phasta@kernel.org, malhyuk97@gmail.com, tursulin@ursulin.net,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
+References: <20260909131808.2201-1-christian.koenig@amd.com>
+ <20260909131808.2201-3-christian.koenig@amd.com>
+ <9dedaa001c468be2afaf6ab19cd4f8cd96d0a8c7.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <9dedaa001c468be2afaf6ab19cd4f8cd96d0a8c7.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0116.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfXz0nTpKokW2SX
- VMu/fsSJNrYvYGGB71SyEEQJJQ9S/1dOzXH/eemC+qicirwLB6P9Y5dtp6zCuK6Pi+p7UCtPuLy
- x352FeMuH2/ExiwxAwr/dp77ipfeyXM=
-X-Proofpoint-ORIG-GUID: _8wvmwz7jPDo6uKjyY4di41LZSw2OHUX
-X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6aa16596 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=jJrOw3FHAAAA:8
- a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=gq_bZfSN0OqWnB9g8r4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX++jfDdieJU9d
- 8b0UWK84PQitZQ4hlcJyyO8V1Dg2enDmgJi/7eAyGH7fOMAa1NasWY5xl1d5fRtiymGd6HsUpQq
- G9T6B45DuC5/8t91tfbL8+5BSlnXFoB78WS72GOe3QcQG/hnoc+y45q3JcCl7fHGnpVFtMReEsJ
- t+5uCcw2EdUbnnFx84hfwI1RlTmQzqlYUrIn2eze2wrckzIoY/YRnwEuCbgSKffNwQ43xGNfznd
- P9ymXXGb/7wxLKKHr0xmlqZOResrduOW7rZ0l6kIBSrlVEl1k2zZJpRLxWaGAEd7Z/wtNYzaBNy
- z48mX1ACqEC+DQrVSzp0XArUj+CNQHIU13TTIdwmUpuVdK7e6g3kmRed8vP5Fyi9ogXESnybvFj
- scrkSN0wVI5OYEbhBy1SQVIgFj3y2V9orM0vxxKvS4bubRMkQmAVe1WY7btZnCYgiyqOAL1rwYO
- G1YhRZ3BcErZLDnNi5w==
-X-Proofpoint-GUID: EkBXKc33Ua_PaXGw4DC_JdDQuJRdVPi5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090151
-
-tl;dr
-
-This patch series represents the result of multiple iterations, 
-redesigns and community feedback. What started as an arch-specific RFC
-has evolved into a scheduler mechanism paired with a virtualization
-driver.
-
-This feature is intended for workloads where vCPU preemption has costs
-beyond the lost CPU time, such as lock-holder preemption, critical
-sections and TLB/cache misses. Database workloads, for example,
-contain a mixture of OLTP/OLAP activity and are prone to these costs.
-Reducing vCPU preemption in these cases can help improve overall system
-throughput. It may regress slightly for pure CPU-time workloads.
-
-I believe the series has now converged and can be considered for
-merging. The implementation has been deliberately kept simple.
-It performs well for real-life workloads on PowerPC, and earlier KVM
-testing also showed improvements on s390 and x86.
-
-If there are any remaining design or implementation concerns,
-please let me know.
-
-Peter, Ingo,
-
-Could this series be considered for queuing in sched/core, targeting
-inclusion in 7.4?
-
-The feature could also benefit from a good testing cycle in the tip tree.
-
-The following work is planned post the merge: 
-- Design for arch specific interface which could help to bring out
-  additional performance gains.
-- A test framework for the feature
-
-Feature has been kept as generic solution for all arch which support
-paravirtualization and steal time accounting. If a need arises, arch specific
-gating could be introduced.
-
-Special thanks to Yury Norov for the rigorous reviews that greatly 
-improved the series and to everyone who have provided their review
-comments so far. (including sashiko) Really appreciated! _/\_
-
-Rest of cover-letter is very similar since v8. Version history has been
-changed and I have split limitations and future work section.
-
-Detailed Background and Problem Statement
-=========================================
-
-As hardware scales, the density of physical CPUs (pCPUs) per server is
-increasing across many architectures. On these massive systems, deploying
-a single bare-metal OS for general workloads becomes increasingly difficult
-to manage if not impossible. The natural shift is to deploy
-Virtual Machines(VMs). For example, on IBM PowerPC architecture customers
-frequently deploy Shared Processor LPARs (SPLPARs) to maximize hardware ROI.
-
-Typical enterprise workloads are combination of bursty and long running;
-their average CPU utilization is low, but they require high core counts
-during peak transactions. To accommodate this, customers often
-use CPU overcommit strategies i.e. configuring VMs with a large number
-of virtual CPUs (vCPUs) while backing them with a smaller, shared pool
-of physical CPUs (pCPUs). This achieves a high server consolidation
-and excellent cost efficiency.
-
-However, when multiple such VMs have high utilization simultaneously,
-the shared pCPU pool becomes contended. The hypervisor is forced to preempt
-one vCPU to run another to maintain fairness. It maybe schedule vCPU of same
-VM or different VM.  If a vCPU is preempted while holding a lock or
-irq disabled section etc, overall forward progress collapses. There are some
-mitigation strategies such as yielding the vCPU to lock-holder, but they
-don't cover all the cases. In addition there are hidden costs such as cache,
-tlb misses, cost of vCPU preemption, host scheduling overheads etc.
-
-Under heavy contention, an effective mitigation strategy for workloads
-sensitive to vCPU preemption is for guests/VMs to voluntarily fold their
-workloads onto a smaller subset of vCPUs. By demanding fewer pCPUs,
-the VMs reduce overall host contention, which decreases vCPU preemption
-and improves total throughput for the system. 
-
-Limitations of Existing Approaches
-==================================
-
-CPU Hotplug, Isolated cpusets, cpuset: 
-- This is a heavy and administrative operation that requires topology rebuild.
-  Crucially, it breaks userspace CPU affinities. 
-
-Explicit task affinity:
-- Very difficult to manage for the users, if not impossible.
-
-We need a fast, co-operative backoff mechanism inside the kernel that can
-dynamically react to contention without violating user/task affinity
-contracts. Since reacting to the contention is agnostic to the user
-it cannot violate user affinity contracts.
-
-When there is high contention, fold the workload and use limited vCPUs
-and when there is no contention, use all the vCPUs again. This natural
-expansion/contraction gives the better performance to the users
-based on the underlying contention.
-
-Proposed Architecture
-=====================
-
-Current design is built on basis that contention is effectively
-quantified by steal time as seen in guest kernel.
-Steal time is already a well established construct today in
-para-virtualization world.  All major archs support this feature.
-It is indication of the contention of physical CPU. It scales according
-to the amount of contention. Today it is used by administrative users
-for changing the VM configurations. During high contention the steal
-time shows up in each guest based on its configuration. The proposed
-solution works well when all VMs honor the hint and work in co-operative
-manner. Note there is still no inter-guest communication to achieve this
-co-operation. Read the section on best practises on how to get the
-best out of this solution.
-
-This series introduces a dynamic vCPU backoff mechanism.
-It is separated into a core scheduler mechanism and a loadable
-virtualization policy module.
-
-Layer A: The Scheduler Mechanism (preferred CPUs)
-=================================================
-
-Series introduces a new CPU state called preferred. It indicates that
-vCPU can be safely used and using that vCPU won't increase contention
-for underlying physical CPUs. This state info is made available via
-cpu_preferred_mask, which is strictly maintained as a subset of
-cpu_active_mask.
-
-The scheduler uses this mask as a hint to fold workloads onto preferred
-CPUs using a few mechanisms.
-
-1. Wakeup: is_cpu_allowed() checks if CPU is preferred. If not calls
-   select_fallback_rq, which selects a preferred CPU if tasks's affinity
-   permits.
-
-2. The Tick (Push): During sched_tick(), if the current CPU is non-preferred,
-   the scheduler actively pushes the running task onto a preferred CPU
-   using a stopper thread. 
-
-3. Load Balance: sched_balance_rq restricts its domain span to
-   cpu_preferred_mask, preventing tasks from being pulled toward
-   non-preferred CPUs.
-
-Design Constraint: The scheduler strictly respects user affinities.
-If a task is pinned exclusively to non-preferred CPUs, it will remain there.
-The kernel will not break user/task affinity contracts.
-
-Layer B: The Policy Engine (virt/steal_governor)
-================================================
-
-The core scheduler should not dictate virtualization policy.
-Therefore, the policy is isolated into a new driver: steal_governor.
-(Can be selected by CONFIG_STEAL_GOVERNOR)
-This module latches onto that concept that contention is quantified by
-steal time. It periodically samples the steal time values across the
-system and depending on high/low steal values, takes appropriate action.
-
-When it sees high steal times, i.e. steal time exceeds high_threshold
-(default 5%), driver reduces the preferred CPUs by 1 core. 
-When it sees Low Steal Times, i.e.  steal time drops below low_threshold
-(default 2%), driver increases the preferred CPUs by 1 core.
-
-This creates a dynamic, self-maintained stepwise loop. The guest automatically
-shrinks its pCPU footprint when the host is saturated, and expands it when
-the noise clears while requiring zero cross-VM communication.
-
-Policy Design Constraints:
-- Ensure at least one core is kept as preferred.
-- Ensure preferred is always subset of active.
-
-Best Practises
-==============
-1. Ensure all the VM run kernel which has the patches.
-
-2. Keep CONFIG_STEAL_GOVERNOR=m. Build it as module, but don't load it by
-   default. When the administrative user enables it in one VM, he/she
-   will likely enable it in all VMs. Also module parameters can
-   only be changed at module load. Having it as module also allows one
-   to disable it to remove additional overhead it brings.
-
-3. Keep the interval_ms=500 to 5000. I.e. between 500ms to 5 second.
-   Though parameters allows slightly higher range. 
-
-4. Fine tune low and high threshold depending on your platform for best
-   results. Even where is no contention, very small steal values
-   might show up. So it might be better to keep low threshold higher
-   than 0.
-
-Baseline and Revision History
-==============================
-
-tip/sched/core at commit: 'ef9293b3b797 ("sched: dynamic: Fix preemption model strings")'
-
-For the talk on the problem and discussion on this issue, one can also
-refer to the OSPM26 talk[1]. 
-
-[1]: https://youtu.be/adxUKFPlOp0
-[2]: https://www.ibm.com/support/pages/ibm-power-virtualization-best-practices-guide
-[3]: https://www.ibm.com/docs/en/linux-on-systems?topic=bad-daytrader
-
-v12->v13:
-- Rename push_task_work_done to npc_push_work_pending. (Yury Norov)
-- Move it around steal_* fields in rq. (Yury Norov)
-  It doesn't increase the struct rq's number of cachelines for both
-  128 byte and 64 byte cachelines.
-- Put PREFERRED_CPU guard for npc_push_work_pending (Yury Norov)
-- Update comments around rq lock's acquisition post select_fallback_rq
-  (Yury Norov)
-
-v11->v12:
-- Simplify the ARM64's 32 bit task case where p->cpus_ptr
-  may contain architecturally impossible CPUs.
-  (Dietmar Eggemann, Vincent Guittot)
-- Introduce cpumask_intersects_and for that simplification
-  (Yury Norov)
-- Keep the feature without any arch specific kconfig gating
-  for now. (Vincent Guittot)
-  If a need arises, it can be brought in
-
-v10->v11:
-- Return active CPUs instead of possible CPUs for steal ratio
-  denominator. This helps to avoid dilution of thresholds. 
-  (Yury Norov, Ionut Nechita)
-- Add XEN dom0 blocking check. (Ionut Nechita)
-- Update documentation/changelogs.
-- Multi arch framework has been deferred. Will be designed after
-  this series gets merged upstream. It would depend on enhancement requests.
-- Collected tags for patch 1
-- Fix possible crash for 32-bit tasks on arm64 (sashiko)
-- Fix possible race for task affinity due to abort in __migrate_task
-  (sashiko)
-- Fix unused variable for patch 1 (sashiko)
-- Disable interrupt when taking rq lock in a small window (sashiko)
-- Queue stopper iff migration is enabled. (sashiko)
-- Document workload characteristics and the possible regression
-  for pure CPU-time workloads.
-
-v9->v10:
-- Introduce kcpustat_field_total helper. (Yury Norov)
-- Always do the design checks. This helps to avoid placing design
-  constraints in core hotplug code. 
-- Remove cpu_preferred check in idle balancing. This helps to naturally
-  take care update of nohz.next_balance.
-- find_new_ilb changes are deferred as it isn't applicable for most
-  common use cases.
-- Move scheduler documentation to sched-paravirt.rst. (Yury Norov)
-- Add details of limitation of default values in documentation. (Yury Norov)
-- Remove task_can_sched_on_preferred out of sched.h (Mete Durlu)
-- Updated suggested-by tags for few patches. (I know i should have
-  done it earlier, sorry about that)
-- Minor polish of all changelogs.
-
-v8->v9:
-- Move to simpler layout. Everything in drivers/virt/steal_governor.c
-  (Yury Norov)
-- Move design checks into a helper function (Yury Norov)
-- Comments update (Yury Norov)
-- Requeue work without further checks when steal ratio is within the 
-  low/high threshold window. (Yury Norov)
-- Renamed sg_core_ctx to sg_ctx.
-
-v7->v8:
-- Rename to STEAL_GOVERNOR from STEAL_MONITOR.
-- Remove additional defaults.c and move it to core.c (Yury Norov)
-- Remove SM_DIR gating for direction control. (Yury Norov)
-- Enforce design constraint and restore the state if not met (Yury
-  Norov)
-- Drop nohz_full tick enable patch.
-- Move Kconfig patch as the last patch for enablement. (Yury Norov)
-- Use disable_delayed_work_sync to avoid race condition during
-  module unload. (Yury Norov)
-- Add same kconfig dependency and fail to compile the driver (Yury Norov)
-- Make low < high comparison during module init instead as they
-  are dependent parameters (Sashiko)
-- Update sysfs file helper section (Yury Norov)
-- Make preferred sysfs file available only with CONFIG_PREFERRED_CPU=y
-  (Yury Norov)
-- A few documentation and comments fixes. (Randy Dunlap)
-- Fix possible race in sched_push_current_non_preferred_cpu (Yury Norov)
-- Move is_migration_disabled check just before actual migration.
-- Make 100ms as minimal interval_ms from 10ms.
-- Make helper functions static and remove from header file as there
-  are no other callers.
-- Collapse helper functions and periodic work into one patch.
-
-Short summary on previous versions:
-v6->v7:
-- Consolidate new driver code to 4-5 patches.
-- defer the arch specific interface.
-- Use possible CPUs instead of active for steal value calculations.
-- Simplify is_cpu_allowed.
-- Make module parameters fixed at module load
-- Define CONFIG_STEAL_MONITOR and Make it select CONFIG_PREFERRED_CPU
-
-v5->v6:
-- Drop the optimization of caching the preferred state
-  in select_fallback_rq
-- Drop wakeup patch
-
-v4->v5:
-- Move the computation of steal time and decide on preferred CPU state
-  to a driver. i.e new driver called STEAL_MONITOR
-
-v3->v4:
-- Make preferred subset of active instead of online. 
-- Dropped RT patch and Defer sched_ext. Support only FAIR class.
-
-v2->v3:
-- Introduce a new config CONFIG_PREFERRED_CPU
-
-v1->v2:
-- A new name - Preferred CPUs and cpu_preferred_mask
-- Arch independent code. Everything happens in scheduler.
-- Steal time computation is gated with sched feature STEAL_MONITOR
-
-RFC v3-> RFC v4:
-- Introduced computation of steal time in arch/powerpc.
-
-RFC PATCH v1:
-- push task mechanism.
-- No steal time computation. Manual sysfs hint for preferred CPUs 
-
-v1: https://lore.kernel.org/all/236f4925-dd3c-41ef-be04-47708c9ce129@linux.ibm.com/
-v2: https://lore.kernel.org/all/20260407191950.643549-1-sshegde@linux.ibm.com/#t
-v3: https://lore.kernel.org/all/20260514152204.481115-1-sshegde@linux.ibm.com/#r
-v4: https://lore.kernel.org/all/20260617174139.155540-1-sshegde@linux.ibm.com/#t
-v5: https://lore.kernel.org/all/20260625124648.802832-1-sshegde@linux.ibm.com/
-v6: https://lore.kernel.org/all/20260701141654.500125-1-sshegde@linux.ibm.com/#t
-v7: https://lore.kernel.org/all/20260709215648.1246821-1-sshegde@linux.ibm.com/
-v8: https://lore.kernel.org/all/20260720172250.2257582-1-sshegde@linux.ibm.com/
-v9: https://lore.kernel.org/all/20260724140732.2683314-1-sshegde@linux.ibm.com/
-v10: https://lore.kernel.org/all/20260812054033.95658-1-sshegde@linux.ibm.com/
-v11: https://lore.kernel.org/all/20260825103855.721013-1-sshegde@linux.ibm.com/
-v12: https://lore.kernel.org/all/20260903063240.268775-1-sshegde@linux.ibm.com/
-Even earlier version:
-https://lore.kernel.org/all/236f4925-dd3c-41ef-be04-47708c9ce129@linux.ibm.com/ 
-
-========================================
-Performance Numbers (powerpc, x86, s390)
-========================================
-
-PowerPC:
-===================
-VM1: 60VP/30EC and VM2: 30VP/20EC
-Shared physical CPU pool size: 50 Cores. Each core is SMT8.
-(VP - Virtual Core, EC - Entitles Core) -  PowerVM terminologies of SPLPAR[2]
-
-Default parameter values: 1000ms, 200 low threshold, 500 high threshold
-Both the VMs are running the same workload. Total throughput/time of VM1+VM2
-is being mentioned in all cases.
-
-Hackbench
-              baseline    steal_governor        steal_governor
-                             disabled               enabled
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-10 groups        5.20   |    5.40 (-3.85%)  |     4.65 (+10.58%)
-20 groups       11.39   |   12.01 (-5.44%)  |     7.09 (+37.75%)
-40 groups       20.32   |   19.80 (+2.56%)  |    11.31 (+44.34%)
-10 groups(-p)    2.37   |    2.26 (+4.64%)  |     2.06 (+13.08%)
-20 groups(-p)    3.34   |    3.28 (+1.80%)  |     3.20 (+4.19%)
-40 groups(-p)    4.46   |    4.83 (-8.30%)  |     4.26 (+4.48%)
-Remarks: Net improvement with steal_governor specially high load points.
-
-schbench ( -L -n 0 -r 30 -s 0)
-              baseline    steal_governor          steal_governor
-                             disabled                 enabled
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
--m 1 -t 128     2475162 |    2621246 (+5.90%)  |      2527299 (+2.11%)
--m 1 -t 256     1467350 |    1470032 (+0.18%)  |      1492372 (+1.71%)
--m 1 -t 512     1408813 |    1454687 (+3.26%)  |      1437605 (+2.04%)
-Remarks: Effectively means no-improvements or regressions
-
-kernbench	baseline    steal_governor     steal_governor
-(elapsed time)	               disabled            enabled
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
--j nr_cpus	231      |      235 (-1.7%) |    199 (+14%)
-Remarks: Net improvement in elapsed time.
-
-Daytrader - A real life work which is a proxy for trading based
-on db2[3]
-              baseline      steal_governor   steal_governor
-                              disabled          enabled
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Load@30%	1x	|	0.96x	|	 1.53x			
-Load@60%	1x	|	0.94x	|	 1.41x
-Remarks: Very good improvement seen at different load points.
-
-phoronix/memcached:
-Cloned from github.com/phoronix-test-suite/phoronix-test-suite.git
-GET 1:1000 means 1 writer and 1000 readers.
-	     baseline	    steal_governor   steal_governor
-                              disabled          enabled
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-GET 1:1000	1x		0.99x		1.2x
-Remarks: 20% improvement with read heavy variant.
-Other variants such as GET 1:1 showed minor regressions. While
-inspecting it, it was found that steal time reported by PowerVM was
-not as expected even when only 1 VM was running. This is being looked
-into by PowerVM hypervisor team. So added a section in limitation that,
-this feature expects steal time values being accurate for right policy
-decisions.
-
-When there is no steal time (such as dedicated LPAR) throughput was same
-with steal_governor enabled/disabled which indicates minimal overhead
-of steal_governor. 
-
-=======================================================================
-
-Data from x86,s390 KVM which Ilya Leoshkevich carried out during OSPM26
-time. *This was based on v2*. The core idea remains the same, although the
-implementation has changed and some overhead has been removed since then.
-Note: Other variations of the benchmark shows no observable difference.
-
-x86:
-====
-cascade-lake: 32 threads = 16 cores
-Benchmark      #VMs    #CPUs/VM  ΔRPS     (%std)
-===============================================
-hackbench         8          16  90.73% ± 9.97%
-hackbench         4          24  52.67% ± 7.43%
-hackbench         4          16  37.96% ± 11.19%
-hackbench         4          32  37.82% ± 4.38%
-hackbench        12           8  36.90% ± 4.74%
-hackbench         8           8  35.30% ± 3.61%
-pgbench          16           4  31.77% ± 2.44%
-hackbench         2          24  25.85% ± 8.63%
-hackbench        16           8  24.87% ± 3.46%
-pgbench          16           8  21.83% ± 2.20%
-pgbench          12           8  21.35% ± 2.15%
-pgbench           8           8  18.46% ± 1.01%
-hackbench         2          32  15.56% ± 4.53%
-pgbench          12           4  14.28% ± 2.04%
-hackbench        16           4  14.07% ± 2.90%
-hackbench        12           4  9.60% ± 3.49%
-[...]
-pgbench           4           8  -1.16% ± 3.60%
-hackbench         4           4  -1.80% ± 9.55%
-sysbench         12           4  -2.19% ± 0.78%
-pgbench           4          24  -2.43% ± 4.38%
-pgbench           4          32  -3.21% ± 0.79%
-sysbench         16           4  -3.22% ± 1.09%
-
-S390:
-=====
-z16: 16 threads = 8 cores (SMT-2)
-Benchmark      #VMs    #CPUs/VM  ΔRPS    (std%)
-===============================================
-pgbench           2           8  73.50% ± 35.91%
-pgbench          16           4  61.30% ± 4.09%
-hackbench        16           4  54.11% ± 4.38%
-hackbench        12           4  36.34% ± 4.63%
-pgbench          12           4  34.83% ± 2.57%
-hackbench         8           4  29.75% ± 5.86%
-hackbench         8           8  25.98% ± 5.09%
-pgbench           2           4  23.31% ± 33.44%
-pgbench           2          16  19.95% ± 17.12%
-hackbench         4           8  19.43% ± 9.33%
-pgbench           8           4  19.32% ± 4.50%
-[...]
-schbench          8           8  -0.79% ± 0.33%
-sysbench          8           8  -0.81% ± 0.39%
-hackbench         4          16  -1.11% ± 5.82%
-sysbench          8           4  -1.62% ± 0.49%
-sysbench         16           4  -2.70% ± 0.58%
-schbench         16           4  -2.73% ± 0.91%
-sysbench         12           4  -2.91% ± 0.61%
-hackbench         2          24  -4.99% ± 3.31%
-
-Summary:
-- Many improvement across archs specially with real life workloads.
-- Overhead of steal_governor looks minimal when there is no steal time.
-- Overhead when STEAL_GOVERNOR=n is negligible.
-- Pure CPU-time workloads may see a small regression.
-
-Testing and Validation
-======================
-
-Apart from performance, To ensure the robustness of the preferred
-CPU masking and push mechanisms, the following scenarios were tested:
-- CPU Hotplug: bringing CPUs up/down change the preferred mask
-  accordingly under no-contention and contention.
-- Housekeeping cores: Verified with different combinations of
-  nohz_full=<beginning, middle, end set of CPUs> to ensure that
-  policy engine restricts to first housekeeping core in extreme cases.
-- User Affinity: Confirmed that tasks explicitly pinned to non-preferred
-  CPUs via taskset remain on their assigned CPUs.
-- Affine Move: Confirmed the affinity move using "taskset -cp" happens
-  on all combinations of non-preferred, preferred under contention.
-- Affinity and hotplug: It works as expected. I.e affinity gets
-  reset if all the CPUs of p->cpus_ptr go offline even if they are
-  non-preferred CPUs.
-- Extreme load and running threads: for example 4800 stress-ng threads
-  on 480 CPU system and it still packs to preferred CPUs.
-
-Known Limitations
-=================
-
-- The steal governor relies on accurate steal-time accounting. Incorrect
-  steal-time values from the underlying architecture may lead to suboptimal
-  policy decisions or performance regressions.
-
-- If the workload is a pure CPU time based such as stress-ng --cpu=<>
-  which doesn't suffer from vCPU preemption, it may not benefit from the
-  steal governor.
-
-Future work
-===========
-To keep this initial implementation clean and minimal, a few optimizations
-have been deferred:
-
-- Design a selftest like framework to validate steal governor, at least
-  for KVM setup where there is infra available to spin off guests.
-
-- Multi arch interface where arch specific hints could be provided into
-  the driver's helper functions.
-
-- Push all tasks on rq: Currently, the stopper thread only pushes the current
-  running task off a non-preferred CPU. Future optimizations may look into
-  migrating all queued tasks on that runqueue.
-
-- Sched Classes: This feature currently only works for the FAIR
-  class. Real-time (RT) and sched_ext classes are deferred for now,
-  as there is no need for it.
-
-- NUMA Splicing: The steal_governor currently removes last active core
-  based on CPU number. It does not yet do complex NUMA-aware splicing,
-  expecting that CPUs are spread out uniformly across nodes in
-  most cases.
-
-Shrikanth Hegde (13):
-  sched/cputime: Add kcpustat_field_total helper
-  cpumask: Introduce cpumask_intersects_and
-  sched/docs: Document cpu_preferred_mask and Preferred CPU concept
-  cpumask: Introduce cpu_preferred_mask
-  sysfs: Add preferred CPU file
-  sched/core: Try to use a preferred CPU in is_cpu_allowed
-  sched/fair: Load balance only among preferred CPUs
-  sched/core: Push current task from non preferred CPU
-  sched/debug: Add migration stats due to non preferred CPUs
-  virt: Introduce steal governor driver
-  virt/steal_governor: Add control knobs for handling steal values
-  virt/steal_governor: Implement steal_governor policy loop
-  virt/steal_governor: Enable the driver
-
- .../ABI/testing/sysfs-devices-system-cpu      |  14 +
- Documentation/driver-api/index.rst            |   1 +
- Documentation/driver-api/steal-governor.rst   | 151 +++++++++
- Documentation/scheduler/index.rst             |   1 +
- Documentation/scheduler/sched-paravirt.rst    |  67 ++++
- MAINTAINERS                                   |   9 +
- arch/s390/kernel/hiperdispatch.c              |  10 +-
- drivers/base/cpu.c                            |  12 +
- drivers/virt/Kconfig                          |  17 +
- drivers/virt/Makefile                         |   1 +
- drivers/virt/steal_governor.c                 | 296 ++++++++++++++++++
- fs/proc/uptime.c                              |   6 +-
- include/linux/bitmap.h                        |  14 +
- include/linux/cpumask.h                       |  42 +++
- include/linux/kernel_stat.h                   |  11 +
- include/linux/sched.h                         |   1 +
- kernel/Kconfig.preempt                        |   4 +
- kernel/cpu.c                                  |   6 +
- kernel/sched/core.c                           | 125 +++++++-
- kernel/sched/debug.c                          |   1 +
- kernel/sched/fair.c                           |   8 +-
- kernel/sched/sched.h                          |   9 +
- lib/bitmap.c                                  |  17 +
- 23 files changed, 804 insertions(+), 19 deletions(-)
- create mode 100644 Documentation/driver-api/steal-governor.rst
- create mode 100644 Documentation/scheduler/sched-paravirt.rst
- create mode 100644 drivers/virt/steal_governor.c
-
--- 
-2.52.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB9516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2268aa04-491f-4c97-6c06-08df0e7a3fac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tKR+dVCZmyqCeAArqU7FvN66/MDbTf7wlyzmz1om5o9Qbv/Jz/K1CsQwatxIqRw0RUW7+YVtBaae0+zMxLW56GY9GQsf1xbPMbBcawbIFvnGyT5QgQtngvMr0I4E6G2S2OkKP4d20a2hXgq/+fmmHwUeOO3tCB0LBrBaVr/2nZ/wpEWmzhEbXSbvvZUbr0CYZoZAKwfRObYdqY9kV2yiaK2z1hQVDuIOkxbJoQMTk0cs2tm5OEamuuHRHqGIN9AhLLo4SIdV9gEXjH+R+Qdp/R3vxk7bLQSisKL2c1ayBjYDuGJIu21/oFT3KQawiUjsE1diB35bLT5FfV5fANpIgVQsqwAgp7apF2AayC1xsHJTVDz3Nkw3HQ6D9u5qBQniUoiPi0XByjg6YUyuOHvZXnD89AUBQ67DkbMEzhlbg391/lZE09IR+oCdDkJWeVH+WeSdJPqRICzi3cd+kLh54O+vEDLAzGPx769C0cDVwHgoPqfKrGYm+pJylUyrd89c8ikP2vfAGkqcgMfnyBVfdkqlfgbtREwdd5m7/RqDhVhIOb/NGJeI+ZXGdqVfx8V/URYvNUpaDaIh620WDDIq6M6rzsGP9CumuWWbEbymuRGdzQUC0wUBXmQn1ls45hYJAx9DW+fuo75M5FGoqACodvP0Yjlr4nNq7TtyUYpeDAc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K2JoZ2ZOck1hT2FMbXFYTzRzMlNIdEZJdG5rdWxlZy9pYnFacFhDeGczNEp3?=
+ =?utf-8?B?cVhFYWRLcXB2cFFndllmb3VPSkE2M29YUThWWHRqeGJJY20xV2NnSW1YWm9Y?=
+ =?utf-8?B?WFlXVGhOWXJTVDFvWTNFcDNZalkyeHRJakFkT2FYOVhSVVVqdG56UnIyWUFI?=
+ =?utf-8?B?elF5c3VTZ1RLQ0pqNDFPWEorWDB6WXVIazZIbjdaQXBLRFk3VGFkalNaUGlm?=
+ =?utf-8?B?Q2hXcFo5a2wwejJ5WXRwUjlZK1dwYmpjRjhLYjBYMmVsR2MwRXh1Tk5yZlBJ?=
+ =?utf-8?B?SVF0aVdhSDhzNjlkM0E4dkVwTkRsdkp2cEVmWDVWV2txQStXOTdaQVBDV0dL?=
+ =?utf-8?B?RmpSdHhzZTloVmpBM2YrWmg5SU5iZjdPVFplellYWEhBL1JKZ3NqT3JGS2lw?=
+ =?utf-8?B?YmY4ckc5ZjZWOXZkYjZVelpvODE0YnNUU0txbE1TYU9LNjlCbWNRVTA3bkJD?=
+ =?utf-8?B?dlZhU3RlbHRLQ2t6VXZJUzZHaVRWZGZCSmYzeVpheThrV29JWUF0bGwxeDhV?=
+ =?utf-8?B?U1BIZEYydEtnbC9VbDFCWG05SVovZVJScDZuSmN4dmlQVEpqR1Fjd0IwckNH?=
+ =?utf-8?B?M3p0b3JlWjJzaTMvajFYOHZwNlB2T3BETC9ieXdBZHVKekxMZWJaMWRPeEpX?=
+ =?utf-8?B?WFFHU3p6SGRVK1lCNGI3ZlJla1hsbzFrQkZ0Rmo0dDl6NVRqK1ZpWVJ3V2Nz?=
+ =?utf-8?B?ODNuOCtqRWttWk5XUUVpbHVQcGVDWFBNZWErSFZEb3JiQTY4Vmc0UGVzSEp2?=
+ =?utf-8?B?Uk55eGlFbi9ZN3VZYWQxRlpoSWlWc0NOZ3lpZTdaKzBraHhNYkpIbWhNVExE?=
+ =?utf-8?B?UWhyek53ZENsVjBoVmNObFY0Q3RTcnRWVmtXNXZOa0lhdnIvdXdwcFVIU0xa?=
+ =?utf-8?B?dnEwUThtKzc1elRRNHl4VzZpekg5QkJSUVpUc1NJZjFPYjZmTEhnY1ptL3lC?=
+ =?utf-8?B?NHNLZmpxRE9JdHU0akJSamkwNXNxaDRCVm9FMnpGSU5GM1lYbStHMVEwcmZZ?=
+ =?utf-8?B?aUprTjBxU1hsL01OTEIzbUR1dm05RWdPR1B6amN6NlkvZVRMa2NCM3lhQlAz?=
+ =?utf-8?B?aEpGZHBzWktxcHlmYVhOSkZmYTJ6NnRUeXpXWm55N00xVTMyRWlUWHQzTEsx?=
+ =?utf-8?B?WE9yck5QSUI1THAwa0FiNzRqOXZwUExEeVg4aGROVXFvRUVKYmwrZHVrRlJH?=
+ =?utf-8?B?N2sxeXY2b09iQjFWT0R4ZDZjakYrdW8rQUV1eVJickovczExYXhlVDBSWXhZ?=
+ =?utf-8?B?ZGFTRTBtWEZ5elBHRjJaZVppUFROWVorN1R6cE1YYmdWaExEUTF1M2ZjTGRL?=
+ =?utf-8?B?YnBaRFNmUDJGeVFpQVA2RTVrUW9vdEExKytEMjczZ0w4eWs2aFYzUC82L3l1?=
+ =?utf-8?B?MFo5djk4Ym4yb1BYSWVNMlZHM2lxekJZN0FRSHpyQ2tSME9Qdk1tV1BndXdw?=
+ =?utf-8?B?VDhENXFSRWdtdm9sMjZZa1FZaVRxWlh4V1g3TjgvNkNINkFMQ0JEeW1wTENu?=
+ =?utf-8?B?NUVBMVFXM3BEUmpNbEt4TjJNblpQZVliWGt4K2NNYWlRZndkMVc2U3ZRUE50?=
+ =?utf-8?B?endSVkdlV2JtWjR6YXVkdC9PMG9VT2lUVWxBdHFwQkU1YjE3OTNycHVLeGln?=
+ =?utf-8?B?dmFZMkVDMzd4WUVKUTh0dlllb3N2ZlduYlJwNi91Y2NKSWx6USszSjZFTjFp?=
+ =?utf-8?B?blEwb2thUnNLUmlQSmNRZEFIeVAwaUU3ZVFPY0lFRUdIUUh0MGJyejdSUkpV?=
+ =?utf-8?B?THprd0xWSnovVERSR3VwWjl2RW9YN2l6WTJUa2ZqR094RmdtcWFIVElaM1NC?=
+ =?utf-8?B?dXVXOVgvY21CMnBWYTZ3MlFGRDhaSGtORTZTbnlwejFrNXFpRU1yOU9qVFRx?=
+ =?utf-8?B?dlRiVkRKN2tJdXhadU1vNDgybWxHalkrM3k5cEZMYVgvWlU4bjBOdFRJaHRE?=
+ =?utf-8?B?Ri9uUnN6UVRyQTlYK1B4N001VlhIMnN2clQ5bzAwRUJQTnV0STVDakRjeTRV?=
+ =?utf-8?B?ajZGVmRFUEZia1RRa1NEU3lvbWpSWW5vNFZHSUxQNE9yWVBxbnYrSU5jLzBP?=
+ =?utf-8?B?cjNJV0hnVFBkK241QzcwNlhNd2t1Z0UrV2g5L3hySnN2NUVmNjdsU0luMkJp?=
+ =?utf-8?B?eGJvOG9kZWc0bHhJdE5Ub3JZYnQyLzkzRUNoTjhXVXF3RmZhOVIrU3p5Qmsv?=
+ =?utf-8?B?LzBQcUxWWmlBVzE4dGZLaTRicXlWNUxBTnROWjVXRjNZUWkwam50bXdrYkd3?=
+ =?utf-8?B?TU9zZ1g4bWZ1QlI5ZTd5K1NGa3hBWnU0WGpZRjQwUWFaMitwRmp4ZGFIN08r?=
+ =?utf-8?Q?mr9YYs+RdIGcIme+ip?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2268aa04-491f-4c97-6c06-08df0e7a3fac
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 13:57:12.8067
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TdgQrj+AwwW9lG2axU2bF1FZK8vaqQfoFBaCyP5qWuJk5+F0wu611iTJc/l/RwZ6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9516
+
+On 9/9/26 15:55, Philipp Stanner wrote:
+> On Wed, 2026-09-09 at 15:14 +0200, Christian König wrote:
+>> Tvrkos patches added RCU protection to the returned strings from
+>> get_timeline_name()/get_driver_name() callbacks of the dma_fence
+>> backends.
+>>
+>> This fixed use after free problems for a couple of drivers, but we never
+>> documented the consequences for the drm_sched_fence.
+>>
+>> Add a few words on the function documentation to note that we need an
+>> RCU grace period between signaling the last scheduler fence and
+>> scheduler teardown.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>  drivers/gpu/drm/scheduler/sched_main.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 6cb6f9546493..22103cb07782 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -1203,6 +1203,10 @@ static void drm_sched_cancel_remaining_jobs(struct drm_gpu_scheduler *sched)
+>>   * is implemented, all jobs will be canceled through it and afterwards cleaned
+>>   * up through &struct drm_sched_backend_ops.free_job. If cancel_job is not
+>>   * implemented, memory could leak.
+>> + *
+>> + * The scheduler fences timeline name is returned protected by the signaled
+>> + * status and RCU, so an RCU grace period is necessary between signaling the
+>> + * last scheduler fence and tearing down the scheduler who originated it.
+>>   */
+> 
+> The API user does not signal a "scheduler fence", typically. Are you
+> referring to the hardware-fence?
+
+Yes, of course. Signaling the HW fence then causes the scheduler fence to signal as well.
+
+> 
+> The user must signal all hardware-fences, which will cause all
+> finished-fences (which are at the root of the addressed problem) to be
+> signaled.
+> 
+> So what you probably want to say is "The user must wait one RCU grace
+> period between signaling the last hardware-fence and calling this
+> function because …".
+
+k, going to fix that.
+
+Thanks,
+Christian.
+
+> 
+> 
+> P.
 
