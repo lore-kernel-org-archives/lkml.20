@@ -1,121 +1,343 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D32B63B83E1;
-	Wed,  9 Sep 2026 06:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936331; cv=none; b=daa+HtPlAw+IrJIz8qIXGjhKpEV3IfcUeU8dJuFneltlDxVC7ieG79xV+OIRtYezpmhq6KgVb3XjAYbITT+YmJWR8o2xzknqpS5GgQr9kV+SUDtfy4MkSRsuHiSCKITD1F5apR/4Wu+FJvAU05EfU7Q1ROWOC4fTZvRfsV9esEc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936331; c=relaxed/simple;
-	bh=HSoqkeQpnPn0IcBwaWar28Zz7ZtQC3OqmJMY9ypZ6MQ=;
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4152B3BE627;
+	Wed,  9 Sep 2026 06:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788936330; cv=fail; b=EBNFCjek3A8OD9pJqxOKtshtcHCldx/BviehN5DOLp3VW+hW5EvlmqZQvOd08HJh07ddHQzZYvcdV/KZ3XzTwg5M1ZI+TRNm814qVZ17gJG6ds0XyvnHsUpRPFJx6NdIzUohxvid+Am2BaTjwGg98ETb80d4h2+xxVMh+IZLhh8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788936330; c=relaxed/simple;
+	bh=xNfw8OoPbi/DvOR49wCBy4Kjb2P2ebVLFNhKA6CyOc8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GZo4tkLZHvWmHYJnC8lGLRZ4D5VQVm4Tap8yFUN1H+n2AsEd0AdSnJcjJvoqFEAdOoN8v/FdjPSELbFK110OZqs2PW+rkznYWLWw/7i0PLTvoQWKlEbpKQicw9ODiqem7fi4TQQA8LXWZ59DgRh9Av3WIJcbAfx0yES2y7H6Lqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=mvYEGR/K; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 Content-Type:MIME-Version; b=OH4z+n4Br4fnZnN3oTLEMOBjVRHREYuFc7rQOzjSl6cwTJnoDn+VaYnE4GMPWcDpEXSoVA/BjfNH27doWsj0LZiaNSY69d4l3c8NY0MXBL2Np/BlDiGzjnJqt61VSpFN8oNQi6oTLnnFf3b5c4mB6DDc5/cyjCx2T66MxvNFx/s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LjQAmVI+; arc=fail smtp.client-ip=52.101.56.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mvYEGR/K"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.16])
-	by linux.microsoft.com (Postfix) with ESMTPSA id EF3C220B7136;
-	Tue,  8 Sep 2026 23:44:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EF3C220B7136
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788936289;
-	bh=koAnNaNQyQ/gB5aR9yFBdh8NzxgGLfEa9F99gJSBoUo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mvYEGR/KujxX6Lsdz2WkBnsDGVh6iYqoCJdJMLkOt8uVD8W7w/l19D0L7jAt54MQM
-	 fjFqP74Hz0Z3M3R8j5KSchvpHs5lVnV/O83g6limIrMUazJGWDix5qk4i/6AcCFNL+
-	 S5fQ5kUBkhwcXM6Jzf9UpJfTyjSPbDCrsFSD1t/I=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>
-Cc: Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>,
-	Nam Cao <namcao@linutronix.de>,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kees Cook <kees@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Dmitry Ilvokhin <d@ilvokhin.com>,
-	Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thierry Reding <treding@nvidia.com>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Daniel J Blueman <daniel@quora.org>,
-	linux-hyperv@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LjQAmVI+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gv60KdIOlPXmwP7iWQExPNq6xa2gGpxyHpRZWiMYHQUFssiZXYrakC+Db1h4lKYXoEEeuPYvcyJvdwb/4nlHRid94Dsl6dSQbOOvKoyf1nrDS/M4X3rX+WGsUGWpJg3rjXa8jX4f1uM5vqm9yrrtBkQHtTaBwRAVqZY1YLVq3P8CAw6wWQwLIhG3mzSL0HqxDr5A1i4lz2GjuJ0MwXwFpsl51VD51eoNaDV62Yh/3/hN+CRydBuL523JZgjJ4ypp3aJ8f8nRFfHfMswMSGjNp7CGHPvrlwNonr5f/wK1iTd9iQI6iEnVzqwghtzLhMlx5s8IOV9jwr4Si0qJ1YZo5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KTilDGdxIPIhTi+DwuKgrj55gT1h1VDZkS8pN/M7Geg=;
+ b=KHgjT5UdKz8X/lwdHJ0xbhIN359NU8xeP2t9csq+z2HMgG62zLmWBCmhAqkPVzjXHk3jh/GEPyw6oiLFeFkLD3CRdEbC0P5MWwdM/5ChRVuOtvugjudA/mHnI7AF+2G2Ey/8SZ4n02gghWXEtI76kytXDqgrYKsLhaD2krQRRmp2LkP+GpTX8e/wtVUx9MsqIfRFcwJBu4LDpPTH526x86BE0QzrWNq+syEmob7gxyAR7+7m26udFvED3UFqh6p3o+9uY91CjWvQWdXseYO07580AbLkVzFt+gAx4+2qcX+uqw7BjmL5Z4unY2U8uT0sfUP2SJZBwMRRhIbPPI7fMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KTilDGdxIPIhTi+DwuKgrj55gT1h1VDZkS8pN/M7Geg=;
+ b=LjQAmVI+/1VNywh+DYexTDSgX8XTAWKHqDQZbp5g19TGpT72xJqbwr4mccYeMSbOcAC8z9Dzo3Q+eD2MBWex8Jj5TzaeC8lfmgawhMQypcZHn1Skeb5HF8Z7kWbBNfApk82wCUwy+A7AFd6pqHxjeKLAURCYYnx5Xs6stVf07FhowJyCIyEGHQdi/k67OUV0iNZ82CTcTvtKjSlO6ux7PF30oPtmPuSeahjpliz+XleOC2fFjUwE4sevd5kW5UXUr9I1ygQxc2SJpCim/1FCKt1+0MdSOoOn6kSnrTOtBw26XtUc7XER+UthgRRvc9GJ7VyHQ8K4qM6KRIetE6RkEA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by IA0PR12MB7697.namprd12.prod.outlook.com (2603:10b6:208:433::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 06:45:25 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 06:45:25 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: rust-for-linux@vger.kernel.org,
+	nova-gpu <nova-gpu@lists.linux.dev>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	M Henning <mhenning@darkrefraction.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	David Airlie <airlied@gmail.com>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-pci@vger.kernel.org
-Subject: [PATCH v4 3/4] x86/irq: Fall back to irq_chip_retrigger_hierarchy() in msi_set_affinity()
-Date: Wed,  9 Sep 2026 06:44:47 +0000
-Message-ID: <20260909064448.1004-4-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260909064448.1004-1-namjain@linux.microsoft.com>
-References: <20260909064448.1004-1-namjain@linux.microsoft.com>
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v6 02/13] gpu: nova-core: Add public driver API to nova-core
+Date: Wed,  9 Sep 2026 16:44:55 +1000
+Message-ID: <20260909064506.910162-3-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260909064506.910162-1-apopple@nvidia.com>
+References: <20260909064506.910162-1-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY5PR01CA0034.ausprd01.prod.outlook.com
+ (2603:10c6:10:1f8::19) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|IA0PR12MB7697:EE_
+X-MS-Office365-Filtering-Correlation-Id: 900566af-a2c1-4e5a-45de-08df0e3ded6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|56012099006|10067099003|11063799006|6133799003|7136999003|22082099003|18002099003|11062099010;
+X-Microsoft-Antispam-Message-Info:
+	2iNQkB4OitXHn2PGoGtZqjfeVl0rtk0GQrYo0vrLUXK41i7HUPl6FOV5oY8YlFXaYgvauLkBtayZv3XS+r4Q2L8uGGDuaPTLmFoJAxqbu2LQfoQtqCINYWEQ2FOjW4Irt7G0vdSmuv+2IrEorVsYwpAwvKj0O9nKkQwn85HpjMikABCCSGeskziFMtgA1V6hGuvUPSPk5dVioLe/SiCaMkrLLR5K89hKwe903GeCZglQqXw2UztU37qVycNaLI8qmgWj9O7B3Vz/ETFGAHyZdHOYw3I/8X+CaZEW3mCBxE0qbHa2/vlHHdlnEJOfMWbXlDTs2ogTJ4JbqsZ/xV7KVgHWQF71nZh/yN3+BUP8XagshFu5GbUPsnsWRGvWb1poge/eRvcH6KVPHLgHpe0eb81dFYEou+6PPKIUyjc5V1m36pmYfs8SgjUbHgQZ57B1z/kAqyfF1Nb1gqaSOsNk3BwlhQK3Jm55tYF1nLxqHg/N5JwbMItCvMIqQK7U1hZCUofQdAVHPEmk3I+TtZuect3+MyPG0aKTu5GElJITV5jzqxMbSb3tA4zXI18Qj/OC8rchcja3O+dcFO7WZ6VRyqFA2NrgLybl39R6lpBWRDLuuZ9Cp4WyJAgw3jd8tcqpHRoaAbaD9bnFtMTTnkIDxKCt6Q2QDbSAZ7E9JL+xyzI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(6133799003)(7136999003)(22082099003)(18002099003)(11062099010);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LULzq4IzoI2dqUahtKDF9UwytXhejqe759rTND5IaWgMVvEb6RjQiBbGnk4M?=
+ =?us-ascii?Q?JeYXVbRh/Rk8Vbs137zTx5ADHeNMyKNClJ8VteLUeE7ZOCGNVZ6FbjPFsrGN?=
+ =?us-ascii?Q?aAJetGq0HeYbCN4yB7J6swxFmKNI4QjSXVM4dNQqPYtplpUKtZQpunDCeLJA?=
+ =?us-ascii?Q?FyLPr0psFQVc2v4kgdihQ5enmrx2OLk5wKTawjvI6BAGMh3Hm6Qn7GnV6jzm?=
+ =?us-ascii?Q?5rpGB4+QMajaMNN6winOi1EpI3bas4MRJSiaJdXg7BojVdMx/w16ZfG9fu1z?=
+ =?us-ascii?Q?J1HN9J01tQRPRtAMAfadUTtM1xo7C0AA9Ag94wugAPDEHnJBMGpv4ldjEutJ?=
+ =?us-ascii?Q?QBs8ILnu8QIMtHK8cAOasGcv2GiPglFcbTuHvlBhAJOJYKh2Rmvk7OuBWszT?=
+ =?us-ascii?Q?5z7T/cWmOBybJdLS2/gefPTgvwVOiEQeP7rMuoRphA9qPjxA5DCygdda5+NA?=
+ =?us-ascii?Q?Ly9u/VNkOo1Fyaw953azzerdxnBYbl4W0IOWxLm5CBo03XjiWE01YH0I5ci+?=
+ =?us-ascii?Q?aSjShp/EQ07gV/N/mky8XQPyEJ9M1htcHqeJSVX7CxoD79agQS2lwLwphv3B?=
+ =?us-ascii?Q?GqHfxKTdNh9OT68HviR5cQ+H9dT/SkG6DOGioz6f/tHKMqCmKufZ/zTWJLpQ?=
+ =?us-ascii?Q?pT3l8szrUDBOPFuUHNLPjWw8uTQN/slckZwFtZf9UMasywol9J+nqO0sgOz1?=
+ =?us-ascii?Q?Nc8zwW8nMjucMncTfXpKvSOZNLp9CZ+5HvpTrb5rvg7CpTVBBnRfrSDLTKmw?=
+ =?us-ascii?Q?2b31TMxDOj8V9ANsetEOwvmARyVmdanqqmjcZlXtGA4M8K1mm/X/p23E5hsX?=
+ =?us-ascii?Q?4hYyZZV+SlDT2e0S6X3ALM2OL2hOD/J6c/wd5aJTLhpznUKJs8ZYJ9IQ7v9i?=
+ =?us-ascii?Q?h6r7sYg/f0a8PXkdDOFfAVbJVT3/QYsqY3se1YGBIycrftD9JZTyvbGMaIE1?=
+ =?us-ascii?Q?r0XrYtdTipt/IourR78oIsejBTqMjNoK6DF9VVPIJPQtfLOXwk/nf9AqrdC6?=
+ =?us-ascii?Q?oFbeY3V+kHWat4iKzrhHvcAoprYXiZNAS1j03uoJjo6EohSBK17PHn20VjYP?=
+ =?us-ascii?Q?ik51IGv1VY+eSm0hVcmo7VgOroQ72pmP8wAt5gYyREVE70HEzokiw9A/8DOS?=
+ =?us-ascii?Q?zM5f6FblUtvUHQlGvGaZC8xzksY6clzUBvNnwzXvbFvKyl6YepuYPbe6gTF7?=
+ =?us-ascii?Q?6niBDtX2AlAADhm/bxy5FOlB2JHK/5iJ8YxXlL2XoqNciezZNzE3TzlEhc6J?=
+ =?us-ascii?Q?Ami6RM/vtt03mRScjZKssRmLvUkPmrCdp/6ui6L2AV6BzRI2F2moanCgDFBM?=
+ =?us-ascii?Q?JimrK+yQ4mWGQUAOfNymgYrnMAQZwjwOVIT7sippNOLqk4C0m0mAxc8EmAIO?=
+ =?us-ascii?Q?yWNllxQTKuaYg3ahqKlLGMYOr7DjBcix7w2OeugOwhvWe7+ff3e23jz7tjB/?=
+ =?us-ascii?Q?+3GZLoKso89XVCVoKt+GeGwTTW/Wyga394H8IZMy3KMWLdJ5N4QWMwNd8d75?=
+ =?us-ascii?Q?rfap6mrnSGw0SWa5lLvt1YkbkXwZYDjq/mAH9PXpaPxj4jFm5Z4jpUaMwKlr?=
+ =?us-ascii?Q?2qW3j+r3Cunc0+DnnWU7twLDHE5TYazPXufmegNyr6fY65pqTTfLeehuziI8?=
+ =?us-ascii?Q?Kr9mjLzFy58Bq1WwTJKXpsSP4LOzOn9Eai7JEyltS+3arCL4+ujLf2qf+mmD?=
+ =?us-ascii?Q?3I72aEGRLgetrCMR8v4kseMZnc8RMIyGrFulO6G1BMBgU37/B9uyYC/bUVpq?=
+ =?us-ascii?Q?KnanwZnSXA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 900566af-a2c1-4e5a-45de-08df0e3ded6e
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:45:25.1933
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I5/esi5s5ZVUfrzFKepD4V9qHGaXOAFgr0mNGkHTEZ/Jhxt8AqDQ3ln81I89cCzq22n5z4pSagVH1/RV5MRdXw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7697
 
-msi_set_affinity() re-injects a pending interrupt on its new target by
-looking at the outermost domain chip and invoking its irq_retrigger()
-callback directly, without checking whether that callback is present.
+Nova core will be used to export core functionality to other drivers
+which will bind to it via auxiliary bus devices. Add a NovaCoreApi type
+which drivers can use to call nova-core methods.
 
-Keep calling the outermost chip's irq_retrigger() when it is present,
-but fall back to irq_chip_retrigger_hierarchy() otherwise, which walks
-up the interrupt hierarchy until it finds a chip that implements
-irq_retrigger().
+Auxiliary bus drivers obtain a NovaCoreApiHandle for a particular GPU
+using NovaCoreApi::of(). This takes a reference to a bound auxiliary bus
+device and checks that its registration data is a NovaCoreApi. The
+NovaCoreApi itself is then accessed by passing a closure to
+NovaCoreApiHandle::with().
 
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+Closure based access is used because NovaCoreApi cannot be assumed to be
+covariant over its lifetime. It references the Gpu, which will carry
+locks around types holding device resources, making it invariant.
+Covariant sub-fields can still be returned directly from the closure
+thanks to the lifetime bound on registration_data_with().
+
+Co-developed-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
+
 ---
- arch/x86/kernel/apic/msi.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 66bc5d3e79db3..66647d51c0473 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -136,8 +136,14 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
- 	 * underlying vector store. It's just checking the local APIC's
- 	 * IRR.
- 	 */
--	if (lapic_vector_set_in_irr(cfg->vector))
--		irq_data_get_irq_chip(irqd)->irq_retrigger(irqd);
-+	if (lapic_vector_set_in_irr(cfg->vector)) {
-+		struct irq_chip *chip = irq_data_get_irq_chip(irqd);
+Changes since v5:
+
+ - Access NovaCoreApi through a closure based NovaCoreApiHandle using
+   ForLt instead of a direct reference via CovariantForLt, as NovaCoreApi
+   will not remain covariant. Based on a diff from Danilo.
+
+Changes since v4:
+
+ - Move the `_reg` field declaration, since it must be dropped before
+   `gpu` to satisfy the safety requirements of holding a reference to it.
+
+Changes since v2:
+
+ - Add accidentally dropped TODO comment
+
+Changes since v1:
+
+ - Rework unsafe pin-init to make safety comments clearer, suggested
+   by Danilo.
+ - s/allow(dead_code)/expect(unused)/
+---
+ drivers/gpu/nova-core/api.rs       | 48 ++++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/driver.rs    | 48 +++++++++++++++++++++---------
+ drivers/gpu/nova-core/gsp/hal.rs   |  2 +-
+ drivers/gpu/nova-core/nova_core.rs |  1 +
+ 4 files changed, 84 insertions(+), 15 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/api.rs
+
+diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+new file mode 100644
+index 000000000000..ae023242594e
+--- /dev/null
++++ b/drivers/gpu/nova-core/api.rs
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+		if (chip->irq_retrigger)
-+			chip->irq_retrigger(irqd);
-+		else
-+			irq_chip_retrigger_hierarchy(irqd);
-+	}
++//! Nova-core auxbus data. Contains all the methods used by the auxbus drivers
++//! to interact with nova-core.
++
++use core::pin::Pin;
++
++use kernel::{
++    auxiliary,
++    device::Bound,
++    prelude::*,
++    types::ForLt, //
++};
++
++use crate::gpu::Gpu;
++
++/// API handle for the auxiliary bus child drivers to interact with nova-core.
++pub struct NovaCoreApi<'bound> {
++    #[expect(unused)]
++    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
++}
++
++impl NovaCoreApi<'_> {
++    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
++    /// by nova-core.
++    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<NovaCoreApiHandle<'_>> {
++        NovaCoreApiHandle::of(adev)
++    }
++}
++
++/// Expose a handle to nova-core API
++pub struct NovaCoreApiHandle<'a> {
++    adev: &'a auxiliary::Device<Bound>,
++}
++
++impl<'a> NovaCoreApiHandle<'a> {
++    fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self> {
++        adev.registration_data_with::<ForLt!(NovaCoreApi<'_>), ()>(|_| ())?;
++        Ok(Self { adev })
++    }
++
++    /// Access the [`NovaCoreApi`] through a closure.
++    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'a NovaCoreApi<'b>>) -> R) -> R {
++        self.adev
++            .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
++            .expect("TypeId was validated in NovaCoreApiHandle::of()")
++    }
++}
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index bbd93959e0b2..922068df7707 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -15,21 +15,24 @@
+         Atomic,
+         Relaxed, //
+     },
+-    types::CovariantForLt,
++    types::ForLt,
+ };
  
- 	return ret;
+-use crate::gpu::Gpu;
++use crate::{
++    api::NovaCoreApi,
++    gpu::Gpu, //
++};
+ 
+ /// Counter for generating unique auxiliary device IDs.
+ static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
+ 
+ #[pin_data]
+ pub(crate) struct NovaCore<'bound> {
++    #[allow(clippy::type_complexity)]
++    _reg: auxiliary::Registration<'bound, ForLt!(NovaCoreApi<'_>)>,
+     #[pin]
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
+-    #[allow(clippy::type_complexity)]
+-    _reg: auxiliary::Registration<'bound, CovariantForLt!(())>,
  }
+ 
+ pub(crate) struct NovaCoreDriver;
+@@ -82,18 +85,35 @@ fn probe<'bound>(
+                 // TODO: Use `&bar` self-referential pin-init syntax once available.
+                 //
+                 // SAFETY: `bar` is initialized before this expression is evaluated
+-                // (`try_pin_init!()` initializes fields in declaration order), lives at a pinned
++                // (`try_pin_init!()` initializes fields in initializer order), lives at a pinned
+                 // stable address, and is dropped after `gpu` (struct field drop order).
+                 gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }),
+-                _reg: auxiliary::Registration::new(
+-                    pdev.as_ref(),
+-                    c"nova-drm",
+-                    // TODO[XARR]: Use XArray or perhaps IDA for proper ID allocation/recycling. For
+-                    // now, use a simple atomic counter that never recycles IDs.
+-                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
+-                    crate::MODULE_NAME,
+-                    (),
+-                )?,
++                _reg: {
++                    // TODO: Use `&gpu` self-referential pin-init syntax once available.
++                    //
++                    // SAFETY: `gpu` is initialized before this expression is evaluated
++                    // (`try_pin_init!()` initializes fields in initializer order), lives at
++                    // a pinned stable address, and is dropped after `_reg` (struct field
++                    // drop order).
++                    let gpu = unsafe {
++                        Pin::new_unchecked(&*core::ptr::from_ref(gpu.as_ref().get_ref()))
++                    };
++
++                    // SAFETY: `NovaCore` is dropped when the device is unbound;
++                    // i.e. `mem::forget()` is never called on it.
++                    unsafe {
++                        auxiliary::Registration::new_with_lt(
++                            pdev.as_ref(),
++                            c"nova-drm",
++                            // TODO[XARR]: Use XArray or perhaps IDA for proper ID
++                            // allocation/recycling. For now, use a simple atomic counter that
++                            // never recycles IDs.
++                            AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
++                            crate::MODULE_NAME,
++                            NovaCoreApi { gpu },
++                        )?
++                    }
++                },
+             }))
+         })
+     }
+diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/hal.rs
+index 5850fa0fe0e9..0c8670c57bbb 100644
+--- a/drivers/gpu/nova-core/gsp/hal.rs
++++ b/drivers/gpu/nova-core/gsp/hal.rs
+@@ -24,7 +24,7 @@
+ /// The GSP unload code might run in a situation where we cannot load firmware dynamically (e.g.
+ /// because we are in shutdown and the file system is not accessible anymore). Thus, the firmware
+ /// required for unloading is prepared at load time, and stored here until it needs to be run.
+-pub(super) trait UnloadBundle: Send {
++pub(super) trait UnloadBundle: Send + Sync {
+     /// Performs the steps required to properly reset the GSP after it has been stopped.
+     fn run(&self, ctx: &mut GspBootContext<'_, '_>) -> Result;
+ }
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 35a8b1214b0e..503898cee042 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -10,6 +10,7 @@
+     InPlaceModule, //
+ };
+ 
++pub mod api;
+ mod driver;
+ mod falcon;
+ mod fb;
 -- 
-2.43.0
+2.54.0
 
