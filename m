@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C16D2C15A5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6390430D401
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917804; cv=none; b=JDCR9HO03tMku5AIrnROGAUIqe+dxZExvw0GUfnG6178e5/npAZtj2wJjbvcSX9lgJWNvhv7JnQBMUhOW0NPvjwld48cTEYsqAJjt5qoXz7/tii4J++u0pTXHFwzhePY4EMEZJ/6K+PMlP/Dz1pyhAGAej+ofh72DPaiHqvXlIk=
+	t=1788917804; cv=none; b=jL0goYrCUEfdtQkNRJgveLwIFvNA4+Cjl/CDXV/qfhevN4IsTm/gAeU5RUpQwk8PBm8J7EhVEuhLYBpNOqUORTXc5bu9wyQ7bU7tIReYikK3p2ZWqimgLfIfYtEdM0ho1qdpx2Y3XFDDM2H1gNRyiuxwDI+EircSPludwZDYTOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788917804; c=relaxed/simple;
-	bh=cEikqb+1FvqhKorqAZK1aI/gzAcjP/X1a+Jk1hr1/6o=;
+	bh=arHxmz7Zoy6hiTz9XQXNgxGbL7EelFOWXyydpJJeEuo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ojecjxoais00hlFe6w3Sn/3vt4D6fUr3nVCV5hdIagG4ymCMSh37+/SffgaTmZAR46Aoi0uoJA22SnOS6Z9o0jApPoz6u6IpscUSMbtiEVaULnok4Dztj6z1mGjrSl/zpzTEONefaS+vbf5VxyrbXYe+LPK/tkMJrlPo685FfkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oL92ufMN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NZu6iUWad/DoOJ7qTZGeGsJJhUR2JCVc/i6bn0DQlZQfLaP4BPXfyd7WX+qQ4l6r9JXThKctQhgKRl7UZ/S64hsI0fFypOEjIFXF3sGM68t7D4uLRfWf1eUYBa0ViRc7nfjJAbYT8CEOIzT0ZPkv9KEzwbmOaXESXalfcjf8V9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoBnrnaA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oL92ufMN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CCD1F00A3D;
-	Wed,  9 Sep 2026 01:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoBnrnaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894311F00A3E;
+	Wed,  9 Sep 2026 01:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917803;
-	bh=WGq8Em2086hbB+4h/5zhCJsDKNyBfoGes5sm4/+vj8k=;
+	s=k20260515; t=1788917801;
+	bh=VqrSty/rC/CZuUYHoIpebZiHcc6iWv0QKiPUX/dW0cc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oL92ufMNFbHRxrjb2gs4Xop+snVaNGk5XREsb80RlQQMcCi4KRbjHqTc0SOngEXkI
-	 g99fdCO0AJWY13JKQ3+gCcoPIcuTvEPRN6XTDP2d53PldVUmT4lHYMHrYWLWKzvn3Q
-	 KXKW8KGiuqDCHl2HX981CTSRelGJYdIwPgLRF26Iht+fndDoBGbpYZ4WYw1swwhYTz
-	 zaks08siWO0Y7lZkD3Nx54Mvm7rT+dQ7MLJd8m9YfacAcwlCTw67WKJ1ouctqjr53t
-	 IwGzLgM65m79xuD0ZqZaQpOLKC2tcmEtOxIgM8vMbDmr9tldTLu7mWGnAZi4tTo696
-	 WglTq1IND45IA==
+	b=CoBnrnaAd4pN+wLxR6f4KlgMy8b5nFbAege7JD1LNPi8HtSdaCJ4FMZjkf773im6o
+	 kkoZWT9zyiH0QpUOAuLFF+jDNoOp94HWcGMb2khsy2gYD6wRrJdcFQWU+eoHVEN1xI
+	 vneFd/GGYTx2Q88t+2IqPl8sx1mbRzpcIAj83ySbmiTfMMVLrP/dlx5qTps1SxAXA6
+	 w7PfN3Rjb0iY6cD5Fbk1QoSfEKY5ymNeSbk99v5G7MorUpqemToTKUKaDyWjNuNBtb
+	 vt1Xwu13ATYx5HdCbfVRJYUe/4osAo+qbGeVHVRSwLG5v6+raigjNOFnKR56Iha0Hw
+	 oIKPfgfaAa+Dw==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>
-Subject: [PATCH v6 10/12] f2fs: cache: support fault injection
-Date: Wed,  9 Sep 2026 09:36:09 +0800
-Message-ID: <20260909013611.3418568-11-chao@kernel.org>
+Subject: [PATCH v6 08/12] f2fs: cache: initialize compress cache
+Date: Wed,  9 Sep 2026 09:36:07 +0800
+Message-ID: <20260909013611.3418568-9-chao@kernel.org>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260909013611.3418568-1-chao@kernel.org>
 References: <20260909013611.3418568-1-chao@kernel.org>
@@ -47,57 +47,163 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-This patch adds fault injection support for metadata cache allocations
-to improve error-path test coverage.
-- it integrates entry allocations with FAULT_KALLOC
+This patch introduces compress_blocks in f2fs_sb_info structure, initializes
+and destroys the compress cache during filesystem mount and unmount.
+
+It adds an ino union field in struct f2fs_cached_block (sharing space
+with writeback linkage for zero memory overhead) to track per-inode
+cached blocks, and registers compress cache into the memory shrinker.
 
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/cache.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+ fs/f2fs/cache.c |  9 ++++++++-
+ fs/f2fs/cache.h | 14 ++++++++++----
+ fs/f2fs/f2fs.h  |  6 ++++++
+ fs/f2fs/super.c |  9 ++++++++-
+ 4 files changed, 32 insertions(+), 6 deletions(-)
 
 diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-index e52e73d76700..01047528c21a 100644
+index d7349d481dbd..e52e73d76700 100644
 --- a/fs/f2fs/cache.c
 +++ b/fs/f2fs/cache.c
-@@ -154,23 +154,27 @@ static struct f2fs_cached_block *f2fs_create_cache(
- 		struct f2fs_cached_block_list *cache,
- 		unsigned long index, bool nofail)
- {
-+	struct f2fs_sb_info *sbi = cache->sbi;
- 	struct f2fs_cached_block *entry;
- 	unsigned int flags = GFP_NOFS;
+@@ -176,7 +176,10 @@ static struct f2fs_cached_block *f2fs_create_cache(
+ 	entry->index = index;
  
- 	if (index == ULONG_MAX)
- 		return ERR_PTR(-ERANGE);
+ 	atomic_set(&entry->refcount, 0);
+-	entry->next_entry = NULL;
++	if (!IS_COMPRESS_CACHE(cache))
++		entry->next_entry = NULL;
++	else
++		entry->ino = 0;
+ 	INIT_LIST_HEAD(&entry->list);
  
--	if (nofail)
-+	if (nofail) {
- 		flags |= __GFP_NOFAIL;
--
--	entry = kzalloc_obj(*entry, flags);
--	if (!entry)
--		return ERR_PTR(-ENOMEM);
--
--	entry->data = kmalloc(cache->sbi->blocksize, flags);
--	if (!entry->data) {
--		kfree(entry);
--		return ERR_PTR(-ENOMEM);
-+		entry = kzalloc_obj(*entry, flags);
-+		entry->data = kmalloc(sbi->blocksize, flags);
-+	} else {
-+		entry = f2fs_kzalloc(sbi, sizeof(*entry), flags);
-+		if (!entry)
-+			return ERR_PTR(-ENOMEM);
+ 	entry->cache = cache;
+@@ -627,6 +630,10 @@ unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
+ 		return freed;
+ 
+ 	freed += f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan - freed);
++	if (freed >= nr_to_scan)
++		return freed;
 +
-+		entry->data = f2fs_kmalloc(sbi, sbi->blocksize, flags);
-+		if (!entry->data) {
-+			kfree(entry);
-+			return ERR_PTR(-ENOMEM);
-+		}
++	freed += f2fs_do_shrink_cache(COMPRESS_CACHE(sbi), nr_to_scan - freed);
+ 	return freed;
+ }
+ 
+diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+index dfe898df6aa8..a81524755dad 100644
+--- a/fs/f2fs/cache.h
++++ b/fs/f2fs/cache.h
+@@ -18,12 +18,15 @@ struct f2fs_rwsem;
+ struct f2fs_io_info;
+ enum page_type;
+ 
+-/* Represents a single cached block (meta, node) */
++/* Represents a single cached block (meta, node or compress) */
+ struct f2fs_cached_block {
+ 	struct list_head list;		/* LRU list head */
+ 	struct f2fs_cached_block_list *cache;	/* parent cache list */
+-	struct f2fs_cached_block *next_entry;	/* chain for merged BIO */
+-	unsigned long index;		/* key in radix tree, (meta: pba, node: nid) */
++	union {
++		struct f2fs_cached_block *next_entry;/* chain for merged BIO */
++		nid_t ino;		/* inode number for compress cache */
++	};
++	unsigned long index;		/* key in radix tree, (meta/compress: pba, node: nid) */
+ 	unsigned long state;		/* cache entry state (e.g., Dirty, UpToDate) */
+ 	void *data;			/* blocksize-aligned memory (4KB or 16KB) */
+ 	atomic_t refcount;		/* reference count */
+@@ -34,6 +37,7 @@ struct f2fs_sb_info;
+ enum f2fs_cache_type {
+ 	F2FS_META_CACHE,
+ 	F2FS_NODE_CACHE,
++	F2FS_COMPRESS_CACHE,
+ };
+ 
+ /* Main cache control structure (per sb_info) */
+@@ -43,12 +47,13 @@ struct f2fs_cached_block_list {
+ 	spinlock_t tree_lock;		/* Lock for radix tree */
+ 	struct list_head lru_list;	/* Single global LRU list */
+ 	spinlock_t list_lock;		/* Lock for LRU list */
+-	enum f2fs_cache_type type;	/* Cache type (Node or Meta) */
++	enum f2fs_cache_type type;	/* Cache type (Node, Meta, Compress) */
+ 	unsigned long num_entries;	/* Current number of entries */
+ };
+ 
+ #define IS_META_CACHE(cache) (cache->type == F2FS_META_CACHE)
+ #define IS_NODE_CACHE(cache) (cache->type == F2FS_NODE_CACHE)
++#define IS_COMPRESS_CACHE(cache) (cache->type == F2FS_COMPRESS_CACHE)
+ 
+ /* Flags for f2fs_cached_block state */
+ enum f2fs_cached_state {
+@@ -199,6 +204,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
+ 
+ #define META_CACHE(sbi)		(&(sbi)->meta_blocks)
+ #define NODE_CACHE(sbi)		(&(sbi)->node_blocks)
++#define COMPRESS_CACHE(sbi)	(&(sbi)->compress_blocks)
+ 
+ #define f2fs_find_meta_cache(sbi, blkaddr)		\
+ 	f2fs_find_cache(META_CACHE(sbi), blkaddr, 0)
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index e5489564194f..1376a6f2e9e2 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2106,6 +2106,7 @@ struct f2fs_sb_info {
+ 	/* f2fs internal cache */
+ 	struct f2fs_cached_block_list meta_blocks;
+ 	struct f2fs_cached_block_list node_blocks;
++	struct f2fs_cached_block_list compress_blocks;
+ 
+ 	/* internal cache flush thread */
+ 	struct f2fs_cache_kthread cache_thread;
+@@ -2384,6 +2385,11 @@ static inline bool f2fs_is_node_cache(struct f2fs_cached_block *entry)
+ 	return entry->cache && entry->cache == NODE_CACHE(entry->cache->sbi);
+ }
+ 
++static inline bool f2fs_is_compress_cache(struct f2fs_cached_block *entry)
++{
++	return entry->cache && entry->cache == COMPRESS_CACHE(entry->cache->sbi);
++}
++
+ static inline struct f2fs_bio *F2FS_BIO(struct bio *bio)
+ {
+ 	return container_of(bio, struct f2fs_bio, bio);
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 9446e82d3de7..e1a455573d34 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2071,6 +2071,7 @@ static void f2fs_put_super(struct super_block *sb)
+ 
+ 	f2fs_destroy_compress_inode(sbi);
+ 
++	f2fs_destroy_cache(COMPRESS_CACHE(sbi));
+ 	f2fs_destroy_cache(NODE_CACHE(sbi));
+ 	f2fs_destroy_cache(META_CACHE(sbi));
+ 
+@@ -5267,10 +5268,14 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	if (err)
+ 		goto free_meta_cache;
+ 
++	err = f2fs_init_cache(sbi, COMPRESS_CACHE(sbi), F2FS_COMPRESS_CACHE);
++	if (err)
++		goto free_node_cache;
++
+ 	err = f2fs_get_valid_checkpoint(sbi);
+ 	if (err) {
+ 		f2fs_err(sbi, "Failed to get valid F2FS checkpoint");
+-		goto free_node_cache;
++		goto free_compress_cache;
  	}
  
- 	entry->index = index;
+ 	if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_QUOTA_NEED_FSCK_FLAG))
+@@ -5585,6 +5590,8 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ free_devices:
+ 	destroy_device_list(sbi);
+ 	kvfree(sbi->ckpt);
++free_compress_cache:
++	f2fs_destroy_cache(COMPRESS_CACHE(sbi));
+ free_node_cache:
+ 	f2fs_destroy_cache(NODE_CACHE(sbi));
+ free_meta_cache:
 -- 
 2.49.0
 
