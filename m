@@ -1,129 +1,114 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6436133E355
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C378B34216C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:58:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940683; cv=none; b=VYXKcPLYyWvfqFWgiydsqjip9QCGZQJ56+67grVEF7ieoWgYJ339titxEunQpCiSZ5WGTWKCPVX6fnzjtzS5ClSLPPzcKEBj4Z5ZEGr5TTWQEDM98hN+fQkgz6I+EByvI612cTIag3fUUjcgdEZAY9rQkuDkpZ7MFrKzhVso7FI=
+	t=1788940685; cv=none; b=cFbRg0E1JJg+UztX11BeyYQCXvH8FXTEG1RAf27NPm3Y9nwdI5hEsAvZyyrMcaWwuGX5EBNwFMdT7l4RbtWhs0eoBOQy4cO/sT3zxnOjOoAqMbtf4s3+yoGQOzUpW84GsXsxHbHGo20yCcoWckUB+CvmJbBszNODNr1SOpMG+QE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940683; c=relaxed/simple;
-	bh=Dp0zVYlRV/ykV6DkWI/HZNZ2E595JooxGaLy6ystZi0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S4GK0v5qsgp1m+Jvj6+Yi1WYmLXfdkUVDBbaZSoz8axvD/MbXUCja5TO94I+pE1pGvEiA0llkUquZTfJXcnlpzXQ8loT+A2AilUwNZ3MDbGledepQihgZQzRIaVrTxCxS2RKHd3G50T+wQmX8Q49X9tNUZ4rjZ5lSFk2ROlLYZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a985799954so1460760a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:58:02 -0700 (PDT)
+	s=arc-20240116; t=1788940685; c=relaxed/simple;
+	bh=p2kTzOA+YUlJDdy4b0LmMW1RFNwwFMY9nt+xFQqirmM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=oQonbIPoBwGjj1UynOUZAJfEsszk34KqciSvy6LdDfpoI/p2PBS7y0C3t+6iPVQHvS4WeIYkAGLXmmiOCwIkVHjRPmmt/FkJtvFL4wy5bklBfFTwb6hRXXC2gXJbkFLo5QHkLJFpjNUlRQkfFb5h6FKb+ZRtTgdWv4I++J3CSrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6bd74449818so1823471eaf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:58:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940680; x=1789545480;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u4dyKB/emFRDPrDqz9X2vH5TTb96Md3MW8gLHSI8vTI=;
-        b=q4awCN5ff21IV6Jt2k7GA/pLbxt2U5Thga/Kmm4MWz7Ln/WmpG4mcBh3S7pQMu314T
-         MO8F+gefYgSHTLk7eHwZDrd5P9J5HIBJ2Xy64nM9+gDAxZhog33Dyzpf/JCKxSil5627
-         uuj879hHj+vsZK3wYFyR34Sq0xQUxCsCoy/ZWa5o4w+IrsSKMSsgLyGOVW1SM5PhH5XP
-         IZxSZBuwRUy6WALw6YyeVBgvi46J5132KmZTFUjqqM64M6HDa3QNXy8MCHMKJuXi5axb
-         nb58ACYIsEqpMJe4TvCxowyMhgvSp+1RqPt+CwWAc+Ge38rZaaGZzT1Ij8k6xlhAici0
-         P2lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9R/0NoAQblhYxdiHzM5v6mbsjmMfLTQ4dg3DFP36dvwEcvB1lZXLfDIWVbUu+qUUgPqmfo1FMkOYMOMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxCzE2BL97laHnV23OVLd5U+hc1e0WDf4oa8NQ1tIo0QUPmPFl
-	c3ByZlypSWLM8HRjXjt0skIsOLAyu0rSCIXc04gKoNRd25alK7CpqAhp/JM9nTFWbzg=
-X-Gm-Gg: AYBFou3sKu69bE1rAFZJgvk6fjoETP+jyW7KbQeWBAk9LGvvjJ2XEwlC8paU+OrR/ub
-	vIIwVsFK04DHeHYHaOrMzfthV15bWa5jp6oLPdvIaYarTzvYYUtfclDiVynU28jSETyOxaS3LvH
-	/5YzfEjDzUT/wTwAmXo/21fdZcz8p+7T5kGudGripKZKbjzEVbyaO6C/Pnwwx8qAXGZhm1aYWqm
-	4mGfpy8MtJbvqArQ29OPwt8jLt9Sr4bQ8mQ0BQwPaDNRo3qRMfTdwsVShnPfAnjz8oxcF3F7owN
-	Isd4lXa77LWOelvNUsin2atHsP2ZwhKXC7EVVWCeuzcoVR9NuPjiXGDhsqpwJ7RVyjOHNpZFGui
-	rQPgvqmm5MLjCW9g1sz5SmjyGAPSZDVFk8tF54A1bRigK/ySZZfhpK6QWcy/BWt8+iXGGqMF7eV
-	3NY1L33SKZIsvSysQzvpn8+H07DYPerDhP5t0Si33312pIy0RblqA0TAonBPKlyLzGmd0EfwmVX
-	VFrPbqUyF26C7DG9iVzWq0Pq14j6ROPaoIJ
-X-Received: by 2002:aa7:c389:0:b0:6a6:b2b9:7660 with SMTP id 4fb4d7f45d1cf-6a6b2b976d1mr10086834a12.13.1788940680334;
-        Wed, 09 Sep 2026 00:58:00 -0700 (PDT)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9882a8510sm780993a12.21.2026.09.09.00.57.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 00:57:58 -0700 (PDT)
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a68aaf4840so9342057a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:57:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx5fCjOA4G3+fB/G9D3BZ0OgBxNmoJt4hs7aVxvGMPaj3eMcd49+DQ7Q4X4F6r9Cv2HkafT/XgZE+y7qVY=@vger.kernel.org
-X-Received: by 2002:a05:6402:3247:10b0:6a6:b2b9:7662 with SMTP id
- 4fb4d7f45d1cf-6a6b2b976demr10117247a12.15.1788940675713; Wed, 09 Sep 2026
- 00:57:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788940682; x=1789545482;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1TGGI3iyNcmVZeg7ekp5Mr1i3BQnZMp1NeCuSr2Hzbc=;
+        b=SbQDKbD/WIFSXXv1AaYbH74AJuY4wILYTYg5RwT7dGg4UnxuZEWefElVpZjunUN7IT
+         K0vXB/ufH6EjWxUDXcQTtGeI5A5ara21/gMFNK/la/Thmgkz38KYq1ZJRecvVnX+U8yk
+         Zo06L2J77I4pVg0ZMpsN1ZZRlR/m9AUHeLuN/NXMkTIh1Yxe5/b936RabPzjdlKSftG5
+         ks6e5iwF3VksORIM1B4U/o/s9XicEwEJBJ2v2oZTxwB9BNxql6+N+izFnVfxAO08WoyP
+         5qmQHbJzCuPua7xnj/K4ZukR1t5nrZN6X/sGxoJBZ8e8tYWBpNq29iTfGx/wfu8fX9Vn
+         54aQ==
+X-Gm-Message-State: AFuF++mysCAQZ9/QzGrb0RZRCjf0DEcDSFCsG74OpUCL8jllvddSked5
+	yYyh4f3xolGF2TAK3pxdrHR+rLwwblSXv0PAsYyuyxXAk44SvXoCW9qP/8v9Ya/sKa0q77W0hyH
+	J3mSVHAEb/pfsOiO2Ixc9tbM1Fw15UURwG46LE4LZBknlG2zfio6jTGITLuA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906140134.492084-1-marek.vasut+renesas@mailbox.org>
- <CAMuHMdXKr-2+_kcCd8hSB84=AZpmOtDt2-Dxpgiewyg+67O+fw@mail.gmail.com> <b1a64102-9c86-4cbc-aa07-11ad051b0dc2@mailbox.org>
-In-Reply-To: <b1a64102-9c86-4cbc-aa07-11ad051b0dc2@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 9 Sep 2026 09:57:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWJso7-432-pgJ7SJr_QC_krOgLE6U1dhP6c5=r_TL_og@mail.gmail.com>
-X-Gm-Features: AcwNN1Ua9Vke213V9Nb0AugUOA6EaQLwJxCjzIaW2N2cORqAOZX-qMn7euhb-OU
-Message-ID: <CAMuHMdWJso7-432-pgJ7SJr_QC_krOgLE6U1dhP6c5=r_TL_og@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: r8a779h0: Add GICv3 ITS and update
- PCIe node
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-arm-kernel@lists.infradead.org, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+X-Received: by 2002:a05:6820:1508:b0:6b7:83c5:fdf8 with SMTP id
+ 006d021491bc7-6b783c673f9mr17935697eaf.57.1788940682728; Wed, 09 Sep 2026
+ 00:58:02 -0700 (PDT)
+Date: Wed, 09 Sep 2026 00:58:02 -0700
+In-Reply-To: <20260909074349.7542-1-syedtayyabfarooq08@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa1118a.f81106d8.285f0a.000f.GAE@google.com>
+Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Write in tty_init_dev
+From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syedtayyabfarooq08@gmail.com, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Marek,
+Hello,
 
-On Tue, 8 Sept 2026 at 18:27, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 9/8/26 10:46 AM, Geert Uytterhoeven wrote:
-> > As I am not PCIe DT expert, I am comparing this to the corresponding
-> > patch for R-Car V4H, which I have already queued as commit
-> > 7fe73a3a3f2c3718 ("arm64: dts: renesas: r8a779g0: Add GICv3 ITS and
-> > update PCIe nodes") in renesas-devel, but which probably needs some
-> > updates.
->
-> I sent a fix for that one:
->
-> [PATCH] arm64: dts: renesas: r8a779g0: Add MSI cells to GICv3 ITS
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in gs_close
 
-Thanks!
+------------[ cut here ]------------
+1
+WARNING: drivers/usb/gadget/function/u_serial.c:741 at gs_close+0x128/0xce0 drivers/usb/gadget/function/u_serial.c:741, CPU#0: syz-executor409/6047
+Modules linked in:
+CPU: 0 UID: 0 PID: 6047 Comm: syz-executor409 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:gs_close+0x128/0xce0 drivers/usb/gadget/function/u_serial.c:741
+Code: fe e8 bc 4d 21 fa 41 83 ff 01 74 7c e8 41 53 21 fa 31 ff 44 89 fe e8 a7 4d 21 fa 45 85 ff 0f 85 79 04 00 00 e8 29 53 21 fa 90 <0f> 0b 90 e8 20 53 21 fa 4c 89 ef e8 78 6c e8 03 e8 13 53 21 fa 48
+RSP: 0018:ffffc900062ff6f0 EFLAGS: 00010093
+RAX: 0000000000000000 RBX: ffff888037c32000 RCX: 0000000000000001
+RDX: ffff88803303a580 RSI: ffffffff87eabde7 RDI: ffff88803303a580
+RBP: 1ffff92000c5fee8 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880359cb000
+R13: ffff888037c32388 R14: ffff888037c32184 R15: 0000000000000000
+FS:  00007f0d220bf6c0(0000) GS:ffff8880d5b5d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000056076d24c2a0 CR3: 00000000380fc000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ tty_release+0x40e/0x1300 drivers/tty/tty_io.c:1718
+ tty_open+0x31d/0xe20 drivers/tty/tty_io.c:2119
+ chrdev_open+0x234/0x6a0 fs/char_dev.c:411
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0d23917a1e
+Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
+RSP: 002b:00007f0d220bf158 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f0d220bf6c0 RCX: 00007f0d23917a1e
+RDX: 0000000000000002 RSI: 00007f0d23963028 RDI: ffffffffffffff9c
+RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
+R13: 0000000000000000 R14: 00007ffd1c446780 R15: 00007ffd1c446868
+ </TASK>
 
-> >> --- a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> >> +++ b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> >> @@ -691,6 +691,8 @@ pciec0: pcie@e65d0000 {
-> >>                          resets = <&cpg 624>, <&cpg 1121>;
-> >>                          reset-names = "pwr", "core";
-> >>                          max-link-speed = <4>;
-> >> +                       msi-parent = <&its 0>;
-> >
-> > This has an extra cell "0", which is probably correct, given
-> > "#msi-cells = <1>" below.
-> >
-> >> +                       msi-map = <0x0 &its 0x0 0x10000>;
-> >
-> > This is not present on R-Car V4H (which is probably wrong).
-> >
-> > Interestingly, Documentation/devicetree/bindings/pci/pci-ep.yaml
-> > documents msi-map for endpoint node, so should it be added to the
-> > pcie-ep node, too?
->
-> I do not think we should be adding it until we can test ITS with EP ?
-> This patch adds the ITS only to the RC side, where I can test it.
 
-OK
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Tested on:
 
-Gr{oetje,eeting}s,
+commit:         893e1178 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1089f125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=156c2c8e580000
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
