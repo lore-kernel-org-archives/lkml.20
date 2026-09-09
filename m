@@ -1,33 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C1F57ED98;
-	Wed,  9 Sep 2026 15:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2AC579821
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969279; cv=none; b=QJSLqWb6P3hhSwPQr7yFYRVg8YnNsHXuc3jtxJc3AALVc/ypPJOufLk8MbjakTbS6qLv8eqkaltgj/s2kg1yhUCSe6QjJeIs8U5mkx4UspUT2vyNjyAAv/KCPRhMhkFAFFSErbO6aoNNRMCllV3uM0I4Us3RK+LUFotRL2n1B1U=
+	t=1788969291; cv=none; b=qQ59HTn1qEPkDpqN/ioDtCKkc2yCBhGd3AfBlYSLhHTti/VNBKYpVT0Y9Lwny/hfH8dUGdBGk93lMxgdheO9neDrr03fNQc1CC0WzA54+mRRUY6u+jwI2CvVkqH5aSpv5b/GBz/HDEagiJ3ZCiPj+XKgCQl/diFwwi1Ejf23704=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969279; c=relaxed/simple;
-	bh=4tmuZy0j5vGxvsm2FOetliQpL82hSpmRGpvP0VKkcoM=;
+	s=arc-20240116; t=1788969291; c=relaxed/simple;
+	bh=ZS57qCJaJZzvLtWT5rb+UsgkBAE6cq2kv5Ow6zPtdvU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DA2qCyOcfqx1Ze395hwl7znTFJ5Hm951om2eUqJrmfAVjTHFy7gYqQjTq+vddOudnIJ/qkH5rCwdn9y++sGcp5rICifXwUo2fVlaEf5gVxx0tHWVBhOUdnZ8QoXHkdaFk30VSJAvnq0WUHe62KlfauOSs4Q66olIXbr8OOz3B+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bo/nwc6d; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=RbAF12X7SMzKhKNUpfOxS5WWAiJVoX0TJAaAGhFD2XvRY+ug5Hcntcw1IShm/QSviFbjaYw0H3hYQSeJ1Sfe+UW712L6VgX6hKY+j6OfIY0eMH9id3hUcV8ESsU/RpWcDxkdNcViQexL+WB07f2V1HA888biF6yKQE6pKlDBTZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SWHZ1BnS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fa5g7st3; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bo/nwc6d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE9E1F00A3A;
-	Wed,  9 Sep 2026 15:54:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969278;
-	bh=o582C2XKLMWHOHeMahz3iW/6hgf1cGSAiI6ze6eSDVo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bo/nwc6dS99ISeSpfGwn+iPwXI9V9uwQ4onbV0KtT2I/oMD4xZ5Xgd6icDQxHE53D
-	 1QHdm7AwvJw6FLfmN0QtUcnvlAQnsrS2d6N/8pJmkKUJ/XHHMKVJaSAgDG5IIXnzi7
-	 sbV/X8VlO7038kF1MC9CnN+7QRmws3kfAtkYR/08G4TRQnrrHmbhkQsKrATTir9Hdv
-	 6Jx8KDhSTrH7DWq9IU1lCWsur9ORkdIT8FIovsCuu53xEHAZbQINr7dQ4jBN480huT
-	 X1ZNDPsTpIsDY3dJcV8Z7usILLGTfa24PnjkNL6g9aIUrKBbUO+RGYolago2/t5buD
-	 1Di4Pnhtbw5bQ==
-Message-ID: <b6b5e12a-c3aa-4e73-9fc0-d7200141e0e0@kernel.org>
-Date: Wed, 9 Sep 2026 17:54:19 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SWHZ1BnS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fa5g7st3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788969288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QhAkYk+BLfXoLVmp1k/Z3VniIpgJgKO5MbxyHejQ6HY=;
+	b=SWHZ1BnSahpqXgpTF7i7H/PTQo0nLq1uwhbktvZ9cj5tdSfuJ2LprNS4RDKmyi/mAmSPYT
+	uqQ5EiJRB/1yUWwAWx8XaaKOhliqHDyHsmt3vnB/Ic2zi3PRYT62aqWHMe2+tWUz4GTLb6
+	OkMN53mibvOMAadu+D4dkAq1Xu5ZI/M=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-653-S045RVclMiy5hSfen0nM5Q-1; Wed, 09 Sep 2026 11:54:46 -0400
+X-MC-Unique: S045RVclMiy5hSfen0nM5Q-1
+X-Mimecast-MFC-AGG-ID: S045RVclMiy5hSfen0nM5Q_1788969286
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-485afdd5079so731835f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:54:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788969285; x=1789574085; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QhAkYk+BLfXoLVmp1k/Z3VniIpgJgKO5MbxyHejQ6HY=;
+        b=Fa5g7st3Z0sZ6+TymEI5E+NzBfphSSlY768Rw+F3Ax22kVyCGETd+Rx7hiWsf5LZVH
+         nv9HOHh1Wzuix3zuyc17XHy/pbkGAYY7QYu3FIIMLzwlNXmVcKE15YxNFAQQ75N8XdGR
+         yq40Ix6JJqU745NMY0Fbjq7ZSENafV/1TO5OFBdYwIkWY+b6/PM9Z10iP0FqYc1GSVLQ
+         cpBb9guDxJuAu1lxNrGfbv6Pz8FJ74FifvR9IsCcN8gTjL9knYG5eQvO9cS8gCBpAarZ
+         VxLsBQDERPkFDkJQfApUgK3akRqd1CFf7JVQhfy5C+sQFYHNyS+CT7RzvhmoSph462Yd
+         Oytw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788969285; x=1789574085;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QhAkYk+BLfXoLVmp1k/Z3VniIpgJgKO5MbxyHejQ6HY=;
+        b=jE23UhzsqGrg1Qg/DT0eriLGrbQIPx08x420MGaFR/Ew4C1VsOMbzqEx9QDbsMZrLd
+         VlFtLAKtiUAVzzySjy1JnWQyUnda24USg67I4KLEwB6keSm8SjMdj0kMbQpHm7lWUfK3
+         BhA4Ffm4CuKcQSDlFh7NXSJ7NaZ6WPgq2N3JC2zVqBSiaWvbfCjO3trBNLyzPFs3xA4q
+         cTGzv159FiZmDPFww6Ctp+NZA7ALZZjK8/U14Zz347wAhYt19TJMAho5crlxpWsH1q3T
+         NDtfOr2kf73l0hPRIujLMyUZMTP2lHUvTA60+m94LSCtq4N1wENiy5RUnIBpC/A+7K3s
+         BuYw==
+X-Forwarded-Encrypted: i=1; AKwUvByKPLmCeNKQLdjeha3dnJXQ3t10BxCI3a2hlFEEBoIJl5U/s9UdmD+D8tzOYRXZOFD63oGCZxTpQcr9fZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYkUofxBE/G0crNABnRN6LRH/gC7jkMOgoloXFlKzt+NEEE/4r
+	+yoHLYotMqwOjRTdYKZEPlTXEXNdvxPImU4ahCE+9rqnAUtXO0c3sSvA4GWPMjzeSz3uwDf8uB2
+	39js9V5z0aOk9njJNK5di3m9dD+IxEg4mcKjyAf0H3qzPVMe9hpa8Sh8n5sW39T23AoH9b9fk5A
+	==
+X-Gm-Gg: AYBFou3TkSihz8t8rExKLt9KG/A9o9qy9MGW3a968cvvbQXTVMeFF3RwZjcozyVXuBa
+	dn6QTtAb0gKW2WNNYcjs5F+2OfrWg5bIGdQ1/grf+kM8ZaJLLOhh8J4Ye9Ejgoar0Rq4eSsH++1
+	wBRpimQnsvJlVvZEXXIWV6EX7Dk2uJA6hKKfu1pWbkpScw7Wzxicza6st9WT+7242d55Eky+VTX
+	WPwqpjOmlj52qAivwceFhQuV0On2D/46Xu0Bnk/dF+shJb7LbhUIHMQivdOwNi03vqnp69Uek2q
+	G6RDHwpfbkHXjdmsrR+M67HfNh4pBE8puW5O1d/xWXDAdGWHKwINAXIIOJJH9HeKaQq6ziQRz5M
+	gU2JXq8eZkumy23WOSpCFl6RoZ2CD5WeLO7OFgQeoYl4LM8okZrh1bpIgFLK79G70IE1leRDRdg
+	==
+X-Received: by 2002:a05:6000:288e:b0:485:8c16:a33f with SMTP id ffacd0b85a97d-4858c16a5d0mr33596604f8f.52.1788969285542;
+        Wed, 09 Sep 2026 08:54:45 -0700 (PDT)
+X-Received: by 2002:a05:6000:288e:b0:485:8c16:a33f with SMTP id ffacd0b85a97d-4858c16a5d0mr33596570f8f.52.1788969285051;
+        Wed, 09 Sep 2026 08:54:45 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm44531453f8f.21.2026.09.09.08.54.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:54:43 -0700 (PDT)
+Message-ID: <03f37b1f-a115-4c63-bdb1-7467ae8b165d@redhat.com>
+Date: Wed, 9 Sep 2026 17:54:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,132 +90,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 17/45] KVM: guest_memfd: Return early if range already
- has requested attributes
-To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
- binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
- jmattson@google.com, jthoughton@google.com, michael.roth@amd.com,
- oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
- rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
- steven.price@arm.com, willy@infradead.org, wyihan@google.com,
- yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org,
- suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
- linux-coco@lists.linux.dev, Xiaoyao Li <xiaoyao.li@intel.com>
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
- <20260830-gmem-inplace-conversion-v12-17-85e5fd25252a@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH net v2 06/15] mptcp: prevent race between disconnect() and
+ rtx
+To: netdev-bot+sashiko@kernel.org, matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-6-df1de70348b6@kernel.org>
+ <178896537655.219967.3201901026877077910@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-17-85e5fd25252a@google.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178896537655.219967.3201901026877077910@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/31/26 02:25, Ackerley Tng via B4 Relay wrote:
-> From: Ackerley Tng <ackerleytng@google.com>
+On 9/9/26 4:49 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
 > 
-> Provide a function to check that a range has given attributes.
+> Critical: 0 · High: 0 · Medium: 0 · Low: 2
 > 
-> Optimize setting memory attributes by returning early if all pages in the
-> requested range already have the requested attributes.
-> 
-> Reviewed-by: Fuad Tabba <tabba@google.com>
-> Tested-by: Shivank Garg <shivankg@amd.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> ---
->  virt/kvm/guest_memfd.c | 23 ++++++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
-> 
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index d14a7024bdc7b..ac8e0c6d6e942 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -98,6 +98,24 @@ static bool kvm_gmem_is_shared_mem(struct inode *inode, pgoff_t index)
->  	return !kvm_gmem_is_private_mem(inode, index);
->  }
->  
-> +static bool kvm_gmem_range_has_attributes(struct inode *inode,
-> +					  pgoff_t index, size_t nr_pages,
-> +					  u64 attributes)
+> - [Low] The commit message of "mptcp: prevent race between disconnect()
+>   and rtx" describes the change as only "Prevent the race using the…
+> - [Low] The commit carries "Fixes: b29fcfb54cd7 (\"mptcp: full disconnect
+>   implementation\")" (v5.18) for a real race that can leave a reused msk…
 
-"has_attributes" could be confused with "has any attributes", not "has exactly
-these matching attributes and no others".
+Here the code is actually just fine and sashiko don't like much my prose.
 
-Anyhow, I'm out of puff for naming suggestions today and this gets the hob done
-;) (kvm_gmem_range_has_matching_attributes is a bit mouthful)
+/P
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-
--- 
-Cheers,
-
-David
