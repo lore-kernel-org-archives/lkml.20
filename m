@@ -1,314 +1,256 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D448A8D0;
-	Wed,  9 Sep 2026 10:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949889; cv=fail; b=Ffk03o34frnTu/BLkGn71iaw0aMPrleG57Ror/q0VdBiW+sUg0vRmO7Af7K137oCS/XGMLkgBav1RJBhDcTXDbsr7Y6s3w9mqWB2MraioZNamwTjW5vVfOQXslD8v3LO9VTGnNoAdCuxUpYQ+x6E/vm0bGylnBIpWBGMUCXJeXE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949889; c=relaxed/simple;
-	bh=En7edzTeLyqYAGHvBzmEBh3YBwqwnwhfgNWUWr7xps4=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=MhmjKxiiGG0k9+qYo7cjANgl4ubXtmvLYlBxnpDwwjrvIQYGv57gWXjDfr4qND98f70SdyOFWRCpaoEsN2/YAO6C6JHytLr0N1r+9Km3jfhucP1Pru8T6xbVqb1el+2uje4sY/RNGXasC07MhvkLT0xTr+sIpmgnkzN50n7Gcug=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jocp6w3t; arc=fail smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7D0B4E80C4;
+	Wed,  9 Sep 2026 10:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788949896; cv=none; b=ffHywlS9z1Elo5VpyT56H1vcn7ZIoSZvy7BYWXFtia9qN0tkIY9c1vyK/knHf7fIfcyDAszlBqP1uZQePiGM92PLlX1RmDFklMuvfzAfEmzMBD/6rlm7VN21caoU64nqc6kEZVq+UTSZRwuyHpy4TmuogiM5aV4IGmSy1PZOxuY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788949896; c=relaxed/simple;
+	bh=5E47bZgRKjBRNclJ8DR81hhTpJpELXhRn6CHOb6SHMc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u7jbBOFoXzF5N6u1WJYFj+GDfWt4cgS6f+n+AwwOzI6D5DocHWhgX/9BOn2FYKtIwjojB7O9yEKrbJqRVDCdRvvUnCDS3gbRehQgTtvU8ExUGYHQLR73R7W0rKW86yQufLA/FAprQa2EdzeYMLTn36Shh2fXyxvHzwI8lyRAdJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iq86NCY8; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jocp6w3t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788949885; x=1820485885;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=En7edzTeLyqYAGHvBzmEBh3YBwqwnwhfgNWUWr7xps4=;
-  b=Jocp6w3tT0x+Gumit+wkHN18EpNxLZ07SLMfwamhv6NViWiaMwqGwj85
-   g4wtStHmBYh1/+MSos8DxN4Yt0wspIDbhMMYcyL7Qg3EIPzHrb2EN814F
-   5zuRiSU01tj9/Azh2ULwqVbGLfXrqb6E7QXS7w9rSFfW4UXLZe0L9tU6q
-   n3/LUVcMzSUfCktLzfN5o+PDGNlKzlke1NsbUUbNZjLLiTNpgdLUtKuFg
-   cUowoY4z/knjAkUZHoCguMVpdOxBcIH223rWYXCs5+IRq+m4OZNU2mRP3
-   k25gOp5jaReszsIxbOD8gw/TzyejzjOs+QB/r6yh29lfEiXMJ3pETcg8q
-   g==;
-X-CSE-ConnectionGUID: GmNGeE+rR9SCK7U/h5FnFQ==
-X-CSE-MsgGUID: DdeDMDjwQbO1MI8nk2q7Kg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89401779"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89401779"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:31:22 -0700
-X-CSE-ConnectionGUID: Bh6VwGv5QryiaHzkZTvUBg==
-X-CSE-MsgGUID: OvnFHwSpRI6kI85oLcupqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="301162335"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:31:23 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 03:31:22 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 03:31:22 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.12) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 03:31:22 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xTkFQpppgqxBDMDMTRHC6OOr3Y2UdfZBCkBiCutQIQSzRcEMfQiXDTpsrBB+oHFidL9Gl3eSlOrHi4w4FOjvSEsPPvv1uXdt9ecngQVFL2Ps0RtwuqmVetZFzytNVCS85xN+Rf+q+JZT5N6W5JcdtwVLxw+ssq5UhlDRhOwzTADi/X4JBC44/reUwU8Dt9Lc/EhGg1inX+ij3Y4sNgyYrGeQ83X26qOuaT5+ig3+7hCFRVrVh3POtoK+3dRmGXWBKwUDDD1JkKtnGHoQjbgATcLh92ibWOk8B/fZyxEQuTNTZ1YqVgcMiNrkTv4VKs89/n9auYO/qEuHR7dYudeDIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H5Z3ULXJUkAGDj4FH1SKKjocr4tKwE8MEAD/9xF1Dq0=;
- b=LxMnjgF2KHn4SaR/SUf8hAcYjAWgNLcKdOOBgR8jaZIIMJrOLvoEowA4xfEBQsBQlxlA9HdyHKhOldgyDTitkEwjODzEw5HLMzKUtX2wmgxqWMs8AluudE+lBpA75pLfpBcmWPK7rQ3tO1MEwPEUDl5pDS1M3PF9vjJ2wIK64o7zVE5mTs5QW0seJLldpgCUvXI4R6+ZLdEzVniWSn0BHDv7/Jc9oF/LI6fAPIW2R8UQdzYtHJtkc2MY+uZseQFxlATXxMu9OY9Rwlirp6nZiJhxJ1Omage/vb/rNF4ZVhKHxJRoCoz0bfXN3sxSBowZ0akSZSDUPMZuBw6Py21Aeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
- by MN2PR11MB4632.namprd11.prod.outlook.com (2603:10b6:208:24f::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 10:31:20 +0000
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 10:31:20 +0000
-Message-ID: <75a49f8d-eced-4b47-8184-0d1a0d0f1a01@intel.com>
-Date: Wed, 9 Sep 2026 13:31:13 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] mmc: sdhci-of-at91: add option to keep clocks
- enabled
-To: Robert Marko <robert.marko@sartura.hr>, <ulfh@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
-	<claudiu.beznea@tuxon.dev>, <aubin.constans@microchip.com>,
-	<ehristev@kernel.org>, <linux-mmc@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <luka.perkov@sartura.hr>
-References: <20260907132617.1198548-1-robert.marko@sartura.hr>
- <20260907132617.1198548-3-robert.marko@sartura.hr>
-Content-Language: en-US
-From: Adrian Hunter <adrian.hunter@intel.com>
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
- 4, Domiciled in Helsinki
-In-Reply-To: <20260907132617.1198548-3-robert.marko@sartura.hr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DB9PR01CA0023.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:1d8::28) To IA1PR11MB7198.namprd11.prod.outlook.com
- (2603:10b6:208:419::15)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iq86NCY8"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D93F1691;
+	Wed,  9 Sep 2026 03:31:28 -0700 (PDT)
+Received: from [10.0.152.207] (unknown [10.0.152.207])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9A9A23F528;
+	Wed,  9 Sep 2026 03:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788949892; bh=5E47bZgRKjBRNclJ8DR81hhTpJpELXhRn6CHOb6SHMc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iq86NCY8O/8lqxNe1OcBEE7/9YosqThM66BP8GIanhyHffPcCTIC8g9LlQiB7QEjo
+	 8ppUgNPOkfdFZjjPvRxhYnOEa3nfHpk0LpHCUeqgWAP0eA70DtnmDTun6J15IpdSLx
+	 c3ZjyBwmp3tm2LHB2kr1nty5szyOWCgnigG5j30k=
+Message-ID: <aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
+Date: Wed, 9 Sep 2026 11:31:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|MN2PR11MB4632:EE_
-X-MS-Office365-Filtering-Correlation-Id: 425375a0-44aa-43f8-4982-08df0e5d7cee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|4143699003|56012099006|11063799006|10067099003|921020|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: oMRs1gdbHB1yXCwz7YpZsC9v/HUEI3zq6qaOuYkPrQyuoIlYOp2ycGG/iIj8oDir9RXf87cSDfaCkTeJThlyePMaMrHN20v8VgPTVEaOt0v/feKZit1jA8E3CpDdHBIexOAZIx/9BgqbRG9AQSExt+6z3Z+qz0PmW7k2bKHWt4izB3IpMZc4iie4pUBl3e/h4OzB+ZwybU+cwujw77i837obdOaQFC9T/t2NO3vpC4xhN4bL0+wqu1LPj/2qcIT54TR5b1OQvizfX1AKxR6ZuVaHptH7OHmDyZ2sY+Urs/dkxY9oUvD3a1QEXSXKwBnqXmVT/3mm5dfnkAwgvmVZi6kaYXuCJNb1gcabCfqOMpnt7w6maOXIdckSq4Q0KncGym0DjYz6x/Tv8+1Sd5IuKjH1xfr9eKhapQLbKVj4LlZ3xg3Z7X+TpY5iQxiiihxK7mIEIFTzZ6Bsd9Z/Ud/QwKx/ZJsYzB157nuWDkxf99u0HMvVeHw/Z762ksG1JedWKttHfINL5Pydnk7jxSlvP4u//LQgvQxR6grGMsdLVy5LfRThMcOA7WviEjlRXmG7i/1qRU88exJ3f/ruY0U/Blmf0d1Jfr7MvljNGr2j3jx1wfyrj0CzK3jWc3M5gEUU0THlaj4WKqRmVgbg52vd0LvpJE7+hBDUM77Chlv+xX+FmIcjB7bT3jfr/4jkWyDMkHRTRaaQNVc5c3m0vuOjow==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(4143699003)(56012099006)(11063799006)(10067099003)(921020)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkQ4K3VSYnpsZmNVN2hldW9heXdhd0hJT1BrdTBFNlZRNlB0WXU5SWpVbFpF?=
- =?utf-8?B?bmd3K1hudkZjQzdtenVGZVlnOGRraTFLd29CaDhQeDI5OFArQkVqRUcydEZB?=
- =?utf-8?B?Y2lTTjNoRFczU3hYUTA0RDQ1cmFPMVpOZkRMMFErTExZdDVqOUo2SlRpWVBG?=
- =?utf-8?B?OVZVTUVOR1RnTWJ0a2FsVjVpTkJ3bGtLaFYxSjkwVVJhcFBIWjAwMk82a1hF?=
- =?utf-8?B?UkZtNnl2RW8vc0p1QjVCZExrM0ZScThiV3VxeDlzZjZXYjI4WUFDWEJSbCtB?=
- =?utf-8?B?V294T0RjSEh6ZzhrYlY3eGJKdFdGT2JDQzBKcjFMVElQRS9EVkIvMUdSN2Jm?=
- =?utf-8?B?TEJBQjhjNkI5Z1g0U3Z4eGRmai9XSDg0T0xzWU1QRWZJcEZYTHRJVkJNVFVx?=
- =?utf-8?B?eDI0c1htQmx1UyttcDJJcXNqM0xIamdIVzg0ODNmSGduTVF5NEZKcjNDc3ZC?=
- =?utf-8?B?MzZ4ZCsrU1NCUmN3WkdLc09jKzlDbDdHRCs2aDRxQjRqeU8xcWlhSk9NZGdO?=
- =?utf-8?B?c1BlWVYrNlZLcWY2SGlET1RpaFVoSTk4NDRQS0MrZm1lNDFrSGNHRHU0cUJi?=
- =?utf-8?B?a1FzdDdtMzEyTlBybHQ2OEFGcTBkbk1iOS95cmFNS05WK0tuQktZTlltKzFr?=
- =?utf-8?B?WGxsL0ZQTVZGRlFhSWVHN1pxdVR4dEtlbCthVUlubzI5U1huSzAwcGIwTXNI?=
- =?utf-8?B?dGZaMVlOQXJpUExITkdnSGloWGF1eXRNbXRKd3Y2S21OdzlNUlRNMURUSmpY?=
- =?utf-8?B?clkxMmg1UCt2WHFab2Y4a3VTOUlRekt3WFp1MkFmWWlVR09mdWNjaEx5c1FW?=
- =?utf-8?B?aGIwbXhFcWFadzBxam1FNVBoUUJZaVQzdVk2SVJWUnh2bGs3WEo5anFyMUhG?=
- =?utf-8?B?RzIyTGRQOGNOa3VMZGdlUDlXUUpsb1VTRGF0VW9yWFNPZUJBS1lvT0xzd3NY?=
- =?utf-8?B?dWtMRWY1Q0FRWEZrRXREdjFqeTBaSUxZVTVxKzN2RnJ6R1FjR1hyTk1iKys1?=
- =?utf-8?B?dkx2QkkwZlFjSDZtenlFSHVFYURJZ2hSQjZOU2MwaXc4SkhMU3NOaVVxQlF3?=
- =?utf-8?B?c2tQL0lPYjFRUld6UVdEcDBUREREOE85TTlZMEg1RndGOUQwNWVqSGxLaTkv?=
- =?utf-8?B?MG5kcW0yV0RqUFk1SW92bW9pR1Q1UXNFdlJncFZ4QUlqNVpVQysvU3JwcE1L?=
- =?utf-8?B?N0Qzak43U3REWUR6cVdSaXpSSEpkQ0pWdUNuQ3FVUkJiTmxNYkl6UHRnM1pY?=
- =?utf-8?B?bUlaaUUyWGNQaXJLcW1tYSt1QmUwaGdmVktXQlg1SEZ2MzhESFJjb2htU2hq?=
- =?utf-8?B?L0NhN3BsYnlIN293N2JwNndmbHdBTVJlTnljRDdRZHRIVWo0WHBDbGxhdkln?=
- =?utf-8?B?RjZZd0xQRWxrcGVmckJiM2VrdmlwRW1iSmJzV1lDUTdWYTNnUGFSNHRsMUpy?=
- =?utf-8?B?dkxRNndCcFpqT0dmbjRXVW16NmxobVdWTkRKRXR4akx1bG9lUVRUN1dvNmNQ?=
- =?utf-8?B?YTNvTk5NZzRZSVQzdmt0S3M4cU5Mbk13THlnK0lxR2dkbUw4M3h2MHhnVWFD?=
- =?utf-8?B?OTVYL3hTcFBMa21lazRLajg4WFpvY0tzWFFzUDlOMzd2dVZya2RpOWdLelZ0?=
- =?utf-8?B?enhGZFl1Q3F2L3NxbFUxRmtTbGE4UjROUUVRWUZDdDhMUjNpdHowSHFxRGYz?=
- =?utf-8?B?cVFtb2k1d0lGQjJBb2lGV2w5YVprVUdPL2wzZGk3RkltSGp1WXBySzkzUUFp?=
- =?utf-8?B?b0VYd3J1eDZhOHNneDdIdmhobGtBOUF2cTFhM3orQ1QxcitUSFN5VFVCNGtT?=
- =?utf-8?B?aktrZjdZU0s5K3BDNEtXdTI2a2ltclEzVWdKUzlmTEdiKzdxSGxvTlE0K0Nz?=
- =?utf-8?B?c0Y3YitVT0RtUFRhdFNVQU1QYVBHcWdaWjRqS3BvMkNxSHNjVUlHSGY5NTdH?=
- =?utf-8?B?VFJncjlQYkh6ZUxseDhFVVpvVlVrRzFOeGtjUU4rRzRNZXlvaTV5ZkM2cGFM?=
- =?utf-8?B?TkFnbmFDSE1LR3gzaHl6S1BTLzQxblZRNkR1TEI5azhlbE1UYnhLVGp3cXky?=
- =?utf-8?B?djE5eW9EWjMzUWZiQXhCWUtCejdidm1CRlJEWnR2eHQ2czhudnlIcUhlRS9u?=
- =?utf-8?B?ZjZxaTNseHNRWHZNLzJwYjkzNzVjR1dRYlhUdzFSMDlsVCtrb1NzY3hvd3U4?=
- =?utf-8?B?bFd5OGx6QXdqY0NRdE9MVitoS0lHR3A3TUdhQ2JUck9uT2psRXhCbG1mRnNh?=
- =?utf-8?B?NTcwOWtka21hNlRUMGpRc1FNMWlkWVhPVWdsSHVVSHM0NjVFK1diK2gwV0hX?=
- =?utf-8?B?TmlBRDgyQUwzT2svNzhRYWVHZkhscXA3TVl3dUMwQUJBSkluWGNXTno4TFF1?=
- =?utf-8?Q?qa3fegb7XlX/gces=3D?=
-X-Exchange-RoutingPolicyChecked: 00Sdg7oeeSR2ui955nqhhGW5sB+ks+6bUcpcz84VgA/C7FMBID4GO345QUGGc8ym37vNsC2xtkZH5T4lrxVrq5YaIz5YWqJawC1a06GkBRlnJMqfAaGO+GvZTaOewW5Ss9/gjay1s/m9X/eGiYM1voQQx6bEg3TzXBpwhNi33YvZBq7MWiRflecNVXScKFmC2G4WUR5BmD/9u1E5mLlC2EcHiZtsMvkzvhNBdfDeh6a6choRtsZs4U6yIPRrH8FEti0nA66V4KzWxJG0KRAMS89OrZFpJ+pD1mPtApZrrioquvTmyTC4KySmodmffT3v/8lIy7ztqZWoba8hSswOYg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 425375a0-44aa-43f8-4982-08df0e5d7cee
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 10:31:20.2977
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HKSz7MbHJO2cmdsXjzClo8DJ9EJxa5KEHWdAdMVH8Rf8VPVeNBkdtz+qIVdplRx1WzFd+sgCHJ8V5fVPOO56iQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4632
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
+ double-indirection issue
+To: paulmck@kernel.org
+Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rostedt@goodmis.org,
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
+ <d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
+ <b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 07/09/2026 16:25, Robert Marko wrote:
-> sdhci_at91_set_clks_presets() both enables the controller clocks and
-> programs its capabilities and preset registers. This prevents callers from
-> restoring the registers without changing the clock enable counts.
+On 9/8/26 19:08, Paul E. McKenney wrote:
+> On Mon, Sep 07, 2026 at 02:28:47PM +0100, Vladimir Murzin wrote:
+>> On 9/4/26 00:59, Paul E. McKenney wrote:
+>>> This is more bug report than patch, but this patch does suppress the
+>>> splat, so there is that.  ;-)
+>>>
+>>> Kernels built with either KASAN or KCSAN produce this splat:
+>>>
+>> I see it on kernel w/o KASAN or KCSAN. IIUC, this is new check introduced
+>> by b5cc230af5e5 ("tracing: Warn when an event dereferences a pointer in TP_printk()")
+>> so adding Steven :)
+>>
+>>> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+>>> [    0.000000] ------------[ cut here ]------------
+>>> [    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+>>> [    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
+>>> [    0.000000] Modules linked in:
+>>> [    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
+>>> [    0.000000] Hardware name: linux,dummy-virt (DT)
+>>> [    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>>> [    0.000000] pc : test_double_dereference+0x144/0x14c
+>>> [    0.000000] lr : test_double_dereference+0x144/0x14c
+>>> [    0.000000] sp : ffffc80aa7633bf0
+>>> [    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
+>>> [    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
+>>> [    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
+>>> [    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
+>>> [    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
+>>> [    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
+>>> [    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
+>>> [    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
+>>> [    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
+>>> [    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
+>>> [    0.000000] Call trace:
+>>> [    0.000000]  test_double_dereference+0x144/0x14c (P)
+>>> [    0.000000]  trace_event_raw_init+0x37c/0x5d8
+>>> [    0.000000]  event_init+0x34/0xc0
+>>> [    0.000000]  trace_event_init+0xec/0x588
+>>> [    0.000000]  trace_init+0x24/0x6e0
+>>> [    0.000000]  start_kernel+0x4a0/0x8ec
+>>> [    0.000000]  __primary_switched+0x88/0x90
+>>> [    0.000000] irq event stamp: 0
+>>> [    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+>>> [    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
+>>> [    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
+>>> [    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
+>>> [    0.000000] ---[ end trace 0000000000000000 ]---
+>>> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
+>>> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
+>>>
+>>> Apparently, the code should instead create another entry in
+>>> TP_STRUCT__entry(), and do the double-indirection TP_fast_assign() instead
+>>> of TP_printk().  But simply removing the offending double indirection
+>>> in TP_printk() gets this splat out of the way of other debugging.
+>> Indeed, splat has gone after applying the patch.
+>>
+>> Thanks
+>> Vladimir
+> Does this less hacky patch do the trick?
 > 
-> Move clock enablement to callers and add a SoC data flag for controllers
-> that must keep their clocks enabled. Use it in the runtime PM paths while
-> keeping register restoration separate from clock enablement.
+
+
+Not quite :(
+
+
+> 							Thanx, Paul
 > 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> ------------------------------------------------------------------------
 > 
->  drivers/mmc/host/sdhci-of-at91.c | 39 +++++++++++++++++++-------------
->  1 file changed, 23 insertions(+), 16 deletions(-)
+> commit afda2321e6e93a5bcc28bfb4717fbc3a1768446c
+> Author: Paul E. McKenney <paulmck@kernel.org>
+> Date:   Thu Sep 3 16:48:09 2026 -0700
 > 
-> diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
-> index 7c4ac65f247d..b7e2a89da348 100644
-> --- a/drivers/mmc/host/sdhci-of-at91.c
-> +++ b/drivers/mmc/host/sdhci-of-at91.c
-> @@ -38,6 +38,7 @@
->  struct sdhci_at91_soc_data {
->  	const struct sdhci_pltfm_data *pdata;
->  	bool baseclk_is_generated_internally;
-> +	bool keep_clks_on;
+>     EXP drivers/usb/mtu3: Work around mtu3_log_ep double-indirection issue
 
-It can be a bit easier to read when conditions do not have to be
-inverted, like
+What is EXP?
 
-	if (priv->soc_data->suspend_clks)
+>     
+>     Kernels built with either KASAN or KCSAN produce this splat:
+>     
 
-instead of:
-	
-	if (!priv->soc_data->keep_clks_on)
+Like I said in my other reply I hit the splat with neither KASAN or KCSAN are enabled.
+
+>     [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+>     [    0.000000] ------------[ cut here ]------------
+>     [    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+>     [    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
+>     [    0.000000] Modules linked in:
+>     [    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
+>     [    0.000000] Hardware name: linux,dummy-virt (DT)
+>     [    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>     [    0.000000] pc : test_double_dereference+0x144/0x14c
+>     [    0.000000] lr : test_double_dereference+0x144/0x14c
+>     [    0.000000] sp : ffffc80aa7633bf0
+>     [    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
+>     [    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
+>     [    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
+>     [    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
+>     [    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
+>     [    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
+>     [    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
+>     [    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
+>     [    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
+>     [    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
+>     [    0.000000] Call trace:
+>     [    0.000000]  test_double_dereference+0x144/0x14c (P)
+>     [    0.000000]  trace_event_raw_init+0x37c/0x5d8
+>     [    0.000000]  event_init+0x34/0xc0
+>     [    0.000000]  trace_event_init+0xec/0x588
+>     [    0.000000]  trace_init+0x24/0x6e0
+>     [    0.000000]  start_kernel+0x4a0/0x8ec
+>     [    0.000000]  __primary_switched+0x88/0x90
+>     [    0.000000] irq event stamp: 0
+>     [    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+>     [    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
+>     [    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
+>     [    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
+>     [    0.000000] ---[ end trace 0000000000000000 ]---
+>     [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
+>     [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
+>     
+>     Therefore, work around this restriction by creating another entry in
+>     TP_STRUCT__entry(), and do the double-indirection TP_fast_assign()
+>     instead of TP_printk().
+>     
+>     Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+>     Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>
+>     Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>     Cc: <linux-usb@vger.kernel.org>
+>     Cc: <linux-arm-kernel@lists.infradead.org>
+>     Cc: <linux-mediatek@lists.infradead.org>
+> 
+> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+> index 89870175d63561..6477ad3ddc66f6 100644
+> --- a/drivers/usb/mtu3/mtu3_trace.h
+> +++ b/drivers/usb/mtu3/mtu3_trace.h
+> @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__field(unsigned int, flags)
+>  		__field(unsigned int, direction)
+>  		__field(struct mtu3_gpd_ring *, gpd_ring)
+> +		__field(dma_addr_t *, gpd_ring_dma)
+>  	),
+>  	TP_fast_assign(
+>  		__assign_str(name);
+> @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__entry->flags = mep->flags;
+>  		__entry->direction = mep->is_in;
+>  		__entry->gpd_ring = &mep->gpd_ring;
+> +		__entry->gpd_ring_dma = &mep->gpd_ring->dma;
+
+This doesn't build for me
+
+./drivers/usb/mtu3/./mtu3_trace.h:239:55: error: invalid type argument of ‘->’ (have ‘struct mtu3_gpd_ring’)
+  239 |                 __entry->gpd_ring_dma = &mep->gpd_ring->dma;
+      |                                                       ^~
 
 
->  	unsigned int divider_for_baseclk;
->  };
->  
-> @@ -164,7 +165,7 @@ static const struct of_device_id sdhci_at91_dt_match[] = {
->  };
->  MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
->  
-> -static int sdhci_at91_set_clks_presets(struct device *dev)
-> +static void sdhci_at91_set_clks_presets(struct device *dev)
->  {
->  	struct sdhci_host *host = dev_get_drvdata(dev);
->  	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-> @@ -174,7 +175,6 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
->  	unsigned int			gck_rate, clk_base_rate;
->  	unsigned int			preset_div;
->  
-> -	clk_prepare_enable(priv->hclock);
+>  	),
+>  	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+>  		__get_str(name), usb_ep_type_string(__entry->type),
+>  		__entry->maxp, __entry->slot,
+>  		__entry->mult, __entry->maxburst,
+> -		__entry->gpd_ring, &__entry->gpd_ring->dma,
+> +		__entry->gpd_ring, __entry->gpd_ring_dma,
+>  		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+>  		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
+>  		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
+> 
 
-Might just as well pass in a parameter and:
+I've done a little bit massaging and here is what worked for me
 
-	if (prepare_clks)
-		clk_prepare_enable(priv->hclock);
 
->  	caps0 = readl(host->ioaddr + SDHCI_CAPABILITIES);
->  	caps1 = readl(host->ioaddr + SDHCI_CAPABILITIES_1);
->  
-> @@ -222,11 +222,6 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
->  	preset_div = DIV_ROUND_UP(gck_rate, 50000000) - 1;
->  	writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
->  	       host->ioaddr + SDHCI_PRESET_FOR_DDR50);
-> -
-> -	clk_prepare_enable(priv->mainck);
-> -	clk_prepare_enable(priv->gck);
+diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+index 89870175d635..4d4bae25fa1f 100644
+--- a/drivers/usb/mtu3/mtu3_trace.h
++++ b/drivers/usb/mtu3/mtu3_trace.h
+@@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+                __field(unsigned int, flags)
+                __field(unsigned int, direction)
+                __field(struct mtu3_gpd_ring *, gpd_ring)
++               __field(dma_addr_t, gpd_ring_dma)
+        ),
+        TP_fast_assign(
+                __assign_str(name);
+@@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+                __entry->flags = mep->flags;
+                __entry->direction = mep->is_in;
+                __entry->gpd_ring = &mep->gpd_ring;
++               __entry->gpd_ring_dma = mep->gpd_ring.dma;
+        ),
+        TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+                __get_str(name), usb_ep_type_string(__entry->type),
+                __entry->maxp, __entry->slot,
+                __entry->mult, __entry->maxburst,
+-               __entry->gpd_ring, &__entry->gpd_ring->dma,
++               __entry->gpd_ring, &__entry->gpd_ring_dma,
+                __entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+                __entry->flags & MTU3_EP_STALL ? 'S' : 's',
+                __entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
 
-Ditto
-
-> -
-> -	return 0;
->  }
->  
->  static int sdhci_at91_suspend(struct device *dev)
-> @@ -254,9 +249,11 @@ static int sdhci_at91_runtime_suspend(struct device *dev)
->  	if (host->tuning_mode != SDHCI_TUNING_MODE_3)
->  		mmc_retune_needed(host->mmc);
->  
-> -	clk_disable_unprepare(priv->gck);
-> -	clk_disable_unprepare(priv->hclock);
-> -	clk_disable_unprepare(priv->mainck);
-> +	if (!priv->soc_data->keep_clks_on) {
-> +		clk_disable_unprepare(priv->gck);
-> +		clk_disable_unprepare(priv->hclock);
-> +		clk_disable_unprepare(priv->mainck);
-> +	}
->  
->  	return 0;
->  }
-> @@ -269,14 +266,23 @@ static int sdhci_at91_runtime_resume(struct device *dev)
->  	int ret;
->  
->  	if (priv->restore_needed) {
-> -		ret = sdhci_at91_set_clks_presets(dev);
-> -		if (ret)
-> -			return ret;
-> +		if (!priv->soc_data->keep_clks_on)
-> +			clk_prepare_enable(priv->hclock);
-> +
-> +		sdhci_at91_set_clks_presets(dev);
-> +
-> +		if (!priv->soc_data->keep_clks_on) {
-> +			clk_prepare_enable(priv->mainck);
-> +			clk_prepare_enable(priv->gck);
-> +		}
-
-Then that all becomes just:
-
-		sdhci_at91_set_clks_presets(dev, !priv->soc_data->keep_clks_on);
-
->  
->  		priv->restore_needed = false;
->  		goto out;
->  	}
->  
-> +	if (priv->soc_data->keep_clks_on)
-> +		goto out;
-> +
->  	ret = clk_prepare_enable(priv->mainck);
->  	if (ret) {
->  		dev_err(dev, "can't enable mainck\n");
-> @@ -344,9 +350,10 @@ static int sdhci_at91_probe(struct platform_device *pdev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
->  				     "failed to get multclk\n");
->  
-> -	ret = sdhci_at91_set_clks_presets(&pdev->dev);
-> -	if (ret)
-> -		return ret;
-> +	clk_prepare_enable(priv->hclock);
-> +	sdhci_at91_set_clks_presets(&pdev->dev);
-> +	clk_prepare_enable(priv->mainck);
-> +	clk_prepare_enable(priv->gck);
-
-And that all becomes just:
-
-	sdhci_at91_set_clks_presets(&pdev->dev, true);
-
->  
->  	priv->restore_needed = false;
->  
+Cheers
+Vladimir
 
