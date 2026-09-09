@@ -1,112 +1,152 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE958492E38
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8676C3AA1A8
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936663; cv=none; b=NC99u3ygYiVEh/7XTvFeGK810m5p5hwZ/gk5y+pNyj0NmsH6gFpYBaGCIGcc2MP1FTL1HyjN/S6ekDKye3otLcV+hM8HwRf4YhHBfAIOL2SOnDSmAt36Fen4k79sPuBtLnlbJIANM2Vf5+qq+hyC4D+lSWVdOpLvWmsUEZaFOPI=
+	t=1788936666; cv=none; b=hEbKWjYSr17kHuWnPOYd4hJ2ZmdafAdlGFI9pmy0WzUraweYDF9scYGsXuriM2dBDHW+dG8M53GZLdtXwTb42wXUBkzf25hQZeckHEoFZwMAhvFDv/emi2T7GH4OqEchhoDm7xTJg1hUuhnV7WZaOhmpPmIKTD7e3NH4q2zFZkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936663; c=relaxed/simple;
-	bh=oDkqqmtTJtGBZvqIfArxzM2jLkVcQGCEqnkrKRG+9hQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=So3bvkmBAarL5v81lupYJJ23YL66sOdVPeFIhVaSkZZV5iwaPGSFFjAETI9+6oExWtnxiUvvm3zJTWBLiwUNijAlDyqPXerJFpC/mVBw2P0wJJA2BWmbwBBs0Ml7O6GWornkPe8OhbE7pWziAlhQWWcXLWWNNdO/8euzLPHZcA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpjPaFeY; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788936666; c=relaxed/simple;
+	bh=fcitUKDpF9kThgeapaT1KFefDBj1kbnOTZBG7H6CkT4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ro0bxkdsnTmpJNPU+3hF8DuXBn+S5qqVu6buYkcC14fJ1WJ0BzW7Y41DOP1X61m+OY2VeLmUf+bej8Up88vJ4lq1BR716EjkK7mq2CUx0c8ApaS/vX4ug/T+yjL3VH88Xm3xgr7FqBOf4MBMssrVe6YG37sCqFyg9XdzDYoKQbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=j6Vl6JnS; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpjPaFeY"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so43679095e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:51:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="j6Vl6JnS"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c250c6a6a6eso748842466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:51:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788936658; x=1789541458; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vBhD6t+tB+9jZHU6fZGAeov1ImNZWGevF727s90AjNc=;
-        b=mpjPaFeYrPuVnGhRT2SHmF2qxWmwmIFYujyvIHUB1tFA5k4QzomzqeSYnV0n66E7aP
-         I7UtxPrR5AIz4U/PlWoDKBX9yQJ9yeqX3MZr04+jia2wsWzw6AMB6UxS93FjWkQvLE4F
-         QqvBWFWIu2DYuZ5gJM3Z6MMYFYnVQCJynnnz5xsB6q4pVJwKZBKZsSV3ZGjh/cNGBqqp
-         maVWFf81cyjlgaGFR31hX1cnjMXY0Gv94TEcmuv9PqdKMLNrVP7wA94t/ojXC4aL0pJQ
-         pcUSuYmW9ulBhXK4bVaFdd73bS5XI6Zp7zy+cSPXAUxGqJcMzQjUqSaSSm9GCPqEXDdu
-         Wiig==
+        d=konsulko.com; s=google; t=1788936661; x=1789541461; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EpsiGeLnMZIMyyW3N1yYpr4ElxKQISOJwtmVdkcRVSc=;
+        b=j6Vl6JnSvKz8kYM6mNjpvPKRJ7u5qaD6PgtEgwJZlp1s9tuiBa6KZ8ZoD7nE1Wuxcd
+         01WOOZ9UuPCZUt2R5n3jYeGIzV/Q4xsN56YtyvGpJaesUo/6I8D4EtXx5OKwz2aGLuk0
+         Kjqi7tTz6n+c3UsMEwbggi8ckyaqyiJ8zG6WI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936658; x=1789541458;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vBhD6t+tB+9jZHU6fZGAeov1ImNZWGevF727s90AjNc=;
-        b=FLge4veOPBs8gNW9GtLUpl8c6O/20z206ZVZz6O0IlrDxj76PA6b/6fyzgY6zp/w3u
-         dBNm7R1XFgGKCoG8GovYD+jxdilk7f8zjSap5glHsZSLe8LK1J19voZkRcCHjRzLg9Sx
-         n0fLu7TAU023jPzlxtgcdhp38L/dduLqxcbuyfld/Mq+DOTb9OfOuLWdAYs+DWtj5HJW
-         wF5ZXuGt6c2cX4fAhfgObVhAPWnqQU28a8iVXcZ7/kfIS9olGfmMJSHDpP77kKFVN9S4
-         hlCB9bVGfUC4exrTBJZmrLA9b9mN+G3kR7CXTpcB4jilflPB12htWpIlLZqDbYXd834+
-         25+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx3JBLmlCSWbBBHasw3/jKV7vlcydQwsY4J47hvY+yyrjM3bPrWPVi5RMIEkoMISmK8/3cqjneFwPTaRH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5CSQwUzK3C12gRjIKxohEuWHPXwds/R31x24dV2jzWiU4rUjt
-	V/SPcKfH01AbVnEhGzFcrcBl5voj3KOCgHSoz0O25V1gWK1MwZf149v+
-X-Gm-Gg: AYBFou22mg6Aqiy23vNxUFRObZbDfROUS9uJ5/p8FvbW1ETZlrDnb9tdrU2+gCpVfHM
-	uMZ3/UDpzyXT+T2rRxuSYBJ5gjOmFsXlXElUzxKu69/GDa0D0vXP8dhg87JbEM9OxrJ7xoiMtm4
-	XymSwp/GFfgVDjYP0CrLsyefnnJ7KmMIWkA+P3tbyUR+D+NLRL9S5gyIfXCqt7XxVucbZKMWoWc
-	EsgzToRawK3h83Y3Dkc82dHRFsVFs2c91rE6EtasUKINQJl1IuKNdKINIxC2TUzoPkGr8Isb+4Z
-	TsL8gQllu6UnnbcqKu3mIKOSkotQC77FvzTwFVq1xhYi8EYjuh1+KlTo/GT1R49dyIFlyiqFqrX
-	ubYHC790rIfl6s3Gi0fGQ71OEG1dzuGRhv6F623N+XauaLuWKgMp9KhoeykykqlU82BGEWEZYS7
-	4OEvp+0UpSoHfJpM26S9VLCCXK/0VE5MytFSSHQ+fa4gdFa60tcN5LTAeREZ3xT4UD9j5SGT1QA
-	korUizgBzbJJyx4dWFyxkCBK6IaqCPAn8Tm2m1hWxVf4QS1f06axYKrAWFjvKA5YCzLGc26S0z4
-	nWwZJu/cQzyTVUyFo/oimbMwBLG4/HakBsrHN0ty6aGdQZimTy7p
-X-Received: by 2002:a05:600c:46d1:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49cf820c992mr346389645e9.6.1788936658088;
-        Tue, 08 Sep 2026 23:50:58 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm443222705e9.12.2026.09.08.23.50.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 08 Sep 2026 23:50:57 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Haixu Cui <quic_haixcui@quicinc.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] virtio-spi: Fix virtio_spi_config kernel-doc
-Date: Wed,  9 Sep 2026 08:49:38 +0200
-Message-Id: <20260909064938.90995-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1788936661; x=1789541461;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EpsiGeLnMZIMyyW3N1yYpr4ElxKQISOJwtmVdkcRVSc=;
+        b=Woqdu2Hn2HfTL6WFWaaH9kBvJPY9fwNknNP+lZzaEkTybBH060StLHRdKuhjhqfqeW
+         wbF6xMrAIVi7lW13wNGLsbEBa2UNfVpFh3T/1PZykv3EETuNHFV2Bf2qx6XwS/XWTDSw
+         Ar1ICsOa1S2QRY6NNNTKCA0qDMLX8TSujsmNM5X3TCX8lLDCviaXxW3tqquIZiU7FK7s
+         pWHzPihi6uugpbRTnAqiLS3dR7OctDVbsNDApafKKQiD7viugmR18QfHOrlJYn6YVnyS
+         QNYFWYVoEhYFl2HfVS8hrPDtJfR9GfgvdDjHpt34EffMYe/OdqqimiCs38TUSmHXlBG/
+         scpA==
+X-Gm-Message-State: AFuF++m/eCsW60BAo9xLpOEklf2vTrA334xg7vXYGdDPoJRz78oZmK73
+	/yBy71EDBR2m4UYqW2+Kvm9B4M7kKWgLkf+D8JpeV70gNrESWy3X0GqmwkDQpBdKmS0=
+X-Gm-Gg: AYBFou0HZzSVx0p3ygc2kENLrR0ah+FzIzKBtsGz4xKqGMbiauKvTm5prEas0Y0CvSR
+	V6Wk444XM//eSLAeeymwYSmy7gUhdos2U2Pc1/hBMKga+WKHssWozDmJpozNs9u1XYbRFwWDGXz
+	yUGX9Vduotldhka4qxxOJ+vFpRfqi1v9E+LgAp39NBtOGZzD/Nd9P74yOjDVUWtpFQSB8fNHE/7
+	cPRLoCEmbeLZeiaNqxL2AIjTlopAR1dTI0g+LlonYMFzxWyj06YintOtiA8h6OXJ+gEO8eXf3Oy
+	2WkWRj5aSOjyi5h+IxzMHELUJXZLEXEXkB2lRifjb0arms3IemdMZGCoMkUxthh6d4qAwCeH7Ew
+	tg8cqStjKawDDCUNVz2fFeafGJ77XwKnb+gR3613eI8gYtR6viILSUZlLQgYNO27+tmSbWDB6FY
+	+n+aNl264wXaeEVaB4SeAYmK8H3qEmjw/0DYsleJFRnXLII6PZ33pqZy3+d76g0W83EQwDn6hYI
+	U+YLg==
+X-Received: by 2002:a17:906:c116:b0:c26:19de:9add with SMTP id a640c23a62f3a-c2619dea99emr1231458066b.28.1788936660938;
+        Tue, 08 Sep 2026 23:51:00 -0700 (PDT)
+Received: from carbon.k.g ([85.187.61.220])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5768c2sm701752366b.39.2026.09.08.23.50.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 23:51:00 -0700 (PDT)
+Date: Wed, 9 Sep 2026 09:50:59 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org
+Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
+ Draeger's M48 board.
+Message-ID: <20260909065059.GB10420@carbon.k.g>
+References: <20260908111011.960876-1-petko.manolov@konsulko.com>
+ <20260908111011.960876-2-petko.manolov@konsulko.com>
+ <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
 
-struct virtio_spi_config contains max_cs_inactive_ns, but its
-kernel-doc describes max_cs_incative_ns. This leaves the real member
-undescribed and adds a nonexistent member to the generated
-documentation.
+On 26-09-09 08:36:23, Krzysztof Kozlowski wrote:
+> On 08/09/2026 13:10, Petko Manolov wrote:
+> > Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+> 
+> Please run scripts/checkpatch.pl on the patches and fix reported warnings.
+> After that, run also 'scripts/checkpatch.pl --strict' on the patches and
+> (probably) fix more warnings. Some warnings can be ignored, especially from
+> --strict run, but the code here looks like it needs a fix. Feel free to get in
+> touch if the warning is not clear.
+> 
+> 
+> > ---
+> >  .../devicetree/bindings/arm/altera.yaml       |   1 +
+> >  arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+> >  .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
+> >  3 files changed, 132 insertions(+)
+> >  create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> > 
+> > diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
+> > index 3030cf46fe74..8ed1ba733510 100644
+> > --- a/Documentation/devicetree/bindings/arm/altera.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/altera.yaml
+> 
+> Same comments. Binding should not be part of other patches.
 
-Correct the spelling.
+Does this mean i should submit the bindings related patches first?
 
-Fixes: 6a1f3390fafe ("virtio-spi: Add virtio-spi.h")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- include/uapi/linux/virtio_spi.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > @@ -47,6 +47,7 @@ properties:
+> >            - enum:
+> >                - altr,socfpga-cyclone5-socdk
+> >                - denx,mcvevk
+> > +              - draeger,M48
+> >                - ebv,socrates
+> >                - macnica,sodia
+> >                - novtech,chameleon96
+> > diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
+> > index 8df0976da01c..cdcea11abdfa 100644
+> > --- a/arch/arm/boot/dts/intel/socfpga/Makefile
+> > +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
+> > @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
+> >  	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
+> >  	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
+> >  	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
+> > +	socfpga_cyclone5_draeger_m48.dtb \
+> >  	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
+> >  	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
+> >  	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
+> > diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> > new file mode 100644
+> > index 000000000000..423c76cd1d4a
+> > --- /dev/null
+> > +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> > @@ -0,0 +1,130 @@
+> > +// SPDX-License-Identifier: GPL-2.0+
+> > +/*
+> > + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
+> > + */
+> > +#include "socfpga_cyclone5.dtsi"
+> > +
+> > +/ {
+> > +	model = "Draeger M48 Cyclone V SoC";
+> > +	compatible = "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
+> > +
+> > +	chosen {
+> > +		bootargs = "earlyprintk";
+> 
+> That's not a mainline suitable argument, drop.
 
-diff --git a/include/uapi/linux/virtio_spi.h b/include/uapi/linux/virtio_spi.h
-index 8ab3c970cdd3..459c2276c938 100644
---- a/include/uapi/linux/virtio_spi.h
-+++ b/include/uapi/linux/virtio_spi.h
-@@ -73,7 +73,7 @@
-  * @max_cs_hold_ns: the maximum delay supported before chipselect is deasserted,
-  *   in ns unit, 0 means delay is not supported to introduce before chipselect
-  *   is deasserted.
-- * @max_cs_incative_ns: maximum delay supported after chipselect is deasserted,
-+ * @max_cs_inactive_ns: maximum delay supported after chipselect is deasserted,
-  *   in ns unit, 0 means delay is not supported to introduce after chipselect is
-  *   deasserted.
-  */
+These DTs are meant for u-boot only usage, but OK, will drop the bootargs.
 
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
--- 
-2.53.0
+
+		Petko
