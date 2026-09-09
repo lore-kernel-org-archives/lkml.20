@@ -1,100 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848A856855E;
-	Wed,  9 Sep 2026 13:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DD354856A;
+	Wed,  9 Sep 2026 13:44:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961468; cv=none; b=Uim5g9OvZADQ1UJzp46e6rtSYUKfVnHyTvmvmydwVyCGA1+1q11RGsKrZy2T0g2dRtXBLHsdsp9A8ESLdc95GDEMxTVPXvtnSQmYrefBnsmJ3n1rkst1kA+WxNHBI2uI9+cbn3Eltpi0XnybOufAjaDxVjqRmp1A8JRIQKzm8y8=
+	t=1788961494; cv=none; b=JTLPnYNBigTGPCtkfI/qNPxca1JppxbXNTbmc7Ugiod/5xf0nCovAhoAGZsvK6l++YlS294FNHAqtppRLTOf7W5+OdzDIrYcEKnCV87PM4OTH6qKIzYzQVP8UEf9NehqruxaiJKAtoHt2vSMIJJjN1DUPa79HffQiKOBKVC+ajk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961468; c=relaxed/simple;
-	bh=BSVQ7X1oYMYkr3cY9M4eIo7reqFxHTRsekGLejEdsS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c1O6Al6euYR1fHWT4xR5UrGevwSunzvRJ1FSXGHSzy+r5RueWh2CT5T5tF39syrQVIFNVPia/Bkqwh7FbTfw2bAtGb8+OgR11fwDuIDjDR9MIhuiy94arL0TWBC8RAD6mxQK5UYjnD3PjSk75YYvLO0+K9Tva1bCDNWExBj3twY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bFbt+CVC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788961494; c=relaxed/simple;
+	bh=MPqiRkGlZVTX++ODXxfaXxun80PggglEafJxYTlEUik=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=kjTC5z+Lx1NRKy7CBSoWSmE6h5cPJL/bGd4MFCu3Sljmsi29RzUf8LBPmd2pYntX+7Uurcg0e/sLvlVKu1czG0HxAa4HCkqRKAYBv98Poptu0rQdurj3LdCsU1M0OtyXgtaGHBuf/UePSidy9YZh0pKZI1k9n613fBRCW4UCN28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f8z0lT6h; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bFbt+CVC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9006F1F00A3A;
-	Wed,  9 Sep 2026 13:44:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788961467;
-	bh=q382t19dmeDfi6w9s1tlbESymUMmrB4fPz5zaEdPuaA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bFbt+CVCO/5PMUnbI9Fl0tG5znsZ0+zp3Uku8Xd9YW896CydUazkSNUejspdflrxS
-	 Nbjjoh6b4U6cEzyOYYRArj+xCQZnOcfoWFL36t2FN9JVk8Ek1PNkuMRT/FrtetewNm
-	 VIup4Qmd/9kjscc5e0PLngIYxt8Yi0daLitT8qqk=
-Date: Wed, 9 Sep 2026 15:42:37 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Isaac Aneek Sarker <alvasarker2004@gmail.com>
-Cc: Nikolay Kulikov <nikolayof23@gmail.com>,
-	Andrei Khomenkov <khomenkov@mailbox.org>,
-	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
-	Khushal Chitturi <khushalchitturi@gmail.com>,
-	Minu Jin <s9430939@naver.com>, Anirban Bose <boses156@gmail.com>,
-	Khasar Munkh-Erdene <02khasar@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: rtl8723bs: fix unnecessary else block with only
- a break statement
-Message-ID: <2026090926-nursery-despite-185a@gregkh>
-References: <20260909083010.13064-1-alvasarker2004@gmail.com>
- <2026090924-tiger-unaudited-e9f3@gregkh>
- <20260909193736.3d7a851a@isaac-aneek-MS-7C52>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f8z0lT6h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788961492; x=1820497492;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=MPqiRkGlZVTX++ODXxfaXxun80PggglEafJxYTlEUik=;
+  b=f8z0lT6hqcfRizimUdcch3S2bzPqoseTG/on8vaXzT34VrFI86ZLS5n+
+   T2X7Ad5zTbv7W4PaLkSno5bp701Je8KUWCdToOD8VYAFGZDPr/l5JwXy3
+   0Rb5Ap2FCSzsm7CZ5UOcdJqYr9rwWzJimdAPH4yJpZ9AYeTCXaEZbfcKe
+   htsr6XRe8fJxVbfhI16Ab4yeG6HOkAiaOt4ekQhFTNsuK/a+CmSimGyCr
+   w12Neu40K/7WPuTIG1+tyA8VKDwi4ML1+BL2dnMSiHML/8hAsVRqkmQB2
+   XksZaL/OlB9VDfWNy5Q5jTJ0Qn1VZDk+p3fzOld8+tU4//wssFXlEh6Bd
+   g==;
+X-CSE-ConnectionGUID: PHNIkY1aRK2tWR7CUq1YHQ==
+X-CSE-MsgGUID: hqu/sv/hTM60+hreZwnKlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106758127"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="106758127"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 06:44:52 -0700
+X-CSE-ConnectionGUID: q9FakGyGScS13XMsOhc7hg==
+X-CSE-MsgGUID: DWlK9O5HSaeAfo5wGo9ezQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="269978349"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 06:44:49 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Antheas Kapenekakis <lkml@antheas.dev>, 
+ Hans de Goede <hansg@kernel.org>, linux-kernel@vger.kernel.org, 
+ Gabriel Windlin <gawindlin@gmail.com>
+Cc: platform-driver-x86@vger.kernel.org
+In-Reply-To: <20260908203412.608606-1-gawindlin@gmail.com>
+References: <20260908203412.608606-1-gawindlin@gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: fix sysfs-platform-ayaneo-ec
+ documentation path
+Message-Id: <178896148417.3928.3977515235268287434.b4-ty@b4>
+Date: Wed, 09 Sep 2026 16:44:44 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909193736.3d7a851a@isaac-aneek-MS-7C52>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, Sep 09, 2026 at 07:37:36PM +0600, Isaac Aneek Sarker wrote:
-> On Wed, 9 Sep 2026 11:33:49 +0200
-> Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On Tue, 08 Sep 2026 22:34:11 +0200, Gabriel Windlin wrote:
+
+> The documentation file for the AYANEO platform EC driver was added as
+> Documentation/ABI/testing/sysfs-platform-ayaneo-ec, but MAINTAINERS
+> references it without the '-ec' suffix, causing 'make refcheckdocs'
+> to report a broken reference.
 > 
-> > On Wed, Sep 09, 2026 at 02:29:38PM +0600, Isaac Aneek Sarker wrote:
-> > > Warning found by checkpatch.pl : else is not generally useful after a
-> > > break or return. The function would reach the break statement after
-> > > if-elseif block even if the else block is not used.
-> > > 
-> > > Signed-off-by: Isaac Aneek Sarker <alvasarker2004@gmail.com>
-> > > ---
-> > >  drivers/staging/rtl8723bs/core/rtw_recv.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-> > > index 3c82012fdc6c..a203ef8bd6f6 100644
-> > > --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-> > > +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-> > > @@ -1789,8 +1789,8 @@ static int enqueue_reorder_recvframe(struct recv_reorder_ctrl *preorder_ctrl, un
-> > >  			/* Duplicate entry is found!! Do not insert current entry. */
-> > >  			/* spin_unlock_irqrestore(&ppending_recvframe_queue->lock, irql); */
-> > >  			return false;
-> > > -		else
-> > > -			break;
-> > > +
-> > > +		break;
-> > 
-> > Did you test this code?  It looks like you now just changed the logic a
-> > lot, right?
-> > 
-> > thanks,
-> > 
-> > greg k-h
+> Update the file entry to point to the correct file name.
 > 
-> No I didn't test the code. And I don't have the required hardware. But I would like to know what are widely used test methods in linux kernel dev to test a driver when you don't have the relevant hardware vs when you have one for and finally test the code. At first it seemed a trivial change to me because that else block would only execute if the if-elseif block didnt execute, which made me come to the decision that the else block was unnecessary.
+> [...]
 
-Please wrap your lines :)
 
-Look at the logic of what you just changed here, is it identical to what
-was present before your change?  If not, what is different?  checkpatch
-is for coding style issues, not logic changes, right?
+Thank you for your contribution, it has been applied to my local
+review-ilpo-fixes branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-fixes branch only once I've pushed my
+local branch there, which might take a while.
 
-See the mailing list archives for many discussions about this type of
-"cleanup".
+The list of commits applied:
+[1/1] MAINTAINERS: fix sysfs-platform-ayaneo-ec documentation path
+      commit: d144a494d81fcf2d1c5cf58b01c655bb8bafc701
 
-thanks,
+--
+ i.
 
-greg k-h
