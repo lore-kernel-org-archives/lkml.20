@@ -1,142 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309F452E054;
-	Wed,  9 Sep 2026 12:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7088154EEB0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956260; cv=none; b=s4VJI0jQ4YSdk/6FfcnD/YGsAKkHzd5lLd8WdkKyI5IrorPXO451Cdufu8gJR/njasXVQRTu0ysfeoZ8a7AhuuVH/0sn4a4GX+J1mXIhBozVSID5bKCdHM/vVgjS+5owfbRIFksRwd6VpOgzpr+lzhKz0az0UukJaXIFjU+fwcI=
+	t=1788956284; cv=none; b=tN5uheGTUHWrxjdve4ysjC/zYVUWOB9ev4kYL7zUu6pGvUzezzljUA163TdgKiPLaihaSk4pM+dTz+0kTX34p28azQlL9sEd4dxf/8opHK+7lRRKUeSd9Jpcp85aJCq2KnOkpPyuFZpfm2T/sryBdz6CFTjPtz8kt6Z605aFosg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788956260; c=relaxed/simple;
-	bh=uLcy+jggp2AjWvoSKdjgh2Z1kpnBks6fQKrmv0yE+jQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RpPSy10EeTMiyuplcM+0CrymslNLVJsbGfKVbalWtP+9++gp4TAXievulgKr+o6KZMfiMm6xCMjaFSH9MRr4XvBbT0sWZfcvvp5U5TntqKZwkdyZF7HczqN6WC622K64kksKGM6rf9YPyW69P5qZx33X6NIwMHTiCB9hzpfvIY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtsvA6WM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788956284; c=relaxed/simple;
+	bh=/nKoyS4UDsRHs1CtjvkS7/wZgU8bLh2faCw9K/M/RSs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=YocVHrkvuHiB1hLAY0Sa4jNhylmRqr1iPPapfFJIkk3nGp4ClyG3xyLuai9+2QAEOJnzDQ0aHemuqqWhfovC+atsQXA32GJzv6Ky7QBn0jlc0lUKv1hs12AUXBLO9YAMtjBzrJdZqyyWkjp+2sQ/jR1CtEwFbYIBn44/HWLgcS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eIM7r85+; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtsvA6WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440B21F00ACA;
-	Wed,  9 Sep 2026 12:17:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788956258;
-	bh=prvGSj+fZwUA3hFUhb/5k8cPZC64I4Fvs/1jMwi2UW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XtsvA6WMsvy+Wz3Bt8v0Bdxjg2HPd0rypeZl5SXrxIgVGRT8K6jgPwU4m3cVxZQCm
-	 oDHPAIyVoAmgXZ2TE3fA4kJ6ndh5z9JktCCvs4KjO1tEYAW6pGXuzIsYs8w0lJ1Jfs
-	 dTN05KtGiIFCChfQdHpdwje0Sqx/jEgvapZmSgZBO1fsEswuEZ4eNL8jxNmbkuOCtK
-	 XWO33Mz1fkPNI800PG1f336LFJCdQiU/bTlnmHer56LSvMWwS+soEyRVm8Une2MAq/
-	 +mnQ3QKlY7Jql7clJFLnSDTMpFzj7QKxKPCxDsXElcKUkhzXnBqS/GZgyJhbl2zBj1
-	 9n+FrZQWu0TqQ==
-Date: Wed, 9 Sep 2026 13:17:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: arm64: Enable S1PIE for hVHE
-Message-ID: <e3c716c2-66ef-4dd0-bcae-6df4ff814e48@sirena.org.uk>
-References: <20260908-kvm-arm64-nvhe-pie-v2-1-79e42d28cc08@kernel.org>
- <861pb24v45.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eIM7r85+"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7C60C1A1A77;
+	Wed,  9 Sep 2026 12:17:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4FCFF60448;
+	Wed,  9 Sep 2026 12:17:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B712A11C7AF5C;
+	Wed,  9 Sep 2026 14:17:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788956275; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qNmFgKaHVTo7k1CnKTAIn7ZprlOPVp4A3LUpXlIcrXc=;
+	b=eIM7r85+6AmEgK2fUiLaJyvkR/5roH31GPkXQTZWPiOPKZhYs0nO/2hNXGz8YcyIeEaGZn
+	TKq8K8DyjPLEonUfq4cwDH+zdYmDasbjsFTLeIzJTvWjJTYMkcwIY3Ec5bXBd83hZcJV5R
+	LuQtJ4/MSAangDrLBrE80NInJZXzpBrw8sRKn8aEUDpUn0CJKvwcFyHVwvP1T/c2s9J6te
+	i019ybV9PKakwUGMNfxMSRBoKGzSUqX0BL32mw0EXG8aq4cySE/3wEU7teudHI8l4m5cfO
+	nujv9hw9MxtqsKGoFyxlVo+3kkav/p72EpIxJQUvpWPPHA5pRBIjZLw2aLgeCw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MuKrjLDOhzI+PFOi"
-Content-Disposition: inline
-In-Reply-To: <861pb24v45.wl-maz@kernel.org>
-X-Cookie: Postage will be paid by addressee.
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 14:17:51 +0200
+Message-Id: <DLAS2LIDY508.2EPVYDDW3ZEFA@bootlin.com>
+To: "James Clark" <jjc@jclark.com>, <netdev@vger.kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [RFC PATCH net] net: macb: fix ordering around PTP timestamp
+ read
+Cc: "Richard Cochran" <richardcochran@gmail.com>, "Conor Dooley"
+ <conor.dooley@microchip.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David
+ S . Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ <linux-kernel@vger.kernel.org>, "Nicolai Buchwitz" <nb@tipi-net.de>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260908053150.28694-1-jjc@jclark.com>
+In-Reply-To: <20260908053150.28694-1-jjc@jclark.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello James,
 
---MuKrjLDOhzI+PFOi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+(added Nicolai as Cc)
 
-On Wed, Sep 09, 2026 at 10:44:26AM +0100, Marc Zyngier wrote:
-> Mark Brown <broonie@kernel.org> wrote:
+On Tue Sep 8, 2026 at 7:31 AM CEST, James Clark wrote:
+> PTP_SYS_OFFSET_EXTENDED returns system timestamps that do not correctly
+> bracket the PHC register read on MACB/GEM. On a Raspberry Pi 5, the
+> returned interval can be as short as 37 ns, while an ordered register
+> read takes approximately 1 us. This biases the midpoint used by phc2sys,
+> causing CLOCK_REALTIME to run approximately 0.5 us ahead when synchronize=
+d
+> to the PHC.
+>
+> gem_tsu_get_time() reads the nanoseconds register using the driver's
+> relaxed MMIO accessor. On weakly ordered systems, the subsequent system
+> timestamp can be taken before the register read completes.
+>
+> Add rmb() after the bracketed nanoseconds read in both the normal and
+> seconds rollover paths, ensuring that the read completes before the post
+> timestamp is taken. With the fix, the minimum interval on the same
+> Raspberry Pi 5 increases to approximately 1 us.
 
-> > hVHE.  Enable FEAT_S1PIE with hVHE only, hVHE is used for protected VMs
-> > but there is no real use case for nVHE mode on hardware with this
-> > feature.
+Thanks for the nice commit message!
 
-> That's not the reason. The reason is that there is no nVHE-only
-> hardware with PIE, and that on VHE-capable HW, nVHE and hVHE are
-> strictly equivalent. Therefore there is no need to add support for HW
-> that does not exist.
+> Fixes: e51bb5c2784c ("net: macb: ptp: Switch to gettimex64() interface")
+> Signed-off-by: James Clark <jjc@jclark.com>
+> ---
+> This uses rmb() to preserve the existing accessor and endianness handling=
+.
+> Would an ordered MMIO accessor be preferable for these two reads?
+>
+> Reproducer:
+>
+> #include <fcntl.h>
+> #include <linux/ptp_clock.h>
+> #include <stdio.h>
+> #include <sys/ioctl.h>
+>
+> #define DEVICE "/dev/ptp0"
+>
+> int main(void)
+> {
+> 	struct ptp_sys_offset_extended ex =3D { .n_samples =3D 25 };
+> 	long long min =3D -1;
+> 	int fd =3D open(DEVICE, O_RDONLY);
+>
+> 	if (fd < 0) {
+> 		perror(DEVICE);
+> 		return 1;
+> 	}
+> 	for (int batch =3D 0; batch < 40; batch++) {
+> 		if (ioctl(fd, PTP_SYS_OFFSET_EXTENDED, &ex) < 0) {
+> 			perror("PTP_SYS_OFFSET_EXTENDED");
+> 			return 1;
+> 		}
+> 		for (unsigned int i =3D 0; i < ex.n_samples; i++) {
+> 			long long bracket =3D (ex.ts[i][2].sec - ex.ts[i][0].sec) * 1000000000=
+LL
+> 				+ (long long)ex.ts[i][2].nsec - ex.ts[i][0].nsec;
+> 			if (min < 0 || bracket < min)
+> 				min =3D bracket;
+> 		}
+> 	}
+> 	printf("min bracket: %lld ns\n", min);
+> 	return 0;
+> }
+>
+>  drivers/net/ethernet/cadence/macb_ptp.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethern=
+et/cadence/macb_ptp.c
+> index e5195d7da..8209ec190 100644
+> --- a/drivers/net/ethernet/cadence/macb_ptp.c
+> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
+> @@ -51,6 +51,8 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp,=
+ struct timespec64 *ts,
+>  	spin_lock_irqsave(&bp->tsu_clk_lock, flags);
+>  	ptp_read_system_prets(sts);
+>  	first =3D gem_readl(bp, TN);
+> +	/* Ensure the PHC read completes before taking the post timestamp. */
+> +	rmb();
+>  	ptp_read_system_postts(sts);
+>  	secl =3D gem_readl(bp, TSL);
+>  	sech =3D gem_readl(bp, TSH);
 
-Right, that's the reason why there is no real use case for nVHE on this
-hardware - even where S1PIE capable hardware can run nVHE there is
-always a preferable mode that delivers the same functionality.  I'll
-make this more explicit.
+I think we should also add a memory barrier inbetween the first
+ptp_read_system_prets() and the gem_readl(). That requires ordering
+which isn't guaranteed.
 
-> > This should have no practical impact other than causing any unexpected
-> > encodings to map to no permissions instead of their default
-> > meanings.
+Asking an LLM to double check, it tells me that we might have one by
+accident: ptp_read_system_prets()
+       -> ktime_get_snapshot_id()
+       -> read_seqcount_retry() in exit path, after clock->read() call
+       -> smp_rmb()
 
-> What default meanings?
+Do you agree?
 
-The meanings that are defined when S1PIE is not enabled.  I will make
-this more explicit, or given your comments further down about not
-sharing code possibly just renumber so it's not a thing any more.
+Thanks,
 
-> > +#define KVM_HYP_PIR_IDX(uxn, pxn, dbm, ap1) (((uxn) << 3) | ((pxn) << 2) | \
-> > +					     ((dbm) << 1) | (ap1))
-> > +
-
-> This is not what these bits are called. They are just PIIndex[] bits.
-
-I was trying to make it easier to map thing between non-S1PIE and S1PIE
-encodings, I'll rename and add a comment to help people follow when
-updating.
-
-> > +alternative_if ARM64_HAS_S1PIE
-> > +	/* S1PIE is only enabled with TCR2_EL2.PIE if we are running hVHE */
-> > +	mov_q	x1, KVM_HVHE_PIR_EL2
-> > +	msr	REG_PIR_EL2, x1
-> > +	msr	REG_PIRE0_EL2, xzr
-> > +alternative_else_nop_endif
-
-> > +alternative_if ARM64_HAS_TCR2
-> > +	ldr	x1, [x0, #NVHE_INIT_TCR2_EL2]
-> > +	msr	REG_TCR2_EL2, x1
-> > +alternative_else_nop_endif
-
-> S1PIE implies TCR2. Why the additional alternatives?
-
-That is true but TCR2 does not imply S1PIE, I wrote things this way so
-that TCR2 is initialised even if we end up on a system where that is
-present but S1PIE is not (or S1PIE is present but has been disabled by a
-command line override).  This is during startup so it seemed reasonable
-to write things in a straightforward and easy to read fashion.
-
-> TBH, I think this is completely going the wrong way. Why can't we
-> write this as a discrete enumeration of the permission combination we
-> support (all 3 of them), and map that to the correct index?
-
-I was deliberately following a similar pattern to that used for the host
-kernel, intended to minimise code changes.  I will rework so we have an
-alternative path for S1PIE rather than trying to share.
-
---MuKrjLDOhzI+PFOi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqhTlwACgkQJNaLcl1U
-h9DVCAf9FkLa9EZrlgi6pdkBsc+Zaeb31MjhKkDCcZjLX6spejzs3GGxFnfz3gax
-Rn3YMBzXTz0oB5cD9/nP0lAzr99Eq+HdHKbToBocm/U4R8eYZkWRN3flhnfkgRwN
-izCAbdK0aAMowX4UGyWPEfVtC71PNTkBegLTTfbChDRmEAmKv8LYSmFjaXywjmkd
-IMAecl+BnE8W2lMVDYVNvSJ4YO4dD1d/csfbixh1E87XeuyvOusrjAmbvvIENl4D
-9zC7/g8kwJBu4wGn5Jww2sjtWz0ou8oJKQMzQ1TvgcwTXec4YQebamZxFEaTB1fc
-dIT1nVqkE5JKtDXKVqmQBX72EOhrcA==
-=xhkR
------END PGP SIGNATURE-----
-
---MuKrjLDOhzI+PFOi--
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
