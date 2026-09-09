@@ -1,62 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5731D344DAD;
-	Wed,  9 Sep 2026 10:24:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C1037A822;
+	Wed,  9 Sep 2026 10:24:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949464; cv=none; b=NCQBrM2tkiqelNyJCwozWhj1dLhUn7mugb3XjpudsW3vzyJnOwlCVuCsXocB6i48/wq5H2fJ9rxikncHo2Dm/FXoPKBJMZyAUiQ5g1XokhntC1tBhnegU2qITtjlC5PrDcW46HZEdmuNWwUc13ZtSu36UU5jHabnEBBbZ7R1zEI=
+	t=1788949472; cv=none; b=KwdHuUG50h9zgbBL8PD64TIGqaJUfgzunGs1UYM0F8oyyp8W1JtIrtWtMDtGX3fzLBsx+LR17Zm+Gt8fYBX9ntPmgHeI260z3/9yL2wZdNeFQYPoxiYiHJFNQJ/65ZkSTqeCG5wp42d6nFLzhOI3apjkcDr3iqGxwEXdCCf6GvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949464; c=relaxed/simple;
-	bh=d0OcXfOeKeB1PepNn16nKQm79+aKL8RIZMzJPM6MGHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pr90TaIKWXfCHYul47x7wpB8hvEjBSe9gVD2/msgrXp/YhOx0Ajy0M/Rx0KmVepoXY1kTuzzpxbmnL1exEdTBMD25FolAliTOLx0YK9XH4JFM8Tp/qtZbgg320CCssF7FY3V8JQ+3pSxQ9V9YA2dldXnCLWJhjXg65fxD3OA7lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9Po5JEh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788949472; c=relaxed/simple;
+	bh=I8Onle8fDcB2jJH/6ZCRLaXNOxUd6QuB/0FGJ6RuK6c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Dc1i56k62MYBQdjz9mkoY12znDIV/GpMiAcUvJ6EdbTw2NqUCX0bo9fVwJ27jXkeGPQ15nupPYxYzoKc800tlCvcCGTdnQg5BkJClV0jSo7tCjH8inZoLv/6YIO58Nc0VLdKvDTUO1KygcHiyI8M8AkbYeAWBWkfVMNWaJR3iFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLovTtU8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9Po5JEh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989831F00A3A;
-	Wed,  9 Sep 2026 10:24:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLovTtU8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6FF1F00A3A;
+	Wed,  9 Sep 2026 10:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788949463;
-	bh=uWFw+U6UJttEdnq2ulknrQhh3b+GNRudpLVU2iXk24g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k9Po5JEhvhBiie+MZ6X4n5pcCW71gH9MB+6xcZewQUcB/D3rszf57oT1R61s6NWHG
-	 kd9ErKPMSBTnHnVfViHiLewnTJ8dsBkHpe+7iiwxYmPAb1yM6mjmxkWUZ8DQfbaJOB
-	 qSm6LrXH9SpRQwP31HFGt75wZBTF82wjO9HaLtVdGHmUDahsTcEIwz6zpJypFRjz/z
-	 nxIW0gskeqevT46m3Nt8qFCOpvSqsb2U9qsgjglrRLIFtrgXrdf1FTnhUxmZb4kZcq
-	 x48xY+U4JaYui2qCUG92aPCy5wLIRRcMYkTh5tlEdCriZe0kdma8j8Kl2kI96liDoa
-	 UvCu99RF0HTjg==
-Date: Wed, 9 Sep 2026 12:24:16 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, linux-arm-msm@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ufs: host: qcom: Enable MCQ support for sa8255p
-Message-ID: <64e7pk62sjzclf4abpr6745ftcxmedn7eyptxmbtdb3amyxait@dp4xtzovxyp4>
-References: <20260728051104.675088-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1788949471;
+	bh=gbV02tkIR0l5+u0XIgUNoM3WdEsWs96K0HwU9kLHxWA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=JLovTtU8ApoMQpMX5pDtVyhtOFv/Glvm3zMo8dcpf76G+RSWmHoiTBS3WRw4ShQkv
+	 Yt93feqcMS9bZwLHeqwYNTe76OrQ7Aj2jzuHo5zKdYiaWck4KRJ2KHT3oyb5vg7b71
+	 pO0FLMvr7AXwYeOKjIi0rL7iF4aEACVceVIlRioRQfFOK+FLTUELHwjNCTU8HDFBNS
+	 hujPHhJcpkYem4MSeRlW7bRb7H5iqNEErxtpIWq/1wk+EGRpe2WfbCCqqWT51sMfU+
+	 BzNINXI3vSeWDj2A/I24P6C4F5tEyoUNJvf+XkYGjwalWmMO5inCt+1seGL53F+oWz
+	 j5pG+i3gSZ6Jg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Naman Jain <namjain@linux.microsoft.com>, Ingo Molnar
+ <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "Joerg Roedel (AMD)"
+ <joro@8bytes.org>, Will Deacon <will@kernel.org>, "K. Y. Srinivasan"
+ <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+ <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
+ <longli@microsoft.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan
+ Sadhasivam
+ <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Suravee Suthikulpanit
+ <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Shradha Gupta <shradhagupta@linux.microsoft.com>, Aditya Garg
+ <gargaditya@linux.microsoft.com>, iommu@lists.linux.dev,
+ linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] x86/irq, iommu/amd, PCI: Drop redundant
+ irq_retrigger inits
+In-Reply-To: <20260810090716.2325295-4-namjain@linux.microsoft.com>
+References: <20260810090716.2325295-1-namjain@linux.microsoft.com>
+ <20260810090716.2325295-4-namjain@linux.microsoft.com>
+Date: Wed, 09 Sep 2026 12:24:28 +0200
+Message-ID: <875x0e204j.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260728051104.675088-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain
 
-On Tue, Jul 28, 2026 at 01:11:04PM +0800, Shawn Guo wrote:
-> The sa8255p vops (fw-managed variant) was missing the MCQ hooks, causing
-> the driver to silently fall back to SDB mode even when MCQ resource is
-> available. Wire up the same MCQ ops used by the standard qcom vops,
-> so that MCQ mode works on sa8255p.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On Mon, Aug 10 2026 at 09:07, Naman Jain wrote:
+> --- a/arch/x86/kernel/apic/msi.c
+> +++ b/arch/x86/kernel/apic/msi.c
+> @@ -137,7 +137,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
+>  	 * IRR.
+>  	 */
+>  	if (lapic_vector_set_in_irr(cfg->vector))
+> -		irq_data_get_irq_chip(irqd)->irq_retrigger(irqd);
+> +		irq_chip_retrigger_hierarchy(irqd);
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+That's broken because irqd points at the vector domain already, so there
+is no parent and nothing gets retriggered.
 
-- Mani
+Let's look at the hierarchy when interrupt remapping is enabled:
 
--- 
-மணிவண்ணன் சதாசிவம்
+             | --- [DMAR]
+[VECTOR] --- |                | -- [IOAPIC]
+             | --- [REMAP] ---| -- [HPET]
+                              | -- [DEVICE MSI]
+
+All outer domains have .irq_set_affinity = msi_domain_set_affinity,
+which does:
+
+msi_domain_set_affinity(irqdata, ....)
+
+    irqdata->parent->irq_set_affinity(irqdata->parent, ....);
+    
+In that case msi_set_affinity() is only reachable for the DMAR domain
+and all others (IOAPIC, HPET, DEVICE MSI) end up in the REMAP domain
+which handles irq_set_affinity and never ends up in the above code.
+
+In the non-remapping case:
+
+             | -- [IOAPIC]
+[VECTOR] --- | -- [HPET]
+             | -- [DEVICE MSI]
+
+In this case the vector domain is the MSI parent domain for all of them
+and all outer domains will end up in msi_set_affinity() via
+msi_domain_set_affinity().
+
+In any case 'irqd' in msi_set_affinity() will always point to the vector
+domain and therefore the exiting code is correct and can't be changed to
+retrigger hierarchy as that would see irqd->parent == NULL and do
+nothing. Neither will adding a conditional there do anything useful
+because the vector domain always has the retrigger callback set.
+
+Thanks,
+
+        tglx
