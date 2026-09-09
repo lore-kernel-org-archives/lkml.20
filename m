@@ -1,144 +1,148 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010041.outbound.protection.outlook.com [40.93.198.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D40582BA5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971610; cv=none; b=MeK8ArSrPFlz9/AHyzvo9hsDTcO31WGrQcFXOqxkxvscTDRgWruKSmrQRYV9au07pnjsxyLsmGP27sdeN/UQJmuJ0si+BdhNuyUarzl3YKzDRoR2zSkiGoYcKhEMnSekBoqvTsbhqTV06gwnK5FL8tVBDyD9jivjAdV47ysT5J4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971610; c=relaxed/simple;
-	bh=Zb22GaGbRhopfYeJUI+9j456YQOkVoQCe1lrRewUaEc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=pEVLVv6Xwz34keN1WGrbzKXsFz7rXDAa7PjmIc0NpBwOThHHo0xcpd9iVXeMo86bitiywRzCqAtduxytNYFxssLAITC5yD//+ugjjxmlVtjubpHTIf3Aj/S2grUicIrlK99MEaGHGmcmox8ohVHr22RcD3owCGNdoE1AOGKE3XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S7JS0Vty; arc=none smtp.client-ip=209.85.221.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC6955D865;
+	Wed,  9 Sep 2026 16:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788971636; cv=fail; b=NgG65TOM+gesM8oD+0JIUlXrVOCw2bAhUJkw7wT/O70J3SRgyPuw7XS0593lVPuChV/Af+ZGwzoArR0z+KUz9W9ZMQBEbFt0KfNviSs/yNKy0rA16xlCEfsb4+GgIKpVDV7hwopRf8LKYWmuOKiSQX8tQHVmxmMgLCwPQQa2uOg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788971636; c=relaxed/simple;
+	bh=Ajz6op220DR/KIeaKuJfj/xH12Eb+SnqeoF90inOfOk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bj/k5CF9KVLwn1P0akaO4rzM0mzZtLmXazyYbXKbYmxc2wv/v34CLvpMhQOLn7krZqDHPMnKj/1QR4WD3NlB9fcN//kTG/luIs/pbhykhYzQtL8MiBL2ffQ15EwQAfpMaENV6dO3qzz/5tyUKPzBqcLBMW8aL4rGMvRGEE93r0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Vz6eFdwV; arc=fail smtp.client-ip=40.93.198.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S7JS0Vty"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f6e8b5996so5206192f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788971607; x=1789576407; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FEDz6/RueJDQSwY6RDBaKtCBKg56j+hFHYBq38ixiTA=;
-        b=S7JS0Vtykj/XRhEHfxcqLA+pJJGG7CI3UQbQndLtHqYRkhREIxZl5cNLcqAy5Mi32e
-         j1pvhdzGcmemPiBakX6i2coK6/gyWPm7f+ADK+StLUCnMrRQZr2NEIdah39KR/KREcFg
-         IVPtrUfpfqceDDCFK6Gpov7lh52izZvAvaT+hUorqUytBvueSBTEH25L5U7WT5GOn9w2
-         YxaFy7sCwkON623DH25i9mgaKsUDGczwFwWuhw9Btv4dmgwEH37QHICbZnm2VY9e4379
-         /CYJuZnltxNr/Ox8Iy8jyJp359vq/fPTA/rQbFA36YSC3vgeCfiG1i8ueue9mlJ8PMLr
-         12mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788971607; x=1789576407;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FEDz6/RueJDQSwY6RDBaKtCBKg56j+hFHYBq38ixiTA=;
-        b=FWiYz1L8O4v4mmU3c7JEC5YA7Nc0ax38GsjOjbCtxiX5sotVRj58on1SAmlUuiUkG9
-         aK7FXsG4jjPeX2SYN7EjTRd0sHgkXhFKXMyRjH6THcNJ9/sa7KgCEymEsdRlG/FpJmXo
-         0b5V8nXnKgf7DtFWpRWbKpAOp0AY5beuoT/UxmpttIhiTWi512bMh6KpF0U9tnrpmJMV
-         dRFmvvl7MS1hzGRRdbdlqD1n7BBiPACaAf2k7V2cgEIotdT97+JE7/2sZGn5HSRN8m1g
-         XIWanROok0xbYcQVQV0fPiEMDozUbz0SvFdIsLEvUqSib1GXZgQcmL69yJOPThWVQeK1
-         mW2g==
-X-Gm-Message-State: AFuF++l2mJ+yDGohA6xtUoZLl7frPIZuBWkRoJ0gJF0bj5eqFyokT+QE
-	E4NBKv5fc5HvJTOtJNyHFKPpFTvjXBg7wcUEanb+gHNTUIx+CTk/tnJLdfawOvzRQePStkoXBg=
-	=
-X-Received: from wrbes13.prod.google.com ([2002:a05:6000:44cd:b0:484:3663:d996])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6000:40cc:b0:485:8393:215a
- with SMTP id ffacd0b85a97d-4858703f4bamr40073275f8f.5.1788971607084; Wed, 09
- Sep 2026 09:33:27 -0700 (PDT)
-Date: Wed,  9 Sep 2026 18:33:22 +0200
-In-Reply-To: <20260909163319.2116279-4-ardb+git@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Vz6eFdwV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kUcyOiasd4+MUeecObdrdJQCzfob7f6yDlj3aGMOhKOmUGV8SyUOnfxcL+Z2lFGtMz16cDvy+sdih/9hGEL0uFZyDdFlcqBCWElYqkvVnaK+vAS3o5+H+mulLVOQ1JaH2wV/qdS81r6AFhvYfunpRZmXenYGhhmPla5puU2oau/+JT5I8laT1W10e05zW07c/slg1X4W7Sf38v7JmHUwkNIJTA0dJmazAZvjHAtog6lPQxzeGg7EwrTwzgLq3Qadorncb3iUVXILTTSjrsoX2KkchEQtmOI/H5AKVvjSbTX9PQPseYDBEZJbgDdfVUhrgLvTwDrHxJC+TqdtxPtiiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l1f/qeH5iOOc1kWFb6LcxidQu2HZ1C5v3xVrB7typJc=;
+ b=khEf4Wu3tcKM6TZL9kNXEJlqUDJwavlDuRyq/i3cUrMSdXW7kzhil+wkV72gRzTknxpqP29fN6QiV6axC/K4fwogqo1pkV5DGJLRenhkILIcjKc+YSKgj0ivaW8E4ek0z/uMLLFwmDOwUgvuAZsXctark7zXgEDJhquURLBqV99wiHxLZyGbnyhT1YjgDm4JpkqPVVZMyd9E8nux2c/ssNGl0J10SE6K9bZEa9v5rCfqLm7yAIzGXXikc8sUFobkxHkK+PMgeu7+qesu2PgFa7i5T+mSUa4dMOiYR9KXv8ZqYJjjWOG7CI5lnKhaTz9es2iKGzcOIuoXfeULQP0A4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l1f/qeH5iOOc1kWFb6LcxidQu2HZ1C5v3xVrB7typJc=;
+ b=Vz6eFdwVeDLyGcxlx12KO7liUAHTdJXTNiMAfhLeOv1uUlAtdttVCoTB/ktCb9QH8hXVZvyfbBNWs+Bw4PyVUKNdlg1W78QeYyPTczdfLoYsiNLTMGCy77hi/tUOkoawklrxHtD98ug/2PnCRyOYOICvovaBZM3B05h5BVkyBP7YBgf03xtf0CdXI1lkf6d613v8egf4hbAfT5y6ZhHr+0S7N7/DpOq2P2IrV8sO248lzOgxP0n9OAM1TBGqEx9deUSPhYagE/6CSLU7QREN+m70WNRp9NZm1XRaFNwYYGn4DvuBxB3Jo8ma91hAyERiJu0QWIZfCd4j/Oe1jUT0Og==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by PH7PR12MB5832.namprd12.prod.outlook.com (2603:10b6:510:1d7::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 16:33:48 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 16:33:48 +0000
+Date: Wed, 9 Sep 2026 13:33:47 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Shuah Khan <shuah@kernel.org>,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 2/2] selftests: iommu: skip when the mock device is not
+ there
+Message-ID: <20260909163347.GA4146467@nvidia.com>
+References: <20260908214825.2682078-1-eva.kurchatova@virtuozzo.com>
+ <20260908214825.2682078-2-eva.kurchatova@virtuozzo.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908214825.2682078-2-eva.kurchatova@virtuozzo.com>
+X-ClientProxiedBy: MN2PR01CA0057.prod.exchangelabs.com (2603:10b6:208:23f::26)
+ To LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260909163319.2116279-4-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2436; i=ardb@kernel.org;
- h=from:subject; bh=VFd3n5XWAvyNP0BemPakDTs/m7Yonl3YbzM8kBIsNGE=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWthV9CEBsd7tl/SVKK31t74xlEjtNvq4c5TzeYcUTfeL
- tWf3uXWUcrCIMbFICumyCIw+++7nacnStU6z5KFmcPKBDKEgYtTACaib8bwV1pw1zOX5NfazneO
- eL59c7fcZGdmUs3uqvv3k5xTr0kn5DD8d/YTt25IUH8dd+Tyofgl4qv4mS0S7eV9BUK3W/dZHpr LDgA=
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909163319.2116279-6-ardb+git@google.com>
-Subject: [PATCH 2/2] ARM: Remove hacked-up asm/types.h header
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Eric Biggers <ebiggers@kernel.org>, Christoph Hellwig <hch@lst.de>, Russell King <linux@armlinux.org.uk>, 
-	Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|PH7PR12MB5832:EE_
+X-MS-Office365-Filtering-Correlation-Id: f615dc1a-76bc-49d9-37a2-08df0e902012
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|4143699003|56012099006|5023799004|11063799006|10067099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	QGtVEln3/5khIf4MK8Jp7p8BQlQRANqQq36q50FNljzJ0esohwUpYxBbFHrrJMIZGgF5rBKBHWgELQgsGg6Fza+Vb5F/LnPcrEens1d6kNJKRGdSLS98yTFPqvp/A941lcg5IAudETj+7IrAa++DubVNUlnXdle4D4eTTQJjK+oBKRDATvfWc/39STAg4sTHJO4ZUrAqMTAdJflJVfevdpWzP+MEbMr2qsC3wu+6WEbmLjMW75+jc7K9pGrveDEfqojsz9Ct3HaoO0hDRH7bbrw4QRfeniB/nfDl9v2aSHaWJ1EF0tOeG/u4feEOzkgxjl14x49mDDImVi7radOR2gGXkTmtvp/l0F1A4BzANhAuy25cL0oH/cS/o48/hos7LVkDLo3KZMUyIg8zOqMlaW7Kx+UQIomRTqZsN1qPuWqYup/fAXxQdHvcMcPlq0SS4ITEB8E6SaPEfxnhQG5o6JzMyIwrVuJKYqggtu+/GRB50nwbRdRgAD6tNmxEiy7Zivsnli99TBik9H8J77SwiJof735X40MZvTt7T7VkwkWBk4FhGfJAHVshgKBK2jRKVzpohXbgXXbBARR0+lQrKH0WzuAikDHtGOO1CYtjNounnwe4MLcY857xipfVLJYplVM+2sxpjnN7GGUGepQ5sCQaJYiTfsav/KwW/TB1q7s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(4143699003)(56012099006)(5023799004)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qKzA1aiP0qsUKvvDcQ4LLRbXBrR0PpVjw30Wk5COtrqi8rZg9mP7Bq2pFjMG?=
+ =?us-ascii?Q?Qpwswq4PjKCn0UCGFkMYTFyEsn6bOKkg+UFKhENnj8s3r3Q5lPO17laYVMry?=
+ =?us-ascii?Q?BAOm5iLs+TvGVigvOLDeOFSeu4UXuXhvH9pdTwVEC9YxLoKPb9QTUT6kKCIU?=
+ =?us-ascii?Q?AWKT+x4s+dw62dvFdjPVnJncDLnGwGevDYcb4SgezFvNgTl1+4+OCvsnkW8f?=
+ =?us-ascii?Q?tM5EnGtl6fPjdo2PiJmqhpbTaoG2vEu9rw+J9G+hGTsy8J3SerDWe9cwxoJt?=
+ =?us-ascii?Q?GnhFXHQF7A51I7mMzBuJ0XWX748eg01+HwTmYSnUAPq+qJqXkUSzvX0R8IT6?=
+ =?us-ascii?Q?rAX+acLlC9oyvCo7Ey2+NsCkb/D2UGpd7ikHTj5hfiRSvyNlnYk980UOu532?=
+ =?us-ascii?Q?m3XUZibMpFuMrQ7sFcemP97y69g46EtZ4evEvLtM3uFNN2k/hT9KL2fU++zA?=
+ =?us-ascii?Q?VxiXg6P2vi+stI9M2os7bgm0KhJchKi7NGlllgb8hCZCVMCOHCgZE6TKLFub?=
+ =?us-ascii?Q?uDEnLWA/3W0bAdOdTTevin6C59MRmW2aMiHh1vaMwlnV9gP+yfulX42XWEmc?=
+ =?us-ascii?Q?44T2UzLz5SzGwlpjJIZbxWiPlEWqSsJ8AqPPOu0FlkmA1kh+7kIBi9Vba9S1?=
+ =?us-ascii?Q?I0cYzSKsHG1c7EHmZHkSmcMui9iRR5g9FfI0GWO6lbZ9KIGsFXEbnkde0yJ6?=
+ =?us-ascii?Q?vKg1035XiEAqIzbGUH2MfMksVZz72X5CGSCoMcCohn0Dmjlnpb6JvgppzDBs?=
+ =?us-ascii?Q?rXk7zBQ7xH+R5arsINpuBTlvfb+o6s8a8XuueeIpv7cmch3kwjiMSIrhwYiQ?=
+ =?us-ascii?Q?JxRhlZU2uVJlhtOpRAznkj4SLrPdSiFKB2wsY4mLg/a2FMvlc04ILO9dpGQW?=
+ =?us-ascii?Q?ovhFXnnDj+9gyU12N9ep5RF13QtKHqxUjGBxyFb/N38p/V3elczbyni9I5iy?=
+ =?us-ascii?Q?Tkm2Sxq8icgbj4sWOEglBCCpao3KajaF8vYj8i5TKUHb35FkjrbS3ZFvrLFv?=
+ =?us-ascii?Q?vXLoL8SUAsmY2K+djbDzYWjG+jz0LF0tlj6yb8XTpWZEu5c7BvNzwchP+zmx?=
+ =?us-ascii?Q?xUcUWeY6XSQD0oUUnTKYQ42kPDgR899dyt1RduLOR9NaFTHboyuxE2SkcyIG?=
+ =?us-ascii?Q?0hajPxvrWreEt/b7ia0m9JkKgHQ92yMHqMil2O8VbBkbWzfDFkfpSTasZsq0?=
+ =?us-ascii?Q?AhSMuZcBk/FIHpKmMW5qT3AEqdsrukCtBZyWZ/sP49nWyJl/ReTsrlGjyGKx?=
+ =?us-ascii?Q?sXkzQWj6jnkfaY3H36b62/+Ue1RYyqqijjvsLkRcg8DY3PywZVZb+9Z3S8yy?=
+ =?us-ascii?Q?Tr6jVBVPg2qknQH6SjDVAMz8FCHzk1gToadIr22sLssAv0FJrrnvNA5R5NRb?=
+ =?us-ascii?Q?W7JYZlijZs8VkENkGkoWhwcXReX2SUroqEMLh3Nxs17WgDGIn+yGtSGa7lJs?=
+ =?us-ascii?Q?SpASbtPyYXvEi61HBZCUOVzCOdSJTqtBHHM4jNagx/fB3sy/7czUfiz5IOFo?=
+ =?us-ascii?Q?WmBHkcTcM8aeV2MB5WLO+nFdQbYghnPtO1QWHypeo4dzc8WamWPKyWQwNfeh?=
+ =?us-ascii?Q?QRxvP0RtbHBFzp5rfKpMWfQj9e+I8keL6idYlzSba2FxVjCJUIb6812eW3E+?=
+ =?us-ascii?Q?ALVA1rJIUvqfKI6MpdAJ4GL1H/+E9C0RvfwjXj9cPu60u0GCB3CuV3LnjVYI?=
+ =?us-ascii?Q?17iBmFk7CJhMf3gaZkVD/wdhq2P4ZlbEWBpQ0/ki8Xw2Gx3H?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f615dc1a-76bc-49d9-37a2-08df0e902012
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:33:48.7790
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qVlofowpyIhVdvEbDsOqhDttcwlw92eBVo1WNoqWl8DsYa6FGNDJ0gql+SImISJs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5832
 
-From: Ard Biesheuvel <ardb@kernel.org>
+On Wed, Sep 09, 2026 at 12:48:12AM +0300, Eva Kurchatova wrote:
+> Both iommufd tests need the mock device the iommufd module registers
+> under CONFIG_IOMMUFD_TEST, and they open /dev/iommu in every fixture
+> without checking, so on a kernel that does not provide it every case
+> fails on the open.
+> 
+> Checking the open is not enough on its own. /dev/iommu appears as soon
+> as the iommufd module is loaded, which says nothing about the mock
+> device: the release config here is CONFIG_IOMMUFD=m with
+> CONFIG_IOMMUFD_TEST unset, so the open succeeds and the tests fail later
+> in the ioctls that drive the mock device instead. Only the debug config
+> sets CONFIG_IOMMUFD_TEST.
+> 
+> /sys/bus/iommufd_mock covers both, it exists only once the module is
+> loaded and the kernel was built with CONFIG_IOMMUFD_TEST. Check for it
+> once before handing over to the harness, rather than in each of the
+> fixtures, and report a skip. test_harness_run() is what TEST_HARNESS_MAIN
+> calls anyway, so the tests still run exactly as they did.
+> 
+> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+> ---
+>  tools/testing/selftests/iommu/iommufd.c          | 15 ++++++++++++++-
+>  tools/testing/selftests/iommu/iommufd_fail_nth.c | 15 ++++++++++++++-
+>  2 files changed, 28 insertions(+), 2 deletions(-)
 
-ARM has a special version of asm/types.h which contains overrides for
-certain #define's related to the C types used to back C99 types such as
-uint32_t and uintptr_t.
+Applied thanks
 
-This is only needed when pulling in system headers such as stdint.h
-during the build, and this only happens when using NEON intrinsics,
-for which there is now a dedicated header file.
-
-So drop this header entirely, and revert to the asm-generic one.
-
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
- arch/arm/include/uapi/asm/types.h | 41 --------------------
- 1 file changed, 41 deletions(-)
-
-diff --git a/arch/arm/include/uapi/asm/types.h b/arch/arm/include/uapi/asm/types.h
-deleted file mode 100644
-index 1a667bc26510..000000000000
---- a/arch/arm/include/uapi/asm/types.h
-+++ /dev/null
-@@ -1,41 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
--#ifndef _UAPI_ASM_TYPES_H
--#define _UAPI_ASM_TYPES_H
--
--#include <asm-generic/int-ll64.h>
--
--/*
-- * The C99 types uintXX_t that are usually defined in 'stdint.h' are not as
-- * unambiguous on ARM as you would expect. For the types below, there is a
-- * difference on ARM between GCC built for bare metal ARM, GCC built for glibc
-- * and the kernel itself, which results in build errors if you try to build with
-- * -ffreestanding and include 'stdint.h' (such as when you include 'arm_neon.h'
-- * in order to use NEON intrinsics)
-- *
-- * As the typedefs for these types in 'stdint.h' are based on builtin defines
-- * supplied by GCC, we can tweak these to align with the kernel's idea of those
-- * types, so 'linux/types.h' and 'stdint.h' can be safely included from the same
-- * source file (provided that -ffreestanding is used).
-- *
-- *                    int32_t         uint32_t               uintptr_t
-- * bare metal GCC     long            unsigned long          unsigned int
-- * glibc GCC          int             unsigned int           unsigned int
-- * kernel             int             unsigned int           unsigned long
-- */
--
--#ifdef __INT32_TYPE__
--#undef __INT32_TYPE__
--#define __INT32_TYPE__		int
--#endif
--
--#ifdef __UINT32_TYPE__
--#undef __UINT32_TYPE__
--#define __UINT32_TYPE__	unsigned int
--#endif
--
--#ifdef __UINTPTR_TYPE__
--#undef __UINTPTR_TYPE__
--#define __UINTPTR_TYPE__	unsigned long
--#endif
--
--#endif /* _UAPI_ASM_TYPES_H */
--- 
-2.55.0.1003.g10538fe699-goog
-
+Jason
