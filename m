@@ -1,84 +1,178 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D7F53D9550;
-	Wed,  9 Sep 2026 20:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D5E3BB9ED;
+	Wed,  9 Sep 2026 20:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984077; cv=none; b=r8ZlfAOH7PF6eBVfTu2crIIm5s7MmozGuOvSUNazbiqg+6pi5q455OgdaA/77A80X7OpvfyB79lzMkItet2xeg1YHooNAjdMAIv48ewUUXpJOOGl3ipYhylBNFIHXLFDFqfvyHoEMiL+f5rw68FuPLjYkcTso0oh9Bp5+8og+eM=
+	t=1788984184; cv=none; b=GgbRQLuB+m0TPEtmIsktnQR/frmfOVxAJ+boZCpSqwNV70mqvct4cGhX2H92z9NwyRQvcI9tZAQeGvvwc3sCPX88H/6+NAR3u5Wv98jMwRYw0RRipDo7tEZAvsI7vB4Yfih1o7SSBauiLCpk2yhXZmA2Qt7ElUfMjvgEPQgofTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984077; c=relaxed/simple;
-	bh=rNi5YhSEeETSE5FQBog3k1r0aviOJOf+s/njOtyxBZE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k44KNalpfk7d54IpQpZvPeGCLAQ9lXwL4Ey0IHTRyQfWhgKCjS6tl9Dn5pfDwBs/rtlkopUWh4I1APfSvlqYkhdHqFsCQhkPYSAWABm/ryKrGx/7cWOA1HssYzWorhrNXEQECLYK4y4FI3RZI9gPGVkZDFuwfMk7+OX3eazUN28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com; spf=pass smtp.mailfrom=foss.arm.com; dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b=HnL3iTWU; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.arm.com
+	s=arc-20240116; t=1788984184; c=relaxed/simple;
+	bh=gUzyQMmrz8MX1axytfdlZw5lmeTUBYH++VJHD63tCFo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IUTy1D0pVBbsU3d1a87HhRhhfjxefmuLSc8FMyZC+cYLeLbo+QMt7nj/5tt4GuMTTa2ijSgpq69ywZLKnw2pT2h6Y9Pfy2weSsr+7ciQFkErn7zjXbOIpljv+sZ7dpRyPPbnjjVqfx/BfSKyqnHf8qL3bJeYo0pJbM28KH2jS/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=czurnMUr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b="HnL3iTWU"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AB42B1570;
-	Wed,  9 Sep 2026 13:01:07 -0700 (PDT)
-Received: from [10.211.55.7] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BAF703F7B4;
-	Wed,  9 Sep 2026 13:01:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=foss.arm.com; s=main;
-	t=1788984071; bh=rNi5YhSEeETSE5FQBog3k1r0aviOJOf+s/njOtyxBZE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HnL3iTWUzI5pHllYz6CCHmcPV3JTw+s6qzHZZToyX8cY0TBKM130vVtUdiL2JwN+G
-	 /8IMNBhLGf6IMvg5JAecf3/j2SujtIhDOIUmv1SnU6JOhvLB1iobKgEx/gCGbaofGy
-	 u6UNzBwtszGomEhOE5GTTi+QO1cB/EndPZx3QVr4=
-Message-ID: <c5367968-0e0d-4583-8ac9-efb3bb5b2983@foss.arm.com>
-Date: Wed, 9 Sep 2026 15:01:10 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="czurnMUr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0488D1F000FF;
+	Wed,  9 Sep 2026 20:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788984182;
+	bh=VVudfO1LfG/tIUM8pjA+57c3uLYPzlgjVl4h9kE11Ik=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=czurnMUrvfPxRjg729VF+A9M6BQhgi6pMUfvrQrc2cHaDtwYu4lBdulJteczSWQE1
+	 BLHftNTVvtN51bj/GubheNF5oUtp1ns6rcCntBWFp1+c43cuCEHGhrWXe4V//OYc4Y
+	 ohF7hqwFs1YQKirqhF/0MmC639X6nV3ftG5R3uzIz+lHh7ciTRbYzJysa9DGfwdkPV
+	 1pBZOYj+Sq87B6GUWkn6d8K+B0IoFC6k+8bBToDCXNt2OzO/cKBhsXhIwgJ+mTbdIa
+	 afkBAcQSn6QLEiSp+kf1XGv0R5A72fpUvfQ5YYmA77KmFE7amG/v9f5jW4ObFosnvJ
+	 rklLPjAUHy+4Q==
+Date: Wed, 9 Sep 2026 17:02:59 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
+Message-ID: <aqG7c7RkOoaxMo1w@x2>
+References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
+ <aqE_QOp-x1aOQsCX@x2>
+ <aqFCMfb94Cdumemm@x2>
+ <aqFDLQ5Yu7yg6Y2Z@x2>
+ <aqFEdSZ40HkvipUr@x2>
+ <aqFGVejYb-kZ8o_I@x2>
+ <aqFIkFzVvCQqnzpy@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Shadow Stack Locking Semantics between arch's
-To: Mark Brown <broonie@kernel.org>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: Jesse Huang <jesse.huang@sifive.com>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- linux-arm-kernel@lists.infradead.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-hardening@vger.kernel.org, linux-api@vger.kernel.org,
- dave.hansen@linux.intel.com, rick.p.edgecombe@intel.com, debug@rivosinc.com,
- andrew@sifive.com, kito.cheng@sifive.com
-References: <a1946d93-370e-4ca9-85d6-60b4a20ffd47@arm.com>
- <3bb672e0-7bc3-434f-904e-aa00394dd01f@foss.arm.com>
- <d20ccb74-69ed-45d7-a810-846904873588@sirena.org.uk>
- <0ef9f4ab-4c9f-4089-bed3-f7726ec97804@foss.arm.com>
- <522bcf96-499c-491b-aaf0-34e6bbd42929@sirena.org.uk>
-Content-Language: en-US
-From: Bill Roberts <bill.roberts@foss.arm.com>
-In-Reply-To: <522bcf96-499c-491b-aaf0-34e6bbd42929@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqFIkFzVvCQqnzpy@x2>
 
->>>> unsigned long locked = 0x2; // Kernel Task State -> LOCK WRITE
->>>> unsigned long cur_val = 0x3; // Kernel Task State -> WRITE and SHADOWSTACK
->>>> ENABLED
->>>> unsigned long new_val = 0x0; // Userspace Feature Change via syscall ->
->>>> DISABLE
->>>> | x86-64 | risc-v | arm64 |
->>>> | ---------- | -------- | --------- |
->>>> | Works  | Fails  | Fails     |
->>> I would not have expected that combination to work at all with the
->>> prctl() (as opposed to arch_prctl()) interface TBH, if you've locked
->>> write on you shouldn't be able to disable it.  The reason that works on
->>> x86 at the minute is that for x86 you can only change one bit at a time
->>> so the new value when disabling is effectively 0x2, not 0x0.
->> Yes, this is exactly what I am pointing out. Implementation aside, is that
->> the behavior we want?
-> It seems more helpful to support changing more than one bit at once.
-+ Rick in "to", I want him to weigh in as well.
+On Wed, Sep 09, 2026 at 08:52:48AM -0300, Arnaldo Carvalho de Melo wrote:
+> On Wed, Sep 09, 2026 at 08:43:20AM -0300, Arnaldo Carvalho de Melo wrote:
+> > On Wed, Sep 09, 2026 at 08:35:20AM -0300, Arnaldo Carvalho de Melo wrote:
+> > Now, with GTK4=1 and trying to build the first patch after installing
+> > gtk4-devel on fedora 43 it fails to detect gtk4 support:
+> > 
+> > ⬢ [acme@toolbx perf-tools-next]$ m
+> > make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+> >   BUILD:   Doing 'make -j32' parallel build
+> > 
+> > Auto-detecting system features:
+> > ...                                   libdw: [ on  ]
+> > ...                                   glibc: [ on  ]
+> > ...                                    gtk4: [ OFF ]
 
-I think we're still miscommunicating.  The issue is, that in the current
-interface for x86 via arch_prctl, which is one bit at a time, the explicit
-locking of write can be undone via turning off the shadow stack. Should
-that succeed, or should that fail since it implicitly turns off write? 
-Should
-we preserve that as we port to prctl? Should we change that in x86
-arch_prctl, was that intended?
 
+I removed gtk4 from FEATURES_DISPLAY, as it is opt-in, no point in
+telling most of the time it is OFF, when developing one can use 'make
+VF=1' to see if it was detected:
+
+⬢ [acme@toolbx perf-tools-next]$ alias m='rm -rf ~/libexec/perf-core/ ; make VF=1 CORESIGHT=1 -k O=/tmp/build/$(basename $PWD)/ -C tools/perf install-bin && perf test import && cat /tmp/build/$(basename $PWD)/feature/test-all.make.output' ; export PYTHONPATH=/tmp/build/$(basename $PWD)/python
+⬢ [acme@toolbx perf-tools-next]$ m
+make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+  BUILD:   Doing 'make -j32' parallel build
+
+Auto-detecting system features:
+...                                   libdw: [ on  ]
+...                                   glibc: [ on  ]
+...                                  libelf: [ on  ]
+...                                 libnuma: [ on  ]
+...                  numa_num_possible_cpus: [ on  ]
+...                               libpython: [ on  ]
+...                             libcapstone: [ on  ]
+...                               llvm-perf: [ on  ]
+...                                    zlib: [ on  ]
+...                                    lzma: [ on  ]
+...                                     bpf: [ on  ]
+...                                  libaio: [ on  ]
+...                                 libzstd: [ on  ]
+...                              libopenssl: [ on  ]
+...                                    rust: [ on  ]
+...                               backtrace: [ on  ]
+...                                 eventfd: [ on  ]
+...                          fortify-source: [ on  ]
+...                                  gettid: [ on  ]
+...                                  libbfd: [ on  ]
+...                       libbfd-threadsafe: [ on  ]
+...                       libelf-getphdrnum: [ on  ]
+...                     libelf-gelf_getnote: [ on  ]
+...                    libelf-getshdrstrndx: [ on  ]
+...                             libelf-zstd: [ on  ]
+...                                libslang: [ on  ]
+...                           libtraceevent: [ on  ]
+...                             libcpupower: [ on  ]
+...             pthread-attr-setaffinity-np: [ on  ]
+...                         pthread-barrier: [ on  ]
+...                            reallocarray: [ on  ]
+...                      stackprotector-all: [ on  ]
+...                                 timerfd: [ on  ]
+...                               scandirat: [ on  ]
+...                            sched_getcpu: [ on  ]
+...                                     sdt: [ on  ]
+...                                   setns: [ on  ]
+...                  disassembler-four-args: [ on  ]
+...                disassembler-init-styled: [ on  ]
+...                             file-handle: [ on  ]
+...                                  bionic: [ OFF ]
+...                              compile-32: [ OFF ]
+...                             compile-x32: [ OFF ]
+...                          cplus-demangle: [ OFF ]
+...                            cxa-demangle: [ on  ]
+...                                    gtk4: [ OFF ]
+...                                   hello: [ OFF ]
+...                  babeltrace2-ctf-writer: [ on  ]
+...                             libcapstone: [ on  ]
+...                                libcheck: [ OFF ]
+...                          libbfd-liberty: [ OFF ]
+...                        libbfd-liberty-z: [ OFF ]
+...                              libopencsd: [ on  ]
+...                                 libperl: [ OFF ]
+...                                    llvm: [ OFF ]
+...                                  libbpf: [ OFF ]
+...                                 libpfm4: [ on  ]
+...                           libdebuginfod: [ on  ]
+...                         clang-bpf-co-re: [ on  ]
+...                       bpftool-skeletons: [ OFF ]
+...                               libunwind: [ OFF ]
+...                   libunwind-debug-frame: [ OFF ]
+...                       libunwind-aarch64: [ OFF ]
+...           libunwind-debug-frame-aarch64: [ OFF ]
+...                           libunwind-arm: [ OFF ]
+...               libunwind-debug-frame-arm: [ OFF ]
+...                   libunwind-loongarch64: [ OFF ]
+...       libunwind-debug-frame-loongarch64: [ OFF ]
+...                          libunwind-mips: [ OFF ]
+...              libunwind-debug-frame-mips: [ OFF ]
+...                         libunwind-ppc32: [ OFF ]
+...             libunwind-debug-frame-ppc32: [ OFF ]
+...                         libunwind-ppc64: [ OFF ]
+...             libunwind-debug-frame-ppc64: [ OFF ]
+...                         libunwind-riscv: [ OFF ]
+...             libunwind-debug-frame-riscv: [ OFF ]
+...                         libunwind-s390x: [ OFF ]
+...             libunwind-debug-frame-s390x: [ OFF ]
+...                           libunwind-x86: [ OFF ]
+...               libunwind-debug-frame-x86: [ OFF ]
+...                        libunwind-x86_64: [ OFF ]
+...            libunwind-debug-frame-x86_64: [ OFF ]
+...                                  prefix: /home/acme
+...                                  bindir: /home/acme/bin
+...                                  libdir: /home/acme/lib64
+...                              sysconfdir: /home/acme/etc
+...                           LIBUNWIND_DIR:
+...                               LIBDW_DIR:
+...                                    JDIR: /usr/lib/jvm/java-latest-openjdk
+...               DWARF post unwind library: libdw
+
+
+- Arnaldo
