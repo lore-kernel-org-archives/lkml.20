@@ -1,26 +1,67 @@
-Received: from mail-m128220.netease.com (mail-m128220.netease.com [103.209.128.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4752D3733;
-	Wed,  9 Sep 2026 01:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.209.128.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF9527A907
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788916466; cv=none; b=MQVfKmALd7B09TbKZ/zZu7sxYzxFnBeMWwwCEkAkD3qrZ+nHMos4WonQfl2h/SgWludtwcbrm7lflvAEPcAJZI1tXd4F+pTTYkGQ/dzcxm+aIU++qORHg3puUwtXnumm3JwI7SraYtNb9tVt9MB/rQU6SV3x7mYCOofG2hkpbXo=
+	t=1788916518; cv=none; b=GA/O3etueyVtN6wZr5LZAGmQAviZIf5IfJItE4Ipnu2AJPH5CPTZW8b3rXmoSiNrcFRDceJfROSMNMac0SDmZQsHjiSmSWzw0pkBFa3gCCuzWI4zlMiRcixRSRa9DnGiAr7exNmOmsaDK4S5aWM6GJOv/YqdtgJcxIbdH+yp+gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788916466; c=relaxed/simple;
-	bh=HFY4RcdV25JzeD/kn0dCtOrn6PDhkuLH5VAuMKTQMr4=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=aNjnrdQ8OSOpr+Nlx2DdZSphUvkyovygK7ptH+5G8X98eHCzWtY8mQxmEj8U05v/NbWf7OHkGSGsVRbMGg+Gw1B+9ghsvLKb4k/3qxaoiV74g4inFNfLdOIW6fMHMqXa4c9W0vBaJNiLjVWWgD8cgYFFjqhNgdSqyrX4OKoGrUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XLw0Z5Pj; arc=none smtp.client-ip=103.209.128.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1788916518; c=relaxed/simple;
+	bh=z88fBECguwFUQ3oqHlOVu8JMuEaPOtdR+gKmUFDZRQA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=GLUygiH8J6yY/fyVohWEq7KzlfMD6oFWqtqjlvo4YeboGIgA6Q8TiRZ5+Bvj8i8G7g/PmJmJHXHszd7f0gRcIT8YGWjgYoMhB7EhS48hHc69h0+Zev+hLcQaPvMVN7NEseQ/T5oYfBvB7u362aSAyTW97INUJu+O/9ZKep+BeOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=zCJZb78p; arc=none smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XLw0Z5Pj"
-Received: from [172.16.12.48] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d09c3d85;
-	Wed, 9 Sep 2026 09:14:13 +0800 (GMT+08:00)
-Message-ID: <8c2dd6a7-d733-4d78-9b92-c7e4c7e6b7d8@rock-chips.com>
-Date: Wed, 9 Sep 2026 09:14:12 +0800
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="zCJZb78p"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4f1354074so308205a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:15:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1788916516; x=1789521316; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:to:from:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C0F+BhJXWav79HJUvCDEB8apDuPRzW6Sy5FYxm9DXY8=;
+        b=zCJZb78pZbogNRl6478FadGCvHkH3DSVPHCVkwxsJeIWNmnsuHjejJEDQRV0tXcq5W
+         J1LvDH9Fa7OyX/+I+Y2fzPgapAOdOCkYGJtfHNRUEHPGMFYJiNsjIz6MWN8Heyj0Gh+1
+         g/SfhEXdZ+ysdKncLzXYgUXoM6o0buD1agMO04ECfN5J23MvZb8TFDUMZ6qhll38/R6f
+         ov5ZFUPpVEtp2BIWVZfQDwRFSvdNx9izQwvShQWvUb13KQD+orZvzeEdc2SnJ9U9uaCf
+         x2OWi0akDWHh2OfD8gkGkXLsBkVh7eUAiM6QZ868QsHowevjig3nEi3i3JTYwmUd+rrj
+         Judw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788916516; x=1789521316;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:to:from:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=C0F+BhJXWav79HJUvCDEB8apDuPRzW6Sy5FYxm9DXY8=;
+        b=BvUuQz6HcivPCPer97jBUJz7NCGk3ZlbRmxbpUhfmfHadF6ZKo4B+v91gTEDGABUZg
+         ASVigp5e3LunOqiz7vAMmvEuBBqgHeKQTAO0IM0y6eRkCRkhdhn3hivDOi27oFYhoqps
+         6k+Dtloat2qxKG13ksX7kjFP5OsjPxx9R4JQLCBGpANv8TaK4T3IKIyd32NgGb0nNnYv
+         ggKnwa300GFRSlIeHEAxkOUm/IBUuFN/t5/LIBC5LbyaXCMl0la8196P3sQpVyx6LfdK
+         kWh5KJOHebD6LEqPwIoDT+vgk2YbBwQCjGdeVwb6WR/YNwogRwN2h97WMrDToLwBgZxa
+         3jFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy1XIoBGR0G5F/1pANcg9D+UOLUx4mO7lThTZkgdyxsna4CpqGlkDLPfZyQ4np+WGm3bC35qPFIeSsZ+pM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3x0v4r5Cabd8flCdo2fVplTl84aTSO5fPiPJaXq/KTOUjmgEt
+	qJqbdmt7kgy2KoZIJ9ipEdJmC0Zprlx+ZwjFL4aIR2+p5dRV6u9yewpxSH5vuPN8z+0=
+X-Gm-Gg: AYBFou3GR6F4SLQnUHKsdmg2MDOQiGcnubFlyZkHspWVAcPx1h6pOXVv3vRpRCgpgH3
+	wnbmpewzQH7kzkG/toB01GRzxxKNOWpJ4KjQ1a8vgJmVy9iXKCNqUwp8ePNNN2B03gW7Ts5eznl
+	bTI2tmSfpWtwYOC+INC8iP0W/Xl3ID4S6lBPoxCI/IRKUdhIQ4iHwl5rnzqlLPpfiz771ZI1RFx
+	aTcwUX1n5lskr174+AqdIt5AnkRnVpxQqOp3QdKJMEfVyKOeAxV1X6JOC8RKOgq1vm5Rf1P+yBr
+	POx0/Przpn5BRn/TRgHDMrjTKYgcETEm2qtPiZrTncxZ88dMQOOG2qrr/fOmsKxQBW1ACw4Xk4l
+	lu+bCX8g5iyY+4p/tznsXgnZnWV7w0bCYd2Ka3HFQxyq7KUX2RrkFRdaSDTIGTaqXd8kN+QNn+X
+	Gl2XA1U17FlpgxWibONXHSP1sUm8ALFeE0rGvnMmNRztaGNr/jTkT1i8lijLrEKGljg6k4O8VjU
+	fnes4c4jaEJnT6QUXqhcqbEnGJeJeBwA1HP+6KUq3qVhs0FJBAVZaecTA==
+X-Received: by 2002:a05:6820:8595:10b0:6bd:fd44:9045 with SMTP id 006d021491bc7-6bdfd4498c6mr636514eaf.3.1788916515696;
+        Tue, 08 Sep 2026 18:15:15 -0700 (PDT)
+Received: from [192.168.1.150] ([198.8.77.157])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dbedc6a0sm18374727eaf.5.2026.09.08.18.15.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 18:15:14 -0700 (PDT)
+Message-ID: <b191cba9-d863-4bfc-8729-be60cf66f1d7@kernel.dk>
+Date: Tue, 8 Sep 2026 19:15:13 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -28,88 +69,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v6 10/10] PCI: dw-rockchip: Clear debug buffer before
- entering L2
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
- <20260908-rockchip-pcie-system-suspend-v6-10-fbabcca9921b@collabora.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-10-fbabcca9921b@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa083bacfc303a4kunm71968669442fc6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUNKH1ZMTx0aGkoZSE
-	1OQklWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=XLw0Z5PjC40FLlLjEeuPsxjJH3DNpHn6kqQucBi89rQtQ8GMBSnyGCS+lCxIbo2P2qivwbPYZlABvOGQrBf82i3IwcXCABKIgffePviEmryW6oO28rIG3M4VeRzHFsA3wxL/eBxr+z3nGQf3BWcNsbOPpN5p8bCy37YLmRlBboI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=nXrG2bOu/f4zoy6afuZMtxAka40yrLWjvBxcUj894m8=;
-	h=date:mime-version:subject:message-id:from;
+Subject: Re: [syzbot] [io-uring?] [ext4?] INFO: task hung in io_write
+From: Jens Axboe <axboe@kernel.dk>
+To: syzbot <syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com>,
+ io-uring@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <6aa0876e.f81106d8.285f0a.0005.GAE@google.com>
+ <31ab7ab6-2cf5-4fcb-a6cb-05fab461e742@kernel.dk>
+Content-Language: en-US
+In-Reply-To: <31ab7ab6-2cf5-4fcb-a6cb-05fab461e742@kernel.dk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
-> Clear the debug buffer before entering the L2 state to ease debugging
-> link training issues on resume.
-> 
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git io_uring-7.3
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Forgot to push it out... Let's kick it again.
 
-> Cc: Shawn Lin <shawn.lin@rock-chips.com>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> index e675918ba184..a508f4fffd2a 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -77,6 +77,9 @@
->   #define  PCIE_CLKREQ_NOT_READY		FIELD_PREP_WM16(BIT(0), 0)
->   #define  PCIE_CLKREQ_PULL_DOWN		FIELD_PREP_WM16(GENMASK(13, 12), 1)
->   
-> +/* General Debug Register */
-> +#define PCIE_CLIENT_GENERAL_DEBUG	0x104
-> +
->   /* RASDES TBA information */
->   #define PCIE_CLIENT_CDM_RASDES_TBA_INFO_CMN	0x154
->   #define  PCIE_CLIENT_CDM_RASDES_TBA_L1_1	BIT(4)
-> @@ -1043,6 +1046,11 @@ static int rockchip_pcie_rc_reset_root_port(struct pci_host_bridge *bridge,
->   	return ret;
->   }
->   
-> +static inline void rockchip_pcie_link_status_clear(struct rockchip_pcie *rockchip)
-> +{
-> +	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_GENERAL_DEBUG, 0x0);
-> +}
-> +
->   static int rockchip_pcie_suspend(struct device *dev)
->   {
->   	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
-> @@ -1056,6 +1064,11 @@ static int rockchip_pcie_suspend(struct device *dev)
->   
->   	rockchip->intx = rockchip_pcie_readl_apb(rockchip, PCIE_CLIENT_INTR_MASK_LEGACY);
->   
-> +	/* All sub-devices are in D3hot by PCIe stack */
-> +	dw_pcie_dbi_ro_wr_dis(pci);
-> +
-> +	rockchip_pcie_link_status_clear(rockchip);
-> +
->   	ret = dw_pcie_suspend_noirq(pci);
->   	if (ret)
->   		return ret;
-> 
+-- 
+Jens Axboe
 
