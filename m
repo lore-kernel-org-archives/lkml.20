@@ -1,123 +1,152 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43562582B9A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5FC569F04;
+	Wed,  9 Sep 2026 16:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971238; cv=none; b=aEN0+1pO8wEBA7zAhnlgrsW7a5s0vsBqXTM8wTRCiW58vJb4CUUextYHAc8SrLhwfYmXQL8dOJN+TWxE2qA+ydo0mZ9nIlQBDLfx8w6Ex28FQp2Vg2Ymdp7ZHcvmvVekqEJy4c+OFQ7ZHBQkBS8zNWhCAW3ua5Pmpq5XQbWowTI=
+	t=1788971435; cv=none; b=LCj1cz5pEydsngfoVNIH2iAbTHMy4GcLGUAG3Pdwsg6MamIJW671n/mobnZXFH5sK4ex9ZVel1tRRawLkjy2fT4DA574yvXbi564cPcMDifL+zwhD6x7sIppRttbHblmNQXq8+XjWnngEfWKhL4OM4gKl5jeJycQ5uBMPr0/qOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971238; c=relaxed/simple;
-	bh=AOZLttGhmUv5jquu2+3I7Ud1egnq9QSCJNwq8sO2MTQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TjPMZL5sKOErZWIZ/KTW28HmoStQSxwRvNx3GTjQfyAXzXXgFsvnfKK15NXo7RHwLgdGWqPXbnmwoUfC4l3zQb8Si4efbHAMKb0OEmD4rCh703eD8c9qQV660LzkruW/qo6MrTEfZPaJoT5ufs6ZpMLZfRM5GxflOdEJ+oaPvBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gDhel7bb; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788971435; c=relaxed/simple;
+	bh=wWzKtrFidTzm1N7slbL3klzIb0Qo2W2SWXnk1Ha8gms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sPRggIgSGkWPOos/H5UBqeByDwT2NbXy8bfqZ1pTRA36y5Tus4ZP9y4BWmOkesmxYIvgLBbHzui0u2RU8osJBIn0tZj/sbjWQqkgkg8B4FIe918ZUagq2MJhqx2Bm+JHGgG6+Pdng5Hipi3K5eCEJkD077D1Xr0k8C/Cf0A3fUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcYf5Ku6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gDhel7bb"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398a5aad413so5036367a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:27:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788971236; x=1789576036; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+WQUthtyqHxeRsXcz+ABlRT5Bj9eULs6bP863YlVETY=;
-        b=gDhel7bbTlJ+o49XgvkDxBSEd6wHvNKVolXLHtFLyFdwhgi6gYfJzQFmnmoqGnbm9w
-         OU//McmrbM+lgQNQOJVgTIgbFETGRZo7otW+1jVmFdcuZMnXJKiDqWMJ/bPia64DxfAm
-         b9xBxMSfirRFY1W08WJkc9/Ued18W5pQ6z/qPwBKqORaABJun0u/IFvprDbP+sIZVJrj
-         lyjXkKaoWsfINGL/LNG7AbQcOI59e/8qLECe5OZsDmyQs+UKiS5E1c5TohaxvEMS707d
-         +/bSQ/Mi0EwOx0NZqJk/x3XZykX6+Z/Fe103+W1B0ckrqyaFtikjKLX9URqfzDU+3bFV
-         Likw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788971236; x=1789576036;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+WQUthtyqHxeRsXcz+ABlRT5Bj9eULs6bP863YlVETY=;
-        b=p2Ru9SSJHQozoUshbLY7Z/GMaJ5vtJXjK857VGcOpX0uJmEbnzOBV/h41miJPePXwE
-         6M0nljXtiuCe0e9hldzasoIW+zf3BDpAUuLEMgfS3f7Wv6BV0THtaSqLAcStlU3kVXp+
-         urX8jCX4nmi6fE5FiIGmRfcUt9tNVGocJ2SdZU+AKJYBlWxTCwKUiYGgTIEGNzCBxG49
-         foTiZx16C+dWV9Kad7cLtse+CvXGw/4uoDO2XiP303vjSjn33WNU0hNmIOjf57dUgMGe
-         e6WDLLeoHjaOfiQwsKK40V7/0J8W+sMaJ/aaS5LI+zKUPco6AcvI73Khsiz9PwaHLfDU
-         w9Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBysBgaIduHqNy6qj3ZNuH6GRDSP5acEKmTIMQXJ+Id8gDKpviyngl1XSZBUEBBXVQXq+P2XC6y5e+DGGIM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSngk21qksoflakBaaHrYH0eL7GKTbQ3xJ9xVliGi/k4zTDYvU
-	bAfAuoO6hxOdWCW4EwOsb3HWwfKjDEveTSMxwwtY2JPz1ScoB25vgfNk
-X-Gm-Gg: AYBFou33LKcu6iEG6xbDK4lKeCiemgf1aAwKFoFGoZYuIEOgIHAQCvUlKuK0IR2/RCo
-	XjPk+rSmTNrO70BPfJDOgEpB+/5Jb0UiCzUp7RQdHksqDjzMly23jgh9ZS1KiMgYgoHQEb8+49C
-	M64wvsLxQd5eVE4FTyh8cqK3yVc7alqxTc2FwnNLmL+/epH2UF2wPt/jwzA44qYILSsjAswF8qg
-	/RzkeIlBPS5jWAQJg5Cr3p8lo1emkAcq+AeOSqPzs8FCQ80QILkKbS5R9G2O7osYrUvDIVAIO5B
-	zgmm2iRDCyVYv8M5mORNHKIKKxoKXF15iJx+IS6KO9A50OGsAxnlvcw3/l8c7pID7wlZRflI3/K
-	IBMkJAr7NVMPe8qj71Y0M5KHVtINcKSDvGpK/LvC51J/4uBodZTxZJ7rutI1a4Q7cjsDRZ/HY6m
-	8pT+2ROpS71cX3jecI5aCteJAeF20+pfinCZ0fpg0nd++GT1ZqnAhuycMMasi1iX4MwuIns6HLr
-	MqM6y/I+g3Y4z4NOjwPEvzl0DzAyw==
-X-Received: by 2002:a17:90b:394e:b0:37f:fd1f:d30f with SMTP id 98e67ed59e1d1-39b26272d76mr55263314a91.12.1788971235372;
-        Wed, 09 Sep 2026 09:27:15 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:24ba:44ee:a9ec:98f1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770bc9f5sm174254a91.2.2026.09.09.09.27.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 09:27:15 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: stern@rowland.harvard.edu
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH] usb: storage: ene_ub6250: set transport_reset to avoid NULL deref
-Date: Wed,  9 Sep 2026 23:27:10 +0700
-Message-ID: <20260909162710.28740-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcYf5Ku6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AFE61F000FF;
+	Wed,  9 Sep 2026 16:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788971434;
+	bh=Kz7rWeqwh7ufJDv87BxiJfD/gwwv4aMAp/7XS3gBPEo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dcYf5Ku63ij8aECQoJafs4Ipg1pK9oXj9HMZSoM3ml9RYUs9bgWbI892r15HKD+aq
+	 TO6FjMT8mTQhfp+iMomWORtQlAM3jIsyaPwYZSaHoJn7R/JGCghwy4f2f0niwav6ni
+	 eBJdRLPFcGRmhIBelQgMN8TiQon3ZGk+0ZjUxsPj6ZoUq1f644nJlygEq9jKwgJozp
+	 ivMzm6l0Cf1qm0bdrELXOXxe7OHf/vwZsgJpnbZUDSpqIhRXP81TW35ZC+juNo5mm5
+	 w8CyZDKbmN2fe9Tm4ZiwdQMSYdgzFqNx03fbVBS+oujn39g8U1gp6xIrrIUpTbPfjZ
+	 fo6l8mjP/fXXQ==
+Date: Wed, 9 Sep 2026 17:30:19 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+Message-ID: <aqGG1iSwF7SyY7d6@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
 
-ene_ub6250_probe() sets us->transport but never sets
-us->transport_reset. get_transport() only fills in transport_reset
-for the standard USB_PR_CB/CBI/BULK protocols; since this driver
-matches on VID/PID alone, a device can report any bInterfaceProtocol
-value and still bind, leaving transport_reset NULL.
+On Wed, Sep 09, 2026 at 08:37:10AM -0700, Linus Torvalds wrote:
+> On Tue, 8 Sept 2026 at 13:55, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > A typical kernel build consists of a frustratingly large amount of time
+>
+> .. you're preaching to the choir.
 
-When the transport then reports an error, usb_stor_invoke_transport()
-calls us->transport_reset(us) in its Handle_Errors path, dereferencing
-a NULL function pointer:
+:) Yeah, it's something that's annoyed me for a long time too.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:0x0
-  Call Trace:
-   usb_stor_invoke_transport+0x55a/0x1a40 drivers/usb/storage/transport.c:926
-   usb_stor_control_thread+0x44c/0x8f0 drivers/usb/storage/usb.c:462
-   kthread+0x38b/0x480 kernel/kthread.c:436
+>
+> >                 == allmodconfig FULL build ==
+> >
+> >                         before    after     delta
+> >                       ----------------------------------
+> > Threadripper, gcc       345.3s   275.2s    -70.1s (-20%)
+>
+> Well, that's certainly very encouraging. We should do this. I sent out
+> some emails as just reactions to individual patches, but I have no
+> numbers to back any of those emails up, and I never actually applied
+> this series to my tree - they were all based on reading the patches
+> themselves.
 
-Set transport_reset to usb_stor_Bulk_reset, matching the same pattern
-already used by the other subdrivers with a custom transport function
-(alauda, datafab, jumpshot, karma).
+Thanks, will have a read through those!
 
-Reported-by: syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=356ae236154297f0d60d
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/usb/storage/ene_ub6250.c | 2 ++
- 1 file changed, 2 insertions(+)
+I do recommend trying them locally ;)
 
-diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
-index ed49a3bc859c..3137c2cdd021 100644
---- a/drivers/usb/storage/ene_ub6250.c
-+++ b/drivers/usb/storage/ene_ub6250.c
-@@ -2350,6 +2350,8 @@ static int ene_ub6250_probe(struct usb_interface *intf,
+It makes a surprising difference to defconfig even. (Though you need pigz
+installed for the full effect)
 
- 	us->transport_name = "ene_ub6250";
- 	us->transport = ene_transport;
-+	/* get_transport() only sets this for the standard USB_PR_* protocols */
-+	us->transport_reset = usb_stor_Bulk_reset;
- 	us->max_lun = 0;
+>
+> That said:
+>
+> > An LLM was used to first determine where the bottlenecks were then to
+> > figure out how to improve them.
+> >
+> > It generated a lot of code, much of it hideous.
+>
+> This made me scared to look at the patches originally, and I held off
+> in fear that the patches would be horrible and this build time
+> improvement would be hugely controversial garbage code.
+>
+> But:
+>
+> > I extensively audited and rewrote a lot of it, and heavily edited commit
+> > messages, the cover letter and comments.
+>
+> None of the patches look at all horrible to me. You clearly excised
+> the hideous parts. All of my reactions were of the type "this could
+> probably be taken _further_" rather than me throwing my hands up in
+> disgust.
 
- 	result = usb_stor_probe2(us);
+Thanks! :)
+
+I made sure to audit everything it came up with patch-by-patch, got it to
+rework the horrors then rewrote large chunks of what it came up with.
+
+>
+> So the Rust parallelism thing clearly isn't ready based on feedback
+> from that quarter, but the rest looked safe and innocuous. I'm all for
+
+Sure, happy to drop anything like that.
+
+Though based on what Miguel said it _might_ be ok perhaps with a nightly
+gate on it? Will see what he/Bjorn say.
+
+> merging this, although it should obviously go in through the right
+> channels. Mostly the kbuild tree, although some of it clearly would be
+> other cases - the objtool change in particular is fairly substantial
+> and needsobjtool people to approve. It didn't look all that
+> contentious, but still..
+
+Agreed, it definitely needs some eyes on it, especially the trickier bits.
+
+>
+> Anyway, I'd love for this all to go in. Build times are a pet peeve of mine.
+
+Yeah, it'd be nice to see this benefit everyone!
+
+Am happy to iterate on it as needed to get it upstream.
+
+>
+>               Linus
+
 --
-2.43.0
-
+Cheers, Lorenzo
