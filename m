@@ -1,228 +1,250 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08735908A9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988122; cv=none; b=gey6C9aBGOSmvHaUXro6BQWWsjSvWRFsiLfb4+qEWOeRtnrpg8u8MIhteWu+cCJ+vY+0rJ1zKDxE68s9Hu+ibluqEJq0GBYasZhqhv2up+rhk9rcYEYTWYhdNl+D/PuyJCUD2jK07ENYi2/Q58EMRyOR1MNJ4yrQKP63KDZdHaY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988122; c=relaxed/simple;
-	bh=v6XN1bSzrdiOZsy+gxDBorIxvgzRZF1Y/gKavtMSJdc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VthHx39mOxJDv6334LJ67qgocTqD7ah7UvD9s/rhH5LNMaRyRV3R0ysmvlacZLtKv5ac1L3HExJdjpG5/tyvLEEkhgmXEgZrHlIyGWLgYmpw69QivPxaNE9OfTyb343AkLf2BNguRqe41oBECUcpsUU2Hl3JkS3TkiUhTwhipog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=coTraDnG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hrgxgPCb; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4211158E2A2;
+	Wed,  9 Sep 2026 21:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788988124; cv=pass; b=duPO/lpC3i1agccGIan/rVeIOM6+L+AXDUG0ohtDbdABWeb0WzFHGDSWtB6xJb36vjgDMpy7SF5uXLE2/4SyIbwttdV6aBd6yVD4mmKj80r6gEaKmv4UukotHiZiKN83Ukx0n5v10cRy/vRGwcaTpEhFBqEYSeYX6x84iAGaHp8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788988124; c=relaxed/simple;
+	bh=tj/bEIU1bcu8t022BqWb+Qu+7tbxn3sUWiwo2QeLhKM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGMRrQ6l2JE/ywg0bq6ertBq20jd0QlSRLZpHEBYhvveknVwePmn8ar3qwY4x5KFKbqAFtswvmquwX00a0lnJ6dWUXp5o8MW5bO/l1Xh3MIj6vNJ+p9aaGVtji2yDwqsYm7EP6Dd5nGAUKdcPUsf6Q5F3pcJInLmllRTMpl7DKo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=EmASXpM1; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="coTraDnG";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hrgxgPCb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788988119;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JeCu1I7ci4XqifONO9NCiEC08kQGS9StekRATuRZUpY=;
-	b=coTraDnGs/wAD8KBc82xncnv4L+tv6tvaG8lrH7NRfim4G3CLJ9XNx5MAHhdtFvfOrmTg4
-	WE5fEJGK4KMe0TPhpzBVOpHVaISsia7XAW42t8Ep2WyqTwl3hVlX74pbCAyukTl6nxdyLt
-	zNKbdSLZWufU5I91ecKHh8Ze66HliK4=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-678-BF2AzGBLPMCv3QgOaTnNvQ-1; Wed, 09 Sep 2026 17:08:38 -0400
-X-MC-Unique: BF2AzGBLPMCv3QgOaTnNvQ-1
-X-Mimecast-MFC-AGG-ID: BF2AzGBLPMCv3QgOaTnNvQ_1788988118
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5308a3825deso61735451cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:08:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788988118; x=1789592918; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JeCu1I7ci4XqifONO9NCiEC08kQGS9StekRATuRZUpY=;
-        b=hrgxgPCbI+s2W6pD4vzacl4WpRBvQfuv4h0IzPeK3MG2bd7YCv9lzyixwuWci6j4zC
-         VDWCz3ZdETVEeyMEnmPFtKukP58YhG6WXGO91YyfdHEqCgUO01ehWMaxAYdaGwHhh7WP
-         bCrcsCQKeGli+uI0sbi7DY9YsLmw/2pNRB+ELdcWLMm3hawoWzCdDfcMssftK5ltNXmR
-         ZtISmNxU3Hrodujh6PmggJg4/v1lyxj7nZLTu9a5I16r4k9ZVKjOpM33Xi85hWQgyo1C
-         wRvO+fQ7L7VYbQqSnrxEdUgAKKUz3E3qKnjI1PPNsfe98EsDKJvnwMXYZjZLk5X6Npdr
-         zUsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788988118; x=1789592918;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JeCu1I7ci4XqifONO9NCiEC08kQGS9StekRATuRZUpY=;
-        b=YmJlRpIcSQ9bPPDH9lhrflPDTx9/217Pa/IgBs/aI3dck4dOTSZ2IPLRLJELcvKzJ7
-         YmFxSoiC2VEWiInAO5jXZeFtvuC9P3YuqgZycISR/+eqxxv1T/3oUNHgtOXXqS+K92Uy
-         fOtQXE+OO6ljkDKi7lpO2xnmuJjtXno3MqDJFzZmm4IkKggO/hSdzeMepaqrSis5kMZC
-         wtG15Y7nleax5O5jFxkx7S14vyaTFrgumDC3rrGCjmPSpipMSSi5a1iyfjc5Ncx5EzFB
-         PqlCkCZAvHEjHoamWtNdWCF3hiYRiqxMsuhWXQFoqANjK2wxGWXZWg3wSqnY8UU2hqeK
-         pxpw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9w4SzWVcJZnKvP0hr23VJPBPfwphoJwc0VpazipLqNCtOpkcUT8xNFipNOQV95LH2K6Auomfrua5mOyM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGBFBsk/UQ0aRE28ttIqiaFHA9jbaoxXzYxWlVAtjr+E/nRq3B
-	HfvAFsEtl7vq3JaZH8iVQh3PYANYqXEfprsZrDdRzaD2DFiGZ1px8WNYkpB2zPBswodYO404tqJ
-	t+JRGMvGMzHii/hi4QOvp9NnPGOLWZ6H0zeIocTdnBYThoRWE9h8i3Bw6fzfDyD1bhQ==
-X-Gm-Gg: AYBFou1AbvuG4y5e4kCeacfrFc8BEZ4EbkEFsawBcL20NykGpw9D2bDyOWRZVgJDYuR
-	LYNnMp0Njv07Uk4eyV6XcVvPnKoDVDveKekAZHmtWG+gilE8cNXCfPtcINdfKaVGZS8qwIxdTTH
-	Fm8QKRI4QLUVYBEzElSKsbDcA60gz4ObBNeAvV0CBSyf7T9eBoNykuD+7k5oI4izREhRIrDJC5x
-	cdoTi5ql8pKTkw/JpRM65WyOWodSp/u3iDnuReOPBZJCkvRKgDy9UoAPnovSeF9m95FmbIA0t1A
-	ZUrsJznnsQ55F4ZivypRTKTrPA5VFKVGy8GH4IJQuenm8SbvSfwQlXOWw68sQk5r6pCEJV35KYA
-	yInPBxWKQuw31DQk68PdWSQigTX3s6U1u0lgQ5iMr
-X-Received: by 2002:ac8:5cc1:0:b0:530:b2e2:2f1 with SMTP id d75a77b69052e-530b2e23739mr27765601cf.51.1788988117881;
-        Wed, 09 Sep 2026 14:08:37 -0700 (PDT)
-X-Received: by 2002:ac8:5cc1:0:b0:530:b2e2:2f1 with SMTP id d75a77b69052e-530b2e23739mr27764751cf.51.1788988117237;
-        Wed, 09 Sep 2026 14:08:37 -0700 (PDT)
-Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104049d30asm153786676d6.0.2026.09.09.14.08.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 14:08:36 -0700 (PDT)
-Message-ID: <317dd59c-819f-4bbe-a196-3946c30eb0a3@redhat.com>
-Date: Wed, 9 Sep 2026 16:08:34 -0500
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="EmASXpM1"
+ARC-Seal: i=1; a=rsa-sha256; t=1788988113; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CpD6VP6KZMOrlJhjQVEp3m2dy6Ey/biNn+DSAbVi4EgvHeDVRriB+nB+D3QvOC18WUaJX7S2Br+HEOLhUYQ2QWunOjERd4M9u3VC/pU+8IkGcOdm7vQwz5Qv8K4FxoutH/sXGBX2wW+PXCxLO/eByLK3540ZZ+i7eOwKEYnvUAg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788988113; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=i20i/ggCALMNwDadOAv6mdnZuvWfc14LrBp1z4LLOr0=; 
+	b=D8MgXatBd7g78cinmgSi55n9sHMgN/O4IlrNAHpR9JgbWfpnxXl5T1nKF2kepmkdrprvyGLvM5MR5188D9N5tCr6QV1y8EuHNw3K6zS08VeYgBDKvTIcYwvBSY80GXZZ0O6pRDEnku2fVHfF4BejbNNFYRBC9t+M/vWCg+WfbRo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788988113;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=i20i/ggCALMNwDadOAv6mdnZuvWfc14LrBp1z4LLOr0=;
+	b=EmASXpM1N46pu71p6ZHd999oEuT2GFWBnbT7+psLaJdhDcNY8qPKaonvI5a+l2eo
+	pWfAB6MKph8mJFvitVRvuhOHExB6VsfkmR3rqZK+mkGNozWu1bRW4XTIFryPGyMJkBQ
+	EyKU+vP5s23IS7/CbENiP38xSLzEKYowb0s0jZrE=
+Received: by mx.zohomail.com with SMTPS id 1788988111194745.2781428972909;
+	Wed, 9 Sep 2026 14:08:31 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 8B1C2183377; Wed, 09 Sep 2026 23:08:27 +0200 (CEST)
+Date: Wed, 9 Sep 2026 23:08:27 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: amitsd@google.com
+Cc: Badhri Jagan Sridharan <badhri@google.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, RD Babiera <rdbabiera@google.com>, 
+	Kyle Tso <kyletso@google.com>
+Subject: Re: [PATCH] usb: typec: tcpm: Support native battery energy
+ properties in battery AMS
+Message-ID: <aqHJtbFkepedz7BO@venus>
+References: <20260820-tcpm-energy-props-upstream-v1-1-0a0167863848@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sorenson@redhat.com
-Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination
- unreadable, SIGBUS on cifs with signing
-To: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>,
- linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
- CIFS <linux-cifs@vger.kernel.org>, linux-kernel@vger.kernel.org
-References: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com>
- <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com>
- <1714046.1788952509@warthog.procyon.org.uk>
- <1730052.1788974127@warthog.procyon.org.uk>
-Content-Language: en-US
-From: Frank Sorenson <sorenson@redhat.com>
-In-Reply-To: <1730052.1788974127@warthog.procyon.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="deq6sdnandm5mu3o"
+Content-Disposition: inline
+In-Reply-To: <20260820-tcpm-energy-props-upstream-v1-1-0a0167863848@google.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
+X-ZohoMailClient: External
 
 
-On 9/9/26 12:15 PM, David Howells wrote:
-> Try #3...
->
-> David
+--deq6sdnandm5mu3o
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] usb: typec: tcpm: Support native battery energy
+ properties in battery AMS
+MIME-Version: 1.0
 
-retested successfully with v3
+Hi,
 
-
-Frank
-
+On Thu, Aug 20, 2026 at 09:17:58PM +0000, Amit Sunil Dhamne via B4 Relay wr=
+ote:
+> From: Amit Sunil Dhamne <amitsd@google.com>
+>=20
+> Some fuel gauges report battery telemetry in energy rather than charge.
+> Add support for querying native energy properties for Battery Status and
+> Battery Capabilities AMS, falling back to calculating energy from charge
+> and average voltage when primary properties are not supported.
+>=20
+> +---------+--------------------+----------------------------------+
+> | Sr. No. | Primary            | Fallback                         |
+> +---------+--------------------+----------------------------------+
+> | 1       | ENERGY_NOW         | CHARGE_NOW + VOLTAGE_AVG         |
+> | 2       | ENERGY_FULL_DESIGN | CHARGE_FULL_DESIGN + VOLTAGE_AVG |
+> | 3       | ENERGY_FULL        | CHARGE_FULL + VOLTAGE_AVG        |
+> +---------+--------------------+----------------------------------+
+> Note: All properties above are to be prefixed with POWER_SUPPLY_PROP_.
+>=20
+> Closes: https://lore.kernel.org/all/amVJ1u67qHENBQ5l@venus/
+> Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Assisted-by: Gemini:gemini-3.1-pro
+> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 > ---
-> commit 05abad6ef207137fd3a2559d6ac242d1f94c60aa
-> Author: David Howells <dhowells@redhat.com>
-> Date:   Wed Sep 9 11:36:30 2026 +0100
->
->      netfs: Fix netfs_read_gaps() to use separate sink folios
->      
->      Fix netfs_read_gaps() to use separate folios rather than re-using a single
->      sink folio to discard the unwanted data so that cifs checksum checking sees
->      all the data that was fetched.
->      
->      Fixes: 7f84a7b9892d ("netfs: Make netfs_read_folio() handle streaming-write pages")
->      Reported-by: Frank Sorenson <sorenson@redhat.com>
->      Closes: https://lore.kernel.org/r/a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com/
->      Signed-off-by: David Howells <dhowells@redhat.com>
->      Tested-by: Frank Sorenson <sorenson@redhat.com>
->      cc: Paulo Alcantara <pc@manguebit.org>
->      cc: Namjae Jeon <linkinjeon@kernel.org>
->      cc: netfs@lists.linux.dev
->      cc: linux-cifs@vger.kernel.org
->      cc: linux-fsdevel@vger.kernel.org
->
-> diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-> index 424df70a5c30..105194de6e13 100644
-> --- a/fs/netfs/buffered_read.c
-> +++ b/fs/netfs/buffered_read.c
-> @@ -482,15 +482,14 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
->   	struct netfs_group *group = netfs_folio_group(folio);
->   	struct netfs_folio *finfo = netfs_folio_info(folio);
->   	struct netfs_inode *ctx = netfs_inode(mapping->host);
-> -	struct folio *sink = NULL;
-> -	struct bio_vec *bvec;
-> +	struct bio_vec *bvec = NULL;
->   	unsigned int from = finfo->dirty_offset;
->   	unsigned int to = from + finfo->dirty_len;
-> -	unsigned int off = 0, i = 0;
-> +	unsigned int off = 0;
->   	size_t flen = folio_size(folio);
->   	size_t nr_bvec = flen / PAGE_SIZE + 2;
->   	size_t part;
-> -	int ret;
-> +	int ret, i = 0, sink_from = -1, sink_to = -1;
->   
->   	_enter("%lx", folio->index);
->   
-> @@ -515,24 +514,23 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
->   	if (!bvec)
->   		goto discard;
->   
-> -	sink = folio_alloc(GFP_KERNEL, 0);
-> -	if (!sink) {
-> -		kfree(bvec);
-> -		goto discard;
-> -	}
-> -
->   	trace_netfs_folio(folio, netfs_folio_trace_read_gaps);
->   
-> -	rreq->direct_bv = bvec;
-> -	rreq->direct_bv_count = nr_bvec;
->   	if (from > 0) {
->   		bvec_set_folio(&bvec[i++], folio, from, 0);
->   		off = from;
->   	}
-> +	sink_from = i;
->   	while (off < to) {
-> +		struct folio *sink = folio_alloc(GFP_KERNEL, 0);
+
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+Greetings,
+
+-- Sebastian
+
+>  drivers/usb/typec/tcpm/tcpm.c | 57 +++++++++++++++++++++++++++----------=
+------
+>  1 file changed, 36 insertions(+), 21 deletions(-)
+>=20
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index a8cd1959c426..0d7dc0b51c87 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -410,6 +410,9 @@ struct pd_timings {
+>  /* Convert microwatt to watt */
+>  #define UW_TO_W(pow)				(div_u64((pow), 1000000))
+> =20
+> +/* Convert micro-Watt-hours to USB PD energy (increments of 0.1Wh) */
+> +#define UWH_TO_PD_ENERGY(energy)		(UW_TO_W((u64)(energy) * 10))
 > +
-> +		if (!sink)
-> +			goto discard;
->   		part = min_t(size_t, to - off, PAGE_SIZE);
-> -		bvec_set_folio(&bvec[i++], sink, part, 0);
-> +		bvec_set_folio(&bvec[i], sink, part, 0);
->   		off += part;
-> +		sink_to = i;
-> +		i++;
->   	}
->   	if (to < flen)
->   		bvec_set_folio(&bvec[i++], folio, flen - to, to);
-> @@ -553,8 +551,10 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
->   		folio_mark_uptodate(folio);
->   	}
->   
-> -	if (sink)
-> -		folio_put(sink);
-> +	if (sink_to >= 0)
-> +		for (; sink_from <= sink_to; sink_from++)
-> +			folio_put(bvec_folio(&bvec[sink_from]));
-> +	kfree(bvec);
->   	folio_unlock(folio);
->   	netfs_put_request(rreq, netfs_rreq_trace_put_return);
->   	return ret < 0 ? ret : 0;
-> @@ -563,6 +563,10 @@ static int netfs_read_gaps(struct file *file, struct folio *folio)
->   	netfs_put_failed_request(rreq);
->   alloc_error:
->   	folio_unlock(folio);
-> +	if (sink_to >= 0)
-> +		for (; sink_from <= sink_to; sink_from++)
-> +			folio_put(bvec_folio(&bvec[sink_from]));
-> +	kfree(bvec);
->   	return ret;
->   }
->   
+>  /*
+>   * As per USB PD Spec Rev 3.18 (Sec. 6.5.13.11), the number of fixed bat=
+teries
+>   * that a port can be queried is restricted to 4.
+> @@ -1580,8 +1583,7 @@ static u16 tcpm_charge_to_energy(int charge, int vo=
+ltage)
+>  {
+>  	u64 energy =3D div_u64((u64)charge * voltage, 1000000);
+> =20
+> -	/* Battery telemetry is reported in increments of 0.1Wh */
+> -	return (u16)UW_TO_W(energy * 10);
+> +	return UWH_TO_PD_ENERGY(energy);
+>  }
+> =20
+>  static int tcpm_pd_send_batt_status(struct tcpm_port *port)
+> @@ -1612,16 +1614,17 @@ static int tcpm_pd_send_batt_status(struct tcpm_p=
+ort *port)
+>  	else
+>  		batt_present =3D val.intval > 0;
+> =20
+> -	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_NOW,
+> -					&val);
+> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_ENERGY_NOW, &=
+val);
+>  	if (!ret) {
+> -		charge_now =3D val.intval;
+> -		ret =3D power_supply_get_property(batt,
+> -						POWER_SUPPLY_PROP_VOLTAGE_AVG,
+> -						&val);
+> -		if (!ret)
+> -			present_charge =3D tcpm_charge_to_energy(charge_now,
+> -							       val.intval);
+> +		present_charge =3D UWH_TO_PD_ENERGY(val.intval);
+> +	} else {
+> +		ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_NOW, =
+&val);
+> +		if (!ret) {
+> +			charge_now =3D val.intval;
+> +			ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_VOLTAGE_AVG=
+, &val);
+> +			if (!ret)
+> +				present_charge =3D tcpm_charge_to_energy(charge_now, val.intval);
+> +		}
+>  	}
+> =20
+>  	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_STATUS, &val);
+> @@ -1678,19 +1681,31 @@ static int tcpm_pd_send_batt_cap(struct tcpm_port=
+ *port)
+> =20
+>  	invalid_ref =3D false;
+>  	batt =3D port->fixed_batt[batt_id];
+> -	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_VOLTAGE_AVG,
+> -					&val);
+> -	if (!ret) {
+> -		vol =3D val.intval;
+> -		ret =3D power_supply_get_property(batt,
+> -						POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
+> -						&val);
+> +
+> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_ENERGY_FULL_D=
+ESIGN, &val);
+> +	if (!ret)
+> +		design_cap =3D UWH_TO_PD_ENERGY(val.intval);
+> +
+> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_ENERGY_FULL, =
+&val);
+> +	if (!ret)
+> +		charge_cap =3D UWH_TO_PD_ENERGY(val.intval);
+> +
+> +	if (design_cap !=3D BATTERY_PROPERTY_UNKNOWN && charge_cap !=3D BATTERY=
+_PROPERTY_UNKNOWN)
+> +		goto send_cap;
+> +
+> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_VOLTAGE_AVG, =
+&val);
+> +	if (ret)
+> +		goto send_cap;
+> +
+> +	vol =3D val.intval;
+> +	if (design_cap =3D=3D BATTERY_PROPERTY_UNKNOWN) {
+> +		ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_FULL_=
+DESIGN, &val);
+>  		if (!ret)
+>  			design_cap =3D tcpm_charge_to_energy(val.intval, vol);
+> +	}
+> =20
+> -		ret =3D power_supply_get_property(batt,
+> -						POWER_SUPPLY_PROP_CHARGE_FULL,
+> -						&val);
+> +	if (charge_cap =3D=3D BATTERY_PROPERTY_UNKNOWN) {
+> +		ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_FULL,=
+ &val);
+>  		if (!ret)
+>  			charge_cap =3D tcpm_charge_to_energy(val.intval, vol);
+>  	}
+>=20
+> ---
+> base-commit: e1e6e541c5c9cf548e9fdc35fc26808c82074440
+> change-id: 20260820-tcpm-energy-props-upstream-a493353f0054
+>=20
+> Best regards,
+> --=20
+> Amit Sunil Dhamne <amitsd@google.com>
+>=20
+>=20
+>=20
 
--- 
-Frank Sorenson
-sorenson@redhat.com
-Principal Software Maintenance Engineer, filesystems
-Red Hat
+--deq6sdnandm5mu3o
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhyscACgkQ2O7X88g7
++pp1cQ//e6lmtujD0Yb0vr0irVWyua8bCpQyKIA/YNOeHE02WIRDmvBScuqsQDXK
+/02HJUS03X4UVKtn1r0LkiaBElSdouay6hUIaz8pkbzZ/KZdTugFe7cK4Dcdp80W
+4Whu/cZD6+mT7sYFNui4JOIKZECas+9Szo+IhyYZh4lrkwihv1X/oOSiS1NKEWqS
+tyitONuftplvKOAgOpp7JcSBSXAN1PymrTpbD8VnKcMmBbUUaXFKlTXKGsOvBxRq
+T7hsjaMHpQUcQwxZs0DELuJu9t1cHjdoVZGUmYD6t3/YdJJFwop8MWeOFOau5RBC
+nMcWpU27uFLGw7zR6kl8OnM2rXMcnkkuGMpBjv0v1PGyzwmFdxlnrqaaB0CByWQ0
+stAPgd90KEaZiuXKtDllptdF9Bme8ccIGd3/gz48D5KWRCuPaI12amRqEAlXwTNj
+LE2OLAICljX/DR31J6ryFKoSBOMi7SvJODiOHjiwgZBn3YCCYwE7EApfrx9rQ6m5
+dmAmNueV8mcryZl4UQju7e9P+4ieu29zHLgGymCSkBdSKyok9y7wx8iGDFcRPOov
+QAcEJBQeZozuMTzWhCruHUSLxZaLMTK164gWDIvvtGMxR3aQcSx85Z0hV1QNoQb3
+1nOuEC9L4fDgqff4Zz0sjCy5z5pyde7FI0gnnKTV3GGYWShT+4E=
+=b/yb
+-----END PGP SIGNATURE-----
+
+--deq6sdnandm5mu3o--
