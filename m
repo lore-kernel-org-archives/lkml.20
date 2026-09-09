@@ -1,51 +1,47 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98CF179A3;
-	Wed,  9 Sep 2026 02:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C791113D53C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788919833; cv=none; b=uq8+VoNbdL02vOcp002oIiUtLNjICr7pVo5HBpQajQNju3/4XiV+/8KIZ9f+iE82PZNp2x2ho97MgJNia5hoCAfC6uPzjLi5qXHAQ4wfx5jhNw5qXC+gEy0dCbsmADeqm2eEWQIt9lrHY5vxoisF5S+ve6CXrfSE+40kBGGQa2Y=
+	t=1788919836; cv=none; b=g48+jV+995uc3jOGrfxQ7KklVSOe82heUtTBdxrUOlCMLlFaiimx2Vyfus9huI0lwJiqjPm7s0hQbdtxtv1bORtsXrwRLYEf+fAHV5/VVNHDxcxgI/YiLoUP/xTWFUGswnRPPDINL6OJACVuxHwz7VBHbLOMclK871PeGJ42AVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788919833; c=relaxed/simple;
-	bh=g3Ea4k9nAvXGjzhNYBnEARC1XmiIc4V4OZYrptIGcsk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FddzdVQOV4xYAWwzE43r028ITs3DJAt8qlhZZEbAww/KCsNzoFC2rBzec1+GntR8Tf3CHXtHSNT3X9IAwoD1WzeLsBqmqJv2YNcWeD1H1YpR6lKvbqI+dGhFyeO2k7dl+4vgRWsJ8g2GD90mInl+yyCmMSGyBMU90vozWifq8z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9b3491deabf311f19a56ed5b684f684d-20260909
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:395ff580-4c19-475b-9e6d-bcc09d1ad401,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:248f661811a9764546178ebf6d39a347,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9b3491deabf311f19a56ed5b684f684d-20260909
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1780386430; Wed, 09 Sep 2026 10:10:19 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: gregkh@linuxfoundation.org
-Cc: Thinh.Nguyen@synopsys.com,
-	linux-usb@vger.kernel.org,
+	s=arc-20240116; t=1788919836; c=relaxed/simple;
+	bh=Dl4mhoJ0+OYK72dxnqhVFZmip7+Nr8RxNYgp2i9qT1g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Vqoq1sZx6U459HDVpj1npW/K/pLc91PI1HE+XuMr0dY2b2acfNCnenu93bPB0G9d1b/i2pTeD9p+9qcKP9dpkjGpFuC5YZNx8u1fqi10pMrC2/1w69wcE87a/g4Y1sqnYhOnQaIkXAYqwJkEwL8PL3fTQoq1bJ0hdiE9rxngo7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pcKzgpwn; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pcKzgpwn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rt
+	bnN92pMLubeLyxsWwxDD/Qmg1/MotJhjv7yeWNeJM=; b=pcKzgpwn/lpozJuCgm
+	KagwX9nTy8OZrsE7O/NtJM2lxzxHkHlbs8sZlBsmnQZaQ9pi7+Ve0K3PX3FJYRW5
+	U088+h3t6SnsNhoOET3rneuO7zmqg9uenQstu2Hyrrk12XtEXHMZA9XZ+d2MFGS/
+	ETJOm+j17iKvVZ7lFt/e3V3kE=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBXZNfOv6BqkwHzBQ--.22478S2;
+	Wed, 09 Sep 2026 10:09:20 +0800 (CST)
+From: oushixiong1025@163.com
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Melissa Wen <melissa.srw@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Huang Wei <huangwei@kylinos.cn>,
-	kakapapa2 <kakapapa2@gmail.com>
-Subject: [PATCH v2] usb: dwc2: debugfs: fix memory leak of hsotg->regset
-Date: Wed,  9 Sep 2026 10:10:14 +0800
-Message-Id: <20260909021014.906548-1-huangwei@kylinos.cn>
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	Ye Liu <liuye@kylinos.cn>,
+	Leandro Ribeiro <leandro.ribeiro@collabora.com>
+Subject: [PATCH v2] drm/vkms: Add pixel blend mode property
+Date: Wed,  9 Sep 2026 10:09:06 +0800
+Message-Id: <20260909020906.104054-1-oushixiong1025@163.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260807100400.3179625-1-huangwei@kylinos.cn>
-References: <20260807100400.3179625-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,63 +49,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBXZNfOv6BqkwHzBQ--.22478S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr48CF17Ww15urW5KrWrGrg_yoWrGF4rpF
+	W3CF4FkrW5Jr47X3yUArWruw4fWa18Gay8CrWUA3sagr1Yy3srZryrKrya9rW5JryxCw1j
+	9F1DGrWDGFyIkaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4RDm9Wqgv9Cc2gAA3B
 
-hsotg->regset is allocated in dwc2_debugfs_init() using devm_kzalloc(),
-which ties its lifetime to the device (struct dwc2_hsotg) rather than
-to the debugfs entries it serves. dwc2_debugfs_exit() removes the
-debugfs directory but leaves hsotg->regset allocated until the device
-itself is removed, so the pointer dangles for the remainder of the
-device lifetime.
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Switch to kzalloc() and free it explicitly in dwc2_debugfs_exit() so
-the regset lifetime matches the debugfs lifetime. Set the pointer to
-NULL after freeing to avoid a stale dangling pointer.
+The vkms planes expose formats with an alpha channel but do not
+create the pixel blend mode property. Since
+commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed") this triggers a warning during
+drm_mode_config_validate():
 
-Reported-by: kakapapa2 <kakapapa2@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=219977
-Reviewed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+[  993.538979] ------------[ cut here ]------------
+[  993.539000] [PLANE:35:plane-0] pixel format with alpha exposed but blend mode not setup
+[  993.539063] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+......
+[  993.539578] Call trace:
+[  993.539580]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+[  993.539707]  drm_dev_register+0x1cc/0x2a0 [drm]
+[  993.539832]  vkms_create+0x184/0x1d0 [vkms]
+[  993.539854]  vkms_init+0x78/0xff8 [vkms]
+......
 
+The vkms composer only blends premultiplied alpha, see
+pre_mul_alpha_blend(), so create the property with
+DRM_MODE_BLEND_PREMULTI as the only supported mode.
+
+
+Reported-by: Ye Liu <liuye@kylinos.cn>
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 ---
-Changes in v2:
-- Rework the commit message per Thinh Nguyen: the issue is an
-  allocation lifetime mismatch with the debugfs lifetime, not a
-  traditional memory leak (the devm_kzalloc() allocation is
-  eventually reclaimed by devres). Drop the misleading reference to the
-  dwc3 regset commit, which addressed a separate problem.
----
- drivers/usb/dwc2/debugfs.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+v1->v2:
+- Update the stale comment above pre_mul_alpha_blend(): the DRM-wide
+  premultiplied-alpha assumption no longer holds, vkms only implements
+  the pre-multiplied blend mode.(Leandro Ribeiro)
 
-diff --git a/drivers/usb/dwc2/debugfs.c b/drivers/usb/dwc2/debugfs.c
-index 3116ac72747f..2ecbf6523aaa 100644
---- a/drivers/usb/dwc2/debugfs.c
-+++ b/drivers/usb/dwc2/debugfs.c
-@@ -9,6 +9,7 @@
- #include <linux/spinlock.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
-+#include <linux/slab.h>
- #include <linux/uaccess.h>
- 
- #include "core.h"
-@@ -787,8 +788,7 @@ int dwc2_debugfs_init(struct dwc2_hsotg *hsotg)
- 	/* Add gadget debugfs nodes */
- 	dwc2_hsotg_create_debug(hsotg);
- 
--	hsotg->regset = devm_kzalloc(hsotg->dev, sizeof(*hsotg->regset),
--								GFP_KERNEL);
-+	hsotg->regset = kzalloc_obj(*hsotg->regset, GFP_KERNEL);
- 	if (!hsotg->regset) {
- 		ret = -ENOMEM;
- 		goto err;
-@@ -810,4 +810,6 @@ void dwc2_debugfs_exit(struct dwc2_hsotg *hsotg)
+ drivers/gpu/drm/vkms/vkms_composer.c |  8 ++++----
+ drivers/gpu/drm/vkms/vkms_plane.c    | 10 ++++++++++
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index a238d40a49f9..c9e1cb10849e 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -36,10 +36,10 @@ static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
+  * The pixels [@x_start;@x_start+@pixel_count) in stage_buffer are blended at
+  * [@x_start;@x_start+@pixel_count) in output_buffer.
+  *
+- * The current DRM assumption is that pixel color values have been already
+- * pre-multiplied with the alpha channel values. See more
+- * drm_plane_create_blend_mode_property(). Also, this formula assumes a
+- * completely opaque background.
++ * vkms only implements the pre-multiplied blend mode (see
++ * drm_plane_create_blend_mode_property()), so the pixel color values are
++ * expected to be already pre-multiplied with the alpha channel values.
++ * Also, this formula assumes a completely opaque background.
+  */
+ static void pre_mul_alpha_blend(const struct line_buffer *stage_buffer,
+ 				struct line_buffer *output_buffer, int x_start, int pixel_count)
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index 6ee5c3f3207c..c4272f5f0354 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -276,6 +276,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
  {
- 	debugfs_remove_recursive(hsotg->debug_root);
- 	hsotg->debug_root = NULL;
-+	kfree(hsotg->regset);
-+	hsotg->regset = NULL;
- }
+ 	struct drm_device *dev = &vkmsdev->drm;
+ 	struct vkms_plane *plane;
++	int ret;
+ 
+ 	plane = drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
+ 					   &vkms_plane_funcs,
+@@ -287,6 +288,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ 
+ 	drm_plane_helper_add(&plane->base, &vkms_plane_helper_funcs);
+ 
++	/*
++	 * The vkms composer only blends premultiplied alpha, see
++	 * pre_mul_alpha_blend(), so that is the only supported mode.
++	 */
++	ret = drm_plane_create_blend_mode_property(&plane->base,
++						   BIT(DRM_MODE_BLEND_PREMULTI));
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	drm_plane_create_rotation_property(&plane->base, DRM_MODE_ROTATE_0,
+ 					   DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
+ 
 -- 
 2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
