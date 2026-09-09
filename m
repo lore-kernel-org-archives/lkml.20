@@ -1,161 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067213AC0E6;
-	Wed,  9 Sep 2026 06:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D5B381EA4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935793; cv=none; b=hXCg5YhJwOpqxezXfouPys7q8nXOTqW/f+aZG6mzXKbrSA6ZQr7BwY0VZAnFnQMpo7jjAd68XAy8LsKFiwaUoAR6Fby/uJVr25xQcMMfJsAFFu+cwYsG1A3HU4OVw8oEzs3e47la02PZk1jpf/40uaL+kMwAOgySjbwkHMc1MSQ=
+	t=1788935805; cv=none; b=Q74jJvaPvTp4dXK1cnXev3fI0518/XpoCoVaIU9E15MlA4aJj7NAjvb5Gj7GNl/9Ui0gH7bfsnm6B6NvbAUkw7V5VrHs8NHuVlhQT5Gu1MPnGvmUjioCJTiEx++2NUkavX4/smphDOeO3eyoooD9CXQ7dMlNLLTrGjqq1eBm2m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935793; c=relaxed/simple;
-	bh=D9zD1a6oGdbIQd2sAG3m2lMm/9RjajktNe680PEPnL8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IgU2c6YrtZceAacWiEYb66bVIuFGl0se7ouzXZKuJqCXYXYgt+dF6jrWVkGBHNpDk5HAHmJ2pRkGzf9FN3a434ddZ2uXc1uL1lban3fO5vzZJTSeHnPv0HgUB8QeCbwGFoBlq8j29V/Js9Rdb/2tZbsxPgMNqzvakXlF6fJJgQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHzfHw1E; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHzfHw1E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4B51F00A3A;
-	Wed,  9 Sep 2026 06:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788935789;
-	bh=8gsFSI8DqrI6by3i57gfq8RB93kP30yCYUQ/MLyjQBc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KHzfHw1E8TTl9UsFwSKEHMHljx10831Cbf9dhhnxQPOC9xY+wUxlTCJLVZ7VAGrFU
-	 59fE403Ofj5gEe97IV9kTOxk7eHJt+gxrRyp+DyITBkMdQ2yOxQwgPTedBGYWFd4IF
-	 7EOwLWKFTB9fcFeEZd6oMiK0CCI/4qwCTuDtePTIz8+WLS5m3GE3yQl1JoqTU2lFQj
-	 VL+xQXOaljBhozxuk87tNPSWUd/AIO0Exj4wVgb6jSKwk2Neg75QN1spKNndtvXQi1
-	 qF0aUzVCVJa1LVlcZXS3CavKO5aCEIbTe5IqI/YUWzfuiEmMMiPnzRhok8sRYcmFSW
-	 0LUnZJLql1i0g==
-Message-ID: <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
-Date: Wed, 9 Sep 2026 08:36:23 +0200
+	s=arc-20240116; t=1788935805; c=relaxed/simple;
+	bh=sY00z5V30onLLtDgQhbdrVwQUjxmGhBs+7K7da4O+tc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=bpfQwnMREyct1H2MwdR8J3VbJB7/KhiEkXxKSrj+5XF8n+5nECj3KFrvedxMOM2ZUho79r2tYkfxI7DuvAxKxUYW4GN/c6OTRXIBIhK7Z8QirG6dRXHRroD0+J57pbrcnHVu6tlhE71MkH0l9Ra0/Ht8A26CFKDvoUXCvp7TQVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so7736110eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:36:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788935796; x=1789540596;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zCmscbmxkSxvsPpnPdl5tJ0oDhZsF/+axEdFvj3ZC7k=;
+        b=rNLEfVYFLZnoWmLTAua3sr9YsdvdrYgeOKwJcYD/zd5xUi1eRHL9Ji9RHogFN/qfxA
+         ySvn0uszEElNEeI6XX5SOKJg/A7GwlSHVJUXpB8elk97TQ3LLPWbhPbGJx0XDSs7QBwV
+         QUC6gQrqQtKXksrCFuG7CSGVfL6GlSekBL3zHpxWHr93qwqOiPEiNNiYh8S6JMDGPpq2
+         hCPyFxgibFG9O2uwUSnJfUOGjT0TtC8vesgf3xJHpQeQyGbJdIsyKF5jIdIkyN9KHAC4
+         BVWIareeU0ctw3GAfiIXeFiAlh3LlpZ+49W6SmukozntVopF/EbV8vZ4lYbHMg5PBWNF
+         0zdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHDQMFz++WcDrSDLBZqKv2LiVeR1VC66L1LNNcqR4C0/3RhsxeZeXDZxhtCkb2UNrjFjGaENqA480q2tA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6v7YIesdwnwAfwJZT1F+h4EdtUsbtfoySLQskCR/Jy1j1evPN
+	BVSM+kvaMrUWtPIjC8uZ5MQHBEwI8aNOkzcM0LthGI5/3aI2J48KX1+PcW1rs14RZVy5X2O79vF
+	AoF98qSofqFr7zpXs8s7sN6GHg6JOmuBnOPd5njm84BEFUqqHRBvrohrs0MU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
- Draeger's M48 board.
-To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dinguyen@kernel.org
-References: <20260908111011.960876-1-petko.manolov@konsulko.com>
- <20260908111011.960876-2-petko.manolov@konsulko.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260908111011.960876-2-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:4c81:b0:6b3:26b8:424 with SMTP id
+ 006d021491bc7-6b6fd3d69d1mr18227942eaf.26.1788935795776; Tue, 08 Sep 2026
+ 23:36:35 -0700 (PDT)
+Date: Tue, 08 Sep 2026 23:36:35 -0700
+In-Reply-To: <20260909063623.6999-1-syedtayyabfarooq08@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa0fe73.f81106d8.285f0a.000b.GAE@google.com>
+Subject: Re: test patch
+From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
+To: syedtayyabfarooq08@gmail.com
+Cc: syedtayyabfarooq08@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 08/09/2026 13:10, Petko Manolov wrote:
-> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+> #syz test
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+"" does not look like a valid git branch or commit.
 
-
-> ---
->  .../devicetree/bindings/arm/altera.yaml       |   1 +
->  arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
->  .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
->  3 files changed, 132 insertions(+)
->  create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
-> index 3030cf46fe74..8ed1ba733510 100644
-> --- a/Documentation/devicetree/bindings/arm/altera.yaml
-> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
-
-Same comments. Binding should not be part of other patches.
-
-> @@ -47,6 +47,7 @@ properties:
->            - enum:
->                - altr,socfpga-cyclone5-socdk
->                - denx,mcvevk
-> +              - draeger,M48
->                - ebv,socrates
->                - macnica,sodia
->                - novtech,chameleon96
-> diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-> index 8df0976da01c..cdcea11abdfa 100644
-> --- a/arch/arm/boot/dts/intel/socfpga/Makefile
-> +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-> @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
->  	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
->  	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
->  	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-> +	socfpga_cyclone5_draeger_m48.dtb \
->  	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
->  	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
->  	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> new file mode 100644
-> index 000000000000..423c76cd1d4a
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> @@ -0,0 +1,130 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-> + */
-> +#include "socfpga_cyclone5.dtsi"
+>
+> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+> index cdd1dfc666c4..4435cc42d1c0 100644
+> --- a/drivers/usb/gadget/function/u_serial.c
+> +++ b/drivers/usb/gadget/function/u_serial.c
+> @@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
+>  
+>  /* TTY Driver */
+>  
+> +static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
+> +{
+> +	struct gs_port *port;
+> +	struct tty_port *tport;
+> +	int ret;
 > +
-> +/ {
-> +	model = "Draeger M48 Cyclone V SoC";
-> +	compatible = "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
+> +	mutex_lock(&ports[tty->index].lock);
+> +	port = ports[tty->index].port;
+> +	if (!port) {
+> +		mutex_unlock(&ports[tty->index].lock);
+> +		return -ENODEV;
+> +	}
 > +
-> +	chosen {
-> +		bootargs = "earlyprintk";
-
-That's not a mainline suitable argument, drop.
-
-
-Best regards,
-Krzysztof
+> +	tport = tty_port_get(&port->port);
+> +	mutex_unlock(&ports[tty->index].lock);
+> +
+> +	if (!tport)
+> +		return -ENODEV;
+> +
+> +	ret = tty_port_install(tport, driver, tty);
+> +	if (ret) {
+> +		tty_port_put(tport);
+> +		return ret;
+> +	}
+> +
+> +	tty->driver_data = port;
+> +
+> +	return 0;
+> +}
+> +
+> +static void gs_cleanup(struct tty_struct *tty)
+> +{
+> +	tty_port_put(tty->port);
+> +}
+> +
+>  /*
+>   * gs_open sets up the link between a gs_port and its associated TTY.
+>   * That link is broken *only* by TTY close(), and all driver methods
+> @@ -911,6 +946,8 @@ static int gs_get_icount(struct tty_struct *tty,
+>  static const struct tty_operations gs_tty_ops = {
+>  	.open =			gs_open,
+>  	.close =		gs_close,
+> +	.install =		gs_install,
+> +	.cleanup =		gs_cleanup,
+>  	.write =		gs_write,
+>  	.put_char =		gs_put_char,
+>  	.flush_chars =		gs_flush_chars,
+> @@ -1203,6 +1240,18 @@ static void gs_console_exit(struct gs_port *port)
+>  
+>  #endif
+>  
+> +static void gs_port_destruct(struct tty_port *tport)
+> +{
+> +	struct gs_port *port = container_of(tport, struct gs_port, port);
+> +
+> +	kfree(port);
+> +}
+> +
+> +static const struct tty_port_operations gs_port_ops = {
+> +	.destruct = gs_port_destruct,
+> +};
+> +
+> +
+>  static int
+>  gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+>  {
+> @@ -1222,6 +1271,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+>  	}
+>  
+>  	tty_port_init(&port->port);
+> +	port->port.ops = &gs_port_ops;
+>  	spin_lock_init(&port->port_lock);
+>  	init_waitqueue_head(&port->drain_wait);
+>  	init_waitqueue_head(&port->close_wait);
+> @@ -1258,8 +1308,7 @@ static void gserial_free_port(struct gs_port *port)
+>  	/* wait for old opens to finish */
+>  	wait_event(port->close_wait, gs_closed(port));
+>  	WARN_ON(port->port_usb != NULL);
+> -	tty_port_destroy(&port->port);
+> -	kfree(port);
+> +	tty_port_put(&port->port);
+>  }
+>  
+>  void gserial_free_line(unsigned char port_num)
