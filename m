@@ -1,93 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16EF3BA236;
-	Wed,  9 Sep 2026 20:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8839C3C109D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984829; cv=none; b=gt7fKzRQdOmNY0d4rNbCZoq0riBWCPF+chLydkBC89XK9rx/EBA14KRPOnZXWPcFR7OxWNyQneQsQscHADi+MBJVxuZab2GHUY2DCn3/bCpF9AsSXsdBVJ6XAMjIe7z3O/ZmRcxfwbJIQo0qfeNCxi08tDoqINMI0w4xblJ/lO8=
+	t=1788984857; cv=none; b=h+qypNm1Dr7muXHokrkqWZ99IysprID3/bzu9l5OmKsArNUZzwT0Xc1VfBga1GrGX9IfnJ+w1wuMAQbFmXfzDtfowbKtI+uzIIlkRLHgj1arNl5BX/dWgJokQthYsHruIReSi1Yi8eEtR1qbINyx5ebfiQC6a8xwGhdlD4T+1I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984829; c=relaxed/simple;
-	bh=w9dYimdKZoRENbfro1IP0xAzH0jL5XQd8wQ6nCnILGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uN/cZymBFVaRD/JutqBVBlcP0s9nyKX+0yGTcd76ff0pK5do8WOpG5fnbqLqLfzsZmgEe9fUQHQs5S9bbhzFdIzfnhfr/1YmUfxB0sxNEQ2XxEpZlpU1xCf7f3F8rfsnh1TWezaq9K6l+dYlbH0L+RLEiS1XI6BdaYZrxF5wQlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juCmX3GX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788984857; c=relaxed/simple;
+	bh=jsAfD0x6H4CpXABTrjk+C+iNJfFFVHIaPK+HNZm11pQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OXUYzu88pvKHjb61bWPEHpI27uP40GFDUt3SC7o8VGiKCxLqMs8aiIJ+bku6INdDC00b4CJwTzrOFrMz6C45kuZVe86TAP3xmumEIyITZ6V4RUtu2Ait0Ae65KgGEbsO5jzQnjaq4YcrHX35AkfWZOCJvJzLhukbWUvkNYHib8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I8UY9KYC; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juCmX3GX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C171F000FF;
-	Wed,  9 Sep 2026 20:13:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788984828;
-	bh=MQv84SOaC1a4xRlHxd7KhcwiZ2JQHsHJb8U+J0I2g0I=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=juCmX3GXvi8gIcx9x1MqG0xHSRRFzOMy8j7taPhO0tbXRINSpeYHoyx3DvxXaGnlX
-	 wqfo1OeB5lKOS4RDH4yrNYtQ1wVY/vrDlELptYhLFIiiafuhqzwg6j2KqCAVzA5Wzi
-	 oy9k45btmuQT+ifPsLG8iPkCIOHZ4jzntrmTDY2Sg9I3VWVQGOotJML075qjZrmTuf
-	 +djMyNK12BEtbJTOuA8s2E36bZZGfdsKyYXZzza5W0Z1BZOqjILooMvwlLu5kUPU9e
-	 U4mmiccNQi7ixtQFukkHPRKfh7E9+QHCgKUc06cDEpvCDAMjN8KdGxoUBWQNiT/Qn6
-	 vHB572M1U95wQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1DE61CE086B; Wed,  9 Sep 2026 13:13:48 -0700 (PDT)
-Date: Wed, 9 Sep 2026 13:13:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Dennis Zhou <dennis@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
- drain pass
-Message-ID: <004abd0b-7ded-4b2d-87ab-7f8fd6f6cc8e@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
- <aqGilhgcEd0qaHjI@slm.duckdns.org>
- <20260909193820.9aac7888ba9d@toxicpanda.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I8UY9KYC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788984854;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lKTM+YFNwQBQdailf/krjJt9YY8aumvxrk1D4x3TQQU=;
+	b=I8UY9KYCNi0SGnPGw5RSQ51pyJ4A6hAtQs1FqrRPZMndzO28vCHO3GpKvuX2YtIqo5HWNB
+	x59dxoepCwpxyWhvMpB7HNSGxTmySlSso4f7UQoUitoCeIcFt4vjpPx0besjfaK6vIDxje
+	yt19adcbsM1dc7x88WbhCwsAl65yybg=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-363-z87LLbsnMXOszc9WnPRl3Q-1; Wed,
+ 09 Sep 2026 16:14:12 -0400
+X-MC-Unique: z87LLbsnMXOszc9WnPRl3Q-1
+X-Mimecast-MFC-AGG-ID: z87LLbsnMXOszc9WnPRl3Q_1788984851
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 77F931954B1B;
+	Wed,  9 Sep 2026 20:14:10 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2C6EB1800576;
+	Wed,  9 Sep 2026 20:14:08 +0000 (UTC)
+Message-ID: <44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
+Date: Wed, 9 Sep 2026 16:14:07 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909193820.9aac7888ba9d@toxicpanda.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
+ code
+To: Haakon Bugge <haakon.bugge@oracle.com>,
+ David Laight <david.laight.linux@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yafang Shao <laoar.shao@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+ <CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
+ <20260907182705.54585f73@pumpkin>
+ <89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Wed, Sep 09, 2026 at 07:38:20PM +0000, Josef Bacik wrote:
-> On Wed, Sep 09, 2026 at 08:16:54AM -1000, Tejun Heo wrote:
-> > On Wed, Sep 09, 2026 at 06:01:07PM +0000, Josef Bacik wrote:
-> > > +		do {
-> > > +			cond_resched_tasks_rcu_qs();
-> > > +		} while (cleanup_offline_cgwb(wb));
-> > 
-> > The patch looks fine but this overall seems fragile. cond_resched() was
-> > already marking "stuff that can take too long" but we need to use
-> > cond_resched_tasks_rcu_qs() if it can take *really* long. There gotta be a
-> > way to make this more maintainable. If always doing tasks_rcu_qs from
-> > cond_resched() is too expensive, can it be be gated behind something cheaper
-> > e.g. some tick based test?
-> 
-> Yeah I agree, it is fragile.  Every long running loop in the kernel that
-> only does cond_resched() is a potential multi-minute synchronize_rcu_tasks()
-> stall now that cond_resched() is a no-op on the preemption models most
-> people actually run, and playing whack-a-mole with
-> cond_resched_tasks_rcu_qs() at each site as we trip over them isn't a great
-> long term answer.
-> 
-> I'm working on something more general so we don't have to sprinkle
-> cond_resched_tasks_rcu_qs() everywhere, but I expect it to be controversial
-> and it's going to take a while to shake out.  In the meantime these are real
-> bugs that are taking machines down today, so I'd like to get the targeted
-> fixes in and to stable while the broader discussion happens separately.
+On 9/9/26 10:15 AM, Haakon Bugge wrote:
+>
+>> On 7 Sep 2026, at 19:27, David Laight <david.laight.linux@gmail.com> wrote:
+>>
+>> On Mon, 7 Sep 2026 09:08:28 -0700
+>> Linus Torvalds <torvalds@linux-foundation.org> wrote:
+>>
+>>> On Mon, 7 Sept 2026 at 01:41, David Laight <david.laight.linux@gmail.com> wrote:
+>>>> I've fixed some broken/missing memory barriers but left the initial xchg()
+>>>> when acquiring the lock as a full barrier, I think it could be relaxed.
+>>> Well, it should almost certainly be at least an
+>>> atomic_cmpxchg_acquire(), since that's what osq_wait_next() uses for
+>>> the contention case.
+>> I'm not sure, but am no expert on acquire/release barriers.
+>> The 'fast path' osq_lock() code only has one memory access so there
+>> isn't anything to sequence it with.
+>> The important one is the smp_wmb() a bit lower down that ensures the
+>> list tail (or head) is written before the back link.
+>> When that was missing things went badly wrong.
+>> (I think the WRITE_ONCE() could be a store_release() instead.)
+>>
+>> The ACQUIRE semantics were added to ensure the 'node->next = NULL'
+>> assignment happened before the xchg().
+>> That assignment goes away in patch 5.
+>> But I'd want someone who really understands arm64 to comment.
+> These are preliminary results. I added osq_lock's to my
+> mutual-exclusion selftest [1], which has not yet been reviewed. The
+> test is based on v7.3-rc2.
+>
+> For lock acquisition, I used:
+>
+> 	preempt_disable();
+> 	while (!osq_lock(&el->mx_osq_lock.lock)) {
+> 		preempt_enable();
+> 		cond_resched();
+> 		preempt_disable();
+> 	}
+>
+> with the corresponding release:
+>
+> 	osq_unlock(&el->mx_osq_lock.lock);
+> 	preempt_enable();
+>
+> Assuming that this is a correct use of the OSQ API, the OSQ test fails
+> on a 160-CPU bare-metal Arm system. The same test passes on a 512-CPU
+> AMD x86_64 system as expected, showing at least that the test is
+> capable of passing.
 
-Looking forward to seeing what you come up with.
+osq_unlock() must provide the release barrier. I think the two 
+"WRITE_ONCE(next->locked, 1)" should have been 
+"smp_store_release(&next->locked, 1)".  There is an xchg() call before 
+the WRITE_ONCE's, but it is on a different cacheline so it may not apply.
 
-							Thanx, Paul
+Could you make that change to the existing code and rerun the test again 
+on arm64 to see if it can pass?
+
+Thanks,
+Longman
+
