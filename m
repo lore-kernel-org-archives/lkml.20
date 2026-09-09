@@ -1,189 +1,265 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BCE93D524C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF69544CAF9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939891; cv=none; b=hSBQvr9RS//frEZyClUSTVt0H4WhVRFQ8pa9utOftUsWhABsiY8kg6pojM8ewb419LKSX/eEN/mEkv/Rx/tyyuMenX3HH2Z7HN54zVk+2HZdGpa61IpIPZHwcDezGmKJUhpQXWCQQkS2sifxwZbx25ulOS/Vitcgez5tafWglM8=
+	t=1788939912; cv=none; b=Ouk2kT8BIcjBAoSndeGVg/n3m6SgP32a8mZPBZbXq/eO7C0aHubw9WDErdBzoNDhI5ENrMVVAPCuGQSmIlj5PRGqLTgUp8uiOszLYI44qi4E6OQqUZ3Rg3nr9MapU5Yo5Qfv8/1Y0FlwoRpVmakrsqU3Kp01GCnEhEX0gGQm7KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939891; c=relaxed/simple;
-	bh=e0GeJfmPR3dEFuahjfyooZC9yXysPHFN3AqMe/t6B0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tYrW2DsaIr9hJC/sbqGjMkX9m6oQJgF2bWHTB77B52l4+LWUmLU2Ri1z74dXX34zx5DImYsS82o/TtaUV0X+o5TC8SFXZZA4RPd2va4lXc/nBuk5Jm8VThp/BZ5lG7IzyjOnvo/wq4WA8oC84TBdWl64ligQzh1B32psjsu1ckg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MviTY7+Z; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788939912; c=relaxed/simple;
+	bh=yVEP+3GkL35VJVuIwqYuEO5WEVHZjx04XefECuT04t8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sdLIcGC4nyEMmGycLIT1+W/IluVJpR9gKCaC3GzYidWc5rFc1Y5gT6V8C7aYb28oS5fjuHVrEAsNRyADP8WEvDXHVs7V5azpPh8NX+lCIQqEoCjX5DHgrjFLIyTXLi1Epg/tnM1XR1NEYypAdTNu378mfZT7pFe1FtuGQgcpT8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=n52nl+S4; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MviTY7+Z"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A55F91576;
-	Wed,  9 Sep 2026 00:44:44 -0700 (PDT)
-Received: from [10.164.19.55] (unknown [10.164.19.55])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D03233F7D8;
-	Wed,  9 Sep 2026 00:44:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788939888; bh=e0GeJfmPR3dEFuahjfyooZC9yXysPHFN3AqMe/t6B0g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MviTY7+Zb3AHyiEuaB23vkmKxvrKArbkgIEqsKKk8ZshASCZPMVCi/N1ozgdgo60c
-	 R28LyHubWCuXzanBwgpBPI41IkZIvnA95GHwUS7trb0oUwadfFU/RtfC7QsSfeYjIV
-	 DzLy1DiPrGkxv4aj0jV2QZYZ4FiwDo1vpTJw2U7Y=
-Message-ID: <f4edb66c-1891-4d7b-83c2-d8251715fadd@arm.com>
-Date: Wed, 9 Sep 2026 13:14:39 +0530
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="n52nl+S4"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39b35105ba4so5253581a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:45:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788939910; x=1789544710; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cfle/33DhJaHpZirsUEVX2vPd7lYd6/QJCyoGwAPahM=;
+        b=n52nl+S4eezyxYiG2vQVGL9l956i066STyEAQ3t8Fyc8oAulIpfhTVUUEoWAi+Ef+f
+         tNsa9zxkNC6yT3sYb8IvGsB0tRnuwE3J26acPQFQmkvJNxHQiKzRGW+ruM5hnZb+wu31
+         foYgi08MTh+xmbSJXolHmtnZxRAXaKIo2L3myc3Cu3bQmUStGOdEOTfeoo81eV+wYgGE
+         qwc1/lfAIoIkh8pj3bRDcqpLEAtRr3KGRI/OTxKzyKM2xgVaGbEEEv2UnN35YcdA8uqU
+         UcSZvgG/xi27Li+Ly0Ll/ohZpMRWSHNlz6ww2DaVxocvmLZ1kMBnNMEMNGAyrWYyzIU5
+         xa+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788939910; x=1789544710;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Cfle/33DhJaHpZirsUEVX2vPd7lYd6/QJCyoGwAPahM=;
+        b=glP3hAPA0npregIf9XXjMEWjq+paDxkZlzKSxQxNpKwdmaklL/rx2s45jDMN0CUwXs
+         4AOnwu7Mxf/E/MaeCt5D1g1stMxPsNQZKVC2SWhgitWs1R5x9IyuI1FVy0lLzxoAk5ol
+         qBql1b49fun196BB8N+aWxe9v0t4pBSkuGfktKQwFCog2YUMI+rL8X65xFtVqUJG0wrn
+         4MB//XZd741W+HXePi/vtQxyeC5R0ggDF2vtIiG2Zi+XD4ytLoOIpsN387dJZnumpIhA
+         iZ1R0FEcWa+FZmxjtmSgRjdxWZ/zLzi5mBfl8l0oJ7/Nd7vxP42o4B7i0U9j8w8RSTbM
+         gsZA==
+X-Forwarded-Encrypted: i=1; AKwUvByPj3rcEoQWpzOjFFivwXn3F97GqLD93Gk97jhwPKPIINpEdfLw7eDiDiAk4n1Sk0GqV4IM+7DTzq+r73k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOQVVLteGS12qSTgXzKA58gDQnfoNqE+NM4c0CHgPwf8L3xsE5
+	jgJ0Q/ZB3K/hxqfRFenWb/BMY0EI7sOxjTUC/YnI7Uwrvn9N4RYi6sjueIHG50HP3Jig
+X-Gm-Gg: AYBFou28Zrw9dCeUDK0dtJSsXn9P54tKncxvGGe3ifyQKJuo4Qh8mUYfBn3U+DQpc07
+	fqWJrCEi/4QOcnEecYn7qu9QOesZbXVpEmX9kVL+Q2wEBO+oz/CX9F5EUsrZfMd2ntAGeBCyTOD
+	jVL3el2T2IkpllxzfgoyxHyhL8Erw2jLLWhYk9CrUMFKaMwo4M3fW7jLcu8Jqn+oAVw0jt4fp8j
+	el3WS3xG23gWcJ1O6EAiT8z250zCX4n0z98Gw+nynm7lp/G8K7r4KNQR0DfOmACAyfc7gEggRQC
+	WjZNSF5qSXdNiwKGbKFBGnqiu/147sYbjxoPRQ55wFJBzZZRsYezvcHz95Id7uLN3AUyyo8+4aB
+	Y4ZP3yFpw6fBNE7ZlmzxkGywhajDU55zVpwpwNBUrrkYoNcPr3/hZ9sH0wUsfKXkuE8WLfTF8yJ
+	gUKmODih7vpsOQbgF4KsdGebMofyJveDM0acplcRoH2Dc4YSWji76iq+GlyA9Sfs3G3GXXu2N6d
+	1J3z0Q1rBoQbnGZg9DlGIjsaeWCmQ==
+X-Received: by 2002:a17:90a:d610:b0:399:1b08:28de with SMTP id 98e67ed59e1d1-39b2613259fmr49954285a91.7.1788939910014;
+        Wed, 09 Sep 2026 00:45:10 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm36300085a91.0.2026.09.09.00.45.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 00:45:09 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>,
+	Zihan Xi <zihanx@nebusec.ai>
+Subject: [PATCH net v4 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
+Date: Wed,  9 Sep 2026 07:44:58 +0000
+Message-ID: <ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788878590.git.zihanx@nebusec.ai>
+References: <cover.1788878590.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] mm/rmap: Add batched version of
- folio_try_share_anon_rmap_pte
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- hughd@google.com, chrisl@kernel.org, kasong@tencent.com, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- lance.yang@linux.dev, baolin.wang@linux.alibaba.com,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
- youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de,
- ryan.roberts@arm.com, anshuman.khandual@arm.com
-References: <20260901054358.4049095-1-dev.jain@arm.com>
- <20260901054358.4049095-5-dev.jain@arm.com>
- <CAGsJ_4zWPXoJ5kiLoVcq1YHv6WcmjPEssTUs4OT15iNRob3_rQ@mail.gmail.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <CAGsJ_4zWPXoJ5kiLoVcq1YHv6WcmjPEssTUs4OT15iNRob3_rQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+rxrpc_encap_rcv() moves encapsulated UDP packets onto the local
+RxRPC queue without preserving UDP receive-buffer accounting. A local
+AF_RXRPC service such as the AFS callback listener can therefore be
+flooded with RxRPC-shaped UDP packets until the local queue grows
+without bound and consumes large amounts of memory.
 
+Reaccount encapsulated packets against the UDP socket before queueing
+them on the RxRPC local queue and drop packets once the socket rcvbuf
+limit is reached. Orphan PACKET skbs when the I/O thread dequeues
+them so UDP ownership does not follow those packets onto call or
+connection queues. Error-queue skbs keep their existing destructor.
+Clear sk_user_data under RCU protection and release the socket only
+after the local queues are purged.
 
-On 09/09/26 2:49 am, Barry Song wrote:
-> On Tue, Sep 1, 2026 at 1:44 PM Dev Jain <dev.jain@arm.com> wrote:
->>
->> To enable batched unmapping of anonymous folios, we need to handle the
->> sharing of exclusive pages. Hence, a batched version of
->> folio_try_share_anon_rmap_pte is required.
->>
->> Currently, the sole purpose of nr_pages in __folio_try_share_anon_rmap is
->> to do some rmap sanity checks. Now, clear the PageAnonExclusive bit on a
->> batch of nr_pages. Refactor the function such that the clearing of the bit
->> can be done at one place without duplication.
->>
->> Note that __folio_try_share_anon_rmap can receive nr_pages == HPAGE_PMD_NR
->> from the PMD path, but currently we only clear the bit on the head page.
->> Retain this behaviour by setting nr_pages = 1 in case the caller is
->> folio_try_share_anon_rmap_pmd.
->>
->> While at it, convert nr_pages to unsigned long to future-proof from
->> overflow in case P4D-huge mappings etc get supported down the road.
->> I haven't made such a change in each function receiving nr_pages in
->> try_to_unmap_one - perhaps this can be done incrementally.
->>
->> Add two WARN's: check that the batch is entirely exclusive (for PMD
->> callers, need to check only head page), and that there are only
->> PTE/PMD paths converging into __folio_try_share_anon_rmap.
->>
->> Signed-off-by: Dev Jain <dev.jain@arm.com>
->> ---
->>  include/linux/rmap.h | 56 ++++++++++++++++++++++++++++++--------------
->>  1 file changed, 39 insertions(+), 17 deletions(-)
->>
->> diff --git a/include/linux/rmap.h b/include/linux/rmap.h
->> index 0b332770abeed..320f9f14f6020 100644
->> --- a/include/linux/rmap.h
->> +++ b/include/linux/rmap.h
->> @@ -706,17 +706,23 @@ static inline int folio_try_dup_anon_rmap_pmd(struct folio *folio,
->>  }
->>
->>  static __always_inline int __folio_try_share_anon_rmap(struct folio *folio,
->> -               struct page *page, int nr_pages, enum pgtable_level level)
->> +               struct page *page, unsigned long nr_pages, enum pgtable_level level)
->>  {
->> +       /* device private folios cannot get pinned via GUP. */
->> +       const bool pinnable = !folio_is_device_private(folio);
->> +
->>         VM_WARN_ON_FOLIO(!folio_test_anon(folio), folio);
->>         VM_WARN_ON_FOLIO(!PageAnonExclusive(page), folio);
->> +
->>         __folio_rmap_sanity_checks(folio, page, nr_pages, level);
->>
->> -       /* device private folios cannot get pinned via GUP. */
->> -       if (unlikely(folio_is_device_private(folio))) {
->> -               ClearPageAnonExclusive(page);
->> -               return 0;
->> -       }
-> 
-> Somehow, I feel the early return for
-> `folio_is_device_private(folio)` is more readable. Can we keep it?
-> Then we can avoid many `if (pinnable)` checks later.
-> 
->> +       VM_WARN_ON_ONCE(level > PGTABLE_LEVEL_PMD);
-> 
-> Maybe the below would be better, as it avoids depending on the
-> exact value of `PGTABLE_LEVEL_PMD` and above.
-> 
-> VM_WARN_ON_ONCE(level != PGTABLE_LEVEL_PTE && level != PGTABLE_LEVEL_PMD);
+sk_forward_alloc is not atomic. UDP already serialises it with
+sk->sk_receive_queue.lock; take that lock around the charge in
+rxrpc_encap_rcv() and around skb_orphan() in the I/O thread. The I/O
+thread uses spin_lock_bh() so a concurrent BH encap_rcv() cannot
+update the same counter. The skbs stay on the RxRPC local queue, not
+the UDP receive queue.
 
-Can do this.
+Fixes: 446b3e14525b ("rxrpc: Move packet reception processing into I/O thread")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v4:
+  - serialise UDP rmem charge/uncharge with sk->sk_receive_queue.lock
+  - use spin_lock() in encap_rcv() (BH) and spin_lock_bh() around
+    skb_orphan() in the I/O thread
+  - do not enqueue encapsulated skbs on the UDP receive queue
+  - orphan only PACKET skbs charged in encap_rcv(); leave error-queue
+    skb ownership alone
+  - restore the unshare -Urn reproducer and document the AFS callback
+    listener
+  - add the privileged pin/FIFO hog commands used to record the panic
+  - clarify the recorded panic is a downstream OOM after
+    privileged pin/FIFO hog, not the unshare-only flood
+  - include the full OOM Mem-Info in the cover crash log
+  - v3 Link: https://lore.kernel.org/all/cover.1788539302.git.zihanx@nebusec.ai/
+changes in v3:
+  - orphan the skb when the I/O thread dequeues it from the local
+    queue so UDP rmem ownership does not follow packets onto
+    call/conn queues
+  - mention both io_thread.c and local_object.c in the cover opening
+  - do not describe the recorded panic as a complete non-root-only
+    reproducer; the flood is unprivileged but I/O-thread starvation
+    used privileged steps
+  - attribute the OOM to skbuff growth rather than incoming-call
+    setup
+  - describe the recorded panic as a downstream OOM in
+    rxrpc_reject_packet()/sock_alloc_send_pskb after I/O-thread
+    contention, not as an allocation at the encap_rcv enqueue site
+  - note that cgroup.freeze does not stop krxrpcio; the crash still
+    shows that kthread allocating, and the CPU pin plus SCHED_FIFO
+    hog are the steps that slowed it
+  - v2 Link: https://lore.kernel.org/all/cover.1785339953.git.zihanx@nebusec.ai/
+changes in v2:
+  - switch the drop path from atomic_inc(&udp_sk->sk_drops) to
+    sk_drops_inc(udp_sk)
+  - retarget Fixes to 446b3e14525b, the first boundary where encap_rcv
+    queued the skb onto local->rx_queue for later I/O-thread consumption
+  - rebase onto current net/main
+  - refresh the cover crash log from an unfixed 7.3.0-rc1+ net/main run
+    and include the decoded stack
+  - explain in the cover why packetdrill was not used
+  - document the actual local flood command instead of a generic
+    unshare invocation
+  - v1 Link: https://lore.kernel.org/all/cover.1784742007.git.zihanx@nebusec.ai/
 
+ net/rxrpc/io_thread.c    | 37 +++++++++++++++++++++++++++++++++++--
+ net/rxrpc/local_object.c |  8 ++++++--
+ 2 files changed, 41 insertions(+), 4 deletions(-)
 
-> 
->> +
->> +       /* We only clear anon-exclusive from head page of PMD folio. */
->> +       if (level == PGTABLE_LEVEL_PMD)
->> +               nr_pages = 1;
->> +
->> +       VM_WARN_ON_FOLIO(page_anon_exclusive_batch(0, nr_pages, page, true) != nr_pages, folio);
->>
->>         /*
->>          * We have to make sure that when we clear PageAnonExclusive, that
->> @@ -760,29 +766,38 @@ static __always_inline int __folio_try_share_anon_rmap(struct folio *folio,
->>          * so we use explicit ones here.
->>          */
->>
->> -       /* Paired with the memory barrier in try_grab_folio(). */
->> -       if (IS_ENABLED(CONFIG_HAVE_GUP_FAST))
->> -               smp_mb();
->> +       if (likely(pinnable)) {
->> +               /* Paired with the memory barrier in try_grab_folio(). */
->> +               if (IS_ENABLED(CONFIG_HAVE_GUP_FAST))
->> +                       smp_mb();
-> 
-> If we return early for `!pinnable`, shouldn't we be able to avoid
-> this? Is the reason you don't do the early return that you want to
-> batch the `folio_is_device_private(folio)` case as well? If so,
-> that seems sensible.
-
-Yes.
-
-
-> 
-> Is this a real use case that you're supporting with your patchset?
-> 
->>
->> -       if (unlikely(folio_maybe_dma_pinned(folio)))
->> -               return -EBUSY;
->> -       ClearPageAnonExclusive(page);
->> +               if (unlikely(folio_maybe_dma_pinned(folio)))
->> +                       return -EBUSY;
->> +       }
->> +
->> +       for (;;) {
->> +               ClearPageAnonExclusive(page);
->> +               if (--nr_pages == 0)
->> +                       break;
->> +               page++;
->> +       }
-> 
-> Maybe ?
-> 
->      while (nr_pages--)
->          ClearPageAnonExclusive(page++);
-
-Was following the pattern elsewhere ... I vaguely remember the
-for (;;) being faster for some reason?
-
-> 
-> Best Regards
-> Barry
+diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
+index dc5184a2fa9d1..415b05f5e2b47 100644
+--- a/net/rxrpc/io_thread.c
++++ b/net/rxrpc/io_thread.c
+@@ -13,6 +13,22 @@ static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
+ 				      struct sockaddr_rxrpc *peer_srx,
+ 				      struct sk_buff *skb);
+ 
++/*
++ * Drop UDP rmem ownership for packets charged in encap_rcv().
++ * sk_forward_alloc is serialised by sk_receive_queue.lock.
++ */
++static void rxrpc_skb_orphan_udp(struct sk_buff *skb)
++{
++	struct sock *sk = skb->sk;
++
++	if (!sk)
++		return;
++
++	spin_lock_bh(&sk->sk_receive_queue.lock);
++	skb_orphan(skb);
++	spin_unlock_bh(&sk->sk_receive_queue.lock);
++}
++
+ /*
+  * handle data received on the local endpoint
+  * - may be called in interrupt context
+@@ -41,8 +57,6 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
+ 	if (skb->tstamp == 0)
+ 		skb->tstamp = ktime_get_real();
+ 
+-	skb->mark = RXRPC_SKB_MARK_PACKET;
+-	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
+ 	rx_queue = &local->rx_queue;
+ #ifdef CONFIG_AF_RXRPC_INJECT_RX_DELAY
+ 	if (rxrpc_inject_rx_delay ||
+@@ -52,6 +66,22 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
+ 	}
+ #endif
+ 
++	spin_lock(&udp_sk->sk_receive_queue.lock);
++	if (atomic_read(&udp_sk->sk_rmem_alloc) >= READ_ONCE(udp_sk->sk_rcvbuf) ||
++	    !sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
++		spin_unlock(&udp_sk->sk_receive_queue.lock);
++		sk_drops_inc(udp_sk);
++		kfree_skb(skb);
++		return 0;
++	}
++
++	skb->dev = NULL;
++	skb_set_owner_r(skb, udp_sk);
++	spin_unlock(&udp_sk->sk_receive_queue.lock);
++	skb_dst_force(skb);
++
++	skb->mark = RXRPC_SKB_MARK_PACKET;
++	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
+ 	skb_queue_tail(rx_queue, skb);
+ 	wake_up_process(io_thread);
+ 	return 0;
+@@ -471,6 +501,9 @@ int rxrpc_io_thread(void *data)
+ 		/* Distribute packets and errors. */
+ 		while ((skb = __skb_dequeue(&rx_queue))) {
+ 			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
++
++			if (skb->mark == RXRPC_SKB_MARK_PACKET)
++				rxrpc_skb_orphan_udp(skb);
+ 			switch (skb->mark) {
+ 			case RXRPC_SKB_MARK_PACKET:
+ 				skb->priority = 0;
+diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
+index 169f9dfdaa77f..6604f9f952660 100644
+--- a/net/rxrpc/local_object.c
++++ b/net/rxrpc/local_object.c
+@@ -437,8 +437,8 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
+ 	if (socket) {
+ 		local->socket = NULL;
+ 		kernel_sock_shutdown(socket, SHUT_RDWR);
+-		socket->sk->sk_user_data = NULL;
+-		sock_release(socket);
++		rcu_assign_sk_user_data(socket->sk, NULL);
++		synchronize_rcu();
+ 	}
+ 
+ 	/* At this point, there should be no more packets coming in to the
+@@ -448,6 +448,10 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
+ 	rxrpc_purge_queue(&local->rx_delay_queue);
+ #endif
+ 	rxrpc_purge_queue(&local->rx_queue);
++
++	if (socket)
++		sock_release(socket);
++
+ 	rxrpc_purge_client_connections(local);
+ 	page_frag_cache_drain(&local->tx_alloc);
+ }
+-- 
+2.43.0
 
