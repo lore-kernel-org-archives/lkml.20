@@ -1,75 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74BC3B895D;
-	Wed,  9 Sep 2026 06:57:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2F63B6344;
+	Wed,  9 Sep 2026 06:58:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788937077; cv=none; b=rwB1ggxjTLiurKvngmzQNagn3NWV9ebfqmB2ybhNPsbFlTDjbzOouGKJ7StMbUvdYdqP8ytliBVCJoTl2xJCI/cD+yVZMda3P4jalQci2hgh3GS7GE9+zJhEFdkpdA/6rEu76VXbzWlDyVzPIuV7NeB5NNVmwcLsw1UIT9Le5YY=
+	t=1788937118; cv=none; b=MPU8A55stkq55rZP1ZNtvTGNe4x2lMDfNewpPetMcFyPEpTdu4ZjV5F25pXHBARxqdLhwD+8m4EEniaqz0Ve1Y6F1+Xkv/nsyF/XF0YFQf0gop2iDngHE+DGvUEh48CUnuE6ut1wo0PansoLojo/9RmcX8mrpR20kp3zLKkcnNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788937077; c=relaxed/simple;
-	bh=/1yRgfIBCn5oCZ3fLkNdI4VLXILwg53ZI/AHhTIxrBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kqOVPSxwy9eKTJSzxKUOoWpkENDUW3h3icjdHAa7NNE6zVX/oq1yOZauDtwE20pWwzJi+MDhntBlIbb82J5/TYuJHcek8vi2GMvRrayPmm4MVMLMCxZ05T3Hw1R9ujuStUAohUqW+JZnF7ne8Y673tMTdJ5mCZjHWjFmO6ow4fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjMJhyp6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788937118; c=relaxed/simple;
+	bh=ZwcTGjsFBisObYo5p4yOAzzGAGhYTsp5VgaxYDbNmZ8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sN6P7YV7aTZKe5qZchLeFQ1UWyFLOGN3BRQ62klClVkbgx+i71orkEpUlrt3o16bpE2AFxaYo1quCoWEYrj/3KsgMf+juma2sX09TMCW+Mc3rVooy4lxrZBl8+UUNG4CVrn6bYTmrpynCK/6IOeJdyUmkKuWHj7LExNGe9tC5oA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fMrkjVgp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjMJhyp6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287591F00A3D;
-	Wed,  9 Sep 2026 06:57:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788937076;
-	bh=94b4xZSZhYha5/YD2kEuPE3VpiyZ0M9dSeOS4tMdF68=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YjMJhyp6EuvVoEDcsE1eTR6f2AOX+X3lMdJeEmOTxZTUSXC5oenQdnHf1IhbzZlZN
-	 UiDUQg2lcTHW8xDAzLK7kWSQZhDcw60EhwsiWG8nq7rR0SFOu5NaM+y4FaOTyzB2dJ
-	 4OG+LZe9i6J4eZAGBx3h/TjPRDc7AwSjUWZ10Pe5I9mDotHlmlp04K7wCJmIdMJNt1
-	 m0ta/FsYXmk6Ekc8yQ605THZ1Q+4m00wx/68y6B/JV4xtJL/e2hbiSUAUETvYaW1UK
-	 BVDOhui3AQCA36vG+XtUwaD21m3Bl5yDYhsAhNWOdXyto2+i8hVTK+hfNOgah3KohU
-	 a2i5datwyblbg==
-Date: Wed, 9 Sep 2026 07:57:51 +0100
-From: Simon Horman <horms@kernel.org>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, hkelam@marvell.com,
-	linux-kernel@vger.kernel.org, naveenm@marvell.com,
-	netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Subject: Re: [PATCH v4 net] octeontx2-pf: reset HTB scheduler topology before
- freeing queues
-Message-ID: <20260909065751.GF40544@horms.kernel.org>
-References: <20260903020533.3068041-1-rkannoth@marvell.com>
- <178888726063.219967.8664029829834628993@kernel.org>
- <aqDPtg2y3Pl5_r-j@rkannoth-OptiPlex-7090>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fMrkjVgp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B080D1F00A3D;
+	Wed,  9 Sep 2026 06:58:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788937117;
+	bh=IqVLTnDYn66bK2YcqZfK0YLZ2dluSsDrOdyDou0m65A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fMrkjVgpFiPSguDCjRN3DHCdAH3a2In70srjXbI+JAYwfUX62P8hsZPd2kVEkeyMT
+	 ppciAQQLOoiEMj1nm71D9UG3Pj92Z+lOzUrGGp26ZH2SFpWv4pnRHQ7n2v+3vTRY4C
+	 mthRPk1QEDzNhBckcjx4e9AIERtNFGcQSHxfZr88=
+Date: Tue, 8 Sep 2026 23:58:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: david@kernel.org, ljs@kernel.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
+ Vernon Yang <yanglincheng@kylinos.cn>
+Subject: Re: [PATCH v5 0/3] mm: khugepaged: fix tracepoint UAF
+Message-Id: <20260908235836.43865421771074b81eadd127@linux-foundation.org>
+In-Reply-To: <20260909025804.3233645-1-vernon2gm@gmail.com>
+References: <20260909025804.3233645-1-vernon2gm@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqDPtg2y3Pl5_r-j@rkannoth-OptiPlex-7090>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 09, 2026 at 08:47:10AM +0530, Ratheesh Kannoth wrote:
-> On 2026-09-08 at 22:37:40, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
-> > Thank you for your contribution! Sashiko AI review found 2 potential
-> > issue(s) to consider:
-> >
-> > Critical: 0 · High: 1 · Medium: 1 · Low: 0
-> >
-> > - [High] Incomplete fix: the stale-TOPOLOGY bug class the commit claims
-> >   to close stays reachable through the AF's bulk release path.
-> AF's built release path is FLR/PCI reset path. We will fix it as seperate fix.
+On Wed,  9 Sep 2026 10:58:00 +0800 Vernon Yang <vernon2gm@gmail.com> wrote:
+
+> From: Vernon Yang <yanglincheng@kylinos.cn>
 > 
-> > - [Medium] Set/reset asymmetry at the aggregation level: HTB offload
-> >   programs NIX_AF_TL1X_TOPOLOGY (PRIO_ANCHOR/RR_PRIO) on the shared per-…
-> We can't clear TL1 blindly as it is a shared resource between PF and VF.
+> The khugepaged tracepoints take a folio pointer and call folio_pfn(),
+> but by then the folio may no longer be valid: freed after folio_put(),
+> folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
+> xarray-encoded swap entry. On classic SPARSEMEM, dereferencing it oopses
+> khugepaged as soon as the trace event is enabled; on other memory models
+> it merely prints a bogus pfn.
+> 
+> Pass the pfn to the tracepoints directly, captured while the folio is
+> still pinned, closing the use-after-free windows in
+> mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
+> mm_khugepaged_collapse_file().
 
-Thanks for looking into those concerns, and moreover addressing Sashiko's
-feedback on earlier revisions of this patch.
+Thanks, I've updated mm.git to this version.
 
-This version looks good to me.
+> V4 -> V5:
+> - Use a single trace statement.
+> - Collect Acked-by.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Here's how v5 altered mm.git:
 
-...
+
+ mm/khugepaged.c |   15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
+
+--- a/mm/khugepaged.c~b
++++ a/mm/khugepaged.c
+@@ -1790,13 +1790,10 @@ out_unmap:
+ 				       unmapped, cc, enabled_orders);
+ 		/* mmap_lock was released above, set lock_dropped */
+ 		*lock_dropped = true;
+-		trace_mm_khugepaged_scan_pmd(mm, -1, referenced, none_or_zero,
+-					     SCAN_SUCCEED, unmapped);
+-	} else {
+-out:
+-		trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
+-					     none_or_zero, result, unmapped);
+ 	}
++out:
++	trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
++				     none_or_zero, result, unmapped);
+ 	return result;
+ }
+ 
+@@ -2789,13 +2786,9 @@ static enum scan_result collapse_scan_fi
+ 		} else {
+ 			result = collapse_file(mm, addr, file, start, cc);
+ 		}
+-		trace_mm_khugepaged_scan_file(mm, -1, file, present, swap,
+-					      SCAN_SUCCEED);
+-	} else {
+-		trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
+-					      swap, result);
+ 	}
+ 
++	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
+ 	return result;
+ }
+ 
+_
+
