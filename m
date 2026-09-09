@@ -1,165 +1,161 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C55E49AA50
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FA3498909
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947801; cv=none; b=gQcif+x6eRE/J1xQhVPdfe2HF+WPZEEPv9KCmAbeqdEHXAChrgC7Ij4unSZLM2/2VC+ELJteheu+nZZwJ4RNAjjVyOXWn0OebNgVTr6Zs4/8TINsOnI2kE0ycfSdZVjhHCfmgktceUZM7iV1MAMmU4XFCBNIch4Lr2wzEf+EDgI=
+	t=1788947863; cv=none; b=NN/0CPwrqXKT/uhU+bfU8VoxvOUWJlLpyVD8lSc0eElqzJNGL1YNTJ13stIopHfeFq+ht3IiJgnprBmSAl/13TFsrQLGGyobFq7+KCEk4er8TSm1E4kXbaddjLtp6ylCgV+OTNDJoY1AjKQn4dtl3yesykoG+F0cHnevvRI+EmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947801; c=relaxed/simple;
-	bh=GQJuucSMvbnox7DkDUXejBxZdAlWUG/zRLLQxJhap2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZQt9holo5CXY84KSZelg9yFw1NMZVki12A/wbdRcfRsleVsZxRxHmKaO6y696SwklCHf+JRiT2C1Q4zbJRQcxYmWbN5An90t1ICzX9eLZKj7UHrj7EJHbF1XssUu7ngZyVtoPTLlSRLy8bX9TR+H7Ff/qgbZaThbCH6NBRaK5zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lYiaH8n6; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788947863; c=relaxed/simple;
+	bh=3WDMZzHue5+Tw52yUUIBOp6U1vVvZKH08jbAvjGGpGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eUtyZNvEXVJXwV/gnaU7hliX7c73N18MCpNvmrWqjeowNpe1jD5sfuKNHPreDhu/ao3MHIiYqlPVNYcd8UIQc0RxzhsoaZQz/M2NaXDDIAc+KqkVHwX53dD03VMp5oJLEdyaLt0ebiUMym6xUy0iaGHuev5E3P2vGMIC2VxjPuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A53tuRIi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lYiaH8n6"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb750so804501a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788947799; x=1789552599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FBlj7x8sD658i+Z+IGaqtSDqi4AT+nBLY3OAnFyQUPc=;
-        b=lYiaH8n6HBCooRPOySFHcG4L3+UI6qVids8bsO5pxUKMoAeN4dPd6Jwkb8fEjzBI3/
-         JiuUEJfcVm3bjvb/pkn6BTrEmlZgwT3XmtrsMn2cmF5VJXFo4mRn48Q713503cCWAvnt
-         XuZgV8ojPirsjmbQsrjbtCZtIWQn+x+EAx1/PesLg7J6GR1F01Mo3QDY/NAe68KLmTQS
-         ivpoREWui0Nz7dZUr6EAdsy7dI2OOhEKHNMGPFqIfDq4x4CEyGhNh/BPrklBc94OXOCv
-         0A4BQHzyHvca1z2qteHCW84X4/Fyi0MP6dT2Cb+BNuciRgbV6gFUvDU9102JZwUWjUdp
-         UUyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788947799; x=1789552599;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FBlj7x8sD658i+Z+IGaqtSDqi4AT+nBLY3OAnFyQUPc=;
-        b=WscVYwN1JvmUfb1qeuO+CAvRewVzArXNNgC+OVWujIn1njUcZ1s8C7KqVP03Txr46q
-         nmfCIkF17lHvBf7VWjy3Bkbov4nl89qcZaFlClT1a9uFewnZ+mfjo5uV0IzsVUUeDoqX
-         VInUS1wmCwCHJj0ff7Ji6z7vt5zlgoPOXDNObKeSi2qAVy25hmbhq0I+U21XN+BW4A8Y
-         XZqiLuQnDu6w7vPCN1uJ29gHGu+ccsUo6S5E2+5gjiRayY6wFvJBZa7fLaFa6Uaiwztx
-         FHphPiHefyyHH+XA5K8uAMo/351d1v3vlDDXWCl9VwauwXc3DqTHrHKF8hHBx9/aaYSv
-         XHeg==
-X-Forwarded-Encrypted: i=1; AKwUvBzy1ejpmrt+YjVt6S+1pCR/Of+TG1WldQtoORUBtFitg71u2xO2Si1aQPzoTG00yr0GlE1yPfajCNvJK3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOVv1TCxC9dE71ee+rfY9AYoWpjgthfarYKKu5qh2+aaZYvrOb
-	ZsWMdIL9EQo0It0OQTi7AJbVJvMIFcGTSjzXA9GgfCfYsdosqOmBnyqq
-X-Gm-Gg: AYBFou0lfItbhHRXpw/nJKP5qxYQ/bdK/ho4bduHUIM/nthlZ4dtwb+Kz2M+F6D/qiF
-	xBZeTu4ddgaihJDtrwIeWAoXs+iP0TeKgpG5MSjvJ3wBJ8ScJxBump+7BTkIw4KFt6K1w8P7f7i
-	NISLsr4eOrPNF52pHAbe80tdayQ9xX8zKngzwoaEn4wVhv6zVThgnYFVSpa9L3QKPYch8ja5lfQ
-	dJD4V/xc8Dm5w/Xw0KlAd/eRZss6IJAOMqZJPssY05Y4Wj75p1EjVhKbkxT304uPIOjwAwutmF7
-	HrxIEXPzCR9QdEgst8lIvyLI645BOuTI/VJpxaSraPF582hi4AvjxKlF+PW+0QZHu0a0t4awQI4
-	Vppr/FWN9kFq5xcAWpHV26l7iRc/F5BPSzteFhsWMGk2YrwJWeysG23+veqyu+CrcMX0dsWfT8O
-	t2qgxjWFX9/C0cPuUR+7QOG3LGTgMYBKtBASbV2mxW+XffYj3DX9E7xby3XrZqAG89JpFzFw==
-X-Received: by 2002:a17:90a:d00b:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-39bac471324mr7523375a91.25.1788947798681;
-        Wed, 09 Sep 2026 02:56:38 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd291sm31419062a91.6.2026.09.09.02.56.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:56:38 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: john <love_goo@163.com>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>,
-	akpm@linux-foundation.org,
-	liuye@kylinos.cn,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	hughd@google.com,
-	mgorman@techsingularity.net,
-	yang@os.amperecomputing.com,
-	zhangqiuhao@huawei.com,
-	wangkefeng.wang@huawei.com,
-	mawupeng1@huwei.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Wupeng Ma <mawupeng1@huawei.com>
-Subject: Re: [PATCH resend 2/2] mm: vmscan: stop scanning ineligible folios after max_nr_skipped
-Date: Wed,  9 Sep 2026 17:56:28 +0800
-Message-ID: <20260909095629.2523075-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901084706.3784449-3-love_goo@163.com>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A53tuRIi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9161F00A3A;
+	Wed,  9 Sep 2026 09:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788947861;
+	bh=ACS7vz8pGD479SlSiRi90udXcJvc5D6Uo+sv7aFEyS0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A53tuRIiFTkeViWFyJKiOLB8Dku0djstP2HReCfBOtb4pEciOnCmgSMWlo5kpEFBl
+	 pm6oD0twfYoZRhg0QE7e8fhPbb8RYCx15yWjfr/CD1DNq5wwtcf57MBFeSwFui/t3v
+	 3j6l9fkDb+tgGXt0kSL1rFaeX7i0L1M7HWbz8KLlqMaiQZaTvwRt08ypgg0MIDpjxp
+	 6wCKaFGeLTcj1qzx9njjILHVSXQXZZ0TEq8rLwrR1R1hYTYyrLjABW5WWhkGpluuN5
+	 fV10mP+YKmwWZmPdkX/TBwp/ISduYkHNYsNjmGTdgXiI+x/UJDxElDwrvG36ZOn6ii
+	 35IODZPcbGzvw==
+Date: Wed, 9 Sep 2026 11:57:38 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>, 
+	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Message-ID: <aqEqx0zBQgmUgwqL@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="k6dpjrdgn3b4kb6y"
+Content-Disposition: inline
+In-Reply-To: <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
 
-On Tue,  1 Sep 2026 16:47:06 +0800 john <love_goo@163.com> wrote:
 
-> From: Wupeng Ma <mawupeng1@huawei.com>
-> 
-> When reclaiming for a lower zone, isolate_lru_folios() accounts folios
-> from higher zones as skipped and, once max_nr_skipped hits
-> SWAP_CLUSTER_MAX_SKIPPED, force-isolates the remaining ineligible folios
-> to keep the loop from spinning on the skipped ones.  Those folios are
-> reclaimed even though they can never satisfy the current allocation, so
-> nr_reclaimed is inflated into a false progress that keeps resetting
-> no_progress_loops in should_reclaim_retry() and delays the OOM.
-> 
-> Stop scanning once max_nr_skipped is reached instead of force-isolating
-> the ineligible folios.  The skipped folios are already accounted in
-> total_scan, so shrink_lruvec() can charge the overshoot against its scan
-> budget (see the previous commit) and will not rescan them.
-> 
-> Fixes: 1c7b17cf0594 ("mm/vmscan: fix hard LOCKUP in function isolate_lru_folios")
-> Signed-off-by: Wupeng Ma <mawupeng1@huawei.com>
-> ---
->  mm/vmscan.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 823af9e86efd3..375f7cd5aa441 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -1701,12 +1701,20 @@ static unsigned long isolate_lru_folios(unsigned long nr_to_scan,
->  		nr_pages = folio_nr_pages(folio);
->  		total_scan += nr_pages;
->  
-> -		/* Using max_nr_skipped to prevent hard LOCKUP*/
-> -		if (max_nr_skipped < SWAP_CLUSTER_MAX_SKIPPED &&
-> -		    (folio_zonenum(folio) > sc->reclaim_idx)) {
-> +		/*
-> +		 * Using max_nr_skipped to prevent hard LOCKUP.
-> +		 * Once the cap is hit, stop rather than force-isolating:
-> +		 * reclaiming ineligible folios only inflates nr_reclaimed
-> +		 * into a false progress.
-> +		 */
-> +		if (folio_zonenum(folio) > sc->reclaim_idx) {
->  			nr_skipped[folio_zonenum(folio)] += nr_pages;
-> -			move_to = &folios_skipped;
->  			max_nr_skipped++;
-> +			if (max_nr_skipped >= SWAP_CLUSTER_MAX_SKIPPED) {
-> +				list_move(&folio->lru, &folios_skipped);
-> +				break;
+--k6dpjrdgn3b4kb6y
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+MIME-Version: 1.0
 
-One question about stopping the scan once max_nr_skipped reaches 
-SWAP_CLUSTER_MAX_SKIPPED.
+On Tue, Sep 08, 2026 at 07:18:53PM +0300, Jani Nikula wrote:
+> On Thu, 03 Sep 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
+> > Adding a drm_panel does currently not add a panel_bridge wrapping
+> > it. Usually the panel_bridge creation happens later, when some other dr=
+iver
+> > (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and t=
+he
+> > following element in the pipeline is a panel.
+> >
+> > This has some drawbacks:
+> >
+> >  * the bridge API is currently the best practice to access various
+> >    components of the pipeline, especially with complex cards where brid=
+ges
+> >    can be combined in different ways on different hardware
+> >  * the panel_bridge is not created in the context of the driver of the
+> >    underlying physical device (the panel driver), but of some other dri=
+ver
+> >  * that other driver is not aware of whether the returned drm_bridge
+> >    pointer is a panel_bridge created on the fly, a pre-existing
+> >    panel_bridge or a non-panel bridge
+> >  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
+> >    but that other driver doesn't know whether this is needed because it
+> >    doesn't know whether it has created a panel_bridge or not
+> >
+> > Other drivers call [a variant of] drm_panel_bridge_add(), which also has
+> > some of the above drawbacks.
+> >
+> > So far the current approach was working mostly because devm and drmm en=
+sure
+> > the panel bridge would be dealloacted at some later point. However with=
+ the
+> > upcoming implementation of bridge hotplug and dynamic bridge lifetime t=
+his
+> > will get more complicated.
+> >
+> > Switch to the new approach: embed a drm_bridge inside every drm_panel,
+> > which behaves just like the current drm_panel_bridge.
+>=20
+> What does this mean for drivers like i915 that use drm_panel *only* for
+> handling panel followers? We don't need the bridge for anything. It'll
+> just be excess midlayer baggage.
 
-Previously, reaching this limit caused the remaining ineligible folios 
-to be force-isolated so that the scanner would not keep looping on skipped 
-folios. With this change, we break out of isolate_lru_folios() instead.
+If we're talking about this series alone and assuming no regression,
+nothing. The drm_panel struct and lookup API is still there, you can use
+it.
 
-Could this cause us to stop before reaching eligible folios later in the LRU? 
-Is SWAP_CLUSTER_MAX_SKIPPED intended to be sufficient to determine that 
-continuing the scan cannot make useful reclaim progress?
+Long term though, there's talks already about panels needing a more
+full-fledged API (with access to drm_atomic_commit for example), and
+especially if this series land it might just make more sense to
+deprecate panels entirely and implement them using bridges.
 
-Thanks,
-KunWu
+So, I'd keep an eye on these discussions.
 
-> +			}
-> +			move_to = &folios_skipped;
->  			goto move;
->  		}
->  
-> -- 
-> 2.53.0
-> 
-> 
+> I'm also concerned about the embedded struct drm_connector being added,
+> since that can't and will not be a drm_connector that we'll use. All of
+> our drm_connector are embedded in intel_connector, and all of our
+> codebase expects this, and we init them ourselves. Having additional
+> drm_connector (not embedded in intel_connector) added by library code
+> *will* oops in our driver.
+>=20
+> I haven't had the time for an in-depth look, but it feels like this
+> assumes a certain driver model, instead of providing building blocks for
+> drivers to use.
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+I really wish i915 was at least *trying* to fit within the larger model
+basically everybody else uses. I understand that it's a large
+undertaking and regression prone and everything, but I'm also concerned
+about having the "we can't because of i915" or "supported by everybody
+else but i915" on a regular basis now.
+
+Anyway, I'm not sure it's a big concern because the connector is only
+created when the bridge is attached, which you will never do if you
+don't support bridges. Worst case scenario, I guess we can always put
+that code under an ifdef?
+
+Maxime
+
+--k6dpjrdgn3b4kb6y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqEtiwAKCRAnX84Zoj2+
+dvCsAX98+lv4KCDpQoNeGYrORnL7ssSVmSmd5PK2/X27rZn+qZdO1ibUqXmqfK2d
+joTFsOwBegKScSARUzJyYICLfU99vwIy88TBzg82tumq6vC4MvzRMOYqDpRn0Rzn
+ZNTO/DzvxA==
+=P0/x
+-----END PGP SIGNATURE-----
+
+--k6dpjrdgn3b4kb6y--
