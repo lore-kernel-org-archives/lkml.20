@@ -1,122 +1,153 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1AF545291;
-	Wed,  9 Sep 2026 11:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED665427F2;
+	Wed,  9 Sep 2026 11:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953349; cv=none; b=trdwdYs9PTBcX0oz0Rp+Km1Suy4cv8IBjCkfE8LVugL9xL8ArRim49BDcs2oJBbI6wcVCz09IXqByism6eKjLIU8bvIAcvOS0wD2POKFyQDbrHaUKexEDizByBtVKCV4vfDz8Kze5R40+IAp800aOcNEWT5rfq5lA7Dfx7+YSNo=
+	t=1788953366; cv=none; b=RH0kP8ebAAcRD0QXpTaAYD/U2XbTIivvnFpFIie4Fg5HwG3IE6Nua+w+fNnD8T5MzMkySKV88AJoodlaBngixLbVih3YFRKUsAUs2FsQJIAwtPwoNtJgSHBuO9j5FCNKdrUHT+V35zTdgnY4fhNgdU/7Tut/rQ9YA+Kb1Q8j6pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953349; c=relaxed/simple;
-	bh=0RJ9olz8qTabdi098sLCcjzUX0MDkNFF56aV2OmxVc0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FjQ5lufQdOzVWFq7s9iY2ohMFyiYBw6V6aiRvED5gX7t12C8emJeMuGjZ75HGQ8HpiUMhnAE42ZhkAxpOZOvKWvaq/GlLmb8FGIShhwSJztBgcBq/LKluYL6QtINJ3RBHMhwgxpTm/vRS5R2lIwnrYH5WYeK+r/MqeX6wgmnakk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ddR4JqP7; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788953366; c=relaxed/simple;
+	bh=5t2lkATIi7BZC0vRD7XUkmgQ9EM3eDdhwa1UQgM9Azs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=s3Bt037BMCPJmHVUbuPhu/TKQn2TbvmIoS5LxA6O19BX/2IC59rd3VkYlTffeCAf/D0j6gNL8lQb7CkWHlhfklAILhfrR/sFG8ei6GiZtOVc16M0DK3MNls9u7Sj7eCBfE0qKd4cCxikw/tiyCtrOxLKWvshmjUFS5gCEIL6hMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ad4Cajq9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ddR4JqP7"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=lwRelUPd/SJpcNwFxoEWwswiA4Fcah1gJgS/KTjoYwU=;
-	b=ddR4JqP7oACAUkUAiD6cog3w/71eQ3IVn2STG5uQ+frI4KI+/hq4/3Om6+nPSi/eKo4BEYZbo
-	BCcVx+pg14zpH3iUtpRyE7oMP+9XEjtiOryNSluqvUc9H3kuK4i7Zmd2xsoZ/dgCiHlDEh9n7od
-	UOiTCIB5ZD0aCf/QFJQ7JlY=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hfyw05SrVzcb4c;
-	Wed,  9 Sep 2026 19:17:52 +0800 (CST)
-Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
-	by mail.maildlp.com (Postfix) with ESMTPS id 70773203B8;
-	Wed,  9 Sep 2026 19:28:51 +0800 (CST)
-Received: from dggphicprd10024.huawei.com (10.243.6.112) by
- kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 9 Sep 2026 19:28:50 +0800
-From: Abbott Liu <liuwenliang@huawei.com>
-To: <tony.luck@intel.com>, <bp@alien8.de>, <ardb@kernel.org>,
-	<mchehab+huawei@kernel.org>, <rafael.j.wysocki@intel.com>,
-	<guohanjun@huawei.com>, <jic23@kernel.org>, <jason@os.amperecomputing.com>,
-	<danielf@os.amperecomputing.com>, <luoshengwei@huawei.com>,
-	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
-	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>,
-	<liuwenliang@huawei.com>
-Subject: [PATCH v4 0/3] RAS: Fix ARM processor error bounds checking
-Date: Wed, 9 Sep 2026 19:28:29 +0800
-Message-ID: <20260909112832.805314-1-liuwenliang@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ad4Cajq9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409141F00A3A;
+	Wed,  9 Sep 2026 11:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788953364;
+	bh=WC7hKSBtPkgNxzwAYTZWfYgCBEV8gwtgoSM05bxD/M4=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=Ad4Cajq9O9K9hG9+AEr7VEyvKeZCvUzHFhYvzSabrKfJBxtuX/PUQViw68Ug8a5gd
+	 sErkz7zF5YqaPmV89jsASNjfPOlvszcdTjXuXCzPKX6LuAbOZ+QrlGNuS9ttE7kxM3
+	 3qbTSQLrl91S/q0JEie+NcXDUmBAYUE9cIpkBR3ua7GcIQGRlDqBKnPfHDrO6mtN6N
+	 nlcyS43VNSbPzjo875DIiptOm7dhd8LPW93Un24LIDf3IpALHH2etNw+pQihePtebJ
+	 lVzyVrlprChjXjHuMFZ/qGYBDgURYvERiAj4Spoxs/ptRVtl9ZdEH3rwlMcQKkhCmM
+	 Cuzs/bMw0FpxA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemf100015.china.huawei.com (7.202.181.14)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 13:29:18 +0200
+Message-Id: <DLAR1FIFL0Y5.22A7AJKNW0YQP@kernel.org>
+Cc: "Georgios Androutsopoulos" <georgeandrout13@gmail.com>, "Rafael J .
+ Wysocki" <rafael@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Dave
+ Ertman" <david.m.ertman@intel.com>, "Ira Weiny" <iweiny@kernel.org>, "Leon
+ Romanovsky" <leon@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] rust: auxiliary: validate DeviceId name length
+References: <20260909033246.2779303-1-georgeandrout13@gmail.com>
+ <2026090955-lustfully-fanning-33f9@gregkh>
+In-Reply-To: <2026090955-lustfully-fanning-33f9@gregkh>
 
-Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-allocated memory") and commit 05954511b73e ("RAS: Report all ARM
-processor CPER information to userspace") introduced bounds checking
-for malformed ARM processor error records in log_arm_hw_error().
-However, three issues remain:
+On Wed Sep 9, 2026 at 9:19 AM CEST, Greg Kroah-Hartman wrote:
+> On Tue, Sep 08, 2026 at 11:32:46PM -0400, Georgios Androutsopoulos wrote:
+>> `DeviceId::new()` copies `modname` and `name` into the fixed 40-byte
+>> `auxiliary_device_id::name` array without checking that they fit. An
+>> oversized name is caught by the array bounds check, but the error
+>> reports an out-of-bounds index in the copy loop rather than the
+>> constraint the caller violated.
+>>=20
+>> Check the invariant explicitly instead, so the failure states the length
+>> limit rather than an array index.
+>>=20
+>> In a constant context exceeding the limit leads to a build error; at
+>> runtime it panics, so add a `# Panics` section for it.
+>>=20
+>> Fixes: ce735e73dd59 ("rust: auxiliary: add auxiliary device / driver abs=
+tractions")
 
-1. The ctx_info bounds check condition is inverted: it adds
-   ctx_info->size when the context header is already past the end of
-   the section instead of when it is within bounds.
+It's not actually fixing a bug, so I don't think this needs a Fixes: tag.
 
-2. When vsei_len < 0, the error path does not verify pei_len and
-   ctx_len. Since these are derived from err_info_num and
-   context_info_num, they may describe regions beyond the allocated
-   record, causing trace_arm_event() to read out of bounds.
+>> Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+>> ---
+>>  rust/kernel/auxiliary.rs | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>=20
+>> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+>> index 60dfbec8f330..1f3ba86d6d96 100644
+>> --- a/rust/kernel/auxiliary.rs
+>> +++ b/rust/kernel/auxiliary.rs
+>> @@ -137,10 +137,20 @@ macro_rules! module_auxiliary_driver {
+>> =20
+>>  impl DeviceId {
+>>      /// Create a new [`DeviceId`] from name.
+>> +    ///
+>> +    /// # Panics
+>> +    ///
+>> +    /// Panics if the combined module and device name, including the
+>> +    /// separator and trailing NUL, exceeds `AUXILIARY_NAME_SIZE` bytes=
+.
 
-3. ctx_info->size is a u32 taken directly from the firmware-generated
-   record. A value over 0x7fffffff overflows the signed int sz used
-   to advance ctx_info, so the iteration can walk past the end of the
-   section.
+I'd rather document that this is only intended to be called within device I=
+D
+table creation; in const context a panic is just a compile time error.
 
-Patch 1 fixes the inverted bounds check for context info iteration.
-Patch 2 sanitizes pei_len/ctx_len/ven_err_data in the vsei_len < 0
-error path to prevent out-of-bounds reads in trace_arm_event().
-Patch 3 checks each context entry with 64-bit arithmetic so that both
-the header and the context data fit in the section, and stops the walk
-at the first entry that does not fit, so a malformed size cannot
-overflow sz and walk ctx_info out of the section.
+>>      pub const fn new(modname: &'static CStr, name: &'static CStr) -> Se=
+lf {
+>>          let name =3D name.to_bytes_with_nul();
+>>          let modname =3D modname.to_bytes_with_nul();
+>> =20
+>> +        assert!(
+>> +            modname.len().saturating_add(name.len()) <=3D bindings::AUX=
+ILIARY_NAME_SIZE as usize,
+>> +            "auxiliary device ID is too long"
+>> +        );
 
-Changes in v4:
-  - Remove the empty line between the Fixes: and Signed-off-by: tags
-    in patches 1 and 2, per Hanjun Guo's comments.
-  - Add braces around the else branch that assigns ven_err_data in
-    patch 2, as suggested by Hanjun Guo.
-  - Add new patch 3 to check each context entry with 64-bit
-    arithmetic and stop the walk at the first entry that does not fit
-    in the section, so a ctx_info->size over 0x7fffffff cannot
-    overflow the signed int sz and walk ctx_info past the section,
-    addressing Hanjun Guo's overflow comment.
+Isn't this missing to consider the separator and NULL terminator?
 
-Changes in v3:
-  - There was no change, and the email was sent by mistake.
+>
+> We really shouldn't panic, we should error out and fail the creation
+> instead.
 
-Changes in v2:
-  - Split the original single patch into two separate patches, one
-    for each distinct fix, to ease review and backporting.
+This is only ever used from const context to construct the device ID table,=
+ e.g.
+as in
 
-v2:
-  RAS: Fix ARM processor error bounds checking
-  https://lore.kernel.org/all/20260825134323.4181892-1-liuwenliang@huawei.com/
+	kernel::auxiliary_device_table!(
+	    AUX_TABLE,
+	    <NovaDriver as auxiliary::Driver>::IdInfo,
+	    [(
+	        auxiliary::DeviceId::new(NOVA_CORE_MODULE_NAME, AUXILIARY_NAME),
+	        ()
+	    )]
+	);
 
-v1:
-  RAS: Fix out-of-range section_length in ARM processor error handling
-  https://lore.kernel.org/all/20260820131829.1006371-1-liuwenliang@huawei.com/
+and a panic in const context makes the compilation fail, so it works as
+intended.
 
-Abbott Liu (3):
-  RAS: Fix inverted context info bounds check in ARM processor errors
-  RAS: Fix out-of-bounds read when tracing arm_event
-  RAS: Fix integer overflow in ARM processor error context walk
+Unfortunately, we can't enforce that is function can only be called from co=
+nst
+context, so technically it could also be called outside of the device ID ta=
+ble
+in non-const context, but it would be odd to construct outside of a device =
+ID
+table.
 
- drivers/ras/ras.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+> But what is placing the constraint of the name size here?  The C api
+> just takes a pointer, it doesn't care about the size, why does the rust
+> binding care?
 
--- 
-2.43.0
+I assume you were thinking of something else? This struct represents
+
+	#define AUXILIARY_NAME_SIZE 40
+=09
+	struct auxiliary_device_id {
+		char name[AUXILIARY_NAME_SIZE];
+		kernel_ulong_t driver_data;
+	};
