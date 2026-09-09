@@ -1,135 +1,223 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D718286417
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132FC1FFC59
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788914888; cv=none; b=JgaOQhzd5UTijj4Dg601nZW9+3saz8q0tIVfEZWA5sCrpoEVXiXNYN2rf9PmmhkspZ8V/V0V2j18wP8Po19a9H12N0pmWUReh87kskOOvqtIhg06bCJ8W5JhosnTZd8nhhi1d04+Woa7mMSvY/4enY5y/11sRRcYHWtrsxJnbDE=
+	t=1788914961; cv=none; b=l/8t+r3jNKuLchfVsPwqXyUyAVXi83Fq9PK1Oks/PHXbP0NhklVoSLiSAWTMVBsSTlf3dcidw/jRrYnfIInbKn+V3qwd9s46z4YMpSba3t6DbQsl69Fs/UPrsH7FV8WRGraSH9/Ob9bQw0ZCJuMBxkylrh7TRLxsRPveYWIudQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788914888; c=relaxed/simple;
-	bh=0OBuBZcDxz0yXlYT5+7u18CLzA3bRaLFeD5pRVsO2dg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I263V9lMndG5Cu8TBujnlOhAzJ1xGly5ZcprBt8UQplUy/qH3DQlGGBwRw4+PxCdEfDcD0LtxItSJtpbio/P3hRqE6Q+2m8dGUpvNCSkUvLnwCVjkWvvFJD/WLECrhUAC9m3J4jtS3POnFaH85kWeTPr3eTSN9m/CQ/fxmhtVp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TOT+FPVt; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788914961; c=relaxed/simple;
+	bh=H392uGo0/opG/r8Zj2YG5xbqv4QTucTVgTlkF5kA4sk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jh+lWWNyqGQ/BiH8qkRgR4Yz7fPJVwltxWMTo359bATkbHKNcall10uIxYJuDM6zZDC1hJsEzaPEyw/986Ok0AXWB96uSLfD/Y47+xP15QxoCqXtgZ8tMtgpiIWzspHMm3msbuB4kHNR0dhlRVASKUTL8VoSzy/DUd+vq0oPnz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2yAef8K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TOT+FPVt"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d5cad1a6baso49098225ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788914887; x=1789519687; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oDxT1/TbsBfAKnq8p0dAQp20MRQIxoi4F3S/Z4t7HCU=;
-        b=TOT+FPVth/jfGzh7qmkkxvwpBQOvrl5eYewpEpfN0VoFstjn3/ggWUOX+u7bi7i6sc
-         w3RRyv54Feg/CmhehVbzXpYTTitNDIWgDNzOBRDw5CqeSH4ThOIzCbWBnnoJyKhYKxUE
-         ch7Egl53t9IVw1C4MyctT1fO6Cz9YNudpyvOV0ANK3yjJY3gaQ1s3PNiRcY7waM/ugTv
-         Lq3dCDrF9QPk+6+1TDtINCAytUyAF34Hv5+iLu3lqiZD++9XiQBOmI/L/hsffPhZKOc7
-         NCwAK89A33GtECcZ4hdRDwy3kCa/60SYbAyAFM39vtCj6lY6xjKhySwUp5pE+NhVdlkS
-         YaTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788914887; x=1789519687;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oDxT1/TbsBfAKnq8p0dAQp20MRQIxoi4F3S/Z4t7HCU=;
-        b=jmOrnztX/HAU3xg1VchVcZUggqvGTqEvc9YUUC7NqJJtRiyN4Lq+RluMuG+wS2xkGl
-         3jFpMpyiSymMr9NuJ+CDXFUUIyzKLC825/y1QknuRtXfpKsWI4bKXDa9nJXikkr5bpXR
-         bN7ZH+SzKzNSsqpfhui0c5odd5tT01msjuBZ3x6Xa8M4wm+SFIadkPbuLXBozdVVIN2W
-         UIlRmsFo6NSwvF/440IuVizaH5TEDVoPbyjMnl+T7ghE83ncUnsFU0/3je+BLS4Bo8DK
-         jKCntehLSAQDvL0X0NdOB1VumCGMxNDvZVN91ww6EN0Z/vQDLcPlXJWwMq+o8Ejh+Qr6
-         3plA==
-X-Forwarded-Encrypted: i=1; AKwUvByB91o/lrTFyxgGqhkOuK2XQ8UGHeyIKJeKWviQmLnzrFt0afMWtsTkoawHvjjqFR8FgnKjDjKAZK/2B+A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6lc6BZLLdW2KrhimJof4jttn+GA0CD3tmEO05o+0p8xviwoT4
-	4vITGdkgk16s+NmLnnBtQ8qElAjn/v9aWX2ihxNCcDOfMT6NTObxq+59
-X-Gm-Gg: AYBFou3vYhaNKuI2ueEuo9xebMCNKySdBTA0J0EYaBSFqukO5SvRQlPN1+cfwACXNVi
-	BKpit2r2pS99Dm/GvS11iIo6ik1A7/hIoDimIE57cpZgT+NqQ0nY9oEd8KBq3IePnc7pqeXPeqZ
-	/VOV6Z/AoSOnZ7Z/4DH/GkpxR2VWhm/pHnCG1V28RJzXu2AB+CbvwDGgRKzz8dGsRvkKLuvm9UV
-	lARAcadejsrCu2/FntB+VzIxQ1vqDQsUROeqO+B+k6UmYoe9hkMGW5YDA3HZxieTk5Mk4YlGSM7
-	xLrj1CdwgDR5vyBgSp0CA3ytGb2mxNSkP2wdB7yJOaFu/C794ilUZcwPvcoP/Adjs3XqQSd+KYz
-	JVhajltfVakwUjmFAO8YIoNilvz+e/Lrbv7u6jnmlaoHt6osxhHN5I1+564R9Q4dzfNuO5yFiOs
-	ALL4L6YognKTa9RlFbLk0b/4qbmTcZlbk4sZS4XnrlAvr21pFm12h8nQ==
-X-Received: by 2002:a17:90b:4b0c:b0:37f:fdc8:71b4 with SMTP id 98e67ed59e1d1-39b26121f6cmr47979702a91.2.1788914886667;
-        Tue, 08 Sep 2026 17:48:06 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f8d2c5sm29256977a91.2.2026.09.08.17.48.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 17:48:06 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: oneukum@suse.com,
-	kees@kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>,
-	syzbot+023b30ebfe0dc4bcfafe@syzkaller.appspotmail.com
-Subject: [PATCH] usb: mdc800: fix circular locking dependency in probe/open
-Date: Tue,  8 Sep 2026 18:48:02 -0600
-Message-ID: <20260909004802.233380-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2yAef8K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7802D1F00A3A;
+	Wed,  9 Sep 2026 00:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788914960;
+	bh=jSmq3oCnp2YAGwPRamuT28dFabYmGkAvDYbBsJAm1ms=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B2yAef8KtyR421Rf1tDcWdczuhbM0kb1hvxrobN/ZkUmZ8zE4DdPV79APxzELRFdm
+	 5WJtJknInPlJctDcCG13XIWNnD4OO4oSP0pAsXOvLkoiyXOMK98VF0nA+pdyS7IREf
+	 6WTF6cXyWXpFCY2bxpfwU6Vn7pFB1WbsUvvIwJq3cgtcMulMaPaFcaMgbGmq+1IDqg
+	 m5LXK0V+E9jet95Fz0cUDdEOWRr4g4eoaI16FHH3B/zkYfRnMFwz8h4R3P9XonoVw0
+	 SdJi35BygJFlz3IbgIL5nnYVGRqS0Egrik6OiM4VF/4naLPKoNARkKzEs3lEToksMC
+	 /EOhwKpE7ygfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 7/9] crash_dump: Check the function return codes in
+ restore_dm_crypt_keys_to_thread_keyring
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coiby Xu" <coiby.xu@gmail.com>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Will Deacon" <will@kernel.org>, kexec@lists.infradead.org, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Dave Young" <ruirui.yang@linux.dev>, "Mike
+ Rapoport" <rppt@kernel.org>, linux-arm-kernel@lists.infradead.org, "Pasha
+ Tatashin" <pasha.tatashin@soleen.com>, "Baoquan He" <baoquan.he@linux.dev>, "Sourabh
+ Jain" <sourabhjain@linux.ibm.com>, "open list" <linux-kernel@vger.kernel.org>, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>
+In-Reply-To: <20260909003657.1570544-8-coiby.xu@gmail.com>
+References: <20260909003657.1570544-1-coiby.xu@gmail.com>
+ <20260909003657.1570544-8-coiby.xu@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 00:49:19 +0000
+Message-Id: <20260909004919.7802D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-mdc800_usb_probe() acquired mdc800->io_lock before calling
-usb_register_dev(), which internally takes minor_rwsem. Meanwhile
-mdc800_device_open() is called through usb_open() with minor_rwsem
-already held, and then tries to acquire io_lock, producing an AB-BA
-lock inversion:
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-  probe:  io_lock -> minor_rwsem (via usb_register_dev)
-  open:   minor_rwsem -> io_lock
+New issues:
+- [Medium] Memory and reference leak of the key returned by key_create_or_u=
+pdate() on the success path.
+- [Medium] Incorrect return value assignment from `dm_crypt_keys_read()` br=
+eaks the caller's success check for empty key sets.
 
-Until usb_register_dev() succeeds and creates the device node, no
-concurrent open can happen, so io_lock provides no protection during
-probe before that point. Move usb_register_dev() to the end of the
-probe function, after all URB and state setup, and drop io_lock
-entirely from probe, eliminating the inversion.
+Pre-existing issues:
+- [High] Missing validation of `dm_crypt_keys_addr` leads to arbitrary memo=
+ry reads.
+- [High] Buffer over-read from single mapped page in get_keys_from_kdump_re=
+served_memory().
+- [High] Missing validation on parsed key attributes leads to massive Heap =
+Out-of-Bounds reads and Information Leak.
+- [Medium] Double fetch of the key count from untrusted memory leads to Hea=
+p Out-of-Bounds read.
+--
 
-Reported-by: syzbot+023b30ebfe0dc4bcfafe@syzkaller.appspotmail.com
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
----
- drivers/usb/image/mdc800.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+commit e9dcb18898d315e8ec7102932e9391f9c0892b97
+Author: Coiby Xu <coiby.xu@gmail.com>
+Subject: crash_dump: Check the function return codes in restore_dm_crypt_ke=
+ys_to_thread_keyring
 
-diff --git a/drivers/usb/image/mdc800.c b/drivers/usb/image/mdc800.c
-index ca287b770e8c..976f751886f9 100644
---- a/drivers/usb/image/mdc800.c
-+++ b/drivers/usb/image/mdc800.c
-@@ -480,15 +480,6 @@ static int mdc800_usb_probe (struct usb_interface *intf,
- 
- 	dev_info(&intf->dev, "Found Mustek MDC800 on USB.\n");
- 
--	mutex_lock(&mdc800->io_lock);
--
--	retval = usb_register_dev(intf, &mdc800_class);
--	if (retval) {
--		dev_err(&intf->dev, "Not able to get a minor for this device.\n");
--		mutex_unlock(&mdc800->io_lock);
--		return -ENODEV;
--	}
--
- 	mdc800->dev=dev;
- 	mdc800->open=0;
- 
-@@ -526,7 +517,11 @@ static int mdc800_usb_probe (struct usb_interface *intf,
- 
- 	mdc800->state=READY;
- 
--	mutex_unlock(&mdc800->io_lock);
-+	retval = usb_register_dev(intf, &mdc800_class);
-+	if (retval) {
-+		dev_err(&intf->dev, "Not able to get a minor for this device.\n");
-+		return -ENODEV;
-+	}
- 	
- 	usb_set_intfdata(intf, mdc800);
- 	return 0;
--- 
-2.55.0
+This commit adds return code checking for dm_crypt_keys_read() and
+add_key_to_keyring() to properly abort when reading old memory or
+allocating a keyring fails. It also deletes unused code related to
+the key reference.
 
+> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
+> index b8fe630462cfa..bc70fbb79e0f6 100644
+> --- a/kernel/crash_dump_dm_crypt.c
+> +++ b/kernel/crash_dump_dm_crypt.c
+> @@ -66,7 +66,7 @@ static int add_key_to_keyring(struct dm_crypt_key *dm_k=
+ey,
+>  			      key_ref_t keyring_ref)
+>  {
+>  	key_ref_t key_ref;
+> -	int r;
+> +	int r =3D 0;
+> =20
+>  	/* create or update the requested key and add it to the target keyring =
+*/
+>  	key_ref =3D key_create_or_update(keyring_ref, "user", dm_key->key_desc,
+> @@ -74,8 +74,6 @@ static int add_key_to_keyring(struct dm_crypt_key *dm_k=
+ey,
+>  				       KEY_USR_ALL, KEY_ALLOC_IN_QUOTA);
+> =20
+>  	if (!IS_ERR(key_ref)) {
+> -		r =3D key_ref_to_ptr(key_ref)->serial;
+> -		key_ref_put(key_ref);
+>  		pr_debug("Success adding key %s\n", dm_key->key_desc);
+
+[Severity: Medium]
+Does removing key_ref_put() here leak the key reference?
+
+key_create_or_update() returns a key reference specifically for the caller
+with an incremented usage count, so without key_ref_put(), the key's usage
+count might be permanently elevated, preventing it from ever being garbage
+collected.
+
+>  	} else {
+>  		r =3D PTR_ERR(key_ref);
+
+[ ... ]
+
+> @@ -134,9 +132,14 @@ static int restore_dm_crypt_keys_to_thread_keyring(v=
+oid)
+>  	}
+> =20
+>  	addr =3D dm_crypt_keys_addr;
+> -	dm_crypt_keys_read((char *)&key_count, sizeof(key_count), &addr);
+> +	ret =3D dm_crypt_keys_read((char *)&key_count, sizeof(key_count), &addr=
+);
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to read from dm_crypt_keys_addr
+without verifying if it was ever initialized by the command-line argument?
+
+If the kdump kernel is booted without the dmcryptkeys=3D parameter,
+dm_crypt_keys_addr might remain 0, leading to arbitrary memory reads
+when this sysfs attribute is triggered.
+
+> +	if (ret < 0) {
+> +		pr_err("Failed to read the number of dm-crypt keys\n");
+> +		goto out;
+> +	}
+> +
+
+[ ... ]
+
+> @@ -151,12 +154,18 @@ static int restore_dm_crypt_keys_to_thread_keyring(=
+void)
+>  		goto out;
+>  	}
+> =20
+> -	dm_crypt_keys_read((char *)keys_header, keys_header_size, &addr);
+> +	ret =3D dm_crypt_keys_read((char *)keys_header, keys_header_size, &addr=
+);
+
+[Severity: Medium]
+If dm_crypt_keys_read() succeeds, it returns a positive byte count which is
+assigned to ret. If there are no keys and the loop below doesn't execute,
+will this function incorrectly return a positive value instead of 0?
+
+The caller config_keys_restore_store() expects !ret to set restore =3D true,
+which would fail if ret is a positive byte count.
+
+> +	if (ret < 0) {
+> +		pr_err("Failed to read dm-crypt keys\n");
+> +		goto out;
+> +	}
+> =20
+>  	for (int i =3D 0; i < keys_header->total_keys; i++) {
+
+[Severity: Medium]
+This is a pre-existing issue, but does the second read from oldmem physical=
+ly
+overwrite keys_header->total_keys with unvalidated data?
+
+If oldmem changes concurrently or the read partially fails, the newly fetch=
+ed
+total_keys can exceed the originally validated key_count. The loop bounds
+check uses this unvalidated bound, potentially causing a heap out-of-bounds
+read.
+
+>  		key =3D &keys_header->keys[i];
+>  		pr_debug("Get key (size=3D%u)\n", key->key_size);
+> -		add_key_to_keyring(key, keyring_ref);
+> +		ret =3D add_key_to_keyring(key, keyring_ref);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but are key->key_size and
+key->key_desc validated before being passed to add_key_to_keyring()?
+
+The completely untrusted key_size is passed as the payload length to
+key_create_or_update(), which might read far out-of-bounds from dm_key->data
+and embed leaked kernel heap memory into the key payload. Additionally,
+key_desc is not checked for null-termination.
+
+> +		if (ret)
+> +			break;
+>  	}
+
+[ ... ]
+
+While reviewing this file, I also noticed another pre-existing issue in
+get_keys_from_kdump_reserved_memory():
+
+kernel/crash_dump_dm_crypt.c:get_keys_from_kdump_reserved_memory() {
+    ...
+	keys_header_loaded =3D kmap_local_page(pfn_to_page(
+		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
+    ...
+	memcpy(keys_header, keys_header_loaded, keys_header_size);
+    ...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this memcpy() read
+past the boundaries of the mapped page?
+
+kmap_local_page() establishes a mapping for exactly one page (4096 bytes),
+but keys_header_size could be up to ~49KB. This will read far beyond the
+single page boundary, potentially causing a kernel panic on architectures
+where kmap_local_page() does not fall back to the direct map.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909003657.1570=
+544-1-coiby.xu@gmail.com?part=3D7
