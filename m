@@ -1,109 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0105255C1D2;
-	Wed,  9 Sep 2026 13:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A563557267A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960900; cv=none; b=Lz8+0YHAISsEibBj26Eo6hhXPkeQOgGp5zTU7/2Cv5jcycWiM2Raw9tgGr7shB2lSAA5p/MArlKWeRDxkRWLJ9AaH3iu1rrJxLuE9BwR4HSDHFj0caBzaWxp95bgHpEnHSh0A3XPalgzK+45PGE0ezawbwbC40u0UYdg1C9NrPE=
+	t=1788960881; cv=none; b=ZRNURFbY45PzHcNVGQv/jvLfFuAvJQLVojRSyX3H939LiXaQHv6lPc05MDFgSjXswUsX1pndOEZwqg3EKfxjyX90cvwuYWv9UBmdbPFsszkSiPrmh0HgxPUsplO+T4Gx+F/MMRi/O6Ou4CeG4CecxX+2uUoJgmH7T4pqkYyQDvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960900; c=relaxed/simple;
-	bh=DA7ADutddsFmCEjmK+yDurz/oaDpzdkWvjLNiIYgvvA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UNTlV0HlhWLggA0417arS4lYG1prRjoeyPGxcM/dWCTTew/Kf0nddxH0rfbiDUjkfrk7MqOEZRnxrKXE6K1Gr5JpRu/n6qiAxtakPJ3sAR5yaBVWCo4hJ3AZQBKvjHOEzmu4CQAuwfQEuo2shivC3Jr4MrgOwmAZghdXDw/lf4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BRsmgCIw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788960881; c=relaxed/simple;
+	bh=BloOMKHIN/KX5c3cWXn/N38e2N+NLd78K9oN4TTWCdU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dl6g59otua4SoplISSGOrvHA7rhvx5W8Xr28fU7exAmaxsFXXKUV1qgneJ2L/Slc08i1079MIvdaaZkEwpB4P0DbnnFlDoMOImOZvt14akoM/2DZDR/lgLNsq2jXTbJfScl+u1dwgSw6S1RDep9m8rLQvPGaplWm+yKsjVwNZoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Yf31xWyh; arc=none smtp.client-ip=109.224.244.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BRsmgCIw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9AF1F00A3A;
-	Wed,  9 Sep 2026 13:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960898;
-	bh=RbrTaD0MOwCU/dADLtwS3cqKnDKmO0natjZctaLbG/M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BRsmgCIwY0Z931Vf0ZjC6k0U+yWVRAZCHkkhlcXWETlu88ySO3sCpKrVMlBV0iwfx
-	 uhI+WzvqD/3YQ8SMBuVeKSS3n9hx1GEVvZRBQVN+UZ6ykgBxwlGQRStGr9ZtQLU75j
-	 5aH0gGEiUG3K64WjEPowzkxXP0T0DJT7FbdoM/VRe8+Cqvr0qaOBmdfjtxHK8E99jh
-	 mCxckMTz3aD1mk4SOj53r+ZG94HF+mDeSiNjqjkOPLTKlbPE9tnTT1lHzT53+jY59q
-	 em4ZD3q2xBchOgXc3/a8fw6iE6JpLL9tOd3EhDpAZ+Z9UGFQ1cTGuOHPZ35dJw+hKz
-	 ndwC/p+XCnE6A==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 09 Sep 2026 15:33:00 +0200
-Subject: [PATCH 07/12] mm/sparse: remove pfn_in_present_section()
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Yf31xWyh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788960869; x=1789220069;
+	bh=Tm20JErTb17gkaj6mhVlrMMtBoKmsO01Z2wpdn3c/cw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Yf31xWyhJZzHCbS0hOo2W32g1/LqflvyhaClukFlkvsluTRfQCBVyU/HYcM+qage8
+	 W1IwDF9Q9Dh3woyy9GR1AU/75FmpdX4xtSRBZnoYebZPPGeGFlxkRNLvf6huYHgrTR
+	 YbRyOVABWnqK36ynYmmlmz0aNDNY2/lhZLQ7XU9mLX3vAmk1fmlUewvMQ+9JuHqh/B
+	 5vkPBq0LaRuGU1DpqBH2sNmWEPU8CxzgyUIuOCjHgGvEAkTFjdjFHVFB4sQpYgx0o2
+	 AGouPiyi5nOyf/CxsEq3lgBT9lK8aC9DQuwgwLWLH/h1GFVWo0ckoO6RTz9nY/jWqz
+	 bPEyWwyDc5e/g==
+Date: Wed, 09 Sep 2026 13:34:25 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: contectforbusiness@proton.me
+Cc: "rmfrfs@gmail.com" <rmfrfs@gmail.com>, "johan@kernel.org" <johan@kernel.org>, "elder@kernel.org" <elder@kernel.org>, "greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>, "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] staging: greybus: light: add comments to mutex definitions
+Message-ID: <82IpRn2GeeiiJ7A0nu21Sh7caAUbiZ4W3Nu0hTGr5akY0RN5Z4iyzDsDe-AVuoVX73apT9o-1zS1fSZnluND46kDGLnMc-qa8gFPSwscpMk=@proton.me>
+In-Reply-To: <PqjvDjNm1A3nH3BCu_rlHx6YLIzrr0r8McQL1Xbg5GX6VcF6GW49nKPhkTIcHashk4ktOEARq8_izQ6xyFqeWAliK0JqQ8MMPOrFIXSowcw=@proton.me>
+References: <PqjvDjNm1A3nH3BCu_rlHx6YLIzrr0r8McQL1Xbg5GX6VcF6GW49nKPhkTIcHashk4ktOEARq8_izQ6xyFqeWAliK0JqQ8MMPOrFIXSowcw=@proton.me>
+Feedback-ID: 147676893:user:proton
+X-Pm-Message-ID: 3d02291fe725664cbdf4922232a49172afb0aaf9
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-b4-sparsemem_cleanups-v1-7-008fc8d579fe@kernel.org>
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1038; i=david@kernel.org;
- h=from:subject:message-id; bh=DA7ADutddsFmCEjmK+yDurz/oaDpzdkWvjLNiIYgvvA=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIWJhj9LT/1YHOplEHQxz9GrwpNzSyZjmz2tmhef2zS3
- OZzJVmKHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzk5BqGf8bHdbuE5Vl+1wfJ
- rk3bxv5+Da8L//f8XY1WufOf/10fz83wV1ZXYe3Dd1PSZ0bz3Ofq3hL065LbnIjrSodf/jx98dm
- sNawA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Unused, let's remove it.
+checkpatch complains about:
 
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+  CHECK: struct mutex definition without comment
+
+Add short comments describing what each mutex protects. The
+channel lock protects the channel state and lights_lock protects
+the lights array.
+
+No functional change, just quiets checkpatch.
+
+Signed-off-by: Vaibhav Agarwal <contectforbusiness@proton.me>
 ---
- include/linux/mmzone.h | 10 ----------
- 1 file changed, 10 deletions(-)
+ drivers/staging/greybus/light.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 19296e8ef44f8..e0fac344f6ac2 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -2315,13 +2315,6 @@ static inline unsigned long next_valid_pfn(unsigned long pfn, unsigned long end_
- 
- #endif
- 
--static inline int pfn_in_present_section(unsigned long pfn)
--{
--	if (pfn_to_section_nr(pfn) >= NR_MEM_SECTIONS)
--		return 0;
--	return present_section(__pfn_to_section(pfn));
--}
--
- static inline unsigned long next_present_section_nr(unsigned long section_nr)
- {
- 	while (++section_nr <= __highest_used_section_nr) {
-@@ -2351,9 +2344,6 @@ static inline unsigned long next_present_section_nr(unsigned long section_nr)
- #else
- #define pfn_to_nid(pfn)		(0)
- #endif
--
--#else
--#define pfn_in_present_section pfn_valid
- #endif /* CONFIG_SPARSEMEM */
- 
- /*
-
--- 
-2.43.0
-
+diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/ligh=
+t.c
+index cab02b5da..a036fa2a0 100644
+--- a/drivers/staging/greybus/light.c
++++ b/drivers/staging/greybus/light.c
+@@ -37,7 +37,7 @@ struct gb_channel {
+ =09bool=09=09=09=09releasing;
+ =09bool=09=09=09=09strobe_state;
+ =09bool=09=09=09=09active;
+-=09struct mutex=09=09=09lock;
++=09struct mutex=09=09=09lock; /* protects channel */
+ };
+=20
+ struct gb_light {
+@@ -59,7 +59,7 @@ struct gb_lights {
+ =09struct gb_connection=09*connection;
+ =09u8=09=09=09lights_count;
+ =09struct gb_light=09=09*lights;
+-=09struct mutex=09=09lights_lock;
++=09struct mutex=09=09lights_lock; /* protects lights */
+ };
+=20
+ static void gb_lights_channel_free(struct gb_channel *channel);
