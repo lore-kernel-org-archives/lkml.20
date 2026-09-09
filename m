@@ -1,38 +1,36 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12CE39A056;
-	Wed,  9 Sep 2026 07:48:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13633B52FF
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940086; cv=none; b=NCl5cUABNezmux4SnNG1zAYd9yVMi4iku1IECW10n2PvE7uDNWy0bEU5UKxAHG1ZZPhJmRVLpMrwZRx3A8+u2YFbgE/NURxvCS9xaSgFpcXhmaqbK8mUEe9ZZH2A7VmJqvzpxxNEVHP7RQeQuMXq+px6Qusqb734t7JOhLnw3u8=
+	t=1788940086; cv=none; b=aRrOYRHUTVcTE4CxBbT8gZR9F5mCM3NO4xyjQjhxUYDNBG0nmPUh3LELog5fwnjfC5dHZ4jBrDfe9FmhjLuHnmQBqMkctuG0INgqH5TsNtc2QD93yczsqutZo41x2IlK8prFIJmW/UOhd4d3qcUUYu/YtaD8dacSpaf7GTE/Wvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788940086; c=relaxed/simple;
-	bh=YwruzpVomfozQZLhxg9EnmVDG16ojJZrrjSrRnUMIYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BrI7DVAjJAjGBjGaZN0qLhN3ZtKMcWN0+PBF4DNZ7DuAvtbZWRhk07aJh5wukFgS32jz89x3Yq2GdjdoeQDF0bxWKQ/DorzNEaMfE0blOw35QFp9XylVvjmmo7feKzMiRm2H/R3MIU9bZxPV8Vdf3dQXCg1a2nlAFz9Y2Xbbe2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LuPaEWon; arc=none smtp.client-ip=185.246.85.4
+	bh=h2q4tuo+Y0KgUde3WxGyG4c54BI7FmqqQTtLB+76y2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VLmAnbnd0mx7YMMWzUasNSybR1U9I8NZykOPER8JzOGfTZBxChAqhOEP3hCeJzLt+zQa0czeBLx6FRiPMEi/7dsjePkLgYawp577m2ifLy1OF9ORv83DpdHwu1OZVM+8Eno+aY5cB0sTtbf7BcsKAaupNH3wa6qzK5mRnQYJmr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=EvIGIL8C; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LuPaEWon"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="EvIGIL8C"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6E2314E415AF;
-	Wed,  9 Sep 2026 07:48:02 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1FEE24E415AD;
+	Wed,  9 Sep 2026 07:47:56 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 40D2960448;
-	Wed,  9 Sep 2026 07:48:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BDC5711C7AF62;
-	Wed,  9 Sep 2026 09:47:57 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DA76A60448;
+	Wed,  9 Sep 2026 07:47:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 827AA11C7AF4F;
+	Wed,  9 Sep 2026 09:47:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788940080; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=5CsIfRyzFe2btViu+CIi4c6ueRMBh9o52Hwe0iHRbww=;
-	b=LuPaEWonx1X7Qhk2sJJSwHPzdHvV93Dn/2wSNByZ3tNAiiFqnWUnC19dPVri7yn7EnSQbm
-	FQj3x85JlagKj/TQLWaX5EfErJP+pzhkLXcWSFgCxeiQokcYeIOu9Ht6IHgD+Ei/Zz52/Z
-	L1n4nICYbtU+tY7Ek5b+5pFAp8poo8PUxYAW1Bj/63XzHrpx0w5BmYWppw8rh0QLWCFCN5
-	GdlpwAEldqBCWiw639aRMW3vYpr95pQ4WafDVz/vW3mvVE7LaYGd5ycp2uutPWmmYMOVIg
-	gQQcwenx8DaymhKbFOXtt0CU8io1z6ueGYdyIjH3jGuOEf/RQLh4XFih9G0mgA==
+	t=1788940074; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=d1nAZDQT/TA+H2inuB0ViZceos9GynQ0h9nJpR7hJ4I=;
+	b=EvIGIL8CWA+u36nsng+YyqHSm9Dljq7Xz3bf3BHaXMVJjE8cNgcFhk7k+RV3472MsQMr5n
+	1t2f5nNMu7CpBvUIvtFSUmTye93FIWs+t7pdxb8egLoCnPT0DZvYBOgZxg6k0r6dBdbkQJ
+	2UW8cfI9CimyMj7RGgb1ruDN3uvxqYfTlGbvDPAy3akfhstn/WGEcL7TicxTx1wR2cWIaS
+	S0Y7f2BfBoW1qnn1y4NsVBRRaJJ3rJ9+JfwSFv1YY+maODan/3Z1L1JfhAmkGxY4p8if+7
+	lLo42qNrikL50OPObVlyMgHLd+/ru9DxuBMEdfsn2/978k4xWZp+VmAFVopeuA==
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	davem@davemloft.net,
@@ -61,12 +59,10 @@ Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	PKneuper@dspace.de,
 	David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH net 2/6] net: stmmac: selftests: Validate EEE based on the actual LPI timer value
-Date: Wed,  9 Sep 2026 09:47:35 +0200
-Message-ID: <20260909074740.1247762-3-maxime.chevallier@bootlin.com>
+Subject: [PATCH net 0/6] net: stmmac: More selftest-related fixes
+Date: Wed,  9 Sep 2026 09:47:33 +0200
+Message-ID: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
-References: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,109 +72,136 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The EEE selftest is a 2-step test :
- - It validates that we enter in LPI mode with the
-   irq_tx_path_in_lpi_mode_n counter
- - It then validates that we exit LPI when sending a frame, with the
-   irq_tx_path_exit_lpi_mode_n counter.
+Hi everyone,
 
-The current state of the test lacks 2 main things :
+This is another round of stmmac selftest fixes, mostly about the selftests
+themselves but a few things were discovered w.r.t MTU and buffer size
+handling, see patch 5.
 
- - We don't know exactly when was the previous frame sent (it's from the
-   previous selftest)
+I've continued expanding the test devices I'm running this on, more devices
+should come in the future. With this series, _almost_ everything is
+green, except for some flow control stuff that is either a false positive
+or a real thing that needs investigating.
 
- - The timeout is hardcoded, while the LPI is entered after a
-   user-configurable delay. On top of that, the timeout loop uses a
-   pre-decrement iterator (--retries) that actually only iterate nine
-   times, so 900ms while the default LPI value is 1 second.
+After this is merged, I consider the selftests to be now reliable enough
+to run them nightly on every stmmac series that's sent, and I'll be requiring
+clean selftests for new glue drivers.
 
-Let's therefore make it more deterministic :
+I've been running this on :
 
- - Send a frame at the beginning of the test
- - Wait for more than the lpi timer value, we timeout after about twice
-   the value,
- - Then send another frame, and verify that we do go out of LPI, also
-   with a timeout.
+ - Altera CycloneV (dwmac-socfpga, dwmac1000 IP, v3.70a)
+ - NXP imx8mp (dwmac-imx, dwmac4, v5.10a)
+ - Allwinner H2S (dwmac-sun8i, dwmac1000)
+ - Amlogic S905X3 (dwmac-meson8b, dwmac1000, v3.70a)
+ - STM32mp157a (dwmac-stm32, dwmac4, v4.20a)
+ - SiFive JH7110 (dwmac-starfive, dwmac4, v5.20)
+ - Motorcomm YT8061 (PCIe, dwmac-motorcomm, dwmac4)
+ - Qualcomm IPQ8064 (dwmac-ipq806x, dwmac1000)
 
-Note that the test's goal isn't to validate the LPI timer value itself,
-only that we enter/leave LPI mode.
+Tests are OK if return is 0 or -95 (-EOPNOTSUPP), tests are KO otherwise
 
-Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- .../stmicro/stmmac/stmmac_selftests.c         | 33 ++++++++++++++-----
- 1 file changed, 25 insertions(+), 8 deletions(-)
+Before the series :
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index 6503678b646e..4564b9f29194 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -462,7 +462,7 @@ static int stmmac_test_mmc(struct stmmac_priv *priv)
- static int stmmac_test_eee(struct stmmac_priv *priv)
- {
- 	struct stmmac_extra_stats *initial, *final;
--	int retries = 10;
-+	unsigned long timeout, max_duration;
- 	int ret;
- 
- 	if (!priv->dma_cap.eee || !priv->eee_active)
-@@ -478,14 +478,18 @@ static int stmmac_test_eee(struct stmmac_priv *priv)
- 		goto out_free_initial;
- 	}
- 
--	memcpy(initial, &priv->xstats, sizeof(*initial));
--
-+	/* Send a frame, then wait to enter LPI */
- 	ret = stmmac_test_mac_loopback(priv);
- 	if (ret)
- 		goto out_free_final;
- 
-+	max_duration = usecs_to_jiffies(2 * priv->tx_lpi_timer);
-+
-+	memcpy(initial, &priv->xstats, sizeof(*initial));
-+
- 	/* We have no traffic in the line so, sooner or later it will go LPI */
--	while (--retries) {
-+	timeout = jiffies + max_duration;
-+	while (!time_after(jiffies, timeout)) {
- 		memcpy(final, &priv->xstats, sizeof(*final));
- 
- 		if (final->irq_tx_path_in_lpi_mode_n >
-@@ -494,17 +498,30 @@ static int stmmac_test_eee(struct stmmac_priv *priv)
- 		msleep(100);
- 	}
- 
--	if (!retries) {
-+	memcpy(final, &priv->xstats, sizeof(*final));
-+	if (final->irq_tx_path_in_lpi_mode_n <=
-+	    initial->irq_tx_path_in_lpi_mode_n) {
- 		ret = -ETIMEDOUT;
- 		goto out_free_final;
- 	}
- 
--	if (final->irq_tx_path_in_lpi_mode_n <=
--	    initial->irq_tx_path_in_lpi_mode_n) {
--		ret = -EINVAL;
-+	/* TX something so we go out of LPI */
-+	ret = stmmac_test_mac_loopback(priv);
-+	if (ret)
- 		goto out_free_final;
-+
-+	/* Wait for the exit LPI interrupt */
-+	timeout = jiffies + max_duration;
-+	while (!time_after(jiffies, timeout)) {
-+		memcpy(final, &priv->xstats, sizeof(*final));
-+
-+		if (final->irq_tx_path_exit_lpi_mode_n >
-+		    initial->irq_tx_path_exit_lpi_mode_n)
-+			break;
-+		msleep(100);
- 	}
- 
-+	memcpy(final, &priv->xstats, sizeof(*final));
- 	if (final->irq_tx_path_exit_lpi_mode_n <=
- 	    initial->irq_tx_path_exit_lpi_mode_n) {
- 		ret = -EINVAL;
+Test                     imx  socfpga sun8i meson8b stm32 starV mcom ipq806x
+MAC Loopback              0     0      0     0       0     0     0    -110
+MMC Counters              0     0      -95   0       0     0     0    -110
+EEE                       -95   -95    -95   -110    -110  -95   -95  -95
+Hash Filter MC            0     0      -95   0       0     0     0    -95
+Perfect Filter UC         -95   0      0     -95     -95   -95   -95  -95
+MC Filter                 -95   0      -95   -95     -95   -95   -95  -95
+UC Filter                 -95   0      -95   -95     -95   -95   -95  -95
+Flow Control              -95   0      -110  0       -110  -95   -110 -110
+RSS                       -95   -95    -95   -95     -95   -95   -95  -95
+VLAN Filtering            -110  -95    -95   -95     -110  -110  -95  -95
+VLAN Filtering (perf)     -110  -95    -95   -95     -110  -110  -95  -95
+Double VLAN Filter        -110  -95    -95   -95     -110  -110  -95  -95
+Double VLAN Filter (perf) -110  -95    -95   -95     -110  -110  -95  -95
+Flexible RX Parser        0     -95    -95   -95     -95   -95   -95  -95
+SA Insertion (desc)       0     -95    -95   -95     0     0     0    -95
+SA Replacement (desc)     0     -95    -95   -95     0     0     0    -95
+SA Insertion (reg         0     -95    -95   -95     0     0     0    -95
+SA Replacement (reg)      0     -95    -95   -95     0     0     0    -95
+VLAN TX Insertion         -110  -95    -95   -95     -110  -110  -110 -95
+SVLAN TX Insertion        -110  -95    -95   -95     -110  -95   -110 -95
+L3 DA Filtering           0     -95    -95   -95     -95   -95   -95  -95
+L3 SA Filtering           0     -95    -95   -95     -95   -95   -95  -95
+L4 DA TCP Filtering       0     -95    -95   -95     -95   -95   -95  -95
+L4 SA TCP Filtering       0     -95    -95   -95     -95   -95   -95  -95
+L4 DA UDP Filtering       0     -95    -95   -95     -95   -95   -95  -95
+L4 SA UDP Filtering       0     -95    -95   -95     -95   -95   -95  -95
+ARP Offload               -95   -95    -95   -95     -110  -110  -110 -95
+Jumbo Frame               0     -110   -110  0       0     0     0    -110
+Multichannel Jumbo        0     -95    -95   -95     -95   -95   -95  -95
+Split Header             --95   -95    -95   -95     -95   -95   0    -95
+TBS (ETF Scheduler)      --95   -95    -95   -95     -95   -95   -95  -95
+
+ARP offload's still there as this was a net-next patch and I've ran these
+checks on the net tree.
+
+Jumbo frame tests on dwmac1000 started failing after :
+
+commit 23680bf5f8c6 ("net: stmmac: restore NET_IP_ALIGN in the RX DMA offset")
+
+This commit is OK though, it just made the selftest reveal the cracks
+hiding beneath the surface of MTU/bufsz handling.
+
+After this series :
+
+Test                     imx  socfpga sun8i meson8b stm32 starV mcom ipq806x
+MAC Loopback              0      0     0       0     0     0     0    0
+MMC Counters              0      0     -95     0     0     0     0    0
+EEE                       -95    -95   -95     0     0     -95   -95  -95
+Hash Filter MC            0      0     -95     0     0     0     0    -95
+Perfect Filter UC         -95    0     0       -95   -95   -95   -95  -95
+MC Filter                 -95    0     -95     -95   -95   -95   -95  -95
+UC Filter                 -95    0     -95     -95   -95   -95   -95  -95
+Flow Control              -95    0     -110    0     -110  -95   -110 -110
+RSS                       -95    -95   -95     -95   -95   -95   -95  -95
+VLAN Filtering            0      -95   -95     -95   0     0     -95  -95
+VLAN Filtering (perf)     0      -95   -95     -95   0     0     -95  -95
+Double VLAN Filter        0      -95   -95     -95   0     0     -95  -95
+Double VLAN Filter (perf) 0      -95   -95     -95   0     0     -95  -95
+Flexible RX Parser        0      -95   -95     -95   -95   -95   -95  -95
+SA Insertion (desc)       0      -95   -95     -95   0     0     0    -95
+SA Replacement (desc)     0      -95   -95     -95   0     0     0    -95
+SA Insertion (reg         0      -95   -95     -95   0     0     0    -95
+SA Replacement (reg)      0      -95   -95     -95   0     0     0    -95
+VLAN TX Insertion         0      -95   -95     -95   0     0     0    -95
+SVLAN TX Insertion        -95    -95   -95     -95   -95   -95   -95  -95
+L3 DA Filtering           0      -95   -95     -95   -95   -95   -95  -95
+L3 SA Filtering           0      -95   -95     -95   -95   -95   -95  -95
+L4 DA TCP Filtering       0      -95   -95     -95   -95   -95   -95  -95
+L4 SA TCP Filtering       0      -95   -95     -95   -95   -95   -95  -95
+L4 DA UDP Filtering       0      -95   -95     -95   -95   -95   -95  -95
+L4 SA UDP Filtering       0      -95   -95     -95   -95   -95   -95  -95
+ARP Offload               -95    -95   -95     -95   -110  -110  -110 -95
+Jumbo Frame               0      0     0       0     0     0     0    0
+Multichannel Jumbo        0      -95   -95     -95   -95   -95   -95  -95
+Split Header              -95    -95   -95     -95   -95   -95   0    -95
+TBS (ETF Scheduler)       -95    -95   -95     -95   -95   -95   -95  -95
+
+ARP can be ignored, and Flow control needs some more attention, but
+we're getting there :)
+
+Thanks,
+
+Maxime
+
+Maxime Chevallier (6):
+  net: stmmac: selftests: Support running selftests on DSA conduits
+  net: stmmac: selftests: Validate EEE based on the actual LPI timer
+    value
+  net: stmmac: selftests: Check the dev->features for S-TAG offload
+    testing
+  net: stmmac: selftests: Capture all packets for vlan checks
+  net: stmmac: size the RX buffers from the frame length, not the MTU
+  net: stmmac: selftests: Account for alignment shift on dwmac1000 for
+    Jumbo test
+
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  20 ++--
+ .../stmicro/stmmac/stmmac_selftests.c         | 110 +++++++++++++++---
+ 2 files changed, 102 insertions(+), 28 deletions(-)
+
 -- 
 2.55.0
 
