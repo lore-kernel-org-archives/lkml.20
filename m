@@ -1,79 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34146492E3B;
-	Wed,  9 Sep 2026 00:45:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E11286417
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:45:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788914732; cv=none; b=f3WTBh3+9VEEXSxjLD4hnnNLgp9NcLMwSs4HTyuy7K+kCho/qBKM75MRzpHbT+zOELFTVj34urKqZZvKxzp+MleRCxlM3z+HUYP2TuQYZiEYhI8bPMn7x9eCrf4tjqmFes/4InpgGsFO76iPLu9zVdcnIcVmhgicPJoi2LcGsJo=
+	t=1788914737; cv=none; b=BPkkj+ot9JxY/+BeiJ0R2vjJlLcWhL1JkuOe5rlV/nvQynbOt45+7jPicgOs/IJRsdvP7gvtwUiynWleBGHDcgcctIa1GTQ6fnEppE0IWmRsq0+37hKk+nar47ED/u7rdOGbG95lxbT3NJpxBVhzFZggmxZwnrwUhqsDIVQSTUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788914732; c=relaxed/simple;
-	bh=TR7MTN1fGXA4hfoTIJ46T+NHldD9mwQQvo8T9xEWdXo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AZbfYj5G4Y8GiELfD4sxR+bF6jW0lRg9nswyDIqjuMZ7qr0NKLlK6pJ6qqEk+Zv8/p0Ja9KUnXp9VHN9tyu2R5YfAACuBTPmEh326bJEe40Lp/f4ztzcQbBeMt9n0Nw7Ryk8R90La2X91O12XwEaoBqriAym5YWlU3CTVchoAoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRMTXI5L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788914737; c=relaxed/simple;
+	bh=+VBg2IN2qSXlarE9uNbpaxLn3/2ArYefp+j2t7jfMxU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZgPHElaiRkeMwuxcVzcl88HWUrdny+iWG7SDjeVsJT41N86VbSCsMiHbgFiI7Y+1bWxGEbnzUnIWU46BN8Yf+hzKYO5XsXBJBDlzWQxSRVCJynZt4NPYRic2IK+KgrBW1MlSvTiMvdt2Qndd8TPPHUYRVQ8ZalUw4yZdh3+dMbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJ/EKFl5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRMTXI5L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540891F00A3A;
-	Wed,  9 Sep 2026 00:45:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJ/EKFl5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2660B1F00A3A;
+	Wed,  9 Sep 2026 00:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788914730;
-	bh=ZNopAaAzl4l7FgpL2NX3Esneyi/PfV8GDqKzg7A+eWw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NRMTXI5LTdLH8UBQUVL75Ne4wsGyyqbLlOWfIZh8O5U92WQbxbNUZ0tyc9cMVwhj8
-	 4C9Yt1aAExJ2jT+xMlwTtu24XMlk07ApGbQ3LXvjfjeppJuT+9iBJvrx4snpx3QR1k
-	 20hZHkLkCl20E9nF/dFDNVyuVimE+CGV8bhjVFsbnxmJJ53XrlT9tFfuf5Mp/5Yy9o
-	 w1klF/NP7eKnJOFW4VLKEgnxmWJZAweD7BKR8oX+Z8GasMv8Sr9Ci6AkK/lErrRbuO
-	 kfftRhUZGaHSzN8mSs7LRZOTAv0Oz2tflAz6ylMd8ky9ERtu+pH9BnYhbgY6Pril96
-	 OEigpzFjTAHTg==
-From: SJ Park <sj@kernel.org>
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	shuah@kernel.org
-Subject: Re: [PATCH] selftests/damon: ignore test-generated damon_dump_output
-Date: Tue,  8 Sep 2026 17:45:22 -0700
-Message-ID: <20260909004523.112863-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908162716.85648-1-zenghui.yu@linux.dev>
-References: 
+	s=k20260515; t=1788914735;
+	bh=oI9yUTRZpy5Q5+OvZos8ZCyIS7fJ/x1ZjGcs3opQbDY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mJ/EKFl5RuO6OP8Tmk56KeDA+Z91o4v5KrM4HsNxMvRftsKt2BnPwNG5b4LAhr2zP
+	 nj0/EN3N4DYwNZlgcwsrwNzzsGg2J/7Ef6idz7nONGKxegPCQREbl8N7MEEptB0B8p
+	 Ptf3i+4g+i85xX7IYa3Y+PWwJIpA/UUY6Tk73GIcQLBFGvSsa5vCgznum0kOBnkn2W
+	 tI31l7xj9CVjuBQ2VpduiRM7LelpeiqGupeWMORun4rlPBn1qFTp1iUTKViL0d1PYv
+	 A789LVjBYtA4K4XwmoX06F8bxehEhGOozzrq0BcaveeiWXdGaZu6brpl8zWiCCXR6p
+	 W8omxwWHNyHBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 6/9] crash_dump: Improve readability of
+ config_keys_restore_store
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coiby Xu" <coiby.xu@gmail.com>
+Cc: "Dave Young" <ruirui.yang@linux.dev>, "Mike Rapoport" <rppt@kernel.org>, kexec@lists.infradead.org, linux-arm-kernel@lists.infradead.org, "Sourabh
+ Jain" <sourabhjain@linux.ibm.com>, "Baoquan He" <baoquan.he@linux.dev>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "open
+ list" <linux-kernel@vger.kernel.org>, "Will Deacon" <will@kernel.org>
+In-Reply-To: <20260909003657.1570544-7-coiby.xu@gmail.com>
+References: <20260909003657.1570544-1-coiby.xu@gmail.com>
+ <20260909003657.1570544-7-coiby.xu@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 00:45:34 +0000
+Message-Id: <20260909004535.2660B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed,  9 Sep 2026 00:27:16 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The local variable `r` is returned uninitialized when the user wri=
+tes a value evaluating to false.
+--
 
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> sysfs.py and sysfs_no_op_commit_break.py dump the DAMON status collected
-> via drgn_dump_damon_status.py into a damon_dump_output file in the working
-> directory.  Ignore it so that running the tests in-tree does not pollute
-> git status.
+commit 22a99a886bc0e01618cd42c5f2b503de86fa5a10
+Author: Coiby Xu <coiby.xu@gmail.com>
 
-Nice catch!  Thank you for finding and fixing this!
+crash_dump: Improve readability of config_keys_restore_store
 
-> 
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+This commit introduces user input validation to config_keys_restore_store
+before restoring dm-crypt keys. It ensures the restore function's return
+code is verified and improves overall code readability.
 
-Reviewed-by: SJ Park <sj@kernel.org>
+> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
+> index 9ad50ac54866a..b8fe630462cfa 100644
+> --- a/kernel/crash_dump_dm_crypt.c
+> +++ b/kernel/crash_dump_dm_crypt.c
+> @@ -371,13 +371,25 @@ static ssize_t config_keys_restore_show(struct conf=
+ig_item *item, char *page)
+>  static ssize_t config_keys_restore_store(struct config_item *item,
+>  					  const char *page, size_t count)
+>  {
+> -	if (!restore)
+> -		restore_dm_crypt_keys_to_thread_keyring();
+> +	bool val;
+> +	int r;
+> =20
+> -	if (kstrtobool(page, &restore))
+> +	if (kstrtobool(page, &val))
+>  		return -EINVAL;
+> =20
+> -	return count;
+> +	if (val) {
+> +		if (restore) {
+> +			pr_warn("dm-crypt keys already restored!\n");
+> +			return count;
+> +		}
+> +		r =3D restore_dm_crypt_keys_to_thread_keyring();
+> +		if (!r) {
+> +			restore =3D true;
+> +			r =3D count;
+> +		}
+> +	}
+> +
 
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
+[Severity: High]
+If a user writes a value evaluating to false (e.g., '0' or 'n') to this
+configfs attribute, kstrtobool() will succeed and set val to false.
 
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+This causes the if (val) block to be bypassed entirely, resulting in the
+uninitialized variable r being returned here. Could this leak uninitialized
+kernel stack memory to userspace or cause undefined behavior?
 
+> +	return r;
+>  }
+> =20
+>  CONFIGFS_ATTR(config_keys_, restore);
 
-Thanks,
-SJ
-
-[...]
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909003657.1570=
+544-1-coiby.xu@gmail.com?part=3D6
