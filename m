@@ -1,71 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E765036C9C0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC46538BF75
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976182; cv=none; b=KzSEvDcNWI+AfUJcUDu8UocGsvgMoFpQHkP5ey2CwA7y18do/cwUlYIDrqNhAbMVIIe+kyUqMOFVAfP1UzUZeVfdQ5UQSJnItXW/FlBg1GMiTNjkFME2RSqcIiXdaAVfrmwvX8hyck0wyx9ey/F71SlIW+nt754cDTGWDUbPcSE=
+	t=1788976225; cv=none; b=ZoOq6+zN8qLv1+xkswleYaeuDkcXEpxVN9LItqvP5cAJ1bkuUg37h0Mt+/B2Rno/1d3UDRvM653zPusDyaqK0EhcOAjtb8P879OXmH00cdBLYcJIEo+gj/g2RRFos4J4ELoT4o9Uw/Xe7aepTQTmpSz+2lqmffdoqDSao8WLRIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976182; c=relaxed/simple;
-	bh=hnDjJOlJWi1cy3WaNJ4sOYOXAoKsVqv7FZArgx6RKxM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=nIRFmw6+YIMiYp85faHOkjJz6t03aR3zyHWRn9BKOvO4T3pnPlFddt58SRyvOJDXrqTGS7VwmKoFn2kKpeR+IoK/Zq4vDfww0V0Bti35UkgtCqdGtipAwxh65D7T6h7G/DiW/vp6865raP6EnnrYjxjQK1mIQ9Rx1+LlNQ8fB88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=bEJ25p44; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788976225; c=relaxed/simple;
+	bh=XPczRnrg/hCAvXFmIAn4JS3XP71cXKexhTaxfWk6rxs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ap2Kc/U44XT7tNfdXGs4NPFjxymcuRoNe9wNPnEunue3ZpTA5wUZT9piFGhvkakK0xbmMtGHuaNc+wVcpA1AZMNtmQKNM80nnPCJaoInD/2j6/DC8Z1OpaZn7u+92iHtoqzYl8hRNIv1aS9KGEkT6F3hjskKXIQl68nfDIMN+9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qKs6NMnB; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="bEJ25p44"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4C01F000FF;
-	Wed,  9 Sep 2026 17:49:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788976180;
-	bh=xMFr2pRrz4NizZpYlauR0A2ajuMYpA9flP2EenlgMtg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bEJ25p44SexVsQl7zqgMU25xKTQUuw+NitGL8u3/G2PvC5JIz5916GmDjwDOSHENL
-	 U9eSqIO9ctB6EGOS/YBh/0p6bBvBJOPVtGCzZhXOEp1AHonBa318jyx77Byweb3nNO
-	 RFmy9gcW+3H3YD6a09ojeqj3kscTifU8gkWQy6wA=
-Date: Wed, 9 Sep 2026 10:49:39 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Youngjun Park <youngjun.park@lge.com>
-Cc: Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng
- Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- her0gyugyu@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] mm/swap: skip empty clusters in the swapoff scan
-Message-Id: <20260909104939.5203c02695fcfd7a95f4b26c@linux-foundation.org>
-In-Reply-To: <20260909161552.2335971-1-youngjun.park@lge.com>
-References: <20260909161552.2335971-1-youngjun.park@lge.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qKs6NMnB"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689HVS0I458559;
+	Wed, 9 Sep 2026 17:50:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=vllDYn
+	SPyYBC5MLdPMakBLcVa0f30Ab2JQe3/cgnTRo=; b=qKs6NMnBm7nwWI+VclHU2R
+	+zyjK1BsZhieW+9x4EJpBUkx5iXQ7uj1tBxNlW0iuLYIme3OeGAhPyw2YM+iI4PJ
+	GoKOnaubF1Aw/6aAiWIEKrK1nhy+kNln6riObTZy3bANCzYkBcG9fqHOf6nmygPX
+	BD/w1cZt043lmUh0GGD6iabSsBFzByV/vM2+CFPQfn45aR2tw70LABTKqyvJpqkP
+	018qEfVT5hkQ7U5Py8zjhKOpVkG6vsZhuBCJKkXysLyjojWeS0fjMckHkNPgql5L
+	DmfxkxYV4i/4eII4K2w1db4on+glFg5b+4MjUNMNdruKpAZYH/tmjPTlDaYSZmTw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf47jj9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 17:50:08 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689HfEb8013573;
+	Wed, 9 Sep 2026 17:50:07 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwswbt6k-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 17:50:06 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689Ho1Li50528720
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 17:50:02 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5E9952004B;
+	Wed,  9 Sep 2026 17:50:01 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8DB6D20040;
+	Wed,  9 Sep 2026 17:49:57 +0000 (GMT)
+Received: from [9.124.210.73] (unknown [9.124.210.73])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  9 Sep 2026 17:49:57 +0000 (GMT)
+Message-ID: <8d45cfd1-55d0-4e8f-aac1-fae5c9c4d91c@linux.ibm.com>
+Date: Wed, 9 Sep 2026 23:19:56 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] powerpc/interrupt: Use early_radix_enabled() in NMI
+ real-mode guard
+To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, mkchauras@linux.ibm.com, mkchauras@gmail.com,
+        ruanjinjie@huawei.com, ritesh.list@gmail.com, riteshh@linux.ibm.com,
+        linux-kernel@vger.kernel.org
+References: <20260909123240.58786-1-venkat88@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260909123240.58786-1-venkat88@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: le47yeovAKeL2kNIM8LlOwlNt8p9ry_K
+X-Proofpoint-GUID: nB3Ltu30_QnBcjIpIuxP_UbWUcAWYPJw
+X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6aa19c50 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=is8AelrDeVLTFk3XgSAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE5NSBTYWx0ZWRfX4uGBVpUR7ZgD
+ XDqAtOVuNOlwrvA92FfWX3+T8JW09XJwahZY9XJ9JbS/YxiaK8Fd6qUCODA9P7oilZNRG9hfzmn
+ u9t9MWSkTmPTytvhPWFH07kCjPKFVCYI7RAiwAaaRHAk4r2MNyNxWaoWIH/BYPFb6isq1vrN1/c
+ 1eOMOrTeZJ4vbu2DrMkXbBw3SX0v99foQooIgapVaayl0e/wJvtzbzzE7I5BJDP0VVyYbaC7Rf7
+ BHKYoT8f49Wg3fF+PIKG/T8wsJRiOzEf0h2ewoGR6fO80PSAlbzYSZx+8h1W+Pu5COe8P5rfX3A
+ UPG88t4vtAbadqSBFxpbuJCN7UtTN+Akrpi0ZdJ685ABy+FVcJmxcBNLeYplgR/esXpCVGwy3VJ
+ YfAtig3fHwyAsuQN5Sl69t4/9jjfLMIh1b6tFzGVBEffHqYYJhBzcOp2dPSDq0tSsVecU8sgcUU
+ HT1cdpfjWdnot0jhcRg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE5NSBTYWx0ZWRfXxFyTze+Ek32y
+ 8wszwQt368DhFK58AeOV4i02dijsfD5kaVlcPit7vl2gzTRqZf0+umGsbgrbmr3qea/9eB6LAVD
+ oDrERc0nrX/Ka1bI+WfNQkbq8UolT6E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090195
 
-On Thu, 10 Sep 2026 01:15:50 +0900 Youngjun Park <youngjun.park@lge.com> wrote:
 
-> find_next_to_unuse() walks a swap device one offset at a time.  Slot
-> state now lives in a per cluster swap table, so patch 2 dismisses an
-> empty cluster with one counter read instead of SWAPFILE_CLUSTER table
-> reads.
+
+On 9/9/26 6:02 PM, Venkat Rao Bagalkote wrote:
+> radix_enabled() uses a jump label which is only valid after
+> setup_feature_keys() is called. Before that point, on a pSeries
+> hash guest, early_check_vec5() clears MMU_FTR_TYPE_RADIX in
+> cur_cpu_spec->mmu_features, but the jump label has not yet been patched,
+> so radix_enabled() incorrectly returns true.
 > 
-> Patch 1 is an unrelated one line comment fix noticed on the way.
+> The dangerous usage window where it goes wrong in early_setup():
 > 
-> A debug test confirmed the skip path runs, and swapoff completed
-> under load with no DEBUG_VM or lockdep splats.
+>      early_setup:
+>          configure_exceptions();
+>          <exceptions can happen now, and handler enter/exit can be invoked>
+>          <those could use radix_enabled(), which returns stale true>
+>          setup_feature_keys();
+>          <jump labels set up; post this it is safe to use radix_enabled()>
+> 
+> If an NMI occurs in this window, !radix_enabled() evaluates to false in
+> DEFINE_INTERRUPT_HANDLER_NMI. The handler fails to skip NMI entry in real
+> mode and attempts to access memory outside the Real Mode Area (RMA),
+> hanging the boot.
+> 
+> Since common interrupt wrappers do not have the context of early or late,
+> using early_radix_enabled() is the safer option. It does a plain bitmask
+> check against cur_cpu_spec->mmu_features and is correct at all times.
+> 
+> Console logs from a pSeries HASH guest showing values across boot stages:
+> 
+> [    0.000000] DEBUG: after early_init_devtree: early_radix_enabled=0 radix_enabled=1 (mismatch means NMI real-mode check is unsafe!)
+> [    0.000000] DEBUG: after configure_exceptions (DANGEROUS WINDOW): early_radix_enabled=0 radix_enabled=1
+> [    0.000000] DEBUG: after setup_feature_keys (jump labels initialized): early_radix_enabled=0 radix_enabled=0 (should now match!)
+> [    0.057124] DEBUG: post secondary CPU bringup: early_radix_enabled=0 radix_enabled=0 (should match!)
+> 
+> Console logs from a RADIX guest showing values across boot stages:
+> 
+> [    0.000000] DEBUG: after early_init_devtree: early_radix_enabled=1 radix_enabled=1 (mismatch means NMI real-mode check is unsafe!)
+> [    0.000000] DEBUG: after configure_exceptions (DANGEROUS WINDOW): early_radix_enabled=1 radix_enabled=1
+> [    0.000000] DEBUG: after setup_feature_keys (jump labels initialized): early_radix_enabled=1 radix_enabled=1 (should now match!)
+> [    0.057016] DEBUG: post secondary CPU bringup: early_radix_enabled=1 radix_enabled=1 (should match!)
+> 
+> Add the missing #include <asm/mmu.h> in alphabetical order since
+> early_radix_enabled() is declared there.
+> 
 
-Please let's try to make the [0/N] words provide a summary of the
-patchset's effects.  The above didn't even tell people that this is a
-swapoff optimization!
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 
-I asked an LLM for this summary and we came up with
+> Fixes: 8d0e21012743 ("powerpc/mce: Avoid nmi_enter/exit in real mode on pseries hash")
+> Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+> Reviewed-by: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
 
-:  Speed up swapoff and reduce scanning stalls on large, mostly empty
-:  swap devices by skipping empty clusters.  Reduce swapoff time on a 1
-:  TiB device from 158 ms to 94 ms after filling 128 GiB, and from 392
-:  ms to 73 ms after filling 512 GiB; expect little benefit when
-:  substantial swap data remains.
+Nit: I prefer to see Signed-off-by at the end.
+But i guess b4 or patchwork tools take care of ordering. So i think
+we are fine.
 
-Does that sound OK?
+> ---
+> v3:
+>   - Clarified early_setup execution flow and race window in changelog.
+>   - Explained why early_radix_enabled() is required for context-agnostic wrappers.
+>   - Added console logs for both HASH and RADIX guests in changelog.
+> v2:
+>   - Added Fixes: tag referencing commit 8d0e21012743.
+>   - Included <asm/mmu.h> in alphabetical order.
+>   - Added Reviewed-by tag from Mukesh.
+> 
+>   arch/powerpc/include/asm/interrupt.h | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
+> index 1b45a49e9bed..355f6bbf9894 100644
+> --- a/arch/powerpc/include/asm/interrupt.h
+> +++ b/arch/powerpc/include/asm/interrupt.h
+> @@ -70,6 +70,7 @@
+>   #include <linux/irq-entry-common.h>
+>   
+>   #include <asm/kprobes.h>
+> +#include <asm/mmu.h>
+>   #include <asm/runlatch.h>
+>   
+>   #ifdef CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
+> @@ -290,7 +291,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
+>   		state = irqentry_nmi_enter(regs);			\
+>   	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&			\
+>   		   firmware_has_feature(FW_FEATURE_LPAR) &&		\
+> -		   !radix_enabled()) {					\
+> +		   !early_radix_enabled()) {				\
+>   		/* no nmi_entry for a pseries hash guest		\
+>   		 * taking a real mode exception */			\
+>   	} else if (IS_ENABLED(CONFIG_KASAN)) {				\
+> @@ -307,7 +308,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
+>   		irqentry_nmi_exit(regs, state);				\
+>   	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&			\
+>   		   firmware_has_feature(FW_FEATURE_LPAR) &&		\
+> -		   !radix_enabled()) {					\
+> +		   !early_radix_enabled()) {				\
+>   		/* no nmi_exit for a pseries hash guest			\
+>   		 * taking a real mode exception */			\
+>   	} else if (IS_ENABLED(CONFIG_KASAN)) {				\
+
