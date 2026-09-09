@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6390430D401
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85643033FB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:36:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917804; cv=none; b=jL0goYrCUEfdtQkNRJgveLwIFvNA4+Cjl/CDXV/qfhevN4IsTm/gAeU5RUpQwk8PBm8J7EhVEuhLYBpNOqUORTXc5bu9wyQ7bU7tIReYikK3p2ZWqimgLfIfYtEdM0ho1qdpx2Y3XFDDM2H1gNRyiuxwDI+EircSPludwZDYTOg=
+	t=1788917806; cv=none; b=Rv1VrRDEw8+Te99JXVh0Jw2ov/doTs2xEOEmEHtM6Ac2bcqRXL2FYnR8ZSOGwSeS4/5S8aalNKmpPf7KMTQD6TZvBcyQL96BLg0oSEdcBxS0fxWjdl4OMhuE3KFxFH0gBj6pVLDyijmAoARfbx/AMp1Oi5cybMs5BA5jXvOSssM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917804; c=relaxed/simple;
-	bh=arHxmz7Zoy6hiTz9XQXNgxGbL7EelFOWXyydpJJeEuo=;
+	s=arc-20240116; t=1788917806; c=relaxed/simple;
+	bh=UG+z+sIeTH5Jsu+M3WpY0vYO3jd0wPV2G92LU+ncKFk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NZu6iUWad/DoOJ7qTZGeGsJJhUR2JCVc/i6bn0DQlZQfLaP4BPXfyd7WX+qQ4l6r9JXThKctQhgKRl7UZ/S64hsI0fFypOEjIFXF3sGM68t7D4uLRfWf1eUYBa0ViRc7nfjJAbYT8CEOIzT0ZPkv9KEzwbmOaXESXalfcjf8V9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoBnrnaA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pZoWIVchE4hgLM3MBKUt1zOGZ/cyY9H4wJcz6S9z4zTvcNQR0jjyNsFOoCt0Kcfzx8B/Z1SnoSbN0WAam2829lNPJpD5fCo87qO1XhJJ4rceZpzHVFUtiLaC+EsrcmtqKsIG0XeIO4jicXEn+9MQrdtwj4HDMZCIPqV36XDB/1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAt47MRE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoBnrnaA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894311F00A3E;
-	Wed,  9 Sep 2026 01:36:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAt47MRE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE051F00ACF;
+	Wed,  9 Sep 2026 01:36:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917801;
-	bh=VqrSty/rC/CZuUYHoIpebZiHcc6iWv0QKiPUX/dW0cc=;
+	s=k20260515; t=1788917804;
+	bh=gGk0MB4VuPnukV5IBQNCcF3SFf/G5MfrWoEy4fecP1E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CoBnrnaAd4pN+wLxR6f4KlgMy8b5nFbAege7JD1LNPi8HtSdaCJ4FMZjkf773im6o
-	 kkoZWT9zyiH0QpUOAuLFF+jDNoOp94HWcGMb2khsy2gYD6wRrJdcFQWU+eoHVEN1xI
-	 vneFd/GGYTx2Q88t+2IqPl8sx1mbRzpcIAj83ySbmiTfMMVLrP/dlx5qTps1SxAXA6
-	 w7PfN3Rjb0iY6cD5Fbk1QoSfEKY5ymNeSbk99v5G7MorUpqemToTKUKaDyWjNuNBtb
-	 vt1Xwu13ATYx5HdCbfVRJYUe/4osAo+qbGeVHVRSwLG5v6+raigjNOFnKR56Iha0Hw
-	 oIKPfgfaAa+Dw==
+	b=YAt47MREjzD4vPN+AaGNa5aaPMHd/6kxFwTsCt5u0xC3Uo//wgefPBNxC51v5yN0e
+	 RHYUHaDfuScfJTj4TMJSRVoCsDPJqSXDrpdPnzxQPjUHn51l5iDNY9WxlRoyYdoq18
+	 70NL1udMIUdNeV63Uw+NAH6Mc9Z1zUAX5aynZVaE7JBas5qJtFUb/OiVyabsQeP2mn
+	 9WXUWu/IqWOFfsuZ1Ho929I/j8zQjX06MfsHKtIQTq+klAMbQflH7FmZHblL6CNU3X
+	 9S8VIvMwth3/nWGmINrCvR3Y7QUF6+/8WLBBfO+H37MkOJ2wtaPD7c/PkLxQQu2INC
+	 k2j4GDHneRJqA==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>
-Subject: [PATCH v6 08/12] f2fs: cache: initialize compress cache
-Date: Wed,  9 Sep 2026 09:36:07 +0800
-Message-ID: <20260909013611.3418568-9-chao@kernel.org>
+Subject: [PATCH v6 11/12] f2fs: cache: introduce tracepoints
+Date: Wed,  9 Sep 2026 09:36:10 +0800
+Message-ID: <20260909013611.3418568-12-chao@kernel.org>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260909013611.3418568-1-chao@kernel.org>
 References: <20260909013611.3418568-1-chao@kernel.org>
@@ -47,163 +47,175 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-This patch introduces compress_blocks in f2fs_sb_info structure, initializes
-and destroys the compress cache during filesystem mount and unmount.
-
-It adds an ino union field in struct f2fs_cached_block (sharing space
-with writeback linkage for zero memory overhead) to track per-inode
-cached blocks, and registers compress cache into the memory shrinker.
+This patch introduces ftrace tracepoints to observe and profile metadata
+cache operations:
+- trace_f2fs_cache_set_dirty to trace marking a cached block dirty
+- trace_f2fs_write_cache to trace single block writeback submission
+- trace_f2fs_write_caches to tracesbatch writeback and sync sessions
 
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/cache.c |  9 ++++++++-
- fs/f2fs/cache.h | 14 ++++++++++----
- fs/f2fs/f2fs.h  |  6 ++++++
- fs/f2fs/super.c |  9 ++++++++-
- 4 files changed, 32 insertions(+), 6 deletions(-)
+ fs/f2fs/cache.c             |  3 ++
+ fs/f2fs/checkpoint.c        |  6 ++++
+ fs/f2fs/segment.c           |  3 ++
+ include/trace/events/f2fs.h | 71 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 83 insertions(+)
 
 diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-index d7349d481dbd..e52e73d76700 100644
+index 01047528c21a..57f06e3edbb6 100644
 --- a/fs/f2fs/cache.c
 +++ b/fs/f2fs/cache.c
-@@ -176,7 +176,10 @@ static struct f2fs_cached_block *f2fs_create_cache(
- 	entry->index = index;
+@@ -15,6 +15,7 @@
+ #include "f2fs.h"
+ #include "cache.h"
+ #include "node.h"
++#include <trace/events/f2fs.h>
+ #include "segment.h"
  
- 	atomic_set(&entry->refcount, 0);
--	entry->next_entry = NULL;
-+	if (!IS_COMPRESS_CACHE(cache))
-+		entry->next_entry = NULL;
-+	else
-+		entry->ino = 0;
- 	INIT_LIST_HEAD(&entry->list);
+ void f2fs_cache_wait_writeback_cond(struct f2fs_cached_block *entry,
+@@ -73,6 +74,8 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
+ 		enum count_type type = IS_META_CACHE(cache) ?
+ 				F2FS_DIRTY_META : F2FS_DIRTY_NODES;
  
- 	entry->cache = cache;
-@@ -627,6 +630,10 @@ unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
- 		return freed;
- 
- 	freed += f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan - freed);
-+	if (freed >= nr_to_scan)
-+		return freed;
-+
-+	freed += f2fs_do_shrink_cache(COMPRESS_CACHE(sbi), nr_to_scan - freed);
- 	return freed;
- }
- 
-diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-index dfe898df6aa8..a81524755dad 100644
---- a/fs/f2fs/cache.h
-+++ b/fs/f2fs/cache.h
-@@ -18,12 +18,15 @@ struct f2fs_rwsem;
- struct f2fs_io_info;
- enum page_type;
- 
--/* Represents a single cached block (meta, node) */
-+/* Represents a single cached block (meta, node or compress) */
- struct f2fs_cached_block {
- 	struct list_head list;		/* LRU list head */
- 	struct f2fs_cached_block_list *cache;	/* parent cache list */
--	struct f2fs_cached_block *next_entry;	/* chain for merged BIO */
--	unsigned long index;		/* key in radix tree, (meta: pba, node: nid) */
-+	union {
-+		struct f2fs_cached_block *next_entry;/* chain for merged BIO */
-+		nid_t ino;		/* inode number for compress cache */
-+	};
-+	unsigned long index;		/* key in radix tree, (meta/compress: pba, node: nid) */
- 	unsigned long state;		/* cache entry state (e.g., Dirty, UpToDate) */
- 	void *data;			/* blocksize-aligned memory (4KB or 16KB) */
- 	atomic_t refcount;		/* reference count */
-@@ -34,6 +37,7 @@ struct f2fs_sb_info;
- enum f2fs_cache_type {
- 	F2FS_META_CACHE,
- 	F2FS_NODE_CACHE,
-+	F2FS_COMPRESS_CACHE,
- };
- 
- /* Main cache control structure (per sb_info) */
-@@ -43,12 +47,13 @@ struct f2fs_cached_block_list {
- 	spinlock_t tree_lock;		/* Lock for radix tree */
- 	struct list_head lru_list;	/* Single global LRU list */
- 	spinlock_t list_lock;		/* Lock for LRU list */
--	enum f2fs_cache_type type;	/* Cache type (Node or Meta) */
-+	enum f2fs_cache_type type;	/* Cache type (Node, Meta, Compress) */
- 	unsigned long num_entries;	/* Current number of entries */
- };
- 
- #define IS_META_CACHE(cache) (cache->type == F2FS_META_CACHE)
- #define IS_NODE_CACHE(cache) (cache->type == F2FS_NODE_CACHE)
-+#define IS_COMPRESS_CACHE(cache) (cache->type == F2FS_COMPRESS_CACHE)
- 
- /* Flags for f2fs_cached_block state */
- enum f2fs_cached_state {
-@@ -199,6 +204,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
- 
- #define META_CACHE(sbi)		(&(sbi)->meta_blocks)
- #define NODE_CACHE(sbi)		(&(sbi)->node_blocks)
-+#define COMPRESS_CACHE(sbi)	(&(sbi)->compress_blocks)
- 
- #define f2fs_find_meta_cache(sbi, blkaddr)		\
- 	f2fs_find_cache(META_CACHE(sbi), blkaddr, 0)
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index e5489564194f..1376a6f2e9e2 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -2106,6 +2106,7 @@ struct f2fs_sb_info {
- 	/* f2fs internal cache */
- 	struct f2fs_cached_block_list meta_blocks;
- 	struct f2fs_cached_block_list node_blocks;
-+	struct f2fs_cached_block_list compress_blocks;
- 
- 	/* internal cache flush thread */
- 	struct f2fs_cache_kthread cache_thread;
-@@ -2384,6 +2385,11 @@ static inline bool f2fs_is_node_cache(struct f2fs_cached_block *entry)
- 	return entry->cache && entry->cache == NODE_CACHE(entry->cache->sbi);
- }
- 
-+static inline bool f2fs_is_compress_cache(struct f2fs_cached_block *entry)
-+{
-+	return entry->cache && entry->cache == COMPRESS_CACHE(entry->cache->sbi);
-+}
-+
- static inline struct f2fs_bio *F2FS_BIO(struct bio *bio)
++		trace_f2fs_cache_set_dirty(entry,
++				IS_META_CACHE(cache) ? META : NODE);
+ 		f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
+ 						F2FS_CACHE_TAG_DIRTY);
+ 		inc_page_count(cache->sbi, type);
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index aea5115a438a..a2306d54f400 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -551,6 +551,8 @@ static bool __f2fs_write_meta_cache(struct f2fs_cached_block *entry,
  {
- 	return container_of(bio, struct f2fs_bio, bio);
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 9446e82d3de7..e1a455573d34 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -2071,6 +2071,7 @@ static void f2fs_put_super(struct super_block *sb)
+ 	struct f2fs_sb_info *sbi = entry->cache->sbi;
  
- 	f2fs_destroy_compress_inode(sbi);
- 
-+	f2fs_destroy_cache(COMPRESS_CACHE(sbi));
- 	f2fs_destroy_cache(NODE_CACHE(sbi));
- 	f2fs_destroy_cache(META_CACHE(sbi));
- 
-@@ -5267,10 +5268,14 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (err)
- 		goto free_meta_cache;
- 
-+	err = f2fs_init_cache(sbi, COMPRESS_CACHE(sbi), F2FS_COMPRESS_CACHE);
-+	if (err)
-+		goto free_node_cache;
++	trace_f2fs_write_cache(entry, META);
 +
- 	err = f2fs_get_valid_checkpoint(sbi);
- 	if (err) {
- 		f2fs_err(sbi, "Failed to get valid F2FS checkpoint");
--		goto free_node_cache;
-+		goto free_compress_cache;
- 	}
+ 	if (unlikely(f2fs_cp_error(sbi))) {
+ 		if (is_sbi_flag_set(sbi, SBI_IS_CLOSE)) {
+ 			f2fs_cache_clear_uptodate(entry);
+@@ -612,6 +614,8 @@ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+ 	struct blk_plug plug;
+ 	bool background = nr_to_write != LONG_MAX;
  
- 	if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_QUOTA_NEED_FSCK_FLAG))
-@@ -5585,6 +5590,8 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- free_devices:
- 	destroy_device_list(sbi);
- 	kvfree(sbi->ckpt);
-+free_compress_cache:
-+	f2fs_destroy_cache(COMPRESS_CACHE(sbi));
- free_node_cache:
- 	f2fs_destroy_cache(NODE_CACHE(sbi));
- free_meta_cache:
++	trace_f2fs_write_caches(sbi, nr_to_write, 0, META);
++
+ 	blk_start_plug(&plug);
+ 
+ 	while ((nr = f2fs_cache_gang_lookup_tag(META_CACHE(sbi), entries,
+@@ -667,6 +671,8 @@ long f2fs_sync_meta_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+ 
+ 	blk_finish_plug(&plug);
+ 
++	trace_f2fs_write_caches(sbi, nr_to_write, nwritten, META);
++
+ 	return nwritten;
+ }
+ 
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index b9c5eeab8788..4d959fba4942 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -4226,6 +4226,9 @@ void f2fs_do_write_node_page(unsigned int nid, struct f2fs_io_info *fio)
+ {
+ 	struct f2fs_summary sum;
+ 
++	if (fio->is_cache)
++		trace_f2fs_write_cache(fio->cache_entry, NODE);
++
+ 	set_summary(&sum, nid, 0, 0);
+ 	do_write_page(&sum, fio);
+ 
+diff --git a/include/trace/events/f2fs.h b/include/trace/events/f2fs.h
+index d53be932df01..df4cd346ae72 100644
+--- a/include/trace/events/f2fs.h
++++ b/include/trace/events/f2fs.h
+@@ -1430,6 +1430,50 @@ DEFINE_EVENT(f2fs__folio, f2fs_set_page_dirty,
+ 	TP_ARGS(folio, type)
+ );
+ 
++DECLARE_EVENT_CLASS(f2fs__cached_block,
++
++	TP_PROTO(struct f2fs_cached_block *block, int type),
++
++	TP_ARGS(block, type),
++
++	TP_STRUCT__entry(
++		__field(dev_t,	dev)
++		__field(pgoff_t, index)
++		__field(int,	type)
++		__field(int,	dirty)
++		__field(int,	uptodate)
++	),
++
++	TP_fast_assign(
++		__entry->dev	= block->cache->sbi->sb->s_dev;
++		__entry->index	= block->index;
++		__entry->type	= type;
++		__entry->dirty	= f2fs_cache_test_dirty(block);
++		__entry->uptodate = f2fs_cache_test_uptodate(block);
++	),
++
++	TP_printk("dev = (%d,%d), %s, index = %lu, dirty = %d, uptodate = %d",
++		show_dev(__entry->dev),
++		show_block_type(__entry->type),
++		(unsigned long)__entry->index,
++		__entry->dirty,
++		__entry->uptodate)
++);
++
++DEFINE_EVENT(f2fs__cached_block, f2fs_write_cache,
++
++	TP_PROTO(struct f2fs_cached_block *block, int type),
++
++	TP_ARGS(block, type)
++);
++
++DEFINE_EVENT(f2fs__cached_block, f2fs_cache_set_dirty,
++
++	TP_PROTO(struct f2fs_cached_block *block, int type),
++
++	TP_ARGS(block, type)
++);
++
+ TRACE_EVENT(f2fs_replace_atomic_write_block,
+ 
+ 	TP_PROTO(struct inode *inode, struct inode *cow_inode, pgoff_t index,
+@@ -1574,6 +1618,33 @@ TRACE_EVENT(f2fs_writepages,
+ 		__entry->for_sync)
+ );
+ 
++TRACE_EVENT(f2fs_write_caches,
++
++	TP_PROTO(struct f2fs_sb_info *sbi, long nr_to_write, long nwritten, int type),
++
++	TP_ARGS(sbi, nr_to_write, nwritten, type),
++
++	TP_STRUCT__entry(
++		__field(dev_t,	dev)
++		__field(long,	nr_to_write)
++		__field(long,	nwritten)
++		__field(int,	type)
++	),
++
++	TP_fast_assign(
++		__entry->dev		= sbi->sb->s_dev;
++		__entry->nr_to_write	= nr_to_write;
++		__entry->nwritten	= nwritten;
++		__entry->type		= type;
++	),
++
++	TP_printk("dev = (%d,%d), %s, nr_to_write = %ld, nwritten = %ld",
++		show_dev(__entry->dev),
++		show_block_type(__entry->type),
++		__entry->nr_to_write,
++		__entry->nwritten)
++);
++
+ TRACE_EVENT(f2fs_readpages,
+ 
+ 	TP_PROTO(struct inode *inode, pgoff_t start, unsigned int nrpage),
 -- 
 2.49.0
 
