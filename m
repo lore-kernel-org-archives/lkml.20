@@ -1,143 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED3342CB0;
-	Wed,  9 Sep 2026 17:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D05E35C6A0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974348; cv=none; b=U7te0ARfibdn9luVKqNsMWwPUg3eUXizuh8+CqHMjYWGdNOozHhjuIcOK5UCdlvknaFTDVqyl8J/l4PrflyAX4Z7cIKk/iLW0rrpU1LsyAvh3lqqr9/2nmhcZmhH2FapSPAgKyB10OIYrw49a0IpAdWb1hPGmhzOMq14K8zrJnI=
+	t=1788974389; cv=none; b=g1N6XmDUK/MSbFce1O3Q3BpxCZPPcL+EIab7/5edppMKKiRJHPgE9OpHtmL/2vWpHRF7C8xD4AvfQjFPq6a+OnEHUVOhP5MOdGmu7Of0FXJfU799v7LIIOdNk8x/lsIIz9Qmw8J0jjCL/OEO1lYKkjgcUO/mPHlg9NyRxKq3OPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974348; c=relaxed/simple;
-	bh=f45NHBdqgQgRD+lkCVot4c4JJkepPy7huNDkyWBT+1E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RSXYygM+xgDXAlZ5h+sTVjA0EDhulk085AmzMztR1PgFTzvdb2Qt/SZBI+ViTlLqHrM5V3sAXzDL/k1bXTDoR4TljQc16GWGfaBkYeahe+yZEDJdzkHDsC/t7Q5MmB7S+ZI9IwEBegJnu10xt4FOwQ95HUg0nFyKWVyVurok5XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQXXW/Yb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788974389; c=relaxed/simple;
+	bh=IlcZ7axc1icPaRsnATE3TTEkSRdrgKhV9fd+K+TYx+Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dt5oRUK6T6M/NoTVLwmhQaPN3tDhWvpe/cRHXg1PcPrW2aICvPmNBVIHNyrsn3Hg6qns2WbJyybJsyfIJZXy7d9QuJ5O2o/ds4lCoTZMqmOAMsvwjQPhNhV8D05HCdy842ZsO19J4R8ERJClzMOwq+dY/tk1OpdRXAYKpwIS4Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=beBJrA5e; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQXXW/Yb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913BB1F000FF;
-	Wed,  9 Sep 2026 17:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788974346;
-	bh=uZltEzvklF0alHImzEAERiA+PVh7E3q1Jsm6Z/RtKTY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MQXXW/YbQGdiAIOm/kF6qSQKC7Ng+EPy144HC7OYn6CjwTnO5XWjO7Fby43eLrzWL
-	 C4v7HlqfPUMh7aLVhgNgLCPxrwfK9rFCTOzP/AbhNM+v9awOcMSWRrwtyed7ujlmrc
-	 TBRixw4lcb2nR6NEu0ZEH8zY0RdDOdB+sdevCNXWSZ3DrnQqGNBuXEd4hT1E8WCqcL
-	 QbPAQK3LFUzPVD0mmWQ5kIAXPikUPIw+BA6lLDkeFrGP/Ak2spaars2paiPewdCRMl
-	 p6+rfJXjhu4UmR2WG5dbKPBzIOcRO14X4tVJiHvJtWVrT2jF6+ab/wKc7vcX1gcggT
-	 e6LVYwM1m6f6A==
-Message-ID: <84e667f0-f065-4679-b519-5151aff04e56@kernel.org>
-Date: Wed, 9 Sep 2026 19:18:57 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="beBJrA5e"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38759bcd877so6601495a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:19:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788974387; x=1789579187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DMRip1Y+oPvNX5PgfN0DgCOA+dU2bWxzbPCzDRfdUU4=;
+        b=beBJrA5eoszoD1Nr2DYlaVj/yst75vyw+Z496KCAbew9i5HU9CcTjRGW4fKSsLUJPw
+         taOO6sMcucm1LxBBEe74A0r3mILSmmYimM0e48pS67e1EXmry6jz4OcfthboF623VRpi
+         7RRBBo/HWsNjQHHYK99vYifyQjVaZauCIm/yUbw8bhiG9LkKQYttuKKHWadafhKOxeVI
+         WFj4DjENZZJzgz904S/hErs88NFU3BTgtXaiLQjgoasz6X5x4YNlaZT3ayLtDoPAF7Eq
+         z4l2ab1VKyaxDWMtSXF40OdhG0HPv14pXTDlyh3LkxtrwiLLuBR+urTVyi87i3l2q9UQ
+         vQKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788974387; x=1789579187;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DMRip1Y+oPvNX5PgfN0DgCOA+dU2bWxzbPCzDRfdUU4=;
+        b=P+9+zt/KCHMZirwo6dcbgOnokRw/IAL/e+oG8jizc8l9sFuBxVmuzfE8MoM6R1Q1Nf
+         fizc97EHIp+CmdU3XvaufXZ6PNKROcrv+VnpQYX7MTlE8KOvdnT1OnxP/Ydr/y5AbDd+
+         62qag5HAS/kb0X09pfkxZYlKAX6iFRhXshKRhUpmef8aKfoz61n6Bq/TI70zA58H/0M3
+         tarTgYXa98bta1ZO24aQ3gxSBXFTb2NZkXE56IHNdLmrzGINiHZWlJQP5gs6y3aeO7cs
+         FpHMZKNFw8aLX6dF96SW4ypPN21Yq14HlZAbGXyJkjJXtliyQ3HrCJ8ByVhfCHFZn0zR
+         WbsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDPCcDCdDSIATzAJmadQKT5XouCxOWnnBfK42rsMnolWV1O3w0sYekXy0JGAcYMqjWe0HfJW3wDrgJ/Xs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuoR4JK4vsvt8Qtx0DLDbwQscG7/O1kWZ15H+ixXRiLeIC3D8P
+	/vJxKisYGeMTCfuRpZouyLVY+zsC7pAt60U3KscLDBXxTIvH+WbZff29c6cKBA==
+X-Gm-Gg: AYBFou0rgpDdk72P1AZUyz0Xr+9rD5kbwNq3C2EGauYcJbz6/e2dXQEoz/AOVwCzLNs
+	f06h0dChDopZWWRqhsFHeGNFX2cY91NjccXXDrHkcy/QCIPhQbxoAjG14Qnky9wmdAgKKpkW90G
+	QCOm2OpaYzJJLIeFKERXVC6RqfQwynnoem5+W8U+bP0D/JFjK9JCxRSUg0qaFv8CXA+2ahiZci3
+	H4xqhJ1ImHV0A9LmieCiQVissyZXLdhyL0taJvRGe4L9yTRZAK1qRAqHdAH+bnKF7PHfHempY8D
+	9Pj6HVCj0fWAjs1EWe5hd01CXBOfyXZbUBkp/AF11g8LCUjTZIGRUxECbCYDyaLap1QUmqz1vvy
+	mreleg3xTfnq8u50lLsXDPc3wxQiGZ3ExxftfeXPEPjn2o7MAvFTH1/RN/Q79n7DuBtT79F1LrQ
+	L8lc7H/vf/gwu+UKaeaWreNF9Xv32NWcQ8iRkOd3krIqxnPBHatVmABtdSCsPQS0uQRJhu8Ek94
+	DD0KmYVhAfQh5dHIEg=
+X-Received: by 2002:a17:90b:3c48:b0:398:e436:384 with SMTP id 98e67ed59e1d1-39b260d335dmr55306923a91.1.1788974387271;
+        Wed, 09 Sep 2026 10:19:47 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:24ba:44ee:a9ec:98f1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770e3bf4sm388181a91.7.2026.09.09.10.19.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:19:32 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: stern@rowland.harvard.edu
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v2] usb: storage: ene_ub6250: set transport_reset to avoid NULL deref
+Date: Thu, 10 Sep 2026 00:19:26 +0700
+Message-ID: <20260909171926.54111-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909171736.53927-1-ngocthang2710.1999@gmail.com>
+References: <20260909171736.53927-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/12] mm/sparse: refactor sparse_sections_init()
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
- <20260909-b4-sparsemem_cleanups-v1-2-008fc8d579fe@kernel.org>
- <aqGSv_VPT1IKGgIs@localhost.localdomain>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqGSv_VPT1IKGgIs@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 19:09, Oscar Salvador (SUSE) wrote:
-> On Wed, Sep 09, 2026 at 03:32:55PM +0200, David Hildenbrand (Arm) wrote:
->> memory_present() really identifies+prepares all early sections so the
->> initialization in sparse_init() can properly iterating them to
->> initialize metadata.
->>
->> Let's just inline memory_present() into sparse_sections_init() and
->> cleaning up the code a bit while at it: make it clear that we are operating
->> on pfns.
->>
->> Note that we call set_section_nid() now only if the section
->> was not already created earlier. Now, there is no more inconsistency
->> between what we (temporarily) store in ms->section_mem_map and what
->> we store in our section->nid array.
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Acked-by: Oscar Salvador <osalvador@suse.de>
-> 
-> Not sure if it was intentional, but it seems we lost the "Initialize memory section ..."
-> comment.
-> Do we want to put it back? Maybe for the folks that are not really
-> familiar with all the memory section's inner stuff?
+ene_ub6250_probe() sets us->transport but never sets
+us->transport_reset. get_transport() only fills in transport_reset
+for the standard USB_PR_CB/CBI/BULK protocols; since this driver
+matches on VID/PID alone, a device can report any bInterfaceProtocol
+value and still bind, leaving transport_reset NULL.
 
-Munchus patch added it, and I asked him to remove that comment (as it's
-imprecise). So I expect, once I rebase on top of his updated work, that that
-comment will be gone right away :)
+When the transport then reports an error, usb_stor_invoke_transport()
+calls us->transport_reset(us) in its Handle_Errors path, dereferencing
+a NULL function pointer:
 
-Thanks!
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:0x0
+  Call Trace:
+   usb_stor_invoke_transport+0x55a/0x1a40 drivers/usb/storage/transport.c:926
+   usb_stor_control_thread+0x44c/0x8f0 drivers/usb/storage/usb.c:462
+   kthread+0x38b/0x480 kernel/kthread.c:436
 
--- 
-Cheers,
+Set transport_reset to usb_stor_Bulk_reset: ene_send_scsi_cmd()
+already frames its command/status packets with the shared
+struct bulk_cb_wrap/bulk_cs_wrap from include/linux/usb/storage.h
+and only ever transfers over us->send_bulk_pipe/recv_bulk_pipe, i.e.
+this device speaks the Bulk-Only Transport wire protocol underneath
+its own SCSI translation layer, so the Bulk-Only reset is the correct
+recovery action for it, matching the pattern already used by the
+other subdrivers with a custom transport function (alauda, datafab,
+jumpshot, karma).
 
-David
+Also harden usb_stor_probe2()'s existing sanity check to require
+transport_reset alongside transport and proto_handler, so a future
+subdriver making the same mistake fails to probe instead of crashing
+on the first error recovery.
+
+Reported-by: syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=356ae236154297f0d60d
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+v2: per Alan Stern's review, justify why usb_stor_Bulk_reset is the
+    correct choice for ene_ub6250, and additionally harden
+    usb_stor_probe2()'s NULL check to cover transport_reset so other
+    subdrivers can't hit the same bug.
+
+ drivers/usb/storage/ene_ub6250.c | 2 ++
+ drivers/usb/storage/usb.c        | 6 ++++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
+index ed49a3bc859c..3137c2cdd021 100644
+--- a/drivers/usb/storage/ene_ub6250.c
++++ b/drivers/usb/storage/ene_ub6250.c
+@@ -2350,6 +2350,8 @@ static int ene_ub6250_probe(struct usb_interface *intf,
+
+ 	us->transport_name = "ene_ub6250";
+ 	us->transport = ene_transport;
++	/* get_transport() only sets this for the standard USB_PR_* protocols */
++	us->transport_reset = usb_stor_Bulk_reset;
+ 	us->max_lun = 0;
+
+ 	result = usb_stor_probe2(us);
+diff --git a/drivers/usb/storage/usb.c b/drivers/usb/storage/usb.c
+index 064c7fc8e368..823a4b2e9033 100644
+--- a/drivers/usb/storage/usb.c
++++ b/drivers/usb/storage/usb.c
+@@ -1100,8 +1100,10 @@ int usb_stor_probe2(struct us_data *us)
+ 	int result;
+ 	struct device *dev = &us->pusb_intf->dev;
+
+-	/* Make sure the transport and protocol have both been set */
+-	if (!us->transport || !us->proto_handler) {
++	/* Make sure the transport, its reset method, and the protocol
++	 * have all been set
++	 */
++	if (!us->transport || !us->transport_reset || !us->proto_handler) {
+ 		result = -ENXIO;
+ 		goto BadDevice;
+ 	}
+--
+2.43.0
