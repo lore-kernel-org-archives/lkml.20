@@ -1,117 +1,82 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3576E2C3757
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAD2560AA0;
+	Wed,  9 Sep 2026 13:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961535; cv=none; b=Tb9TuRfoYXNjM7JCTKlFqMxnaRz6qL3kaY38PLF3leOpM0WhO+/fiNTzSwfWmd7GREzSd2nbBoXxv9aAb/bq1XwKB7Z6LmksiEdxLFt02Vszfo0YO3c72bPoimkXFyoTuO++qEQYoWVqPyA/vU36CHpbCKnWOV/MT2jf4s28w0g=
+	t=1788961541; cv=none; b=G1eB+m8cYSf5wkWp5HvNRZdut6BigMBjQI8D8EskEwlcaLTqfjfdaqtDbeXgqw248+gQMMiHMpmCIYbvxT7Ggpic0Ydv9UGJ6q+OGMkTGVQjkMaRXOFdav8YgmFFBXxvHAN5f4S2L3N9qOwr8B0wh05/Q3fc7V/uglPIDDgKm8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961535; c=relaxed/simple;
-	bh=i0VT1OqBwdS71Uf2IVo6PfkEcn4RaE4yYClA5DJrApM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TR1GsOfWg/uRS2L+rwRIBRnD8ZQCLxHJ+xPq6D4TInrf83kHkfNeKpy/lzg7Be9rHTsdjlAlLVnjjJKqtTTqi8c4raUZizvasowaQQNsMJ7cXrQc5Sgbo8Xa2dfgMDDXgvWqmLK6toR8VQoywQv6aXmOm8bpvOoqBSdPztjyzKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f3CzoA5s; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788961541; c=relaxed/simple;
+	bh=K7Og0xh+CK78Jr1wE50d16ZuR8sPW3tSVEBFHxXOlJA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=POnsLcoiPnCwY8bA0eoYcymciodCOafUiIRt8zzAWhk/6vytMDpyWxIy7vpcRn2Svl3sxNlm067bTAIoV8e3lQh5Bptbt4BMil9OWIv94NX2O04CgIhZPGrrZaNf6qR81x6KLoRz2v8ROI1G/VvyG3dk59nQXHH/KMWLsQVIIKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyxcNJh0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f3CzoA5s"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso48377765e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:45:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788961531; x=1789566331; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b8YKB3/dJvd9GLizbpdWgBqtE5BIptbKHlbLLtYjluU=;
-        b=f3CzoA5sQghKNhyeFM0SByTb417WCMUIosqI9SPLPTaFsENGmWVMlyNfajctG1FJOA
-         gjqLXKsybDbQzNB3v3siu4ydu1oEz/QMeHcQoZgOK1I+RkNkMidEB9v9CfwA/6Y/ze6b
-         uR+Go3acgcl7gw7GjmpEHyN3GVXOh2SKLtd0LZBunrzsbvkVEaY25llAzbdChYHzyJCG
-         oOfPvu7QrBeZ2/HepX/0mrWPXUCEl3ZMOnRrl2peLFtNIvt8F3fmhE+0rtQdftTMMhCb
-         BcanwuhEyQkzLaQeF6rzgp4yalzfMV+Iqo6qAlNV0v6T6Bby0RrM+2sFc5Dyb5K8P2kM
-         7NJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788961531; x=1789566331;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b8YKB3/dJvd9GLizbpdWgBqtE5BIptbKHlbLLtYjluU=;
-        b=n644EMyABlGHgJT57MtqB38plLalJ6RtLE23nTeDOlPpWAU2NMuRkBQd+8WPw7VzYq
-         RK9d3Ur8z3GzbJfeNKfkd/8uMUP8bBqp4kIf9jn8e3jQgtOSbn1sf+p9BgvboPe7y1iN
-         P0xs2i8UYQCQh91jkFyLD74HOjNZZubw/+OiHax7qpWE3C3+u2TXcwayvwQOzV1+y5g+
-         cW7tfkyDYRRZQXIp9ppjmwpUE1yEzeUhn4HPpL9uhxSFfy27lTuUm0Bjy3DM+M7eWYS7
-         Okw9f4lUDCwSigQVkzFMDwblKhOzyK188fAJOkq1Us42Th4hafSxPq8yYU6KAiumuC3i
-         W1Mw==
-X-Forwarded-Encrypted: i=1; AKwUvBxT0Myu7ewttlr/86XFeNJO5BJTf+d57miCbXwm/IZ3HAL1A0yVuoX7adhwU7HmAdpnjYeWoZPvsl0ycmc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntJdK019l4lR6klBRQog+qW6ZH+L2XnYv0yt0O8IzikFXfD7WH
-	Hg1PnKbuZQNR/ds9SO1w+F/2ELcilynHcAX8nvLjw0m/MesLy5w+RlqK
-X-Gm-Gg: AYBFou2x7MD6NdAQRvgmS7s6HtwE6d1o/Dve4DerOF2myuXQbAFdJKdUYVN4Nix+xtV
-	qUnPnDaVzULyEhby7J4v2uWDnnNWpOz3SouolEkb1vBN4nPWeTt82CqZ1omChqNJiKh/k5g3lfH
-	oblTcjcWCFT0O6J62V1YhRM831iRcn2SCpBnd/SL0UN1mcyH/bXP5PFWWrHjOBemu5TgaZPefM3
-	+OcK8zDt8TjzzukZwY7tTiJEjWhGCeXJ9jg56+Rmvpb2YJ1cdOfunYUlnH9e/GquKWuGba2gr7R
-	q9qvjiq9VZqyc4J2T8I9aR6Y01NLJxHtiHgrwfMOT/C7AnyFM9N340TOJay9S94/obLhmXC6vio
-	sOr+jnJFrR072KDpeDGnc/EIZ8jwpgJGMt2ORP1OKtDllQ3RKT/C3sKESYu2x6zkSVw8aS64Zja
-	cdu3nTp0i1X66qIMn4PnYTXu75Qn8W0vWNVhfMs+33spSq8Ptn0olXftfvB0TAw3A9qDA+mcVs0
-	8x+d+e5xPh2EMqC/YKQiOWcFiOcPgEq+IZoyOkpxpAozP+l320bgdCw333a7RJUCML0EBtF1p6z
-	WSGiTnMX5cUgHwma81XmU3app1CrRcXVpAxb/SkA4ZbzJbaWkGVF0s0J5TA5eH9nojD71fcD+9v
-	+EUksHUKPWfqZn2sSY55jYVhgg2VbInn9kYGTFNW0jlEbRHoq/6FpQN8/Tls16/tZhAh0mAP6m7
-	/GBR45
-X-Received: by 2002:a05:600c:8b88:b0:49c:fc6e:a3d8 with SMTP id 5b1f17b1804b1-49cffde8d95mr318555215e9.23.1788961531014;
-        Wed, 09 Sep 2026 06:45:31 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm36848889f8f.13.2026.09.09.06.45.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 06:45:30 -0700 (PDT)
-Date: Wed, 9 Sep 2026 15:45:26 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Kim Seer Paller <kimseer.paller@analog.com>, Marilene Andrade Garcia
- <marilene.agarcia@gmail.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: max14001: add missing MODULE_DEVICE_TABLE
- macro
-Message-ID: <20260909154526.00002640@gmail.com>
-In-Reply-To: <aqFhagdhM4Z57eqh@ashevche-desk.local>
-References: <20260909130304.1395-1-joshua.crofts1@gmail.com>
-	<aqFhagdhM4Z57eqh@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyxcNJh0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065D61F00A3A;
+	Wed,  9 Sep 2026 13:45:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788961539;
+	bh=QYRHV/zNn2kE44vI4Gwn+qFsYPwBJ8jWjQJ2f6N/j1Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=nyxcNJh00mAOdkaFmOssybmy/TnTir92VvTia8IJJ4Bfrtc0ATMMCv9vL/v7HUY0+
+	 oKRAlDQgrdNqkBBKtUR1hTVpSWH+m6vQYAocQ1MERgu+zjTo42y4EJOoJwYyBJD9wC
+	 LH+pVEOA74WK6L9hAoOIO6tUrMBfq+dXD9ey4szlkb5BvNIH2lOUBd2589POTj11ld
+	 +my8YtAtKl2uJKmpcRKC4Xn0qEoMdTFR4gQGx8Vg+mxr5x0nEErmch2OK2DGw8L05j
+	 mPF9GwPsCMXGcbstfBMzyidZSr8jajef5YxpxGV/a2fFtmH27dDiZLSquGDEX3+9uZ
+	 JMHIG1blKX00w==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>, Frederic Weisbecker
+ <frederic@kernel.org>, stern@rowland.harvard.edu, boqun@kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
+ <brauner@kernel.org>, John Stultz <jstultz@google.com>, Ingo Molnar
+ <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, "Eric W.
+ Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <20260909125132.GR788244@noisy.programming.kicks-ass.net>
+References: <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home> <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <20260909125132.GR788244@noisy.programming.kicks-ass.net>
+Date: Wed, 09 Sep 2026 15:45:36 +0200
+Message-ID: <87y0dazgfz.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On Wed, 9 Sep 2026 16:38:50 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Wed, Sep 09 2026 at 14:51, Peter Zijlstra wrote:
+> On Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra wrote:
+>> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
+>> > P2(int *next, int *prev, int *pid, spinlock_t *sighand)
+>> > {
+>> > 	int r0;
+>> > 	int r1;
+>> > 	// get target
+>> > 	r0 = READ_ONCE(*pid);
+>> > 	spin_lock(sighand);
+>
+> There is no dependency between r0 and sighand. While I think there is in
+> posixtimer_send_sigqueue(). Does making it smp_load_acquire() help?
 
-> On Wed, Sep 09, 2026 at 01:03:04PM +0000, Joshua Crofts wrote:
-> > The MAX14001 has an SPI ID table, but does not export it with the
-> > MODULE_DEVICE_TABLE(spi, ...) macro. Because of this, SPI-based module
-> > autoloading fails on systems that don't use devicetree (e.g. via
-> > spi_board_info).
-> > 
-> > Add the missing macro to export the alias information.
-> > 
-> > Fixes: 59795109fa67 ("iio: adc: max14001: New driver")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> > ---  
-> 
-> Changelog?
+sighand is r0->sighand->siglock and obviously not known before r0 is
+read. So yes there is a data dependency in reality :)
 
-God, I should start using AI to check my patches before sending.
-Appending below.
-
-Changes in v2:
-- edit commit message (expand on module autoloading and SPI)
-
--- 
-Kind regards,
-Joshua Crofts
+>> > 	// queue signal
+>> > 	r1 = READ_ONCE(*next);
+>> > 	if (r1 == 0)
+>> > 		WRITE_ONCE(*prev, 2);
+>> > 	spin_unlock(sighand);
+>> > }
+>> > 
+>> > exists (prev=1 /\ 2:r0=1) (* Bad outcome. *)
