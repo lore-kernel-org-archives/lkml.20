@@ -1,177 +1,348 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9F05437D6
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A306A53ED1D;
+	Wed,  9 Sep 2026 11:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954742; cv=none; b=aLrGzBjoNNmCAgnehq3pirUasN3W0+KwO+qv1nD73qY6+vgpRnjgKGgnwK8dBIq4JptC0ARfRuZThsQGMxpUxGUVnAH/m73SilccJa2xYhlBhqK2DuXgvoiJDgQr0JIwpKQyhjwLDeCt8umaFOfMHnK2Z44PaT5BANiHncrty2g=
+	t=1788954773; cv=none; b=D0m1hw4N4eyMcwwKEd0b6pzKGJaZnO0m0POw7VfpQMz2NOJA1a2oxt1M9kqEAr0FIHW6JbQfJEnTV0Z/yN4rGq4KLQq0zAr4iuSPB9+7BvsrNLzthLXQxfxuLUxUBYTdQ9YQwDiN8NMpMLMjKSwwcj170Ei1nJccvUaHqU78Xzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954742; c=relaxed/simple;
-	bh=wynWGA4fk1dSOZfkILyjQAZw/pninY0nN4ZGWNEnsL0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kShrSuH8uqeGvUMgO1xRU8rTkXHBrP0urp1RtKV5UahYLBgQ2qZf+GhblQyyEhulcDRxD2j3JFEOV1iR3jepFd3sNk6sAxa+zu8tZdZ36WyOTOAn9jAHfkqlmjF2HV5pTA9jJ6m5BS0Ai6gbUNTEsZQDa8UIBQwq/4vek8acERc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GoB8j0+o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AfmgockH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788954773; c=relaxed/simple;
+	bh=PMlcPN1pGdd0les1zHqHbTaXrb5Fa97JWbU40R+JlUk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m9AMKUnkveGNEDDvV1M3OdCS4SV4+1m+49NYIhnfqjHLzVTrbRcT/t6IU/gC0asxbgBkNNsLv8hRogw7Wz4uqa208WC2keYOHXDmH9SV/s2s7EUsjIX+5CqOjbBT+vF7QHt63q8NFo2xIlz/Eyd7ARceUx8dDDtkERYqSvLVYfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmbRqPrY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GoB8j0+o";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AfmgockH"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BUCd21307942
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 11:52:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yWVC0il5ooJ5HqrOgC2T3F4oate1AqgFeCGJdC2H1M4=; b=GoB8j0+oNcLw46Wu
-	W3PMSyrJBelM5vMugl7TFZcsdxIPc0fF9IkODtHREuycZBztaXUBw+XcqSiHXhbl
-	30Ps9ie4Gk8EbMFgvDr2MXZGxe6Z2LOYGWW/w7qNjx0uAmDGETHSK6sbdvklYy97
-	letFusq5wnhD2/hDhpl2+iSKNzJbYwHRy9E8MMVoe+D1TYG7coxggnbgZ6xX0PC/
-	ccAcx4CJ2w4EETXuNvpAZCaF9t2LYdnLZ/wKkzSQzHnsRk6Rb1AGHEoR8cRIZ9aQ
-	6kLlcVHiA/LVvd9W9lxm+Uvbb0Yc4uC5dvCc5tQvWaprGpFxaXXbKupbaI5TXeUX
-	lFmPtA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjstub27y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:52:20 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52d7ef17031so8598071cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788954739; x=1789559539; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yWVC0il5ooJ5HqrOgC2T3F4oate1AqgFeCGJdC2H1M4=;
-        b=AfmgockHihcuuIqRMvsUFRHUBVW97Zlh8Ke49wS5xLTSj5nSakbZbPl6PX5S/jL8O3
-         zCwn9DsAjVUhja22GfLQ8AU+5mkzMeFtA0CdezTC9uJLG8FY/QBoRu5qZiwt/kXHDXnF
-         yP/1sZ0a9ZlY4vqbKaP2lgGxKSwWSuFRQljdSM+jHPVQnVkXobSUGa3fptK2oCzt/RXx
-         dNh2r3YJUUzMU6y+OInD6Army6lOF63At6YoIXXfCDNqbs6RUtfASyVtxDNwTYYnUHwB
-         7ebNC7yTKSmcslBGqJR8PHe/MY/MqcUf94mvxTjTe7ffJiaPkwqQOlkQ556TxOW+CTCY
-         rMSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788954739; x=1789559539;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yWVC0il5ooJ5HqrOgC2T3F4oate1AqgFeCGJdC2H1M4=;
-        b=pjBMZDM3ScoZMM8HezO3RoLD24LqXXvpQAQm1J5m/QHP7/DDV2LAdjOB07p326oq4v
-         N816Smhupb9I2/Mrqfx2X/mEhbGad5SvmdcYoZ7R39BxZQzhBEHzUKoqyaKojFh+0Sq4
-         wDlI1s2WJ5l2I4cSM+fTRUPEpzBmZ6iMbpeTsxZm4VDiBpZVa56kTqkWSLh9AthDZVy/
-         g1fip0U8nZAlVtVP9puH+w7CPSlj6S4lbuDiHycfLvpxQsCOTxqc6flqO5o9qXNXMfgX
-         J9tzetjNcLCIjUES6dyKtcVMqGHLd6VcplSGJqfM+ScKXmjydQrc5CLguNVcQVTESEtN
-         dK6w==
-X-Forwarded-Encrypted: i=1; AKwUvBw0TQexrX5P6ZHuUX2h3ZMPWIu7LAPQEcjVEyNAy+VMOG2hlCxwZhjcge2ibm051Min40X95HfVHPL2F7U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrMsSbciNls8Elu0xeCsp5DaHum2cVtrDelSuZO7plqslr/odT
-	oubev4Qf/ndsIOkQjHSVbD6KKFRph0CzYUapHXNvtyGaGYRZ1UdnOeO75hIWrXbjLnPIFwEzQE7
-	WnjFTl2auzJ/3STJ/RJv0gUCtnXpNmqdwBNzqOl2QnFa5ajrRXCvxXgXfOgXVWKT0sx8=
-X-Gm-Gg: AYBFou3Uo0pgV9oVp0LDgSHQ0caAttF1rTt6OhX18UIFKF/k7k30Bf36GVm4rWqzsEG
-	9NVGvLh7UFV46xSnMFwU4f/YwZLb6hhe1lIHAa1umrwIWRqL0W0+9wEwXh9nGmFtVmR8IiIl2/T
-	gGoVz5mN9KESc7LrihuPF0q8BWlE2LNJb/UgyuZkCVeq6fw6O0PIhPi7I/AVHbNk42qu4lkVKSN
-	lehe+fxV+H0Pz66OP5hNM0xD29z4q0YUzsTHO1w3ejSX6GvbhvKO7u15OJpnfSHC2aCtRnsM7qA
-	HPmVXR2sZkQnJRPlx28QHj4xsgyo5LO6/7D0wplZY/SZKdUHRhQmyD++dNOg7OKLzfi4gEpIcgc
-	Iio6IZ2TlzovbCFswCXSfeQ==
-X-Received: by 2002:ad4:5fce:0:b0:90e:8d21:714 with SMTP id 6a1803df08f44-910476de413mr284196176d6.2.1788954734410;
-        Wed, 09 Sep 2026 04:52:14 -0700 (PDT)
-X-Received: by 2002:ad4:5fce:0:b0:90e:8d21:714 with SMTP id 6a1803df08f44-910476de413mr284195746d6.2.1788954733843;
-        Wed, 09 Sep 2026 04:52:13 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d55b306sm756078766b.36.2026.09.09.04.52.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 04:52:12 -0700 (PDT)
-Message-ID: <2b163290-d57c-4e84-99b1-d94fb5f45f79@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 13:52:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmbRqPrY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7B41F00A3A;
+	Wed,  9 Sep 2026 11:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788954771;
+	bh=HX/9u9ZOyn+A65il1ydMpPrAYGvAfJ881m9P59zMh/w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RmbRqPrYgdNlWaUzBNmteLc0oXjw9N1SOHkFnHRXB29L8jvAU7loD2kN+qR/fOA22
+	 CrDq7ggGAFi/iU3KkFyqdwpZg3BLX0GiR+ETOZeNRLstrd+xsPLcGSS7l1m4nzPcOu
+	 9OkoYLGJfIU5QPj7eO5nRW4hnadhxjv0yGdQJTlO68Nc0ivG4Zm4wUJpTmgnCzwSVm
+	 qsNNnYCAZcTtZtshl8O6UH+pX4HkiGokxQwtJxeaq7DEIoWu7kj9kGDhZLPvwZuhXj
+	 gFxQyAfraGgEBec75hogWWocPeiDplxGjThD/n/C8wZLTb7HQAuGY8YLZevZrVHmx2
+	 hg6+ZkSQUbyfQ==
+Date: Wed, 9 Sep 2026 08:52:48 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
+Message-ID: <aqFIkFzVvCQqnzpy@x2>
+References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
+ <aqE_QOp-x1aOQsCX@x2>
+ <aqFCMfb94Cdumemm@x2>
+ <aqFDLQ5Yu7yg6Y2Z@x2>
+ <aqFEdSZ40HkvipUr@x2>
+ <aqFGVejYb-kZ8o_I@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] power: reset: qcom-pon: Drop reason shift for PMK8350
-To: Alexander Koskovich <akoskovich@pm.me>,
-        Sebastian Reichel
- <sre@kernel.org>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260907-pon-pbs-v1-1-cff2f5810769@pm.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260907-pon-pbs-v1-1-cff2f5810769@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=ItAutr/g c=1 sm=1 tr=0 ts=6aa14874 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=XjHw8PULWccToXi1muEA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEzMiBTYWx0ZWRfX82kWUvAGsTIt
- u1EyEM1af3M6NGtI9IHEVwPYqjhq25FNg8ojhfv4/JD6WxbF3WJ2phDtv8pwAIr77Qj+azyTwY7
- NEVu2o02AwBjPgWNz9ezN/ndUrbfNy8=
-X-Proofpoint-ORIG-GUID: 7E901daHyiE8wy3UHi9JsSUVF_MIFhLl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEzMiBTYWx0ZWRfX/w60TcwIvbcp
- SZGKPoPm9RxZiaPtSU/xAHy7sDsIg/7HKUacv69iTToH1SnaKHR6UAzRWv77xa1OnKq9dmbaLUr
- tyjKtdMeNP03DevqvT2+79NsHm2RT+v2ndf/DyK+XHZ9M8XYXOA4s+ARc5N63yixA2BiJrHOUi4
- B7N9w33YocNN0ThJlJqFfUQOauD6/NNdgIQHsE5VprcqfNUG71avZ5+K/hsglWWKWRRcw3PtK6n
- gRCWEEXW+Yg4Wkhin7efUKZ83EqbBSUPj/YKfFt/vR7iLystIgjakBvF5U9uRnluaCEsZhCqKem
- 92OvDKKt1SYLsuNyNzqjHwdF2jrTVPKtpioVajOs8J2IR50bM0nPayXojt3n/KMbYKJ2FdV03Tw
- WwgQDBWvBmZDj2wVFeIEpMLFTiLmtxw+VutVgbEjtVf07ZVoKBdxtcGnVjd8M+94rsFanO/unY4
- NlV5xzUFkPXLn6aNt+A==
-X-Proofpoint-GUID: 7E901daHyiE8wy3UHi9JsSUVF_MIFhLl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0 phishscore=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090132
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqFGVejYb-kZ8o_I@x2>
 
-On 9/7/26 6:44 PM, Alexander Koskovich wrote:
-> On the PMK8350 the SOFT_RB_SPARE register does not exist, the reset
-> reason is instead kept in SDAM and written through the reboot-reason
-> nvmem cell.
+On Wed, Sep 09, 2026 at 08:43:20AM -0300, Arnaldo Carvalho de Melo wrote:
+> On Wed, Sep 09, 2026 at 08:35:20AM -0300, Arnaldo Carvalho de Melo wrote:
+> > On Wed, Sep 09, 2026 at 08:29:52AM -0300, Arnaldo Carvalho de Melo wrote:
+> > > On Wed, Sep 09, 2026 at 08:25:41AM -0300, Arnaldo Carvalho de Melo wrote:
+> > > > patching file tools/perf/ui/setup.c
+> > > > ⬢ [acme@toolbx perf-tools-next]$
+> > > > 
+> > > > I fixed it up quickly, now lets see the rest...
+> > > 
+> > > Trying to build with it with just the first patch in this series in it
+> > > correctly discovers that the gtk4 devel files are not available but then
+> > > proceed to try to include gtk code and thus fail, where it should just
+> > > do what the feature detection states: disable gtk support but build
+> > > successfully without it, I'm checking if this is a quick surgery.
+> > 
+> > This is a pre-existing condition, if I try without your series and
+> > without gtk2 devel files, I get the same problem, so I'll now try to
+> > build it with the required gtk4 devel files, we can fix this
+> > pre-existing problem afterwards, its not a regression introduced by your
+> > series.
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
-> Would like some feedback on this as I'm seeing conflicting results,
-> SOFT_RB_SPARE does not exist on HLOS but it looks like the downstream
-> qpnp-power-on driver writes to XVDD_RB_SPARE2 for GEN3, which is on PBS.
+> Now, with GTK4=1 and trying to build the first patch after installing
+> gtk4-devel on fedora 43 it fails to detect gtk4 support:
 > 
-> Though, targets like waipio don't seem to have access to write to PBS
-> from HLOS? Get SPMI errors when I try. Didn't have an issue doing so on
-> milos though.
+> ⬢ [acme@toolbx perf-tools-next]$ m
+> make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+>   BUILD:   Doing 'make -j32' parallel build
 > 
-> Besides, the bindings doesn't allow reboot modes on PMK8350 so maybe
-> setting no reason shift is correct regardless so it gets skipped?
-> ---
+> Auto-detecting system features:
+> ...                                   libdw: [ on  ]
+> ...                                   glibc: [ on  ]
+> ...                                    gtk4: [ OFF ]
+> ...                                  libelf: [ on  ]
+> ...                                 libnuma: [ on  ]
 
-Maybe +Kamal or +Fenglin would know more
+I see, you do it with tools/perf being your cwd, I tried that and it
+works now:
 
-Konrad
+⬢ [acme@toolbx perf-tools-next]$ cd tools/perf/
+⬢ [acme@toolbx perf]$ make GTK4=1
+  BUILD:   Doing 'make -j32' parallel build
 
->  drivers/power/reset/qcom-pon.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/power/reset/qcom-pon.c b/drivers/power/reset/qcom-pon.c
-> index 7e108982a582..9cd55f5536b4 100644
-> --- a/drivers/power/reset/qcom-pon.c
-> +++ b/drivers/power/reset/qcom-pon.c
-> @@ -90,7 +90,7 @@ static const struct of_device_id qcom_pon_id_table[] = {
->  	{ .compatible = "qcom,pm8941-pon", .data = (void *)NO_REASON_SHIFT },
->  	{ .compatible = "qcom,pms405-pon", .data = (void *)GEN1_REASON_SHIFT },
->  	{ .compatible = "qcom,pm8998-pon", .data = (void *)GEN2_REASON_SHIFT },
-> -	{ .compatible = "qcom,pmk8350-pon", .data = (void *)GEN2_REASON_SHIFT },
-> +	{ .compatible = "qcom,pmk8350-pon", .data = (void *)NO_REASON_SHIFT },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, qcom_pon_id_table);
-> 
-> ---
-> base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-> change-id: 20260907-pon-pbs-76b7ecaafe33
-> 
-> Best regards,
+Auto-detecting system features:
+...                                   libdw: [ on  ]
+...                                   glibc: [ on  ]
+...                                    gtk4: [ on  ]
+...                                  libelf: [ on  ]
+...                                 libnuma: [ on  ]
+...                  numa_num_possible_cpus: [ on  ]
+...                               libpython: [ on  ]
+...                             libcapstone: [ on  ]
+...                               llvm-perf: [ on  ]
+...                                    zlib: [ on  ]
+...                                    lzma: [ on  ]
+...                                     bpf: [ on  ]
+...                                  libaio: [ on  ]
+...                                 libzstd: [ on  ]
+...                              libopenssl: [ on  ]
+...                                    rust: [ on  ]
+
+  INSTALL libsubcmd_headers
+  INSTALL libapi_headers
+  PERF_VERSION = 7.3.rc2.g581f81a14c5c
+  INSTALL libsymbol_headers
+  GEN     perf-archive
+  INSTALL libperf_headers
+  GEN     perf-iostat
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/core.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/cpumap.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/threadmap.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/evsel.o
+  INSTALL libbpf_headers
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/evlist.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/mmap.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/zalloc.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/xyarray.o
+  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/lib.o
+  LD      /home/acme/git/perf-tools-next/tools/perf/libperf/libperf-in.o
+  AR      /home/acme/git/perf-tools-next/tools/perf/libperf/libperf.a
+  CC      ui/gtk/browser.o
+  CC      jvmti/libjvmti.o
+  CC      ui/gtk/hists.o
+  CC      arch/common.o
+  CC      ui/gtk/setup.o
+  CC      trace/beauty/syscalltbl.o
+  CC      ui/gtk/util.o
+  CC      jvmti/jvmti_agent.o
+  CC      ui/gtk/helpline.o
+  CC      trace/beauty/arch_errno_names.o
+  CC      jvmti/libstring.o
+  CC      ui/gtk/progress.o
+  CC      jvmti/libctype.o
+  CC      ui/gtk/annotate.o
+<SNIP>
+  LD      perf-bench-in.o
+  AR      libperf-bench.a
+  LINK    perf
+  LINK    libperf-gtk.so
+⬢ [acme@toolbx perf]$
+
+I don't think this was present before, lemme try...
+
+My bad, I made a mistake and was trying to build with gtk4 while using
+GTK2=1 on the make command line, that I had switched to test building
+with gtk2 for that pre-existing problem and forgot to switch back to
+GTK4=1 when returning to test your patches...
+
+Now, with it it works as expected, using 'make GTK4=1 -C tools/perf',
+building the first patch:
+
+⬢ [acme@toolbx perf-tools-next]$ rm -rf /tmp/build/`basename $PWD` ; mkdir -p /tmp/build/`basename $PWD`
+⬢ [acme@toolbx perf-tools-next]$ alias m='rm -rf ~/libexec/perf-core/ ; make -k GTK4=1 O=/tmp/build/$(basename $PWD)/ -C tools/perf install-bin && perf test import && cat /tmp/build/$(basename $PWD)/feature/test-all.make.output' ; export PYTHONPATH=/tmp/build/$(basename $PWD)/python
+⬢ [acme@toolbx perf-tools-next]$ m
+make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+  BUILD:   Doing 'make -j32' parallel build
+
+Auto-detecting system features:
+...                                   libdw: [ on  ]
+...                                   glibc: [ on  ]
+...                                    gtk4: [ on  ]
+...                                  libelf: [ on  ]
+...                                 libnuma: [ on  ]
+...                  numa_num_possible_cpus: [ on  ]
+...                               libpython: [ on  ]
+...                             libcapstone: [ on  ]
+...                               llvm-perf: [ on  ]
+...                                    zlib: [ on  ]
+...                                    lzma: [ on  ]
+...                                     bpf: [ on  ]
+...                                  libaio: [ on  ]
+...                                 libzstd: [ on  ]
+...                              libopenssl: [ on  ]
+...                                    rust: [ on  ]
+
+  CC      /tmp/build/perf-tools-next/dlfilters/dlfilter-test-api-v0.o
+  CC      /tmp/build/perf-tools-next/dlfilters/dlfilter-test-api-v2.o
+  CC      /tmp/build/perf-tools-next/dlfilters/dlfilter-show-cycles.o
+  GEN     /tmp/build/perf-tools-next/arch/arm64/include/generated/asm/sysreg-defs.h
+<SNIP>
+  LINK    /tmp/build/perf-tools-next/perf
+  LINK    /tmp/build/perf-tools-next/libperf-gtk.so
+  GEN     /tmp/build/perf-tools-next/python/perf.cpython-314-x86_64-linux-gnu.so
+  INSTALL GTK UI
+  INSTALL binaries
+  INSTALL tests
+  INSTALL libperf-jvmti.so
+  INSTALL libexec
+  INSTALL perf-archive
+  INSTALL perf-iostat
+  INSTALL python-scripts
+install: omitting directory 'scripts/python/Perf-Trace-Util/lib/Perf/Trace/__pycache__'
+  INSTALL dlfilters
+  INSTALL perf_completion-script
+  INSTALL perf-tip
+make: Leaving directory '/home/acme/git/perf-tools-next/tools/perf'
+104: 'import perf' in python                                                                                   : Ok
+
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+⬢ [acme@toolbx perf-tools-next]$ 
+
+And, which makes me recall why we made t his a plugin :-)
+
+⬢ [acme@toolbx perf-tools-next]$ ldd /tmp/build/perf-tools-next/libperf-gtk.so
+	linux-vdso.so.1 (0x00007f8588fb8000)
+	libgtk-4.so.1 => /lib64/libgtk-4.so.1 (0x00007f858854c000)
+	libpangocairo-1.0.so.0 => /lib64/libpangocairo-1.0.so.0 (0x00007f8588539000)
+	libpango-1.0.so.0 => /lib64/libpango-1.0.so.0 (0x00007f85884cd000)
+	libharfbuzz.so.0 => /lib64/libharfbuzz.so.0 (0x00007f8588399000)
+	libgdk_pixbuf-2.0.so.0 => /lib64/libgdk_pixbuf-2.0.so.0 (0x00007f858836b000)
+	libcairo-gobject.so.2 => /lib64/libcairo-gobject.so.2 (0x00007f8588362000)
+	libcairo.so.2 => /lib64/libcairo.so.2 (0x00007f8588222000)
+	libvulkan.so.1 => /lib64/libvulkan.so.1 (0x00007f858819a000)
+	libgraphene-1.0.so.0 => /lib64/libgraphene-1.0.so.0 (0x00007f858817d000)
+	libgio-2.0.so.0 => /lib64/libgio-2.0.so.0 (0x00007f8587faa000)
+	libgobject-2.0.so.0 => /lib64/libgobject-2.0.so.0 (0x00007f8587f4b000)
+	libglib-2.0.so.0 => /lib64/libglib-2.0.so.0 (0x00007f8587df4000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f8587c00000)
+	libgmodule-2.0.so.0 => /lib64/libgmodule-2.0.so.0 (0x00007f8587bfa000)
+	libharfbuzz-subset.so.0 => /lib64/libharfbuzz-subset.so.0 (0x00007f8587ac5000)
+	libfribidi.so.0 => /lib64/libfribidi.so.0 (0x00007f8587aa5000)
+	libfontconfig.so.1 => /lib64/libfontconfig.so.1 (0x00007f8587a55000)
+	libepoxy.so.0 => /lib64/libepoxy.so.0 (0x00007f8587949000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007f8587852000)
+	libgstplay-1.0.so.0 => /lib64/libgstplay-1.0.so.0 (0x00007f858782e000)
+	libgstvideo-1.0.so.0 => /lib64/libgstvideo-1.0.so.0 (0x00007f8587759000)
+	libgstreamer-1.0.so.0 => /lib64/libgstreamer-1.0.so.0 (0x00007f8587600000)
+	libgstgl-1.0.so.0 => /lib64/libgstgl-1.0.so.0 (0x00007f858756d000)
+	libgstallocators-1.0.so.0 => /lib64/libgstallocators-1.0.so.0 (0x00007f8587564000)
+	librsvg-2.so.2 => /lib64/librsvg-2.so.2 (0x00007f85870a0000)
+	libXi.so.6 => /lib64/libXi.so.6 (0x00007f858708d000)
+	libX11.so.6 => /lib64/libX11.so.6 (0x00007f8586f48000)
+	libpangoft2-1.0.so.0 => /lib64/libpangoft2-1.0.so.0 (0x00007f8586f2c000)
+	libtinysparql-3.0.so.0 => /lib64/libtinysparql-3.0.so.0 (0x00007f8586e58000)
+	libpng16.so.16 => /lib64/libpng16.so.16 (0x00007f8586e1c000)
+	libtiff.so.6 => /lib64/libtiff.so.6 (0x00007f8586d83000)
+	libjpeg.so.62 => /lib64/libjpeg.so.62 (0x00007f8586ce1000)
+	libxkbcommon.so.0 => /lib64/libxkbcommon.so.0 (0x00007f8586c88000)
+	libwayland-client.so.0 => /lib64/libwayland-client.so.0 (0x00007f8586c78000)
+	libwayland-egl.so.1 => /lib64/libwayland-egl.so.1 (0x00007f8586c74000)
+	libXext.so.6 => /lib64/libXext.so.6 (0x00007f8586c60000)
+	libXcursor.so.1 => /lib64/libXcursor.so.1 (0x00007f8586c51000)
+	libXdamage.so.1 => /lib64/libXdamage.so.1 (0x00007f8586c4d000)
+	libXfixes.so.3 => /lib64/libXfixes.so.3 (0x00007f8586c46000)
+	libXrandr.so.2 => /lib64/libXrandr.so.2 (0x00007f8586c39000)
+	libXinerama.so.1 => /lib64/libXinerama.so.1 (0x00007f8586c35000)
+	libcairo-script-interpreter.so.2 => /lib64/libcairo-script-interpreter.so.2 (0x00007f8586c12000)
+	libcups.so.2 => /lib64/libcups.so.2 (0x00007f8586b7c000)
+	libcolord.so.2 => /lib64/libcolord.so.2 (0x00007f8586b21000)
+	libthai.so.0 => /lib64/libthai.so.0 (0x00007f8586b16000)
+	libfreetype.so.6 => /lib64/libfreetype.so.6 (0x00007f8586a4c000)
+	libgraphite2.so.3 => /lib64/libgraphite2.so.3 (0x00007f8586a2d000)
+	libglycin-2.so.0 => /lib64/libglycin-2.so.0 (0x00007f858660b000)
+	libz.so.1 => /lib64/libz.so.1 (0x00007f85865e3000)
+	libXrender.so.1 => /lib64/libXrender.so.1 (0x00007f85865d7000)
+	libxcb.so.1 => /lib64/libxcb.so.1 (0x00007f85865ad000)
+	libxcb-render.so.0 => /lib64/libxcb-render.so.0 (0x00007f858659e000)
+	libxcb-shm.so.0 => /lib64/libxcb-shm.so.0 (0x00007f858659a000)
+	libpixman-1.so.0 => /lib64/libpixman-1.so.0 (0x00007f85864e9000)
+	libmount.so.1 => /lib64/libmount.so.1 (0x00007f8586493000)
+	libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f8586462000)
+	libffi.so.8 => /lib64/libffi.so.8 (0x00007f8586452000)
+	libpcre2-8.so.0 => /lib64/libpcre2-8.so.0 (0x00007f85863a5000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f8588fba000)
+	libxml2.so.2 => /lib64/libxml2.so.2 (0x00007f8586245000)
+	libgsttag-1.0.so.0 => /lib64/libgsttag-1.0.so.0 (0x00007f8586206000)
+	libgstpbutils-1.0.so.0 => /lib64/libgstpbutils-1.0.so.0 (0x00007f85861c1000)
+	libgstbase-1.0.so.0 => /lib64/libgstbase-1.0.so.0 (0x00007f858613d000)
+	liborc-0.4.so.0 => /lib64/liborc-0.4.so.0 (0x00007f8586099000)
+	libunwind.so.8 => /lib64/libunwind.so.8 (0x00007f858607c000)
+	libdw.so.1 => /lib64/libdw.so.1 (0x00007f8585fdf000)
+	libEGL.so.1 => /lib64/libEGL.so.1 (0x00007f8585fce000)
+	libGLX.so.0 => /lib64/libGLX.so.0 (0x00007f8585f9d000)
+	libwayland-cursor.so.0 => /lib64/libwayland-cursor.so.0 (0x00007f8585f93000)
+	libX11-xcb.so.1 => /lib64/libX11-xcb.so.1 (0x00007f8585f8f000)
+	libgudev-1.0.so.0 => /lib64/libgudev-1.0.so.0 (0x00007f8585f80000)
+	libdrm.so.2 => /lib64/libdrm.so.2 (0x00007f8585f69000)
+	libgbm.so.1 => /lib64/libgbm.so.1 (0x00007f8585f63000)
+	libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f8585f37000)
+	libdav1d.so.7 => /lib64/libdav1d.so.7 (0x00007f8585d53000)
+	libjson-glib-1.0.so.0 => /lib64/libjson-glib-1.0.so.0 (0x00007f8585d26000)
+	libsqlite3.so.0 => /lib64/libsqlite3.so.0 (0x00007f8585bac000)
+	libwebp.so.7 => /lib64/libwebp.so.7 (0x00007f8585b26000)
+	libzstd.so.1 => /lib64/libzstd.so.1 (0x00007f8585a63000)
+	libLerc.so.4 => /lib64/libLerc.so.4 (0x00007f85859ce000)
+	libjbig.so.2.1 => /lib64/libjbig.so.2.1 (0x00007f85859c0000)
+	liblzo2.so.2 => /lib64/liblzo2.so.2 (0x00007f8585998000)
+	libgssapi_krb5.so.2 => /lib64/libgssapi_krb5.so.2 (0x00007f8585941000)
+	libavahi-common.so.3 => /lib64/libavahi-common.so.3 (0x00007f8585932000)
+	libavahi-client.so.3 => /lib64/libavahi-client.so.3 (0x00007f858591e000)
+	libgnutls.so.30 => /lib64/libgnutls.so.30 (0x00007f8585679000)
+	liblcms2.so.2 => /lib64/liblcms2.so.2 (0x00007f858560f000)
+	libudev.so.1 => /lib64/libudev.so.1 (0x00007f85855c5000)
+	libdatrie.so.1 => /lib64/libdatrie.so.1 (0x00007f85855bd000)
+	libbz2.so.1 => /lib64/libbz2.so.1 (0x00007f85855a9000)
+	libbrotlidec.so.1 => /lib64/libbrotlidec.so.1 (0x00007f858559b000)
+	libseccomp.so.2 => /lib64/libseccomp.so.2 (0x00007f858556f000)
+	libXau.so.6 => /lib64/libXau.so.6 (0x00007f858556a000)
+	libblkid.so.1 => /lib64/libblkid.so.1 (0x00007f8585530000)
+	liblzma.so.5 => /lib64/liblzma.so.5 (0x00007f85854fb000)
+	libgstaudio-1.0.so.0 => /lib64/libgstaudio-1.0.so.0 (0x00007f8585476000)
+	libelf.so.1 => /lib64/libelf.so.1 (0x00007f8585457000)
+	libGLdispatch.so.0 => /lib64/libGLdispatch.so.0 (0x00007f85853df000)
+	libexpat.so.1 => /lib64/libexpat.so.1 (0x00007f85853b4000)
+	libsharpyuv.so.0 => /lib64/libsharpyuv.so.0 (0x00007f85853ac000)
+	libstdc++.so.6 => /lib64/libstdc++.so.6 (0x00007f8585134000)
+	libkrb5.so.3 => /lib64/libkrb5.so.3 (0x00007f8585067000)
+	libk5crypto.so.3 => /lib64/libk5crypto.so.3 (0x00007f858504f000)
+	libcom_err.so.2 => /lib64/libcom_err.so.2 (0x00007f8585049000)
+	libkrb5support.so.0 => /lib64/libkrb5support.so.0 (0x00007f8585039000)
+	libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x00007f8585033000)
+	libcrypto.so.3 => /lib64/libcrypto.so.3 (0x00007f8584af1000)
+	libresolv.so.2 => /lib64/libresolv.so.2 (0x00007f8584adc000)
+	libdbus-1.so.3 => /lib64/libdbus-1.so.3 (0x00007f8584a88000)
+	libp11-kit.so.0 => /lib64/libp11-kit.so.0 (0x00007f85848fb000)
+	libidn2.so.0 => /lib64/libidn2.so.0 (0x00007f85848ab000)
+	libunistring.so.5 => /lib64/libunistring.so.5 (0x00007f85846fe000)
+	libtasn1.so.6 => /lib64/libtasn1.so.6 (0x00007f85846e6000)
+	libhogweed.so.6 => /lib64/libhogweed.so.6 (0x00007f85846a3000)
+	libnettle.so.8 => /lib64/libnettle.so.8 (0x00007f858464d000)
+	libgmp.so.10 => /lib64/libgmp.so.10 (0x00007f85845a6000)
+	libcap.so.2 => /lib64/libcap.so.2 (0x00007f858459a000)
+	libbrotlicommon.so.1 => /lib64/libbrotlicommon.so.1 (0x00007f8584577000)
+	libsystemd.so.0 => /lib64/libsystemd.so.0 (0x00007f858444d000)
+⬢ [acme@toolbx perf-tools-next]$
+
+
