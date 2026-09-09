@@ -1,67 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-100.mta1.migadu.com [95.215.58.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C383D36F8EE;
-	Wed,  9 Sep 2026 17:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC4636654C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974274; cv=none; b=K7T0+NzbpF09f22FmkMvjnfXxDSOOFeaGr3tjvhcbUVIbndNhbtKdmaxTSKRrkOPiOAq1Q2Si2dbOYtdhe5Jv7gnwSzj4lzd53uk1c7vYcLGLwSNPZNojfd39WcUPeTld5FPrJ3daZbFHG/12m9Z0BL88TeuzTv0hvmHWjzxEYQ=
+	t=1788974319; cv=none; b=ON3o8/Iu5M7lj1Qtjwv1d8OTpKiqToBynSG+JYnfi1QDbxFHtdO9PKK0mJ0q9UE2rztBe7ztsdYtvD4C+dIEZxZCOrtPH1gXgUDoB8w/2DHktapZwCZ8QC264baZmAX1BeN/bJ6+RcXDvRhZXrWDAN0VWcbVCcVv6m0TNlWRsVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974274; c=relaxed/simple;
-	bh=EE22Xhfxi0Ut6rjYYzgn2DqmDLwg67ZyrjslJaNxK0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DrIlkrx4uPpa5BKedZg40iIfarICuo+P0u3Xt+OWeey/fyoP8tBLJpDN57vzv0c7TH52X6575RdEsW+Ng2VQ+yz5Z8RkLAVGfJg3Xu+++Qls0Yi7ByN3bm3lyrhXllo9mFspofhHPx4GA8v9CWhYAdxQouY+es+bMyaxNG8RtVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/Tl62vD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788974319; c=relaxed/simple;
+	bh=H1VeEoAcvsOEyN36eN354CP9JC3HLD5TmWF+2n1ZU8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gqXhhx1lTuKrJSzJ7vnLUJeOVR5NHQVx8AIjlrbMwjEClcTZhbTOi3+zC5LD1HTo3lIwWXeM1nDhuvY9/4ykxnJ6uB0Q/kZ/p7N52HkqEpJ7lgLwoz3KF9VxkzUMvX9FxpI4uUFXRBaWSBa/qes0O59YN/CYloN45vreuNwHu1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CSD3RK52; arc=none smtp.client-ip=95.215.58.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/Tl62vD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2712D1F00893;
-	Wed,  9 Sep 2026 17:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788974273;
-	bh=8VPY0deMqZZdrYnmVNpJtaQIzzwrsHUnmWiCqzQ+mTU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h/Tl62vDVbX7K7x9KxWl4Y1ioFq2FtWmlA0h7fNRPi1yoUVPKOfJQv4aj0vSn/zG0
-	 o4H+TRVi07XNDX4qm6y8JxgfeANszC3KWbSxV5dP4gZ8Ir9Pj/sSjkArLr06pjCU2C
-	 VZ8vPxIezLpot7J1zyVd5AjcWlSsvGj8T2Xqlus9nQ1jj9QUYkOQ0+CM8nxcWViVgC
-	 lABKCMhDvA07ki3Ckc1S3CR0fWaGkRBV2dO9mhIIcm5GD3E/XHMl4PlazfcNHp2sg4
-	 CTTJKi94WMWXwyEXJ1OlEjxa0u+H6PWGstz3+SyzoHQjmxRPx0/VKRE6zNB1wnqGg3
-	 YHPzGEhrL4DqQ==
-Date: Wed, 9 Sep 2026 19:17:43 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 07/12] phy: phy-mtk-dp: Support setting volt swing and
- preemphasis values
-Message-ID: <voe2zlbmri2mesde2b5ypyj5xtfcaso4i4vsjlkrjfkq2mxxue@5hbymqqlb2da>
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-8-angelogioacchino.delregno@collabora.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CSD3RK52"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=H1VeEoAcvsOEyN36eN354CP9JC3HLD5TmWF+2n1ZU8c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788974314; v=1; x=1789579114;
+ b=CSD3RK52L5pUGDzRxNmcX8AJHO+Sih8BfobVqNYUHXP/IBCjvgU9Q5nDt++kyEY6fjVyj5z1
+ EAFg8o0nVYj8CZVFbI/rPVMQN4gKSWYLpuPQeGCxMWwlKt/5+RfGgbfn4IeyqJpIZ88P7f43izL
+ pUBegzhH+cnbX1ubwhJ1lJ14=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 76378e880c09277e;
+	Wed, 09 Sep 2026 17:18:24 +0000
+X-Mizu-Trace-ID: 76378e880c09277e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <81e59a58-5691-4959-aa3b-2b9728349ddb@linux.dev>
+Date: Wed, 9 Sep 2026 19:18:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: Dolphin (26.08.0): "Expandable" folders in Details view not
+ working when per-folder view properties are enabled
+To: =?UTF-8?B?TWFudWVsIEEuIFIuIGRlIE9yw7plIFLDrW9z?= <deor001@gmail.com>,
+ linux-kernel@vger.kernel.org, luke@ljones.dev,
+ platform-driver-x86@vger.kernel.org
+References: <CAOXykpgCPMB7fGGJXD0wdx-0boy3vdRZraFRhegrh7azJiYONA@mail.gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <CAOXykpgCPMB7fGGJXD0wdx-0boy3vdRZraFRhegrh7azJiYONA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-8-angelogioacchino.delregno@collabora.com>
 
-On Tue, Jul 07, 2026 at 05:42:40PM +0200, AngeloGioacchino Del Regno wrote:
-> Add support for honoring the set_voltages request to set the
-> voltage swing and preemphasis values in the .configure() callback.
-> 
-> For proper hardware cleanup, reset both in the .reset() callback.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On 9/7/26 03:11, Manuel A. R. de Orúe Ríos wrote:
+> Hello, Denis and Luke.
+Hello Manuel!
+> I was wondering if you could help me communicate about, and get some
+> information regarding, the following topic:"
+> in Dolphin it's intentional (a design decision) or an oversight that
+> hasn't been addressed yet.
+>
+> Environment:
+> - Dolphin 26.08.0
+> - Fedora 44, KDE Plasma 6 (Wayland)
+>
+> Steps to reproduce:
+> 1. In Configure Dolphin -> View -> Details tab, enable "Folders: Expandable".
+> 2. In Configure Dolphin -> General -> Behavior, enable "Remember
+> display style for each folder" (i.e. GlobalViewProps=false).
+> 3. Open any folder in Details view.
+>
+> Observed result:
+> The expand arrows for subfolders (the inline tree view) do not appear,
+> even though "Expandable" is checked globally.
+>
+> Expected result:
+> The expandable folder tree should work regardless of whether view
+> properties are set globally or remembered per folder, since
+> "Expandable" is configured as a global Details-view setting and is not
+> something exposed as part of the per-folder properties.
+>
+> This looks related to Bug 524626, which reports a similar coupling
+> issue in 26.08.0: the new per-folder zoom feature is tied to
+> per-folder view properties (GlobalViewProps=false) with no way to keep
+> it independent. My case seems to be the same underlying pattern — a
+> setting that should logically be independent from the
+> global/per-folder view-properties toggle ends up depending on it.
+>
+> Could you let me know whether this is expected/by design, or if it's a
+> gap that hasn't been considered yet? Happy to provide more details,
+> logs, or test further if useful.
+Sorry but I don't use said features, and this is the linux kernel mailing list
+so... Not the correct place to get answers about this.
 
-- Mani
+You should try KDE's own forum: https://discuss.kde.org/ or the KDE bug
+tracker: https://bugs.kde.org/index.cgi
+> Regards,
+> Manuel de Orúe Ríos.
+> ___________________________
+Anyway best of luck with solving this issue!
 
--- 
-மணிவண்ணன் சதாசிவம்
+Best regards,
+Denis B.
