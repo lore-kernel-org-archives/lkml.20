@@ -1,65 +1,33 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013024.outbound.protection.outlook.com [40.93.201.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF9333DEE6
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935789; cv=fail; b=cXqK494ZmHw1JgwSWOJpF0h4GVrjOrNEabKskN4VeeKbP0IwsAqv0W74yI6rGk8hdjcGFNZypImBMWy2HwRlbnxIZuBySCf4qVPJDquCxsnyDbPrDKSbKcyWpoKHZdupqMfgM/hhgIzuhXz/FfPyuBmh9woGNwc53czZ8gDAnHg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935789; c=relaxed/simple;
-	bh=SOyjyd+aHPm0OckajGm+EtgtbTzIqrc7XSodKoqJYFI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=f+V0qKLdDrdwsVJrrnrfdzlehB5ZZMVZwuV8W+HlCp41+TfuwNrhNzy6d39q/dkvI9Fml4uMHjiTrav9ASiaK+KGS8aeUdr87ZvuLjCddA/GujCZfUVjiUx1SaVRp0ta6azRKTfOJoNplcjVgrhRlfIWC7MUpA1SPJVPvusgq6A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2/uT6m3E; arc=fail smtp.client-ip=40.93.201.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067213AC0E6;
+	Wed,  9 Sep 2026 06:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788935793; cv=none; b=hXCg5YhJwOpqxezXfouPys7q8nXOTqW/f+aZG6mzXKbrSA6ZQr7BwY0VZAnFnQMpo7jjAd68XAy8LsKFiwaUoAR6Fby/uJVr25xQcMMfJsAFFu+cwYsG1A3HU4OVw8oEzs3e47la02PZk1jpf/40uaL+kMwAOgySjbwkHMc1MSQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788935793; c=relaxed/simple;
+	bh=D9zD1a6oGdbIQd2sAG3m2lMm/9RjajktNe680PEPnL8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IgU2c6YrtZceAacWiEYb66bVIuFGl0se7ouzXZKuJqCXYXYgt+dF6jrWVkGBHNpDk5HAHmJ2pRkGzf9FN3a434ddZ2uXc1uL1lban3fO5vzZJTSeHnPv0HgUB8QeCbwGFoBlq8j29V/Js9Rdb/2tZbsxPgMNqzvakXlF6fJJgQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHzfHw1E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2/uT6m3E"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f/rbbjOarF/VQOUnZSQ4QG/8fSy+YQW7EasNbs1eGERuTQn4SLTXRlKJXu7AmnbIOYnj9DXJTqn6Ybwt7TSvn0grPyvoAmN3pUk9TKWtr/mxKvHAS2ZTYgFBvxN6dxy+AsPIvmcFYgHE4WRHM/FVSxORl+CvY8NhItrCE1GNH4rNEnZq205Gwq+eL/o9f91HXo6Gn6wHGoOMrSZc85O0LmcJPW1gq4XLDmJs7KuBCf6TiZLo60MqbRqatDxOGkDw+YQ8CuO5hzb9yqonH66RmgzqmDFtSjMESurqFg9aw5V6SLn11KluiVGlFIrKdoN8bSIEvR/3yjSmriKdvErtAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ER0AKAXtQjkoU/cGM8bHrxUb9lj0MLvmM39NQex1+AE=;
- b=ql2iNaSl4de24Om8fGc9JYmd9Go7XcuVgz5LvO77YkUY4lFlG4d18HREq1VzkFIXgK7P2yV65UwS8lAxxvAUdAw2UdcbQBIrCGqE+2V4Ih2pDTns7rBV+gNxcL7SoE2hP9dwdrBBsfELZXp4YfNSjXZOnESWGs71YAodHgoe8MULuTjabcwE2mMaT3cRFi+8erx/o1ljFlWaCJMjb7hGxmmsXt8UJD7hK+RwTKjpc1A6ECtMEFg1Z78BU1vvEJ/GstEp0mZ9wy0LKw0Rk4JBbnAjvp+K3EXGq53GOK2ngHavteKa78LF27HZVhK+fmSgoH325ZWwVzJ2I6tbtv1qtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ER0AKAXtQjkoU/cGM8bHrxUb9lj0MLvmM39NQex1+AE=;
- b=2/uT6m3EXslCw+GaDeW+E0M04UBRDhD04b5p5EwRn2Y2WoTpayioiSRyn7uZmx4sjif0Pn8Ewk8w88tjCA3Chj3cdRJDV/bsDVm6OkG/C0Sha9bGrgpFa5r02LvkL0Olfx13WGWKCepLELiLnIhE9jktCScJWGJ8SyiVG2phyeU=
-Received: from CYZPR11CA0004.namprd11.prod.outlook.com (2603:10b6:930:8d::15)
- by BL1PR12MB5779.namprd12.prod.outlook.com (2603:10b6:208:392::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
- 2026 06:36:19 +0000
-Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
- (2603:10b6:930:8d:cafe::97) by CYZPR11CA0004.outlook.office365.com
- (2603:10b6:930:8d::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
- Sep 2026 06:36:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 06:36:18 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 01:36:18 -0500
-Received: from [10.136.42.177] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 9 Sep 2026 01:36:12 -0500
-Message-ID: <ed191145-d58e-4463-8f54-a7bb86cce646@amd.com>
-Date: Wed, 9 Sep 2026 12:06:06 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHzfHw1E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4B51F00A3A;
+	Wed,  9 Sep 2026 06:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788935789;
+	bh=8gsFSI8DqrI6by3i57gfq8RB93kP30yCYUQ/MLyjQBc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KHzfHw1E8TTl9UsFwSKEHMHljx10831Cbf9dhhnxQPOC9xY+wUxlTCJLVZ7VAGrFU
+	 59fE403Ofj5gEe97IV9kTOxk7eHJt+gxrRyp+DyITBkMdQ2yOxQwgPTedBGYWFd4IF
+	 7EOwLWKFTB9fcFeEZd6oMiK0CCI/4qwCTuDtePTIz8+WLS5m3GE3yQl1JoqTU2lFQj
+	 VL+xQXOaljBhozxuk87tNPSWUd/AIO0Exj4wVgb6jSKwk2Neg75QN1spKNndtvXQi1
+	 qF0aUzVCVJa1LVlcZXS3CavKO5aCEIbTe5IqI/YUWzfuiEmMMiPnzRhok8sRYcmFSW
+	 0LUnZJLql1i0g==
+Message-ID: <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
+Date: Wed, 9 Sep 2026 08:36:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,115 +35,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] sched: Enable preferred SMT siblings on NVIDIA
- Olympus
-To: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>, Peter
- Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent
- Guittot <vincent.guittot@linaro.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Mark Rutland
-	<mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Breno
- Leitao <leitao@debian.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260909062649.469633-1-arighi@nvidia.com>
+Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
+ Draeger's M48 board.
+To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dinguyen@kernel.org
+References: <20260908111011.960876-1-petko.manolov@konsulko.com>
+ <20260908111011.960876-2-petko.manolov@konsulko.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260909062649.469633-1-arighi@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260908111011.960876-2-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|BL1PR12MB5779:EE_
-X-MS-Office365-Filtering-Correlation-Id: e94822c9-0a72-4cc5-9bf1-08df0e3ca7d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|13003099007|10067099003|56012099006|18002099003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	DqxMaK9Bo4TtqpiopVUvtcXbJu1Xqegd8vVHdGIzeD6z6EavOJp/FhE9eQXvvhGx3WVseumOwS8rV+x4KmxfoVyZfJcZ419Uy3dGQDWDu8VQ5FjPtgglrxz1Cg48M+BJH60MEnEzlO3WB2RfAjgzqOGefN/PJ9k+KpRQRNWMyhmG0WlWVKfv0ls6R8SIZy5WsNcoGMnUaFkaWO+aHnTuOJ2va1VKBMWiRn74bScJOwuyrukP/3+JKgUrIBlFb72j6P7V4k5vt8zDWdyRE24uhgM7YB7Vy618eXCfR1q9i7+f4CFmenWhu8vyI8ojOUFeJqf3dYTzuGNe4+2ewyrDPIXNHRzj1lzBWSQ8TYtUN+qH32XA7RfuD3onuQIHsDtg6Y+RgWD8jfUVg+dtRSAbQc5TBBlFAggj1LGX8oTvpFre66icRjUXpTPcxf+WqZbCfS72f4GLwrCZYbIVnkvskty5/b0w2Aaqw4BuWt4hYLl0nbZkhrcUoYi1y5ZWh8NEBwxcHrV8lOuqXl3hi8Ow444QpE64XkHV8utAzjaqXAbb3/5oWDxbMV8lAe7rPvObS+/uWgWvRBnRHECX+ftKcKGVmDgrH2pexhf+2b5v98CC72Gc4PlNjbTXyHJzW5TBZyDEuUqs37TIxK9RiHJH/Pex+FpQt8MV9IIbIF1I4kEqvqwLG2DKk3K7QJ9MbCV/fS1oKwp4brfmQkdx/L9+Kw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(13003099007)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	YbzXZ6OYrS43p+bKHDnuePfErvrpPFZHbDg6cbQuAKrYhldxrR9vDtNbFIk7EKnWuEJGDIRmCyop1lT8ZwHBU4U0qdVq/gX/iXDFzw8hb5PC0LwAMFw+4CAzUUURuwoWRGbk+MBDdqWxpaKDadyBqU690xjGepGDmsVnDOIx/44zVpvutcgDjLc1vGytQ4wyKkQKXTXOWvbnXpOZ476YO7eiVkliozET+zSy909fyqND31dpFEtzC2Oek0TzYIAs19JdnXbUS3oexidg5FfItjnv1y12qN5hULEa7t52G6t46BE4xLtPtbGOSh+ZvAp7wtkIbvW5I5+OKKFoJY7KY437eOOGVHhe/Cj21wNhBfL8ij3DhaRdOKi+dfHVxiVQpmsAEP8HXa4WD4KHx9QmFyV/kmfSYsHYAF+17QEPxAZUsdHyD28b+qF50+IsPYfn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:36:18.5398
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e94822c9-0a72-4cc5-9bf1-08df0e3ca7d1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE34.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5779
 
-Hello Andrea,
+On 08/09/2026 13:10, Petko Manolov wrote:
+> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
 
-On 9/9/2026 11:56 AM, Andrea Righi wrote:
-> NVIDIA Olympus implements SMT with two symmetric processing elements (PEs).
-> When only one PE is active, the core operates in single-thread mode and
-> that PE can use the full core resources. When both PEs are active, the core
-> operates in two-thread mode and the PEs share those resources. This
-> behavior is common to SMT implementations, but Olympus is particularly
-> sensitive to brief sibling activations because returning from two-thread
-> mode to single-thread mode after a sibling becomes idle is not immediate.
-> As described by commit 293f9611ae735 ("sched/fair: Prefer fully idle cores
-> for NOHZ balancing"):
-> 
->   Briefly activating an otherwise idle sibling can reduce the performance
->   available to the other sibling and this effect does not necessarily end
->   once the activated sibling becomes idle: after the ILB finishes and its
->   CPU enters WFI, full single-thread performance is restored only after the
->   sibling has remained idle for a qualification interval (10 Ki cycles on
->   the tested Vera system).
-> 
-> That change prevents the NOHZ idle load balancer from unnecessarily waking
-> a sibling of a busy PE. However, ordinary task placement can still select
-> either sibling of an idle core and repeated changes of the active PE can
-> keep Olympus cores in two-thread mode despite little or no useful overlap
-> between the siblings.
-> 
-> This series makes PE0 the preferred sibling of an Olympus core using
-> SD_ASYM_PACKING and teaches the fair scheduler's idle-selection paths to
-> honor asymmetric SMT priority. The scheduler first selects a candidate CPU
-> and core according to its existing placement and capacity rules, then
-> chooses the highest-priority available sibling within that core. The
-> generic scheduler behavior is enabled only when an architecture supplies
-> an SD_ASYM_PACKING SMT domain.
-> 
-> PE0 and PE1 have equal steady-state capacity, the preference does not
-> identify a faster PE. PE0 is used only as a canonical choice when both
-> siblings are available. Consistently selecting the same sibling avoids
-> alternating the active PE across wakeups, lets PE1 remain idle for longer,
-> and allows more cores to remain in, or return to, full-resource
-> single-thread mode.
-> 
-> The series was tested on a two-node Vera system using an 88-thread
-> single-precision GEMM on the 88 physical cores of NUMA node 0.
-> 
-> With the workload allowed to choose either sibling of every core, observed
-> throughput improved from approximately 9.4 TFLOP/s on the baseline kernel
-> to approximately 10.1 TFLOP/s with this series applied. Repeated runs also
-> became more predictable because the workload consistently settled on PE0
-> while PE1 remained quiet.
-> 
-> Changes in v5:
->  - Remove the redundant olympus_prefer_pe0 state (K Prateek Nayak)
->  - Link to v4: https://lore.kernel.org/r/20260908082345.103087-1-arighi@nvidia.com
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-My replies failed to keep up with your speed on iterations :-)
 
-Since this is same as v4 and I had taken it for a spin on a
-x86 and an ARM64 server, feel free to include:
+> ---
+>  .../devicetree/bindings/arm/altera.yaml       |   1 +
+>  arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+>  .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
+>  3 files changed, 132 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
+> index 3030cf46fe74..8ed1ba733510 100644
+> --- a/Documentation/devicetree/bindings/arm/altera.yaml
+> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
 
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Same comments. Binding should not be part of other patches.
 
--- 
-Thanks and Regards,
-Prateek
+> @@ -47,6 +47,7 @@ properties:
+>            - enum:
+>                - altr,socfpga-cyclone5-socdk
+>                - denx,mcvevk
+> +              - draeger,M48
+>                - ebv,socrates
+>                - macnica,sodia
+>                - novtech,chameleon96
+> diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
+> index 8df0976da01c..cdcea11abdfa 100644
+> --- a/arch/arm/boot/dts/intel/socfpga/Makefile
+> +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
+> @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
+>  	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
+>  	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
+>  	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
+> +	socfpga_cyclone5_draeger_m48.dtb \
+>  	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
+>  	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
+>  	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 000000000000..423c76cd1d4a
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> @@ -0,0 +1,130 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
+> + */
+> +#include "socfpga_cyclone5.dtsi"
+> +
+> +/ {
+> +	model = "Draeger M48 Cyclone V SoC";
+> +	compatible = "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
+> +
+> +	chosen {
+> +		bootargs = "earlyprintk";
 
+That's not a mainline suitable argument, drop.
+
+
+Best regards,
+Krzysztof
