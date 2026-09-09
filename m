@@ -1,255 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBD4283FD4;
-	Wed,  9 Sep 2026 01:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9B2DB780
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:38:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917911; cv=none; b=PVfFAMRnko/hRGFV4VwllbG7PkESJrjy9d8UumUShixCKIiSKnhIlbFFT5Bmt2+mtrJnIhqG3K4tbdU+UiRVKMZz8Ig2hdB7IOhMg+U9U1l5NyomEnw3mRxLTXgaAggs11AXP/Ta5ODoxzH1A+C38/oqyIXRYaEWSVUem8ouUxM=
+	t=1788917934; cv=none; b=cB49xt2V4eSXR/mfF/lHbF3wEx/YCy49CaEln6JqJKqKsguG3KS+AsGOxoSpO3SZsQMxxQpKfnQQfKSlTrdGrSN+igr5yOFJ4sm3VlAPd/VlVBUWBecx0VWzC7cWSTKx9tZYnZuJaMeKqTXU841of6DkcRpK5IrPdd/Jd1aAGdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917911; c=relaxed/simple;
-	bh=RoV+EFnTcrTRHMWJGo1xyTOCQ3ZnjClqQCiB9MZHTFE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gMhCZOH1F7xRIkQOEqVS9s19vx+LPcejKl0mVj30sfCVzM5swIHfb3+kypwjQvO4T/ZrGUcYJnheHgbYOlLesxTr2VQwh8zHIgK3YRb+jdG/HtbCj86z8IvDN0+FAowTayAZdOumM6FnloR+7IfazHNXDOmcMFDt7Xm4S7ODQBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLdhf635; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788917934; c=relaxed/simple;
+	bh=gUemplhRSJAJzKCTLJsrmo/7lPnTZM3iiNRs9Xdx/h4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cZm1lcnu/X8Vt/xI2ACr/joBV7ZjRDhW5nS9y6QuKxbfivFkDK4aEYJhXT8ZG8xWWEOvaMNmnC4BZVA2lqgbPe7MWSQ6CPACRHGY9IdVV2RLxX/dsmgNV+Q9Mvt/vLaaqWrR7d+8TBsa1txc/uyGKXGBAdzE6drgQIaxQvFX5Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b4RInRbx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WPEgJjqW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLdhf635"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED1E1F00A3E;
-	Wed,  9 Sep 2026 01:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917909;
-	bh=YoXSEZhjnbXC9qTpBQBpEEc0Pa+DT0Kb5ktdSRVq7mQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mLdhf635fEl/9I7XygasiRE+Mv9x5rv7S33QIfTw45b+ZdKP8dHjzB9+dYlc6kPW8
-	 qP00gp3S/pgk7/zxFagW0BRezpExFZRpMIxamYRGLt6D/F7e1BGZiDAmSuy6UBPJ6S
-	 oigJbW/JcKOi2b49PRgCgYYStr2C1K7bYYFaO9NREDHs5A41zM2iGJgWm9yOGoYKoE
-	 RhZrCtICJdVu5m9XuZBYD5z+TmQkzHMtZ7ZjIXZYvtkTevAW8fB/tJjHbERlXZKH4t
-	 MgGJhy9T0Sqn4K4pYQreIrrUq61pjUEt9zmDLd87p9ZW1wSEhSMTVO9Fn34l+Xvu+q
-	 rrDpKVdFhmp+Q==
-Subject: Re: [PATCH net-next] net: mana: Use the HWC destination queues
- reported by the hardware
-From: netdev-bot+sashiko@kernel.org
-To: mawasthi@linux.microsoft.com
-Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, longli@microsoft.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, horms@kernel.org,
- gargaditya@linux.microsoft.com, ernis@linux.microsoft.com, kees@kernel.org,
- paulros@microsoft.com
-Date: Wed, 09 Sep 2026 01:38:27 +0000
-Message-ID: <178891790797.219967.6930927720056812233@kernel.org>
-In-Reply-To: <20260903184104.3194819-1-mawasthi@linux.microsoft.com>
-References: <20260903184104.3194819-1-mawasthi@linux.microsoft.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b4RInRbx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WPEgJjqW"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Mh6Sx693778
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 01:38:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	12hVyvMp5VWwWi9UH2JEM1r68VsvC3lqeQsWrxP240E=; b=b4RInRbx1BBew7/g
+	B6orKYvjqSpnL16u5jIetYkLxy5mHBzlIguNwVuC9yO+aB90XM6XR9OVq6za9XEV
+	3wcpCh5HsIMYqz7kFxboCyz1Yu/xa8kgPxZuY/Xs1BLw8mPyWyWYDQhV/qU5w66k
+	4B0p3cv+nY/m3mojS3n7hs3NRRF9NVKuCCR2SuxvZv54EgUaDz3SgqOt9P3yGqRu
+	hSpVpXgroSlqhIgxRXlRAEp/XIpg/6ew171QpwtrktF39WrhOC86dHNSQs6q2koi
+	gky/BS8CGYXb8bV6LXetk1iSBjBrbFf5kKA1vfKc0zhvFIrDYmamkgUjc4dsyuTD
+	PA5B5Q==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjfp4bvep-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:38:52 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39b6416441eso5233566a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788917931; x=1789522731; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=12hVyvMp5VWwWi9UH2JEM1r68VsvC3lqeQsWrxP240E=;
+        b=WPEgJjqWPi1dPXkJZqGWfb+F6+Q681TcLQez+zid1915bs+3BQNbewFh0iaUGwwEg/
+         qvpMBtkbO86FY7sBeSsoCWYY7LhwtPTiU1Y17OXdC9KffGf0CRsKoZDjv0bHjELXPCst
+         IsuMWTzrEueSX/DvZQgnOIPhOIku+VAoJIwNQq4AJUvsitdbBA0v05O8/S9hY46au8Fy
+         2ckjgZdKRlfkGqZyTHRzIJmMqHNRg7bRyfGwiq62pE+RAGiLt5Rq8Ndu7+Jtx2meNq/p
+         eIvoNAHSc1xEHFq3mvFDET32WRtfmiVnCLrtsaiP+PGSfrzSNz0zwD/vTyzaoAxb0/Th
+         fD/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788917931; x=1789522731;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=12hVyvMp5VWwWi9UH2JEM1r68VsvC3lqeQsWrxP240E=;
+        b=hsXRcVjp/VFDNgNE99bg8rAH2Z6HXKQmE9oz/qQDHinmLmvuBFX4pK9HUq7dVolHQR
+         9b1LdpysSODyZDjgFyf5Vp8eWalkRlnuJnQMuk90SMXHUsrDy4YgIrDQDlhwECVkmUoQ
+         FlAOcwsm+mCmrx2on6AJrEMIs85E5gTlc2/noeEaVWsdBe4L3LhZFWkiNQQO6UGZ4rXZ
+         dwsdGDwJT0w9A2MH8HHNdM2Er0cFA8/X6D8DKaIwhOm47znLDRaQEZUdQrTEIjQYnSHA
+         wyVmyZvdL2Zqy8oGCwZClLJoiQUnJ8pxM289sa9eNWBJeAEX9XbhzjEFOJA/NX5YL6Xr
+         fRIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzl0e+8ocF8wbrSfuGJKNZRzMcspbi8eim8xFEqBxRVDbwVZhSz+4LkVtifhfSS7mYLhzgTlzm+CQqgyaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXQc6ehSc5vjJa2ZZLoyrlU3Irf+uvjeUO4Lbdio+pu8x1wbkt
+	RjltLyqoOb+6VrZVSiI2UNfbYWbBkxJ6kQWSGSLVFnhrLrsQzV6lGx3WjRByYH0ab4MOnafmxNI
+	lnHYFjazk3fQnJBBGblb/frMjJ978fzMSqKnP7/fYMMpqIcBJzk75N64buO5TPSOIaPY=
+X-Gm-Gg: AYBFou2ULA3efqsDBCIcqMPvWAEPic4LQ+EfWnCRcnfe1aPXXbR+g0vQtEk7yuza0jT
+	sCTnBZLlxe+Uq1be0LmtrXDJsXGvyAS9pd64OW1MoR+eF1IDPEZqVtm4WntbanMyqn9SbzfZV+Y
+	5Gsh6DhHZ52V4yH06+1uNVVi8bzkRhiSrSJ1LOPf4MEzOBpEflGt2nY7i2DcRqDIexV+Ruya1bu
+	k0Diwb0laRrMOE8VSlraXZX8O3M3YECasnirSG4AgnxBC9FoqIN7Gp7rtnkdFhkq2WE/tu3ncSo
+	m3j7DSaHw5COF3QR9wkF7FkRt3elxRMky+MAGR4i3rkFL569GxdepTKlY2J4UyMTI7okXztkhOp
+	+5AdlG5VjxaW0UtbZQ/xRK+JN+vBjuEuQul14TnzEryE=
+X-Received: by 2002:a17:90b:1b44:b0:398:ba96:1afd with SMTP id 98e67ed59e1d1-39b2613249fmr43588080a91.8.1788917931279;
+        Tue, 08 Sep 2026 18:38:51 -0700 (PDT)
+X-Received: by 2002:a17:90b:1b44:b0:398:ba96:1afd with SMTP id 98e67ed59e1d1-39b2613249fmr43588010a91.8.1788917930810;
+        Tue, 08 Sep 2026 18:38:50 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm35410573c88.0.2026.09.08.18.38.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 18:38:50 -0700 (PDT)
+Date: Wed, 9 Sep 2026 09:38:43 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] usb: typec: Add onsemi FUSB15201 driver
+Message-ID: <aqC4oyV4WUdGynv-@QCOM-aGQu4IUr3Y>
+References: <20260902045938.184221-1-shengchao.guo@oss.qualcomm.com>
+ <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
+ <ap51p16bSY1Ru9C1@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ap51p16bSY1Ru9C1@monoceros>
+X-Authority-Analysis: v=2.4 cv=Qu9uG1yd c=1 sm=1 tr=0 ts=6aa0b8ac cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=gj5R-QuDH20YKR02NA4A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: 26H3fi1T2vGNUqfuEq0yPpZAIoViLtO2
+X-Proofpoint-GUID: 26H3fi1T2vGNUqfuEq0yPpZAIoViLtO2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDAxNiBTYWx0ZWRfXzimkMwVvEnXE
+ aqzdmt0c7dJ5jE0pIj4+RoDDUvJlBhVblrEEIQCDW80yTr8Ha5LJBH8ciFto4PmHoSUeEu6VPYs
+ 5GGhCJ3Bk/PW8yBJu2dfqnHhEAof7Ae1El2VdKJOXPc1a+R449xpui+tjdJii66bfWob4y54NoD
+ xJ58hyEAwPc7mMQwkTwPemjoOOnnGm3q8ErYtjUmUhAPDSPun3yP8zSlDBHQ5SaRqDOyeHdTGSf
+ jEgeR3j4iP6DzWw4ahmXnPfPWNwXQr7ZE6FI2ToJ394xnatagmaiF4AX9s71PUS0uXzwoib0ad3
+ 848v4VomEotcouSRoLS4HURJBl89nsc7GHIj6LWHlRGAb3IrQjMx2wvmfNCHMJJjWnUhj6H4jf1
+ 7kIGKAXX0TBY7OdWm5CX37yRz+aN9IBYpTZ4mpEKltwTFFLC3DdfYIrt5luz4Ab9DoZ7MxPLkIt
+ TvzgVpq1CXKu0+ygfXQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDAxNiBTYWx0ZWRfX49ovDu1FX0Xq
+ ADEXf5CSCLn1mzW66vktKQmi+qbvMu6otnV44oWKPOxXC0IjRkO/aNsyQhkTgsTkRiLmUUXe8WN
+ 2miK+G/fLdJhCSj+l4ZREkj5U2dwDFU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 adultscore=0 spamscore=0 bulkscore=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090016
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+Hi Uwe,
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1 (1)
+On Mon, Sep 07, 2026 at 10:32:55AM +0200, Uwe Kleine-K�nig wrote:
+> Hello Shawn,
+> 
+> On Wed, Sep 02, 2026 at 12:59:38PM +0800, Shawn Guo wrote:
+> > +#include <linux/i2c.h>
+> > [...]
+> > +#include <linux/mod_devicetable.h>
+> 
+> Please rely on <linux/i2c.h> to provide of_device_id and (see below)
+> i2c_device_id. Alternatively include the needed files below
+> include/linux/device-id/ to not introduce unneeded dependencies.
 
-- [High] Removing the `if (gc->is_pf)` gate in `mana_hwc_send_request()`
-  (drivers/net/ethernet/microsoft/mana/hw_channel.c:897-898) makes…
-- [Medium] Commit message understates a functional change and carries no
-  Fixes tag.
-- [Low] The patch redefines the meaning of hardware-protocol fields but
-  renames nothing, leaving an internally contradictory abstraction: the…
+Ah, yes! I will drop this include.
 
-Pre-existing issues:
-- [Low] `hwc->pf_dest_vrq_id` and `hwc->pf_dest_vrcq_id` are written from
-  the HWC EQ callback `mana_hwc_init_event_handler()`…
+> 
+> > +static const struct of_device_id fusb15201_of_match[] = {
+> > +	{ .compatible = "onnn,fusb15201" },
+> > +	{ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, fusb15201_of_match);
+> > +
+> > +static struct i2c_driver fusb15201_driver = {
+> > +	.driver = {
+> > +		.name = "fusb15201",
+> > +		.of_match_table = fusb15201_of_match,
+> > +	},
+> > +	.probe = fusb15201_probe,
+> 
+> Don't you need an i2c_device_id table, too?
 
---
+I'm not sure. For the DT case the of_match_table handles both matching
+and module autoloading, so nothing is missing there.
 
-net: mana: Use the HWC destination queues reported by the hardware
+The i2c_device_id table would only matter for a client created without a
+fwnode, e.g. from board code, and that is not a case the driver supports
+or has been tested against. probe() walks the child fwnodes of the device
+to find the connectors and fails with -ENODEV when there are none, and
+each port needs its Type-C capabilities and a usb-role-switch reference
+from firmware. So matching by name alone would only turn a "no driver"
+case into a probe failure.  If a platform without DT ever needs this
+driver, it has to describe the connectors first, and the i2c_device_id
+table can come along with that.
 
-This removes the gc->is_pf gate in mana_hwc_send_request() so that the HWC
-destination queue IDs learned from the HWC init events are used
-unconditionally.  Previously non-PF functions posted every HWC request with
-destination vRQ/vRCQ of 0.
-
-No Link: tags were present in the commit header.
-
-A few questions on the change below.
-
-> net: mana: Use the HWC destination queues reported by the hardware
->
-> mana_hwc_send_request() gates the HWC destination queue IDs on
-> gc->is_pf, which the PCI probe derives from the device ID.
->
-> The gate is not needed. hwc->pf_dest_vrq_id and hwc->pf_dest_vrcq_id
-> are only ever assigned from the HWC_INIT_DATA_PF_DEST_RQ_ID and
-> HWC_INIT_DATA_PF_DEST_CQ_ID init events, and the hardware always
-> reports values that are valid for the function it sends them to.
-
-[Severity: Medium]
-Is "The gate is not needed" an accurate description of what changes here?
-
-mana_is_pf() in gdma_main.c returns true only for MANA_PF_DEVICE_ID and
-MANA_PF2_DEVICE_ID, so mana_gd_probe() leaves gc->is_pf false for every VF:
-
-	gc->is_pf = mana_is_pf(pdev->device);
-	gc->is_pf2 = (pdev->device == MANA_PF2_DEVICE_ID);
-
-That means the removed branch was false exactly on VFs, and on those
-functions mana_hwc_send_request() used to post with dest_vrq = dest_vrcq =
-0 and now posts hwc->pf_dest_vrq_id / hwc->pf_dest_vrcq_id instead.
-
-The two statements in the message seem to pull in opposite directions:
-"The gate is not needed" reads as a no-op cleanup, while "the hardware
-always reports values that are valid for the function it sends them to"
-only carries meaning if the hardware does report these values to VFs, i.e.
-if VF behaviour changes.
-
-Could the changelog say which of the two it is, name the user-visible
-symptom being fixed (HWC command timeout, probe failure, something else),
-say which host/firmware versions are affected, and which of PF, PF2, VF
-and bare-metal hostmode were tested?
-
-Also, both the pf_dest_* fields and the gc->is_pf gate being deleted came
-from commit 1566e7d6206f ("net: mana: Add the Linux MANA PF driver").
-Should this carry a Fixes: tag naming it?
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> index 263e7c4e29341..5d75c2478a8a8 100644
-> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-
-[ ... ]
-
-> @@ -890,10 +889,13 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
->  	tx_wr->msg_size = req_len;
->  	command = req_msg->req.msg_type;
->  
-> -	if (gc->is_pf) {
-> -		dest_vrq = hwc->pf_dest_vrq_id;
-> -		dest_vrcq = hwc->pf_dest_vrcq_id;
-> -	}
-> +	/* The hardware reports the HWC destination queues through
-> +	 * HWC_INIT_DATA_PF_DEST_RQ_ID and HWC_INIT_DATA_PF_DEST_CQ_ID, and
-> +	 * always supplies values that are valid for this function, so no
-> +	 * PF-specific handling is needed here.
-> +	 */
-> +	dest_vrq = hwc->pf_dest_vrq_id;
-> +	dest_vrcq = hwc->pf_dest_vrcq_id;
-
-[Severity: High]
-Where in the driver is the invariant stated by the new comment actually
-established?
-
-The only producers of these two fields are in mana_hwc_init_event_handler():
-
-	case HWC_INIT_DATA_PF_DEST_RQ_ID:
-		hwc->pf_dest_vrq_id = val;
-		break;
-
-	case HWC_INIT_DATA_PF_DEST_CQ_ID:
-		hwc->pf_dest_vrcq_id = val;
-		break;
-
-There is no gc->is_pf / gc->is_pf2 test there, no range check against
-gc->max_num_cqs, and no check that the reported queues belong to the
-receiving function.  Compare mana_hwc_establish_channel(), which does at
-least sanity-check the HWC CQ id it got from the same handler:
-
-	/* Both were set in mana_hwc_init_event_handler(). */
-	if (WARN_ON(cq->id >= gc->max_num_cqs))
-		return -EPROTO;
-
-So if a non-PF function ever receives those init events with non-zero
-values, is every HWC request now addressed to a queue that function may not
-own?
-
-The values go straight into the hardware OOB in mana_hwc_post_tx_wqe():
-
-	tx_oob->vrq_id = dest_virt_rq_id;
-	tx_oob->dest_vfid = 0;
-	tx_oob->vrcq_id = dest_virt_rcq_id;
-	...
-	tx_oob->dest_pf = dest_pf;
-
-and this call site still passes dest_pf = false while dest_vfid is
-hardcoded to 0, which does not look like a descriptor addressed at a PF
-destination.
-
-If a request is misdirected, does the channel recover?  In
-mana_hwc_send_request() the completion never arrives, the
-wait_for_completion_timeout(&ctx->comp_event, ...) expires with -ETIMEDOUT,
-and the same path then does:
-
-		/* Reduce further waiting if HWC no response */
-		if (hwc->hwc_timeout > 1)
-			hwc->hwc_timeout = 1;
-
-after which every later command fails fast.  Since the first users of this
-path run during mana_hwc_create_channel() and mana_hwc_test_channel() at
-bring-up, would that show up as a probe failure and loss of the interface?
-
-The ABI names (HWC_INIT_DATA_PF_DEST_RQ_ID, HWC_INIT_DATA_PF_DEST_CQ_ID,
-pf_dest_vrq_id, pf_dest_vrcq_id) and the fact that the gate and the fields
-were added together for the bare-metal PF path all read as evidence
-against the premise.  Would it be safer to keep the function-type gate, or
-to move the gate/validation into mana_hwc_init_event_handler() and document
-the firmware contract there?
-
-[Severity: Low]
-This isn't a bug, but the patch redefines the meaning of these fields
-without renaming anything.  The declarations stay as:
-
-	u32 pf_dest_vrq_id;
-	u32 pf_dest_vrcq_id;
-
-the init-data constants stay as HWC_INIT_DATA_PF_DEST_RQ_ID and
-HWC_INIT_DATA_PF_DEST_CQ_ID, mana_hwc_post_tx_wqe() is still called with
-dest_pf = false, and the only record of the new semantics is free text at
-this one call site.
-
-A later reader seeing pf_dest_vrq_id consumed unconditionally right next to
-dest_pf = false cannot tell whether that is deliberate.  If the premise
-holds, could the fields and constants be renamed (dest_vrq_id,
-HWC_INIT_DATA_DEST_RQ_ID) so the invariant lives at the definition?
-
-[Severity: Low]
-This is a pre-existing issue rather than something introduced here, but
-the patch widens it from PF-only to all function types, so it seems worth
-mentioning.
-
-These two fields are written from the HWC EQ callback
-mana_hwc_init_event_handler() and read here in process context with no
-lock, no READ_ONCE(), and as two separate plain loads, even though
-mana_hwc_post_tx_wqe() consumes them as a pair.
-
-The initial publication is ordered correctly: the stores precede
-GDMA_EQE_HWC_INIT_DONE -> complete(&hwc->hwc_init_eqe_comp), and
-mana_hwc_establish_channel() waits on that completion before anything is
-posted:
-
-	if (!wait_for_completion_timeout(&hwc->hwc_init_eqe_comp, 60 * HZ))
-		return -ETIMEDOUT;
-
-The EQ callback stays registered for the life of the channel though, and
-the GDMA_EQE_HWC_INIT_DATA switch has no guard against a further init-data
-event while requests are in flight.  If one lands between these two reads,
-can the WQE end up carrying a vrq_id from one generation and a vrcq_id
-from another, so the completion is steered at a queue the driver is not
-waiting on and the caller blocks for the full hwc_timeout?
-
-I have no evidence any firmware re-delivers that event, and the same
-handler would also rewrite hwc->cq->gdma_cq->id, the rxq/txq gdma_wq ids
-and gpa_mkey unsynchronized, so this is a property of the whole init-data
-handler rather than of the two fields touched here.
-
->  
->  	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
->  	if (err) {
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903184104.3194819-1-mawasthi%40linux.microsoft.com
+Shawn
