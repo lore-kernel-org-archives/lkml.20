@@ -1,168 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32415479867;
-	Wed,  9 Sep 2026 08:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703EF470451
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942688; cv=none; b=OU6ypMl0w0N4TF9MdKHnlpu7IPirUCK+A13bOieSh5pOFuQfPBf0z41pCR2PS1cQ70A9wVW3H3n0HLpVknZd4MJIDfr54vOt5Be6onKTALw2BobNXdkS5REBT1z0sW5E9bO8A/0rj8G9w30y7Jd+qyHWokxWLgSuPIYrUPBu8bQ=
+	t=1788942740; cv=none; b=RQnSL/eMJJYnQU+gmFoBxNYBJwMvLQBQ3hWja0z9Qsrllf63LIGWs6Ivvxd4YgKlLCPEfmqnziDVZQugAljW8Ljelh+5WLNymb+4Q53rtJC1GZOS6WO0bN3wxfOblT6z5RnahI2FseDLVOiYwVthd+snuJLz2CGKJhFTFyJkLCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942688; c=relaxed/simple;
-	bh=3iRworJfB5leJ0q0KstAVXfOMueQAkS0IcTsKYA1g9s=;
+	s=arc-20240116; t=1788942740; c=relaxed/simple;
+	bh=4tFSvEuOX/RHQ7bRkVYoO0P67HVklbPp3cLUHTKDi/o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kxukrKEA6M5EDFa59Oe5yICaHwZqk5Q6AOWjVdYO4JWrPh5+JpM4ne+YVgIWExMpGGXkd8keLn0Al2uvjajcO+6BuCLqNq7YquDVB/HggaP/EuTWKXmwr5WR54xDHeB5Mm5+ANVv9C+5OgK+pICYGfC9GvlRV6vCk0PcyVX9SDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkuxpnB9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZNxnGEnIsIdTza/ev9zWnlki0hM8RSBXvYvtzWfSHvGukJ+migCKFA2xtV3ZQcZotXYHC1wMQPqCmNHN6omYMexAaYf3YNjDNx5uLVole+pB9PmU9BUr1umuLycYaGRJtM+eEda8+mQ/KCPmjtDArXB0mbcSdKGZrqTaewgLEgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpRVrNuC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkuxpnB9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BC11F00ADE;
-	Wed,  9 Sep 2026 08:31:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpRVrNuC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A3A1F00A3E;
+	Wed,  9 Sep 2026 08:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788942686;
-	bh=u90H3kvPiANnjYuJutZLUXCAY3/LlIec8aBZfM+ga7k=;
+	s=k20260515; t=1788942739;
+	bh=gQb5JmxZ0Qe6CqSOm8aU31RKgc13uigRQat4ijgMv5g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AkuxpnB9gDnuD2XgPNSBlab6Z3PdHQZERsEVWHElRJ50N0hxy2uK6t/K1p5LnwKSd
-	 qtR1Nn0oxXrp0Vq+zyk+Z9Ldye+U20odLWC1zmFhuQHw+ZhZHnC2TalDrd33l0VRd7
-	 1+QjeDcfUDEXZ1/SI2cx5uvOLd8pEIuiOXVgaRQ5KL8UYBmPlur7NIfdjKU1Kthi42
-	 XTXaN594AG5csFXG3PaK+GpEJFgrVjM9K7MKptTJWizdRoTqfSWWx/weuKBsITT+gd
-	 uV66BafxxOZ3yiFCyIyskHjvm/Ps6rvzZf6aC4+nxYgZ//jhHHqt8qgqLb11IRQEb+
-	 75bsSLWIb6ndA==
-Date: Wed, 9 Sep 2026 10:31:17 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] phy: aspeed: Add AST2700 USB3.2 PHY driver
-Message-ID: <5oamvlreciw524g3bpbemcpdpljc7thilejy6s4kwmt5hdjwcp@xmaef4eaurzk>
-References: <20260701-upstream_usb3phy-v3-0-00e12315b6f9@aspeedtech.com>
- <20260701-upstream_usb3phy-v3-2-00e12315b6f9@aspeedtech.com>
+	b=mpRVrNuCbiYPGBCXwIl2Uck00ne1+/3Q/Fv77IEuqy37gWNELOXyO7MJgYppLb9mg
+	 jq4HEj2qp61rmCuPGx9F1DCsDvzjR4RCQptO/5nRmDMNnyNz29I/2bpt1NhENdbi1P
+	 2o1z3zZF8+rFKXtQT918yG6wN1OjE6kNUnQhLn8ijp6j9Bny9GlJxme8rjO6Jn0h9+
+	 rRZ0i70LSRCJYbEsp62gfc+8Xc3C39F6Gf4En6htyzi3e2DFufaBlfyOXzdqICuX5f
+	 NSOGKNB6xKIXCULSUa1+bZ2DMO9iLU9hlMIJBAHnPAn6H39VxpgxK2OsDYIRfiBDwz
+	 xGcsLHxA2rsng==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 04A9F198003A;
+	Wed,  9 Sep 2026 04:32:11 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 09 Sep 2026 04:32:16 -0400
+X-ME-Sender: <xms:ixmhapBAkuku58ph4ImY5x8HTVPR-a-GHKAjHxGYs6i6BiyvN3qKJA>
+    <xme:ixmhaoUBIzF2-XTqz7Q7XsZGfUlu1qp45g0XksgG4xE2nvHasOECB1sdiTsl2pO5l
+    5GTTpQq5vkhAHq3zb82uLYnekB3t8N4-_vt0SV7VfMF4kFYptJbgQJR>
+X-ME-Received: <xmr:ixmhajJkKcLS2mz5yC2nM9WoVWg0BrBys96tr8i4aSAb0w6YWN2RHC2QFDU>
+X-ME-Proxy-Cause: dmFkZTEa2vldEggdEtHpw8yPdhwCuH7pRJBb9RsrLsD2yFmnjIBvi4LSmi1+fPsBQuYbj4
+    E1kgGLriuiXtzGGyPjxHIE8WkxV1amP5nSmc2hlMfnzYczx1VVzSWXfiUb+MMAUCaO+wBf
+    kngiaudPMNXdGDaTdWhzYha/rQRzY7G7hO2gKWvcmIITfUr++w+fz7Ts74FLZQ8G5PnsFA
+    o6nqU0hohLcc80EVsNQJj162+Ryg1GuJrSdu4MyDXdV2qNQM69VAIDJTKqQoGIjeVRiPkA
+    XPvShuHApELamEYQhCPs8BdUdTtGsNF9ExW2oaDo4YBPLv7N6gCGtu/4QY5C3a/ra8BZBq
+    PHQW4ZN0AD8FCgPiZ6uvULlKEm26eTIuOD29lLn40JxD5TZGyOPSZBPeRjPoR0RPZgqNSG
+    GASc8/TMxhnUJht36f5AV8dZHmgy25t+BdhiVQcGMYiu8LzO4p0TO1D0DCsbGeSwwcOt/s
+    leuAPDN+XeIxUwVRn/+JeqHi+vyV1ztJxLkeVNwnCPklvWVhKh99UE/l5DaslnlbpdT3Bk
+    HJugQYWSiF90Eo2xUFb4h/6nDLcUBxMjXNnFf1plkeU8WH5SAW/UOtaN/Pt/TppS5AniQj
+    ceYi5Jw4bc8XDT2qofLQV0N8qAgtvzT3d9E96PCd4VLuH9L/s5yreuo1oozg
+X-ME-Proxy: <xmx:ixmhapnBRQeKBI6JefPUyoGVKdLmRUfd0mee4Z6wkbE_kF5KZhx_GQ>
+    <xmx:ixmhapbF4_h0SWwvVgvjBuFYcMTM0Y4EnmGfPv0xqI8cl9xP0E4SfQ>
+    <xmx:ixmharjVrk24Ly5lce_-Ir_xpNjsbaLymW8W_sU2dY5NnSp-mDd6gw>
+    <xmx:ixmhamR_iJQgddaEJeo83whkibJKXPIzgBVxT4Su9buLDfaZxIPKyA>
+    <xmx:ixmhakMNi6fJ72wgmOz3jhfeJDxhBWXrW3IrYidVt2TZmtZd34Op3lN4>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Sep 2026 04:32:10 -0400 (EDT)
+Date: Wed, 9 Sep 2026 09:32:09 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
+	Kairui Song <ryncsn@gmail.com>
+Subject: Re: [PATCH v4 17/17] mm/huge_memory: drop the redundant mapping
+ argument of __split_frozen_folio
+Message-ID: <aqEZd-M4x9lmyMqy@thinkstation>
+References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
+ <20260908-swap-thp-cleanup-v4-17-b532a3f20e71@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260701-upstream_usb3phy-v3-2-00e12315b6f9@aspeedtech.com>
+In-Reply-To: <20260908-swap-thp-cleanup-v4-17-b532a3f20e71@tencent.com>
 
-On Wed, Jul 01, 2026 at 02:58:18PM +0800, Ryan Chen wrote:
-> Add AST2700 USB3.2 PHY driver support.
+On Tue, Sep 08, 2026 at 02:12:21AM +0800, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
-> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-
-Just couple of nitpicks below. Once they are addressed:
-
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-> ---
->  drivers/phy/Kconfig                  |   1 +
->  drivers/phy/Makefile                 |   1 +
->  drivers/phy/aspeed/Kconfig           |  15 +++
->  drivers/phy/aspeed/Makefile          |   2 +
->  drivers/phy/aspeed/phy-aspeed-usb3.c | 236 +++++++++++++++++++++++++++++++++++
->  5 files changed, 255 insertions(+)
+> The mapping parameter only served as a non-NULL check to detect
+> whether page cache entries need updating.  The xa_state pointer
+> conveys exactly the same information: the anon split helper passes
+> NULL and the file split helper passes &xas, which is non-NULL iff
+> the folio is in the page cache.
 > 
-> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-> index 19f3b7d12b7d..85fa381978f8 100644
-> --- a/drivers/phy/Kconfig
-> +++ b/drivers/phy/Kconfig
-> @@ -171,6 +171,7 @@ config PHY_XGENE
->  source "drivers/phy/allwinner/Kconfig"
->  source "drivers/phy/amlogic/Kconfig"
->  source "drivers/phy/apple/Kconfig"
-> +source "drivers/phy/aspeed/Kconfig"
->  source "drivers/phy/axiado/Kconfig"
->  source "drivers/phy/broadcom/Kconfig"
->  source "drivers/phy/cadence/Kconfig"
-> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-> index d7aa516bcc49..c6dd02003bbe 100644
-> --- a/drivers/phy/Makefile
-> +++ b/drivers/phy/Makefile
-> @@ -23,6 +23,7 @@ obj-$(CONFIG_PHY_XGENE)			+= phy-xgene.o
->  obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
->  					   amlogic/	\
->  					   apple/	\
-> +					   aspeed/	\
->  					   axiado/	\
->  					   broadcom/	\
->  					   cadence/	\
-> diff --git a/drivers/phy/aspeed/Kconfig b/drivers/phy/aspeed/Kconfig
-> new file mode 100644
-> index 000000000000..7b5f48db2be8
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/Kconfig
-> @@ -0,0 +1,15 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#
-> +# PHY drivers for ASPEED
-> +#
-> +
-> +config PHY_ASPEED_USB3
-> +	tristate "ASPEED USB3 PHY driver"
-> +	select GENERIC_PHY
-> +	depends on (ARCH_ASPEED || COMPILE_TEST)
-> +	help
-> +	  Enable this to support the USB 3.2 PHY on the Aspeed AST2700 SoC.
-> +	  It supports SuperSpeedPlus Gen2x1 (10 Gbps), SuperSpeed (5 Gbps),
-> +	  High Speed (480 Mbps), Full Speed (12 Mbps) and Low Speed
-> +	  (1.5 Mbps), and is paired with the DWC3 USB controller.
-> diff --git a/drivers/phy/aspeed/Makefile b/drivers/phy/aspeed/Makefile
-> new file mode 100644
-> index 000000000000..d96d9d73a009
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +obj-$(CONFIG_PHY_ASPEED_USB3)		+= phy-aspeed-usb3.o
-> diff --git a/drivers/phy/aspeed/phy-aspeed-usb3.c b/drivers/phy/aspeed/phy-aspeed-usb3.c
-> new file mode 100644
-> index 000000000000..eff148faa14c
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/phy-aspeed-usb3.c
-> @@ -0,0 +1,236 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright 2026 Aspeed Technology Inc.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/reset.h>
-> +
-> +#define PHY3S00		0x00
-> +#define PHY3S00_INIT_DONE		BIT(15)
-> +#define PHY3S00_SRAM_BYPASS		BIT(7)
-> +#define PHY3S00_SRAM_EXT_LOAD	BIT(6)
+> Use the xas pointer instead and drop the parameter, along with its
+> kerneldoc entry.
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 
-If you want to mix register offsets and bitfield definitions, then you need to
-use indent to differentiate:
-
-	#define PHY3S00			0x00
-	#define  PHY3S00_INIT_DONE	BIT(15)
-	#define  PHY3S00_SRAM_BYPASS	BIT(7)
-	...
-	#define PHY3S04			0x04
-	...
-
-> +#define PHY3S04		0x04
-> +#define PHY3C00		0x08
-> +#define PHY3C04		0x0C
-
-Use lowercaps for all hex values
-
-- Mani
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-மணிவண்ணன் சதாசிவம்
+  Kiryl Shutsemau / Kirill A. Shutemov
