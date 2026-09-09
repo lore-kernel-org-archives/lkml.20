@@ -1,20 +1,20 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 313F1493D59;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2E550493D57;
 	Wed,  9 Sep 2026 22:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992717; cv=none; b=RmvufKLezb1v00+Kt18fJwTMN6Zfnjj7XUV04J+sQpOiVFTGgC3lmCPYXiMF+Gs3scq5nwChi0jh0UL/HcSYQySUZP3u/eJ0WsZspcr9hd61NCKhW1mMbsEftlH0PelTjePyGkqvNDvBJ2m9FbhvvIGPhve4xU99ghJxVgaGE3c=
+	t=1788992718; cv=none; b=CdY11EEEp+nmX15oqek6DghK3YAVoWpLrcPSb+HwZZ6FPAo5lRWdgxvfWmX4CKYF4HDg6hJfo8GjakwHDNvRywLsty1Vt4/qDGHKomfZbl6jCnMkyRAa8AXa9S6jdZGdX5knZXE1QSTP1S+d3pdaJsZ1CWDLMnm8wqyQ5EIkkOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788992717; c=relaxed/simple;
-	bh=jY+P3A3+fjaNjIgHLHhfZjggzZus3kriWxtpMECBmwE=;
+	s=arc-20240116; t=1788992718; c=relaxed/simple;
+	bh=hD9wPZM2jk4YAEVlFi6EKspVeBaTjLhvBu+om3yiHnI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b3KBAeYCt1UP4qve5yCLSHHkROQevp+UiTiE3OQiwlN/TvxT2oBm1qpWaEmYh/ycEAaMcr9feGC18zeaLiLMa5PTg3MmU/ru5w0plcl6hSHfH2gE6R9Wjk6WmJDu+Fyx8vt73lBKkjjdWN14WPvbU+QFQaLUBCQDn3NYuoCoLJU=
+	 MIME-Version; b=Un2SzjYSBd6P5Ls93GHxIFap34gBnoFoceb+Q3HvcEq9MfCELXtvWUX57FqxSEpMaGGzq19HiUwd3QHu9ArfKvhN4dOodrzV9q9yn2w172QtSlXzACSCq+UpchI3JmeedwGiCxYUMHDcwtr3O34+VcpQ/tIFaP+4KwgdZbX+wq8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Received: by linux.microsoft.com (Postfix, from userid 1202)
-	id BADC920B7178; Wed,  9 Sep 2026 15:24:29 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BADC920B7178
+	id 9039B20B7170; Wed,  9 Sep 2026 15:24:29 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9039B20B7170
 From: Long Li <longli@microsoft.com>
 To: Long Li <longli@microsoft.com>,
 	Long Li <longli@kernel.org>,
@@ -39,9 +39,9 @@ Cc: netdev@vger.kernel.org,
 	linux-rdma@vger.kernel.org,
 	linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v5 10/13] net: mana: release EQs left idle by a channel-count reduction
-Date: Wed,  9 Sep 2026 15:24:13 -0700
-Message-ID: <20260909222416.884246-11-longli@microsoft.com>
+Subject: [PATCH net-next v5 07/13] net: mana: swap queue sets in mana_xdp_set
+Date: Wed,  9 Sep 2026 15:24:10 -0700
+Message-ID: <20260909222416.884246-8-longli@microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260909222416.884246-1-longli@microsoft.com>
 References: <20260909222416.884246-1-longli@microsoft.com>
@@ -53,132 +53,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Release EQs above the live queue count after retiring queues are freed
-or replacement allocation fails. All CQs using those EQs must be gone.
-Return their vector allocations to the pool; IRQ registrations remain.
+Carry the XDP program with the queue set and install its per-queue
+references before redirecting RSS. This keeps the RX buffer layout and
+program together during publication and rollback.
 
-Store each EQ's debugfs dentry in apc->eqs[] rather than a stack copy so
-shrinking can remove individual EQ directories.
+Do not replace the live program during allocation. This also avoids the
+pre-existing failed-preallocation stale-pointer bug; its standalone net
+fix is linked below.
 
+Link: https://lore.kernel.org/all/20260904202640.3900685-1-longli@microsoft.com/
 Signed-off-by: Long Li <longli@microsoft.com>
 ---
 Changes in v5:
   - Rebased onto current net-next; no changes to this patch.
 
 Changes in v4:
-  - Derive the live port from scratch->ndev inside mana_free_qset()
-    instead of adding a redundant parameter and shadowing local.
-  - State the CQ-lifetime requirement for shrinking and shorten comments.
+  - Reference the separately submitted net fix and shorten the XDP
+    ownership explanation.
 
- drivers/net/ethernet/microsoft/mana/mana_en.c | 49 ++++++++++++++++---
- .../ethernet/microsoft/mana/mana_ethtool.c    |  1 -
- 2 files changed, 41 insertions(+), 9 deletions(-)
+Merge note:
+  This overlaps the net submission:
+  https://lore.kernel.org/all/20260904202640.3900685-1-longli@microsoft.com/
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 98007bb3ef7caa974849c3f4998854f15c925321..fc96837d69a00f97c090474ca69bf42cb4805353 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -1881,6 +1881,8 @@ void mana_destroy_eq(struct mana_port_context *apc)
- 		msi = eq->eq.msix_index;
- 		mana_gd_destroy_queue(gc, eq);
- 		mana_gd_put_gic(gc, !gc->msi_sharing, msi);
-+		apc->eqs[i].eq = NULL;
-+		apc->eqs[i].mana_eq_debugfs = NULL;
+  Retain this patch's queue-set version of mana_xdp_set() when resolving
+  the overlapping block. It does not assign the live program before
+  allocation and removes the failure path where the net fix restores
+  apc->bpf_prog.
+
+ .../net/ethernet/microsoft/mana/mana_bpf.c    | 61 +++++++++----------
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 12 ++--
+ .../ethernet/microsoft/mana/mana_ethtool.c    | 11 ++--
+ include/net/mana/mana.h                       |  5 +-
+ 4 files changed, 46 insertions(+), 43 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+index 5867ac6eb7b9fa56f593ee87ebfb91ce85301786..debf0e77658620ee830b303f106bbd7b7c14ee5f 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+@@ -177,6 +177,8 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 			struct netlink_ext_ack *extack)
+ {
+ 	struct mana_port_context *apc = netdev_priv(ndev);
++	struct mana_port_context *scratch;
++	struct mana_qset newq, oldq;
+ 	struct bpf_prog *old_prog;
+ 	struct gdma_context *gc;
+ 	int err;
+@@ -196,46 +198,44 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 		return -EOPNOTSUPP;
  	}
  
- 	kfree(apc->eqs);
-@@ -1891,15 +1893,16 @@ EXPORT_SYMBOL_NS(mana_destroy_eq, "NET_MANA");
+-	/* One refcnt of the prog is hold by the caller already, so
+-	 * don't increase refcnt for this one.
+-	 */
+-	apc->bpf_prog = prog;
+-
+ 	if (apc->port_is_up) {
+-		/* Re-create rxq's after xdp prog was loaded or unloaded.
+-		 * Ex: re create rxq's to switch from full pages to smaller
+-		 * size page fragments when xdp prog is unloaded and
+-		 * vice-versa.
+-		 */
+-
+-		/* Pre-allocate buffers to prevent failure in mana_attach */
+-		err = mana_pre_alloc_rxbufs(apc, ndev->mtu, apc->num_queues);
+-		if (err) {
++		scratch = mana_qset_scratch_alloc(apc);
++		if (!scratch) {
+ 			NL_SET_ERR_MSG_MOD(extack,
+-					   "XDP: Insufficient memory for tx/rx re-config");
+-			return err;
++					   "XDP: Insufficient memory for re-config");
++			return -ENOMEM;
+ 		}
  
- static void mana_create_eq_debugfs(struct mana_port_context *apc, int i)
- {
--	struct mana_eq eq = apc->eqs[i];
-+	struct mana_eq *eq = &apc->eqs[i];
- 	char eqnum[32];
+-		err = mana_detach(ndev, false);
++		err = mana_alloc_qset(apc, scratch, apc->num_queues,
++				      apc->rx_queue_size, apc->tx_queue_size,
++				      apc->priv_flags, apc->configured_mtu,
++				      prog, &newq);
+ 		if (err) {
+-			netdev_err(ndev,
+-				   "mana_detach failed at xdp set: %d\n", err);
+ 			NL_SET_ERR_MSG_MOD(extack,
+-					   "XDP: Re-config failed at detach");
+-			goto err_dealloc_rxbuffs;
++					   "XDP: Re-config failed at alloc");
++			mana_qset_scratch_free(scratch);
++			return err;
+ 		}
  
- 	sprintf(eqnum, "eq%d", i);
--	eq.mana_eq_debugfs = debugfs_create_dir(eqnum, apc->mana_eqs_debugfs);
--	debugfs_create_u32("head", 0400, eq.mana_eq_debugfs, &eq.eq->head);
--	debugfs_create_u32("tail", 0400, eq.mana_eq_debugfs, &eq.eq->tail);
--	debugfs_create_u32("irq", 0400, eq.mana_eq_debugfs, &eq.eq->eq.irq);
--	debugfs_create_file("eq_dump", 0400, eq.mana_eq_debugfs, eq.eq, &mana_dbg_q_fops);
-+	eq->mana_eq_debugfs = debugfs_create_dir(eqnum, apc->mana_eqs_debugfs);
-+	debugfs_create_u32("head", 0400, eq->mana_eq_debugfs, &eq->eq->head);
-+	debugfs_create_u32("tail", 0400, eq->mana_eq_debugfs, &eq->eq->tail);
-+	debugfs_create_u32("irq", 0400, eq->mana_eq_debugfs, &eq->eq->eq.irq);
-+	debugfs_create_file("eq_dump", 0400, eq->mana_eq_debugfs, eq->eq,
-+			    &mana_dbg_q_fops);
- }
+-		err = mana_attach(ndev);
++		err = mana_publish_qset(apc, &newq, &oldq);
+ 		if (err) {
+-			netdev_err(ndev,
+-				   "mana_attach failed at xdp set: %d\n", err);
+ 			NL_SET_ERR_MSG_MOD(extack,
+-					   "XDP: Re-config failed at attach");
+-			goto err_dealloc_rxbuffs;
++					   "XDP: Re-config failed at publish");
++			mana_free_qset(scratch, &newq);
++			/* Free the queues before closing their shared EQ pool.
++			 */
++			mana_publish_close_if_needed(apc);
++			mana_qset_scratch_free(scratch);
++			return err;
+ 		}
  
- int mana_create_eq(struct mana_port_context *apc)
-@@ -2008,11 +2011,37 @@ static int mana_grow_eqs(struct mana_port_context *apc, unsigned int need)
+-		mana_chn_setxdp(apc, prog);
+-		mana_pre_dealloc_rxbufs(apc);
++		mana_free_qset(scratch, &oldq);
++		mana_qset_scratch_free(scratch);
++	} else {
++		/* Use the caller's program reference; mana_open() installs it
++		 * on queues.
++		 */
++		apc->bpf_prog = prog;
+ 	}
+ 
+ 	if (old_prog)
+@@ -248,11 +248,6 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 		ndev->max_mtu = gc->adapter_mtu - ETH_HLEN;
  
  	return 0;
- out:
--	/* Retain partial growth for reuse; the live set still needs this pool.
--	 */
- 	return err;
+-
+-err_dealloc_rxbuffs:
+-	apc->bpf_prog = old_prog;
+-	mana_pre_dealloc_rxbufs(apc);
+-	return err;
  }
  
-+/* All CQs referencing EQs at or above @keep must be destroyed first. */
-+static void mana_shrink_eqs(struct mana_port_context *apc, unsigned int keep)
-+{
-+	struct gdma_context *gc = apc->ac->gdma_dev->gdma_context;
-+	struct gdma_queue *eq;
-+	unsigned int msi;
-+	unsigned int i;
-+
-+	if (!apc->eqs || keep >= apc->num_eqs)
-+		return;
-+
-+	for (i = keep; i < apc->num_eqs; i++) {
-+		eq = apc->eqs[i].eq;
-+		if (!eq)
-+			continue;
-+
-+		debugfs_remove_recursive(apc->eqs[i].mana_eq_debugfs);
-+		apc->eqs[i].mana_eq_debugfs = NULL;
-+
-+		msi = eq->eq.msix_index;
-+		mana_gd_destroy_queue(gc, eq);
-+		mana_gd_put_gic(gc, !gc->msi_sharing, msi);
-+		apc->eqs[i].eq = NULL;
-+	}
-+
-+	apc->num_eqs = keep;
-+}
-+
- static int mana_fence_rq(struct mana_port_context *apc, struct mana_rxq *rxq)
+ int mana_bpf(struct net_device *ndev, struct netdev_bpf *bpf)
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 7f7833f3e1aad43d250b15ddb35f59907d01929e..62c11af2fc422206f0ab8e144a4d082d62f7737d 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -916,9 +916,9 @@ static int mana_change_mtu(struct net_device *ndev, int new_mtu)
+ 	if (!scratch)
+ 		return -ENOMEM;
+ 
+-	err = mana_alloc_qset(mpc, scratch, mpc->num_queues,
+-			      mpc->rx_queue_size, mpc->tx_queue_size,
+-			      mpc->priv_flags, new_mtu, &newq);
++	err = mana_alloc_qset(mpc, scratch, mpc->num_queues, mpc->rx_queue_size,
++			      mpc->tx_queue_size, mpc->priv_flags, new_mtu,
++			      mpc->bpf_prog, &newq);
+ 	if (err)
+ 		goto free_scratch;
+ 
+@@ -3916,6 +3916,7 @@ static void mana_qset_snapshot(const struct mana_port_context *ctx,
+ 	out->tx_queue_size	= ctx->tx_queue_size;
+ 	out->priv_flags		= ctx->priv_flags;
+ 	out->mtu		= ctx->configured_mtu;
++	out->bpf_prog		= ctx->bpf_prog;
+ }
+ 
+ /* Vport identity and port debugfs outlive queue sets. */
+@@ -3933,6 +3934,7 @@ static void mana_qset_install(struct mana_port_context *ctx,
+ 	ctx->tx_queue_size	= qset->tx_queue_size;
+ 	ctx->priv_flags		= qset->priv_flags;
+ 	ctx->configured_mtu	= qset->mtu;
++	ctx->bpf_prog		= qset->bpf_prog;
+ }
+ 
+ /* Scratch starts without SQs/RQs and borrows the port's EQ pool. Never call
+@@ -3973,7 +3975,8 @@ void mana_qset_scratch_free(struct mana_port_context *scratch)
+ int mana_alloc_qset(struct mana_port_context *apc,
+ 		    struct mana_port_context *scratch, unsigned int num_queues,
+ 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
+-		    u32 priv_flags, int mtu, struct mana_qset *out)
++		    u32 priv_flags, int mtu, struct bpf_prog *bpf_prog,
++		    struct mana_qset *out)
  {
- 	struct mana_fence_rq_resp resp = {};
-@@ -4148,6 +4177,8 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 	kfree(scratch->rxqs);
- 	scratch->rxqs = NULL;
- out_err:
-+	mana_shrink_eqs(apc, apc->num_queues);
-+
- 	netdev_err(ndev, "%s(num_queues=%u) failed: %d\n", __func__,
- 		   num_queues, err);
- 	return err;
-@@ -4453,6 +4484,8 @@ void mana_free_qset(struct mana_port_context *scratch, struct mana_qset *qset)
- 	 */
- 	netif_set_real_num_rx_queues(apc->ndev, apc->num_queues);
+ 	struct net_device *ndev = scratch->ndev;
+ 	int err;
+@@ -3986,6 +3989,7 @@ int mana_alloc_qset(struct mana_port_context *apc,
+ 	scratch->priv_flags	= priv_flags;
  
-+	mana_shrink_eqs(apc, apc->num_queues);
-+
- 	mana_qset_debugfs_publish(apc);
- }
+ 	scratch->configured_mtu	= mtu;
++	scratch->bpf_prog	= bpf_prog;
  
+ 	err = mana_init_port_context(scratch);
+ 	if (err)
 diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-index 77dcbd01a1f3da692c341f17d8f2a8301c02bd6b..53a76ae42333f46e8791c3c493887ede5c6bb410 100644
+index c03944f95cf84dcbaa866e92f6c7d67100215b7b..32f40f5cd850e6c67ea0dd57cc45a51b37c43b93 100644
 --- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
 +++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-@@ -752,7 +752,6 @@ static int mana_set_channels(struct net_device *ndev,
- 	mana_free_qset(scratch, &oldq);
+@@ -709,7 +709,7 @@ static int mana_set_channels(struct net_device *ndev,
  
- free_scratch:
--	/* Release unpublished queues before closing their shared EQ pool. */
- 	mana_publish_close_if_needed(apc);
- 	mana_qset_scratch_free(scratch);
- clear_flag:
+ 	err = mana_alloc_qset(apc, scratch, new_count, apc->rx_queue_size,
+ 			      apc->tx_queue_size, apc->priv_flags,
+-			      apc->configured_mtu, &newq);
++			      apc->configured_mtu, apc->bpf_prog, &newq);
+ 	if (err)
+ 		goto free_scratch;
+ 
+@@ -798,7 +798,8 @@ static int mana_set_ringparam(struct net_device *ndev,
+ 	}
+ 
+ 	err = mana_alloc_qset(apc, scratch, apc->num_queues, new_rx, new_tx,
+-			      apc->priv_flags, apc->configured_mtu, &newq);
++			      apc->priv_flags, apc->configured_mtu,
++			      apc->bpf_prog, &newq);
+ 	if (err) {
+ 		NL_SET_ERR_MSG_FMT(extack, "failed to change ring params: %d",
+ 				   err);
+@@ -886,9 +887,9 @@ static int mana_set_priv_flags(struct net_device *ndev, u32 priv_flags)
+ 		goto clear_flag;
+ 	}
+ 
+-	err = mana_alloc_qset(apc, scratch, apc->num_queues,
+-			      apc->rx_queue_size, apc->tx_queue_size,
+-			      priv_flags, apc->configured_mtu, &newq);
++	err = mana_alloc_qset(apc, scratch, apc->num_queues, apc->rx_queue_size,
++			      apc->tx_queue_size, priv_flags,
++			      apc->configured_mtu, apc->bpf_prog, &newq);
+ 	if (err)
+ 		goto free_scratch;
+ 
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 02d60a6b7be423ae55a93fa21e53717e40918eb7..9b8c038042b4f90b0b5958fc33cdad36e169863c 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -698,6 +698,8 @@ struct mana_qset {
+ 	u32			priv_flags;
+ 
+ 	int			mtu;
++	struct bpf_prog		*bpf_prog;
++
+ };
+ 
+ netdev_tx_t mana_start_xmit(struct sk_buff *skb, struct net_device *ndev);
+@@ -715,7 +717,8 @@ void mana_qset_scratch_free(struct mana_port_context *scratch);
+ int mana_alloc_qset(struct mana_port_context *apc,
+ 		    struct mana_port_context *scratch, unsigned int num_queues,
+ 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
+-		    u32 priv_flags, int mtu, struct mana_qset *out);
++		    u32 priv_flags, int mtu, struct bpf_prog *bpf_prog,
++		    struct mana_qset *out);
+ int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
+ 		      struct mana_qset *out_old);
+ void mana_publish_close_if_needed(struct mana_port_context *apc);
 -- 
 2.43.0
