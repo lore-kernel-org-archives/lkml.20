@@ -1,84 +1,79 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D72390CAD;
-	Wed,  9 Sep 2026 17:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F2DE37D124
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976229; cv=none; b=jIZTqkYqRAx1cPQk3Ksg3mDokPpDk4vX149A3tpjkbVDN/ztY34N+cLZosSVbj4IH2wGXEl13Mxxgo4Li8tVEw0eMR5atTxLXSvFNEmwOKFZ5nFfrqqqN90r9rbxU5y+j4G7L3pN6fCrAWVAJt8VIYdZCwDDTlA1p8/PajXKORQ=
+	t=1788976264; cv=none; b=jf1w/hY4+DY66rfg2GR0kO2QYm5VT4FbDBmTn9HTN7So8+CwREfCWqrBWM+0JeJ/Mi5XnbXXDzdrwFtKefKC1iw2EnI5kdh1NWZtvpTvQKSpV+GZ8nUxk07dem5lmyQ3qDAjXCv5+rjbNd3pzFC2xD6Eehiidc/SOqn6gu6GwBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976229; c=relaxed/simple;
-	bh=PPvRAeKE68YZMDipfQmdPIzPA+5uYXaU6AbKa6B7r6E=;
+	s=arc-20240116; t=1788976264; c=relaxed/simple;
+	bh=7Vhuf1iZFkwe6WdcpSNqvT1waKG31SWv7t0DuAd1j/8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KYIlZJ8cyWzy10vMw6Nb9A1ksPJoPnE/vyEudAEpLZ17QjupvszDZPLwmpgbc8WqelayzWD/734MF5cNMiHE58y5HQqxjIr89BRYwCCVxx/RdFvnKmxRc41qr4RQLyuYcUR8KAaICGAoWIYSGQmawQBtsxHgTW9FL/YSOSgItHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=KFiYGkpi; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=qWc/LcoUqtfLZpDomfqREbqsVLcYMt/7COOexT52+z/rV1HTRtyu/0dCR9oEcda0TeMl2/U5VOLXHCHlYG/xp4XgEB5dyLxGZwDITqlcBjH1EUQbS+lxC6OMNU9R2yOV8M9DaZrutkdgCTcd0HsqMGfTOb0pAFbMAbwpewpVA4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lCkvkSUj; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="KFiYGkpi"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 08D0B40E01E1;
-	Wed,  9 Sep 2026 17:50:23 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id tYw5v8l1skOR; Wed,  9 Sep 2026 17:50:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788976211; bh=+p5awYSiRQPpCHJwK8BAB6HkMRTsMPyjd1UqINYq+vU=;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lCkvkSUj"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CF9F1576;
+	Wed,  9 Sep 2026 10:50:57 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6382C3F528;
+	Wed,  9 Sep 2026 10:51:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788976260; bh=7Vhuf1iZFkwe6WdcpSNqvT1waKG31SWv7t0DuAd1j/8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KFiYGkpicMLzzjoOGD1P5Pt2ChzXyNMjUxIvT7YWl6UDQXoLmO1ihK889jB3tKttB
-	 /Fmk3h//LB7YtwtZfEqUyJbqWwttmeeVnf4oUrOV23t0zTNjeup1CpzLyQwh82aNqG
-	 Z/0TqCLn4MFkr1us2y2GFk82T+iQmHS7UkjVTL4LzlLPygSAvFa3WlDS5rm1M1rM2O
-	 JRtHtzns3/7pMt/+5Occ4A01EglqfMVtYiXKIgGpXBTdBjvYbAYpRJLrQkecdA+KW+
-	 XUosr279IVccTiNj7jdbJQ65KFOAj9/qU7k0z+Bd9Kr2ksrzBH3ovKYCmgumDsAyb9
-	 fPxs8FYkAM81JsUwvTw8ek+cpHCd8JMHCwxB89lZHrjFfmDCZ3sTb2ZRXjlrb0uRoS
-	 hwXEd924bQLfs60DZ0eaZzytrPi9guxWYgFgszIGlniQDmUqOJtl+v4/xbLjT7Mv4H
-	 HMVEkA5W/mV7FGk8YTORs6iYYuc5wYFARgbRJzYuojC0eHZqhnEXdziRdgJbeWVWRl
-	 sJXlbtc8viX3InYqBFWygXyMbms+eRuNoAL2BIwiiL5k36MJaUJ3E3E3a3YXr4PPCZ
-	 fvdH7UFkzTVdYlvUjzufP+Uk2WHdKpe7rHokT+C/W/L3gnje0oSOY/Z03Se6Bz+on+
-	 eAk2ppMtJmUzm269JQvQRNjY=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C715A40E020D;
-	Wed,  9 Sep 2026 17:50:06 +0000 (UTC)
-Date: Wed, 9 Sep 2026 10:50:03 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Leo Zhuo <qzhuo@nvidia.com>
-Cc: Tony Luck <tony.luck@intel.com>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/1] MAINTAINERS: Update my email address
-Message-ID: <20260909175003.GBaqGcS96zIUbWmIJ0@fat_crate.local>
-References: <20260909151531.69074-1-qzhuo@nvidia.com>
+	b=lCkvkSUjVmgC63A8DcgNLu8rYIyPcrokQcrsyLqXVqan9fYv+ENwYTis7kB0+VFpP
+	 K5e2UMBtgg3NkTJMAUjPp06SQ3F9foXYseWr+p6ou2e8ah+dq+xO5SbENz1WLdv2Zc
+	 4VQet3EFP0My6FkdBUlclD/4xU/7JzYladQ+KI9Y=
+Date: Wed, 9 Sep 2026 18:50:58 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: "Bouron, Justinien" <jbouron@amazon.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, David Hildenbrand <david@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Quentin Perret <qperret@google.com>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Kudrjavets, Gunnar" <gunnarku@amazon.com>
+Subject: Re: [PATCH] arm64: Add user and kernel page-fault tracepoints
+Message-ID: <20260909175058.GE200420@e132581.arm.com>
+References: <20260520045524.75670-1-jbouron@amazon.com>
+ <20260520073606.GA101133@e132581.arm.com>
+ <FFEB5A47-7651-4607-A127-8CC07D241F4C@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260909151531.69074-1-qzhuo@nvidia.com>
+In-Reply-To: <FFEB5A47-7651-4607-A127-8CC07D241F4C@amazon.com>
 
-On Wed, Sep 09, 2026 at 03:16:15PM +0000, Leo Zhuo wrote:
-> Following a job transition, update my email address to my current work
-> address. I'm willing to continue reviewing EDAC patches.
+Hi Justinien,
 
-From: Leo Zhuo <qzhuo@nvidia.com>
+On Wed, Sep 09, 2026 at 01:13:42PM +0000, Bouron, Justinien wrote:
+> Leo,
+> 
+> Thank you for the feedback. I've posted a second revision at
+> https://lore.kernel.org/lkml/20260902115216.49158-1-jbouron@amazon.com/, though
+> it doesn't seem to be getting much traction.
 
-Do you wanna still use Qiuxu or switch to Leo now because latter will create
-some authorship confusion in git?
+This should be in the arm64 maintainers' scope (v1 caught my attention
+due to it mentioned perf related things).
 
-I'm fine either way - just making sure you really meant it.
+I think the main question is these tracepoints overlap with perf sw
+events. Could you elaborate on why ftrace tracepoints are necessary?
+('perf record' and 'perf script' can provide similar info and we can
+avoid extra latency).
 
-Thx.
+If the maintainers think this patch is reasonable, I'd be happy to help
+test it.
 
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Thanks,
+Leo
