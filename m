@@ -1,146 +1,79 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D152EACF2;
-	Wed,  9 Sep 2026 01:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C88E2D73B8;
+	Wed,  9 Sep 2026 01:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788918030; cv=none; b=D5ieSsB6ACdlUapKOfQmkpYK2hczNY1+0oppCMwhVDeqrIqymSNWyRdUyUa1LtTO/nNHIPowewRiuCQhQMSu6ZFe0ugM3JX1MPUb3p301qi7OYvA6PXqjqyjVhLWZ+5vsRj7RwE7b5H4yhRznBgTeS6e30GZGidk3IgKnjHfp50=
+	t=1788918068; cv=none; b=j0tHv2SVLWa5G6EyBethDRlfwjqW1AeL4LUidrG+L1cAJIpAeTgYEQrqjbE6291xR70Jj/a+jzYQSXdUI4eOubkTfXG+fngmugUG+aoKVurYaOlYYcWJ7gd+iNY333XXdeo4rZQar8O9iz6uIJSPb1kzkYxCVsWRWGpr1BWGTgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788918030; c=relaxed/simple;
-	bh=4cq0uyDwJ/K4kJ7Gao26bSV90BTeCDTYUX976XCLRcU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uuZqkPy8iOIJXh2Cn9sjW5kTRBV3Bqnq6HzRfVbGn4GcfIrLaFY7VYrwxZCROGs7ko+ehncBXBC25Ehs6qcPgzaHHZvEa9i88E5a56rxBBSSdTBQQnh59gp1kwpbFZHMh0ifEkylwnIHww/6/JqMhkXNaGaP5VtvcKTDTLIgk00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=HDCfyEOl; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=BeBWoS8I; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hsR+d/Ig; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=s9cR3EPi; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788918068; c=relaxed/simple;
+	bh=yvS1B9jaUrssVYt9A2YIOyduChty+KIz9RgRb0gd4/8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=KTnnuuv6w2NJftLhOlD3VZ1NSGknoJPA4G4IW7nTRfDlHOc5qOOp24SEOBJzjQhKS4kaVpr+MY+guqAqNYNOpryk6Ztd7b6QoZYT2ynqP90F/eYjVPM0z6p5qXsgEzu/uSwHVR/nCrEA8MEi68eer5FOkaUpTNSXLF6Toa+Tw6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYqX8TJj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="HDCfyEOl";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="BeBWoS8I";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hsR+d/Ig";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="s9cR3EPi"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0937921A01;
-	Wed,  9 Sep 2026 01:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788918026;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PCzDYzyCEHu+T1f/wyhUzqHlIYIKWubAd45Hrr6xr2Y=;
-	b=HDCfyEOlibgQ6+6ZE8Eeh2Yls1mh64VXMItHWChZTFpKdLXZhkVszQgU1DA//44uad4zyQ
-	RmppVnSTeTG/RS8P++feJOjedX439fCKGcB8FoYpPUryjTHJ/B3KdxXZh7w/LmNEY8suIA
-	G2wc+f1WwFjx3mwTBMRSb4YMm4Wqu5Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788918026;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PCzDYzyCEHu+T1f/wyhUzqHlIYIKWubAd45Hrr6xr2Y=;
-	b=BeBWoS8Iy9hjJ6X7NiIGK9qq6ub7/OUgkbhv4U7jL5EmGRqDdQRyWQZbwvaJwYqBQYsklD
-	XJf5C2DKn3+WdyCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="hsR+d/Ig";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=s9cR3EPi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788918025;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PCzDYzyCEHu+T1f/wyhUzqHlIYIKWubAd45Hrr6xr2Y=;
-	b=hsR+d/IgD4KGWL4dXbfjErJPm1O3VXuINISxElhurHxGDtC69x7A/7aavHAPhPTdnWWlUc
-	cNjW2/ux5NYrZyExQ7vk9bnEds0ufkQ3CbVOnT4a03d24MjJiU/t0NA9EqzoHupkW8Zgjv
-	CC8wf/88+Fa1x+U/pGWQcq0Jj6A4cMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788918025;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PCzDYzyCEHu+T1f/wyhUzqHlIYIKWubAd45Hrr6xr2Y=;
-	b=s9cR3EPivag/+DOwKfDdqhK/ZrBc/eviLdcE5CGkUrTeMV4u0GGLG0XMCKnolHzAMBHh2D
-	iRll29mZzAIpyKDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B264F13354;
-	Wed,  9 Sep 2026 01:40:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RuJYKgi5oGpUCQAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Wed, 09 Sep 2026 01:40:24 +0000
-Date: Wed, 9 Sep 2026 03:40:19 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: clm@fb.com, dsterba@suse.com, naohiro.aota@wdc.com,
-	josef@toxicpanda.com, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, zhongling0719@126.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH RESEND v2] btrfs: fix use-after-free in
- mark_block_group_to_copy
-Message-ID: <20260909014019.GJ9053@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <20260831053801.51572-1-zenghongling@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYqX8TJj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F161F00A3A;
+	Wed,  9 Sep 2026 01:41:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788918067;
+	bh=/HT7p1o2AJKupA2SruM4lB4IcKjOH72WTzcoSAa74DE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=SYqX8TJjbMVlRkGJkS5PpYiT4wcjiV7Xd8DlD7c6iMG+g4l/tWzeLLR4vUkAINjvw
+	 in3/vdj4UsOvoJApOVrJRYgCn3jg03wTgBNJjThdVUujgcG8N6wCI6vPNk6606oShR
+	 Bcdkjf+AnkK20fjBYcSpWKK/8IJi5IvAhNw/H4nSfmEI6pACeOjtR7Xe/1aZuKdSMP
+	 9wZPr5E/fcC8SNfOHkIh6Cc5RB6lU/bjjdx9LM93aZ9fMyRQANP8U0lbrKc9oeCkSo
+	 T2QjZQ7Z1a5ingqXu+AyGaYRCFmNmXnpFs3VF3Pwqst7/nKx2SU6GL5+ExNizgRV+9
+	 jCARtIsC/ZC7Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 938AC380820D;
+	Wed,  9 Sep 2026 01:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831053801.51572-1-zenghongling@kylinos.cn>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 0937921A01
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[126.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[fb.com,suse.com,wdc.com,toxicpanda.com,vger.kernel.org,126.com];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:replyto,twin.jikos.cz:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -4.21
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 0/2] net: macb: fix two probe path leaks
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178891800539.103980.5397686662404338366.git-patchwork-notify@kernel.org>
+Date: Wed, 09 Sep 2026 01:40:05 +0000
+References: <20260907210856.1673589-1-nb@tipi-net.de>
+In-Reply-To: <20260907210856.1673589-1-nb@tipi-net.de>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, theo.lebrun@bootlin.com, conor.dooley@microchip.com,
+ atenart@kernel.org, o.rempel@pengutronix.de, linux-kernel@vger.kernel.org
 
-On Mon, Aug 31, 2026 at 01:38:01PM +0800, Hongling Zeng wrote:
-> mark_block_group_to_copy() iterates over the commit root with
-> skip_locking=true. A concurrent transaction commit can swap and free
-> the commit root during iteration, causing use-after-free when
-> accessing extent buffers.
-> 
-> Fix by using path->need_commit_sem to protect the commit root search.
-> 
-> Fixes: 78ce9fc269af ("btrfs: zoned: mark block groups to copy for device-replace")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.5
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Hello:
 
-Added to for-next, with adjusted subject, thanks.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon,  7 Sep 2026 23:08:54 +0200 you wrote:
+> Two independent leaks on macb probe paths, both noticed while reviewing
+> the fixed-link unbind crash fix [1].
+> 
+> Patch 1 destroys the phylink instance when probe fails after
+> macb_mii_init() has succeeded. Patch 2 drops the "mdio" child node
+> reference on the success path of macb_mii_init().
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,1/2] net: macb: destroy the phylink instance on the probe error path
+    https://git.kernel.org/netdev/net/c/7d059f390750
+  - [net,2/2] net: macb: put the "mdio" child node reference on success
+    https://git.kernel.org/netdev/net/c/382a373d9ea7
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
