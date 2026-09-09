@@ -1,87 +1,105 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7894FDE6C;
-	Wed,  9 Sep 2026 14:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2721E5678EE;
+	Wed,  9 Sep 2026 14:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962447; cv=none; b=ShMpnLBko9ZulnqNl/avv4R7TJd55qXDidT4h5wc/t4X6I8S4uc8R/cNVyShtB4n83W5A77dJd1/M14eeuP0xx/P7yBDR6Pednsq9lYk3yh0CJKhaT4VQkAh4Rgk5+4SlvG1mv0Rm+6QiP2N9hwxGXh3+fxMxFfRDz5uxjsEHYo=
+	t=1788962451; cv=none; b=XgCqwwNzApfz1pBKy2Hvf31ihJG6AOb2VMS6+12F7gFTbWS78kxAvuzJo7miMvTkm52gfY6TyB7EY2QE+wbbzt/aRG8fdZuNONHNBLi+kCSrxH1HwRj020clnQ70rqQZrub8wSv+s73NVMimbOwNZZL8pecrDUydJLUBAoaKkws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962447; c=relaxed/simple;
-	bh=yCeWIIed9NUQt2wO2puHP/5fFt1rUsZBQDhgGEAVpmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZ/DfGJOVjhh7tIrpI7wjRSN+1VDTwjP4faa0JW3Frp+Krl9BLZg24xcu+d6/1+akqaEqHkLXhOIsF/i32jH0e+I4q6itlrsO/dBkwx/OcaJpHE6dpuBkiVz97pr/HD7bYt+mR7TzuLFrz0tMzyMkNM+nEiWDdiH4WZHvu3RJ8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bCr1yvYu; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=X44VOQm1; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788962451; c=relaxed/simple;
+	bh=41JPlRh0qfoMonH4MWA9VgLNLi8v66uH8M35E0E2oSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6e4DZefPIR7wCCLKc4/iARMaI7CCrYDXG5oyMLAjI8eYxsptZXsZ9h+QhqhkkY3Kd2NKmsvoeWW0pJ02daIh1rKSw8bUPfrnry23MgZRcQt0WwrBnp8c/KPMXzuffChwgAUasuL5NCh7j3CrEqon6xFOR4shQQoUxCM6yFwXEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=cTCDZr6Z; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bCr1yvYu";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="X44VOQm1"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg2Wv55qlzMlHC;
-	Wed, 09 Sep 2026 16:00:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788962443;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T+vnc0fChBu8a1hJq5iRP0kdyV0RgFeG8COTLf4lByI=;
-	b=bCr1yvYuAKF58ACbupCnLa4DXuGcitYVKvWQBmwYhFz9PPzPpqfd6aQk2vsmqCln8DZWIx
-	CaJ5lA23i3xrVH/fipl82Oa4GTTMXCK+kY4RnKolDOmuLTNxu5CRIcLwNWaUSNNW0nIPE3
-	IUgL4BO7Bg3YQ5FqynhzYmnSy4USzK+ZO+VUrf/rsiFXWAmeuwBlrsX2TTnWSsLKuH9kW1
-	xzITXU+i3S1z+GoPIgF+DIFrxO/3i/5CXtxYLRcJtXk9h3ZgsNttlex2lIQgy2A0sU3w/4
-	d9n/vAKfl75Pi1Fe9Zli9U622iPYrzHRO/7r7T3vDaI5ettZHmwgHEKiiyBmPw==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788962442;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T+vnc0fChBu8a1hJq5iRP0kdyV0RgFeG8COTLf4lByI=;
-	b=X44VOQm1U5b0kN7PGmKk9CYf7bbsJ++NoY3Uuein6dyLCm+yvXMIb1+dxf1/6fZP7GIMiA
-	jPoEvUWs0awEw0gkdUq6ReuxwmHdL1sDzTgvIdAhqprEeapuzW20SXMGV4lDPvYZ5mZuCT
-	QjU9r3CZm/XBD9cJk3Ry39qfgc2TYzkxlyvvXRj4v5Qj8EK8LIdMQRT68DRPVF4qVqSaSb
-	IzgoHjKnRTQceKUkvUzftmnW+iCQybSfS+yjxBZX++9RY177OYqzniInEke+io2nzw8FKJ
-	uARqBsF55+WaZmAorvgsq8nNNSVxqja56v1UB7nmG+rYt1Dy3Oe/QDkKdZIKdQ==
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: docs: Fix bracket
-Date: Wed,  9 Sep 2026 15:59:34 +0200
-Message-ID: <20260909135934.1365544-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="cTCDZr6Z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ZqGD6+EIHmen/yXXRwBLkUFq1BO6jBImOTP5fEBlNDw=; b=cTCDZr6ZCnhsx+vTe2Bu439RDN
+	zgmXwoq1tVj2rx1oPZhMrSaFompcN5ZiFJdN/lhLCVc6R5T3U/Utt6CUPXc2qguLiC9jxT+VCRK/F
+	U3ncOktFQ9HN+NnyyZ2Y71JQr6LSiFDnT8eLQMzOY+g97udoqNxU3Fjkl8/RX0cwOuFk45/Cl2qcu
+	J+drc+sx7Y2+76t/NIr7LdQcnx66ZNjf3vXefaNaYQXDTvp4kor32JZGM20hxOsmjbCdHPvyiR5XX
+	2GFIhX2leHw0/Vg/YI7PM1Vmbtf7uRgGps32nBAS2NlQyuwr3fpCx4xgVi5FR/JZs92o3FEwfD2zb
+	H3lcLMpQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x4Iqs-0036XE-0I;
+	Wed, 09 Sep 2026 14:00:38 +0000
+Date: Wed, 9 Sep 2026 07:00:30 -0700
+From: Breno Leitao <leitao@debian.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Ingo Molnar <mingo@redhat.com>, 
+	Zi Yan <ziy@nvidia.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Johannes Weiner <hannes@cmpxchg.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Ard Biesheuvel <ardb@kernel.org>, kas@kernel.org, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, "Liam R. Howlett" <liam@infradead.org>, x86@kernel.org, 
+	Suren Baghdasaryan <surenb@google.com>, Brendan Jackman <brendan.jackman@linux.dev>, harry@kernel.org, 
+	linux-efi@vger.kernel.org, riel@surriel.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, kexec@lists.infradead.org, rmikey@meta.com, kernel-team@meta.com
+Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the
+ poisoned-memory EFI table
+Message-ID: <aqFmJao8Os0ySPjF@gmail.com>
+References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
+ <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
+ <20260909131911.76D361F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: tr8o5r868sk6rkj9mrsp1wys6zzn77xf
-X-MBO-RS-ID: 49179fa391afa16be6d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909131911.76D361F00A3A@smtp.kernel.org>
+X-Debian-User: leitao
 
-Remove needless '('.
+On Wed, Sep 09, 2026 at 01:19:11PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Critical] Integer truncation in efi_poison_alloc leads to a massive heap buffer overflow during memset on 32-bit or mixed-mode systems.
+> --
+> 
+> commit 626632820fe1fdcddc73aaeb109705cbddc9828c
+> Author: Breno Leitao <leitao@debian.org>
+> Subject: mm/memory-failure: libstub: install the poisoned-memory EFI table
+> 
+> This patch introduces functionality in the EFI stub to create and install a
+> poisoned-memory EFI configuration table. It walks the UEFI memory map to find
+> the RAM range and allocates a bitmap to track poisoned memory granules.
+> 
+> > diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
+> > index 48f93f7758e9e..5cbe675491333 100644
+> > --- a/drivers/firmware/efi/libstub/efi-stub-helper.c
+> > +++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
+> [ ... ]
+> > +static struct linux_efi_poisoned_memory *efi_poison_alloc(u64 phys_base,
+> > +							  u64 bitmap_size)
+> > +{
+> > +	struct linux_efi_poisoned_memory *pm;
+> > +	efi_status_t status;
+> > +
+> > +	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
+> > +			     sizeof(*pm) + bitmap_size, (void **)&pm);
+> 
+> [Severity: Critical]
+> Could sizeof(*pm) + bitmap_size overflow 32 bits on 32-bit or mixed-mode
+> systems?
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- Documentation/userspace-api/media/dvb/fe-set-voltage.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This feature (EFI_POISONED_MEMORY) is only enabled on 32-bits system,
+so, 32-bit issues is not a real issue. See very first patch:
 
-diff --git a/Documentation/userspace-api/media/dvb/fe-set-voltage.rst b/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
-index 4d09ca587..d780e67d7 100644
---- a/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
-+++ b/Documentation/userspace-api/media/dvb/fe-set-voltage.rst
-@@ -37,7 +37,7 @@ cable to 13V, 18V or off.
- Usually, a satellite antenna subsystems require that the digital TV
- device to send a DC voltage to feed power to the LNBf. Depending on the
- LNBf type, the polarization or the intermediate frequency (IF) of the
--LNBf can controlled by the voltage level. Other devices (for example,
-+LNBf can controlled by the voltage level. Other devices for example,
- the ones that implement DISEqC and multipoint LNBf's don't need to
- control the voltage level, provided that either 13V or 18V is sent to
- power up the LNBf.
--- 
-2.54.0
+	+config EFI_POISONED_MEMORY
+	+	def_bool y
+	+	depends on EFI_STUB && MEMORY_FAILURE && 64BIT
 
+So, this is a false positive
