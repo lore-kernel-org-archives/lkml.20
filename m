@@ -1,115 +1,119 @@
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B93D56B85E;
-	Wed,  9 Sep 2026 14:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB67956B85E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965822; cv=none; b=nJ146JxNq0JpHaCEsvuJylp5k6SDWH+6QKhkdHQTOwHPhzxCmaXDWENFYvUoeD1UTN/qsOYku7mY+EPuTMK6eluHia0OTS3xvssFboOouAHHMQ5v6suD3Yc/A1V5kacuckMS5NqLv5lSORQvotqP6ITkEARQoMkPBiUzTi/9pkU=
+	t=1788965832; cv=none; b=YU2J1zidg3QpoXJeq0tdWnWPih0rAIh8kOfuYaC30Hz6t8AUMWaigodSMshV2LLn1Xmz7YtmpaMpcyArS8eHr4a4TrpJBI4ofdMOWmj0fusc1XpC+zf9EJZbvKMim2f0+UA2g0sBrRiDS9xcSKMHDbH3h1Ll6dZvnTxDnwyGuMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965822; c=relaxed/simple;
-	bh=h96uvAJIcFvW/gvc9/E2ZoaxXrEGFbZ0wNVkmbqJy2E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AthJndVlvWFLkXX3fVZ8m6tWJ7oncFqhkQ3WIRHTU6PGq27aoDmtDFmjH6p4yQ0nqyNjvtdH+oMFPcbiuYZ4WxhNiyS249HN2aW6xFOQ/aImQ69bt3+i9gusYuQwRR2Sv5uaMsSbnZ+eN325yMzcEyLCG0UXg2w4E7WohOMFXa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=46.101.248.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAn0zy0c6FqOpEDAQ--.3218S3;
-	Wed, 09 Sep 2026 22:56:53 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgBnMXW0c6Fq1tELBQ--.36455S2;
-	Wed, 09 Sep 2026 22:56:52 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: jdmason@kudzu.us,
-	dave.jiang@intel.com,
-	allenbh@gmail.com
-Cc: logang@deltatee.com,
-	ntb@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] NTB: ntb_msi_test: Cancel setup work on remove
-Date: Wed,  9 Sep 2026 14:55:54 +0000
-Message-Id: <20260909145554.704036-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788965832; c=relaxed/simple;
+	bh=1wbHB1o1UoBwa6SsfEluV0twAsNlWwoeRLeBRagEvGE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V4e5aWomg9+8JKbfQ/XVRPYeqSaOAfRR+yBxUgYVncGQEHnZR+a3qW96+jXU3E+ugOOWqVNwX9c5lBtZn819dKiXUJrDVgi6enYXgx8uVyaKz+8Wl5gIRmg85fOwRkSCdMp3io2yVrQiqExoMfv2f6jGpbx6bE/YgwXJK0LAU1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DoolNW/a; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DoolNW/a"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso8001225e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788965829; x=1789570629; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7pjc62j+8bfbWKnhTk8hvktoU8q9eH1W2N/1Ffh2JXA=;
+        b=DoolNW/aR8vgzb6lBByfdNrFKQN5Q+c5MtAF70tcPjZxUB0fGP4wgYnTqmt1e4SjSi
+         egx3ctwKIoEA9CZeTZTPpbHO8E0/TyMIyinuf6AMWKOww27EjCEgQfnPB29RmWxlyScp
+         khng1xZm+0+ndpfqJNER16/5PY6pOYQn3d974gN0K4d+qKHv0lHVtUpSFidDWvGSn1kv
+         sScyXE1rAD9/FjnWao/lMAO8E85oSCv1M7jhtNNDzQPFFjyX74NJT7m7Gb/aMScA5L36
+         XvgWqFhS6SNp6a0B4xvteIc6XpiItveigvANsnDJGobi4tIxFE0X8QUHZHYdgwSMkE6s
+         8oUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788965829; x=1789570629;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7pjc62j+8bfbWKnhTk8hvktoU8q9eH1W2N/1Ffh2JXA=;
+        b=CmqMhMKSzEs6llbIHKcZ0SCZ9KWtnsQJgNhzoWvhx5S0SxeAbPn15Y7uGI3MexH1lq
+         4m8zYRKP8ceNqA3YVX15qXxXl2n+j7rjJ9YHUGuhhuUDCaRgmndzp11G2JBqZmVlcEVu
+         UR6ng3J7rKICXWTuJjVdNp3qLgT3Kqeyywl5lrIUfaQg0VFY01nBVNqrQLXH8LGWOvgU
+         h2m+W51QcFWTg1Z6f/D5r8G8drcYMFsyrZQbhuALt14tVUmavDU52qCJvT7LkziMzjcb
+         +ViFz8DKfUBDxr8RwoTl3tR9pImoafuMYzfk0Ofx3Z2Wl1j9vhjzztse6hrg5a9uuOLY
+         s5JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4o82YnuMUz61liv8xwJ9Hz/pDw6flqULkrgWF8pA8h6QlVT+GwyU49zcG5od+U02NAgqL+odq49sQ8xQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhs/952zQCBMX9ZQYXdZz4vMZSdnigq/tsg8FCUiqN3PyOZeq3
+	mclb63GDAL29UFZw8L8vQFaw51je6qM+q9FUKlnsw0CAQVtB64pQUGHQ
+X-Gm-Gg: AYBFou20FTgaXGXOn8NeAJ35cQBFjgUbAHOwVgpRL066IHrP0+cGcmj9MmNP3vGmFqP
+	FuyjqGXq4XP4GKhG7/bjoSwM3HQrFj8ekm1+ob91FYhAwkCkQM3cni/38DXq4TUqvDoE+d0UQUn
+	nY+3hyJr7cLskAp2m6W4Xm1HKzc2DqLwY7MXjtCHNw9vqDbkxiOo0vO0WHHhRFZPWLTlncu2U53
+	zBT26Th51jBsPhrf3mmB6pSdXBo/6UdF4aL2wTNndF5I9NAC9BQ5ZwjlvJzuaLlFFCFssOeeZNu
+	AiP59acH2mXK9RDX04n4BoyYXwmtLZFRreZiNVahkMY4xYad37km06Bh8sOYZXQHi7VFMCbS+87
+	CU5HkzPOyCXnEty+FGoKIVvZrjm1vViSu8nX2wTG8QH1GEe4JJzQxa5V3A+m0DVl0SLNEy9sO1t
+	/5m5K2a2/5wTO1d/4IA0y0nCTZmOINANnpHl9jqPyOKXYQzqpM4uRRQErSYVwWGUF33Lo=
+X-Received: by 2002:a05:600c:c4b8:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49d17543be5mr151479915e9.3.1788965828242;
+        Wed, 09 Sep 2026 07:57:08 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d00a5b19dsm423897335e9.2.2026.09.09.07.57.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:57:07 -0700 (PDT)
+Date: Wed, 9 Sep 2026 17:57:03 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: JunHyeok Seo <starlights2283@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: align AES function parameters with
+ open parenthesis
+Message-ID: <aqFzv98OAFRzeD_j@stanley.mountain>
+References: <20260905072033.54813-1-starlights2283@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgBnMXW0c6Fq1tELBQ--.36455S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?EAMcSAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WMlFP4rfsrrQsG96E5DvaxSA7dPZChY0xT5almqjCaBI1yD
-	kB8etoL/Q+m8BNffQ+ep9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7WF17Gry8Ww45ZrWfCryDJwc_yoW8uFy3pr
-	15ZryY9ayktanrAanrXayjv3WFyws3AFWxGryfGwnrZF15AFyUKa43tayayr48JrW8ZFn3
-	Aw4Uta18Za98CFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
-	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU2EoXUUUUU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905072033.54813-1-starlights2283@gmail.com>
 
-The MSI test client queues setup_work from the link event callback
-ntb_msit_link_event(), which the NTB core dispatches whenever the link
-comes up. The work handler ntb_msit_setup_work() recovers the client
-context with container_of() and programs memory windows, scratchpad
-registers and MSI interrupts through it.
+On Sat, Sep 05, 2026 at 04:20:33PM +0900, JunHyeok Seo wrote:
+> Align the continuation lines of the aes_cipher()
+> parameter lists with their opening parenthesis,
+> and replace the stray tab between the uint type
+> and the hdrlen argument with a single space.
 
-ntb_msit_remove() never cancels the work. ntb_clear_ctx() stops new
-link event callbacks from being dispatched, but it does not drain a
-setup_work that was already queued. After the remove callback returns,
-the NTB device's devm eventually releases the context, and a
-still-pending setup work can then run and dereference freed memory.
+This paragraph should be wrapped at 72 characters.
 
-Quiesce the callbacks and drain the work before tearing down the
-resources the work programs. Cancel the work after ntb_clear_ctx(),
-which guarantees no new instance can be queued: link events are
-dispatched under the same ctx_lock that ntb_clear_ctx() holds. Do this
-before ntb_msi_clear_mws(), so a late setup work cannot re-program
-memory windows that remove() has already cleared.
+> 
+> This addresses the "Alignment should match open parenthesis" check
+> reported by checkpatch.pl --strict.
+> 
+> No functional change.
+> 
+> Signed-off-by: JunHyeok Seo <starlights2283@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/core/rtw_security.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/core/rtw_security.c b/drivers/staging/rtl8723bs/core/rtw_security.c
+> index 2217cffac5f2..3de102a27517 100644
+> --- a/drivers/staging/rtl8723bs/core/rtw_security.c
+> +++ b/drivers/staging/rtl8723bs/core/rtw_security.c
+> @@ -765,8 +765,8 @@ static void construct_ctr_preload(u8 *ctr_preload,
+>  	ctr_preload[15] = (unsigned char)(c % 256);
+>  }
+>  
+> -static signed int aes_cipher(u8 *key, uint	hdrlen,
+> -			u8 *pframe, uint plen)
+> +static signed int aes_cipher(u8 *key, uint hdrlen,
+> +			     u8 *pframe, uint plen)
 
-This issue was found by an in-house static analysis tool.
+Unless it's specified by the protocol spec, then "signed int" is
+nonsense.  Plus the caller doesn't check so it might as well be
+void.
 
-Fixes: a6bed7a54165 ("NTB: Introduce NTB MSI Test Client")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/ntb/test/ntb_msi_test.c | 3 +++
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/ntb/test/ntb_msi_test.c b/drivers/ntb/test/ntb_msi_test.c
-index 4e18e08..290c2b3 100644
---- a/drivers/ntb/test/ntb_msi_test.c
-+++ b/drivers/ntb/test/ntb_msi_test.c
-@@ -391,13 +391,15 @@ static void ntb_msit_remove(struct ntb_client *client, struct ntb_dev *ntb)
- 	int i;
- 
- 	ntb_link_disable(ntb);
-+	ntb_clear_ctx(ntb);
-+	cancel_work_sync(&nm->setup_work);
-+
- 	ntb_db_set_mask(ntb, ntb_db_valid_mask(ntb));
- 	ntb_msi_clear_mws(ntb);
- 
- 	for (i = 0; i < ntb_peer_port_count(ntb); i++)
- 		kfree(nm->peers[i].msi_desc);
- 
--	ntb_clear_ctx(ntb);
- 	ntb_msit_remove_dbgfs(nm);
- }
- 
+regards,
+dan carpenter
 
