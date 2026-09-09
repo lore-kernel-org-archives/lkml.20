@@ -1,179 +1,148 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa1.hc1455-7.c3s2.iphmx.com (esa1.hc1455-7.c3s2.iphmx.com [207.54.90.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC4B2F8E8B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DB71D4606;
+	Wed,  9 Sep 2026 03:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788924284; cv=none; b=AV0YIm5GWmVdtCRUda8tvaRA6XqOK1EouulWfyEDx+FqWo5bSfyS7ffpycNFQn4PhLglHPVtuaFB08kNDmvkVzAU0GteV1Y1JuAmMMOgu3DMPSsJGhs7iXBBetU4TkhoDrBZHq5iTe417CfDwVACNhConXPPEZQK1LSAG0J30PI=
+	t=1788924416; cv=none; b=Kx3htZSohKPwzsdLz6H29IAwphqbC7OEZN5nlHi90+3eL+8LyFupgtRLtvsx/jDgfw9eYtb3OC2qqIp5GldienyhBjev7BaLEYhvmY5szsNwb5eHjgxxg87HINNfdPE1pFPzdEMbhp/Ra6FC7eJw4fzTKZODMQY7UfehKNo2tcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788924284; c=relaxed/simple;
-	bh=/jP3mHTH5BIVwVyKeHMr2s4OFPUoIcbazsD9x8qX6ME=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WDAjnqZwYLnyQhcsR3FlOUjozRfsvqBMGesVk58JLmqrTWaYaMizbussNIp6KFfQhnKvM/j2DBzkBZC9FkLCOO5KIXzkXsjeSQdh0EIDZ0MK/AzE3liS63ASFU95YrHfbpOS6YiWPGMs6Pwwgoai/GIcvf/5HqWuxEiXTtnr9rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1fRsTCN; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788924416; c=relaxed/simple;
+	bh=KSyW9PSmayMg2D+RSx0FNS4dlNPtfBwvV/djeGs+FPo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dGHjJKP7jT9kBI7GbV5JIEWOrZj2CACigiqVTptVPmKaJtG2D0Jero27OF2T8s/1+MK+NtqQemGfIULbtszxnvPr1cQ6YksRAvs4Z/+LaC2XpKeeLhu+Ao6DjElYk0JiRLFW1ra2L9mfcp6Jr/zpYwLTTo0Gs4vAcy69m/hoGSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=Nj2mQ1h+; arc=none smtp.client-ip=207.54.90.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1fRsTCN"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d9004f39d3so64517135ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:24:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788924283; x=1789529083; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5HwPXfl1lDwU7i8igvyJ9trv0hFhIKTFZrrxIBiG1ac=;
-        b=q1fRsTCNp9NvGjuroeOSlz4SzD/8/1GrSNF/bvkGJhh3lN0WRSiLtO+68EZuOOJcWG
-         Tntc45o+q26CApiA1aGjDwsQgV3HG1qZDV9GXgummBd3MIxf4YtF451mZX4q1HWF6bS2
-         MXzrQkl0KZwiBwNpMRlaWL0QCk4UwRU10TwLTxFf3pwNfwN4LuX5S5BxrZcVZVRs5ojT
-         s8zP5OXNdyO3+G3GPqNgTKyGdbzZUNSgQWrsRSh842n5dVLM7s+QzJK6VLAYbxDwq8a2
-         fmXRLudjyHC4dZBUPFiZ+UnaFMAEUXbsi/mtdKArCEMTuMuSxKLvO8mqoG8D3MBdSvPY
-         FwIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788924283; x=1789529083;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5HwPXfl1lDwU7i8igvyJ9trv0hFhIKTFZrrxIBiG1ac=;
-        b=N7bK+1biURxEsPduaapDpeLCDpMTSC1SSULXGmJnfGzRD13A5hhPcBmwnV3ITlCbBx
-         O7sHOe/NvTFi9grE5rISQPwIoedFuS0qva4D9hC8UDrrckAsNQc9ucIysDDj9eAj4QZe
-         gWgMfji9OfDAxaJ7CbxpC6D/zj+j9lZWjquplLSVbcoeOw4SsSCcGIzu9dyPWN+T0dKK
-         Ncnv7EFKqkAVjlOYtiUuiX1s4YdvvCAJk7EgX2qAQ04Cks+RUJlKKrWf27q0n1toWbYc
-         sEcJnj7TLcGNidSx3mJ6jHSrIZo9Mv1kzATdStjZHn7NVk6oj5Nniu/VLuerHv2FQzUS
-         3jxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwH+qwZtUWjKRjHwX/ISglxMRcYmf3YU8Orx6uc159l9VNXgvQtI5abbazhu7hIGgekME1k5Tvcd8uIeog=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvnxmgUJ+LQc/qalh1DvGmAXelXM9pZ2iJuZ8n7mAusqZMOUt3
-	u4DM82TUDan5GKjwZsGq91UMOs93zj3xsufG356tzTk6SH+tEEJtJZMg
-X-Gm-Gg: AYBFou13E8rkeD7rXvX54syxFVbvOjmDciDnf/8BzN1d7lTuVgKJ8io22oazhSqczPt
-	I8xorEg0bk5BSoEPqxIlfDQbVE1DOW98eq4xbVOLlyBEgcjpNYqXXQ47lH9t+rTe9xmaeJSadif
-	zanIk//mBq256Bdl+twNmRCLhlfP1VK7Ce4Qbkt6M6I/TjFPMnjLSr8Tj6qxqqAwhM9WnO9f23d
-	MEhun0tDNWYdvcHdxAAEcQ1wNAduOgSj0dgV3DH9Etz250cjNfgm24NYwioBvlorzuIINy0J98b
-	RQQGaQZNrYwAboW1VMGP96vst4BE99QCcroEI8n1LXocYa3YCbn19rFFpSNJQLYrJGOl8nH8pnt
-	fuQIZhRdC1x47osTA9S+qsvJViVFP8QhlvqRhDhKKKWMGF/OJkRrDqkAUl5DJh7U99E0RDlPrRP
-	d501LKNkBZliDpxFzVNp+HNRpO1TS1km852xL9lcyffnmuUdsiLRKczGkw3ON4umqmh0jqvmeqI
-	0+vuQfsxw4ObDu4kGrLlYtrOTPx
-X-Received: by 2002:a17:903:910:b0:2db:5c0a:f184 with SMTP id d9443c01a7336-2db5c0b1641mr207897155ad.17.1788924282897;
-        Tue, 08 Sep 2026 20:24:42 -0700 (PDT)
-Received: from [192.168.1.13] ([106.37.146.213])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db25ea9bdfsm54747985ad.75.2026.09.08.20.24.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 20:24:42 -0700 (PDT)
-Message-ID: <c43c24ca-7add-4197-811c-19b42aff7a95@gmail.com>
-Date: Wed, 9 Sep 2026 11:24:37 +0800
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="Nj2mQ1h+"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1788924416; x=1820460416;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KSyW9PSmayMg2D+RSx0FNS4dlNPtfBwvV/djeGs+FPo=;
+  b=Nj2mQ1h+y9TbQFT8IJi+INl3fRJJEX5+eV6tIMV2Q3NR6E1Ckx18u/ug
+   Qo2P7UKxARyfaa+xJGGl0e/d+W5aOiQqW1URGUKq3HimUFTurcuP76rj2
+   qZKhf6rBsU6ba46igkCO5z38N/xYKrU/p4+ngHZ889dTdq74tKx3szpOl
+   9Ty7looWaCtiaCTqGiNIVubh0uOwKLtFRfi1jwyjM5OYs8DxqDfn077Ff
+   2SMgbBG/rVfR/weaRKVwV3vVo4/zZSQWR3C+WlpO/KfWcnGU7GocxnL6F
+   pW3WymJU2RdPJ1k7oj2ZR3fpFGqpz0r0JbuJUAhoPs3SEyj9Cadp8o1cS
+   A==;
+X-CSE-ConnectionGUID: cJLPYFlDTiujkvsZNv58nA==
+X-CSE-MsgGUID: zgZ7K4k2QVqyO9i5DkdvsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="254405313"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779116400"; 
+   d="scan'208";a="254405313"
+Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
+  by esa1.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 12:26:53 +0900
+Received: from az2uksmgm1.o.css.fujitsu.com (unknown [10.151.22.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id C19A51C1C71F;
+	Wed,  9 Sep 2026 03:26:52 +0000 (UTC)
+Received: from az2nlsmom2.o.css.fujitsu.com (unknown [10.150.26.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id 77A23896E03;
+	Wed,  9 Sep 2026 03:26:52 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.9.24.243])
+	by az2nlsmom2.o.css.fujitsu.com (Postfix) with SMTP id E82DC1802ED5;
+	Wed,  9 Sep 2026 03:26:44 +0000 (UTC)
+Date: Wed, 9 Sep 2026 12:26:41 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org
+Subject: Re: [PATCH v17 06/20] KVM: arm64: CCA: Add a new mode for supporting
+ Realm guests
+Message-ID: <aqDFcgzXOTWUkPtp@FCCLS0092175.localdomain>
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+ <20260908162223.1683432-7-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
- init sequence
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: hverkuil+cisco@kernel.org, mehdi.djait@linux.intel.com,
- u.kleine-koenig@baylibre.com, jacopo@jmondi.org, p.zabel@pengutronix.de,
- ezequiel@vanguardiasur.com.ar, mchehab+samsung@kernel.org,
- festevam@gmail.com, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
- <ap_gCH1AnciFIEoa@kekkonen.localdomain>
- <20260908103600.GF1672293@killaraus.ideasonboard.com>
-From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
-In-Reply-To: <20260908103600.GF1672293@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260908162223.1683432-7-suzuki.poulose@arm.com>
 
-Hi Laurent,
+Hi Suzuki,
 
-Thank you so much for your review.
+On 09/08 17:22, Suzuki K Poulose wrote:
+> Add an explicit mode to support Arm CCA guests.
+> 
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+>  Documentation/admin-guide/kernel-parameters.txt | 3 +++
+>  arch/arm64/include/asm/kvm_host.h               | 1 +
+>  arch/arm64/kvm/arm.c                            | 5 +++++
+>  3 files changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd24..1afe3df3b923e 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -3256,6 +3256,9 @@ Kernel parameters
+>  			nested: VHE-based mode with support for nested
+>  				virtualization. Requires at least ARMv8.4
+>  				hardware (with FEAT_NV2).
+> +			rmm: Support for running confidential guests in Realm
+> +			     world using RMM, as defined by Arm Confidential
+> +			     Compute Architecture (CCA)
+>  
+>  			Defaults to VHE/nVHE based on hardware support. Setting
+>  			mode to "protected" will disable kexec and hibernation
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index b2e99c5cb1cd3..31ae9d8d8e92f 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -69,6 +69,7 @@ enum kvm_mode {
+>  	KVM_MODE_DEFAULT,
+>  	KVM_MODE_PROTECTED,
+>  	KVM_MODE_NV,
+> +	KVM_MODE_RMM,
+>  	KVM_MODE_NONE,
+>  };
+>  #ifdef CONFIG_KVM
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 9af3bbb2f8c24..50f0adfadab38 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -3264,6 +3264,11 @@ static int __init early_kvm_mode_cfg(char *arg)
+>  		return 0;
+>  	}
+>  
+> +	if (strcmp(arg, "rmm") == 0 && !WARN_ON(!is_kernel_in_hyp_mode())) {
+> +		kvm_mode = KVM_MODE_RMM;
+> +		return 0;
+> +	}
 
-在 2026/9/8 18:36, Laurent Pinchart 写道:
-> On Tue, Sep 08, 2026 at 01:14:32PM +0300, Sakari Ailus wrote:
->> On Wed, Aug 26, 2026 at 08:54:32AM +0000, Xiaolei Wang wrote:
->>> On the RK3576 platform, after ov5645_global_init_setting completes and
->>> before stream on, the CSI host reports a high rate of CRC errors:
->>>
->>>    MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
->>>
->>> These errors occur exclusively in the window between init completion and
->>> stream on. Once preview starts and the sensor outputs valid HS data, no
->>> further CRC errors are observed.
->>>
->>> Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
->>> the power sequence to properly enter LP-11 during power-up. As part of
->>> this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
->>> with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
->>> 0x02) from init through to s_stream. Reverting this commit resolves the
->>> CRC errors, confirming it as the triggering change.
->>>
->>> Restore the power-down state after init by appending { 0x3008, 0x42 } to
->>> the end of ov5645_global_init_setting[]. This powers down the sensor core
->>> after MIPI configuration is complete, while keeping the MIPI PHY active in
->>> LP-11. The sensor is then woken up only at s_stream time.
->>>
->>> This preserves all LP-11 compliance improvements from
->>> commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
->>> eliminating the CRC errors on RK3576.
->>>
->>> Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
->>> Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
->>> ---
->>>   drivers/media/i2c/ov5645.c | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
->>> index c772ef6e51d2..be85e0155b81 100644
->>> --- a/drivers/media/i2c/ov5645.c
->>> +++ b/drivers/media/i2c/ov5645.c
->>> @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
->>>   	{ 0x3008, 0x02 },
->>>   	{ OV5645_IO_MIPI_CTRL00, 0x40 },
->>>   	{ OV5645_MIPI_CTRL00, 0x24 },
->>> -	{ OV5645_PAD_OUTPUT00, 0x70 }
->>> +	{ OV5645_PAD_OUTPUT00, 0x70 },
->>> +	{ 0x3008, 0x42 }
-> While at it, please use the register macro.
-Will do in v2.
->
->> Is the earlier write of 0x3008 still appropriate?
-> There are four earlier writes of register 0x3008. The whole
-> initialization sequence likely needs a cleanup.
+Does this make NV support and CCA Realm VM support mutually exclusive?
 
-The ov5645_global_init_setting register may come directly from
+Until the v16 series, we could run Realm VMs with:
+  'kvm-arm.mode=nested'
 
-the manufacturer.
+As far as the AArch64 architecture is concerned, there does not seem to
+be a reason to make them mutually exclusive. I am therefore wondering
+whether this restriction is intentional.
 
-  I gave this a try. Three of the four writes can simply be dropped,
+Thanks,
+Kohei
 
-   leaving only the { 0x3008, 0x42 } near the beginning of the table:
-
-         { 0x5a24, 0x00 },
-   -     { 0x3008, 0x02 },
-         { 0x3503, 0x00 },
-         ...
-         { 0x0601, 0x02 },
-   -     { 0x3008, 0x42 },
-   -     { 0x3008, 0x02 },
-         { OV5645_IO_MIPI_CTRL00, 0x40 },
-
-I tested this change on the Rockchip 3576 and IMX8MP platforms and found 
-no problems.
-
-
->   It's not clear why
-> software suspend needs to be disabled briefly during initialization.
-
-Yes, I noticed that the driver was configured with software suspend upon
-
-power-up at the initial commit.
-
-thanks
-
-xiaolei
-
->
->>>   };
->>>   
->>>   static const struct reg_value ov5645_setting_sxga[] = {
+> +
+>  	return -EINVAL;
+>  }
+>  early_param("kvm-arm.mode", early_kvm_mode_cfg);
+> -- 
+> 2.43.0
+> 
