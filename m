@@ -1,202 +1,143 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013051.outbound.protection.outlook.com [40.93.201.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-93.mta1.migadu.com [95.215.58.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8772D3BED44;
-	Wed,  9 Sep 2026 06:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936325; cv=fail; b=A3KGeQClf8+rqIJNE8Me4mD82bPS0iZPXweXY87VMwb+xbF0LK20SdglDkIfq3oK8RMu3yzwo3ajt39sFGUl0MO2hl7CwgLhkmfWkiwXYZUD72ffSr59d+xWmh7738YvtvDxKU3fIJy4t2+obb2Usf1J3NU5GzlpE1jBzqdDqU8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936325; c=relaxed/simple;
-	bh=+oCPL5y2fF4o7EwOMPbAOQ2o/g8H8gf0noGrbGAf1Wg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bAYHgvtrDvmls2L2+kCPNY945NPZ3dKP8I0Yu3GG5KylM06gg7h3BoCoYsD45ETotft5sjAo+MbLsR2Fdpe/iZ38/EvoKgFeolAniuBxCRIJRiuPv4ERJHtaJ56zOOl6RoovhiBG5lZinQSF3z0VLQf+Z8e+wkOpQXeEBWcnvRo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KXaUJhNP; arc=fail smtp.client-ip=40.93.201.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A4D3B530F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.93
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788936329; cv=none; b=F/OwBaDjcqaj8l6ERlSyoN4dT2Ftph6UYnHd/P7SDS4JAxwm5bWWxaG+/6EzPkahdCqmLL9Xfag+rdW0O1kimNgRDXdLjIL/+hH38wTrmtr8lfnepYm4zQWHlaEZLhq2l5+SpZ67kDmkPeDi4I5mUaX1wh31Z3SXbfHV+MM1MlI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788936329; c=relaxed/simple;
+	bh=oTBpNY7hw7Wf7aDEdyGbqp7ST1teTAUXIET1OkGaVu4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XXTJB1/sE2U7Nxu1+dPiizdwwoCIRTyCaPVaFUMnnMa9ns40MZ1SZcaHcO/F2Q6o0ZnDGCzdkN4UnXrWgWJoP9AbzciCOikmMUGmhTeoTgxhEFJDAj1G8erCif7kplyfXVk3JqHl5/Vb9U+1RMQaQBwikkc6EqCRO2eCjpGe65c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j3eVYzJR; arc=none smtp.client-ip=95.215.58.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KXaUJhNP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qb8HwH5XRzm4IScdANiKcRijIelhxTtsyBX4uEJ7/FBX5bEuR2wMCecMvLCjFpHKjO71l3F7RWVlhq0pDVrIFJe9Bk4MKygY5MzaE6y6EEg7R1jFdAXB1UUQMowrnzV331UgFb3CE93XYPnlGADBGpPQGiugSGi4O8MfMNmNnQVEK/atBogrE8cWeoN6wMqu47wn68GzzWvLel8Y5kb3m92Gm/Xvg6KQ1eBSswZi4F+m6H394/uKCof3SjDdJ/MrD4x+3qJ7wGTvxbN9jNg5xhQwDndUugvkqLVO0VVij+asDu4okGX5Uyu/bB+I6YtN7/RTakFy7Ccho0DOJtZZbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XawQwgg7Gfv+EjzateEoIvAsjsE0jxXD9ksCP/s182Y=;
- b=Af4Sb32qHzSb2OZZ3jU7ABkGiJA035AiNQGesaqMiyPpPw/Jd33kUb48ZBnATWqmWMvFBPdwhfNntfT5MexxteTPNp7YVD2Y77hbGfnHFvXSmpSiaqsZr100PXMII1V1f59vzZREpQKiYzUQkC/MdanG+0Y1yS6B4fUEnUfXJJLiGNOaz/AyLaLFVtMRgZO7BGJv/kpCKWBVhaOa/nTvWhZHYjQftZUcHoh31dpoL1rj9dhaoWfHB00nkfBNg7FoyYUKnPHEdKKec1Dezg94n+S8Cxm5qNCP3N3RCxfv3mziN1+ZaNEWLGl0gHs8l600fw40Yc8yTVhLqfcoqed+dA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XawQwgg7Gfv+EjzateEoIvAsjsE0jxXD9ksCP/s182Y=;
- b=KXaUJhNP1hFhYChhrfHCyo7sW2IH1dG96S9k9bUxck+o9NKEUgf+iZZBUhFfiY2DJ49P+OAU46yW7px14Jie1SfVVl9zHMFSkv1o/1T5gyRkc13dM2TNONVI4BPjeOCVK8ZLZAKTvCTAeUO9fQAzHaTb0pWwy64geDuPjppaFomszgDuKBSbSlc0vq/yz0+nXCE8i3cfvL5VKdpvzBtJDM/JAkCtVQUZdJ+HqRcb6s724D0GPjqynjZsceP5NFVPyMAvdDbagtuonje2XFBnJIBytgao7xVFWpLpE7+dPWeBEX8TphsEvrTjjxfR6C24OBzJaaOLNs7Dt/3xvbK4Pw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by IA0PR12MB7697.namprd12.prod.outlook.com (2603:10b6:208:433::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 06:45:20 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 06:45:20 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: rust-for-linux@vger.kernel.org,
-	nova-gpu <nova-gpu@lists.linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>,
-	M Henning <mhenning@darkrefraction.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v6 01/13] rust: auxiliary: let registration_data_with() closures return covariant sub-fields
-Date: Wed,  9 Sep 2026 16:44:54 +1000
-Message-ID: <20260909064506.910162-2-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909064506.910162-1-apopple@nvidia.com>
-References: <20260909064506.910162-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY6PR01CA0104.ausprd01.prod.outlook.com
- (2603:10c6:10:111::19) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j3eVYzJR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oTBpNY7hw7Wf7aDEdyGbqp7ST1teTAUXIET1OkGaVu4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788936323; v=1; x=1789541123;
+ b=j3eVYzJRDP4GuwDpk1yAzHJdHeOy9WgKtiCl6wojdnOYSSQYKj74Ze4IE8uZMBTffhl0yVEg
+ 0g76LWdQpAcp1yt1dkPOsXcAIBwRB6+Jj/p/QLt0UmKmLZdtwSgMtUR3G1lQ5vgQmgMbqfwYwcT
+ GAu5tQEiBO8r9XugGs76VhSs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ed883708a2057349;
+	Wed, 09 Sep 2026 06:45:19 +0000
+X-Mizu-Trace-ID: ed883708a2057349
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7d47a955-eee3-4a93-bf8d-210eefa59f0a@linux.dev>
+Date: Wed, 9 Sep 2026 14:45:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|IA0PR12MB7697:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c61048f-e495-414a-8e1e-08df0e3dea59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	12duvT6xZ5qxA5iDGiAJDql/1n0FIqXtuOkNYzcf3XOQ2wcGwguwZtuU8g2UJcLFRZdjoNI4uGRbf7VqfZZjorOh0U6VMWzGJKGMDzh/zxlJNyDRQreqwWDmnJXe/kDeu1PKWKSjUD9H3PwzzMTaTX/7EsjBefsOGK4En5eLRG7gYF0hbGRuHHkB1liu8/z51FtsK7+cm2DNbWeyVt8LiJobwrACqtYPRN+3edt3BPUExnty9RRxs6xHAS5sne+PFN21xJ0M3hGJuHZHwOcxtGX8w/oSfoGaBS1pCAhiDSxn0RkY+OlDQjhoUL8voBveohTXvhzUebABVuUiZnWK5qCNldY2TJFVdRibG7PRbqdVCCq3aI9Nz58hpMateRrRVX+kvNhY+MY58aW2R3j/kmcWiWQ5brAp2AFuru5x4ig7Lue12JdRF4lViG+MYIKacXpuF/quuy+U4ULhIpyEHoZ0u6g2gIPRKHmsGLisPcM6RRlgRIiyGlWf569QZDJDfA7a59h65LednNWAmCf8rew162uSDmEYnrgb5DZpNoX4KpX952U9wxYKneHX/DaJxTPlX40ByEYjMcUlccQRa7SVdPepRivwYGOIAL4BCrC51UyXdSWnKeg4uuzlOFcpbCcR4mmDIAifxkbf4GNiRF0IlEbn9WFkmbMILHeOLng=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Q8TZEVwEwkJb6vaOW+AKdTI+a4VqIR51+idYFPqNfy6Wxnc4IFAxnmMmx6kA?=
- =?us-ascii?Q?PEcAAF48emaEEEIcCmxQMHH3mIQ2h8sNlJClnIn8e55mG6wlhpSYdfUo9p3D?=
- =?us-ascii?Q?zZZ8Tb3p5Ejj8JJRBvaK48Gl688G2vvu4zq3SfZMKPX4vWFeBE4LKdwxCiTQ?=
- =?us-ascii?Q?PmJZvcqDBP6SBDeoLpHeYr1ZPcYPF5FZe8de6DhKBArzqwi8RomL9ukZK713?=
- =?us-ascii?Q?s/n03x8jM7Y/n2JJ555VzErhMPcy0p5YqhKOtH2mPhr5Be32nyjnO9O/b+pf?=
- =?us-ascii?Q?Uf14HUcRScBTB4XDEtcTikMAAwI4yOnJYlARx9E4Nnq4iIEV7XOEhNjVonYh?=
- =?us-ascii?Q?K+K+Hr2S4oy5jp1kfaejqPWg15PmfarToSiEtCro0Dhtps6Gf2ZCuVGOecor?=
- =?us-ascii?Q?62PFG4EZlpG7ZRcL0+s9jVX/fDq16x8Z6fMbURaSMhaMjA7kPUiIqnDYevLn?=
- =?us-ascii?Q?mpdI5l/YrsJA5tJ5PL80T9eJvE0cbb2V5SP7oCy/T3/Ce8YB46eR6MnZ+EKR?=
- =?us-ascii?Q?BwiLdAcak+2IcVq082a2ddrsYTMHp5d7NZtzhqCQPUU72/2kqdlK55si24hL?=
- =?us-ascii?Q?4uFU2n7ig2KMfGZ3FANWqWLYD6Q7FyGcC2P8XLGnEdz27UOaj76bp+YakaQ5?=
- =?us-ascii?Q?DOtc19U/bTM+ij1dL1E42cZcW4GQjvAhQFiLoKR5/8qXLerG2WRGxz2u0rQW?=
- =?us-ascii?Q?z9gQSERCF8R2cv1HQFXHVl1riTVeMHzyU3iRx5JRKE781GcrhsZlogNgApBB?=
- =?us-ascii?Q?PDpAFczyfgyHxKH0qhVRhVDER5l/YKbSB9SWOfe2CyzGNIqruFfgCWLlwOEw?=
- =?us-ascii?Q?FOF/yv2QW872yaWKFvQwqCqGwrQ+JAfds+44E5Ckjo/Jwp4B7dXwXGlePV7t?=
- =?us-ascii?Q?MH7U4/eRGvL2OhRhWVJuGdBoorirxrDwnkgJM9TngrgP01Rq61A0VFhA8JmN?=
- =?us-ascii?Q?0kZ1jz7lfDwLFhrg4mthVOviBleSmk7W6q2n8xezI2I5jcKiyTnVMJt6aW4k?=
- =?us-ascii?Q?Js3opKQ3l+j+vuauv3mVDDzc2hNzL7FXg3vDQQnXIseZVVxIorUEQrD6UzMB?=
- =?us-ascii?Q?UO/QCud6UJY1MBueCbzJn8UA097nR9aNp+10c/UhS5UZDJ8fm9jq79DXRJPk?=
- =?us-ascii?Q?4E4Uz7Tzwko687WYA5RvM5TBbEwBfa+70W+5M9iOED40E/jOfPMnd/D9lJO+?=
- =?us-ascii?Q?ATjMm9yB/wZa7L+A1rp1oFjKdyXoHqgJFtIPK1ERtodwDgHSkOVrKVJqnLcz?=
- =?us-ascii?Q?rn/kf/WCH9Hxg+rAG3W2yoJkynoMo4D9+s80HFvCqSAOTS28hfL9P2rNXd6G?=
- =?us-ascii?Q?ZXUWctZ1MnZjhXo+vFzVc0zkf7D9ZwnX2xbaJn06GBZ8ZnDaPowEDa9AXcq2?=
- =?us-ascii?Q?f5J6XDMZrwk3ZI/bvh0VrSE5QXvWPmHJmj0H8H+klOzbG5A5IjLlyQyc+1XW?=
- =?us-ascii?Q?llU0sh9lEUwYZJwap9mxlT33p2PvuGg14WllOOzo59uzjSp4+8DK97YGtP7H?=
- =?us-ascii?Q?/goeThX4TfBsMtw8Rna02+TSkIS4eZxGq1IHICmkVz1xJhb2R+BXuT5/+Yji?=
- =?us-ascii?Q?zj5+PlPBOZYKGGHHUNnIm0Fobaie7eUID6XjWG9Y0dvgTiQg1wBkPvNSO9bp?=
- =?us-ascii?Q?fb4rWjoFsvQqd7IMke6BfoTgvTEO+tA1nUhT8XkKSX1oOdOM8zt/X8Nkd6dP?=
- =?us-ascii?Q?xEkMVVIGwTcCeW35j4AxM0UF6vI0yquWMVmOV5BOjFuK0Gwa5ys2B1ZsNO8o?=
- =?us-ascii?Q?XZbf0HRobQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c61048f-e495-414a-8e1e-08df0e3dea59
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:45:20.0455
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9WaODvKz/GfJS8q5ZMYHHoGWRQuHgqqaV3kqqZudx2eoTS28bJ7jNf99ZQV0jVyahcNqQAdeD8OmELsK0bxAvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7697
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: fix ptrace PEEKDATA check in memfd_secret
+ test
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ shuah@kernel.org, James.Bottomley@hansenpartnership.com, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hongfu Li <lihongfu@kylinos.cn>
+References: <20260908025111.34562-1-hongfu.li@linux.dev>
+ <ap_N7u5DbIk4FEeZ@gremlin>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <ap_N7u5DbIk4FEeZ@gremlin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The closure passed to registration_data_with() currently receives
-`Pin<&'a F::Of<'a>>` with `'a` universally quantified. This prevents the
-closure from returning references derived from the registration data,
-even for sub-fields that are covariant in their lifetime, because the
-compiler cannot relate `'a` to any lifetime the caller knows about.
 
-Tie the outer reference to the `&self` lifetime instead, i.e. pass
-`Pin<&'this F::Of<'a>>`. This gives the closure the implied bound
-`'a: 'this`, so covariant sub-fields such as `&'a T` can be coerced to
-`'this` and returned directly, while invariant fields still cannot be
-coerced and therefore cannot escape with an incorrect lifetime.
+在 2026/9/8 17:03, Lorenzo Stoakes (ARM) 写道:
+> On Tue, Sep 08, 2026 at 10:51:11AM +0800, Hongfu Li wrote:
+>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>
+>> try_ptrace() treats PTRACE_PEEKDATA return value as a boolean
+>> check. A successful read returns non-zero data (memory filled with
+>> 0x55), causing the test to incorrectly report PASS when secret memory
+>> protection is broken.
+>>
+>> Check the return value against -1 instead. The test should only pass
+>> when PTRACE_PEEKDATA fails, which means secret memory protection works.
+>>
+>> Fixes: 76fe17ef588a ("secretmem: test: add basic selftest for memfd_secret(2)")
+> Not sure if a fixes is warranted? But I also definitely don't think a backport
+> is in any case in case :P
+>
+>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> The change LGTM afaict. Though I think a comment should be added. With that
+> addressed:
+>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+>> ---
+>>   tools/testing/selftests/mm/memfd_secret.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
+>> index c55d84c5e613..dd08a3a1ef14 100644
+>> --- a/tools/testing/selftests/mm/memfd_secret.c
+>> +++ b/tools/testing/selftests/mm/memfd_secret.c
+>> @@ -145,7 +145,7 @@ static void try_ptrace(int fd, int pipefd[2])
+>>   		exit(KSFT_FAIL);
+>>   	}
+>>
+>> -	if (ptrace(PTRACE_PEEKDATA, ppid, mem, 0))
+>> +	if (ptrace(PTRACE_PEEKDATA, ppid, mem, 0) == -1)
+>>   		exit(KSFT_PASS);
+>  From https://man7.org/linux/man-pages/man2/ptrace.2.html#RETURN_VALUE :
+>
+>         On success, the PTRACE_PEEK* operations return the requested data
+>         (but see NOTES)...
+>
+>         On error, all operations return -1, ...
+>
+>         ...
+>
+>         PTRACE_PEEKTEXT
+>         PTRACE_PEEKDATA
+>                Read a word at the address addr in the tracee's memory,
+>                returning the word as the result of the ptrace() call.
+>                Linux does not have separate text and data address spaces,
+>                so these two operations are currently equivalent.  (data is
+>                ignored; but see NOTES.)
+>
+> OK so we expect this to fail as otherwise that'd be a violation of secretmem.
+>
+> Feels like maybe we should add a comment to that effect? :)
 
-This allows auxiliary child drivers to project covariant data out of
-invariant registration data without having to wrap every use in a
-closure.
+Thanks for the review, and agreed on the comment: the test only passes
+when PEEKDATA fails, which is easy to misread, so I'll make that
+explicit in v2:
 
-Link: https://lore.kernel.org/nova-gpu/DL3WPTVM033J.33RWYCZOC67Z1@kernel.org/
-Suggested-by: Gary Guo <gary@garyguo.net>
-Co-developed-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
+--- a/tools/testing/selftests/mm/memfd_secret.c
++++ b/tools/testing/selftests/mm/memfd_secret.c
+@@ -145,7 +145,8 @@ static void try_ptrace(int fd, int pipefd[2])
+          exit(KSFT_FAIL);
+      }
 
----
+-    if (ptrace(PTRACE_PEEKDATA, ppid, mem, 0))
++    /* PEEKDATA on secret memory must fail, else protection is broken. */
++    if (ptrace(PTRACE_PEEKDATA, ppid, mem, 0) == -1)
+          exit(KSFT_PASS);
 
-Changes since v5:
 
- - New for v6
----
- rust/kernel/auxiliary.rs | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+I'll also drop the Fixes: tag in v2 since a backport is not intended.
 
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 60dfbec8f330..06f816420790 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'static>(&self) -> Result<Pin<&F::
-     /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The closure receives a pinned
-     /// reference to the registration data.
-     ///
-+    /// The outer reference carries the `&self` lifetime while the inner type carries the HRTB
-+    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the closure to coerce covariant
-+    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return them directly in `R`.
-+    ///
-     /// For covariant types that implement [`trait@CovariantForLt`], prefer
-     /// [`registration_data`](Self::registration_data) which returns a direct reference.
-     ///
-@@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'static>(&self) -> Result<Pin<&F::
-     /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
-     /// registered by a C driver.
-     #[inline]
--    pub fn registration_data_with<F: ForLt + 'static, R>(
--        &self,
--        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
-+    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
-+        &'this self,
-+        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
-     ) -> Result<R> {
--        // SAFETY: The HRTB closure prevents the caller from smuggling in references with a
--        // concrete short lifetime, making the round-trip from `'static` sound regardless of
--        // variance.
-+        // SAFETY: The HRTB on the inner type prevents the caller from exploiting a specific
-+        // choice of `'a`. Covariant sub-fields can be safely coerced to `'this`, while
-+        // invariant fields cannot be coerced and thus cannot escape with an incorrect
-+        // lifetime.
-         let pinned = unsafe { self.registration_data_pinned::<F>()? };
- 
-         Ok(f(pinned))
+>>   	exit(KSFT_FAIL);
+>> --
+>> 2.54.0
+>>
+>> --
+>> Cheers, Lorenzo
+
 -- 
-2.54.0
+Best regards,
+Hongfu
 
