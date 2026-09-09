@@ -1,104 +1,67 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE719568FDF;
-	Wed,  9 Sep 2026 16:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55ABB568FBC;
+	Wed,  9 Sep 2026 16:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972761; cv=none; b=cKLvENhHHhGSiE/JDpzm7cPiKP+GiV5B/1CqoLDfFReJcDTlYcGlUeWqR1s0VdD8MPS/NisFeGC0Uii2JewlsVialTni9BCYBnN4cc35GPOYNBvRtOwjMYVLizRI1KRtdLGi16zMAS1AUYT0bpBYDnyST99QnTM5VmZHoiZHFG4=
+	t=1788972776; cv=none; b=NXRORKWNHF1V/N7ISsRPZejrVE+/cx17PVpGtMCaAmFhKSNBaghhksW/fWP78bTOWioIXqsfsw9Bx1ssXCsC8DtmQqUIeDqZWOPJS3dRTK8Pqy4u317zzsRmsMK3AtKY9WFsOocAK9k3SF+31pRICvnR1MW3FOQsSjCY8sSZa2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972761; c=relaxed/simple;
-	bh=D8Xg7T6KqYH4/WUvkf9lj526uOKKiRcA2jkTEUin+E8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O997wvWyYkzMqs0P64MTvksCBCjp/Wyx7gu5e5VczTumwdzz57e61GJzFZMO+8+dsMwNZ2fdxcTVVtm/dmzu4C/UyOWqSa/smJ2V5EcGy0cQqiEQCCsK711+qWQkRqREHwXZHRu/s6jeM8S71cyDXISCwdH8ZE322/ARJAKqXYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CEVMBYM2; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788972776; c=relaxed/simple;
+	bh=HOF9Q7DkKM0TFlzYKTgQ0Zh54r9VMKhlB/n8RDgQpbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HVd0gLwPoyQk6pA0KuGaaIv5KUn4y6TRxLgt9aBHXtHXtDC2K/mt7JkKYThfIw3G8d6EUrevJo6VH7kv+ca4uIzL+zH5hskzhZyVHhyK3lwADDWApsFz17cguhwdMJ/yE0a/7TRb4vg6xNdOkPe+VoWP/Q/l/dk+eG9OxhYEUHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KkhMoR6G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CEVMBYM2"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg6LD3WqWzMlGK;
-	Wed, 09 Sep 2026 18:52:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788972756;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wANtG2Wck81u3ITB1BffycJAGPKSfj9OAY9Ew1PSRKk=;
-	b=CEVMBYM2BnLkVG3JuEdeDg1EQxeHGPhwOfeiIlk5vHwGcD4wFkqW9UVpLX5BVTOh43eD/X
-	hqjQAH3MFjIFQLnkEBTeoV2hCSKL4OtLmXeXBRp27LAP3+G5pY0WuCYHQ8OjNni/0q2oik
-	0895QKLQvP74XrhzS+hRWPSf4/v8BxKQI5bFLQb986bJIRWNpHIpuMYdAG6WwJ9sz2OhKS
-	c99QrIePvOm1sUGburFEw0VMapoqjDL/GOTjIrcVF835cnQD1Y9V535O3IMr7TxplN2meY
-	bv62AL1LwjJX/EmWq1MrVu3crIWKYOOPK+zzyfVKiWS5671IfIEtFigi+e3LSA==
-Message-ID: <3b345291-b14d-45a4-818e-355b487c46a9@mailbox.org>
-Date: Wed, 9 Sep 2026 16:43:19 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KkhMoR6G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32791F000FF;
+	Wed,  9 Sep 2026 16:52:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788972775;
+	bh=GmlMljZT/6fO26V/fEoR8ernMpnUFy1iAPY7wr0dQNs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KkhMoR6Gs7IooOaJd6DKs7tUqWc1jCblWwWBcebrdQphPcJfx9IHywVG0VVdPQcZr
+	 Ujc+1ZiZDZsZBo0BrfVxc7W0Z7wbJxsVToSLW6b854TSdi/sJPu6STLcXEmkiKy4TS
+	 3nkPhpQ1Bl7Z4P9RYdUWzulpKKMbSG40E8yaol2K0HHfVSpDN1gMbN6cbgpBTs9QIy
+	 VDePMdyerGmnffIQvv6WecoqTTaLEzerfhfu6+Vu58/WBqIxA/6IEgxAWNKrGKLnDG
+	 JgHQbPwgWlMwEFPoMtfE1bMTTELWNN7XggB/FHAP+91OztVhKa6hS689YxKChFNb7r
+	 SkgQHw+GkfxQA==
+Date: Wed, 9 Sep 2026 18:52:45 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v3 02/12] phy: phy-mtk-dp: Rename regs to regmap in
+ struct mtk_dp_phy
+Message-ID: <wvjid3xethoskbttbgy3oy3j7fxnonrnzqg7pqndn32skzp4bt@2q7svyz6ojr7>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-3-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
- <20260904-colonial-wimp-b37c27657664@spud>
- <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
- <20260907-tassel-bargraph-836b6f41fc43@spud>
- <04bb7d78-4b0e-49ba-910a-6fa2b0a8c1a7@mailbox.org> <aqE11WTb6EMhn6Tb@squawk>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <aqE11WTb6EMhn6Tb@squawk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: kq35cnhos6bpsrynf31z5uqsc8hur51r
-X-MBO-RS-ID: 4ad110d8ca3e4f81110
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260707154245.198361-3-angelogioacchino.delregno@collabora.com>
 
-On 9/9/26 12:32 PM, Conor Dooley wrote:
-
-Hello Conor,
-
->> I could make only the ones which are currently used available, but that
->> would be confusing the implementers by suggesting that the other quirks are
->> not applicable even if they might be ; and this would likely turn into an
->> endless stream of schema updates, with random users enabling random quirks
->> they just used. I don't think that would be helpful.
+On Tue, Jul 07, 2026 at 05:42:35PM +0200, AngeloGioacchino Del Regno wrote:
+> In preparation to perform further cleanups and to extend the
+> driver to support more SoCs, rename the `regs` member to `regmap`
+> to improve readability, as this is a common name across many
+> kernel drivers for a struct regmap.
 > 
-> My understanding was that these things were effectively errata, so users
-> should not be enabling them willy nilly - the vast majority of these are
-> set in soc.dtsi files, and the couple dts users I checked were all SoCs
-> for which there was only one board.
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-I agree with the careful application of these properties part.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-However, I perceive them as tunables, not errata. If they were errata, I 
-would argue the errata quirks that apply to each controller instance in 
-each SoC should be derived from the compatible string. If they were 
-tunables, they should be DT properties.
-
-> IMO it's far more confusing to suggest
-> that a user has to figure out which of these may apply on their platform.
-
-The way I interpret this is, that the user should keep the defaults and 
-not enable any of the additional quirks unless they really need them. 
-But the DT checker should not warn the user that the quirk is invalid, 
-because I do not think that is the case -- the quirk is not invalid, it 
-is only not necessary in the majority of cases.
-
-> But of course, do what you want, they're your users.
-
-How shall we proceed here ?
+- Mani
 
 -- 
-Best regards,
-Marek Vasut
+மணிவண்ணன் சதாசிவம்
