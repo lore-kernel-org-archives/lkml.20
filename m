@@ -1,115 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A62435F60F;
-	Wed,  9 Sep 2026 18:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99A135E1CE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977359; cv=none; b=WE56JS0IclN7YkKzcQwCTlafKeSUGJ1W9q/x3iYRL+ZKEF7Dw5W49AG9sXyhazROWU3Ph1PjeqSLvX1gU4QPBj6Diwntsh2TFGRb+fVU/VHCRj4Y86wvs7tJTBFMNbgqgycRlX0HTJj9+BAxzdp59J6KgW3rAUUrnJKxE2vKAIs=
+	t=1788977442; cv=none; b=p0Mb+jZrvtXnsGD3Fy1HcTlLik5uQTgsJo7Cjhz8vcrfuf/qobIgfLPEvHT6kXxvqROuzsRbf0YW2pF4W/JeYuKt6egOs6GofHNcYk3VzF3/n2m3vJGstvpb0FyJuWp8WP2Zy7+q53vVtWC62il9QmnKUVruTo8mfHHrPIzz0cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977359; c=relaxed/simple;
-	bh=2IVZFdgGbqQOUiK0a5n41VnsRdygPphRzsj20RNYMUM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TOgVx3tiPg423CDxwe9x1fOdH6p6hrS+pXVieA8OJ+0UaFygVpZJGbcbmN13pADMnw/xQn92jUo8+JYy0XAJT2u8bavKyUNatg/ooL4Pnbx8ISXZRHvTRP/fw84VX+HRHLC70h5O5wgv68bOfNUf0f3W2BOh7Em/Jicy5c3zvT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=blZZe0vy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788977442; c=relaxed/simple;
+	bh=TRy9Gliv/FzTpN1SrKHqnFfZhY0XCIQdEdLMOrMQR1g=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=GTS2QZNuKUyubaBgzK7Me1xylQUmz2xyq9K5YC4T2ZwRl3/Yx+/id9gywclq1kfMg9d9gy+yRIW87rwBho8SfkuqmFlpBmB68NxS/z7niEjHQieyfth5804TaPScGNzRINDfDmouNW+C1yp5qACinnFYbihW+cvPxYICIVkW8jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DPvQ3rgH; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="blZZe0vy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9DD1F000FF;
-	Wed,  9 Sep 2026 18:09:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788977358;
-	bh=No0dYEBciYCRakfkqasu0ewf4H44mbr8nOCpC5oBpas=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=blZZe0vyWmNz2SaEZl3pi9gdsclGZh2phjh4HwmXyS9CNt9b8+kVWrTQAH6vIAiTs
-	 XsTmwnFZWnSw1peb++s9M3bAGOvaYhuVeGgLe+RYheuxBCqA8F2X/ioBkgkpG9pm37
-	 2Boo25e4HMk2rAqz9vq+B7peCaZ4AuPXmxIyr21/460O1s1gVRdGvmt6RLmQOeLB7z
-	 b4jJnekgaBCSYzDCIpSafA0OYSEgIWvscIePTDb8vFJvgz8rpfkhCwvCWeNFJp6/B0
-	 hcSGvzDt82b5jObDaZP3uF3SSJf5kyzBMPPqBezvPBlAqcxVsGc5XwQoDIhUnBhvN/
-	 qRF744Jh81PdQ==
-Message-ID: <55bbb96a-a464-4124-a704-d64be6f8c0b1@kernel.org>
-Date: Wed, 9 Sep 2026 20:09:10 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DPvQ3rgH"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfc52ddc55so88666925ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:10:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788977440; x=1789582240; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jjnxEfr3Uzi7pXtCU8OB5Dtvf84yJ4YLU6mP71jvHvQ=;
+        b=DPvQ3rgHEitp4diGzRBZwQCYemUQsc4DZ/b3ZsSZxM5bXJUmTDbASs5UZOzeSGHj+b
+         SJmZA6rXjNH9WhG04AhW64C5KgSYjEXlFQ0aN5v4A3AUfqDK1Mlx8M5ZkipFQrW74q74
+         tbEr5aeLbEIKWL5YWtENPBFoYbmJENAH+pJK1RpodYPQlS/0GSJLloQrg54E1YqOixW8
+         kYbwl7pB6yPjpA1iR79rQMLhQNUXniF8WfCPAClnsrtCudDPq44sP7nmUf/u3w5+xopr
+         2a9oChPV4kKRli1BMcY9CWdCjwLW01Fkkgm0m8jzLVfbPkU0iCS4oPR/qmyjRhpkM5T8
+         Nm0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788977440; x=1789582240;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jjnxEfr3Uzi7pXtCU8OB5Dtvf84yJ4YLU6mP71jvHvQ=;
+        b=MotpmaOs2WcP7V9a/ft6eLgLqMRrTc1mt/GoAjm1+W3nvb10lwfg4/BL+kUl9BNCwi
+         CsO3cXPUn+XRPjFE+lbGnOo3ft35o7kmjMYo1+hZHBG3KNLfgLzMi3RuXX0d6OlIVfWt
+         zsGDa7fxwyBSC5zrPMLp8qXv/bzJQmQ7mbaNAZ9AGCOISQVli+kD90tKkAaOpaV37Djs
+         tSnarX3Y2jeEQZwBozbhEfYw7+uouMCKIFp4lX9ktZwRYeK0smi8186AiGsecXPvyg5E
+         1wuowgAYRC6V1DdUQA/Q+UizjZzGYg2usLnq9TvltItGZ3ZyqTnlECC+3d3izZW+IC+O
+         7ilA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCMhUD4DZ8FH4/VjUgw1JsKW9C+6lfusbb6Tu1h2vJkn96/F02qmvOfsiS+BqHwGrXD8FUbCEMCYlT6U4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhz2x/lTc5qDU+hXwRfDk1gR67kqChbddOpiKOVJuFpAANv/oh
+	LxvUfsQhe6/CKCgu5oQzuUtt/JhlMei0iq2UK2S9LjfcrQjSTLy4QU0NjaMmCkD/wSWp6AruS4r
+	9JMXJOtbV/g==
+X-Received: from dlbrj9.prod.google.com ([2002:a05:7022:f409:b0:140:f3bd:b2fa])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2f87:b0:38e:250b:122f
+ with SMTP id 98e67ed59e1d1-39b261e75femr54573828a91.16.1788977439844; Wed, 09
+ Sep 2026 11:10:39 -0700 (PDT)
+Date: Wed,  9 Sep 2026 11:10:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH net v2 00/15] mptcp: misc fixes for v7.3-rc1
-Content-Language: fr
-To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Florian Westphal <fw@strlen.de>, Kalpan Jani
- <kalpan.jani@mpiricsoftware.com>,
- syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com,
- Tao Cui <cuitao@kylinos.cn>, Gang Yan <yangang@kylinos.cn>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- Qing Luo <luoqing@kylinos.cn>, Kishen Maloor <kishen.maloor@intel.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Keita Morisaki <kmta1236@gmail.com>,
- Jakub Sitnicki <jakub@cloudflare.com>
-References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260909181030.1870496-1-irogers@google.com>
+Subject: [PATCH v1] tools build: Add explicitly sequenced -lzstd to libbfd
+ feature fallback
+From: Ian Rogers <irogers@google.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>, 
+	Michael Jeanson <mjeanson@efficios.com>, Dmitrii Dolgov <9erthalion6@gmail.com>, 
+	Costa Shulyupin <costa.shul@redhat.com>, Alexandre Chartre <alexandre.chartre@oracle.com>, 
+	Leo Yan <leo.yan@arm.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Distributions like Fedora currently ship a statically compiled binutils
+libbfd that natively depends on zstd to decompress sections (e.g.
+undefined reference to 'ZSTD_decompress').
 
-On 08/09/2026 16:07, Matthieu Baerts (NGI0) wrote:
-> Here are various unrelated fixes:
+Since libbfd generally does not reliably distribute a .pc file for
+pkg-config (e.g. 'binutils-dev' evaluates missing on standard PKG_CONFIG_PATH
+checks), perf historically supplements manual linker flags in fallback
+chains (-lbfd -ldl -liberty -lz).
 
-Regarding Clashiko's review: I don't think a new version is needed.
-Follow-up patches for non-directly related issues will be sent later on.
+Extend the testing cascade in tools/build/feature/Makefile and
+tools/perf/Makefile.config to probe for '-lz -lzstd' when the basic
+fallback variants fail, natively supporting statically compiled binutils on
+recent distributions.
 
-Cheers,
-Matt
+Reported-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+---
+ tools/build/Makefile.feature |  3 ++-
+ tools/build/feature/Makefile | 12 +++++++++---
+ tools/perf/Makefile.config   |  2 ++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/tools/build/Makefile.feature b/tools/build/Makefile.feature
+index 99eb0ea09537..1268ac6f130e 100644
+--- a/tools/build/Makefile.feature
++++ b/tools/build/Makefile.feature
+@@ -121,6 +121,7 @@ FEATURE_TESTS_EXTRA :=                  \
+          libcheck                       \
+          libbfd-liberty                 \
+          libbfd-liberty-z               \
++         libbfd-liberty-z-zstd          \
+          libopencsd                     \
+          libperl                        \
+          llvm                           \
+@@ -161,7 +162,7 @@ FEATURE_DISPLAY ?=              \
+ # Declare group members of a feature to display the logical OR of the detection
+ # result instead of each member result.
+ #
+-FEATURE_GROUP_MEMBERS-libbfd = libbfd-liberty libbfd-liberty-z
++FEATURE_GROUP_MEMBERS-libbfd = libbfd-liberty libbfd-liberty-z libbfd-liberty-z-zstd
+ 
+ #
+ # Declare list of feature dependency packages that provide pkg-config files.
+diff --git a/tools/build/feature/Makefile b/tools/build/feature/Makefile
+index 7d165018116a..410987df3a48 100644
+--- a/tools/build/feature/Makefile
++++ b/tools/build/feature/Makefile
+@@ -21,6 +21,7 @@ FILES=                                          \
+          test-reallocarray.bin			\
+          test-libbfd-liberty.bin                \
+          test-libbfd-liberty-z.bin              \
++         test-libbfd-liberty-z-zstd.bin         \
+          test-cplus-demangle.bin                \
+          test-cxa-demangle.bin                  \
+          test-libcap.bin			\
+@@ -272,15 +273,17 @@ $(OUTPUT)test-libbfd.bin:
+ 	$(BUILD_BFD)
+ 
+ $(OUTPUT)test-libbfd-threadsafe.bin:
+-	$(BUILD_BFD) || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -lz
++	$(BUILD_BFD) || $(BUILD_BFD) -liberty || $(BUILD_BFD) -liberty -lz || $(BUILD_BFD) -liberty -lz -lzstd
+ 
+ $(OUTPUT)test-disassembler-four-args.bin:
+ 	$(BUILD_BFD) -lopcodes || $(BUILD_BFD) -lopcodes -liberty || \
+-	$(BUILD_BFD) -lopcodes -liberty -lz
++	$(BUILD_BFD) -lopcodes -liberty -lz || \
++	$(BUILD_BFD) -lopcodes -liberty -lz -lzstd
+ 
+ $(OUTPUT)test-disassembler-init-styled.bin:
+ 	$(BUILD_BFD) -lopcodes || $(BUILD_BFD) -lopcodes -liberty || \
+-	$(BUILD_BFD) -lopcodes -liberty -lz
++	$(BUILD_BFD) -lopcodes -liberty -lz || \
++	$(BUILD_BFD) -lopcodes -liberty -lz -lzstd
+ 
+ $(OUTPUT)test-reallocarray.bin:
+ 	$(BUILD)
+@@ -291,6 +294,9 @@ $(OUTPUT)test-libbfd-liberty.bin:
+ $(OUTPUT)test-libbfd-liberty-z.bin:
+ 	$(CC) $(CFLAGS) -Wall -Werror -o $@ test-libbfd.c -DPACKAGE='"perf"' $(LDFLAGS) -lbfd -ldl -liberty -lz
+ 
++$(OUTPUT)test-libbfd-liberty-z-zstd.bin:
++	$(CC) $(CFLAGS) -Wall -Werror -o $@ test-libbfd.c -DPACKAGE='"perf"' $(LDFLAGS) -lbfd -ldl -liberty -lz -lzstd
++
+ $(OUTPUT)test-cplus-demangle.bin:
+ 	$(BUILD) -liberty
+ 
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index 4d5993da9f94..24a99545c9bc 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -906,6 +906,8 @@ ifdef BUILD_NONDISTRO
+     EXTLIBS += -lbfd -lopcodes -liberty
+   else ifeq ($(feature-libbfd-liberty-z), 1)
+     EXTLIBS += -lbfd -lopcodes -liberty -lz
++  else ifeq ($(feature-libbfd-liberty-z-zstd), 1)
++    EXTLIBS += -lbfd -lopcodes -liberty -lz -lzstd
+   endif
+ 
+   CFLAGS += -DHAVE_LIBBFD_SUPPORT
 -- 
-Sponsored by the NGI0 Core fund.
+2.55.0.1003.g10538fe699-goog
+
