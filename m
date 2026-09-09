@@ -1,88 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBA6529400
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C62652B1C6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950350; cv=none; b=HwOhoiOW7dG594XfIk0M/szoQL6uHMzHtzKrb9QfkLF0QE34z80QPSywL66Rwi071emWRxfq9ObhQ3uaR19hgMwZpzRK3rbCiHin2uJCUOJHrBMWGQCMuoVO4kinbx7hqNP+NZdmNyAZq4yI7cX9dnaNtuJHthNbm8g02aiUjG8=
+	t=1788950372; cv=none; b=dr0epIfHufQyrkuY3h4wJz5JNqL6KLTAHeGDCXYsCO0vlCW3NtBZcP8v61w+4+8zKpo5ji5Cd2+av2SqM/KfbJZ8T+1NCiFLrOkSA6tmFSXoPJx1EKDtHNQQFX9AMR3ggkDQN/fx/1qau8XeNDxNkoK8IuM71nuqckfOxQTsMZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950350; c=relaxed/simple;
-	bh=jmbAAFgr7TKmfga90H6yeCGflLP1Wp+vEdczbBX7l8A=;
+	s=arc-20240116; t=1788950372; c=relaxed/simple;
+	bh=vNI2Ak4htqKNBE48KOxpfdiqt1p3zXAgNTQmXitTXb8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eGHGsSu12JKUnOL0gP8YqfixsRuxUW5Va1+pt2XJ4Oo71aulPxHZEDwbdXen8map34yTKgM7F3rqEzLyXWL7ymdmXZMYFDLWKRyKFxSLGFzApnWlVUrsfPnEnhqKXAmsgvKlyTK+7WqWTGmIcoJmwX90/rxYRL59X5mp45j0bl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XldYhwa1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LuzLixPj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=l/OSFyA/cwciSJczU9eJPOyq9neRhodwBGYMiK/0GU3DByx1G6Y5tCVrN8FfOHN7Nful1JXsfXzkszRbgZ+Z18VdzK8JqInOoFxc5tW2jrOKRjHo5gOZIHp8rPiXBmTtlDTFLwywY/IOXzwrCMqxz4KG+vFU0vP+PUUS9Sg17Yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Hyq5DsKW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XldYhwa1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LuzLixPj"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689ASO551008898
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 10:39:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2xKwPc64yrAFpc/aolhuXPiL0+Ipk5BZd21HOrdB2R4=; b=XldYhwa1FF2xaOWg
-	CcoGrzzL6x8yJd/SL6S8mX9UPVeGo1XHTD12mjkkLYlB/m3AadVC8ypDLsWvqifl
-	AcKXBaH6eg5KWiUO0NFR+l21yUQYOxB9QeyLFVQHTFpE2dV0MpwCubgeqzD6zxz7
-	lPNIyo0RhdrZDAy6qmlr+KaJYxaBzfCFZuMkw9UwjLr5qOwimx0F/m/MkQdIga6+
-	QRLM0jAxnz7BdpNhnYw3GAG7b0pHNPcP45400LkyOFDYhlPtZmSv767j7/k0znSu
-	mOrjP0hbn3vfkSaH4RtU7gypmFZO8rlBaZnEJPj7Y0e5GFZ4UCGi6CZpX1PFugPU
-	bhgzTQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjppp3t1d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:39:08 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db050d469fso45528425ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:39:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788950348; x=1789555148; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2xKwPc64yrAFpc/aolhuXPiL0+Ipk5BZd21HOrdB2R4=;
-        b=LuzLixPjey0jS+zs8ORq1mPsdw8Mls2FS3wwJWV1xm5+KwZmeO1u1pAGp0Q4J6Ana0
-         POnZZv4l9BIx2huXYRTaaX3GcZv5TRwJz28uBUk8HoxR62S8Z7SC4bSA8AV/mYYnlIxL
-         hK2ke20QZA/bjqkY+d1zpv/a3xSz0U8+LsK6/Z5vIls0M/9TF9eqCtiMXUuU22fFYN6i
-         xC2yieVSGa9c8VZylhWsTkdOlON8Qw+36MJtsTYoMCeLeTPaYYc+bcvEzPDhsfYWhK8x
-         usl5sgkFe9Vl1JvRcfAcnyEpvQLao9jtSvGT85BKmf1Dc5Ozb2BG5P1htbL7oGEMikuJ
-         SJrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788950348; x=1789555148;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2xKwPc64yrAFpc/aolhuXPiL0+Ipk5BZd21HOrdB2R4=;
-        b=MMEzNdyszQiW6E6EKzwrXWB9nrp365XkfnjRk6T5DDU9YDLGnkLGYdpXgl2UdWCqJV
-         ip2uxa0Klftt4mwDx6005LeNfuTLwUD8eq72ZAh/InGvKjj3V0eoqLwEcVJTxmUT0Oe2
-         82Ff1270l3DJepYF9kfiT/89CZ4bEwgNPnDdmPQB5UM6CPK9DZFEvh0Z6bX3zAR8rBLL
-         HlEpNAkK+7d0sK0HR+Ei3TPTWfB74GT+x7qMtT4NVMxFp0xN7r9neRNrNR5vWGPpikH6
-         AQuUH6z5w63vNrWFsMvi9fY+M7aPchxFPmRmfidHdpoPh/kMjAEWM9vSR7JUCnytgR3B
-         uIJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmSLamZaYYSGkprZyaEW3G511MYM7JkEDj0nkyPiRssl7u1R82tghlTX0oVRVsN3wDOJD3JgbAjK4rj1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1hQFjE6ZOoTaqTMXWDLwNsrw++lFf8+g085PZGaQa7iMZhmv+
-	yMDjVLIRz3EF1+RsfeAK5KeRdxZ5NxNZmEPVi5PNoZlmdZVKlqANmpyo8OARx7rYzW16IWYG/hQ
-	7Xt6DXxv2mBgsjbI1kgmGtla2JDl7degxx2ntyw8rGkmN5W4oiHExd8/Pr70vHGxDtUWN2BccE3
-	c=
-X-Gm-Gg: AYBFou1WLr7PfC+OrF/4f1WStpI01IIdVytm2fTZ9bFi5Z1vsnH955GlAPwNeVbjCGa
-	YoOhiwhe9pnune97A8jAMx08SXYJZ+byRd+aLe2xYt0sS9Vo72YpKt2LOdrmXVndZoY5HriMQQD
-	r8JPuJ+qL5lek+9G0ADSOyvKJEw0X4fobUHq6s8SQcz9EJBb41AgYhfoaelEKsAHMjMn8SgTTVu
-	kgyGBmMGrUsrB5TRpBCRxuVYInm78a7BI1QNZ2ZfH45Msg/qJol9dT1KUojZc2p7U7n2b7u3wrf
-	b+rilSwFm1AHIgx3NJk7a+9l3yPCsMPtCPjIJ3XuqdULTPLJWXqFhQd9ZLAkw+S9nOw0UHISwuz
-	U7V+w25E7f6ErmO4m8l3eXm5i+pqrdQ==
-X-Received: by 2002:a17:90b:2741:b0:398:9beb:a2b7 with SMTP id 98e67ed59e1d1-39b087f4ceamr40180486a91.25.1788950347856;
-        Wed, 09 Sep 2026 03:39:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:2741:b0:398:9beb:a2b7 with SMTP id 98e67ed59e1d1-39b087f4ceamr40180429a91.25.1788950347238;
-        Wed, 09 Sep 2026 03:39:07 -0700 (PDT)
-Received: from [10.218.7.34] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm49527269eec.21.2026.09.09.03.38.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 03:39:06 -0700 (PDT)
-Message-ID: <b796333c-00d3-4376-ba04-78525853abaf@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 16:08:58 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Hyq5DsKW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0D7A71691;
+	Wed,  9 Sep 2026 03:39:26 -0700 (PDT)
+Received: from [10.0.152.207] (unknown [10.0.152.207])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B84BF3F528;
+	Wed,  9 Sep 2026 03:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788950369; bh=vNI2Ak4htqKNBE48KOxpfdiqt1p3zXAgNTQmXitTXb8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Hyq5DsKW2ovGYbyYSuSgXxM7/0DFNyHt0tkHaZUn1P42F6DTssmR2zu+UmXGnjyxl
+	 g0u8bMryXOQC/RB15nqHOjxbaOjIgeeqwSc27qk4hNHsOcQ1rj/S8W/WWhzz4IXTIk
+	 YHg3VQKIcZ7mR+ckUQebn0vhHMZvYBc/vD45QHVw=
+Message-ID: <40954731-a235-4877-b615-7a3f66f1b039@arm.com>
+Date: Wed, 9 Sep 2026 11:39:24 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,112 +35,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] arm64: dts: qcom: pmk8850: Add ADC5 Gen4 peripheral
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Priyansh Jain <priyansh.jain@oss.qualcomm.com>
-References: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
- <20260731-pmic5_gen4_adc-v1-5-9c49b2eea6f9@oss.qualcomm.com>
- <4cd975ee-6d63-46dd-93ef-7c6ac1931837@oss.qualcomm.com>
-Content-Language: en-US
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-In-Reply-To: <4cd975ee-6d63-46dd-93ef-7c6ac1931837@oss.qualcomm.com>
+Subject: Re: [PATCH 00/21] arm64: Move overflow sp into SP_EL1 and kernel sp
+ into SP_EL0
+To: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Ard Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz
+ <ada.coupriediaz@arm.com>, David Hildenbrand <david@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260907164247.17223-1-will@kernel.org>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: mH30bm52X0uAbZZJJq0797E6aJ6O_QBQ
-X-Proofpoint-ORIG-GUID: mH30bm52X0uAbZZJJq0797E6aJ6O_QBQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDExOCBTYWx0ZWRfX3Onrow6bm6GN
- ZbvMfZLSn4cBjbWVYjaOzRcH5F0/d3bz+CftZdz/+extOxMKrO8vwu8fTiQ6gXDE2TtRlV/QhOd
- EuttviwkP8QEGaZk9PhwZTII/th6VAw6zJA2Oj7sgJSOM1Re7x/EzJ7rvjrnI0ooOFIupG0PY8Y
- fQIC/Tqct2dWmWVKV9iqFrBYi6PB+m668yZkSedFjzCuGDN+EDRmfN9Zx0Z9xIb09m3jMBl6eBp
- nzzQ+LElEOr/7+go1Oa7xZmV0h8WIPHd8sQz//qV84t5AzhF4z75yuZwan88oZRTRVfcqlnMeG+
- /DYWgKXFb9dDuyI63x8fL9NB7zn/uunJLNOcdQOTnsUt1VKflI8D6SD1/SpmqaQsAaSV4ORZwme
- /bfWwKJDNZpZbBOGoNm1v0GE0rMbSv+4Xcw15XWY6YvAmuQ6Mn8fTDBfeFkdR/vhkVLzzXsAT6D
- dApku0FDq/zqN4bMA4w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDExOCBTYWx0ZWRfX9zlQys5fGHOB
- cwIhV5T+EIXTd5+RpCC8ihdTb98dbPm4YG/R0n1tvYSwxHhRJ1SRHZ2kvp9ZP8DC/49MooRfpMY
- wqL9ISFBrdWuP/K/7nmCUvg6hYkKBFE=
-X-Authority-Analysis: v=2.4 cv=DcInbPtW c=1 sm=1 tr=0 ts=6aa1374c cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=9IytrtFQB66JICvi6PwA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090118
 
-Hi Konrad,
+Hi Will,
 
-On 9/3/2026 2:08 PM, Konrad Dybcio wrote:
-> On 7/31/26 8:06 PM, Jishnu Prakash wrote:
->> PMK8850 has an ADC5 Gen4 peripheral that acts as the master ADC for
->> the platform, communicating with ADC peripherals on other PMICs on the
->> system. Add the ADC peripheral node with PMK8850 die_temp and
->> xo_therm channel nodes under it initially.
->>
->> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/pmk8850.dtsi | 25 +++++++++++++++++++++++++
->>  1 file changed, 25 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/pmk8850.dtsi b/arch/arm64/boot/dts/qcom/pmk8850.dtsi
->> index c7ba72fd48bc..44d1d1957f8a 100644
->> --- a/arch/arm64/boot/dts/qcom/pmk8850.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/pmk8850.dtsi
->> @@ -7,6 +7,7 @@
->>  #include <dt-bindings/input/linux-event-codes.h>
->>  #include <dt-bindings/interrupt-controller/irq.h>
->>  #include <dt-bindings/spmi/spmi.h>
->> +#include "qcom-adc5-gen4.h"
->>  
->>  &spmi_bus0 {
->>  	pmic@0 {
->> @@ -45,6 +46,30 @@ pmk8850_gpios: gpio@b800 {
->>  			#interrupt-cells = <2>;
->>  		};
->>  
->> +		pmk8850_vadc: adc@9000 {
->> +			compatible = "qcom,spmi-adc5-gen4";
->> +			reg = <0x9000>, <0x9100>;
+On 9/7/26 17:42, Will Deacon wrote:
+> Hi everyone,
 > 
-> nit: one a line would be perfect
+> This series is a bit of a complicated juggling act that, on its own,
+> doesn't achieve an awful lot. However, it lays the ground work for
+> sizing the kernel stack at runtime, e.g. via a cmdline option or even
+> potentially on a per-task basis and so I would like to work towards
+> getting it merged independently.
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> The series is based on v7.3-rc1 and structured as follows:
 > 
-> Konrad
+>   * The first 9 patches move the 'current' task pointer from SP_EL0
+>     to TPIDRRO_EL0.
 > 
-> P.S. can we also add some more channels that look like they would
-> be present on all 8850 installations, e.g. offset-ref, vref-1.25
-> etc.?
+>   * The following 8 patches point the newly-freed SP_EL0 at the overflow
+>     stack and switch to it explicitly when we detect a kernel stack
+>     overflow.
+> 
+>   * The final 4 patches turn everything on its head, so that the
+>     overflow stack and kernel stack are swapped, with the former now
+>     residing in SP_EL1 and the latter in SP_EL0.
+> 
+> At the end of all that, when we take an exception from EL1, we are
+> immediately transitioned to the overflow stack (now renamed "exception
+> stack") and can push registers right away. This also means that using
+> SPINTMASK to control NMI masking becomes a possibility, although
+> speaking to Mark, Vladimir and Ada, they all seem to prefer ALLINT.
+> 
+> Mostafa will soon post a follow-up series that allows the kernel stack
+> size to be specified on the kernel cmdline, which we are hoping to use
+> to configure an 8k stack size in Android. I will be talking more about
+> all of this at LPC in the Memory Management MC:
+> 
+>   https://lpc.events/event/20/contributions/2419/
+> 
+> Cheers,
+> 
+> Will
+> 
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Mostafa Saleh <smostafa@google.com>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Oliver Upton <oupton@kernel.org>
+> Cc: Linus Walleij <linusw@kernel.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> 
+I gave it a try and I observe splat:
 
-Yes, we can add those default channels too for all the PMICs used here
-in the next patch series version.
+Unable to handle kernel execute from non-executable memory at virtual address ffff000970e81148
+Mem abort info:
+  ESR = 0x000000008600000f
+  EC = 0x21: IABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x0f: level 3 permission fault
+swapper pgtable: 4k pages, 48-bit VAs, pgdp=000000008129f000
+[ffff000970e81148] pgd=0000000000000000, p4d=18000009f1dff403, pud=18000009f1079403, pmd=18000009f0ef1403, pte=00e80009f0e81707
+Internal error: Oops: 000000008600000f [#1]  SMP
+Modules linked in:
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc2-7fb054f87+ #3627 PREEMPT(lazy) 
+Hardware name: Generated (DT)
+pstate: 1634023c9 (nZCv DAIF +ALLINT +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : 0xffff000970e81148
+lr : 0xffff000970e81148
+sp : ffff000970e81150
+x29: ffff800080f85fc0 x28: 0000000000000001 x27: 0000000000002000
+x26: 0000000000000000 x25: 00000000000000c0 x24: 0000000040000023
+x23: ffff800080c0e1d8 x22: 00000000000003c0 x21: ffff800080b58300
+x20: cfa2800080b58300 x19: 00000000200003c0 x18: 0000000000000000
+x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000028
+x14: 0000000000000000 x13: ffff8000814f3ac0 x12: ffff8008efcac000
+x11: b2000c3eb474d99d x10: 0000000000000008 x9 : 0000000000001000
+x8 : ffff800080010800 x7 : 055001f2b5503510 x6 : 0000000001310000
+x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff800081502d80
+x2 : 0000000000000802 x1 : ffff000800106a70 x0 : 0000000000000001
+Call trace:
+ 0xffff000970e81148 (P)
+Code: 00000000 00000000 00000000 00000000 (00000002) 
+---[ end trace 0000000000000000 ]---
+Kernel panic - not syncing: Oops: Fatal exception
+SMP: stopping secondary CPUs
+Kernel Offset: disabled
+CPU features: 0x0,00000000,034bfc7d,ff728b42,7ffce667
+Memory Limit: none
+---[ end Kernel panic - not syncing: Oops: Fatal exception ]---
 
-Thanks,
-Jishnu
-> 
-> Konrad
+I suspect it is related to power management, since it can be triggered
+with the sleep command, though I haven't debugged it. I noticed that
+Sashiko has reported issues related to suspend/resume, so if you
+provide fixups for the relevant commits, I can give them another
+try. Otherwise, I'll wait for v2 :)
 
+Cheers
+Vladimir
