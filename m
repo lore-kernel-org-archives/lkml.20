@@ -1,157 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3982B3CBE6D;
-	Wed,  9 Sep 2026 19:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63AB3C98BA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982691; cv=none; b=t+tJsQ1oxWjw3TQpJB1lRB/b2GGRt6ppHWhGc2AcOpeRpTURYWBLiKpUUVmqBIi/nuVKcXMTa5/lA+v2XpkBsUsLxVlyj7n4S/OhQAzmTXo4MZHgAIiIF8xxSLSl0nrnhYuwFsXmfMjbKBueJG7JrFhX5tEJBx8TzCMmQ3fjLuY=
+	t=1788982691; cv=none; b=E3i3KMTWjiqEKRP2I7cH4jkpYYtwSOxR5ByaTkYgOfnn2ABcaekNJEjR+3hUbDDv7iqYI8CuG2uBz/Kj3AueuZ01b3u8yetI4QOnFxVcoY58uuGnbbO6bF8YPrsCKGt6T6H6UFIIzHJUkeQ7uZYtrFYGQCOSE15X+GNvpaGYY/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788982691; c=relaxed/simple;
-	bh=OmLxNhwIEeGHYJj3Y2qiAiLAo8DjCGsOiITKuTiyw48=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j5GMEYo56YBrx1uGfUX+ms8Hhg0LxTOtfhxOnhmc5htbmEb+wkGulLHoJ2Zs71VGni6avLjsb5vaGapKbnP5dOBfO3G2yc6jTaV6NFZXgyFKIrjApwUfYrKRsgI2lPs++JkX0oRnuX5Mjir5mXYsPsRFvmf5G2IvnnPw0TI9CB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ruwBtuB0; arc=none smtp.client-ip=10.30.226.201
+	bh=gK5MnwxSIYAl7ZmjTB1FKOm55yKxqXXey3cseNQLAt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uMdz2X4bSexpADm71dYpHwZKFNxgeoq7QY4Sr9xxEjdsX1SkD7UAh7yUGf/CQQY3FFZMZ/n93xW3+cP56D7QaAukgbwUwo7XzCY9Zt6m5tDfxRF6EIMFRlNG96Bs8EarOg3c3burhhUoog8twCYWK985g7FnEc2DYu7jiMbGQao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mCl06AXg; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ruwBtuB0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E3A15C2BCFF;
-	Wed,  9 Sep 2026 19:38:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788982690;
-	bh=OmLxNhwIEeGHYJj3Y2qiAiLAo8DjCGsOiITKuTiyw48=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ruwBtuB08FvUpDWjmLZHBPIjeCFnETC4h7L4QFwMacWp/FSVNUCx+qaIhsDlH7I5I
-	 boir9XRUHidOLMY4GL8CrAQg6OoKnfNMdsxCS+L4x9x+O18gykVE6GtDOZtFYjhD1r
-	 WeC2TpRjzWvKD9WH9Vgs+JpLEav+4v0Rf6VQy1hY7Ot6cglnBmjgYMFYCFAhdi3sd2
-	 q6n9WdVkER0n0JYl0el9aWDzp+fTyUHP4sgxdke6YFdVutuUPRYoHCDYXPNYrLGbws
-	 ZaIyuNbMnFJnww6CUUAkJ3FZOr5iLzhfsoJgF25lW9Zr8khRfdcVjOCSF4MWy6xTGh
-	 xFoM0uStMH6Dw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA4D0C88E41;
-	Wed,  9 Sep 2026 19:38:10 +0000 (UTC)
-From: Zakariya Hadrami via B4 Relay <devnull+zkh.mailbox.org@kernel.org>
-Date: Wed, 09 Sep 2026 21:38:03 +0200
-Subject: [PATCH v4 4/4] ARM: dts: mediatek: Add basic support for Amazon
- ford board
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mCl06AXg"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66e63c2c9e1so148260d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:38:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788982687; x=1789587487; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZqUYtQxdenK0ojTeBznvGiMR4AWulNf4CY2WGcBzpw0=;
+        b=mCl06AXgDgW+7opueNvlzgNxuRKgcNQjkHarp1U5ZlThuNwTckUAgcCJ7Vkq3qcowb
+         YLFR06YqtXIMFPXny0RuBidOdhMUPcpSE47WQU8TXGcHfXyaJonC5RLjPQIxMME50OEV
+         I3Wrgl1pkpy9M+n3tCL20TQNn1FxHTYRmC+bfEweZTJLn2u6b2xqXdOYWJwb5mEE8j8V
+         xC/wwFTBJ+0ZMlmXKQKJjKrXfsKza4XiCV/a9nKnc5wsUT5W0qDNOfAVnA3aTWclZi1B
+         Bv3xFOxDQzIBTiMKMDyWLcg0semiYSKOWIeItVGAGAJzb8V0K69Qul6doa9hdsLOjiZB
+         JWjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788982687; x=1789587487;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZqUYtQxdenK0ojTeBznvGiMR4AWulNf4CY2WGcBzpw0=;
+        b=qCzdWwcX+/NM6GZlinJd/UZ/nCFCpF0n00FC2YHGEyMrw28tIQNZpYQtBoJAcXzDAD
+         EpzzANWTVnnpzTQ+E40NfisSIoCmEnRdsBkTMZ/agM5HTcHEyi5SR5xU2NyYeqra0SWa
+         l/wZjCiQ2OvZWGieWNVSVGFv8xF9Epa2CA0n6WloDaqWt+HEEOAUmFq/T1XzXT/erdPk
+         RiMO8LhgpQkfI9vvHrTKhNsvwDhbtexgpxP5FVnGePZ6FE+/mgIsKztuFZt/co+ynSnX
+         uOC8v9rNTIYxm9V8Zh6m3EOfiH1HYRPe2Br8j618jy55r4j6gI2W45yvoVPC9pb7nelB
+         ZkHA==
+X-Forwarded-Encrypted: i=1; AKwUvBypyB7ZqIxIcWLTxFNIu3CQz4PUDk3BzDfsa3X41dE52Dc4MQyAa2bPwoND8zZ4jJJknJrAiBHtyNRAJSI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2A6vxiU0Rg//ozgSBLcjUwTJK35SsBgGIZ3aHwX9eUA0deckp
+	AnWg3E84D5f7IK5e5TVKLOk2D3xOnxn/UFG3BJI+voHTGvQjYY+8qKVo
+X-Gm-Gg: AYBFou33BC3BZAcEcdu2XtGB7NL6bzBFqdVvlpAakPnf0kl3dArwesb/ZFmkiGFL0aY
+	5U/CkSEjWwZKExqfgK/ljOFz8JX97UgsJtI0xt/hxSDLFRyrP2+Ddy35FjG5mNTzvRbr8yFky7m
+	I539UuyTL0cBXJLS/i3lqt0Ex9GIZZlP9idH3vcqaxWcfCoPmFlfqKX5LnEopQbWbWx+dT4K17Q
+	LWwPbZX53wamAawZyHbq7wq67Ypqy74DXHhVQLt+tAK8YEZ8RwKfNpOXWJJGKLnH6VMkiA4fkUL
+	0RgH1afv5kAzM8qAVDwzEvhVtnsZJRDnRJ+onkxjBCPpepxom3stmkwD83swFUi1Oy17QDLOqqh
+	GywGso96DGh1gWM7JQvY5BRJ2sCQMlJnEGmokQ7bXiIJhX7AQhivPl4Iz5xV4uzAR/mptWc3z6K
+	mVYIEkB8W8+q1iVGaB7B7EMfpPGEgMa9zaMZWzUtxTHN+oBQvNP4BzSUMxCATbcH8HTLUwo585y
+	ExI1KV8Ir4bh9QE7io6dSOhwOISGzZx
+X-Received: by 2002:a05:690c:9c0d:b0:861:850e:dd59 with SMTP id 00721157ae682-882018855cemr4754927b3.9.1788982686908;
+        Wed, 09 Sep 2026 12:38:06 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:bae:bfc2:7e96:e5c8])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-871493155d3sm115277577b3.16.2026.09.09.12.38.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:38:06 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	kpsingh@kernel.org,
+	matt@bobrowski.net,
+	paul@paul-moore.com,
+	mic@digikod.net,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	kees@kernel.org
+Cc: casey@schaufler-ca.com,
+	gnoack@google.com,
+	jack@suse.cz,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	martin.lau@linux.dev,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	jolsa@kernel.org,
+	m@maowtm.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH bpf-next v3 08/15] lsm: Document the LSM policy object interface
+Date: Wed,  9 Sep 2026 15:37:11 -0400
+Message-ID: <20260909193719.518517-9-utilityemal77@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909193719.518517-1-utilityemal77@gmail.com>
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-mt8127-amazon-ford-basic-v4-4-e9af5c420ab1@mailbox.org>
-References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
-In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-watchdog@vger.kernel.org, zkh1@proton.me, 
- Zakariya Hadrami <zkh@mailbox.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788982689; l=2117;
- i=zkh@mailbox.org; s=20260908; h=from:subject:message-id;
- bh=ArzZhvqbaHzkwMRg8G+mxS9/RyxJ5FW/7LRvsjsHapo=;
- b=GLHETlbpi5XIYO5QxABxqgKWx4PFuSTFhmt6Oyla2JeDqArgYfJ4Jzy/6UZPNy3TTgT8Z5D9j
- HHjkqdWyeIBBP2EZtQFQZSvXX4vK0efzQFHYK3qZtMuidLgqks4qiAs
-X-Developer-Key: i=zkh@mailbox.org; a=ed25519;
- pk=up24Xn4ScFKugfT4EJru/UQAS7JOIN+DSQqro+a05T4=
-X-Endpoint-Received: by B4 Relay for zkh@mailbox.org/20260908 with
- auth_id=1015
-X-Original-From: Zakariya Hadrami <zkh@mailbox.org>
-Reply-To: zkh@mailbox.org
+Content-Transfer-Encoding: 8bit
 
-From: Zakariya Hadrami <zkh@mailbox.org>
+Describe the split of responsibilities in lsm-development.rst: the
+LSM framework owns the BPF-facing kfuncs, an LSM opts in by embedding
+struct lsm_policy_object, tagged with its lsmid and an LSM-private
+type, and implementing ordinary LSM hooks, and the lifetime contract
+those hooks must satisfy comes from BPF's execution model.
 
-This tablet uses a MediaTek MT8127 system-on-chip with 1GB of RAM.
-It can currently boot into initramfs with a working UART and
-Simple Framebuffer using already initialized panel by the bootloader.
-
-Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Casey Schaufler <casey@schaufler-ca.com>
+Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- arch/arm/boot/dts/mediatek/Makefile               |  1 +
- arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts | 54 +++++++++++++++++++++++
- 2 files changed, 55 insertions(+)
 
-diff --git a/arch/arm/boot/dts/mediatek/Makefile b/arch/arm/boot/dts/mediatek/Makefile
-index 37c4cded0eae..a610bc75c7d9 100644
---- a/arch/arm/boot/dts/mediatek/Makefile
-+++ b/arch/arm/boot/dts/mediatek/Makefile
-@@ -14,5 +14,6 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += \
- 	mt7623n-rfb-emmc.dtb \
- 	mt7623n-bananapi-bpi-r2.dtb \
- 	mt7629-rfb.dtb \
-+	mt8127-amazon-ford.dtb \
- 	mt8127-moose.dtb \
- 	mt8135-evbp1.dtb
-diff --git a/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-new file mode 100644
-index 000000000000..8edad5482de2
---- /dev/null
-+++ b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-@@ -0,0 +1,54 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+/dts-v1/;
-+#include "mt8127.dtsi"
-+
-+/ {
-+	model = "MediaTek MT8127 Amazon Ford";
-+	compatible = "amazon,ford", "mediatek,mt8127";
-+	chassis-type = "tablet";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+		stdout-path = "serial0:921600n8";
-+
-+		framebuffer0: framebuffer@b7a00000 {
-+			compatible = "simple-framebuffer";
-+			memory-region = <&framebuffer_reserved>;
-+			width = <1024>;
-+			height = <600>;
-+			stride = <(1024 * 2)>;
-+			format = "r5g6b5";
-+		};
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0 0x80000000 0 0x40000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer_reserved: framebuffer@b7a00000 {
-+			reg = <0 0xb7a00000 0 0x1000000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&watchdog {
-+	status = "okay";
-+};
+Notes:
+    v2->v3:
+        - No change.
 
+ Documentation/security/lsm-development.rst | 49 ++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+
+diff --git a/Documentation/security/lsm-development.rst b/Documentation/security/lsm-development.rst
+index 5895e529da7f..190d9b8f2346 100644
+--- a/Documentation/security/lsm-development.rst
++++ b/Documentation/security/lsm-development.rst
+@@ -15,3 +15,52 @@ see ``security/security.c`` and associated structures:
+ 
+ .. kernel-doc:: security/security.c
+    :export:
++
++LSM policy objects and BPF kfuncs
++=================================
++
++The LSM framework implements an interface for individual LSMs to
++expose their policy through BPF kfuncs and kptrs. An LSM may not
++export any kfunc or other BPF interface directly.
++
++An LSM opts in by embedding ``struct lsm_policy_object`` in one of
++its own objects, setting its ``lsmid`` to the LSM's ``LSM_ID_*``
++value and its ``type`` to a nonzero value of the LSM's choosing, and
++implementing the policy object hooks (``policy_object_from_fd``,
++``policy_object_get``, ``policy_object_put``, and per-operation hooks
++such as ``bprm_apply_policy_object``) like any other hook, resolving
++the containing object with ``container_of()``. The ``type`` namespace
++is private to the owning LSM, which uses it to tell its own policy
++object kinds apart; the framework never interprets it, and 0 is
++reserved as "unset".
++
++The kfuncs, defined once in ``security/bpf_lsm_kfuncs.c``, dispatch
++each call on an object to the single LSM matching its ``lsmid``. The
++fd translation has no object yet: the framework offers the fd to
++every ``policy_object_from_fd`` implementation in turn, and an LSM
++declines a fd that is not one of its own with ``-EOPNOTSUPP``; any
++other error fails the translation. A program that expects a policy of
++a specific LSM can read the returned object's ``lsmid``. Either way,
++a BPF program reaches an LSM the same way every other kernel caller
++does, through an LSM hook, while the BPF verifier tracks the object
++as a referenced kptr.
++
++An LSM opting in must satisfy the lifetime contract that BPF's
++execution model imposes: the containing object is reference counted,
++``policy_object_get`` acquires with inc-not-zero semantics and fails
++once the count dropped to zero, ``policy_object_put`` may be called
++from contexts that cannot sleep (map destructors), and the object's
++memory is freed only after an RCU grace period, as programs load
++policy object kptrs from BPF maps under RCU. Hooks for operations an
++LSM does not provide are simply not implemented: the corresponding
++kfunc then fails with ``-EOPNOTSUPP`` at runtime. Whether the LSM
++providing an operation is built in and active is likewise a runtime
++property: the kfuncs are always registered when ``CONFIG_BPF_LSM`` is
++enabled, so BPF program loading is independent of the boot-time LSM
++configuration.
++
++.. kernel-doc:: security/bpf_lsm_kfuncs.c
++   :identifiers: bpf_lsm_policy_acquire
++                 bpf_lsm_policy_apply_bprm
++                 bpf_lsm_policy_from_fd
++                 bpf_lsm_policy_release
 -- 
-2.54.0
-
+2.55.0
 
