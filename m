@@ -1,141 +1,141 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD2F54936D;
-	Wed,  9 Sep 2026 11:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792863D170C;
+	Wed,  9 Sep 2026 11:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954166; cv=none; b=YHumIFZRRJWQwqm9/6ikvViKWL8WYjRNFwnEzhGe1dlw9jcUQuvI+KPnvnJ6gfwL6C4F/lIuyXTGY/JLqNGyd1Q8HCB7ISFNv8v043CNRkHUAF3LfW1A8Afe+ZQxjNa8U32/47DWeaAkV2Z2rYrs6sVZ21zZYtiE8q5m8cFS9aY=
+	t=1788954201; cv=none; b=ZF6QXMtAAQ38p5kajbni4XDcrIBwdZ9866CKHiEwoszmgPZH8Q+szKZkE6+k1WJ0Iro99P+P/U7TkdsBYHq+zdzhr+SVggOjDDj3aJxW0J8nAw8rBCYULKYeaCvOOLicRela92m0YkMG9+pIVP557p99nhpLMpE15DvXZ0wmjzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954166; c=relaxed/simple;
-	bh=NHuRSVmRbB4nVz4ShQc/CV4keQMxc9xxzTf4mlVXcxg=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=cv6br12c0cF82Ed6Wv/RccVFtuVKTeSswT7upXqfObDwsHZ5Gv5TE3HBEUUkDwm34kMkM/8/dPVD16kiRAcRYd4Euu177/P8LYwQHkjwnALtoOJLPX1i1x5etKgD4rdDHrMnVRn7BeZg7Gp1FSeYnBJPM8/MzOul6MLsHItaZIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=sbRE2tYk; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1788954201; c=relaxed/simple;
+	bh=rtUQvmc7sOfK/aLokMLWqH+yfzVrRGi/fnhxtvCH6Bs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FGCHPj0zttjzq3AyhRTDRQD8JLtFltcp4Bqv9pFay8Ri8oXMPaq9K6ySflQPwJe+T72hsFgT9LAGLhuIN3WKKl3A1iOA3oDV5CH6licCmdiOdrH3uZn/Dmu0A0nToLcqnWYBqTfUGqurbAUu71vszkGOtVxkAcASK1sM8gZ1foY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHPtqqwJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="sbRE2tYk"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DCBDEA91C3;
-	Wed,  9 Sep 2026 13:32:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1788953583; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=yPBIL7xp9k71Jeokn/0hO8JzhFF0Afrctk/+t5BAEHE=;
-	b=sbRE2tYkP1k8m+7VZC/tSY0yzOQ8YBnjJnZvwjHUTlqrOFt2S+IFcDWSu6pyR+oAtqCEqa
-	x8JHfGwqVz7NMO/Fod8/lA9KeBM58l3Kv5BpRWDcyWGpG4LTsKTVSnNkt4khTC6k2n6wbg
-	aTbFeLXHYiMu60j+b2fSDKzQ+1bLRVFdpvnedgmYC/wZVWaVOJRZ3DIaRvr+krDKWRXhPa
-	D8CPaES0bPYr1YRgt3c33kt2leHuIqp9gxrmMj0fmPTC+7dGlLE11tmNab8vm6zsuciAaY
-	8Ifwj7UmXpl/WF5PZJiOq3uP+aKNCpJ0k4jx3Kq8XVhn3ITd22PEXi+8VreUVQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHPtqqwJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8EE1F00A3D;
+	Wed,  9 Sep 2026 11:43:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788954200;
+	bh=+zNCqgsES4lsEjZbgikUYk7qmS9/TBEqFNk5Bjzu1Vo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XHPtqqwJKmWsKCbEB8uLDrxP2lqjj2VGR1rYPZ26WuVXpRCaK5LZiQOnFMJFJ6KIK
+	 Z4v5rMg9s8rpqQW7KcaqjME1K4xvaj317NC0xxSxWbYaKtO2jFzG51ZxJchEDiFnBa
+	 A7wK6XMtjtCttxTzUCHWV5IaUv9wE3JmTEaRXlM3qkHLXpO1iqxo9vPmDo1o9NyGPb
+	 j1/wzgoM7/5/qrpgBCK4QmQplvDl8c+5oX5NH29OxIDufRw9r5zbZPZuoCKugZ4sv1
+	 zM1P5o5Tm9TdPT3N5UVYBD4k1cfrZ3dyKmRWIabuW3YN4XUlWXk3s/LLrBXxP8tV7r
+	 TpzFozuAnnLJg==
+Date: Wed, 9 Sep 2026 08:43:17 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
+Message-ID: <aqFGVejYb-kZ8o_I@x2>
+References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
+ <aqE_QOp-x1aOQsCX@x2>
+ <aqFCMfb94Cdumemm@x2>
+ <aqFDLQ5Yu7yg6Y2Z@x2>
+ <aqFEdSZ40HkvipUr@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 09 Sep 2026 13:32:45 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
- <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
- Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
- <david.laight.linux@gmail.com>
-Subject: Re: [PATCH net 2/6] net: stmmac: selftests: Validate EEE based on the
- actual LPI timer value
-In-Reply-To: <20260909074740.1247762-3-maxime.chevallier@bootlin.com>
-References: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
- <20260909074740.1247762-3-maxime.chevallier@bootlin.com>
-Message-ID: <2f268c9ff187ba59f69d37dd4e4ba99b@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqFEdSZ40HkvipUr@x2>
 
-Hi Maxime
-
-On 9.9.2026 09:47, Maxime Chevallier wrote:
-> The EEE selftest is a 2-step test :
->  - It validates that we enter in LPI mode with the
->    irq_tx_path_in_lpi_mode_n counter
->  - It then validates that we exit LPI when sending a frame, with the
->    irq_tx_path_exit_lpi_mode_n counter.
+On Wed, Sep 09, 2026 at 08:35:20AM -0300, Arnaldo Carvalho de Melo wrote:
+> On Wed, Sep 09, 2026 at 08:29:52AM -0300, Arnaldo Carvalho de Melo wrote:
+> > On Wed, Sep 09, 2026 at 08:25:41AM -0300, Arnaldo Carvalho de Melo wrote:
+> > > patching file tools/perf/ui/setup.c
+> > > ⬢ [acme@toolbx perf-tools-next]$
+> > > 
+> > > I fixed it up quickly, now lets see the rest...
+> > 
+> > Trying to build with it with just the first patch in this series in it
+> > correctly discovers that the gtk4 devel files are not available but then
+> > proceed to try to include gtk code and thus fail, where it should just
+> > do what the feature detection states: disable gtk support but build
+> > successfully without it, I'm checking if this is a quick surgery.
 > 
-> The current state of the test lacks 2 main things :
-> 
->  - We don't know exactly when was the previous frame sent (it's from 
-> the
->    previous selftest)
-> 
->  - The timeout is hardcoded, while the LPI is entered after a
->    user-configurable delay. On top of that, the timeout loop uses a
->    pre-decrement iterator (--retries) that actually only iterate nine
->    times, so 900ms while the default LPI value is 1 second.
-> 
-> Let's therefore make it more deterministic :
-> 
->  - Send a frame at the beginning of the test
->  - Wait for more than the lpi timer value, we timeout after about twice
->    the value,
->  - Then send another frame, and verify that we do go out of LPI, also
->    with a timeout.
-> 
-> Note that the test's goal isn't to validate the LPI timer value itself,
-> only that we enter/leave LPI mode.
-> 
-> Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> ---
->  .../stmicro/stmmac/stmmac_selftests.c         | 33 ++++++++++++++-----
->  1 file changed, 25 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c 
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-> index 6503678b646e..4564b9f29194 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> This is a pre-existing condition, if I try without your series and
+> without gtk2 devel files, I get the same problem, so I'll now try to
+> build it with the required gtk4 devel files, we can fix this
+> pre-existing problem afterwards, its not a regression introduced by your
+> series.
 
-> [...]
+Now, with GTK4=1 and trying to build the first patch after installing
+gtk4-devel on fedora 43 it fails to detect gtk4 support:
 
-> -	memcpy(initial, &priv->xstats, sizeof(*initial));
-> -
-> +	/* Send a frame, then wait to enter LPI */
->  	ret = stmmac_test_mac_loopback(priv);
->  	if (ret)
->  		goto out_free_final;
-> 
-> +	max_duration = usecs_to_jiffies(2 * priv->tx_lpi_timer);
-> +
-> +	memcpy(initial, &priv->xstats, sizeof(*initial));
+⬢ [acme@toolbx perf-tools-next]$ m
+make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+  BUILD:   Doing 'make -j32' parallel build
 
-Is the LPI entry already counted here? AFAIU with tx-lpi-timer=0 on 
-dwmac4 the
-MAC goes directly into LPI after the frame, before 
-stmmac_test_mac_loopback()
-returns. The loop below would time out although LPI is working.
+Auto-detecting system features:
+...                                   libdw: [ on  ]
+...                                   glibc: [ on  ]
+...                                    gtk4: [ OFF ]
+...                                  libelf: [ on  ]
+...                                 libnuma: [ on  ]
+...                  numa_num_possible_cpus: [ on  ]
+...                               libpython: [ on  ]
+...                             libcapstone: [ on  ]
+...                               llvm-perf: [ on  ]
+...                                    zlib: [ on  ]
+...                                    lzma: [ on  ]
+...                                     bpf: [ on  ]
+...                                  libaio: [ on  ]
+...                                 libzstd: [ on  ]
+...                              libopenssl: [ on  ]
+...                                    rust: [ on  ]
 
-Snapshot before the first frame, and take a second snapshot right before
-the second loopback for the exit check?
 
-> [...]
+And:
 
-> +	memcpy(final, &priv->xstats, sizeof(*final));
->  	if (final->irq_tx_path_exit_lpi_mode_n <=
->  	    initial->irq_tx_path_exit_lpi_mode_n) {
->  		ret = -EINVAL;
+⬢ [acme@toolbx perf-tools-next]$ cat /tmp/build/perf-tools-next/feature/test-gtk4.make.output
+cat: /tmp/build/perf-tools-next/feature/test-gtk4.make.output: No such file or directory
+⬢ [acme@toolbx perf-tools-next]$ ls -la /tmp/build/perf-tools-next/feature/test-gtk4*
+ls: cannot access '/tmp/build/perf-tools-next/feature/test-gtk4*': No such file or directory
+⬢ [acme@toolbx perf-tools-next]$ cat /tmp/build/perf-tools-next/feature/test-all.make.output 
+⬢ [acme@toolbx perf-tools-next]$ ldd /tmp/build/perf-tools-next/feature/test-all.
+test-all.bin          test-all.d            test-all.make.output  
+⬢ [acme@toolbx perf-tools-next]$ ldd /tmp/build/perf-tools-next/feature/test-all.bin 
+	linux-vdso.so.1 (0x00007f271bb90000)
+	libdw.so.1 => /lib64/libdw.so.1 (0x00007f271bae1000)
+	libpython3.14.so.1.0 => /lib64/libpython3.14.so.1.0 (0x00007f271b4a7000)
+	libm.so.6 => /lib64/libm.so.6 (0x00007f271b3b2000)
+	libtraceevent.so.1 => /lib64/libtraceevent.so.1 (0x00007f271b391000)
+	libelf.so.1 => /lib64/libelf.so.1 (0x00007f271b374000)
+	libnuma.so.1 => /lib64/libnuma.so.1 (0x00007f271b366000)
+	libslang.so.2 => /lib64/libslang.so.2 (0x00007f271b072000)
+	libz.so.1 => /lib64/libz.so.1 (0x00007f271b04a000)
+	liblzma.so.5 => /lib64/liblzma.so.5 (0x00007f271b015000)
+	libzstd.so.1 => /lib64/libzstd.so.1 (0x00007f271af52000)
+	libssl.so.3 => /lib64/libssl.so.3 (0x00007f271ae67000)
+	libcrypto.so.3 => /lib64/libcrypto.so.3 (0x00007f271a925000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f271a731000)
+	libbz2.so.1 => /lib64/libbz2.so.1 (0x00007f271a71d000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f271bb92000)
+⬢ [acme@toolbx perf-tools-next]$
 
-nit: -ETIMEDOUT here as well, to match the entry check?
+Meaning its feature detection isn't being called at all, remains at
+undetected:
 
-Thanks
-Nicolai
+⬢ [acme@toolbx perf-tools-next]$ grep gtk4 /tmp/build/perf-tools-next/FEATURE-DUMP
+⬢ [acme@toolbx perf-tools-next]$
+
+Probably this is pre-existing, but I wonder how you managed to test
+then?
+
+- Arnaldo
