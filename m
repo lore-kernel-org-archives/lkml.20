@@ -1,98 +1,107 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07925526AA4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E7F545280
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953927; cv=none; b=YjvAiG+a0mpG7xzT+vRkx0Ulqpil8ouZjHdY0BUQBHCGQSFbDTIPXpXJSvdU5balGZIkog4nlAucf4Fpi2iI4OTI/3O86duig3H+Myf7Tz1rE/m5ztFt80J1oPOElgWwqyBfVL010ol5TMs4L8N9j0X6oe6EQIv+/QGr4vvhVko=
+	t=1788953960; cv=none; b=Ftd4fsRIAuUVOwc/9PEJ/uctEEstO2NFQqD080UX+PHxjMIqEO6L8JlauL3KOp57msyFFb2kyO+1BtrRWXP02ouUg5v8lcX0KZopc29tole+k3XuCF5HRpFnmWQ8OWsVSBBMPrIxWBG96Yv4fehmVloeIv7zVCPpLYfOZgCCu60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953927; c=relaxed/simple;
-	bh=Mhs810cizJKySl2mnFN2EMhZS8XcDJJuFGQZHuszD+0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=gfUfdmM7CTp0P4FhUrvfvdksmvAP7miVoRyR50j5dQnvU9Eaxc2X2k0Y4t1zlZ7CJ19d1JO0U78BNVCh43mz2UEMbS340hVtiAXCv0MPnRnKrgpRzTL56//mu1/nWBJGwJ91njPETTu/9RmGNrHEKlLnRrHgTkkMIcddjMSLryA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45952ce9ee0so8251087fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:38:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788953925; x=1789558725;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=E8wZYV3Ikx8jqCP55tY3Hjb1bQaLE6QwiQrRHWceMT4=;
-        b=TMi3NinHAKyOU3hRxVqV6ikcOH8Du26AOHBctWqsFHBWh3V8VqUVDhejD0YotPl3jW
-         vAjAMxkMW3I8Y+Fnl5U5ozqxnNqRMdrF2qixkePgbLfUJWoeEprO4NMkMXAtxlN1jtjH
-         NxpFr/r780CWB5A93BkcCEQsA/ocrvwwpGQi3RZTfnVG2pYdWKunYXE8xhlHFDfPouoS
-         pqbPWLAbiEBPgVIPNlXpfDnlgeCn+Agg6xni6clZwrW6wg/Vxlkns5AMNBuQUdNOOkpF
-         R2N0JPf4wUej58USkd4PN5HdibRDoLVU87HoOQD3mW1X43ewISQzEviluAtFsUjQYqyp
-         +wRQ==
-X-Gm-Message-State: AFuF++l0m39dvO4QZy8IdFBcvgHyh8IDxh8MTruvlksyqppk+WTcDfcx
-	WzMJWWql8Qm/inMlBR/qA1Y8m0X0rQqFhEW89JWN2nU2laOgfVVOKRkr+btDE/Rq5MwXV0MhdUN
-	/7a4OPoPrPTgFeMDHRHFp45XRHHFB5INU69A9TAsXHCrl86K/DYvL+D7LEJU=
+	s=arc-20240116; t=1788953960; c=relaxed/simple;
+	bh=D0mga59qJMgbJ+iJ8HU3/USnjjnxCc4udmhK8U7gv5E=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=u4R7PhQB55VA9ukQaYjNywEGpvxHcHnKx1DMoMbrfcYnihmom2jGYQ/i0aeARIy+jrH59OPz+jqRGapunEvNJDNwhSVdmuoNv9jFzCYcQrF9UP5StNyN43lDIDSCw0K1PIUBbVX4IzBDhOvhYJfvnXuwDA20MeqN5HygbZ7ikc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4JVtg6i; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4JVtg6i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F31C1F00A3A;
+	Wed,  9 Sep 2026 11:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788953958;
+	bh=D0mga59qJMgbJ+iJ8HU3/USnjjnxCc4udmhK8U7gv5E=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=M4JVtg6igxslKIpTLnEYmKV9b3ABBiPNIIxYuxEMLxFDIV36T5KbmILm/EaIosqeQ
+	 rTOElNFxHFhbUkk7kVx4ZzPDOxjLC/NYavCSx78RR+J2KVfPMJRuhQYo3yy7EBbHwT
+	 R0pvlOtp2Utsq+odBwq+/agL0l4UxtpQ9Z/Rbc+tMyOGoWt0Y2c7qIrIOz0+YoSR68
+	 YZW5js3ASGL7K4hFjv7PxKeM8WvPYgO6KULUHrzvZcEbowz/foUwQyWjKo72HQkM5A
+	 x9/RCDkA30Z2gWlsk3pw26bedYKuPmWJHqAvxMTDmHtXWkHTZLGwEFtsw2gKq85udr
+	 RYTDS9k+aPRag==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 86791198004A;
+	Wed,  9 Sep 2026 07:39:16 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 07:39:16 -0400
+X-ME-Sender: <xms:Y0WhavxXfYK8WFPHobVdJ7hy9UptoKA4UIMzHA7GEAukK_HwLF8aRQ>
+    <xme:Y0WhaiGySawDblceYPyWcaUVsV3MMpXBCcxcFgyfBni4XliMQs0bzR5xYtRiK1pIm
+    g2snn9RNCJN54vdz-kykgPTEUmEMabEbsh2eqqMU9P7C3u_vxerbbnT>
+X-ME-Proxy-Cause: dmFkZTFybi/C5/YxjlxSGTSnziYj9BAzTDyTbizX/VEcL5BRF5SgkhV3Yu9EyPyrxUv0Gy
+    ujJYe1i3wXIou6mNfzHXrP7zXC/7paFp/vY97IcWSRyFmG2GXApGVDqJv8qT+5Hn6QXlHX
+    ktboINvkS14tiJ1bQzb1WFlq4Sj05+uwrpNsRWyXxVX8tWebwD+ifrWNjiQ21F5uHlWVap
+    hFX8eBWFUm5LCg/iIzrn0xUTSEEPlQwIKVEdLNNZMOkDPXC5Op3LsBTD+ZvgY08UUIbUHU
+    O9ze+JqZ9CmpQ68CM8tFEk3ii9kV+BBNlQKj5WBKbTE+ZnSif0of6l6MtEpqPvSo/1i9WI
+    pnzdhKUHc9Mv9Fp7SB+dFYTUkumP4J7j5qq0aDHHkWZnrkFAzTH1su204TGrOwwKfx++Sb
+    pKwuHa48jDu/oHCyYPFMpXnl4QtfSF2KM9vszq4Di4E5CJe315/307/QFSUTN3KU+Ydp8D
+    lIe0DXkj+id6baBOc0ytw0gowW3a588mnAG1DRsYqSDfXQlyr7t+XFNhOsGa+vAIdoiGkF
+    FD0KpWGx6DalFqhc7u+Ahjhu46vgHkGpkViCDCi+3FIzMqYqgqL4iEW3hES7F4JeW3umIX
+    2ycbAuvbHO0KAj2u+6il3rR/xrUFlASiTGgmdUxgIqtBX/6HRp0HQm+l5o6Q
+X-ME-Proxy: <xmx:ZEWhapXRvh4W7msuW2-m3_jDrNoFxnbFlQglJFnp5m7iUNnUr6ElCQ>
+    <xmx:ZEWhapubeP15ChiphSbYLSuAxVOhcgfmMOHjioDq804D7kWb_0I71A>
+    <xmx:ZEWhatWM3pL06No70n-MzEHw4-uw4I9kGagY73NekoGlVEDNKIdamQ>
+    <xmx:ZEWhakkV1Gi-XLfHbUsbxABGATDIhxi0LkS-t_Gn9uOrCv1GQlXyqg>
+    <xmx:ZEWhauazooj7-XCGBJXi6lB2uBF62Fw6xLJeqgQp0dTSM27mIyMwy6AB>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 51EDEF8007D; Wed,  9 Sep 2026 07:39:15 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:807:b0:6b7:46fc:1d2 with SMTP id
- 006d021491bc7-6b746fc02e5mr19466380eaf.49.1788953924896; Wed, 09 Sep 2026
- 04:38:44 -0700 (PDT)
-Date: Wed, 09 Sep 2026 04:38:44 -0700
-In-Reply-To: <6a73d173.5aeeccc9.207e63.000a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa14544.f614420e.2bf292.0016.GAE@google.com>
-Subject: Forwarded: [PATCH] test
-From: syzbot <syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 09 Sep 2026 13:38:54 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Vincent Mailhol" <mailhol@kernel.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <50e9d27c-8609-4a2b-87b5-bfe97fadcfd5@app.fastmail.com>
+In-Reply-To: <20260908172555.3356-1-mailhol@kernel.org>
+References: <20260906130817.1151961-9-ardb@kernel.org>
+ <20260908172555.3356-1-mailhol@kernel.org>
+Subject: Re: [PATCH] efi: pass NUL-inclusive sizes to ucs2_as_utf8()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+(drop x86@ from cc)
 
-***
+Hi Vincent,
 
-Subject: [PATCH] test
-Author: adrianox@gmail.com
+On Tue, 8 Sep 2026, at 19:24, Vincent Mailhol wrote:
+> An upcoming change will update ucs2_as_utf8() to expose a strscpy()
+> style API where the size argument is the destination buffer size,
+> including space for the final NUL terminator.
+>
+> Some EFI callers currently pass the exact number of UTF-8 payload bytes
+> that they expect to copy and add the terminator themselves afterwards.
+> Extend those sizes to include the final NUL terminator so the upcoming
+> contract change does not truncate the converted output by one byte.
+>
+> Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+> ---
+> Hi Ard,
+>
+> I saw that you pushed on efi-libstub-native-utf16 WIP branch [1] and did
+> some testing, despite those changes not yet submitted for review.
+>
 
-#syz test
----
- drivers/media/usb/as102/as102_drv.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
-index 6b1d3528a0a7..a6dd675689f5 100644
---- a/drivers/media/usb/as102/as102_drv.c
-+++ b/drivers/media/usb/as102/as102_drv.c
-@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
- 	int ret;
- 
-+	/* init bus mutex for token locking */
-+	mutex_init(&as102_dev->bus_adap.lock);
-+
-+	/* init start / stop stream mutex */
-+	mutex_init(&as102_dev->sem);
-+
- 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
- 			   as102_dev->name, THIS_MODULE,
- 			   dev, adapter_nr);
-@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 		goto efereg;
- 	}
- 
--	/* init bus mutex for token locking */
--	mutex_init(&as102_dev->bus_adap.lock);
--
--	/* init start / stop stream mutex */
--	mutex_init(&as102_dev->sem);
--
- 	/*
- 	 * try to load as102 firmware. If firmware upload failed, we'll be
- 	 * able to upload it later.
--- 
-2.51.0
+Thanks for the review, but I am going to drop that change. I am also going
+to drop the ucs2_strscpy() call from my series, and use memcpy() instead.
+The guaranteed NUL terminator is not really needed for a printf() style
+function, and it actually interferes with the precision handling.
 
+Instead, I'm adding a ucs2_to_utf8() that takes a separate limit argument,
+and putting efi_convert_cmdline() on its head entirely so we don't go
+through the input character by character twice.
+
+I'll have v2 out shortly, including your v3 with my tweaks on top.
+Please take the time to review on list if you have the bandwidth. Thanks.
