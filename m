@@ -1,120 +1,153 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D3B54CF7D;
-	Wed,  9 Sep 2026 12:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E775D4BD10B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958302; cv=none; b=mzGW+3Q3xZUASOEU9Lf/oMtZJzujZ16NX25lwE1hH8EETGeJiPOZdWJb/4tfwemp0HfI+W2iJriUjcqOmCc/Ojgyt1I+M+B3TYJU3AnfXezVBociywl1vLAcAZsWUuUQhsA+Cn9wHR1fTHvN/CxuBMYB9H07mEgIOstd7+t40H0=
+	t=1788958354; cv=none; b=XEplvMtivIszdtQeqwHRw9HRebWujDlQXf6Aj4CXHFPbQPCi9jUllesHjMPKQX9q27uDyAjvGSSB8F/U8zBDuUmcan8B3Od3GoMIq5JXMw0LWqtLdC7vVZ8/XA/8al5UpPvBzs3+XbBSUzBEFMBL1uxyi0pPH9UriW92ujs3s1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958302; c=relaxed/simple;
-	bh=CHOwUTuLU9dYXLzl8B9ejeZKp39G3sNwKHan6EqRP20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OobgJNVzfUTcm54ymD+0krU6kBZoLf8eoLKHzg8TKJfKQtu4eN0yooFqVKzpUR/aLgxptWVeJyveC7/Y4tDP4n/Y+2SnxPojdqtDReYapU79wyxR90/GEkpKqKJMJva+W2/MzGuT3fwnFrTAqbctVA32Ml8J1t8NwNyO3D6GZwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rYWnme0B; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788958354; c=relaxed/simple;
+	bh=cXvKb72H0RorSkYji2BUaKKOmRWzyLka5DqCZ/QXA5U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Aj/4NGmXs6DCIEEisculaxUJk+pGhb6aOwYm2U6L5G6wlhduRkj2aXB2XiqaCyJZ6mfsWdl1AaNG+7Q4Xb7uN1GLeh2kuHS5jOBigyXemkrxOSXnrIBV33lzZtNMbih4JBif4Q1TsaCN1Sr3w3ZOFqwkJx4Rt1uZO/ronU4RjEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BTmkYS9R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kCEhywbP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rYWnme0B"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Mq137E/3icYTvBbUxpFvEmd0A5s/IR/Eke1OJBWVN8w=; b=rYWnme0BMotsfiebauujysdoqO
-	pJ5+Y23GgW10q6PCK82nIALbCAO+YsQhj4ezgVibIEJ7heNhberTNugfcFM7xVARoT38tgFx/jU9T
-	2SZfH71/8lzmeRpls/IURdrJGAvelRXBNKiU98+3DSL10CHgJZ2MQE7Xkwtn/w8EiHyC05e/zVWcL
-	92CUWeEjY9rDNQSrcjLxNMAyKNs8V2K6+lT6QFxusSc05Hzl+n8+jWfHDVcvU37i9Bggds6XfIEqE
-	YLQHjkFxTj5VWNRWQLVlW+5NvjP90sUhGign6p5cRjbkOwf9w5ueut4lja2nAO5VlvU2iV5Q2jTcM
-	6BfWQrJg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4Hm1-00000005Rvo-3Ug1;
-	Wed, 09 Sep 2026 12:51:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C4751300A9A; Wed, 09 Sep 2026 14:51:32 +0200 (CEST)
-Date: Wed, 9 Sep 2026 14:51:32 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>, stern@rowland.harvard.edu,
-	boqun@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <20260909125132.GR788244@noisy.programming.kicks-ass.net>
-References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BTmkYS9R";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kCEhywbP"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BUBTV2171847
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:52:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	w73lEZrZCbtXfUA5AKv61bGeGDgAyCOfith5TyGHEmw=; b=BTmkYS9RPRLzZtgg
+	ydHh+ZUEKk15dXcGuRmGDIihvg+taWZBQvfLY+5f7DckGqs1bGfAIC79VUAxI2k3
+	byuF2VDQWyiQRrk90F9SoXxf4oehlVnNkTZFj6l2L045As7ghMagDyYWQMUWlp4G
+	NxVONX7F6B0aLi+v+rlzgKoO4zAJgokh+C1BNd9uMSVl269ACmk5f20a2XwjQ2Rp
+	KYExKvu8bKvrUDELdWewxi/nvMa3nMH1smsYZXu7ltenxCvX2FrEmc/aid7/W5zu
+	hgYwe8cEUKa9pqzRlI77lBLFrQa/4MI23w3ADSQ0YMUcRsworkxNUpxCAP4En4au
+	lT5KKw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5rgggax-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:52:30 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so965196085a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:52:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788958349; x=1789563149; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w73lEZrZCbtXfUA5AKv61bGeGDgAyCOfith5TyGHEmw=;
+        b=kCEhywbPrGoVj/HMoKOXauZv/9wy8B0dZHx12vW9LYa7J0KSiLBxCizNN76HBh7Hwu
+         ET6yB5pD04Iic301RX4HV2BmaqFJQZ+97HilIydTpIeICl5lq8arWuQcCkiYCOH5qNsz
+         3V+puWcvK2lIZfM/CiEb01ZRqGw/HeNVPp6FSyODdVYlrIf2XaZY+7RkMegXc6RTINcw
+         FJlYWjbAz9CbVjgIOhG8nUAoO7Kb1KtWkgzJXKU7gK0cHEHfSomfQ98OWvdL+UhIyjAV
+         Lb/ld+HbuEnnVZBKPFzXmh6WlOerP71sebq+YX/r7Jpu9IGhqwj/xXPwo6kYlmnBNWqb
+         AKhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788958349; x=1789563149;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w73lEZrZCbtXfUA5AKv61bGeGDgAyCOfith5TyGHEmw=;
+        b=CYhDuxx8E96eX+uVzHeKk1AERxkTEVKlDVyxxwrzXOsuamiRr458ltFrVDcwKGzx5i
+         IOIv39i2Pq7V20iIbiprlux5Xh5N1GP/HWok2YxY2ZthFq/8vPPrTFbvi0dZ69xaLT59
+         5SLKDj2P15pf/iTtck6Jik4LqQ79b73u8p6spw0ryJJWdQtl/2FAb9Dr91VqoWmkNSl/
+         SGMSDaupCidLuna5fS3kN+AL10rHtwIKcmxA+/KVpSMS0Bvn2dAMsHv5ubN89UfE0Qat
+         cdSBxvnti/Z17JtWByvB8YhQy0fkeDhVlzoQDdRmjNn+e0fwqWwNpWhi647h1HiqH56f
+         YXGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwk7FOOlv9rzBi+DckI62mhhYjIGfHJEgYlqk7Wrdop4UQcID/ghrsiZITR8XathuHmdjSdbviB5Odzpy4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mItIxjyyEGW87X8kU4/aao8CS1ubR/uuoVYi8XBtmGUzMETkwx
+	D0e8YRrpGe3Ny/VUadYoygD7O/pAfqn1AbuGPcIELP1fLVwERLc3Fb35ab6siGUtXvC4h/5RRhv
+	tFhSfcr2EQ+dWSRVqJrRzo3HM2CuGzM/fLizsQp/fMZfxAH1H+dVrQxIAby+JkhL1lT4=
+X-Gm-Gg: AYBFou38Fod0dP6i3F+FmJt74oyEsMzCbd5vnYpHEzl4Ei+LusURyYtFjMKrUtdPCJz
+	7QILzTnW7gMjJ24214M9ThEXurWSIHTtP4RqM4agpyx0ce0Tzsb2x1rP23VrF+cmAU91ue666Am
+	Ik6l6yPvvKuwbB4fVYJIyiUJB+RDitugk+UIjMYpf9BRGoGwVUPZYSH0XIidJVomD27dvNdWWb3
+	z1y6EfjAHHCBM3ttzw67ktWHuf2UHFxeLHyHPgdn8HzNbWKs428OfdulLky+CMhz3JEwaqchcMk
+	ze+KAIH4Z0KKTsjd2TtSJRu621qdJzUJQM5nb8B3si1QOaLBOg2st3qryqXi7YjMcdW7y4M9M6f
+	m5lu59jR7sdsX4gmIAvtIr0O+Dko=
+X-Received: by 2002:a05:620a:28d0:b0:939:72cb:bae6 with SMTP id af79cd13be357-93972cbbcc3mr1268673185a.29.1788958349506;
+        Wed, 09 Sep 2026 05:52:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:28d0:b0:939:72cb:bae6 with SMTP id af79cd13be357-93972cbbcc3mr1268627385a.29.1788958344263;
+        Wed, 09 Sep 2026 05:52:24 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:de8b:7fd5:2738:cc2a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4aa0b9sm768027666b.11.2026.09.09.05.52.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 05:52:23 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 0/2] Add pinctrl support for MSM8952
+Date: Wed,  9 Sep 2026 14:52:20 +0200
+Message-ID: <178895833828.30492.93870770541896598.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org>
+References: <20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0NCBTYWx0ZWRfX1C43pSWv2uS3
+ UgsuXzRSoyi6cPbg9uUSYe1e0djpHSxya483zcjErcp2nnEesvrU0mcy9pfUP1hw7szLG3JDGAd
+ YJKjWa6aKKhtvbCSkq9AL6xJD9ovOYE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0NCBTYWx0ZWRfXxKQJ7i962xrV
+ ilrS/oCgU4MTWIk8L0qb/rD/uQPck7sMscfKYlYUCRx4UGxZHA0LVqyjDNoNdCSByttkH6ZiHkk
+ niOVZg8EoSdzHbiXb0KgnJsZ6fafzOI9Setdy4M4gwBj9wTtssS1qjiX3uutbgJJdf6w9yB+k8W
+ JiAUuXNh/DQYq0YROlHIRiHsvJCpOEjrUYch7QwNaNEBQgQ2RnukiKCp2OBhJboxBz6AWHf7WMW
+ z6zjh8T4WWZ3kLach9Jh/yWlMwQHsdJeazkZx3lBIokNN1GowvTKyu+uMn6duXMGDjfIATyPOZU
+ oDjfMYo5JITe+Yi9CNNhIJOYZUGhyUSLbwKM6pW8PWyHqsf7vh5JD7zS0NOyYV9qd3PmjSnMmlP
+ 9uZA5OOPMM+N15g6PK0NsgUfq3Xx9MQmyZVG1r5t5V6q7dmLR2UUc85X16X7AwWK6L2op6FJv9g
+ LsEmRO8FjicAOCKrkTQ==
+X-Authority-Analysis: v=2.4 cv=B6qJFutM c=1 sm=1 tr=0 ts=6aa1568e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=mPusQoNMmh5jHkL4POYA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: DBAqBSo57WQX_1118z-HW2Ei0T_NfgC_
+X-Proofpoint-ORIG-GUID: DBAqBSo57WQX_1118z-HW2Ei0T_NfgC_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 malwarescore=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090144
 
-On Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra wrote:
-> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
 
-> > Because the following doesn't verify that:
-> > ---
-> > C MP+farfetched
-> > 
-> > {}
-> > 
-> > P0(int *next, int *prev, int *exit_state, spinlock_t *tasklist_lock)
-> > {
-> > 	// list_del_init()
-> > 	WRITE_ONCE(*next, 1);
-> > 	WRITE_ONCE(*prev, 1);
-> > 	// exit_notify()
-> > 	spin_lock(tasklist_lock);
-> > 	WRITE_ONCE(*exit_state, 1);
-> > 	spin_unlock(tasklist_lock);
-> > }
-> > 
-> > P1(int *exit_state, int *pid, spinlock_t *tasklist_lock)
-> > {
-> > 	int r0;
-> > 
-> > 	// de_thread()
-> > 	spin_lock(tasklist_lock);
-> > 	r0 = READ_ONCE(*exit_state);
-> > 	if (r0 == 1) {
-> > 		// exchange_tids()
-> > 		WRITE_ONCE(*pid, 1);
-> > 	}
-> > 	spin_unlock(tasklist_lock);
-> > }
-> > 
-> > P2(int *next, int *prev, int *pid, spinlock_t *sighand)
-> > {
-> > 	int r0;
-> > 	int r1;
-> > 	// get target
-> > 	r0 = READ_ONCE(*pid);
-> > 	spin_lock(sighand);
+On Mon, 07 Sep 2026 19:05:23 +0300, Muzaffer Kadir wrote:
+> MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
+> has some differences in some of the pins and their functions.
+> This driver tested on General Mobile GM 5 Plus.
+> 
+> 
 
-There is no dependency between r0 and sighand. While I think there is in
-posixtimer_send_sigqueue(). Does making it smp_load_acquire() help?
+Applied, thanks!
 
-> > 	// queue signal
-> > 	r1 = READ_ONCE(*next);
-> > 	if (r1 == 0)
-> > 		WRITE_ONCE(*prev, 2);
-> > 	spin_unlock(sighand);
-> > }
-> > 
-> > exists (prev=1 /\ 2:r0=1) (* Bad outcome. *)
+[1/2] dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
+      https://git.kernel.org/brgl/c/2f006f5c617a56afe7683b607727349e0aea7814
+[2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+      https://git.kernel.org/brgl/c/b53a6210af0fe559670e298349968beae2c7448b
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
