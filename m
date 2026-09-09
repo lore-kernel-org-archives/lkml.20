@@ -1,63 +1,63 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921EA270545
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F422B492E4C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:37:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788914230; cv=none; b=M7mMrY/Mc3hgDaOHAVuDlgvJXtbSOP0JcnkBoJg2fO2Do2RDOznye/WgT70i/22uKIo3/UT/FTKjG6al8XOGSLaHq1JR1yYOITGfiKSbr6eTCcgaNX8EpVyBffo3D4u9DvAcggaXo+F777MZDRkjHukMZ03nZ23dgL0Q4aL/8AQ=
+	t=1788914235; cv=none; b=jN8vQ9ja+2lCzmdDR+Nh+MsCKWFCNjCDh5w4bcNpbpSyzDzAe/L6FT4GzHurd6KGi1Rz6LeaHAogfaDV3soxYrQSl/0/RKj22mx/JPI1h1dgQZsjcIXXbW8vmfE/UgRTbPDIl1ojFutAOrV52z0uZiJ1YVZ+ofRgi+ChtgbbCgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788914230; c=relaxed/simple;
-	bh=N5/gPWjkuTr3queZIO2GJXBXWpGePJxyaZgnB61ci1I=;
+	s=arc-20240116; t=1788914235; c=relaxed/simple;
+	bh=ZQ26WuN/2uDNusaBnSlD83HCZx/Czvc7ZEkPnGbepS0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PGe/Pio//UCvbMdqU9gkqNRrCq/geKVyo7f1ElIIZp9qcD4fSn3cwa27Mlf9xZpRQeJw4uN5ZAk71eajwIIZreznqyNwR4IruuR7/Nr+ziCnF7UGsacN5kAwDqm33u2X4WjdQQ3jQDQOhn0xCXbWXAAXy2+v7TgvbvbhnbGhjqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHIlNOau; arc=none smtp.client-ip=209.85.216.49
+	 MIME-Version; b=rQlOzJGo/LT9NwVej3uZykHBXUnAcA9a/YOBTj0yt+eubrsq2/n9VM/+86ORcpiQ3u+YaQFhS/KCUgJ0jH/7GzvI3in6GG+8kYkSSOUCpuvnZ3TiHjrT0oY2MY7SIgWbye7KPqu5QN95/wDxrbnRpHTJh3gz619bfdsgCcbE5n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GSUadF2x; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHIlNOau"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so5195656a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:37:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GSUadF2x"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398a5aad413so4183967a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:37:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788914229; x=1789519029; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788914233; x=1789519033; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9PHLyrOgPUSLsTNtUF28QqgZ2J17TC9aeZzxCirbE9U=;
-        b=UHIlNOauIuemstFJHeM4T82DR2m4A1ZVqHim7TsmzNaBv7XXlfs7tC2EMS9LhP/VNq
-         xi6HSChrhdwHcJeMOw5j5hkLZ+WHP5sx1izdS1zKNOc9zoLkfuZYHiHj5YO3creRXMQ8
-         UK+CaNOw8RDUaY2taZU4LJjmkTDlUsi52rnUabSfBON4myOg4lkX3SQeI+xlsuaWmP+l
-         /DyCMi3KVNos0iLHLjyLXcMCo/m2IW2klBUDCOOCW25cHxvX0+C/WxgESymX5qcMPHBR
-         5OSngr6oxduNpYsuUTekFAA5VAU+QRgHLcKi7gw8jVHvX++uebDIubR9PEvVLQglTdaF
-         XZKA==
+        bh=PrbS3BESBt65p0R6Xy9pWvWwpzxrdANSE+CV32PeomU=;
+        b=GSUadF2xdCRDpMY8p9PEOYYO1Y+ua973eVYwUK6pjlQeVATWp63na11UWDSzkaaOLk
+         P4aPNi7Xf5C0Jxh9lkPUScAVJeSjd3Cq+paHoTz2yWTPW5WjVxrsIExDLehLHkJbUXTx
+         wMENmRN2glhG7teqZIlSXaRMEXEfq7307JHBsXsU9OPyKt40nooj8NltqTezVM/7SI5D
+         NxCZg1q8VGsFQZWNPkAzsTTuEtCqJlwDmQvIms2mwNJVWjy9oG+nVMGsClMv/qPj1Rfo
+         jOWpIro+nZRDaJsQC0JIUqMHTABMBu96LCm3ix5252CvSd0bhoL0B1dziO7g7Xyb3MW5
+         u9XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788914229; x=1789519029;
+        d=1e100.net; s=20251104; t=1788914233; x=1789519033;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9PHLyrOgPUSLsTNtUF28QqgZ2J17TC9aeZzxCirbE9U=;
-        b=YxoT5jyZT5zi9CyjvMVF+t5c9+U8uh8khnFCg4/eilxs45d2aVoJw4Ds63dhYoS1m6
-         sfTDij4E0zufdfPxl66aHEfgxF+Y+Xq7IC5Fw2+clI1iJCXDWbLh9RRMl7688juarX4w
-         GflAB/jCdLvyhHHTigyyLMeZLrZrLz78DHuP29lqjyd2XP9SSVH457FX/o3cZELrWDKu
-         +ZzEJaEY9HSWq7ge0XvlEwYHviKGfGN5Ek2r9rr2wfweAcAfJbN7jAJeXB09y2HIzgas
-         Mmso1GTopk75+cIbAOpBrfycwDN+JxH0UcwwoTG3dCfdZpJQuikYz3LmwDtugOs7nerC
-         TBaA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSIiKC1W8A3ajVHGfr4ZPSVBlkTseMh5qkMBTmQ6OM9E3o80OnUsX4/yDRkxSslhjtRreH0tLSpl3mpfo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQIREekeZHZcKAKJA0WoDBT5c84iLm8G1pU4pQBp2n0jbuqluU
-	VeG5DD1Q82LRyUtKb0uMrR/UrLAYDGbsu0xq05N21gjMp1gd4t/p+/Sd
-X-Gm-Gg: AYBFou2UgJRRmM/WKKzU3TaSNnV9gophmRtiLiNu6uO5zcH6SS2J0wY7rAb42dgLbnk
-	npPAtS7QjPEFHCPbZ3oX3/v7OYfLQLkd9u3tUoDQf4Oh35/XK6PQuymXnNO4jl3t2AixhJto0Tp
-	wkTrQ28V4A2/k7KYq+xy42pJXOkJ8pCmDXWCKlaPVXLZ849DOQ5UxlPQ/Tn3HGo0qgZaKqRqytS
-	ieVW1GNc/gLUS42zpNj3dF/64nik1rbIH1JMas15E6ryEAydSWgfgwHOEBFhBuJT80CEzz1tb8R
-	VC8x1awR2wBKb5R2oiUn5eB9PG7vEb9YmDfubKQ+nvJad6WGumzSTgedjQfnjx8pz71ygAM/Vsl
-	SQ45bGjAJKHsnCr0ZZkZxoU3Fh0O7qnEF6PddQc0mfM1vjrvfy3anEcHCI9aW+p9aXQZnh3vVIB
-	Sm6ibusJkBtWpI1gUwD5jPiC3OPX7ujkLYgPQPwTB8oaKvuMfSGhRzHNttSyv7
-X-Received: by 2002:a17:90b:2542:b0:38e:6aa7:68ad with SMTP id 98e67ed59e1d1-39b26101402mr44510446a91.5.1788914228871;
-        Tue, 08 Sep 2026 17:37:08 -0700 (PDT)
+        bh=PrbS3BESBt65p0R6Xy9pWvWwpzxrdANSE+CV32PeomU=;
+        b=rRezenlTXMYfyQVBOmXuIKdcj3dWXeAVtCYbeAHJgG3kNYqiyg6viJ7dPyjI+eYqci
+         uZD23to0QD2tTtk5DXro9LK93Q4uiAbSn79nJmnFXn/Ey7zMabTZRRd2DVWlIAhe2NK3
+         0McHu/5lCwdZdqf99QtPSmjLJaCFBQ7n1vlad3k5cf9i4cW9iALcIcdNvCSTaiFNrHL+
+         oCJoP/rT+Uyv1f3iJXnjPbxeW7ZsQn8YrYt0dwwVb0lKnVgOMGVCq8JEOqBAKf2g7mTl
+         DiSSnb2ib6TywuRX+dhUP9HG8sLMwuSlcjBweVg5BwxSoVu5/2pL/BkSGL/5syHImZ8v
+         rGig==
+X-Forwarded-Encrypted: i=1; AKwUvBxmy4Z9TsSSa/9s+pQD3X7rvBUDXVan4B6f7wphUMtnMBuvIlnRWLiyJN/5XapQ3QWBuaYkRPXyuXdCglw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mniHxO06OvN8W8fyYDfTvpM/B0v71+NkMXTW/8KilT+ye5vX8d
+	O53sn5vVwG9tzuayl+I6w3bqS49n3Y/q7JLi1cZchArQO/9NYbFwaZ7k
+X-Gm-Gg: AYBFou23kOYQsnaH+Xj0Xr47sCBdHl0OCTEHw3syXfM4/q/GtDEzZbP1oeUSAiYjR28
+	MBopNlzWhGm0EvafpQ6jM38V/O/v0TlUEG8G2r0cQb3TdIDig56ovil/UMd8/qcdBb3FkdvclsI
+	p06J10DTm+6F74sL8mZ7GbWaHjwoEecn6aC5aRVvbaluvNRinWVEAl0kGpE0y17Kw7RpLdU/Gfw
+	NBI7diUszouXMmcaEJHD6PWiNQ2ZxLMJQbvOxamCTpcRyYQ85dKGZ5boZlOfH0qkSIJyziKrzjF
+	eG+ayfspRhf1mB+7NVBdJdHTCvmfxRuRPtPyrH/2cMbOjIufENa+gLaM3KZAoJ3LJIxMTPctkkt
+	23jwTdRIL2sFr/jzL0EDNXt6VxmFu5CfqWnevg2UQrdapTIE+paXmvAgari/X+SliX9T9JWgeLp
+	QpqAaned9E6iaYOq3pQNg2vgwnh2Zu4FN6zLq3w/m61tTkN8tf8CA4RpawvegI
+X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr49122061a91.24.1788914233189;
+        Tue, 08 Sep 2026 17:37:13 -0700 (PDT)
 Received: from localhost ([2400:ac40:62f:1b67:ddd8:990d:9d6f:13b8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd15asm28871165a91.4.2026.09.08.17.37.07
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e4fafsm34284184a91.1.2026.09.08.17.37.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 17:37:08 -0700 (PDT)
+        Tue, 08 Sep 2026 17:37:12 -0700 (PDT)
 From: Coiby Xu <coiby.xu@gmail.com>
 To: kexec@lists.infradead.org
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -71,9 +71,9 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Mike Rapoport <rppt@kernel.org>,
 	Pasha Tatashin <pasha.tatashin@soleen.com>,
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v5 2/9] crash_dump: Read the number of dm-crypt keys from reserved memory
-Date: Wed,  9 Sep 2026 08:36:44 +0800
-Message-ID: <20260909003657.1570544-3-coiby.xu@gmail.com>
+Subject: [PATCH v5 3/9] crash_dump: Disallow writing to dm-crypt configfs during kexec_file_load syscall
+Date: Wed,  9 Sep 2026 08:36:45 +0800
+Message-ID: <20260909003657.1570544-4-coiby.xu@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260909003657.1570544-1-coiby.xu@gmail.com>
 References: <20260909003657.1570544-1-coiby.xu@gmail.com>
@@ -85,87 +85,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In case user adds/deletes the keys by mistake, it's safer to read the
-number of keys from reserved memory.
+If writing to the configfs group happens concurrently during
+kexec_file_load syscall, it may lead to the following issues,
+  - buffer overflow if dm-crypt keys are added after allocation
+  - stale total_keys if dm-crypt keys are removed during iteration
+  - keys_header will not be freed if config/crash_dm_crypt_key/reuse is
+    set true
 
-Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
-Reported-and-Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+So hold config_keys_subsys.su_mutex for the entire sequence during the
+kexec_file_load syscall to ensure a consistent snapshot. To have serial
+access to config/crash_dm_crypt_key/reuse, use the kexec lock as we also
+need to access kexec_crash_image serially.
+
+Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump reserved memory")
+Suggested-by: Sourabh Jain <sourabhjain@linux.ibm.com>
 Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
 ---
- kernel/crash_dump_dm_crypt.c | 37 +++++++++++++++++++++++-------------
- 1 file changed, 24 insertions(+), 13 deletions(-)
+ kernel/crash_dump_dm_crypt.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
-index f638fb4b8554..3a416933979f 100644
+index 3a416933979f..580534d43b66 100644
 --- a/kernel/crash_dump_dm_crypt.c
 +++ b/kernel/crash_dump_dm_crypt.c
-@@ -88,21 +88,31 @@ static int get_keys_from_kdump_reserved_memory(void)
- {
- 	struct keys_header *keys_header_loaded;
- 	size_t keys_header_size;
--
--	keys_header_size = get_keys_header_size(key_count);
--	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
--	if (!keys_header)
--		return -ENOMEM;
-+	int r = 0;
+@@ -7,6 +7,7 @@
+ #include <linux/configfs.h>
+ #include <linux/module.h>
+ #include <linux/sysfs.h>
++#include "kexec_internal.h"
  
- 	arch_kexec_unprotect_crashkres();
- 	keys_header_loaded = kmap_local_page(pfn_to_page(
- 		kexec_crash_image->dm_crypt_keys_addr >> PAGE_SHIFT));
+ #define KEY_NUM_MAX 128	/* maximum dm crypt keys */
+ #define KEY_SIZE_MAX 256	/* maximum dm crypt key size */
+@@ -306,14 +307,20 @@ static ssize_t config_keys_reuse_store(struct config_item *item,
+ 	bool val;
+ 	int r;
  
-+	if (keys_header_loaded->total_keys <= 0 ||
-+	    keys_header_loaded->total_keys > KEY_NUM_MAX) {
-+		pr_warn("keys_header saved to reserved memory may be corrupt\n");
-+		r = -EINVAL;
-+		goto kunmap;
++	if (!kexec_trylock()) {
++		pr_warn("Failed to acquire the kexec lock\n");
++		return -EBUSY;
 +	}
 +
-+	keys_header_size = get_keys_header_size(keys_header_loaded->total_keys);
-+	keys_header = kzalloc(keys_header_size, GFP_KERNEL);
-+	if (!keys_header) {
-+		r = -ENOMEM;
-+		goto kunmap;
-+	}
-+
- 	memcpy(keys_header, keys_header_loaded, keys_header_size);
-+kunmap:
- 	kunmap_local(keys_header_loaded);
- 	arch_kexec_protect_crashkres();
--
--	return 0;
++	r = -EINVAL;
+ 	if (!kexec_crash_image || !kexec_crash_image->dm_crypt_keys_addr) {
+ 		kexec_dprintk(
+ 			"dm-crypt keys haven't be saved to crash-reserved memory\n");
+-		return -EINVAL;
++		goto unlock;
+ 	}
+ 
+ 	if (kstrtobool(page, &val) || !val)
+-		return -EINVAL;
++		goto unlock;
+ 
+ 	if (is_dm_key_reused) {
+ 		pr_info("Already got dm-crypt keys, please continue with kexec_file_load syscall\n");
+@@ -321,12 +328,15 @@ static ssize_t config_keys_reuse_store(struct config_item *item,
+ 		r = get_keys_from_kdump_reserved_memory();
+ 		if (r) {
+ 			pr_warn("Failed to get dm-crypt keys from reserved memory\n");
+-			return r;
++			goto unlock;
+ 		}
+ 		is_dm_key_reused = true;
+ 	}
+ 
+-	return count;
++	r = count;
++unlock:
++	kexec_unlock();
 +	return r;
  }
  
- static int restore_dm_crypt_keys_to_thread_keyring(void)
-@@ -432,12 +442,13 @@ int crash_load_dm_crypt_keys(struct kimage *image)
- 	};
+ CONFIGFS_ATTR(config_keys_, reuse);
+@@ -443,15 +453,17 @@ int crash_load_dm_crypt_keys(struct kimage *image)
  	int r = 0;
  
--	if (key_count <= 0) {
--		kexec_dprintk("No dm-crypt keys\n");
--		return 0;
--	}
--
  	if (!is_dm_key_reused) {
-+		if (key_count <= 0) {
-+			kexec_dprintk("No dm-crypt keys\n");
-+			r = 0;
-+			goto out;
-+		}
++		mutex_lock(&config_keys_subsys.su_mutex);
 +
+ 		if (key_count <= 0) {
+ 			kexec_dprintk("No dm-crypt keys\n");
+ 			r = 0;
+-			goto out;
++			goto unlock;
+ 		}
+ 
  		r = build_keys_header();
  		if (r)
- 			goto out;
-@@ -450,7 +461,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
- 	 * ARM64
- 	 */
- 	kbuf.buffer = keys_header;
--	kbuf.bufsz = get_keys_header_size(key_count);
-+	kbuf.bufsz = get_keys_header_size(keys_header->total_keys);
+-			goto out;
++			goto unlock;
+ 	}
  
- 	kbuf.memsz = kbuf.bufsz;
- 	kbuf.buf_align = ELF_CORE_HEADER_ALIGN;
+ 	/*
+@@ -478,6 +490,9 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+ 		"Loaded dm crypt keys to kexec_buffer bufsz=0x%lx memsz=0x%lx\n",
+ 		kbuf.bufsz, kbuf.memsz);
+ 
++unlock:
++	mutex_unlock(&config_keys_subsys.su_mutex);
++
+ out:
+ 	is_dm_key_reused = false;
+ 	return r;
 -- 
 2.55.0
 
