@@ -1,40 +1,42 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4974C352008;
-	Wed,  9 Sep 2026 15:19:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58011279DB6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:20:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967200; cv=none; b=hjjLuGzUwVxxvYxTc7gFFGh35blMVwZnjL9C/cBVyaBZLuyuw9P15Zf4tcUw1l4Bg+j0YQ1SBWqYrBD8USBMY/tSIt9mWpJupv686v0OWOInqx1idn/GT+0dmpz22IJLmnvRU8x1oc/L3PoIJWLJ4c2bfgVpiIEN8N6CZw5GyJU=
+	t=1788967202; cv=none; b=NeoqCbgGC/oJwrqGvfp/UNvlDlDgESJQ1qc2UcBhZ8Ps4IAY+5ZBZdQnJBGbeO4sv3U3Oslc3yfx9zvEhnJwA4wVYFuD+plcekQrXfllnevdXLey7u/WfEBSf3zzAA7OBOAsCR0KD6hMWoAWkm72kPazEpkJd7u2MUC35h7zUnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967200; c=relaxed/simple;
-	bh=xUVTXe6fcSqGxYpF5BIGmxHrPBDcGknOFxELk2ezG6s=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Iaq+Uwh0r7CjPp2ssS3tPN3jUMWqyp+57svgnWn1vstDSjq0UHmcJLW5MzcDF550Y/ZxvGqDWsdAsGpSKFn1wMl86RwAUVAGXTzbnyk/ZB9/rfZvhca4Cl3lL0lvR5Hj6dxxwv6/hIsUt0ShMmdIktp7uUbE2EyGZFf5gPYwOV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vDBAKXbu; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1788967202; c=relaxed/simple;
+	bh=j56B9Fj3vlMQ1+8fFJhTj7VlBuQInFvYp+PkM0n7MzI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jUyNenCSCYlH4y+efp0MzLX/nEvUUufUEVir0r2QF4lx3hNj28fIQTvls7Go6Zom/sfBiIUTH5qvdQeJFlnZYYswctqbS1UWp6kcUH0GgIcjle86NjFtL+AfYOBVbz1QlONFSonFtdpVeCNtHOGL0vkQIz1QbkTfc2YA3Pcs070=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ytx88PJL; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vDBAKXbu"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ytx88PJL"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BFF421A1A65;
-	Wed,  9 Sep 2026 15:19:56 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AA3601A1A7D;
+	Wed,  9 Sep 2026 15:19:58 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8672A60448;
-	Wed,  9 Sep 2026 15:19:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8FA5B11C7AF57;
-	Wed,  9 Sep 2026 17:19:54 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 80D0260448;
+	Wed,  9 Sep 2026 15:19:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 22D0D11C7AF6A;
+	Wed,  9 Sep 2026 17:19:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788967195; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=UHZeJNkyvW20erAKfgi/DtAyQWbftngLV/c7LNNk5bI=;
-	b=vDBAKXbuqvZsCgbrufpD9Rx6zqiIGkegUpKtT8CdAL8DFe5Bnu2VKFuC2QSDyp53FdRwlW
-	gTXP76SQDCpUza0axHtYPmkP+u+ses7t4yatd7aC79Ygl7z8xQlf6P8mzpFCiYArv0zqXq
-	1hZ0PSG6PnGuGCI4chEUsTbJqjubnWvUI5eBSDL766FH8Y/dcFAZPq/BSnsm8woi7iWCLQ
-	HJBXJ/SKmVYV3jPsyP9uognqtW0d0viRD0esHEJWRGNG8jYbhlCAdANzGf3xPXhD7LlRm/
-	Wmr/IIXGD61V4HFkvGrW4k7vH2q5rJ8MlheycSArZObKl+dtcStqFQVEQ7NOWQ==
+	t=1788967198; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rtOoIFYY9iMutiW3cJLmMvBZLC7Y1LCkc5/wAS8z9sQ=;
+	b=Ytx88PJLtiA7qSc95dQUJshPrdjjZoJPpZ8B7z3xB4c6RcGwZRTa7MVP37XgVMgadTcVkC
+	OHrEbeHtilKtVvpF3yBb7FhscfHNV/eL8EcJJX8PO89acWHyMWEOrHaRdV2AtQ19jPjsQ5
+	uCPPO1AKI1U96N+Xlq5DCx3Y8WJvdSGdwAnfjtobUCOIBzFNxu1f8sOXV1IixoQuu7pi7D
+	Cg51g9sAG6ORaP82S8vBNChGiMWD/veZJbn33VIbyHNjtS8yTCMGtcDw8vGGMF1zKipEu/
+	tVlM1lIg6KMl5f0KGCVbGmg67b6kzHk7nl9tdTp1tChZpykawFfpAXbFPUaIJw==
 From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Subject: [PATCH v9 0/2] dmaengine: fsl-edma: Scatter/gather improvements
-Date: Wed, 09 Sep 2026 17:19:44 +0200
-Message-Id: <20260909-fsl-edma-dyn-sg-v9-0-60bb2e678e8f@bootlin.com>
+Date: Wed, 09 Sep 2026 17:19:46 +0200
+Subject: [PATCH v9 2/2] dmaengine: fsl-edma: Support dynamic scatter/gather
+ chaining
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,13 +45,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIABB5oWoC/23RTW7DIBAF4KtErEvF8E9XvUfVhYFxQpXYlXGtR
- pHvXkgrxRVePmn4eJq5kYxTwkxeDjcy4ZJyGocS3NOBhFM3HJGmWDLhjGsmuaV9PlOMl47G60D
- zkTrNjAAUJnaclFefE/bp+y6+vf/m/OU/MMyVqROnlOdxut6/XKDO/emCNfoClFGJDINHHnutX
- /04zuc0PIfxQqq/8IegmG4FXgStpXAhRgkSW0FsBIBWEEVwtgMLxqjY7QhyK7Q7WmQRbEATnfI
- Q0LWCegiG8VZQRQBtrAGrPModQW8E2Nmkrh0EeKc9il5AK5iNsHPpxdQOLPa9l6VK4K1gH4Jlo
- hVsEWLgngkwnOn4X1jX9Qc+vme0kAIAAA==
-X-Change-ID: 20260428-fsl-edma-dyn-sg-960731e37da2
+Message-Id: <20260909-fsl-edma-dyn-sg-v9-2-60bb2e678e8f@bootlin.com>
+References: <20260909-fsl-edma-dyn-sg-v9-0-60bb2e678e8f@bootlin.com>
+In-Reply-To: <20260909-fsl-edma-dyn-sg-v9-0-60bb2e678e8f@bootlin.com>
 To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
 Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev, 
@@ -58,112 +56,310 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-This series adds support for scatter/gather DMA transfers via dma_vec
-and dynamic descriptor chaining to the Freescale eDMA controller driver.
+Implement dynamic linking of scatter/gather transfers to enable
+chaining multiple DMA descriptors without stopping the channel.
+This avoids waiting for the channel to go idle if there is another
+transaction already issued.
 
-The first patch implements the .device_prep_peripheral_dma_vec() callback,
-enabling the DMA engine to accept an array of dma_vec structures. This
-callback supports both regular and cyclic transfer modes.
+Add fsl_edma_link_sg() to dynamically link the last TCD of a previously
+issued descriptor to the first TCD of a new descriptor by setting the
+scatter/gather address and the E_SG flag, and keeping the channel active
+by clearing the DREQ bit.
 
-The second patch introduces dynamic scatter/gather chaining, which allows
-multiple DMA descriptors to be linked together without stopping the channel.
-This optimization eliminates idle periods when back-to-back transfers are
-submitted, improving throughput and reducing latency. The implementation
-carefully preserves cyclic transfer semantics and respects hardware
-constraints on platforms with split register layouts.
+Also in fsl_edma_link_sg(), assign a non-zero identifier to the new
+descriptor that is stored in the EDMA_TCD_CSR_LINKCH field of the CSR
+of each TCD, after checking that the descriptors are not using channel
+linking. The use of this field (MAJORLINKCH in the datasheet) as an
+identifier for dynamic scatter/gather is suggested in the i.MX93 datasheet.
 
-I tested it on the i.MX93. The dynamic scatter/gather chaining should
-work with other eDMA controller with split register layout.
+When the last issued descriptor is the one currently active on the
+channel and has a single TCD, the scatter/gather address and CSR are
+also written directly to the hardware registers to ensure the link
+takes effect immediately, unless the DMA controller requires the DONE
+bit to be cleared for the CSR change to take effect. Clearing the DONE
+bit would disrupt the interrupt handler.
+
+Linking is done in fsl_edma_issue_pending(), which iterates over the
+submitted descriptors, links each one to the previously issued
+descriptor via fsl_edma_link_sg(), and then moves it to the issued
+list. This ensures that transactions are linked in the order they were
+issued. Linking of a descriptor is limited to 31 outstanding descriptors
+on the issued list so the identifier fits in the LINKCH field of the CSR
+register. The value of zero is left to identify non-linked descriptors.
+
+Update fsl_edma_xfer_desc() to avoid re-initializing the hardware when a
+transfer is already in progress, allowing seamless chaining of descriptors.
+
+Modify the transfer completion handler to check the DONE flag in the
+channel CSR before marking the transfer complete. Since this flag is only
+available on SoC with the split registers layout, only link transactions
+for DMA controllers flagged with newly added FSL_EDMA_DRV_CSR_LINKCH. This
+flag is set for eDMA3 and EDMA4 controllers which are able to perform
+dynamic scatter/gather linking.
+
+The completion handler also reaps issued descriptors whose link channel ID
+(EDMA_TCD_CSR_LINKCH) has already been passed by the hardware, marking
+them as completed even if their corresponding interrupt has been missed.
+
+Add trace event for scatter/gather linking operations.
 
 Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
 ---
-Changes in v9:
-- Rebased and retested on v7.3-rc1.
-- Drop the check on CSR E_LINK flag as it is never set in the driver.
-- Add FSL_EDMA_DRV_CSR_LINKCH flag for eDMA3 and eDMA4 to indicate which
-  controllers can link SG descriptors.
-- Count and limit the number of linked SG descriptors once per
-  issue_pending() call, instead of O(n^2).
-- Link to v8:
-https://patch.msgid.link/20260803-fsl-edma-dyn-sg-v8-0-dc2b0317206d@bootlin.com
+ drivers/dma/fsl-edma-common.c | 138 ++++++++++++++++++++++++++++++++++++++++--
+ drivers/dma/fsl-edma-common.h |  30 +++++----
+ drivers/dma/fsl-edma-trace.h  |   5 ++
+ 3 files changed, 155 insertions(+), 18 deletions(-)
 
-Changes in v8:
-- Enforce that major channel linking in not used when linking a descriptor
-  in fsl_edma_link_sg() by checking all TCD, not just the first one.
-- Don't compare the descriptor link_sg_id with the CSR LINKCH field
-  if major channel linking is enabled, to avoid completing unfinished
-  descriptors in fsl_edma_tx_chan_handler().
-- Handle the completion of the last transaction of a linked SG chain if
-  the previous interrupt was missed by checking for the channel completion.
-- Add comments to clarify the assumptions I made.
-- Link to v7: https://patch.msgid.link/20260728-fsl-edma-dyn-sg-v7-0-10dffb4167c2@bootlin.com
+diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
+index c5f5951c988b..76fbd2bc5154 100644
+--- a/drivers/dma/fsl-edma-common.c
++++ b/drivers/dma/fsl-edma-common.c
+@@ -55,10 +55,36 @@ void fsl_edma_tx_chan_handler(struct fsl_edma_chan *fsl_chan)
+ 	}
+ 
+ 	if (!fsl_chan->edesc->iscyclic) {
+-		list_del(&fsl_chan->edesc->vdesc.node);
+-		vchan_cookie_complete(&fsl_chan->edesc->vdesc);
++		u16 csr = edma_read_tcdreg(fsl_chan, csr);
++		u8 link_sg_id = FIELD_GET(EDMA_TCD_CSR_LINKCH, csr);
++		struct virt_dma_desc *vdesc, *tmp;
++
++		/* Channel is DONE when a TCD with D_REQ set completes */
++		if (!(fsl_edma_drvflags(fsl_chan) & FSL_EDMA_DRV_SPLIT_REG) ||
++		    (edma_readl_chreg(fsl_chan, ch_csr) & EDMA_V3_CH_CSR_DONE)) {
++			fsl_chan->status = DMA_COMPLETE;
++		}
++
++		list_for_each_entry_safe(vdesc, tmp, &fsl_chan->vchan.desc_issued, node) {
++			struct fsl_edma_desc *fsl_desc = to_fsl_edma_desc(vdesc);
++			bool id_match = (link_sg_id == fsl_desc->link_sg_id);
++
++			/*
++			 * If the transfer is still running,
++			 * don't mark as complete the current descriptor
++			 */
++			if (id_match && fsl_chan->status != DMA_COMPLETE)
++				break;
++
++			list_del(&vdesc->node);
++			vchan_cookie_complete(vdesc);
++
++			if (id_match)
++				break;
++		}
++
+ 		fsl_chan->edesc = NULL;
+-		fsl_chan->status = DMA_COMPLETE;
++
+ 	} else {
+ 		vchan_cyclic_callback(&fsl_chan->edesc->vdesc);
+ 	}
+@@ -931,14 +957,99 @@ void fsl_edma_xfer_desc(struct fsl_edma_chan *fsl_chan)
+ 	if (!vdesc)
+ 		return;
+ 	fsl_chan->edesc = to_fsl_edma_desc(vdesc);
+-	fsl_edma_set_tcd_regs(fsl_chan, fsl_chan->edesc->tcd[0].vtcd);
+-	fsl_edma_enable_request(fsl_chan);
+-	fsl_chan->status = DMA_IN_PROGRESS;
++
++	if (fsl_chan->status != DMA_IN_PROGRESS) {
++		fsl_edma_set_tcd_regs(fsl_chan, fsl_chan->edesc->tcd[0].vtcd);
++		fsl_edma_enable_request(fsl_chan);
++		fsl_chan->status = DMA_IN_PROGRESS;
++	}
++}
++
++static void fsl_edma_link_sg(struct fsl_edma_chan *fsl_chan, struct fsl_edma_desc *fsl_desc)
++{
++	u32 flags = fsl_edma_drvflags(fsl_chan);
++	struct fsl_edma_hw_tcd *last_tcd;
++	struct fsl_edma_desc *prev_desc;
++	struct virt_dma_desc *vdesc;
++	u16 last_csr;
++
++	lockdep_assert_held(&fsl_chan->vchan.lock);
++
++	if (!(flags & FSL_EDMA_DRV_CSR_LINKCH) || fsl_desc->iscyclic)
++		return;
++
++	vdesc = list_last_entry_or_null(&fsl_chan->vchan.desc_issued,
++					struct virt_dma_desc, node);
++	if (!vdesc)
++		return;
++
++	prev_desc = to_fsl_edma_desc(vdesc);
++	if (prev_desc->iscyclic)
++		return;
++
++	last_tcd = prev_desc->tcd[prev_desc->n_tcds - 1].vtcd;
++	last_csr = fsl_edma_get_tcd_to_cpu(fsl_chan, last_tcd, csr);
++
++	for (unsigned int i = 0; i < fsl_desc->n_tcds; i++) {
++		struct fsl_edma_hw_tcd *tcd = fsl_desc->tcd[i].vtcd;
++
++		if (fsl_edma_get_tcd_to_cpu(fsl_chan, tcd, csr) & EDMA_TCD_CSR_E_LINK)
++			return;
++	}
++
++	if (!(last_csr & EDMA_TCD_CSR_D_REQ) ||
++	    last_csr & EDMA_TCD_CSR_E_LINK)
++		return;
++
++	/* Set a non-zero linked SG identifier to all TCD of the new descriptor */
++	fsl_chan->link_sg_id++;
++	if (fsl_chan->link_sg_id > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
++		fsl_chan->link_sg_id = 1;
++
++	fsl_desc->link_sg_id = fsl_chan->link_sg_id;
++
++	for (unsigned int i = 0; i < fsl_desc->n_tcds; i++) {
++		struct fsl_edma_hw_tcd *tcd = fsl_desc->tcd[i].vtcd;
++		u16 csr = fsl_edma_get_tcd_to_cpu(fsl_chan, tcd, csr);
++
++		csr |= FIELD_PREP(EDMA_TCD_CSR_LINKCH, fsl_chan->link_sg_id);
++		fsl_edma_set_tcd_to_le(fsl_chan, tcd, csr, csr);
++	}
++
++	/*
++	 * Set DLAST_SGA before enabling E_SG in CSR: if the DMA engine
++	 * only picks up the former, it updates DADDR at end of transfer,
++	 * which is not reused.
++	 */
++	fsl_edma_set_tcd_to_le(fsl_chan, last_tcd, fsl_desc->tcd[0].ptcd, dlast_sga);
++
++	dma_wmb();
++
++	last_csr &= ~EDMA_TCD_CSR_D_REQ;
++	last_csr |= EDMA_TCD_CSR_E_SG;
++	fsl_edma_set_tcd_to_le(fsl_chan, last_tcd, last_csr, csr);
++
++	/*
++	 * Update the registers if the engine already loaded the TCD,
++	 * unless doing so requires clearing the DONE bit, as that could
++	 * lead to lost completion.
++	 */
++	if (prev_desc == fsl_chan->edesc &&
++	    prev_desc->n_tcds == 1 &&
++	    !(flags & FSL_EDMA_DRV_CLEAR_DONE_E_SG)) {
++		edma_cp_tcd_to_reg(fsl_chan, last_tcd, dlast_sga);
++		edma_cp_tcd_to_reg(fsl_chan, last_tcd, csr);
++	}
++
++	trace_edma_link_sg(fsl_chan, last_tcd);
+ }
+ 
+ void fsl_edma_issue_pending(struct dma_chan *chan)
+ {
+ 	struct fsl_edma_chan *fsl_chan = to_fsl_edma_chan(chan);
++	struct virt_dma_desc *vdesc, *tmp;
++	size_t issued_count = 0;
++	struct list_head *pos;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&fsl_chan->vchan.lock, flags);
+@@ -949,6 +1060,21 @@ void fsl_edma_issue_pending(struct dma_chan *chan)
+ 		return;
+ 	}
+ 
++	/* Count the issued desc up to the maximum number of linked SG id */
++	list_for_each(pos, &fsl_chan->vchan.desc_issued) {
++		if (++issued_count > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
++			break;
++	}
++
++	/* Link the SG descriptors with the available identifiers */
++	list_for_each_entry_safe(vdesc, tmp, &fsl_chan->vchan.desc_submitted, node) {
++		if (++issued_count > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
++			break;
++		fsl_edma_link_sg(fsl_chan, to_fsl_edma_desc(vdesc));
++		list_move_tail(&vdesc->node, &fsl_chan->vchan.desc_issued);
++	}
++
++	/* Issue the rest of the descriptors unlinked */
+ 	if (vchan_issue_pending(&fsl_chan->vchan) && !fsl_chan->edesc)
+ 		fsl_edma_xfer_desc(fsl_chan);
+ 
+diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
+index 0d028048701d..deb172f5a4db 100644
+--- a/drivers/dma/fsl-edma-common.h
++++ b/drivers/dma/fsl-edma-common.h
+@@ -42,6 +42,7 @@
+ #define EDMA_TCD_CSR_E_LINK		BIT(5)
+ #define EDMA_TCD_CSR_ACTIVE		BIT(6)
+ #define EDMA_TCD_CSR_DONE		BIT(7)
++#define EDMA_TCD_CSR_LINKCH		GENMASK(12, 8)
+ 
+ #define EDMA_V3_TCD_NBYTES_MLOFF_NBYTES(x) ((x) & GENMASK(9, 0))
+ #define EDMA_V3_TCD_NBYTES_MLOFF(x)        (x << 10)
+@@ -169,6 +170,7 @@ struct fsl_edma_chan {
+ 	struct dma_slave_config		cfg;
+ 	u32				attr;
+ 	bool                            is_sw;
++	u8				link_sg_id;
+ 	struct dma_pool			*tcd_pool;
+ 	dma_addr_t			dma_dev_addr;
+ 	u32				dma_dev_size;
+@@ -199,6 +201,7 @@ struct fsl_edma_desc {
+ 	struct virt_dma_desc		vdesc;
+ 	struct fsl_edma_chan		*echan;
+ 	bool				iscyclic;
++	u8				link_sg_id;
+ 	enum dma_transfer_direction	dirn;
+ 	unsigned int			n_tcds;
+ 	struct fsl_edma_sw_tcd		tcd[];
+@@ -225,20 +228,23 @@ struct fsl_edma_desc {
+ #define FSL_EDMA_DRV_TCD64		BIT(15)
+ /* All channel ERR IRQ share one IRQ line */
+ #define FSL_EDMA_DRV_ERRIRQ_SHARE       BIT(16)
++/* Major link channel in CSR used for linking SG descriptors */
++#define FSL_EDMA_DRV_CSR_LINKCH		BIT(17)
+ 
++#define FSL_EDMA_DRV_EDMA3	(FSL_EDMA_DRV_SPLIT_REG |		\
++				 FSL_EDMA_DRV_BUS_8BYTE |		\
++				 FSL_EDMA_DRV_DEV_TO_DEV |		\
++				 FSL_EDMA_DRV_ALIGN_64BYTE |		\
++				 FSL_EDMA_DRV_CLEAR_DONE_E_SG |		\
++				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK |	\
++				 FSL_EDMA_DRV_CSR_LINKCH)
+ 
+-#define FSL_EDMA_DRV_EDMA3	(FSL_EDMA_DRV_SPLIT_REG |	\
+-				 FSL_EDMA_DRV_BUS_8BYTE |	\
+-				 FSL_EDMA_DRV_DEV_TO_DEV |	\
+-				 FSL_EDMA_DRV_ALIGN_64BYTE |	\
+-				 FSL_EDMA_DRV_CLEAR_DONE_E_SG |	\
+-				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK)
+-
+-#define FSL_EDMA_DRV_EDMA4	(FSL_EDMA_DRV_SPLIT_REG |	\
+-				 FSL_EDMA_DRV_BUS_8BYTE |	\
+-				 FSL_EDMA_DRV_DEV_TO_DEV |	\
+-				 FSL_EDMA_DRV_ALIGN_64BYTE |	\
+-				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK)
++#define FSL_EDMA_DRV_EDMA4	(FSL_EDMA_DRV_SPLIT_REG |		\
++				 FSL_EDMA_DRV_BUS_8BYTE |		\
++				 FSL_EDMA_DRV_DEV_TO_DEV |		\
++				 FSL_EDMA_DRV_ALIGN_64BYTE |		\
++				 FSL_EDMA_DRV_CLEAR_DONE_E_LINK |	\
++				 FSL_EDMA_DRV_CSR_LINKCH)
+ 
+ struct fsl_edma_drvdata {
+ 	u32			dmamuxs; /* only used before v3 */
+diff --git a/drivers/dma/fsl-edma-trace.h b/drivers/dma/fsl-edma-trace.h
+index 45d964a3726d..f4b0021d2bd0 100644
+--- a/drivers/dma/fsl-edma-trace.h
++++ b/drivers/dma/fsl-edma-trace.h
+@@ -121,6 +121,11 @@ DEFINE_EVENT(edma_log_tcd, edma_fill_tcd,
+ 	TP_ARGS(chan, tcd)
+ );
+ 
++DEFINE_EVENT(edma_log_tcd, edma_link_sg,
++	     TP_PROTO(struct fsl_edma_chan *chan, void *tcd),
++	     TP_ARGS(chan, tcd)
++);
++
+ #endif
+ 
+ /* this part must be outside header guard */
 
-Changes in v7:
-- In fsl_edma_prep_peripheral_dma_vec(), make sure that CITER/BITER
-  values fit in their registers.
-- Add the identifier to all TCD of a linked transaction so that we can
-  always identify it when handling the end-of-transfer interrupt.
-- Handle missed/coalesced end-of-transfer interrupt even when the transfer
-  is completed.
-- Link to v6: https://patch.msgid.link/20260710-fsl-edma-dyn-sg-v6-0-831b96be3f31@bootlin.com
-
-Changes in v6:
-- Link DMA transactions in fsl_edma_issue_pending() when they are issued,
-  not when submitted.
-- Add an identifier to linked transactions to handle missed/coalesced
-  end-of-transfer interrupt.
-- Link to v5: https://patch.msgid.link/20260702-fsl-edma-dyn-sg-v5-0-16787185be49@bootlin.com
-
-Changes in v5:
-- Rebased on v7.2-rc1.
-- Add a call to dma_wmb() to ensure that dlast_sga is updated
-  before csr when linking scatter/gather transactions.
-- Don't update TCD registers if updating csr requires clearing the
-  channel DONE bit to avoid a status mismatch in fsl_edma_tx_chan_handler().
-- Link to v4: https://patch.msgid.link/20260518-fsl-edma-dyn-sg-v4-0-8ce7d95b1ce9@bootlin.com
-
-Changes in v4:
-- To keep transactions in order, link DMA transaction to the end of
-  submitted list first, only lookup the issued list is the submitted
-  list is empty.
-- Link to v3: https://patch.msgid.link/20260511-fsl-edma-dyn-sg-v3-0-98a181775dae@bootlin.com
-
-Changes in v3:
-- Fix formatting errors reported by Frank Li.
-- Add fsl_edma_tx_submit() to link the DMA transactions
-  when they are submitted, not when they are prepared.
-- Link to v2: https://patch.msgid.link/20260506-fsl-edma-dyn-sg-v2-0-66439cdd414e@bootlin.com
-
-Changes in v2:
-- Drop the RFC prefix, as asked by Frank Li
-- No code change
-- Link to v1: https://patch.msgid.link/20260430-fsl-edma-dyn-sg-v1-0-4e0ecbe2df66@bootlin.com
-
-To: Frank Li <Frank.Li@nxp.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Frank Li <Frank.Li@kernel.org>
-Cc: imx@lists.linux.dev
-Cc: dmaengine@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Benoît Monin (2):
-      dmaengine: fsl-edma: Implement device_prep_peripheral_dma_vec
-      dmaengine: fsl-edma: Support dynamic scatter/gather chaining
-
- drivers/dma/fsl-edma-common.c | 254 +++++++++++++++++++++++++++++++++++++++++-
- drivers/dma/fsl-edma-common.h |  34 ++++--
- drivers/dma/fsl-edma-main.c   |   2 +
- drivers/dma/fsl-edma-trace.h  |   5 +
- 4 files changed, 277 insertions(+), 18 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260428-fsl-edma-dyn-sg-960731e37da2
-
-Best regards,
---  
-Benoît Monin, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.55.0
 
