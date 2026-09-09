@@ -1,345 +1,343 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010006.outbound.protection.outlook.com [52.101.56.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160CD242D89
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932791; cv=none; b=L6xNT+9F1tV5yFSNph5oBjCwTUZ0W/zZPOnnWHmKL8+Flu6GwTzvRoBgTik4qrLtQURIBuWKHfvaGMF4VtUEdOJcHgJw/2t2BSVuxVzlwI2jhJuA9u8BvBUu9y2BD9jsIiMZDtzQXD1lkjlxvBBfmhz3EwglTBtv8a8ASBQnIUE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932791; c=relaxed/simple;
-	bh=jNVuA5CcInQ7T1L4aHXEj1/uKuOP5TmsrHMPq9jYD0o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YaUQmEkwSEz/DboPj5Rm96XKOFgW5dNJHPCXIgOuVHmk3LcPeBIFn7lHqtFWDrdYm/A7jXYqaJLKNC9sm734KQw+onL6JNcAOEeGSW/oJcSeYlk10QFEtvdn6eA6HbhMV9dABBPTDYI2+la91kmpBOH/mJvRxVwuzUKAFYU8o1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=es86Evwr; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF62322C88
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788932811; cv=fail; b=sb9hjyrV3nRSAjo8ulgBPb8NVD+5pb3Kg/8/rRqgrQv9foNdhIYCsQQ4SLF5Mwq9qxLlVN57xm6hUKn3qXV6rq/u8K+OGBJbo2IxrYG92hUADTacDvnUAzkTiSYBOtWiGkmDk40rq9YzH08j+6Ye2XmMd6XzgvquFl/3B3t7XPE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788932811; c=relaxed/simple;
+	bh=Q4RFTQWwDbIWHmHmheyo35Ciz8ZrPyUgfukXsGQhf38=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=cz7ALd0HgYXmdErqdJrBNwK8yUX+TptM1p57p3YzAPtuCzDl3eJ152ErHQyA3M6hgiUgG3mZ5REFrXNXzk1lFi4hpFKUhcmTqSQFpvCMOxXcRtqgiHdEL9Z19WwZK6OwcwWg/w52RJDS7kBQ+u/6V5fTbckO2FNPhsd/RKJVQ04=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=l1URTTwD; arc=fail smtp.client-ip=52.101.56.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="es86Evwr"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688N1WZC2126109;
-	Wed, 9 Sep 2026 05:46:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=yhzONu
-	+0ryPKsa5zh39qri01TBZaevZUnSOo80wpfeI=; b=es86EvwrsLyfxN88tUQ0Xo
-	Fao6Vh5jEuo7px0c3MT/WaxuukjDIcUaYcbk0wkz58sIVVpYtqvXQR+a6K+nH6o0
-	QtsuAdrXGvqcgzAcRqClCcpDL52PUS0fVyPDctsnu/bhdSM7SPs/zykETg1S4J0d
-	UARVnrOgugdsvWhFxqZEONT+tJI4CACveSNrNsoKd3aDW6fvGeM/KBFYbJ8aNMsO
-	bkkvj18MDBliBTapYP/75xmIm3lWcsQNK0hX7cjJ05YuxGnWg/PgGCxNSCwtq+wv
-	UnAhYpjON2Ahq3PlmWp5p7hE0GVBYW+R+6lWyYBzzJs19ZJdc9rR77pBWKcbpi/Q
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj8bj2k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 05:46:04 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6895QJvN004381;
-	Wed, 9 Sep 2026 05:46:04 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw8k76-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 05:46:04 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6895k0wY29032828
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 05:46:00 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F283C20043;
-	Wed,  9 Sep 2026 05:45:59 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3E35A2004B;
-	Wed,  9 Sep 2026 05:45:57 +0000 (GMT)
-Received: from [9.123.3.199] (unknown [9.123.3.199])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  9 Sep 2026 05:45:57 +0000 (GMT)
-Message-ID: <880fbc4d-c068-4b43-826e-944f14632ce1@linux.ibm.com>
-Date: Wed, 9 Sep 2026 11:15:56 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="l1URTTwD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rCFLkBlWtpKgBH/c5UIlcPWEBlkfKJ7I7vMHeBeikWuscn0vR1O6afjkAjWp6CWDcFq7Ei8Qs/451NZjylntRsRr115lohMIG3H2l6+P++qC6FkCHPjSz3jD62ZIjDYCOjwZ5+Sx6ke9Xys6CnOz38FGuXG452x/LRHPVLRvA06S5P9EGgcq8i3wEDbnv6+uoozaPaxo6EvtTdIP0HDV06JNOWXbBOuFYyqpv1fGBR2sR7mAfm/iMVgQ1+ikYHqPM1bCmgdGUqT+koddz+It0HWW3Y1YrR3K+XBjNxyP6Yj5VIsh9+erZ2NWWJS27juphNUD+7y16gb/pu/lAeg3TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vUe8RwkqP7NRd5zP27k84X36bXWud3L/UhCKC4fAnCI=;
+ b=TnFy6N4cWPyGrkD9RJl3FAg7BFKIh6JtVj3T4G0Ok/EmpfmuidrQ58btbT4XDQhCsJ+sIg5WljWmpWUGec3TdzBI4ofoYoQ1t8QLPAoRSKAhqLaGp20TDx7ueWg0N9Tizkhg3PwD2dPlStY1vnZK0nyijwrkietuSRLNenaVuD4oLa1k+GdfPcVe8vK+C374d3EvZUKJntelzhC+ChTdXVL459OkiMLuQFPbiXwUbmTqGhUf6Ntm/EuPfJEIyTI9b9r6O01K9WP3t/Jz0nBZj3G/h6qjaPQ7JDhyA8GJfdW0e1JZNQIBFaYmSoG0ql/O7uR38drd4YDyfjfJxlIxOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vUe8RwkqP7NRd5zP27k84X36bXWud3L/UhCKC4fAnCI=;
+ b=l1URTTwDdYHwjcG2gEnI9wbYu4+qnikQsJEYbJYmAUsMWz6BmyKhRzqXtooDpNDqEiGGcvzyq9v3m0Bdj83dCSwxtHNrVLaMCbitQOEJXJpZWvFM83viTnt/Vhednwjtb48/vcHnLFDk3UONZVBUZkaKu0hKCGRrdJbCwKt7vk4qZ/I1INVUR+4eYgboiK6sCXf6gAp1SpL/QRiOKeWtjLgTe5w9kKiurieyslN3eBbHZ6oCri7lJU1Rk31YpMuOiZTyTmrZgEZxClrBg77lQ4qi1YjdUaqb3ez+kXOEWWybbsdYtewMpHlKqg42hOQwBFRGjcH8SUbESucKBmttsw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DS0PR12MB7898.namprd12.prod.outlook.com (2603:10b6:8:14c::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.7; Wed, 9 Sep 2026 05:46:44 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 05:46:44 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 14:46:40 +0900
+Message-Id: <DLAJR36BG96C.2GW7VDSAWDR1U@nvidia.com>
+Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 13/31] gpu: nova-core: gsp: add msgq v2 internals
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260822015448.238214-1-jhubbard@nvidia.com>
+ <20260822015448.238214-14-jhubbard@nvidia.com>
+In-Reply-To: <20260822015448.238214-14-jhubbard@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0335.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38e::13) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] powerpc/rtas: Handle ibm,open-errinjct return
- format
-To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
-        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
-        alex@shazbot.org, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        sbhat@linux.ibm.com, harshpb@linux.ibm.com
-References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
- <20260831065441.48654-2-nnmlinux@linux.ibm.com>
- <1abcf248-0d93-4d2d-a3e2-867b0b3dea16@linux.ibm.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <1abcf248-0d93-4d2d-a3e2-867b0b3dea16@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: Sxpf_9tZzPIwLZPmnYAuXa2c0g2yBIU9
-X-Proofpoint-ORIG-GUID: cNqMg2Xj6hXwGqV-7uRbDbIhEUt-1Dd6
-X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6aa0f29d cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=1mVJ_uiqAAAA:8
- a=gdoT5VGXAAAA:20 a=VnNF1IyMAAAA:8 a=dHVhZm_fqcpgw13XnT0A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=h67g7WpEjx8dfGT80pje:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA2MCBTYWx0ZWRfX4zXx3Vc6XAwP
- 1ffMtRGwIALAw4w32KSOYSEjUM1IUxbYKmHGmpJ2VD33yC42b5Q8BEOsp23yHbQxAqTqj69vE3O
- TPCZHHeQ+4p4gTK/eeQ5ND7OD8sFbjE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA2MCBTYWx0ZWRfX1evCUdKAF7aG
- 4EcaIzfoQ/jEw5Clfc3z/Tv+s4PTbG7bWtfgYe0RXhicWAlenG46rhD9LaTkDreAFhVAdiDwLyj
- 0PIev06jzPxpSuFxTzd9ywok8OO+Pm94hTG4aqKOtm/Fyc3sEHtGdeVuLDcbsu+gmPVhrdZIjAH
- e3UKtEWoYrOKMSQ2nYUINSnsGe4ToLrtQUa5lbBO/JsCb3E86mlf4Jsec39XKhayFoKJdAu/FcP
- vPgK6f0+8uFhif5F1UBG1MrpWCOOeNMHVwr4Eh7gLbfBfOcyWmlX7bQ96q5ewzUJ5e2kCo3l6dl
- pzf90zOWvCXptpBQguvGDj8TkDPt1B+yZ+uSbFS4sPWngu4zd0tGHXANdhhiLoPljIMSlibMC6K
- cFzfNWlaVlO2mL6wGXde4xJWYJs40nrvSHG50oxzyDSRJSwifsoA9nimi9IMmJ/13AzrTdOW6JA
- anuxNOBxy9lQaSC+zVQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
- impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090060
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS0PR12MB7898:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6a2cfca-28fc-45cf-f33f-08df0e35baba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|10067099003|6133799003|3023799007|18002099003|22082099003|5023799004|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	1ymyTSua5HK8N+6jtcKLJJGTnBUzey7HNvG2sqTrZYWCuBvgcUfJ3hTh696d36z6txg33t+r8gbuUjggBAQKt54VYvcKNGOktpfBeOiKg5hHuiLMc3UsBFza3PpzhkEOLDSHuC+5TtaXqfvM0wrCc//eGnBtCrGmpF/yXo8mu/s8hR1qhXjJ4wugN31Lm3GQaUKLJjUdWDUD0jViGrD721YN6g/2Rdy6B4wXi3xHl0M2KyS4DhFmZN/9NI0cP29PaGQGV5nbg2fYJa2eB4D5FWrN5Xr9+upiYi8O5EIqow97QwRr81Mf1Na2JmLvUVIK4ZVVppo1Wj/uO76bd67FpXdC1mZ9pZFumT3IXGA52cr9qK2rAIq6yUcmnQ7zZVcWf0hs1toy2NBdV3g9K/8Vf0GeTDMU5wDs/bdCwi8GblyyVoAi2iKKwpECBC+xhmqxMAb1bpaKZzyw+DGrNHdqFYYH+ERen1iHIzFW6R8SyQBaHk+BcA1NsPRnYY4KVjNbNGvD7fJETCXCLTSUPqicnAn25Dyavoz1XULv2os/YzeJ4+3iMBqwiE6xYR9zstkHONgX5xHvdbW5VdNk67+3AHY397xUfvRa2t2ozPz8wGJKfNNWtjZyAMSC3dGX9NdM9o011uw+mPcS3xtjiBOlbyoalzg3Oe4U2TRvNDMoRZk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(5023799004)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YXpjOXJaZGtQbVhJNXdhcmo1VVQ4Z3JXYTNDcXJwSEUwUDFzendKNGJ3dFNF?=
+ =?utf-8?B?UVpTZFZybGRhM2VXZTM0M09zNnNCa245dFF2RC9aalR6TlBsK05VdW1SdkFy?=
+ =?utf-8?B?anNNVmgwQTlOMUo5OWpTUVhvUEVKVm9SOXlUTWhnLzZPemVTZkdCMC9QblNM?=
+ =?utf-8?B?ZDQvSDdWblRTcHBWcGZzeWtEaG5ETnlnQkJqbHpHNzFuY1kvQjhsTlFsRnU0?=
+ =?utf-8?B?NFdmVmJick90THVlUUluSzJpelRzU3N0U0QvYytQLy9NTFBwZFFnK1lEK2dZ?=
+ =?utf-8?B?UGJSS3pmYzFVTHdEWG1rYS81QVRoTTk0QVBrNm13c0krOEthWGI1d1F5OTE3?=
+ =?utf-8?B?NnFIU045T2t2YWQ3RE9uUklhOEVJK2tLNlZ5TVVyMmhrMWdiU3dCTUJIV2Q1?=
+ =?utf-8?B?SjZ1czFnOUNWWE5aamR0dkJnNmhHNWcxUCtWbnN5VVRUMUUwMW5vQWJFQWs3?=
+ =?utf-8?B?RlpmWTNuM1VUYngrUklGUWpRdVRmK24yOW8rZEJqRUh6TkdEYUF5NFhMRTV6?=
+ =?utf-8?B?eWpMV09OZ3VuVWlaTDUwMlR3dk9TVVZUaTZ3UGFHOUcxWXpnZ1BrSXM3NFhh?=
+ =?utf-8?B?dE5FbXB2TFdkUTFDblEyYWk0M0tvVjhNVTZLendLTlBhTWM4ZzhoQzhld3I0?=
+ =?utf-8?B?eUFkVmxERXpBRXRxV0MwMVMzUVFpQ0F1TXlZYnd2R0EvK2tYNFBzNVZFTTVo?=
+ =?utf-8?B?N3Roak1zZEhZWlRPZzhtcVc2WSt3ajcyaFc5cDI4dTE4MzlVNUxibjRjQ3Zh?=
+ =?utf-8?B?c2ROd0J5NXI2bGxZTytiSWNpT0RYNUw2K2MwK2Iwd3RDem0zY1V6SkRxb3pS?=
+ =?utf-8?B?UGdqenJhcVZUMUgza25oWDYxanFvbVNnZjg4c1ZBSVZWcnM1b2VHK3psWWoy?=
+ =?utf-8?B?UERlQ29rTVp6Qk1PbXl1a29TY2Q3ZExPbDBTZXAzZzZxbDhFSWR3RDVKOHdH?=
+ =?utf-8?B?d1ZEMU0xZHJmdmN4NjEyOG9CQTJSSzg0dE5RYUk2RlB1aUQyL21JdVFwcG5o?=
+ =?utf-8?B?aUdiNk5nUm5lSnhGT2l0cUVzSlBSY0ZoQW9pYm9sa3BIS1pUQzNRUzRyOVIw?=
+ =?utf-8?B?bll5cHdYWERxVTBOZ1JETFVpV2hPK3Vhc3NWSkU1TlloUjBneWR3clFWcUVk?=
+ =?utf-8?B?RU0xTWJ5TnVzTjJnRkxnV0VycG9UeFJzTlZ5RGl5eWFuUGlteW8wZFQrdDRL?=
+ =?utf-8?B?QTl3b2lFS2dBbEVMOWdPb3VMUDJBMldZRUdRdkpBYU5pT3J2Z1hsQnd1R0h2?=
+ =?utf-8?B?UDY2Z0ZZY2VjU3hYbFdLVUlSTEYrcUNBcTZCU2ZsZ3U4NWxoN3FYNklEanl0?=
+ =?utf-8?B?VXdEQ1pPMXZuVXRkb3BFY0Y2MDY1bGMzVHNBYk90WURMUm8zTjdxOTQ5MXpw?=
+ =?utf-8?B?S3pqaGxKYTUxNjl0amQ4bzMrelU3Y1ZNZG1jOGw0T21sSHpla0RBYXY1b09L?=
+ =?utf-8?B?SjVaVkJRU2grMGNmdTJrWDUycG9GVjdsbk8vOHp0MDl4QlViQW1XYTFVd2FZ?=
+ =?utf-8?B?RVF1dHFMaWZBRjhub0ZUSG1IUEd1ZmlkcTVQd2YrOXpCNmgxZVhFZzdNaS9t?=
+ =?utf-8?B?UGhETHdCN2dyRUlKVUFtU1VmMlhOOE5vN253T1VENkFnM3pQYXN5Z2l5MExY?=
+ =?utf-8?B?SDRQa3NtUkFSaG9YZ2NpbjNWS0FOL3prZmZObE1uZWlIbWI0T0JpaVJ1ODFV?=
+ =?utf-8?B?dHNaRi9UYzhFYXFFMk1CK3JkVFBtL3F2K2pPVnNEcDg4dVdGUFBhVVBMZFpC?=
+ =?utf-8?B?bnhqVmJNcTVVcUlIWXpMcWFZNldwLzBIY3RrckxWSVlVZmVZdXJNQ0E1SlY5?=
+ =?utf-8?B?Um45WXBiRldxWHFwY01xbjlhVHZRY1VJc1BobEYxR29mb2hEcWMxeEE0U1JM?=
+ =?utf-8?B?RUZmZ2xiajQ1UXQ5MkZycU5QQkNrSzhyeEdRdklPa1MrL2F4Z0NVbk1PTmE5?=
+ =?utf-8?B?Y2t4TmQ0NGtMWlRzSzZXdVVXWHcwYTdYVGNacVZ5RWhEZGlDMlYxbVhTdDNP?=
+ =?utf-8?B?UWNpYm1sd3doUlE4bHhIanVmQjBUSzVMT0FIRTFuaS9JdG4wdjIxOGxRUWZs?=
+ =?utf-8?B?akhWTmdCRjNaa2JoU1g1M3lmMEhOMVhGZmlwdXNQaHFJOGw3K3NuYXdtaGpw?=
+ =?utf-8?B?YWZGUjZiTFpPRFVacGRlekFvL09qeFFoOC9ZTHh1Nm50OTJ1MThTMG5xQktI?=
+ =?utf-8?B?RmhlUHdYeHZpVkM3bGdTS3ZtYk9KTXNpOTE0Ui9MUTdsamJGNU05U0lJUHBO?=
+ =?utf-8?B?VTBvZGV2Qml3MDR0RmVKbS8zRjR6SmRiVENLcFRwSHk3QlBNKzZaeE81N0Rt?=
+ =?utf-8?B?UWZNbXdkSlNzWGx4cUNHdXBrUmpZMUNBb0RORjdRRTRUbVkvcTVNd0VlK0Nw?=
+ =?utf-8?Q?ZCFS42tm2/YEfsWW4rBCc3SsIZs3ikO8Qj8kQl/QK3YSM?=
+X-MS-Exchange-AntiSpam-MessageData-1: PDaM82vOtVN2NA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6a2cfca-28fc-45cf-f33f-08df0e35baba
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 05:46:44.0360
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DH2uEAqLRcp8K6T5WmZfsGR9bqC5tqMELoaMVT8etS3RlzQ/myv6G2IxC+oJP6ianwK3FaqOqMc4srV/32jfmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7898
 
-Hi Sourabh,
+On Sat Aug 22, 2026 at 10:54 AM JST, John Hubbard wrote:
+> Msgq v2 moves the four ring pointers out of shared memory into BAR0
+> registers and treats them as monotonic counters, so head =3D=3D tail
+> distinguishes empty from full and the ring uses every slot. The pointers
+> can also be out of step, because a GSP reset zeroes them while the ring
+> keeps its contents.
+>
+> Add the v2 TX header and the v2 ring helpers in parallel to the v0 ones,
+> so the flip commit can swap call sites without writing new logic. Read
+> the queue as empty while the read pointer is ahead of the write pointer,
+> rather than taking the difference as a page count.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Reviewed-by: Timur Tabi <ttabi@nvidia.com>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 140 ++++++++++++++++++++++++++++++
+>  drivers/gpu/nova-core/gsp/fw.rs   |  36 ++++++++
+>  2 files changed, 176 insertions(+)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 1eeef2120b6e..a46d8927da1b 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -467,6 +467,146 @@ fn advance_cpu_write_ptr(&mut self, elem_count: u32=
+) {
+>      }
+>  }
+> =20
+> +// Msgq v2 internals.
+> +//
+> +// Msgq v2 keeps the four ring pointers in BAR0 registers as monotonic `=
+u32`
+> +// counters that wrap on overflow. The slot index is `ptr % MSGQ_NUM_PAG=
+ES`
+> +// only at the point of use, and the ring uses every slot (no "leave one
+> +// empty" rule, since `head =3D=3D tail` distinguishes empty from full).
+> +//
+> +// Register-to-role mapping for queue 0:
+> +//
+> +//     CPU TX write/doorbell:  NV_PGSP_QUEUE_HEAD
+> +//     GSP TX read:            NV_PGSP_QUEUE_TAIL
+> +//     GSP RX write:           NV_PGSP_MSGQ_HEAD
+> +//     CPU RX read:            NV_PGSP_MSGQ_TAIL
+> +//
+> +// A GSP reset zeroes all four counters while the in-memory ring keeps i=
+ts
+> +// contents, so the two ends can be out of step. Between the reset and
+> +// GSP-RM writing its counter back the read pointer is ahead of the writ=
+e
+> +// pointer, which `driver_read_area_v2` reports as an empty ring.
+> +//
+> +// TODO: suspend/resume reset-recovery is not implemented. A power cycle
+> +// loses the driver-side counters as well, so both ends have to be
+> +// re-established.
+> +#[expect(dead_code)]
+> +impl DmaGspMem {
+> +    fn gsp_write_ptr_v2(bar: Bar0<'_>) -> u32 {
+> +        *bar.read(regs::NV_PGSP_MSGQ_HEAD).address()
+> +    }
+> +
+> +    fn gsp_read_ptr_v2(bar: Bar0<'_>) -> u32 {
+> +        *bar.read(regs::NV_PGSP_QUEUE_TAIL).address()
+> +    }
+> +
+> +    fn cpu_read_ptr_v2(bar: Bar0<'_>) -> u32 {
+> +        *bar.read(regs::NV_PGSP_MSGQ_TAIL).address()
+> +    }
+> +
+> +    fn cpu_write_ptr_v2(bar: Bar0<'_>) -> u32 {
+> +        *bar.read(regs::NV_PGSP_QUEUE_HEAD).address()
+> +    }
+> +
+> +    fn advance_cpu_read_ptr_v2(bar: Bar0<'_>, count: u32) {
+> +        let new_rptr =3D Self::cpu_read_ptr_v2(bar).wrapping_add(count);
+> +
+> +        // Order all reads from the message data ahead of the read-point=
+er
+> +        // update so the GSP cannot recycle the slots while we are still
+> +        // looking at them.
+> +        fence(Ordering::SeqCst);
+> +
+> +        bar.write_reg(regs::NV_PGSP_MSGQ_TAIL::zeroed().with_address(new=
+_rptr));
+> +    }
+> +
+> +    fn advance_cpu_write_ptr_v2(bar: Bar0<'_>, count: u32) {
+> +        let new_wptr =3D Self::cpu_write_ptr_v2(bar).wrapping_add(count)=
+;
+> +
+> +        // Order all writes to the message data ahead of the write-point=
+er
+> +        // update. Writing the head register doubles as the GSP doorbell=
+.
+> +        fence(Ordering::SeqCst);
+> +
+> +        bar.write_reg(regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(ne=
+w_wptr));
+> +    }
+> +
+> +    /// Returns the region of the CPU message queue that the driver is c=
+urrently allowed to write
+> +    /// to.
+> +    ///
+> +    /// As the message queue is a circular buffer, the region may be dis=
+contiguous in memory. In
+> +    /// that case the second slice will have a non-zero length.
+> +    fn driver_write_area_v2(
+> +        &mut self,
+> +        bar: Bar0<'_>,
+> +    ) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut [[u8; GSP_PAGE_SIZE]]) {
+> +        let raw_w =3D Self::cpu_write_ptr_v2(bar);
+> +        let raw_r =3D Self::gsp_read_ptr_v2(bar);
+> +
+> +        let used =3D raw_w.wrapping_sub(raw_r);
+> +        let avail =3D num::u32_as_usize(MSGQ_NUM_PAGES.saturating_sub(us=
+ed));
+> +        let w_slot =3D num::u32_as_usize(raw_w % MSGQ_NUM_PAGES);
+> +
+> +        // Pointer to the first entry of the CPU message queue.
+> +        let data =3D ptr::project!(mut self.0.as_mut_ptr(), .cpuq.msgq.d=
+ata[build: 0]);
+> +
+> +        // SAFETY:
+> +        // - `data` points to `MSGQ_NUM_PAGES` valid message queue entri=
+es.
+> +        // - We will only access the driver-owned part of the shared mem=
+ory.
+> +        // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> +        let data =3D
+> +            unsafe { core::slice::from_raw_parts_mut(data, num::u32_as_u=
+size(MSGQ_NUM_PAGES)) };
+> +        let (before_w, after_w) =3D data.split_at_mut(w_slot);
+> +
+> +        let in_after =3D avail.min(after_w.len());
+> +        let in_before =3D avail - in_after;
+> +        (&mut after_w[..in_after], &mut before_w[..in_before])
+> +    }
+> +
+> +    /// Returns the size, in bytes, of the region of the CPU message que=
+ue that the driver is
+> +    /// currently allowed to write to.
+> +    fn driver_write_area_size_v2(bar: Bar0<'_>) -> usize {
+> +        let used =3D Self::cpu_write_ptr_v2(bar).wrapping_sub(Self::gsp_=
+read_ptr_v2(bar));
+> +        let slots =3D MSGQ_NUM_PAGES.saturating_sub(used);
+> +        num::u32_as_usize(slots) * GSP_PAGE_SIZE
+> +    }
+> +
+> +    /// Returns the region of the GSP message queue that the driver is c=
+urrently allowed to read
+> +    /// from.
+> +    ///
+> +    /// As the message queue is a circular buffer, the region may be dis=
+contiguous in memory. In
+> +    /// that case the second slice will have a non-zero length.
+> +    fn driver_read_area_v2(
+> +        &self,
+> +        bar: Bar0<'_>,
+> +    ) -> (&[[u8; GSP_PAGE_SIZE]], &[[u8; GSP_PAGE_SIZE]]) {
+> +        let raw_w =3D Self::gsp_write_ptr_v2(bar);
+> +        let raw_r =3D Self::cpu_read_ptr_v2(bar);
+> +
+> +        // A difference wider than the ring means the GSP has been reset=
+ and has not yet written
+> +        // its own counter back, so the read pointer is momentarily ahea=
+d of it. Report nothing
+> +        // readable, which holds the callers in their poll until GSP-RM =
+restores the real value.
+> +        let pending =3D raw_w.wrapping_sub(raw_r);
+> +        let avail =3D if pending > MSGQ_NUM_PAGES {
+> +            0
+> +        } else {
+> +            num::u32_as_usize(pending)
+> +        };
+> +        let r_slot =3D num::u32_as_usize(raw_r % MSGQ_NUM_PAGES);
+> +
+> +        // Pointer to the first entry of the GSP message queue.
+> +        let data =3D ptr::project!(self.0.as_ptr(), .gspq.msgq.data[buil=
+d: 0]);
+> +
+> +        // SAFETY:
+> +        // - `data` points to `MSGQ_NUM_PAGES` valid message queue entri=
+es.
+> +        // - We will only access the driver-owned part of the shared mem=
+ory.
+> +        // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> +        let data =3D unsafe { core::slice::from_raw_parts(data, num::u32=
+_as_usize(MSGQ_NUM_PAGES)) };
+> +        let (before_r, after_r) =3D data.split_at(r_slot);
+> +
+> +        let in_after =3D avail.min(after_r.len());
+> +        let in_before =3D avail - in_after;
+> +        (&after_r[..in_after], &before_r[..in_before])
+> +    }
+> +}
 
-Thanks for the detailed review.
-
-On 01/09/26 2:52 PM, Sourabh Jain wrote:
-> 
-> On 31/08/26 12:24, Narayana Murty N wrote:
->> ibm,open-errinjct uses a non-standard RTAS return layout:
->>
->>    rets[0] = session token  (output parameter)
->>    rets[1] = status code
->>
->> Unlike all other RTAS functions which use:
->>
->>    rets[0] = status code
->>    rets[1..] = output parameters
->>
->> Add rtas_token_is_open_errinjct() to identify this call, and
->> rtas_status_from_args() to extract status from the correct position.
->>
->> Add an early guard in rtas_call() that rejects ibm,open-errinjct
->> invocations where nret < 2, since reading rets[1] would be out of
->> bounds:
->>
->>    if (rtas_token_is_open_errinjct(token) && nret < 2) {
->>            WARN_ON_ONCE(1);
->>            return RTAS_INVALID_PARAMETER;
->>    }
->>
->> Adjust the output-copy loop so that for ibm,open-errinjct:
->>
->>    return value = rets[1]   (status)
->>    outputs[0]   = rets[0]   (session token)
->>
->> For all other functions the existing convention is preserved:
->>
->>    return value = rets[0]   (status)
->>    outputs[0..] = rets[1..] (non-status outputs)
->>
->> Move the "/* A -1 return code... */" comment immediately before the
->> ret == -1 check so it documents the check it guards.
->>
->> Also fix sys_rtas() last-error status detection: ibm,open-errinjct
->> places status at rets[1], so the -1 sentinel check must use rets[1]
->> for that function rather than always using rets[0].
->>
->> Reference: OpenPOWER PAPR documentation
->>             https://files.openpower.foundation/s/XFgfMaqLMD5Bcm8
->> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
->> ---
->>   arch/powerpc/kernel/rtas.c | 78 +++++++++++++++++++++++++++++++++-----
->>   1 file changed, 68 insertions(+), 10 deletions(-)
->>
->> diff --git a/arch/powerpc/kernel/rtas.c b/arch/powerpc/kernel/rtas.c
->> index 8d81c1e7a8db..7131870655c6 100644
->> --- a/arch/powerpc/kernel/rtas.c
->> +++ b/arch/powerpc/kernel/rtas.c
->> @@ -1117,6 +1117,28 @@ static bool token_is_restricted_errinjct(s32 
->> token)
->>              token == rtas_function_token(RTAS_FN_IBM_ERRINJCT);
->>   }
->> +/*
->> + * ibm,open-errinjct uses a non-standard return layout:
->> + *   rets[0] = session token  (output parameter)
->> + *   rets[1] = status code
->> + *
->> + * All other RTAS functions use the standard layout:
->> + *   rets[0] = status code
->> + *   rets[1..] = output parameters
->> + */
->> +static inline bool rtas_token_is_open_errinjct(int token)
->> +{
->> +    return token == rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
->> +}
->> +
->> +static int rtas_status_from_args(int token, struct rtas_args *args, 
->> int nret)
->> +{
->> +    if (rtas_token_is_open_errinjct(token))
->> +        return be32_to_cpu(args->rets[1]);
->> +
->> +    return nret > 0 ? be32_to_cpu(args->rets[0]) : 0;
->> +}
->> +
->>   /**
->>    * rtas_call() - Invoke an RTAS firmware function.
->>    * @token: Identifies the function being invoked.
->> @@ -1198,6 +1220,16 @@ int rtas_call(int token, int nargs, int nret, 
->> int *outputs, ...)
->>               return -1;
->>       }
->> +    /*
->> +     * ibm,open-errinjct returns rets[0]=session_token, rets[1]=status.
->> +     * We need nret >= 2 to read status from rets[1].  Reject early if
->> +     * the caller forgot to account for the extra return cell.
->> +     */
->> +    if (rtas_token_is_open_errinjct(token) && nret < 2) {
->> +        WARN_ON_ONCE(1);
->> +        return RTAS_INVALID_PARAMETER;
-> 
-> Nit: I would prefer -EINVAL instead. RTAS_INVALID_PARAMETER is RTAS 
-> error code but here kernel is validating the parameter so I think - 
-> EINVAL would be better.
-I agree this is a kernel-side validation before entering RTAS, but for
-rtas_call() I think keeping RTAS_INVALID_PARAMETER is safer.
-
-The return value from rtas_call() is normally interpreted by callers as 
-an RTAS status code. If we return -EINVAL from rtas_call(), the caller 
-may still treat it as an RTAS return value. Since this is an invalid 
-RTAS call layout for ibm,open-errinjct, I would prefer to keep the 
-return value as RTAS_INVALID_PARAMETER in rtas_call().
-
->> +    }
->> +
->>       if ((mfmsr() & (MSR_IR|MSR_DR)) != (MSR_IR|MSR_DR)) {
->>           WARN_ON_ONCE(1);
->>           return -1;
->> @@ -1213,15 +1245,33 @@ int rtas_call(int token, int nargs, int nret, 
->> int *outputs, ...)
->>       va_rtas_call_unlocked(args, token, nargs, nret, list);
->>       va_end(list);
->> +    ret = rtas_status_from_args(token, args, nret);
->> +
->>       /* A -1 return code indicates that the last command couldn't
->> -       be completed due to a hardware error. */
->> -    if (be32_to_cpu(args->rets[0]) == -1)
->> +     * be completed due to a hardware error.
->> +     */
->> +    if (ret == -1)
->>           buff_copy = __fetch_rtas_last_error(NULL);
->> -    if (nret > 1 && outputs != NULL)
->> -        for (i = 0; i < nret-1; ++i)
->> -            outputs[i] = be32_to_cpu(args->rets[i + 1]);
->> -    ret = (nret > 0) ? be32_to_cpu(args->rets[0]) : 0;
->> +    /*
->> +     * Copy non-status outputs to the caller's buffer.
->> +     *
->> +     * For ibm,open-errinjct the layout is:
->> +     *   rets[0] = session token  -> outputs[0]
->> +     *   rets[1] = status         (returned, not copied)
->> +     *
->> +     * For all other RTAS functions:
->> +     *   rets[0] = status         (returned, not copied)
->> +     *   rets[1..nret-1] -> outputs[0..nret-2]
->> +     */
->> +    if (outputs != NULL) {
->> +        if (rtas_token_is_open_errinjct(token)) {
->> +            outputs[0] = be32_to_cpu(args->rets[0]);
->> +        } else if (nret > 1) {
->> +            for (i = 0; i < nret - 1; ++i)
->> +                outputs[i] = be32_to_cpu(args->rets[i + 1]);
->> +        }
->> +    }
->>       lockdep_unpin_lock(&rtas_lock, cookie);
->>       raw_spin_unlock_irqrestore(&rtas_lock, flags);
->> @@ -1942,10 +1992,18 @@ SYSCALL_DEFINE1(rtas, struct rtas_args __user 
->> *, uargs)
->>       do_enter_rtas(&rtas_args);
->>       args = rtas_args;
->> -    /* A -1 return code indicates that the last command couldn't
->> -       be completed due to a hardware error. */
->> -    if (be32_to_cpu(args.rets[0]) == -1)
->> -        errbuf = __fetch_rtas_last_error(buff_copy);
->> +    /*
->> +     * A -1 return code indicates that the last command couldn't
->> +     * be completed due to a hardware error.  ibm,open-errinjct
->> +     * places status at rets[1] rather than rets[0]; check the
->> +     * correct position for the -1 sentinel.
->> +     */
->> +    {
->> +        __be32 status_cell = (token == 
->> rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT) &&
->> +                      nret >= 2) ? args.rets[1] : args.rets[0];
->> +        if (be32_to_cpu(status_cell) == -1)
->> +            errbuf = __fetch_rtas_last_error(buff_copy);
-> 
-> Do we know what happens when the ibm,open-errinjct RTAS call is made
-> with nret < 2?
-> 
-> The reason I’m asking is that, even with the above changes,
-> args.rets[0] is used as the return code if the ibm,open-errinjct call
-> is made with nret < 2.
-> 
-> I like the approach you took in rtas_call() of pre-validating nret for
-> the ibm,open-errinjct RTAS call and returning early if it is less than
-> 2. I think we can use a similar approach here as well. If we do that,
-> the above code changes will be much cleaner. In that case, we don't
-> have to figure out how RTAS processes ibm,open-errinjct with nret < 2.
-> 
-> The only concern I have is that this change would alter the system
-> call behavior. Right now, the kernel accepts nret < 2 for
-> ibm,open-errinjct and makes the RTAS call, but with the above suggested
-> change, the kernel would return early if nret < 2.
-> 
-> The prominent user of this system call is librtas, which passes
-> nret = 2 for ibm,open-errinjct:
-> 
-> https://github.com/ibm-power-utilities/librtas/blob/ 
-> d321a1f5ae3d528ba027fc748d1cc1123dd4ae29/librtas_src/syscall_calls.c#L488
-> 
-> Also, as per PAPR, users are supposed to pass nret = 2 for this RTAS
-> call. So I think it should be fine to validate nret in sys_rtas for
-> ibm,open-errinjct and return early if it is found to be less than 2.
-> 
-> Since this is a change in system call behavior, I want to be a
-> little cautious. So, I’d like to hear your thoughts and would also
-> like to know what others think about making the above change.
-> 
-Agreed.
-
-For ibm,open-errinjct, rets[0] is the session token and rets[1] is the
-status. So when nret < 2, we should not fall back to rets[0], because 
-that can interpret a session token as a status code.
-
-I will add an early validation in sys_rtas() before entering RTAS for 
-this case and return -EINVAL there, since sys_rtas() is the userspace 
-syscall boundary.
-
-So the split will be:
-rtas_call(): return RTAS_INVALID_PARAMETER for invalid RTAS return layout
-
-sys_rtas(): return -EINVAL for invalid userspace syscall arguments
-
-This should not affect the valid librtas path, since librtas already 
-passes nret = 2 for ibm,open-errinjct, as required by PAPR.
-
-Thanks,
-Narayana
-
-> Thanks, Sourabh Jain
->> +    }
->>       lockdep_unpin_lock(&rtas_lock, cookie);
->>       raw_spin_unlock_irqrestore(&rtas_lock, flags);
-> 
-
+I think this is a good candidate for a trait, instead of using *_v2
+named functions. Similarly, think we should also abstract out sending
+commands (later in this series) with a trait.
