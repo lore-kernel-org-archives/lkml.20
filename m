@@ -1,149 +1,289 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3175678ED
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273CF5678F9;
+	Wed,  9 Sep 2026 13:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960918; cv=none; b=YR2qDjS2BvMlutsSqO5ZtjfBkzl3AB+1j81PNECXf9rtaVI5beYMXrWflnTJX+Rx/Pj/9HXy+CQoh4z0/XE5yEP8ZYwqMkNujdvOjUDYRD/pQ00V1NxCHTZP3E7sELK0u6T5nEKhDo8YK6xS6kA3K0Jbw0b9aIKbGXhSK59XXu0=
+	t=1788960919; cv=none; b=VDFb0fjJcLFqDtuY3LhSg5PZNoOEsiwg5LYc+HJgdlOKJmBxmeO0vdDKIGAyL5Ilbel8//Qh9L0+exlEVBpVompxnW+3LJh65qTdr0rlK34x5AyR0g97vSw47O9VXFKu/kNpMI5L5Ti01jZJKKuUDiI5tr+zU/NlreP4f4MUjyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960918; c=relaxed/simple;
-	bh=pYAXFeuFVimJwDLBUI4en4oiYVdoAA0vzKgHRiam0R4=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I/ei6BeKG8j8AEKdPBQPRC1dUnATBzdhi2vTROxA6ANfUHoxyNaM4DxUXEmtQ1r8YeTaMN/HocU+PrJhaFbQiU5hwxtryNKKb7eLNeBOexhBx4/BuBH3JRuSf4bG/6Al4FeLfm8ZWURPhnSmfSEhRcoIgBOFi7GtTCrUkIe/d5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXHo/mVH; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788960919; c=relaxed/simple;
+	bh=pAqijJ/xtGVhn3ym5mqreVDB8QMgyWcSahLMC88vLlA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PEos3Mt/C+1IqQd10QQhjXGUshnIcWlZaGHaNW4xEpNzQFnF1krkxP4sH0dZ6wqxP7LNjXw76bBnU0b0DL/qQVlLqUPfbi44whO8Ny3H86WB76wTETsMWvz9tV/HBRMhKpvPtyyHjF7M6jIaISq4Iv1zzCsRIwYSuM2UrvAeTwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZLwWhoX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXHo/mVH"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-861f30636f9so88847947b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:35:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788960916; x=1789565716; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IF7gGSnNHvzeRxMeQJEXPfnNoiV1RgOi8xQaXNAluos=;
-        b=aXHo/mVHlqCY04RXO/+yLgAoiVc8v+p/f7jRRx+a4qrfZE53PLwBi3PvDHKeSezwje
-         600DrGithzi+RJ1XmZ3EOoX8JmRETN6Zc4cHC4rqHpUuhND3jQ3DqYcqrmotoOza2GkB
-         CJS77HQnLiP0bDDemhEPiU1zqaQVl1sdD/n8qQ3R48qKTlj+lROE+MsJGjjE28dCDpNW
-         4JTwZ+VtcLQwU2N0T0KT7EwhGda22E439GC2l/KMqEblQuLhKgJAK78mpc32BOpyUTgU
-         Ez+wVzdJCEBcXgSyBpBA43HLwgM5ZfcA8IkhXh98NNLOMj0JBiKXTGMlpUXKQ875DVdT
-         salg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788960916; x=1789565716;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IF7gGSnNHvzeRxMeQJEXPfnNoiV1RgOi8xQaXNAluos=;
-        b=l1uYptJJR19q9wWGIA1/M01Qf4zyxjrriKRLWhrxIWHQy1EomOnxt9U9rCFLhaD8CK
-         j0mC/TDoic5i7ssothtvW1aruNESI0zVn9dal2I8uPnXNl7zw57DQgEblmzZbE50A6GE
-         GOY5Xt6lRgneND6fYhPo4h1Gf4AI2scXR/kjf5pIBTpwtSPlqdQxzCS1lrHFensXjS3q
-         a/usMWF+OH3Acisf0AmFBnSiuLBcXKYWntQLnosd31HOLzUxOMvd5OQ9XnUzIh4FYihN
-         BxzKxO+63Xwh3M9DUWRQFos0hk0SEHf2RaiHIITEF93+qUI9hQdbq5sUhgx1GS95nAKd
-         Wiow==
-X-Forwarded-Encrypted: i=1; AKwUvByZ5ae7fmJm29gRbR/tmUjcWNQQbX+zoZI/oUILWVf5DFlSHk2it6zoWc6f0n6VgvSWVD0njMniruPgrbk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5vIFb7bjzBi+TUZi95iwAp7gNM4SoskiL/tjcdrKZ5OKfG2pT
-	jVtrGmzsa51u6RFs5PzqdWDWty3sWRoLA+r47ZtiRKSPbWDuH4rHzhzj7Vp9BSchyaZ6JElm
-X-Gm-Gg: AYBFou0kpkB+SjuEpCxEs980cErqNkeUhkZI4LHMWlHCDLzd3CeyRhliM8D9LhYd5le
-	mJC8K5muHCrlPaAOFnebC9zTgc2dMtwOWyh7lrHNfM1DiQzWojK0nwrzPFD5MMZ2pDxmrZ4UapO
-	oXyj9O/gukYQ/meI+ODcvMcMIlKb7iqSrAURTvb0nVb2t/svDhG6MVVd7BxOzk/4KfOh+5h0JY/
-	W4uEGwW6hBEvS47+DB5XKk85d3/HGZ2eQip92GfVB8euRZnabXsKLVPUQ76zECXY26y2Grauus9
-	XQukSPITJCMhpqKpy16GiAxdWLGXlwKCDNjn3Mdi1AK2xFgEa0ru40XOhxvPd0ZiX01RpvS7D/a
-	Ygo+xxG4Q4aUnIk7N98pnDhJfWJJ12mS3KPcJA5dBKMD5lSIcsg6CSUC5QlgoJ9BffWqeNLc1uZ
-	QueWMYgf1CPVpr1bMPj7Swgs72aYQt0kbm/tdyz80ttUp8lDXgUGpIK68FT3TIsk9bow==
-X-Received: by 2002:a05:690c:ed6:b0:816:b469:cd12 with SMTP id 00721157ae682-87122f5564bmr131074277b3.8.1788960916082;
-        Wed, 09 Sep 2026 06:35:16 -0700 (PDT)
-Received: from localhost ([45.112.44.120])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-881575de059sm2427287b3.18.2026.09.09.06.35.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 06:35:15 -0700 (PDT)
-From: Coiby Xu <coiby.xu@gmail.com>
-X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
-Date: Wed, 9 Sep 2026 21:33:02 +0800
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Sourabh Jain <sourabhjain@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Dave Young <ruirui.yang@linux.dev>, Pratyush Yadav <pratyush@kernel.org>, 
-	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	Jinjie Ruan <ruanjinjie@huawei.com>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 8/9] crash_dump: Disallow
- configfs/crash_dm_crypt_key/reuse if crash hotplug supported
-Message-ID: <aqFfvCpcrbN-8qcs@Rk>
-References: <20260909003657.1570544-1-coiby.xu@gmail.com>
- <20260909003657.1570544-9-coiby.xu@gmail.com>
- <c0d5f2e9-9bd1-46fb-8111-d3af6b6c9e66@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZLwWhoX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138B71F00A3A;
+	Wed,  9 Sep 2026 13:35:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788960917;
+	bh=fBGQrCMxkvE0QOzXeJ7kYvO7SCxKh2lg8AgTwyZfi+M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=UZLwWhoX3lWXrf9WsF1UKXoWEIfmH/rvUBRquWmhTYW9CJp/XO7wzmfIN/Zqm651z
+	 x9tPEWZZsqskkE9Pya7FExW89tjSqX5Jz8JUew/6l9EnDQkxNnxCLPJffLyQfRM3e0
+	 nm7XhHmm0h6G0L4UTrJiLLKWRIRKfs5gSv34GfMtTly1fb360I15kX4fY5Br424rm1
+	 sHh+rG7H3Nh7lpShT9PSjfplcTeAAaC2wxJGq1V4nYMSdueS1D0rVtMrLmvpM58odx
+	 bAuBZys9lGRDF4X3jTIq85yBIFNN0BFk35Kk6HsgAW3+uShbg5BFBIztNtPC1ioSJE
+	 p7THdbyIJIL8A==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 09 Sep 2026 15:33:02 +0200
+Subject: [PATCH 09/12] mm/sparse: remove SECTION_MARKED_PRESENT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <c0d5f2e9-9bd1-46fb-8111-d3af6b6c9e66@infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-b4-sparsemem_cleanups-v1-9-008fc8d579fe@kernel.org>
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7818; i=david@kernel.org;
+ h=from:subject:message-id; bh=pAqijJ/xtGVhn3ym5mqreVDB8QMgyWcSahLMC88vLlA=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIWJpis8LDdZLhL67vVoh9SsSqed1RveiSuZVebFLcog
+ fn9b+M9HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzELoGRYaaaEkPmwSkW+g9O
+ ahZu/nh96Q62ILObQrXLO60S5q5/G8Dwmz3O6dIh2Vv7JJb/ab9yxlp/66dv3ZwNf/zXnwzP+/R
+ 0AxMA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Tue, Sep 08, 2026 at 10:46:03PM -0700, Randy Dunlap wrote:
->
->
->On 9/8/26 5:36 PM, Coiby Xu wrote:
->> If crash hotplug is supported, dm-crypt keys saved to reserved memory
->> will be taken care of automatically. Thus it doesn't make sense to use
->> configfs/crash_dm_crypt_key/reuse. Not reserving
->> image->dm_crypt_keys_addr makes it implicitly to disallow using this
->> API. Currently x86_64 and ppc64le have implemented crash hotplug
->> feature.
->>
->> Also update the doc accordingly. Note two doc issues are fixed as well.
->>
->> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
->> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
->> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
->> ---
->>  Documentation/admin-guide/kdump/kdump.rst | 16 ++++++++++------
->>  kernel/crash_dump_dm_crypt.c              | 12 ++++++++----
->>  2 files changed, 18 insertions(+), 10 deletions(-)
->>
->> diff --git a/Documentation/admin-guide/kdump/kdump.rst b/Documentation/admin-guide/kdump/kdump.rst
->> index 7587caadbae1..0bf2eb100a05 100644
->> --- a/Documentation/admin-guide/kdump/kdump.rst
->> +++ b/Documentation/admin-guide/kdump/kdump.rst
->> @@ -577,9 +577,10 @@ with /sys/kernel/config/crash_dm_crypt_keys for setup,
->>
->>  1. Tell the first kernel what logon keys are needed to unlock the disk volumes,
->>      # Add key #1
->> -    mkdir /sys/kernel/config/crash_dm_crypt_keys/7d26b7b4-e342-4d2d-b660-7426b0996720
->> +    VOL1_UUID=7d26b7b4-e342-4d2d-b660-7426b0996720
->> +    mkdir /sys/kernel/config/crash_dm_crypt_keys/$VOL1_UUID
->>      # Add key #1's description
->> -    echo cryptsetup:7d26b7b4-e342-4d2d-b660-7426b0996720 > /sys/kernel/config/crash_dm_crypt_keys/description
->> +    echo cryptsetup:$VOL1_UUID > /sys/kernel/config/crash_dm_crypt_keys/$VOL1_UUID/description
->>
->>      # how many keys do we have now?
->>      cat /sys/kernel/config/crash_dm_crypt_keys/count
->> @@ -591,15 +592,18 @@ with /sys/kernel/config/crash_dm_crypt_keys for setup,
->>      cat /sys/kernel/config/crash_dm_crypt_keys/count
->>      2
->>
->> -    # To support CPU/memory hot-plugging, reuse keys already saved to reserved
->> -    # memory
->> -    echo true > /sys/kernel/config/crash_dm_crypt_key/reuse
->> -
->>  2. Load the dump-capture kernel
->>
->>  3. After the dump-capture kerne get booted, restore the keys to user keyring
->
->                             kernel is booted,
+All present section iterators run before memory hotplug added any
+further memory sections, Therefore, we can simply use the SECTION_IS_EARLY
+flag by setting that flag earlier in sparse_prepare_early_sections().
 
-Thanks for catching this typo! I'll apply your suggestion to next
-version!
+Get rid of SECTION_MARKED_PRESENT entirely and rename
+for_each_present_section_nr() to for_each_early_section_nr().
 
-[...]
+Also update the gdb script to use the updated value for
+SECTION_IS_EARLY.
+
+No functional change intended.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ drivers/base/memory.c   |  2 +-
+ include/linux/mmzone.h  | 27 ++++++++++-----------------
+ mm/sparse-vmemmap.c     |  1 -
+ mm/sparse.c             | 17 ++++++++---------
+ mm/sparse.h             |  6 ------
+ scripts/gdb/linux/mm.py |  2 +-
+ 6 files changed, 20 insertions(+), 35 deletions(-)
+
+diff --git a/drivers/base/memory.c b/drivers/base/memory.c
+index 5eead3346f1e3..b0338de2f1d82 100644
+--- a/drivers/base/memory.c
++++ b/drivers/base/memory.c
+@@ -972,7 +972,7 @@ void __init memory_dev_init(void)
+ 	 * block so that it can be covered.
+ 	 */
+ 	block_id = ULONG_MAX;
+-	for_each_present_section_nr(0, nr) {
++	for_each_early_section_nr(0, nr) {
+ 		if (block_id != ULONG_MAX && memory_block_id(nr) == block_id)
+ 			continue;
+ 
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index e0fac344f6ac2..62cff59dd80c4 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -2084,7 +2084,6 @@ static inline struct mem_section *__nr_to_section(unsigned long nr)
+  * accommodate SECTION_MAP_LAST_BIT. We use BUILD_BUG_ON() to ensure this.
+  */
+ enum {
+-	SECTION_MARKED_PRESENT_BIT,
+ 	SECTION_HAS_MEM_MAP_BIT,
+ 	SECTION_IS_ONLINE_BIT,
+ 	SECTION_IS_EARLY_BIT,
+@@ -2094,7 +2093,6 @@ enum {
+ 	SECTION_MAP_LAST_BIT,
+ };
+ 
+-#define SECTION_MARKED_PRESENT		BIT(SECTION_MARKED_PRESENT_BIT)
+ #define SECTION_HAS_MEM_MAP		BIT(SECTION_HAS_MEM_MAP_BIT)
+ #define SECTION_IS_ONLINE		BIT(SECTION_IS_ONLINE_BIT)
+ #define SECTION_IS_EARLY		BIT(SECTION_IS_EARLY_BIT)
+@@ -2111,16 +2109,6 @@ static inline struct page *__section_mem_map_addr(struct mem_section *section)
+ 	return (struct page *)map;
+ }
+ 
+-static inline int present_section(const struct mem_section *section)
+-{
+-	return (section && (section->section_mem_map & SECTION_MARKED_PRESENT));
+-}
+-
+-static inline int present_section_nr(unsigned long nr)
+-{
+-	return present_section(__nr_to_section(nr));
+-}
+-
+ static inline int valid_section(const struct mem_section *section)
+ {
+ 	return (section && (section->section_mem_map & SECTION_HAS_MEM_MAP));
+@@ -2136,6 +2124,11 @@ static inline int valid_section_nr(unsigned long nr)
+ 	return valid_section(__nr_to_section(nr));
+ }
+ 
++static inline int early_section_nr(unsigned long nr)
++{
++	return early_section(__nr_to_section(nr));
++}
++
+ static inline int online_section(const struct mem_section *section)
+ {
+ 	return (section && (section->section_mem_map & SECTION_IS_ONLINE));
+@@ -2315,20 +2308,20 @@ static inline unsigned long next_valid_pfn(unsigned long pfn, unsigned long end_
+ 
+ #endif
+ 
+-static inline unsigned long next_present_section_nr(unsigned long section_nr)
++static inline unsigned long next_early_section_nr(unsigned long section_nr)
+ {
+ 	while (++section_nr <= __highest_used_section_nr) {
+-		if (present_section_nr(section_nr))
++		if (early_section_nr(section_nr))
+ 			return section_nr;
+ 	}
+ 
+ 	return -1;
+ }
+ 
+-#define for_each_present_section_nr(start, section_nr)		\
+-	for (section_nr = next_present_section_nr(start - 1);	\
++#define for_each_early_section_nr(start, section_nr)		\
++	for (section_nr = next_early_section_nr(start - 1);	\
+ 	     section_nr != -1;					\
+-	     section_nr = next_present_section_nr(section_nr))
++	     section_nr = next_early_section_nr(section_nr))
+ 
+ /*
+  * These are _only_ used during initialisation, therefore they
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index e62e6aa07f126..5aba058df6b67 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -890,7 +890,6 @@ int __meminit sparse_add_section(int nid, unsigned long start_pfn,
+ 	page_init_poison(memmap, sizeof(struct page) * nr_pages);
+ 
+ 	ms = __nr_to_section(section_nr);
+-	__section_mark_present(ms, section_nr);
+ 
+ 	/* Align memmap to section boundary in the subsection case */
+ 	if (section_nr_to_pfn(section_nr) != start_pfn)
+diff --git a/mm/sparse.c b/mm/sparse.c
+index 2d0f2db34f4cf..344acaaed94db 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -170,13 +170,14 @@ static void __init mminit_validate_memmodel_limits(unsigned long *start_pfn,
+  */
+ unsigned long __highest_used_section_nr;
+ 
+-static inline unsigned long first_present_section_nr(void)
++static inline unsigned long first_early_section_nr(void)
+ {
+-	return next_present_section_nr(-1);
++	return next_early_section_nr(-1);
+ }
+ 
+ void __init sparse_sections_init(void)
+ {
++	const unsigned long flags = SECTION_IS_EARLY | SECTION_IS_ONLINE;
+ 	unsigned long pfn, start_pfn, end_pfn, section_nr;
+ 	int i, nid;
+ 
+@@ -196,9 +197,7 @@ void __init sparse_sections_init(void)
+ 				continue;
+ 
+ 			set_section_nid(section_nr, nid);
+-			ms->section_mem_map = sparse_encode_early_nid(nid) |
+-							SECTION_IS_ONLINE;
+-			__section_mark_present(ms, section_nr);
++			ms->section_mem_map = sparse_encode_early_nid(nid) | flags;
+ 		}
+ 	}
+ 	__highest_used_section_nr = section_nr;
+@@ -231,7 +230,7 @@ static void __init sparse_metadata_init_nid(int nid,
+ 	if (!usage)
+ 		panic("Failed to allocate usemap for node %d\n", nid);
+ 
+-	for_each_present_section_nr(start_section_nr, section_nr) {
++	for_each_early_section_nr(start_section_nr, section_nr) {
+ 		unsigned long pfn = section_nr_to_pfn(section_nr);
+ 		struct page *mem_map;
+ 
+@@ -246,18 +245,18 @@ static void __init sparse_metadata_init_nid(int nid,
+ 		memmap_boot_pages_add(section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION,
+ 							       NULL, NULL));
+ 		sparse_init_one_section(__nr_to_section(section_nr), section_nr,
+-					mem_map, usage, SECTION_IS_EARLY);
++					mem_map, usage, 0);
+ 		usage = (void *)usage + mem_section_usage_size();
+ 	}
+ }
+ 
+ static void __init sparse_metadata_init(void)
+ {
+-	unsigned long start_section_nr = first_present_section_nr();
++	unsigned long start_section_nr = first_early_section_nr();
+ 	int nid_begin = sparse_early_nid(__nr_to_section(start_section_nr));
+ 	unsigned long section_nr, nr_sections = 1;
+ 
+-	for_each_present_section_nr(start_section_nr + 1, section_nr) {
++	for_each_early_section_nr(start_section_nr + 1, section_nr) {
+ 		const int nid = sparse_early_nid(__nr_to_section(section_nr));
+ 
+ 		if (nid == nid_begin) {
+diff --git a/mm/sparse.h b/mm/sparse.h
+index a3af4967fd5c5..03351f2467e34 100644
+--- a/mm/sparse.h
++++ b/mm/sparse.h
+@@ -114,12 +114,6 @@ static inline void sparse_init_one_section(struct mem_section *ms,
+ 	ms->usage = usage;
+ }
+ 
+-static inline void __section_mark_present(struct mem_section *ms,
+-		unsigned long section_nr)
+-{
+-	ms->section_mem_map |= SECTION_MARKED_PRESENT;
+-}
+-
+ static inline size_t mem_section_usage_size(void)
+ {
+ 	return struct_size_t(struct mem_section_usage, pageblock_flags,
+diff --git a/scripts/gdb/linux/mm.py b/scripts/gdb/linux/mm.py
+index 193a88d763abf..73d637d28c8e6 100644
+--- a/scripts/gdb/linux/mm.py
++++ b/scripts/gdb/linux/mm.py
+@@ -76,7 +76,7 @@ class x86_page_ops():
+             self.SECTION_IS_EARLY = 1 << int(gdb.parse_and_eval('SECTION_IS_EARLY_BIT'))
+         except:
+             self.SECTION_HAS_MEM_MAP = 1 << 0
+-            self.SECTION_IS_EARLY = 1 << 3
++            self.SECTION_IS_EARLY = 1 << 2
+ 
+         self.SUBSECTION_SHIFT = 21
+         self.PAGES_PER_SUBSECTION = 1 << (self.SUBSECTION_SHIFT - self.PAGE_SHIFT)
 
 -- 
-Best regards,
-Coiby
+2.43.0
+
