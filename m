@@ -1,84 +1,104 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC1C453FD2B;
-	Wed,  9 Sep 2026 13:52:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E02F4C6803;
+	Wed,  9 Sep 2026 13:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961969; cv=none; b=PYYm40dcKkchiPmjGJiY4tBl1M+eOqurO50PbW1xDGqYjuJ/chrGS59FnpogQrY9MhgSanc2LF91AyALqf0tm+gDE9TVbg21dZXbymgnILHLRoyPAeptTLs56fzoqp6Zib+75emRYrHqDFdWOTRQ0LRziSkdgUAUu6ta+5BnhNI=
+	t=1788961995; cv=none; b=myOiuyz9cm0K+/qYFhzYihP55gR5K1H/m+wvGh6kILVraqfQdgdoky4F9J/2y7feuQCR+HeT5zE8U2f1tZGwfxVPkpqiuGVlsoPjuk7M4wH417mOeDTCnnTwsl/4zR90F2v0PPtCIwNseFaB6WXwK7C9XQxRYySE+5Y0bWJnXTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961969; c=relaxed/simple;
-	bh=0e+vVbTn7gtjt+ndYPN+Yizq0HsnlJMP58UYCyMUZOA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iJSkDvaDlnuXJLPJEygUCgZBH9wOn9Bf5kMC05yM+NYAPD5RMz9ayDw+fdxkvFOnS0WT7fMNyZMLwZrXYCbYo5BgBcTnsvKD8xqkJ5mI/YZPPDaI897YUKo0EQBOBvqpwY++6GSb+CLZHCMcw0GDwVfiq/UPnlbyR8aV59oL9ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Esc5UWw4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788961995; c=relaxed/simple;
+	bh=6AoUbS90Cz+O96DFJFkvxoQrUSNwwRtPy1soc2vXfgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YSMn8nWaAoP2yX1cd4aI9cFuYV9TF4pXnTrzuj3i9wVTRd2z92YcwdLlm70ndg/LJs5PTGOzUxb16TxxW+f1iVQsMuUY8C+LF4ojEjWjwJs1OEdL1v+O+o1KcPH66qUllWuMNSt1mja7RSnbxiTsghU/vqDPcvY+dAZJdyw2JgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sXawcu+9; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=b9Q4YJ6B; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Esc5UWw4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 42A4F176B;
-	Wed,  9 Sep 2026 06:52:42 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D96BF3F7B4;
-	Wed,  9 Sep 2026 06:52:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788961965; bh=0e+vVbTn7gtjt+ndYPN+Yizq0HsnlJMP58UYCyMUZOA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Esc5UWw4fKnlt/HxqgDDr4fptKWfnfQBakSmMsDI1AQng2kJ1KlAf2z1pXVfuhiEA
-	 DwlFBwnYkNFrr2nZ2dxOQpc8wESu8h59eS5xYd9P99CiZ7A+0SniEM8K9KVJoHdCp2
-	 9DCtlV43WnuuliMeTCs7hxjSk7+PhoPWPKp8O8Ao=
-Message-ID: <ce968e53-58b4-440c-94f4-fdba08dc6dc5@arm.com>
-Date: Wed, 9 Sep 2026 14:52:41 +0100
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sXawcu+9";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="b9Q4YJ6B"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hg2MB5r8GzMlJr;
+	Wed, 09 Sep 2026 15:53:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788961990;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=iuJQiHvs9iP3PQ03RHys/Ar1s5GNOF4lhn09HnTAQd0=;
+	b=sXawcu+9waCVaP7TSgWjwW3DjhbtBP7mpZzo0sV2ex6EmOrgco4n9ZyPmQ9lHmz4hX1Grk
+	fcunJ7aP3ef+NsMDl+r/HSVnSsSaRVcyq5u2EOLTzLEO4aGXk2w2oG16BWK146WEjzSTVQ
+	H4swSmhlqwQrNURfcNnQbOo6alrCw2uJLQFBj5Kq34gnmICk3cHZVnNwNU+RTvK/RUwI2P
+	m/Fxl3IVB8hJDkgeqqlyvlr/mVKokszggNpFnxQOAQkgJVN644h/k2q5rNURgVtGGshDG3
+	G85ESssSnzmvsiI/F7dlUvusoh4W+JkjJnX3hw4OltTfoc6VMd7/k2EOFuACtA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=b9Q4YJ6B;
+	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788961989;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=iuJQiHvs9iP3PQ03RHys/Ar1s5GNOF4lhn09HnTAQd0=;
+	b=b9Q4YJ6BDbbrtZBPJ74ddbSs3qEZOz2jk2O5p0FXFpij3T2tUFq0LazqWNMVLDNy1/VZAY
+	Vn1FhIP3Xr2jMv3k6qMv5csuADVvseL+sdb+IkKOlh/23uLnp9yWHQ8D6UPpMrrvVE7FRJ
+	LM+EZKXMACwfwG5mNWqCb+bpEOTiYfttW8zShtcwOAs2V/lztonrOpS4nxFQVriYwT/6hX
+	fKa3qHnYap88y4KwoUOaLdgMkgXcq1pSL0su1zDbIzTppy0uoUIJ0xjqxqdPiPXbpb+Ybg
+	PhJbXrdanVjN2DHpLtEyZ6V9y7mhsTHu5w3RosPbi5T6Srro1f7bqwcQ02NyNw==
+To: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] Documentation/gpu: Fix bracket
+Date: Wed,  9 Sep 2026 15:52:33 +0200
+Message-ID: <20260909135233.1364650-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 00/20] KVM: arm64: CCA: Add basic plumbing for Realms
-To: Fuad Tabba <tabba@google.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <CA+EHjTzr-r1FRuJ-X3E38_SSHsNSz_vdO-8sFOtBdsiB3V_x=g@mail.gmail.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CA+EHjTzr-r1FRuJ-X3E38_SSHsNSz_vdO-8sFOtBdsiB3V_x=g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: mhwupi7m53zinn4efqm6apnsbpajmcsm
+X-MBO-RS-ID: 454f5675d07381df421
+X-Rspamd-Queue-Id: 4hg2MB5r8GzMlJr
 
-On 09/09/2026 14:18, Fuad Tabba wrote:
-> Hi Suzuki,
-> 
-> On Tue, 8 Sept 2026 at 17:22, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> ...
->>   3) NEW: Enlighten KVM arm64 about the different VM types and use call backs for
->>     the VM type, rather than spilling the is_this_type_of_vm() everywhere. This is
->>     not complete yet, but it is largely functional. Adds VCPU and Stage2 MMU related
->>     callbacks with support for the existing VM types.
-> 
-> A design thought on the vm_flavor dispatch tables. They're
-> hand-maintained arrays indexed by enum, and a gap fails silently at
-> runtime, not at build: arm64_vm_s2_ops[] has no VM_REALM row, so a
-> realm VM would get NULL ops.
-> 
-> How about something like declaring it unsized with
-> BUILD_BUG_ON(ARRAY_SIZE(arm64_vm_s2_ops) != VM_FLAVOR_MAX), as
-> host_hcall does? A non-NULL check of the selected ops' mandatory
-> callbacks at VM init would catch the s2_ops naming typo Sashiko
-> caught, where the rows point at zeroed forward-declared structs.
+Remove needless '('.
 
-Agreed, I will add that. The VM_REALM S2 ops will come in the next part,
-as we can't have anything meaningful without the RMI backends.
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+---
+ Documentation/gpu/drm-vm-bind-locking.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the review !
-
-Cheers
-Suzuki
+diff --git a/Documentation/gpu/drm-vm-bind-locking.rst b/Documentation/gpu/drm-vm-bind-locking.rst
+index a345aa513..df6cf0132 100644
+--- a/Documentation/gpu/drm-vm-bind-locking.rst
++++ b/Documentation/gpu/drm-vm-bind-locking.rst
+@@ -170,7 +170,7 @@ submission is therefore preceded with a re-validation section:
+            validate_gem_bo(&gpu_vm_bo->gem_bo);
+ 
+            // The following list iteration needs the Gem object's
+-           // dma_resv to be held (it protects the gpu_vm_bo's list of
++           // dma_resv to be held. It protects the gpu_vm_bo's list of
+            // gpu_vmas, but since local gem objects share the gpu_vm's
+            // dma_resv, it is already held at this point.
+            for_each_gpu_vma_of_gpu_vm_bo(&gpu_vm_bo, &gpu_vma)
+-- 
+2.54.0
 
