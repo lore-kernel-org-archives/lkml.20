@@ -1,180 +1,161 @@
-Received: from mail-vk1-f225.google.com (mail-vk1-f225.google.com [209.85.221.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFF73B7B83
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DD73D16E4;
+	Wed,  9 Sep 2026 21:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788991158; cv=none; b=ALwVXODXOpn1B0OAnlNUt774hyWB+Eh7P1CCORSuonvrTznzuacal93USiNYHrwUEQoSO/cDXeTI2jdDUdEvSsbOtcVGH2/rVyapTCrWU3DfHES+YFnMAQNvM6VbDzFI9lNYA9MawsVSh+lcgIBFlXULyL3Bzj2iKKqZZ4c0lKA=
+	t=1788991161; cv=none; b=jEFXAY5qY8Esmsq7F/BSmlFMvZbuFy0hPjmizm3E0puiHwlXTssnvz/P/v+GptDZA4KBoBIjmlqQNl5j12rld+dw7FNe5ag55YaGrg7jm8Mn42SwSkjjHwrNVpAQC2bVLcc+T+xrDaAMxlXZtS435N0AsC5oQchppFz2qNqGHBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788991158; c=relaxed/simple;
-	bh=E5EP89C8aSuUnaX74+VXVio9HwFAaQwDLtCultG/TA4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C35FMxJWmpOPAJuputsy3KHAYgtl/IdbBayyiO7O5bLWxeZS9NNFU7kQdfV/xFH4f7YOEq83xwLM9Ner/3dr5pA2ISMdJeANRm4wjjswbwagS6cMMSI0Kjm+eC6SCHtEijJgJ1eiRKhCcbr5B1zhzeZcs77HjO9GobjSRCmhZTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=VS7ntVe9; arc=none smtp.client-ip=209.85.221.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788991161; c=relaxed/simple;
+	bh=5AiUP0XpreXNuiA/V0MjXI98g72p+JAbAaycONJLEvU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ggek40kjWsGMtgO3lCPPJrOY6+EWM375bAtTQ/NkZCLgm666GOP+tv2Kz/hpqqaXx9vW2twMOximHxQnDJPQHYaeGXPRs+0qyFZILNo8JZSrRcC6tcRY0CjAwu82FrQCliO+RpVWMwYvOFCWjtF1MW9xxe52ar9d4Cc6bk5JBS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=nolRloxV; arc=none smtp.client-ip=185.226.149.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="VS7ntVe9"
-Received: by mail-vk1-f225.google.com with SMTP id 71dfb90a1353d-5c82d057971so1041087e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:59:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788991152; x=1789595952;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=qHHcpy5QeLt7Tn0UZNn69+aN/4XUzCy9zf9R/ItNdpQ=;
-        b=T34RjM/8GJ4CfpGdCcONcIl7lEI0tVZxMuuGH7fCMmACh24NJ9bV7qMclosbUjuKvD
-         VBeDuQIc3poWhxRbfO2ci2kXXle7ds62JLFOuQe7je783qnyM1sndni1eFmb8DLxtV4z
-         6w6L2h9/5QsXoNX6HWmkSSe8pjDhN5TfS11ND7FBuuQWa1WoTSQ4ei5ZjmfETsBLOBlH
-         i0nMEXeDtZKaBXAbVZ2AHzRpNK5S8o4SI1+z/mMdt4b7ubM3pitElkz7l7RYlGsNpoJb
-         nqD54dNPYew2lH03MUK7fESdmtcViIw7XaeLa52GK6jQj9q9V58hx7Aew4R9od8yikZa
-         7r3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz9D5KqJ1jSA8aT9/WiLM5JdPF5aJb3OC3Dq2Ov0yR9VArxqmQ6zXfy8Z/h0QvjmLOPLH2EP7yyzw4XvCY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5AHW2dt9EyhgNr2vVpdeTK2u+uHjCTZ9KbVj/vD8h2QyNPx0A
-	ltcIGblzDDqj5h7lUK7k0cX3eJz4dOT7d8DdH0tFVeXsD/RBzdQPx94mbfgL+5QzGMNTk2vyxTy
-	JHafWtfEmkaOitRw5NnTIq92C/DQW+oyQD72phNvUIFMMGrdcQqyp6sgMcNDpzE7ZSra8HCIYu/
-	aZDxTW6fL1MZOhufSZCXLB6Vse2T9BuL7DXchHdDI71qe/db0vP06kw5mtWcyqQjnXCNdpobHxX
-	HMM0azMxSJukBzi/0RHYNKH
-X-Gm-Gg: AYBFou0a3EGKUsj9WDK9Yl/Lu54Ik1zuRUVfG6FXWPQsTbfZ6YJpGco9hDJmTei+4EO
-	yKgzWp45waxJ/20uMBpXAT4p7ZE5edFtVCeqZPKQHtDngziNR4s4ATWGf8T1cb6pCSo2EHrAs5w
-	UuAaX6rxR4izpUoKeaoFIKqNm/vk1ALuDyL97w77ZHdC6B41lykU50sX2hP0zDSz4Ym/TtaPsWu
-	EoLJZT/wBTRcoHdEsf8DD6tVOvo+snr+a/K9VBd4igOHbGtwaOLpaHWpdh4oVE0K/Vhumzi3r8+
-	Op2akn1dqIg6X6+dH1h0/cY0GUlnFp2IKeoTea39mUs/wmzt6W88H8BMrxqmZBq2zUDM7axG/SY
-	FRgk5cqDS9i7ibC1zLOV1iqE+FAlflwWYaay8GAyt0zIKWEzr+AOk0ecqlnJX8rPZ+xdcwMVsuH
-	nc16LZcWQUNN1Rh5NXBDIvUhLQAJyN54o51cdoDBUgLfE=
-X-Received: by 2002:a05:6122:21a4:b0:5c8:3a2f:a497 with SMTP id 71dfb90a1353d-5c83a2fa886mr243192e0c.0.1788991152185;
-        Wed, 09 Sep 2026 14:59:12 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-116.dlp.protect.broadcom.com. [144.49.247.116])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c7ec20f1desm8195213e0c.3.2026.09.09.14.59.11
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 09 Sep 2026 14:59:12 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53088a3939aso63462781cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:59:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788991151; x=1789595951; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qHHcpy5QeLt7Tn0UZNn69+aN/4XUzCy9zf9R/ItNdpQ=;
-        b=VS7ntVe9t2WlsDo/8zeKKHeHNvCb1mubn4GEfOcs37RJc713BEuLDsd6VVqaz4UF/a
-         Qn9zZFQKauAMxlU0vu0O8S54rx4FIrusRbOkJUTDzWThoKPxnrHO6vDFhpQ4IOk0cdoO
-         eWB22xREOrrj2jlN8AnH4yz2+kMImRSo14alk=
-X-Forwarded-Encrypted: i=1; AKwUvBxM8auumZAt7okniESoITPWKR7DBPuCwuj7cmmnU0Or5DX+BL7w8XnC58FJ1i2T8uVMRCE6otxPCJwEuYw=@vger.kernel.org
-X-Received: by 2002:a05:622a:2592:b0:530:3554:6482 with SMTP id d75a77b69052e-530548511c0mr498367851cf.18.1788991151319;
-        Wed, 09 Sep 2026 14:59:11 -0700 (PDT)
-X-Received: by 2002:a05:622a:2592:b0:530:3554:6482 with SMTP id d75a77b69052e-530548511c0mr498367041cf.18.1788991150882;
-        Wed, 09 Sep 2026 14:59:10 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054180b0asm150783051cf.19.2026.09.09.14.59.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 14:59:10 -0700 (PDT)
-Message-ID: <a4167b18-f1ea-48bb-9287-210bdd4f35eb@broadcom.com>
-Date: Wed, 9 Sep 2026 14:58:59 -0700
+	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="nolRloxV"
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1x4QJp-0021Hb-Ie; Wed, 09 Sep 2026 23:59:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector2; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From;
+	bh=p12OuFyDhrWNEio5UJ9mzJHOxquwOKi2Y8Jo1oKEw74=; b=nolRloxVuxnP6a1/TzWOHCxNcW
+	xtDVCF8XX91nLoKltZyz/zo+dfmviUeX1SJTzvGBzM7rt2fp3n7GlkC96OWy+66TR9IGhLrwusuXC
+	usLIp1TpDLB22Q/UViOXfxr2OYj/9W1zVBkgQAL9Hx8IJb3viEJJ6Va5KuHQz/gx3QGQpXNfNIyJx
+	lUNYefpJYLgyl2l6sl+gmd9hAMCvmKb4WOiMcKFhlt4yd7UL6hiesEZPBSwevixL27MskppUD9lsL
+	cDIGf0hkZuBxbRfWlLg3nmeFpZ51642p955jH0TwnMHFiJttscv9HtS+E89bwLwSiZUaEoRYjne+D
+	Agr6/WSg==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1x4QJe-0001fW-TO; Wed, 09 Sep 2026 23:58:51 +0200
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1x4QJe-000gXe-JE;
+	Wed, 09 Sep 2026 23:58:50 +0200
+From: Michal Luczaj <mhal@rbox.co>
+Date: Wed, 09 Sep 2026 23:58:26 +0200
+Subject: [PATCH net] vsock: Do not reset a TCP_CLOSING socket
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Message-Id: <20260909-vsock-connect-reset-closing-v1-1-50298b9ccfbf@rbox.co>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTtJ6QKKVyEudDrAqJmaTiUmh
+ LtbZfm/5H0bGGdhg3OzQeZVTJLWaE8N0HLVmVFibfDOdy54h6sleiAlVaaCmY0L0jOZ6IxDiNG
+ HvhtiP0EVXpkn+fz1EZQLXI7R3rd7ff9c2PcvCy+/PIQAAAA=
+X-Change-ID: 20260820-vsock-connect-reset-closing-98dd28769d7f
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Dmitry Torokhov <dtor@vmware.com>, 
+ Andy King <acking@vmware.com>, George Zhang <georgezhang@vmware.com>
+Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>, 
+ Michal Luczaj <mhal@rbox.co>
+X-Mailer: b4 0.15.2
 
-On 9/8/26 13:55, Lorenzo Stoakes (ARM) wrote:
-> A typical kernel build consists of a frustratingly large amount of time
-> spent stuck in single-threaded bottlenecks.
-> 
-> It turns out that there's a lot we can do about this and doing so
-> significantly impacts kernel build times.
-> 
-> This series makes allmodconfig builds up to 36% faster, incremental builds
-> up to ~70% faster, and noop builds up to ~90% faster.
-> 
-> Builds are faster across the board on every device I tested.
-> 
-> Machines used for perf testing:
-> 
-> * Threadripper -   x86, AMD Threadripper 9980X, 64 cores, 128 threads
-> * EPYC         -   x86, 2 socket EPYC 9754, 256 cores, 512 threads
-> * M2           - arm64, 2022 M2 macbook pro, 8 cores, 8 threads
->                          (4 perf, 4 efficiency)
+Ensure connect() resets the socket only if it has never been established.
+Handle the previously overlooked TCP_ESTABLISHED -> TCP_CLOSING
+transition (on VIRTIO_VSOCK_OP_RST), which could race with the connect
+loop.
 
-My AMD EPYC 9454P server shows an improvement in the order of 13% using 
-the arm64's defconfig and make -j97. Thanks for doing this!
--- 
-Florian
+Resetting a socket that is still present in connected_table can lead to
+memory corruption. The reporter noted lost transports for in-flight skbs,
+and I have reproduced crashes caused by re-insertion into connected_table.
+
+  list_add double add: new=, prev=, next=.
+  kernel BUG at lib/list_debug.c:35!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  Workqueue: vsock-loopback vsock_loopback_work
+  RIP: 0010:__list_add_valid_or_report+0x11f/0x130
+  Call Trace:
+   vsock_insert_connected.cold+0xe/0x13
+   virtio_transport_recv_pkt+0x10e9/0x1460
+   vsock_loopback_work+0x305/0x480
+   process_one_work+0xe4c/0x1560
+   worker_thread+0x4f1/0xd60
+   kthread+0x36e/0x470
+   ret_from_fork+0x47b/0x6b0
+   ret_from_fork_asm+0x1a/0x30
+
+Drop the inaccurate comment above signal_pending(). This fix is
+supplementary to commit 002541ef650b ("vsock: Ignore signal/timeout on
+connect() if already established"). Details at Link.
+
+Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Link: https://lore.kernel.org/netdev/anzT1fREOSyHT99k@v4bel/
+Signed-off-by: Michal Luczaj <mhal@rbox.co>
+---
+Note that this is not a complete fix. connect()'s schedule_timeout() can
+still race with two other functions that set sk_state = TCP_CLOSE while
+keeping the socket in connected_table:
+1. vmci_transport_handle_detach(): no way for me to test,
+2. virtio_vsock_reset_sock(): tested by unbinding the driver
+   (/sys/bus/virtio/drivers/virtio_transport/unbind).
+The latter appears easy to fix by adding __vsock_remove_connected() and
+switching to a _safe iterator in vsock_for_each_connected_socket().
+---
+ net/vmw_vsock/af_vsock.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+index f840498b58af..eec5dd6daebb 100644
+--- a/net/vmw_vsock/af_vsock.c
++++ b/net/vmw_vsock/af_vsock.c
+@@ -1834,23 +1834,20 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+ 		timeout = schedule_timeout(timeout);
+ 		lock_sock(sk);
+ 
+-		/* Connection established. Whatever happens to socket once we
+-		 * release it, that's not connect()'s concern. No need to go
++		/* Connection was established. Whatever happens to socket once
++		 * we release it, that's not connect()'s concern. No need to go
+ 		 * into signal and timeout handling. Call it a day.
+ 		 *
+ 		 * Note that allowing to "reset" an already established socket
+ 		 * here is racy and insecure.
+ 		 */
+-		if (sk->sk_state == TCP_ESTABLISHED)
++		if (sk->sk_state == TCP_ESTABLISHED ||
++		    sk->sk_state == TCP_CLOSING)
+ 			break;
+ 
+ 		/* If connection was _not_ established and a signal/timeout came
+ 		 * to be, we want the socket's state reset. User space may want
+ 		 * to retry.
+-		 *
+-		 * sk_state != TCP_ESTABLISHED implies that socket is not on
+-		 * vsock_connected_table. We keep the binding and the transport
+-		 * assigned.
+ 		 */
+ 		if (signal_pending(current) || timeout == 0) {
+ 			err = timeout == 0 ? -ETIMEDOUT : sock_intr_errno(timeout);
+@@ -1875,7 +1872,8 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+ 	}
+ 
+ 	err = sock_error(sk);
+-	if (err) {
++	if (err &&
++	    sk->sk_state != TCP_ESTABLISHED && sk->sk_state != TCP_CLOSING) {
+ 		sk->sk_state = TCP_CLOSE;
+ 		sock->state = SS_UNCONNECTED;
+ 	}
+
+---
+base-commit: 9a1599eeb8d18a2113e4cabcbd3bec5a8377dbed
+change-id: 20260820-vsock-connect-reset-closing-98dd28769d7f
+
+Best regards,
+--  
+Michal Luczaj <mhal@rbox.co>
 
