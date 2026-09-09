@@ -1,220 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055CF46C4CC;
-	Wed,  9 Sep 2026 09:08:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0D348C402;
+	Wed,  9 Sep 2026 09:08:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944889; cv=none; b=iteJ7McumY9ASru4IB0Wa/hz2eKEUz6b2kl5k35+x06v2H3uFl9Cwa6A3Evv4gnBzT2Ih9jNoxYO8CsBHE2s0Rn4FQi0u5LIZgMXFVRH9ratEmRi+m8Hl3i0wC2eC0uvyZWScbBX5nB1snwskZY3dRNP1IBE6VMiPY+MtoSZP+o=
+	t=1788944916; cv=none; b=KnxydVshxtfW2IB0mVKH0Ogf9oUbUgE4Lhob7Yy2eyfRQpYAc+zQiaQoQ/jzTULIK45ukTseWlPqfgbr6JnR4DgVr7ksqoNjZ5+u1nFTjC3mKVL5FrJp64fP03307vt/gHGp6pofKojpt/TNoIpKkQImDsZvB75MNEZrDBf6vkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944889; c=relaxed/simple;
-	bh=5wRF7TRW52v6iM/t+CctJ9Yw2DGOgUE70RFWbI6LmVw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oFo2InIBTUAZf5OFB6UJaEHKhUviLLsdeS5EbasXWysidgGsXblCKPuWj81x0PEb0FpLPFNJXBVOcJnGzw4DwyAWgI0rPTebgznjBqCkp4yOQuInAMSMJpexorSXpMvkncy8eupVmOwvUKl5/gYhCD7XpBKEF8VfXluUU5f/Ujg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQ8GOymJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788944916; c=relaxed/simple;
+	bh=4EFFBgRF1Ln+SQ3SXXVLN+LEdKbDyIsZFmNprV8uEew=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ToVHRyLqnwffpjkZxrWjHukrl+WjSIrNRKLlclZFDx+X0RNMgPH4l5Oer79pW8n+GS3XA23i7PRgc4ZTRQJYCIaZIrpW+OV1a586tEEk082qfeZgrAuFAU7OWkl61jGp1vgQhk4TrsLwFIk7FI6G42xuIgK4Q3WSYIXZSaWGMlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=masU3CVl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQ8GOymJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C9F1F00A3A;
-	Wed,  9 Sep 2026 09:08:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="masU3CVl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A74E1F00A3D;
+	Wed,  9 Sep 2026 09:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944887;
-	bh=ikuyhdzrRTHbXh9Rv6iCOPsdsIpNolnvd/NEcrSB7ws=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cQ8GOymJdzZblgxf4OYQEVE/awuSct+wlDX8T2nATx7nfJ3JEInMX289INZHNlhyf
-	 fAAY9JvOxyfYMRV11pek1qtgDrpgzHe4VtLvJhHsiWItJePhCF9RzLsff798eeStE2
-	 ezFSmFmtFaNnWTFcNgnpaj4Gtwg5VhwebYzETEX3UZ20vnu518N8xOWHxBteWV3gcf
-	 EZHvJ1yoxrqZLsSB+dOubuOI1frz5E2Lr84vJpUVJJ9v4YfvrdMBrFj1maIb4ZEl8v
-	 HngSBzetAIxzWkKh67dNTsnIWc9ThPisHK1CUgilXTfZw/Ey0njFuaYRZpo+klUfjr
-	 NiRduo0MWPoMw==
-Message-ID: <a59d9197-0a1c-4543-9fac-ca2c2d53a8db@kernel.org>
-Date: Wed, 9 Sep 2026 11:08:02 +0200
+	s=k20260515; t=1788944915;
+	bh=9WmWAiR+ErcC3dQcXoDnGK6eZwpnpPVg1IU0OrzRFuQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=masU3CVliFA6CbjIjmTOOvcqq/8lVt3GxALrqVm3MC0QKCTXFQbi7d6maA7NiSNmd
+	 kuKYVHA1ztsEPPg8y3ytWJQznJAqWOpvWYMSiNFlz/ACLOIJ8W1LZn1Msq3JNp8h9z
+	 Xi8gXe0RNhpZbEZ4TYxKtofx2TT7hYLuwMVu5IJYn7NY5lK6FpNHnKYf5oO3uX+mw9
+	 XhB1cXzVhiv45DB8dqKV9ggX2obw7u1Dw0mAQhdtEuyVInVy9EMYtuTNsepH9IYhJv
+	 b6shnqQF+0oP4CCEM8/jhzYsYnfzOd8Ygu2PbMl1sTTC/AW8Gdea1hpTE2JVLvKdbK
+	 6H8A+NxodCYcg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>, Frederic Weisbecker
+ <frederic@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
+ <brauner@kernel.org>, John Stultz <jstultz@google.com>, Ingo Molnar
+ <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, "Eric W.
+ Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home> <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+Date: Wed, 09 Sep 2026 11:08:31 +0200
+Message-ID: <87ecf223n4.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v2] tcp: fix data-race in tcp_recv_should_stop
-Content-Language: fr
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, quanyeyang@proton.me,
- Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me>
- <8bbee583-6f21-4817-bfeb-2d60057380a3@linux.dev>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <8bbee583-6f21-4817-bfeb-2d60057380a3@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Jiayuan,
+On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
+> On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
+> Let me try and have a go :-)
+>
+>
+> do_exit()				de_thread() 			posix_timer_fn()
+>   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
+>     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
+>     tsk->flags |= PF_EXITING; 						    LOCK siglock
+>     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
+>     					    LOCK tasklist_lock
+>     flush_sigqueue_list();		    if (leader->exit_state)
+> 					      break;
+>   ...                                       transfer_pid()
+> 					    UNLOCK tasklist_lock
+>   exit_notify()
+>     LOCK tasklist_lock
+>     tsk->exit_state = EXIT_ZOMBIE;
+>     UNLOCK tasklist_lock
+>
+>
+>
+> Then there is indeed nothing that makes sure posix_timer_fn() sees
+> sigqueue updates done by do_exit(), because those are ordered by
+> tasklist_lock, but posix_timer_fn() doesn't care about that.
 
-On 09/09/2026 04:57, Jiayuan Chen wrote:
-> 
-> On 9/9/26 10:05 AM, Quanye Yang via B4 Relay wrote:
->> From: Quanye Yang <quanyeyang@proton.me>
->>
->> BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
->>
->> read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on
->> cpu 1:
->>   instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
->>   sock_error include/net/sock.h:2565 [inline]
->>   do_recvmmsg+0x50c/0x580 net/socket.c:3049
->>   __sys_recvmmsg net/socket.c:3144 [inline]
->>   __do_sys_recvmmsg net/socket.c:3167 [inline]
->>   __se_sys_recvmmsg net/socket.c:3160 [inline]
->>   __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
->>   x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/
->> syscalls_64.h:300
->>   do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->>   do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
->>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->>
->> read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
->>   tcp_recv_should_stop include/net/tcp.h:3086 [inline]
->>   mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
->>   inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
->>   sock_recvmsg_nosec net/socket.c:1151 [inline]
->>   sock_recvmsg+0x11a/0x140 net/socket.c:1173
->>   ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
->>   ___sys_recvmsg+0x116/0x160 net/socket.c:2975
->>   __sys_recvmsg net/socket.c:3008 [inline]
->>   __do_sys_recvmsg net/socket.c:3014 [inline]
->>   __se_sys_recvmsg net/socket.c:3011 [inline]
->>   __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
->>   x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/
->> syscalls_64.h:48
->>   do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->>   do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
->>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->>
->> value changed: 0x0000006b -> 0x00000000
->>
->> Reported by Kernel Concurrency Sanitizer on:
->> CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53
->> #76 PREEMPT(full)
->> Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS
->> 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
->>
->> do_recvmmsg() calls sock_error() without the socket lock. sock_error()
->> clears sk_err with xchg(), which races with the unmarked load in
->> tcp_recv_should_stop(). The same race exists for plain TCP with
->> concurrent recvmmsg() readers; KCSAN reported it on an MPTCP socket
->> because mptcp_recvmsg() uses this helper.
->>
->> Use READ_ONCE() for the lockless peek. No extra ordering is needed:
->> the value is only used to decide whether receiving should stop.
->> This does not consume sk_err; the check-then-sock_error() TOCTOU
->> on the no-data paths is a separate issue.
->>
->> Fixes: eb477fdd6803 ("tcp: add recv_should_stop helper")
-> 
-> 
-> Is the Fixes tag right? eb477fdd6803 only moved the existing check
-> into a helper, the plain read was already there before.
-> 
-> 
->> Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
->> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
->> Signed-off-by: Quanye Yang <quanyeyang@proton.me>
->> ---
->> Link: https://lore.kernel.org/all/14749060-
->> d011-41e7-9a4b-754eb5bd9d5b@redhat.com/
->> ---
->> Changes in v2:
->> - add Reported-by and Closes for the MPTCP syzkaller report
->> - Link to v1: https://patch.msgid.link/20260908-mptcp-sk-err-net-v1-1-
->> da71aaec9afd@proton.me
->> ---
->>   include/net/tcp.h | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/include/net/tcp.h b/include/net/tcp.h
->> index 436495ff2271..c61d8678eafd 100644
->> --- a/include/net/tcp.h
->> +++ b/include/net/tcp.h
->> @@ -3082,7 +3082,8 @@ enum skb_drop_reason tcp_inbound_hash(struct
->> sock *sk,
->>     static inline int tcp_recv_should_stop(struct sock *sk)
->>   {
->> -    return sk->sk_err ||
->> +    /* sk_err can be cleared locklessly by sock_error(). */
->> +    return READ_ONCE(sk->sk_err) ||
->>              sk->sk_state == TCP_CLOSE ||
->>              (sk->sk_shutdown & RCV_SHUTDOWN) ||
->>              signal_pending(current);
-> 
-> 
-> The lockless writers are sock_error() from SO_ERROR and recvmmsg(),
-> so every plain read of sk_err on a TCP socket has the same race, not
-> only this helper:
->     tcp_recvmsg_locked
->     tcp_sendmsg_locked
->     tcp_splice_read
->     sk_stream_wait_memory
->     tcp_bpf_sendmsg
->     tcp_bpf_recvmsg_parser
->     mptcp_splice_read
->     mptcp_recvmsg
-> 
-> I'd drop the Fixes tag, target net-next and annotate all of them like
-> e13ec3da05d1, instead of pointing at a MPTCP commit.
-> 
-> Eric, Matthieu, does that sound OK?
+That's irrelevant because in the above scenario posix_timer_fn() 't'
+points to the exiting old leader (on the left) because the PID store has
+not happened yet and it therefore observes PF_EXITING on it so it won't
+touch the sigqueue. Note, that setting and checking PF_EXITING is
+serialized by sighand lock, so this is fine.
 
-Sounds good to me to target net-next without the Fixes tag.
+ do_exit()
+   exit_signals()
+     LOCK siglock
+     tsk->flags |= PF_EXITING
+     UNLOCK siglock
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+So after this point anything which looks at tsk->flags under siglock
+will observe PF_EXITING and not touch the sigqueue. Nothing to see here.
 
+> The easy solution would probably be to do transfer_pid() while holding
+> siglock?
+
+That'd be only relevant for the situation Frederic is concerned about,
+i.e. the case where the third party observes the TID swap.
+
+Because with that visible 't' in posix_timer_send_sigqueue() won't be
+old_leader, which has PF_EXITING set, it will be new_leader which has it
+not set.
+
+So Frederic is concerned that posix_timer_send_sigqueue() can observe
+the PID store but not observe the sigqueue stores.
+
+I argue that's not possible:
+
+A:  sigqueue stores
+
+B:   AQUIRE tasklist
+
+C:   exit_state store
+
+D:   RELEASE tasklist
+     // sigqueue and exit_state stores become globally visible
+ ------------------------------------------------------------------------
+
+E                               ACQUIRE tasklist
+ ------------------------------------------------------------------------
+F                                if (exit_state)
+				   swap_pid()
+G                                     STORE_PID
+
+				// The PID store can become visible in the
+				// system right here so F can observe them before
+				// RELEASE tasklist
+
+H                                                             READ PID
+							      ....
+I                                		              ACQUIRE siglock
+
+After #A the sigqueue stores are maybe visible
+
+After #C the exit_state store is maybe visible
+
+After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
+the system and cannot become magically become invisible after that
+point.
+
+The new leader cannot swap PIDs before acquiring task list lock and
+before it observed exit_state != 0 under it. That's fully serialized
+against the old leader as both hold task list lock for their operations.
+
+#F creates a control dependency, so if the new leader acquires task list
+   lock before the old it will observe 0, drop the lock and wait. No PID
+   store obviously.
+
+#G can be come visible immediately but is only guaranteed to be visible
+   globally at the RELEASE of tasklist lock.
+
+#H can only observe the PID store after the store actually happened in
+   #G. So it either reads the original PID or the swapped PID.
+
+#I is not really relevant for this. It's only relevant for PF_EXITING
+   and other stuff which is directly protected by it. And it does not
+   matter whether it locks the old or the new sighand.
+
+Now let's look at the full chain and what can possibly be visible or not
+and when:
+
+#A can trickle into the tasklist held section, but not after #D.
+
+#C cannot be reordered against #B and #D
+
+#A is therefore guaranteed to be globally visible _before_ new leader
+   observes exit_state != 0 in #F under task list lock
+
+#G cannot be reordered against #F and obviously not against #E either.
+
+   It can become visible at any point after the store, but as argued
+   above that visibility can't be reordered before #A (sigqueue stores)
+   became visible.
+
+The important part is that the visibility of #A (sigqueue stores) and #G
+(PID store) is fully ordered through task list lock.
+
+So #H _cannot_ observe #G without observing #A - not even on PowerPC or
+similar insanities.
+
+No?
+
+Also doing the PID swap under sighand lock is not solving anything
+either because posix_timer_send_sigqueue() does the lookup without the
+lock simply because it does not know which task it is upfront. So it
+would have to redo and validate the lookup with the lock held.
+
+Thanks,
+
+        tglx
