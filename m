@@ -1,163 +1,113 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49251.qiye.163.com (mail-m49251.qiye.163.com [45.254.49.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E14F10785;
-	Wed,  9 Sep 2026 01:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF14425B30D;
+	Wed,  9 Sep 2026 01:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917204; cv=none; b=g7gSt1c7IIqO53Kq7OHf/nmPHLzOS1nL0Zr1CwV/i+d74cusUAJ3S9tut9bd1pm2RB7rVoM9QNCeonPpJTnb1K1W46pRc1B7PrqrgzIW849U5g8ltJsGZ8A+5EuetHtKDir2QN+M+DqPpJQd7TsRvi0FV5jFdbkGzinwQPogVfg=
+	t=1788917220; cv=none; b=pBXB5i1qS8iTO99ZmXmEiXkF1aQVSrevZg0w3Xz4HVOKOrKLWRqU10/Se2EGWUPoR5A+J4SKigIo5CwphtMT4OD+oV5/ohkkCNSOwyKa3aoimYQpO8+VPR61SIGfCPlDCa/nBgBQV7cGniTJ/w3ZcEVS50UGfRhivYyb0GSk4DE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917204; c=relaxed/simple;
-	bh=TdUKSG7SsrE/DEqDLI5cKMO96BLd8pma7nzupDSV+A8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EYVz75Uh3FxLfPoAVM1VjyJYYgQk5/fM/yPl4kY58d35IrjkNEiCE5W4SzcrswbSENtxwUg83jhXMW5xdjZ6q3E0KMdFduz5mgD4wg+8K5X0G7DoAY31/oDfnLCPzAmNJUnYCj/DhR6eLJt+lKj2+lNe+77HXJaGx11kCEE9y20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nU9yCU7+; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ufbL1J+J; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gEkI0IAC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PzeKBIfJ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788917220; c=relaxed/simple;
+	bh=F0o1t7QejIGtYvECNGik6alfh5KLG+fJzOTKEWZTuPc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ivzi3hY/Xze6oKNn81K8RS9S+6yvH6n/gXsoCv/LfKJJUUU4/SArsw2Wz+7IYandXU3SiCxHi4w9zUptg08K47tLDsjPV+vxE4XEdP/xgJfWaCCGFDKdUBu0nmytkM80pkORK6bIkTJVuOYc2aI65CoSsaaGL5ddnF5VG6o+EUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ASB17gow; arc=none smtp.client-ip=45.254.49.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nU9yCU7+";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ufbL1J+J";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gEkI0IAC";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PzeKBIfJ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5CA6921A1F;
-	Wed,  9 Sep 2026 01:26:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788917200;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
-	b=nU9yCU7+uYerhSVH2i7BpFnohqFjP4u/UlxRq5pcyHfe8u2a7XfBeZRCGuolVAmu5aGdZW
-	TKNvasI5r6jKxORdzrvRkssSRlPXasiGq7RfwBca/PEqWXUzonYfb6T/UsHkRnArOxmgc0
-	8wFfwOawy9TathoYVtCtiuo39Mc1TF8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788917200;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
-	b=ufbL1J+JPUmwhhmiLJCZRTah3zMyjeNuAMQym3QmxBik7j0SsmznkkR/3mhenBZikNKypy
-	KFUBuKPgj6aH5qDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788917199;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
-	b=gEkI0IACBz/3KN0TB4pIBHrNka8Q9izc0cearD4XyV+qVhH8dJRIq57uh7Ai28macGau1o
-	9rRc6NRJjzhrwIOX17oOmT2cKHeWtOhMp77jnBaERBVjvN+TJbdGKaqhDrNM3rs6JvjIlB
-	+KU+rorlvfND4ylplsB1DnUbF5lE3cI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788917199;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
-	b=PzeKBIfJ26Xygclq3l9vRC3IBV6oU/aVe+OdpseMjCXbU29BhNd+T+fff1fzNsPdgwBTQ+
-	Io7d9UMbR8RhzLCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10F501347F;
-	Wed,  9 Sep 2026 01:26:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HMiLA8+1oGqGewAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Wed, 09 Sep 2026 01:26:39 +0000
-Date: Wed, 9 Sep 2026 03:26:33 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/7] btrfs: convert heuristic_collect_sample() to use
- folios
-Message-ID: <20260909012633.GI9053@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
- <20260907-btrfs-folio-conversions-v2-5-b5fe79f7607b@columbia.edu>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ASB17gow"
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d09a7d19;
+	Wed, 9 Sep 2026 09:11:28 +0800 (GMT+08:00)
+Message-ID: <1255b90b-1388-4ca4-a869-75db37100a2d@rock-chips.com>
+Date: Wed, 9 Sep 2026 09:11:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-btrfs-folio-conversions-v2-5-b5fe79f7607b@columbia.edu>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,columbia.edu:email,suse.cz:replyto,suse.cz:mid];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v6 08/10] PCI: dw-rockchip: Set broken L1SS resume flag
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
+ <20260908-rockchip-pcie-system-suspend-v6-8-fbabcca9921b@collabora.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-8-fbabcca9921b@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa083b84b0203a4kunm0f25797c442935
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUgeH1YfGhhOGkkZTx
+	0YSBlWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ASB17gow20NLkS56QPasneUGrbAw71hZaG2hR4uSIADguVNkQym4V5wJ7fVuZH2HvxZKRkqicThjzBM2JW+i4SGaKA0ye4mUUWp1pIRh0eWD5mhzO454Vco7GwOlBG5khWE2m/NXWgdsftFaxXEsqwhsZGZf3iEHBAEd3NEQiGs=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=UbpeY8A/bkmtJlJ/cwp8vEYR3E9oMYSezTRlhuo4liw=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Sep 07, 2026 at 04:19:59PM -0400, Tal Zussman wrote:
-> Convert the sampling loop to folios. This removes the last caller of
-> find_get_page() in btrfs and saves a call to compound_head() per sampled
-> page. Document that the lookup is not supposed to fail with an ASSERT().
+在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
+> Setup the broken_l1ss_resume flag, so that pci_suspend_retains_context()
+> returns false on the Rockchip platform allowing PCIe peripheral device
+> drivers to act upon.
 > 
-> Reviewed-by: Qu Wenruo <wqu@suse.com>
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->  fs/btrfs/compression.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
 > 
-> diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
-> index 979b2ffbd8fc..fa8b92592321 100644
-> --- a/fs/btrfs/compression.c
-> +++ b/fs/btrfs/compression.c
-> @@ -1488,7 +1488,7 @@ static bool sample_repeated_patterns(struct heuristic_ws *ws)
->  static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
->  				     struct heuristic_ws *ws)
->  {
-> -	struct page *page;
-> +	struct folio *folio;
->  	pgoff_t index, index_end;
->  	u32 i, curr_sample_pos;
->  	u8 *in_data;
-> @@ -1514,8 +1514,10 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
->  
->  	curr_sample_pos = 0;
->  	while (index < index_end) {
-> -		page = find_get_page(inode->i_mapping, index);
-> -		in_data = kmap_local_page(page);
-> +		folio = filemap_get_folio(inode->i_mapping, index);
-> +		ASSERT(!IS_ERR(folio));
-> +		in_data = kmap_local_folio(folio,
-> +				offset_in_folio(folio, (u64)index << PAGE_SHIFT));
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index 17530507e41b..47d9cab909bc 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -458,6 +458,21 @@ static int rockchip_pcie_host_init(struct dw_pcie_rp *pp)
+>   	return 0;
+>   }
+>   
+> +static void rockchip_pcie_host_post_init(struct dw_pcie_rp *pp)
+> +{
+> +	/*
+> +	 * During system suspend, the Rockchip RC driver effectively powers off
+> +	 * the controller. If the link is in L1SS and the endpoint asserts
+> +	 * CLKREQ# to exit L1SS, the time required to wake the system and
+> +	 * restore the PHY/REFCLK may exceed the L1SS exit timing
+> +	 * (L10_REFCLK_ON + T_COMMONMODE), resulting in Link Down (LDn) and a
+> +	 * reset of the endpoint. Set this flag to indicate this limitation to
+> +	 * client drivers so that they can avoid relying on device state being
+> +	 * preserved during system suspend.
+> +	 */
 
-It would be better to avoid the cast, this is source of subtle errors so
-we try to avoid that. With demise of 32bit architectures it's less of a
-problem because index (pgoff_t) is 64 bit type but still.
+Yes, this is ture for Rockchip platforms that powering off the
+controller as well as PHY is a default action during system suspend.
 
-Please insert a patch that changes the type of index and index_end to
-u64, we initialize them from a u64 type anyway and we know the value
-fits to pgoff_t (as argument to filemap_get_folio()).
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> +	pp->bridge->broken_l1ss_resume = true;
+> +}
+> +
+>   static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
+>   {
+>   	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> @@ -497,6 +512,7 @@ static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
+>   
+>   static const struct dw_pcie_host_ops rockchip_pcie_host_ops = {
+>   	.init = rockchip_pcie_host_init,
+> +	.post_init = rockchip_pcie_host_post_init,
+>   	.pme_turn_off = rockchip_pcie_pme_turn_off,
+>   };
+>   
+> 
+
