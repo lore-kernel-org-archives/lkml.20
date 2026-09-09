@@ -1,41 +1,54 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51E703F1ADB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4657655295D;
+	Wed,  9 Sep 2026 12:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958215; cv=none; b=Oo+nrbgkJE5aovdrdaAub+Kfd+kBVrK5WP1QRp2KhIMjmpVVPgE65Tn/6kzRXRDesi75v9ALeCzSsYWgYVFpod5sENZZo+fMkqjVukRh3iIIoksIFayYe7pINnQPUb1a+4kh85BqJBhG0CEWNXa30dbcnm5z0S1jjDtRGG2+5oo=
+	t=1788958218; cv=none; b=osjZMGPN+LXh0tpHAJyV97arC/I4s45pIWLI/H8KBLp6sTkS4KYhP13RSeNBEQ7Kr0VhVd4Uy6hM+f8zNKpLbPYcxLq6RbEiR9o/8QpwNbDgkbGPUCXjauTFw8ayU9jsa8LsFbFQXeMFwCNsXFeRLKVQTiaxXbU4ruh5xJVzPh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958215; c=relaxed/simple;
-	bh=2P592ah1QHrGLdfR2K13ZZmvuzgE+vLBRsQx+QWBuZs=;
+	s=arc-20240116; t=1788958218; c=relaxed/simple;
+	bh=8S/e2+uC6E4iux8m3+K0fEvecNGMydkW7kj446cWzSo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n2oO1AMVm9Ai33yRTKFxAtr2eFmnwQ+Q3wKL5kDRpE7MDWzhQNWgUeNda0aB2uo3go9W6CEVgaf/1skJ2u9dVi3BVAnLcPWDMXZAFXfOwcx9TCpTCLNNoDwB6WdWTQs/O3fB1tjzV1Vg+Eh3VwIJpQBgABxwNX0d9dB8m6Bn63A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qaKZYbRI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=SCVHgFzfTAkqkzouSJ+WREqFwa8+2Xyuwk7Gq+Qs+a+/H/S8eybNoUFIZy757O1bzWLP61x1hNcDX1KEmlQToIFYMfLez63iUxrbzx69+MCVvY4e/vcgSeZ1eY1ePnxP+CnvFwl99WjZl24p8yokyo61y2n0xnU6vFc2SI0MB5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BqBArHfm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qaKZYbRI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E01C11576;
-	Wed,  9 Sep 2026 05:50:08 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6146D3F7B4;
-	Wed,  9 Sep 2026 05:50:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788958212; bh=2P592ah1QHrGLdfR2K13ZZmvuzgE+vLBRsQx+QWBuZs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qaKZYbRIoUxjc//OrU3dZPXMX0rs1FbFYRJ+KkU3YUc22K8ElUhMZ7QzQ8sSWSJgp
-	 cfi2vHXQh/nyhcJYjnXPELKYbC31J+XjP/I79GUQejXRI5c9sqDjXTykoTXv0Wdj/E
-	 DDjelwFrtxQbqwHtWxMNol29T1dIU0lgQOrI/YNM=
-Date: Wed, 9 Sep 2026 13:50:09 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Zeng Heng <zengheng@huaweicloud.com>
-Cc: suzuki.poulose@arm.com, anshuman.khandual@arm.com, gshan@redhat.com,
-	david@kernel.org, will@kernel.org, wangkefeng.wang@huawei.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: io: Reject present-invalid user prot in
- ioremap_prot()
-Message-ID: <aqFWAWNzYagW2NNH@arm.com>
-References: <20260905033148.3657516-1-zengheng@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BqBArHfm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C6C1F00A3D;
+	Wed,  9 Sep 2026 12:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788958216;
+	bh=yDyJPqAaAdYyb6ktGL9kZgXGogHf4ynFWClRe1eBMzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BqBArHfmQUuBPCscfB518rlnf5qSKhrNQt27TUAufkpsgusOk8kMaoLAMtJeZ8v3q
+	 MOfkDuzwdWE3sqaJ8vBqnwXC/covxgCsI7If481RkUf3Xn+FpGl/DsQkmhV5drQGgQ
+	 Aqp6BHteOiBADXWl6gRRQ0VAA+Jx+j1iHGDzFzsSlQH2ixJ7zld+RWYHPfNbEXwyv+
+	 pyTwS9hkanD75QgaZqAeCVYZ/4puockT3g7QddrcT0Xm1ZTVxbMzjjCqnUUEJ4vigR
+	 fa5B/v+pnlLjVKMPbU1YeHY+VRww+D4G4yFyzszgTjBaa9B9fYl7UojF27vw564qmO
+	 mWSE3kFLns0Fw==
+Date: Wed, 9 Sep 2026 18:20:12 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: "Gupta, Suraj" <suraj.gupta2@amd.com>
+Cc: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"Simek, Michal" <michal.simek@amd.com>,
+	"Pandey, Radhey Shyam" <radhey.shyam.pandey@amd.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
+	"Katakam, Harini" <harini.katakam@amd.com>
+Subject: Re: [PATCH V2 1/4] dmaengine: Add support to configure and read IRQ
+ coalescing parameters
+Message-ID: <aqFWBEct9AoIR9KC@parshuram>
+References: <20250710101229.804183-1-suraj.gupta2@amd.com>
+ <20250710101229.804183-2-suraj.gupta2@amd.com>
+ <aICPiS1_ITwELrxq@vaman>
+ <BL3PR12MB65713879CB569E3B330C1E76C95FA@BL3PR12MB6571.namprd12.prod.outlook.com>
+ <aKxJQLx6yprNdU03@vaman>
+ <3369241a-b591-415a-9f40-36f95bdd6a9d@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,70 +57,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260905033148.3657516-1-zengheng@huaweicloud.com>
+In-Reply-To: <3369241a-b591-415a-9f40-36f95bdd6a9d@amd.com>
 
-On Sat, Sep 05, 2026 at 11:31:48AM +0800, Zeng Heng wrote:
-> From: Zeng Heng <zengheng4@huawei.com>
+On 07-09-26, 20:23, Gupta, Suraj wrote:
 > 
-> Mapping a stack-top page via /dev/mem with PROT_NONE and then reading
-> that process's /proc/<pid>/cmdline triggers a spurious WARN in
-> ioremap_prot() through generic_access_phys():
+> Hi Vinod,
+> On 8/25/2025 5:00 PM, Vinod Koul wrote:
+> > Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> > 
+> > 
+> > On 23-07-25, 11:49, Gupta, Suraj wrote:
+> > > > >   struct dma_slave_caps {
+> > > > >        u32 src_addr_widths;
+> > > > > @@ -520,6 +528,8 @@ struct dma_slave_caps {
+> > > > >        bool cmd_terminate;
+> > > > >        enum dma_residue_granularity residue_granularity;
+> > > > >        bool descriptor_reuse;
+> > > > > +     u32 coalesce_cnt;
+> > > > > +     u32 coalesce_usecs;
+> > > > 
+> > > > Why not selectively set interrupts for the descriptor. The dma descriptors are in order,
+> > > > so one a descriptor is notified and complete, you can also complete the descriptors
+> > > > before that. I would suggest to use that rather than define a new interface for this
+> > > > 
+> > > 
+> > > The reason I used struct dma_slave_config to pass coalesce and delay information to DMA driver is that the coalesce count is configured per channel in AXI DMA channel control register[1].
+> > > AXI DMA IP doesn't have provision to set interrupt per descriptor[2].
+> > > I can explore other ways to pass this information via struct dma_async_tx_descriptor or metadata, or any other way.
+> > > Please let me know your thoughts.
+> > 
+> > dma_async_tx_descriptor has dma_ctrl_flags and one of them is
+> > DMA_PREP_INTERRUPT which you can set for a descriptor and control when
+> > you get the interrupt
+> > 
+> > I am not a fan of adding custom interfaces.
+> > 
+> > --
+> > ~Vinod
 > 
->   WARNING: ./arch/arm64/include/asm/io.h:275 at generic_access_phys
->   Call trace:
->     generic_access_phys+0x1c8/0x228 (P)
->     __access_remote_vm+0x2b4/0x398
->     access_remote_vm+0x14/0x30
->     get_mm_cmdline+0xf8/0x2a0
->     proc_pid_cmdline_read+0x68/0x120
+> Apologies for reviving this old thread. I got pulled onto other work and am
+> now picking this back up.
+> Reposting the context below so we can converge on the interface direction.
 > 
-> generic_access_phys() passes the full pgprot derived from the user PTE
-> to ioremap_prot(). A PROT_NONE /dev/mem mapping is encoded as PAGE_NONE,
-> which clears PTE_VALID and sets the software PTE_PRESENT_INVALID bit.
-> On arm64 such an entry is still pte_present(), so follow_pfnmap_start()
-> reports the pfn and generic_access_phys() reaches ioremap_prot().
-> The PTE_USER assertion, which is meant to catch kernel prots being
-> passed by mistake, then fires for a PROT_NONE user mapping
-> that legitimately lacks PTE_USER, producing the spurious WARN.
+> As mentioned earlier, interrupt coalescing on AXI DMA/MCDMA is a per-channel
+> configuration (IRQThreshold + IRQDelay), not a per-descriptor attribute.
+> Because of this, DMA_PREP_INTERRUPT does not map cleanly to the underlying
+> hardware model:
 > 
-> Reject a user prot encoding a present-invalid (i.e. PROT_NONE) entry up
-> front so that generic_access_phys() cleanly fails the access instead
-> of warning. Note that PTE_PRESENT_INVALID aliases the PTE_NG bit and
-> is only meaningful when PTE_VALID is clear, so both bits must be
-> checked together.
+> - The coalescing delay is a per-channel timeout expressed in microseconds,
+> whereas a boolean flag cannot represent a time-based value.
+> - Linux Dynamic Interrupt Moderation (DIM) adjusts both the coalescing
+> threshold and delay at runtime, requiring an atomic per-channel update.
+> Flags on already queued descriptors cannot provide this capability.
 > 
-> Fixes: 8f098037139b ("arm64: io: Extract user memory type in ioremap_prot()")
-> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
-> ---
->  arch/arm64/include/asm/io.h | 4 ++++
->  1 file changed, 4 insertions(+)
+> DIM is important for modern Ethernet drivers because it balances throughput,
+> latency, and CPU overhead at high speeds.
 > 
-> diff --git a/arch/arm64/include/asm/io.h b/arch/arm64/include/asm/io.h
-> index 21c8e400107c..bbfbc4682639 100644
-> --- a/arch/arm64/include/asm/io.h
-> +++ b/arch/arm64/include/asm/io.h
-> @@ -272,6 +272,10 @@ static inline void __iomem *ioremap_prot(phys_addr_t phys, size_t size,
->  	pgprot_t prot;
->  	ptval_t user_prot_val = pgprot_val(user_prot);
->  
-> +	if ((user_prot_val & (PTE_VALID | PTE_PRESENT_INVALID)) ==
-> +	     PTE_PRESENT_INVALID)
-> +		return NULL;
-> +
->  	if (WARN_ON_ONCE(!(user_prot_val & PTE_USER)))
->  		return NULL;
+> If adding a new interface to configure interrupt moderation parameters for
+> networking clients using DMAEngine is not preferred, would either of the
+> following approaches be acceptable?
+> 
+> - Passing the coalescing parameters through per-descriptor metadata, or
+> - Using the existing Xilinx-specific struct xilinx_vdma_config from
+> include/linux/dma/xilinx_dma.h, which already provides coalesce and delay
+> fields.
+> 
+> I initially avoided the latter in favor of a standard dmaengine interface
+> that could be used by other networking clients utilizing DMAEngine. However,
+> I'm open to either approach if it aligns better with the subsystem's
+> direction.
 
-I wonder whether we should just drop the warning and return NULL if
-!PTE_USER && PTE_UXN. The latter check would also catch execute-only
-mappings (Sashiko pointed out this case still trips the warning). The
-PROT_NONE case would be covered automatically as well since PTE_USER is
-cleared, PTE_UXN set. Maybe add a comment that that pte_protnone()
-relies on !PTE_USER && PTE_UXN, so it's not that we avoid the PROT_NONE
-issue by chance.
-
-Unrelated to your patch, also spotted by Sashiko, we only test a single
-pte but the size can span two. The fix should be at the higher level in
-generic_access_phys().
+Given the above description, I somehow didnt feel that you can use
+existing flags. It is setting the flag per descriptor applies for that
+channel imo...
 
 -- 
-Catalin
+~Vinod
