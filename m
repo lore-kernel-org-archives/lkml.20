@@ -1,110 +1,83 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F322E62A9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB271296BD2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917456; cv=none; b=YepkosD5jMe9nuhUiSTBGH5T74Q9wY21nTmtQ+dKaQ73xhdtFmt6uqI9PJWjfKNcK/rwlzshk88t/Karl9rQ4j0K7VT2o7KgF6l5zZfUuS3YJPL+UUtHhZrLHLIPhYLKxZIGCl6MRW4M+wiC6apmlStlF6c2RTB0RdDBXN6iG9s=
+	t=1788917519; cv=none; b=A4o/CfUucRS94EhIjbTY62Jsjfc//+ed4u58BSkWdArlDNAfO7bZPEsFua3pv7n5PGA888BxSR6/g/BS5GKORx8Qp0u+o2Qch0J7zEurqA1qH+KijazxCkErXwH2hXMHuViSK/GrWnBWOKga4Bx3h9Bx9R3UtC1gzzr1iSfhxjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917456; c=relaxed/simple;
-	bh=7wMkTNUERnaBjBTCO5sTnBvLOxumYwX+e0q8caYes/g=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=u5OFTaZ8vxE6l8I9XD4ZAnqBs4w/78PXbbviflLGXmdNASlLqwaI6tk1VNnxhqIijcFoXZMb2mpDygB22qlzdW0HXnSmFB55KYp6q88rNjTWuHf5SRSGrswCYsz5NVXhnqBA1R6nDrukWTnQ3ydIcL6ts+u93CUpA7v/eCwj744=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XMLXxVe6; arc=none smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788917519; c=relaxed/simple;
+	bh=yFC63mYJXmTvkUjj23wKnktOTv0726mNL9AGUak2Dgc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=JmzDTTnDQ0KDHtuaAACTdDT9F+kaJ6EnKylyCr1Emo7tiYmYV5Wk7lAcwfONPpLAWSBg87SqBm3cRRgu9fvZdb3hdYmKy0HMm0/v4KxnorzrsHxEWFrjNkBE9Gm51G3W84LYqk9bedqEMA51HgXtV/DyctHsBJU+jdmo1M+gVQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dPeLNOU4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XMLXxVe6"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4a451915d8aso4868166b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:30:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dPeLNOU4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203B01F00A3A;
+	Wed,  9 Sep 2026 01:31:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788917453; x=1789522253; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=95z6ZToa6ULbmEQJKG2ytEvJnP27Yp1f1HfgeEMdNVo=;
-        b=XMLXxVe6q0b20dUefFNbKdDIgVW9fF2gF1+ndPzqVkcZwCXG/N/k52XN4Mq5tDW6iq
-         aAOtgfgXP7kqpGKAGm9tTFE3WD+GociL5EcyKPjLz7q5jJFC7R/pAfZZsztsUYpOpNFC
-         6BeoVccT75zQK1c560jnzwxIqWT706FThT3kAxkeGaCCFSjcjVjJ5jpkWhobIM4lbWg1
-         GXQNlxDC3qklynQTwldoYuWOsytq8beyeGG/SKfNQLH6k6p6DidFqXSQpVziRP3P3DGK
-         GFhaK8x7ARdkQ4r74lRRkOpw38rpxp69Ad2s0HriZmqagcuC2sc4DpspvGeLjj+rZzQ8
-         jRBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788917453; x=1789522253;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=95z6ZToa6ULbmEQJKG2ytEvJnP27Yp1f1HfgeEMdNVo=;
-        b=FrtJIuwtNhpKPE528uo0CvNkhZCNCIIPdW+8SyNvndXQF79hb7ZufYFH6PfhSQzjdn
-         VDCyI60AYtbRo2qXRwy5bguuZv7RAcxEa4ZvyQzdUMox7yjdjqHRAMAXdkOnfntNAZk7
-         2JLlAFeWuO9fH/x9CbLxHDeJJAgVRbWfY9Feh//EQSDSR8R5ZtbIMUq22RKVuvdjdaaw
-         e08RDmC0+T2smfsy3uYLwhxvANgYfw3YKN+wFfnV3u6m5jwpYzR6ZbB2zphzEVTzNDLx
-         BOEnnwjvKq/Qq8OoSUnS7ZOzGKnxa4PH9hgwIRbdAxGy7KzmOFGIPIjFIlO3wJJK71lf
-         GIWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzknNgv+7xE+gQguL3O0ABMyOvslACa9g7PrmM+zsQ1KDHTRKewuYByrqUpcQt4PIGHKgUozwDpxDjwtqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++maPFX4n1jJDPXgasccokG3rmd81UOpsFzamIOHlZ+iwlvVzJUa
-	S6zql1dpFrFm5Brim6+QsnLBphhUmHHijqHE1kTNSKTVzshd7GWS6NQh
-X-Gm-Gg: AYBFou1/taH6dbbgzm36Mn/lCIrnfwRj7juVClt5fkECNDqNORtIUvLvwkwMN7xJlRs
-	RcozQeL4DZo1JQbJdEQXNs0mkJkFxmxvGR0vofyJqekKtInOn+yPQYJCy8G1UtXp6aeEAWUFgMU
-	U7VpFsabzFH6gLxiygCrv4ZNcu3FaF8w6YVUk/iCeFTLrdXlJCSp0qheXqtmEOukTH5f++FDRrf
-	b+1w+J8CPk4/ZKObwglxVw3yZHo2wZ5OBhLiIxKxNNrCBwSP5YWPWXepRuIJLtQ5A6gdA8LoB0J
-	VJfLgRQHD8LwaJY59b1y41VEsaJIdXCdcdJWI2exl8IpbLMnw5MbK+61kb14xz6hkTks/K9EkKY
-	AhllSRzLyo8rugkwB6zE4yObG/OWVgQmfvcN2JCVFXsYk0nAKsiEJONyfJc+A0xL5kGsiZHfaIb
-	/FYHmxA4yBp+FWnnpyZxl+5rPFmb+zICOotRwJYbeOFh2kfKMou3hfMznhaxYvnmj25tpbYlOOy
-	hb7NRNhBGK4EeJCz8nDDO+gWQ==
-X-Received: by 2002:a05:6808:d4c:b0:4ab:230c:5faa with SMTP id 5614622812f47-4b9645205bdmr19640115b6e.18.1788917453364;
-        Tue, 08 Sep 2026 18:30:53 -0700 (PDT)
-Received: from david-hassan-Inspiron-15-3567 ([69.162.230.54])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971c98e07sm14177197b6e.18.2026.09.08.18.30.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 18:30:52 -0700 (PDT)
-From: Fahmy Hassan <fahmymohammed@gmail.com>
-To: bhelgaas@google.com,
-	fahmymohammed@gmail.com,
-	kees@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] PCI: cpqphp: Check pci_hp_add_bridge() return value
-Date: Tue,  8 Sep 2026 19:30:28 -0600
-Message-ID: <20260909013028.508870-1-fahmymohammed@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	d=linux-foundation.org; s=korg; t=1788917517;
+	bh=E6Jg5xIoexoZAriiCVovYZ0qFnPKz2yjpLiaN5i1W4w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dPeLNOU4iXquobDjstLplfC2jXo6o18xmbbGcphLdK9D5cmpMqZS2UVuB3JOZji5d
+	 OGMH4imFVETAs9tjHhLyJhip8JDjOyk4+toRqp+2LjdYyVm1j2gOt80V7JK5Vyuip7
+	 4qCWDeEldXq5FBqxlV+UBvb9y6lnU6DZ5a8VOJ4Q=
+Date: Tue, 8 Sep 2026 18:31:56 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Bo Zhang <zhangbo0325@gmail.com>
+Cc: hannes@cmpxchg.org, baohua@kernel.org, kasong@tencent.com,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org,
+ mhocko@kernel.org, ljs@kernel.org, ryncsn@gmail.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>
+Subject: Re: [PATCH v4] mm: vmscan: avoid anon scanning for GFP_NOIO with
+ low swapcache
+Message-Id: <20260908183156.5f1fcd990ee847589197aac4@linux-foundation.org>
+In-Reply-To: <20260908062649.1045883-1-zhangbo56@xiaomi.com>
+References: <20260908062649.1045883-1-zhangbo56@xiaomi.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-cpqhp_configure_device() calls pci_hp_add_bridge() without checking
-its return value. If pci_hp_add_bridge() fails (e.g. no bus number
-is available for the hot-added bridge), dev->subordinate is left
-unset, so the subsequent pci_bus_add_devices(child) call is
-correctly skipped -- but the failure itself goes completely
-unreported, making such problems very hard to diagnose in the field.
+On Tue,  8 Sep 2026 14:26:49 +0800 Bo Zhang <zhangbo0325@gmail.com> wrote:
 
-Log an error via the driver's existing err() macro when
-pci_hp_add_bridge() fails, and remove the now-resolved TODO entry.
+> We have observed some cases where memory is allocated with GFP_NOIO, so
+> we cannot reclaim any anon folios unless they are in swapcache. We can
+> end up spending more than 150 ms looping in `shrink_folio_list()` scanning
+> non-swapcache folios without reclaiming a single folio. This is pure
+> overhead.
+> 
+> This is particularly true on systems using zRAM, where swapcache is
+> relatively rare. So let's check whether anon reclaim is allowed by
+> GFP_IO and whether there is enough swapcache to make it worthwhile. If
+> the swapcache is extremely low, we're essentially searching for a
+> needle in a haystack, so let's avoid scanning anon in the first place.
+> 
+> On Android this is triggered by dm-verity hash-block reads through
+> dm-bufio, which legitimately use GFP_NOIO because they run underneath the
+> IO path:
+> 
+> ...
+>
+> To stay conservative, this only skips anon when the swapcache is really
+> tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on the
+> list can be reclaimed without IO. Whenever there is a meaningful amount of
+> swapcached anon, the normal path is used and anon is scanned and aged as
+> before.
+> 
+> ...
+>
 
-Signed-off-by: Fahmy Hassan <fahmymohammed@gmail.com>
----
- drivers/pci/hotplug/cpqphp_pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+OK, thanks, I'll add this for testing and more review.
 
-diff --git a/drivers/pci/hotplug/cpqphp_pci.c b/drivers/pci/hotplug/cpqphp_pci.c
-index 81c58b1ec200..34803f36ba65 100644
---- a/drivers/pci/hotplug/cpqphp_pci.c
-+++ b/drivers/pci/hotplug/cpqphp_pci.c
-@@ -100,7 +100,9 @@ int cpqhp_configure_device(struct controller *ctrl, struct pci_func *func)
- 	}
- 
- 	if (func->pci_dev->hdr_type == PCI_HEADER_TYPE_BRIDGE) {
--		pci_hp_add_bridge(func->pci_dev);
-+		if (pci_hp_add_bridge(func->pci_dev))
-+			err("bus/device/function %x/%x/%x: pci_hp_add_bridge() failed\n",
-+			    func->bus, func->device, func->function);
- 		child = func->pci_dev->subordinate;
- 		if (child)
- 			pci_bus_add_devices(child);
--- 
-2.53.0
+With trepidation.  It's easy to play whack-a-mole with this code:
+improve one thing, worsen another.  Unfortunately the "improve" step is
+apparent immediately whereas "worsen" can take years.
 
+So, as I said, testing and more review.
