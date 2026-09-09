@@ -1,197 +1,143 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD91636B043
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974347; cv=pass; b=oIKRW+bQRt8A/xTyHVXf3qzKi04/CcgdJyhYb5Pr931bCcpVsLc5+S0gRrEPE+th/NkK5aCyyTLYIj5dxwTb7vFMomEuHBYX319h33nQmlmeLz2JZ+NLc+FSrWORT4SDlWIAMRmcgim8l4z0tXgbY2ZslT/SMvn6YYWbbz5vQxs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974347; c=relaxed/simple;
-	bh=BQ+Hst8gOUWR37L4XOKGfAUQBTOzIL1QvKMGUdQMdVA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kiIf/zprz68zGovuUR76Bmhe1TIr5yU7iGxoWBXWRGEbLewedDwnNfSnWL6GKt8ZpFkez7fZW/+OCEAt96V46eLx0PmT0S53EOWlNMc4/Y/Y8IaK+KvZOA2hisOccSQ2wLCTlo5AU9dNgIAGPZ1Vs9cexnLxYXnkvZlWDygjP1s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=z5hGrFdL; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ED3342CB0;
+	Wed,  9 Sep 2026 17:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788974348; cv=none; b=U7te0ARfibdn9luVKqNsMWwPUg3eUXizuh8+CqHMjYWGdNOozHhjuIcOK5UCdlvknaFTDVqyl8J/l4PrflyAX4Z7cIKk/iLW0rrpU1LsyAvh3lqqr9/2nmhcZmhH2FapSPAgKyB10OIYrw49a0IpAdWb1hPGmhzOMq14K8zrJnI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788974348; c=relaxed/simple;
+	bh=f45NHBdqgQgRD+lkCVot4c4JJkepPy7huNDkyWBT+1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RSXYygM+xgDXAlZ5h+sTVjA0EDhulk085AmzMztR1PgFTzvdb2Qt/SZBI+ViTlLqHrM5V3sAXzDL/k1bXTDoR4TljQc16GWGfaBkYeahe+yZEDJdzkHDsC/t7Q5MmB7S+ZI9IwEBegJnu10xt4FOwQ95HUg0nFyKWVyVurok5XE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQXXW/Yb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="z5hGrFdL"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab201ecso632225d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:19:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788974345; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nxiaIa8na9eiSjF3EZM/FXomTxiZ4t5ADtRpQTtpNxCwXt3NPTS6Bq2j20DCZJDTu2
-         hcHJwz+vWXsKMqS11qdNa/nvklCzKkg20eFGHWnZ5m8AxIqUFsBnLQhIh+3fadHGv4DY
-         DnUcmY17Eymh0naUVu/QOZQ9M26K1/nUgCsMFavWDdzOZ4iN0MU3lsN7P+vI/HYXlqAr
-         5tOG3H0gzK9te1o880sQamN1I1xQdkdm0lkPcQGTKOpRYQut+83Vv3+C9YXHqrW/64WF
-         AHtlXFIchY+epoNKzQ5yYAdm16bV5uqlWcwXw12T2AcL5A8fmeItrgW7TFsMFq2Osmfx
-         Y5Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6E68RRU9n5lqapFJ2+/cJtqMKWFxDFCie3V1FAMd+4g=;
-        fh=ujgVS7zT2/wgOwDFlHkFAOGAPEj44UU8+IF08RHXsjo=;
-        b=ot9gzoRxNbmKqQB5m51XWIEuHsPDfNjZo/NcbSfFl6/+ZW36Hi7HstgbrPdrMLJRNp
-         1qH/iJhrU2eePNBlgvH2/h7eeYtztZpKQ3L46dG5TGJoWICIeAYm3kriN/omeEmymDUK
-         hOhyqHgCmip73NGWHC1aUmkzCMYXXlZU7rdjxCyNRAD/x5OVL2XZGl6bAIEiPgLdNeNo
-         ONZnelcV3Tb+Z+jHNsluP1gKjgHjlkX9i3VCf8qLIxgiYF5CC7EvncS28gBvfT54YpZ9
-         FuhDqY1k+l1QsUmANrv4G28V/Ch+a9dSrHyB+QC81uRE3NYYNq6gldCcw6W4s2dusxnI
-         ooIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788974345; x=1789579145; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6E68RRU9n5lqapFJ2+/cJtqMKWFxDFCie3V1FAMd+4g=;
-        b=z5hGrFdLgDm+Rboba1delLX9FtBlGxiqFqtudICHSpjiuW5vLNEDkDrgXRLUm1PXXg
-         kLmD2HNMODCvIVFA8LA/2qGCV2uYXs85B0YZxMcn6U6pToLCx6fw6XKfnjI1NT62uQ9m
-         NQcfRaQvAnUtYKnCqle6DedFs4YvKDjGIKJlYdRZJedWgD/D8g37YzjaVGuuvzohaFXp
-         9pMU6JoGGgOux4/Fadq7gM+tY8ttdQWnQGyPgBzhHyccVOkEMqNJkVOsQdUqxszwPgoX
-         PRv9sM321iDCHK5aydwxCllwGLdEq57cHpyBW70GVCfH2jzsP1wpZLE0afTHdNvqgtv6
-         LLCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974345; x=1789579145;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6E68RRU9n5lqapFJ2+/cJtqMKWFxDFCie3V1FAMd+4g=;
-        b=F6TebVkHOSjQnEWObbDOzOhY8K56ZgBpMcxbUSniXzdpelWxfXq2jGG+p0+9sCroyA
-         Prp7q9YxMr1XnVim143u5/Zp6sYfT8fyNNS+qV7Cul3ZYZNoaRm8o17BjKxyOCjUpieS
-         dyFRbEBuGmZ0YFXZPT7lfdq3CEVUpyjvXOi3hFtrn6cHobxeKCHxDOvJUy6aHJEaKaIH
-         kLQMGFm+cf8+NsyZsWdxll4m+L0DpvSHLHGiEAdH+xzWZEBPR0dZcjkOcWSSDEMmaGrr
-         +4GsGN05Gn+uYHJsmn0n4FVA5HZHzpg4QyxHppAb9+/7JMuhQ0keD31JzaOAvmy6tiG6
-         cqkg==
-X-Forwarded-Encrypted: i=1; AKwUvByB0twDaG4DOXzr8D3PcK27L7yPuCVkIhVAmkLH5P5Dt0KUYceXgGFicGRBib+UAgeKHsV0P9LLBofU2U4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nt73DeK16do5um4sx9FLIiwmoBVfvxnNHz6agigWb1MSxrJRuW
-	jQMDRrR422K6zhSa7CyLDnKV51ZhSchI6Fe0HahIFmsRid92FBtS5ENJI4obyhVV9TCQb9hw/+a
-	jlivGmmMgmDl2HAs8EKT22LRnDU0Tp2UsdUsI/SC58g==
-X-Gm-Gg: AYBFou33GyYMRVx9ywzt/FvxZBoqYBbKe+wtqgygBf3AfGPZ17MPxkzN+Qo9tAMdd4a
-	+Y6m9C/UddhfjfTV8d5BtnWqz93pJcTDieB7IOH5l+1jP7iJ8cswVRqNJRb5wWNaOK43SzV1wj8
-	4zjamarXuX68Li56XhlvEEk3He2Qud350yVvBzyo3ldtPz4femruQBnjDSN0yok3NO9cwmYMBgr
-	X7DpmFPfyhDDrWa6OVNzCIBCO1uH1dBSzCf5GMN4TRORITFEEWxRedi10/sOy0Ef/S5gffSp++x
-	u4CB1Yu+ncXNqIYF6KGFPRaN700HWnc1htSZfibyEBYzF+RQAGWhTvE=
-X-Received: by 2002:a05:690e:1407:b0:66f:c284:4806 with SMTP id
- 956f58d0204a3-67110027d40mr1411230d50.66.1788974344494; Wed, 09 Sep 2026
- 10:19:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQXXW/Yb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913BB1F000FF;
+	Wed,  9 Sep 2026 17:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788974346;
+	bh=uZltEzvklF0alHImzEAERiA+PVh7E3q1Jsm6Z/RtKTY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MQXXW/YbQGdiAIOm/kF6qSQKC7Ng+EPy144HC7OYn6CjwTnO5XWjO7Fby43eLrzWL
+	 C4v7HlqfPUMh7aLVhgNgLCPxrwfK9rFCTOzP/AbhNM+v9awOcMSWRrwtyed7ujlmrc
+	 TBRixw4lcb2nR6NEu0ZEH8zY0RdDOdB+sdevCNXWSZ3DrnQqGNBuXEd4hT1E8WCqcL
+	 QbPAQK3LFUzPVD0mmWQ5kIAXPikUPIw+BA6lLDkeFrGP/Ak2spaars2paiPewdCRMl
+	 p6+rfJXjhu4UmR2WG5dbKPBzIOcRO14X4tVJiHvJtWVrT2jF6+ab/wKc7vcX1gcggT
+	 e6LVYwM1m6f6A==
+Message-ID: <84e667f0-f065-4679-b519-5151aff04e56@kernel.org>
+Date: Wed, 9 Sep 2026 19:18:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909024011.1252694-1-nikhilljatt@gmail.com>
-In-Reply-To: <20260909024011.1252694-1-nikhilljatt@gmail.com>
-From: Emil Tsalapatis <linux-lists@etsalapatis.com>
-Date: Wed, 9 Sep 2026 13:18:52 -0400
-X-Gm-Features: AcwNN1U4pDVgjWmRTrx7PuoPtmF0Fx_Otlis6cGINQ1Y-tUySGzn4ekMF7-3TDY
-Message-ID: <CABFh=a7Z=heZODVsXwisY3VwULDy-Rq1hwO09exgX2d0-KzgUQ@mail.gmail.com>
-Subject: Re: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
-To: Nikhil <nikhilljatt@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, jolsa@kernel.org, john.fastabend@gmail.com, 
-	sdf@fomichev.me, horms@kernel.org, dsahern@gmail.com, hawk@kernel.org, 
-	razor@blackwall.org, stable@vger.kernel.org, bpf@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/12] mm/sparse: refactor sparse_sections_init()
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-2-008fc8d579fe@kernel.org>
+ <aqGSv_VPT1IKGgIs@localhost.localdomain>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqGSv_VPT1IKGgIs@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026 at 10:40=E2=80=AFPM Nikhil <nikhilljatt@gmail.com> wrot=
-e:
->
-> bpf_ipv4_fib_lookup() and bpf_ipv6_fib_lookup() copy the neighbour's
-> link layer address into params->dmac without any synchronisation, but
-> neigh_update() writes neigh->ha under write_seqlock(&neigh->ha_lock)
-> exactly because there are lockless readers.  A BPF program calling
-> bpf_fib_lookup() while the neighbour is being updated can therefore be
-> handed a torn address, and XDP/tc then forwards the packet to a bogus
-> L2 destination.
->
-> neigh_ha_snapshot() cannot be used here because it copies dev->addr_len
-> bytes while params->dmac is only ETH_ALEN long (an IPoIB egress device
-> has addr_len 20 and would overflow into params->smac), so open-code the
-> seqlock loop around the ETH_ALEN copy.
->
-> Same problem and same fix as commit 57549ab90791 ("net: bridge: arp/nd
-> proxy: fix reading neigh ha") and commit b824059a673b ("vxlan: fix
-> reading neigh ha").
->
-> Reproduced on x86_64 under qemu: a dummy device holds a permanent
-> neighbour whose lladdr is flipped between aa:aa:aa:aa:aa:aa and
-> bb:bb:bb:bb:bb:bb with RTM_NEWNEIGH, while an XDP program driven by
-> BPF_PROG_TEST_RUN calls bpf_fib_lookup() in a loop and checks that all
-> six bytes of the returned dmac are equal.  Before this patch: 211 torn
-> addresses out of 16300000 lookups (last one aa:aa:aa:aa:bb:bb).  After
-> this patch: 0 out of 38060000 lookups.
->
-> Fixes: 87f5fc7e48dd ("bpf: Provide helper to do forwarding lookups in ker=
-nel FIB table")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nikhil <nikhilljatt@gmail.com>
-> ---
+On 9/9/26 19:09, Oscar Salvador (SUSE) wrote:
+> On Wed, Sep 09, 2026 at 03:32:55PM +0200, David Hildenbrand (Arm) wrote:
+>> memory_present() really identifies+prepares all early sections so the
+>> initialization in sparse_init() can properly iterating them to
+>> initialize metadata.
+>>
+>> Let's just inline memory_present() into sparse_sections_init() and
+>> cleaning up the code a bit while at it: make it clear that we are operating
+>> on pfns.
+>>
+>> Note that we call set_section_nid() now only if the section
+>> was not already created earlier. Now, there is no more inconsistency
+>> between what we (temporarily) store in ms->section_mem_map and what
+>> we store in our section->nid array.
+>>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Acked-by: Oscar Salvador <osalvador@suse.de>
+> 
+> Not sure if it was intentional, but it seems we lost the "Initialize memory section ..."
+> comment.
+> Do we want to put it back? Maybe for the folks that are not really
+> familiar with all the memory section's inner stuff?
 
-Bot is right wrt possible lockups, please adjust the seqlock
-accordingly. Also please
-add your full name in the SOB.
+Munchus patch added it, and I asked him to remove that comment (as it's
+imprecise). So I expect, once I rebase on top of his updated work, that that
+comment will be gone right away :)
 
-pw-bot: cr
+Thanks!
 
->  net/core/filter.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
->
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> index 61940e753552..6fdb85c9af44 100644
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
-> @@ -6298,6 +6298,20 @@ static const struct bpf_func_proto bpf_skb_get_xfr=
-m_state_proto =3D {
->  #endif
->
->  #if IS_ENABLED(CONFIG_INET) || IS_ENABLED(CONFIG_IPV6)
-> +/* Take a stable snapshot of the neighbour's link layer address.
-> + * neigh_ha_snapshot() can not be used here because it copies dev->addr_=
-len
-> + * bytes while params->dmac is only ETH_ALEN long.
-> + */
-> +static void bpf_fib_dmac_snapshot(u8 *dmac, const struct neighbour *neig=
-h)
-> +{
-> +       unsigned int seq;
-> +
-> +       do {
-> +               seq =3D read_seqbegin(&neigh->ha_lock);
-> +               memcpy(dmac, neigh->ha, ETH_ALEN);
-> +       } while (read_seqretry(&neigh->ha_lock, seq));
-> +}
-> +
->  static int bpf_fib_set_fwd_params(struct net_device *dev,
->                                   struct bpf_fib_lookup *params,
->                                   u32 flags, u32 mtu, u32 in_ifindex)
-> @@ -6491,7 +6505,7 @@ static int bpf_ipv4_fib_lookup(struct net *net, str=
-uct bpf_fib_lookup *params,
->
->         if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
->                 return BPF_FIB_LKUP_RET_NO_NEIGH;
-> -       memcpy(params->dmac, neigh->ha, ETH_ALEN);
-> +       bpf_fib_dmac_snapshot(params->dmac, neigh);
->         memcpy(params->smac, dev->dev_addr, ETH_ALEN);
->
->  set_fwd_params:
-> @@ -6644,7 +6658,7 @@ static int bpf_ipv6_fib_lookup(struct net *net, str=
-uct bpf_fib_lookup *params,
->         neigh =3D __ipv6_neigh_lookup_noref(dev, dst);
->         if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
->                 return BPF_FIB_LKUP_RET_NO_NEIGH;
-> -       memcpy(params->dmac, neigh->ha, ETH_ALEN);
-> +       bpf_fib_dmac_snapshot(params->dmac, neigh);
->         memcpy(params->smac, dev->dev_addr, ETH_ALEN);
->
->  set_fwd_params:
-> --
-> 2.43.0
->
->
+-- 
+Cheers,
+
+David
