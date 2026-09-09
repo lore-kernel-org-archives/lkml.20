@@ -1,62 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F11C1DA62E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077C13148D0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922711; cv=none; b=izIliTiRW/6OehBTzQQIJeMa7vR9hBAMpUINmbBzT7XECR99kKOZSlUGeTumu28lMya31X9t5B0dtCfOaEr6vIKFGMG4vAy6zD2O3meDev3MFQzW1p8uSy9HMSWlR2JZWdrwpJYBEQ0LQyCy7Zahp2TQCbCWepEAJXoLmvwYQGY=
+	t=1788922715; cv=none; b=u+NoEbRq/qEm8Avfk43ktkrlrpcBkFoUqqlBgVVXuXWGrKaXnwXTqH9cXHaK6Inj50KGTmgFkpSLVxGG3ZGNiMurU+K0jO4DFY94PqMSrREGs1umJbuca+UHvwBzA3YSGM/BeyCTfazOW3/XWPvJ+IYppftV0FlQRCSVO4RYHVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922711; c=relaxed/simple;
-	bh=/yp9+cIos9koMvxwxLGdm08i9KRBbhwCZbpxjbWIwKc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kLKbmyRc06SVWrIlB6tRU1OmerDpG06nkPr5UzgqrdhEyzdngZNa8eOMUcIs+D+z1WAm2TS8kNz92LlRGPygYoXDtZfWMXd4uDUUkrzdHWqMZZIJZnuVfllURAKER2YaUeZLuySBjjINztEJj9vIGZZ9BDVhlA0WokMgWt1zksA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R88goYEB; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1788922715; c=relaxed/simple;
+	bh=K7uQcMj7z4luXqRDBQtVBqzLIiGA/6p1ooKeTvkbEwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JLXhCoGszXB/320MgMSNQGl/XxgBXaZMFPiLLC8csI496JZ/28D6krdou/DcqbEyHPAkbnPpW8tlSosBtaWR6ufqxUcTGTSYXxLMGYdtQzTT6SX7h7isAHHTQ3twfGAWyFHP4wWWF3PdzmY65dtsB2WzKgbKIws/NRxLRolUItM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YWgCeAsz; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R88goYEB"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso470294a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 19:58:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YWgCeAsz"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so4438794a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 19:58:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788922710; x=1789527510; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gc/4LmELTKxt6hwR9Cs57QnS0HmHAvtDF3Qbdi4WaKk=;
-        b=R88goYEBOzq9uBcVnFHZSFyRP32+83KfNLrXi+zCc8t1fJhpB95F3FwHbD0Ho23uHC
-         teBq+rB24KA1BmNvzd+5krxYSB8nrYJ3Vp0cSYIaZ0QJkKYOgplyvOlQqPJnBiTaIMVK
-         +s7DBude3PP9TdQ9xKuHgLxyK7SVmkoMuuJqrwAMGinZMxX7Uz6stD93AU7oE84CbXzQ
-         wYUF+fJHtfe6XBRrufOEN2lxhfcj1xMS1tsurL6vfyQocDuObO8ePWdVZY9i0XfObMzU
-         jT+IaopXPo3vD+mLdjrP162ylkHxvaRCxzb+YBHRXhzDWkFQH/quZvcVniyBM0Fda/hk
-         Dtkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788922710; x=1789527510;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788922713; x=1789527513; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gc/4LmELTKxt6hwR9Cs57QnS0HmHAvtDF3Qbdi4WaKk=;
-        b=Z/IFqZCagsHIuqdkzflkinZQUOH59CgBuT9zaOToYjm02oysfznTRTx8zOFo3siGzV
-         xfQn8UDdGE7H4z8LCsngxWapmPc6cj44gGxEfnoTOhwFgTjM5g817uxfJQtxpBIsv8VS
-         zDAhgI3UPmHMYAh3RKze41uhcr55pbc9hBpuQXw4fKINkBNpDQCxmAHIrXhvoEXdmeeG
-         fSzwUzp74HvsnXSoEyp1ze0AEEg+7LaV1BWREu6efnJesdoE09RXDuNuIRY+1r9PXdQF
-         dHA4WOHwpQySp0IlnmCafu+LJrqpPrlsnMplHXuSLlXA5EwCnAXtEqPnyHrmCCAG4ws3
-         ufxw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHBJGCNMdfMh+eEnche/9dfzgC40GEpjC96TYVPbhgm6kavMiY0BGtAjY0IK845NiacdULenh0Yrrgwzs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mApUGbtNa47TWwTd52h28tE+NhDDURjDqLewhzRoobVTnVjEwN
-	YJIddCqVST9n+jmL0em9KGthvXfGs9qPw2Hg4vvZxwJEXGQE4sUxnRx/
-X-Gm-Gg: AYBFou3ZMeBmbav18nUPDp5bolI5/w0vYsepBSEimqr6itE6ftanSIagKn8ui/j+HA/
-	l9bYfbzP+w+6PBFhKSneQ603z/RNkn+PNzIJhBhJNReCaNwSxLQ53GoPHFY7J5v4DXKKF7YS5Lq
-	cpnOxHj7GlddSViHgxQJzPI2XuvW0UfAwQRPpJBqtUTIuRfkE4/s8LPJz6KKGor6UC/chVjncK6
-	MiO4YHCS7rcwvNslKohbouHGEaA7rWEjtnr6sZRklQT9BF3qvl+chvvpkOwMHbAUpSsVUKEpVnR
-	5CW7MyHzVB/yCd9IoZX+G+/hRdml7syII8Szchn5ZG+naUplTjgmXwRK/B99F50R4b46ePwEO6+
-	hkuzqnuyxGMT5xmh0f4c4Sj7oqWSK+Q+qJHbC6BeQPGsrn4Y/oNN6CsIu+57gt+iuQPoKoQ8lmq
-	IJY33vOz/S9z9Vaj1P9IEOvh8aQE0W60y0t9gzUENh0oLfyrZ/aElTWK6F65Ss4MJZUoFc1XMqN
-	aPkysfeBlI+rA==
-X-Received: by 2002:a17:90b:5485:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39bac34a3cemr4635597a91.12.1788922709582;
-        Tue, 08 Sep 2026 19:58:29 -0700 (PDT)
+        bh=sdv4IQZIJENY7PTBs1f5yW/iQydimvcyHFBLXl2Ap5U=;
+        b=YWgCeAszWD58jLr8cMamtsH+7cPpBLTa4b3yW3RqNvZLwdRwF+HWW5hroYGTy0ngQQ
+         4jr5bB0OjCnxsw+taUOZOuoG8H8prvbIC5NJEvTrZY4B5Ze9SRYhDTunq809zvJz6XyU
+         Q5CCOzV5DZuuE2edPLOrgBNbaYx1B3reIvvF6cyA5673Wg3uP39wGGBUd+1eXyUUwojO
+         LQLXod0ZmEQfi8uYYmUb5sSO9FeOHach9nG7Wv+blF407x59KCGl+mBLadunxusFQTrS
+         t6GEQk0LTAHQMZhBB3vg7/1YP5YqEU4tA9LC3ZgnKWm+BxHxlJy49bPBEPYjWvhmYj1v
+         5dhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788922713; x=1789527513;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sdv4IQZIJENY7PTBs1f5yW/iQydimvcyHFBLXl2Ap5U=;
+        b=Yv0Mdfrc/7Z4h4vlzukfG+KHFLd/K8YtQ4GaCuxss4ya9o5gB0Ijtx9Wa+OgdcZdDf
+         5BVKUpq1ips6LVr5F+heeEzcTTjJB8toKlI4OkrFNY2TC6eD7FnZ3sWZ8F1/MxKxuWv+
+         Xslb1jNCOq54P8KFaDTfyX5EbRPXe8Ch48bAGiDohsV6sgJKRhO6jqBqzNyVyeJudaH5
+         S236b+4/W0FIjJVbc+wNUbrIFLt+6eWb5ZBSWpj1nf1jzi5q9fazw6FiMcL2gH6epTuw
+         S8XmBX0RlPdbauszYY4/x0fYbyWuIr+WeUFZpz49jFiywlZbFl0Yb4CWxJsyQIfTgYEA
+         Reog==
+X-Forwarded-Encrypted: i=1; AKwUvByba1kbVdTsbIVEuUs6xWz8l6RDqqUgHC37YNj9Gi4rBf47tUdVZBJIijB+B3/dxkDSh8xEX+J8lgailao=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+77VhCg2CGVmPVrFJhCLv7WkAZ5yhTp7hNQ26rBX7ogXZiA+P
+	b10zeMt+bPFpb4iCKxoSn9QxdEPqpqb97Nm2ZWMka3eu4JMWhW2vDQfx
+X-Gm-Gg: AYBFou0Q5gz2KMtrWtUWEbdFuUzrOuOHm8jWC9VNyWsPubvInSsB9IcPLhKAjfTlOLN
+	xsU927T19X0AXF0B+peqwWOhJZ9Q4QsCqoeRdsDyBAWiivIDTgYcRksRSipNRm70rcJMYtonSm9
+	JEAqH8REZM3H0ii3GnjuTTjQkT8g869iA80E8GK7cYg8j0kobZ82lUwEPVb9QKK/ZYSUerOGwMa
+	L9RDrmG4dDFFVgs0T26MCKjLU/Mz2iPpCs7bUV9drqPnOAV+tgX3e4LX8AxYq5HSPa7Imq9oNO0
+	o6zxRV1w68GzYf/IM/1EE1xBIA6/IiKD4JUiZCR2+5hB+TfS7IVj4TaWsfT6eAeC2U1VpGUjEpP
+	P7dmvNOfnYTgzZhQp9DQk5hJOM9NKStgt1F8E8/4qIuNZ/ixO6/AAoaD5jZT1XFI8PGvZfiqCQV
+	Hz/Qh7VN8gaScjVxSxu05Ph15Dgs9lXanxLuRuK6qjRNhUCURyLL7xn/gCmUxjuP/otoKha2dpm
+	jxRsM+U6eC2Cg==
+X-Received: by 2002:a17:90b:3a81:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-39b2612eaa4mr45424270a91.10.1788922713364;
+        Tue, 08 Sep 2026 19:58:33 -0700 (PDT)
 Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39451sm35077172a91.7.2026.09.08.19.58.25
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39451sm35077172a91.7.2026.09.08.19.58.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 19:58:28 -0700 (PDT)
+        Tue, 08 Sep 2026 19:58:32 -0700 (PDT)
 From: Vernon Yang <vernon2gm@gmail.com>
 To: akpm@linux-foundation.org,
 	david@kernel.org,
@@ -72,10 +74,12 @@ Cc: nico.pache@linux.dev,
 	linux-mm@kvack.org,
 	stable@vger.kernel.org,
 	Vernon Yang <yanglincheng@kylinos.cn>
-Subject: [PATCH v5 0/3] mm: khugepaged: fix tracepoint UAF
-Date: Wed,  9 Sep 2026 10:58:00 +0800
-Message-ID: <20260909025804.3233645-1-vernon2gm@gmail.com>
+Subject: [PATCH v5 1/3] mm: khugepaged: fix swap entry value to folio_pfn()
+Date: Wed,  9 Sep 2026 10:58:01 +0800
+Message-ID: <20260909025804.3233645-2-vernon2gm@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909025804.3233645-1-vernon2gm@gmail.com>
+References: <20260909025804.3233645-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,53 +90,112 @@ Content-Transfer-Encoding: 8bit
 
 From: Vernon Yang <yanglincheng@kylinos.cn>
 
-The khugepaged tracepoints take a folio pointer and call folio_pfn(),
-but by then the folio may no longer be valid: freed after folio_put(),
-folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
-xarray-encoded swap entry. On classic SPARSEMEM, dereferencing it oopses
-khugepaged as soon as the trace event is enabled; on other memory models
-it merely prints a bogus pfn.
+When the swap entries found exceed max_ptes_swap, the loop is left via
+break with folio still holding the xarray value that encodes the swap
+entry, not valid folio pointer.
 
-Pass the pfn to the tracepoints directly, captured while the folio is
-still pinned, closing the use-after-free windows in
-mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
-mm_khugepaged_collapse_file().
+That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
+to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
+plain pointer arithmetic, so the trace event merely prints bogus
+scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
+dereferencing the tiny encoded integer and oopsing khugepaged whenever
+the trace event is enabled.
 
-This series is based on mm-new + revert v4.
+So when folio is the swap entry value, simply set pfn to -1, just like
+exhausted scan naturally.
 
-V4 -> V5:
-- Use a single trace statement.
-- Collect Acked-by.
+And the folio_put() has maybe dropped the last reference of folio. The
+trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.
+so using the folio_pfn() before dropping the reference, closing
+use-after-free window.
 
-V3 -> V4:
-- Only trace the PFN if it really was problematic.
-- Calling the respective trace_xxx() functions separately on success and
-  failure.
-- Set new_pfn once after successful alloc_charge_folio().
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+---
+ include/trace/events/huge_memory.h | 6 +++---
+ mm/khugepaged.c                    | 7 ++++++-
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
-V2 -> V3:
-- Place folio_pfn() inside the xas_for_each() loop in PATCH#1.
-- Already defaulted the pfn value to -1, to simple it in PATCH#2.
-
-V1 -> V2:
-- Instead of passing the folio, just pass the pfn directly.
-- Using the folio_pfn() before dropping the reference or the page table
-  lock.
-
-V4 : https://lore.kernel.org/linux-mm/20260828055926.346744-1-vernon2gm@gmail.com/
-V3 : https://lore.kernel.org/linux-mm/20260824092935.73892-1-vernon2gm@gmail.com/
-V2 : https://lore.kernel.org/linux-mm/20260815051924.194810-1-vernon2gm@gmail.com/
-V1 : https://lore.kernel.org/linux-mm/20260811133655.267739-1-vernon2gm@gmail.com/
-
-Vernon Yang (3):
-  mm: khugepaged: fix swap entry value to folio_pfn()
-  mm: khugepaged: fix folio is used after pte_unmap_unlock()
-  mm: khugepaged: fix folio is used after folio_put/unlock()
-
- include/trace/events/huge_memory.h | 18 +++++++++---------
- mm/khugepaged.c                    | 21 ++++++++++++++++++---
- 2 files changed, 27 insertions(+), 12 deletions(-)
-
---
+diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+index 5a48c5406cce..7b526528f85b 100644
+--- a/include/trace/events/huge_memory.h
++++ b/include/trace/events/huge_memory.h
+@@ -178,10 +178,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
+ 
+ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+-	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
++	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
+ 		 int present, int swap, int result),
+ 
+-	TP_ARGS(mm, folio, file, present, swap, result),
++	TP_ARGS(mm, pfn, file, present, swap, result),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct mm_struct *, mm)
+@@ -194,7 +194,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+ 	TP_fast_assign(
+ 		__entry->mm = mm;
+-		__entry->pfn = folio ? folio_pfn(folio) : -1;
++		__entry->pfn = pfn;
+ 		__assign_str(filename);
+ 		__entry->present = present;
+ 		__entry->swap = swap;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index e6947fe142ee..6ee0ad13a31f 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2690,6 +2690,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 	int present, swap;
+ 	int node = NUMA_NO_NODE;
+ 	enum scan_result result = SCAN_SUCCEED;
++	unsigned long failed_pfn = -1;
+ 
+ 	present = 0;
+ 	swap = 0;
+@@ -2722,6 +2723,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 
+ 		if (is_pmd_order(folio_order(folio))) {
+ 			result = SCAN_PTE_MAPPED_HUGEPAGE;
++			failed_pfn = folio_pfn(folio);
+ 			/*
+ 			 * PMD-sized THP implies that we can only try
+ 			 * retracting the PTE table.
+@@ -2733,6 +2735,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 		node = folio_nid(folio);
+ 		if (collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
++			failed_pfn = folio_pfn(folio);
+ 			folio_put(folio);
+ 			break;
+ 		}
+@@ -2740,12 +2743,14 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 
+ 		if (!folio_test_lru(folio)) {
+ 			result = SCAN_PAGE_LRU;
++			failed_pfn = folio_pfn(folio);
+ 			folio_put(folio);
+ 			break;
+ 		}
+ 
+ 		if (folio_expected_ref_count(folio) + 1 != folio_ref_count(folio)) {
+ 			result = SCAN_PAGE_COUNT;
++			failed_pfn = folio_pfn(folio);
+ 			folio_put(folio);
+ 			break;
+ 		}
+@@ -2780,7 +2785,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 		}
+ 	}
+ 
+-	trace_mm_khugepaged_scan_file(mm, folio, file, present, swap, result);
++	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
+ 	return result;
+ }
+ 
+-- 
 2.53.0
 
