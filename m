@@ -1,179 +1,73 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA9E3579810;
-	Wed,  9 Sep 2026 14:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC0B566C73;
+	Wed,  9 Sep 2026 14:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964543; cv=none; b=tdi9ESEM4aCFAvt+QtkMgmsEQkb+ujnsi7yOa/sFVM0QMc2pBOggS396IeWtSfQOwBxbaRr8yfCQ0KaHguJAkSLAL/wzyGo6+dGdmgOkIxJoMUSQYYLXLv7vPZqPXfNecGXh6u9eRbnSU5NsiBWqpIPrJwHIYfFuRTlkliqxU3U=
+	t=1788964566; cv=none; b=MrSQJ5k5PA68ge1ZsAS/q5cmuKdOkrAk61mS8dXKzFDXM7QhChJEmLiD9hgkQuVad6xj3mx8Hol+Y6aZLwqyiywXDrxUnxNht1bjdrWzZADAvMz9qrQLlwRcoBmMCB1bhCe0t/iQEhfMKFahh2UBuEsAV0mSnsa1VZlPXklY4pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964543; c=relaxed/simple;
-	bh=I9XuzW0cEz018KO1kKpVvVK/800kvyU3xHh5hRfnP+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=pk9HrOkuDbcpu9gCMgsIEi0Yudkdnp7aQMlS3VXL9GMnDIDXDfEOj8ql9d2MHtdUpVnHigPlkvEVKnd0Ou66UWeLU5CZWmDLp9oKKrxkf400UQVBx8TJP/ETcUUFef5auft9hl7GkdfXCdfulpJYguInU3LNvNE3DliCBSmPQ2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BqKs46+T; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788964566; c=relaxed/simple;
+	bh=KQsUz0Q48iI4QqBuwniL5ZKJ1EiPmWHH/qogE948XLk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eE+OqHToBTFr9KqvYiRirQAKQItCNq/bdgsIYepT4OQwwu9wckS8q2qTDk9I/Bp554uoXhYcA1xpO2VMckPf7tF2ZtNI6pZTeztlZGdLY7pPRuc9WDYylqpuhFnfYjdFj9KfwSbAc73gxeOKToyn/B4zCgy2hsSOYf4uiJ3wmRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nawkzZRp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BqKs46+T"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 037CB1691;
-	Wed,  9 Sep 2026 07:35:37 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 61A7C3F528;
-	Wed,  9 Sep 2026 07:35:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788964540; bh=I9XuzW0cEz018KO1kKpVvVK/800kvyU3xHh5hRfnP+U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BqKs46+Tdriido5VOOEb+8dsa+BZ+2TaSdLHLwoQDJqu5BOmU8sslti7c6UK1BNkH
-	 c640ChcuSxdgZtAm/+cLOWochAsR310WLvdnktS3rOnEHNXnsitQUN2nRxBPpzY0Ui
-	 QGXmp+pK+/uKU5ureLNQspeJTVYWXAVhoE//ZfXw=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v20 08/14] KVM: arm64: Enforce EXLOCK for SPSR and ELR
-Date: Wed,  9 Sep 2026 15:35:32 +0100
-Message-ID: <aqFutNSGfEpJFKJl@LeoBrasDK>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901-arm64-gcs-v20-8-f31750bdfadb@kernel.org>
-References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org> <20260901-arm64-gcs-v20-8-f31750bdfadb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nawkzZRp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C4C1F00A3A;
+	Wed,  9 Sep 2026 14:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788964565;
+	bh=8SbYVSCe/btcutH19VdtAjOgi/PS9+UH2+WikgQoAl0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nawkzZRpFu1Yhjt7CKjvrpZZ3OvlIMzFjKnIVfkfJ1E4wU81COokXtmvrtCDZ8lnq
+	 v5ULK+YrQnHiqgwxnnb9mBHFEt+McOnua2XlKIDpCr0kCxz75dsDzjNH70eI8ZtV4U
+	 ErmO37HRQzuSrEaYfH8I/Aq0Z+5enqN3UWpOC+zV26DnqkcPtkFMirLuff2LeObKap
+	 PyCCahkMrJo7gB9hd55PtDDispBLQ6sgr1RpHrfBvrAuxDh1r3vLEJhx+c7Ba3CBlw
+	 4QbUXvsZR+3MQjDi3+8UEyd4NCIHPIID78RKRYCR4GuMLJ+KLMd9NHrIWDrVB4gLfE
+	 ajCLMcgYPNnVg==
+Message-ID: <f5636589-1d1b-4b64-9e82-cf4b249ebef8@kernel.org>
+Date: Wed, 9 Sep 2026 09:36:03 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCHv4 3/4] EDAC/altera: Fix code leak on dci allocation
+ failure
+Content-Language: en-US
+To: Rounak Das <rounakdas2025@gmail.com>
+Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260909131253.2158486-1-dinguyen@kernel.org>
+ <20260909131253.2158486-4-dinguyen@kernel.org>
+ <CAPYTKoOmFpCzw5EydwxRdq3LhKP6p+osY=gxvy+KOZWQsXu-qg@mail.gmail.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <CAPYTKoOmFpCzw5EydwxRdq3LhKP6p+osY=gxvy+KOZWQsXu-qg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 10:47:06PM +0100, Mark Brown wrote:
-> As per I_CFFNS and the pseudocode for the SPSR_ELx and ELR_ELx registers
-> a GCS exception with ExType 1 is generated for attempts to write to
-> those registers when both GCSCR_ELx.EXLOCKEN and PSTATE.EXLOCK are set.
-> Ensure that this is enforced for guests if access to these registers
-> from the guest is handled by the hypervisor.
+
+
+On 9/9/26 09:33, Rounak Das wrote:
+> Hi Dinh,
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  arch/arm64/include/asm/kvm_emulate.h |  8 +++++++
->  arch/arm64/kvm/sys_regs.c            | 42 ++++++++++++++++++++++++++++++++----
->  2 files changed, 46 insertions(+), 4 deletions(-)
+>>          if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
+>> +               edac_device_free_ctl_info(dci);
+>>                  return -ENOMEM;
+>> +       }
 > 
-> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
-> index 0cd91b3d6c82..e47ab38327de 100644
-> --- a/arch/arm64/include/asm/kvm_emulate.h
-> +++ b/arch/arm64/include/asm/kvm_emulate.h
-> @@ -81,6 +81,14 @@ int kvm_inject_nested_irq(struct kvm_vcpu *vcpu);
->  int kvm_inject_nested_sea(struct kvm_vcpu *vcpu, bool iabt, u64 addr);
->  int kvm_inject_nested_serror(struct kvm_vcpu *vcpu, u64 esr);
->  
-> +static inline void kvm_inject_exlock(struct kvm_vcpu *vcpu)
-> +{
-> +	u64 esr = FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_GCS) | ESR_ELx_IL |
-> +		  FIELD_PREP(ESR_ELx_ExType_MASK, ESR_ELx_ExType_EXLOCK);
+> This file will not compile since the braces are wrong, there is no starting {.
+> 
+> Also, another thing that I noticed is that 2/4's Fixes tag is missing
+> its closing
+> quote after "probe()".
 
-Seems the likely encoding, based on reading the ESR_EL2 doc, not sure if 
-there is a better place to read that from.
+Argh..Thank you for catching that!
 
-> +
-> +	kvm_inject_sync(vcpu, esr);
-> +}
-> +
->  static inline void kvm_inject_nested_sve_trap(struct kvm_vcpu *vcpu)
->  {
->  	u64 esr = FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SVE) |
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index c5ce18b3f7d8..1f80c26a9839 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-> @@ -2866,14 +2866,42 @@ static bool access_sp_el1(struct kvm_vcpu *vcpu,
->  	return true;
->  }
->  
-> +static inline bool sysregs_exlocked(struct kvm_vcpu *vcpu)
-> +{
-> +	u64 gcscr;
-> +
-> +	if (!kvm_has_gcs(vcpu->kvm))
-> +		return false;
-> +
-> +	if (!(vcpu->arch.ctxt.regs.pstate & PSR_EXLOCK_BIT))
-> +		return false;
-> +
-> +	/*
-> +	 * Note that the EXLOCKEN for the running EL is checked
-> +	 * regardless of the register written to.
-> +	 */
-> +	if (is_hyp_ctxt(vcpu))
-> +		gcscr = vcpu_read_sys_reg(vcpu, GCSCR_EL2);
-> +	else
-> +		gcscr = vcpu_read_sys_reg(vcpu, GCSCR_EL1);
-> +
-> +	return gcscr & GCSCR_ELx_EXLOCKEN;
-> +}
-> +
-
-Right, because on both ELR_ELx and SPSR_EL{1,2} we have to check if
-GCS is enabled && EXLOCKEN=1 && EXLOCK=1, 
-so any of those conditions being false mean no exlock injection is needed. 
-
-
->  static bool access_elr(struct kvm_vcpu *vcpu,
->  		       struct sys_reg_params *p,
->  		       const struct sys_reg_desc *r)
->  {
-> -	if (p->is_write)
-> +	if (p->is_write) {
-> +		if (sysregs_exlocked(vcpu)) {
-> +			kvm_inject_exlock(vcpu);
-> +			return false;
-> +		}
-> +
->  		vcpu_write_sys_reg(vcpu, p->regval, ELR_EL1);
-> -	else
-> +	} else {
->  		p->regval = vcpu_read_sys_reg(vcpu, ELR_EL1);
-> +	}
->  
->  	return true;
->  }
-> @@ -2882,10 +2910,16 @@ static bool access_spsr(struct kvm_vcpu *vcpu,
->  			struct sys_reg_params *p,
->  			const struct sys_reg_desc *r)
->  {
-> -	if (p->is_write)
-> +	if (p->is_write) {
-> +		if (sysregs_exlocked(vcpu)) {
-> +			kvm_inject_exlock(vcpu);
-> +			return false;
-> +		}
-> +
->  		__vcpu_assign_sys_reg(vcpu, SPSR_EL1, p->regval);
-> -	else
-> +	} else {
->  		p->regval = __vcpu_sys_reg(vcpu, SPSR_EL1);
-> +	}
->  
->  	return true;
->  }
-
-FWIW:
-Reviewed-by: Leonardo Bras <leo.bras@arm.com>
-
-Thanks!
-Leo
+> 
+> I will rebase and resend my of_node_put fix once this series lands.
+> 
+Dinh
