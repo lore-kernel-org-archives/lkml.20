@@ -1,111 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2F63B6344;
-	Wed,  9 Sep 2026 06:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5AC3B8BCB;
+	Wed,  9 Sep 2026 06:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788937118; cv=none; b=MPU8A55stkq55rZP1ZNtvTGNe4x2lMDfNewpPetMcFyPEpTdu4ZjV5F25pXHBARxqdLhwD+8m4EEniaqz0Ve1Y6F1+Xkv/nsyF/XF0YFQf0gop2iDngHE+DGvUEh48CUnuE6ut1wo0PansoLojo/9RmcX8mrpR20kp3zLKkcnNo=
+	t=1788937124; cv=none; b=mJpa+4abVpaqqQ4hEytdQCbwFdJ6i6UXXGhsqEKn1Y3mhJf9n8TJggYYRZcGNNIQ7Avd4FW5LiVEshRaQUUJ/KTxnf/5lfSkDpYMzHngzY7qDQ29Nexvr5zAMaRpfccRVx4QdAbLGddx105E6qqs7qRbez+qQM96m/Q2+3UGL6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788937118; c=relaxed/simple;
-	bh=ZwcTGjsFBisObYo5p4yOAzzGAGhYTsp5VgaxYDbNmZ8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=sN6P7YV7aTZKe5qZchLeFQ1UWyFLOGN3BRQ62klClVkbgx+i71orkEpUlrt3o16bpE2AFxaYo1quCoWEYrj/3KsgMf+juma2sX09TMCW+Mc3rVooy4lxrZBl8+UUNG4CVrn6bYTmrpynCK/6IOeJdyUmkKuWHj7LExNGe9tC5oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fMrkjVgp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788937124; c=relaxed/simple;
+	bh=WqFQLn1fBdxcWPYKNeWQbLupTcIautaxDv/54vnL72o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tOWzo+05zGe+K1193ATJ5MRSZD5oH7QnuOniYNcjrIfj+aFhwAWjNJKkGhDbr83BtK0pzo9FRIqGuBznQm65arxsCnOYiNDENjWY1CK/JN6ASs6f9iyCA1nP5kN8MVMe13eJsP/CY24uDClZeXFK4XldERGuYsQWKcyZLtdiiB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=M2GvyRD1; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fMrkjVgp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B080D1F00A3D;
-	Wed,  9 Sep 2026 06:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788937117;
-	bh=IqVLTnDYn66bK2YcqZfK0YLZ2dluSsDrOdyDou0m65A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fMrkjVgpFiPSguDCjRN3DHCdAH3a2In70srjXbI+JAYwfUX62P8hsZPd2kVEkeyMT
-	 ppciAQQLOoiEMj1nm71D9UG3Pj92Z+lOzUrGGp26ZH2SFpWv4pnRHQ7n2v+3vTRY4C
-	 mthRPk1QEDzNhBckcjx4e9AIERtNFGcQSHxfZr88=
-Date: Tue, 8 Sep 2026 23:58:36 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: david@kernel.org, ljs@kernel.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
- Vernon Yang <yanglincheng@kylinos.cn>
-Subject: Re: [PATCH v5 0/3] mm: khugepaged: fix tracepoint UAF
-Message-Id: <20260908235836.43865421771074b81eadd127@linux-foundation.org>
-In-Reply-To: <20260909025804.3233645-1-vernon2gm@gmail.com>
-References: <20260909025804.3233645-1-vernon2gm@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="M2GvyRD1"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id EF9514E415A5;
+	Wed,  9 Sep 2026 06:58:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C20F860448;
+	Wed,  9 Sep 2026 06:58:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A479811C7AF25;
+	Wed,  9 Sep 2026 08:58:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788937117; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=71Kygo8jHNvkAe6mZQB3IStEodnXo2McMHYgNMuc4Y4=;
+	b=M2GvyRD18G1XAuTrgIasAuMI4PftT6Wk0ZB0xpLx/1Rkuvtafe/onTePsN0CRfXvA3nEeL
+	MXt6UafWDiQUBL2H/FebqolSLmKYbZZXOnpTmi9XayZ3vXfo5n/yfblZj0EVXDv8pu/yqb
+	cRRdcI4abSPoLDwvTAAs7vqRip8y5vl4Vf5nIua+9Q1s+cq0IatTHmShN6bXM+sjaeMBSp
+	QG5pdc5HKj7wcFj2auBMmM78WcRfGd/8ouJlv/FIuVxvuZi7REdIoRAXD8CA9f+e0tdW88
+	2GpRC3SSjI4gdgj0HLxfJU99R1hITaxN2DIkqGKA27eq1Pg+XSwB3wVqocUS9g==
+Date: Wed, 9 Sep 2026 08:58:26 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is
+ available at offset 0
+Message-ID: <20260909085826.1f80a45b@bootlin.com>
+In-Reply-To: <aqD6LcbwtrZkk28m@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-3-herve.codina@bootlin.com>
+	<apOhk-NQusFgV5Sx@gractus.seuss>
+	<20260831140119.1f14b420@bootlin.com>
+	<apaBuQ8kn2bOzYcI@gractus.seuss>
+	<20260901141826.49b1a1b7@bootlin.com>
+	<apfKx_u3v3GBfzOz@gractus.seuss>
+	<20260907184641.537cfa49@bootlin.com>
+	<ap-t8qMg5VMwh-T9@gractus.seuss>
+	<20260908100823.1f474894@bootlin.com>
+	<aqD6LcbwtrZkk28m@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed,  9 Sep 2026 10:58:00 +0800 Vernon Yang <vernon2gm@gmail.com> wrote:
+Hi David,
 
-> From: Vernon Yang <yanglincheng@kylinos.cn>
+On Wed, 9 Sep 2026 16:18:22 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+...
+
+> > 
+> > Having a fdt_root_offset() stop at either FDT_BEGIN_NODE_REF or FDT_BEGIN_NODE
+> > is "fdt_first_node_offset()".  
 > 
-> The khugepaged tracepoints take a folio pointer and call folio_pfn(),
-> but by then the folio may no longer be valid: freed after folio_put(),
-> folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
-> xarray-encoded swap entry. On classic SPARSEMEM, dereferencing it oopses
-> khugepaged as soon as the trace event is enabled; on other memory models
-> it merely prints a bogus pfn.
+> > Let me introduce the internal fdt_first_node_offset_()
+> > - fdt_root_offset()
+> >   It calls fdt_first_node_offset_() and check that this node is a
+> >   FDT_BEGIN_NODE node.
+> > 
+> > - fdt_check_node_offset_()
+> >   if the offset == 0, it updates the value with the offset returned by
+> >   fdt_first_node_offset_()  
 > 
-> Pass the pfn to the tracepoints directly, captured while the folio is
-> still pinned, closing the use-after-free windows in
-> mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
-> mm_khugepaged_collapse_file().
+> Right, that's exactly what I'd suggest.
+> 
+> A possible tweak would be to have fdt_check_node_offset_() only apply
+> special case 0 handling if the _actual_ offset 0 doesn't look like a
+> valid node offset.  Not sure if that will make things messier or
+> cleaner.
+> 
+> > And so, a node offset 0 doesn't means the root node but the first node
+> > in the dtb (root or orphan). I am totally fine with this definition.  
+> 
+> Right.  If you don't want that behaviour for addon dtbs, then I think
+> the way to go would be to explicitly avoid all special case handling
+> of 0 if the header flags an addon.  Handling addons requires new code,
+> so we don't have to maintain backwards compatibliity for things that
+> used 0 assuming it meant root node.
+> 
+> > At some point, maybe users of the API (when addon are involved) will have to
+> > take care of that and perform something like:
+> >   root = fdt_root_offset();
+> >   fdt_get_property(fdt, root, "prop", NULL);
+> > 
+> > Or
+> >   fdt_for_each_orphan(orphan, fdt) {
+> >      fdt_get_property(fdt, orphan, "prop", NULL);
+> >      ...
+> >   }
+> > 
+> > Here also, I am totally fine with that an I already use this kind of sequence
+> > in libfdt/fdt_addon.c to apply an addon on a base dtb.
+> > 
+> > I will introduce fdt_first_node_offset_() but let me know if you prefer
+> > having fdt_first_node_offset_() introduced right now in this "structure
+> > tags" series or later in the addon series.  
+> 
+> Either is fine; do whichever results in less code churn.
+> 
 
-Thanks, I've updated mm.git to this version.
+Ok, I will do that.
 
-> V4 -> V5:
-> - Use a single trace statement.
-> - Collect Acked-by.
+Do you want to have an early version of that or having it in the next iteration
+of the series is fine on you side ?
 
-Here's how v5 altered mm.git:
+Of course, before sending a new iteration of the series, I am waiting for your feedback on
+the "structured tags" part. This part is not going to be impacted by the "offset 0 vs real
+root offset" we have discussed here and so what is available in this current series is still
+valid.
+
+Best regards,
+Hervé
 
 
- mm/khugepaged.c |   15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
-
---- a/mm/khugepaged.c~b
-+++ a/mm/khugepaged.c
-@@ -1790,13 +1790,10 @@ out_unmap:
- 				       unmapped, cc, enabled_orders);
- 		/* mmap_lock was released above, set lock_dropped */
- 		*lock_dropped = true;
--		trace_mm_khugepaged_scan_pmd(mm, -1, referenced, none_or_zero,
--					     SCAN_SUCCEED, unmapped);
--	} else {
--out:
--		trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
--					     none_or_zero, result, unmapped);
- 	}
-+out:
-+	trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
-+				     none_or_zero, result, unmapped);
- 	return result;
- }
- 
-@@ -2789,13 +2786,9 @@ static enum scan_result collapse_scan_fi
- 		} else {
- 			result = collapse_file(mm, addr, file, start, cc);
- 		}
--		trace_mm_khugepaged_scan_file(mm, -1, file, present, swap,
--					      SCAN_SUCCEED);
--	} else {
--		trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
--					      swap, result);
- 	}
- 
-+	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
- 	return result;
- }
- 
-_
 
