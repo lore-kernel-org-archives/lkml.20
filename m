@@ -1,260 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909472E229F;
-	Wed,  9 Sep 2026 01:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D29B29B200;
+	Wed,  9 Sep 2026 01:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917715; cv=none; b=VW2vlhvc8txTeq0+9+prMnG/JVevkjaT2LvJfsKnZAN6BWeYGpAtIpQgmqW/HoLfB6WQaVxn5wJCJknlu0LxFzANaCzmqmy5OZYyJzBaIp7ntyn9VabCXWjY9GleTosWiDrgLxCd2LnclyDPUwDxmFwrFNRYWEDTiGAb0Sd7Cw4=
+	t=1788917756; cv=none; b=n1h9uj9T7AoVAyYVcp4lUL0LrZz3PV6u5vI/D6PTAOSOX4ZluTYnN27jOnTTwJsggz/gSCxHaqqcuZpPzYFdb0qaG3VJKPcyOEFmwGUXyctebpsCHoE2S8kQaxUKLUfM7JusdGEKItjIFmR+6cXtdAq0dYx623JJRFnq7YWM7GU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917715; c=relaxed/simple;
-	bh=o39w0mFHR1dYfyksC/IVqr8MfutQWQkeUgU4kvt0uDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IXsihih8fH0Y5W5MJ7ZrSD+uwgZ+NGR5EGWFWDpcJBoM5ty+s1uLC5ph7A/TxRcumLao2x+X9pQgj7HkDInS5j1HWGsaXMPXVujux6sCjO8BQ3c8wnnqOjaN5LTOIPjS2NsvMMaYYZU3ZjCTLSUvS76GnC4gbhZ2UNi1pkpzhtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m/Pw4iIx; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788917756; c=relaxed/simple;
+	bh=64HKkviFc6EbPKtDPnq2iEu3Q3iKzsnApLj8LGWy9PY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ab/rnjzRLdD5drCZVwdPDVeZjigk9qh6sWBlZLEPxlBD11mAjYVKGukEURzoX7Ms2/ptYX2Afxwc15lfra92UZn2KW+OoiKwJzfzCIoCXAEZE+axVt7uhlFSJKUQxSE9sz4c+viPALZWSzGqG0KY0NoGVhINLh8m5ibzSd1ba5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YcjBlS+H; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m/Pw4iIx"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YcjBlS+H"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788917713; x=1820453713;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=o39w0mFHR1dYfyksC/IVqr8MfutQWQkeUgU4kvt0uDA=;
-  b=m/Pw4iIxBd1DW2tY0doZlbwq+3dkeMEWZcYNJR+J0uFfqHMjOvRv+sWw
-   3up2T4tfmlOEQCdaXt9kU9rgEuzPAn8iAX52PQ558OJSe3vsDMMHVUrqE
-   GlOnAy8ANEJv9LEP9hF7DleTV0ISHSZZB8v8RNIyaMdfeOrzXjxJv8COP
-   4AqZCgmzyaYOJcrLhtef8OBgb3bYWJo/fyBw1SyK1qo8sd5B02LiPiTR9
-   3SsWlX6NCfmhabKEnBnbuZayOo3OkzhlPepJOELSAabx+uB+dQEiFwP3C
-   8TadtnQFuE0FqYnnQEIiXBRKFFvGARn7dUiaadE5OCYMlbez0+vQAZOyu
-   g==;
-X-CSE-ConnectionGUID: NuGjBzvBSw+cR9SAQ38t1A==
-X-CSE-MsgGUID: T1GYcxx5Q+iW/2C2fYGUgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89091936"
+  t=1788917755; x=1820453755;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=64HKkviFc6EbPKtDPnq2iEu3Q3iKzsnApLj8LGWy9PY=;
+  b=YcjBlS+HtDtxthL2ZFUbrRXB/ShMqWTEJR/wJyDJEwF/9JLBrVCFY48s
+   9cAKUiUayWgh8yMYsPLX4oCBPMGDZ8P3oswTuvvm8wTNCCEO3gqCNItvh
+   HhUW5HiDjSuiUhxHq4cU1GR2Z62AWIHf5Xi1cjbp53ZdLflL1n/4NWgAu
+   gEUmp+st0jgenxFsaRs5qsilY/gM3e83DGIWyAWqnZk85H1LU3TcdXpua
+   iSmJimAWKJuHLuoEKIBBtQNvqWDG5TUoI+r3NZ2S6q88OoZHmJd7La0+F
+   1Eu0wpgwf51T+y2gx7SOzAoFnKY6TVrF3ZExaJN5mmiazRTkwaNqzmKbv
+   A==;
+X-CSE-ConnectionGUID: UxWJXgagSc2nt+VvKffD1g==
+X-CSE-MsgGUID: /UR7gqxoSVqhWuvCAqv6Ag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89537992"
 X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89091936"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 18:35:12 -0700
-X-CSE-ConnectionGUID: DKqSixrxSgaSHwGK+Mijlw==
-X-CSE-MsgGUID: 1KPB/RUgRyqkCwx56iWLeQ==
+   d="scan'208";a="89537992"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 18:35:54 -0700
+X-CSE-ConnectionGUID: DNikuua/Tc+e4h0024tXjw==
+X-CSE-MsgGUID: LXEk4ik5RD6Jip3AOS3IUw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="275304859"
-Received: from igk-lkp-server01.igk.intel.com (HELO cc074f2a4298) ([10.211.93.152])
-  by orviesa005.jf.intel.com with ESMTP; 08 Sep 2026 18:35:08 -0700
-Received: from kbuild by cc074f2a4298 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x47DN-0000000010M-0ZPg;
-	Wed, 09 Sep 2026 01:35:05 +0000
-Date: Wed, 9 Sep 2026 03:35:01 +0200
-From: kernel test robot <lkp@intel.com>
-To: Aaron Tomlin <atomlin@atomlin.com>, arnd@arndb.de, mcgrof@kernel.org,
-	petr.pavlu@suse.com, da.gomez@kernel.org, samitolvanen@google.com,
-	peterz@infradead.org, ojeda@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	akpm@linux-foundation.org, mhiramat@kernel.org, boqun@kernel.org,
-	atomlin@atomlin.com, neelx@suse.com, da.anzani@gmail.com,
-	sean@ashe.io, chjohnst@mail.com, steve@abita.co, mproche@mail.com,
-	nick.lane@mail.com, linux-arch@vger.kernel.org,
-	linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 2/2] module: Rename module_blacklist to
- module_denylist
-Message-ID: <202609090311.bhj7AUr7-lkp@intel.com>
-References: <20260903185557.183224-3-atomlin@atomlin.com>
+   d="scan'208";a="294678959"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 18:35:47 -0700
+Message-ID: <de698eb3-94ba-4545-bb4f-951014c98008@linux.intel.com>
+Date: Wed, 9 Sep 2026 09:35:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903185557.183224-3-atomlin@atomlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/x86/core: Simplify hybrid PMU registration failure
+ path
+To: Thorsten Blum <blum@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260904201313.271421-3-blum@kernel.org>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260904201313.271421-3-blum@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Aaron,
+LGTM. Thanks.
 
-kernel test robot noticed the following build errors:
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-[auto build test ERROR on rust/rust-next]
-[also build test ERROR on soc/for-next linus/master v7.3-rc2 next-20260908]
-[cannot apply to arnd-asm-generic/master]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Aaron-Tomlin/module-Extend-module_blacklist-parameter-to-built-in-modules/20260903-145556
-base:   https://github.com/Rust-for-Linux/linux rust-next
-patch link:    https://lore.kernel.org/r/20260903185557.183224-3-atomlin%40atomlin.com
-patch subject: [PATCH v10 2/2] module: Rename module_blacklist to module_denylist
-config: x86_64-rhel-9.4-rust (https://download.01.org/0day-ci/archive/20260909/202609090311.bhj7AUr7-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260909/202609090311.bhj7AUr7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609090311.bhj7AUr7-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> error[E0425]: cannot find type `initcall_modname` in crate `::kernel::bindings`
-   --> rust/doctests_kernel_generated.rs:7459:1
-   |
-   7459 | / module! {
-   7460 | |    type: MyModule,
-   7461 | |    name: "module_firmware_test",
-   7462 | |    authors: ["Rust for Linux"],
-   7463 | |    description: "module_firmware! test module",
-   7464 | |    license: "GPL",
-   7465 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0422]: cannot find struct, variant or union type `initcall_modname` in crate `::kernel::bindings`
-   --> rust/doctests_kernel_generated.rs:7459:1
-   |
-   7459 | / module! {
-   7460 | |    type: MyModule,
-   7461 | |    name: "module_firmware_test",
-   7462 | |    authors: ["Rust for Linux"],
-   7463 | |    description: "module_firmware! test module",
-   7464 | |    license: "GPL",
-   7465 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0425]: cannot find type `initcall_modname` in crate `::kernel::bindings`
-   --> rust/doctests_kernel_generated.rs:12739:1
-   |
-   12739 | / kernel::module_phy_driver! {
-   12740 | |     drivers: [PhySample],
-   12741 | |     device_table: [
-   12742 | |         DeviceId::new_with_driver::<PhySample>()
-   ...     |
-   12747 | |     license: "GPL",
-   12748 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `$crate::prelude::module` which comes from the expansion of the macro `kernel::module_phy_driver` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0422]: cannot find struct, variant or union type `initcall_modname` in crate `::kernel::bindings`
-   --> rust/doctests_kernel_generated.rs:12739:1
-   |
-   12739 | / kernel::module_phy_driver! {
-   12740 | |     drivers: [PhySample],
-   12741 | |     device_table: [
-   12742 | |         DeviceId::new_with_driver::<PhySample>()
-   ...     |
-   12747 | |     license: "GPL",
-   12748 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `$crate::prelude::module` which comes from the expansion of the macro `kernel::module_phy_driver` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0425]: cannot find type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_minimal.rs:7:1
-   |
-   7 | / module! {
-   8 | |     type: RustMinimal,
-   9 | |     name: "rust_minimal",
-   10 | |     authors: ["Rust for Linux Contributors"],
-   ...  |
-   22 | |     },
-   23 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0422]: cannot find struct, variant or union type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_minimal.rs:7:1
-   |
-   7 | / module! {
-   8 | |     type: RustMinimal,
-   9 | |     name: "rust_minimal",
-   10 | |     authors: ["Rust for Linux Contributors"],
-   ...  |
-   22 | |     },
-   23 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0425]: cannot find type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_misc_device.rs:136:1
-   |
-   136 | / module! {
-   137 | |     type: RustMiscDeviceModule,
-   138 | |     name: "rust_misc_device",
-   139 | |     authors: ["Lee Jones"],
-   140 | |     description: "Rust misc device sample",
-   141 | |     license: "GPL",
-   142 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0422]: cannot find struct, variant or union type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_misc_device.rs:136:1
-   |
-   136 | / module! {
-   137 | |     type: RustMiscDeviceModule,
-   138 | |     name: "rust_misc_device",
-   139 | |     authors: ["Lee Jones"],
-   140 | |     description: "Rust misc device sample",
-   141 | |     license: "GPL",
-   142 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0425]: cannot find type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_print_main.rs:8:1
-   |
-   8 | / module! {
-   9 | |     type: RustPrint,
-   10 | |     name: "rust_print",
-   11 | |     authors: ["Rust for Linux Contributors"],
-   12 | |     description: "Rust printing macros sample",
-   13 | |     license: "GPL",
-   14 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0422]: cannot find struct, variant or union type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_print_main.rs:8:1
-   |
-   8 | / module! {
-   9 | |     type: RustPrint,
-   10 | |     name: "rust_print",
-   11 | |     authors: ["Rust for Linux Contributors"],
-   12 | |     description: "Rust printing macros sample",
-   13 | |     license: "GPL",
-   14 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `module` (in Nightly builds, run with -Z macro-backtrace for more info)
---
->> error[E0425]: cannot find type `initcall_modname` in crate `::kernel::bindings`
-   --> samples/rust/rust_debugfs.rs:58:1
-   |
-   58 | / kernel::module_platform_driver! {
-   59 | |     type: RustDebugFs,
-   60 | |     name: "rust_debugfs",
-   61 | |     authors: ["Matthew Maurer"],
-   62 | |     description: "Rust DebugFS usage sample",
-   63 | |     license: "GPL",
-   64 | | }
-   | |_^ not found in `::kernel::bindings`
-   |
-   = note: this error originates in the macro `$crate::prelude::module` which comes from the expansion of the macro `kernel::module_platform_driver` (in Nightly builds, run with -Z macro-backtrace for more info)
-..
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On 9/5/2026 4:13 AM, Thorsten Blum wrote:
+> Handle perf_pmu_register() errors directly instead of breaking out of
+> the registration loop and checking the index separately. Reuse the loop
+> index i to unregister any previously registered PMUs in reverse order
+> and drop the extra index j.
+>
+> Also log the failing PMU's name and error code.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  arch/x86/events/core.c | 18 ++++++++----------
+>  1 file changed, 8 insertions(+), 10 deletions(-)
+>
+> diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+> index 8eb14add44c8..0a8fcfd52ad0 100644
+> --- a/arch/x86/events/core.c
+> +++ b/arch/x86/events/core.c
+> @@ -2256,7 +2256,7 @@ static int __init init_hw_perf_events(void)
+>  			goto out2;
+>  	} else {
+>  		struct x86_hybrid_pmu *hybrid_pmu;
+> -		int i, j;
+> +		int i;
+>  
+>  		for (i = 0; i < x86_pmu.num_hybrid_pmus; i++) {
+>  			hybrid_pmu = &x86_pmu.hybrid_pmu[i];
+> @@ -2268,15 +2268,13 @@ static int __init init_hw_perf_events(void)
+>  
+>  			err = perf_pmu_register(&hybrid_pmu->pmu, hybrid_pmu->name,
+>  						(hybrid_pmu->pmu_type == hybrid_big) ? PERF_TYPE_RAW : -1);
+> -			if (err)
+> -				break;
+> -		}
+> -
+> -		if (i < x86_pmu.num_hybrid_pmus) {
+> -			for (j = 0; j < i; j++)
+> -				perf_pmu_unregister(&x86_pmu.hybrid_pmu[j].pmu);
+> -			pr_warn("Failed to register hybrid PMUs\n");
+> -			goto out2;
+> +			if (err) {
+> +				while (i--)
+> +					perf_pmu_unregister(&x86_pmu.hybrid_pmu[i].pmu);
+> +				pr_warn("Failed to register hybrid PMU %s: %d\n",
+> +					hybrid_pmu->name, err);
+> +				goto out2;
+> +			}
+>  		}
+>  	}
+>  
