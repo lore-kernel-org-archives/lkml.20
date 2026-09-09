@@ -1,100 +1,115 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A4255C332
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7AEA5581E9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959650; cv=none; b=jfa6+uKPmYL+4d89+RkvMLEukyyQr0UgPGngyQFP3n1MN/DI5GdqrRCoFts2t+rQjvYpHBFx1iDUuAlskdts4kMp9q/aGZukZ81jbShaz+h+Kwflo/B69hMgM4W3hUuYoKUiK01Mi2ryRP0ug1Vs8Wpdl7kAEqsUcgSoo194HdI=
+	t=1788959663; cv=none; b=EA35TiUCwYx4m6X0/JdGztNIPGq/fcblJ64Og74NSVNrG0coj39TtvGpb0d4RmWsp/HvaQOPV70YkQxZA9mN16nKYWeAFBNmB+aKEglQefzzpdtcCRXrtwkH/QASDuxXq4gsDRcz87sjJHo01zgX0iMtRx/qi9MjZc55z1bGhG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959650; c=relaxed/simple;
-	bh=tfrBPSnwPBntwOURsH/DrlgfLQDZ4UyfPmQwS0LjAkQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hrBrFcHXC0wnEwGs2xGKLqv1tdmJIv+IVYPYba1ki+0786Gtc302XUuCIuQAYYri/YpWBYwL9VNwadw3/xrh376KRXGf1fMuX6zEqVwVmLZmQAI1fepXGz57xS86pZNX9aq6OU2+KxmRr6Mco4Sog08sUlWb4HlfpCtJg+qSmvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ABEMO/+8; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1788959663; c=relaxed/simple;
+	bh=AKMhHGbu6wwvL+v2qkm2nawtiZ7eESFgO0bgi+Z3x0A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QTZ3ZT9nDk9ftPunm/D8FUjPVjodd1tlaept2CJXrPNcsnDvw/Zt7/FlLQ+VM+7hdVS/SC0Bn4m6Pif9iGcuTc9wptGDY9dva6k+yCyUVxjTnNBsSRfFXTQjFETetZj7eYLs+AQF1cdJibQWI95DxZEcALCoAO3/r8gzVHcu7oI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kMuTJuxY; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ABEMO/+8"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d05d51553so35223855e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:14:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kMuTJuxY"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d91ded8174so48131985ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:14:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788959647; x=1789564447; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tfrBPSnwPBntwOURsH/DrlgfLQDZ4UyfPmQwS0LjAkQ=;
-        b=ABEMO/+8u6MdXIPqCd9/gXfySlo79YooZZdMWvzfd+e8co6mZboUQXP1rS286AutwT
-         kAKkZS9Gf9EkUqC+mT7KU+eRBvvmmEBwoWgAdR/q2PtSuYeLmBs4+CXsQy0heZ3LN3X6
-         vMazlRvk+7+HLlSSL0N5vF6Sm3Qwb9KXreW0B8Ka1ORkWcd5pX0b3yxS7+2i4+GnqLAJ
-         rrjAfMyMDihjtYpJLYn332ttpOsirGz2aH/O7dBae0OGn2Udkyz8uqsLy6LacuHI4iLl
-         1ELLr1XHCPySaxIA21li0A32y8bJD86qGawIedpd6r24gs20nzk1NUm5o5ycePpCR+jy
-         q6KA==
+        d=gmail.com; s=20251104; t=1788959661; x=1789564461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TdxIn0BZ6mG5tW5oexMUWl9FnSMl6rOPl062FM+q3lY=;
+        b=kMuTJuxYud2pWYrlAeE1qFoKIICjZEfX4ZWH1xelAplZn80UeBI9ceYg4NX+w+4IZN
+         ia5gjvVju7H49ho5zLId1YljbBND1CnD7RKPhmjbkEFa/b1Wpk0KI84RgKai0mn8qQqo
+         ApL/D8UTTHlif+h6L/GIHOG2guA5AO0U1BEsKzEAk/uhY8IsRlDmFT4wzJtNKgBt7yMP
+         xI41OMZ1C9fxRYD1h3EGU2pLxDB6CDJVdSn6zKgP/lYs4yg+lvK7nVuwx4bfzaNARzsV
+         PhQfsxf9waTZID87kfP90ZLYju5J8zTbnAtPM4DTmoTLlaDP890n0JZZOyGh2SSzP4g0
+         b/8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788959647; x=1789564447;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tfrBPSnwPBntwOURsH/DrlgfLQDZ4UyfPmQwS0LjAkQ=;
-        b=qlGK4bRds4lI/MF0zr5cjExGLIR4nfRP6PC0j7pnplo5S6XgdZ/XCkJ9OR6juxXEIO
-         DvvCsZGTJGDJ7Sxq5jGv4sbRBX66UGFCOJvNaI9FioP+oF+cQ27AeMnszQljhEbWkh/5
-         50DsA+AfCNLegkZccAqJL8QC8KYajEdvZtL/epJvanCBUJ3RlWL65ajvFchUSiSIn2i5
-         cKRlyP15HG25YXf0sYGO95aq0Ig07OVbzfgx4ThRUbSUELhdzsyJMV4BMwp+XqVTRa5f
-         YnJgw3MpQLPABou3P4HeU1qpV0/2n3qlzz3NrEIc01M1uBCztPj8ZSJ+tWeDY24RD+jN
-         fBlg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlRhz68PhATjg+UcWSTlhDMxgKXHSz+LezCu6C2/aOpFxGeszKPAwdva6tlcBMdasey60TVmI8Y8yOQ64=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6J3aSEywu5st76tOfARhOVNq+nzXLHpWTOnz6zl1lX3DXgHiR
-	lmU0NybVA5TBRajDWedqUY3UYUc5T855xUyF9toEcjuscHgwlLoheAQb
-X-Gm-Gg: AYBFou14inw+9QXJdLbLPprVNndfTlBaTKY4t+8vcigDs1vIuLN0ub+TMkdu4tAguWG
-	kiBeQ9JLawBdf+CMqwNQnM3PovFRkr/8Zu9DUHeyIhqnVAkeGP57MwCUQy5hATl1ClU1WTmzZq1
-	JZ2hR72JhWRVGxkoCIQIjFk2EI0y3f3lMZNwk7412AyvHqy/vgMqkdHgrMr6aml1YL0sFpxJAx8
-	JwCaOoxMVy8Hh443RblYywhAq+S+rR80SiPXikSyqk05rMM+da5cYB7kAkjKffKtkdAANfI4Rcl
-	aVxvbGTnnI/UcoQ4hcdL4Ektm2MdRs6yfkKc50axa58VL+ZYw0es7g2hSMrP6llkMlVmv8J6W+j
-	oiBDODloBKrq3bvfWAA1iKpvf1Io86DDK+gn0C1VGaD61yaDy7XjMfu43KLde4SbywuhSIkj/XZ
-	5NKXP2xsD1xi1i5iw/G3MxhOVCsa7MdDG8GPVu2jgrIdAyJEDMQyC514Yt4Na/Z46S8vCqUWXvM
-	SafkzOj9a/3dZUT/tMeL9EKU6tMibCINymScb5fpnw1c8wMKj2z1ugdo8rG8tgvvnQ=
-X-Received: by 2002:a05:600c:a05:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-49cfc6ea772mr319402535e9.27.1788959646961;
-        Wed, 09 Sep 2026 06:14:06 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm379749195e9.13.2026.09.09.06.14.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 06:14:06 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <817a7f41-832b-4993-94f8-ed926403b035@gmail.com>
-Date: Wed, 9 Sep 2026 14:14:05 +0100
+        d=1e100.net; s=20251104; t=1788959661; x=1789564461;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TdxIn0BZ6mG5tW5oexMUWl9FnSMl6rOPl062FM+q3lY=;
+        b=hVfhDEgK82pifrKs4KyeKuUBdHotwTSHL+s8wgWLCGgcZuKJo3aKWRp2ZPa1//ZZeQ
+         nRznpJlVtDoLYU2UfDZCWc0yISlOdQNJxX7t/Gm4aSObTVxQufInI9/Lsm/4rjbP7T1f
+         XYJWqAETDHTaY+VY7YrVvJAjgE9NeyYfo1p7eo2HZLSHUsvQYiifZPagrFTPeh+ThZui
+         7OlAX/+vYoeQzK8iQuZEItJNfIGQ8AMG7KRosJbDMKXPKNqzZE4U4wk2tXStKp5f7fpd
+         IXEirZGWkdu5rKMBzu+leQTSh0DghwggostOVWVwBpvcJ1B3FgaCA+gsfRiTjagRGvx5
+         vpEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzveTLsz3HSVpqeJCq+F8NMumYQI1abM0ivVU6HgwRASvrbqeEw7bVVLiyuKuU/O1cxsYZVfHoXhBOuNA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k96/NQCLf0XCn+U1wv+6sy/0qq1gWz3XwA9vOksIDhJBlKYriA
+	iwC2aDbHlueWlExuRzb2nPsN0Aj2nuOKqxrTf1hcLklvQB3KXkZsfj5K8xZzO8iL/0semA==
+X-Gm-Gg: AYBFou07diWcM+Ga9RXlNa/xqGCewoK26iNBVJ90mfssR1tlohlRDbAAIkePTdo/Vjq
+	RHfDbPpkh489M66A+6sHDLsu/shQUohiSEefsNnS2DVd0B9gZ73E3uZl3CJPoCHxpREtfzZoyqT
+	dcgwBacS29KSxfqrGblyrY2/85iKXP0FDi5R/I8xxg+iRAmzuLTYLo2GOL6LkpYODJyZl64rhbZ
+	AvkY8Y6IW9Q2rpIpzcJtivptuh15x7ZCrTlBRYqQFn7Vg/jVxUFZvDT8MUPclJWGouZACLXDqlf
+	HFwF/vAJMzVSNQcK7rZO6TqAWR07St41c8OLeSAU2gJTMbAep/eJSYc8kukAgs9cF6o8j/CnNk8
+	nxGy+rwaiiT/E8Cdbo+acfcvboUPEjg/YbfuJjQEtmkwaZ5wb4kklrcqq1Yop9m7AfJcAbZ8Glh
+	7x3opaGyIlrwI2w6CHxkQeI5xL4HeMwUPTe9TJoysSQOSChBZC3p3TtnzqODIcrIV/oTA=
+X-Received: by 2002:a17:903:2c9:b0:2c9:e846:a57e with SMTP id d9443c01a7336-2db12147668mr533464705ad.0.1788959660640;
+        Wed, 09 Sep 2026 06:14:20 -0700 (PDT)
+Received: from zynq-vm.. ([101.71.232.51])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae8af3sm72283255ad.80.2026.09.09.06.14.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 06:14:20 -0700 (PDT)
+From: shaopeijie@gmail.com
+To: sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	michal.simek@amd.com
+Cc: linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Peijie Shao <shaopeijie@gmail.com>
+Subject: [PATCH] clk: clocking-wizard: Fix overflow in clockout0 divisor calculation
+Date: Wed,  9 Sep 2026 21:14:12 +0800
+Message-Id: <20260909131412.3051635-1-shaopeijie@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH] ALSA: ASoC: fix unmet dependency for
- SND_SOC_DB1200
-To: Mark Brown <broonie@kernel.org>
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, arnd@arndb.de
-References: <20260909125636.3560050-1-julianbraha@gmail.com>
- <b15e44fa-fd2f-4165-813c-68f590ae02c9@sirena.org.uk>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <b15e44fa-fd2f-4165-813c-68f590ae02c9@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 14:06, Mark Brown wrote:
-> On Wed, Sep 09, 2026 at 01:56:36PM +0100, julianbraha wrote:
->> SND_SOC_DB1200 selects SND_SOC_WM8731_I2C without ensuring its
->> dependency, I2C is enabled. This causes an unmet dependency when
->> SND_SOC_DB1200 is enabled without I2C.
-> Please submit patches using subject lines reflecting the style for the
-> subsystem, this makes it easier for people to identify relevant patches.
-> Look at what existing commits in the area you're changing are doing and
-> make sure your subject lines visually resemble what they're doing.
+From: Peijie Shao <shaopeijie@gmail.com>
 
-Got it, will do better on this. Thanks for your feedback, Mark.
+On 32-bit platforms (e.g., Zynq 7000 series), parent_rate * 1000
+may overflow, leading to incorrect divisor calculation.
 
-- Julian Braha
+The issue was first found on Zynq7020 with "parent_rate=1GHz"
+and "xlnx,nr-outputs=2".
+
+Cast parent_rate to u64 and use the ULL version of DIV_ROUND*
+instead.
+
+Signed-off-by: Peijie Shao <shaopeijie@gmail.com>
+---
+ drivers/clk/xilinx/clk-xlnx-clock-wizard.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+index edf8c0eaca27..5abbc6b83b72 100644
+--- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
++++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+@@ -881,10 +881,10 @@ static int clk_wzrd_dynamic_reconfig_f(struct clk_hw *hw, unsigned long rate,
+ 	struct clk_wzrd_divider *divider = to_clk_wzrd_divider(hw);
+ 	void __iomem *div_addr = divider->base + divider->offset;
+ 
+-	rate_div = DIV_ROUND_DOWN_ULL(parent_rate * 1000, rate);
++	rate_div = DIV_ROUND_DOWN_ULL((u64)parent_rate * 1000, rate);
+ 	clockout0_div = rate_div / 1000;
+ 
+-	pre = DIV_ROUND_CLOSEST((parent_rate * 1000), rate);
++	pre = DIV_ROUND_CLOSEST_ULL((u64)parent_rate * 1000, rate);
+ 	f = (u32)(pre - (clockout0_div * 1000));
+ 	f = f & WZRD_CLKOUT_FRAC_MASK;
+ 	f = f << WZRD_CLKOUT_DIVIDE_WIDTH;
+-- 
+2.43.5
+
