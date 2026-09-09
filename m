@@ -1,26 +1,26 @@
-Received: from mail-m1973182.qiye.163.com (mail-m1973182.qiye.163.com [220.197.31.82])
+Received: from mail-m15588.qiye.163.com (mail-m15588.qiye.163.com [101.71.155.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8842D221FB6;
-	Wed,  9 Sep 2026 05:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEDE35C6AB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:30:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788931850; cv=none; b=rm3lOBDeME09uC5kEUJgfioKsgsZKkKb91/Z9tId2vGQSYjOtsNJq3rBgBweTl73Il4NtBpC9g0mTHXTp/oO2bCtJjR8k4Yd8it2JXNS70OSUO/HkUujWWNuA4dSsdZzBKAvyieOdPUwxMU55Thrdhj3G0fUNZfqHOtrd6Ix5bQ=
+	t=1788931858; cv=none; b=SG/xspXewwiNQb6bEnaqIwhBvG80uMf0SmD4znTlby8v4+v9r/DQDruIACaS+WXg2Z+rWZYEZ73hnEPBv9gNFAZRymae7UvqRmjls3KYo+hSxrgz4yqNa2BW0de2SG/taj7YHiBi5ZTxAb4LhEECKOWLGg0RMT8kQPZlLHwGr1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788931850; c=relaxed/simple;
-	bh=ZDKPCQF1yDXjigJnwLfjlphuUE0kScTNgQsmqsuTs0Y=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=dG8k+5Zi9akam0jVVupxbOIpgwgk4hQsSgJr7TXbjMSDnet05lxQrpgYdsvJm8gX+tolBhJwAHSE6nGMFTeSl53rdzZEk3ez2rdAJEoVldmDLn6usX8n3j5CUQoWmov7Wi2QxvEYM5++HZbHCoEHuk8f3FdMH6CcjE7ZNqEXfYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=KmXB2npb; arc=none smtp.client-ip=220.197.31.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1788931858; c=relaxed/simple;
+	bh=0uEessHzcSfxsC9/R4E/G5cHhOHZfHSBc4M8wjJU3EI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WAlfSwl71a5uYdQYaqngkd2yAy68DCCFPdfFpI8f6HaJ70D2E41O2w7UeSxIgpDiMLC2qSS9x4vnd1kQ7cLxKjaKCnU0adPIMKC5ZuRYP4ZJHXiYykcDfv3n/EtrkZEeFMJGReQ+3mrANbuu7jTYDDT6NcK+rpRarNxNACrJrWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com; spf=pass smtp.mailfrom=hj-micro.com; dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b=a8vY9GZL; arc=none smtp.client-ip=101.71.155.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hj-micro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="KmXB2npb"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d0905848;
-	Wed, 9 Sep 2026 08:54:29 +0800 (GMT+08:00)
-Message-ID: <26006eef-56b3-4a81-8b4c-95ac241412cb@rock-chips.com>
-Date: Wed, 9 Sep 2026 08:54:29 +0800
+	dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b="a8vY9GZL"
+Received: from [127.0.0.1] (unknown [122.224.241.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d0ba6a2f;
+	Wed, 9 Sep 2026 10:01:22 +0800 (GMT+08:00)
+Message-ID: <d1c64269-63b3-40ed-9efd-1ba545f8cb2e@hj-micro.com>
+Date: Wed, 9 Sep 2026 10:01:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -28,83 +28,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v6 03/10] PCI: dw-rockchip: Move devm_phy_get out of
- phy_init
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
- <20260908-rockchip-pcie-system-suspend-v6-3-fbabcca9921b@collabora.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-3-fbabcca9921b@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] perf/arm-cmn: Fix {wp_dev_sel2, wp_dev_sel} limited to
+ 0/1 when MXP_MULTIPLE_DTM_EN is TRUE
+To: Robin Murphy <robin.murphy@arm.com>, will@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mark.rutland@arm.com, peter.du@hj-micro.com, andy.xu@hj-micro.com,
+ allen.wang@hj-micro.com
+References: <20260819105443.668784-1-allen.wang@hj-micro.com>
+ <f97fa5ae-3535-4e1a-a164-77138a93cc89@hj-micro.com>
+ <58adffd2-6ef4-4a4c-ba3a-3f510522d928@arm.com>
+Content-Language: en-US
+From: "allen.wang" <allen.wang@hj-micro.com>
+In-Reply-To: <58adffd2-6ef4-4a4c-ba3a-3f510522d928@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa083a8bf7103a4kunm4244ed5d43fc53
+X-HM-Tid: 0aa083e5fbc009d8kunme32fd7ee3c8753
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSh1MVkNJQk4dTBhCSE0eS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDThoeVkofQxgYSUJPTh5NHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSUlVSUlPVUlPSlVIT1lXWRYaDxIVHRRZQVlPS0hVQk
+	JJTktVSktLVUpCS0JZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=KmXB2npbkEt7CZvkKJcT5M6qDw2i7cCdkaVp4hQw6JqugrzoiXbkmlVDz1fpqHrq3/Lo0GHHseH/PffkVdv699JZxxH+IB2ye2sZz/Gt7NfojO4bRGNoof0/1zQqTd1okvCihaUf7Kr5vLnWxfyoprykKBpqbKY0Qj67vVCiSd8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=RPL25zB+175xW+b9ln85IKNsB2hgoRLnH6maFPW5Ixw=;
+	b=a8vY9GZLrLFJA9Epxm8DFpwotP6Ktm3Iv64lfTXz0NlLfQ8OZ7jl/dPdtyJ6kZaxEVLGF8cpv/ODOehuhRhUE/VACwMMcH8KrFCKmWZDGcm1wercTeuFL7GSn5bADXqReIKm/HEE4Syr7vjctGHZgqtKOa8uQuImylIGGx3DDi8=; c=relaxed/relaxed; s=default; d=hj-micro.com; v=1;
+	bh=0uEessHzcSfxsC9/R4E/G5cHhOHZfHSBc4M8wjJU3EI=;
 	h=date:mime-version:subject:message-id:from;
 
-在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
-> By moving devm_phy_get() to the probe routine, rockchip_pcie_phy_init()
-> can be used to re-initialize the PCIe PHY, which is for example needed
-> after a system suspend/resume cycle.
-> 
+Hi Robin:
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Yes, that's exactly what I'm saying. I've tested this on actual
+multi-DTM hardware, and the hardware does not ignore wp_dev_sel2
+automatically — it must be correctly configured by software.
 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> index f67ad3c31c35..7472ec78b473 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -612,14 +612,8 @@ static int rockchip_pcie_resource_get(struct platform_device *pdev,
->   
->   static int rockchip_pcie_phy_init(struct rockchip_pcie *rockchip)
->   {
-> -	struct device *dev = rockchip->pci.dev;
->   	int ret;
->   
-> -	rockchip->phy = devm_phy_get(dev, "pcie-phy");
-> -	if (IS_ERR(rockchip->phy))
-> -		return dev_err_probe(dev, PTR_ERR(rockchip->phy),
-> -				     "missing PHY\n");
-> -
->   	ret = phy_init(rockchip->phy);
->   	if (ret < 0)
->   		return ret;
-> @@ -858,6 +852,13 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
->   					     "failed to enable vpcie3v3 regulator\n");
->   	}
->   
-> +	rockchip->phy = devm_phy_get(dev, "pcie-phy");
-> +	if (IS_ERR(rockchip->phy)) {
-> +		ret = PTR_ERR(rockchip->phy);
-> +		dev_err_probe(dev, ret, "missing PHY\n");
-> +		goto disable_regulator;
-> +	}
-> +
->   	ret = rockchip_pcie_phy_init(rockchip);
->   	if (ret)
->   		goto disable_regulator;
-> 
+Thanks!
+Allen
+
+On 9/8/2026 11:04 PM, Robin Murphy wrote:
+> https://support.arm.com/documentation/102308/0307/Debug-trace-and-PMU/
+> Debug-Trace-system-overview/DTM-watchpoint?lang=en
 
