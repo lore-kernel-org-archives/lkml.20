@@ -1,310 +1,437 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D21545D89;
-	Wed,  9 Sep 2026 11:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD857346AFB;
+	Wed,  9 Sep 2026 11:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953711; cv=none; b=Q3gMFxwNwh6wWGScy2Hzs5fADvSmWNFItW58M0WKSAO7xwgkhKGQL/TLJBGK0GVLJtnQt1tu6hWBeZFInVE8Hks715Ksd3/N5vzqtRR18fp3mBTWUdHl3NnkQhKIZecUrXWF5+SM56GF4Hcm6MEtuEJHa/c31KCRHvPXUNZXiGc=
+	t=1788953723; cv=none; b=eVdfR6ItlLhGZEGGLX+UHQxVImCFaaWui+BGJ2V0jC9aKvSZ+HpjdWpCZfWQMyOqklPFCG/8tPMmIaM5ycFeTKwUGjXbuzysBnHfOhuqcJsOjiwoOvtynlNRVnZHTu4u3BKTLAZlURoD9cuK/2ZdUra6Wvqc/pRPq3nTf9vAA9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953711; c=relaxed/simple;
-	bh=vWtYzgFoGyDW55i1EvWYaGwYdE+b+139zE1xcTgIGLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZE8e8lL9EHBW6G9XRK5nprttJLTAjmsHvYyNgtn6L8V4B4b/9KgsCZFKs4CuWbNfS5HczPOmN9oHP3T8/ogS1RJnSryQVyTl20+dz/KCG7NrmgTBlcX5ZV9hefUjuOQa41YPo8b80Wtdmf2LnNyBTyDGbLpF5v6jp/fta1mnUfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hDZ/cSx0; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788953723; c=relaxed/simple;
+	bh=RwnoD9V+sxtmArLdSMwbMaIs00AXoOEbjnQDZTh+kEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tiq84LmMC3yutvpzXt4uQ4+NrJ0EEg0z3zWYjrS9kE5FvsgNbkx+Deb6RQ+Kz6icPvT9PBaRjvcjlluE+DKSwuGqY5B1EKDAuslCo9Q8QRlKKG07xv24HLM5mjpOLBH4IOOjDEKokNiXgDBRVzDbAk3DeuiqZC0shhyDwyZPF3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHX3EEPn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hDZ/cSx0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788953706;
-	bh=vWtYzgFoGyDW55i1EvWYaGwYdE+b+139zE1xcTgIGLg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hDZ/cSx0bzccFpphdPKKNtfp6k0jlDQ1n23WXH3eE8oCcTUe/6KRHEt6rQC8pSJJZ
-	 10Shmt7hi2kahfuAmSUfXa7VNc2TN3DUfB5SlCo5s3+YqyYUfee8bdf0cDgKEfmniS
-	 vrPtpgIJATczURXsqnfmQKIBE95ehYnJozWK3RNRjguiZPDGZqqdVfjSxdGLWKMlks
-	 1dMsp+ZBWQo7DC+h/WQOCVAlgpzrZJ2Eiw3wGypOa44P9/GF61uvy3Q6jvQIvb3QmE
-	 FNL736Ore/nnmdh6QheYCK0gCxI3ZZJ4LhqGO8Mw3itzK984Q5Yna3nSLCIJzCusRH
-	 t7/vTN9j8OSkQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E53017E0917;
-	Wed, 09 Sep 2026 13:35:06 +0200 (CEST)
-Message-ID: <6800d4bc-cb1e-4807-a302-3f5d7a3a53e8@collabora.com>
-Date: Wed, 9 Sep 2026 13:35:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHX3EEPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDA81F00A3F;
+	Wed,  9 Sep 2026 11:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788953720;
+	bh=MFtRttXV/bBtGD1QPpPmcFXlh3qyAoJX9YleSxtdQkc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SHX3EEPnV+8YZzyWaJQ7J6ULWprc30snCsesruE97voURapPqvrYU9Vr0twLBvfIW
+	 BY8TxpK+4n2XZ+PQQefjAP2PRbp9d2xuHwW3vRheV62DDJLF3BJk9UojOs4LLHDZcX
+	 +rTZWkZgBrTSOmqoK6RgqX9Xv0cXC9nkmdJaC5UcWXltT5Sc9w/ubeKT390vt476E7
+	 GDrCyzrQQfvZS93w8/jCt5juvAa3eH2YJloZM4GblI3MKfyZDY0pOITgJPqN6/7HwC
+	 uncuNFS9C03xQBGaxo01uayfXY3xpFW5m23Z9mc8BQS34PfA3U8/2WUHbn0nCTfNR9
+	 pOidBuRsfEsWw==
+Date: Wed, 9 Sep 2026 08:35:17 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Matt Turner <mattst88@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
+Message-ID: <aqFEdSZ40HkvipUr@x2>
+References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
+ <aqE_QOp-x1aOQsCX@x2>
+ <aqFCMfb94Cdumemm@x2>
+ <aqFDLQ5Yu7yg6Y2Z@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/12] drm/mediatek: mtk_dp: Rework register offsets
- for proper PHY usage
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "kernel@collabora.com" <kernel@collabora.com>,
- "robh@kernel.org" <robh@kernel.org>,
- Alexandre Mergnat <amergnat@baylibre.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
- =?UTF-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?= <jitao.shi@mediatek.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "granquet@baylibre.com" <granquet@baylibre.com>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
- <20260709113148.49090-7-angelogioacchino.delregno@collabora.com>
- <ad5343f93cc992dca96b42f6cb81868de0458f70.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <ad5343f93cc992dca96b42f6cb81868de0458f70.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqFDLQ5Yu7yg6Y2Z@x2>
 
-On 8/28/26 05:32, CK Hu (胡俊光) wrote:
-> On Thu, 2026-07-09 at 13:31 +0200, AngeloGioacchino Del Regno wrote:
->> Rework all of the register offsets to subtract the DP PHY register
->> range from the MediaTek DisplayPort IP register range which starts
->> from TOP_OFFSET instead.
->>
->> This is done in preparation for adding support for registering the
->> PHY from devicetree, and also for properly handling PHY registers
->> in the PHY driver (instead of half and half...), which is also one
->> prerogative to add support for new IP versions in the future.
->>
->> Note that the current regmap_config was renamed to make sure that
->> it being legacy is mentioned, as a new config will be required in
->> future changes.
->>
->> Of course, with the TOP offset being related to hardware registers
->> this will never change for the currently supported SoCs, hence for
->> simplifying code, the MTK_DP_TOP_OFFSET_LEGACY is added statically
->> to the legacy regmap configuration while, on the other hand, it is
->> added dynamically to the mtk_dp structure, as the latter is used
->> to add an offset to every register write in the mtk_dp driver.
->>
->> The regmap_config provided reg_base (which does exactly the same)
->> cannot be used here, because the PHY driver is using the very same
->> regmap pointer, and the offset shall not be taken into account in
->> writes performed by the PHY driver (only ones performed by mtk_dp!).
->>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> ---
->>   drivers/gpu/drm/mediatek/mtk_dp.c     | 101 +++++-----
->>   drivers/gpu/drm/mediatek/mtk_dp_reg.h | 255 ++++++++++++--------------
->>   2 files changed, 179 insertions(+), 177 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
->> index b50264ca1f31..b2e5fa0914bc 100644
->> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
->> @@ -35,6 +35,27 @@
->>   
->>   #include "mtk_dp_reg.h"
->>   
->> +/* PHY Registers - for legacy only */
->> +#define DP_PHY_GLB_BIAS_GEN_00		0x0
->> +#  define RG_XTP_GLB_BIAS_INTR_CTRL	GENMASK(20, 16)
+On Wed, Sep 09, 2026 at 08:29:52AM -0300, Arnaldo Carvalho de Melo wrote:
+> On Wed, Sep 09, 2026 at 08:25:41AM -0300, Arnaldo Carvalho de Melo wrote:
+> > On Wed, Sep 09, 2026 at 08:13:07AM -0300, Arnaldo Carvalho de Melo wrote:
+> > > On Tue, Sep 08, 2026 at 10:50:33PM -0400, Matt Turner wrote:
+> > > > GTK2 is long dead upstream and increasingly hard to keep building on
+> > > > current distros. This series ports perf's GTK-based report browser to
+> > > > GTK4 and fixes it up so it's actually loadable at runtime after the
+> > > > port.
+> > > > 
+> > > > Patch 1 does the mechanical port (build system, widget API changes),
+> > > > including the leftover-GTK2-call and signal-handling fixes that were a
+> > > > separate patch 3 in v4. Patch 2 fixes a runtime issue found after the
+> > > > port that prevented the browser from loading. Patch 3 fixes two stack
+> > > > buffer overflows in the hierarchy view that predate the port.
+> > > 
+> > > I'm tentatively merging this, will test build on my distro container set
+> > > and perform some testing, thanks for working on this!
+> > 
+> > Some fuzz applying the first patch in the series:
+> > 
+> > ⬢ [acme@toolbx perf-tools-next]$ patch -p1 < ./v8_20260908_mattst88_perf_tools_port_ui_from_gtk2_to_gtk4.mbx
+> > patching file tools/build/Makefile.feature
+> > patching file tools/build/feature/Makefile
+> > patching file tools/build/feature/test-gtk2-infobar.c
+> > patching file tools/build/feature/test-gtk4.c (renamed from tools/build/feature/test-gtk2.c)
+> > patching file tools/perf/Documentation/perf-report.txt
+> > Hunk #1 succeeded at 354 with fuzz 2 (offset 3 lines).
+> > patching file tools/perf/Makefile
+> > patching file tools/perf/Makefile.config
+> > patching file tools/perf/Makefile.perf
+> > patching file tools/perf/builtin-annotate.c
+> > Hunk #1 succeeded at 61 (offset 9 lines).
+> > Hunk #2 succeeded at 721 (offset 9 lines).
+> > Hunk #3 succeeded at 840 (offset 12 lines).
+> > Hunk #4 succeeded at 910 (offset 12 lines).
+> > patching file tools/perf/builtin-report.c
+> > Hunk #1 succeeded at 83 (offset 1 line).
+> > Hunk #2 succeeded at 1360 (offset 1 line).
+> > Hunk #3 succeeded at 1714 (offset 4 lines).
+> > patching file tools/perf/scripts/install-build-deps.sh
+> > patching file tools/perf/tests/make
+> > patching file tools/perf/ui/gtk/annotate.c
+> > patching file tools/perf/ui/gtk/browser.c
+> > patching file tools/perf/ui/gtk/gtk.h
+> > patching file tools/perf/ui/gtk/hists.c
+> > patching file tools/perf/ui/gtk/progress.c
+> > patching file tools/perf/ui/gtk/setup.c
+> > patching file tools/perf/ui/gtk/util.c
+> > patching file tools/perf/ui/setup.c
+> > ⬢ [acme@toolbx perf-tools-next]$
+> > 
+> > I fixed it up quickly, now lets see the rest...
 > 
-> Align the register definition indent to other mtk dp register definition.
-> 
+> Trying to build with it with just the first patch in this series in it
+> correctly discovers that the gtk4 devel files are not available but then
+> proceed to try to include gtk code and thus fail, where it should just
+> do what the feature detection states: disable gtk support but build
+> successfully without it, I'm checking if this is a quick surgery.
 
-The plan is to make cosmetic changes later to align all register definitions
-in the entire mediatek-drm to follow that, because this indent style is a bit
-more readable, especially when definitions get a bit more complex.
+This is a pre-existing condition, if I try without your series and
+without gtk2 devel files, I get the same problem, so I'll now try to
+build it with the required gtk4 devel files, we can fix this
+pre-existing problem afterwards, its not a regression introduced by your
+series.
 
-#define REGISTER
-#  define REG_BITMASK0
-#    define BITMASK_RELATIVE_VALUE
-#  define REG_BITMASK1
+⬢ [acme@toolbx perf-tools-next]$ alias m='rm -rf ~/libexec/perf-core/ ; make -k GTK2=1 O=/tmp/build/$(basename $PWD)/ -C tools/perf install-bin && perf test import && cat /tmp/build/$(basename $PWD)/feature/test-all.make.output' ; export PYTHONPATH=/tmp/build/$(basename $PWD)/python
+⬢ [acme@toolbx perf-tools-next]$ m
+make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+  BUILD:   Doing 'make -j32' parallel build
+Makefile.config:781: GTK2 not found, disables GTK2 support. Please install gtk2-devel or libgtk2.0-dev
 
->> +#define DP_PHY_GLB_DPAUX_TX		0x8
->> +#  define RG_CKM_PT0_CKTX_IMPSEL	GENMASK(23, 20)
->> +#define MTK_DP_0034			0x34
->> +#  define DA_CKM_CKTX0_EN_FORCE_EN	BIT(10)
->> +#define DP_PHY_LANE_TX_0		0x104
->> +#define DP_PHY_LANE_TX_1		0x204
->> +#define DP_PHY_LANE_TX_2		0x304
->> +#define DP_PHY_LANE_TX_3		0x404
->> +#  define RG_XTP_LNx_TX_IMPSEL_PMOS	GENMASK(15, 12)
->> +#  define RG_XTP_LNx_TX_IMPSEL_NMOS	GENMASK(19, 16)
->> +#define DP_PHY_AUX_RX_CTL		0x1040
->> +#  define RG_DPAUX_RX_VALID_DEGLITCH_EN	BIT(2)
->> +#  define RG_XTP_GLB_CKDET_EN		BIT(1)
->> +#  define RG_DPAUX_RX_EN		BIT(0)
->> +
-> 
-> [snip]
-> 
->>   static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 offset, u32 val)
->>   {
->> -	int ret = regmap_write(mtk_dp->regs, offset, val);
->> +	int ret = regmap_write(mtk_dp->regs, offset + mtk_dp->legacy_regoff, val);
->>   
->>   	if (ret)
->>   		dev_err(mtk_dp->dev,
->> @@ -436,7 +460,7 @@ static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 offset, u32 val)
->>   static int mtk_dp_update_bits(struct mtk_dp *mtk_dp, u32 offset,
->>   			      u32 val, u32 mask)
->>   {
->> -	int ret = regmap_update_bits(mtk_dp->regs, offset, mask, val);
->> +	int ret = regmap_update_bits(mtk_dp->regs, offset + mtk_dp->legacy_regoff, mask, val);
->>   
->>   	if (ret)
->>   		dev_err(mtk_dp->dev,
->> @@ -566,7 +590,8 @@ static int mtk_dp_set_color_format(struct mtk_dp *mtk_dp,
->>   			   DP_TEST_COLOR_FORMAT_MASK);
->>   
->>   	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_303C,
->> -			   val, PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK);
->> +			   FIELD_PREP(PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK, val),
-> 
-> This is not related to register offset, so move to other patch.
-> 
->> +			   PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK);
->>   	return 0;
->>   }
->>   
-> 
-> [snip]
-> 
->>   static int mtk_dp_phy_configure(struct mtk_dp *mtk_dp,
->> @@ -1401,21 +1414,21 @@ static void mtk_dp_power_enable(struct mtk_dp *mtk_dp)
->>   			   SW_RST_B_PHYD, SW_RST_B_PHYD);
->>   	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
->>   			   DP_PWR_STATE_BANDGAP_TPLL, DP_PWR_STATE_MASK);
->> -	mtk_dp_write(mtk_dp, MTK_DP_1040,
->> +	regmap_write(mtk_dp->regs, DP_PHY_AUX_RX_CTL,
->>   		     RG_DPAUX_RX_VALID_DEGLITCH_EN | RG_XTP_GLB_CKDET_EN |
->>   		     RG_DPAUX_RX_EN);
->> -	mtk_dp_update_bits(mtk_dp, MTK_DP_0034, 0, DA_CKM_CKTX0_EN_FORCE_EN);
->> +	regmap_clear_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
-> 
-> How do you know MTK_DP_1040 has a meaningful name DP_PHY_AUX_RX_CTL?
+Auto-detecting system features:
+...                                   libdw: [ on  ]
+...                                   glibc: [ on  ]
+...                                  libelf: [ on  ]
+...                                 libnuma: [ on  ]
+...                  numa_num_possible_cpus: [ on  ]
+...                               libpython: [ on  ]
+...                             libcapstone: [ on  ]
+...                               llvm-perf: [ on  ]
+...                                    zlib: [ on  ]
+...                                    lzma: [ on  ]
+...                                     bpf: [ on  ]
+...                                  libaio: [ on  ]
+...                                 libzstd: [ on  ]
+...                              libopenssl: [ on  ]
+...                                    rust: [ on  ]
 
-Datasheet states the name.
+  INSTALL libsubcmd_headers
+  INSTALL libsymbol_headers
+  INSTALL libperf_headers
+  INSTALL libapi_headers
+  PERF_VERSION = 7.3.rc2.g93fd7adf1a47
+  INSTALL libbpf_headers
+  GEN     /tmp/build/perf-tools-next/perf-archive
+  GEN     /tmp/build/perf-tools-next/perf-iostat
+  CC      /tmp/build/perf-tools-next/ui/gtk/browser.o
+  CC      /tmp/build/perf-tools-next/ui/gtk/hists.o
+  CC      /tmp/build/perf-tools-next/ui/gtk/setup.o
+  CC      /tmp/build/perf-tools-next/arch/common.o
+  CC      /tmp/build/perf-tools-next/ui/gtk/util.o
+  CC      /tmp/build/perf-tools-next/ui/setup.o
+  CC      /tmp/build/perf-tools-next/ui/gtk/helpline.o
+  CC      /tmp/build/perf-tools-next/ui/gtk/progress.o
+  CC      /tmp/build/perf-tools-next/ui/gtk/annotate.o
+  CC      /tmp/build/perf-tools-next/builtin-annotate.o
+  CC      /tmp/build/perf-tools-next/builtin-diff.o
+  CC      /tmp/build/perf-tools-next/ui/browsers/annotate.o
+  CC      /tmp/build/perf-tools-next/ui/browsers/annotate-data.o
+  CC      /tmp/build/perf-tools-next/ui/browsers/hists.o
+  LD      /tmp/build/perf-tools-next/arch/perf-util-in.o
+  CC      /tmp/build/perf-tools-next/builtin-record.o
+In file included from ui/gtk/browser.c:2:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+In file included from ui/gtk/hists.c:2:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/browser.o] Error 1
+  CC      /tmp/build/perf-tools-next/builtin-report.o
+make[4]: *** Waiting for unfinished jobs....
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/hists.o] Error 1
+  LINK    /tmp/build/perf-tools-next/libperf-jvmti.so
+In file included from ui/gtk/setup.c:2:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+In file included from ui/gtk/util.c:3:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+In file included from ui/gtk/helpline.c:2:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/util.o] Error 1
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/setup.o] Error 1
+  CC      /tmp/build/perf-tools-next/builtin-stat.o
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/helpline.o] Error 1
+  CC      /tmp/build/perf-tools-next/builtin-top.o
+  LD      /tmp/build/perf-tools-next/ui/browsers/perf-ui-in.o
+  CC      /tmp/build/perf-tools-next/builtin-script.o
+  CC      /tmp/build/perf-tools-next/builtin-kvm.o
+In file included from ui/gtk/progress.c:4:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/progress.o] Error 1
+In file included from ui/gtk/annotate.c:2:
+ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+    8 | #include <gtk/gtk.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/annotate.o] Error 1
+make[3]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:158: ui/gtk] Error 2
+make[2]: *** [Makefile.perf:584: /tmp/build/perf-tools-next/gtk-in.o] Error 2
+make[2]: *** Waiting for unfinished jobs....
+  LD      /tmp/build/perf-tools-next/ui/perf-ui-in.o
 
-> Why don't you know MTK_DP_0034 has a meaningful name?
-
-...datasheet doesn't state the name :-)
-
+ 
+> - Arnaldo
 > 
->>   }
->>   
->>
+> ⬢ [acme@toolbx perf-tools-next]$ alias m='rm -rf ~/libexec/perf-core/ ; make -k GTK4=1 O=/tmp/build/$(basename $PWD)/ -C tools/perf install-bin && perf test import && cat /tmp/build/$(basename $PWD)/feature/test-all.make.output' ; export PYTHONPATH=/tmp/build/$(basename $PWD)/python
+> ⬢ [acme@toolbx perf-tools-next]$ m
+> make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
+>   BUILD:   Doing 'make -j32' parallel build
+> Makefile.config:781: GTK4 not found, disables GTK4 support. Please install gtk4-devel or libgtk-4-dev
 > 
-> [snip]
+> Auto-detecting system features:
+> ...                                   libdw: [ on  ]
+> ...                                   glibc: [ on  ]
+> ...                                    gtk4: [ OFF ]
+> ...                                  libelf: [ on  ]
+> ...                                 libnuma: [ on  ]
+> ...                  numa_num_possible_cpus: [ on  ]
+> ...                               libpython: [ on  ]
+> ...                             libcapstone: [ on  ]
+> ...                               llvm-perf: [ on  ]
+> ...                                    zlib: [ on  ]
+> ...                                    lzma: [ on  ]
+> ...                                     bpf: [ on  ]
+> ...                                  libaio: [ on  ]
+> ...                                 libzstd: [ on  ]
+> ...                              libopenssl: [ on  ]
+> ...                                    rust: [ on  ]
 > 
+>   INSTALL libsubcmd_headers
+>   INSTALL libsymbol_headers
+>   INSTALL libapi_headers
+>   INSTALL libperf_headers
+>   CC      /tmp/build/perf-tools-next/libperf/core.o
+>   CC      /tmp/build/perf-tools-next/libperf/cpumap.o
+>   CC      /tmp/build/perf-tools-next/libperf/threadmap.o
+>   CC      /tmp/build/perf-tools-next/libperf/evsel.o
+>   CC      /tmp/build/perf-tools-next/libsubcmd/exec-cmd.o
+>   CC      /tmp/build/perf-tools-next/libperf/evlist.o
+>   CC      /tmp/build/perf-tools-next/libperf/mmap.o
+>   INSTALL libbpf_headers
+>   CC      /tmp/build/perf-tools-next/libsubcmd/help.o
+>   CC      /tmp/build/perf-tools-next/libperf/zalloc.o
+>   CC      /tmp/build/perf-tools-next/libsubcmd/pager.o
+>   CC      /tmp/build/perf-tools-next/libperf/xyarray.o
+>   CC      /tmp/build/perf-tools-next/libsubcmd/parse-options.o
+>   CC      /tmp/build/perf-tools-next/libperf/lib.o
+>   CC      /tmp/build/perf-tools-next/libsubcmd/run-command.o
+>   CC      /tmp/build/perf-tools-next/libsubcmd/sigchain.o
+>   CC      /tmp/build/perf-tools-next/libsubcmd/subcmd-config.o
+>   LD      /tmp/build/perf-tools-next/libsubcmd/libsubcmd-in.o
+>   AR      /tmp/build/perf-tools-next/libsubcmd/libsubcmd.a
+>   LD      /tmp/build/perf-tools-next/libperf/libperf-in.o
+>   AR      /tmp/build/perf-tools-next/libperf/libperf.a
+>   MKDIR   /tmp/build/perf-tools-next/ui/gtk/
+>   CC      /tmp/build/perf-tools-next/jvmti/libjvmti.o
+>   MKDIR   /tmp/build/perf-tools-next/ui/gtk/
+>   CC      /tmp/build/perf-tools-next/trace/beauty/syscalltbl.o
+>   MKDIR   /tmp/build/perf-tools-next/ui/gtk/
+>   CC      /tmp/build/perf-tools-next/arch/common.o
+>   CC      /tmp/build/perf-tools-next/jvmti/jvmti_agent.o
+>   MKDIR   /tmp/build/perf-tools-next/ui/gtk/
+>   MKDIR   /tmp/build/perf-tools-next/ui/gtk/
+>   CC      /tmp/build/perf-tools-next/trace/beauty/arch_errno_names.o
+>   CC      /tmp/build/perf-tools-next/ui/setup.o
+>   CC      /tmp/build/perf-tools-next/jvmti/libstring.o
+>   MKDIR   /tmp/build/perf-tools-next/ui/gtk/
+>   CC      /tmp/build/perf-tools-next/ui/helpline.o
+>   CC      /tmp/build/perf-tools-next/jvmti/libctype.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/regs_load.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/browser.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/hists.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/setup.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/annotate.o
+>   CC      /tmp/build/perf-tools-next/ui/progress.o
+>   CC      /tmp/build/perf-tools-next/scripts/python/Perf-Trace-Util/Context.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/util.o
+>   CC      /tmp/build/perf-tools-next/ui/util.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/helpline.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/zalloc.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/dwarf-unwind.o
+>   CC      /tmp/build/perf-tools-next/ui/gtk/progress.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/arch-tests.o
+>   CC      /tmp/build/perf-tools-next/ui/hist.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/hybrid.o
+>   CC      /tmp/build/perf-tools-next/builtin-annotate.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/header.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/intel-pt-test.o
+>   CC      /tmp/build/perf-tools-next/ui/stdio/hist.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/bp-modify.o
+>   CC      /tmp/build/perf-tools-next/ui/browser.o
+>   CC      /tmp/build/perf-tools-next/tests/builtin-test.o
+>   CC      /tmp/build/perf-tools-next/ui/keysyms.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/tsc.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/amd-ibs-via-core-pmu.o
+>   CC      /tmp/build/perf-tools-next/tests/tests-scripts.o
+>   CC      /tmp/build/perf-tools-next/builtin-check.o
+>   LD      /tmp/build/perf-tools-next/trace/beauty/perf-util-in.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/pmu.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/amd-ibs-period.o
+>   CC      /tmp/build/perf-tools-next/builtin-config.o
+>   LD      /tmp/build/perf-tools-next/jvmti/jvmti-in.o
+>   LD      /tmp/build/perf-tools-next/scripts/python/Perf-Trace-Util/perf-util-in.o
+>   CC      /tmp/build/perf-tools-next/tests/parse-events.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/topdown.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/tests/topdown.o
+>   CC      /tmp/build/perf-tools-next/builtin-diff.o
+> In file included from ui/gtk/setup.c:2:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> compilation terminated.
+>   CC      /tmp/build/perf-tools-next/tests/uncore-event-sorting.o
+> In file included from ui/gtk/annotate.c:2:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> In file included from ui/gtk/helpline.c:2:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> compilation terminated.
+> compilation terminated.
+> In file included from ui/gtk/browser.c:2:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> compilation terminated.
+>   CC      /tmp/build/perf-tools-next/ui/tui/setup.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/machine.o
+> In file included from ui/gtk/util.c:3:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> compilation terminated.
+> In file included from ui/gtk/hists.c:2:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> compilation terminated.
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/annotate.o] Error 1
+> make[4]: *** Waiting for unfinished jobs....
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/browser.o] Error 1
+>   CC      /tmp/build/perf-tools-next/ui/browsers/annotate.o
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/helpline.o] Error 1
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/setup.o] Error 1
+>   CC      /tmp/build/perf-tools-next/tests/dso-data.o
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/hists.o] Error 1
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/util.o] Error 1
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/event.o
+>   CC      /tmp/build/perf-tools-next/builtin-evlist.o
+>   CC      /tmp/build/perf-tools-next/ui/tui/util.o
+>   LD      /tmp/build/perf-tools-next/scripts/perf-util-in.o
+>   CC      /tmp/build/perf-tools-next/tests/vmlinux-kallsyms.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/evlist.o
+>   CC      /tmp/build/perf-tools-next/ui/tui/helpline.o
+>   CC      /tmp/build/perf-tools-next/builtin-ftrace.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/annotate-data.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/mem-events.o
+>   CC      /tmp/build/perf-tools-next/tests/openat-syscall.o
+>   CC      /tmp/build/perf-tools-next/ui/tui/progress.o
+>   CC      /tmp/build/perf-tools-next/builtin-help.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/hists.o
+>   CC      /tmp/build/perf-tools-next/tests/openat-syscall-all-cpus.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/evsel.o
+>   CC      /tmp/build/perf-tools-next/builtin-buildid-list.o
+>   CC      /tmp/build/perf-tools-next/tests/openat-syscall-tp-fields.o
+>   LD      /tmp/build/perf-tools-next/arch/x86/tests/perf-test-in.o
+> In file included from ui/gtk/progress.c:5:
+> ui/gtk/gtk.h:8:10: fatal error: gtk/gtk.h: No such file or directory
+>     8 | #include <gtk/gtk.h>
+>       |          ^~~~~~~~~~~
+> compilation terminated.
+>   CC      /tmp/build/perf-tools-next/builtin-buildid-cache.o
+>   CC      /tmp/build/perf-tools-next/tests/mmap-basic.o
+>   CC      /tmp/build/perf-tools-next/builtin-kallsyms.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/map.o
+>   CC      /tmp/build/perf-tools-next/tests/perf-record.o
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:96: /tmp/build/perf-tools-next/ui/gtk/progress.o] Error 1
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/iostat.o
+>   CC      /tmp/build/perf-tools-next/builtin-list.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/scripts.o
+>   CC      /tmp/build/perf-tools-next/tests/evsel-roundtrip-name.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/auxtrace.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/header.o
+>   CC      /tmp/build/perf-tools-next/builtin-record.o
+>   LD      /tmp/build/perf-tools-next/arch/x86/perf-test-in.o
+>   CC      /tmp/build/perf-tools-next/tests/evsel-tp-sched.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/intel-pt.o
+>   CC      /tmp/build/perf-tools-next/builtin-report.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/res_sample.o
+>   CC      /tmp/build/perf-tools-next/builtin-stat.o
+>   LD      /tmp/build/perf-tools-next/arch/perf-test-in.o
+>   CC      /tmp/build/perf-tools-next/arch/x86/util/intel-bts.o
+>   CC      /tmp/build/perf-tools-next/ui/browsers/c2c-function.o
+>   CC      /tmp/build/perf-tools-next/builtin-top.o
+>   CC      /tmp/build/perf-tools-next/builtin-script.o
+>   CC      /tmp/build/perf-tools-next/tests/fdarray.o
+>   LINK    /tmp/build/perf-tools-next/libperf-jvmti.so
+>   CC      /tmp/build/perf-tools-next/builtin-kvm.o
+>   CC      /tmp/build/perf-tools-next/tests/pmu.o
+>   CC      /tmp/build/perf-tools-next/builtin-inject.o
+>   CC      /tmp/build/perf-tools-next/tests/pmu-events.o
+>   CC      /tmp/build/perf-tools-next/builtin-mem.o
+>   CC      /tmp/build/perf-tools-next/tests/hists_common.o
+>   CC      /tmp/build/perf-tools-next/builtin-data.o
+>   CC      /tmp/build/perf-tools-next/builtin-version.o
+>   LD      /tmp/build/perf-tools-next/arch/x86/util/perf-util-in.o
+>   CC      /tmp/build/perf-tools-next/tests/hists_link.o
+>   CC      /tmp/build/perf-tools-next/builtin-c2c.o
+>   CC      /tmp/build/perf-tools-next/tests/hists_filter.o
+> make[3]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:158: ui/gtk] Error 2
+> make[2]: *** [Makefile.perf:584: /tmp/build/perf-tools-next/gtk-in.o] Error 2
+> make[2]: *** Waiting for unfinished jobs....
+>   CC      /tmp/build/perf-tools-next/builtin-daemon.o
 > 
->> @@ -69,43 +29,59 @@
->>   #define DP_TX2_PRE_EMPH_MASK			GENMASK(19, 18)
->>   #define DP_TX3_VOLT_SWING_MASK			GENMASK(25, 24)
->>   #define DP_TX3_PRE_EMPH_MASK			GENMASK(27, 26)
->> -#define MTK_DP_TOP_RESET_AND_PROBE	0x2020
->> +#define MTK_DP_TOP_RESET_AND_PROBE	0x20
->>   #define SW_RST_B_PHYD				BIT(4)
->> -#define MTK_DP_TOP_IRQ_MASK		0x202c
->> +#define RG_SW_RST_MASK				GENMASK(7, 0)
->> +#define RG_SW_RST				0xff
->> +#define RG_PROBE_LOW_SEL_MASK			GENMASK(18, 16)
->> +#define RG_PROBE_LOW_SEL			BIT(16)
->> +#define RG_PROBE_LOW_HIGH_SWAP_MASK		BIT(23)
->> +#define RG_PROBE_LOW_HIGH_SWAP			BIT(23)
-> 
-> These new definition is not related to this patch, so move to other patch.
-> 
->> +
->> +#define MTK_DP_TOP_IRQ_MASK		0x2c
->> +#define ENCODER_IRQ_MSK				BIT(0)
->> +#define TRANS_IRQ_MSK				BIT(1)
-> 
-> Ditto.
-> 
->>   #define IRQ_MASK_AUX_TOP_IRQ			BIT(2)
->> -#define MTK_DP_TOP_MEM_PD		0x2038
->> +
->> +#define MTK_DP_TOP_MEM_PD		0x38
->>   #define MEM_ISO_EN				BIT(0)
->>   #define FUSE_SEL				BIT(2)
->>   
->> -/* offset: ENC0_OFFSET (0x3000) */
->> -#define MTK_DP_ENC0_P0_3000			0x3000
->> +#define EDP_TX_TOP_CLKGEN_0		0x74
->> +#define EDP_TX_TOP_CLKGEN_REST_MASK		0xf
->> +#define EDP_TX_TOP_CLKGEN_REST_VALUE		0xf
-> 
-> Ditto.
-> 
->> +
->> +/* offset: ENC0_OFFSET (0x1000) */
->> +#define MTK_DP_ENC0_P0_3000			0x1000
->>   #define LANE_NUM_DP_ENC0_P0_MASK			GENMASK(1, 0)
->>   #define VIDEO_MUTE_SW_DP_ENC0_P0			BIT(2)
->>   #define VIDEO_MUTE_SEL_DP_ENC0_P0			BIT(3)
->>   #define ENHANCED_FRAME_EN_DP_ENC0_P0			BIT(4)
->> -#define MTK_DP_ENC0_P0_3004			0x3004
->> +#define DP_I_MODE_ENABLE				BIT(6)
->> +#define REG_BS_SYMBOL_CNT_RESET				BIT(7)
-> 
-> Ditto.
-
-Ok
-
-> 
->> +#define MTK_DP_ENC0_P0_3004			0x1004
->>   #define VIDEO_M_CODE_SEL_DP_ENC0_P0_MASK		BIT(8)
->>   #define DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0		BIT(9)
->>   #define SDP_RESET_SW_DP_ENC0_P0				BIT(13)
->>
-> 
-> [snip]
-> 
->>   #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_8BIT		(3 << 8)
->>   #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_6BIT		(4 << 8)
->>   #define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK		GENMASK(14, 12)
->> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		(0 << 12)
->> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422		(1 << 12)
->> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420		(2 << 12)
->> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		0
->> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422	1
->> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420	2
-> 
-> You change the value. Why?
-> 
-
-That's done in order to use the FIELD_PREP macro.
-
-Cheers,
-Angelo
-
-> Regards,
-> CK
-> 
->> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YONLY		3
->> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RAW		4
->>   #define VIDEO_MN_GEN_EN_DP_ENC0_P0			BIT(15)
->> -#define MTK_DP_ENC0_P0_3040			0x3040
->> +#define MTK_DP_ENC0_P0_3040			0x1040
->>   #define SDP_DOWN_CNT_DP_ENC0_P0_VAL			0x20
->>   #define SDP_DOWN_CNT_INIT_DP_ENC0_P0_MASK		GENMASK(11, 0)
->>
-> 
-
