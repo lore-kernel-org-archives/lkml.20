@@ -1,37 +1,87 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B232352016;
-	Wed,  9 Sep 2026 15:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8833E54EEB3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968977; cv=none; b=NXz35spqoJgMLnkYNROFj58v6bNI/0ik/3PPJzn0lSe0yakgA2Rsa6zMhhaLhqV38qLMAnF2pGHDerGTrWOqra3QpjSaYFi3igjaWFB4N0oQHDCxr2kzv5Lg0U9OqO9oSqgEe06+nwmpJL0L7kxBv3/2jgOQyYWYl6qzx65Co98=
+	t=1788969009; cv=none; b=GmV+CT3r0Pn9hEW5IZ01rT7lEl8oR9lQPGpvjbx3nrXajWSx0+UxW79oVaijJtDgLoGzWautLgrpV2C7q0lkhKqNL8A+l57oiUSpc5wotZW96q0xSzZ6+S3jOYUiOwDsQN1MiDdnaTdQpC0FBkeHVdnb+tZ3lJnGdNt/AV/AXpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968977; c=relaxed/simple;
-	bh=7bhXyQhetiPBZeVEPUSFwKKEOPXZKDlnY1fbnbOb6EE=;
+	s=arc-20240116; t=1788969009; c=relaxed/simple;
+	bh=nFE1mVHqzRhOWK279L/SKUnOy2Ov3lQzrqja+W6JOSU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CMOMbzVKl+RU4avPYNsloPTzry3JsZyh11CI79KTwW6iIVPipcLtdo12Og5WIM088RwWD+90w95JxzLCTSU6Lpq+RnsGob9g68ybRMQGz4dnapTSHeq3Db/9WNG5Ogywl4oL1v7ZZROK1CRlv85qXpArJBQzTYJevdkWAchLM3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=O56gEx+y; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 In-Reply-To:Content-Type; b=h1HaIql2XURC4G/qjJUSCJWGJg+IQYGoaToDF7F/KyXsv8eIc0QLr9Ejzu7ohly9AmQ2uTysKwr5zQ/cAiU0X4wPukyN5Z8kNKdubKKCt3LkSjVdXle6NCBLy3E5Ok8BF7vr2S6j7VyNeA0vedKt8y/Q1J5lejHBnaGpQS926do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aI93jCLc; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dQx7zpw7; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="O56gEx+y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=O982MRz3ZnvJpd6XtX5F47jsQHnBwqKeU3GJ60z6ANk=; b=O56gEx+yyLLBfrGG2qOGxDnXtf
-	nc+G4U17cNF5TvbzBadrwfWgfoRHTZQhIcaYpWfAWRhi+Y5eUF3WT8DaF27NL3/T7xBISftyNgSSJ
-	Pz44cVosEUiP4/QFgEEUchX3HVfzM7gbeKsbuHDddvYO01b1VCbTlotCg0PJDMsETUWn4v5+hqukZ
-	/nv1iA3DAzfygMNEhs3+Rbm/x38sLyaioA8pPsbdhrQM7fFymbEaj6dnUyHoN+twNNDM52Cy/8GTd
-	ycaQ8z2z+xyNEPE0Tfmxs82pU2eWYNqu5M0+YnW2vwQ1Y1GvERL6bfaPX6rc8cm1owKOCMPhAMTxh
-	j4mODtAw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4KYB-0000000CEDO-0kNL;
-	Wed, 09 Sep 2026 15:49:27 +0000
-Message-ID: <62c2095b-199f-4646-b3a8-b52fdbea36a8@infradead.org>
-Date: Wed, 9 Sep 2026 08:49:25 -0700
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aI93jCLc";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dQx7zpw7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788969007;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
+	b=aI93jCLcNv5t1CUsVcgfEHY8WjnUBkNVZi7U4M6LXSMj7FbGbicn8AKuxWZxy3NT3/07t9
+	R3BsZ6dm+9W3hQV1Hk8Eg5+mc9lRU9YZg4NOOK/8eTYlQ8crH7QvyIRk097Cg6ICZUp39r
+	0fzEc0PhAvtRfelOX0Xzh6/l4FtxmJQ=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-652-vnJhO4L7ML6lwJBXva42yA-1; Wed, 09 Sep 2026 11:50:05 -0400
+X-MC-Unique: vnJhO4L7ML6lwJBXva42yA-1
+X-Mimecast-MFC-AGG-ID: vnJhO4L7ML6lwJBXva42yA_1788969005
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cf5bd2f12so80043825e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:50:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788969004; x=1789573804; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
+        b=dQx7zpw7sCZcpIlpbI1XuxMa78BUOcZL8yRmkqSSTlZisc927/IWi6xLwrflR7pP1D
+         qRvdWgrihWAKV6vGjfBLuJg0oIg58zuFWB5EccMn1dDc1mGZvMiKj26KNHRwTMJs4dZ6
+         Bcfxph64UqcY6OIz27UCB9g4N+RGmCzoIYXonkhsfkdcM3kdaEQymthlVOhSrrdBRvkt
+         OdXcLCPPb6haSxnDrtLVpQmwd90cxp0TiHcFNi622DHavSTgwGHXOA760B/btZMbOTpn
+         S39JJQPjb2Xs9DWZ9a+lhDF85FOtAf6POoMwwISoLt2LLrfHNgJLFjSq9qnB1lz6vqeT
+         aySQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788969004; x=1789573804;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
+        b=JFt5ZZgr8pBT81OvkmpJNxsY21SXh5HjajHOZ+ubqd5qQEpeDmyNq4dNt4BXVYI0YM
+         wUiDhG1+QRpv9YpeyCakIC+1Lym5/nCWn6J34pWi/a0ual+wIcAY+A3cTTEi0i0pfn+q
+         HoujLsrvYtx/+uyPkENVtXZ6Txfb5yAcdRtw78pWgLsc5sPirtb0T6OGjL4i4BBIiOro
+         qmZ34UE0rxoPf+0ZCuw9UKUuL/dDYx0WwXo6IebTq6hKo7kC6KCkkP2B3RQtbjgp3L5z
+         1eh/2ihR6bhBJHXdM0YgLhdnRcD3kMYyyWTHBhRuxh4OFZnR1J8+CMPTt1Ftdtlzf1fX
+         n5fQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxOHQudYSwm4VC4WbbLeRbmbMmeN4GjsB9D5/zkaa54U/QPZspKbycP0ymxDAEB0bOlx+WcsVnl7zYGrOY=@vger.kernel.org
+X-Gm-Message-State: AFuF++niaeI81Ve8b9odZetVDauOS68cqf+qcpXmFxnfykeICDNXRurr
+	OJsiMuxzFb/1L3N3Joqw6niRFP01nn7Xtdhkd143cL3/YPKiQsJ4H+KylUcsjFuEDlsjnY13AEw
+	a20KkbbeeSNTRmdya5bDZXD9SavggqNshMXOvAY1dJFUq5DOqQG5W7C8b6fzhqoms7A==
+X-Gm-Gg: AYBFou2dUyMz8r6YKxQ/PKSFFVZnJIZvKHv0OX+bQVDIAE0lQ0yLTI60TPqitzlVXOY
+	bsPBUFkGp71C7pv17VeF6YXkQBtbXH7qfpoyoCi4JUD1d3jBbEAx8oaVqF2M6mmpmIc9c5JWzzV
+	RVkN4c3STQ2grEPc+7M77S50ZhiDzyKQMz1QMR/SCwChhv/SiyofMV3n1wGwBMX4cGAsotgj3ea
+	2nN/Jkp0hDIEq+L901yRRVNCICMD5haaiYcaOkfZ/h6/kWGVt4k6pbcSt5ovXvn87zD+jTZR687
+	EPkd7KMBKBCSNFKzlQV/9mHW8y8x8UxEjO4PQn2Ernz5B3EY5moMaPiSP6qum2waf7I8vVaxX0M
+	z//m3hGdBsfbhcOQ74nw3qSJPbz7QN1jclQFDmq7gpcymwVKdgw1tDmYEukcGxSa7yuRNtQdVVA
+	==
+X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr387804175e9.6.1788969004574;
+        Wed, 09 Sep 2026 08:50:04 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr387803645e9.6.1788969004052;
+        Wed, 09 Sep 2026 08:50:04 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm137463835e9.4.2026.09.09.08.50.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:50:02 -0700 (PDT)
+Message-ID: <121f90e5-a19c-4066-af03-8cf5594bb30f@redhat.com>
+Date: Wed, 9 Sep 2026 17:50:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,51 +89,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: UML: user_mode_linux_howto_v2: Fix bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Renzo Davoli <renzo@cs.unibo.it>
-Cc: linux-um@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260909140051.1365758-2-manuelebnerli@mailbox.org>
+Subject: Re: [PATCH net v2 15/15] mptcp: avoid pruning for OoW data
+To: netdev-bot+sashiko@kernel.org, matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-15-df1de70348b6@kernel.org>
+ <178896537782.219967.1022060629733006428@kernel.org>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260909140051.1365758-2-manuelebnerli@mailbox.org>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178896537782.219967.1022060629733006428@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-[adding Renzo]
-
-On 9/9/26 7:00 AM, Manuel Ebner wrote:
-> Add missing ')'.
+On 9/9/26 4:49 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
 > 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
->  Documentation/virt/uml/user_mode_linux_howto_v2.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
 > 
-> diff --git a/Documentation/virt/uml/user_mode_linux_howto_v2.rst b/Documentation/virt/uml/user_mode_linux_howto_v2.rst
-> index 9224bea5e..13acac1c1 100644
-> --- a/Documentation/virt/uml/user_mode_linux_howto_v2.rst
-> +++ b/Documentation/virt/uml/user_mode_linux_howto_v2.rst
-> @@ -580,7 +580,7 @@ https://github.com/virtualsquare/sshlirp
->     ``vec0:transport=vde,vnl=vxvde://234.0.0.1``
->  
->  connect to a local area cloud (all the UML nodes using the same
-> -multicast address running on hosts in the same multicast domain (LAN)
-> +multicast address) running on hosts in the same multicast domain (LAN)
->  will be automagically connected together to a virtual LAN.
+> - [Medium] Incomplete realization of the patch's stated principle ("do it
+>   only when we expect to accept the skb triggering the cleanup"): after…
+> 
+> --
+> 
+> mptcp: avoid pruning for OoW data
+> 
+> This moves the mptcp_try_rmem_schedule() call in mptcp_data_queue_ofo()
+> so that it runs after the out-of-window check instead of before it, which
+> avoids running the destructive OoO queue pruning for skbs that are going
+> to be dropped as out of window.
+> 
+>> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+>> index 4309fca6b119..0098e2830931 100644
+>> --- a/net/mptcp/protocol.c
+>> +++ b/net/mptcp/protocol.c
+>> @@ -313,12 +313,6 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+>>  	u64 seq, end_seq, max_seq;
+>>  	struct sk_buff *skb1;
+>>  
+>> -	if (!mptcp_try_rmem_schedule(sk, skb)) {
+>> -		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
+>> -		mptcp_drop(sk, skb);
+>> -		return;
+>> -	}
+>> -
+>>  	seq = MPTCP_SKB_CB(skb)->map_seq;
+>>  	end_seq = MPTCP_SKB_CB(skb)->end_seq;
+>>  	max_seq = atomic64_read(&msk->rcv_wnd_sent);
+>> @@ -335,6 +329,12 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+>>  		return;
+>>  	}
+>>  
+>> +	if (!mptcp_try_rmem_schedule(sk, skb)) {
+>> +		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
+>> +		mptcp_drop(sk, skb);
+>> +		return;
+>> +	}
+>> +
+> 
+> [Severity: Medium]
+> The commit message says pruning should be done "only when we expect
+> to accept the skb triggering the cleanup".  Does the new placement
+> fully match that, given the duplicate-data check still happens later in
+> the rbtree walk of mptcp_data_queue_ofo()?
 
-I would put the closing parenthesis at the end:
-                                            to a virtual LAN.)
+The change suggested here would add quite a bit of complexity for little
+gain, and would diverge MPTCP behavior from TCP. We learned the lesson
+the hard way we need very good reasons to do the latter. I'm pretty sure
+we are better off with the proposed code.
 
-@Renzo, comments?
-
->  
->  ***********
-
--- 
-~Randy
+/P
 
