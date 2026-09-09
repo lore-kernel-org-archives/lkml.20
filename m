@@ -1,134 +1,144 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DFE550DB7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2631E54B1CF;
+	Wed,  9 Sep 2026 12:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955840; cv=none; b=c1maImfCQnvUOOHKM0JftwVP8Yf7UOG1EFRP70RdEVwOUxZ+TEtG7sRfe4Jv3/zZXa1P1DDt6GrrmhNqTkktM/9zmDWCFrFBLWY/tLLKmj+vJ1HrzxJSPxEf++OJmJLcGvMjNqBcnhKPQ1EDomH833vlvyfu2lgSQr8LJLE4DWs=
+	t=1788955853; cv=none; b=mF1gRCIjdMO/ebgU2iXQ3mteEu29p/pSCt+sWSxF9/SrC4w/JhzE3DGbM0TJbdBbkSsGHDg7ozo43OB0sH1+soeY8Dopg3MdAQ5C8WKV10/rjGcbl2nblNDB2RQdul17JOMWf+liRKemOlHVPkB5KikgTznjwkMc9+lW59xendo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955840; c=relaxed/simple;
-	bh=DvwtVb5IKeMYxO2D23yno0EzlJiATMbD/Z8h9/0BjRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HbIaSAdppQXZZpsjo5Zd0jVYm3YicJ3dYmDrLlRsdLjoSqMrysFpnOE53P+d54A+LMPiBsSbOi2rKZwFxWFFmleGGfUqFAWieQEss9UXcDA5br8z2gjHPlpNps+DJ0NsAHwSKUud4iWBPF6aApXkDGvDrJTHg5P0wyr85KUEPLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ip69aeoj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wo6A7hnV; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788955853; c=relaxed/simple;
+	bh=xgVS1uzLmdnK8tSxHFP7Ly7Gbla/oDDL6yT3SDhnOYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qbKESUIg6jTVxwdOT7NG68yqFY5xoc32XqtQ7Pun406tUhxfNy1sBUsAipnnId+Ej7d4cciRW0bmiLabFM50metpSNhuTxwoedIxJFV462jR3Ivqokys1EV3kegRIy4kG69AqmLaDOTffpQX3ATDBhB70fPCYRaL1q5yz/F4SrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=DclXpt4J; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ip69aeoj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wo6A7hnV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788955835;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vc9MzoiCKhsJwxuQzTyGvb7DKHhftnS4Vlp/tiC9CaA=;
-	b=Ip69aeojROhcM41a3ZrVuBrqEE4BM1eWjeUx6JV9xiuWvm5jsZYxRItVb80kMFHdwOeC7p
-	trD3io7haWfxeMcN3OHVOL82idznKf5mnMATe/B04kUqvZVGV+5RwYXtFeoc4KZ8wNRZoJ
-	MNTNJa2nHsgLBf6NFYGRYMX4i3wXCSE=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-201-bvihPKCgPDmYDa2y9clihg-1; Wed, 09 Sep 2026 08:10:34 -0400
-X-MC-Unique: bvihPKCgPDmYDa2y9clihg-1
-X-Mimecast-MFC-AGG-ID: bvihPKCgPDmYDa2y9clihg_1788955834
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90e7db8d191so128374576d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:10:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788955834; x=1789560634; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Vc9MzoiCKhsJwxuQzTyGvb7DKHhftnS4Vlp/tiC9CaA=;
-        b=Wo6A7hnVHKJsbmWS0cqt73IAelPQZTFijwj2GoyomEK6JuMv7dSw9eFp3RoS2GmUzD
-         qPyNwdnkeU43l9+WNNU/cC+mz5N12n3QWf6Xt53LxApHC+SrUyEsutT8uaDHVIkdPqp7
-         5BjU7dPE+kGO19zQJvelwC1bN403xMiPLS6c0OgFJ3Kerpxb6mdYz+NT4SUQGWFB8E0k
-         fy6AJ9UAW3X1aNx/EWFXhDi5RgdACF/RHAwCH7VuGSmGzpEkHyEUfZrUiebazvidQHBR
-         4oEHEkRdzr/gupysYOxFRZ6X854aYq02+TBmHm1BliEopSEweKGxfBHV6uT95vV5I0gr
-         dYTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788955834; x=1789560634;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vc9MzoiCKhsJwxuQzTyGvb7DKHhftnS4Vlp/tiC9CaA=;
-        b=Qc30QPCn+929J4/0TcwcrPKMq7WGij33NW92ljB0w9Oy1XW/tjWmbJOyYqNi1i0YLO
-         a7PQYAk2D0pvlgDphltkOoCgZ2HR5SEs2LhcPNvQLkcCycyexoGQpuAY9B4Bl2B30+RB
-         r5ncQ6VyIH4ni7Z7PmrQe/8lWlIZD4GVzh6S4r8ldn9u/cAv4qQOQ4vKU1MN50IZdaFO
-         6ZY0z6sKwmknnrbpgcz8kEE3UJt7yZ7FnkhORuZXDTyNX6IYZYIg+ElXXVwL1k/AE+Uo
-         vqPmX5k38ayemy5U75xDXNC/oaxpoCIHp9Bc5NihwXWvygKxt6Kkmwm5T4lqzyLx1pYB
-         NO4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwxVqzvOSW4CRxZZv4xTVGRW9+P3n657YYBKvyBJCpSIWVEPp3qOolaAszAliRphpoDxzZLg7niCSF5pw0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwnLHY1SkDbkk/s+C2STtUEaqueApWWKWins1Zq0JQZejJkDRV
-	nTc624jlhvL7USJF8fa11rcXtkZdTa7IKABy82pOJzUNO2xDZX91n2ah4nt2sTWRkV/zxhc4t0V
-	e323zbLTsCXEkc5henHBIIeDfWVaPNRWtzqWjm3xZ6iJrTIIoj0BRB5JJTNbB3r/k+A==
-X-Gm-Gg: AYBFou0XaEpzypJb7JZ2af8EM74kGi+oLUBdjKTjnXj5ocKiMyB3Czbdbdh2r4tkpXd
-	+AxNI5V1YxSjT1gcKMCNBr1d5vulKR5L21vbVTSPQ8TousLKBPtv2qYgXK/kHIij+SGHGZUDpUp
-	EAbbTfT13p9yNB4j3aA8goUFWSe5UOVwCNx+yT93qEDgPOL8ykuq74Et4G6Rdi0WXoMcoVDSQm5
-	+HnZBk1yDoPR4Na5bZQi0wFG466L2mJNo8SF2yjnu84C2hfoqV+hTjluxRz1gLF0dklImi2XPga
-	tZ6p0B0vP4YcGpbcEzxpliW2PPYlonn9ooy3NWQ+EJ/fuZAPprYu0ncZQankTNz+nACbcbIJetP
-	sw8RwaNhLoHOsIUE9KOQy9OpYUA7Abqadl/0=
-X-Received: by 2002:a05:6214:6004:b0:90c:e57f:e32f with SMTP id 6a1803df08f44-9103efa2278mr404159526d6.26.1788955833550;
-        Wed, 09 Sep 2026 05:10:33 -0700 (PDT)
-X-Received: by 2002:a05:6214:6004:b0:90c:e57f:e32f with SMTP id 6a1803df08f44-9103efa2278mr404158996d6.26.1788955833104;
-        Wed, 09 Sep 2026 05:10:33 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040663a87sm145367976d6.19.2026.09.09.05.10.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 05:10:31 -0700 (PDT)
-Date: Wed, 9 Sep 2026 08:10:29 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 3/4] clk: qcom: convert drivers over to use
- subsys_platform_driver()
-Message-ID: <aqFMtfJINyZyqADO@redhat.com>
-References: <20260908-subsys_initcall-v1-0-cbccf4cd4288@redhat.com>
- <20260908-subsys_initcall-v1-3-cbccf4cd4288@redhat.com>
- <yj2cq2n5rexjq6p6xjlxucqk6bolianwg36qf7lfe6zcpd46mo@ue2ulk5scwu4>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="DclXpt4J"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 9A9D6806EC;
+	Wed, 09 Sep 2026 14:10:42 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 4mlIcBAk8Nyv; Wed,  9 Sep 2026 14:10:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1788955841; bh=xgVS1uzLmdnK8tSxHFP7Ly7Gbla/oDDL6yT3SDhnOYA=;
+	h=From:To:Cc:Subject:Date;
+	b=DclXpt4JycLtkgGP82+CSKcIb4KIsj727rrTwkP6WaT5KvoRINBH1u/f/MwAMapsu
+	 QyC2ibx37qEY3AmzgQmDuzb4iH2ld1svx5WpJ73k13jh2Uy8f9NA2IYTqznXiFE2c1
+	 42Fi0ekX2PtzJcsbzeRXOicVp/HzeAYKL9is6kFEwPzzut9trDiqQCR0p26baqDnyO
+	 cnjrSXC0Bcz8zQAKEqLfIGOmbhKNw7OIf2SthmyLdWMH6QyLpAfqXwMbrq2S/uuSJB
+	 cYn4umevscuAamUOwmWVdkX8+qcwCyHwW0tu1Ac+HVGepcg7NmkoicEO4aJ9MM6k8a
+	 C5J8D9o6+WGuA==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Christian Brauner <brauner@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nls: fix the Unicode to charset tables of iso8859-14
+Date: Wed,  9 Sep 2026 15:10:25 +0300
+Message-ID: <20260909121032.76647-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yj2cq2n5rexjq6p6xjlxucqk6bolianwg36qf7lfe6zcpd46mo@ue2ulk5scwu4>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 02:45:21PM +0300, Abel Vesa wrote:
-> On 26-09-08 13:47:20, Brian Masney wrote:
-> > Reduce boilerplate code in the drivers and convert them over to use
-> > subsys_platform_driver().
-> > 
-> > Signed-off-by: Brian Masney <bmasney@redhat.com>
-> > Assisted-by: Claude:claude-opus-4-8
-> 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+page01 and page1e in nls_iso8859-14.c are identical, so the U+01xx
+table is incorrectly replaced by the U+1Exx table. Both are used by
+page_uni2charset, causing uni2char() to map 29 code points to the wrong
+bytes.
 
-Thanks!
+charset2uni() is unaffected and matches the Unicode 8859-14 mapping.
 
-I forgot to mention in my commit description that I didn't convert
-three Qualcomm clk drivers since they register two different drivers
-in the same file:
+For example:
 
-drivers/clk/qcom/lpassaudiocc-sc7280.c:subsys_initcall(lpass_audio_cc_sc7280_init);
-drivers/clk/qcom/lpasscorecc-sc7180.c:subsys_initcall(lpass_sc7180_init);
-drivers/clk/qcom/lpasscorecc-sc7280.c:subsys_initcall(lpass_core_cc_sc7280_init);
+U+010A -> 0xa6 -> U+1E0A
+U+010B -> 0xab -> U+1E0B
+U+1E20 -> 0xb2 -> U+0120
 
-Now whether or not they should be registered this early in the boot is a
-separate discussion.
+22 code points that are not part of ISO 8859-14 are also incorrectly
+accepted instead of being rejected.
 
-Brian
+Regenerate page01 and page1e from charset2uni. glibc iconv agrees with
+the resulting mappings, and a full BMP round trip is now lossless.
+
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+---
+ fs/nls/nls_iso8859-14.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
+
+diff --git a/fs/nls/nls_iso8859-14.c b/fs/nls/nls_iso8859-14.c
+index c789eccb8a69..60b9400f915a 100644
+--- a/fs/nls/nls_iso8859-14.c
++++ b/fs/nls/nls_iso8859-14.c
+@@ -138,24 +138,23 @@ static const unsigned char page00[256] = {
+ };
+ 
+ static const unsigned char page01[256] = {
+-	0x00, 0x00, 0xa1, 0xa2, 0x00, 0x00, 0x00, 0x00, /* 0x00-0x07 */
+-	0x00, 0x00, 0xa6, 0xab, 0x00, 0x00, 0x00, 0x00, /* 0x08-0x0f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x00-0x07 */
++	0x00, 0x00, 0xa4, 0xa5, 0x00, 0x00, 0x00, 0x00, /* 0x08-0x0f */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x10-0x17 */
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb0, 0xb1, /* 0x18-0x1f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x18-0x1f */
+ 	0xb2, 0xb3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x20-0x27 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x28-0x2f */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x30-0x37 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x38-0x3f */
+-	0xb4, 0xb5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x40-0x47 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x40-0x47 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x48-0x4f */
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb7, 0xb9, /* 0x50-0x57 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x50-0x57 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x58-0x5f */
+-	0xbb, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
+-	0x00, 0x00, 0xd7, 0xf7, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
+ 	0x00, 0x00, 0x00, 0x00, 0xd0, 0xf0, 0xde, 0xfe, /* 0x70-0x77 */
+ 	0xaf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
+-	
+-	0xa8, 0xb8, 0xaa, 0xba, 0xbd, 0xbe, 0x00, 0x00, /* 0x80-0x87 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x80-0x87 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x88-0x8f */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x98-0x9f */
+@@ -169,7 +168,7 @@ static const unsigned char page01[256] = {
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xd8-0xdf */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xe0-0xe7 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xe8-0xef */
+-	0x00, 0x00, 0xac, 0xbc, 0x00, 0x00, 0x00, 0x00, /* 0xf0-0xf7 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xf0-0xf7 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xf8-0xff */
+ };
+ 
+@@ -178,7 +177,7 @@ static const unsigned char page1e[256] = {
+ 	0x00, 0x00, 0xa6, 0xab, 0x00, 0x00, 0x00, 0x00, /* 0x08-0x0f */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x10-0x17 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb0, 0xb1, /* 0x18-0x1f */
+-	0xb2, 0xb3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x20-0x27 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x20-0x27 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x28-0x2f */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x30-0x37 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x38-0x3f */
+@@ -188,9 +187,8 @@ static const unsigned char page1e[256] = {
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x58-0x5f */
+ 	0xbb, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
+ 	0x00, 0x00, 0xd7, 0xf7, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
+-	0x00, 0x00, 0x00, 0x00, 0xd0, 0xf0, 0xde, 0xfe, /* 0x70-0x77 */
+-	0xaf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
+-
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x70-0x77 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
+ 	0xa8, 0xb8, 0xaa, 0xba, 0xbd, 0xbe, 0x00, 0x00, /* 0x80-0x87 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x88-0x8f */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
+-- 
+2.55.0
 
