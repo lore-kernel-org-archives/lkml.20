@@ -1,174 +1,106 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9DC3932F0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976717; cv=pass; b=FjdtUIN4V1zjvITii38R3k9S7JJePnyhHz5Vq8oXWK44QjeO5zRdCE1Fq9wfR/EcSidUj2VnTHk6v+7far9+XR8iR+yyPCWczib3OZSQj+nRObCF//yrB7d4cf29wzWlUDxlokh0oc8bCQRNIj/4sVJ5qOyenlaJD1azV0QO1dE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976717; c=relaxed/simple;
-	bh=JRXhqW59z21YiMqvUCuekToa2vzhPkgw74fnfba6haM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DnLZXGloVTfj6Bb93/xQZ8msH9Nf3EUatVSuZZhbXoBl8Ujnx8xP4q17R8gP+34ASec6GYgTbqfRw8qe0GH6uv2jifcPYXcGGUODbN1vEVYJi1SNIZMd7D2VQYl1xE2cwRWSswtkciURUBPFKA0ELcVoCti3pnQBdjHaQ1dhd5A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ThkbCVCu; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192FA391E73;
+	Wed,  9 Sep 2026 17:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788976751; cv=none; b=sxAGjm9Lk0TRdt3GdN1NKWHSM12vQPUA+h0VBtDaaxg57j0CB30bBtEeHzroA6WhM89shjamnDMx0TbRe+RmZvIFERvmkGad5TTcOQ/eZhidBEhwDsJcCSrzcc8pROASE6i5DRsGEH0TPHbvaFTEVco9vyph1S8RTfm9xQU2ma0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788976751; c=relaxed/simple;
+	bh=4AM56rD9hN/SAlGLp7GCl7Y7VkmJRIVVTN9ljls5IRQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DhQo2f4mpc/G0HzxshtvEfqxC9x8vWQEhYKjVTCG+XDMIDq2j+pY652rPvMSsC3UUMW29J5VQqv8DT2SfWJLUKQdOHLB0lYlqZ2d1t5GjK0Vk0+SLWXJxXOkPhOHBlR3mOBMcppWWPaYD4kE57UB2iZbFji1mrDt+gvE07FXCVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NSFs1sEU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ThkbCVCu"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5307425f44bso322401cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:58:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788976715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P1/n3FpLEZs0alIWXY5X0wbJ6HbLoqQ/qa9i3MKtM78MGh5BUD/HNj8C0cV4a4kaKO
-         T4eNmgKdPXILmWlDrsqNeeHptQiL3eByo6HAQk/H3SEo/Kgh9apl7iWezLNNwfLtSsZE
-         wiVa5u//OXNqlrl9hi/+kM8R/wJFPrbucuhHIqxOlvTFmkW4wmbZy7vKsWDKke33Not5
-         z6IFnMsULqAYQt6cGW0f1yxHIA56XiqbRZkWh7Ue+k/ohzU1jf4UUTcSuyQLZRR9bOl0
-         2S5C128R75muGrnYNlLhW3nJyx5y8fQE+PJIR59Nchk8V/priO4jVRCU+kKZycqKkAlW
-         mzPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VtyfnipbLRML4sk/n+Uiphvnw4FabEDfuHO2cvdrWcQ=;
-        fh=68dufd3AVV3rCZC9hmiiKfdTHzYwdwAaasUyIkxqIJU=;
-        b=RbH43P8tE05o7D0Wu2xJQiLoIWxpSrpkptBjD5O24nO5z6QHPKiANI0M1uqpB67Zfi
-         V8no73/MhN2loQRhwS7FG8aZxcMZ9BpuKY1s9Ro/Vy9qBLrSty0FyycrLOA6to+4rEZg
-         eiLzUUfiB43dZOnxabkMto6JqHY513rFB/xOYJMZFUnciCUByiPVCNbKR+VPLvgLBD6s
-         KhMLETRSBIgSBl6nRnQtvJuHFn1BgndkHW44U8F/iURUhcCWmBw6S5Jiogoq4jBhBpQi
-         Y4ITxQaCC1anoQThdBXoufbpgkfv94W6bVD84aL5QNtE983QNu9rWMHoe5dZ5rfsZ97L
-         Bt7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788976715; x=1789581515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VtyfnipbLRML4sk/n+Uiphvnw4FabEDfuHO2cvdrWcQ=;
-        b=ThkbCVCuWFTqWEAFPKaEE+z9jHFEaru/IsdvRYRqILaJ+TT9G3myLaKsd79a+Q/9Ml
-         e4NpdWpvg5jR+2mTd9bT5OP0jGrwD13+3WDnvAwlTLQxGlY1rOJcgesAASrCFXjmIr2G
-         pPkqLJfnynbwV0OsGjtNcFBFe3kHwauUsjEVLI06/Ic4Z6D6IV1lq4C/KmO4Sv/7ztnw
-         KzhBYKFZggtqzO9dmox4dZ8yZC9J1Km9U6cP62HWqjB9808T1WajpD7mYmdwBuVs5JlT
-         ADMp8MrHsxvbBTt61a+CBXOApJMI3Xope+djFyxmCmvaTBedRuNN5KhJJQpqtbF9kX9i
-         kQ4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788976715; x=1789581515;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VtyfnipbLRML4sk/n+Uiphvnw4FabEDfuHO2cvdrWcQ=;
-        b=Ps3Pjsgm34yUro8myIfLNQVli7nQzfQXGh/tckFW3ltYsJnUazGGZR5XBnc1k1RopQ
-         vsEx7d8gf50XhGags7d4y/aeYcrB92aNW1E2B+ftiZsFxhkdnraJXxiPZZ3E1paUv8st
-         6/ydLaqJpRTrjRLajonuGpMkNbIE4foTzM1k+5tn4u24xiqJ9u9jdW2jOUYTw9YU9R3/
-         q0Xgi3Onej+p9VP9mvrCyK9Cwzjs+FGQXg61I238Q3khpTkIKrPL2+oHY/0sxv+1ihw6
-         2RAA3wywKri9m7sWEoNB6nM68btwk+23lHlagSSUZObXnm/76CEVCS5JQaFShJokUn6V
-         ysow==
-X-Forwarded-Encrypted: i=1; AKwUvBwqVASG4/l0p6QlH4yo7yGBWkz8mU6GR3npFGZ48eD6QCkzwdIOeHUElGDVV3t/w1/MBIB/l/Z1Jam4LfQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYaq8XtucguNLGzixZY1smcIWXDh/W/u4iE+bRmclD7k0rChQR
-	x+hGoXXs1BIL4uKZ5IYKeRxzZF8zQOBtpouRw+z1s88a+xqiOCHY/yc6MEGRs7oeQUevmbz8D1u
-	2FJ3y116wc2kL7Nv/28UFNfHYOPg8lUWfnL2LrUP/
-X-Gm-Gg: AYBFou2oKTulPmp4/4qebN/2DsQA6+yEYjm64e7RkLtqlbTrlyDiHA32fn5NorhHF8M
-	BcSuglXXh7kIWr5Xh0xQKI7dvHq25OV3wWzeb82F+ysdWLK8+o/zvKegFFL7atY7ap8M9V2qSkR
-	TEQE7McAHXNUn2sY1wS+MhB/DFTtbXYQavaip8+n6jbIZDzUOz5efUJDbKlskihW+MXFSBaNybO
-	tGjFBrtsISfBPJdUREXX5xgW22cb+uwMP38/71Io9tpB1KgA2A1NBuaTGtAd1xo1mxuAdXpyP7V
-	/WmhEO8WL0rWneSOMqEBhahQtHjt/o6MTQm+eyj+RS+JRFNMqQ/ht+Rr3w==
-X-Received: by 2002:ac8:5902:0:b0:52f:6e06:89ac with SMTP id
- d75a77b69052e-530a5f960b4mr16181111cf.13.1788976714583; Wed, 09 Sep 2026
- 10:58:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NSFs1sEU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 81E78C2BCB9;
+	Wed,  9 Sep 2026 17:59:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788976750;
+	bh=4AM56rD9hN/SAlGLp7GCl7Y7VkmJRIVVTN9ljls5IRQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=NSFs1sEUbO9vGsEbWNuEqlMwWS67qVkN55s+HN9wJpUFdecuWU78uSQerJRBzBQeV
+	 SvVF/Y/jw4sp1Hmvwq7aeLXJrli+oQSFo0nfHaZtK6KmcimSWUIILIyVzLjsglqlz2
+	 XcCAY4/jsTT7TRtiterd+RugtOJD1rPCbaWjQRwA2yHWsrVtR7+x0YjAaD0a0MdfSa
+	 XILOI3JGBvNW8KctIn6DQh+W1K61GHDZJ94zJZv0ZQs2w7Xw4fx8MUNJyPQ4hyuZg2
+	 uAobWzk/l8sOsFBdtk1d6jTtUSIgAfrqEsTO6ymh1xKYAVV7bZElSongADyklN0Rvk
+	 3gLHiesl3oSMA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F13AC79FB7;
+	Wed,  9 Sep 2026 17:59:10 +0000 (UTC)
+From: Roland Dreier via B4 Relay <devnull+rolanddreier.rivian.com@kernel.org>
+Date: Wed, 09 Sep 2026 17:58:59 +0000
+Subject: [PATCH] firmware: arm_scmi: Fix error path leak in
+ scmi_raw_message_send()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-5-surenb@google.com>
- <19e428e5-d8bc-4abb-b052-e23442464cba@kernel.org>
-In-Reply-To: <19e428e5-d8bc-4abb-b052-e23442464cba@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 9 Sep 2026 10:58:23 -0700
-X-Gm-Features: AcwNN1WVxGfkg-5L9FLh7hjIInMIQxAx4dVdpUE-xaU-wRib3CwQ8jMs5cxEvbE
-Message-ID: <CAJuCfpF-xeED3zVL9YyCwrTUxcYXw4s6gVcCYY8p7rx_09mgLg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] proc/task_mmu: read proc/pid/smaps_rollup under
- per-vma lock
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-scmi-raw-v1-1-de3fa75d2c6f@rivian.com>
+X-B4-Tracking: v=1; b=H4sIAGKeoWoC/yXM3QpAQBCG4VvRHNsahLgVOVhrllF+2vFXcu8Wh
+ 0+933eBkGMSKIMLHO0sPE8eURiA6fXUkeLWG2KMMyywUGJGVk4fCq1NLDWpxjwBny+OLJ/fVVX
+ /lq0ZyKzvHu77AWfXCqhsAAAA
+X-Change-ID: 20260909-scmi-raw-0ff3feb5a073
+To: Sudeep Holla <sudeep.holla@kernel.org>, 
+ Cristian Marussi <cristian.marussi@arm.com>
+Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Roland Dreier <rolanddreier@rivian.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788976750; l=1401;
+ i=rolanddreier@rivian.com; s=20260814; h=from:subject:message-id;
+ bh=ulhzZqaSwBOt3awtuXWQe6D8VST705i7vhwvE1JyWas=;
+ b=JKBsDDq4LGcT0kglXB6DsxiCDeXT92Dxot3q04+qCvF0saYsODSHs0CU+wFYqxRjYsAICdNWr
+ ICITTR1FohHBDKI+3eDcOAyowR2GrTj861j+uevgLJs0L0jabq16Qmt
+X-Developer-Key: i=rolanddreier@rivian.com; a=ed25519;
+ pk=C7SBXsDIlarq7BpINqyDL67XV/AGNqNt09NCCpFcExk=
+X-Endpoint-Received: by B4 Relay for rolanddreier@rivian.com/20260814 with
+ auth_id=952
+X-Original-From: Roland Dreier <rolanddreier@rivian.com>
+Reply-To: rolanddreier@rivian.com
 
-On Wed, Sep 9, 2026 at 10:23=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
->
-> > -     vma_start =3D vma->vm_start;
-> > -     do {
-> > -             smap_gather_stats(priv, vma, &mss, vma->vm_start);
-> > -             last_vma_end =3D vma->vm_end;
-> > +     if (!IS_ERR(vma) && vma !=3D get_gate_vma(lock_ctx->mm))
-> > +             vma_start =3D vma->vm_start;
-> > +
-> > +     while (vma) {
-> > +             if (IS_ERR(vma)) {
-> > +                     ret =3D PTR_ERR(vma);
-> > +                     goto out_unlock;
-> > +             }
-> > +
->
-> Can we add a comment whey we break (and not e.g., continue) whenw e hit t=
-he gate
-> VMA?
->
-> (I seriously don't kmow ... should I know? :) )
+From: Roland Dreier <rolanddreier@rivian.com>
 
-The way m_next() is implemented, the gate VMA always placed at the end
-of the address space, so the next VMA will be NULL and we can break
-once we see the gate. But now that I'm looking closer into this code,
-reading smaps_rollup file does not invoke m_next(), so we should never
-encounter a gate VMA (it's not in the maple tree, so for_each_vma()
-should never return it). I think I can remove the special handling for
-that case.
+When the is_transport_polling_capable() check fails in scmi_raw_message_send(),
+it returns -EINVAL without doing scmi_xfer_raw_put(), which will leak a
+struct scmi_xfer.
 
-Thanks for the question, David! It made me realize we can simplify this fur=
-ther.
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260909-scmi-async-done-race-v2-0-cc5dec25c6be%40rivian.com
+Fixes: 07cb8c324b63 ("firmware: arm_scmi: Add polling support to raw mode")
+Signed-off-by: Roland Dreier <rolanddreier@rivian.com>
+---
+Sashiko pointed out this pre-existing bug when reviewing my patchset:
+https://sashiko.dev/#/patchset/20260909-scmi-async-done-race-v2-0-cc5dec25c6be%40rivian.com
 
->
-> > +             if (vma =3D=3D get_gate_vma(lock_ctx->mm))
-> > +                     break;
-> >
-> >               /*
-> > -              * Release mmap_lock temporarily if someone wants to
-> > -              * access it for write request.
-> > +              * If after retaking the lock, already reported VMA grew =
-or
-> > +              * merged with the next one, smap_gather_stats() will gat=
-her
-> > +              * stats for the remaining portion by starting at last_vm=
-a_end.
-> >                */
-> > -             if (mmap_lock_is_contended(mm)) {
-> > -                     vma_iter_invalidate(&vmi);
-> > -                     unlock_ctx_mm(&priv->lock_ctx);
-> > -                     ret =3D lock_ctx_mm(&priv->lock_ctx);
-> > -                     if (ret) {
-> > -                             release_task_mempolicy(priv);
-> > -                             goto out_put_mm;
-> > -                     }
-> > +             smap_gather_stats(priv, vma, &mss, last_vma_end);
-> > +             last_vma_end =3D vma->vm_end;
->
-> I skimmed over the remaining bits, hoping the VMA lock experts will revie=
-w in
-> detail :)
+Fix is trivial so sending it out.
+---
+ drivers/firmware/arm_scmi/raw_mode.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks! I'll wait another day and if there are no more comments, I
-will post the next version.
+diff --git a/drivers/firmware/arm_scmi/raw_mode.c b/drivers/firmware/arm_scmi/raw_mode.c
+index 1f6e51670208..279fee7c6ce9 100644
+--- a/drivers/firmware/arm_scmi/raw_mode.c
++++ b/drivers/firmware/arm_scmi/raw_mode.c
+@@ -694,6 +694,7 @@ static int scmi_raw_message_send(struct scmi_raw_mode_info *raw,
+ 		} else {
+ 			dev_err(raw->handle->dev,
+ 				"Failed to send RAW message - Polling NOT supported\n");
++			scmi_xfer_raw_put(raw->handle, xfer);
+ 			return -EINVAL;
+ 		}
+ 	}
 
->
-> --
-> Cheers,
->
-> David
->
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260909-scmi-raw-0ff3feb5a073
+
+Best regards,
+--  
+Roland Dreier <rolanddreier@rivian.com>
+
+
