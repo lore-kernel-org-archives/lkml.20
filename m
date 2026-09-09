@@ -1,242 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010055.outbound.protection.outlook.com [52.101.201.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D10583AD9;
-	Wed,  9 Sep 2026 16:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972066; cv=none; b=Jc/sgkI+5yHnHktiiDyEiZH2bYs3cJn0x8n3p7EszHRvusxhsnBR3+KKGmX6pO/Oqa+USRfistA8IoGkiMkrLS/gpSmMoUnpe7cp0oi3zPEIRsuPjrHm/nbjikeb6FAtcY3urNgPrPokwjZUgaQG3d3E7YMENgfwYshikM7SF94=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972066; c=relaxed/simple;
-	bh=d/XEkXqOxGitkHKJC1GYcJwZVurgxLUKAHZLL90MXBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JpIP03cgArmyOzirNn1esjmALytZYRJeGatrVHPC9MHlTzC0KW0xvcqQdMmOZEtZfK0b9Lavae5EtXt3Gtl0qafCuwJdZ1+qhlMkOCLZJ7GHFjgZMDWHwnwaawebXZGz6Hhw/s7WX1q/Ufsz4faK7s1WkBd+QBiqaJjVEfSZabQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvGHHxJV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F7D583AB1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788972080; cv=fail; b=UyyEdpM2uxoPvDrCpfVd3wcB3eZjiS2mYYQGNUzicrd5W+mp+O3bKm/jInsj312CI7i/3nl6j4nu4sFH7z5acszaENNr4jrAwQe0WnbC9x8Hl0BMlwDlN+xcWzNFLQq+R5+1b1yACmfou1xGkBYk7tJ4eA4/auuSbdHsAa//gqw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788972080; c=relaxed/simple;
+	bh=2MIrqbUAW4Tjnfp0o91IFCovJEZCkHwf5hO8+2ObBh8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VrYzNxPtLRlG5Wn5WiUtl2h24p6jQuW2zvzj4NzYYmqSOW4QBpp9CVWsrAobe2zm4w1vDlASvXvHtTeoxRSCeuc4a7JBoocSp0RlyUG0PuF2YoVuMdOBNBnxArzAqQO6bMx1ZlKWb6w3oM9vj/etSv0Gray+TITxFJ4hc6b+GjU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ivozuRCy; arc=fail smtp.client-ip=52.101.201.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvGHHxJV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0B11F000FF;
-	Wed,  9 Sep 2026 16:41:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788972065;
-	bh=hq66K/NljwiXGEdMQTlA0JW07dVrWK+70Qdzt//aDMw=;
-	h=From:To:Cc:Subject:Date;
-	b=QvGHHxJVC/V8DkXoW6smQ3iKZS35CGyCnvMiiriIJ/6gPJUGjUiNY1fNTWPtkfI78
-	 fKOkOCHgantis1AWsSeFsxBNXTXl54G86CZKQZ4SAF7YWQZWfKpk+fVNwd8Uw4NfC9
-	 xQz8FiXFflP9JK9fQR8eXCalB51C6a9JcnH7qJ2WPcMSfyW1HXIhXQ6+zW1/ivvwhl
-	 jSKVcd4VfQIJY8f+/Y4LWL3r+XtiPZCzUK9O1M4peNhez5gwBbWaGtmZTsT1qxR/FN
-	 eqkNkfpEbIeI+K9aLi/nCU9RtyrtxKNB6wQD2Kn1rZDFiMsldyWvtp4gN+pjbUQXWK
-	 uCEvHNo3T3xtQ==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Linux Driver Core Development <driver-core@lists.linux.dev>
-Subject: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
-Date: Wed, 09 Sep 2026 18:41:01 +0200
-Message-ID: <6329043.lOV4Wx5bFT@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ivozuRCy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S84d8bUnBuKy1KbV88koIls5XwJmGCj55Od7KTHnJockNZXH19kphMb+XYpdq49VJYWfub4dj5smm8ZKgTo/J+uMvzr2qZisApLteojaA97G4vi2/OFbr4FQ+EK0THUCi5Y5nETMMu5z3Ugdwvc+fCX4CNfkELM5UmYxOEjMbuLNwOSfRxMf7fS0MCTUorMpyfPLzuh6b9RG3+mMrGJHqbbzYu32/OAJp+Vf6hyxRupOTHiuWgTPhoONl78f4+clrKbMOXSmQi46okjiYtRVQRvcoj05qD/0Qea6kgoX3eNndW4mVul4205IoUCodS76uEoj0XsCwdyQXcoDKQ27Zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IoAK0wukU4A8hNIjRWi6wD/ypMPEkJdNInGE7CV+WAo=;
+ b=wUNq+ASszrb9brUChmyQ40uEBRcpEiMNQEwUoyUdF8OGKZ0sNBSyGpQCC6GFRMRwcgGN4NqBOih2mxw9NzG4tDEsrV6L4te1k0Wi/o/qSqNW05NGIlNyyZhn9+PA7/oNq3WP7BuWafseHvsN/fMlF2TUFdsoeL0n7V5xLX988apmnIsbHJiU4srrKgnkKXeStsPl12YMYpzzX+L32HnO7I/EAcpXw8DeOjT+R1Jp3kVLbq2BxCNI5g3LBH9rElf7vKH3bNqTgkUW6/HxKiJmIxndT4kGHp3mowk571176lm0ylh5vEmYevEsauwmAZ3OGA7Q/HUEYXN21IhRKyfvgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IoAK0wukU4A8hNIjRWi6wD/ypMPEkJdNInGE7CV+WAo=;
+ b=ivozuRCyADIQGpLyXxvMMoZlVwUMnZRFu9HZA0MU0ONekeqkIA9QEUt28Tw1tr3yXFAOIK0DUnE584nSmcf3y0Amm6yL55JghlPEOUscK670BPLP8J8hJuXDKDka3dNqqS/C5u5UD9aVgp7myiq5+t4IB/imyL1qvzNmdGHXVpycYciDYSHkRo82fIOCg9LjLvPLAbM7Af7GZ1dP2/VMfOpEyEDktH5rTPXtvoTGpYMVy1ZmvqpzjYkfbUnXzRRGRaMh0DZYTA+YK66MGNzI1WfTdHbaQBMFVkjQ7zczTqIl5mWSOmsvzU98VKZdmQ5g07paAl1uPPWel0jpKKgQgg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by LV2PR12MB6015.namprd12.prod.outlook.com (2603:10b6:408:14f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 16:41:13 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 16:41:09 +0000
+Date: Wed, 9 Sep 2026 13:41:07 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Nicolin Chen <nicolinc@nvidia.com>, Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, joro@8bytes.org,
+	Kevin Tian <kevin.tian@intel.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Pranjal Shrivastava <praan@google.com>
+Subject: Re: [PATCH v6 0/5] iommufd: Iterate the cache invalidation array in
+ the core
+Message-ID: <20260909164107.GA4147563@nvidia.com>
+References: <cover.1788127877.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1788127877.git.nicolinc@nvidia.com>
+X-ClientProxiedBy: YT4PR01CA0456.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::20) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|LV2PR12MB6015:EE_
+X-MS-Office365-Filtering-Correlation-Id: c377d30c-31c5-4064-941a-08df0e912665
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	TDtOt/rNRVCO+hGB6V7+QMmW2TcCXklHyKQW3hNOKRHPM2bXapaUTxNVDPAG2XLiEVMPM78y06cEMjaT93jr2bt5O8AOsy5oLYaroIinrc3tgXMzu6SFJRXHzm67T/PAvib2NEV+SzSYQ8S6TtTHDIv+QyzPfNNKiPxweh9/TVrz7wLue+7F+KO+DzEnoz9Aa29WSOYNfgytl+UK6FcxIE4PFqP60IL0dM4c4NsPObs0I5umPkzmk1unBrsuv06A7P8oW2WcKZC3tVr49lU/A175HMqGYce16oQ8xc4RtLWmaeBI3Gt0/ikeV7GgcDqJlOPzF+znJBxiLX3aASjT1zDWtUuMGDSh5jSN8q2/2ARWTvimperPy2KJOJqxjSKgO8s2oqTgkie8Yp3Fiumb/G+UsOFFqcp8asH9RqNvHNLzlWNgds2Hjb7EgLezOlftNkpXA4l1xXrawlh49uaKh8YMoz9Bi7QogEfJkbW04V9VFP7kURjKHp652OPx7nHvgwxFynuD8wn8zbyq5v35WzOWdP+Y3jGalflQ2oGFomhhSYr9MgA+TA+UFFabZR+ngvpk2s3+/xryHuQDGDvuuxvsO1Z+Anv7quDvhIu19WewsSvjuCfvLhvMJozn5ras4GZQKKaOf1Yhz6lxwH7zNlzRpg1iXoODQ+GkdIjyt2A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tTGW5aS24AyaGZMIsmaUFXycsYdYU72tsEJCevwsk2CeB+Fh70tifIzrmP5B?=
+ =?us-ascii?Q?ASBobl9NlRQVKUc6UntoioDsTCL5CLDWSl323VFIWqMQUzvYDQ9g8UdwN44T?=
+ =?us-ascii?Q?U36O3yxMAUsy31wC3qFxfzvbK4PHBovcHA6WBpU/S2DRL8Zf0TXzUsZlRQXh?=
+ =?us-ascii?Q?RWzVWECeB9MK2O5XHev/NUsShRgEBIMJoaaeWV0hZ7kUSKad8ZvQ95BzsM4T?=
+ =?us-ascii?Q?x0ntXF3/GDZEgziB2JNCHMTZp5Fb1e9BUYXw7OXjQN90Tgb57ajC49JtgEGo?=
+ =?us-ascii?Q?Pu1LGWUhEtWtXOtDiDBaKSauc0Xwap/mBTCwynjgqkJUGCYGdyULLs6UFdNl?=
+ =?us-ascii?Q?OOXtWASHRp5P1jWhpKkjbCXqDqXR/n4jsPLdsPeWL8KSJJZozhL7Qz1XsuKk?=
+ =?us-ascii?Q?6MkaHw+I+fVGMQd9B1n9fYEPSTbOGJjt6g6ynEcRVdA1djrcvbkHBFwo77fL?=
+ =?us-ascii?Q?dXkxkmHjUcM1STzR0YBgB198qca+DoqUjpJTJPTjzGgO2R7XRbwOz9DWyxlT?=
+ =?us-ascii?Q?9XJNCWzWZ9AIq2lYvsVRRXRWY3xeZ+s+D6drX4xegnNRqv6DLVgRIEWO6QaP?=
+ =?us-ascii?Q?QESNCt4ZzUdHZJgfRX4gLGkVMw3fimq3Tj0OTr1Cb18YGd1bMfgN/7CXC/Si?=
+ =?us-ascii?Q?cfBAhlAz1xfJ7XWCS8VSZMXkTEorTrZXFNYWuYrItFyGGP27qFL5MEB7Crzg?=
+ =?us-ascii?Q?/ZeEvjHB4uwIgM6Os5S4cvyM3P8ax8fpNGiMKXZKCfyiROgjxmxF5ESPC8DI?=
+ =?us-ascii?Q?anSawIXmn7XIvEuj3Eo0RxkqxoBqrT35UXwmnJvuBBxbA4O5cvdtEQW0IVso?=
+ =?us-ascii?Q?RknCmbug6N1CRiRPdXw5kiwabFBXUpjnktWPunz8Oa4hsYpHL/F5B1JeGJVd?=
+ =?us-ascii?Q?ABbUODAmrXZ+lrr2BLPCOFgyBxyP4mS2jVzR2JbCfh0rgfeNlMgiLwn97leu?=
+ =?us-ascii?Q?J5k5lB2nxLh+Bfw/GhxXPJWRBZRYJMOFCJmUqVczdaWXxCmer9/GifHtsKTk?=
+ =?us-ascii?Q?RjoKH4Pk8tddpYDQbEdZgBf9gZ+nwsBsEtRUObey/jMp9WtDwUsKpwACPkVc?=
+ =?us-ascii?Q?2hBXoit1uSq0PQ0DGGCrHZ7HqlF5OhPenX/p/5OUv/gMV4i61ffpwH3IPg6t?=
+ =?us-ascii?Q?iBFlwC5sRitpyfoWjDxcDVXuiC9DrLUFBR+ezoO+3X1N3Vjs+OhVko0zEM59?=
+ =?us-ascii?Q?dF0YcK+lMrzh4B+C2pASRkz7ZHrlWybsegXESp9FgQT7HbOMWraoduaxcGLw?=
+ =?us-ascii?Q?yFlnwXAJVokvaQBVKf5RAFhGOe67k8acjnFVqssC+I50ZXDiISc6qjhrOLHc?=
+ =?us-ascii?Q?glpeyPV/kLCVjKLexoNWSR7zsh1bdy7zx8yE9IHt4YKEH0fsBkaik6Lmb6hD?=
+ =?us-ascii?Q?f/oWtJsta9f6jGUWjXomaksPa935kaUl4H5ZyJBvAU8kTR8khT5fw9dIvgwN?=
+ =?us-ascii?Q?G8m02rrhQtM8FcE4XJy+7eVh+BE0R5W/EW0Bijzb04S0wcW4D7ZyPF6G2j0f?=
+ =?us-ascii?Q?11FUX+reGl5FsIv09TpZiv5k+uItRvjh8MAg/S4SBdoz5MLyrCQKfAQmUkCS?=
+ =?us-ascii?Q?8QibsTQ1a9FVPZuGBU9rKgPVw8oR3ptrgSgS65lKgmV6U3aLgH9mZWTFhD4/?=
+ =?us-ascii?Q?6uz2KlpB/Ypvi2W49TxOH0SWw2BqjAc2YrY9UXJDxXzdNau5Bn28NMm+6C+O?=
+ =?us-ascii?Q?VCbCa9SEgEPDnSAfk6rd5pQDaBZhiVMnvjPsRyQOnyo+7QAk?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c377d30c-31c5-4064-941a-08df0e912665
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:41:08.9320
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zOEWHX7P0a6BXR+S4k3vDvjXy8oByu9Adv5P64p3N8KZIy0fLVNet7xiavt4WM1Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6015
 
-From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+On Sun, Aug 30, 2026 at 03:26:37PM -0700, Nicolin Chen wrote:
+> The vIOMMU cache_invalidate() and the nested-HWPT cache_invalidate_user()
+> ops are each handed the full user invalidation array and must report, via
+> array->entry_num, how many of its entries they handled. That makes every
+> driver open-code the same array walk, with real downsides:
+[..]
+> Nicolin Chen (5):
+>   iommu/arm-smmu-v3-iommufd: Reject unsupported bits in invalidation
+>     commands
+>   iommufd: Iterate the cache invalidation array in the core
+>   iommufd/selftest: Convert cache invalidation mocks to the core array
+>     loop
+>   iommu/arm-smmu-v3-iommufd: Convert cache invalidation to the core
+>     array loop
+>   iommu/vt-d: Convert nested cache invalidation to the core array loop
+> 
+>  include/linux/iommu.h                         |   6 +-
+>  include/linux/iommufd.h                       |   2 +
+>  include/uapi/linux/iommufd.h                  |   4 +-
+>  .../arm/arm-smmu-v3/arm-smmu-v3-iommufd.c     | 197 ++++++++++++++----
+>  drivers/iommu/intel/nested.c                  |  54 ++---
+>  drivers/iommu/iommufd/hw_pagetable.c          |  25 ++-
+>  drivers/iommu/iommufd/selftest.c              | 147 +++++++------
+>  7 files changed, 282 insertions(+), 153 deletions(-)
 
-The ACPI bus type does not allow drivers to be registered, so the sysfs
-attributes related to drivers created for it and its devices are
-useless, and its drivers/ directory is always empty.  All of that is
-confusing and wasteful.
+Will, can I pick this up, or did you want a branch or something?
 
-To allow skipping the creation of those sysfs attributes, introduce a
-"companion" bus type concept and add a special registration function for
-registering "companion" bus types, companion_bus_register().
-
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
----
-
-v1 -> v2:
-   * Address Sashiko feedback regarding possible leaks of references in two
-     places:
-
-     https://sashiko.dev/#/patchset/8753121.T7Z3S40VBb%40rafael.j.wysocki
-
----
- drivers/acpi/bus.c         |    8 -----
- drivers/base/bus.c         |   72 ++++++++++++++++++++++++++++++++++-----------
- include/linux/device/bus.h |    1 
- 3 files changed, 57 insertions(+), 24 deletions(-)
-
---- a/drivers/acpi/bus.c
-+++ b/drivers/acpi/bus.c
-@@ -1120,11 +1120,6 @@ EXPORT_SYMBOL_GPL(acpi_driver_match_devi
-                               ACPI Bus operations
-    -------------------------------------------------------------------------- */
- 
--static int acpi_bus_match(struct device *dev, const struct device_driver *drv)
--{
--	return 0;
--}
--
- static int acpi_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
- {
- 	return __acpi_device_uevent_modalias(to_acpi_device(dev), env);
-@@ -1132,7 +1127,6 @@ static int acpi_device_uevent(const stru
- 
- const struct bus_type acpi_bus_type = {
- 	.name		= "acpi",
--	.match		= acpi_bus_match,
- 	.uevent		= acpi_device_uevent,
- };
- 
-@@ -1451,7 +1445,7 @@ static int __init acpi_bus_init(void)
- 	 */
- 	acpi_root_dir = proc_mkdir(ACPI_BUS_FILE_ROOT, NULL);
- 
--	result = bus_register(&acpi_bus_type);
-+	result = companion_bus_register(&acpi_bus_type);
- 	if (!result)
- 		return 0;
- 
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -738,6 +738,11 @@ int bus_add_driver(struct device_driver
- 	if (!sp)
- 		return -EINVAL;
- 
-+	if (!sp->drivers_kset) {
-+		error = -ENXIO;
-+		goto out_put_bus;
-+	}
-+
- 	/*
- 	 * Reference in sp is now incremented and will be dropped when
- 	 * the driver is removed from the bus
-@@ -930,15 +935,7 @@ static ssize_t bus_uevent_store(const st
- static struct bus_attribute bus_attr_uevent = __ATTR(uevent, 0200, NULL,
- 						     bus_uevent_store);
- 
--/**
-- * bus_register - register a driver-core subsystem
-- * @bus: bus to register
-- *
-- * Once we have that, we register the bus with the kobject
-- * infrastructure, then register the children subsystems it has:
-- * the devices and drivers that belong to the subsystem.
-- */
--int bus_register(const struct bus_type *bus)
-+static int bus_register_internal(const struct bus_type *bus, bool use_drivers)
- {
- 	int retval;
- 	struct subsys_private *priv;
-@@ -960,7 +957,7 @@ int bus_register(const struct bus_type *
- 
- 	bus_kobj->kset = bus_kset;
- 	bus_kobj->ktype = &bus_ktype;
--	priv->drivers_autoprobe = 1;
-+	priv->drivers_autoprobe = use_drivers;
- 
- 	retval = kset_register(&priv->subsys);
- 	if (retval)
-@@ -976,10 +973,12 @@ int bus_register(const struct bus_type *
- 		goto bus_devices_fail;
- 	}
- 
--	priv->drivers_kset = kset_create_and_add("drivers", NULL, bus_kobj);
--	if (!priv->drivers_kset) {
--		retval = -ENOMEM;
--		goto bus_drivers_fail;
-+	if (use_drivers) {
-+		priv->drivers_kset = kset_create_and_add("drivers", NULL, bus_kobj);
-+		if (!priv->drivers_kset) {
-+			retval = -ENOMEM;
-+			goto bus_drivers_fail;
-+		}
- 	}
- 
- 	INIT_LIST_HEAD(&priv->interfaces);
-@@ -989,9 +988,11 @@ int bus_register(const struct bus_type *
- 	klist_init(&priv->klist_devices, klist_devices_get, klist_devices_put);
- 	klist_init(&priv->klist_drivers, NULL, NULL);
- 
--	retval = add_probe_files(bus);
--	if (retval)
--		goto bus_probe_files_fail;
-+	if (use_drivers) {
-+		retval = add_probe_files(bus);
-+		if (retval)
-+			goto bus_probe_files_fail;
-+	}
- 
- 	retval = sysfs_create_groups(bus_kobj, bus->bus_groups);
- 	if (retval)
-@@ -1016,9 +1017,41 @@ out:
- 	kfree(priv);
- 	return retval;
- }
-+
-+/**
-+ * bus_register - register a driver-core subsystem
-+ * @bus: bus to register
-+ *
-+ * Once we have that, we register the bus with the kobject
-+ * infrastructure, then register the children subsystems it has:
-+ * the devices and drivers that belong to the subsystem.
-+ */
-+int bus_register(const struct bus_type *bus)
-+{
-+	return bus_register_internal(bus, true);
-+}
- EXPORT_SYMBOL_GPL(bus_register);
- 
- /**
-+ * companion_bus_register - register a companion bus type
-+ * @bus: companion bus to register
-+ *
-+ * A companion bus is a bus without drivers.  Devices that belong to it can be
-+ * bound to other devices as their "companions" and represent interfaces that
-+ * can be used by the drivers of those other devices.  They may also be used for
-+ * the enumeration of those other devices.
-+ *
-+ * The ACPI bus is a specific example of a companion bus.
-+ *
-+ * Registering a companion bus is like registering a regular bus except that it
-+ * skips the creation of sysfs interfaces related to drivers for @bus.
-+ */
-+int companion_bus_register(const struct bus_type *bus)
-+{
-+	return bus_register_internal(bus, false);
-+}
-+
-+/**
-  * bus_unregister - remove a bus from the system
-  * @bus: bus.
-  *
-@@ -1415,6 +1448,11 @@ struct device_driver *driver_find(const
- 	if (!sp)
- 		return NULL;
- 
-+	if (!sp->drivers_kset) {
-+		subsys_put(sp);
-+		return NULL;
-+	}
-+
- 	k = kset_find_obj(sp->drivers_kset, name);
- 	subsys_put(sp);
- 	if (!k)
---- a/include/linux/device/bus.h
-+++ b/include/linux/device/bus.h
-@@ -113,6 +113,7 @@ struct bus_type {
- 	bool need_parent_lock;
- };
- 
-+int __must_check companion_bus_register(const struct bus_type *bus);
- int __must_check bus_register(const struct bus_type *bus);
- 
- void bus_unregister(const struct bus_type *bus);
-
-
-
+Thanks,
+Jason
