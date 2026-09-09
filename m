@@ -1,261 +1,195 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012013.outbound.protection.outlook.com [52.101.48.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73B13C1961;
-	Wed,  9 Sep 2026 06:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936334; cv=fail; b=HDHeVWYnacB3/uzNsj4TUCV6QS3PIQtt9d8LxqJEjovd06tFCx72f9mmZ6ozeUH6ZjN2mLf4qsL5qPyeG6UeqmgDqdqkhO5KaGZEB+/Uzz1V/nPoGD7aOXx29Mp7lqIOYUKJ4mRml2Ap6lv5F49Fr+LE6l/oICCTsGQWCvZDEzQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936334; c=relaxed/simple;
-	bh=uxWkCh49Xwj3cLoum+6ocEFAc3GeUkC4zqqOL9Y4pnE=;
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36A423C1F22;
+	Wed,  9 Sep 2026 06:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788936340; cv=none; b=Rtq3M3UJWQnX4bhkjtLIU+8Iu+RmSohhH7n1SnJTP7iMHE6rZx9owpA3QW5o39p1jcKmD/GPUNTChL2cbD/66n+/ax8tQwzduz16yXAerhm+dAM58K/IYStSO9BmHzzQ+NPYJucRY5alQmAE04H/b7sEx1nNRBQ3XIvaaisWYkM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788936340; c=relaxed/simple;
+	bh=PGJavdQgYUimXVIAhNE4yi04+m9XkT5iuItxrj6lD0U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ii6YgwBXjW+lJ66WxckcwsxBEmIfzkULlvxIAkltPAicKAKnYd/vw5sAFMdTAKwS5jdoAfV7pgBo+B9GKPrapCiuBoVna7ZFHgWpAZr73CqIbHLGG3unG4WjVlMwH+Mm+1YLUIxu6r3o5hAEF7Zg7gYt4dHETOilWZc4/KumUpc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=P6bzWKgn; arc=fail smtp.client-ip=52.101.48.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version; b=RvFvSp5SToaqpjKZnruNiB6JqqfTuLLOhwVfwLPcvNsUqeutp0O5Amm0GheaMJjVUvjWC9NWZFTmmz15Yj2idNdpYPSF2Pi7InZ7MaJ6TCzxrApjOXlHjid/eXaI81tlJO98wKjv82pKFl0dZiXrcY+v98MxSiTAqkcceHc5Dt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=JG5j1pEp; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="P6bzWKgn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TqQO1XITeG3pXKG15Ix6xA27d7vnAIRKz+SRbvbZ9C64pTMS6c6RofvNtp+lYq3n2zBQbMi5oyML5SPIBJgamu2uAZW58WI1GtYHUhftep793U1lcWNZUhL4+rl5jN/9CX8kYG33Qw+27k32rLWUZUcUlnTflqDmoBxEsAAH3PfP1K7thm+/Jyz04MZQlCdiTT+foN0aRnS/oracQVdEQS2yoGGPvdB2N4nAtPfKDHSKZHrGUn6DAX+zeZx/FR87dPr+drbnQ1vhreoDyYas9qSTa9kTATxtIfwv2JrB8e2QgqW8Paku3rIhShg3wXx3Dx6pTpNlvde/d+iIdtSqtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i4s2N8qZRYwMabMPeIeuCkmoMlV3+WIF05pnizA7wEE=;
- b=fWYb/XZ7VyGJR3r+mEZOMD1DJtzT8RelCXVBz9jdIxqHeWJbD6goiWKDmIxD3O07wz6SO1CaVkt+qe9HoRrgWmFyScObP9QdNEtuvX5sXvrn3uXHKwuWvOz2EZc7qsfBNogrHzbioGEtNybN565+PmxzVNYO0al3Vuc8hH7k4Kr2Cf3kn/8JMYPf1dnuCVxoBbmKtLD/itx8zDFJqkX2xVLGfLWEEBpnue9JmPjdae1Zf3dT6LVBaLRNOFUvz65eaIV+eRJMgVfHJ9sDoR/hX+lywEGK6iQfbuMauWaVqekt/MHQulvG6ez+Xqfkj12rPfXDJoNIG2qFj+m4OxEGPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i4s2N8qZRYwMabMPeIeuCkmoMlV3+WIF05pnizA7wEE=;
- b=P6bzWKgnPxhClzo+pQ+m9yiMHNmLSBTVh5BSvTI/Bm6V+x4/qyDLWugFwi4V/ReZNLbQcjqWnzQ+w6K7g63izvRkRMtVJBB4wqCvcpUPjpBEvvtcBXthC0WYyEuhXC42PD+9X/RE4t/c2GzWew4iY5cwZNFjPlTQIMmdlDtSgYHdhbcYJW/DbP3ydIgJIBsAV6wCjJIfNGe/gdq6a6zk1dGdWziB+XgNJUS0Iccpq9fZR3ZqJkRfDdaArTzOPFUv+RB0vlFw5AKnsK7rkkNij5w8pTi6H42RfQLyK3YrK7+N3afW1qCpPs4gBgyShI0UxX4sRskRq/Lx5kfEQ32sDQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by IA0PR12MB7697.namprd12.prod.outlook.com (2603:10b6:208:433::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 06:45:30 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 06:45:30 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: rust-for-linux@vger.kernel.org,
-	nova-gpu <nova-gpu@lists.linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>,
-	M Henning <mhenning@darkrefraction.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="JG5j1pEp"
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.16])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 134DA20B7128;
+	Tue,  8 Sep 2026 23:44:49 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 134DA20B7128
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788936298;
+	bh=VosnKlv+oHSDjpR45cHswOoJ5a2EWdGkJ6BlBC9uMR0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JG5j1pEpDgd2zZaTuLpsuOzXLbAcU/T8Rthscawe6ZmjCsOOGIy1PqKDPSJQMCKuR
+	 7/+PDmbpcInnMLLH026FbYSDeskR2WYp9/VqyV9M6doQ+LaEIZ5Wo3yixvi7fnFMGy
+	 DUtWujL71ucmhwprCrIdam8KRbDcVyjHOFpLyvkU=
+From: Naman Jain <namjain@linux.microsoft.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>
+Cc: Michael Kelley <mhklinux@outlook.com>,
+	Long Li <longli@microsoft.com>,
+	Nam Cao <namcao@linutronix.de>,
+	Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Kees Cook <kees@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Sean Christopherson <seanjc@google.com>,
+	Kai Huang <kai.huang@intel.com>,
+	Dmitry Ilvokhin <d@ilvokhin.com>,
+	Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Thierry Reding <treding@nvidia.com>,
+	Jiri Wiesner <jwiesner@suse.de>,
+	Daniel J Blueman <daniel@quora.org>,
+	linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v6 03/13] drm: nova: Add DRM registration data
-Date: Wed,  9 Sep 2026 16:44:56 +1000
-Message-ID: <20260909064506.910162-4-apopple@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260909064506.910162-1-apopple@nvidia.com>
-References: <20260909064506.910162-1-apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SY6PR01CA0020.ausprd01.prod.outlook.com
- (2603:10c6:10:eb::7) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+	iommu@lists.linux.dev,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v4 4/4] x86/irq, iommu/amd, x86/hyperv, PCI: Drop redundant irq_retrigger inits
+Date: Wed,  9 Sep 2026 06:44:48 +0000
+Message-ID: <20260909064448.1004-5-namjain@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909064448.1004-1-namjain@linux.microsoft.com>
+References: <20260909064448.1004-1-namjain@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|IA0PR12MB7697:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b4d89e8-5c47-477a-b2a3-08df0e3df0bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	LmnwNUj/CGJAAdRpJTdE9cBxgScntUMdOMFA57PmNyFtwSesr188NFaVUsPnUg2b2xv7bJJOFqBzayPBQSJ8Thi7LYZG+lN5YjEXljWAZcKAYK1ZpwhhNQLcmPUVqQ2Ef178WhMeCkBYeVBgi8TjEKz9MqJ9TR2DEWBv91fZoY8VERCXKtmt/FVZqvOTjW41IGEpMN5WrsnriTfnl7NhS4L25KeL0GM0FsAzPSljdYkYuaiwEb0sk95zRrZkd0349ZeFYEkb4bYXsHz75SDR2fpK6cmeh1DDFDpK4l+OIJ0NsgevB1xxBqmvg9pFbt97166BwNc8pTShF+VwmpToeOMxBeJsuSXAA4tpMIz9iVaQatOjjg5F+Suu3b4ZwBWzxh0YWg1O/91TjnY1W7E3oQ/LOBTXlvGYYIcmLS3f/+1+xus6+bdrZK2wrE5qmLsNvR2BwLBrwZfVtQUF7zuR8D8nDgyJtpRXV7WhkhvN74xAkkeQZfSK3Rm9iPBIdXkcJOcTPthCCIjVXMLaXjDamgXLR2QKoVRVIyuTOAzaiw4IQcJ7VqMh0naPGWCimGMfUTA8EfctmsJuDr+WnDSVD3Yly1aAptW8B+m47l2KepLRJQ6RpskAI7N7F3zaWVEPV4Oldn+iWWb5isdD1HP0mhVoa7ap88EdZBUwma3Q+S8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uvw8rm4F+aS2tc3RUH78162Skiv+IkQFF/imWy35sZQHa5Qj7b79cBbPhKvi?=
- =?us-ascii?Q?iyHfF5yu2XOt/yrAwsXTnqt10+8D09080Y+GODl93eX5BFMpk/PTamqq3omr?=
- =?us-ascii?Q?hQ7NbwqNJzQFlT9Ox+2rMg/ivDlfRDXR/wYvTxsLEbOJkxdfv8VVgUDn1aCb?=
- =?us-ascii?Q?tN9zk8z69b5OZ3F4OsBN4jkYi3aO1kOoyI+v95g2jDfOaunzKU/Bc0+bxjrO?=
- =?us-ascii?Q?DNp6KPyvJ1KFHJGn9VpwNrZTLsZuCAH5gbM51goHJwR+kCEBswOsPuMW1Z/5?=
- =?us-ascii?Q?MFgCqGoGGSOhPofHlrGwlpWSpeRwZqkX1NL/hTHiz1jHRpvzlRpz0OcFUUs4?=
- =?us-ascii?Q?S44LUok3cnSpS6iwlJcw2U13KumlAQpdeyoCXycylC22LsTH4lItE3n2Lfx7?=
- =?us-ascii?Q?9t3K5p+enQFzSQTVfOoeVIfVqYnVQkk9zPtCbR1829IExOG7XaydNVWj4BQE?=
- =?us-ascii?Q?8YGdkhJpu6EF22HOaWN/YNoVv+D7N4fOb8UDypzHN74xMla1nxqVuXQEBbDQ?=
- =?us-ascii?Q?Ok1Oh92v5Jn+Bml0pWIPkqxoxgAM8B/bEQino0I0D82CpliryPYGgHH1TWtZ?=
- =?us-ascii?Q?P5+2pJiG+Nx7cqi+VIe1hr+fo8m/uO6sm8wTmJgLjU3XgpHHepf6Vhs5rQ8m?=
- =?us-ascii?Q?W2jFypLpFoYbWSQI6jPm6wrfEZnZQGkufjJKRlyaZj3/j+RzjoJO1hGk/m0z?=
- =?us-ascii?Q?jo7QlaUeO0RM4NIBda/UswmLZVJ9pWExU0b8OQmBCG38eT7DjrV+ljR4ROYE?=
- =?us-ascii?Q?oR4vIKuBHkwO2xQ0pMmCwI7sq5ZD843nB3uBM4qi5lU4VCdgAqA7nXGsWpom?=
- =?us-ascii?Q?FmXkMg6PubX6BAKrimqYBnJG9iISA4rnIoDu6lcIYOX46ttF/xMp89ffouQt?=
- =?us-ascii?Q?7fTW+iGHQplIPNbTmzz9SxxFLLJKxJ0oahT5DhcO5Kaxy6dABzvQsCTWyICr?=
- =?us-ascii?Q?24dhEHJhMSil6v51HmZPKxun+wdob+GMbqZVHz9TvN2jEZRNtJUa8/qYNCTM?=
- =?us-ascii?Q?m7MThfP2DFG/h71BshmQbtSLQimZyT3E9cA6qCes6M3B/3D8csuP63gW2Bpa?=
- =?us-ascii?Q?KHyPhs2cAc1ey7AaysoorPEL+rHs9XVA4TLE3FQTeGFH03OaOVn9rA31QUQv?=
- =?us-ascii?Q?IegmsXYRDltvbnUUP5ATc5a+MPL7CaRz6wwUfFUqV4+ngozuQHkwBlZwu/zb?=
- =?us-ascii?Q?7yJqiFEfy9AAo9Vt7XPoz5DIsbrFGCBX9EZda0mSmahGcpZByW/Q4apb9JNu?=
- =?us-ascii?Q?OlgWv6VFwRnYH1fRghpwy4b3GHA3B9IfC75+oCydBr67rV9PB5PuJE1I9U3W?=
- =?us-ascii?Q?+nFyrWaPBlFhjfH2rHysUGu5k2pAgQDa6zkrDi90lXKG8idPOjSZILf8fcnC?=
- =?us-ascii?Q?+Qsg2Kr1QMA2IHpJQm6lUas7R67fWozQvQzrJr4yXWgGmwm7EpCwPa2Aoek7?=
- =?us-ascii?Q?OG7/t21DOFAEmVW28mmMWNmLf0+nPYqFbeUUtKDnYL7cJLBhUvXj0alNk9m9?=
- =?us-ascii?Q?WwB329RtPxdaw2Z6DQOxM/QdfyTwAFo+eEkMHUaeT8zcz1scnoVHiUAJR7wA?=
- =?us-ascii?Q?dBFWukuyAaoJ8S2AcUoSoXagEVxpgBBz0kG+9AJXBZHGmKy1yQAfj3S93VWB?=
- =?us-ascii?Q?oTVJkPB9KylZ0jstj32IZVQlzP5tF4dBkgujJrX/I586zPtitFRK7EZhHS+I?=
- =?us-ascii?Q?88fwNa1XQ6E2dWGzgc/DkaJtNZV5bGitJw/eDkOat2Vo3wZEgq9w37Sb/9ws?=
- =?us-ascii?Q?1hMBvlJWAw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b4d89e8-5c47-477a-b2a3-08df0e3df0bf
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:45:30.7686
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LqHqVxHyc8Ui/aVrrGT9AYem6/kWaTNB3ML6wtygXbyNcv0TPVJjdoe3czZ70rFNT2V1f+PAIYze9ssJL5Kz9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7697
+Content-Transfer-Encoding: 8bit
 
-Currently the nova-drm stub driver doesn't really interact with a real
-device, so it doesn't have any registration data and has no way to call
-into nova-core.
+With fixup_irqs(), msi_set_affinity() and the generic resend path
+(try_retrigger()) now all falling back to irq_chip_retrigger_hierarchy(),
+installing it as the irq_retrigger() callback on the outermost domain chips
+is no longer required. The hierarchy walk reaches the x86 vector domain's
+apic_retrigger_irq() for all of these stacked domain chips.
 
-To allow for this add a DrmRegData type which will hold a
-NovaCoreApiHandle for the NovaCoreApi associated with the auxbus device.
+Remove the now redundant irq_retrigger() initializations from the outermost
+domain interrupt chips, including the Hyper-V root partition PCI/MSI chip.
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
+No functional change intended.
 
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+Reviewed-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
 ---
+ arch/x86/hyperv/irqdomain.c         | 1 -
+ arch/x86/kernel/apic/io_apic.c      | 2 --
+ arch/x86/kernel/apic/msi.c          | 2 --
+ arch/x86/kernel/hpet.c              | 1 -
+ drivers/iommu/amd/init.c            | 1 -
+ drivers/pci/controller/pci-hyperv.c | 1 -
+ 6 files changed, 8 deletions(-)
 
-Changes since v5:
-
- - Store a NovaCoreApiHandle rather than a reference to NovaCoreApi
-
-Changes from v2:
-
- - Add newline in crate import
-
-Changes from v1:
-
- - Drop unrelated device::Bound removal.
- - Switch exisiting import to vertical style.
- - s/allow(dead_code)/expect(unused)/
----
- drivers/gpu/drm/nova/driver.rs | 18 ++++++++++++++++--
- drivers/gpu/drm/nova/file.rs   | 12 ++++++++----
- 2 files changed, 24 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index 60752bccddc0..52550e694729 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -18,6 +18,11 @@
- use crate::file::File;
- use crate::gem::NovaObject;
+diff --git a/arch/x86/hyperv/irqdomain.c b/arch/x86/hyperv/irqdomain.c
+index 6d790636c8b95..b3ad50a874dca 100644
+--- a/arch/x86/hyperv/irqdomain.c
++++ b/arch/x86/hyperv/irqdomain.c
+@@ -316,7 +316,6 @@ static bool hv_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
+ 		return false;
  
-+use nova_core::api::{
-+    NovaCoreApi,
-+    NovaCoreApiHandle, //
-+};
-+
- pub(crate) struct NovaDriver;
+ 	chip->flags |= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED;
+-	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
  
- pub(crate) struct Nova<'bound> {
-@@ -26,6 +31,12 @@ pub(crate) struct Nova<'bound> {
-     _reg: drm::Registration<'bound, NovaDriver>,
- }
+ 	info->ops->msi_prepare = pci_msi_prepare;
  
-+/// DRM registration data, accessible from ioctl handlers via the registration guard.
-+pub(crate) struct DrmRegData<'bound> {
-+    #[expect(unused)]
-+    pub(crate) api: NovaCoreApiHandle<'bound>,
-+}
-+
- /// Convienence type alias for the DRM device type for this driver
- pub(crate) type NovaDevice<Ctx = drm::Normal> = drm::Device<NovaDriver, Ctx>;
+diff --git a/arch/x86/kernel/apic/io_apic.c b/arch/x86/kernel/apic/io_apic.c
+index 7d7175d012288..18f49a251f23b 100644
+--- a/arch/x86/kernel/apic/io_apic.c
++++ b/arch/x86/kernel/apic/io_apic.c
+@@ -1857,7 +1857,6 @@ static struct irq_chip ioapic_chip __read_mostly = {
+ 	.irq_ack		= irq_chip_ack_parent,
+ 	.irq_eoi		= ioapic_ack_level,
+ 	.irq_set_affinity	= ioapic_set_affinity,
+-	.irq_retrigger		= irq_chip_retrigger_hierarchy,
+ 	.irq_get_irqchip_state	= ioapic_irq_get_chip_state,
+ 	.flags			= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED |
+ 				  IRQCHIP_AFFINITY_PRE_STARTUP,
+@@ -1871,7 +1870,6 @@ static struct irq_chip ioapic_ir_chip __read_mostly = {
+ 	.irq_ack		= irq_chip_ack_parent,
+ 	.irq_eoi		= ioapic_ir_ack_level,
+ 	.irq_set_affinity	= ioapic_set_affinity,
+-	.irq_retrigger		= irq_chip_retrigger_hierarchy,
+ 	.irq_get_irqchip_state	= ioapic_irq_get_chip_state,
+ 	.flags			= IRQCHIP_SKIP_SET_WAKE |
+ 				  IRQCHIP_AFFINITY_PRE_STARTUP,
+diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
+index 66647d51c0473..728d3bfefa85c 100644
+--- a/arch/x86/kernel/apic/msi.c
++++ b/arch/x86/kernel/apic/msi.c
+@@ -252,7 +252,6 @@ static bool x86_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
+ 	info->ops->msi_prepare		= x86_msi_prepare;
  
-@@ -59,9 +70,12 @@ fn probe<'bound>(
-         _info: &'bound Self::IdInfo,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
-+        let reg_data = DrmRegData {
-+            api: NovaCoreApi::of(adev)?,
-+        };
-         // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
-         // never forgotten.
--        let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, (), 0)? };
-+        let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, reg_data, 0)? };
+ 	info->chip->irq_ack		= irq_chip_ack_parent;
+-	info->chip->irq_retrigger	= irq_chip_retrigger_hierarchy;
+ 	info->chip->flags		|= IRQCHIP_SKIP_SET_WAKE |
+ 					   IRQCHIP_AFFINITY_PRE_STARTUP;
  
-         Ok(Nova {
-             drm: reg.device().into(),
-@@ -73,7 +87,7 @@ fn probe<'bound>(
- #[vtable]
- impl drm::Driver for NovaDriver {
-     type Data = ();
--    type RegistrationData<'a> = ();
-+    type RegistrationData<'a> = DrmRegData<'a>;
-     type File = File;
-     type Object = gem::Object<NovaObject>;
-     type ParentDevice<Ctx: DeviceContext> = auxiliary::Device<Ctx>;
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 298c02bacb4b..1156df51c533 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -1,6 +1,10 @@
- // SPDX-License-Identifier: GPL-2.0
+@@ -319,7 +318,6 @@ static struct irq_chip dmar_msi_controller = {
+ 	.irq_mask		= dmar_msi_mask,
+ 	.irq_ack		= irq_chip_ack_parent,
+ 	.irq_set_affinity	= msi_domain_set_affinity,
+-	.irq_retrigger		= irq_chip_retrigger_hierarchy,
+ 	.irq_compose_msi_msg	= dmar_msi_compose_msg,
+ 	.irq_write_msi_msg	= dmar_msi_write_msg,
+ 	.flags			= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED |
+diff --git a/arch/x86/kernel/hpet.c b/arch/x86/kernel/hpet.c
+index 8dc7b710e1250..2bb7a6f466af3 100644
+--- a/arch/x86/kernel/hpet.c
++++ b/arch/x86/kernel/hpet.c
+@@ -509,7 +509,6 @@ static struct irq_chip hpet_msi_controller __ro_after_init = {
+ 	.irq_mask = hpet_msi_mask,
+ 	.irq_ack = irq_chip_ack_parent,
+ 	.irq_set_affinity = msi_domain_set_affinity,
+-	.irq_retrigger = irq_chip_retrigger_hierarchy,
+ 	.irq_write_msi_msg = hpet_msi_write_msg,
+ 	.flags = IRQCHIP_SKIP_SET_WAKE | IRQCHIP_AFFINITY_PRE_STARTUP,
+ };
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 40726dfef2733..a19e1faf98750 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -2471,7 +2471,6 @@ static struct irq_chip intcapxt_controller = {
+ 	.irq_unmask		= intcapxt_unmask_irq,
+ 	.irq_mask		= intcapxt_mask_irq,
+ 	.irq_ack		= irq_chip_ack_parent,
+-	.irq_retrigger		= irq_chip_retrigger_hierarchy,
+ 	.irq_set_affinity       = intcapxt_set_affinity,
+ 	.irq_set_wake		= intcapxt_set_wake,
+ 	.flags			= IRQCHIP_MASK_ON_SUSPEND | IRQCHIP_MOVE_DEFERRED,
+diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+index 89816a2bd7cd3..cfc8fa403dad6 100644
+--- a/drivers/pci/controller/pci-hyperv.c
++++ b/drivers/pci/controller/pci-hyperv.c
+@@ -2119,7 +2119,6 @@ static bool hv_pcie_init_dev_msi_info(struct device *dev, struct irq_domain *dom
+ 	info->ops->msi_prepare = hv_msi_prepare;
  
--use crate::driver::{NovaDevice, NovaDriver};
-+use crate::driver::{
-+    DrmRegData,
-+    NovaDevice,
-+    NovaDriver, //
-+};
- use crate::gem::NovaObject;
- use kernel::{
-     alloc::flags::*,
-@@ -30,7 +34,7 @@ impl File {
-     /// IOCTL: get_param: Query GPU / driver metadata.
-     pub(crate) fn get_param(
-         dev: &NovaDevice<Registered>,
--        _reg_data: &(),
-+        _reg_data: &DrmRegData<'_>,
-         getparam: &mut uapi::drm_nova_getparam,
-         _file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -50,7 +54,7 @@ pub(crate) fn get_param(
-     /// IOCTL: gem_create: Create a new DRM GEM object.
-     pub(crate) fn gem_create(
-         dev: &NovaDevice<Registered>,
--        _reg_data: &(),
-+        _reg_data: &DrmRegData<'_>,
-         req: &mut uapi::drm_nova_gem_create,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -64,7 +68,7 @@ pub(crate) fn gem_create(
-     /// IOCTL: gem_info: Query GEM metadata.
-     pub(crate) fn gem_info(
-         _dev: &NovaDevice<Registered>,
--        _reg_data: &(),
-+        _reg_data: &DrmRegData<'_>,
-         req: &mut uapi::drm_nova_gem_info,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
+ 	chip->irq_set_affinity = irq_chip_set_affinity_parent;
+-	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
+ 
+ 	if (IS_ENABLED(CONFIG_X86))
+ 		chip->flags |= IRQCHIP_MOVE_DEFERRED;
 -- 
-2.54.0
+2.43.0
 
