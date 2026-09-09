@@ -1,136 +1,120 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2182C15AB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965787; cv=pass; b=V1YueYFEwrKMo2v4w2BmNVRu6iETtjvTUqlun0lEEnLWFkwuw8EvmN5e+GodK9aV6ZSOEXyygjuWmo6utpIrCafv83rys8UduEIRMRGX6kJP7K4L9flQ0eH6Aw26XwmC4SLqDozZiWe+m0Q2Uj1jHkvDV203JwvX4Spy4iR38dA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965787; c=relaxed/simple;
-	bh=pX+iqOVqQWIHRPFeptniyJvWBDEGBzA/6VSzFPucy1A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ip/jbHFGPuH9Udk2Eg7vG1LNIgfWj8AVsDyGfgVL9NvEe5s5NY0SF9ZyVj1oTKM7OZNshjauEqOoAxUXxdHXKTJ5fbwzMPcAihzgm0xSZQSDnl924u1EacIAnFfoPTOUZPXIRf5ZqINxORV402VmhkvxbS7Vf5nV9Y0LHm24Z5k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GW/NoDGK; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F03548549;
+	Wed,  9 Sep 2026 14:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788965801; cv=none; b=Qfa2ihF/i0W7XPipKxEtmR9ZK0HH2NOooHFKPYCXKrT5jAzMcqdHRyOPJ/LG1b//7ijForHfl3HOryMe6xEbVeIQ/3A6t6QqKhnxwF8ZYnfde8xozgfKZgGaaeceU9D/8THrZY6G2hQPCmABPcvRSKvbpgBzotxc7LlcFEo8y3o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788965801; c=relaxed/simple;
+	bh=w+UD1MiUWmIRDloiIPb12y4w/gX4nCmJOiW9H4O3xIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H5dBvzp69PL+HCBO5EzLA6bBZKwXkjm5LudN+eMNDOENoCqxro7YGLr5BHWJV7Qcf9PcczXkYebW1iZplo1lz5zEoR8xbu0wioqNbuV7TTdTlDsIDvWHNSgu+wvX+1w5gHK5Yg/6fTSAsaVmfE/joeXLN0jvF0NlhsXrYlXQqV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G49gV8fe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GW/NoDGK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so9939295e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:56:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788965784; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mWwOSxKMlEAkBCUtEZXy0BbtYhD5062OVc2dSfoanLCOXaoYDoa/ebsxj6h0fXhJTS
-         yCDTV/t1ekOToHuFTd58brAEKdM4VilFdnbq2m8e8/6wRx18sIgcJPKUunSU8hO2FlFR
-         2+m+6gLxq0Yui/jVw0rOYHc0GFEWDaFqf+bOEIbo7LqHgodeajbpTXS30e/8B+tWFsK+
-         fMhCbDEEdcWxwL8fZkwpG3Mg7FpqYDCTIhjl2n6mENUSODaRiWotW25wz5kX/LsoqpJw
-         Fvr3BWZYZhem9uHJnIgVV+mN4FHgKo9wNnWK2RD3VXlr8atFUnAR19dXas/927RRudtw
-         HAow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/EzsJ2XbIJCRg08piphlkM3GNGt42SpypDAM2KpYbBo=;
-        fh=3PtnQmEVtK6FnV7xNG1DJ8wy6myZVMVHzuI2MvZxgak=;
-        b=qgjsEAI3vsLlstXb6Sc0qr2AtTG9kpl9ZNsJ/Bhrq3uUo1CTXnjWG9OvGVLM9vMkNS
-         xFpo7KShO7juR1bcG3MrcCZL/SHubGImaKuDA+uq4UtpHlPrwvkkRzS+xswdqGFzVtgU
-         tnRzqPBdOTLmRO6K/IHPbxTk8lqgKQ017HpBg+SbDoMYEdC6m4SKyC3u2hUr33tm+dow
-         Xh94b7OPntLG7QCf10wRaaaPYgo3q0ULEqPFSRwB6EXCpbdagsqz5JDLGVUrmSuGyO8z
-         JeUzBseizuGR1TuavG8Xn33q0sXcxiIlYVutws7E63eTK5wJ1KYZP/TU9tvGcg8MGi00
-         RsAQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788965784; x=1789570584; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/EzsJ2XbIJCRg08piphlkM3GNGt42SpypDAM2KpYbBo=;
-        b=GW/NoDGKEnV6F04FH+rHwsnr9rTDJrGceEhZC5h5XwbI+cc+6bfGuDXqhrgeepFOO3
-         4GC5+G2bSyzWk05nGnfVhJpF/EBavqTsDmlaYxB/skGyflBfKUG4rcjTgUu49WRtZ1zp
-         4MlNRzrhRWBqm8DZQNgvjBDBjwuOW2yiozh/73vRRp5S63JbixtczUEBr8i2HwQFLHMj
-         9bTTzFMB5hcR1alkkWIwpFANDS6GznvGFxj5XfVe6HahNAFO8+GNo2suCiot87LsqBwt
-         9lJ4UvT8PzUKNdlO7uu0/E9bXfAreNLI/R8UysxbPYaY2cu+u5xzQ/RPem9d4rPV0lUe
-         IV7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788965784; x=1789570584;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/EzsJ2XbIJCRg08piphlkM3GNGt42SpypDAM2KpYbBo=;
-        b=IJ+ijqRKvrzqifB4sj//lBeqif+BhqR1Awbf9lh464LlBeuCXyy30VPzqeS/AyY+uf
-         5XOu6c5bdxINLQz+hYy3HKwSNvCT1NpZWnK8H9oPhl3M6sx92+wvauL0Rk1iRqtVZGN7
-         4VPEEMQaTtkEiOQTTgvzXKPxAb+lIUeZny2UxJcT078QwqWriX+sp7WbM4LlOjCTHqrT
-         7AMR6z8HfR/68pOhDTBSEDR8lMAgQ9QykhT63IbsCt+qy473PbFCfYeW25Stgguz1v6y
-         JHVkunHweoq+gdRRt89OdSjHQKKMNLmWmlXEIE3h6WQAPDdP36TEdXD51v4OHhC1CTSQ
-         00iQ==
-X-Forwarded-Encrypted: i=1; AKwUvByC0SrB7DXKndQ9cD+wlcn23C8CgH6b7Fr331hIaPT2Tjbm7POQe1kR2J8JQjdVCTTUE/8dI8xvfmCcM0I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nycC3wFrm4m48sTlrUCxbBKNw0rTMErj/cKNSs1ClKULNkZCq6
-	fyaB2qovGLQ6eWs+I8LFe0to5OU0cYKBEK1o7pL4ZeapvJSVTnHlVvcECngOaN+UuszZKVf1mSz
-	Afr6xZSRczdpnZouTeTK9Dz1pjbBFJGc=
-X-Gm-Gg: AYBFou3znHzNY1tzVm+flzDNABLLsHVQGqQr/Trm5sI6Cpv5G/4V8fsSwNDeCweLUbb
-	8Rvq/yEQLhWRzp+MLUuybHdVeRIrWenw5cgNAs/Mx/E9OAPsdUEPQIWFSt/daYfupwIQt+s1hZX
-	jCIL28x1Toj4yW0LYD1qJ/9oCSbHZETmQRYyP3IE2H/pcftFZGbE74ciz34FxxbI1kx8OywbCZN
-	svge0i+lzIWZs2q3CIunyw+U56/PJHStxku+HVpC9Uaq1JUxADC1tMHY8oM4I9zBLmHpOoWZYdg
-	iZ2nwZOdLpJQi9/6971HPQ8EVOcEIPVvYC4BGqj6Aw8YT60n0PoLhs8gnswovh3jTL1XDlq3TNZ
-	aUVY0jIDnDIuovSE3AL+hHg==
-X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id
- 5b1f17b1804b1-49d175439dbmr143483155e9.1.1788965783309; Wed, 09 Sep 2026
- 07:56:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G49gV8fe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BC61F00A3A;
+	Wed,  9 Sep 2026 14:56:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788965799;
+	bh=3ay2MobbZQLu2mwYp11snxFg/p8toCy6rvzuc8TWscs=;
+	h=From:To:Cc:Subject:Date;
+	b=G49gV8feOAwmMiflT9m3W0o3BPbFKHkBroR0BiLra9CKCRKLqyruL3g/faFmr9Vu4
+	 KXCZiyS3bKE/eYtWcyXwGyHLUcF5Ms0lr8BnZaV+giTMByfhqCAIq4+yKJ0BtB/UZU
+	 moMOHqiYYNnHtD8hKmQmQW09z1+Jbv1pEIhk3FCNsZ19WHYPYvNtKUD5sQ9erbwQsY
+	 JQX+1aAKcU45b/pZNnFRHr9jg89CefiwhCrrS1Ah1Yp8oM0RvR20Ymalf238buwFYZ
+	 /UVq1jS4xSHMmCNeft+5sCiO8b+BAXeD8JTkwGxB4+BDqYlhNqYcLtzW1FOAtaE6Sr
+	 0+HPNZSlTDALw==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/5] spi: dw: use threaded interrupt
+Date: Wed,  9 Sep 2026 22:36:47 +0800
+Message-ID: <20260909143652.9234-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904033503.4067283-1-qinyuntan@linux.alibaba.com> <20260904033503.4067283-3-qinyuntan@linux.alibaba.com>
-In-Reply-To: <20260904033503.4067283-3-qinyuntan@linux.alibaba.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 9 Sep 2026 07:56:12 -0700
-X-Gm-Features: AcwNN1XRJdmkw63mXOMob49BAlRwZ-fncp2bctcYyRkWfOoIpHMzKSC7_xtXJwE
-Message-ID: <CAKEwX=Mim0apjf9qkFPABWz88juQ2Wc+6hY9RAXdBevq45FBmA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mm: zswap: mark the zswap shrinker SHRINKER_NONSLAB
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Yosry Ahmed <yosry@kernel.org>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Xunlei Pang <xlpang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 8:35=E2=80=AFPM Qinyun Tan <qinyuntan@linux.alibaba.=
-com> wrote:
->
-> With kmem accounting disabled (cgroup.memory=3Dnokmem), memcg reclaim
-> never invokes the zswap shrinker: a cgroup under memory pressure does
-> not write back its own zswapped pages to make room; they are only
-> written back by global reclaim or once the global pool limit kicks in.
->
-> The zswap shrinker is registered memcg-aware but without
-> SHRINKER_NONSLAB, so under nokmem it is treated as a slab shrinker:
-> before commit 03375203e1da ("mm: do not allocate shrinker info with
-> cgroup.memory=3Dnokmem") it was skipped by the !memcg_kmem_online()
-> check in shrink_slab_memcg(); since that commit it is demoted to
-> non-memcg-aware at registration.  But the zswap shrinker is not a slab
-> shrinker: it tracks zswap entries and resolves the owning memcg from
-> the folio's objcg, independent of kmem accounting.
->
-> This was noticed by Michal during review of the patch "mm/list_lru:
-> don't copy stale shrinker id from non-memcg-aware shrinkers" [1].
->
-> Mark it SHRINKER_NONSLAB so it keeps its memcg awareness and runs
-> under memcg reclaim with nokmem.
->
-> [1] https://lore.kernel.org/lkml/697713c4-0857-485b-aba7-c74f37a3c8b4@lin=
-ux.alibaba.com/
->
-> Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
-> Suggested-by: Michal Koutn=C3=BD <mkoutny@suse.com>
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To avoid blocking for an excessive amount of time, eventually impacting
+on system responsiveness, hard interrupt handlers should finish
+executing in as little time as possible.
 
-Acked-by: Nhat Pham <nphamcs@gmail.com>
+Use threaded interrupt and move the SPI transfer handling to an
+interrupt thread.
+
+After that, since the dw_reader() and dw_writer() are called in
+threaded ISR now, so we can delay the unmasking interrupts until no
+rx and tx action is taken, thus reduce the interrupt numbers further.
+
+Tested with below two cmds
+./spidev_test -D /dev/spidev1.3 -s 30000000 -S 327680 -I 1
+
+./spidev_test -D /dev/spidev1.3 -s 30000000 -S 327680 -I 1000
+./rtla timerlat top -q -k -P f:95
+
+The first cmd is to check the interrupt numbers optmizaion result, the
+2nd cmd group is to check the threaded interrupt improvement.
+
+Before the patch:
+each 320KB spi spidev_test transfer triggers 33118 interrupts
+
+spidev_test reports ~22090 kbps
+and rtla reports:
+                                     Timer Latency
+  0 00:00:37   |          IRQ Timer Latency (us)        |         Thread Timer Latency (us)
+CPU COUNT      |      cur       min       avg       max |      cur       min       avg       max
+  0 #9958      |        1         0        67    103394 |        6         4      2198    105031
+  1 #36902     |        1         0         1        18 |        5         4         5        29
+
+After the patch:
+each 320KB spi spidev_test transfer only triggers 1 interrupts
+spidev_test reports ~23520 kbps
+and now rtla reports:
+                                    Timer Latency
+  0 00:00:58   |          IRQ Timer Latency (us)        |         Thread Timer Latency (us)
+CPU COUNT      |      cur       min       avg       max |      cur       min       avg       max
+  0 #58362     |        1         0         0        29 |        6         3         4        56
+  1 #58363     |        1         0         1        23 |        6         4         5        68
+
+In summary:
+before the patch	after the patch
+33118 interrutps	1 interrupts		reduced by 33117 times!
+103394 us max latency	29 us max latency	reduced by 3564 times!
+22090 kbps rate		23520 kbps rate		improved by 6.5%
+
+Since v2:
+  - rebase against latest version
+  - remove the "spi: dw: use DW_SPI_INT_MASK instead of hardcoded 0xff"
+  - add three more patches to clean up irq code introduced by recent "enhanced
+    spi" support
+  - Don't use threaded interrupt for target mode and the enhanced spi
+
+Since v1:
+  - rebase against latest version
+  - drop two patches which have been merged
+  - correct some performance numbers
+  - don't move request irq code block so no changes for err handling code path
+  - move spi_finalize_current_transfer to the end of threaded irq fn
+  - don't rely on irq status in threaded fn, but try rx and tx as much
+    as possible in the loop
+
+Jisheng Zhang (5):
+  spi: dw: use DW_SPI_ISR directly
+  spi: dw: remove useless dws->transfer_handler check
+  spi: dw: remove duplicated "!rx_len && !tx_len" handling from
+    dw_spi_irq
+  spi: dw: restore previous irq handling behavior when !ctlr->cur_msg
+  spi: dw: use threaded interrupt and optimize the threaded ISR
+
+ drivers/spi/spi-dw-core.c | 86 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 72 insertions(+), 14 deletions(-)
+
+-- 
+2.53.0
+
