@@ -1,127 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E478E54A7E7;
-	Wed,  9 Sep 2026 16:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D9C238C16;
+	Wed,  9 Sep 2026 16:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969675; cv=none; b=bBW9QKQ/MlCLKLSrpmjhOpNPRUlVZdZbS43IZrHI1tzxcbCJRHXVmV2s0GMmTa36qFEq/4A7ft3rpVv7lem4ALqPuvQyWO2oIdqoi8zDMSviI6RYUarmxEwQWsaUio7xbwdytj52TUHxKjC8qVF0vhXc4FLzBWp3aVk+sO2aBJ0=
+	t=1788969685; cv=none; b=r6O2xYgTrLHgntSTIqkAde8GigWqazCb/6aKwbs3AiZ+WEbFgj3tQXy0JBp2FwYjWcsiLCKGXLOXPSW/RV9M+8Dtvg58CU/Ie1excEm4oqyNBNaD5ZOMUELd8SSw5X8NJF1XQSypKqHUOTGJbxjiMoxEj97szBpuNtlNObl+Nj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969675; c=relaxed/simple;
-	bh=LbhUwDtwkuIFwb9VISc5HQ5A50vpg/Ht3Pl0+/2hX8w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dq9XG9PyydBDif2N/8GFi2ktCjktsxV5V7zR0sM8MgKNDjb3D6yuj2R04GS2rvBZOfENnROhNi4N7TQeC5lcGHFUXnr6KSn2Czu9KYwkVqkQDR6njcLM1nibwvylypHcnuqOs5EiGuJlYEm+BWniiFQ74E0QKgMf+oBmMuOGdkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxUC9ZeF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788969685; c=relaxed/simple;
+	bh=z8YcKTHW6LlHKRX7IUzptXO2rIcz6WMZbacNGuHDi10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h9OOR2zhJ3D6Acvk9I/y/BrZjgiwCN0nQe9nD1TIvhrQUUnU7ZSibf6v/42xSDvBmstx2obYysLMWXzoUjU2SAkHW7PTl0eT9LdIVbr3m1VTCtvkFQljH7ZxeFzIGzjOj56yLLn6ve59A8ALpjSis+J8KiWjwp6W+I83fH7gcGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TCRP94SY; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxUC9ZeF"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EF42E1F00A3A;
-	Wed,  9 Sep 2026 16:01:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969673;
-	bh=NgTepbvixwaQqPVtQ0p03eDIqVfMNa2FY5nEPoVJHdQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MxUC9ZeFOuHjElAI/j8FjkwYu7J35UP3/FglLsmZNx2DJk6r9GwVhhpdRx1mdK7oV
-	 Pc4j72hQTy9KxlPlrE3giCrblS7/jLeB06xIlq71he5hdKfr49KD36cp+IAiicc36H
-	 VtExdfVWuPBu6fOGVeCfSjHrV2FhymupeXV2wtuPka5yJ0mS9BVLXlHV6dKgsq5QKb
-	 9YXwnxTl37mah/0ap+asfsvDSM0dCG6iNJ9syIXQ2vxPfhXs1LrNqG/arEuzoX6JD4
-	 B0iez3+D4Pa1yeRxaRcGAWuj604J97plhxc/u72FPihndpu1Zr4VsM/7cGEp/ibsZ5
-	 2xfwFmX0koLWA==
-Date: Wed, 9 Sep 2026 19:01:10 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Stuart Yoder <stuart.yoder@arm.com>,
-	Chu Guangqing <chuguangqing@inspur.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tpm_crb: Remove dead code from crb_map_res()
-Message-ID: <aqGCxok4dYhSR9pQ@kernel.org>
-References: <20260901142955.187856-1-jarkko@kernel.org>
- <apb2LdIAqUHROYBt@sgarzare-redhat>
- <apcDfzVRBtwghIuN@kernel.org>
- <apfg2kg2jkmooZoq@sgarzare-redhat>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TCRP94SY"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1RXR3817363;
+	Wed, 9 Sep 2026 16:00:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=00JU/j
+	/v+DQy0zd7AxUZ9dWcvelnFmS2j8kJVfQrbIQ=; b=TCRP94SY0JQW+S+PR540yU
+	u/lnGUruItr+yZJ8X2SS9trYAqJ5WEcHubrqfQjfVHOhb8tVlMTk1YiNZHOyWMQZ
+	Fp/90cFh4QWFO6uSqV8YSFTGD4nlRRLPlL3Fh2NLOMFzNK9zNXZcu7EQ1yJY0O2f
+	p9RnrmEihlwh4ZzfrFyPCw1Skf2yfri9pRZb5qYGP1b+yeeM9A3K6a/3Y0Bry9re
+	G1dP/e8+Smt9Zvmv5itpSwDcz3kNGNNUK1GkSx00YAnG+MHFjfPeJIVH/iJ76zIH
+	m8keWUtjRQwuhs2Bx+ITGBT0CbU8jYF5uD7lWfhMHN/WYUeqGm2vEBQLa8vr6Zkg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf46y64-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 16:00:48 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FuLt0015882;
+	Wed, 9 Sep 2026 16:00:47 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03yjy97-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 16:00:47 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689G0jcA35717428
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 16:00:45 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E333B2004D;
+	Wed,  9 Sep 2026 16:00:44 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2CA3C20040;
+	Wed,  9 Sep 2026 16:00:35 +0000 (GMT)
+Received: from [9.61.255.18] (unknown [9.61.255.18])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 16:00:34 +0000 (GMT)
+Message-ID: <96f4e19c-26d6-481c-b7b3-0a2aa244c834@linux.ibm.com>
+Date: Wed, 9 Sep 2026 21:30:31 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apfg2kg2jkmooZoq@sgarzare-redhat>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/22] coredump: always chunk writes
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
+        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
+        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+ <20260820-work-coredump-sparse-v2-11-ba32dd718c51@kernel.org>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260820-work-coredump-sparse-v2-11-ba32dd718c51@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 3nsD3dyD9YpDNwrNy79mh4k3ZJgZAoAH
+X-Proofpoint-GUID: 5Ftz_v8DnqJwrQicAaxaxCLwd-1LE4ML
+X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6aa182b0 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=uNwIYxRw8H9XJLvQjW8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX63FEwKXn2pEz
+ lbN9cHVZiZXHc6txdAexnXMJtgrSfc5kgQl/RQL8aZJ3oiw7NqTF/WCwpFMjKmwq5NLNAZGgf7Q
+ Hos7o2aQf/uCGOISPuipeIO0MunRkNE9zvUd5wusnjKNruB11Hx/j+gFzlJp3hJieicpYa+eeNs
+ VkPI2SMmIPn7I8IL8WFtQVjvsWoy1UeU+NFUVDQ9KSshErJfbe9cDG4v706+PSGMOWzSjuy2imC
+ 9rWzGxzVCn+WakqwhrsdV1oF+VDabMe2ZSGc8J+rU+SeWGZOzqQ4nHzexEQxcNU7ZreEcsXHjqT
+ vnXmtYO1/SidK4tC78nZhlCXtSFAnu9ZuG6T+KEDlEJGJ1VsWRB5SVXl0be+AWY/znuXep8HXml
+ ttmhJajuNA1n59oxzUkxRDb3KE0j9eapA5s1nPeKFV5w3rVkfbJFceEiLji4I9KbtpKV+mI6BiC
+ 6wZ/lWkQABb3bef66Dw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfXxpDMqZtbveKw
+ EOHJ1ijEo1wcbWvww4tsJatXr/zaCikRtHGXSA8SYhI/DW4OjGh4H87T7udcjzwwogzipPCpPGc
+ TkIi4XOACd8bpzimfR/h+x2eYMoJeMY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
 
-On Wed, Sep 02, 2026 at 10:54:32AM +0200, Stefano Garzarella wrote:
-> On Tue, Sep 01, 2026 at 07:55:27PM +0300, Jarkko Sakkinen wrote:
-> > On Tue, Sep 01, 2026 at 06:06:40PM +0200, Stefano Garzarella wrote:
-> > > On Tue, Sep 01, 2026 at 05:29:46PM +0300, Jarkko Sakkinen wrote:
-> > > > In all the pre-existing call sites both @iomem and @iobase_ptr are
-> > > > either NULL or non-NULL.
-> > > 
-> > > I don't know this code, but I'm a bit worried about iobase_ptr and
-> > > *iobase_ptr. IIUC it is true that iobase_ptr and iores are either NULL or
-> > > non-NULL, but here we are removing the case where *iobase_ptr is NULL.
-> > > 
-> > > Now looking at crb_map_io(), IIUC iobase_array is initialized with NULL
-> > > pointers and the code we are removing was the only one initializing those
-> > > pointers IIUC, or am I missing something?
-> > 
-> > crb_map_io() sets both to non-NULL value, or leaves both as NULL.
-> > 
-> > crb_map_pluton() explicitly calls both explicitly with NULL.
-> > 
-> > If anything else will arrive too crb_map_res, that'd be unexpected
-> > input, which without this patch will go unnoticed and will lead to
-> > undefined behavior.
-> 
-> This is clear, and it's what is done in the first hunk, what is not clear to
-> me is why removing the second hunk.
-> 
-> > 
-> > Not sure what is the argument here really.
-> 
-> Sorry, I should have commented in the diff:
-> 
-> > diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-> > index ceb4100ba400..e7a61f36c58b 100644
-> > --- a/drivers/char/tpm/tpm_crb.c
-> > +++ b/drivers/char/tpm/tpm_crb.c
-> > @@ -570,15 +570,12 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
-> > 	if (start != new_res.start)
-> > 		return IOMEM_ERR_PTR(-EINVAL);
-> > 
-> > +	if ((iores == NULL) != (iobase_ptr == NULL))
-> > +		return IOMEM_ERR_PTR(-EINVAL);
-> > +
-> 
-> This makes sense to me.
-> 
-> > 	if (!iores)
-> > 		return devm_ioremap_resource(dev, &new_res);
-> > 
-> > -	if (!*iobase_ptr) {
-> > -		*iobase_ptr = devm_ioremap_resource(dev, iores);
-> > -		if (IS_ERR(*iobase_ptr))
-> > -			return *iobase_ptr;
-> > -	}
-> > -
-> 
-> This is unclear to me, here we are checking if the value stored in
-> iobase_ptr is NULL (so something different from the check we are adding
-> above, but appropriate because it only makes sense when both are non-NULL).
-> If the value stored in the pointer is NULL we are setting it.
-> Looking at the code, I can't see any other point where that values
-> (iobase_array[]) are initialized, but again, I don't know this code, so I
-> may missing something.
-> 
-> Stefano
-> 
-> > 	return *iobase_ptr + (new_res.start - iores->start);
-> > }
-> 
 
-Thanks for the remarks and ack for receiving this ;-)
+On 20.08.2026 4:39 AM, Christian Brauner wrote:
+> Right now dump_emit() is the only coredump helper that writes buffers
+> larger than a page in one call. For elf notes that can easily blow past
+> PAGE_SIZE. That's annoying because neither pipes nor af_unix sockets
+> take such writes in one piece.
+>
+> If a signal arrives while the writer is waiting they drop a short write.
+> With the coredump records work coming up that means header and its data
+> are desynchronized. A write that fits in one pipe buffer or one skb
+> doesn't suffer from this.
+>
+> So split all writes up, including elf notes, and cap every write at a
+> page. The coredump socket already raises sk_sndbuf far enough for a page
+> to fit a single skb and pipes always work that way.
+>
+> That means dump_interrupted() is now checked once per page. So a large
+> coredump stops earlier (good). An empty write no longer issues a
+> zero-length write. The rlimit core check stays where it was. It
+> continues refusing whole writes.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-I'll move this to my TODO-folder and read it with thought some days from now.
+System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
+> ---
+>   fs/coredump.c | 37 ++++++++++++++++++++++++++++++-------
+>   1 file changed, 30 insertions(+), 7 deletions(-)
+>
+> diff --git a/fs/coredump.c b/fs/coredump.c
+> index d837819031ff..d61f36239f91 100644
+> --- a/fs/coredump.c
+> +++ b/fs/coredump.c
+> @@ -1215,19 +1215,21 @@ void vfs_coredump(const kernel_siginfo_t *siginfo)
+>    * do on a core-file: use only these functions to write out all the
+>    * necessary info.
+>    */
+> -static bool __dump_emit(struct coredump_params *cprm, const void *addr, int nr)
+> +/* One write, never more than a page. See __dump_emit(). */
+> +static bool dump_emit_chunk(struct coredump_params *cprm, const void *addr,
+> +			    int nr)
+>   {
+>   	struct file *file = cprm->file;
+>   	loff_t pos = file->f_pos;
+>   	ssize_t n;
+>   
+> -	if (cprm->written + nr > cprm->limit)
+> -		return false;
+>   	if (dump_interrupted())
+>   		return false;
+> +
+>   	n = __kernel_write(file, addr, nr, &pos);
+>   	if (n != nr)
+>   		return false;
+> +
+>   	file->f_pos = pos;
+>   	cprm->written += n;
+>   	cprm->pos += n;
+> @@ -1235,6 +1237,24 @@ static bool __dump_emit(struct coredump_params *cprm, const void *addr, int nr)
+>   	return true;
+>   }
+>   
+> +static bool __dump_emit(struct coredump_params *cprm, const void *addr, int nr)
+> +{
+> +	if (cprm->written + nr > cprm->limit)
+> +		return false;
+> +
+> +	while (nr) {
+> +		int chunk = min_t(int, nr, PAGE_SIZE);
+> +
+> +		if (!dump_emit_chunk(cprm, addr, chunk))
+> +			return false;
+> +
+> +		addr += chunk;
+> +		nr -= chunk;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>   static bool __dump_skip(struct coredump_params *cprm, size_t nr)
+>   {
+>   	static char zeroes[PAGE_SIZE];
+> @@ -1247,13 +1267,16 @@ static bool __dump_skip(struct coredump_params *cprm, size_t nr)
+>   		return true;
+>   	}
+>   
+> -	while (nr > PAGE_SIZE) {
+> -		if (!__dump_emit(cprm, zeroes, PAGE_SIZE))
+> +	while (nr) {
+> +		size_t chunk = min_t(size_t, nr, PAGE_SIZE);
+> +
+> +		if (!__dump_emit(cprm, zeroes, chunk))
+>   			return false;
+> -		nr -= PAGE_SIZE;
+> +
+> +		nr -= chunk;
+>   	}
+>   
+> -	return __dump_emit(cprm, zeroes, nr);
+> +	return true;
+>   }
+>   
+>   /* Flush the accumulated hole before writing data. */
+>
+-- 
+Thanks and Regards
+R.Nageswara Sastry
 
-BR, Jarkko
