@@ -1,163 +1,141 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF94C376A06
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F733A71AD
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934262; cv=none; b=Jz6ME7rzCwG1h4PPtmFRqzGgk1WKRgA9OeFMtwqD33gcY+IuOqXrIp1h1TrgnFmltfb9Qm4xxBPa9Id5MI8C3NM1ixVjemq4XQik8eEToxNbzwb4uSOz/8CqFClPtc7aUh614pbouHVffzJcP7ZJQx3tt3L9Fgy4Ly6O0wzviQI=
+	t=1788934296; cv=none; b=itlrwKGPDr+MHcpsmh4EWWPyqljUIUq5ve9t5hou8DaIX334IzHffnWqvHV5lwIswwxNwugCmUGoXznAnjcUdkDZ89+emxTvXr4oKR1eCxv9ZzjAiJn2V6OyYGNgVwC/SN6XXPTXHaBAedDZmfNrfv65M2+kyBtEgvDHWPPfkHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934262; c=relaxed/simple;
-	bh=2iI7+hsSt6Pmjb6ifN1OdgNX0gZcw9BkmoyEoH4S+XM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pny+tHd4JPlcLL/TVRtx2QDKGXeK/C7SAmKjkZM3Ld2Zv5sFsarpsBLSngXNzF/wnYe9+xEE8OJBR5bfl6AVgSjm4hHLEA1CC6ye3qQYxPyOpuD3E6b5GmdFqc3fJgjEPc4G/b4P2uFpEGFYnLC+GXwUQb8xzeNS9h8wqyKG1DQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=et7hQjrU; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788934296; c=relaxed/simple;
+	bh=jaLBXs7Os+iy8cVs8rEN5uKDkf7LSav2f/F/TMcJUqw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OGRiQxceywVRK+shRuHTG8j31dPQgHnfhGViQkL/iD5UAwNVywBRZpnBQacY4P86DTt7FbiXZv+rDYRVCRhxwBlZre48i+/3fwA7ox4TQY+diwQ5rhae4Zv78NnzP1Sq/qhRv8jHqcRAxpvvBws3qt5n2+XABjwCfwspjZa7awo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bl1MzMZ9; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="et7hQjrU"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48442ea8f59so4626373f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:10:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bl1MzMZ9"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2dcff8f44f2so4066825ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788934257; x=1789539057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=os4SWo7VFONZBHRCMPqcSTHrGMNYmyYABYQjLTTOy4c=;
-        b=et7hQjrUd8K8N4vaIWJBOqDiKO2Ubn9xSBRYCWfDvJv86qrZIVhgr2YiwCUGTZoAyl
-         0jGaA9HCD9zWYshuZa0r0G7+3zA9NKGByGz7PdhakmwsppbEvhebiv9Dlfz/uZbbS4ib
-         NaZdVHHqKn5yznmZCrIDh6Rju5PvyAUd8HrvvqdenE2Mb2B5Xc4ftLFc1eY12TjIB+w1
-         usRocPOMt9jqn5kG5ITzv8zLMei1XyZcwNyUSADE14W96TbARHW9SPvjoh++XlMx4HWl
-         5H496o/9eF3z0OiiwVjIoWnj/vJ5PnfY+P/eoDTNb0938Xo5PBWDFc04nTh7lsYvbDzC
-         0nzg==
+        d=gmail.com; s=20251104; t=1788934293; x=1789539093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NEjcqxEvEi/00cM1XbcbS+ADXbDTmQAkuPBw9uAC6p8=;
+        b=bl1MzMZ97VuznXgOdgLlQjUzSRoT35aLoslbNS6A6dhZ0piMh9MfAi9IG/SGrk0btx
+         XU9bc0SiNKwwgHjJ9m2eVOGczq/pDLtNrA/Efcgcbh3vd7yjuldj1X/M8v8p58BFMKev
+         T6pHx1g+B/gsNLj0b53pUW7R+OwW3K1AFbOuj9Hbin813SL7LjTNSFDgk8V0QIfWnQ1t
+         bRBZAHZMYuzUo/3EG+VjLFMpbIkTVQZ+BCLDQk/hSyDmJjEOEaxg1U/wffyO9BkXwW4q
+         m9T6ys5RBgPbGC1RwnJixByYmaMUtdF3BRkVlapbgAHyh4YbAxzc9S77WdUt1gPPhj1R
+         zVqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788934257; x=1789539057;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788934293; x=1789539093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=os4SWo7VFONZBHRCMPqcSTHrGMNYmyYABYQjLTTOy4c=;
-        b=ePfodcyY6b58Av021NIP6HWcGtd4OHj39maPCKx2/qrJelNMBoAJ1MbYj74FC/wO3W
-         Tomes26BO55WjmkLeffvYhM1/C3fOanYfPMgQDdoQKEhlUN9jE3TN9fLSQKR9YhemNEd
-         Jlj1zxTPTjDMRnU37b4jXSE4dEjooPqJtn7qYfkr2XDRtu+6nergW4t2DLi1GvUdk93P
-         g6ww6mP4pA4YWwHn5nzvs62pShNT5KZwvKD4zuqWmAFMI1ohhA4pR9iUQrM4OeW+dUYP
-         LUFu/O43/CKQVD7DOShdj7iOupryEdf/STQTjRwh+D14aO8CaNQ48D7NjrzKDbiurx1q
-         45Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBxk+9f0UE7o0iBzxdpn+Xst0lzmS6z/WscFouurSN2OAZxkicm5wIHDXexD3BqLQebuRTAdyisMAgs6CRk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nK9Ekwb0ycHr36HXoXgqOpCZxWTyrqo0oWtNSTda6r2Ja4UCD2
-	gSqitmRUeELWHfloJ3r0Rq+eM7bt6YNCysFhAjQQfJHY1dy40UmTAe6p7kHPW3GvipY=
-X-Gm-Gg: AYBFou2HoNpUve5DHz60OlVpjXnqlVL4FXcKZPnFMm1jyGuN34a3sesqVMcQ95OzMEl
-	DbjOkO7DiafWde9Z2YNrVxPR0nSKMZH8QrBbYG9EYLAQt0XuVXrjiGmRVDH4BJdRMDMRU3Mybs2
-	mYhwG2k3xtSsEd/aqWyfOiXA5/q0Hv7B1gx/5ojAK2BocV4HtV+wppZMs4kvYaIRcokf1351WaP
-	NWojIHPy7K05rn7lR586J03H8mqXi28WGDyF5y5ELeoLAwjaqBWapSLYkfJrCEp2Z9vq5CQEN5M
-	k6yWPGdsW2TpF40FsUnTPrreEv80yZvJrqDM8gsFIuw+E6SRV69IIhq+mTLEDeGRrT/+1baBslO
-	1gq2Yo8lswrsfFrWY7X3EUqutO0aiY2ov9fn7JfQt3d/xvwRKwWtp2Zo/pmYBr00mV6CHjPt7U/
-	3FN+M0txnmMYJLWZcf4OvCMBT3jbtyEq6+GGb6kdhmHPqO/bumdgUZiCSZRERD03U=
-X-Received: by 2002:a05:600c:138a:b0:49c:f13d:ffeb with SMTP id 5b1f17b1804b1-49cf13e0642mr424219605e9.15.1788934257023;
-        Tue, 08 Sep 2026 23:10:57 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm34889401c88.6.2026.09.08.23.10.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 23:10:55 -0700 (PDT)
-Message-ID: <f4a415f9-1e3a-4b26-a2a4-61bcc98eb39f@suse.com>
-Date: Wed, 9 Sep 2026 15:40:47 +0930
+        bh=NEjcqxEvEi/00cM1XbcbS+ADXbDTmQAkuPBw9uAC6p8=;
+        b=irooI0de6s692o1LjJJETcdpEo8QHq/+4ZzXVHrX6/bTuASDSacKg4fgDzxiqEHNmw
+         HAyiPGUQobgAottC4V/wfVtkfHpC/teFO6/wB+sTJlyDxFtNg9cU6CyQFWb3Sgq2sVOG
+         AruDU6T1EW+/W8yOfACTzXOmOJoX14GTXwyVrmnpeaDVbR44nSa3+PMUiS3F4Nt/3TBo
+         ITNZ97F2c6JjSmDMYctW1E+BL4I35zkOXtBbH6Lh+g09njOpvsDZb4WdYTPIBorTq8Q0
+         TqnRgKIyOhqVvA5aZ6WbrBBrgPMEIYdzycbtl15ibwgNXaYf9XbG/ekdsJEWaYsLaDu3
+         Zjgw==
+X-Forwarded-Encrypted: i=1; AKwUvByyKyU1feSDPBHw2plPRELkYpoTwN+Jh8zm+FlRV0xYhFXSKjP+oxQSJbTtlVbme/k6NZiLPFUICRwHVwY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBDVKg6/DdAl6YXcFNy/aJDQa/utLTCAYJf8VlmlY53L4JMcGU
+	Cmdn2gR/Juv+Zc8oKeoj458ds/fhRLlP7ARqbAnf6SHY+21rdG3diKJ+
+X-Gm-Gg: AYBFou1HOXXvXrWlPXOSHhi94voCSCSlCnTho3jOWRKHT70VCLU/OBtxGY5S7+Z5nyg
+	kO6ErZEm9sxz5sKscRGNcP48dAIHuiHiqlgfcotgU9lzowRjBaJZiZhLHwxlff/RlSP9g4V9cam
+	7Uzge7/QPYMzCbqan8FwhegjA9eLcLyZ+Mfh2rEoKtHubbKq2BEny32fZzmB/qqA8IKIYqx1Hqa
+	BrbZR6b2oiGreFxG4KoTRrwTlLNTFt3OlPAhE14JAkAstujtDxCzensR2aa8SIpkUQ+FWAgRH8a
+	8+GKTbbdqjCHdYTI/ptEA/poV5eu1THubDFy/LHGQpaFQXTvPa+h+k9i/cnjIAAim01hi2rROyB
+	i1MrVqQJfpYSdboDxlWX/pbhWvMIPLOv71DmqBEX0GQZ0L1+BwJKWYcgXyMLiotm18cpytgOvy8
+	wJN6RFq3hGFfAkmqHIN/ONaDmZUCpCaLpiKUSYICQEalKqoGF8faq3nj9r1v4EykLLli8ZZH+fw
+	IJJPuVo2I4=
+X-Received: by 2002:a17:902:d48e:b0:2d9:2fc9:570f with SMTP id d9443c01a7336-2db12854ba4mr485362505ad.16.1788934292887;
+        Tue, 08 Sep 2026 23:11:32 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497da0fsm67131495ad.37.2026.09.08.23.11.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 23:11:32 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Stanislav Yakovlev <stas.yakovlev@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] wifi: libipw: reject TKIP frames without a full MIC
+Date: Wed,  9 Sep 2026 15:11:24 +0900
+Message-ID: <20260909061124.3802517-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] btrfs: convert some struct page users to folios
-To: Tal Zussman <tz2294@columbia.edu>, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+libipw_michael_mic_verify() assumes that an skb contains an eight-byte
+Michael MIC. A short TKIP frame makes the unsigned payload length wrap,
+causing michael_mic() to read past the skb.
 
+Check that the MIC is present before verifying it, and use the existing
+MICHAEL_MIC_LEN constant for all MIC lengths in the verifier.
 
-在 2026/9/8 05:49, Tal Zussman 写道:
-> This series converts three areas of btrfs that still use struct page:
-> 
-> 1. The extent-io tests. test_find_delalloc() uses the page APIs, and the
->     extent buffer memory checks assume one page per folio.
-> 
-> 2. Compression. btrfs_compr_pool_scan() walks the folio pool as struct
->     page, the last use of page->lru in btrfs, and the heuristic sampler
->     is the last caller of find_get_page().
-> 
-> 3. Super block reads. btrfs_read_disk_super() and the zoned super block
->     log comparison are the last page cache lookups by page in btrfs.
-> 
-> Tested with KASAN, lockdep, DEBUG_VM and the btrfs selftests enabled.
-> xfstests' compress group under compress=zstd and the btrfs group both
-> pass.
+Fixes: b453872c35cf ("[NET] ieee80211 subsystem")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+A tested source reproducer and full serial logs are available privately
+to the maintainers on request. They are not included because this finding
+was validated with AI assistance, as required by
+Documentation/process/security-bugs.rst.
 
-Now pushed to for-next branch.
+Changes in v2:
+- Rewrite the commit message.
+- Use the existing MICHAEL_MIC_LEN constant throughout the verifier.
 
-Thanks,
-Qu
+Link: https://lore.kernel.org/r/20260908082729.209627-1-4ncienth@gmail.com
 
-> 
-> ---
-> Changes in v2:
-> - Add tags (Thanks Qu!)
-> - Patch 2: Assert that test_find_delalloc()'s folios are order-0, per Qu
-> - Drop the v1 free space cache patches (8-10), per Qu. The v1 space
->    cache will be removed instead
-> - Link to v1: https://patch.msgid.link/20260906-btrfs-folio-conversions-v1-0-834b9d7b06f5@columbia.edu
-> 
-> ---
-> Tal Zussman (7):
->        btrfs: tests: rename process_page_range() to process_folio_range()
->        btrfs: tests: convert test_find_delalloc() to use folios
->        btrfs: tests: use eb folio helpers in extent buffer memory checks
->        btrfs: convert btrfs_compr_pool_scan() to use folios
->        btrfs: convert heuristic_collect_sample() to use folios
->        btrfs: fix stale function references in compression comments
->        btrfs: use folios for reading super blocks from the block device
-> 
->   fs/btrfs/compression.c           |  20 +++---
->   fs/btrfs/tests/extent-io-tests.c | 131 +++++++++++++++++++++------------------
->   fs/btrfs/volumes.c               |  16 +++--
->   fs/btrfs/zoned.c                 |  12 ++--
->   4 files changed, 93 insertions(+), 86 deletions(-)
-> ---
-> base-commit: 69b26c13e520480d1869171e2c2b8a59f0c857ec
-> change-id: 20260905-btrfs-folio-conversions-47950cc1faca
-> 
-> Best regards,
-> --
-> Tal Zussman <tz2294@columbia.edu>
+ .../net/wireless/intel/ipw2x00/libipw_crypto_tkip.c  | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+index 24bb28ab7a49..2b0cf0ec496a 100644
+--- a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
++++ b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
+@@ -474,14 +474,16 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
+ 					int hdr_len, void *priv)
+ {
+ 	struct libipw_tkip_data *tkey = priv;
+-	u8 mic[8];
++	u8 mic[MICHAEL_MIC_LEN];
+ 
+-	if (!tkey->key_set)
++	if (!tkey->key_set || skb->len < hdr_len + MICHAEL_MIC_LEN)
+ 		return -1;
+ 
+ 	michael_mic(&tkey->key[24], (struct ieee80211_hdr *)skb->data,
+-		    skb->data + hdr_len, skb->len - 8 - hdr_len, mic);
+-	if (memcmp(mic, skb->data + skb->len - 8, 8) != 0) {
++		    skb->data + hdr_len,
++		    skb->len - MICHAEL_MIC_LEN - hdr_len, mic);
++	if (memcmp(mic, skb->data + skb->len - MICHAEL_MIC_LEN,
++		   MICHAEL_MIC_LEN) != 0) {
+ 		struct ieee80211_hdr *hdr;
+ 		hdr = (struct ieee80211_hdr *)skb->data;
+ 		printk(KERN_DEBUG "%s: Michael MIC verification failed for "
+@@ -499,7 +501,7 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
+ 	tkey->rx_iv32 = tkey->rx_iv32_new;
+ 	tkey->rx_iv16 = tkey->rx_iv16_new;
+ 
+-	skb_trim(skb, skb->len - 8);
++	skb_trim(skb, skb->len - MICHAEL_MIC_LEN);
+ 
+ 	return 0;
+ }
+
+base-commit: a4d4c205cdb8657077f72bf0676b51df8ea8e01e
+-- 
+2.55.0
 
