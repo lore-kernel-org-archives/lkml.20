@@ -1,105 +1,82 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5526A49C4C9;
-	Wed,  9 Sep 2026 11:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08495452A9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954042; cv=none; b=aSoVhmZuhhmzhDpxoDh2umDKtzzN45ReZpK9Cg8Hyw3op9OyTHU5HOW7H5ddnjkDYUeimqFmNcNHQSH6b4Qvwdz4YJRJwPdu9tj1A7qmqWeSZy4r+f3Q229GT4McEriy8ZkBpbHjAOnY90yWCMSEyQpEO+mFIbePkt7qO75HCDE=
+	t=1788954066; cv=none; b=IAg43P/achP5T5E7yzTn+1JvPFCWdAkAdB+enXwBFy60+izTFYZrLls37yJ4odsEGrN8VZETDzfhrCIMmxWXEb9BEU8Y0RlP7YZJ5vnQ+3tUH1FcoP7PIjLDbSToXXzljSCiHo1r2E4sD77vhBomqcE6uwQuXDGhy1+vPQUA0YY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954042; c=relaxed/simple;
-	bh=xAVlZfZLEGbbU40oKhZEA91vYjEhKBfMFqfjt71fBA8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=B/j+QdiI7yewKnJDPX4FcslphIivNq9k1TfHH2uZILXl1VJBC2hIjEOSieVOURnhlXh2J82XRRUbszc+48DK61nK9xm/xtoe/hxsDD6N0Jrdk3SZfxs5Sgg0kC0hALF1HWvgY2re+wySFKZdNQ809mQZDvuYegYG8HEwq8InbaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=UCW0sfqp; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1788954066; c=relaxed/simple;
+	bh=e9ExvXDQMXNe+616wGZaaLMbRPHN48sBHY0YhmonTxM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D7mW9DBfKSeRAqCVHLzaFbaumIAgOBL4v3GTFCMMkn+WQdlSSCJRK4ndAqxZDzT4pa1ney/Uaq8udCdbyZ9foSaR3IHAXxH3t+GrAnIjT6kNVYlwSCe9AXsiJJxiPOGPdoUE5Aauw2owDAfhDSasXzZY5Km35pUQilLtScOWh8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=cwiuqOOL; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="UCW0sfqp"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D256BA02CD;
-	Wed,  9 Sep 2026 13:40:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1788954033; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=u+hfF2sligk2pwLDscB0b7RdHNzp0oqc/go4KSuevLo=;
-	b=UCW0sfqp9M2+I6GheTSOUVlXhz+8HvA77Q3R5znvsRFr5T+rMkBPerLtb/QUunGzJh93x3
-	icEZ6K37filKerQX9eo+PBClihzkMjr4e1GJ4+7srhnNRUFhyhQsx2V9sBNGrU+dFYNe4a
-	y+4Gr5XiTzmVsmxdaraRy3ZP/S4xwABUTrYccl7YIAu0nCkKu7YRffil8OCzMVjUxnnVL4
-	+dw+rJwdsWBGGZT2yg9+XwS2XmMARNp5+Gvvs5vwgJf0rioIMgihiDPxTpapzvD3IvZ6+f
-	iDcDPp6CBzR2JAfZmvYJ0gG5+c4zN+kR74AxT9ss8xsgrHTKZS0lFh+8dkx/0w==
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="cwiuqOOL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=APhIsKG8uaFL7Tkmv3ZRHFEJhpD8SYvsSJmVXZnle+Q=; b=cwiuqOOLgCMllzNlIJlOKDsPnV
+	zMT00q1jxPmcXyXcoC014KdxCGdPJcMs4OrvDn+GQRICgRlEM45oUj7g5IC5DFdW9BNDha6Pnci9R
+	tLiAvrucNEsShNULhlxkGFw+wNtx+TI81MjFCgAcTMYO6s7y//IDfTmAs2Sfc37jT9Wv7DPmKjesH
+	J9eZ4neHHLYvi2cui9Gph4feHICUakYjB57OEHe5iKyL+CE+FHyCzutexuTxgLvR1o4vqERx/aCTn
+	AxH8ZO1IrruFrwr5SaNodwJUjQZw5+cxZ7E/X9JH4VYLdSzGYiBOIH+Nk/VqNo12ltsrCOZR8ux2I
+	BKdVjdig==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x4Gfj-0031j8-2f;
+	Wed, 09 Sep 2026 11:41:00 +0000
+Date: Wed, 9 Sep 2026 04:40:55 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Yao Kai <yaokai34@huawei.com>, liuyongqiang <liuyongqiang13@huawei.com>
+Subject: Re: [PATCH 2/3] workqueue: Maintain pwq->total_in_flight
+Message-ID: <aqFEOlDD8PfMfnqz@gmail.com>
+References: <20260901210929.3092513-1-tj@kernel.org>
+ <20260901210929.3092513-3-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 09 Sep 2026 13:40:26 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
- <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
- Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
- <david.laight.linux@gmail.com>
-Subject: Re: [PATCH net 2/6] net: stmmac: selftests: Validate EEE based on the
- actual LPI timer value
-In-Reply-To: <20260909074740.1247762-3-maxime.chevallier@bootlin.com>
-References: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
- <20260909074740.1247762-3-maxime.chevallier@bootlin.com>
-Message-ID: <00bfad8f52784677c6042ccd6c3fd6ed@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901210929.3092513-3-tj@kernel.org>
+X-Debian-User: leitao
 
-On 9.9.2026 09:47, Maxime Chevallier wrote:
-> The EEE selftest is a 2-step test :
->  - It validates that we enter in LPI mode with the
->    irq_tx_path_in_lpi_mode_n counter
->  - It then validates that we exit LPI when sending a frame, with the
->    irq_tx_path_exit_lpi_mode_n counter.
+On Tue, Sep 01, 2026 at 11:09:28AM -1000, Tejun Heo wrote:
+> pwq_busy() scans all of pwq->nr_in_flight[] to tell whether anything is in
+> flight. Maintain the sum in pwq->total_in_flight, which fits in existing
+> padding, and test that instead.
 > 
-> The current state of the test lacks 2 main things :
-> 
->  - We don't know exactly when was the previous frame sent (it's from 
-> the
->    previous selftest)
-> 
->  - The timeout is hardcoded, while the LPI is entered after a
->    user-configurable delay. On top of that, the timeout loop uses a
->    pre-decrement iterator (--retries) that actually only iterate nine
->    times, so 900ms while the default LPI value is 1 second.
-> 
-> Let's therefore make it more deterministic :
-> 
->  - Send a frame at the beginning of the test
->  - Wait for more than the lpi timer value, we timeout after about twice
->    the value,
->  - Then send another frame, and verify that we do go out of LPI, also
->    with a timeout.
-> 
-> Note that the test's goal isn't to validate the LPI timer value itself,
-> only that we enter/leave LPI mode.
-> 
-> Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> ---
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-> [...]
+Reviewed-by: Breno Leitao <leitao@debian.org>
 
-Forget to mention in my last comment:
-The series seems to be broken. I can't find patch 3 and also the cover
-letter is missing on lore and my inbox?
+I've found that the color is either used as 'unsigned int', and
+sometimes as 'int'.
 
-Nicolai
+The color is 'int' in get_work_color(), work_color_to_flags(),
+work_next_color(), in the work_color/flush_color fields of
+pool_workqueue, workqueue_struct and wq_flusher, and in the
+flush_workqueue_prep_pwqs() parameters - but it is 'unsigned int' in
+worker->current_color and in insert_wq_barrier()'s local, which is one
+of the two callers you're converting.
+
+It's not a big deal: the value wraps at WORK_NR_COLORS, so it is always
+[0, 15] and everything round-trips. It does leave oddities like
+
+        worker->current_color = INT_MAX;
+
+storing INT_MAX into an unsigned int. I may send a patch later to make
+them all the same type - it would have to be 'int', since -1 is a live
+sentinel for flush_color and flush_workqueue_prep_pwqs() documents "<
+0 for no-op".
