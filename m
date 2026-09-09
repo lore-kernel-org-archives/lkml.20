@@ -1,249 +1,181 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D798C49893A;
-	Wed,  9 Sep 2026 09:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01217463B82
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947734; cv=none; b=moeCjr8/dDhqEHAjWIOXD2rJZGpzLz581N0CWkIyuyE1YzD1JR+CMC9epE8IB+1yxHR878xVqYMjBV8LPhIdZ70Xi95Tbt1aHNsXB/NxJoXZs35dcU1yDqqbUOuP1651xRjmRYZUGdsbYoOYb/q28nRGH/+cPJpb1S/julXxgao=
+	t=1788947751; cv=none; b=HZXrG1RqqYbbgH89J6PmYx67BwAHrdavpvTTW7CfevYEvLxfjzgw47mtUaJBu6Z5WcTVK1t4o+M43DuM63DN9DfsJMm2cm3IAGl2rfax4j11tgiB7NJwUPy1rNuH5VgYm9BElNUqosdsAg3wsYtzsuW6V8w3rs3IH9skW7npzIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947734; c=relaxed/simple;
-	bh=bmb7F/KmHSolAVosZ3/3evD9wdGrdLkhhTytnse9zzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bWCKRcLD9rmWKAgc22I20aUkDfKBkbA5WqVE9XAq6u8gv71YUBySgSqh93TShdO3lQEH79xgMXxlua7WlctyDYgJ1cTeYmB4QkESmkChnOTO+TcAKD/wVo18tz2/Cm+cqKUPzvOTc+dPpk4WK0z8+63/BX8wyLJnMCrTQBXET94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EESciEDl; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788947751; c=relaxed/simple;
+	bh=kbaqt5hPDumKhXkheDk4P0vgQgXUA4ehrbmFU/MMECM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=UpAx0jLdGG/mJ/oCijfgVzRTgqw9EDMAAE+/NGUBIkJIkN85iV57bW8XRtMXgW6/7fs5WvDavH1ZjffhWDtaa/NlsVNB0IqYd1/XbsCEItaqUZ+jHYDWOnHXXlrogKIJ6JJI8/ETdwuXuWVFai7/ZCOf2mFfN3vJmJFgyYOJrX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UPq81nAg; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EESciEDl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=r5XQn9SuvKZL4DTuoGdXOdgvz47Ewuz3TXXvq+vUgwo=; b=EESciEDlQ+xy8dwFvNTaXVYvjH
-	r/fYBv2OR8M3Fc/UYGG6H8n/TyMsO1jBQEf5eL15O/v6X5dgYRxUx/AcfdqlXbApM/wiEDdFD14XY
-	8c/s17Ts7fPtA79hc+zmeCeEmV46ohXVAdjJmxfIbU2lZDcG2M6Jr3XupaGqslzi8cwh8fg16DJDz
-	LUxMU4nMSsIwsUIoQEA3OoP2L4NMSZiAHGJCKj3hCY+dOMPHRjpexqCoPr7XOyeJYrh54ra4n2HAz
-	iRl62mwuk0DK5GNH87SFSlD/ZYXJUJhrIimRmmBTwi8S1cJcoG8kU5HXi3SZ+izbiAjTllOLb8SK2
-	jsscZ/Og==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4F1U-00000003gfr-0SNO;
-	Wed, 09 Sep 2026 09:55:20 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 02DC23005AF; Wed, 09 Sep 2026 11:55:19 +0200 (CEST)
-Date: Wed, 9 Sep 2026 11:55:18 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <20260909095518.GL776954@noisy.programming.kicks-ass.net>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
- <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UPq81nAg"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdcaso7912857b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:55:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788947748; x=1789552548; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9OZ5HJWp6Sq+cHPfV8As3zDywlXal3eQY4p7OoCaDH4=;
+        b=UPq81nAgi1NHwETvvlhae7DRR7pQB7Uux4kDjmUA4a8HfV1dnf/uEzAX+acThrkBOu
+         lk9L8p9cEGe8MJGhGONrVADoSFcTg4UuLmL4nEfwaea00NQ+zO82DDIDsaAvh7AHAd/n
+         ec82RprQTxXaWXZyamg7ECdIPzIH4LIyuMefDOIU8/IJGup5MxBRc5AF0MsXQ7duRVSC
+         b8pk+xDTtOD/fDLbZBSKkqqRNOyNzo+SzuuN1TdkbbF6iKWwFr990VE41P+n6bRQPkj6
+         CN7IJQkGNWD13IcE7pjIxdouomIM89MvCsf9KhXd9Buadb/Z+lYa812ZbPkYnqa10ngg
+         24XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788947748; x=1789552548;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9OZ5HJWp6Sq+cHPfV8As3zDywlXal3eQY4p7OoCaDH4=;
+        b=VZuGU2Q5xRSGGlPXvHRoiAqx6OrbV5WtJ+s36QiBxAFAQ8OUE7V1wf5X2GKUzCqHjh
+         vVudKo3UzYFk6QtFgZmKSc440KwysVkasJktnv1TZVPjjeX6XXePHxJC9m2QAzYv8Dyt
+         3ky6k/+Jeyjp4fwEg6yUW8pqN73g3DD5wOUF7M3jQwzXUA5siWe2FBYkgnz5aypWw28x
+         aETIQgjYm14J3QTYCE2sepqoHx/lmtuqYgkJtnoCuoFxPhJB1ftO1/BM5FHjPLRFq+o0
+         YI1UTr0vZ/lBTeX1voZx7tflLMM5f3eN8KoQhvfFPhqgpIu1BFqVkDCaPzDCA7Qir+Kb
+         1/JA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuG/4CMY5Du+k/e7okTDX4wk1IdUZTM34UBtwUnS2TaTklCgQwN9RTe/X0Ily7G/OSEg6WMudAZejLk+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5r4fSDzkcBR5yo2jmx91789gze9A2HtAYxX/shNFde+u12ZWw
+	z9/tUaXMGvxOTZhypfoCRdHH5vY8k35v/b1qziBGsOHlYFhSuA7R6sT/xiCdxIBPLQ==
+X-Gm-Gg: AYBFou3Cj1kyLLGMkdG5Sg6X9AjgLY9RixcXUEnlmQLyS7VamMYinwgrlIcLQBCJqcC
+	Td1Qw/Bh5qhk3BlW7TU0Jztl5JtSC0JYFQY1PuZWhDMhdG0RI1izEownsXMRJFxSLxKILgWN7Hh
+	/9HB1FXX306Zgfevz5qT2JnACZHv154KvZkLgnoPknyqfcid333Qv2OZtLzc5V9AjM6lLlqjj0P
+	XGERoS/1IALekJyeKIItBQrsFHfpVugUClNRwIbI0oXxrUD23HGyclLAgaKfyxBji5xXq35nt//
+	wgChOuKRKvoj/wM4liGBu6BHL4DS2wEgMxSzEkbdh5DZUStlxNs97u4SbPPIuG++Yb27KXCbLa7
+	LcmaoAJzfZNZDq/EwdyxKwGApBeyEw6w7YSnEpTRGBh0sRxd+xvlW+Skhi9qXcgUDqLF6XIun83
+	0CXZmnmAjmpC1v9F/mqxSWsxCGkWCnsd4+CpYb0NRSIlI+A5Dl2jUcHPMOwY2QosTCf74+w/693
+	9+XWMyTAS3aO0kpcxFqI7Iw81mrN0geYE2/iWDCJ0C3fkZjyFHHZQPEbskOUBdWq0A0Uw==
+X-Received: by 2002:a05:690c:5885:b0:854:9062:73ae with SMTP id 00721157ae682-87f29d02667mr18443457b3.33.1788947747384;
+        Wed, 09 Sep 2026 02:55:47 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714ab77c5csm107163607b3.32.2026.09.09.02.55.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 02:55:46 -0700 (PDT)
+Date: Wed, 9 Sep 2026 02:55:41 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 07/26] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
+ folio_activate()
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <c44a34f8-ea3c-48cd-27d5-02df129be685@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ecf223n4.ffs@fw13>
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Sep 09, 2026 at 11:08:31AM +0200, Thomas Gleixner wrote:
-> On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
-> > On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
-> > Let me try and have a go :-)
-> >
-> >
-> > do_exit()				de_thread() 			posix_timer_fn()
-> >   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
-> >     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
-> >     tsk->flags |= PF_EXITING; 						    LOCK siglock
-> >     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
-> >     					    LOCK tasklist_lock
-> >     flush_sigqueue_list();		    if (leader->exit_state)
-> > 					      break;
-> >   ...                                       transfer_pid()
-> > 					    UNLOCK tasklist_lock
-> >   exit_notify()
-> >     LOCK tasklist_lock
-> >     tsk->exit_state = EXIT_ZOMBIE;
-> >     UNLOCK tasklist_lock
-> >
-> >
-> >
-> > Then there is indeed nothing that makes sure posix_timer_fn() sees
-> > sigqueue updates done by do_exit(), because those are ordered by
-> > tasklist_lock, but posix_timer_fn() doesn't care about that.
-> 
-> That's irrelevant because in the above scenario posix_timer_fn() 't'
-> points to the exiting old leader (on the left) because the PID store has
-> not happened yet and it therefore observes PF_EXITING on it so it won't
-> touch the sigqueue. Note, that setting and checking PF_EXITING is
-> serialized by sighand lock, so this is fine.
+Implement an equivalent to the old __lru_cache_activate_folio()
+optimization, to activate a folio recently put in the lru_add fbatch,
+without having to put it through the lru_activate fbatch too. Neither
+lruvec lock nor lru bit can guard this safely and efficiently, so resort
+to try_cmpxchg() on a further, LRU_NEXT_ACTIVATE bit in folio->lru_next.
 
-There is nothing that constraints the 3rd column from happening before,
-it could happen after transfer_pid().
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ include/linux/mm_inline.h |  4 ++++
+ mm/folio.c                | 23 ++++++++++++++++++++---
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
-> > The easy solution would probably be to do transfer_pid() while holding
-> > siglock?
-> 
-> That'd be only relevant for the situation Frederic is concerned about,
-> i.e. the case where the third party observes the TID swap.
-
-That is the case I was aiming at.
-
-> Because with that visible 't' in posix_timer_send_sigqueue() won't be
-> old_leader, which has PF_EXITING set, it will be new_leader which has it
-> not set.
-
-Same as above, there is nothing constraining the 3rd column from sliding
-up or down. If it manages to see the new_leader, I don't see why it
-would see the sigqueue flush.
-
-> So Frederic is concerned that posix_timer_send_sigqueue() can observe
-> the PID store but not observe the sigqueue stores.
-> 
-> I argue that's not possible:
-> 
-> A:  sigqueue stores
-> 
-> B:   AQUIRE tasklist
-> 
-> C:   exit_state store
-> 
-> D:   RELEASE tasklist
->      // sigqueue and exit_state stores become globally visible
->  ------------------------------------------------------------------------
-> 
-> E                               ACQUIRE tasklist
->  ------------------------------------------------------------------------
-> F                                if (exit_state)
-> 				   swap_pid()
-> G                                     STORE_PID
-> 
-> 				// The PID store can become visible in the
-> 				// system right here so F can observe them before
-> 				// RELEASE tasklist
-
-The STORE_PID is not a STORE_RELEASE.
-
-> H                                                             READ PID
-
-And this READ is not LOAD_AQUIRE; although the LOCK siglock is probably
-sufficient here. The READ MUST happen before LOCK siglock by means of
-data dependency, and then the LOCK will constrain later loads.
-
-> 							      ....
-> I                                		              ACQUIRE siglock
-> 
-> After #A the sigqueue stores are maybe visible
-> 
-> After #C the exit_state store is maybe visible
-> 
-> After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
-> the system and cannot become magically become invisible after that
-> point.
-
-No, that is not in fact how Power (or ARM) works AFAICT. Memory ordering
-is not global. It is entirely possible some CPUs see a store while
-others do not.
-
-The only guarantee here is that IF you acquire tasklist_lock (you
-observe the store that unlocked it), you will also observe preceding
-stores.  But since the posix_timer_fn() column does not in fact observe
-or care about tasklist_lock, there is no ordering.
-
-> The new leader cannot swap PIDs before acquiring task list lock and
-> before it observed exit_state != 0 under it. That's fully serialized
-> against the old leader as both hold task list lock for their operations.
-> 
-> #F creates a control dependency, so if the new leader acquires task list
->    lock before the old it will observe 0, drop the lock and wait. No PID
->    store obviously.
-
-A control dependency only ensure *that* CPU will complete the exit_state
-load before the store, it is a local LOAD->STORE ordering.
-
-> #G can be come visible immediately but is only guaranteed to be visible
->    globally at the RELEASE of tasklist lock.
-
-Nope, not at all. Can be randomly visible to random sets of CPUs.
-
-> #H can only observe the PID store after the store actually happened in
->    #G. So it either reads the original PID or the swapped PID.
-
-Sure. But that has no bearing on if it sees the sigqueue stores at A.
-
-> #I is not really relevant for this. It's only relevant for PF_EXITING
->    and other stuff which is directly protected by it. And it does not
->    matter whether it locks the old or the new sighand.
-> 
-> Now let's look at the full chain and what can possibly be visible or not
-> and when:
-> 
-> #A can trickle into the tasklist held section, but not after #D.
-
-Yup.
-
-> #C cannot be reordered against #B and #D
-
-Agreed.
-
-> #A is therefore guaranteed to be globally visible _before_ new leader
->    observes exit_state != 0 in #F under task list lock
-
-Nope, A is therefore visible if you acquire tasklist_lock, specifically,
-when you observe the store from D. And only if that matching LOAD is a
-LOAD-ACQUIRE, such that subsequent loads are forced to be later.
-
-> #G cannot be reordered against #F and obviously not against #E either.
-
-Indeed.
-
->    It can become visible at any point after the store, but as argued
->    above that visibility can't be reordered before #A (sigqueue stores)
->    became visible.
-
-Let G' be the unnamed RELEASE after G.
-
-Now, I have deleted and rewritten this tail end at least twice now. And
-I *think* I'm agreeing with you. Let me explain:
-
-It all hinges on D-E and H-I.
-
-D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
-RELEASE+ACQUIRE. Specifically, we have:
-
-  RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
-  UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
-
-So while earlier I was arguing with RCpc in mind, in which case D-E
-completely goes away and we can consider B-G' to be one big critical
-section from the PoV of a third CPU (our posix_timer_fn() one). In this
-case we can push A down and G up and have them cross.
-
-*However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
-which is RCtso and that *does* impose store order, so A stores must
-happen before G stores
-
-Combine with H-I, which has a data dependency from the LOAD to the LOCK
-and thereby constraints later LOADs, those sigqueue loads that come
-after I must in fact observe the A stores.
-
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index 8420b1276535..8f5efadf9c7c 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -346,6 +346,7 @@ static inline void folio_migrate_refs(struct folio *new, const struct folio *old
+ enum {
+ 	LRU_NEXT_NEVER_TAIL = 0,	/* Used by a tail's compound_head */
+ 	LRU_NEXT_BATCHED = 1,		/* Not used by any aligned pointer */
++	LRU_NEXT_ACTIVATE,
+ 	NR_LRU_NEXT_FLAGS
+ };
+ 
+@@ -358,6 +359,9 @@ bool lru_add_del_folio(struct folio *folio)
+ 	if (!(lru_next & BIT(LRU_NEXT_BATCHED)))
+ 		return false;
+ 
++	if (lru_next & BIT(LRU_NEXT_ACTIVATE))
++		folio_set_active(folio);
++
+ 	WRITE_ONCE(folio->lru.next, LIST_POISON1);
+ 	/* BUG_ON(folio->lru_next & BIT(LRU_NEXT_BATCHED)); */
+ 
+diff --git a/mm/folio.c b/mm/folio.c
+index a18d8ef6afd5..0b75c3b69d5a 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -256,15 +256,32 @@ static void lru_activate(struct lruvec *lruvec, struct folio *folio)
+ 
+ void folio_activate(struct folio *folio)
+ {
++	unsigned long lru_next;
++
+ 	if (folio_test_active(folio) || folio_test_unevictable(folio) ||
+ 	    !folio_test_lru(folio))
+ 		return;
+ 
+ 	/*
+-	 * XXX: It is curiously difficult to recreate safely the old
+-	 * __lru_cache_activate_folio() optimization (folio_set_active()
+-	 * directly if it's on the local lru_add fbatch): revisit later.
++	 * This optimization is intended for the common case of folio
++	 * having been recently added to this CPU's lru_add fbatch.
++	 * But since other CPUs can now take it at any instant (after
++	 * a folio_test_clear_lru()), and we may be migrated to another
++	 * CPU, it is simplest just to extend the optimization to all CPUs.
++	 *
++	 * folio_set_active() would be unsafe without the lruvec lock, and
++	 * a folio_test_clear_lru() here might cause a racing drain of the
++	 * lru_add fbatch to skip its lru_add(): so use try_cmpxchg().
+ 	 */
++	lru_next = READ_ONCE(folio->lru_next);
++	while (lru_next & BIT(LRU_NEXT_BATCHED)) {
++		if (lru_next & BIT(LRU_NEXT_ACTIVATE))
++			return;
++		if (try_cmpxchg(&folio->lru_next, &lru_next,
++				lru_next | BIT(LRU_NEXT_ACTIVATE)))
++			return;
++	}
++
+ 	folio_batch_add_and_move(folio, lru_activate);
+ }
+ 
+-- 
+2.51.0
 
