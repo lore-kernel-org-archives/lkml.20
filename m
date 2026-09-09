@@ -1,209 +1,146 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49230.qiye.163.com (mail-m49230.qiye.163.com [45.254.49.230])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76C92C08BB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B24A212550;
+	Wed,  9 Sep 2026 01:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788916322; cv=none; b=ezQ8AbCialSA/Ul2VfG32MiBqVRsTOAsudCzCjlZrwSwGQ4mQAoTC8JhQMAr9SAtAf4DE7KjrgQY5+eaYS2Gxngb4u8ADrqM/Qx9c672hiLIzw29Mj6Wpx9nSYJHEMzl0VlH0LOjmfiBi71UWjopAkHi4/UpI5qAL8phVtkpOp0=
+	t=1788916356; cv=none; b=nAsvgVyE52UrZUvRSoSmyGjIhOuFRfB636fKXpy8okwr7ivjVkHkp2w1pua1Tun0YWwO+YY2kLB/d1g5bBiNZ0H3T29yEUjoAecLilBX4SG4CS4RnO6YWSZm3YAkeV4/Hzh41dapLobucZJEtKb8dICG4xS296G//ICVCx6M7bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788916322; c=relaxed/simple;
-	bh=78YHx0yWVPDvUyOR4u9IIre+/Nu/Oz2FqNSImaYhDvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eD858PbiY7tO7fLka9bMohLlVLm6F3MhaWCxdMMQVeTBOn+nv2BrH7mslHpeqRkOHwTnDlN4AhgI22iJlIH/zGm8U6tzhipCC6PXsf1iLxTb5Nt3TQnRiPKc6JD990W9FwliqoafMM7nso3gvXrDHqyTV5UmCcIp1w/O/eJwGHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVOT3mJ3; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788916356; c=relaxed/simple;
+	bh=AmXAISq+H+bqIf5oxGF6dj30yrX2tlJUIyGrO1l0Nbg=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=B7wsuHmDJbLj0G+YXT98KAyu7/CGdoWw+/fCD/lhYExi0TeUqgPH5JLc+lTc9YQF/75TUvY+97NY9VFZxEO/QXyiGlk1+b5hcJPgW/Ou1+IIhCTKXev3vXA2zmLNsVsV6Xk1Q+ZfyKONyKPMskKEf5NVqSzEygFw5J2RcZB6n6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=BPSKVn6h; arc=none smtp.client-ip=45.254.49.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVOT3mJ3"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9b4b70so322264fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:12:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788916320; x=1789521120; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=69NpNYRfiy3q+HXuUHJlVfVJ+ZNmTg+OdYZin1d+3V4=;
-        b=aVOT3mJ3bTZdvPl3Gyb4h2YE1+QYhs5543Cdy6Q7VvquNJVtkUG0qqmvKguIfNmF6D
-         OpbPcsa5l03LbNoVpcSnafwI12bbpfUaL1pB7kvpm/OAUsissldaEedGckjRR8t4xAqg
-         VAC8MrMNEOx4tp7DTwW5wgc0uLmY1Hown1QCBN7jla+D0RAlFt6iWJYl3H8vC1Nyf2yH
-         qizogNqjsK6ZbhCfSxc2NJ+Uy5x0HSWRbvhon58r6UgU5dpPbRUBE2im3nK1dcmExsKJ
-         yaXEVIn0NkPhjnRJ2DLZi8MNL8C1UdUdyJDukJ7fYMSUwNYt7fzdNY6SiQNI7sU57yWf
-         iNRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788916320; x=1789521120;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=69NpNYRfiy3q+HXuUHJlVfVJ+ZNmTg+OdYZin1d+3V4=;
-        b=VeOiu9T+cUy7lDGrpkxU98pZmibLVtVylAwslX0kM7t/jLkWRfaGoiQM0jSB8bO2ve
-         Q59ka2fDlozJoFJXL7/w+rfj4S5kcUV0qDvFekwfjBark93aFDGtus0ckboksw4NtXV5
-         ixNr7ug1ChtIq0NnISqVWViUA5qs2qOs3vfWE6BoS5D6DjXfemF3nwo06+goQHG0mPyA
-         fpQnfQNg5LAAj9otJGjt81bPLO+0QWee0GjV/fhcn+hbaW/Z7MaTq/CudgI0+ZnknU0E
-         0VskJzwQTdkYaL1KR6aWzgzvkUhDp/2YH49al1ewlr8L4QecvR04Gb1Stsa9hQfUXCsT
-         2VHA==
-X-Forwarded-Encrypted: i=1; AKwUvByp+i+3/GXjZPCWNi04WI69KI4LdYkCeNG5jKAbkjhcotUbEAs5+gzUUwE4afRorFUSQbe8lIwKRKmQrjU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJe9KgNH6htGh1i+bBT4EY6oGtid8hgTB/2Kcn1ZfMjQbvM7FA
-	DcowQJ7l0sAJAIXAUIIGSAcmt5vOSlRrrAR2U2dE8xz72g6bWlbZwwoo
-X-Gm-Gg: AYBFou1YRHnC11Eaie0FGqt5tN32kGx8w7b9v/2H2TibJNDvrWy4tCuU0udOqJDG+XN
-	zIloH7HrrnersxMlIFhpQKaRXk+Yvk6lrouPHqFF4x/CzgDyHA8V1jWYxAuyWTf36RVPNdX7GeE
-	lP3/7cA2OeUAmIUd1EUm+PX1SSUd4/IFTEm5rIigb2rGyf/42rv3DtLgOvig45ih5fa6pNi5jk8
-	nuzpunMkQtNOKpgUETiDVDzOqor0eoYsatlzVbXSmXisOUly4PiduSH5ufpD3PVpeasmE0DnFiw
-	UCj5N2lCv/2ERxD5k3hiDobTBo3BZjS9H7mDcse+q2MBKa8ca+GLmgzqnlnPc5K4MkGfVEm2Zzp
-	scys++MVBWu/ni+ptE7tPbhRc945FFr9V4n4GAOF0PJfH88sylDHw6frnxw/9ly0qA1VsewC2dd
-	9sck1ZPcV+0Bd7rIZ4YGXuqnVp9bT0ZdJ6OUKQ+gH3ZuXnz2I0v5KZVyNuBXEPE1Ouq72+xe93d
-	894mHOyfu1+F07bKbgQ
-X-Received: by 2002:a05:6820:60e:b0:6b5:ec3f:4988 with SMTP id 006d021491bc7-6bc27fe0322mr3929278eaf.35.1788916319677;
-        Tue, 08 Sep 2026 18:11:59 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:53::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dbedc38bsm17083879eaf.4.2026.09.08.18.11.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 18:11:57 -0700 (PDT)
-Date: Tue, 8 Sep 2026 18:11:53 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	matttbe@kernel.org, Stanislav Fomichev <sdf@fomichev.me>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/2] tools: ynl: Allow cross-compiling ynl
- and associated tools
-Message-ID: <aqCyWQxqKDuQnZYR@devvm29614.prn0.facebook.com>
-References: <20260907161438.755125-1-maxime.chevallier@bootlin.com>
- <20260907161438.755125-2-maxime.chevallier@bootlin.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="BPSKVn6h"
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d098a741;
+	Wed, 9 Sep 2026 09:07:11 +0800 (GMT+08:00)
+Message-ID: <5e4f9b07-f11b-4d52-b1d4-3b680b457eb3@rock-chips.com>
+Date: Wed, 9 Sep 2026 09:07:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907161438.755125-2-maxime.chevallier@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v6 07/10] PCI: dw-rockchip: Add pme_turn_off support
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
+ <20260908-rockchip-pcie-system-suspend-v6-7-fbabcca9921b@collabora.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-7-fbabcca9921b@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa083b45eab03a4kunma4967f8f441eaa
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQh9LSVZJTE5LHxgaTk
+	5DQkxWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=BPSKVn6h6LN29eN2GrvbN/1+zF4JRqE/CggubnWskTRYkjICKOsaiYGhd489E3P5YTXfIGIdIFXhk0ak0Pzfs+tVgHPiVJVCqwo6hIP5KE7e/rA4Cj5arkRjcoz4e+MM0s1H1MwPxVBp9b3zolVMrF7Q/27lgrCu4HTuAS1rFjI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=8O3sEMbdttlkjB7YR4EWG8ZoEn7yeFuuCH+g88V++TQ=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Sep 07, 2026 at 06:14:35PM +0200, Maxime Chevallier (Netdev Foundation) wrote:
-> The ynl tool and libraries may be built standalone or through the
-> drivers/net/hw selftest machinery. This may target a different arch, so
-> we need to take the CROSS_COMPILE variable into account for LLVM and
-> gcc.
+在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
+> Prepare Rockchip PCIe controller for system suspend support by
+> adding the PME turn off operation.
 > 
-> Let's include the tools/scripts/Makefile.include that deals with the
-> CC/AR resolution.
-> 
-> Fixup the ynltool CFLAGS handling to use +=, so that we don't override
-> the ones set in Makefile.include.
-> 
-> Makefile.include also sets the Q variable for verbose mode, so we can
-> drop it from the ynltool Makefile. This will allow properly selection
-> the verbosity of ynltool builds with the V=1 make flag.
-> 
-> Reviewed-by: Matthieu Baerts (Netdev Foundation) <matttbe@kernel.org>
-> Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
 
-Hey Maxime,
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-It seems that this patch may break some invocations of make:
-
-  # make -C tools/net/ynl/ynltool O=/tmp/o1
-  make: Entering directory '/data/users/bobbyeshleman/linux-worktrees/review/tools/net/ynl/ynltool'
-  make: *** No rule to make target '/tmp/o1/json_writer.o', needed by '/tmp/o1/ynltool'.  Stop.
-  make: Leaving directory '/data/users/bobbyeshleman/linux-worktrees/review/tools/net/ynl/ynltool'
-
-Best,
-Bobby
-
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->  tools/net/ynl/Makefile           | 1 +
->  tools/net/ynl/generated/Makefile | 3 ++-
->  tools/net/ynl/lib/Makefile       | 3 ++-
->  tools/net/ynl/tests/Makefile     | 2 +-
->  tools/net/ynl/ynltool/Makefile   | 6 ++----
->  5 files changed, 8 insertions(+), 7 deletions(-)
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 44 +++++++++++++++++++++++++++
+>   1 file changed, 44 insertions(+)
 > 
-> diff --git a/tools/net/ynl/Makefile b/tools/net/ynl/Makefile
-> index 3cefe4ed96cb..838c465d65aa 100644
-> --- a/tools/net/ynl/Makefile
-> +++ b/tools/net/ynl/Makefile
-> @@ -1,5 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> +include ../../scripts/Makefile.include
->  include ../../scripts/Makefile.arch
->  
->  INSTALL	?= install
-> diff --git a/tools/net/ynl/generated/Makefile b/tools/net/ynl/generated/Makefile
-> index ea4128f612d6..5a186349b5a8 100644
-> --- a/tools/net/ynl/generated/Makefile
-> +++ b/tools/net/ynl/generated/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> -CC=gcc
-> +include ../../../scripts/Makefile.include
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index 1e48099e36e4..17530507e41b 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -45,6 +45,7 @@
+>   #define  PCIE_CLIENT_LD_RQ_RST_GRT	FIELD_PREP_WM16(BIT(3), 1)
+>   #define  PCIE_CLIENT_ENABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 1)
+>   #define  PCIE_CLIENT_DISABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 0)
+> +#define PCIE_CLIENT_INTR_STATUS_MSG_RX	0x04
+>   
+>   /* Interrupt Status Register Related to Legacy Interrupt */
+>   #define PCIE_CLIENT_INTR_STATUS_LEGACY	0x8
+> @@ -64,6 +65,11 @@
+>   
+>   /* Interrupt Mask Register Related to Miscellaneous Operation */
+>   #define PCIE_CLIENT_INTR_MASK_MISC	0x24
+> +#define PCIE_CLIENT_POWER		0x2c
+> +#define PCIE_CLIENT_MSG_GEN		0x34
+> +#define PME_READY_ENTER_L23		BIT(3)
+> +#define PME_TURN_OFF			FIELD_PREP_WM16(BIT(4), 1)
+> +#define PME_TO_ACK			FIELD_PREP_WM16(BIT(9), 1)
+>   
+>   /* Power Management Control Register */
+>   #define PCIE_CLIENT_POWER_CON		0x2c
+> @@ -452,8 +458,46 @@ static int rockchip_pcie_host_init(struct dw_pcie_rp *pp)
+>   	return 0;
+>   }
+>   
+> +static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
+> +{
+> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> +	struct rockchip_pcie *rockchip = to_rockchip_pcie(pci);
+> +	struct device *dev = rockchip->pci.dev;
+> +	u32 status;
+> +	int ret;
 > +
->  CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow \
->  	-I../lib/ -idirafter $(UAPI_PATH)
->  ifeq ("$(DEBUG)","1")
-> diff --git a/tools/net/ynl/lib/Makefile b/tools/net/ynl/lib/Makefile
-> index 9b98c0599600..7b3eae89982f 100644
-> --- a/tools/net/ynl/lib/Makefile
-> +++ b/tools/net/ynl/lib/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> -CC=gcc
-> +include ../../../scripts/Makefile.include
+> +	/* 1. Broadcast PME_Turn_Off Message, bit 4 self-clear once done */
+> +	rockchip_pcie_writel_apb(rockchip, PME_TURN_OFF, PCIE_CLIENT_MSG_GEN);
+> +	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_MSG_GEN,
+> +				 status, !(status & BIT(4)), PCIE_PME_TO_L2_TIMEOUT_US / 10,
+> +				 PCIE_PME_TO_L2_TIMEOUT_US);
+> +	if (ret) {
+> +		dev_warn(dev, "Failed to send PME_Turn_Off\n");
+> +		return;
+> +	}
 > +
->  CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow
->  ifeq ("$(DEBUG)","1")
->    CFLAGS += -g -fsanitize=address -fsanitize=leak -static-libasan
-> diff --git a/tools/net/ynl/tests/Makefile b/tools/net/ynl/tests/Makefile
-> index 40827ca8e579..99ae7dcd6348 100644
-> --- a/tools/net/ynl/tests/Makefile
-> +++ b/tools/net/ynl/tests/Makefile
-> @@ -2,8 +2,8 @@
->  # Makefile for YNL tests
->  
->  include ../Makefile.deps
-> +include ../../../scripts/Makefile.include
->  
-> -CC=gcc
->  CFLAGS += -std=gnu11 -O2 -W -Wall -Wextra -Wno-unused-parameter -Wshadow \
->  	-I../lib/ -I../generated/ -I../../../testing/selftests/ \
->  	-idirafter $(UAPI_PATH)
-> diff --git a/tools/net/ynl/ynltool/Makefile b/tools/net/ynl/ynltool/Makefile
-> index 48b0f32050f0..b8c67cdb4fdf 100644
-> --- a/tools/net/ynl/ynltool/Makefile
-> +++ b/tools/net/ynl/ynltool/Makefile
-> @@ -1,12 +1,12 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  
->  include ../Makefile.deps
-> +include ../../../scripts/Makefile.include
->  
->  INSTALL	?= install
->  prefix  ?= /usr
->  
-> -CC := gcc
-> -CFLAGS := -Wall -Wextra -Werror -O2
-> +CFLAGS += -Wall -Wextra -Werror -O2
->  ifeq ("$(DEBUG)","1")
->    CFLAGS += -g -fsanitize=address -fsanitize=leak -static-libasan
->  endif
-> @@ -27,8 +27,6 @@ include $(wildcard *.d)
->  
->  all: $(YNLTOOL)
->  
-> -Q = @
-> -
->  $(YNLTOOL): ../libynl.a $(OBJS)
->  	$(Q)echo -e "\tLINK $@"
->  	$(Q)$(CC) $(CFLAGS) -o $@ $(OBJS) ../libynl.a -lm
-> -- 
-> 2.55.0
+> +	/* 2. Wait for PME_TO_Ack, bit 9 will be set once received */
+> +	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_INTR_STATUS_MSG_RX,
+> +				 status, status & BIT(9), PCIE_PME_TO_L2_TIMEOUT_US / 10,
+> +				 PCIE_PME_TO_L2_TIMEOUT_US);
+> +	if (ret) {
+> +		dev_warn(dev, "Failed to receive PME_TO_Ack\n");
+> +		return;
+> +	}
+> +
+> +	/* 3. Clear PME_TO_Ack and Wait for ready to enter L23 message */
+> +	rockchip_pcie_writel_apb(rockchip, PME_TO_ACK, PCIE_CLIENT_INTR_STATUS_MSG_RX);
+> +	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_POWER,
+> +				 status, status & PME_READY_ENTER_L23,
+> +				 PCIE_PME_TO_L2_TIMEOUT_US / 10,
+> +				 PCIE_PME_TO_L2_TIMEOUT_US);
+> +	if (ret)
+> +		dev_err(dev, "Failed to get ready to enter L23 message\n");
+> +}
+> +
+>   static const struct dw_pcie_host_ops rockchip_pcie_host_ops = {
+>   	.init = rockchip_pcie_host_init,
+> +	.pme_turn_off = rockchip_pcie_pme_turn_off,
+>   };
+>   
+>   /*
 > 
+
