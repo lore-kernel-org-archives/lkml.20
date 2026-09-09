@@ -1,94 +1,130 @@
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3343C4B6F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F50A3C3F44;
+	Wed,  9 Sep 2026 19:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983311; cv=none; b=O98CI/914nHlaXdSgA00ZS32oo97COU9CjSWVpJ5mSXkDRm1quw65sLJOZZlxgj8uPsJIMUgADVSDQvCyvV5OVcWFgC9KMHbUoPnsWj175Shrm/nW1zws6zHRk6E/ObILL/47MHjuKdh0A5ljsgMQ1StQLoKSz4STj+a5G5tWtQ=
+	t=1788983316; cv=none; b=fn4qP8tCBOmbNn/smHlbg+crTTo0NDCajPY0vdQlmutsCui/NI6RWt0dt3dZNeFP68ZsAFDB/IqSP4Ya9of2uwmE74uZPbOe1pVnKpFZWytz4ZdhfAFghrLciKtgYK5AjX1ghcUWDoO+umS/O31v0rbYkLctiKcw3dttDQwlZG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983311; c=relaxed/simple;
-	bh=bIHnFJeIR8NCizBam5bSpQWNUrltT1kv2ZZq+/mblJQ=;
-	h=From:Subject:Cc:Content-Disposition:Content-Type:Mime-Version:
-	 Date:Message-Id:References:In-Reply-To:To; b=IyQZs2043Rofwl+mgJuUaSW76tn/x5RxhU308VQBZ0Kn/haBl+NrTgqZ9+zZsLmlcsH66yTaQOePyWxgrnylfYhjX27+28vlWii829Ir58sbFjQUFGAiQYqOYQXaw2DoV3S5axzmYBSLVVhZPSYakQ7lqcSqCPonqTz1vQIzmvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=IHW3e2mQ; arc=none smtp.client-ip=71.18.227.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1788983316; c=relaxed/simple;
+	bh=6oUQ+t2HfnNmMn8E7DOjKEm67dWjSNq8owP113wq1z8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NPyldlczzeOZ3OFb6f8egajkbcb7OtmN3VriEnUW9BdLL1DadFTZ6llywyVYigNFOx9U3kioXqG83L2LggZoU21DM3SLX0GkYA83DzRVlvHPImbiyxMocmkrrqWjJQvdq4oGETp3A7RNASVZRL3caHDeCJlvobyCx+jSxgGWMmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=dwPEQtMe; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="IHW3e2mQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788983296; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=VWXdC+EiFgKXDk4rNFutmJw52+1YadomDGamPq9rKuI=;
- b=IHW3e2mQi6/o4orGzclZk1XIgRsFPdaWkn5bD5vJvp9vNlWhYsuJegb9BlmzDA2ZYMAGfC
- HfqumZKKN90TLdO642EJJy1s/01ti7hz/QZhwPjEzvNEst3IbKYjpNR1C8kyd4lEs7cPKz
- jZET06kpwF3br5pxxYFHHIjsQGrR2GCzruD1yzc5L4VdXirNs8pVx7IH3iN3Y5flydGusi
- jkp5BvUMHxDT/2x0fKxx3ZSbFBPDp2TyCKpnNgbZypIO0LtvqqK7xrVo6WqzM22CeEyU82
- NZoU4AMJpJ0pyiWpugMXumuYmO8q6Lc1QHMPPDbsj6TcmSYX6rJbsUckjSMGCw==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: Re: [PATCH net v3 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
-Received: from nobug ([111.42.148.144]) by smtp.feishu.cn with ESMTPS; Thu, 10 Sep 2026 03:48:13 +0800
-Content-Transfer-Encoding: 7bit
-Cc: "Shengzhuo Wei" <me@cherr.cc>, "Frank Li" <frank.li@nxp.com>, 
-	"Shenwei Wang" <shenwei.wang@nxp.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, 
-	"Richard Cochran" <richardcochran@gmail.com>, 
-	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
-	"Fugang Duan" <fugang.duan@nxp.com>, 
-	"Lucas Stach" <l.stach@pengutronix.de>, 
-	"Simon Horman" <horms@kernel.org>, <imx@lists.linux.dev>, 
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Content-Disposition: inline
-X-Lms-Return-Path: <lba+26aa1b7fe+00e492+vger.kernel.org+me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="dwPEQtMe"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 66BA040E020D;
+	Wed,  9 Sep 2026 19:48:31 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id xTz0R741EH0p; Wed,  9 Sep 2026 19:48:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788983306; bh=J47hfMemV3x17DwbT77P3iNi200v7sArNBFyj4FIEqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dwPEQtMeNA/0X4YLMHgzSgsrJEReG+/8XquiXTEMnDnzYNtgPhOSI1ZuSGGmf+uhU
+	 V5oLCoI78r3zgomqpkBhYGGK+og2znQrV4khKuBGPQqxLpck4AnonixUBFFT+OQ9pO
+	 XoUFWUpeutEqUWw6qWZlF4MSezuaZDbfmEkEMesoxESuMOiVSVBIpvn/lv+oZivGlF
+	 NbJK5pOApwMB2U2u72e0KDAnjAnnVYBqW7hqQCjgkPVGWIyW67likuKOr8KL2iCigy
+	 wfxOcixBxel6j9y0nGeCklkkuo9SS7BzFZrMmfwjY0x8ZNHxCfzFe8nm3kMfbW2SkQ
+	 hVt6NGm6loU4cNhNTVlWkweLsqiDVWKEfmcR69gNzENXWQF+DAqzhl1dooy8yRdyQ8
+	 hzYMVbv7DEaFBzo345o2SdVnqq8Hbvr6zEs3Jz+soHKZ00hNuarCPD8kKht9ZWHhDX
+	 K6qLog8avAPiAmQEstoo2bUscQYMRoJj1G/FpwnavifIGACdSvVBx3KQXFGuPZFI6C
+	 LW+eR2FIosDuuKNbgs+V1Q5Aiz3ngAXwHI3OctVEHffGJL4rAUmbrTcA7D2mTokDP5
+	 cDqR90QAouoVLFeoaPRexpBIoBjUfItvei9H8egAwCVgnmg67MgfJgP2vnIu6Np7cO
+	 rVr0gT+x4+ZZPc8QFps0Hbqg=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0329240E01ED;
+	Wed,  9 Sep 2026 19:47:23 +0000 (UTC)
+Date: Wed, 9 Sep 2026 12:47:20 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-mm@kvack.org,
+	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev,
+	linux-s390@vger.kernel.org, linux-mips@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	Jan Stancek <jstancek@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Alexandre Ghiti <alexghiti@rivosinc.com>
+Subject: Re: [PATCH v5 02/24] x86/elf, um/x86/elf: Move relocation constants
+ to UAPI
+Message-ID: <20260909194720.GCaqG3yPjDmwKikdIQ@fat_crate.local>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+ <20260908-vdso-absolute-reloc-v5-2-3a93791af1cf@linutronix.de>
+ <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
+ <20260908161740-0d79e592-87a6-43c5-9174-84ce1904e639@linutronix.de>
+ <20260908151238.GBaqAl5iKb64meuPJl@fat_crate.local>
+ <20260909075156-06ff671c-ab7b-47d8-aaa3-588b570888bc@linutronix.de>
+ <20260909144930.GAaqFx-mjH3-u6jLjw@fat_crate.local>
+ <F9786718-8378-443D-A21E-77E057B62BB2@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Date: Thu, 10 Sep 2026 03:48:11 +0800
-Message-Id: <aqG3-ySw1AecQVkD@nobug>
-References: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc> <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc> <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
-In-Reply-To: <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
-To: "Bui Duc Phuc" <phucduc.bui@gmail.com>, "Wei Fang" <wei.fang@nxp.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <F9786718-8378-443D-A21E-77E057B62BB2@zytor.com>
 
-> > +
-> > +       if (fep->pps_irq >= 0) {
-> > +               free_irq(fep->pps_irq, ndev);
-> > +               fep->pps_irq = -1;
-> > +       }
-> > +
-> 
-> I think fep->pps_irq > 0 would be more appropriate here,
-> since the IRQ returned by platform_get_irq_byname_optional() or
-> platform_get_irq_optional() cannot be 0.
+On Wed, Sep 09, 2026 at 12:27:30PM -0700, H. Peter Anvin wrote:
+> I do believe there are *some* headers that would be reasonably to export to
+> tools/ beyond what it is in uapi; a major reason for that is that the tools
+> are suffering from a crazy level of internal inconsistency right now. 
 
-Hi Phuc,
+Well, as long as it stays "internal" I don't mind.
 
-You're right. I hadn't checked whether these helpers could return
-IRQ 0.
+What I do mind is this unnecessary and senseless exposure of headers.
 
-I saw the existing irq >= 0 check in the request path and wanted
-the release path to match it. I used -1 to distinguish "no IRQ
-requested" from a possible IRQ 0, recording the IRQ only after
-request_irq() succeeded.
+-- 
+Regards/Gruss,
+    Boris.
 
-Since both helpers reject IRQ 0, that extra handling is unnecessary.
-Keeping pps_irq at its initial value of 0 and checking > 0 before
-free_irq() is sufficient.
-
-Wei, I plan to drop the -1 initialization, use > 0 for the release
-check, and reset pps_irq to 0 after freeing it. Do you have any
-concerns with that change?
-
-Thanks for pointing this out.
-
-Best regards,
-Shengzhuo
+https://people.kernel.org/tglx/notes-about-netiquette
