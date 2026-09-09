@@ -1,190 +1,268 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16B44DF4DC
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:44:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB7F4DF4DC;
+	Wed,  9 Sep 2026 13:44:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961454; cv=none; b=rcWZsHhMP0P5PvCD1VqJRVRfqlaYUpn4TrJe6vBa8qsLzm+P9TbpqyWY9UPqvwKxcERzomiHJAE64MUsnhKH9O/K/AX4AqY7qOm8iSapQ694ZeALYd6On3BD7mXfZXqFVAHKK+ooaW9yVk0EZOod0/DlVPukwwscVPwIeCHNw34=
+	t=1788961461; cv=none; b=baOmU6LMHfDzLRS4MqvfBXjKrgQUrxmWwFgeqVlquNfgregCBLrF4fNFhkifYtnIZ1tf4UI35roh4RvGI8gZCavC+d0BbsIdFRcs5KLBWmz6iDqHoS3u697JkRl5BP+skWRyUpROfiN9++XhK3Rbevz7G/E3y2Rw+afHUyQWgsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961454; c=relaxed/simple;
-	bh=pjd2LsReLyjFfFpYBZp5GX3HanSlfTjVjEQaO8NrO8A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N2Yc7CQ6C4JbEv6y1W4J55uhGc1OZ605al/K//Pr5FzmCIe35nBexW9eJso3Cq3TXyd//pr5B07VHmlyuGSfWwFzj/wOk5Y4qnNE7O0qbulP8PI6HM8biKCaiIUKTL/bIeSLoHQ0Ceb0C4eVJ+s7x9PGy73DORmcw/jDfSZAJoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4ZfLeGj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788961461; c=relaxed/simple;
+	bh=FCImgy7ee6gvQg0naqOI0csI9p9fKKKV+CXAwuu0KI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EQ+hEfiCXIT/9L2AlFJMjwQsitlfaTJ+9RwmCP5UCdlooJb/OPgiRhFWCbi3rbfU15PPcMuzQn4C0/NlhCmCqr0CP4QwJBV0Y8156sHO+k7aS2b/2zT4c+YEwyK5ugvfcGmwq9YJbmBJEdJ3iKt/0xdbX+Wyu3RdZATgTUNs5Y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBQy16UH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4ZfLeGj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB7F1F00A3A;
-	Wed,  9 Sep 2026 13:44:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBQy16UH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2796F1F00A3A;
+	Wed,  9 Sep 2026 13:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788961452;
-	bh=fyGxRWWGY/QF48JwkFPc6wv4PEQdRhMGY+73An7lRDA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D4ZfLeGjXjLDlMxccI5WKcMqoRn8z0Bqgfi0rV7gUl7oT2SmzTJT6btCL9BfeeXTl
-	 KiqHLYruo4SHrnOuqlNN5NtdsZmdgmka0pWd7wZVKknvOx+jU3vBnIeA57rFTYK4bi
-	 Jn3TMukKTixqersG7kwJH9mHdFztiNO2s2Y2vWXauuIcwbwiiKcaBXsBx3WH0Q2aqY
-	 reGzLdTVRlAKTRazN5kQgqAZMRgw5pcdjI5pH7L5hIY9tNj0Qzr2sD1d7C9oPKcJjZ
-	 24ml2xc4FYzp+en8rxvGW936mcEc+m9XYZNly3nn4YJm0wnEPYEpTP2bKqYfRl8Cyi
-	 0MblVN0gCkk1w==
-Date: Wed, 9 Sep 2026 14:44:06 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	pfalcato@suse.de, willy@infradead.org, lance.yang@linux.dev, linux-mm@kvack.org, 
+	s=k20260515; t=1788961459;
+	bh=Ikoadsp17Cw/rC9gvm90l+8LIPtF7wszEeEmzmjbNSc=;
+	h=From:To:Cc:Subject:Date;
+	b=XBQy16UHsvMdocV9FaqvlhpNcXeve0jENfPCMjzuewZvrZPUFG0KxUFlTdXVj00QI
+	 ogryxQ7WLCBWKJa4ztndUGYqlH6+pbom6C8d1M2SjoCfRd7mcHiG6dFHes/e+H4ahQ
+	 heGafvkcEs9gaRjcdvBycGMSGWAcIxvcNri6L1cNX890KzAcB+KZp2osE8cAqKdynZ
+	 gWZG0YOfCFZc+79Hgfn0GAh7y8oSrbAln/27evOxHkO8kpStsOu/htX+TGNpG7xQqd
+	 4FrN+HSWhuymTBITv5+ECBT9RmO6shBdBlN0eVjjctaiEqy5vv5bccmWu3GCmCo/55
+	 LCg9cckSYBSfQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: bypass datarace check
-Message-ID: <aqFWqqvUEiie8cYq@gremlin>
-References: <20260909115723.528501-1-trintaeoitogc@gmail.com>
+Subject: [GIT PULL for v7.3] vfs fixes
+Date: Wed,  9 Sep 2026 15:44:05 +0200
+Message-ID: <20260909-vfs-7.3-rc3.fixes-fffe72bd00d6@brauner>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909115723.528501-1-trintaeoitogc@gmail.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7740; i=brauner@kernel.org; h=from:subject:message-id; bh=FCImgy7ee6gvQg0naqOI0csI9p9fKKKV+CXAwuu0KI0=; b=kA0DAAoWkcYbwGV43KIByyZiAGqhYqqj8/rAnMMYasQWvJ7CJR9zq1LFWbFjJCU+9Fi4d74Xs oh1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmqhYqoACgkQkcYbwGV43KKbpAEAqEOM 5jYBSrHrfaEOydrriN38cLRRPFm+0zbwVk2/gk4BAKthmUate1GQIW2UD985ZxVZaCDfkE4LF8o GFVjQowYH
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-I started review below but honestly this patch is confused in multiple ways
-and it's not entirely clear you really understand what's going on here.
+Hey Linus,
 
-It's also basically implementing what we suggested.
+/* Summary */
 
-So at this point I think it's easier if I send the patch with a:
+This contains fixes for the current development cycle:
 
-Reported-by:
-Closes:
+- netfs:
 
-tag -> you, this patch.
+  * Fix an uninitialized return value in netfs_unbuffered_write() when
+    preparing the first subrequest fails.
+
+  * For partial unbuffered/DIO writes return the amount transferred
+    rather than an error.
+
+  * Update i_size with the amount actually written when a partial
+    transfer ends in an error.
+
+  * Fix a subrequest reference leak when the io_iter ends up empty.
+
+  * Handle netfs_alloc_subrequest() failure during unbuffered writes.
+
+  * Load all readahead folios into the rolling buffer upfront and drop
+    the readahead references once the first subrequest is dispatched.
+
+  * Mark folios for copy-to-cache while issuing subrequests.
+
+  * Fix read progress reporting.
+
+- afs:
+
+  * Add the missing kunmap in the error path of afs_dir_search_bucket().
+
+  * Fix a double kunmap in afs_edit_dir_remove().
+
+  * Don't free an existing server's endpoint state when cleaning up a
+    candidate server in afs_lookup_server().
+
+  * Unbind peers removed from a server's address list.
+
+- ufs:
+
+  * Load the cylinder group metadata before creating the root dentry.
+
+  * Validate the cylinder group index and rotor positions before
+    caching them.
+
+  * Treat an unreadable directory block as not empty.
+
+- exec:
+
+  * Close the close-on-exec files before taking exec_update_lock.
+    Closing a file can block on the filesystem, so a hung filesystem
+    blocked everything that takes exec_update_lock and a FUSE server
+    inspecting the calling process could deadlock.
+
+  * Drop the bprm loader before closing bprm->file in free_bprm().
+
+- exit: Hold a reference to thread_pid across proc_flush_pid().
+
+- reboot: Fix a use-after-free on cad_pid.
+
+- nsfs: Keep the namespace tree fields out of the rcu_head used by
+  kfree_rcu().
+
+- nstree: Check listing permission before taking a namespace reference
+  in listns().
+
+- super: Return 0 when a nested thaw drops its hold while other
+  freezers remain.
+
+- ext4: Don't set I_METADATA_WRITEBACK during fastcommit replay.
+
+- adfs: Free s_fs_info in ->kill_sb()..
+
+- autofs: Free the inode info allocated in autofs_fill_super() when the
+  root inode allocation fails.
+
+- ovl: Return EINVAL instead of EIO on a user namespace mismatch now
+  that it's a plain refusal and not an internal error.
+
+- cachefiles: Don't cast the variable-length coherency data to a __be64
+  in the coherency tracepoint.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit 818bebeb63dd6bf5f4e07e145f6cdbace520a34c:
+
+  drm/xe: Don't hand out the flat CCS storage as usable VRAM (2026-08-20 20:12:39 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.3-rc3.fixes
+
+for you to fetch changes up to 56ea4e86832d8abe8930394473566c194d189f85:
+
+  nstree: check listing permission before taking a namespace reference (2026-09-09 10:03:15 +0200)
+
+----------------------------------------------------------------
+vfs-7.3-rc3.fixes
+
+Please consider pulling these changes from the signed vfs-7.3-rc3.fixes tag.
 
 Thanks!
+Christian
 
-On Wed, Sep 09, 2026 at 08:57:23AM -0300, Guilherme Giacomo Simoes wrote:
-> Despiste kcsan point to a possible race condition problem, this is a
+----------------------------------------------------------------
+Ahmet Eray Karadag (1):
+      adfs: fix memory leak in sb->s_fs_info
 
-Typos  -> Despite, point -> points
+Ali Ahmet Memis (3):
+      ufs: create the root dentry after loading cylinder metadata
+      ufs: validate cylinder group metadata before caching it
+      ufs: do not treat unreadable directory blocks as empty
 
-> safe race condition due the access memory ordering, since
-> spin_lock(&mm->page_table_lock) have ACQUIRE semantics and ensure the
-> ordering mapping.
+Cen Zhang (Microsoft) (1):
+      reboot: fix cad_pid use-after-free race
 
-This sentence is a bit confused. Acquire semantics mean absolutely nothing
-unless paired with another operation and etc. etc.
+Chengfeng Ye (1):
+      afs: Clear stale peer app data after address list changes
 
->
-> Create a new function called vma_is_faulted(), that return a
-> data_race(vma->anon_vma) to bypass kcsan
+Christian Brauner (3):
+      Merge patch series "ufs: harden the mount path against malformed images"
+      Merge patch series "netfs, cachefiles: Miscellaneous fixes"
+      Merge patch series "afs: Miscellaneous fixes"
 
-This sentence reads incomplete? Or missing full stop?
+Daehyeon Ko (1):
+      exit: hold a reference to thread_pid across proc_flush_pid
 
->
+David Howells (11):
+      netfs: Fix unbuffered/DIO write partial transfer error return
+      netfs: Fix error vs transferred passed to ->ki_complete()
+      netfs: Fix i_size update for partial transfer
+      netfs: Fix subreq ref leak
+      netfs: Fix readahead synchronisation issues by loading all folios upfront
+      netfs: Mark folios with COPY_TO_CACHE whilst issuing subreqs
+      netfs: Fix read progress reporting
+      cachefiles: Fix potential UAF/KASAN warning
+      afs: Fix missing kunmap in afs_dir_search_bucket()
+      afs: Fix double-unmap of directory block
+      afs: Fix incorrect free in candidate cleanup in afs_lookup_server()
 
-Needs a:
+Edward Adam Davis (1):
+      netfs: break unbuffered write when netfs_alloc_subrequest() fails
 
-Suggested-by: Pedro Falcato <pfalcato@suse.de>
+Jan Kara (1):
+      ext4: Avoid entering writeback paths during fastcommit replay
 
-Also:
+Jann Horn (1):
+      exec: do_close_on_exec() before taking exec_update_lock
 
-Assisted-by: LLM?
+Jeffin Philip (1):
+      fs: autofs: fix memory leak in autofs_fill_super()
 
-The list below reads very LLM-ish so I have to ask did you use one etc. etc.
+Jérémy Jean (1):
+      nsfs: keep namespace tree fields stable until after RCU grace period
 
-https://docs.kernel.org/process/coding-assistants.html
+Karl Mehltretter (1):
+      netfs: Fix uninitialized return value in netfs_unbuffered_write()
 
-Perhaps given I am suggesting a lot here a:
+Miklos Szeredi (1):
+      ovl: return EINVAL instead of EIO in case of mismatched user_ns
 
+Moritz Tanner (1):
+      fs: don't return -EINVAL for successful nested thaw
 
-> Signed-off-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-> ---
->  mm/memory.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 6b8280cfc1db..d85d67927400 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -3800,6 +3800,25 @@ static inline vm_fault_t vmf_can_call_fault(const struct vm_fault *vmf)
->  	return VM_FAULT_RETRY;
->  }
->
-> +/**
-> + * vma_is_faulted - check if a vma has been faulted
+Norbert Szetei (1):
+      nstree: check listing permission before taking a namespace reference
 
-Would rather 'has @vma been faulted in?'
+Sun Jian (1):
+      exec: Drop bprm loader before closing bprm->file
 
-> + * @vma: the vma to check
-> + *
-> + * This is a lockless access that may race with __anon_vma_prepare().
-
-This doesn't belong here. In fact it doesn't belong at all IMO.
-
-> + * The race is safe because:
-
-There isn't a race at all it's KCSAN getting confused because it can't prove
-that there isn't.
-
-> + * - The fault handler ensures that the mapping of memory is ordered.
-
-What has that got to do with this function?
-
-> + * - If we read NULL, the caller will re-check
-
-Umm, no? This function doesn't force callers to re-check?
-
-> + * - The page_table_lock provides ACQUIRE semantics for memory ordering
-
-I'm not sure how this relates to anything but again this doesn't really belong
-here.
-
-Anyway let's drop all of this please.
-
-
-> + *
-> + * Return: true if vma->anon_vma is non-NULL, false otherwise
-
-This is completely breaking the abstraction.
-
-'true if the VMA is faulted in, otherwise false.'
-
-> + */
-> +static inline bool vma_is_faulted(const struct vm_area_struct *vma)
-
-Why in memory.c and why inline if it's in a .c file? This belongs in mm.h with other such helpers.
-
-> +{
-> +	/* Lockless check - safe because we re-validate under page_table_lock */
-
-You don't need a comment saying accessing a field esp. with data_race() is
-lockless, that's implied...
-
-Maybe:
-
-	/* Benign, see __anon_vma_prepare(). */
-
-> +	return data_race(vma->anon_vma);
-> +}
-> +
-> +
->  /**
->   * __vmf_anon_prepare - Prepare to handle an anonymous fault.
->   * @vmf: The vm_fault descriptor passed from the fault handler.
-> @@ -3819,8 +3838,7 @@ vm_fault_t __vmf_anon_prepare(struct vm_fault *vmf)
->  {
->  	struct vm_area_struct *vma = vmf->vma;
->  	vm_fault_t ret = 0;
-> -
-> -	if (likely(vma->anon_vma))
-> +	if (likely(vma_is_faulted(vma)))
->  		return 0;
-
-There are other places where this check is done and etc.
-
->  	if (vmf->flags & FAULT_FLAG_VMA_LOCK) {
->  		if (!mmap_read_trylock(vma->vm_mm))
-> --
-> 2.52.0
->
-
---
-Cheers, Lorenzo
+ fs/adfs/super.c                    |  24 +++---
+ fs/afs/addr_list.c                 |   5 +-
+ fs/afs/dir_edit.c                  |   9 +-
+ fs/afs/dir_search.c                |  11 +--
+ fs/afs/fs_probe.c                  |   1 +
+ fs/afs/internal.h                  |   8 ++
+ fs/afs/server.c                    |   1 -
+ fs/autofs/inode.c                  |   4 +-
+ fs/cachefiles/xattr.c              |  16 ++--
+ fs/exec.c                          |  24 ++++--
+ fs/ext4/inode.c                    |  11 ++-
+ fs/netfs/buffered_read.c           | 164 +++++++++++++++++++++++++++----------
+ fs/netfs/direct_write.c            |  31 ++++---
+ fs/netfs/internal.h                |   3 +
+ fs/netfs/misc.c                    |  19 +++++
+ fs/netfs/objects.c                 |  32 +++++---
+ fs/netfs/read_collect.c            | 128 ++++++++++++++++++++---------
+ fs/netfs/read_pgpriv2.c            |  15 ++--
+ fs/netfs/read_retry.c              |  13 ++-
+ fs/netfs/read_single.c             |   2 +
+ fs/netfs/rolling_buffer.c          |  79 +++++++++++-------
+ fs/netfs/write_issue.c             |   2 +
+ fs/overlayfs/super.c               |   2 +-
+ fs/super.c                         |   9 +-
+ fs/ufs/cylinder.c                  |  10 +++
+ fs/ufs/dir.c                       |   2 +-
+ fs/ufs/super.c                     |  17 ++--
+ include/linux/netfs.h              |   5 +-
+ include/linux/ns/ns_common_types.h |   6 +-
+ include/linux/rolling_buffer.h     |   6 +-
+ include/linux/sched.h              |   2 +-
+ include/linux/sched/signal.h       |   5 +-
+ include/trace/events/cachefiles.h  |  19 ++++-
+ include/trace/events/netfs.h       |  30 ++++++-
+ init/main.c                        |   2 +-
+ kernel/exit.c                      |   9 +-
+ kernel/nstree.c                    |  10 +--
+ kernel/reboot.c                    |  19 ++++-
+ kernel/signal.c                    |  12 +++
+ 39 files changed, 532 insertions(+), 235 deletions(-)
