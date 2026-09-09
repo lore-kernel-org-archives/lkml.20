@@ -1,267 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411BC472538;
-	Wed,  9 Sep 2026 11:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C15553A8BD
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954156; cv=none; b=iraBlEP4qCp063mYY6E7i0+wjjvl+MJ2X7tD/7h09zspXSN0+Bin9IAblgyYPw9V9a1Ml8Bq860IEgC7AVlptXVlHT6MjOJ0+lKcPQEaZiviEkMk8tZDj/y85Z55fPGWPQcvzqn99klUMN5QK8Dn76dE5jsrcj07/Of3wlc8klc=
+	t=1788954157; cv=none; b=HT/l7w/xFDHYzqTOqrF2lMwQuFQFwFcRdeiSe8MDoNWkfy+AKcyLOqnpCLcuCKQ84GSkYCY+gPdBgah/ufdV6fGAAFmKIqBYceszIrZDsaaj2eGqNVHfXMSUo8GtC/Vju7pNRu78tnuykVe42SGF/h1ZryQQUIp3BhgVX/8zv5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954156; c=relaxed/simple;
-	bh=2snWrRJ4uKorGtLI1mnuq+G1C5icOs1zvH0gbkFqGfU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hZdHXJ32aRjyTVmc93t+2GrFJRSC0NKnjfdWD5VpDSQSFiYye6LoMK6+4q7VgTxFCv20uogALc9TzZPJjo4h5Udb8s+VEGsVNZeMvo4PW/aQ+96FF1YZSltS1yVQOGwltYBlJPUpHBwE9ADYLvQxRIHg6VzCz7hpOz6Shetv7qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EA2rFaUh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788954157; c=relaxed/simple;
+	bh=dPrJAeYgm38j4+vkp++72DejL21/ff9Rh8+g+/KYRwI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YR7vTj3LiOM0+aULUoBvRUc8memYqQBZ8BSvHh3Vl79ZdVI5m6q150B8LKL2WEh8Cbyy7tnLlhSA+jEsEragU+CjBYyZo4LUJ7KVOm5kR4SMBTeyAvVKstaW3ISL1U3FKQK2/dgooUc0zt8LrUl0nCtuWVXgiihoxCVoEPtLpS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YKu7SAHP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iCK/VcY6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EA2rFaUh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 661F81F00A3D;
-	Wed,  9 Sep 2026 11:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954152;
-	bh=Yfjjb++jzXj/lmKBwq5OTsLKZrasvS3tMpARBFSXekY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EA2rFaUhwdewAgNFzbdKgUmvqPwUKatu19woT9xnBtKOVNkgvhySJUy9/vOBSpeA3
-	 s15JgWu/ODPSqlLtVw22V6NhCrdcSMEtJbIBO2u0dshPpIDcCi5DiUccEcAUCp/z9G
-	 FCJeFNjDkWhdNQ57+CHDgtifwyNV5P+JF7G96PTNCTOrPmoVsRwSnhPDMo1IFtVIaA
-	 dFn4UoNJ2lQcwcUO9wld/lTbKcJgJR10MiFPQfWal/Dc6+J7KTCXOCUSakwTVkkk10
-	 2FdqKguW073bVtaf3iA0MCUDifXS1IIA4zSV8NcOLN/qDV47dEhCPtgUOS3ffVma2L
-	 PSyGxvgAqLefA==
-Subject:
- Re: [PATCH net] net: dsa: mxl862xx: disable the stats poll on teardown
-From: netdev-bot+sashiko@kernel.org
-To: daniel@makrotopia.org
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 11:42:31 +0000
-Message-ID: <178895415193.219967.5342143627576620914@kernel.org>
-In-Reply-To: =?utf-8?q?=3C8b861014c836377afab0fdfb66a83fa017e5cd84=2E1788779?=
- =?utf-8?q?062=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-References: =?utf-8?q?=3C8b861014c836377afab0fdfb66a83fa017e5cd84=2E17887790?=
- =?utf-8?q?62=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YKu7SAHP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iCK/VcY6"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BUDF22654001
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 11:42:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	epxMbI0y6nHSNagsiwEyeMZgg6Krl3r4f6apObxAlN8=; b=YKu7SAHPz3RYBeFl
+	/1BsREYL5SGOwU6weWgn+RLtfyq5LvtZau0EvG/v7yUkGJKEpBuTL3i9nmX1bnnG
+	aq6nBBLLCMfyiOidx3AursUXVTrTuaK0hwFGp3/KfucGIyBhDLr45Iz0D1P4Va6k
+	zQHO6vgFnW/MGm1KZVFvB8xPeFEVf1L5lLU04LO5Fv06PFtJJeyC1Hxd3C0YAllE
+	ERd36xX86aNgtHe78EY3gHVqLRW+HH9RcO4mjJRsf27UD3iLv587XDs7cDqeq5WL
+	ymj0xLhoRhE5NPbonHipubSWMHqdXRgQglL9yHtbXu16Qb15Xp4RyFZ8KwYBUMXu
+	q9I2ZA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqha3tyt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:42:35 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53038881f1dso10890731cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:42:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788954154; x=1789558954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=epxMbI0y6nHSNagsiwEyeMZgg6Krl3r4f6apObxAlN8=;
+        b=iCK/VcY6EogpoKs6FPTBj614Cgqb/MuAE44L8GYQBsQ41/m+P1rDfvkcqwEdmaDPU1
+         Pz+JCkKXkDA4714QFEwiuXzvJTJDozKqOZQmE1DF4lIikP2d5rvVMnreDj8jZYrYzpAc
+         p+YWba61ECloEl6oQ1HQ/S/B6/IysbkC1E0uU5ZGWeEQrML64/L4bwAdr25PhcHfEgLF
+         A2+eABZnayE0BleVSUhYQMaWFFlVqpfFXUVWLtr+iEcVwxGLr0eHIk4NCkhHrvjmRWmW
+         Oa7cNz6rh1GBIGaeED/ex2gwYVyDP2CBxlcH4WJR4wWGEV5/k0C7Ezz7GGAt96cuddoK
+         6LCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788954154; x=1789558954;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=epxMbI0y6nHSNagsiwEyeMZgg6Krl3r4f6apObxAlN8=;
+        b=kKmcNm/9ZG3VHQsiZaOjDnqQIAiQvzvCWGyJiCIFk5c6xFpB8behHNCVgTXzvjHt96
+         ClBLmv4+ps/g1Ve+pURcGCJCIGECUOJ38N4ykYeFV4ouy3UZddBdXAlzfIsZVa6dEGAU
+         IYkWH1GKu+zKN80rOuNbcaiWbx43ztePp0PnEdDvd/hk1NgKSO3igeBoZzLI7f/MzXVq
+         36SlfPLMYkSSKr5tE6HYHxd3zZD/UVScXJG++BfzyMtBTf1iAq3jLHMzhVunQK2gSmGm
+         L0v/NqKf/dKVunMJ2Wv2Cw/hEiMxxql6w7rTniBLh4pXlPUcLXWoGb+3GGy0bsDLCSRi
+         oHlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwqQDCW08bQFg4q/Tohpl4s7DVrUr2BYIa7cMWJ3BwMv1FnVLAKRKWd8D6t48y24SpWBIBsMRzI9AsOiV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXzfx2SrSr0uWhn3AU2bci6lrFoCJLzC6yiiWKpJq8leL5Nsma
+	Wx2evcgVrpO7GT+2RYqd+iYNAbkASg8Hf0YXbv8ZVeosFU3DuPeDLBEqg5S2TwdzgkvDzT6TpsH
+	LTfYY+4j7tZQmPeuf3DqAnNA8Gg0GoP67+glBS4n4OyNuVKx/uuqVcbmT+pxZOzfUgH4=
+X-Gm-Gg: AYBFou3/UoMevVO5kit1+4a7ezHuzZUpltoAHPYvMQwLAQLw3Mbsgv5xPPAClk/+X9h
+	KcCZlbEWXQp9RBNYEP3qKKJ20lhRyRN5um20OJe3Qs1gSEEymfmos0JOVw6SGTxXB/OM+dRugJ+
+	pE0Qi4LaEgeSar/eOhSfP1WLxBfYSKUYUSUZwHNLWTpbXNw4WeWJvQRB+7zyiIp6myfkjVMxxqE
+	e97dXxNvmL1A/9D5e3woLRc7pk8wmC7AlaGwYRNbiGk0IQRrKy2MFZ7QuRTgARNFjY5qhnPGdJQ
+	VDuxGj29w5iVDj/6nLm0WbmWA9b7L57v1IXINd1F6wDaMGcMxjThpJxu45yR1niB07JjnPQC+/y
+	vCKJTzK8/kZOrrf0TIs1tmw==
+X-Received: by 2002:a05:6214:1251:b0:910:39a3:c5b4 with SMTP id 6a1803df08f44-910475e31ecmr313455526d6.0.1788954154206;
+        Wed, 09 Sep 2026 04:42:34 -0700 (PDT)
+X-Received: by 2002:a05:6214:1251:b0:910:39a3:c5b4 with SMTP id 6a1803df08f44-910475e31ecmr313455126d6.0.1788954153796;
+        Wed, 09 Sep 2026 04:42:33 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5768c2sm739578366b.39.2026.09.09.04.42.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 04:42:31 -0700 (PDT)
+Message-ID: <bc2112d9-4085-42be-807a-2242a1c510fb@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 13:42:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] soc: qcom: geni-se: Correct QUP Core ICC vote
+ constants
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akash Asthana <akashast@codeaurora.org>,
+        Matthias Kaehlcke
+ <mka@chromium.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>
+Cc: mukesh.savaliya@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+References: <20260909-correct-icc-bandwidth-vote-constants-v1-0-fbebf6b3c341@oss.qualcomm.com>
+ <20260909-correct-icc-bandwidth-vote-constants-v1-1-fbebf6b3c341@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260909-correct-icc-bandwidth-vote-constants-v1-1-fbebf6b3c341@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEzMSBTYWx0ZWRfX9eJbdXxcZY1f
+ vtG3X8pnuP1LqfEgrwE/uPj0tm2hiyIhrijujCG+nKwxR+gOI/D58aKfjsDTlM8svE6HEZdtX6D
+ /zsqARmX9q8TWr/0urdaP/puk56s0k6arP0fTRPWmWpc/YZpN2o7rjwwtXo9kscOIX4PA1MJH3h
+ ylIYZlGGa3ZxIFhtHoSNDaDmnDhKtaSmefn9jc0uFLc7N7yqWgbH1WK6vxit6uC/73Ki8C8eMav
+ YlXk17QVEAkPbB4c+eFEZeRgYdGtcscMSfR9VA1edJewJNvTyTn3kfmnfDotIDzGU2Jr+6VnqJp
+ qGlAsPUti9l8cq9Hw9elHmZHaES2EGjDIOpFPH6Lume1atDCLLdsg9hzOWs6txLjLKzh6fDNs+G
+ hUjCM3LOcmBhkf04vvDQRzSr3DMRhFD/EDVnATZyS3eBEXeJKf6xwY/RjjMVBJI60bIAJtwfHcZ
+ Tx/54xg8QvbRWQBh4Dw==
+X-Authority-Analysis: v=2.4 cv=Z5Xc2nRA c=1 sm=1 tr=0 ts=6aa1462b cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=FQoka4uyCIFQdJF29asA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: ES-XqETVR7BKDnSITuuTKU-FBejFwgLX
+X-Proofpoint-ORIG-GUID: ES-XqETVR7BKDnSITuuTKU-FBejFwgLX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEzMSBTYWx0ZWRfX5W/m21Z3kdQa
+ pzoNeDckuZ9JMvnxrnTgKw+OeXgjSVpdXCSabe9HlFljivuoEZkufS9hO4DCzgvBzXxZlXLnCHH
+ 4SMejN+H3v6Q8FkJyX5eJ/1zD55kWv0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090131
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On 9/8/26 9:05 PM, Viken Dadhaniya wrote:
+> The GENI_TO_CORE ("qup-core") ICC vote selects the QUP Core 2X clock
+> rate. The CORE_2X_*_MHZ constants are expressed in Bps, but their
+> values are several orders of magnitude too small. For example, the
+> 50 MHz threshold is represented by 2500 rather than 25000000 Bps.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1 (1)
+[...]
 
-- [High] Stats poll can walk a freed dsa_port list on the DSA
-  registration-failure path: mxl862xx_setup() arms priv->stats_work…
-- [Low] The commit message overstates the failure mechanism: it blames
-  both mxl862xx_get_stats64() and "the stats poll's own re-arm" for…
+>  /*
+> - * Define bandwidth thresholds that cause the underlying Core 2X interconnect
+> - * clock to run at the named frequency. These baseline values are recommended
+> - * by the hardware team, and are not dynamically scaled with GENI bandwidth
+> - * beyond basic on/off.
+> + * ICC bandwidth values in Bps for the GENI_TO_CORE ("qup-core") path.
+> + * Convert them with Bps_to_icc() before setting avg_bw. The QUP ICC provider
+> + * maps each threshold to the Core 2X rate named by the macro suffix.
+> + *
+> + * These values are core clock votes, not GENI transfer bandwidths.
+>   */
+> -#define CORE_2X_19_2_MHZ		960
+> -#define CORE_2X_50_MHZ			2500
+> -#define CORE_2X_100_MHZ			5000
+> -#define CORE_2X_150_MHZ			7500
+> -#define CORE_2X_200_MHZ			10000
+> -#define CORE_2X_236_MHZ			16383
+> +#define CORE_2X_19_2_MHZ		9600000
+> +#define CORE_2X_50_MHZ			25000000
+> +#define CORE_2X_100_MHZ			50000000
+> +#define CORE_2X_150_MHZ			75000000
+> +#define CORE_2X_200_MHZ			100000000
+> +#define CORE_2X_236_MHZ			118000000
 
-Pre-existing issues:
-- [Medium] Two of the driver's three work items keep the weaker cancel-
-  only teardown contract in the very functions this patch touches, and…
-- [Low] The comment above the re-arm in mxl862xx_get_stats64()
-  (drivers/net/dsa/mxl862xx/mxl862xx.c:2050-2052) claims the…
+Today, even with patch 2 applied, many of these rates are unused.
+Are we going to?
 
---
+Is there any logic we could apply to derive them?
 
-net: dsa: mxl862xx: disable the stats poll on teardown
-
-This switches the three teardown sites in the mxl862xx driver from
-cancel_delayed_work_sync() to disable_delayed_work_sync() so that a
-re-arm racing with the WORK_STOPPED flag cannot bring the stats poll
-back after the drain. The WORK_STOPPED flag is still set before the
-drain in all three places.
-
-A couple of questions about the changelog and about the paths the
-change is meant to cover.
-
-> The WORK_STOPPED flag test in mxl862xx_get_stats64() and in the stats
-> poll's own re-arm is not atomic with the cancel in remove(), shutdown()
-> and the probe error path. A re-arm that read the flag before it was set
-> queues the work after cancel_delayed_work_sync() has returned
-
-[Severity: Low]
-Is the "stats poll's own re-arm" half of this accurate?
-
-cancel_delayed_work_sync() goes through __cancel_work_sync(), which raises
-the disable count before it flushes and only drops it afterwards:
-
-kernel/workqueue.c:__cancel_work_sync() {
-	ret = __cancel_work(work, cflags | WORK_CANCEL_DISABLE);
-	...
-	if (wq_online)
-		__flush_work(work, true);
-
-	if (!(cflags & WORK_CANCEL_DISABLE))
-		enable_work(work);
-}
-
-So the schedule_delayed_work() at the tail of mxl862xx_stats_work_fn() runs
-while the work is disabled and is either stolen by work_grab_pending() or
-dropped by clear_pending_if_disabled(). cancel_work_sync()'s kerneldoc says
-as much ("can be used even if the work re-queues itself ... as long as there
-aren't racing enqueues").
-
-That leaves the re-arm in mxl862xx_get_stats64() as the one enqueue that can
-actually land after the cancel returned. Would it be worth narrowing the
-changelog to that path, since the patch itself is still needed for it?
-
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx.c b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> index cfa7e3e269a28..a31ebbe451e00 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> @@ -2131,7 +2131,7 @@ static int mxl862xx_probe(struct mdio_device *mdiodev)
->  	err = dsa_register_switch(ds);
->  	if (err) {
->  		set_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags);
-> -		cancel_delayed_work_sync(&priv->stats_work);
-> +		disable_delayed_work_sync(&priv->stats_work);
-
-[Severity: High]
-Can this error path still let the poll walk a freed dsa_port list?
-
-mxl862xx_setup() arms the poll while still inside dsa_register_switch():
-
-drivers/net/dsa/mxl862xx/mxl862xx.c:mxl862xx_setup() {
-	...
-	schedule_delayed_work(&priv->stats_work,
-			      MXL862XX_STATS_POLL_INTERVAL);
-
-	return mxl862xx_setup_mdio(ds);
-}
-
-If mxl862xx_setup_mdio() or any later dsa_tree_setup() step fails, DSA frees
-the ports before returning to the driver:
-
-net/dsa/dsa.c:dsa_switch_probe() {
-	err = dsa_tree_setup(dst);
-	if (err) {
-		dsa_switch_release_ports(ds);
-		dsa_tree_put(dst);
-	}
-}
-
-net/dsa/dsa.c:dsa_switch_release_ports() {
-		...
-		list_del(&dp->list);
-		kfree(dp);
-}
-
-Meanwhile the worker iterates that same list with no lock:
-
-drivers/net/dsa/mxl862xx/mxl862xx.c:mxl862xx_stats_work_fn() {
-	dsa_switch_for_each_available_port(dp, ds)
-		mxl862xx_stats_poll(ds, dp->index);
-	...
-}
-
-and mxl862xx_stats_poll() then does spin_lock_bh(&priv->ports[port].stats_lock)
-plus 64-bit accumulate writes using that dp->index. Since the disable here
-only runs after dsa_register_switch() has already completed its unwind, does
-this change cover that window at all? mxl862xx_switch_ops has .port_teardown
-but no .teardown, so DSA's own unwind gives the driver no place to stop the
-poll before the ports go away. Would disabling the work from a .teardown op,
-or from mxl862xx_setup()'s own error handling, close it?
-
->  		mxl862xx_host_shutdown(priv);
->  		for (i = 0; i < MXL862XX_MAX_PORTS; i++)
->  			cancel_work_sync(&priv->ports[i].host_flood_work);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the other two work items in
-the driver keep the weaker cancel-only contract in the very functions being
-touched here, and for crc_err_work it looks defeatable.
-
-mxl862xx_host_shutdown() only cancels:
-
-drivers/net/dsa/mxl862xx/mxl862xx-host.c:mxl862xx_host_shutdown() {
-	cancel_work_sync(&priv->crc_err_work);
-}
-
-and none of the queue sites for that work consult MXL862XX_FLAG_WORK_STOPPED,
-only MXL862XX_FLAG_CRC_ERR:
-
-drivers/net/dsa/mxl862xx/mxl862xx-host.c:mxl862xx_send_cmd() {
-		if ((ret == MXL862XX_FW_CRC6_ERR ||
-		     ret == MXL862XX_FW_CRC16_ERR) &&
-		    !test_and_set_bit(MXL862XX_FLAG_CRC_ERR, &priv->flags))
-			schedule_work(&priv->crc_err_work);
-}
-
-The same pattern is in mxl862xx_issue_cmd() and mxl862xx_api_wrap().
-
-Here crc_err_work is cancelled before the host_flood_work drain, and
-mxl862xx_host_flood_work_fn() issues firmware commands via
-mxl862xx_bridge_config_fwd() holding only rtnl_lock(). If a CRC-6/CRC-16
-mismatch happens on one of those commands after mxl862xx_host_shutdown()
-returned, crc_err_work is queued again. On this path priv is devres-freed as
-soon as probe returns err, so mxl862xx_crc_err_work_fn() would then
-dereference freed memory:
-
-drivers/net/dsa/mxl862xx/mxl862xx-host.c:mxl862xx_crc_err_work_fn() {
-	struct mxl862xx_priv *priv = container_of(work, struct mxl862xx_priv,
-						  crc_err_work);
-}
-
-Would moving mxl862xx_host_shutdown() after the host_flood_work drain, or
-disabling crc_err_work and host_flood_work rather than cancelling them, put
-all three work items on one contract?
-
-[ ... ]
-
-> @@ -2181,7 +2181,7 @@ static void mxl862xx_shutdown(struct mdio_device *mdiodev)
->  	dsa_switch_shutdown(ds);
->  
->  	set_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags);
-> -	cancel_delayed_work_sync(&priv->stats_work);
-> +	disable_delayed_work_sync(&priv->stats_work);
->  
->  	mxl862xx_host_shutdown(priv);
->  
-
-The same crc_err_work ordering applies on this path. dsa_switch_shutdown()
-does not call .port_teardown, so p->setup_done is still true when the flood
-worker runs and it proceeds to issue firmware commands after crc_err_work has
-already been cancelled. The re-queue looks harmless during system shutdown,
-but the ordering is the same as in the probe error path above.
-
-One more observation about a comment that this patch does not touch but which
-the change makes partly stale.
-
-[Severity: Low]
-This is a pre-existing issue, but the comment above the re-arm in
-mxl862xx_get_stats64() reads:
-
-drivers/net/dsa/mxl862xx/mxl862xx.c:mxl862xx_get_stats64() {
-	/* Trigger a fresh poll so the next read sees up-to-date counters.
-	 * No-op if the work is already pending, running, or teardown started.
-	 */
-	if (!test_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags))
-		schedule_delayed_work(&priv->stats_work, 0);
-}
-
-Is it a no-op while the work is running? queue_delayed_work_on() only bails
-on WORK_STRUCT_PENDING or a non-zero disable count:
-
-kernel/workqueue.c:queue_delayed_work_on() {
-	if (!test_and_set_bit(WORK_STRUCT_PENDING_BIT, work_data_bits(work)) &&
-	    !clear_pending_if_disabled(work)) {
-		__queue_delayed_work(cpu, wq, dwork, delay);
-		ret = true;
-	}
-}
-
-process_one_work() clears PENDING before invoking the callback, so a queue
-attempt during execution is accepted and the MDIO-heavy poll runs again right
-after the current one. Repeated readers, e.g. "ip -s link" in a loop, can
-chain polls back to back.
-
-After this patch the "teardown started" clause is also satisfied by the new
-disable count rather than by the flag test the comment sits on. Could the
-comment be updated to match?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/8b861014c836377afab0fdfb66a83fa017e5cd84.1788779062.git.daniel%40makrotopia.org
+Konrad
