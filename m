@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01772D12ED;
-	Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D60F2DFA2F;
+	Wed,  9 Sep 2026 00:55:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788915303; cv=none; b=TN6VPJY1IxbTTJMlu8XDShu+dLGVqhzYEfm74xoUdGyGbCE1Pl8nIaQStxyMFvl99C93x2+ewX3KdwFzHhOgO6H+f+5cSDhoe8WCkR9mKawvDngTVg23RDdNLZ+XdnvQd7X/4dt1DtPlOLMHHWJLEXKRzew1ldyNg4ECNIW2Z/g=
+	t=1788915303; cv=none; b=eBlxdqhS9X3UK9eDayoniUV25evH4qQyjfJjiYcI3DxpjNPZCutW9S8lPzL2dEggnrFWxMcJ5W0LcyyyNMipzy8HR5NqTlxCFbx4+ZIEtP0KWTkA6T9QL+x2XLUzLD0JEmUTQDW+W8SlR8vPz9f0aDgFimvooYV8aI9AhOk77gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788915303; c=relaxed/simple;
-	bh=QRxuj1yH1PuNVes7iCi4WmD5WcodnmEUFLj37ilTgg0=;
+	bh=3eOYByDscTNGEOO8jWMgJdsQl4e4Dlg+x/+WXs4I4fA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=evWRyxICGLJtxZV37dxgxAablYR6OgSa6K0/BcmX/WOov33usnS62O5sSgYNIY1t82Szob9oP3vryh9cfE4zrVNN1xWOkKRdV+3lZOIRJ7xkTo0wAQGH6JrjNGPoFXOyoes38zOH0WSmK6AUz1kZXlcPFuoS9i2JVWZ/a8IMXSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kk6ldqa6; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=T3n5+kJdqI4yZanlcHd+MR7RFIVQkwKOL/ckuz3kFam15CucqPEpvSCf6LtAnUOlRB9eH0V49FAD59MRmuU7MlECqe7eRptb1SEcSnO3Z+WcxZjF/upQZhQGsnFMiMQtoAx3+JMrWITWfMls5jQnJfo3Wplp3Qor/170JH4nwtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCOAXlLD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kk6ldqa6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 63186C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCOAXlLD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 94E8EC2BD00;
 	Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788915302;
-	bh=QRxuj1yH1PuNVes7iCi4WmD5WcodnmEUFLj37ilTgg0=;
+	bh=3eOYByDscTNGEOO8jWMgJdsQl4e4Dlg+x/+WXs4I4fA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kk6ldqa6Okm2eJfRneL/w2YIkvKJizZQPO2kOs3TPhMWc8roMoi6utHmp5KokowZt
-	 5/H1NlUiIcCxuNrljJmuu/SbEqu3omSZH8d0Y3QQi4a0eBqd7YJDISKbxWBchAqu6I
-	 de2Rwu6ffaTEGdQ1cusvOqwK9eKOTkL9C3cFkV1l/VdN1TGv9syTu9pTDVSFaYm67E
-	 wNcu2k1kwgfs4gugxL1ANsr+dR5MWGN/cIOt55X1uc/ex2FP8fuNbhH9LBu9oWtaUG
-	 IHoGMz9FOQmQVfHIXbhyq+c9gh5tkGgoDrurmzH85zqL2xxEZF0x4XWXqO6TJsByza
-	 HfsI08rsTCxdA==
+	b=OCOAXlLD4rDpOz3krl1RIMcUUBi0BU6y9Nf6x8MygcqWFhaTZOA0UWS+hXlxEnLcc
+	 lEmgJ+g5XUcpHpZ7JYEX1sUD0AV3dTTOX/2A0BrrvQooWVkiCy4WetuxGKRCf1MTko
+	 iKyz+ug0W2YdnNe9VqF40PwMG1kpMFyD6E35ARCMGGiTMSfatOD6ODMsxPipGdOYXf
+	 5MEQeZcgJafEksiGXQl7bmJHZMQLKAMIII7xkmMDGkGr1jEWp6M9yKMYFbJUNInAwl
+	 fqGEjPUlMctPT5vkzEC5r3elHV5AOmP/uC8u4sELgIAutENV7mLzjujG1ley8gmneF
+	 2uEwhMb0+YBSw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DB31C79FB3;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8302FC79FB2;
 	Wed,  9 Sep 2026 00:55:02 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 08 Sep 2026 18:55:02 -0600
-Subject: [PATCH v9 06/39] dyndbg.lds.S: fix lost dyndbg sections in modules
+Date: Tue, 08 Sep 2026 18:55:05 -0600
+Subject: [PATCH v9 09/39] dyndbg: reword "class unknown," to
+ "class:_UNKNOWN_"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-dd-cmap-part2-clean-v9-6-3a3f621f4a10@gmail.com>
+Message-Id: <20260908-dd-cmap-part2-clean-v9-9-3a3f621f4a10@gmail.com>
 References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 In-Reply-To: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -62,13 +63,14 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
+ Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=5098;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788915300; l=1375;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=QGUVBtjqBJKOYQaTdea6wB7cDS8p3pXEk17D71y7DqE=;
- b=YQOZqV97f3zjNtykaWTsjeXhzev64Epj5k1EJE0pfPlJQHA5zIoebygnImWCvJxwccvU1Ntth
- IxMtYPlyOO0BjXY2phFU1OskWi1hAomsxQVo7rybryexLrY5xuv1/bA
+ bh=0ONKTa6+i1UsHEshwI0X0sM8F5DNs8FHikxRLrxD+ro=;
+ b=c33r4wPd3+E0P9+tfSmIQOdmrQ7vhbKBDODXcMA+teduRqqc8P9dMBIB2/CbimePQR9la/Bqg
+ mPNxpwxKwwRC24fQuQELAjfT0prSStiLDYMuG6TRpRF28KhKpgpiElr
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -78,147 +80,40 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, several build configs had
-problems with __dyndbg* sections getting lost in drm drivers.  Fix
-this by following the model demonstrated in codetag.lds.h.
+When a dyndbg classname is unknown to a kernel module, the callsite is
+un-addressable via >control queries, and therefore uncontrollable.
 
-Introduce include/asm-generic/dyndbg.lds.h, to bundle dynamic-debug's
-multiple sections together, into 2 macros:
+The control-file displays this condition as "class unknown, _id:N"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_ _id:N" to loudly announce the erroneous situation,
+and to make it uniquely greppable.
 
-vmlinux.lds.h DATA_DATA: move the 2 BOUNDED_SECTION_BY(__dyndbg*)
-calls into dyndbg.lds.h DYNDBG_SECTIONS(). vmlinux.lds.h now includes
-the new file and calls the new macro.
+NB: while this might be seen as a user-visible change, this shouldn't
+disqualify the change:
 
-MOD_DYNDBG_SECTIONS keeps the 2 sections by name, aligns them and sets
-the output address to 0 when the sections are empty.
+a- it reports a classmap coding error condition, which should be
+   detected in (or before) review.
+b- SHOUTING the error makes it more visible, uniquely greppable.
+c- the classmap feature is marked BROKEN for its only current user.
 
-dyndbg.lds.h includes (reuses) bounded-section.lds.h
-
-scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
-CODETAG macro (consistent with their placements in vmlinux.lds.h), and
-also includes dyndbg.lds.h
-
-This isolates vmlinux.lds.h from further __dyndbg section additions.
-
-CC: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v3: move #includes to top, drop extra ALIGN(8) in DYNDBG_SECTIONS, add RvBy
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2: Address linker script review feedback for relocatable modules.
-
-MOD_DYNDBG_SECTIONS() used the BOUNDED_SECTION_BY() macro, which
-proved problematic for kernel modules for two reasons:
-
-1. Unwanted Empty Sections:
-   BOUNDED_SECTION_BY() automatically generates `__start` and `__stop`
-   symbols. When applied to `MOD_DYNDBG_SECTIONS()`, the linker assumes
-   the sections are populated due to the symbol definitions, forcing an
-   empty `__dyndbg` and `__dyndbg_classes` output section in every
-   compiled module, even those without dynamic debug configuration.
-   Since the module loader uses `section_objs()` to locate data via
-   ELF headers instead of relying on `__start`/`__stop` symbols, these
-   assignments are completely unnecessary.
-
-2. Non-zero Output Addresses:
-   During relocatable linking (e.g., `ld.bfd -r`), omitting an explicit
-   base address causes the section to inherit the current location
-   counter. This results in non-zero sh_addr values in `.ko` files,
-   which is confusing, degrades compressibility, and can cause issues
-   with external tools parsing the ELF.
-
-Fix both issues by dropping `BOUNDED_SECTION_BY()` in favor of a simple
-`KEEP(*(...))` constraint and explicitly defining the sections with a `0`
-base address: `__dyndbg 0 : ALIGN(8) { ... }`.
-
-fixup-inc-vml
----
- MAINTAINERS                       |  1 +
- include/asm-generic/dyndbg.lds.h  | 18 ++++++++++++++++++
- include/asm-generic/vmlinux.lds.h |  6 ++----
- scripts/module.lds.S              |  2 ++
- 4 files changed, 23 insertions(+), 4 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 74790be45d06..009d628417d5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9257,6 +9257,7 @@ DYNAMIC DEBUG
- M:	Jason Baron <jbaron@akamai.com>
- M:	Jim Cromie <jim.cromie@gmail.com>
- S:	Maintained
-+F:	include/asm-generic/dyndbg.lds.h
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
-new file mode 100644
-index 000000000000..9d8951bef688
---- /dev/null
-+++ b/include/asm-generic/dyndbg.lds.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DYNDBG_LDS_H
-+#define __ASM_GENERIC_DYNDBG_LDS_H
-+
-+#include <asm-generic/bounded_sections.lds.h>
-+#define DYNDBG_SECTIONS()					\
-+	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
-+
-+#define MOD_DYNDBG_SECTIONS()						\
-+	__dyndbg 0 : ALIGN(8) {						\
-+		KEEP(*(__dyndbg))					\
-+	}								\
-+	__dyndbg_classes 0 : ALIGN(8) {					\
-+		KEEP(*(__dyndbg_classes))				\
-+	}
-+
-+#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index c3376665d027..48f00c5e8762 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -52,6 +52,7 @@
- 
- #include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
- 
- #ifndef LOAD_OFFSET
- #define LOAD_OFFSET 0
-@@ -344,10 +345,7 @@
- 	*(.data..do_once)						\
- 	STRUCT_ALIGN();							\
- 	*(__tracepoints)						\
--	/* implement dynamic printk debug */				\
--	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
--	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	DYNDBG_SECTIONS()						\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-diff --git a/scripts/module.lds.S b/scripts/module.lds.S
-index d0f200428957..5950ff8edc31 100644
---- a/scripts/module.lds.S
-+++ b/scripts/module.lds.S
-@@ -5,6 +5,7 @@
-  */
- 
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
- 
- SECTIONS {
- 	/DISCARD/ : {
-@@ -56,6 +57,7 @@ SECTIONS {
- 		*(.rodata..L*)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 46ef31328194..5e4b9f7709a2 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1173,7 +1173,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
  	}
- 
-+	MOD_DYNDBG_SECTIONS()
- 	MOD_SEPARATE_CODETAG_SECTIONS()
- }
+ 	seq_putc(m, '\n');
  
 
 -- 
