@@ -1,133 +1,127 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BAD37C903;
-	Wed,  9 Sep 2026 05:44:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A6D2D0C82;
+	Wed,  9 Sep 2026 05:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932680; cv=none; b=QIL26X/ifzAf/L9HuG5vt9LPFlEPar+oEcXmUfiuwN1TQ9RN/mjVeK7f0DtTGMISV1rcxTHz8wcsTJ9frDPGVtDFrMQdeLB2JOaSqeSgyBQHq4y5gRbuyjor7JJAiUqIvZbrP88SNe/UzSbsb0OzxI9cvnA+VF5JWp7cWDTFb2I=
+	t=1788932773; cv=none; b=UkWqlJkNgXZx7bVXnMxDbSH6TmCPFZwWsg8He0kW8iZ5lmtLfivmSqdbPjiF7x2QrNCpP4Mc/9Az8YYTenXvWeBLDazT4Az+31E4zt/B3edoUv+v0TeFrHgDO8T+SfTgsXnsX1tnBTFW9n/wwTGvUkpoOhhNC1uRAIkoerFc+r0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932680; c=relaxed/simple;
-	bh=WnsctUHK1jq217/nF8GOsjdDP+LdgHlKq5T70Pzgr+Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CZxfO0MRPMTVGQKp7QIkW560VUu5c0jUzrhlDv7E/KhpJTzJpeQItk0xAjCyYPcjeO9TYp/6A+jPGbR6PC0IHeYWpnbddF8HtNt6DVec2dYga7SqKNUzklLY7a6JyKAHWBO+wGeZmEQr6XQjJIUqDOFHh9k5HQ1JZVvbo6IEk0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
-	by APP-03 (Coremail) with SMTP id rQCowAD3_Doq8qBqbs49Bw--.1368S2;
-	Wed, 09 Sep 2026 13:44:11 +0800 (CST)
-Message-ID: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
- support for nuvoton,ma35d1-dcu
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 13:44:10 +0800
-In-Reply-To: <20260908092840.225220-2-a0987203069@gmail.com>
-References: <20260908092840.225220-1-a0987203069@gmail.com>
-	 <20260908092840.225220-2-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1788932773; c=relaxed/simple;
+	bh=k9FnsTbUM4kasdZRxHlzpexgVujgyDTwyLPUKLqlA5I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m90F8SFx3Uh9LMwKzIzKlSF+dMaleyOELsMgOJiQOEAdTsXXnA4jx3NKitntrGr56KZX2luA+wTeW21anJ5dcvvS4fFzYhrrSn9n75YRDW1w8x67jpE/wOa3Hi3C+k1mxs5UuvvQa5CPsONX1wjoxQxPukm0eadbTkD/BFO9ipk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=T0cuy4vG; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="T0cuy4vG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=SBM06s4g0kz7WS7W0WwfUM/yQZv7aEJIy1mSj1Suf2A=; b=T0cuy4vGnRVWzGLlFpeqepm5yI
+	nN/a3ScRtQlRiJDsxHj7G3b2yuume1i66BbQnDaA0ehQ9c5PpoLB9WN39nOzqSV+3CS6QUMgfDUFQ
+	6uFpz1se7xPMwX+RVOR8aG1oSGz0gQ58SyhyuF729/OstExP3LVD9F5sv+vUA1orAvoNSQU+VOYfW
+	B3jnAQ7wNAOFBZsiSvztUmy8Avtqd0qutipI0rok5CEV4jpGehGUruH1k7f8K4q2XJ8MkgLwOK/B+
+	hbz29Tk2s1VL4zFlY7CgEURFYHglh3JcMl1+TaZscPjJEW8Cmn0Am4fe9ZZ1j1hv6s7f8JC6o00/u
+	nbEhlwIg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4B8H-0000000AoeL-15Wq;
+	Wed, 09 Sep 2026 05:46:05 +0000
+Message-ID: <c0d5f2e9-9bd1-46fb-8111-d3af6b6c9e66@infradead.org>
+Date: Tue, 8 Sep 2026 22:46:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAD3_Doq8qBqbs49Bw--.1368S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArW8uFWkGryUArWUXrWrZrb_yoWrWF48pF
-	95tFWUJryxJrn3Xr4UKr1jyFyUJw1kJw1DJr1xXF1UKr4UJr10qr4Ygr1qgF15Jr48Xry5
-	JF1UWr17Zr12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4xvF2IEb7IF0Fy264kE64k0F24l
-	FcxC0VAYjxAxZF0Ex2IqxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtV
-	W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
-	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UMVCEFcxC0VAYjxAxZFUvcSsGvfC2KfnxnUUI
-	43ZEXa7IU8-Aw3UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 8/9] crash_dump: Disallow
+ configfs/crash_dm_crypt_key/reuse if crash hotplug supported
+To: Coiby Xu <coiby.xu@gmail.com>, kexec@lists.infradead.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Sourabh Jain <sourabhjain@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>,
+ Dave Young <ruirui.yang@linux.dev>, Pratyush Yadav <pratyush@kernel.org>,
+ Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Jinjie Ruan <ruanjinjie@huawei.com>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260909003657.1570544-1-coiby.xu@gmail.com>
+ <20260909003657.1570544-9-coiby.xu@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260909003657.1570544-9-coiby.xu@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-5ZyoIDIwMjYtMDktMDjkuoznmoQgMTc6MjggKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
-IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
-aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
-cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
-IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
-Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
-bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
-d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
-bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
-IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KClRoaXMgaXMgd2VpcmQsIGJ1dCBJ
-IG11c3QgYWRtaXQgdGhhdCB3ZSdyZSBsaW1pdGVkIGJ5IHRoZSBDb21tb24gQ2xvY2sKRnJhbWV3
-b3JrIGhlcmUsIHNvIEkgY2Fubm90IGdpdmUgYSBiZXR0ZXIgc29sdXRpb24gZWl0aGVyLgoKQW55
-d2F5IGxldCdzIHNldHRsZSB3aXRoIHRoZSBjdXJyZW50IHJlc3VsdC4KCj4gCj4gTW92ZSB0aGUg
-Y2xvY2tzL2Nsb2NrLW5hbWVzIG1pbkl0ZW1zIHRvIDQgYW5kIHJlc2V0cy9yZXNldC1uYW1lcwo+
-IG1pbkl0ZW1zIHRvIDEgYXQgdGhlIHRvcCBsZXZlbCwgc2luY2UgdGhhdCBpcyB0aGUgbG93ZXN0
-IGNvdW50IGFueQo+IHN1cHBvcnRlZCB2YXJpYW50IG5lZWRzLsKgIEFkZCBhbiBhbGxPZi9pZiBi
-bG9jayB0aGF0IHRpZ2h0ZW5zIHRoZQo+IGNvbnN0cmFpbnQgYmFjayB1cCB0byB0aGUgZml4ZWQg
-NS1jbG9jay8zLXJlc2V0IHRvcG9sb2d5IHJlcXVpcmVkIGJ5Cj4gdGhlIGV4aXN0aW5nIHRoZWFk
-LHRoMTUyMC1kYzgyMDAgY29tcGF0aWJsZSwgYW5kIGFub3RoZXIgb25lIHRoYXQKPiBjYXBzCj4g
-dGhlIG5ldyBudXZvdG9uLG1hMzVkMS1kY3UgY29tcGF0aWJsZSBhdCB0aGUgNC1jbG9jay8xLXJl
-c2V0IGNvdW50IGl0Cj4gYWN0dWFsbHkgd2lyZXMgdXAuCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9l
-eSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IC0tLQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3Bs
-YXkvdmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAgfCA0NAo+ICsrKysrKysrKysrKysrKysr
-KysKPiDCoDEgZmlsZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdAo+
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24s
-ZGMueWFtbAo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
-aXNpbGljb24sZGMueWFtbAo+IGluZGV4IDkxOWE5MDAxMjIwMTIuLjc3Mzk2NjY3N2QwZjQgMTAw
-NjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
-aXNpbGljb24sZGMueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0
-aWVzOgo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGVudW06Cj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAt
-IG51dm90b24sbWEzNWQxLWRjdQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNvbixk
-YyAjIERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZSBJRC9yZXZpc2lvbgo+IHJlZ2lzdGVycwo+IMKg
-Cj4gwqDCoCByZWc6Cj4gQEAgLTI2LDYgKzI3LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBt
-YXhJdGVtczogMQo+IMKgCj4gwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoCBtaW5JdGVtczogNAo+IMKg
-wqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2Nr
-Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIGNsb2NrCj4gQEAgLTM0
-LDYgKzM2LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4
-ZWwgY2xvY2sgb2Ygb3V0cHV0IDEKPiDCoAo+IMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoCBt
-aW5JdGVtczogNAo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBjb3Jl
-Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGF4aQo+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVy
-dGllczoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+IMKgCj4gwqDCoCByZXNldHM6Cj4g
-K8KgwqDCoCBtaW5JdGVtczogMQo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRl
-c2NyaXB0aW9uOiBEQyBDb3JlIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERN
-QSBBWEkgYnVzIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRp
-b24gQUhCIGJ1cyByZXNldAo+IMKgCj4gwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgIG1pbkl0
-ZW1zOiAxCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDC
-oMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTc5LDYgKzg0LDQ1IEBAIHJlcXVpcmVkOgo+
-IMKgwqAgLSByZXNldC1uYW1lcwo+IMKgwqAgLSBwb3J0cwo+IMKgCj4gK2FsbE9mOgo+ICvCoCAt
-IGlmOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGli
-bGU6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ICvCoMKgwqAgdGhlbjoKPiArwqDCoMKg
-wqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVz
-ZXRzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4gK8KgwqDCoMKgwqDC
-oMKgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4g
-K8KgIC0gaWY6Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY29t
-cGF0aWJsZToKPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5zOgo+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGNvbnN0OiBudXZvdG9uLG1hMzVkMS1kY3UKPiArwqDCoMKgIHRoZW46Cj4gK8Kg
-wqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzOgo+ICvCoMKgwqDC
-oMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVz
-Ogo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKg
-IHJlc2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCj4gKwo+ICvCoMKgwqDC
-oMKgwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCgpN
-YXliZSBpdCdzIHJlYXNvbmFibGUgdG8gcmVzdHJpY3QgbWF4IHBvcnQgY291bnQgdG8gMSBmb3Ig
-TUEzNUQxPwpBbHRob3VnaCBJIGFtIG5vdCBzdXJlIGFib3V0IGhvdyB0byBkbyB0aGlzLi4uCgpU
-aGFua3MsCkljZW5vd3kKCj4gKwo+IMKgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlCj4gwqAK
-PiDCoGV4YW1wbGVzOgo=
+
+
+On 9/8/26 5:36 PM, Coiby Xu wrote:
+> If crash hotplug is supported, dm-crypt keys saved to reserved memory
+> will be taken care of automatically. Thus it doesn't make sense to use
+> configfs/crash_dm_crypt_key/reuse. Not reserving
+> image->dm_crypt_keys_addr makes it implicitly to disallow using this
+> API. Currently x86_64 and ppc64le have implemented crash hotplug
+> feature.
+> 
+> Also update the doc accordingly. Note two doc issues are fixed as well.
+> 
+> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
+> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+> ---
+>  Documentation/admin-guide/kdump/kdump.rst | 16 ++++++++++------
+>  kernel/crash_dump_dm_crypt.c              | 12 ++++++++----
+>  2 files changed, 18 insertions(+), 10 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kdump/kdump.rst b/Documentation/admin-guide/kdump/kdump.rst
+> index 7587caadbae1..0bf2eb100a05 100644
+> --- a/Documentation/admin-guide/kdump/kdump.rst
+> +++ b/Documentation/admin-guide/kdump/kdump.rst
+> @@ -577,9 +577,10 @@ with /sys/kernel/config/crash_dm_crypt_keys for setup,
+>  
+>  1. Tell the first kernel what logon keys are needed to unlock the disk volumes,
+>      # Add key #1
+> -    mkdir /sys/kernel/config/crash_dm_crypt_keys/7d26b7b4-e342-4d2d-b660-7426b0996720
+> +    VOL1_UUID=7d26b7b4-e342-4d2d-b660-7426b0996720
+> +    mkdir /sys/kernel/config/crash_dm_crypt_keys/$VOL1_UUID
+>      # Add key #1's description
+> -    echo cryptsetup:7d26b7b4-e342-4d2d-b660-7426b0996720 > /sys/kernel/config/crash_dm_crypt_keys/description
+> +    echo cryptsetup:$VOL1_UUID > /sys/kernel/config/crash_dm_crypt_keys/$VOL1_UUID/description
+>  
+>      # how many keys do we have now?
+>      cat /sys/kernel/config/crash_dm_crypt_keys/count
+> @@ -591,15 +592,18 @@ with /sys/kernel/config/crash_dm_crypt_keys for setup,
+>      cat /sys/kernel/config/crash_dm_crypt_keys/count
+>      2
+>  
+> -    # To support CPU/memory hot-plugging, reuse keys already saved to reserved
+> -    # memory
+> -    echo true > /sys/kernel/config/crash_dm_crypt_key/reuse
+> -
+>  2. Load the dump-capture kernel
+>  
+>  3. After the dump-capture kerne get booted, restore the keys to user keyring
+
+                             kernel is booted,
+
+>     echo yes > /sys/kernel/crash_dm_crypt_keys/restore
+>  
+> +For CPU/memory hot-plugging, you can reuse keys already saved to reserved
+> +memory before reloading the kdump image,
+> +    echo true > /sys/kernel/config/crash_dm_crypt_keys/reuse
+> +
+> +Note if crash hotplug is supported, this API is totally unnecessary thus will
+> +be disabled automatically.
+> +
+>  Contact
+>  =======
+>  
+-- 
+~Randy
 
