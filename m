@@ -1,124 +1,127 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4E457F747
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254755803A4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963767; cv=none; b=hjJdPDqHO3Vb8WjXlDbjOwhQYloCEtXTD1OdlDRA+VT6Rej3u+1UjlSaq136aR7/VtD0uNTX291CEV5+12u9BNFy9m/5/GjzqawIPh9xAXAFJ+f0FMtjaEeFsmfnJFGzFxvn9G08VmyM+khs/ymLuKzYE6QDhF3uTZvpUbnAsnw=
+	t=1788963775; cv=none; b=i0+EZG6CEQkKP4+7FsDQEdO2dk+Em/mINFiYfuN/0FYMbmur9gn9HcfhSrh2p8Jt+FEmBaZDdPKpQa/UzqxCyOKv1jBoAKZrtIxgzo7BNuRib3lnPFTSIqVYpTAOYPEaw1nKQvxJQacLfWCGMZsFkDL+Kwh+gOrTRb09qPmNKTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963767; c=relaxed/simple;
-	bh=K/agZdMyKcKM4PBRai2GAcUit0gR2B7Tc9oCBirO3wU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jp5Kg2RHY48D86TF/Naq6sJBUhZCfqVRF/G54nP/dI/Gu8mgMzMoVhtzl4/57uE2L7u3gFKAxLG2Wbfi3V1LyT3sGhN845EBF6Ocm8gImVnWLGLLzQfHNeZrI7fUdeoGHju2psHeH8sjYqmclG1a7n24enaV0S0ElRp0EulSit8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WU7D9nDr; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788963775; c=relaxed/simple;
+	bh=8UyRz0pNRbKuhOPAv+GQ+lFd/A7kot7/Ib2oI3fHECM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OS43lqbgzCiBKzSyaDxtfTG5p8B5e5IE2s3fjsbdS/cxnkXvlSmO4PJgoWfkrPldPS30VO/DhOm+HZRU5kXqq++3rYmY+rrBLPwVTIHq0Or7e1i/aKArtC1SLptTNzsWG2Y6hpKYw1KLvnKIMzHAcWE8A0ygsdL9W1TYXOKZtU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=F1acJ/ZM; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WU7D9nDr"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso58010215e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:22:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="F1acJ/ZM"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1740f2so2430145e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:22:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788963764; x=1789568564; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K/agZdMyKcKM4PBRai2GAcUit0gR2B7Tc9oCBirO3wU=;
-        b=WU7D9nDrxKuTsbXYAUUknV73kY+b1IhFbveawnYzuEKD0ST+sLNDpnewOqXUOwIVov
-         Snr+09H9KC7RqGtTKdThdyerzg4bnmSazazChVt38HmVNxUwV1iV4PQ0kMRCGwdNIYVW
-         cCsGucOHD9CQ1zRyyTefkiCbbO25/3Av16aQr/MLO7qXgN/FydjHcxr/nVTiWjnl8I78
-         UvbyfFtskq6s/aUCeoDPVDPq1reCi6EpVkvR0cCNjXn9tLSv+ZTixM8440lSw9OTd+JA
-         MY5OK5YnaHrr4IaMFaiZWtgPGLJ70EvbHvGTXKmVtASt4YKElLejvAUJrXZGGjClYPU0
-         Xk/g==
+        d=6wind.com; s=google; t=1788963771; x=1789568571; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HaWevtsqS/j7ikipn8DTmG2iP8U3mJM88NAd/Ru8qKk=;
+        b=F1acJ/ZMQyUM+hJ3oG1KZk5gUg0+FdwNbDuubDmn0XmasJ86L1oEA5Ckmck+XowzLk
+         JY1AKf1mNCEUK8xavvJnbjxPaPPWHfgpEaQV3Aj8D9p9EBCveOvvtbY8Jbvvb3SYQID7
+         Fs2V5m6BP0X0bV8WB+if1iM++9TldQKuiNir4Ahjek8NYt/yavN9H1gCdwD64kAVT4z2
+         1iy+YtcP34istnpOpShhDn9XJugjvKSNd+CEbkUBxNzm01N9ey6KIZh1ovLR3Bhugw8P
+         YgeIjVG0EXQhHHuv+PUi2JYmJLZCz4c4WnpOyI9tlOJQ4drAehizpaxpBda1o8fP7GMV
+         xMhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788963764; x=1789568564;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K/agZdMyKcKM4PBRai2GAcUit0gR2B7Tc9oCBirO3wU=;
-        b=Tr5Pvw57tHAaBy/Hf8ABxCU7IIySN6rUhvkwO5Zfn90tV8fyd/3/rXfhC9cZNo4TM3
-         12KxoDhVnc3LqbOePu5AY2oBa3zVd38aUnkPCH2rI+XmIYRxxI4M01+52q+cRukW8opH
-         B9SG8NRrLrEoVl+M0Uj7+tu4JqGQy21SIJhvrr6X3viACYQdw3voidjTB89JqDiyrdyp
-         Zvlrfku3EmHygTXdlpDDxPsSHeg4b/5+/zuVBA5sgmp/wvl5X6yv4xYgydv783zIZ8hn
-         ni9jsT0wZI8CXyn+GANCRNOJVceLsT6MS4uRgDHJ994/BoySZinMcX/x4BQ2xeTkFMux
-         3v8A==
-X-Forwarded-Encrypted: i=1; AKwUvBwU66p5iXX4XGxgzfqK7XHmaR2xpAqZ34VoEJVj53NLJ57UlFz9NJYZH4gbCSTWVndkmqp+RPKSKYay3YA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nV6TkxMS77SyJssNORkeWBLjVwQ4HZX1GMqsUtfc3p+1k9PQON
-	Eh1U7oVR7/QFbsJ2OJ0FnT0Gv3y4w+3e6h/WCGOey93jp3YEHsN6D371WHr6fkqE1U0=
-X-Gm-Gg: AYBFou0Xm9XW0PEPs5VA2oAN3FAe53U+tAy/wY7ICXoZVBIxaRk6QlA3XLWmJzYTfUG
-	NEF0P6OSVj+P+qRY07k/qRtEwXbmCcRfV26SkPPOzOX7nR7nz1FvZ+OqHUorNrFtYDpHivIS26z
-	8mCrr1UXZaQtliybe7mFk6qxSqBYlYieF0LZZPuoXjBepbX1cYlPG+flMUTpWRZXdCIP+hMejBi
-	On7puprwPtEVSU4S9seTDsdZvg0/aEppAVyjNYarEauupJC2KYQ+PqMk3U3gdRlpNPcb7bGlRXe
-	MyfY9NcqTjSNa3Ty38u1QGWcXjrJ8JnJW0CSG1UrdkMb+SvwaEij4H7Ks3xkalPTNq8TtSGuj5N
-	82PdPbq97HF8HHGQNasMZhwIZ9vRbAa7LKNaD9v/4O1augmh5lOfXrutMk4dfThO0pK6lbcQlWq
-	hfzUndKwBPuColZWKV6toGVJj+E+shv5eue33Ygcafox+O2fq4TuPPV+Z7uI5SkNGfJ1pbTHRJ2
-	FRAZM8uFR0dM0sWoiT5FQV283ys9t9YjCC+c1qTWt5THdzA/UsBEMYkcd4Few==
-X-Received: by 2002:a05:600c:3115:b0:49c:e1b5:b2bf with SMTP id 5b1f17b1804b1-49cf7f48645mr357100075e9.0.1788963764200;
-        Wed, 09 Sep 2026 07:22:44 -0700 (PDT)
-Received: from localhost (p200300f65f19a9042846e5e8b4b91e99.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2846:e5e8:b4b9:1e99])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cfd3f8192sm433887725e9.3.2026.09.09.07.22.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 07:22:41 -0700 (PDT)
-Date: Wed, 9 Sep 2026 16:22:39 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: add support for PAC1711
-Message-ID: <aqFrNywuzlbCPXAv@monoceros>
-References: <20260909-pac1711-v3-0-dff81003b82f@microchip.com>
- <20260909-pac1711-v3-2-dff81003b82f@microchip.com>
+        d=1e100.net; s=20251104; t=1788963771; x=1789568571;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HaWevtsqS/j7ikipn8DTmG2iP8U3mJM88NAd/Ru8qKk=;
+        b=s2x2M7EO/t0W21WfeSZLSQ6qr9MRGme2PcCKud+Jpst//+D2O2Rh/LsX52cpJ9InYv
+         wj7pZ70iWVlrxetWs97y425Su9aYIiae7eqE2L5Dqd1LwdeOEqZ6/+j8y/veUCFcCT02
+         QATR1je8UPMXdDthpFkZDKBVPu5qBYEiQtW6JsNkYGyjXgnj80pbxq0Uko0JEua3rIl+
+         r2MeJ3fVhLJAJoN5t1PrYQO/UxqA/L0cryOaYEz6MUevzi/SDdc09vAVndNZXdJt2dqn
+         qCnvan2FI4rft07U3eRdnP1tD6PCbDj8xjcu8iKMkC8NEsSlbbscKBRvBr4HSmDh290a
+         cDMw==
+X-Forwarded-Encrypted: i=1; AKwUvByMMsrWY/uzTUw/LI1s64AKU2Pm9CIxpC/riKCu5/W//Zz+IhKwdVTQ1Tye/K/gTXOF7pvppu+xQaCu3Xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY72m9sp5kv5RYk87I8vhMx/+CRjz3cHczFtwZZeLHHMjzqdRj
+	rgHvW+1Uecyd/xYMCPZCnIY99E0wX3rEAm8XnOpBMGqQLO+lVQ+QKgch2HKtLboQXDE=
+X-Gm-Gg: AYBFou1wtc1QsXMgsmM6AfhQbyMTbR3J9MyAET2bIvAveV/q1hwdXmusnl+h1G06iHw
+	vfw4sz6ytZdNKiMj8zWPkymXlXePS8B3a9KIi0uGxp8FGrZK7z62wHlR7Rik/kfwnVXbvl1/NpA
+	WPRuHtBcEVS+Z9kTaP0/82RFuSD1OR/NoDHSDDABChlPZLSUaiCihstdGtbqXOkiehsDlBZdcF/
+	CeOKfF3wIAKuAM7oCFuyZNXpVfSgcN5EeogJpew0c+ZYZw1Vn1Hl09rslVNCrTFTkUS+edtOlUS
+	k96n/nc1ZxGaNRPUTI7atqOgoCApGNflLu3zl8qyKD8ZEsHJov9lZEC03+N2MyM4/hYmurzZZ0n
+	BGa3sOOEntiGja3YpoVAs8MUmOjgvG54P6ieb/6yHjFXcZ2BWtJ4cUdZPpWeSZpPDmnoaZAxx20
+	HFH+ufJuFpb4/qM3y5fTeO/PIfXfSBj0ASkp4NbYWxPrbHKBCS7C+D8F8Th/ZC1Yc0Muqdcl6nK
+	JOoKDeBnVE3+IvbPZoLoke+6fNJkM6pJ+foxM5rvjp8T+4bbuEn
+X-Received: by 2002:a05:600c:4f48:b0:49d:798:67a4 with SMTP id 5b1f17b1804b1-49d079867f5mr258909655e9.0.1788963771271;
+        Wed, 09 Sep 2026 07:22:51 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588390e30sm42712069f8f.7.2026.09.09.07.22.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 07:22:50 -0700 (PDT)
+Message-ID: <ab826712-6255-4e9b-b6fb-f6f8c380e779@6wind.com>
+Date: Wed, 9 Sep 2026 16:22:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nda6bilsfrnoksc7"
-Content-Disposition: inline
-In-Reply-To: <20260909-pac1711-v3-2-dff81003b82f@microchip.com>
+User-Agent: Mozilla Thunderbird
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net-next v3 0/4] rtnetlink: dump link-layer multicast
+ addresses
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, David Ahern
+ <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260909133247.113923-1-sigefriedhyy@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Content-Language: en-US
+Organization: 6WIND
+In-Reply-To: <20260909133247.113923-1-sigefriedhyy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
---nda6bilsfrnoksc7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v3 2/2] iio: adc: add support for PAC1711
-MIME-Version: 1.0
-
-Hello,
-
-On Wed, Sep 09, 2026 at 03:23:35PM +0300, Ariana Lazar wrote:
-> +#include <linux/i2c.h>
-> [...]
-> +#include <linux/mod_devicetable.h>
-
-Please don't add new usages of <linux/mod_devicetable.h> as I'm working
-on getting rid of that header. Either rely on <linux/i2c.h> to provide
-i2c_device_id and of_device_id, or use the headers
-<linux/device-id/of.h> and <linux/device-id/i2c.h> explicitly if you
-want full iwyu.
-
-Best regards
-Uwe
-
---nda6bilsfrnoksc7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqha6wACgkQj4D7WH0S
-/k4pBwf9HMHE6+LiElw59mvh7B50esffyJs+75+O47two8cqCFL5pIZ75C1Bhf2L
-5Avi0u8+4M9eEOSxBdZhYORLo1a0yP9gfK2nRcrcj47KYngZg7Ss7jGKIn1MNt82
-s6UFapgx5vTvRirJ1S2bFYFvIVrXlXnl1Zz8xMSrOeYTy6XwB2re8g9L02PWILWV
-67hTqAqiN8951ovK1Do14dG3FzisY5x4qVyJyo+HdI1UiVaBs3eLAlcHILGS71tE
-OrXNyW1CLi2aNUC7ozo83ZvMY29ifc1WKfiUA4rl+/HgmHV34/xw6jORCsP+17f2
-1lKL9L9TnI3HGjMzkyRepYIWqMlV1g==
-=K5yF
------END PGP SIGNATURE-----
-
---nda6bilsfrnoksc7--
+Le 09/09/2026 à 15:32, Yuyang Huang a écrit :
+> "ip maddr show" prints three kinds of entries: link-layer, IPv4 and
+> IPv6. The IPv4 and IPv6 ones can be read over netlink today: IPv6 has
+> had RTM_GETMULTICAST for a long time and IPv4 got it in eb4e17a1d915
+> ("netlink: support dumping IPv4 multicast addresses"), with IFA_MC_USERS
+> added later so the user count no longer has to come from procfs.
+> 
+> The link-layer list is the missing piece. dev->mc, the addresses
+> programmed into the device filter, is only exported via
+> /proc/net/dev_mcast, so iproute2 still carries a procfs parser just for
+> that. This series closes the gap so that "ip maddr show" can be served
+> from rtnetlink alone.
+> 
+> Patch 1 fixes the type of target-netnsid in the rt-addr spec. Patch 2
+> handles RTM_GETMULTICAST dumps with ifa_family set to AF_PACKET and
+> walks dev->mc under netif_addr_lock_bh(), no RTNL. The reply reuses
+> the ifaddrmsg format of the IPv4 and IPv6 dumps: IFA_MULTICAST carries
+> the raw link-layer address, IFA_MC_USERS the reference count, and a new
+> IFA_F_GLOBAL flag in IFA_FLAGS marks entries added explicitly, which is
+> the "static" column /proc/net/dev_mcast has and "ip maddr" prints. A
+> non-zero ifa_index limits the dump to one device and IFA_TARGET_NETNSID
+> selects another netns, like the IPv4 and IPv6 dumps.
+> 
+> Patch 3 updates the rt-addr spec and patch 4 adds a selftest that
+> checks the filter, the user count, the global flag and target-netnsid.
+> 
+> Nothing changes for other families. AF_PACKET dumps returned
+> -EOPNOTSUPP before, so iproute2 can keep the procfs fallback for older
+> kernels. I have the iproute2 side ready and will post it once this is
+> in; with it, "ip maddr show" does not open /proc/net at all.
+> 
+> Changes in v3:
+Please, wait 24 hours before sending a new version:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/maintainer-netdev.rst#n15
