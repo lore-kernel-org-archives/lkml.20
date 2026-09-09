@@ -1,162 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69088455623;
-	Wed,  9 Sep 2026 20:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E512946EF92;
+	Wed,  9 Sep 2026 20:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986111; cv=none; b=Og+9bwdrWwxgWi0ZFyKHz614DGCF0JJOQhuhMDotIBNrV+hwHxX0uws5KZeBW+bZxKzbaZ8ECUD071/oJxYvgONSPmIBcEIoktwxFW2JIzpgfRIMc7wr2NCFXfUB89cEDXCluvMk2zQ3J6c2EEaXmuTTINzTAIgSrRlxe7FevuM=
+	t=1788986145; cv=none; b=M/Fs6QBvJregnr6x6f90/ix5sYiWfiyIdX+l1NIHufFlc72vrtdctvko8ntVJruUhweDshEW8gs+JVPSbD9dSHm1x/uxzD1czmCHoAD971O5LKtcKbPJUZvhH4OQETE1HTthCwn/5zQAyHedRId4L+7XiDuzukzxMF3FkSb7kt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986111; c=relaxed/simple;
-	bh=qTOVOMVmT8J4M+LsKWK+E3umusQPuxxuEH4iYapnq6w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Js4loAhAFLE8gUqzyXU3VviJVCMXt5P6ubmP/WtF401aGQbiraJcwJTHvYyMehZs8fcefJbBoJQTl2rens4oz5GsrD3i2eUWNIgNlBx9yrD/7Kd1T23lwem3q6z025UuereQ0DOKqUCVKS+pqxVflu3F5spyeB20JT2hNIKSZIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFEp55DQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788986145; c=relaxed/simple;
+	bh=TXqlY98w1aE20jfY3Fgxbx8NTjcocPxYQogZfFtKtpY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dT8Me+/CSXQxfo98BiFLa+tZ6D8tQpmenVBe1y5jkp1zGd59PgabTzTnwDGvuWYvbRRjJOnQaA+mm0O9VcmmTAcNp7GdK5n0DGTlzY4joIFb/EMzE5AKprmjSkNq7SVPqZMrBZQXFpSm9ANejOJx47XuyjX7pXGycRHVj5crmpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Hbm6ZmUq; arc=none smtp.client-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFEp55DQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2DF1F000FF;
-	Wed,  9 Sep 2026 20:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788986105;
-	bh=DLabXkP/qpY4Ri5lK3XmzpMWavMVny5ZhPmfr9w7W/g=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=FFEp55DQeMaSS/ZOIuyjRdo00wGAh0rFLGQOBP8Unm1zKLl3qi4nvKPMEdNTJF9o4
-	 V15jdm2tjjnFxifB5ejynMao/Cqtai4tWMwSM7CNcRmWZY0cIRkr3XiyZ0WH6eVryZ
-	 VFzPERcOmWQxKXscRQ6Xw645X80Nnfbpda58Raq6ees5WdfsegJJC4yRTRWInZqQyV
-	 9xcb3P0LjwbfmmSz0wIxlfyINoPRp0PQxRWZzARzhETr5Ea4EO5ijb78G/joDDUrap
-	 Col/LldxHxb4400wsgGXulPSfgmHwOIPW6epaSFS3LWgHbjIUiq60JmscF8grpSDWm
-	 ZwYZthxDa5tvA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 56A70CE086B; Wed,  9 Sep 2026 13:35:05 -0700 (PDT)
-Date: Wed, 9 Sep 2026 13:35:05 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: David Laight <david.laight.linux@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Dan Carpenter <error27@gmail.com>,
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] rcu: Fix casting while dereferencing rcu pointers
-Message-ID: <edaaf05a-46a2-4a70-8fb2-32519f1e3931@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260825-unqual-v1-0-7024fb81b4f9@chromium.org>
- <20260825-unqual-v1-1-7024fb81b4f9@chromium.org>
- <20260826105527.7ebbb4b1@pumpkin>
- <CANiDSCtKVT9fnkx=-d2-aOd=uqODERFw-fAm6bg2eX=RXGMaXw@mail.gmail.com>
- <20260826142204.7269edf7@pumpkin>
- <CANiDSCuAWhEZerLE2Ki-agDgZ-WEZLr216siKRq+Zj2PnaRWMw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Hbm6ZmUq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788986137; x=1789245337;
+	bh=6XQzlI+x/Mrh3cmxN3t1L9AEhHISL1NCWiJeiJcmU3g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Hbm6ZmUqjZJvdEw9NSwwQTdqoGOrlJQc/V94S8n6SOS7dPjGxm3+lDnnXzewWbS0C
+	 agUutc7m8wStVEc5H55Q+cEZmGHlF6r/6SEZkXfT0yL3ITRXmO7IZFETZ+ClfJRChK
+	 CNnVhv0JfvIAbxUbtCtNzXVvDM+s/VsmUO4ur9KmEJT/U6CMtZtagb2oAAVcp40p6/
+	 LHV8nwqQpMILWfofVng2HUaqM9Lo7DkhvhDOOKP5jdxnA1wNMDITz6ZeRnUu7W/Hn+
+	 EaXcWcNTTOqmoxLl+8/DandtLfmmdc/zeS79OFzSDcEQkXFpm6cvoOG+3d/bpVXQRX
+	 nwqlaPKu5hU0g==
+Date: Wed, 09 Sep 2026 20:35:33 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] media: i2c: Add Sony IMX681 sensor driver
+Message-ID: <20260909203527.90372-1-lsa.uz@pm.me>
+In-Reply-To: <20260909193953.86192-3-lsa.uz@pm.me>
+References: <20260909193953.86192-1-lsa.uz@pm.me> <20260909193953.86192-3-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 217f5eabfc9141bff3d4b3066f20c9e2cd5471e9
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiDSCuAWhEZerLE2Ki-agDgZ-WEZLr216siKRq+Zj2PnaRWMw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 04:03:14PM +0200, Ricardo Ribalda wrote:
-> Hi David, Dan and Paul
-> 
-> On Wed, 26 Aug 2026 at 15:22, David Laight <david.laight.linux@gmail.com> wrote:
-> >
-> > On Wed, 26 Aug 2026 13:28:42 +0200
-> > Ricardo Ribalda <ribalda@chromium.org> wrote:
-> >
-> > > Hi David
-> > >
-> > > On Wed, 26 Aug 2026 at 11:55, David Laight <david.laight.linux@gmail.com> wrote:
-> > > >
-> > > > On Tue, 25 Aug 2026 20:02:10 +0000
-> > > > Ricardo Ribalda <ribalda@chromium.org> wrote:
-> > > > >
-> > > > > diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
-> > > > > index 44c07a66edff..80276cedda80 100644
-> > > > > --- a/include/linux/rcupdate.h
-> > > > > +++ b/include/linux/rcupdate.h
-> > > > > @@ -488,7 +488,7 @@ static __always_inline bool lockdep_assert_rcu_helper(bool c, const struct __ctx
-> > > > >  context_unsafe(                                                              \
-> > > > >       typeof(*p) *local = (typeof(*p) *__force)(p);                   \
-> > > > >       rcu_check_sparse(p, __rcu);                                     \
-> > > > > -     ((typeof(*p) __force __kernel *)(local))                        \
-> > > > > +     ((TYPEOF_UNQUAL(*p) __force __kernel *)(local))                 \
-> > > >
-> > > > Ugg... TYPEOF_UNQUAL() is absolutely horrid...
-> > > > When __CHECKER__ is undefined the whole thing is just (p).
-> > >
-> > > About using __CHECKER__: Are you suggesting using #ifdef __CHECKER__
-> > > to use TYPEOF_UNQUAL or the current code?
-> > >
-> > > I am open to doing that, but I would like to hear from Paul if he
-> > > favors adding the (also horrid) #ifdef to save some CPU cycles on
-> > > older compilers.
-> > >
-> > > >
-> > > > I suspect reducing all the definitions would measurably improve
-> > > > kernel compile time (even before these changes).
-> > >
-> > > When I checked earlier in the other patch in this patchset, with my
-> > > compiler I can hardly see any difference in compilation times [1].
-> > > This is probably because GCC15 direclty maps TYPEOF_UNQUAL to the
-> > > built-in __typeof_unqual__.
-> >
-> > I was thinking of the _Generic() version.
-> >
-> > But here you only want to remove the (I think) __user marker.
-> > I don't think you want to get rid of 'const'.
-> > So you don't really want gcc to remove any qualifiers.
-> 
-> Yeah, I see your point, removing `const` might hide other issues.
-> 
-> Dan, what would be the best "sparse-approved" way of removing the
-> address space qualifiers (__user __rcu)  but keeping the other ones
-> (const) ?
-> 
-> Paul, would you accept an #ifdef __CHECKER__  block to keep Sparse
-> happy without affecting GCC type checking?
+Correct, and it is a regression I introduced between v1 and v2. The v2 cove=
+r
+letter also offered to spread the same mistake across six more drivers, so
+that offer needs withdrawing before anything else.
 
-Potentially...
+Withdrawing the cleanup offer
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
 
-For example, if this be done so that there is just one such #ifdef
-__CHECKER__  block that defines empty/non-empty macros that are used by
-the various conversion macros.
+The cover said the "!" form is in gc05a2, gc08a3, imx283, lm3560, og0ve1b a=
+nd
+ov6211 and offered a cleanup converting them. Please do not take that up, a=
+nd
+if anyone has begun, stop: converting them to "<=3D 0" would break each of =
+them
+exactly as it broke this driver.
 
-In contrast, providing a full separate definition of each macro that
-uses __rcu?  That would be quite unfriendly to future readers of the code,
-so please, no.
+The reasoning behind the offer was wrong in a specific way worth naming. I
+compared against i915, xe, ipa, ivpu and arm-smmu, which do test "> 0" or
+"<=3D 0" - but they sit where CONFIG_PM is effectively mandatory, so the th=
+ird
+return never reaches them. drivers/media/i2c builds without PM, and that is
+the whole of the difference.
 
-							Thanx, Paul
+The finding
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-> Thanks!
-> 
-> >
-> > There is an similar(ish) issue when an __force cast is used to
-> > remove one of the extra qualifiers.
-> > You really want the compiler to ignore the cast - so it checks
-> > the actual types match.
-> >
-> > David
-> >
-> > >
-> > >
-> > > Thanks!
-> > >
-> > >
-> > > [1] https://lore.kernel.org/all/CANiDSCsMrULsrGQg76x28GRXLg+HSKFWhhA14Zcn8hdm4KyOVw@mail.gmail.com/
-> > >
-> > > >
-> > > > David
-> >
-> 
-> 
-> -- 
-> Ricardo Ribalda
+Without CONFIG_PM the helper is, unconditionally:
+
+  static inline int pm_runtime_get_if_active(struct device *dev)
+  {
+          return -EINVAL;
+  }
+
+v1's "if (!...)" fell through on that and applied the control, which is the
+right thing to do: with no runtime PM the sensor is powered from probe and
+never suspended. v2's "<=3D 0" returns 0 instead and drops it - exposure, g=
+ain,
+blanking, test pattern, all of them, with nothing reported to the caller.
+
+v3 will use the shape ov64a40 already has:
+
+          pm_status =3D pm_runtime_get_if_active(imx681->dev);
+          if (!pm_status)
+                  return 0;
+          ...
+          if (pm_status > 0)
+                  pm_runtime_put(imx681->dev);
+
+0 skips, 1 applies and puts, -EINVAL applies and does not put. That answers=
+ the
+first review's finding - the put of a reference never taken - without losin=
+g
+the case v1 had right by accident.
+
+ov64a40 is the only fully correct caller of this helper in drivers/media/i2=
+c.
+I looked at it when the first review landed, wrote it down as a variant of =
+the
+same thing, and did not read its second half. Had I done so, v2 would have
+carried this.
+
+If a cleanup for the other six is still wanted, that is the shape it should
+take, and I will send one only if a maintainer asks.
+
+v3 follows this message. Respinning within hours is not something I would
+normally do, but nobody has reviewed v2 yet and the alternative is asking
+people to read code I already know is wrong. The change is ten lines, six o=
+f
+them comment, and 1/3 and 3/3 are byte-identical to v2.
+
+The other finding, on 3/3, which is not ours
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+The same run flagged a High issue in ipu-bridge and marked it pre-existing.=
+ It
+is - our 3/3 is two lines of table entry - but I checked it rather than wav=
+ing
+it past, and it looks real. Sakari, Dan: this is yours rather than mine.
+
+The reference. sensor->adev =3D ACPI_PTR(acpi_dev_get(adev)) takes a second
+reference to the ACPI device. On "goto err_free_swnodes" only the iterator'=
+s is
+dropped, by acpi_dev_put(adev), and bridge->n_sensors has not been incremen=
+ted
+yet, so ipu_bridge_unregister_sensors() does not walk this sensor either.
+Narrow in practice: ipu_bridge_instantiate_ivsc() returns 0 immediately whe=
+n
+there is no csi_dev, so reaching it needs a machine with an IVSC.
+
+The fwnode pointers look wider to me. primary->secondary is assigned in
+ipu_bridge_connect_sensor(), and set_secondary_fwnode(sensor->csi_dev, fwno=
+de)
+in ipu_bridge_instantiate_ivsc(). Neither is cleared anywhere in the file,
+while ipu_bridge_unregister_sensors() calls
+software_node_unregister_node_group() on the nodes they point at. The file
+walks that chain itself, in ipu_bridge_check_fwnode_graph(fwnode->secondary=
+).
+That is the ordinary unbind path rather than an error path.
+
+No patch from me for either: I have no IVSC machine and no way to force the
+failure, and an untested lifetime change in someone else's driver is worth
+less than a clear report.
+
+Sergey
+
