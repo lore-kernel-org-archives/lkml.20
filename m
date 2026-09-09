@@ -1,112 +1,110 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5083F211A;
-	Wed,  9 Sep 2026 22:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D1D489FCB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788991607; cv=none; b=Kduwy1AVMjorLgn7lOAy3PwW8b/gtbcUL+8WgAMCiml42Eq9zBoL+YIbRgQ/ONOIkN70iBMwR/vsr7jzIbWDz2HBTSzBZXVXLPqZMu5kQBA1slmovmTDwnLo2tIsZysSA7UuKXf5GC6LxesCH1XsKtlwR8u4++erEcQ4LdvvexA=
+	t=1788991696; cv=none; b=OPmrAK0uvSYzCDJ18GaMRAvxy1T4BRrp+AJSUx5YVGRfFDAi9M+GdutRBX8fkrjbzSrdnO4JLXt8DlWR76cj5NWUgTKxf69VUVEn5hh8xkIX/eX1PwQSZQolGtTjiceZCVw6D2rhXbOjLGbMMoJYyYw9XfzEphlbHpzkhqlIhCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788991607; c=relaxed/simple;
-	bh=DAZCZP+jNl1UHutqsO//KygP/NvM8hqekLdm0s6WQ08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eT5jnCmfl9gol6M4GLdiYDcAsBAKm8ZbV90QSKuUtQne5PeadqPqx27izFUhHXyJfkpC70cWSKaNL994MYeyHROWtIjZ7bp0VQMbUqMqKpG6AdF6S4OQm9mZqCaIjt2BL7zezT4Quj8jNDCqeOeuUcrKS3vdbMR67bngCVynO1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=hjup01vs; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788991696; c=relaxed/simple;
+	bh=oX1NfBQzeNTxwy+1fSOgKyKEYwKoCAwxIi6O628mhnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GopIfk/LOiTNrOmUX30nIQ4lGe/ilTxDdc8XGE7SsiDyZwYnQ11ZthB8Mb8syhR5/SSVJCU2Ja0ksqP9I3XbkZPcht5YeKE2rq+iC3CEaOsorfhRZU3a6y3dUIeavQ8uVY5OFfgj1yCTsbmjb3UDKOrtJtNJosPzoqhazrX309A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pqjSYjVH; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="hjup01vs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jI1LmTAJIYoxCaZRZFRM28i1gGnOU+BKR9FTzNMJEvw=; b=hjup01vs5n5n8y4+e+dBJLJrX/
-	WpdYg8Yvxw3v3Et+Jxt2HQKHSm28mt5Y6ubI6gYH4lcI22PrwwsGpJRrEMpwJnrIESImGvrsppNeQ
-	SXscE457NtbFmZ+nll4VQR8IQ6KNIVXa0NPpggfSmJfo4jVK7a+X656ljmwTN+qaUSX+MsCTsA/oq
-	TotR2F6fjteAG29PRmpz1X/no13GeSZp1ULxFJhOnvW6lt0Z9KjdgxIE7uGqKbRR1K6bAEbNh6CuN
-	ZmsJhEkLdl/BZr+iB7V2ecFGhnpQ2xme7/I6iE6Pfva0TEo7tYKebH7KJxhB2y+BJCO1ZZFTnG/XE
-	+/FO4KPg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4QR3-00000001jrB-3Q59;
-	Wed, 09 Sep 2026 22:06:30 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 92BF2300A9A; Thu, 10 Sep 2026 00:06:28 +0200 (CEST)
-Date: Thu, 10 Sep 2026 00:06:28 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Quentin Monnet <qmo@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Costa Shulyupin <costa.shul@redhat.com>,
-	Michael Jeanson <mjeanson@efficios.com>,
-	Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] objtool: Add explicitly sequenced -lzstd to
- libopcodes fallback
-Message-ID: <20260909220628.GQ776954@noisy.programming.kicks-ass.net>
-References: <20260909204122.1993010-1-irogers@google.com>
- <20260909204122.1993010-5-irogers@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pqjSYjVH"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cace91f112so55495495ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:08:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788991695; x=1789596495; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C7UZ+CZSXqHjsWNSA8dThjGs+0DrX3xzvJgXi6EfD+U=;
+        b=pqjSYjVH0sTrb4HvNb/roRSvxFt/e18xDiqAaQ6oPmmweGvLbCaJ+Tk/kZZjo6NvBx
+         Yod8HKWd3cku/P7GjA8pylHmgDf68Dp5hc72FEvI40DoJfXUmBNWpijJqjSkleUK9V+N
+         TPr9yue7dsyZ/ATW4vj6DUN90Aiic4MWj4jOtWwrYm8foQGv1q+tehNThgOm4XwWIX8B
+         WGKeqPNIpJf07cymAlA0yQzPkSGnTbdtdSvaUZnNVvAb39v3fyy7cmrO/3HX13OxA/jz
+         04EtO1R/Wvjmn4T4XaTF6MTA6vuRNOb/drY+nWipsBiGo9Pb7ID7hqbqZnK7qVwSzyUL
+         RFvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788991695; x=1789596495;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C7UZ+CZSXqHjsWNSA8dThjGs+0DrX3xzvJgXi6EfD+U=;
+        b=ENxeNN9/Fa9088aRFXvYGSqE+MZAGHmXV56NyZYfgRYwMDX1B+wqKRxQQ+GCmZhBYq
+         PrH8DaIBO2tWYPnH47QHNOX6zgxziAS3PT0uenVOtUqT/K0yMeFu+8qsGAX7/qoy+FDY
+         0EkttQXSOFmLIhNZNdw2+6RzQZK5F/8JjfSqKA5B7EHTm/sz9XUmPZScsv057V7qPQGa
+         7PxfCP8z85IGNndUHW5d1t1i/AMOs2mN3FyjTUnygQ9zfp+j3m9cvRZXcMZ/uS3q7wPt
+         whypd0GRFiQnemoPlt6dIQFi4jhA8sXyhXjbwS0ukT5CTRfCXsy4PKL0sszYePoBfPbg
+         rhXg==
+X-Forwarded-Encrypted: i=1; AKwUvByeJyMShViLAqU9sO7qzFBdnGlKZeeU66k8/LKHRWcopAMxuwpld6otQsoRc0VKEu5MHpl3npe+fAuzjqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5wScaz3TvcYBtx1njoo5jLMXDh1DzgmPsaJ+JCZxILovn2IZ+
+	95+LbTdYxd8dBaW9v7dLqcYW17+702N5XFvM6CdFcpLXVD8MbAW5mejwnRxE9Q==
+X-Gm-Gg: AYBFou3XX4Mrn7KunYJOJdU07/RlXzaFSxfnCscxZ1pYRiSb22ecHOQtxV+Bz/QG/Tn
+	WKNPMQdLNuGyJNHN8tmSLBr5hdYzmb4SoW2OvS0qNtfAbX3ptx48OrhB68Juhcn2PVhzbQytc9l
+	JvLwty6NVDv4ieQblozzHr8oe1V7RisRci2jid7ofnz+cDLGsAMCdhm2PrwWMW1DiNnSLjkIs4L
+	rcIVWZE4g0U7rczjnusjPgKN7SyhT4ws9U8nfC2GWJUVUoZMUiFq8vFFsAeAM9VpX0YRso7EoSR
+	70HCVh3jj226985K7Mogplm4Tez6+mzJxiQT3sQ8U+zcLmWB4mpKaag1Os1ax9hjaWcf1Ow9tJ5
+	XM9tKH7zlk91Mpj+jbKGuZYaDWPeyGlBpPNitFb0ne9bKxPVqVV0Mur5KnEf6sPXMI5HQcMiKf7
+	btIfSLK4AzvqF5udVKbY0zBdvqU4OUHRwMb4+XwidIKLr3kmgenoHKlDNGU5IBe3lVgokiD6q+G
+	hw/pQoMdtg0F77+72FJvg4aoWQgTf/RQm7F1F9yUaBYlrOdGTmJ+7tEbHN4C7LsvLVnuxQj3HCT
+	5CkJGGVr+aG95ZDHlmbc3JeGw4eigrLYB2dJK16nEsF3qbUW
+X-Received: by 2002:a17:902:da8d:b0:2d5:3f5f:e645 with SMTP id d9443c01a7336-2db125ca419mr522760655ad.12.1788991694359;
+        Wed, 09 Sep 2026 15:08:14 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db2c60f687sm65423565ad.58.2026.09.09.15.08.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 15:08:13 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-phy@lists.infradead.org
+Cc: Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	asahi@lists.linux.dev (open list:ARM/APPLE MACHINE SUPPORT),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/APPLE MACHINE SUPPORT),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] phy: apple: atc: remove stale kernel-doc for removed struct members
+Date: Wed,  9 Sep 2026 15:08:10 -0700
+Message-ID: <20260909220810.52310-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909204122.1993010-5-irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 01:41:22PM -0700, Ian Rogers wrote:
-> Distributions like Fedora currently ship a statically compiled binutils
-> libbfd (an intrinsic dependency of libopcodes) that internally utilizes
-> zstd to decompress sections.
-> 
-> Because objtool resolves host dependencies sequentially via a manual HOSTCC
-> shell loop, build failures will occur (e.g. undefined reference to
-> 'ZSTD_decompress') unless the loop probes for it.
-> 
-> Add the '-lopcodes -lbfd -liberty -lz -lzstd' combination to the fallback
-> chain, assuring successful compilation on hosts packaging static binutils.
-> 
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Antigravity:gemini-3.1-pro
+The @sw and @mux members were never present in struct apple_atcphy,
+causing kernel-doc warnings.
 
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+---
+ v2: remove removed in description
+ drivers/phy/apple/atc.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-> ---
->  tools/objtool/Makefile | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/objtool/Makefile b/tools/objtool/Makefile
-> index a4484fd22a96..141b957c566b 100644
-> --- a/tools/objtool/Makefile
-> +++ b/tools/objtool/Makefile
-> @@ -88,7 +88,8 @@ LIBOPCODES_LIBS := $(shell \
->  	for libs in "-lopcodes" \
->  		    "-lopcodes -lbfd" \
->  		    "-lopcodes -lbfd -liberty" \
-> -		    "-lopcodes -lbfd -liberty -lz"; do \
-> +		    "-lopcodes -lbfd -liberty -lz" \
-> +		    "-lopcodes -lbfd -liberty -lz -lzstd"; do \
->  		echo 'extern void disassemble_init_for_target(void *);' \
->  		     'int main(void) { disassemble_init_for_target(0); return 0; }' | \
->  			$(HOSTCC) -xc - -o /dev/null $$libs 2>/dev/null && \
-> -- 
-> 2.55.0.1003.g10538fe699-goog
-> 
+diff --git a/drivers/phy/apple/atc.c b/drivers/phy/apple/atc.c
+index 4156fabad742..f09305dd76d1 100644
+--- a/drivers/phy/apple/atc.c
++++ b/drivers/phy/apple/atc.c
+@@ -585,8 +585,6 @@ struct atcphy_mode_configuration {
+  * @phys.dp: DisplayPort PHY instance
+  * @phy_provider: PHY provider instance
+  * @rcdev: Reset controller device
+- * @sw: Type-C switch instance
+- * @mux: Type-C mux instance
+  * @lock: Mutex for synchronizing register access across PHY, Type-C switch/mux and reset controller
+  */
+ struct apple_atcphy {
+-- 
+2.55.0
+
