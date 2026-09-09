@@ -1,173 +1,162 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86BB37C11F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA8E472545
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788995406; cv=none; b=LbScfbWXArxvFRW8qo1zgE3H05DNMmGWLzSPG9mq5Xf8wZ9Geu4cTSyWdBXvVgga44rNgyFC2d/vqLUCw7iqU6VhwVCFfe0jsu/1jPpgoU7Ndjx9hi4R1/dgMaz0haUc2gmXlyaWn4021AAJXPLNiI9yNEEe2mNfVACjdli+iGg=
+	t=1788995593; cv=none; b=ooM3AGzmi1Lkd/dQ5oSZlIiq1q90I1JeaAvIji9e1AoCAYWktIpTX6NRjAE9AVN8+Cl8s3qHEGrE78fGHwy1MImzCoqvnlMP3bjHsB2q0MpkpyRY7+KxK20tvPv3x4Gj+UWE4OGtoT/EIgJQGE2rGW7BiNLJxAIgtMWhbqHSWQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788995406; c=relaxed/simple;
-	bh=Dnqdq0KdBdyxtlGkgMFhZDK9zFUHuwkPUPX8VZQ7/AQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NgBnbVkMhLOBJHHiOTZ5nUsOxTYjhhjBk2v7s5MtGW3IpRNfyBCMa8K0M/nYPCRp/jNqjJBE1zb9bcjYCYJdFHFRyBIvjSrW8lvvto6vRBtTNYODhAP1QSUqiVSyDPj+sSZZTs2ikmIXjYpwmtg71oF8KO5a/MhEBXbqjS8xW7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Ai7+jP49; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788995593; c=relaxed/simple;
+	bh=9wmKe0tT4k7TRT4eL9VdlFFODN8mM2wkhONcBKuX6GI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=ubSVVnhW0fGj8JqtE/S3gEXLiI+WNXuCsSQk1EBsrQcW/jIjrrvK1Qy5H94BrwicrQrvJbrbR7AhGt2ifhTUYlAR/1lSm90HK8SCPOd3FbFD7ng5VlUJAQty18AvH3h0zMjioIRDuFmIE/wjwZPeQKAwXiO9FGQ/MWRdrEM1lFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=BfXbzxtQ; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Ai7+jP49"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-90e7c71f86eso46295116d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 16:10:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788995404; x=1789600204; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OyXsyrmwPWpvNEMluPgrbmkQBcP1ZphCbVgRL1lfY6U=;
-        b=Ai7+jP49pnrXVZ9ubbln4mlm7gZZmSh85/NbrauvAzTWvU8w/ggGPkFilBB0jBOHb6
-         PLANKX399COwmqYqdMsf/UW2x5l/kAQveEEQ6WOaEev9zTYDF7XIKginIjXGcxt9pGvX
-         BdRZUpX3/WtOST8iGUosCVvMjzqbwulI3cqmH5G6nVMm4EVBQ/yrbAEHADZ9i2dvQ5Fu
-         MHGKJp06r/+2eJzXT9RL6xBInuRouzXWOdPV8MSXZPrO41hs2Awv7ytQRV4mrh8d+xsl
-         uHGlTuhx7wJW9sFwVam2ridtbXUBoOUpm6raVKONVXFQURoz26hYq4bem/76S0RWGi13
-         E5SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788995404; x=1789600204;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OyXsyrmwPWpvNEMluPgrbmkQBcP1ZphCbVgRL1lfY6U=;
-        b=LdS4ZHH4lk4tx5qM15Vt4rW20sLGdgby/WNak6Snk0zzY+NyWxDV9A0p7r/7yiHwfd
-         1XF2bmwzTbdb6MZTusFDEzJ7VK7LIG9zjWnWncIrf9c71zSSUMLvKjE6hFu35I/1B+IM
-         w6GbIAovQhMqtV4cMAO/Bn/8GoywhdXLG7wz3sDoRFmjxdecFAXUX1tkthbGjYyL7Wt0
-         T5DUozzHqG1Oop47k/FYf5RB4M4W5usp0yrpIbBuVcLl4ELjoJPV8p8oakE/W7E4cnED
-         83LnswIERLd3PNTP9ieb7DE5GuqRzBFzEbJKv7Z1VK3RYYDBJMKHh4d95HBZzU9ocm21
-         JfUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMyH1qWlMjSAUMWoCD+PQbJzPtxY0hNG7BrFJ3N4m/kbqsqou2c9OmozYH1pbwoFx8+qwHJd5HDmf8TsA=@vger.kernel.org
-X-Gm-Message-State: AFuF++noH95RCyXB0I/S/ZifaKmbQ1ttKclhp6CIsW0vH8SQFRn1gADO
-	dvCn9Dmxbbf501o5a7pNbrcst4o88SJucH9QjMf536Usj7WKgeXmJ4esyX9SlrKDLwI=
-X-Gm-Gg: AYBFou1xxbPZekEWdfr19EJ92q4uVgQ7AQNzjDrWNaIZXQuggjIUsZVnR166Dtd8CQ9
-	smY1Qjk5BdFqTnrsuXvgVqCezV1eBjVLtNaEKYh3wJxDtXDeGjgL5PiMrUiIJHeHFHygps9zBCl
-	C9LAfP23lsslA7C7Eqq8RNyfvP7z+7SJsw0ecMgADi8RZN8wNxtXLLoS+i99ciTlbzvmiA5+y15
-	IH/5n5aRSPGAdU1LX+0qzBEWNM/Ta3lV8o7bRI3rj750uxQelvctyKRgTn2HVhW5NvicI/dV/7U
-	R+nAUWoZPw7AxOvLaL2ttyd/VHu59wqm30rApr8dhoDNOKojlED4HfJVVlLrjji1ZvHvdurQNoc
-	UHqDsZXFO1OfIaIlnLEQnrB4Pel2J/Mb2nXuf8bOzXlJyEfMrqmLDzf1M/uA2wf4h6Q7aUnm9qG
-	upIMUE+8RARSulbvmKzQDPLVCHEezsq0NZMXbFjE6YSJWBNk2o2rPZRCKt1GA7+NNr23Cazrj/X
-	fEL3USad1qlj3/vHVCmbreNUpPqtgPcDxEL2naJJlerRmuD+8xHq/k=
-X-Received: by 2002:a0c:f206:0:b0:910:6432:b201 with SMTP id 6a1803df08f44-9106432b31amr201020706d6.21.1788995403591;
-        Wed, 09 Sep 2026 16:10:03 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406af144sm155519616d6.40.2026.09.09.16.10.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 16:10:02 -0700 (PDT)
-Date: Wed, 9 Sep 2026 19:10:00 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: linux-mm@kvack.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	pbonzini@redhat.com, seanjc@google.com, akpm@linux-foundation.org, david@kernel.org, 
-	ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, shuah@kernel.org
-Subject: Re: [PATCH 0/5] KVM: guest_memfd: bind backing memory to a NUMA node
-Message-ID: <aqHkVKvons1tBs1O@gourry-fedora-PF4VCD3F>
-References: <20260902194657.79075-1-gourry@gourry.net>
- <CAEvNRgHWyBaBpZ4Bem1Eu86b-cuEA7NkyjxTJ4D3FnpGe1B2Yg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="BfXbzxtQ"
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 689NCRHa620834
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Wed, 9 Sep 2026 16:12:28 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 689NCRHa620834
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026082801; t=1788995549;
+	bh=R/8nMPS3dvCdQrQ8+hytYRqJVY0aLJ29jddBRs4THwo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=BfXbzxtQljma3DPp+z1n7nZZBVIiCTYHFVbmngpcJlUb9S/8wubQ3mPZaZgtqGyUe
+	 w2sG6l/nWEpiKuI2fQ8IeODF2F6YGEfrGyurEObB9+BWseQYUpCyx0dDOb/7ip59ZE
+	 PUXdAZixQkKfdXJuF0iixatU7BhJ05RHO3S0phCXNd4RBHiGgOHLZXGpcdX/uWLbvV
+	 96lwK16wsBjytCqOLQZ5cL0aYbU4tcH1bAhLHPN04Tpgwez2bgkBtj8+OHpZQg5riS
+	 BembEYyOZqW7I6whRYJEDBqd0SPEvgVJrnRr9QV9WVUsEKxPiFQ5OMUvtGvjmS8i+9
+	 lT+oljNGv5q1A==
+Date: Wed, 09 Sep 2026 16:12:20 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: David Laight <david.laight.linux@gmail.com>
+CC: Borislav Petkov <bp@alien8.de>,
+        Mauricio Faria de Oliveira <mfo@igalia.com>,
+        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+        kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+        xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260909223951.1fe5fe25@pumpkin>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com> <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com> <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local> <E4FDF95C-3FAB-41DB-8EA0-8A26B964B38D@zytor.com> <d1b9ff734b918889eaf8885d64141bc3@igalia.com> <20260908193229.GFaqBizWcssBoewNSo@fat_crate.local> <e74c5a6b-ed9c-40c6-b9d7-ff04ee8c099e@zytor.com> <20260909093831.095b89cb@pumpkin> <8b00b7d2-2bd3-4871-9908-9fe1568d2690@zytor.com> <20260909202838.28071bff@pumpkin> <95D5AACE-1D91-402A-9B6B-8D03C3D90705@zytor.com> <20260909223951.1fe5fe25@pumpkin>
+Message-ID: <7046AFCC-2E5C-438B-BF53-907F09640572@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAEvNRgHWyBaBpZ4Bem1Eu86b-cuEA7NkyjxTJ4D3FnpGe1B2Yg@mail.gmail.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 03:41:35PM -0700, Ackerley Tng wrote:
-> Gregory Price <gourry@gourry.net> writes:
-> 
-> > guest_memfd allocates its folios through a per-inode shared mempolicy.
-> >
-> > Today that policy can only be set after the fact, with mbind() on a host
-> > mmap of the fd. That requires the fd to be mappable, and it cannot reach
-> > folios that are only ever guest-faulted. Neither holds for a
-> > non-mappable (confidential) guest_memfd.
-> >
-> > Add GUEST_MEMFD_FLAG_BIND_NODE and a node field to struct
-> > kvm_create_guest_memfd. When set, KVM builds an MPOL_BIND policy for the
-> > requested node and installs it over the whole inode, so every folio is
-> > allocated there with no userspace mbind().
-> >
-> 
-> Instead of a custom API to ensure all guest_memfd allocations come from
-> a single node, how about these options?
-> 
-> 1. Using cgroups/cpuset to constrain allocations (could be troublesome
->    if the guest memory is not preallocated, unless the vCPU threads are
->    running with the cpuset config)
+On September 9, 2026 2:39:51 PM PDT, David Laight <david=2Elaight=2Elinux@g=
+mail=2Ecom> wrote:
+>On Wed, 09 Sep 2026 12:33:40 -0700
+>"H=2E Peter Anvin" <hpa@zytor=2Ecom> wrote:
 >
-> 2. Process-level NUMA policy
+>> On September 9, 2026 12:28:38 PM PDT, David Laight <david=2Elaight=2Eli=
+nux@gmail=2Ecom> wrote:
+>> >On Wed, 9 Sep 2026 06:43:01 -0700
+>> >"H=2E Peter Anvin" <hpa@zytor=2Ecom> wrote:
+>> > =20
+>> >> On 2026-09-09 01:38, David Laight wrote: =20
+>> >> >>
+>> >> >> Here is an out-of-line compact memcmp() which works for both 16/3=
+2 and 64 bits:
+>> >> >>   =20
+>> >> <broken code removed>
+>> >>  =20
+>> >> >>
+>> >> >> On 64 bits it compiles to:
+>> >> >>
+>> >> >> 0000000000000000 <memcmp>:
+>> >> >>    0:   48 89 d1                mov    %rdx,%rcx
+>> >> >>    3:   31 d2                   xor    %edx,%edx
+>> >> >>    5:   31 c0                   xor    %eax,%eax
+>> >> >>    7:   f3 a6                   repz cmpsb (%rdi),(%rsi)
+>> >> >>    9:   0f 97 c2                seta   %dl
+>> >> >>    c:   0f 92 c0                setb   %al
+>> >> >>    f:   29 d0                   sub    %edx,%eax   =20
+>> >> >=20
+>> >> > That isn't the object code from the source =2E=2E=2E
+>> >> >    =20
+>> >> And that's the ultimate hint that a cut and paste error had happened=
+=2E
+>> >>=20
+>> >> This was the actual source code=2E
+>> >>=20
+>> >> int memcmp(const void *s1, const void *s2, size_t len)
+>> >> {
+>> >>     int lt, gt;
+>> >>=20
+>> >>     /*
+>> >>      * Note: for the benefit of 64-bit code, xDI and xSI are reverse=
+d
+>> >>      * compared with what CMPSB uses; hence SETA and SETB are also r=
+eversed=2E
+>> >>      *
+>> >>      * The XOR statements set ZF =3D 1, CF =3D 0, which is required =
+to handle
+>> >>      * the case len =3D=3D 0 correctly=2E
+>> >>      */
+>> >>     asm volatile("xor %[lt],%[lt] ; "
+>> >>                  "xor %[gt],%[gt] ; "
+>> >>                  "repe cmpsb ; "
+>> >>                  "seta %b[lt] ; "
+>> >>                  "setb %b[gt]"
+>> >>                  : "+D" (s1), "+S" (s2), "+c" (len),
+>> >>                    [lt] "=3D&q" (lt), [gt] "=3D&q" (gt)
+>> >>                  : : "cc", "memory");
+>> >>     return gt - lt;
+>> >> }
+>> >>  =20
+>> >
+>> >Try:
+>> >
+>> >int memcmp_2(const void *s1, const void *s2, unsigned long len)
+>> >{
+>> >    signed char lt, gt;
+>> >
+>> >    asm volatile("repe cmpsb ; "
+>> >                 "seta %[lt] ; "
+>> >                 "setb %[gt]"
+>> >                 : "+D" (s1), "+S" (s2), "+c" (len),
+>> >                   [lt] "=3D&q" (lt), [gt] "=3D&q" (gt)
+>> >                 : : "cc", "memory");
+>> >    return (signed char)(gt - lt);
+>> >}
+>> >
+>> >https://www=2Egodbolt=2Eorg/z/6hrxGxb18
+>> >
+>> >Saves the XORs - go away completely in the usual case of 'if (memcpy(=
+=2E=2E=2E=2E))'=2E
+>> >The 'mess' on the return statement moves the sign extend after the
+>> >subtract=2E
+>> >
+>> >David =20
+>>=20
+>> The xors are explicitly in the asm to deal with the len =3D 0 case (thi=
+s is for the out of line version!)
+>>=20
+>> We need to enter with ZF =3D 1 CF =3D 0=2E
+>
+>And, of course, I knew that=2E
+>They also zero the high 24bits of the registers=2E
+>Given the setup cost of 'repe cmpsb' I suspect the xor just add code
+>bytes=2E
+>
+>David
+>
 >
 
-for 1 and 2:
-
-the intent is to put the guest memory on the target node, not all system
-memory for a given process.  so the scope here is not the same.
-
-in fact at that granularity, the desired node may not even have eligible
-memory to host the task's memory.
-
-> 3. Why not request the guest_memfd to be mmap-able just to be able to
->    set a memory policy?
-> 
-
-the eventual intent is to enable this for fully confidential,
-host-unmapped guest, isolated to a particular memory device.
-
-Requiring a mapping to get node-placement is quite defeating the point.
-
-> 4. How about something like fbind() that takes an fd and offset range
->    instead of mbind(), which has a prerequisite on mmap()?
-> 
-
-This was a consideration - although it has other limitations and larger
-complexities associated with it.
-
-Where does the policy live for random fd's? (inode? address_space?) 
-
-How is a reclaimed inode's policy handled? (lost forever?)
-
-figured i'd start by reducing the scope to the narrowest and clearest
-use-case, but I did expect to have the fbind() conversation.
-
-I'm open to it, but it seems like over-engineering.
-
-If you look at tmpfs / shmem, you'll see there is the option for a
-default filesystem-wide mempolicy that can be plumbed, but i'm not sure
-there's a real usecase for per-file mempolicies that isn't literally
-guest_memfd.
-
-> This doesn't exist yet, but I'm hoping to discuss this at LPC 2026:
-> 
-> 5. What if you could pass an fd representing a mount to guest_memfd at
->    creation time, so to make all the allocations come from a single node
-> 
->     Step 1: Create a tmpfs mount, specify mpol for mount to MPOL_BIND
->     Step 2: Get some fd representing the tmpfs mount, hand that to
->             guest_memfd at creation time
->     Step 3: guest_memfd allocations will always come from that tmpfs
->             mount, and abide by that tmpfs mount's memory policy.
-> 
-
-This i think this is more feasible than something like fbind, but devil
-is in the details.
-
-I definitely think it's interesting and would love to chat at LPC!
-
-> May I know more about the use case behind this new feature?
-> 
-
-see above - confidential vm whose memory is quarantined to a particular
-device, without placing that same burden on the host memory.
-
-~Gregory
+The XOR is cheaper than the sign extend; look at the object code=2E
