@@ -1,166 +1,161 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225AF347BD7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6642353A82
 	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952829; cv=none; b=XjHUt6p/yE9RrApSn29GrCALuKZ7o9O/YKelB5N1Uqk5Ii54Y4jj0r/D0WPhEvcdkIE1OsSbWzxThMO5xM9Cw8ckBAgAWNu8QK2z3bdD3xQkm+zFOEs3fbYVA0P9TgStfo21DjCSVcvJA9yyN6UFXWHiAzc3ZB5KogZbvjD1Of0=
+	t=1788952829; cv=none; b=OwlURTzbG14BzzNqyNZga9QIZotijcAfoRfEnvPu16qUoHu5JYqAtmISudZTFrDfQEMXO1gAg0SkxSUmPlPpZOp0TwazxnJFjldUtGVETSva3GWFqw2ny3ne77/Yc0MOJdsEfgRbGdovod35NhJUkgQF21FRRPIuYJvztMQJviw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788952829; c=relaxed/simple;
-	bh=5Q/vvAB3A+xmpW8PsWe81/gJjZnGlsRbfXtGXCimwXg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RR845RsFOjyTHsI8wuJqHakr82epoTM12HNLzrImPNkux1N226f5Pbh9h6H+7k97a08pPJv7bcv3cilvGOnkg/RhhRoutq5I/YihLTAXrXWjxvZHlnkhbaKbWk1ygjCFGGGcE5+RFTbSNW6e6DcQSom12fDBgucfvW8htpGAs04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JQ/2S7GP; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=DUsYlKkvwKjjsSNqIoQQxP51Bvntujpq0lq4unmaNL0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XLQBfquCovZH0iFDhta7CT2SdGbDxg10Bt7ki1ONCKgUBeCbQjf2HwhGbmtCKy/0x4eKmINHkO5GNuL1ewqjQppmiCuj3OyaT4RSXaQJcrCNUCG0+P/r3HZRKnpUKL+3M3jnlwkj6uxbJkru8UPdqzBYDwEsg2PEsO3FfegNwoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ECFrIsn8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fJPY1gFs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JQ/2S7GP"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1c52d920b8so755636166b.2
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ECFrIsn8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fJPY1gFs"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689ApsFx1639513
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 11:20:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vQtQQqwToKFipRp5aPXLXVSkmG9dKnTQCGGbK9gORPM=; b=ECFrIsn8p5LdXh0B
+	008jOPQ4K4CKWRWQsmOHYYxhJtvGIah/owRDrTJwK87nEDb/SIce+cTYI5anaw8u
+	aJ/SKqbT0yDtH2sud1oI8hfSIS6rxTu7KGQcoNtTNO88Wn/urWLOi0XmoWD+PVZt
+	inriZavsQwbnYzkwF68vxXVB9EGDdkJtjeXAT8mFXFzabLDXSoKvCUdSsAYPgIEB
+	L1NSOpC9g6GMyeXpfBneNkvk+TXmBFB+DcbLLHolwRVkClvV3mGewqN+U0bEDpPq
+	v9syV2Q8+p31PFSEnXTU8ew83iGW2hf4IETsh6mQ7qKWNnDTRvRj7gIV0/0g3QR1
+	gCyItw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5cnr980-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:20:26 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93821883e26so112647185a.2
         for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:20:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788952825; x=1789557625; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YBZKUSZ0VD01VN+cYqFceJjTBk/QFvaL2IDQDKE/sTw=;
-        b=JQ/2S7GP+hDU3W66h2CAdtkGr58rwpW6rfeHqlwSQECgO2ecBbLgbS0BB+0oOZuWDF
-         dmlqVz2c7GVFb2ZuBcY1kxhSrAimqNU1k9Nc6K1QcDaz/bhSao4eAUqhcu3l/aq4AeCh
-         XRaHhJkwfD4Pc1PbCYJGp+vQQkHKEfkkZJRKyfej+PJClfSNTCnk/Bb4QAd4QvxG8VcM
-         SG5SDD2w+MnErCwG3AIALF/eeZ3e5xOW0LoS1gik/grsma34TGwWohMuwC+cy3ISC2av
-         +RAHVTLMG4v76FwQgCjdehPV526lYCbXXqXd0ObLMTYfTpZcvqBtz9X/BB1Kf4/IX48L
-         7B7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788952825; x=1789557625;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788952826; x=1789557626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YBZKUSZ0VD01VN+cYqFceJjTBk/QFvaL2IDQDKE/sTw=;
-        b=RuQ5B1YNnV3ob+jVdaBxnz61tvHGqGknn6Mtu3owboly0KkRe5XoRWxzVqbY9Ca9mW
-         yRk3//89tesRhRPTJtg+lQYHBcPHUnnxOGEJP3Y/HdIqQDzMj9kJu41472LOWXiR0LPQ
-         l7CZTTmy+Tnfk6poszFo6lZpHP2z6Jm7F1KQsGXTObswwZq7izWGNV9ZKgYag+8yYjH6
-         CjA70a5A6Kt0PFhdy8VaXwxOJtNYmPB+2jmAKnd4ukK1OD90vSqqmGEMAfTBb4ApmZn+
-         sKtyte4dhsCSUBvXD/mzM302jSpb9zHAU3i0HQlKhvUQjVYhOF6UMDEsoBsEH0VsCmdq
-         G6Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgpqDaRazAD0RhAZ7D2tIUBHlhwCzIEsLwKPszfp+ssAih+sWakOIeYblfX8dtI+mJQAEAaZj1yWrQdJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbTGBMyrO9NMzQ42KKyhEodRNR9lemx0FRYnoAhjz/cQpBT37+
-	zEy5DpwUpiIfBRUSMOPMDhBVeuaCtW5eLZ4gZ8WEp7zU4y7Py4WJGCtj
-X-Gm-Gg: AYBFou0YrtR7clLiI2rFRmzgnEQrhU0FeKmFpoxNm4I0NGgA81gWsbsImvYhF9TJtCT
-	hg/ezBvcvlxGxHQfzWRx7XAIBa8EKIWvQRkOdUS2pMPce1AigjqnG0IIwD3dYDySNgwMab91Nxc
-	KUlfQzX0FYZMBUvxAJvpuZtdNGAMaMs6yScxUa8xa9W+ZArfpKelskcnxSbgtNP6MOcte9/yATs
-	tAeb8e4KOX3ZKD/DIdclvPuK/t1VEPbA190oPhrFb77RXs2z7O00j9gbcDaxXWfror6nZ5FATsG
-	PwucZwCosUVHiM+mXrmXRQr+jx8tMWdKEYV36hW5j6Uy5iaUxfsqz5aIHoSSV7h6O/9NDkDIPJ9
-	drmCD2Mv2OMEOCXIP0pDdFUbW5ZX/m5pcBTOJib6AaWoXdJLaUnYpmLKUxNP+pNnXtGSe6Y/rWL
-	AxsPV5gHBLJxSzl46JgMT177mex9UCzwAR/jK9l9/+N484sg16hP+LtPXPb16Ouu3iIkZbeL7kJ
-	su0OpTHo9O9
-X-Received: by 2002:a17:907:c650:20b0:c29:386c:58df with SMTP id a640c23a62f3a-c29386c6021mr64783866b.30.1788952824981;
-        Wed, 09 Sep 2026 04:20:24 -0700 (PDT)
-Received: from [10.245.244.251] ([134.191.227.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d559364sm743480066b.35.2026.09.09.04.20.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 04:20:24 -0700 (PDT)
-Message-ID: <b227e4b40c45b090eee627e6a4d8f314297996ff.camel@gmail.com>
-Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
- bits
-From: Artem Bityutskiy <dedekind1@gmail.com>
-To: Binbin Wu <binbin.wu@linux.intel.com>, "Edgecombe, Rick P"	
- <rick.p.edgecombe@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>
-Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
- <seanjc@google.com>,  "dave.hansen@linux.intel.com"	
- <dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>, "Li,
- Xiaoyao"	 <xiaoyao.li@intel.com>, "pbonzini@redhat.com"
- <pbonzini@redhat.com>,  "andrew.cooper3@citrix.com"	
- <andrew.cooper3@citrix.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>
-Date: Wed, 09 Sep 2026 14:20:21 +0300
-In-Reply-To: <473c5507-045f-454c-b6d1-76d2a390f413@linux.intel.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
-	 <32b51faabf60f6e87d9fdebbf2c3fe5a45fbff1c.camel@gmail.com>
-	 <58c185c82658819454a9950f37c6424226a098bb.camel@intel.com>
-	 <5faff363852572d59e34c876173d73c93734bd3c.camel@gmail.com>
-	 <473c5507-045f-454c-b6d1-76d2a390f413@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        bh=vQtQQqwToKFipRp5aPXLXVSkmG9dKnTQCGGbK9gORPM=;
+        b=fJPY1gFsYzv92lMXZJo9AHHohx3sBb4sFpqNMA2EIJo/Bo4o07dpk+ebvpxJwCBLL7
+         QzDNEy+SpA6+1O4AXXfZ01aJV2xT3EgF7hQ+efxzX7PWg6MJI/LgrG6VvCBj7XvvbGtj
+         LYO05mI2182q6Ua7G8hU3UjezxhisGQv4V5qBmjZ47CW9pFDG5S53haDiFjp2Ri1OiPe
+         vJ77eqLa/ABQ5iSIgqullWeg79fVmck7HYp9wqNUtERTwZcBNit4g1CMYMuCXCse0lV8
+         zUKSCKrwClNl1bcyXk1XMccbGRjRKc2mq9BDgm12BPUYmmp0coC9z1yMr/bJUsOJyWR7
+         +X/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788952826; x=1789557626;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vQtQQqwToKFipRp5aPXLXVSkmG9dKnTQCGGbK9gORPM=;
+        b=Jpjm/dESJ+bKwVFKI2lX0vn8BKzUpJ5a3i48ozaj27lz9NN3TfMPa0SLPOQiIe+7Nw
+         mo1WCVIPAf/u2EeAzu310cTr5LHEKvL3g2jgb5BEWyGWVGLYx48A2YxjLM419c0INkL6
+         KXchqsabKRAY2tBHKBUN6DCH0NeCH8J7b1zypSHj6joe9xKT8VNRDA2k3Lh+LscJzkF2
+         +0izS3oYyD22ApOvt3h6NJ8YYMsvHDlF9Gxb7iulfG33vGQkkasZQHHrcBtp+NX1RjgD
+         bvylrqrsWrGKHYXTAIqH48dKiyNpkTAoDea4xg2vtDslh/JzrBM3hNrVgFOhlOtJRL90
+         1YTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkqLrKajY3nuUpBAITYkVFEfbe/qDLpsl19cTUPJHdxyAuuGbKoYoVvdke7iR51YABlusfg9P2MG71X48=@vger.kernel.org
+X-Gm-Message-State: AFuF++n31Om2wa64wzK9c20jZCdqS8VgpwHGBmlL4LzvpP3MfK/CI/RK
+	sYvOO7SXHKNW7dYl63TMoDG93EVS0sPWkonIsarQGU7+3kn+oaCIZKXDVizMkWHcvsWA91tMQJJ
+	YVVxajEh6US+f7XF2V+bE0ERddqjuCEQ0NQCgwmxHEAA7+ePbkwuGz7BHj2Ev3JlMx0U=
+X-Gm-Gg: AYBFou3ybF9kpkNYE4i3nA3/nsAphR+THcRAARe+2HsOwL9bVEIRUVXYYOOkcRpysTa
+	6mcPpv65TGVa1m5ITk8bMdwU8TPTQi906WM+qLAy8pOqPR2M6DL/vqwKLE0hZC0XjirVOgAWGM2
+	Lhmhm+WG8H+AmAHZLFFuk7hU7kUlEOC5ypxktxViZ5AEfk6FNnMm4L7SAaBBLev60BdyO4UiQ8H
+	pFENi63krNmXZDIxRB9AZTRQfs2JCB8XRrXvuhQB1u2IOCprvPvPfaimOwU87R02fHrvJqxFp8n
+	Ydjyjsbw4Un16auvs0zzGgGjSHj73U89ZAwSj8Pi06UuW3WC0CnzTSnjqdhoydT7puuljDXfI3+
+	fTtJ7n2Ev27xdI1uWxXrpjQ==
+X-Received: by 2002:a05:620a:d93:b0:939:7e96:d296 with SMTP id af79cd13be357-93980964b18mr2960057585a.1.1788952821031;
+        Wed, 09 Sep 2026 04:20:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:d93:b0:939:7e96:d296 with SMTP id af79cd13be357-93980964b18mr2960049485a.1.1788952820503;
+        Wed, 09 Sep 2026 04:20:20 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036469sm760422566b.1.2026.09.09.04.20.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 04:20:19 -0700 (PDT)
+Message-ID: <d56e598d-e598-4b9a-a6b4-1d1965aca656@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 13:20:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH PRELIMINARY 1/5] arm64: dts: qcom: shikra-iqs-som: fix
+ GPIO138 reservation
+To: Andrew Lunn <andrew@lunn.ch>,
+        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Anurag Pateriya <apateriy@qti.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
+ <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
+ <169b2cd5-d0d8-4682-8756-bacf545a95a0@lunn.ch>
+ <aqAQ+BxwJstTlnU3@oss.qualcomm.com>
+ <6e5624f5-410e-4413-82de-84cf864fd654@lunn.ch>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <6e5624f5-410e-4413-82de-84cf864fd654@lunn.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: iTu6Mbs60yJqDHN1y2tpfmWV-eM4mp6v
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEyNiBTYWx0ZWRfX0/NPEjiGWH9s
+ 7wN1f3vgZzZJCTPMHteNyOOvxSs7SXa3ypxj2T1+hZCDb0cLo7xerGZe9PAvoK1hf87lIjU8764
+ MnxR3YtwEOmipykCtwsVhTSOTU2nf/A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEyNiBTYWx0ZWRfXwPLD8NxDfXYq
+ jzZSv6JiewgUGFOYegRTZ/J2YHWrjLvUVQJkiWUIl65Cfp/T2nrBWaG9aEy3kYj7+YJsJC69bvu
+ YTvuWk15Ct7dZasuVaxEZq15xqJ+/px/kJ5qTIJbnOj/16LHAf017UHgYxqksr1M6TnBhFxmIaJ
+ sup+TXqTWP8MMAntCn8u/vBg/oJGE9fIWkeS1ockrWJCK/HATCYB1VitWPgyepUmH6oz9KYoB1H
+ tiSGSLNaA+HeXdW3TAx0fc+LfXQOrqzkH+xiEcXzqkTuElZ3aP5JSQ8tLVQf48ZkPfSPPjuLxd4
+ gKKgSOPE2sc1TL2MZyj94AmDhNspx5nRnjHAqTwyDHpYCPV58JjcGp4dlvl6W6sHXS42PUsQpTq
+ 5zQMTCNeiDtyX3mRbnFPkJMpfk8AukC7fFD2yChe2RYIZWgN8fA0iIsyE6XMUHNN/6hst2BycEY
+ w62OpiG8Lv1fIEQAImA==
+X-Authority-Analysis: v=2.4 cv=S+jpBosP c=1 sm=1 tr=0 ts=6aa140fa cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=aGMi1ODkbYrmhBfOWAQA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: iTu6Mbs60yJqDHN1y2tpfmWV-eM4mp6v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090126
 
-On Wed, 2026-09-09 at 16:48 +0800, Binbin Wu wrote:
-> > VMX:
-> >   VM entry =3D load guest state from guest-state area
-> >   VM exit  =3D save guest state into guest-state area,
-> >              load host state from host-state area
-> >=20
-> > TDX:
-> >   SEAMCALL =3D save host state into SEAM VMCS guest-state area,
-> >              load module state from SEAM VMCS host-state area
-> >   SEAMRET  =3D restore host state from SEAM VMCS guest-state area
-> >=20
-> > I may be reading the SDM wrong, let me know.
->=20
-> That's my understanding too.
+On 9/8/26 3:57 PM, Andrew Lunn wrote:
+>> You're right that it reads like a standalone fix, and that's on me for
+>> the commit message. There's no functional impact on current users: the
+>> reserved GPIO (138) is unused today, so applying this on a released
+>> kernel produces no error and there's nothing to backport to stable.
+>>
+>> I'll reword the commit message so it reads as a prerequisite for
+>> enabling Ethernet rather than implying a current break.
+> 
+> And drop the Fixes: tag. It is that which draws the eye and makes the
+> Reviewer ask the question.
 
-Good, thanks for confirming.
+I noticed this subthread only after leaving my tag, it's still fine
+to keep
 
-> >=20
-> > So there are differences, and I was hoping to:
-> > - Be corrected if I misinterpret the SDM and how things work.
-> > - Get comments on whether the proposal took this into account.
-> > - Get comments on how this affects, or does not affect, the proposal.
->=20
-> For host state clobbering behavior, we cares about the values of the host=
- (VMX
-> root mode) after SEAMRET.
->=20
-> When there is a control/field for "load host state from host-state area",=
- I
-> think there are two cases:=20
-> - If there is the corresponding control/field for "load guest state from
->   guest-state area", the TDX module could leverage it.
-> - If there is no such corresponding control/field for "load guest state f=
-rom
->   guest-state area", the TDX module could do it in software way to mimic =
-it.
->=20
-> So from the view of the VMM, it can have the aligned behavior on host sta=
-te
-> clobbering behavior.
-
-Now I see what you mean: make msr_preservation.pdf follow the same rule
-as the VMX host-state restore, and let the TDX module help where HW behaves
-differently (call this SW restore vs HW restore via VMCS).
-
-That sounds good to me.
-
-My only doubt is whether it can be guaranteed in every case. A HW restore
-happens after a SW restore.
-
-E.g., IA32_DEBUGCTL - HW clears it on VM exit (SDM 30.5.1), so whatever
-TDX module puts there on the exit path, will be overwritten. Not that this
-is an issue today, just using this as an example.
-
-But I'd guess there would be only few problematic cases (if any).
-
-Then you wrote this:
-
-<cite>
-FRED is a useful concrete example.  Under VMX, the FRED host state in
-IA32_FRED_CONFIG, IA32_FRED_STKLVLS, IA32_FRED_RSP1-3 and
-IA32_FRED_SSP1-3 is covered by the VMCS host-state area, so the TDX module
-is expected to restore these MSRs on TDH.VP.ENTER return.  IA32_FRED_RSP0
-and IA32_PL0_SSP (a.k.a. IA32_FRED_SSP0) are handled by software, so the
-TDX module is expected to clobber them on TDH.VP.ENTER return.
-</cite>
-
-That one reads as obviously right to me. If VMX and TDX differed in how
-IA32_FRED_RSP0 and IA32_PL0_SSP are handled, that would be a red flag.
-
-Did you go through all the MSRs and check that the VMX and TDX behavior
-matches today?
-
-Thanks!
+Konrad
