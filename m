@@ -1,172 +1,261 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D116638DC78
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976037; cv=pass; b=L1xEcwzpBqM9+aFx0ucBfxLNyvUoFCSsbevK8DDSIZRXxd7KnE8h2/ehWOxpsgnVa/Q4RZbsa87d2RAxk6eGMWplG/+4OBNz6ABBiBXF0TrJTBITi/KTZtbXttJuqfT0rASvauLmsExtl2lS+ruFNuZ97TZuvjtGUZhCgtB8/mM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976037; c=relaxed/simple;
-	bh=hRHhNgr7L5x2Qzex+NhnB6McSSZGczX4V1lZLt3GATI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jvv5rseN1sILDTSMZzpiu/zGmuQcwy9+xC2Jng6vOI4nXEyT70VSuKeIssnJPPHzdkaClAwAIEUDKBoeb66ERtGMwdnU3D+fWoI/aK/FiW4N8PtfWNfZjKrmgpEtNgDQByG5JK4BMmoafbJTwik3TLCzkT7P+lBZyg7bwSVr3VQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iA8B8xGZ; arc=pass smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466EB79DA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788976051; cv=none; b=TabEkoMkdL8tiDRfWRoMbG7BuYnpIZRVwwpRs3uMDNY5LT3m2Pe3Ti3uX9/FE0ZMBbNv+jpSEOxouQByIiX8KvbNGa5arKs8cZwW9WN/x5+asvyG5Fb45nkPErRURHa2QHnEmUAW5/qs4d/LEL1RXEPMsRepifpjn/nlRkrudUU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788976051; c=relaxed/simple;
+	bh=aNeadNdo0d5nw4r4L4NGH1XMQe31Iiv2lhn6qcQq/gg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gxx4SwkZv8+mum9E2s0nbqTeUSmJvRUgaKKTKEUKUhJG1geEH3XGPQKf/ag9AVRjb4nGP2trOXeVSP1zLBSdEFLhoYRN1QZWAdZ+8xHWHVExXi5x/29HeNmiGyZhpNJd20oSC6tqcFB3NBakY8YtGJ/OBMiFsCKk2OUMdYXxhG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=DjRQeO6h; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=M8LDq98m; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iA8B8xGZ"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4843e397f74so73744f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:47:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788976034; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YWxb7cti7f4ymM9wKqZHQfaAE+7YNQaepSmHWkpkaYyOwja1+VMQw58dxgq/gorxwK
-         IFvugHRWqiuKMC9Gxc0NAjkk6ncc42CZsy5Iin9MA4B/TMCRisjFqocV0Q/fDK3cw27u
-         UHVsOoHg1gBEF37jm3kA5yczflKJ+ax/OylTjIHsb75iK5KDeB9r0uBeUfWgZqe9hWcs
-         nKKExCleqeKnkJ68p+Bu8BlPAcF3rdn8+DssuyuVKSbEO2Cf/I9+ZCvjv7MgjKsuK2Aj
-         oj1jJrcMPIgn3Vbs+zWv/M2IBNmB5dk3AJgAxpmAD/09gJQcSRdcEWrmsI+/DePNuf3h
-         RsjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cjBT/gijlT5nlkZYair5/Qqr3lqnucD6OCBJtzUzH/Y=;
-        fh=7uAizYa3FAn75JWFNhSZ6JpF9xn+//ug9CVa21g+TbU=;
-        b=Wbi+9+V2XHOEZkVMWd6iLx2nSfQ7zWkubHKRJ4YTcvgsHkw1DYmmDpO3/fgvaDK2PT
-         yh8EJ84XAvcdKT3pMaSCZRTqhIPyUBsjSA6E2SHIzw29sNu5VSA/yQ4hy/eGOswbKW0g
-         WP9CWzWCtilvOf8vC/g4h6feQrC1zj9JNXUmaCKk44Slx1mMjHir6+mGGK61H8wM/9qN
-         YuEpdT0pPLQoamqZKRWOwPlWhzjvZr0X2l1LP6s18P198ER6oO/XPTUgkH2dxG9R5IGt
-         D9QfgQ37kyuUMO+HOFDUyXgTkMxXw9+T4+NnpGRNolawl+UOmtTIK7mzrSFVVQFKk/FB
-         iUgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="DjRQeO6h";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="M8LDq98m"
+Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689HS8kr298850
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 13:47:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=aPEy
+	uOHa2Xf8hImQXcpukM+8uHb3YA7v7XMeWMx3v/U=; b=DjRQeO6hhGQ6ZYjAObJ5
+	/57qcPKnOwj1fymOVEV+nrbxT9iWnT5Bdyg31cdt6boDVmYsyuhwvfKfxvkKfoTD
+	Ll4UPjKBfzaaxj0H3M04AdKlciGt0q9P//CcKBoFBtJkdycJZtaE1uqSgMoUW3as
+	YCftzjHUlpEKNZyxh7TGR5BLLGwZ4+wGYmqBHBIBbfT8aMwdz2j2KOO6x8aDoZYk
+	Gp3amBJ0NYy0AO6OHdFKAKfJd07JJGvH/QUDn79JHP9mL2Fo7UzyARY3hAHRQbMG
+	/UXL5xzBCj9b7xfRivTDlni7o0R7ixrTI23YkRlAsEWpzfQb9N54FJxNnWE5tB8N
+	BA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gk4fh47sa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:47:29 -0400 (EDT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90ce21f2cc9so145266146d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:47:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788976034; x=1789580834; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cjBT/gijlT5nlkZYair5/Qqr3lqnucD6OCBJtzUzH/Y=;
-        b=iA8B8xGZoUgEd3TwUaCb9cZFEzDs3z3WI+vHB7hKD7wQUsG8+vWP1rgmKBVTNnr/sR
-         sMkOu2q384Z+G7kvwjD84N/i5RqPkDzav0owndb1nCU+a2RT7eZSKd+vO/axQLGr2X9E
-         xkDFHVLBOndWNGczBPzSiwfYXANqCdcjQUtyg5RT3axb87FiyevsbjulKDYi5VdATdFG
-         g3xnr/1wW+HEva9edTjUxqldSucvCF5EBXkkKs0xTp4dhrAMFdAVWcEEQx7qQwmMU46E
-         ZJXqJUw1uqUVHL/dVbF9W9hmLhBwk6roK1LzVZdVas6Ix9HV36Vpp0SCFWm/FadLTTO8
-         tUwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788976034; x=1789580834;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=columbia.edu; s=lionmail; t=1788976048; x=1789580848; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cjBT/gijlT5nlkZYair5/Qqr3lqnucD6OCBJtzUzH/Y=;
-        b=o2uao92/5s/frQmlUNXdXgxx0FKSPojq2I1F2QQcfHFr2hdhIAL9nRtIU7XPIMKQhi
-         QGFhU4nHBztF/tP6EiLSVLIHrlU6fKCXH8sFtqZ06FLcFOnqauNscR6su85lT4oB3AqC
-         aB7rIYSsmJFQpd9BkcLW83//7capfaDx1oyduzGVYj33koI21imuyPVOkdEYOLeroJdm
-         sFX0f1IyPXHo3Ei2y9tam2RO+pjKjOCkcUzCEJpIYplTz65rt1CloFfYpVnuJxi5jglx
-         9gsK21aPMXS7IXx/yt45eL88raim/JWFN6Xozo/o+e/hNdfD0u7srxOkaqTYSntNCp7n
-         oMDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzqryNxfuHgnbPcKNjSt+h3yqeLohLsXB6XFkZ5wlLPxdlNr1XZVRMotXqIHKuW/0XooU4K0PpPKT0nlbQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxYnsg0+M8kXBwKi9QIXwojNeL7OKeY0ZJVeYirKOMujTneL+P
-	An5q4+L2dydpELzPWvSHDHXOzwx71fiROTzPw8UDjgeyJeGtTs3ILJUPM/Hv/qIPPZbsoIxHFTD
-	2u77DD+aiR7rcUZbgAT+BtD07v/G+4MU=
-X-Gm-Gg: AYBFou1V18i24Ptx1KX1Wd6yJnpOPmX0p9CxcFUJoCX+Y0RowUOhRllQdySz9p1xLLV
-	O8To6zV3Xlx9RNvxTP3d/57FwHuh94Oh6/R+0YaeE8f/A6FW4QTwt77xzvLiA8RJUBUtX/Yvp5P
-	RlVIclFmtHwP+190wftzo0ffkjthhrb/w6eRYclNl+3c293JYj3fUUdfWUBG+ZwRPq2vsTa6s0z
-	F9lugB1VK2y6pZeavFNIyISC6WeuKvavbYsL8ISBbawlsymGnFh+WzoaAFmsDghPEMNrfeTVug4
-	O1LSuBTx02jVLXjXXN/uo0HJGMUDPwOvZJQJN/qtzZV5LE+JxLVE2ZWqnnwR3nyShmEO9WH3qjK
-	G3soAdOy4Jjg=
-X-Received: by 2002:a05:6000:470f:b0:484:4779:bcd6 with SMTP id
- ffacd0b85a97d-486e0f6c735mr589913f8f.15.1788976033902; Wed, 09 Sep 2026
- 10:47:13 -0700 (PDT)
+        bh=aPEyuOHa2Xf8hImQXcpukM+8uHb3YA7v7XMeWMx3v/U=;
+        b=M8LDq98mx9MUMXPFdirfU7sFFXYyAMg57FA+/FdpiEFAfYwAxnPtetZLIA7GZdTY/V
+         35aGo7pWNbJ3gGr0g0rPAD0nIBkNyDQgcdWTFb6hfwJjZlfJQBreh4bm4ANbRCcEW+mY
+         CjMkWGytBcQiR4hcGvTIvHhtrlyeBhWiIgMdvD7aiX//Mxql0WwEld0z/OiPX0Yvm6BP
+         d3xlj2B8HlLHjxnjHGDNLF1TPX/k6w/UYQhrLFSEdcwuW/Ts3ACOwRyB/qXivfArUXx3
+         cWsZ2BBmVlmR0Zdaxk5QnBV5hMwuSNYjU5/4YLcOI1bx+Zir4DbHWsR6Sm3u1Rgj0vK1
+         YF2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788976048; x=1789580848;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aPEyuOHa2Xf8hImQXcpukM+8uHb3YA7v7XMeWMx3v/U=;
+        b=KYvN2jESQxB21h7Cq1XPotqDZdj/uz4SvCOpyg0+xK4JeaFqHoAZtLc+oF9NRKyNvg
+         FLNF9oBHePxpUNo5dHU/42g4YY6hkpkZJfPOlwt1Ps3fR7hhgD15wc6NcdDwnNI6eYO0
+         JSvg6MiUqfu6jTcbMejfzO0g2kXzmQzEq40U10uapSI2iBt9JGmoR6pvfdq6WEFcF+F7
+         TSj2ImxqiWYYUIE4smt3YJiFJWDFmvC2+f7D7Vv1+NgX9couFskRxCZdY2hUb+Xj0Ab2
+         FzxE4kRlC8sl+LgO0/PG+if7kNUCNcu05HLN/ZTSVlkxxLN/iMkumhzyj99WFGJNTWwW
+         DUtA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5dBsZZPVa//62f3eXFIY15RViaJBluqzwK69Q8WWj6afiY5GQd5GkFeJKU1PbuL6792ppuFMwiNajqio=@vger.kernel.org
+X-Gm-Message-State: AFuF++kB7wXfLkqoRBGiLTOOfg5Fh6qT1BaLW0aHpFyJhuf+EPV7cwvr
+	FEkdI4SoKoe4PuSCMsCzbWMZgIJlJUP97i0ueS32YPndR+GRZxhPIx/ysIeT9b/CyHP2ALSVLTR
+	k5Dwd01CxolTqOA9Q0iDgFD6YlzK/BUaPa5CgK57oEvhUK2qhb5RP5HmgbRA/5A==
+X-Gm-Gg: AYBFou0awGZOp8nyhQTvq5jLbx4jMyEVuadFmJ1wZAw0MKCDKRM+9DLf4eNRQvAz/8z
+	cqoMn0FnS7IDsmcCzucRIAJCkEr4NldeRyNxL00DqVfzJt0x08BoBKoqDx5w0c/kwMsPjyQbfar
+	0hAHB1hGJoYA5MpxKvkPioge7rDz2+jcwacUwFcqzbfWwYqrpfIUE+SZryq0E8MQqpmq1dNAzqr
+	fJOu909/Ez9fO2hFDt59gpmJiOX2dZiRlf7bafmzttvazxCv5Wn7A8V1O2oCGLng7370BeeHTCq
+	7g2My6gcUzq6FA6T7h0XgqaxezM1DFmTE7kfLM/GVB414QRBReMWZ37+KA5Gcx5Sd5TRkH/q64k
+	3BoPbzjgJOOgrkSysj/96+nc5fY6CyStmsedZeSqmEu40H7rkh4eJ
+X-Received: by 2002:a05:6214:5297:b0:910:345a:8bd2 with SMTP id 6a1803df08f44-9103f07142emr449128086d6.35.1788976047924;
+        Wed, 09 Sep 2026 10:47:27 -0700 (PDT)
+X-Received: by 2002:a05:6214:5297:b0:910:345a:8bd2 with SMTP id 6a1803df08f44-9103f07142emr449127266d6.35.1788976047298;
+        Wed, 09 Sep 2026 10:47:27 -0700 (PDT)
+Received: from [10.207.49.22] (nat-128-59-176-193.net.columbia.edu. [128.59.176.193])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9106412e038sm53426756d6.20.2026.09.09.10.47.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 10:47:25 -0700 (PDT)
+Message-ID: <3dfab5df-c205-4853-bf48-86351a02b4e2@columbia.edu>
+Date: Wed, 9 Sep 2026 13:47:22 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
- <aqBT_35E-eSoN_zj@cmpxchg.org> <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
-In-Reply-To: <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 9 Sep 2026 10:47:02 -0700
-X-Gm-Features: AcwNN1UaR9pHD2h6-LXbXZDQ7w46sDfAFt5QkIQi55ban0K1e2MIGYElY-fudaA
-Message-ID: <CAKEwX=NYoMH8pTKeCvA=XHFmmNVMeDz3mxbhp5q6-PxSTJ5wOg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <ryncsn@gmail.com>, Chris Li <chrisl@kernel.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/14] f2fs: stop using PG_private
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+        Gregory Price <gourry@gourry.net>,
+        Ying Huang
+ <ying.huang@linux.alibaba.com>,
+        Alistair Popple <apopple@nvidia.com>,
+        Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+        Shakeel Butt <shakeel.butt@linux.dev>,
+        Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
+        Chao Yu <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-6-6ae22f9d9272@nvidia.com>
+ <e5792e81-e8a5-42e1-aafe-58dc603f4968@kernel.org>
+ <178889163877.1334491.3646957026033534678.b4-reply@b4>
+ <83a8743b-9cbb-42a5-9ff5-718297916a76@kernel.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <83a8743b-9cbb-42a5-9ff5-718297916a76@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: yXMt-H-klwB9BXSRucP2TQPGyRHZJWYw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE5NyBTYWx0ZWRfXzcmelaFgAdlK
+ yK59aRsZWnk2QdTjYsu3XCkiD9eFI2I+LCldSoiFRt/D0jtR3fa2DdIvgxLdMBDZ0DQuMOMGzb0
+ cWbL5p+kIkmUAFF1pg0k/DrOG4FQpGbBvy6wBNsWOQZpstKLox/y
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE5NyBTYWx0ZWRfXxs7MnRhxbs06
+ nTpVJ108l798IJi33qFuGMbGcRIxRnAB9RuLKggy13YY918atk3Dh9aKaUDH2siFbqEULEUphBU
+ +5VbpsHtm3tDJd3N7rlIE7FHKxMQHTDmdBlrWeHU1Es93AOeTRRuKKKlOu3dnNlV/sJe62gQfKP
+ LMC8ZUoa2VIoPMU75u1C99OHejNhsAjqb9LiQmENaWRM2SOKqi0rQ5QGUw77vkV/QRZpx76oIXU
+ kCKlbWKVA7GHFbBTY+stNAKLmK0xV6l6UbSeYXZ8gragQy68pXSv1LOxCNEMeTMXpprJgw/FXjo
+ VrNbkg7Yw7px8fegGqzvKoPIPuo3ywWwUBBzVik1GUg9hMjEQBTB26o3btR8haA5yYS8T/DJTel
+ osAT4PFYL+OsK1dI2x9VH39dD/NDKe+vX1wh5JatuBB09ewROMYrj3dBC1YfWWO/yLdUTTxIN6d
+ O0CJpdjOgJBsdxFzDxw==
+X-Proofpoint-GUID: yXMt-H-klwB9BXSRucP2TQPGyRHZJWYw
+X-Authority-Analysis: v=2.4 cv=LdUMLDfi c=1 sm=1 tr=0 ts=6aa19bb1 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=fJxgZNdXt3opHMdyAp+FXA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=SsB-OO3BMngHh3ZO9fOt:22
+ a=VwQbUJbxAAAA:8 a=FP58Ms26AAAA:8 a=Ikd4Dj_1AAAA:8 a=brY8mzgTOjc0s726uLoA:9
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11900
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 adultscore=0 lowpriorityscore=10 clxscore=1015 impostorscore=10
+ phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090197
 
-On Wed, Sep 9, 2026 at 9:41=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
->
-> On Tue, Sep 8, 2026 at 11:30=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.o=
-rg> wrote:
-> >
-> > On Mon, Sep 07, 2026 at 01:51:31PM +0800, Kairui Song wrote:
-> > > Where I've ended up is that unbounded growth is a real concern. On a
-> > > host with no memcg limit (root cgroup, and most desktop and embedded
-> > > setups), an unlimited pool means usage can keep growing, with no
-> > > admin visible ceiling at all. I'm not attached to xswap's percent of =
-RAM
-> > > knob specifically, but I do think some kind of bound makes sense.
-> >
-> > Swap space is just process virtual address space, no?
-> >
-> > Swap entries already have one or more page table entries pointing to
-> > them, which in turn are managed by trees of vm_area_structs. That
-> > means rlimits apply, overcommit protection applies, and OOM killer
-> > attribution works as well (oom_badness()).
->
-> I tested this theory. I spinned up a process, and let it spam 0-filled
-> memory + swap these pages out continually.
->
-> As you predicted, oom-killer picked it up eventually. The host was
-> (and is) intact otherwise :)
+On 9/9/26 3:48 PM, David Hildenbrand (Arm) wrote:
+> On 9/8/26 20:20, Tal Zussman wrote:
+>> On 2026-09-08 17:47 +0200, David Hildenbrand (Arm) wrote:
+>>> On 9/8/26 04:56, Zi Yan wrote:
+>>>> f2fs sets its PAGE_PRIVATE_* flags in page->private and checking
+>>>> page->private != NULL is equivalent to checking PG_private. Change
+>>>> PagePrivate() to page_private(). Meanwhile, in set_page_private_##name(),
+>>>> page->private is first set to 0/NULL before an PAGE_PRIVATE_* flag is set,
+>>>> but it can cause confusion when PG_private is removed and
+>>>> page->private != NULL is used instead. Change it to initialize
+>>>> page->private to PAGE_PRIVATE_NOT_POINTER instead and retain the original
+>>>> semantics.
+>>>>
+>>>> It prepares for a future commit that removes PG_private.
+>>>>
+>>>> No functional change intended.
+>>>>
+>>>> Assisted-by: Claude:claude-opus-4-8
+>>>> Assisted-by: Codex:gpt-5
+>>>> To: Jaegeuk Kim <jaegeuk@kernel.org>
+>>>> To: Chao Yu <chao@kernel.org>
+>>>> Cc: linux-f2fs-devel@lists.sourceforge.net
+>>>> Cc: linux-kernel@vger.kernel.org
+>>>> Acked-by: Usama Arif <usama.arif@linux.dev>
+>>>> Acked-by: Chao Yu <chao@kernel.org>
+>>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>>> ---
+>>>>  fs/f2fs/f2fs.h | 8 ++++----
+>>>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+>>>> index 9940a6cecf1a2..2f7ab5888b078 100644
+>>>> --- a/fs/f2fs/f2fs.h
+>>>> +++ b/fs/f2fs/f2fs.h
+>>>> @@ -2691,7 +2691,7 @@ static inline bool folio_test_f2fs_##name(const struct folio *folio)	\
+>>>>  }									\
+>>>>  static inline bool page_private_##name(struct page *page) \
+>>>>  { \
+>>>> -	return PagePrivate(page) && \
+>>>> +	return page_private(page) && \
+>>>>  		test_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)) && \
+>>>>  		test_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
+>>>>  }
+>>>> @@ -2710,9 +2710,9 @@ static inline void folio_set_f2fs_##name(struct folio *folio)		\
+>>>>  }									\
+>>>>  static inline void set_page_private_##name(struct page *page) \
+>>>>  { \
+>>>> -	if (!PagePrivate(page)) \
+>>>> -		attach_page_private(page, (void *)0); \
+>>>> -	set_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)); \
+>>>> +	if (!page_private(page)) \
+>>>> +		attach_page_private(page, \
+>>>> +				(void *)BIT(PAGE_PRIVATE_NOT_POINTER)); \
+>>>>  	set_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
+>>>>  }
+>>>
+>>> Very weird interface. Why do we even need the page-based interface still?
+>>>
+>>> $ git grep -E "(set|clear)_page_private"
+>>> compress.c:             clear_page_private_gcing(cc->rpages[i]);
+>>> compress.c:                     set_page_private_gcing(cc->rpages[i]);
+>>> compress.c:             clear_page_private_gcing(cic->rpages[i]);
+>>> f2fs.h:static inline void set_page_private_##name(struct page *page) \
+>>> f2fs.h:static inline void clear_page_private_##name(struct page *page) \
+>>>
+>>> Seeing code like:
+>>>
+>>> clear_page_private_gcing(cc->rpages[i]);
+>>> if (folio_test_writeback(page_folio(cc->rpages[i])))
+>>> 	end_page_writeback(cc->rpages[i]);
+>>>
+>>> Makes me wonder whether we can just use the folio helper instead?
+>>>
+>>> In f2fs_iget(), we enable large folios only when !f2fs_compressed_file(inode).
+>>>
+>>> So naive me would assume that we can just get rid of the
+>>> set_page_private_/clear_page_private_ stuff entirely.
+>>>
+>> 
+>> I have a WIP series of ~30 patches converting much of the remaining page
+>> users in f2fs (including the below) to folios. Still have to do some
+>> testing and clean it up, but hoping to send it out in the next couple of
+>> weeks (in the hopes of eliminating some more folio_compat.c functions by
+>> next cycle...)
+> 
+> Indeed best to wait a bit before flooding -mm even more, it's rather a lot at
+> this point.
+> 
+> In the context of this series, it would be great if you could review whether the
+> diff I proposed would get the job done, thanks!
+> 
 
-Oh digging through dmesg - I did find something quite interesting:
+What it changes looks good, but I would go a little further.
 
-[12462.749663] ------------[ cut here ]------------
-[12462.749670] refcount_t: saturated; leaking memory.
-[12462.749817] ------------[ cut here ]------------
-[12462.759267] WARNING: lib/refcount.c:19 at
-refcount_warn_saturate+0x1b/0x70, CPU#17: zeroleak/76075
-[12462.759276] refcount_t: underflow; use-after-free.
-[12462.777208] Modules linked in: sch_fq(E) tcp_diag(E) inet_diag(E)
-act_gact(E) cls_bpf(E)
-[12462.786790] WARNING: lib/refcount.c:28 at
-refcount_warn_saturate+0x42/0x70, CPU#25: dmesg/76074
+There are only two more users of page_private_gcing(), which pass fio->page.
+Those could easily be converted to folio_test_f2fs_gcing() by passing fio->folio,
+which is in a union with fio->page. That would let you delete the
+page_private_##name() implementation in PAGE_PRIVATE_GET_FUNC() as well and just
+remove the entire family. At that point PAGE_PRIVATE_{GET,SET,CLEAR}_FUNC()
+could be renamed to something like F2FS_FOLIO_PRIVATE_{GET,SET,CLEAR}_FUNC() and
+all of this cruft is gone and folio-based, with no more f2fs use of page_private()
+either.
 
-Seems like it managed to oversaturate mem_cgroup_private_id:
+The renaming could be done as a later step, but I would get rid of the accessors
+as well in one swoop.
 
-struct mem_cgroup_private_id {
-    int id;
-    refcount_t ref;
-};
+> -- 
+> Cheers,
+> 
+> David
+> 
 
-We should either fix mem_cgroup_private_id to use 64-bit refererence
-count here, or hardcap the swap usage to below the saturation point of
-refcount_t ref. I'm leaning towards the former in the long run.
-
-This is sort of an argument for handling all of this transparently
-though - expecting users to know what the cap should be based on a
-myriad of architectural and arcane implementation details (which can
-change arbitrarily in the future) is very unreasonable.
