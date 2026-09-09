@@ -1,348 +1,374 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A306A53ED1D;
-	Wed,  9 Sep 2026 11:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954773; cv=none; b=D0m1hw4N4eyMcwwKEd0b6pzKGJaZnO0m0POw7VfpQMz2NOJA1a2oxt1M9kqEAr0FIHW6JbQfJEnTV0Z/yN4rGq4KLQq0zAr4iuSPB9+7BvsrNLzthLXQxfxuLUxUBYTdQ9YQwDiN8NMpMLMjKSwwcj170Ei1nJccvUaHqU78Xzw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954773; c=relaxed/simple;
-	bh=PMlcPN1pGdd0les1zHqHbTaXrb5Fa97JWbU40R+JlUk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m9AMKUnkveGNEDDvV1M3OdCS4SV4+1m+49NYIhnfqjHLzVTrbRcT/t6IU/gC0asxbgBkNNsLv8hRogw7Wz4uqa208WC2keYOHXDmH9SV/s2s7EUsjIX+5CqOjbBT+vF7QHt63q8NFo2xIlz/Eyd7ARceUx8dDDtkERYqSvLVYfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmbRqPrY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EE95427ED
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788954872; cv=fail; b=Pb7Z5fTHPnTbOqg4u45ZsPR4UVtR+S0HVdLEIcf1euoJ4doXJXztwe4qsiqotv4LW/l7jRY1Nc3+FmIBkDSPAGtGbj+B/Xv2KyoVr8S4KqfVAPrscV8r4OMxCwH0KSCVZsvUNy9d4LBH4p3j2M6OFS3IfZolyk5/QLQ7t+boB98=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788954872; c=relaxed/simple;
+	bh=7sIC9OS8qEbzOomws89r9rzXjhGBvUEq+IaXIzbc3w8=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BlirR2TDgk6P69mi0uvxvm5M3NnvtSWCjN/XGVuccRVgov77VY946YLE4b/0/9BUEb3XVZk8ooFC+Q4lpvKEVmn6hWc0vHugegFiiVM4qS+AWizsIO76/nuqI1TzJO46fZy35+DWpoXqxDqRk1yZqYdf4CfOqsI3AgQQeCazUvM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JXjCDQ+f; arc=fail smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmbRqPrY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7B41F00A3A;
-	Wed,  9 Sep 2026 11:52:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788954771;
-	bh=HX/9u9ZOyn+A65il1ydMpPrAYGvAfJ881m9P59zMh/w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RmbRqPrYgdNlWaUzBNmteLc0oXjw9N1SOHkFnHRXB29L8jvAU7loD2kN+qR/fOA22
-	 CrDq7ggGAFi/iU3KkFyqdwpZg3BLX0GiR+ETOZeNRLstrd+xsPLcGSS7l1m4nzPcOu
-	 9OkoYLGJfIU5QPj7eO5nRW4hnadhxjv0yGdQJTlO68Nc0ivG4Zm4wUJpTmgnCzwSVm
-	 qsNNnYCAZcTtZtshl8O6UH+pX4HkiGokxQwtJxeaq7DEIoWu7kj9kGDhZLPvwZuhXj
-	 gFxQyAfraGgEBec75hogWWocPeiDplxGjThD/n/C8wZLTb7HQAuGY8YLZevZrVHmx2
-	 hg6+ZkSQUbyfQ==
-Date: Wed, 9 Sep 2026 08:52:48 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Matt Turner <mattst88@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
-Message-ID: <aqFIkFzVvCQqnzpy@x2>
-References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
- <aqE_QOp-x1aOQsCX@x2>
- <aqFCMfb94Cdumemm@x2>
- <aqFDLQ5Yu7yg6Y2Z@x2>
- <aqFEdSZ40HkvipUr@x2>
- <aqFGVejYb-kZ8o_I@x2>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JXjCDQ+f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788954871; x=1820490871;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=7sIC9OS8qEbzOomws89r9rzXjhGBvUEq+IaXIzbc3w8=;
+  b=JXjCDQ+fVIlSxWM8WKBsSCObtX+r8xpXqHhl0igF1OH92NMZJlybh7yX
+   Ogo60T76ifRvR6OTZuaENRW6d9qgH60AE7SR2eJG6loxZWkb8M+1OD6x2
+   TugvOrkwaYGGtOk1ZFfJQwoX6iXbN0FnI5RMSjSeiJ6jn1yhuqRojGMwK
+   zABYwMmIhOG2pTwiKm142rIxmrpgNKzmMHxg3QH51Q6QHr6qWQUnqJk14
+   O4DAKEVISrjBiy5M/DCB0D9ot6fhQae9BLLwbSCsh0rMbBH/uCGF+CMOS
+   NOvQ6Dj/E/V1IyyG2+PoVWSE7T8q2t0Hon/XKRaYvUdkDKHfYdFPucCwi
+   A==;
+X-CSE-ConnectionGUID: W+Z4BnJ6RWamGdCpITXGTg==
+X-CSE-MsgGUID: cQkXGZCvSeeEP1qaZ2A2Jw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100897854"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="100897854"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 04:54:30 -0700
+X-CSE-ConnectionGUID: ZQaJ/Cw5SVeuBvDhcvONBA==
+X-CSE-MsgGUID: wtcA2XUoTuKZoHYpZ6Q55w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="268048521"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 04:54:30 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 04:54:29 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 04:54:29 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.28) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 04:54:29 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T/XtEEe9gIxHkbcS+iN6kqQDYyvSDed2QtjYe1HAgltDXcJk2VyJRTGx4nEeeWo3W6d3iF+fKTTrDJYaK1LZgkxLMymXRcsOOurSjSjIpDbOP5z+bdvQxdwo1P1tQekCkJaDk1L9Df90FAdlEKiuFd9HViIs06YVsWvTNOHtQm2ISlh1MP7667calawjaD2TvMldTi4neo5oeT2gLP6mLr78V3W7iysuWox3tUjxTr21TDM2qQoY5DV1a8Jq6SDfucMLXB2mZcWwHhnru1vmSbGVRK1uRxGF0rfMBueNpAzwO73M70qQ6agc13oaW8HCHYzXrXTVwbSSw2vxPP82rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5ljdlo/8zHcsVQqrr3WRVwfsw37TyHQZIdatCOm/odc=;
+ b=YePQvLiTsSYtNPJoAjh292PO67AXR/jPrjT5jqlC7wIxjQtsrYcRT/Hvf6FrgDmq8jHjVhDN2c28tybwfntThBYgZZX7BiNArFWTIcukT7/1EFE5aGLywCZ1U1eTFg7iwpRTuxibYK09titBr3Ysy1qAudenC2RxbK1J0uTHccqXbDcmS7uEN0u4vjy3X3Z15l1QC4nyQzVluhOh5MtmulwJw0O0PF5kylm8eeqHagKatADlXOa1T/UJxB8KlliweDtdy21h0YHQx5C9KQVvb02WFiHmCgnhgXrbnU8ULR71yXwHY7N6pArksVOTGPscNxhg4i1NR675xQPlYkC3zA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6005.namprd11.prod.outlook.com (2603:10b6:510:1e0::19)
+ by DM4PR11MB8130.namprd11.prod.outlook.com (2603:10b6:8:181::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 11:54:09 +0000
+Received: from PH7PR11MB6005.namprd11.prod.outlook.com
+ ([fe80::4f64:b0b5:4ed2:39ae]) by PH7PR11MB6005.namprd11.prod.outlook.com
+ ([fe80::4f64:b0b5:4ed2:39ae%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 11:54:09 +0000
+Date: Wed, 9 Sep 2026 19:40:43 +0800
+From: Chen Yu <yu.c.chen@intel.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+CC: Chen Yu <chen.yu@linux.dev>, Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	<peterz@infradead.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>,
+	<linux-kernel@vger.kernel.org>, <zhanxusheng@xiaomi.com>
+Subject: Re: sched/fair: which tasks should nr_pref_llc_running be compared
+ against?
+Message-ID: <aqFFu1Xo52cQV3iy@fengwei-dev>
+References: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
+ <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
+ <apPnJaUS5vq2f85J@three-body>
+ <06ed8af87506f858176a81a4c29acf92d24b6dc7.camel@linux.intel.com>
+ <apmQaelH5Y7czrOM@fengwei-dev>
+ <2b0a35122ee615c6fa51076e5d79330e633755ac.camel@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2b0a35122ee615c6fa51076e5d79330e633755ac.camel@linux.intel.com>
+X-ClientProxiedBy: TPYP295CA0048.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:8::14) To DM4PR11MB6020.namprd11.prod.outlook.com
+ (2603:10b6:8:61::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqFGVejYb-kZ8o_I@x2>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6005:EE_|DM4PR11MB8130:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf6e14f4-6754-4cd2-1efe-08df0e690d58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|11063799006|5023799004|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: dxnS8ZyNKuJ09WyypwVI1Mxi5m9gmLd+iI86dL4XmMmhvLw+TnyyJV+hNiSsezFYAuTkY5vhh4Pi14CMg80QLIEhY5RYGzcOiaMpkKeOFQVG1dq2dWoiPsAM29/snMU+fC+ReuLqKSqyYuPyyAaZnQCq4wjsQd1BSi/gg54tHiUH+yOATLM/8yQzADIP/AtT3iEo8uVxxtXndI2YcFzptc19u+NlF7arKeKIR7uB9GSqAak5W9Tn2PV6OPbJFf8asb26oKehWesTAGKXGWVRZ553xLh+yIfP+vQIJ3aX+G5Pq2bl47tIXMHzTFofSxq1yGjyvp2Bdxez5/7+YPn74zPmfdbnt3u4buFWISyuec277BGhG8cTj7rbo4lnvl82s4WFNazcmazsh/1pS/hdJ3FI7P0bDjPN2kDr0tiOg/C5yBtxTYWHT6fr6lQcFPb07mYUJAwV76V1zu/RAuEi5Q4//DTlHDKYCRxjZZTMMdH+R59RRuhR8YcTTf3aqGmRB7+MHkuWP2G0ehtNc1/awd+ZIKMbxTTrHH4/SQNtRtGhlX5PfZKH6klZmTTWNmbKlvncL/j4nPVLCdGXmLjxFDdmduco9nCFru0NqGPHh5+xJNxRM7G8fa4LMhGU0fjgQkoDYjHx93JL9M0wiEHyYMd/iZowUTnJrZYLqyEgQvQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6005.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Doy0oEhwkOMswnxJljcimvHIMz6aLc9i61j6XcZMPJ9vf2C2EtyGGlmiTb+o?=
+ =?us-ascii?Q?Li5AYIDgPksSTxUsmw2XK6T+GDP0rNtlhn/509enjl7EkPNS8SWVUL+swWDQ?=
+ =?us-ascii?Q?C27C+CNgyTRtbx+v0CcgkbdOACCQAb8XEIrjbV8vXFBaUWa7Y8i6VWaby9x0?=
+ =?us-ascii?Q?F0wAqfxqo/BYJ0Sire2V+ytyxIGKus1n2cs+YIoC+p8rXsAuaYVEvXbd923W?=
+ =?us-ascii?Q?ELXUCZu7BP48SmgdNyGz0rSDzoA2UWX/QG9PxzYzjeeTw6nSK7ynv0ZE0/4N?=
+ =?us-ascii?Q?4KYaW13Ke3mixtUdPKS1fsTdImn4XGxq8Bgz1mwVBus+rOBFpho/Hj3r9tjm?=
+ =?us-ascii?Q?Pt+cAx6ApRCY4LaYB2igE1WB+CezR0XBf4hHyYHN9l0gnf4Q7ZMiJ3vveknI?=
+ =?us-ascii?Q?LgEtqAq+c56h0uk1VnGE6CY8Uz8vKlzP1cGm/0tpVxjiEL37o8RKbNGRjhJ8?=
+ =?us-ascii?Q?W3lJhwJTRaPB6N6rw1dxYLJBOD27x/rgIOWxj6Xe2naZFu+o21Z1ByzKHwSO?=
+ =?us-ascii?Q?fu/0xsfMGEGTxfk3jN1tV+8Y3hftL+Qzp15KhfkWXL8Iqzu0cTT7YYRSeQLw?=
+ =?us-ascii?Q?R0rOLb/TERH/p8zBY85xlRFeDtq9c3speVTifS/L2TW+2fWWoYNRKxpJCYuu?=
+ =?us-ascii?Q?gFH+uAv2OBQQe2qp+bYcbwDr8xq5+7GMQ34Q7mq/INIKTzfn+vkrTmy3gGly?=
+ =?us-ascii?Q?iDKG4TYPMMyMzMuB2WE0naUiay5U9eAAs/qaKJQTCxFZLWfylX6lcVYBSlrT?=
+ =?us-ascii?Q?7BaxjDznrGAd+QfTrbP1M5JY0P1mlcdgYSh2JkIlYnOyrvo+Ln/ICkI6Fd7z?=
+ =?us-ascii?Q?qqN3qDamyNeyYnwN5RbEwC+OtGi4oVeU3WR2e057ZICCO7SE2gfGa+kc7bC+?=
+ =?us-ascii?Q?6fq7qIo1X7iMf1RK/TIWRMKcwwpCtEDViFqHCnZdOpyRjVxk9yY7Au4cTQx8?=
+ =?us-ascii?Q?QgLQmUHc3wUWHxoet0qvj5h2PM/6UCuySmOI8Gl+XzDoPx1QFa32/RjEBbmK?=
+ =?us-ascii?Q?OegJY2GcvHsnlhhdEG+MXKLtoY43huDQmV8DIja8GMoCJVi+2DdKDN3B/A6I?=
+ =?us-ascii?Q?p6sXAhjsqEt5XC6Zd3J87dMBJu/XfbXW58ZAI9ALPoKcUtJ2PX3FzuaN1Q3h?=
+ =?us-ascii?Q?UNhZQCqSvB8Y+cBbpIfBofM21fN3D0w4mkcnFa69a9c+9WM4pfRm16YZdVNL?=
+ =?us-ascii?Q?A9Hpa16LaKOLCsfIG0LmJoBerNM07wGbr9erzhzY9GShCr/qKLiJc40q0hSO?=
+ =?us-ascii?Q?mCE69fiVRSahu674XrNZ4yGFbGP4p09L5LbEEF2HFqE9xcfFuO24CjLxb72+?=
+ =?us-ascii?Q?YY7fCHkwlvxGuRi2Ip0ZsOcfQTMhpGmtpaWo3wKP8wyKpaGF4bIfy11nY0/0?=
+ =?us-ascii?Q?blKqi0kWrGSiRSg54/tl/Su1wGlLkuy7grqJNfgKqVkJrSQNeMczTPy5+TGx?=
+ =?us-ascii?Q?62lYZHKqwzcoYjZRjfZm1hC4c6Vs38IypjQw2tFSk3cb6DH67VS3ThZAmGjf?=
+ =?us-ascii?Q?iq0heNB1Xcbdw9CHevLg5zmuLof1pZ9Zz90ji/7CTazK55L78ar1Qn6/17Ux?=
+ =?us-ascii?Q?w0Z0s/GqqTsTs33sKUmSqELsxBUUEnB2ubLhIPaXFLSh5Lks54Ajf365N5zC?=
+ =?us-ascii?Q?x4+UahdVcaGyUZ/iSJdcL5wAVAEOGoYNUinqtoDIvzQzG0TrT2U9a6Vph2GA?=
+ =?us-ascii?Q?2z1MzlEC4XjwwUcbSu4uYQ4myvtrYhk5X7Y0/b9DUU91ITruaJer2/B1mGUu?=
+ =?us-ascii?Q?5PuaZ8rpYQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: JgrXf5M0hWpBekee/OlR384aWH53PjPxxiLzjyFTQ7OemV2UmmgbTMJp7laa7pF2hoh701eY2fgWNhGDfp7u/KeMfcgTWb949lZ+Z5/PD0hr/96gnwuw6qFkpjMHoKx0/KwtzrB/YQ5KXJo/la2jv6N7FlZ59yn911cuevwRsiYun8UwXH38jtGYQsUnxCyErYBpijOQ3dfcbHm2d+OhmDFda8dUVDvI5vahy7583lcQOAa3hpn0kJbwS9Xsoe2nh3ymp6YsJKIDEw0X/QA+Q5hJjucTYK+R1roIsbMgYirUX71GQGCkMUU9Taa/Ltkt69u5gmk5sjg4bx7/oeQgiQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf6e14f4-6754-4cd2-1efe-08df0e690d58
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 11:54:09.2118
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bSZHzIy1W45SeoAngKbPbjW07Txhe62HcZ/WbgpQR5yTj7n2af3AxuraSI9XmYCf1u3OQqnmEmMJbgSbzDG/sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8130
+X-OriginatorOrg: intel.com
 
-On Wed, Sep 09, 2026 at 08:43:20AM -0300, Arnaldo Carvalho de Melo wrote:
-> On Wed, Sep 09, 2026 at 08:35:20AM -0300, Arnaldo Carvalho de Melo wrote:
-> > On Wed, Sep 09, 2026 at 08:29:52AM -0300, Arnaldo Carvalho de Melo wrote:
-> > > On Wed, Sep 09, 2026 at 08:25:41AM -0300, Arnaldo Carvalho de Melo wrote:
-> > > > patching file tools/perf/ui/setup.c
-> > > > ⬢ [acme@toolbx perf-tools-next]$
-> > > > 
-> > > > I fixed it up quickly, now lets see the rest...
-> > > 
-> > > Trying to build with it with just the first patch in this series in it
-> > > correctly discovers that the gtk4 devel files are not available but then
-> > > proceed to try to include gtk code and thus fail, where it should just
-> > > do what the feature detection states: disable gtk support but build
-> > > successfully without it, I'm checking if this is a quick surgery.
-> > 
-> > This is a pre-existing condition, if I try without your series and
-> > without gtk2 devel files, I get the same problem, so I'll now try to
-> > build it with the required gtk4 devel files, we can fix this
-> > pre-existing problem afterwards, its not a regression introduced by your
-> > series.
+On Fri, Sep 04, 2026 at 01:53:10PM -0700, Tim Chen wrote:
+> Good idea - the four sites really are one operation ("if the task is
+> queued on its preferred LLC and runnable, move the counter"), and
+> folding the two conditions into one place is what keeps them from
+> drifting apart later. I've adopted it in v3; account_llc_delayed() and
+> account_llc_requeue_delayed() are gone.
 > 
-> Now, with GTK4=1 and trying to build the first patch after installing
-> gtk4-devel on fedora 43 it fails to detect gtk4 support:
+> I split it slightly differently: a membership predicate
 > 
-> ⬢ [acme@toolbx perf-tools-next]$ m
-> make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
->   BUILD:   Doing 'make -j32' parallel build
+>         static bool task_pref_llc_runnable(struct task_struct *p)
+>         {
+>                 return p->pref_llc_queued && !p->se.sched_delayed;
+>         }
 > 
-> Auto-detecting system features:
-> ...                                   libdw: [ on  ]
-> ...                                   glibc: [ on  ]
-> ...                                    gtk4: [ OFF ]
-> ...                                  libelf: [ on  ]
-> ...                                 libnuma: [ on  ]
+> with pref_llc_running_inc()/pref_llc_running_dec() wrappers over it, so
+> the call sites read as inc/dec rather than passing a +1/-1 delta.
+> 
+> Two things to note:
+> 
+> 1) I kept the call site comments of pref_llc_running_inc/dec().
+>    The helper name says *what* happens,
+>    but not *why* it is safe across the delay-dequeue transition - that
+>    set_delayed() already did the decrement, so account_llc_dequeue()
+>    must skip it, and that clearing pref_llc_queued there is what
+>    neutralizes the following clear_delayed(). 
+> 
+> 2) The pref_llc_running_dec() placement in set_delayed()
+>    is subtle. It has to be before se->sched_delayed = 1 or
+>    decrement would not happen. That deserves a comment so no
+>    one would move sched_delayed = 1 before the decrement.
+>
+> 
+> alb_break_llc() decides whether to break LLC preference during active
+> load balance. It does so by testing that every runnable fair task on the
+> source rq prefers its LLC:
+> 
+> 	env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable
+> 
+> But the two counters cover different sets. nr_pref_llc_running is updated
+> in account_llc_enqueue()/account_llc_dequeue(), next to cfs_rq->nr_queued,
+> so it follows queued tasks. h_nr_runnable is updated in set_delayed()/
+> clear_delayed() and drops delay-dequeued tasks.
+> 
+> So under DELAY_DEQUEUE, a preferring task that goes to sleep stays counted
+> in nr_pref_llc_running while h_nr_runnable falls. The equality then breaks,
+> alb_break_llc() returns false, and active balance is free to pull a task
+> off its preferred LLC. Active balance only moves runnable tasks, and this
+> is the only LLC check it consults: once the stopper runs, LBF_ACTIVE_LB
+> skips the per-task test in can_migrate_task(). The runnable set is the one
+> we want.
+> 
+> Fix it on the counter side. A task should be counted in
+> nr_pref_llc_running exactly while it is both queued on its preferred LLC
+> (pref_llc_queued) and runnable (!sched_delayed). Define that membership
+> once in task_pref_llc_runnable(), and adjust the counter only through
+> pref_llc_running_inc()/pref_llc_running_dec() from the four sites that
+> change either input: account_llc_enqueue(), account_llc_dequeue(),
+> set_delayed() and clear_delayed(). Gating every update on the same
+> predicate keeps the delay, wake and dequeue paths from double-counting
+> or underflowing; see the comments at those sites for the ordering.
+> 
+> nr_llc_running and sd->llc_counts are not touched and stay on queued
+> semantics.
+> 
+> Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Closes: https://lore.kernel.org/lkml/20260827135000.735138-1-zhanxusheng@xiaomi.com/
+> Suggested-by: Chen Yu <yu.c.chen@intel.com>
+> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+> ---
+> Based on v7.3-rc1.
+> 
+> Changes in v3:
+> - Route every nr_pref_llc_running adjustment through a single membership
+>   predicate task_pref_llc_runnable(), with pref_llc_running_inc()/
+>   pref_llc_running_dec() wrappers, instead of four open-coded sites
+>   (Chen Yu). Keep the per-site comments that explain the delay-dequeue
+>   interaction, and note that set_delayed() must adjust the counter
+>   before setting se->sched_delayed.
+> 
+> Changes in v2:
+> - Prevent a delay-dequeued task from being counted as running in the
+>   enqueue path (Chen Yu).
+> 
+>  kernel/sched/fair.c | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 50 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 8dff37059faf..72aae7a50b8b 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1538,6 +1538,28 @@ static bool invalid_llc_nr(struct mm_struct *mm, struct task_struct *p,
+>  			(scale * per_cpu(sd_llc_size, cpu)));
+>  }
+>  
+> +/*
+> + * A task counts in nr_pref_llc_running while it is queued on its preferred
+> + * LLC (pref_llc_queued) and runnable (!sched_delayed), keeping the counter in
+> + * the runnable domain so alb_break_llc() can compare it with h_nr_runnable.
+> + */
+> +static bool task_pref_llc_runnable(struct task_struct *p)
+> +{
+> +	return p->pref_llc_queued && !p->se.sched_delayed;
+> +}
+> +
+> +static void pref_llc_running_inc(struct rq *rq, struct task_struct *p)
+> +{
+> +	if (task_pref_llc_runnable(p))
+> +		rq->nr_pref_llc_running++;
+> +}
+> +
+> +static void pref_llc_running_dec(struct rq *rq, struct task_struct *p)
+> +{
+> +	if (task_pref_llc_runnable(p))
+> +		rq->nr_pref_llc_running--;
+> +}
+> +
+>  static void account_llc_enqueue(struct rq *rq, struct task_struct *p)
+>  {
+>  	int pref_llc, pref_llc_queued;
+> @@ -1549,7 +1571,6 @@ static void account_llc_enqueue(struct rq *rq, struct task_struct *p)
+>  
+>  	pref_llc_queued = (pref_llc == task_llc(p));
+>  	rq->nr_llc_running++;
+> -	rq->nr_pref_llc_running += pref_llc_queued;
+>  
+>  	/*
+>  	 * Record whether p is enqueued on its preferred
+> @@ -1567,6 +1588,9 @@ static void account_llc_enqueue(struct rq *rq, struct task_struct *p)
+>  	 */
+>  	p->pref_llc_queued = pref_llc_queued;
+>  
+> +	/* Skipped while delayed; clear_delayed() adds it back on wake. */
+> +	pref_llc_running_inc(rq, p);
+> +
+>  	sd = rcu_dereference_all(rq->sd);
+>  	if (sd && (unsigned int)pref_llc < sd->llc_max)
+>  		sd->llc_counts[pref_llc]++;
+> @@ -1583,7 +1607,12 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
+>  
+>  	rq->nr_llc_running--;
+>  	if (p->pref_llc_queued) {
+> -		rq->nr_pref_llc_running--;
+> +		/*
+> +		 * Skipped if still delayed (set_delayed() already removed it);
+> +		 * clearing pref_llc_queued below also stops clear_delayed()
+> +		 * from re-adding it.
+> +		 */
+> +		pref_llc_running_dec(rq, p);
+>  		/*
+>  		 * Update the status in case
+>  		 * other logic might query
+> @@ -2008,6 +2037,10 @@ static void account_llc_enqueue(struct rq *rq, struct task_struct *p) {}
+>  
+>  static void account_llc_dequeue(struct rq *rq, struct task_struct *p) {}
+>  
+> +static void pref_llc_running_inc(struct rq *rq, struct task_struct *p) {}
+> +
+> +static void pref_llc_running_dec(struct rq *rq, struct task_struct *p) {}
+> +
+>  #endif /* CONFIG_SCHED_CACHE */
+>  
+>  /*
+> @@ -6382,6 +6415,14 @@ static __always_inline void return_cfs_rq_runtime(struct cfs_rq *cfs_rq);
+>  
+>  static void set_delayed(struct sched_entity *se)
+>  {
+> +	/*
+> +	 * Drop a task leaving the runnable set. Must run before sched_delayed
+> +	 * is set, or task_pref_llc_runnable() would already exclude it;
+> +	 * clear_delayed() mirrors this after clearing the flag.
+> +	 */
+> +	if (entity_is_task(se))
+> +		pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
+> +
+>  	se->sched_delayed = 1;
+>  
+>  	/*
+> @@ -6412,6 +6453,13 @@ static void clear_delayed(struct sched_entity *se)
+>  	if (!entity_is_task(se))
+>  		return;
+>  
+> +	/*
+> +	 * Re-add on wake, after sched_delayed is cleared. On a final delayed
+> +	 * dequeue account_llc_dequeue() already cleared pref_llc_queued, so
+> +	 * this does nothing.
+> +	 */
+> +	pref_llc_running_inc(rq_of(cfs_rq_of(se)), task_of(se));
+> +
+>  	for_each_sched_entity(se) {
+>  		struct cfs_rq *cfs_rq = cfs_rq_of(se);
+>  
+> -- 
+> 2.32.0
+> 
+> 
+>
 
-I see, you do it with tools/perf being your cwd, I tried that and it
-works now:
+Yes, I think this version looks good now. While looking back at Xusheng's proposal,
+I noticed there is another option:
+if (env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_queued) {
+	...
+}
+May I know why we did not choose this approach, is it because of the following
+scenario?
+Suppose there are 3 queued tasks: p1 and p2 prefer the src_rq, while p3 is a delayed
+task that also prefers src_rq. In the current implementation, nr_pref_llc_running is 3
+and h_nr_runnable is 2, so alb_break_llc() might return false. As a result, active load
+balance would be triggered, and p1 or p2 might be migrated away, which is undesirable.
+However, would this still be a problem after Lu Wang's active load balance guard patch
+has been applied?
+https://lore.kernel.org/lkml/20260903020656.3793626-1-wanglu.priv@gmail.com/
 
-⬢ [acme@toolbx perf-tools-next]$ cd tools/perf/
-⬢ [acme@toolbx perf]$ make GTK4=1
-  BUILD:   Doing 'make -j32' parallel build
-
-Auto-detecting system features:
-...                                   libdw: [ on  ]
-...                                   glibc: [ on  ]
-...                                    gtk4: [ on  ]
-...                                  libelf: [ on  ]
-...                                 libnuma: [ on  ]
-...                  numa_num_possible_cpus: [ on  ]
-...                               libpython: [ on  ]
-...                             libcapstone: [ on  ]
-...                               llvm-perf: [ on  ]
-...                                    zlib: [ on  ]
-...                                    lzma: [ on  ]
-...                                     bpf: [ on  ]
-...                                  libaio: [ on  ]
-...                                 libzstd: [ on  ]
-...                              libopenssl: [ on  ]
-...                                    rust: [ on  ]
-
-  INSTALL libsubcmd_headers
-  INSTALL libapi_headers
-  PERF_VERSION = 7.3.rc2.g581f81a14c5c
-  INSTALL libsymbol_headers
-  GEN     perf-archive
-  INSTALL libperf_headers
-  GEN     perf-iostat
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/core.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/cpumap.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/threadmap.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/evsel.o
-  INSTALL libbpf_headers
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/evlist.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/mmap.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/zalloc.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/xyarray.o
-  CC      /home/acme/git/perf-tools-next/tools/perf/libperf/lib.o
-  LD      /home/acme/git/perf-tools-next/tools/perf/libperf/libperf-in.o
-  AR      /home/acme/git/perf-tools-next/tools/perf/libperf/libperf.a
-  CC      ui/gtk/browser.o
-  CC      jvmti/libjvmti.o
-  CC      ui/gtk/hists.o
-  CC      arch/common.o
-  CC      ui/gtk/setup.o
-  CC      trace/beauty/syscalltbl.o
-  CC      ui/gtk/util.o
-  CC      jvmti/jvmti_agent.o
-  CC      ui/gtk/helpline.o
-  CC      trace/beauty/arch_errno_names.o
-  CC      jvmti/libstring.o
-  CC      ui/gtk/progress.o
-  CC      jvmti/libctype.o
-  CC      ui/gtk/annotate.o
-<SNIP>
-  LD      perf-bench-in.o
-  AR      libperf-bench.a
-  LINK    perf
-  LINK    libperf-gtk.so
-⬢ [acme@toolbx perf]$
-
-I don't think this was present before, lemme try...
-
-My bad, I made a mistake and was trying to build with gtk4 while using
-GTK2=1 on the make command line, that I had switched to test building
-with gtk2 for that pre-existing problem and forgot to switch back to
-GTK4=1 when returning to test your patches...
-
-Now, with it it works as expected, using 'make GTK4=1 -C tools/perf',
-building the first patch:
-
-⬢ [acme@toolbx perf-tools-next]$ rm -rf /tmp/build/`basename $PWD` ; mkdir -p /tmp/build/`basename $PWD`
-⬢ [acme@toolbx perf-tools-next]$ alias m='rm -rf ~/libexec/perf-core/ ; make -k GTK4=1 O=/tmp/build/$(basename $PWD)/ -C tools/perf install-bin && perf test import && cat /tmp/build/$(basename $PWD)/feature/test-all.make.output' ; export PYTHONPATH=/tmp/build/$(basename $PWD)/python
-⬢ [acme@toolbx perf-tools-next]$ m
-make: Entering directory '/home/acme/git/perf-tools-next/tools/perf'
-  BUILD:   Doing 'make -j32' parallel build
-
-Auto-detecting system features:
-...                                   libdw: [ on  ]
-...                                   glibc: [ on  ]
-...                                    gtk4: [ on  ]
-...                                  libelf: [ on  ]
-...                                 libnuma: [ on  ]
-...                  numa_num_possible_cpus: [ on  ]
-...                               libpython: [ on  ]
-...                             libcapstone: [ on  ]
-...                               llvm-perf: [ on  ]
-...                                    zlib: [ on  ]
-...                                    lzma: [ on  ]
-...                                     bpf: [ on  ]
-...                                  libaio: [ on  ]
-...                                 libzstd: [ on  ]
-...                              libopenssl: [ on  ]
-...                                    rust: [ on  ]
-
-  CC      /tmp/build/perf-tools-next/dlfilters/dlfilter-test-api-v0.o
-  CC      /tmp/build/perf-tools-next/dlfilters/dlfilter-test-api-v2.o
-  CC      /tmp/build/perf-tools-next/dlfilters/dlfilter-show-cycles.o
-  GEN     /tmp/build/perf-tools-next/arch/arm64/include/generated/asm/sysreg-defs.h
-<SNIP>
-  LINK    /tmp/build/perf-tools-next/perf
-  LINK    /tmp/build/perf-tools-next/libperf-gtk.so
-  GEN     /tmp/build/perf-tools-next/python/perf.cpython-314-x86_64-linux-gnu.so
-  INSTALL GTK UI
-  INSTALL binaries
-  INSTALL tests
-  INSTALL libperf-jvmti.so
-  INSTALL libexec
-  INSTALL perf-archive
-  INSTALL perf-iostat
-  INSTALL python-scripts
-install: omitting directory 'scripts/python/Perf-Trace-Util/lib/Perf/Trace/__pycache__'
-  INSTALL dlfilters
-  INSTALL perf_completion-script
-  INSTALL perf-tip
-make: Leaving directory '/home/acme/git/perf-tools-next/tools/perf'
-104: 'import perf' in python                                                                                   : Ok
-
-=== Test Summary ===
-Passed main tests : 1
-Passed subtests   : 0
-Skipped tests     : 0
-Failed tests      : 0
-⬢ [acme@toolbx perf-tools-next]$ 
-
-And, which makes me recall why we made t his a plugin :-)
-
-⬢ [acme@toolbx perf-tools-next]$ ldd /tmp/build/perf-tools-next/libperf-gtk.so
-	linux-vdso.so.1 (0x00007f8588fb8000)
-	libgtk-4.so.1 => /lib64/libgtk-4.so.1 (0x00007f858854c000)
-	libpangocairo-1.0.so.0 => /lib64/libpangocairo-1.0.so.0 (0x00007f8588539000)
-	libpango-1.0.so.0 => /lib64/libpango-1.0.so.0 (0x00007f85884cd000)
-	libharfbuzz.so.0 => /lib64/libharfbuzz.so.0 (0x00007f8588399000)
-	libgdk_pixbuf-2.0.so.0 => /lib64/libgdk_pixbuf-2.0.so.0 (0x00007f858836b000)
-	libcairo-gobject.so.2 => /lib64/libcairo-gobject.so.2 (0x00007f8588362000)
-	libcairo.so.2 => /lib64/libcairo.so.2 (0x00007f8588222000)
-	libvulkan.so.1 => /lib64/libvulkan.so.1 (0x00007f858819a000)
-	libgraphene-1.0.so.0 => /lib64/libgraphene-1.0.so.0 (0x00007f858817d000)
-	libgio-2.0.so.0 => /lib64/libgio-2.0.so.0 (0x00007f8587faa000)
-	libgobject-2.0.so.0 => /lib64/libgobject-2.0.so.0 (0x00007f8587f4b000)
-	libglib-2.0.so.0 => /lib64/libglib-2.0.so.0 (0x00007f8587df4000)
-	libc.so.6 => /lib64/libc.so.6 (0x00007f8587c00000)
-	libgmodule-2.0.so.0 => /lib64/libgmodule-2.0.so.0 (0x00007f8587bfa000)
-	libharfbuzz-subset.so.0 => /lib64/libharfbuzz-subset.so.0 (0x00007f8587ac5000)
-	libfribidi.so.0 => /lib64/libfribidi.so.0 (0x00007f8587aa5000)
-	libfontconfig.so.1 => /lib64/libfontconfig.so.1 (0x00007f8587a55000)
-	libepoxy.so.0 => /lib64/libepoxy.so.0 (0x00007f8587949000)
-	libm.so.6 => /lib64/libm.so.6 (0x00007f8587852000)
-	libgstplay-1.0.so.0 => /lib64/libgstplay-1.0.so.0 (0x00007f858782e000)
-	libgstvideo-1.0.so.0 => /lib64/libgstvideo-1.0.so.0 (0x00007f8587759000)
-	libgstreamer-1.0.so.0 => /lib64/libgstreamer-1.0.so.0 (0x00007f8587600000)
-	libgstgl-1.0.so.0 => /lib64/libgstgl-1.0.so.0 (0x00007f858756d000)
-	libgstallocators-1.0.so.0 => /lib64/libgstallocators-1.0.so.0 (0x00007f8587564000)
-	librsvg-2.so.2 => /lib64/librsvg-2.so.2 (0x00007f85870a0000)
-	libXi.so.6 => /lib64/libXi.so.6 (0x00007f858708d000)
-	libX11.so.6 => /lib64/libX11.so.6 (0x00007f8586f48000)
-	libpangoft2-1.0.so.0 => /lib64/libpangoft2-1.0.so.0 (0x00007f8586f2c000)
-	libtinysparql-3.0.so.0 => /lib64/libtinysparql-3.0.so.0 (0x00007f8586e58000)
-	libpng16.so.16 => /lib64/libpng16.so.16 (0x00007f8586e1c000)
-	libtiff.so.6 => /lib64/libtiff.so.6 (0x00007f8586d83000)
-	libjpeg.so.62 => /lib64/libjpeg.so.62 (0x00007f8586ce1000)
-	libxkbcommon.so.0 => /lib64/libxkbcommon.so.0 (0x00007f8586c88000)
-	libwayland-client.so.0 => /lib64/libwayland-client.so.0 (0x00007f8586c78000)
-	libwayland-egl.so.1 => /lib64/libwayland-egl.so.1 (0x00007f8586c74000)
-	libXext.so.6 => /lib64/libXext.so.6 (0x00007f8586c60000)
-	libXcursor.so.1 => /lib64/libXcursor.so.1 (0x00007f8586c51000)
-	libXdamage.so.1 => /lib64/libXdamage.so.1 (0x00007f8586c4d000)
-	libXfixes.so.3 => /lib64/libXfixes.so.3 (0x00007f8586c46000)
-	libXrandr.so.2 => /lib64/libXrandr.so.2 (0x00007f8586c39000)
-	libXinerama.so.1 => /lib64/libXinerama.so.1 (0x00007f8586c35000)
-	libcairo-script-interpreter.so.2 => /lib64/libcairo-script-interpreter.so.2 (0x00007f8586c12000)
-	libcups.so.2 => /lib64/libcups.so.2 (0x00007f8586b7c000)
-	libcolord.so.2 => /lib64/libcolord.so.2 (0x00007f8586b21000)
-	libthai.so.0 => /lib64/libthai.so.0 (0x00007f8586b16000)
-	libfreetype.so.6 => /lib64/libfreetype.so.6 (0x00007f8586a4c000)
-	libgraphite2.so.3 => /lib64/libgraphite2.so.3 (0x00007f8586a2d000)
-	libglycin-2.so.0 => /lib64/libglycin-2.so.0 (0x00007f858660b000)
-	libz.so.1 => /lib64/libz.so.1 (0x00007f85865e3000)
-	libXrender.so.1 => /lib64/libXrender.so.1 (0x00007f85865d7000)
-	libxcb.so.1 => /lib64/libxcb.so.1 (0x00007f85865ad000)
-	libxcb-render.so.0 => /lib64/libxcb-render.so.0 (0x00007f858659e000)
-	libxcb-shm.so.0 => /lib64/libxcb-shm.so.0 (0x00007f858659a000)
-	libpixman-1.so.0 => /lib64/libpixman-1.so.0 (0x00007f85864e9000)
-	libmount.so.1 => /lib64/libmount.so.1 (0x00007f8586493000)
-	libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f8586462000)
-	libffi.so.8 => /lib64/libffi.so.8 (0x00007f8586452000)
-	libpcre2-8.so.0 => /lib64/libpcre2-8.so.0 (0x00007f85863a5000)
-	/lib64/ld-linux-x86-64.so.2 (0x00007f8588fba000)
-	libxml2.so.2 => /lib64/libxml2.so.2 (0x00007f8586245000)
-	libgsttag-1.0.so.0 => /lib64/libgsttag-1.0.so.0 (0x00007f8586206000)
-	libgstpbutils-1.0.so.0 => /lib64/libgstpbutils-1.0.so.0 (0x00007f85861c1000)
-	libgstbase-1.0.so.0 => /lib64/libgstbase-1.0.so.0 (0x00007f858613d000)
-	liborc-0.4.so.0 => /lib64/liborc-0.4.so.0 (0x00007f8586099000)
-	libunwind.so.8 => /lib64/libunwind.so.8 (0x00007f858607c000)
-	libdw.so.1 => /lib64/libdw.so.1 (0x00007f8585fdf000)
-	libEGL.so.1 => /lib64/libEGL.so.1 (0x00007f8585fce000)
-	libGLX.so.0 => /lib64/libGLX.so.0 (0x00007f8585f9d000)
-	libwayland-cursor.so.0 => /lib64/libwayland-cursor.so.0 (0x00007f8585f93000)
-	libX11-xcb.so.1 => /lib64/libX11-xcb.so.1 (0x00007f8585f8f000)
-	libgudev-1.0.so.0 => /lib64/libgudev-1.0.so.0 (0x00007f8585f80000)
-	libdrm.so.2 => /lib64/libdrm.so.2 (0x00007f8585f69000)
-	libgbm.so.1 => /lib64/libgbm.so.1 (0x00007f8585f63000)
-	libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f8585f37000)
-	libdav1d.so.7 => /lib64/libdav1d.so.7 (0x00007f8585d53000)
-	libjson-glib-1.0.so.0 => /lib64/libjson-glib-1.0.so.0 (0x00007f8585d26000)
-	libsqlite3.so.0 => /lib64/libsqlite3.so.0 (0x00007f8585bac000)
-	libwebp.so.7 => /lib64/libwebp.so.7 (0x00007f8585b26000)
-	libzstd.so.1 => /lib64/libzstd.so.1 (0x00007f8585a63000)
-	libLerc.so.4 => /lib64/libLerc.so.4 (0x00007f85859ce000)
-	libjbig.so.2.1 => /lib64/libjbig.so.2.1 (0x00007f85859c0000)
-	liblzo2.so.2 => /lib64/liblzo2.so.2 (0x00007f8585998000)
-	libgssapi_krb5.so.2 => /lib64/libgssapi_krb5.so.2 (0x00007f8585941000)
-	libavahi-common.so.3 => /lib64/libavahi-common.so.3 (0x00007f8585932000)
-	libavahi-client.so.3 => /lib64/libavahi-client.so.3 (0x00007f858591e000)
-	libgnutls.so.30 => /lib64/libgnutls.so.30 (0x00007f8585679000)
-	liblcms2.so.2 => /lib64/liblcms2.so.2 (0x00007f858560f000)
-	libudev.so.1 => /lib64/libudev.so.1 (0x00007f85855c5000)
-	libdatrie.so.1 => /lib64/libdatrie.so.1 (0x00007f85855bd000)
-	libbz2.so.1 => /lib64/libbz2.so.1 (0x00007f85855a9000)
-	libbrotlidec.so.1 => /lib64/libbrotlidec.so.1 (0x00007f858559b000)
-	libseccomp.so.2 => /lib64/libseccomp.so.2 (0x00007f858556f000)
-	libXau.so.6 => /lib64/libXau.so.6 (0x00007f858556a000)
-	libblkid.so.1 => /lib64/libblkid.so.1 (0x00007f8585530000)
-	liblzma.so.5 => /lib64/liblzma.so.5 (0x00007f85854fb000)
-	libgstaudio-1.0.so.0 => /lib64/libgstaudio-1.0.so.0 (0x00007f8585476000)
-	libelf.so.1 => /lib64/libelf.so.1 (0x00007f8585457000)
-	libGLdispatch.so.0 => /lib64/libGLdispatch.so.0 (0x00007f85853df000)
-	libexpat.so.1 => /lib64/libexpat.so.1 (0x00007f85853b4000)
-	libsharpyuv.so.0 => /lib64/libsharpyuv.so.0 (0x00007f85853ac000)
-	libstdc++.so.6 => /lib64/libstdc++.so.6 (0x00007f8585134000)
-	libkrb5.so.3 => /lib64/libkrb5.so.3 (0x00007f8585067000)
-	libk5crypto.so.3 => /lib64/libk5crypto.so.3 (0x00007f858504f000)
-	libcom_err.so.2 => /lib64/libcom_err.so.2 (0x00007f8585049000)
-	libkrb5support.so.0 => /lib64/libkrb5support.so.0 (0x00007f8585039000)
-	libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x00007f8585033000)
-	libcrypto.so.3 => /lib64/libcrypto.so.3 (0x00007f8584af1000)
-	libresolv.so.2 => /lib64/libresolv.so.2 (0x00007f8584adc000)
-	libdbus-1.so.3 => /lib64/libdbus-1.so.3 (0x00007f8584a88000)
-	libp11-kit.so.0 => /lib64/libp11-kit.so.0 (0x00007f85848fb000)
-	libidn2.so.0 => /lib64/libidn2.so.0 (0x00007f85848ab000)
-	libunistring.so.5 => /lib64/libunistring.so.5 (0x00007f85846fe000)
-	libtasn1.so.6 => /lib64/libtasn1.so.6 (0x00007f85846e6000)
-	libhogweed.so.6 => /lib64/libhogweed.so.6 (0x00007f85846a3000)
-	libnettle.so.8 => /lib64/libnettle.so.8 (0x00007f858464d000)
-	libgmp.so.10 => /lib64/libgmp.so.10 (0x00007f85845a6000)
-	libcap.so.2 => /lib64/libcap.so.2 (0x00007f858459a000)
-	libbrotlicommon.so.1 => /lib64/libbrotlicommon.so.1 (0x00007f8584577000)
-	libsystemd.so.0 => /lib64/libsystemd.so.0 (0x00007f858444d000)
-⬢ [acme@toolbx perf-tools-next]$
-
-
+thanks,
+Chenyu
