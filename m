@@ -1,199 +1,189 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012027.outbound.protection.outlook.com [40.107.209.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5273E1208;
-	Wed,  9 Sep 2026 09:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946092; cv=fail; b=NmrUihgTU+PI+lbBkYkG+zvfwLkwtV3DqaBoB3OAjx47ii8CHlOEvRds3bAvSvPBuKXZSiphM6BfOTo3R9JonQoty5VYSUO5ru96b5MhTGnZCn8eF1V+OsMvX4WcT2y/X7wv3t7GP1FDq922dkOqrbjQqYBcF636IerHObY4OiQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946092; c=relaxed/simple;
-	bh=6eNjxs3KOzJoZoIUGwceon382z0O21YdWzh50vJaza8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GQVJNtNdZ2mSNdqYaVc1MhzqhOgfopspBGnIZQAdxKLlW7wKn4yY4wpcfk+XBpJyhVkh4QWzIxNMeIzzkTyuOEK7o/E3jVVO7SNx/my1DDTnYgLui8YWaHrxPUBEitpyVgKbMLfCypE6d37Mh4CLb7CGR2fhh6vQ1rPvyxpcihk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jewK0qZR; arc=fail smtp.client-ip=40.107.209.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1DB3806B0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788946096; cv=none; b=dcoOivmnsGYGA76wNR4Hj6o9gJ5Yp8MmGNvxHjXdx1sLlKBCdewBx5i1CEycpd9+X+XPx3qayVE2gwTitEe8lNmIvXtLGoO1dJXrEJLiKq78HGYz4TEl5g8RrX1pzIH3OCPQ7vE+o+y7wBKSlFpskD8TaS38+IMFTIDbCyqFj0o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788946096; c=relaxed/simple;
+	bh=UUhxKqZWnSTmT/Un2Yj1DpmBpGKjhHwwgtjv+edXRAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X3/IJzgpvmurN56aAJK32ziHls+6NRM+bnSX0rfs9dvCe4FL8NZHQYIWi5am10MbCwtq8dDnRXi5+VN8rr1+ZW6RQ+dXbXbomHPAQVn6Hc7uDD9Jbhsq2r4z6LX+hnvFWvzENPA0vNIJ1kpnhwlQl9+ZsBr4OYCxzgidA85z+bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lGkavwCf; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jewK0qZR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CClp8yixucsrIV4N/xPiodX1XX2aLm7RH+guO2BL7oyXuOPQIU1ki2ZIgZCm1oY2V7mOjmODQKsa/cQK8NVhJdfKe1d3xy1xv9l6IK11Vwddtu4R2e4LwOtHZHtcPKLj7tpV+LRNCtLyxbZep3msUOnATfpMgu5dcKOxt/30KsIWbSSM8jKVJxGYQyJCKbOKvnU6m/sdI1pDTVFZaztfS4/ncd3F3AueeXBwfMtGugHXw0HjmdNfsiGAAxSoQAc/+vHmFxspWc9aQxczr4/uncspkJH0Ah34N1+Ej6bUDtI7eANpUnLbp6GFHYB0kvrqw1/obtZKNjmOIp5G5ZJHPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MGcV3coEg4qom7QFXOrFmCRTQsZCRTTvt8QXr1gMg5M=;
- b=bnalmuj+mm0wP4b8+UhJedB/xY7aCfYbGlOz7nEZ3CnEGEl0Uli9rY8fHSNp2l/EMMURIOt/070uisH7+KHpJHBtNbY9hTK2apuho1kWBU0bBR6Zdx/rusyV9ClISHstHul72cjlKpaEmIlafpWYvbtfv5WW9jikSV0H0IJSY46X2I/rPPn5byyTZNP+CM4CYGWUhHcY3XGd/ofZOKmAf/kAp/aEmRS3EEK+ZtYHpfP1uCjCihloCcSFin6jDsImQ3XQIYN+eBsAKpndtJy4LqH8X+hupJS3Kp1Zh27voUjlg6P5yrn5Tq5IN+ecZ6QobNge27sMAtG3ih43SIU4NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MGcV3coEg4qom7QFXOrFmCRTQsZCRTTvt8QXr1gMg5M=;
- b=jewK0qZRn6DVpLrzLZ1EtpLCWsOc1TtNch9mkKyFusb6e4lXeD4AwRM4/J3wSOdLMqP2FvcDZ3KyR9ZTbAX35lJpYfjiWgSdIRPlUW7ns4pcCW4VG8CCfP4Ps6SEGp6uLxhJPOTnuJ84yljFz1gd5wzNYAeuyeaEk7ptKI9vysk=
-Received: from DS7PR12MB9549.namprd12.prod.outlook.com (2603:10b6:8:24e::7) by
- CH3PR12MB8332.namprd12.prod.outlook.com (2603:10b6:610:131::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 09:27:57 +0000
-Received: from DS7PR12MB9549.namprd12.prod.outlook.com
- ([fe80::bace:1330:9ab2:acc6]) by DS7PR12MB9549.namprd12.prod.outlook.com
- ([fe80::bace:1330:9ab2:acc6%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
- 09:27:57 +0000
-From: "Jain, Harsh (AECG-SSW)" <h.jain@amd.com>
-To: Thorsten Blum <blum@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>, "Simek, Michal"
-	<michal.simek@amd.com>,
-	=?iso-8859-1?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?=
-	<u.kleine-koenig@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, Takashi
- Sakamoto <o-takashi@sakamocchi.jp>
-CC: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] crypto: xilinx - use kfree_sensitive() in cleanup paths
-Thread-Topic: [PATCH] crypto: xilinx - use kfree_sensitive() in cleanup paths
-Thread-Index: AQHdP8RKUx3fE5nF40K+eDw6Pqwf5LbF+yoA
-Date: Wed, 9 Sep 2026 09:27:57 +0000
-Message-ID:
- <DS7PR12MB9549DD2EFA3B199CE0F6523F97B02@DS7PR12MB9549.namprd12.prod.outlook.com>
-References: <20260908190002.403337-2-blum@kernel.org>
-In-Reply-To: <20260908190002.403337-2-blum@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-09T09:26:52.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB9549:EE_|CH3PR12MB8332:EE_
-x-ms-office365-filtering-correlation-id: eb44296a-dac6-4f57-5501-08df0e54a268
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|22082099003|18002099003|5023799004|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- Azag9HrePlA0+hMToTh/+3y4r9KhhXQ9rnJaxbVWbsLvSuKXiivXUGa1nD4TFmXlzdTgZZHY4J8yQSJADg9eXqNpTEbP/wJSOO15fBfEYPbtHg1R0vDAAYrLg+xlhJQtN9mRmjwxysQtjMKBSgjwm41it9uGblWQ+axz509zPyE/D+FQ8+hqBk3/zzfZ04V/PiJn6WlOZtDMCMpq4c/jPDPzxeTq/yoBbcprMPdDZADDAO/kTEL99JHtMLf+4dIMM/aJL/Q4fWeOGgOGuAfv0nZFKsHH8YwLuWfFphbszh8Bs3tOicObWtgDPT7I2u3Rm85Mejl3yoWssDeInYGUJHsELIaxEXYs4DhK6rqjUHl3l4sRu74Ec0/Cqsg5rf5uPAwbChCwl2+L+KfkMih9N4LZntzO4znS7oeld9eYLYBELObIkWRsAEbIyyQqTtBDALcVdTqhRkz0c/3qagmvTI6MRoeFRTH7ZTPCje69eRLdD4spkbuZ5WJWBaOZi6EBw7k9hL++a6vWCofwp6gKUiHJkQzWZrbOOljSlNrVonhh0ke4/pqQJVNJJk2wpfg0SaWOtv9Wk/J7YLQWunq56kQJaUP7QlAG8JCdCYfqWlUJ8UKYoCw8W9lSAfB0sLK+at9Uw7XB1A48jpAkBNMxHADoK/MOsMJ7GmI1kOlhxIodB+1yzD73tTAZRTBAPZQDWce4rMe+QlhchU57kuon6YJ0V/Xgborldx+XLZRnWrU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9549.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?mfOFyzgnUMKfNmqBsncEjdmeP1iuOQ8ZGkoKdVDWLgrSVwYIVDbWf9SFWd?=
- =?iso-8859-1?Q?qDxX7GQ/RArqwQRYIUMfINx4OohZkFtCK2PSKRO6+ZhJCm/k40I9zK0FGt?=
- =?iso-8859-1?Q?+RtM0EWS6GCggUOa/AQ2umaUJntC/6bDZFzCBMzOwicA4vJbECny/C+OXO?=
- =?iso-8859-1?Q?qSZHrru1yAckSqlwJ5vzHlDg7+B0U1h3Y5957LQfnzaokVdsdqtQeqCmty?=
- =?iso-8859-1?Q?9tBb5ZHL475E0PJkFsfwWbUxqULU79Lf3k15XzfJnO9GyYzHT2kh01lXzc?=
- =?iso-8859-1?Q?gIMMlLj0geL8POzHZ/6vWvIXrCfJ343bWn19Ou9a17FUYyrUqL5TMazsUv?=
- =?iso-8859-1?Q?2wa6vPTEKPy55XZgs6/t5AwQ/dcpMkFlLA8E4qnqHyvF2KuM7YU1byyKE/?=
- =?iso-8859-1?Q?vVWa7ReUttjuz4ll22gVKYnRqvrPuovyVTa+Pq/tl8ixEF/fpqSjtdozWs?=
- =?iso-8859-1?Q?BW3j6qXhwMjKQXvmQZkpvfluwt+EWR6YqwHbZ4veBprrmrbkuCDG+waJ6Q?=
- =?iso-8859-1?Q?g/K3/tN00v0mYcxKho5dLQKPPUKtNwvCUZ/vScCCED670jNmbsMBVQ93pj?=
- =?iso-8859-1?Q?zh5n0wbWocH9upNKMAe3+L5NHur96EC9XiBNJPXFuvKvC/0VEzABFGJIln?=
- =?iso-8859-1?Q?zuTKLZKFqj+umPp86MC7lqKB5dnKsiq92rXsalU3MvRLha8MCasP27uLef?=
- =?iso-8859-1?Q?BEHFgotYiXiF+0jHNTh3+MvcvAfZ14cR5ofBqotAI97cru2HuQOHEsA5rr?=
- =?iso-8859-1?Q?m0PHjpbsTE9lF+yl6F7CvqUgGQLIXZkpxquBnjTm3Ao+N4GiAPFShXqCmI?=
- =?iso-8859-1?Q?qjkuGo7MetCCWD2HCSDyfQuRVe+v/93/kc/N63XrhuAhXoftzRUGzQwl1N?=
- =?iso-8859-1?Q?gIWgmUoCu6/X2+fssHugn/Ld8KXMHkKEpmq/seukcxK+xQpfYFhercibW4?=
- =?iso-8859-1?Q?e8m1rfYnxN7xbM6gvyPnvwZUiOOOLjlDTA0CktmrcGk748DVA5T2PHzFYF?=
- =?iso-8859-1?Q?8VAILPOjhGMtcFaEj1DbIlbvr5Z5GlAD0/zkm7+vJ1J6fYyv2dFtbg4vye?=
- =?iso-8859-1?Q?TC5yYHNeidKSkJdekkJxSgeWqw1R4GV2iiuULiq5O8T9zQhrjOW486aFjr?=
- =?iso-8859-1?Q?qGzzFjRmSzmtI3T7i7uynmVLxxKOl0jOmjCIxR9iWmJ+L+rGk6xrv9uS1G?=
- =?iso-8859-1?Q?lWtEIn4b60878WqKcOwjJFvX80BIDEk6yhpWVXnDxksiIYGq9Rk8hbIWEA?=
- =?iso-8859-1?Q?AIcGX8aG2nlGw+wTM7q5pPmx2GOGn0/Hf7KZdq/jKrcJs038fFztOfNB1z?=
- =?iso-8859-1?Q?5WxoK4tf47CRF8JBXugT3gkGSIFiZwO8fHJBmftZJwVy8ARFtvIrTdE9Qd?=
- =?iso-8859-1?Q?EuI0YAvz0u507eTVcs+hsNUSAreEhp/k7NWlO2LSgiqTuFLElf2g55G7l4?=
- =?iso-8859-1?Q?Sigo+jQwBYgtOfwYn9TsU+ajm1bDW+iuUwhl7Q7+y+Gs+/jZlApJlTaf00?=
- =?iso-8859-1?Q?6uyeJv6hAFZIz1H6d7OnCgnCdvgCoez0hcxVF1i1sgJHvNKZMdv68MbXQ+?=
- =?iso-8859-1?Q?Kavg4C4K5rLJf0XrdiLN6Tpc4Eqeflzp1Y/tKihNy9Oe65WcewuT8fHcpA?=
- =?iso-8859-1?Q?IbNyJ92iz7IUtXMLvvRv2t0FHAwplzafhK45m6HN6fs9WXhC6Dncl8TCat?=
- =?iso-8859-1?Q?h4dHMymrbwN87+W52MknfcXSUWhjnnaQ8gxi3EURaUJyysmR7PavrMQ2vZ?=
- =?iso-8859-1?Q?B6H2BRSun4oqGG8efwtDN28Fp1t0MhMzIru3TqCgJcM2Uz?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lGkavwCf"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8692be1cda4so115024b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:28:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788946086; x=1789550886; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LDCh3/bMgci4uGVV65c5lJe37gL3Ra631LoM+SOniZI=;
+        b=lGkavwCfIDU3Gs7voSpZVCEsX7oPWp8dFUjnAbeHekeC23tK8lJhxq7RkhgPXhk4Dw
+         QmdUz94JPu+NPyg4lVGEWVCaYp52jkxDSw239IG8Qu1mhDSKaSHLLgP1cwkiZ4ulZuMs
+         /pYpVx6PHmdZsqYEYwIfcvSLjs4Cgagx5NwUfQrIMOMhob/YPhAed76hLj+RHMeXOmuR
+         GXTRaaMuCl5A8zLOGa9OGjIGO4PCZRG3za5oEBMuPceDU4ZX5U6k/uSccvc4jInpelA7
+         Cl7UhTIvLcidiamfi46N2n0zWeqXcyqEyb3OTtHBKbmxE+1GYidkBEA/8C0WoBl90HXt
+         kExQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788946086; x=1789550886;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LDCh3/bMgci4uGVV65c5lJe37gL3Ra631LoM+SOniZI=;
+        b=HOHtUSXET6crqMw8WZE8AyY5GZIJ/yCJ76L88ic+YnMScIjOiTG229QYY79vf4bK3I
+         q7uf8UJtIyhD3SK6ESUMt6x1TtPn/CA3QUWJlevGX/hu3a3m7VKVxZCkcbZaCiNgN2nU
+         1sqblZuR6Gj/0T6Ivx3Z0NljPogd8G8JCkqcRzDkXHHm2vetiSZgzZ2PZkdcd0UX5XwF
+         6NihEw4BrVtNt+sGr+9Z0DEwrPov5rJ4Y1mNyTn5SV3muQ48g2cry9Un5oc5k1/L/Tfd
+         a0yxOevgu81Qmjh8F8NbY8/pSh2enFoWii5JraRob0vURF6cKpxR/2Vn81MrKW0UtvGd
+         UpQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxd0DRUmJWlyuMJAv7JsONp83s+yotgl6lWY8xA5/TB/fhvdvqh2Agu75phjM4WVIW99lA5UV67fZZOOMk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nirp/sSL58ObWxo0YARkb2H/G1mj8kE/1eqKW+33MNjMizzzJm
+	tT8x4nWPa8B5Q51gKH8Gvbm64CGd9xj83bOvonexdgezXuq2WDIvG1daxNTEgPsPMCqIrg==
+X-Gm-Gg: AYBFou0AufLd0iYgtfId9IyrQurj6zZDImk+ll8ykmrDHBZIwzkn0w3+J4HqoHRMSSp
+	6pOrFUigzmTQ9pFzlrwo0caKScPKv4lyZjUpmQpcocTeKYUZZu4YrIOqdQfGXiuZTj3kNXl6QUQ
+	CvOJwBDMzzY491CLK1a/3ptc0UckwEhcrLyRdKo+VnCo2S57RjFKSeqp4u7ANqf6bLtlARpKhXz
+	rcQdgAj61ZAdYnX63UXn6dn4HNHquXDF/8A7D3MiU8/mOTxLW7AiNx52tyOytrw4o35Yh/Qz74e
+	Odeftsm4AMOjjdsXbmNQISNTNwK5VnuzA6OZWmg7O21sgTM2nEfKu/2Efst8Xs1giKAAQD7g7yK
+	TgsCQrNoEvz4uYMSIysOSmf79SQzxxHszEoAdC2uy1uxV5L0Fq3NGNs/RgHqIbKrWVFxUaQib30
+	61cWuDFTi3pUEpfCExxbyY/hLfGOvYU7pN/CzDxg+Hu135oeGB2f105FU7Gsp35KcvetLoWEwjF
+	9da/7I4ez6u
+X-Received: by 2002:a05:6a00:4388:b0:857:7317:cff2 with SMTP id d2e1a72fcca58-8616a266f1bmr50402873b3a.19.1788946086204;
+        Wed, 09 Sep 2026 02:28:06 -0700 (PDT)
+Received: from Aaron-M6 ([188.253.120.162])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-868e3aaab85sm484904b3a.22.2026.09.09.02.28.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 02:28:05 -0700 (PDT)
+From: Yaozhong Li <yaozhonguwl@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>
+Cc: mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yaozhong Li <yaozhonguwl@gmail.com>
+Subject: [RFC PATCH 2/3] mfd: rk8xx: release the power hold GPIOs before powering off
+Date: Wed,  9 Sep 2026 17:27:27 +0800
+Message-ID: <20260909092728.1859-3-yaozhonguwl@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.3
+In-Reply-To: <20260909092728.1859-1-yaozhonguwl@gmail.com>
+References: <20260909092728.1859-1-yaozhonguwl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb44296a-dac6-4f57-5501-08df0e54a268
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 09:27:57.4483
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x9MPyQ8ilyQwj7hVNJthKLF3ft/cEA9iVyxMaFP7T7xMSacnPDZuDjwnwxKTgQ4Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8332
+Content-Transfer-Encoding: 8bit
 
-AMD General
+rk808_power_off() writes the PMIC's shutdown bit directly. On boards with
+"power hold" lines driven by the SoC, a shutdown performed this way does
+not stick: the rails drop and immediately come back up, so the board
+restarts instead of staying off. U-Boot reports the result as a power-on
+reset.
 
-> -----Original Message-----
-> From: Thorsten Blum <blum@kernel.org>
-> Sent: Wednesday, September 9, 2026 12:30 AM
-> To: Herbert Xu <herbert@gondor.apana.org.au>; David S. Miller
-> <davem@davemloft.net>; Simek, Michal <michal.simek@amd.com>; Jain,
-> Harsh (AECG-SSW) <h.jain@amd.com>; Uwe Kleine-K=F6nig (The Capable Hub)
-> <u.kleine-koenig@baylibre.com>; Danilo Krummrich <dakr@kernel.org>;
-> Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> Cc: Thorsten Blum <blum@kernel.org>; linux-crypto@vger.kernel.org; linux-
-> arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] crypto: xilinx - use kfree_sensitive() in cleanup paths
->
->
->
-> In zynqmp_aes_aead_cipher() and versal_aes_aead_cipher(), replace
-> memzero_explicit() followed by kfree() with kfree_sensitive() to
-> simplify the code.
->
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/crypto/xilinx/zynqmp-aes-gcm.c | 12 ++++--------
->  1 file changed, 4 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> index ebee37dddb1f..d9bd6dcd23a6 100644
-> --- a/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> +++ b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> @@ -230,10 +230,8 @@ static int zynqmp_aes_aead_cipher(struct
-> aead_request *req)
->         }
->
->  freemem:
-> -       memzero_explicit(kbuf, dma_size);
-> -       kfree(kbuf);
-> -       memzero_explicit(dmabuf, sizeof(struct zynqmp_aead_hw_req) +
-> GCM_AES_IV_SIZE);
-> -       kfree(dmabuf);
-> +       kfree_sensitive(kbuf);
-> +       kfree_sensitive(dmabuf);
->
->         return ret;
->  }
-> @@ -364,11 +362,9 @@ static int versal_aes_aead_cipher(struct aead_reques=
-t
-> *req)
->         if (unlikely(dma_addr_hw_req))
->                 dma_unmap_single(dev, dma_addr_hw_req, dmabuf_size,
-> DMA_BIDIRECTIONAL);
->  buf2_free:
-> -       memzero_explicit(dmabuf, dmabuf_size);
-> -       kfree(dmabuf);
-> +       kfree_sensitive(dmabuf);
->  buf1_free:
-> -       memzero_explicit(kbuf, kbuf_size);
-> -       kfree(kbuf);
-> +       kfree_sensitive(kbuf);
->  err:
->         return ret;
->  }
+Take those lines as an optional GPIO array, hold them asserted while the
+system runs and release them - waiting power-hold-delay-ms - before
+writing the shutdown bit. Device trees without the property retain the
+existing behaviour.
 
-Reviewed-by: Harsh Jain <h.jain@amd.com>
+Releasing every described line matters: on a Firefly-RK3399 the board
+stays off when both lines described for it are released, whereas releasing
+GPIO1_D0 while GPIO1_B5 is left asserted makes it come back up.
 
+Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+---
+ drivers/mfd/rk8xx-core.c  | 29 +++++++++++++++++++++++++++++
+ include/linux/mfd/rk808.h |  4 ++++
+ 2 files changed, 33 insertions(+)
+
+diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
+index 3dcf6ab..fd1efbb 100644
+--- a/drivers/mfd/rk8xx-core.c
++++ b/drivers/mfd/rk8xx-core.c
+@@ -11,6 +11,8 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/interrupt.h>
+ #include <linux/mfd/rk808.h>
+ #include <linux/mfd/core.h>
+@@ -703,6 +705,24 @@ static int rk808_power_off(struct sys_off_data *data)
+ 	default:
+ 		return NOTIFY_DONE;
+ 	}
++
++	/*
++	 * Some boards route "power hold" lines from the SoC into the board's
++	 * power circuitry. They have to be held asserted while the system is
++	 * running and released before the PMIC shutdown request is written:
++	 * with any of them left asserted, the rails drop and then come back
++	 * up. Releasing them here rather than from a separate handler keeps
++	 * the ordering against the I2C write explicit.
++	 */
++	if (rk808->power_hold_gpios) {
++		unsigned int i;
++
++		for (i = 0; i < rk808->power_hold_gpios->ndescs; i++)
++			gpiod_set_value_cansleep(rk808->power_hold_gpios->desc[i], 0);
++
++		msleep(rk808->power_hold_delay_ms);
++	}
++
+ 	ret = regmap_update_bits(rk808->regmap, reg, bit, bit);
+ 	if (ret)
+ 		dev_err(rk808->dev, "Failed to shutdown device!\n");
+@@ -874,6 +894,15 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+ 
+ 	if (device_property_read_bool(dev, "system-power-controller") ||
+ 	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
++		rk808->power_hold_gpios = devm_gpiod_get_array_optional(dev,
++							"power-hold", GPIOD_OUT_HIGH);
++		if (IS_ERR(rk808->power_hold_gpios))
++			return dev_err_probe(dev, PTR_ERR(rk808->power_hold_gpios),
++					     "failed to get power hold GPIOs\n");
++
++		device_property_read_u32(dev, "power-hold-delay-ms",
++					 &rk808->power_hold_delay_ms);
++
+ 		ret = devm_register_sys_off_handler(dev,
+ 				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
+ 				    &rk808_power_off, rk808);
+diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
+index 7ffc904..eda111e 100644
+--- a/include/linux/mfd/rk808.h
++++ b/include/linux/mfd/rk808.h
+@@ -1459,6 +1459,8 @@ enum {
+ 	RK818_ID = 0x8180,
+ };
+ 
++struct gpio_descs;
++
+ struct rk808 {
+ 	struct device			*dev;
+ 	struct regmap_irq_chip_data	*irq_data;
+@@ -1466,6 +1468,8 @@ struct rk808 {
+ 	long				variant;
+ 	const struct regmap_config	*regmap_cfg;
+ 	const struct regmap_irq_chip	*regmap_irq_chip;
++	struct gpio_descs		*power_hold_gpios;
++	u32				power_hold_delay_ms;
+ };
+ 
+ void rk8xx_shutdown(struct device *dev);
+-- 
+2.55.0.windows.3
 
