@@ -1,167 +1,193 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com [209.85.210.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C053EC825
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D0D48EC80
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992870; cv=none; b=iwCNwSebaCsPP0/9iXEUdE7kbPBSqjU58RnQgkT2lhCDbLEKtEz19beSj9sCpiMySMscSQ38FYVg3rO3x8uxRPc6ntBldvZohCfIP6KlQmTehfZAwtTkcHrVgwLU4hb0I40FIORAxa8ni6tJy9HsnsTcWG2HzdQ3iCWRM7bkIfE=
+	t=1788992952; cv=none; b=MuPgAXJUKWsfnW/hWuizPBiGEAgVjGmEcnjEvRPL8lipmqUN3oxHc+y+4oR+xXfvABUqTqH+DyVCnHTZ6cZclqtiPDqtiMneZnZ3vR0pUAUSsxL9K83GLSKOm0ATwp7RLPjvfNJtFTBsPNuyA0S9YbJm9Srh6lIwfnGOTFznqxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788992870; c=relaxed/simple;
-	bh=mqKexKRlmNDFLQEIvT7Y9z7FUD+hpM8xK3PiP7gpeMA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=peWWj+asuyaEpApOIre5LexpJGerAmoskMar4l3sSgoZS26hqTt6gQdqxgNzGUhqDFQo+po5UJfnG8QMl8G19Fzm/NUS0j6DvpPYc7z+4IHwtuwTCEd1phpO2s+AFAFpZgLFXFVHxoetC/lm0y/7B2um2WzngFrdqm7uGJI0tm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kh99ibga; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788992952; c=relaxed/simple;
+	bh=ZsRCPU0J121h1w/y85vunBI0gv6iQjmpHXlh3qUdYlg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fh/hJ5aHSNyzuaQwTZ9KwLNGa0dPtB/bwMW3/nQ6q70cEy/MeFcg01N6lhSciE+GDKXmiSHziOPL7L/9r6UF5e1uqT/n7dQTDzxpLeazZL4wgAMiaXQsb5LRjAs4AMRuzL+vnE9MeSTryVLl0s41RbqkNV8IVYGWQ0gnR132r/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=LMnDcxSW; arc=none smtp.client-ip=209.85.210.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kh99ibga"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so5397839a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:27:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="LMnDcxSW"
+Received: by mail-ot1-f100.google.com with SMTP id 46e09a7af769-7ec6d9a81b0so78178a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:29:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788992867; x=1789597667; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R5cPdTAC3boYVm13Avr5IgzIz8D8z9d9W6rfo2545Nc=;
-        b=kh99ibgak5G4QcwI18d3owe7OazqpalonXOzIn1u7ixcsAtGPBuMJCV+wPTfPW93Zx
-         5JksmleUaj1HYW/wzEHI2D7v9CmTZtfkIiSlyT80XG9h2rxjfb52L4g/WatVXsHrBLWG
-         1WVAi7zbp75wITpZVE11ectc+xUDt80kn7K7i59MnZd04nCFZ14rkLjUqTV2MzN/a+WU
-         E4ehGWy/30sShjczlgoS/41orH8pVxldORcj2zpMcG+Z69cojlCKBlwpbn8Hta4j598P
-         nvSc/iOw2dto3nnFLL26kQY/IebWj9RYNDPGaHYsksBBDaIdjlVn9qTnJdhfn29zUrxP
-         E2Pw==
+        d=purestorage.com; s=google2022; t=1788992944; x=1789597744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ImWYQroYLYn1yUntaG3yDyG9poZ7C84uz/cQieFkqu0=;
+        b=LMnDcxSWOPQs3Iluim5mr8nhBkssXls8io+aEc8xhd83PNawOi0+HS6tnL3fvPYHaF
+         Z0iCc+OYZyTwjDW/F7qqK6yJag2bT21rnE2ASpUB/iZ8TmQjXU/O46v3sSrqcT04NA1E
+         dtwypgDV+a3DHU9lUzP0dckuysAdmbq7A/WKjXl5/lKNWkcZBNVY4gyAjX6sEGR6jkpk
+         jCrxkSHb80WRk0Bti8ABy1rfmvmoOn3W9Uw0g44odA4sEEH6c8PkWTw6ii23hZSiGNJc
+         7pi6YE71ax6Tib3PdUBqj7Cmr7GDnTAkUbGvx7YnJjbSUa9v40Tb0IwmJD7QzcVmYCUY
+         gwDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788992867; x=1789597667;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R5cPdTAC3boYVm13Avr5IgzIz8D8z9d9W6rfo2545Nc=;
-        b=gK0SDDqq2NlpSTPdvYzdAaPuLHf2IBlE3PnO2unuUeybRSX/fVG+LBks1ACuOda0X2
-         GoQFlnO4RHeTilLingGFPxnWWbBimVGmlgSgyksvvvKTmzv/9G3v440bhkwmtMDDy7YD
-         hCMbUG3curKahqi+X7Wi5bHMvItt9OSDZ+zOql48kpCz098ISdWTjBF5SFVxQ/XAm7Fc
-         6pD4F0/mZHQn8raOZtXFljXM8G3kA+CNmku7m+gMbyg89QIDiBDjLoj4yaBoqlCnFm+7
-         rBfHQf79A5Hx1eA+35uJyBoWHX4W6+3IsrVrPvi5Mds4Wa+vj6V8/9qn9WUorH+7jWav
-         En7w==
-X-Forwarded-Encrypted: i=1; AKwUvByHA/LPx58hz3BwqZ4LhyJqpYO2L7xCS4grfVInXcIs0IR0VAHTN7EHbK+D2JQJ3dTNYBudXZ2L+Y/qeJE=@vger.kernel.org
-X-Gm-Message-State: AFuF++myIXipO2l9Zmx2LJeAgIfveADV+p62XNPqunRVTToNtLBORIHV
-	r/7AgMllSHAkoN2+UH6UG8QHwPHYtkSDhU6daKdpKHh7zgAeUEaUBnZ+/aXlnmZQQg==
-X-Gm-Gg: AYBFou1MY+rvuS7KQ6Yu5G26E+w0prXk3dGKMdX0kL6jsI6TGAniX1BKhTdIdA0v2+2
-	RjXytr714eiHENQmtDSRlbmASK8UndQthnL87YM89sDJpjrOCZPVHVbwbAKIP6Wtr6iJPG4jP4H
-	4yFecYXHvwQ6RVR827cjAi348fFE38q7xh4jdznvzUPpX/o02uWlMHYsP6K1tZxNWujc1gGvn+i
-	Ob689e6JiIKSVfWQvNn00pRayY9XVSOJxfKUBL0XWInFjQ7hB7DvK5lsx9M9W3BvGpFcfQmWP3w
-	V/9n6ICiiYeaXH2pZXBeAaYAfuXIDuHAycHvOmovYFDiaeMj5qMWvB0b8A5XHuHhCEY0ogUoPEj
-	d4xlN/w2lvtVLK2dlpHiZz8AwLYOZ9g9XAmYrYLO+bpg/SRJ6ur7dNjaAgUfE8v+b5JQKhAneVg
-	Tm4AQpTAD1LnnojyouCq8MKH1WdksDJIhfwDU2oHlhZqT49SLdYssiVDQ3W/g4T6saeX2X1tHnv
-	4k4+rvFyYipBMBI1saH2gfMg3jroGgFAvhhEWN/
-X-Received: by 2002:a17:90b:4cce:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-39b260dd4e9mr60322664a91.2.1788992866367;
-        Wed, 09 Sep 2026 15:27:46 -0700 (PDT)
-Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7738ce41sm1598219a91.3.2026.09.09.15.27.45
+        d=1e100.net; s=20251104; t=1788992944; x=1789597744;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ImWYQroYLYn1yUntaG3yDyG9poZ7C84uz/cQieFkqu0=;
+        b=CnxFMemqKR5I9QRp7DU7MkfqaAC9gmI87XngaxKNPA+bFFIONxK0txbY2/N8zLVL9t
+         sT+RFT9oDciNwEpAUXNBTWRIcGGh+9zfKtFXSSFf5YAEutn3UAtCRM8grzeX1AD3BlF+
+         P7z9oUUo/Z6mNgZ9RHV+onm+Prnx+dhS8LEfX6lqqNggSZZWjQV4YLXrYlg71wkdqpCw
+         D3dg67t7zoxkMBcNFeMflEBrc9ZxtiQzXWlAowHN+PZAIqUURNOzXTELTUMhBfcX3hHG
+         TjRu3/z9p+42ZoIkaPWgqIcsNt7xzgBOldR5OFYaj0Vg9brGowiG14cnCYc18+bUMf2+
+         iGEw==
+X-Forwarded-Encrypted: i=1; AKwUvByLelDqxAbiYm5rvlntvfJlFxnOmCjZPfuTxEccKiWhQQvFbwV9JLxdfcJcVxnHjoJEIsmH6sXoXgap8to=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEPNJPCgMfVPMsrKhPmlybZu7kVFqrPDe+k3+9v4Ee/ToVTReZ
+	doXwLIYF1zBIzkOyLIh6YexQaf6DVN7KkTCghWz1iE6JfvxUhlPRQW9e8g0NvDek8/zogpRagme
+	t9jgM3hKeCCdS/G5Jcwzs3OY2sOjOrFLs9Yr+
+X-Gm-Gg: AYBFou1G/1Q2xPrbXJI41nI+gheSVrj+PyFLpeDz5kXeUJHBCYF6d/tpq3VrRVngcXn
+	GsOEsNZU+FrVUqT1g1XZbgaotntjSQjo078+UMtS2XysAGkQC0DjBCUaqbe6NvjV3BXLXLPyINE
+	c50Ju9rT44CEqgazrqjcPxxQRiCQvDtUfM0QoyU0feT8Fr1eq6i0cFhoNGIFvzFnDNcGyXQtkwc
+	8QGVcajwRUD3ffbtou9c3CrA0TnYn0f84OYD2cqfHgHJBJ95BHUI3jbnFTVi1S+9BAofLRpP8Fl
+	oiH/R8tCDvq2h5mNcNgeW/B5V4JcTYmpIcgLAl3a1o+IYhRx789wiTYzzs+/XlEdeB/xTOho4VP
+	U6LpQM3n8of0vtQTmdhhocLaBoeJNeuse
+X-Received: by 2002:a05:6830:f89:b0:7ee:363d:ce16 with SMTP id 46e09a7af769-7fb76e3cd73mr16877278a34.0.1788992944121;
+        Wed, 09 Sep 2026 15:29:04 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.129])
+        by smtp-relay.gmail.com with ESMTPS id 46e09a7af769-7f9f6aa689fsm2773280a34.5.2026.09.09.15.29.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 15:27:45 -0700 (PDT)
-Date: Wed, 9 Sep 2026 22:27:42 +0000
-From: David Matlack <dmatlack@google.com>
-To: Alex Williamson <alex.williamson@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm <kvm@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH 1/4] vfio: Reject a second cdev open before mutating
- shared device state
-Message-ID: <aqHdXvfcfCJbLajM@google.com>
-References: <20260901215358.2421359-1-alex.williamson@nvidia.com>
- <20260901215358.2421359-2-alex.williamson@nvidia.com>
+        Wed, 09 Sep 2026 15:29:04 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [10.112.12.104])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id AFA1C402BE;
+	Wed,  9 Sep 2026 16:29:03 -0600 (MDT)
+Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
+	id AD682E40322; Wed,  9 Sep 2026 16:29:03 -0600 (MDT)
+From: Caleb Sander Mateos <csander@purestorage.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: io-uring@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Caleb Sander Mateos <csander@purestorage.com>
+Subject: [PATCH 6/6] nvme/ioctl: support fixed buffer for metadata
+Date: Wed,  9 Sep 2026 16:28:36 -0600
+Message-ID: <20260909222836.2475352-7-csander@purestorage.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909222836.2475352-1-csander@purestorage.com>
+References: <20260909222836.2475352-1-csander@purestorage.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901215358.2421359-2-alex.williamson@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-01 03:53 PM, Alex Williamson wrote:
-> The cdev single-open check lives in vfio_df_open(), which runs at the
-> end of the bind ioctl, after vfio_df_ioctl_bind_iommufd() has already
-> updated state shared across all opens: vfio_df_check_token() can set
-> the PF vf_token and vfio_df_get_kvm_safe() records the caller's KVM
-> pointer in device->kvm and takes a reference.
-> 
-> A second cdev bind of an already-open device runs both, only to be
-> rejected in vfio_df_open().  The error path clears device->kvm and
-> drops the reference, tearing down the current opener's KVM association
-> and potentially resulting in an unbalanced reference on close or
-> premature release, while the vf_token remains clobbered.
-> 
-> Move the single-open check into vfio_df_ioctl_bind_iommufd() ahead of
-> both mutations, so a bind that cannot complete leaves the current
-> opener's state untouched.  df->group is NULL on this path, so a
-> non-zero open_count is exactly what vfio_df_open() rejected.  The test
-> in vfio_df_open() becomes redundant and is removed.
-> 
-> Return -EBUSY rather than -EINVAL here.  The arguments are not invalid,
-> the device is in use, which could be a transient condition due to a
-> delayed fput if the prior user is terminated.  This provides
-> compatibility with the group path, where a group open returns -EBUSY,
-> and users may choose bounded polling to detect such a transient
-> condition.
-> 
-> Fixes: 839e692fa4eb ("vfio: Make vfio_df_open() single open for device cdev path")
-> Fixes: 5fcc26969a16 ("vfio: Add VFIO_DEVICE_BIND_IOMMUFD")
-> Fixes: 86624ba3b522 ("vfio/pci: Do vf_token checks for VFIO_DEVICE_BIND_IOMMUFD")
-> Assisted-by: claude-opus-4-8
-> Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+io_uring NVMe passthrough supports using a "fixed" (registered) buffer
+for data, but not metadata. On high-IOPS workloads, the pinning and
+unpinning overhead for the metadata pages is significant and could be
+avoided if fixed metadata buffers were supported.
 
-Can you add a regression test for this?
+Define a NVME_URING_CMD_FIXED_METADATA bit for the nvme_uring_cmd's
+flags field (which is currently required to be 0) to indicate that the
+metadata buffer belongs to a fixed buffer registered with the io_uring.
+The metadata fixed buffer index is specified in a metadata_buf_index
+field replacing the existing rsvd1 in nvme_uring_cmd.
 
-The VF token clobbering can be reproduced in vfio_pci_sriov_uapi_test:
+If NVME_URING_CMD_FIXED_METADATA is set, the metadata iov_iter is
+obtained from io_uring_cmd_import_fixed_metadata() instead of
+iov_iter_ubuf().
 
-diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-index 19d657d00b75..de8408b90a25 100644
---- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-+++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-@@ -157,6 +157,42 @@ TEST_F(vfio_pci_sriov_uapi_test, override_token)
-        ASSERT_COND_VF_CREATION(ret);
- }
+Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
+---
+ drivers/nvme/host/ioctl.c       | 21 ++++++++++++++++-----
+ include/uapi/linux/nvme_ioctl.h |  5 ++++-
+ 2 files changed, 20 insertions(+), 6 deletions(-)
 
-+TEST(failed_second_open_does_not_clobber_token)
-+{
-+       struct vfio_pci_device *pf = NULL, *pf_second_fd = NULL, *vf = NULL;
-+       struct iommu *iommu;
-+       int ret;
+diff --git a/drivers/nvme/host/ioctl.c b/drivers/nvme/host/ioctl.c
+index 8e722184ecf1..4da8cf92c2e0 100644
+--- a/drivers/nvme/host/ioctl.c
++++ b/drivers/nvme/host/ioctl.c
+@@ -488,21 +488,22 @@ static int nvme_uring_cmd_io(struct nvme_ctrl *ctrl, struct nvme_ns *ns,
+ 	struct iov_iter iter, meta_iter;
+ 	struct iov_iter *map_iter = NULL, *map_meta_iter = NULL;
+ 	struct request *req;
+ 	blk_opf_t rq_flags = 0;
+ 	blk_mq_req_flags_t blk_flags = 0;
++	u8 flags = READ_ONCE(cmd->flags);
+ 	u32 metadata_len, data_len;
+ 	u64 metadata, addr;
+ 	u32 timeout_ms;
+ 	int ddir;
+ 	int ret;
+ 
+-	c.common.opcode = READ_ONCE(cmd->opcode);
+-	c.common.flags = READ_ONCE(cmd->flags);
+-	if (c.common.flags)
++	if (flags & ~NVME_URING_CMD_FIXED_METADATA)
+ 		return -EINVAL;
+ 
++	c.common.opcode = READ_ONCE(cmd->opcode);
++	c.common.flags = 0;
+ 	c.common.command_id = 0;
+ 	c.common.nsid = cpu_to_le32(cmd->nsid);
+ 	if (!nvme_validate_passthru_nsid(ctrl, ns, le32_to_cpu(c.common.nsid)))
+ 		return -EINVAL;
+ 
+@@ -539,12 +540,22 @@ static int nvme_uring_cmd_io(struct nvme_ctrl *ctrl, struct nvme_ns *ns,
+ 			return ret;
+ 
+ 		map_iter = &iter;
+ 	}
+ 	if (data_len && metadata && metadata_len) {
+-		iov_iter_ubuf(&meta_iter, ddir, nvme_to_user_ptr(metadata),
+-			      metadata_len);
++		if (flags & NVME_URING_CMD_FIXED_METADATA) {
++			u16 buf_index = READ_ONCE(cmd->metadata_buf_index);
 +
-+       iommu = iommu_init("iommufd");
-+       if (!iommu)
-+               SKIP(return, "iommufd mode not supported");
++			ret = io_uring_cmd_import_fixed_metadata(
++				ioucmd, buf_index, metadata, metadata_len, ddir,
++				&meta_iter, issue_flags);
++			if (ret < 0)
++				return ret;
++		} else {
++			iov_iter_ubuf(&meta_iter, ddir, nvme_to_user_ptr(metadata),
++				      metadata_len);
++		}
+ 		map_meta_iter = &meta_iter;
+ 	}
+ 
+ 	if (issue_flags & IO_URING_F_NONBLOCK) {
+ 		rq_flags |= REQ_NOWAIT;
+diff --git a/include/uapi/linux/nvme_ioctl.h b/include/uapi/linux/nvme_ioctl.h
+index 2f76cba67166..93973f636b48 100644
+--- a/include/uapi/linux/nvme_ioctl.h
++++ b/include/uapi/linux/nvme_ioctl.h
+@@ -68,15 +68,18 @@ struct nvme_passthru_cmd64 {
+ 	__u32	timeout_ms;
+ 	__u32   rsvd2;
+ 	__u64	result;
+ };
+ 
++/* struct nvme_uring_cmd flags field bits */
++#define NVME_URING_CMD_FIXED_METADATA (1U << 0)
 +
-+       /* Create and bind PF using UUID_1 */
-+       ret = device_init(pf_bdf, iommu, UUID_1, &pf);
-+       ASSERT_EQ(ret, 0);
-+
-+       /*
-+        * Attempt to open the same PF again and bind it with a *different*
-+        * token (UUID_2). This must fail with EBUSY because it's a second open.
-+        */
-+       ret = device_init(pf_bdf, iommu, UUID_2, &pf_second_fd);
-+       ASSERT_EQ(ret, -EBUSY);
-+
-+       /*
-+        * Attempt to initialize a VF using the original PF token (UUID_1).
-+        * If the failed open above clobbered the PF's token (i.e. updated it to
-+        * UUID_2), this VF initialization will fail.
-+        */
-+       ret = device_init(vf_bdf, iommu, UUID_1, &vf);
-+       ASSERT_EQ(ret, 0);
-+
-+       device_cleanup(vf);
-+       if (pf_second_fd)
-+               device_cleanup(pf_second_fd);
-+       device_cleanup(pf);
-+       iommu_cleanup(iommu);
-+}
-+
- static void vf_teardown(void)
- {
-        /*
+ /* same as struct nvme_passthru_cmd64, minus the 8b result field */
+ struct nvme_uring_cmd {
+ 	__u8	opcode;
+ 	__u8	flags;
+-	__u16	rsvd1;
++	__u16	metadata_buf_index;
+ 	__u32	nsid;
+ 	__u32	cdw2;
+ 	__u32	cdw3;
+ 	__u64	metadata;
+ 	__u64	addr;
+-- 
+2.55.0
+
