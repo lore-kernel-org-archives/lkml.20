@@ -1,139 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B11545284;
-	Wed,  9 Sep 2026 13:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ACF56E060;
+	Wed,  9 Sep 2026 13:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960844; cv=none; b=W3jSV/nBqXRPgJF0+aag/MZJzpMiqpTWo9eCMPVhZ0SgKWLxGYx2DE0IuLgEBHhXJQjY4DFMyNiKJaEQ9+xaPB7cNkrMhBhaSgRzUzj//KKOpO1AlWrLnnBRczBAWl7I9gclMb6nWaqfA3NtRHhTBCY8V+Y0rlSDvCPvC0lDUF8=
+	t=1788960854; cv=none; b=tnAvgkcRUguD7S3guLb46oSeYT3rCrczbHWKrkqNJa6gIe4VnWWHasGl5feXzgCNjpnQEvrfzG1HbyL9rkXC35J1BNUUZY3c+qdWt/11vFzfXbUDPiNMwT07w2Br4V8yzlM+hvBNDXceGcenyldl0JVH0NerWx9k7C00qyLj9PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960844; c=relaxed/simple;
-	bh=tuizVE3zPZHpcM2HGG+m6b3SuJ7LR3VtKbc7zGfeEhc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q+7bIvxKgXSdOGqRePn2SQsTkHHzcBATnhnuA4N6sCJr47dJw0stIHO8eTFyAJGk3w4Gq7KBV7/hl/r2SQgW0YyB4qO1PoUJi8zrYWisQiIwHwtpQhKCQlmjPweaINAz+3sMfCMxGZaktvPvLjLaLBvHTP5ijTBeLKtPatnxYV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kxAJ8TkH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788960854; c=relaxed/simple;
+	bh=OrvYllrBK2goq5sx/36LbcZn+tW1SCL9FKnNbBJmgls=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u9yRRPPpNgCMEeQx7k8TEAO1c/X8ni9//vt3MH5ZA7umQmvOA+0OsPW6yuILD9qTvUOtMr/jLSS0DJBYW50bJSvCQEjXSp2VEdnWB4pcVZGaAThi2y+nGfZ0SkdeJjiVJ8+ZmVa9nxNE8bLjL+Sm3YuAGQgXNsIKcO1AvJwA8QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=WqDZFr9u; arc=none smtp.client-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kxAJ8TkH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A319F1F00A3D;
-	Wed,  9 Sep 2026 13:33:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960843;
-	bh=ke7wbwtpCjUAwuxuLGTSFpELTF8GAXgQgWxJpOfKOlk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kxAJ8TkHym33fm/nM2JegElwmiyVwFZ0YNsgval5iLx/fAaFlApVsOrk21RqvhOTw
-	 bdhecW15KUMV8YzLqiIH9eH0nvy37ki3NSxffsRITrTO2nvb4Pw9r+uTw0uLYi2lQ7
-	 JEBxI1bdBIc9ph6Vw/Q+9p/SAbxsj56xU9uloikO5hpn+uFjATCy8MwIALXktyfQbh
-	 W5WZd1dLWstQKdJ/jti2Ep5zLEed9g5EExRVy6+g7zvzTrS0AIAUm/UJRTGFtCV7Ka
-	 eY+vCZsu9eFAyTywAl+ehZ3vRHLoi8Wm+gXFid62KNoMwvpJ7I4t9YT9ozLsk3Ok5h
-	 2B5UB6El4/WMw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 09 Sep 2026 15:32:54 +0200
-Subject: [PATCH 01/12] mm/sparse: move mem_section init to
- sparse_extreme_init()
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="WqDZFr9u"
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 2B0D1140202;
+	Wed,  9 Sep 2026 13:34:10 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 225736000C;
+	Wed,  9 Sep 2026 13:34:08 +0000 (UTC)
+Date: Wed, 9 Sep 2026 09:35:24 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: paulmck@kernel.org, Chunfeng Yun <chunfeng.yun@mediatek.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
+ double-indirection issue
+Message-ID: <20260909093524.249c2a1a@gandalf.local.home>
+In-Reply-To: <aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
+References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
+	<d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
+	<b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
+	<aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-b4-sparsemem_cleanups-v1-1-008fc8d579fe@kernel.org>
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1918; i=david@kernel.org;
- h=from:subject:message-id; bh=tuizVE3zPZHpcM2HGG+m6b3SuJ7LR3VtKbc7zGfeEhc=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIWJqhf+8M6eYfkbV/5ZQszo18qzdtQdUrG9MjBH/tyl
- 68/zXM4p6OUhUGMg0FWTJElKPi+wcuX62qr3fiYYeawMoEMYeDiFICJXPZlZNhr2Gf7Y/aN9uOy
- Ru2WM1VWpqrOtt1qHfHiRc6HOeov9mkzMjzbsHlZRXPhkflTWh+3JPtvW87zXvjPD8mr2Ve0bPT
- 4f7AAAA==
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-Stat-Signature: rnd4j1prtbzncwyiixer7thtxi9wiujf
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 225736000C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18VMknN6uc21btZSgsWKOeAnPYKLCAHB7U=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=5ggOQs90efSn462XtyiL/osgnkDwSr26I6y3yG1sBZc=; b=WqDZFr9uO+FnJAh9UealHRgeOBXoVVGPts3E4Kmc20vBD42tWF8vkeIonqGDVQm2bjGi/ksHra6VtC2xqdX7P1KqQy0CiI5gu9k0xxWqbuKrIwV/PyrC5rYBwlzAndqHQx28uX0T34luf/QBE0cwRBdUBLlrZKdWw4IglJhePvM=
+X-HE-Tag: 1788960848-985795
+X-HE-Meta: U2FsdGVkX1+Jcl39xj4Cy7PAKTWsN5gXEKO2psDx7x6EuRK+7AcdjaASvffsrCa3fGC2f8QJVigCvVcwZuBxyQBJij821bINXbUYpgu/4DZgryJIYJX58eoi5y+kyanDheWAJvT32HkW2TPqI2uwwzlVZVSbb+qAHf7BRqAuqgHd6vfJYjyh1OW1Z4yN5ofAOg+L2EKa4LCI6/FMQIkZmho+45mPZKDRRcoi596Pl1/hVFWGXgZjoBC6y7fpP8NWE8eZn7cJF1tyRGGzvmIQ4iRrurIsceps9nPbboCATMd8JP5c9bAorHWPNwjtwKeyBCR0q3pOaZrmz/cAZd+eNcraaV1x3dei7sCmEafG7GtCEOzFexrqX19OPksh36p6pRjDLUMnU3/+GVnxAYgHLWefwhzphbdjebWBvsJPNUSL53H9em0ZNw9T94o+c8qi
 
-Let's just avoid another pair of ifdef inside a function. While at it,
-switch to INTERNODE_CACHE_BYTES by just defining a fallback in cache.h
-as well, given that the x86 variant already provides one.
+On Wed, 9 Sep 2026 11:31:28 +0100
+Vladimir Murzin <vladimir.murzin@arm.com> wrote:
 
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- include/linux/cache.h |  1 +
- mm/sparse.c           | 19 ++++++++++++-------
- 2 files changed, 13 insertions(+), 7 deletions(-)
+> I've done a little bit massaging and here is what worked for me
+> 
+> 
+> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+> index 89870175d635..4d4bae25fa1f 100644
+> --- a/drivers/usb/mtu3/mtu3_trace.h
+> +++ b/drivers/usb/mtu3/mtu3_trace.h
+> @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>                 __field(unsigned int, flags)
+>                 __field(unsigned int, direction)
+>                 __field(struct mtu3_gpd_ring *, gpd_ring)
+> +               __field(dma_addr_t, gpd_ring_dma)
+>         ),
+>         TP_fast_assign(
+>                 __assign_str(name);
+> @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>                 __entry->flags = mep->flags;
+>                 __entry->direction = mep->is_in;
+>                 __entry->gpd_ring = &mep->gpd_ring;
+> +               __entry->gpd_ring_dma = mep->gpd_ring.dma;
+>         ),
+>         TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+>                 __get_str(name), usb_ep_type_string(__entry->type),
+>                 __entry->maxp, __entry->slot,
+>                 __entry->mult, __entry->maxburst,
+> -               __entry->gpd_ring, &__entry->gpd_ring->dma,
+> +               __entry->gpd_ring, &__entry->gpd_ring_dma,
+>                 __entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+>                 __entry->flags & MTU3_EP_STALL ? 'S' : 's',
+>                 __entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
 
-diff --git a/include/linux/cache.h b/include/linux/cache.h
-index e69768f50d532..b6e857b985bca 100644
---- a/include/linux/cache.h
-+++ b/include/linux/cache.h
-@@ -89,6 +89,7 @@
-  */
- #ifndef INTERNODE_CACHE_SHIFT
- #define INTERNODE_CACHE_SHIFT L1_CACHE_SHIFT
-+#define INTERNODE_CACHE_BYTES (1 << INTERNODE_CACHE_SHIFT)
- #endif
- 
- #if !defined(____cacheline_internodealigned_in_smp)
-diff --git a/mm/sparse.c b/mm/sparse.c
-index 9349ed6326c01..6a6d258862904 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -103,11 +103,22 @@ int __meminit sparse_index_init(unsigned long section_nr, int nid)
- 
- 	return 0;
- }
-+
-+static void __init sparse_extreme_init(void)
-+{
-+	const unsigned long size = sizeof(struct mem_section *) * NR_SECTION_ROOTS;
-+
-+	mem_section = memblock_alloc_or_panic(size, INTERNODE_CACHE_BYTES);
-+}
- #else /* !SPARSEMEM_EXTREME */
- int __meminit sparse_index_init(unsigned long section_nr, int nid)
- {
- 	return 0;
- }
-+
-+static void __init sparse_extreme_init(void)
-+{
-+}
- #endif
- 
- /*
-@@ -197,13 +208,7 @@ void __init sparse_sections_init(void)
- 	unsigned long start, end;
- 	int i, nid;
- 
--#ifdef CONFIG_SPARSEMEM_EXTREME
--	unsigned long size, align;
--
--	size = sizeof(struct mem_section *) * NR_SECTION_ROOTS;
--	align = 1 << (INTERNODE_CACHE_SHIFT);
--	mem_section = memblock_alloc_or_panic(size, align);
--#endif
-+	sparse_extreme_init();
- 
- 	for_each_mem_pfn_range(i, MAX_NUMNODES, &start, &end, &nid)
- 		memory_present(nid, start, end);
+LGTM,
 
--- 
-2.43.0
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
+-- Steve
