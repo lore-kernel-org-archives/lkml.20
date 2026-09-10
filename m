@@ -1,117 +1,112 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A5239CCED
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447103D9665;
+	Thu, 10 Sep 2026 11:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040476; cv=none; b=DvcuEvNkh6SLbIWRNq96+2nCZgHVQZEq1ZaOYWmlg5I66I0wjJ3FGGDFN8TDus1jWRhwBP+gYRPtRg+KgAczhnhE7FbfbwYetsA/ftjlATCWYO2HVUV4LDsIdKxZKh3LZYPG0S5TYJKkRuaFmUzpa5Rc3vo1ThzXHRrK71atHy8=
+	t=1789040535; cv=none; b=pHIjJfYFeXb2RBZMTvugKMZ0TKMcwSLqgIvdppF2z0tk5J7PIWXxUlq5jLCsZCDQJ8TE0QFP7uKEgEgoF0XFVvvksJvJdTWA1yS588q/tr8Zi4YMAdz4qrjwvlHbNPR6OJTg6OFxbQxvjI1499jlQrjGESn8AHNsls8n0Z83CCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040476; c=relaxed/simple;
-	bh=iZoSLoKKu+Hes2OQ0gHmOvsfmblis61kEgusHfH7CJE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nUwSD7wDm1uGNo9wf8p9MI2cG/qtXsccNPxldfiO9zKN6nKteeTlnUSOHKC7tO7i16OJS//+ECc68vRCsk8BuuEZBNNH9iYeLs4TdBadmMrWHFtAOUDWmUQfr6JMd4c2cQuoEYXnNRuzAcX9zpPbNx0xhh3MR/EMMQzBh1DijMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cyQnm5+n; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789040535; c=relaxed/simple;
+	bh=6AOCNf6ooFNeuXFrnz43a327Rz8xtP3Ul00LnedLQxU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cqq4y1UI1ksLBmaPDvfhWVTtvftLeB5qsBuKGo+3O/LWCs0frHddhroyEngHaeQ70VKdTDgKAvCwsastvrXnKoL9+sRFHINU79VEt2y48nioMUwN3abWJN/vr27k4HExWM4dnHpISXMddXVc9a6Mp981Dy3ld0E0C328GbExcS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cFvp8FY5; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cyQnm5+n"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d157f691cso2072655e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:41:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789040472; x=1789645272; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iZoSLoKKu+Hes2OQ0gHmOvsfmblis61kEgusHfH7CJE=;
-        b=cyQnm5+nmwV14CkdTZyBRrWuMjMnZgHVS8hWJE25gdEOtGoceBLjVo3xwMbzTRxLnj
-         BbxBJHunV8dCRtrUlnc7lNFvhg7swnzzYWFZ07lFBodzqVUXY6JxO5p339bOaJY5fJLI
-         g/aYfNzcI5PCG4+EN4Wt6qVCfhqXttyouzhLPYnZa7oeDgT7oe0HQwsJy7w/yKG0tRY5
-         dLrN3xNA9A+PIuI6ZioGe13auOIxb57dxky2P17vmggeCnux6dEGy6o7QFhCEIPSWoPm
-         UP2AtL+NQ4LGqx8RX5qEoMmIFKeQBTqvUZLDb7yy0YJuvGLZF46S3JkdNz8WR0oNKUV/
-         VmPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789040472; x=1789645272;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iZoSLoKKu+Hes2OQ0gHmOvsfmblis61kEgusHfH7CJE=;
-        b=Eant3poWYC3436O0LUU6SrDkbOhcujAPzqcltgp4fXmiFq1GZnVOoKjhunBitPxC3L
-         6HQeHqkFtitl42Tpb7Np0Z3PZ8sO4OKVSprj7XEpmIhlD/3ywCyeM1bodaKDfU8D0tL4
-         5d0S6n4I4ha5ZTem4r16bn0BZw6tLurH0Q0uBrDPDp4u12GCzlchuTDu6HyKXeBI8DGD
-         xnbZ5ZZpwQWS1ciZwWV9kCCdyWHcSxNvsWR9jwUQQYMqSFDM8RmjOZhhT/WzvxinvXNt
-         yXJA4WQxZHQswQJB2tp4iyThmENj9ktdu/7DxH52rtxpj9K9KlJAev0t/8CztT471mfL
-         HUGg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5f8XVIozGuS2YBNDArm2yEuVUiF1sra2QBQ6RTmLhisIgE8B3utHF7jOKhIXWomKtSB7U1FC7AEfWS+c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVDY5ukWTqf/ZUJ+unTQa4YAWDX8AK+P8jfLR4viYaH7o6tujE
-	n+E36mPbFGoCjlyrZwSC+XmCcAAB2XaIgVvmI1wfbw7Ny9JNgpxqkiXA
-X-Gm-Gg: AYBFou3vRb49WpP+3btUE880FN9lvZQVyLiHe8Om7PWbniW3sgH2IF1+qgpf/GkABjB
-	yuJ56Ok17eTOaooZx3F6YB5tYDGN+kOpq6E5w/kw+s2QQ9L19NIsIBXz/5OF294oC1RdOb3ii3L
-	0MWVcetd+J3jxZYPHOe9i3ZL/3PJhVGBGsnyyt0Obt8LyLwaLpSgRv+dIfCSI8W09w3vVvjdJuu
-	Ctx3rj7VOa6TpwpN6Lbj37iTUnR9RHR8DpP7yrzK2jOxXeparkPL+OkUKr/aI+eq32oQcACzaXv
-	C02UhLUsZ3ErgtYTbo/Ix4ehYnRwLEiX07kFoGwigLB+rjT4Hb0uO/KdpsUeVlSzeodgHKJeqse
-	GU7PgxekdqGnHAbiPKmvD8h+UzC7gc6VkjPTeD8SsXIEJKh/KUa4t0k/i7nJyo83SMNCailQtM7
-	xd+JMaZNzyGVKfFsiAzm4LhZSlh/4q5I0o8bifRbLozB8eDQjRKsuzx/Pbyy0VSWDtYC0BB/kY5
-	SMDk9IymeT3Qb2Qd1K4bQ==
-X-Received: by 2002:a05:600c:1d15:b0:49d:798:67a4 with SMTP id 5b1f17b1804b1-49d274a6977mr39427515e9.0.1789040471895;
-        Thu, 10 Sep 2026 04:41:11 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26b726f9sm63309455e9.0.2026.09.10.04.41.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 04:41:11 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: jackzxcui1989@163.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [RFC PATCH RESEND 02/10] scbed/fair: Remove duplicate check for busiest_cpu in active_load_balance_cpu_stop()
-Date: Thu, 10 Sep 2026 14:41:09 +0300
-Message-ID: <20260910114109.1207170-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910042950.1619727-3-jackzxcui1989@163.com>
-References: <20260910042950.1619727-3-jackzxcui1989@163.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cFvp8FY5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=mYHX7D1sxLMnaBQzTNpoWoa87XdRkMOjNcbxh5lYfc4=; b=cFvp8FY5Q5g1yXt0yD6FpW/z2m
+	TrcxAZMA3OgbUdew3x8bnNr2RQHiVZZJ1hCr+4iWuoAoPsnn5ntyxj6IO0atFGERL4zvqzN4iMsdX
+	6gEth2hcDyxGZDqkzRYWBWlSce3LBggoHwKlTro8rl4Y7gC+DSyyUitcMpSeQA4DUwtHznAexm1Y5
+	U5FjRtO7/ViYfmadN921wMcBzP8N263PR65vsepm8Y7mNjtJ/eCJMxN/8rJWqDggbp9nWIWaFMdof
+	yaF4p0saZhgrgg4rSRNx6x7kzTWkn/s1L7D+MfZa5TC1wLrkLFttziebMrxef8cElj4VmJr0+y7zV
+	4Q9ZsJWA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x4dAG-00000002PsX-1M0G;
+	Thu, 10 Sep 2026 11:42:00 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E7097300400; Thu, 10 Sep 2026 13:41:58 +0200 (CEST)
+Date: Thu, 10 Sep 2026 13:41:58 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 09/18] sched_ext: Block proxy donors across scheduler
+ transitions
+Message-ID: <20260910114158.GS788244@noisy.programming.kicks-ass.net>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-10-arighi@nvidia.com>
+ <20260910105335.GJ4120091@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910105335.GJ4120091@noisy.programming.kicks-ass.net>
 
-Hello Xin,
+On Thu, Sep 10, 2026 at 12:53:35PM +0200, Peter Zijlstra wrote:
+> On Mon, Aug 31, 2026 at 03:42:19PM +0200, Andrea Righi wrote:
 
-> The check for cpu_active(busiest_cpu) already ensures that busiest_cpu has
-> not gone down. An additional check for busiest_cpu != smp_processor_id()
-> is redundant. After this modification, busiest_cpu will no longer be bound
-> to smp_processor_id(), allowing the active_load_balance_cpu_stop function
-> to accommodate more scenarios, such as preempt active balancing feature
-> that will be addressed in later patches.
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index f142ab455b797..4bd956182af8d 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -11302,6 +11302,15 @@ sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
+> >  		flags |= DEQUEUE_NOCLOCK;
+> >  	}
+> >  
+> > +	/*
+> > +	 * Don't carry retained proxy state across scheduling class changes.
+> > +	 * Compatible RT/DL PI transitions could preserve the session so that a
+> > +	 * boosted donor continues proxy-executing its lock owner. Defining which
+> > +	 * class transitions can safely retain that state is left for future work.
+> > +	 */
+> > +	if ((flags & DEQUEUE_CLASS) && next_class != p->sched_class)
+> 
+> That's a tautology, having DEQUEUE_CLASS means next_class !=
+> ->sched_class.
+> 
+> > +		sched_proxy_block_task(rq, p);
+> > +
+> >  	if ((flags & DEQUEUE_CLASS) && p->sched_class->switching_from)
+> >  		p->sched_class->switching_from(rq, p);
+> >  
 
-The code is complicated and I usually not come near here.
+> Hmmmm... I don't like this. I was expecting this
+> sched_proxy_block_task() thing to be called in the big switcheroo
+> function when loading one of these ext thing. (scx_root_enable_ or
+> somesuch).
+> 
+> We most certainly don't want to do this on every sched class change. It
+> isn't even gated by scx_allow_proxy_exec().
 
-But how did you reach the conclusion of smp_processor_id() check is redundant?
+Why not do:
 
-The cpu_active(busiest_cpu) just looks at the CPU mask of the given CPU or busiest in our case.
-But smp_processor_id() doesn't performs the same checks. And even if it's doing the same checks,
-how are you ensuring that it looks to the busiest CPU without even getting any parameters?
+switching_to_scx():
 
-For your conclusion to be right, the busiest CPU must be the CPU that smp_processor_id() looks
-and the cpu_active(busiest_cpu), smp_processor_id() needs to behave the same.
-
-And please add some details to the commit message why smp_processor_id() is redundant rather than
-skipping what smp_processor_id() does in any case.
-
-Please notify me if I'm wrong :_:
-
-Thanks,
-Kayra :-)
++	if (!scx_allow_proxy_exec(p))
++		sched_proxy_block_task(rq, p);
 
 
