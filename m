@@ -1,66 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD520486E58;
-	Thu, 10 Sep 2026 12:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from outbound.baidu.com (mx22.baidu.com [220.181.50.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id B773835C69A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.50.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043993; cv=none; b=pf4Xe6OtczZgLHAwtkrdEZl/w9Fv65G1XbvMh9QHZLR3uTFg7BDiJPKJELSxVN1hCrqEN55WoOphuto1bGjgKnulsO+b22RkivIRHmNcVgMcBxG/7Npqz7v3yEOcdRbCkBvYVv2dCKO9MUHkIvh4v1MfhFBOlbxAJ/gE2AgITqs=
+	t=1789043977; cv=none; b=reImXBPZEl0JwJU/IrhKCxJhBXEf66rdJANUKKl4ISaEQEHbqnDQYyquYfiPe74Y880bpdMBew/3InqNg5YmhzY99sMsgMiMKb5VDw8IDhOfM8XDJ5oQJlYyIB9sQ20hMbzcyt9ME+IuGq8f5I/dLw7LZEAmyJPAY3xu2DAberM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043993; c=relaxed/simple;
-	bh=8EQh6GLR9b/xDOUa/GlOAJ5gLz08KEsKm2sh86IxPyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DysWBJ7V2R8f85hrLjJ/AgmnRuWHrObn5CIJHiaeFZTYH9vetJi7NPgi9mI0UwILvDohuMNkl/CWOBw3LW+u89Bx5kUodhp5iEgxzPi5apaQ3a/hSfSdF6ZG2rHH73b7q4ONxqDIU5zlZ5Y1co7IYFL2B4nbofN/ctoyC9r62IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WThefb1D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789043977; c=relaxed/simple;
+	bh=uERe+rPSAVEC5mjAWQyTfYZx4/ngjwuFX0r3iLJVm94=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eMO2npcPdakRdqFmGA6W7qyS0A0nCBY6HuPa3bA/KE0qsw4p/IfADMeSA5wYv9eSSSHh7C/PeyNS+c4redEWmdU8GqJRUgW6FmkvDHKinnPBsVH0RSdYJhIGCo5V33ASHXCueFSCx6NdEbJPEo/E6FkRba7w5kPv854ln7TOUWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=ZGx34cDC; arc=none smtp.client-ip=220.181.50.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WThefb1D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8B61F000FF;
-	Thu, 10 Sep 2026 12:39:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789043985;
-	bh=wXj6w0O4Lcmbd0vOuhqPUgeXUr6MHiTh/ahvOXJKuZE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WThefb1DIXtWYi3LrclPDJfGoTi55MecUDw61eMO1bFcpR4EKnHDMJ7+kNH2lON32
-	 U93rZC/WH7bAQI/qjYBFeB+Vyh1gUg/f9C2UDVltWK4k1umnG6T4zcOJye204un+y0
-	 Pqs1XyZk05NnGrOLzwrfPoSYVfUoZO8WOjZsDI8M=
-Date: Thu, 10 Sep 2026 14:39:37 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jameson Thies <jthies@google.com>
-Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bleung@chromium.org,
-	akuchynski@chromium.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array
- index
-Message-ID: <2026091023-numeric-husband-1b03@gregkh>
-References: <20260904234401.2339633-1-jthies@google.com>
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="ZGx34cDC"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>, Xuan Zhuo
+	<xuanzhuo@linux.alibaba.com>, <virtualization@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH] virtio_ring: reset IN_ORDER state in virtqueue_init()
+Date: Thu, 10 Sep 2026 20:39:03 +0800
+Message-ID: <20260910123903.1717-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904234401.2339633-1-jthies@google.com>
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc11.internal.baidu.com (172.31.3.21) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1789043967;
+	bh=0SgNbr7d64dMOkmaYrpy9GpJle7Mxk78HhOW0m89bLk=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=ZGx34cDCOld2IeOQ0O9pe8gMJ48Y46SXIQQvCAhSLcXJn1WbwqDdhEzvH71KPF7EN
+	 /av3xS+0h0fyVL3EmKPQfeg1yAq1NdugLem17tK2qFjsrtM8GFE4Lnvo5VpvRJkbVl
+	 ErilfH2UUl92wgxs8P+5PRxYEExm8yCDTmLqNzZQguBBZ50Cj3TX7bwTQltlatlTDA
+	 HUp4tAabelcYogU/meWkadwt/KZDsPDikuSCuaVmVZz5TWQkuTAOu14Y61he5YCyBg
+	 i7s1QvX/fIoZ5powMsr4J76kf98NhnopW+I8YHs6FwORhQ4Z+qhA+Ve9JenT7+U59r
+	 CaHPo6JzOFOtg==
 
-On Fri, Sep 04, 2026 at 11:44:01PM +0000, Jameson Thies wrote:
-> The UCSI displayport driver indexes the connector's port altmode array
-> with the GET_CURRENT_CAM response after checking it is not 0xff. The
-> port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
-> returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
-> not equal to 0xff, the kernel may crash with an array index OOB error.
-> 
-> Update the UCSI displayport driver to verify the current cam is less
-> than UCSI_MAX_ALTMODES before accessing the port altmode array.
-> 
-> Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jameson Thies <jthies@google.com>
-> ---
-> Changes in v2:
->  - removed 0xff alt mode assignement when GET_CURRENT_CAM returns an error.
->  - return -EINVAL when alt mode index above UCSI_MAX_ALTMODES is returned.
+From: Li RongQing <lirongqing@baidu.com>
 
-Does not apply against 7.3-rc2 :(
+The IN_ORDER feature uses additional software state to track the next
+available descriptor and in-flight descriptor batches.
 
+virtqueue_init() resets the common virtqueue state, but free_head and
+batch_last.id are initialized only when the virtqueue is created. When
+an IN_ORDER virtqueue is reset, these fields can retain state from the
+previous queue instance.
+
+Reset free_head and invalidate batch_last when initializing an IN_ORDER
+virtqueue. Keep this in virtqueue_init() so the state is initialized
+consistently for both newly created and reset virtqueues.
+
+Fixes: f6a15d854986 ("virtio_ring: add in order support")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+ drivers/virtio/virtio_ring.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+index db678f5..d0dc464 100644
+--- a/drivers/virtio/virtio_ring.c
++++ b/drivers/virtio/virtio_ring.c
+@@ -559,6 +559,11 @@ static void virtqueue_init(struct vring_virtqueue *vq, u32 num)
+ 	vq->in_use = false;
+ 	vq->last_add_time_valid = false;
+ #endif
++
++	if (virtqueue_is_in_order(vq)) {
++		vq->free_head = 0;
++		vq->batch_last.id = UINT_MAX;
++	}
+ }
+ 
+ 
+-- 
+2.9.4
 
