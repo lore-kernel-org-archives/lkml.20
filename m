@@ -1,133 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A3236680E
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:23:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B053F36A35A;
+	Thu, 10 Sep 2026 02:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006989; cv=none; b=kRtrmnyoWmHCxv0MIYGwVeRHBeG77bl8sfRM4cQF+Tf658S1G/2vgSqT7mBnUqe5Wd5kPNOiShNA7/qMcimW3q7kBxkEgZ+pXSM6tSH+09OpC6zSMZlFQxe8qZ2YQuknCp1mI9PLdpzXq9zZCSFouQcGpi62Uqb6V56e0W2O/vE=
+	t=1789006995; cv=none; b=DcsKsG87Kj9tHT0hiOma54L2sbY8inpGY4lvks+zVt3egWzVOarPTnB1Q9i5B6ls5v1Ekqpyxxs27GbC9/K855xi0bUHcI44Wy9m5vJJG48LKNL+NeLCZgh99ACGd/+1TA9Zmq6d2X67Dk5+nqdXcJ4OCFwx7GQs//Vsxi2qDiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789006989; c=relaxed/simple;
-	bh=K9lMrgMDoMUhxCM0zt+EL90g/jx5aZNxhtDHXfzS8p8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jlKakRxmFqq9NEqtpay/STf//bqE+JHo03JpQJDmz+eFW+toITDcgQm9komQSpGxPz+AMlfXN4fiZmyWXygUEGVTF6MNkxLnFIvRcJp/888akiRXKXCzSzIDALYOY1QDF5HCoaZ1mVPYiyUkOULbg3yBxpgrSmARlVfjRq9Nvk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KeZ+JwCu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789006995; c=relaxed/simple;
+	bh=yaOc+4xdwpaaKP/g36V5RFJL0tTvL6py9/BcVMfMZ/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H8Yhk3Q3KQ1ZDBxGAemQC9/4ST5QYg76VgpZcsopcu4LsfV2EohS3NA2Jk+Rc8nJZDAq8XTFA0FkCiYIy4gBi1Y7OOI6cCg7mlpTPXd/1JaC9teFa468MBDPKPDdwxsj6tn5kbNEtfL9XPm+dsQqOTYTp540vE59kjHI+Gmkpwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHXHaSji; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KeZ+JwCu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1E71F000FF;
-	Thu, 10 Sep 2026 02:23:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHXHaSji"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D97B1F000FF;
+	Thu, 10 Sep 2026 02:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789006988;
-	bh=o0oj7nh9eRthVBf+tZ/MxSqTlPk5TjQhyQrW6C85nI0=;
-	h=From:To:Cc:Subject:Date;
-	b=KeZ+JwCu7dEybred9UTUBTLysnUWeM0YI1VCqTdEnFTiM3Y/xw89jQJ8BvgyMGCzH
-	 TS8fCpQ8NJ2nrNFdsbEGizMWXKVLwkbLSwnGPbWDodezxrF6Ydc4GHdtaQENZ34sRM
-	 aZkcgmR1NDWgm3vUseVeB1ArJ1VEaKDTcOqUNxojgwVwQ/A6Xaztaa/GwtV0+039Qj
-	 ScWP7y6OhcrRp8YDWyQ0AqaHRRRsIzf94Ma2XHjzOfn9Hw61ebDJnVObAruErT8jPZ
-	 wWnMHCA2NgaLrRxHMgZqvZWqWRyDQmMP7y6XIswUunhsGwb6WsaXnqe+WM6I4lY8NG
-	 yHMxPREU0ZNsA==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@kernel.org
-Subject: [PATCH] f2fs: compress: fix to handle race between truncate and writeback
-Date: Thu, 10 Sep 2026 02:22:58 +0000
-Message-ID: <20260910022258.3308187-1-chao@kernel.org>
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+	s=k20260515; t=1789006994;
+	bh=MQKSFqRWagxnTFMhT2vsNzHf6n6nghvL1auU9ieMg9g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UHXHaSjimXAIJZOfeVcklTYHxnEVnQb+4apbfjPreURCkoKoJ5lxaZUsXnIW4WdjX
+	 m618QCM7sWo8ZHzpWagM7/okWW0w7DkKjuJWH3TZFTpOWFMWQRPaMUbjrvuElo5qUU
+	 5jiFIGKcoGgSiTuLa46FZpXeN0+2sSgWo/ny+hFS97PSwqViUTnh+IAKrcgexK0e8W
+	 bgJyjBcd+w2AJ6MNp5pOjBjMPk78xVAZG23xqZYH4mGonbZYBvIWxlqB9xayKrgZqY
+	 YFEJ/zsVROGUq9bjPIaj2oCrOlWO+j4CyResa1GxSQERVQ4TyDR+g+HRlbw5sxJpgJ
+	 v5WTNXaXXwz0w==
+Date: Wed, 9 Sep 2026 19:23:13 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Junjie Cao <junjie.cao@intel.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, David Ahern
+ <dsahern@kernel.org>, Simon Horman <horms@kernel.org>, Ido Schimmel
+ <idosch@nvidia.com>, Fernando Fernandez Mancera <fmancera@suse.de>, Jiayuan
+ Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4] net: dropreason: add
+ SKB_DROP_REASON_IP_TTL_EXCEEDED
+Message-ID: <20260909192313.0d4bd54b@kernel.org>
+In-Reply-To: <20260907030133.482834-1-junjie.cao@intel.com>
+References: <20260907030133.482834-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Chao Yu <chao@kernel.org>
+On Mon,  7 Sep 2026 11:01:33 +0800 Junjie Cao wrote:
+> --- a/include/net/dropreason-core.h
+> +++ b/include/net/dropreason-core.h
+> @@ -128,6 +128,7 @@
+>  	FN(PSP_INPUT)			\
+>  	FN(PSP_OUTPUT)			\
+>  	FN(RECURSION_LIMIT)		\
+> +	FN(IP_TTL_EXCEEDED)		\
+>  	FNe(MAX)
 
-fsstress reports a kernel BUG in f2fs_truncate_partial_cluster():
-
-kernel BUG at fs/f2fs/compress.c:1238!
-RIP: 0010:f2fs_truncate_partial_cluster+0x292/0x2a0
-Call Trace:
- <TASK>
- f2fs_truncate+0xf6/0x210
- f2fs_setattr+0x6b7/0x770
- notify_change+0x33b/0x520
- do_truncate+0xc2/0xf0
- vfs_truncate+0x153/0x1d0
- ksys_truncate+0x78/0xd0
- __x64_sys_truncate+0x16/0x20
- do_syscall_64+0xbe/0x540
-
-The root cause is that Thread A (truncate) and Thread B (background
-writeback or fsync) can race as follows:
-
-Thread A                             Thread B
-- f2fs_setattr
- - f2fs_truncate
-  - f2fs_truncate_blocks
-   - f2fs_truncate_partial_cluster
-    - f2fs_is_compressed_cluster
-      return 1
-                                     - f2fs_write_cache_pages
-                                      - f2fs_write_multi_pages
-                                       - f2fs_write_raw_pages
-                                        - f2fs_write_single_data_page
-                                          dn.data_blkaddr != COMPRESS_ADDR
-                                          (cluster converted to normal)
-    - f2fs_prepare_compress_overwrite
-     - f2fs_is_compressed_cluster
-       return 0
-     - return 0
-    - f2fs_bug_on(sbi, err == 0): BUG!
-
-Writeback path does not acquire i_gc_rwsem or filemap_invalidate_lock.
-When a compressed cluster fails compression during writeback, it is
-overwritten with raw data blocks. If Thread A checked
-f2fs_is_compressed_cluster() before the conversion, but calls
-f2fs_prepare_compress_overwrite() after the conversion,
-f2fs_prepare_compress_overwrite() returns 0 because the cluster is no
-longer a compressed cluster.
-
-To fix this, remove the f2fs_bug_on() and retry checking the cluster status
-when f2fs_prepare_compress_overwrite() returns 0, so that it can fall back
-to f2fs_do_truncate_blocks() to handle it as a normal cluster.
-
-Cc: stable@kernel.org
-Fixes: 3265d3db1f16 ("f2fs: support partial truncation on compressed inode")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- fs/f2fs/compress.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index ce88092d9ce2..e1cc7185428e 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -1222,6 +1222,7 @@ int f2fs_truncate_partial_cluster(struct inode *inode, u64 from, bool lock)
- 	int i;
- 	int err;
- 
-+repeat:
- 	err = f2fs_is_compressed_cluster(inode, start_idx);
- 	if (err < 0)
- 		return err;
-@@ -1233,11 +1234,10 @@ int f2fs_truncate_partial_cluster(struct inode *inode, u64 from, bool lock)
- 	/* truncate compressed cluster */
- 	err = f2fs_prepare_compress_overwrite(inode, &pagep,
- 						start_idx, &fsdata);
-+	if (err == 0)
-+		goto repeat;
- 
--	/* should not be a normal cluster */
--	f2fs_bug_on(F2FS_I_SB(inode), err == 0);
--
--	if (err <= 0)
-+	if (err < 0)
- 		return err;
- 
- 	rpages = fsdata;
+These entries are not strict uAPI, let's not append at the end cause it
+gets messy. Please add the new field after IP_INVALID_DEST
 -- 
-2.49.0
-
+pw-bot: cr
