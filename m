@@ -1,171 +1,168 @@
-Received: from fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com (fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com [3.64.237.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172D33E3166;
-	Thu, 10 Sep 2026 15:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=3.64.237.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B4E4A8A3F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053114; cv=fail; b=a9WTfb7/cwfrBsTvXZqTK4z5FBEqC/8ut7p/n8h9eho+LDuPXwAI9Yi7kbl2vfORIByHGbPlS8YdGT8FYoEmxx4fFqmVPuI1nroJWpd3ND/G2VLYLPO6k4PUhKKWb2PmpdEDhnR5c8FxMgNbmsMAP4000OPVrl+oz7RjCkplz4s=
+	t=1789053133; cv=pass; b=RCt8vyeNhHvPbRvHdcWc1NoRadCOg8h0IGvpWRp59niIAykA+uF/U42ICITzJRuN1wjwbU6jgXNNnm863lVUL8j5Rpb4haV6CeniLJMwqDcXTeQyTrky4yvUwTtU1SbHSLOE7n6ZjQhioGZ198rWzVV/ZPTf/jU4PST76bo8KvQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053114; c=relaxed/simple;
-	bh=DuDcSHCajSGg/DRuRdwu22mUtg9t2YcJ5QO+hhVoWQU=;
-	h=Subject:From:To:CC:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=F0QtxJ2g/2EPmbwlRirc+IMZ9bawwgyb3xttgoKn4EKdiT3sW7BcssPs7xdjyKS+vsHzsjNWFgtmy9cgr+Q4gdkMZuCo/UrBOyTpThjfnXP/gJM/piYnzU5mYHmMKDWwtyg7OKDkVm3yOm51+jahdD8a8fVjafewPCZGw/2Tt+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=YvrU/uPD; arc=fail smtp.client-ip=3.64.237.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1789053133; c=relaxed/simple;
+	bh=IGzkZ29oQC5+zM7j41y1PzuVxI/kR6lS50DPmDPTu28=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lLhcT2RnkDvmmTBJWadQBL9uXtyk7zloFiKEpuckEHYlu8DWnq+UJIQFScoqK3mLfbzduyDHVsn197rdtgi3Ppvn7Ciep2WmML4MYHQ4jP4sTcnM2oPpvm0dGauBXAod2ZAIBJk1I5joEQwv8aToZmrk+jWwk69Xsnuoz2GeGqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=NKSKHUpR; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="YvrU/uPD"
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="NKSKHUpR"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99c5de614so2033973a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:12:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789053122; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jPWPciih7qHmu8oo5WKxDy2psl3hY6MMblTjy7eSFQr3v7sgg9PHmEyvBxuFkCopCJ
+         ek31AXe1E4wbpiPLi2eGFhAJh/kJ9GKtjTheJOEVKuGN6DL09soodzyuNemoJwjGCTxY
+         ECmeITRQ6HSmkMSbOB0nsNkJYZN7TX1tT0rRHp3aJhq8ZGKcbAJ9pS3ziA2YdnrZ1NUn
+         9CsJbxRIryC9S1LbEKbU+XF95R+t9FGS2cT5R0ArwWQOdRfdZr5MsZLyWxxI9Bu5IvOR
+         cpMbVGF/+K8I51e2leFwZba1LAv8BFvI8D78l5fcCIN4baL15ERsrc3m+1PMSJaMFNlo
+         LuXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
+        fh=IpaFKu6597jJdNA225e0oAwMbzDCoGmjO2M8Tw4OEmw=;
+        b=B3MBOLnvGkeHnVKP4iPRPHW8iCg8pQ+S8h98Y/BDk6Tyxeyy+HwTZxzu4Z8NKBjU2b
+         62DB00orL5YLIvfZPolVqrRYbti94kLgJi3SBoQ3KPj9W0khJzxp3SBKckySeCw9W8if
+         SZZoJIi4to4pKvWvxNtBtD/Vlbv590edoSa0WRhl4+yom0iqay/Odv+ofsV9YJhqR4yp
+         dChKPhWPOGy2K4orcZmoD4IrZM7hyqG2S8YXXDNXY3dfntQEmo/6O58EKZc3WWVwyu75
+         G8AbEsdkkgKx4oAswJG5UBatAx5lSUDQ4qYDzuelOgEWUaoR9sEOnwMiYrKP+/rHsbAp
+         q9Wg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1789053109; x=1820589109;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version:subject;
-  bh=DuDcSHCajSGg/DRuRdwu22mUtg9t2YcJ5QO+hhVoWQU=;
-  b=YvrU/uPDH8RNZh4+/bhFHSBz6Fa8KGsj6GZL2QEVeZz+8pvT/IDG8YSY
-   JksTnkMfHuS8fSxSMFsZKZoIMSPp88T7p78hrcl+LCzayz+63ZOYZu5pB
-   CuIzYaxaRbkb4chn8VNyyRKrmOMnS3SByONWg2f1yDkcKjafBE2E2FUyJ
-   WYIA6NEV4+k3/IF7Xo+zKv/K8uWEpW1gfSmuwjmVdxEjPQDIiPNZil08y
-   02tj4HSyRdx+DVzd+saq9AKF6oGkMDQWaDwOvihwUYohtxof6y4IhzBG1
-   BzzAeBeCSRc4uEk0kUIj6ch6J8Sgq+KHv7wzSUr8pq/krdxfrgObij/se
-   w==;
-X-CSE-ConnectionGUID: LD/T1VjOQSqqHBvDamA4wg==
-X-CSE-MsgGUID: qmMZxeCXTQi9dg43wsEUPg==
-X-IronPort-AV: E=Sophos;i="6.27,95,1787011200"; 
-   d="scan'208";a="19228710"
-Subject: Re: [PATCH v9 19/26] KVM: nVMX: Enable support for secondary VM exit controls
-Thread-Topic: [PATCH v9 19/26] KVM: nVMX: Enable support for secondary VM exit controls
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
-  by internal-fra-out-009.esa.eu-central-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 15:11:40 +0000
-Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.224:29383]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.16.222:2525] with esmtp (Farcaster)
- id c63ed880-c15a-4630-9433-692741ed8073; Thu, 10 Sep 2026 15:11:39 +0000 (UTC)
-X-Farcaster-Flow-ID: c63ed880-c15a-4630-9433-692741ed8073
-Received: from EX19EXOEUB001.ant.amazon.com (10.252.51.80) by
- EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Thu, 10 Sep 2026 15:11:39 +0000
-Received: from EX19EXOEUB001.ant.amazon.com (10.252.51.80) by
- EX19EXOEUB001.ant.amazon.com (10.252.51.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Thu, 10 Sep 2026 15:11:39 +0000
-Received: from FR5P281CU006.outbound.protection.outlook.com (10.252.51.199) by
- EX19EXOEUB001.ant.amazon.com (10.252.51.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46
- via Frontend Transport; Thu, 10 Sep 2026 15:11:39 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Sph7KdiXt/iICHMfXSZeeFHIV1by3FNqK66Edk3NXavJ+ux5kot9zLvfbA1C5TOfKsMll41oHeCPSq9MoRQrs7KW/D/2Z4A97ibAG7N5PWSzzZshTD43HapwvtPXR3ub4WfYZHwR4w3F1+AacaucYfjrOyGP6G3EscD4horNjYXF1ig4XvBpQZ7PSh3LlWfStYHK43nl8pJIuJD880AE6VMYgWZTkRRuFYti9b5yHYgpd95SrPJGUDZ30/Pav9yhTrWtZpt7WMiTvV3vWYPYlOG+yoifEZHPP3cm0xh+Gxh/jhQtiyCWKQHoiQMJeTucPTPaxwc6e7jzxJOKPidxvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DuDcSHCajSGg/DRuRdwu22mUtg9t2YcJ5QO+hhVoWQU=;
- b=M430rEePYo3u1d4FiGrqS/cLFT6cQdgVp+g29Wsx+UmvX0xNdwlHnnJmngZQaxSUAMQVzYclUUuKjCulqyWUDKABevHxb66VN7hGyBMFtjsWGHfcQvoXQqDbEubB1C2ZCG7ROYxzLJQbEOWFpLgs9TfFUDFcr80XTM/CXQgFnn1xC/rh6Et5mKR0dEkj4M246hS5+BXjAMVXStcHwTgNhPitdVtMZR+6sme2FoilVxvB2Xo67O+nhhlPJKdAAL0E7Ed4IeNypFz6KVifOJ3ah6V8w1VLTCN84XNMEZ53CV2Ou5cJGOnwsX0Ss3oDWYgHQWvYrE+YMvfcTR6H7vgiNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.de; dmarc=pass action=none header.from=amazon.de;
- dkim=pass header.d=amazon.de; arc=none
-Received: from BE1P281MB2610.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:38::12)
- by FR2P281MB2960.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:69::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 15:11:36 +0000
-Received: from BE1P281MB2610.DEUP281.PROD.OUTLOOK.COM
- ([fe80::b607:8660:41ed:a2ce]) by BE1P281MB2610.DEUP281.PROD.OUTLOOK.COM
- ([fe80::b607:8660:41ed:a2ce%6]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 15:11:36 +0000
-From: "Ehlert, Emily" <ehemily@amazon.de>
-To: Sohil Mehta <sohil.mehta@intel.com>, Sean Christopherson
-	<seanjc@google.com>
-CC: "xin@zytor.com" <xin@zytor.com>, "andrew.cooper3@citrix.com"
-	<andrew.cooper3@citrix.com>, "bp@alien8.de" <bp@alien8.de>,
-	"chao.gao@intel.com" <chao.gao@intel.com>, "corbet@lwn.net" <corbet@lwn.net>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"hch@infradead.org" <hch@infradead.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "luto@kernel.org" <luto@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "pbonzini@redhat.com"
-	<pbonzini@redhat.com>, "peterz@infradead.org" <peterz@infradead.org>,
-	"tglx@linutronix.de" <tglx@linutronix.de>, "x86@kernel.org" <x86@kernel.org>,
-	"nh-open-source@amazon.com" <nh-open-source@amazon.com>
-Thread-Index: AQHdOua9xJklk44Zi0+nlb+6/7cyzra7sdmAgAARbYCAAXZMgIAKvVNj
-Date: Thu, 10 Sep 2026 15:11:36 +0000
-Message-ID: <BE1P281MB2610D547AD0FBA709332702FBABF2@BE1P281MB2610.DEUP281.PROD.OUTLOOK.COM>
-References: <20251026201911.505204-19-xin@zytor.com>
- <20260902142336.9955-1-ehemily@amazon.de>
- <649c7d7a-f042-4fe2-a3e8-eb15e4d76a46@intel.com>
- <apiL1WmN3j4ceDHI@google.com>
- <963e526f-0abf-4f8e-ad17-aa03809ea558@intel.com>
-In-Reply-To: <963e526f-0abf-4f8e-ad17-aa03809ea558@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.de;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BE1P281MB2610:EE_|FR2P281MB2960:EE_
-x-ms-office365-filtering-correlation-id: 3eb4e96c-fb5f-4a72-0829-08df0f4dcec6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|22082099003|18002099003|38070700021|11063799006|56012099006|4143699003|10067099003;
-x-microsoft-antispam-message-info: LTWmJUj4/7FrczrvP9Kzr8Ka2tZPGR5wuvl5VNBBljZGs2m+KFMEdA+OBMLnZM7CYdGRKT/oVgLBXN5p/amfe4dzyIrgo5ZMcA2tTyV4ziO/4XQ44kJf8GsF/2FEkLzJ1+kIlxVYOwXlFQ63nIP3PoJpqHqdzMrMCVLXFxP+VSy9UnjKqhFn5BjfZXJIUJ/T/Pvu8iwNWlVuiwHRRM0YW8XELaq0WgxqSSwYH/oq0Svwx1e780OuWPy1HcEiaOb/GSMynzlPJfiIdV2yZOSDkv8yOEEUjggpyfobWtFkRMuBMeYHSOrhZblReJg5ncAL+ueoG9N9GV/vql19bGVWCagnnwUNAHtPaHkhxNAITgdVDAh1nRM4FXKm6IYvk086wFkGAO+BGGXQ+mbtyBbVb9t37L1vteJtguI5WXXLXggd0+asSUCctUmOhv7P3Qm3TI4xT2zcGgHOowUQaT01e0wX3uWFzqflcjX/AAPL5ZlIAkjGepESVaXRTC3VvbpDY3WYTpSxBEAEPX8vdlEFeqqfHLflvPwFdZhR2tkKBDXrSWpkDbD6iKUP2Ic57IhGZBPF+RslT+kapExsHHprIm/FnCqvGcwusjBPkR02I+32PhVhZg7sf4TWlXf/WCL95YT2DILqiFb/48ZP08M3ZEjjxNhlAYThC+CjgtHVok+/SpXFLD8whQcO2AR9Ph6B1HhgVg7Q3XRam35wG2+2tQviExmP7Vx+W0gt0nwHgzA=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BE1P281MB2610.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(38070700021)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?aIXpj6J2hafyWjDHTHl08VFM1yHQwnC63uS+f3oh8A+p+5ELMjjDXdpDOp?=
- =?iso-8859-1?Q?E61esRv0GEmFN+gaxnPV64pokI4ailFGqU7OBBQEK/sWdPZXf5To7XyM5n?=
- =?iso-8859-1?Q?DsPRemXk4TyrU3aeGrAvc3I5FnjiJxw8gwWRt/5N6+Slh8inNcQ4iSET+D?=
- =?iso-8859-1?Q?GKA8b5xLVRofKdo7JRa8RiaiDUo6AmnyDfEmYeSSwIucEa1U4p88CKViZk?=
- =?iso-8859-1?Q?GuSIBjqrrdqsL65Q1p2n/G1IvmTiv4gr0X/m/tOCrJfKGbikIFfvF6cG0g?=
- =?iso-8859-1?Q?x+Otm0/AyfSddd5APadpvMbwB2kFp2rw1De+hfMuJ/oVQWuiwGBGooqWdq?=
- =?iso-8859-1?Q?e9C4jiuoF+3Jm/WegHmWwwhSXzLyOQHoEDLYHfDh9FZUBKfdoiqL90TmOA?=
- =?iso-8859-1?Q?JJwaJD4JpZ+kTk7zOp3CeX65x0JmW/Gxzs9fyunxZDxqE16UZok9fXy6Gl?=
- =?iso-8859-1?Q?jFPVTE9GftA1hXsvkF1HR5GfpDPcky+QoVL1kVtZqAaHeMNag6/4/JzMqG?=
- =?iso-8859-1?Q?6R96BXqPvDj8z9iVRW1YBeQ/4vqjFSeUXCqokBHksTypfRtbpfz4NpEvwY?=
- =?iso-8859-1?Q?8QuEiVdKC3BeRKNUTLuOWeORl0oFD7aJ3d3zuBXLUgHtsnCzOJfb6H06dm?=
- =?iso-8859-1?Q?O1JDVdrL7Nb60t/9DeutkckvJymUN5e0iA57XgF/F7jH8DHWRuhrLS2jmx?=
- =?iso-8859-1?Q?xzA40gmae/alheBvOAQQsCxV6jmVLjHxRAQUTFq/F35LqzSnL6p1SK6TNI?=
- =?iso-8859-1?Q?3z1WizvME+s4w2WxsxtuGEKHi2uxlIj110O8xgl4iXP5T165giKMq0NInd?=
- =?iso-8859-1?Q?jpizNQ+B7uuX9U7sIlt/QAJw/IynJIAVV4xewaLUEGQ2h/PxxjUbkYukkC?=
- =?iso-8859-1?Q?wp9cDxmoHNSi9SC8qEZkWwWlAxl+FzwGsJoTUWldrQo0HrNt3/r1Znw4Ft?=
- =?iso-8859-1?Q?Fx8N6nY7Y6+pe4I1C6/b99lBNMCgnlJcpHgSmsj1pmJlVyPPy2RIVnaqMb?=
- =?iso-8859-1?Q?+P5CejcjWqSdefjQmF+J8XXGQKbzij1JWv0aOdbjN8ufQ0BUl3QrkeumQu?=
- =?iso-8859-1?Q?5v9mcfshOV7bYHzTF7b+u8N/TfKDboMDslP0kF35u7lr2fGZaVn5Ugh9I4?=
- =?iso-8859-1?Q?m6WWZQOld6ZXBbpZ+JbapD5gwJbVEO4qgwLAwR2UdYFm+pcyyZp31JSqkZ?=
- =?iso-8859-1?Q?lyBS3OGl37vvroEtqkn6KlGOzz8KMFxLux4kv1g4fMgZlQ3Q9/MNGdo1S0?=
- =?iso-8859-1?Q?c0lh69MUkOSoepv6UKC3ZzUNNPlOez19RXAY/z2SVfXuuPypUlzxG6EcAL?=
- =?iso-8859-1?Q?BQCDMho8ZlrV7tNcO/a28EqIIK7mJxkifaMLtGAkWYiWsP21BydI2UFujA?=
- =?iso-8859-1?Q?dHJO2HI8WAFail1EybZ420wsTpT+4TjbfeVE7nMd78BTar63TRUKRJGLdF?=
- =?iso-8859-1?Q?FB/8uq0cOdRAznsYd7KgLEZqkBwVTZH6dVXY1okEz9XqJ0qItpatWzsi2Y?=
- =?iso-8859-1?Q?gBhskeNB8YgG3qmCWDepK6PyP8n3CxWADUTwB2NeD5TKRyxhNECOxeISO5?=
- =?iso-8859-1?Q?ExbhbjqP9KD2wkkPfJFM5+SHDRReN3bDiAtJC6Jj3dPCMjRuioTYDPw4Z6?=
- =?iso-8859-1?Q?NwfxRVUA910ZTl1jDGnGQAL87F+eScrmJrhmBM97c64d1XJveTBQHwVr7d?=
- =?iso-8859-1?Q?TFeYOQ5DJAczYHbFcXQ5e/Uxlk0Cs0xlmwxrDAbUuA39hnpDl2OibVNC0/?=
- =?iso-8859-1?Q?FvcOlLECx26XdIcGAS8eTMLx42sZU9HJm4UD2Z/k9bS0NY?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+        d=flipper.net; s=google; t=1789053122; x=1789657922; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
+        b=NKSKHUpR+thOvGcKNGXMcobP/XsY11DLiZ/1z/UZiNdz4uSNspyL6QbuGAi71u5cGu
+         cTk91dQErjMDeNyiuyif+n6Tg1CwXembYTkJ6PWm4Fn3Q01VnqZfvUOmyGekcr92j7e0
+         MQghOW9Se5OfWBpDRyIPerABjVq7B3PG4Lyy3j9GsurY77F+8aob6GnLexIVH1Are9tR
+         HQj46GNo5muuZj+LOMWnjzIiBghR1Oc/rz8p9iYWsnCi2TO9pI0jVKQYL8SvatcXxn3P
+         5jaOC/bTux3Vu54Fr12ooKh1VPEN62MRH/IhGldugaPd4haf9RktLIq49D4aC9/0K5sK
+         22iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789053122; x=1789657922;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
+        b=nmzS9IcNOkWalhoKzCJFAYrdxwKEyZ+A+EfNEOvobGvUmKOED1lnZu0RH7jI93Qw5P
+         XqMX3fjQ52a9q/tNCIDyrG3/Aespf3cjp6SIfBvfu2xu/3UXZgrFTEiRwSeuEBt2aN4T
+         TZSQ/5bqtaRx8NExoQUR3IUwuBLPoCqpgqfrUfTvLxRy1Ewgmad3RkAeFpHCFKItYEIt
+         CbTo/QtaEFfArXtNJu/4PdM6ClVdnTh5KfA78I8RH8MxXLCXW+wtuI3UT6kr2jmEEIo2
+         RsddYNN0NdIRLlShgs+J8QM+NBsE8Q3zciCVsgheZXPeGe1Shy3K+KVqblXduIC+aqfE
+         HLkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYAQK47j9XtQwp9jrfM/chUYlqhDI9M7g6NNjdAGPhQmijKzVVBU8mcZfK1F7XL7KhsRWFc2HvJMoaJEM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcX/GouW4QnVvJ601dZo7eBnPgLi+UKCgkchz4FQfePhNq7DCm
+	KUcHcswKbLVh8p2Sr3nvaTWB06yYqLwmihxHRY47I5rRWpP4t8SN0r/Atqaylflkd6GT6Sa0Juz
+	2Dw7AaqRvvEB7s/Fy9bONNwb+cHF37RAcsWH9ImOFScCiblyzbuTHqLs=
+X-Gm-Gg: AYBFou0PFG5qiz9fvAiLVyIuscunrrnYUVCw12xYl3X48vSEQSmVO1eY5jS6o8IKSGE
+	9f6yabAHTw2t62w7pk+znSaJf9oLDI9vzji7jG6W5b/reXIjN3VDqmNG5FClhlZb96M1PKfQJlN
+	xZgAm22qtg/ECNnsX0G8TnJwJwNA2CYxvp8ntF3n+5xCelN9wbpfME/k4s49k9miXmrweIW3OEV
+	CLc3ZV+pueUAnBLlxTnc7cy4cNdiCwP5UzN/EjUQb+WM2GKrzzZ/SRkFQ0zMfr1HFT6keDqx0uf
+	WcZC9qwXRX+pyzOCgJI6wqzf+ia9wEFMKp5mxnQvH5os3F3eaBSJhwutmfuddaY2pqIqD+amgeP
+	ejQNkYF3Qk0Mrng==
+X-Received: by 2002:a17:907:c5ce:b0:c25:47a4:fedc with SMTP id
+ a640c23a62f3a-c29418b652emr491393166b.2.1789051729432; Thu, 10 Sep 2026
+ 07:48:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: T4vRIDBGiIN4XaypMgO0ZAncJgy28ELWmFQboU7ADfKFpk2HWjTUNm+RB5o+MfHznPDrcp21u3zWY5UFgT7FtAWfe6PWkuNTAeuVFl1Oo/xmot442g7R37nTZXm6sOzQBUGAWjeAvxDPW7RdOQkpWiudRYqsOZT+fYddfYbMF1B+xNvIgE0AOOQL6pBfsUhBIfBJ0OYbUA4WEo/ek992V4INrgFlxL4QXEVc3J9khGf3VBWZx2mtwrjcib0O9lvKuDqfoMlCuk6IFDpYsYRxE7tv1HDzcyZUnQxBwVauFNfkVSmxDaPovUmalHbrbWsnzt2cTlJVGRHI+J1nLrEUFQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BE1P281MB2610.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3eb4e96c-fb5f-4a72-0829-08df0f4dcec6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 15:11:36.5479
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OmzHL78fTfEKgRwzj7T0lqJOUlQG4d+Wt2z9JYHH/UMQd2k2FW/m6xKcepN+NxL2umW1gLbq1vIcWc+jZpoaog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR2P281MB2960
-X-OriginatorOrg: amazon.de
+References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 10 Sep 2026 18:48:33 +0400
+X-Gm-Features: AcwNN1UfoxjgFqkNtB6Aosk9zTLZTrJucLfz7oY5DTmBgBUsxij8crpGNXoG4yA
+Message-ID: <CAKTNdwH9QAgreJ-6+t1j_P1di4VyoMBSsFkf_g=mCi_-M8g9Pw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
+ CPU ID
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Finley Xiao <finley.xiao@rock-chips.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Happy to not be the bottleneck here since this is FRED independent.=0A=
-> Emily, do you want to pursue this given that you reported the original=0A=
-> issue?=0A=
-=0A=
-Yes I would like to take this, just busy this week so will probably only=0A=
-find time in a week or two :)=
+On Wed, Sep 2, 2026 at 5:08=E2=80=AFPM Alexey Charkov <alchark@flipper.net>=
+ wrote:
+>
+> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> memory, and Rockchip bootloaders use it to give boards which have no
+> dedicated storage for a MAC address a stable one anyway: they hash the CP=
+U
+> ID and patch the resulting addresses into the device tree they hand over.
+>
+> Kernels started without that fixup, e.g. straight from the SPL in Falcon
+> mode or by any other loader which does not implement Rockchip's derivatio=
+n,
+> fall back to random MAC addresses which change on every boot.
+>
+> Formalize the derivation in the DT binding and add a Linux kernel driver
+> implementing it, so that a Linux image can use the same stable addresses
+> regardless of the boot flow.
+>
+> Only RK3576 is wired up here, that being the SoC I can test on. Other
+> Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
+> than 0xa on RK3588, for instance - which makes supporting them a two-line
+> addition to the driver's match table plus the layout node.
+>
+> Patch 1 is a prerequisite fix. The OTP hardware has its own internal stat=
+e
+> machine which only works correctly with serial access, but the current
+> driver serializes nothing, which results in timeouts and/or corrupted
+> reads (e.g. returning splicing a TSADC trim value into the buffer of a
+> caller asking for the CPU ID, or mixing up trim values of different TSADC
+> callers). Hence the Fixes: tag and Cc: stable.
+>
+> Cross-checked on an RK3576 board: the addresses fixed up into the FDT by
+> U-Boot match the ones derived by the new driver, and the driver correctly
+> assigns them to the network interfaces when the kernel is booted without
+> U-Boot proper at all (via Falcon mode).
+>
+> Sashiko also rightly pointed out a use-after-free in the nvmem core when
+> a layout driver is unloaded leaving its sysfs nodes and the postprocessor
+> function pointer dangling. This is fixed separately in [1].
+>
+> [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16bebe=
+b518@flipper.net/
+>
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+> Changes in v2:
+> - Switched from a scope-based guard to explicit lock/unlock calls in the
+>   OTP driver to avoid mixing styles in a function using goto error
+>   handling (Sashiko)
+> - Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpuid-mac-v1-0=
+-ea9135270fc2@flipper.net
+>
+> ---
+> Alexey Charkov (4):
+>       nvmem: rockchip-otp: Serialize reads
+
+Incidentally, patch 1 of this series also fixes CPU thermal throttling
+on my RK3576 device: apparently, the mis-read OTP-programmed thermal
+trim values broke the thermal governor logic, which now works
+correctly with properly serialized OTP reads. So it would be great to
+have these merged.
+
+Best regards,
+Alexey
