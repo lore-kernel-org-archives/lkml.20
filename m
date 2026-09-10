@@ -1,76 +1,78 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D612BE02C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAE831A55B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006624; cv=none; b=VBvaVYOHZktWB9LhGV2yeTsZmZMRxCxxkkpQmdE6FG6c0Q4cdkTMmUxMPT+AMqbbNlt52T8ZZm6OKBLzRnNL2ahI+K/SJ61JaCvibSikYRk6N74ho1ptTh4H+8RjSakk16BvLZRYzWiv3eRD4LNKPXEtcpLjoMyEffKAMLHLAdI=
+	t=1789006766; cv=none; b=rP/IS0a0GZlMMEmNH21+FKvpfqr76APo9cU62aop9Pz/7LEpXYC0xqPKHtC+i6jKJYZ7hWanV5sb7Amv5aH7FE9m/yxrtUDtsLfFxC7QFXT6nj2xfmXKACQ//gyWjSAO2G33W6GXUKTmwnBdm3eJZG/UYQcdqRHx+NrkiDecKso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789006624; c=relaxed/simple;
-	bh=FWJ3KjePe2ZLJX+PXqYTB1f050jq+4dzetuJ7W8/VgY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Xgud4phPMOpxkM1+tc+8bjUY7aoKrAUVUv0EA2y1VpLfAt6Kpnz7M0Mg7mgO7opsm2209sYIPQMzzctb9SyQ7exya9ju0RO9ZE9Ui/i/Tu+ssA3+2ajO1bG5sSl+arT1u284LlChvYb/xb+gcx/GjPhkUyvAHT10A6nyru+UQ8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d2/WIv8F; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789006766; c=relaxed/simple;
+	bh=JzPrbtLU1aX7jPBx7o4xg1QwPf4aojsF7MwxzjDLuXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OonQK+040TJCl3Nj27u6Wu19lrV3NqAw+DX1TnYiqVwzBLz77DYEXgHSYh0+BBEH1YJUk2BVL1wUq5HwM2xSReC4WA8PG4luqu70X+BoYM5Ic9lF3PdNAOrx3xCPSfxM+n+NeUxn0ALsMCSxRD39xf3c3PxjLYC2AUYrS+4/M7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=PeOT03ul; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d2/WIv8F"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso7278642a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:17:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="PeOT03ul"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-9399a1c21c1so388997685a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:19:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789006622; x=1789611422; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B/mwb6kq711o0zLj40CBuf88fUtmxTPuXCFlSp1xnBs=;
-        b=d2/WIv8F2Wyd2NpGlu85AFM7+zqEdoJDC1N5u7bJc7Ra+t+o0FX2vaJ9d2ivROLgQd
-         XagkQFwQNzsMILyedMHoaaoEiwoBXE1cp4+jEYZq2Cpy72PHrtn+yZ49zRMKm+edK/+G
-         hqaA1+1yQXQ4KkXYM/jwsMrE23YCBAKPVLC67/BaSUnbCrjtZ2bC/twKraybG2IMV9T5
-         vvORzSaZhB147JPy8cJlLqs6UDxxj1swYqOKsIc32kqPECSNqw2//EvoGmkeeoXgUgd5
-         pEfFBi8MutP5nAesk+axrfnIazrF1G8OaA72QP5B5ABGonrwhe5CjkdJ9CP737f/wf0N
-         1yaA==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789006763; x=1789611563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2IJdQLgVNz13bowYN0scU7l+eW7QDn2APNBpPDBpQ/Q=;
+        b=PeOT03ulNvtGuiqvNZ1Ut71Z8K75+Dwh0Cp6ZTsxP3RFmktG6KGkOOBRVoJHcUSykw
+         xJyt3pAxuJen+dSHATwDiC6JFgOSpIVX3gln6IQdvGaPP8agx3KSOpakHL5218DPPHKE
+         nLmrsKvT8MQT0mj/qIjlQA8GIgDDGvsXtK9xaYb8WQNqHmT6sHd1+I4ZssswJETVs6yi
+         SkIUS1bu15FwkGwurmq5xDNO0i5czlQRD72BgK8MrnlF14dEiyu67RduJ3G2/x0uQT15
+         cRX0XMJzW07hfAUdxWvwsR4PIGbCqM8Oy3A22ArQjJcykHVgbwLwN+vrKEC1F+viHZRT
+         A1Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789006622; x=1789611422;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B/mwb6kq711o0zLj40CBuf88fUtmxTPuXCFlSp1xnBs=;
-        b=p3tD1z6CE6Wn4G9g7ZLYV/tsRbgdUfPVY0/hdB8QmRvrdOkNL2B4b0Z82uyR62WaIO
-         ZfnrbI7UE0e4e9ctEiZhic7qAa6yrZ+pDJj4E8cdMnx9J26CX3rFvtqP3m3oFCyOIf1p
-         3ozLkOGn/R6lL2wvuifOzU2CmtAT2eqC4LrfQRyABeO7ji5umcjGil/NqSZX4VuoOtPG
-         RiXUjc3axzkPqVklbjXOOGe8t1LrjDxt9jAkAXQsVXpguD+hZo8j8qiN3/O7zD187cTN
-         KYWToxUcgcJ8C+LuTCcnT6YoqgX2ZILqm+nV/biaNsPAt6eGNqvXVQ0WJAOyw6z54M19
-         5QhA==
-X-Forwarded-Encrypted: i=1; AKwUvBxM4X83Jb/MYF23WWweQ/WdVGkHPNsifD2u4a/oMyL6Evv8nrn2rd3y56rJPRSTP7mQmaIqnFrBjByXqnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxnUTWscPnNNKap/gexxBjQ9vIzIxMuzlwfjSIIT1C72lYS+iJ
-	h/RKvMyJHK+IubkY7quEqVXmup62bJqBxKISIPnKhbMW4Ol5zzTcIDxe
-X-Gm-Gg: AYBFou3MnALrDXqNNBpEXeetZwvkcXB24M3MZPc7BYLn7hZQqRk02+mKhKRU/yIcnTa
-	NDpnVotVVEtAuvfI77F4L2yK0VqgU2Tm/Y8FLCLmO0HsIXKDBADyd2dBRPtQR77Q+I0Eowt8ono
-	94f3NXb5XNsmYmbfH8hV2CYWD9D28mfHYXMNm/iVFBT1MdqzkNd19ecrSGbmFcX0nbP+ExxoSAp
-	9mCcW7U636xrv5ZixvB0b0M600DTuBuZCW5gGPE5swXFlsv1ItpJnlJRGN11BwW6ORDcVXkJTca
-	Y41I2Q6Eae/zURBJC1OBpl3hd3Cg0TBpKDYTWycpK+oKgPBXsHRAKUB9voKmvQo4j+j4L4BDdFJ
-	FzlD2bj18OveYfzi6WUNWJm5HPJ90owu8jZ8wN7W11rimGimzaWNhSizr0lHL6aWjPcIXPAYqoZ
-	QSv0Q6+d74Zz4E8o3+vyxIj64dCRRSUb+7U9HGEjp1pZrvyhDfEYNdhGFaWY7qTAGWTh0v1RdUO
-	lk=
-X-Received: by 2002:a17:90b:4c41:b0:398:9bd5:490e with SMTP id 98e67ed59e1d1-39b2623ac0fmr56840843a91.21.1789006621810;
-        Wed, 09 Sep 2026 19:17:01 -0700 (PDT)
-Received: from baineng-pc.. ([117.133.183.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d775c02b4sm2499630a91.14.2026.09.09.19.16.59
+        d=1e100.net; s=20251104; t=1789006763; x=1789611563;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2IJdQLgVNz13bowYN0scU7l+eW7QDn2APNBpPDBpQ/Q=;
+        b=NT8FM9dBJbW61XVYDfXvsceWnJvbytmp3lrz0t1t1JW4FCTgsGydgtd/aGar59GGm+
+         nYmokjghF0AdbOcRhU7VRe7AiINg8gR8eDz2XE7hvFO7BZ/pLe/GZ4zCnhopPwuLtDTm
+         IsMNCsbXM91k6vK3u7GGulXxiI7OcNwtDEoxvWUaz4gOJ//nXFG+DHfzQg1G+TZ8DPNY
+         1P6uEbaeIwWv0sbC7pNx3NZy3aWqVZ5ZCLYjicg63DXwkSUru+mWRnUADWjmZxfwgFPH
+         Tay/UenHWIADDi7doZJnMKXJ680loKQpXmXZmX0OjhoBA3Y+jzaCEKX0HXFf/6IK65+H
+         BJIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDBVBjcg3B6VwqRGLUKWCmedzV14jJeln6YYTvRbzk5s1XIezXS2UQxdTkJVit6/MDtzd4SjoVnwPoorY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kskOZCpA46fxPx4oxkW6r3j9XUGq1/yFawDUcruYNicDLDUWAu
+	XQL789o90lSh/8b+2TvmNeIuDgtuguCcWPTo80hGwV9g/JbIjtPb9PZfPodYcxQkVN8=
+X-Gm-Gg: AYBFou3qhx6GgR8PAZ+bNGS5mPcvwciVLSRFS4JqlshT9MxCDHyrfZj4TC0/tsnPmRv
+	6qzWDbceXvTacFnEiZbOtEN2C/RcRo9F9sPxz9SNT412xbNQvxJHlx8futwf+Dcpg8hbB1vODuV
+	g9YD5tQY60Hut0EbZJ9n0yZXSj3Jbjymqmhr1iMWTdNh+MwTLOHz/ha7BvzTA7mVX1lsKd2zPJH
+	B8rMscGzN78NeI9aJzx0ERcEwmVAx5BcgfChomddb+9jOdgknYeEvd0Is95XARFaD71ep54wwSS
+	izbJQyvEyu8mNbkXwiIK9f68ia3CCSuNWnI09qfO2npHNo212Hyw67igoT6JPbT0SUEPAByQsKi
+	3bYZPEmcwVfsGZMQ222N1fzdfbrT+VAaJ95x0ovS8w8Rol2j1f7kiztuh3A4Xet7bHfiVMdBqOW
+	GavCOMkldr2hTEM4I0U9cB1moYsxqFJrpRMitSqwp0CLuarFhS5LYF5FbdszlUX8F3DfxtfDopt
+	4w=
+X-Received: by 2002:a05:620a:bd3:b0:939:de6c:cb45 with SMTP id af79cd13be357-939de6cd191mr25538485a.47.1789006763100;
+        Wed, 09 Sep 2026 19:19:23 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb70fbdsm1561375585a.32.2026.09.09.19.19.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 19:17:01 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: vkoul@kernel.org
-Cc: Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v2] dmaengine: mmp_pdma: fix wrong sg length in mmp_pdma_prep_slave_sg()
-Date: Thu, 10 Sep 2026 10:16:52 +0800
-Message-Id: <20260910021652.1296640-1-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <aqHJKbBTNrreoMuI@SMW015318>
-References: <aqHJKbBTNrreoMuI@SMW015318>
+        Wed, 09 Sep 2026 19:19:22 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com
+Cc: lizhi.hou@amd.com,
+	herve.codina@bootlin.com,
+	andrea.porta@suse.com,
+	daniel@riscstar.com,
+	mohdayaa@qti.qualcomm.com,
+	lbiancon@qti.qualcomm.com,
+	mani@kernel.org,
+	robh@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] PCI: of: update endpoint ranges dynamically
+Date: Wed,  9 Sep 2026 21:19:15 -0500
+Message-ID: <20260910021919.3421449-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,42 +81,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In mmp_pdma_prep_slave_sg(), for_each_sg() iterates the scatterlist
-putting each entry into 'sg', but the entry length is read from 'sgl'
-(the list head) instead of 'sg' (the current entry):
+A PCI endpoint bus is a devicetree construct that allows a PCI
+endpoint (function) to have sub-devices defined that are accessible
+in an SoC via the PCI endpoint's BARs.  Such a bus is represented as
+a devicetree sub-node for a PCI function having the name "pci-ep-bus".
+There can be one or more pci-ep-bus nodes.
 
-    for_each_sg(sgl, sg, sg_len, i) {
-        addr = sg_dma_address(sg);
-        avail = sg_dma_len(sgl);   /* should be 'sg' */
+A PCI function with a pci-ep-bus devicetree node must also define
+"#address-cells", "#size-cells", and "ranges" properties, to specify
+how endpoint bus addresses are translated to the PCI parent bus.
 
-Consequently 'avail' is always the length of the first entry. For
-multi-sg lists this causes out-of-bounds reads when a later entry is
-shorter than the first, and silent data loss when it is longer.
-Single-sg or uniformly-sized lists happen to mask the issue.
+An endpoint bus address has three cells; the first indicates which of
+the function's BARs the address is associated with, and the other two
+specify a 64-bit (2 cell) offset within the BAR's region.
 
-Fixes: c8acd6aa6bed3 ("dmaengine: mmp-pdma support")
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
----
+BAR base addresses are determined dynamically by the PCI enumeration
+process, so generally it's not possible to include them in a static
+devicetree file.  When this addressing scheme was introduced, this
+was not a problem because the devicetree content was generated
+dynamically--after booting--based on the information (including BAR
+addresses) available following PCI enumeration.
 
-Changes in v2:
-- Add () to the function name in the subject, per Frank Li's review.
+It is possible (and in some cases, necessary) to define the devicetree
+nodes that represent PCI devices ahead of time, in a statically-defined
+devicetree file.  In order to support the PCI endpoint bus model in this
+case it is necessary to dynamically update the static devicetree so that
+the BAR base addresses assigned during enumeration are reflected in the
+endpoint's "ranges" property.
 
- drivers/dma/mmp_pdma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series implements that dynamic update, leveraging the same code
+used to create the "ranges" property when PCI_DYNAMIC_OF_NODES is
+enabled.  The first patch makes an argument to of_pci_get_addr_flags()
+optional.  The second patch separates the code that dynamically builds
+the property value into a helper function, and the last arranges for a
+statically-defined devicetree node for a PCI endpoint to have its
+"ranges" property updated (if it includes a "pci-ep-bus" sub-node)..
 
-diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
-index 386e85cd4882..e90fd2023af7 100644
---- a/drivers/dma/mmp_pdma.c
-+++ b/drivers/dma/mmp_pdma.c
-@@ -713,7 +713,7 @@ mmp_pdma_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
- 
- 	for_each_sg(sgl, sg, sg_len, i) {
- 		addr = sg_dma_address(sg);
--		avail = sg_dma_len(sgl);
-+		avail = sg_dma_len(sg);
- 
- 		do {
- 			len = min_t(size_t, avail, PDMA_MAX_DESC_BYTES);
+					-Alex
+
+Note: this series is built upon these patches:
+  https://lore.kernel.org/lkml/20260908213459.2519059-1-elder@riscstar.com/
+
+The entire series (based on v7.3-rc2 and including those prerequisites)
+is available here:
+  https://github.com/riscstar/linux/tree/outgoing/dynamic_ranges-v2
+
+
+Between version 1 and version 2:
+- Included the first patch (which was previously posted in a different
+  series)
+- Modified the last patch so the ranges property is updated only for
+  PCI endpoints having at least one "pci-ep-bus" node
+- Rebased on v7.3-rc2 (and the prerequisite series)
+
+
+Version 1 is available here:
+  https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
+
+
+Alex Elder (3):
+  PCI: of: make a flags argument optional
+  PCI: of: introduce of_pci_build_prop_ranges()
+  PCI: of: introduce of_pci_update_endpoint_node_ranges()
+
+ drivers/pci/of.c          |  89 ++++++++++++++++++++++---
+ drivers/pci/of_property.c | 137 +++++++++++++++++++++++++-------------
+ drivers/pci/pci.h         |   1 +
+ 3 files changed, 173 insertions(+), 54 deletions(-)
+
+
+base-commit: 857c3561ea9f2c3107b5c6d830d3b3face159cbc
 -- 
-2.34.1
+2.53.0
 
