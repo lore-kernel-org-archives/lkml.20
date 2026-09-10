@@ -1,227 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4568383305
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012092; cv=fail; b=HrtVo/HD6+7Sh/2NFTrX0f0QXWoIws95zC4yyiTgsep81hVeItUQCJ3+bJMp1bM8x5vHlCVVYUBk5VoP2jLJjY4myVX/vHq/g4qB0nS+JLesRWoBU7aRQnYjjPpJ/uD4vQivwJjkFRpAeQ5DgnUtvPNDv9rAb9FdEDzsLfHAtZY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012092; c=relaxed/simple;
-	bh=Vah29icR/HSD6Lfg8pC1sH0YKzKupXTkfto9Bn02qtU=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ed2VRJtr5uj3tf/adlmcwoCuTRaLNutP9h6PGelqZVgv6BxffFqYR75OxYgbrWjOttJrZeuvYB0OIzQXWXDksuvm1LHUabd8OpQntB6ZC0hVeft3e8xdCx/62VmoQK3XuQP4wLf4Q29cwntFh4+Z/4wFV6gza0gsb7nRz/cCDok=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uu6c/t0Q; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4091A2FA0C6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789012108; cv=none; b=W0uZyFjjHZ6qVq4yyulvE/Bw3Pll4UxjRkGJSMvWCXlGUwZoOgyLkQfDXntJNnOgDcwk3KpJNAj4CtMl1EJ575IXzO/tilDu6medKQLnL0dUPKMGMtbzGr9wOO6GLT6qqt5OaK2+wdE/ewdKbJl3PQJJ8I0LqkvHNmRRq0y7xhg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789012108; c=relaxed/simple;
+	bh=rsFI+sdwDURBfYcTPzPK+SDtUqdP4949pxLEKIwiRnk=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=pt8O/r6z98hnT8Up128a+93Sg2qgBEZzNELhn2ZYaDgmldydEplOTQnTxSCATf+YjpDtbl06xZ0nLI3c2l91UTaCGDo9AN7Rxb0+HfwjZB4O0fk6L3SlYZob5wlIBe0PcY6Qmvgsfq5xqURItl+cUk8VPflJ8sPhHmHLJ1jJmcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XqI7s4t3; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uu6c/t0Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789012091; x=1820548091;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Vah29icR/HSD6Lfg8pC1sH0YKzKupXTkfto9Bn02qtU=;
-  b=Uu6c/t0QiZBgX6ex9uHHkzVFERnRmGV5x/JoR1ZpR55njRD6HWlM7s5A
-   d/95Lk/zyS/rEA87OmVJOmTV5KLJl+tkoweJPYjdUNntkcM5Tx0ADV3mH
-   H6gPVCV0UReeaSkJuQJXl3UZFsqo8OscDNz1OCJ4whJDQERkxaDc7YrXU
-   NVNqewxpgOvhr6GaQdPpWKcOsh/FoVBhmwhzchNS92nEs/v/E/gk5c2Uq
-   SKLBv5l1D3UivJXVACSlfo1Ic2orxyvlfJZ2b0039h/Whi2RmxyoxM59B
-   Oyz5jPkXMclXeZSRg9rz6Y0aRQrL35Q40zz0MR4HH30vXcuheH084+51G
-   Q==;
-X-CSE-ConnectionGUID: TRrPfMBwTe6Sv/0RG3gUBg==
-X-CSE-MsgGUID: e/oEosOmSpqxBQS+B0glhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93143918"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="93143918"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:48:10 -0700
-X-CSE-ConnectionGUID: hVCcFcQMTLe/LyJG41B8SA==
-X-CSE-MsgGUID: S195vrV8QIKNFCTm9tmj+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="275650764"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:48:10 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:48:09 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:48:09 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.1) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:48:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x6bd6TY5LwFUX6DJ7JNd2yi5BIWKxQIgCwa+5pAMV9aCKa4J46iy2e1Dm2xMWevPkTD6jN3nCnW1Px4J7hFM37yPJcrHsdCwgVv40cVUwklqndQT+bTZtdDQE9ti5Rm0dwJwdJc9vuKSerVyS9EZDpFfk6ZDQR72t3WIH8sNvw2vldlytlqwxKdBTRsVxpHDnuIOJ8WwDOe2kkQL16fYhEn6HGNUES6OaG5aj+NAlVlEYQMPc2wlXy3Rqr+mDErLA6wGLXZd4onfVodVgsej7v9ooduftPkoHBA/NAMnGNQ7eTNdao3DpHuGsiAHytinA4c9RQu7thcMto6nXn/QmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u3HtIQcd0aNUkWaafEYUPeqjiSythQRQnffIQ+3cy5U=;
- b=u+LsK7jkzRin4NE/qvv5kPBknValVa+EqPsaajmoEzHA+8gs90z8VNr9uIyqXWg3HwSSEX/XIHzfjgQgINi/t7pYUTP7ksN3HmXupy5Wp29l+pRKlepvevTO9E6FWsCqE0zrNqnNBWoYGo5jq/LM32kzQr9ze0xA0jmHrrtaVaeRkW9sNrxDDyK9pkTyLKNdM6ticVIh6UMAWxkaivNL9664NeY9TQ6OIE/7SCMns9zxcEggUNK77LZ04d1mXln8GxJJiArM21Llf8trQVy26ul7Y+81ZpVeWnt3WvDpjBGZY/0SJm0iDmLx6nSLW4UPLsJU8vOyIu5orYnhJarTnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by SA3PR11MB8073.namprd11.prod.outlook.com (2603:10b6:806:301::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 03:48:03 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 03:48:03 +0000
-Message-ID: <2a814a14-2717-4363-838a-6585557baf1a@intel.com>
-Date: Wed, 9 Sep 2026 20:48:01 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 01/23] x86/resctrl: Give better names to X86_FEATURE
- flags for monitoring
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
- Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
-	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
-	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
-	<david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <20260831174421.13921-1-tony.luck@intel.com>
- <20260831174421.13921-2-tony.luck@intel.com>
-From: Reinette Chatre <reinette.chatre@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260831174421.13921-2-tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0274.namprd04.prod.outlook.com
- (2603:10b6:303:89::9) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XqI7s4t3"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc21bc2923fso7803690a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:48:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789012104; x=1789616904; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zzi//Qm9WAlH1nWPVbEFeyj5g7F/Gg5oP3YDkfmtrmw=;
+        b=XqI7s4t3INGeluRl81D6LJ7LqJixma1+QVvIm9+U4VqoQE+JWklQSTTW6K+CCJWBNX
+         nZ2TSW1O6aHr/fNTtYCZ9GlqSp2LGlkGVI+DN8fxHGUp5VSiHqTfSjr58hbB/kb3OjhD
+         sVhqes8bc3J1WKoI8ppRjt11YWnKtQXow2HJ7fsayz4tbC7P9/oZFcMu7rjZMC/Si1lN
+         PmWfIpxlYpxL78y4H5zqAH2/cQhZFoTUvLhm7fPKqRP2oOxr4075OTvd9uvjzOi2iHVg
+         2NWF6jRgPxQPrRkPXPEryZo+wO/JIFB86tW10YkK+kQn+feMIGMtzAqVhJtViIFdNoUF
+         qAJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789012104; x=1789616904;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zzi//Qm9WAlH1nWPVbEFeyj5g7F/Gg5oP3YDkfmtrmw=;
+        b=h3ik0u3UGDafAbUBqJbhfmnNRsLGEYeqglC0YTkxBa5y6tVwRTAaMkMgDHUr67qCTw
+         Tln6IfqND3gngyyFT6W/6T8nXWvnNsJNw3sZko+jkBU6DFW8q6cbi9ZsKPp6GQDlpZzH
+         UFJcBBi+EYd0x6GBMkbt9GW0HeKhfdYnxe4pFJDpn9ZBvHhjj1cGGRfLcrr3OoTH27or
+         VNZHMlkulp+ZedNieDG96nYgw9uEYklRXicy4krCtaBBp7/0QdmaDHmGFaU9Vp1Boq7U
+         bbXoOm1cfxAAoC1VpwxolSP5O90EM7hb+gUlIk207yq73fpeW1UrXRScIzcsrdMPvGoX
+         q+rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxc9XEuxYPRdhWEP2BqE4AMM76IVz6HRSpvil/mQr9AqZr2LOU8FluCjdaZelUakU8JgLBZzISsH63N8U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrdxEJkLUaKjQvIDGUxt/SfZoSJCjmMmOtxXApBizjGRWJpW+B
+	52uCRrokdyTdQZLnUWZ2Ho2+bKde0O/bFMK3qKEZyWLppwkxVE6UaEQR7Vdz8QUetelmyEEy4iW
+	Aww==
+X-Received: from pgbo38.prod.google.com ([2002:a63:5a26:0:b0:cc1:e48a:53dd])
+ (user=wakel job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:4311:b0:3c3:bbe6:95de
+ with SMTP id adf61e73a8af0-3da39eacfc8mr52193525637.6.1789012104294; Wed, 09
+ Sep 2026 20:48:24 -0700 (PDT)
+Date: Thu, 10 Sep 2026 03:48:21 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA3PR11MB8073:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce0bb99d-0d48-41d1-d3c2-08df0eee50ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|11063799006|56012099006|4143699003|3023799007|10067099003|921020|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: tUj5AsBNWLT65BCplIBGp8kOu8oNG1VbJd4gNluOm4Q/WPZUSQpYmfrHs6JCzYcTjc1cGXW1rJJtCBB9iXuS+CnBKBuMmrYIGWkD0/Y5rxbbWYhZZ5gDiGgITGxFvVNCEUlM/hyk0CWC23p3bU8YFd02bdvMuSBCOoXRH4PilQoEWOKH5DUpubFKCYkVjUOW917WvECl/2FjUCfI47a4DSNs5ra9F47xb8kg/ZWheAnzDzx5bldnqbaNorvsj2gILd2bQGxugGf0yBvBZwufCxaa6ThZfYz8iW/uvG9s/9ei50DMK6+lh4EKNXZQzPXVSltGuz1EmPRoeGsSEAIzqykRTmYh53NDxmL+fUK6phMyV2+XaWI7B84+dVXtT5T7bj2TwmbvrFiEuXCCRKcMazdAgg0Giv0/AJWD8nOkpZrtaH4ktagg/5SaMjNnA1rceSpHUIdM1MkEch01xs6oMt9tnFYPpfUS2BU1fPDcuHLtPwRUe4gQ170QCxiX00LeAiPRWimEuUKaM4cFOw9BEqsGdKcYulCDsGh2qtpJtZ6AKf6kfuZv1lIvj9daVDPRKTniReNbEDF+66pGlm5OwavrjY+kfzphLDt9qyuROkEkTsEx5pTrAQRrzIm17Dd/eNCoxSoa/jj9iWxayqBNdbc5biOYFZ/d07YpP6GwltzOuot8Yha4fZFOGcpwetQ47m1BlolOOVQ6Tu9YZp0/Bg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(11063799006)(56012099006)(4143699003)(3023799007)(10067099003)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXcwY0lqS0d1UG4wOE1UaHdqNnZwUzgxeTl4MElKU3BUUTdqQXFIc1NYd0hy?=
- =?utf-8?B?bFg2RVd5a25LYXF4Z0ZWaGlQL05oK01uMXY3cFQ5K3QrR1pXM2RCcmpTRGVZ?=
- =?utf-8?B?SHR6ZVJUUElqWXJWYU9vM1prbzdCWmx0YlVkb3dtUzZiN3hFSGdsdnBnSFo0?=
- =?utf-8?B?NXArS0Z6ZmRWN2FBdXVWdDg5QUdodTFIVlhGbDRueDJKMkRXaVR3UzdzLzZX?=
- =?utf-8?B?RnN6dTVHNzlKUkhqWm5mOWRoNC95RmFNTFRQTUQ4TFhnNmVFU0h6SFAreW9O?=
- =?utf-8?B?WThwazdsdGt4SVR3bjhkNDNxblBTNDhSYzU3NExQdThKZHpVbDhEN2hEWlZD?=
- =?utf-8?B?MkZ4MmRpQ2Y3QkFrL1RsYVhWUERtdVQvY0RrcVZPZUwvdE5SK2prTm9kUHBY?=
- =?utf-8?B?T3gzVHM2bWMvcDExeWllaTlYWG9PZmJZRHczWXNMeFNCbE8wYS9GUTh2L2oy?=
- =?utf-8?B?WGJNdUUxeXpKeFlxUi9FUXJ3ak1ueVhVRjJEVVNmUUI2cnoyWjdPSkJIYmd0?=
- =?utf-8?B?Q2RLejFURTZYbmpVc3lCRi9WM2F1RG5WRldRS2lHNU5hL2s1Q2VBa2ZJOHkz?=
- =?utf-8?B?ZEQwdTlicThIOEhIck1uVU8vOXZKS25aTlgxaThTNUU2Mm0vVTQ5N1BLRkxu?=
- =?utf-8?B?dTFLZ1NYRTAva3lzd0kzcERqZHJmT3B3eDk1TnhaTXhyQVk3cWV1VnQwSEpG?=
- =?utf-8?B?VVJUdUxUdFcyU0QyRUE1U0x6eTlHR04vaHFLM2MyeHJ6Uk9hZndVNEdjSmd0?=
- =?utf-8?B?a21GdDVNSDl2T09Ddml3MStqdTgvWDkvOVJqS2dpKy9zblFNUkVtN0NYcVRy?=
- =?utf-8?B?d2Q4Nm0yTmhCYjc2NHVQTEsxUytoWDQrSUJoaFVSbjhWa01sN0RXR3ZDVmFW?=
- =?utf-8?B?S2JqNE1CWDRCNEJvV1BhZ1czY2ZmaFZ1ckFGaEQ0QmhyVmZWV2MweE9WVFl4?=
- =?utf-8?B?eEd4ZjlmejVTT0dmWCthOFhBb2N3cHVua1AxVjU0SkFWZzFUalZKbjRybG8v?=
- =?utf-8?B?bDNPQjJpbmloNU5vOHVhdThzU3FnVCtYMTNvdGJMdW1Xbll6UHB2OFFkQ3ZT?=
- =?utf-8?B?dGxKd1lPRlNmSXFJQnY5aDQ3R3UrdE5vZU9mcFlIOG4rUFNENWJabVFpY2ZT?=
- =?utf-8?B?a1o2NWVwSGllQ0ozcFlGMXVtSTVtbllqcnJMTkFYVFYzYzU2ZUtnQU9GcTNS?=
- =?utf-8?B?bEZUYSs0U0xLaFpZU2lGZ3FpUjlWNHptZ2szaTM5TzluMkFBWUR5OUlkU0gw?=
- =?utf-8?B?T0JFUGMwK28zNkZCVlRRT3F4U3Qrdk8vWGcwWWduTGk0L1MzVW1tMCs4aG9D?=
- =?utf-8?B?MGwrWDQ5eU1YcHdMSVRXakZpZzJuN2tjL1hQdGlCMGFDMkxkVUo2QnNMQnVC?=
- =?utf-8?B?VzZiRnBhY3ArR3ZZVVdzUDVubEkya011d1V2OCt6QUlyZkZRa01lNVVFYS9s?=
- =?utf-8?B?ZDZmam9iUGQ4NkFzaE9vbkVYVHpSd1hYcFhVcEEyb3lnbXY3czNXU0FwUnhI?=
- =?utf-8?B?clJxbkNCcHJXWlRCaGF6bTZyNDBxZWFGVmNpNnNCQ0x6Q3dDekNyK0F6UUJh?=
- =?utf-8?B?c0xMbjRPRmJ0cTAyWDg3dFVKUVorMEo2YVV4T24zTXBpSm5XZWx6aW9LZGlS?=
- =?utf-8?B?c3hHd0VtOWMzMEdnODRmYTEzdzlpRzh1QUJhc1RqTzhUeHB6TkZZVU4zbEVJ?=
- =?utf-8?B?M0VoekE3WEluNWRkRzV2d1ZzRTlveEc1akcrRFhaUXorSjc3SDA1RFUzNTJF?=
- =?utf-8?B?V3FoY1pRbktLaktMeURRaWNrZ2NRZkd1aVQySE02UkFGVG5Xak1HN2YxV1pD?=
- =?utf-8?B?U2MrenY1dzMrMy9nTldhUmxFMWlZeUhSNEFiZDVQZEltbGRSOVk0QS9JWXBu?=
- =?utf-8?B?cFBvVEJ4OEQ0YlpIRTNJYStUZGd1RjRIVkkzdXBMVHl0Qnk3NDdrSXBoVmQz?=
- =?utf-8?B?VkF1UXM3ckhucEZrSGZsLy9vUjM2VWkvdE1Ea2dJMnN3aFJFZnZGSWFnMll5?=
- =?utf-8?B?dU5xckp3MFNneG8rNGF1WXU2MmNPUHpzY0dRTTMza3FUdDk3M3FsaEs0NGt0?=
- =?utf-8?B?cEMyMlUvdWxGOCtjSTE3MFFibUxaWjZVcTJnY2pIdWF4TG85T2NiRE1Ia0lK?=
- =?utf-8?B?Y05BNWxVOGVwQmdMY1JIdzZ2aDR2Q0dDWlNVbkFFTWlDc3JBV0JRNHN3U3VI?=
- =?utf-8?B?Y2R1eERwS3oxUnVIUStDQTVrdUVtRUR3eWpDS2hEMnpnSTZvTUV1RzhGZER5?=
- =?utf-8?B?Q3NIcmFrUDJzMGtRYnN5TGtOeDNzdmZPTFd6bkNzWVlnQk1PcjRydGYxNGt6?=
- =?utf-8?B?UkhQNzduRkY1WGZwNHJsd0pQMW5Db040U2d6TExzcHZTc1pVK1RTeTJDNWZ0?=
- =?utf-8?Q?2/scTXTpJ1loelm4=3D?=
-X-Exchange-RoutingPolicyChecked: 0Ub0FcfU6lYo2rMp88okV3Y1fdWbGtbA4F2BP9LLN0SmsHY6YoHBACad7uvfPOE7ExwJLnEpsDlWcEyG2zsJfSuDoxNnUvWISuF4q4HTrtGc+20Ddqo0iO1Fg5K7OfRU3V57ILB5nBCmkjSYQe5YeYFRmyw8OYUXOJ/PUujlnZoakx+sRYuTnNTG690UTwCSj8EGwYZdD1G0J6pN+c2KtCBKeY8fkGAZf7UOSNRKPYaKCOi8gnUXpP/BR1ANaxop29LuSSC1N8tdhYfjm4Lc1z2O2vzmG68/Qms2OwuZ0vfDLiQ7moNDK6kvzcCKqEXiRkwG6yRQ4FxXJhhRkvrpKA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce0bb99d-0d48-41d1-d3c2-08df0eee50ff
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:48:03.6326
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0pLDS2mJRTFEiVZNFEKjnKo6kENm1XVpbksON0Od1A8B3Odq5WeFhkWfKU5Qcy4IDpSpx9WcFnGJ6/YsCglDE8NKlvah3xTiGiYsHJmIUII=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB8073
-X-OriginatorOrg: intel.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260910034821.2935214-1-wakel@google.com>
+Subject: [PATCH] selftests: rtc: Support harness test filtering and arguments
+From: Wake Liu <wakel@google.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-rtc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Wake Liu <wakel@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Tony,
+rtctest implements its own main() function with a rigid switch (argc)
+check that only accepts an optional single argument for the RTC device
+node path. This prevents kselftest_harness standard arguments from
+working properly:
 
-Please switch the subject prefix to "x86/cpufeatures:" to highlight the
-subsystem changed. Considering that, the short description could mention
-resctrl instead, for example:
-	x86/cpufeatures: Give better names to flags used by resctrl
+1. Passing filter options like -t <name> or -T <name> triggers a usage
+   error because argc is greater than 2.
+2. Passing -l or -h causes rtctest to treat "-l" or "-h" as the device
+   node path and fail with access() errors before ever reaching the
+   harness argument checker.
 
-Although, I do have a question about one rename and depending on that
-outcome the subject could be made more specific.
+Parse command line arguments with getopt() to pass all kselftest harness
+options (such as -t, -T, -v, -V, -f, -F, -r, -d, -h, and -l) through to
+test_harness_run(), while preserving the ability to specify an optional
+RTC device node path as a non-option argument. Also ensure optind is
+reset before invoking test_harness_run() so the harness can inspect the
+options, and bypass device accessibility checks when help or test
+listing is requested.
 
-On 8/31/26 10:43 AM, Tony Luck wrote:
-> The feature flags for enumeration of Resource Director Technology (RDT)
-> capabilities were chosen when the only feature was LLC cache occupancy
-> monitoring and they were given names using the abbreviation CQM for
-> Cache Quality of Service Monitoring.
-> 
-> Additional monitoring features have been added to CPUs and the names
-> are now more likely to confuse than inform the purpose of these flags.
-> 
-> Rename X86_FEATURE_CQM to X86_FEATURE_RDT_M (to match the Intel Software
-> Developer's Manual, and for symmetry with X86_FEATURE_RDT_A).
-> 
-> Rename X86_FEATURE_CQM_LLC to X86_FEATURE_L3_MON since it enumerates
-> that some L3 monitoring features may be present.
+Signed-off-by: Wake Liu <wakel@google.com>
+---
+ tools/testing/selftests/rtc/rtctest.c | 44 +++++++++++++++++++++------
+ 1 file changed, 35 insertions(+), 9 deletions(-)
 
-Considering LLC as synonym for L3 it is not obvious why this rename is needed
-(more below). 
-
-> 
-> Add missing dependency to cpuid_deps[].
-
-nit: dependency -> dependencies
-
-> diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-> index f70ee74b5f92..6a7f0adb123e 100644
-> --- a/arch/x86/include/asm/cpufeatures.h
-> +++ b/arch/x86/include/asm/cpufeatures.h
-
-...
-
-> @@ -285,7 +285,7 @@
->   *
->   * Reuse free bits when adding new feature flags!
->   */
-> -#define X86_FEATURE_CQM_LLC		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
-> +#define X86_FEATURE_L3_MON		(11*32+ 0) /* "cqm_llc" LLC QoS if 1 */
-
-The original name matched the description and since the description needed no changing it
-is not clear why the feature name needed to change? I do see some redundancy in the name with
-"LLC" as well "cache" making an appearance, but none of that is inaccurate, is it? The changelog
-claims that the name confuses the purpose. How does X86_FEATURE_CQM_LLC confuse the purpose of
-the flag?
-
->  #define X86_FEATURE_CQM_OCCUP_LLC	(11*32+ 1) /* "cqm_occup_llc" LLC occupancy monitoring */
->  #define X86_FEATURE_CQM_MBM_TOTAL	(11*32+ 2) /* "cqm_mbm_total" LLC Total MBM monitoring */
->  #define X86_FEATURE_CQM_MBM_LOCAL	(11*32+ 3) /* "cqm_mbm_local" LLC Local MBM monitoring */
-Reinette
+diff --git a/tools/testing/selftests/rtc/rtctest.c b/tools/testing/selftests/rtc/rtctest.c
+index 8047d9879039..57dda87ba813 100644
+--- a/tools/testing/selftests/rtc/rtctest.c
++++ b/tools/testing/selftests/rtc/rtctest.c
+@@ -486,18 +486,44 @@ TEST_F_TIMEOUT(rtc, alarm_wkalm_set_minute, 65) {
+ int main(int argc, char **argv)
+ {
+ 	int ret = -1;
++	int opt, i;
++	int non_opt = 0;
++
++	while ((opt = getopt(argc, argv, "dhlF:f:V:v:t:T:r:")) != -1) {
++		switch (opt) {
++		case 'h':
++			fprintf(stderr,
++				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n\n",
++				argv[0]);
++			optind = 1;
++			return test_harness_run(argc, argv);
++		case 'l':
++			optind = 1;
++			return test_harness_run(argc, argv);
++		case '?':
++			fprintf(stderr,
++				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n",
++				argv[0]);
++			return KSFT_FAIL;
++		default:
++			break;
++		}
++	}
+ 
+-	switch (argc) {
+-	case 2:
+-		rtc_file = argv[1];
+-		/* FALLTHROUGH */
+-	case 1:
+-		break;
+-	default:
+-		fprintf(stderr, "usage: %s [rtcdev]\n", argv[0]);
+-		return 1;
++	for (i = optind; i < argc; i++) {
++		if (non_opt == 0) {
++			rtc_file = argv[i];
++			non_opt++;
++		} else {
++			fprintf(stderr,
++				"Usage: %s [-h|-l|-d] [-t|-T|-v|-V|-f|-F|-r name] [rtcdev]\n",
++				argv[0]);
++			return KSFT_FAIL;
++		}
+ 	}
+ 
++	optind = 1;
++
+ 	/* Run the test if rtc_file is accessible */
+ 	if (access(rtc_file, R_OK) == 0)
+ 		ret = test_harness_run(argc, argv);
+-- 
+2.55.0.979.g7e5102b832-goog
 
