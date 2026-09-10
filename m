@@ -1,146 +1,127 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFAE498908
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2B834EEEE
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:54:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048342; cv=none; b=Fk75ysnh6O5CygjXxDX8s1boICHxC6nyFBjVq9NAOVj0e6bwhvfEIQ2zHO6rzVbuoaPB8fDk5lsk80K57pRB5pgG52xcOGelFxyoD9C/Tx2kP8dAq1xV6pwjO/bgsIElzu9UAMqKGCKEGm6TXfy4LDieQSu+R5w/hlxgt5z0xmc=
+	t=1789048451; cv=none; b=dGwqzup/1Pxi1L94D3z3X+Ldj6ZJJBtQrJrE8plISus61li8xb6Fz7B3pZrNcnqhFmd7FSlfexUbYM84LVYcyDTRyALY763CvSXefuyZrV2Ig4cmuL/i2vGB2cBzgeYh8d9tD2NQYTnhNTnKwdBk8GPHZj/trFY9C/lQp22VGKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048342; c=relaxed/simple;
-	bh=glsruDap4efIY2dKE3ki0Euixx2B7cLyCTxErdzSxI8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jh79Qd+j9K9sU4RolAQ9FlaW5efj094K14PY1obYby4JDI1rJk4ozQ42oz7UUIuvoZwcARWHo+Q8bgg6cbM2Iuu1VAvGLLLNwMggwMTosorjkb7iBACWHefEbaGkfu7vWJQu1P8ehZDawDWd7osSj7dabjbeYiqZ51ZvIhne3fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NDMqxUVL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789048451; c=relaxed/simple;
+	bh=Pc7559Ay0oPivlYgMSEO05noCpMOYyrNO5XdB54ryyQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hcmRDeARpp3kB8h6zOatlmTwYj2i3Vd2qXfzCjwZZmEKmI9Ld9ee5IdS1sH4xTlIXvIGav4bjqQtAPNZCiZjbyXLkCs5j+dOwCNeb1+uIdQ0ijnS5dWmUuDiPI7el37ZM0/tHkm+n4uE/DTUllsujF86yoTUmibp5D7pPT/Gysg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=aoWVN1ds; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NDMqxUVL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso15420745e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:52:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789048338; x=1789653138; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aaJKu3mrYn3envHbI/vmepj+qnfThCeH0Vyq7uWpNSA=;
-        b=NDMqxUVLUHJb8Lye3dmWVksdoPNt0ID7VxzNFEd6Aol5P6+pTclxMXy5GPAeH5h2S2
-         ErpkUUXeObyrA9VzAQx1xOrYyjqsK02uGB051BDsFcO1sE1/cS4aq//nIJnCmw4xgAft
-         Ao9mmKTlHYBFyUx2Js4+0slzf0VWoYcLdGUybireXLKdv/ehBwbLXPsfGKLWC+Kt2Z2W
-         F5FwQRWD9K80kguULQN0yXujnYcqqPMs5w6D0N+OOlSC/HpkSL6GPn9Yyqe/jTUWOmUq
-         z3R3hv07OGd6p/m9nibMsOZ9OmpS1RNcKfJ2KN4vwryeuh9zLE/G+KMvZjd8TF5siwvu
-         TLZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048338; x=1789653138;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aaJKu3mrYn3envHbI/vmepj+qnfThCeH0Vyq7uWpNSA=;
-        b=DbSZpPm06fmWLkCz1WhFKJG1PgxcHaT0wNmrHL5YBGnLHbxv9K+zS7fHQUprSQhZ2J
-         RCOPUzbGZ5Un5m9clgUxY6sYOe3j2+spU0sUtA/hYz6f2aBBGMQvOz+oswjf8UJKs1zY
-         e1SgaA+cZJEjLJQRe1zqVAIRJk3HttT9fBCF9slrwFDFhXjWwCnSEU4SZ6R3cKUMFZ4a
-         CxtH6m7kgSACRPTuM2W3cKTMHj0RBOBUvHjoxgPhiua9phwRFtqTQOJ8k7SgTapcjGRN
-         cSzzR01i8fYhW/HY6a5m7Buv1ph3qKnt3LLFmqDkPI9RBgfUYjtiamfzhsAkB0ARrkUD
-         CrkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzj9ykDf+94yCQf3ExV1JLE3GvAqStTj6t/YhW2myk2OybIsqKv59jhwFEHBKjALCDjsbTqJGW+IrEF+Ds=@vger.kernel.org
-X-Gm-Message-State: AFuF++kW3s/FCA8rVlKDg5JR+P4tsuCTrmxYx6BDIFuu3TqP1sImfWUf
-	fHqrlEdScWS8fJYDXXSzB0I22WOwxP+T4QhtQsq8g78HLNdr15PTTt9MoiHOV4kPDS4=
-X-Gm-Gg: AYBFou1a7S4HDI9LFfY3Tymfqg7PivxXvKoW2P8qCeNKnC+yNmDdMMjg3lgN+2miVTT
-	Y6nIMCe9eDACpKiAfmawldpfdImyE2Qrt0h681HyMjQ8p7RIwO/ij5r+IXLnzqmWfLvRGOiakGf
-	hrkbMlr5hPTSWwxtKqF4+QHC73D27G/992lHoR0TLWU0KF1JSWeLwnotoveTqsOFbkubLVLlDwc
-	meBP0oB4w2MPIeoK4qAiVR4BVoH5suibu6sYpp+RFpTTn/Mqj/MMzU2g4URgpaAMcTBxX/3UP8n
-	0yQgAuBRkHgCqoqE7l0aSylN8nmIbFe5LQPIBquhKSmxCncOR11Nt+mf/QLDDGpqvZrfXhGCVSg
-	3gD/fbBsqCi0+4mPNtlq6R4nwnMCHCe8EufAlrkNcvTbyzQAJ7oIW9dM5l0atTJoTetsj5lthRU
-	y3K6J7TWlAwFy81W9fFqXH+MQjdUFX80kWUsKkzosMnAB2XyMdfLlb61RwApFw+CAIxpAkZ+Q3I
-	wHsNSD+JdVjYQPi2/T2dWsqDG2zNDcyPIjzogX9VLBap0kRWzuP8nqDf7Kq
-X-Received: by 2002:a05:600c:68d4:b0:49c:fa21:e747 with SMTP id 5b1f17b1804b1-49d259174d7mr55588115e9.29.1789048338028;
-        Thu, 10 Sep 2026 06:52:18 -0700 (PDT)
-Received: from localhost (p200300f65f19a90462cfe0cd06b88b27.dip0.t-ipconnect.de. [2003:f6:5f19:a904:62cf:e0cd:6b8:8b27])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49d26bc08edsm47086665e9.3.2026.09.10.06.52.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:52:17 -0700 (PDT)
-Date: Thu, 10 Sep 2026 15:52:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Kartik Rajput <kkartik@nvidia.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Thierry Reding <treding@nvidia.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
- driver
-Message-ID: <aqKus9TnDNm3Yt8Q@monoceros>
-References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
- <20260909-tegra264-ufs-v1-4-e4a9831702a0@nvidia.com>
- <aqFqhNA50674GtPo@monoceros>
- <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
- <aqKOipmg5V4oqZlB@monoceros>
- <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="aoWVN1ds"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=FS/FALPUjabMB7pEZn3N2o0m3+yBNogJAw0/WPnz1HE=; b=aoWVN1dsMBN1eM9ZuHzrKvA8px
+	BHA4v6j6ntywHm8B+gFZ4SkNTGaq4iaBjmX9OfA0R6NbbP32NQEfX+zxcY/P2GeCRI92lIH8REJal
+	RY6fSBZKtFog5CTy9PpVlw15htkzpDmwKhztqYBlmoGkwmuwbVTJHfnnotJ4UzBowuyyk68WQrlRr
+	Bpvft/dCFhCSQB38sYS2hSx4+t0uUSceE+r1HhSzNNMBrw8zZtZ0PeSsS9I2uq3RcsH6cf4qItVVC
+	gIf4AlLLGRX7irpEps9s2f3ouA3AqgeejqMJuZnrhXSQ3yEoG2Z89+NWvqTzR7t7Fa5kWHCe/UNOd
+	kWUxCbXg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x4fDy-000YaT-2o;
+	Thu, 10 Sep 2026 13:53:59 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 10 Sep 2026 06:53:27 -0700
+Subject: [PATCH] arm64: hibernate: clone only the linear map that exists at
+ runtime
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4yq5mv4s7mho6e3h"
-Content-Disposition: inline
-In-Reply-To: <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-arm64-hibernate-va52-v1-1-a584d9a7d65e@debian.org>
+X-B4-Tracking: v=1; b=H4sIAFa2omoC/x3MQQ6CMBAF0KtM/ppJ2loRexXCospUZmExU0JMC
+ Hc38R3gHWhiKg2JDpjs2nStSOQ7wnPJ9SWsMxIhuNC7u3ec7d1HXvQhVvMmvOdr4HK7DDJL8DE
+ WdISPSdHvvx2n8/wBXMtu7GYAAAA=
+X-Change-ID: 20260910-arm64-hibernate-va52-f738ede2144f
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1951; i=leitao@debian.org;
+ h=from:subject:message-id; bh=Pc7559Ay0oPivlYgMSEO05noCpMOYyrNO5XdB54ryyQ=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqorZzIH+ECtYHS/zmVZm8rjGbjNEHlz7+gpTLf
+ fmWcGEH5JSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqK2cwAKCRA1o5Of/Hh3
+ bUzDD/4ginBBzwJ5sRDi8kVuONdKL6KTOEF8XDDWEGRok3npdYvd7Yk7BJmitEKfrGQ74OF9V8J
+ lJDD5VVC3ROcaEO4EjBAWDw6C9e021qVtayxbAQ0uPRz+ir5kEDF0stnNMGXk18xrdi+F4x2OYU
+ bvUlCNyJ5AupBwNVXHuUT6+nLYLWy8Q3xyG9zDR8E6Sx2JjKAEBlEHuSZSfxRJSl7TejdpAixG2
+ opDvyAGf7sn8aj5z86o4slJGXAjmCUZnK5lLioNI54GvnPe46KIqkUg1/51VqeFWn4g2A+R8f57
+ Jg4hhkQDc+Kb8ElQjmXWDm/zKR5DsHLOSy6jnyyF/c9QVmVxmmofEXMxUYvjnypKKplqebv/5xN
+ SP1q2v4aSHjkzPtVBfdE/rCgNNQoK4nzxbT28lhdqa1JZE22/ys2j961+NErEDx9kvUVz+M7t+8
+ E2VtI+Q/Z39VokD57SF117IrKiXweWqIvI7FuNvqRbzcGrMOjM340G3fEPBaTea0IAaykwcI8XF
+ l3H434B/oSrGiKVpapn650cW7qbvcEqlpuAIszJfxqMp1UK2lUSXGY5lV2hYdDfnTgOj8qTnz5m
+ shJxcvmiIz//FYcMgh2c6wQ/jwXTnlJa90zIfWrnxWqARM4f2exQhcPbssdh6jRchZiB/GyICV8
+ SMk8BQE4LSevfbg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+This is similar to commit 1537e55728ec2 ("arm64: trans_pgd: clone only
+the linear map that exists at runtime"), but in a different place.
 
---4yq5mv4s7mho6e3h
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
- driver
-MIME-Version: 1.0
+swsusp_arch_resume() clones the kernel linear map with
+trans_pgd_create_copy(..., PAGE_OFFSET, PAGE_END). PAGE_OFFSET comes
+from the compile-time VA_BITS, so a CONFIG_ARM64_VA_BITS_52 kernel
+booting on hardware without LPA2 -- vabits_actual is 48 and the fifth
+level is folded -- hands the walk a 3.9PB window while its linear map
+only spans the top 128TB.
 
-Hello Bart,
+On a VA_BITS_52 4k kernel with CONFIG_KASAN_GENERIC in a 4GB VM, I see:
 
-On Thu, Sep 10, 2026 at 06:09:30AM -0700, Bart Van Assche wrote:
-> On 9/10/26 4:21 AM, Uwe Kleine-K=F6nig wrote:
-> > What makes you claim that {} is preferred?
->=20
-> There are many more occurrences of " =3D {};" (about 7000) in the Linux
-> kernel than of " =3D { };" (about 1500). Additionally, clang-format
-> changes any occurrence of " =3D { };" into " =3D {};".
+  swapper/0: page allocation failure: order:0, mode:0x920(GFP_ATOMIC|__GFP_ZERO)
+   hibernate_page_alloc+0x10/0x1c
+   swsusp_arch_resume+0x70/0x320
+   hibernation_restore+0xa4/0x138
+   software_resume+0x15c/0x270
+  PM: hibernation: Failed to load image, recovering.
+  PM: hibernation: resume failed (-12)
 
-clang-format does this due to
+Fix it by copying the linear map that is the actual one, not the
+compiled one.
 
-	SpaceInEmptyParentheses: false
+Fixes: a6bbf5d4d9d1 ("arm64: mm: Add definitions to support 5 levels of paging")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ arch/arm64/kernel/hibernate.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-in .clang-format which I claim we have due to prefering no space between
-() for function calls. It seems only newer clang-format (starting with
-version 22) can configure that individually using SpaceInEmptyBraces.
+diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
+index 7bf1174277772e..424291c547f02a 100644
+--- a/arch/arm64/kernel/hibernate.c
++++ b/arch/arm64/kernel/hibernate.c
+@@ -423,8 +423,8 @@ int __nocfi swsusp_arch_resume(void)
+ 	 * Create a second copy of just the linear map, and use this when
+ 	 * restoring.
+ 	 */
+-	rc = trans_pgd_create_copy(&trans_info, &tmp_pg_dir, PAGE_OFFSET,
+-				   PAGE_END);
++	rc = trans_pgd_create_copy(&trans_info, &tmp_pg_dir,
++				   _PAGE_OFFSET(vabits_actual), PAGE_END);
+ 	if (rc)
+ 		return rc;
+ 
 
-And IMHO my statistic is more relevant because we're not talking about
-`=3D {};` or `=3D { };`.
+---
+base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
+change-id: 20260910-arm64-hibernate-va52-f738ede2144f
 
-But I guess this is all subjective. Having said that I feel offended
-when seeing "=3D {};" and would ask to add a space there, too, when
-spotting that during a review.
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
-Best regards
-Uwe
-
---4yq5mv4s7mho6e3h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqitgMACgkQj4D7WH0S
-/k5c1AgAhP3OT2P76z2Ij4muECOIAs0athRcUAms+cyF+w8uuehKZcqDgOD2PR6o
-YQfhjqkPJRbVqyvyyhfsOe2hVvJ8iRZR3SeSvLXuv39US2h2d1mJAnU5aMzM819w
-x2eIN3LdJV3ev/8d2cTQkXcTW+rtsl8d8zKnFkU6UbGzS4ltgn9sbU8M4Jybp62f
-ZEv3P431ilAA4Z80om0L5gJnMBTK1WoskWrIThKaVeDzoKGCsccSzB+snXLbOyz9
-jvCZHXz9DyQM+tbEIBI1zrAclO4Ghh06cxfIRkuBWTkqtQxWt/lhGp8OaTIdJlLG
-M8Niol0XhEcUL+wLnJCBWNywm/axDQ==
-=unfT
------END PGP SIGNATURE-----
-
---4yq5mv4s7mho6e3h--
