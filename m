@@ -1,215 +1,238 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3875524501D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:55:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012540; cv=none; b=I6H6ILfwf8SvSp+4yKpdoZePm3Ad8tPCgYvJLbQtzkxgQO1ayNIgm7FJ3oH4OgkSoBjEQ6xkFwvCX3M8u9c7bLvSftVTPWnZjMdXXKrlR4b/e5vWkVUrYuRCkwurj1rUuGX9Bw8p9iG0QqQtCmW4hLT4U7Gb5JuWLpiTTcb5ilQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012540; c=relaxed/simple;
-	bh=A6GsKKkJXl5L7YzCiIgYbfCfujBGyy0zfAO6BJd6n40=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BO64yeJ3AW5/ZbciIiV7362trD7ru8wjMc/5MpnUeiPGDAdHwD4kJfTHoyKeof8nQRWsbbYY6IiNjp5/fmaOwe5rNDf0ThK2BWPn5zJMLRq04XLoCCi7naHG9gsRVo4h0aCJ5mD7N5jN4qVINa3oJVqBP/oxIZHUyrhqTqXdB5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tN/rGOHg; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413583603FB
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789012548; cv=fail; b=Bve0w7nydtb1TRQ/6gipytYNgzwXJn8gYWePcwrsccQDLxt8QTQ51KUzezseXnkWb6obl1qHQovoqkQ4yKXGOCTubiv8f97806Me+EUHzlZYJlQYp8za7KXWJEt713g5eG+LjSV+KXG91S5ck0ST9ryCZsNJ+f/x+rL1TY/CP/g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789012548; c=relaxed/simple;
+	bh=14GLibyV39Q+DwbpXtxHAqIfkRylCIbzdW4rPDgXAtg=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=UOiG6y6xWt4jKSoTMXLPw4icuX/hHdo86AI/PoBh6fzLw0Tt8jMwZK9Nuf9QurE9s4euKQEPS4tDMXZhcIFEItMQgaBEFIvor/6SJsaxVQ3FW8qknL6fJeKWvhAvDIwAXX0T1ktLTIDwqS9v+i5riHnw8pJmiuyfZHq5N3ZVCqA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=harmIxVl; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tN/rGOHg"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2dcff8f44f2so19152795ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789012538; x=1789617338; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pPM4fbgv5y4YMJuB77L7DZFml4GSDExAAI3kJwNhoig=;
-        b=tN/rGOHgdluQkpOtTdWXSHx+GoCZTJb26miRT8N6IpdVvUPoVKYhCN+NMGtFx8Xmub
-         RBEBszeiwUoImClaupAbbR7/ImMfEcVmTIG4oPFszDeZUlK8t3VeQEBPAx3/+xO+oBhj
-         xj0VQERlJUK1JgEDbB4MLg/9ktkHcDDkt8SAN8fUkxyQpbUEJhG5OVpwVCON7Ak9Rv8X
-         BrviFPlNbAdKRde+3P5F9kY3Kd/VXV+6d1a3KbC8MKXgMGvHctW3mOCi7x6uCNji3HEb
-         NpGXKqyR2wM6JPD89e8pxe80ys48V0WhiNLHRmGfYw1q3/WJT2e8KYnwzVsXak5fCbt8
-         EGIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789012538; x=1789617338;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pPM4fbgv5y4YMJuB77L7DZFml4GSDExAAI3kJwNhoig=;
-        b=Vuf1jUR2Ts56iCCYxrUrZg0FXgfYCn1Yyxm6AWy+C7+f1Ui12NElgv3rhzjAvM1unF
-         f7o2wg1KZsXHuYCKCg9Kgi1hAUbooltLsUiULz4lCC2JvMrAlejR7tQ6GMZ/WT0y4sgN
-         hDqs9rd107boIGyljLkghwWNGbrGAaSX1sl0WIdRPJnZUEeZ/BHEEAnBJ64tZs6vw0Z4
-         hIonoRNbobk+2xWR+/5jzT52co4ktSawQ2m+QXzWxKeUbCsRagCT72MChLazU6KyM0Ot
-         gDIEy3jb1SR4XyMcRaw5csXbFzFQ6cozfry9NAhMISQ5uK5wABTTwq/IFGULDmzsmve+
-         Q5Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfbDGKy8zNzum4Fd2T93Gg0kX1FjnwGRsJeKdN5Hg5n9UCZC6LjODAj3VE39fM4dyO9urLI27hXQXvDnc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1ILFYGdzsC0YmbWhqvH30K8k4ijRsR2E49Z6A+VCWgaU/EGh6
-	VshxL/iKaodQq6MxzJ+uSJ5CuJlIYqNED3sd3AKZ4sL6k/njwyOlo6c=
-X-Gm-Gg: AYBFou3KkBBXY0Br1lKe3AOY7sXvnTmqlsC2vzXE37cqslzBzCgopT+xrgpGrtELilg
-	x6SYGiXuSYGZXpg2XyOQM1rsbjirctAouPY9yNkphvKtKWpr7Jy6kZwhX1RqSqHvwm5srWc59Qr
-	jfslPaTliq8+eRCEM88uDz+bHAxBMr3HVlwGsaVzuXaInfxUScBgGVtDTRhRppUiKgOv1Y5pXWC
-	QLmYDfzgNLO+tysAj7QtdmXDAz5zlg1JGVmsHdX25Dv9bcegdlOeDylR7KvUeKeXSN2EbJqOcVB
-	KytgoJj8pYGCBh+fvxpEPApalgub/9bie/2wv0V+Q/ugOJkN4FUmVU4mImycei9Hbjpz6WcwM+P
-	0KoRldBHpJs9mE2Z5utM/rRZWHdCM7Nr75Z3Cq+0yNBZAix/YN2lP13C7S37yr2c/UZ4G/2y0qI
-	qnirSjIQg4zpUNRJWE0Swivkfq7BwqiXPnRPEhyMOgtfxSHhgxm/WZ5m/SzgK1zzl1NJ8rQZT+a
-	SZ5ANceMSFourfc+dXLuPEp9w==
-X-Received: by 2002:a17:902:e94f:b0:2dd:60d:8b7c with SMTP id d9443c01a7336-2dd060d8e01mr79963885ad.13.1789012538296;
-        Wed, 09 Sep 2026 20:55:38 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b57fsm81545805ad.24.2026.09.09.20.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 20:55:37 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH] drm/amdgpu: don't release the fence reference consumed by the scheduler
-Date: Thu, 10 Sep 2026 12:55:31 +0900
-Message-ID: <20260910035531.559908-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="harmIxVl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789012547; x=1820548547;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=14GLibyV39Q+DwbpXtxHAqIfkRylCIbzdW4rPDgXAtg=;
+  b=harmIxVlpmXqpG1E0+hqQvEaXvkUuHYCg6dB6C7BXpppZIPMMV+c8eWN
+   eLARCOYGJFMe6bHwwmKRScbi4BN31t1TOVMMbmfAD55MAoRDhknNVa2Y+
+   ga2Fkd7gx671amF9jbQ6UlnmHX9nLN6g16g0P5fl2zGKe+HwWYY/iRA9N
+   FM8cEQYS8Ov5aC+/97mBb6vX7r4TQJRCt6rqH0aQ98AhiP3BAa4sw/jnn
+   jFYbdd0dh2G2L8rK8qwt4D+PY0n9Rp7TeND81OKml56+5oHdsb8pftR67
+   geyTf07i/kas+1/ICfmUCZnWU+mI7zMEtohs+HM6sbarl3z3NvTKohMs0
+   A==;
+X-CSE-ConnectionGUID: HtIGD2gGQjSlNP4VuDBvmQ==
+X-CSE-MsgGUID: 8Bo69o4mTsu+StgTQidlBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100617720"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="100617720"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:55:46 -0700
+X-CSE-ConnectionGUID: G+DZ/jU/RWetM8iy/TDzIg==
+X-CSE-MsgGUID: swskGd5gSMi93CnmitA3WA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="267221960"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:55:45 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 20:55:45 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:55:45 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.37) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 20:55:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vLydNQi732ooe62GiVYifjYsJe6Kc8IA1mUzUWF7wYicq/C23gWvMkAB3MQ3kJggnLp9gfohs+rJiK3Ad4LABRsyYSGdklTdZeaBxCxDDTfUWmZBfyEzYHdfspzRuT7PfosoUdXwlXmC1ghAHf7fYD9D21sJDfqbY/xwHWWwpd2jraFbzAVkazIwRos6mOYC/PsSETlPDjZ6zGSXfA5ljpQOSH2oXnjAewMrDlDZg9zGic7u+nOTotcqN47+Ll/KJkONHpQrHbS3FfeSvuZNZQD94O2d+9RSowvKlm9NnfqkyLL+Losj+y5nz1oiMqzTfTYkNB29aBTdaW7Q5TmBKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WJKxOG66dCvh2S5myN977+NJ+2uYf043LAtHBTRih6U=;
+ b=b5kHJa2lJWoBBJB49IzPS3qphmny4DO5ImWKEJfXwj0Fioo/T1O8FbYRwduYFf6YeP6mZ6rfTinOyzF2LX4ZDDnV3cNxfiI6lR+OyBrBSdYxk+EFXvnqcTcWGrQpM7ariPo/P27RssN1w/2+SRztoxt8NdI2LXzxN8duB5KFeJfXmq75I9Ec684as1sNlGPQxtEQ3C48AeIMHv2is73kc2bptj7KptAcOhQh7/zdCCdCUqOT+QjIYxb4/VCF+MBBscDEkKNv8vn2fyAMx+4GcEWziZtKfmcuotI+DmXFndeGGtfC3rlxMAPAX2GdQubxbBH3CQ/jUpa9dNC61MXcsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by SA3PR11MB8073.namprd11.prod.outlook.com (2603:10b6:806:301::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 03:55:34 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 03:55:34 +0000
+Message-ID: <f4ced57d-6748-499d-8778-ec0141c17136@intel.com>
+Date: Wed, 9 Sep 2026 20:55:32 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 04/23] x86/resctrl: Apply Intel MBM quirk from
+ rdt_get_l3_mon_config()
+To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
+ Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
+	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
+	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
+	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
+	<david.e.box@intel.com>, <x86@kernel.org>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20260831174421.13921-1-tony.luck@intel.com>
+ <20260831174421.13921-5-tony.luck@intel.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260831174421.13921-5-tony.luck@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0313.namprd04.prod.outlook.com
+ (2603:10b6:303:82::18) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA3PR11MB8073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f6524fb-2dfc-4282-46fd-08df0eef5df8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|11063799006|5023799004|56012099006|4143699003|10067099003|921020|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: veirWujlb2UPExyXNqUPcJ+lPRtNxgURVa/+5lGs16pRH6o0tOdS/TU4LuixKVf0Vm8x3FbPpVi1wPoKG9mpJFCU0OepijSWi7QKGYYq+lZ2cz/U7j1gP3wml9EEPPXAY3rrjFuz/soWiTkk3Mqvll4uoJ2D/v0HZLFFKPcQqG8CxIB0r+TbZS6+B3v5Vai/28lMIYXkezANBka0NYqAhaR7As/JffptcDL4wARSkIt94pxfkcE36OOJAUAeJ9PNYEu9nVUz0D+oyf5jGdTalKKudW86kUuUKGh6qEY+FuOwu0GRnBMBaiT5KQkC/T8ZXKha9Omt0uoQh/HSqcwOEdFpuiFncY4IkdGGHc9TQahrz6CzZRyLU31vJbkaPlyyRsCj/H2817UUE9k9lps9pdUkpTAIeLOXnYqLS986/ap9H6FzNRmVXTChUoT0msZXwk8K8VIsR131kUX3RRiISQ71FZemANhp22q9wy9tqQlUqipt/wlIKbcIR5kv5WeGGYdqUjc6O3AL9VXhC5NOHTc7cYW5dm2OmFKSed/g07YVw/ReKxgwSxpQXnvp65gh5PATXRZ8IbEJjSpTy64ucX/bn0A7fxWo9R/DbAXIaT56v+99G1zSEWsn24Gi+g7ftykn3Z0GVJNf6gLUA6/0lSTR2OYHsHQX9GwXXwV6El9FYeA5JSci17EVHegpQawzG3MzHAF8wWBocp7++QlLdg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(11063799006)(5023799004)(56012099006)(4143699003)(10067099003)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VE10ZWtyVXZTSFp1MXFXeld3WEF2SEt1YmFtRWZaR0N5bHNqdGlkL2dsSlUz?=
+ =?utf-8?B?aE1XN3I5bVRWUjBqM3lvQSs1K1JOSi9ldG9XVngyL0Jta2xFMGFBYkhOS3VO?=
+ =?utf-8?B?MDB0TTNzcG9ianl1eWpwMElkUTNJNWVVZFhPdjRubW04eklKVTJ6WVNWb2pz?=
+ =?utf-8?B?Vk0wYk9XOHkzM0xGTmtrNE9DVVdueG1GWEdoNlU2eWZFeldCN3dXMzA3cENN?=
+ =?utf-8?B?WmlORGxnL2tEem5DVWRpYm95VENZRS91UXpqSzQyZTFPMVlWY0xhZmtZMWZ6?=
+ =?utf-8?B?NG1SZkNnLzNNY1NXSThhOWJsc0ZDc0x6ak5ZbnhBUW9EaG9hUGU3ZVNhY1Fu?=
+ =?utf-8?B?RzdYcDR5MGcrOWtwVFVuMDFSVzdmUHNIek9ZYVRjYytSaC92TS9KcDlzSyt3?=
+ =?utf-8?B?QnQ4QWNoTWlmN1V0MjdvNUpva0VLOVVtcnNJTnVuTkFLOXRLZ0xuckZla2dY?=
+ =?utf-8?B?N2JGRGtTaTNCSGtsSDZRandqZTFjZTRiVVNOT1gxNzZyZCtodXBuVUdLY056?=
+ =?utf-8?B?R3RUR1RUa2dlRnJVdkVUZlN5SEc0VmpkNEx3WWxtblZTUzJjeDY2TURVc3BD?=
+ =?utf-8?B?VXdDYjZDSDJJV1Jub011NUZnNHlsYVFZVjhVeTVDSlBscmVockZyUDN3bytO?=
+ =?utf-8?B?VHhLN0x0SnZsczgrZjR5eUExMHBuM0czbXVkd1Z3VzNhRjZGTmprd21peVU2?=
+ =?utf-8?B?UzFwM1RJQWJva0VQa1lTaWFTT2dzNDhyb25pNGpTamJ0TDdDbElsVm42cTJv?=
+ =?utf-8?B?YVRpV0p5Y1FqWStuRjIrajFDYjdZQ3lweWt6UGZPRDNsSEpiWlZqajNLWGhD?=
+ =?utf-8?B?ZjhjczJLVnVTZzVpckw4Q1E1dmI3RC9ramtMVVVQRTYzNGNVZm5kTERlWERB?=
+ =?utf-8?B?MEZmcWxhRnIvMERKOEdXRmdNK0c0SG83WXdaYzN6U1RsQkc2cnl5OFBEalFW?=
+ =?utf-8?B?dDdXa01LVjAyQ1psbkZLcXlCdnI4WGlUaXdsMk1ldGxGMkliVEVEWTFxdkRT?=
+ =?utf-8?B?cFpacWJmRFdmQW1JaUlWZGNDbi85OUwrSmN1YUtTSHBsZFJ4dDNxM0RhMTUx?=
+ =?utf-8?B?R09EdEtBVW1EOFBBN2VBcmQ0Ri9PUEV4TkNmV3MxZVJnL3FJU3YwVzNGcWps?=
+ =?utf-8?B?NXFtaXEySnNxUUNYTFloTTJiL0pRNVVxVUJKTlJ6REZGZDVHSDlBSTd4ZXo2?=
+ =?utf-8?B?a2ZBL0UwcDBOSUgrNkpuNlN6anlCNndTdmtXbzVUYi9NMTBjNUJPYmxEVDgy?=
+ =?utf-8?B?Ym1Ib2x4d2V6Y1lQbHJmNTA1Ykx1UFYzL3NmU1JHRERGSU9KbS94THBVNjdq?=
+ =?utf-8?B?Y2J6dFROa1RnMWpMcWRCSFFuaEtxNjhIbkZsNHI4dlV6ZGlIOWxUUllIMi92?=
+ =?utf-8?B?cGdDOUlNMGR6SFI4VnZRYnU2ZVpSZHpYRUY5Mm5KamN3QXVlcUJLR253cUh3?=
+ =?utf-8?B?emY1cEROL3pRV1loRVNleFJ3THVSUUZBRDEyU0gxRkp1N0JrVFFqSlYrNy80?=
+ =?utf-8?B?N3dheVNFeVo2RGdRT0laakZ3Z005SVlqRzlsN3pzK2Jpcjd5ZzR1UE1NOWxj?=
+ =?utf-8?B?cEdrUXVBSWpFN0NXVGx1UEJ3OTVrbHd6WjI0MG1Bc2FPRkNRMENiMnpWc0Yr?=
+ =?utf-8?B?MjRXeTVmUXplQjkzRWN4RkhjQmV1akFFRFNGSGgzVlBKeTBTK0Q2M2lKbFhR?=
+ =?utf-8?B?d0tlYmU0M0tGQlJkTnppSzFEUDhnNmJOeEllZ0NLbTdyNHVwQUhSWThRRmF2?=
+ =?utf-8?B?cjlnSUpwU3RJYzh4RVEwcHhTVytmVU4wQ1Z0K2p2NmlacTlVZjdEMnFxSWhM?=
+ =?utf-8?B?UjVNeEZ6S0tYc0JjLytVbituNVZFWkN6aVdjRUxCZzZoR25ydHBIV3Y2VVBO?=
+ =?utf-8?B?Vkx4NXdrV1Y5bmNmZXZSb3ZJTnowdEdGdHZBYWFjYU44b0NsbnVQbFRQQWdY?=
+ =?utf-8?B?MXlnN0pHZjhGc0h2UVhyYTVjcWN4aG4vMVpUU2xFVmcvMDROTVI2T3NhR2Zj?=
+ =?utf-8?B?SHNJTDBzWkZFQ2pkNmlvOGRLaDN3ZElzN2l1cEZ1OTRKWHEveGFxK3dibEVp?=
+ =?utf-8?B?dTFpcEpqS09sQ3hZMi9qdC95NmUyOGk2bnJmOUpvK1pGVmZyWTI0NzhBRXE1?=
+ =?utf-8?B?YjhTalpFdllaTitIRHpvYWl6ZnIvQWNGaDJLZWtRZUdEQmJkTG40Y3BLV2RM?=
+ =?utf-8?B?WjJGWkwydlJSV3QrTy95eFFhaU1kVjM3aFhEN3hCem5tY2lRU0JuM201S25u?=
+ =?utf-8?B?bUtWb2p3TEwyMnh5Tjlmblhmb29GUlR6Um9qVi9JWXIrcnlRY0djeUV5NTR1?=
+ =?utf-8?B?TXFvWDNveDBhdnBXSlZPcWZDTStYcWlkNnJFZEg3MjFTeFZvM3JJenZHSlFx?=
+ =?utf-8?Q?OLiuw4Z7e4spVYcA=3D?=
+X-Exchange-RoutingPolicyChecked: wJOIugWSPfRhCk8bsG+3p0Gk8qWnKkEMsMO6F2KZea7W7luKA5TvF8JGqSq+7eCYBo8QgaND3nqlpVpmKdEE4cDUuizBMjU9d4aV8+I+TqKJMIfOXglpVFZUJONVv0BpIdOxL3dS46GL4VhM/Ho8LoSycvWywAcu3NLApm1kkjyMPhMa32YifiJr542gzhUFeD4f+nMuqPKVR6ej7iWXJTer5dUoJ8z8LSf5HivNCG6kYdT0EAYX+Uyg6TW8yxOw+5vZfqDPo0Sr/LuvGJrUn0x3SAawKh6+hIvTOMVxkM8EIyET9rxGBCGZsSd7pExDl5GtXTqYIgKncCU9njMwVg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f6524fb-2dfc-4282-46fd-08df0eef5df8
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:55:34.7981
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AOYEQBriyq35STu0bRElS7C+QuiornUZspb7oeFq2Dc1c0vXdGEonq12ieYjEdMv+NeDfBDPvXJbv8SWnRb5tvkiqn9eUrTP+m89CsGZt2c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB8073
+X-OriginatorOrg: intel.com
 
-drm_sched_job_add_dependency() consumes the fence reference in both the
-success and the error case. The kernel-doc has said so since commit
-ebd5f74255b9 ("drm/sched: Add dependency tracking") added the function,
-and sched_main.c does the dma_fence_put() itself when its xa_alloc()
-fails.
+Hi Tony,
 
-Three amdgpu callers take an extra reference for the callee and then put
-it again when the callee returns an error, dropping a reference they no
-longer own. The refcount ends up one short of the number of owners, so a
-later put consumes someone else's reference and the fence is freed while
-that owner still points at it.
+On 8/31/26 10:44 AM, Tony Luck wrote:
 
-In amdgpu_sync_push_to_job() the fence usually comes from
-amdgpu_sync_resv(), which walks a BO's dma_resv and hands each fence to
-amdgpu_sync_fence(), where the sync entry takes a reference of its own.
-The fence stays installed in that dma_resv, so once the entry's reference
-is gone amdgpu_sync_free() eats the reservation object's instead and the
-fence is freed underneath a dma_resv that still lists it. The
-use-after-free lands in an unrelated thread.
+> diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
+> index 0c2aa20148a1..0bce199a5f7b 100644
+> --- a/arch/x86/kernel/cpu/resctrl/monitor.c
+> +++ b/arch/x86/kernel/cpu/resctrl/monitor.c
 
-amdgpu_vm_sdma_update() is cross-thread by construction. It walks with
-dma_resv_for_each_fence_unlocked(), whose cursor holds exactly one
-reference, and the dma_resv_iter_end() on the same error path drops it a
-second time.
+...
 
-amdgpu_cs_submit() stays local: the extra put takes the gang member's
-scheduled fence to zero, handing the whole drm_sched_fence to call_rcu()
-while its finished half is still live.
+> @@ -421,6 +423,20 @@ static __init int snc_get_config(void)
+>  	return ret;
+>  }
+>  
+> +static void __init intel_rdt_mbm_apply_quirk(u32 num_rmid)
+> +{
+> +	int cf_index;
+> +
+> +	cf_index = num_rmid / 8 - 1;
 
-The extra get is correct at all three sites and stays. Only the put on
-the error path is wrong.
+I suspect that cf_index was made an "int" because the original code 
+initialized it from int boot_cpu_data.x86_cache_max_rmid. Now that
+cf_index is initialized from an unsigned, compared to size_t, and
+used as array index ... unsigned looks more appropriate?
 
-Every other drm_sched_job_add_dependency() caller in the tree - etnaviv,
-imagination, msm, nouveau, panthor, v3d, xe - hands the reference over
-and returns the error untouched, as does
-drm_sched_job_add_resv_dependencies() in the scheduler itself.
+> +	if (cf_index >= ARRAY_SIZE(mbm_cf_table)) {
+> +		pr_info("No MBM correction factor available\n");
+> +		return;
+> +	}
+> +
+> +	mbm_cf_rmidthreshold = mbm_cf_table[cf_index].rmidthreshold;
+> +	mbm_cf = mbm_cf_table[cf_index].cf;
+> +}
+> +
+>  int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>  {
+>  	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+> @@ -500,25 +516,14 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>  		hw_res->mbm_cntr_assign_enabled = true;
+>  	}
+>  
+> +	if (intel_rdt_mbm_need_quirk)
+> +		intel_rdt_mbm_apply_quirk(r->mon.num_rmid);
+> +
+>  	r->mon_capable = true;
+>  
+>  	return 0;
+>  }
+>  
+> -void __init intel_rdt_mbm_apply_quirk(void)
+> -{
+> -	int cf_index;
+> -
+> -	cf_index = (boot_cpu_data.x86_cache_max_rmid + 1) / 8 - 1;
+> -	if (cf_index >= ARRAY_SIZE(mbm_cf_table)) {
+> -		pr_info("No MBM correction factor available\n");
+> -		return;
+> -	}
+> -
+> -	mbm_cf_rmidthreshold = mbm_cf_table[cf_index].rmidthreshold;
+> -	mbm_cf = mbm_cf_table[cf_index].cf;
+> -}
+> -
+>  static void resctrl_abmc_set_one_amd(void *arg)
+>  {
+>  	bool *enable = arg;
 
-The trigger is xa_alloc() failing during command submission or a VM
-update.
-
-Measured on a Radeon 780M (GC 11.0.1) with a forced -ENOMEM return from
-drm_sched_job_add_dependency(), printing the fence's reference count in
-amdgpu_sync_push_to_job() on entry, after the failed call, and as the
-error is returned:
-
-  unpatched  entry=5 after_call=5 on_return=4
-             entry=6 after_call=6 on_return=5
-  patched    entry=5 after_call=5 on_return=5
-             entry=6 after_call=6 on_return=6
-
-after_call equals entry in both, which is the callee consuming the
-reference the caller took for it. Unpatched, the dma_fence_put() that
-follows takes it one below where it started, and that reference is the
-sync entry's own; patched, there is no put left to make and the count
-leaves the function as it arrived.
-
-Fixes: 41cc108b2451 ("drm/amdgpu: fix missing dma_fence_put in error path")
-Fixes: ed21f6c3fe42 ("drm/amdgpu: fix another missing fence reference in the CS code")
-Fixes: c1c4a8b21721 ("drm/amdgpu: grab extra fence reference for drm_sched_job_add_dependency")
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Tested on a Radeon 780M (GC 11.0.1) running 7.3-rc2 with KASAN, lockdep
-and DEBUG_LIST on, driving compute submissions through radeonsi. The
--ENOMEM was forced by a temporary module parameter on gpu-sched that
-makes drm_sched_job_add_dependency() fail after N calls, consuming the
-fence on the way out exactly as the xa_alloc() failure does; the counts
-above come from a probe printed in amdgpu_sync_push_to_job(), with the
-unpatched and patched drivers run through the same harness. Neither
-produced a KASAN report or a refcount warning: at the point of the extra
-put the fence still had four or five other owners, so it is not freed
-there. Observing the use-after-free itself needs the stolen reference to
-be the last one, which this workload does not arrange.
-
-Only the amdgpu_sync_push_to_job() site is reachable from a plain
-compute workload. amdgpu_cs_submit() skips its loop body unless the
-submission is a gang of more than one job, and amdgpu_vm_sdma_update()
-was not reached; both are fixed here on the same reasoning.
-
-No Cc: stable. I believe this qualifies under
-Documentation/process/stable-kernel-rules.rst:19 - it is a use-after-free,
-not the theoretical race condition line 27 excludes - but I have not
-observed the failure itself, so I am leaving the tag off rather than
-claiming more than I measured. No objection if you want to add it.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c    | 4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 1 -
- 3 files changed, 2 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 03b41f803520..12ec031c0812 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1303,10 +1303,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 		fence = &p->jobs[i]->base.s_fence->scheduled;
- 		dma_fence_get(fence);
- 		r = drm_sched_job_add_dependency(&leader->base, fence);
--		if (r) {
--			dma_fence_put(fence);
-+		if (r)
- 			return r;
--		}
- 	}
- 
- 	if (p->gang_size > 1) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index d6ae9974c952..4f31021b2152 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -447,10 +447,8 @@ int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job)
- 
- 		dma_fence_get(f);
- 		r = drm_sched_job_add_dependency(&job->base, f);
--		if (r) {
--			dma_fence_put(f);
-+		if (r)
- 			return r;
--		}
- 	}
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 50cc0779c340..c070c4a032eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -234,7 +234,6 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 		dma_fence_get(fence);
- 		r = drm_sched_job_add_dependency(&p->job->base, fence);
- 		if (r) {
--			dma_fence_put(fence);
- 			dma_resv_iter_end(&cursor);
- 			return r;
- 		}
--- 
-2.53.0
-
+Reinette
