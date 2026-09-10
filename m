@@ -1,110 +1,195 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE93322C88
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131B33C09FE;
+	Thu, 10 Sep 2026 08:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030005; cv=none; b=jBxJeFspYzRfVvAsemIUO8PE7N4mGCWRiUqqvLuZ9C6BLzxCYDaywgHsy4V4qa8pv6P0Glru0HuatJwHnmHwYxOBvKI992cP9gq4HSltCOR21169csByvfQNvuNaY9ejAkGn/bJ0RLrEpcyIWlwOvsNdFluZ73dNvNV5sGD//gE=
+	t=1789030016; cv=none; b=rEnw+AplRdSB7zL+B5wxw+UAjQnr6OFEiXqEqxSF8MEenG0BQlg2v4/vuIRVcIlEAdXuyfIZu5jI+fe6Gr0bJOAo9sGGGkPabA98Gguhl/IpRhnVea7nllBB2Y9dn1sjwvRtGpa5frf/tP/1QBWC3Cadi3VR9imSFN1B57tZs2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030005; c=relaxed/simple;
-	bh=hbUh3rQBfS0CEmvKw72oTQ12KrtwMOmgyVSeu+dRcrg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fncH3XHgLRbT68GL+WKAJuYEts72TX948ZRKPTfik2ZqNOdHcmgH32MCbxqxZ5HlzVkhmlob2m8nx1lTRRXlKPsf842GK1uRvyWkRSRwjUph3NMxBsu2f1GTKhbNLRjS8znfNCXUgbc7COatmB+NOSCWeQrUtA7abyaEe37Shdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jDEE6bFB; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789030016; c=relaxed/simple;
+	bh=ynSUx5O0vGrtBcIzhCFEUSn6SYgdZ8c7Coka6IHOtz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lpamKgYWo1gJyydb+W+6/hZjtszRfKNwjEK6KspQG3Oyxc5MQ6ioDlKivipYnlBcEXtxEmKbOBoX/FBqTH67Tr2C7bNQ3wPVyQ8qiGAKexa7IfoPbf8BY26DdOy4EGq+n4eN3XfPT5WT3FknF7U9E+68DH0rASj2oi6P3lE58YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OPeZe2mB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oUoJCIsW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TlFhXNxv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=iSMWN7e7; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jDEE6bFB"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1a4c62804so4921988a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789029999; x=1789634799; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FxV1JJHCtnNs5CLImEqWnGTFS1sK8xpOR5qbgGdf074=;
-        b=jDEE6bFBxFtxXarQyvubqu3U8/G5/P0M3iZRLsN27mQhR1/Fj0LkIo9ULUq7kKFyUz
-         TItNDZaSKbZSPJiqVD45bVG2MyjyfCXW1n2q/TL/R5Gq8uJ+uuM7WQAddsc66SrACn52
-         7BPsZXYcKpp4KFeG+FovJ+upuZWdC2V3tJJ/xOuM8VgnR2C4OvVUOfWEQ0UYi5VFZmfP
-         8q9EmpCZ0RAoShDCiN/8sFSj8GzZRuJtOb3hlxpzrbzn4Tq2GxVf20jZMSiKpLj8Txfa
-         ah3FGwpuKbKGLbucQSRGPtlZFPl/qHE8x0xHiDA7HwAuZQzOAlylqtwWI1YDiDqsRh8+
-         REMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789029999; x=1789634799;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FxV1JJHCtnNs5CLImEqWnGTFS1sK8xpOR5qbgGdf074=;
-        b=LPOxzXBS59oHA45dupA0N7/dt/JUiaix2Dw12fcLVjTTif3F7ZuhgAwwTaAAtLDaKh
-         iL3tXqiVcL+3tcRb/BrEPHRH/KRevAr0t+fHXUmroHu+4OPbMrp3XwGszfgp0OD/ajlX
-         wAF9pWndYjcanPaayn7sgJensy7UEInBjdWfCiM4fXEfI9xRCB81mrRqQOUkdB8FWCJc
-         VELxbn9QpC6Y6A1sV5drjIYzv0nwqsIgNN3eUz/rfYF10ctg2xIFaGULRY/uC8cuOzzz
-         Ky9Slpupv6+Oq5WxUXvtyQV/HsLoaFtlNXaLXd+5WktRwcDuRu6q8BQk7nTq2l/jaNVc
-         rHmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzOF6oxIxsu6Oj1G/pngVALv5vUl4rjt9NC3LP8zsjrwYaH+DoCQPxs6pGBLBvdWKo+J7OgPKzE+j2HEpE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nib/00gi/9fnhDBQZfRki6bORVR/xy5otpYCCyUwCDUsX4NBoY
-	Kn80VdrVlUb9xtIwdyQDKW6wO00gVmPE9nv0NNMG2Qx5EaT1JIwo2+0tQQr49Q==
-X-Gm-Gg: AYBFou37w67MiVOFM9Y6uc21869TWP3oF38+mBpDg4FPTdhPR+Dxf9IbJOJ8YDRXnyS
-	BpsxjDj+tkE9IJS4w/YzD/4sZ4VvoIq3tYExWdu+nNLuURYgmX2eimIN6o+ww6KojxR3jw/tbis
-	jHEO+AZ95pC8u6uNxn27X7Mf9rBeKtRyIq6l+Nn4JUrjdL+zrx7Abbb7RBURuywOj6lOPX73IRk
-	TiJyEMg7tlM/bQOdF0OFLpugtnY4iSDJ55Cr0xe0BAdBcnlsbeGIX5fPM/N5tYsqmVgaPTsisSL
-	jrTzXO6E1+oDYrwoL5UnKg9VbIIiCLLg/e41F7PKha6cfpPq4YCIIiM4s8N45V18smvG9AEWLe2
-	5phIiNIcQw/m1OBQ+AkNiuYLPPwS3of9KIEYPKuOl3p0JbC0SW9RwceEXiMkbWWUWAJGJd81XDb
-	Y/W+TTSn6NceqD1Q5RUlIyuMpTP+k0zcvmdotOhvrNPVFmszn8MYwOMCPJWg03WV+VqjiSBPASS
-	bnBScdDRZsSNWy18/+FwxB4waJ1
-X-Received: by 2002:a17:90b:2687:b0:398:9c0c:7c71 with SMTP id 98e67ed59e1d1-39b26277b88mr60867730a91.24.1789029999202;
-        Thu, 10 Sep 2026 01:46:39 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7738f40dsm4551860a91.4.2026.09.10.01.46.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 01:46:38 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	jiangshanlai@gmail.com,
-	josh@joshtriplett.org,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com
-Cc: rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH v2] srcutree: Add WARN_ON_ONCE() for atomic SRCU in srcu_gp_end()
-Date: Thu, 10 Sep 2026 16:46:29 +0800
-Message-ID: <20260910084629.3695383-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OPeZe2mB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oUoJCIsW";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TlFhXNxv";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="iSMWN7e7"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8C1EE1FD87;
+	Thu, 10 Sep 2026 08:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789030003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=OPeZe2mBCNSZG9faUGgW76QSzjbES5lqawHvTyLRKgx3eWE3s/Z+w5p57o6nswvvEI4xPf
+	L1EqrGy8H7Ze4u0VMdtCOpD/O/YtiKx59L7biyAJuQJSrh9l30pjIoxPDNxTdDGT+mby2q
+	N5dEbPyBHlKHVY5QEJM/0+xOR5PVF7A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789030003;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=oUoJCIsW/C800JcyNgaMTmZug869+ht/UC+RrRtfbMMXoo7o5RLWZnkyfm6P+4vB7BMSl1
+	SMYzAmlb2pqh6nDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789029999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=TlFhXNxvk2ouWz3CBQCsAZH9hYkYbMu+7YKoQ68PEOkHWkgFLC1S9RcvzR010Rfk3zWdmE
+	yUNSFotVPVC5LB6SpwtKPCct11BzLGnqH75n97I0Fer0vPb+kWkJC0tL7CkX9dzVdUKdJ/
+	HqlPiLyHnjTfvG1gyiik3JkxPfuoURY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789029999;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hKFZgmV1DYh46za7nm6vYesF12VXdFrdx++kuKz7oSA=;
+	b=iSMWN7e7+A/nJcB8ZGPd4+BYJR/w3drhvcON0l19ExQzzERsUwhnoRqgy2f04mkxMeWctS
+	Hm0NKo3qHVp/9PCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60A2A137FD;
+	Thu, 10 Sep 2026 08:46:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rZORF29uomolZwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 08:46:39 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id E0D9EA12EA; Thu, 10 Sep 2026 10:46:30 +0200 (CEST)
+Date: Thu, 10 Sep 2026 10:46:30 +0200
+From: Jan Kara <jack@suse.cz>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, Tejun Heo <tj@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Dennis Zhou <dennis@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
+ drain pass
+Message-ID: <q6euw7q6hdfdzhadrwyc47j2lbev6kutm3vix7fi5v7aset2hq@kbv4uy55whd6>
+References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,toxicpanda.com:email,suse.cz:email,suse.com:email]
 
-Atomic SRCU remain in the small size state, so add a
-WARN_ON_ONCE() before the transition check to catch any future
-code path that might violate this invariant.
+On Wed 09-09-26 18:01:07, Josef Bacik wrote:
+> cleanup_offline_cgwbs_workfn() drains a dying cgwb by calling
+> cleanup_offline_cgwb() until it returns false, with a cond_resched()
+> between passes.  On a CONFIG_PREEMPTION kernel that cond_resched() does
+> nothing: _cond_resched() is a plain "return 0", and under
+> PREEMPT_DYNAMIC the full and lazy modes disable it.  Since commit
+> 7dadeaa6e851 ("sched: Further restrict the preemption modes") those are
+> the only two models on the architectures with PREEMPT_LAZY support,
+> arm64 and x86 among them, so the drain loop never reports a Tasks-RCU
+> quiescent state.
+> 
+> A worker draining a cgwb with millions of attached inodes runs for
+> minutes.  On a 6.18 arm64 host in lazy mode the cgwb worker drained one
+> dying cgroup's writeback domain for over 11 minutes.  A BPF program
+> unlink (bpf_trampoline_unlink_prog -> bpf_trampoline_update ->
+> unregister_ftrace_direct -> ftrace_shutdown -> synchronize_rcu_tasks())
+> waited on that grace period while holding the trampoline mutex, 42
+> tasks queued behind it in D state, and the hung task detector fired at
+> 614 s and panicked the host.  Any BPF or ftrace detach during a long
+> drain inherits the drain's length.
+> 
+> Fix this by calling cond_resched_tasks_rcu_qs() so we do not stall out
+> anybody who calls sycnrhonize_rcu_tasks().  We put this in a do { } while
+> loop because if we have many small cgroups cleanup_offline_cgwb() will
+> return false and we will never call cond_resched_tasks_rcu_qs(), creating
+> the same problem.
+> 
+> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-laptop/
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
-Changes since v1:
-- Drop the !is_atomic guard from v1 and add WARN_ON_ONCE() instead,
-  per Paul McKenney's suggestion.
-- v1: https://lore.kernel.org/rcu/20260907075829.2073224-8-kunwu.chan@linux.dev/
----
- kernel/rcu/srcutree.c | 2 ++
- 1 file changed, 2 insertions(+)
+Makes sense to me. Feel free to add:
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 84c022ec8e09..68441c32cebf 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -1074,6 +1074,8 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
- 	}
- 
- 	/* Transition to big if needed. */
-+	WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC &&
-+			ss_state != SRCU_SIZE_SMALL);
- 	if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
- 		if (ss_state == SRCU_SIZE_ALLOC)
- 			init_srcu_struct_nodes(ssp, GFP_KERNEL);
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+And I fully agree about the fragility. It looks as an oversight that
+cond_resched() doesn't imply RCU quiescent period after the recent
+preemption overhaul.
+
+								Honza
+
+> ---
+>  mm/backing-dev.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+> index cecbcf9060a6..18e999053bae 100644
+> --- a/mm/backing-dev.c
+> +++ b/mm/backing-dev.c
+> @@ -910,8 +910,9 @@ static void cleanup_offline_cgwbs_workfn(struct work_struct *work)
+>  			continue;
+>  
+>  		spin_unlock_irq(&cgwb_lock);
+> -		while (cleanup_offline_cgwb(wb))
+> -			cond_resched();
+> +		do {
+> +			cond_resched_tasks_rcu_qs();
+> +		} while (cleanup_offline_cgwb(wb));
+>  		spin_lock_irq(&cgwb_lock);
+>  
+>  		wb_put(wb);
+> 
+> ---
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> change-id: 20260909-cgwb-tasks-rcu-qs-42341609f3e1
+> 
+> Best regards,
+> --  
+> Josef Bacik <josef@toxicpanda.com>
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
