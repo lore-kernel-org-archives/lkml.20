@@ -1,62 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECDB46EC70;
-	Thu, 10 Sep 2026 11:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D47C629D291;
+	Thu, 10 Sep 2026 11:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038068; cv=none; b=oG/IZHWCKvGz98a3KXWYOFBt3QuKVrYbkqKUw5VBfPM5jgrguX3t8SngDe0T4eJIYm+JR2pu3nTm+G1DL+mWy9fCv6HbAsoeDTIDKqq5wcqJHtBTLLu78/cY84qX+fNihVije4fvOFrQBZ3itl0NX5j3pVphmMDEbvxrlxuIVPE=
+	t=1789038172; cv=none; b=oYwGQyqt2qoAIIvwoWUQdGDbr7Y64r/Fz6TxVxIqKJGUTeAMoK5gYqN0ExnbtdxwSjL765r0mdhfVMDUpZegWL9hUnR7zDUQqdm5FbXsh50SbBV7NgY1d4J3hQ8/sqatnEt89kuWRNV3KjYDy6snPw3ahE0+OXShKwvdHtK2Q+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038068; c=relaxed/simple;
-	bh=6Co7N08x8n3BIPqRfu42DAPzb966GwJUI+PwIAmaJy8=;
+	s=arc-20240116; t=1789038172; c=relaxed/simple;
+	bh=/dEIy4o63fAuLRmPsqw2tWaPBUfiEsjcQUh6U/nccpI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u1cKB8Br1Snsv1Uey7DuS/6s/eRGVYClRoGzWFJCCIil7aa6oZ4PLCqbQgmTpyQ+AyubjTkA4BPbHWNZMiyduX87xSsj6CSMeOjbPeCNFDxbrxm5EALA6hvHWYD7AXOp5PXA/malKxJ+50aNHhjJ3JLOCe5zAWUn2uNpPXtenmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GjHfMNbg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dinOYez4R6S/TN8IsWxadDlC6wc7asKFGVzPpNAHwCPWgLatipqvE+77UH/UBrTOJ/IsISCIbFHVt4huAkn431iSU4Zn95udt1HkMzNQ9GMG4wTihloaDpTubM/m5PXaRF7RwFM/ci3RFPw2rYiOIvSQfDeJzGupBLPmTlRI/vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gUoQDdnh; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GjHfMNbg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A131F000FF;
-	Thu, 10 Sep 2026 11:00:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038066;
-	bh=Ysr1aeZRruTO/kwpd2zBCB/fNXGYRvMbwiFBQZsaXX4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GjHfMNbgWtZXVVvy4yrx1x7YF9AP8Mkzu4MlbWX7VmxRm6mAWLc8LgSERp1bsM8Km
-	 CnvTgQrePYoKl4p0NLebsW2NiVhAdO2zkErs2FPVzEm81ikhbTZNMlrI9O78VSSEY5
-	 GB/+eamdB4pr4CorF7GtvDp7uxnZ1C2g/ftMtcUejQ1eyZZ62naguabdSTu+5r3f5G
-	 HI55m9alQspSOEkxuPadAmKxLi7xNxDtZHogQEam3ZPw2SU0occeQ7t9wplr8R9SkV
-	 99O4PaCwWfiABccklZHYAViUdHa6Mu8mwlM3lO8H9TioVDN1ifQAh6OHZg3NZhRsLV
-	 f9GUdaQ6/6IpA==
-Date: Thu, 10 Sep 2026 12:00:52 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nicolas Schier <nsc@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 01/23] scripts/mksysmap: drop the MODULE_INFO() symbols
- from kallsyms
-Message-ID: <aqKN0cfGeb15X8pv@gremlin>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-1-5dc1ac01672d@kernel.org>
- <178898323844.67740.9621915831851570155.b4-review@b4>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gUoQDdnh"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 892701477;
+	Thu, 10 Sep 2026 04:02:46 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3AFBD3F7B4;
+	Thu, 10 Sep 2026 04:02:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789038170; bh=/dEIy4o63fAuLRmPsqw2tWaPBUfiEsjcQUh6U/nccpI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gUoQDdnhVoQC6I8BCdAG+Us9oa8BWEbviuzUkHV9UxC2sIiCX+tWf6QfdCPkzZ+/G
+	 w2mzMKUPN833StqmMeH9wS7ztmqdlQnVz1A3qJ+xbQzyiEDumaMULK+J6xpXPXLwbe
+	 UzlnQ9wrliqUXi05PxhB8UrjRDpeHWEM7IKvi578=
+Date: Thu, 10 Sep 2026 12:02:44 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
+Message-ID: <aqKOVGECsCNtSMIV@e129823.arm.com>
+References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+ <20260907-fix_split-v5-3-822b810458bc@arm.com>
+ <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,66 +57,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178898323844.67740.9621915831851570155.b4-review@b4>
+In-Reply-To: <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
 
-On Wed, Sep 09, 2026 at 09:47:18PM +0200, Nicolas Schier wrote:
-> > Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-> > keeps .modinfo symbols out of System.map and kallsyms, which assumes unique
-> > IDs have a format like '__UNIQUE_ID_modinfo123'.
-> >
-> > However, commit afb026b6d35c ("compiler: Tweak __UNIQUE_ID() naming"), sent
-> > in the same cycle, changes this to '__UNIQUE_ID_modinfo_123'.
-> >
-> > As a result this regexp has never matched and every kernel since v6.18 has
-> > carried one kallsyms entries for every MODULE_INFO() declaration in the
-> > kernel whether the modules are compiled or not.
-> >
-> > That's 5,810 entries for an x86 defconfig build and 15,200 for arm64.
-> >
-> > On x86 defconfig that is 113 KiB of kallsyms tables and 32 KiB of bzImage,
-> > and every lookup walks past them.
-> >
-> > Fix the pattern.
-> >
-> > Fixes: 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-> >
-> > No measurable change in build time, the smaller tables are not on any path
-> > the build waits for.
-> >
->
-> For consistency, it would be nice to have the 'Fixes:' trailer at the
-> beginning of the trailer block (that is: here.)
+> > diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
+> > index 5f278913c4d7..b6fad38c8bee 100644
+> > --- a/tools/testing/selftests/mm/soft-dirty.c
+> > +++ b/tools/testing/selftests/mm/soft-dirty.c
+> > @@ -92,9 +92,9 @@ static void test_hugepage(int pagemap_fd, int pagesize)
+> >  	if (!hpage_len)
+> >  		ksft_exit_fail_msg("Reading PMD pagesize failed");
+> >  
+> > -	map = memalign(hpage_len, hpage_len);
+> > +	map = alloc_isolated_mem(hpage_len, hpage_len);
+> >  	if (!map)
+> > -		ksft_exit_fail_msg("memalign failed\n");
+> > +		ksft_exit_fail_msg("alloc_isolated_mem failed\n");
+> >  
+> >  	ret = madvise(map, hpage_len, MADV_HUGEPAGE);
+> >  	if (ret)
+> > @@ -130,7 +130,7 @@ static void test_hugepage(int pagemap_fd, int pagesize)
+> >  		ksft_test_result_skip("Test %s huge page allocation\n", __func__);
+> >  		ksft_test_result_skip("Test %s huge page dirty bit\n", __func__);
+> >  	}
+> > -	free(map);
+> > +	free_isolated_mem(map, hpage_len);
+> >  }
+> 
+> smaps is really only problematic with merged VMAs when relying on exact page
+> statistics. For other properties (vm flags, MMUPageSize) it's not a problem as
+> long as our smap search just finds the VMA that covers an address.
+> 
+> Assuming we fixed check_huge_anon() to not use smaps, why is this change here
+> required?
 
-Yeah sorry my screw up when rejigging the commit message :)
+Since there is no interface to get vm_flags not via /proc/self/smaps,
+It might be good to have it for preventing unwanted VMA merge.
 
->
-> > Assisted-by: LLM
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >
-> > diff --git a/scripts/mksysmap b/scripts/mksysmap
-> > index c4531eacde20..56a8b8bbdb37 100755
-> > --- a/scripts/mksysmap
-> > +++ b/scripts/mksysmap
-> > @@ -83,7 +83,7 @@
-> >  / _SDA2_BASE_$/d
-> >
-> >  # MODULE_INFO()
-> > -/ __UNIQUE_ID_modinfo[0-9]*$/d
-> > +/ __UNIQUE_ID_modinfo_[0-9]*$/d
-> >
-> >  # ---------------------------------------------------------------------------
-> >  # Ignored patterns
->
-> Thanks!
->
-> Reviewed-by: Nicolas Schier <nsc@kernel.org>
+And might be useful for future to prevent unwated VMA merge.
 
-Thanks!
-
->
-> --
-> Nicolas
->
-
---
-Cheers, Lorenzo
+-- 
+Sincerely,
+Yeoreum Yun
