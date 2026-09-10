@@ -1,206 +1,182 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.109.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F5F4BE457
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057020; cv=pass; b=E3rNJnKAFktCPcqNeMcomDWmhlhiLHCVoRSJ12ykbM6vbjm0eKhD+o7G362ZLvvN6obJcST3FQ1JLTAhjIME7/WXasxisz16AbbM92mwhgiigQOE2CQeW0RQ94YWZpJvQcn7micwnOt0/uKlBzPgy3zhzheOj4gaEVPEZZBGkeM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057020; c=relaxed/simple;
-	bh=T2UYgqMqBFLaXt6hIoV8pbqyPc4eFhSqWtS38bBei8g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=szIau1A0HOHUh0oJrQnGBefEQua1aGY5fIjUgF8REAxnJz2BSkto5ly393W/ur2k51a2C7QSAJbQNbeljK5FPYZ3zi+Gb7mpJ3emSoeMwVX5ymqrmyb4x2HZXawIksrKH6HVvhF9cpqyX/AecMQzllK0q+CUXM2QfyB/suA4tl0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rqu6Z/b6; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836034BB283
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.109.113
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789057036; cv=none; b=FCpyj18K1vSWf6xmBXk7PxEPrcK9F6WIePAByqMbDU1ni+G3xgWUo4QFJ29U15VmA74DZI6+UASZ+Ij5R0DneEdlOroGMxpcox63FGtMXKhVUUa3iL21jCSXXX3k/GmygqGWlmLzuLsh1zbgrfcBikw4orobdVAFJZ/1XNoCOwI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789057036; c=relaxed/simple;
+	bh=jPlEUae6RClcOkLzWvm0H9LhLHGMiDMLHQuqgn6Re2U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=Aq9YozEQAScjlL6EY+2jqlDjxZ/Td+n8B0a/C6zc4RGG0rF6TYcbznTMb46KgfURKa2jdM51/Cf+GkR1NrkivNv++tYwqnqq9UEEgKbYD10h9YVF+WMizckdgWgv3Xp7ukRxhlvM+W63yOuxEzSsrCwD17R9g3RqNM6saYsPuWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com; spf=pass smtp.mailfrom=toradex.com; dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b=KmZJEJlp; arc=none smtp.client-ip=194.104.109.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rqu6Z/b6"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67123200bf5so364255d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:16:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789057017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n5Djto9JaOYOPc1r730PJ8ACGRvXWlGmCRX0LBOOWt+5+fBEOOPdf+iutmVcEXChkf
-         5XSLr/29RuPC6FPxft70CYLGm6/Mrl0u/GeUkz3yWUuPhBOEeQdNPAv1ERLXh8xhMijG
-         lRxRUlzjk1Y3xExWrgZakR5Gaa+A/q6sWlsNijlSC+llZwCSRQ2bU3OAH7MFQc/LlKnJ
-         FRs+lkzfmicPpVdJEt8GLk9pxBfFXGSDhhPqVIn6VZoXEJdU58AMkkV7r3X56Ghq5Btx
-         jliSSu5sFrbRnnU7WB0oZQZTEZtDXd8VpSAjKHRf/hN0Sm8jJYt6yTxJRnwvuZH0I3zD
-         jBUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4cv9uYclcto8QyQAuk68xuQ2c7a+oiqgLKGB7MqDkSo=;
-        fh=DuEtlxGDnBy7h3TKNlG8blejqP5wKskEFvorYrnvl2U=;
-        b=TFqpogzmK+Vmd4yuaDYgBi7CZoP69bHWTzTuP/RBbz8f6ozo25jpvzSDF2lDXHYG50
-         l/KeTSRqW+MAeKYQo21iV9F8jgej1vgUuBGoPbKSag4s6aHl/V4bV5lR+TBOfb6jMA6F
-         cD1JL3mAt4fgMFOLZc0ddZPTScHENKGX/jgRJFQaSuz+fFXwHkZJ3USjMaWp95Qgbje8
-         eK3IjXYf7oztMpHIu7fyK7hrccJ9xs4aeosK1ubO0JQsBPowRrhOzBZvRXtJ+hYDqEqc
-         gzXnYcAeE2ogTEILnCINLvrP6zjbkfym3d9hfH3JvxxJay9aKbtSmQaEAIUcBuWtFDpT
-         A9Tg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789057017; x=1789661817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4cv9uYclcto8QyQAuk68xuQ2c7a+oiqgLKGB7MqDkSo=;
-        b=Rqu6Z/b6kWjDMkpts+lD1N7i2w8SddLMVy/A0Eo+MT8Pf52IXBWXtB2ECBUggc0P1n
-         FeB8jiLtuRi6ptp37/ghLfiqnT1ZWk9kWzEy+aERQ4AqL+zmY7pYih8B//CyTTXmzBYL
-         JBALQoCy0hex4VS+Y2s/Qp4DExmsDDRmCALBn4PS53IeOZLjEfamMrUKBZ1O7hCFDzi+
-         u663DiTnZAWj3pOF+QitrnU0rK0mnarDH3qfmjjc7UMZpAOwAW9R5uGAzUGz3gdjNRDJ
-         CmbZw8nxH1tiobdRZDalt6b6C5kYkFkal8ckqROfenqURxJW4OfZmkWqj6QlMBRPuQE6
-         lFWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789057017; x=1789661817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4cv9uYclcto8QyQAuk68xuQ2c7a+oiqgLKGB7MqDkSo=;
-        b=hPvkhr2XrjCnfh2J74W191wypxycwUVIJSLmzpgpqtPMob7IYhgCt43FZn0H8iGLek
-         vCGQlGLLmnGtQKKnl8b4DjxgrVBs8nNESwLYkcm7fM8uLM5Z+SVfL/vE+2hoU6R5Mp6u
-         0CXFfWgJmGdJzHKZ8jt5rjoK6gEvdtubWVWjwgQbOJGYwW87Itqcv46zBH6dISEDqAd3
-         xDlExH4Di9NfaeHHPjEjarmixYK9CCei2gB06UrXy+2DBMc4lNBbMWoSfartNc4lFB+I
-         IlOk5WGm6CZ111GS7U94h7R9lO8Tx3setETiU95mNBmjSOEzL/Q+K4V4Y0kVEcxIQXm5
-         gAWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwoHILm7wNddcjUXovoOERjMtL654Bo0qOQ8soTNRZshG2CRWM5OL0D+jBdtxMWxleTiS9LF332RY/fOBk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8qtKCZuIev5gQzM/x0l30ibGxcgA3TW6J5m4i8XztdaD0dOQ8
-	YlW/SgiTs/zW9nKzmm5NKLGbQMCSAfeOJ8FxIo7QjgSMEHkliU5/N7mGU5uRsTt/dOLT/PP8s3J
-	BjHfOaPuI3pihLnbQA0sDz3XYZFp4aHs=
-X-Gm-Gg: AYBFou2hyeBCWcxLKlgaiweuM6kt+UwbRmso1Nf52Vv4N3RlA04LGOYnQHI6GtgLkcm
-	CluswEQUxVtf4SHA+8jV706HR+/UqoZlWhjFDzD4DtJEbmTpStZc1o8Vo+owLvXOG472V1x1h81
-	NWRl9n8bt7CztRiBVBxYckqm1y/8gJ+uZJeVtdpT8+qTx+I6sLDLgOKb+OUtEVe/J0pOt26tW3T
-	BcLyZFqlZGq27xLsbUoX/5qI/BGsPqAGkU5HxqfogYxwmBJEcurHPBz/q08mDm66nKG+dFCGHf5
-	wIanMQcnI2o9RBsK9w8ZkVVFOc1SHzfeOjwdEnRat2Mxb3xH12gMdQct4/ZYkj4=
-X-Received: by 2002:a05:690e:4093:b0:66e:64e6:e1c8 with SMTP id
- 956f58d0204a3-66fb59788f8mr14806680d50.18.1789057017370; Thu, 10 Sep 2026
- 09:16:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b="KmZJEJlp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
+	t=1789057032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jPlEUae6RClcOkLzWvm0H9LhLHGMiDMLHQuqgn6Re2U=;
+	b=KmZJEJlpGU6CoBx4kNfwJx9c+calVQlHSSWMa3bG4KVBE9JyXF3EMqImVgBvDVEsEVTs9l
+	2GuzxyZpIWCHABk8lepCyNOh6EqRX/C4oYHZaqwQWuyGqE18eBvZINgYaLwzJ9wneTyxJT
+	W9BI+ljE5ZEfl/pVhH2gZD60S8vcLFg=
+Received: from GVAP278CU002.outbound.protection.outlook.com
+ (mail-switzerlandwestazon11020079.outbound.protection.outlook.com
+ [52.101.188.79]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-84-M4qVeMoGMMiTxbRoinEAyQ-1; Thu, 10 Sep 2026 18:10:37 +0200
+X-MC-Unique: M4qVeMoGMMiTxbRoinEAyQ-1
+X-Mimecast-MFC-AGG-ID: M4qVeMoGMMiTxbRoinEAyQ_1789056636
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ ZR0P278MB1219.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:7f::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.9; Thu, 10 Sep 2026 16:10:34 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2%6]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 16:10:34 +0000
+Date: Thu, 10 Sep 2026 18:10:29 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v1 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <aqLWdap-AizR4uX5@francesco-nb>
+References: <20260910101616.139270-1-francesco@dolcini.it>
+ <20260910101616.139270-4-francesco@dolcini.it>
+ <aqLVCq9NMk67fqPY@SMW015318>
+In-Reply-To: <aqLVCq9NMk67fqPY@SMW015318>
+X-ClientProxiedBy: ZR0P278CA0157.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:41::22) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:2e::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <178905331374.213925.295025394754459843.stgit@devnote2> <178905332413.213925.3179977110281463499.stgit@devnote2>
-In-Reply-To: <178905332413.213925.3179977110281463499.stgit@devnote2>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Fri, 11 Sep 2026 01:16:45 +0900
-X-Gm-Features: AcwNN1VBGHIABPdjEVRaY02wV_3QN8nn1VPa9_CdaqSnwKVid2qdbDyb0T1-q3A
-Message-ID: <CABFDxMHoTpsLZNPAyaS9SUDGFGDdqMzoUNYiJhKhFt3OvtrGKw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] tools/bootconfig: Fix integer overflow and
- truncation in size checks
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Breno Leitao <leitao@debian.org>, 
-	Christian Brauner <brauner@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	Douglas Anderson <dianders@chromium.org>, Huacai Chen <chenhuacai@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|ZR0P278MB1219:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9769873-a57a-489b-c83d-08df0f560967
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|18002099003|22082099003|56012099006|4143699003|10067099003
+X-Microsoft-Antispam-Message-Info: c22VYVyrgp8YAOYPgTFskEeUdfqhiTiNkjMkOdFOThtjxmjtzaOxUqdKYui1UUu6+LUtAj8mJxSv3YZNtCq0xKZfH8S2uCynkaerBV1IV+vgQ5gGp7Ej6fqxQSyxIFHwqVjhhr22pYvlNIByUryX3Gsk9RtNUCd3Pd4zBsJzCIl/oURAQCn7/qVOvhGSn+Sbi+TdQs7BB4axhN4z9C/rIzGngSZKl/T1mNxlJgB2qNp5Fc6U3/J/OG1M9TZTf7VYrpzMVbuFTm9kF1kjC/OqOJpBb37BLcpSpaSMM1oYUv5Sp3PCCUhQHH3SaVx7GQS5VfOFf++yMhQodlkW0OLgi2zE1v4BonWguWpajFtQCnBpyK/KcLTyo8I6PFf5QyAHsBtOl5fyVp0ZLLZetcmMBNrKpI1yl862tozlQAgBbMPKmbXsk3vsqQ+g1PoTHUI4m705hFb1nl4f+D9Djqf6MXyqRedaUjpJQnR9Tt5EkKVwlkAAMmIUhul6b5rsgnXs35U64Fzq52Z2zWfRYQWIoFJwfNrp++FHujfjSa1IZMj4f6UnTnIZYMfAVpTBN0JZs4g9/fgRvzHgUZcvkb6/vedGCbm7lXYsKJyhjtekoaXUc0esJrJ1wT2iT7yw7Tubuzx8+WlXb16hS0yKra1mLk/d85y5BMGGPdXX07Cp7So=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zHriv+c8v+SV8zZTAiiIWIWhB5Z3p3U5iNYikrjsqbn6vgOuHidMSWO+S/zC?=
+ =?us-ascii?Q?wlUtseZW+f9G1HkIWbNiiMgJhWu+Op1OLY2nvvTcFku1PF6Uo0j/CIMDfk79?=
+ =?us-ascii?Q?riiqF3a1/yOzClkuAoA3fItzgJg9JpX2HePLgPzZ2+WnW6tSSQKDZhXaHSP6?=
+ =?us-ascii?Q?C5Z8mvS9RX1uJN/6yU9MXONkgDtO7GjXxz67yLu4wq40NKii7WI7DjmQqw/V?=
+ =?us-ascii?Q?sy+Vl7zqskPpCRcbUcBNr1fiOj7P7WpkFwlm7wRPGhdKHwONJMQrn3JZNvK2?=
+ =?us-ascii?Q?WZ8CFipkPY7O6Me/1sRd1TmWBH8+QK3E5cKuHpFkHPH+z+1M0ZoK78MrjnHT?=
+ =?us-ascii?Q?cgIpMxpc1LKWZge/PqPtg0l3Y/7cvZCbYKPmUlvOoBTiGOAaFJ3V87sKYSJK?=
+ =?us-ascii?Q?SzXduEFOOibpo2/WWvLgJw5hVHZk/Y3/8uv6nQBbULSAWESpGQoybv2q0Nrd?=
+ =?us-ascii?Q?ls6Fms/cVOdvmU57k/h2ksoRWy5yj2B/0yC/8Ov6/P0DwL6pcL2Ck4yGRCEF?=
+ =?us-ascii?Q?Bl82HI1hymCEvOMJzMhUuJmP940jFFhmgB8eFdedm3oTpMDFgI4oJPuhyope?=
+ =?us-ascii?Q?Gt3OqKQ+Jo9btnTho8jFABSmdezd0WLXPFA1TtkVu1KOAo1NflfOL/B11wuD?=
+ =?us-ascii?Q?HZiRMAwrTdSp4/ZwKNfcDxKVnzVtUfELTe3f5ZSYB4VUZSi/WnFuhY6BwGi/?=
+ =?us-ascii?Q?NcpvcCTPZaP1ybfc+vqMHg7IT7Q4PZlx2YYyMTuPVUivQ3KsOpc4WctfimW1?=
+ =?us-ascii?Q?gZjig3uWq1KhxWvHRTP/8VE/5soGVjy25+R4NielDSbawJ8rMGmwkYhWrxfm?=
+ =?us-ascii?Q?aYQFLvMlme/ggRIE7S22H1I1j10ay3lgKlwbfZ5+4e1kJ6zK+p/R/lgunXsA?=
+ =?us-ascii?Q?sfJNyG0VGmbJ66yl7A1EOxrGFzMt8G2009CrQyy0Nwub4hGp/+v4p0kveRfD?=
+ =?us-ascii?Q?aVS+f1J526XQSo6y8SYnXpNx1/oyTtOVl78wPvAGdaCrZ53oMG4VEncDrv2c?=
+ =?us-ascii?Q?aboiw5IIdcbbz9ucuhFem4/xlbZWUEYotQGVderalyEMdaToM0FZqR4rWGlP?=
+ =?us-ascii?Q?Vr5DRG5t94m6h8xjDXyN7o7+b2daQzt+GUTUrixnw6Ds4rtdD3H0aIhsi9pu?=
+ =?us-ascii?Q?WLhW/G+ZK1XMDtLZerBX8ljfESRAiBz9M8XOx/L6EftXVExdKQt3c2rKohPr?=
+ =?us-ascii?Q?+H77jq17YLlRwP8o12kKrc9aIZEHFH8RcIW6YXkA2fZ6Kg+XYywu13p3MviG?=
+ =?us-ascii?Q?SsKIIQexVRv1H3MUX2CE1hBIbm0DoN4Ds6Dyrorl7go2vxj0V3dGWuGu7Fz5?=
+ =?us-ascii?Q?wphjqZCIDSMc94hP5B8Yv+rxajFEvrT9po1C7zC8FQyRnDKDZJ0qkfAtAhj8?=
+ =?us-ascii?Q?BuB7XwvYptwqdJXJmxETzWP79XXe6YRc05N6xMcKn4DKjxc2z1jiNSVxpaa0?=
+ =?us-ascii?Q?QpUgccT6iit3VfLRBdeWWTbIBSCsQItsG2Q2ul1hH3ASiEQnpD+m5TQMDRn5?=
+ =?us-ascii?Q?46RSWRtPU/qV5K6IKHz0X7qJibP08/LqjRxX6xKEKvLgp2gz02N+BmfxxMO9?=
+ =?us-ascii?Q?7mZZ9f/SwVUMQSPJpT6feTIBppQdaD6xSdAWxJqxg1vqKuCW2kyhQk8Nf9rq?=
+ =?us-ascii?Q?ffdMQdsQZQetd+xTIWRv52L/O/9iSU6ywQ4o14Ai9zrrqveNsledybhthDPK?=
+ =?us-ascii?Q?OZeX8wtwMQL8/Y562Qfcdyt9SlNdIqYPZpqJICJGJ58HPe3rw/rYPHsxhwyQ?=
+ =?us-ascii?Q?re/sme8Y6KoJOvDG7AO7TDu0Wjq4mE0=3D?=
+X-Exchange-RoutingPolicyChecked: qtYSI+pENjnhYNHrnfz/SKBPwo2YjwXB0klg7GZEDKBpnHkltomgR3gX5Lp3XHoOKk9A0kfeVxvW2FsfWFdZCvR6uYUVAfraO9PPrtwv5YL+ojOpnYJvoqJx+XXiJWQF8EyoMxOXe0/BYkn7151z5nVSbbprnwA8AxFgkq4jfuaiqlko+fIVajDlP/BLfU8wdAah6JdnUhwb5Z9rAuaVZtdy8UmAPW7nskLH1xOPRYZPkZPYT2aNWl6hOvS89ESvOvcHDpemHW2aH9e4yTWitDCjvJtqIeqGKImVv8qolGOX1Lz6Ewwku5eEg8zq2cZ7hzEeJ9XqWw8TvMbdO8BYSw==
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9769873-a57a-489b-c83d-08df0f560967
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:10:34.0774
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pw0gy4nxjPdSotgnTI6qnIpSbvpencAcJoa2RtSCGCWtOG1bu9fWX538uVb/MKXcBf56Dkg4uqGHSILZhrqxPpdfpaU3WSSq9ecckwZUgig=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR0P278MB1219
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: FzjL76KRnn_xW4u9tIbQB33_fBrOOEfreyDw4BzY7Xw_1789056636
+X-Mimecast-Originator: toradex.com
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 12:15=E2=80=AFAM Masami Hiramatsu (Google)
-<mhiramat@kernel.org> wrote:
->
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
->
-> Sashiko reported that on 32-bit systems, if an attacker crafts size in
-> the bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps aroun=
-d
-> (for instance, if size is 0xFFFFFFFF), the size check in
-> load_xbc_from_initrd() can be bypassed:
->
->     if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
->         pr_err("bootconfig size is too big\n");
->         return -E2BIG;
->     }
->
-> Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
-> corrupted 32-bit size (e.g. 0xFFFFFFFF) against
-> stat.st_size - BOOTCONFIG_FOOTER_SIZE can also bypass the check if
-> size is not bounded. Similarly, load_xbc_file() passes 64-bit stat.st_siz=
-e
-> directly into the 32-bit int size parameter of load_xbc_fd(), truncating
-> large standalone files (>=3D 2GB).
->
-> In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
-> resulting in malloc(0), an integer overflow in read(), and an
-> out-of-bounds null-byte write.
->
-> Fix this by:
-> 1. Rejecting size > XBC_DATA_MAX or
->    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd()=
-.
-> 2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passin=
-g
->    it to load_xbc_fd().
-> 3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
->
-> Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kern=
-el.org/
-> Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kern=
-el.org/
-> Assisted-by: Antigravity:gemini-3.8-flash
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v3:
->  - Reject size > XBC_DATA_MAX and
->    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd()
->    to prevent bypass on initrd > 4.29 GB.
->  - Check stat.st_size > XBC_DATA_MAX in load_xbc_file() to prevent
->    truncation on large standalone files.
->  - Check size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
-> Changes in v2:
->   - Add Cc: stable.
->   - Also reject if "size > XBC_DATA_MAX", that is obviously wrong.
-> ---
->  tools/bootconfig/main.c |   13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-> index 7dc9fff9b637..17d971d47f87 100644
-> --- a/tools/bootconfig/main.c
-> +++ b/tools/bootconfig/main.c
-> @@ -140,6 +140,9 @@ static int load_xbc_fd(int fd, char **buf, int size)
->  {
->         int ret;
->
-> +       if (size < 0 || size > XBC_DATA_MAX)
-> +               return -EINVAL;
-> +
->         *buf =3D malloc(size + 1);
->         if (!*buf)
->                 return -ENOMEM;
-> @@ -168,6 +171,13 @@ static int load_xbc_file(const char *path, char **bu=
-f)
->                 return ret;
->         }
->
-> +       if (stat.st_size > XBC_DATA_MAX) {
-> +               pr_err("%s size is too big\n", path);
-> +               ret =3D -E2BIG;
-> +               close(fd);
-> +               return ret;
-> +       }
-> +
->         ret =3D load_xbc_fd(fd, buf, stat.st_size);
->
->         close(fd);
-> @@ -218,7 +228,8 @@ static int load_xbc_from_initrd(int fd, char **buf)
->         csum =3D le32toh(csum);
->
->         /* Wrong size error  */
-> -       if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-> +       if (size > XBC_DATA_MAX ||
-> +           size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
->                 pr_err("bootconfig size is too big\n");
->                 return -E2BIG;
->         }
->
+Hello Frank,
+thanks for the review.
 
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+On Thu, Sep 10, 2026 at 11:04:26AM -0500, Frank Li wrote:
+> On Thu, Sep 10, 2026 at 12:16:09PM +0200, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >
+> > Add support for the Lino iMX93 SoM, its Verdin adapter and development
+> > carrier board.
+> >
+> > The SoM is available in two variants, with i.MX91 or i.MX93 SoC, using
+> > the same PCB (the two chips are pin to pin compatible), to avoid
+> > duplication create a common dtsi to share commonalities.
+> >
+> ...
+> > +};
+> > +
+> > +&gpio1 {
+> > +=09gpio-line-names =3D
+> > +=09=09"LINO_P18",
+> > +=09=09"LINO_P16",
+> > +=09=09"PMIC_I2C_SCL",
+> > +=09=09"PMIC_I2C_SDA",
+> > +=09=09"",
+> > +=09=09"",
+> > +=09=09"",
+> > +=09=09"",
+> > +=09=09"",
+> > +=09=09"",
+> > +=09=09"LINO_P65", /* 10 */
+> > +=09=09"LINO_S18",
+> > +=09=09"LINO_S24",
+> > +=09=09"LINO_S20",
+> > +=09=09"LINO_S22",
+> > +=09=09"";
+>=20
+> Can you wrap, 4 pin pre one line to reduce LOC.
+
+I would prefer no.
+
+This way is very easy to jump to the right line and see what's there
+(e.g. I can jump 14 lines down with 14j in vim and I see immediately
+which gpio is that).
+
+To my personal taste is also more read-able and consistent with the
+other Toradex DT files.
+
+Is there any other reason to ask for this change? Any style guideline on
+this topic?
+
+Francesco
+
