@@ -1,107 +1,85 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A3E49F13A;
-	Thu, 10 Sep 2026 14:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F1D49BD6D;
+	Thu, 10 Sep 2026 14:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051216; cv=none; b=LrEYYZY2PpbbAa3uOrESsfsggx8LMffy7BpOKB+ya8AzNIIkzkpeyvV85aY6SAkss/U2PfS54RbjvB8D+JEYxXLUjsPB7P/mYRKrHDo+y815BSPo7cvYz+d5O0KjI0hamAlHqKRolSOgUlKjcdF1LrOBEgV7G0hMfI73D0onNGI=
+	t=1789051217; cv=none; b=QJVx1jS2hqTYi8yKUtA567R3MasTy5J9tV6/vTz3y0EA+ZFYi//Br0yyUfSTfG/OGKEf41bgt45Fw3iKwFmjXOStPp3O/cjj+WsKAhUfz+YXwIKNsDSsH6GETmpwnn5RcWyuVik4qVrWpz5Wz/0dH41HiVTQSD7p+7VoBTkdWO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051216; c=relaxed/simple;
-	bh=0aGXhr0wekYKe1daywekJhJJvQqGSqeH3iZtYj1ZthY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AsDTEP0sLjpxkB1gRLxuxClAZbB2B1V3cGM04GlVnVY9o+mc4Z9QRnDwzDMJeD+3VEHt/s+KabAbBDGKxCM71koeE9cmA2NXeDinrK369Ifp92zNtIbON/Z7DwkFj0mw38MfKibs76LXMGXonYduX4ak59iqC+JTJz23kXGw6RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=r/GG4DaI; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789051217; c=relaxed/simple;
+	bh=yfRISRanjw1H3aT/l8T10f0oHjoSPqjx8o6UtE5iThM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b7hluam/9gC9xD51o62Tjzv9rcGOOsI+pWWwfVVUnvpBvPI1GxUfGBwrc3n9it34qR+vEPO7yjmpCC723IE51Rzpq/m3resrbnhQLz8A3ausq9GLarWNtXx9Pobu3zHTlzX1L2ujcaeyRKJI7BDGd17bnCNfFER5r2ZkuNr0KUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHeHvxvp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="r/GG4DaI"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hggLw54gHzKvsx;
-	Thu, 10 Sep 2026 16:40:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789051208;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NmE7gMRT3k8OSgZ+Z+9TzwYWeF1O1bwOiRIgbLOfJFY=;
-	b=r/GG4DaIVQoItrRs9+/edb4433qcvDHID1mWF4dYFvv7GbcYWWp40/85Opd4r8sJHLAP43
-	wHeSOC385FmkHg162YFcBVg/HOdP6UiLKHStSYwBvu5ps5ikltes9TjuHkRb12pVD0pkXj
-	ByXXQp9TMOU9IrkcMHZGp/4HZlfH80PrUgZlNU+fY46zAUuApVXHvxmGtq5hyXH61gd7+b
-	Jb+V+gY49YCjTxJUiKiExAVapa6V9MYG6Qm66JFL98oWOd2jVQzsXZCayQxsVQ/xauvDfk
-	9WjsFDZkQsSBGoUEi/DuMGy3M3eGyB2J6drFEq2SeXkpaEWe9cqKvIqSA9rc2A==
-Message-ID: <c74e6c95-2cd2-4123-a232-a372f7b48819@mailbox.org>
-Date: Thu, 10 Sep 2026 16:40:01 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHeHvxvp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A721F000FF;
+	Thu, 10 Sep 2026 14:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789051215;
+	bh=ZiIRwFEuHdfHVtyCjAJ5wkFmxjF09C/RketUI/wtcPc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZHeHvxvptj4gChQtNiKjW0RmyP8s3WN/X4u7TguJSn+uC6oPiO5iLn3mV3KfmUjwA
+	 u97EK1rsmi1XOyQtyLiwvn9wi4l9FwDcSwEirpD4+vKLIOvcVnJ2pvmPQRKwfUPJ2v
+	 Bj28PoLfuqdse4OEgPvWiifW0DetnkLI7iCiOus5jQSmFo5SoGye1IJAbboNH8h0r8
+	 KuJEOnMT04yTd3amLajpElescGmWt8/yEvdnF07vTX3Y3NAKYs/pKDM7kZ1QmOf5UR
+	 IwgeobKvlq+7+R95uAbuTL4KM2Krnj/wXDCdfZMVcCYSyVupGPo9QqBwdLxt7AHRY3
+	 dU5WNxHG3umPg==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/7] mm/damon: introduce probe_hits_wsum DAMOS core filter
+Date: Thu, 10 Sep 2026 07:40:07 -0700
+Message-ID: <20260910144007.174043-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260910141849.170896-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [RFC][PATCH] arm64: dts: renesas: r8a779f0: Add GICv3 ITS and
- update PCIe nodes
-To: Koichiro Den <den@valinux.co.jp>
-Cc: linux-pci@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
- <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260909175922.161658-1-marek.vasut+renesas@mailbox.org>
- <ulxyqbaodkunrodrqfev5a6idrc2x7yjkee4tpmwv45bthpfg3@c5yozpfqaou5>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <ulxyqbaodkunrodrqfev5a6idrc2x7yjkee4tpmwv45bthpfg3@c5yozpfqaou5>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: gtkr539excr6cu1pu9xqwmwtwpr8qaep
-X-MBO-RS-ID: 3948277c6ed69d606f3
+Content-Transfer-Encoding: 8bit
 
-Hello Den-san,
+On Thu, 10 Sep 2026 07:18:40 -0700 SJ Park <sj@kernel.org> wrote:
 
-On 9/10/26 10:18 AM, Koichiro Den wrote:
-> On Wed, Sep 09, 2026 at 07:58:46PM +0200, Marek Vasut wrote:
->> This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
->> SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
->> and add msi-map into PCIe controller node.
->>
->> The GIC ITS does have master interface to issue transactions to RAM.
->> The interface does support cacheable transactions, however, it does
->> not support shareable attribute, because the AXI port signals are tied
->> to inactive in this implementation. Therefore, add "dma-noncoherent"
->> DT property into the GIC ITS subnode.
->>
->> The GIC redistributor does not have cacheable/shareable, therefore
->> add "dma-noncoherent" DT property into the GIC node.
->>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> ---
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
->> Cc: Koichiro Den <den@valinux.co.jp>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Magnus Damm <magnus.damm@gmail.com>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: devicetree@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-renesas-soc@vger.kernel.org
->> ---
->> NOTE: I am sending this as an RFC. Den-san, would you please test
->>        whether this works correctly together with your Endpoint setup?
->>        Especially whether the Host-side MSI change does not break it?
->>        Thank you for your help!
+> DAMON can do flexible data attributes monitoring.  The classical data
+> access monitoring can also be done using the attributes monitoring.  The
+> access event is just one of the data attributes that DAMON supports.
+> Users do monitoring to make some actions based on it.  DAMOS is a
+> feature for automating that.  However, DAMOS cannot utilize the data
+> attributes monitoring results.  It is still Data "Access"
+> Monitoring-based Operation Schemes.  It requires users to set the target
+> "access" pattern.
 > 
-> Yes, I confirmed that it works fine with renesas-next-2026-09-09-v7.3-rc1
-> kernel.
-> 
-> Tested-by: Koichiro Den <den@valinux.co.jp>
+> DAMOS core filter is effectively the same as the target access pattern.
+> It is just a more generalized and flexible way of describing the
+> operation action target region.  Introduce a new DAMOS core filter type,
+> probe_hits_wsum.  It specifies the filter target based on a range of the
+> probe hits weighted sum.  Using this, users can apply DAMOS actions to
+> regions of specific data attributes pattern.
 
-Thank you!
+Sashiko found a minor issue in patch 5 that is better to be fixed.  I will
+send a new version of this series after adding the fix.
 
--- 
-Best regards,
-Marek Vasut
+
+Thanks,
+SJ
+
+[...]
