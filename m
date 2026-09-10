@@ -1,101 +1,95 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280E93A0B13
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D74739CCE2;
+	Thu, 10 Sep 2026 16:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059359; cv=none; b=uAnzjfXzVgXz8CLc2y1BNrF3XcrrxHNd9301tT4fxq/rgOE8cQcs/qGMZ01gegG9/KxumuHmcbpVYRDLls/Q5QQ9nwqrFzo7g6rZ9jpGw/VC6a2Com+t6oQbhjc7wc6RGZPkFyS1l0perk5xKslHAQhmtlGKH03QpDTdnvGY4p4=
+	t=1789059373; cv=none; b=LpwZV+YsBAMjf9dCC2+MuVmfaGnpdUxPpPQW2Lgv0b4oXiI8VsNy35vVdfVVNT1djSlS7Ha9mQ56A0QcG4gtTlTCvb+1dmKC8pT5R4GcrjUTDN9WM2rmESP1DuAQaVdx3aXfaj5/OM/wWpAuiOfjNZaSFSqJaNrZzxpu8p45kHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059359; c=relaxed/simple;
-	bh=3q7AREPOaZq8eHFLknAyC8rvdthg1/rx0t4Di3tOzXU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bpC9w3aCcKB3wjt55y2NMsIQX0BblE9sPrche2jvlYOEQRApIADoQtyNlUGi/0EhG0Ff8kLCG+IKJ8xfANFPxPOcyIEoU5ZjPrKlhq7lNIMEP+zQf8fcam09cNxBexFTyEq4nvtgHRMj3W6D24aVzjsJDAbORnOSPqXYtYYkCjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ryHb0gwa; arc=none smtp.client-ip=209.85.210.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789059373; c=relaxed/simple;
+	bh=QcFhRK88+b/E5jRc/+kYj47x/P2Hg+ARykNSBWh+CMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PN9M72lQSi//CXJyM4rb5QD9lLIj4tu9jQSoAptOHZqUcOlxyWqoepo4dRufqgm/g+b0TN+2Uwp7L6WXK+gRcysjwouZLLKoiYBBvL7yABYO7UNWZqjT+zmIkiP5uMCMivKUNRDs2Bj++a24uSc5gRFrPjkR1wECr8JOV/9PE3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYT1XR/O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ryHb0gwa"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-869b8d63e28so917743b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:55:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789059357; x=1789664157; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/J3Sv6JQvipgYTteUBVvbZbSYCIK0V8XgdKXZh7npQU=;
-        b=ryHb0gwaozpkywmBMxOrMcRxWYJhWXrpAho6B4loCYg9PiUHRd6qciUZaT0aSD5Iax
-         q+0ExWyjBtbX0wA3JBlz8MAxUF25I1PdKLCjA7EMQHsIwYctdknrdbrwAeyVwKN7wIei
-         VA0ehBXg3cc+y/Z39jfbVHIeibogRMRRN21a9lvvCYDAhTPG/8I9Cg5xfpXi2JyiQSj2
-         2PWMpBh3k0TnghBtWkymEFAA8ka3M94d+FX7OWK60BHwdEHo4TRJvDx8mgv1y2BkWwVk
-         10MNRitc71MT9MMOkh+q2awbPoO6/cvNNhNNElIGgq+6WUdbwZ+ND7qIttE6w/zRKqBw
-         4dhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789059357; x=1789664157;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/J3Sv6JQvipgYTteUBVvbZbSYCIK0V8XgdKXZh7npQU=;
-        b=IrDnUHKztKyN2LmWNNAGfojRZK5jCwQWDZBPBlw0JMD8Ku1o0yY/gVWjGHuI6cZD3h
-         +sYf1fxFd19dnn1omfT/kVFg3LDpvvAowGVlHn2IW655OtFUv4YslpM06cNGqgPBEt/Q
-         0joeMaKVRYgQojEolkodFxlE+ej9j2k+jbugsCXkaXm6Vq8Yi5tbOX3xIzfNeQGSMmBF
-         YykliDbaUqMYYJyUXSl1YYSWQUamwJeBv8yHVPvlKqZpaNsr3PNjPvUc+qQc7zVtA+wb
-         BJO0YkM6Zrt709vvVkO5S519rXJ+eqhV/hEjFI9FgRZ+8J/0SRETkJtItqxZbjYHInPz
-         1+RQ==
-X-Forwarded-Encrypted: i=1; AKwUvByyQGtm78TEVy4PyDsbQXKQCFwa1ENZeQ+/nnRqluFeqhyBHQTqEzyt/HcEE6PbvxQNetaO0gKtGxOukuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbg0FWXxCHv1Vb62nDgHQkXyBnBCengzR2e4OkReemL0Z4tPY0
-	8bxkSgywaZC3RWxRGZlDsVu0KPk7QiZLr4WKZYiyLO7/ka0jTPA99M7qCr0nXu2o4k1S3mIOo4o
-	AmeYlnQ==
-X-Received: from pfbmu28.prod.google.com ([2002:a05:6a00:6e9c:b0:86a:873e:7d2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:813:b0:857:726d:2e9c
- with SMTP id d2e1a72fcca58-86948a2d790mr8939284b3a.25.1789059356930; Thu, 10
- Sep 2026 09:55:56 -0700 (PDT)
-Date: Thu, 10 Sep 2026 09:55:56 -0700
-In-Reply-To: <20260910162343.4092060-1-elver@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYT1XR/O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1840B1F000FF;
+	Thu, 10 Sep 2026 16:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789059371;
+	bh=H5qv7SU0WDIL3754Sz2KIRetoEuCaKQJTb8/kp1+BN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RYT1XR/OfF0mS9K7RNsSt0/bIB4tPLioqS6oICC8IIBQHYVfhoUtGXezZnR7dAl+c
+	 rFWzFgqOUX4ca86r7skR+88tgY+1ogkZggJmqPnETO8L7QgfniDy2g/o7Y18pUXxsb
+	 bFM6/G27KvDldgE/IwzDlrYaZ1ti/gQoZmyuuGAU9OyXJJfhZeM7dLTPnJgKsYWFmi
+	 wKWAGiMui/lzpZDf76fBJTyUFLu/Rq18kYGGmUr0p2SOBUpNmY9gHnQMAuwr0ROqn/
+	 6RRmm9D08XnbYF8D3KE8lgsE0DMnNnhHE1v3HoHRYQ2+1033JG9Ecp7oP7YCvG8lGz
+	 q0jT9Y7FpqKlw==
+Date: Thu, 10 Sep 2026 17:56:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Itai Handler <itai.handler@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org, michal.simek@amd.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+Message-ID: <8fcad389-8340-4ccb-8ef4-008d826115fa@sirena.org.uk>
+References: <20260910113325.717882-1-itai.handler@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910162343.4092060-1-elver@google.com>
-Message-ID: <aqLhHOrXsa30PBVU@google.com>
-Subject: Re: [PATCH RFC 00/10] KVM: Enable Clang Context Analysis
-From: Sean Christopherson <seanjc@google.com>
-To: Marco Elver <elver@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3mhjrI60cxQYt2un"
+Content-Disposition: inline
+In-Reply-To: <20260910113325.717882-1-itai.handler@gmail.com>
+X-Cookie: Gravity brings me down.
 
-On Thu, Sep 10, 2026, Marco Elver wrote:
-> Enable compiler-based static context analysis [1] for x86 KVM, along with
-> prerequisite lock annotations in virt/kvm.
-> 
-> During the initial annotation pass, context analysis uncovered a missing
-> SRCU read-side critical section in x86 PMU filter lookups; patch 1 fixes
-> this bug.
-> 
-> The remainder of the series is strictly non-functional: it establishes
-> basic function annotations, guarded_by annotations on core structs, and
-> straightforward refactorings in hva/gfn range walks and guest_memfd to
-> eliminate conditional locking patterns that cannot be tracked statically.
-> 
-> Annotating the MMU (mmu/mmu.c, mmu/tdp_mmu.c), i8259, and Xen requires
-> more invasive changes and is deferred to follow-ups.
-> 
-> [1] https://docs.kernel.org/next/dev-tools/context-analysis.html
 
-...
+--3mhjrI60cxQYt2un
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->  43 files changed, 745 insertions(+), 236 deletions(-)
+On Thu, Sep 10, 2026 at 02:33:25PM +0300, Itai Handler wrote:
 
-For me, there needs to be a _lot_ more explanation of what this buys us to justify
-the extra annotations and ongoing maintenance burden.  And to a lesser extent, why
-we should rework code to play nice with context analysis (I assume we can simply
-opt-out on a per-function basis if we don't want to play nice?).
+> +static void zynqmp_qspi_shutdown(struct platform_device *pdev)
+> +{
+> +	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
+> +	int ret;
+> +
+> +	/*
+> +	 * Only a runtime suspended controller can be left alone: its clocks
+> +	 * are gated, so it cannot be mastering the bus, and its registers
+> +	 * must not be accessed either.  Any other answer means it may be
+> +	 * running and has to be stopped.  In particular, on a kernel built
+> +	 * without runtime PM this returns -EINVAL, and there the clocks
+> +	 * enabled in probe() are never gated at all.
+> +	 */
+> +	ret = pm_runtime_get_if_in_use(&pdev->dev);
+> +	if (!ret)
+> +		return;
+> +
+> +	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
 
-I'd also like to see what the MMU changes look like before committing to supporting
-this.
+What ensures that nothing can start new transactions after this has run,
+and if there's any operations in flight will the controller be OK with
+just being stopped like this?
+
+--3mhjrI60cxQYt2un
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqi4SYACgkQJNaLcl1U
+h9DtGwf9Hvtmmb3vMcKh7JgRiQb0kCFv9qEx+cbBU1WvojtOeTyWRno1HPM+1Dm4
+1a+alpDAO3fkRljzrLYyxHcx61SNwypP85xG7nYIRoLjj85Q0H7rl74tmH4W2KNW
+XCdswt1F115sVLVg5Z7a5rv5gyunIjmgqze32jlZQKFkU15oEUsbk3NB1/CbQOQT
+Z2QYer07Z/TCA0enUEK6NKJYRDJQJnSgGJBoAvoF5vbn72TLcrHx8vf7i9GZktzl
+j8ZPbKqiygHJwpUT0+Qser2009MxBTS79sbGbN5/ESD4eKi59lGRghuhmza22ZFP
+nKQ1163hkIr+j+n+ECibjh0si5+eDA==
+=ImZb
+-----END PGP SIGNATURE-----
+
+--3mhjrI60cxQYt2un--
