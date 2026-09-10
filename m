@@ -1,139 +1,205 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A6C599A43
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AA83ACF0E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066398; cv=pass; b=UQupHA6vgP7J4MDocTHKaOQmKYojhO5X65GjTakmSQfVntAEIGMKRl0GiDmDEwaE0AVg81TRWEbESYQKI1g0QPGN/sbEB3sN4X6mejhCDYCP7AOsdirlZSRA+XcpGznfMpa35g31KzP1xDKkKW9c1jDs1VIoqf2YX04CR2hbyC8=
+	t=1789066406; cv=pass; b=PuaENoMCVpF5EWA/XrUhjHE2Dfl3xJwyikudHQ04j9/N8CCmV6BK4Nk/q0Nz74hoXPocqHsHFx6AtjSHRUqp4FlXVjR7hczIa/MRXWplUw8X0NMRwNR3ausXEpQWTRLk7P02zZrcdce+lFQFUy6TVqDDaZix8iUR4W57Giif9IY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066398; c=relaxed/simple;
-	bh=dT4FNCiiMtIXPLJOvuFJF0jefoKwdOcRJ3SvzlEgqv0=;
+	s=arc-20240116; t=1789066406; c=relaxed/simple;
+	bh=VvXoNF3sMeo2fpv2qDY0aBbxOZBUbISC5Fqd+S82nYA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Db02nnvRCzTuN6Lii/UgWrje7irnGeqT2qTNnRso2NvWU48oeYNhZNih3dXrewvuht9IEWFK6dGK3mvcwYA9QIReWgvmiH94vDldGzOVGE38jje2QnCNVnr2jYVWZE6IISdISdVjlajJwUZxHEGdP4JQ9INs3dCDpFOEU7/ki9A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Sw2RHwaa; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=MTG1DMVggJXwTOp0r1HQXv9wHHG0f92wFX1EHl+UNh4B9WYzpBGhCvDvIQhjgHujZLEYdpP7kpsrCCcJVTJJfH0dW9lECgPA8cpKxJ8jSY9enEY+tt+s7/ZMF+VxqgElUcbpGEMkvBVp835SS65BJyzbassz4Lmlt4TuWVECxCs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AMdhZ8K3; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Sw2RHwaa"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so10141e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:53:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789066392; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AMdhZ8K3"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c2so18305166b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:53:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789066397; cv=none;
         d=google.com; s=arc-20260327;
-        b=bq8zFQh8beqB50rSui7uHtn4sld7hxsvpyzc7qtfaSLrt3YlBxypDQvxqJ9hgHp3eW
-         9hRasBKgldTXzKKgDeZSCejHWdRbcfCF1KJcwbSue/Dn5ZMk5v/lTyiym+/Ym9c5GuOv
-         DJxRskUHCwdZgTYgqQTPef9YhqbJTF1C84pU9PxYttpar7WrAeBAN5OckCSNH2UN7n96
-         OyrId/YfSTe0m1AoyroXo2YJQHEjI4YKNzX/zEWR9PVc5u66Z+o0cBuZnUhaPCaD424P
-         jZZVGJGtQYlzoYzKvUULIOR47bqcYXuEaSb1LaEaojQHriJThstk4l9xHnaCpL0gXtnl
-         Os4A==
+        b=n8rYqZTJmyR7o0IVesanaJCHP3nLhDh0omJ6nj8cSUkIjDnpeo8ezQax8gNGVwcLkw
+         iyBJ/TKX155nC+Ee7bT9SCKe0YRpe1Xn0fW2pnJIdsksPcxJSEOd0ELggE5cL9NjY20R
+         tbU18TxDgiCAVmiO93mf/xMwvIRnJzQMz/RfjzoSc/LaAGGhxRB2lLsDjFadLnK5OPzI
+         khjDhfRwlNKqMSTRhbFJzYomX/x3wo6AOHMu9clEPYmc9I2xiBlz8OkEy55U7rGjsOLM
+         9HOTcoQmOnanCymo3DRYd3sw3X+qVSBzs+Qzgwt5OvHxiG3x705VKp0QXyfNaoPKJrD/
+         JO9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uPA7h1yzQiskXY53xtPOVbRZgGvwK1v/3hUYMrYw/Xg=;
-        fh=SFkkkL1s02KOOq/YaqDb9AFUmuDSji2SCGD1K+KZN4o=;
-        b=gTXbdwy/eCx9O71VM3nO8ojbRsYvtahNQ/jPwE/BUkptSPCEokMiWH5J17bA90QeqP
-         zCJBH9ynH+kUG5/dZTqc0xJ0wN6/LZicuz8f+818zKWuu0CAP7tvsE5obnIT4bgCnNaC
-         JHIzapqf+gp5SgXdL/0sqxzF7XQ991u+O/SxzFtv7+aKFrEut7IO0moE3HqNfZF3fjcM
-         GgY2UDzG7IKVOcKeHaW3HEGpm/hnVV1+gA0d0S3oj1nbBYHh7MksLcrFe/AVBHPpdcsv
-         kUleBRBai8ZXjIicIUIMfcumNOfo3x/KQqMzwbA8Hf2M8r51Tz5mF+33wLH83mvNQgCp
-         5OUA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sJedgFbA0a5dZ7UM3Qt2A8RF0LRRqtbYOuDEXTxhdkg=;
+        fh=v0Z2Lp6UjKOhtFJh7dSMPcbryxDhkwTCDAi40cim11E=;
+        b=sUMprz92w0IA6Z+kQdIFeyxe2A4q4ccOR1J7ET37j3TyTyVaqxm42oTg/yt4trdSmp
+         ta7w2Zuue1jc4UYbuMbtLklHLD5GN/Vaa4T78bRMThdwCEknUBkc1+KZYaWylfl3Qwqx
+         +sMPVRTU+f3BLcWQ2aitLXPa4er26OtsfBK/TQDm42I/27M7rCKYK6GhSp6gEwZPiZKS
+         YoeVJ0jJ5mD0JE8WkgJ+r97VWjsnpcbsrwDgtdI9DOLSJMIJL/8v6WeT8O7Cf0BJ/Ogo
+         d3H6wmoavJ0GUQmIUvenCptqFoRh0OoBBQhxoOJi5ihpRaKeGnhLiR51Bpjb3NqdpL1F
+         2Vgg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789066392; x=1789671192; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uPA7h1yzQiskXY53xtPOVbRZgGvwK1v/3hUYMrYw/Xg=;
-        b=Sw2RHwaaXxf51aB+WhflsVPXZjPmG14dd4LokBPYZn/6ZK7idt0TuWHcwAav/rWQ/J
-         eDL6t8jrNOzhMjtU1SidTyEOOIwal+t61/w4oylo6ShSyZHYn7vrPXaTTkeJ125mtlzp
-         6dgwX6oRGqeQoen7xjJiFujW4kOEQWd5pX8BhfUxGS+fNbJQ7XnqkrnIWsCw0ykKcA1V
-         Hru4wYgKWBHQ9f1dQi3R0+hFBxyDmOm4+9SCetyVRT2TG1svlCRnmbi7ps8RcMSy/x+b
-         QMEzSPV81L3d30DWJPWPvUFoT7OY6HznQulPA05Ceuu5BvYhjvJPtKUhjtANy084mqoZ
-         EVkA==
+        d=gmail.com; s=20251104; t=1789066397; x=1789671197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sJedgFbA0a5dZ7UM3Qt2A8RF0LRRqtbYOuDEXTxhdkg=;
+        b=AMdhZ8K3Z/qcyQ0KXyhN9VufTLn54TfCpOZV4MHMe2MQRHj0s/b9KJqeT7sPyQOIXo
+         JkfnshlGeOLSvYdZwn8fz/lJebqKRGPNrew5AgwQ5umh6X5l967lgkyFw2sL/YdifmNB
+         0TvZM9pgkKlcSmH3UKZdfIN5n4qt7eU9xMgOC4xdsUxaVvqUFlxvItUShsN3bRi0zhFS
+         3igpwt5MFVmLZ8D0Ub4qa56ngpjr/XI9iBaj09BFtWvflQTl0SuKE/IrW3sfJZnKmPQb
+         Ftds0Vt6lKiyz5bSYtefWcfLqtbHBI6Ch/7OrwVbzAQcJCpR7ZfFjUelGEtgjTAb+W7k
+         PxkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066392; x=1789671192;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uPA7h1yzQiskXY53xtPOVbRZgGvwK1v/3hUYMrYw/Xg=;
-        b=qNmBylhiCIFDmJSb+ZJci2f9ecRntJooRm5H6NZYlVYuITHt9PyYDQ6BGYGGPVaj2a
-         sg3qIMYLbo67oXJj8LEU/PS9feuPtgripVIaHInQNI+YubX1OIJ+bMGdMHOx3RNkVKG+
-         8ff/h/7kLvYFiipz0d84DHzeMhh/gXQRUXwRM96JtSibyi1Hw6m5z0mw2u+reT6Z3HzD
-         xiN7TWmGB/+n6Vs06WD5NzdW9RXO/yw4VeDHtTeNzdWY3PSkVsCQzVtHjvRoBTn1gtu4
-         /kzH2YIJpje3hVnzssgS6Um84pXxKJQ6PWV4nPERX9+1jmKl9UohUSZMy3CfXn0W9dzK
-         EzAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxdqyx5PJ56yV++vMWJyuHuDEvurje6rotmdggs3UB8w7nT1QpJvZnnT0AFh2NNSJ3bf6WUbOirjoEf98w=@vger.kernel.org
-X-Gm-Message-State: AFuF++muF+9TdIQNSh7bHSB04NWG45RhLTEOy0b9evW5ke2wkCjIn+Vi
-	UL1g03gTwuySReytks0nvD6+NCaWsa3cmx8y4bBlOyDEY/Fb/vPQ7q+OZZjg7ns0JUimDANd/z+
-	jpB2d53m3BwT5hClnYfQDZYVD77BNKoeSWSFav/5F
-X-Gm-Gg: AYBFou3cEeUZiTgGoPDbtTTev2JaJWV2DkKXxfZwMTmgMGgNySGud7SqE+gLWaKynOP
-	/j8TMs+dSZDGC6Cy1YIJYjV+7ZVGRSquSFcRcX3o2C5LOaMDH/cGlA5ipQ9wsAWRd748a6BwDWC
-	0zXHa9OxZbLKzWkgqyVKIfnkgiSjqwtTgY73N2I4JgWNJZwwHxXLfkLo7565klZG7X6UHvr0kDO
-	eY2ipGbk+1bvqT9KGq13oC4gj1eiu7uJ+2sTMSxMGHOnQ7bK+JLZ5h38eg81tjQgl/O/lJlUZu3
-	MMXzsjWwek4GFly5nbAWM7fiVRfx/D9j+GDWvdbGEbt/qczIr4ifNWLEIrbsDTjGfh5QeBY4Gns
-	KIN0IiOAY12dmmg==
-X-Received: by 2002:a05:6512:4009:b0:5b1:4fd9:ac with SMTP id
- 2adb3069b0e04-5b8a07a0e5fmr23463e87.3.1789066391400; Thu, 10 Sep 2026
- 11:53:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789066397; x=1789671197;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sJedgFbA0a5dZ7UM3Qt2A8RF0LRRqtbYOuDEXTxhdkg=;
+        b=eBgMTYI240eEbSsCgnPHW7adGwp5YHl9RABB8NFc+qIpMM4ML4hjVcYudNI8YzQV/q
+         mHy3Qv1WlyUOBCQBlfQsdZ1YOH2P7YvS+CTuuQyCKTa+IpbEa03iYuq+f9Tn+Hgzg4ev
+         WTh83JDADX4A0GBDI2rYibT53HNhjKzgx7IeLJgk/XwG0gqUzBfY2iVCN1yY5KgKBbZe
+         Tvxa2EJRUyyUO8rZxj5+FK5PG+uyxCXMEu0gXXtptZSaF7MffkMICvCXxpw9lTgOVUUh
+         Jkwv+gz8kmXqiO5v2XiNyoUTiTY2clHagk1rJqoKRFmHPWTZb8M3LPhJFaTw9llqxUsa
+         rpWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByuxVWQXlwKnAQ8wSChOSDavNmTIB2Idui3IsjPgGv6+Obl3n6clPFywxTsBmDL3jaud3LZxAppRJXwaC0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTKI4j/1dcUcjLCiUIPw9RIbEfmVmP/isMRFN+4bP1Vz94/HZK
+	1sBzFd4DgCN19cL0ACn9kVU5FeyiyNOxjxi7SUUdDWXIovEBPIbA9vP209AJQy/oFDTpZY0D4+C
+	4DUPBbMJQpx3w/IsOMYTFQ4uhGdPwPaEfrzvd72c=
+X-Gm-Gg: AYBFou0s6jysEhHaOKN8xZGNEkqeGAOsp3Ej+rL6VAUybEy5nK4GU4/+7cXY0VIiHvC
+	fpQFjBvxpYBh1wpbbQ4AUHG9TQThWBVeP1WOIxlx6YXZRPl0Tswz9GXdyGlB/uI0QzSQhkhxf3l
+	gkP87YVjQL1APXviLClwXQqAIAxILLLa8lnXyB4ApfdsSicCuzLOFUXDWph3tLEu+yk1ZJBn/67
+	4U68XPBeM+yM3Kwso8P8/BcEBN/cxDbVjeV9f6TIyS7KSi21siHpqcH7nxXmhPLmivUPzzedjAp
+	0Y3bbJRNxv8KTbGB/g1w6TEAF07kF0lJp3AGuu6XEhY0niILiGK214lHsrsBSDT+sAJ3IDCgHmN
+	ZmIQqDc1njb1Y
+X-Received: by 2002:a17:907:97cd:b0:c25:b706:e59 with SMTP id
+ a640c23a62f3a-c29666f49e8mr191366b.17.1789066397017; Thu, 10 Sep 2026
+ 11:53:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org> <20260825-kvm-arm-prefault-v1-6-befe8947702e@kernel.org>
-In-Reply-To: <20260825-kvm-arm-prefault-v1-6-befe8947702e@kernel.org>
-From: Fuad Tabba <tabba@google.com>
-Date: Thu, 10 Sep 2026 19:52:35 +0100
-X-Gm-Features: AcwNN1XPPeWtd-a0jzst6s0fMnTr0aHfMbhg6rA4kjyMckfbadgDOVe553duj-k
-Message-ID: <CA+EHjTzOKHNrf=0n2c_E+vbt=pGquz6qzBpJ+eLJ5hjK_nyJMA@mail.gmail.com>
-Subject: Re: [PATCH 6/8] KVM: selftests: Enable pre_fault_memory_test for arm64
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>
+References: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
+In-Reply-To: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
+From: Ping Cheng <pinglinux@gmail.com>
+Date: Thu, 10 Sep 2026 11:53:05 -0700
+X-Gm-Features: AcwNN1WtBzIj10yYVWNSv1D2MgnrM6PZMOlbKADR-R4JWexEKJoN-9DMVJ_y5ok
+Message-ID: <CAF8JNhKJES5xkXd4VQxwp_sV_jUsgLsqFz+OJADL0-neY-W1Cg@mail.gmail.com>
+Subject: Re: [PATCH v10 1/5] HID: wacom: Use hdev->product in wacom_setup_touch_input_capabilities
+To: Lee Jones <lee@kernel.org>
+Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Aaron Skomra <aaron.skomra@wacom.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Peter Hutterer <peter.hutterer@who-t.net>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 25 Aug 2026 at 17:01, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
->
-> From: Jack Thomson <jackabt@amazon.com>
->
-> Enable the pre_fault_memory_test to run on arm64 by making it work with
-> different guest page sizes and testing multiple guest configurations.
->
-> Update the test_assert to compare against the UCALL_EXIT_REASON, for
-> portability, as arm64 exits with KVM_EXIT_MMIO while x86 uses
-> KVM_EXIT_IO.
+Tested the whole set of v10. Status stays the same:
 
-The message says this updates the test_assert for portability, but the
-parent has no exit-reason assert and no struct kvm_run; this patch
-adds both, so there was no hardcoded KVM_EXIT_IO to make portable.
-
-...
-
->  int main(int argc, char *argv[])
->  {
-...
-> +
->         TEST_REQUIRE(kvm_check_cap(KVM_CAP_PRE_FAULT_MEMORY));
->
->         test_pre_fault_memory(0, false);
-
-Would it be worth adding an arm64 case for gmem_abort()'s pre-fault path?
+Acked-by: Ping Cheng <ping.cheng@wacom.com>
+Tested-by: Ping Cheng <ping.cheng@wacom.com>
 
 Cheers,
-/fuad
+Ping
 
+On Wed, Sep 9, 2026 at 4:27=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
 >
+> Replace the lookup-dependent 'wacom_wac->shared->touch->product' referenc=
+es
+> with 'hdev->product' inside wacom_setup_touch_input_capabilities() since
+> 'hdev' is already available (via container_of) and represents the touch
+> device itself.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+> v7 -> v8:  New patch
+> v8 -> v9:  No change
+> v9 -> v10: No change
+>
+>  drivers/hid/wacom_wac.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+> index 8feb8027be95..7cf2b4de52be 100644
+> --- a/drivers/hid/wacom_wac.c
+> +++ b/drivers/hid/wacom_wac.c
+> @@ -3966,8 +3966,8 @@ int wacom_setup_pen_input_capabilities(struct input=
+_dev *input_dev,
+>  int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+>                                          struct wacom_wac *wacom_wac)
+>  {
+> +       struct hid_device *hdev =3D container_of(wacom_wac, struct wacom,=
+ wacom_wac)->hdev;
+>         struct wacom_features *features =3D &wacom_wac->features;
+> -
+>         if (!(features->device_type & WACOM_DEVICETYPE_TOUCH))
+>                 return -ENODEV;
+>
+> @@ -3976,9 +3976,11 @@ int wacom_setup_touch_input_capabilities(struct in=
+put_dev *input_dev,
+>         else
+>                 __set_bit(INPUT_PROP_POINTER, input_dev->propbit);
+>
+> -       if (features->type =3D=3D HID_GENERIC)
+> +       if (features->type =3D=3D HID_GENERIC) {
+> +               hid_dbg(hdev, "generic touch setup\n");
+>                 /* setup has already been done */
+>                 return 0;
+> +       }
+>
+>         input_dev->evbit[0] |=3D BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS);
+>         __set_bit(BTN_TOUCH, input_dev->keybit);
+> @@ -4010,19 +4012,17 @@ int wacom_setup_touch_input_capabilities(struct i=
+nput_dev *input_dev,
+>                 input_dev->evbit[0] |=3D BIT_MASK(EV_SW);
+>                 __set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+>
+> -               if (wacom_wac->shared->touch->product =3D=3D 0x361) {
+> +               if (hdev->product =3D=3D 0x361) {
+>                         input_set_abs_params(input_dev, ABS_MT_POSITION_X=
+,
+>                                              0, 12440, 4, 0);
+>                         input_set_abs_params(input_dev, ABS_MT_POSITION_Y=
+,
+>                                              0, 8640, 4, 0);
+> -               }
+> -               else if (wacom_wac->shared->touch->product =3D=3D 0x360) =
+{
+> +               } else if (hdev->product =3D=3D 0x360) {
+>                         input_set_abs_params(input_dev, ABS_MT_POSITION_X=
+,
+>                                              0, 8960, 4, 0);
+>                         input_set_abs_params(input_dev, ABS_MT_POSITION_Y=
+,
+>                                              0, 5920, 4, 0);
+> -               }
+> -               else if (wacom_wac->shared->touch->product =3D=3D 0x393) =
+{
+> +               } else if (hdev->product =3D=3D 0x393) {
+>                         input_set_abs_params(input_dev, ABS_MT_POSITION_X=
+,
+>                                              0, 6400, 4, 0);
+>                         input_set_abs_params(input_dev, ABS_MT_POSITION_Y=
+,
+> @@ -4052,8 +4052,8 @@ int wacom_setup_touch_input_capabilities(struct inp=
+ut_dev *input_dev,
+>                 fallthrough;
+>
+>         case WACOM_27QHDT:
+> -               if (wacom_wac->shared->touch->product =3D=3D 0x32C ||
+> -                   wacom_wac->shared->touch->product =3D=3D 0xF6) {
+> +               if (hdev->product =3D=3D 0x32C ||
+> +                   hdev->product =3D=3D 0xF6) {
+>                         input_dev->evbit[0] |=3D BIT_MASK(EV_SW);
+>                         __set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+>                         wacom_wac->has_mute_touch_switch =3D true;
 > --
-> 2.55.0
+> 2.55.0.979.g7e5102b832-goog
+>
 >
