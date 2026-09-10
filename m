@@ -1,439 +1,168 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505353AB285
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789017902; cv=pass; b=QIDQLDcvY/VvnFYe4paqirOqxYMR4fp/WGzyaSQR1yt1/OmY4uZIa8MPWRPvFZOaNUbC1W4XR8fHZ7I68NUr2Xg3yTktc+Z6FNhaUfz/jvjtt8KIVUBVWuQxl9qHWDUben7ddAFUHHXcm0z60IVlzTwxGEW7oM6aqMEBTNxAzJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789017902; c=relaxed/simple;
-	bh=ePU8bjQfcitI3JNEWqMUHPynSx8EHasei0zR7xs5xs4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dvcPZVnXBhYvoR5jgk9EGXSMM0LsHYEGWp6sGQdUg+qTY39A0Ed6mLIgpre+JkLuZaN7+H5svCBg2c2o50oN0eGm5RstmhBb2kA3YPOB5XPbw6zwdXxKArMC5oAiqynFl+3kfDEWjwKmnlkwiiC8Pmhy//RORIT5HeM+EoNWW6g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h2+4E1IV; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9C31C567;
+	Thu, 10 Sep 2026 05:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789017921; cv=none; b=ciEX5ytRX5DPUsX21FML85HD0Hn6w8RYt89hVyrWnwHm/ZPhkBMsYukxilJutBq6lhzbQUu1VUZWpuykcN6PwK1skH/6fUE+JGMAz66RXBtkhpY+uKTB1vqnGwoCIJUrfP7wYcK2j5/sFrHFd2H++WHuDe2pLZS3QlzyL12RiME=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789017921; c=relaxed/simple;
+	bh=uZ+ssNGzeWn88XPZBM3YsBmV0LDaX6yeh90MmKOv5Hk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EAVLKuTIQn2BaUi3jx+27qIzyiE7+h8J1pUdh14JKvQ60hyT83E4W1Ra97Zv4duiMn3fb9RgivgQKJa+n7moEBB9UYsSY1VNrlLaH3kMo2yAmei5qaH9r88WYTo8CtRmJPzBgbeiCfZ+ioq4xc8giPR74TLwWDB0MMmO4tVr/0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=tzj8/bIy; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h2+4E1IV"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb750so1804814a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 22:25:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789017899; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XQ4+PtXqstsjxMC701dqxGL0ucSDllG1X1GcObZDEXFIB6gDYzP6wKfaGLrNtb2eWM
-         LwpthysgiKbnJUq9qYAzwVGVeeUyBD/yhob/+RNwW68kwcq292IMKrWST//b4UuEJ2Sb
-         aF5FUv4cXEA1S0u5ZZNmqmUiZoKM9+1ellMQOP8mDubcct/pY52i2z1n4f+Q3i5ohCEx
-         TkvFoWrk7VCqvYZB0mvggv4GXvV7morviv2Y2XsrYjt1Uzv6wyxerkBhZfzo+dudsovG
-         hf1v095BZ/8wWYdxzLuyqkQHYM2qaCW3OoIwGsXyFMy0liKcYgbqMNSwLorW95R/brES
-         u2OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1Ef7cZ7LIz7YkH+5bkyed2cZws3jPF9j96GwnoqHnhY=;
-        fh=C+3zAo1GyMqtnnjKY1UaWbtLuLxipdfsTS7aYS+zL9o=;
-        b=MtpzdzebqQwZSLVJ98iSgfJF0k8FAhnUlqx0XdPmDkXuhajPO/zq9aEUtHn2rrjREw
-         jY4PPWTqqnEydmBlMiKat+RCTxC1venLo6QxF7VIjWj8rtkS8t+/1ta055Mv0ZNisYDa
-         XjX6uD8NNh42vyXp9Arnfg90OVi/oNnzBFrtsXWa3x7JxiUvGdeZk7EvSMSCq750+OGv
-         2ayFUJbpciltIep16P0FCLgF+k+xwqcCqeCmjIJDTZZrxXmJgnIJ200hCoYolnRCVWXC
-         NnXzLRK31xqe73xFqnRlgeP9U1uWhqARA8/u2Zb1PBnaSn+1gnPesZqCjJ84OVbqzTuz
-         mxHQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="tzj8/bIy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789017899; x=1789622699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1Ef7cZ7LIz7YkH+5bkyed2cZws3jPF9j96GwnoqHnhY=;
-        b=h2+4E1IVkvE8tfG4Derp0gVLmwaUa+NxVwtjRgpVR8uCA4Nyif5YUfOvS4PacAy1k7
-         emH7ShA62R7FUWCP2ttN0m1bvdlkcm7BWQAJDsEVbdLB0Tw2tlb35aA+Wf+wkJ/GeIqx
-         3AD2FB7nF8DbCN3r9RN0KzyAHDl7LvpCsUdsZ/e+/ZTCyppaJ7wcDb0cC2YoTmc8aGpI
-         S0Yf1tq/FhCKOQqKqzM4rLSVBCwxSa7hYnWZo3oWlqJWsQ+LIKL2m1vI51QiVhiq/n5S
-         pNvN0W1eGfSy1pWEwLKbOVRSLyvvKukGRlJ0IR4uYL5KKmjKEC93t5Duawh72dHzVjJy
-         J8kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789017899; x=1789622699;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1Ef7cZ7LIz7YkH+5bkyed2cZws3jPF9j96GwnoqHnhY=;
-        b=Z0yEvr+90xtjX0kBMEmN+n0g1eeOaRldTuF/mp2Fub0VPFGru7Uw60ZWR7uZh127bn
-         CgkFthGXLdgxsyChVMPe+St6duE4FIr4tDkQZ/pwRwba+UmybCJRad5XFbBUihI5sggw
-         kxHNBoVfC+N+ICQZUeL1o9T7t0zCIagQSsOqhEyMFEYdOZnwHVDJ/ygJ7XdBlOws+7I9
-         Vn1twLSw2vYV6u22UQZEW6JI3j6hjgP99a1Le/Y/o6iJDUR/kci6Q3aqS9Y2NwhE4Q6U
-         i52st78VIgRVH0eT5mX6Oe0RGgWjWS5BGeoMK5cefPPjqUktNzlqHEV/9MiyWL/CAUBj
-         zIRg==
-X-Forwarded-Encrypted: i=1; AKwUvByDm98p2sb6mwRMTFAC4aaP3n1Blszg1mZNIyOr+iABMsY1Re2MBX/Xizz0ZeG1deO847po4wUgmE7E7mQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmVFhU8htZC1mz37Xs/auqnrUU+L8yx7znYkK4ge3KseZwRbMC
-	UldwlWhIPcc19qwOB3AMa4TFiZjoPwDxfJw+RrycehtV64GnU7GAMSKkImNvQieAO7K5nWMZBFH
-	Y4dyYYshsxFytlX6D5oac1OE7RFuBdTsThmpyZn8L
-X-Gm-Gg: AYBFou3+hdnHsCnB28eVqGAXvvTDB8Vwj97Q/4Gyya14g4t/n9tTl8L8CgdS6qryjzT
-	jsLGlacow8RUCZTCjl/DNkQtU/9hV7ubZ/X218nzJryM3F56KCdlRu2huy37y0m17yhjsaKTiis
-	0b8Z8IFLP3v5y8ZD7dbQrNcsMbm5ueznnbEeaX6lYlMTsQtSLOoch1oAiZ5G+VPGwqwdouV70uK
-	9qB1eLLjTBZfsVCoGzZ1kqWuUFYDvpQuvVHfm4fQ1Z0o/5yWc0N3nngPcC4wdM2l4MEqwIe2cil
-	ClknZhylUtdQ1ZF8Mjo6aiR0pV67klvtWd+5Mx0f3XLKivSs/J85twI5FMAiS8GL82of681MhvB
-	ADGrGrzY83W9+arMCbKq97l8GDO+sEovpYtYPMAYezXsL7Pj5gTKWMS/o9lCUfU27KMljEN4hgZ
-	QSnXPEpXCREkeBXVobQq6eppuS
-X-Received: by 2002:a17:90a:d00b:b0:399:221d:63c0 with SMTP id
- 98e67ed59e1d1-39bac471324mr16616729a91.25.1789017898717; Wed, 09 Sep 2026
- 22:24:58 -0700 (PDT)
+	d=gibson.dropbear.id.au; s=202608; t=1789017905;
+	bh=JR2Q4OdCncZTd7kV/GRzEYc5v6YjxwiMVH0HTM9z8k0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tzj8/bIyc01oRLQ5TCRuEFV7f2B1avVY0NuWkrfcxp/9nSrIvw7E3sYb2WjHYmKy4
+	 /yw+IkI9vOmjKwLladBuhuCHQkN0nwbzJSrx2ZKpWjK3fraWDtMYyEn9P5rWvMZcsV
+	 vfZEDEcpUL7IfP1quUK5n7Mgq2IwHYbtWhZrB+UVaZNI4sy455CeSBTagDYjfzN3zv
+	 vnhMAaDr9BfrE2s51Ha3S6lRMXq8+FR2+vPSd9NU2inV6PBjvd8s7Q6/DhqLM+Rfme
+	 Gl7vX5lvAzj/QhQggiEZrwTiWXEvt6YMgPLuDYwuPTTLaGPdXqNtCuJxxfWFsR4Krf
+	 sMwCVcYqvqPMQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hgR2T6v40z4wKv; Thu, 10 Sep 2026 15:25:05 +1000 (AEST)
+Date: Thu, 10 Sep 2026 15:25:06 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 07/15] fdtdump: Handle unknown tags
+Message-ID: <aqI_KDZS9Kb6fwIG@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-8-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org> <20260909-work-unix-passpidfd-v2-3-7bd342abb2d1@kernel.org>
-In-Reply-To: <20260909-work-unix-passpidfd-v2-3-7bd342abb2d1@kernel.org>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Wed, 9 Sep 2026 22:24:47 -0700
-X-Gm-Features: AcwNN1WK9FWU9GOte1zZj9C0wAPvirY3Ssrn9oO6-a1S_kCBQm8kLil1vJJi-iM
-Message-ID: <CAAVpQUAK8uhZtO+oza3=5qfZvxy+RHFQd2AQ2y9FpWKbK5jgyg@mail.gmail.com>
-Subject: Re: [PATCH v2 03/10] net: add SO_PASSPIDFD_THREAD to get a
- thread-specific SCM_PIDFD
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1XNe0gd8oWdHUCb+"
+Content-Disposition: inline
+In-Reply-To: <20260826083146.304291-8-herve.codina@bootlin.com>
+
+--1XNe0gd8oWdHUCb+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 9, 2026 at 3:43=E2=80=AFAM Christian Brauner <brauner@kernel.or=
-g> wrote:
->
-> Currently, SCM_PIDFD carries a pidfd for the thread-group leader. A
-> broker or the coredump server cannot learn the identity of the specific
-> thread that sent a given message. Now that both struct pids are recorded
-> a receiver can ask for the specific identity it needs.
->
-> So add SO_PASSPIDFD_THREAD as a sibling of SO_PASSPIDFD. Either option
-> makes recvmsg() deliver an SCM_PIDFD. SO_PASSPIDFD sends a pidfd for the
-> thread-group leader and SO_PASSPIDFD_THREAD sends a pidfd for the
-> specific thread.
->
-> The two options are mutually exclusive. Enabling one switches the other
-> off, so getsockopt() always reports which of the two is active.
->
-> On SOCK_STREAM sockets recvmsg() only stops merging data at a thread
-> boundary when the receiver asked for a thread pidfd. For SO_PASSCRED and
-> SO_PASSPIDFD receivers all threads of one process remain a single
-> writer.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Wed, Aug 26, 2026 at 10:31:38AM +0200, Herve Codina wrote:
+> The structured tag value definition introduced recently gives the
+> ability to ignore unknown tags without any error when they are read.
+>=20
+> Add support for those structured tags in fdtdump and introduce a command
+> line option to dump unknown tags that should be ignored.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > ---
->  arch/alpha/include/uapi/asm/socket.h  |  2 ++
->  arch/mips/include/uapi/asm/socket.h   |  2 ++
->  arch/parisc/include/uapi/asm/socket.h |  2 ++
->  arch/sparc/include/uapi/asm/socket.h  |  2 ++
->  include/net/sock.h                    | 10 +++++++++-
->  include/uapi/asm-generic/socket.h     |  2 ++
->  net/core/scm.c                        | 19 +++++++++++++------
->  net/core/sock.c                       | 26 ++++++++++++++++++++++++--
->  net/unix/af_unix.c                    | 11 ++++++++---
->  9 files changed, 64 insertions(+), 12 deletions(-)
->
-> diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/ua=
-pi/asm/socket.h
-> index 946a5fad2691..bb3d534826bb 100644
-> --- a/arch/alpha/include/uapi/asm/socket.h
-> +++ b/arch/alpha/include/uapi/asm/socket.h
-> @@ -157,6 +157,8 @@
->
->  #define SO_RIGHTS_NOTRUNC      85
->
-> +#define SO_PASSPIDFD_THREAD    86
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64
-> diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi=
-/asm/socket.h
-> index f1641dde135f..269badcaa086 100644
-> --- a/arch/mips/include/uapi/asm/socket.h
-> +++ b/arch/mips/include/uapi/asm/socket.h
-> @@ -168,6 +168,8 @@
->
->  #define SO_RIGHTS_NOTRUNC      85
->
-> +#define SO_PASSPIDFD_THREAD    86
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64
-> diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/=
-uapi/asm/socket.h
-> index f3a3815c7dc2..313aee10a52c 100644
-> --- a/arch/parisc/include/uapi/asm/socket.h
-> +++ b/arch/parisc/include/uapi/asm/socket.h
-> @@ -149,6 +149,8 @@
->
->  #define SO_RIGHTS_NOTRUNC      0x4053
->
-> +#define SO_PASSPIDFD_THREAD    0x4054
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64
-> diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/ua=
-pi/asm/socket.h
-> index 7907f3b1f0ee..bd3e69bcce7a 100644
-> --- a/arch/sparc/include/uapi/asm/socket.h
-> +++ b/arch/sparc/include/uapi/asm/socket.h
-> @@ -150,6 +150,8 @@
->
->  #define SO_RIGHTS_NOTRUNC        0x005e
->
-> +#define SO_PASSPIDFD_THREAD      0x005f
-> +
->  #if !defined(__KERNEL__)
->
->
-> diff --git a/include/net/sock.h b/include/net/sock.h
-> index 51185222aac2..fc09c92e8a83 100644
-> --- a/include/net/sock.h
-> +++ b/include/net/sock.h
-> @@ -356,6 +356,7 @@ struct sk_filter;
->    *    @sk_scm_security: flagged by SO_PASSSEC to recv SCM_SECURITY
->    *    @sk_scm_pidfd: flagged by SO_PASSPIDFD to recv SCM_PIDFD
->    *    @sk_scm_rights: flagged by SO_PASSRIGHTS to recv SCM_RIGHTS
-> +  *    @sk_scm_pidfd_thread: flagged by SO_PASSPIDFD_THREAD to recv a th=
-read SCM_PIDFD
->    *    @sk_scm_unused: unused flags for scm_recv()
->    *    @ns_tracker: tracker for netns reference
->    *    @sk_user_frags: xarray of pages the user is holding a reference o=
-n.
-> @@ -562,7 +563,8 @@ struct sock {
->                                 sk_scm_security : 1,
->                                 sk_scm_pidfd : 1,
->                                 sk_scm_rights : 1,
-> -                               sk_scm_unused : 4;
-> +                               sk_scm_pidfd_thread : 1,
-> +                               sk_scm_unused : 3;
->                 };
->         };
->         u8                      sk_clockid;
-> @@ -2986,6 +2988,12 @@ static inline bool sk_is_stream_unix(const struct =
-sock *sk)
->         return sk_is_unix(sk) && sk->sk_type =3D=3D SOCK_STREAM;
->  }
->
-> +/* SO_PASSPIDFD or SO_PASSPIDFD_THREAD asked for an SCM_PIDFD. */
-> +static inline bool sk_scm_pidfd_wanted(const struct sock *sk)
-> +{
-> +       return sk->sk_scm_pidfd || sk->sk_scm_pidfd_thread;
-> +}
-> +
->  static inline bool sk_is_vsock(const struct sock *sk)
+>  fdtdump.c                              |  45 ++++++-
+>  tests/Makefile.tests                   |   3 +-
+>  tests/meson.build                      |   2 +
+>  tests/run_tests.sh                     |  41 +++++++
+>  tests/treegen.c                        | 162 +++++++++++++++++++++++++
+>  tests/unknown_tags_can_skip.dtb.expect |  29 +++++
+>  6 files changed, 278 insertions(+), 4 deletions(-)
+>  create mode 100644 tests/unknown_tags_can_skip.dtb.expect
+>=20
+> diff --git a/fdtdump.c b/fdtdump.c
+> index 0e7a2659..7a8b2784 100644
+> --- a/fdtdump.c
+> +++ b/fdtdump.c
+> @@ -44,7 +44,7 @@ static const char *tagname(uint32_t tag)
+>  #define dumpf(fmt, args...) \
+>  	do { if (debug) printf("// " fmt, ## args); } while (0)
+> =20
+> -static void dump_blob(void *blob, bool debug)
+> +static void dump_blob(void *blob, bool debug, int dump_unknown)
 >  {
->         return sk->sk_family =3D=3D AF_VSOCK;
-> diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic=
-/socket.h
-> index 84ea7b92936e..d1e5c6de146d 100644
-> --- a/include/uapi/asm-generic/socket.h
-> +++ b/include/uapi/asm-generic/socket.h
-> @@ -152,6 +152,8 @@
->
->  #define SO_RIGHTS_NOTRUNC      85
->
-> +#define SO_PASSPIDFD_THREAD    86
+>  	uintptr_t blob_off =3D (uintptr_t)blob;
+>  	struct fdt_header *bph =3D blob;
+> @@ -146,20 +146,55 @@ static void dump_blob(void *blob, bool debug)
+>  			continue;
+>  		}
+> =20
+> +		if ((tag & FDT_TAG_STRUCTURED) && (tag & FDT_TAG_SKIP_SAFE)) {
+> +			sz =3D 0;
+> +			switch (tag & FDT_TAG_DATA_MASK) {
+> +			case FDT_TAG_DATA_NONE:
+> +				break;
+> +			case FDT_TAG_DATA_1CELL:
+> +				sz =3D FDT_CELLSIZE;
+> +				break;
+> +			case FDT_TAG_DATA_2CELLS:
+> +				sz =3D 2 * FDT_CELLSIZE;
+> +				break;
+> +			case FDT_TAG_DATA_VARLEN:
+> +				/* Get the length */
+> +				sz =3D fdt32_to_cpu(GET_CELL(p));
+> +				break;
+> +			}
 > +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64 || (defined(__x86_64__) && defined(__ILP32=
-__))
-> diff --git a/net/core/scm.c b/net/core/scm.c
-> index 9b9e119c353a..d69768414af4 100644
-> --- a/net/core/scm.c
-> +++ b/net/core/scm.c
-> @@ -499,9 +499,13 @@ static bool scm_has_secdata(struct sock *sk)
->  }
->  #endif
->
-> -static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
-> +static void scm_pidfd_recv(struct sock *sk, struct msghdr *msg,
-> +                          struct scm_cookie *scm)
->  {
-> +       enum pid_type type =3D sk->sk_scm_pidfd_thread ? PIDTYPE_PID : PI=
-DTYPE_TGID;
-> +       struct pid *pid =3D scm->pid[type];
->         struct file *pidfd_file =3D NULL;
-> +       unsigned int flags =3D PIDFD_STALE;
+> +			if (dump_unknown) {
 
-nit: Please keep the reverse xmas tree order.
+I'd do this unconditionally: fdtdump is specifically for low-level and
+debug dumping of a tree.  If you want pretty printing, dtc -Odts is
+the thing to use.
+
+> +				printf("%*s// Unknown tag ignored: 0x%08"PRIx32", data len %d",
+> +				       depth * shift, "", tag, sz);
+
+"Unknown" seems redundant.  "ignored" is not really true - you're
+dumping its contents, which is all that fdtdump could be asked to do
+with it.  So I'd just say:
+
+	// Tag 0x<tag>: <data>
+
+Or maybe "Metadata tag" / "skippable tag" if we go with one of those
+terms as I suggested on an earlier patch.
 
 
->         int len, pidfd;
->
->         /* put_cmsg() doesn't return an error if CMSG is truncated,
-> @@ -517,10 +521,13 @@ static void scm_pidfd_recv(struct msghdr *msg, stru=
-ct scm_cookie *scm)
->                 return;
->         }
->
-> -       if (!scm->pid[PIDTYPE_TGID])
-> +       if (!pid)
->                 return;
->
-> -       pidfd =3D pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pid=
-fd_file);
-> +       if (type =3D=3D PIDTYPE_PID)
-> +               flags |=3D PIDFD_THREAD;
+The rest of this LGTM, except for things that will need to change
+based on suggestions about the earlier patches in the series.
 
-I'm wondering how this flag can be useful.
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
-I thought this should be
+--1XNe0gd8oWdHUCb+
+Content-Type: application/pgp-signature; name=signature.asc
 
-  if (pid_has_task(pid, PIDTYPE_TGID))
-    flags |=3D PIDFD_THREAD;
+-----BEGIN PGP SIGNATURE-----
 
-because when the sender sends TGID, this flag is set even though
-it is a thread leader.
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqiPygACgkQzQJF27ox
+2GfoTQ//QOA/J4PlE8TBaJBxop6H1+sK3fYClmCzrm5Qt3Y9GZWouqW9wQoUHNuj
+3pzrHIpgthVl6z3QSv8q/m/jBP0hyLLCw3B83cy5I0Xu97Vf87hZhig04Ak5hJEw
+CBNN6InGpVcEyCr0pp8M07SXA6+btveYv1n2y9a78ljzAkL9N29xyJcg2jvcKyHi
+JpcpCfWu31C2bf5YUVQI1dXjr16KWir8HLBuN49QESqq69JdeCMYcVsvQnt2kT8U
+znjfz5vc87FahKKZyATxRWD1WKdxcvMmxa2Tdpthbi9REhJdaN5zXV1Y3Hvs9Amq
+8sdk/+e3B5eBrUJ34l8Fs0y3TH/pYftNt/mARB7nSq41XJcKJDuTMimbGIugU4lJ
+HSGheNY+qN1CJHEedo/n/aGUIF49Ueqhn/TsB6UYFZAbaYs9jj1yctNgtD5Klei4
+9WBTy0M6gzFeGUaUJB7EjTuHKmIYKxj1l1N/tlyDO5cbEe//7lI6VpBsYwQ2+x0I
+XWET4rlVT3zQLYiq0864E1zNQG8mjOT+BrzXnvbtPX+Mso1Qsax0es6YFIJmYGjo
+9phsSZP3MftRpBuGtozvBOU9ziO4P9p6xeyn325UWAtxKM/BVe2wYX/rJdjHEg47
+bynOQQmEBv0zSxWSA2vugkZYoPVYMI8+PK/tjdPUIDGiMBix1sc=
+=N2f9
+-----END PGP SIGNATURE-----
 
-It seems PIDFD_THREAD is just feedback of whether the
-receiver has set SO_PASSPIDFD or _THREAD, which the
-application should already know.
-
-
-> +
-> +       pidfd =3D pidfd_prepare(pid, flags, &pidfd_file);
->
->         if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
->                 if (pidfd_file) {
-> @@ -539,7 +546,7 @@ static bool __scm_recv_common(struct sock *sk, struct=
- msghdr *msg,
->                               struct scm_cookie *scm, int flags)
->  {
->         if (!msg->msg_control) {
-> -               if (sk->sk_scm_credentials || sk->sk_scm_pidfd ||
-> +               if (sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk) ||
->                     scm->fp || scm_has_secdata(sk))
->                         msg->msg_flags |=3D MSG_CTRUNC;
->
-> @@ -586,8 +593,8 @@ void scm_recv_unix(struct socket *sock, struct msghdr=
- *msg,
->                 scm_detach_fds(msg, scm, READ_ONCE(u->scm_rights_notrunc)=
-);
->         }
->
-> -       if (sock->sk->sk_scm_pidfd)
-> -               scm_pidfd_recv(msg, scm);
-> +       if (sk_scm_pidfd_wanted(sock->sk))
-> +               scm_pidfd_recv(sock->sk, msg, scm);
->
->         scm_destroy_cred(scm);
->  }
-> diff --git a/net/core/sock.c b/net/core/sock.c
-> index 1ad41904db25..f9615b0de10e 100644
-> --- a/net/core/sock.c
-> +++ b/net/core/sock.c
-> @@ -1571,10 +1571,25 @@ int sk_setsockopt(struct sock *sk, int level, int=
- optname,
->                 break;
->
->         case SO_PASSPIDFD:
-> -               if (sk_is_unix(sk))
-> +               if (sk_is_unix(sk)) {
-> +                       /* Mutually exclusive with SO_PASSPIDFD_THREAD. *=
-/
->                         sk->sk_scm_pidfd =3D valbool;
-> -               else
-> +                       if (valbool)
-> +                               sk->sk_scm_pidfd_thread =3D 0;
-> +               } else {
-> +                       ret =3D -EOPNOTSUPP;
-> +               }
-> +               break;
-> +
-> +       case SO_PASSPIDFD_THREAD:
-
-If SO_PASSPIDFD had boolean check, it would have been possible
-to reuse SO_PASSPIDFD=3D=3D2 as SO_PASSPIDFD_THREAD.
-
-Given two options are mutually exclusive here, I think it's cleaner
-to have u32 SO_PASSPIDFD_OPTIONS or something, which can
-store 32 flags for future extension.
-
-#define SO_PASSPIDFD_OPTION 86
-#define SO_PASSPIDFD_THREAD 1
-
-Then, sk_scm_pidfd_thread will be used in unix_skb_scm_eq()
-and scm_pidfd_recv() only.
-
-
-> +               if (sk_is_unix(sk)) {
-> +                       /* Mutually exclusive with SO_PASSPIDFD. */
-> +                       sk->sk_scm_pidfd_thread =3D valbool;
-> +                       if (valbool)
-> +                               sk->sk_scm_pidfd =3D 0;
-> +               } else {
->                         ret =3D -EOPNOTSUPP;
-> +               }
->                 break;
->
->         case SO_PASSRIGHTS:
-> @@ -1892,6 +1907,13 @@ int sk_getsockopt(struct sock *sk, int level, int =
-optname,
->                 v.val =3D sk->sk_scm_pidfd;
->                 break;
->
-> +       case SO_PASSPIDFD_THREAD:
-> +               if (!sk_is_unix(sk))
-> +                       return -EOPNOTSUPP;
-> +
-> +               v.val =3D sk->sk_scm_pidfd_thread;
-> +               break;
-> +
->         case SO_PASSRIGHTS:
->                 if (!sk_is_unix(sk))
->                         return -EOPNOTSUPP;
-> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-> index 011af84e3626..468a9c479b87 100644
-> --- a/net/unix/af_unix.c
-> +++ b/net/unix/af_unix.c
-> @@ -803,7 +803,7 @@ static void copy_peercred(struct sock *sk, struct soc=
-k *peersk)
->
->  static bool unix_may_passcred(const struct sock *sk)
->  {
-> -       return sk->sk_scm_credentials || sk->sk_scm_pidfd;
-> +       return sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk);
->  }
->
->  static int unix_listen(struct socket *sock, int backlog)
-> @@ -2048,9 +2048,14 @@ static int unix_maybe_add_creds(struct sk_buff *sk=
-b, const struct sock *sk,
->         return 0;
->  }
->
-> -static bool unix_skb_scm_eq(struct sk_buff *skb,
-> +static bool unix_skb_scm_eq(const struct sock *sk, struct sk_buff *skb,
->                             struct scm_cookie *scm)
->  {
-> +       /* Only a thread pidfd receiver can tell threads of one process a=
-part. */
-> +       if (sk->sk_scm_pidfd_thread &&
-> +           UNIXCB(skb).pid[PIDTYPE_PID] !=3D scm->pid[PIDTYPE_PID])
-> +               return false;
-> +
->         return UNIXCB(skb).pid[PIDTYPE_TGID] =3D=3D scm->pid[PIDTYPE_TGID=
-] &&
->                uid_eq(UNIXCB(skb).uid, scm->creds.uid) &&
->                gid_eq(UNIXCB(skb).gid, scm->creds.gid) &&
-> @@ -3029,7 +3034,7 @@ static int unix_stream_read_generic(struct unix_str=
-eam_read_state *state,
->
->                 if (check_creds) {
->                         /* Never glue messages from different writers */
-> -                       if (!unix_skb_scm_eq(skb, &scm))
-> +                       if (!unix_skb_scm_eq(sk, skb, &scm))
->                                 break;
->                 } else if (unix_may_passcred(sk)) {
->                         /* Copy credentials */
->
-> --
-> 2.53.0
->
+--1XNe0gd8oWdHUCb+--
