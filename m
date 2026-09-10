@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BF03B47D5
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51853CF69F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:35:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025705; cv=none; b=crZ/WptW0vMs5I6ehm1rNLXeW1mp69mJS5a2Y0beeJwlcfZq5Jleev/QRc1qg5NFT5sxKIbHTgau+pIWhOJPdCCVMaSuUd0g2Xa0S+1od/kocdgb8qctBOG5E22en8Q580GB8Wxq+YInFKWCshFAt18jaCXQAR/jLfe4RYRYN8E=
+	t=1789025753; cv=none; b=e0+LIk0e/TUcq9p0EcBqPx/gVadDdzMiuh4WTsxie2kxSZQhlWUgfp8fJn6ju6VM+vIeqCn2/bu+iLKaZZ3OdUtxFKR+mi5HdAYxBN0u6YPbjRu9/8KktIGZuBU9rnwoNkMQ7dCe9JGeuIowdE3rch/AA0kxJ6+7F1RZlMyDD0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025705; c=relaxed/simple;
-	bh=HhH88NaiQ9OmusrMF1tV4ZIT4rV4U0yC07wgMyMd27w=;
+	s=arc-20240116; t=1789025753; c=relaxed/simple;
+	bh=cqpmNFPIUofq21dTC/LaWCXRO4MTSfc6H/ZqzCnHP6Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R37MbvISGJFpLzPN3lTRnV65vSTg80IUyntbQVp4YMV+j3JfP27YClgBJVgaNcIcSzgSUyJ42uLQvT2OlcOk3RrCEakOmVejSTaJZkA2OicFl7CoRMzQsm5vyGZcYMBIbn86cTDK/9L1dChG9h/Nstf+Efxmd2o1HmIa5ZURyFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1aYriuI; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=KFFdbeM/QaLJoTiKAl+UXhyBWYv3qC354P3zOIkFQL8SivSVXK7bQQkl5sjdr40HxKekR0tsy5IWeo+NIlx8POSwkV0BsYdeIjeqnEEHqy7RuNNtq6DrDKdDmRB4YH/MObD2fwC7IQhNtKe6cnsdZaugl1o+6WeqMI/5eYaH50U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArIWktUn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1aYriuI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC771F000FF;
-	Thu, 10 Sep 2026 07:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArIWktUn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C231F000FF;
+	Thu, 10 Sep 2026 07:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789025695;
-	bh=4CWbYR+JLxhjEFkn3E8IqW/7LBzeZSK+qKtZqgiB7OM=;
+	s=k20260515; t=1789025741;
+	bh=EhU5FRjwx3bIRyO70+0m2ZMAFaFYcoutIHjPJPwpjb0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=S1aYriuIA6tz4mgwaEsKlFV/NuKhCbH9E4gw76QlVDki4uhAeXqLWRTP9gPhiZ55S
-	 4uZd793YbTA63LDC5kAxbA8Z4jDJae5iEqCYeY38BNSj8bjOseVTLKUHqPkrf6E8sn
-	 H77+2CIAtMWh4529SPPwSA5vW1LhGs+DfN22NujSwLjn8XMpyqfcFhL2ilS9kN66kM
-	 sK2hhAEuuRCG/da4Dv0RQlVpcLXkTwdf/z7E1pbcTqy1oM3Z5ci8735qX8++JVmQV7
-	 iWRKJLlFBdOEv1USiOYnctrqqLEQfI0agOWUEMTGKq6Im9Zf0L+ubXr1+XEuCGH4n9
-	 AXgTGSVPweDNw==
-Message-ID: <520b6aca-b515-4720-977f-1adb484f2e08@kernel.org>
-Date: Thu, 10 Sep 2026 09:34:46 +0200
+	b=ArIWktUnX4ZHRqyfQgODDI08WST8EkyZQTS8kC93Se4E6H+syeu0Dr629/uyOcxo2
+	 9lgDK7KIdqL6gH8zdsEKDMnghdylnYh/hgGmgjgckV3SuyLN3390WGB6RPcog6iZXu
+	 OO/XEJi6e4/AaARzYg+An6QISxOXdndN4CKx8wDo6NDo49Xtm+zM83zuqP9ojMdyrh
+	 FJ/tn4Bjrr6I7LVgrjwJ+mjKKJsCdyQlGI2Yo0hTds7SKfO0E1tm9OrFvbQ/gVzmbP
+	 h/8wPEBM75as9OPp4JVezB3s3pKMrQs7tyHW2vQVnUqHjb6/TvJQN6QSyeroQtw2rI
+	 5jj8kC6v1vixQ==
+Message-ID: <927c0ec3-4183-4355-9269-721d79f4983c@kernel.org>
+Date: Thu, 10 Sep 2026 09:35:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,8 +36,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 06/14] f2fs: stop using PG_private
-To: Chao Yu <chao@kernel.org>, Zi Yan <ziy@nvidia.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -49,13 +49,16 @@ To: Chao Yu <chao@kernel.org>, Zi Yan <ziy@nvidia.com>,
  Gregory Price <gourry@gourry.net>, Ying Huang
  <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
  Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, linux-f2fs-devel@lists.sourceforge.net
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net
 References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
  <20260907-remove-pg_private-v3-6-6ae22f9d9272@nvidia.com>
  <e5792e81-e8a5-42e1-aafe-58dc603f4968@kernel.org>
- <7e11c56d-05e6-48f0-b5b8-b4a0e18ddc1d@kernel.org>
+ <178889163877.1334491.3646957026033534678.b4-reply@b4>
+ <83a8743b-9cbb-42a5-9ff5-718297916a76@kernel.org>
+ <3dfab5df-c205-4853-bf48-86351a02b4e2@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -102,95 +105,46 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <7e11c56d-05e6-48f0-b5b8-b4a0e18ddc1d@kernel.org>
+In-Reply-To: <3dfab5df-c205-4853-bf48-86351a02b4e2@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/10/26 04:41, Chao Yu wrote:
-> On 9/8/26 23:47, David Hildenbrand (Arm) wrote:
->> On 9/8/26 04:56, Zi Yan wrote:
->>> f2fs sets its PAGE_PRIVATE_* flags in page->private and checking
->>> page->private != NULL is equivalent to checking PG_private. Change
->>> PagePrivate() to page_private(). Meanwhile, in set_page_private_##name(),
->>> page->private is first set to 0/NULL before an PAGE_PRIVATE_* flag is set,
->>> but it can cause confusion when PG_private is removed and
->>> page->private != NULL is used instead. Change it to initialize
->>> page->private to PAGE_PRIVATE_NOT_POINTER instead and retain the original
->>> semantics.
+On 9/9/26 19:47, Tal Zussman wrote:
+> On 9/9/26 3:48 PM, David Hildenbrand (Arm) wrote:
+>> On 9/8/26 20:20, Tal Zussman wrote:
 >>>
->>> It prepares for a future commit that removes PG_private.
->>>
->>> No functional change intended.
->>>
->>> Assisted-by: Claude:claude-opus-4-8
->>> Assisted-by: Codex:gpt-5
->>> To: Jaegeuk Kim <jaegeuk@kernel.org>
->>> To: Chao Yu <chao@kernel.org>
->>> Cc: linux-f2fs-devel@lists.sourceforge.net
->>> Cc: linux-kernel@vger.kernel.org
->>> Acked-by: Usama Arif <usama.arif@linux.dev>
->>> Acked-by: Chao Yu <chao@kernel.org>
->>> Signed-off-by: Zi Yan <ziy@nvidia.com>
->>> ---
->>>  fs/f2fs/f2fs.h | 8 ++++----
->>>  1 file changed, 4 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
->>> index 9940a6cecf1a2..2f7ab5888b078 100644
->>> --- a/fs/f2fs/f2fs.h
->>> +++ b/fs/f2fs/f2fs.h
->>> @@ -2691,7 +2691,7 @@ static inline bool folio_test_f2fs_##name(const struct folio *folio)	\
->>>  }									\
->>>  static inline bool page_private_##name(struct page *page) \
->>>  { \
->>> -	return PagePrivate(page) && \
->>> +	return page_private(page) && \
->>>  		test_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)) && \
->>>  		test_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
->>>  }
->>> @@ -2710,9 +2710,9 @@ static inline void folio_set_f2fs_##name(struct folio *folio)		\
->>>  }									\
->>>  static inline void set_page_private_##name(struct page *page) \
->>>  { \
->>> -	if (!PagePrivate(page)) \
->>> -		attach_page_private(page, (void *)0); \
->>> -	set_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)); \
->>> +	if (!page_private(page)) \
->>> +		attach_page_private(page, \
->>> +				(void *)BIT(PAGE_PRIVATE_NOT_POINTER)); \
->>>  	set_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
->>>  }
+>>> I have a WIP series of ~30 patches converting much of the remaining page
+>>> users in f2fs (including the below) to folios. Still have to do some
+>>> testing and clean it up, but hoping to send it out in the next couple of
+>>> weeks (in the hopes of eliminating some more folio_compat.c functions by
+>>> next cycle...)
 >>
->> Very weird interface. Why do we even need the page-based interface still?
+>> Indeed best to wait a bit before flooding -mm even more, it's rather a lot at
+>> this point.
 >>
->> $ git grep -E "(set|clear)_page_private"
->> compress.c:             clear_page_private_gcing(cc->rpages[i]);
->> compress.c:                     set_page_private_gcing(cc->rpages[i]);
->> compress.c:             clear_page_private_gcing(cic->rpages[i]);
->> f2fs.h:static inline void set_page_private_##name(struct page *page) \
->> f2fs.h:static inline void clear_page_private_##name(struct page *page) \
+>> In the context of this series, it would be great if you could review whether the
+>> diff I proposed would get the job done, thanks!
 >>
->> Seeing code like:
->>
->> clear_page_private_gcing(cc->rpages[i]);
->> if (folio_test_writeback(page_folio(cc->rpages[i])))
->> 	end_page_writeback(cc->rpages[i]);
->>
->> Makes me wonder whether we can just use the folio helper instead?
->>
->> In f2fs_iget(), we enable large folios only when !f2fs_compressed_file(inode).
->>
->> So naive me would assume that we can just get rid of the
->> set_page_private_/clear_page_private_ stuff entirely.
 > 
-> David,
-> 
-> Thanks for the patch, at a glance, it seems fine, can you please send
-> a formal patch? then we can apply to dev-test for test.
+> What it changes looks good, but I would go a little further.
 
-I'm hoping Zi will drag that along as part of this patch set. Is this fine or do
-you want it sent as a complete standalone patch (will make merging Zi's series
-slightly more complicated :) ).
+Thanks!
+
+> 
+> There are only two more users of page_private_gcing(), which pass fio->page.
+> Those could easily be converted to folio_test_f2fs_gcing() by passing fio->folio,
+> which is in a union with fio->page. That would let you delete the
+> page_private_##name() implementation in PAGE_PRIVATE_GET_FUNC() as well and just
+> remove the entire family. At that point PAGE_PRIVATE_{GET,SET,CLEAR}_FUNC()
+> could be renamed to something like F2FS_FOLIO_PRIVATE_{GET,SET,CLEAR}_FUNC() and
+> all of this cruft is gone and folio-based, with no more f2fs use of page_private()
+> either.
+> 
+> The renaming could be done as a later step, but I would get rid of the accessors
+> as well in one swoop.
+
+Yes, either as part of the same patch or as a separate patch. Zi, can you take
+care of that? Thanks!
 
 -- 
 Cheers,
