@@ -1,242 +1,183 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136B93D7D74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52EE3F54CB
 	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034978; cv=none; b=q2ArJCQqTk6h0pMe6eamtTIp9FRDaMCy7sGYMLqv4lXR/1Yf1y6L9nO3YdTxJLxFIrW1HASCsw2e9PvgUgWLVzJ2+h8VoLexI59gTXARRzSxDibnzCKi4QpbKXiMVn4sB0uYQFMT6T51ESLDq15QoNfmUsO66uVpzT9yj/ItBzc=
+	t=1789034979; cv=none; b=Tjwq4EGtQCbxxl9VbvQPMhjxo6bgpT/4O7zph4TOmq3Z2D1qqlLp6q2R3J9BFZG545KHP/rMHoCY0abLz07AZaMbU6vxqnCUEG1Li78jmUYgLltiFJIIFIV14FawaJoVRb3Q7Uoz1/DMIL8k38iEd7wMYe+BiSdz55o2ZgWGeNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034978; c=relaxed/simple;
-	bh=5MTpEF29vY3ddpLprqaotRdeYOwb+VnVZdNgLIvFcmw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m2uNh7bH8akQCOSDhHzEY/2LETauI5gaGeL2rs2/CMVI2478fdj7JGBWMGpdw5EVThHHH0IkuzgjJ7oR81aI9nGUxUV1kMNQaSXSQZqyd+SmD9w1GoBw8k6ePNoL7KxzQr4jUyItZUCj/d1jvTt9lb/OPsN+66d1rw8JgenJMjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ctytSY7L; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789034979; c=relaxed/simple;
+	bh=NILZcbeiI8YplRLBwAkLPP7xTpQaJQh437a1V4BTT+E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YYY3UdyzhFI70raqH9XlCe0g7Rdg0CTE1rjajy53qwUKQWqwHa1KjUt35rxXvpu0dCFR3Jj2khvmesvLdh71m89fS6yV9q7AfIXmY25LmXj5Wr+g6SyFma+WZYB+27elKoRS4+C12vIMBwiwQV/AfKuxoYhS4JyTb3Jn2eUdbYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ng1A/Ndi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RhOzRvWv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ctytSY7L"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398a5aad413so5799690a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:09:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ng1A/Ndi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RhOzRvWv"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8pon5340752
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:09:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	w6WSWBIfnFD8I/8EtmPPWYCRyqS1N/zQOy0eFdrQAKM=; b=ng1A/NdiUZi42qVL
+	hp/exJJfv5EP/tK/9FuJ+MTaFNb5sttvu0jJhOOsAoGdG6PaRnkDyB2JuvqIiGaS
+	QVpa+IAExfjNyAZjNLOax/rQ1gckgcS1XA5/8Ep5FoesevG3cmek/gqXZ8KTUCYi
+	kdLeTGP7Y2sXcKaJSed9YuWwRKoUqHE64/+jvfH0YADgE6/etsIOsZMfhJPE/8XY
+	L2lz34pJ9jv0YqDiUJPt5TK3u0VQSOCuHyenHNYmoL/ATZ2l70QJiREf1324NV2v
+	vKxNh0JMLnX3VLmVuJEEfRy2qvYROqh7ZnQT4o0q55J/QLfpTz967/B84q1aX7/d
+	/cj7IQ==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrak8kb0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:09:30 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-455ad408573so10918802fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:09:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789034970; x=1789639770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v5leu8y8+SZGo99Bk+YLh7ZmObofNLoxXT8B8pxE/vs=;
-        b=ctytSY7L/DxEzqk8j7+gaGI6mvluVfU3O2r2Pv6lA5ZPvr/AimXeCBMvrct/yR5WtK
-         tl/0oQVoeVE3191rLgWEe5hKsyXp8FpEBYj8EomuCTfT0gGuKY3W/WCSgR/fAK2P2Vv0
-         oxHYuUc0z8iawlEti2VZA+9cGcDYJ6RD+Yy9XZOw7MKqGneVfEk/AHsxt8xgJSCf/C2P
-         bRfPgkVm/HmXbUWA6hWL3upem518tWiXvdSKVwrIgcDOCXJKSk0A82SYq5DqAApe16Y9
-         G8ZvXESyYKdUpHqVgoLNswImC46tzflLstu00cbblF1SzAKf8WyWlODP5mONUO9ErwWG
-         hbEw==
+        d=oss.qualcomm.com; s=google; t=1789034970; x=1789639770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w6WSWBIfnFD8I/8EtmPPWYCRyqS1N/zQOy0eFdrQAKM=;
+        b=RhOzRvWv96fHCl/2FArwHJYWfkww8dUbQ9ZFPYozj/5ceCD+SLAXhq+Bazj9bnJCVp
+         rboLzmDuHKgu4+TasX0qxs9ksrWX866VXkNl1npSj9MPMoR4D4/rk69R1uBonW41IEkq
+         5Ucsiodj+uwonjd0VfdVEiJOYKG4l1s7lwxTbVT1M4IPiA4SvNgEgvGpqFE3ACPDBAXx
+         5mgeyoZ5tmSN7/RVuBk/G1efFGvrbCDsDVoGgSFs/r2HDYui0NJ67u69JVePSEJh2as1
+         8xHUJbvwSQccS87hdXptI/iDhlzLto2WHdafuYwasdj7NOC/er8NuFVa8efPMfHEYnvZ
+         Sg2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789034970; x=1789639770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v5leu8y8+SZGo99Bk+YLh7ZmObofNLoxXT8B8pxE/vs=;
-        b=lSmdwkGmuTRJsIYyJXQvicMRbtl4jeD7/J8YyggzCMG0DNHK1IMrNtWDgqZ+XLSHxv
-         eAm+rwYiIW5fTf3aPWKFujVuUnaBfxID5m7ex0P734PbvpWBkG75vvvDTwmaRXpSvs6X
-         ZJaN4SiSiz2PdhQjwUAsegRNZ+xDTM74h6V5IqSrKv/MTrEEWqO0o3xUGMXg47D2FGF9
-         QunToqE8NMdqlU7bopapWQCsh1Y15ZAYBc1E7GhuAeaDoV0ty2aDmQKaNiOTbr0dmJgn
-         xuXJKt/Qwwf6oOW5qD59XX5BBX3ANMU4zeENANkKOnXmPuCfqNSuFXL3HiCqlJCxMXR2
-         GdYg==
-X-Forwarded-Encrypted: i=1; AKwUvBz5ZJBq9NtKWIo8/AMDFR6206JUv3jPOozD9R4jGrjGXZX0JL4e8XEQupiKZVzuhmXuBAfo301+mT7Uqn8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3dM8UOwyeOPascpyjoGKL8CGRsJGC1Mj+kUIpCi3axWtFnUaO
-	v4jn7td/DO4q9v3h08hy46fwS58XgG1o/VeoEgRHJRae3LBesOgjo1Hn
-X-Gm-Gg: AYBFou0JsYctVBrHT/91xR40WTzAxHB6+YTPPBXPDqN/RK4ApUxVGfQ9XsUwtFa41Ky
-	xUQ5BU1LZjSq1Qb7lY7AFSwVuR7S//tCZnqhSEyKCUoD07ysXhuYwNtQoiGIkykepzrKN+ybgkq
-	IPNekiGsF/DuTb4FA7SB8rFQH+hbKnFEQql22nI/VNP5LyRZvLPy5ZcLTUR1zaAO5ayASk+BSr+
-	RK7pXnuthIxgCUoeQp1pPQSZWCVM7HtgajS6wxd9Wg5yDrEmFWB4VG1maphoeARe5OE1xduFZI3
-	RFHTLbtCbp0AowyhfufZYGS4BFRY+tnritylUzEyZ9NmpyeYzyr6Ef3Ncp3wnpqjqIdUo/k/pXB
-	G5uxUII+cL5E5rcb0GnYAH3b+imAMcarM5jLU1ugeg6BPYl8dk8lVfy8veaKlmgxQxxcw6LZO2G
-	ktG90t+OtwC6HAodGVA+roTrl+fBe68G3l9X3BQyfNXHX3Khz4/y2H4f3bkd8Mne9RKSMQTnv2+
-	wwuC4zduR+JYGAoyrlADigHf/OBNLxFwjbTYxCtIwiGNR/e+YW87ACaKn9tE7zr
-X-Received: by 2002:a17:90b:33c1:b0:398:9bd1:3214 with SMTP id 98e67ed59e1d1-39b262dfa81mr56515343a91.21.1789034970472;
+        bh=w6WSWBIfnFD8I/8EtmPPWYCRyqS1N/zQOy0eFdrQAKM=;
+        b=Pj2LGVwk/SrLC88PMiVaDcjIZrshwADlHx1Jg1QwDVdQ4JVYF7B3TYpkgYjOWZ7Gpa
+         qFiU0ShtC0bMW0g8CaeQWqNs1GtRE55/VYt90TzRr6Wnsb7UfCXZdzEFsdknjca5/pZd
+         yPhJ7bXQSEdhknXOpV7T4y1lYbf2LKOIRwV92bTFZSCjT72AK3NnA29uS9uzwpJ6tCx0
+         FH1nlZOdA+ydE17DMXf5dVA+JxNwk4ApWnj6tQmJBkHMo3rDbBMot3vz4AX6b2FhAlt2
+         vNKR2oOfIrvhE7rckQyaz19j5nBYdzKX+OISmzMXLGLEdmFHj5V94tiBu5p4Q29/ANv9
+         UNWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDH7cvPYKSJLAT/+qpeSKZuwQMLrr5o9vbo7DQBEoC9M5VsWqsCykEGuu83c3+Dbzx7R4iqe20WAXG4Cs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZiVF57EQXYFogx9sAi0+mNRjQEuMTlSnIlzwRLYXVOk6BMvNE
+	J7JoHWIm5VwCBHJfIhepMyAN0HYO+qB9MYUOLatj6J4JLaebIHOPIW5Cp1HnbOnIDW71YiQJZOV
+	fL8gEBYwLgYK+taj7SEYDwKHzkfe9fHCPNQqauZpEtlgVSAqL9CM3/JRg2Erd6bOA2IE=
+X-Gm-Gg: AYBFou1TybpFhsqPXZFLvIp572Vo2oQduP+L7Um2UjFKd94aOi/4bggYUjCpq4J+7CB
+	2vDzUb1drMbjGavoP6S1TncyHJSlWkEL4ENjApAtm0P7rFZ8hpZyflVL++l7bnqVVN/N6lPCWYw
+	9doSCZ4yVm0KbM8KCOzkHaXtrOmfkHVWTfiU/SgXkfmVoklKgh+qykWLQDre+U8p8S2n5w51uHb
+	QuJspZuufvOLwcyBJgtIJmw54KD1beNbFRE6EHHSezfaOMzbwpkhIGtGEp9OxCXZnhYMSvGw3Eu
+	hoGfRXBCsvP7lV9uYuaDKf/SJBD3NnUMlm582DNNbv/5vVHn0ukF9zoW43TGWGxeQf9kqMqwMAO
+	3Xu0XRU8eePZy2MecK318pkc=
+X-Received: by 2002:a05:6820:1c9d:b0:6bd:fbe8:fb95 with SMTP id 006d021491bc7-6bdfbe90757mr6187917eaf.60.1789034970021;
         Thu, 10 Sep 2026 03:09:30 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39bae60b23csm3460207a91.0.2026.09.10.03.09.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+X-Received: by 2002:a05:6820:1c9d:b0:6bd:fbe8:fb95 with SMTP id 006d021491bc7-6bdfbe90757mr6187900eaf.60.1789034969642;
         Thu, 10 Sep 2026 03:09:29 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	mkchauras@gmail.com,
-	linkmauve@linkmauve.fr,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	rust-for-linux@vger.kernel.org
-Cc: FUJITA Tomonori <tomo@flapping.org>
-Subject: [PATCH V3] powerpc/bug: Add ARCH_WARN_ASM and refactor _EMIT_BUG_ENTRY for Rust support
-Date: Thu, 10 Sep 2026 15:38:02 +0530
-Message-ID: <20260910100801.2159785-2-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from [10.151.40.248] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm81334745c88.4.2026.09.10.03.09.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 03:09:29 -0700 (PDT)
+Message-ID: <4f9af85e-0906-459d-a34a-37a0f13038fc@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 15:39:25 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] spi: spi-qpic-snand: avoid writing QPIC_EBI2_ECC_BUF_CFG
+ register
+To: Gabor Juhos <j4g8y7@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260909-qpic-snand-avoid-ebi2-reg-write-v1-1-9b1b1466cc75@gmail.com>
+Content-Language: en-US
+From: Md Sadre Alam <md.alam@oss.qualcomm.com>
+In-Reply-To: <20260909-qpic-snand-avoid-ebi2-reg-write-v1-1-9b1b1466cc75@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfX+rcumRiL1P8+
+ lvr26IZpFF7IDC6VWMWrIhfWr74x0vnb57dxgupmX75+YUnAbdLkewIhgiAmfvtJ9HFBbSNroT6
+ AUs2F2/8JYrMSEVRl43qrfAME9T8fNU=
+X-Proofpoint-GUID: IiZJ3pNoAj1gCl4AfOWqxVlszXITSpeq
+X-Proofpoint-ORIG-GUID: IiZJ3pNoAj1gCl4AfOWqxVlszXITSpeq
+X-Authority-Analysis: v=2.4 cv=EspHPicA c=1 sm=1 tr=0 ts=6aa281da cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=ZGD61ap6ms5yJgAN6_cA:9 a=QEXdDO2ut3YA:10
+ a=y8BKWJGFn5sdPF1Y92-H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfX4xkKu3G8d1tw
+ rwzPfAN5qDqSCfitd7zdW9x7D6zb34AezyecS4m3aeTWoVQfjgXCKvhaplS5zp/WcNCIRmD/ZJ4
+ vJHkzuTJOJInzgx67hsYHuvromxAsz/JKVOfzo0tk4ft/fJgVroFnomkPLH4TU2EE6Hdwc0cV0l
+ WzGhEhlN1BV5rHNpgjIjZ662Ua7letCVOMm6ICMzvzZuFhixmj6xcm4GQvoddFS3nsshfPhXkKa
+ gQtx45aL88bOG4TX/ZmBNxqoD94kEyQAPlLt82eqA2Y9/t1qiwM7Q2C1YOZCQLv4a4EnEqehDYX
+ hE1/T01iNkn7Q/QgMx7h5gDIS2M4zJF2MVfY29BHPlKL+mdjONpQtL7YYfHyvJQjuPXz/aLuGl+
+ Io+yrtrmR8cABPn/Bg0b1xB8ZQ+i28n5UCQvPfaU4am2yb4tnW2rFgzLI/nlNcvp/eVezlCJhqh
+ BL2krUAU8OHGHrXlWBw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100116
 
-The Rust kernel infrastructure generates inline asm for WARN() via
-ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
-preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
-arch-specific asm template string for use in Rust's core::arch macros.
 
-powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
-Rust builds to fail on powerpc with
-```
-error: no rules expected `ARCH_WARN_ASM`
-   --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_warn_asm.rs:1:28
-    |
-  1 | ::kernel::concat_literals!(ARCH_WARN_ASM("{file}", "{line}", "{flags}", "{size}"))
-    |                            ^^^^^^^^^^^^^ no rules expected this token in macro call
-    |
-   ::: ../rust/kernel/lib.rs:279:1
-    |
-279 | macro_rules! concat_literals {
-    | ---------------------------- when calling this macro
-    |
-    = note: while trying to match sequence start
 
-error: no rules expected `ARCH_WARN_REACHABLE`
-   --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_reachable_asm.rs:1:28
-    |
-  1 | ::kernel::concat_literals!(ARCH_WARN_REACHABLE)
-    |                            ^^^^^^^^^^^^^^^^^^^ no rules expected this token in macro call
-    |
-   ::: ../rust/kernel/lib.rs:279:1
-    |
-279 | macro_rules! concat_literals {
-    | ---------------------------- when calling this macro
-    |
-    = note: while trying to match sequence start
+On 9/9/2026 7:38 PM, Gabor Juhos wrote:
+> The description of commit bfb34eced559 ("mtd: rawnand: qcom: avoid writing
+> to obsolete register") says this:
+> 
+>    "QPIC_EBI2_ECC_BUF_CFG register got obsolete from QPIC V2.0 onwards.
+>    Avoid writing this register if QPIC version is V2.0 or newer."
+> 
+> Although the referenced commit is related to the 'qcom-nandc' driver,
+> however the hardware supported by the current driver is also based on
+> QPIC v2.0 so we should avoid writing that register here as well.
+> 
+> Remove the register writing code to avoid undefined behaviour.
+> 
+> Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
+> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+> ---
+>   drivers/spi/spi-qpic-snand.c | 4 ----
+>   1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
+> index 61b1f2eb19ce..05efe6313b7f 100644
+> --- a/drivers/spi/spi-qpic-snand.c
+> +++ b/drivers/spi/spi-qpic-snand.c
+> @@ -765,8 +765,6 @@ static int qcom_spi_read_cw_raw(struct qcom_nand_controller *snandc, u8 *data_bu
+>   
+>   	qcom_write_reg_dma(snandc, &snandc->regs->addr0, NAND_ADDR0, 2, 0);
+>   	qcom_write_reg_dma(snandc, &snandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
+> -	qcom_write_reg_dma(snandc, &snandc->regs->ecc_buf_cfg, NAND_EBI2_ECC_BUF_CFG, 1, 0);
+> -
+>   	qcom_write_reg_dma(snandc, &snandc->regs->erased_cw_detect_cfg_clr,
+>   			   NAND_ERASED_CW_DETECT_CFG, 1, 0);
+>   	qcom_write_reg_dma(snandc, &snandc->regs->erased_cw_detect_cfg_set,
+> @@ -1104,8 +1102,6 @@ static void qcom_spi_config_page_write(struct qcom_nand_controller *snandc)
+>   {
+>   	qcom_write_reg_dma(snandc, &snandc->regs->addr0, NAND_ADDR0, 2, 0);
+>   	qcom_write_reg_dma(snandc, &snandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
+> -	qcom_write_reg_dma(snandc, &snandc->regs->ecc_buf_cfg, NAND_EBI2_ECC_BUF_CFG,
+> -			   1, NAND_BAM_NEXT_SGL);
+>   }
+>   
+>   static void qcom_spi_config_cw_write(struct qcom_nand_controller *snandc)
+> 
+> ---
+> base-commit: cb2ad3c020579bf51fb0d702db9cf64af9698377
+> change-id: 20260909-qpic-snand-avoid-ebi2-reg-write-0920452b4b3b
+> 
+> Best regards,
 
-error: aborting due to 2 previous errors
-```
-
-To add ARCH_WARN_ASM, _EMIT_BUG_ENTRY first needs to be refactored.
-The old definition was a bare macro with no parameters, relying on
-positional asm operand references (%0-%3), hardcoding the backward
-reference to local label 1b, and including .org/.previous directives
-inline. That made it impossible to compose as a plain string outside of
-an asm operand context, and left an invisible contract that callers must
-always emit their trap at label 1:.
-
-Refactor _EMIT_BUG_ENTRY to take explicit (label, file, line, flags)
-string arguments via string concatenation. This removes the dependency
-on asm operand numbering and makes the trap label an explicit argument,
-so the caller's intent is visible at the call site and a future caller
-using a different label cannot silently produce a wrong bug table entry.
-
-Move the .org and .previous directives out of _EMIT_BUG_ENTRY and into
-each call site, so BUG_ENTRY() can still pass sizeof(struct bug_entry)
-as an asm operand while ARCH_WARN_ASM can supply its own size string
-independently.
-
-Add ARCH_WARN_REACHABLE as an empty define, matching the arm64
-convention, indicating that no additional reachability annotation is
-needed after a WARN on powerpc.
-
-This brings powerpc into line with x86, arm64, s390, and riscv, all of
-which already define ARCH_WARN_ASM and ARCH_WARN_REACHABLE.
-
-Reported-by: FUJITA Tomonori <tomo@flapping.org>
-Closes: https://lore.kernel.org/all/anG67Q6Y59kDqh-c@desktop
-Fixes: 73b741adb264 ("rust: Add PowerPC support")
-Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
----
-Changelog:
-V2 -> V3:
- - Add label argument in _EMIT_BUG_ENTRY
-V2: https://lore.kernel.org/all/20260910071252.1950488-2-mkchauras@gmail.com
-
-V1 -> V2:
-- commit message now has error, fixes tag and closes tag
-V1: https://lore.kernel.org/all/20260819084825.969116-1-mkchauras@gmail.com
-
- arch/powerpc/include/asm/bug.h | 36 +++++++++++++++++++---------------
- 1 file changed, 20 insertions(+), 16 deletions(-)
-
-diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
-index 0db48977c70c..df2183c35945 100644
---- a/arch/powerpc/include/asm/bug.h
-+++ b/arch/powerpc/include/asm/bug.h
-@@ -32,34 +32,38 @@
- #endif /* verbose */
- 
- #else /* !__ASSEMBLER__ */
--/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
--   sizeof(struct bug_entry), respectively */
- #ifdef CONFIG_DEBUG_BUGVERBOSE
--#define _EMIT_BUG_ENTRY				\
--	".section __bug_table,\"aw\"\n"		\
--	"2:	.4byte 1b - .\n"		\
--	"	.4byte %0 - .\n"		\
--	"	.short %1, %2\n"		\
--	".org 2b+%3\n"				\
--	".previous\n"
-+#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
-+	".section __bug_table,\"aw\"\n"			\
-+	"2:	.4byte " label "b - .\n"		\
-+	"	.4byte " file " - .\n"			\
-+	"	.short " line ", " flags "\n"
- #else
--#define _EMIT_BUG_ENTRY				\
--	".section __bug_table,\"aw\"\n"		\
--	"2:	.4byte 1b - .\n"		\
--	"	.short %2\n"			\
--	".org 2b+%3\n"				\
--	".previous\n"
-+#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
-+	".section __bug_table,\"aw\"\n"			\
-+	"2:	.4byte " label "b - .\n"		\
-+	"	.short " flags "\n"
- #endif
- 
- #define BUG_ENTRY(cond_str, insn, flags, ...)		\
- 	__asm__ __volatile__(				\
- 		"1:	" insn "\n"			\
--		_EMIT_BUG_ENTRY				\
-+		_EMIT_BUG_ENTRY("1", "%0", "%1", "%2")	\
-+		".org 2b+%3\n"				\
-+		".previous\n"				\
- 		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
- 		  "i" (flags),				\
- 		  "i" (sizeof(struct bug_entry)),	\
- 		  ##__VA_ARGS__)
- 
-+#define ARCH_WARN_ASM(file, line, flags, size)		\
-+		"1:	twi 31, 0, 0\n"			\
-+		_EMIT_BUG_ENTRY("1", file, line, flags)	\
-+		".org 2b+" size "\n"			\
-+		".previous\n"
-+
-+#define ARCH_WARN_REACHABLE
-+
- /*
-  * BUG_ON() and WARN_ON() do their best to cooperate with compile-time
-  * optimisations. However depending on the complexity of the condition
--- 
-2.55.0
-
+Reviewed-by: Md Sadre Alam <md.alam@oss.qualcomm.com>
