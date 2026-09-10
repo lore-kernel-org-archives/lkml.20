@@ -1,309 +1,295 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612FB492E41
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E07748AE20
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048877; cv=pass; b=QPemrclorm52u2QYkRE3yuMSrp1Ux2LyOL0ZU8JliUZ9g5M5fTGsFnsKPv7AaXv8hko3J1oBxmHbT89hLVJF0BvMRVC3BpUK4p2UWwgMkWLdzEX74qRQcbkmY13JLuLPWvZm7sljNxVGRvHIYgr1SeqEeB237uJH9bP4pNqyAGo=
+	t=1789048906; cv=pass; b=sDEs2N/KLqWwwYetg5eGNOn6S59iy4uzDvuQSPIj0SfJdmKcj5tcNMTdci5qqL4PhV/2DFIDwYik9b0d9EabC5r+PtsWu1udm8jirK1DvJMsMSm/Z1WeuCGcKhNuieu2SjaG9dVG+qS90Goq0A6VxmlDy2i/5w7O6i0lmrOMuCE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048877; c=relaxed/simple;
-	bh=hb5xFz0VmtKNzhSaRYKfyhLkgWmyDgi4aahOrSlGDi8=;
+	s=arc-20240116; t=1789048906; c=relaxed/simple;
+	bh=757DtCJuY1QNjGvpICrLV3nMNss/QMd+lFaVPDK3Skw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p2lGCJ3WrdNmPk5cW3UaNdAsYl/QIxESL7PZ4One0D5dLMdwBCrpIqM/igWBzVQtcA7OTXKA933L4sFk+FCq1JaOloMQTptOWFnn63P08qiEfYRZm8xDbzt/qSWC0J9v7EMLzlgeGw05ALQ/3MK8Wlmii195T7NFfW07ipM7ZLY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yjn-systems.com; spf=none smtp.mailfrom=yjn-systems.com; dkim=pass (2048-bit key) header.d=yjn-systems.com header.i=@yjn-systems.com header.b=VbcIL5Gg; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yjn-systems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=yjn-systems.com
+	 To:Cc:Content-Type; b=j78s4cpVMWUzxHAgmA9+Zh7nhED6RJBb9XXeUZS2FkGW31qFPHrPCdEuVli7lcs/j0+sgp1d/eY/rF5GUdFTFnTm+TU7ykdUqMNrBvC+OMrsmY+5lx6ApETpad0LPtnAGhJ3ghw5bZgxoZluXjk8mM6DpvTDtb1UWrOtDUvadkQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/kIZNHF; arc=pass smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yjn-systems.com header.i=@yjn-systems.com header.b="VbcIL5Gg"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4859b45abadso643834f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:01:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789048873; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/kIZNHF"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66825847b2cso7636517d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:01:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789048903; cv=none;
         d=google.com; s=arc-20260327;
-        b=J0CG7jCNck3TxsozC9gfAIn4woEs8dPdkrpbrUcr3kBh64noWy6yml3ad6eS343ylr
-         jy0EFOBwB3n55nNRB2suuulpR6ketqFo1X12HYsuIhs1MLiVvr6CVI2LsGWdCVY/SCL/
-         WwAY+k7XVPTwX5eAIEnFu3X31EW4JA4m4dp3xmxC/P9Ve/OCfA9IvPDtOcQeyMHxFmEa
-         h90SpgesimcP+I3RrCHKxDrhwN2SXDon8nUUuOyItulEwA7wmLvoIIMf0XFT4uISlk1U
-         E9OvPvImKXn2NNATNzowqSLgId1C1uZgPB0Cm1VCs4Xurwu/slnAHs9jmMvjaGkr1XHV
-         e+LA==
+        b=rFvwsgdRHlYK/NTnIkOFrdF7a/l3DyO0DY0pxBO2jGS68L9DYag4ervjh3JKOLEHa7
+         Cr6eDRZ4WKqKlDV1KL2QoazXJGJT+66Gr07w1RjwByXBH01hvB91+DlgZbuw086pvpaK
+         2THCLExjUXOedhEQIlEldMUmJIcWBPaIXKiC9cAUvFk9S/+xE73E6AJsLHyyM9+17uXQ
+         p5xArmFEDveOL1GZ92071n/3dqUxQpNG01jmfmNOWsLMaPsUnSXb605Bvp6UcWbVr8KD
+         sPtWsGGFvPUXy6agBS9a8xjDwGgvMSaQFiMgcREh186LtD4oiOhAUthhnUF9f/0ry6xA
+         geFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=bWyR+1Kihv9X2hNbcd3q6wgSosr6MGZiLnq8iGd24zM=;
-        fh=m4qchIamXz3fca2sWNGB+iC+UlJHDvvIIUXj9BJCHb0=;
-        b=CMA6IUjzDWVZSGNYITiGAzwv/GTFMCVMSnATxVGLH1OFwHwoCuB1MXXiIIssSTHG6S
-         iz8e8qxJyrhcrQXT4I8U52cVFIvtQ1OkFaJo+hy9kGLY03nAxH6+/Ek1pdwps6yV6WrA
-         9wiWsJhjARZAwKtFMo8+llqpcoIFHKT3+sKmTg5ysFj/Xr/bxZ/WmuDxABjgShlIpqkX
-         BX6NTw1RaVZ/8cY79vW72smzMAheJY6ppmKSJxJTGn4TYy3i/o6Q96MNhvla5YwKR44s
-         sko0qdOSuT0L/W4yu54dfDMyRL2IoogkpGG0j2qnsdFt01tT8Yb4RpNaDbbToLbAQ4tP
-         PVtQ==;
+        bh=QVTBVvK/LTuo8gf4v/dR/3J2cjbjkp2QfVZbK4iqBUA=;
+        fh=CWyctGS47ctXwXdYYpwNav7Jeggh+JuBdXzyC+fLwj0=;
+        b=q3L6mI/1M5ZHqIv3wjEfyDpO/vhRffttISDToANkbGH/F5l2r3KNLs3yxWuPXBOrWn
+         8IIF/l/Url0KWWLX2w24EV9/PEu3SKBNS9kMTJ3Crv5kI19EXGiKluCYlOcocOg4hGDk
+         O/dnZVtx4MeWiMdVpIDF5863qUBZ04zGWPE3ZhxfnIFLhJ5yiTaM//OzTS/mfbFeYgXH
+         RF/QFebsW1ZxWYxxfCEEWiC80kBpZOravoxS+DS11wuauJr12aU7KaB6hWoeDYDTjGFc
+         fuMlHJa9xLkARc81sVho7TbSR5NuRj+BMgdBsstXgiZ9DLXkMnawVPLGE8OPUyDlbZls
+         CivA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=yjn-systems.com; s=google; t=1789048873; x=1789653673; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789048903; x=1789653703; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bWyR+1Kihv9X2hNbcd3q6wgSosr6MGZiLnq8iGd24zM=;
-        b=VbcIL5GgN/myPYxa25WZiFPrOyErnIZdu7zDeyk6K0W9DrfdBuCYKZykD51W5aI7i9
-         LWI4DmgsP2EV5NMr2YgU6PXCzQ11qgCadw8e8MteiaWctt3zfPePTipf6ncYc7e0IfjZ
-         NEg3AEv4x9JFjzJPd0r2LVPiBYMEVz+O0MBWEIs1sQMA70CWDok6LKpn5+FH81t41uW/
-         K3h6fh+BwGVBAmXziji4jYhhD1nWNPeUiHhqGXZMqno/WI+Us9MHZykYmk/YHLcGjH5e
-         4vO+qU7Xe7N9MgA5enbYd6QC7GhH/H9Ddfayb0Rx+j5ivfXOwY9i24YlZSuTA9osREhh
-         iFCg==
+        bh=QVTBVvK/LTuo8gf4v/dR/3J2cjbjkp2QfVZbK4iqBUA=;
+        b=C/kIZNHFd6CjS/DALS1apqcXfcI4YWc2ioTDgGhforDU0v7dLqZT8mKZT74OjcF6H3
+         2jLwZbbwMP+8MwXPFOMZ5gCr+1SkwTKIxg+lCwvYhNzSA0tTsZJgPRw6tH2vsY+0Zj/h
+         QH9drmgRLHaCC1VZRFKSFBiuaxbInqUWCrl8TAezD1k1kzezp/VgdQ833XNUV+UgUjEw
+         DFwXv14bAA5fMv5zidVr5l5d6HcN8b9rIU36XJ6n8em2ACWZElAUqkLdQG8bkzFxQdN9
+         cQwt6y2RnhI1En8ntbjnlc7h+ljJt5LiFpVsSjAxmespcvc1R/yn3aUNaKY9uN8unMeX
+         Ux2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048873; x=1789653673;
+        d=1e100.net; s=20251104; t=1789048903; x=1789653703;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bWyR+1Kihv9X2hNbcd3q6wgSosr6MGZiLnq8iGd24zM=;
-        b=ZbsGW12EgeshtWnjhlbiRv+bgqLpG17QfsUCmvSunkS9o01nxsClvpkjdKLuY45McY
-         Qng+Gj9ssnXu42AiGabRxz23tCdNzkXjDGfM3PiVJxwByTxMp5VBDwBHmWBUXDzdvY5a
-         hXCHxkBEQUu69pWD8wUBvLUtTWuYXUp0PJrRiczdtlzKwYNg5YnjrVYtiFS9NjuQtPnT
-         mJxpf/6MXk30KQ6IkhokG0sDpasbvit/8X11iQf/OkAYUk1rQcHjcU4QX55gqefMZwdO
-         kigvFSF+9MTag26WE/eukri4yy9LGkewwSbyqAXmK5pilXMShsVoeUYhSbxZJTTM9lX4
-         pidA==
-X-Forwarded-Encrypted: i=1; AKwUvByGf+LERRm23ktwQaXiH05k/o4DxxixaQAz3QemvJW/bKkCB+1qgpn+9f54TgWfF/XCiLcsmSlAxgtv3uU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnOKJaLbcfLQpoWsH40s03iYQxliIDyuVb2nL76auGLE6q2yyu
-	h39lg5+4Gis9ke739oUNB96ARY7wTf1NnYZ4dHXgvdJwcXWYsXC6civ7Fi+5dUPfxIJ7a8OeH2U
-	AjImOR3qpu1Jp2FhJlFiy6aBH4tAuqitemjQabmwku2w=
-X-Gm-Gg: AYBFou0Lu7qiYIPR6JUFHxuXjhlzy9vGVl5BC9dxuLio61B94kbMX7P+oI7DccCMonR
-	105tvnXMD/n777eyK81eKWN9EOWP6utjaO7fdpDAHbZymk/cq80ed+V1J25gPvsxRLAl6ns0e3Q
-	0RzT7YN2jRUsGaiLOBGn+KI0T12UfSa4+5LLw+fFX3rIactD8HdkXSGjfPA9wZbJlEQYUB2hlU9
-	0hgFddg+5ec64cojDvwUycPFl6ZQ1T1Fp6n4D5RuyK0SVQckGp9u+5G8Sl0YhP4RhtW+ohzp1iI
-	uL6BLxN7JWqcVrsBleAUn4RT2Up3DnLn5K+GLDXc8UTUqHKaCHiPZLK6a2vXCmInIr5ZSIiOAz/
-	mkOJN4u7Wrnk=
-X-Received: by 2002:a05:6000:25e3:b0:484:3732:c26e with SMTP id
- ffacd0b85a97d-4858708e659mr42564856f8f.3.1789048872953; Thu, 10 Sep 2026
- 07:01:12 -0700 (PDT)
+        bh=QVTBVvK/LTuo8gf4v/dR/3J2cjbjkp2QfVZbK4iqBUA=;
+        b=LJVtISQNf+cjAlf9rO1Nc91+MKUtaEFj8z2mgGg2H1SEQyeSxPQvDfoG7Cppgw34TZ
+         3qCWGuGnr2MJZDWnIHYUyDe3674U3mgdjEk/cYno0x5VtHcadDxkJOarFq66Vhb7zx0e
+         6VNm4PLmO+BdNY8CaRY5GEiTYtiK0t1ohyiHKJI8E0/BhD+AM35UKgeEIVo0YT8OPSwy
+         9SZx2ZpFaGszpnbNXAq5o0QiOShURBMplx135AdYZuVxi9PDJFIGxI5jV3Fgf8KuXVQv
+         WYUT3jlr0uiGnPagZpR6evHY0RDe/eqHqCZkiMNCEMwvaX/JjlOoWXmWITcgQulPFjfN
+         7diw==
+X-Forwarded-Encrypted: i=1; AKwUvBygqWrQNLtMS0/zHfqBd2zNR4achksgjmxjL4rpLQPW/Eqv9kWd6B2cHmri/4CNiZVjlzXIxAnX3+sx91c=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndYByu22kYTyb+LK0eK8jabMJNrd+mm3XILradJwsp6ljzv9Q4
+	chXSAnk4jlR8LYVu+MSE0p4bO1HQEJo7TZ+QXRcoJUJiu3gCD1WBtWBCgvianWXi/CCosivuyvw
+	7C8MZEHnhUOweghm93Hz8ND1MGdI22hbqSWs+g14=
+X-Gm-Gg: AYBFou0WeFcZ21nSmxchRbX02SpXn7WAI23vOoRP2le4nV/SUkZaIzVoxyn8HPLleO8
+	5b0v567/Zf3bS6oysKR7BqyITCNFdAichaRDF9vRyLITLvyJrFLJEWqn7vRn9sdsBId1eXmwGSP
+	L4nwRugZ8tt21BmEIY0jztWFDfikvVmnnFlOv2ToMm5JjcVdQTsuCAD7xtCGT0ErNP5bDYTzg85
+	i0+1uBsR/kPIbNlF29y4wrUXWw5B/jK11vZaMZ1jEHVN1m34EUncXfGFz2XmWDIskXmDKNO2UTR
+	hg+0D4335Z0nIPgZMuxd2BXqan6bkr35NgWuqb87HhzEwn5d4aaCV+RMIFZ1Sgq+Yg80XN3PQDy
+	iVFSFsH43qiQYWHC721ysk57uMG58ZAA4z0u0+Vi6QWvlMttSXFIrZqM3ksmVDe+wDD46QWH1p0
+	xiVjrCkQ==
+X-Received: by 2002:a05:690e:184:b0:66f:c1be:84ec with SMTP id
+ 956f58d0204a3-66fc1be8749mr9414432d50.90.1789048902818; Thu, 10 Sep 2026
+ 07:01:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720191146.21473-1-yjn@yjn-systems.com> <4665e150-3ce3-4b63-949b-1f0210894e4b@app.fastmail.com>
-In-Reply-To: <4665e150-3ce3-4b63-949b-1f0210894e4b@app.fastmail.com>
-From: Jasper Niebuhr <yjn@yjn-systems.com>
-Date: Thu, 10 Sep 2026 16:01:02 +0200
-X-Gm-Features: AcwNN1WavkVlTRmngTXYqa35rrsO7WJLyp_-HcNZcOJGsPp7HW7qWNAvr5bGAgg
-Message-ID: <CAMjCObu0oNTEKrBy+M1QCMfLPFKf+eKd8M7xJsWfECosZzzrbw@mail.gmail.com>
-Subject: Re: [RFC v3 0/5] Bootpatch-SLR: Randomizing Linux Kernel Structure
- Layouts at Boot
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Kees Cook <kees@kernel.org>, franzen@sec.in.tum.de
+References: <908a5b29-e6d8-4595-b451-6c328e25c60e@rowland.harvard.edu>
+ <CAFmvuTU5HnBKbve=v_C7Mhw2586rR_8qsRNua2XPokgKy_o31w@mail.gmail.com>
+ <0305182d-5914-4022-a0a6-1ab4221b0a6c@rowland.harvard.edu>
+ <CAFmvuTULxq6O0t7FyhEwnGVdMMpbj1yZrPN6mVRDWTgF0ODJxg@mail.gmail.com>
+ <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
+ <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
+ <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
+ <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
+ <f928b74b-ce57-4454-bdd4-511b823bf742@rowland.harvard.edu>
+ <CAFmvuTXwUiap39-FHv6aqGbJVzORRx8tV1QfN0BDjJaPsbfKHg@mail.gmail.com> <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
+In-Reply-To: <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
+From: Minseo Kim <neck3922@gmail.com>
+Date: Thu, 10 Sep 2026 23:00:00 +0900
+X-Gm-Features: AcwNN1V6_1IfAu83Vxg6wMCAVqhduCS26yaYX8_GJMz2wtDNO_vaTq0-kfaHAeE
+Message-ID: <CAFmvuTUwGr-=joWrsYMu-Ra3XpHTe_HFhaY5inJnhg=e5b=1PA@mail.gmail.com>
+Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF in ep_aio_cancel()
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 3, 2026 at 12:29=E2=80=AFPM Ard Biesheuvel <ardb@kernel.org> wr=
-ote:
+Hi Alan,
+
+Thank you for the second patch.
+
+> In your earlier testing, didn't you find that with the unpatched driver,
+> the driver module's usage count remained elevated as long as the
+> ep_user_copy_worker() was pending on the workqueue? And therefore it
+> was impossible to unload the module while a work item was still queued
+> or running?
+
+To check that point directly, I tested the unpatched upstream copy-work
+path using diagnostic gates at two points in ep_user_copy_worker(). The
+module usage count remained elevated when I held the worker at entry,
+before iocb->ki_complete(). When I held the worker after that call, the
+usage count reached zero and the module was unloaded before the worker
+finished; the kernel then warned and panicked. This suggests that
+AIO may not retain the file reference throughout the worker tail after
+ki_complete().
+
+> Could you test it and verify that it prevents the problem you observed
+> with only the first patch installed?
+
+Yes. I applied your first patch and then your second patch to upstream
+v7.2-rc1, commit dc59e4fea9d83f03bad6bddf3fa2e52491777482.
+
+With the first patch alone, I reproduced the earlier module-unload
+failure with ep_unlink_worker() held at entry. With both patches applied
+using the same reproducer and ep_unlink_worker() entry gate,
+gadgetfs_unbind() reached the flush point and the ep0 close remained
+blocked, while unmount and rmmod attempts were rejected. After I released
+the worker, the close completed and subsequent unmount and rmmod attempts
+succeeded. Holding ep_user_copy_worker() at entry with both patches
+applied produced the same result.
+
+I also tested the boundary where gadgetfs_unbind() reached the flush
+point before the completion callback queued copy_work. After the
+callback queued the work, I held the worker tail immediately after
+iocb->ki_complete(). In this ordering, rmmod did not complete while the
+worker was held; after I released the worker, rmmod completed cleanly.
+
+I reran the exact pre-queue cancellation matrix, the original
+null-ptr-deref reproducer, the directed cross-CPU UAF reproducer,
+deferred giveback, forced dequeue failure, the earlier NULL-endpoint
+case, payload checks, and CPU hotplug. With both patches applied, all
+produced the expected results without a KASAN report, Oops, or LOCKDEP
+warning. Strict KCSAN did not report a race involving GadgetFS or its AIO
+work functions.
+
+In my x86-64 QEMU and dummy_hcd tests, the second patch prevented the
+module-unload problem that remained with the first patch alone. I did not
+find a new failure attributable to the second patch in these tests.
+
+With sincere appreciation and great respect,
+Minseo Kim
+
+2026=EB=85=84 9=EC=9B=94 9=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 4:03, Al=
+an Stern <stern@rowland.harvard.edu>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
-> Hello Jasper,
+> On Mon, Sep 07, 2026 at 10:00:00PM +0900, Minseo Kim wrote:
+> > Hi Alan,
+> >
+> > > Is it okay to add your Tested-by: tag?
+> >
+> > Yes, please add:
+> >
+> > Tested-by: Minseo Kim <neck3922@gmail.com>
 >
-> This work looks very interesting, thanks for sticking with it.
-> That said, I think the path to possible upstream inclusion is
-> rather uncertain, given the intrusive nature of this work.
-
-Hi Ard,
-Thank you for your input!
-
-While I expect a long way there, I envision a SPSLR that does not impose
-any other compatibility constraints than RandStruct does. Just the same
-layout-insensitivity that RandStruct has put to the test over the last deca=
-de.
-So I wouldn't call SPSLR more intrusive, just scarier :)
-
-> On Mon, 20 Jul 2026, at 21:11, York Jasper Niebuhr wrote:
-> > Hello,
-> > this is the third RFC version of Bootpatch-SLR. The previous RFCs were
-> > sent to linux-hardening; this version is also sent to LKML for broader
-> > review. Compared to RFC v2, it uses a new GAS feature instead of a
-> > dedicated assembler inside the compiler plugin. Additionally, it
-> > introduces the Sanemaker validation framework. This version rebases
-> > BPSLR onto Linux 7.2-rc3 and resolves the boot failures that prevented
-> > earlier rebases.
-> >
-> > RFC v2:
-> >     https://lists.openwall.net/linux-hardening/2026/06/20/5
-> >
-> > Changes since RFC v2:
-> >   - Implemented GAS fieldlabel feature to label immediate instruction
-> >     operand bytes.
-> >   - Removed pinpoint instruction pin assembler. Metadata now links
-> >     directly against fieldlabels emitted by GAS.
-> >   - Implemented Sanemaker validation tool and integrated it into the
-> >     kernel.
-> >   - Rebased Bootpatch-SLR onto Linux 7.2-rc3.
-> >   - Excluded some RCU fields of task_struct from randomization to
-> >     prevent boot crashes on new version.
-> >
-> > Bootpatch-SLR enables per-instance structure layout randomization for
-> > distribution kernels. While GCC's RandStruct pass randomizes layouts at
-> > compile-time, every machine running the same kernel image receives the
-> > same layout. Bootpatch-SLR applies comparable randomization during boot=
-.
-> >
+> Will do.
 >
-> I take it this means that DWARF debug data and BTF typeinfo are no longer
-> usable on such kernels? If so, how does that impact BPF?
-
-Yes, both DWARF and BTF are currently unusable on these kernels. But I thin=
-k
-that this can be changed. For example, the SPSLR runtime could patch the BT=
-F
-BLOB in memory to reflect the new structure layouts. Adjusting DWARF debug
-info to dynamic layouts should not even require runtime patching. Instead, =
-the
-DW_AT_data_member_location DIEs can be based on DWARF expressions
-rather than constants. For example, give a static variable
-"struct_S_field_x_offset"
-that holds the runtime offset of a field:
-
-    DW_AT_data_member_location:
-        DW_OP_addr        struct_S_field_x_offset
-        DW_OP_deref_size  4
-
-should naturally yield valid debug info at runtime.
-
-> > A full architectural overview and additional resources are available at=
-:
-> >
-> >     https://spslr.yjn-systems.com
-> >
-> > At this stage, tooling is only available for x86_64. It is based on
-> > Linux 7.2-rc3. Bootpatch-SLR currently randomizes most of the
-> > task_struct. A few fields are exempt from randomization because of
-> > current implementation details (see v2 cover letter).
-> >
-> > Bootpatch-SLR requires a custom toolchain based on GCC 16.1.0 and GAS
-> > 2.46.1. GCC is extended to provide access to COMPONENT_REFs that are
-> > usually folded inside the parser.
+> > Thank you for the time and care you have put into this fix. I have lear=
+ned
+> > a great deal while working through this issue with you.
 >
-> How does this impact codegen and optimizations in particular? I suppose
-> keeping individual field offsets patchable results in missed optimization
-> opportunities? E.g., GCC may combine adjacent struct member accesses.
+> You're welcome.
 >
-> It would be good to get some numbers in terms of code size increase in
-> general, as well as I-cache efficiency on some representative benchmarks.
-
-The following numbers are all based on defconfig (+CONFIG_SPSLR) with
-task_struct and cred randomized.
-
-Enabling SPSLR grows the vmlinux binary from 54.9MB to 63.9MB. Of this
-9MB increase, almost everything (rounded to one digit after the comma,
-literally also 9MB) is the metadata emitted by pinpoint. Before you get a h=
-eart
-attack now: 93% of that metadata is the string table containing the struct =
-and
-field names of the randomized targets, because that table is not deduplicat=
-ed
-between CUs. I should probably fix that :-) The remaining 7% will likely al=
-so
-become smaller soon, because the metadata format currently uses exclusively
-64 bit fields for everything and I want to get rid of all the CU-local stuf=
-f.
-
-Regarding code size specifically: the combined size of .text and
-.init.text grows
-by about 0.2% when enabling SPSLR. For a total of 10487 instructions pins,
-the code grows by 42798 bytes that are not attributed to one of the new sou=
-rce
-files in kernel/spslr. That constitutes an average 4.08 bytes per instructi=
-on
-patch site, which makes a lot of sense given that the vast majority of
-patch sites
-turn:
-
-    48 89 ab 34 12 00 00   movq %rbp, 0x1234(%rbx)
-
-with a total of 7 bytes into:
-
-    48 c7 c0 34 12 00 00    mov $0x1234, %rax
-    48 89 2c 03             movq %rbp, (%rbx,%rax)
-
-with a total of 11 bytes. The remaining 0.08 bytes are then caused by chain=
-s
-of multiple offsets that have to be added, or by the instrumentation of
-displacements that used to fit into a single byte but get 4 byte patch-site=
-s
-anyways.
-
-To measure the impact of this code size increase on l1i cache efficiency,
-I ran lmbench's lat_proc fork in a minimal busybox userspace in qemu, all
-pinned to the same CPU core, based on 3 different kernel states:
-
-- baseline kernel without CONFIG_SPSLR set
-- kernel with CONFIG_SPSLR set, but "nospslr" set on boot
-- kernel with CONFIG_SPSLR set, and SPSLR actually applied on boot
-
-The second one served mainly to avoid falsification of the results by the
-different effects that CONFIG_RANDSTRUCT_PERFORMANCE aims to
-avoid.
-
-Across all 3 experiments, the run-to-run noise within each setup greatly
-exceeded the discrepancy between the setups. That applies to lmbench's
-raw latency results, as well as perf's statistics for cycles, instructions,=
- l1i
-cache misses, and the ratio between them. I came to the conclusion that
-syscalls like fork simply do too much besides accessing some structs for
-the dedicated patch sites to make a real difference. On the other hand, I
-think that some kind of synthetic micro benchmark can not be reasonably
-used to measure l1i cache efficiency, because its entire code just ends
-up in the cache when it first runs and then remains there.
-
-The really neat thing is: patch-sites do not need to stay in their own
-instructions.
-I designed the fieldlabel mechanism to allow something like:
-
-    movq %rbp, fieldlabel(0x1234, .Lspslr_ipin_42, .Lspslr_ipin_width_42)(%=
-rbx)
-
-So there is nothing preventing the patch-sites from being inside the actual
-memory operands. And if we are talking about access chains, the addition
-of multiple offsets can be done at patch-time. The result can then also go
-directly into the memory access operand. If everything goes according to
-my plan, v4 will offer a significantly better foundation to build something=
- like
-this on.
-
-> > The custom GAS provides the new
-> > fieldlabel feature used to annotate encoded instruction patch sites.
-> >
-> > An example for the fieldlabel feature is:
-> >
-> >     movq $fieldlabel(8, .Lspslr_ipin_42, .Lspslr_ipin_width_42), %0
-> >
-> > This causes the custom GAS to put the .Lspslr_ipin_42 label directly
-> > onto the bytes encoding the immediate value 8. It additionally defines
-> > the .Lspslr_ipin_width_42 label to be the size of the immediate field.
-> > The metadata emitted by the Pinpoint plugin directly references these
-> > symbols to specify exact patch-site locations.
-> >
+> In your earlier testing, didn't you find that with the unpatched driver,
+> the driver module's usage count remained elevated as long as the
+> ep_user_copy_worker() was pending on the workqueue?  And therefore it
+> was impossible to unload the module while a work item was still queued
+> or running?
 >
-> Does the fieldlabel feature have any other uses? Or is this only for
-> SPSLR. Could these changes be extended to DWARF metadata generation too?
-
-I am not aware of any debug info or other users that would benefit from kno=
-wing
-where immediates or displacements are inside instructions.
-
-> For example, it might be useful to be able to capture the SPSLR seed
-> (assuming there is one), and feed it into a host tool that can generate
-> a matching vmlinux.elf that you can load into the debugger.
-
-At the moment, SPSLR does not have a seed. Though I suppose that would be
-nice to have for reproducibility anyways. I will keep this in mind and impl=
-ement
-some way to extract a seed and perhaps a boot argument to set it, when I fi=
-nd
-the time.
-
-If the DWARF approach mentioned above turns out to not suffice, it
-would probably
-also be possible to use the seed to generate corresponding debug info.
-
-I hope I was able to answer your questions to a satisfactory extent!
-
-- Jasper
+> This patch introduces the possibility of that happening.  Therefore I
+> would like to have a second patch, which flushes the workqueue and
+> prevents the kernel from trying to run code in an unloaded module, ready
+> to submit along with the first one.
+>
+> My version of this second patch (meant to apply on top of the first
+> patch) is below.  It is closely based on the version you wrote, the main
+> difference being that it uses a single workqueue for both work routines.
+> Could you test it and verify that it prevents the problem you observed
+> with only the first patch installed?
+>
+> Thank,
+>
+> Alan Stern
+>
+>
+>
+> Index: usb-devel/drivers/usb/gadget/legacy/inode.c
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> --- usb-devel.orig/drivers/usb/gadget/legacy/inode.c
+> +++ usb-devel/drivers/usb/gadget/legacy/inode.c
+> @@ -237,6 +237,7 @@ static const char *CHIP;
+>  static DEFINE_MUTEX(sb_mutex);         /* Serialize superblock operation=
+s */
+>
+>  static DEFINE_SPINLOCK(aio_lock);      /* Protect aio cancellation info =
+*/
+> +static struct workqueue_struct *gadgetfs_wq;
+>
+>  /*----------------------------------------------------------------------=
+*/
+>
+> @@ -514,9 +515,7 @@ static int ep_aio_cancel(struct kiocb *i
+>                 spin_unlock_irqrestore(&aio_lock, flags);
+>                 return 0;       /* ep_aio() will call us again if needed =
+*/
+>         }
+> -
+>         priv->cancel_state =3D AIO_UNLINKING;
+> -       spin_unlock_irqrestore(&aio_lock, flags);
+>
+>         /*
+>          * We are called with the aio core holding iocb's context lock.
+> @@ -527,7 +526,9 @@ static int ep_aio_cancel(struct kiocb *i
+>          * For this reason, do the dequeue operation in a work routine.
+>          */
+>         INIT_WORK(&priv->unlink_work, ep_unlink_worker);
+> -       schedule_work(&priv->unlink_work);
+> +       queue_work(gadgetfs_wq, &priv->unlink_work);
+> +
+> +       spin_unlock_irqrestore(&aio_lock, flags);
+>         return 0;
+>  }
+>
+> @@ -597,7 +598,7 @@ static void ep_aio_complete(struct usb_e
+>
+>         if (new_req_state =3D=3D AIO_COMPLETED) {
+>                 INIT_WORK(&priv->copy_work, ep_user_copy_worker);
+> -               schedule_work(&priv->copy_work);
+> +               queue_work(gadgetfs_wq, &priv->copy_work);
+>         }
+>         if (cancel_state !=3D AIO_UNLINKING) {
+>                 usb_ep_free_request(ep, req);
+> @@ -1773,6 +1774,8 @@ gadgetfs_unbind (struct usb_gadget *gadg
+>         spin_unlock_irq (&dev->lock);
+>
+>         destroy_ep_files (dev);
+> +       flush_workqueue(gadgetfs_wq);
+> +
+>         gadget->ep0->driver_data =3D NULL;
+>         set_gadget_data (gadget, NULL);
+>
+> @@ -2245,10 +2248,17 @@ static int __init gadgetfs_init (void)
+>  {
+>         int status;
+>
+> +       gadgetfs_wq =3D alloc_workqueue("gadgetfs", WQ_PERCPU, 0);
+> +       if (!gadgetfs_wq)
+> +               return -ENOMEM;
+> +
+>         status =3D register_filesystem (&gadgetfs_type);
+> -       if (status =3D=3D 0)
+> -               pr_info ("%s: %s, version " DRIVER_VERSION "\n",
+> -                       shortname, driver_desc);
+> +       if (status) {
+> +               destroy_workqueue(gadgetfs_wq);
+> +               return status;
+> +       }
+> +
+> +       pr_info("%s: %s, version " DRIVER_VERSION "\n", shortname, driver=
+_desc);
+>         return status;
+>  }
+>  module_init (gadgetfs_init);
+> @@ -2257,6 +2267,7 @@ static void __exit gadgetfs_cleanup (voi
+>  {
+>         pr_debug ("unregister %s\n", shortname);
+>         unregister_filesystem (&gadgetfs_type);
+> +       destroy_workqueue(gadgetfs_wq);
+>  }
+>  module_exit (gadgetfs_cleanup);
+>
+>
