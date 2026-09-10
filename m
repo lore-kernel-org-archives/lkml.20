@@ -1,52 +1,41 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFC43D953E;
-	Thu, 10 Sep 2026 10:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5AC3955CA;
+	Thu, 10 Sep 2026 10:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034736; cv=none; b=cspzRpLmb6P2m4kl6n+6T8lj7bFVQUyltRhj1fsEGw5wEN7E67NDLkZMLkPRztD1yWkIAkGSkWYYBV/MPqBdsiuYCONlEP3voW4TD+aXofH8rL0gQfieBi9+ejuBiER0gx85D+AZxKo64bnoxfrL8Mfn/HzGfr2zFAg3KCutJjk=
+	t=1789034745; cv=none; b=nbbOU83hJ0JnkNIyXCT1N7gDrJyFPUQfH8yvQO1ekUuXjXxqycNKESKf1gi1VhdDgnG901/cO6tHUCzBnkyamiL/NVE6tlXtUbD0kcFgG4sj0vmgnw+w+lfyL/y6F6m7vplupd3erde+rwI+2tvtL+olJn0/Nu/GRLzGt1a4nd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034736; c=relaxed/simple;
-	bh=ETFRh3gaMY1GVhjn47txxgfiY2X8rAo39gmD9GinufQ=;
+	s=arc-20240116; t=1789034745; c=relaxed/simple;
+	bh=VP2JEcLwxrjx9fxceVXLw0Wh34i2sZgDDL+TqvAmKO4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IT8iMpytE3egRN/DCo3uVSNNSln8U1to/dWlN/339fxBbIiew97+mQGI3AOwg6UuzogGxEDOMjCUaiG1PEX62iuRLGW0S+phhJ0U5lmZfo3+HH64M3ABF/NM4ubAVj1GfD4sY9ZxRathQTqPQ37beToC216jZ4wt+km0Y4g98dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=cQZiuxcM; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=SnhoncRHtpSI0sMeCyp8qSVNOW/CW7Dq2lf1siOb368g/E7gKHkfT4xgxId/2Hr/ZMGMtLxB5Z4n7Da7nS7LyGgUgaq4k6BXoUinz/2ajG1T1RqeU46sl6Ywk6+SdrIGRou/YYLr0/vUMJ45+b/33YQQvkCeZOM2EQVpCByOUUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsbYvMMq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="cQZiuxcM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JCmt/pLSQvD074W5u+2P7MUPzAJxdnB79RGOsuQtHAY=; b=cQZiuxcMq7V6vbk3/67ssRYZqQ
-	tQdwB+IUKJ/G8r5PgOa8dB3AbCxHKS+9amN/gea9OJZgUIOBHqvXMax/znv+hcwKtYcJcCCN0JMog
-	jlQYoLOSgnGQVdk5MqEyX3dTtqIpZHIATkZrsYCxGZTRAKARFrfOpnTX9qmKHPM1PrQvQl4ScV+QB
-	caQL7SEHYlvqcMVfgusL6LsIRSQsbDaKJ/n6XVnBwDiUZGfV+nEouzNsZHmZH1/WeaprP3XSXMAhe
-	KBCt6uDjKWE9/6B7kuHseYNaSCLPHBaTz54rOR3vMMJfC0q8AFoocxNTYdOEtyrygMZweuUINEaYl
-	bidt+YfA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x4bef-000QyE-1g;
-	Thu, 10 Sep 2026 10:05:17 +0000
-Date: Thu, 10 Sep 2026 03:05:12 -0700
-From: Breno Leitao <leitao@debian.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Christian Brauner <brauner@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, 
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Douglas Anderson <dianders@chromium.org>, 
-	Huacai Chen <chenhuacai@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: Re: [PATCH v3 2/2] bootconfig: Fix integer overflow in initrd size
- check
-Message-ID: <aqKAzTzpqYmuj8Rm@gmail.com>
-References: <178900555453.200943.4719889510443114485.stgit@devnote2>
- <178900557529.200943.11099215789605267709.stgit@devnote2>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsbYvMMq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4BE1F00893;
+	Thu, 10 Sep 2026 10:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789034733;
+	bh=lgg2GkL5fgNDO1ZMfKkjX6HYmypLUd1Wvkwn8EBGFLI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GsbYvMMq8a2fVr1gbI4FvCsu1rghZipQf2uzR1F5t+FV2hr7w3/ZduFZ917ujEhGK
+	 gaO1jAavWJU4ryTMbFh+X4nEol1jSklDjgx/rIvpDp+1EJ2kr9tSm+1XQEYdNLlLxS
+	 xyGC8wxQ+Mv0gWVtEQk8l78eMXqKuzHDaLJgWIT3fyVYA2X4b+KMoO52+X2ku66Mqa
+	 M9ZARcApYBEyuoii4t6WMZ9/lW3fhDTC7Tz8DPmUnrLSBygeqPJsREmqnF2Ool4/uo
+	 riEwhnv4lMO6BTAj1UAfH/SvRzGIl2duR25MRhtsEph+3c9qc3cW39KMayNtZQWFq/
+	 AxE3YKtjc9t5A==
+Date: Thu, 10 Sep 2026 11:05:29 +0100
+From: Simon Horman <horms@kernel.org>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+	Paul Fertser <fercerpav@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] net: ncsi: validate response packet length before
+ accessing fields
+Message-ID: <20260910100529.GT40544@horms.kernel.org>
+References: <AS8P251MB0001E6ABBE0B6809D3E21B9DC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,41 +44,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178900557529.200943.11099215789605267709.stgit@devnote2>
-X-Debian-User: leitao
+In-Reply-To: <AS8P251MB0001E6ABBE0B6809D3E21B9DC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 
-On Thu, Sep 10, 2026 at 10:59:35AM +0900, Masami Hiramatsu (Google) wrote:
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Mon, Sep 07, 2026 at 12:37:51AM +0100, Aamir Ahmed wrote:
+> ncsi_validate_rsp_pkt() computes a pointer to the checksum field based
+> on the payload length without first verifying that the skb actually
+> contains enough data.  For response types whose expected payload is
+> fixed (e.g., GCPS with 204 bytes), a short frame whose header falsely
+> claims the expected length passes the "ntohs(h->common.length) !=
+> payload" check, but the skb may be much smaller, leading to an
+> out-of-bounds read when dereferencing the checksum pointer.
 > 
-> Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-> with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-> arithmetic:
+> For response types with variable-length payloads (GP, OEM, PLDM,
+> GMCMA), the payload value comes directly from ntohs(h->common.length),
+> so the header check is tautological and provides no protection at all.
 > 
->     data = ((void *)hdr) - size;
+> Add an skb length check in ncsi_validate_rsp_pkt() to ensure the
+> packet has at least sizeof(ncsi_rsp_pkt_hdr) + payload bytes before
+> any field access.
 > 
-> to wrap around on 32-bit systems (or when pointer subtraction overflows).
-> Because data wraps around, the subsequent bounds check:
+> Additionally, validate address_count bounds in the GMCMA response
+> handler.  The handler iterates over rsp->address_count entries from
+> the flexible array member without verifying that the packet is large
+> enough to contain them, leading to a heap out-of-bounds read if
+> address_count exceeds what the packet actually carries.
 > 
->     if ((unsigned long)data < initrd_start)
+> Fixes: 0b49507fc090 ("net/ncsi: Resource management")
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+> ---
+>  net/ncsi/ncsi-rsp.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
-> evaluates to false, bypassing the check. The kernel then calls
-> xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-> hitting unmapped pages and triggering a fatal kernel page fault during
-> early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-> unbounded 32-bit size can similarly bypass the initrd_start check.
-> 
-> Fix this by:
-> 1. Ensuring the initrd is at least large enough to contain the bootconfig
->    footer and verifying hdr is within the initrd bounds.
-> 2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
->    the available space between initrd_start and hdr before performing
->    pointer subtraction.
-> 
-> Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-> Assisted-by: Antigravity:gemini-3.8-flash
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+> index fbd84bc8026a..1401528dbd6c 100644
+> --- a/net/ncsi/ncsi-rsp.c
+> +++ b/net/ncsi/ncsi-rsp.c
+> @@ -45,6 +45,13 @@ static int ncsi_validate_rsp_pkt(struct ncsi_request *nr,
+>  	 */
+>  	h = (struct ncsi_rsp_pkt_hdr *)skb_network_header(nr->rsp);
+>  
+> +	/* Ensure the packet is large enough for header + payload */
+> +	if (nr->rsp->len < sizeof(*h) + payload) {
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+I am concerned that there is no guarantee that the skb is linear and thus
+this check is not sufficient. If so, I think the check should be
+implemented using pskb_may_pull().  And h should be set after it is called.
+
+...
+
+As noted collectively by Greg and Paolo elsewhere:
+1. Please include an Assisted-by tag
+2. Please keep the number of patches in-flight to 15 or less
+
+-- 
+pw-bot: changes-requested
