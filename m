@@ -1,131 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475324A3F1D;
-	Thu, 10 Sep 2026 19:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E57493644;
+	Thu, 10 Sep 2026 19:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069449; cv=none; b=tWH3XFUTxhS5/TK1QmSd/6tRbAj7tJG7L4PrqIuHiL+1iWS9ML8zkWimtj74UWKrAvtC1P3VA2+wkh839baEZjsIQIFTG7ieaOYPFQ4nff7EL8nZLcAvV/0Spl8p2d9sL21jc9TqmT9OULuvIcpg7QysulgFWTE/j7qVXn3Ehxs=
+	t=1789069468; cv=none; b=JZzOB57Jn+8UB8UD91PUqGWTkwTFJRZ7ci7Id3gL12UU6O+mBVP7eS9NMDDzkTRIdzpIeafz8irodd+2Y+ITt1Ng4/yV79XG/NjB75ea9JDk5aNU4eJbE165ateYIDaLqeRHpWQK/YUFSBTSuwO6gJmY1hH+wrzxaRoFu1LieOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069449; c=relaxed/simple;
-	bh=NDSmdLHNLWZfPpisRsXI3ev57yKL/qz1yWxAPWKXxb8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=uC5FIXk/8x/b5lG9jXHWeCjMcJ9B0Uqb0fWnNsnocDejKx3CFolZWYO02c3xGGKEz5AjK2CruVWx0K7Cx4iXPc9GRHGbiD3sy59iLpaHTKTtDptUaynsEmSJeKK+fpJl69bDQCAxrmX0vDWFIeoWPqpmOJ/Ha9eT4ucONJsyZt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jsk4fAD/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789069468; c=relaxed/simple;
+	bh=mLejFowYm2X6VHgkPdi17Jgt/N1ot0OaV91zeWDUK4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q+v7F4A41uUdS8OXXsjWKsXJ8P5j5No0LpyjDJkECThwSPyFLoFE8KhXn/xCbexKGyp5+6cVMMsOoT25cZrMYrKw5Gz8uyFyNpmF5LgMadbr/WGiNGohGyV+qkWGgrbssr81MW7VcCHu43R7gtu7ThwpZRIH56AWVw8UKOcJY1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jcnrM24p; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jsk4fAD/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231601F000FF;
-	Thu, 10 Sep 2026 19:44:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789069447;
-	bh=ttSVIgdk6jH8bW95abHDSQ4zzL4XFOk8AZIYRLz2bPA=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Jsk4fAD/stluB1otq6yPS0SNLTbCJA2CIqJZtGYg7zwlzgerDQuFvdRC5k/9pogI6
-	 Op+gjIm2ap7jFtls92KxzMMX4h66bvSMmMHp07SddWref3JyG7EsVhl/BqkbRfeE0q
-	 BL01XzG0qLRqtyzFCynTkhSuzV7TCo5m8RVlaTjrBPa/UTd9md7FUfu5TUYhwqgYUh
-	 Lq3HbAonsOOtlosDUF/72Q3LRkF0tK7mQyj9BeEUqKmEGuYJBp9ZgYHAhP6j3f0uOK
-	 O+1RZcLt/JsL59F3767CRBkRJPf7YgclstfN637mKvYg2LMHbSKQwvnsm0NoqWju3o
-	 iGYnUcCXSjkag==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 5409CF40066;
-	Thu, 10 Sep 2026 15:44:06 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 10 Sep 2026 15:44:06 -0400
-X-ME-Sender: <xms:hgijatKendLiks4omkEsjnbVtgo8EeL0t5PHiSRnAqNLmocqac1yoA>
-    <xme:hgijaj8f9KryBBd-Wa3prBy92nayzUYhelSCOwricspCMOg5bfW-mba8zM4qRvrez
-    U5YYCpax1-2_n8TdPt1hDacRBqEsZw4KOgIYyVt7UyELf8tetUbXTOF>
-X-ME-Proxy-Cause: dmFkZTGl8jAL90lzK/34eQf8aVRvno66hAYp5+OuxVRYrHeZj1EltiDgZxZbX4j9X1xw7k
-    SoKl5QPlUS+u8UrRf1KPVt4jdN9AANu828pfpIMkeRllfJ+7HG8/JI8w6brtq194NzYinV
-    u5blyXe0ylJHsfEYsXHoaxQgjVKzPJAg49SIu+SCENSCEiPLVFVfNMLVH8aAN7KiDlwCOP
-    yKPHMZfJJl70l9hUFhc6YwD1YmIR0xxMCKRf5fjxpDJWyx341zYE4hzg2kGIg9BW+huVLQ
-    9+PY7GtVQU83wwyn//1C+rZq14X6lnn8AL14atGkw6lb0xazizBtCtvca5KD6we0iXRZfM
-    GmueDg922+WBGaUl7iADNOf+v4OHV0QzqvDQWWC1Usl+BkndA8l8BIN7PEK6OAHC8U79zO
-    3YmHSKZWiN4nD4wEqf18qQDnkkl/QYW5f5/YIanHr0CneYb5COkyu6C4A3NRg4j2XbRpCy
-    5pJYcEoalPrQiGALxrG5vUXDGi1/dnrH0dQCHXSZmoAN9W3q4B6Wv/owivCIOSXDxZfdcT
-    PJeSDnnLzhbUYLYcESavzlWi2yNsEvgdZuL+DDGDGylxCH36TUMDuY8d1VMLQvFFNnhBG+
-    pEcI7PWyCCK4Xdsre9NdGKBsHGyKvjYCRjI328qfIzzBUGE16RDQhFCQFCZA
-X-ME-Proxy: <xmx:hgijajd6FF1IlyAVes_htyHZEd2DaE7sO4PziFrGBxXbpZ19_rmC_Q>
-    <xmx:hgijaqkKVMayF8TgopXoOFOCtfTLxVJ3h72gHUEF9NuBHt7JeH2FUg>
-    <xmx:hgijalwf3_A8mcCnPrvwbkn3mKPwx9uNyneXwsZa681UQr8c8DtCcw>
-    <xmx:hgijatO487koBTqhmn2KY2r8RXeT7_Qet85bg4ml4BzVXIeTdqOczA>
-    <xmx:hgijamhN_ZaxHCung245f-VzSxKMi-XmvHdi1y5irVLyA5PW7HYQsL6e>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 27E987811F0; Thu, 10 Sep 2026 15:44:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jcnrM24p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789069466; x=1820605466;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=mLejFowYm2X6VHgkPdi17Jgt/N1ot0OaV91zeWDUK4M=;
+  b=jcnrM24p7huzXAlDRWD2TjH7S4fbeqGVwGdeHACGNbRcUtkLq6pfD/6X
+   P9lc5mWqTxBgh/VUcKoKfiy4k66VP2BR8GxapGo3FXOVBfgEIEvGMT7OL
+   9MT9I7PJdVV8rTG5tQQl3ChsIwKosjN3zrGTd3gOFJOYhhYHn31+cUSFD
+   2aUvWh7Uf3n2UmNEOl14Cq+5snAZ+LPI+jTv+N0hiKc+T87C8HmawUKi8
+   lR0FJrm0AbbKUWszVlJ8/++kDrhtFjhg6VQszQoZraW4ppQ3OLa2bvkqB
+   zu/0cgxm2NV0xDsTyHBrm6rtps1rTAlLNRH2yzobkzJhAXMjfE9yO2gnA
+   A==;
+X-CSE-ConnectionGUID: ePZSZmvTSX6iYMKruLVjOg==
+X-CSE-MsgGUID: JydU6PZ/RCyi6f79dT30Ww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89402890"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="89402890"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 12:43:51 -0700
+X-CSE-ConnectionGUID: /D58CptvRWislmqj3SNDDA==
+X-CSE-MsgGUID: sdW1GR5FR0mva4w6Y0TxdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="295206760"
+Received: from vverma7-mobl3.amr.corp.intel.com (HELO tfalcon-desk.intel.com) ([10.124.222.113])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 12:43:49 -0700
+From: Thomas Falcon <thomas.falcon@intel.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>
+Subject: [PATCH v8 1/6] perf mem: Fix size tracking for mem_lvl's in perf_script__meminfo_scnprintf()
+Date: Thu, 10 Sep 2026 14:43:19 -0500
+Message-ID: <20260910194324.98002-2-thomas.falcon@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910194324.98002-1-thomas.falcon@intel.com>
+References: <20260910194324.98002-1-thomas.falcon@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AU_HLaoPh8kZ
-Date: Thu, 10 Sep 2026 15:43:44 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Jeff Layton" <jlayton@kernel.org>
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- "Donald Hunter" <donald.hunter@gmail.com>, "Shuah Khan" <shuah@kernel.org>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org
-Message-Id: <73066b7b-119a-47f4-9ca1-2f2432c3c6a3@slotpi15m67>
-In-Reply-To: <20260910-nfsd-norpcb-v1-2-b4d5182d634c@kernel.org>
-References: <20260910-nfsd-norpcb-v1-0-b4d5182d634c@kernel.org>
- <20260910-nfsd-norpcb-v1-2-b4d5182d634c@kernel.org>
-Subject: Re: [PATCH 2/5] NFSD: add a userspace-rpcbind flag to listener_set
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026, Jeff Layton wrote:
-> Describe the interface that lets a caller take over rpcbind registration.
+When printing memory info in perf script, the entire size of the
+buffer is passed to perf_mem__lvl_scnprintf() instead of the remaining
+size. Pass the remaining buffer size instead.
 
-> --- a/Documentation/netlink/specs/nfsd.yaml
-> +++ b/Documentation/netlink/specs/nfsd.yaml
-> @@ -483,13 +527,22 @@ operations:
->      -
->        name: listener-set
-> -      doc: set nfs running sockets
-> +      doc: >-
-> +        set nfs running sockets. A request that carries userspace-rpcbind
-> +        is answered with a reply rather than a bare ack, and the addr list
-> +        in that reply names only the listeners that have an rpcbind netid.
+This issue was detected by sashiko during an internal code review.
 
-"listeners that have an rpcbind netid" overstates the set. RDMA
-listeners have netids (rdma, rdma6) but are omitted from the
-reply.
+Assisted-by: Sashiko:gemini-3.1-pro-preview
+Fixes: fdefc3750e847 ("perf mem: Print memory operation type")
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Reviewed-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Thomas Falcon <thomas.falcon@intel.com>
+---
+ tools/perf/util/mem-events.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Following the way Solaris handles RDMA transport, NFSD never
-registered RDMA itself, so that is not a regression, but the doc
-should say what your filter actually selects.
-
-
->        attribute-set: server-sock
->        flags: [admin-perm]
->        do:
->          request:
->            attributes:
->              - addr
-> +            - userspace-rpcbind
-> +        reply:
-> +          attributes:
-> +            - addr
-> +            - userspace-rpcbind
-> +            - rpcbind
-
-The spec declares an unconditional reply, but patch 4 sends one only
-when the request carried userspace-rpcbind. ynl has no way to express
-a conditional reply, and no other in-tree spec does this.
-
-Either always send the reply (drop the userspace_rpcbind gate in
-patch 4, so a plain caller simply ignores it), or leave listener-set
-without a reply and put the registration data in a separate get
-operation. I lean toward always replying; that's is a little more
-"declarative".
-
-
+diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
+index 0b49fce251fc..4e490f9cd348 100644
+--- a/tools/perf/util/mem-events.c
++++ b/tools/perf/util/mem-events.c
+@@ -610,7 +610,7 @@ int perf_script__meminfo_scnprintf(char *out, size_t sz, const struct mem_info *
+ 	i += scnprintf(out, sz, "|OP ");
+ 	i += perf_mem__op_scnprintf(out + i, sz - i, mem_info);
+ 	i += scnprintf(out + i, sz - i, "|LVL ");
+-	i += perf_mem__lvl_scnprintf(out + i, sz, mem_info);
++	i += perf_mem__lvl_scnprintf(out + i, sz - i, mem_info);
+ 	i += scnprintf(out + i, sz - i, "|SNP ");
+ 	i += perf_mem__snp_scnprintf(out + i, sz - i, mem_info);
+ 	i += scnprintf(out + i, sz - i, "|TLB ");
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.43.0
+
