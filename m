@@ -1,199 +1,186 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazolkn19012053.outbound.protection.outlook.com [52.103.66.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD4A34EF03;
-	Thu, 10 Sep 2026 04:05:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789013153; cv=fail; b=I2sYq2kPmzEsoiAEvb96LYyDKOq7LWiBYIw1Fak3ahTxHEUUWUG1BY2UoKMbATi4xB3+5gtasTBadUtA5h8bXr1rTwxlIA9PbAl7Wkqb7dyrWWif3Ezk/GCb9bQWktAW8f78Ttu0PfYi42ACLtW14MNwxnczuUlm+qB/Ag9bfD8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789013153; c=relaxed/simple;
-	bh=0F0VIk/jY79sMBLSQuDmUhIK9LPCi9F0EzR6LBp5OYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QLf2pO7AjdrT5WWLLDBtm0prqmX1vZITO/wgb4IlHe/3/zb8IPcUVZVSeTR+jYtBhtfiWKk/C/I92v8p/JOCyHdytWsF9L2nOXoEpIFGTcs/moaiSCm1hdlbV/gCoqynv+jDi0vR4cTP38rb5LFBCGP4m5e6DEHOErMGvOcejXo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in; spf=pass smtp.mailfrom=outlook.in; dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b=INt/LX2b; arc=fail smtp.client-ip=52.103.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014093955C3
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789013158; cv=none; b=a8dUiFHU4neSwoOCE4ILYnS7AwvB/w+eooBf0kzpUmMPZDvbQGyyGKLc0E3POm2i/OxRy3hNPUi0z1EJmSp/REHbCd4YS38I7sAGO1xzNEDuvrVObYJ17ih/muAkL8Lg9cAjYRHKk2+JB/cl0DE/hRsOCBPJdCzZZDoMKJFC5yw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789013158; c=relaxed/simple;
+	bh=SZex78iRRmNEPMFSl7W6+Q7e+5ckE/x74Tq8Bf5J1w0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=QEsgv0+h8EfCSesxOJtWIRIVjCqYt+xqAqlrz7YYVW9tPHohhYbeuAuBdC/0m5dSCbzbHte/TFveTU1SQym2BRSresjvUrdL8oWfYFIVPrRB/lBu10dQExW4SVTfELXE5HIqS6PC9z9kQ4ZtUixa2YL5P0NFsHFwqoXrhOjOxWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=As1RbXNT; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b="INt/LX2b"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oPWKkr/CKWeZ6rg19Om/x6oYXoBF6NzMrrIHyYH8jUPeMzUJMk9lzHGSahRcwXsZAqU5bnxQLr5+qneYlrWT6G30eoxhEJicjyLADGhQLJI4gHeYZ/k6MCuy2L/REFdCHDn8o0W7ui8QlIHXyezox1O1qtQHE7iqi8+7zGyWTb07JVvQ4xgxpoOSpIFE896i8d5BNSwB+7dF7CEAP9evq6r0PpwEEZADS0EAOWMWesVQ/8cfdluwFInmGyUxUt+ApJd+O2hYpGvNQ4GWhbGo8MbFCv3bc5WQpkpCr6e7Fl9zYGk9K01PKj4F4ahJCDwP9wOTgcezha7ynbvyM40UMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xgA/5K6AcdDd7slR+if/CcMusUt1WSQUKTaDqx/ytpw=;
- b=it34k9wllqKLLdZktYbgMxZ8dgO31Ox344gpsxvChrdANrM9wGtuzbAZ38VWYvdBBuwbXjnkkKi+ZMmPcVanQEu30uN7jJWFF9XXg/y9BmcLUh2yCdNEAc/MZrOeR5rPSTQbRKq2fde3p86LKsPMFYvgbBL9fjCJyUzUKJ68yVYxKwtthWireqREAG/puEsSZZ7bJRhDuEeSLMZ/COO920qIQuXOSN5/kD35rffrj6IZg996PKP0O2yOoVmq+/Xk/F2tr8h3y82Eig81tJt2queV1Zx8shr76OjH58LQhB7tU/zlcDcYfODWS6+gAimqbuDXerGms18iOz9do3A6ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IN;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xgA/5K6AcdDd7slR+if/CcMusUt1WSQUKTaDqx/ytpw=;
- b=INt/LX2bt7utX7hl17IWbtDFfFoXLNcCk99bfKsNTz6+pARo4hCiwMXPn0sHvodrV1HZHGIj22LxdyUruT0L0vxvmGph0t/IM5R9IG1+C5Uttn2Y2XJSe1RFsH+eevW8roJejO+ov3rciGU5cd53h6bSB7zxPnKqS2B2lUB7sZODb/yBkrKrtxAVhIYzJ0HUwrI2v9L9Z52MP7TB2GoR5X+PhfhqO87Xo8ERgvORLL+MSD0y2RwYtyVOrzfrXRcRxo40yHjjTvQJL32rHLGV6w3/TNrtyc0nKCUewxrVnFcYxevBhE4QVJT7A/UPcwPPoUjJP+jcUzgsgQ6qyVJruA==
-Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- (2603:1096:301:118::8) by SG2PPF550F9CAE5.apcprd01.prod.exchangelabs.com
- (2603:1096:f:fff6::421) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 04:05:44 +0000
-Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- ([fe80::3e9c:908e:6430:83]) by PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- ([fe80::3e9c:908e:6430:83%5]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 04:05:44 +0000
-From: Shujath Mohd <shujath@outlook.in>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shujath Mohd <shujath@outlook.in>
-Subject: [PATCH v2] arm64: dts: qcom: sdm845-sony-tama: enable modem, SLPI and IPA
-Date: Thu, 10 Sep 2026 09:35:08 +0530
-Message-ID:
- <PUZPR01MB51413DEFDD09B4661D9AED22C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <TYZPR01MB51313D5E4F5EE3CAF57C0876C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-References: <TYZPR01MB51313D5E4F5EE3CAF57C0876C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN4PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2ac::11) To PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- (2603:1096:301:118::8)
-X-Microsoft-Original-Message-ID: <20260910040508.11180-1-shujath@outlook.in>
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="As1RbXNT"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so5214195a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:05:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1789013156; x=1789617956; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=X6+WYysp4a7UmvnN2F6aIsypaUaxxW6rRb3Z7ELY0Lg=;
+        b=As1RbXNTCFgY4u39aT7fbd4NvNji6HnzwpHVBJqKU5s+TCixW1zCKIzLidmOfgCWPI
+         pYnbS0EG3ilC0fLBrrcKziVs9ww7xDsrfAFAerf0EzEjfa042LV9cxF23Fi9ZyXAtYEa
+         cNsVFZa3fPfvFp4OxQ0a4PrU1wC7gkOZRZ3vCgxEIbTRcjceXHZgKG0Clw+kE+xxpu2Q
+         32hdnbXEzVTMjNNjRMZ6FhwZZhkuQvCFtpzYrwzRV5R4/2WFF5cpabkPWgJCSbK393xF
+         JoxllxTtLOKanRlimgJNKydFKS6abPb0NklNcjvq4ZHuNJljEQxv8McaNKx5JBIBIRZ7
+         Glrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789013156; x=1789617956;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X6+WYysp4a7UmvnN2F6aIsypaUaxxW6rRb3Z7ELY0Lg=;
+        b=JSLBwk1hHqT9WtaAUIv0jQQf9YgwMybu0P9jfA9/4PByn5oeCNqQByTQhnmInHJcdS
+         YfVZr+a8HP8YqqrZVSk9oCx70dOOFgyBeUxiYwv/ChS2anMgy6SuiNSWLG5WMMyl9AWx
+         6FG5CncbhhRoXE2og4znR75c/te3TXvxrQbdqUSdyZonpgMla8FPGVoUzrX+BsWoEMoQ
+         d5zX3J0ayRzNkVxkmfoRZhwEa8o27ZnDZRMXf0fz2sUsbGn7t8BMEFTZcQg7rYgoriHV
+         Hj8Dwh8h2xseUU4QrXh1ZB9LdY2U39QFQm+o82YiYcEvlFvnazlXAi22DxDyVN8d8BIO
+         4cKA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDxNcjNa9FuGBP3ZgNDf03eR6k1fa9MFUEPPXJm5tKh7o0qji43jNk3AUHbypAVfwolxpqxg6zV4Jr8Rs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m72psZKywop893TwJSFtupmvj464x4L9EMi2LK2rA8E0lypEQ2
+	B+jE/xGjLc761dqhjpGiZvyM9ZLWT4qXSbKUolaOiHPhAT4rVUgGlbDn53lWZxw/Pbou7lZyKnc
+	PbjRU
+X-Gm-Gg: AYBFou26zxSvihtyvwR4m6VmQ9SSSKzyyaeDtu3i8HpLDmmYFXyAPNqZ8VVFxLY1hgF
+	Zw1XIk48JolxenMD28tKn//exQnEd5SHbb0aqd+MPfFMD3Qoq0tTxU9mi3mfWMJE+USQv2lej8q
+	u0ivU0E7Y4zQ1vTjTzCFOlVbAGTO16WBwVi2tRaful2ROqDfKJMwfSn1oHkZZGT7TiiTGzpXWsv
+	6oTPVQF2Q/JgZjs7S9Y07CRuJDn7Xl98lnkXB+SFV/XAmR5uCUzam9X3cqkVQAq0M36haNSUcfp
+	WgnJ9RTZ8Qpuk4OtlP0xWZ1pQaaT6FmUfjL8wIygu8YEV1ZMtrj6G9LUO7+ofulSlOtOShPOqo5
+	lQjgLGOjoLl82K/kP5vyp3Z59L3NxYbivPZgWydTF6lj1FobfPxsw0HXYSQCQiys2zmWZ0zBgBT
+	e6u9aAqi+qFyjnUGNnbTC7kcoYRGBZp89UpQ9+DejPvdRaM6stSckOWWxnrff9tg/Qy9C5+rE=
+X-Received: by 2002:a17:90b:2f87:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39b261e75femr58669335a91.16.1789013156095;
+        Wed, 09 Sep 2026 21:05:56 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm49043209eec.26.2026.09.09.21.05.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 21:05:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PUZPR01MB5141:EE_|SG2PPF550F9CAE5:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0c298d1-3aff-4437-c25e-08df0ef0c8db
-X-MS-Exchange-SLBlob-MailProps:
-	WaIXnCbdHrO+2YmbT5jW+WUSUt4IT5vRUeNrpfN1hxO2qvkRqnbOVvD5IpHEEjc+1Z0iP5af81Wel4+HlcOpB6UIQUu0Ovil6XALJyt+OsfS0Vne//o38mJx2Lrfo5qYWW2lWaAw5B53H75pEL0FjpZuqKuNSQOY3q++6rPD9X4f/cvI/v01J9fDa4Rxt+yahum5hIvpfWV4M6XTfXLw4/l+zENvEgqVS9qtMVsiFqeEnN00GtNG4/HWxg0O5nRLdrqGMtXG9d6k/3z+BDWxoYXcLlrYPoaSZdbe9j1Qcv3ob3FhgfaKtW0LiV6xFX4s8WX8W8U+2D7JMIHZ/qQto9r2KdLUmCbDWCeKYmNu1+19DMJSqPVSxNIUq4retVdC4Cc2CsbePE0q31HSJNkWvh0nnvBq6AyGo07WrMKEUo6K3hlHvmdQcNJJFuHQeCjsxZZNAIYUISuG2WlorqN1OaqtDUH7hwhcrC6puU8kr5UXJWC5gib2YSJDvLh9DQToZH4jvTqCZGuNPiDHfIUiuhsncF3kj+MaNsmTRFQTd01tIRvCg3Muj2zpRJiSTdhD30WqN3MZe5NV2dpL69J1VPZC3V9kHqShXk0vobImGO2Pr/AyRHkecD4JlZswFRxbfiMIp9NVy4mw9S6koWDKkqh4NNKDbQlGHXyrcpWDpV6J3LeLI2oGO5aESBMV2hNOrnT1AZ/zHPdZMSITcUQpCJNApcme3Ly6fUkyZ7uD9o5aFs4kPDL5YRKVYLOM9A7ndfUCMsDZTxI=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|41001999006|5072599009|25010399006|15080799012|51005399006|19110799012|8060799015|23021999003|24021099003|26104999009|440099028|3412199025|40105399003|2607281247196008|10035399007|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?C7oi0D+1qHZDD8PsnvVe1Ms1XyG3jJglKUcONFp5cnl8BIh9xD9Y+rMO9rL2?=
- =?us-ascii?Q?/IZ1Isn2xo6MWR5xZxKS8S5EfhunsAbAe2GD7iQ+BGJkStQqwKjxieDjMAle?=
- =?us-ascii?Q?fnY/knyPPf8DaCzCkSlhZIBLCXqvCJs3A3PSBPA/orePsfe9I9kcdnIkayQt?=
- =?us-ascii?Q?USFFCeofXNmwOm6zZP6ZuiY4nrRMfLBmQFSn6xNKSzaBepvEu/dGI9iLtrhC?=
- =?us-ascii?Q?yUyE/sHbUo/ALg+HEmDcAdcUA/JdOwHRIrpI8if9ccbfslm/woCnp46zOO+9?=
- =?us-ascii?Q?GCYT5jP8I2VtZ9IvH5xMiTGNnG4KQlAIGPzEzExsITf/8CIY234teXG1QGa3?=
- =?us-ascii?Q?K0eMD5l9R4PtWLJV9BVJ5SQ12JXtClgzRlLfb2fSMf/HYWu4xQTFysNdMfei?=
- =?us-ascii?Q?3Gpl29iZcxooE0ISlh56q3QluJlodqQyH6Oi+7DOziooSui+Oc+WkDJBmdLn?=
- =?us-ascii?Q?VWsysvTLWwj2U0izE8Y4wvH8y4eftnK1NUr8wdHY3Rfgsx0+LeldBzu47DuG?=
- =?us-ascii?Q?0vRLCACmmFj0DbFiJV/hZboA/gQ9p9d3em3f9B9K7g4SVqM4LgdwVsOT5Qxn?=
- =?us-ascii?Q?qZG9uReTKY/JAWGJwH7JTcSOWeqnWTNFapUwqrr+DRZ/8Kf8ogFgA8VwLpkV?=
- =?us-ascii?Q?zXi5/00TqkDOTvL86Itczittbe6Lo0e+4ZvMjSiJeehnLzvleZ2dAK3rj+LZ?=
- =?us-ascii?Q?nbo1CCf7gDR1JZ9wFP3iW6CxtHe6cFspCZPPnplw5YHqyx0YsxrhqYx8QmYP?=
- =?us-ascii?Q?+TRlQiiIQ1g5ROqCyI18TMgrAPdiyffe/ldhA0cYVn4nAT8KovQPt12LP1uC?=
- =?us-ascii?Q?4FYriCAeezYnoCKi4TJf1bexRf6jO5q+Fdk6WS1SkTYAlxahOTa++eLD4YmW?=
- =?us-ascii?Q?51TJG6uOQv0KQNrN8eZ7Kih2+dc3BloZtplDtiPfGQkNB/EqUHPeGtBKoa2V?=
- =?us-ascii?Q?C8GKlRim4JTLtWsxL7V3QXkO82YZVCdJuN2PcFfBFJI=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KsIvNcDk4nePzyjpu5g6ISJB2vl4sCzVZP16ogvPCVcUbClFCf/6iWyCS/3/?=
- =?us-ascii?Q?KtzvvTxfj6TamfVmICs8wZu3gsTRSbR9P61WZ7eMmzsQiJgrsUyypYGMXecV?=
- =?us-ascii?Q?2HyNsF5GMeZX1LRSCvaUoEgK5LbVa8DLdgKXoZXn/Q+Hy5tjg0flSebBp4Go?=
- =?us-ascii?Q?ASOQKcBToa4/rGvKsmNx+ZbppqcgDlEQdA5jCY5ORFlUIvvZJvPPL4BHf9z0?=
- =?us-ascii?Q?QQB3V1a6jPYMMJeTPp1GFOESAluA4C3sg0wHki2lwzKlu3eSEL7N0BX1AVpH?=
- =?us-ascii?Q?wOKjhn8xrBlBm6/L6aLHAgWJFS1+SfATUlnHFffNgnITJSVRvzOYdR58zZEK?=
- =?us-ascii?Q?YfST5jH3UPZYyxMgqiKlWAMR1sZu+rA/1zKYtCzsnP+6pH6XCyWTTRcOr009?=
- =?us-ascii?Q?cLCgqVfwsHI7Zy3lg+VTUTlhMy6sYr1FlvZEVnHHzxh9wWyuWbVRndAvdVIZ?=
- =?us-ascii?Q?elaSjYoobZgTo7rOofswM2ewZf8m0K3HPvgKd6rgGrPe8GaIZiGHzhB5mW+g?=
- =?us-ascii?Q?SVGBSyG1SjqNNRWwiF7+TkPBlxmPdhVjv6lU7d4N4pMJHiU/4SnHdZwv4AxR?=
- =?us-ascii?Q?l5jbbpEiDk7Mn2vTWRJ01ZnUYIRsU++Wy6FyfoRBEDBQzCUB6V7bJMA/oiXc?=
- =?us-ascii?Q?GHxp/tDrQ1jvXoUf9wAmBrDkvjSQ0XIjA3jHlOaYSjGGhIVyYFZousganigq?=
- =?us-ascii?Q?B7d6QTaOzvD5JAYsyMj/t5qP7FKE1vmvGDXXmgYVuCPbGYkp1IrkuqeWKnVQ?=
- =?us-ascii?Q?rEXmuZGLePoFxwkYNeCsa7HraOkoEcTP7YkBvvRIvqWVRHoIlqpZ+5MrisOh?=
- =?us-ascii?Q?/pWRhzAwvxWXhR5+e7OkfZWKPv8A7RXqwzaS3VH2eygAeyHq5gPTWfhVx2t4?=
- =?us-ascii?Q?he9g7BkyYd/r8p7wDS4Ro+jNuNp5ZNPCrHBNYXq9Bjtyk+c+Fp8/uIOxKrqH?=
- =?us-ascii?Q?+NxBiwWcPMia68UDum6IjND2zvSYkVEDwJJVuP3Wp7csey0vxoI0MqSyo5ZO?=
- =?us-ascii?Q?O4Pfw/LUyOjgDtPyp59jyug9vYBNc0GTn0sQKZ91ohvPkYQCCpoIqEyJkO8t?=
- =?us-ascii?Q?xANBZduS9Z0vh22TkhnFEBkn4722Yhm/qYq1/nkmRpS3VPWZqTlyZAfid2hb?=
- =?us-ascii?Q?InnquAqzU4Oj2tb67JOFCtOBXo4ky/vRxlGqFR32HjCb2AKJwq2KMw2qEkEQ?=
- =?us-ascii?Q?77nERU8fpI3yQ8Bd6vq44cXu1DgUmlsT1AbSi6qoPAQDYiSA7mMuZSDMXU7J?=
- =?us-ascii?Q?EBh926KzGNxZOm1U3sSE84sdtDVg2+rvGhIJwlJhuGMQjQNWSMd0P164LeAO?=
- =?us-ascii?Q?viUrUzvr2BffGAVhxJ2tl4n2PqWn1Es0PdA9CdLMZaRFN+iqOHcZFA3DqXQK?=
- =?us-ascii?Q?SnAmERJaDwZXlYly5igsbeaqEgj2?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-3e488.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0c298d1-3aff-4437-c25e-08df0ef0c8db
-X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB5141.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 04:05:44.0180
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PPF550F9CAE5
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 21:05:53 -0700
+Message-Id: <DLBC8GPBM4MK.3002YEAZ3WPT0@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>, "Roman Gushchin"
+ <roman.gushchin@linux.dev>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>, <sashiko@lists.linux.dev>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier
+ bindings
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+X-Mailer: aerc 0.22.0
+References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai> <CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com> <20260817145906.GB579285-robh@kernel.org> <7ia4tsosfsj5.fsf@castle.c.googlers.com> <20260817210038.GA1775252-robh@kernel.org>
+In-Reply-To: <20260817210038.GA1775252-robh@kernel.org>
 
-Enable the modem, SLPI and IPA subsystems on Sony Xperia TAMA
-devices and provide the corresponding firmware paths.
+On Mon Aug 17, 2026 at 2:00 PM PDT, Rob Herring wrote:
+> On Mon, Aug 17, 2026 at 07:36:46PM +0000, Roman Gushchin wrote:
+>> Rob Herring <robh@kernel.org> writes:
+>>=20
+>> > On Sun, Aug 16, 2026 at 10:17:08PM -0700, Saravana Kannan wrote:
+>> >> On Sat, Aug 15, 2026 at 8:33=E2=80=AFPM Abdurrahman Hussain
+>> >> <abdurrahman@nexthop.ai> wrote:
+>> >> >
+>> >> > Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) referenc=
+e
+>> >> > the bus they multiplex with an i2c-parent phandle and hold a refere=
+nce
+>> >> > on that adapter from probe until remove. Unlike muxes that are clie=
+nts
+>> >> > on the parent bus, they live outside the adapter's device hierarchy=
+,
+>> >> > so nothing orders their teardown against it: if the adapter's devic=
+e
+>> >> > is unbound first =E2=80=94 e.g. while reverting a device-tree overl=
+ay whose
+>> >> > changeset attached the mux nodes before the controller nodes =E2=80=
+=94
+>> >> > i2c_del_adapter() blocks forever in
+>> >> > wait_for_completion(&adap->dev_released), waiting for a reference t=
+hat
+>> >> > is only dropped later in the same teardown sequence.
+>> >> >
+>> >> > Teach fw_devlink about i2c-parent so the core creates the
+>> >> > corresponding device links: consumers are unbound before the parent
+>> >> > adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
+>> >> >
+>> >> > A plain DEFINE_SIMPLE_PROP() cannot be used because the property ha=
+s
+>> >> > two incompatible layouts: the i2c mux bindings hold a list of bare
+>> >> > phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 ho=
+lds
+>> >> > a single phandle followed by an i2c slave-address cell. The two for=
+ms
+>> >> > are indistinguishable in the flattened tree, and a 0-cell parse of =
+the
+>> >> > tc9563 form would read the slave address as a phandle, linking the
+>> >> > consumer to whatever node happens to carry that phandle value. Use =
+a
+>> >> > custom parser that only takes entry 0 for toshiba,tc9563 nodes.
+>> >> >
+>> >> > Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+>> >> > ---
+>> >> > Changes in v3:
+>> >> > - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
+>> >> >   binding compatible) instead of "toshiba,tc9563", which never matc=
+hed
+>> >> >   and let the bare-phandle parser misread the i2c slave-address cel=
+l as
+>> >> >   a phandle (Sashiko AI review)
+>> >> > - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-=
+i2c-parent-v2-1-239c6da9e097@nexthop.ai
+>> >> >
+>> >> > Changes in v2:
+>> >> > - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563=
+ puts
+>> >> >   an i2c slave-address cell after the phandle, which a 0-cell parse
+>> >> >   would misread as a phandle (Sashiko AI review, Rob). Kept the ful=
+l
+>> >>=20
+>> >> A bit of a tangent, is this a bug in Sashiko bot?
+>> >> It just dropped me from the reply in the v1 patch set. Any idea why?
+>>=20
+>> Hm, can you, please, clarify, what do you mean?
+>> https://sashiko.dev/#/patchset/20260813-b4-of-property-add-i2c-parent-v1=
+-1-a2487e920ce1%40nexthop.ai
+>> has your email in to according to the email policy.
+>
+> It has mine, but not Saravana's. The problem is Saravana only gets=20
+> drivers/of/ emails and not all the bindings.
+>
+> Saravana, If I enable your email, then you will get all the=20
+> sashiko binding replies. Is that okay?
+>
+> Rob
 
-The modem requires ta-service for initialization:
-https://github.com/andersson/ta-service
+Hi Rob, Saravana,
 
-Signed-off-by: Shujath Mohd <shujath@outlook.in>
----
-Changes in v2:
-- Squashed the series into a single patch.
-- Removed redundant IPA properties already provided by sdm845.dtsi.
-- Sorted the DTS label references alphabetically.
-- Documented the ta-service dependency with a link.
+Gentle ping on this one. The v3 thread turned into a discussion about
+Sashiko's recipient list, but the patch itself has not had any review
+comments since v2.
 
- .../dts/qcom/sdm845-sony-xperia-tama.dtsi     | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+To recap the state: v2 switched from DEFINE_SIMPLE_PROP() to a custom
+parser because toshiba,tc9563 puts an i2c slave-address cell after the
+phandle, and v3 fixed the compatible check to match "pci1179,0623",
+which is what the tc9563 binding actually uses. Every other i2c-parent
+user is a bare phandle list, and i2c-demux-pinctrl relies on the full
+list being parsed.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-index e34c1dc35a05..d9e6dec79453 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-@@ -499,6 +499,11 @@ &ibb {
- 	regulator-pull-down;
- };
- 
-+&ipa {
-+	firmware-name = "qcom/sdm845/Sony/tama/ipa_fws.mbn";
-+	status = "okay";
-+};
-+
- &lab {
- 	regulator-min-microvolt = <5500000>;
- 	regulator-max-microvolt = <5700000>;
-@@ -550,6 +555,16 @@ &mdss_dsi0_phy {
- 	status = "okay";
- };
- 
-+/*
-+ * Modem requires ta-service for initialization:
-+ * https://github.com/andersson/ta-service
-+ */
-+&mss_pil {
-+	firmware-name = "qcom/sdm845/Sony/tama/mba.mbn",
-+			"qcom/sdm845/Sony/tama/modem.mbn";
-+	status = "okay";
-+};
-+
- &pm8005_gpios {
- 	gpio-line-names = "NC", /* GPIO_1 */
- 			  "NC",
-@@ -678,6 +693,11 @@ &sdhc_2 {
- 	no-mmc;
- };
- 
-+&slpi_pas {
-+	firmware-name = "qcom/sdm845/Sony/tama/slpi.mbn";
-+	status = "okay";
-+};
-+
- &tlmm {
- 	gpio-reserved-ranges = <0 4>, <81 4>;
- 
--- 
-2.55.0
+Saravana, since this touches the fw_devlink supplier table, I would
+appreciate a look from you in particular. Is the per-compatible special
+case acceptable, or would you prefer a different approach for handling
+the two property layouts?
 
+Happy to respin if anything is still open.
+
+Thanks,
+Abdurrahman
