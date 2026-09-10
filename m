@@ -1,87 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2E51C5D59;
-	Thu, 10 Sep 2026 05:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633543A0B2E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789019947; cv=none; b=oZG77bxdVyEBX7nJf1eEA2UmY81QBwFCSC2iUtzCzHgNxSGCESirqg7HzLhlQ2StmeGS51XAdzPTV35ShNG+J/m3azUegtBW0ILqGxuKD7b1J2BYvNKwGsva6VXg+xEap9nFdjdGln2HIMMZYWr3hKmuzf9NF7iz+ntbXnyh56I=
+	t=1789019983; cv=none; b=NFIEc0veQ/lMuFqn1W2v07q0+7DZISPfjfD4RQhCqRfv75h9lNsp0cLZsLGqV8XYr4jBHEVbNr4u6SR63+SkGvDSdylj3BZdZxwTxUGz9dGiCrk/Q+v3uo5LuQUbNaz1jJXL6NnNZSi8rTghXqL9uKaUhlxnMfTBDQWzQgIOfDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789019947; c=relaxed/simple;
-	bh=UYklCB0vOsedLPk8gbIcfZRFc4+bCVWDxvOA6gvPHz8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Rvg8jNa792pz4/Afn5vQez9YxQS+geqXcgajcMPo7+nzZg/N32+XVifYWR8DF6VY17t9lISxtfy8HoZus22R9S9Jp4bKvn15Hgw016OuPnovAlwfk83d7sis/Wh6MRX+tJqnRTOfBeY2oHQIdA5v35x6H8yCZFS5wOAr1HYrZP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=r+b243BF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789019983; c=relaxed/simple;
+	bh=CwqMyDPCwzxdPk0to23ffo036qVAuQlcicsV8p2TEeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iqT/SO2JmFpca44shVKGaEBLR+cvRkdAoJu+dATfQMQYwhZsj4T8DINok2tzOnGfESmkMnsSB2TE7e0w7gLTIfWnMUrkDWlxU4q899d2LmUXd7GDsjRUxP1TA+qzLfY7GJveRJLGtUuqtEdexePL033z6SUw4bZQ5vUvkYXwWpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iT7t/OC2; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="r+b243BF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7891F000FF;
-	Thu, 10 Sep 2026 05:59:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iT7t/OC2"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843af75de5so690481f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 22:59:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789019945;
-	bh=6+W848YAGgId+r0hutVeqFh0OVKi+g9bP4xQ6R+kF14=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=r+b243BFAi1hYjM3C5FSUaRF87pjCI3Jp7Gy16gGEtlDLB+qr6pI76jTdWFOtd9nV
-	 zkzmtHr+WvIyIfodL4jckPUVjGIkNxEyFRj+Smk+lt5tFZjU5I+Dq4DFaIhIbXOau+
-	 yDBPitQAj0zIg9oKLCDEAfYVZtHGv0mwIfk8RdxY=
-Date: Wed, 9 Sep 2026 22:59:04 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: bingfangguo@tencent.com
-Cc: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
- <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Johannes
- Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal
- Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo
- <bfguo@icloud.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5] mm/memcg: clear folio memcg after changing per memcg
- stats
-Message-Id: <20260909225904.6d60c722ba21f26e18c98767@linux-foundation.org>
-In-Reply-To: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
-References: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1789019980; x=1789624780; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q1mq4aq+cRmD0/CWKGet8JsyPznKpV6dUJq61jcRihM=;
+        b=iT7t/OC2x0k1yyeTkGwAHJa1hgXIea2uzDgTWTW6n79uLxxAH9VQMdvEjCCcj//VT9
+         3EET9OYKQsk0SGLdfuLNovONjik/F2DkanbAbSMGEHXHm1g6HrA2aXRWX4ORn8o2nCEU
+         gfZqzEi81tW7hwcHF31MG35wNoPdPIrxscKOLBDgHg96H5FkePB7sQa7qsY+v9yYzHV/
+         f1gyyUvXDn6KrEsvFXQhGBmWONt1x4JnYZBU4Vn+Jj2KBxSTPDkdk5vXb5Q9KWhFzKFC
+         E/yqFw3JkITcT1hKQUexFLbLmzsG8P5tXXXkIwV2Skm1WPUZ16nvbPOXAO8+RtMOrgw2
+         zufg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789019980; x=1789624780;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q1mq4aq+cRmD0/CWKGet8JsyPznKpV6dUJq61jcRihM=;
+        b=nHWs30VgGgDjHcmt9AzRPIzPAXa+5Gxc008mzqe3AfMT1dzg8LocSAf+CwsI2XcIt1
+         6JNEuuzD4o9SXNpyJgIMZ0/7YL5vrH00pRZPU+bA8VofRic/T9AWRoeBWej6OKnNlmC3
+         peCwH2MpyevZCw2hZzL2sg5hHTpuGUjj9YDXcXmC9RzlRU2a4lHif9ob4mSmAZKt+Z9r
+         oZrH5lIjumAVkJIoC88YVbPBPB+rkquxtURHaBA57MRFmfIgmjo84vGofC7a+EtQKmm7
+         DHYHFAjGmsRNtqY6RtUBLeLJUYIAo34RZ1oduTFrFt+jOcIf8cZFDpkDAZQbGV3Y7aR1
+         BR/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzQfjXl+jT+nRQ0uLcBqxMud5XVvitXTUFtg6XVAdBhd5+acx4LRmVBsicEIAJq2+FDArzHzq0IhTUFaQA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi8wwhpBIokTA+BI/TWLlHeNCfNwtrrYkxse+I7YBEEubtegYJ
+	oI1ya997gNg7JGqWzKXG52gz+LhjE7b3+hQTl04BQIxsf8UuecWBHS68
+X-Gm-Gg: AYBFou1AgDQs2JltuKrQvh7/MJ6dPp4mtAAhPdwtQZMMcMmULWbDJgIiSe70fAPbQdj
+	d8YNyHTic8utkjpiEMfDdsmKih1yDZTl1oZksKNuRqHjq8Nbwmz01EHgNE97EJLTfkeq16n6zE0
+	YEPE8t1Du/JdSEP1JPhiWE+Xfsd7rGWz2q4ybBmqIqrNd8V/LTjp+vJ15Kyfuyb1OSCpdz3FOip
+	VXu33RFvV1eV3ln2n51C0UPbDP14zyvmjUSzkETQTFbEX8X6q6hWsZsY653eX+RQ39IqupYhb9p
+	nxK+jhhGcxX+5Kc8yMlBsJ/cgYPtLohA+mSNXsGRlWT6tkLEBDHo2YSTO+qaSBadImOnvYSYL2s
+	epFNAKbpxo2mMragDlEvGvmNoseJiSCEbUy8X82a0KmMqRv9+mJ8g5/xOHnAoSaFIT7gTybouX0
+	Nh4VI8XhK0ffiGvzu/gS5iK6U+x11ZuelrxYzmVKXrg9ft2Yt50D6GeHnk0FSNREYLkpwQ9vc2X
+	9Jnw1RARh0QnOJd4/88Hw==
+X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr272848455e9.2.1789019980321;
+        Wed, 09 Sep 2026 22:59:40 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20db6e76sm119264015e9.3.2026.09.09.22.59.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 22:59:39 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/eevdf: fix rb augmented with multi fields
+Date: Thu, 10 Sep 2026 08:59:37 +0300
+Message-ID: <20260910055937.1205721-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909215850.GP776954@noisy.programming.kicks-ass.net>
+References: <20260909215850.GP776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 11:46:58 +0800 Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>> The bool exit on min_vruntime_update() parameter appears to be unused
+>> when I grep or search for any use case. Could we remove it?
 
-> I notice extremely high swapcached count in the per memcg level
-> memory.stat when running tests with cgroupv1 setup by swapping pages in
-> and out.  It seems that the counter never gets decreased so the value is
-> rather useless and confusing to users reading it. So I think fixing it
-> so that the value can reflect the actual swapcache usage correctly could
-> be helpful.
-> 
-> __memcg1_swapout() transfers the memsw charge of a folio to its swap
-> entry and clears folio->memcg_data as part of that.  In the vmscan
-> swapout path it runs before __swap_cache_del_folio(), which then
-> decrements the swapcache stats through lruvec_stat_mod_folio().  Since
-> folio->memcg_data has already been cleared, folio_memcg() returns NULL
-> and the NR_SWAPCACHE decrement only updates the node-level counter
-> instead of the memcg's lruvec, leaking the per-memcg swapcache count.
-> 
-> Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
-> the NR_FILE_PAGES and NR_SWAPCACHE updates but before
-> __swap_cache_do_del_folio() removes the folio from the swap cache.  This
-> keeps the stats attributed to the folio's memcg while still recording
-> the swap cgroup with a valid folio->swap.  Add a swapout parameter so
-> the plain swap_cache_del_folio() path is left unchanged.
+> grep for RBCOMPUTE, you'll find it used in RBNAME ## _propagate().
 
-Thanks.
+I knew that it is used there. But it's not really used in min_vruntime_update().
 
-> Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize layer")
+Reading some code, the parameter is here because there are 2 different functions for RBCOMPUTE
+and one of them uses the parameter while the other not uses it. 
 
-January this year.
-
-How does this affect users?  Should we backport the fix into earlier
-kernels?  If so, why?
+So it's better if we remove it, but there is no clean way that I can see using to remove it.
 
