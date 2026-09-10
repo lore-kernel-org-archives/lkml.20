@@ -1,159 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A723249BD80
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7296137D121;
+	Thu, 10 Sep 2026 14:14:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049546; cv=none; b=ZVQu6wrMYK46vmrA15pydDo82ETCztYjRM7sQuuQfLdNE3uuRzJ/MHQf1dYfZ9VxXJKB1ZlBUTnVng0kpexCKOeHY+02l/s5VAkPRUer1OAbPDGT6UPA/3tjC3jJ6Y/Wkl+VRio+vxYHGQBIp6P7FCpGFZaPcwmUidVOR2KQrd0=
+	t=1789049653; cv=none; b=TQQUPw48KPLY2pzVBnoc7akjz1ysMjrgR0xT51bVLILSmVi/6y73seAcyBMrsKr5lKoiovMxWQ78MMnnWY8NQv9lLNUFZpMFQHJOOEUllcu883jiYLa6VV5YF2Deas/+szrtDkvFplq8z0g/r4w5EufHGyTWM7n6/kTJUlIajKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049546; c=relaxed/simple;
-	bh=0Mhh4OUnCgSLgw0dCoDJwchdD8Dvz9j909zdSSyHCeg=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ZVVMsz747gYuekLTsWwaM8GSQWOddB6Zd9zTmWRuLsOr4d9CgE/0vJr9kTLg1FP9uEgfcOujPpJnqLbl/MII5z4/VymGPE4HpO3G9fxxO0EHgZZYAvm4vmYyW9Bps1q/aay34aciyVY8q2thAnqaCXn16LnM1AIKYIzfj7aLUQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DR6cm8ko; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789049653; c=relaxed/simple;
+	bh=N+VYy96hJF7Ow2jt7AGfjc+msF2xsHBls6lmkJ/54+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sIEZB2Q+9CA6MdvWTH4tHLaTFmI6+sOIA9l9sPu0YV/Yi2RwCKL7mAcPkd0g3DRVSi/LElfEwhj327SOAr/XKZ9h4+Xiw4cG7dynqhzxOE/50LxONi8WtZw8f9T6iUPnJQSa8k4XlIuASwYJZY1wIRbOroTNWXj1rO9EDj9/FXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=s1bpGVeK; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DR6cm8ko"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE4A1F000FF;
-	Thu, 10 Sep 2026 14:12:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049545;
-	bh=yktsf0ORBBGvD3SUCnSD4sWyXidehM6lXLw0baTYOAM=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=DR6cm8ko/3qgt7iRmoOIc+GkqzbQjdop9yWq5Qik1mdngrStdgw91yb2SUbPXRgbW
-	 +BwGaOl0FycosQqQyaUBgDbkqExHUPG+pOv2sSls+AsxWJg54mEnXl52PjWuCrreGi
-	 hwCwDtwMH8OgDzuEjzEznCDdswRjeUj5abQ7ggKoPngUWt3BtZBfFdRcsxW0QRDuz7
-	 n2TOMEkhjmrSdH8t1oY+Y4w6VHgCKAwBLDvc/SfIxmb3hLjbdI3UPxIzNjk6rWWrSW
-	 u7T00RS1twz/70OYQ+4j4WksFSYOKY/C9f7gbGrGpx6iSrBeiVtAzffqbAPx7Ny/Q2
-	 acKYLC0X1B4nQ==
-Message-ID: <8b3df80c-2cf6-4331-89ac-4ae75edf5b40@kernel.org>
-Date: Thu, 10 Sep 2026 22:12:22 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="s1bpGVeK"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ACVQ4k1017565;
+	Thu, 10 Sep 2026 14:13:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Rsa+09
+	XshQBqt7KTDIU4LcA8wjLUXgeN7I6YUPic3UE=; b=s1bpGVeKIHCAIsOQ244fhy
+	3aYYKpAjVo0mejHL5QN2bZNUeyeniAEdR87tUIT7rwlVqOXaSDLeEOjx2Pbh+ESJ
+	Xx+C+JohjyHuRtRmc4aKny/LB2iNpw/NxXEdKfhRwmiScTktMWTq7gHpgMuiAFcj
+	LHeurv0bZJvgmg982oLTjXTIxuZMUEWUD/B61pNgT3aODnjeMUec5zK1FmYi3t+h
+	+/xamNHp4pyrjnzYQWuq2f6CB1m2khHECuK/9nQgRS8Sqe67FJFi8VU7x9BV+uRy
+	sOHsDNuIJFcAB8ts4DIHakXHCqfp75Js5c6y3kPS3LEZt62o5scEM3aLc/2JE2Qw
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8n52ea-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 14:13:59 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68ADAVaq044169;
+	Thu, 10 Sep 2026 14:13:58 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkvtf8d8t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 14:13:58 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68AEDuHu52887898
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 10 Sep 2026 14:13:56 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0F42720043;
+	Thu, 10 Sep 2026 14:13:56 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6484020040;
+	Thu, 10 Sep 2026 14:13:54 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 10 Sep 2026 14:13:54 +0000 (GMT)
+Date: Thu, 10 Sep 2026 19:51:39 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Jordan Niethe <jniethe5@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: PPC: Fix guest state buffer kernel-doc names and
+ parameters
+Message-ID: <20260910195045.996cb331-f4-amachhiw@linux.ibm.com>
+Mail-Followup-To: Karl Mehltretter <kmehltretter@gmail.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Jordan Niethe <jniethe5@gmail.com>, 
+	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910033655.16127-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, jaegeuk@kernel.org, stable@kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net
-Subject: Re: [f2fs-dev] [PATCH] f2fs: compress: fix to handle race between
- truncate and writeback
-To: Zhiguo Niu <niuzhiguo84@gmail.com>
-References: <20260910022258.3308187-1-chao@kernel.org>
- <CAHJ8P3Kah8NTiSMsXdb1PF9yA59UE+MZTg8MkcYcH4OrVQVjQw@mail.gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <CAHJ8P3Kah8NTiSMsXdb1PF9yA59UE+MZTg8MkcYcH4OrVQVjQw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910033655.16127-1-kmehltretter@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=NMVAaE6g c=1 sm=1 tr=0 ts=6aa2bb27 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=yPVLcobRgUjX84E6IAMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: J-dMCcHPRX6nTUw6TjgMFsEGwK3oj0ut
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE2OSBTYWx0ZWRfX04YIj3PSJDwq
+ RCLzvLTxLEk94vfEWWmk9+1WPi6AkxRV8dBRWX6ZZXAj7wsZzKeW0Kd0ovYhiqu7NbnxA/7nDim
+ 7Ms7xvVkByMKRy/pnjb4qoWhE76SQYKyKxG1KvyzBy7uQqxVyci0BBNaihEm8FcsdjT2TnN/Ma+
+ /m/DJ4wlifhh0xWyY4dCdu//KsJTqNiRh1hah/iHCVCC6Kk4mjR6NDIkkcD3gwNvfTAnR7Ld2a4
+ zR4dg+27VjlUKaDBc9IftpXMRBdrHdd9RdINL6ds5na0zAFTYD9G3uhlYrgkSb6cpfW4OQzR6aH
+ GiL+wJIMcdyv25LiuA1XQoWduuhhwjtzTFydeFFc9JhDjZrHrvr/pmfu85TpBUY8WNmrzq9siWC
+ i4cpgQgpuaYLHxO3BrUct6/5Zlpybyb368F9TzOjIkT4WkhBBYRtYyITQ7IWNX8RDT7FPjOegmv
+ kGgdSR54Rmhp1p5aYLg==
+X-Proofpoint-ORIG-GUID: rwg0wXi8uBU91HmEltVOagbEFNv1f0Dv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE2OSBTYWx0ZWRfX0XnZOaffguB6
+ jj9xE44WgyDH1CUjulw9PIvKwROWpRrjKgeztW1SJ6djVQqlkY4OtQR3GuQHc8Jjfrqj6G4GqBz
+ SG/EutO39/hDio6+52TzFO004Qm9Pz4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100169
 
-On 9/10/26 15:22, Zhiguo Niu wrote:
-> Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-> 于2026年9月10日周四 10:24写道：
->>
->> From: Chao Yu <chao@kernel.org>
->>
->> fsstress reports a kernel BUG in f2fs_truncate_partial_cluster():
->>
->> kernel BUG at fs/f2fs/compress.c:1238!
->> RIP: 0010:f2fs_truncate_partial_cluster+0x292/0x2a0
->> Call Trace:
->>   <TASK>
->>   f2fs_truncate+0xf6/0x210
->>   f2fs_setattr+0x6b7/0x770
->>   notify_change+0x33b/0x520
->>   do_truncate+0xc2/0xf0
->>   vfs_truncate+0x153/0x1d0
->>   ksys_truncate+0x78/0xd0
->>   __x64_sys_truncate+0x16/0x20
->>   do_syscall_64+0xbe/0x540
->>
->> The root cause is that Thread A (truncate) and Thread B (background
->> writeback or fsync) can race as follows:
->>
->> Thread A                             Thread B
->> - f2fs_setattr
->>   - f2fs_truncate
->>    - f2fs_truncate_blocks
->>     - f2fs_truncate_partial_cluster
->>      - f2fs_is_compressed_cluster
->>        return 1
->>                                       - f2fs_write_cache_pages
->>                                        - f2fs_write_multi_pages
->>                                         - f2fs_write_raw_pages
->>                                          - f2fs_write_single_data_page
->>                                            dn.data_blkaddr != COMPRESS_ADDR
->>                                            (cluster converted to normal)
->>      - f2fs_prepare_compress_overwrite
->>       - f2fs_is_compressed_cluster
->>         return 0
->>       - return 0
->>      - f2fs_bug_on(sbi, err == 0): BUG!
->>
->> Writeback path does not acquire i_gc_rwsem or filemap_invalidate_lock.
->> When a compressed cluster fails compression during writeback, it is
->> overwritten with raw data blocks. If Thread A checked
->> f2fs_is_compressed_cluster() before the conversion, but calls
->> f2fs_prepare_compress_overwrite() after the conversion,
->> f2fs_prepare_compress_overwrite() returns 0 because the cluster is no
->> longer a compressed cluster.
->>
->> To fix this, remove the f2fs_bug_on() and retry checking the cluster status
->> when f2fs_prepare_compress_overwrite() returns 0, so that it can fall back
->> to f2fs_do_truncate_blocks() to handle it as a normal cluster.
->>
->> Cc: stable@kernel.org
->> Fixes: 3265d3db1f16 ("f2fs: support partial truncation on compressed inode")
->> Signed-off-by: Chao Yu <chao@kernel.org>
->> ---
->>   fs/f2fs/compress.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
->> index ce88092d9ce2..e1cc7185428e 100644
->> --- a/fs/f2fs/compress.c
->> +++ b/fs/f2fs/compress.c
->> @@ -1222,6 +1222,7 @@ int f2fs_truncate_partial_cluster(struct inode *inode, u64 from, bool lock)
->>          int i;
->>          int err;
->>
->> +repeat:
->>          err = f2fs_is_compressed_cluster(inode, start_idx);
->>          if (err < 0)
->>                  return err;
->> @@ -1233,11 +1234,10 @@ int f2fs_truncate_partial_cluster(struct inode *inode, u64 from, bool lock)
->>          /* truncate compressed cluster */
->>          err = f2fs_prepare_compress_overwrite(inode, &pagep,
->>                                                  start_idx, &fsdata);
->> +       if (err == 0)
->> +               goto repeat;
-> Hi Chao,
->   some comments here will be easier to understand？
+On 2026/09/10 05:36 AM, Karl Mehltretter wrote:
+> Several guest state buffer comments use copied function or parameter
+> names. In particular, kvmppc_gsm_for_each() describes a parser and an
+> element argument, although it takes a message and yields IDs.
+> kvmppc_gsm_include_all() also describes an ID argument it does not take.
+> 
+> Match the headings and parameter descriptions to their declarations,
+> and describe the parser argument and vector output with their actual
+> roles.
+> 
+> Fixes: 6ccbbc33f06a ("KVM: PPC: Add helper library for Guest State Buffers")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  arch/powerpc/include/asm/guest-state-buffer.h | 17 ++++++++---------
+>  1 file changed, 8 insertions(+), 9 deletions(-)
 
-Zhiguo, add comments in v2, thanks for the review.
+The kernel-doc fixes are all accurate — heading names, parameter names, and
+parameter lists now match their declarations. In particular, the
+kvmppc_gsm_for_each / kvmppc_gsm_include_all / kvmppc_gsm_reset /
+kvmppc_gsb_receive_datum / kvmppc_gsb_send_datum corrections are a clear
+improvement over the copy-paste state left by the original commit.
 
-Thanks,
+Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 
-> other LGTM
-> Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-> thanks!
->>
->> -       /* should not be a normal cluster */
->> -       f2fs_bug_on(F2FS_I_SB(inode), err == 0);
->> -
->> -       if (err <= 0)
->> +       if (err < 0)
->>                  return err;
->>
->>          rpages = fsdata;
->> --
->> 2.49.0
->>
->>
->>
->> _______________________________________________
->> Linux-f2fs-devel mailing list
->> Linux-f2fs-devel@lists.sourceforge.net
->> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
-
+> 
+> diff --git a/arch/powerpc/include/asm/guest-state-buffer.h b/arch/powerpc/include/asm/guest-state-buffer.h
+> index acd61eb36d59..95d50ec7f2a9 100644
+> --- a/arch/powerpc/include/asm/guest-state-buffer.h
+> +++ b/arch/powerpc/include/asm/guest-state-buffer.h
+> @@ -224,7 +224,7 @@ struct kvmppc_gs_buff_info {
+>  
+>  /**
+>   * struct kvmppc_gs_header - serialized guest state buffer header
+> - * @nelem: count of guest state elements in the buffer
+> + * @nelems: count of guest state elements in the buffer
+>   * @data: start of the stream of elements in the buffer
+>   */
+>  struct kvmppc_gs_header {
+> @@ -779,6 +779,7 @@ static inline u64 kvmppc_gse_get_u64(const struct kvmppc_gs_elem *gse)
+>  /**
+>   * kvmppc_gse_get_vector128() - return the data of a vector element
+>   * @gse: guest state element
+> + * @v: output vector in host endianness
+>   */
+>  static inline void kvmppc_gse_get_vector128(const struct kvmppc_gs_elem *gse,
+>  					    vector128 *v)
+> @@ -849,7 +850,7 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
+>  /**
+>   * kvmppc_gsp_for_each - iterate the <guest state IDs, guest state element>
+>   * pairs
+> - * @gsp: guest state buffer bitmap
+> + * @gsp: guest state parser
+>   * @iden: current guest state ID
+>   * @gse: guest state element
+>   */
+> @@ -866,9 +867,8 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
+>  /**
+>   * kvmppc_gsm_for_each - iterate the guest state IDs included in a guest state
+>   * message
+> - * @gsp: guest state buffer bitmap
+> + * @gsm: guest state message
+>   * @iden: current guest state ID
+> - * @gse: guest state element
+>   */
+>  #define kvmppc_gsm_for_each(gsm, iden)                            \
+>  	for (iden = kvmppc_gsbm_next(&gsm->bitmap, 0); iden != 0; \
+> @@ -908,10 +908,9 @@ static inline bool kvmppc_gsm_includes(struct kvmppc_gs_msg *gsm, u16 iden)
+>  }
+>  
+>  /**
+> - * kvmppc_gsm_includes - indicate all guest state IDs should be included when
+> + * kvmppc_gsm_include_all - indicate all guest state IDs should be included when
+>   * serializing
+>   * @gsm: guest state message
+> - * @iden: guest state ID
+>   */
+>  static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
+>  {
+> @@ -919,7 +918,7 @@ static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
+>  }
+>  
+>  /**
+> - * kvmppc_gsm_include - clear the guest state IDs that should be included when
+> + * kvmppc_gsm_reset - clear the guest state IDs that should be included when
+>   * serializing
+>   * @gsm: guest state message
+>   */
+> @@ -958,7 +957,7 @@ static inline int kvmppc_gsb_receive_data(struct kvmppc_gs_buff *gsb,
+>  }
+>  
+>  /**
+> - * kvmppc_gsb_recv - receive a single guest state ID
+> + * kvmppc_gsb_receive_datum - receive a single guest state ID
+>   * @gsb: guest state buffer
+>   * @gsm: guest state message
+>   * @iden: guest state identity
+> @@ -998,7 +997,7 @@ static inline int kvmppc_gsb_send_data(struct kvmppc_gs_buff *gsb,
+>  }
+>  
+>  /**
+> - * kvmppc_gsb_recv - send a single guest state ID
+> + * kvmppc_gsb_send_datum - send a single guest state ID
+>   * @gsb: guest state buffer
+>   * @gsm: guest state message
+>   * @iden: guest state identity
+> 
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
