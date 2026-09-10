@@ -1,158 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F9353B5E3;
-	Thu, 10 Sep 2026 17:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D557657D233
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062756; cv=none; b=HnUDaDsZb/adaZrNAEcyLo02+93stS3aCX17EmN6dpireZ6eCuYhBhotPkoicTUIfgfCANP+oaLYA6tpKuIFIB6PEdNyA+Xnt7GPRHRnGVF1jftmLjT2rgVWFfcw7UecFu2RmVGdAaFzA4H2R+exXoXd7KKckHMt/5RoHXeBNaw=
+	t=1789062775; cv=none; b=LvK1V1sUhcGw6YIxspxyofAdD+8P9rG60vnsNNJGPS/Qn04imqoiC7ATkTMmt7jTAbi8+q4IwfT5lWGlD4gPBrMWldfxI8jBKX2+Xj5/4VJ63g3j5aNEIP/9ec8z9cpl2uVrtxSs6Sf2gHbpMzLl00JX/tZIwzSMZQ7IqL4wI2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062756; c=relaxed/simple;
-	bh=xaUIP7n1vRovqFFarET0qSQmfFa91wnH3xTLRR96a/s=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=oE01S6GSc60Wam3GxmRhI7A8deBDBcqT7AwSJQMV7OZO8ouSfxgmAjzWMA0Ku/p9JHaa7wu6a23Vdf42mfnWhif5vwyUp1KBPTdo+1jVK0x0VBTay+dpdJ6N7pzb6Un4zLL9Yx0RqvXBLloZx+VhR8doJ55I0kUidaIFc7VcpuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fk/MPjbv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789062775; c=relaxed/simple;
+	bh=F1AhUpdyLeWHtrKpd/UDZADKHVtrhEyMQ0u/xpc106U=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=MrdmxSv1j/PFuDnD/quYE0trbTG7ybwTmWw8g2XIluxny6ew/sMWw8etEWYvqZnCQOwfcel6nkqyOR2uKYD+9uo861QH/RUk786S/Iet0iCZLRWgbBm76hoe/T9CX3r+0LTJSNPp+qsuaz1li7ITi4nO6TF7BgLJbp+T1B7zu5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Mymna27d; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fk/MPjbv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882BE1F0089A;
-	Thu, 10 Sep 2026 17:52:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789062739;
-	bh=qqvn6SX16yUt3ZvxTs86qVtzcoYy6wgfsp1EjnqBJa8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Fk/MPjbveeULQfCifG6gUd0yT3jL3M7rGZRioZ/V41Cd5OcgLsb4SS/W2wwrlRVJ+
-	 Z+trqQ07nmhRotODgj+WVWNIDJvPIPU/vIZQ+RPMgIvmm34nuEXXtYmwymlE6/kPsa
-	 BybRO3uiPmLqdZChrwkjYYNDVchf2ckWnnJuhRnAUJ5VvgSw95ag7gqyhT0kEEtiBv
-	 M7rc7HUfEHbrCCwq39smEOfdHDH8b9R/1KRIfHir18jR+0lTgsBTAOD9JtXDv1HBbN
-	 wH3lczzdej/7hS8PYueNGZNcM57/6TUeyBvBNZRKQ624dIiPuU/TcLcauEVXcoJPqq
-	 J1XIcrbS6RycQ==
-Content-Type: multipart/mixed; boundary="===============0634230615040165694=="
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Mymna27d"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so38297a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:52:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789062760; x=1789667560; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KNwJScdUp/8QFucQGIGI1lh8CTxCfWXPp+xk+LwMhHk=;
+        b=Mymna27dc1cFFsexJ9+VSbcXG+fw9srJHeRnlEI/NEGjNzSDaRSFTHTtD2YUlsS3he
+         wb9k/3jOW+DovghSjhObmcgKmJVdXF7f4S1eblztpxS0VyZQ4n2zwKIvpsrXpgk1/dUi
+         sAVZrCM8YdMqwg7oSR+qAXVhd8wGkOXC/GD8+ngTVEKc8S3Zrra4gLhZnvNULd+MQ2vV
+         jVlkdvgxW7vSNfHzsQ0fcv0tn2TjMClR5pZv3mwcUof0aktKY53wrUib4EImbKdhb4iD
+         lZaTH5Rp3KdPJkLMfUYwquDF/iDmsR6igtjP7JTITUdPJlx2aZc0j7jHsa8X48bJBfvZ
+         Zj/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789062760; x=1789667560;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KNwJScdUp/8QFucQGIGI1lh8CTxCfWXPp+xk+LwMhHk=;
+        b=hZcGAPMSHzyfqJNAlax3FynYqHbWub5xpTwUzIzyAb8wt/tcT2Kh0Jhkj3YUOhN1ag
+         70Gs+pfcrrhBb2TfLz+MC49c1ZJxPgC2HhU+XJbHVefsdiGgsCUpN1JijjBnx9EEMcXb
+         eXPueZA5haizGrThXhLL3U76I8P7M7OmmRHoeHIgVVxJRvCIetaXvj/GJJ2FJks1nkb/
+         Rs9A4vTP5AVZwEwINTNA02ZLTc2TowGbKKUkdEM91Sd8aaE7bAenOLjNhBFrUmqTYvpM
+         0w/lGRBgDJG63u6hvMTNRJAHkAmbCvJ0dhSmR8GMULEezbmzVTkGSo3HYonhoq8oAUV4
+         +ZCw==
+X-Forwarded-Encrypted: i=1; AKwUvByaprN9OKjr/WQIrol1ox3Sa/EfWntfD1hgNdhTueWReTM2vFW5S+Ej/wA30z15PJBowaMSwQfZuBTcBMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWKQKQdJrvG9Nk8rMewL2sEQ8tjpaiWu+0QsWSj08ReuMC7WWw
+	7vPaonOxmg8KgN0P+blL/wwKNdHxHYYqCILvw00zBPHzrS14bD+4XgPx6UPs7LEsboZjHwdvX83
+	XEw9p8A==
+X-Received: from pgbj13-n1.prod.google.com ([2002:a05:6a02:61cd:10b0:cbe:95c8:8245])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:748b:b0:3d3:ad6e:9cdf
+ with SMTP id adf61e73a8af0-3daeafd8941mr565329637.13.1789062760098; Thu, 10
+ Sep 2026 10:52:40 -0700 (PDT)
+Date: Thu, 10 Sep 2026 10:52:39 -0700
+In-Reply-To: <CANpmjNOZPFQ9FcaA6+GH9PZ8DRyEMYW3+FKBO9B3d2CY+2C-5w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-Id: <654adc93a03b1bbeef530ffb6adb9a2d204e5bb01d7707dc0b16889fb05fc3dd@mail.kernel.org>
-In-Reply-To: <20260910164635.459558-8-vineet.gupta@linux.dev>
-References: <20260910164635.459558-8-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v2 07/13] bpf: track low-32 scalar equality across sign-extending movs
-From: bot+bpf-ci@kernel.org
-To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 10 Sep 2026 17:52:18 +0000 (UTC)
-
---===============0634230615040165694==
+Mime-Version: 1.0
+References: <20260910162343.4092060-1-elver@google.com> <20260910162343.4092060-3-elver@google.com>
+ <aqLbHvD5lqQP8PRd@google.com> <CANpmjNOZPFQ9FcaA6+GH9PZ8DRyEMYW3+FKBO9B3d2CY+2C-5w@mail.gmail.com>
+Message-ID: <aqLuZ9gGzK07R_Ei@google.com>
+Subject: Re: [PATCH RFC 02/10] KVM: Allow reading memslots while holding slots_arch_lock
+From: Sean Christopherson <seanjc@google.com>
+To: Marco Elver <elver@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index eb093194e2a3..308ff53232f0 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
+On Thu, Sep 10, 2026, Marco Elver wrote:
+> On Thu, 10 Sept 2026 at 18:30, Sean Christopherson <seanjc@google.com> wrote:
+> >
+> > On Thu, Sep 10, 2026, Marco Elver wrote:
+> > > kvm_swap_active_memslots() updates kvm->memslots[as_id] while holding both
+> > > kvm->slots_lock and kvm->slots_arch_lock. Holding either lock guarantees
+> > > that memslots cannot be concurrently modified.
+> >
+> > Sure, but that's irrelevant.  The goal of the srcu_dereference_check() is to
+> > ensure that readers see a stable view of the VM's overall memory, not simply that
+> > kvm->memslots can't be written.
+> 
+> Functionally, this is irrelevant for readers. But under lockdep it
+> isn't for writers: srcu_dereference_check() (with lockdep) asserts
+> that the srcu reader-lock is held, or the condition 'c' holds, which
+> here is holding any of the writer locks.
 
-[ ... ]
+No, the rules for writing kvm->memslots is that *both* are held.
 
-> @@ -16248,12 +16258,23 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
->  						return -EACCES;
->  					} else if (src_reg->type == SCALAR_VALUE) {
->  						bool no_sext;
-> +						/*
-> +						 * A 32-bit sign extension keeps the low 32
-> +						 * bits, so record a low-32 link as the
-> +						 * zero-extending mov does. A self-mov
-> +						 * qualifies only if src is already linked.
-> +						 */
-> +						bool subreg_link = (insn->off >> 3) == 4 &&
-> +								   (src_reg != dst_reg ||
-> +								    src_reg->id);
->
->  						no_sext = reg_umax(src_reg) < (1ULL << (insn->off - 1));
-> -						if (no_sext)
-> +						if (no_sext || subreg_link)
->  							assign_scalar_id_before_mov(env, src_reg);
-                                                        ^^^^
+> > > Allow reading memslots in __kvm_memslots() when kvm->slots_arch_lock is
+> > > held.
+> >
+> > Why?
+> 
+> Holding any of the writer locks guarantees no concurrent modification;
+> therefore, if any writer lock is held, it's not required that the srcu
+> reader-lock is held. There are few places where only either slots_lock
+> or slots_arch_lock is held, which is sufficient for reading.
 
-Can widening this guard drop an existing ADD_CONST link on the source
-register?  With 'no_sext || subreg_link', assign_scalar_id_before_mov() now
-also runs on src_reg when !no_sext, and that helper discards the source's
-delta tracking:
+Yes, but with caveats.  And more importantly, pure readers really shouldn't be
+taking slots_arch_lock, because either it's overkill and will generate unnecessary
+lock content, or the alleged reader is doing more than just reading.
 
-kernel/bpf/verifier.c:assign_scalar_id_before_mov() {
-	...
-	if (src_reg->add_const)
-		clear_scalar_id(src_reg);
-	if (!src_reg->id && !tnum_is_const(src_reg->var_off))
-		src_reg->id = ++env->id_gen;
-	...
-}
+Holding just slots_arch_lock *could* be fine, depending on the usage, but those
+details matter, which is why I asked "why".  I want to know exactly why we should
+relax the locking rules.
 
-clear_scalar_id() zeroes id, delta, add_const and subreg, and the following
-statement then mints a brand-new id, so src_reg is unlinked from the
-register set it was tracking.  Before this commit the !no_sext arm left
-src_reg untouched.
+Ah, poking around the code, I suspect that the motivation is
+kvm_enable_external_write_tracking()?  Which grabs __kvm_memslots() but only
+holds slots_arch_lock, i.e. would get a lockdep splat if someone with KVMGT ran
+with lockdep enabled.
 
-For a BPF_ALU64 | BPF_MOV | BPF_X with insn->off == 32:
+That thing isn't a pure reader.  It only reads the actual kvm->memslots pointer,
+but it writes to each of the slots metadata.
 
-	r1 = r2			/* r1, r2 share id N */
-	r1 += 8			/* r1->add_const = ADD_CONST_64, r1->delta = 8 */
-	r3 = (s32)r1		/* r1 is wide -> !no_sext, subreg_link true */
-	if r2 < 100 goto out	/* sync_linked_regs() no longer reaches r1 */
-	... use r1 ...
-
-At the mov, r1 loses its ADD_CONST_64 / delta = 8 link and gets a fresh id,
-so the following 'if r2 < 100' compare no longer refines r1 to [8, 107].
-Is that the intent?  This is the compiler idiom described in the comment
-above adjust_reg_min_max_vals()'s delta handling.
-
-The clear also does not look necessary for the new link: since !no_sext, the
-SUBREG_SEXT link is established through the freshly minted id.
-
-Would excluding add_const sources be enough, something like:
-
-	bool subreg_link = (insn->off >> 3) == 4 && !src_reg->add_const &&
-			   (src_reg != dst_reg || src_reg->id);
-
-The zero-extending arm added earlier in the series uses the same guard
-shape, so a fix likely wants to cover both.  Looking forward through
-2c5433cf9fbb..1d3c4a0831be, the later commits extend the same mechanism to
-narrowing stack fills and spills and reuse the identical guard, so none of
-them change this.
-
->  						*dst_reg = *src_reg;
-> -						if (!no_sext)
-> +						if (!no_sext && subreg_link && src_reg->id)
-> +							dst_reg->subreg = SUBREG_SEXT;
-                                                        ^^^^
-
-On a related note, for 'r0 = (s32)r0' where r0 carries add_const,
-subreg_link is evaluated before the clear and sees the old src_reg->id as
-non-zero, so it is true.  assign_scalar_id_before_mov() then clears and
-re-mints the id, and SUBREG_SEXT is applied to a register that is the sole
-holder of that id.
-
-The changelog says:
-
-> Unlike the zero-extending arm, a self-mov can form a link here, but only
-> when src is already linked: r0 = (s32)r0 is how a sign-extended int return
-> lands. On an unlinked register there is nothing to link to, and minting an
-> id would leave the register describing itself.
-
-bpf_clear_singular_ids() drops singleton ids before state comparison, so
-this does not look unsound, but does it match the rationale above?
-
-> +						else if (!no_sext)
->  							clear_scalar_id(dst_reg);
->  						coerce_reg_to_size_sx(dst_reg, insn->off >> 3);
->  					} else {
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
---===============0634230615040165694==--
+So, allowing __kvm_memslots() to be called with just slot_arch_lock is ok in
+this situation, and if my guess is right, necessary to fix a false positive.  But
+I'm on the fence as to whether or not we generally want to allow that, versus
+taking kvm->srcu in kvm_enable_external_write_tracking() even though strictly
+speaking it's unnecessary.
