@@ -1,134 +1,211 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A645B3DE426
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:58:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A363E51CB
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027121; cv=none; b=X8hwGWg+nYafXeMbRZj5S1dLlO0VM/j3pkeFbKsSf3wbIGCZW1UgwEQUY55UB7rpw9RJkX94gQD/wRJtS6XX7hhDbZh4yfXCjgyCggKq9e0dfh2u3hr5uIO09aWCcsv7OijY3bmhsvuEze30X3Jm9q5HJqCOndqjSGGaiDOl8Qo=
+	t=1789027124; cv=none; b=Mzbx1eIb74J0gVmft9gIcKaxv9b5rCoU+r7rzOcEQqkPMZJGF4bWK4x/yhsF77Dsyhulv4p7VpZGWrYGC9q7dZDAj2DhTyaM6oQ0c+I8gqsrkSFnuwOzd7JWEgb0Rhso3rAv9AEzxRAckSr4nbpXG3W7cCKVibEzKZVCwVLrfsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027121; c=relaxed/simple;
-	bh=d0KjsG7PoiJW82Yyf+OBWtqBaQmdJo4u7YvdxdXO6eQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=koGKCjkx9JEhsTGuyTxLwHDvDUlIeLjMFnKTb0O/WprFfKsvEQctC0qsD3w54Bd2iFSJQE2iLZ/4Qk3OSUxYk1OJ75ptFYy6dn8wAB8JydwbwqB1cLhlDm3cU9HWhhGwkheNgT/8lJTcWOyprhT40YZ5cRtL+Tt1/+yi/rvf6CU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SCmm4Pzp; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789027124; c=relaxed/simple;
+	bh=+Tn5+TL30x5dllTcR1ZNLktf/byMT9iHhr9dfrYawTk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T5BPLXmzRfUpUGJ6ijYWFL07+KSDSgqn9kWcufYALwSmf47Tj6MBCLB4HkG1u57bDNQ1/y7X9jxLd/rm7x0vQMwpbV3uoOLMoBHHDX4BfbkdWlkbEIFLTG3CPr6nhTvQFlXTR84NGY87VKS3yzvj5bHq+Lb9PcCYforC0ETt1io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hze/pYlj; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xRAqNYwm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TFsGBZqD; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=vBvYAF07; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SCmm4Pzp"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id CB2584E415B7;
-	Thu, 10 Sep 2026 07:58:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 981F3602B8;
-	Thu, 10 Sep 2026 07:58:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F3BA111C78276;
-	Thu, 10 Sep 2026 09:58:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789027110; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Kno+TMnYpO9Bgr0R12gJK4ROq1TV+XfvO4LtrnKGYOM=;
-	b=SCmm4PzpfNmNnzvKfuAWCpQuo1TCdyJ6GBwTA04Jsdof2FS3v0tCx1M8f8Q5l2B5RN2n1s
-	TqhTI+/Hd/MTxF6NCIBf114ZswXThqNCferqelme5/f+yq+RnV6NpIKz1kQVGDvIJ46ABA
-	S1ILjDutXKVQ/sWXUJbQ5I/gycZZX3eCf/fPACJUOuZgHEjLwFdtnf/cuuRTWZVTOdK6BH
-	mZLetKMbod9efOm+ButxrYT0WYr8A6rMiQYaiAwDsRB92SWeoW9pEr0f80WG9x+mXuVU+r
-	hLpk0tQ4Ba2+IoWBKp4gOdEmYKo5jO2GQrVJcgzPZ7ymAjWJNY/YlzQHH/tzXw==
-Date: Thu, 10 Sep 2026 09:58:23 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260910095823.1f5abc2b@bootlin.com>
-In-Reply-To: <aqJBOdFPJbDKHt_9@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqJBOdFPJbDKHt_9@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hze/pYlj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xRAqNYwm";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TFsGBZqD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vBvYAF07"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E6C591FD9A;
+	Thu, 10 Sep 2026 07:58:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789027111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0VDLHmPjUusebt9vJD8sSTzR2PWS7x4loX00PiTd7DM=;
+	b=hze/pYlj7WjRtV9keNI50KIWW2X54qjs/0wyTWj7+sKif6epHyAJQXmBX2/OjcNvkoc8+v
+	JufJqOiIcg7Xsnbtk5JrwlbUBk4vUuirj7QDxu1aZo0/n+4vMv9NWudllwk4QYr6LQc51M
+	4MVVDYU4W7qIHDJ00R4vgCdPTzfncm4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789027111;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0VDLHmPjUusebt9vJD8sSTzR2PWS7x4loX00PiTd7DM=;
+	b=xRAqNYwmlFZCinTaj+2CfvdLylQmSnE6Y93UE93Lui9c7x+PW/bpKtClhp0/woWurz/Aza
+	ufTtEozCXTzu41DQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TFsGBZqD;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vBvYAF07
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789027106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0VDLHmPjUusebt9vJD8sSTzR2PWS7x4loX00PiTd7DM=;
+	b=TFsGBZqDecqGRTd5LjfNkP9oUy+/Udqwlx4xHblhyFKAhHUVLcpv3+XK68sW/MaU2/vyhb
+	wxcB61IP1qjLIpHGWMj+cm+zKgn8kKBoakibax/QZZAmI40WYnxXrs+ykfHUVj46AmMscC
+	ioXIwmTegXxc8BswgipL8hsXo2JJTO4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789027106;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0VDLHmPjUusebt9vJD8sSTzR2PWS7x4loX00PiTd7DM=;
+	b=vBvYAF0717Qx0y2H98+EKDbc4g1N77C84/he540qrAGNqMNnf+dVYKm8HHs1aCK899b+fr
+	rM81c+BGhAAx1vBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8957E13180;
+	Thu, 10 Sep 2026 07:58:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7K/mEiJjomqaNgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 07:58:26 +0000
+Message-ID: <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
+Date: Thu, 10 Sep 2026 09:58:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+ <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: E6C591FD9A
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,iscas.ac.cn:email];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-Hi david,
+Hi
 
-On Thu, 10 Sep 2026 15:33:58 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Am 10.09.26 um 09:09 schrieb Icenowy Zheng:
+> 在 2026-09-02三的 01:17 +0800，Icenowy Zheng写道：
+>> Blend modes are now required to expose pixel formats w/ alpha.
+>>
+>> As it's the primary plane and blending is explicitly disabled, just
+>> expose PIXEL_NONE blend mode.
+> Gently ping for reviews.
 
-> On Wed, Aug 26, 2026 at 10:31:37AM +0200, Herve Codina wrote:
-> [snip]
-> > +#define FDT_TAG_CAN_SKIP(tag_data, tag_id) \
-> > +		(FDT_TAG_STRUCTURED | FDT_TAG_SKIP_SAFE | tag_data | tag_id)
-> > +
-> > +/* Tests reserved tags */
-> > +#define FDT_TEST_NONE_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_NONE, 0)
-> > +#define FDT_TEST_1CELL_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0)
-> > +#define FDT_TEST_2CELLS_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_2CELLS, 0)
-> > +#define FDT_TEST_VARLEN_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, 0)
-> > +#define FDT_TEST_NONE_NO_SKIP		FDT_TAG_NO_SKIP(FDT_TAG_DATA_NONE, 0)  
-> 
-> Sorry, missed until I saw the later treegen changes that this is
-> defining some specific tag values.
-> 
-> Given that, "Tests reserved tags" needs to be expanded to better
-> explain what these tags are for - what should readers do upon
-> encountering them, when should writers use it ("never, unless you're a
-> test case" is acceptable).
+What do these alpha formats do?  Are they a hardware feature?  It looks 
+like they are programmable, but don't differ from XRGB at all.
 
-I would say, in both cases, consider them as "unknown" tags.
-And so:
-/*
- * Tests reserved tags
- * 
- * When those tags are encountered they should be considered as "unknown"
- * tags and rules related to "unknown" tags must be followed.
- *
- * Readers should skip them or fail depending on the SKIP_SAFE flag. Writers
- * should never use those tags. Their usage is only acceptable in test cases.
- */
+Best regards
+Thomas
 
-> 
-> It might be worth reserving a whole range of tag values for tests /
-> documentation / experimentation, rather than just a handful of
-> specific values.
-> 
-
-Ok. The range reservation will added be in the comment.
-
-/*
- * Tests reserved tags
- *
- * A TAG_ID range in "structured tags" is reserved to tests tags.
- * This tests reserved range is from tag_id 0 to tag_id 0x100.
- *
- * When those tags are encountered they should be considered as "unknown"
- * tags and rules related to "unknown" tags must be followed.
- *
- * Readers should skip them or fail depending on the SKIP_SAFE flag. Writers
- * should never use those tags. Their usage is only acceptable in test cases.
- */
-
-Is it ok?
-
-Best regards,
-Hervé
-
+>
+> Thanks,
+> Icenowy
+>
+>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>> ---
+>>   drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> index 1f2be41ae496c..8d58682d88ef8 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> @@ -7,6 +7,7 @@
+>>   
+>>   #include <drm/drm_atomic.h>
+>>   #include <drm/drm_atomic_helper.h>
+>> +#include <drm/drm_blend.h>
+>>   #include <drm/drm_crtc.h>
+>>   #include <drm/drm_fourcc.h>
+>>   #include <drm/drm_framebuffer.h>
+>> @@ -179,5 +180,7 @@ struct drm_plane *vs_primary_plane_init(struct
+>> drm_device *drm_dev, struct vs_dc
+>>   
+>>   	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
+>>   
+>> +	drm_plane_create_blend_mode_property(plane,
+>> +					
+>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
+>>   	return plane;
+>>   }
 
 -- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
