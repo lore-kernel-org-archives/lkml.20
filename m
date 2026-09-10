@@ -1,71 +1,75 @@
-Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com [139.138.61.253])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E051739B955;
-	Thu, 10 Sep 2026 04:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.61.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C781394496;
+	Thu, 10 Sep 2026 04:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015939; cv=none; b=MQVBeeYJeJpJk5TARjHR9GlH4DPLDIUhQH+q019fp8wOfafMp9mg8hlA50uS8imSLLdpzYvr0+cyFSmQcAZJozhYOeeanbAkVRoO7J/2naPmcqRwGkIknR9WWPHdLiiBhGKeVjqAPMuBh7i1h+kvFlyxX+6EQS+LAIcBY6zf+6s=
+	t=1789015991; cv=none; b=rq8JluM29/QEtWiuaDG1319pCIDH7Nl/Z6VrwHgvbq+DglYyjbOljs+D3UTCchSQYKMa438ohChIwQeadsUxo27QOkTZspnpoQWGlkAC6fF8daLkHcE431/iGLi+YevrC4YYaWtM1Djn1IOCw5leMSGcdcJPcfuTICqquyGtgDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015939; c=relaxed/simple;
-	bh=nBF6tOIyB/K1smAps/PmomhzUk3BKaarthp+S5mLB4w=;
+	s=arc-20240116; t=1789015991; c=relaxed/simple;
+	bh=USeOFNpDGXQjN6aRmhfuPnevSjX11EyywpmYrkmenIc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gMz1S7+g0gZW/P9I5jqoDC9MJOpEZDrzp8mlOCzTw/k7sHEKBDKZRbwYepEXj6jm5Y7KHgUaExVL0aKJxJSgool7hifHz2wlTioINszvm8b/uaoYJIy1XHg7t51zY2YkdiAT4wZHLoC8GAKiwP2XAOIo9sXfDXA54qYYn7dbJoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=KyfpSydD; arc=none smtp.client-ip=139.138.61.253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=izhiKk1Vcw7rEL32/JseTZznaGPJH4Fhe3XJWxp2QszUxRzTBqAvaCtMBGzMfL/AK+Vi0sDaZPA1infpBkrxLrX4I4yFIVLZzDidAFafsnXJZ8XXjP60YSW3W2IAkoYCmWaGYQdnYmQxPAQmFqxwumbM6Y2ixN6UzK9AWuX+K8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g3U7ng0J; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="KyfpSydD"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1789015938; x=1820551938;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g3U7ng0J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789015990; x=1820551990;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=nBF6tOIyB/K1smAps/PmomhzUk3BKaarthp+S5mLB4w=;
-  b=KyfpSydDnhZZBa8E2jvgPGAQbLnnEB5gE0Grm+KCGRV0fOSTLxp1zmKT
-   LyzRETyrJuKz+XNwxgIsI1WvM6Ik00jIMUxI8dmCORccLO7yoIygNa8O9
-   ET5TetFpHVc8+NySKV0ROnFGfojPI5pOWT8lsebd63ZS6gx9o2xM8g4JC
-   CLi4pCQVXlgo1Sv1U3Jt76FCyDIyNNBr1tbBeqjPXsi0DkhU4XP6tuovc
-   VUqr7nBfgQdAUr/9+Z+7DocqhGH73XQcAyWzyXvhoiTjbvfb/bQ5OpeJ5
-   b9d8fSXHY0q5HImGqBDET2EBKyXrhwPZ1IjPGXXX9EUKWU20FSmHWGtkd
+  bh=USeOFNpDGXQjN6aRmhfuPnevSjX11EyywpmYrkmenIc=;
+  b=g3U7ng0JQJnPkF3LievEgAGm3NTZ4ooUROjX1aFrZCo3fw+Xu/P1C2OY
+   Q7j86hbN9WV08tcnJL5EG1CCP+6xfKKZneF09d3OppRTKXr4NKpFMIFjY
+   4cSEwae8oe6iDXdUJ7D1OdT0EK4xO+dsK3cVCXvIo8R/eDT0d4TfTKzVb
+   0sRiiJO7lz/BZV2WD395lklnNlmLDtUqHFJPQ0hwXJp/I+YXyIi4Ahui9
+   tz7ccIphBF4JDiNebwY7EyOdTes1No9ef6a6fsIGrsdIaVdVqS4q8Hdvh
+   vz5bAo7u001HqGEL1dgPHFtG912stBbqmXGLcTRc1QTycDB6nQ/CakzbI
    A==;
-X-CSE-ConnectionGUID: Wwa20AORSJymJa3yaQMbsA==
-X-CSE-MsgGUID: LEa5AQ2AQgylLx6VRXUPQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="242525105"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779116400"; 
-   d="scan'208";a="242525105"
-Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
-  by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:52:09 +0900
-Received: from az2uksmgm2.o.css.fujitsu.com (unknown [10.151.22.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id C1D231C1C737;
-	Thu, 10 Sep 2026 04:52:09 +0000 (UTC)
-Received: from az2nlsmom1.o.css.fujitsu.com (unknown [10.150.26.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 776FD18000CB;
-	Thu, 10 Sep 2026 04:52:09 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.22.105])
-	by az2nlsmom1.o.css.fujitsu.com (Postfix) with SMTP id DEF3B821217;
-	Thu, 10 Sep 2026 04:52:01 +0000 (UTC)
-Date: Thu, 10 Sep 2026 13:51:58 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Gavin Shan <gshan@redhat.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, maz@kernel.org, will@kernel.org, catalin.marinas@arm.com, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com, tabba@google.com, 
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org
-Subject: Re: [PATCH v17 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
-Message-ID: <aqI3Cewih7oobhdG@FCCLS0092175.localdomain>
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <ap-C6NLnxuWWTMzi@FCCLS0092175.localdomain>
- <9086ca6a-5dce-493f-ac76-487dedc60758@redhat.com>
+X-CSE-ConnectionGUID: oUzHM78PSDy3HcYdYPnmgA==
+X-CSE-MsgGUID: qA5UHAl+QGOg08XcyTHZLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88400084"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="88400084"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:53:04 -0700
+X-CSE-ConnectionGUID: nmriR2Y6SfKCCmZYZngiPw==
+X-CSE-MsgGUID: Jq5tGFnjRBePw97xGD45VQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="295017967"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 09 Sep 2026 21:53:00 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 4578B99; Thu, 10 Sep 2026 06:52:59 +0200 (CEST)
+Date: Thu, 10 Sep 2026 06:52:59 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 19/22] thunderbolt: Add Apple Silicon support
+Message-ID: <20260910045259.GO106095@black.igk.intel.com>
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-19-1f80085f93fb@kernel.org>
+ <20260908091844.GD106095@black.igk.intel.com>
+ <22808191-5310-4d90-9fac-68d0d85b4c54@kernel.org>
+ <20260909060615.GJ106095@black.igk.intel.com>
+ <33699664-6afb-4b46-99d1-98a0f5e57f39@kernel.org>
+ <5a8bc263-0263-4ccb-b5dd-f5e899dc25c4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,50 +78,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <9086ca6a-5dce-493f-ac76-487dedc60758@redhat.com>
+In-Reply-To: <5a8bc263-0263-4ccb-b5dd-f5e899dc25c4@kernel.org>
 
-Hi Gavin,
+Hi
 
-On 09/09 20:52, Gavin Shan wrote:
-> Hi Kohei,
-> 
-> On 9/8/26 2:09 PM, Kohei Enju wrote:
-> 
-> [...]
-> 
+On Wed, Sep 09, 2026 at 05:25:32PM +0200, Sven Peter wrote:
+> On 09.09.26 17:20, Sven Peter wrote:
+> > Hi,
+> > 
+> > On 09.09.26 08:06, Mika Westerberg wrote:
+> > 
+> > [...]
+> > 
 > > > 
-> > > [1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
-> > > [2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v17
-> > > [3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/kvm-integration/v17
-> > > [4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v12
-> > > [5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+> > > If it is possible, I suggest to use the same way we do in ACPI side here:
+> > > 
+> > > https://learn.microsoft.com/en-us/windows-hardware/drivers/pci/dsd-
+> > > for-pcie-root-ports#map-native-protocols-pcie-displayport-tunneled-
+> > > through-usb4-to-usb4-host-routers
+> > > 
+> > > It was specifically designed so that it should support DT as well (that's
+> > > why it uses the device properties _DSD).
 > > 
-> > I understand that QEMU-virt is not intended to model a realistic
-> > production platform and that QEMU-SBSA is generally preferred. However,
-> > I sometimes use QEMU-virt to test functionality quickly because it runs
-> > slightly faster than QEMU-SBSA.
-> > 
-> > I tested this series with QEMU-virt and found that RMM initialization
-> > failed during boot:
-> > 
-> >    [...]
-> >    INFO:    BL31: Initializing RMM
-> >    INFO:    RMM init start.
-> >    ERROR:   RMM init failed: -8
-> >    WARNING: BL31: RMM initialization failed
-> > 
-> I also ran into same issue and attached TF-A patch leads to a successful
-> RMM initialization, please have a try to see if it can resolve your issue.
-
-Thanks for the patch! It works perfectly for me on QEMU-virt.
-Much appreciated.
-
-Thanks,
-Kohei
-
+> > Oh, nice, I didn't know those existed. Konrad already has a PR open to
+> > add these to dt-schema [1] and a PR that already makes use of these for
+> > dwc3 [2].
+> > I can just write generic code similar to the ACPI one then to add the
+> > device links and split it off from this series, though I think that dt-
+> > schema PR must be merged before we're allowed to use that
+> > representation.
+> > I'll adjust the dt-bindings here for v3 to just drop the representation
+> > as OF ports/endpoints as well.
+> > For the PCIe/DP tunnel notifications I should be able to use the same
+> > representation, possibly with an additional usb4-adapter-index property
+> > or similar to differentiate between the two DP IN adapters, once I get
+> > to that then.
 > 
+> Though now that I read it again: do you know what PortInstance# in
 > 
-> Thanks,
-> Gavin
+> Package () { "usb4-port-number", PortInstance#}, // PortInstance# is unused
+> and can be 0
+>       }
+> 
+> refers to? Is that meant to e.g. by 0 for the first DP IN adapter and 1 for
+> the second? Or is that meant to be used when the NHI handles multiple Type-C
+> ports? The description isn't clear to me...
+> 
 
-
+That's the USB4 port through the native PCIe/USB3 Gen X is tunneled through
+but like I said in the previous email you don't need this for DP, only for
+PCIe and USB3 (Gen X/T).
