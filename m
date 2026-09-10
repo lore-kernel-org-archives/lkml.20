@@ -1,169 +1,135 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2205B414413
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1538C59575D;
+	Thu, 10 Sep 2026 20:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070870; cv=none; b=q7VcKYhbtxYGKy33JF+Oig8DjPVpeuKptqfdE9+mvcx75QAVwy8PFBqqH5UKMc+7upVDTpbYA2HsbAwqS1BuBp+wvhaHDm6M2Fb4Aqm1CV9Bt/Tpbuf4VaxuDsJq8fcl2CmBPowp/NYQnXsDBtRsO9Qs6kV8s+bp4ykHZ8KL13s=
+	t=1789070887; cv=none; b=AZYl+eUcUt8AKYqR/i2wcp4JS0qbR9XHQfJxEON+/iNMG/R8szIqISAWy9acmRn0cxlYiusEElgff7r6b35ZTjTmBPb1WWnQ0NtgPI56vWFI8mc7Y6iKWZcL3Aqe/tFjbJsKfAFECcR63OKVwadmwXi9ji2nr5Mtl2Yar8D37g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070870; c=relaxed/simple;
-	bh=AsBTu9mpyhzRchZiMp555VxdVBD2V0/4+SAhW/xU12I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZP0b1WWL5WSqkE3WaI0a1SQFNH34iME13N7vYD8UNnUZJFmuIFVZ3j7ruJithBv4u5oCZHZjBXQDSTmFSfXmyS4GVJyN95IKbadRuw05SuQiqausatwLTYGR6p0M+SKzQMs3fdCd74barjBDRBuCRA8yLyV7XZcRL3vGeE+VdLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EgdWidPU; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789070887; c=relaxed/simple;
+	bh=7LrlWxr2Z4DDLcsXmLIuY+CjhNOBB53K9pRbhU1j8J4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=feuaAnzEnwX856ardfNewx6ZWFSDXRrrJyXLu7ay+hhQ047nQhJwQ7ly+xJHaSC0S38BGkxjjeo1glX/0hDDexda3FmmhlpMe6QEW+/m1KtVIxuNGHT7LvJryiRByHLBJsO1tWvwCF9exITemk2WIuztwCzEQhomxI2RmsdQqxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkgYdaKh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EgdWidPU"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so874105ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:07:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789070861; x=1789675661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RbfqiWzAX0EbCmILdSHnkqcNgbIbLdok++0YD66gtk4=;
-        b=EgdWidPURIFa8LSt5LAjKRixathjLQDpQ9s9tMS3F6HesjSKfMX+p3VKwOefesj1qO
-         J4S/tvbl071upJ8yjIBXmYOrahIPSIGdsF+no94dEB1/+Q5xvuGfVhq3fQJJlhat1Zfa
-         GEjvYdXCHXcGjavVnKI1hlaJhwRHp38wLH6AhPil7kfDz8O8pGX3Ja4YLPfqhY6wr4Mv
-         TjlTzFEJnbqTWkBdnGHyoNh6J1HR/UGEQYqe5DEux11seSmTxDrZjZr1GdBMo/6gCXDO
-         n8qMaKYI35HpHa5EabA2LfpZF43k+AlEHEUWTtclglaubnZrQnzo78T9kipkfNMKVqmB
-         y8XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789070861; x=1789675661;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RbfqiWzAX0EbCmILdSHnkqcNgbIbLdok++0YD66gtk4=;
-        b=c7LXr53QGVmsFYXw/+qJspapdQ+cuanm49Y3fegiLNKakuhAc6U5j5z+uhSi1H4HN2
-         OzXabli0el7U7rLuQgBHF/A0Sg3GaE6eEAAK+efspvckWliyGysh66R9uvnZlW7FCfmr
-         KNI8E4/BoxhNt88bHb0Oho2RzUnw87isWfxiZ09BiNb5s+bFj79i2PRtiZhl5FEsPXnK
-         BAwhPiOrD0bSy40X2Jy80sLrUYuWuYqR/XHyWwjQiOgJwDuppA0EW43nCudld6GWcq6C
-         naVV8azL9KuQvWKL5Mtxg+mwxuIWTQ9ExhDJFiHHAj+f0jUOXqwozau5n4la3QrTzlR1
-         cZUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+7mUtVhCpfZX7wH1BxGglV02yOyc5IEiATtLuNoQoNfZqUm8nUPZtXdauxOMPeBwZTCgepsBkfXNI1Hc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzvdNNxuKEtLpXHnJkSGCCIRjRfNP7H25T/vl3Ode8dlKaefvk
-	MfopQyOKRoGMbAbxu4qAEhRhllqs6f+PDxHufmY4qs2nVjMQ00ZxfWOK
-X-Gm-Gg: AYBFou0UMRgfyWDcf5f1XwT75tEZYXonvuImNQpFdQnsSX5v6+dHgt4imvyUiMKO1/J
-	k9yjcncD1YcZamXBx15F0SIwxXlUGWiphbJAb+J+yCbPepyLmRZrWIuqTL102cGz+LC9Pk1hoL5
-	EABEw1w+zVTSC47fPGEXZ81V0KdUMYCLdPLQtfLE/+PXYxtc6XuWKBUdvHJM2sRXL2/Im6XJPCU
-	WN2nPANLpJruuzoCSS3DWXRbwxzndhDk+O9+dl98rfZagZcb8w1jLv3lMpwZb3M/30s0Rvo4Nn5
-	RNM741XQDAa9ucQ6aO1QPwIcLdcaUIsuIHai0nlpjIkQvil0uAmta69sPMtnptdVM94fXkM/lUY
-	zTJ2esb/3IZ9qiwKgXGiOWvPaIY3ixuk99kfxMu9vF08YEr1CRZjykSA0Sn4dMXZyWebrWcTHG8
-	DstsQ3wrH4y5z+iR+zvbBbJ55vuN16F1jWbEMWZVOdKEPZT2THvOmLI2he+3QWweAOQmn6WsuLR
-	ERUN5UCw1ogm3cM03kJaPyE8koS18oTsdxw8U5imWJJU9cRGU1gv89O3MweAApQCA==
-X-Received: by 2002:a17:903:8c4:b0:2db:2ae9:fab3 with SMTP id d9443c01a7336-2dd2a33680fmr18443635ad.11.1789070861121;
-        Thu, 10 Sep 2026 13:07:41 -0700 (PDT)
-Received: from [192.168.0.158] (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f06423sm389262eec.20.2026.09.10.13.07.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 13:07:40 -0700 (PDT)
-Message-ID: <d5960580-a130-4d67-8b24-1544f1e7c135@gmail.com>
-Date: Thu, 10 Sep 2026 13:07:39 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkgYdaKh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 989EEC2BCFF;
+	Thu, 10 Sep 2026 20:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789070886;
+	bh=7LrlWxr2Z4DDLcsXmLIuY+CjhNOBB53K9pRbhU1j8J4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NkgYdaKhk0bo70iZboI4BJZdg3Xwe+aNXtUl+fDark7EdhB1RBbfRvpozOQyF0FQm
+	 8WSPyIb8SOru2Sa6YFyOX0yuJc3rt964SXmU1kttwYGadlTDSimOM94Z2yY2uo9iA/
+	 fgsXv0KTqd2EuFO/KyrZXygIJJraO/MaS7xmZbpk/2789eftfwDoBdEaD6Crosj1Rl
+	 a4bjrkkYblkhRt6Bogvu+/emrbowgNQUDdNqFZFO1I26UDP9nOklwh1ZbJPZrfmuNV
+	 k9QhPXvjYr9i3XSy3VXgpdVwzKWy2CAjuxNA/zVoFQ4hukFR5dHLeljkNxNmcXUb1f
+	 OWAR9VmJngxoQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84F0AC79FBB;
+	Thu, 10 Sep 2026 20:08:06 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Date: Thu, 10 Sep 2026 22:07:54 +0200
+Subject: [PATCH v5 4/7] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on CM3588-NAS
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/15] HID: hid-oxp: serialize complete RGB updates
-To: Andrei Aldea <andrei1998@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- linux-leds@vger.kernel.org
-References: <20260910032115.28669-1-andrei1998@gmail.com>
- <20260910032115.28669-7-andrei1998@gmail.com>
-Content-Language: en-US
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-In-Reply-To: <20260910032115.28669-7-andrei1998@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-4-c1b9e5f10cd6@pardini.net>
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+In-Reply-To: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+To: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1709;
+ i=ricardo@pardini.net; h=from:subject:message-id;
+ bh=6aWGqDcRch0v/DplqTK15TLUKtWXFJaV5tLvgpIwOHw=;
+ b=owEBiQF2/pANAwAIATteP+Oex+3pAcsmYgBqow4kAR15pUoqF3xi9F3Vxau8FW177GaOAb8zv
+ VSbYj0m77CJAU8EAAEIADkWIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCaqMOJBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQO14/457H7emW2Qf9ECGLK+iE4GdKQosucYn4phX5l51nFBA
+ bIosr3xNCE+YOUAmo5Kh0dpvoZnw3mmaMH/+kSdfsLK1aMHWTgI9u/+B5Td8Y3onC/7+ZK4kJ4N
+ nz/CXisUAG2EzqJAjx1NB33n4oMlFnvn6aFZdCLA/iEMwKyNvq3u21TgeDeFIQwE9LR9XQjyOCL
+ eWTspIHvOhYFiuQVc9vlJdcw8XJnZqgt+tyND0dOGRHNwVMLPp1CS7zLgQSUKqeim4M52uxtKzY
+ jgNia/u27vVSBrSi93ubO5beyBl5eZArW41VAlpe46lF5uTu6Kusy5b/EgquKT0jEdiD4XzWcR/
+ pNa7ekAQUxw==
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
+
+From: Ricardo Pardini <ricardo@pardini.net>
+
+The FriendlyElec CM3588-NAS carrier carries an on-board Realtek
+RTL8125 NIC behind pcie2x1l2.
+
+Describe the fixed function node and attach an ethernet0 alias in the
+NAS carrier .dts (not the SoM dtsi, as the RTL8125 sits on the
+carrier), so that U-Boot's fdt_fixup_ethernet() can inject a
+mac-address from its ethaddr env, for a stable MAC across boots that
+both U-Boot and the kernel agree on.
+
+Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+---
+ .../dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts b/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
+index f4c34da61c4df..96b3b245e0866 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
+@@ -20,6 +20,10 @@ / {
+ 	model = "FriendlyElec CM3588 NAS";
+ 	compatible = "friendlyarm,cm3588-nas", "friendlyarm,cm3588", "rockchip,rk3588";
+ 
++	aliases {
++		ethernet0 = &rtl_eth0;
++	};
++
+ 	adc_key_recovery: adc-key-recovery {
+ 		compatible = "adc-keys";
+ 		io-channels = <&saradc 1>;
+@@ -512,6 +516,23 @@ &pcie2x1l1 {
+ 	status = "okay";
+ };
+ 
++&pcie2x1l2 {
++	/* on-board RTL8125 2.5GbE NIC */
++	pcie@0,0 {
++		reg = <0x400000 0 0 0 0>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++		device_type = "pci";
++		bus-range = <0x40 0x4f>;
++
++		rtl_eth0: ethernet@0,0 {
++			compatible = "pci10ec,8125";
++			reg = <0x410000 0 0 0 0>;
++		};
++	};
++};
++
+ &pcie30phy {
+ 	/*
+ 	* Data lane mapping <1 3 2 4> = x1x1 x1x1 (bifurcation of both ports)
+
+-- 
+2.55.0
 
 
-On 9/9/26 20:21, Andrei Aldea wrote:
-> The transport mutex protects one report at a time, but changing an RGB
-> effect requires a status command followed by a color or effect command.
-> Serialize whole RGB transactions so sysfs and delayed brightness work do
-> not interleave these command sequences.
->
-> Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
-> Assisted-by: LLM
-> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
-> ---
->   drivers/hid/hid-oxp.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
-> index bee1317..8d07816 100644
-> --- a/drivers/hid/hid-oxp.c
-> +++ b/drivers/hid/hid-oxp.c
-> @@ -181,6 +181,7 @@ static struct oxp_hid_cfg {
->   	struct led_classdev_mc *led_mc;
->   	struct hid_device *hdev;
->   	struct mutex cfg_mutex; /*ensure single synchronous output report*/
-> +	struct mutex rgb_mutex; /*serialize complete RGB transactions*/
->   	u8 rgb_brightness;
->   	u8 gamepad_mode;
->   	u8 rumble_intensity;
-> @@ -1074,6 +1075,8 @@ static ssize_t oxp_rgb_status_show(void)
->   	u16 up = get_usage_page(drvdata.hdev);
->   	u8 *data;
->   
-> +	guard(mutex)(&drvdata.rgb_mutex);
-> +
->   	switch (up) {
->   	case GEN1_USAGE_PAGE:
->   		data = (u8[1]) { OXP_GET_PROPERTY };
-> @@ -1191,6 +1194,8 @@ static ssize_t enabled_store(struct device *dev, struct device_attribute *attr,
->   		return ret;
->   	val = ret;
->   
-> +	guard(mutex)(&drvdata.rgb_mutex);
-> +
->   	ret = oxp_rgb_status_store(val, drvdata.rgb_speed,
->   				   drvdata.rgb_brightness);
->   	if (ret)
-> @@ -1244,6 +1249,8 @@ static ssize_t effect_store(struct device *dev, struct device_attribute *attr,
->   
->   	val = ret;
->   
-> +	guard(mutex)(&drvdata.rgb_mutex);
-> +
->   	ret = oxp_rgb_status_store(drvdata.rgb_en, drvdata.rgb_speed,
->   				   drvdata.rgb_brightness);
->   	if (ret)
-> @@ -1302,6 +1309,8 @@ static ssize_t speed_store(struct device *dev, struct device_attribute *attr,
->   	if (val > 9)
->   		return -EINVAL;
->   
-> +	guard(mutex)(&drvdata.rgb_mutex);
-> +
->   	ret = oxp_rgb_status_store(drvdata.rgb_en, val, drvdata.rgb_brightness);
->   	if (ret)
->   		return ret;
-> @@ -1340,6 +1349,8 @@ static void oxp_rgb_queue_fn(struct work_struct *work)
->   	u8 val = 4 * brightness / max_brightness;
->   	int ret;
->   
-> +	guard(mutex)(&drvdata.rgb_mutex);
-> +
->   	if (drvdata.rgb_brightness != val) {
->   		ret = oxp_rgb_status_store(drvdata.rgb_en, drvdata.rgb_speed, val);
->   		if (ret)
-> @@ -1470,6 +1481,7 @@ static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
->   
->   	hid_set_drvdata(hdev, &drvdata);
->   	mutex_init(&drvdata.cfg_mutex);
-> +	mutex_init(&drvdata.rgb_mutex);
->   	drvdata.hdev = hdev;
->   
->   	if (up == GEN2_USAGE_PAGE && oxp_hybrid_mcu_device())
-
-Tested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
