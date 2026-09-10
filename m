@@ -1,134 +1,132 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414DF335081
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002856; cv=none; b=WlFSCcp/46CGj0cOjS+shq1c/N08xgAm31Uo7BvbK4WhqVjq6/uZySmFjsPtbUPGt7sXKr9L4Z6bCNiij+zjI8wOyTZf/7191mwE+hKZtt+NprRbWxTZJ2WeRjml+/nLQyQcgaFTAAmvD7oMIXm8QU+z6mrgK2CA08ddr1dGBpM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002856; c=relaxed/simple;
-	bh=rLLf3S99IRsirnjuO8ESHgbij3XAtfezDUthT0uJ3bA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kC0NfNCe7aYb9wpMRuH+PfWNAMalBB9rCNtdDK6Vj/4wtUxMxjQ20b9SZwol053EkVpLahdwPF40QTp2oju4wJqFpJkhX957+YrDv/3YHvffBNQlal8xfcZk2uDutLj9wzsXx6mJKtIl/STMmQQScVe/sY680WirWKafj3xYjtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kgSQ7XTs; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622BD34A3BF
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789002874; cv=pass; b=WpsOo8kXM2ypCTFDwIbHelU4g0D19k7MaXnUykm10AdrBrZ/NqgNlvzsqTRlGj1UBvr+9eTfa8yUnu7qoWaOVRd0x6peOBAdJaoEtIw/CVpXRu1dAYoQrnIs+gqUnnr5wPPapG9O5XkdDot/Y1J6yfmSDPqgjmJwCHltMVdBmrA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789002874; c=relaxed/simple;
+	bh=DxbXvJm+cKO/83qLmQI714EOk18xEDWduFtyz9KMjUc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=feJCxXtb/4MWVBTwqZ7Ab+7QgncHOLdRn+p0hlw2LFMm7bsEJma8CLid84U2SrPtQfYLk1HD91QyDo7d4FZuSn4nu7fiJxUpe9jcyzPNJj6AigFo1UmaSiZTtcV+sc6kUjCeATRI936es53h7SxNKhntyce5BNW2/YXtyySr1j0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Vl97ZcIO; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kgSQ7XTs"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso1829083a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:14:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789002848; x=1789607648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J/8WXv6niyWS/wDmzDpJhEOm84AGncNzXJmc949SqnY=;
-        b=kgSQ7XTssdC/w2V1BMfNXbHS7u+1Pb7ezJzYyXQqXchUXnuQjmSmo+/Gm3v+LGXETh
-         DPNf/SeduOK4FO7qE2+Q6xApQviDHx80oymKInD633uW+iY7dbUXq9muniClNg3R5vDW
-         x96/JDjwnwOTzzvdByXQJdP43jcaEWNjjfGvkghripLB4/ffyNNFLcX23AeYZvvRExud
-         I+XyLrt9NdVhrie2A4iq2W7/EDN3l09BnKwLMCQmUfIzrrYiud8B7OATlJPHpl+Cfgn6
-         dPqUUlmixisDpXb31DXnks6KU7dSFz4jKnWmAjEovANaYGzphLTIZDVX1R9pyknbPj/P
-         0mBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789002848; x=1789607648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J/8WXv6niyWS/wDmzDpJhEOm84AGncNzXJmc949SqnY=;
-        b=UFTo9H1stHH2nR1F7uECwpJgNqJHyooCZFi4efS+PJKDjlwEQ1cixvwOohjBAgUUt+
-         Zdbeah4jyMmvjIn0xW+UCsIeoHnq7LHYc12uzRRslhv3EspQah/RR9HzjzU7PQLzFaEl
-         VkA9Vb6YIIZcNchKtzKAxOl1GEuy9G7W6rwC122zEQpnBpWOV+zJ+J3oGshxiB3/RTFA
-         QhJpg+FkpUXhCJfPhdbYzPacooKHnCWir/uwKox9KQaP3mlahMTe4G8nJM0976KV3s6N
-         2Nbt/Ig6XdbDC9K3LGyAeK1bs/blQrXvMBPQTPWJBseSb8UBoZisYYbzYmzJnbgTCelx
-         A8+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw/vFT86NVBPeu7dlPqlsGjC7vQzYM/YTGILf7XsGfh1j43OkrrezOZ4pp/q6SRbE9TDImdBg434ywJDvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSShg1+LbRe2RlVK4zeorhmISMVuOQZjYhpmVLqINtI7p/eq4G
-	YxB8viRHcW6lUaplAcE/JD441ZyEorHEB7j5uasQyNXNdfnxsjS0tyb+
-X-Gm-Gg: AYBFou2vkOq+Y0eW5mc9G3Vwg7cxNBr2AtAOVgX9XFr7Olab27qqacE7+9/7SLZUD9R
-	H8g3RPJq64Ph2VwXhsip6+iHdDa521oXVMUJb4UCn1sgCiXLaNCJ6jZUZSDsjNGOJeegKdSkaVa
-	rVFB37AAsAAherdot6MSY/kJ9MLx3OqpgtKtHYQZyDVm9oprEvcHkfZ04JEJPXjvnPcJ61T3zFJ
-	ikkVsiyusMseDEpOq6mrAvwVATWgf/jsKaAe7e/pAvLFd/Di3srhw5BOM7R4puhMdeGOn58hGZb
-	7rZtlkiO4XGlvvEzTGwqZ5CmaWe22/ppgOscYjQwVrOq1pW7PipWhdm0GawDjTS2NdoKQYHy2jO
-	x/2BVg27TuusACEQLBL8plv9MtnxrruM30creDUGK86SVRe/UBBoZbEwAeomwWk7B+CAxGSQnRF
-	o9/UG8wcV7kqop3peUE9Q6lmdWSZOPUhmxM05RVlCEACazOh8XxgLEjC/r2coBBwix5OByI9xLy
-	n5a0pXsDfzC
-X-Received: by 2002:a17:90b:5705:b0:398:9be8:ea66 with SMTP id 98e67ed59e1d1-39bac3f1dc2mr13886765a91.19.1789002848176;
-        Wed, 09 Sep 2026 18:14:08 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397d6d1becsm10037195eec.22.2026.09.09.18.14.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 18:14:07 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] watchdog fixes for v7.3-rc3
-Date: Wed,  9 Sep 2026 18:14:06 -0700
-Message-ID: <20260910011406.951178-1-linux@roeck-us.net>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Vl97ZcIO"
+ARC-Seal: i=1; a=rsa-sha256; t=1789002858; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=gXEKXHnwU50R0iUBnEMv48LY+zzIWyVa46yjlEIio0orGsWbk35ObFsWl13uGT3gKQf6WqLQDa4f39hafg0gOjW3rMPfG5NIswq4SJiL1D2+VddjJuqCDF8O8EuPajm2YdqnII7qNATuLqREr+dYSXj+3uTqfPe9c+mWKtmXbEY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789002858; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xAViyxVnzKU7sIwQUPeaab/vulcgLpCH31RPs3F/His=; 
+	b=cSvCfCMlaUw5nYCRITy1Qe3LEuChuJ0OgSm7cTI0YQ0BxNvPNGWZyt3WKnKBERRqt2mlZWSnje4Q/CaXBaRsx2eVZsVjgnHIaInVhgid4vPIKs6HMRHLq+0DjwyLuA0bXxUU9+gJdaIY2290FxK/Q7Itjgzz/sNNmTDSnFeFFcE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789002858;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=xAViyxVnzKU7sIwQUPeaab/vulcgLpCH31RPs3F/His=;
+	b=Vl97ZcIOgT1GxrvDyA+EFaF8QrZvSz3pk6aOAWAm/UeZFHnuDrAnWdkKs2B3EyrL
+	dKAxCn5HkxDkPt9NPJW2vmad8PNHGjwOWhLaNZj3ngA+t3aHdi7U6SUFw6Bs486vYiu
+	G4EEa4HSdQP+EvAQP6BoUx3WlZVYm3oqrxXc8fYo=
+Received: by mx.zohomail.com with SMTPS id 1789002856824246.88901405836157;
+	Wed, 9 Sep 2026 18:14:16 -0700 (PDT)
+Date: Thu, 10 Sep 2026 02:14:12 +0100
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 04/18] drm/panthor: Flush the cleanup_wq in the unplug
+ path
+Message-ID: <aqGOgViRY3Tmp3hv@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
 
-Hi Linus,
+On 26.08.2026 16:56, Boris Brezillon wrote:
+> If we don't do that, we might face various UAFs, because the resource
+> referenced by these work items might be gone by the time they get
+> executed.
+> 
+> In each subcomponent making use of the panthor_cleanup_wq, we add a
+> flush_workqueue() at the end of the _unplug() function. Note that this
+> assumes no more work items from this subcomponent gets queued after
+> that point, which is not yet guaranteed, but this will be fixed in
+> upcoming changes.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c   | 6 ++++++
+>  drivers/gpu/drm/panthor/panthor_sched.c | 6 ++++++
+>  2 files changed, 12 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index d43ba1c7cd2a..1385ee28bee5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -3367,6 +3367,12 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+>  		}
+>  	}
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> +
+> +	/* Ensure any pending job cleanup work are executed before returning,
+> +	 * otherwise those might access objects that are gone if the work is
+> +	 * executed after other components are unplugged.
+> +	 */
+> +	flush_workqueue(panthor_cleanup_wq);
+>  }
+>  
+>  static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 42adfc76b9e1..a6d57dc1b43e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -4049,6 +4049,12 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+>  		sched->pm.has_ref = false;
+>  	}
+>  	mutex_unlock(&sched->lock);
+> +
+> +	/* Ensure any pending group release work are executed before returning,
+> +	 * otherwise those might access objects that are gone if the work is
+> +	 * executed after other components are unplugged.
+> +	 */
+> +	flush_workqueue(panthor_cleanup_wq);
 
-Please pull watchdog fixes for Linux v7.3-rc3 from signed tag:
+I was wondering about resources group_release_work could access after unplug that are torn down in this
+function, and guessing they had to do something with the Panthor scheduler itself. I didn't see any
+because they're all reference counted, so I suppose the problem is the panthor device itself?
 
-    git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git watchdog-for-v7.3-rc3
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Thanks,
-Guenter
-------
+>  }
+>  
+>  static void panthor_sched_fini(struct drm_device *ddev, void *res)
+> 
+> -- 
+> 2.55.0
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git tags/watchdog-for-v7.3-rc3
-
-for you to fetch changes up to 01504d14e47b34779911250dd308a03f6ef681c2:
-
-  watchdog: msc313e: Sync timeout value if WDT was running at boot (2026-09-09 14:18:25 -0700)
-
-----------------------------------------------------------------
-watchdog subsystem fixes for v7.3-rc3
-
-* core: Do not start hrtimer when pretimeout is zero
-
-* msc313e: Various fixes for issues reported by Sashiko
-
-* MAINTAINERS: Update URI for watchdog tree
-
-* sunxi_wdt: preserve boot-enabled watchdog
-
-----------------------------------------------------------------
-Antonio Borneo (1):
-      MAINTAINERS: Update URI for watchdog tree
-
-David Arcari (1):
-      watchdog: fix hrtimer start when pretimeout is zero
-
-James Hilliard (1):
-      watchdog: sunxi_wdt: preserve boot-enabled watchdog
-
-Tzung-Bi Shih (7):
-      watchdog: msc313e: Fix NULL pointer dereference in PM callbacks
-      watchdog: msc313e: Avoid division by zero
-      watchdog: msc313e: Fix clock leak and spurious timer in settimeout()
-      watchdog: msc313e: Enable clock before accessing hardware registers
-      watchdog: msc313e: Fix spurious reset on suspend
-      watchdog: msc313e: Fix undefined behavior
-      watchdog: msc313e: Sync timeout value if WDT was running at boot
-
- MAINTAINERS                                    |  2 +-
- drivers/watchdog/msc313e_wdt.c                 | 74 +++++++++++++++++++++-----
- drivers/watchdog/sunxi_wdt.c                   | 45 +++++++++++++++-
- drivers/watchdog/watchdog_hrtimer_pretimeout.c |  1 +
- 4 files changed, 106 insertions(+), 16 deletions(-)
+Adrian Larumbe
