@@ -1,74 +1,80 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909C52EBDE9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E893E326951
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047566; cv=none; b=ASwVA7qprwwNIArSRImB4ykZSllS4BSzVWiSGRjtGxNHSPnaRN3J8QapmQajE94v9kblsN6KzWIFgf5q6dBm1PS9pEjjU3nHajnLfkB/gDumx2cwjDe3Td1b8QBvPK2hq9MROkBT4O1t9yfMPCKUWyY3+XtgHrBBVrT/Ihr9Td4=
+	t=1789047571; cv=none; b=PlZKsnNNW32+nQLg/BzkrQrdEPB621JG26O8ophDtfiQiTvv0E1xvdgsZTSQpUZGjr2IH33rIYCyv1Ejn0utpMVWrfvMCe7PhHgyUhJAcAeYzVvknoAKkbQT7TUpp7PaiFhF7bb6pLiRwr7is1eJESQlfSbJ70hDcKMHxSjJHgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047566; c=relaxed/simple;
-	bh=TDBy2qbTXNR0qPysOgT50JSGgqr/6R1MMiTiR1Y1yEo=;
+	s=arc-20240116; t=1789047571; c=relaxed/simple;
+	bh=iuYJQN+7OivI7asb1I66AZzjOo5e5JuKaR6mrGoH5Ms=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oxgjo5z/3pwAbQKRNMVBrOz/Ll5xqP41iQ+ypr6SqxuSqGAdZpWluFqrM0P7SwnWhUonE+A2Y+SwzNAXR51PNB6fWGZZJkRouMLabfpaNsgNBqjsf9iqLS5G6p7/DOT8KHcWygoyofmZZ6kAxYUEU/zeSuoCEcjv7R59u3nLCs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nKAkPtfV; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VRrzCadd5lZEZYjGZaGN3XTyDgJ/YaBUIG6TChF0NgPUmJAzpYttm9Z5rOggOAZn7hNrqpzUbjHgKDua/kzrYzRgoDdQ5FBVUjQ1cwfSARcTZPER47mRv1lh4Pv2gZGXbAWI8H0mdWi85iOMlfRurGHnUvngk1nIFppQB5aT4Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=HIeyF7HX; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nKAkPtfV"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c28fde3bbd2so729225566b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:39:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="HIeyF7HX"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-9399d52b1efso262404485a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789047562; x=1789652362; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1789047567; x=1789652367; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JMmMNbrgJ0PThlrgbADYUy5LHKnoS0oQw5HvEhMlYHY=;
-        b=nKAkPtfVPKYlnHEQnbArYK1PAMLDHDOEYSZglUm52qzqQ5QKCNxuvgymmBtqYxoECr
-         q3TAWdP1aMdpWWOY03c800G+lggPtdv8FEam16nTLfB46ipKauui/yWcSC9nMB7Uw33+
-         kvfFhtnMRsu83TtOmkYfZeTBPD4m7ENhjVjZmAQbgpV05ME7dSOoR6ECEQiCdTs9O4cq
-         6v/FuRIoRZrN8wfzIrtBUcgV0eUz9GqsK4ew+Bn9teJjWaXT/f5VYFuv5ptHzReIBHUS
-         3v/KP4alCynArvjnmegbfNEawoqvtqBizXg+IOktWv+fknScqOO4GAnMw1PXjq+qKLFh
-         dotg==
+        bh=caoLgz2fIW5G5su0j630YA7b4AyUWzilscsWWfTlsu8=;
+        b=HIeyF7HXEvNiXiV8F4Or7fEWmTpQW/zpSkO5J7hRR7UYzbPZIBw/N8dtKz58oFD8r+
+         H8MeqaC5wEaJhOPIxcr0bg02Gl3ZVf9mXr1I17/h/uaQCcKcyGCZDn7KCKZwApydZTu8
+         hA/p3bZPsN7PbW+TBJFZgjxAqtJGlze1rZ+Fz63ooJ2FFKSzyJLP1AEvnaH0p4hJrQVc
+         mvAZRlbT7IfZlkIzIUuow5Q3sM8tqaR+trNkx+p0KrNlkPp9HQMI47En1aMP8vCNfihQ
+         IIYkMAnXz+jpYo8QL/5e5qIRrmEpgkEIrMnKtJ91O68s1Zidammzba+nJ/C11fn3QZV5
+         /aMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789047562; x=1789652362;
+        d=1e100.net; s=20251104; t=1789047567; x=1789652367;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JMmMNbrgJ0PThlrgbADYUy5LHKnoS0oQw5HvEhMlYHY=;
-        b=HnyIP4FUz7vwLdVsrGXeT1Baa9/p7N2cZhfI2XcFNzH2OQTwXoWdjZS8Np8aphk5BD
-         +pxzvQzXJNWzPCGv7jEekhANiqNhp5lev4HwdLIjqC0QkUDM/TBJb0rqwjaUq5MuvYBX
-         F+L2+bRjo54yzU+MZueolNqlfLT59aTdXP6AoTC4tqKQkdIEJTF6ab2rreF36VBlI4mx
-         i60S1AkVsEzPjuRkj6LIc/Wm7+jymMv1BjUeM3xbeq6Nucce6JVuaRTAPPii7CBYlZ1f
-         m2LDhYoo/qBF5frXZuZzSfoHIbPqbErSwsHz5W/y0bJ899420cicTAM0FSED1ZU6BDW+
-         4b2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzlM9ojdvuEQDU9Z5H+1sC9G800ZAcZtSgRgR5BzR14CQHmLPyXsHQTdp8C2JccH6UGolyh6eng7apCurw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kz6coEqKSJOJfX9N48IABxvi4shRrbFoyKY2C1E6GZM0PmrSoT
-	WileVw6C8JH/W7t+DZmhyoxzNZhpTzl9dG2dirub2zuVapJoO8y6yWos
-X-Gm-Gg: AYBFou0x2lO3wws8JgT6EUrb/aEMnHC8iqFeEMlBLNo4gB0Fiab+tfwGQOdDX+7KcRx
-	Mv3LRnMZNlBzRAaDKZH1MKoGrobaxEXOO2wUBWKNBnI3LRUnwC1Jt4gREdIbz8lS9kqRXTyzhK0
-	cwdjvx4HfU4eMfzkrV3/BA6K/5Oo0U9P5LS8GO8le2tbze8+iyK0PZ4Bj3JQIainBkb8PQr4Mj7
-	uvuk+5gVjZpwnNRxf0kuET0+yEZsPtP1Kc1yxUx3KZihkw8wzIYGT2qWKI1VP2tK3ATt+aVAiwe
-	/7gO28tEtmVtIDJkjPh+WVlB1lOf5cD/3W3EPVjKzrsx6ai1o9dSHv/lbtOorVJE0oeaYNgUB4n
-	LGlBJMl7agsMsV+BT5AIbV4mLhMK15Lo2NLmS+9fOfShM6F5Fbg3HoXFLuUgiI/d76EKjelbHT8
-	/Nsi8CdO4n2AxVk7byPECXBJpVwhM6t8dShwoRa8xbHV4iQ7/bT4DZzXcLFUG5dFCbAENe
-X-Received: by 2002:a17:907:72d5:b0:c26:1691:b361 with SMTP id a640c23a62f3a-c261691b94dmr1535678866b.26.1789047561903;
-        Thu, 10 Sep 2026 06:39:21 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036902sm910218566b.3.2026.09.10.06.39.20
+        bh=caoLgz2fIW5G5su0j630YA7b4AyUWzilscsWWfTlsu8=;
+        b=D1p9gAnYHugFnBeewaK8gqZKPendk31v1alJ8gEiwLPu0tiytiAzkFSQdAkZ14cNq+
+         EpK+spQ4IZXpnPA1NTlCiOAbTUxlVs4k+lDAm6v7OvreGLIjREYsk4Dcitjt6zgEUSmc
+         OV39pjjd+OkRRVJ4mwyyArAqk4WxPPr40eMQw827A+d7lmClsi0wDOVd/unN6cZN8xmP
+         MeDJp+4bLbcpN+ETdYcSFGRRZm2qE6/WkYZjsmuOQ41zvQ5oEN8YzkCmb/Mt5FxXJ/hN
+         7JA86a3DqAN3glAeUCN+o6rpueOCALJ7Sah0GWg9X/t5Q65vA53dIfUiQizGy1On8MSX
+         Z8tQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxUGrTxAr9484nBGwO07L7894vXRvmjaKsN3cKYHo0X8mrp03/Q6ADEHjd8MF/MHrXCtcGrQbe1piEGfHM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+ua5WbLKgwSjryIY1BaOb2qbuehTexj/8ifEBgwxcgSuTJhcH
+	HAMENFnLQwcj5/PQ13ms9j5gWw9+hW1CdHj38UT7zCF8YRRZ36g70aAj30ZBUXVHSR0=
+X-Gm-Gg: AYBFou2LKd3PsRot2weTGnZywNurU0WBcKWc1132FY3W6D1+6ZC1TBawGxp2j48j8gF
+	ew2fhh3dJ9YuWk7faSf1lRflhTw4XJtregtum9je+L4xl08vMAl0bEMDtkZqdfqBxxHg50mHUas
+	lrOYr6XNDCt2x1eBIoqcAiydZYb3BeX/8tDAyHzB5ozSMdsckOPQphLD5Xm1ApyyH1q7l5f8vjz
+	BkgupAicyD2AGCd1VgYtNKbY7QZri0QLlsCWYSVXL4g3LTa3R9XAGVopPb4uzriBf8sC+vCeTOi
+	FpeGlxAN9xWaz1kz3POXCoWtd3ONjYyfqXVHG7OvJYx+kOt058A+8751zJNvMxdH/DrPZz7wRb1
+	kImE5Y9LdzQCT047l15f8rwoPhYdNsK3pBWX6VlooYyD2OycOtxDXlrBuwKbyFH29lXR59YaSQR
+	7gTZskg+XmQk5GHqgW8EDlVH+USro10QFKGLvRrocm3SYIMYghHv7UxtQq0spGCd+8T/uLjE/mK
+	lNuaNMyIT2ykia58zzxZ4HaGT4WepVuR+WsrdQ0/rwnECetzVtSONwmrNCZNboESg==
+X-Received: by 2002:a05:620a:2988:b0:939:85e4:44dd with SMTP id af79cd13be357-93985e447b5mr4423830385a.36.1789047566997;
+        Thu, 10 Sep 2026 06:39:26 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e190f8c3sm78248785a.17.2026.09.10.06.39.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:39:21 -0700 (PDT)
-Date: Thu, 10 Sep 2026 16:39:17 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Muhammad Israr <7israr.work@gmail.com>
-Cc: parthiban.veerasooran@microchip.com, christian.gromm@microchip.com,
-	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: most: video: add comments to mutex and spinlock
- definitions
-Message-ID: <aqKzBTM-CdBqQzXi@stanley.mountain>
-References: <20260910124403.95741-1-7israr.work@gmail.com>
+        Thu, 10 Sep 2026 06:39:26 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:39:24 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Ackerley Tng <ackerleytng@google.com>, linux-mm@kvack.org, 
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, pbonzini@redhat.com, seanjc@google.com, 
+	akpm@linux-foundation.org, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, shuah@kernel.org
+Subject: Re: [PATCH 0/5] KVM: guest_memfd: bind backing memory to a NUMA node
+Message-ID: <aqKxk2Marnz1HU4G@gourry-fedora-PF4VCD3F>
+References: <20260902194657.79075-1-gourry@gourry.net>
+ <CAEvNRgHWyBaBpZ4Bem1Eu86b-cuEA7NkyjxTJ4D3FnpGe1B2Yg@mail.gmail.com>
+ <aqHkVKvons1tBs1O@gourry-fedora-PF4VCD3F>
+ <0386eb30-0e0c-4d8c-abfe-86161b9e3d1f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,41 +83,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910124403.95741-1-7israr.work@gmail.com>
+In-Reply-To: <0386eb30-0e0c-4d8c-abfe-86161b9e3d1f@kernel.org>
 
-On Thu, Sep 10, 2026 at 05:44:03PM +0500, Muhammad Israr wrote:
-> Add comments describing what the list_lock spinlock and lock mutex
-> in struct most_video_dev protect, per checkpatch.pl's
-> "definition without comment" check.
+On Thu, Sep 10, 2026 at 01:32:08PM +0200, David Hildenbrand (Arm) wrote:
+> >> 3. Why not request the guest_memfd to be mmap-able just to be able to
+> >>    set a memory policy?
+> > 
+> > the eventual intent is to enable this for fully confidential,
+> > host-unmapped guest, isolated to a particular memory device.
+> > 
+> > Requiring a mapping to get node-placement is quite defeating the point.
 > 
-> list_lock protects the pending_mbos list. The mutex is registered
-> as vdev->lock and is used by the V4L2 core to serialize
-> video_device ioctl calls; it is not locked directly in this file.
+> You only need a VMA, not actually mapped/faulted pages. So I don't immediately
+> see the problem?
 > 
-> Signed-off-by: Muhammad Israr <7israr.work@gmail.com>
-> ---
->  drivers/staging/most/video/video.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
-> index 3a0445ff62f4..41b617b553aa 100644
-> --- a/drivers/staging/most/video/video.c
-> +++ b/drivers/staging/most/video/video.c
-> @@ -33,6 +33,7 @@ struct most_video_dev {
->  	bool mute;
->  
->  	struct list_head pending_mbos;
-> +	/* protects pending_mbos */
->  	spinlock_t list_lock;
 
-It's supposed to but it is buggy...  What prevents multiple
-threads from reading comp_vdev_read() at the same time?
-I prefer to keep the warning around until someone fixes the
-code.
+There is no VMA here - only an inode (GMEM_I), which is where the
+shared policy hangs off of.
 
-I didn't read the other change.
+So yeah, if there was a vma, that's i suppose the missing component
+needed to hook up userland mempolicy to all of this - but I would have
+thought creating a VMA for guest_memfd is hacky and confusing (since its
+intent is to basically not have a VMA).
 
-regards,
-dan carpenter
+Is there a series I missed that was proposing this?
 
-
+~Gregory
