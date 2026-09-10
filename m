@@ -1,30 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFAE38F248
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF4C39B972
 	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014680; cv=none; b=o08N7pxSLe9bVsycHYlowPoChKdVZmbg80pFX8D0tNrvz66+YVl+vTP7/OwF7D86+XJI7gw3E/aCOPXy3gAlLA6uQRKQhdqzPX1+Ufqhw/HG6jcNik9YmRmun7abWwt4SrAOE53VGXVz3PAQ7OF92PG3HLsQcuxtuMQWNkBm+Sw=
+	t=1789014680; cv=none; b=WIGKHx7v7h7jE88M6uf0QzoQxrq4HRYVwxLSphJhPWw5IkmFO4njJ5eigDtTfxpUMdqxaQA8PRIxdDqAfW6IWe9Pyr8+Xn3gpXt0/tV57rBvuqjZpIxLwmmvERdT6ko7DcXQqaXWX7ngjzE+60lJrFf5g9o0o3MB0eUdHa6A8wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789014680; c=relaxed/simple;
-	bh=7rqDzVbAOrvGHPe3+y17ORUypnLLrLSrXFuJ0eFrblU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jJ3Zuhv7R8QCWO9tRaXGBEmcKRETrS/XURv8dEqjLbJ2MNO2e68Ez999qwPmkTbG5nHQI5kO+KsxI+fZPinNTWbOKFf8/D7T8DswoKxWXuXUxRX5QXV+FI2LNai8HAb/Fzb7SpS5UxbWvS2i9Cs9IzRLfoLXZ/FRtQsAlcZdUx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ae3UiVv6; arc=none smtp.client-ip=220.197.31.2
+	bh=lyDnxbEM+9S/pozfMxbJvQz3ox9V1hgfd3UHqcQiv58=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L8/pmzpi9kg6ANddidL2lqpeLWp99neVHo/g3cPDcvpMYMwWyHceclf3JVjsPcySpHBqF1FDYNQF3dCGKXPeeBiqxmMEBfnHkOgRaIzVmeW013w4zddCbmCbpWw26rNEi9KuDesLVclxycSgaazbJr1xM9rtdtwtIkkUUYjVJR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Nr58g70V; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ae3UiVv6"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Nr58g70V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4t
-	nSggQ8oN3baWQ2VgtsX9D1878Stv467Btkc2KmqxQ=; b=Ae3UiVv6U5La4d87WL
-	HBy8D0gxOm+OZVpT9V9IA5EFBE9SjQiRM1i0s6JMRSWZjfS/rCFeL/nkpnDObxHL
-	fOJVotGqNGBDGpkd4be3gg6dPdK3LCdeEwHaDSvxZ7/RmjQN0dRTjgXH1ZnUcZOk
-	SmpWuuUFtZ2Ouww83hBkD5NyI=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4f
+	iBNV7Y6qrbgmEFxS4CFywJqbBGqW3q/PRFDM9pke8=; b=Nr58g70V2Bo2LzRgJ1
+	GJqpGTS5TzuDd4F43mHxn0rL87YGk+/gS1imdXW6kZhpLsfNHtfpmg5F4gz57Y/D
+	XyrLDYdMuGRgGip4O+IAlWdYzirf+da/EYLV1FD1qTNo3tkJ2572/22a+BD46E/v
+	yXAfIYbrA+dH4NCDJAMFqTVP4=
 Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXgp5AMqJqap0YBw--.51115S7;
-	Thu, 10 Sep 2026 12:30:00 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXgp5AMqJqap0YBw--.51115S2;
+	Thu, 10 Sep 2026 12:29:53 +0800 (CST)
 From: Xin Zhao <jackzxcui1989@163.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -38,12 +37,10 @@ To: mingo@redhat.com,
 	kprateek.nayak@amd.com
 Cc: linux-kernel@vger.kernel.org,
 	Xin Zhao <jackzxcui1989@163.com>
-Subject: [RFC PATCH RESEND 05/10] sched/fair: Introduce select_task_rq_fair_thin() to select rq when LB_PROMOTE
-Date: Thu, 10 Sep 2026 12:29:45 +0800
-Message-Id: <20260910042950.1619727-6-jackzxcui1989@163.com>
+Subject: [RFC PATCH RESEND 00/10] sched/fair: A series of load balance patches to improve real-time performance of CFS tasks
+Date: Thu, 10 Sep 2026 12:29:40 +0800
+Message-Id: <20260910042950.1619727-1-jackzxcui1989@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910042950.1619727-1-jackzxcui1989@163.com>
-References: <20260910042950.1619727-1-jackzxcui1989@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,133 +48,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXgp5AMqJqap0YBw--.51115S7
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKF4DZF1rGr4UGr1rtFy3twb_yoW7Xr15pF
-	4Fqw13trsrAw4Ivw1fCrs7Cr1Yv34rGw47Kr1fJF95Ca45Xryv9F1FgrnxXFyfCr1kZFyj
-	qFW8Kr17CrWqvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziDDGcUUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC5wjh62qiMkiB6wAA39
+X-CM-TRANSID:_____wAXgp5AMqJqap0YBw--.51115S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxurWUJw13JF45CFy5Xr13urg_yoWrZF18p3
+	9Yqa1Yyr4DJ34xA393Zr4xXr1ruws3JFZxKr43G34UAF15Wr12yw4Sga12kFWfC395Z3W2
+	qw1jq347CryvvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEfMaUUUUUU=
+X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbCvwHf6WqiMkHwPgAA39
 
-The logic of select_task_rq_fair() is relatively complex, and on typical
-embedded systems, the number of CPUs in sd_llc domain is often limited to
-a maximum of 4, and sometimes only 2. This makes the complex logic of
-select_task_rq_fair() seem less necessary. Additionally, the update logic
-for the nr_idle_scan value that select_task_rq_fair() relies on is also
-quite time-consuming.
+Embedded platforms commonly use CONFIG_HZ_250, and testing has revealed
+that there are numerous instances of unreasonable CPU idle events on such
+platforms. Unreasonable CPU idle refers to situations where the CPU enters
+an idle state for a duration of time (t), while there are tasks that can
+run on the idle CPU and are not limited by cgroup constraints, yet these
+tasks remain unscheduled for a duration greater than (t), t > 2.5 ms.
 
-Moreover, embedded systems require better real-time performance, and with
-fewer CPUs available, it becomes necessary to bind certain tasks across
-the sd_llc range. The default enabled feature, SD_WAKE_AFFINE, causes
-select_task_rq_fair() to take the fast path, often overlooking some idle
-CPUs across sd_llc domain, leading to increased scheduling latency.
+Testing has shown that over 95% of these events last less than 4 ms, but
+there are still some instances of longer durations between 4-5ms, even
+occasionally between 5-10 ms. For a real-time system, scheduling delays
+greater than 4 ms can lead to performance spikes.
 
-To address this, we introduce the select_task_rq_fair_thin() function,
-which serves as a streamlined version of select_task_rq_fair(). It can
-quickly perform CPU selection while also considering the real-time
-requirements of embedded systems. select_task_rq_fair_thin() retains the
-priority selection logic for prev_cpu and recent_used_cpu, and it will
-prioritize CPUs within the sd_llc. If there are no idle CPUs in the
-sd_llc, it will then look for other available CPUs to run.
+Enabling this option can effectively reduce the occurrence of unreasonable
+CPU idle events on low HZ systems like CONFIG_HZ_250, and completely
+eliminate events exceeding 4 ms. Note that the feature only affects fair
+tasks.
 
-When the LB_PROMOTE feature is enabled, select_task_rq_fair_thin() will
-replace the original select_task_rq_fair(), and the update logic for
-nr_idle_scan that select_task_rq_fair() relies on will no longer need to
-be executed.
+Note that enabling this feature will increase sys%, as it uses CPU time
+that would have been idle to expedite the scheduling of tasks. There will
+also be some CPU overhead involved in searching for suitable tasks.
 
-Testing has shown that in our system with 18 CPUs running at 2.1GHz, where
-the first three sd_llc domains each contains 4 CPUs and the last sd_llc
-contains 2 CPUs, under same fillback scenario, select_task_rq_fair_thin()
-executes 25% faster than the original select_task_rq_fair(). It saves 22ms
-over a 10-second period, with this optimization accounting for 0.174% of
-total system time. Additionally, we measured the execution time of
-update_idle_cpu_scan, which took 0.5ms over the same 10-second period. If
-we use select_task_rq_fair_thin() instead, this time can be eliminated,
-accounting for 0.04% of total system time. Therefore, the overall
-optimization contributes to a reduction of 0.214% of total system time.
+This feature has been split into several smaller patches, which will be
+elaborated on one by one later. Below are some test data:
 
-Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
----
- kernel/sched/fair.c | 52 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 51 insertions(+), 1 deletion(-)
+Test one compares the number of unreasonable CPU idle events and their
+distribution when this feature is enabled versus when it is not, under
+the same fillback scenario. The test duration was 60 seconds.
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 20d03ceed9d7..f10e709921fd 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9661,6 +9661,51 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- 	return target;
- }
- 
-+/*
-+ * A streamlined version of select_task_rq_fair().
-+ * It runs faster than select_task_rq_fair, especially when there are not
-+ * many CPUs. It will prioritize selecting an idle CPU in the following order:
-+ * 1. prev_cpu
-+ * 2. recent_used_cpu
-+ * 3. cpu belongs to intersection of sd_llc and cpus_ptr
-+ * 4. cpu belongs to cpus_ptr but not belongs to sd_llc
-+ * If there is no idle CPU in cpus_ptr, it will select prev_cpu.
-+ */
-+static int select_task_rq_fair_thin(struct task_struct *p, int prev_cpu, int wake_flags)
-+{
-+	int recent_used_cpu, target, cpu, start = nr_cpu_ids;
-+	struct sched_domain *sd;
-+
-+	if (likely(available_idle_cpu(prev_cpu)))
-+		return prev_cpu;
-+
-+	recent_used_cpu = p->recent_used_cpu;
-+	p->recent_used_cpu = prev_cpu;
-+	if (recent_used_cpu != prev_cpu && available_idle_cpu(recent_used_cpu))
-+		return recent_used_cpu;
-+
-+	target = prev_cpu;
-+	rcu_read_lock();
-+
-+	sd = rcu_dereference(per_cpu(sd_llc, target));
-+	if (sd)
-+		start = cpumask_first_and(sched_domain_span(sd), p->cpus_ptr);
-+	if (start >= nr_cpu_ids)
-+		start = cpumask_first(p->cpus_ptr);
-+
-+	for_each_cpu_wrap(cpu, p->cpus_ptr, start) {
-+		if (available_idle_cpu(cpu)) {
-+			target = cpu;
-+			goto unlock;
-+		}
-+	}
-+
-+unlock:
-+	rcu_read_unlock();
-+
-+	return target;
-+}
-+
- /*
-  * select_task_rq_fair: Select target runqueue for the waking task in domains
-  * that have the relevant SD flag set. In practice, this is SD_BALANCE_WAKE,
-@@ -9682,6 +9727,9 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 	/* SD_flags and WF_flags share the first nibble */
- 	int sd_flag = wake_flags & 0xF;
- 
-+	if (sched_feat(LB_PROMOTE))
-+		return select_task_rq_fair_thin(p, prev_cpu, wake_flags);
-+
- 	/*
- 	 * required for stable ->cpus_allowed
- 	 */
-@@ -12564,8 +12612,10 @@ static void update_idle_cpu_scan(struct lb_env *env,
- 	 * So the write of this hint only occurs during periodic load
- 	 * balancing, rather than CPU_NEWLY_IDLE, because the latter
- 	 * can fire way more frequently than the former.
-+	 * When LB_PROMOTE is enabled, select_task_rq_fair() is no longer
-+	 * used, and there is no need to update nr_idle_scan.
- 	 */
--	if (!sched_feat(SIS_UTIL) || env->idle == CPU_NEWLY_IDLE)
-+	if (!sched_feat(SIS_UTIL) || env->idle == CPU_NEWLY_IDLE || sched_feat(LB_PROMOTE))
- 		return;
- 
- 	sd_share = sd->shared;
+      LB_PROMOTE(on/off) 2.5-3ms 3-4ms  4ms+
+index 0               on       0     0     0
+index 1              off       4    13     1
+index 2               on       0     0     0
+index 3              off       6     3     0
+index 4               on       0     0     0
+index 5              off       1     1     0
+
+Test two compares the performance of the system with and without the
+feature enabled, based on the same fillback scenario. Each test lasts for
+25 minutes, and a total of 15 comparative tests were conducted. The
+results include a comparison of the maximum and median values of
+end-to-end latency and sys%.
+
+LB_PROMOTE(on/off)                    on        off
+end-to-end latency(max)              172        180
+end-to-end latency(median of avg)    166     167.68
+sys%(max)                           9.68       9.35
+sys%(median of avg)                 8.81       8.55
+
+All of the patches are derived from analysis through ftrace and process
+logs of load balance code flow corresponding to every unreasonable CPU
+idle event captured during testing.
+
+In patch 4, we define a new feature called LB_PROMOTE, which means to
+promote load balance. Currently, this feature only optimizes the CFS load
+balance part. The first three patches are prerequisite patches; patch 1
+addresses a common issue unrelated to the LB_PROMOTE feature, while
+patches 2 and 3 are two prerequisite patches that can be applied
+independently of LB_PROMOTE feature but are primarily intended to support
+patches 6 and 7. Patches 5, 7, 8, and 10 are all based on the LB_PROMOTE
+feature introduced in patch 4. Patch 5 implements an improved version of
+select_task_rq_fair() for embedded platforms, enhancing performance and
+real-time capabilities. Patch 7 implements preemptive active balance,
+while patch 6 allows active_load_balance_cpu_stop() to be reused in
+preemptive active balance scenarios. Patch 8 removes checks related to
+avg_idle. Patch 9 is a minor optimization that does not depend on the
+LB_PROMOTE feature, but since it modifies sched_balance_rq() as patch 10
+does, it serves as a precursor to patch 10.
+
+Xin Zhao (10):
+  sched/fair: Do not set_rd_overloaded() if rd->online != env->cpus
+  scbed/fair: Remove duplicate check for busiest_cpu in
+    active_load_balance_cpu_stop()
+  sched/fair: Clear active_balance at the end of
+    active_load_balance_cpu_stop()
+  sched/fair: Add LB_PROMOTE feature to enhance real-time performance of
+    fair tasks
+  sched/fair: Introduce select_task_rq_fair_thin() to select rq when
+    LB_PROMOTE
+  sched/fair: Modify active_load_balance_cpu_stop() to accommodate more
+    scenarios
+  sched/fair: Trigger active balance if a CFS task is preempted when
+    LB_PROMOTE
+  sched/fair: Do not check avg_idle to prematurely exit newly idle when
+    LB_PROMOTE
+  sched/fair: Not goto more_balance if newly idle and has pending task
+    when LBF_NEED_BREAK
+  sched/fair: Strive to find a task to migrate if newly idle when
+    LB_PROMOTE
+
+ kernel/sched/core.c     |   3 +
+ kernel/sched/fair.c     | 220 +++++++++++++++++++++++++++++++++++-----
+ kernel/sched/features.h |  24 +++++
+ kernel/sched/sched.h    |   2 +
+ 4 files changed, 224 insertions(+), 25 deletions(-)
+
 -- 
 2.34.1
 
