@@ -1,81 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743AE3C10A3;
-	Thu, 10 Sep 2026 20:51:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1429E390987;
+	Thu, 10 Sep 2026 20:51:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073472; cv=none; b=ZP+OKsJlNpjP+ItlZ3sxokhSZN5dlDPuV4i5SRhlt3E29/pnJ4csScrjPc7nLHH+xyXuiBGbedXSzA1jvyw9Ii2wpqKKlMux23bj6c6KU99PMV2sS/zmSodFJlaPUvrUmbjhxHhM1qeWd+IykZdvcPZb9Av5Cpcg1BXigblKgwE=
+	t=1789073505; cv=none; b=O9siz4FO5NvpZOLp9IqkV+3N7UVfxfCh7AcykQaJxUGbJDotBB19gpeu/4iKnsord2E4bWFXEJXID/QL91ww0uK6VChvYUsVqhB0zq+x4vjz1hZjXxiiIrkj8mz9o5Ezq6bGzd13T9zoD+COZQNOtJTgjlGm93DjTMkQtnUDnkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073472; c=relaxed/simple;
-	bh=LfJlwhLJhS3nA3C0C6ijsPj0sUen1IaqXxD5DqBuil8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=mpQJYs0peD6+A529RARxK7hRv4DHHkgADfmYAQ3nVWyf5k/7OrIEJ/6/C1lfKIlqHu91xk/IeM1jkjckMJbwAQ/nD4a6Rbe//t5oBtMC/ODBimYLoklHiVaCr69GS9xG6MX9jKj/XGOwnRTg7lQcMNVoiCXDQhFzacYvWPZqxC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZdqDVOc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789073505; c=relaxed/simple;
+	bh=I6NrJ4Rg6XZaG8bouHqPiwvG+RdRE1E1Noyx3g97kck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YUDAsEEx5W3zOmJHL+v2j88xUYWOnYI2/VWjyawx9lcrlr0rxBKdz4jsBPbAd0PpWrOkwJmZnAktBRuNAp3LA9vfuoBBNHcoTaDX9rDSOnLKRQaVmnYemVM6Plw14eVEUuS27IIGHHp+l7hfTe0ppIJ3pyZLcj2jH1fvOFnXE7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4OCok0m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZdqDVOc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE871F000FF;
-	Thu, 10 Sep 2026 20:51:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4OCok0m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1456E1F000FF;
+	Thu, 10 Sep 2026 20:51:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789073471;
-	bh=0XGOLbepuWdRrCppwS7Mqf2t8tDlDTO4Yc/5dw//KAk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=jZdqDVOcG3RulGMVO0v3y5bOKRZLksHd13mxs3dFq8univbbr9oECUONKmVbLIl87
-	 mySXAEpIMiSGX2Q5cY6zoVkmzXgOjbGXzMXCCOrLdAm0RT6c6LEFUh1+eYV9Wa8P/r
-	 5OEmiezAuUfUFnNn76nBwAPEPC/TKPs3gLc8RqTPL9VqROtPYDLaBdBfZHmr+u3AaZ
-	 nN1Fjd2o3cRdS8j6ooBp4BVsU5AcnrFByQ/Wqr1JYZpnQzJN5yUAS+fAehquoCOSb8
-	 tIh2nTDBOPn/mYSEs9SBKB5Csj25pCnBbPa8JY8qAow8EmuhkxCHgScvsFaUTQqhBx
-	 xm+u/toPY3tJA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B5E380DBDC;
-	Thu, 10 Sep 2026 20:50:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789073503;
+	bh=mN82z+mpSzvnJYZfh0TAn1/Wv9mtu3lW8f+BTD/77v0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R4OCok0mgCuyOT3ZFy8pZSH8FNo3vBa9XVIQp1nQwQiaJK3JDV978dOlAahrO78p0
+	 VOMrqul1jLjRJnr4hLtMBL+/atEOCoBI6HT1eAc84AfPgV0N+Sxojk3PCzc/vZ9N0t
+	 3WpmnzoZSZvu5LXpQxILp2t9LAIh18rzqd82dEAIcv8388QKBO/6zYdguIB2Ubug6m
+	 pFqRctWkt7IoAmcTSL5N6ihV3AxZkx9RNWBn+FT4EKL5/lNKtTex1tsSA8V6BYXAnv
+	 2QkWWVy4TL859kzs2oDQmKLfio/LigUXIrh5vJLkziId49eYTlFDq5Jx8Tjd9xVrp4
+	 qMsy8cIGbHUgg==
+Date: Thu, 10 Sep 2026 22:51:40 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, viken.dadhaniya@oss.qualcomm.com
+Subject: Re: [PATCH] i2c: qcom-geni: Simplify PM resume error handling
+Message-ID: <aqMYSAJD0HPHkoG-@zenone.zhora.eu>
+References: <20260805070013.494426-1-mukesh.savaliya@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: hci_sync: Serialize local codec list cleanup
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178907340813.2075844.8834816914605472412.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Sep 2026 20:50:08 +0000
-References: <20260821174350.3034506-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260821174350.3034506-1-nicoyip.dev@gmail.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805070013.494426-1-mukesh.savaliya@oss.qualcomm.com>
 
-Hello:
+Hi Mukesh,
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-
-On Sat, 22 Aug 2026 01:43:50 +0800 you wrote:
-> hci_dev_close_sync() clears hdev->local_codecs after releasing hdev->lock.
-> Codec list additions and both traversals in sco_sock_getsockopt() use that
-> lock, but the close path does not. A close and BT_CODEC query can therefore
-> interleave as follows:
+On Wed, Aug 05, 2026 at 12:30:13PM +0530, Mukesh Kumar Savaliya wrote:
+> The driver currently logs pm_runtime_resume_and_get() failures with
+> dev_err() and returns the error code separately.
 > 
->   hci_dev_close_sync()          sco_sock_getsockopt()
->                                 hci_dev_lock()
->                                 fetch codec entry
->   hci_codec_list_clear()
->     kfree(entry)
->                                 read entry->id
+> Replace this with dev_err_probe(), which combines the dev_err() log
+> message and the return value propagation into a single call, consistent
+> with how all other error paths in this driver already report failures.
 > 
-> [...]
+> No functional change intended.
+> 
+> Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
 
-Here is the summary with links:
-  - Bluetooth: hci_sync: Serialize local codec list cleanup
-    https://git.kernel.org/bluetooth/bluetooth-next/c/ee0662ba1e0a
+merged to i2c/i2c.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Andi
