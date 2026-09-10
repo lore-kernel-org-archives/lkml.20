@@ -1,121 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D1A46D095;
-	Thu, 10 Sep 2026 10:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE2946EC70
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037761; cv=none; b=RuUfyFFJlQZ+ceaTmQCMxSWmRMjOIKeEYkhMhwRzyuioDq/DEk6V8qHTMcsp8gLa5Eg1HXMuexHMIjWjpZfXpkMsyl4XLK/9ctAGYOAQdbTeYiopzNUC+757G/7l/mWLmcX7XqvdcMaYhYnvUrB1/9jJq2XqmkesryKmeUIOYPQ=
+	t=1789037784; cv=none; b=hs/FPdxU9thvo4ax73nx49fCOY4edahL2bKkKo2QyVsL5u0BywGfAt5omzHIej+NGQ7Nxmz0zRaZ+ndMZSjNHcgF7Qz0nOKJAL22V09VSs5NYqQUM09iPdJUsCco1Bw5+LOFSi3546jCPoHpcf6BgpOH69KSn7AttMjxvH4k45Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037761; c=relaxed/simple;
-	bh=xUmNq+h8P5GOEqnP5pSs7V6mHwoQfX21xBNIHagQvog=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YuZQGK3jU7SPjKRDWl9v6GtxqtQpNt9+5v6c1FobLvx+jqlBC9pAA8QFOZ0LLIBqgCB9JH3zbGhEc431YlW9AGLX2N3NK8BvTZRs+nBDGtwH0p6oy52uX9va0Pu0rdVG0uXIBS5tiynzn0hn21YMjB4s2rs/Um4MdsHBfPPrk+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sc/Krtey; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789037784; c=relaxed/simple;
+	bh=RZzN/VrGO/Lcn9qkFcksdPvlKhl+S3I4NUmDeoONm8Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S6KSTL/dYnqx1NfremijTYLIvRT/veDWBn6QCkFbpQ4yfbAazhKN5eIFFxgvDGnkz41ZB4eRJ/pD6knRE8jnF87U6oeWg/U6lUbJYAO7WWACyM8Xeg5lfJVqZevXxl0O/9cGYAZOEAF0QTCkPyHhWY9GIKRn6a7RO9vtzNDVmZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ERxovQ/Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PXNlOfKU; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sc/Krtey"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FEC91F00893;
-	Thu, 10 Sep 2026 10:55:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789037750;
-	bh=i0k/HI/bcvlOdY3uUk2PaTWHvR+HLRCqNH8Ek21Htnw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sc/Krteyn26A4LgEQxcaQ3aIGJQrPiYPJoPeNp7tZ/hRMWj3NuGHWMPxFTWsGav5x
-	 wptWbvudyVSj5LZah6hldUObO9gJUrw/FqALJrudU8w/ZQ6XvreENhQGhT5jqQCTlL
-	 wSmYrFeJXRNV1yMOF7JEX2SjiQFpGARrQ57co0kwAGpS5uPPI5kaqKKFygGvNWIi/k
-	 aAVPHnzVr63YkXDJzeXXEFWAGhCbsXdCoT6gg9W8eA4SNsvVlbC0YCx6d/o+PtdzIV
-	 qZFNSKXnlpZpABb2WgKchhgOH+kvgIFxRFGXgBTsZ7GiiBy7ulWCz+t5k96ldf1zZR
-	 UGrWVYbSz/0Fg==
-Date: Thu, 10 Sep 2026 11:55:44 +0100
-From: Will Deacon <will@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Christoph Hellwig <hch@lst.de>, Ard Biesheuvel <ardb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH 0/2] ARM: preserve DMA_FROM_DEVICE buffer contents
-Message-ID: <aqKMsKpYnAZOoKQo@willie-the-truck>
-References: <20260910063620.17768-1-kmehltretter@gmail.com>
- <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ERxovQ/Y";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PXNlOfKU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789037768;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b+kS+43ImV+1fkCyHmKwfuzV6agDs57MtzRJAv0xXyM=;
+	b=ERxovQ/YeCVqi08hEgT9+Ya5BjcY03p/OQNujhIgb0PBVUEA7LO2yDsMxBZpFJOhJURZrn
+	hTrkzstr3OR78+aBQsTE9jNSidS3qa9+wSJmp2PC/1F6ceo1F5HiZLHCwNl9+LdLq4Ueb4
+	lefBfGZDHzl6A/L1WqkG4xIKaJHhSww=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-584-qtMEfDGPNjOeBq0OqoG66g-1; Thu, 10 Sep 2026 06:56:07 -0400
+X-MC-Unique: qtMEfDGPNjOeBq0OqoG66g-1
+X-Mimecast-MFC-AGG-ID: qtMEfDGPNjOeBq0OqoG66g_1789037766
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4858f06e142so4100804f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789037766; x=1789642566; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b+kS+43ImV+1fkCyHmKwfuzV6agDs57MtzRJAv0xXyM=;
+        b=PXNlOfKUaYExOxWNtY1ZMuZPi8BLheCZIWYhnWWH5JLYwjlHACBf1RhSfMCLb7bz3b
+         yjhZdqh1rUsTUH+pVZn3OXezBTT4ul9nru3zeGG76YKfKxkiNBzMmvGebnnqFDyBin8l
+         TxjNynGh5jAPWmCsucs18F0p+chM6THZ3rqXPLR0241PQXLFq5JZvDugvPKr2sKpwg+5
+         4UrtnkEwFjcl6MD0/crQrZHlLj7ZNdrd7Qc7ZWiy8mcULU5ffga/vIikvym+F1frGYrn
+         ULOQX5WiD8SE+75N7oOUWTOnm630E3bh/5uJQHFBqzqFe/XvcvbKN8nF9CPBbzfUlqo8
+         ROFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789037766; x=1789642566;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b+kS+43ImV+1fkCyHmKwfuzV6agDs57MtzRJAv0xXyM=;
+        b=k7I3JWl2D8BN8/C89h4kKokmFN8dvHgM2R0qhPFInSIYRctR+TAFK483rAudF5+ePQ
+         teZl/bY+hXXu+6HqiY+VSMbF1lQ7gi0ahevoXkDI2rjMGbScNi4JlmH7bE3bL9D3zDjO
+         lDcCKUIW7lST7Crji3dyi0X9wgHbncKB/+inn82R5jw0qjZ9pQo2W99HdG8JwqFUPzxd
+         jlXw10fd7rUUY6Jd9sRGCNsHF3XGQ4bM9DekltYCG90MooB6/TlXgKfBWCO4Ap+DMHam
+         obhOX6kApzkdh+pW/ZwAfX59B/QvLl693Uf1O8J3w1Sv41dothOwqX4gjA7N+aO1RJEo
+         sZYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwb/fDOz65Z9RMmx1y9LM53oFp1t0I7WRZ6i5DinXXukpKw2DWwQQdPnz7NoIT9aR0Wy+OS/8NHn/bTDuo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYIvmMvyheI3Ly8vszmVl3muf6TUBgQzxSxiNim9R7vEn+HGsh
+	g3VGK6kj4Af9EIPsgzw7wGMfxF/qBMPpyShYfGyU9tE2WLYW/DJk7qAvB4/kBiOhP/47nD1O4Ve
+	3wN9yeToKNGQksoZfvHRQWVoAgwzd2P9LaproI8RlmtMHU7ZIbNMS9uh6ZLIzjdAXxqnDc1F+Ww
+	==
+X-Gm-Gg: AYBFou3Jf4duy0D0BahUqy6mRMpqcPsW4UNP024SK0ZZFi/42+OggMyie35Dw4GG2lK
+	xZ9W2ePLB0/QNn9AGDbqD8pJQxRdavA20ZqiwJL6hCrjiliULzLjzKM5JW+GEpfZ5SV6dKTTouu
+	Xwtzg7eertBpzqzbIkLWEw27C6KX//gzuzw8TX1zkkYaVLDtH3EjUDNd+Ev8UxDl1kSMbDG6pxt
+	PGr/z1RuZVCkJq3w3wUOcNwAZKk72ZqMl+S80071J5QrB5VL2kOISSQdTTCPJUHkB7ACN6AcBMz
+	r4x+lkbTuO02PL3ahVD6VhIjww2VZnORY2GmEftp8XAZaOgLVveMQUw0NFtBDulPGfB22sLfOoT
+	vpaxK4Y+q6NDjWzsrh4tVVgooUO3uK6TU2r95n1VqlFXRp1cKvO93Va+I4l6VYUPYPQtTZ2xdBQ
+	==
+X-Received: by 2002:a05:6000:2311:b0:485:b027:a79b with SMTP id ffacd0b85a97d-485c23ade14mr6287045f8f.21.1789037766064;
+        Thu, 10 Sep 2026 03:56:06 -0700 (PDT)
+X-Received: by 2002:a05:6000:2311:b0:485:b027:a79b with SMTP id ffacd0b85a97d-485c23ade14mr6287022f8f.21.1789037765706;
+        Thu, 10 Sep 2026 03:56:05 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm44784660f8f.9.2026.09.10.03.56.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 03:56:05 -0700 (PDT)
+Message-ID: <bb5eeef9-a78d-44c2-a8f5-2cddd274d3ab@redhat.com>
+Date: Thu, 10 Sep 2026 12:56:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: vlan: fix vlan name truncation
+To: Janis Edvarts Lacis <janislacis06@gmail.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ horms@kernel.org, linux-kernel@vger.kernel.org
+References: <20260904210024.263220-1-janislacis06@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260904210024.263220-1-janislacis06@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 11:14:28AM +0200, Arnd Bergmann wrote:
-> On Thu, Sep 10, 2026, at 08:36, Karl Mehltretter wrote:
-> > This series prevents a DMA_FROM_DEVICE map from discarding CPU-written
-> > buffer contents on non-coherent 32-bit ARM. It is based on
-> > v7.3-rc1-324-g986c24e0fe44.
-> >
-> > ARM currently invalidates these buffers before the device writes them.
-> > If the device writes only part of a buffer, discarded dirty cache lines
-> > can expose older memory contents in the untouched bytes. A stock USB
-> > webcam demonstrated this through usbfs. Short isochronous packets left
-> > gaps, and usbfs returned non-zero data to userspace from bytes it had
-> > cleared.
-> >
-> > arm64 changed this handoff from invalidate to clean in 2022 with commit
-> > c50f11c6196f ("arm64: mm: Don't invalidate FROM_DEVICE buffers at start
-> > of DMA transfer"). Arnd Bergmann's 2023 ARM32 cache-maintenance series
-> > left DMA_FROM_DEVICE preservation unresolved [1]. This series keeps the
-> > existing ownership hooks.
+On 9/4/26 11:00 PM, Janis Edvarts Lacis wrote:
+> register_vlan_device() from net/8021q/vlan.c sets name based on a field
+> name_type from struct vlan_net. If name_type is VLAN_NAME_TYPE_RAW_PLUS_VID
+> or VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD, register_vlan_device() sets vlan
+> device's name to the actual net_device's name and adds vid at the end of
+> this name separated by a dot.
 > 
-> I think the main problem here is that we remain inconsistent about the
-> rules across CPU architectures, and changing Arm on its own does not
-> mean we have a solution if another architecture decides to change it
-> in the opposite direction at some point.
+> Network interface's name is limited to at most 16 characters, including NUL.
+> Therefore, if the real_dev->name is long enough, then adding the vid
+> at the end of this name can lead to the result exceeding 16 bytes which
+> leads to a truncated name for the vlan device created in register_vlan_device().
 > 
-> I see this as a tradeoff that can go either way:
-> 
-> - the current 32-bit Arm approach (also arc, hexagon, microblaze, mips,
->   nios2, openrisc, powerpc32, sh) is obviously faster as it avoids
->   the writeback, but it relies on device drivers to ensure no stale
->   data can leak back into userspace.
-> 
-> - Will's patch changed arm64 (later copied into riscv) to avoid that
->   risk by adding the overhead out of caution, and avoid having to
->   audit and fix all drivers.
+> This patch fixes the issue by returning -ENAMETOOLONG from
+> register_vlan_device() if the newly created name does not fit in 16
+> bytes.
 
-How would you envisage fixing a driver for this? There were two issues
-I tried to address by moving from invalidate to clean on arm64:
+I'm sorry, but I don't think we can accept this patch: this change an
+user-space visible behavior: even if a strange one, existing applications
+and/or setups may relay on it and they will be broken by this change.
 
-1. If the DMA transfer didn't write every cacheline in the buffer, then
-   we could expose stale data in the gaps.
+/P
 
-2. If the buffer has a pre-existing userspace mapping, then we expose
-   stale data during the window between the DMA map() call and the DMA
-   itself.
-
-Fixing (1) in the driver would presumably require it to walk through the
-buffer after the transfer and zero all the gaps, with an appreciation
-for the cache writeback granule (!= cacheline size) and then (somehow)
-clean those parts back to the PoC. Is that something any drivers attempt
-today?
-
-Fixing (2) in the driver would presumably require ruling out the
-possibility of a user alias, which sounds hard and possibly ABI breaking
-for some drivers (depending on how they manage their buffers).
-
-> If we decide to align with arm64/riscv and take your series, I think
-> we need two more parts:
-> 
-> - actually measure the performance overhead: you already did the
->   work to test this on three separate arm implementations but did
->   not share performance numbers.
->   Can you quantify how much this costs us on the hardware you used?
-
-It's worth noting that many Arm CPUs upgrade invalidate to
-clean+invalidate (either due to the micro-architecture, errata or because
-of virtualisation).
-
-Will
