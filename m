@@ -1,198 +1,135 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D97155C333
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062400; cv=pass; b=e+CCT8uuJutLllZK87lK+3CGLyUBlq1EfDIsITxU44WobKpnUoIvoIAh2pIBfbcgaUsbL15Kx69Qx0cwTxnjY95PXG1HO9BZkTXWNRn96y4z/3Pw7y7QLdI990om00hh2kpwtExFb8LkNscsRPowDU543XAScDgVXgknx7KXQ4M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062400; c=relaxed/simple;
-	bh=Vrzrlw6NEH45X35QxpA1RjfO7FaaCToWOrz+oHjjRrI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KrjL34UDA6oNH2Spmxbk512V0ppB6BVYovW54adh3+SP8bx+KQb9ywEeTtFUB9XnUTbbmZI06qj5lkEUaAwe//gRqZHeN/O7TrRUI6ErtYZhnfx36jUTu/poMD4C1CX+Har6gfU/ifitqFxo5WrZRaG+24Vy+GtxGq8I5n3QqVg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h06Vlcwe; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522FC36A033
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789062436; cv=none; b=XDLih4JsJsC74zWM8sLlJOrXagmOvXDCXVgCSB9rmBHgiW5TeLADSKV5uVzdD8adXAfXhhHtuZGSKao/K/Mu+BkffMJhmok5PbmqDzaCNLprj0fLcXqAqxOW9AN0KvMpuxj+tS/la8zW4vVLK3SCN3KlyYqV/GZ5CeF9av129bY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789062436; c=relaxed/simple;
+	bh=ggmWy378Fm8XbzIqsmoiDfWqgCWV7miSo+Loys+qS6I=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=IaoXaHlR9yWOh2oBBLZCtFelll37AfHRctHgoH9ZLG3+lwemjMNwkKzgtk+cRk7Cg2aGdbeCEVgV+jisGHne7wyhBQKPg5d78iNIR4kOTxUtq+n9rdNaZy2h2mzX3XDI2CcwSC0S/tQeXWtbdSj8AvMVa2gEMElgioCiypdlto8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=HUHwSk7O; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h06Vlcwe"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20c35ffbso1039499d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:46:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789062387; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lwnUis4K8QDJmEk+sYfPz/UOuZ+yskar9ujyHFi0eb+xNf58nHZgRSoBQI3KR/QV8L
-         Iw+Gc5K1Mwc+16WQEKJpPwnt/BbHoPJCbHYSVvB6m1UlsK+9qGwuuj/qC8A+zbhJlUQw
-         x5rp+AFEfgXgOAx/G11a30V6oUNcsE1mOk2XYGLnJm2OTNJO6yxyN1GlwhwZiGY/nPx/
-         hPfn+7t/3lW+JZQ0KJ3o6Lw3hEbwFqJGezpsEo1YKrFA4s8dB0Uu0ZLYvLs22j/sV3E1
-         Je9RKkm34pjG83zf6DNQzT4cz7hdwlvEd3KxIhVXsgFBdeSkZSy9IGVcyoO+p8JfcLJR
-         9Lxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w4TZTvFeGPOKvIslE4wHXvMYV9kBCW5S/2L+GB2DcDc=;
-        fh=M6vnYr30atwXoEK3rvAMqJ860bRgMXCz/7YLPUo3Ur4=;
-        b=odYF3nJ1zXVFcYwODafWzYqCAaWecN8mmf05RLjGDc+xAgIYm6lFqfiMEUdZn7gwks
-         0Mn6jqVZzi3HSwFtWnNYkdQs0XJe6H72mCvO+u4B2mq/yKGNcjTKeKi2mu0oWjoEdgok
-         oq/9v92UZHwmnG7f6E3glY8rJZLUx69WSIP/R752kRmeptNzmG+eLx8e255/XdPlkRsW
-         89acBxChwD+Fd/sKzPcLs20dBA0CWMFl9IEnU3j6jBOXtEYGCIdOp/DJRLVu4WoGU9/7
-         YxVByca+gTwxCV/rc6PTG8qTGQoJSZgsLnyhe0uqxq5U+nlW2VjzjgeVMev7EAqMUl72
-         enVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="HUHwSk7O"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso111681a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789062387; x=1789667187; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w4TZTvFeGPOKvIslE4wHXvMYV9kBCW5S/2L+GB2DcDc=;
-        b=h06VlcwemGDL3kiY2x5x+cJVYMWT60Ap76jj8I+zLTnmlvVfKDMPq/j1+DkiNwkmA6
-         X5ZBjI+zFNcmvYNWbtppC2DSZa38aSf13fWubtC1WUCXpltkpTvQPHQwD8+qHg5QpWQQ
-         wGr5KKtpjo6L8aOjZQ0JHzYzcYr/V0tDo65m9cB6iDRyuRpyQ3Bg0/cqwYTXTTCmVWFt
-         HO6SJtnNHuTNTw1CEI9tGwGxnyLI9EjJSYtb5zD4/2jXe/+Rzvd8B54ws+IAD7O0eRoL
-         Rbn8UP9Z1/DfhQLuTemqnAgEKIdBROIA7gbmjJD9KO41imFtF6QHkgGS0v/KbPLvR1KC
-         yzGw==
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1789062427; x=1789667227; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HAvA87Et5zN/g6j7vdy1Ap87pfUn9R+X0a3IzOHRO74=;
+        b=HUHwSk7OVdy7wpzNCyqFSt0yxKwOynRRXEBnkyUtOGsGl5Si3uamMpwuqIA5trg7Hs
+         Mr85LLXnSJseku++pvzOVjuvnNBC2p2FsAZgMm/a9thop2FTNDBpsLdrClIDHuW9NKzd
+         l9dPe+TT6zH4vRn/x44lWIMCXqvLpV7iiTBwaoIHZQd489fvGazRkxRek3cZveM+l0p8
+         1GSlRPDslRjkUgIQ8umUr/fPzSDkjjnioCpgJxzcjSoibPc8DJQ3Rt/yVqWq2bzeuaiE
+         HxFEZ3gTH+AprS3kP66SXQjGF5dcGm6bID2iGSzoMAMpmhUstuPzLeDPfiaEWPtOEhQa
+         +FFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789062387; x=1789667187;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789062427; x=1789667227;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w4TZTvFeGPOKvIslE4wHXvMYV9kBCW5S/2L+GB2DcDc=;
-        b=tEyAUdH9OzWz7z0rTfW0kU9uoD0ZmiP6Iv7IwXFMC/4c+wRZX0oD7kap7qVT6ILbxZ
-         3RUwzLLHxphEsyJPV59R7JU64IEadbnd2agjK27I0pUHv3Z7zwtIjtL9flDBl029wSzf
-         ayEGg4Ocst1xpg+S+jPT22FMMqf4yqsnterc52sgrGqLSYDygStQdwE9ZpM39SH1c1po
-         aM7R6af/i0Y0u4ZQ7+rk0ZnRVv4lF7s8xevR47TqC8uZXOxLUkZXL87zMAbjmXKALkIu
-         jjKl//Th0MLBB6p/YV42evaH9fbbMLqVWgTRaadT+MlPjnqz3y/kHa84zPpvAA74jfzb
-         UaMg==
-X-Gm-Message-State: AFuF++ljVl6YgpVyi7Zkfj95Jd5FUiFfdNAtqe3bj1xyaqK+r/0Jj6KD
-	FFU6DnoduwmxtexeehF0QHsnSYSdoETmkcxpbl8gRM7Z3dC8hm3jw0zsjde+7oqLV4vynEsGoGf
-	lYejbqrB++M+pPDDHk0W5yGr4wkSIKJc=
-X-Gm-Gg: AYBFou1MT/oE+1v60xFPWhNtPWnS+yReryQUSqP1aYHTjfecVwImYaozrkMpraDguYM
-	YkimVL77plEznMYp/wcivcCqtA5m6ciLMYiVAGVeWK5HkNWeWL/SxGvO4D79Vae7lVbpspfcFNC
-	2M5j4ZNtefs+EfQl+dy952XN+R9Gwz6z2a4bMjXDQGRvn503Pm3xxJ8UXebKssZuzbRi8b9yMrO
-	pueaXxXeh/gXMoU9EmliGgANnCmdJyxHhjDXh2KoLH3DkEPTh8BZ6PZ5RjOJc7+fp1t1D+GtYMk
-	8JD8fgmDc7z9ux9NaukLzWoRFx7D2bheFqcHsAtF+AQexhmYa9ApDHTXzA==
-X-Received: by 2002:a05:690e:2630:b0:671:1256:56f2 with SMTP id
- 956f58d0204a3-6712434a30cmr243759d50.0.1789062386241; Thu, 10 Sep 2026
- 10:46:26 -0700 (PDT)
+        bh=HAvA87Et5zN/g6j7vdy1Ap87pfUn9R+X0a3IzOHRO74=;
+        b=K7yOsfThz+2qcKHMgdGJIviP21NXF2lYQ5JE5RmMHS+mO02oumAQ6vI3nRN9Rsh41n
+         jmBXoLfx9MuKSoLe9jDV9HnxT9jO6iXst5ZlXayLXJme8OjXnWr7m9TSfUh63uJ3VyOC
+         SOvqgo6Zm1WVW34YTJyhuCx3wwXrwqN4ZTOGtZ+1psxXTXSrQTGW6jDVOW5Fbcgp4/dn
+         FnMQpP1RjYN5AX/JdZGn7CqgOpENjskY23Fpeki+Lg3s14ygdUQbpcw/BS6miOdH8KdF
+         YpG3RNIn1PNv2m1zoSVc7c86OZVPWuj7Np/YpkvpQsGj2v4sq3RSfXTkXTmJpoQuVXqj
+         4HDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzep5HDA/UYjbjT5obMxuNlj2GvtdcAhyRrWkUMhL7AkQxoeQTNlYh+zCmNBTCwcZEzodiMQ7dPu1KUdaU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nByhZZposl+pjldyy8gds3BiM9M0ENcETYGdG0lTGp8aklx5QG
+	wzgoF9pbd0IpnvA/T+8NOba+P8PzXxIgoaLBGnJiOdFpljgaiAjcC1wKFdxfsDrXMwM=
+X-Gm-Gg: AYBFou2YQGVCc+++a9cYOYhajSYWCdEvmWoYrt+T2AfZ61ImglOXg+mK+ftQyY1rc9i
+	EmTSknUd4ih8GPaGgAX+Kg8ePuReYvyIwjW5I3GRcK2h+WDX5Ghu0lbICIE8K97eUwPWvufu1Gg
+	iH+vN6tvrfr4f+b4pSPr0G2Zf4KPGYxa1k4ewEim+h8ucWj6HTPQl7dHCFA00KZqqj7ipZxm/Fw
+	wBDC+zFV7cA+8qqryn8t+EOpd++YH9nJqNJ/s4D/abRjQugEPQveNNbyEWdPRWWALz0igVMXDoa
+	Z96cYNO7ppAAddXq3BHB/OJkQrSi7pLbPd+/8ckUEWIM/Km8wiPUZ/SJ/le1V9BcmphN9aO/6G8
+	/p6bU/NCdfCmw39yQm5eDS6AF2LkWjR9gTv4vgJnn1dCxhbI63IkFwl2Jchtyy90iwLiZ7kPoVI
+	NXGb0TOqJBdm7fMH6IOAP03HRhQYQWqC78BeYmQ75gkp1noZh4gHmb5fog1SKD8tQBwxTdw8mcb
+	TRdyUgFZsCP4FJriadKUDJa6CFn
+X-Received: by 2002:a17:90b:274e:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-39b2610fe62mr64208964a91.9.1789062426873;
+        Thu, 10 Sep 2026 10:47:06 -0700 (PDT)
+Received: from localhost (107-190-31-17.cpe.teksavvy.com. [107.190.31.17])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e60484sm263339a91.4.2026.09.10.10.46.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 10:46:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910113325.717882-1-itai.handler@gmail.com> <8fcad389-8340-4ccb-8ef4-008d826115fa@sirena.org.uk>
-In-Reply-To: <8fcad389-8340-4ccb-8ef4-008d826115fa@sirena.org.uk>
-From: Itai Handler <itai.handler@gmail.com>
-Date: Thu, 10 Sep 2026 20:46:13 +0300
-X-Gm-Features: AcwNN1U3FFO8vc3TdnTHV2rTuiD4fh1DFByrqEjK3AblMQ21SxCX7JRhTKfW558
-Message-ID: <CAFpOueQ-veAYVWAPTN6_0c9NXCEN24wzV4i2uVuNykWmBy6vfA@mail.gmail.com>
-Subject: Re: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-spi@vger.kernel.org, michal.simek@amd.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 10 Sep 2026 13:46:56 -0400
+Message-Id: <DLBTP43WDS59.3HN832U7195TZ@etsalapatis.com>
+Cc: "Emil Tsalapatis" <linux-lists@etsalapatis.com>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <davem@davemloft.net>,
+ <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <eddyz87@gmail.com>, <memxor@gmail.com>, <martin.lau@linux.dev>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <john.fastabend@gmail.com>, <sdf@fomichev.me>, <horms@kernel.org>,
+ <dsahern@gmail.com>, <hawk@kernel.org>, <razor@blackwall.org>,
+ <bpf@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
+From: "Emil Tsalapatis" <emil@etsalapatis.com>
+To: "Nikhil Ludder" <nikhilljatt@gmail.com>, "Jiayuan Chen"
+ <jiayuan.chen@linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260909024011.1252694-1-nikhilljatt@gmail.com>
+ <CABFh=a7Z=heZODVsXwisY3VwULDy-Rq1hwO09exgX2d0-KzgUQ@mail.gmail.com>
+ <178898653497.1776876.10402414041023036972@gmail.com>
+ <7f3e237e-ac5c-46af-ae21-8b437a099fe3@linux.dev>
+ <178903991209.1916825.3991149870565892141@gmail.com>
+In-Reply-To: <178903991209.1916825.3991149870565892141@gmail.com>
 
-On Thu, Sep 10, 2026 at 7:56=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
+On Thu Sep 10, 2026 at 7:31 AM EDT, Nikhil Ludder wrote:
+> On 9/10/26 12:59 PM, Jiayuan Chen wrote:
+>> Yes, no deadlock.
 >
-> > +static void zynqmp_qspi_shutdown(struct platform_device *pdev)
-> > +{
-> > +     struct zynqmp_qspi *xqspi =3D platform_get_drvdata(pdev);
-> > +     int ret;
-> > +
-> > +     /*
-> > +      * Only a runtime suspended controller can be left alone: its clo=
-cks
-> > +      * are gated, so it cannot be mastering the bus, and its register=
-s
-> > +      * must not be accessed either.  Any other answer means it may be
-> > +      * running and has to be stopped.  In particular, on a kernel bui=
-lt
-> > +      * without runtime PM this returns -EINVAL, and there the clocks
-> > +      * enabled in probe() are never gated at all.
-> > +      */
-> > +     ret =3D pm_runtime_get_if_in_use(&pdev->dev);
-> > +     if (!ret)
-> > +             return;
-> > +
-> > +     zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
+> Thanks for confirming.
+
+The explanation makes sense, hadn't considered where this is written
+from. No need to adjust.
+
 >
-> What ensures that nothing can start new transactions after this has
-> run,
+>> BTW, if an IPoIB device can show up here, dmac is already truncated
+>> today and the packet can't be forwarded anyway.
+>> Shouldn't we just reject addr_len !=3D ETH_ALEN instead of open-coding
+>> the copy? Then you can use the native function instead.
+>
+> You are right, and it is worse than just dmac: the line immediately
+> below copies dev->dev_addr into params->smac with a fixed ETH_ALEN and
+> no addr_len check either, so both addresses are already truncated for
+> such a device.  struct bpf_fib_lookup declares smac[6] and dmac[6], so
+> the helper is ethernet-only by contract and a non-ethernet nexthop is
+> already outside it.
+>
+> I would rather not fold that into this patch though.  This one is a
+> race fix with Cc: stable and no behaviour change, whereas rejecting a
+> device that today returns a (garbage) success is uapi visible and does
+> not belong in a stable backport.  Would you be happy with the seqlock
+> fix as it stands, and a follow-up for bpf-next that rejects
+> addr_len !=3D ETH_ALEN and covers smac as well?  I am happy to write it.
+>
 
-Nothing does, and that is a real hole in v1 - thanks.
+I think this split makes sense, even if there's the churn of adding the
+fix then removing it to use the pre-existing helper. It's just a couple
+lines of temporary duplication. @Jiayuan wdyt?
 
-Two things narrow it without closing it: device_shutdown() has already
-called device_block_probing(), and it walks devices_kset backwards, so
-the SPI slaves and the MTD stack above this controller are shut down
-before the controller itself. Neither of those stops a late spi_sync()
-from anywhere else.
+> If so, which return code would you want for that?  None of the existing
+> BPF_FIB_LKUP_RET_* really fits: NO_NEIGH is untrue since the neighbour
+> is there, NOT_FWDED is vague, and adding a new BPF_FIB_LKUP_RET_* is
+> uapi, which is another reason to keep it out of this patch.
+>
+> Thanks,
+> Nikhil
 
-I will fix it in v2 by quiescing through the core first, which is what
-this driver's own ->suspend already does:
-
-        ret =3D spi_controller_suspend(xqspi->ctlr);
-        if (ret)
-                dev_warn(&pdev->dev, "could not stop the queue: %d\n", ret)=
-;
-
-        ...
-        zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
-
-spi_controller_suspend() answers both halves: spi_stop_queue() waits for
-ctlr->queue to empty and ctlr->busy to clear, and __spi_mark_suspended()
-makes every subsequent __spi_sync() return -ESHUTDOWN. It can sleep,
-which is fine here - device_shutdown() runs in process context and
-already holds device_lock() across the callback.
-
-Unlike ->suspend, shutdown cannot abort on error. If the queue has not
-drained after spi_stop_queue()'s ~5 s cap I still want to write
-GQSPI_EN, because a controller left mastering the bus into memory the
-next kernel is about to reuse is worse than a truncated transfer. So the
-return value gets logged rather than propagated.
-
-I did consider making ->shutdown just call the remove path, as
-spi-fsl-dspi and spi-bcm2835 do, and it would quiesce correctly here
-too since zynqmp_qspi_remove() calls spi_unregister_controller() first.
-But it then disables runtime PM, drops both clocks and tears down the
-controller and its children, which is a lot more teardown than the
-shutdown path needs and none of it stops the hardware any harder.
-spi_controller_suspend() is the part that actually answers your
-question, so I would rather call just that.
-
-> and if there's any operations in flight will the controller be OK with
-> just being stopped like this?
-
-With the quiesce above there should be no message in flight by the time
-of the write. For the case where one still is (the -EBUSY path):
-
-- Writing GQSPI_EN_OFST is the driver's existing stop primitive.
-  zynqmp_qspi_remove() and zynqmp_qspi_suspend() both do exactly this
-  write, so this is not a new way of stopping the hardware, just a new
-  caller.
-
-- No controller state has to survive. Whatever runs next reinitialises
-  it from scratch: zynqmp_qspi_init_hw() clears the ISR and the DMA
-  status, writes GQSPI_EN 0, resets the TX, RX and generic FIFOs, and
-  writes GQSPI_QSPIDMA_DST_CTRL_RESET_VAL. A power cycle obviously does
-  the same. So a controller stopped mid-operation is recovered by the
-  next probe.
-
-- The flash is the part that outlives the write, and stopping the
-  controller does not make its state worse. A read is aborted when CS is
-  dropped and the chip goes back to idle. A program or erase carries on
-  inside the chip whatever the controller does, and the next kernel sees
-  WIP and waits for it. Waiting for those belongs above this driver - I
-  have a separate patch making spi_nor_shutdown() take the flash lock so
-  the upper layer does not walk away from its own operation - and it is
-  not something a controller ->shutdown can fix.
-
-The failure this is aimed at is the opposite case, where the controller
-is left running with nobody driving it: after a kexec without this patch
-GQSPI_EN still reads 1 and QSPIDMA_DST_ADDR still points into the
-previous kernel's memory, so the engine keeps writing there while the
-new kernel is relocated and started.
-
-I will send v2 with the spi_controller_suspend() call shortly.
