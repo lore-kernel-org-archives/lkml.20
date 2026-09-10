@@ -1,131 +1,100 @@
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534BF4A0150
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:56:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E2F4A64F4;
+	Thu, 10 Sep 2026 14:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052185; cv=none; b=Qi4Foncgz2j20yrUmPgGIAZt5WgTsnm3wgewouvkufIS2Onot8yXL/k/LG6keT9oQ6xO6i93V8Sqrl5zKOtvm+yXop9hTFjShws2fCxcTeZJyDT+SVplCeRsRhOEIWaLTPf49pwOWeJ7OjDkQKXpXMotvRkXWrder9kyk/Ednd4=
+	t=1789052226; cv=none; b=QdIQYtLsdsj3FETj6NrhN4qDJoM9aqF9Zu+5ezP8odar/zNkxERwGiLjDSQ/FWFrJcsYijT3QELEmJ+q4mn++H/WvkcDs+HdjkpjfnzT1ZXqnuV73bcETw8ig/FHfrijSUtew82LrmtrdUQvao91dVZRjbAmKXR9bsofUQcbJj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052185; c=relaxed/simple;
-	bh=fGoGldEWDvUQ/iRdAxfZ6H/H4+9sW1lky3abHszVxRI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=XZKzex+qtnRas5yijWcUow2ovU9F09jkT9d4OkwjjzCisMWRlFmbKKyS0zyHRaPnqR49ic2PDcAPX8Alaa5idqTtlDEXbKPwF75ItWWsItU++gS2c6AK9OeZ8XeMUiJiqrWlRbsWcTjOMkkBc0T/R1jrl0qQHy6VVb8x7NqAJdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wD23GC7O; arc=none smtp.client-ip=91.218.175.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789052226; c=relaxed/simple;
+	bh=e63b1sqbBEPGPPeGC6AARhf4ApY5UhKmpJBsNl0sOrU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uZFY1zDHH4VIEQGMm+KYYEiak0i2rKW+pjo/juFUWo5mlb+Pq6I3ib1rQdOkvCSnPSLFUfge+fIzjwAXKpvPS5TE6DwCvWEnK4na9JwE99o7npFo9iybVFvsKhPdYg8TNGkUkN6R+AvWVX3wnYY0oc+K1+3CmyMxGEG3s2Oi95E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=vI0wuol5; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wD23GC7O"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fGoGldEWDvUQ/iRdAxfZ6H/H4+9sW1lky3abHszVxRI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789052180; v=1; x=1789656980;
- b=wD23GC7O0ZBfu7nuSFWr9X00jdD1K2wWybipM/7tUmvMNKkDPKe31SvWL/oC8yOTPkkNGaM8
- nlCF/eK4DKvDlE7edTd1sG39u5UxAf/MSp88nsHdtx9513TYgEEnlTG4xaI2fIweZgICBZp5YQ4
- abd76cJC+pyh0SYs4asW41AY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 251a0a0c0b667829;
-	Thu, 10 Sep 2026 14:56:20 +0000
-X-Mizu-Trace-ID: 251a0a0c0b667829
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="vI0wuol5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gUTy1mP3eu8JHlGcI+Wb2zwJfuGbZLFoTbFR3zt6qs4=; b=vI0wuol5Z9rAEX6hwpkVCTdpsJ
+	sRoXe/jRuU6yY4IbrOk6F3q6L9nocmNzuQqBJh3blSlNMlmgTuJInLBxo1nnyrHhhZJxz2DrxUqfo
+	DcmArIfv2VrzXl5yxg31Sk4TpcU/sjNciTUBhpbJP8oBxw7QMjN3bzCu25BthGkc1Mrc0IMuHwVcR
+	ElfgEVhkZTCflPJfXJU19fGsGjXhF6QHC7BLu/gfD26lljZa4y6/uu4J+ZU1ZX9fta/VryOkPKSTU
+	UmAZBtuvyp0NOgekmuacExP0aTs15kRB8y+KDv2BLvPmJ0Iu5uj6Be3q93kl0e0J/41pyOTU85idp
+	MpBVaOCw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x4gCw-000aZj-0e;
+	Thu, 10 Sep 2026 14:56:58 +0000
+Date: Thu, 10 Sep 2026 07:56:53 -0700
+From: Breno Leitao <leitao@debian.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Christian Brauner <brauner@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Douglas Anderson <dianders@chromium.org>, 
+	Huacai Chen <chenhuacai@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: Re: [PATCH v3 1/2] tools/bootconfig: Fix integer overflow and
+ truncation in size checks
+Message-ID: <aqLFKS7H0xLzDly0@gmail.com>
+References: <178900555453.200943.4719889510443114485.stgit@devnote2>
+ <178900556473.200943.6236071503689711862.stgit@devnote2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 10 Sep 2026 16:56:19 +0200
-Message-Id: <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
-Subject: Re: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
- TX transfer
-From: "Luka Gejak" <luka.gejak@linux.dev>
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "luka.gejak@linux.dev"
- <luka.gejak@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260909074556.55709-1-luka.gejak@linux.dev>
- <20260909074556.55709-5-luka.gejak@linux.dev>
- <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
-In-Reply-To: <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178900556473.200943.6236071503689711862.stgit@devnote2>
+X-Debian-User: leitao
 
-On Thu Sep 10, 2026 at 4:24 AM CEST, Ping-Ke Shih wrote:
-> luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
->> From: Luka Gejak <luka.gejak@linux.dev>
->>=20
->> rtw_sdio_write_port() rounds the transfer up with sdio_align_size() and
->> then hands that length to sdio_memcpy_toio() while the skb still only
->> holds skb->len bytes. The difference, between one and 511 bytes, is read
->> from beyond the end of the frame and transmitted. Whether it stays
->> inside the skb's allocation depends on how much tailroom the skb happens
->> to have, so this is at best sending uninitialised memory over the air.
->>=20
->> Pad the skb up to the transfer size first. __skb_pad() zeroes the added
->> bytes, reallocates a cloned skb rather than writing into a buffer a
->> clone still shares, and leaves skb->len alone, so nothing else in the
->> transmit path has to change.
->
-> With __skb_pad(), it might increase CPU usage.
-> Could you roughly measure that?
->
+On Thu, Sep 10, 2026 at 10:59:24AM +0900, Masami Hiramatsu (Google) wrote:
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> 
+> Sashiko reported that on 32-bit systems, if an attacker crafts size in
+> the bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps around
+> (for instance, if size is 0xFFFFFFFF), the size check in
+> load_xbc_from_initrd() can be bypassed:
+> 
+>     if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
+>         pr_err("bootconfig size is too big\n");
+>         return -E2BIG;
+>     }
+> 
+> Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
+> corrupted 32-bit size (e.g. 0xFFFFFFFF) against
+> stat.st_size - BOOTCONFIG_FOOTER_SIZE can also bypass the check if
+> size is not bounded. Similarly, load_xbc_file() passes 64-bit stat.st_size
+> directly into the 32-bit int size parameter of load_xbc_fd(), truncating
+> large standalone files (>= 2GB).
+> 
+> In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
+> resulting in malloc(0), an integer overflow in read(), and an
+> out-of-bounds null-byte write.
+> 
+> Fix this by:
+> 1. Rejecting size > XBC_DATA_MAX or
+>    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd().
+> 2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passing
+>    it to load_xbc_fd().
+> 3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
+> 
+> Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
+> Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+> Assisted-by: Antigravity:gemini-3.8-flash
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Measured with the ftrace function profiler over a 30 second saturating
-uplink transfer, 18.6 Mbit/s, four cores:
-
-  function              hits      time(us)   share of one core
-  rtw_sdio_write_port  48358      26839023        89.2%
-  sdio_memcpy_toio     47855      11783994        39.2%
-  __skb_pad            48344        616489         2.1%
-  pskb_expand_head     47869        466036         1.6%
-
-__skb_pad() is about 2% of one core with the link saturated. The whole
-transfer takes 14.8% of the four cores against 0.77% idle, so the
-padding is roughly 3.5% of the CPU the transfer already uses and 2.3%
-of the driver's write path. On throughput it is about 6%, which is the
-A/B in the commit message.
-
-pskb_expand_head() runs on 99% of the calls, so nearly every frame takes
-the reallocating path rather than the memset. That is three quarters of
-the cost; without it the padding would be around 0.5% of one core. I
-have not worked out yet whether the skb is cloned or short of tailroom.
-If it is tailroom it is probably avoidable, and I can chase it as a
-follow up.
-
-I do not think this is a blocker. A few percent seems a fair price for
-not putting uninitialised memory on the air.
-
-One thing to decide, though. The commit message says the padding "costs
-nothing observable", which is too strong given the numbers in that same
-paragraph. Do you think it needs rewording? If so, would you be willing
-to amend it yourself when applying? That seems better than a resend of
-seven patches for one line.
-
->>=20
->> It must not free the skb on failure: rtw_sdio_write_data() frees the skb
->> itself and rtw_sdio_process_tx_queue() requeues it, so both callers
->> still own it and would double free.
->>=20
->> Found while reworking this path for the RTL8723BS. Measured on RTL8723BS
->> hardware, padding the transfer costs nothing observable: uplink is
->> 19.5 to 19.8 Mbit/s padded against 20.9 to 21.1 Mbit/s unpadded in an
->> interleaved A/B, with scans, reconnection and a UDP flood clean in both.
->> The other SDIO parts sharing this path are untested; I have only the
->> RTL8723BS.
->>=20
->> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO=
- based chipsets")
->> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
->
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-
-Thanks for the Acked-by tag, one both patches, I will send 2nd series for=
-=20
-the actual driver code after this prep series is merged to rtw-next.
-
-Best regards,
-Luka Gejak
+Reviewed-by: Breno Leitao <leitao@debian.org>
