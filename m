@@ -1,182 +1,557 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EDE3ADBB4
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711A347126A;
+	Thu, 10 Sep 2026 11:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038022; cv=none; b=I8mEqH7x++R7n2cDVdNiLbY4EHiNU0Iw54iROQrqMTmrKz7j5Lj0EmVgozpBzZ7MXQz4lBYGvz+GuBB4lQbP7D5JM66G2STj+LPb+HNvlXxED0gwjyOp5OPmPiQY62/3nME7WbW7PHAt0OA8qRryBie/6CJ94NddVgFViJ9a6og=
+	t=1789038025; cv=none; b=ql+fueCxIji6vasP4jTbbXmAx8iOchEJMZae3C38IHdtT78seIM8rTeN68Qj+P/lZzfixTsS/1+TYRqajNq346YN+qhE+R3wyOtLxqsK4jagOhEbErqiBf+VUc1KtLFFF71EtprSjRa9w9WZrmiyJfVQ0xFVxZvO88oKIDCQp9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038022; c=relaxed/simple;
-	bh=6RFhPb2Gk9DDHKHVFOt9AK05WlI14WyvLEfFiplc+p4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jUnXBdkP0jNmvr/Zn3rF8Mk4zlBocsgEn8seZ2Hy87h02Ek3AYqffpLwKNAUK4XmiwdTyaAZCANtlyw23DWV3MMwhOLgo1hiNIip/uf8/x8smkwMZflqacPDZtb/dZl3Q2qYbcC2W17ijknYsZKbR+gMpVo83aRkb+twom+gHWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J2CGcStl; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789038025; c=relaxed/simple;
+	bh=CSUDFFdhmtCWeW8oSX88//X3I6uiPteZhW4Opf/GQyY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qz7EUw/FeoJ/qGPOhM1VzBD0eGmqlHMrH4Dr0OnAWPWZM3ZiiHfmI6b1WFLY6Ss0v18GaACPqWU2lsLMXWkI/c+zSo2Sdph5V7XblDCy/rfYahoUZDBGuoGOPXJigHu+n4tTGhogcxUuPhnnGHonM5eu15UPYMd4MCLU5SnlM+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aij3lXrD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J2CGcStl"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso10904925e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:00:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789038019; x=1789642819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GDAmMcZxhMshZjhoUDkLHyRQSZBqRjdcOge6fnAnEeQ=;
-        b=J2CGcStlQMHyri424InUIsHMnqz4LD8FVOhrV8v4cbh1852AI/DfvDRuvfn+ngKlSW
-         +Q9wFIBuFx+nJphVMT87ogAECL7qQLJtDRdJjfn/Z5RExLgbI3QdoqYHKeQEAjyZhI2/
-         HWeHu9WhKpheOPS0VauhPS9+l8WfwvIYICYVTpZIkyC+J4kBrzfVmYrNDTvE2wbwFdlz
-         UFB/wDmyZNPElBCtGRJWZsuPN/qxbr4LvymTRffgxzZfS8Bw7G/c3DgIhs5QbKHIAJOs
-         k7o0JuRC4VngaNQx2AkOK/ubmf8cM49RFupTLeuDu25NlOSxJ7SPf/bLL30/n2iaUq0s
-         9Vyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789038019; x=1789642819;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GDAmMcZxhMshZjhoUDkLHyRQSZBqRjdcOge6fnAnEeQ=;
-        b=rMM11viKcG7tbastcwcLgLzg96IcVfWU0rQwt7nU0iLgMZsYeeU0GdE7IhxIqkvpdC
-         dRSwKcK+4g91Ae0ngBevcOnF+tBirIL8AHZ7L++mq+Mpw800dVgHqXirxTwdSNQK9f1r
-         W1lwKnoi4Wl0x2r6eyV3MBC3alrGN4m9HeGu0ulRE2LopdA2XwBwt5CwAvbQhkYOVoCd
-         ZwwAxLxucnRAiUDvuXFjwX6Wpw2ksLF//cBWQpo8V/jizt2Jj0J5UCQIPqda58SKn09/
-         XgrNSAokExdoWEyVgSKAu5a7+zN0a6SG8ZQEOixXBOPAOahfuqLL5Mm0o+OK5g4Rr4EF
-         e61Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwVpkrZzwPNyEu3JN+HuNYlCBSEdx3Y6EUsvrsX/Yq2VyxHHLm4V+viPgTYhd3UDehav1QgmEjz2QGRsX0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyM7qETYG262i4XejNxFPJ5Gf9D26qCJyPVuXHYWRGe6RYhAW/
-	SFcREWXrGmM1aGAqZfJfFFXLKPXPZniIeP++GNFb0WoaHdavhdB3E6QtafqdOQ==
-X-Gm-Gg: AYBFou1wI/5KOzmRklOw+ejEH7TpkZgwIRjZkJVuyAo39nl1npss2KBkPH+erKt/sxM
-	323tNG2TiRHioLBYzPP1n6YkUdlKi0W8fCNgxfSvWR84VMcyPQoqm+tdRTnM8yRIF9guwH+fUeZ
-	VH1ZXA5k+fME6bRIdiT+bWL9c51j98oJVm96B6yJdNPgln5pKIAPsttl9FuGmqCy+88FBWvS+9A
-	hlvaNNdQRadlx2UuQ0XQK8YipgdvKqgFnTx134y/zhNBlHidFb7z72cqMFrfIf68c7tmsAu7AoE
-	Za6edr/+oGLjHS03aN/rG5phYUC+cIIqbO4AWFWoQUhjgSMArmeVvNHle8v+KxmI5DKccPvsgdL
-	8vFleXeBKUOz73Hr+BPwm5lb4wyU7gLWxc6sJtVhHySDNkjKhUo4qeqGHkYeCzhZo3cnb56GdNc
-	AEjXFgVrqAMTnDy+8JinD970M8HGEdBDLA+2oX2BsRC3obBdVzpXlWGRnvs6WD5PY0TGHGbbW4B
-	Zw1TwEwR69tOPr+gEXbNuJRfuOXLEdubjy6
-X-Received: by 2002:a05:600c:4fcb:b0:49c:f13e:e4c with SMTP id 5b1f17b1804b1-49d26db4274mr42401465e9.9.1789038017825;
-        Thu, 10 Sep 2026 04:00:17 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm272359765e9.4.2026.09.10.04.00.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 04:00:17 -0700 (PDT)
-Date: Thu, 10 Sep 2026 12:00:16 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Haakon Bugge <haakon.bugge@oracle.com>
-Cc: Waiman Long <longman@redhat.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
- <boqun@kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
- code
-Message-ID: <20260910120016.04ba8ae1@pumpkin>
-In-Reply-To: <0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
-	<CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
-	<20260907182705.54585f73@pumpkin>
-	<89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
-	<44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
-	<dd6a7873-7d23-42e2-adbd-b59c43141d96@redhat.com>
-	<0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aij3lXrD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479C91F00898;
+	Thu, 10 Sep 2026 11:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789038023;
+	bh=wH/HnScIECqzPez57vPSs9kJwAMAsBLZmPepnLoPjpM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=aij3lXrDhzEmq4euQgQGNWweCFCBcmv0Ru0IiJlQP6T/gGHCdTA5F2z8v2TOzbEaG
+	 r9EC/B87klCZ6vmju7+fOePhoDhM6PShCPX0Bk3998yr4qWk9WVmKKexXQTBSOdWA4
+	 OUsqhnLJ5MWyxT3egO7/NOrzO25AboDvPj7FEDkkGnPOrKTdpUPUKAXHzTHRGbvkgm
+	 6lDdW7QmQ18221krdqayeKawV9PKSfqQXNN6eLHBRKw9XImdCEIIRCEC6phN3offim
+	 T/vY/+sxFKJ6b9ozKhfOmBz/wEDM6Fp//r2VsYk/wJQYrwf8DfiTJ7NQRg/FUYPPvk
+	 eolO1XLedPSCA==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Thu, 10 Sep 2026 14:00:06 +0300
+Subject: [PATCH v2 04/13] s390/chsc_sch: Use __free(kfree) for synchronous
+ CHSC requests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-s390-cio-ready-v2-4-e931086fdde1@kernel.org>
+References: <20260910-s390-cio-ready-v2-0-e931086fdde1@kernel.org>
+In-Reply-To: <20260910-s390-cio-ready-v2-0-e931086fdde1@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Mike Rapoport <rppt@kernel.org>, 
+ Peter Oberparleiter <oberpar@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Vineeth Vijayan <vneethv@linux.ibm.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+X-Mailer: b4 0.17-dev
 
-On Thu, 10 Sep 2026 09:45:47 +0000
-Haakon Bugge <haakon.bugge@oracle.com> wrote:
+Use __free(kfree) for local buffers in the synchronous CHSC ioctl
+handlers and replace their cleanup labels with early returns.
 
-> > On 9 Sep 2026, at 22:33, Waiman Long <longman@redhat.com> wrote: =20
->=20
-> [snip]
->=20
-> > > Could you make that change to the existing code and rerun the test=20
-> > > again on arm64 to see if it can pass?  =20
-> >=20
-> > osq_lock/unlock() is special in the sense that lock transfer can happen=
-=20
-> > either in the lock cacheline or the node->locked cacheline. Try the=20
-> > patch below to see if it helps to pass the test.
-> >=20
-> > Thanks,
-> > Longman
-> >=20
-> > diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-> > index b4233dc2c2b0..51cecf297692 100644
-> > --- a/kernel/locking/osq_lock.c
-> > +++ b/kernel/locking/osq_lock.c
-> > @@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
-> >          * is implemented with a monitor-wait. vcpu_is_preempted()=20
-> > relies on
-> >          * polling, be careful.
-> >          */
-> > -       if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() =
-||
-> > +       if (smp_cond_load_acquire(&node->locked, VAL || need_resched() =
-||
-> > vcpu_is_preempted(node_cpu(node->prev))))
-> >                 return true;
-> >=20
-> > @@ -224,11 +224,11 @@ void osq_unlock(struct optimistic_spin_queue *loc=
-k)
-> >         node =3D this_cpu_ptr(&osq_node);
-> >         next =3D xchg(&node->next, NULL);
-> >         if (next) {
-> > -               WRITE_ONCE(next->locked, 1);
-> > +               smp_store_release(&next->locked, 1);
-> >                 return;
-> >         }
-> >=20
-> >         next =3D osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
-> >         if (next)
-> > -               WRITE_ONCE(next->locked, 1);
-> > +               smp_store_release(&next->locked, 1);
-> >  } =20
->=20
-> The test passes with the above patch:
+Keep the asynchronous and on-close handlers unchanged.
 
-Do you know which part matters?
+Assisted-by: copilot:claude-opus
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ drivers/s390/cio/chsc_sch.c | 272 +++++++++++++++-----------------------------
+ 1 file changed, 92 insertions(+), 180 deletions(-)
 
->=20
-> # dmesg|grep mx
-> [    7.010502] mx_test: osq_lock                    padding:  8 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.000 seconds
-> [   12.014144] mx_test: osq_lock                    padding: 16 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
-> [   17.017572] mx_test: osq_lock                    padding: 24 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
-> [   22.019636] mx_test: osq_lock                    padding: 32 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
-> [   27.022192] mx_test: osq_lock                    padding: 40 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.000 seconds
-> [   32.024907] mx_test: osq_lock                    padding: 48 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
-> [   37.026035] mx_test: osq_lock                    padding: 56 result: S=
-UCCESS sum: 0 elements: 1000 elapsed: 5.000 seconds
->=20
-> I'll use David's advise about including the osq_lock code in my test,
-> so I can test it as a module, which will be more thorough.
+diff --git a/drivers/s390/cio/chsc_sch.c b/drivers/s390/cio/chsc_sch.c
+index c8d6871d1841e..225aaac7dd309 100644
+--- a/drivers/s390/cio/chsc_sch.c
++++ b/drivers/s390/cio/chsc_sch.c
+@@ -15,6 +15,7 @@
+ #include <linux/uaccess.h>
+ #include <linux/miscdevice.h>
+ #include <linux/kernel_stat.h>
++#include <linux/cleanup.h>
+ 
+ #include <asm/cio.h>
+ #include <asm/chsc.h>
+@@ -389,39 +390,29 @@ static int chsc_ioctl_on_close_remove(void)
+ 
+ static int chsc_ioctl_start_sync(void __user *user_area)
+ {
+-	struct chsc_sync_area *chsc_area;
+-	int ret, ccode;
++	struct chsc_sync_area *chsc_area __free(kfree) = NULL;
++	int ccode;
+ 
+ 	chsc_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!chsc_area)
+ 		return -ENOMEM;
+-	if (copy_from_user(chsc_area, user_area, PAGE_SIZE)) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
+-	if (chsc_area->header.code & 0x4000) {
+-		ret = -EINVAL;
+-		goto out_free;
+-	}
++	if (copy_from_user(chsc_area, user_area, PAGE_SIZE))
++		return -EFAULT;
++	if (chsc_area->header.code & 0x4000)
++		return -EINVAL;
+ 	chsc_log_command(chsc_area);
+ 	ccode = chsc(chsc_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (copy_to_user(user_area, chsc_area, PAGE_SIZE))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(chsc_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_info_channel_path(void __user *user_cd)
+ {
+-	struct chsc_chp_cd *cd;
+-	int ret, ccode;
++	struct chsc_chp_cd *cd __free(kfree) = NULL;
++	int ccode;
+ 	struct {
+ 		struct chsc_header request;
+ 		u32 : 2;
+@@ -436,20 +427,16 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
+ 		u32 : 32;
+ 		struct chsc_header response;
+ 		u8 data[PAGE_SIZE - 20];
+-	} __attribute__ ((packed)) *scpcd_area;
++	} __attribute__ ((packed)) *scpcd_area __free(kfree) = NULL;
+ 
+ 	scpcd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!scpcd_area)
+ 		return -ENOMEM;
+ 	cd = kzalloc_obj(*cd);
+-	if (!cd) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(cd, user_cd, sizeof(*cd))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!cd)
++		return -ENOMEM;
++	if (copy_from_user(cd, user_cd, sizeof(*cd)))
++		return -EFAULT;
+ 	scpcd_area->request.length = 0x0010;
+ 	scpcd_area->request.code = 0x0028;
+ 	scpcd_area->m = cd->m;
+@@ -459,31 +446,23 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
+ 	scpcd_area->last_chpid = cd->chpid.id;
+ 
+ 	ccode = chsc(scpcd_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (scpcd_area->response.code != 0x0001) {
+-		ret = -EIO;
+ 		CHSC_MSG(0, "scpcd: response code=%x\n",
+ 			 scpcd_area->response.code);
+-		goto out_free;
++		return -EIO;
+ 	}
+ 	memcpy(&cd->cpcb, &scpcd_area->response, scpcd_area->response.length);
+ 	if (copy_to_user(user_cd, cd, sizeof(*cd)))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(cd);
+-	kfree(scpcd_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_info_cu(void __user *user_cd)
+ {
+-	struct chsc_cu_cd *cd;
+-	int ret, ccode;
++	struct chsc_cu_cd *cd __free(kfree) = NULL;
++	int ccode;
+ 	struct {
+ 		struct chsc_header request;
+ 		u32 : 2;
+@@ -498,20 +477,16 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
+ 		u32 : 32;
+ 		struct chsc_header response;
+ 		u8 data[PAGE_SIZE - 20];
+-	} __attribute__ ((packed)) *scucd_area;
++	} __attribute__ ((packed)) *scucd_area __free(kfree) = NULL;
+ 
+ 	scucd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!scucd_area)
+ 		return -ENOMEM;
+ 	cd = kzalloc_obj(*cd);
+-	if (!cd) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(cd, user_cd, sizeof(*cd))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!cd)
++		return -ENOMEM;
++	if (copy_from_user(cd, user_cd, sizeof(*cd)))
++		return -EFAULT;
+ 	scucd_area->request.length = 0x0010;
+ 	scucd_area->request.code = 0x0026;
+ 	scucd_area->m = cd->m;
+@@ -521,31 +496,23 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
+ 	scucd_area->last_cun = cd->cun;
+ 
+ 	ccode = chsc(scucd_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (scucd_area->response.code != 0x0001) {
+-		ret = -EIO;
+ 		CHSC_MSG(0, "scucd: response code=%x\n",
+ 			 scucd_area->response.code);
+-		goto out_free;
++		return -EIO;
+ 	}
+ 	memcpy(&cd->cucb, &scucd_area->response, scucd_area->response.length);
+ 	if (copy_to_user(user_cd, cd, sizeof(*cd)))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(cd);
+-	kfree(scucd_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
+ {
+-	struct chsc_sch_cud *cud;
+-	int ret, ccode;
++	struct chsc_sch_cud *cud __free(kfree) = NULL;
++	int ccode;
+ 	struct {
+ 		struct chsc_header request;
+ 		u32 : 2;
+@@ -561,20 +528,16 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
+ 		u32 : 32;
+ 		struct chsc_header response;
+ 		u8 data[PAGE_SIZE - 20];
+-	} __attribute__ ((packed)) *sscud_area;
++	} __attribute__ ((packed)) *sscud_area __free(kfree) = NULL;
+ 
+ 	sscud_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sscud_area)
+ 		return -ENOMEM;
+ 	cud = kzalloc_obj(*cud);
+-	if (!cud) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(cud, user_cud, sizeof(*cud))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!cud)
++		return -ENOMEM;
++	if (copy_from_user(cud, user_cud, sizeof(*cud)))
++		return -EFAULT;
+ 	sscud_area->request.length = 0x0010;
+ 	sscud_area->request.code = 0x0006;
+ 	sscud_area->m = cud->schid.m;
+@@ -585,31 +548,23 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
+ 	sscud_area->last_sch = cud->schid.sch_no;
+ 
+ 	ccode = chsc(sscud_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (sscud_area->response.code != 0x0001) {
+-		ret = -EIO;
+ 		CHSC_MSG(0, "sscud: response code=%x\n",
+ 			 sscud_area->response.code);
+-		goto out_free;
++		return -EIO;
+ 	}
+ 	memcpy(&cud->scub, &sscud_area->response, sscud_area->response.length);
+ 	if (copy_to_user(user_cud, cud, sizeof(*cud)))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(cud);
+-	kfree(sscud_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_conf_info(void __user *user_ci)
+ {
+-	struct chsc_conf_info *ci;
+-	int ret, ccode;
++	struct chsc_conf_info *ci __free(kfree) = NULL;
++	int ccode;
+ 	struct {
+ 		struct chsc_header request;
+ 		u32 : 2;
+@@ -623,20 +578,16 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
+ 		u64 : 64;
+ 		struct chsc_header response;
+ 		u8 data[PAGE_SIZE - 20];
+-	} __attribute__ ((packed)) *sci_area;
++	} __attribute__ ((packed)) *sci_area __free(kfree) = NULL;
+ 
+ 	sci_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sci_area)
+ 		return -ENOMEM;
+ 	ci = kzalloc_obj(*ci);
+-	if (!ci) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(ci, user_ci, sizeof(*ci))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!ci)
++		return -ENOMEM;
++	if (copy_from_user(ci, user_ci, sizeof(*ci)))
++		return -EFAULT;
+ 	sci_area->request.length = 0x0010;
+ 	sci_area->request.code = 0x0012;
+ 	sci_area->m = ci->id.m;
+@@ -645,31 +596,23 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
+ 	sci_area->ssid = ci->id.ssid;
+ 
+ 	ccode = chsc(sci_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (sci_area->response.code != 0x0001) {
+-		ret = -EIO;
+ 		CHSC_MSG(0, "sci: response code=%x\n",
+ 			 sci_area->response.code);
+-		goto out_free;
++		return -EIO;
+ 	}
+ 	memcpy(&ci->scid, &sci_area->response, sci_area->response.length);
+ 	if (copy_to_user(user_ci, ci, sizeof(*ci)))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(ci);
+-	kfree(sci_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ {
+-	struct chsc_comp_list *ccl;
+-	int ret, ccode;
++	struct chsc_comp_list *ccl __free(kfree) = NULL;
++	int ccode;
+ 	struct {
+ 		struct chsc_header request;
+ 		u32 ctype : 8;
+@@ -681,7 +624,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ 		u64 : 64;
+ 		struct chsc_header response;
+ 		u8 data[PAGE_SIZE - 36];
+-	} __attribute__ ((packed)) *sccl_area;
++	} __attribute__ ((packed)) *sccl_area __free(kfree) = NULL;
+ 	struct {
+ 		u32 m : 1;
+ 		u32 : 31;
+@@ -700,14 +643,10 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ 	if (!sccl_area)
+ 		return -ENOMEM;
+ 	ccl = kzalloc_obj(*ccl);
+-	if (!ccl) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(ccl, user_ccl, sizeof(*ccl))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!ccl)
++		return -ENOMEM;
++	if (copy_from_user(ccl, user_ccl, sizeof(*ccl)))
++		return -EFAULT;
+ 	sccl_area->request.length = 0x0020;
+ 	sccl_area->request.code = 0x0030;
+ 	sccl_area->fmt = ccl->req.fmt;
+@@ -728,61 +667,46 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ 		break;
+ 	}
+ 	ccode = chsc(sccl_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (sccl_area->response.code != 0x0001) {
+-		ret = -EIO;
+ 		CHSC_MSG(0, "sccl: response code=%x\n",
+ 			 sccl_area->response.code);
+-		goto out_free;
++		return -EIO;
+ 	}
+ 	memcpy(&ccl->sccl, &sccl_area->response, sccl_area->response.length);
+ 	if (copy_to_user(user_ccl, ccl, sizeof(*ccl)))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(ccl);
+-	kfree(sccl_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_chpd(void __user *user_chpd)
+ {
+-	struct chsc_scpd *scpd_area;
+-	struct chsc_cpd_info *chpd;
++	struct chsc_scpd *scpd_area __free(kfree) = NULL;
++	struct chsc_cpd_info *chpd __free(kfree) = NULL;
+ 	int ret;
+ 
+ 	chpd = kzalloc_obj(*chpd);
+ 	scpd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+-	if (!scpd_area || !chpd) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(chpd, user_chpd, sizeof(*chpd))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!scpd_area || !chpd)
++		return -ENOMEM;
++	if (copy_from_user(chpd, user_chpd, sizeof(*chpd)))
++		return -EFAULT;
+ 	ret = chsc_determine_channel_path_desc(chpd->chpid, chpd->fmt,
+ 					       chpd->rfmt, chpd->c, chpd->m,
+ 					       scpd_area);
+ 	if (ret)
+-		goto out_free;
++		return ret;
+ 	memcpy(&chpd->chpdb, &scpd_area->response, scpd_area->response.length);
+ 	if (copy_to_user(user_chpd, chpd, sizeof(*chpd)))
+-		ret = -EFAULT;
+-out_free:
+-	kfree(chpd);
+-	kfree(scpd_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static int chsc_ioctl_dcal(void __user *user_dcal)
+ {
+-	struct chsc_dcal *dcal;
+-	int ret, ccode;
++	struct chsc_dcal *dcal __free(kfree) = NULL;
++	int ccode;
+ 	struct {
+ 		struct chsc_header request;
+ 		u32 atype : 8;
+@@ -794,20 +718,16 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
+ 		u32 res1[2];
+ 		struct chsc_header response;
+ 		u8 data[PAGE_SIZE - 36];
+-	} __attribute__ ((packed)) *sdcal_area;
++	} __attribute__ ((packed)) *sdcal_area __free(kfree) = NULL;
+ 
+ 	sdcal_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sdcal_area)
+ 		return -ENOMEM;
+ 	dcal = kzalloc_obj(*dcal);
+-	if (!dcal) {
+-		ret = -ENOMEM;
+-		goto out_free;
+-	}
+-	if (copy_from_user(dcal, user_dcal, sizeof(*dcal))) {
+-		ret = -EFAULT;
+-		goto out_free;
+-	}
++	if (!dcal)
++		return -ENOMEM;
++	if (copy_from_user(dcal, user_dcal, sizeof(*dcal)))
++		return -EFAULT;
+ 	sdcal_area->request.length = 0x0020;
+ 	sdcal_area->request.code = 0x0034;
+ 	sdcal_area->atype = dcal->req.atype;
+@@ -816,26 +736,18 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
+ 	       sizeof(sdcal_area->list_parm));
+ 
+ 	ccode = chsc(sdcal_area);
+-	if (ccode != 0) {
+-		ret = -EIO;
+-		goto out_free;
+-	}
++	if (ccode != 0)
++		return -EIO;
+ 	if (sdcal_area->response.code != 0x0001) {
+-		ret = -EIO;
+ 		CHSC_MSG(0, "sdcal: response code=%x\n",
+ 			 sdcal_area->response.code);
+-		goto out_free;
++		return -EIO;
+ 	}
+ 	memcpy(&dcal->sdcal, &sdcal_area->response,
+ 	       sdcal_area->response.length);
+ 	if (copy_to_user(user_dcal, dcal, sizeof(*dcal)))
+-		ret = -EFAULT;
+-	else
+-		ret = 0;
+-out_free:
+-	kfree(dcal);
+-	kfree(sdcal_area);
+-	return ret;
++		return -EFAULT;
++	return 0;
+ }
+ 
+ static long chsc_ioctl(struct file *filp, unsigned int cmd,
 
-At least with a build/run option...
-
-> If you submit this patch, feel free to add:
-
-I'll roll it into my patches (as 1/n).
-
-David
-
->=20
-> Tested-by: H=C3=A5kon Bugge <haakon.bugge@oracle.com>
->=20
->=20
-> Thxs, H=C3=A5kon
->=20
->=20
+-- 
+2.53.0
 
