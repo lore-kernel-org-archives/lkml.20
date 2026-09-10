@@ -1,104 +1,64 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21683468C12;
-	Thu, 10 Sep 2026 10:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037025; cv=fail; b=KyWC6GNv1rZybWJNBHP9aTfxaLuQWOBjVDJOgjOMYrZq8G394CeaaZ57+dVBIK1+i2M2Twkhc8jsiLsoSHn0uqm0ekOoGbq3Ny0xSaq+p+qxfSgfHucd6gBhCditOrjrdvdtGs/aEKR+RaDIu/AKtzFztJEZeIz4HUYAjIZ2fEM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037025; c=relaxed/simple;
-	bh=rMIHH7q1HiGvJljbcET80ADog5KoEWbz8PeiVhRv+ks=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZBUBkLcIWQW6FmhCbpsfVGOALZ51oV7PQVPIoYZbvNbl8WVodqz8vHhat/BdsNHqADJlLFJKGTAw8g5lRzcZkN9DqnBrpaKVdjIdAs8Q4Oh3VxL3RUW50vsKezz4iZM307G5CoKQEdh4uGmROGnJcUdwmofX89uU1Pu9iW3yXGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=aShbBFVz; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=omgudF/x; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229F044780F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:43:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789037035; cv=none; b=Ti+t9hhxbUjGsiPtIHA11g3u+XwXJGzTQCoYxz2vjEfNVF6mrgUwSID4YMzpQW+oiIxUnY0i4f8OGvSRHRdCZbusdyJtAWv5InMVvuQOp4T1pAMmilB8NHTsm3HLk3gsxrKC96Ril0R3+imjHvz3CnCRzpjukXvfu672JNKwhH4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789037035; c=relaxed/simple;
+	bh=uu50+H83ErVbUYoUsw0HKt/tnaNbvoRTwzn8S2fb/uI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MbKAc4236mPctP8LkI7S7ulJcAOEzxXOGlaiqpDbQ5XIzEpfvfh0wtXK9zRyYjt7oMKx5iBaKJYYH8SHYi0VKW3UqyDWBkW13XfJltjWMrKbJsVYc2MOUt0AmtXY6hntsH/j5vCd1NMtsmpqx0yCcL9kLH2jvu0AUdQECFROY94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VvEZGcqK; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="aShbBFVz";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="omgudF/x"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68A8oIbU712662;
-	Thu, 10 Sep 2026 05:43:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=6E/G/PUZN0NxwZbEDin4ADqQv2DLFI8Xgpfze4sUr
-	Gk=; b=aShbBFVzFmcyp8nWfShYy1XNjLp1W0gHtDWoJ1ZrO7vzuwZj/m0se4nI4
-	lgAGiT16oKGgbGTdgGPio7reSFDP6k3Mu4vyPiPQnPdaENfEk4xuYcwYzuLoJRLw
-	zGgiqL9JIDgDA3Sbx7DAX/kQYQ26OgI0zy82DuBbXXTW1vzAIiV3AFrL/IGaztVc
-	bfJiJXouI1rm98H/VEJ+cCR4VFTJjRCMUkATDSkrBP3L5W4eChBXcCZohh8ckcFf
-	YocMlO/CwPXkx+f/kvoy36CpoDwvuPoDoQKygf6TpGUuF7IUMAl4kax/mocZgfko
-	ulxDa8cOiunjUmN0In1YlYT6WAipw==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013066.outbound.protection.outlook.com [40.93.196.66])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gkcxgcp0r-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 05:43:34 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fCioPxFAeHON3ATeq1IabP+Hp6SlAGTIuJ5DSkB3tZXCos4kkaGOgDS+Mo7IdZlBfR3F9LJchZSLCiZUGpjuSzyiv1lKm+9yEoOR70TrRERkSeOOYVurge7a7P9mny92YLbRdNnZftPvZsesiN5xktNS3tEO+7FTHynuHZt7Os0YBLET2NzcXrqasFrxNJ89/YV7GK6nsfaeK31SdPJmjLovFZByqaA2KkFjDnzEpSsFPESmXLospWBe5SihaviK2j8z5N7tK5a2Y6etqjFogpP1dtjOf3E8qBpAUxfRyi6MAIF2dnUSfGsP/q56QWf6ARLqpRB3q5GwzIWCkRB23g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6E/G/PUZN0NxwZbEDin4ADqQv2DLFI8Xgpfze4sUrGk=;
- b=fznWOHuF7A/QR6Krp12mLMNbe7POWY8Ygee32hC0/W222mnwFhYdBejGaAiEqU9vqsvLJGMKW3Vpqr7SwZzh5TBJ9JmPlkUX8jgQkpF2A6lSUdTMRmgPR9SJ+ttbyW1RPk8RprIaXJ8c8ucCyfOz8upZensX4Kj5NkuomMB+Wgs2KP29ncgmgxVTORjo8ggCCZg0/nfDOjx0xVAPDgcKib/TopgCZJF6PQ57JNOKr4mX6ODYQuw4dH3dTwSJCaiml9alLIWo+BswXJpHX9+H+e8vU4s/rxRhwZWs0cK0RT9a9fGb+ezz2XLRsX0tUUdRPcgYSdYRt9AcATzaAh0Zww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=gondor.apana.org.au smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6E/G/PUZN0NxwZbEDin4ADqQv2DLFI8Xgpfze4sUrGk=;
- b=omgudF/xE2QIg/ifzE1NAZJRk6DEHGGlKa642Lb76EpYSlHJMXeJL2RHsuPrwUpSpUXAq8EJF5EVmtS+QXQO37PbM+ZEaij6mZwMHUxLMQWiezoWdnMRojehrkSkdIHMPn3Cc8X9Xj3f5qwhoDdNZBJSegLVRaYPLVVnItefB3Y=
-Received: from BY3PR10CA0011.namprd10.prod.outlook.com (2603:10b6:a03:255::16)
- by CH9PR10MB997856.namprd10.prod.outlook.com (2603:10b6:610:345::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Thu, 10 Sep
- 2026 10:43:31 +0000
-Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
- (2603:10b6:a03:255:cafe::4f) by BY3PR10CA0011.outlook.office365.com
- (2603:10b6:a03:255::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 10:43:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 10:43:30 +0000
-Received: from DLEE215.ent.ti.com (157.170.170.118) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 05:43:05 -0500
-Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 05:43:05 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 10 Sep 2026 05:43:05 -0500
-Received: from pratham-Workstation-PC (pratham-workstation-pc.dhcp.ti.com [10.24.53.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68AAh4tH2178405;
-	Thu, 10 Sep 2026 05:43:04 -0500
-From: T Pratham <t-pratham@ti.com>
-To: T Pratham <t-pratham@ti.com>, Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>
-CC: Sebin Francis <sebin.francis@ti.com>,
-        Manorit Chawdhry
-	<m-chawdhry@ti.com>,
-        Vishal Mahaveer <vishalm@ti.com>, Praneeth Bajjuri
-	<praneeth@ti.com>,
-        <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 12/12] crypto: ti - Do AEAD software fallback on only ENOMEM
-Date: Thu, 10 Sep 2026 16:12:02 +0530
-Message-ID: <20260910104202.1537226-13-t-pratham@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910104202.1537226-1-t-pratham@ti.com>
-References: <20260910104202.1537226-1-t-pratham@ti.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VvEZGcqK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789037032; x=1820573032;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=uu50+H83ErVbUYoUsw0HKt/tnaNbvoRTwzn8S2fb/uI=;
+  b=VvEZGcqKYMOqObdjjYEG8epkATo7eMFjCA22ovT07PvTDZ9K9bogA1n7
+   HHmTF7R3AljaWr1zS0OkK7pbgQd/xgQ+355HklAko6man2io2eZqU3WyO
+   L1Zi8H0rxrJZviwFHMzSE+H+FRwArR4Wxmltk2wCQLgnYPM4AO624b1ll
+   hzxdzEFb87eJrCaF+cbxtjFymOMdPZgNEIqfSX2CAC26rfI0CdQLbCZQa
+   3Q0hFc2X1/TDFrPN+8nQYEbcs8Jdqhg1R9e4UGXeoTOf/TdMskSEGp1Ja
+   XMp4ad0wBJ+ZnuNjaDFNSyBcv+g6iR4f5i75TKtw9RcP9oDoK17IKw2QS
+   g==;
+X-CSE-ConnectionGUID: itDCAjMvR4aH53nOQGurCw==
+X-CSE-MsgGUID: 64cvtMhCTaC9uDx+nMikBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91997555"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="91997555"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 03:43:51 -0700
+X-CSE-ConnectionGUID: 9jhC5fsQTk+dLicuV71asQ==
+X-CSE-MsgGUID: EZmY66bEQIOJJsbeuY5kfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="265387782"
+Received: from yilunxu-optiplex-7050.sh.intel.com ([10.239.47.46])
+  by fmviesa009.fm.intel.com with ESMTP; 10 Sep 2026 03:43:48 -0700
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: dave.hansen@intel.com,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: kas@kernel.org,
+	nik.borisov@suse.com,
+	rick.p.edgecombe@intel.com,
+	yilun.xu@intel.com,
+	yilun.xu@linux.intel.com,
+	linux-coco@lists.linux.dev,
+	tony.lindgren@linux.intel.com,
+	binbin.wu@linux.intel.com
+Subject: [PATCH v6] x86/virt/tdx: Formalize SEAMCALL leaf version encoding support
+Date: Thu, 10 Sep 2026 18:43:47 +0800
+Message-Id: <20260910104347.625378-1-yilun.xu@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,90 +66,228 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|CH9PR10MB997856:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5031b99-1c2a-44cd-9b86-08df0f285ab3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	eJhZjaOK+UI1os9VZK1woaJmke/NgWDrvybSzeXp8P4PZmVvUfNKqs1TspYWe70e3vCL+rAQRFROFA88hAupda5gC+HFa5VFmsFbVN61LjLEL/sNNLyijb5lSMRyTurzAuGK9ZQB41/uXZob3WJ3dTtHGeIRTAPIXYYU5an/LSCuaK/Yj4Rjtww3tOgyNjfu1d4kCvGgkEM1ElfFtUocJXYARwVS8nZMz9rJbp4AeoftyGZyrjLcB5vtY94n5zuPntkod2nDEeqkjNbOvgfBeT1yzT/oV4IPEBcEODenB+AdWQoeptHwW1hoPfzg4EUYCvPhpvMXNgBVYnNyQtohG51+QRMg37oWA7amI3DTtcFk21MMoCZP5b9f8+zJxWgHVpM2A9gAiwaCLJX71pVV6w4W1WVqQDUeVTdl+n9nyXj6UcfMLSM9xysycPRjhciyxAf8gS2pIX2k+XO8AgERIXlF9pT6VVDeALGJdO8TuK37NJ2DAA/fGY1Abb0DKlRSMD/hMp++0Q8hZB0sdtO5amJg8Ce+lcshjo1JBSpwbin4phPRuaVX9ePG5Vq0jabECqw+Z2nNnJI9oiQOntkXQCdVWfUgUbVEAn9H0KeYji8XqPjP1DtDtbBhnGBQptA4EOvy5p1Zw+9gxAc/YiAGRuXlVnTAQkxJL7+fAUSqyWjnGPDNGOmeIn5pw00xL9GFdWNHCbsGn7TMHUsYfCWPwQ==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OuAFGj/fAENJb20ksCzCc6FWlv9+WCEmmne1vPduneuo1Ql1LY373R6AlMj9gKbvr1QojmpA/6qJZV9+POVU5injUr6wUp3i5O+iJ3dN3nqVDq+f7Ax6YIlfolqbdsABbsa/WTJZNhOtJuYKks2aFDaHxdsIfMC5hnLhWnJJmyV+xHiV55MPa+iP9LYhUEbjwPW2/MumV+g3gGtoGL4fTMUMx54YZqncU1LN1us1sRzC9DJd+6GDMhIy8MLGWwtR3T4QT8jbWMmLHTfkdUl0Q5RQuYjkKlJoXiimtbGs9m/RPU7Rm583XE0e9AlRzfIZNUPmy5EOcpw8qnnn+1fOzeUjViU/VwyxIERtATYZ4xxmIX1OGFIuATRLwELxAghBsg1quBL/Z9UB9pvcoLAbCZJL7v0pwwa74Pf9dufH3Au43y3312Q7neLok7yvqIiR
-X-Exchange-RoutingPolicyChecked:
-	dcqngKIzE6lKEKTAwFMzOTd7FMQCPam2gpIcKIKIAYc/X9UIw1wNP99yfDAx1ayi9aZ0pC5MZJzqUqE/NcvgPdfCNKRiMXen6kbwiIF+Mvd6S1IK9KFGGB7cWWJUPH9fQ/R7QTtZucUKq9rju9nSJgk0CRcJEkGznMhJ521cR9eZpSeS+IQ2UtlsYwbrayLWM3q25l3VkYFCHXXdhB57MAgIx2uXo2vm/nr6DFLq255ojf0ZqXQUdrYq7u/SYa7CUXNgFQmNyggZ8zVI0WTzVQGqfFvBol48C4nvckV36RJYTSRKYxpnbRUZoBaeZJ70d/ccVhuDPvCegpgEeacftw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 10:43:30.3438
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5031b99-1c2a-44cd-9b86-08df0f285ab3
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR10MB997856
-X-Proofpoint-ORIG-GUID: W06FCjCssl-GgLzPgrlewWI_Mdp0BZZC
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDEyNCBTYWx0ZWRfXxWajQRHdPZAM
- HvBLdC6HG3fWCvpnMrwskQq4iUaz6LXzZdxYD4sJUQR1IqcgLAJFGjDMncJDgB1+iVC50MTfPlx
- lBW5JqEbX5ncchXbMue9GRDXIHq7l6o=
-X-Proofpoint-GUID: W06FCjCssl-GgLzPgrlewWI_Mdp0BZZC
-X-Authority-Analysis: v=2.4 cv=MqbHeGae c=1 sm=1 tr=0 ts=6aa289d6 cx=c_pps
- a=yvofFnGdSAaTKL5iNkS0vw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=4oUWx8CZaJwu3DmIChQA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDEyNCBTYWx0ZWRfX7N2tA4dqsgHz
- awWk3AV9UBTLAC5gKcXrX+FjyFksrd27gs0w4r4Prnd7wH/iumgTEW0FBUKz9irKyomGfnVYPfl
- i/QUWRYYDSBmlIwjp/mFQQn7AaqKzfsV4XB2X3Ds2a1TWn33GB9nYkgYvNadKqNwlNELZ1mScCs
- uqA9joPzu/CGboWk2Od/7+cncgxNHqQdzy7UBJ3BdR3LUVlRWIrxvsUw6l4toj0puwMb8boaIMU
- ByibR9F/KWyiB1MFGMP1KaRdoqcY7rBOjHO6gkgRYvSvGDVhO6myz6p8wdSISZf592kzxukoz0s
- 9mzE6gcK/LSGx+eYGQgrolHR8Cg96lc6rUsDoDsex/2VjUopuqZ/dUX0lzYjQnrLHobkBhNDE39
- Eq5EgE2QJmiTR5Gsbw6bI5Nld+m5zDSl4E5YU8bCxmIZNRadliIDi9+Ypy6VDCt8TRq/mjAxXlB
- nFAOs5D17TowUKhyXQw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100124
 
-Similarly in how AES part of this driver, we are falling back to
-software when memory allocation fails (we get -ENOMEM), fix the AEAD
-part also to only do fallback when we fail only due to -ENOMEM. This is
-because we are doing memory allocations with GFP_ATOMIC in the beginning
-which might fail. Any other failure paths might have modified the data
-or buffers already. Doing a software fallback on them might give
-incorrect or corrupt results.
+The TDX architecture includes a syscall-like ABI for OSes to communicate
+with SEAM mode software. This ABI has the concept of a "leaf". Each leaf
+is roughly analogous to a Linux syscall: it has a set of register
+arguments and does one logical thing like adding a page of memory to a
+VM or running a VM. The TDX architecture refers to this interface
+function as a "SEAMCALL leaf".
 
-Fixes: 37b902c603042 ("crypto: ti - Add support for AES-GCM in DTHEv2 driver")
-Signed-off-by: T Pratham <t-pratham@ti.com>
+Just like syscalls, the TDX architecture wants to evolve the ABI to
+extend functionality while keeping compatibility. But unlike syscalls,
+which do this by picking a totally new syscall number, the ABI encodes
+the "version" number directly into the bits of a register argument. So
+instead of openatN being whatever the next free number is, the SEAMCALL
+leaf number and version number are encoded into certain bits in how the
+RAX register is defined in the ABI.
+
+In Linux, several seamcall*() wrappers have been introduced to invoke
+SEAMCALL leafs. They all take a u64 "fn" argument for the leaf number
+which eventually get set in the register. As above, the version number
+lives in the same register as the leaf number. So callers that want to
+select a specific version of the leaf, can jam it in the right place in
+the register by passing it in the "fn" argument. Today only the caller
+of TDH.VP.INIT does this hack, but future kernel changes will need to
+select versions for more SEAMCALL leafs, so a less hacky solution is
+needed.
+
+Explicitly define the arguments for seamcall*() wrappers:
+
+  - Add a build-time assertion to ensure "fn" only contains valid
+    SEAMCALL leaf number bits. Note the P-SEAMLDR selector bit (bit 63)
+    is part of the leaf number for SEAM loader calls, so it is allowed.
+    This also means the "fn" can't be a narrower type, such as u16, to
+    exclude unrelated bits.
+
+  - Add a "version" field in struct tdx_module_args [1], so most
+    existing callers get a default "version == 0" behavior without code
+    churn. Update the TDH.VP.INIT caller to specify the version
+    descriptively.
+
+Encode the leaf number and tdx_module_args.version into RAX in assembly,
+because this is the place where the "fn" and struct tdx_module_args
+fields are marshaled into registers.
+
+AI was used under supervision to review code and workshop logs. In
+particular, it helped evaluate the assembly changes.
+
+Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+Link: https://lore.kernel.org/kvm/4f4b0f29-424b-45ed-8cfd-c77da2ea390f@intel.com/ # [1]
 ---
- drivers/crypto/ti/dthev2-aes.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Two alternative schemes were considered:
 
-diff --git a/drivers/crypto/ti/dthev2-aes.c b/drivers/crypto/ti/dthev2-aes.c
-index a034c1c8f20ed..150ce65f613fa 100644
---- a/drivers/crypto/ti/dthev2-aes.c
-+++ b/drivers/crypto/ti/dthev2-aes.c
-@@ -1173,7 +1173,7 @@ static int dthe_aead_run(struct crypto_engine *engine, void *areq)
- aead_prep_aad_err:
- 	memzero_explicit(rctx->padding, 3 * AES_BLOCK_SIZE);
+ 1. Define versioned macros like TDH_VP_INIT_V0, TDH_VP_INIT_V1, etc.
+    Then callers could use them without encoding RAX bits themselves.
+    However, this would break naming consistency unless all existing
+    stable function macros are changed to TDH_XXX_V0.
+
+ 2. Add an explicit "version" parameter to seamcall*() wrappers. This
+    would unnecessarily force all stable seamcall*() wrappers to pass a
+    meaningless '0' argument. Additionally, the magic '0' or '1' values
+    at caller sites are not descriptive.
+
+v6:
+- Don't change comments for struct tdx_module_args, comment on the
+  version field (Dave & Tony)
+- Add more Reviewed-by tags
+
+v5: https://lore.kernel.org/all/20260901105436.461823-1-yilun.xu@linux.intel.com/
+- Refactor the changelog. Retained the Reviewed-by tags, please let me
+  know if you object.
+- Rebase to v7.3-rc1
+
+v4: https://lore.kernel.org/all/20260804085054.190847-1-yilun.xu@linux.intel.com/
+- Add Reviewed-by tags
+
+v3: https://lore.kernel.org/all/20260722084634.131020-1-yilun.xu@linux.intel.com/
+- Move the RAX encoding in assembly code.
+- Compile-time check that fn only contain base leaf number bits
+- Add the full description of SEAMCALL leaf according to TDX module SPEC
+- Fix the description of struct tdx_module_args.
+
+v2: https://lore.kernel.org/all/20260708170330.83850-1-yilun.xu@linux.intel.com/
+v1: https://lore.kernel.org/all/20260702144614.59464-1-yilun.xu@linux.intel.com/
+---
+ arch/x86/include/asm/shared/tdx.h         |  5 +++++
+ arch/x86/virt/vmx/tdx/seamcall_internal.h | 19 +++++++++++++++++++
+ arch/x86/virt/vmx/tdx/tdx.h               |  8 --------
+ arch/x86/virt/vmx/tdx/tdxcall.S           | 10 ++++++++--
+ arch/x86/kernel/asm-offsets.c             |  1 +
+ arch/x86/virt/vmx/tdx/tdx.c               |  5 +++--
+ 6 files changed, 36 insertions(+), 12 deletions(-)
+
+diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
+index f20e91d7ac35..f8ce302afd1c 100644
+--- a/arch/x86/include/asm/shared/tdx.h
++++ b/arch/x86/include/asm/shared/tdx.h
+@@ -143,6 +143,11 @@ struct tdx_module_args {
+ 	u64 rbx;
+ 	u64 rdi;
+ 	u64 rsi;
++	/*
++	 * leaf ABI version. Note that it gets encoded into RAX along with the
++	 * leaf number.
++	 */
++	u8  version;
+ };
  
--	if (ret)
-+	if (ret == -ENOMEM)
- 		ret = dthe_aead_do_fallback(req);
+ /* Used to communicate with the TDX module */
+diff --git a/arch/x86/virt/vmx/tdx/seamcall_internal.h b/arch/x86/virt/vmx/tdx/seamcall_internal.h
+index be5f446467df..051ad2d45cab 100644
+--- a/arch/x86/virt/vmx/tdx/seamcall_internal.h
++++ b/arch/x86/virt/vmx/tdx/seamcall_internal.h
+@@ -11,6 +11,7 @@
+ #ifndef _X86_VIRT_SEAMCALL_INTERNAL_H
+ #define _X86_VIRT_SEAMCALL_INTERNAL_H
  
- 	local_bh_disable();
++#include <linux/bitfield.h>
+ #include <linux/printk.h>
+ #include <linux/types.h>
+ #include <asm/archrandom.h>
+@@ -23,9 +24,27 @@ u64 __seamcall_saved_ret(u64 fn, struct tdx_module_args *args);
+ 
+ typedef u64 (*sc_func_t)(u64 fn, struct tdx_module_args *args);
+ 
++/*
++ * SEAMCALL leaf:
++ *
++ * Bit 15:0	Leaf number
++ * Bit 23:16	Leaf ABI version number
++ * Bit 24	Pending interrupts detection mode
++ * Bit 63	1 for P-SEAMLDR leaf, 0 for TDX module leaf
++ */
++#define SEAMCALL_LEAF_MASK		GENMASK_U64(15, 0)
++#define SEAMCALL_SEAMLDR_MASK		BIT_U64(63)
++
+ static __always_inline u64 __seamcall_dirty_cache(sc_func_t func, u64 fn,
+ 						  struct tdx_module_args *args)
+ {
++	/*
++	 * fn contains leaf number for TDX module calls and P-SEAMLDR calls.
++	 * Other fields in SEAMCALL leaf like leaf ABI version number are in
++	 * struct tdx_module_args.
++	 */
++	BUILD_BUG_ON(fn & ~(SEAMCALL_LEAF_MASK | SEAMCALL_SEAMLDR_MASK));
++
+ 	lockdep_assert_preemption_disabled();
+ 
+ 	/*
+diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
+index bdfd0e1e337a..63e3acfb5d0c 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.h
++++ b/arch/x86/virt/vmx/tdx/tdx.h
+@@ -50,14 +50,6 @@
+ #define TDH_SYS_UPDATE			53
+ #define TDH_SYS_DISABLE			69
+ 
+-/*
+- * SEAMCALL leaf:
+- *
+- * Bit 15:0	Leaf number
+- * Bit 23:16	Version number
+- */
+-#define TDX_VERSION_SHIFT		16
+-
+ /* TDX page types */
+ #define	PT_NDA		0x0
+ #define	PT_RSVD		0x1
+diff --git a/arch/x86/virt/vmx/tdx/tdxcall.S b/arch/x86/virt/vmx/tdx/tdxcall.S
+index 016a2a1ec1d6..a194e83613e7 100644
+--- a/arch/x86/virt/vmx/tdx/tdxcall.S
++++ b/arch/x86/virt/vmx/tdx/tdxcall.S
+@@ -45,8 +45,14 @@
+ .macro TDX_MODULE_CALL host:req ret=0 saved=0
+ 	FRAME_BEGIN
+ 
+-	/* Move Leaf ID to RAX */
+-	mov %rdi, %rax
++	/* Leaf ABI version -> RAX[23:16]. Zero rest of RAX. */
++	movzbl	TDX_MODULE_version(%rsi), %eax
++	shl	$16, %eax
++	/*
++	 * Combine leaf number arg and leaf ABI version into RAX, they don't
++	 * overlap.
++	 */
++	or	%rdi, %rax
+ 
+ 	/* Move other input regs from 'struct tdx_module_args' */
+ 	movq	TDX_MODULE_rcx(%rsi), %rcx
+diff --git a/arch/x86/kernel/asm-offsets.c b/arch/x86/kernel/asm-offsets.c
+index 081816888f7a..b3c00ff4d819 100644
+--- a/arch/x86/kernel/asm-offsets.c
++++ b/arch/x86/kernel/asm-offsets.c
+@@ -95,6 +95,7 @@ static void __used common(void)
+ 	OFFSET(TDX_MODULE_rbx, tdx_module_args, rbx);
+ 	OFFSET(TDX_MODULE_rdi, tdx_module_args, rdi);
+ 	OFFSET(TDX_MODULE_rsi, tdx_module_args, rsi);
++	OFFSET(TDX_MODULE_version, tdx_module_args, version);
+ 
+ 	BLANK();
+ 	OFFSET(BP_scratch, boot_params, scratch);
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 1b9ff749dd8e..1668f8615607 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -1912,10 +1912,11 @@ u64 tdh_vp_init(struct tdx_vp *vp, u64 initial_rcx, u32 x2apicid)
+ 		.rcx = vp->tdvpr_pa,
+ 		.rdx = initial_rcx,
+ 		.r8 = x2apicid,
++		/* apicid requires version == 1. */
++		.version = 1,
+ 	};
+ 
+-	/* apicid requires version == 1. */
+-	return seamcall(TDH_VP_INIT | (1ULL << TDX_VERSION_SHIFT), &args);
++	return seamcall(TDH_VP_INIT, &args);
+ }
+ EXPORT_SYMBOL_FOR_KVM(tdh_vp_init);
+ 
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.34.1
+2.25.1
 
