@@ -1,224 +1,369 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972FE414419
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789071264; cv=fail; b=bKEeU/jxFoF7QIj5lC1uxLjI4/7dcuiY7RhqZ9B8soTMupo9977nI4pcDZ8J0izMYb5zaqJSSwnUtNPfLAkXiQmE8PnuCON5Wjqio4tnRSbk7FPuz+VxHw3xYFyE2RAzALT+RiOrEXH8kySdom/TlmgSc+CTGkXkpgcFgN0n/oY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789071264; c=relaxed/simple;
-	bh=q0wWg9nYbVBQhJj5dMLEzwF/Ndlwwd8hAjlVM1FRrcE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IPiJVqd5FgONQrL+xG4RpJIG+EqiEo+rXIbuwn8Y0WDFfDOEG2N6596nJ1frZ3Q7ykmyN83vFeVCfmb+LwQ0nkXdZmDzv8IMaF5zK0snaz/N4n0F6az2Ff/ZFiPKZ0633RNNZt2IPs6mNkD3m8PAEO3ObS7xG3WWd2CvJdziRiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h9I1uEd3; arc=fail smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AF6496D3C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789071301; cv=none; b=q6rkJP3sOlSoLwLaspg+Z4LKqVw1Q2sZR01KIJi6JjIsI7jR/J88mmCzS1ppeNDrJk5uxhzoswF0rkOzJLgzXa4lpicffQP2bKX0KqxhVocHieLjNAs6Ex6PTU71wG2AvbFXnm+dIRvAAQzdHqvFgo7dURyWeBzwmddR4d0KTzM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789071301; c=relaxed/simple;
+	bh=3JfMjcL3TjwifMoTOhz947nuR1JuljzjS3B7u8xLlM4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GkHsvPuXHRzaPf/zpVQVAJLxtlJj4Z+othpVa30cQtAWmK9rJDaTu1+aNNJhbXk+muYq8e4Ya41P9l5Rd/0qxRzQOZlsKljCFE0aVflYasG14vaPZXQXk7CVrO0lAqsBDnhSeIbz792NQHaXsXm8Fw7rpCPsl+NyzOLQk1aH3U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O9eLUuSn; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h9I1uEd3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789071260; x=1820607260;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=q0wWg9nYbVBQhJj5dMLEzwF/Ndlwwd8hAjlVM1FRrcE=;
-  b=h9I1uEd3Cboa/edJ84PYzAemDbAuwsdB7AOlPLkXuVEsqAuGe0vWU3+v
-   igQ5Zs6kpCUZG9hBDPEyUHLpzTdiVJ4irmv/mC4q0HW5JHXgn8GZrj5nQ
-   VX3ya7KXPc/tbSmjGgb1smXrtOSuv4ic6+D86besF2O8TSf5hUhJwPuAf
-   BVKbND8N8llkmcOExJ/SN8hYMAaVmiXx950o+0Aj7TQNW3X0DhfgKkfsD
-   dgvuv7KLcqn8AYdfdB0pCCNFNMJTJZOEESXkiWWBn0C6bYYGSIqafClF7
-   mPdM0BgDNTfS1EhxGOfxR3vQzMKjNORcxc6Ofduz4Z3750LzYq5vk8ulr
-   w==;
-X-CSE-ConnectionGUID: F+IJO5x6SKuSgnQJEcgsWw==
-X-CSE-MsgGUID: SqjjyR2sSUKr0oSirBKphA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="112307215"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="112307215"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:14:18 -0700
-X-CSE-ConnectionGUID: 642mmdrdQYaScNUJmoypUw==
-X-CSE-MsgGUID: rf0aNPPBQxOCvIUgc2GbDw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="301625307"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:14:18 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 10 Sep 2026 13:14:17 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 10 Sep 2026 13:14:17 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.1) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 10 Sep 2026 13:14:06 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r8YqzVYI1BKt8KX97UFGqJmF97mYIvZNuxWULOxSVbxVzsDF/ukVKI8wi9Mfi+WDWKOAFnNwaU3qKv8a4i3FAFnmK9QEOEll5eWZPOEgjJ7DahHDbdbH3sTAaUc6gsP9v7BrMFVD8RYhPOiMngmjsR4gvdOaCYmv5WWHQ6Lip0p2VtHoa3H+dmH7JFVhFJJEnaE3FZtUa4YIhBV/QB0ntB//jKw2yFYVAE7c9BXam9ml61Ak3je8QtdZCxO8ctd5El2n9V7quGMc0eoeNBQr2r6AjeoIT5SF/uGrN62Tynk4Lr2yafzg20/rBwG9Sw0ybjtlOvtoqnkK4rW/R3IJZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q0wWg9nYbVBQhJj5dMLEzwF/Ndlwwd8hAjlVM1FRrcE=;
- b=AxLMFtYusC9GMcEJY+JlCtjdvoqqSoW8BIuBtUG4GY0Bhno1kI5qxtS9Gvsf7H3yKSufyEULu134pp9xnhHPEQzkGy54uXMBIeGfa6Lev4Ml3d2VX5CP+zcag/NfmYk8AEsBv8NmOP5LJaxQECFXg39ZW87xqzSqdInGN7GrhJkp+/TKGrtmoNlU3+lVbEtty4Aaz2aOHs6ztotN5unZwyEw9Wy+lHik4GVs7IQcMkxSDkJrE0JQpspW/TxXJoCrSfU9rvb0zbBdgNkDqt5qZarOwttrMC8+v3sT1RFxWrdlDhUaK6DHrwpbXZpQ5qeIfRo15idw2xCCGQ5P740v0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by IA1PR11MB6217.namprd11.prod.outlook.com (2603:10b6:208:3eb::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 20:14:02 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 20:14:00 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Hansen, Dave" <dave.hansen@intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>
-CC: "Xu, Yilun" <yilun.xu@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "kas@kernel.org" <kas@kernel.org>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>
-Subject: Re: [PATCH v5] x86/virt/tdx: Formalize SEAMCALL leaf version encoding
- support
-Thread-Topic: [PATCH v5] x86/virt/tdx: Formalize SEAMCALL leaf version
- encoding support
-Thread-Index: AQHdOgBTJE7IZnZNV02DM/PRVurnnrbITdIA
-Date: Thu, 10 Sep 2026 20:14:00 +0000
-Message-ID: <9e59449810c33a41ff37a2babc322261c1d918e0.camel@intel.com>
-References: <20260901105436.461823-1-yilun.xu@linux.intel.com>
-In-Reply-To: <20260901105436.461823-1-yilun.xu@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|IA1PR11MB6217:EE_
-x-ms-office365-filtering-correlation-id: 8ab7ef72-33f7-454f-68cf-08df0f780d3a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|38070700021|6133799003|3023799007|10067099003|5023799004|11063799006|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info: uh8Z8WHhzdIge9mEhnELSasaJX7aVsa3sMdqckQtkOWTsLvYeVVGAWmpRWIEs4nLqGkjqAMkuXhakouom70BDOXTeMcOBTXYjdNYftb5sU3Zwu2LQC44X11wLFtpRNU3xnfhwigmMgrrQIXgykxvq45xDjRTvyr/Cpm6TJoNbb+hLTLH7N0IiuELNriX2fKodgQM4FhYifk9tC3lCrvwAZH36reqF2zLSU9NTuBOzfJ8iUcEKhnG8JJQ66/mRFA0WlD4AyNAdybGuxrj1fYSOiO5aqoCCCct4LQLUsiHJtwfNvXb9k8MNb4FpBAhbXrV+KwQLLWS1ddi7T43N09sECKuZ+3g6C+t7fs8VfoNLBHhyH2rzG+0V8zroJzd3BDBNa7DT8pShZemHDLvlrUivroEsNFK7/2TUgwyDpDEqL1sFioJ7IFDPDz/3vMVZXITQ2K4Wl/fvVdf57M0YgbTk0gDwopIOvg8I4XY2GJLAdbe5e3SJno6KWfTD6U6N6vJEws4tONCq8R0nvhW6ochdPfI5b+WLtwu61Oj7dDCmOf4EddDDnyhu+6+CKlUBE2Su3OJFa1mI9ca+xdWgPf5MYFnzoH4EO6AedgF75h54eKKs1UhwUOxlZy3a1YWieHm+F6FmBdD0a3SCGIDBGt4iSSDrebW2qFMajjmzazzVWT20FXOVMKMznoBKQm2uNtUGygMBCh9igHjEpBJOJ264dCpXyAV/HSUfPoT0l8TFlI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(38070700021)(6133799003)(3023799007)(10067099003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QysxLzRFOHMwUXhEOC9FUi9tMi9DVVpscDhGNUFmZVhWOGJjOFZrVFFWY3d0?=
- =?utf-8?B?UktrL1ZLaFZWVXNWRlNzL0crSGlPRXZWQVhZZk84S3NNRG9sSEFyYzJXN0U1?=
- =?utf-8?B?WTZGdFpmK2UrMTg5YWN4bjdpVnpZQXVSSlZ3aGQyUGJUdHVUWWtCQVhlS2pu?=
- =?utf-8?B?QURHTmd1MWNFRy9Ocjk1UE1FUmtqL3lkWEtnNnFvekZtQllOMjFKYXFJc3Jl?=
- =?utf-8?B?N3haVXpHMkhleWpWLyszNnVSUDN1UDlJcytzTW9DK0JUSkJGTmx6UDgzTkEr?=
- =?utf-8?B?Y1RvVjZGZ3puMXJENWN3MVlQcFJONmFPM2w2bnV5NkhLZDRabFd4ekNvQUMv?=
- =?utf-8?B?VGs5TDd5V3JhWmNqc1VlOHNxQUl2RCtobmlnVlI4bjNFVWxZWFN5OU1wcXAw?=
- =?utf-8?B?U3pLNVdFR1hjNnAyZ0s2M0taOVVKWnJWcktVQk5tOEtHL2RBcjYzQXNDWnhq?=
- =?utf-8?B?NWdXeDA2MlpkeVMwT3JlaGsvZFZKcFZab3VQZzJBQ3BNNkwyZU9RM1M2aUNL?=
- =?utf-8?B?T0VvTXdWbDBORGQrZkZrLzJVQ0ZYZ3FDbzR3d1gyS0Qzc3NRT29BOGU4SHRR?=
- =?utf-8?B?R1Z4MEJXK1JpaW1zTHNPUzIzOUpHRXE4VHRWRUhOVFVwYlFZMzB4ZXpVUzNN?=
- =?utf-8?B?cnJHd2V4eFZsUit5L1NmQ2dMcW92ZWVKU2UyVVdGVWYrb1QwN2Y1Y3VBWmQw?=
- =?utf-8?B?TVRyams2ZWNXd1FHMVFTMTBVN0V2Y3htcmFMU1ROSXQrT2tCYVA0UmtTdzJw?=
- =?utf-8?B?czRFWk5yZTZra3hoQ3hLUXdtb3Q0MEtGV1c2MnFWODJzUHRhNitWYSt0dU5o?=
- =?utf-8?B?YTRjOCtxdEJOejc4dTl4OGoxcU55UFlueWFuck0wWmtzZ1FrdVMzdHZIU3VE?=
- =?utf-8?B?Q0lTQ0thelBHL0hvWTE2SnVleG82VXFBZHBKbGRrWDdXL1Y3aE9zUXFNNHly?=
- =?utf-8?B?RkJEaGJjV01wU3ZzbUZaWUpIeHh2R3oyaC9ER3ZsWWJXdjdHRndDajI4UGkz?=
- =?utf-8?B?Y1ZEcFFySWRaY21sTnVOUEdFdTRFT1pUbzM0UlFuOXVBRjUzT1d4eG5taXhD?=
- =?utf-8?B?OFhLV3JYVnhBaHczVCt6OUludnc3L2NLWWN6dnpBOWZIQ3FFNy8rc0tNbVlO?=
- =?utf-8?B?bWg3SFJVWWxvanNzbTFsSlZYTGNveFBiQ0VjbVlHYXhadVJwa0U3RjBsSVRw?=
- =?utf-8?B?U3hmOVZGUFZobTl6R3ZqOFRoa2tnQ2VyZS90WUg0SjRnT2lCUFZCQmcxQlNv?=
- =?utf-8?B?eXRTN2JiYUZSVHRYc2IyT3ByUkNveEhjSlJJT3ZkNWYySE5FclI2SzZSaXZw?=
- =?utf-8?B?WG1nQzFGTkhneTB6eHRoUGVoOGdMdVFQVXJZL3ZkVVNzdDQ5R3VGa0EvSXJB?=
- =?utf-8?B?dHdIaitHOGcrUENqSFRqZmppWlBGOEEyNzErVmJzM0JIbUpiQkJEU08zR0l2?=
- =?utf-8?B?MFVObXphNTFYdXBPNXRMVkRtSGYxYk5JK1VpS05zSGZmbnlhUXNCeFdYMmxr?=
- =?utf-8?B?SzAwY3RxU0RPaERZMVV0OHh3d2N2cjlwaHpmSGlLUXJVRHdySnB0dG9qRzFy?=
- =?utf-8?B?V085eWJFN2NvWHJ6Uk9xQzl4c2tVelRLUmV3VVRLQmtuZnVycXVwMmpVQWFI?=
- =?utf-8?B?NGZ6bHEyNFlSNUJ3cm5jQWRydGNDaUhlNlBXYUY4cnEwbFRJMUNoVTQ3bHFN?=
- =?utf-8?B?bUQ4cnBlbnhCeEpqTEMrZEdDcURyQ1AxYlQ3ZFFWeTZiUWhGWjI5anV5aEM5?=
- =?utf-8?B?WXJCNjM1THBnK0JvNGUxQSswYnB2QzEyeFB1K3BoS3lFeUtWR1NaaWZtcnI1?=
- =?utf-8?B?TStvSHk0Z2NTWmxGSHJUbWlybWxOZk04NXVWejQrUVR5bGN3UU1reTBjS000?=
- =?utf-8?B?UTErVEpqQTgrS0ZrRGVRUE9LR1k2eTR3U3grcGsrVDlWYmtwaURyQjJuckR6?=
- =?utf-8?B?UEc0bXZmRE9ZMDdQZWxqWkhKWElKSm5iZ0FQRjlXRmJVcHhKL2tyS25Ra0FK?=
- =?utf-8?B?c1JUTVM0b3pvZDQ5RzRDMjUxR2JRaEhzN3BwVXZWNDVpS0dQQlNtSWp0ZThN?=
- =?utf-8?B?SmxuZ3h5TGlHclRwV2xsZGlGQ2t1N0JBU2NkUnRwUlhTbTh5MHdrbTBNMDd1?=
- =?utf-8?B?bzRCOUpUZ2lndEhUWER3NmFONVZ2S014SEkxN0EzOHJabzdRZ051TnBpL3BX?=
- =?utf-8?B?ZVB2MFVJZWx5SG9FSS83Vkc3QVNGLzJRTHZSZGkycHpVa3NNcTRGdGN5Y3NK?=
- =?utf-8?B?ME9MOWREWGxLWDZ6SEhxZUpZNTZZK0k5cFB5UXdRR2s1ZDMzNUR2WjZ0Slho?=
- =?utf-8?B?dzZ3RzFpWGdZaE8xdkc2aXZkUjY3ZUQvbUU1SnhRdVM4VDhKRVhDcURPT3NL?=
- =?utf-8?Q?VyWqwxZpV4OB/P1Q=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <83BFFDC0F417F14ABF8279A23355B9BA@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O9eLUuSn"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2db710396ffso11930405ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:14:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789071296; x=1789676096; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7uKprB+h3ngZbp+GZpW+cGpHu1N3q8AXMZNCBK5sCMs=;
+        b=O9eLUuSn13f7ykDaDWoIsXJMCAmPg0ER0aRI3aoNbjbT9nXMOJuVTHulRmfeL50Ibx
+         u9gxbLdQWCDGWwUZ1/14vmsETJia+kD9qgr4zFQT6FZhs3oJH5A30tdrWQFj6m+4IPA3
+         gvQcrHTECPiItHTcYFqS+/dnaTp8Onh+JieV3EZam79n5gO1m8hK4CZ4QCo6WE8D0YoK
+         ApPXo6+p29AUtm00oal+x0V9JO7cnwLEQp2V0K+/UqeKCAgqKexSYkZ8p80Z7SwaARnQ
+         Lw9ZIbiwlzJk3hdC9drMW6CE4urwNzu4k247/1bxl5byuKei2AThX6qPRvk0yEWypLay
+         nDqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789071296; x=1789676096;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7uKprB+h3ngZbp+GZpW+cGpHu1N3q8AXMZNCBK5sCMs=;
+        b=L2YP7X9MHVdiDAVKcGxyWFKQdSTIqCePmzJvvm+han90FJlwhnhr5l2NDt6X8YHylO
+         scALQj0ZfmFIdLVqS1gZPy1/Vq7RWZz8CNDeCUz3LWYf1xAHnydi1ioeezfeUZqOmr6s
+         y3vUqkvA3vNcnT6DQ/DpSYUVZytWRo0UHGYulGa3mtwwUGxlrWP7W1nxWEbox4zWg+S5
+         xujlShYK7O9TS9n5P1bPW91Z4zR+k24FsKgQCyCQgHbzhP7SAC0H3myV8WADAyu9Cskh
+         5P979mwjmgY2cEfZ//4rR8btdiGqfMQ9ATqora5HLqOkgXSyQITAh5Tmm6vMNjyWPzQ5
+         /u6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz9dUtZi50HrboeXlGlM46dR0B25Ooh0NATPwhdxw5/XUUt0V5+JZYxIUcurd3jHyNjh5mK/P9aaw5Ce2Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPHV50x/bkOGyplsLOzHgOIll6HjDQlSnxWlbiJQekkoXwq71Q
+	dBup2m6O+UvXojAXlkoipaJkG5nxzfC96QAUkeGWD/KFpO1tOgKhJOsR
+X-Gm-Gg: AYBFou0kMwRgWHme4OOQzikCYzXmiqdX9xLYIWSXCee+Vv/HFS07dfq1wP68vydr/XH
+	iQ8+zaX8YpF8Z8ZnZEb6fsPCwt7+/Tqn8DW7NJAynkzetDbdMucZx3vyx/2uok+Ly5bZR9OgXly
+	Q5V57dVRbLzcTNC6galqvfmmYZ4ULxBaVa1CsQuzWsUbDlk0hpgnz9fawwnLnRfrAKv86Vv9s1A
+	rdo/3Msn7JDE90PXFRYkqadhqFKMvgaWGgMhu3OBLeK8eN+dIZwUmypPvMqc5updTaFgAgd/UdL
+	AmIw/g6OXXOYZ21Z4jA2G0zs17a644zg0qVQwNAX5IIakhGV1Vd+AUQGqWgF8D0b8AhSK41qVob
+	5nLZ/v5e02BMJh5gE7rZnC9CnlCWnZ6KGcnQFimUOUoplE4R6JZt0rvq3BRLStK0IHluuDAO/LO
+	rUYi95/JQbIf5PFvBDQHCOOaM1z9+F2IQlhPnZ7YN4JYazIY3p82yI/6XZ84ly5SaN7ds3ht4xl
+	4wVrg2X736nr5ih44t1iGY+ZQs1iGuLhE791zh0/xrAqrUV1AlunAPkUsC5H98cySykQd95LFUF
+X-Received: by 2002:a17:903:2d2:b0:2d8:d4d2:d136 with SMTP id d9443c01a7336-2dd0ee981d3mr74221065ad.18.1789071296498;
+        Thu, 10 Sep 2026 13:14:56 -0700 (PDT)
+Received: from [192.168.0.158] (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fbd424sm440196eec.31.2026.09.10.13.14.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 13:14:56 -0700 (PDT)
+Message-ID: <5063b29c-e686-472c-8b80-c6c68def0d0e@gmail.com>
+Date: Thu, 10 Sep 2026 13:14:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: PK9j9vbdqg15zqHn5xRFSUflbymTVyfR6yJc2DAxuuqTAQ+qXJN8F9CLNqu4wyeNB4JM/sXUJgGrww7dDESLpNSIbxkBgZw/WhtGnGwODQK1sMDYEU4xcRxaCWuX0QOk7kwbI3BzMUgMwV8ViHH9JWBMfVT+dP65GjXI0ioGSNJpKvpc5HbYq8dft8vjcU4dmgbFLW9ZVOs/k15gDKpR4138NCzBhNTFHnK2DUHvY98FtsH88ew7kcjF39ft1REydjdtzugZxfdEG7Gq8ySDygo0jFGX0KQ/o5dr61Ww3NHBkBQOAfD1yFUiuEDg1ORTWE+Y4MSRzpIAUAuI49Cf5A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ab7ef72-33f7-454f-68cf-08df0f780d3a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 20:14:00.1879
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Taz57KOusuUpQo7DCV0QPSyEmufhgYpV1+YN1hX7PUIKykBz/Gmb92ma17vBIN8qPJ2sHsIl8jtMjdmZ1shHVubiyRSUYE6SsnfpjuHPSyM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6217
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/15] HID: hid-oxp: handle controller reinitialization
+ across suspend
+To: Andrei Aldea <andrei1998@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ linux-leds@vger.kernel.org
+References: <20260910032115.28669-1-andrei1998@gmail.com>
+ <20260910032115.28669-11-andrei1998@gmail.com>
+Content-Language: en-US
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+In-Reply-To: <20260910032115.28669-11-andrei1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-T24gVHVlLCAyMDI2LTA5LTAxIGF0IDE4OjU0ICswODAwLCBYdSBZaWx1biB3cm90ZToNCj4gVGhl
-IFREWCBhcmNoaXRlY3R1cmUgaW5jbHVkZXMgYSBzeXNjYWxsLWxpa2UgQUJJIGZvciBPU2VzIHRv
-IGNvbW11bmljYXRlDQo+IHdpdGggU0VBTSBtb2RlIHNvZnR3YXJlLiBUaGlzIEFCSSBoYXMgdGhl
-IGNvbmNlcHQgb2YgYSAibGVhZiIuIEVhY2ggbGVhZg0KPiBpcyByb3VnaGx5IGFuYWxvZ291cyB0
-byBhIExpbnV4IHN5c2NhbGw6IGl0IGhhcyBhIHNldCBvZiByZWdpc3Rlcg0KPiBhcmd1bWVudHMg
-YW5kIGRvZXMgb25lIGxvZ2ljYWwgdGhpbmcgbGlrZSBhZGRpbmcgYSBwYWdlIG9mIG1lbW9yeSB0
-byBhDQo+IFZNIG9yIHJ1bm5pbmcgYSBWTS4gVGhlIFREWCBhcmNoaXRlY3R1cmUgcmVmZXJzIHRv
-IHRoaXMgaW50ZXJmYWNlDQo+IGZ1bmN0aW9uIGFzIGEgIlNFQU1DQUxMIGxlYWYiLg0KPiANCj4g
-SnVzdCBsaWtlIHN5c2NhbGxzLCB0aGUgVERYIGFyY2hpdGVjdHVyZSB3YW50cyB0byBldm9sdmUg
-dGhlIEFCSSB0bw0KPiBleHRlbmQgZnVuY3Rpb25hbGl0eSB3aGlsZSBrZWVwaW5nIGNvbXBhdGli
-aWxpdHkuIEJ1dCB1bmxpa2Ugc3lzY2FsbHMsDQo+IHdoaWNoIGRvIHRoaXMgYnkgcGlja2luZyBh
-IHRvdGFsbHkgbmV3IHN5c2NhbGwgbnVtYmVyLCB0aGUgQUJJIGVuY29kZXMNCj4gdGhlICJ2ZXJz
-aW9uIiBudW1iZXIgZGlyZWN0bHkgaW50byB0aGUgYml0cyBvZiBhIHJlZ2lzdGVyIGFyZ3VtZW50
-LiBTbw0KPiBpbnN0ZWFkIG9mIG9wZW5hdE4gYmVpbmcgd2hhdGV2ZXIgdGhlIG5leHQgZnJlZSBu
-dW1iZXIgaXMsIHRoZSBTRUFNQ0FMTA0KPiBsZWFmIG51bWJlciBhbmQgdmVyc2lvbiBudW1iZXIg
-YXJlIGVuY29kZWQgaW50byBjZXJ0YWluIGJpdHMgaW4gaG93IHRoZQ0KPiBSQVggcmVnaXN0ZXIg
-aXMgZGVmaW5lZCBpbiB0aGUgQUJJLg0KPiANCj4gSW4gTGludXgsIHNldmVyYWwgc2VhbWNhbGwq
-KCkgd3JhcHBlcnMgaGF2ZSBiZWVuIGludHJvZHVjZWQgdG8gaW52b2tlDQo+IFNFQU1DQUxMIGxl
-YWZzLiBUaGV5IGFsbCB0YWtlIGEgdTY0ICJmbiIgYXJndW1lbnQgZm9yIHRoZSBsZWFmIG51bWJl
-cg0KPiB3aGljaCBldmVudHVhbGx5IGdldCBzZXQgaW4gdGhlIHJlZ2lzdGVyLiBBcyBhYm92ZSwg
-dGhlIHZlcnNpb24gbnVtYmVyDQo+IGxpdmVzIGluIHRoZSBzYW1lIHJlZ2lzdGVyIGFzIHRoZSBs
-ZWFmIG51bWJlci4gU28gY2FsbGVycyB0aGF0IHdhbnQgdG8NCj4gc2VsZWN0IGEgc3BlY2lmaWMg
-dmVyc2lvbiBvZiB0aGUgbGVhZiwgY2FuIGphbSBpdCBpbiB0aGUgcmlnaHQgcGxhY2UgaW4NCj4g
-dGhlIHJlZ2lzdGVyIGJ5IHBhc3NpbmcgaXQgaW4gdGhlICJmbiIgYXJndW1lbnQuwqANCj4gDQoN
-Cg0KPiBUb2RheSBvbmx5IHRoZSBjYWxsZXINCj4gb2YgVERILlZQLklOSVQgZG9lcyB0aGlzIGhh
-Y2ssIGJ1dCBmdXR1cmUga2VybmVsIGNoYW5nZXMgd2lsbCBuZWVkIHRvDQo+IHNlbGVjdCB2ZXJz
-aW9ucyBmb3IgbW9yZSBTRUFNQ0FMTCBsZWFmcywgc28gYSBsZXNzIGhhY2t5IHNvbHV0aW9uIGlz
-DQo+IG5lZWRlZC4NCg0KT25seSBuaXQgaXMgdGhhdCB0aGlzIHdvdWxkIHByb2JhYmx5IHJlYWQg
-YSBsaXR0bGUgYml0IHNtb290aGVyIGFzIHR3bw0Kc2VudGVuY2VzLiBFdmVyeXRoaW5nIGVsc2Ug
-bG9va3MgZ29vZC4NCg0KUmV2aWV3ZWQtYnk6IFJpY2sgRWRnZWNvbWJlIDxyaWNrLnAuZWRnZWNv
-bWJlQGludGVsLmNvbT4NCg0KPiANCj4gRXhwbGljaXRseSBkZWZpbmUgdGhlIGFyZ3VtZW50cyBm
-b3Igc2VhbWNhbGwqKCkgd3JhcHBlcnM6DQo+IA0KPiDCoCAtIEFkZCBhIGJ1aWxkLXRpbWUgYXNz
-ZXJ0aW9uIHRvIGVuc3VyZSAiZm4iIG9ubHkgY29udGFpbnMgdmFsaWQNCj4gwqDCoMKgIFNFQU1D
-QUxMIGxlYWYgbnVtYmVyIGJpdHMuIE5vdGUgdGhlIFAtU0VBTUxEUiBzZWxlY3RvciBiaXQgKGJp
-dCA2MykNCj4gwqDCoMKgIGlzIHBhcnQgb2YgdGhlIGxlYWYgbnVtYmVyIGZvciBTRUFNIGxvYWRl
-ciBjYWxscywgc28gaXQgaXMgYWxsb3dlZC4NCj4gwqDCoMKgIFRoaXMgYWxzbyBtZWFucyB0aGUg
-ImZuIiBjYW4ndCBiZSBhIG5hcnJvd2VyIHR5cGUsIHN1Y2ggYXMgdTE2LCB0bw0KPiDCoMKgwqAg
-ZXhjbHVkZSB1bnJlbGF0ZWQgYml0cy4NCj4gDQo+IMKgIC0gQWRkIGEgInZlcnNpb24iIGZpZWxk
-IGluIHN0cnVjdCB0ZHhfbW9kdWxlX2FyZ3MgWzFdLCBzbyBtb3N0DQo+IMKgwqDCoCBleGlzdGlu
-ZyBjYWxsZXJzIGdldCBhIGRlZmF1bHQgInZlcnNpb24gPT0gMCIgYmVoYXZpb3Igd2l0aG91dCBj
-b2RlDQo+IMKgwqDCoCBjaHVybi4gVXBkYXRlIHRoZSBUREguVlAuSU5JVCBjYWxsZXIgdG8gc3Bl
-Y2lmeSB0aGUgdmVyc2lvbg0KPiDCoMKgwqAgZGVzY3JpcHRpdmVseS4NCj4gDQo+IEVuY29kZSB0
-aGUgbGVhZiBudW1iZXIgYW5kIHRkeF9tb2R1bGVfYXJncy52ZXJzaW9uIGludG8gUkFYIGluIGFz
-c2VtYmx5LA0KPiBiZWNhdXNlIHRoaXMgaXMgdGhlIHBsYWNlIHdoZXJlIHRoZSAiZm4iIGFuZCBz
-dHJ1Y3QgdGR4X21vZHVsZV9hcmdzDQo+IGZpZWxkcyBhcmUgbWFyc2hhbGVkIGludG8gcmVnaXN0
-ZXJzLg0KPiANCj4gQUkgd2FzIHVzZWQgdW5kZXIgc3VwZXJ2aXNpb24gdG8gcmV2aWV3IGNvZGUg
-YW5kIHdvcmtzaG9wIGxvZ3MuIEluDQo+IHBhcnRpY3VsYXIsIGl0IGhlbHBlZCBldmFsdWF0ZSB0
-aGUgYXNzZW1ibHkgY2hhbmdlcy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFh1IFlpbHVuIDx5aWx1
-bi54dUBsaW51eC5pbnRlbC5jb20+DQo+IFJldmlld2VkLWJ5OiBLaXJ5bCBTaHV0c2VtYXUgKE1l
-dGEpIDxrYXNAa2VybmVsLm9yZz4NCj4gUmV2aWV3ZWQtYnk6IE5pa29sYXkgQm9yaXNvdiA8bmlr
-LmJvcmlzb3ZAc3VzZS5jb20+DQo+IExpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2t2bS80
-ZjRiMGYyOS00MjRiLTQ1ZWQtOGNmZC1jNzdkYTJlYTM5MGZAaW50ZWwuY29tL8KgIyBbMV0NCg0K
+
+On 9/9/26 20:21, Andrei Aldea wrote:
+> A Gen2 monocolor reply uses the same command value as the asynchronous MCU
+> reset notification. Treating every such report as a reset can schedule a
+> spurious controller reinitialization.
+>
+> Track an outstanding monocolor write by command and zone under a per-HID
+> spinlock, and consume its matching acknowledgment before considering the
+> report a reset notification. Clear pending reply state during suspend and
+> teardown. A missing reply does not change legacy transport success
+> semantics.
+>
+> For system suspend, disable and drain initialized configuration work and
+> reject new output while the device is suspended. Re-enable work on resume
+> and queue a fallback reinitialization after the documented MCU reset
+> interval. A qualifying reset notification can still bring that work
+> forward. Leave runtime autosuspend unchanged.
+>
+> Fixes: 2f424f28fb39 ("HID: hid-oxp: Add Second Generation Gamepad Mode Switch")
+> Assisted-by: LLM
+> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
+> ---
+>   drivers/hid/hid-oxp.c | 116 ++++++++++++++++++++++++++++++++++++++----
+>   1 file changed, 107 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
+> index 7b36687..e26e6a9 100644
+> --- a/drivers/hid/hid-oxp.c
+> +++ b/drivers/hid/hid-oxp.c
+> @@ -16,6 +16,7 @@
+>   #include <linux/kstrtox.h>
+>   #include <linux/led-class-multicolor.h>
+>   #include <linux/mutex.h>
+> +#include <linux/spinlock.h>
+>   #include <linux/sysfs.h>
+>   #include <linux/types.h>
+>   #include <linux/workqueue.h>
+> @@ -24,6 +25,7 @@
+>   
+>   #define OXP_PACKET_SIZE 64
+>   #define OXP_STATUS_HEADER_SIZE 6
+> +#define OXP_STATUS_ACK 0x20
+>   
+>   #define GEN1_MESSAGE_ID	0xff
+>   #define GEN2_MESSAGE_ID	0x3f
+> @@ -185,6 +187,10 @@ struct oxp_hid_cfg {
+>   	struct hid_device *hdev;
+>   	struct mutex cfg_mutex; /*ensure single synchronous output report*/
+>   	struct mutex rgb_mutex; /*serialize complete RGB transactions*/
+> +	spinlock_t rgb_reply_lock;
+> +	u8 rgb_reply_command;
+> +	u8 rgb_reply_zone;
+> +	bool rgb_reply_pending;
+>   	u8 rgb_brightness;
+>   	u8 gamepad_mode;
+>   	u8 rumble_intensity;
+> @@ -193,6 +199,7 @@ struct oxp_hid_cfg {
+>   	u8 rgb_en;
+>   	bool rgb_work_initialized;
+>   	bool gen2_work_initialized;
+> +	bool suspended;
+>   	bool removing;
+>   };
+>   
+> @@ -371,7 +378,7 @@ static void oxp_mcu_init_fn(struct work_struct *work)
+>   	u8 gp_mode_data[3] = { OXP_GP_MODE_DEBUG, 0x01, 0x02 };
+>   	int ret;
+>   
+> -	if (READ_ONCE(cfg->removing))
+> +	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
+>   		return;
+>   
+>   	/* Re-apply the button mapping */
+> @@ -410,6 +417,7 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
+>   	struct oxp_hid_cfg *cfg = hid_get_drvdata(hdev);
+>   	struct led_classdev_mc *led_mc = cfg->led_mc;
+>   	struct oxp_gen_2_rgb_report *rgb_rep;
+> +	bool solicited = false;
+>   
+>   	if (size < OXP_STATUS_HEADER_SIZE)
+>   		return 0;
+> @@ -417,11 +425,26 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
+>   	if (data[0] != OXP_FID_GEN2_STATUS_EVENT)
+>   		return 0;
+>   
+> +	/* A monocolor acknowledgment is not an MCU reset notification. */
+> +	if (data[5] == OXP_STATUS_ACK) {
+> +		scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
+> +			if (cfg->rgb_reply_pending &&
+> +			    data[3] == cfg->rgb_reply_command &&
+> +			    data[4] == cfg->rgb_reply_zone) {
+> +				cfg->rgb_reply_pending = false;
+> +				solicited = true;
+> +			}
+> +		}
+> +		if (solicited)
+> +			return 0;
+> +	}
+> +
+>   	/* Sent ~6s after resume event, indicating the MCU has fully reset.
+>   	 * Re-apply our settings after this has been received.
+>   	 */
+>   	if (data[3] == OXP_EFFECT_MONO_TRUE) {
+>   		if (READ_ONCE(cfg->gen2_work_initialized) &&
+> +		    !READ_ONCE(cfg->suspended) &&
+>   		    !READ_ONCE(cfg->removing))
+>   			mod_delayed_work(system_dfl_wq, &cfg->oxp_mcu_init,
+>   					 msecs_to_jiffies(50));
+> @@ -489,6 +512,7 @@ static int mcu_property_out(struct oxp_hid_cfg *cfg, u8 *header, size_t header_s
+>   			    size_t data_size, u8 *footer, size_t footer_size)
+>   {
+>   	unsigned char *dmabuf __free(kfree) = kzalloc(OXP_PACKET_SIZE, GFP_KERNEL);
+> +	bool rgb_write;
+>   	int ret;
+>   
+>   	if (!dmabuf)
+> @@ -500,6 +524,19 @@ static int mcu_property_out(struct oxp_hid_cfg *cfg, u8 *header, size_t header_s
+>   	guard(mutex)(&cfg->cfg_mutex);
+>   	if (READ_ONCE(cfg->removing))
+>   		return -ENODEV;
+> +	if (READ_ONCE(cfg->suspended))
+> +		return -EHOSTDOWN;
+> +
+> +	rgb_write = header_size && data_size > 1 &&
+> +		    header[0] == OXP_FID_GEN2_STATUS_EVENT &&
+> +		    data[0] == OXP_EFFECT_MONO_TRUE;
+> +	if (rgb_write) {
+> +		scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
+> +			cfg->rgb_reply_command = data[0];
+> +			cfg->rgb_reply_zone = data[1];
+> +			cfg->rgb_reply_pending = true;
+> +		}
+> +	}
+>   
+>   	memcpy(dmabuf, header, header_size);
+>   	memcpy(dmabuf + header_size, data, data_size);
+> @@ -509,12 +546,18 @@ static int mcu_property_out(struct oxp_hid_cfg *cfg, u8 *header, size_t header_s
+>   	dev_dbg(&cfg->hdev->dev, "raw data: [%*ph]\n", OXP_PACKET_SIZE, dmabuf);
+>   
+>   	ret = hid_hw_output_report(cfg->hdev, dmabuf, OXP_PACKET_SIZE);
+> -	if (ret < 0)
+> -		return ret;
+> -
+>   	/* MCU takes 200ms to be ready for another command. */
+>   	msleep(200);
+> -	return ret == OXP_PACKET_SIZE ? 0 : -EIO;
+> +	if (ret >= 0)
+> +		ret = ret == OXP_PACKET_SIZE ? 0 : -EIO;
+> +
+> +	if (rgb_write) {
+> +		scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
+> +			cfg->rgb_reply_pending = false;
+> +		}
+> +	}
+> +
+> +	return ret;
+>   }
+>   
+>   static int oxp_gen_1_property_out(struct oxp_hid_cfg *cfg, enum oxp_function_index fid, u8 *data,
+> @@ -748,7 +791,7 @@ static void oxp_btn_queue_fn(struct work_struct *work)
+>   					      struct oxp_hid_cfg, oxp_btn_queue);
+>   	int ret;
+>   
+> -	if (READ_ONCE(cfg->removing))
+> +	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
+>   		return;
+>   
+>   	ret = oxp_set_buttons(cfg);
+> @@ -837,7 +880,7 @@ static ssize_t map_button_store(struct device *dev,
+>   	default:
+>   		return -EINVAL;
+>   	}
+> -	if (!READ_ONCE(cfg->removing))
+> +	if (!READ_ONCE(cfg->suspended) && !READ_ONCE(cfg->removing))
+>   		mod_delayed_work(system_dfl_wq, &cfg->oxp_btn_queue,
+>   				 msecs_to_jiffies(50));
+>   	return count;
+> @@ -1413,7 +1456,7 @@ static void oxp_rgb_queue_fn(struct work_struct *work)
+>   	u8 val = 4 * brightness / max_brightness;
+>   	int ret;
+>   
+> -	if (READ_ONCE(cfg->removing))
+> +	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
+>   		return;
+>   
+>   	guard(mutex)(&cfg->rgb_mutex);
+> @@ -1442,7 +1485,7 @@ static void oxp_rgb_brightness_set(struct led_classdev *led_cdev,
+>   	struct led_classdev_mc *mc_cdev = lcdev_to_mccdev(led_cdev);
+>   	struct oxp_hid_cfg *cfg = container_of(mc_cdev, struct oxp_hid_cfg, cdev);
+>   
+> -	if (READ_ONCE(cfg->removing))
+> +	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
+>   		return;
+>   
+>   	led_cdev->brightness = brightness;
+> @@ -1554,6 +1597,9 @@ static void oxp_drain_output(struct oxp_hid_cfg *cfg)
+>   static void oxp_quiesce_work(struct oxp_hid_cfg *cfg)
+>   {
+>   	WRITE_ONCE(cfg->removing, true);
+> +	scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
+> +		cfg->rgb_reply_pending = false;
+> +	}
+>   	if (cfg->rgb_work_initialized)
+>   		disable_delayed_work_sync(&cfg->oxp_rgb_queue);
+>   	if (cfg->gen2_work_initialized) {
+> @@ -1584,6 +1630,7 @@ static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
+>   	cfg->hdev = hdev;
+>   	mutex_init(&cfg->cfg_mutex);
+>   	mutex_init(&cfg->rgb_mutex);
+> +	spin_lock_init(&cfg->rgb_reply_lock);
+>   
+>   	/* Clear drvdata after registered callback objects have been released. */
+>   	hid_set_drvdata(hdev, cfg);
+> @@ -1714,6 +1761,54 @@ static void oxp_hid_remove(struct hid_device *hdev)
+>   	hid_hw_stop(hdev);
+>   }
+>   
+> +static int __maybe_unused oxp_hid_suspend(struct hid_device *hdev,
+> +					  pm_message_t message)
+> +{
+> +	struct oxp_hid_cfg *cfg = hid_get_drvdata(hdev);
+> +
+> +	if (!cfg || PMSG_IS_AUTO(message))
+> +		return 0;
+> +
+> +	WRITE_ONCE(cfg->suspended, true);
+> +	scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
+> +		cfg->rgb_reply_pending = false;
+> +	}
+> +	if (cfg->rgb_work_initialized)
+> +		disable_delayed_work_sync(&cfg->oxp_rgb_queue);
+> +	if (cfg->gen2_work_initialized) {
+> +		disable_delayed_work_sync(&cfg->oxp_btn_queue);
+> +		disable_delayed_work_sync(&cfg->oxp_mcu_init);
+> +	}
+> +	oxp_drain_output(cfg);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused oxp_hid_resume(struct hid_device *hdev)
+> +{
+> +	struct oxp_hid_cfg *cfg = hid_get_drvdata(hdev);
+> +
+> +	if (!cfg || !READ_ONCE(cfg->suspended) ||
+> +	    READ_ONCE(cfg->removing))
+> +		return 0;
+> +
+> +	if (cfg->rgb_work_initialized)
+> +		enable_delayed_work(&cfg->oxp_rgb_queue);
+> +	if (cfg->gen2_work_initialized) {
+> +		enable_delayed_work(&cfg->oxp_btn_queue);
+> +		enable_delayed_work(&cfg->oxp_mcu_init);
+> +	}
+> +	WRITE_ONCE(cfg->suspended, false);
+> +	if (!cfg->gen2_work_initialized)
+> +		return 0;
+> +
+> +	/* Allow the controller MCU to finish rebooting before restoring state. */
+> +	queue_delayed_work(system_dfl_wq, &cfg->oxp_mcu_init,
+> +			   msecs_to_jiffies(6500));
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct hid_device_id oxp_devices[] = {
+>   	{ HID_USB_DEVICE(USB_VENDOR_ID_CRSC, USB_DEVICE_ID_ONEXPLAYER_GEN1) },
+>   	{ HID_USB_DEVICE(USB_VENDOR_ID_WCH, USB_DEVICE_ID_ONEXPLAYER_GEN2) },
+> @@ -1727,6 +1822,9 @@ static struct hid_driver hid_oxp = {
+>   	.probe = oxp_hid_probe,
+>   	.remove = oxp_hid_remove,
+>   	.raw_event = oxp_hid_raw_event,
+> +	.suspend = pm_ptr(oxp_hid_suspend),
+> +	.resume = pm_ptr(oxp_hid_resume),
+> +	.reset_resume = pm_ptr(oxp_hid_resume),
+>   };
+>   module_hid_driver(hid_oxp);
+>   
+
+Tested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
