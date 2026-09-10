@@ -1,217 +1,188 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24FE3B9617;
-	Thu, 10 Sep 2026 07:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F2A35E936;
+	Thu, 10 Sep 2026 07:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026104; cv=none; b=UTAl/euaaFaWCne3bYJwFxoxyXJV3zIKLVWX6+j74ewg8D9848FHqk/4JP3O1+Igl6fNJjISxftEmftxP5vCJmuk2oMaoyIopZCsvDiPKcF/tV8iRuiTddHcSHlwgbZpwvGY7l1MXyvERXeioPoiWU3tQTA7RmU8NFh44+1rWGU=
+	t=1789026116; cv=none; b=iMl1Yl+/6+i4IPHt0AaWL3vyz9SpAAYBvKTSDW/qR4PAk7uU3yTbeQpU7hPY9xG//EQHNd5pYLWMBUzGyyuG7Zno4pVrX5pHetqB0Air+UbNxAN8NAKhGW3Aiyc2TlcT8N2DCn8MB7GgoLaQh/+ucJ7c1Pl3k9vPVLKxltEB8Dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026104; c=relaxed/simple;
-	bh=s4xzi3/ChXeiGi5vZRgpZuxVbGsK8ogXz7GRWM8ND0s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qbA+y271ypMTXp16tt/lisKICwyQBxJ+FmlLRw1kOlgH/ZWcMUCAHAEOLGZ/SjAv7Hx98DrMJ7n4zFmRUAXvHnmQycMpfmpxpscQVGJMB/VZz9CjfwCps9Lq6K33q5vq1Fsot3flFIriiqcsjO4EJGye7KJUgPl8HrZ6N/0KwGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WLgD+O3/; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789026116; c=relaxed/simple;
+	bh=OHAa5NgvwEOgd3hAnt4uQiE4LzxVevXxKShRn0if+7k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uz7Pnw8jYou7z08+qC/FCqxGCTV+8HAEedFx2SbP44euvnRAXggHq+pNC6TLeBy6MZ5qyVBSsH4FoBeO64PHAeEBW9JPM7aoK+g6xYZSHQnAgyIDabALyLQ8Bcsdg3ED1YeQpjVoPUeHf4zwAjC0sYWAp/T7i+MAMRC/mzqDX30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hum0N2mv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WLgD+O3/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9D9641A1A89;
-	Thu, 10 Sep 2026 07:41:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6FE21602B8;
-	Thu, 10 Sep 2026 07:41:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06D4C11C78279;
-	Thu, 10 Sep 2026 09:41:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789026092; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=kMPeRTm+aw2EyETunRUKyMK/qtl1oCjDcIMJwGBX7QA=;
-	b=WLgD+O3/ZyiuGyaqtS3Or/k/RfHEj3r+T6xSVxf3VeOm6WGIu74WIOVf9lnf85EBbLi3+J
-	njr/CbKF2Lg2ZQK+jI3XhbP5MpNMcwF0TGAtkub7brsKL8Br67LJtT6vfGG2P2bawMmtnT
-	bJ4hBf7gjPkJWTsEBUea+Dr6x5298mZO91poC/u0Il6Lb1eYUm7vzu7EqRriYDvoZ4k9rV
-	xIIilJLaW5D99yOP7ES4TN15KFi7WiynKL5JGXZFn/7tjEm35EF+LHxiXV55/dCkuKzBn0
-	XOhrXjGKPiTmhTKLg9NRnoVAL7tynDsx6dP6sLR2PjgTkcz5kI+ChkFjkpsPZQ==
-Date: Thu, 10 Sep 2026 09:41:26 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260910094126.4bf4cae6@bootlin.com>
-In-Reply-To: <aqI3KnnQnUytqkEc@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqI3KnnQnUytqkEc@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hum0N2mv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC751F00893;
+	Thu, 10 Sep 2026 07:41:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789026114;
+	bh=MQD6QrrlHO8ADNcKu+y9ND7s92JpqOTzGT8eHlZRW3c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hum0N2mvW/CuBfRXSaUF604iUi2nR0bxw6UgLkHyRZDJuNLy1Ha9yCWp1/5OdGC0t
+	 mHffGzrg+Jn8zhnmUzT8u1hPEPvI+GhxC/gW76xY6DMQN/2vp2JvZpFLP40DRKW9vN
+	 o1uTlOXTl3NlV4t+K4WwIwp/rwA044erTzIMl5LdME8z41WwXqm3XyZF/HdX8KjFVl
+	 8pPMSbrivX76vlMVZBnVs9Odk7O2B/rH+q1saii4dYE2iCECTnOH5sQOFTP/R+tfhM
+	 PDggJLUBhRMQdtdq2kBlokqWj6Ooog/GtNWD0U81w6DYG0gy1yFXUCfOVWFzEkxup4
+	 WsUe7aEXtvMpA==
+Message-ID: <2336140f-c993-467a-b2eb-e99dc9427a59@kernel.org>
+Date: Thu, 10 Sep 2026 09:41:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, willy@infradead.org, jannh@google.com,
+ paulmck@kernel.org, pfalcato@suse.de, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+References: <20260907063918.3432401-1-surenb@google.com>
+ <20260907063918.3432401-4-surenb@google.com>
+ <4825a2fe-f064-45d7-a7c9-e98de7efe86c@kernel.org>
+ <CAJuCfpFL_g7tELjT8p8ExM3tX_v2gNDM9rRKwwefPV_KW=fHfA@mail.gmail.com>
+ <8e643f51-a47f-428e-9443-678326288fa6@kernel.org>
+ <CAJuCfpEYdj=u0wczKRrsB8uDkbSzPy+hrsCo9TW9-3J3r3p0xQ@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAJuCfpEYdj=u0wczKRrsB8uDkbSzPy+hrsCo9TW9-3J3r3p0xQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
-
-On Thu, 10 Sep 2026 14:51:08 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Wed, Aug 26, 2026 at 10:31:37AM +0200, Herve Codina wrote:
-> > The goal of structured tag values is to ease the introduction of new
-> > tags in future releases with the capability for an already existing
-> > release to ignore those structured tags. In order to do that data length
-> > related to the unknown tag needs to be identified.
-> > 
-> > Also add a flag to tell an old release if this tag can be simply skipped
-> > or must lead to an error.  
+On 9/9/26 23:51, Suren Baghdasaryan wrote:
+> On Wed, Sep 9, 2026 at 12:16 PM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
+>>
+>> On 9/9/26 20:28, Suren Baghdasaryan wrote:
+>>> On Wed, Sep 9, 2026 at 10:16 AM David Hildenbrand (Arm)
+>>> <david@kernel.org> wrote:
+>>>
+>>> Hmm. So, are you saying that !is_cow always implies shared_or_ro? Or
+>>> maybe you are stating that vma_is_cow_mapping() was the actual intent
+>>> here?
+>>
+>> So the comment says:
+>>
+>> "For private writable mappings, we might have COW pages that  .."
+>>
+>> Which translates to:
+>>
+>>         private writable == vma_is_cow_mapping()
 > 
-> I suggested/insisted on this in the past, but I've since realised this
-> isn't actually useful.  The "structured tag" format is only useful
-> because it allows you to skip over unknown tags, which means there's
-> no point using it for ags that can't be skipped.  If we need new tags
-> that can't be safely skipped, they can be added as old-style tags
-> instead.
->
-> In which case "old style" versus "new style" is no longer a good
-> characterization: they would exist side by side, so the distinction is
-> more "skippable" versus "non skippable" tags.  Which suggests that
-> "skippable tags" or "metadata tags" might be a better term than
-> "structured tags" - that would focus more on the why than the how.
-
-Do you mean that the SKIP_SAFE bit should be removed ?
-
-I like the defined structure with the DATA_LEN_ENCODING part. Even for tags
-which are not "skippable".
-
-This ensures a kind of standardized format for all future tags instead of a 
-specific definition (related to the length of the data) for each new tag.
-
-For this kind of information related to the length of data, I prefer a global
-rule instead of tag-specific rules.
-
+> Ok, just want to make sure I'm not missing something subtle.
 > 
+>>
+>>>
+>>> shared_or_ro = VMA_SHARED_BIT || !VMA_WRITE_BIT
+>>>
+>>> is_cow = !VMA_SHARED_BIT && VMA_MAYWRITE_BIT
+>>> !is_cow = VMA_SHARED_BIT || !VMA_MAYWRITE_BIT
+>>>
+>>> so, !is_cow would impy shared_or_ro only if !VMA_MAYWRITE_BIT always
+>>> implies !VMA_WRITE_BIT. But I think it's possible to have a VMA that
+>>> has VMA_WRITE_BIT but not VMA_MAYWRITE_BIT, right?
+>>
+>> VMA_WRITE should imply VMA_MAYWRITE
 > 
-> > Structured tag value is defined on 32bit and is defined as follow:
-> > 
-> >   Bits  | 31 | 30        | 29             28 | 27    0|
-> >   ------+----+-----------+-------------------+--------+
-> >   Fields| 1  | SKIP_SAFE | DATA_LEN_ENCODING | TAG_ID |
-> >   ------+----+-----------+-------------------+--------+
-> > 
-> > Bit 31 is always set to 1 to identify a structured tag value.
-> > 
-> > Bit 30 (SKIP_SAFE) is set to 1 if the tag can be safely ignored when its
-> > TAG_ID value is not a known value (unknown tag). If the SKIP_SAFE bit is
-> > set to 0 this tag must not be ignored and an error should be reported
-> > when its TAG_ID value is not a known value (unknown tag).
-> > 
-> > Bits 29..28 (DATA_LEN_ENCODING) indicates the length of the data related
-> > to the tag. Following values are possible:
-> >   - 0b00: No data.
-> >           The tag is followed by the next tag value.  
+> Ah, good to know.
 > 
-> I think "next tag." would be clearer than "next tag value." - "next
-> tag value" could be confused as meaning the data that comes after the
-> tag.
-
-Ok, will be updated.
-
+>>
+>> (in sanitize_fault_flags() we even disallow write faults entirely if VM_MAYWRITE
+>> is missing)
 > 
-> >   - 0b01: 1 cell data
-> >           The tag is followed by a 1 cell (u32) data. The next tag is
-> >           available after this cell.  
+> I see.
 > 
-> Remove "available", it doesn't add any information.
-
-Ok, will be updated.
-
+>>
+>> For example, a
+>>> driver can create such a VMA to allow writing to the VMA but to lock
+>>> its content once mprotect(PROT_READ) gets called.
+>>
+>> I don't think that would be valid for a driver to do. But it wouldn't matter
+>> here because
+>>
+>>         shmem_mapping(vma->vm_file->f_mapping)
 > 
-> >   - 0b10: 2 cells data
-> >           The tag is followed by a 2 cells (2 * u32) data. The next tag
-> >           is available after those two cells.  
+> I was obviously overthinking this :)
 > 
-> Ditto.
-
-Will be update as well.
-
+>>
+>>
+>> I think we could simplify the comment as well to:
+>>
+>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+>> index e671b4fd8dedd..4b7e7089cafa7 100644
+>> --- a/fs/proc/task_mmu.c
+>> +++ b/fs/proc/task_mmu.c
+>> @@ -1303,12 +1303,10 @@ static void smap_gather_stats(struct proc_maps_private
+>> *priv,if (is_partial || (shmem_swapped && is_cow))
+>>
+>>         if (vma->vm_file && shmem_mapping(vma->vm_file->f_mapping)) {
+>>                 /*
+>> -                * For shared or readonly shmem mappings we know that all
+>> -                * swapped out pages belong to the shmem object, and we can
+>> -                * obtain the swap value much more efficiently. For private
+>> -                * writable mappings, we might have COW pages that are
+>> -                * not affected by the parent swapped out pages of the shmem
+>> -                * object, so we have to distinguish them during the page walk.
+>> +                * In CoW mappings, we might have anon folios that are
+>> +                * independent of the shmem object. So fallback to the less
+>> +                * efficient mechanism in such mappings.
+>> +                *
 > 
-> >   - 0b11: Data length encoding
-> >           The tag is followed by a cell (u32) indicating the size of the
-> >           data. This size is given in bytes. Data are available right
-> >           after this cell.
-> > 
-> >           The next tag is available after the data. Padding is present
-> >           after the data in order to have the next tag aligned on 32bits.
-> >           This padding is not included in the size of the data.  
-> 
-> I'm guessing the 1 & 2 cell cases are pretty common so it saves a
-> moderate amount of dtb size to have this encoding.  However, it does
-> come at the cost of greater code complexity.  Is it worth it?  I'm
-> willing to believe it is, but I think the case needs to be made.
+> Sounds good. Will update.
 
-In term of code complexity, FDT_PROPDATA_PHANDLE introduced in the addons
-series, patch 7/74 [0], is a 1-cell (or 1-fdt32) "structured" tag.
+Likely worth putting that into a prior cleanup patch, so there is less noise in
+this patch.
 
-It can be compared with FDT_PROPDATA_PHANDLE_REF, introduced in patch 11/74 [1].
-FDT_PROPDATA_PHANDLE_REF is a "Data length encoding" tag.
+-- 
+Cheers,
 
-Modifications in libfdt/fdt.c are pretty similar for both tags.
-
-
-[0] https://lore.kernel.org/all/20260826094950.1088288-8-herve.codina@bootlin.com/
-[1] https://lore.kernel.org/all/20260826094950.1088288-12-herve.codina@bootlin.com/
-
-> 
-> I'd also avoid the term "cell" here.  To me a "cell" is specifically a
-> term applying to a 32-bit value _within a device tree property_.
-> These are 32-bits, but not part of a property.  Plus if Segher
-> reappears, he'll complain that in the old days of OF, a cell wasn't
-> necessarily 32-bits :).
-
-ok, I will avoid the term "cell" in the next iteration.
-
-> 
-> > Bits 27..0 (TAG_ID) is the tag identifier defining a specific tag.
-> > 
-> > Introduce the structured tag values definition and some specific tags
-> > reserved for tests based on this structure definition.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> >  libfdt/fdt.h | 23 +++++++++++++++++++++++
-> >  1 file changed, 23 insertions(+)
-> > 
-> > diff --git a/libfdt/fdt.h b/libfdt/fdt.h
-> > index a07abfcc..f41a355f 100644
-> > --- a/libfdt/fdt.h
-> > +++ b/libfdt/fdt.h
-> > @@ -49,6 +49,7 @@ struct fdt_property {
-> >  
-> >  #define FDT_MAGIC	0xd00dfeed	/* 4: version, 4: total size */
-> >  #define FDT_TAGSIZE	sizeof(fdt32_t)
-> > +#define FDT_CELLSIZE	sizeof(fdt32_t)  
-> 
-> I'd avoid creating this constant for similar reasons to avoid the term
-> "cell" above.
-
-Ok, I will avoid the constant and use sizeof(fdt32_t) directly when needed
-in the code.
-
-Also, I will avoid the CELL in all other part of this file.
-
-Best regards,
-Hervé
+David
