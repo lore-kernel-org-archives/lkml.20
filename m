@@ -1,180 +1,158 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0221653ECE9;
-	Thu, 10 Sep 2026 16:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059011; cv=none; b=RtOAISAYBb9/gUvyf0VpSkPh+MzVhJpAlWA3i6qevdaeptN5zoIqHRkC82NpH2mulIwZwxODCsP1rGRLDPAJlyaPOCel7N9GRo/2+Zh625z+fDfzyeYGAdqD23xGmtrJMpC4NMKqdaAkusPa3Lx2DzJdVSQ4W9AB8d6vbQ1LBjw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A0B521234
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789059011; cv=pass; b=AemIVyTs5L3soXOTNC8LyKw9TV3Uwcciu8HY2PGdWHnCvDXmWiqi66TNO1TnRc4YtaCZBIpnHzhsDmwH0bqz/pxl4K/MbpsXNYVo3Qc0Oz10tMT0neUQeT2UN3bRdkHwd3/fL7G26sfeiftfprAT4aAW4XoYVUmnop4hB8lSPr4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789059011; c=relaxed/simple;
-	bh=ZobS2slsYgymP728EIsS1ZZzI/jDqEeK66f+TXlhRLQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BmoxuR/l2deJbXkIN+z/32Zw/BWWaaENGHfspAS9VG0/T06XvJU8l3D+yQIYJFfBUQcW1zEs8UnW5goU95N3y7cqwL/agb88f20jqdGVGrf9HEDZNUI4HpL+yG98vi98AbWAckUaiiCLBHrGA3vrP95mabo7aH0ujPVf3fIoqys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=XgKzfBTS; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	bh=+HKUJE6P85XJHh4t+ruBGSw/fPns5n/Fki/8ibDdu/Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xo6qp946oHPtCbUcJPrgkzNZLPInlSTLDW4kCQP0c6lwW2WN6jm50WP6lGNfhihhxezf3Ta/0W2eRA2MQgZuseCWeguYVh3BoCIK822SB/+lEmeyNoQCs6sugBQPoG65ejUj9JJFYIeuHmYIBAQQdFncz3P3CYeUgIl54IWutpA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=nGZq0c7r; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="XgKzfBTS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=yEhMQLJIbP2So5XydAfHqKEdD7p0FcLEoTOB/mDNo2A=; b=XgKzfBTStCdsvTd4feuEEWqHBK
-	c/YwChzbakcux2jWKS3mVcP+hlWrxBcSNl/EVcm00WoyINZpyl/SeI4nEuyx5DsmOucg1tMizMSGb
-	LBeMHFiIOYEr2CiZzoZ7PzWHVf5oPqHZl0aOFd57yS85eZnXBtuatz2Nfp8hWrat3q6gWSDANou5I
-	I7jg8gh6x+fMNGt/JCcDsE0v2O9PqD6qzkcQbGVpGMw6vs7e4BOC/Rzln9WoQnu6rRaCfgsTFp0rB
-	L4l6ALJSYgBKN8NlGgKV2scyyU7lyMVA9T7XGnOFCeGJFMGh1OR/J2GGuk17HZnzW6vfSddk0a49r
-	DdETPr0w==;
-Received: from [177.172.123.122] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x4hyO-000GV1-5R; Thu, 10 Sep 2026 18:50:04 +0200
-From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Date: Thu, 10 Sep 2026 13:49:28 -0300
-Subject: [PATCH v6 6/6] selftests: prctl: Add test for long thread names
+	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="nGZq0c7r"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-857ff9fef54so72900287b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:50:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789059007; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hPrModxOweDm1IQ1gVCTkVhNTJpAwHCLcuknOSe+844w0i/Dkdf9Ashj9heG1l++EU
+         ghKTEt5j4eKzOzmgyaA4whOneUPxL+1g3HnQCwLcN2lbKE4RoL0tYNhThs0m+eKVF/y/
+         tznhIbhxla2b13gYdQRsusCnqWDgLPEzNgKLA5s9g7/xOELUuwiK0+lzkmyCqJ95gW7B
+         gTHuSh94De6h3ynqs0UGZbvXWVzvCezpwpSUuxZmVvAvI4OYZ/a7QChbjnkmlxE0m2NQ
+         4/zOxKCamcq/iMdegRtzddy9HNVevVXQPkb2wJeWu/Bbt2Cjad9PTAJ5vSuh63BJA/+J
+         PQbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xno3TEY+GFXENHJM/t8g6PbysHqcDlXxaL+1MiwWtY8=;
+        fh=YXLQxd5qk1z3LHwdQRJ8BW1A4PWUCHSgXCiJy4KD9BI=;
+        b=JfDivINzOtQrviaXQstRWUwBoRLRHTyWnp8YKUEogL55UrstR/QpwK3bi2X4HZeWc3
+         0UhzAhGkThF7HjMHTOzESTcNlsu0s+NaXaRTogXbTl2WhsrObfOmcYEmPxn0+wkcr6Rx
+         SM15EqnTPkS/Euno1KlqlufxhjLO4rTkmU5kR6u2OiW7MrNJ2cjTo+9elxI1W9LeZT/L
+         1I8OQBJQcKmrn7kqR/UnD410iM3Nfx+fKXgCdlltJvLk7kpezgZN4vgHqV3IUz8L4ieW
+         D/XumcA3rLCSDtjQO6T7Qm+mROPS7j1PxHS26WAOsm5gg6So6Eq51R32rC5SPcpvS5px
+         DXwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789059007; x=1789663807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xno3TEY+GFXENHJM/t8g6PbysHqcDlXxaL+1MiwWtY8=;
+        b=nGZq0c7rsOI31QlSRDtELBMbHS2uGfcU+KY5uItyGhI0HV8Q6gsdD4uYxn8lRTZXcz
+         gdFEZL3cqpOeY6EAEXiNGCUqxfZ11ya7G1KeYUbIN9qh7RVS+/Vv4tPhnry29lmkLG5s
+         KZDN6GHv9DABpsFtfrm6sroCyOhLcjx3eVMjoMhb5iWeS5P50Hj9b4IlVAIBFFMOem94
+         EAzHxA0EpvpJ+DlI5hKTX1QaKEEdNRE1gJkNnoo0BtfyQIpQrdaDewUm39jCQLRmgryu
+         Y3pBmWfwgqd0878j8dN7SlfBvqIlZ5cM3HxHQhIVAmXDOnwUusRPSdlknPqU5rmXKYJU
+         YKiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789059007; x=1789663807;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xno3TEY+GFXENHJM/t8g6PbysHqcDlXxaL+1MiwWtY8=;
+        b=SOifrHtARbsEfm3zTyCqZJp/01nnNc3dy9JElOxrsPJSFn0J12KPm58bzPA8b9ruT5
+         I2yOKF8BnE2/WFl/4O3UsH25Ub9TEIuXE/hJA9sLLxWIlxUQ/cHvJ39b4ZOhrDfKa9WU
+         h1uA+irgq0SE5ObEmLaunXrDtp+Bmg0+eSD0jGy/tVdF8wmtYrs/U+k8YRJqKHFETYVR
+         KuWFaykGb6flrPP+VzMesIRuD9pKhxGYxGKI7b8jU5T8IVm0lPmrsvnjl35QFlNKcldD
+         G4MSIeF+nJeCClGtXbVGLYh7kMP0R7CiHPbmEh4qPCW/cD1JJEnsebfcb3MVrolT1bSx
+         +DHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbxM1H+U9VxcplWVJhyGsQISWsHjTOcq4VetWoPFFozSAjkT+ok2sabWVROax5WLxXsKjxjb2rIt07XeY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVAFl3i8R7eWDD1cjnD9e+6xfJc5O1F8RFQInPMXuZO2/L2kWR
+	tghQPaDYY37jzXtgHeW39enrgvvG+Sh04J0Y2jT6vi9uBNsiM8l2jnI41rMN7M21x5sUrGMUIZJ
+	rs8xwAyKdzo5ShIxdWREbIRBHh+Fb5VHlypfWd4lL
+X-Gm-Gg: AYBFou1/GxHm7DNViob48ry5f0FL1iNbKbXINaqqCZ0V/E+9DBHmOWrf0sFNzO6xb1G
+	KfQeTamR7LVBoGe6NXhmqiIcgib5NY+uH4dfuXMGSVwsgMViQKd4yNZsXQN+teqzdo6jNGBdVog
+	gmSOdmvgGHnrg/8bZY7qT3wv7pBwf+wdd2818RDEBDO5yBNEl/u/tEIi1CabvUq0U/FNNA7uy5A
+	dRqysMnhTTPi49r1wnJLRdXZMHpYLmUe4m1lFzOlITiPoOgzWMciutvwsKxS6HDxJb2y0khUNFY
+	roZWq5WqinzVvJEyHLMIyYceGaRayWeGCwixDjYJMs2JqhfzGt6wxWSJ2eou58m0ccoQfsf+oWz
+	QITHqS0vIwA==
+X-Received: by 2002:a05:690c:e3c1:b0:865:7a80:36b7 with SMTP id
+ 00721157ae682-884b2104374mr581967b3.6.1789059007209; Thu, 10 Sep 2026
+ 09:50:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260910-tonyk-long_name-v6-6-d70afbf194c5@igalia.com>
-References: <20260910-tonyk-long_name-v6-0-d70afbf194c5@igalia.com>
-In-Reply-To: <20260910-tonyk-long_name-v6-0-d70afbf194c5@igalia.com>
-To: Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, willy@infradead.org, 
- mathieu.desnoyers@efficios.com, David Laight <david.laight.linux@gmail.com>, 
- Linus Torvalds <torvalds@linux-foundation.org>, akpm@linux-foundation.org, 
- Yafang Shao <laoar.shao@gmail.com>, andrii.nakryiko@gmail.com, 
- arnaldo.melo@gmail.com, Petr Mladek <pmladek@suse.com>
-Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com, linux-mm@kvack.org, 
- linux-api@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-X-Mailer: b4 0.15.2
+References: <50fc5e8a29e3a5e9a64c64c5f775d758dce39b71.1787603965.git.sean@starlabs.systems>
+ <CAPx+jO-TodBfjkJ6SV39LHWyTKDRj=P-Fq-VnfT=kin4VBKkvw@mail.gmail.com>
+In-Reply-To: <CAPx+jO-TodBfjkJ6SV39LHWyTKDRj=P-Fq-VnfT=kin4VBKkvw@mail.gmail.com>
+From: Sean Rhodes <sean@starlabs.systems>
+Date: Thu, 10 Sep 2026 17:49:54 +0100
+X-Gm-Features: AcwNN1WAn_D4uG0zFEIPWU8SqL3y7X6o9ipW1UeAOApWdvc1we7lE80s0UDXMUk
+Message-ID: <CABtds-2y94frC+4T9nsDzO8oSBE7CjrW20=MrgiTGUoFqZFwaQ@mail.gmail.com>
+Subject: Re: [PATCH] mmc: rtsx_usb_sdmmc: start card power-up at 3.3V
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add tests for the new interface to set and get long thread names. The
-kernel should accept the LONG_NAME and returning it accordingly. For the
-old PR_GET_NAME interface, the kernel should truncate the name up to 16
-chars. /proc/<task>/comm should return the same string ad PR_GET_NAME.
+On Thu, 10 Sept 2026 at 17:05, Ulf Hansson <ulf.hansson@oss.qualcomm.com> w=
+rote:
+>
+> On Mon, Aug 24, 2026 at 10:39=E2=80=AFPM Sean Rhodes <sean@starlabs.syste=
+ms> wrote:
+> >
+> > A UHS session can leave the SD pads and SD18 regulator configured for
+> > 1.8V. The power-off path disables card power and suspends the regulator=
+,
+> > but does not restore their voltage selection.
+> >
+> > On the next power-up, this stale state remains until after the MMC core
+> > requests its initial signal voltage. Restore the SD pads and SD18 regul=
+ator
+> > to 3.3V before enabling card power, as the old rts5139 driver did.
+> >
+> > Tested: StarLite ADL with an RTS5129 tray reader; repeated 1.8V UHS
+> >         sessions, power cycles, and tray removal/reinsertion.
+> > Tested: StarFighter MTL with an RTS5129 trayless reader; repeated 1.8V
+> >         UHS sessions, power cycles, and card removal/reinsertion.
+> > Tested: Both systems re-enumerated the card after every cycle.
+> >
+> > Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+>
+> Applied for next (or should this be a fix and tagged for stable?), thanks=
+!
 
-While here, fix the check_is_name_correct() logic. It currently returns 1
-for success, or a negative number for error. EXPECT_TRUE() evaluates any
-non-zero value as true, so the error will be evaluated as a success. Make
-the logic more robust and straightforward by returning the results of
-strcmp() and expecting zero as success.
+Definitely a fix; did I miss something there?
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-Changes in v5:
- - fix check_is_name_correct() return logic
----
- tools/testing/selftests/prctl/set-process-name.c | 53 +++++++++++++++++++++---
- 1 file changed, 48 insertions(+), 5 deletions(-)
+Thanks
 
-diff --git a/tools/testing/selftests/prctl/set-process-name.c b/tools/testing/selftests/prctl/set-process-name.c
-index 3f7b146d36df..27a0dbbce4db 100644
---- a/tools/testing/selftests/prctl/set-process-name.c
-+++ b/tools/testing/selftests/prctl/set-process-name.c
-@@ -9,9 +9,17 @@
- 
- #include "kselftest_harness.h"
- 
-+#ifndef PR_SET_EXT_NAME
-+# define PR_SET_EXT_NAME 17
-+# define PR_GET_EXT_NAME 18
-+#endif
-+
- #define CHANGE_NAME "changename"
-+#define LONG_NAME	"change_to_very_long_extended_name"
-+#define LONG_NAME_CAP	"change_to_very_"
- #define EMPTY_NAME ""
- #define TASK_COMM_LEN 16
-+#define TASK_COMM_EXT_LEN 64
- #define MAX_PATH_LEN 50
- 
- int set_name(char *name)
-@@ -25,6 +33,20 @@ int set_name(char *name)
- 	return res;
- }
- 
-+int set_ext_name(char *name)
-+{
-+	int res;
-+
-+	res = prctl(PR_SET_EXT_NAME, name, NULL, NULL, NULL);
-+
-+	if (res < 0)
-+		return -errno;
-+	return res;
-+}
-+
-+/*
-+ * Return 0 if strings match
-+ */
- int check_is_name_correct(char *check_name)
- {
- 	char name[TASK_COMM_LEN];
-@@ -35,7 +57,23 @@ int check_is_name_correct(char *check_name)
- 	if (res < 0)
- 		return -errno;
- 
--	return !strcmp(name, check_name);
-+	return strcmp(name, check_name);
-+}
-+
-+/*
-+ * Return 0 if strings match
-+ */
-+int check_is_ext_name_correct(char *check_name)
-+{
-+	char name[TASK_COMM_EXT_LEN];
-+	int res;
-+
-+	res = prctl(PR_GET_EXT_NAME, name, NULL, NULL, NULL);
-+
-+	if (res < 0)
-+		return -errno;
-+
-+	return strcmp(name, check_name);
- }
- 
- int check_null_pointer(char *check_name)
-@@ -56,8 +94,8 @@ int check_name(void)
- 	pid = getpid();
- 	FILE *fptr = NULL;
- 	char path[MAX_PATH_LEN] = {};
--	char name[TASK_COMM_LEN] = {};
--	char output[TASK_COMM_LEN] = {};
-+	char name[TASK_COMM_EXT_LEN] = {};
-+	char output[TASK_COMM_EXT_LEN] = {};
- 	int j;
- 
- 	j = snprintf(path, MAX_PATH_LEN, "/proc/self/task/%d/comm", pid);
-@@ -80,10 +118,15 @@ int check_name(void)
- TEST(rename_process) {
- 
- 	EXPECT_GE(set_name(CHANGE_NAME), 0);
--	EXPECT_TRUE(check_is_name_correct(CHANGE_NAME));
-+	EXPECT_FALSE(check_is_name_correct(CHANGE_NAME));
-+
-+	EXPECT_GE(set_ext_name(LONG_NAME), 0);
-+	EXPECT_FALSE(check_is_ext_name_correct(LONG_NAME));
-+	EXPECT_FALSE(check_is_name_correct(LONG_NAME_CAP));
-+	EXPECT_TRUE(check_name());
- 
- 	EXPECT_GE(set_name(EMPTY_NAME), 0);
--	EXPECT_TRUE(check_is_name_correct(EMPTY_NAME));
-+	EXPECT_FALSE(check_is_name_correct(EMPTY_NAME));
- 
- 	EXPECT_GE(set_name(CHANGE_NAME), 0);
- 	EXPECT_LT(check_null_pointer(CHANGE_NAME), 0);
-
--- 
-2.55.0
-
+>
+> Kind regards
+> Uffe
+>
+>
+> > ---
+> >  drivers/mmc/host/rtsx_usb_sdmmc.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/drivers/mmc/host/rtsx_usb_sdmmc.c b/drivers/mmc/host/rtsx_=
+usb_sdmmc.c
+> > index bf37fab233cf..d9b33aa79165 100644
+> > --- a/drivers/mmc/host/rtsx_usb_sdmmc.c
+> > +++ b/drivers/mmc/host/rtsx_usb_sdmmc.c
+> > @@ -980,6 +980,11 @@ static int sd_power_on(struct rtsx_usb_sdmmc *host=
+)
+> >         }
+> >         dev_dbg(sdmmc_dev(host), "%s\n", __func__);
+> >         rtsx_usb_init_cmd(ucr);
+> > +       /* Start SD init at 3.3V, like the old rts5139 driver. */
+> > +       rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, SD_PAD_CTL,
+> > +                        SD_IO_USING_1V8, SD_IO_USING_3V3);
+> > +       rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, LDO_POWER_CFG,
+> > +                        TUNE_SD18_MASK, TUNE_SD18_3V3);
+> >         rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, CARD_SELECT, 0x07, SD_MOD_=
+SEL);
+> >         rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, CARD_SHARE_MODE,
+> >                         CARD_SHARE_MASK, CARD_SHARE_SD);
