@@ -1,62 +1,145 @@
-Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch [109.224.244.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D443C10B6
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E673939D0;
+	Thu, 10 Sep 2026 06:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020826; cv=none; b=FgYC46ld04QgJvsnXd7nca4sX9Amc1DOH09ggLLxjmL9KQC+HIJ0z5kXbfu0Du4j/sulHkFVt31QhOdcUC4STyWi45MRZ84yKE+eVi2J4sJV8ixTaNQ39VzS3/tdo9z/O6UZ7H+QYlI4iOB5pyGKpKZhoYNYCBefYCykidFxUqk=
+	t=1789020860; cv=none; b=TGDyVS57uJ0420uhuVZ0OKk2oT7DfTHGbk55IPUeqPLeupfe9/tJo12vQG2ke2NbC4XZXhij5yHWBP6U+o1zcK3jroR7/PQGsIObB2pah22Fv/aP10WgUFR/06OgNxkIlUwfMkmlzyBaNCBYR+DOgiqbuNkSLjf10rZ4A3R31PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020826; c=relaxed/simple;
-	bh=4DRjpTmqx3rm6I0hvi9f55+dQTsiCr0e/ow5gOW+LpY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bw0R040O11MJNtCLUoN91Dy4aHymAzkUjuKGAhLlibO9O5YCum/KTFuu5GGoil1p64BKNqn+Jh33gGB0m1VsJhwICVcM4ffDIbPLoXUOEnntIUQoNlFBtEsx0hG6sNpu0suhPhHWn/hr6fGL1ULlDEJzZWm9mNePHiT3YrTREaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=hEx0l+z5; arc=none smtp.client-ip=109.224.244.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789020860; c=relaxed/simple;
+	bh=YM/4wRuX2Qi1LMqYbx8rCMSmKVcmkIT9KGYnnRgEaO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oGp2oKSVovAghmX/xG0brT6iteC46prqNM6dxZ3n8iqqplgyq1FniuhoJIJs2k/z4/jjyg7OXLvE4S+NZ+hOVxHhghl9YvIjThoZmNAnFXeRPWgjPLrebNX2R3DfhNMUzXMPtbgx16PI2dWKnaGVi57IsOIKtJ2KkKg3R9wcWT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BdK46Fqa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="hEx0l+z5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789020801; x=1789280001;
-	bh=Zd0oHaUPampheUnb5yp3fSoD46Zp5JgfaDgEyt/77nc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=hEx0l+z5MazM82bsK0LQVJgbNwzldOr6D7oexcHVXrvG3G6Ut7o8b62vriwR+5SJ0
-	 YB8SDumn52wbJV6r6tr4h8WBBlzPCzoKG/i5CILdZ4aXHgw7dkDXshmHmm1GdNMeSQ
-	 dTRc5Rso1psDPR+y9pH8PGA/6S5VYD0Yev1L00VsGQ8w9aN++17WcVWPLl5cq8mHKt
-	 vXmarUU0bTdc/JA7KfuIWkdtth0noA2pgv/fi8qeLmscI8K/goOiWFzerv2x42dIQr
-	 9YSv5XeDII5b+LN2siBBb3KCs28YaUZLgjRoUPSKueDotjdzyob+FhrpUFaRPRamje
-	 VOyIy7uRVyOHA==
-Date: Thu, 10 Sep 2026 06:13:15 +0000
-To: Andrey Korshunov <razor1702@gmail.com>
-From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
-Cc: Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, "diederik@cknow-tech.com" <diederik@cknow-tech.com>, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY from the MDIO bus
-Message-ID: <VIvc1QJ9XRgfW_Po-U_fVw3BL7qNmB3Zrl4K3PXWt91BLhwpBHvwhN62PaVPq5YFX2VrZNkbrct8X3HfIBBvy1kbd9mQg9O_mGOrmoRLmcs=@proton.me>
-In-Reply-To: <20260909225002.976-1-razor1702@gmail.com>
-References: <20260909-r28s-upstream-v3-1-ee3e1a34a353@proton.me> <20260909225002.976-1-razor1702@gmail.com>
-Feedback-ID: 91982645:user:proton
-X-Pm-Message-ID: 6b1b673b5273e349cfb62c001e3957c12eff0c54
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BdK46Fqa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959841F000FF;
+	Thu, 10 Sep 2026 06:14:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789020848;
+	bh=jXw4N5ytxD4UI37+p86OA4FEbqP4b9fZyLZr1WfZy7U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BdK46FqaKe+s7ek8N6movVbNnNnE03TCAFe/eKcPHUfdb+ikavG3gW7PojaEcs2pd
+	 hyCg6yETiyvUZ5ys5r0PCOvIz5UuCMGou73TKJS6AILYji6aK4uGZGD27zS3ZC4MK4
+	 rm4h+FLqVcuxULDnlISaqnH1aM8E0tvrKs4KBJPQ=
+Date: Thu, 10 Sep 2026 08:12:14 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: stable@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, pavel@nabladev.com,
+	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+	achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
+Message-ID: <2026091059-smudgy-boogieman-5af3@gregkh>
+References: <20260909134237.773280130@linuxfoundation.org>
+ <e976263f-5382-4e32-a3a6-5639c4d56abf@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e976263f-5382-4e32-a3a6-5639c4d56abf@nvidia.com>
 
-Thanks for the test. It is better evidence than the Zero2 would have
-given on its own. The mechanism lives in the MDIO core instead of the board=
-:
-`__mdiobus_register()` releases the bus reset before `get_phy_device()` rea=
-ds
-the ID, and the two boards wire the same RTL8211F to mdio1 behind the same
-pin, so the R28S result carries to the Zero2. I have annotated the tag
-accordingly:
+On Thu, Sep 10, 2026 at 06:18:02AM +0100, Jon Hunter wrote:
+> Hi Greg,
+> 
+> On 09/09/2026 14:34, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 6.18.51 release.
+> > There are 583 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> > 
+> > Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
+> > Anything received after that time might be too late.
+> > 
+> > The whole patch series can be found in one patch at:
+> > 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.51-rc1.gz
+> > or in the git tree and branch at:
+> > 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> > and the diffstat can be found below.
+> > 
+> > thanks,
+> > 
+> > greg k-h
+> > 
+> > -------------
+> > Pseudo-Shortlog of commits:
+> 
+> ...
+> > Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >      ASoC: tegra210_i2s: sort the register default table
+> > 
+> > Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >      ASoC: tegra210_i2s: sort the Tegra264 register default table
+> > 
+> > Jon Hunter <jonathanh@nvidia.com>
+> >      ASoC: tegra: Fix the MIXER enable default value
+> > 
+> > Jon Hunter <jonathanh@nvidia.com>
+> >      ASoC: tegra: Sort ADMAIF register defaults
+> > 
+> > Jon Hunter <jonathanh@nvidia.com>
+> >      ASoC: tegra: Sort MBDRC register defaults
+> > 
+> > Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >      ASoC: tegra210_mixer: sort the register default table
+> 
+> 
+> These are causing some audio regressions for Tegra ...
+> 
+> Test results for next:
+>     builds:	11 pass, 0 fail
+>     boots:	26 pass, 0 fail, aborted 1
+>     tests:	139 pass, 15 fail, aborted 1
+> 
+> Linux version:	6.18.51-rc1-g4cfd5b1359b0
+> Boards tested:	tegra20-ventana
+>                 tegra30-cardhu-a04
+>                 tegra124-jetson-tk1
+>                 tegra210-p2371-2180
+>                 tegra210-p3450-0000
+>                 tegra186-p2771-0000
+>                 tegra186-p3509-0000+p3636-0001
+>                 tegra194-p2972-0000
+>                 tegra194-p3509-0000+p3668-0000
+>                 tegra234-p3737-0000+p3701-0000
+>                 tegra234-p3768-0000+p3767-0005
+> 
+> Test failures:	tegra186-p2771-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra186-p2771-0000: tegra-audio-mixer-testsuite.sh
+>                 tegra194-p2972-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra194-p2972-0000: tegra-audio-loopback-testsuite.sh (rt565x loopback)
+>                 tegra194-p2972-0000: tegra-audio-mixer-testsuite.sh
+>                 tegra194-p3509-0000+p3668-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra194-p3509-0000+p3668-0000: tegra-audio-mixer-testsuite.sh
+>                 tegra210-p2371-2180: tegra-audio-loopback-testsuite.sh
+>                 tegra210-p2371-2180: tegra-audio-mixer-testsuite.sh
+>                 tegra210-p3450-0000: tegra-audio-loopback-testsuite.sh
+>                 tegra210-p3450-0000: tegra-audio-mixer-testsuite.sh
+> 
+> This tells me that there is some other dependency missing.
+> My intention was to only backport these for v7.2 because
+> audio is broken in that release for Tegra. Sorry if I screwed
+> up an fixes tags here.
+> 
+> I see this is pulling in a bunch of other related patches, but
+> I am not sure if these should be pulled in either. Adding Peter
+> if he has any comments.
 
-  Tested-by: Andrey Korshunov <razor1702@gmail.com> # NanoPi R28S
+All of them had specific Fixes: tags on them, which I followed, are they
+incorrect?
 
-Good to know 2026.07 leaves the pin asserted as well. The commit message
-does not name a U-Boot release, so it stands as written.
+I can drop all of the "sort the register table" patches if you want from
+all branches, just let me know.
+
+thanks,
+
+greg k-h
