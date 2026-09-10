@@ -1,254 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263343955F9;
-	Thu, 10 Sep 2026 03:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FF0390C90;
+	Thu, 10 Sep 2026 03:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012020; cv=none; b=lSlqMXuzC4JRYdauafGpxg5SPDvUK7ZNLM0F5SUqsGRm13epY8gv1SZT6p1uAV/APeGyHDAipxy0CBpRiqgcUfJPaAgqqEwQuh30nIqbcooKjEgPy4+2DV2gdXX54MdU1XdgSXPTmGLJL8mWlyzGhBzx3hORByGPGTD9zrN28ZI=
+	t=1789012062; cv=none; b=HEAiFMNYzfIgs8cwFv5c4sI5dTGEzYKREB3htSCG5+gD54bBXBncOt+pSU215Xk1KXamnmoY6icnokLnadtOX69qlNJreN3VfqNua6DGmoANUgRhYOKlh/xkyxUU5Jxsi632jAZ1RaWlpq7kxED+AvUk0nkKP8aNbeuxIbBE23E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012020; c=relaxed/simple;
-	bh=rnmFLhQ+W54V6NRlDXw9yxyyyS6OM1jdtMbAVv5lvkA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bogoBU8h2CZZhDjiQSR9ekFMyczNAKEuyoEpicZta0udwdbuDz6S3MyyulhNQUsjVg/heefsffZQAwYHb5sL9wg2u+0eTH2e/Nb7uJWurKGL68bDXZbZVFPsOnyQnWCnc/J/eU7HBdHhidKxYurAZPLzlU+4zDN/AskvDEbTgQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuPgYMI7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789012062; c=relaxed/simple;
+	bh=o71y1VS1O/gULbydwmdaQJygjLAA8aW4Ix7hUC36ruc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KqzLfPFgJU/4MtMoM25vHzFkH7g0chu1LD6koLnAFzDUYbCOA1Lh7KaevvGO92m/63+LrnT4Hc5gw1i51uJ1JOn2CEQQjay4PMpG+jv3WKfViuk81guJxuTy2jj0Z8pYjy3jhVGxwlQ+aCY2e0q+AzxnQZSKrohsq7IuManlrmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=idEcenwA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuPgYMI7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ACFD3C2BCC7;
-	Thu, 10 Sep 2026 03:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789012019;
-	bh=rnmFLhQ+W54V6NRlDXw9yxyyyS6OM1jdtMbAVv5lvkA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kuPgYMI7y3r9FhNTNN2j/mds3devLqSBkcPBny7+VF5pns+ARBL8ri3iLO6nEE774
-	 sXr9CUzqodA+dc43taN3q1N6wpM1wdTBJtqWNhl/8+LBjM2j7w4FiqKhgflq6bJXXl
-	 dGKVzj2ehrCCX1jsyEFfkWlQrZO1o9xtTDcJhPd82jwmpkquzQFfLIl+Qb+Nbm3Z43
-	 O3AqCX4SagUVLx73QV5FU89J+GNL6qC/8FGVVOPyq0WU4nM4Pc1YPQRluj2D1c5lXl
-	 e4XSUXx/O/LncjiwykCjg6dkIwpxwMLETU9Jm+clFl2yTyBGLB+hDOb73iroriH5b0
-	 TQ60i2eFH7T+g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 972D5C79FB9;
-	Thu, 10 Sep 2026 03:46:59 +0000 (UTC)
-From: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>
-Date: Thu, 10 Sep 2026 11:46:58 +0800
-Subject: [PATCH v5] mm/memcg: clear folio memcg after changing per memcg
- stats
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="idEcenwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDE31F000FF;
+	Thu, 10 Sep 2026 03:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789012060;
+	bh=jsDpzZhNDxfmPf/zQV+jNP9bIQuqvgtrQtyVFB2Bdks=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=idEcenwAmabkl4/bvzL/I+ZkjSTxKgqTfU7hhDBuEQs8p1LY+IRSMEGVpNnuT3ndZ
+	 F47B/vdUwNT/Krc3+VTYTaZPSE47qW2p7Tl0Y+6XNpKmYy+4qJ9fe7Lyyao6rr8yK3
+	 6EpqwdC7AmJhAKxhX350zE5T4wbseXq68Hrmfl2Tbvy0H/+jqPZxtapIjT/FwgB+P3
+	 nPn3vKTsOdl6Kywl7IvD9SiNEZeWlnCkXK0eLvZ+NXn5m5HIz/WAqM5WhyOw2UQvMF
+	 4XIAZB6CLLhTk9nBu1Zx5Gc0SziZMDu637oaBsEwGJYdRUUt2Q+1Pqt0tmOhc22bcb
+	 C6Wkhy6ya6mMw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 07FB9CE0869; Wed,  9 Sep 2026 20:47:40 -0700 (PDT)
+Date: Wed, 9 Sep 2026 20:47:40 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/13] rcutorture: Add atomic-SRCU support to torture.sh
+Message-ID: <9b0ac5fa-98ef-4ff0-9f96-9194f1eda442@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <20260907075829.2073224-5-kunwu.chan@linux.dev>
+ <fc49190e-6cec-435d-b853-db906a1e33e3@paulmck-laptop>
+ <26b68ec0-2f21-4dc2-bfcf-20cbc38f4ceb@paulmck-laptop>
+ <CAN_Opa-M=qs=ofqdQWikkVRh2mNzKMO5qrtOSn_jMyF+TkMKNQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-memcg-swapcache-stats-fix-v5-1-033f510ba748@tencent.com>
-X-B4-Tracking: v=1; b=H4sIADEoomoC/33NQWrDMBAF0KsErasgaSzHyqr3KFlIo1Gshe1gC
- bch+O6dhEJSWsys/of/5iYKzZmKOO5uYqYllzyNHOzbTmDvxzPJHDkLo0yrOtPJgQY8y/LpL+i
- xJ1mqr0Wm/CV1IEoQEXwKgveXmbh+2B8nzn0udZqvj1eLvrc/KugNddGSD1WnHYUYuva90og01
- j1Og7i7i3laTm1ahi2H3kcA1VgX/lrwapktC9g6OJtsbKxNh3+s5tWyW1bDVoTWtBEUe+m3ta7
- rN2415qqoAQAA
-To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Bingfang Guo <bingfangguo@tencent.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789012018; l=6933;
- i=bingfangguo@tencent.com; s=20260812; h=from:subject:message-id;
- bh=8n9tFaBEaZV6w7VSVd9OL8zcVOGtD1Os/VxlJVMxjmA=;
- b=u7kryou6X6EpuZcoj1fEwBBnTXHEqJB/8nmrzB3FB3H7zV3Cx6QjLZQANBvbnSkqGtXN7g5l3
- 447z0fdva94CF1x0/qEmjP84l6qrAuEi4T7xL+1moF3EQxzrS3V3DuQ
-X-Developer-Key: i=bingfangguo@tencent.com; a=ed25519;
- pk=q7u9S7d5e7VijWrYF9O+vv9/XvqWduVGtwGtuCObAHE=
-X-Endpoint-Received: by B4 Relay for bingfangguo@tencent.com/20260812 with
- auth_id=942
-X-Original-From: Bingfang Guo <bingfangguo@tencent.com>
-Reply-To: bingfangguo@tencent.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa-M=qs=ofqdQWikkVRh2mNzKMO5qrtOSn_jMyF+TkMKNQ@mail.gmail.com>
 
-From: Bingfang Guo <bingfangguo@tencent.com>
+On Thu, Sep 10, 2026 at 09:30:48AM +0800, KunWu Chan wrote:
+> On Thu, Sep 10, 2026 at 6:35 AM Paul E. McKenney <paulmck@kernel.org> wrote:
+> >
+> > On Tue, Sep 08, 2026 at 04:34:41PM -0700, Paul E. McKenney wrote:
+> > > On Mon, Sep 07, 2026 at 03:58:20PM +0800, Kunwu Chan wrote:
+> > > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > > >
+> > > > Add the --do-atomic-srcu argument to torture.sh, which runs the
+> > > > SRCU-N, SRCU-P, and SRCU-T scenarios, thus covering both Tree SRCU
+> > > > (SRCU-N and SRCU-P) and Tiny SRCU (SRCU-T), with
+> > > > rcutorture.reader_flavor=0x10 appended to the boot parameters so
+> > > > that it takes precedence over each scenario's own reader-flavor
+> > > > setting.  This exercises srcu_read_lock_atomic(),
+> > > > srcu_read_unlock_atomic(), and synchronize_srcu_atomic().
+> > > >
+> > > > As with other torture.sh tests, the --do-kcsan argument runs a
+> > > > KCSAN+PROVE_LOCKING variant of this test.
+> > > >
+> > > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > >
+> > > Queued for testing and review, thank you!
+> >
+> > I did take the liberty of changing "do_atomic_srcu=no" to
+> > "do_atomic_srcu=yes" in order to increase test coverage.
+> >
+> 
+> Thanks, no problem.
+> 
+> I also found a couple of data races in other subsystems while running
+> the tests. I’m still validating the fixes locally and will Cc you if I
+> send patches for them.
 
-I notice extremely high swapcached count in the per memcg level
-memory.stat when running tests with cgroupv1 setup by swapping pages in
-and out.  It seems that the counter never gets decreased so the value is
-rather useless and confusing to users reading it. So I think fixing it
-so that the value can reflect the actual swapcache usage correctly could
-be helpful.
+Sounds good!  Note that some maintainers are more friendly to such
+patches than others.  But it shouldn't hurt to send them.  ;-)
 
-__memcg1_swapout() transfers the memsw charge of a folio to its swap
-entry and clears folio->memcg_data as part of that.  In the vmscan
-swapout path it runs before __swap_cache_del_folio(), which then
-decrements the swapcache stats through lruvec_stat_mod_folio().  Since
-folio->memcg_data has already been cleared, folio_memcg() returns NULL
-and the NR_SWAPCACHE decrement only updates the node-level counter
-instead of the memcg's lruvec, leaking the per-memcg swapcache count.
+Just please carefully check the design.  For example, blindly applying
+READ_ONCE() and WRITE_ONCE() is not a strategy to win.
 
-Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
-the NR_FILE_PAGES and NR_SWAPCACHE updates but before
-__swap_cache_do_del_folio() removes the folio from the swap cache.  This
-keeps the stats attributed to the folio's memcg while still recording
-the swap cgroup with a valid folio->swap.  Add a swapout parameter so
-the plain swap_cache_del_folio() path is left unchanged.
+							Thanx, Paul
 
-Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize layer")
-Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-Acked-by: Kairui Song <kasong@tencent.com>
----
-** Testing **
-The problem can be reproduced by populating 256MB of shmem pages in a
-memcg and then swapping them out using pageout. After the operation, we
-can still see those pages in the swapcached counter by reading
-memory.stats.  After applying the given patch, the value is correctly
-decreased to 0.
-
-The test script and source can be found from v4 (below).
-
-** Test Results **
-
-before the patch
-
-```
-== before reclaim ==
-swapcached 0
-allocated and dirtied 256 MiB, paging out...
-paged out; sleeping so memory.stat can be read. pid=4778
-== after reclaim (swap cache should drain to ~0) ==
-swapcached 268435456
-
-LEAK DETECTED: swapcached = 268435456 bytes (expected ~0)  [BUGGY kernel]
-```
-
-after the patch
-
-```
-== before reclaim ==
-swapcached 0
-allocated and dirtied 256 MiB, paging out...
-paged out; sleeping so memory.stat can be read. pid=2601
-== after reclaim (swap cache should drain to ~0) ==
-swapcached 0
-
-OK: swapcached = 0 bytes  [FIXED kernel]
-```
----
-Changes in v5:
-- Refine the param description. (Kairui)
-- Collect Acked-by tags.
-- Link to v4: https://lore.kernel.org/r/20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com
-
-Changes in v4:
-- Update and use the correct fixes tag. (Kairui)
-- Briefly describe the context for @swapout param in the kdoc. (Kairui)
-- Cc the stable list. (Kairui)
-- Link to v3: https://lore.kernel.org/r/20260902-memcg-swapcache-stats-fix-v3-1-795f5d455f7b@tencent.com
-
-Changes in v3:
-- Add doc for the new parameter.
-- Link to v2: https://lore.kernel.org/r/20260901-memcg-swapcache-stats-fix-v2-1-9caad330459b@tencent.com
-
-Changes in v2:
-- Update the commit message to describe the problem in the beginnning.
-- Change function declaration for !CONFIG_SWAP as well.
-- Link to v1: https://lore.kernel.org/r/20260831-memcg-swapcache-stats-fix-v1-1-1c0819ebdb86@tencent.com
----
- mm/swap.h       |  6 ++++--
- mm/swap_state.c | 13 ++++++++++---
- mm/vmscan.c     |  3 +--
- 3 files changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/mm/swap.h b/mm/swap.h
-index 0b5d507739bcb..b3b54c28929a1 100644
---- a/mm/swap.h
-+++ b/mm/swap.h
-@@ -319,7 +319,8 @@ struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
- void __swap_cache_add_folio(struct swap_cluster_info *ci,
- 			    struct folio *folio, swp_entry_t entry);
- void __swap_cache_del_folio(struct swap_cluster_info *ci,
--			    struct folio *folio, swp_entry_t entry, void *shadow);
-+			    struct folio *folio, swp_entry_t entry, void *shadow,
-+			    bool swapout);
- void __swap_cache_replace_folio(struct swap_cluster_info *ci,
- 				struct folio *old, struct folio *new);
- 
-@@ -452,7 +453,8 @@ static inline void swap_cache_del_folio(struct folio *folio)
- }
- 
- static inline void __swap_cache_del_folio(struct swap_cluster_info *ci,
--		struct folio *folio, swp_entry_t entry, void *shadow)
-+		struct folio *folio, swp_entry_t entry, void *shadow,
-+		bool swapout)
- {
- }
- 
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index 305877e1f4d7b..625c185a1ca4d 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -306,21 +306,28 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
-  * @folio: The folio.
-  * @entry: The first swap entry that the folio corresponds to.
-  * @shadow: shadow value to be filled in the swap cache.
-+ * @swapout: whether this folio is being reclaimed after swapout.
-  *
-  * Removes a folio from the swap cache and fills a shadow in place.
-  * This won't put the folio's refcount. The caller has to do that.
-  *
-  * Context: Caller must ensure the folio is locked and in the swap cache
-  * using the index of @entry, and lock the cluster that holds the entries.
-+ * If @swapout is set, the folio should be in reclaim path and IRQs
-+ * should be disabled.
-  */
- void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *folio,
--			    swp_entry_t entry, void *shadow)
-+			    swp_entry_t entry, void *shadow, bool swapout)
- {
- 	unsigned long nr_pages = folio_nr_pages(folio);
- 
--	__swap_cache_do_del_folio(ci, folio, entry, shadow);
- 	node_stat_mod_folio(folio, NR_FILE_PAGES, -nr_pages);
- 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, -nr_pages);
-+
-+	if (swapout)
-+		__memcg1_swapout(folio, ci);
-+
-+	__swap_cache_do_del_folio(ci, folio, entry, shadow);
- }
- 
- /**
-@@ -339,7 +346,7 @@ void swap_cache_del_folio(struct folio *folio)
- 	swp_entry_t entry = folio->swap;
- 
- 	ci = swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(entry));
--	__swap_cache_del_folio(ci, folio, entry, NULL);
-+	__swap_cache_del_folio(ci, folio, entry, NULL, false);
- 	swap_cluster_unlock(ci);
- 
- 	folio_ref_sub(folio, folio_nr_pages(folio));
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 245f68c75b289..29bced43b0ce6 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -755,8 +755,7 @@ static int __remove_mapping(struct address_space *mapping, struct folio *folio,
- 
- 		if (reclaimed && !mapping_exiting(mapping))
- 			shadow = workingset_eviction(folio, target_memcg);
--		__memcg1_swapout(folio, ci);
--		__swap_cache_del_folio(ci, folio, swap, shadow);
-+		__swap_cache_del_folio(ci, folio, swap, shadow, true);
- 		swap_cluster_unlock_irq(ci);
- 	} else {
- 		void (*free_folio)(struct folio *);
-
----
-base-commit: b5529903123d9535bcf74386c1f4e185e8632dd9
-change-id: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
-
-Best regards,
--- 
-Bingfang Guo <bingfangguo@tencent.com>
-
-
+> Thanks,
+> KunWu
+> 
+> >                                                         Thanx, Paul
+> >
+> > > > ---
+> > > >  .../selftests/rcutorture/bin/torture.sh       | 24 +++++++++++++++++++
+> > > >  1 file changed, 24 insertions(+)
+> > > >
+> > > > diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tools/testing/selftests/rcutorture/bin/torture.sh
+> > > > index f0083891ee81..8885812d866a 100755
+> > > > --- a/tools/testing/selftests/rcutorture/bin/torture.sh
+> > > > +++ b/tools/testing/selftests/rcutorture/bin/torture.sh
+> > > > @@ -68,6 +68,7 @@ do_clocksourcewd="${ifnotaarch64}"
+> > > >  do_rt=yes
+> > > >  do_rcutasksflavors="${ifnotaarch64}" # FIXME: Back to "yes" when SMP=n auto-avoided
+> > > >  do_srcu_lockdep=yes
+> > > > +do_atomic_srcu=no
+> > > >  do_rcu_rust=no
+> > > >
+> > > >  # doyesno - Helper function for yes/no arguments
+> > > > @@ -103,6 +104,7 @@ usage () {
+> > > >     echo "       --do-rcu-rust / --do-no-rcu-rust / --no-rcu-rust"
+> > > >     echo "       --do-scftorture / --do-no-scftorture / --no-scftorture"
+> > > >     echo "       --do-srcu-lockdep / --do-no-srcu-lockdep / --no-srcu-lockdep"
+> > > > +   echo "       --do-atomic-srcu / --do-no-atomic-srcu / --no-atomic-srcu"
+> > > >     echo "       --duration [ <minutes> | <hours>h | <days>d ]"
+> > > >     echo "       --guest-cpu-limit N"
+> > > >     echo "       --kcsan-kmake-arg kernel-make-arguments"
+> > > > @@ -148,6 +150,7 @@ do
+> > > >             do_kcsan=yes
+> > > >             do_clocksourcewd="${ifnotaarch64}"
+> > > >             do_srcu_lockdep=yes
+> > > > +           do_atomic_srcu=yes
+> > > >             ;;
+> > > >     --do-allmodconfig|--do-no-allmodconfig|--no-allmodconfig)
+> > > >             do_allmodconfig=`doyesno "$1" --do-allmodconfig`
+> > > > @@ -183,6 +186,7 @@ do
+> > > >             do_kcsan=no
+> > > >             do_clocksourcewd=no
+> > > >             do_srcu_lockdep=no
+> > > > +           do_atomic_srcu=no
+> > > >             ;;
+> > > >     --do-normal|--do-norm|--do-no-normal|--do-no-norm|--no-normal|--no-norm)
+> > > >             do_normal=`doyesno "$1" --do-normal`
+> > > > @@ -212,6 +216,9 @@ do
+> > > >     --do-srcu-lockdep|--do-no-srcu-lockdep|--no-srcu-lockdep)
+> > > >             do_srcu_lockdep=`doyesno "$1" --do-srcu-lockdep`
+> > > >             ;;
+> > > > +   --do-atomic-srcu|--do-no-atomic-srcu|--no-atomic-srcu)
+> > > > +           do_atomic_srcu=`doyesno "$1" --do-atomic-srcu`
+> > > > +           ;;
+> > > >     --duration)
+> > > >             checkarg --duration "(minutes)" $# "$2" '^[0-9][0-9]*\(m\|h\|d\|\)$' '^error'
+> > > >             mult=1
+> > > > @@ -497,6 +504,23 @@ then
+> > > >     torture_set "rcutorture" tools/testing/selftests/rcutorture/bin/kvm.sh --allcpus --duration "$duration_rcutorture" --configs "$configs_rcutorture" --trust-make
+> > > >  fi
+> > > >
+> > > > +# Test atomic SRCU across Tree SRCU (SRCU-N and SRCU-P) and Tiny SRCU
+> > > > +# (SRCU-T).  The reader flavor selects srcu_read_lock_atomic() and
+> > > > +# synchronize_srcu_atomic().  Tiny SRCU requires SMP=n, which aarch64
+> > > > +# does not support.
+> > > > +if test "$do_atomic_srcu" = "yes"
+> > > > +then
+> > > > +   torture_bootargs="rcutorture.reader_flavor=0x10"
+> > > > +   configs_atomic_srcu="SRCU-N SRCU-P"
+> > > > +   if test "$ifnotaarch64" = yes
+> > > > +   then
+> > > > +           configs_atomic_srcu="$configs_atomic_srcu SRCU-T"
+> > > > +   fi
+> > > > +   torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/kvm.sh \
+> > > > +           --allcpus --duration "$duration_rcutorture" \
+> > > > +           --configs "$configs_atomic_srcu" --trust-make
+> > > > +fi
+> > > > +
+> > > >  if test "$do_locktorture" = "yes"
+> > > >  then
+> > > >     torture_bootargs="torture.disable_onoff_at_boot"
+> > > > --
+> > > > 2.43.0
+> > > >
