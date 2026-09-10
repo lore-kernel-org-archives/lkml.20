@@ -1,381 +1,302 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA60648D88E;
-	Thu, 10 Sep 2026 13:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046508; cv=none; b=ZL2zIf6nQYWB2hUTGDV2fTxHJXu1AhVqE/NKKxGhJLbHgFMOw9pi8f91nqkB98TZpg8rSz5lLkLVtTSWqhqs3DdqmxvURhJ3Em1Toe07FBmjHMorypDF+zvOCQ+SW2lDK74Fj2ZcQ//lX5yqgRITDoCJfi6if0e9S8rPmg8IkTo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046508; c=relaxed/simple;
-	bh=PzwgKZqBgBxUTk3mZgkFp3OS+77YN75PqU+leHCr5iI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KgcWechuiMtm8G8vHkwQ43t7D31Dsazmy9bq1qJ6cmQLq4LtoDGSsxDRxgQmlNdA1r7OeNrYr/PoPGDgoO+W256V/VmllBWqQBhUl6ZgPzcsUiFDm+OzZkvn7rye1dl0dVmDKuFw+8J9xN3FpJvJpkjE1JJVcHNxg+LlmUj1ZaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvXFXFny; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46C348C8D2
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789046514; cv=pass; b=LMCiw9s2uBdf9qfeuLOBimGZqitzHoPMEXrQ9ZxP7KCSqxzONhGFzDtAlh5jo7vVn+VaZmBYDqkTn7sMtXJj1QtsX7ogGRZzGkI3+VSdyFigf2nFwSN8Y72THlbgdwv7QNeK8RGUz4XFcn+fEz5pMDpcj1tzu4toLzzVupzmPuA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789046514; c=relaxed/simple;
+	bh=c57HOSjkdRqhnHukNqC+HW9ZrUYHj7MI+zFHOAlpFJ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l8qra0KYBK8ugVS+cd6xjEDZ+cje7wKNI3FNSahhcgnYtohPWlgyCW+Z26WdT2GXeclN+hg1d9NMs8Rtrn+5ewNO6Qux0UKqd+oravNUmVT8SXeHW9emBQgU17n8ijV8Do2V0CImaEQHz1wOcNtGqZcx0p1sxC06Sk2yt1t2ztA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s31GrGnw; arc=pass smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvXFXFny"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD7C1F000FF;
-	Thu, 10 Sep 2026 13:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046500;
-	bh=XfSAjJWUqJJ7+mxfcDcdQLKBKAoUnDYGI6OdwN5RDBM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QvXFXFnyIkyH+0MXQBt0dmKR7FyJEOBmtJY0a4ORt5crqU1tpzv+odLk4XmVddvM+
-	 5FER3oGYW3DrGx1d1+pO1O8SRFNYonMsnIyZYGjR7xgtfd8LMWJFPMvL+enq/N5Nuv
-	 +h3039zzHSwAn346HYAHYV0uW6kceKw1l3/K+0+j4VyiY5fargzMF3vN+5lVD5bTsX
-	 TfPnuASC2D486JVtsQmRroxzvb3hqVngkslf16TEbc9AJG3d4+yClpriT2NLZqRSL0
-	 4Rl1WVktwSQGj7fKcHOZAGGGnAdnjwUJcPb7ANTN6zhpR0NalalI7XrMTGYh2eZOrw
-	 JPzHAqzusxqpQ==
-Subject: Re: [PATCH v2] rxrpc: Fix use-after-free in rxrpc_destroy_all_peers()
-From: netdev-bot+sashiko@kernel.org
-To: elver@google.com
-Cc: dhowells@redhat.com, marc.dionne@auristor.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-afs@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- syzkaller-bugs@googlegroups.com,
- syzbot+c876adfab6362679008c@syzkaller.appspotmail.com
-Date: Thu, 10 Sep 2026 13:21:39 +0000
-Message-ID: <178904649905.219967.13039055478544896758@kernel.org>
-In-Reply-To: <20260907222242.3361174-2-elver@google.com>
-References: <20260907222242.3361174-2-elver@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s31GrGnw"
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-79046478449so118354137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:21:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789046507; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eaC8kgqLNPm2fG4/RpZ+61Hac/TDGuwaHWu1AB3K+VUi45okrT0pG9aBCNdXikv+e+
+         Djj8RJMGxPC6a3HZtKMp8/1nDPC8ohc6kRLOX2OPF+XnMDbRB6Cwa5sndCjQ3ZaDQyth
+         PjrtApWB1LinxPwvCdS2WL5eBZwsj5zts0C6f3A7oQ1xa1QPGzmsT0ULXFkiqDPSyUHi
+         +qv2f1/nNvfTmgaXJdcFRKwoZr+MWsc3/gSlHU6bBEgLld3j2Ii3CormORd3U4toUVIp
+         w96PJPusQQlpaewvaPJKKkFNWy7W4ZH9Eax3kgOya11TFn4MTaJj5rXBPB7Z44ohsoI/
+         7A9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
+        fh=syZG6e0m+YN7lK4uQtMZ7s57kup9T1k2zzsMorvB+QU=;
+        b=HVdg/GHxjLlChf2mkeCfqLEUCfWzdykkjJcAmgNCKShz3++3GOpcGU9csi5OLADkv3
+         SgbrKqtqBtkJwUEorsRtP1FANgw8nzY0mAMmRIxOP83aHAdxdgqr04T8Ns8kkBNgsAFU
+         3Gv5ftwzXbQyrxw3ARgcatWlOk9K5IzuhxECU27wuCX9z333gOCG/FP3rhu0FT0osGnK
+         Qr+hdmxd+cHlb9MnJ8Q2voqvL1UMDbgx7uDEW7RjIiHfdjvWaSz7I00MqRC/uNvxkX1+
+         KZalsgYC1hF/BPpbTKZfe0u6a4zuZ71GIR1RVF73MGyhHaYiVzllmt/smSGchnpZ09Q5
+         GbBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789046507; x=1789651307; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
+        b=s31GrGnwevPNYdbe6fJsT2Ht3J1vq6tHd2g/a1uiRgzeROEVNetqMT1cJZU8rgrFw1
+         CsE5zTsGI53iaep6x9/jMtwWbSwJ10YPN9etpniwyPMWe+E+gkxWF2BCwKPoNMkB821V
+         IV7B8hsYhGkMaQA2JnQOky2YX4Q8jZM9DExrnUTqDJOMb57taXcad1iOjRFvAtNkdE0K
+         XeEyeT0+VWGE9Tkoeygs9p+0wsYquwdW+xcP8OzrvGHqdqsXDx7xJBgZmFkTRfO8tz1+
+         ffmGBxjqFk3sAMgRFEpY1Jg/OPZM2Y12R1U0MreHmJ9lchH4s/1d9Wd1bXvHhWvnG6qG
+         UW9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789046507; x=1789651307;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4PtIkSiFzV3sIf3d9NLRzTCK6vH+MbAiKicnmJs6k5U=;
+        b=qF8WEcnh3PHWre89fpDfHX2r1k800PUbb9a/HIjQ/qNO2nXrcBGinW9SJLoWq7cngB
+         GGw0bsvYCSYfUg+N0hSirOPnFYL/bZ1hIZr2/O+gP1KpdmfW/KFdHyC6enSdp1pCB+oI
+         +568NnXz3g2vcFcT0tSD+FzqKP1+4FsrgAmKFxmdp8b0PwzGEeYT2ZTmWE3Csjfda3Bc
+         YITPcHLAinQui/NXFcwVdP9DK48VfT9HmIVu/mdFcZCMGoo4G6jWukjF0yiEHrnYMfih
+         YlMwZDUW59LwKn2EGU0Pge3nl08VUFj7yN5C0+pyMwje7F4GBjRnB/+usjIcAmSlkztz
+         j12A==
+X-Forwarded-Encrypted: i=1; AKwUvBwgxsgpvoVI6/uuGGd2z0l10B5S2UtVa1CHdjSB78/2RqZCZmilNilyutGLBLud6TXAVivXOsL7jA11meE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXCXqCp/3kWlPINtbCypejQp5rntkM2442c8uf7YnF1s17Acn1
+	TR0JYsWdXyuHXVM4Fw9kJUZjn53cKH3VuZL3UPHFMLAG52WmInuSBGnNyiLjhKv0nWEtm+Imk0T
+	fSskcdHHrykqeZO6q/9zWUAC/tl0HcNU=
+X-Gm-Gg: AYBFou3BCP/yyB8iRQts4ZFjJtS6fkiKR9wq+ajhajAvNukc5saM7WQOlPETGp7AZVl
+	MrWcLh8LVdyFf4xby3Dv0Y024wnzXrUzXy2Y/2fYTEg0YVDX8TOHDgHtT08H/+giQcwRknPDFy9
+	p6vixJ3u+ETX/R39gSPNGgeOMSkOeBOeuDeT7hfjckts8V+WHNFwsAGAosdIvXoFXLg5p0vu+go
+	V0knX7jexZoHoU1C61B4Ud2DZG9YSMdNWIG9CuvkGKJgw6d9to7qCmZOCXxXRzKHji2iUSOErXK
+	cmsV9Y3XsdYVid2sI9f0iyfjW8HZxjfiwjjNXX0MtLv9h0lJt9/kA4PxCx9iCTkHJKjGZJRoc4v
+	zRO6rkOzEm39qTeRq+n+WPSppbROj9oyN5HYzgkZbSA==
+X-Received: by 2002:a67:cd93:0:b0:791:33c:9d1 with SMTP id ada2fe7eead31-791033c0c0amr737086137.1.1789046501887;
+ Thu, 10 Sep 2026 06:21:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <MW4PR12MB6803F4CF9FA37FAE2FB0C5778EB02@MW4PR12MB6803.namprd12.prod.outlook.com>
+ <20260909123443.88228-1-ed@aicharmers.com> <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
+In-Reply-To: <MW4PR12MB6803AED9EAA4A98576CC3F428EBF2@MW4PR12MB6803.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 10 Sep 2026 09:21:28 -0400
+X-Gm-Features: AcwNN1UTe8M1-odt2iCgqossMzi7ldu5z1-OWpaSUlQIWuMy4BqVW8_dndwx5H8
+Message-ID: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: Ed Schofield <ed@aicharmers.com>, 
+	"atharvatiwarilinuxdev@gmail.com" <atharvatiwarilinuxdev@gmail.com>, 
+	"062bel313@gmail.com" <062bel313@gmail.com>, 
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
+	"airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider:
+Applied.  Thanks!
 
-Critical: 0 · High: 3 · Medium: 2 · Low: 0
-
-- [High] Moving rxrpc_destroy_all_calls()/rxrpc_destroy_all_connections()
-  into the new .pre_exit hook deadlocks netns teardown whenever the kafs…
-- [High] The patch hardens only the reader side of the peer hash.
-- [High] The changelog's justification for the .pre_exit split is not
-  what the code does.
-- [Medium] Ordering regression in the leak checks: rxrpc_exit_net() now
-  runs rxrpc_destroy_all_peers()/rxrpc_destroy_all_locals() with no…
-- [Medium] rxrpc_destroy_all_peers() (net/rxrpc/peer_object.c:452-476)
-  now performs an unbounded pr_err() loop over all 1024 hash buckets and…
-
---
-
-rxrpc: Fix use-after-free in rxrpc_destroy_all_peers()
-
-This takes rxnet->peer_hash_lock with spin_lock_bh() around the leaked-peer
-walk in rxrpc_destroy_all_peers() to fix a syzbot-reported KASAN
-slab-use-after-free, and additionally splits netns teardown so that calls,
-connections and the keepalive work are cleaned up from a new .pre_exit
-handler while the peer and local endpoint leak checks stay in .exit.
-
-Link: https://syzkaller.appspot.com/ai_job?id=7fecbeb2-cd9b-4ca2-8149-48663e20b153
-
-A few questions below, mostly about the .pre_exit split rather than the
-locking hunk.
-
-First, about the changelog:
-
-> Additionally, split netns teardown by implementing .pre_exit in
-> rxrpc_net_ops to clean up calls, connections, and keepalive work. This
-> ensures in-flight references are released before cleanup_net() executes
-> its intermediate synchronize_rcu(), so that peer and local endpoint leak
-> checks in rxrpc_exit_net() run only after deferred RCU releases complete,
-> avoiding spurious leak warnings.
-
-[Severity: High]
-Is this description accurate?
-
-The relative order of the four teardown steps is unchanged: before the
-patch rxrpc_exit_net() already ran calls -> connections -> peers -> locals,
-so moving the first two into .pre_exit does not reorder them with respect
-to the leak checks.
-
-The only new event inserted between them is the grace-period wait in
-ops_undo_list():
-
-net/core/net_namespace.c:ops_undo_list() {
-	...
-	if (expedite_rcu)
-		synchronize_rcu_expedited();
-	else
-		synchronize_rcu();
-	...
-}
-
-That waits for a grace period, not for already-queued call_rcu()/kfree_rcu()
-callbacks to execute, which is what rcu_barrier() (the v1 approach) did.
-
-Also, rxrpc itself does not release peer references from an RCU callback.
-rxrpc_destroy_call() drops the peer synchronously before queueing the
-callback:
-
-net/rxrpc/call_object.c:rxrpc_destroy_call() {
-	...
-	rxrpc_put_peer(call->peer, rxrpc_peer_put_call);
-	rxrpc_put_local(call->local, rxrpc_local_put_call);
-	key_put(call->key);
-	call_rcu(&call->rcu, rxrpc_rcu_free_call);
-}
-
-and rxrpc_clean_up_connection() does the same before call_rcu(&conn->rcu,
-...), both already covered by the pre-existing wait_var_event(nr_calls) and
-wait_var_event(nr_conns).
-
-The peer references that really are dropped from an RCU callback belong to
-kafs (afs_free_addrlist() calling rxrpc_kernel_put_peer() for each address),
-and those callbacks are queued from afs_net_exit(), i.e. after the
-intermediate synchronize_rcu(), so the split cannot drain them either.
-
-Spurious reports also still look possible: a peer whose refcount already
-reached zero but which is blocked on peer_hash_lock inside
-__rxrpc_put_peer() is still linked and gets printed as
-"Leaked peer <id> {0}".
-
-Could the changelog be reworded to describe what the split actually
-achieves?
-
-> diff --git a/net/rxrpc/net_ns.c b/net/rxrpc/net_ns.c
-> index 9a9834145e81e..1691167353663 100644
-> --- a/net/rxrpc/net_ns.c
-> +++ b/net/rxrpc/net_ns.c
-> @@ -97,10 +97,7 @@ static __net_init int rxrpc_init_net(struct net *net)
->  	return ret;
+On Thu, Sep 10, 2026 at 6:40=E2=80=AFAM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
+>
+> AMD General
+>
+> Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+>
+> -----Original Message-----
+> From: Ed Schofield <ed@aicharmers.com>
+> Sent: Wednesday, September 9, 2026 8:35 PM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: atharvatiwarilinuxdev@gmail.com; 062bel313@gmail.com; amd-gfx@lists.f=
+reedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Chr=
+istian <Christian.Koenig@amd.com>; airlied@gmail.com; simona@ffwll.ch; dri-=
+devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+> Subject: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 1=
+4
+>
+> Apple Navi 14 boards 1002:7340/106b:0218 (revision 0x41) and
+> 1002:7340/106b:0219 can time out when EnableAllSmuFeatures includes UCLK =
+DPM, leaving amdgpu without a DRM device.
+>
+> Exclude only UCLK DPM from the initial allowed features and enable it sep=
+arately in the Navi post-init callback. On 0218, enabling UCLK just after E=
+nableAllSmuFeatures or at the start of default DPM table setup still timed =
+out. The earlier 0218-only patch passed ten warm boots with UCLK enabled in=
+ post-init. The earliest safe point remains unknown.
+>
+> Check the enabled firmware bit, update the supported-feature bit and rebu=
+ild the memory DPM table and sustainable clock limits before the UMC workar=
+ound and UMD clock setup. Validate the PPT memory states that
+> DCN20 consumes before post-init. Preserve both memory-voltage features an=
+d honor PP_MCLK_DPM_MASK.
+>
+> Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi pos=
+t-init implementation for 0218. Retain the revision restriction for
+> 0218 and the revision-independent 0219 match from Atharva's proposal.
+>
+> The combined patch passed ten warm boots on 0218, with rendering and
+> H.264 video decoding checks on every boot. Testing on 0219 is still pendi=
+ng.
+>
+> Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg14977=
+0.html
+> Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Ed Schofield <ed@aicharmers.com>
+> ---
+> Changes since the 0218-only RFC:
+> - Add the 0219 board match from Atharva's proposal, without a revision
+>   restriction. Keep the 0218 match limited to revision 0x41.
+> - Keep the Navi post-init implementation and clock-state updates from
+>   the RFC. Atharva's proposal enabled UCLK at the end of smu_late_init().
+> - Record the failed tests at the start of default DPM table setup and
+>   ten successful warm boots of the combined patch on 0218.
+>
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 82 +++++++++++++++++++
+>  1 file changed, 82 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index f8ca5eb9a..d7cc41a5d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -60,6 +60,19 @@
+>
+>  static int navi10_init_ppt_limits(struct smu_context *smu);
+>
+> +static bool navi14_needs_late_uclk(struct amdgpu_device *adev) {
+> +       struct pci_dev *pdev =3D adev->pdev;
+> +
+> +       return pdev->vendor =3D=3D PCI_VENDOR_ID_ATI &&
+> +               pdev->device =3D=3D 0x7340 &&
+> +               pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
+> +               ((pdev->subsystem_device =3D=3D 0x0218 &&
+> +                 pdev->revision =3D=3D 0x41) ||
+> +                pdev->subsystem_device =3D=3D 0x0219) &&
+> +               (adev->pm.pp_feature & PP_MCLK_DPM_MASK); }
+> +
+>  static const struct smu_feature_bits navi10_dpm_features =3D {
+>         .bits =3D {
+>                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+> @@ -356,6 +369,11 @@ navi10_init_allowed_features(struct smu_context *smu=
+)
+>                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
+EATURE_MEM_MVDD_SCALING_BIT);
+>         }
+>
+> +       /* These boards time out if EnableAllSmuFeatures includes UCLK DP=
+M. */
+> +       if (navi14_needs_late_uclk(adev))
+> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
+> +                                          FEATURE_DPM_UCLK_BIT);
+> +
+>         if (is_asic_secure(smu) &&
+>             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
+, 0)) &&
+>             (adev->rev_id =3D=3D 0))
+> @@ -470,6 +488,25 @@ static int navi10_store_powerplay_table(struct smu_c=
+ontext *smu)
+>         return 0;
 >  }
->  
-> -/*
-> - * Clean up a per-network namespace record.
-> - */
-> -static __net_exit void rxrpc_exit_net(struct net *net)
-> +static __net_exit void rxrpc_pre_exit_net(struct net *net)
->  {
->  	struct rxrpc_net *rxnet = rxrpc_net(net);
->  
-> @@ -111,14 +108,24 @@ static __net_exit void rxrpc_exit_net(struct net *net)
->  	timer_delete_sync(&rxnet->peer_keepalive_timer);
->  	rxrpc_destroy_all_calls(rxnet);
->  	rxrpc_destroy_all_connections(rxnet);
+>
+> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
+> +static int navi14_imac_check_uclk_states(struct smu_context *smu) {
+> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
+> +       unsigned int count, i;
+> +
+> +       if (!navi14_needs_late_uclk(smu->adev))
+> +               return 0;
+> +
+> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
+> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
+> +               return -EINVAL;
+> +       for (i =3D 0; i < count; i++) {
+> +               if (!ppt->FreqTableUclk[i])
+> +                       return -EINVAL;
+> +       }
+> +       return 0;
 > +}
-
-[Severity: High]
-Can this hang netns teardown when kafs is loaded?
-
-ops_undo_list() runs every ops->pre_exit() before any ops->exit():
-
-net/core/net_namespace.c:ops_undo_list() {
-	...
-	list_for_each_entry_continue_reverse(ops, ops_list, list) {
-		hold_rtnl |= !!ops->exit_rtnl;
-		ops_pre_exit_list(ops, net_exit_list);
-	}
-	...
-}
-
-kafs has no .pre_exit:
-
-fs/afs/main.c:
-static struct pernet_operations afs_net_ops = {
-	.init	= afs_net_init,
-	.exit	= afs_net_exit,
-	...
-};
-
-so afs_close_socket(), the only path that reaches
-rxrpc_discard_prealloc(), cannot run until rxrpc_pre_exit_net() has already
-returned. afs_net_init() -> afs_open_socket() charges rxrpc_max_backlog
-preallocated service calls (rxrpc_alloc_call() does
-atomic_inc(&rxnet->nr_calls)) and the matching prealloc service
-connections in every namespace.
-
-That leaves rxrpc_destroy_all_calls() waiting on a counter that nothing can
-decrement:
-
-net/rxrpc/call_object.c:rxrpc_destroy_all_calls() {
-	...
-	atomic_dec(&rxnet->nr_calls);
-	wait_var_event(&rxnet->nr_calls, !atomic_read(&rxnet->nr_calls));
-}
-
-with the cleanup_net worker holding pernet_ops_rwsem for read, and after
-printing "Call ... still in use" for the prealloc calls.
-
-If the call backlog were somehow empty, would rxrpc_destroy_all_connections()
-then trip on the still-linked AFS prealloc service conns?
-
-net/rxrpc/conn_object.c:rxrpc_destroy_all_connections() {
-	...
-	BUG_ON(leak);
-
-	ASSERT(list_empty(&rxnet->conn_proc_list));
-	...
-}
-
-Before the patch all four steps ran from .exit, which executes after
-afs_net_exit() has closed the socket and discarded the preallocation. Does
-the reported use-after-free need the split at all, or is the peer_hash_lock
-hunk alone sufficient?
-
 > +
-> +/*
-> + * Clean up a per-network namespace record.
-> + */
-> +static __net_exit void rxrpc_exit_net(struct net *net)
-> +{
-> +	struct rxrpc_net *rxnet = rxrpc_net(net);
+>  static int navi10_setup_pptable(struct smu_context *smu)  {
+>         int ret =3D 0;
+> @@ -490,6 +527,10 @@ static int navi10_setup_pptable(struct smu_context *=
+smu)
+>         if (ret)
+>                 return ret;
+>
+> +       ret =3D navi14_imac_check_uclk_states(smu);
+> +       if (ret)
+> +               return ret;
 > +
->  	rxrpc_destroy_all_peers(rxnet);
->  	rxrpc_destroy_all_locals(rxnet);
->  	proc_remove(rxnet->proc_net);
+>         return navi10_init_ppt_limits(smu);
 >  }
-
-[Severity: Medium]
-With both drains moved out, rxrpc_exit_net() now reaches the peer and local
-leak checks with no preceding quiescence step, while the socket closures
-that generate asynchronous peer releases happen in the same .exit phase
-just before it (.exit hooks run in reverse registration order, so
-afs_net_exit() precedes rxrpc_exit_net()):
-
-fs/afs/main.c:afs_net_exit() {
-	...
-	afs_wait_for_servers(net);
-	afs_close_socket(net);
-	...
-}
-
-Previously rxrpc_destroy_all_calls() (wait for nr_calls == 0) and
-rxrpc_destroy_all_connections() (flush_workqueue plus wait for
-nr_conns == 0) ran immediately before the peer walk and drained exactly the
-releases produced by those closures. Now they run before the events they
-were draining.
-
-Can rxrpc_destroy_all_peers() therefore print "Leaked peer" for peers whose
-release is still in flight, in particular the peer references dropped from
-afs_free_addrlist(), queued during afs_net_exit() and hence after the
-core's intermediate synchronize_rcu()?
-
-For the record, the related worry about rxrpc_destroy_all_locals() hitting
-BUG() does not seem to hold: rxrpc_alloc_peer() takes only a plain
-rxrpc_get_local() reference, and the hlist_del_init_rcu(&local->link) unlink
-is driven by active_users reaching zero and completes synchronously inside
-rxrpc_unuse_local()'s kthread_stop(), which for kafs happens inside
-afs_close_socket().
-
-[ ... ]
-
-> diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
-> index fa9a406e11683..faa2983638b2b 100644
-> --- a/net/rxrpc/peer_object.c
-> +++ b/net/rxrpc/peer_object.c
-> @@ -454,6 +454,12 @@ void rxrpc_destroy_all_peers(struct rxrpc_net *rxnet)
->  	struct rxrpc_peer *peer;
->  	int i;
->  
-> +	/*
-> +	 * Prevent use-after-free if a peer is concurrently unlinked from the
-> +	 * hash table and freed via RCU during iteration.
-> +	 */
-> +	spin_lock_bh(&rxnet->peer_hash_lock);
-> +
->  	for (i = 0; i < HASH_SIZE(rxnet->peer_hash); i++) {
->  		if (hlist_empty(&rxnet->peer_hash[i]))
->  			continue;
-
-[Severity: Medium]
-Should the number of reported peers be capped now that the walk runs with
-BH disabled?
-
-The loop covers all 1024 buckets and every peer in them, with one pr_err()
-per peer and no output limit, whereas the call reporter deliberately stops
-early:
-
-net/rxrpc/call_object.c:rxrpc_destroy_all_calls() {
-	...
-			if (++shown >= 10)
-				break;
-	...
-}
-
-Before the patch this loop ran in plain preemptible process context. A peer
-refcount leak (the very condition this diagnostic exists to report, and the
-class addressed by the referenced Fixes: commit) can leave a large number of
-peers hashed, so this becomes a long atomic section full of printk() calls
-to a possibly slow console.
-
-peer_hash_lock is also taken from softirq context (rxrpc_lookup_peer(),
-rxrpc_new_incoming_peer(), and __rxrpc_put_peer()), so does holding it
-across that burst stall packet input for any still-live local endpoint in
-the namespace, and can it trip softlockup or RCU-stall watchdogs?
-
-Collecting under the lock and printing outside it, or capping the count as
-the call and conn reporters do, would avoid that.
-
->  
-> @@ -465,6 +471,8 @@ void rxrpc_destroy_all_peers(struct rxrpc_net *rxnet)
->  			       &peer->srx.transport);
->  		}
->  	}
-> +
-> +	spin_unlock_bh(&rxnet->peer_hash_lock);
+>
+> @@ -3219,6 +3260,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
+_context *smu)
+>                                                NULL);
 >  }
-
-[Severity: High]
-This hardens the reader side, but rxrpc_destroy_all_peers() still only
-reports peers; it neither frees them nor waits for outstanding peer
-references, so rxrpc_exit_net() can return with peers still holding a
-pointer into rxnet.
-
-rxnet is net_generic memory freed by ops_free_list() at the end of
-ops_undo_list(), which happens before cleanup_net()'s rcu_barrier():
-
-net/core/net_namespace.c:cleanup_net() {
-	...
-	ops_undo_list(&pernet_list, NULL, &net_exit_list, true);
-
-	up_read(&pernet_ops_rwsem);
-
-	/* Ensure there are no outstanding rcu callbacks using this
-	 * network namespace.
-	 */
-	rcu_barrier();
-	...
-}
-
-A concrete late-put path exists in kafs: afs_put_addrlist() does
-call_rcu(&alist->rcu, afs_free_addrlist), and the callback drops the peer
-references:
-
-fs/afs/addr_list.c:afs_free_addrlist() {
-	...
-	for (i = 0; i < alist->nr_addrs; i++)
-		rxrpc_kernel_put_peer(alist->addrs[i].peer);
-	...
-}
-
-Those call_rcu()s are queued during afs_net_exit(), i.e. in the .exit phase
-after the core's intermediate synchronize_rcu(), and nothing waits for them.
-When the callback finally runs:
-
-net/rxrpc/peer_object.c:__rxrpc_put_peer() {
-	struct rxrpc_net *rxnet = peer->local->rxnet;
-	...
-	spin_lock_bh(&rxnet->peer_hash_lock);
-	hash_del_rcu(&peer->hash_link);
-	...
-}
-
-Can this write into the already-freed rxrpc_net block? Calls and connections
-are covered by bias counters plus wait_var_event(&rxnet->nr_calls) and
-wait_var_event(&rxnet->nr_conns), but there is no equivalent drain for peer
-references held outside calls and conns. Would a peer bias counter plus
-wait, or a barrier, be needed to close this?
-
->  
->  /**
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907222242.3361174-2-elver%40google.com
+>
+> +/* Rebuild memory clocks before the UMC workaround and UMD clock setup.
+> +*/ static int navi14_imac_late_uclk_enable(struct smu_context *smu) {
+> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
+> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
+> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
+> +       struct smu_feature_bits enabled;
+> +       int ret;
+> +
+> +       if (!navi14_needs_late_uclk(smu->adev))
+> +               return 0;
+> +
+> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
+, true);
+> +       if (ret)
+> +               return ret;
+> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
+> +       if (ret)
+> +               return ret;
+> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
+> +               return -EIO;
+> +
+> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
+> +                                FEATURE_DPM_UCLK_BIT);
+> +       table->clk_type =3D SMU_UCLK;
+> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
+> +       if (ret)
+> +               return ret;
+> +       if (!table->count)
+> +               return -EINVAL;
+> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
+> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
+> +
+> +       return smu_v11_0_init_max_sustainable_clocks(smu);
+> +}
+> +
+>  static int navi10_post_smu_init(struct smu_context *smu)  {
+>         struct amdgpu_device *adev =3D smu->adev; @@ -3227,6 +3303,12 @@ =
+static int navi10_post_smu_init(struct smu_context *smu)
+>         if (amdgpu_sriov_vf(adev))
+>                 return 0;
+>
+> +       ret =3D navi14_imac_late_uclk_enable(smu);
+> +       if (ret) {
+> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
+, ret);
+> +               return ret;
+> +       }
+> +
+>         ret =3D navi10_run_umc_cdr_workaround(smu);
+>         if (ret)
+>                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
+");
+>
+> base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
+> --
+> 2.55.0
