@@ -1,231 +1,101 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D5E36B925
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC48339375;
+	Thu, 10 Sep 2026 01:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005322; cv=none; b=dIczk0rN0yUneRol4KGn7ihDX2BoByGF1kol2PGxNLzbJv7632BNQ//vn43SLJrNEbY/bUgPexjSu0T1C+pREtV3THEfK9jf24pdJlGC43fYyGv5POIU74V36iqVHHkOallIZyndq9sMh3Eq5cdyF84WDUiDfS+KBiYym9AKSV8=
+	t=1789005354; cv=none; b=gfAkI1pnPUI15KG73M/y8JwrkZ5ui108DGYrriI+8TsxXwE5Ao1txKExO/jiip/Pm9gvNnmrJzqHVhHRmLUl/D3ztf6JLNWsMjs22XDs1YOR9lcGHSdNrBpCfsd7MfPxfSl87BogUtGlXX7FXLd5X3ecfhTDND5Z8pnWSNLB4L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005322; c=relaxed/simple;
-	bh=cdqIv/oW4EqYRCTi8P3cCy3bfaIVYJiow1lGaRHS4K4=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=iQ7KR1HKealxYHIkR0jryPrhoD03AsJP3CXhKoNGnxAclTIMB+fqNj1VG45a/bwn0ONHzUvwrwE1NU8/7t0B0o1Dxo+6KgVtyHpMxpdejN937YZc0rdanU8S5ZB5bB0cKRgu8FjLq5OaaFq0uCx9I0LBHHYG4In8PM2B+uKzgMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ofa9+hBJ; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ofa9+hBJ"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-868f443cbd0so704329b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:55:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789005317; x=1789610117; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jv8lmq9dzzbUxwG3IMt124PYeUH8gDxWI8uW5PP9r1I=;
-        b=Ofa9+hBJZnWq3p1x1kklqa535Ee7bi0J7oHUDB2KhLekhkEupOsZx5+bKAfTiVnBhu
-         pVYvsSHBWGAkU/T76g3rYPqEkEJIQYfrDvyecq8sBfpV121g0kGIwJEwNj7R1gI4Smir
-         eFmwRNFpdloH5EQSdt6qaN/6zgMKILQ7gvmF+MfPvOriyTeZhRUtLu4RZE5YcDEzBB3y
-         t9p+DCCqVkljanJXGB+XQvdCro1tzFKzXYmxVbxutH5YF3jTv5d93B8KuY2XX+x+TtpB
-         LD2x4c2W33acRtD9SbED3PfDRj414UOAqqvQjJJYR9GpO+geFvBD2MYSDkRZYnGF0p6e
-         adMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789005317; x=1789610117;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jv8lmq9dzzbUxwG3IMt124PYeUH8gDxWI8uW5PP9r1I=;
-        b=sGOTdYN9He4blT/1h+Uhx47eQqBsYY11yRedQVue/CfdT2OFtbXJtj7I1xMkHRLKu8
-         U7XYvHM1Wt8Rf1f3Ot6UMqhOAeB88JMfFwMAM/1gEO2n59Ltjey00cG4dzzinzlagLpK
-         DfDvzl/FL46AUP/tCb1eXGBKimPCyOb4Mb+x2bRzDG23TVl/OhgBX+nkSGWo9A9q9RJW
-         KOBy6wboiETcLTop/6WlQVo5Cq4dUT0mXsjsZI0DmaPxe+LymToHwq3Xo3hBZQXM+KnR
-         cIjOu1tzYc6mwfC8zv21Efbjec0u6oLw1MHnyDwXRsgGrsco3jaWQVog2czlsFWmD1FZ
-         XlfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznoZKlRcwfkapGDVLSr5po+PQ82mTvWR3DRo/LDLct1ahKDZDEx4p7ef3CWAtZTC4t0cepK+V7Gdakow0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnap9Y8EZNyI2Rs+grWJPVdrmd0ljGVi7Ww/lQzKP/UasY35Sz
-	rqpYm+ZvunBGuG4y2dWPc1ANZTQNx00cPJBHxyjAb8jcm6VeXDfekESNcca9AxJ5ELEzKTkT3qG
-	2fNY2qxsOxnuEyCnMhwASZg==
-X-Received: from pfbdk11.prod.google.com ([2002:a05:6a00:488b:b0:848:401c:994])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:2185:b0:84e:909:ac03 with SMTP id d2e1a72fcca58-86168198ab5mr48340486b3a.10.1789005316829;
- Wed, 09 Sep 2026 18:55:16 -0700 (PDT)
-Date: Thu, 10 Sep 2026 09:55:15 +0800
+	s=arc-20240116; t=1789005354; c=relaxed/simple;
+	bh=KDPx5k8bHAGBgI/m4RVY+ihNOs1pdyNOlaqlg6Fav04=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=opMWH7kEEocOGIvGuzyq3wjyL+8ObiwJbOhRJKh3Rv+yfZfjF/OwA3vTXpp4NZhS0/vVq0y+SryIx9CUxVYE1l/QRxQcb3q/ldA+7krkiVL7w2rUWKtjc7wKFTbi7R2Hse8Iuw3LfLJQergb7SqmvBTPyzC22JJwqeYyzcTaZd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x4U0t-000000006Qn-0xnF;
+	Thu, 10 Sep 2026 01:55:43 +0000
+Date: Thu, 10 Sep 2026 02:55:38 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: netdev@vger.kernel.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
+	andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH net-next] net: phy: mediatek: support MT7530 PHYs on
+ EN71221 MCM
+Message-ID: <aqIOGgVujIKT7H2H@makrotopia.org>
+References: <20260909213250.3184238-1-cjd@cjdns.fr>
+ <aqHlfmYa249e3HRM@makrotopia.org>
+ <7a3479c8-45cc-4b88-b111-c35d59f370e1@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260910015515.1991789-1-stanleyjhu@google.com>
-Subject: [PATCH v3] rpmb: core: Guard frame requests and teardown with mutex
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Jens Wiklander <jenswi@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Brian Kao <powenkao@google.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7a3479c8-45cc-4b88-b111-c35d59f370e1@cjdns.fr>
 
-When a storage host unbinds or card is removed, the RPMB provider
-unregisters the RPMB device via rpmb_dev_unregister(). However, lockless
-access in rpmb_route_frames() races with provider teardown, risking
-frame dispatch against an unpowered or torn-down host controller.
+On Thu, Sep 10, 2026 at 01:26:14AM +0200, Caleb James DeLisle wrote:
+> 
+> On 10/09/2026 01:02, Daniel Golle wrote:
+> > On Wed, Sep 09, 2026 at 09:32:50PM +0000, Caleb James DeLisle wrote:
+> > > The EcoNet EN751221 multi-chip module implementation of the MT7530
+> > > requires some additional configuration of the PHYs on startup.
+> > > The reason for this is not known, but it is possible that it has
+> > > to do with the fact that the EN751221 MCM implementation of the
+> > > MT7530 runs at an abnormal PLL frequency (362.5Mhz).
+> > > 
+> > > Detect whether the MT7530 PHY is attached to the MDIO bus of an
+> > > EcoNet EN751221 switch and if so, apply the necessary register
+> > > updates.
+> > > 
+> > > Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+> > > Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+> > > Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> > > ---
+> > >   drivers/net/phy/mediatek/mtk-ge.c | 61 +++++++++++++++++++++++++++++++
+> > >   1 file changed, 61 insertions(+)
+> > > 
+> > > diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
+> > > index 73d9b72f9d9e..42b06c40d703 100644
+> > > --- a/drivers/net/phy/mediatek/mtk-ge.c
+> > > +++ b/drivers/net/phy/mediatek/mtk-ge.c
+> > > [...]
+> > >   static int mt7530_phy_config_init(struct phy_device *phydev)
+> > >   {
+> > > +	int ret;
+> > > +
+> > > +	if (mt7530_phy_is_en751221_companion(phydev)) {
+> > Please introduce a `.match_phy_device` operation for both, actual
+> > MT7530 and EN751221, similar eg. to `ksz8051_match_phy_device` in
+> > micrel.c.
+> 
+> Sounds good, since this will certainly collide with
+> https://lore.kernel.org/netdev/20260827065930.2618729-2-cjd@cjdns.fr/ would
+> you prefer them in the same patch, or as a patch set? If you'd like I can do
+> this and the FE phy as a common patch set. Let me know what you prefer.
 
-Furthermore, within a single route_frames() request, provider drivers
-dispatch multiple discrete security protocol commands to the underlying
-host (for example, Security Protocol Out followed by Security Protocol
-In on UFS). Without locking at the RPMB core entry point, concurrent
-callers can interleave low-level command sequences.
+I'd do it one driver at a time, starting with mtk-ge.c, already adding
+the .match_phy_device logic so it would also avoid binding the MT7530
+driver to an ECONET_FEPHY.
 
-Fix these concurrency and teardown issues:
-- Add a mutex and a dead flag to struct rpmb_dev.
-- Guard rpmb_route_frames() with the mutex and reject requests with
-  -ENODEV once the device is marked dead.
-- In rpmb_dev_unregister(), acquire the mutex to drain in-flight
-  requests and mark the device dead before proceeding to device_del().
-- Ensure mutex_destroy() is called in rpmb_dev_release() and in the
-  registration error unwind path.
-- Clarify kerneldoc for rpmb_dev_unregister() to advise calling from
-  the provider's remove/unbind path, not a device release callback.
+The econet-fe-soc.c driver is much larger and may require more rounds
+to make all bots and humans happy, so I'd not have the independently
+useful mtk-ge.c changes depend on that.
 
-Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Cc: stable@vger.kernel.org
----
-Differences from v2:
-- Scope lock boundary to discrete protocol frames under route_frames().
-- Drop redundant parent device pinning in favor of mutex drain.
-- Add Context: Might sleep to rpmb_route_frames() kerneldoc.
-- Fix misleading kerneldoc for rpmb_dev_unregister().
-
-Tested:
-- Verified clean probe, RPMB I/O, and unbind on QEMU ARM64 without UAF.
-
-Note: A companion series fixing the UFS cyclic refcount in ufs-rpmb.c
-has been submitted to linux-scsi.
-
- drivers/misc/rpmb-core.c | 34 +++++++++++++++++++++++++++++-----
- include/linux/rpmb.h     |  5 +++++
- 2 files changed, 34 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
-index ecf14acf230a..bbc3c404ad6f 100644
---- a/drivers/misc/rpmb-core.c
-+++ b/drivers/misc/rpmb-core.c
-@@ -45,16 +45,28 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
-  * @rsp:	rpmb response frames
-  * @rsp_len:	length of rpmb response frames in bytes
-  *
-+ * Context: Might sleep.
-+ *
-  * Returns: < 0 on failure
-  */
- int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
- 		      unsigned int req_len, u8 *rsp, unsigned int rsp_len)
- {
--	if (!req || !req_len || !rsp || !rsp_len)
-+	int ret;
-+
-+	if (!rdev || !req || !req_len || !rsp || !rsp_len)
- 		return -EINVAL;
- 
--	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
--					rsp, rsp_len);
-+	mutex_lock(&rdev->lock);
-+	if (rdev->dead) {
-+		mutex_unlock(&rdev->lock);
-+		return -ENODEV;
-+	}
-+
-+	ret = rdev->descr.route_frames(rdev->dev.parent, req, req_len,
-+				       rsp, rsp_len);
-+	mutex_unlock(&rdev->lock);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(rpmb_route_frames);
- 
-@@ -62,6 +74,7 @@ static void rpmb_dev_release(struct device *dev)
- {
- 	struct rpmb_dev *rdev = to_rpmb_dev(dev);
- 
-+	mutex_destroy(&rdev->lock);
- 	ida_free(&rpmb_ida, rdev->id);
- 	kfree(rdev->descr.dev_id);
- 	kfree(rdev);
-@@ -123,8 +136,9 @@ EXPORT_SYMBOL_GPL(rpmb_interface_unregister);
-  * rpmb_dev_unregister() - unregister RPMB partition from the RPMB subsystem
-  * @rdev: the rpmb device to unregister
-  *
-- * This function should be called from the release function of the
-- * underlying device used when the RPMB device was registered.
-+ * This function should be called from the remove or unbind callback of the
-+ * underlying device used when the RPMB device was registered, never from
-+ * a device release callback.
-  *
-  * Returns: < 0 on failure
-  */
-@@ -133,6 +147,14 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
- 	if (!rdev)
- 		return -EINVAL;
- 
-+	mutex_lock(&rdev->lock);
-+	if (rdev->dead) {
-+		mutex_unlock(&rdev->lock);
-+		return 0;
-+	}
-+	rdev->dead = true;
-+	mutex_unlock(&rdev->lock);
-+
- 	device_del(&rdev->dev);
- 
- 	rpmb_dev_put(rdev);
-@@ -164,6 +186,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
- 	rdev = kzalloc_obj(*rdev);
- 	if (!rdev)
- 		return ERR_PTR(-ENOMEM);
-+	mutex_init(&rdev->lock);
- 	rdev->descr = *descr;
- 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
- 				     GFP_KERNEL);
-@@ -194,6 +217,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
- err_free_dev_id:
- 	kfree(rdev->descr.dev_id);
- err_free_rdev:
-+	mutex_destroy(&rdev->lock);
- 	kfree(rdev);
- 	return ERR_PTR(ret);
- }
-diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
-index ed3f8e431eff..ca66a80ab888 100644
---- a/include/linux/rpmb.h
-+++ b/include/linux/rpmb.h
-@@ -7,6 +7,7 @@
- #define __RPMB_H__
- 
- #include <linux/device.h>
-+#include <linux/mutex.h>
- #include <linux/types.h>
- 
- /**
-@@ -48,15 +49,19 @@ struct rpmb_descr {
-  * struct rpmb_dev - device which can support RPMB partition
-  *
-  * @dev              : device
-+ * @lock             : protects in-flight operations against teardown
-  * @id               : device_id
-  * @list_node        : linked list node
-  * @descr            : RPMB description
-+ * @dead             : set to true when device is unregistered
-  */
- struct rpmb_dev {
- 	struct device dev;
-+	struct mutex lock;
- 	int id;
- 	struct list_head list_node;
- 	struct rpmb_descr descr;
-+	bool dead;
- };
- 
- #define to_rpmb_dev(x)		container_of((x), struct rpmb_dev, dev)
--- 
-2.55.0.1007.g17ff1f9808-goog
-
+Dumping the PHY register space and comparing it with MT7530 could also
+help to indentify any better way than relying on the parent DT
+compatible which *is* a bit of a stretch (but could well be
+unavoidable, of course).
