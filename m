@@ -1,120 +1,348 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71C63AA50B;
-	Thu, 10 Sep 2026 04:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6383B2D7DE9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789016105; cv=none; b=eVgcbdJbNETZUSKFud9u4vJtHQlf6711K4WFVpX/2WLIESuKGKATnt0JiE9ccRlftJ0YsvdwDUEqFFuXex9roFLkT58kti759d7aP4Em+NwuwGXgBbsuOnaLKYbSs+PrtZnJibKizOzHxiQLpVEzkdcs2WIxQI6xYxmN9nFwdzk=
+	t=1789016158; cv=none; b=uuVvT6M/KtUBQshv/jxdBm3mAvYZbIGdgryPdeK5zkkDO5kYxmZneuYCytK0m9V+jWu7cvpiDyJmwBEcAyaKBSFkBhZ9rnmGmaP7J3Q5Dg8Nqq2uqSQzHOkW6rHBFiRZlKtZ1Si+0lA9Lpk8+2R/Ol8bMs2n/BfotYt/Qg2O4u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789016105; c=relaxed/simple;
-	bh=KDE7UNTDJIQ2uWjvJCEGyTyC62DCbKod/dyQyTTUmHk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tkuDV9DBf98FvferxJb3Cazc4mfc/56Zyek88iUGQocqf+pjFqxWELQoE2l6amSkMRCsHQxgLoaWB5latHDBDLDuwtoHiNKax/ZdmfEwaek603E1yp/PV8OPTRwecQIvZFqFU4YF0+mfjITHmszFhhULf1r27wyYsvVRUUWVCso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RH1pdJKJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789016158; c=relaxed/simple;
+	bh=H+e7XyA8xnKnsFuNpdPO1ph5QkQKI1usyouaKIvQTNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ExtotOXEC4ZUbEJ4NRpQGiBdv45Zcq0QjIOo16cKMUKVvOKcKvpVQp5BN0274ZmAQHhZIIw4CJH/+EQtvhxBAyigeS8Osjek9CwZlc/z1m/MlFPhv5wB2cRqbQfMLPhpd8y5Oqs4WHsuDLg0qYkFVuiJ5Zie7rvzIfvgkyMWclY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TcLpQw1L; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RH1pdJKJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5071F000FF;
-	Thu, 10 Sep 2026 04:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789016104;
-	bh=4b8PYqv4VWkKA9hB1zFAscNK0cfZC015fuLfwpBZ3G4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RH1pdJKJSnU7hItjQj34V4BOEhh1rua9xC9Ylp7MDPO+gzzNAlBT5xtpwojTqa/vq
-	 IEUD4jxF/GrqOzUkQRP9W2jr171jumcvrhD0cMekeaUp9zyOHZOEFCBsAXU/ndRMnV
-	 cjweQ/SRZzgVc5XMoQpBYvEiLHYFFlcSvSUYawGlFMzYyYgM/DiqfnFQ2vastSO2Uv
-	 QydTfLtgZa3tp0odhE1T6SryJVNFW2z5KzAYSuK/vCeOCc152pJxHNRhQ2GAlIiY6x
-	 3QHhP5Sb5HvxGTyuibtDNZzoppawOi08mzbokCUAkp1iSriLXJqNBl9ILbjR3dchnE
-	 iHFHigmJiNvRw==
-Date: Thu, 10 Sep 2026 12:35:14 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Shubham Patil <shubhamsanjay.patil@amd.com>
-Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, michal.simek@amd.com,
-	radhey.shyam.pandey@amd.com
-Subject: Re: [PATCH v2 0/2] i3c: dw: Document optional core reset and drop
- redundant name
-Message-ID: <aqIzgh9hA7lcome_@xhacker>
-References: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TcLpQw1L"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-86a46577018so159534b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:55:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789016155; x=1789620955; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mb5mizWBTB8pW+1FBi5GmqY/SS0ON3evFSxkmCCH/1g=;
+        b=TcLpQw1L3xRJQHWqrwMkrlu/wK+tvvetpa4fa+RFlWrk/2fuRJIoyBzbGH1k5WvMZN
+         e5vhDSIECnX6F0iXPZjtOfNrv9FLAGsX/4m9TzU7DGgmHZcHS8TamALltUhDmtwIWOHt
+         pUm/ypUWL+LqKoiwHtndKQxcmrl8wsnMDnKgkga66XHTKd89NJiYG/TURja5WmYRWHwg
+         TZsHqlOW6R4dD8+g79MQJr5cQBCOF15RigGg6ZzLnvdb6uW92r3lrmVLL2OHwAAGH5XM
+         sb4iq+RCe5Z3XT0YJpb8nVg8NjG7Bqo574uNoEWysaSz/RQ5978T0G+GX4D86jAg6iA8
+         I/Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789016155; x=1789620955;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mb5mizWBTB8pW+1FBi5GmqY/SS0ON3evFSxkmCCH/1g=;
+        b=gci5jOS2K3p8rgqxYQjl6V3VtJDuLc8YCuokhvYGSokt+Eybk+8KtFjyHb7riICZhP
+         cFFuMdMjIi7cEd9UX7H8lDks8RtzMOn6KETqIzjF4pxeNLzEZZNGi2q6IPDPkgFrlo1O
+         j3hAFgSbOu/KjKsiQpx6j4xwUJaPJ9pVNo1pYxiDCBYMcfIMkyoDbiGjPUv/27vza+Nj
+         Zh411ai02lO8oxUAxdtB+WF3kFgEYWH9IjrjhbfAVJFV13ZufDZYIn92Fu1bwTvNxzKw
+         CLwc9n032lq5uk3G6Od/aY7xJI+w+IfmjoU3jJ+/Nz6ugM5Vr2/acJhytNzq1zPknsCI
+         B5kw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXLCeosDuFC4LyaH1ON8UZmEarf7NMGDptWm026YwWxh2lJs7v1gJCaGq7oxm/vrjaa/DtcY1AbV6ZJoU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nffFlAPn3eA514AQrC2QCXYT9d2HDSp1vz+Vb9EvNKsHPkGstx
+	C2I+UmJcopP29gNrh0znIlGDGDRBzoDydFXPVTKnZMx/+0hOn/ZuawXV
+X-Gm-Gg: AYBFou0AUPct/qOUX0Y+kjZz8wT32X1ahIyA6G9PVNKrVx1babHfGe2yazGsCpACS+z
+	YJghQEo7tXXmbFhFusC2AtDuOV66PprEB67KVe+sA1WkWH/TiBrLOL0PVvcx9YevU3qfjZUrVzD
+	iBjaYTC40Lx3ZDv0IT34LfmwWQRYDqniLeFCjWaMmGiO+E36heJkU/qII0UTJ2wxfUv7lAm/tEG
+	7Z+v0wT+6NzJghqKxVDB8gQN+d9w37XbcRxC3rYCUiWskRF1v4EJgdPjjEMCP+JKTkodZgA2f30
+	7RLtJSWp5jDTueys7UHUSTzeLKPWk/shc9pqPtwTQ7Rr/hqifEe0AkWBfXteJrW5mpNFN33GQO0
+	+7bK5K1TilLbniFofavmNWEZtP4C6zjf+HB2vQWMNM04iapqvIJHp/j/jqGvoBDWNsHpyN1apYJ
+	2qZE9vOF1fzPTcU2Gdj0FVit7zVUiWBVa3U6PM9FsiSFXlE9WtCPCKUky+HqLWJGVM4agq/UGN3
+	cU9tyHlQwVBYK7rOv8kfzGnKQ==
+X-Received: by 2002:a05:6a20:a11f:b0:3c3:b57b:6285 with SMTP id adf61e73a8af0-3da3a0af18emr59057748637.13.1789016155150;
+        Wed, 09 Sep 2026 21:55:55 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm42297786eec.4.2026.09.09.21.55.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 21:55:54 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: cem@kernel.org
+Cc: djwong@kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] xfs: fix typos and repeated words in comments
+Date: Thu, 10 Sep 2026 10:25:50 +0530
+Message-ID: <20260910045550.54432-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 20, 2026 at 01:05:08PM +0530, Shubham Patil wrote:
-> This series documents the optional core reset for the Synopsys
-> DesignWare I3C master and updates the driver to match the binding.
-> The DesignWare I3C master IP has a single core reset input. The
-> binding never documented this reset, and the driver looked it up by
-> the "core_rst" name even though a name is redundant for a single
-> reset line.
+Correct ten misspellings and eight accidentally doubled words in
+comments.  No code changes.
 
-Hi DT maintainers,
+The doubled word in xfs_zone_alloc.c was not a duplicate: "so that is is
+reused" is "it is" misspelt, so that one reads "so that it is reused"
+rather than dropping a word.
 
-AIUI, the dw i3c explicitly says there are three reset signals in
-total:
-core_rstn, for core
-presetn, for apb
-dmareset, for dma
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+v2:
+ - fold the two patches into one, as Carlos and Darrick asked
+ - xfs_zone_alloc.c: "so that it is reused"; v1 dropped the second "is",
+   which left the sentence with no subject
+ - Darrick's Reviewed-by was given on v1; the xfs_zone_alloc.c hunk
+   changed after that review, so please re-check that one line
 
-and I'm adding apb reset suppport, given this series has been applied,
-we have three choices:
+v1: https://lore.kernel.org/all/20260904112909.8197-1-hemanth.selam@gmail.com/
 
-1.revert patch2 and document the "core_rst" reset dt-binding. This
-equals to v1 of this series.
+ fs/xfs/libxfs/xfs_ag.h         | 2 +-
+ fs/xfs/libxfs/xfs_alloc.c      | 4 ++--
+ fs/xfs/libxfs/xfs_attr_leaf.c  | 2 +-
+ fs/xfs/libxfs/xfs_errortag.h   | 2 +-
+ fs/xfs/libxfs/xfs_exchmaps.c   | 2 +-
+ fs/xfs/libxfs/xfs_format.h     | 2 +-
+ fs/xfs/libxfs/xfs_inode_buf.c  | 2 +-
+ fs/xfs/scrub/agheader_repair.c | 2 +-
+ fs/xfs/scrub/alloc_repair.c    | 2 +-
+ fs/xfs/scrub/dirtree.c         | 2 +-
+ fs/xfs/scrub/reap.c            | 2 +-
+ fs/xfs/xfs_bmap_item.c         | 2 +-
+ fs/xfs/xfs_inode.c             | 2 +-
+ fs/xfs/xfs_log_cil.c           | 2 +-
+ fs/xfs/xfs_platform.h          | 2 +-
+ fs/xfs/xfs_zone_alloc.c        | 2 +-
+ fs/xfs/xfs_zone_gc.c           | 2 +-
+ 17 files changed, 18 insertions(+), 18 deletions(-)
 
-2.add a patch to add the "core_rst" reset, but allow no reset name
+diff --git a/fs/xfs/libxfs/xfs_ag.h b/fs/xfs/libxfs/xfs_ag.h
+index fd22fe598931..ee636b66a72f 100644
+--- a/fs/xfs/libxfs/xfs_ag.h
++++ b/fs/xfs/libxfs/xfs_ag.h
+@@ -207,7 +207,7 @@ xfs_perag_next(
+ }
+ 
+ /*
+- * Per-ag geometry infomation and validation
++ * Per-ag geometry information and validation
+  */
+ xfs_agblock_t xfs_ag_block_count(struct xfs_mount *mp, xfs_agnumber_t agno);
+ void xfs_agino_range(struct xfs_mount *mp, xfs_agnumber_t agno,
+diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
+index d99602bcc16f..f762dcce8d13 100644
+--- a/fs/xfs/libxfs/xfs_alloc.c
++++ b/fs/xfs/libxfs/xfs_alloc.c
+@@ -3487,7 +3487,7 @@ xfs_alloc_read_agf(
+ }
+ 
+ /*
+- * Pre-proces allocation arguments to set initial state that we don't require
++ * Pre-process allocation arguments to set initial state that we don't require
+  * callers to set up correctly, as well as bounds check the allocation args
+  * that are set up.
+  */
+@@ -3608,7 +3608,7 @@ xfs_alloc_vextent_finish(
+ 	 * ABBA AGF deadlocks because a future allocation attempt in this
+ 	 * transaction may attempt to lock a lower number AGF.
+ 	 *
+-	 * We can't release the AGF until the transaction is commited, so at
++	 * We can't release the AGF until the transaction is committed, so at
+ 	 * this point we must update the "first allocation" tracker to point at
+ 	 * this AG if the tracker is empty or points to a lower AG. This allows
+ 	 * the next allocation attempt to be modified appropriately to avoid
+diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+index b6288395f853..2c80f4fd0b78 100644
+--- a/fs/xfs/libxfs/xfs_attr_leaf.c
++++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+@@ -1715,7 +1715,7 @@ xfs_attr3_leaf_add_work(
+ 			/*
+ 			 * This freemap entry starts at the old end of the
+ 			 * leaf entry array, so we need to adjust its base
+-			 * upward to accomodate the larger array.
++			 * upward to accommodate the larger array.
+ 			 */
+ 			diff = sizeof(struct xfs_attr_leaf_entry);
+ 		} else if (ichdr->freemap[i].size > 0 &&
+diff --git a/fs/xfs/libxfs/xfs_errortag.h b/fs/xfs/libxfs/xfs_errortag.h
+index 6de207fed2d8..f0c83f1f0b3b 100644
+--- a/fs/xfs/libxfs/xfs_errortag.h
++++ b/fs/xfs/libxfs/xfs_errortag.h
+@@ -83,7 +83,7 @@
+ #define XFS_RANDOM_DEFAULT				100
+ 
+ /*
+- * Table of errror injection knobs.  The parameters to the XFS_ERRTAG macro are:
++ * Table of error injection knobs.  The parameters to the XFS_ERRTAG macro are:
+  *   1. The XFS_ERRTAG_ flag but without the prefix;
+  *   2. The name of the sysfs knob; and
+  *   3. The default value for the knob.
+diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
+index 3efed37cb98a..6a66b6075e0a 100644
+--- a/fs/xfs/libxfs/xfs_exchmaps.c
++++ b/fs/xfs/libxfs/xfs_exchmaps.c
+@@ -395,7 +395,7 @@ xfs_exchmaps_one_step(
+ 	/*
+ 	 * Re-add both mappings.  We exchange the file offsets between the two
+ 	 * maps and add the opposite map, which has the effect of filling the
+-	 * logical offsets we just unmapped, but with with the physical mapping
++	 * logical offsets we just unmapped, but with the physical mapping
+ 	 * information exchanged.
+ 	 */
+ 	swap(irec1->br_startoff, irec2->br_startoff);
+diff --git a/fs/xfs/libxfs/xfs_format.h b/fs/xfs/libxfs/xfs_format.h
+index dd0ed046fbe9..1a7a7e60a170 100644
+--- a/fs/xfs/libxfs/xfs_format.h
++++ b/fs/xfs/libxfs/xfs_format.h
+@@ -1051,7 +1051,7 @@ enum xfs_dinode_fmt {
+  * block is 1KB in size.
+  *
+  * With XFS_MAX_EXTCNT_DATA_FORK_SMALL representing maximum extent count and
+- * with 1KB sized blocks, a file can reach upto,
++ * with 1KB sized blocks, a file can reach up to,
+  * 1KB * (2^31) = 2TB
+  *
+  * This is much larger than the theoretical maximum size of a directory
+diff --git a/fs/xfs/libxfs/xfs_inode_buf.c b/fs/xfs/libxfs/xfs_inode_buf.c
+index e4c3f7b24e95..0340e2189921 100644
+--- a/fs/xfs/libxfs/xfs_inode_buf.c
++++ b/fs/xfs/libxfs/xfs_inode_buf.c
+@@ -626,7 +626,7 @@ xfs_dinode_verify(
+ 	 * have di_nlink track the link count, even if the actual filesystem
+ 	 * only supported V1 inodes (i.e. di_onlink).  When writing out the
+ 	 * ondisk inode, it would set both the ondisk di_nlink and di_onlink to
+-	 * the the incore di_nlink value, which is why we cannot check for
++	 * the incore di_nlink value, which is why we cannot check for
+ 	 * di_nlink==0 on a V1 inode.  V2/3 inodes would get written out with
+ 	 * di_onlink==0, so we can check that.
+ 	 */
+diff --git a/fs/xfs/scrub/agheader_repair.c b/fs/xfs/scrub/agheader_repair.c
+index 2104512f1ee1..493efa2b2f0d 100644
+--- a/fs/xfs/scrub/agheader_repair.c
++++ b/fs/xfs/scrub/agheader_repair.c
+@@ -1352,7 +1352,7 @@ xrep_iunlink_mark_ondisk(
+ 
+ /*
+  * Walk an iunlink bucket's inode list.  For each inode that should be on this
+- * chain, clear its entry in in iunlink_bmp because it's ok and we don't need
++ * chain, clear its entry in iunlink_bmp because it's ok and we don't need
+  * to touch it further.
+  */
+ STATIC int
+diff --git a/fs/xfs/scrub/alloc_repair.c b/fs/xfs/scrub/alloc_repair.c
+index dce6ab0429dc..84ae88ca027a 100644
+--- a/fs/xfs/scrub/alloc_repair.c
++++ b/fs/xfs/scrub/alloc_repair.c
+@@ -338,7 +338,7 @@ xrep_cntbt_extent_cmp(
+ }
+ 
+ /*
+- * Sort the free extents by length so so that we can put the records into the
++ * Sort the free extents by length so that we can put the records into the
+  * cntbt in the correct order.  Don't let userspace kill us if we're resorting
+  * after allocating btree blocks.
+  */
+diff --git a/fs/xfs/scrub/dirtree.c b/fs/xfs/scrub/dirtree.c
+index b2cf6e5439d9..469ba30670f0 100644
+--- a/fs/xfs/scrub/dirtree.c
++++ b/fs/xfs/scrub/dirtree.c
+@@ -994,7 +994,7 @@ xchk_dirtree(
+ 	return error;
+ }
+ 
+-/* Does the directory targetted by this scrub have no parents? */
++/* Does the directory targeted by this scrub have no parents? */
+ bool
+ xchk_dirtree_parentless(const struct xchk_dirtree *dl)
+ {
+diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
+index fcd14c1703ea..d1f4b7159af2 100644
+--- a/fs/xfs/scrub/reap.c
++++ b/fs/xfs/scrub/reap.c
+@@ -172,7 +172,7 @@ static inline bool xreap_is_dirty(const struct xreap_state *rs)
+ }
+ 
+ /*
+- * Decide if we need to roll the transaction to clear out the the log
++ * Decide if we need to roll the transaction to clear out the log
+  * reservation that we allocated to buffer invalidations.
+  */
+ static inline bool xreap_want_binval_roll(const struct xreap_state *rs)
+diff --git a/fs/xfs/xfs_bmap_item.c b/fs/xfs/xfs_bmap_item.c
+index 89f6e79a955f..aa5b41629747 100644
+--- a/fs/xfs/xfs_bmap_item.c
++++ b/fs/xfs/xfs_bmap_item.c
+@@ -339,7 +339,7 @@ xfs_bmap_update_get_group(
+ 
+ 	/*
+ 	 * Bump the intent count on behalf of the deferred rmap and refcount
+-	 * intent items that that we can queue when we finish this bmap work.
++	 * intent items that we can queue when we finish this bmap work.
+ 	 * This new intent item will bump the intent count before the bmap
+ 	 * intent drops the intent count, ensuring that the intent count
+ 	 * remains nonzero across the transaction roll.
+diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
+index 030a7c8f2c12..621513d7215e 100644
+--- a/fs/xfs/xfs_inode.c
++++ b/fs/xfs/xfs_inode.c
+@@ -2669,7 +2669,7 @@ xfs_irele(
+ }
+ 
+ /*
+- * Ensure all commited transactions touching the inode are written to the log.
++ * Ensure all committed transactions touching the inode are written to the log.
+  */
+ int
+ xfs_log_force_inode(
+diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
+index 639f875a8fb2..defd121690f5 100644
+--- a/fs/xfs/xfs_log_cil.c
++++ b/fs/xfs/xfs_log_cil.c
+@@ -1369,7 +1369,7 @@ xlog_cil_cleanup_whiteouts(
+  * allocation context. However, we do not want to block on memory reclaim
+  * recursing back into the filesystem because this push may have been triggered
+  * by memory reclaim itself. Hence we really need to run under full GFP_NOFS
+- * contraints here.
++ * constraints here.
+  */
+ static void
+ xlog_cil_push_work(
+diff --git a/fs/xfs/xfs_platform.h b/fs/xfs/xfs_platform.h
+index 5d542e95fe44..745d715b4c64 100644
+--- a/fs/xfs/xfs_platform.h
++++ b/fs/xfs/xfs_platform.h
+@@ -153,7 +153,7 @@ static inline void delay(long ticks)
+ /*
+  * XFS wrapper structure for sysfs support. It depends on external data
+  * structures and is embedded in various internal data structures to implement
+- * the XFS sysfs object heirarchy. Define it here for broad access throughout
++ * the XFS sysfs object hierarchy. Define it here for broad access throughout
+  * the codebase.
+  */
+ struct xfs_kobj {
+diff --git a/fs/xfs/xfs_zone_alloc.c b/fs/xfs/xfs_zone_alloc.c
+index bdbb60cc5d5b..b8230b5bf4e3 100644
+--- a/fs/xfs/xfs_zone_alloc.c
++++ b/fs/xfs/xfs_zone_alloc.c
+@@ -826,7 +826,7 @@ xfs_get_cached_zone(
+ }
+ 
+ /*
+- * Stash our zone in the inode so that is is reused for future allocations.
++ * Stash our zone in the inode so that it is reused for future allocations.
+  *
+  * The open_zone structure will be pinned until either the inode is freed or
+  * until the cached open zone is replaced with a different one because the
+diff --git a/fs/xfs/xfs_zone_gc.c b/fs/xfs/xfs_zone_gc.c
+index 5fdcf98a2133..54b70ed2922f 100644
+--- a/fs/xfs/xfs_zone_gc.c
++++ b/fs/xfs/xfs_zone_gc.c
+@@ -46,7 +46,7 @@
+  * before remapping.
+  *
+  * Once a zone does not contain any valid data, be that through GC or user
+- * block removal, it is queued for for a zone reset.  The reset operation
++ * block removal, it is queued for a zone reset.  The reset operation
+  * carefully ensures that the RT device cache is flushed and all transactions
+  * referencing the rmap have been committed to disk.
+  */
+-- 
+2.48.1
 
-3.add a patch to add the "core" reset, but allow no reset name
-
-Which one do you prefer?
-
-Thanks
-
-> 
-> This series addresses both:
->   - Patch 1 documents the optional 'resets' property in the binding.
->     The reset is kept optional because the reset line is
->     integration-specific.
->   - Patch 2 removes the "core_rst" reset name from the driver and
->     looks the reset up by passing NULL, since the name is redundant
->     for a single reset.
-> 
-> Changes in v2:
-> - Updated commit description for binding patch
-> - Dropped reset-names from the binding
-> - Added driver patch to remove redundant reset name
-> 
-> Note:
-> The DesignWare I3C driver support was added by
-> commit 1dd728f5d4d4 ("i3c: master: Add driver for Synopsys DesignWare IP").
-> 
-> The original Synopsys DesignWare I3C binding was added by
-> commit 116e246a8bcd ("dt-binding: i3c: Document Synopsys DesignWare I3C"),
-> but it did not document the optional core reset.
-> ---
-> Shubham Patil (2):
->   dt-bindings: i3c: dw: Document missing optional core reset
->   i3c: master: dw: Drop redundant core reset name
-> 
->  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 3 +++
->  drivers/i3c/master/dw-i3c-master.c                            | 2 +-
->  2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> 
-> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-> -- 
-> 2.34.1
-> 
-> 
-> -- 
-> linux-i3c mailing list
-> linux-i3c@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-i3c
