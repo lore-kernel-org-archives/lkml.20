@@ -1,67 +1,31 @@
-Received: from mail-oo2-f3.google.com (mail-oo2-f3.google.com [74.125.231.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C893A6B6C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3631C24501D;
+	Thu, 10 Sep 2026 04:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789013783; cv=none; b=j1TMgByCd3jRR/g8ujSUzeCwhnFkDBcFxLY3Wwy0cWE3TMLefZCs8T1GHoBonXNzGgUq3fgQ4wLQ1rryrgfH5o0SY4/zV4cekQstWyCY99HJaE5vSvFsdKJdRkOnZbGgnKAhW/bXHCQwJTJgvrck3vxaAEGU3PyJRuQOo1h5GpE=
+	t=1789013992; cv=none; b=OM6G73FGhocFmASGIv/BwSpJqCOtqTmMfFRBfIYBjOWGAq8lgjcwkZH5WvsprSGARBIqw66YY7IJXwwAcghkcSS12huv6/N6pGjSh3s4QiTIoH9jKWHevpNYcAGFPGkq+RrRZYrGo30gpDVdA8Jx95IBoIYm4Hr2HPvhSnW4oSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789013783; c=relaxed/simple;
-	bh=6xCUDTIGKPrgFADRT+Qp+uNq6ERnZQBXxN9oMvEXlj4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pxKh1FKWONdH2eBYMlDiDdZQ4lEP92wwGOFD4m43FvzvU7dOOLMGQhav28QoyhQZ47FNUilPCiyRn+Nj233YR2GLe7aLZIuhJfEda5z7b1d4srPDb9xgf2ll/XWC5oKMbZdqIn+j+CqrT4e+PPcXlIzQYhhfwNXkFR81tcaOrs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DieTNXWo; arc=none smtp.client-ip=74.125.231.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789013992; c=relaxed/simple;
+	bh=HRFN1L75iygYN0nJ/ENZdhVHG78m4oGJxQBTk8H2ZwE=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=ZOERVi5/tOt1VpCdcTNb64azLWHA5vv8SHWyfGGl0Bcx5vUNfMHYuo/AvNFVrrXswJK5J4UeMU4SFrJyfUchPJI77HABa+U9K8cZmciaoi2mwzHpUR/hv7/sU5BRv9IzxTha8TmqfQdKE7Ot35ydTYfodbhJ/lNLJ65Sm9kdU4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVPdJjw8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DieTNXWo"
-Received: by mail-oo2-f3.google.com with SMTP id 46e09a7af769-7f4e854ef3eso2085530a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:16:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789013777; x=1789618577; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zYx/Dgo28gO2nNybMfS4z2LQPxEmJb9CFwgBS5VMQSs=;
-        b=DieTNXWoGVdnPtmZy40vZ87RXAjRcAR04nC4RBUvanddCU+tSHyY7BPU1x96umFvhK
-         wWCXksNKrxg4jjJva7i7+V3ZWPzdfaoIbARXQHe962E6c9UGqIT1M3+AyHG3Ks/aJB1c
-         VBdIPg2Vdl3Igtiux668v5HrSoAtm2bExZJGQnFeaFGPevV6i6ZPs84yJKJ63HtXN8R8
-         UsxQnvOuxvo+p9yC6J8D5kZMr1CH2ECMMIbV4c1g5XSeakSEMEu94YUPCyRDbUX+78hA
-         HczMMvrJ3fHEtd8FcG5grwOM1fs8x3LsDWEjI3G1uLK0mvQvfbpDtpU8O8o1xR9SdqDw
-         grEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789013777; x=1789618577;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zYx/Dgo28gO2nNybMfS4z2LQPxEmJb9CFwgBS5VMQSs=;
-        b=fEvztQxEE7brvmAGi62xSG6io9XZhVaHzKOhvfhCLHseOK93Ze3waEjhxiCeoRuDHd
-         bcrfTJFHd1Ffohfn/4Dw6gH9AxlemJVehjZfH2hDE9PxI+2nCGrxn6SwSMz8TDHnbUJb
-         VVfgCA/qjFO9jDRdpUeBekZhcc74Oqc/HXhOHWl7hbqcL9E9PIkaga3gczsways0vhkG
-         jifPRCFQcxGxa9yto5ywbAkMT5l+j/47cMBsybtND4t73lqkOmbI0GLk4tVzOsnGjSBO
-         GnAcdWLvNj6ItQYOO5hX3FGQRRDEsU3zRS6THjIFKwstHA7QcDJQ+Pp4aM8APzT5KNKr
-         b9eA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3Kn+clvwI+gO/f5uiI5FI7BAcBDlPEQYNPaifwGWLoNsO3wHaQNmFqlrLWeDHBJ83u1I3OdydJjOAo6I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHOVp5+uJT8nLSuGPQ8uSXhoQ2sXj7oN9UkH1KwDBamZ8Jnfbq
-	JkV/u49zaFCDgkyjeT/hpboqTwpbfgqGkb4ykP8+FjPvWt/bHSJldQyj
-X-Gm-Gg: AYBFou2mDGYWzBUHRRZH+bpv+Z53zbXMVSA/mrnuz6Ca9JOgnIGoInzXs7xT+Twv1jf
-	KGFqI9EVbMX+vJysQoZXRL6/ZyA53UlcEXgcGQXrfE+HU0Cmnj3xdBwj18qgru9ZitR3FE7YC2T
-	oCwKBAxyBxJRBTP+ClMGznF4+updw/VZNpRQRzhqB3U9r/1xO5BtTbnrO4soBSXrxdOPsd8tnQf
-	X8YKOB7kjGPc0TwFyNZAaoWdY5Lhegk8OAcBi2IZR27RzCi6cyVY+ShmKYQVxCRhs4s5GUAdAUp
-	O1z5GeO8a7B1ytVnS0szk+Jpj+34MmMtshTxRbQgiGtHcGddHlPhzgU33me6hSJKJo2WzUl4rQN
-	YYwvo0YRYoI+LE0RIL5nIOignugJ/6lcWpv12ooSXpJ4lNzjTnD69nYWrWPfhVM9ZioETiDKOt2
-	4HEfb7l1nw2LGHcogXS+pznhO3H+heDxmcBwS/9lD00W7wTf6vVTHZmdDbfH69O0G+VIbJx/PJ9
-	bQ8pA==
-X-Received: by 2002:a05:6830:43a9:b0:7f4:e4a4:5d9c with SMTP id 46e09a7af769-8020daab9dcmr3500318a34.6.1789013777034;
-        Wed, 09 Sep 2026 21:16:17 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f7aef680sm19794372a34.26.2026.09.09.21.16.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 21:16:15 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 09 Sep 2026 23:16:06 -0500
-Subject: [PATCH v2] drm/imagination: suspend the GPU for system sleep, not
- just runtime PM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVPdJjw8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68AFF1F00893;
+	Thu, 10 Sep 2026 04:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789013990;
+	bh=Aoi7a+3WGl9CNODLL1/W4K0SdnGMJudXan1R4lUIjtk=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=CVPdJjw83eUFJISLERNXzrNmyhsl0ErTlof4MjCPoVTXA0zzWVN/6SWWEcqb3jxfV
+	 B+6fobIJE9dNLqvW2u56pDh19LNzIXJ0Dxifq+OpAFDzVwmmxSPGTq4IHBTrnUzB8r
+	 o630OqQLfyZbxUoE08QQlWCCWsbNiNqMwKLHBJYHmAu65vQ4i6z2Uv6Znpcd7Jj2w8
+	 eI6EHd6hQLrsRr5Kqx5540qzYxchQgVY5ma/oNpo0muIe3BQYy1lNIlDak1/ui+ZCV
+	 0PVFUFOadjazcL9BxCIs9KgUILx24pBuTJpMUyIPpPlCD4D43J8yOyu4UXzABgXPrZ
+	 dsEAQtc8ZMS6A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,195 +34,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v2-1-66a938e92b87@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6WOQQ6CMBREr2K69ptCQMSV9zAsaPmUGlqa/paIh
- Ltb8Agu32Qy81ZG6DUSu59W5nHWpCebID+fmBxaqxB0l5jlPL/ymtfghY8IFPED0VHw2BptFbj
- Zp5Ac2g6Ui0ALBTRAI6ID0Yu667uK80qwtOw89vp9vD6bH1MUL5Rhv9obg6Yw+eXQmrO995/Bn
- EEGfVHeikrIuszEQ5lWjxc5GdZs2/YFcA0LbQgBAAA=
-X-Change-ID: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, YoungJoon Lee <getfeus@gmail.com>, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789013774; l=7662;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=6xCUDTIGKPrgFADRT+Qp+uNq6ERnZQBXxN9oMvEXlj4=;
- b=JJuqFueiVdAc31T3lc4BEk+YOegPXwH47zzb8EMcm2e8Ensy8dcuI6X5ZtBIh/8X+gUYmdu17
- ZYmdH0Q1jt9BYpRU6pv57oy3XbQWyJ7QUqbAOOf+C2cx4ufRpx0o6Ja
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+Date: Wed, 09 Sep 2026 21:19:12 -0700
+Message-Id: <178901395286.3971858.10992395592923835285.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7031; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=HRFN1L75iygYN0nJ/ENZdhVHG78m4oGJxQBTk8H2ZwE=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmL9I9Jz3jq4cq9rM5zeaqc1pRtTQoZhxcp7i3geXRYc
+ cW1/2rcHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiDEcZ/temr4tQzrp77+AD
+ KZnLEod7uZY+a1fUT/jSoe2654SJWAAjQ4eyhHTCg8uJGw2THi6aeCFutsi5zbs+mT7tnG587R7
+ jIj4A
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for system
-suspend at all. That is fine only while the GPU happens to be
-runtime-suspended when the system suspends -- then its own runtime PM has
-already disabled the firmware and powered the domain off. If it is
-runtime-ACTIVE, genpd powers the domain down during the system suspend
-without the driver ever being told, so on resume the driver still believes
-its firmware is running. The first firmware operation then never completes:
+> A typical kernel build consists of a frustratingly large amount of time
+> spent stuck in single-threaded bottlenecks.
+> 
+> It turns out that there's a lot we can do about this and doing so
+> significantly impacts kernel build times.
+> 
+> This series makes allmodconfig builds up to 36% faster, incremental builds
+> up to ~70% faster, and noop builds up to ~90% faster.
+> 
+> Builds are faster across the board on every device I tested.
+> 
+> Machines used for perf testing:
+> 
+> * Threadripper -   x86, AMD Threadripper 9980X, 64 cores, 128 threads
+> * EPYC         -   x86, 2 socket EPYC 9754, 256 cores, 512 threads
+> * M2           - arm64, 2022 M2 macbook pro, 8 cores, 8 threads
+>                         (4 perf, 4 efficiency)
+> 
+> Cutting to the chase:
+> 
+> 		== allmodconfig FULL build ==
+> 
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc       345.3s   275.2s    -70.1s (-20%)
+> Threadripper, clang     345.5s   265.7s    -79.8s (-23%)
+> EPYC, gcc               188.6s   121.1s    -67.5s (-36%)
+> EPYC, clang             261.7s   184.6s    -77.1s (-29%)
+> 
+> 		== allmodconfig INCREMENTAL build ==
+> 
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc        46.4s    15.3s    -31.1s (-67%)
+> Threadripper, clang      44.4s    15.2s    -29.1s (-66%)
+> EPYC, gcc                82.0s    24.3s    -57.7s (-70%)
+> EPYC, clang              77.6s    24.3s    -53.3s (-69%)
+> 
+> 		== allmodconfig NO-OP build ==
+> 
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc       12.97s    1.18s   -11.79s (-91%)
+> Threadripper, clang     13.84s    1.64s   -12.20s (-88%)
+> EPYC, gcc               25.92s    1.52s   -24.40s (-94%)
+> EPYC, clang             27.58s    2.17s   -25.41s (-92%)
+> 
+> 		== defconfig FULL build ==
+> 
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc        35.3s    28.6s     -6.7s (-19%)
+> Threadripper, clang      33.5s    26.1s     -7.4s (-22%)
+> EPYC, gcc                31.2s    20.6s    -10.6s (-34%)
+> EPYC, clang              38.6s    32.2s     -6.4s (-17%)
+> M2, gcc                 564.0s   512.4s    -51.6s (-9%)
+> M2, clang               616.1s   569.4s    -46.7s (-8%)
+> 
+> 		== defconfig INCREMENTAL build ==
+> 
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc        11.6s     5.5s     -6.1s (-53%)
+> Threadripper, clang      11.6s     5.0s     -6.6s (-57%)
+> EPYC, gcc                19.3s     9.2s    -10.1s (-52%)
+> EPYC, clang              20.1s     8.6s    -11.5s (-57%)
+> M2, gcc                  18.6s     9.9s     -8.7s (-47%)
+> M2, clang                18.6s     8.2s    -10.4s (-56%)
+> 
+> 		== defconfig NO-OP build ==
+> 
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc        0.96s    0.47s    -0.49s (-51%)
+> Threadripper, clang      1.21s    0.55s    -0.66s (-55%)
+> EPYC, gcc                1.47s    0.66s    -0.81s (-55%)
+> EPYC, clang              1.87s    0.80s    -1.07s (-57%)
+> M2, gcc                  5.59s    1.69s    -3.90s (-70%)
+> M2, clang                6.62s    1.74s    -4.88s (-74%)
+> 
+> Further performance numbers are provided for each commit giving a sense of
+> what each contributes to the final result.
+> 
+> 			== Testing ==
+> 
+> Beyond x86, allmodconfig was built with the series for arm64, arm, riscv,
+> powerpc64, s390 and loongarch, and for arm64, arm, s390 and loongarch the
+> System.map is identical to what the previous shell mksysmap produces for
+> the same vmlinux.
+> 
+> Also tested were parisc64 and m68k build as far as mainline lets them
+> (a driver's static assertion and an undefined-symbol check on parisc, gcc
+> 16 internal compiler errors on m68k, none of it from this series).
+> 
+> Kernels for x86, arm64, arm, riscv, loongarch, powerpc64, s390, m68k and
+> parisc64 all boot under qemu, every text symbol of System.map is in
+> /proc/kallsyms at the relocated address, and a module loads and unloads.
+> The s390, arm and loongarch kernels also pass the kallsyms selftest.
+> 
+> An x86 kernel with CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
+> CONFIG_MODULE_SRCVERSION_ALL boots, loads and unloads modules. External
+> modules build against both in-tree and O= builds, and every commit builds
+> on x86 defconfig.
+> 
+> Build times are the best of several runs, no unexpected errors or
+> warnings were seen.
+> 
+> While some aspects of the build process have been changed, all tooling
+> should function identically to before.
 
-  pvr_mmu_flush_exec -> timeout -> pvr_power_reset -> drm_dev_unplug
+I appreciate all of the testing that you have done! I will test this
+side by side on a couple of my own machines to see what results I get
+but I do like those results.
 
-and pvr_power_reset() deadlocks, because drm_dev_unplug() waits in
-synchronize_srcu() for every drm_dev_enter() section to exit while being
-called from inside a DRM ioctl that holds one. The result is an unkillable
-D-state process and a GPU that stays dead until reboot.
+> 			== LLM usage ==
+> 
+> An LLM was used to first determine where the bottlenecks were then to
+> figure out how to improve them.
+> 
+> It generated a lot of code, much of it hideous.
+> 
+> I extensively audited and rewrote a lot of it, and heavily edited commit
+> messages, the cover letter and comments.x
+> 
+> The LLM has also orchestrated build runs, testing, debugging and analysis.
+> 
+> I have manually checked for correctness in both build and running kernels
+> generated with this series applied.
+> 
+> Performance improvements were also verified manually.
+> 
+> Since an LLM was used extensively, each commit carries an Assisted-by tag.
 
-On mt8173 (amazon-suez) this is deterministic:
+Thank you for calling all of this out as well.
 
-  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo mem > /sys/power/state          # wakes on an RTC alarm
-  vulkaninfo --summary                 # hangs in D state, every time
+> 			== What was changed? ==
+> 
+> Fundamentally the series improves build times by parallelising
+> single-threaded tasks as much as possible and improving the efficiency of
+> code used in the build process.
+> 
+> kbuild, kallsyms, modpost, objtool, mksysmap and the rust build system were
+> all updated as part of this change.
+> 
+> Nothing too controversial was included. There are further improvements that
+> could be made, but they would either by very invasive (large scale C header
+> changes) or generate diminishing returns.
+> 
+> 			== Patches ==
+> 
+>    mksysmap (1, 2):  A couple of bugfixes the rest of the series relies
+>                      upon.
 
-and with an autosuspend delay of 50 ms it is also what makes the failure
-look intermittent in normal use -- it depends purely on whether the GPU was
-idle at the instant of suspend.
+As I note in other threads of this review, I think we should take these
+to Linus now, they seem Obviously CorrectTM and it helps chunk out the
+series.
 
-pvr_power_device_suspend() already disables the firmware and calls the
-platform power_off, and pvr_power_device_resume() is its exact inverse, so
-force them for system sleep.
+I have just reviewed a few of the low hanging fruit patches. I will try
+to take a look at the rest over the next couple of weeks but I might not
+get to them until after Plumbers. I would greatly appreciate if there
+are others who are more knowledgeable in these areas who could review
+these changes, as I don't know too much about some of the corners of
+Kbuild yet.
 
-The force helpers cannot be used directly, though. Once the GPU has been
-lost -- pvr_device_lost() sets pvr_dev->lost and calls drm_dev_unplug() --
-drm_dev_enter() fails, so pvr_power_device_suspend() returns -EIO, and
-pm_runtime_force_suspend() propagates that to the PM core, which aborts the
-system suspend. Nothing ever clears the condition: a lost device cannot
-runtime-suspend either, for the same reason, so it stays runtime-active and
-every later attempt fails the same way. Wiring the force helpers in raw
-would therefore trade a GPU that dies on suspend for a machine that cannot
-suspend at all. Wrap them instead and skip the transition for a device
-that is already gone, which is also the truthful answer: there is nothing
-left to power down.
-
-The wrappers test the same condition the -EIO comes from rather than
-pvr_dev->lost, so they also cover an unplug from any other path.
-
-The vendor driver arrives at the same rule about system sleep by a
-different route: it holds a wakelock while the MFG domain is powered
-("prevent suspend when gpu active") so the system can never suspend with
-the GPU on.
-
-Two related problems are left alone here. The reset-path deadlock above
-(drm_dev_unplug() waiting on an SRCU section held by the ioctl that called
-pvr_power_reset()) is a separate bug; this change only stops the
-system-sleep path from reaching it. And pvr_power_fw_disable() cancels the
-watchdog work before it can fail, and does not restart it on the error
-path, so a suspend that fails part-way leaves the watchdog dead until the
-next successful resume -- pre-existing, but system sleep is a new way to
-reach it.
-
-Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-Changes in v2:
-- Don't wire pm_runtime_force_suspend/resume in directly. Once the GPU
-  has been lost, drm_dev_enter() fails, pvr_power_device_suspend() returns
-  -EIO, and the force helper hands that to the PM core, which aborts the
-  system suspend -- permanently, since a lost device never becomes
-  suspendable again. v1 would have traded a GPU that dies on suspend for a
-  machine that cannot suspend at all. v2 wraps the helpers and skips the
-  transition when the device is already unplugged. Caught by the Sashiko
-  AI review bot.
-- Commit message: say why the wrappers exist, and note that
-  pvr_power_fw_disable() leaves the watchdog cancelled on its error path
-  -- pre-existing, but system sleep is a new way to reach it.
-- Cc'd Chen-Yu Tsai, Icenowy Zheng and YoungJoon Lee, who are testing this
-  same GPU in the MT8173 powervr thread [1] and are the people best placed
-  to say whether this reproduces on a Chromebook. That thread doesn't
-  mention suspend at all.
-- Dropped sarah.walker@imgtec.com and donald.robson@imgtec.com, both of
-  which bounced on v1. get_maintainer.pl offers them via blamed_fixes on
-  the Fixes: commit, but neither has committed since 2025-04 and 2023-12
-  respectively and neither has a newer address in kernel mail.
-[1] https://lore.kernel.org/all/20260728091804.382753-1-wenst@chromium.org/
-
-- Link to v1: https://patch.msgid.link/20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com
----
- drivers/gpu/drm/imagination/pvr_drv.c   |  1 +
- drivers/gpu/drm/imagination/pvr_power.c | 31 +++++++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_power.h |  3 +++
- 3 files changed, 35 insertions(+)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..09eb162353aa 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1517,6 +1517,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
- 
- static const struct dev_pm_ops pvr_pm_ops = {
- 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	SYSTEM_SLEEP_PM_OPS(pvr_power_system_suspend, pvr_power_system_resume)
- };
- 
- static struct platform_driver pvr_driver = {
-diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
-index eb4b6ecdf4f4..55a47bc4e925 100644
---- a/drivers/gpu/drm/imagination/pvr_power.c
-+++ b/drivers/gpu/drm/imagination/pvr_power.c
-@@ -427,6 +427,37 @@ pvr_power_device_resume(struct device *dev)
- 	return err;
- }
- 
-+int
-+pvr_power_system_suspend(struct device *dev)
-+{
-+	struct platform_device *plat_dev = to_platform_device(dev);
-+	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
-+
-+	/*
-+	 * A device that has been lost cannot be talked to, and there is
-+	 * nothing left to power down. pvr_power_device_suspend() answers
-+	 * -EIO for it, which the PM core turns into a failed system suspend
-+	 * for the whole machine -- and because nothing clears the condition,
-+	 * it would fail that way on every subsequent attempt.
-+	 */
-+	if (drm_dev_is_unplugged(drm_dev))
-+		return 0;
-+
-+	return pm_runtime_force_suspend(dev);
-+}
-+
-+int
-+pvr_power_system_resume(struct device *dev)
-+{
-+	struct platform_device *plat_dev = to_platform_device(dev);
-+	struct drm_device *drm_dev = platform_get_drvdata(plat_dev);
-+
-+	if (drm_dev_is_unplugged(drm_dev))
-+		return 0;
-+
-+	return pm_runtime_force_resume(dev);
-+}
-+
- int
- pvr_power_device_idle(struct device *dev)
- {
-diff --git a/drivers/gpu/drm/imagination/pvr_power.h b/drivers/gpu/drm/imagination/pvr_power.h
-index c34252bda078..39d18ee9a3bd 100644
---- a/drivers/gpu/drm/imagination/pvr_power.h
-+++ b/drivers/gpu/drm/imagination/pvr_power.h
-@@ -20,6 +20,9 @@ int pvr_power_device_suspend(struct device *dev);
- int pvr_power_device_resume(struct device *dev);
- int pvr_power_device_idle(struct device *dev);
- 
-+int pvr_power_system_suspend(struct device *dev);
-+int pvr_power_system_resume(struct device *dev);
-+
- int pvr_power_reset(struct pvr_device *pvr_dev, bool hard_reset);
- 
- static __always_inline int
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+-- 
+Cheers,
+Nathan
 
