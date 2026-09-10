@@ -1,158 +1,198 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76A1368D71
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446863DCD83;
+	Thu, 10 Sep 2026 09:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030868; cv=none; b=gjfhTKOyV7yXs6xrS+3fNINsAXNF+5gl024slPB+8nOQkAQqqxY44FPAGQ7L3OuNjGvxO7E/Um6pxzpzE5OZTyY4o93o8aOz90WdLqROLbHOxeM/mUWAcCJ4wlozEFRANw9RkdTlh/scqigDvBpAqblLOW0KLdAMkBaUeMuMCYg=
+	t=1789030876; cv=none; b=Ta26opAnPqwjjG4TRDrP7zY1Jx362nFIglhTL3QDR6N74DE1OfzWD3ACJDbNUBpfgt3qNjq+G9GihnMbwcbEzDG0FMQb/ueXgAKEwjFF7GnN0PjLQhfF3giV2tvJ36yRGpXNgKWvyo1FWDuYFRI7QAfAnuUrv2CYO6lkN3X4KiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030868; c=relaxed/simple;
-	bh=plZI0uUNPYaV9ulwAaV4OgZ112ckeX5G5rsQXABeMTw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lFpfH/u5FJT5yiAGzUdB+ARIwA/oqWgBiDFqMBEO3yCH9o19WoQJ0B+FFLVls4Yog82V9HMawAIlyHciau7ItkeuZJTovh+yme0+KNKfQ9SutCcs9z0sSQ4Uj/b9fN4D8iddyRDirqUI2Kbpo/9z+FOtqx2iqdtNChbnoA9TrFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=r0FjHl0Y; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789030876; c=relaxed/simple;
+	bh=mGjHroTCuk5mK+JJ+qPXVN3JjYkyaG93c58j6hdhhAw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lq0XcNe1CI/PDtNOsZWchhof12IFZVeExGp/sSZGmrFl8kpWMz4MM45KKQ8ZztXY+2j1Hm+YtCNMv33n22/02LhNXKoTMvFCgpAtvFBfRyIAZkMRHwKFccm0B77htenn68u2gSHciCXfHiNVfadYkM/YOJYLqkHSRzZKoEq6eKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3BerBbv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="r0FjHl0Y"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5VNaq103898;
-	Thu, 10 Sep 2026 09:00:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=MsWl47
-	GwyHeZ8bg2dcGk1gk0f4DjVU7QhB2I2ptenhE=; b=r0FjHl0YQu5Bv56Jt/UAj1
-	MaCBBTuK3g82YeM8vGg2QEF+Mfd3R36+m35ISkt/AQhRvgCD2pRpY7qNEnGdk2vx
-	Qtpy5QLD/+AwGK0PARCCTFo2CAdpme6oG299vEeXLps8TxBfwMP7ddaL2tmoTzV7
-	B7vtcxvJ1HnMrWGtxJ+RRwZQYf+9+2AFJFe/EB2Q3UKASIUQ/Oa61pxHssaZ1diw
-	q+DG/OS42N+F4ALOwhi+Bu7wFCtSbpmCz4stVX194G2b0Sb9iWPcoL2iiAuXEBIY
-	y4A8KPDa78r8fsGnMzq4w1jtM5+N/FtpQuB9P7xUgEL7sLvEib7enf1tiiV/MaLQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8n3fvu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 09:00:31 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A8uZAP015750;
-	Thu, 10 Sep 2026 09:00:30 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkcr3bfx1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 09:00:30 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A90TCI42992000
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 09:00:29 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B0BFB58067;
-	Thu, 10 Sep 2026 09:00:29 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A353C58061;
-	Thu, 10 Sep 2026 09:00:26 +0000 (GMT)
-Received: from [9.123.7.57] (unknown [9.123.7.57])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 10 Sep 2026 09:00:26 +0000 (GMT)
-Message-ID: <361d1726-ae09-4d21-a507-a792989e9f44@linux.ibm.com>
-Date: Thu, 10 Sep 2026 14:30:24 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3BerBbv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B481F00893;
+	Thu, 10 Sep 2026 09:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789030860;
+	bh=Wg/k9xgyZfA9ou1Djuuw6WTAhRSTMUQxS2X1MvSzmrw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=M3BerBbvMzXCbqj1EM09oZC1x/XqtdFtYXby2y7p5INcP1rT/onE38lD3s9fbAPt1
+	 dTM3owMdOb51VKsqIS7ZY4Jwd+kmExADj4SdFBpqtRitNVsuPob0zCPz/YCbvq/NWg
+	 bKEUVq61CO36E7mG2RaRdMSHyjZ7cCks9P0bE1iIUh50r0w6bwX3IzKb2uL/bCD0J0
+	 XCJ+26ItEf7z37CManyUaT30zxZl0HKA6kD+wNWZ99EgI8FR8q7xtGE26//BdQyFY5
+	 r/Vf5yfq3gWNKI5fBzX4eKcDmkrgIXN0SXzDQwGZVe6/iwbjS5wVgAkLQVgjI7Wj+N
+	 34OcU8MdNduOw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Thu, 10 Sep 2026 11:00:13 +0200
+Subject: [PATCH v21 9/9] rust: page: add `ExclusivePage` for race-free page
+ access
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme-multipath: add fail_io_now sysfs attribute to fail
- queued I/O
-To: Krishna Iyer <kiyer@crusoe.ai>
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-        linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-        sj@kernel.org, saravanand@crusoe.ai
-References: <20260904032605.65758-1-kiyer@crusoe.ai>
- <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
- <20260910015457.77845-1-kiyer@crusoe.ai>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260910015457.77845-1-kiyer@crusoe.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=NMVAaE6g c=1 sm=1 tr=0 ts=6aa271af cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=i6_9AHJ4UYTudbWR4IAA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: RSW1OUnAXn4DsJ59X6uBH7YRScl-18t_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA5NSBTYWx0ZWRfX25lgJoU1g+AJ
- Wu2XXJkGH7DaP6YHkRU5PJvP06s2Rtwn5970byXQtNExXoJLYgtpZTfDat/EtY49zvrynrOobZQ
- /0HArF/NYahPshsY5pBOAuLzsrkwdmSjWTXMU5q55Qo71aFFq2aZuA1lwZThYQJA4ltFG95y/M9
- Q8lerC9fTwOCZoG1MysBPRw35DzuZtIdUr4h4fp3QR55SQDBY4Jec6XsTyoA1xv4waBKzVZUIlL
- fYl+SU2hDXYzWib9oz6GWd1P+5oKXbbErJ654T1AuWz8aDI34SC5nkSsuEwbEGz7L8A3UbfL2+x
- WPBcT6atT0ni3Qu4vOOlutSQb3MmqjXkJJkTtueBvEuPV59oxAMd19rn1sTvrVt18cFxJCPrBsN
- AypPq0BhgmtwUHP7SX6KeLmvb74YW8GMhApFZFAi3O8L1vUyNcrLhiBVg9SZNKWWBEB7VEjuxW3
- u1n/WxXnivYsnwYgE1Q==
-X-Proofpoint-ORIG-GUID: RSW1OUnAXn4DsJ59X6uBH7YRScl-18t_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA5NSBTYWx0ZWRfX3CTmzJEQWLGr
- 3wQ1q/cZzvfb6AUQQx/EFHUX38THN+qSsLFIWDRZkBn09KOITVU+PlYa5k3AWy3nmwoviLOufAU
- +EM8JZtL2r5pGLynXCJ9z4zaQgAeykg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100095
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-unique-ref-v21-9-e83257373062@kernel.org>
+References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
+In-Reply-To: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>, 
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Ira Weiny <iweiny@kernel.org>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ driver-core@lists.linux.dev, linux-block@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-usb@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4137; i=a.hindborg@kernel.org;
+ h=from:subject:message-id; bh=mGjHroTCuk5mK+JJ+qPXVN3JjYkyaG93c58j6hdhhAw=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqonGpjFpIGLMETXkqUNOBWFFizecM/26XuOncT
+ XS44dh5H5CJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaqJxqQAKCRD6UCkIqsW9
+ 0LrMEACOm8qftJlk0GIO4ABiC6zoPZAx2wOPesrHLpI3yWQgcGB9ibsYkXK02yOfxuQMd5U1XEy
+ kbzCsSAVhUUTuRLhFIUTEOpjgX/MXvSnmXJxnZogRyVBym3A6Je6rXWsgU4Je3qDsRWaz7kFXUk
+ R1drGj+gxmakDZaVaxEoWBkzuRr7ZvwKHWUIJxhzkDb5psCDVvZOY6A1xcTwC5rate+r3NPo516
+ +iVFq6MqVlAcHnwGGMGsCkBBUt9aWLt/Hiunh84LwSYOTzrIDtFEQoSr450gCDwK9FTjmcpoHXj
+ 94+1SOEu5P9+U2V3aRAQYVVOJAL5tAaLDeLcLNvP9OY9Z9iZmx9BOHShqepoaOf/E+sG3s5hDgB
+ dwqZVd5fHyf0EuSdKGM/fNhQiRwPJ4aAL7pONHTSNWJTYRIT4dmS5Zspd9WlBHs0KP64c5Jbee5
+ wmnyR4QPIDeyzzTkw9d7GDN+Dg4409ufq3emr5PX6XMRdxHiScv1MJ5x6fLF62b+xZZtP04ahI/
+ UJPJHdQKHsuZoK1JYSiGqLBv01CXdiSuV3oDAlLBqcSBCdj3jmNlD3RyWwimRU3WsP3JyBSMSla
+ 2VTyzkCqWTXDpUa5HncvNKHmXLW4Hb/YlycVtlU1KkGP0vZIYslkDWvSezPQAc2SODRqlPkf8uz
+ cvfoyXcSbtziopA==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-On 9/10/26 7:24 AM, Krishna Iyer wrote:
-> On 9/7/26 6:15 AM, Nilay Shroff wrote:
-> 
->> Does the intention here is to force I/O to fail irrespective of the
->> controller state, or the intention here's to fail I/O only when no
->> usable path exist? If it's latter then I believe this is not the right
->> place to enforce this policy as since this check makes nvme_available_path()
->> return false unconditionally when NVME_NSHEAD_FAIL_IO_NOW is set, without
->> considering whether a usable path exists.
-> 
-> The latter. nvme_available_path() is only called once nvme_find_path()
-> has come up empty, so the flag only decides whether pathless I/O is
-> queued (default) or failed.
-> 
-Not always, nvme_available_path() could be also called in case
-controller is resetting or controller is live but the ns/path ana
-state is neither optimized nor non-optimized. So I think the policy
-would be better enforced at the point where we have actually
-determined that there is no usable path, rather than making
-nvme_available_path() return false unconditionally when
-fail_if_no_path is set.
+`ExclusivePage` wraps a regular page but adds an invariant that the
+page data area does not incur data races. This means `ExclusivePage`
+cannot be mapped to user space or shared with devices, and it
+becomes simpler to directly reference the contents of the page.
 
-> Agreed on the rename. For v2 I'll make fail_if_no_path a plain
-> per-namespace policy: admin-set, no self-clearing, toggleable at any
-> time including mid-outage.
-> 
->> This attribute should be only exposed for fabric controller.
->> It looks this is being exported for non-fabric controller
->> as well. Moreover, I like attribute fail_if_no_path better
->> than fail_io_now, since it describes the actual policy being
->> enabled: when no usable path exists, fail I/O instead of
->> queueing it.
-> 
-> Right, v1 exposes it everywhere. Since v2 makes this a plain
-> fail_if_no_path policy though, is fabric-only still what you'd want?
-> The queue-vs-fail choice isn't fabric-specific: a PCIe head kept
-> alive by delayed_removal_secs parks pathless I/O the same way, and
-> dm's fail_if_no_path is transport-agnostic. If you'd still prefer
-> fabric-only, I'll have the visibility callback check a sibling for
-> NVME_F_FABRICS under head->srcu.
-> 
-For PCIe controllers, we don't have the same ctrl_loss_tmo/max_reconnects
-semantics as fabrics, so initially I thought supporting fail_if_no_path only
-for fabric controllers might make sense. However, looking at this again,
-we already queue I/O when no usable path is available irrespective of the
-transport. So I'm okay with keeping fail_if_no_path generic and transport-
-agnostic. The policy is essentially about what to do when there is no
-usable path i.e. fail the I/O or queue it— and that behavior isn't inherently
-specific to fabrics.
+Since `Page` implements `AlwaysRefCounted`, handing out a `&Page`
+from an `ExclusivePage` would allow safe code to obtain an
+`ARef<Page>` to the page and break the aliasing invariant of
+`ExclusivePage`. Thus, do not implement `Deref<Target = Page>` for
+`ExclusivePage`.
 
-Thanks,
---Nilay
+Assisted-by: LLM
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+
+---
+
+This patch was previously submitted as part of a different series, see link
+below. It is included in this series to provide an example user of `Owned`.
+
+Link: https://lore.kernel.org/r/20260605-page-additions-v2-1-03f04c8fdbbf@kernel.org
+---
+ rust/kernel/page.rs | 55 ++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 54 insertions(+), 1 deletion(-)
+
+diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
+index cd394b0656c0..4e5b1c2f4346 100644
+--- a/rust/kernel/page.rs
++++ b/rust/kernel/page.rs
+@@ -17,7 +17,11 @@
+         AlwaysRefCounted,
+         RefCounted, //
+     },
+-    types::Opaque,
++    types::{
++        Opaque,
++        Ownable,
++        Owned, //
++    },
+     uaccess::UserSliceReader, //
+ };
+ use core::ptr::{
+@@ -349,3 +353,52 @@ unsafe fn dec_ref(obj: NonNull<Self>) {
+ // SAFETY: We do not implement `Ownable`, thus it is okay to obtain an `ARef<Page>` from a
+ // `&Page`.
+ unsafe impl AlwaysRefCounted for Page {}
++
++/// A page whose data area follows standard Rust aliasing rules.
++///
++/// [`ExclusivePage`] has the same usage constraints as other Rust types. Thus, it cannot be mapped
++/// to user space or shared with devices. This makes it safe to reference the contents of the page
++/// while the page is mapped in kernel space.
++///
++/// Note: [`ExclusivePage`] does not provide access to the underlying [`Page`]. Handing out a
++/// `&Page` would allow safe code to obtain an [`ARef<Page>`] to the page, which would violate the
++/// invariants of `ExclusivePage`.
++///
++/// # Invariants
++///
++/// The data of this page is accessed only through references to [`ExclusivePage`]. While a shared
++/// reference to a [`ExclusivePage`] exists, there are no writes to its data. While an exclusive
++/// reference exists, there are no other reads or writes of its data.
++#[repr(transparent)]
++pub struct ExclusivePage(Page);
++
++impl ExclusivePage {
++    /// Allocates a new `ExclusivePage`.
++    pub fn alloc_page(flags: Flags) -> Result<Owned<Self>, AllocError> {
++        // SAFETY: Depending on the value of `gfp_flags`, this call may sleep. Other than that, it
++        // is always safe to call this method.
++        let page = unsafe { bindings::alloc_pages(flags.as_raw(), 0) };
++        let page = NonNull::new(page).ok_or(AllocError)?;
++
++        // INVARIANT: The page was just allocated, so its data is only accessible through the
++        // returned `Owned<ExclusivePage>`.
++        // SAFETY:
++        //  - We just successfully allocated a page, so we hold the only reference to it, and we can
++        //    transfer that exclusive ownership to the new `Owned<ExclusivePage>`. Since
++        //    `ExclusivePage`
++        //    is transparent over `Page`, we can cast the pointer directly.
++        //  - The page is never moved out of its allocation, so we can treat it as pinned.
++        Ok(unsafe { Owned::from_raw(page.cast()) })
++    }
++}
++
++impl Ownable for ExclusivePage {
++    #[inline]
++    unsafe fn release(this: NonNull<Self>) {
++        // SAFETY: By the function safety requirements, we have exclusive ownership of the page, and
++        // by the type invariant no other references to it exist, so we relinquish the last
++        // reference count and the page is freed. Since `ExclusivePage` is transparent over `Page`,
++        // we can cast the pointer directly.
++        unsafe { bindings::put_page(this.cast().as_ptr()) };
++    }
++}
+
+-- 
+2.51.2
+
+
