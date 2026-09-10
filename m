@@ -1,127 +1,188 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3F55A0ABA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8469B599A32;
+	Thu, 10 Sep 2026 19:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069414; cv=none; b=LiKH4oPbSPZx3D0TBNDh1Fxr4y5tRZjGn/XfiokNlKzYUx4xcVc0YFF4mJxhKVRStfdsJJmO++MFJKram9lDPV+/Av4qpF9K5fR7qhe3GAZ8eABCextgadSrHoRDJrX6yrtgw72MtWpRnPw7ghEasVed0OcEfkUJqqC70/G6lNA=
+	t=1789069433; cv=none; b=GI8dPYae3b0bzeH/YVF/Xz9NS/FGBmr7rjxe9+2bw+0KdLkH7a+1oLmRoWD8HNXLz8YuyMoYnAfDpCRMPLl60RJp1KRzxwxdOOlEAge1eJfogybHZpIGdIUN3A3WtrSPQRQjaspwpK4HnZkEj5Emy4ssJDID71oJS0milTjGSfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069414; c=relaxed/simple;
-	bh=Sp8gG2vlOGXtsjCYlvwHWPR+QaRAqVPPCEHp04Izc/8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iGC+ubPzs0Y/TwKWJ2Pq/uQ0TsS45FTkGkrdjDuqqTWVI172dj5mLGANOftl0TYsXpuVTgiU8Bf/2ozsa8tjPB/WviVWmDs8lTQmLH7nlXL2RHLRBG0JwBMqrlR4ZCzd8zr8Wk6iFtTA+TP0i3efS5c+fBUx8gl2VWE9gtqw/dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JOanRM7/; arc=none smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789069433; c=relaxed/simple;
+	bh=bcQ/RDxXpEbKtU8+/6rPlebuLUugxjVcb8NGz+wSC6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=re6S0lR4YM6GOURHSgYEmtCwv7gOHhBpb/brp+wcn7OjTfhVdmEzzZZS2Kr9cofGhph4qw4FdrUU4hjHmOU252gQDPt13Vf0du1ub2xlIFDnCw9+J+Hjc2uIQXOk+cuzobdPU1gDSqfuetwnr2vcG8bTaF4VuxFORSRDLqeF6xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=XDaxsPus; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JOanRM7/"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53016020b2fso2503781cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789069411; x=1789674211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aei3ERTJbJiVkzOQ138W6pWKQKh4OREM0CyTUlBnrDc=;
-        b=JOanRM7/hlZh2RL256r4mEBQn3Neibi9K1iFamYZmLs+yItYW1O1AMXXid4SW4EZHu
-         y1Pll+zdVxPXyJzwIMG4fP77OKPnmTWe+Rgqdajj87yIwOMaJpok7osnJgrPn05bdm10
-         9RHlIqUICtM1hLAzBfGqRxjCsTu4xFr2b2prYNh9IRH86VsNnAK4eMIV5gU4eS+hQCBq
-         hd1/cePuIhrKj6LDuEi8SARQy3XLj4Yxoqv20v9XxRrq5fIN7JdVT2RdVmIPBEFiI/iN
-         5NmQRzYrEPIp9BRNTIBJklqnls6d255Zb2Z4TGvP9dba3KYAzYjKgqbcrGi/m8hBF4Ww
-         dx2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789069411; x=1789674211;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Aei3ERTJbJiVkzOQ138W6pWKQKh4OREM0CyTUlBnrDc=;
-        b=JGUHdhO9NS4ZRz5xn6xpN0XCOB1MLfvvyWaFzYS7k+g5N2ubQTvb9vryxeSRLUXhGD
-         M/9BwchxTLhBVS/yA0tFnMe9p1OnreBLHf3WC/zrQkCP2ak3JqjR8lIJBJrd+4hu5s13
-         IpuxFB6b0QpoNJdfEmb5BkBPzifqdOyewKIFxSZj5odmVYqlXYuVUeAUqXW9bY36jCRQ
-         liTeEe+BZ7f5DrM+GIMla1zuRvEoEh3TNzcRQ5spPeGYdtYWmYWclc8TwCtUxASVpa/F
-         3A4bi5KG1eoFXb/xJXCy/ubTPfN8BGFs441b+blaTKHHumjc5G158BoZeELehdaE+eNp
-         c9Ng==
-X-Forwarded-Encrypted: i=1; AKwUvByqcHe6QIQwbosNtXzN61PnAF+JcdF36rj4T14iIXCKoVa6IUbdiexkfY37vWUlEqIRBdOgZfnjl9ajqJI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPOx/84ZTwPtXM8howiG7ceNFGv5R7Jo2VaGaKO2fpnvRURzZ/
-	w87+lfPI1TNS7aG1jogOdt1T0NbPfokigUl1Z6hqkgNhOoUXMKhekg4O
-X-Gm-Gg: AYBFou3aNiSq+3j2bYf8l3cFS81/dutAveVYSUCCs3dC/HxohKlKPte4ByPyX2IiVk4
-	gmvY0LrBBeks1nO8YDavtOPCtLNWj+vwMoonyruD+7Vt0icS2w8GV11uspqzM9SIqZKxabgi9BI
-	EfK9AnUaERntbi4i4MB3rlzpW587ufqXateHHp2/+FVde+C08F4vjgdQ16H2BAoWzBJivCpbMFJ
-	1iqBcwZMOMOIsg1p8Us98ntFGtVdccAAwKS4u/9wMnEz541r557m+VnXHJX5dQZ3f3Rk/gqL3Dn
-	+zzm/v4gtHT6Hs0EI/moebbamESrEwqie63cJy+HGbmazUqBt7Yrp0C4gQ4J9jFYl8M2oY2zwhw
-	FjY55OZWiV+o1Z101oSv3rcmQIxVX5DV4yk9yZ4iljSdB0ruKSvv1L2ymx44Y7GTRzVnFAeslmG
-	DzjaRzFeD1CtuB+Dv+/baSByuM4CFF3V8vl9YzsFaQ44nzL96emzXmbDq9DGN3r//Vj1JJ/c4op
-	ZoFkDMwKqLFeQgpRMaYTBdy7bvg1mFVg+Ij0v5hFilOb4tCgoEeFe3B/XsNVpCWtLobIUKco1gC
-	Nrcn1McojnQEL9jaeBnxHGTnxdkr8x8in4lw36BFyChKtQfW
-X-Received: by 2002:a05:622a:301:b0:530:4155:1935 with SMTP id d75a77b69052e-530c8565ee3mr15509471cf.15.1789069406721;
-        Thu, 10 Sep 2026 12:43:26 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47e800sm3573726d6.27.2026.09.10.12.43.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 12:43:26 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Harninder Rai <harninder.rai@freescale.com>,
-	Xuelin Shi <xuelin.shi@freescale.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] dmaengine: fsl_raid: byte-swap cdb32 when programming CDBs
-Date: Thu, 10 Sep 2026 12:43:24 -0700
-Message-ID: <20260910194324.33697-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="XDaxsPus"
+Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id 39693160690;
+	Thu, 10 Sep 2026 19:43:40 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 30FD46000B;
+	Thu, 10 Sep 2026 19:43:32 +0000 (UTC)
+Date: Thu, 10 Sep 2026 15:44:50 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker
+ <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel
+ Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, Thomas
+ Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Masami
+ Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Jiri
+ Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
+ <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai
+ <xukuohai@huaweicloud.com>, Andy Lutomirski <luto@kernel.org>, Josh
+ Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, Juergen Gross
+ <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org,
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC 00/13] rcu-tasks: let preemption outside trampolines
+ be a quiescent state
+Message-ID: <20260910154450.7b770882@gandalf.local.home>
+In-Reply-To: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
+References: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 30FD46000B
+X-Stat-Signature: q4rice5dx4toq6agt9e6os3uux3h5f5q
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/TvSOAPfmV5w9v9DlVemvWAF7fAQiQXhI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=0G8Y9/xY0kMl88nV4+aK7L6N6EzC6UwclJFLiIWbzwM=; b=XDaxsPusoW6gsn6QQqwKwtOsezn5XGTPhAZBWTmLI2a3wTTy4g9M8GxTBfx7IxRyYNyRuYQGkIUa70KldFVZ7BxD/P2CsoJAlMMiCFX8YSS1drmpdXopT7vrVM/O17FPu1+y62DsM8b0wE++rILKnKFPiYk8n6rvTHLZaMP183M=
+X-HE-Tag: 1789069412-378097
+X-HE-Meta: U2FsdGVkX1+2Ct3iQoLtuMkYa1cI50miBEnTqrhRYa+BXsr0BkuI+iyjkwhW+Ob8C5dT11n+jxKJvSyznZnLsxh0O/QKV9P9WQecOj/+21jACCNK26r6q8zwQqBN/ayZXuQ+GMG++J9Taw+/zJCowVnrggoyzv6dApRYuUizRVkjRykDXYfNTF0KQwLTeMZALOSsT8m10cqWJg1D25InukFaP+COzppk9X5R5JJAc9OQyO5V0RV7ia7UcNgjuOHSeTTxARbLsAo0lo+Cw5KvWdAoNn3RpyiQlWsoqM2E7xoqV45XznycLnrdwTWnybGDasUZEZxhn2u7O6k5MAY1bcSxESD/EVVf6gvruYYB/+VKBnRpc7lRNYR8i0iaqzQA
 
-The three prep functions write the first word of the command descriptor
-block (cdb32) with a plain u32 assignment, while every other CDB/CF
-descriptor field is written with cpu_to_be32(). The RAID Engine expects
-big-endian descriptors, so the plain assignment produces a corrupted CDB
-on little-endian hosts. Use cpu_to_be32() for cdb32 to match the
-surrounding code.
+On Thu, 10 Sep 2026 18:50:23 +0000
+Josef Bacik <josef@toxicpanda.com> wrote:
 
-Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/dma/fsl_raid.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> Tasks RCU only treats a voluntary context switch, usermode or idle as a
+> quiescent state, because a preempted task may be sitting in a trampoline
+> that is about to be freed. That was a fine trade when PREEMPT_NONE
+> servers compiled Tasks RCU away and PREEMPT desktops rarely ran
+> long-lived in-kernel loops. PREEMPT_LAZY changes both halves at once:
+> Tasks RCU is now real on server configs, and cond_resched() is a no-op,
+> so a CPU-bound kthread or kworker only ever loses the CPU by being
+> preempted, which is exactly the event Tasks RCU refuses to count.
+> 
+> The way this showed up for us was a cgroup writeback worker draining a
+> very large cgwb for around eleven minutes on an arm64 box. Nothing wrong
 
-diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-index befb4bb69d54..9cc289f7129e 100644
---- a/drivers/dma/fsl_raid.c
-+++ b/drivers/dma/fsl_raid.c
-@@ -361,7 +361,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_genq(
- 	cdb |= FSL_RE_INTR_ON_ERROR << FSL_RE_CDB_ERROR_SHIFT;
- 	cdb |= FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
- 	xor = desc->cdb_addr;
--	xor->cdb32 = cdb;
-+	xor->cdb32 = cpu_to_be32(cdb);
- 
- 	if (scf) {
- 		/* compute q = src0*coef0^src1*coef1^..., * is GF(8) mult */
-@@ -481,7 +481,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_pq(
- 	cdb |= FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
- 
- 	pq = desc->cdb_addr;
--	pq->cdb32 = cdb;
-+	pq->cdb32 = cpu_to_be32(cdb);
- 
- 	p = pq->gfm_q1;
- 	/* Init gfm_q1[] */
-@@ -564,7 +564,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_memcpy(
- 	cdb |= FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
- 
- 	move = desc->cdb_addr;
--	move->cdb32 = cdb;
-+	move->cdb32 = cpu_to_be32(cdb);
- 
- 	/* Filling frame 0 of CFD with move CDB */
- 	cf = desc->cf_addr;
--- 
-2.55.0
+So you have a kernel thread running for 11 minutes without a schedule?
 
+You could still put in a cond_resched_tasks_rcu_qs() in that loop. But I
+guess you are trying to get rid of doing that too.
+
+> with that on its own, but a BPF program detach on another CPU went
+> bpf_trampoline_update() -> ftrace_shutdown() -> synchronize_rcu_tasks()
+> while holding trampoline_mutex, forty-odd tasks piled up behind the
+> mutex, and the hung task detector panicked the machine. The kprobe jump
+> optimizer is worse in principle: it does synchronize_rcu_tasks() under
+> kprobe_mutex, text_mutex and cpus_read_lock(), so one long-running
+> kthread can stall static key updates and CPU hotplug for its whole run.
+> The current answer is to find each such loop and add
+> cond_resched_tasks_rcu_qs() to it, which is the kind of annotation
+> PREEMPT_LAZY was supposed to let us stop writing.
+> 
+> This series tries the other direction: have the trampolines say when a
+> task is inside them, so that a preemption anywhere else can be a
+> quiescent state.
+> 
+>  - task_struct grows an int, rcu_tramp_nesting. Every trampoline whose
+>    lifetime Tasks RCU guards increments it before calling out and
+>    decrements it before returning: ftrace_caller and its dynamic copies,
+>    the BPF trampoline (which drops it again around the call to the
+>    original function, since im->pcref covers that), the x86 optprobe
+>    template, and out-of-line register_ftrace_direct() trampolines. Only
+>    current writes it and nested users are balanced, so it is a plain
+>    non-atomic inc/dec, one load of current plus one RMW per entry/exit.
+> 
+>  - The inc/dec are inside the trampoline, so there is a window of a few
+>    instructions on each side where the count is zero but the task is in
+>    (or on its way into) trampoline text. Nothing there can be preempted
+>    synchronously, only from an interrupt, so the irq-exit preemption path
+>    looks at regs->ip and holds the count across preempt_schedule_irq()
+>    when the IP is somewhere the counter cannot cover: outside core and
+>    module text (all the dynamically allocated trampolines and slots), in
+>    the static ftrace stubs or the x86 return thunks that still hold a
+>    direct-call target, in a module that hosts its own direct trampoline,
+>    or inside the bytes after a kprobe that the jump optimizer may be
+>    about to rewrite (the one synchronize_rcu_tasks() user that is not
+>    about trampolines at all).
+
+So basically if the preemption happens outside of core or module text
+(which should be the case of any dynamically allocated trampoline), the
+task is marked to be in the grace period across its schedule, so that the
+RCU_TASK cannot move forward?
+
+> 
+>  - With those in place, rcu_tasks_classic_qs() also clears the holdout
+>    flag on a preemption when the count is zero, on architectures that
+>    opt in. x86-64 and arm64 do so here. Everyone else keeps the
+>    voluntary-only rule and is untouched apart from the (unused) field.
+> 
+> A running holdout already gets poked via rcu_request_urgent_qs_task(),
+> which makes the next tick set NEED_RESCHED, so with this the resulting
+> preemption retires it and a Tasks RCU grace period is bounded by roughly
+> a tick plus the longest preempt-off section rather than by the longest
+> stretch without a voluntary schedule().
+> 
+> Patches 1-12 are scaffolding and change no behaviour on their own; patch
+> 13 flips the rule and selects the option for the two architectures.
+> 
+> Testing so far is QEMU only: x86-64, PREEMPT_LAZY with PREEMPT_RCU=n,
+> PROVE_RCU and lockdep, with and without PREEMPT_DYNAMIC. A kthread
+> spinning in-kernel for 30s with the function tracer, an ftrace kprobe,
+> an optimized kprobe and fentry/fexit programs attached:
+> synchronize_rcu_tasks() goes from 29.7s to 0.1-0.3s, tearing down a
+> DYNAMIC ftrace_ops (tracefs instance function -> nop) from 27s to
+> 0.2-0.8s, and the ftrace-direct sample modules load, fire and unload in
+> about 2.5s each while the spinner runs, with no warnings and the new
+> return-to-user assertion quiet. arm64 is build-tested only at this
+> point; real hardware numbers for both are the obvious next step and I
+> did not want to sit on the idea waiting for them.
+> 
+> Things I would particularly like opinions on:
+> 
+>  - Whether hooking rcu_tasks_classic_qs() is the right place, or whether
+>    Paul would rather see this expressed differently inside Tasks RCU.
+>  - return_to_handler and the rethook/kretprobe trampolines are not
+>    instrumented. Their C callees take the ftrace recursion lock before
+>    touching any ops and the trampolines themselves are static text, so I
+>    believe they do not need it, but I would like Steven and Masami to
+>    confirm.
+
+Note, there has been some work in the past (and may happen again in the
+future) that will remove the preempt_disable() from the trace_recursion
+locking. If that happens, then I believe the trace_recursion would need to
+increment (and decrement) your counter. Probably need a comment there to
+let whomever know about it if they decide to remove the preempt_disable().
+
+>  - The register_ftrace_direct() contract change: out-of-line direct
+>    trampolines now have to maintain the count themselves (the samples
+>    are converted). I do not know of out-of-tree users beyond BPF, but
+>    this is the one place an existing user could be silently weakened.
+>  - Whether arm64 folks are comfortable with the ldr/add/str in
+>    ftrace_caller and the BPF trampoline, and with treating all of
+>    ftrace_caller as trampoline text for the IP check.
+>  - If this holds up, cond_resched_tasks_rcu_qs() and
+>    rcu_softirq_qs_periodic() become unnecessary on the opted-in
+>    architectures; I have not touched them here.
+
+I don't know. It may work, but I have a feeling there's a devil in the
+details here that is waiting to bite us in the underside when we are not
+(RCU) watching.
+
+-- Steve
