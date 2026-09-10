@@ -1,146 +1,114 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7990C1F12F8;
-	Thu, 10 Sep 2026 00:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7367631B80E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789001908; cv=none; b=QZLpFmrKwYRhO821wOCFWxanBOkcm8FZ3LF5nFYoqHN1w3O9jlTu0XIqpZj+7/DQGcH7RUl0Ack4VkwpwPHsbOURHVFDUxkDCCmiXjKrFBN22XZFp6N11VMXlkZsjLJ68B+myDLzm2Z+SuVAmKTFXsOPPI5QYx9aB6H4OTOudsI=
+	t=1789001912; cv=none; b=LcyBrQ+ttoQxRFc8TGRYQeoBZa9CG0xQZjZ40Hq/kWxZlDpY60Ku3AUXtaEuObpTTq0cYp/JVbUQCTA9DSphh2yHrPNaa8stvxtnwhwj/7l6qwztFYno1Fiwoe98zlSYFUQdjFROa/Ra1GzZOIeVqjdBAWYPXsGb2LYAdccGIik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789001908; c=relaxed/simple;
-	bh=2uxERaxsDRABh9GF9dd8f6M4ahRiwvT9h1o+7GZ4st4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=OIez7+S07tmeKcxXtP+XEYq8cBVxFai6AII1zD8Uq/aAHwPdQFA6LLGV22QU43gRoDFLQlsnsAZJlj7w9MtB94BA7PAVnYqc7o9MXmg2z+gkxy7I6x7cxCs3Z+V9XpMhTEoPnv+KwbCnaGEwC14AenpCGUis+FNEfVyFWPXgaNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=Zs4ohYa5; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JyVmwBbG; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1789001912; c=relaxed/simple;
+	bh=EMDY7SWycMHhwbwPHJdS4oL+eSVJ8O6B3SZMgf9trmQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=WzYv4hYAaPnowc3Q52D+LzwmYq69BORqmln0dEa6YpvKEqB7zRVcB+1x87CYAnoVPSb7H7PudqVcfvEO65xLbLubTHwGQZuZvHGa9jCy1e5evZKjK5y9jz+67bxIKa9QEKs2SZs7yxdLJmDQ6G5sNHPYbby0M1Cs0HtY+qdd2DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KgDGYPhr; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="Zs4ohYa5";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JyVmwBbG"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2ADB514000F9;
-	Wed,  9 Sep 2026 20:58:25 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Wed, 09 Sep 2026 20:58:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1789001904;
-	 x=1789088304; bh=K6DNjnPjoEDDo1rR/RRbUYdqMJLgQ1qziZ4RWOH4NzQ=; b=
-	Zs4ohYa5jDnFjzSit400zDhXQLTvgM0kPUy384+TZketjV5OEo64g4SLWWS501D6
-	J3TSf0UkHzMUqie/vNwfGX+6labVTaCN/5T1EEfJ1qTicBL9mt8msLmZRAkwUpc4
-	CfhuB7qBdGJAxRlco9CE0fhgzmWmiies4Q4DqurXH8bMV+/ME01Znx1vgtTE7CAW
-	rM12ghDywUjTXH7B87FX+IZYVcIRkBvaBEg+EHAJhyeo36QBnYgue+89DPK8yLKh
-	4oOoW44TtkuxTRmxCTX6g+3DmOzcRKsiCwaqPS3HyOy+sqbm8xII+nPVO2GCbU96
-	aFtVsS/H15uKrV8YByr/rA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789001904; x=
-	1789088304; bh=K6DNjnPjoEDDo1rR/RRbUYdqMJLgQ1qziZ4RWOH4NzQ=; b=J
-	yVmwBbGtA0drjlWCiOggk6aXsbd7GsZl29Ic2E81lTC9UAbVrcE01rAUJ/eLCoPm
-	2LlNTogeL+gIJAXtNbaXNT0SaFAoxNVWsEpZuRK3FsPs8+7qhIuDke+n5nQ7Xp9J
-	3Vbw3f7N4ZGvHjC9DFBI8aCoqGpuXCQlAvOnU0GaB5JAzaRwA5+f9CA3vXEDwr8N
-	FvwbhX/krHWViUP4qTiOJpODgUDB+iJPGsqnDjAz0T7OfLpVEu3zKylijFKhGTWx
-	Ek6hBPTX+b0I11Xe5SqXAeukjpU7M7UbbaayP9ID6cqxkAYXriMMfwNZcbLBvia1
-	h0aG+gYL7us5pMuSMUT4g==
-X-ME-Sender: <xms:rwCiav3q-lfoJ7i0j8MUOXv_A_Nb88yW2G-Lq2xKkXxAsnQIDSS9Dg>
-    <xme:rwCiao4vwMfwFjytT8C7ryLe5vmY6JY7BdD4hC1pKB1jQWvDuYVRksTggbqhCbb7L
-    BlhWhgtgYlFML7ZRF4JA54CkFrxOFr1bKZHi3CLvs6INcY6rnmocg>
-X-ME-Proxy-Cause: dmFkZTGUeHbG/5eNRWvKQ3UiOSjgAx84IF3aqhuKWeEkR510EpYqPB966DzaMDGBWwkb/E
-    MSvwLVEev4KQ/6AD6XPIhSo7vWmA7snVynuCnHjrHVYZdDSJoVXWxpJDDTyuM4g8hx0lAu
-    8REjMRyJfmAhw291goNXIl7ZnsNrRhX9VcaoRhw/fTVkq/sX0ECqXBw3bIsYYVU1hALqrp
-    rVVdJO96qwrn3zEvaZWd15lFORXJsZBW6u52nc/pOsNPjRKk3s4qyhL5raXOiJqcPYLtQt
-    1wJfthnRptZO5pSoqIVtb0Wv+h/cSk54fbPChU16DR2PGcl90S16QgbgL9F+7d/GONAbgx
-    T7zmRT+FzKB49OmdPNN0dvezAD4RyDMLukWyv5Yt1UG7J3l0MavGiNvMVFoMU45kBsstJZ
-    baR5hSVN/Ro87/ztfnGMSioOkW3nt93jV5j+YOTADE53/3XXm1LYrGeMg4ADGd2dwgs6Gi
-    SsfCMp4YQErYDSsgoegbIQde3Dlq2cZHGGhljT9vV9i9art7gaepN+fUAo47HdLZPLQ4kd
-    HNP4SqqeBefiFfaHG0zghS/bjEBsDHSIS/oCGQYvuPW0ozfVUtzlZ4/W7cy/t8OKy7h0rh
-    obhZbV1ZpGPwGj9xo6HSJbLlLrnDcFCiGaYZwBScqz+IPa8AVwyIatUPD/rQ
-X-ME-Proxy: <xmx:rwCiakHB6RcCx00UvcFz7BfU5EpzzsaPq0xZd7r8DOeMhtPH7WyeQg>
-    <xmx:rwCiatxktckD2jE9Hgz7epUw7ya2EI5PXGi70I4VN6Ijb9nrqnppwg>
-    <xmx:rwCiau2VsGaabDlPfJj-zKzFtiTMifFcaS-fBAodtZuD0VPUEdrcmQ>
-    <xmx:rwCiatqqKpTOCKi8YfQ1_4FYS-IztDH2UBHih3su_qp3RcC-YTZWxA>
-    <xmx:sACiaubsbrHCXm4uBarkzrUrcnX9rvdu8yJFoG8DoxOFyIMvca2Kq26_>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 9A0712C00064; Wed,  9 Sep 2026 20:58:23 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KgDGYPhr"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2db8c152622so20106605ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 17:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789001910; x=1789606710; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xgzlS1uxnCbzGMH5pUkXS6DY1hZkFu32UCS9PdpFsuk=;
+        b=KgDGYPhryWM9PWvG+8qz+UAdxY05U5uF1WkgiplOEcNGit5Bp2VJJsHJ0FfR4AOhOq
+         CKtp3KJbXdi0NjoCmrGgii8kqW5SaKfJylLNvbQ9oceAf0UQ+khII14HRTvIrN59TVES
+         VZ4AH31xqkNzYxuYIMr3mePl4rMKX8Sc7PISuezaA1/oWCcGPZbWwDz+I8sQuzzsx4dL
+         6h3+pRbi0u8i8YBRttgRBcw2BgxDuf6mu3iPRRgTWTtZjfkmWG+vWXLkqXkaKdmwH3q4
+         UlXrPN0K11HEdxCbinawiIIy/FPnTWOFH6g7ANnwBgYl3tRzB17D0GJXJSknIsQGJbLt
+         Ff5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789001910; x=1789606710;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xgzlS1uxnCbzGMH5pUkXS6DY1hZkFu32UCS9PdpFsuk=;
+        b=ZqQLeWepDKyJ+bpgoSL3i9siqbtK5gQ/Ph2kY7A9ffYjSukXQ8IE3B+2Kbi2V5FVaK
+         7NHGPz7zJuu4s0CtBzWIgZacZmbMiVuyg41UO2rJmWm1I9WjW3TSvufJilPLyxp04LvM
+         dOW/1UCzOU6FH8aZvMclnmf+y0AKjIkXIrHHlbfBm12MAUqxlnv/1QTyGXI3WX0RRWjA
+         izOiETj1He0MCC6V6D8ecKKuVrETU0A4CMtu04WRqS39/MZlKjyPp9JkORmMOtmwFLds
+         ANH6JnO/NmO/IQNGUmFPzb+TuPY5yJr/6KlLYBLhCBoc0hOe8w94RTFStyNK8gbfrrzX
+         3C3g==
+X-Forwarded-Encrypted: i=1; AKwUvBx9Lt3S/8qG2CU5Rx68VKWVvfzwY27Hk38NvKaaG1tEkcH+i1WdJkAgaXh8YNgEB8MyNwy/cjUE2+uF9+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKl2QFFnpJtM/okCoSu4qud5TAYAm0W1P1UJ+SpVHnaLo+OFnu
+	wKL93oxanoy7841EehUWCWoq4VTd3AI42MlL4lZt64BgJsTqfAS/ZGF9XkF2I5zIDQ88bHuJ4pO
+	DopY2JQ==
+X-Received: from plsk18.prod.google.com ([2002:a17:902:ba92:b0:2d2:c22c:7b8a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf10:b0:2d9:3636:d01a
+ with SMTP id d9443c01a7336-2db126669d3mr557854145ad.15.1789001909390; Wed, 09
+ Sep 2026 17:58:29 -0700 (PDT)
+Date: Wed, 9 Sep 2026 17:58:28 -0700
+In-Reply-To: <20260905012403.GX4157646@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: AR8LNQcE3F07
-Date: Wed, 09 Sep 2026 20:58:03 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Thorsten Blum" <blum@kernel.org>
-Cc: "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- ibm-acpi-devel@lists.sourceforge.net,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <0bd026b6-3fa9-4f62-adf3-ac0a491b6d53@app.fastmail.com>
-In-Reply-To: <aqGOLBx_hU3a7ADQ@kernel.org>
-References: <20260907090103.352995-3-blum@kernel.org>
- <254d9c60-d21e-4ef5-b70e-89dd18ff7147@app.fastmail.com>
- <aqGOLBx_hU3a7ADQ@kernel.org>
-Subject: Re: [PATCH] platform/x86: thinkpad_acpi: Remove unreachable code in
- beep_read()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260903023452.721732-1-loganodell@google.com>
+ <20260904160009.GV4157646@nvidia.com> <aptFFYqcSiBdMLE8@google.com> <20260905012403.GX4157646@nvidia.com>
+Message-ID: <aqIAtOoew-_6jw29@google.com>
+Subject: Re: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and
+ memfd ABI compatibility
+From: Sean Christopherson <seanjc@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: David Matlack <dmatlack@google.com>, Logan Odell <loganodell@google.com>, arnd@arndb.de, 
+	pasha.tatashin@soleen.com, rppt@kernel.org, pratyush@kernel.org, 
+	graf@amazon.com, akpm@linux-foundation.org, pbonzini@redhat.com, 
+	maz@kernel.org, oupton@kernel.org, bhelgaas@google.com, alex@shazbot.org, 
+	kevin.tian@intel.com, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
+	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-pci@vger.kernel.org, iommu@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Sep 9, 2026, at 12:49 PM, Thorsten Blum wrote:
-> On Wed, Sep 09, 2026 at 11:26:18AM -0400, Mark Pearson wrote:
->> Hi Thorsten,
->> 
->> On Mon, Sep 7, 2026, at 5:01 AM, Thorsten Blum wrote:
->> > The procfs entry /proc/acpi/ibm/beep is only created if beep_init()
->> > succeeds, which requires beep_handle to be non-NULL. Remove the
->> > unreachable code branch from beep_read().
->> >
->> > Signed-off-by: Thorsten Blum <blum@kernel.org>
->> > ---
->> >  drivers/platform/x86/lenovo/thinkpad_acpi.c | 8 ++------
->> >  1 file changed, 2 insertions(+), 6 deletions(-)
->> >
->> > diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
->> > b/drivers/platform/x86/lenovo/thinkpad_acpi.c
->> > index 1082c36ae723..069c9f1c359f 100644
->> > --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
->> > +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
->> > @@ -5936,12 +5936,8 @@ static int __init beep_init(struct 
->> > ibm_init_struct *iibm)
->> > 
->> >  static int beep_read(struct seq_file *m)
->> >  {
->> > -	if (!beep_handle)
->> > -		seq_puts(m, "status:\t\tnot supported\n");
->> > -	else {
->> > -		seq_puts(m, "status:\t\tsupported\n");
->> > -		seq_puts(m, "commands:\t<cmd> (<cmd> is 0-17)\n");
->> > -	}
->> > +	seq_puts(m, "status:\t\tsupported\n");
->> > +	seq_puts(m, "commands:\t<cmd> (<cmd> is 0-17)\n");
->> > 
->> >  	return 0;
->> >  }
->> 
->> Change looks good to me.
->> I guess the beep_write could be similarly updated?
->
-> No, beep_write() can be called via the beep= module parameter even if
-> beep_init() failed, so that check is still needed.
->
+On Fri, Sep 04, 2026, Jason Gunthorpe wrote:
+> On Fri, Sep 04, 2026 at 10:24:21PM +0000, David Matlack wrote:
+> 
+> > The proposal here (which is inspired by the KVM UAPI) is to ensure every
+> > LUO ABI struct has 2 properties:
+> > 
+> >  1. A field to encode options/features (e.g. u64 flags).
+> >  2. A way way to grow without breaking backward compatibility (e.g. so
+> >     we can add new fields).
+> > 
+> > Each flag can mean whatever it needs to. e.g. It can indicate the
+> > precence of one or more fields (i.e. new fields in the struct), or it
+> > can mean a field now has a different meaning (i.e. union in the struct).
+> > 
+> > This would enable adding support for new features without breaking
+> > backward compatibility. Downstream users would have to ensure their
+> > kernel does not start using a new feature while it can still rollback to
+> > a version that does not support the new feature.
+> 
+> This was never the biggest problem. The main issue was the functional
+> behaviors of the kernel that cannot be represented simply as data in a
+> struct with some flag bits.
+> 
+> Like for instance kernel A supports memfd folio sizes far larger than
+> kernel B because we fixed MAX_ORDER. You can't fix that just with
+> simplistic flags.
 
-Oh - good point, I had missed that.
-With that noted:
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Can you elaborate on why the folio sizes matter?  Honest question, because I don't
+understand why the serialization format wouldn't express things as "N contiguous
+pages starting at PFN X".  Then the implementation would rebuild its folios as
+appropriate.
 
-Thanks
-Mark
+I could see things like HugeTLB not working if someone booted the kernel with
+support for only 1GiB pages and then tried to feed it payload with sub-1GiB ranges.
+But to me, those sorts of things fall into the "well yeah, don't do that" category.
