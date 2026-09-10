@@ -1,93 +1,118 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CBF339705;
-	Thu, 10 Sep 2026 07:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C5D33D4E4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789023729; cv=none; b=Cd1oSDGxnBYwKjFMcfS7TBKgMQjCp4yT3BJ41uni8ecXYHex0FNxBjr56+IygQYkOD/G8anRtvIFo7MJNVsPrbkvKeCjkzDlsRHdz1+Zr0M23tSU1xJpSCK/UDuhXK/6275EeVZpXvbzhrpL9Urr9q9zA1olqFIMCVJmMgQCmvA=
+	t=1789023792; cv=none; b=ubWIrdsTmLqKBcobbecUb1dHKgm0ahxaO868pdBRYK7fBV1saBQ9w49ouvUfqa59zSMkxKyJPu2tJxmWmYad2eM+/Kzp8EfKQrZQFuWA6NyAjC3cQu1dgL/hs7Yeg27QGdc7SpnJRe/jpWIp71YUcimEBfkI6zvSI0EOW6Hh5P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789023729; c=relaxed/simple;
-	bh=j4vKVPvnsOsBQU/VrqbLlTk0VbnewQj8PhyL9juhic8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uVqWZ6EIM/8watDsD0Hd4kP1ky66V1xE309G6Fu00Yb17hfLgUZeWP3/2Mhbm99QOg/Tbsqfgbil4OjJCnSFcKyn5vz6Ip+1ggZ16FwqtMpwNm/lF5jkI8qtBnR/mEr4gQNbZPeF+me2JgC3IvVkGScIB/uoROh/YCbVhE8B8b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=HkcLTc9P; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789023792; c=relaxed/simple;
+	bh=BjE66fIi8oVDtAizFysavmr+bZc7c8n/oo08K88m1K4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gTKYNUYYJrsLEcfH/r8u7RGV5v2E6sno5cu4pgFGnXrv18Y2GHze2+jxW01iPMZJNQ6WCm0lGlRdoZE13p49vXC15X3BOiSiDifrkSvNXfO2SkbJZ5iwDeiMsY/QhJt1xDdyGk7hGg73D1PJKsQMkfbiPzHzoQZLfX23snZhZCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDVKmDLC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="HkcLTc9P"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2F0D140002A;
-	Thu, 10 Sep 2026 09:01:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789023721; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=vJp4rYGfCyVBSJ4qRp4Dvdioa41fPP8ClB9wWTWCzjw=;
-	b=HkcLTc9Pv7shqY6xnM1fnVqUKoJ5NSzhnAZHVtmRA8vJ5pSbMF34oxJL340E7LmN64xgyx
-	HK8PueNvZEw2Dkr9O6sMYuLf5L4qryshGLuJo0maVUyl4rP4S4Yt4OV9XzOYHXZ6oqTm4/
-	qB8ALVLDe27vfHr8pK05B3/rjUaqhaTGSV7ndSjLm6j1pEQqBB+Ii9ChgwPHOW3t1OmDo5
-	nCkCPsG5f7ZbMiuBe142X7UoTa4KH7jPCOncSP3vZiskGNez5XMUnKCnOeCg5ujhlcAfOQ
-	EB0/i8fHXKXbBPQLOy2U0d15S152FntkJMeQ3jWspQ2MVCbd4SYJXXKCFObKMg==
-Message-ID: <34c4739b-1d10-4bf9-b8b9-c09e023908b8@cjdns.fr>
-Date: Thu, 10 Sep 2026 09:01:50 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDVKmDLC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4DD71F000FF;
+	Thu, 10 Sep 2026 07:03:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789023787;
+	bh=BjE66fIi8oVDtAizFysavmr+bZc7c8n/oo08K88m1K4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BDVKmDLCWRChAy1YqVvSCzYWbnXSEU+F3ynlxYJVzn86jSmg1e77StTfwHIM9Uifl
+	 FKHQBtPhAY3cksXljoLCf3gFCfpKc4ItkE5FXvtndZMNIpifOKaK5TiIp2S7AnlwHl
+	 zlrZQfE1o7llj7Kk+v/RtT09k6LGLqdVQVOPnPFnWWiu6P825T59EJArtA1Ievg6E/
+	 Hakcz7Qz14r2siSaspysIiVGGHHzPqW8vDKFsu0rkWsDZAdeybyPRD8lbDram2bgVi
+	 tyDWsYnGIUM3lqKZ8SYZ0zl71O394Xda6iUz1lU2u0HYbCaBcrK33HkNU9VkQd0KdJ
+	 /JHz7k2Dhm4+Q==
+Date: Thu, 10 Sep 2026 09:03:03 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>, 
+	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Message-ID: <aqJWErwY_fjmlbuj@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+ <aqEqx0zBQgmUgwqL@houat>
+ <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
+ <aqFsTzyf1YbQkh6W@houat>
+ <f098a1ca30e3ca400b08c909d476a5752c70a6cb@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
- SkyLake.Huang@mediatek.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-References: <20260909213250.3184238-1-cjd@cjdns.fr>
- <746ebc26-e4ad-4988-a839-c5805d7ab319@lunn.ch>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <746ebc26-e4ad-4988-a839-c5805d7ab319@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="wafkbiiq5f6wznzp"
+Content-Disposition: inline
+In-Reply-To: <f098a1ca30e3ca400b08c909d476a5752c70a6cb@intel.com>
 
 
-On 10/09/2026 04:03, Andrew Lunn wrote:
->> +	/* Clause 22 local data. */
->> +	ret = phy_write(phydev, MII_CTRL1000, 0x1e00);
-> Please express this using
->
-> /* 1000BASE-T Control register */
-> #define ADVERTISE_1000FULL	0x0200  /* Advertise 1000BASE-T full duplex */
-> #define ADVERTISE_1000HALF	0x0100  /* Advertise 1000BASE-T half duplex */
-> #define CTL1000_PREFER_MASTER	0x0400  /* prefer to operate as master */
-> #define CTL1000_AS_MASTER	0x0800
-> #define CTL1000_ENABLE_MASTER	0x1000
->
-> Once we have symbolic names, it might be obvious what this is doing,
-> and if there is a better way to do it.
->
->
->> +	/* Vendor profile disables 100/1000BASE-T EEE advertisement. */
->> +	ret = phy_write_mmd(phydev, MDIO_MMD_AN, 0x003c, 0x0000);
->> +	if (ret < 0)
->> +		return ret;
-> Any idea why? Is EEE broken? If it is, phy_disable_eee().
+--wafkbiiq5f6wznzp
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+MIME-Version: 1.0
 
+On Wed, Sep 09, 2026 at 06:57:44PM +0300, Jani Nikula wrote:
+> On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> > On Wed, Sep 09, 2026 at 05:02:58PM +0300, Jani Nikula wrote:
+> >> On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> >> > I really wish i915 was at least *trying* to fit within the larger mo=
+del
+> >> > basically everybody else uses. I understand that it's a large
+> >> > undertaking and regression prone and everything, but I'm also concer=
+ned
+> >> > about having the "we can't because of i915" or "supported by everybo=
+dy
+> >> > else but i915" on a regular basis now.
+> >>=20
+> >> Okay, let's hear it, please name a few things where i915 is alone in
+> >> doing something bonkers that amd, radeon, nouveau also don't do, and
+> >> what would be the changes that would bring i915 closer to everybody
+> >> else?
+> >
+> > Where did I say "bonkers"?
+> >
+> > But since you're asking, because it doesn't implement .reset, we had th=
+at
+> > conversation this week for
+> >
+> > https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387=
+a4@kernel.org
+>=20
+> You mean struct drm_crtc_funcs .reset?
 
-I am so sorry, we had this entire conversation about the other PHY and I 
-did not check carefully enough that this one is doing the same thing. I 
-will test and submit the same solution we arrived at over there.
+I mean plane, crtc, and connector reset
 
+--wafkbiiq5f6wznzp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
+-----BEGIN PGP SIGNATURE-----
 
-Caleb
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqJWIwAKCRAnX84Zoj2+
+dlkTAYDVOHUF/N9L+RFbNoev1fEP7OCnQrVi6ZTc6m/uPoVZcfy217psBAVtpY28
+DuG53wUBfj8azW2PtL8IVoQFustkgTcns9ffqCfvvamzGt3FZay1o4hPp+PdliFZ
+JmWCqrhsIw==
+=1ICA
+-----END PGP SIGNATURE-----
 
-
->
->      Andrew
+--wafkbiiq5f6wznzp--
