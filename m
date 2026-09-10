@@ -1,282 +1,396 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A85435F61A
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D283AB5DC;
+	Thu, 10 Sep 2026 04:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014562; cv=none; b=rS1hl088LCTPW0oBBWbUkCU0XRVF1upIWNunbk0MkW3ZaGylS7UySc28+UUKBz321WeRiNdZITuJAf4lQFx+TurYySovSrPJjBqtsnumA0UM+r85m/SbrFkgK6A3IJC2rF/W6KqQqhk+p/Fn71boIW5EKyj8+wbYQNlJSX2q3NM=
+	t=1789014569; cv=none; b=ORQAKUPw4Knj8nyAe+BwjmNlOXlQhqTAq//xckyzTXsX7mfzKUUix8+zviN9EboYTAi5BaDHBeXj7SJCXUndlYkGhTO13s6Epzk+v8G88mTOdIQ4iDyY1mJs7qYSqgrUggb1KvNI2Tm2VaO3YyA/1Eu32SZfHRMFJS74GR/j7og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789014562; c=relaxed/simple;
-	bh=etYLqBtbtQ/QbDvkr5y44rLZwCU9/T1eFnC4UZqHJ04=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ODzEjNhcjDJxc56InoXAly47j8TU4m88wqmkXyYBISC4TEmaL+wY0i6gBqDJ5HlmNKIXkngG8rFh4/Wp26CYJXgWrmGVzfd2z/dduvt2suTCKkWFqJBj97Z00JOJlmyiWH7S/A5kdEIrFvMLqj1JmiUzJuIp/wX3jZmNRFHVPCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eRV7rRfD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jkvLktQP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789014569; c=relaxed/simple;
+	bh=0UQpCnHmZaz6eJE27RdBZoBNNLkmVXC9i16CVAVrYKc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FBv8hE6l4wB9NLq7Sk2kcpAVFkbrt2/ECTWkpqhMwxnnxCg+/pooSlxtpuPLeuMhz1iMwwqrS/rmvdYdGa5fjx1Wn8dO5OXtDIGGJcLG0IAJyUBhuWI967tuZ3NW7W++HYfbfGcVMnF+bX6hJ8lstgCPCK7WhhiazKT68s7r/sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxsjTs2i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eRV7rRfD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jkvLktQP"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A1lHMA351771
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:29:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ndLB57wgKTMycdqJejHo9vG1t90vJv+zegrkAOlz9YU=; b=eRV7rRfDuUZmZTmY
-	ItFzm279SmZx7EHSVFqIQWbevyNiYUVTXJpMi+1v5r3bXLuDKBOYKuM+fhiaD4Gd
-	WYcK9hNu3eTyjrURVzdr1TTaScs5F17XnXOcPPUJEb9f5+85+kN/Vmd9Xe0dcien
-	zFlW+whV65xdGmC/2FpjRQHHp8htxM1Y5tYE2XWb21OZh5cqxWIp07Zq8JB/FDak
-	X8KSza+uEwVUxLp3HgWv/jwYmM8q6C/xM7HGn6bFgO1P8GJ45fwJa2V+HHPfBA+3
-	TF29ayr6VTDPYFPfMuhs4fxbStcdwHxpHEtHJ2EirItyWWCqXkV3dJQ8HcZ6T3sB
-	d5wsgw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydj1r8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:29:20 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8633c0d7353so4633315b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:29:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789014560; x=1789619360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ndLB57wgKTMycdqJejHo9vG1t90vJv+zegrkAOlz9YU=;
-        b=jkvLktQPmvTNtu5FZmXPzPjMC55XpNeQjfkuvr4I6jwVwyBD3cn8JwKjEHtLbS3T1H
-         7K6FbmTI74NEiNihuHj5Y8qALGzNZx2HZWXsGe08cD80JN+99/zTYjRhC5yv5QHLu+Mc
-         NAPhoC1jHNJz4NhdWLp9P/1cgZCrdhlasiGbOGSe2tfdeftetCaxGinMsfgxXx4a4QOS
-         6EulHB7Uaseanzli/E5agD+2w6f66GF4y7uktcjd/sbjefDpH/AC+oPnKx41oDNyE0pd
-         qymlXf1rrSt9Ph5NPyJ69biknjsNy/pA6ysKgEaM/D+vdSBNg9NUEke/7P3YoUyhnFTL
-         f7jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789014560; x=1789619360;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ndLB57wgKTMycdqJejHo9vG1t90vJv+zegrkAOlz9YU=;
-        b=eDkwCT4VmRwlfrXdEsviWF8VspkcaM/dKVOIiEcssVv5GNhYUKfjVDw6VcVXKZrApk
-         pGMyFVD56K2wsP1tM6VHQb0o4evAYPy1YtGk46MB7itTuYhWXyAcH/BtgohHItC0yYFE
-         PDzZdW+LQNavEEq3jNr6WR2R3xJQE8jPa23YK1bE6856QqTM0nRsgNLa6iJ62g/shH8B
-         sMvNQ8lB5X1k0FMyYp3WxIj32cw5EQ0bJayll4KjK6zgHN9KgW1pMzc2hJ176LUD/eRM
-         EQxPXPSyoLE/r9gno/zzkRk88WyDZyrNnARpSMkeQQQZv46KiFQ3uwtknEsbbuXuvioW
-         AB+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwGKajC/AJE/WlPcmZJSUY1JVSjdP6QjR1jTxUdbxMcBj1X4mPLUMcPpmSnA5KdnitOb+q2uW2+Mydno9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX9Lqo57EcGVTI8Y4g1u5Uy1WU5BWQSSQQkVoNSrG9LI2SItb+
-	CYUAoLQMfHiWvx0PgTNHQD22UBzFrLsJkTPw6NCc7Wn7VUwitcR1Q0y8QTMgm2OLqs1gp4xG4t7
-	rurbInf+ElVFrX/YRYl1KAQBfyFSSOZz9P4kG5ImFVhYbq1j9GxNguxhkroMJ8liohj8=
-X-Gm-Gg: AYBFou0ZpLZLzqXoNFuOn+K+3RDiSKZZFMHbevidoTx4YnmlyYv1dGZS4aWqOg2tkSx
-	EhxcGQDbbUxPIhQkdcUrcjJcdxP37BtJtvqQhTMD4HzoxBzWFw/HiZVxzAJ/GyrJL5zy39zz+xz
-	LQ24dX/uldkbGqBOL/8MgbzJ7Gw4rAfTmYihkQqB3mSE9NhWqbKkFY44l6rMJyvd6iJBMi5tVgp
-	m9n8/Mx74Ke69txgDVKrefSGC5wAHFbVxJQYnkOCqc1Aq0NoshugkG+0C4Sn2W4ySFBhM39s+hS
-	+f6Nwyvuc3Az0nH2uKu+li7EXyr0BPdXGkPqOWfVp6PfdQe9OgOj1J2sZfb7OCTDLmvNESCOoeQ
-	vUh019b80mCr052ZjGwuKUy1YcL82pSV6kq/RqS/shW0ypE4gMItJgsY=
-X-Received: by 2002:a05:6a00:1915:b0:848:30c3:45dd with SMTP id d2e1a72fcca58-86168785ffcmr50432715b3a.11.1789014559595;
-        Wed, 09 Sep 2026 21:29:19 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1915:b0:848:30c3:45dd with SMTP id d2e1a72fcca58-86168785ffcmr50432654b3a.11.1789014559029;
-        Wed, 09 Sep 2026 21:29:19 -0700 (PDT)
-Received: from [10.133.33.71] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86343e6dae6sm5950975b3a.11.2026.09.09.21.29.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 21:29:18 -0700 (PDT)
-Message-ID: <cc166331-bfab-4fbd-81a2-60cd3362121b@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 12:29:14 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxsjTs2i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32AD31F000FF;
+	Thu, 10 Sep 2026 04:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789014567;
+	bh=aRkxR0tfvuYcQsIW26vPk5E1hxrzATRnV3+jdRehPAQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VxsjTs2iKUigxaTKsVJoTj7nRkH2zJFRUuIs794P49WZgsXoHIwAtEZJmMeaZzIFt
+	 0bLz8xsBp2QVDpvre9Xta/ASiYP8p9nIa/KdNQgYmD4qx8DzKMQE4g6LFaUOcJ/HTX
+	 F7pMGlzF0yGuOmbELk3rflwUO5HepSRev9PVv6W9ORMA5ZAcPfiPX/XFlEv7YYW2ID
+	 4B/JWD776tsCMVV/DEqimtSqCvYyua0f4f4S4HVvmnjsDMWp/Bc1g+b22Z0ktyuwP8
+	 bW33p7fDHBCOGXnIZmWWudjH4Icr7duArUM9NvpLUmKklSKA+axDVkT/WoydsnlyJ+
+	 29Q8m+bAK9hEA==
+Subject: Re: [PATCH net v3] net: mana: fix reset work race with device removal
+From: netdev-bot+sashiko@kernel.org
+To: fanwu01@zju.edu.cn
+Cc: netdev@vger.kernel.org, kys@microsoft.com, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, horms@kernel.org,
+ songl@zju.edu.cn
+Date: Thu, 10 Sep 2026 04:29:25 +0000
+Message-ID: <178901456575.219967.1716228063014177420@kernel.org>
+In-Reply-To: <20260909042529.652301-1-fanwu01@zju.edu.cn>
+References: <20260909042529.652301-1-fanwu01@zju.edu.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] remoteproc: qcom_q6v5_pas: add per-PD proxy
- performance states for Hawi CDSP
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260909105049.1317985-1-mukesh.ojha@oss.qualcomm.com>
- <20260909105049.1317985-4-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Yijie Yang <yijie.yang@oss.qualcomm.com>
-In-Reply-To: <20260909105049.1317985-4-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA0NSBTYWx0ZWRfX89QvDFZopkjh
- McX1o9rRMmKaFgbQ/zDaYKT9B1Enj5oItjV1rcTaIpCs47wy6cYAFWujjaQMp7cKDkGkrqAJPXp
- m9G5S8uzrbkPBjFTT+Ds72kM19OJiUM=
-X-Authority-Analysis: v=2.4 cv=UJNIjyfy c=1 sm=1 tr=0 ts=6aa23220 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=PlWavoXkOeM9YJf6PKwA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: XrtfsUin7EKbHQOkhaH4OIpS2gYC3Yy0
-X-Proofpoint-ORIG-GUID: XrtfsUin7EKbHQOkhaH4OIpS2gYC3Yy0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA0NSBTYWx0ZWRfX4mMVQV2OYjUn
- 3xGEr3VMAV825iGEplR8qDBbUslFUnndSrrT8gID/F+/nzM1GQShaUJRnAl6Kb4+zUZam7DZB5t
- NavwbjtxKLDe8yZZnfDKc9MthkLTh7clb1uMgiqQSMNgwizk91+cS6VLUmIOOIbtH0GHa+tEnsN
- AbFcbwd0KPSJGGkblUKny21ugbwW/2m2nI9y0ORKvGE0esFIdD9BleNm53j0gbMJF7caHq9qkND
- v06RpFG2mpZSK0PWZCkKi/nMZiPGnU1AhuQdBxAuwunq2qHFR2IhNMsrRQ2wDQC9pNgs9yM0wap
- 1fEmPBNiN7p6CwLZK/H8uJpWop4IdqkS/SkhRnBdtdQ6GD+hKhsnpb3gskV/DxLQ58Uz3bVod/m
- GPJlWf28BIklgL0fYPbU+l8i1wpVjguyezmqjzHwBnBWJEEyPYHekiTjBvsgbBP9nu9vbRNLUW6
- 16Jr+hquGCY4SKUjAQw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_01,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100045
 
-Tested-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-On 9/9/2026 6:50 PM, Mukesh Ojha wrote:
-> The proxy power domain enable path requests INT_MAX performance
-> state for every proxy PD. On Hawi, the NSP proxy power domain's
-> RPMH power domain has no OPP at INT_MAX, while CX and MXC accept
-> INT_MAX, mapping to their maximum supported level.
-> 
-> Introduce a proxy_pd_performance_states array in qcom_pas_data
-> to allow per-PD RPMH levels to be declared explicitly. Platforms
-> that omit this field retain the existing INT_MAX behaviour.
-> 
-> Add Hawi CDSP remoteproc support with the following proxy PD
-> performance states:
-> 
->    CX:  RPMH_REGULATOR_LEVEL_TURBO
->    MXC: RPMH_REGULATOR_LEVEL_TURBO
->    NSP: RPMH_REGULATOR_LEVEL_NOM
-> 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->   drivers/remoteproc/qcom_q6v5_pas.c | 50 ++++++++++++++++++++++++++++--
->   1 file changed, 48 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index c163e66347f8..8ac66db80193 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -28,6 +28,7 @@
->   #include <linux/soc/qcom/mdt_loader.h>
->   #include <linux/soc/qcom/smem.h>
->   #include <linux/soc/qcom/smem_state.h>
-> +#include <dt-bindings/power/qcom,rpmhpd.h>
->   
->   #include "qcom_common.h"
->   #include "qcom_pil_info.h"
-> @@ -51,6 +52,8 @@ struct qcom_pas_data {
->   	bool decrypt_shutdown;
->   
->   	char **proxy_pd_names;
-> +	const unsigned int *proxy_pd_performance_states;
-> +	unsigned int num_proxy_pd_performance_states;
->   
->   	const char *load_state;
->   	const char *ssr_name;
-> @@ -79,6 +82,7 @@ struct qcom_pas {
->   	struct regulator *px_supply;
->   
->   	struct device *proxy_pds[3];
-> +	const unsigned int *proxy_pd_performance_states;
->   
->   	int proxy_pd_count;
->   
-> @@ -167,11 +171,16 @@ static int qcom_pas_pds_enable(struct qcom_pas *pas, struct device **pds,
->   	int i;
->   
->   	for (i = 0; i < pd_count; i++) {
-> -		ret = dev_pm_genpd_set_performance_state(pds[i], INT_MAX);
-> +		unsigned int state = INT_MAX;
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 1
+
+- [High] GC_REMOVING is a one-way latch that is set on service exits
+  which do not necessarily remove the device.
+- [Medium] The new `if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))` gate
+  in `mana_gf_stats_work_handler()` (mana_en.c:4068) silently discards…
+- [Low] The new service-work submission uses `queue_work(system_wq,
+  &gc->serv_work)` (gdma_main.c:886).
+
+Pre-existing issues:
+- [High] `mana_gd_shutdown()` (gdma_main.c:2776) tears down the HWC —
+  `mana_gd_cleanup_device()` -> `mana_hwc_destroy_channel()` ->…
+
+--
+
+net: mana: fix reset work race with device removal
+
+The service work is moved into struct gdma_context and GC_IN_SERVICE now
+describes whether the work may still touch gc.  Removal and the probe
+unwind set a new GC_REMOVING bit to close admission and then wait for an
+in-flight cycle to retire before clearing drvdata and freeing gc.  Reset
+events observed during probe are latched in GC_SERVICE_DURING_PROBE
+instead of being admitted immediately.
+
+No Link: tags in the commit header.  Earlier postings referenced in the
+changelog:
+  https://lore.kernel.org/netdev/20260905023602.425827-1-fanwu01@zju.edu.cn
+  https://lore.kernel.org/netdev/20260805143812.220509-1-fanwu01@zju.edu.cn
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> index f92b2d0bf926..28544f00e8ce 100644
+> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> @@ -678,10 +678,38 @@ static void mana_serv_rescan(struct pci_dev *pdev)
+>  	pci_unlock_rescan_remove();
+>  }
+>  
+> -static void mana_serv_fpga(struct pci_dev *pdev)
+> +/* Retire one service cycle: GC_IN_SERVICE is the last state published
+> + * by the work, so remove() and the probe unwind may free gc once it
+> + * is clear.  Must run before the exit paths take pci_lock_rescan_remove():
+> + * removal can be waiting on the bit while holding that lock.
+> + */
+> +static void mana_service_done(struct gdma_context *gc)
+> +{
+> +	/* Pairs with test_bit_acquire() on the wait side. */
+> +	clear_bit_unlock(GC_IN_SERVICE, &gc->flags);
+> +	/* wake_up_var() requires a full barrier between the update of the
+> +	 * waited-on variable and the wake.
+> +	 */
+> +	smp_mb__after_atomic();
+> +	wake_up_var(&gc->flags);
+> +}
 > +
-> +		if (pas->proxy_pd_performance_states)
-> +			state = pas->proxy_pd_performance_states[i];
+> +/* Retire a cycle whose exit removes the device: close admission
+> + * first so no new cycle can be admitted in the retire window.
+> + */
+> +static void mana_service_done_removing(struct gdma_context *gc)
+> +{
+> +	set_bit(GC_REMOVING, &gc->flags);
+> +	mana_service_done(gc);
+> +}
 > +
-> +		ret = dev_pm_genpd_set_performance_state(pds[i], state);
->   		if (ret) {
->   			dev_err(pas->dev,
->   				"failed to set proxy PD %d state %u: %d\n",
-> -				i, INT_MAX, ret);
-> +				i, state, ret);
->   			goto unroll_pd_votes;
->   		}
->   		ret = pm_runtime_get_sync(pds[i]);
-> @@ -879,6 +888,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
->   	pas->info_name = desc->sysmon_name;
->   	pas->smem_host_id = desc->smem_host_id;
->   	pas->decrypt_shutdown = desc->decrypt_shutdown;
-> +	pas->proxy_pd_performance_states = desc->proxy_pd_performance_states;
->   	pas->region_assign_idx = desc->region_assign_idx;
->   	pas->region_assign_count = min_t(int, MAX_ASSIGN_COUNT, desc->region_assign_count);
->   	pas->region_assign_vmid = desc->region_assign_vmid;
-> @@ -914,6 +924,14 @@ static int qcom_pas_probe(struct platform_device *pdev)
->   		goto unassign_mem;
->   	pas->proxy_pd_count = ret;
->   
-> +	if (WARN(desc->proxy_pd_performance_states &&
-> +		 desc->num_proxy_pd_performance_states != pas->proxy_pd_count,
-> +		 "proxy_pd_performance_states count %u != pd count %d\n",
-> +		 desc->num_proxy_pd_performance_states, pas->proxy_pd_count)) {
-> +		ret = -EINVAL;
-> +		goto detach_proxy_pds;
+> +static void mana_serv_fpga(struct pci_dev *pdev, struct gdma_context *gc)
+>  {
+>  	struct pci_bus *bus, *parent;
+>  
+> +	if (gc)
+> +		mana_service_done_removing(gc);
+> +
+>  	pci_lock_rescan_remove();
+>  
+>  	bus = pdev->bus;
+> @@ -706,9 +734,8 @@ static void mana_serv_fpga(struct pci_dev *pdev)
+>  	pci_unlock_rescan_remove();
+>  }
+>  
+> -static void mana_serv_reset(struct pci_dev *pdev)
+> +static void mana_serv_reset(struct pci_dev *pdev, struct gdma_context *gc)
+>  {
+> -	struct gdma_context *gc = pci_get_drvdata(pdev);
+>  	struct hw_channel_context *hwc;
+>  	int ret;
+>  
+> @@ -738,6 +765,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
+>  	if (ret == -ETIMEDOUT || ret == -EPROTO) {
+>  		/* Perform PCI rescan on device if we failed on HWC */
+>  		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
+> +		mana_service_done_removing(gc);
+>  		mana_serv_rescan(pdev);
+>  		return;
+>  	}
+
+[Severity: High]
+Is GC_REMOVING guaranteed to be followed by an actual removal here?  Both
+callers of mana_service_done_removing() can return with the device still
+bound.
+
+In mana_serv_fpga(), the bit is set before the bus checks:
+
+	if (gc)
+		mana_service_done_removing(gc);
+
+	pci_lock_rescan_remove();
+
+	bus = pdev->bus;
+	if (!bus) {
+		dev_err(&pdev->dev, "MANA service: no bus\n");
+		goto out;
+	}
+
+	parent = bus->parent;
+	if (!parent) {
+		dev_err(&pdev->dev, "MANA service: no parent bus\n");
+		goto out;
+	}
+
+bus->parent is NULL whenever the MANA function sits on a root bus, so
+this exits through "goto out" without calling
+pci_stop_and_remove_bus_device().
+
+The failed-resume path has the same shape: mana_serv_rescan() has its own
+"if (!parent)" bail-out that returns without removing the device, after
+GC_REMOVING has already been latched.
+
+I can't find any code that clears GC_REMOVING again.  Once it is set on a
+live gc, mana_schedule_serv_work() refuses every subsequent request:
+
+	if (test_bit(GC_REMOVING, &gc->flags)) {
+		dev_info(gc->dev, "Device is being removed\n");
+		mana_service_done(gc);
+		return -EBUSY;
+	}
+
+and mana_tx_timeout() in mana_en.c also stops queueing queue-reset work
+for the rest of the binding:
+
+	if (test_bit(GC_IN_SERVICE, &gc->flags) ||
+	    test_bit(GC_REMOVING, &gc->flags))
+		return;
+
+Does this leave a still-bound device permanently without HWC reset
+service and without TX queue reset?  Would it be better to set
+GC_REMOVING only after the point where removal is known to happen, or to
+clear it on the bail-out paths?
+
+> @@ -796,48 +841,49 @@ static void mana_recovery_delayed_func(struct work_struct *w)
+
+[ ... ]
+
+>  int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type)
+>  {
+> -	struct mana_serv_work *mns_wk;
+> -
+>  	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
+>  		dev_info(gc->dev, "Already in service\n");
+>  		return -EBUSY;
+>  	}
+>  
+> +	/* Pairs with set_bit(GC_REMOVING) + smp_mb__after_atomic() in
+> +	 * mana_gd_remove(): the test_and_set_bit() above is fully ordered,
+> +	 * so either this read sees GC_REMOVING and the cycle aborts, or
+> +	 * remove() observes GC_IN_SERVICE and waits for the cycle to retire
+> +	 * before it frees gc.
+> +	 */
+> +	if (test_bit(GC_REMOVING, &gc->flags)) {
+> +		dev_info(gc->dev, "Device is being removed\n");
+> +		mana_service_done(gc);
+> +		return -EBUSY;
 > +	}
 > +
->   	ret = qcom_q6v5_init(&pas->q6v5, pdev, rproc, desc->crash_reason_smem,
->   			     desc->load_state, qcom_pas_handover);
->   	if (ret)
-> @@ -1804,6 +1822,33 @@ static const struct qcom_pas_data glymur_soccp_resource = {
->   	.needs_tzmem = true,
->   };
->   
-> +static const struct qcom_pas_data hawi_cdsp_resource = {
-> +	.crash_reason_smem = 601,
-> +	.firmware_name = "cdsp.mdt",
-> +	.dtb_firmware_name = "cdsp_dtb.mdt",
-> +	.pas_id = 18,
-> +	.dtb_pas_id = 0x25,
-> +	.minidump_id = 7,
-> +	.auto_boot = true,
-> +	.proxy_pd_names = (char*[]){
-> +		"cx",
-> +		"mxc",
-> +		"nsp",
-> +		NULL
-> +	},
-> +	.proxy_pd_performance_states = (const unsigned int[]){
-> +		RPMH_REGULATOR_LEVEL_TURBO,
-> +		RPMH_REGULATOR_LEVEL_TURBO,
-> +		RPMH_REGULATOR_LEVEL_NOM,
-> +	},
-> +	.num_proxy_pd_performance_states = 3,
-> +	.load_state = "cdsp",
-> +	.ssr_name = "cdsp",
-> +	.sysmon_name = "cdsp",
-> +	.ssctl_id = 0x17,
-> +	.smem_host_id = 5,
-> +};
+>  	if (!try_module_get(THIS_MODULE)) {
+>  		dev_info(gc->dev, "Module is unloading\n");
+> -		clear_bit(GC_IN_SERVICE, &gc->flags);
+> +		mana_service_done(gc);
+>  		return -ENODEV;
+>  	}
+>  
+> -	mns_wk = kzalloc(sizeof(*mns_wk), GFP_ATOMIC);
+> -	if (!mns_wk) {
+> -		module_put(THIS_MODULE);
+> -		clear_bit(GC_IN_SERVICE, &gc->flags);
+> -		return -ENOMEM;
+> -	}
+> -
+>  	dev_info(gc->dev, "Start MANA service type:%d\n", type);
+> -	mns_wk->pdev = to_pci_dev(gc->dev);
+> -	mns_wk->type = type;
+> -	pci_dev_get(mns_wk->pdev);
+> -	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
+> -	schedule_work(&mns_wk->serv_work);
 > +
->   static const struct qcom_pas_data eliza_cdsp_resource = {
->   	.crash_reason_smem = 601,
->   	.firmware_name = "cdsp.mbn",
-> @@ -1833,6 +1878,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
->   	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource },
->   	{ .compatible = "qcom,eliza-cdsp-pas", .data = &eliza_cdsp_resource },
->   	{ .compatible = "qcom,glymur-soccp-pas", .data = &glymur_soccp_resource },
-> +	{ .compatible = "qcom,hawi-cdsp-pas", .data = &hawi_cdsp_resource },
->   	{ .compatible = "qcom,kaanapali-soccp-pas", .data = &kaanapali_soccp_resource },
->   	{ .compatible = "qcom,milos-adsp-pas", .data = &sm8550_adsp_resource },
->   	{ .compatible = "qcom,milos-cdsp-pas", .data = &milos_cdsp_resource },
+> +	gc->serv_type = type;
+> +	pci_dev_get(to_pci_dev(gc->dev));
+> +	queue_work(system_wq, &gc->serv_work);
+>  	return 0;
+>  }
+
+[Severity: Low]
+This isn't a bug, but was system_wq intended here rather than
+system_percpu_wq?  In this tree the declaration is:
+
+include/linux/workqueue.h:
+	extern struct workqueue_struct *system_wq; /* use system_percpu_wq, this will be removed */
+
+and system_wq is allocated with __WQ_DEPRECATED, so __queue_work() emits:
+
+kernel/workqueue.c:__queue_work() {
+	if (unlikely(wq->flags & __WQ_DEPRECATED))
+		pr_warn_once("workqueue: work func %ps enqueued on deprecated workqueue. "
+			"Use system_{percpu|dfl}_wq instead.\n",
+			work->func);
+}
+
+The code being replaced used schedule_work(), which queues on
+system_percpu_wq.  The stated reason for staying off gc->service_wq is
+satisfied equally by schedule_work(&gc->serv_work).
+
+[ ... ]
+
+> @@ -2624,6 +2700,20 @@ static void mana_gd_remove(struct pci_dev *pdev)
+>  {
+>  	struct gdma_context *gc = pci_get_drvdata(pdev);
+>  
+> +	/* Close admission and retire an in-flight cycle before any
+> +	 * teardown: the service work is the only user of gc that
+> +	 * remove() does not otherwise synchronise with.  The service
+> +	 * exits retire before taking the PCI rescan/remove lock, so
+> +	 * this wait cannot deadlock against them.
+> +	 */
+> +	set_bit(GC_REMOVING, &gc->flags);
+> +	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
+> +	 * mana_schedule_serv_work().
+> +	 */
+> +	smp_mb__after_atomic();
+> +	wait_var_event(&gc->flags,
+> +		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
+> +
+>  	pci_disable_sriov(pdev);
+>  
+>  	mana_rdma_remove(&gc->mana_ib);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but should mana_gd_shutdown()
+get the same admission-close and drain that is added here?  It tears the
+HWC down with no synchronisation against an in-flight service cycle:
+
+static void mana_gd_shutdown(struct pci_dev *pdev)
+{
+	struct gdma_context *gc = pci_get_drvdata(pdev);
+
+	dev_info(&pdev->dev, "Shutdown was called\n");
+
+	mana_rdma_remove(&gc->mana_ib);
+	mana_remove(&gc->mana, true);
+
+	mana_gd_cleanup_device(pdev);
+
+	pci_disable_device(pdev);
+}
+
+Meanwhile mana_serv_reset() caches the HWC pointer and then sleeps for
+MANA_SERVICE_PERIOD seconds across suspend/resume:
+
+	hwc = gc->hwc.driver_data;
+	...
+	hwc->hwc_timeout = 0;
+	...
+	mana_gd_suspend(pdev, PMSG_SUSPEND);
+
+	msleep(MANA_SERVICE_PERIOD * 1000);
+
+	ret = mana_gd_resume(pdev);
+
+mana_gd_cleanup_device() -> mana_hwc_destroy_channel() does kfree(hwc),
+and both paths call it.  device_shutdown() takes only
+device_lock(&pdev->dev), which the service work does not hold, so on
+reboot or kexec during a reset cycle can this end up as a use-after-free
+of hwc and a second kfree()/destroy_workqueue() on the same objects?
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 591fb4191d90..c297de8bb762 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+
+[ ... ]
+
+> @@ -4061,9 +4061,12 @@ static void mana_gf_stats_work_handler(struct work_struct *work)
+>  		dev_warn(gc->dev,
+>  			 "Gf stats wk handler: gf stats query timed out.\n");
+>  		/* As HWC timed out, indicating a faulty HW state and needs a
+> -		 * reset.
+> +		 * reset.  Never admit service work before the probe has
+> +		 * completed: a probe that is failing unwinds netdevs and the
+> +		 * HWC channel itself and cannot drain a cycle.
+>  		 */
+> -		mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
+> +		if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))
+> +			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
+>  		return;
+>  	}
+>  	schedule_delayed_work(&ac->gf_stats_work, MANA_GF_STATS_PERIOD);
+
+[Severity: Medium]
+What happens to the reset request when this gate is false but the probe
+then succeeds?
+
+mana_probe() arms this work before returning to mana_gd_probe():
+
+	schedule_delayed_work(&ac->gf_stats_work, MANA_GF_STATS_PERIOD);
+
+with MANA_GF_STATS_PERIOD being 2 * HZ, while mana_gd_probe() still has
+mana_rdma_probe() to run before it publishes the flag:
+
+	set_bit(GC_PROBE_SUCCEEDED, &gc->flags);
+	if (test_and_set_bit(GC_SERVICE_DURING_PROBE, &gc->flags)) {
+
+So a mana_query_gf_stats() timeout in that window takes the new branch,
+drops the request, and the bare "return;" also skips the
+schedule_delayed_work() re-arm below it.
+
+The EQE handler in gdma_main.c latches and re-checks instead:
+
+	if (!test_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
+		if (!test_and_set_bit(GC_SERVICE_DURING_PROBE, &gc->flags))
+			dev_info(gc->dev,
+				 "Service is to be processed in probe\n");
+		else if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))
+			mana_schedule_serv_work(gc, type);
+		break;
+	}
+
+Here there is neither a latch nor a re-check, and the plain test_bit()
+also races the set_bit() at the probe boundary.  If the probe goes on to
+succeed, the device is left with ac->hwc_timeout_occurred set, the stats
+poll never re-armed, and no reset cycle requested, where the previous
+code called mana_schedule_serv_work() unconditionally.  Should this call
+site latch into GC_SERVICE_DURING_PROBE (or re-check after the boundary)
+so the request is not lost?
 
 -- 
-Best Regards,
-Yijie
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909042529.652301-1-fanwu01%40zju.edu.cn
