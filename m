@@ -1,77 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B9D44E66B;
-	Thu, 10 Sep 2026 10:37:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857A844C64C;
+	Thu, 10 Sep 2026 10:37:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036629; cv=none; b=knlvK3v1hBPAhjusWlxRxD40I9DN1dslLHcG62gZOIr4eh2rQMtRT/JKH7an4ATHr3Pb84dLeizWYp9Wjrz9fb/Vhjs8Z9TEdNwpdBgjvZPzVwHZcAghApLz1bpvM0eiAIAng/GWCJYszJ2UB5GmrMl6LOeHXotpG6Xp/ZfJ2bY=
+	t=1789036662; cv=none; b=Sc3hW7EhaSqvHkG9Dzr/nCy0QWQyrxpJtZOwy6lmocb09xEbSDhyvr+3Nj0/YJ1hd6yJWcCf/0aRXbeaQyyEcLDV1CRwrefD1rN3LHSB7LtwaGoUemH7ivzBxJBLq6W92R/R1rgIg1gILeZwRkMSl6IM7w96c51RUyx+uq7UhDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036629; c=relaxed/simple;
-	bh=r2R0FQ6XjDzstbgL1FCYgajMJYBiiMNw+YmEz1Zk83M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VLJmffayqS06T+bWRJY2Oy24F6Cc3Eb4WWgzzZHWjRuO+qLXE/yChy32doMrGC6Iayln1rLF+EJjX0blUsWEn14KJwTrY//MVSAYrHoxRO74oYyLckzaQj8eg9IFIkdpqXPCOHML0v8u23L42J4JT+K2TldF+DIkLLaptao/pyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E4iqmfLV; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E4iqmfLV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DBC1F000FF;
-	Thu, 10 Sep 2026 10:37:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789036628;
-	bh=Dj7ImCNOGYFsdY/Zf5dsBKuP9RTLXw8w8T95YWvfhUo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E4iqmfLVzbN2wGZgD+sOnb7QA+EU333VqRWrkxIcMi/A6M4FLQRbUCX8cpLq8isfN
-	 SbhG72mbVfewcUYN+nf7dD2KW9Ax4T+0DUAswNCsG8DV3v33JdHCnq13DVQ1bbaQ48
-	 JZLMnEiULSA+xo1dspSu1YIOkzBXQeSAQcqxs2zGBMb3UX3Y6AdkOaWfGl9H7tfGfv
-	 w52q4NWOlU03Vd0X5Ne+dh3G8eZ0wiF7BAeno3rmbKvzKkAcYb63IkqscPm/vu33x8
-	 Vm4dmxiOcRwA9X6a4fLe3Y/F3zGU3wefi6CKnqs/MTg0n7R6nC8jS46InhVgdnoJOn
-	 hwIFE3CRWrWzQ==
-Date: Thu, 10 Sep 2026 11:37:01 +0100
-From: Simon Horman <horms@kernel.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Chris Snook <chris.snook@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	GR-Linux-NIC-Dev@marvell.com, Geetha sowjanya <gakula@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>, Rahul Verma <rahulv@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shahed Shaikh <shshaikh@marvell.com>, Shuah Khan <shuah@kernel.org>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Sunil Goutham <sgoutham@marvell.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-parisc@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v3 09/10] net: atheros: fix typos in comments
-Message-ID: <20260910103701.GA40544@horms.kernel.org>
-References: <20260908052602.27497-1-hemanth.selam@gmail.com>
- <20260908052602.27497-10-hemanth.selam@gmail.com>
+	s=arc-20240116; t=1789036662; c=relaxed/simple;
+	bh=/h6JZcv0sW8GnaM53zjTiFotgozaok6PQVWd6Pm6Wso=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=P7xCC80DHs5hjffU61t7Cv05qD+C3rq5bB2vVAHPwTP7LyRh8xkrTyv3KHZiI8C27d7WJMhhhGEsF8LFRxoA7q/XWQ3Wsn8Cc80TvVBbKvPuDgsQVzf37CgYrAESUWb9aK5aNbY2is/VioUbd5/ayrJ5W+ZxvTeZqAew6nnATEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CDA1F000FF;
+	Thu, 10 Sep 2026 10:37:36 +0000 (UTC)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: frank.li@nxp.com, l.stach@pengutronix.de, lpieralisi@kernel.org, 
+ kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, 
+ bhelgaas@google.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+ festevam@gmail.com, hongxing.zhu@oss.nxp.com
+Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Richard Zhu <hongxing.zhu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+In-Reply-To: <20260803034319.992323-1-hongxing.zhu@oss.nxp.com>
+References: <20260803034319.992323-1-hongxing.zhu@oss.nxp.com>
+Subject: Re: [PATCH v5] PCI: imx6: Update MPLLB bandwidth to improve i.MX95
+ Gen3 PCIe stability
+Message-Id: <178903665594.5136.3269558239888927735.b4-ty@b4>
+Date: Thu, 10 Sep 2026 12:37:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908052602.27497-10-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On Tue, Sep 08, 2026 at 10:56:01AM +0530, Hemanth Selam wrote:
-> Fix misspellings in comments, found with scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Comments only, no code
-> changes.
+
+On Mon, 03 Aug 2026 11:43:19 +0800, hongxing.zhu@oss.nxp.com wrote:
+> We observed poor bandwidth margins during i.MX95 Gen3 PCIe tests with
+> the default MPLLB_BANDWIDTH value (120). The margins worsened across
+> voltage and temperature (VT) variations and different test matrices,
+> potentially causing link stability issues.
 > 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> Testing with MPLLB_BANDWIDTH value of 140 (0x8c) shows significant
+> improvement in bandwidth margins across all VT conditions and test
+> scenarios.
+> 
+> [...]
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Applied, thanks!
+
+[1/1] PCI: imx6: Update MPLLB bandwidth to improve i.MX95 Gen3 PCIe stability
+      commit: 50901546f3bf9e76cc13d8146d1b1604a392a477
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
 
