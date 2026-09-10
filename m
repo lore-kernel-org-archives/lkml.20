@@ -1,153 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BD82FD69E
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C673B6367;
+	Thu, 10 Sep 2026 09:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032217; cv=none; b=eX2Vc8/SaAYf3gedRcmaHnIopUzIw8hOLLAjT9ihsAJ7augwQAHnPb7D7bn38HokfkBGTFgRl4pL+TeHIjmVLKOBZfQcXhnvJP4uSW7xTqWhB0GRDhEEpisT98j708sBMDrF2NNbSGUm3JdEethN2KF5slkzE1gR6XzLeO/vUDQ=
+	t=1789032245; cv=none; b=h6xiE94cepV+8487br/1QABBtADZQeycl3LW9gmqpfQJyPhxeoXcJNU7MCqE81nN/i4tpSfn19N9xbrxQLZ5yRf3IWK1F0LKm//cB5eWyFDERLOhxkGzqgtQEbNOIst1UzOSjTV8yIBqW2SHZxtjw6ZsGU7B/lMFYdrfVDVATc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032217; c=relaxed/simple;
-	bh=3h6dOaWn9MbzfnZmkrI8RhpI7ycb2SvYmH3VMy/0T0s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uV8VJ2BmtXpdvXDYsHJJNzidAEj+Wo81UGDwnZzyEDvX54X1/WrAiJ0aBavDWnAcLxpJWzkK1c+nNH0xADf69xPD2DH/l3lSzW/0CzH5o5r4A8+xgFkZlmwvbBnV3dubONXmoP4CvN+48SmZv5R4xZFIgdZlWxkXa7kBimE1guE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyTwAc6e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789032245; c=relaxed/simple;
+	bh=lO8k/xsn9vJJ5dce2sGr/gdsViGjIJvXorKknr/5sps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l1+E4ZM2AcGG0aKgXqgLufhKgXKK2i/9iiJCvwZUXfVkZ7t7mZ+ZgjJoM583HMIWJNWOww3BjEVW7DP99/tkaEe2joxNyudRNKhtO7sL1NEMDEBgO1vBJsS8vwDbnArtvptEKfdgojJMSnnrk2Sca0e7NbFJBl7emI7qi+8P2uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Az8d1rhU; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyTwAc6e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75811F000FF;
-	Thu, 10 Sep 2026 09:23:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789032215;
-	bh=CBK8bp8Jw50Wx0Cwsv2CkCMUmnFWUqrGVXgO0hUGIS4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KyTwAc6e4cH6wmMAK6Eff7Xf/UtjdaC6WVegf0hPGjlFCvdXAk2PxaTHv/Yt6xf5l
-	 g3jFLEwiU0oaNIyLtL+jj/uQfAuS3pE9fYss/H4MQtVC8jTExP7RugNZy/eJtMcNaD
-	 ZJYoZ4boZCuxsbH4pkAeGvZzgLpVeMehgecE+b54EtjS0mpaR7fv/3DiDO49nanO0p
-	 Kuq56QNnZI0txYJmjY1eVJX/9hyXIT/075/d72MU0g8T8R9dmyl4lzcrDQKrFzSApG
-	 1dOgQok6BPDKoC4Lwpmw1bvcQ4Z7/CvLAGxYVdqu7NTTMEfQYZ6uE57sOr0cHITz2h
-	 q983vXA6+WzvQ==
-Date: Thu, 10 Sep 2026 14:53:31 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Andrew Davis <afd@ti.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, op-tee@lists.trustedfirmware.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] tee: move tee_ioctl_shm_register_data to above
- IOCTL definition
-Message-ID: <aqJ3E4-vfMWhuQxU@sumit-xelite>
-Mail-Followup-To: Andrew Davis <afd@ti.com>,
-	Jens Wiklander <jenswi@kernel.org>,
-	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
-References: <20260903181251.1912165-1-afd@ti.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Az8d1rhU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789032239;
+	bh=lO8k/xsn9vJJ5dce2sGr/gdsViGjIJvXorKknr/5sps=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Az8d1rhUo17uOQhc71dhaEE2/xhUuVqKZFU2jsJXGj6zzmdUu0vv5IfPqtIn2uXEa
+	 PuGN14rcs/Nho2CLKqI5UbCVOuag1aft5jwFM4oyKSwR0wUTKdECpDJozQXuG80A5C
+	 GYzozCqc6/FLZj+45aO1o11ddToNbIJYL0FjwQpnCDILwBC6AbKidD5yG3bO4Bvkwt
+	 hqGPytp8V5855AXO6bPOF65il6//9ZX1/Qk3C8Qe6sPbdweJj3DZZkBocnDcNfFG2w
+	 l84/tKQpDr0qRjxKgVZz8WVoV7HSjdjzppuyAYJ8mnZDyTeBEIrZ+aHZzc6Bpc2nsp
+	 Wcp3VTZyTFu1Q==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CFFA517E0CA6;
+	Thu, 10 Sep 2026 11:23:58 +0200 (CEST)
+Message-ID: <0c117dbc-facc-4465-a5e0-8fbb822d86a7@collabora.com>
+Date: Thu, 10 Sep 2026 11:23:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260903181251.1912165-1-afd@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: mediatek: reset: Fix device registration kernel-doc
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Rex-BC Chen <rex-bc.chen@mediatek.com>, linux-clk@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260910033000.15926-1-kmehltretter@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260910033000.15926-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 9/10/26 05:30, Karl Mehltretter wrote:
+> The comment for mtk_register_reset_controller_with_dev() names the
+> older helper and documents np rather than dev. The new helper takes
+> a struct device and obtains its device node internally.
+> 
+> Use the actual function and parameter names and clarify that failures
+> return negative error codes.
+> 
+> Fixes: 761bc64003e3 ("clk: mediatek: reset: Add new register reset function with device")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>   drivers/clk/mediatek/reset.h | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/clk/mediatek/reset.h b/drivers/clk/mediatek/reset.h
+> index 562ffd290a22..b09cdcab0c4b 100644
+> --- a/drivers/clk/mediatek/reset.h
+> +++ b/drivers/clk/mediatek/reset.h
+> @@ -60,11 +60,11 @@ struct mtk_clk_rst_data {
+>   };
+>   
+>   /**
+> - * mtk_register_reset_controller - Register mediatek clock reset controller with device
+> - * @np: Pointer to device.
+> + * mtk_register_reset_controller_with_dev - Register a MediaTek reset controller
+> + * @dev: Device used to manage the reset controller resources.
+>    * @desc: Constant pointer to description of clock reset.
+>    *
+> - * Return: 0 on success and errorno otherwise.
+> + * Return: 0 on success, negative errno otherwise.
+>    */
+>   int mtk_register_reset_controller_with_dev(struct device *dev,
+>   					   const struct mtk_clk_rst_desc *desc);
+> 
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
 
-On Thu, 03 Sep 2026 at 13:12:51 -0500, Andrew Davis wrote:
->Most of the struct definitions for a given IOCTL definition immediately
->preceded that definition. The struct tee_ioctl_shm_register_data is an
->exception as it is placed above the TEE_IOC_SHM_REGISTER_FD definition,
->not the TEE_IOC_SHM_REGISTER one it is to be used with. Move it down
->to match the others.
->
->This is a non-functional change for consistency and to help prevent
->someone from accidentally using the wrong struct with the wrong IOCTL
->based on the struct's location.
->
->Fix a couple small spelling issues while here.
->
->Signed-off-by: Andrew Davis <afd@ti.com>
->---
->
->Resending using folks updated emails :)
+Hey, thanks for the patch!
+It's almost perfect - just change the first line with:
 
-Ah, I see this update now. FWIW:
+* mtk_register_reset_controller_with_dev() - Register a MediaTek reset controller
 
-Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+After which,
 
--Sumit
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
->
-> include/uapi/linux/tee.h | 40 ++++++++++++++++++++--------------------
-> 1 file changed, 20 insertions(+), 20 deletions(-)
->
->diff --git a/include/uapi/linux/tee.h b/include/uapi/linux/tee.h
->index 5203977ed35d1..76815b0f4b665 100644
->--- a/include/uapi/linux/tee.h
->+++ b/include/uapi/linux/tee.h
->@@ -384,24 +384,6 @@ struct tee_iocl_supp_send_arg {
-> #define TEE_IOC_SUPPL_SEND	_IOR(TEE_IOC_MAGIC, TEE_IOC_BASE + 7, \
-> 				     struct tee_ioctl_buf_data)
->
->-/**
->- * struct tee_ioctl_shm_register_data - Shared memory register argument
->- * @addr:      [in] Start address of shared memory to register
->- * @length:    [in/out] Length of shared memory to register
->- * @flags:     [in/out] Flags to/from registration.
->- * @id:                [out] Identifier of the shared memory
->- *
->- * The flags field should currently be zero as input. Updated by the call
->- * with actual flags as defined by TEE_IOCTL_SHM_* above.
->- * This structure is used as argument for TEE_IOC_SHM_REGISTER below.
->- */
->-struct tee_ioctl_shm_register_data {
->-	__u64 addr;
->-	__u64 length;
->-	__u32 flags;
->-	__s32 id;
->-};
->-
-> /**
->  * struct tee_ioctl_shm_register_fd_data - Shared memory registering argument
->  * @fd:		[in] File descriptor identifying dmabuf reference
->@@ -426,13 +408,31 @@ struct tee_ioctl_shm_register_fd_data {
->  * Returns a file descriptor on success or < 0 on failure
->  *
->  * The returned file descriptor refers to the shared memory object in the
->- * kernel. The supplied file deccriptor can be closed if it's not needed
->+ * kernel. The supplied file descriptor can be closed if it's not needed
->  * for other purposes. The shared memory is freed when the descriptor is
->  * closed.
->  */
-> #define TEE_IOC_SHM_REGISTER_FD	_IOWR(TEE_IOC_MAGIC, TEE_IOC_BASE + 8, \
-> 				     struct tee_ioctl_shm_register_fd_data)
->
->+/**
->+ * struct tee_ioctl_shm_register_data - Shared memory register argument
->+ * @addr:      [in] Start address of shared memory to register
->+ * @length:    [in/out] Length of shared memory to register
->+ * @flags:     [in/out] Flags to/from registration.
->+ * @id:                [out] Identifier of the shared memory
->+ *
->+ * The flags field should currently be zero as input. Updated by the call
->+ * with actual flags as defined by TEE_IOCTL_SHM_* above.
->+ * This structure is used as argument for TEE_IOC_SHM_REGISTER below.
->+ */
->+struct tee_ioctl_shm_register_data {
->+	__u64 addr;
->+	__u64 length;
->+	__u32 flags;
->+	__s32 id;
->+};
->+
-> /**
->  * TEE_IOC_SHM_REGISTER - Register shared memory argument
->  *
->@@ -440,7 +440,7 @@ struct tee_ioctl_shm_register_fd_data {
->  *
->  * Returns a file descriptor on success or < 0 on failure
->  *
->- * The shared memory is unregisterred when the descriptor is closed.
->+ * The shared memory is unregistered when the descriptor is closed.
->  */
-> #define TEE_IOC_SHM_REGISTER   _IOWR(TEE_IOC_MAGIC, TEE_IOC_BASE + 9, \
-> 				     struct tee_ioctl_shm_register_data)
->-- 
->2.39.2
->
+Cheers,
+Angelo
