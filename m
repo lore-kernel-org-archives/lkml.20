@@ -1,151 +1,101 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.jvdsn.com (smtp.jvdsn.com [129.153.194.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA1E235358
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B90D235358;
+	Thu, 10 Sep 2026 03:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=129.153.194.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011149; cv=none; b=SZfXmUjkcmhtAVXikO5I+jjm6x3pWBCDjhoa6OSHOGIoSYL6Di3bjS2h29iVOdigElj6XN9oTYqoPIi+V98s5rwoo6xV8AAXdZRt5LItwoyuXwMhh5XtPlainul4hOPIXsve4+6ZzU1hHEye1QzncR91NQGrpgbDO66zNIRfTII=
+	t=1789011233; cv=none; b=SA823bCacqyN9vnurS8GiS+IRGCoK8scyu9jJZbVIdsTOtwdg0u4PeoxZ/TgaTzdFDkUAdU582kw80Gv24A5FpqDG1JPAg8+OYlXFuFhe4STjEBq0lTC0Wzy5yd5fZVbo7KmztKKxrvosRHn1NLonAt4Igon5AdDj0wODe5igdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011149; c=relaxed/simple;
-	bh=D4HunRvKzwgbz3wH3A5yR4Me0etry0KENkQiN7rdUVc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CBwsAZ2WuunO1evqSmA9R/scLSkFuv8Kgo+0nphuJNF6ExsUU6PCNMSlE3AV2G8IW6WTkcX5u+lhB40+Xy/zeCRulaNg77rkloz7LpQNDIX5XLxPhNkrkV0O56hr1IGSY8UnpHFPlR6eGJNLzFPBs02+uUFOFk6Myxb33cRYVxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fbOInQW+; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789011233; c=relaxed/simple;
+	bh=OSmlZrTtowYwV7CqDLWVt9GCCCLsHOffm7LbDvdbciM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T8CSBBRAUzwHJODZNxUOnVMkMqETejnLhX4aDBDmxaVrPm0k3zISw0a53fXaSk9jqa+mH2SDqJLfgHHnylAZjdcSx/+tFWidl03Z9qf0DO61lu52b+/5DN6JUxypjfm34DFXxVukdUuEbLsufn4BfUq44LU1sgFbnLQ3i5w5VTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jvdsn.com; spf=pass smtp.mailfrom=jvdsn.com; dkim=pass (2048-bit key) header.d=jvdsn.com header.i=@jvdsn.com header.b=HMl5re/5; arc=none smtp.client-ip=129.153.194.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jvdsn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jvdsn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fbOInQW+"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so51579925e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:32:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789011145; x=1789615945; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UJRPReMfqlNULQmo1hdhh0WFJsW8FZ4M2mPbCe/HToI=;
-        b=fbOInQW+UDgoKHz12Y1wQZPviQs5v37yubpHd+FmrWQ4XNfofN6rGfDsAQfZ1Ote4V
-         t+zF5vx8Dr1ZQzJ6TE3WPWWf5U9l16+5cMfhFhzGQDByOLSYY/Fbx0uvjwW1VnsUGMqf
-         7jG/EbDKIyD0B1F1GxayKIvdEup3yHWEx7zPDPc9zaVbHwXR6dBPSCvj/1KP2ti6g6hq
-         IejpC+3p0HoD3wSwU9qOKwOgA2Grb8+A3YXYjayL+kaq4E0MGi+TZOla1+II2CNJO+XU
-         hmm/OkH56vI+TRpN5YLnUPObctRQF4l3ptfd2ZuAcinKLa8rpVIHRWjPAw8OKRBhchj4
-         7A7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789011145; x=1789615945;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UJRPReMfqlNULQmo1hdhh0WFJsW8FZ4M2mPbCe/HToI=;
-        b=FZDUc2nRqowmfCK1eSkWIuXqWqxcLT0zQomFgpggqf/JsxTy5DyrpF9r4/aFTaIZUO
-         AedgnQg6Q4RiG/0gmfc9zirvhLSZCdIlh4cs9LdsfdKrMcNlTZx3JWYU7wtMQnWTCyrQ
-         GpgnF/QQFF452iteL2M89tiQlldzUaKJN2VZlPO0xs9RXKg4PvKP+I3DRtJ7f50tmuMw
-         AjCLv3beJks7NKccOS+S9jJ9THXI8JEIiv1GSeVS/sVAupsyRqZcCAvjvsvW52eZT+Sy
-         CTnEhkoUdT0Fme71R4yElvOhogYDksmblmbzlHsyXmnvQilNwG0UtOfxIekP3PYCtCcq
-         /hMw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvWL1rfVA6ai9k6NdmgCVN1JakpV6RPblhDdv1bj7E4sYykhUAmntRChlsOuoULRkcbO2ZnNsxRnf7Qnc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYwenmWRfsTffFDF+wTALO5QovKVeZm7Mc+0GIxg+F271hM9Lp
-	RK9glODizxbvR81inT072FWvj55HuSPsiYeNIbmGsOYKLZrsjMR7cncj
-X-Gm-Gg: AYBFou2SnbGks4jbATujpTr5lGstVZ0Q2yjZbOZIbWrYpEW1hOSEb5vPuRsfLyHRj+k
-	d4GukCOgpj31nvqQnQrvr4DbE2Ako3j6Z7fhvaZJbJvsx+QJUqUNxjUFIccUSM/4mQJZ5hhBLff
-	YBMyL0wBuUvBqiA18v8s2R1dj3A2EtTncntyHl/6v0VAZfk57LTBnPexo1EDx9R2yYwBZ0jcMmm
-	eM23p9ZiolD4ky7T1pox5Xlopi6AxQHm+T80hEMfojHTNlGtXo9hrx1iuxma1jRDmo8iUrU8f52
-	oVRt5ksaOO+V7FEciDtegmB/02wyBOAhEgHGdGInLPWLZOUblK3HfvRcVICj7UNbPz1JxpRzTVF
-	QFwCORtcN/si4J6NMgZmBTVQ9JDOE3sDLdh7WL8+fX07MnNcGq7erNT8y5tmcsjfMg+nXzuuBkz
-	naQYCsKwa2+3RUHKXo1J6On3Zvxh3PO8RQPwFPQ2vuN9nE1vOY7nEdqSQdIdHjsvsy3Mo6ZhCuP
-	cOLgClw9NGO9+lv4jAy/81lDOT6oeAvu0NHjjRC0Yc4LhXQZgrx4dGgqkltB4p948UkyIZvkhVQ
-	iJVPwxa6raRZJlBpEug3AOlPv50J2Xn8PSii5m1UZYt2E1+i1TQOPqe6dC5Y4eOj+UVDW89kbpy
-	2isCPHqeYBA==
-X-Received: by 2002:a05:600c:8b88:b0:49c:fc6e:a3d8 with SMTP id 5b1f17b1804b1-49cffde8d95mr350363235e9.23.1789011144508;
-        Wed, 09 Sep 2026 20:32:24 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b3d9-b901-0402-5aad-0ef4-88ac.310.pool.telefonica.de. [2a02:3100:b3d9:b901:402:5aad:ef4:88ac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c494basm34734585e9.12.2026.09.09.20.32.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 20:32:23 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org
-Subject: [PATCH] spi: docs: Use the multi-lane mode constants in examples
-Date: Thu, 10 Sep 2026 05:32:19 +0200
-Message-Id: <20260910033219.15996-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=jvdsn.com header.i=@jvdsn.com header.b="HMl5re/5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jvdsn.com; s=mail;
+	t=1789010683; bh=OSmlZrTtowYwV7CqDLWVt9GCCCLsHOffm7LbDvdbciM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HMl5re/5pdfhQrloFTxpSn/Wk9I1N8fBDHCI6Ld7/Mg7K+E2nnE8xYPUFEzyE2KRY
+	 u0NV9bNtzXgBAKx7ZRR/FsDbpZQSYHWx42SDjwhEVFbr5ylQBqcMCSPLFX1L/lmv7Y
+	 hh8iWN+Zr6v1wDM9hD/iSLa73K00w4EJyM2tWF9xB8oFOQhiM5KWtY6do013FIdpCJ
+	 kYTfsi+G219Xs1QFuj6tTQ8O3qPSzJDAvaqNj4I5zwDc0/JnoNhHN+/ZxhsgRzIuYF
+	 RrKLLKluVok3nHmgNN18D5yI59CfAFvWCbdZcPLR4dq78IoP2vuAAMECDfYLSGEKXw
+	 yg5zRNbaS8t3A==
+Message-ID: <83d09aa1-729a-47a2-a8e9-381c74e92f42@jvdsn.com>
+Date: Wed, 9 Sep 2026 22:24:42 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
+To: Thomas Huth <thuth@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>
+References: <20260303060509.246038-1-git@jvdsn.com>
+ <abTuFto8Tc3mhRRe@gondor.apana.org.au>
+ <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
+ <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
+From: Joachim Vandersmissen <joachim@jvdsn.com>
+Content-Language: en-US
+In-Reply-To: <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The multi-lane documentation names SPI_MULTI_BUS_MODE_* constants,
-including in the transfer initializers. The interface introduced with
-the document uses SPI_MULTI_LANE_MODE_*, so the examples refer to
-undefined macros.
+Hi Thomas,
 
-Use the interface's constants in the descriptions and examples.
+On 9/9/26 9:36 AM, Thomas Huth wrote:
+> On 15/03/2026 01.43, Joachim Vandersmissen wrote:
+>> Hi Herbert,
+>>
+>> I don't think this one can be applied yet since dm-integrity still 
+>> uses xxhash64 through the crypto API. This would break fips=1 systems 
+>> that use it.
+>
+> Out of curiosity: Wouldn't such a system be FIPS-incompliant anyway? 
+> If xxhash64 isn't FIPS-compliant, nobody should use it for 
+> dm-integrity there, right? So I doubt that there are any systems out 
+> there that use fips=1 and use xxhash64 at the same time?
 
-Fixes: 05c3bd745bb0 ("spi: Documentation: add page on multi-lane support")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/spi/multiple-data-lanes.rst | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+There is a risk that users may not know that xxhash64 is not FIPS 
+compliant and would still use it. Especially considering it was marked 
+as "fips_allowed = 1" for a while.
 
-diff --git a/Documentation/spi/multiple-data-lanes.rst b/Documentation/spi/multiple-data-lanes.rst
-index 69cb532d052f..802aece35d56 100644
---- a/Documentation/spi/multiple-data-lanes.rst
-+++ b/Documentation/spi/multiple-data-lanes.rst
-@@ -127,7 +127,7 @@ field to indicate which mode they want to use for a given transfer.
- 
- The possible values for this field have the following semantics:
- 
--- :c:macro:`SPI_MULTI_BUS_MODE_SINGLE`: Only use the first lane. Other lanes are
-+- :c:macro:`SPI_MULTI_LANE_MODE_SINGLE`: Only use the first lane. Other lanes are
-     ignored. This means that it is operating just like a conventional SPI
-     peripheral. This is the default, so it does not need to be explicitly set.
- 
-@@ -149,7 +149,7 @@ The possible values for this field have the following semantics:
-         ----------   ----------------   ----------
-             SDO 0    0-0-0-1-0-0-0-1    SDI 0
- 
--- :c:macro:`SPI_MULTI_BUS_MODE_MIRROR`: Send a single data word over all of the
-+- :c:macro:`SPI_MULTI_LANE_MODE_MIRROR`: Send a single data word over all of the
-     lanes at the same time. This only makes sense for writes and not
-     for reads.
- 
-@@ -160,7 +160,7 @@ The possible values for this field have the following semantics:
-         struct spi_transfer xfer = {
-             .tx_buf = tx_buf,
-             .len = 1,
--            .multi_lane_mode = SPI_MULTI_BUS_MODE_MIRROR,
-+            .multi_lane_mode = SPI_MULTI_LANE_MODE_MIRROR,
-         };
- 
-         spi_sync_transfer(spi, &xfer, 1);
-@@ -172,7 +172,7 @@ The possible values for this field have the following semantics:
-             SDO 0    0-0-0-1-0-0-0-1    SDI 0
-             SDO 1    0-0-0-1-0-0-0-1    SDI 1
- 
--- :c:macro:`SPI_MULTI_BUS_MODE_STRIPE`: Send or receive two different data words
-+- :c:macro:`SPI_MULTI_LANE_MODE_STRIPE`: Send or receive two different data words
-     at the same time, one on each lane. This means that the buffer needs to be
-     sized to hold data for all lanes. Data is interleaved in the buffer, with
-     the first word corresponding to lane 0, the second to lane 1, and so on.
-@@ -185,7 +185,7 @@ The possible values for this field have the following semantics:
-         struct spi_transfer xfer = {
-             .rx_buf = rx_buf,
-             .len = 2,
--            .multi_lane_mode = SPI_MULTI_BUS_MODE_STRIPE,
-+            .multi_lane_mode = SPI_MULTI_LANE_MODE_STRIPE,
-         };
- 
-         spi_sync_transfer(spi, &xfer, 1);
+Distributions that actually need FIPS validation will probably apply 
+this patch anyway and deal with the breakage if it happens.
 
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.39.5 (Apple Git-154)
-
+>
+>  Thomas
+>
+>>
+>> On 3/14/26 12:11 AM, Herbert Xu wrote:
+>>> On Tue, Mar 03, 2026 at 12:05:09AM -0600, Joachim Vandersmissen wrote:
+>>>> xxhash64 is not a cryptographic hash algorithm, but is offered in the
+>>>> same API (shash) as actual cryptographic hash algorithms such as
+>>>> SHA-256. The Cryptographic Module Validation Program (CMVP), managing
+>>>> FIPS certification, believes that this could cause confusion. xxhash64
+>>>> must therefore be blocked in FIPS mode.
+>>>>
+>>>> The only usage of xxhash64 in the kernel is btrfs. Commit fe11ac191ce0
+>>>> ("btrfs: switch to library APIs for checksums") recently modified the
+>>>> btrfs code to use the lib/crypto API, avoiding the Kernel 
+>>>> Cryptographic
+>>>> API. Consequently, the removal of xxhash64 from the Crypto API in FIPS
+>>>> mode should now have no impact on btrfs usage.
+>>>>
+>>>> Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
+>>>> ---
+>>>>   crypto/testmgr.c | 1 -
+>>>>   1 file changed, 1 deletion(-)
+>>> Patch applied.  Thanks.
+>>
+>
