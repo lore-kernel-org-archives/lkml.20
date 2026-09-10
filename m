@@ -1,317 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5B3486647;
-	Thu, 10 Sep 2026 14:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0E5495028
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:33:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050789; cv=none; b=PcCden9D8ieBRCBlcn6/GYF+mp5RUkKNmBSm8tKndZaK3h4GS6j7fp3q4sxobDB55AtJGv/Bh79n/slFTUMP5W6A2pT1aQY1zJNk7ESyO8JC6J/DHmv+bWjDTpbD8Q52HJqzfbIIY2fHjtvolRaxH08fKhqyObnJoDKJ6WFFISg=
+	t=1789050792; cv=none; b=lTtcoacMdsaUdZJA+Rja0eCEoBWo8R4jxr/7iDKG1x1ibS6nCA99vyoHR9vnAjat+7FIGW/c300O+WrlG1LX2WgKPvSi2oHTGCb87seLK6Aa/cEmpcvvy7k4ZP1u7MRp0zcaIFGIKwlFl1HzlPuALX4pj/xmgkMxL4HmaC8bfbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050789; c=relaxed/simple;
-	bh=1yKBBJoEhXzT0u7RXKa99EZc/h48jj478Y+U/NvKOpM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R97l3yN6sn0u2sKqyx+SxcsvWDVUJhoUESXA+x/mH3ZXB73e18G3LaWVy6h+GYJB9A2b21nkPZ8quasGFTmvrduME/6jPr9DUVwMk55xnibQKmeWfG+af5+p3/RTh9gpczQdI7f55b3bJ/xqvL+j78nCvmkjm2f8wENLMVRbP6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEBarzsa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789050792; c=relaxed/simple;
+	bh=6EjhR0+7L3WDUSaTLBXZV7F+O4y+6uTqZmySECy3+rE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Z/bnQH6w6K1SRxioFq5Objb8modJlosm8Wv8GBx3hXiAwauNzad8T0uwv9WmS7ewvOiEy4uCazMYYTHS8Myx36F0fBnjJt8bJlsVeBPryMlHJrSKJWKHWlwkKt5sDhzexFykPsqj2oo3JMQWJtv8QIouhpXD7RLsvFaHW2+Tt5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=bYGQ4Cue; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEBarzsa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5656C1F000FF;
-	Thu, 10 Sep 2026 14:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050787;
-	bh=mzNbcMB0p1eY0jFGMUsfswHJRjfiaKQRPsj4bDo0LJw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GEBarzsaT/GfzNrEw1IDRcdc2Qi0z6RKPkaAX+irMV1fAySbMqtNp/r7WYAtWlxfa
-	 l3imiHeM/NxsuPRGU8OkkBuYY1c5w+2J0g4wjwX2QsglvTKjc+S3jJvaZd7CQv8++S
-	 3E5z/N6S904KA/e+KOP67vV4XKI/FSODkKMiVx4S5PYKHysvIm6DbONe6+TXkarxZz
-	 LTaMtBZ79JK5EJJ4BnVoV3Y1SwXRjtvoyhTrLg3sImW9ITHVpwqjLjHTOj+QuweXrH
-	 lgOauZIYiV5A4zwAtlEZEa61OpwegJ6FPItysFxgJXrzzLRYiYqGkSYj/sMlNflbt1
-	 Ni9OnEb92Lu1w==
-Date: Thu, 10 Sep 2026 15:32:56 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 09/12] mm/sparse: remove SECTION_MARKED_PRESENT
-Message-ID: <aqK9S1hBpPnujgz9@gremlin>
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
- <20260909-b4-sparsemem_cleanups-v1-9-008fc8d579fe@kernel.org>
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="bYGQ4Cue"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso60572405e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:33:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1789050788; x=1789655588; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6oM7pa4VlFfIqD2Tf1cRDvr1YX2oXxRTGcQXQykT3gw=;
+        b=bYGQ4CueVXf/pR6z8GAbPvSK9PAhVV0UwmoP2jxbUVmIn2QwqOwqdw3EVlGTKGezDS
+         +1gQKN7GcdPCTGSbMEX8N3DdNoE0I84CgxroBsfX+TeG5ah5f7uPTrb17MLbAdQAF5xK
+         AGn36SfVv5sQLS5w2Z5dxce6mq3msIpeLmOT+eFjHDI7bQgHFTE7zisPPW7viPRBysCW
+         vPJNMRKhExURc1YBEoYq6JtKka3PRsaMmDwNVfBqkDPtvyQ3lPVCW2OJbxsskYILTpLC
+         L3WDDsUV/sOk5Gz5foc6BTbhVX/dDkEl0XaXyz2O0HPrkWjBvZzB/T0RLPW1V11LKsv/
+         oTtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789050788; x=1789655588;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6oM7pa4VlFfIqD2Tf1cRDvr1YX2oXxRTGcQXQykT3gw=;
+        b=r34g2pJtVcv36mZsgoXxEt2irycyZ1xHcEHVOPtaZhSyhxwQfS2/ayjnxhZZScPwqc
+         tIl+uZYyH4p8mmHeShI5yukCM6/1knxuNnySB41N+ooLgeK7AGIckeYopBS/eVhkFw8s
+         Za/JnV6PWMP5j3mUKCo0sfOSmR0GRWdiEzVTlth8AXxLapSclYpfCjoTsbH5Ys4qaPko
+         g8uTWKh4cem3zttdWD4yjnMN+PKcDOUUX5SxsnX5gW5I3fS+V+JTkYTCBLqHzIWGvQ3X
+         VSH0CtXqqQ2d8qoBvGfzm+SCBOmcCGL9Z8Iq31xKYdgKqStkhqN4sCYqlAHOvEjWrPsP
+         BB/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxQJQChpUXpTLij7pzxsfd2UYZ5ktglAi+k0Hx/8ZffF3tmCV9saznOlNKEtaERYhFdsAZiABAn5bQdJ0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSclCpNn7yPIDx58YcH0N0HigG/E/IXqPXlDpFJOyNcD8+tfo2
+	L4ooCom2uGLJxW4VvENyUHkKrMCEbQxkZa7PWV4ejii6rzeeel8m5WU5j/7UKd8t+UE=
+X-Gm-Gg: AYBFou0NezPbRmxzYOiuaN18w6KmObZhXLpAD7AydrFpUi93Z2ndttCIe/3MMpe7q3I
+	vkCF0rVH5b1fv7suwHfeo8GppaNoyMtgS3dNZFXGbpNWyNY8MVGYq8QYBhxAWZq2H0GqqWV7uyL
+	v8bv7W04XJCEqsrr1ejGSWooqfVCp+zp2kjoDzQubhTWEjaccLuP1KM539pRSF/nx9gVLAkblQq
+	ahejKWYXSEFaBTOPEVIO7Ls4vlOA3wwmNF+0YufDMImgaLvGNWw0V90FPPNaxNVJDR3Gu+R9kBt
+	QLuZnb4En3bFPkzYBm71XV0GV1pXeCwFc9GiFsOwjDB3GT0S7H+637vHKqiyYuqa8cQwCwcA244
+	D1MxfbODaN6td5tc9HyJaUwTxfldxUwEYe1wmCwVLFazEpbwnMKkGnvHMu8z3/2475ZhVavnR6G
+	lfx2FefYOfgmeVs+0UHgoxLf6uaFvnt9oJwC39Rj7eTZIEtLqAKFT99tcoQkbTvh5K3E04kQyX0
+	w+Zo/IdeRzmQQtg0FJQFGrzGOBdnvJGZYA8+PNJATfUz1xPQdGX
+X-Received: by 2002:a05:600d:8445:10b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49cf825d77amr301185625e9.11.1789050788119;
+        Thu, 10 Sep 2026 07:33:08 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5fbda49asm12537135e9.3.2026.09.10.07.33.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:33:07 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v3 0/3] power: supply: bq257xx: Fix probe time race against
+ driver teardown and battery parsing
+Date: Thu, 10 Sep 2026 18:32:57 +0400
+Message-Id: <20260910-bq257xx-init-v3-0-4e219a1a04a5@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-9-008fc8d579fe@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBAFf4X0bM22aAFP/ofxQGErawxgWxsM4
+ d9t8aImHid5M29mDi2hY4dsZhYDORr6CPkmY01X9xfk1EZmEqSCCgqu73JfTBOnnjw3BnKNGoo
+ mVywqo0VD05o7nd/sHvqKjU+NtOjI+cE+178g0u5POggOXNRQalmhqFV5NDcaR7TbHj1L8SA/9
+ epHl1FvUe+gUFoYkN/6siwvkdIIIPsAAAA=
+X-Change-ID: 20260907-bq257xx-init-ff03beb07c36
+To: Sebastian Reichel <sre@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Chris Morgan <macromorgan@hotmail.com>, Pavel Machek <pavel@ucw.cz>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3524; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=6EjhR0+7L3WDUSaTLBXZV7F+O4y+6uTqZmySECy3+rE=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQt2j+ny+/dX6Wt1tKrn/5cI29jvXOm4zaF5KaCmHvqX
+ DNuJb9g65jIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCq7yxl+MV08LQk08pOzjMx325dcviSfGHT9B1CG280b5/3/t1sYQUWRobZlbL
+ XrzlHbV+/5sn6AoHjT/sdhOeXyCaFaxStfCXtJsMHAA==
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On Wed, Sep 09, 2026 at 03:33:02PM +0200, David Hildenbrand (Arm) wrote:
-> All present section iterators run before memory hotplug added any
-> further memory sections, Therefore, we can simply use the SECTION_IS_EARLY
-> flag by setting that flag earlier in sparse_prepare_early_sections().
+If a bus holding the battery-equipped power supply goes down right after
+it registered, it leads to massive fireworks as the driver starts to tear
+down its resources while callers from other contexts are already eager to
+process events using this driver's callbacks (and their private data).
 
-Hmm? sparse_prepare_early_sections() doesn't seem to be a function that exists?
+This was observed on a bq257xx device, which also uses the legacy parsing
+of battery information from the probe routine, where it happens after the
+power supply registration, adding yet another failure mode to callbacks
+firing early (i.e. before the device is fully initialized).
 
-Do you mean sparse_sections_init()?
+This series therefore does the following:
+ - Add a new semaphore in the core to prevent the unregistration of the
+   psy device before its callbacks complete
+ - Make bq257xx use the passed-in psy during external power change events
+   instead of the one stored in its private data, as the latter is not
+   guaranteed to be valid at that point (and was observed to produce a
+   use after free during teardown)
+ - Migrate the battery parsing and hw init into the newly available .init
+   callback, which ensures that the device is fully programmed by the time
+   external callbacks start firing
 
->
-> Get rid of SECTION_MARKED_PRESENT entirely and rename
-> for_each_present_section_nr() to for_each_early_section_nr().
->
-> Also update the gdb script to use the updated value for
-> SECTION_IS_EARLY.
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Changes in v3:
+- Use the new .init callback instead of adding a dev-based battery parsing
+  helper (Sebastian)
+- Link to v2: https://patch.msgid.link/20260909-bq257xx-init-v2-0-deb4076b1f02@flipper.net
 
-The change seems fine.
+Changes in v2:
+- Use psy->removing as the predicate for detecting unregistration instead
+  of use_cnt, because a leaking caller can leave use_cnt non-zero even
+  after the device is being removed, and ->removing already exists and is
+  used by the removal function anyway (Sashiko)
+- Don't rearrange the existing short-circuit check for use_cnt and the
+  availability of the callback in the psy struct to avoid breakage (Sashiko)
+- Drop the patch making the bq257xx_external_power_changed() return early
+  upon I2C read failures, otherwise a transient I2C failure in updating
+  cached status fields could lead to missed updates to charging current or
+  input current, which is worse (Sashiko). Those status fields are re-read
+  upon every property update anyway
+- Amend patch description of patch 3 (formerly 4) to explicitly state the
+  potential use of unallocated memory, and add a Fixes: tag accordingly
+- Link to v1: https://patch.msgid.link/20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net
 
->
-> No functional change intended.
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+To: Sebastian Reichel <sre@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+To: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lee Jones <lee@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-With commit msg updated:
+---
+Alexey Charkov (3):
+      power: supply: core: prevent unregistering a power supply while a callback runs
+      power: supply: bq257xx: Use psy directly instead of driver data
+      power: supply: bq257xx: Convert parameters setup to the new .init callback
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+ drivers/power/supply/bq257xx_charger.c   | 124 +++++++++++++++----------------
+ drivers/power/supply/power_supply_core.c |  26 ++++++-
+ include/linux/power_supply.h             |  10 +++
+ 3 files changed, 94 insertions(+), 66 deletions(-)
+---
+base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
+change-id: 20260907-bq257xx-init-ff03beb07c36
 
-One small question type comment below.
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
-> ---
->  drivers/base/memory.c   |  2 +-
->  include/linux/mmzone.h  | 27 ++++++++++-----------------
->  mm/sparse-vmemmap.c     |  1 -
->  mm/sparse.c             | 17 ++++++++---------
->  mm/sparse.h             |  6 ------
->  scripts/gdb/linux/mm.py |  2 +-
->  6 files changed, 20 insertions(+), 35 deletions(-)
->
-> diff --git a/drivers/base/memory.c b/drivers/base/memory.c
-> index 5eead3346f1e3..b0338de2f1d82 100644
-> --- a/drivers/base/memory.c
-> +++ b/drivers/base/memory.c
-> @@ -972,7 +972,7 @@ void __init memory_dev_init(void)
->  	 * block so that it can be covered.
->  	 */
->  	block_id = ULONG_MAX;
-> -	for_each_present_section_nr(0, nr) {
-> +	for_each_early_section_nr(0, nr) {
->  		if (block_id != ULONG_MAX && memory_block_id(nr) == block_id)
->  			continue;
->
-> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> index e0fac344f6ac2..62cff59dd80c4 100644
-> --- a/include/linux/mmzone.h
-> +++ b/include/linux/mmzone.h
-> @@ -2084,7 +2084,6 @@ static inline struct mem_section *__nr_to_section(unsigned long nr)
->   * accommodate SECTION_MAP_LAST_BIT. We use BUILD_BUG_ON() to ensure this.
->   */
->  enum {
-> -	SECTION_MARKED_PRESENT_BIT,
->  	SECTION_HAS_MEM_MAP_BIT,
->  	SECTION_IS_ONLINE_BIT,
->  	SECTION_IS_EARLY_BIT,
-> @@ -2094,7 +2093,6 @@ enum {
->  	SECTION_MAP_LAST_BIT,
->  };
->
-> -#define SECTION_MARKED_PRESENT		BIT(SECTION_MARKED_PRESENT_BIT)
->  #define SECTION_HAS_MEM_MAP		BIT(SECTION_HAS_MEM_MAP_BIT)
->  #define SECTION_IS_ONLINE		BIT(SECTION_IS_ONLINE_BIT)
->  #define SECTION_IS_EARLY		BIT(SECTION_IS_EARLY_BIT)
-> @@ -2111,16 +2109,6 @@ static inline struct page *__section_mem_map_addr(struct mem_section *section)
->  	return (struct page *)map;
->  }
->
-> -static inline int present_section(const struct mem_section *section)
-> -{
-> -	return (section && (section->section_mem_map & SECTION_MARKED_PRESENT));
-> -}
-> -
-> -static inline int present_section_nr(unsigned long nr)
-> -{
-> -	return present_section(__nr_to_section(nr));
-> -}
-> -
->  static inline int valid_section(const struct mem_section *section)
->  {
->  	return (section && (section->section_mem_map & SECTION_HAS_MEM_MAP));
-> @@ -2136,6 +2124,11 @@ static inline int valid_section_nr(unsigned long nr)
->  	return valid_section(__nr_to_section(nr));
->  }
->
-> +static inline int early_section_nr(unsigned long nr)
-> +{
-> +	return early_section(__nr_to_section(nr));
-> +}
-> +
->  static inline int online_section(const struct mem_section *section)
->  {
->  	return (section && (section->section_mem_map & SECTION_IS_ONLINE));
-> @@ -2315,20 +2308,20 @@ static inline unsigned long next_valid_pfn(unsigned long pfn, unsigned long end_
->
->  #endif
->
-> -static inline unsigned long next_present_section_nr(unsigned long section_nr)
-> +static inline unsigned long next_early_section_nr(unsigned long section_nr)
->  {
->  	while (++section_nr <= __highest_used_section_nr) {
-> -		if (present_section_nr(section_nr))
-> +		if (early_section_nr(section_nr))
->  			return section_nr;
->  	}
->
->  	return -1;
->  }
->
-> -#define for_each_present_section_nr(start, section_nr)		\
-> -	for (section_nr = next_present_section_nr(start - 1);	\
-> +#define for_each_early_section_nr(start, section_nr)		\
-> +	for (section_nr = next_early_section_nr(start - 1);	\
->  	     section_nr != -1;					\
-> -	     section_nr = next_present_section_nr(section_nr))
-> +	     section_nr = next_early_section_nr(section_nr))
->
->  /*
->   * These are _only_ used during initialisation, therefore they
-> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-> index e62e6aa07f126..5aba058df6b67 100644
-> --- a/mm/sparse-vmemmap.c
-> +++ b/mm/sparse-vmemmap.c
-> @@ -890,7 +890,6 @@ int __meminit sparse_add_section(int nid, unsigned long start_pfn,
->  	page_init_poison(memmap, sizeof(struct page) * nr_pages);
->
->  	ms = __nr_to_section(section_nr);
-> -	__section_mark_present(ms, section_nr);
->
->  	/* Align memmap to section boundary in the subsection case */
->  	if (section_nr_to_pfn(section_nr) != start_pfn)
-> diff --git a/mm/sparse.c b/mm/sparse.c
-> index 2d0f2db34f4cf..344acaaed94db 100644
-> --- a/mm/sparse.c
-> +++ b/mm/sparse.c
-> @@ -170,13 +170,14 @@ static void __init mminit_validate_memmodel_limits(unsigned long *start_pfn,
->   */
->  unsigned long __highest_used_section_nr;
->
-> -static inline unsigned long first_present_section_nr(void)
-> +static inline unsigned long first_early_section_nr(void)
->  {
-> -	return next_present_section_nr(-1);
-> +	return next_early_section_nr(-1);
->  }
->
->  void __init sparse_sections_init(void)
->  {
-> +	const unsigned long flags = SECTION_IS_EARLY | SECTION_IS_ONLINE;
->  	unsigned long pfn, start_pfn, end_pfn, section_nr;
->  	int i, nid;
->
-> @@ -196,9 +197,7 @@ void __init sparse_sections_init(void)
->  				continue;
->
->  			set_section_nid(section_nr, nid);
-> -			ms->section_mem_map = sparse_encode_early_nid(nid) |
-> -							SECTION_IS_ONLINE;
-> -			__section_mark_present(ms, section_nr);
-> +			ms->section_mem_map = sparse_encode_early_nid(nid) | flags;
->  		}
->  	}
->  	__highest_used_section_nr = section_nr;
-> @@ -231,7 +230,7 @@ static void __init sparse_metadata_init_nid(int nid,
->  	if (!usage)
->  		panic("Failed to allocate usemap for node %d\n", nid);
->
-> -	for_each_present_section_nr(start_section_nr, section_nr) {
-> +	for_each_early_section_nr(start_section_nr, section_nr) {
->  		unsigned long pfn = section_nr_to_pfn(section_nr);
->  		struct page *mem_map;
->
-> @@ -246,18 +245,18 @@ static void __init sparse_metadata_init_nid(int nid,
->  		memmap_boot_pages_add(section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION,
->  							       NULL, NULL));
->  		sparse_init_one_section(__nr_to_section(section_nr), section_nr,
-> -					mem_map, usage, SECTION_IS_EARLY);
-> +					mem_map, usage, 0);
->  		usage = (void *)usage + mem_section_usage_size();
->  	}
->  }
->
->  static void __init sparse_metadata_init(void)
->  {
-> -	unsigned long start_section_nr = first_present_section_nr();
-> +	unsigned long start_section_nr = first_early_section_nr();
->  	int nid_begin = sparse_early_nid(__nr_to_section(start_section_nr));
->  	unsigned long section_nr, nr_sections = 1;
->
-> -	for_each_present_section_nr(start_section_nr + 1, section_nr) {
-> +	for_each_early_section_nr(start_section_nr + 1, section_nr) {
->  		const int nid = sparse_early_nid(__nr_to_section(section_nr));
->
->  		if (nid == nid_begin) {
-> diff --git a/mm/sparse.h b/mm/sparse.h
-> index a3af4967fd5c5..03351f2467e34 100644
-> --- a/mm/sparse.h
-> +++ b/mm/sparse.h
-> @@ -114,12 +114,6 @@ static inline void sparse_init_one_section(struct mem_section *ms,
->  	ms->usage = usage;
->  }
->
-> -static inline void __section_mark_present(struct mem_section *ms,
-> -		unsigned long section_nr)
-> -{
-> -	ms->section_mem_map |= SECTION_MARKED_PRESENT;
-> -}
-> -
->  static inline size_t mem_section_usage_size(void)
->  {
->  	return struct_size_t(struct mem_section_usage, pageblock_flags,
-> diff --git a/scripts/gdb/linux/mm.py b/scripts/gdb/linux/mm.py
-> index 193a88d763abf..73d637d28c8e6 100644
-> --- a/scripts/gdb/linux/mm.py
-> +++ b/scripts/gdb/linux/mm.py
-> @@ -76,7 +76,7 @@ class x86_page_ops():
->              self.SECTION_IS_EARLY = 1 << int(gdb.parse_and_eval('SECTION_IS_EARLY_BIT'))
->          except:
->              self.SECTION_HAS_MEM_MAP = 1 << 0
-> -            self.SECTION_IS_EARLY = 1 << 3
-> +            self.SECTION_IS_EARLY = 1 << 2
-
-Seems a bit strage given the code is:
-
-        try:
-            self.SECTION_HAS_MEM_MAP = 1 << int(gdb.parse_and_eval('SECTION_HAS_MEM_MAP_BIT'))
-            self.SECTION_IS_EARLY = 1 << int(gdb.parse_and_eval('SECTION_IS_EARLY_BIT'))
-        except:
-            self.SECTION_HAS_MEM_MAP = 1 << 0
-            self.SECTION_IS_EARLY = 1 << 2
-
-Whereas other variables must be available with no try, e.g.:
-
-        self.PAGE_OFFSET = int(gdb.parse_and_eval("page_offset_base"))
-        self.VMEMMAP_START = int(gdb.parse_and_eval("vmemmap_base"))
-        self.PHYS_BASE = int(gdb.parse_and_eval("(unsigned long) phys_base"))
-
-etc.
-
-Is there some weirdness with gdb? Or is it maybe because there are some configs
-without these symbols maybe?
-
->
->          self.SUBSECTION_SHIFT = 21
->          self.PAGES_PER_SUBSECTION = 1 << (self.SUBSECTION_SHIFT - self.PAGE_SHIFT)
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
