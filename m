@@ -1,124 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAB9378D94;
-	Thu, 10 Sep 2026 23:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE82B1DED5C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084267; cv=none; b=YpXgztAI50PTdRqYBNzBpJaSlLl8uil8PghVG2vKddO9h/1BiP9E0rG23fJ6hJoA21ofMLXWYGRoIqk38DvEgpOFn+IXMEwa3ZErQX0zAeASj6Plp53cHUSMS1m5joKM5AKvI6vWY26chfPed8dVIWD8150Y4Mi8SIMxV/v5oKg=
+	t=1789084276; cv=none; b=pL6kdMj30DuuN5VRXmygWZqn4dHbSkKmUBY6UUjS8uC76/zAW5KI8/q6bJhcxRBjhjM7FW01GtNMB9eAdPJ1l9zsqVJJgBmDPSl8g4HhDeooNlPuYUmn9XjR771loYESGAnLUsGf4J11FL8dtHs6W6DElReMKirzuxa2RxtkorQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084267; c=relaxed/simple;
-	bh=1Lw97WvmI+g93nI6AGTq0IMx6oXg/wTQS7hsOe5G+XU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=bmXgomyCVsSCXVxJDv0uMG1e7fbc7nHsZ5SFrWaAbFZhq1a6evghivU1Xc5yHlol1e28yW9O+5av+hiPRY+sXdySHxdp6Nb8Rp4ClMtMYaDWIOGZHreXwmyVH1PELvPOKfvNoC5c/lb592AwFc3DgzK4AbhDrMU3nR5mKr+uHoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IznEg/t4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789084276; c=relaxed/simple;
+	bh=+HaBGFIUyITYyskn9PZOlaHjJY051XZvXtogon38VX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=asFiUkj8Sa5xTyYMw0w1eoPtoeWntl2UwhqMY2B/A/N+ALKmZnh2vFFo11IayiBczIDYOzr9a4tupXlyLNP6V3MdfNk4dKy+BGTgK12zVjcdacwt+YuvY3U7xhEjbaLgZT2ftNwy1qVGf/Tmu+9kjdJmY1owxqmP9ZNHC99uTKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=I7426kkj; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IznEg/t4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60C01F000FF;
-	Thu, 10 Sep 2026 23:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789084265;
-	bh=pjUssxhMj5FiuQOqeJ/n4B79y63VUeUxlyscD8iV9MM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=IznEg/t4Jbqs1UnWZoYfs2SNW3eYxJii+gRGtJP4RK3+MXWvNQ7U+9BvnzqbMzdzT
-	 ktVLA2JBWKXNKxeDF0IO7dl2nkvPyPHVCzNZM65lubpANrZVz8x3X8eVFjMA2FNHuH
-	 qfcGcn33q7udgEPWa7IiDEcY6rFx6R1pq/XJFN+iJQN9kbOzvKIAdtN0ScjUiT5Df1
-	 XWw3ZH6CVphruyylZpeUfVYU1Jy++RYDvqFhgZaA3oz8NNVWUbqCIcETZ9z9dBjZKI
-	 APtOSYggBul3/7g6jkwJH0gWfVJFyaZ4ETvhBc7Ofpzoq8oNY2NrkmnC8HokuoY4B7
-	 QxY+gInKhlK2A==
-Date: Thu, 10 Sep 2026 18:51:04 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 05/12] PCI: liveupdate: Preserve bus numbers during
- Live Update
-Message-ID: <20260910235104.GA367522@bhelgaas>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="I7426kkj"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc891373e0so2829385ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:51:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789084273; x=1789689073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tJf7neT2i6yO923W0Lg09fbYqghzTKmlCOt7Ys5/ve0=;
+        b=I7426kkj5eLCdd16xhsBDkq2B7GjWZCwad/0JPUanNwdsoWwNqsvVsaP4CmDaB/tsB
+         8ATWPeNttn1l1YgBtPuDxO+VCcXGJskG79yqv2ZkV78oOh4a8i27xbBbLenL8Z66Yhbf
+         6yR72MGkN9krUEwGOR/ssRSrjVqEpK8M6tqvPHWpCtWiCCXUpuwG2JE9cYMcq1JUrmzm
+         vpJqe1hezp0lhbGWuVHKOqt9TmESuW5in75r1iiO/BBOF/EFk0bacnxPePFUUJ41x/b0
+         an7qkFQ0J81RnLFtaXDnjDulMEbN4Yj3XWiI9H102ve5CGDLqcFR0CFUtjgB8RbtBBXv
+         O77w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789084273; x=1789689073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tJf7neT2i6yO923W0Lg09fbYqghzTKmlCOt7Ys5/ve0=;
+        b=PG80ek88BdbrLIdl7oUVQEXvExdyrVRiuOqAEp19uaNPWxM7HrMzT5vnz9l8HbkZYW
+         jxXES/F2EaksmFoZCUfNWr/OXMDkWYpoD5c7NOhIIqPJKBD4Ne6Ny1UjcdQ+3VdFjy+V
+         ZwUfb6s6tM0DBACq0NR4M2Wl5jkImJ9QdLqzZqF1AivRbUc76zaWO9hkxC81y+OYZoI/
+         +6Pn29XRlc0JjeIqcfQ+hqryzsy4FX8VlXZbi0h2oCaU4WvU72aFWm9pcpgv2FYEn9Er
+         UOVXOEHVwlbGFfl63lXyNmJEP4c17qzLxhYiDwbDvuRjj+mKbxAtGF7cerb2n64pGJWB
+         E/BQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDgJ+FGtY+n8qdQ1tkEzNO0W5NmmMxzzWJUo/gizhT3OSqLyAIwI9otnGrm38t2CMbE7pMOteew0QbQQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHVpI3HfPCPbUcLstB0CzRVPWgTleM0ihLxhVP2Ty+s7m1aKhk
+	D135WzvanGercDY3zzmSuEux4L4EscpqDAFoI10jaBBZ/6ZGLmg1iqgAluGnipkH1w==
+X-Gm-Gg: AYBFou05nVs+JYdfbQLL9hCa/bNNwOmQnYLZYe5SDXVG+jTzxlJRrYsEJcZ1LwIDq77
+	kH8F+re41VQvApa2fEIFterEB1o0kbY05qFXTF4NNyU80+DUrzvd4C1MHhDVIAeLJsLnBhdIcc6
+	l0nnF6PbkeDKGFzx7dJzr/Z/sZsg/aVIVdeaiGp4QTbIfZIYT8qXLyjuwLis34vOMNsIGzpXiHa
+	CmJw1YtmzmaaZPg6TE7RoGSB/VdUzkG+pyqvZdiItifc/ZvJvLcLV8zpDZ85/m+Prr8c/LbJJN2
+	qpFi0d53iJGRIH095p6MY/C6MVNv7O/JBhqIVVNodd//c8DpONX9jAKN5qMfeZ5TfTw51ice+V9
+	gTwehfKN0F7ncGDVYxjhAorFklKluwtTSNLGM7+gn4azSM5K2Pvd1R6MCOSBvqB7aGB8Duu+Mhm
+	SaKaWS3JT7ul9Npt0ngqwCOPrWgQVj7twhdg2iNmGv3/3n1e3BT9lfgs5a5of8dUcwFw/uc/V8e
+	8ajubFI+TjytD04CSyx1rCJgiyAEyvK9l2Buw==
+X-Received: by 2002:a17:90b:518f:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-39d9c1bef27mr2132199a91.13.1789084273337;
+        Thu, 10 Sep 2026 16:51:13 -0700 (PDT)
+Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8f1f7sm1680718c88.11.2026.09.10.16.51.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 16:51:12 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: Joanne Koong <joannelkoong@gmail.com>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>
+Cc: fuse-devel@lists.linux.dev,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Luis Henriques <luis@igalia.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	bestswngs@gmail.com,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH v8 1/2] fuse: don't BUG when the copy buffer is exhausted
+Date: Thu, 10 Sep 2026 16:51:09 -0700
+Message-ID: <20260910235110.3922068-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728221007.2098560-6-dmatlack@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 10:09:59PM +0000, David Matlack wrote:
-> During a Live Update, preserved devices must be allowed to continue
-> performing memory transactions so the kernel cannot change the fabric
-> topology, including bus numbers, since that would require disabling and
-> flushing any memory transactions first.
-> 
-> To keep bus numbers constant, always preserve the secondary and
-> subordinate bus numbers assigned to bridges during scanning, instead of
-> assigning new ones, if any PCI devices were preserved. Note that the
-> kernel preserves bus numbers even on bridges without any downstream
-> endpoints that were preserved. This avoids accidentally assigning a
-> bridge a new window that overlaps with a preserved device that is
-> downstream of a different bridge.
+fuse_copy_fill() hits BUG_ON(!err) once the iterator backing the copy
+runs out of pages.  Over io-uring the amount copied is not bounded by the
+payload buffer the server registered, so an unprivileged user can drain
+the iterator and panic the host - mount a FUSE filesystem with small
+payload buffers, then setxattr() a larger value:
 
-> +bool pci_liveupdate_preserve_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
-> +{
-> +	struct pci_dev *parent = bus->self;
-> +
-> +	if (dev->liveupdate.preserve_bus_numbers)
-> +		return true;
-> +
-> +	if (parent && parent->liveupdate.preserve_bus_numbers) {
-> +		/*
-> +		 * Preserve bus numbers if the parent bridge is required to
-> +		 * preserve bus numbers. Otherwise the PCI core could expand
-> +		 * this bridge's reservation beyond its parent (which cannot
-> +		 * expand).
-> +		 */
-> +		dev->liveupdate.preserve_bus_numbers = true;
-> +	} else {
-> +		/*
-> +		 * Otherwise preserve bus numbers if there are any incoming
-> +		 * preserved devices. This ensures that the PCI core does not
-> +		 * allocate a bus number to a non-preserved device that
-> +		 * conflicts with the bus number already assigned to a preserved
-> +		 * device.
-> +		 *
-> +		 * This is slightly more restrictive than it needs to be. For
-> +		 * example, each host bridges have their own range of bus
-> +		 * numbers that won't conflict with other host bridges. But the
-> +		 * previous kernel should have assigned a sane bus topology and
-> +		 * it is simpler to just adopt that entire topology.
+  kernel BUG at fs/fuse/dev.c:1064!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  CPU: 1 UID: 0 PID: 148 Comm: exploit Not tainted 7.3.0-rc1 #2
+  RIP: 0010:fuse_copy_fill (fs/fuse/dev.c:1033)
+  Call Trace:
+   <TASK>
+   fuse_copy_args (fs/fuse/dev.c:1354 fs/fuse/dev.c:1380)
+   fuse_uring_args_to_ring (fs/fuse/dev_uring.c:891)
+   fuse_uring_prepare_send (fs/fuse/dev_uring.c:940 fs/fuse/dev_uring.c:1057)
+   fuse_uring_send_in_task (fs/fuse/dev_uring.c:1745)
+   tctx_task_work_run (io_uring/tw.c:96)
+   tctx_task_work (io_uring/tw.c:133)
+   task_work_run (kernel/task_work.c:233)
+   io_run_task_work (io_uring/tw.h:84)
+   io_cqring_wait (io_uring/wait.c:278)
+   __do_sys_io_uring_enter (io_uring/io_uring.c:2676)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:61)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
 
-s/each ... bridges have their/each ... bridge has its/
+The reply path can drain it the same way, via the server-supplied
+payload_sz in fuse_uring_copy_from_ring().
 
-It's true there should be no bus number conflicts between host
-bridges, but it does require the domain as well.
+Return -EIO instead.  All three fuse_copy_fill() callers already
+propagate the error.
 
-> +		 */
-> +		dev->liveupdate.preserve_bus_numbers =
-> +			pci_has_incoming_preserved_devices();
-> +	}
-> +
-> +	return dev->liveupdate.preserve_bus_numbers;
+Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
+Cc: stable@vger.kernel.org
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Suggested-by: Joanne Koong <joannelkoong@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+v7: fix the panic at its source, as Joanne suggested, instead of
+    bounding the copies
+v8: drop the "recoverable" claim from the changelog; add Reviewed-by
 
-I'm not sure why you don't just return
-pci_has_incoming_preserved_devices() in all cases, which is what the
-commit log suggests this patch does.  What's gained by all the logic
-here?  It's not like devices will be hot-added during the kexec.
+ fs/fuse/dev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 4fec31fc0b84..4148e4488d77 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -1061,7 +1061,8 @@ static int fuse_copy_fill(struct fuse_copy_state *cs)
+ 		err = iov_iter_get_pages2(cs->iter, &page, PAGE_SIZE, 1, &off);
+ 		if (err < 0)
+ 			return err;
+-		BUG_ON(!err);
++		if (!err)
++			return -EIO;
+ 		cs->len = err;
+ 		cs->offset = off;
+ 		cs->pg = page;
+-- 
+2.43.0
+
