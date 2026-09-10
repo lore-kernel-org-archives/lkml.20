@@ -1,285 +1,203 @@
 Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C5F4A3D30
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:35:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5884A33ED
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054561; cv=pass; b=rnPEJfrQmHU/AxFvDgyQOQCBqRs4OWdJLUn14hJFIX7gQS0qNLNiCISeBHL3lfGcd3zeeraApXZ/MNQuZlVLdSn+1PZNI3q4Bdba4hbazmaP6+KTyuNznlr6iDahKRmnUoVJxxxUjhhrw5k0NjqP04Q2blcugxxusmzOTWq+IbE=
+	t=1789054650; cv=pass; b=ReKimExY5OknGxhhusnz/gVhUfZaFk/3FMHQ9K7/bF1/OKYm0EEIo9pFn55fWRYFpXPcmfYwdmwMRSLDdvCbEL8SIReI7/MQGJ7Sru++j1oN/OvWR26JfCWbYxBxetH2M18CHpXUEi7wyHTbvJHGTBnremFlq5pISO+8yXIKw0I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054561; c=relaxed/simple;
-	bh=DiitSGlyTtlYadnGv7GCYtAsiedBXeB9GoL/mUjtrTA=;
+	s=arc-20240116; t=1789054650; c=relaxed/simple;
+	bh=ynSxNuDkxhKdE/yGw9XYokMd7L14dEwjnifpIUDbrDQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hwRCx4OHUPqXg2FNqgScooMgFBAEk7QdQYenwalwNOPCnlI9rxxLpTUa6rdLAhic8vg66idOGkt/brM56oUM/KCtgRxF+p7+rYUq0wF3RtkptM9xhcMJocixZ7BgWm5TNIDb5nOlwSC4ly6DrOPaICwkX2V15LthJcJRaCaEBH8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nlG7f3e/; arc=pass smtp.client-ip=74.125.230.204
+	 To:Cc:Content-Type; b=MHYWb9BPL2Ykl2U7XGwiRZuZDoUZZ9vTdEqkFyOSqedNPyKkcWBDQDwP+kpV9nP5+WhIKIVHXbzWpFOGmBnFwBFslInFmssm17CQnBdgmugdClvHsja5BQQpcQNA+xHil+i8bdFYEc8oa5TsqzuviesWsbQL96bBAEkNuVYg5KY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wd8vwnNR; arc=pass smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nlG7f3e/"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso320371cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:35:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789054558; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wd8vwnNR"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5307425f44bso265991cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:37:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789054648; cv=none;
         d=google.com; s=arc-20260327;
-        b=PFTr8x5Y71++KAp4xTVyflWBJM/iTbUNkxkfgwTyly9t0pFJ9TdYfQoN9caPvEkhfb
-         pTwc2ETyma9cTNuKUJK9yo8guZq+wFOg1Lwm0AodUs3jJgUK7nnSZQG592NP0zg0xdGu
-         Z76auovXFqeDWJZJV6+cdHCHa/bZtyS5I527aZxkaiOUPn0GnZkQIfYhLOe3ou1qv2xU
-         AUgIw2OzwwDCP8DhETMlURKxwhAoIoiOOXMzyWLjamvz5qyvli83vkGCTPd4fSZuhrKf
-         nRTjl94ylQf5QLgXxOjq2kv3smOpQalwc46cNCS+W2+YYffIMFrrM02UFUhte8wmq8eG
-         hQBA==
+        b=An7ozgTyjqI/r82lTYlfVUCBcuuXTfo/7O56xm2koAFcMagPKanLcvkUtFNayqlw8i
+         wXMoZlvqJBdSEDn5l8LajypR+elGaQTwH5V/f0O/DUYTdYw9Ls2G60qcYl5UBPB8/FOB
+         +aJxx3llx7YtINBrA4UaGjap9M45J95PkbMkVujddm9bUAVrRnbUjQd9W1KqvZF5ifdZ
+         CRdqa25Rx0OCKuV3bL1Y/6r2GmduEbT63L7n1NkQMvNRdtTdM2GJn7FwkRt8XROAWJO7
+         M9RBONS16DwFYT1ceBzbaXZ7i1OsNx0REgPJ+T82Zw4KnHkg0agUltsKoiXShQv/FQuk
+         N9fQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ou5xudsvhJbATEEDYQzliV91yFmtfTC9oO8glygvNSs=;
-        fh=XPtNSxZSPZMJfJW0SBZeHAyvz8ZmzmRZ6dvMdOqJp0s=;
-        b=jMn7UqXV/3U3bt0l2l21tuWkG03hVXXjF4QCo/9Nv4wmCefHcyRh26Wm28XU3OHnHy
-         BwWmFVi+mDfWWQkVT8K8isnnFlihWc/+bD7EhpuANYm2fk3Z6K/+N/5WFcff1AZlR29T
-         W3xQRU+hsDq2lI5rfaIkCAXjVu0AzXRy4i6WXRR077ePxG8HkqzbdIFXk7fQtlcxp9Cd
-         9KJ87gyndV9v+w56kMSL4cU4FVB93TVbaL/QVm5ARLKpWeTiJcssXFZkF0sdLnu8LGI8
-         JsMbmYuzwvqOlw3QwMqYq5HgxFJpu3v33zV0tfqJr4UuH5B7jxQ4qgislgl4+nWs2jad
-         8c7g==;
+        bh=2fzJmHe53im+RdRlFHTdcZykU88bTlrtsEb9uv7A3KM=;
+        fh=930kFkRYFwPGuGN4iCPxDt/37XAD/2r6BWDmkIdHVyg=;
+        b=hRAfIJgRZMf3DmoiBFCLBiYIfVyj/9p2Q9N87LcOqhUhn1N2nPcCdJx0j+Q8Lsy0Pq
+         L+b+cx9TOBIrZQMblN5sVcLAmg3XCLehfWnd29Df5F7R9TXXaYCrCXpjbtF+DX65kLj1
+         58mCdobSr6/aiQSsWlIimfkWOzus2NPXYPaXlFCP+nJZYX8vuXbe25Ac2pdspTDznGig
+         q7dFv+nU959XEYF+EID7zBZrJZYoZPLvtdV0Ip9jke7Bjj3BvwsPJZx/plzdmTr0+Ew9
+         vqVK0ZOaUchZYgzLPDufKXa8uil9ZSzbe/NMq7W/0lqikK4PF00C/cgF/XDQM/VU4/V2
+         YfHA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789054558; x=1789659358; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789054648; x=1789659448; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ou5xudsvhJbATEEDYQzliV91yFmtfTC9oO8glygvNSs=;
-        b=nlG7f3e/AtMLNiz0BQcWV9M5Pafq9atyP26Z7Uy5HppoUhKrkY/YKyZJVyv6h4LNFl
-         epBtXHaef1iAgEBwe8uVfooIMhLCG2ZMKhVAPLcNU89qO5ssulzUQKK4FNsmLDtqPC0b
-         k3UClLAfSDaYGcgjciXf8FjsSxN6G8C1SpaIAT7JPmb68/OiPEH9MMGNfTisQd6w0GRQ
-         HmKD3hXu14hOTk8hUwFIqG2aVSjb7Dr4epSDlAW9iEDNybqGgghpWEEvxuHfXi+wRhxP
-         OtESdfHwLb6S0Bz6zhQgy7Ww2VCYEgHOz9ibKtiycbZdR7KtmZouX7JjU3gIdDKxnsV2
-         6UGA==
+        bh=2fzJmHe53im+RdRlFHTdcZykU88bTlrtsEb9uv7A3KM=;
+        b=wd8vwnNRXgVHoy9xVoIX50iGQJxor55X1x214F6cv6Zb/Q/yCojNIy4Gn8J+JUJs+i
+         l6r9+FoVQpzxjJD404IOrhPh8ClFNuYMakxyuaMSEtiYXhlA1GRDfliYP4raZMb+bIT5
+         FeYl+tzvOPCyRohKGWRodf61Ad69RnbUVYyVsBHmo91dTKkvN1sVleiTiEzOZZj/PEK8
+         exo7Gzzqhgkv+J2lkuaRCRmKxXL2VbU1zUvjpO3pB8e9eHtMzO3IP7xt2/n2Uvm1OFft
+         +o1JxutEq7GJLzi6mkY0CMr7+6qWWVQsfm0c5pTHFxmrp3di7UYD0RsF83f9jZ+scD+O
+         bt7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789054558; x=1789659358;
+        d=1e100.net; s=20251104; t=1789054648; x=1789659448;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ou5xudsvhJbATEEDYQzliV91yFmtfTC9oO8glygvNSs=;
-        b=M+uZQLvWqhqeFfItPkAiJ8ExAqjJ/QnwuKJTDtuwHLBPnDmRxS4yGnyA61vUvX2uZw
-         NdAyM7yIFPok11G3o8hg162CrInDeuuMmMro9pLEL10uxsyefl1ZaPP+/eP2b2V8sqVo
-         /hu7AIzN3yR4oL3/96h1IDzFsFaLZHUKc1KWGlpXPiyIlFfPwNk+zte2CiLYYIRNCEAy
-         Y6H3x25naWvj0ZopT6Z+XcCo0BF3q8QPoppBHBw72kR7xjFrcR0ZgV73seXuUFfv2ciY
-         HnRTGXSUnYuwBbBAY/Ij1Hu+ESpP5SpfeuBzbQQ6rdO/g2HPVaSugWTEY46SuoHp+b0b
-         VeOw==
-X-Forwarded-Encrypted: i=1; AKwUvBy30/dj2SLvEGcOaBAjqNKhH9IaqlebIRh7CciJ5sMYqGYysMa+ybFIoHPznjyRmcojzwI0eQtIPmnY/sU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzsjQ/7I5EtkOVlUQKo5mFG5KMUG0r/OVQuBwVbfD1neVGO3rY
-	TdtwyBBGAn4nWRob0a9SoYDQXMnBzJJ8VuB1Xx2R2gStra3rTBiqOtMTgk9MJIkgpyOpOPDwxrj
-	f3vn5SurOI0cdBWzvXXGuzeg9B4rVzJbg2BCX+A+iJn6433IhnFzU8U0qlL0=
-X-Gm-Gg: AYBFou1oRgSKw8dKSGyUSPxbY59ymmX/lD94k2q44OgKudXC7RxDPDaYyuF+pAIi3M3
-	F90F90VCbBuXvBbxYN1psbJyy5O8Sju/1aQj67uZK8Ik7FZ5lC/Q7wCRcaWLsn6HuzPz2eHmreV
-	RYsYq8dPIDmcnOJZjeSJyHxqLJQRXrvDO6t/2vKYpceph8ONmw/+wZulm3HWeaGqrHYPzPbzy2t
-	XYvxAKy0Tyc5Exu9KfczrNfsM8KUuv6kgczCDh8+EZFexfUBb45OP2A5DtXJWlqzMN2RnGyz0YN
-	Hg/NA2AD+u5V8PLcaJtYl6A9t0CNQ6rgq7R6qc5Uy0y8AbP/3QFlnuDPd8vLgpXfk7vCPquwF4I
-	3NMFybx0J9Q==
-X-Received: by 2002:ac8:5a48:0:b0:52f:4a75:f840 with SMTP id
- d75a77b69052e-530b62a9367mr15603781cf.9.1789054557815; Thu, 10 Sep 2026
- 08:35:57 -0700 (PDT)
+        bh=2fzJmHe53im+RdRlFHTdcZykU88bTlrtsEb9uv7A3KM=;
+        b=ifzj1NXM/NvPxA4nlI2JoXarxnkGK4V6oTRSnLIqA3fF9d0Z4+YeAOgVCPZQTkqDFq
+         O1ak5mPulllcNS8GbmysTcM+zadOx8e0OEBfDuGW/eRpmW0ECAqcycabnbQLblY5HOqT
+         +C9741reESvSFRp7iCxnAvMbMjYiggnRWcHs65L/x2MQZx9gEwiRzgEgp7+wCl8pEQ26
+         2AZWYhwzgSAL2jEb4EPlemwp+7xhF9EMWImeZYlXS8eTK45KZajaWeTW0djGtyVkGF0T
+         JA7t6AuW4zTlKbER7GXWi9nDxcI2AlGWYUOSZtGofSBX9AnKxQqc25DSuKLhG3xQcLcX
+         hSsA==
+X-Forwarded-Encrypted: i=1; AKwUvBx19ntkWBMYHb14QbZuQF/dmy/vaLjkH/URdnSH6fYH44Pes8DJqjMb1ozzr45Osp9Lj7PZGl4RROYTcgw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYWdsfbJCA2KmEhyI549awRFX8A7dxnMBlPGBijLWfne25hqjj
+	Kq5f7NzqOOVSq6xTZ9z7Gg6PF0Q6/pCki0ng3IQ/2CVYu7ET+SWfdKHlwkkOogUnebFpYDda0Cr
+	rH++yAI4oNPU0aCdbGsFWnWIPnDdJrTO760Brwp/vI2mtuW6qNBFhgYBHN2A=
+X-Gm-Gg: AYBFou0dczkWs/tRvHC9eKBnnBWXzbdvElGVRKaaoY7ajcM7QEzGzDt2wnbqFApUG3j
+	N/zT74v2XLRJIugVBoAd5OI/NNFx/ZlMmCToudCy4KXlnHpp4+GfpiMdBfOcXSnZr9DiI+cv7N/
+	3/JekPIoAWMytnwEs/bPbNSR/Puaj3aOeqodStrNA7qO4NLmB3YtMptgQ1yKoO4J8/WptvJoB73
+	rk8XQ2jKn1ajeocBHAUEsA6ALTg2UEwjLgIt5dsjfo1+xQ6oSU87lEeKkqFYteQAOwE+dDbmdxJ
+	OOL1yXv6dk/+krFiX31LSWjjsdwnFLQF5cYPocCv1eY+E89BsEOzqFMAHkt+Oywst5a3koqpPHb
+	VekjfiT743y6q2u5X+f2Q
+X-Received: by 2002:ac8:5711:0:b0:527:f08f:56a2 with SMTP id
+ d75a77b69052e-530b48fee7bmr20271511cf.8.1789054646975; Thu, 10 Sep 2026
+ 08:37:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907063918.3432401-3-surenb@google.com> <20260907164931.131215-1-usama.arif@linux.dev>
-In-Reply-To: <20260907164931.131215-1-usama.arif@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 10 Sep 2026 08:35:45 -0700
-X-Gm-Features: AcwNN1X-343PX52UP9R_xuysezFhln2YO94sOY9W4QKq0I6lyVc17ep5qSeO2A0
-Message-ID: <CAJuCfpHh1pmbhyJW5E2MZsGyMu7daW8aXvJD4A9_K4TRPt18jA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] proc/task_mmu: remove unnecessary inlines in
- function definitions
-To: Usama Arif <usama.arif@linux.dev>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, david@redhat.com, willy@infradead.org, jannh@google.com, 
-	paulmck@kernel.org, pfalcato@suse.de, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+References: <20260909204122.1993010-1-irogers@google.com> <20260909204122.1993010-4-irogers@google.com>
+ <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
+In-Reply-To: <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 10 Sep 2026 08:37:15 -0700
+X-Gm-Features: AcwNN1VPdFbSJ00CKGszV1vwicAKF7OS9Ew-KRRognhOG4ktLaQZIRP5UUupJ2I
+Message-ID: <CAP-5=fUC+2+qafs=GjfC6K5X1o8t8BTxj8L7NuGAm40n_UTYWg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] bpftool: Add explicitly sequenced -lzstd to libbfd
+ feature fallback
+To: Quentin Monnet <qmo@kernel.org>
+Cc: Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>, 
+	Costa Shulyupin <costa.shul@redhat.com>, Michael Jeanson <mjeanson@efficios.com>, 
+	Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, bpf@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 7, 2026 at 9:49=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
-ote:
+On Thu, Sep 10, 2026 at 2:20=E2=80=AFAM Quentin Monnet <qmo@kernel.org> wro=
+te:
 >
-> On Sun,  6 Sep 2026 23:39:15 -0700 Suren Baghdasaryan <surenb@google.com>=
- wrote:
->
-> > It was pointed out in the previous reviews of this code that many
-> > functions are specified as inline, which is unnecessary as the compile
-> > can make that decision by itself. Cleanup these definitions.
+> On 09/09/2026 21:41, Ian Rogers wrote:
+> > Distributions like Fedora currently ship a statically compiled binutils
+> > libbfd that natively depends on zstd to decompress sections (e.g.
+> > undefined reference to 'ZSTD_decompress').
 > >
-> > No functional change intended.
+> > Extend the newly supplemented libbfd-liberty-z-zstd feature probe into
+> > bpftool's Makefile so it can natively build against static binutils
+> > distributions.
 > >
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > Signed-off-by: Ian Rogers <irogers@google.com>
+> > Assisted-by: Antigravity:gemini-3.1-pro
 > > ---
-> >  fs/proc/task_mmu.c | 32 ++++++++++++++++----------------
-> >  1 file changed, 16 insertions(+), 16 deletions(-)
+> >  tools/bpf/bpftool/Makefile | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
+> > index b0f7168e7943..1cac4508eb0c 100644
+> > --- a/tools/bpf/bpftool/Makefile
+> > +++ b/tools/bpf/bpftool/Makefile
+> > @@ -125,6 +125,7 @@ FEATURE_TESTS +=3D libcap
+> >  FEATURE_TESTS +=3D libbfd
+> >  FEATURE_TESTS +=3D libbfd-liberty
+> >  FEATURE_TESTS +=3D libbfd-liberty-z
+> > +FEATURE_TESTS +=3D libbfd-liberty-z-zstd
+> >  FEATURE_TESTS +=3D disassembler-four-args
+> >  FEATURE_TESTS +=3D disassembler-init-styled
+> >  FEATURE_TESTS +=3D libelf-zstd
+> > @@ -135,6 +136,7 @@ FEATURE_DISPLAY +=3D libcap
+> >  FEATURE_DISPLAY +=3D libbfd
+> >  FEATURE_DISPLAY +=3D libbfd-liberty
+> >  FEATURE_DISPLAY +=3D libbfd-liberty-z
+> > +FEATURE_DISPLAY +=3D libbfd-liberty-z-zstd
+> >  endif
+> >
+> >  check_feat :=3D 1
+> > @@ -201,6 +203,8 @@ else
+> >      LIBS +=3D -lbfd -ldl -lopcodes -liberty
+> >    else ifeq ($(feature-libbfd-liberty-z),1)
+> >      LIBS +=3D -lbfd -ldl -lopcodes -liberty -lz
+> > +  else ifeq ($(feature-libbfd-liberty-z-zstd),1)
+> > +    LIBS +=3D -lbfd -ldl -lopcodes -liberty -lz -lzstd
+> >    endif
+> >
+> >    # If one of the above feature combinations is set, we support libbfd
 >
-> Most of these functions would be inlined anyways so should be ok.
 >
-> Curious if there was a change in binary size with this?
-
-No change whatsoever:
-
-W/o this patch:
-   text   data    bss    dec    hex filename
-31321399 9024030 1127028 41472457 278d1c9 vmlinux
-
-With this patch:
-   text   data    bss    dec    hex filename
-31321399 9024030 1127028 41472457 278d1c9 vmlinux
-
-
+> Hi Ian, thanks for this!
 >
-> Acked-by: Usama Arif <usama.arif@linux.dev>
->
-> >
-> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > index 2f500d639db5..9908ba32f180 100644
-> > --- a/fs/proc/task_mmu.c
-> > +++ b/fs/proc/task_mmu.c
-> > @@ -130,7 +130,7 @@ static void release_task_mempolicy(struct proc_maps=
-_private *priv)
-> >  }
-> >  #endif
-> >
-> > -static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> > +static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> >  {
-> >       int ret =3D mmap_read_lock_killable(lock_ctx->mm);
-> >
-> > @@ -140,7 +140,7 @@ static inline int lock_ctx_mm(struct proc_maps_lock=
-ing_ctx *lock_ctx)
-> >       return ret;
-> >  }
-> >
-> > -static inline void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ct=
-x)
-> > +static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> >  {
-> >       mmap_read_unlock(lock_ctx->mm);
-> >       lock_ctx->mmap_locked =3D false;
-> > @@ -177,7 +177,7 @@ static struct vm_area_struct *get_next_vma(struct p=
-roc_maps_private *priv,
-> >       return vma;
-> >  }
-> >
-> > -static inline bool fallback_to_mmap_lock(struct proc_maps_private *pri=
-v,
-> > +static bool fallback_to_mmap_lock(struct proc_maps_private *priv,
-> >                                        loff_t pos)
-> >  {
-> >       struct proc_maps_locking_ctx *lock_ctx =3D &priv->lock_ctx;
-> > @@ -194,7 +194,7 @@ static inline bool fallback_to_mmap_lock(struct pro=
-c_maps_private *priv,
-> >       return true;
-> >  }
-> >
-> > -static inline void drop_rcu(struct proc_maps_private *priv)
-> > +static void drop_rcu(struct proc_maps_private *priv)
-> >  {
-> >       if (priv->lock_ctx.mmap_locked)
-> >               return;
-> > @@ -202,7 +202,7 @@ static inline void drop_rcu(struct proc_maps_privat=
-e *priv)
-> >       rcu_read_unlock();
-> >  }
-> >
-> > -static inline void reacquire_rcu(struct proc_maps_private *priv)
-> > +static void reacquire_rcu(struct proc_maps_private *priv)
-> >  {
-> >       if (priv->lock_ctx.mmap_locked)
-> >               return;
-> > @@ -1230,7 +1230,7 @@ static const struct mm_walk_ops smaps_shmem_walk_=
-vma_lock_ops =3D {
-> >       .walk_lock              =3D PGWALK_VMA_RDLOCK_VERIFY,
-> >  };
-> >
-> > -static inline const struct mm_walk_ops *
-> > +static const struct mm_walk_ops *
-> >  get_smaps_walk_ops(struct proc_maps_private *priv)
-> >  {
-> >       if (priv->lock_ctx.mmap_locked)
-> > @@ -1238,7 +1238,7 @@ get_smaps_walk_ops(struct proc_maps_private *priv=
-)
-> >       return &smaps_walk_vma_lock_ops;
-> >  }
-> >
-> > -static inline const struct mm_walk_ops *
-> > +static const struct mm_walk_ops *
-> >  get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
-> >  {
-> >       if (priv->lock_ctx.mmap_locked)
-> > @@ -1572,7 +1572,7 @@ struct clear_refs_private {
-> >       enum clear_refs_types type;
-> >  };
-> >
-> > -static inline bool pte_is_pinned(struct vm_area_struct *vma, unsigned =
-long addr, pte_t pte)
-> > +static bool pte_is_pinned(struct vm_area_struct *vma, unsigned long ad=
-dr, pte_t pte)
-> >  {
-> >       struct folio *folio;
-> >
-> > @@ -1588,8 +1588,8 @@ static inline bool pte_is_pinned(struct vm_area_s=
-truct *vma, unsigned long addr,
-> >       return folio_maybe_dma_pinned(folio);
-> >  }
-> >
-> > -static inline void clear_soft_dirty(struct vm_area_struct *vma,
-> > -             unsigned long addr, pte_t *pte)
-> > +static void clear_soft_dirty(struct vm_area_struct *vma, unsigned long=
- addr,
-> > +                          pte_t *pte)
-> >  {
-> >       if (!pgtable_supports_soft_dirty())
-> >               return;
-> > @@ -1620,8 +1620,8 @@ static inline void clear_soft_dirty(struct vm_are=
-a_struct *vma,
-> >  }
-> >
-> >  #if defined(CONFIG_TRANSPARENT_HUGEPAGE)
-> > -static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> > -             unsigned long addr, pmd_t *pmdp)
-> > +static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> > +                              unsigned long addr, pmd_t *pmdp)
-> >  {
-> >       pmd_t old, pmd =3D *pmdp;
-> >
-> > @@ -1646,8 +1646,8 @@ static inline void clear_soft_dirty_pmd(struct vm=
-_area_struct *vma,
-> >       }
-> >  }
-> >  #else
-> > -static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> > -             unsigned long addr, pmd_t *pmdp)
-> > +static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> > +                              unsigned long addr, pmd_t *pmdp)
-> >  {
-> >  }
-> >  #endif
-> > @@ -1846,7 +1846,7 @@ struct pagemapread {
-> >
-> >  #define PM_END_OF_BUFFER    1
-> >
-> > -static inline pagemap_entry_t make_pme(u64 frame, u64 flags)
-> > +static pagemap_entry_t make_pme(u64 frame, u64 flags)
-> >  {
-> >       return (pagemap_entry_t) { .pme =3D (frame & PM_PFRAME_MASK) | fl=
-ags };
-> >  }
-> > @@ -3388,7 +3388,7 @@ static const struct mm_walk_ops show_numa_vma_loc=
-k_ops =3D {
-> >       .walk_lock =3D PGWALK_VMA_RDLOCK_VERIFY,
-> >  };
-> >
-> > -static inline const struct mm_walk_ops *
-> > +static const struct mm_walk_ops *
-> >  get_show_numa_ops(struct proc_maps_private *priv)
-> >  {
-> >       if (priv->lock_ctx.mmap_locked)
-> > --
-> > 2.55.0.979.g7e5102b832-goog
-> >
-> >
+> Just checking: my understanding is that if libbfd depends on libzstd,
+> then it always also depends on zlib, so we never need to check some
+> variant such as "feature-libbfd-liberty-zstd" (without the "-z"), is
+> this correct?
+
+Hi,
+
+You make a good point. Normally we want to use pkg-config to get the
+libraries necessary for a dependency. Unfortunately pkg-config is
+generally broken around binutils/libbfd. This is why we have all of
+these tests to determine the list of libraries we need to link with
+libbfd for things to work, which pkg-config normally provides. It is
+perfectly possible to build libbfd with libzstd and without libz, but
+currently, we haven't encountered a distribution doing this. I can
+imagine a memory hardened future where libz has become zlib-rs that
+conveniently provides C headers.
+
+For perf we don't build with binutils by default; this matter is only
+an issue for our build tests. We don't depend on libbfd because its
+GPLv3+ license isn't compatible with perf's GPLv2 license, which would
+create an undistributable binary. This isn't an issue for bpftool
+because its BSD 2-clause license is compatible with libbfd. In perf
+we've been replacing libbfd based functionality with that in elfutils.
+libLLVM is another consideration, but it's generally too heavyweight
+for the effort to be worthwhile (it is generally large, distributions
+don't want a dependency on it, and it runs many initialization hooks
+at startup that don't benefit perf). Hopefully elfutils can provide a
+stable API for its disassembler (libasm) as that would cover pretty
+much everything perf needs without requiring us to fork objdump, use
+libcapstone or use libLLVM.
+
+Anyway, we could add another flavor (zstd without libz) to the feature
+tests for libbfd but since this isn't currently an issue I think we
+can cross our fingers for binutils to fix pkg-config or for other
+tools in the kernel, like perf, to migrate away from the use of
+libbfd. If we add every flavor of libbfd's dependencies, it feels like
+a lot of build clutter (imo) and I don't know where we stop.
+
+Thanks,
+Ian
+
+> Quentin
