@@ -1,334 +1,79 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137193BED0C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020684; cv=pass; b=CXli3JyS78dSytpQB2jM+ZThRBvuzX370KkIjK6+PEQAot+k3E1q/oAWibCdS4IChwaR7aP4BYBY7WkCWtcjVfxSfDra2xsok9FB7xeBxKvQC1Wg+oEkIyw4kqLBm/xIkOTM9Zmy1jd3Esgb533iGuFEgc0OJN4nyftW5dx/6+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020684; c=relaxed/simple;
-	bh=1tJQ9mruhM/lPc4sdxQcL6wM+3YeNMbRRx4k5OLxZXQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gy75bPik9MI06tGJ22jQXpBQmw1q0dEbRAgnHIwsJ/dQcAdNbcP/Dn2QjcuDZ/EeH4w/bchKULKu9WN+W6UCjawBLWH9SDtco+5gpmbPmBKC+1bjEv0q9uHQPGlNmVUuxo7i2I2QGDttYXxEag86y6uqEzvzXwXCw1pW8gSnGNo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dFtZvs1h; arc=pass smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6961B3B19BA;
+	Thu, 10 Sep 2026 06:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789020732; cv=none; b=cFfknGM7yIHQp/EILJ7NHDTLcJgTTQP2coO+MVrkat1nkkPUEuruIv43LisD2mSv8t07FGLZfJcpkdC8kQ4nSMnsT+6e8SLl+qEm4ivnoP86W82DIlevYk6FfGSTOxHiDJe1Q7jmTz4XlbaESCimNQruOevDAtUgTCRaSuZZMQ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789020732; c=relaxed/simple;
+	bh=311saYwwKPTfQAVsdL8cI0CojdN932dYzqRIxDGhcjo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n6Cwn0jU6v34fNcEgu+MNxrcxmiFK4JOfApZ5CirmN/+R8hpqS3GfOj8fYMPZF2JQuyZvT2qWhvZ5+1E7K2aj9OXZQnCPPhb3nsjKmMBXvwbFFoCIsWPJMeqCP+dTLDgn48cw1eTkBJ1ic2zppbOPEvZxx89HxT9QIUAuoAlbpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vdgVN9L/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dFtZvs1h"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7f57db8b5a4so5300445a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:11:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789020678; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dB2jfm5VI9MPkfVTl+wSA64KmDslCjz3UIIGMvTA2TUua/KyazverhzkBJsZ17UJZc
-         N69Wm2VyzGUpAur3LTKreBJfj3tdP1GoGn9AXxgM8Tv3Q5HRMT6F0HI3yALflneHxo0p
-         tBqKN5HUfKExHPD8BROOKL7zDVoEXn5C8HzCtZe7E/3cQgucs268cXpgVJEwWvuWp3I3
-         DYSV3PbYGEkyU5kZsLU1XztRD1h55toZFegRvgegJ+k53uNZeknvyQA3rjUNwxlkxws2
-         CWjNQwKUoH+9j3Yun0Vw353z/JNnPhMcNX47Huc/+w075GWOCJQFFhk8SRNo6AJZ3k2y
-         rijA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7NyyOOAtxIHkb8nmYnBuuhGEfeag/LMiOe4zjEVvRpY=;
-        fh=YU5WRA4dXwYdkF/xYsnMO7HWBlfGpr53GhMRqQxE3Ak=;
-        b=Sx3Ux7/DSnJ2ZYhOzvD7d+E2CwPPKy7vRUrr9IiTvvKDSWybLyN0LOd6VYoPjk3UtW
-         Oh0nS8kuuw+8EoNvgyQObW9H/E45Jen/onpJMZIwzdyXDamPF+R+isbK/93YOTg0pngy
-         3Ger1iUkSYAdqJEYmpXEUrDf4GF8PF7NrLMsHPVQD9tNbAd2qN8IaryNQnfuNVbrbClg
-         Hakpn94JFImCqhAiSFelBa/zIDFIhiVfmziuDygfP/xzvoNVF8C1+juI/Ao7LXFV7UW+
-         KproYuSBpz30dPIrE2h7BFxJZaiPytAZSGojkANuH/XCNY0IIG2PuC5b041Co3dRwmsW
-         7Sgg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789020678; x=1789625478; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7NyyOOAtxIHkb8nmYnBuuhGEfeag/LMiOe4zjEVvRpY=;
-        b=dFtZvs1hDsuuDpgpGsg82y1toEAKO/PJfxxjcPvzAOWAMSxS5OhQHYLOOSolZqtHFS
-         3YUpm4e5ekajspF4hBXbnOdFajCTcqo1CnfSshW8Ktt2G5GXOyDoWdpXmRHT7aETddy1
-         3cRlfEDEbdMbz22u5fds9ft475VYsNB/MgBEMEDeUTJYizW82+FC8AeW+iiW1Ab3b18n
-         xLE/Bm1kl71OM9Hpa6TGtZ3naD76abt1yeUtsxp6nE32qACY4tyaQyXMdzpSvimY07Bb
-         tQB0UFekeMTiD3IJ2YyxXpCjaOco8LWkgv73ANbh0xCFZCCC2QkEISq//aU67o8z5aG2
-         eXvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789020678; x=1789625478;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7NyyOOAtxIHkb8nmYnBuuhGEfeag/LMiOe4zjEVvRpY=;
-        b=hl3Y3M3fCDJNV+63Y2L4wJdlFxagXyFr9Xg7EXk0wseyYJXmgU5hOefWgWKiRRKz7w
-         hiBo6dZq30uulNp+K0pZJalwrN+1Bw2IdRZ3ULSfi6vwn0G9gBQvApSwOZs9YMPMP/hq
-         dA6xNE4gsHid/YgWICksFnkBf5NH2YOJmuga6EntbXcIFIRNaBXfdGI1RFG9grbVzuXJ
-         Oms+rqVK4qY9uxspSOiRywBwI6TgF0myyunvBUVTYAQkqlx7VNFXf1Uaf8FsjLnPVujl
-         kEAfxYqH0lI/eL336+TYCnKdyGpALN4z7JZeRG22fmhH1NSME3b8epYO9pXtXejcecu9
-         Yn4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxUsLTeqpuONyzLhEz4s5k+DV/FZxzETZ4boSJKXoGra8D5U2tQF+Y1tz/U2A7wRzJacSXceMsPlquFea8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/EpwH06HGSoaTxVYSjAlIvivHtVnSPTMntpSAximqMCIT4c4x
-	Kqq9RwfrLik0FjL3b+6qEVp4roKuSaUkECudoQWnRtKiMdip7Sv7QWCv3A6RKUbT2rgqzJISXg4
-	CVnZLjILRzTwH4yIcjCiatZNreNAFAK1HZcODDcs4
-X-Gm-Gg: AYBFou0+c4LcJkcEfDl1i705weMtyfCe6F2TXzOsE5gHUDvEgOqqoEMhO/PJN6Ee4r7
-	FiYribVBGBBeK2lwNe3fZT5AjFoq+e14zyZNuK3fpj03GoJbYHcsWErS6iikXq/Up2OmJOFSd2H
-	dw7qI+8kMHV7Fli7ZzjCY4ZqVxaSDGls1+jAkmua/Bo/6rBAC7gL5s2qUY8VXe1piK6lSZrirwO
-	k5zqQ7yfWmRWWXXlWDGRS2BMKIJfO7MiBsAe3RddoofQmxnuNezfLUZ5+8zqH1X5c7svTZAGoAY
-	M82SSAmtAF2NXBMBnjfwoHtDxqDOFK2AC9R9H4k9ws2H6/3ftxzZxTMxuH+Czp3LbWY9m++vhN1
-	iOuhCR9c2Qw7kUuDmAc6tRtHP3Iz0vzAy3+D1FqumFwN1Xw/I4tIEsVFlfgiDVbVm+iI7YEs4zm
-	OANTgdNYEQOgeIOv2VSd4Cv7tD
-X-Received: by 2002:a05:6820:168f:b0:6b1:a11a:eef4 with SMTP id
- 006d021491bc7-6b6fbad3850mr22759542eaf.14.1789020676956; Wed, 09 Sep 2026
- 23:11:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vdgVN9L/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EBC1F000FF;
+	Thu, 10 Sep 2026 06:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789020718;
+	bh=QoybkwdFrnLK7llMYHPgBUkmKlSi8hvY6f51nkYo6kU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=vdgVN9L/Ie0clCMd2WwbM79esqcn4YF8Bs3yAkPFofFbTkv7uu9LIKcYJJ1U+qE9t
+	 vTVuvlY/BYk82NBdEkeQ+ipnAYpxENZzOFPQOYN3AWIwKzonx8f8gFldxq3x+zchwZ
+	 sAIxg8KOXJPWlNLtRaivjH4k2Q9qkmV+D5pVfsp4=
+Date: Thu, 10 Sep 2026 08:10:02 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>, Farhad Alemi <falemi@asu.edu>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] KASAN: slab-out-of-bounds Write in gb_hid_raw_request
+Message-ID: <2026091048-expediter-lubricate-a2df@gregkh>
+References: <CA+0ovCgLrz4WhPKP5LGW5HZa8VOodgeo6pWuyQGgHE7UY57Oog@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org> <20260909-work-unix-passpidfd-v2-7-7bd342abb2d1@kernel.org>
-In-Reply-To: <20260909-work-unix-passpidfd-v2-7-7bd342abb2d1@kernel.org>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Wed, 9 Sep 2026 23:11:04 -0700
-X-Gm-Features: AcwNN1W2SQ-KpC8ZkEjrvyXHJGjgWbDapMPc1W4MbMFrT4G-1RPmONjCdUNvIlc
-Message-ID: <CAAVpQUAhajwkDO4h7_TL7no3MY7tUyMBmeWQajNv6m6n4F+RHA@mail.gmail.com>
-Subject: Re: [PATCH v2 07/10] net: add SO_PEERPIDFD_THREAD to get a
- thread-specific pidfd
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+0ovCgLrz4WhPKP5LGW5HZa8VOodgeo6pWuyQGgHE7UY57Oog@mail.gmail.com>
 
-On Wed, Sep 9, 2026 at 3:43=E2=80=AFAM Christian Brauner <brauner@kernel.or=
-g> wrote:
->
-> SO_PEERPIDFD hands out a pidfd for the thread-group that called
-> connect() or socketpair(). Enable workloads such as the coredump server
-> or a broker to get a pidfd of the specific thread that connected to the
-> socket.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
->  arch/alpha/include/uapi/asm/socket.h  |  2 +
->  arch/mips/include/uapi/asm/socket.h   |  2 +
->  arch/parisc/include/uapi/asm/socket.h |  2 +
->  arch/sparc/include/uapi/asm/socket.h  |  2 +
->  include/uapi/asm-generic/socket.h     |  2 +
->  net/core/sock.c                       | 87 ++++++++++++++++++++---------=
-------
->  net/unix/af_unix.c                    |  1 +
->  7 files changed, 61 insertions(+), 37 deletions(-)
->
-> diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/ua=
-pi/asm/socket.h
-> index bb3d534826bb..5d3524c26b2b 100644
-> --- a/arch/alpha/include/uapi/asm/socket.h
-> +++ b/arch/alpha/include/uapi/asm/socket.h
-> @@ -159,6 +159,8 @@
->
->  #define SO_PASSPIDFD_THREAD    86
->
-> +#define SO_PEERPIDFD_THREAD    87
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64
-> diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi=
-/asm/socket.h
-> index 269badcaa086..245a43f52fb1 100644
-> --- a/arch/mips/include/uapi/asm/socket.h
-> +++ b/arch/mips/include/uapi/asm/socket.h
-> @@ -170,6 +170,8 @@
->
->  #define SO_PASSPIDFD_THREAD    86
->
-> +#define SO_PEERPIDFD_THREAD    87
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64
-> diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/=
-uapi/asm/socket.h
-> index 313aee10a52c..f23710e1c671 100644
-> --- a/arch/parisc/include/uapi/asm/socket.h
-> +++ b/arch/parisc/include/uapi/asm/socket.h
-> @@ -151,6 +151,8 @@
->
->  #define SO_PASSPIDFD_THREAD    0x4054
->
-> +#define SO_PEERPIDFD_THREAD    0x4055
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64
-> diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/ua=
-pi/asm/socket.h
-> index bd3e69bcce7a..b35b25bdefc2 100644
-> --- a/arch/sparc/include/uapi/asm/socket.h
-> +++ b/arch/sparc/include/uapi/asm/socket.h
-> @@ -152,6 +152,8 @@
->
->  #define SO_PASSPIDFD_THREAD      0x005f
->
-> +#define SO_PEERPIDFD_THREAD      0x0060
-> +
->  #if !defined(__KERNEL__)
->
->
-> diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic=
-/socket.h
-> index d1e5c6de146d..56fed7ab27ab 100644
-> --- a/include/uapi/asm-generic/socket.h
-> +++ b/include/uapi/asm-generic/socket.h
-> @@ -154,6 +154,8 @@
->
->  #define SO_PASSPIDFD_THREAD    86
->
-> +#define SO_PEERPIDFD_THREAD    87
-> +
->  #if !defined(__KERNEL__)
->
->  #if __BITS_PER_LONG =3D=3D 64 || (defined(__x86_64__) && defined(__ILP32=
-__))
-> diff --git a/net/core/sock.c b/net/core/sock.c
-> index 6ada7e7eb7d7..cb2ffd329bc6 100644
-> --- a/net/core/sock.c
-> +++ b/net/core/sock.c
-> @@ -1743,6 +1743,50 @@ static int groups_to_user(sockptr_t dst, const str=
-uct group_info *src)
->         return 0;
->  }
->
-> +/* Hand out a pidfd for @type of the socket's peer via SO_PEERPIDFD*. */
-> +static int sk_getsockopt_peerpidfd(struct sock *sk, enum pid_type type,
-> +                                  sockptr_t optval, sockptr_t optlen, in=
-t len)
-> +{
-> +       struct file *pidfd_file =3D NULL;
-> +       unsigned int flags =3D 0;
-> +       struct pid *peer_pid;
-> +       int pidfd;
-> +
-> +       if (len > sizeof(pidfd))
-> +               len =3D sizeof(pidfd);
-> +
-> +       spin_lock(&sk->sk_peer_lock);
-> +       peer_pid =3D get_pid(sk->sk_peer_pid[type]);
-> +       spin_unlock(&sk->sk_peer_lock);
-> +
-> +       if (!peer_pid)
-> +               return -ENODATA;
-> +
-> +       /* The use of PIDFD_STALE requires stashing of struct pid on pidf=
-s
-> +        * with pidfs_register_pid() and only AF_UNIX were prepared for t=
-his.
+On Wed, Sep 09, 2026 at 06:38:02PM -0700, Farhad Alemi wrote:
+> Hello,
+> 
+> We are reporting the following crash (reproducer and a proposed patch attached):
 
-nit: while at it, s/were/is/
+Great, please submit the patch properly so that we can review and apply
+it if it works.
 
+> Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
+> Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
+> 
+> [   44.000772][  T804] usb 3-1: new high-speed USB device number 2
+> using dummy_hcd
+> [   44.163699][  T804] usb 3-1: New USB device found, idVendor=18d1,
+> idProduct=1eaf, bcdDevice= 1.00
+> [   44.169786][  T804] usb 3-1: New USB device strings: Mfr=0,
+> Product=0, SerialNumber=0
+> [   44.212054][   T12] greybus 1-svc: set power mode = 0
+> [   44.212064][   T12] greybus 1-svc: power mode change failed on AP
+> to switch link: -5
+> [   44.213758][    C1] greybus greybus1: 0/0:0: short response 0x94
+> received (8 < 9)
+> [   44.215179][ T9337] greybus greybus1: 0/0:0: synchronous operation
+> id 0x0003 of type 0x14 failed: -90
+> [   44.215216][ T9337] greybus 1-svc: failed to get rail count: -90
+> [   44.234071][ T9337] greybus 1-2.2: Interface added (greybus)
+> [   44.234080][ T9337] greybus 1-2.2: GMP VID=0x00000001, PID=0x00000001
+> [   44.234087][ T9337] greybus 1-2.2: DDBL1 Manufacturer=0x00000126,
 
-> +        */
-> +       if (sk->sk_family =3D=3D AF_UNIX)
+I'm guessing this is an emulated device, not a real one?
 
-nit: please use sk_is_unix()
+thanks,
 
-
-> +               flags |=3D PIDFD_STALE;
-> +       if (type =3D=3D PIDTYPE_PID)
-> +               flags |=3D PIDFD_THREAD;
-> +
-> +       pidfd =3D pidfd_prepare(peer_pid, flags, &pidfd_file);
-> +       put_pid(peer_pid);
-> +       if (pidfd < 0)
-> +               return pidfd;
-> +
-> +       if (copy_to_sockptr(optval, &pidfd, len) ||
-> +           copy_to_sockptr(optlen, &len, sizeof(int))) {
-> +               put_unused_fd(pidfd);
-> +               fput(pidfd_file);
-> +
-> +               return -EFAULT;
-> +       }
-> +
-> +       fd_install(pidfd, pidfd_file);
-> +       return 0;
-> +}
-> +
->  int sk_getsockopt(struct sock *sk, int level, int optname,
->                   sockptr_t optval, sockptr_t optlen)
->  {
-> @@ -1938,45 +1982,14 @@ int sk_getsockopt(struct sock *sk, int level, int=
- optname,
->         }
->
->         case SO_PEERPIDFD:
-> -       {
-> -               struct pid *peer_pid;
-> -               struct file *pidfd_file =3D NULL;
-> -               unsigned int flags =3D 0;
-> -               int pidfd;
-> -
-> -               if (len > sizeof(pidfd))
-> -                       len =3D sizeof(pidfd);
-> -
-> -               spin_lock(&sk->sk_peer_lock);
-> -               peer_pid =3D get_pid(sk->sk_peer_pid[PIDTYPE_TGID]);
-> -               spin_unlock(&sk->sk_peer_lock);
-> -
-> -               if (!peer_pid)
-> -                       return -ENODATA;
-> -
-> -               /* The use of PIDFD_STALE requires stashing of struct pid
-> -                * on pidfs with pidfs_register_pid() and only AF_UNIX
-> -                * were prepared for this.
-> -                */
-> -               if (sk->sk_family =3D=3D AF_UNIX)
-> -                       flags =3D PIDFD_STALE;
-> +               return sk_getsockopt_peerpidfd(sk, PIDTYPE_TGID, optval, =
-optlen, len);
->
-> -               pidfd =3D pidfd_prepare(peer_pid, flags, &pidfd_file);
-> -               put_pid(peer_pid);
-> -               if (pidfd < 0)
-> -                       return pidfd;
-> -
-> -               if (copy_to_sockptr(optval, &pidfd, len) ||
-> -                   copy_to_sockptr(optlen, &len, sizeof(int))) {
-> -                       put_unused_fd(pidfd);
-> -                       fput(pidfd_file);
-> -
-> -                       return -EFAULT;
-> -               }
-> +       case SO_PEERPIDFD_THREAD:
-> +               /* Only AF_UNIX records the peer's connecting thread. */
-> +               if (!sk_is_unix(sk))
-> +                       return -EOPNOTSUPP;
->
-> -               fd_install(pidfd, pidfd_file);
-> -               return 0;
-> -       }
-> +               return sk_getsockopt_peerpidfd(sk, PIDTYPE_PID, optval, o=
-ptlen, len);
->
->         case SO_PEERGROUPS:
->         {
-> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-> index d01ee76c8026..563d9827c5cc 100644
-> --- a/net/unix/af_unix.c
-> +++ b/net/unix/af_unix.c
-> @@ -1056,6 +1056,7 @@ static bool unix_bpf_bypass_getsockopt(int level, i=
-nt optname)
->         if (level =3D=3D SOL_SOCKET) {
->                 switch (optname) {
->                 case SO_PEERPIDFD:
-> +               case SO_PEERPIDFD_THREAD:
->                         return true;
->                 default:
->                         return false;
->
-> --
-> 2.53.0
->
+greg k-h
