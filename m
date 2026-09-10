@@ -1,103 +1,116 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1412530D3E8;
-	Thu, 10 Sep 2026 05:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7903B14CD;
+	Thu, 10 Sep 2026 05:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789019467; cv=none; b=i8SY/ldp1rt9NNVOBry9sxsuAoJmfHt0SDurL1KZzAhvySRvgYookB6uXZK0XD5+0nRS8+AVksxDYHIhTkM1VzgjonFSuIC7SYfqBfw2aYSAq2LIqmOho0p3vK6IUNbTk90DciCwFUawxFl+AEnyD0px2bxTkUEBR8M7f+s53Uw=
+	t=1789019523; cv=none; b=fQjaEACBAGS4joc3ZQopb56QSlVKRUhWFm33/DTC2UZ8hbPhnQ+03bz8I02uwodZdv+FTtzQwG5kEyJBYVdsrm5Br0PwSzWCtwmwlLQ1QOmznZHWIzqgrIDDr9310WLZAeB0qVI/GXfX6vU8VJmoGPxVAI+K+YIpkwB4XZV5KZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789019467; c=relaxed/simple;
-	bh=DrXfTS8ZxyUDNE5U6sJBSOlmwS0hqMzaEq5mQxDQUFA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=fM2fT3col2MhTMeNgIDJjnsvC663lEqYb6nAi+8IghBVvTWGYP0+/JeAkX3G7Xn04G8Ls0lR1Sec6H4ZLEhRKssqJHHuusGu38A3r2rvZl+Gj98n98gstfm6KQwuw5679wv1xe2pHrYhaU/Dd7Xfa0RuIy3sVI5GooDWqOQTs8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.192.40.33])
-	by mtasvr (Coremail) with SMTP id _____wC3Yz1ARaJqE6kFAQ--.2549S3;
-	Thu, 10 Sep 2026 13:50:57 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.192.40.33])
-	by mail-app3 (Coremail) with SMTP id zS_KCgBHX3FARaJquhMPBQ--.5303S2;
-	Thu, 10 Sep 2026 13:50:56 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1789019523; c=relaxed/simple;
+	bh=eFkoKLMx6CWrBqLzh/2OAEjPMcLMJex/CnSZuYJAeB4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZSpC9r/5zYKIfGeL5XnmMYlW4WIA5yMRGgqhtFIrE16yueqpxB3spXRaTTqKdiggzuRJm9TnPnEtVvr8v5yWvjazEN0UTJkRsgDqe6naaJzRB6EwotaIIhZsZb+ClXjYNOsUZXOEJalw594//Lx7Kstp6CEJePRMX9nPQj0n8PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=2YEpsF2d; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="2YEpsF2d"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=dr2hlvGX1oeEKCxfnd5X9ajv/3V1RzuH6f6k+gKLa1I=; b=2YEpsF2dy4dF+E5OuE1/Zk6cNe
+	QCygMlId9eCRm2NVbsLffeSSqzYB99gs9iLF5flp3UVvUh//R01ZysL5QM1R/nsZazvygWachsRy1
+	kqlHp5S2/99fGgHycoYYi/OGBrD8bvH8pyCKJjzQzmiAWUwSsFVcYy4xcFdR6BHD7Lp5m1LHvtkV2
+	aEPgjFnNYdipWh0pO1JY2H+aZOpxYJ5lrn1vkFQxdRjHOegKXlWcaGKZq8lUZLXjvjzDBRAklcON3
+	PWUYt2D20iByPA9g1u6y5Mm9bbo16VIWK8E7NgHiRbGGTdT5Ww4o10UajRwh/yOEqCHg2Jg8tcB6Z
+	b0GhXEgQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4XhH-0000000DTvB-33x3;
+	Thu, 10 Sep 2026 05:51:43 +0000
+Date: Wed, 9 Sep 2026 22:51:43 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v6 04/12] arm64/mm: Export set_direct_map_*_noflush() APIs
+Message-ID: <aqJFb3VtsYtnIa1c@infradead.org>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <20260904-tegra-vpr-v6-4-79042cfa8de5@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <aqIVzxZyRyx67GPX@hu-petche-lv.qualcomm.com>
-Date: Thu, 10 Sep 2026 13:50:46 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- linux-usb@vger.kernel.org,
- Pawel Laszczak <pawell@cadence.com>,
- Roger Quadros <rogerq@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Song Li <songl@zju.edu.cn>,
- Sicong Huang <congei42@163.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <4BDFACF5-50C7-43B5-861C-9467B6E3D819@zju.edu.cn>
-References: <20260909095655.694527-1-fanwu01@zju.edu.cn>
- <aqIVzxZyRyx67GPX@hu-petche-lv.qualcomm.com>
-To: Peter Chen <peter.chen@kernel.org>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zS_KCgBHX3FARaJquhMPBQ--.5303S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?WHDvpwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WNB66d1lXcKtjZp12WNyL+NGUIw2xCv9nnYIkgX6xtv+Pvs
-	3eJmM/Z+qZRsjNnOb0wB5rM+H8XhqwExY4Cjs2QP
-X-Coremail-Antispam: 1Uk129KBj9xXoWrKF1ruw1kCF45CFykWr18CrX_yoWkAwc_Wa
-	yvkr97Ga1UW39rAwnxCr15Ar93GFyxWa48Ww4qyFWfC3yUtrs8Jr18Gr95Cr43Xw4fKFn3
-	A3s5t3yfur9rZosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUb-AYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4U
-	YxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-tegra-vpr-v6-4-79042cfa8de5@nvidia.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-> On Sep 10, 2026, at 10:28, Peter Chen <peter.chen@kernel.org> wrote:
+On Fri, Sep 04, 2026 at 12:44:55PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
-> We may cancel work before going to de-init. How about move them before
-> 
-> pm_runtime_put_autosuspend(cdns->dev);
-> 
-> 
+> Drivers that use this may want to be built as a module, so export them.
 
-Hi Peter,
+That's one of the worst commit log ever.  No, we don't just export
+core symbols dealing with the kernel direct map because
+"Drivers that use this may want to be built as a module".
 
-Thanks for the review.
-
-I think the work items need to be cancelled only after the gadget has
-been quiesced. Moving the cancellations before
-pm_runtime_put_autosuspend() would run them while the gadget driver is
-still bound and requests may still be queued.
-
-In particular, an EP0 status request can queue pending_status_wq from
-cdns3_gadget_ep0_queue(), and an endpoint request can queue
-aligned_buf_wq from cdns3_prepare_aligned_request_buf(). Thus either
-work can be re-queued after an early cancellation and before
-usb_del_gadget() unbinds the gadget driver.
-
-usb_del_gadget() performs the gadget unbind and synchronizes the gadget
-IRQ; devm_free_irq() then removes the driver's IRQ handler. Keeping the
-cancellations after these teardown steps ensures that both works are
-drained before cdns3_free_all_eps() and the aligned buffers are freed.
-
-Could we keep the current placement?
-
-Thanks,
-Fan
+For one exporting this at all needs a very good justification and
+not just hand waiving.  But more importantly if we can't avoid
+exporting it, it needs to be exported at the tightest sensible
+scope.  E.g. for a given module if it is so special, or a namespace
+if it's not that special.  But in doubt we should have a proper
+core abstraction instead of opening up direct map manipulation to
+random modules.
 
