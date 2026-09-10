@@ -1,250 +1,169 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011068.outbound.protection.outlook.com [52.101.62.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405093FCC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788998729; cv=none; b=Lk8AUafjhM5hEL0JexClFnCIdnWND9aR8sfUuv/l5/5GPcFXqSGH41DHqtYXlq/+YBVKNi1a8EQ4vUYeZ3O3w/dj+xW8Ps2bb5z9FkK6nDc21IHadVzr7eeASLkJZZ1HFiOxVtU/qfRsEh/ab95WJrT6B5uZYZwjii9UkJ2+6FA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788998729; c=relaxed/simple;
-	bh=aR0+8yQ6qie6njOcmw65DGioCP0iccIP1IUhgdEZZBY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y6KpGHGNUILYysMHAnOVvXlYPHGcvrwaDATkjlvBmZ77SxkUmu3t91H4SPhW7vpcYzntaYOxy2CYny3+L8qBa1Qnt92wuuUvd0VYafRFa4TJi5pLvXg6LZ1g+0NYrfdyD4FHHc20QtFYvMerC3jb/+5/HOWa2guN2bpHS61MfTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2H1EZ48; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C465474F;
+	Thu, 10 Sep 2026 00:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788998883; cv=fail; b=CiNPrMe5P1F41BVxznXAK17uI+zJfrYyyC/Ai3bv0G/QqPXc7UpmdjWdz+1MHNkXopOsF4r4bsjFb889Imdx9DBR1yNjIDpxhuuv1jeaLCDmEUPk/x9/zff6m0Z5JjfPhhsDWn4edCfj2aSI2SUqaMzpdGYk5GsX0KJhZVF8chQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788998883; c=relaxed/simple;
+	bh=6kQ4UUMcBI5WzNuNe9gV1tQD83Sa+FB2l0ivUXymT74=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=AOgclxhDgKt0UOdOzaDagCWGfUCK5c/l7QI6bpy61V7NK+/PTaF8mzd1nazqA8xNW4A4rB4mE1ylF/50iMyHFs0UXFqMV2PECcX5s6eFhfyS2TDhkfz0N+VabF1Em5+rg2LgsxxyXiR23CEJnzhzVwJTw93RmpmlYDELIQRRBTA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IirhRVx6; arc=fail smtp.client-ip=52.101.62.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2H1EZ48"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so700553f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 17:05:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788998726; x=1789603526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/MkuZjw5eDGUjlp1TTmJ/AW6kHmyHaaRrgH/UE88Mn8=;
-        b=i2H1EZ485nuXarCUOd6vbxADXvrfyibFmNPi6xr3DQTKnT9HozvB4Sk1FgapJMHXpB
-         +NUK1FDyCLSM0K20J+idbfyKj6vSrEb/C8pzW0xOQNoMDIw5WnaPA0nl5+R1VzN6Escd
-         ntGMdxWgT9DC4UlbxiFc9YdmWTHelc7CWdqVuCSgAX554UuaboTZ61pCPXyEW9Tw+2eu
-         xGCGVCF8Wb/XmrV5TTLaKce+eaxC5M9Z4+zk7Jc0WsxJ+WB7r5vDch2ukMbblXe+I4ke
-         pTLji2ZGyXSaDTsXCFUUUZs6JY6tTK8kkLqEqz2yKsqOdc7gnrcLSK7UKWoJBO7Hu7hJ
-         DeXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788998726; x=1789603526;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/MkuZjw5eDGUjlp1TTmJ/AW6kHmyHaaRrgH/UE88Mn8=;
-        b=CvTVi7PCOKmVtxeSpCj/fad+9+R9Z0D6nYTOZQiZJ29VSmOfFRd8cT+Cqi3ytVu86N
-         MgXp+zbx47fxuAznJkSxy09k22pc/rba03AIuBvRch4ADl54ZhpYWeZm3FL+mokcN9+/
-         VQIzuBUkdFN6Tk+gYOTGS+DxTfj2XpF+hs2M3ZjqiJuiq1YJefKnpda0Lwr2lIUW3x/H
-         eIC68w03xlh50wwwFVlImA7nZ0UzXuzvxVBVQfPfyr3g+64PfWIsdR52kny65XXbMxDe
-         AvzOq5BRfR5hXJHoSMKh9SVZ/5KScTrhQ5oAsYhbtozwG94hZqnXniHfwBh6nTd6cVLw
-         xSbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCWhf51jl13prQRE0n5HTRbyz6o4ZbvA+J62o1o8R1cVXMlkPnrOpJmK+8WhWMilbYBzAnV6LyRe6bPRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nk4sqsSXoJuV91uEI/lxx668vjnQiBFz/wA3jEz9KB+JE08ehm
-	gIpAnJtA+21b2fI6fRvoxWtCOpMWDlXllMpS+bNYmL93cyo1LNda7he2
-X-Gm-Gg: AYBFou01Z4Kuvpr6+etTutd5tswPH7z5CNiSTNY5/mq3OWqyMbhmoWErWomRjH9ipiv
-	5LSnRX6WstvV3fRpYzkhUyfRDItJMhLTfsFD0aSrdT4ixvAtbhX2hPprsG98qy73CDfC8m+emlj
-	7vHZeMFi5NTTHKtGSBPHA2M0NgHaGdVFb+JQulLjWhuCAcpVugtkyIWT1X7JK1zHW4pA1hR0+as
-	P9T4jqgKlTV7cs3zTRondf7SyXgQjfx97mIkR+uCXfzELM+Hv7WUX0bpt1hPdB234URafJjuKTH
-	5l3uVuJyu2UZ9SEcia3aG12bZRcRJZ7ME4owgZiw/b25DQ4QAYnxCDGcGaIqumsxEFuIZ6D2DuX
-	rw0+VkTiDeEvZctzit6cVl51oo/QsAi2lyXvSoAyR8Gh/eR9DD8+kW+b2RDOdaRnVW1oDAhsQxN
-	MXPBwbYYcc05vNj/BGDdO1O1hFH293xl3DQuQc9i9m/MzNx3FcYT4NQdNnCJm8Qo3HdrIiKZMQy
-	MSaLvvFJnsaj285Nzb+YOFj6KPP11gcjj0RHeHgre/IphHwLS2B1S8tEuQwABEokr0=
-X-Received: by 2002:a05:6000:4a0f:b0:485:877d:ea8e with SMTP id ffacd0b85a97d-485c23d101fmr9118139f8f.14.1788998726167;
-        Wed, 09 Sep 2026 17:05:26 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9b49sm39540921f8f.17.2026.09.09.17.05.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 17:05:25 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <a6171a9b-de34-45c2-90a3-4e5bc185e700@gmail.com>
-Date: Thu, 10 Sep 2026 01:05:24 +0100
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IirhRVx6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RB+OvwtSbWDK6ownUi40ZqbQ90Lr/c5jY/KflrmR9zwQtT65+Q8SqwmYm19IMGADhKtbfQvBOqYJXoG+04OAgIT1esyC1WkjU0ctIMVxXxMQxIqgAqGBSw+2AYv06xOeraF1F+vL4lnUeKpYw3Sa49dT7VLoH8Hxxd6AmJmLZ58me+7EJ3RORcV9DRWJa6+prMur5OpdnbloOK1fPAb6aWzpu4O+qssET0OV+e7+9YQz4YdCpWZ0scJfPpiMEWClhyn5lFzuwBhLYuaE3mqc+biLXkwxipEIXmtJW4QLbWVwyzxQE4bcX8qt83ILxkNT4OTvUYLBdJgyR2Cw35hKJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BH3YzE97Zm7u92VJ5Q1s9ykrZiqYU4QuATojHrgLv3c=;
+ b=Pp59e5JLceHL24OMNaMnc80TU/53C7VL5t9J7KVLNNgCPO1tDUEYk+D3eBKwls+id6EkLOpsjZOQb6X38a//0UQXuIgAgW+mZgyLCfwjJ4bmt+oqieyqAvUjwyEVmW3VmKOvDWzyN2U8BPIkFp+QztkCFYhWqljfwNME/y6vLRMS3AIDF6eGhOHrH5YSvAfooxl1dTK+ejVX7VQKgAJp/9OXWSEmui0og4gfmF06p8nMV4qV3UNSPdVCuOuWTbWZooeY3WcBYl00CD3wdn2FksZMgVd2k7ueFK+yQj7/vuzlOKBIm56qFMUSh1oRL0Jozjd+ZNhaDx4ozgfNR3rU5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BH3YzE97Zm7u92VJ5Q1s9ykrZiqYU4QuATojHrgLv3c=;
+ b=IirhRVx6vtE2kbf7+6jmkITWUSkqwib9R45LFoXal5UK2sUeNkVyVTD2oTtJATc5lWVYEgCLcp9O5WMZ80Vyz6Ao8NKZGjoRvadhGLSo7T6GAR+CY0DluO0agxi5rARYt+4Tn9xHPNKXZSIoe5mj2EdwguK2MlYprsfvwvkTvVfhCDocz6+t4pvMRwtQ6nuA0GGDW+bFqZncgzwvl/8uSQWHADpj1GQztLos2oXOvL9iwRwfef19/hJtAdmTx8cR8U4ikMXLtWn0hV2xrc18gQpIJYUmwXMH1JZXqcXpX5FNUJD5yzBla/7/wBjNnEc6Sbu919wB8ME5vx9S0MhZrg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
+ by PH8PR12MB6700.namprd12.prod.outlook.com (2603:10b6:510:1cf::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
+ 2026 00:07:57 +0000
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 00:07:55 +0000
+Message-ID: <58a876a1-7569-49d9-94bb-d090c8acd439@nvidia.com>
+Date: Wed, 9 Sep 2026 17:07:53 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 05/12] cxl: Cache endpoint decoder settings during PCI
+ enumeration
+To: Li Ming <ming.li@zohomail.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Dan Williams <djbw@kernel.org>,
+ Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260902072804.665639-1-smadhavan@nvidia.com>
+ <20260902072804.665639-6-smadhavan@nvidia.com>
+ <08d97766-d62d-4901-a413-705df0020d22@zohomail.com>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <08d97766-d62d-4901-a413-705df0020d22@zohomail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR13CA0150.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::35) To DS7PR12MB9474.namprd12.prod.outlook.com
+ (2603:10b6:8:252::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] kconfig: warn about malformed KCONFIG_PROBABILITY
- values
-To: Dmitrii Tulnov <tulnov.dl@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: Peter Korsgaard <jacmet@uclibc.org>,
- "Yann E. MORIN" <yann.morin.1998@free.fr>, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <ce0786a7-e48d-4d7b-b601-86a598bb03d1@gmail.com>
- <20260908203621.4-1-tulnov.dl@gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260908203621.4-1-tulnov.dl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|PH8PR12MB6700:EE_
+X-MS-Office365-Filtering-Correlation-Id: d99ecd92-2a4f-4ec3-cde7-08df0ecf9071
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|10067099003|6133799003|22082099003|18002099003|4143699003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info:
+	f58lcUUV7LkxSfV1VO/G/nHr51Dic5XYAlkKRgoHVD7mGdtHsxNQ6b34oVoHdLzs5IvISdixaRIXa/aQrV44EeHJJg+zwU6ZtQhWbZ40EgSq5Q8cj/sNw53oX7B4kmQNR+NlVhG8K2sTVHNM/0iOtbIlHZjRqp6ugZ+zWP0vTpKvQ97HBiXxd+xJzZFaJBj9k2ZQzsdTGBwYTBKBDVr+op8El5B8//uv8Fc2cMf7YXaxsBRpe2qjAgsVrQT+RX08cUgTGQFjIXUzYJ3tRVdcsF1rBSKtLvv/f5XE8W78/tTAMOU/EToHDZLXlJHrP/ZadaatsuORh6rb4ijNHKJJaAwjyIkc41qvxB9SIwes56F+Ir1waRK5NIJ2PB2Pv9KA1ZBb6bte7YCKUXFn2Xfl4yHZfEqehAxw8DBsKz8yULuzIGm9V6pX3d3N+UZcSUEbciXv5Hnr0xvEeTqqfxTRUEP8oA0b68hxZ/8XjDgf/s58qILypf9sUVsg7GfdRYlW09o8yj1/xz3S3Q/hQIrEnVg77dU+YRFwYv0HF4D9NeMbplK9nbZIpQRyQtGOzpF42OsTgAm7i22ATTx4DUK0TLupi4k/Pq+JJOYZH4DWCoo5nRVH2A/EUTvEIPh3BFFyg4lCTWoZZ2f1izI2T9PYvS4I4SaXPXZ6aFjr/9ca/caxAU5UwJCaFRvSfU8vRL8wtT2/Dkkmq7MI6yZUrCZSLA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(10067099003)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L25LSThLRFFIbFlKbGRKbDJCdk5BWXlXNFQ2UDRtZ1VuVElLcFZuYWxkdzlS?=
+ =?utf-8?B?bnoxRWdhTHFlOEhEY2huQ0hpSzR0YityMWdzVDZrSEFaQ1haU1l1MHloenJZ?=
+ =?utf-8?B?cW9yd1hkNkpHZzdDZWJKTXh1Sk1CendFcW5TT0xqMWxKUWVobzI4T3htck9Y?=
+ =?utf-8?B?cHJUTVkwUEJvYnd2eHhybnAveE84R3d3RXNJcytIR0RDc2FlZFdYci85cmFN?=
+ =?utf-8?B?d01xYVV2OWgySU45TytaNUxxRzl0UzlYbzZ2SE9FZDV2bnlJSDlwejA2VlVB?=
+ =?utf-8?B?ZUc4TkdINUVzTFhGTGpXQXRnTWY3ZmIzYnhBUDY2S1NQbnNJMnRJU3Z2OVNN?=
+ =?utf-8?B?ZmhGNnpZa2xVRlRHWWJJdE1HUFVNUXhMZkhmZ1pJdjdRbFp1Nm5xSThtQ09i?=
+ =?utf-8?B?T01xMlFaODRDYzdySGtlYjlaTm5ZejdRcWpDUUV3cFNSbGt4cVByUGFMcDBs?=
+ =?utf-8?B?cVZUWDlvZ2tpSzJ5a2hFdTkzQWdGYVdoU0FGUE40Umh3aXBQdSthTXEveUxX?=
+ =?utf-8?B?VGFKcE16NldyS3pzK256WU5NbzAxd0ZxWHc1OXE1ajZza3ZFNVRldTF4MU1M?=
+ =?utf-8?B?YXJYZUtjS0JBVnFWQ0U2MG1PcU1NZ2dQc081b1d1Y0FCUjhzc3QrclpGdVRo?=
+ =?utf-8?B?U2FKVGNpOEpNS0t2Z0FxOGhsTlhyK1lybW1XQXBQcEd5UGw2OU91YVkrL09M?=
+ =?utf-8?B?aTdXbnpjaUUrSUxoaHFLSEJLNURQc0ZiczJmV09QUnBrcmdjaTluQzI4NnZr?=
+ =?utf-8?B?cDV6OHRFNWc5aGdBQmgxczdMNUlPclduM1lqbDVLVzRBL3lKTWdENHErc2dV?=
+ =?utf-8?B?TStsOWNSYzIvTjlKcko1MUFoQ2tHVURlSlZJRVJMNWZZTUFxaXZvMGtTS25W?=
+ =?utf-8?B?MCtDL1FESU0xa1Jkci95Z1ZFSFhrYmN4dUhhdGt5RnJadEZYNHZHR1l3K0JW?=
+ =?utf-8?B?b1ZDMTVHTlBMclBPK1NIN3BCMm1PSDFob2FORFhvZk02TFZxa2x6U25qVEJy?=
+ =?utf-8?B?YTZ6M01zNGlRUXc3Y0ExM2Y5RGNsQy82cWgvTUFyanhsT01OT0VGM3QxMDEr?=
+ =?utf-8?B?MmFiaVZqZFlwTEVGek42SldIR1JKbzhCTWluUEJMRFQvRVNWaHBnR2JMRHVM?=
+ =?utf-8?B?TWk0Q2ZLMXFKbW5kejMveFZyWXVaVi9GOTZyd2d3b3pQRml1bFU4RW1oZmN2?=
+ =?utf-8?B?Vndxc0VHU2JjSlJHVG96T2JLZy90QjVpYzBXdFZ0QjZ1L2ZJQytRYkhxdTZ2?=
+ =?utf-8?B?VXhMM1puWW1ZNi9VM01nRGVKZmMvY3NPZU1HUXduMHd2Rnh5TVNxSjllbFYx?=
+ =?utf-8?B?S3VsL24vWnhtUElIUmFUSHRJSFozektsb1VEbjdzb3owZ3A1YkZCYVAyc2x6?=
+ =?utf-8?B?UFJZdjJXRnozYkI4UUJMa1c1ajRRR0tUeU9JRTBiL2k5S0FhUzJjdSsrMWlC?=
+ =?utf-8?B?WnZYU0t3Vk1YNGx6TWZwVlk3OE9PK3JUdDJ3Z0VoZU1qQ0h2dEhUNS96d3M4?=
+ =?utf-8?B?TUZ1akZVUGI4eFVIdXJBdkRZd3hhNEM2aVR5UlJVa1lrd1hsam5OOERZdlJM?=
+ =?utf-8?B?M0llZHNvRjA4bGxNQlphUjhZLzlaT244U3lQYWY1cnV4WGd6dTRjSUpUTWFS?=
+ =?utf-8?B?cWY2cWxQQ1BFQWtIZG5UeldKbHBrWEsyQUtpTW4ybXRlWWhuTTRaTWhscURX?=
+ =?utf-8?B?blBYT3crZSt5MjhrUlUzb2NyWUdQbmpsQ0gvVWhqOGNzRE5aNkxZTHNWVkc2?=
+ =?utf-8?B?VlNUSGwwRjVNUk1mV1JPME9nUFgyck4rRDR6dlZlL1VDWjlyRFpVWERISGY0?=
+ =?utf-8?B?ZmUwZDhKRFFGYklMcWVFakpYWXVvRUIvOEFrUGZad3BHRmtJZzJKSkhqSVZZ?=
+ =?utf-8?B?c1pKaDNzVzFYTXptOTBCc20wU2NCODNPcGxRQUtvWE5ZMVhFZFI0YVdTSEJI?=
+ =?utf-8?B?NUxORzlhWm1ENDVERXlpN0ZhQVlVV1V3N1Bkd042Q3hNZ205ak9uMTdDZnpJ?=
+ =?utf-8?B?VlBweUpHRE5RNnp0OFVPZXJTQjd6UDN6NlhuQ2Y1MHp1bHA5ZTNpRlN6bFUz?=
+ =?utf-8?B?blVjMUhIM2tQVHJINHNaaStwdFdKY0UvS3c0Ky9mcms3cjk3N0ZVeGl5R2Rv?=
+ =?utf-8?B?NTBneVkyd0hFcjlxWnprb1pmaEUwRjRMemE4NUp4ZGtkQzFCc0NNa3FOR0Zt?=
+ =?utf-8?B?MkZVMjZPak8yNkxMUjdWaG9yMm1xY3FMeGxKcGdTLzAzSEpBYlovc0FsSEls?=
+ =?utf-8?B?ZER2UnE3SUQ5WkJLbG1WbXhCY0VjNUE5UEhsR2xwbHlwMmRXL1hhT1I1UHFw?=
+ =?utf-8?B?QmNPR2U3V2hzdDlURUR2NXVoQ3ZTOEpvaW5ud003L3d0MVN1L243UT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d99ecd92-2a4f-4ec3-cde7-08df0ecf9071
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 00:07:55.6815
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +C0y26rgnW6NnNBRpAfP1jbZC2AS9qTB115i9xzotuWhqNidNQC8DX2D+L03la9idheOCIohww+U85VukAXamQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6700
 
-Hi Dmitrii,
-
-On 9/8/26 21:36, Dmitrii Tulnov wrote:
-> randconfig checks the numeric range of each probability but does not
-> validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
-> accepted as 50:0:0: the '%' is parsed repeatedly as zero. This silently
-> sets both tristate y/m probabilities to zero, reducing the coverage of
-> random configuration builds. Empty fields and extra fields are also
-> accepted.
+On 9/2/26 7:03 AM, Li Ming wrote:
+>> +             return true;
+>> +
+>> +     pci_cxl_hdm_init(pdev);
 > 
-> Warn when the value does not follow the documented decimal format. Keep
-> the existing parsing behavior for now so that users depending on these
-> inputs are not broken; the warning can be promoted to an error later.
-> The documented one-field value 50 gives tristate y/m/n probabilities of
-> 25%/25%/50%. Leading whitespace and signs are accepted by strtol(), but are
-
-This "25:25:50" explanation belongs in the first paragraph where you
-give the background and state that "KCONFIG_PROBABILITY=50% is accepted
-as 50:0:0". Your second paragraph is about what you're changing.
-
-> also warned about because they are outside the documented format.
-> Keep the strtol() result as long until the range check so that narrowing
-> to int cannot turn an out-of-range value into a valid probability.
+> I forgot to ask a question in v10, sorry about that.
 > 
-> Add regression tests for malformed warnings and out-of-range values, the
-> supported probability formats, and the documented empty-value default.
-> 
-> Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
-> Assisted-by: LLM
-> Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
-> ---
-> Changes since v1:
-> - Warn about malformed values while retaining their previous parsing behavior.
-> - Treat leading whitespace and signs as warning-only undocumented input.
-> - Clarify that 50 gives tristate y/m/n probabilities of 25%/25%/50%, and
->   compare it with the equivalent input 50:25:25 across 20 fixed seeds.
-> 
-> Validation on kbuild-next, x86_64, GCC 13.3.0:
-> - make testconfig with HOSTCFLAGS=-Werror: 78 passed. Malformed values now
->   produce warnings while preserving the previous parsing behavior; numeric
->   range errors remain fatal.
-> - ASan/UBSan at -O1, with leak detection disabled: the same 78 tests passed.
-> - The fixed build accepted 916 of 1,635 generated inputs (including
->   warning-only malformed values) and rejected 719 numeric range errors.
->   It matched the original on 380 documented-input comparisons with fixed
->   seeds. Range errors preserved an existing .config, including with
->   KCONFIG_ALLCONFIG set.
-> - make defconfig, allnoconfig, allmodconfig and valid randconfig passed.
->   KCONFIG_PROBABILITY=50% now produces a warning and remains compatible.
-> - No vmlinux build or boot test; this changes the host configuration tool.
->   A 32-bit host build was unavailable because multilib headers were missing.
-> 
->  scripts/kconfig/conf.c                        | 14 +++-
->  .../tests/randconfig_probability/Kconfig      | 12 +++
->  .../tests/randconfig_probability/__init__.py  | 79 +++++++++++++++++++
->  3 files changed, 104 insertions(+), 1 deletion(-)
->  create mode 100644 scripts/kconfig/tests/randconfig_probability/Kconfig
->  create mode 100644 scripts/kconfig/tests/randconfig_probability/__init__.py
-> 
-> diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-> index fe8ba09b0..33e8baf8d 100644
-> --- a/scripts/kconfig/conf.c
-> +++ b/scripts/kconfig/conf.c
-> @@ -186,12 +186,24 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
->  
->  	if (mode == def_random) {
->  		int n, p[3];
-> +		bool warned = false;
->  		char *env = getenv("KCONFIG_PROBABILITY");
->  
->  		n = 0;
->  		while (env && *env) {
->  			char *endp;
-> -			int tmp = strtol(env, &endp, 10);
-> +			long tmp = strtol(env, &endp, 10);
-> +
-> +			if (endp == env || isspace((unsigned char)*env) ||
-> +			    *env == '+' || *env == '-' ||
+> I am wondering why calling pci_cxl_hdm_init() in
+> cxl_pci_hdm_decoder_count_match() is needed. pci_bus_add_device()
+> already does pci_cxl_hdm_init(), so if my understanding is correct,
+> pdev->hdm is not NULL here, so this pci_cxl_hdm_init() here will not do
+> anything except checking if pdev->hdm is NULL. I am not sure if I miss
+> some cases for that.
 
-This condition expression is pretty long. You can simplify this:
+Hi Li Ming!
+Your question is valid. pci_bus_add_device() is the normal 
+initialization path. The later call is a retry for cases where that 
+attempt did not publish pdev->hdm, for example because allocation or 
+MMIO mapping failed at that point.
+If initialization succeeded earlier, the existing cache is detected and 
+the retry returns without rebuilding it. I clarified this behavior in 
+the v12 commit message.
 
-  endp == env || isspace((unsigned char)*env) ||
-  *env == '+' || *env == '-'
-
-into:
-
-  !isdigit((unsigned char)*env)
-
-> +			    (*endp && *endp != ':') ||
-> +			    (*endp == ':' && (!endp[1] || n == 2))) {
-> +				if (!warned) {
-> +					fprintf(stderr,
-> +						"warning: KCONFIG_PROBABILITY has malformed format\n");
-> +					warned = true;
-> +				}
-> +			}
->  
->  			if (tmp >= 0 && tmp <= 100) {
->  				p[n++] = tmp;
-> diff --git a/scripts/kconfig/tests/randconfig_probability/Kconfig b/scripts/kconfig/tests/randconfig_probability/Kconfig
-> new file mode 100644
-> index 000000000..84f4e5fcc
-> --- /dev/null
-> +++ b/scripts/kconfig/tests/randconfig_probability/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config MODULES
-> +	bool
-> +	default y
-> +	modules
-> +
-> +config BOOL
-> +	bool "Bool"
-> +
-> +config TRI
-> +	tristate "Tristate"
-> diff --git a/scripts/kconfig/tests/randconfig_probability/__init__.py b/scripts/kconfig/tests/randconfig_probability/__init__.py
-> new file mode 100644
-> index 000000000..ff1770608
-> --- /dev/null
-> +++ b/scripts/kconfig/tests/randconfig_probability/__init__.py
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +"""Validate KCONFIG_PROBABILITY without changing the supported distributions."""
-> +
-> +import pytest
-> +
-> +
-> +@pytest.mark.parametrize('probability', [
-> +    'invalid', ' ', '50%', '50 ', '0x32', '10 20', '10:20x',
-> +    '10:20:invalid', '10:20:30x',
-> +    ':50', '50:', '10::20', '10:20:', '10:20:30:', '10:20:30:40',
-> +    '+100:0', ' \t100:0', '0: \t100:0',
-> +])
-> +def test_malformed_warns(conf, monkeypatch, probability):
-> +    monkeypatch.setenv('KCONFIG_PROBABILITY', probability)
-
-You should set the environment variables using 'conf._run_conf' instead
-of 'monkeypatch.setenv'.
-
-For an example, see the test in:
-scripts/kconfig/tests/warn_changed_input/
-and how it uses 'extra_env'.
-
-> +
-> +    assert conf.randconfig(seed=0) == 0
-> +    assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
-> +    assert conf.config is not None
-> +
-> +
-> +@pytest.mark.parametrize('probability', [
-> +    '-1', '101', '0:101', '0:0:101', '60:41', '0:60:41',
-> +    '4294967296', '-4294967296',
-> +    '999999999999999999999999', '-999999999999999999999999',
-
-It would be good to include '-0', which is the only negative input
-accepted before this patch.
-
-Also you should include an instance with '+'.
-
-- Julian Braha
+-- 
+Regards,
+Srirangan
