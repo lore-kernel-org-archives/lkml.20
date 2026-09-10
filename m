@@ -1,122 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1726738C2B8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE945A0ABC
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069506; cv=none; b=RTlG3BaLTJt7J2CxtwTS+kqU+2u2l8oXcWm6GEH/dCgYW0IlperzIZXxNLIvgjzr1ZbJCOvB0xxD/DzFEJcKVQcoRqba9Q1PCa5cuX6QV1N4FV2RAk9f6hJPJPCzTc4E8n4pMNml268Iir3AGjD8YJI31axY24ZfPAU025PR2Sk=
+	t=1789069534; cv=none; b=bpJ4wtVPIvj3oSHpmtmA0yRSjTq3y/5LK70NYztLDhRLsBxdrAap0/DhMXLK51rejA9jxSKumbctlvaai5sbBbtR93sQD7n3AEr/we6fTcjESgCrzzCZxEFmzw/mi6ZyMJQC6MDh/TwnjDWl/O1ZWYjBMjmuQXa0jAnrvyczaxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069506; c=relaxed/simple;
-	bh=BROin2cVz4hRIBHaEMllo6eYnTKB/R1C/XpIlxqCDJQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=vEtYiiIEEH7w6LY24tsgEJHt1Xtfcwanv7zqOnXMQdUkZw25O5kaTWAoOSeHK8QEr7QxRowwmIIrXGTgDTHqQMcbOZTI71XlIhD/N315YXWCzu0dUE/pKrbqri1v4gEUr1M4w8DKBIK1/8Hb/tfjkZosduVpKRq/1/fvsrPRpMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxaESLhh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789069534; c=relaxed/simple;
+	bh=QhX+SC0aYPRnajzGgZCAyqZcT5ZumThFwIdRLkM4lt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FSw4cAW4yjL8RgVhTiF4xNWl/XyU1IG3Hu8GDvwWydnA8h0ZtAvPoCO4uIv5uWvntQs3tK6R3yDp0s7OSe76JLmwvhFS8pyMJQv4Wr/3jFrpsRCHaVs6Rm/E6ywjIdTTrD37MSMT231gnCUny/L2WAufDPTUEY55aKnqddqkJdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQ0uh9fu; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxaESLhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD491F00893;
-	Thu, 10 Sep 2026 19:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789069505;
-	bh=3iRs/EjoPnXZlmJC+DNw6FSMcHs3NCeQuUhPy36UbpU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=KxaESLhhLSuPzAd1imy+IlvZDKX3vXC3Bqq5rGY7RWW/aBgZN/Ab8uyg2To/bqQxg
-	 HMOv/mGsSX8vahRoMnE9Celbv/PijMSO8PsZw4gR8cvItV7m6Dm9QoAUZqGKHwLI9F
-	 Bd6Z0KyDLf3I8gOvAGqHfCXe3CFc51jMlxX+usfKuEjJdGBfckCC6axaseoEWfASJp
-	 Pt9rogYAVkigMo5hKJu1CVzqzLBNDNHuGKriU9r4MhyVvruN6cu8fKBdpkAa0ja4hX
-	 H/Vyl983EXrF9M36SVBEscnHVIGsJG0e2n0GeDnSwL6MvTPuqrrrf/74gcKaO4dnkH
-	 rKIEV9pH2t37A==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id A0590F40066;
-	Thu, 10 Sep 2026 15:45:03 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 10 Sep 2026 15:45:03 -0400
-X-ME-Sender: <xms:vwijalmySYNU8vmQjwk2ZUGdYRFzvKDAPoeAZbzdYCQqfr6UNi3RQQ>
-    <xme:vwijarq5N5DF2ZgfP9ed3Vs4pdjjKCkMMkuIQcSH_Gm69yl3XS7bHsCYVcNRzPCYD
-    xyBuihwvUldii1qQCN0xKWYiRc0i8xxgy_KRtbx4qlHRmBJtpxpydHt>
-X-ME-Proxy-Cause: dmFkZTFsSQI6puzxGTFuElVXBVrDBPKpLl68RN/U+uHZUWvFxx/LcQxPM2Osx4tCE80LTc
-    HAeM+eCNOYBHdMl9Ol5Rzt1gE9x2fUwud8WbFoYfnNvglvXCIco2MZQRQ1ZTGWe+HG/KlQ
-    EcsWWOMFVL+BgAWQpE1mqa/FFMgPd0etSh1IoCXjDaHWqNzT5/CYb+hqwT9vFz+RiVU6N8
-    2L2k0SZpvflfQZeNvSYyDWSQy7MkQIXiBs7KtMyVVgOeYZIlQ+/vUK5OND7iHYZW7MExAc
-    1EtqM9pBx2UnFkTGz0p07WmYNzlxbUSRBgOXY90J5QwA8SvF9FU3+hwQo+nZsA3gsxqwBU
-    AaZqolcFzn5i7f0vkRw39tm4Tyft8Tuirx9sskLczdnyKPaq9lEvL/DmLPDwUH4OgO+i+k
-    pvgLKQx53o/WA0q8dw6qkegIN40nPD6WLxOgLCVbgWLy3pXeKcSLDNQZ9OTq6M4sN0qbWa
-    fRVR5aFVg0lBxrhrcmVjTfPioEgwcK2uiKKVOtgd5FVzjqrhbjS9LmZYE6shMoOk1oRlJO
-    NT490Te6GZdSX0Jh/LKAI+DjN3+Pao3OzPbjQPsl7oTOegY+L/7Lm4d+ZAjfvhdWtK+Glm
-    +IZexPy6IwU/y1teXFSlXdnu63LXUPqlNpKkq4lYc2HXE9Lm3xP8Hej7mo0Q
-X-ME-Proxy: <xmx:vwijasZVByI07pUtncwdXrSNj_JcJD2JDX-3rP-Jf7XlZ2255Penmw>
-    <xmx:vwijaowA0jw_7d_BXVyrLL9xO2n1AOik0owjeqQgU8fC_YdCs71uyQ>
-    <xmx:vwijagPDrhYkpMfbqbq5qk6mW25ZAAp0Wuy_ppI59zNMUa4qtHUOzg>
-    <xmx:vwijau5wWBDjoYnIVOpnv-AnxWfL3EFVsSMLzxTlLymk9JKlHHUBzA>
-    <xmx:vwijaufyKwBFOOhPRiPGpsV-NSwCSiNlOBqeL1y8jvwLlTPak60EKXiI>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 7D4767811F0; Thu, 10 Sep 2026 15:45:03 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQ0uh9fu"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91034716d1dso814376d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:45:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789069530; x=1789674330; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A/3ZGdaWGihAcbh8PThygY3ZNQwZqvA2jilmZZCQz4o=;
+        b=eQ0uh9fuf2gq46Jh/5Ao8dtwSXCVkVWM/yBJdwzLyvp2bTmGEEvIjYh3Pn5Qh40nYl
+         hZ9jHtsgpNA0gZyYeQMUGfdWINb88JnIpTanKK6hNdXKcIdlv46qtNrLU5J+xD4t0vCz
+         MqlDPXr49SttkxfiDsUsQ8uFLfWuliDO5PUfgLDN6TjlKgkK2TWTnVZZXHdQgG2g34ud
+         KAI6m/TKMgXrlcNKkZqWFzJK02IqDE39VqENuAM48stJED54wVgZ5M9pvZJ84MDNGhQf
+         rLsKbbtFOebezTcmITgtXF4RG6npZcQKZcpg85wfhpnXY5mmwfjf7nUtrvPTKE6rhaYO
+         LPwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789069530; x=1789674330;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A/3ZGdaWGihAcbh8PThygY3ZNQwZqvA2jilmZZCQz4o=;
+        b=a+swpph8atxCIXzqoSsohOttDcBZ2xTySgvKWWaAVGxqCbYG14BJyuPiuUtJXjQUEt
+         ppPCh9/JE0SIwnTXGkzSD3OF2uCAeaYK8Z2IMIhk9oSLBSvfHPTIPEePJHOXsfCRJN5l
+         xKuHBJp95qQY6K/fXGELD51S2By1aNOGA/Qo25gxDOA2R2RUboWHE2ADndPZYid0ofc0
+         X4zkrBm8zxmeZBC+t7LURqM1Nyf7d+yJCYzLaC7P2neCm4o0yhMt8gRjD8YhSjWusU6c
+         6l6l+eZI93Hgcn4Wnv78DJoed3SkqynQHWLeKFbD+CO7tBeEpjXHjvR5rA5CsIwTCB4F
+         2NdA==
+X-Forwarded-Encrypted: i=1; AKwUvBwDll5sZPqT3O1zwTeD5LCuAMNhLNMk/cQV9g/5DBdqmRr5qew6IntP5rHgVif94tdhZeehEYDTjn/BYdw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTJBLiAOkz531LaMeu4M30+PGzdOdQCfG1J7mpNhQSaZ/6Dg7b
+	pY9xwTmiT7fzka3nqEh8GJrPvW2Mq0T84grfJDxwhMVF9a3CvWDpinE=
+X-Gm-Gg: AYBFou0eAxvDh5f8ssilDCx1Gncy4dCbZGzX7vPSs9rLGhq0wCkLOgTLn7HJF+yu70U
+	z76KyWErZ4XPSa5XuGhEpuTEvJ2fXpYfnRcs/ju7aZh/6UvbUXfq0n5Ga8lcuvvXgGJLIu4tf0O
+	s+fspDp20DJh16dGpyIH/to9jNnDsk3z3QCq3shenrJx+1bYnJUUa/hryNd/YxDtRs7v7QLUNOt
+	LZvCxXeUi8hT30LDMoPVu5yWhTAmCxGPqdyCz2DAS76SLLkCsPqS38ghv76SL6yDQTnatcY0A+R
+	QG4YS0CAQdju0ikB8V8Z/+X4ElMu+EYKm13WkkPpU43qmenNJcu5bLE2DHkKKH8lKFefC9NVPH1
+	jM85rmUv950fXIdnjHs09cRrbpPVwWZZcHe4pwcdIFGJIWuIlySSOLmksfGL3M7E8FRAVYmUVdS
+	/sfV6MaRHw74mYPRUATkusBaBzmC3APN0hk3ZMvIVBqQqpx95Q9yLkgIG6DDx4Qj2i5LtHGC+kb
+	RjPlOC+iIeWgTE2YqbZmtJjS9KVmCeeRpfptf/0CkevJWmBllVvK3IHUj73hSq+b4CJNi5OHv4f
+	xBajB97/6WLG8SZXVv3/lUqIuLTzGRSGsA==
+X-Received: by 2002:a05:6214:3218:b0:910:42f7:a111 with SMTP id 6a1803df08f44-9121208900emr5796326d6.15.1789069530089;
+        Thu, 10 Sep 2026 12:45:30 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d89f9sm3530526d6.47.2026.09.10.12.45.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 12:45:29 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org
+Cc: linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] leds: ktd2692: Pass context to regulator cleanup
+Date: Thu, 10 Sep 2026 15:45:25 -0400
+Message-ID: <20260910194525.99654-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AUcfVFBzQN6c
-Date: Thu, 10 Sep 2026 15:44:41 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Jeff Layton" <jlayton@kernel.org>
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- "Donald Hunter" <donald.hunter@gmail.com>, "Shuah Khan" <shuah@kernel.org>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org
-Message-Id: <937d96b5-0163-40a0-af2e-76c0ce9c0834@slotpi15m67>
-In-Reply-To: <20260910-nfsd-norpcb-v1-3-b4d5182d634c@kernel.org>
-References: <20260910-nfsd-norpcb-v1-0-b4d5182d634c@kernel.org>
- <20260910-nfsd-norpcb-v1-3-b4d5182d634c@kernel.org>
-Subject: Re: [PATCH 3/5] NFSD: honour the userspace-rpcbind flag in listener_set
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026, Jeff Layton wrote:
+regulator_disable_action() retrieves the driver context from device
+driver data.  However, ktd2692_parse_dt() registers the action before
+ktd2692_probe() stores the context with platform_set_drvdata().
 
-> --- a/fs/nfsd/nfsctl.c
-> +++ b/fs/nfsd/nfsctl.c
-> @@ -2111,15 +2112,25 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
-> +	userspace_rpcbind = nla_get_flag(info->attrs[NFSD_A_SERVER_SOCK_USERSPACE_RPCBIND]);
-> +
->  	mutex_lock(&nfsd_mutex);
->  
-> -	err = nfsd_create_serv(net);
-> +	nn = net_generic(net, nfsd_net_id);
-> +
-> +	if (nn->nfsd_serv && nn->nfsd_serv->sv_no_rpcbind != userspace_rpcbind) {
-> +		NL_SET_ERR_MSG(info->extack,
-> +			       "cannot change rpcbind ownership while a server exists");
-> +		mutex_unlock(&nfsd_mutex);
-> +		return -EBUSY;
-> +	}
-> +
-> +	err = nfsd_create_serv(net, userspace_rpcbind);
+If devm_add_action_or_reset() cannot allocate the action, it invokes the
+callback immediately.  A later probe failure also invokes it during
+managed-resource unwinding.  Both paths dereference a NULL context.
 
-This ownership check lives only in the netlink path, so it is
-enforced in one direction. Consider: the serv is created here with
-userspace-rpcbind, then an old rpc.nfsd writes a socket fd to
-/proc/fs/nfsd/portlist. __write_ports_addfd() calls
-nfsd_create_serv(net, false), which returns 0 at the existing
-"if (nn->nfsd_serv) return 0;" without looking at the flag.
-svc_addsock() then goes through svc_setup_socket() with pmap_register
-set, and svc_register() returns 0 early because sv_no_rpcbind is set.
-The write succeeds, and the new listener is neither registered by the
-kernel nor reported to the userspace owner. The reverse order gets
--EBUSY from the check above.
+Pass the already allocated context directly to the action and retain the
+device pointer in it for error reporting.  The context is allocated before
+the action is registered, so reverse-order devres unwinding keeps it alive
+through the callback.
 
-Moving the mismatch test into nfsd_create_serv(), where every creator
-already funnels, would make both paths agree. The extack message would
-need a different home, but the errno is the important part.
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
+Fixes: ee78b9360e14 ("leds: ktd2692: Fix an error handling path")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/leds/flash/leds-ktd2692.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/leds/flash/leds-ktd2692.c b/drivers/leds/flash/leds-ktd2692.c
+index 22fbfccd4873549baf390127d2f7e9aeb9c45465..43d4d55503ab50c6e31b8e83eed430cc33e014e3 100644
+--- a/drivers/leds/flash/leds-ktd2692.c
++++ b/drivers/leds/flash/leds-ktd2692.c
+@@ -69,6 +69,8 @@ static const struct expresswire_timing ktd2692_timing = {
+ };
+ 
+ struct ktd2692_context {
++	struct device *dev;
++
+ 	/* Common ExpressWire properties (ctrl GPIO and timing) */
+ 	struct expresswire_common_props props;
+ 
+@@ -196,13 +198,12 @@ static void ktd2692_setup(struct ktd2692_context *led)
+ 
+ static void regulator_disable_action(void *_data)
+ {
+-	struct device *dev = _data;
+-	struct ktd2692_context *led = dev_get_drvdata(dev);
++	struct ktd2692_context *led = _data;
+ 	int ret;
+ 
+ 	ret = regulator_disable(led->regulator);
+ 	if (ret)
+-		dev_err(dev, "Failed to disable supply: %d\n", ret);
++		dev_err(led->dev, "Failed to disable supply: %d\n", ret);
+ }
+ 
+ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
+@@ -233,7 +234,7 @@ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
+ 			dev_err(dev, "Failed to enable supply: %d\n", ret);
+ 		} else {
+ 			ret = devm_add_action_or_reset(dev,
+-						regulator_disable_action, dev);
++						regulator_disable_action, led);
+ 			if (ret)
+ 				return ret;
+ 		}
+@@ -290,6 +291,7 @@ static int ktd2692_probe(struct platform_device *pdev)
+ 	if (!led)
+ 		return -ENOMEM;
+ 
++	led->dev = &pdev->dev;
+ 	fled_cdev = &led->fled_cdev;
+ 	led_cdev = &fled_cdev->led_cdev;
+ 	led->props.timing = ktd2692_timing;
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.50.1
