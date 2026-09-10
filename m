@@ -1,322 +1,186 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F09348C50
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068716; cv=pass; b=HbIbfr/9YhEGbw1B49WA3gpQDKIPwaJGGxFphaGM4xNhIT6+Fn4cYnxjjPkNAMrj5BlrPlHmpdmTztVYwBZANlmct0xbVw5vT3jutHZ9Pc6k4LjSgXUbi0+c6+l8XAY5WuCStXS3iKPQJjaf8HjRGvM/7ICiQv2YQwykgnKdMiw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068716; c=relaxed/simple;
-	bh=BCOD+UDwEu/EcPHRC55YdZVtEVa30m3T52Lv8r6g084=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fRwx9MJlo/U8V9LR8FsHqzF32SWaEOoZ1uLlkg7Iils9QAZoRZ30weuQyKSGT6mhasLYYEAFxKH9JHrUYGtFKbuVhLyoFbOEi0llwRUCeSjW0Lme6bMxrlKE6FxtyfpPQrgzqK/iP+pL02g1CW/z534d/rZcKNe/43mJPgsZgzo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PB0mHArs; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38026598BF1
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789068721; cv=none; b=Yes1FDPbk9z8uftujZ9DdIEV+tXH9yXcH1kF91hN2ewiT88XAqmyao2pC7o3D1W9HGYOyu9D5Q2M7Yfb3rrrIuETX0X2XnN+g3mpzmITPAhl7GjMhMvWzNMNn6GwCXKjQyT/bgK9+KnZeaAm1tbnd4/Ey2mN21HJWZKVNhDjQEI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789068721; c=relaxed/simple;
+	bh=RVscuzOwWBLYOqPI0VAq65UPbl5BzTBhY3MPWSu7TYU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mS1Eo53mWlPhEAt4RPt3Vyc1PfVu+9lvlOuc52BZO8kdCJ6ewsrBBI7IgSvKRf2HRfXw1kc+U0vW36eBaXfMSe6cu2WNgHs2WQL5L7H6fVHSPih9n5z3PuBblqqlEXc8BMe4Tb9YXmBAiWqJjzGmV7VpzZweU0R1w486qI4Q7bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RosHvJK9; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PB0mHArs"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c262204cc80so21530366b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:31:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789068708; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J7En+sxM2utwIPbsjLI0xU+hoia6k6rkpFgXpy5v0VKDyf0adfCTXN3+D3Ta7/I4nM
-         /31mfuiswzkck54aBy4aUZqv9KatoGrw+y8B/pViuqaBtXpcymTubX+6qOLq2fT37CWH
-         09A++sxDgRXSSaqLdChOIE4dgohTOwzpfJdxHgZJ1+nk5m06EnRQ5/ORQK1rkwQe95uE
-         +dRxVXkGmjoAfdX+eGkf/xqmYixSL2WklwWtthVmssa7WYHAIxZKvtUTkBeh5KQI17uQ
-         kvh1nA29zxOdN4q9aMl6RM+Qzdjaaeay7+wqobw2Uunxs3cl6r4pQhG6rqByW13J+fQC
-         8f7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rUpE4/08QQtcu5rn/e3HjQ4bcrKGxxgjRXtpMtuV3So=;
-        fh=YvR3ha5WujmxxWQnhK6VIu4Y9Y67I0Mf2OFRl2AFXIw=;
-        b=mMj9xrCYi4ulsV2CnrROsdpS8K0WVDfEKSIfXHkt5rCb/ilh8oMRXxJApNHkWiueEN
-         EorTdWe459LTL20EUQpaoNHVooqRU7KAuMT7dohNUwiMW8RF1mR0d7bJie6Prci9jvmK
-         fSBxM/LRHWIv8JrftXG5gpBYa4GZejfEAXzyJAjZdhQWlAhKKjIJ2eUeLs8KJv6avBIi
-         LAM+3iabu/3WQQA/NSgP3i0o+g6hNYJClxgaLGS98J0mwzuE0vD8Ua904anvkqkA13PJ
-         650qf9YcoPkbipaeGQSfWQWkEw+rNyAyRXqcFg1zXdBccnK33tisabHyZtNR4QystmCU
-         dF/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RosHvJK9"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so70635b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:31:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789068708; x=1789673508; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rUpE4/08QQtcu5rn/e3HjQ4bcrKGxxgjRXtpMtuV3So=;
-        b=PB0mHArsRH34V11B0DZUd25e8Wo7c02anj9VYaYy02s44WxqGZREV7C/qD2fkeVoWd
-         KueBTjcnbTuodMCo8kkldRT3CKPylQhE617rzRiSiUHyoTGTf/vlXk5lhfAVh/DVvc7/
-         tbAOFnP1W8mb/KlR82eAU2HjI0UlD48nEq2v7W0QmWxdEAi5LtbOMKd0dQq995jn+rFZ
-         iOpktpuoA/9YRQTONP5MhEXmCsaJu9ZqeuEuwOdItE+J/H0N4/zBXg6nAPHGewmvK37c
-         6r7y6usGEhXusRjFmIbXJWhmSHBBqhUOQOAKoTXQ5srXkb0yzOZ/l2CyG3qwQ7LWHuy6
-         OSYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068708; x=1789673508;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789068712; x=1789673512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rUpE4/08QQtcu5rn/e3HjQ4bcrKGxxgjRXtpMtuV3So=;
-        b=CtRB07XYJqxMI5Y7LVGZyzF5ovuW933yOYno+Op4FQ6Mg2JKIUtHlRf3ZjbUGc7w+8
-         K5aR48PVclNo8USNldvrtQtiIqutH6E3PgzJf745/MtE5OnlA994nZ+PRM2m4HMqb1Jv
-         ixMAIkuKkOtlq/RsLxuvaBiaNMbZihIR5BM/t84HNh0EdsutV67w1QSCYWpuonDM0PfR
-         I3w0mISMJcWG3LOz5xf9sjOfXoILnJCLG+yB7qGc0tO7fZYcuNELwhiRBr8UpT/mpmUv
-         cHuwqCjSmtDAff0usSz3k7Pd6B69abtKCpmm8mfRilUGnE6f2SCqvOIydsPLnNoy4MJn
-         3afQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEqE3Cl6/SqXlwqT96MZD8NJUbpL220E3ssXTlzUlSP9gL6EBL+wzSX9f+czEvZmX0YsrJ4MITRR9qPds=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVDiKCYoKZmNtwZxVgnYf5xtBELZ86QlFMtppsXpIjAFLB+LQZ
-	lshVrUUJ+WcTkLhGA0rQVmBp3CvhTfn2e/PGYioAD70ybm5BfKf4PYVAh7mzu6a2+z2OXjONFD7
-	8uHJqaGrjivAOw8Ga2aCqqDm89AJG1X4=
-X-Gm-Gg: AYBFou17lgPFTsmNiqCzOKdTPfA7DMyewnrwgdw3b+pMssvus+2fV5BkGcyCXvrSeq5
-	UKMl5R7qHqewMSGECPwMWW4UtFO3VQsoeGJznsZFleD06zAimtPOX8TtnNzyWOeNjYZytPuIst2
-	65KYY/OJsodVjBch9cIlQzI2OGvePnH3/ALZ2mfdDhAGwIDIsJd4Ih2W1aLnrLk/0SDQ1/yLEbW
-	Gy5GNySKKj6mqJVk76agc4CkA0QpqvohjJ/Ze8AaB0/LkUlwj3vwMwI7E+JBQv8pmDGFKP4VGUS
-	Ylyc/01q+wrk78miHHvfxdMzRiFDDKOyTPMogX1lR42cr1dPIba8DB7JfzXTVvr/HBlVuWTH3Sv
-	xD5L7imqx3SrK4DUvUOlewopW4He0rvQstTKHimFZFawTydMyWG9tUv3Uo5stOV+/uQR5XlTjYl
-	wL0lcju3pnh7fJX1k4Sbvu2DPHNELdEhoRulyZPmJebv1UucWKY+Mex1Bk3Suj5EgQrw==
-X-Received: by 2002:a17:907:6e8e:b0:c29:57c4:cb92 with SMTP id
- a640c23a62f3a-c29661bfe7dmr10767666b.0.1789068708317; Thu, 10 Sep 2026
- 12:31:48 -0700 (PDT)
+        bh=gEdV5Xs8ER2iH6ECRgXfLV1Fk4a++1FtqWHfmbg9CiM=;
+        b=RosHvJK9DLK0FlPnzknkm7VlHCbjT6fsYBPIZKcvabHTFuvKkmzNvbSYKIfikaqHtc
+         7fab1b9E0d3x7/+7bqzQqEkKybK8tvuS1RJM5+ez9HQ3ByWOxS1UTWx4CGZ428GgZPWL
+         mPBxWuS5QN4kF+LEajLA2p6ch7yrI86NwVxJoWW+3acLARqivoKzVNc8A3cPUa67JG8W
+         y+Y81VXs5tzI1Kr5aXGO2kiOfkfJe0LFJB/lG0LnzmLD0ihHV/iUTViFOXYhY1IO0KEJ
+         VwNx2nrsNwn+8yTFMvNE3/ZtaHG/9WrfezbUsXaTPuMioWUfYeRrrG9aOn/IRs0A2SMA
+         ppGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789068712; x=1789673512;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gEdV5Xs8ER2iH6ECRgXfLV1Fk4a++1FtqWHfmbg9CiM=;
+        b=G8+YAtwVb0TE8ISKHW69i61pD28uZ4Zx5LhzwlK1LLg1c5O32IvZxVvfhYOPmUzI6A
+         x7AeEjdQE5EC3YX7/Ix8/pFiSvF82cPnlzP5uEGkVQIdBfzTdcoCI4WmvNIKGquEp7Vy
+         wRq52CfUTjbMNF0xEbfE6DFe6Xw9IDuLx215vVvuTZaC4+Nv92nkaCfimLIo6nMo9bR4
+         aGLasnJEiMTBoIKwIlRxUx2iFW526fhCI3M55P9nxWm/E/NzvXeeneHxS9dQEjOrn0qW
+         UQZUCed/+d9pp7tlKaFj3zWP9Gkj4Tt21cWPwkXE/ah5f4/Wo9zx+TCVwhKTy/D2UzR5
+         e6Gg==
+X-Forwarded-Encrypted: i=1; AKwUvBz+hUAbkU/4CNPh9gHejervoYp/NXmYkrdMwIhZU47Sva+oekKX8e19Ug/b4SVSIw7QCAFXTa8hoHsdnRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mX24HoZ3s/KQrHTRoeo49VrB0ns6X8+Tmj7/So/weZ9BjAl4Av
+	xtQEja/XTAdTtbnuIoFB/ioARsxkBbiS/56g01RT3YyZi4hsx+okUcoL
+X-Gm-Gg: AYBFou2iPvuj5uN9qzcPrw1QYmgaLHWHUCASXN14bWcbngybWAg741p9iCeHL1ODOWP
+	ClMMNws2N8IivLRAjaptWDET/9VScV7wTN9LxVM/pbjbnv000pENSaRU7Tdazx5j9HvVC2wADBr
+	nI188iFUlxdJ+6WSJZqGrSTt3UvIqNLGM+vFKCPu4iu0wv6l0flnLmU8iE9J9UwMq1M8rLEkRd2
+	CdAcuXYkt5MCQoHKePTnyz9iOFySIM3xyM/qsy9+sbnOF8EZLazhhvWCR2mSZsfvr5GKajEGLzW
+	2VE069JEJH0MWDaVL0rmtUT8OwcYldb1pXgTm8alwF/UHTvScDigBum+PlWEvjVG5GoyN959E/u
+	kDijhtltaR0gFdEd8YR7a/M/tLHB5wY9o33+NoPmuOYKdsNOdTkp6oMGS4NItT2k2G3TmNS52hV
+	A/kbfqOY/e3rGio6mbxWxQ+ghBhz6344LXkVK8ISvl6COF7NuiDLY43VzL3nHWAd3szEO8bt1fo
+	9aKOg0NzyBMJryW6CwnACl1hNNOZKmZXxl8ej3LgLcDpi6U
+X-Received: by 2002:a05:6a00:ba8d:b0:857:72ba:ff0f with SMTP id d2e1a72fcca58-86b34efaaebmr529838b3a.23.1789068712105;
+        Thu, 10 Sep 2026 12:31:52 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a5c052csm79353b3a.58.2026.09.10.12.31.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 12:31:51 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <c5fd98fc-2cfb-434a-8a81-3bf589049670@roeck-us.net>
+Date: Thu, 10 Sep 2026 12:31:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820002816.17382-1-rosenp@gmail.com> <aqK0A4TFCM-laOab@parshuram>
-In-Reply-To: <aqK0A4TFCM-laOab@parshuram>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Thu, 10 Sep 2026 12:31:36 -0700
-X-Gm-Features: AcwNN1Uq4fZ-T-KVq39eU8J9hv5nIL5nrMVLIWG1qvJ4Nk2oF1d61Ro6RMGK7r4
-Message-ID: <CAKxU2N_x1cJ2Am1UyBK--Jj+AP85jfkUv7J1_LHLEnmOpgajPQ@mail.gmail.com>
-Subject: Re: [PATCH] dmaengine: fsl_raid: fix sparse warnings
-To: Vinod Koul <vkoul@kernel.org>
-Cc: dmaengine@vger.kernel.org, Frank Li <Frank.Li@kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+To: Arnd Bergmann <arnd@arndb.de>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Arnd Bergmann <arnd@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Helge Deller <deller@gmx.de>, devicetree@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, Jonathan Cameron <jic23@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, mfd@lists.linux.dev,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ patches@opensource.cirrus.com, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>
+References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+ <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+ <7a92a79e-e22a-4e34-9f11-4086b88f62cc@roeck-us.net>
+ <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 6:43=E2=80=AFAM Vinod Koul <vkoul@kernel.org> wrote=
-:
->
-> On 19-08-26, 17:28, Rosen Penev wrote:
-> > The register maps in fsl_raid.h annotate every field as __be32, but
-> > they are accessed only through ioread32be()/iowrite32be(), which
-> > already perform the byte swap and take plain u32 __iomem pointers.
-> > The __be32 annotation therefore makes sparse reject each access:
-> >
-> >   drivers/dma/fsl_raid.c:116:17: sparse: incorrect type in argument 1
-> >       (different base types) ... got restricted __be32 [noderef] __iome=
-m *
-> >
-> > Drop __be32 from struct fsl_re_ctrl and struct fsl_re_chan_cfg; the
-> > descriptor/CDB structures written via cpu_to_be32() keep their
-> > annotations.
-> >
-> > Also fix the remaining sparse warnings in fsl_raid.c:
-> >
-> >   - compare the desc pointer with !desc instead of desc <=3D 0 in the
-> >     three prep functions,
-> >   - byte swap cdb32 with cpu_to_be32() when programming the XOR, PQ
-> >     and MOVE command descriptor blocks; the plain u32 assignment is
-> >     broken on little-endian hosts.
->
-> Can you split the change per warning type? Also, the subject should
-> describe the change and fix something.
-Would it make sense to do that for a single report though?
->
->
-> >
-> > No warnings remain.
-> >
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202608200637.ro1CqMxi-lkp=
-@intel.com/
-> > Fixes: 68b7fbc23529 ("dma: fsl_raid: keep MMIO bases as void __iomem an=
-d cast at access")
-> > Assisted-by: opencode:deepseek-v4-flash-free
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >  drivers/dma/fsl_raid.c | 12 +++++-----
-> >  drivers/dma/fsl_raid.h | 54 +++++++++++++++++++++---------------------
-> >  2 files changed, 33 insertions(+), 33 deletions(-)
-> >
-> > diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-> > index a35ddc1297ce..524a7329c3c4 100644
-> > --- a/drivers/dma/fsl_raid.c
-> > +++ b/drivers/dma/fsl_raid.c
-> > @@ -350,7 +350,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
-dma_genq(
-> >       }
-> >
-> >       desc =3D fsl_re_chan_alloc_desc(re_chan, flags);
-> > -     if (desc <=3D 0)
-> > +     if (!desc)
-> >               return NULL;
-> >
-> >       if (scf && (flags & DMA_PREP_CONTINUE)) {
-> > @@ -365,7 +365,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
-dma_genq(
-> >       cdb |=3D FSL_RE_INTR_ON_ERROR << FSL_RE_CDB_ERROR_SHIFT;
-> >       cdb |=3D FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
-> >       xor =3D desc->cdb_addr;
-> > -     xor->cdb32 =3D cdb;
-> > +     xor->cdb32 =3D cpu_to_be32(cdb);
-> >
-> >       if (scf) {
-> >               /* compute q =3D src0*coef0^src1*coef1^..., * is GF(8) mu=
-lt */
-> > @@ -474,7 +474,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
-dma_pq(
-> >               src_cnt +=3D 3;
-> >
-> >       desc =3D fsl_re_chan_alloc_desc(re_chan, flags);
-> > -     if (desc <=3D 0)
-> > +     if (!desc)
-> >               return NULL;
-> >
-> >       /* Filling GenQQ CDB */
-> > @@ -485,7 +485,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
-dma_pq(
-> >       cdb |=3D FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
-> >
-> >       pq =3D desc->cdb_addr;
-> > -     pq->cdb32 =3D cdb;
-> > +     pq->cdb32 =3D cpu_to_be32(cdb);
-> >
-> >       p =3D pq->gfm_q1;
-> >       /* Init gfm_q1[] */
-> > @@ -558,7 +558,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
-dma_memcpy(
-> >       }
-> >
-> >       desc =3D fsl_re_chan_alloc_desc(re_chan, flags);
-> > -     if (desc <=3D 0)
-> > +     if (!desc)
-> >               return NULL;
-> >
-> >       /* Filling move CDB */
-> > @@ -568,7 +568,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
-dma_memcpy(
-> >       cdb |=3D FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
-> >
-> >       move =3D desc->cdb_addr;
-> > -     move->cdb32 =3D cdb;
-> > +     move->cdb32 =3D cpu_to_be32(cdb);
-> >
-> >       /* Filling frame 0 of CFD with move CDB */
-> >       cf =3D desc->cf_addr;
-> > diff --git a/drivers/dma/fsl_raid.h b/drivers/dma/fsl_raid.h
-> > index 748047996bbc..1b6f6b82c7d3 100644
-> > --- a/drivers/dma/fsl_raid.h
-> > +++ b/drivers/dma/fsl_raid.h
-> > @@ -109,59 +109,59 @@
-> >
-> >  struct fsl_re_ctrl {
-> >       /* General Configuration Registers */
-> > -     __be32 global_config;   /* Global Configuration Register */
-> > +     u32 global_config;      /* Global Configuration Register */
-> >       u8     rsvd1[4];
-> > -     __be32 galois_field_config; /* Galois Field Configuration Registe=
-r */
-> > +     u32 galois_field_config; /* Galois Field Configuration Register *=
-/
-> >       u8     rsvd2[4];
-> > -     __be32 jq_wrr_config;   /* WRR Configuration register */
-> > +     u32 jq_wrr_config;      /* WRR Configuration register */
-> >       u8     rsvd3[4];
-> > -     __be32 crc_config;      /* CRC Configuration register */
-> > +     u32 crc_config;         /* CRC Configuration register */
-> >       u8     rsvd4[228];
-> > -     __be32 system_reset;    /* System Reset Register */
-> > +     u32 system_reset;       /* System Reset Register */
-> >       u8     rsvd5[252];
-> > -     __be32 global_status;   /* Global Status Register */
-> > +     u32 global_status;      /* Global Status Register */
-> >       u8     rsvd6[832];
-> > -     __be32 re_liodn_base;   /* LIODN Base Register */
-> > +     u32 re_liodn_base;      /* LIODN Base Register */
-> >       u8     rsvd7[1712];
-> > -     __be32 re_version_id;   /* Version ID register of RE */
-> > -     __be32 re_version_id_2; /* Version ID 2 register of RE */
-> > +     u32 re_version_id;      /* Version ID register of RE */
-> > +     u32 re_version_id_2;    /* Version ID 2 register of RE */
-> >       u8     rsvd8[512];
-> > -     __be32 host_config;     /* Host I/F Configuration Register */
-> > +     u32 host_config;        /* Host I/F Configuration Register */
-> >  };
-> >
-> >  struct fsl_re_chan_cfg {
-> >       /* Registers for JR interface */
-> > -     __be32 jr_config_0;     /* Job Queue Configuration 0 Register */
-> > -     __be32 jr_config_1;     /* Job Queue Configuration 1 Register */
-> > -     __be32 jr_interrupt_status; /* Job Queue Interrupt Status Registe=
-r */
-> > +     u32 jr_config_0;        /* Job Queue Configuration 0 Register */
-> > +     u32 jr_config_1;        /* Job Queue Configuration 1 Register */
-> > +     u32 jr_interrupt_status; /* Job Queue Interrupt Status Register *=
-/
-> >       u8     rsvd1[4];
-> > -     __be32 jr_command;      /* Job Queue Command Register */
-> > +     u32 jr_command;         /* Job Queue Command Register */
-> >       u8     rsvd2[4];
-> > -     __be32 jr_status;       /* Job Queue Status Register */
-> > +     u32 jr_status;          /* Job Queue Status Register */
-> >       u8     rsvd3[228];
-> >
-> >       /* Input Ring */
-> > -     __be32 inbring_base_h;  /* Inbound Ring Base Address Register - H=
-igh */
-> > -     __be32 inbring_base_l;  /* Inbound Ring Base Address Register - L=
-ow */
-> > -     __be32 inbring_size;    /* Inbound Ring Size Register */
-> > +     u32 inbring_base_h;     /* Inbound Ring Base Address Register - H=
-igh */
-> > +     u32 inbring_base_l;     /* Inbound Ring Base Address Register - L=
-ow */
-> > +     u32 inbring_size;       /* Inbound Ring Size Register */
-> >       u8     rsvd4[4];
-> > -     __be32 inbring_slot_avail; /* Inbound Ring Slot Available Registe=
-r */
-> > +     u32 inbring_slot_avail; /* Inbound Ring Slot Available Register *=
-/
-> >       u8     rsvd5[4];
-> > -     __be32 inbring_add_job; /* Inbound Ring Add Job Register */
-> > +     u32 inbring_add_job;    /* Inbound Ring Add Job Register */
-> >       u8     rsvd6[4];
-> > -     __be32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Registe=
-r */
-> > +     u32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Register *=
-/
-> >       u8     rsvd7[220];
-> >
-> >       /* Output Ring */
-> > -     __be32 oubring_base_h;  /* Outbound Ring Base Address Register - =
-High */
-> > -     __be32 oubring_base_l;  /* Outbound Ring Base Address Register - =
-Low */
-> > -     __be32 oubring_size;    /* Outbound Ring Size Register */
-> > +     u32 oubring_base_h;     /* Outbound Ring Base Address Register - =
-High */
-> > +     u32 oubring_base_l;     /* Outbound Ring Base Address Register - =
-Low */
-> > +     u32 oubring_size;       /* Outbound Ring Size Register */
-> >       u8     rsvd8[4];
-> > -     __be32 oubring_job_rmvd; /* Outbound Ring Job Removed Register */
-> > +     u32 oubring_job_rmvd;   /* Outbound Ring Job Removed Register */
-> >       u8     rsvd9[4];
-> > -     __be32 oubring_slot_full; /* Outbound Ring Slot Full Register */
-> > +     u32 oubring_slot_full;  /* Outbound Ring Slot Full Register */
-> >       u8     rsvd10[4];
-> > -     __be32 oubring_prdcr_indx; /* Outbound Ring Producer Index */
-> > +     u32 oubring_prdcr_indx; /* Outbound Ring Producer Index */
-> >  };
-> >
-> >  /*
-> > --
-> > 2.55.0
-> >
->
-> --
-> ~Vinod
+On 9/10/26 12:15, Arnd Bergmann wrote:
+> On Thu, Sep 10, 2026, at 20:38, Guenter Roeck wrote:
+>>>
+>> ...
+>>> drivers/hwmon/ds620.c
+>>> drivers/hwmon/f75375s.c
+>>> drivers/hwmon/max1111.c
+>>> drivers/hwmon/max197.c
+>>
+>> I missed the rationale for removing those, but then I don't really
+>> mind either. I guess we'll hear if someone still uses any of those
+>> drivers/chips.
+> 
+> None of these have devicetree support, and they are not usable
+> with any of the remaining board files.
+> 
+>  From what I found:
+> 
+> - da620 apparently never had any users upstream, though it does
+>    not require platform data and is theoretically usable with
+>    an external dtb
+> - f75375s was only used on iop32x (long gone)
+> - max197 was used on x86/elan/ts5500, which is still in the
+>    tree but cannot be enabled anymore because it is a 486 class SoC.
+>    I have sent a separate patch to remove that platform
+> - max1111 was used on spitz, which is on its way out for 7.4.
+> 
+
+As I said, I don't have any issues with removing them. Note though
+that the ds620 driver (like many other hwmon drivers) does not require
+devicetree or platform data to work just fine.
+
+Thanks,
+Guenter
+
