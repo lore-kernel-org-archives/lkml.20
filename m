@@ -1,79 +1,95 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FA23905E7;
-	Thu, 10 Sep 2026 07:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B7D3FCC;
+	Thu, 10 Sep 2026 07:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025987; cv=none; b=A6Mxg1/xjb0YMZkuRrymNZJTq7F13uE0EXkI7gnzbGpGhpztYj2CkvpeQOohiu899c6IiwpOai8seZwv0baHNdvmtyDlpb+rmdlXCMQI36P4vsSbRKPzfhF/dP4F1L9PpBuiImU9VhoSq0FzAmGCjupz5fZoYPLef3ae+m1+PzU=
+	t=1789026032; cv=none; b=qCUffAIzg8FPaqzZ7iYTb6m4gwTVUdvDw+/1Grka7xFVHaaqwKks+n63uOIjL1NJKjPD5x3f+T9g1mYQwuc/Bb2l3DTbNbJJw226xwmzDXFf3r7PKeIZNWQ44135Pwx9aooMv4lDoK03IiboH5cO8/j0Ds1UgQrv6RdaqEzKON0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025987; c=relaxed/simple;
-	bh=tX6eZXyL6wR23wIOq22oMAc/5Xx3m3IlWphVaszhixw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=QbfISvw0PQ/qoriQf3PUndbmgMEj9d78rdFmPis6ND9Y4GPzE05OsU6qe6HQ9x9vm7+RuCn048pKq/DRJ+qs8CGHglAEBTpzkGHm9XqPYtusXUgnFERvhXqNTqWi6T3Cbkml1dBHyqJpBIfxx3eyNmLrPGTKOHcpxC8SemZddPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=OnM02PA8; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789026032; c=relaxed/simple;
+	bh=hPUuSM2Gydow0HPwDDJUKrw5P9qOJFNqgBy8vTF2rqc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G8JIZiLkDhfq4WA/Y0hYfN5hrju8b6Jx9aL28CaGJtuXCYG/bn2i2RJxC9E+Qy1i98pU5Jpxz2BktG0/P092dp5SRaEe4FRfxVNRJfyCEP7ZZa4QVyLQRiFMdIfBcEaU0iAl51JaeQOTILBdSb7MTuYMm7Mhkf6oYzLyroQdS5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=hObn2qOa; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="OnM02PA8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789025967;
-	bh=tX6eZXyL6wR23wIOq22oMAc/5Xx3m3IlWphVaszhixw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=OnM02PA8Q4X5YFLl4fntpBgfc6QewEsP8gvuDAqM3IIEBNlgT2voZjdBZ5eWSMzKx
-	 07uN47sV6TgZM+V9ECbVecXtewsYMPzbHX95oDQ3mmxJbgIMArB5dMFQ0dyixmuKDc
-	 0j1iB0vQfQh5Vxtxd5P4a6RN4HjyDlnHZO7dO5U6H8RsTRnVpW4PtiPdq9Qyvk7q+/
-	 Pey1ntGjWcBYA4rPnRLSLdUlzyA714xWITtbIQHltmRBQ2Yf9hOS5PuYgZeBL9/3hV
-	 uDg6pRRr6V64c7V71RXo1OrU8YKjU55/x2nsc+OT21fREUuieH3hb9ulxLL9V5jHMl
-	 Bk3f5qalBtXQQ==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B01F717E08A1;
-	Thu, 10 Sep 2026 09:39:26 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- Chen-Yu Tsai <wenst@chromium.org>, Fei Shao <fshao@chromium.org>, 
- Justin Yeh <justin.yeh@mediatek.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Project_Global_Chrome_Upstream_Group@mediatek.com
-In-Reply-To: <20260824090409.203230-1-justin.yeh@mediatek.com>
-References: <20260824090409.203230-1-justin.yeh@mediatek.com>
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8188-geralt: Enlarge SCP core0
- memory region
-Message-Id: <178902596657.11066.1913117561872715668.b4-ty@b4>
-Date: Thu, 10 Sep 2026 09:39:26 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="hObn2qOa"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789026019; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=nO/KQnopE23Wizv8xSIWVHEQPNqM2xv6VOHjFuXQ9M0=;
+	b=hObn2qOaq0A3X+0I/izOXtHdCNfRASbw87T3QgCGYi/yv0rN3eSrFnWlHLyezIN5IwoEcadQzCazc6zLqKLCAChfDQWtc7zcupV36M6SD9i9XAHWHzFGFyFT0PuKhz1TCKJZKb9Q3rnGA1C9ZDxtYdilA/PtlNmrvgt0M1uS/0I=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XAgyQpm_1789026012;
+Received: from 30.178.84.157(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAgyQpm_1789026012 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 10 Sep 2026 15:40:17 +0800
+Message-ID: <de74c87c-b52f-4310-b3f7-9a64b1b01eb1@linux.alibaba.com>
+Date: Thu, 10 Sep 2026 15:40:12 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mm: memcontrol: drop kmemcg_id and use the memcg
+ ID for list_lru indexing
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Usama Arif <usama.arif@linux.dev>, Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
+ Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260907110111.2286932-1-qinyuntan@linux.alibaba.com>
+ <20260907110111.2286932-2-qinyuntan@linux.alibaba.com>
+ <aqGjkGA7XeYEHA2T@cmpxchg.org>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <aqGjkGA7XeYEHA2T@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
 
-On Mon, 24 Aug 2026 17:04:00 +0800, Justin Yeh wrote:
-> The SCP firmware in linux-firmware for this platform
-> (mediatek/mt8188/scp_c0.img) supports MDP, which the mdp3-rdma node
-> drives through scp_c0. On top of the segments it loads, the firmware
-> allocates a 1 MiB DMA region at 0x50800000 at run time. That lies
-> outside the 8 MiB reserved for SCP core0, so Linux is free to allocate
-> over memory the firmware uses.
+On 9/10/26 2:21 AM, Johannes Weiner wrote:
+> On Mon, Sep 07, 2026 at 07:01:08PM +0800, Qinyun Tan wrote:
 > 
-> [...]
+> This is a private ID with lifetime only guaranteed for online
+> groups. Reparenting happens right before it dies at offlining right
+> now, but this is not a great dependency to have.
+> 
+> Use mem_cgroup_id() instead and just get rid of that helper.
+> 
 
-Applied to v7.3-next/dts64, thanks!
+Hi Johannes,
 
-[1/1] arm64: dts: mediatek: mt8188-geralt: Enlarge SCP core0 memory region
-      commit: 868297e3ebcc5c9b0e7cada19c82b11068faf4bf
+Thanks for the review.
 
-Cheers,
-Angelo
+Right, the copy of the private ID carried exactly that ordering
+dependency, and the cgroup ID removes it cleanly. mem_cgroup_id()
+it is.
+> Both of these functions do very little now and the asymmetry you're
+> adding on the mem_cgroup_kmem_disabled() check looks odd. Please just
+> inline them into mem_cgroup_css_online()/offline():
+> 
+> onlining:
+> 	if (!mem_cgroup_kmem_disabled() && likely(!mem_cgroup_is_root()))
+> 		static_branch_enable(&memcg_kmem_online_key);
+> 
+> offlining:
+> 	memcg_reparent_list_lrus(memcg, parent);
+> 
+> The root check is unnecessary because roots are not destroyed. But if
+> you'd rather not make that change here, keep the root check, and leave
+> its removal to a separate cleanup patch, that's fine too.
+> 
+That makes sense. I'll send a v3 with these changes.
 
 
+Thanks again,
+Qinyun Tan
