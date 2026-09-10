@@ -1,225 +1,107 @@
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5703B1EEF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057803; cv=pass; b=MKAc+fYvrsYeMRjGJXb1ZN0iuiKLFIfOc4e8NHdBMIXzT3X37dC8pRhVR7l4XbiJ6ka4HOeGV30qAsLoyx6OZYriI9Q8zhKe3vaDZ5E7QlEwpGwylgfuJy+oIUEI88V8T7ROSAcXNq5xI6O7Km6MkDkOWsPYbESrsiY+C2FQoSY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057803; c=relaxed/simple;
-	bh=BBkQ9owM4UN7HjyC+I5EPj2XFIiMDuhZupokt1yGInY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bGt6SDv6noiqLtNwr4pPl53Gni0lkY54lIvHUAuZfgj2bxMRdZd2/3mwbjZF59LsIjvKe0JdAQoF9BRXa4loaOm5VK/446PT+UZ3J+BVqFByUU+jqCwK0PCU7GudstfxPmpwlTpfCvHRNTxg1JqExVpO7UzPp//7FGGSGLf4vcg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GtkBb2AI; arc=pass smtp.client-ip=74.125.224.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924964CB8B2
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789057828; cv=none; b=sHrKnnQBwPPPQwdCvrNKewxZaDOtJqfKWCVW01jGdi8gP/JDyCLuNQR9YIgGtU0IntGlLhP4IZe5X3/5k/DE045eV9Cr4zSIEFMi4nYGBDkcIiVCgK1gRkLfhvg9WBSVaD6IMVcU35lmbgEhQIdeIfjFKyUiIBx5R7j/b/Xe/W0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789057828; c=relaxed/simple;
+	bh=wZ3LykXDLiXZdcN2B90HGOb4AiKilHNsRIIn78r352U=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Io5ElkiRorsye1cXfuxfA1XW+ow+ePymXL2C3tcJx7f4k4prSppUeWS494y67RN7UnXfLTwn1AkP6Yx1TgmlMTL7Q2dKPoFmaU1aGli8bHCP+eC2VJmZ1HE0d441M3g8xNxKpqvPxt4iWLbuevhRWaVRY3QLCDDhresRrKljMIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U49mev5Q; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GtkBb2AI"
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66fca0709caso5123871d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:30:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789057800; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G+8F+Q8pvuyxfbsgcQItb0vSLxlyItG3dtsrw+D/+9083WY+cKB+W0ZibZTmUUJv9m
-         AxgQLET/lsmouFv+2SIMTq4bqtOKSCHvgxdJ0mvJajqf7hTwa88F7Fr9r1W6JTs7M1Es
-         nC8U0CYX1tXE4ka2kqYQU+msg515w6v+4LOPTjeL9EiI7WOwyyeWVjk9yiLSaxvtg8kL
-         T40yTYr1oqZuXd/+ULjT39BBqoaxjRRX45VhzqXHboC1ZcX91tVzGjjmIKLw/brFe+TP
-         15AgtIOjexKwnYqqsKkUZgQtM0SSmseKR/p9c8e1gypmM+KZvNxMh7TXI64RBfFTT9Fr
-         lw6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eJU9YUENvOE810OZrMLcmDFYvKrM4tnNdpUx1KzH7KM=;
-        fh=En6UTFSurjexc2ytOXs6ox38BpCgJrT78II4TMN3fAA=;
-        b=pJ2xu1Jk+uOBlDws7G207ljvCB+SZe0FDL67gO5jDR0rWHhyeCgJcYheDIuwvVofJT
-         quOx38Xqyttb28U+RNzKTlkAgb6YReNNVIW7vpHo//YGCPuMX12YoPTq2srVhK4Tpdiw
-         k63YNSOk2nAFsmANnUZDS0CWrc3QhPSIqS5S2lIj39EXktbxqsoGrHbTywME9dnwGPr9
-         EwfAHnjBLOj2TQR2Nt/3ognrewFk5nNZLuzSInd11mKF5qtJXjZAwIvJvHXudp6zi6va
-         VQpaPLdiRuKsU+XdY+294yyfepRjV00K3SYHHY+diRbI8ofbkxwabl1ZmFMH1diRSP5a
-         8gNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U49mev5Q"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so11296279a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:30:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789057800; x=1789662600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eJU9YUENvOE810OZrMLcmDFYvKrM4tnNdpUx1KzH7KM=;
-        b=GtkBb2AIBkw39FGqfMwCueN2WwFrK4Lnk09weUWNjztolDm7X/WmYdUQYLN6YWuAD1
-         YekMwAOpNmvAePTkymcwzNlFTVs56vpEuXoHA5DlzKwLDor0yrrDMTlCqNTtAaS4ZGpJ
-         qtd6uLUizVVodfDfjMtU1H6hBazuu8Lq6Xy4EzFb+YfSsbqId6drXyhEdz0JPSBypPGv
-         CLqKsRmO5HzAUvUVEJh80CVwwDzJce4OV+sXkBVgSMX2NcmpaNM5i39HIF5wlNZpXodP
-         LUKn8m5NqT/D/1SHRzZq01bhZMjq94+KjSseqq1ydAlBOjmzpqI5aLIAVMGoGGysWVZp
-         E91Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789057800; x=1789662600;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789057824; x=1789662624; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eJU9YUENvOE810OZrMLcmDFYvKrM4tnNdpUx1KzH7KM=;
-        b=m3aexo21KWmKHvYB+2GIia3BsPnuZdKYskvIzmWRTAZd99og3mw/nWgLa9ecFhgBZ8
-         afZS2HLzSw/0XVP/bZsRPY/p4UN2D6gu55KnsP45T4gkqolacFRciudTatD0j6BjC+iu
-         8B6NaRD0OSz51xxh8P2MvsReVrQt5chxPeqsldufOp5p7dLJMlHfWl6B73jETuU4kTwQ
-         rS3O7EkR3/rbz1/xJ1IQBCSg7cLElsRm/Q5589daIR/yhhazO+t0f/wDPx4dtfYlN7j3
-         jDj7mw2OvBqFFEBMuFoYEJe5Q4kNrJxO/2L2658G6w5Z2Pzr/khafJn25tgrVRRCdcTF
-         am3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwN1rd0PyCQCwxxj2hStbL86sK7XrEpVWj3dMLUbzluD2N/18IZF4qPlGW5IyjBnc2eJnT0RqMVcxHDmI8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6/p8kmhrnLOCB981re2TEZwdulI55AAoWtbMtACOaLvNMgBav
-	yGB/OXNs3IZ4txGoNaF4qAXmT/9QwK/wOuauckzG1/ENU6bVXTHqriJrFbyH2bTvH4wtRnigrow
-	ss/LsUvvt10Wc7WjXrX6AZJMMc77uO+4=
-X-Gm-Gg: AYBFou2Z+th73AnAVNiOM8PzhowvkaRkRytlegZSBeE2KI+knuYKLw6RN0A+Gr+UqKz
-	/q8G1YG0RaVTiS/IGPTbBR89OOt4ABEJ6bbpckPFuCUO1Zp0iJGNI+5CvQm1AlJHbn96eSLgH7F
-	4YIxUHZy0Yios4f5WdzOdNVCf7I0xry8ml+zm5Ijg0Qs8yr/X5TZBoKTwi7VVHp2Eckk8eeLXYz
-	tOWTo6esboTC5+zdrxh5fUjCDD1sGX6HpEDP21L8rxAJ0Rts1jS6Y2GudtnVFeESpbulA+MCbCw
-	ftpOI40udHk9NQfmR2N+WZXAWYDvmMRWOaou5lyXilubmIyGze3u
-X-Received: by 2002:a05:690e:43d0:b0:66d:151a:8390 with SMTP id
- 956f58d0204a3-6712455db3fmr16262d50.3.1789057800113; Thu, 10 Sep 2026
- 09:30:00 -0700 (PDT)
+        bh=VnJnwdOYGIGCcjx8YGUUXxvfpBjYI69LyTf3vI3u8ek=;
+        b=U49mev5Qh4L2dNyaLHKWR51jr7ucv9HSEXXNNgPRNHeAweqUbvN/QyuY74gWgKQpUW
+         PsBlEnEOBPy6moNn+B28WZ7JLUA0bI9sjer99mM9NEB5Zsvd/moxucnzWL9qMNkNgnvC
+         DuYG7p48buLQNORzABL1o8tjpJdkXbvq5QbA4dwzOLaXfoCDzURa8V3IX8AvPdfe83fS
+         GFQvs+am9MUaZvK6N1mtc7wQoDGG1cHOeppfK+RWN52o/ikWjXUPG9g7V7PL9EVjEkFE
+         ZR0msZ+N8Q0IXrBiA4NN6GNb0NHNnvcMNwm+5Im4Lhsfgef0zSZG9gHd5/qvlKDrfnAt
+         O1Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789057824; x=1789662624;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VnJnwdOYGIGCcjx8YGUUXxvfpBjYI69LyTf3vI3u8ek=;
+        b=kHh6qMtivg2bltuo5Lrd4q2HYWfMzhYs+vGUe3XzWK6EDNwb8TSMdKPBZiOS9a7QJe
+         4BgT25w+s3Km4o1glY1888vnw3fBUfCBbyeJaIcyvgDJLwyFm+LHaSr8cGGlkzaObM1O
+         2kKb0siQk/J4EG7RP8R8Uycn1g2Tj/PnkasUaNwUTtX4FIf3P5BXp9GaNAFHn4wHyF+9
+         waW7XwIYaj4Aknk1ka0P4Ob9KoSwKB2LuprEu4eLTcSl/+rcvBSllaWdbX02SSMR/o83
+         FSFrxxmKkzIVsjtLa8pvt6tLXrOZ2AxmJs89SVEPj8vyeN3vFHCZEj9enOFVYYYhjpdt
+         9Gag==
+X-Forwarded-Encrypted: i=1; AKwUvBzVKRIvyzHa1JdtepN6gX0SJVA5BpYMC0sGAb4hN/A0+s590VWwvYclkQXR/UIqhXU76O+TF5Wmjr3I9aI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQEtWGSeSHkMtdplj48PWmPLabFdIK7+1unX1g5blcXKOlJ7Pu
+	QJdDkcuxWUam458uzXdNiKYVko4qpx0JK1EksAH2LZzh34sPd7WDoDaVZ1mxYaIxoizNkXqZiQ6
+	XYgMbxQ==
+X-Received: from pjbdw14.prod.google.com ([2002:a17:90b:94e:b0:39d:631c:22bf])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:64f:b0:39d:83d0:41b2
+ with SMTP id 98e67ed59e1d1-39d83d046d3mr3518065a91.15.1789057823466; Thu, 10
+ Sep 2026 09:30:23 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:30:22 -0700
+In-Reply-To: <20260910162343.4092060-3-elver@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <178905331374.213925.295025394754459843.stgit@devnote2> <178905333479.213925.1358412668943562406.stgit@devnote2>
-In-Reply-To: <178905333479.213925.1358412668943562406.stgit@devnote2>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Fri, 11 Sep 2026 01:29:48 +0900
-X-Gm-Features: AcwNN1VREyB4q5zwLtIZujnDUISlLPvEW2AcNPTgjqcyHIPMzOih7zYo-54zTTM
-Message-ID: <CABFDxMHKQpa_WGk-RhEqQtzZoNfvZMj3J8JSYQn4-=RG+R1q6A@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] bootconfig: Fix integer overflow in initrd size check
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Breno Leitao <leitao@debian.org>, 
-	Christian Brauner <brauner@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	Douglas Anderson <dianders@chromium.org>, Huacai Chen <chenhuacai@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20260910162343.4092060-1-elver@google.com> <20260910162343.4092060-3-elver@google.com>
+Message-ID: <aqLbHvD5lqQP8PRd@google.com>
+Subject: Re: [PATCH RFC 02/10] KVM: Allow reading memslots while holding slots_arch_lock
+From: Sean Christopherson <seanjc@google.com>
+To: Marco Elver <elver@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Sep 11, 2026 at 12:15=E2=80=AFAM Masami Hiramatsu (Google)
-<mhiramat@kernel.org> wrote:
->
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
->
-> Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-> with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-> arithmetic:
->
->     data =3D ((void *)hdr) - size;
->
-> to wrap around on 32-bit systems (or when pointer subtraction overflows).
-> Because data wraps around, the subsequent bounds check:
->
->     if ((unsigned long)data < initrd_start)
->
-> evaluates to false, bypassing the check. The kernel then calls
-> xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-> hitting unmapped pages and triggering a fatal kernel page fault during
-> early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-> unbounded 32-bit size can similarly bypass the initrd_start check.
->
-> Fix this by:
-> 1. Ensuring the initrd is at least large enough to contain the bootconfig
->    footer and verifying hdr is within the initrd bounds.
-> 2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
->    the available space between initrd_start and hdr before performing
->    pointer subtraction.
->
-> Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from init=
-rd while boot")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kern=
-el.org/
-> Assisted-by: Antigravity:gemini-3.8-flash
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Thu, Sep 10, 2026, Marco Elver wrote:
+> kvm_swap_active_memslots() updates kvm->memslots[as_id] while holding both
+> kvm->slots_lock and kvm->slots_arch_lock. Holding either lock guarantees
+> that memslots cannot be concurrently modified.
+
+Sure, but that's irrelevant.  The goal of the srcu_dereference_check() is to
+ensure that readers see a stable view of the VM's overall memory, not simply that
+kvm->memslots can't be written.
+
+> Allow reading memslots in __kvm_memslots() when kvm->slots_arch_lock is
+> held.
+
+Why?
+
+> 
+> Signed-off-by: Marco Elver <elver@google.com>
 > ---
->  Changes in v4:
->   - Accurate the error message for size > XBC_DATA_MAX in
->     get_boot_config_from_initrd().
->   - Remove redundant (and wrong) size >=3D XBC_DATA_MAX check from
->     setup_boot_config().
-> ---
->  init/main.c |   25 +++++++++++++++----------
->  1 file changed, 15 insertions(+), 10 deletions(-)
->
-> diff --git a/init/main.c b/init/main.c
-> index 2613d3f9b3ce..16749bb7a219 100644
-> --- a/init/main.c
-> +++ b/init/main.c
-> @@ -277,7 +277,8 @@ static void * __init get_boot_config_from_initrd(size=
-_t *_size)
->         u8 *hdr;
->         int i;
->
-> -       if (!initrd_end)
-> +       if (!initrd_end || initrd_end < initrd_start ||
-> +           initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
->                 return NULL;
-
-(nit) how about moving BOOTCONFIG_FOOTER_SIZE from tools and using it inste=
-ad?
-
->         data =3D (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-> @@ -294,16 +295,26 @@ static void * __init get_boot_config_from_initrd(si=
-ze_t *_size)
->
->  found:
->         hdr =3D (u8 *)(data - 8);
-> +       if ((unsigned long)hdr < initrd_start)
-> +               return NULL;
-> +
->         size =3D get_unaligned_le32(hdr);
->         csum =3D get_unaligned_le32(hdr + 4);
->
-> -       data =3D ((void *)hdr) - size;
-> -       if ((unsigned long)data < initrd_start) {
-> -               pr_err("bootconfig size %d is greater than initrd size %l=
-d\n",
-> +       if (size > XBC_DATA_MAX) {
-> +               pr_err("bootconfig size %u is greater than max size %d\n"=
-,
-> +                       size, XBC_DATA_MAX);
-> +               return NULL;
-> +       }
-> +
-> +       if (size > ((unsigned long)hdr - initrd_start)) {
-> +               pr_err("bootconfig size %u is greater than initrd size %l=
-u\n",
->                         size, initrd_end - initrd_start);
->                 return NULL;
->         }
->
-> +       data =3D ((void *)hdr) - size;
-> +
->         if (xbc_calc_checksum(data, size) !=3D csum) {
->                 pr_err("bootconfig checksum failed\n");
->                 return NULL;
-> @@ -394,12 +405,6 @@ static void __init setup_boot_config(void)
->                 return;
->         }
->
-> -       if (size >=3D XBC_DATA_MAX) {
-> -               pr_err("bootconfig size %ld greater than max size %d\n",
-> -                       (long)size, XBC_DATA_MAX);
-> -               return;
-> -       }
-> -
-
-Nice cleanup!
-
->         ret =3D xbc_init(data, size, &msg, &pos);
->         if (ret < 0) {
->                 if (pos < 0)
->
-
-Thanks for doing this work!
-
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-
-Best regards,
-Sang-Heon Jeon
+>  include/linux/kvm_host.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+> index 03bfc92864b6..5ed8260ef01f 100644
+> --- a/include/linux/kvm_host.h
+> +++ b/include/linux/kvm_host.h
+> @@ -1089,6 +1089,7 @@ static inline struct kvm_memslots *__kvm_memslots(struct kvm *kvm, int as_id)
+>  	as_id = array_index_nospec(as_id, KVM_MAX_NR_ADDRESS_SPACES);
+>  	return srcu_dereference_check(kvm->memslots[as_id], &kvm->srcu,
+>  			lockdep_is_held(&kvm->slots_lock) ||
+> +			lockdep_is_held(&kvm->slots_arch_lock) ||
+>  			!refcount_read(&kvm->users_count));
+>  }
+>  
+> -- 
+> 2.55.0.1003.g10538fe699-goog
+> 
