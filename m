@@ -1,99 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3837490C0E;
-	Thu, 10 Sep 2026 14:33:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B22B48A8D9;
+	Thu, 10 Sep 2026 14:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050811; cv=none; b=lBSWRg5UQtLOR8xPS2T9RFn3j0NEO9mPVYY30sT6OgB4ErQ7slvo85ZB2R+itb5hbqjVlwMmmfditw6F3KKDBqS+edeHQUEWaIkr5QfR0ZZqP8cnPCmWiTyuA9kHinXJKtjWzKMsGeGnxQOKt+u0vXvLMT2LKv6eI9aB1eIYAIY=
+	t=1789050858; cv=none; b=KFSTi4Yfkg6HU9pnwVZdf6xPDs64gQiu+8AgHrPw11NbYibWpMHqzvNUQsVWnqtN/njD8W7eOOCrAmVdyOp0EWKb0HfLyNejf8BeMTXU2T9G/ylqFeJOT4DUbu9cJ/R+OlsGM9knLygt8I9CWBxT87TpnvPYLllxq0DbzAo3JiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050811; c=relaxed/simple;
-	bh=+Md/nIdjOBGgpXDoBQEhx0pPkzwPf3XZnL5eaE6nldA=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=d/xOq20VeG4iDotFjtun46b2Ra4FNDmXgSwfRJM/H21z1ATq+IgF9Cpgg2HlYeStmu1yq5NMqE8JrgzueorhScL5vieamAG4ddyXEDnZ9TJhaTjoI9y2EJp+QTyXrd9yGjdD/UC0aQFyWgA/RDmOGfF3+G+ro+ajD2irgqiPTe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlecpdlL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789050858; c=relaxed/simple;
+	bh=ytbFbGsFsPMRN15cnZnGQ+BVVT4omhd+u4UV7g+TRTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YpCFJGd3ra+uE3hhxW6TTGWwIAK8g1IjbdDAXlSKICdJL0uoqyzI4m2tMrZBDUtYjdj+is4f08gP8V3MMiJAghZDrpZGnM7Q/WasHl5zgcsR6McUQ83IpeF2M/iLEweqnC3NNqco+CqJABAXfn1K5DSQQJVuE43/NIUWyymFpeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdHM+gna; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlecpdlL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736B91F000FF;
-	Thu, 10 Sep 2026 14:33:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdHM+gna"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 971921F000FF;
+	Thu, 10 Sep 2026 14:34:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050810;
-	bh=Tq0iKdS9Ls9zgqaUG52Odq6tQg7OuXykkEE8do2w5Vs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JlecpdlLiDsY4nFqTS9SHgLq/vr07DplOk/HrlpxFQAX1neIeaLEJpbK0fzQdeHdF
-	 wIaBxXX9XFw12CZ8hYILmQeasBj5GAP0auHYdsQC0RIZ7DVU/vyM6incrAfRE1VCp7
-	 ESs7wJ/OqmUo3mXL5tcLRj6HI4syh4eQHO0wUAO18nHFsu6W2MwBiLXALsuAG1bbA8
-	 qldJiSPDJvV7SI+lUfToZwvP+b5YLWydUyYl8tT1MAI3iWkJ0fY9sEDSe3jQohHajA
-	 1oz/NYZMFoEbnI95KcBmMtIrKz7RvrePYZzJyfIhhZkWHWnI8tzLxHoYEzgBGsHpsP
-	 nORP4MA9XTQ3Q==
-Date: Thu, 10 Sep 2026 23:33:25 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Christian Brauner
- <brauner@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ryan Roberts
- <ryan.roberts@arm.com>, Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?=
- <thomas.weissschuh@linutronix.de>, Douglas Anderson
- <dianders@chromium.org>, Huacai Chen <chenhuacai@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: Re: [PATCH v3 2/2] bootconfig: Fix integer overflow in initrd size
- check
-Message-Id: <20260910233325.e59a0b26f504885206a59335@kernel.org>
-In-Reply-To: <aqKAzTzpqYmuj8Rm@gmail.com>
-References: <178900555453.200943.4719889510443114485.stgit@devnote2>
-	<178900557529.200943.11099215789605267709.stgit@devnote2>
-	<aqKAzTzpqYmuj8Rm@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1789050857;
+	bh=kHpkKe+nPJNBGeOT8DGVr7Z58xbhCeUm9eb1dXLR9j4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MdHM+gnaQHzb0Sjjo27rAv48N+jKElQ+tcp9TZX/Xksy/w9yGYALktm1zO43RQh8N
+	 3x1FkmiUZUS7oOwcx8j7+CJC2LlNejThDAr0NZXw3I7kN0uGdV+wlkXg/2y1fixmBS
+	 ile6oJvXxkJKkUuadH2ZWRElUYnT50Nk7C0o0SM4hTrU7Fsuf5fvLZyAFUsduo64Rp
+	 26y22SdiIft3Z5gN9nTG5ORuoih8B75PRYSQbnLZhKxXjc+oSktsiNWHLzjBaekv7w
+	 Bh5wSCschZdq7Z6XVkTRWS6LyrmGH+hSIYcjBkwy8oX+OdRHbzH9eChrxVqq7U9uR2
+	 Bm8Z18DzI+Krw==
+Date: Thu, 10 Sep 2026 16:34:14 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: tegra: fail probe on reset deassert errors
+Message-ID: <aqK_pBOW9xkY6iz4@monoceros>
+References: <20260830125843.99132-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Thu, 10 Sep 2026 03:05:12 -0700
-Breno Leitao <leitao@debian.org> wrote:
-
-> On Thu, Sep 10, 2026 at 10:59:35AM +0900, Masami Hiramatsu (Google) wrote:
-> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > 
-> > Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-> > with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-> > arithmetic:
-> > 
-> >     data = ((void *)hdr) - size;
-> > 
-> > to wrap around on 32-bit systems (or when pointer subtraction overflows).
-> > Because data wraps around, the subsequent bounds check:
-> > 
-> >     if ((unsigned long)data < initrd_start)
-> > 
-> > evaluates to false, bypassing the check. The kernel then calls
-> > xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-> > hitting unmapped pages and triggering a fatal kernel page fault during
-> > early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-> > unbounded 32-bit size can similarly bypass the initrd_start check.
-> > 
-> > Fix this by:
-> > 1. Ensuring the initrd is at least large enough to contain the bootconfig
-> >    footer and verifying hdr is within the initrd bounds.
-> > 2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
-> >    the available space between initrd_start and hdr before performing
-> >    pointer subtraction.
-> > 
-> > Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-> > Assisted-by: Antigravity:gemini-3.8-flash
-> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> Reviewed-by: Breno Leitao <leitao@debian.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ee3c4izufh7z3jmg"
+Content-Disposition: inline
+In-Reply-To: <20260830125843.99132-1-pengpeng@iscas.ac.cn>
 
 
-Thanks! I'll make a small fix and send v4 with your reviewed-by.
+--ee3c4izufh7z3jmg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: tegra: fail probe on reset deassert errors
+MIME-Version: 1.0
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Hello,
+
+On Sun, Aug 30, 2026 at 08:58:43PM +0800, Pengpeng Hou wrote:
+> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> index 5cdbe120ba2d8..d9fa16a7b31f4 100644
+> --- a/drivers/pwm/pwm-tegra.c
+> +++ b/drivers/pwm/pwm-tegra.c
+> @@ -379,7 +379,9 @@ static int tegra_pwm_probe(struct platform_device *pd=
+ev)
+>  		goto put_pm;
+>  	}
+> =20
+> -	reset_control_deassert(pc->rst);
+> +	ret =3D reset_control_deassert(pc->rst);
+> +	if (ret)
+> +		goto put_pm;
+
+Alternatively use devm_reset_control_get_exclusive_deasserted() instead
+of devm_reset_control_get_exclusive().
+
+Best regards
+Uwe
+
+--ee3c4izufh7z3jmg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqiv+QACgkQj4D7WH0S
+/k7vtwf+Kg1/sorhO93TI7iyBrp6/hRS1Qfu6Qwgn2OwN1XP5omoVZP9bhcDIJ2I
+mVLwz9B5OBR7HuyVe6+fHtOJCzAiiemAAJ/bNc85rRgX6KHBaqlXkGjWxAByDVtE
+zFb4sAW8/q4dwtGMY2G3IZPjUNM/+9NNFAgXJzOTp6yl0F+oHctRytcZTdzqqyNw
+t58KH2CUBv0kpaTGAClqSX+0hy1zoQ357uep/xoJoYNXEff/AQyyR7ERqY/oJCGZ
+raeYltaK1VbdW+5790PYgB63pSB7oKUa4d2EfVBx70YYDJQy9ruUvPlEhDuXjhnn
+uXmyBot2X1/mukxOj7aE/kOa0CzK2w==
+=03u1
+-----END PGP SIGNATURE-----
+
+--ee3c4izufh7z3jmg--
