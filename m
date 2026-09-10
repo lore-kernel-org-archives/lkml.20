@@ -1,267 +1,334 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-oa1-f78.google.com (mail-oa1-f78.google.com [209.85.160.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FABB59B677
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FB2544886
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:35:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068809; cv=none; b=BFeN2T2dWqXr4jmrDWqBZ+n3EAaLxWWjQZibOJxvopNnb60EJ2WBrtPJZrrShcC3TQrAdqjL4duUSmzYcbG9Fg+2u1JFQ7mP/3Q7o8IacL5oVzEFJkE/Ff0Qg/lodXl/84/XR2dfxecq3g0rws5Zw8ZMHDnAjF3J/AmTLaKIveY=
+	t=1789068909; cv=none; b=hFBqmxMve+JrH252LCd1SSwP2MH9FM06oR9oCo7OhEyOXOfKD0vvDoxkB6ySwaY33EqECT2iYfZUGeWNWqvvuUblTe3NDc8q1HE4Cby1Iguu3l2J4EPmZtVJWLmDEAQv3SS948F+cwlVcvrnVM9mpF39KfJrH2iNuKjoR04YOic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068809; c=relaxed/simple;
-	bh=z/ntw6rkZ01hf6p5sHZuJQruPYMKRq0GuPPT61YKsXI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eumIHrao+aqykCJufnaufIpO9oRDVjC4vviiKd5H+Q+ZYnjvVGuYi25T2fHuh7NRK8ZYniPQ9uMNxFxJ+bJwVjqoMdwYwRivq6iTow1fOYAVlxdSS3vU6Dh1zmFrqHaLMA+mkGkYsqkPgshrHFGqs77YRti3uUu0YRWs+vUhIwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YLrUzNVB; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YLrUzNVB"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so84129f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:33:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789068799; x=1789673599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VKdmL79F/q5jy1ukzo1sZIwlgRGg6y+i6cYUbNQ2MJk=;
-        b=YLrUzNVBJRxSjduF6rkjEH/J1HsxBgX8Mb8q8OqDHdVuokbWtXhA/OXT56dcWiupEi
-         nsAK9yz0H3PE17ekZ45QDfpd/MV9wwcZ7cPJePo+y3B5PkxDtU4c0Qbqor/kqM1SRxiC
-         QIcEzwNqzfqquUJ1Hd2rdFrM8oNuoLP/+Df2Y7CJGub7vZZbCGyn9CRn40/WBwQPociE
-         kzXOIwaWJlgXm9edYOIaWw319V/wbMB9/Z92DFrKYHmc0w8t0+pbnYdoTmDpC2DKDepY
-         l3nZ1uHDcoPGlAK8uwwH8soRwzZ9d3TR/zbvr3S9Y+YGApny+YwIs6xpnAD53v0s0uYf
-         27Ug==
+	s=arc-20240116; t=1789068909; c=relaxed/simple;
+	bh=a4MSMMia1vg5eWqFJRyUY5iPkp+CyToU8ti4l9Upszk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=AnorrhXblw8a7A18zU37fnk7Roq4pRt6Jo9uJAeg7WWF8XSuY2ArpcWq2Sy39pmS9kaMW48GXIVqwsU/gIeMTWUxMEVAO5GebTH0Dn08ZTYhSvhttUuZ6AwXM65l6Bl9wV81pplXvd6yl/E6SGry/ZyWW2BKljheCJ9qhLOUN4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f78.google.com with SMTP id 586e51a60fabf-456b5122c7cso2049898fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:35:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068799; x=1789673599;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VKdmL79F/q5jy1ukzo1sZIwlgRGg6y+i6cYUbNQ2MJk=;
-        b=ZpdUriWkEnrcfDUKqauSii20M7JymFLKnSJ3MlF65apVRAsuc9izPXt+4BMAOPoYfZ
-         Rl0A5YRnIt5x0cadjqPyKRvQgjWxiF4Z6YfILDBnIwNykhRvRk1DY56OOA5WllDvoCAd
-         AllJA6hZlPLaTk/UIeN2Skit+tuVKho7mrj+objCfhz6HTZX4TRDYnk+Bg+WeKJv4QC6
-         YY5AjkUzrgux9CDpA3kdFiLUk7POdtp/bFFLdWJjrzMD1U4tlQFtJpAyrDU28MCDJlTT
-         6dGtKQgp+GNXBsGqCs4hCqnWCON3wl93FBa7YWD9pGkdaJdeoAPUrBCrM2jCr3QHS44z
-         zMDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxvbVdvGkOyuul66mhcQmQ9CPJdXiwGede/JuW9jnC5FL2F5rdAEWKD8PBU/rA7elGh6DhV/qqz4XvkA/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYTYNGr9nYk3Fr4kcHsUVSVXJq8MQFECopT9fq6JmVGSr/5W4Y
-	4X+Y2aOE4OULDHAVeMzExrYKlnTc4zf16UQYOM/EEjv5q0Vbl/HrzR1K
-X-Gm-Gg: AYBFou1doABLuRWKTxcmXqVzgp/tMy1Rog37iOQC1MA98tQDHebHcWc+M9g9/0WQhle
-	fWMQVdG+KqQa1IswL8mZY9PfI7bFoa3LTFEX82ObioMlAzf87eod4aPBwm4sQEbWTR//8iXXtDI
-	OLbHMmgnMWVv+A2NKfSJ9v77MaXOJ2G3Pje0OV/+TX5Zm7FTh7ZEr4X/EAK0OLUP6k1glVapCwY
-	ikjEuQIAiLQkbLupyQ/rH0VpX6GwPp+BtB924mtKs3+voZBoTD4MoQZZRD9ynm7jnH+SB6T0ZDS
-	HTpQZDArXeHqTcSMyZ2tqQ9n06x4hUzQFYxrsSnXzqRYeWB68tflT2rK9HjbBPbodzFp84RQ0MF
-	BP8I8S8OJ/o9GaFGxbQkOAiBO/J5s/wC3Yaamcb+jOoE584x2VC9e0su0OySi/HxjQhcXd4/8kz
-	ZdBbnoZV4POnD8hgH1iUUhtOMcYVfrsFPDSRMNrsTrHRdQ+mlJbOQSZ8itoElPHqmzHG67wGQQf
-	7742Y/4Ufi0OraM608Of+z5ost2ywhFveGPRbZrArap7F/F8UoT1iPMjcQIYIpHwhIEOTIx4lXb
-	7HnzyY+ge4d++TD4B5j40a594mE/oYqVDzwb
-X-Received: by 2002:a05:6000:4a12:b0:484:4537:95ed with SMTP id ffacd0b85a97d-486eafd6f7dmr650425f8f.5.1789068798984;
-        Thu, 10 Sep 2026 12:33:18 -0700 (PDT)
-Received: from ?IPV6:2003:ea:8f2c:d400:9135:d56e:c3ce:edd3? (p200300ea8f2cd4009135d56ec3ceedd3.dip0.t-ipconnect.de. [2003:ea:8f2c:d400:9135:d56e:c3ce:edd3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm620428f8f.5.2026.09.10.12.33.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 12:33:18 -0700 (PDT)
-Message-ID: <46807790-6f07-4f0a-b50b-375cc1c9b061@gmail.com>
-Date: Thu, 10 Sep 2026 21:33:15 +0200
+        d=1e100.net; s=20251104; t=1789068903; x=1789673703;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Nq7IqBIdgbZsD8ABmIvzn+Awy9fut43M9zz67PnhZZk=;
+        b=oAiDZ8WASqWAvQcASDwu190D2lyX7F6SGrKlrkUBMMi/4nJK2fOuKeVDUJOPanUohI
+         v9gQhZN+JDtBI3b2MWnZNYpv1HKCrhvDqaVuoSev7KOtlSNueJnVvj4HdsxA6JA37vI9
+         KeVUzcUO5zc9z0to8fESX2F2GRrdmUQA5YuZllgWRr6igShhG7hLD0l/nPsSX2ljL4JC
+         Jen34GVrQGq8LCN3/qX1oReY/e17JI7kTPkL0+4+Mk55ZaOlAjiHaE1a038dyVdrsFBB
+         w+1O5LTNJ33yGX8dBuR/HDfIfNJgKvU6d+Rx++qVkF5EbDsTN/8cnX+oi/Cw43NhpCFm
+         PtsA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOaydhlkYE6p22cnHAraFn/KdFS5vjmwnw1ycTybPc+gfMmXd/Z9twG0V0v3O+P2SON3291B7t1iiSbVo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXGNCHySPT2DJVCzUp/EQYrW8HAYqRd+7xO5yYqL85iI9K70qk
+	iIrPs2Z1aeu8yweieVX7mK3HWdIe4J4JgfXVL5trfaj4vyOjCJpRLenTWD8aG3rqBd2bsL5Zdw/
+	kBrTr7ra5/PVvMv3cK+BvnQQq/sNFoCqaod4h3HeAXPjBSmzfvzQ8ZlfXf3Q=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] r8169: don't enable chip LTR when the platform has
- not enabled LTR
-To: Yogesh Gaur <yogeshgaur.83@gmail.com>, nic_swsd@realtek.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Javen Xu <javen_xu@realsil.com.cn>
-References: <20260910130140.910-1-yogeshgaur.83@gmail.com>
-Content-Language: en-US
-From: Heiner Kallweit <hkallweit1@gmail.com>
-In-Reply-To: <20260910130140.910-1-yogeshgaur.83@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:60e:b0:6ba:5f65:6e5c with SMTP id
+ 006d021491bc7-6bf4786d3a1mr2882836eaf.42.1789068902840; Thu, 10 Sep 2026
+ 12:35:02 -0700 (PDT)
+Date: Thu, 10 Sep 2026 12:35:02 -0700
+In-Reply-To: <aqMF_azjzunub9ab@linux.dev>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa30666.f81106d8.2ab401.0012.GAE@google.com>
+Subject: Re: [syzbot] [mm?] [cgroups?] inconsistent lock state in
+ fs_reclaim_acquire (4)
+From: syzbot <syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com>
+To: shakeel.butt@linux.dev
+Cc: akpm@linux-foundation.org, cgroups@vger.kernel.org, hannes@cmpxchg.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-usb@vger.kernel.org, 
+	mhocko@kernel.org, muchun.song@linux.dev, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10.09.2026 15:01, Yogesh Gaur wrote:
-> rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,
-> 
+> On Wed, Sep 09, 2026 at 03:45:37PM -0700, syzbot wrote:
+>> Hello,
+>> 
+>> syzbot found the following issue on:
+>> 
+>> HEAD commit:    34c9c5517033 Merge 7.3-rc2 into usb-next
+>> git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+>> console output: https://syzkaller.appspot.com/x/log.txt?x=1408d749580000
+>> kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
+>> dashboard link: https://syzkaller.appspot.com/bug?extid=093e05755c2d99caab91
+>> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+>> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=102c2ef9580000
+>> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=156d7af9580000
+>> 
+>> Downloadable assets:
+>> disk image: https://storage.googleapis.com/syzbot-assets/8a384e63cde6/disk-34c9c551.raw.xz
+>> vmlinux: https://storage.googleapis.com/syzbot-assets/e5a73decdc30/vmlinux-34c9c551.xz
+>> kernel image: https://storage.googleapis.com/syzbot-assets/13abc163bbdc/bzImage-34c9c551.xz
+>> 
+>> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+>> Reported-by: syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com
+>> 
+>> ================================
+>> WARNING: inconsistent lock state
+>> syzkaller #0 Not tainted
+>> --------------------------------
+>> inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
+>> syz.3.17/3981 [HC0[0]:SC1[1]:HE0:SE0] takes:
+>> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
+>> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4636 [inline]
+>> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: slab_alloc_node mm/slub.c:4974 [inline]
+>> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: __do_kmalloc_node mm/slub.c:5413 [inline]
+>> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: __kmalloc_node_track_caller_noprof+0xcc/0x820 mm/slub.c:5545
+>> {SOFTIRQ-ON-W} state was registered at:
+>>   lock_acquire kernel/locking/lockdep.c:5942 [inline]
+>>   lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+>>   __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+>>   fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+>>   might_alloc include/linux/sched/mm.h:316 [inline]
+>>   xa_alloc include/linux/xarray.h:876 [inline]
+>>   mem_cgroup_alloc mm/memcontrol.c:4160 [inline]
+>>   mem_cgroup_css_alloc+0x7e/0x1ce0 mm/memcontrol.c:4225
+>>   cgroup_init_subsys+0x223/0x700 kernel/cgroup/cgroup.c:6431
+>>   cgroup_init+0x569/0xe50 kernel/cgroup/cgroup.c:6558
+>>   start_kernel+0x470/0x490 init/main.c:1176
+>>   x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
+>>   x86_64_start_kernel+0x12b/0x130 arch/x86/kernel/head64.c:291
+>>   common_startup_64+0x13e/0x158
+>> irq event stamp: 317
+>> hardirqs last  enabled at (316): [<ffffffff878ad162>] __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:210 [inline]
+>> hardirqs last  enabled at (316): [<ffffffff878ad162>] _raw_spin_unlock_irqrestore+0x52/0x80 kernel/locking/spinlock.c:221
+>> hardirqs last disabled at (317): [<ffffffff878acd32>] __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:153 [inline]
+>> hardirqs last disabled at (317): [<ffffffff878acd32>] _raw_spin_lock_irqsave+0x52/0x60 kernel/locking/spinlock.c:181
+>> softirqs last  enabled at (302): [<ffffffff8177a2a8>] __do_softirq kernel/softirq.c:679 [inline]
+>> softirqs last  enabled at (302): [<ffffffff8177a2a8>] invoke_softirq kernel/softirq.c:519 [inline]
+>> softirqs last  enabled at (302): [<ffffffff8177a2a8>] __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+>> softirqs last disabled at (313): [<ffffffff8177a2a8>] __do_softirq kernel/softirq.c:679 [inline]
+>> softirqs last disabled at (313): [<ffffffff8177a2a8>] invoke_softirq kernel/softirq.c:519 [inline]
+>> softirqs last disabled at (313): [<ffffffff8177a2a8>] __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+>> 
+>> other info that might help us debug this:
+>>  Possible unsafe locking scenario:
+>> 
+>>        CPU0
+>>        ----
+>>   lock(fs_reclaim);
+>>   <Interrupt>
+>>     lock(fs_reclaim);
+>> 
+>>  *** DEADLOCK ***
+>> 
+>> locks held by syz.3.17/3981: 1, on CPU#0:
+>>  #0: ffff888122130870 (&hiddev->existancelock){+.+.}-{4:4}, at: hiddev_ioctl+0x165/0x15b0 drivers/hid/usbhid/hiddev.c:610
+>> 
+>> stack backtrace:
+>> CPU: 0 UID: 0 PID: 3981 Comm: syz.3.17 Not tainted syzkaller #0 PREEMPT(lazy) 
+>> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+>> Call Trace:
+>>  <IRQ>
+>>  __dump_stack lib/dump_stack.c:94 [inline]
+>>  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+>>  print_usage_bug.part.0+0x258/0x340 kernel/locking/lockdep.c:4086
+>>  print_usage_bug kernel/locking/lockdep.c:4054 [inline]
+>>  valid_state kernel/locking/lockdep.c:4100 [inline]
+>>  mark_lock_irq kernel/locking/lockdep.c:4311 [inline]
+>>  mark_lock+0x956/0x1020 kernel/locking/lockdep.c:4797
+>>  mark_usage kernel/locking/lockdep.c:4686 [inline]
+>>  __lock_acquire+0x7f1/0x1f40 kernel/locking/lockdep.c:5242
+>>  lock_acquire kernel/locking/lockdep.c:5942 [inline]
+>>  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+>>  __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+>>  fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+>>  might_alloc include/linux/sched/mm.h:316 [inline]
+>>  slab_pre_alloc_hook mm/slub.c:4636 [inline]
+>>  slab_alloc_node mm/slub.c:4974 [inline]
+>>  __do_kmalloc_node mm/slub.c:5413 [inline]
+>>  __kmalloc_node_track_caller_noprof+0xcc/0x820 mm/slub.c:5545
+>>  alloc_dr drivers/base/devres.c:141 [inline]
+>>  devm_kmalloc+0xa5/0x2b0 drivers/base/devres.c:951
+>>  devm_kzalloc include/linux/device/devres.h:50 [inline]
+>>  mt_allocate_report_data+0x59/0xcc0 drivers/hid/hid-multitouch.c:695
+>>  mt_find_report_data drivers/hid/hid-multitouch.c:745 [inline]
+>>  mt_event+0x1bf/0x270 drivers/hid/hid-multitouch.c:1570
+>>  hid_process_event+0x37d/0x5a0 drivers/hid/hid-core.c:1572
+>>  hid_process_report drivers/hid/hid-core.c:1730 [inline]
+>>  hid_report_raw_event+0xb14/0x14c0 drivers/hid/hid-core.c:2109
+>>  __hid_input_report.constprop.0+0x349/0x470 drivers/hid/hid-core.c:2180
+>>  hid_ctrl+0x4a4/0x560 drivers/hid/usbhid/hid-core.c:486
+>>  __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+>>  usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+>>  dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>>  __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
+>>  hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
+>>  handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
+>>  __do_softirq kernel/softirq.c:679 [inline]
+>>  invoke_softirq kernel/softirq.c:519 [inline]
+>>  __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+>>  irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+>>  instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+>>  sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+>>  </IRQ>
+>>  <TASK>
+>>  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+>> RIP: 0010:__raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+>> RIP: 0010:_raw_spin_unlock_irqrestore+0x31/0x80 kernel/locking/spinlock.c:221
+>> Code: f5 53 48 8b 74 24 10 48 89 fb 48 83 c7 18 e8 56 f7 05 fa 48 89 df e8 de 4d 06 fa f7 c5 00 02 00 00 75 23 9c 58 f6 c4 02 75 37 <bf> 01 00 00 00 e8 65 a3 f8 f9 65 48 83 3d d4 ee 98 05 00 74 16 5b
+>> RSP: 0018:ffffc90001bff9f0 EFLAGS: 00000246
+>> RAX: 0000000000000002 RBX: ffff8881f5625fc0 RCX: 0000000000000040
+>> RDX: 0000000000000001 RSI: ffffffff89329b79 RDI: ffffffff87d2b780
+>> RBP: 0000000000000287 R08: 0000000000000001 R09: 0000000000000000
+>> R10: 0000000000000001 R11: 0000000000000000 R12: ffff8881f5625fc0
+>> R13: 0000000000000000 R14: 00000000ffffffff R15: ffff8881f5626008
+>>  __mod_timer+0x409/0xca0 kernel/time/timer.c:1139
+>>  add_timer+0x62/0x90 kernel/time/timer.c:1249
+>>  schedule_timeout+0x122/0x280 kernel/time/sleep_timeout.c:98
+>>  usbhid_wait_io+0x24e/0x420 drivers/hid/usbhid/hid-core.c:648
+>>  usbhid_init_reports+0x1a7/0x390 drivers/hid/usbhid/hid-core.c:787
+>>  hiddev_ioctl+0xddb/0x15b0 drivers/hid/usbhid/hiddev.c:794
+>>  vfs_ioctl fs/ioctl.c:51 [inline]
+>>  __do_sys_ioctl fs/ioctl.c:597 [inline]
+>>  __se_sys_ioctl fs/ioctl.c:583 [inline]
+>>  __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+>>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>>  do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
+>>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>> RIP: 0033:0x7f01bd5ee159
+>> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+>> RSP: 002b:00007f01bd42e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>> RAX: ffffffffffffffda RBX: 00007f01bd876090 RCX: 00007f01bd5ee159
+>> RDX: 0000000000000000 RSI: 00000000c018480b RDI: 0000000000000004
+>> RBP: 00007f01bd68503b R08: 0000000000000000 R09: 0000000000000000
+>> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+>> R13: 00007f01bd876128 R14: 00007f01bd876090 R15: 00007ffe3b7b3048
+>>  </TASK>
+>> ------------[ cut here ]------------
+>> do not call blocking ops when !TASK_RUNNING; state=2 set at [<ffffffff818d66ad>] prepare_to_wait_event+0x8d/0x720 kernel/sched/wait.c:318
+>> WARNING: kernel/sched/core.c:9179 at __might_sleep+0x94/0xc0 kernel/sched/core.c:9179, CPU#0: syz.3.17/3981
+>> Modules linked in:
+>> CPU: 0 UID: 0 PID: 3981 Comm: syz.3.17 Not tainted syzkaller #0 PREEMPT(lazy) 
+>> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+>> RIP: 0010:__might_sleep+0x97/0xc0 kernel/sched/core.c:9179
+>> Code: 8b 94 24 c0 17 00 00 48 85 d2 75 14 48 83 c4 08 89 ee 48 89 df 31 d2 5b 5d 41 5c e9 33 fc ff ff 48 8d 3d 5c d9 92 09 48 89 d1 <67> 48 0f b9 3a eb db e8 fd 20 9c 00 eb 9f 89 74 24 04 e8 22 21 9c
+>> RSP: 0018:ffffc90000007828 EFLAGS: 00010082
+>> RAX: dffffc0000000000 RBX: ffffffff8931ad45 RCX: ffffffff818d66ad
+>> RDX: ffffffff818d66ad RSI: 0000000000000002 RDI: ffffffff8b16a1e0
+>> RBP: 0000000000000142 R08: 0000000000000001 R09: 0000000000000000
+>> R10: 0000000000000000 R11: 0000000000000001 R12: ffff888107ed3c80
+>> R13: 0000000000000dc0 R14: 00000000ffffffff R15: 00000000ffffffff
+>> FS:  00007f01bd42e6c0(0000) GS:ffff8882683e4000(0000) knlGS:0000000000000000
+>> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> CR2: 00007f01bd42dff8 CR3: 00000001214ba000 CR4: 00000000003506f0
+>> Call Trace:
+>>  <IRQ>
+>>  might_alloc include/linux/sched/mm.h:322 [inline]
+>>  slab_pre_alloc_hook mm/slub.c:4636 [inline]
+>>  slab_alloc_node mm/slub.c:4974 [inline]
+>>  __do_kmalloc_node mm/slub.c:5413 [inline]
+>>  __kmalloc_node_track_caller_noprof+0x473/0x820 mm/slub.c:5545
+>>  alloc_dr drivers/base/devres.c:141 [inline]
+>>  devm_kmalloc+0xa5/0x2b0 drivers/base/devres.c:951
+>>  devm_kzalloc include/linux/device/devres.h:50 [inline]
+>>  mt_allocate_report_data+0x59/0xcc0 drivers/hid/hid-multitouch.c:695
+>>  mt_find_report_data drivers/hid/hid-multitouch.c:745 [inline]
+>>  mt_event+0x1bf/0x270 drivers/hid/hid-multitouch.c:1570
+>>  hid_process_event+0x37d/0x5a0 drivers/hid/hid-core.c:1572
+>>  hid_process_report drivers/hid/hid-core.c:1730 [inline]
+>>  hid_report_raw_event+0xb14/0x14c0 drivers/hid/hid-core.c:2109
+>>  __hid_input_report.constprop.0+0x349/0x470 drivers/hid/hid-core.c:2180
+>>  hid_ctrl+0x4a4/0x560 drivers/hid/usbhid/hid-core.c:486
+>>  __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+>>  usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+>>  dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>>  __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
+>>  hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
+>>  handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
+>>  __do_softirq kernel/softirq.c:679 [inline]
+>>  invoke_softirq kernel/softirq.c:519 [inline]
+>>  __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+>>  irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+>>  instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+>>  sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+>>  </IRQ>
+>>  <TASK>
+>>  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+>> RIP: 0010:__raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+>> RIP: 0010:_raw_spin_unlock_irqrestore+0x31/0x80 kernel/locking/spinlock.c:221
+>> Code: f5 53 48 8b 74 24 10 48 89 fb 48 83 c7 18 e8 56 f7 05 fa 48 89 df e8 de 4d 06 fa f7 c5 00 02 00 00 75 23 9c 58 f6 c4 02 75 37 <bf> 01 00 00 00 e8 65 a3 f8 f9 65 48 83 3d d4 ee 98 05 00 74 16 5b
+>> RSP: 0018:ffffc90001bff9f0 EFLAGS: 00000246
+>> RAX: 0000000000000002 RBX: ffff8881f5625fc0 RCX: 0000000000000040
+>> RDX: 0000000000000001 RSI: ffffffff89329b79 RDI: ffffffff87d2b780
+>> RBP: 0000000000000287 R08: 0000000000000001 R09: 0000000000000000
+>> R10: 0000000000000001 R11: 0000000000000000 R12: ffff8881f5625fc0
+>> R13: 0000000000000000 R14: 00000000ffffffff R15: ffff8881f5626008
+>>  __mod_timer+0x409/0xca0 kernel/time/timer.c:1139
+>>  add_timer+0x62/0x90 kernel/time/timer.c:1249
+>>  schedule_timeout+0x122/0x280 kernel/time/sleep_timeout.c:98
+>>  usbhid_wait_io+0x24e/0x420 drivers/hid/usbhid/hid-core.c:648
+>>  usbhid_init_reports+0x1a7/0x390 drivers/hid/usbhid/hid-core.c:787
+>>  hiddev_ioctl+0xddb/0x15b0 drivers/hid/usbhid/hiddev.c:794
+>>  vfs_ioctl fs/ioctl.c:51 [inline]
+>>  __do_sys_ioctl fs/ioctl.c:597 [inline]
+>>  __se_sys_ioctl fs/ioctl.c:583 [inline]
+>>  __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+>>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>>  do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
+>>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>> RIP: 0033:0x7f01bd5ee159
+>> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+>> RSP: 002b:00007f01bd42e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+>> RAX: ffffffffffffffda RBX: 00007f01bd876090 RCX: 00007f01bd5ee159
+>> RDX: 0000000000000000 RSI: 00000000c018480b RDI: 0000000000000004
+>> RBP: 00007f01bd68503b R08: 0000000000000000 R09: 0000000000000000
+>> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+>> R13: 00007f01bd876128 R14: 00007f01bd876090 R15: 00007ffe3b7b3048
+>>  </TASK>
+>> ----------------
+>> Code disassembly (best guess):
+>>    0:	f5                   	cmc
+>>    1:	53                   	push   %rbx
+>>    2:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+>>    7:	48 89 fb             	mov    %rdi,%rbx
+>>    a:	48 83 c7 18          	add    $0x18,%rdi
+>>    e:	e8 56 f7 05 fa       	call   0xfa05f769
+>>   13:	48 89 df             	mov    %rbx,%rdi
+>>   16:	e8 de 4d 06 fa       	call   0xfa064df9
+>>   1b:	f7 c5 00 02 00 00    	test   $0x200,%ebp
+>>   21:	75 23                	jne    0x46
+>>   23:	9c                   	pushf
+>>   24:	58                   	pop    %rax
+>>   25:	f6 c4 02             	test   $0x2,%ah
+>>   28:	75 37                	jne    0x61
+>> * 2a:	bf 01 00 00 00       	mov    $0x1,%edi <-- trapping instruction
+>>   2f:	e8 65 a3 f8 f9       	call   0xf9f8a399
+>>   34:	65 48 83 3d d4 ee 98 	cmpq   $0x0,%gs:0x598eed4(%rip)        # 0x598ef11
+>>   3b:	05 00
+>>   3d:	74 16                	je     0x55
+>>   3f:	5b                   	pop    %rbx
+>> 
+>> 
+>
+> Seems like HID issue which is being fixed by http://lore.kernel.org/20260910153746.16222-1-ngocthang2710.1999@gmail.com
+>
+> #syz set subsystems: hid
 
-Empty lines, mail formatting issue?
+The specified label value is incorrect.
+"hid" is not among the allowed values.
+Please use one of the supported label values.
 
-> LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on
-> 
-> RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on
-> 
-> every ASPM enable, then goes on to let the chip trigger L1.2.
-> 
-> 
-> 
-> The only gate is tp->aspm_manageable, which records that the OS is allowed
-> 
-> to control ASPM. It says nothing about LTR. LTR is a separate PCIe
-> 
-> capability that only works if every device on the path to the root port
-> 
-> supports it. The PCI core works that out in pci_configure_ltr() and
-> 
-> records the result in pci_dev->ltr_path; per PCIe r6.0 sec 7.5.3.16 a
-> 
-> function must not issue LTR messages while LTR Mechanism Enable is clear.
-> 
-> 
-> 
-> So on a platform whose hierarchy has no LTR path, the driver tells the
-> 
-> chip to start sending LTR messages nothing will honour, and ties ALDPS -
-> 
-> the PHY's link-down power saving - to them. A report against RTL8125B
-> 
-> (rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291
+The following labels are suported:
+actionable, missing-backport, no-reminders, prio: {low, normal, high}, subsystems: {..
+see below ..}
+The list of subsystems: https://syzkaller.appspot.com/upstream/subsystems?all=true
 
-Did you verify that this is caused by LTR messages, and not by any other
-root cause?
-
-> 
-> link down/up transitions in one eight-hour boot, with repeated downshifts
-> 
-> to 100Mbps, against four transitions at boot and then a stable link on
-> 
-> the kernel before the LTR change.
-> 
-> 
-> 
-> Gate the chip's LTR programming on pci_dev->ltr_path. That field lives
-> 
-> inside CONFIG_PCIEASPM, and without ASPM support there is nothing here to
-> 
-> enable LTR for, so compile the function out in that configuration.
-> 
-> 
-> 
-> Note this does change CONFIG_PCIEASPM=n builds, which used to program
-> 
-> chip LTR unconditionally: pci_disable_link_state() is a stub that returns
-> 
-> success there, so tp->aspm_manageable ends up set. The PCI core does not
-> 
-> configure LTR in that configuration either.
-> 
-> 
-> 
-> Fixes: 9ab94a32af70 ("r8169: enable LTR support")
-> 
-> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
- 
-Did you verify that your patch fixes the reported issue? Or do you
-just assume this? Because in the bug comment history I don't see
-a statement that issue has been resolved.
-
-> Assisted-by: LLM
-> 
-> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
-> 
-> ---
-> 
-> v2:
-> 
->  - Gate on pci_dev->ltr_path instead of reading PCI_EXP_DEVCTL2 directly,
-> 
->    and compile rtl_enable_ltr() out for CONFIG_PCIEASPM=n, where that
-> 
->    field does not exist and there is nothing to enable LTR for.
-> 
->    Suggested by Heiner Kallweit.
-> 
->  - Commit message notes the resulting change for CONFIG_PCIEASPM=n builds.
-> 
->  - No change to the RTL8125 register programming itself.
-> 
-> 
-> 
-> v1: https://lore.kernel.org/all/20260909110554.1977-1-yogeshgaur.83@gmail.com/
-> 
-> 
-> 
->  drivers/net/ethernet/realtek/r8169_main.c | 13 +++++++++++++
-> 
->  1 file changed, 13 insertions(+)
-> 
-> 
-> 
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> 
-> index ec4fc21fa21f..05f7a44aff01 100644
-> 
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> 
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> 
-> @@ -3035,8 +3035,16 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
-> 
->  	}
-> 
->  }
-> 
->  
-> 
-> +#ifdef CONFIG_PCIEASPM
-> 
->  static void rtl_enable_ltr(struct rtl8169_private *tp)
-> 
->  {
-> 
-> +	/* The chip must not issue LTR messages unless LTR is enabled on the
-> 
-> +	 * whole path up to the root port. pci_configure_ltr() works that out
-> 
-> +	 * and records the result in pci_dev->ltr_path.
-> 
-> +	 */
-> 
-> +	if (!tp->pci_dev->ltr_path)
-
-Simpler would be:
-if (!IS_ENABLED(CONFIG_PCIEASPM) || !tp->pci_dev->ltr_path)
-
-Then you don't need the stub function.
-
-> 
-> +		return;
-> 
-> +
-> 
->  	switch (tp->mac_version) {
-> 
->  	case RTL_GIGA_MAC_VER_80:
-> 
->  		r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);
-> 
-> @@ -3120,6 +3128,11 @@ static void rtl_enable_ltr(struct rtl8169_private *tp)
-> 
->  	/* chip can trigger LTR */
-> 
->  	r8168_mac_ocp_modify(tp, LTR_OBFF_LOCK, 0x0003, LTR_OBFF_LOCK_EN);
-> 
->  }
-> 
-> +#else
-> 
-> +static void rtl_enable_ltr(struct rtl8169_private *tp)
-> 
-> +{
-> 
-> +}
-> 
-> +#endif
-> 
->  
-> 
->  static void rtl_hw_aspm_clkreq_enable(struct rtl8169_private *tp, bool enable)
-> 
->  {
-> 
-
+>
