@@ -1,35 +1,64 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033383E49FD
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EABA3EC833;
+	Thu, 10 Sep 2026 09:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033773; cv=none; b=joRrch1WfLN7D43ycDFQ/n7o1DamjqfZjQHCbfpKi0IT9PonpxH3EI/XL8Vf8CVMefWzXcRi+C+DXZ24L0aOvJG5PqYDl8m9R6LJ+GeNOIT27UnLEEa6MAHZZ0kHyibuqGwci2lST1bwYqoxIIP9AeNOs7pFaxFWLOsJtzQqOZ8=
+	t=1789033794; cv=none; b=L9m1r5dSiTNl9jSiDo6joI6w1ELuDR43aXV11iMcjn54EHq9T1tuFoLbN8DQDgiAJOB6knH0/rrpaHVn5dkK+Tb1xtuiYtkAkAS/mJe+yM/CWAfaZLkoXXlfezf3dvZRKYe8ynxkJrdO5IOx6akqy5RweBi2pkp8DkfGeiPCIS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033773; c=relaxed/simple;
-	bh=2LOry7nxtWy/fMejyO3md0h70gNKPBbbskdPhQAxScI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mJHMrWEfDRrZAxdgsJ5f6db0xSAH0/itp3dwhArAAk52XZ/eHT/c5Yk3pz2EdymnoH1sLpZzlWiKHSQ+HnY554w8NQnTr49R4tG0buP93ZspLgkuZ13Mtf6Y0SRqRVuDAjXsU+e69E7udfB9yQhECCj6c6KtU5v/+UjEh23mgb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
-	by APP-05 (Coremail) with SMTP id zQCowAB3qEITfaJqq3jSBw--.59536S2;
-	Thu, 10 Sep 2026 17:49:07 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v2] drm/verisilicon: set blend mode for the cursor plane
-Date: Thu, 10 Sep 2026 17:49:04 +0800
-Message-ID: <20260910094904.3502741-1-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1789033794; c=relaxed/simple;
+	bh=3BAYu0D+Mo+P+pf6NkjoZAwucBgKWwDr/7pku6ciMYQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yykug8SqMobrlwtArUnqduSrMkXb2/FRws52GzdLr56ekiFW36tMKZ8IKJAcYBv9uPYJ3aUVx0ndyEkwp0I5IvhM9w/FpBKfWsF0OkhhgMUctVDX4sgnej6Xq5MbQgODHvFuC7Ix38cDIyKQVeEdn+Xg1zovgCZBV4oq+yVk+uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=InUByWLF; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="InUByWLF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789033791; x=1820569791;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=3BAYu0D+Mo+P+pf6NkjoZAwucBgKWwDr/7pku6ciMYQ=;
+  b=InUByWLFH0gS+hwDWtvgcQPjICaEBnbTrFQVr153U3TmuiomfHnP37O7
+   LIeVQoxRRJoa4Y7MNdOjzIkMc7UCJrDrqwKI4vfkevdjdAeoLGGQNX7CB
+   qPqLidqy+bQQG1DLW0tlwjxEk95usmKQsurq5Z1hMmRv6GjYma+Yu1Y+/
+   aJRIgFdvNSuALS2AwTPf8YkucvJXq2HUWxu9wfBmnbEhYhdPm+QXtrvmS
+   FqXj1p36qwVg8Q/+rJzwlmhsKUbF4whg25BXjT8lccWYrzkP2O9MHtDuB
+   UIHBy68wbjkSdkNW5ULyY2kzq1JHODfwEk5hKdVtlJ+bWw2NYZenpeUew
+   A==;
+X-CSE-ConnectionGUID: VGYOR4qaRwKpRlcmZCiL9g==
+X-CSE-MsgGUID: nb25ZWd4TsGjErSQPCwYpQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100644670"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="100644670"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:49:49 -0700
+X-CSE-ConnectionGUID: jWJMylsjRgiH4WPMwnabUQ==
+X-CSE-MsgGUID: npujtPKFTwK2nlHbnq5NPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="271561696"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:49:46 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Hangbin Liu <hangbin.liu@linux.dev>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v5] net: dropreason: add SKB_DROP_REASON_IP_TTL_EXCEEDED
+Date: Thu, 10 Sep 2026 17:49:37 +0800
+Message-ID: <20260910094937.536150-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,65 +66,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3qEITfaJqq3jSBw--.59536S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4rCF4kCw15Jw1UGF4rZrb_yoW8Xw1fpF
-	4jyFWUJrZ0yanIyry7Cw18tay3ua15G3Z2qrn5WFWqvwn8try7Zr1rGF1S9FW8JrsrW3yf
-	GrsrAr9xArWFkF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
-	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbGQ6JUUUU
-	U==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Blend mode properties are now required to expose pixel formats w/ alpha.
+The forwarding paths report an expired TTL or hop limit as
+SKB_DROP_REASON_IP_INHDR, the reason otherwise used for a header that is
+malformed (ip_input.c, exthdrs.c, br_netfilter). Nothing else in the drop
+path separates the two: IPSTATS_MIB_INHDRERRORS covers both, and the TTL
+check runs before NF_INET_FORWARD, so netfilter tracing stops at
+PREROUTING and never sees the drop.
 
-Experiments show that the fixed blending mode for the cursor seems to be
-COVERAGE:
+The Fedora bug linked below shows how that reads in practice. The
+reporter took kfree_skb(reason=IP_INHDR, loc=ip_forward) to mean the
+software header checksum check had failed, and worked through RX checksum
+offload, tc csum actions and both libvirt firewall backends before the
+drops turned out to be replies arriving with TTL 1. ip_forward() never
+verifies the header checksum; that runs earlier, in ip_rcv_core(), and
+reports IP_CSUM.
 
-- With a cursor plane filled with R=G=0, B=0xff, A=0x40, the cursor is
-  visible on a pure-white background, which means the background is
-  multiplied.
-- With a cursor plane filled with R=G=B=0xff, A=0x40, the cursor isn't
-  pure white and non-white patterns can be see through, which means the
-  cursor is multiplied.
+TTL expiry is not a corner case -- every traceroute through a Linux
+router goes through too_many_hops.
 
-Add a fixed COVERAGE blend mode property for the cursor plane.
+The three loopback hop limit checks in exthdrs.c drop with no reason at
+all; give them the new one.
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+IPSTATS_MIB_INHDRERRORS stays as it is: RFC 1213 counts time-to-live
+exceeded under ipInHdrErrors. The drop reason has no such constraint.
+
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2517131
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 2 ++
- 1 file changed, 2 insertions(+)
+v5: move the entry next to the other IP_* reasons, after IP_INVALID_DEST
+    (Jakub Kicinski)
+    IPVS decrement_ttl() is a follow-up: its xmit callers free at tx_error
+    with plain kfree_skb(), so the reason has to come back out of
+    __ip_vs_get_out_rt() (David Ahern, Hangbin Liu)
+v4: https://lore.kernel.org/netdev/20260907030133.482834-1-junjie.cao@intel.com/
+v3: https://lore.kernel.org/netdev/20260904030112.450920-1-junjie.cao@intel.com/
+v2: https://lore.kernel.org/netdev/20260901020613.417495-1-junjie.cao@intel.com/
+v1: https://lore.kernel.org/netdev/20260825073906.336072-1-junjie.cao@intel.com/
+ include/net/dropreason-core.h | 6 ++++++
+ net/ipv4/ip_forward.c         | 2 +-
+ net/ipv6/exthdrs.c            | 6 +++---
+ net/ipv6/ip6_output.c         | 2 +-
+ 4 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-index fa4f601dd0c87..da456dced88aa 100644
---- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-@@ -11,6 +11,7 @@
+diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
+index 2f312d1f67d6..12f909651591 100644
+--- a/include/net/dropreason-core.h
++++ b/include/net/dropreason-core.h
+@@ -93,6 +93,7 @@
+ 	FN(IP_INVALID_SOURCE)		\
+ 	FN(IP_LOCALNET)			\
+ 	FN(IP_INVALID_DEST)		\
++	FN(IP_TTL_EXCEEDED)		\
+ 	FN(PKT_TOO_BIG)			\
+ 	FN(DUP_FRAG)			\
+ 	FN(FRAG_REASM_TIMEOUT)		\
+@@ -474,6 +475,11 @@ enum skb_drop_reason {
+ 	 * 1) dest ip is 0
+ 	 */
+ 	SKB_DROP_REASON_IP_INVALID_DEST,
++	/**
++	 * @SKB_DROP_REASON_IP_TTL_EXCEEDED: IPv4 TTL or IPv6 hop limit <= 1
++	 * (see IPSTATS_MIB_INHDRERRORS)
++	 */
++	SKB_DROP_REASON_IP_TTL_EXCEEDED,
+ 	/**
+ 	 * @SKB_DROP_REASON_PKT_TOO_BIG: packet size is too big (maybe exceed the
+ 	 * MTU)
+diff --git a/net/ipv4/ip_forward.c b/net/ipv4/ip_forward.c
+index 8b65f12583eb..b242561d37e7 100644
+--- a/net/ipv4/ip_forward.c
++++ b/net/ipv4/ip_forward.c
+@@ -174,7 +174,7 @@ int ip_forward(struct sk_buff *skb)
+ 	/* Tell the sender its packet died... */
+ 	__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
+ 	icmp_send(skb, ICMP_TIME_EXCEEDED, ICMP_EXC_TTL, 0);
+-	SKB_DR_SET(reason, IP_INHDR);
++	SKB_DR_SET(reason, IP_TTL_EXCEEDED);
+ drop:
+ 	kfree_skb_reason(skb, reason);
+ 	return NET_RX_DROP;
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index 09a4552f7f08..55391e2e5612 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -464,7 +464,7 @@ static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ 			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
+ 				    ICMPV6_EXC_HOPLIMIT, 0);
+-			kfree_skb(skb);
++			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 			return -1;
+ 		}
+ 		ipv6_hdr(skb)->hop_limit--;
+@@ -623,7 +623,7 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ 			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
+ 				    ICMPV6_EXC_HOPLIMIT, 0);
+-			kfree_skb(skb);
++			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 			return -1;
+ 		}
+ 		ipv6_hdr(skb)->hop_limit--;
+@@ -815,7 +815,7 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 			icmpv6_send(skb, ICMPV6_TIME_EXCEED, ICMPV6_EXC_HOPLIMIT,
+ 				    0);
+-			kfree_skb(skb);
++			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 			return -1;
+ 		}
+ 		ipv6_hdr(skb)->hop_limit--;
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 96ee3de55f93..ddaba0aebcb1 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -577,7 +577,7 @@ int ip6_forward(struct sk_buff *skb)
+ 		icmpv6_send(skb, ICMPV6_TIME_EXCEED, ICMPV6_EXC_HOPLIMIT, 0);
+ 		__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
  
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-@@ -267,6 +268,7 @@ struct drm_plane *vs_cursor_plane_init(struct drm_device *drm_dev,
- 		return plane;
+-		kfree_skb_reason(skb, SKB_DROP_REASON_IP_INHDR);
++		kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 		return -ETIMEDOUT;
+ 	}
  
- 	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
-+	drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
- 
- 	return plane;
- }
 -- 
-2.52.0
+2.43.0
 
