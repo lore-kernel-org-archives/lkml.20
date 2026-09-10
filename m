@@ -1,93 +1,244 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FAA57D208
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C967655D866;
+	Thu, 10 Sep 2026 18:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789064408; cv=none; b=Uo1KC9vvgZgfBXCxheGHoS+Sex8aAUw0xtCqBqgl6+qmDxnCZLJkqnXVRLjIQmmhZt8rPMb5p+dGy9mjvwJXtgySoUIYr/SGOGpCFfXSg4TNY0D6yrXnt2gCqF25E3wuXYcbFqiOJWqhpLIN3Wea+djvs8pVIHm99UCIEIW15gI=
+	t=1789064418; cv=none; b=gr/FodBBLwXiAomE0wgVFTxbGOQeiZrQDw4o2JRDMVg4vRtqOt7d3x4gzkcB6kzRD5u3W8mfGtyeGfbe822JsYRVdGqwiOLK29vJx+XrPWWdxRnnDersjMJ5AKkCQBKpX7eZOKRToVIPYG0BX8jSQJo8GWulN9rt9IJUEg3RDCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789064408; c=relaxed/simple;
-	bh=qF51l8XO0vylmqZ0r93gy6syKZHssm0J0aqhvYt3uik=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Xa4M+ZTIQQpFYPQYJqsBq7bCpd3aDDJNfKvLDWzNg3O6kHFoNYcK5rwsbQdUJimuHRwjRzit3NRyiZ0YhrmKigFaAiaZa4doSWq2R4DknrjNcR1BN+KPaKSkbLL4rZA9c9LtRoJBHjMFMuIAzNz7hab963aHuQ5/69rMDNY5Psw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org; spf=pass smtp.mailfrom=networkplumber.org; dkim=pass (2048-bit key) header.d=networkplumber-org.20251104.gappssmtp.com header.i=@networkplumber-org.20251104.gappssmtp.com header.b=ltThp2Yk; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
+	s=arc-20240116; t=1789064418; c=relaxed/simple;
+	bh=ytdtV8MEphkLh3wnH/e5LhGOVVLAFMbBgbMUE5TVfX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lFppZuBeNvfh/++AlaZXQljThRgV8NuvrJ+Mw9IzyNZ4SLUC3FZbTCq6ggCYV+kSxUPt/OaRgI0ITFKuOLAkt2zS2jKDyRCu8dYoGDbE5smHUhxHOmYnnUcThxEQPhrB9Q71ov3Iae+31FYtXvTnUlTXutRKMJndcMH+fqlF0yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vy09WiP4; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=we+03sV8; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=networkplumber-org.20251104.gappssmtp.com header.i=@networkplumber-org.20251104.gappssmtp.com header.b="ltThp2Yk"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4b29fa803so111741a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:20:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=networkplumber-org.20251104.gappssmtp.com; s=20251104; t=1789064405; x=1789669205; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DIF4EGNYV//D+/mRr01nJgL7wM1T2zwMBGkKJveANRw=;
-        b=ltThp2YkwJ/W8ZBYvQhFDmWVKGHbE7lgLR+hlyhgMQy1R0Kq6FRxF9jIv+Su3oRXSE
-         0yQugKyKzUugP9sIqKh5zraSgVK/cvrNax7gY/ZIaSJ0azricHEOyiAiEKmnqvBvpUs3
-         NFu+WfByTgOPRN2Koq3Zz3pljo+KFQEXC6bnfTHNH/BIBxMu7fsNTg5VHRXWRcj3L+Xm
-         LRg88IQZht8f0y6yYWNABqAxvX/hWeR1SVdimdOZpz0wc6WG5ijv0XNqNmgelHFLCRop
-         0ozwZ3Ul70fdCE/ni1xYSjpqM7VPtWN7T2C+aYDgbsQHBuewIsgM1afQGym6WRp2DCBi
-         v/vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789064405; x=1789669205;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DIF4EGNYV//D+/mRr01nJgL7wM1T2zwMBGkKJveANRw=;
-        b=HHccSIap+CLzx9m+6noD/KW2xWPTZFTXlw2QNbFxA3TCXoPq4btmje1G3O78nc5uEH
-         6g7e0/XAQgrOfr4NAG3WOqlDlEzumY3BfSkNNPQ0QwsoSBVSO5hK1QZIAi9j1aKL5a+x
-         7ApKPTLhNpgXW4IJkhT0mw7sqsWHfgw+sLcVQ3ZbQyZOs6kuclz/hAjtGtEwJ183fr0w
-         N5/YFbtVyegsS6jIkTTwFrE6SsP3T9gM1uC0nPwRYEhRb+zJYPBtH3Ul6ujvecPMW28C
-         8i61dVveOQ/lMfNwaYU7xcSttJY6/tW5aAN8n0Qz4LKCCNJXC/qfknHMof375m8VXUbK
-         I3lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOu68H8Es41l7sQdcDJese28pwbvOlUHI9lZQMtLyU3gJjJuhWNk5kkRvjmxCvAoOlluE3wrQF7wGkjTU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhlLN7Q6sbzLopvWKi8tYL2SgfE8jI7jBsiCJj+hMdjJzNQiFo
-	Zl6SQFA9bQd2jITvpd0XvfQOuDlm5MCwvx9LkEUofSWUtUBpmSB7joH2Yc9ID6sjuco=
-X-Gm-Gg: AYBFou0KSF8SpNFWtmOwf6+ELzQI3k4gIzSQHk2rhwkZBQv5wbPTdHweL60rZ21EbrX
-	7wEZZtB++zNNXYiUrtg84Aa4k75ocWbD8EH4boJCGgrt90+x8LJU92Leecg9D3szNXo0v5XHvsk
-	M492Csrv1by/Jv2rKeba7lnbx4yRvlLNCfKqCJKwFdKLdKSQoQCB/BWzWoI/LNWmvmdbdWYvJra
-	Njo66TfjeLBtvC7SWd+39ev0QnJl3A0UuQS7dwIa9fHv+40NLAZwHFgBHwNBXOpp5myEtD68tG2
-	vE2caDRzF/M+0qBacVKfRBW3H9xrii8gxjkkfw1GQUeYcev/FK0eidhxmBlBCm/5Svj5gK4sz6l
-	rZ5ikzykozDzTfIsVcabSkAC+ey6fQWfbBN7DkogAa3r895G3F9EcFXyjukGN1iFNgzuslM+u5z
-	SqqySHPP6VBSW7hEErergSdPPfDMVKG3Slt9YO44j+vLP2+UaSGW3SxdhMiRJFK1ljiXggKqlzI
-	86lVP9Gio3D/Jb2n/bMdCLzk/riaHs7a4l58fbB
-X-Received: by 2002:a05:6a21:7314:b0:3d2:5eb3:596 with SMTP id adf61e73a8af0-3daed31ac5cmr217449637.16.1789064404793;
-        Thu, 10 Sep 2026 11:20:04 -0700 (PDT)
-Received: from phoenix.local (204-195-96-226.wavecable.com. [204.195.96.226])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6599249sm101174a12.28.2026.09.10.11.19.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 11:20:04 -0700 (PDT)
-Date: Thu, 10 Sep 2026 11:19:52 -0700
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org (open list:NETWORKING [IPv4/IPv6]),
- linux-kernel@vger.kernel.org (open list)
-Subject: Re: [PATCH] net: ipconfig: use ifreq field aliases
-Message-ID: <20260910111952.47068985@phoenix.local>
-In-Reply-To: <20260909144417.28871-1-lalitshankarch@gmail.com>
-References: <20260909144417.28871-1-lalitshankarch@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vy09WiP4";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="we+03sV8"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hgmDt1JsVzMlGn;
+	Thu, 10 Sep 2026 20:20:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789064414;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JT8Lel9Htpt1ONgRefXicHp4XhjRXop4uEqGlu/4M1w=;
+	b=vy09WiP4a5u0w/PXtG2Afv1m86ld6IyG0YodIVU//webwCUEuodZq3GKbpapWKjBimjmlF
+	KPhS1FVwHnZk2PFFiWP9qxG1M1K198UVFI3b1zGLpJssPCY6k+lyPqB3aVvZb0nqbfIfYb
+	PBeKvIffgY6KZ8XDTfIaqfv1MHiHvfgq5mXQTA6n1aoQOzL8r+ZDFiii7GHSUTfJoLl+LK
+	9vo4PgdpwerNHZyTFq2+bbiuKKiGRtb17yT1ynbpzM8XUKUQocpAtDneQOHZcnuTUvpH2K
+	1uQEggMfFjAUN8ooC2hTNYryY9z+QuZYU5ZRWHJswovtr7gvRubZtoAv0p+QiQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=we+03sV8;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789064412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JT8Lel9Htpt1ONgRefXicHp4XhjRXop4uEqGlu/4M1w=;
+	b=we+03sV88FIZrQGH5ffyI3BYWdl1bA4ZemCLv/ccQt6ge8I485Hwu+SHIKUlf52JZu+arx
+	/Lw8/ZhglUWuDLaW9czWXC4Fit4hRxiNEOAmHXiMdDDyjrssmIUaXdpAsEqzz1wLdAsCgE
+	2LthsvPNszOsrT7ScUA6ZczCoY0XKBL0XRKjdCpksM1X27meG7jaHaDLOLzVlFAefntekv
+	ZGmAU+C2YJXRMpFp6mSFEMSggqy8GLzXIEKtRTPGHw9VI6Ca7ImbVcIszNU+BbCD/QEL1d
+	7WfYv73qvDNrYsSV/Y+Uyv0GHOZHMceNSzDomV2h327jPfpRxrftkcZFBH29ZA==
+To: dri-devel@lists.freedesktop.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	David Airlie <airlied@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v3] drm/rcar-du: dsi: Implement DSI command TX using AXI memory access
+Date: Thu, 10 Sep 2026 20:19:45 +0200
+Message-ID: <20260910182003.31612-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: unpwsd8c9cpkrm57a6suee78rzbxzr6b
+X-MBO-RS-ID: f8fd371e23885f80434
+X-Rspamd-Queue-Id: 4hgmDt1JsVzMlGn
 
-On Wed,  9 Sep 2026 14:44:16 +0000
-Lalit Shankar Chowdhury <lalitshankarch@gmail.com> wrote:
+Currently, the driver supports register access mode for DSI command
+transfer, which limits both TX and RX to only 16 Bytes long packets.
+Implement support for DSI command TX using AXI memory access mode,
+which extends the packet transfer length up to 128 Bytes long in LP
+and 1024 Bytes long in HS. Support for DSI command RX using the AXI
+access mode is not implemented due to missing test hardware.
 
-> Use the ifr_addr and ifr_name macros instead of the lengthier versions.
-> 
-> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-> ---
+The implementation allocates a DMAble 4k page. In case the command
+transfer is longer than 16 Bytes, the payload is copied into the
+page and sent out using the AXI access mode, otherwise the register
+access mode is used.
 
-Why? seems like useless churn. Those header files never change
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: David Airlie <airlied@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: - Use dma_set_mask_and_coherent() to set up global DMA mask and
+      drop GFP_DMA32 from dma_alloc_coherent() gfp flags.
+    - Fix DMA memory leak in missing fail path in rcar_mipi_dsi_probe()
+      and move dma_alloc_coherent() almost to the end of the probe
+      function, so as much as possible of the probe function is devm
+      managed.
+    - Unregister DSI host first, then free the DMA page
+V3: - Limit transfer to 1024 Bytes
+---
+ .../gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   | 50 ++++++++++++++++---
+ 1 file changed, 42 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+index 6e46d6d99f3c0..7a9c0a281ea6d 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+@@ -8,6 +8,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
++#include <linux/dma-mapping.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/math64.h>
+@@ -75,6 +76,9 @@ struct rcar_mipi_dsi {
+ 	unsigned long mode_flags;
+ 	unsigned int num_data_lanes;
+ 	unsigned int lanes;
++
++	void *cmd_axi_cpu;
++	dma_addr_t cmd_axi_dma;
+ };
+ 
+ struct dsi_setup_info {
+@@ -977,6 +981,7 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
+ 					      bool is_rx_xfer)
+ {
+ 	const bool is_tx_long = mipi_dsi_packet_format_is_long(msg->type);
++	const bool is_tx_axi = !is_rx_xfer && is_tx_long && (msg->tx_len > 16);
+ 	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
+ 	struct mipi_dsi_packet packet;
+ 	u8 payload[16] = { 0 };
+@@ -987,9 +992,14 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Configure LP or HS command transfer. */
+-	rcar_mipi_dsi_write(dsi, TXCMSETR, (msg->flags & MIPI_DSI_MSG_USE_LPM) ?
+-					   TXCMSETR_SPDTYP : 0);
++	/* Configure LP or HS and register or AXI command transfer. */
++	rcar_mipi_dsi_write(dsi, TXCMSETR, ((msg->flags & MIPI_DSI_MSG_USE_LPM) ?
++					    TXCMSETR_SPDTYP : 0) |
++					   (is_tx_axi ? TXCMSETR_LPPDACC : 0));
++
++	/* Configure DMA source address for AXI command transfer. */
++	if (is_tx_axi)
++		rcar_mipi_dsi_write(dsi, TXCMADDRSET0R, dsi->cmd_axi_dma);
+ 
+ 	/* Register access mode for RX transfer. */
+ 	if (is_rx_xfer)
+@@ -1011,7 +1021,10 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
+ 			    TXCMPHDR_DATA1(packet.header[2]) |
+ 			    TXCMPHDR_DATA0(packet.header[1]));
+ 
+-	if (is_tx_long) {
++	if (is_tx_axi) {
++		memcpy(dsi->cmd_axi_cpu, packet.payload,
++		       min(msg->tx_len, 1024));
++	} else if (is_tx_long) {
+ 		memcpy(payload, packet.payload,
+ 		       min(msg->tx_len, sizeof(payload)));
+ 
+@@ -1162,10 +1175,16 @@ static ssize_t rcar_mipi_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
+ 	int ret;
+ 
+-	if (msg->tx_len > 16 || msg->rx_len > 16) {
+-		/* ToDo: Implement Memory on AXI bus command mode. */
++	if (msg->tx_len > 1024 || msg->rx_len > 16) {
++		/* ToDo: Implement Memory on AXI bus RX command mode. */
+ 		dev_warn(dsi->dev,
+-			 "Register-based command mode supports only up to 16 Bytes long payload\n");
++			 "Command mode supports only up to 1024B long TX and 16B long RX payload\n");
++		return -EOPNOTSUPP;
++	}
++
++	if ((msg->flags & MIPI_DSI_MSG_USE_LPM) && msg->tx_len > 128) {
++		dev_warn(dsi->dev,
++			 "Command mode in LP supports only up to 128B long TX payload\n");
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+@@ -1266,6 +1285,10 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
+ 	struct rcar_mipi_dsi *dsi;
+ 	int ret;
+ 
++	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "No suitable DMA available\n");
++
+ 	dsi = devm_drm_bridge_alloc(&pdev->dev, struct rcar_mipi_dsi, bridge,
+ 				    &rcar_mipi_dsi_bridge_ops);
+ 	if (IS_ERR(dsi))
+@@ -1295,12 +1318,21 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
+ 		return PTR_ERR(dsi->rstc);
+ 	}
+ 
++	dsi->cmd_axi_cpu = dma_alloc_coherent(&pdev->dev, SZ_4K, &dsi->cmd_axi_dma,
++					      GFP_KERNEL);
++	if (!dsi->cmd_axi_cpu) {
++		return dev_err_probe(&pdev->dev, -ENOMEM,
++				     "Failed to allocate DSI AXI Access command buffer\n");
++	}
++
+ 	/* Initialize the DSI host. */
+ 	dsi->host.dev = dsi->dev;
+ 	dsi->host.ops = &rcar_mipi_dsi_host_ops;
+ 	ret = mipi_dsi_host_register(&dsi->host);
+-	if (ret < 0)
++	if (ret < 0) {
++		dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma);
+ 		return ret;
++	}
+ 
+ 	return 0;
+ }
+@@ -1310,6 +1342,8 @@ static void rcar_mipi_dsi_remove(struct platform_device *pdev)
+ 	struct rcar_mipi_dsi *dsi = platform_get_drvdata(pdev);
+ 
+ 	mipi_dsi_host_unregister(&dsi->host);
++
++	dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma);
+ }
+ 
+ static const struct rcar_mipi_dsi_device_info v3u_data = {
+-- 
+2.53.0
+
