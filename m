@@ -1,140 +1,239 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D8A494A0F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9A620E030;
+	Thu, 10 Sep 2026 13:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047782; cv=none; b=BdZui2TLYEuRgG8F85oSnNRKzex2A0xOBFdfMR3kR+6Z5P268VQ0aHId+LoCrl7Tiy5glcyz4NbWUyFiJoBM4lu1rTzRwk9F5IEUrTWcHzJcXMbUstJetBcxKaeqs8OBNb2s4gF3s5nZnjAlL8Mj/6XTBy3yPiYGLMn4m1SVCGU=
+	t=1789047817; cv=none; b=p6s1lSPHK84GejXwLNQxTn/rSe22YAwySaH659W6P32lfW77NqDSL9gk6NDbJV3v/xFXKSb3TAdLNr+yMTFLoiD70dqfbaD6aUhS9GQWx3LM2vJG0Jz882yFj3BOXP8B71EhTkzAhXxa6C/MpZMpdLpSO7BGyrdFuf8yZPH1hJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047782; c=relaxed/simple;
-	bh=98ToWsIS5d7IjM6ytuYwT3/Jd61Z99/5CcphE1jQArU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ohkd9DRshFkrV/4+2zSN0sKH5kQYNQd3iwWra4krYQPGuUm3F7wWt5wk08DJrp/49sx26QV6lq1kPJkKoVOyofsAvIz4deyt+MUqzIC8rC9Vara0rqEHE1YoDDj5DbqubiWcfPbm4Etz8h8mXledSXGyaniAEq59xG5uBdkIacQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iyr3whHP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QL/SaU4q; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789047817; c=relaxed/simple;
+	bh=G5gcz1lcmEBhs7/N8SEY2p4bfnBRsbM9v20mq6G8sos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fRcy1bL+a7e07ezzpAF6Fnht5KCb5Ynm4fPJsKclVM6pxUQH+AuOnCheSj8Nx6IVLVh0DI06Nqu5Y1BumWj2irTAUkv471eQjhkA6GA//lkzr/o06sUykWz5rw0vp7XhkZ3oexiHfS9oGNX0Y/t655QHr9tggE1LXok0ZD5z33s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9FQzpHI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iyr3whHP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QL/SaU4q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789047779;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pJZZpHiP7CPuGKYWAqqyZAd3k8D84Jqu2Jb8Skkggz8=;
-	b=iyr3whHPyiAwG5dn8E/SfzANIpfltrCwqPHUy1X5Bn1qhp/6ZF5b7jj1FtJad5e7FRR8E1
-	LXOr40oKG6Xws8LSrQGjYVDObwyAKzgWqm64cwAtMMSCsACrOLF6ayVtz7U/WeNj8/Hx6a
-	adR1MONlYTf7jfW6Mqs/vkFCrzzEuKw=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-104-rhmxyhSPMIuSURW4lAgclw-1; Thu, 10 Sep 2026 09:42:57 -0400
-X-MC-Unique: rhmxyhSPMIuSURW4lAgclw-1
-X-Mimecast-MFC-AGG-ID: rhmxyhSPMIuSURW4lAgclw_1789047776
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so11100925a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789047776; x=1789652576; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pJZZpHiP7CPuGKYWAqqyZAd3k8D84Jqu2Jb8Skkggz8=;
-        b=QL/SaU4qUMxjSQDoGVgI34D9SeUM45rCEafQP1B24QyBd/58GnMl6eNnwwI8wYIQYi
-         U1BhM44Cvfb2+nw3/Bq3HjuvjfX0YfgC8qlfgW8nmgdACCyaFGKBDHDcIB+NHQfkJV/p
-         LjrA0onvWMG0yUY1kpLw3zZCBAzfkcjyVKtlaPB5mDOErgEaNGx03HBL+J+LLeuSBxVI
-         +9OicTHJciHa4GkOfVBKAMg2sch82Ba3YnegfDZm2NP6ee5LO3SXHPI0+kKEQSSkRdw3
-         L4S/l9UpMDDUxkMnKrHypUatNlH5AZvm/tn3xBpvZNqZ8FizF45osAEbHtyT1Ve6PfhX
-         mb5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789047776; x=1789652576;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pJZZpHiP7CPuGKYWAqqyZAd3k8D84Jqu2Jb8Skkggz8=;
-        b=HGZTbwMJEiZMjjI+mzAHFGPy3uP+PeUwvwQt+3exoRGZ+v1Vcnx1bqSGX96e7gxHif
-         EmugZcm0aEhS3kxEYUMbWw4smr9edH2ujHerEdM3csXhDBg4G9HpEuxn+iXHXDYDTI5N
-         MJdqcHjCotIhaWh+e4fjuU3DpkjTJf7lFRGjb/MJlduRKiToUC/LLe9LIJb0WA8xJxb0
-         3VYofi3HHhgEfm/FuQan3VE7Lco53H+CBXLKHWxzdDcOx/13i0ge0Bi5/kspF2ImgyLS
-         9cRKshM1y6iF2wHEfIZET8uhxa5ytpXOlw332EdC+11qK6L52QJ1X3agSALggCYrCYbu
-         3PSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzEx1hmMGLE1WPY/mfkSb8zcKwtPBfDPOIHIZFvZ2eBLe+hdoxWkdNu3IFETwjX1q+PNa6ZlfLSdN2+oXc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kefwzMnOUOolwIEc6+MpS0kF9qFtUgVOPQwm7JQA0utcqMzrTT
-	lYIZ1pmEAjKdk5ngB7gzPm5EVd0LN8GJrnHSJclzzHNJGyHgmLHfT5Me+n6hcr5a9cjy5EUTNbQ
-	480sWos9qj1zpmPrrraF+hn77FGqBcLJaDbSwzp+aaji2xaRW73DulHJ+Q5J89pGw7w==
-X-Gm-Gg: AYBFou2DJJV/7Wm0Njww3yjTxOHbjueiwvEeFZe0fH08owE0I2BR0huZgtKUq2uxV4K
-	VF9hIHERw5lGmZOLjjis43gvrdpPMFUkx1y3hobqJdSrQOuG7z2kEmGUR9FMj5b5zxz1ptKAwxL
-	MbWEisK045uPfkumwCgUgyRFTQMuRDEQks6dN3KIlQfzZsqMCKOtfGf9Bi7eUiwP39ioq25N6tV
-	8cBGDkJk1ny50DMVjfqXsm9KjebSIQjZXlA3GpmWGrqkMCw3o1o88fJZqnBfugzdc6wJwhr1OEq
-	pJUie96gtIHdxGLwE1LwwPxDHIrRxUTMSFipGkEm/97Ql9qwHNTK/Ob+7k3dwC/4wmu1UEEJGg=
-	=
-X-Received: by 2002:a17:90b:268d:b0:398:b71e:60c1 with SMTP id 98e67ed59e1d1-39d70ae1201mr11368182a91.12.1789047776228;
-        Thu, 10 Sep 2026 06:42:56 -0700 (PDT)
-X-Received: by 2002:a17:90b:268d:b0:398:b71e:60c1 with SMTP id 98e67ed59e1d1-39d70ae1201mr11368108a91.12.1789047775647;
-        Thu, 10 Sep 2026 06:42:55 -0700 (PDT)
-Received: from localhost ([240d:1a:c0d:9f00:be24:11ff:fe35:71b3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc467df7beesm7140566a12.7.2026.09.10.06.42.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:42:55 -0700 (PDT)
-From: Shigeru Yoshida <syoshida@redhat.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>,  "Darrick J. Wong"
- <djwong@kernel.org>,  Deepanshu Kartikey <kartikey406@gmail.com>,
-  linux-xfs@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
-Subject: Re: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before
- insert
-In-Reply-To: <aqJ6yulX3XBEoj4u@andromeda.toxiclabs.cc> (Carlos Maiolino's
-	message of "Thu, 10 Sep 2026 11:40:09 +0200")
-References: <20260906144629.17009-1-kartikey406@gmail.com>
-	<20260907045150.GI1933798@frogsfrogsfrogs>
-	<aqI7LFBkAhMSaDnx@infradead.org>
-	<aqJ6yulX3XBEoj4u@andromeda.toxiclabs.cc>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 10 Sep 2026 22:42:53 +0900
-Message-ID: <87y0d99q8y.fsf@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9FQzpHI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4130D1F000FF;
+	Thu, 10 Sep 2026 13:43:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789047816;
+	bh=uB1mKCaFDZWuyK3DGUmrZXpgsZnUvWGB2ld0lL3Ic3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h9FQzpHISbB7i98A4hcOB1r65ny8i+NhCf8KZGRtNYOOS78isJaiBUlL8at1hCHrd
+	 J2d0QD7XCAUJz5/rNbaacZbVESK1Lx7KnJgTr0PQczAfzj4RrUCtZK54o1S3fxH5JL
+	 CHAow3IJG3/n5u41wB1Gx+xLYNlK3pKyK1jE9M3s8TwG97iNmoE7Tyj7cqbedoMEDv
+	 2Jv6JEEqvB7NgEbYBpwGJyn/iKT0jEk8oyGwPcQNeQdi6gkJV+oxAANJAxpDm3a+H/
+	 J0CgAOvwebxb+KDP2tOcj1bHnsYPO/pu8uXGF85d9ACoBX/wQzk6SO6in6aTasQJiY
+	 oeCaTrPucgR7Q==
+Date: Thu, 10 Sep 2026 19:13:31 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dmaengine@vger.kernel.org, Frank Li <Frank.Li@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dmaengine: fsl_raid: fix sparse warnings
+Message-ID: <aqK0A4TFCM-laOab@parshuram>
+References: <20260820002816.17382-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820002816.17382-1-rosenp@gmail.com>
 
-Carlos Maiolino <cem@kernel.org> writes:
+On 19-08-26, 17:28, Rosen Penev wrote:
+> The register maps in fsl_raid.h annotate every field as __be32, but
+> they are accessed only through ioread32be()/iowrite32be(), which
+> already perform the byte swap and take plain u32 __iomem pointers.
+> The __be32 annotation therefore makes sparse reject each access:
+> 
+>   drivers/dma/fsl_raid.c:116:17: sparse: incorrect type in argument 1
+>       (different base types) ... got restricted __be32 [noderef] __iomem *
+> 
+> Drop __be32 from struct fsl_re_ctrl and struct fsl_re_chan_cfg; the
+> descriptor/CDB structures written via cpu_to_be32() keep their
+> annotations.
+> 
+> Also fix the remaining sparse warnings in fsl_raid.c:
+> 
+>   - compare the desc pointer with !desc instead of desc <= 0 in the
+>     three prep functions,
+>   - byte swap cdb32 with cpu_to_be32() when programming the XOR, PQ
+>     and MOVE command descriptor blocks; the plain u32 assignment is
+>     broken on little-endian hosts.
 
-> On Wed, Sep 09, 2026 at 10:07:56PM -0700, Christoph Hellwig wrote:
->> On Sun, Sep 06, 2026 at 09:51:50PM -0700, Darrick J. Wong wrote:
->> > On Sun, Sep 06, 2026 at 08:16:29PM +0530, Deepanshu Kartikey wrote:
->> > > __xfs_healthmon_insert() asserts that hm->lock is held
->> > > (lockdep_assert_held), but xfs_ioc_health_monitor() called it right
->> > > after allocating hm, before ever taking the lock, triggering a
->> > > lockdep warning.
->> > > 
->> > > Take hm->lock around the call.
->> > > 
->> > > Fixes: b3a289a2a9397 ("xfs: create event queuing, formatting, and discovery infrastructure")
->> > > Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
->> > > Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
->> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
->> > 
->> > Heh, I added a patch just like this one to my own tree.
->> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
->> 
->> Can we get this queued up ASAP?  It's also causing a lot of failures in
->> our zoned XFS CI.
->> 
->> 
->
-> Done. It's in for-next already. Not sure if I'll manage to push the
-> attrs fsblock fix yet this -rc, but this one will go to Linus on
-> Saturday
+Can you split the change per warning type? Also, the subject should
+describe the change and fix something.
 
-I noticed that the second mutex operation in this commit was
-accidentally left as mutex_lock() instead of mutex_unlock(). I've
-sent a fix as a separate patch ("xfs: fix double mutex_lock() call
-in xfs_ioc_health_monitor()"). Feel free to use it if it helps.
 
-Thanks,
-Shigeru
+> 
+> No warnings remain.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202608200637.ro1CqMxi-lkp@intel.com/
+> Fixes: 68b7fbc23529 ("dma: fsl_raid: keep MMIO bases as void __iomem and cast at access")
+> Assisted-by: opencode:deepseek-v4-flash-free
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/dma/fsl_raid.c | 12 +++++-----
+>  drivers/dma/fsl_raid.h | 54 +++++++++++++++++++++---------------------
+>  2 files changed, 33 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
+> index a35ddc1297ce..524a7329c3c4 100644
+> --- a/drivers/dma/fsl_raid.c
+> +++ b/drivers/dma/fsl_raid.c
+> @@ -350,7 +350,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_genq(
+>  	}
+>  
+>  	desc = fsl_re_chan_alloc_desc(re_chan, flags);
+> -	if (desc <= 0)
+> +	if (!desc)
+>  		return NULL;
+>  
+>  	if (scf && (flags & DMA_PREP_CONTINUE)) {
+> @@ -365,7 +365,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_genq(
+>  	cdb |= FSL_RE_INTR_ON_ERROR << FSL_RE_CDB_ERROR_SHIFT;
+>  	cdb |= FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
+>  	xor = desc->cdb_addr;
+> -	xor->cdb32 = cdb;
+> +	xor->cdb32 = cpu_to_be32(cdb);
+>  
+>  	if (scf) {
+>  		/* compute q = src0*coef0^src1*coef1^..., * is GF(8) mult */
+> @@ -474,7 +474,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_pq(
+>  		src_cnt += 3;
+>  
+>  	desc = fsl_re_chan_alloc_desc(re_chan, flags);
+> -	if (desc <= 0)
+> +	if (!desc)
+>  		return NULL;
+>  
+>  	/* Filling GenQQ CDB */
+> @@ -485,7 +485,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_pq(
+>  	cdb |= FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
+>  
+>  	pq = desc->cdb_addr;
+> -	pq->cdb32 = cdb;
+> +	pq->cdb32 = cpu_to_be32(cdb);
+>  
+>  	p = pq->gfm_q1;
+>  	/* Init gfm_q1[] */
+> @@ -558,7 +558,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_memcpy(
+>  	}
+>  
+>  	desc = fsl_re_chan_alloc_desc(re_chan, flags);
+> -	if (desc <= 0)
+> +	if (!desc)
+>  		return NULL;
+>  
+>  	/* Filling move CDB */
+> @@ -568,7 +568,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_dma_memcpy(
+>  	cdb |= FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
+>  
+>  	move = desc->cdb_addr;
+> -	move->cdb32 = cdb;
+> +	move->cdb32 = cpu_to_be32(cdb);
+>  
+>  	/* Filling frame 0 of CFD with move CDB */
+>  	cf = desc->cf_addr;
+> diff --git a/drivers/dma/fsl_raid.h b/drivers/dma/fsl_raid.h
+> index 748047996bbc..1b6f6b82c7d3 100644
+> --- a/drivers/dma/fsl_raid.h
+> +++ b/drivers/dma/fsl_raid.h
+> @@ -109,59 +109,59 @@
+>  
+>  struct fsl_re_ctrl {
+>  	/* General Configuration Registers */
+> -	__be32 global_config;	/* Global Configuration Register */
+> +	u32 global_config;	/* Global Configuration Register */
+>  	u8     rsvd1[4];
+> -	__be32 galois_field_config; /* Galois Field Configuration Register */
+> +	u32 galois_field_config; /* Galois Field Configuration Register */
+>  	u8     rsvd2[4];
+> -	__be32 jq_wrr_config;   /* WRR Configuration register */
+> +	u32 jq_wrr_config;	/* WRR Configuration register */
+>  	u8     rsvd3[4];
+> -	__be32 crc_config;	/* CRC Configuration register */
+> +	u32 crc_config;		/* CRC Configuration register */
+>  	u8     rsvd4[228];
+> -	__be32 system_reset;	/* System Reset Register */
+> +	u32 system_reset;	/* System Reset Register */
+>  	u8     rsvd5[252];
+> -	__be32 global_status;	/* Global Status Register */
+> +	u32 global_status;	/* Global Status Register */
+>  	u8     rsvd6[832];
+> -	__be32 re_liodn_base;	/* LIODN Base Register */
+> +	u32 re_liodn_base;	/* LIODN Base Register */
+>  	u8     rsvd7[1712];
+> -	__be32 re_version_id;	/* Version ID register of RE */
+> -	__be32 re_version_id_2; /* Version ID 2 register of RE */
+> +	u32 re_version_id;	/* Version ID register of RE */
+> +	u32 re_version_id_2;	/* Version ID 2 register of RE */
+>  	u8     rsvd8[512];
+> -	__be32 host_config;	/* Host I/F Configuration Register */
+> +	u32 host_config;	/* Host I/F Configuration Register */
+>  };
+>  
+>  struct fsl_re_chan_cfg {
+>  	/* Registers for JR interface */
+> -	__be32 jr_config_0;	/* Job Queue Configuration 0 Register */
+> -	__be32 jr_config_1;	/* Job Queue Configuration 1 Register */
+> -	__be32 jr_interrupt_status; /* Job Queue Interrupt Status Register */
+> +	u32 jr_config_0;	/* Job Queue Configuration 0 Register */
+> +	u32 jr_config_1;	/* Job Queue Configuration 1 Register */
+> +	u32 jr_interrupt_status; /* Job Queue Interrupt Status Register */
+>  	u8     rsvd1[4];
+> -	__be32 jr_command;	/* Job Queue Command Register */
+> +	u32 jr_command;		/* Job Queue Command Register */
+>  	u8     rsvd2[4];
+> -	__be32 jr_status;	/* Job Queue Status Register */
+> +	u32 jr_status;		/* Job Queue Status Register */
+>  	u8     rsvd3[228];
+>  
+>  	/* Input Ring */
+> -	__be32 inbring_base_h;	/* Inbound Ring Base Address Register - High */
+> -	__be32 inbring_base_l;	/* Inbound Ring Base Address Register - Low */
+> -	__be32 inbring_size;	/* Inbound Ring Size Register */
+> +	u32 inbring_base_h;	/* Inbound Ring Base Address Register - High */
+> +	u32 inbring_base_l;	/* Inbound Ring Base Address Register - Low */
+> +	u32 inbring_size;	/* Inbound Ring Size Register */
+>  	u8     rsvd4[4];
+> -	__be32 inbring_slot_avail; /* Inbound Ring Slot Available Register */
+> +	u32 inbring_slot_avail; /* Inbound Ring Slot Available Register */
+>  	u8     rsvd5[4];
+> -	__be32 inbring_add_job;	/* Inbound Ring Add Job Register */
+> +	u32 inbring_add_job;	/* Inbound Ring Add Job Register */
+>  	u8     rsvd6[4];
+> -	__be32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Register */
+> +	u32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Register */
+>  	u8     rsvd7[220];
+>  
+>  	/* Output Ring */
+> -	__be32 oubring_base_h;	/* Outbound Ring Base Address Register - High */
+> -	__be32 oubring_base_l;	/* Outbound Ring Base Address Register - Low */
+> -	__be32 oubring_size;	/* Outbound Ring Size Register */
+> +	u32 oubring_base_h;	/* Outbound Ring Base Address Register - High */
+> +	u32 oubring_base_l;	/* Outbound Ring Base Address Register - Low */
+> +	u32 oubring_size;	/* Outbound Ring Size Register */
+>  	u8     rsvd8[4];
+> -	__be32 oubring_job_rmvd; /* Outbound Ring Job Removed Register */
+> +	u32 oubring_job_rmvd;	/* Outbound Ring Job Removed Register */
+>  	u8     rsvd9[4];
+> -	__be32 oubring_slot_full; /* Outbound Ring Slot Full Register */
+> +	u32 oubring_slot_full;	/* Outbound Ring Slot Full Register */
+>  	u8     rsvd10[4];
+> -	__be32 oubring_prdcr_indx; /* Outbound Ring Producer Index */
+> +	u32 oubring_prdcr_indx;	/* Outbound Ring Producer Index */
+>  };
+>  
+>  /*
+> -- 
+> 2.55.0
+> 
 
+-- 
+~Vinod
