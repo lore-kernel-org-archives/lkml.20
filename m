@@ -1,137 +1,137 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080C43AEF55
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:05:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D0A4B486B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056339; cv=pass; b=VtQYwO9ugGrTitOLGoyJJqW5yKxK7JVQPGWnTEKvLsxNjEOBOTo2RNz92YS9aRjs8U/DOXgIW8wdP4ghEcbUCZ2BRnfrLeHNpE1RlvWrZOxYL5wJmyu7m9GjrNzX1l6MLW82MqMKKx7xPcsRFgzZyhQylzedIvUOXOlP3IKzR4w=
+	t=1789056343; cv=pass; b=OVp2Co3R6EcPNX9QbVNCoyP5IazxR7gYr6rd0jrJI4kAO3O63q/Tj6ZgaRJlh36LEn3yx0UleLDNecdiNejq93EVC5OCWk+Nx0dOkwLzef1W9EPbIsY33H4FlAtAcxuJs9ksd1SR3bjK6HXDZiPc3CIrhoWXnJXaF/OnIFSl/JM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056339; c=relaxed/simple;
-	bh=g7nac0T0X9UeGOZxw4guHvrAN2WDr1u+ybbYZk0AUJc=;
+	s=arc-20240116; t=1789056343; c=relaxed/simple;
+	bh=3oay50WY7oA0cOuOst6u1rwKL1yGnwSpPSeA2dNG1Fk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sfUOhXGHT70aSjTxfmos8P13DCyrV4iJvp0SCdQwjhqTyvyUdA/q1Xm/tYBvlfTUvRILRqvGAU0FUt65t5nqMKePKnCfeGtnG7ZX5kponpgT/qVbG8jdamNSExZWEsbsL8ihJNCV7Iw2xsI0wcqRCSwstKAADkU+nyuA+ER0fbU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZlNZ24py; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R2L3aBHP; arc=pass smtp.client-ip=205.220.180.131
+	 To:Cc:Content-Type; b=JEA6qWVqX2l2rJoDhbo6o5qTdVsDulVJOg8H1qv5d8HrLEUm9qeC9eGuAiMI2i9Vx/+x6R1gDdpVv5yDz5pRWyu6spCOyLXvC3IOLC4S5k0+uJeEROlsd/96YGiEAO9OMO+WBiWc/7FPLw3YPvBLl0ejDMTP7rNZWroXsfWN27M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cDMfWZSg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BZ2xIQpU; arc=pass smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZlNZ24py";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R2L3aBHP"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cDMfWZSg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BZ2xIQpU"
 Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AF4YkW1186643
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:05:37 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AF4YkY1186643
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:05:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yoxqy27byI+/wR2v7osUw7bvc0LF57CRxz5b6DL1pSQ=; b=ZlNZ24py8MkFeZO3
-	YnE+ujzXoEKddHVM4q2uTunajtH6GljGHbALN4EhxX6SEwcSLpIEwOgCPyBTTEMo
-	hLSBDq4OsUKVm4rfHzEfBMtFuph3vHr1fY6evCs4srZkqJ0qvrknt6/y+cwSPhEA
-	RSNPP/oVF/+1eXQaO+NtfCCgMvPG3M9K61R7owLRouuaBQIcKENa+P+bDeMGKCWl
-	mRKyDoIoRwnUzIqKFT3vl7wkDT2Tj5gO452TmvmWWC6HeU/iytlQmtmxwphpjWhP
-	m/BPm7ldMXy3fXQejhb05P+ZXEb1DyrtB3lq9VHizDeXz7tEsTkbAZ7vQxaD/MU4
-	NUj0pA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkraka9d2-1
+	x22SVoUj0EMbaUzbs6EY9GWgQ3tV9w77TMiRTqsjhJk=; b=cDMfWZSgrgV39F7+
+	pYOCoFZekczxkQzOAk7trY9ys3i0kyXPkz/DUY0YhltgFwxCz2cLgMn++aAJ9GCJ
+	9Yt5zGiYC7IPyvHSHmrYqJEWasgmCM9AnX4bgBUiIGv0JiDJVOHbm+ePE2V1BlmL
+	lEWQuTtk3gH7ovFYF1+Hb05/GbgQjFCBx9Z3AAbQ+owCS4asHUEKuor335KGv1b3
+	zTLrVmrs3DlkYrQ5g0xtbXifMxhefMyIUkWmY1ZjF4SA/JeEZ4V59DUrZJIeBsZF
+	j+y9peptrpesJNbru361cEx55VcxkXH98YRuAdPyl74nY5Gear2EcYHCaMmMzRlp
+	wWOUsw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkraka9dk-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:05:36 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a63cca6ffso831859b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:05:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789056336; cv=none;
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:05:40 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86a63cca6ffso831973b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:05:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789056340; cv=none;
         d=google.com; s=arc-20260327;
-        b=i2iwMg4RCZ15FtuYIO26mOnHBq2N+162QRwOJums96XL0ElsoKIGABix0eQNx3cUfq
-         GA2sQ56fJ11+tlQZh6t7dske6WCaJAMspL5TqAMGy+s0S5W5myXBRsAx2VcZ3hwXcVq/
-         eY3prcelklYZOqqmIMSowuzu6TI6UUjAZjAk6XwT/3kZ6+1aS5UqmRqdDjpyjBclV4gs
-         w8XgIOlWg4g1jPsTw0LUgzZN14cUSplxM1iH3EKWsFW700DU5WhU4YAPXvCBK+dBBES6
-         F/g287Ky68ltPaPc8RtTl5kMatl3VC13bYY5ssALJSJzjWcT7sj5VU5M9MBI8gxzrn3v
-         J7/w==
+        b=ixDDBZ51IESsa1UREXBobD0AQ7GIwoCntwMLo40ka8sYuEiA8Msj0A2cyhCW7i0wj7
+         EBP4HDhYcdRHvmDEdWH/40deZM9lLHn8UqY63y0pHrRObCyn9tzc8Jbv53iaMvnHHd+r
+         8PyArh4mXGWmQVYJxU+MPEOMZkYSaZK/goZDyOwYn3VQkpA28j6WJsY0vzjSEi7gkxcG
+         zCJj9CVIDTas7xGZt4mKPQ+H45LoWqD+IMYS/u2VkYjyUXZG8FpWq+eC9cMFFv5NDRBa
+         4wZ/iEctzKhVcehk9VCfiaRj6Jq4sgrKeH9BWb+YFfVVyBE24L+E/LrYeKNHQg8HL2KN
+         HLWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=yoxqy27byI+/wR2v7osUw7bvc0LF57CRxz5b6DL1pSQ=;
-        fh=H9wfOPO6zdJJo7UQqlqAK+Xewee0e+xAjQ3mNgDMf/c=;
-        b=Qrhd/IObA0t3+/TnXkHBAyTv2d2/eG+3CgdyOoTBPbzjJjRp4D6DzGlTqBNVxuSjed
-         ynSwpDpfZ+eRfysgFOGcQetAmXlOIK+5g1U3883jkxIkXP7ag6kX7CQMtTuiDnFHBmvZ
-         L1q8fx98A9I63fIwt64a9HA6vSCCa0Lv1f2duOR8rgzW9NrzFfD7KDHAWFlrYDbm3fxs
-         mD2DRDXwo5YBJEmdmg9js08prvCiLq8fgnbZzt20AooPxsf0MbzVt6qrnEiHNgGMA3nY
-         Ht+QA7D5FxQKKDan/yfIbOXc7Y3P+jnJ2us6iZ2I3/2XQwi2COWEKKnBpOWX0apem5VL
-         r0OA==;
+        bh=x22SVoUj0EMbaUzbs6EY9GWgQ3tV9w77TMiRTqsjhJk=;
+        fh=fms+ZlEU0Pw15vK9kKAWm0kfZnmqPit2CG9NE9XeZkE=;
+        b=oJfN+ToM4rwPgbnAI3RDKP/HIq9Ce05tr4Ygvk4oEuMLEukC6sUntRTld3vodT/mpM
+         QjanZmiOVHzmQ8JIXcL5mfbluP1/4A/Orutzi20xo1SbUNP+60seuCHFUSTM8JyNgD5k
+         9etT8wUYnVmfhhcHDkxsW+B+ePgOTeVgv/vMTQTqAkFnysmzy0CZNJhc6DjARMNQ3Dej
+         Gffc4CIdV59pjySroNo2XVRkjJ/qNsuSVFb1B7xG/fqyQiRSZ9neGJNTgK0uIp3YFi1a
+         dTQlT8KJJ4w+AOsMv265/VW+JVOSHj0V16gAk4Kzkwf1Le19s3RujIFJJ+RLb+7uRcwO
+         qHcw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789056336; x=1789661136; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789056340; x=1789661140; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yoxqy27byI+/wR2v7osUw7bvc0LF57CRxz5b6DL1pSQ=;
-        b=R2L3aBHPFSGQKu5srRfviqbzKoTy6lPf1OYFwEiZ6k0joYW8i1iGOxZFGY9m12KP4j
-         cKB9UIBR2AnUhlyiW9x686zL5dr2lysXeFtMTPN0xPJIqFRUWBX+I17fcM/6p2pfD+Kl
-         SLFLE+tUpoOj92JFzTjw3qHrtguk0ubfHORsQtgSgw9lSWTLc7kDavHXi/3L6RUExSf4
-         qzxx73UImgUw/zLSfH5Ao+oCpSC2n8cMC8yZWuCPtWoWPJNHoilfKQgXfY+bSC/xYqcv
-         TmxGvor8X2Q48gZMjouoDqsVnJXU2bsRGvg1HMNgSz4GlP/O2zVm+KEY6C/kh5phEZdf
-         /Kzg==
+        bh=x22SVoUj0EMbaUzbs6EY9GWgQ3tV9w77TMiRTqsjhJk=;
+        b=BZ2xIQpUizPlLuDqad+vn5TdgnBFJ+T4R00V6+umWf8x1oUZmnJN9DTU8pwOA+jCY4
+         QancG6aHfGgUFIbe1ymABriXUBbl8/s14Q6nULRauUSGUP6CUHBjMF49LnP5Oegn6akr
+         qnSY/ak8jPWTV7RbZkq8SCm83l7NQh51CmCWjlIExixInCqML4ao8Di+fsvuYy6SbNka
+         gPc2tMqCOXPNHj1n/4vB9sn3FFhO3TdUp0FVQz2HYguorbEJpG1F327T35AT+n+8EzlJ
+         Ju6JHGikygM2hYXxKAJNqb/C4W2RTf/a6HJrwipqY6R8eZOq2Wvgl5entn/coZkhTLQI
+         P/+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789056336; x=1789661136;
+        d=1e100.net; s=20251104; t=1789056340; x=1789661140;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yoxqy27byI+/wR2v7osUw7bvc0LF57CRxz5b6DL1pSQ=;
-        b=rSauKGfl7W60cgCaLX6mEIh0fVtkMJs5gzj6RhE+yrXPCWgcZGfN2lunVyCaq05lcG
-         t0mXVq52vlAZUduNXjP/k1fWJQMdgmUd0X4q9LCm3Klpj/7I8REkhesvghbWFsIXOA1J
-         5EGjQWesV3xkwijc/WJSH7DEeNeFFh1zEhPhjnXyPmFeY1c8AgfAqHmzgV6sE+8F0OSE
-         OPliyPmg5ymHxt1OghAKTmg2aH5dHOeujFdkT3jOUjB6xLxy9O5tXeI8vD5rRKHyw0iN
-         +hU9CNmrdnJ8TvUAs4NDsCNAQ+RQqJxgc9Fe5+S+Vtbla7HTjI2OQO6izMEdwChMAbvc
-         UhKg==
-X-Forwarded-Encrypted: i=1; AKwUvBynAB43nfegiYeiLrFVx5E7/DWXPKoZXBxm/nVfVsMUvhziE48TCrVnBSJIvhBCBMq3j5gDYqbfCZAeDPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mslJOdgQZyUS9xG8iXLFkWo+ddnz7mkjz5Ro5TdLDa+kYge79y
-	ExhJbL918I7yNklSfJfOlbuipjU2QgWjQp9b8SwfM82lhO3WQoOIwie8/W4XJYGiCy9hRF8bHUC
-	cAKe6nwJY08bzAjGixZEHUZFpbRQdDeYWaps3NH0vNI4kVZWaRM82mBYvoW8LVhPTTf2LcNzw31
-	cONI8Zl0Ph4HiVIudIT0fEqkV9Ds37eEzLLYTJzoanPw==
-X-Gm-Gg: AYBFou1Wu6Jr15RQ8ZWiVQt27+MsInMu4m9NUvjhlCo4s8BN5DeA4QOOduTCRM8C7VW
-	CYOZU+mdU0h/MGCP7yD9W61hYvsaU6xPa+KNBgnh88hMp3DBZY86y5a7sbzKmcuctYJTwSU4y2T
-	Mt5J+YHi7omK4cPEk6yzPyUtBIG7QGYkkVwYJgnmJu/1bvSuRUof4FAluF6g==
-X-Received: by 2002:a05:6a00:aa85:b0:857:7384:b5fa with SMTP id d2e1a72fcca58-86948928444mr10182752b3a.22.1789056335736;
-        Thu, 10 Sep 2026 09:05:35 -0700 (PDT)
-X-Received: by 2002:a05:6a00:aa85:b0:857:7384:b5fa with SMTP id
- d2e1a72fcca58-86948928444mr10182588b3a.22.1789056334935; Thu, 10 Sep 2026
- 09:05:34 -0700 (PDT)
+        bh=x22SVoUj0EMbaUzbs6EY9GWgQ3tV9w77TMiRTqsjhJk=;
+        b=FbXeNg8x7wR0xJj8gFw4MYm89ZvtY2/iMDi06UpCW3BAxE+CobqDOlffGOR2j5jtzv
+         gRuNC30pxekxo4gFgsDGRbG1i/feN2QxiIf82BBIIeRwlm30LcK29AMF07RR5aQkRhHW
+         8WUy3uEHLNdsxMVyq2xAGwVTWE/DTZmapZibiNBq9Y7x+bbWrFUVmrxaMQE1ry1cBYdA
+         VKzWqPtup+PE6S3NRngOyTd2yDAaQz58EOc6uIepspHtH3agRTHyHhJi16rgn8LoGEK6
+         O97WKci/6ZcMuybvc2ZKcS7RfqpyOifnan1o0b8fr9b0yJbfgTYQoP41nXYWMgQrTkRC
+         Tdnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrKfmDlW0nG793+E/Y4b8EzWXsBu7fcSvZMEBMXqrJ0smd/P5qBEcOCRloPNwMl0hWqqqinha2QASgueA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPnmv5qZHMWirBSXVW5y2nEdtKN/OVKuBMHFbi/F0veyuNqzXB
+	sGdiOMGrj0UU3KiYOZv2FtghdXwxGjapRQvJXCufJLcyKDWxePB8lVe4MXjv05W1ZcDPi71duIQ
+	aZsO49z55e/N4r4JNu/SSIyYkfEWki9pQPDUUJVw2JiPxqlavQjQCX8npg0BTxnpMLM0kJhk8P4
+	RZcO9tDW4HkRTSlPSxl7jj+obFzRjGuFpTMMPPIKSEdA==
+X-Gm-Gg: AYBFou3X6MndCjXCrvduyx6zfqzSTuDYcb4lPi9QQdpZueZn4HtADTNtfQAa93lt5Au
+	4IFWZGcrFgPe+Tp5BnWOCyYPdkCgGUWm5AGAttsoncGgPPEuPjkfYmOrD0vNgcZtBQDAsQcbpTH
+	Ba4XIhrUoJ7W/Jjb5auYRC0BtkqVHnTCR72sp7eAhE2D0fZ7hC47huoP/SKg==
+X-Received: by 2002:a05:6a00:1584:b0:86a:881e:ea38 with SMTP id d2e1a72fcca58-86a881eed92mr4853515b3a.12.1789056339261;
+        Thu, 10 Sep 2026 09:05:39 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1584:b0:86a:881e:ea38 with SMTP id
+ d2e1a72fcca58-86a881eed92mr4853349b3a.12.1789056338517; Thu, 10 Sep 2026
+ 09:05:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824065755.35451-1-florian.maillard@mailoo.org>
-In-Reply-To: <20260824065755.35451-1-florian.maillard@mailoo.org>
+References: <50fc5e8a29e3a5e9a64c64c5f775d758dce39b71.1787603965.git.sean@starlabs.systems>
+In-Reply-To: <50fc5e8a29e3a5e9a64c64c5f775d758dce39b71.1787603965.git.sean@starlabs.systems>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 18:05:23 +0200
-X-Gm-Features: AcwNN1XQeUn5yu0y7ja5J9fxlitv1JADg08KH-qf2e76LfTwNbg3W-ZRo2dn4tY
-Message-ID: <CAPx+jO9HV_L=Dn5nmWTPXUoA4Hy91uj5S1m2y5fvVaXh+zPbqw@mail.gmail.com>
-Subject: Re: [PATCH] mmc: rtsx_pci_sdmmc: ignore broken write-protect on
- ThinkPad X260
-To: Florian Maillard <florian.maillard@mailoo.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
-        linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 18:05:26 +0200
+X-Gm-Features: AcwNN1XxhyWT_Qk5KNRESJlzw706VHXCD-vgMwiHAKKnrAT2fNk77opUBhvOjaI
+Message-ID: <CAPx+jO-TodBfjkJ6SV39LHWyTKDRj=P-Fq-VnfT=kin4VBKkvw@mail.gmail.com>
+Subject: Re: [PATCH] mmc: rtsx_usb_sdmmc: start card power-up at 3.3V
+To: Sean Rhodes <sean@starlabs.systems>
+Cc: Ulf Hansson <ulfh@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE5NSBTYWx0ZWRfX5FwRV6Kk4gWm
- ZCGt7OjdgHLENnnFhg29xAiu5aPEtVVS7dC4wZvlTESOxqHbom6vTL43uMYZjpC+0ybB0wQED6w
- q6UXAW7xD8VmEDR3x5yHC3uCQVU3PrU=
-X-Proofpoint-GUID: kK_uvr2Z3i4WZUZCufuhXwLdf1nJtqGh
-X-Proofpoint-ORIG-GUID: kK_uvr2Z3i4WZUZCufuhXwLdf1nJtqGh
-X-Authority-Analysis: v=2.4 cv=EspHPicA c=1 sm=1 tr=0 ts=6aa2d550 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE5NSBTYWx0ZWRfX+u/9Wo9Nko+n
+ dsnegUitWeBry7pKR0aD2yHKxKZes149gR/hkeKX1eOEOoBsfJPVWQYuxOhFFJaP8mMLWebykPY
+ whnycY7/B7qt6rhj+WWlbW0bKHYwErU=
+X-Proofpoint-GUID: oM7IyNS067AuNSAxAEdV8VV3imGk5nZQ
+X-Proofpoint-ORIG-GUID: oM7IyNS067AuNSAxAEdV8VV3imGk5nZQ
+X-Authority-Analysis: v=2.4 cv=EspHPicA c=1 sm=1 tr=0 ts=6aa2d554 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=TqukyxIwAAAA:8 a=XevV5cechEosMP0pQycA:9
- a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22 a=e_wvXvRcY2B3oMitRgDS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE5NSBTYWx0ZWRfXyy5QfPQ1hf1H
- Ny6ChP9XAOpBJ3CuOCPZiGbzyalk6lkgubYdAKR0vcVxMCEdtmSR/pHLswaISInMrc6GP3qDahu
- eOAzjKbS6QR0Y2UrEymoSHS2BbI0CdU/RiNtN8gn1gIuPng817+eYvIW5zJbRGr+mQ0RpTIqU+9
- 6ajFz79eowa+1W9prE80HztZFELbZjHpoNKhiKZxsIZz5/Kxl0HneUvEjhmaOA45vugOwcOl6Tn
- Zvrose+enpEwVTTLPyvMeTCaK3iOKp1zgHUCLONtSmw5iClknaPHDDWJEKwuMomTT6UuCrvKTEr
- CFYeJqGsCVfuUdZkzfFB46i4aUplLXpFx5cw2kQ+vpMc2xhypYsmL1aoeRFdhJSXnMzhMbB0F7n
- 0AbK7yutB4WleDk3FXMm5rQSG0K1Vi4mhIdCAOsbz5xHesC0zSGOwiYh5ENPbZF/PQPWT5VKdm9
- E3iJYfaUFsFZJZ1iZVw==
+ a=ZpdpYltYx_vBUK5n70dp:22 a=P4VcW8-MZ4Ji1alh_TMA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE5NSBTYWx0ZWRfXxufEN8eLnycv
+ YMftcf3zutRyY9KbREystfAtTX9jWQej7BOs3cWXg+XfJZOCG9Nw/3KH5rl6ikwQm4AveEC8V4L
+ l+7MHyKDQTRRbc5YowJadM/6i8yPMi3Ln+GOJSyeSZw5y/YY+XE/iXa6o/V9B2v3AUWfoarWyyG
+ YO9DN64Wh8YetjRTN40A1W22d4jV7srcuhm7mw4zMR6WTcfpgiiwdHkEBU6fUSBEobuwq8ONbFt
+ zZ8QQBoexAxQQGIjJ0VFvW0qrT1+YpPX7MIdfI/7WCK4XLvRPakjJCy/jM/lCfj5zVhhsVBfGhP
+ HzMuQXazXgyo8heCf3mhYZBEymLJZ5uu7GkKoSEF3S13uOblU9OeTc6iRYyobaXxhDETdUQuGHr
+ /iiTUKWri/2B+m/x5KsD7xMP0WYOkn24N+H/wmwxwyikM8BQbFAHymRC/h1a0KYZ6+T0flC65DD
+ 5/3jjMEeAuKscn0hZEQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-10_05,2026-09-09_02,2025-10-01_01
@@ -142,58 +142,51 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609100195
 
-On Mon, Aug 24, 2026 at 8:58=E2=80=AFAM Florian Maillard
-<florian.maillard@mailoo.org> wrote:
+On Mon, Aug 24, 2026 at 10:39=E2=80=AFPM Sean Rhodes <sean@starlabs.systems=
+> wrote:
 >
-> The Realtek RTS522A card reader in the Lenovo ThinkPad X260
-> (subsystem 17aa:504a) incorrectly reports inserted SD cards as
-> write-protected.
+> A UHS session can leave the SD pads and SD18 regulator configured for
+> 1.8V. The power-off path disables card power and suspends the regulator,
+> but does not restore their voltage selection.
 >
-> This causes the MMC core to expose the card as read-only:
+> On the next power-up, this stale state remains until after the MMC core
+> requests its initial signal voltage. Restore the SD pads and SD18 regulat=
+or
+> to 3.3V before enabling card power, as the old rts5139 driver did.
 >
->   mmcblk0: mmc0:aaaa SN256 238 GiB (ro)
+> Tested: StarLite ADL with an RTS5129 tray reader; repeated 1.8V UHS
+>         sessions, power cycles, and tray removal/reinsertion.
+> Tested: StarFighter MTL with an RTS5129 trayless reader; repeated 1.8V
+>         UHS sessions, power cycles, and card removal/reinsertion.
+> Tested: Both systems re-enumerated the card after every cycle.
 >
-> and /sys/block/mmcblk0/ro reports 1.
->
-> Setting MMC_CAP2_NO_WRITE_PROTECT makes the card writable again.
-> Limit the quirk to the affected Lenovo subsystem.
->
-> Assisted-by: ChatGPT:GPT-5.6 Sol
-> Signed-off-by: Florian Maillard <florian.maillard@mailoo.org>
+> Signed-off-by: Sean Rhodes <sean@starlabs.systems>
 
-Applied for fixes and by adding a stable tag, thanks!
+Applied for next (or should this be a fix and tagged for stable?), thanks!
 
 Kind regards
 Uffe
 
 
 > ---
->  drivers/mmc/host/rtsx_pci_sdmmc.c | 5 +++++
+>  drivers/mmc/host/rtsx_usb_sdmmc.c | 5 +++++
 >  1 file changed, 5 insertions(+)
 >
-> diff --git a/drivers/mmc/host/rtsx_pci_sdmmc.c b/drivers/mmc/host/rtsx_pc=
-i_sdmmc.c
-> index 8dfbc62f16..d25d4cb59b 100644
-> --- a/drivers/mmc/host/rtsx_pci_sdmmc.c
-> +++ b/drivers/mmc/host/rtsx_pci_sdmmc.c
-> @@ -1425,6 +1425,11 @@ static void realtek_init_host(struct realtek_pci_s=
-dmmc *host)
->                 mmc->caps =3D mmc->caps | MMC_CAP_AGGRESSIVE_PM;
->         mmc->caps2 =3D MMC_CAP2_NO_PRESCAN_POWERUP | MMC_CAP2_FULL_PWR_CY=
-CLE |
->                 MMC_CAP2_NO_SDIO;
-> +
-> +       if (pcr->pci->device =3D=3D 0x522a &&
-> +           pcr->pci->subsystem_vendor =3D=3D PCI_VENDOR_ID_LENOVO &&
-> +           pcr->pci->subsystem_device =3D=3D 0x504a)
-> +               mmc->caps2 |=3D MMC_CAP2_NO_WRITE_PROTECT;
->         mmc->max_current_330 =3D 400;
->         mmc->max_current_180 =3D 800;
->         mmc->ops =3D &realtek_pci_sdmmc_ops;
->
-> base-commit: 388b607d107c07aaade04c7f22f344cab6bdccd3
-> --
-> 2.47.3
->
->
->
+> diff --git a/drivers/mmc/host/rtsx_usb_sdmmc.c b/drivers/mmc/host/rtsx_us=
+b_sdmmc.c
+> index bf37fab233cf..d9b33aa79165 100644
+> --- a/drivers/mmc/host/rtsx_usb_sdmmc.c
+> +++ b/drivers/mmc/host/rtsx_usb_sdmmc.c
+> @@ -980,6 +980,11 @@ static int sd_power_on(struct rtsx_usb_sdmmc *host)
+>         }
+>         dev_dbg(sdmmc_dev(host), "%s\n", __func__);
+>         rtsx_usb_init_cmd(ucr);
+> +       /* Start SD init at 3.3V, like the old rts5139 driver. */
+> +       rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, SD_PAD_CTL,
+> +                        SD_IO_USING_1V8, SD_IO_USING_3V3);
+> +       rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, LDO_POWER_CFG,
+> +                        TUNE_SD18_MASK, TUNE_SD18_3V3);
+>         rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, CARD_SELECT, 0x07, SD_MOD_SE=
+L);
+>         rtsx_usb_add_cmd(ucr, WRITE_REG_CMD, CARD_SHARE_MODE,
+>                         CARD_SHARE_MASK, CARD_SHARE_SD);
