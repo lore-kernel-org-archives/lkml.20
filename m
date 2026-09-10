@@ -1,156 +1,158 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B01356766;
-	Thu, 10 Sep 2026 18:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744A13AFCE9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065758; cv=none; b=svndf2Bj8IoW6zQ+VZK5QfVroGxQS53R4NYUHWo9sgdMtVr9XAnEU3H8JwKXBiNsXrz5q36Z6OOTFK8cEmObQGtirgJssk11gVzK3ZpMbtEqSauorf96l4jY5ibUI6S/UOaHwiXV7mceJtJzSN5upNyMu01DN7XS6ZpjvkZPv4c=
+	t=1789065813; cv=none; b=Q98HJNfh57ty/iCJEA0kKv25nwVaX6Np/RaJnPF0mIxcN3FSZBjdNgaAB8sfKKooEaHR4/4ZVXf2qfRTQu4prLMpqp7RrsRqMSJo2iLH/HdwAM8DpZ3n5nxGy7kw0RwVuRNzgemO8Yb764xY7wpg6opDMJnMjG2hG6ScH7dm8vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065758; c=relaxed/simple;
-	bh=Rm395aCw/iOb4Bv+HzeK6TTDZkzeH/Tj/YSzAXyj0iw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=JZtZqzY6wsTVFf/J8WnDJj4HKoKfLRes5LFjgdarqyJEBhiPPabuM02yUtDJPMmFSsuBbn9JKTiPDVWBV9Grdvw0ewE1HLDYh/2BqcNQn1Io0XYE+ChlagdjbpF0eLu+ty/m3Mrxu6pHeaN91VBd2VWy5PGv8N7PCHuHGu/Lh2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=ZeGzmp4e; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789065813; c=relaxed/simple;
+	bh=zxAoEHThtrRI1+PP+mczGKc+hlwe0/Q82vX2QBWledg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r+JUot7XKAY994p/x+LaV7LAyca0OJ4paLc27Y+xs59DqMmEwsF9b5mBCq1aWMxaXO6tT0Czv3Afr4k2XhrsAYtsQC8cVT5m3zoYcGB4Ahk9TfEkdlDvMoKtAF8CiGDHMASLgrcMEDygLOwbWYfvkcxznYeXPVDZTaHYhtcgGbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9M+v8Td; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="ZeGzmp4e"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2234A8F56;
-	Thu, 10 Sep 2026 20:42:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789065751; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=J6vYeDOQvc6HcH8O/wl4zA/DD/Gh7wd3PXwiCbaa1Cs=;
-	b=ZeGzmp4ez3/4rNyR8wD9FEb8lILhghscZ1gI9NPMmVEP1bdrF2F0dqngv0faFZqKJ52Yvt
-	IMmt4Riltkkl5SQy1LcxtkBBNJy/4Xrg0xQ+Jzpa7GgUYWpN9nHUC/maFZgClgkDoRkaTA
-	D5L38LJiqpRlVsSOIJ88TltfjUM81oOiljodf8dCKEtJgqNqy3825ddtu36Up/Kt/1hFot
-	i2zlaqbpeziQvFaIIQDHHZ/Uk6yccHnIKTX9iGk2n2I6d056qqpetV2vFWa7NlQdrW+h/N
-	LVw8ZmyVAuM6TeR8/HjhLCmtM3iWtxwapU05x2mqSTijheydsCmBvuJrLuzdgg==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9M+v8Td"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so725015e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:43:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789065809; x=1789670609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fwA3kPn5zA0nZJtDyWePWVLP0eWqJWLwH/csx6HCgdo=;
+        b=f9M+v8TdXl3hO7JkxNaLzbvjakCcbtfs4EQPu+9wWejz/x67JZCVEWptt3BEDZ+DKd
+         ZMebfBRnqX+OBpX/V7mGi91IqJK23iU7b+YU4SaLCTgnkZv7l1RE2VFuppRjjg0YGbme
+         Wr0tdhZuFRaY5qEAR/awqZLBe7Q6O3IbJ9/Cs+1EIHVGnL1y+OAWy/8z7p5PYyIbLaX2
+         FY1p83UjJaVxcswpTqNG0Q9MJD5c835DD488P/CQX9l0gb1PaNKm1E2ThQ85rgNRibt3
+         IFhFIe4wJXU6duETMrQH+bsAQGZHnWfhLhEGLkPxHv6B82ZxwVi0lqiUPF/GFJQhsReb
+         rEDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789065809; x=1789670609;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fwA3kPn5zA0nZJtDyWePWVLP0eWqJWLwH/csx6HCgdo=;
+        b=Ijv5c4Eb+8coVk7SH4zQ94r7qzMfacgKAyGpQ2WeO667Y0NqucNZhUqjK82/3Vdons
+         rmGvMbflLLYSObWW9795JTtMmQMrYJxuMBtbLjpGMDN2ntxKMeMXWnxU4y+jWBqLLB1u
+         K5XhJr9Op2sug8mIJoNNWw0fbpXrw84V5oj2WMs70hpaNzXTbSTZ1nAJ51ML+wfvdJY2
+         MdNY1GU1AW+JVcRuQB+85trS7hYKBXeW9NS8wUF1fTRSStEW6SpjKz2i7GHiF2HSZ/LN
+         uDI/1IdTsi5QYc+29zkjKURFbFgj+23lkY/b1xVez0irFGq/kXrHdADOgbI2PcuWhm+W
+         k/tA==
+X-Forwarded-Encrypted: i=1; AKwUvByATtjIYSqEu7Zf7+qH2k5KwLJXnW19ru61aCgFwF05sAUVpq6RNRuN2C/1FG6lzOk54IedW/fXuYSDFVM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnhI7IOMZEP/85pWCGiseANckR4oQlsRTYeSkeYqpayizVX9fG
+	OsTOQJ2fLQvmmEXe8eMp485zlVV0LbXWuzbOHXrbjyTAFiR/HoV1ch99FT9yWXQqEXA=
+X-Gm-Gg: AYBFou1/ZKdL7vRuMMJyd5U1NTFEoYthSRv+1hbT6BBmT8NynUyt6TQEAI/TmAyYCVt
+	lMHof0RphdP2RFSKCE4zaNxLpGtoq/G4uTR5jWXQ7M57YC+ns0WwzHPtwtVepQu7PrvRf5786nW
+	41cWdHu8HSKKNQZCYr0pX95C99YM8Ik/mN/0+RP5PMRhV8SiTy+pQzI2Ffo+FH27lGoexyShtg3
+	mvYYNMcUA/nWyY9NG3fU9duPjetQYx2JS/CpSqYeRauzUgfwe0ozwzv8HjNvuO3LsCql6SXPefx
+	CsS66H0XAsLCLNaZ4t8OD7Dk3lXGd3CzdEA1qH2JGoPtqJTSeIUh7h2NSyTa3y6lr5hl06gA/bh
+	jOKivO3cswG2yocGJtwntBbalzNbh7hHdkpGcLffdZmVDI6wMmR3Bjh+oDzFLZV//xN0/VDbs4A
+	PDRyLW5SZYoMI24ipd+G4wkxc2EFuM6J7OBaGVWdStuQZfZ5+ZTNa8YBGZtRGxnxCUrwCAgSkqz
+	lmc3GubpkXalM2f/yG9pPqFtCJlxqgw3GEtCqcUpTRknaXaMjLb0HyHlAZS6TWXE/GW9Q==
+X-Received: by 2002:a05:600c:620a:b0:49c:799a:177b with SMTP id 5b1f17b1804b1-49e60f5af42mr10561325e9.2.1789065809300;
+        Thu, 10 Sep 2026 11:43:29 -0700 (PDT)
+Received: from sergio-82n7.fritz.box (host27-7-217-213.cgnat.broadband.ehiweb.it. [213.217.7.27])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a3314esm3542185e9.2.2026.09.10.11.43.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 11:43:28 -0700 (PDT)
+From: Sergio Melas <sergiomelas@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio Melas <sergiomelas@gmail.com>
+Subject: [PATCH v4] Documentation: hwmon: (yogafan) Update model reference table and contributors
+Date: Thu, 10 Sep 2026 20:43:22 +0200
+Message-ID: <20260910184322.1816996-1-sergiomelas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 10 Sep 2026 20:42:22 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
- <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
- Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
- <david.laight.linux@gmail.com>
-Subject: Re: [PATCH net v2 5/6] net: stmmac: size the RX buffers from the
- frame length, not the MTU
-In-Reply-To: <20260910151404.976753-6-maxime.chevallier@bootlin.com>
-References: <20260910151404.976753-1-maxime.chevallier@bootlin.com>
- <20260910151404.976753-6-maxime.chevallier@bootlin.com>
-Message-ID: <2489a0482751f06eb4da702987c717e5@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 10.9.2026 17:14, Maxime Chevallier wrote:
-> When picking the buffsize to use based on the MTU, we shouldn't check
-> only the MTU value, but also :
->  - ETH_HLEN for the L2 header,
->  - up to 2 VLAN tags,
->  - the FCS,
->  - the NET_IP_ALIGN
-> 
-> The default bufsize is 1536 bytes, which is enough to contain all the
-> above so this hasn't surfaced before, but the addition of NET_IP_ALIGN
-> to the start of buffer address tripped the Jumbo selftest, leading to
-> this discovery.
-> 
-> With that, we don't need the '>=' checks on the buffer len, we can use
-> more consistent comparison operators in stmmac_set_bfsize.
-> 
-> Fixes: 286a83721720 ("stmmac: add CHAINED descriptor mode support 
-> (V4)")
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++---------
->  1 file changed, 11 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c 
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 5fe7e95fdd34..3664a298574a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1536,17 +1536,17 @@ static unsigned int stmmac_rx_offset(struct 
-> stmmac_priv *priv)
->  	return NET_SKB_PAD + NET_IP_ALIGN;
->  }
-> 
-> -static int stmmac_set_bfsize(int mtu)
-> +static int stmmac_set_bfsize(int len)
->  {
->  	int ret;
-> 
-> -	if (mtu >= BUF_SIZE_8KiB)
-> +	if (len > BUF_SIZE_8KiB)
->  		ret = BUF_SIZE_16KiB;
+Add the new IdeaPad 3 15ALC6 Ub model and Yoga 740-15IML, update existing
+model entries, include corresponding contributors, and adjust the
+reStructuredText table layout and column separators to accommodate the
+longer strings and prevent Sphinx build warnings.
 
+Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
+---
+v4: Update commit message to explicitly document model additions and table updates.
+v3: Adjust rst table alignment and column separators for the new IdeaPad model.
+v2: Split changes and addressed reviewer comments.
+---
+ Documentation/hwmon/yogafan.rst | 47 ++++++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 22 deletions(-)
 
+diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
+index 9ff5db5dc..239c7b576 100644
+--- a/Documentation/hwmon/yogafan.rst
++++ b/Documentation/hwmon/yogafan.rst
+@@ -85,28 +85,30 @@ immediately to ensure the user knows the fan has stopped.
+ 
+ ::
+ 
+- MODEL (DMI PN) | FAMILY / SERIES  | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
+- ----------------------------------------------------------------------------------------------------
+- 82N7           | Yoga 14cACN      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+- 80V2 / 81C3    | Yoga 710/720     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 83E2           | Yoga Pro 7       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+- 83DN           | Yoga Pro 9 16IMH9 | 0x06/0xFE | \_SB.PC00.LPCB.EC0.FANS/FA2S  |  8-bit | 100
+- 82A2 / 82A3    | Yoga Slim 7      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+- 81YM / 82FG    | IdeaPad 5        | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
+- 82JW / 82JU    | Legion 5 (AMD)   | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
+- 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
+- 82WQ           | Legion 7i (Int)  | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
+- 82XV / 83DV    | LOQ 15/16        | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS /FA2S  | 16-bit | 1
+- 83AK           | ThinkBook G6     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 81X1           | Flex 5           | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 83KF           | XiaoXinPro 13ARE | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+- 82KU           | IdeaPad 3 15ALC6 | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+- 83RU           | Legion Pro 7 16  | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+- 83KF           | Yoga Pro 7 14IAH | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
+- 83BS           | Yoga 7 16ARP8    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+- *Legacy*       | Pre-2020 Models  | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
+- ----------------------------------------------------------------------------------------------------
++ MODEL (DMI PN) | FAMILY / SERIES     | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
++ -------------------------------------------------------------------------------------------------------
++ 82N7           | Yoga 14cACN 2021    | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 81TD           | Yoga 740-15IML      | 0x06      | \_SB.PCI0.LPCB.EC0.FANS        |  8-bit | 100
++ 82KU           | IdeaPad 3 15ALC6 Ub | 0x06      | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ 80V2 / 81C3    | Yoga 710/720        | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 83E2           | Yoga Pro 7          | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 83DN           | Yoga Pro 9 16IMH9   | 0x06/0xFE | \_SB.PC00.LPCB.EC0.FANS/FA2S   |  8-bit | 100
++ 82A2 / 82A3    | Yoga Slim 7         | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 81YM / 82FG    | IdeaPad 5           | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 82JW / 82JU    | Legion 5 (AMD)      | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
++ 82JW / 82JU    | Legion 5 (AMD)      | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
++ 82WQ           | Legion 7i (Int)     | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS (Fan1) | 16-bit | 1
++ 82WQ           | Legion 7i (Int)     | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FA2S (Fan2) | 16-bit | 1
++ 82XV / 83DV    | LOQ 15/16           | 0xFE/0xFF | \_SB.PCI0.LPC0.EC0.FANS /FA2S  | 16-bit | 1
++ 83AK           | ThinkBook G6        | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 81X1           | Flex 5              | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 83KF           | XiaoXinPro 13ARE    | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ 82KU           | IdeaPad 3 15ALC6    | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
++ 83RU           | Legion Pro 7 16     | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ 83KF           | Yoga Pro 7 14IAH    | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
++ 83BS           | Yoga 7 16ARP8       | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
++ *Legacy*       | Pre-2020 Models     | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
++ -------------------------------------------------------------------------------------------------------
+ 
+ METHODOLOGY & IDENTIFICATION:
+ 
+@@ -159,6 +161,7 @@ Contributors & DSDT Providers:
+ - **Sarbajit Sarkar** (Lenovo LOQ 15IAX9)
+ - **HinataKato** (XiaoXin Pro 13ARE 2020 - 83KF)
+ - **PenPenIsGod** (IdeaPad 3 15ALC6 - 82KU & Legion Pro 7 16AFR10H - 83RU)
++- **wizard-28** (IdeaPad 3 15ALC6 Ub - 82KU)
+ - **unlockxiaom** (Legion Pro 7 16AFR10H - 83RU, Yoga Pro 7 14IAH10 - 83KF, ThinkCentre M80q)
+ - **Phani Pavan K** (Yoga Pro 7 14IAH10 - 83KF)
+ - **Splarkszter** (Yoga 7 16ARP8 - 83BS)
+-- 
+2.55.0
 
-> -	else if (mtu >= BUF_SIZE_4KiB)
-> +	else if (len > BUF_SIZE_4KiB)
->  		ret = BUF_SIZE_8KiB;
-> -	else if (mtu >= BUF_SIZE_2KiB)
-> +	else if (len > BUF_SIZE_2KiB)
->  		ret = BUF_SIZE_4KiB;
-> -	else if (mtu > DEFAULT_BUFSIZE)
-> +	else if (len > DEFAULT_BUFSIZE)
->  		ret = BUF_SIZE_2KiB;
->  	else
->  		ret = DEFAULT_BUFSIZE;
-> @@ -4063,7 +4063,7 @@ static struct stmmac_dma_conf *
->  stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
->  {
->  	struct stmmac_dma_conf *dma_conf;
-> -	int bfsize, ret;
-> +	int bfsize, len, ret;
->  	u8 chan;
-> 
->  	dma_conf = kzalloc_obj(*dma_conf);
-> @@ -4073,13 +4073,15 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, 
-> unsigned int mtu)
->  		return ERR_PTR(-ENOMEM);
->  	}
-> 
-> -	/* Returns 0 or BUF_SIZE_16KiB if mtu > 8KiB and dwmac4 or ring mode 
-> */
-> -	bfsize = stmmac_set_16kib_bfsize(priv, mtu);
-> +	len = mtu + ETH_HLEN + 2 * VLAN_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
-> +
-> +	/* Returns 0 or BUF_SIZE_16KiB if len > 8KiB and dwmac4 or ring mode 
-> */
-> +	bfsize = stmmac_set_16kib_bfsize(priv, len);
->  	if (bfsize < 0)
->  		bfsize = 0;
-> 
->  	if (bfsize < BUF_SIZE_16KiB)
-> -		bfsize = stmmac_set_bfsize(mtu);
-> +		bfsize = stmmac_set_bfsize(len);
-> 
->  	dma_conf->dma_buf_sz = bfsize;
->  	/* Chose the tx/rx size from the already defined one in the
-
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-
-Thanks,
-Nicolai
