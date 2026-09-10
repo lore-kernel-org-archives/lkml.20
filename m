@@ -1,50 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B44499F03;
-	Thu, 10 Sep 2026 13:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB6949CF40
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048251; cv=none; b=ijqugs+cElACniRwVtex4C9qNAj36QlIQVsxnnwp9NJqH1sMLQv5s41NePwVXlFCABcpbhrcsBbRqv4UAoyuNqF2ObHlT7mgNLbmOTb0/Kj6A6mSCJRIdnSA+1ZNqq0w/D7uSjSZPKNLUnPFcNzxnontPvjkiOjEoY4wTkpAbZA=
+	t=1789048263; cv=none; b=pSiZp0QFQNpd/b+rP8uqefzMlsDlqfIHr7BP2aNH+9U753YbPAMKKrwT5REb5jwIY1B3/uBZ2+CrbHvghdxJSW8f5VB3oUsLejPNlSpe4s95pvWAk4tRo3P0++wabXVSU7lm/+m91B5dgiPZFc8wEBew8bAfsTHySUdI8L+c4s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048251; c=relaxed/simple;
-	bh=1FlbYwJxU5XlyEPztCRbizLb7NbDwak+IbnSVF6ZfsM=;
+	s=arc-20240116; t=1789048263; c=relaxed/simple;
+	bh=lrHkqTeo7uD619vM07k5lHCSbLgFJ5tG9eHMHhzaDQY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t21JckYXg256qGpsxJo7HSMgB0JTjoJccbviVW1Y/SMXotUw8RC6N0HT7bFhWZEwxxSNWmPU3TE/a5CZjJ0OnoYdaQQ4z4fcFbaDVDdDd71cOP1scFdxxjw2rUkiAAgjiW3bWoRM71ekczHhLbto1iz2NI8QdDGYGn73Y+BBRhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bnx7/qt6; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 In-Reply-To:Content-Type; b=ZDMh2FplN5v8iBVf/0bOm75EOBUTD84FS3+dhQONdy/DUfKwlvSwMWMClow76u35E0OSx7XBAdHRgaUdCTFffmKDSpUxnzeUR9i4qucrKGppTLfV1DMcKqtTtOU1JQlp6UJANgGbIAu5vW73+ytj5Nn90V8XBNPWUGdwcJcqqHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JZtfKN/V; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aTkYfVBM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bnx7/qt6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789048249; x=1820584249;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=1FlbYwJxU5XlyEPztCRbizLb7NbDwak+IbnSVF6ZfsM=;
-  b=bnx7/qt6M1SIIVU7Q9a8/RaILFcdt85XHc5eXKb2lb5Qh+oHXdkVm+sY
-   vRcawL0KQiYxZL6LT2vHeU/K9ZnA7oNY+Vm5sCQ5f2AfpmYZou3Sa0mZm
-   O4AoB/sEwcCIswR11xB0m2qkyxlY++uesUV42qaLIwFHtwVe7blIOKnXT
-   WcMffr5CALZy66qaofrxTKcZyQ5v7g9NDBXqQ+piUVUCRuilZacT0U6zs
-   TAylIoaerEmP64CwioCXKulXC1K89sQo9UpLb4qvoDfDfa4YvTj2St9um
-   RAa3IcequR1Uk8JEeM3FSSv+43vnG9VQtOVKgPKMTIko6zQqNI2ySqSR+
-   g==;
-X-CSE-ConnectionGUID: ncpDqar4SsqUocc+6t8Tcw==
-X-CSE-MsgGUID: pD1AQVRcRyu8PyaWct61bA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="93322972"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="93322972"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 06:50:48 -0700
-X-CSE-ConnectionGUID: r52SeD0EQFazRK0idjCO0A==
-X-CSE-MsgGUID: Vs2GL8flSOOoKZxpdhBuAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="269074589"
-Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.245.216]) ([10.245.245.216])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 06:50:45 -0700
-Message-ID: <617e51c2-202f-45ef-8ec2-3ba101666e4c@linux.intel.com>
-Date: Thu, 10 Sep 2026 16:50:42 +0300
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JZtfKN/V";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aTkYfVBM"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7YCg216009
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:51:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HbfzeIYkh93I5t1B2s81xlBjd1elN2hz+aDhuBqRHnQ=; b=JZtfKN/VAeG1gUUt
+	xrr9OspZ8ehqwBjMCh5BD/mSbIGdf1ZQ8CB+94ewwhW/R28W4Iu1fSVPmT6IOof0
+	iR2k8hknngnSXx3MwgxeW0dHJPPndrf8iYvICtMGk3Y6gWClLHsN3+pA6Hz/iQek
+	HQVv1icAvn5eCPJBlq7jsYqqrblStHJBQ1UvUlgqRlfrScUHxxDSsRDxIqsuJiZG
+	ki708fbxIXFZFqqJOOSTnHtPuZNLNebp3kM8XT2QSXEUHDlHwAjIPdPCIMnWD/N6
+	eK+MjIHlowF0SSVCtLcBbi9sDnrW+Jnay2JMA5rEmrXjtds2U9ioQxuBHfjXTke7
+	H64OKQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrdn9ckh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:51:00 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a74698972so580454b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:51:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789048260; x=1789653060; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HbfzeIYkh93I5t1B2s81xlBjd1elN2hz+aDhuBqRHnQ=;
+        b=aTkYfVBM0c5aZw2WAOEd1M8MzqbW9+D2AwLe+G+TmYEbp7DX/BCSqqbnLlJcouqwAW
+         YL1JvWA9DCNYEuoYSNGjQHVslq9DLFrJn9rtlboB7sWsOWAtU3t3Zi/pMefSHkpk7Ebc
+         2csH39bdjQJyt6QgIPjZiyXM7a/3mAVq+Nrey74woFum0ugtHwJzgThbeyHKCP2RpTdr
+         U411MRxaNw2Anrp4vKcmUB2SOiVRhVvf7xV8Be2XGjMBDgaAG5uVQj2NN/SzAPye6/tQ
+         4u9+Jfif9SxtEhVZ1UJZEUliz/Whvb7b3qIAc6lG1Gmx8qYdINDaYIm4tTVoEtlNs4Lx
+         V56A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789048260; x=1789653060;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HbfzeIYkh93I5t1B2s81xlBjd1elN2hz+aDhuBqRHnQ=;
+        b=cWlLUZ+kqHbNpzScnBIrODbWZHWcvjdRpjUE7d0oMCsjDKfT9KpsndKBWAO+HgwlhD
+         D/XonRMCjCNXoVcrI/cXpDtrkjNRbEa1QSNdr4p6HVgFTRmM0IiDAA3RpfeYRkCJi4c/
+         IbjnA23PP8FG7JSs3xY5M7NnNs7WJNLguFKLK0VPmp6/1qaBL12TsySo8xUcZ2ZhOMrp
+         Te7FdchUdRjDZ/TeFQUQ6MX5anO6laFU7XNVeI7gFAj55kjyZXjZHLzGjoht1eW0LPA7
+         at2t4kQDAQdNSR+OJ+qjJDjutzhb2yCS0m7Jz4xQulNtrzDam5EvN+q7uuT7cVxSqTVa
+         nyHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBznTtb8fEoaq0uVifPpCLod4lo5QYr+JQd1zUXifRAK4RIUe5PP2Rrwm9LYJm6xY1NXQVoBur6ZONaNhNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kL0FkHLobe20SEH489zZT3MzxkbRLrPYa5MhHDK58GntxgaT1A
+	JkKfQ+ddV2EdMtDXm7Ai7VRMMGYHLzBquTJIY5IZ22M+NWcZzaoPfmJ5WefM7pvtHln4+iW2iTi
+	AXA2FwYiXYN4QFGkXB8G0mLbL//TYYmP2Ua3VPREb/r8cHYrwAnsXTtqXg8SEnKNHWSo=
+X-Gm-Gg: AYBFou3/hUb76TOpB8sAYtwt6w7cRVJ1SHVvzPtwU9iCROOwP7zGiLK/wb+7Cmjlsby
+	WdRTob2BpsuK3l5bZvUFGtPxNBTBfF57ZhbO9cnIZfJhdKGoaa+NR2UAbAvjLcWUK5dgU+LQ5g0
+	KWU8nwJD0D3GxempvAZVBb1v823Mtfzg2wtop4h3nZ0WzMVenjs9q+DOP94bdJVX7CFHodsThYX
+	xE0h51YIsCKztLUgBupjZ6CjM5zY5Ej+iJJf7YZclRoNkClgfbrvIeytbUUKAzTcVo+SMM545rc
+	f2MYtLbettKljIF7NGxRl1t7rr+U/llfqu6JlCTZg0HF4DSoUrsbfKQM4F0qcMIyzfmR/casSWa
+	Ed8rSlD2rmu5DyzJSOijroBu8brc=
+X-Received: by 2002:a05:6a00:1489:b0:845:3033:6cb7 with SMTP id d2e1a72fcca58-86945e5fb8fmr8547207b3a.9.1789048259357;
+        Thu, 10 Sep 2026 06:50:59 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1489:b0:845:3033:6cb7 with SMTP id d2e1a72fcca58-86945e5fb8fmr8547100b3a.9.1789048258767;
+        Thu, 10 Sep 2026 06:50:58 -0700 (PDT)
+Received: from [192.168.1.83] ([117.64.75.1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-869a5b727f6sm1015221b3a.28.2026.09.10.06.50.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 06:50:58 -0700 (PDT)
+Message-ID: <c1bfe656-a190-47ed-ae8e-be01b81221e0@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 21:50:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,185 +89,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOetlOWkjTogW1BBVENIXSB4aGNpOiBzaWRlYmFuZDogY2hlY2sg?=
- =?UTF-8?Q?vdev_liveness_before_removing_endpoints_on_unregister?=
-To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>,
- Selvarasu Ganesan <selvarasu.g@samsung.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
- "broonie@kernel.org" <broonie@kernel.org>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "cpgs@samsung.com" <cpgs@samsung.com>
-References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <CGME20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b@epcas5p1.samsung.com>
- <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
- <360067785.01789039502721.JavaMail.epsvc@epcpadp1new>
- <TYUPR06MB62172308C897F81F7DAFF557D2BF2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Subject: Re: [PATCH 2/2] soc: qcom: llcc: Add LLCC configuration for Nord
+To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, shengchao.guo@oss.qualcomm.com
+References: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
+ <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
 Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <TYUPR06MB62172308C897F81F7DAFF557D2BF2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+From: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+In-Reply-To: <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE2NiBTYWx0ZWRfX8MJ/8ZSwTlF3
+ gV8VCjT7FEpe8qc5Zy/e6N9RVTnieAAGW/Npiu2lPA7/DRkNj6s5UxKhcXEBF7aJ3Hl1/tGGDjg
+ HXXRHaZ+yIXG59yJAPp0OaxLEyVKXW/AA2id080+IrLUNaDJCAd6R7GEhysUCgbhOhibCyAtDrQ
+ ZOZDqHerAQ8yo4slerFYYIEZ66sdlnubImF3gYQmTWcSZkuO8YiODr6fs2NhT6uo2Vsx0LLYy3l
+ vvYkoeC68aGRLDNy0n9qjHUeX2l2icIbz3MY427ozTy75doFx53dcH6eoseUG5ALLeXPcAXNr9q
+ yh/1drVlJ2S2saq9SS2mwPhYrpcSWbodSXsHiMLBLnvZjQrfb6ksnDnmw7A62cYiRevXlygGQQr
+ Fw7j/GFyjiY2SPxcUaXkQ0ZnfXMF+w4a+RJpAN1heDa+QnH013SRD96A2Wf8Q2/UsU0CIzPfRTR
+ N8NX3AkEvvy2h/lDCRw==
+X-Proofpoint-GUID: UIg-buYKivZgG09f-M2R3IlaloPD8XEr
+X-Proofpoint-ORIG-GUID: UIg-buYKivZgG09f-M2R3IlaloPD8XEr
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE2NiBTYWx0ZWRfX8UWt9Ypv0Jxa
+ 1cWX/9VDoc3vEO1uOicKL+4uS8BESKEaMqOP5iM3Fq0pJopWcJwImaW2rotMv1Fl/bW8rLiZTGP
+ tXQTPE9S9V6Fom5V20jj7lqrUO2ReJo=
+X-Authority-Analysis: v=2.4 cv=eOmGH3p1 c=1 sm=1 tr=0 ts=6aa2b5c4 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=KiVCl6X23253Cl38wZou3w==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=OxrQ4fpuk6iiGASJZ2MA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
+ suspectscore=0 bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100166
 
-On 9/10/26 15:11, 胡连勤 wrote:
-> Hi Mathias, Selva,
-> 
->>> I think we need to address this issue a lot earlier than in
->>> xhci_sideband_unregister()
->>>
->>> xhci_free_virt_device() shouldn't leave any dangling pointers, if
->>> vdev->sideband
->>> is still set at this point then something is wrong, and should as a
->>> final resort be
->>> fixed here. Print a debug message and set vdev->sideband->vdev = NULL
->>> before freeing vdev.
->>>
->>> Another issue is the transaction error recovery during address device.
->>> xHCI specs say we should disable and re-enable the slot.
->>> xhci driver additionally frees and reallocates the vdev.
->>> We could probably avoid this and just re-initialize the contexts without
->>> reallocating vdev.  This being said I think it would be even better to
->>> not
->>> try to 'usb persist' sideband over a usb device reset.
->>>
->>> Might be best to unregister sideband in qualcomm usb audio driver
->>> completely in
->>> the drv->pre_reset, and re-register it back in drv->post_reset
->>>
->>> But to avoid this specific issue we should also set
->>> vdev->sideband->vdev to NULL
->>> in xhci_free_virt_device()
->>
->> Regarding the suggestion to set vdev->sideband->vdev = NULL within
->> xhci_free_virt_device() to avoid dangling pointers, I agree that this
->> effectively prevents the use after free during unregistration.
->>
->> But, I would like to highlight a critical point regarding the
->> interrupter lifecycle. Even if sb->vdev is set to NULL ,
->> __xhci_sideband_remove_interrupter() must still be invoked during the
->> unregistration sequence.
->>
->> If the interrupter removal is skipped because vdev=NULL , the secondary
->> interrupter resource is leaked. In our observations, this leads to a
->> failure during the subsequent device connection and registration
->> attempt, resulting in the error: "Failed to add secondary interrupter,
->> max interrupters".
->>
->> So it is essential that the cleanup path ensures the interrupter is
->> released regardless of whether the vdev is still alive.
->>
-> 
-> Thanks for the review and the detailed suggestions.
-> 
-> You're right, xhci_free_virt_device() is the right place to ensure
-> no dangling pointers are left. I've updated the patch accordingly:
-> 
-> 1. In xhci_free_virt_device(), if vdev->sideband is still set at free
->     time, print a debug message and set vdev->sideband->vdev = NULL
->     before kfree(dev). This breaks the dangling pointer at the source.
-> 
-> 2. In xhci_sideband_unregister(), check sb->vdev before issuing stop
->     endpoint commands. If already NULL (cleared by
->     xhci_free_virt_device), skip endpoint cleanup but still remove the
->     interrupter and free the sideband instance. The interrupter and
->     sideband struct are host-level resources independent of vdev's
->     lifecycle, so they must be released unconditionally to avoid
->     leaks.
-> 
-> Regarding Selva's point on the interrupter lifecycle: I entirely
-> agree. If the interrupter removal is skipped when vdev is NULL,
-> the secondary interrupter leaks and causes "Failed to add secondary
-> interrupter, max interrupters" on subsequent device connections.
-> This is exactly why the updated patch ensures
-> __xhci_sideband_remove_interrupter() is called regardless of whether
-> vdev is still alive.
-> 
-> Regarding the USB device reset path: I agree that unregistering
-> sideband in drv->pre_reset and re-registering in drv->post_reset
-> would be the cleaner approach. I'll look into implementing this as
-> a follow-up change in the qualcomm usb audio offload driver.
-> 
-> Regarding the vdev free+realloc during address device error recovery:
-> while re-initializing contexts without reallocating vdev could reduce
-> the risk of dangling pointers, this is a separate concern from the
-> immediate fix and would require a thorough analysis of the slot
-> lifecycle. I plan to investigate this as a separate effort.
-> 
-> Proposed changes below for review:
-> 
->   drivers/usb/host/xhci-mem.c      |  8 ++++++++
->   drivers/usb/host/xhci-sideband.c | 25 ++++++++++++++++++-------
->   2 files changed, 26 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-> index af8d4b74c4ba..afdcfb38b35f 100644
-> --- a/drivers/usb/host/xhci-mem.c
-> +++ b/drivers/usb/host/xhci-mem.c
-> @@ -922,6 +922,14 @@ void xhci_free_virt_device(struct xhci_hcd *xhci, struct xhci_virt_device *dev,
->   		dev->rhub_port->slot_id = 0;
->   	if (xhci->devs[slot_id] == dev)
->   		xhci->devs[slot_id] = NULL;
-> +
-> +	if (dev->sideband) {
-> +		xhci_dbg(xhci, "vdev for slot %d has sideband still set at free, clearing dangling pointer\n",
-> +			  slot_id);
-> +		dev->sideband->vdev = NULL;
-> +		dev->sideband = NULL;
-> +	}
-> +
->   	kfree(dev);
->   }
->   
-> diff --git a/drivers/usb/host/xhci-sideband.c b/drivers/usb/host/xhci-sideband.c
-> index a5deeee4d5dc..6312c9e3af65 100644
-> --- a/drivers/usb/host/xhci-sideband.c
-> +++ b/drivers/usb/host/xhci-sideband.c
-> @@ -472,12 +472,22 @@ xhci_sideband_unregister(struct xhci_sideband *sb)
->   
->   	scoped_guard(mutex, &sb->mutex) {
->   		vdev = sb->vdev;
-> -		if (!vdev)
-> -			return;
-> -
-> -		for (i = 0; i < EP_CTX_PER_DEV; i++)
-> -			if (sb->eps[i])
-> -				__xhci_sideband_remove_endpoint(sb, sb->eps[i]);
-> +		/*
-> +		 * If vdev is NULL, xhci_free_virt_device() has already
-> +		 * cleared sb->vdev and freed vdev (e.g. on
-> +		 * COMP_USB_TRANSACTION_ERROR during address device
-> +		 * recovery). Skip endpoint cleanup as the xHC has already
-> +		 * disabled the slot.
-> +		 *
-> +		 * The interrupter and sideband instance are host-level
-> +		 * resources independent of vdev, so still remove and free
-> +		 * them to avoid leaks.
-> +		 */
-> +		if (vdev) {
-> +			for (i = 0; i < EP_CTX_PER_DEV; i++)
-> +				if (sb->eps[i])
-> +					__xhci_sideband_remove_endpoint(sb, sb->eps[i]);
-> +		}
->   
->   		__xhci_sideband_remove_interrupter(sb);
->   
-> @@ -486,7 +496,8 @@ xhci_sideband_unregister(struct xhci_sideband *sb)
->   
->   	spin_lock_irq(&xhci->lock);
->   	sb->xhci = NULL;
-> -	vdev->sideband = NULL;
-> +	if (vdev)
-> +		vdev->sideband = NULL;
->   	spin_unlock_irq(&xhci->lock);
->   
->   	kfree(sb);
-> 
-> Does this approach look good to you? If so I'll send a formal v2 patch.
-> 
 
-Looks good to me
 
-Thanks
-Mathias
+On 9/10/2026 9:00 PM, Anurag Pateriya wrote:
+> Add the sub-cache table for Nord, derived from the Nord AU (Safe IVI)
+> SCT table and limited to the POR use cases that have a unique SCID and a
+> usecase ID in llcc-qcom.h. Nord has the CFG0/CFG1 pairs and the full
+> ALGO_ALLOC0..3 set, so it uses the v6 register offsets.
+> 
+> num_banks is set explicitly because LLCC_LB_CNT in LLCC_COMMON_STATUS0
+> is four bits wide and cannot report sixteen banks; a wrong count makes
+> the driver map a bank aperture in place of the broadcast region and abort
+> on the first broadcast read. no_edac is set because the bootloader
+> leaves the LLCC EDAC registers locked, as on Glymur.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+
+
+Tested-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+
+
