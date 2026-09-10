@@ -1,90 +1,254 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D933D16E2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B1D3ADBB4
 	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038215; cv=none; b=e/lIoU6EaA6jNIDAWSz1DY3uzZIe7+EjI29S6BjWuUT7BbnxTj5iQPcM16JacD7wo3rySfMYPjC1+SWX+jFpC4E9ZsSqhuGjW6Sex7XhCXMpI0bZZMXtU5eyK5aJfIjZIbux4yxH2ipbXxj3vTf2UsNP7oNSyseaqw8vvNBlFD4=
+	t=1789038216; cv=none; b=AyE0uFlkuJiEhcdVkWSdOqnH1Yx4MobX3wzR+xKwcqpiiknRFt64435M91RoLIeexYk9ZOY3NneLc77jF/twMHQwA+mSXjprUrhp5nj0xf9ORrdyTnrcowEbAp/kfiQ/j9CVECOBwMISPjn9P2nYmpHlCwT4+aCaJmgSzPUJbX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038215; c=relaxed/simple;
-	bh=3gHoeS5DETEBmd8V63FOswxYH+BlwM2UupwRK7ysm3U=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=BuDudZtyFWxPbeJs9h9H3NGb6TZd9oF/CdCIXy9ulD7Sd/0xOiiOGnAYJ+aVIv5ZC83qxq6afItGQtMWG8hKhbaH9hJP2IYIlpaoppbbZOMAsdmhuUlq7u+AsqcXinBbV7LxwbjBrfGcZvSGjF2Z+ombuQ37d4NJpjmHUGSbDGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=em6YZZv/; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789038216; c=relaxed/simple;
+	bh=OJnRbsz0Z0wuuRjbDynQZg0DigpTcDZBSsHTs9ylcgw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KEvupTJj7VtV/Sfp9MJoxlW1ELJfEVKpizTbZy0qLDyZiVrxbhEiRP6xrJoIwK7WqKfk2r6Vux32bYX7pHs+jvGrK64v1RgSLl769/ws9x0mewoALD2qjRk+rxl1jpvKtmwv+hsQAAR7w/fKyt5D8JQPT33eA5UAWhqejPM5jR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uhXbmsJu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xJz56hU6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0FER41Kx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MpRYXXlM; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="em6YZZv/"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so935036a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:03:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789038214; x=1789643014; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Hx87S2Y2VYrsz+ltlElpgYkkRP/rEKOc33NOUB4sPbE=;
-        b=em6YZZv/DjbS4FIaDqISPIklDKqqy0CZ/CC5RUSa5uc2EZr69AqlyogehooMJbd0m9
-         imlS4GUaTcg5d2+Acki9v5ZBoII92SWaKTDucBQ1UFDo1wksJssdIGxP69mEosFvTNs6
-         4L0/RYunWb5Dm/GXeFo/G2FfitXHwbe+fxKBhkP28nSI/GQTpVWdd82ufZZq+uBcfO6V
-         FWxFvxl551zyAl5sMCRPW5+Zm++kCmsu6LpEK+VtNyK2c50/A0/4kMZACscHCiV1fZpK
-         xfGnsKvK5/fZ/eRP8Y9P2I/5QQlsR8BnodUWP3FT+dE6Wvd6L7B9JVwSBPZRsZqDSt56
-         tMOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789038214; x=1789643014;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hx87S2Y2VYrsz+ltlElpgYkkRP/rEKOc33NOUB4sPbE=;
-        b=qrkjGqxEEl3lATFgyPRYyKZaBcY50sUQBW8u7kPP3CUey8TKUoRF3CAyIsU6mRTWet
-         ggAXCTZpTfW1MiL4rajcyv0wRlsLah2uJnojQbQB6nnwYrMdIgZbg9JyO/nw7jpDaYhb
-         kxsWuOIqmXuFjz3S1oFroh3fXjVI167bGqUuCiAAvqaf0WNvxBjqFC5+OMiO54LqnkBr
-         QbL9PVeCrWWDWDqi0T/9N4IKMEUcrIQd978BeE29Iksx5gUgeLeE47+70wo9B4eyACm6
-         y6yehJPr90UA9GM4z2jR9vHWMVws7WsbJWNlu4WbTT9WUC7zwVlUf76UhKwYEnPTjIvv
-         DIPA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8xGDuKw++xYc97N4H0Fo/iWOeAKJsPc27Bb3mc7S4HN68JGSJ0FHyIughqhcYbS2TWiOoFp+FnFOJ3+U=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3qVDt33y9EcfQTf6KUXLu1D6P0TK85FO+kLVz1Z3pWG4JE79N
-	H3MlbJRmfOHEUkfp0DKbfVoogOocUVTxhhZ+8bqd2tG179JK2G5L4gDu
-X-Gm-Gg: AYBFou3BjWtD+7fUh7D/h1l+DeK3ELZhJYIKf+KZTKUWd3kFGFvmptLR1o+rbOW7zUc
-	2cPm7XofGb1CQEUmoqLjtgQZXnLB7vzqKGCzVzveWPOo9r95OXUqXUSGxXEU0kRVxYoO7P1gOej
-	5H0dmnon87Qwaa7en83wbswkMwQtFVqoC+U/FiEBMP3dpktf96IPqDw7REeeEIJHNtSWHnMHQ3K
-	qLGK3/XQd6SW73E32LaSERZmWZHFfhw20cKufeKUDfE2gtqn+A2BH76WacscnUIyz0BeuHIL54B
-	iWVvb9GFmxAAvJGZiixDTVZoILkGg7t5E0RpS/Ene96frPTIbN8q1Vs7kK3rq1kXlT71FIzsw/i
-	J98xmzCEPaSzTpjXGG+62JVqOoOqhqFpV9Qp8VmEbRg2TLxMEZMbluQmRzZSZXj1gg7zUuc3Gyr
-	OV/FVpbSngm4pnjDuBEX5W4qMcC0K/SIwOXWXOkgkojCrqzrjeMll/HX+RlDfsw+uNCCYp2goj9
-	z/5oJJ6kbgRiTIprPRHf7JeMM4u4LuF4eduSdwSBeB3sz70g3/c19s=
-X-Received: by 2002:a17:90b:3e46:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-39d70a5931bmr11901184a91.10.1789038213696;
-        Thu, 10 Sep 2026 04:03:33 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534152sm50133517eec.10.2026.09.10.04.03.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 04:03:33 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, Nicholas Piggin <npiggin@gmail.com>
-Subject: Re: [PATCH v2 08/20] KVM: selftests: Use the innermost page allocator API in the memslot perf test
-In-Reply-To: <20260902164123.2546762-9-seanjc@google.com>
-Date: Thu, 10 Sep 2026 16:30:42 +0530
-Message-ID: <a4pp1icl.ritesh.list@gmail.com>
-References: <20260902164123.2546762-1-seanjc@google.com> <20260902164123.2546762-9-seanjc@google.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uhXbmsJu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xJz56hU6";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0FER41Kx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MpRYXXlM"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C782D21C40;
+	Thu, 10 Sep 2026 11:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789038208; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
+	b=uhXbmsJumbeXhcl9C46oL4wXQkRxZUMj8Up3YX3M8bvZ9I8E1v9Apd2XQVnGpzhniyiTV+
+	OiJ/iGQDqT6ieowCLldLCng3Vh3qDPwwMi53dNm8W4GcQH7UBzkyzveWCyYat1IT8cojeb
+	TojFQfGXDvgwC8hpTzPMhM7yvLR4MjE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789038208;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
+	b=xJz56hU6SsvWbQpKhCmJmL8CsEX1xvZJQhAIutP3fxtul8sRu16M2wibpigz531UmAwkMy
+	dnOtTdhgGakOQXCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0FER41Kx;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MpRYXXlM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789038204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
+	b=0FER41Kxs2yd3e5eAq6c7WNcOL1DoSI2MpAq7HOEJs731DyWi7hsc0B0lylMZ0GB0QUZpa
+	4McvmCNCruQKc6hC9Wo8XptyAoWb54LJI2XCv77IjuJC94RM/Y0MmyWzxEx2mSLEFgyXVV
+	7WqpPntff8v05oJDlMZhFclrW7MjwRo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789038204;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
+	b=MpRYXXlMwLiSnwlNkUFMhW257O1+rO9hw4YadG9uB9tW1eAHN+fO7DEorAMvYbi/vfcci9
+	STOiCvR3okNkDLDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FD3313180;
+	Thu, 10 Sep 2026 11:03:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hOydDHyOompscgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 11:03:24 +0000
+Message-ID: <5ba5cc8c-37fc-4490-a4d4-0ede476035de@suse.de>
+Date: Thu, 10 Sep 2026 13:03:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/verisilicon: add primary modifier for format
+ tables
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>
+References: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C782D21C40
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,icenowy.me];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,iscas.ac.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-Sean Christopherson <seanjc@google.com> writes:
+Hi
 
-> Use the quad-underscores physical page allocator API in the memslot perf
-> test in anticipation of converting the outer versions to take the memory
-> region type instead of the raw memslot.  Stating the obvious, the memslot
-> perf test creates and allocates from multiple memslots, and so can't use
-> MEM_REGION_TEST_DATA to communicate which region/slot to allocate from.
+Am 10.09.26 um 11:49 schrieb Icenowy Zheng:
+> Currently the format tables are only used for the primary plane.
 >
-> No functional change intended.
+> Add primary modifiers to names related to the tables.
 >
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-yup. Indeed the later APIs will drop the memslot argument from the
-main/outer page allocator APIs, so we need to use the
-____vm_phy_pages_alloc() variant here. The change looks good to me.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Please feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+for both patches.
+
+> ---
+>   drivers/gpu/drm/verisilicon/vs_hwdb.c          | 12 ++++++------
+>   drivers/gpu/drm/verisilicon/vs_hwdb.h          |  4 ++--
+>   drivers/gpu/drm/verisilicon/vs_primary_plane.c |  4 ++--
+>   3 files changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> index 2a0f7c59afa3a..56aa450443068 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> @@ -10,7 +10,7 @@
+>   #include "vs_dc_top_regs.h"
+>   #include "vs_hwdb.h"
+>   
+> -static const u32 vs_formats_array_no_yuv444[] = {
+> +static const u32 vs_primary_formats_array_no_yuv444[] = {
+>   	DRM_FORMAT_XRGB4444,
+>   	DRM_FORMAT_XBGR4444,
+>   	DRM_FORMAT_RGBX4444,
+> @@ -44,7 +44,7 @@ static const u32 vs_formats_array_no_yuv444[] = {
+>   	/* TODO: non-RGB formats */
+>   };
+>   
+> -static const u32 vs_formats_array_with_yuv444[] = {
+> +static const u32 vs_primary_formats_array_with_yuv444[] = {
+>   	DRM_FORMAT_XRGB4444,
+>   	DRM_FORMAT_XBGR4444,
+>   	DRM_FORMAT_RGBX4444,
+> @@ -79,13 +79,13 @@ static const u32 vs_formats_array_with_yuv444[] = {
+>   };
+>   
+>   static const struct vs_formats vs_formats_no_yuv444 = {
+> -	.array = vs_formats_array_no_yuv444,
+> -	.num = ARRAY_SIZE(vs_formats_array_no_yuv444)
+> +	.primary_array = vs_primary_formats_array_no_yuv444,
+> +	.primary_num = ARRAY_SIZE(vs_primary_formats_array_no_yuv444)
+>   };
+>   
+>   static const struct vs_formats vs_formats_with_yuv444 = {
+> -	.array = vs_formats_array_with_yuv444,
+> -	.num = ARRAY_SIZE(vs_formats_array_with_yuv444)
+> +	.primary_array = vs_primary_formats_array_with_yuv444,
+> +	.primary_num = ARRAY_SIZE(vs_primary_formats_array_with_yuv444)
+>   };
+>   
+>   static struct vs_chip_identity vs_chip_identities[] = {
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+> index 2065ecb730437..616076d931a57 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+> @@ -10,8 +10,8 @@
+>   #include <linux/types.h>
+>   
+>   struct vs_formats {
+> -	const u32 *array;
+> -	unsigned int num;
+> +	const u32 *primary_array;
+> +	unsigned int primary_num;
+>   };
+>   
+>   struct vs_chip_identity {
+> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> index 1f2be41ae496c..8e94491693019 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> @@ -168,8 +168,8 @@ struct drm_plane *vs_primary_plane_init(struct drm_device *drm_dev, struct vs_dc
+>   
+>   	plane = drmm_universal_plane_alloc(drm_dev, struct drm_plane, dev, 0,
+>   					   &vs_primary_plane_funcs,
+> -					   dc->identity.formats->array,
+> -					   dc->identity.formats->num,
+> +					   dc->identity.formats->primary_array,
+> +					   dc->identity.formats->primary_num,
+>   					   NULL,
+>   					   DRM_PLANE_TYPE_PRIMARY,
+>   					   NULL);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
