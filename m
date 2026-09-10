@@ -1,409 +1,174 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2EF33986F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E96145DF6C;
+	Thu, 10 Sep 2026 10:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037822; cv=none; b=SI/nq0uK3Y/k4yPosUWQv5DiyPDaQ5Ik4/dI7KSQhzHgaYc5pLbPeIvIX9fea13FD01hVRSLV9nlnOwn6mNhKBEQ7mHFedMu5JZYliAIdJ/3VxzS9PDEYIs13ssTfVFqhIEKQpLRA0Nk8SNFspWU9AMQzXQAPu1Vy64xib6YmJM=
+	t=1789037831; cv=none; b=crxvrFZkmY91w97duxRlCxPIFHhjoDiHAR+0U3xlXu4x2ixlcPD9P9SEwBttfHqm2MWUU47DuXRn9kGZtFWXGFUp9fMDMomo7EKsL4G/e8nYbn7QejtaAJ1D0unGXAonLAeaJecox3NHb+0UASnbUDD1RTOLzstBWGsH/ssAkIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037822; c=relaxed/simple;
-	bh=EMHmqL6TpIlRzl1xw5Ad5qbWCJVQmAMizkx6Kgjfkwg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d5N53qHUmTArfuekUmh5ZZ0H/yQ70nVM95pnecrPZARSKZFGmdT0nQhgSgXX/HyUSwL1PjQMZ8YkjkxrMRSe8XWdI0eaC4w7ChpVYM+9msIjYyLA3jMGH63ip65li6L6yLO5IzRMAEHsUfUTmrlYpvxD3fHvEzNkoxQqKr00sHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fcY7Kw0A; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789037831; c=relaxed/simple;
+	bh=kvAMh//qzFyr59ZzKLHP+/ecQZnfn+YJ/B1zHlv6DBE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q6lmvhIGDfV9GWXX0B1q9p0gvndHoNyBy8roP/jn4WpJgAsztK4bjTWu0cVrMu2i+S2r6apbJLL/JA1ls37nJeJkVk2MOQ/WD2OWhI2w4yimqZKOx9J9fcvg7MnrFHUwDbPaiYULV6Q+Wt0j6LwnTA5iFCllkgEwLGqhmkZqv10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK8zViyI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fcY7Kw0A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=q/
-	PPWF6BjDYJqsqVvLWW5Ux17bojJLrDyNJEIg6u1DE=; b=fcY7Kw0ABc8Dl5cW7W
-	zV/fIJp6i7+P8KhgltnOhqMYCX/hrkICoQRiRp4k78X2/agoeN+mxBPKDRwBqseX
-	9D4P8LVWQaP2TH9ZEkRi8FabZ9XTwzF8Id6cg6HZfb5FiEJFfuj9MKVPLdns5BNK
-	suoWmcr0n5j701nxefdHIzIIA=
-Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgD3eCBKjKJqUJWKQw--.35880S2;
-	Thu, 10 Sep 2026 18:54:03 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com,
-	kprateek.nayak@amd.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	connoro@google.com,
-	jstultz@google.com,
-	arighi@nvidia.com,
-	tj@kernel.org,
-	void@manifault.com,
-	changwoo@igalia.com,
-	linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Subject: Re: [PATCH v4 4/5] sched/rt: Fix RT watchdog accounting for proxy execution
-Date: Thu, 10 Sep 2026 19:54:02 +0900
-Message-ID: <20260910105402.2784718-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909110438.GA4120091@noisy.programming.kicks-ass.net>
-References: <20260909092901.2989564-1-sh_def@163.com> <20260909092901.2989564-5-sh_def@163.com> <20260909110438.GA4120091@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK8zViyI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FBD11F00893;
+	Thu, 10 Sep 2026 10:56:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789037829;
+	bh=GxlyEAD3OjzkL84LXM7QY5JNpJtiOF5Zyguxd2EmB9s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eK8zViyIm/bW0+IG/megvvXAxtIOAaGbbA0fXts46bTz2Ah3auqf2tX9g6vhwKlQG
+	 oK7093vyOD0v6JMIWihPbQAbYKJX4WDIBaErdJiA7WGxfdwj4YLTMKLWylzHSskruX
+	 IPNal/2lHXurLSF3Z+IWE0cQk3o2xs4Bi5jUSG7ufNcw8EmGp4dCFLaWv28ZF965vu
+	 JNP7Q5hdqlha0dYFpTJv5w6D5RvvMoaWQduNtQP7puWp0H1By3u/FOFSKzeYxeEL2h
+	 48EdKDIn+oz9XUmzGq7/S/AQlqJOqbyqxqY9ezMkf3BCL6yzH+frRR/qE1dwI6gMe5
+	 njJFo5DYT61nA==
+Message-ID: <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
+Date: Thu, 10 Sep 2026 12:56:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Path forward for Virtualized Swap?
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Kairui Song <kasong@tencent.com>, Chris Li <chrisl@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ YoungJun Park <youngjun.park@lge.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, =?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?=
+ <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>,
+ Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>,
+ Meta kernel team <kernel-team@meta.com>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgD3eCBKjKJqUJWKQw--.35880S2
-X-Coremail-Antispam: 1Uf129KBjvAXoWfJry3Xw1DWw1fCw43CrW8Xrb_yoW8Jr1xGo
-	ZaqFWDXrn5twnrX3y7JF1ktFZ7ur4qkr98WF1xKws8XFZ7Ww17W3y7Kw1UZa47X3W5ua4f
-	Zas7ta98Cr4rJan3n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUweOJUUUUU
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gt412qijEvZcQAA3p
 
-On Wed, Sep 09, 2026 at 01:04:38PM +0200, Peter Zijlstra wrote:
-> It might come as no surprise that this isn't going to fly. I've not
-> though about the problem yet, but we're not going to be sprinkling rt
-> bits like this in the middle of __schedule().
+On 9/8/26 18:45, Nhat Pham wrote:
+> On Mon, Sep 7, 2026 at 4:30 AM David Hildenbrand (Arm) <david@kernel.org> wrote:
+>>
+>> On 9/4/26 23:14, Nhat Pham wrote:
+>>
+>> Hi,
+>>
+>>> To Kairui, Johannes, Yosry, Chris, David, Andrew, and other (z)swap folks -
+>>> I need some help here.
+>>
+>> I'll mostly ignore swap-related stuff because (a) -EBUSY and (b) we have quite
+>> some swap experts around :)
+>>
+>> Reading below, I do wonder if the swap subsystem needs some more coordination
+>> and collaboration?
+>>
+>> For example, maybe having bi-weekly/monthly meetings to get everybody aligned
+>> and uptodate could be something reasonable?
+>>
+>> This approach has proven fairly helpful in areas where (1) multiple companies
+>> are involved (2) many concurrent development is happening, and (3) people have
+>> different priorities and requirements.
+>>
+>> Is there already something like that to organize development? Should we get
+>> started with that?
+> 
+> Hi David!
 
-Thanks for the review.
+Hi!
 
-I removed the RT-specific handling from __schedule(). The updated design
-reports generic proxy lifecycle transitions through a sched_class callback;
-the RT class consumes those events to preserve RLIMIT_RTTIME interval
-semantics.
+> 
+> Thank you for your suggestions :) More collaboration and communication
+> is definitely needed here. Conference is a good place for this, but
+> it's not something we can do very frequently, and many folks could not
+> attend (visa issues, etc.).
 
-The relevant ownership rule is:
+Right, and conferences usually don't have the capacity to squeeze too many
+swap-related topics in, so it would have to be side discussions or BOFs.
 
-  RT service applicability follows the effective donor scheduling class;
-  watchdog state is charged to rq->curr, whose execution runtime advances.
+> 
+> A bi-weekly/monthly series of meetings sound very appealing. Swap
+> contributors are very spread out (China, NorAm, Europe, etc.), so
+> coordination will be tricky, but let us figure out something.
 
-The callback does not acquire locks or sleep. Scheduler-core callers invoke
-it with rq->lock held. The mutex handoff path invokes it without rq->lock but
-with preemption disabled; the existing handoff locking keeps the proxy donor
-stack stable for that transition. The current RT consumer only resets the
-execution task's watchdog interval.
+Yes, that's an issue. I'd suggest swap maintainers take care of that if they
+agree. I could try as well, but it's rather tricky right now on my end ...
 
-The implementation now handles proxy-chain relationship transitions rather
-than only immediate blocked_donor changes. When a relation is replaced, the
-old effective donor is reported with STOP before the new relation is
-installed; an upstream change propagates STOP/START to every downstream
-owner in a nested chain. Teardown also resolves the effective root donor
-before sending STOP, including the mutex handoff path.
+As an alternative, we could also use on/two/ ... slots in the bi-weekly MM
+alignment session to talk about swap. (I'd be happy to learn more about all this
+as well)
 
-This lifecycle form avoids the per-task generation state I initially tried,
-which increased task_struct by one 64-byte allocation unit on both x86-64
-and i386. The task-clock baseline used by patch 5 is likewise stored in the
-runqueue rather than every sched_entity; the old per-entity field is removed.
+-- 
+Cheers,
 
-The focused checks cover RT-policy PI boost to DL (timeout preserved), RT
-donor to FAIR execution (watchdog charged to the execution task), blocking,
-nested chains, donor replacement, DL donor to RT/RR execution (no watchdog),
-and proxy-disabled builds. The current tree also passes the proxy-on,
-proxy-off, POSIX_TIMERS-off, SCHED_CORE-on, x86_64 full-image, i386 object,
-module, and regenerated checkpatch checks.
-
-Retained root donors that change scheduling class are also handled around
-sched_change_begin()/sched_change_end(): the current proxy chain receives
-STOP before the class change and START after it. This keeps an RT-to-FAIR-to-RT
-transition from carrying a stale execution-owner interval. The dedicated
-in-kernel POC builds successfully; runtime execution is reserved for the new
-QEMU image.
-
-The class-transition handling walks the current proxy chain, so a retained
-nested chain is stopped and restarted for every downstream execution owner,
-even when only the root donor changes scheduling class. Ordinary preemption
-and resumption leave the chain intact and do not generate another transition.
-
-Could you take a look at whether this lifecycle-based version is a reasonable
-direction? If so, I will complete the pending runtime check and carry it into
-v5 before posting the updated series.
-
-For reference, the complete current RT watchdog patch follows.
-
-Thanks,
-Hui
-
----
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cc..c36b772ce19f 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1691,11 +1691,13 @@ struct task_struct {
- 
- #ifdef CONFIG_SCHED_PROXY_EXEC
- DECLARE_STATIC_KEY_TRUE(__sched_proxy_exec);
-+void sched_proxy_stop(struct task_struct *exec);
- static inline bool sched_proxy_exec(void)
- {
- 	return static_branch_likely(&__sched_proxy_exec);
- }
- #else
-+static inline void sched_proxy_stop(struct task_struct *exec) {}
- static inline bool sched_proxy_exec(void)
- {
- 	return false;
-diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
-index 942a939cee95..c1be99391076 100644
---- a/kernel/locking/mutex.c
-+++ b/kernel/locking/mutex.c
-@@ -1044,6 +1044,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
- 			next_lock = __get_task_blocked_on(donor);
- 			if (next_lock == lock) {
- 				next = get_task_struct(donor);
-+				sched_proxy_stop(current);
- 				__clear_task_blocked_on(next, lock);
- 				current->blocked_donor = NULL;
- 			}
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 05e599665fdd..0e6ef9418604 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4647,6 +4647,69 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
- 	init_sched_mm(p);
- }
- 
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+/*
-+ * Return the effective scheduling donor for a proxy execution context.
-+ * blocked_donor links are stable while preemption is disabled or the rq lock
-+ * is held, which are the contexts in which this helper is used.
-+ */
-+static inline struct task_struct *proxy_root_donor(struct task_struct *exec)
-+{
-+	struct task_struct *donor = exec;
-+
-+	while (READ_ONCE(donor->blocked_donor))
-+		donor = READ_ONCE(donor->blocked_donor);
-+
-+	return donor;
-+}
-+
-+/* Notify the classes owning the proxy scheduling and execution contexts. */
-+static inline void proxy_event(struct task_struct *donor,
-+			       struct task_struct *exec,
-+			       enum sched_proxy_event event)
-+{
-+	const struct sched_class *donor_class = donor->sched_class;
-+	const struct sched_class *exec_class = exec->sched_class;
-+
-+	if (donor_class->proxy_event)
-+		donor_class->proxy_event(donor, exec, event);
-+	if (exec_class != donor_class && exec_class->proxy_event)
-+		exec_class->proxy_event(donor, exec, event);
-+}
-+
-+/* Notify every execution context in the current proxy chain. */
-+static inline void proxy_event_chain(struct rq *rq,
-+				     struct task_struct *donor,
-+				     enum sched_proxy_event event)
-+{
-+	struct task_struct *exec = rq->curr;
-+
-+	if (exec == donor)
-+		return;
-+
-+	for (; exec && exec != donor;
-+	     exec = READ_ONCE(exec->blocked_donor))
-+		proxy_event(donor, exec, event);
-+}
-+
-+void sched_proxy_stop(struct task_struct *exec)
-+{
-+	proxy_event(proxy_root_donor(exec), exec, SCHED_PROXY_STOP);
-+}
-+#else
-+static inline struct task_struct *proxy_root_donor(struct task_struct *exec)
-+{
-+	return exec;
-+}
-+
-+static inline void proxy_event(struct task_struct *donor,
-+			       struct task_struct *exec,
-+			       enum sched_proxy_event event) {}
-+static inline void proxy_event_chain(struct rq *rq,
-+				     struct task_struct *donor,
-+				     enum sched_proxy_event event) {}
-+#endif
-+
- DEFINE_STATIC_KEY_FALSE(sched_numa_balancing);
- 
- #ifdef CONFIG_NUMA_BALANCING
-@@ -6768,6 +6831,9 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
- 		return false;
- 	}
- 
-+	if (sched_proxy_exec())
-+		proxy_event(rq->donor, p, SCHED_PROXY_BLOCK);
-+
- 	p->is_blocked = 1;
- 
- 	/*
-@@ -6930,6 +6996,8 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 	__must_hold(__rq_lockp(rq))
- {
- 	struct task_struct *owner = NULL;
-+	struct task_struct *old_donor = NULL;
-+	bool context_changed = false;
- 	bool curr_in_chain = false;
- 	int this_cpu = cpu_of(rq);
- 	struct task_struct *p;
-@@ -7056,7 +7124,25 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		 * rq, therefore holding @rq->lock is sufficient to
- 		 * guarantee its existence, as per ttwu_remote().
- 		 */
--		owner->blocked_donor = p;
-+		/*
-+		 * The relation survives ordinary preemption and resumption. Once
-+		 * an upstream relation changes, however, all downstream owners
-+		 * inherit a new proxy scheduling context as well.
-+		 */
-+		if (owner->blocked_donor != p) {
-+			if (!context_changed)
-+				old_donor = proxy_root_donor(owner);
-+
-+			if (old_donor != owner)
-+				proxy_event(old_donor, owner, SCHED_PROXY_STOP);
-+
-+			owner->blocked_donor = p;
-+			context_changed = true;
-+		} else if (context_changed && old_donor != owner) {
-+			proxy_event(old_donor, owner, SCHED_PROXY_STOP);
-+		}
-+		if (context_changed)
-+			proxy_event(donor, owner, SCHED_PROXY_START);
- 	}
- 	WARN_ON_ONCE(owner && !owner->on_rq);
- 	return owner;
-@@ -7210,6 +7296,8 @@ static void __sched notrace __schedule(int sched_mode)
- 		struct task_struct *prev_donor = rq->donor;
- 
- 		rq_set_donor(rq, next);
-+		if (!next->is_blocked && next->blocked_donor)
-+			proxy_event(proxy_root_donor(next), next, SCHED_PROXY_STOP);
- 		next->blocked_donor = NULL;
- 		if (unlikely(next->is_blocked)) {
- 			next = find_proxy_task(rq, next, &rf);
-@@ -11277,6 +11365,10 @@ struct sched_change_ctx *sched_change_begin(struct task_struct *p, unsigned int
- 
- 	lockdep_assert_rq_held(rq);
- 
-+	/* End proxy service before changing the donor's scheduling class. */
-+	if ((flags & DEQUEUE_CLASS) && task_current_donor(rq, p))
-+		proxy_event_chain(rq, p, SCHED_PROXY_STOP);
-+
- 	if (!(flags & DEQUEUE_NOCLOCK)) {
- 		update_rq_clock(rq);
- 		flags |= DEQUEUE_NOCLOCK;
-@@ -11335,6 +11427,10 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		if (p->sched_class->switched_to)
- 			p->sched_class->switched_to(rq, p);
- 
-+		/* Restart proxy service with the donor's new scheduling class. */
-+		if (ctx->running)
-+			proxy_event_chain(rq, p, SCHED_PROXY_START);
-+
- 		if (ctx->running) {
- 			/*
- 			 * If this was a class promotion; let the old class
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index dd058a6ca06b..9e16d06baf48 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2530,6 +2530,37 @@ static void watchdog(struct rq *rq, struct task_struct *p)
- static inline void watchdog(struct rq *rq, struct task_struct *p) { }
- #endif /* !CONFIG_POSIX_TIMERS */
- 
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+static void proxy_event_rt(struct task_struct *donor,
-+			   struct task_struct *exec,
-+			   enum sched_proxy_event event)
-+{
-+	/* A new relation or a blocking edge terminates the prior interval. */
-+	switch (event) {
-+	case SCHED_PROXY_START:
-+		/*
-+		 * A proxy START begins an RT watchdog interval only when
-+		 * the scheduling context itself is RT. This callback may also
-+		 * be reached through an RT execution context while another
-+		 * class supplies the donor.
-+		 */
-+		if (donor->sched_class == &rt_sched_class &&
-+		    !task_has_rt_policy(exec))
-+			exec->rt.timeout = 0;
-+		break;
-+	case SCHED_PROXY_BLOCK:
-+		exec->rt.timeout = 0;
-+		break;
-+	case SCHED_PROXY_STOP:
-+		/* Stop the interval when RT proxy service ends for this task. */
-+		if (donor->sched_class == &rt_sched_class &&
-+		    !task_has_rt_policy(exec))
-+			exec->rt.timeout = 0;
-+		break;
-+	}
-+}
-+#endif
-+
- /*
-  * scheduler tick hitting a task of our scheduling class.
-  *
-@@ -2550,7 +2581,7 @@ static void task_tick_rt(struct rq *rq, int queued)
- 	update_curr_rt(rq);
- 	update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 1);
- 
--	watchdog(rq, p);
-+	watchdog(rq, rq->curr);
- 
- 	/*
- 	 * RR tasks need a special form of time-slice management.
-@@ -2625,6 +2656,9 @@ DEFINE_SCHED_CLASS(rt) = {
- 	.find_lock_rq		= find_lock_lowest_rq,
- 
- 	.task_tick		= task_tick_rt,
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+	.proxy_event		= proxy_event_rt,
-+#endif
- 
- 	.get_rr_interval	= get_rr_interval_rt,
- 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6a8deddc725b..bb6f87552220 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2621,6 +2621,12 @@ struct affinity_context {
- 
- extern s64 update_curr_common(struct rq *rq);
- 
-+enum sched_proxy_event {
-+	SCHED_PROXY_START,
-+	SCHED_PROXY_BLOCK,
-+	SCHED_PROXY_STOP,
-+};
-+
- struct sched_class {
- 
- #ifdef CONFIG_UCLAMP_TASK
-@@ -2719,6 +2725,16 @@ struct sched_class {
- 	 * sched_tick_remote: rq->lock
- 	 */
- 	void (*task_tick)(struct rq *rq, int queued);
-+	/*
-+	 * Proxy execution transitions. Callbacks must not sleep. Scheduler-core
-+	 * events run with the rq lock held; mutex handoff may invoke the callback
-+	 * without the rq lock, with preemption disabled and blocked relation locks
-+	 * held. Donor and execution task lifetime is protected by callers.
-+	 */
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+	void (*proxy_event)(struct task_struct *donor, struct task_struct *exec,
-+			    enum sched_proxy_event event);
-+#endif
- 	/*
- 	 * sched_cgroup_fork: p->pi_lock
- 	 */
-
+David
