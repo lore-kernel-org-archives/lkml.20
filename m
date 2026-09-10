@@ -1,70 +1,74 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C967655D866;
-	Thu, 10 Sep 2026 18:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787C3562609
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789064418; cv=none; b=gr/FodBBLwXiAomE0wgVFTxbGOQeiZrQDw4o2JRDMVg4vRtqOt7d3x4gzkcB6kzRD5u3W8mfGtyeGfbe822JsYRVdGqwiOLK29vJx+XrPWWdxRnnDersjMJ5AKkCQBKpX7eZOKRToVIPYG0BX8jSQJo8GWulN9rt9IJUEg3RDCg=
+	t=1789064531; cv=none; b=V3CtT4w4d9WmZBwx+Cel4AkgbRndzzmyirWQOKkU9TSTNVgaW4AWnpm8ufxNDAI7XMjrUIlMNTw66nG2L0B9gXX1iAOkPDQ+DVd52NV14f2dbz/uj0D+M0Z7XYumKPk0slfi7QJQZtlFS+HpxN4RFO7QUTccG5HIn/0R+UVktIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789064418; c=relaxed/simple;
-	bh=ytdtV8MEphkLh3wnH/e5LhGOVVLAFMbBgbMUE5TVfX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lFppZuBeNvfh/++AlaZXQljThRgV8NuvrJ+Mw9IzyNZ4SLUC3FZbTCq6ggCYV+kSxUPt/OaRgI0ITFKuOLAkt2zS2jKDyRCu8dYoGDbE5smHUhxHOmYnnUcThxEQPhrB9Q71ov3Iae+31FYtXvTnUlTXutRKMJndcMH+fqlF0yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vy09WiP4; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=we+03sV8; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789064531; c=relaxed/simple;
+	bh=xeBaVq34Fvm+F/zQVDvqjxr/qQQkcNW+NLJKAnQ0Gzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jIY40F2hXq1w8kErKao1WhDbnwF/c+/03iJdArcBzYN8kiQ63IyZYNCR0HJvBF1Hv9RWRSaLawAmx81lSv1iEKc3zcMZdgkpuEfopa/nDZ3A22G5lXNY49ILDTrtBBAei2/Q3ViIl3cEjL//kicmYp99G/+gUy2sodd2eVfKWYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=hiq9LTIH; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vy09WiP4";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="we+03sV8"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hgmDt1JsVzMlGn;
-	Thu, 10 Sep 2026 20:20:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789064414;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JT8Lel9Htpt1ONgRefXicHp4XhjRXop4uEqGlu/4M1w=;
-	b=vy09WiP4a5u0w/PXtG2Afv1m86ld6IyG0YodIVU//webwCUEuodZq3GKbpapWKjBimjmlF
-	KPhS1FVwHnZk2PFFiWP9qxG1M1K198UVFI3b1zGLpJssPCY6k+lyPqB3aVvZb0nqbfIfYb
-	PBeKvIffgY6KZ8XDTfIaqfv1MHiHvfgq5mXQTA6n1aoQOzL8r+ZDFiii7GHSUTfJoLl+LK
-	9vo4PgdpwerNHZyTFq2+bbiuKKiGRtb17yT1ynbpzM8XUKUQocpAtDneQOHZcnuTUvpH2K
-	1uQEggMfFjAUN8ooC2hTNYryY9z+QuZYU5ZRWHJswovtr7gvRubZtoAv0p+QiQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=we+03sV8;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789064412;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JT8Lel9Htpt1ONgRefXicHp4XhjRXop4uEqGlu/4M1w=;
-	b=we+03sV88FIZrQGH5ffyI3BYWdl1bA4ZemCLv/ccQt6ge8I485Hwu+SHIKUlf52JZu+arx
-	/Lw8/ZhglUWuDLaW9czWXC4Fit4hRxiNEOAmHXiMdDDyjrssmIUaXdpAsEqzz1wLdAsCgE
-	2LthsvPNszOsrT7ScUA6ZczCoY0XKBL0XRKjdCpksM1X27meG7jaHaDLOLzVlFAefntekv
-	ZGmAU+C2YJXRMpFp6mSFEMSggqy8GLzXIEKtRTPGHw9VI6Ca7ImbVcIszNU+BbCD/QEL1d
-	7WfYv73qvDNrYsSV/Y+Uyv0GHOZHMceNSzDomV2h327jPfpRxrftkcZFBH29ZA==
-To: dri-devel@lists.freedesktop.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	David Airlie <airlied@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v3] drm/rcar-du: dsi: Implement DSI command TX using AXI memory access
-Date: Thu, 10 Sep 2026 20:19:45 +0200
-Message-ID: <20260910182003.31612-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="hiq9LTIH"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so813965e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:22:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1789064526; x=1789669326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GqDHIUprFGhLpfjoTtzfh0mDO50nuGrZXReIflYDQ28=;
+        b=hiq9LTIHwK9bGox2e61Q5JkEOIfi+7XrnWER7D9SJLinSRQdrsBjxlA5spo7zgyAVa
+         7NYb7ST88F24ybJlmGl6mksaluXawXRSUr/HaVSdc6QDYpqeo4VKgTGz/th2wYgKZFvo
+         QQzwAJa+3qc7MyKVYBaHba7QLHkuhZca0UWtBE9gkN/O08doU6OxkReN/DoVYsVWtu7W
+         weEJ3ksB3WQC+JIhHBg0FbK+PrYk/W9kxYDp2Mmg/8xdU14P+HMFFpLcyOIcWk6NXy3E
+         ayBUpZt5yP3Si/1PnXBfAGXs+ikXz45dEYYaQ4j1Pqxx1ByjqfLiakl+NUIVCZ5pN8J8
+         U+2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789064526; x=1789669326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GqDHIUprFGhLpfjoTtzfh0mDO50nuGrZXReIflYDQ28=;
+        b=ovcwo6GHqEJfsEH3i45frrvV/sIXBFRY2OG0F9PKGmqGc1sEgZyVJJ0tVJM5sGsiUS
+         MJLnTJ1riySQaw/Q3m8aBfbb9Cbtlddm4B67L9aP9veQbdDK/fY8Hadg7+1jBovF3hGb
+         1PNMQ4ITT+SGqGwGCLw/2tPPnqXVXpu+n6zU7dIYYcyIKYapRWvYCNhR9jmeyncUXiAZ
+         ciDOPD/ceDo5G13lfRPI+KNrLZ8mrHBKCPR4YrOeqa/zdoKWziaHT3ZXoGWJgpQDHZVn
+         rUBpEiDh5/r/oxHlmi5LneSCJkuPc50BYg2RBld49V2dHS86MVqrzELUgkt2LGdgMN7t
+         IZ6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxHnkS+5Avzl400XUgovyPG7daaja1daef2a4WrKl+MGWqFpUMD3tkImaDgfo3CnyUymTgXYfuYEH1JNI8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kitLdkVMtfXapv0AcHGyLrd8ULG9xrWPOyLHOC2CQYG8oAFJ5X
+	mPS2fhsg5E4E96Ds5lseysA/c0AdDS6gj1OjL6IOR+bDKvq/REFPU0p4wHbDLMTUPw4=
+X-Gm-Gg: AYBFou1H1ydCbzx74u0FowB80l2Ba+2teltjCdRrffPDS6OKdafdC5W2WfIS0iS+AAk
+	8FIZz1kZ4LJD+IQAxyJ01TIaEAvQ6HgfNGrHiQSO7WzFNEvxP/NOLvoQeCJwUm2QeNa2xReoiqH
+	Vvl1ovt3U1iZ7yXO5UUI+yTAOyZtFXjA8zhxk5yJFBKsYfgw389FpSKoFNB5gYkOXW8rT8xkSQs
+	XkEp3tNYX8s/0ELT8HQcv4G6ydyeACPPdUXR7M7V+PeBDBaNB5t7NSo+tREaHQbFueuTCClLtoT
+	XWPdBmc0rnRuwNYUeeJC8IwYP/sQEMMszF3EpqTVvdHNiWy/MxYenWSXKWnkzGgX5h70taoMzT0
+	xWemZ9e4UILf0jJNp+E0wgFfUg/ZhgwpxFkF0t7XqX9lrYBR1xM9RHN5QvFZOpFvcWxHiXdspUT
+	rrPh3TzVwSPjf228fD3LLghcb/QdHiO53R3vlRYzc84QfnJ2UcWHyHXK7DTwZTCRkQuXOHusgW0
+	FhgnaqXCyg8JIDgVEbK68L5F+g5bARYGuwSBzgVBBM6/zKSt8b4L0a1WxPx0ELoE0UnsiVrVr0=
+X-Received: by 2002:a05:600d:6501:10b0:49c:fa21:e73b with SMTP id 5b1f17b1804b1-49e619c0bc0mr2423325e9.17.1789064526542;
+        Thu, 10 Sep 2026 11:22:06 -0700 (PDT)
+Received: from raven.intern.cm-ag (p200300dc6f04b700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f04:b700:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5765152asm40025455e9.11.2026.09.10.11.22.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 11:22:06 -0700 (PDT)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: dhowells@redhat.com,
+	steved@redhat.com,
+	viro@zeniv.linux.org.uk,
+	netfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] cachefiles: pass a poll key when waking the daemon
+Date: Thu, 10 Sep 2026 20:22:00 +0200
+Message-ID: <20260910182200.1272489-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,173 +76,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: unpwsd8c9cpkrm57a6suee78rzbxzr6b
-X-MBO-RS-ID: f8fd371e23885f80434
-X-Rspamd-Queue-Id: 4hgmDt1JsVzMlGn
 
-Currently, the driver supports register access mode for DSI command
-transfer, which limits both TX and RX to only 16 Bytes long packets.
-Implement support for DSI command TX using AXI memory access mode,
-which extends the packet transfer length up to 128 Bytes long in LP
-and 1024 Bytes long in HS. Support for DSI command RX using the AXI
-access mode is not implemented due to missing test hardware.
+Keyless wakeups bypass epoll's event-mask filtering.  With only
+`EPOLLOUT` registered, any cachefiles_state_changed() call will wake
+up the epoll_wait() system call, but will not return any events,
+causing a busy loop.
 
-The implementation allocates a DMAble 4k page. In case the command
-transfer is longer than 16 Bytes, the payload is copied into the
-page and sent out using the AXI access mode, otherwise the register
-access mode is used.
+Pass the relevant poll events with each wakeup so `epoll` can filter
+out unwanted notifications.
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Fixes: a5b3a80b899b ("CacheFiles: Provide read-and-reset release counters for cachefilesd")
+Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
-Cc: David Airlie <airlied@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
+Note: backports to older branches need to adjust ondemand.c as well
+like this:
+-       wake_up_all(&cache->daemon_pollwq);
++       cachefiles_wake_poll(cache, EPOLLIN);
 ---
-V2: - Use dma_set_mask_and_coherent() to set up global DMA mask and
-      drop GFP_DMA32 from dma_alloc_coherent() gfp flags.
-    - Fix DMA memory leak in missing fail path in rcar_mipi_dsi_probe()
-      and move dma_alloc_coherent() almost to the end of the probe
-      function, so as much as possible of the probe function is devm
-      managed.
-    - Unregister DSI host first, then free the DMA page
-V3: - Limit transfer to 1024 Bytes
----
- .../gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   | 50 ++++++++++++++++---
- 1 file changed, 42 insertions(+), 8 deletions(-)
+ fs/cachefiles/cache.c    |  4 ++--
+ fs/cachefiles/internal.h | 15 +++++++++++++--
+ fs/cachefiles/namei.c    |  2 +-
+ 3 files changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-index 6e46d6d99f3c0..7a9c0a281ea6d 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-@@ -8,6 +8,7 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/dma-mapping.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/math64.h>
-@@ -75,6 +76,9 @@ struct rcar_mipi_dsi {
- 	unsigned long mode_flags;
- 	unsigned int num_data_lanes;
- 	unsigned int lanes;
-+
-+	void *cmd_axi_cpu;
-+	dma_addr_t cmd_axi_dma;
- };
+diff --git a/fs/cachefiles/cache.c b/fs/cachefiles/cache.c
+index 9fb06dc16520..08ca598618ac 100644
+--- a/fs/cachefiles/cache.c
++++ b/fs/cachefiles/cache.c
+@@ -255,7 +255,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
+ 	    test_and_clear_bit(CACHEFILES_CULLING, &cache->flags)
+ 	    ) {
+ 		_debug("cease culling");
+-		cachefiles_state_changed(cache);
++		cachefiles_state_changed(cache, EPOLLIN);
+ 	}
  
- struct dsi_setup_info {
-@@ -977,6 +981,7 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
- 					      bool is_rx_xfer)
+ 	//_leave(" = 0");
+@@ -275,7 +275,7 @@ int cachefiles_has_space(struct cachefiles_cache *cache,
+ begin_cull:
+ 	if (!test_and_set_bit(CACHEFILES_CULLING, &cache->flags)) {
+ 		_debug("### CULL CACHE ###");
+-		cachefiles_state_changed(cache);
++		cachefiles_state_changed(cache, EPOLLIN | EPOLLOUT);
+ 	}
+ 
+ 	_leave(" = %d", ret);
+diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+index c93324e0f98c..b8a5ea4a5ced 100644
+--- a/fs/cachefiles/internal.h
++++ b/fs/cachefiles/internal.h
+@@ -15,6 +15,7 @@
+ #include <linux/fscache-cache.h>
+ #include <linux/cred.h>
+ #include <linux/security.h>
++#include <linux/poll.h>
+ 
+ #define CACHEFILES_DIO_BLOCK_SIZE 4096
+ 
+@@ -117,13 +118,23 @@ struct cachefiles_object *cachefiles_cres_object(struct netfs_cache_resources *c
+ 	return fscache_cres_cookie(cres)->cache_priv;
+ }
+ 
++/*
++ * Wake up the daemon polling on /dev/cachefiles.
++ */
++static inline void cachefiles_wake_poll(struct cachefiles_cache *cache,
++					__poll_t mask)
++{
++	__wake_up(&cache->daemon_pollwq, TASK_NORMAL, 0, poll_to_key(mask));
++}
++
+ /*
+  * note change of state for daemon
+  */
+-static inline void cachefiles_state_changed(struct cachefiles_cache *cache)
++static inline void cachefiles_state_changed(struct cachefiles_cache *cache,
++					    __poll_t mask)
  {
- 	const bool is_tx_long = mipi_dsi_packet_format_is_long(msg->type);
-+	const bool is_tx_axi = !is_rx_xfer && is_tx_long && (msg->tx_len > 16);
- 	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
- 	struct mipi_dsi_packet packet;
- 	u8 payload[16] = { 0 };
-@@ -987,9 +992,14 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
- 	if (ret)
- 		return ret;
- 
--	/* Configure LP or HS command transfer. */
--	rcar_mipi_dsi_write(dsi, TXCMSETR, (msg->flags & MIPI_DSI_MSG_USE_LPM) ?
--					   TXCMSETR_SPDTYP : 0);
-+	/* Configure LP or HS and register or AXI command transfer. */
-+	rcar_mipi_dsi_write(dsi, TXCMSETR, ((msg->flags & MIPI_DSI_MSG_USE_LPM) ?
-+					    TXCMSETR_SPDTYP : 0) |
-+					   (is_tx_axi ? TXCMSETR_LPPDACC : 0));
-+
-+	/* Configure DMA source address for AXI command transfer. */
-+	if (is_tx_axi)
-+		rcar_mipi_dsi_write(dsi, TXCMADDRSET0R, dsi->cmd_axi_dma);
- 
- 	/* Register access mode for RX transfer. */
- 	if (is_rx_xfer)
-@@ -1011,7 +1021,10 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
- 			    TXCMPHDR_DATA1(packet.header[2]) |
- 			    TXCMPHDR_DATA0(packet.header[1]));
- 
--	if (is_tx_long) {
-+	if (is_tx_axi) {
-+		memcpy(dsi->cmd_axi_cpu, packet.payload,
-+		       min(msg->tx_len, 1024));
-+	} else if (is_tx_long) {
- 		memcpy(payload, packet.payload,
- 		       min(msg->tx_len, sizeof(payload)));
- 
-@@ -1162,10 +1175,16 @@ static ssize_t rcar_mipi_dsi_host_transfer(struct mipi_dsi_host *host,
- 	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
- 	int ret;
- 
--	if (msg->tx_len > 16 || msg->rx_len > 16) {
--		/* ToDo: Implement Memory on AXI bus command mode. */
-+	if (msg->tx_len > 1024 || msg->rx_len > 16) {
-+		/* ToDo: Implement Memory on AXI bus RX command mode. */
- 		dev_warn(dsi->dev,
--			 "Register-based command mode supports only up to 16 Bytes long payload\n");
-+			 "Command mode supports only up to 1024B long TX and 16B long RX payload\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if ((msg->flags & MIPI_DSI_MSG_USE_LPM) && msg->tx_len > 128) {
-+		dev_warn(dsi->dev,
-+			 "Command mode in LP supports only up to 128B long TX payload\n");
- 		return -EOPNOTSUPP;
- 	}
- 
-@@ -1266,6 +1285,10 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
- 	struct rcar_mipi_dsi *dsi;
- 	int ret;
- 
-+	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "No suitable DMA available\n");
-+
- 	dsi = devm_drm_bridge_alloc(&pdev->dev, struct rcar_mipi_dsi, bridge,
- 				    &rcar_mipi_dsi_bridge_ops);
- 	if (IS_ERR(dsi))
-@@ -1295,12 +1318,21 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
- 		return PTR_ERR(dsi->rstc);
- 	}
- 
-+	dsi->cmd_axi_cpu = dma_alloc_coherent(&pdev->dev, SZ_4K, &dsi->cmd_axi_dma,
-+					      GFP_KERNEL);
-+	if (!dsi->cmd_axi_cpu) {
-+		return dev_err_probe(&pdev->dev, -ENOMEM,
-+				     "Failed to allocate DSI AXI Access command buffer\n");
-+	}
-+
- 	/* Initialize the DSI host. */
- 	dsi->host.dev = dsi->dev;
- 	dsi->host.ops = &rcar_mipi_dsi_host_ops;
- 	ret = mipi_dsi_host_register(&dsi->host);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma);
- 		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -1310,6 +1342,8 @@ static void rcar_mipi_dsi_remove(struct platform_device *pdev)
- 	struct rcar_mipi_dsi *dsi = platform_get_drvdata(pdev);
- 
- 	mipi_dsi_host_unregister(&dsi->host);
-+
-+	dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma);
+ 	set_bit(CACHEFILES_STATE_CHANGED, &cache->flags);
+-	wake_up_all(&cache->daemon_pollwq);
++	cachefiles_wake_poll(cache, mask);
  }
  
- static const struct rcar_mipi_dsi_device_info v3u_data = {
+ /*
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index 88955249a1a6..52eb227f07e8 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -74,7 +74,7 @@ void cachefiles_unmark_inode_in_use(struct cachefiles_object *object,
+ 	if (!test_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags)) {
+ 		atomic_long_add(inode->i_blocks, &cache->b_released);
+ 		if (atomic_inc_return(&cache->f_released))
+-			cachefiles_state_changed(cache);
++			cachefiles_state_changed(cache, EPOLLIN);
+ 	}
+ }
+ 
 -- 
-2.53.0
+2.47.3
 
