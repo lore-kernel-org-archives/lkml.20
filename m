@@ -1,81 +1,171 @@
-Received: from mta0.migadu.com (out-9.mta0.migadu.com [91.218.175.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5750D389116
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC163380FE7;
+	Thu, 10 Sep 2026 03:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009583; cv=none; b=S9BQU7McVhlbZPX8L3fRm3CpLCWvAu2+08UpkPjHt8niBypEd7MiP0t7oY8ZYjHaDiaiY6leN71j8dIdZd/RCv9fcTroWmGsOfPrvR+k7qNpSsVdjaIUrMOhlDuNKMr5kRL5dBdTgHgyklz6ehhvNijrRl1ShDusOcPxQB/lJMI=
+	t=1789009756; cv=none; b=sI8HuSYeUJlZt/88EHM4Gq842ezgmZJ6r8/kPEXC2yjvV85pE0fhx4v8MVze4o3dFKNP4m8b8S5GQKxuft0UJUtuTWiQFG4koZSbJDowHbBx/qb5FhlLnZK7eftB13xykm9HQXCvik7wpi6/h5MkFXf8JpORJ9LFFoyG6GwnEsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009583; c=relaxed/simple;
-	bh=jF2jIwRiFm/34mwc93YKOP3RWvChYPHbleFmFoZs/g0=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=IJFzMm4vJltFvS2YzTUd1BNrGAJk4OKO1o7709t32c7OmSQNEB19f1FQc0UDuIyIf9QamOjLcngr4Hg90pVjKYqAf7fES4pYb7edPavwd8M/eKfjUyCkzBtZIRIVFpEIC3DGLJo0KBIqWgCkVw5ErN0qt0Ch+WvXDwUkISqpXeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vgH5wo9+; arc=none smtp.client-ip=91.218.175.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789009756; c=relaxed/simple;
+	bh=0gMJj2/y7UEk2F5iiJ0+r0KOpjpb25MfLcU89P2tClY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DzsQSgKZTck3iSGDQpxsNhMGT2eQBB5th9vcHyuyrvQu353isE3X1M1Rscnv/bffEXJcC6HQyCg6oAnS+McY5S+xKbhfLJc3Ry3M2hpI2KGHBCfvxnBwEjwPt9pq+hE4f5ZL2K5Qmo0gYQGcgTVV/IiEbRG2nLEPC/I+lzlz66c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OranrfeV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vgH5wo9+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jF2jIwRiFm/34mwc93YKOP3RWvChYPHbleFmFoZs/g0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789009566; v=1; x=1789614366;
- b=vgH5wo9+oT82lp7DcDYEZ28+NtkZ3zBUXfVeeLjDtP9EZj9RY7L4h9OfFTEOSEbt+TkxIIYp
- CGb91tXW9QOAK7iX7NqiJQRm2OB20n2YO32itMwJAaUIPtEZq1lB41wZeZyRBbBr1pQ/TcGS8vu
- fKiP1LHXLEI6rGlBOajGnBHY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 40f81e90980f7168;
-	Thu, 10 Sep 2026 03:06:06 +0000
-X-Mizu-Trace-ID: 40f81e90980f7168
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fb08279a-eb1b-44b1-b4af-f354fb81f112@linux.dev>
-Date: Thu, 10 Sep 2026 11:06:02 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OranrfeV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92E41F000FF;
+	Thu, 10 Sep 2026 03:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789009754;
+	bh=7Mnnl6IixqIIoQUXK0HBqu/7/2qQhKzWTmOfpvOINa4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OranrfeVIMyz+75rRMIjl4Wkqdv1UE6u0OXOjR+/I3fAJKDyEMA7v9VfLs4fmpuUV
+	 OuxYkVqySdLeZaCpBe0b6rQ5p71TgfwPZNScxBGyCBPCmwKQy+tIewPtbRN8Xjpu23
+	 XjQttZAg/kczR3Qvuzrimg5hpAs82meiP1Dik1VavYHNd+xpRXVvzrV7CtN65QrV38
+	 L5JmOu7KBIQL0OZ0fbKBTZHfi6rMBQ8l3v2FDL5sGmO3MLxZIRENW/UWV6H21z789L
+	 DYNOUrMeeCkOa3W7Lc8NsY6n26WfkmC9e/TpChMJBxITFwpFY0CtRT7FwZ56aGiT8+
+	 HRY1Qj3ANbczg==
+Subject: Re: [PATCH] net: ipa: Add IPA_MEM_STATS_DROP_MODEM memory region
+From: netdev-bot+sashiko@kernel.org
+To: esteuwu@proton.me
+Cc: elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, xlie7669@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+Date: Thu, 10 Sep 2026 03:09:13 +0000
+Message-ID: <178900975328.219967.188619870211891152@kernel.org>
+In-Reply-To: <20260909-ipa-modem-drop-v1-1-0c9664f09c4a@proton.me>
+References: <20260909-ipa-modem-drop-v1-1-0c9664f09c4a@proton.me>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] LoongArch: KVM: Code cleanup with MSI intterupt
- injection
-To: Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-References: <20260909083259.1910290-1-maobibo@loongson.cn>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260909083259.1910290-1-maobibo@loongson.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi, Bibo
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-在 2026/9/9 16:32, Bibo Mao 写道:
-> Here is to remove some unnecessary parameter checking when injecting
-> MSI interrupt, include MSI level parameter and vcpu::arch::dmsintc_state
-> NULL pointer etc.
-> 
-> Bibo Mao (2):
->   LoongArch: KVM: Remove parameter line when inject MSI
->   LoongArch: KVM: Remove duplicated checking with DMSI irq injection
-> 
->  arch/loongarch/include/asm/kvm_dmsintc.h |  3 +--
->  arch/loongarch/include/asm/kvm_pch_pic.h |  2 +-
->  arch/loongarch/kvm/intc/dmsintc.c        | 19 +++----------------
->  arch/loongarch/kvm/intc/pch_pic.c        |  6 +++---
->  arch/loongarch/kvm/irqfd.c               |  6 +++---
->  5 files changed, 11 insertions(+), 25 deletions(-)
-> 
-> 
-> base-commit: df2908090cda368b01ff43709f51890076c56157
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-The series looks good to me.
+- [Medium] The newly declared region id `IPA_MEM_MODEM_STATS_DROP` has no
+  producer and no consumer, so the patch is functionally inert and…
+- [Low] Commit-message / code identifier mismatch plus stale peer
+  documentation for the new drop-statistics region.
 
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+--
 
-Minor question: kvm_set_msi() now returns -EINVAL for !level instead
-of -1. Since MSI is edge-triggered, returning 0 to ignore a deassert
-would also work, though nothing looks at the return value today.
+net: ipa: Add IPA_MEM_STATS_DROP_MODEM memory region
 
+This adds a new ipa_mem_id enumerator for the modem-side drop statistics
+region and allows it in ipa_mem_id_valid() only for IPA v5.0 and later.
+No platform data file or driver code path references the new region.
 
+Link: https://github.com/LineageOS/android_kernel_qcom_sm8450-modules/commit/fc71d0972a2453cc29f873d723a355a902c6d69c
+
+> diff --git a/drivers/net/ipa/ipa_mem.c b/drivers/net/ipa/ipa_mem.c
+> index 078d32a18dbf..3000aaa24530 100644
+> --- a/drivers/net/ipa/ipa_mem.c
+> +++ b/drivers/net/ipa/ipa_mem.c
+> @@ -166,6 +166,7 @@ static bool ipa_mem_id_valid(struct ipa *ipa, enum ipa_mem_id mem_id)
+>  			return false;
+>  		break;
+>  
+> +	case IPA_MEM_MODEM_STATS_DROP:
+>  	case IPA_MEM_AP_V4_FILTER:
+>  	case IPA_MEM_AP_V6_FILTER:
+>  		if (version < IPA_VERSION_5_0)
+
+[Severity: Medium]
+Can this new case ever be taken?  ipa_mem_id_valid() is only consulted for
+ids that already appear in a struct ipa_mem_data.local[] array, and a grep
+of the tree at this commit shows IPA_MEM_MODEM_STATS_DROP only in
+ipa_mem.h (the declaration) and here.
+
+The v5.0+ data files that the version >= IPA_VERSION_5_0 gate could apply
+to all define just the one drop-stats region:
+
+drivers/net/ipa/data/ipa_data-v5.0.c
+drivers/net/ipa/data/ipa_data-v5.2.c
+drivers/net/ipa/data/ipa_data-v5.5.c
+	.id		= IPA_MEM_STATS_DROP,
+
+and the only consumer of drop-stats memory still looks up the old id:
+
+drivers/net/ipa/ipa_qmi.c:init_modem_driver_req() {
+	...
+	/* If the DROP stats region is defined, include it */
+	mem = ipa_mem_find(ipa, IPA_MEM_STATS_DROP);
+	if (mem && mem->size) {
+		req.hw_stats_drop_base_addr_valid = 1;
+	...
+}
+
+The commit message says the region "is used in IPA v5.0 and higher", but
+with no producer and no consumer the change has no runtime effect.  Would it
+make sense to land the data-file entry and the QMI consumer in the same
+series?
+
+There also seems to be a layout prerequisite that isn't mentioned.  In
+ipa_data-v5.0.c, IPA_MEM_STATS_DROP is at offset 0x3870 with size 0x0020
+(ending at 0x3890), and IPA_MEM_MODEM starts at 0x3898 with canary_count 2,
+so its two canaries occupy 0x3890-0x3898:
+
+	{
+		.id		= IPA_MEM_STATS_DROP,
+		.offset		= 0x3870,
+		.size		= 0x0020,
+		.canary_count	= 0,
+	},
+	{
+		.id		= IPA_MEM_MODEM,
+		.offset		= 0x3898,
+		.size		= 0x0d48,
+		.canary_count	= 2,
+	},
+
+Doesn't adding a second drop-stats region require shifting IPA_MEM_MODEM and
+everything after it?
+
+> diff --git a/drivers/net/ipa/ipa_mem.h b/drivers/net/ipa/ipa_mem.h
+> index b25babade787..56703bada07c 100644
+> --- a/drivers/net/ipa/ipa_mem.h
+> +++ b/drivers/net/ipa/ipa_mem.h
+> @@ -68,6 +68,7 @@ enum ipa_mem_id {
+>  	IPA_MEM_STATS_QUOTA_AP,		/* 0 canaries, optional (IPA v4.0+) */
+>  	IPA_MEM_STATS_TETHERING,	/* 0 canaries, optional (IPA v4.0+) */
+>  	IPA_MEM_STATS_DROP,		/* 0 canaries, optional (IPA v4.0+) */
+> +	IPA_MEM_MODEM_STATS_DROP,	/* 0 canaries, optional (IPA v5.0+) */
+
+[Severity: Low]
+The subject and the body both name IPA_MEM_STATS_DROP_MODEM, but the
+enumerator added here is IPA_MEM_MODEM_STATS_DROP, and a grep of the tree at
+this commit finds no occurrence of IPA_MEM_STATS_DROP_MODEM at all.  Could
+the changelog and the code be made to agree?
+
+The neighbouring statistics regions put the owner last:
+
+	IPA_MEM_STATS_QUOTA_MODEM,	/* 2/4 canaries (IPA v4.0+) */
+	IPA_MEM_STATS_QUOTA_AP,		/* 0 canaries, optional (IPA v4.0+) */
+
+Would IPA_MEM_STATS_DROP_MODEM (as the subject says) fit that convention
+better than IPA_MEM_MODEM_STATS_DROP?
+
+Also, the comment on the existing IPA_MEM_STATS_DROP still reads "0
+canaries, optional (IPA v4.0+)" with no hint that it becomes the AP-side
+region once the modem-side one exists on v5.0+.  Could that comment be
+updated so a config author can tell which region to use for AP drop
+statistics?
+
+One more thing on the changelog: the paragraph explaining the split ("From
+IPA v5.0 onwards, two memory regions for drop stats exist: one for the AP
+(that is, the driver) and one for the modem (Q6).") sits below the ---
+cut line, so it is not part of the recorded commit message.  Was that
+intended to be above the cut line?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-ipa-modem-drop-v1-1-0c9664f09c4a%40proton.me
