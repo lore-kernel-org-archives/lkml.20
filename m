@@ -1,349 +1,231 @@
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C25538D3F4
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:40:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E2838D3F4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022418; cv=none; b=YzaOaxJorklLp3uj0iM4+ckNi3QL1a4eJ8faJri7IWNPJXR0jSvi6UlgWqIv9OwwGAWmT6ABobCeGRs5O/nxxYlmgqGSi1gO4FML0qdiUQUFaIqX/FYb4BBv/giHwHIqGv29fvkCPxOWcHZDvTFOJNU8MKfRVZmca6VgsYa2Q7U=
+	t=1789022440; cv=none; b=WP54snvCtnuZPScw2ubEUm7TcmPqdPBavAKjbD7Kh2SCp0AlHWN47maMklWbHT2XYgjb3gQLmEy+ddIXKO9spLaki9lovz+39lYNgDQLHNY4viEuny6vDJkuraPIl72In4Zuvg88qq195Qe5VosSllLJVZN2JO2632oGGwkw9LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022418; c=relaxed/simple;
-	bh=oYclOY1YwnIQR+tcV+KQns6iO0ESNNsEZx76cGgf2yw=;
-	h=Mime-Version:References:From:Subject:Date:Content-Type:
-	 In-Reply-To:To:Message-Id:Cc; b=sNGnNha75m7LnfmNUt222QCel7JuzxW2AnC541bX0fWZLa8yzl3l2cMmZ5e7cckb/mTNLNAW3mlvLzDboA51N15bxd1fN+EamqCO6Exc33seEacC+obAyw4A6yfcsA/BupmzNZMtU+ArXRceiPgIChM7i6l4FYax0C0vX13VaGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kLIRIzzw; arc=none smtp.client-ip=209.127.230.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789022440; c=relaxed/simple;
+	bh=45ddndeuvjrwAlwAAEb+M6XzqAT3yVc1IPjOk3qKoyM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JUvUceBznBRpkfZedgS9ZYjRg8HmpvSxxOY1aZYH6TkO3g4oVaBiAVE1RBtgNRS3T8CE27EmAod4/gXzpPPSkf1hLxd06icbNRkCznksAiS1Q+BeAG+scHsaJzXfAayJiJQnNAK1m9NvMS30CqDxA2CG2nuJI3xeL2RJ2RQ1GMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bP6IaI7M; arc=none smtp.client-ip=95.215.58.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kLIRIzzw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789022398; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=mhx/dsFP2CMObhPGokTuIC/TPYYGoTzzepENJHonJ3Y=;
- b=kLIRIzzwapaOW1qFNrO6YDGrFCDgjf0nTTV9CD9AESNRfVMbp/edJxskNzTyVIw1670ZvF
- YTxZi1lEsmKHpkdxvFjngBZp8HbdWQQ1i6uhAGu3cwGVeothz9E3SVZD0gZrjW8pD/k8/r
- gI5SA/KXUKXeKMjtfwELvdKQUUYl62D0zCWOsgDb4O8cLmaLo0ithgJkx3AHY1yKHkgCxJ
- 3xfk6/6wcRqfWNGxlunrlL/GkbezF2NQNkZJBWs8R3pTMa0rHMSgkjYUH3YLHRnP8y8HH5
- qdfxiLmeWpr7VGeGr6Zk1vJv0mbi7Ha22uacrJOl/U5H7WICgvhjPwt2Rb/EsA==
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bP6IaI7M"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=45ddndeuvjrwAlwAAEb+M6XzqAT3yVc1IPjOk3qKoyM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789022435; v=1; x=1789627235;
+ b=bP6IaI7MvvDQu2Nx2A7STmcXTR3DScJ+YO4yNsjsquc8ksTiqs2BD9Zn1T4Oyf2r6kMfmnJi
+ TYTAaObmbueooKdbe0qYDYY8VPlEk8ahsrhuDi7qNubUGg+S7zEBUxlyMRJZFvaX9FR1tIhwml4
+ qnUajkzhukH8gXKhr8IhsbNA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 1094519f23a8d5e8;
+	Thu, 10 Sep 2026 06:40:34 +0000
+X-Mizu-Trace-ID: 1094519f23a8d5e8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6db46600-0e39-4924-b006-92ceb9fcf5e3@linux.dev>
+Date: Thu, 10 Sep 2026 07:40:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831091023.66581-1-lizhe.67@bytedance.com> <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org> <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org> <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com> <d1ede193-bc56-46de-9d0d-fc037ddf835d@kernel.org>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
-Date: Thu, 10 Sep 2026 14:39:29 +0800
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <d1ede193-bc56-46de-9d0d-fc037ddf835d@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	"Andrew Morton" <akpm@linux-foundation.org>
-Message-Id: <ab3d20db-380b-4b37-8a8f-2a0d9a6f7d6e@bytedance.com>
-X-Lms-Return-Path: <lba+26aa250b2+623d63+vger.kernel.org+lizhe.67@bytedance.com>
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: <muchun.song@linux.dev>, <osalvador@suse.de>, <linux-mm@kvack.org>, 
-	<linux-kernel@vger.kernel.org>, <aiqi.i7@bytedance.com>
+Subject: Re: [PATCH v3 5/7] block: fail atomic writes instead of falling back
+ to buffered I/O
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ John Garry <john.g.garry@oracle.com>, Christian Brauner
+ <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+ Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260909-blkdev-fixes-v3-0-1a5222c6e8ad@columbia.edu>
+ <20260909-blkdev-fixes-v3-5-1a5222c6e8ad@columbia.edu>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20260909-blkdev-fixes-v3-5-1a5222c6e8ad@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 9/10/26 12:59 AM, David Hildenbrand (Arm) wrote:
-> On 9/8/26 09:09, Li Zhe wrote:
->> On 9/7/26 11:29 PM, David Hildenbrand (Arm) wrote:
->>> On 9/1/26 02:32, Andrew Morton wrote:
->>>> Thanks.
->>>>
->>>> So a modest performance improvement?
->>> Is that worth the complexity, though?
->>
->> That is a fair concern.
-> In you setup, are the page tables ever being shared? I suspect you just r=
-un a VM
-> with no other processes actually sharing the memory?
+On 9/9/26 23:05, Tal Zussman wrote:
+> An IOCB_ATOMIC direct write to a block device can silently lose its
+> torn-write guarantee in two ways:
+> 
+>    1. blkdev_direct_write() turns an -EBUSY from page cache invalidation
+>       into a 0 return, so the whole write is retried through
+>       blkdev_buffered_write(), with no atomicity guarantee.
+> 
+>    2. On a partial page pin, __blkdev_direct_IO_simple() and
+>       __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC
+>       set and leave the rest to the buffered fallback.
 
+This really should be 2x separate changes - 1x for fops.c and 1x for bio.c
 
-Yes. In the tested setup, there is only one QEMU process mapping the
-hugetlbfs file for the VM. The hugetlb page tables are not actually shared.
+> 
+> The second case can be triggered deterministically. A 16K
+> pwritev2(RWF_ATOMIC) whose last page is PROT_NONE, on a scsi_debug
+> device with atomic_wr=1, completes short with only three of the four
+> pages written, violating RWF_ATOMIC semantics.
+> 
+> Fail the I/O instead. Make bio_iov_iter_get_pages() release the pins
+> and return -EINVAL when a REQ_ATOMIC bio doesn't cover the whole
+> iterator, since an atomic write is submitted as a single bio and a
+> short one would be torn. That covers iomap as well, where a partially
+> unmapped buffer could trip the WARN_ON_ONCE() in
+> iomap_dio_bio_iter_one(). The async block device path currently sets
+> REQ_ATOMIC after pinning, so set it before.
+> 
+> Skip the buffered fallback in blkdev_write_iter() for IOCB_ATOMIC, as
+> it already does for IOCB_NOWAIT, so the -EBUSY case returns -EAGAIN and
+> the caller retries, matching __iomap_dio_rw().
+> 
+> ext4 has the same fallback and only warns in it. For block devices both
+> ways in can be detected before any I/O is submitted, so fail early instead.
+> 
+> Fixes: caf336f81b3a ("block: Add fops atomic write support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>   block/bio.c  | 29 ++++++++++++++++++++++-------
+>   block/fops.c | 10 +++++-----
+>   2 files changed, 27 insertions(+), 12 deletions(-)
+> 
+> diff --git a/block/bio.c b/block/bio.c
+> index 898b2f5ef8c8..63e266d861f1 100644
+> --- a/block/bio.c
+> +++ b/block/bio.c
+> @@ -1284,6 +1284,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>   			   unsigned mem_align_mask, unsigned len_align_mask)
+>   {
+>   	iov_iter_extraction_t flags = 0;
+> +	int ret;
+>   
+>   	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+>   		return -EIO;
+> @@ -1303,34 +1304,48 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>   		flags |= ITER_ALLOW_P2PDMA;
+>   
+>   	do {
+> -		ssize_t ret;
+> +		ssize_t len;
 
->
-> One idea would be to just remember whether any sharing ever happened for =
-a
-> hugetlb file.
+iov_iter_extract_bvecs() local variable is called "size", so maybe use 
+the same here
 
+>   
+> -		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
+> +		len = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
+>   				BIO_MAX_SIZE - bio->bi_iter.bi_size,
+>   				&bio->bi_vcnt, bio->bi_max_vecs,
+>   				mem_align_mask, flags);
+> -		if (ret <= 0) {
+> +		if (len <= 0) {
+>   			/*
+>   			 * A misaligned vector fails the whole I/O.  Release any
+>   			 * pages pinned by earlier iterations before returning
+>   			 * since this bio won't be submitted to release them.
+>   			 */
+> -			if (ret == -EINVAL) {
+> +			if (len == -EINVAL) {
+>   				bio_release_pages(bio, false);
+>   				bio_clear_flag(bio, BIO_PAGE_PINNED);
+>   				bio->bi_vcnt = 0;
+>   			}
+>   			if (!bio->bi_vcnt)
+> -				return ret;
+> +				return len;
+>   			break;
+>   		}
+> -		bio->bi_iter.bi_size += ret;
+> +		bio->bi_iter.bi_size += len;
+>   	} while (iov_iter_count(iter) && !bio_full(bio, 0));
+>   
+>   	if (is_pci_p2pdma_page(bio->bi_io_vec->bv_page))
+>   		bio->bi_opf |= REQ_NOMERGE;
+> -	return bio_iov_iter_align_down(bio, iter,
+> +	ret = bio_iov_iter_align_down(bio, iter,
+>   			&bio->bi_io_vec[bio->bi_vcnt - 1], len_align_mask);
+> +	if (ret)
+> +		return ret;
+ > +> +	/*
+> +	 * An atomic write is submitted as a single bio, so it has to cover
+> +	 * the whole iterator or it would be torn.
+> +	 */
+> +	if ((bio->bi_opf & REQ_ATOMIC) && iov_iter_count(iter)) {
+> +		bio_release_pages(bio, false);
+> +		bio_clear_flag(bio, BIO_PAGE_PINNED);
+> +		bio->bi_vcnt = 0;
+> +		return -EINVAL;
+> +	}
 
-I reworked the patch based on your suggestion. Instead of walking the
-page tables during unmap, this version records, per hugetlbfs inode,
-whether PMD sharing has ever actually been established for the file. The
-flag is set only after huge_pmd_share() successfully populates a shared
-PMD table.
+This all looks ok, but I'll check again ...
 
-For the hugetlbfs zap/unmap paths, the conservative PUD-sized MMU
-notifier expansion is skipped while the file has never seen PMD
-sharing. Once PMD sharing has ever happened for the file, the code falls
-back to the existing conservative behavior.
+> +	return 0;
+>   }
 
->
->> I tried to simplify the approach. Instead of computing the exact PUD
->> sub-ranges that contain shared PMD tables, this version keeps the
->> existing adjust_range_if_pmd_sharing_possible() logic unchanged and only
->> adds an actual shared-PMD check as a gate before it.
->>
->> So the behavior becomes:
->>
->>   =C2=A0 - if no shared PMD table is found, keep the notifier range unch=
-anged;
->>   =C2=A0 - if any shared PMD table is found, fall back to the existing
->>   =C2=A0 =C2=A0 conservative PUD-sized expansion.
->>
->> This should still avoid the unnecessary 1G KVM invalidation for the
->> common unshared-PMD case, while keeping the range expansion policy
->> unchanged when a shared PMD is present.
->>
->> The resulting diff would look like this:
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index 816dde7..7a61fc3 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -5355,10 +5357,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *=
-vma,
->>   =C2=A0 =C2=A0 =C2=A0if (!vma->vm_file)=C2=A0 =C2=A0 /* hugetlbfs_file_=
-mmap error */
->>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
->>
->> -=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, start, end);
->>   =C2=A0 =C2=A0 =C2=A0hugetlb_vma_lock_write(vma);
->> -=C2=A0 =C2=A0 if (vma->vm_file)
->> +=C2=A0 =C2=A0 if (vma->vm_file) {
->>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i_mmap_lock_write(vma->vm_file->f_ma=
-pping);
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (range_has_shared_pmd(vma, *start, *end)=
-)
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_p=
-ossible(vma, start, end);
->> +=C2=A0 =C2=A0 }
->>   =C2=A0}
->>
->>   =C2=A0void __hugetlb_zap_end(struct vm_area_struct *vma,
->> @@ -5397,7 +5401,9 @@ void unmap_hugepage_range(struct vm_area_struct
->> *vma, unsigned long start,
->>
->>   =C2=A0 =C2=A0 =C2=A0mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, =
-0, vma->vm_mm,
->>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0start, e=
-nd);
->> -=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &range.start, &=
-range.end);
->> +=C2=A0 =C2=A0 if (range_has_shared_pmd(vma, range.start, range.end))
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &=
-range.start,
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&range.end);
->>   =C2=A0 =C2=A0 =C2=A0mmu_notifier_invalidate_range_start(&range);
->>   =C2=A0 =C2=A0 =C2=A0tlb_gather_mmu(&tlb, vma->vm_mm);
->>
->> @@ -6958,6 +6964,52 @@ void adjust_range_if_pmd_sharing_possible(struct
->> vm_area_struct *vma,
->>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*end =3D ALIGN(*end, PUD_SIZE);
->>   =C2=A0}
->>
->> +static bool range_has_shared_pmd(struct vm_area_struct *vma,
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned =
-long start, unsigned long end)
->> +{
->> +=C2=A0 =C2=A0 unsigned long v_start =3D ALIGN(vma->vm_start, PUD_SIZE);
->> +=C2=A0 =C2=A0 unsigned long v_end =3D ALIGN_DOWN(vma->vm_end, PUD_SIZE)=
-;
->> +=C2=A0 =C2=A0 struct hstate *h =3D hstate_vma(vma);
->> +=C2=A0 =C2=A0 struct mm_struct *mm =3D vma->vm_mm;
->> +=C2=A0 =C2=A0 unsigned long address;
->> +
->> +=C2=A0 =C2=A0 if (huge_page_size(h) !=3D PMD_SIZE)
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;
->> +
->> +=C2=A0 =C2=A0 /*
->> +=C2=A0 =C2=A0 =C2=A0* First apply the same cheap test as
->> +=C2=A0 =C2=A0 =C2=A0* adjust_range_if_pmd_sharing_possible(). Only the =
-PUD-aligned
->> +=C2=A0 =C2=A0 =C2=A0* intersection can contain shared PMD tables.
->> +=C2=A0 =C2=A0 =C2=A0*/
->> +=C2=A0 =C2=A0 if (!(vma->vm_flags & VM_MAYSHARE) || !(v_end > v_start) =
-||
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 end <=3D v_start || start >=3D v_end)
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;
->> +
->> +=C2=A0 =C2=A0 start =3D max(ALIGN_DOWN(start, PUD_SIZE), v_start);
->> +=C2=A0 =C2=A0 end =3D min(ALIGN(end, PUD_SIZE), v_end);
->> +
->> +=C2=A0 =C2=A0 hugetlb_vma_assert_locked(vma);
->> +=C2=A0 =C2=A0 i_mmap_assert_write_locked(vma->vm_file->f_mapping);
->> +
->> +=C2=A0 =C2=A0 for (address =3D start; address < end; address +=3D PUD_S=
-IZE) {
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *ptep;
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool shared;
->> +
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 ptep =3D hugetlb_walk(vma, address, PMD_SIZ=
-E);
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!ptep)
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
->> +
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_lock(huge_pte_lockptr(h, mm, ptep));
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 shared =3D ptdesc_pmd_is_shared(virt_to_ptd=
-esc(ptep));
->> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_unlock(huge_pte_lockptr(h, mm, ptep));
-> I really don't like this piece of code to optimize something that is alre=
-ady
-> questionable in practice: overcommiting hugetlb folios for VMs.
->
-> Can you share some more details which mechanism ends up zapping hugetlb f=
-olios
-> for the VM?
->
-> If it's virtio-balloon's free-page-reporting, you should likely disable t=
-hat for
-> the VM.
+iomap_dio_bio_iter_one() can be updated at some stage to remove its own 
+check for improper length returned from bio_iov_iter_get_pages() for 
+IOCB_ATOMIC
 
+>   
+>   static struct folio *folio_alloc_greedy(gfp_t gfp, size_t *size,
+> diff --git a/block/fops.c b/block/fops.c
+> index a3a709697b40..0b614d76d128 100644
+> --- a/block/fops.c
+> +++ b/block/fops.c
+> @@ -341,6 +341,8 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
+>   	bio->bi_write_stream = iocb->ki_write_stream;
+>   	bio->bi_end_io = blkdev_bio_end_io_async;
+>   	bio->bi_ioprio = iocb->ki_ioprio;
+> +	if (iocb->ki_flags & IOCB_ATOMIC)
+> +		bio->bi_opf |= REQ_ATOMIC;
+>   
+>   	/*
+>   	 * Users don't rely on the iterator being in any particular
+> @@ -371,9 +373,6 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
+>   			goto out_bio_put;
+>   	}
+>   
+> -	if (iocb->ki_flags & IOCB_ATOMIC)
+> -		bio->bi_opf |= REQ_ATOMIC;
+> -
+>   	if (iocb->ki_flags & IOCB_NOWAIT)
+>   		bio->bi_opf |= REQ_NOWAIT;
 
-It is not virtio-balloon free-page-reporting.
+I think that you relocate this as well to have similar functionality 
+co-located
 
-The setup uses a downstream, out-of-tree QEMU/KVM reclaim mechanism for
-hugetlb-backed VM memory. KVM maintains hot/cold information for guest
-memory. QEMU then asks KVM to select cold guest ranges and releases the
-corresponding hugetlbfs-backed host ranges after taking care of the
-required device-side unmapping.
+>   
+> @@ -766,10 +765,11 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   	if (iocb->ki_flags & IOCB_DIRECT) {
+>   		ret = blkdev_direct_write(iocb, from);
+>   		if (ret >= 0 && iov_iter_count(from)) {
+> -			if (iocb->ki_flags & IOCB_NOWAIT) {
+> +			if (iocb->ki_flags & (IOCB_NOWAIT | IOCB_ATOMIC)) {
 
-The release path uses PUNCH_HOLE on the hugetlbfs file for 2M hugetlb
-pages.
+An alternative could be to have iomap_file_buffered_write() reject 
+IOCB_ATOMIC.
 
-This is the case where the current conservative range expansion becomes
-unnecessarily broad.
+>   				/*
+>   				 * The buffered fallback blocks on i_rwsem and
+> -				 * on writeback of the data it copied: return
+> +				 * on writeback of the data it copied, and
+> +				 * can't provide torn-write protection: return
+>   				 * the short direct write instead and let the
+>   				 * caller retry.
+>   				 */
 
-Does this patch look reasonable to you?
-
-The updated patch looks like this:
-
----
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 7611a84..1e24b8d 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -921,6 +921,9 @@ static struct inode *hugetlbfs_get_inode(struct=20
-super_block *sb,
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0simple_inode_init_ts(inode);
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info->resv_map =3D resv_map;
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info->seals =3D F_SEAL_SEAL;
-+#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 info->pmd_sharing_seen =3D false;
-+#endif
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch (mode & S_IFMT) {
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0init_special_inode(inode, =
-mode, dev);
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 16c4c4c..8f1f899 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -509,6 +509,9 @@ struct hugetlbfs_inode_info {
- =C2=A0 =C2=A0 =C2=A0struct inode vfs_inode;
- =C2=A0 =C2=A0 =C2=A0struct resv_map *resv_map;
- =C2=A0 =C2=A0 =C2=A0unsigned int seals;
-+#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-+=C2=A0 =C2=A0 bool pmd_sharing_seen;
-+#endif
- =C2=A0};
-
- =C2=A0static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct inode=
-=20
-*inode)
-@@ -516,6 +519,27 @@ static inline struct hugetlbfs_inode_info=20
-*HUGETLBFS_I(struct inode *inode)
- =C2=A0 =C2=A0 =C2=A0return container_of(inode, struct hugetlbfs_inode_info=
-, vfs_inode);
- =C2=A0}
-
-+#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-+static inline void hugetlbfs_set_pmd_sharing_seen(struct inode *inode)
-+{
-+=C2=A0 =C2=A0 HUGETLBFS_I(inode)->pmd_sharing_seen =3D true;
-+}
-+
-+static inline bool hugetlbfs_pmd_sharing_seen(struct inode *inode)
-+{
-+=C2=A0 =C2=A0 return HUGETLBFS_I(inode)->pmd_sharing_seen;
-+}
-+#else
-+static inline void hugetlbfs_set_pmd_sharing_seen(struct inode *inode)
-+{
-+}
-+
-+static inline bool hugetlbfs_pmd_sharing_seen(struct inode *inode)
-+{
-+=C2=A0 =C2=A0 return false;
-+}
-+#endif
-+
- =C2=A0extern const struct vm_operations_struct hugetlb_vm_ops;
- =C2=A0struct file *hugetlb_file_setup(const char *name, size_t size,=20
-vma_flags_t acct,
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int creat_fl=
-ags, int page_size_log);
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 7857728..e370960 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5359,10 +5359,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *vma=
-,
- =C2=A0 =C2=A0 =C2=A0if (!vma->vm_file)=C2=A0 =C2=A0 /* hugetlbfs_file_mmap=
- error */
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
-
--=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, start, end);
- =C2=A0 =C2=A0 =C2=A0hugetlb_vma_lock_write(vma);
--=C2=A0 =C2=A0 if (vma->vm_file)
-+=C2=A0 =C2=A0 if (vma->vm_file) {
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i_mmap_lock_write(vma->vm_file->f_mappin=
-g);
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (hugetlbfs_pmd_sharing_seen(file_inode(vma-=
->vm_file)))
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_poss=
-ible(vma, start, end);
-+=C2=A0 =C2=A0 }
- =C2=A0}
-
- =C2=A0void __hugetlb_zap_end(struct vm_area_struct *vma,
-@@ -5401,7 +5403,9 @@ void unmap_hugepage_range(struct vm_area_struct=20
-*vma, unsigned long start,
-
- =C2=A0 =C2=A0 =C2=A0mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, v=
-ma->vm_mm,
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0start, end);
--=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &range.start, &ran=
-ge.end);
-+=C2=A0 =C2=A0 if (hugetlbfs_pmd_sharing_seen(file_inode(vma->vm_file)))
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &ran=
-ge.start,
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&range.end);
- =C2=A0 =C2=A0 =C2=A0mmu_notifier_invalidate_range_start(&range);
- =C2=A0 =C2=A0 =C2=A0tlb_gather_mmu(&tlb, vma->vm_mm);
-
-@@ -7004,6 +7008,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct=20
-vm_area_struct *vma,
- =C2=A0 =C2=A0 =C2=A0if (pud_none(*pud)) {
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pud_populate(mm, pud,
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(pmd_t *)((u=
-nsigned long)spte & PAGE_MASK));
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 hugetlbfs_set_pmd_sharing_seen(mapping->host);
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mm_inc_nr_pmds(mm);
- =C2=A0 =C2=A0 =C2=A0} else {
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ptdesc_pmd_pts_dec(virt_to_ptdesc(spte))=
-;
---=20
-
-
-Thanks,
-Zhe
-
->
