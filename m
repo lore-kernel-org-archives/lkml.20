@@ -1,135 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8418237DEB6;
-	Thu, 10 Sep 2026 03:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3FD37E5C2
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010437; cv=none; b=qH7kPm1fcNqeFaCVBEM4fq/a0VoXxa+cpNKOiJceBaQpeErZWKB7F5Lz7WrLH+8sJGP2aAzx+jE0brrdM2ak/nMifT6d2tkFR1I8Palb9wC8vi9O2APZ/cEASXGBh9G/sJuTr9GUc2fi6GwOr86xQZUudoW++khmgDBQAplAE+4=
+	t=1789010490; cv=none; b=WklhoopoXGxiQVvHzXKgQOuwwev83z9WbQRa67lgq3pppAXFhRQAqC0/ptO8u59AUk8lwKbFlZpA2s1fHsC+YOndzLxSRNakwK4upMgotyW9TQDxAwLfsH2D5aKu/+jh1Xz3TGY2mnpXU9A8MKaoloLVMAOETOaaycg6P6rYkzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010437; c=relaxed/simple;
-	bh=wLK4mIxthB3BZvo7ECLXPgPSLtaD20pir6OdlRw0VyY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A6VtGd/bd9EXvrQvfr3n4112mBRUGDRlI5rxarvy3O0A31IHOxDU1rfjdRTpXUt43BpJFw+1vV1/TTwg3LwFzPeV44XzcsvSGU8eyGMBr0YSrQ0i0tYAVUjscGf7Op2vhyHB/WAdurapVfbih3Z1W3e5OoCt0MDv1SfTPd/nt+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AA2rDpoR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789010490; c=relaxed/simple;
+	bh=lPfNCdnA3E47WTLqvLWds2HgGbfhEaYVDa6MQrL3JO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AaaJ8aWgwpUt8FRGzeIMH5JZmfvQu4cYUAH5BEfcEPkJGsvanYlBag+61wTAbtUrUQVGgVgD3fn4Cpd2gws2nQQEfx7Va4Z0/cTBU6ZtmESW4qDYw2cdiSsvw2MCVDDCPN3g9PtugwIUaMqN8hA0sUwNxaPqeh0O67XEAQ8/Kb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qZu+cLBY; arc=none smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AA2rDpoR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D389C1F000FF;
-	Thu, 10 Sep 2026 03:20:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789010436;
-	bh=2EB70JFDpzLI0s6pkD0sPoT0z4Ey0yYYBi6G0LOrZC8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AA2rDpoRtm+3ufmdFn844tzBcFS6/ZdCe0Bdckhfc0pea/DdDAcB+DKL80DZmG3aw
-	 0utk5kDv+DtgXxkjQM8dzy3RfXV76m8+/ZPBNCCf09NhINacKEcKSFrPCtCF/ZbZ8T
-	 pL3+dfKGjY5RZXMMLrlXWmCShxknmDbWP59QbNVanCejj7PUsYVNedqCq9fmTm5xUH
-	 ImLGpsgOsMfb3rs4L5L44EtV99Y/IC3ShLnYsXiEi0u2L72LnOmC9TYoQ2TI30JEYN
-	 AjGJqBXRNIWkUOVxMQ0L9MQdhJzzgSgUsTKgOGzV8ei9EljbhKfC/a8B58hAzzn3Sr
-	 IIqjsllRjPE7A==
-Date: Thu, 10 Sep 2026 04:20:29 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org,
- Nicolas Pitre <nico@fluxnic.net>, Ingo Molnar <mingo@redhat.com>, Thomas
- Gleinxer <tglx@linutronix.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Peter
- Zijlstra <peterz@infradead.org>, rodrigo.alencar@analog.com
-Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
-Message-ID: <20260910042029.7c78f6dd@jic23-hlaptop>
-In-Reply-To: <20260908165501.GDaqA95YQKx_IL416d@fat_crate.local>
-References: <20260803094702.3852-1-david.laight.linux@gmail.com>
-	<11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
-	<20260803163955.627bdd3f@pumpkin>
-	<20260823233536.30b984ed@jic23-huawei>
-	<20260901175101.1e059ac8@jic23-huawei>
-	<20260907231444.7fa2d116@jic23-huawei>
-	<20260908033216.GAap-BwAmBqoVDUbMK@fat_crate.local>
-	<ap_cLN807bC56OBU@monoceros>
-	<20260908152127.GCaqAn9zI09T7qvMhH@fat_crate.local>
-	<aqAtRgouK7DyDlpJ@monoceros>
-	<20260908165501.GDaqA95YQKx_IL416d@fat_crate.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qZu+cLBY"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4bdf26356so360609a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:21:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789010488; x=1789615288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SxC6tEs21vq+fRsHgV3a7gSsUUPCtrgE8Z/3GlleZx0=;
+        b=qZu+cLBYPIq/DhTBjmMewbaVjnDs58l5J96Y97gU62uGg9GYhgGvErpxnMSn99EwhO
+         +VkAdV6W5/sFAWJQyjQILJpz7+TQNUH4r8R8q5/Ke4evic3n/AP/de0nLuE66Sxvni39
+         aEUU5IjVrNSiF8L6CmedhwnxTS9hIXBH0fx8Gz9is8tGXl728UTfRL5GzllD6dSMIIOa
+         GH5hAlHbVgtRipnN4OgsXZ+cDlzUQbDvUn7KpRSOGU7yaIcwrsAp6VRq5I8UbYXdKGuN
+         1TYzFmn8ktgZCOX0gGGYvxy37p7r0dtGabEHEUGlr+CTh611+qyPzDdd97z+nZeH3NQV
+         7JTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789010488; x=1789615288;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SxC6tEs21vq+fRsHgV3a7gSsUUPCtrgE8Z/3GlleZx0=;
+        b=j37sonoWVDKK4ydTkyCpAGPvhsbLiIyzMJhpkbewicsJXqEv+zjTaIWqEOpgIN8Fxx
+         YaPpMKjWfmPbrT0q/rmQ0Q58eyBAc7ftBS7TM2o1L8yNFbhkQMQczpowA/sKLdqr2+yN
+         f/WLjgrx/b34/aVCriVVKP35XygUJczL7E1QDSU1MzLbswrIbAMyg315bVXHskwReJFQ
+         AGKVaHQTGAU5/AhZIQ0CFxo1c7zg0dLzUUeJ3dxZa1IspZ5tsdfliAKTTp5xBW6SMV/R
+         HyDXPnVnzgigUOcN0Ont3FFviAD6oK0edeVLkUHpkWIlBrOnrSMGpJB4t1uxcH6jNXSd
+         kvgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQv8f+HPIwnWcBFUGMpO0iw/zkvZxflQa0Qpp3ENcCzJKw2x+IzPjUOernrfjUzoiL76CthGbr1mhIVUE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCn1CDKFvdOJZ/ipVFglN+0JxsHWJXXaKmyy3JcAR+b4FCjhhY
+	yxKJPuzFrt8sZ6xX6jQhKyD/sVTCTgGgwFyeXJG6jpIOFQemndam9gEt
+X-Gm-Gg: AYBFou01ebelf67nOKM7PikBZY3DPr/Uv3hBDVJCDaZTOwZOAYKgoQKXLozkOWbyO6R
+	VlW2KbUdkHBspKgfULvLRZFdBwDPg24KCydnSCrYqxF01X6QRT7uvqVcU4jistyZ/5+rYjEyrR4
+	C7wRJTsfKglHWYkj6gDs1+tYEM2KcoJkckm+MzZU6h/wmn4larqMY/r2MkrRAhryrvQqd0tkksU
+	jIcS1Fo7RgAyIXJFYVpxP86cxlWSln+m6oaY6wiG8tnQ1i3VQSZEfTJDUJMmbe2BWixl1mL54iO
+	QjuI7fkhUyp+z7kOZyxAZ+++WQXPyhixSmlBEXawOGIn9DXmYNJh35ThR0U6sDL1p3rtW29dUri
+	DeiqhMJR35xgrlYjtxqsumALwpDH/V1rvV9UaNwWmkSb9itE5as5I0DOBnKMVhX0bDN8rpVvOt1
+	Ld9rBcpmMCM+t+QwAOyQLCtoET2JSEOAPYty1hp1J9LMcCaX4s3xZvcVMW4AISpx6AOPtBulCCA
+	m2Ur9AIPvK6coVTHkrxt8EkuIwkfHSif2iE329L/47jiAKgudGdMC4=
+X-Received: by 2002:a05:6830:6a95:b0:7f4:e521:7c50 with SMTP id 46e09a7af769-8026e310126mr2306948a34.0.1789010488028;
+        Wed, 09 Sep 2026 20:21:28 -0700 (PDT)
+Received: from localhost ([76.187.192.44])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6da9a49sm19758315a34.13.2026.09.09.20.21.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 09 Sep 2026 20:21:27 -0700 (PDT)
+From: Andrei Aldea <andrei1998@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-leds@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: [PATCH 00/15] HID: hid-oxp: fix and extend X2-family controller support
+Date: Wed,  9 Sep 2026 22:21:00 -0500
+Message-ID: <20260910032115.28669-1-andrei1998@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 8 Sep 2026 09:55:01 -0700
-Borislav Petkov <bp@alien8.de> wrote:
+This 15-patch series fixes existing hid-oxp configuration and RGB issues
+and adds controller and lighting support for ONEXPLAYER X2-family devices,
+including the ONEXPLAYER 3 and X2 Mini Pro.
 
-> On Tue, Sep 08, 2026 at 05:49:17PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > I don't see what you mean. If both the tip tree and the iio tree
-> > contain the same commit (with or without a tag on it), it doesn't matter
-> > who created that and when and in which repo it appeared first. The first
-> > to send it to Linus makes it new for him and all later PRs using it only
-> > introduce the follow-up commits. So if you pull Jonathan's branch you
-> > still can send the branch/tag that contains it whenever you like
-> > independant of when Jonathan sends out his PR. =20
->=20
-> Yes, I'm going to have to merge that branch into tip now so I'd need the
-> assurance from Jonathan that this branch is not going to change.
+The fixes correct the M1/M2 defaults, validate input reports and RGB state,
+correct brightness and color scaling, serialize RGB updates, and make
+configuration state and delayed-work lifetime local to each HID interface.
+They also handle controller reinitialization across system suspend.
 
-That's what an immutable branch means to everyone I've ever shared them
-with in the past, but sure - it wouldn't change.  Anyhow, easier solution
-below.
+The X2 support selects configuration interface 2, supplies the required
+three-page button map, and adds the Gen3 protocol for joystick-ring zones
+1, 2 and 7. The Guide button and rear logo receive independent multicolor
+LED devices using zones 5 and 6, with monocolor and breathing effects.
+The final patch documents the controller and lighting sysfs ABI.
 
->=20
-> Also, those patches are not tip-conform, but whatever, not that important=
- for
-> a one-time thing.
->=20
-> What I really don't understand is, why this rush needs to happen now so t=
-hat
-> we completely do a one-off on the agreed upon process and we have to do a=
-ll
-> this unnecessary gymnastics?
->=20
-> We have plenty of time.
->=20
-> So why do we even have to debate this instead of you folks dropping this =
-and
-> we merge it through tip and then everything's going the usual way?
->=20
-> When people start merging x86 patches in their trees, when do you think t=
-he
-> process will break down and we'll have to redo branches and go into a cra=
-zy
-> dependency madness?
->=20
-> We're not merging other stuff through tip without an Ack - why can't you
-> adhere to the process we've all agreed upon?
->=20
-> Yes, this can work now. Is it necessary? Absolutely not because it is
-> a one-off and will get everyone involved, confused.
->=20
-> So please do not do this in the future. If we don't react to the mail, yo=
-u can
-> always ping us on IRC like other folks do.
->=20
-> Thx.
+Patches 1-10 contain behavioral fixes. Patch 11 groups existing declarations.
+Patch 12 adds X2 button maps and interface selection; patch 13 provides the
+shared LED representation; patches 14-15 add X2 lighting support.
 
-I've dropped the branch from IIO. That's fine because it was still being
-tested and hasn't gone out as non-rebasing yet.
+This series is based on mainline commit
+50d05c7c76c96b90462f24debacca971d2e86713.
 
-Next time I'll maybe find an IRC gateway and ping you on that.  I can't
-find any reference to that being your preference in the kernel docs.
-Given you have a helpful page on tip, might be worth adding a note.
-I might of course be missing it.
+Testing:
 
-If it goes into a reasonably early rc, I'll just merge the relevant rc
-rather than needing an immutable. If next cycle, immutable please.
+I tested this series on an ONEXPLAYER 3 running Bazzite 44 with kernel
+7.2.0-ogc6.1.fc44.x86_64. Testing covered front controls, rear paddles,
+Steam and Quick Access behavior, independent RGB effects, brightness/off
+controls, and suspend/resume restoration. I also built the module with
+W=1. X2 Mini Pro hardware testing remains outstanding.
 
-I started out a bit grumpy that I had to hold a non trivial series for
-a cycle because of an x86 bug (having been very happy when David
-fixed it incredibly quickly!), that got reviewed then disappeared
-down a hole and didn't look like it would ever be seen again.
-Meh, got me on a belligerent day.
+All 15 patches apply cleanly to the stated base and pass git diff --check
+and checkpatch.pl with zero errors and zero warnings.
 
-Jonathan
+Development and review:
+https://github.com/OpenGamingCollective/linux-unstable/pull/13
 
+I used LLM assistance for protocol analysis, implementation,
+documentation, code review, and test orchestration.
+
+Andrei Aldea (15):
+  HID: hid-oxp: fix default M1 and M2 key mappings
+  HID: hid-oxp: validate input report lengths before decoding
+  HID: hid-oxp: retain fractional brightness when reading RGB status
+  HID: hid-oxp: reject invalid Gen2 RGB status values
+  HID: hid-oxp: fix multicolor LED intensity scaling
+  HID: hid-oxp: serialize complete RGB updates
+  HID: hid-oxp: select brightness policy for the new RGB effect
+  HID: hid-oxp: stop configuration work during teardown
+  HID: hid-oxp: keep configuration state per HID interface
+  HID: hid-oxp: handle controller reinitialization across suspend
+  HID: hid-oxp: group declarations and protocol definitions
+  HID: hid-oxp: support three-page button maps on X2 controllers
+  HID: hid-oxp: represent RGB LEDs with a common array
+  HID: hid-oxp: add Gen3 joystick ring RGB support
+  HID: hid-oxp: add X2 auxiliary RGB zones
+
+ .../ABI/testing/sysfs-driver-hid-oxp          |  196 ++
+ MAINTAINERS                                   |    1 +
+ drivers/hid/hid-oxp.c                         | 1743 ++++++++++++++---
+ 3 files changed, 1623 insertions(+), 317 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-oxp
+
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
