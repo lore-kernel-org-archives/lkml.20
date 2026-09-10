@@ -1,270 +1,229 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D60F46D2A3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 027FA4BFE9D;
+	Thu, 10 Sep 2026 10:54:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037669; cv=none; b=aymnB+bcr3J6b+f8FSyi66cCD2EsYdTrQ05Z9eTCtSDRdNoTgolKtOQW+0CfRGf+ESm+hGDNMOIC9IMTeHk8u0yWCtjDApGtM/4lxP4pBB+otqwoZQ3CO50EefWNj5jAwSmZ2JbfG2l4ycJKBCvh9InbR1VBilN+FGbryDvSpiU=
+	t=1789037669; cv=none; b=Z4ePC3Ls5bOI67A7D0ZBF3f4yqZVao/h4axcYsnuY0XA+EXSCXMmOG3h5zPVhPb9jndBxGhBKecRy2tUAPF50Kti50TgkVQ/voLshEG5UIR3ttr9Hz2L12KdGeYLO++QuY4jyapKjMc9v8XVxxpAtYtftejDaoG57+yrhKdiyGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789037669; c=relaxed/simple;
-	bh=APjQkKeHW8bHfROk57zdd7azvQ9qV5smv5xp2OVt0Ts=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gUMZU10k3ERozA2l2KOy26qp9ISymakkgw6QFSo6IGKU5QJ/f4GHYWY9SLWB/yRofGbjdZuxvRJl3pVfq6uXk64TG4wSmfM1KSlzpqfVlVHWUOs0wNqflmB8byvwdRpZbAI+E//BThXUX6cdBaf3ve0/6ph6k67qh5r8ItHFcWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRXZt9FT; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=LZa/mTe3VR25KHQaR9yMTJp7T+IkVsTbaUvpTI1sUo8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BDLMJh5r+45DcomNJxHJNI20PeCcNj2Y9//gNCo8tvAc+qbKsIfmezokqmxuN7mn6o14C2vPkGMk9DdJ+pjtwGDv1MzckVho1z4ToVmXv8WbIFwCnxlmHNC0XLBmcihtRWczSFr5ODVLYlhAmexBqN7U6RDSKm7CuLfmCaDHAlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VN6MoQBj; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRXZt9FT"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49cf4f81d86so53611885e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:54:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789037661; x=1789642461; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NvcKuUFHWRdA/IWI3iaaTEkGUI4LraLQKzYYhaNN6sg=;
-        b=hRXZt9FTRenDREdBVdoGdsAape3OWTRjU7QJ0U9GkjOxQZ1pTxHplLtGyH/sdBiJrJ
-         SI3cPvAvKvIgrLLXf0fF0nhyHRvewIdNOuDPUh/GtA7+GCXMLmDLwPybT5DNFk4Y5ua1
-         BRRXgUMwkVL1m3VAxRBLJ5wWbwbfZGUsK/AbjY4WaZ6pRVsxCqOL4Enh9jziiztcWdaR
-         6SF1vJQrnLLU5yO+gS7BRRAOY3Or2zxxSHd2ja6TDFoat/LhPjEBi7cT0E9gtJ6ryoZq
-         HV2NvqgUoRhE2UsgojQD+yy45Ew27+G7p87y3W4wFMVuASGGHjMyaJsabLtS8b7T2+DV
-         s92Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037661; x=1789642461;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NvcKuUFHWRdA/IWI3iaaTEkGUI4LraLQKzYYhaNN6sg=;
-        b=MfM14ilH78+kfwkKQiOv5EsJMkM3EGTwDQDG6ZBS0YiH9PBBqdCO6959uL+V/lkHP2
-         IY2BJcfNpBA2uvR3Kq7sMg7NqiBTj7KnkfGmeqHCI02q0bjPsM1YKjxSP+i4T1xpP06a
-         WVf0FmdzJY9T7NefCLKozPBL9ZpwTsk/6Tx2t+quB5qxxxVuqysSqN2shlJanby/Xayh
-         Ba3Bzi5gxHknZA/VpepleorWQXb4zLvNdbYfpRCeJbgoKRqyBe2/fTT11OVD/VtgBYv8
-         dEWqNfi83Y3HGwrbbwEd93raLpLAZp3FVnwLFmxW2UT0sdFzIscHzwQ4dNN7ndcbA5rC
-         cv3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzRa6jHCHZrmLanzsvk38+IqyofI/YvcDRFj7RHU6NE9RIq3zXCsEKpkArtvQhoIVGo24ri/rEBNfBpoFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXBkPawFHL4LvCZAmH37B1mFTvcImj32q89mtk+nTZ/FNP4nBu
-	qgcnuUpURMlW/IBD/qPMTZp/imqdfQ1UGftumgH+I/AqvL+wOzw1LFnP
-X-Gm-Gg: AYBFou2RUtg2X9mlYk85uaMEKIhJ+fASXrsw5ZVoc0UH2PqTIsfHcKadHWa+OpD9auO
-	x22Zxpphnd4naRjsO6I4IQlPNVcJiXPAUxo1ENCh7COv5XiZll+UAnFIBHrBfPWNG9fq1kK2tGW
-	hPjVsS3sm6Cs23Fiu+ayflFlJF6ZHMhKSLhmTeEFmI78VjHa6xOWLVYdRWsutucQa8o3fsE4MHd
-	TawTXTNzhyfgu3Lwwrt11ISbasHyhnH+l6ppNInd8rXFIvbUa/wMebGWGRygForg7BDOZPXj9Lr
-	xR/Y4YGO5dxlMGIw1W6N6ali0BWukTeYBWGN4gnobZcDp9XNFRkqq9CZ79sdxHW+NqxPXdsVN0c
-	I8ekbVF4pvO5kYdLn6mybW7kAL8oOv67u2vq9Oi0lAKa/2FR2AZH+qSBPRe3r9/Toh+/CljFa/O
-	JevdnuNQ9jxelfMXFVci1YsYA6q7281T+DWFsslexhy32IKB2txF+4LeOYYYi2p6WC/i2PT9rcC
-	SoAkLHjtMi337V+w/rWgOFZnwgcGkoG9HvayeCBeDV19j8vTjoZ6OK0wQ==
-X-Received: by 2002:a05:600c:3f19:b0:49c:fc6c:be13 with SMTP id 5b1f17b1804b1-49cfc6cc0f4mr373055415e9.25.1789037660387;
-        Thu, 10 Sep 2026 03:54:20 -0700 (PDT)
-Received: from LS-Tayyab-Farooq.dreambig.corp ([58.27.187.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c04ba2sm63667545e9.12.2026.09.10.03.54.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 03:54:20 -0700 (PDT)
-From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Brownell <dbrownell@users.sourceforge.net>,
-	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>,
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Subject: [PATCH v2] usb: gadget: u_serial: fix use-after-free between tty open/close and gserial_free_line
-Date: Thu, 10 Sep 2026 15:53:28 +0500
-Message-ID: <20260910105359.12915-1-syedtayyabfarooq08@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VN6MoQBj"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE2211477;
+	Thu, 10 Sep 2026 03:54:15 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19E8E3F7B4;
+	Thu, 10 Sep 2026 03:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789037659; bh=LZa/mTe3VR25KHQaR9yMTJp7T+IkVsTbaUvpTI1sUo8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VN6MoQBjtpr1/cmo6G/4YZh5bHXuew9SIhpd11l+692psl/N9na3NbHc21NOsAUsU
+	 3+TQmValjDyMFstToPCzXuQUZ63eChLMNCBjyW+gx19SIlNi9MqfNzNAp+KP3fHIbQ
+	 6G3FQnvZE1lwfmo6X/7iJEX6alz2jYz4JAF7kQnc=
+Date: Thu, 10 Sep 2026 11:54:13 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+Message-ID: <aqKMVUDvN8bBpwVS@e129823.arm.com>
+References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+ <20260907-fix_split-v5-2-822b810458bc@arm.com>
+ <956df69d-8c0a-420f-889e-7df2842605dc@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <956df69d-8c0a-420f-889e-7df2842605dc@kernel.org>
 
-syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
-involving struct gs_port. The port is allocated when a gadget serial
-function instance is created via configfs mkdir (gserial_alloc_line())
-and freed via a plain kfree() in gserial_free_port() when the instance
-is removed via configfs rmdir(). Nothing prevented a concurrent
-open("/dev/ttyGS*") from racing with rmdir: the tty core could still
-reach gs_open()/gs_close() and dereference the gs_port after it had
-already been freed, since the ports[] table entry these functions
-looked up was a bare pointer with no refcounting tied to the tty core.
+> On 9/7/26 10:19, Yeoreum Yun wrote:
+> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> > made by memalign().
+> > 
+> > The underlying VMA may start at a different address from the aligned
+> > address returned by memalign(). Furthermore, a subsequent
+> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> > already set.
+> > 
+> > This causes split_huge_page_test to fail because the check_huge_xxx()
+> > helpers incorrectly require the address returned by memalign() to
+> > match the VMA start address reported in /proc/self/smaps.
+> > 
+> > Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
+> > /proc/kpageflags to detect huge-page mappings and large folios:
+> > 
+> >   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+> >      using check_large_folios(), since only the mapping type matters.
+> >      This identifies PMD-mapped huge pages.
+> >   2. Otherwise, use check_large_folios() to detect large folios. This
+> >      covers mTHP cases.
+> >   3. Check the folio flags according to the type of huge page.
+> > 
+> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Suggested-by: Zi Yan <ziy@nvidia.com>
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> > Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> > Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > ---
+> >  tools/testing/selftests/mm/vm_util.c | 145 ++++++++++++++++++++++-------------
+> >  tools/testing/selftests/mm/vm_util.h |   1 +
+> >  2 files changed, 92 insertions(+), 54 deletions(-)
+> > 
+> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> > index 4821a3563036..dc62ce84e143 100644
+> 
+> [...]
+> 
+> >  
+> > -	if (hpage_size == pmd_pagesize)
+> > -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+> > +static bool check_huge_type(uint64_t categories, uint64_t kpageflags,
+> > +			    enum check_huge_type type)
+> > +{
+> > +	const bool file = categories & PAGE_IS_FILE;
+> > +	const bool swapbacked = kpageflags & KPF_SWAPBACKED;
+> > +
+> > +	switch (type) {
+> > +	case CHECK_HUGE_ANON:
+> > +		return !file;
+> > +	case CHECK_HUGE_FILE:
+> > +		return file && !swapbacked;
+> > +	case CHECK_HUGE_SHMEM:
+> > +		return file & swapbacked;
+> > +	}
+> 
+> Why do we even need CHECK_HUGE_SHMEM?
+> 
+> That's really just a legacy thing for using smaps to identify huge pages.
+> 
+> It's sufficient to identify CHECK_HUGE_FILE if you know that you have shmem mapping.
+> 
+> You will not arbitrarily have non-shmem folios in a shmem mapping :)
 
-Fix this by giving struct gs_port proper tty_port-managed lifetime:
+Agree. but there seems the case where discern whethr the mapping is
+with regular file or shmem like tmpfs -- khugepaged test where using
+__shmem_ops. So I think it would be better to keep this as-is.
 
- - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
-   the port once under ports[idx].lock, takes a tty_port_get()
-   reference, and stores the result in tty->driver_data. gs_cleanup()
-   drops that reference when the tty_struct is released. This ties the
-   gs_port's minimum lifetime to the tty_struct using it, so it can no
-   longer be freed out from under an open tty.
+> 
+> >  
+> > -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> > +	return false;
+> >  }
+> >  
+> > -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> > +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> > +			 uint64_t hpage_size, enum check_huge_type type)
+> >  {
+> > -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> > +	bool ret = false;
+> > +	int pagemap_fd, kpageflags_fd;
+> > +	int nr_pmd_mappings = 0;
+> > +	uint64_t pmd_pagesize, scan_mapping_size;
+> > +	uint64_t categories, kpf;
+> > +	unsigned long pfn;
+> > +	bool check_pmd_mapping, allow_nonpresent;
+> > +	char *start = addr;
+> > +	char *end = start + len;
+> >  
+> > +	pmd_pagesize = read_pmd_pagesize();
+> >  	if (!pmd_pagesize)
+> >  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> >  
+> > -	if (hpage_size == pmd_pagesize)
+> > -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
+> > +	check_pmd_mapping = (hpage_size == pmd_pagesize);
+> > +	scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
+> > +	/* Some mTHP tests check a partially populated PMD-sized range. */
+> > +	allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+> >  
+> > -	return check_large_folios(addr, len, nr_hpages, hpage_size);
+> > +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> > +	if (pagemap_fd < 0)
+> > +		ksft_exit_fail_msg("open pagemap fail\n");
+> > +
+> > +	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> > +	if (kpageflags_fd < 0) {
+> > +		close(pagemap_fd);
+> 
+> No need to cleanup when exiting.
 
- - Give tty_port a destructor (gs_port_destruct()) that does the
-   kfree() that gserial_free_port() used to do directly, and
-   switch gserial_free_port() to tty_port_put() instead of an
-   unconditional kfree(). Also, tty_port_destroy is automatically called
-   when the reference reaches 0. The struct is now only actually freed once
-   its last reference (held by either the ports[] table or a live tty)
-   is dropped.
+Yes, but some test code does clean it up, so I was just confused
+about the convention :\
 
- - Stop gs_open() from independently re-deriving the port from
-   ports[port_num].port and reassigning tty->driver_data. gs_install()
-   is now the single place that looks up and pins the port; gs_open()
-   re-deriving it separately could, on an unlucky race with the port
-   index being freed and reallocated, leave tty->port and
-   tty->driver_data pointing at two different gs_port instances, with
-   the one gs_close() uses left unprotected. gs_open() now just uses
-   the already-validated tty->driver_data, while still holding
-   ports[port_num].lock across the first-open kfifo allocation to
-   serialize concurrent first opens against each other (kfifo_alloc()
-   needs GFP_KERNEL, so it can't run under port_lock).
+> 
+> > +		ksft_exit_fail_msg("open kpageflags fail\n");
+> > +	}
+> > +
+> > +	if (!check_pmd_mapping &&
+> > +	    !check_large_folios(pagemap_fd, kpageflags_fd,
+> > +				addr, len, nr_hpages, hpage_size))
+> > +		goto out;
+> > +
+> > +	for (; start < end; start += scan_mapping_size) {
+> > +		categories = pagemap_scan_get_categories(pagemap_fd, start);
+> > +		pfn = pagemap_get_pfn(pagemap_fd, start);
+> > +		if (pfn == -1UL) {
+> > +			if (!allow_nonpresent)
+> > +				goto out;
+> > +			else
+> > +				continue;
+> > +		}
+> > +		if (pageflags_get(pfn, kpageflags_fd, &kpf))
+> > +			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
+> > +		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
+> > +			nr_pmd_mappings++;
+> > +		if (kpf & KPF_COMPOUND_TAIL)
+> > +			continue;
+> > +		if (!check_huge_type(categories, kpf, type))
+> > +			goto out;
+> > +	}
+> > +
+> > +	if (check_pmd_mapping && (nr_pmd_mappings != nr_hpages))
+> > +		goto out;
+> > +	ret = true;
+> > +
+> > +out:
+> > +	close(pagemap_fd);
+> > +	close(kpageflags_fd);
+> > +	return ret;
+> >  }
+> 
+> 
+> 
+> -- 
+> Cheers,
+> 
+> David
+> 
 
- - In gs_close(), a tty's .close() can legitimately run against a port
-   whose port.count is still 0, e.g. when gs_open() fails and the tty
-   core unwinds via tty_release(). The previous code treated this as
-   an impossible state (WARN_ON(1)), which trips panic_on_warn on
-   syzbot and isn't actually a bug -- it's an expected outcome of a
-   failed open. Treat count == 0 the same as any other "not the last
-   closer" case and return quietly instead of warning.
-
-Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-Fixes: c1dca562be8a ("usb gadget: split out serial core")
-Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-Assisted-by: Claude:sonnet-5-medium
-Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
----
-v2:
- - Added Assisted-by tag.
-
- drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
- 1 file changed, 57 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..9da860589861 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	if (!tport)
-+		return -ENODEV;
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-  * gs_open sets up the link between a gs_port and its associated TTY.
-  * That link is broken *only* by TTY close(), and all driver methods
-@@ -615,7 +650,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
-+	port = tty->driver_data;
- 	if (!port) {
- 		status = -ENODEV;
- 		goto out;
-@@ -648,7 +683,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -695,14 +729,16 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (!port)
-+		return;
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
- raced_with_open:
--		if (port->port.count == 0)
--			WARN_ON(1);
--		else
-+		if (port->port.count > 0)
- 			--port->port.count;
-+
- 		goto exit;
- 	}
- 
-@@ -911,6 +947,8 @@ static int gs_get_icount(struct tty_struct *tty,
- static const struct tty_operations gs_tty_ops = {
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.install =		gs_install,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1203,6 +1241,18 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+
- static int
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
-@@ -1222,6 +1272,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1258,8 +1309,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
 -- 
-2.43.0
-
+Sincerely,
+Yeoreum Yun
