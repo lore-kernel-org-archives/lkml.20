@@ -1,117 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CC33955CA;
-	Thu, 10 Sep 2026 10:14:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1303CF02D;
+	Thu, 10 Sep 2026 10:15:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035276; cv=none; b=WyRzCzOb89WWcimuSwGv5YewqIwIWs0dVQClX+INJJvvFXQhJT0QRQaBLwv/fyekqLg0dnACsXyVrhqc4+JdxrnWT8tw97R7vxOfKKjhZJQxVk5CcuEwmpepgQuQiSHXNQZEVw7Q5XjdMfi9Zbt7mCsCQ1b7IYnmzKpibpukuak=
+	t=1789035309; cv=none; b=dQIxmsoIT+4UHV7ftK/4RdxXs12zfHgjg2oHHBJYkYeLfdHCuwv+u6L4N8+bcAexhvMfvhZ+uJKfs0teyGwHiLm9l4eG6HAwefLZUr5EO4aYqNjD+t0ihnasqIoIOxWxp5JC9LEmgfpW5M7Nol3S6nXagocLNY9EPm9WKASc6jA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035276; c=relaxed/simple;
-	bh=jpVG4p3SMg6F7Y/z1SShMyfoiqGQ5ZswZ/kwFzvBNK8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HnziPhHt2OOreWshHq/1axVrtESYAjDwESxpqq9+Iw4ZPXygMX24yNvzE+jiYJy6t0MH2SZuLBcRTBZf/ZG98WMFxuDX2ctO9XiRRWDcUPwcM8U1mWGwe1K3rZIztS1M0DI2k73u/YABwm/lGZ160xNEDxcRIubBUgG7vwBGQfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5IJxrpH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789035309; c=relaxed/simple;
+	bh=pqFEd1KXW8dJjiOz711NjIEpbYBBFCBP0yMYwRyZsqE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MxX8Rdlr6lWp2qfTq/WFZ8VFzuMNc9IPiDoAXaPxCWk6gl5nRF8/QUUvaEAHbf3vSrbAWhRlTlrE5CAhYa7zzD4YLzfuqaUqdCz2rWBi280NSQtNazyFBlfkw49MWF7rTFprT9eQmy1F+sYtCCYb6xP09itfVWefJKaZlxkGa3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7SPAcaH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5IJxrpH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48D461F000FF;
-	Thu, 10 Sep 2026 10:14:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7SPAcaH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B671F000FF;
+	Thu, 10 Sep 2026 10:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789035274;
-	bh=vuN9YgNNVDUDcK9F5V9wjj4jgSHSO9jPfMDMRTl00m4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L5IJxrpHYACCI3tkKbfR8R+V4hXIzjwQbm69USLqNRck8/aJ6MxyOPfDyv9Z6Xi0t
-	 HTl/wQEbF/iISzOx57w+XLzjMSvEdrfejt1OI8HNGOxT5T26hHcL+4PKOKvvQ3aDFk
-	 5FrUCFhyKYas1qYBbyC2urL6cG9LDmgZZLOcrqUmhOXIkF2MnnwrX74JwzFFu/myfR
-	 wKrrm5O0tihSm/n+nLCZH7FsTnRGtbvbG5NVEUkFlsuSfueWUjjZqG+PfBo1pidDoj
-	 aKTLRliAYoM1sLfxR0PY1SVYQgEpTZIkYeS9aQnm/GfPNZ4MiHs4A72rKSGydHwDHS
-	 rrf/OXv4UACww==
-Date: Thu, 10 Sep 2026 11:14:31 +0100
-From: Simon Horman <horms@kernel.org>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-	Paul Fertser <fercerpav@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] net: ncsi: validate MAC and VLAN counts in Get
- Parameters response
-Message-ID: <20260910101431.GU40544@horms.kernel.org>
-References: <20260906233752.87773-1-elb12345@hotmail.co.uk>
- <AS8P251MB0001E99A1865DFEC3C3A16E7C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	s=k20260515; t=1789035307;
+	bh=v1jf2BnWKgFOqshUjBVM616Rin+QQtnz67oQ0yj2zIc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n7SPAcaH7guQHXLUvHt39zDD7VkfvXNXJxyLeKOSy6F6EQiJypZAgI/aIPywPRu1T
+	 FOdHJXQrZqg4xzP+8jCUJpEZJfZsnIirc/JEBSmf0Bvoe5qD/BQjspvW5umqigqNqW
+	 wDf192w9WWfKoWcdXfD9l6arb01LZhr9HMEOsKq6ypf/m2cx8gpcqFdCvPynkVeSt7
+	 kDttdVXNtjltJR1LghfDXasLKOWUBgieqp8yckKTf6PZ+mhtuTsXmGD+q0kJuDFIFl
+	 ve8bNEN2iu219o7QnElPB5wznFdMu6Wk04HHNueiYZMtk9WuNkfJiqiRwv9aht1MbU
+	 rD1uHTMkNiTLQ==
+Message-ID: <b923f63c-db7c-4ecb-949d-368bc6311626@kernel.org>
+Date: Thu, 10 Sep 2026 12:15:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB0001E99A1865DFEC3C3A16E7C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] kselftest: mm: fix some failure of
+ split_huge_page_test
+To: Yeoreum Yun <yeoreum.yun@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 12:37:52AM +0100, Aamir Ahmed wrote:
-> The Get Parameters (GP) response handler iterates over MAC address
-> and VLAN filter tables using counts (mac_cnt, vlan_cnt) taken directly
-> from the response packet.  These counts are not validated against either
-> the actual packet length or the filter arrays allocated by the earlier
-> Get Capabilities response handler.
+On 9/7/26 10:19, Yeoreum Yun wrote:
+> split_huge_page_test can fail for the following reasons:
 > 
-> A malformed GP response can cause:
->  - out-of-bounds read past the packet data when iterating pdata
->  - out-of-bounds write to mac_filter.addrs[] when mac_cnt exceeds
->    the allocated filter size (n_uc + n_mc + n_mixed)
->  - out-of-bounds write to vlan_filter.vids[] when vlan_cnt exceeds
->    n_vids
->  - bitmap corruption via set_bit()/clear_bit() beyond u64 width
+>   1. During the test, khugepaged may collapse previously split pages again,
+>      causing intermittent failures.
 > 
-> Add three validation checks before the filter table loops:
->  1. Packet is large enough for the claimed MAC and VLAN entries
->  2. mac_cnt does not exceed the allocated MAC filter capacity
->  3. vlan_cnt does not exceed the allocated VLAN filter capacity
+>   2. Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+>      glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+>      made by memalign(). The underlying VMA may start at a different address
+>      from the aligned address returned by memalign(). Moreover, a subsequent
+>      madvise(MADV_HUGEPAGE) call does not split the VMA because it already
+>      has the same advice.
 > 
-> Also check for NULL filter arrays in case Get Capabilities was not
-> processed first.
+>      This causes the test to fail because the check_huge_xxx() helpers
+>      incorrectly require the address returned by memalign() to match the
+>      VMA start address reported in /proc/self/smaps.
 > 
-> Fixes: 0b49507fc090 ("net/ncsi: Resource management")
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-> ---
->  net/ncsi/ncsi-rsp.c | 31 +++++++++++++++++++++++++++++--
->  1 file changed, 29 insertions(+), 2 deletions(-)
+> Address these issues by applying MADV_NOHUGEPAGE after faulting in the
+> huge page, preventing khugepaged from collapsing it again, and instead of
+> relying on /proc/self/smaps, use /proc/self/pagemap and
+> /proc/kpageflags to detect huge-page mappings and large folios:
 > 
-> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-> index 1401528dbd6c..88f3b8db0289 100644
-> --- a/net/ncsi/ncsi-rsp.c
-> +++ b/net/ncsi/ncsi-rsp.c
-> @@ -884,10 +884,38 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
->  	nc->modes[NCSI_MODE_AEN].enable = 1;
->  	nc->modes[NCSI_MODE_AEN].data[0] = ntohl(rsp->aen_mode);
->  
-> +	/* Validate the response carries enough data for the MAC and VLAN
-> +	 * tables it claims to contain.  The variable-length area begins
-> +	 * at offset 48 (right after the fixed Get Parameters fields).
-> +	 */
-> +	if (nr->rsp->len < 48 + (unsigned int)rsp->mac_cnt * ETH_ALEN +
-> +			    (unsigned int)rsp->vlan_cnt * sizeof(__be16)) {
-> +		netdev_warn(ndp->ndev.dev,
-> +			    "NCSI: GP response too short for %u MACs + %u VLANs\n",
-> +			    rsp->mac_cnt, rsp->vlan_cnt);
-> +		return -EINVAL;
-> +	}
+>   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+>      using check_large_folios(), since only the mapping type matters.
+>      This identifies PMD-mapped huge pages.
+>   2. Otherwise, use check_large_folios() to detect large folios. This
+>      covers mTHP cases.
+>   3. Check the folio flags according to the type of huge page.
+> 
+> Also, current usage of memalign() would result memory area may
+> unexpectedly merge with an adjacent VMA, causing tests
+> that inspect it through /proc/self/smaps to fail.
+I'm not particularly happy about this.
 
-My concern with this patch is the same as for patch 1/2.
+Relying on VMA merging details rather hints that we shouldn't be using smaps to
+query some stats/properties.
 
-I'm not sure that there is any guarantee that nr->rsp is a linear skb
-and if not then checking len is insufficient and I think the check
-should be implemented using pskb_may_pull.
-
-Not that any pointers referring to skb data may be invalidated
-by that call, so, f.e. rsp should probably be set after the
-call to pskb_may_pull().
-
-...
-
-
-As noted collectively by Greg and Paolo elsewhere:
-1. Please include an Assisted-by tag
-2. Please keep the number of patches in-flight to 15 or less
+Which exact things are test querying through /proc/self/smaps? Could we convert
+the code to just query that stuff through different interfaces?
 
 -- 
-pw-bot: changes-requested
+Cheers,
+
+David
