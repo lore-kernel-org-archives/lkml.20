@@ -1,208 +1,183 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC1E37E5C9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D853933D6ED
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011375; cv=none; b=RZPcOTeO4Y10ubvL/YHG2Q/o4xpfnKVsHRHAjdneFq4fcddCdUWsjUDFDN3KEfbEpodKzl6NdmJtLSXfsgoBM3K1zp59pNcaQERlIQRnV2nprlbHxAQrPu1LhFMOI31tViSoadcnb/mVu7HoC4GPihwRPlEFUsaTWG9j/8qooRs=
+	t=1789011425; cv=none; b=ufUKmxY39Sy1gHL5OkhQ1T+10jM5F15VNAvXkKCcYkShXXj59H0WYxs/hbMI24vAKhrrmdkSVwMfHV8eaTAb6GTYoi7yUrI+MMCic/prTPrOjDheFGGPaAAenz7UGuJJ0L8d9jwSROmVnauY86LlXlJZgc5VOMygxptea4u2muQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011375; c=relaxed/simple;
-	bh=7dJYZIzG3Oi0vO9RaTy06gwPmtBYzFkra05nhb44Z2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QN0ypJCWkjjBW32Tr9bvm3TMoYa5LMO4mkGfDvriqV+3qlVeXr4quD9W5A61VvM93byuGGGmV1tBjgZX8/Ayjm5bHrBAz7NtMJ3jLGVkSCQqM+mPQnY7QogYplFZrrjYC4744d8Cp9xRBpc5qiwJdfkq6xK3YseQQrGjCrizBGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=EvyJcIhB reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789011425; c=relaxed/simple;
+	bh=gBPgpvXIFMEkkeDLClGuqvq1+6LResb8DrffoRsw6c0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KbyoBKmtqMA3ty7C1ftgCjQ9tBrICqCPTJtsmNM5+iEizYaXq9bw7gCPtPNrDuxPmfJl7oOKQjqB2TlV6kHit+FNouurrgyRPJEeslRKi2buiNLQrZpwK8eTzFWK689Rs6Z9w/cEFB6ujKyJQGYYCwuQm9EjGRd/ww6bIS8H4qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pLuKirmk; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="EvyJcIhB"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 67AED40E00B9;
-	Thu, 10 Sep 2026 03:36:11 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id dRY_Vk06yFGE; Thu, 10 Sep 2026 03:36:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789011360; bh=9yTC/8K7DkEW7wNBiOeYCl6vp4+4UfmoiV8qnzg+trY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EvyJcIhBDYhrN+NM2dP8a9+I4mlIS36ehHtOmAqNUQpY1Gi4KGadWSEI/y6wQMu3t
-	 +zVQqGDrvgfvxSkLA+6WQQ/VQniS1xPJXzJPh97YeFTnEjF6+n1Yxjmjud6Lin/LcA
-	 MaHQLURA7AM0rm5ym0P1ulWCihZM7WzFciJj/EF1uovU0Oa7oxEV9NeEkWLaKuW1qV
-	 fT+kFSVcdKrse8y+ov51TujwLO+TSwMMk7HXthpKrKkX0Obc2Yl6gTBIUQCt72JSi+
-	 EohPhVgfI8oiz2My2mT1biOV43ihYImt3gE0jb94PtD32Qbiu8kYNnBUGrLBCdx4s2
-	 ngodQlmdt3EPHtx9kKIhwu5h1rZdI099Uztq9zRw6x0CwOAD+71OlGg5A9QveMRl2b
-	 m2U8fcGdxEM/RMoLsRvWVl4cmebTN1aD9duJQ35Ha3p359+P1HWcupwGNrUyoICpft
-	 kYFMcuBhP00KGOYVY5hmsq67EPalSj1XitggJaH57UvVHV9s7o5n4l0wgiuJXBflyp
-	 wTknCTIjmr9+GC8KqGbjJClfMjsYL15pXXlzVDNWK7qZfp4JN/v1aps9vsAtSVODwN
-	 q48Lm63iWWTBUOe7Lef+ELeamUufE3SxHJlaggQFr5OOayBkDUDBqMZS/kP0+zsWP3
-	 ldwkenbXwLvhoqWgkZfNzCfA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9C7B840E00E8;
-	Thu, 10 Sep 2026 03:35:49 +0000 (UTC)
-Date: Wed, 9 Sep 2026 20:35:46 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	hpa@zytor.com, Tom Lendacky <thomas.lendacky@amd.com>,
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
-	Joerg Roedel <joerg.roedel@amd.com>
-Subject: Re: [PATCH 1/3] x86/coco: Add CC_ATTR_GUEST_SEV
-Message-ID: <20260910033546.GAaqIlkhwE9V2vbz-l@fat_crate.local>
-References: <20260803125827.718024-1-joro@8bytes.org>
- <20260803125827.718024-2-joro@8bytes.org>
- <20260910024027.GEaqIYmy___31vI-iZ@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pLuKirmk"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so64862835e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:37:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789011422; x=1789616222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C8ZWMEFHQbcH0tt4vDOyvt6b0NrgibIrdXJYwFIp6tM=;
+        b=pLuKirmkQeqelS81KDqSIofFIHwomEede4FoNH2pDKnzOYbxTV1Vb7gYqYQd45AxNg
+         Z9c1nVKSp5YFu4iJe/38gPloS7+bSLp9SAw46/cvdvHXPPHASQ8rpxv9Nw9KheffHznO
+         /fpb5UuF3r/k8v4vzfsDDJNCdadkYSgRNQhgiA1qgvSsRjVVIjMdsCqhzHr4Pyx76SbN
+         m48VyVXAsr5a9P7R8qn8HcX/iWtoWJdVXw+nJm0cDI2Ev/OKuks1TkYqEOrgwqZYZVYl
+         3CLmNAcLDvjxvM0ljPoHBonUhXwtWQTWA6Fpt3LA1wVjsa1ytumZ04ur/OfwAN1AyJGp
+         rx7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789011422; x=1789616222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C8ZWMEFHQbcH0tt4vDOyvt6b0NrgibIrdXJYwFIp6tM=;
+        b=Q5nRkYurao3WIoHNGZa0gDX34OapTNYeTWRhBYsV5TWEQ9JImvfbzG2f5AjYyTSeHV
+         IsMYjwQhwSfdQ1J23DFJ7weab7oY4hpiqDuwlq6jL02QZ0RN2tAldHu5HjDrftBx14ru
+         u9iKPveQZX6Base58VpbETVIoQfQD93LFeiVY8iFUHSm+FEQJoOLT7igFJRHoP/iocc0
+         dP7eXMBTGwaCFU53VlwjP0vYseYed22G9hOPx4G+MpQoNS9pKhc/ZtPiMTB8kpB9qmls
+         OEnFy8Y1gZCOXqUZ7rKCCcx+KhE0uI2ZJz1xENJcp/4fgQn4OGebMIeoNVuVjijSEv53
+         Oh/g==
+X-Forwarded-Encrypted: i=1; AKwUvBx6CFaZekl8SC+fnCp3qn5fQEWgZQ9A/bbONDLYirjUiLjTzm5uefWKJbt111Pltpl9XzG4iRT1tOFnosI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mihAjnoVB4NiMDQ/FtgewxAoz5jdSrKnJOx9mI7puxDuVAcEo3
+	s0p+XczmfveRnyl8Q/bCjPEKO/hAzbz7idO4NM4N0M1oA0tVKAZqeX/D
+X-Gm-Gg: AYBFou1xOYFWBYfz6r8FjRpvSikSVnoXkhdiNBhNvIHf/sVQOLDuqzvBiSiOiQNQWCx
+	8VxXyacJqtwfd6AXiDIAQoHzTmKNhxGtY3weOQ61E+qcHnqfCv2pifl6Ox66IKXayTWXYzrwOVN
+	EG3pVPV8OgaZX6h5sjR8ynd02tzQ8LH3pjq+NESVwRdjuD/H6tkAIDOvOiVjbRUr50fP8RPYKJE
+	iLe9MBgEzLtGw+N+/CPUKphueTrNIjcSkupoiNXvkHslC7XmZOh0rYVMEEPvXwLFyiSlpeKbODK
+	JfJM/XVVtWp85AdmHAW+d3hgJrhVR8v9qX8SCN1nJSSlLq6upwMukEZIensF95i/ZwIPdQAyBOW
+	uHjCwPu8xlfx6y+yVy45wn09FeQaatl1JmbuP4V7WQ6lAM2BNlQxzOHVV68dEFZdKOr71gpX3Jw
+	DbQh0UWrJxJprvPNgaoIrfqwWhiTYaw/FvwN24LslgSf5COzMJxItqY5+Z3zl8uLAwqeT9LMayT
+	hzeJHH5xAISlTKybbdSJehtwe247gu4h6UkfJRne5LNstOM21wvvxHOmEbD7tnnjKB+nTxinLtb
+	ujlwuKtsW0HTZCwbXIdlvYh6oEn/TIzhe4TogwWHOZWsLeEJWwwMhvAe4BoTB0X9tsGy0NAm6MJ
+	AoMcuXBISMA==
+X-Received: by 2002:a05:600c:4e16:b0:49c:fc6c:bdfc with SMTP id 5b1f17b1804b1-49cfc6cc01bmr341548035e9.19.1789011422051;
+        Wed, 09 Sep 2026 20:37:02 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b3d9-b901-0402-5aad-0ef4-88ac.310.pool.telefonica.de. [2a02:3100:b3d9:b901:402:5aad:ef4:88ac])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26b726f9sm34506475e9.0.2026.09.09.20.37.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 09 Sep 2026 20:37:01 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jordan Niethe <jniethe5@gmail.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: PPC: Fix guest state buffer kernel-doc names and parameters
+Date: Thu, 10 Sep 2026 05:36:55 +0200
+Message-Id: <20260910033655.16127-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260910024027.GEaqIYmy___31vI-iZ@fat_crate.local>
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 07:40:27PM -0700, Borislav Petkov wrote:
-> On Mon, Aug 03, 2026 at 02:58:25PM +0200, J=C3=B6rg R=C3=B6del wrote:
-> > From: Joerg Roedel <joerg.roedel@amd.com>
-> >=20
-> > Add a new attribute to the CC platform code to check whether the
-> > kernel runs in an environment using SEV memory encryption. This will
-> > be used to establish the an sev/ directory in SYSFS (which is
-> > currently SEV-SNP-only).
->=20
-> Yeah, the initial intention for cc_plaform_has() is to use it in arch-a=
-gnostic
-> code and for something which you're going to use in coco code itself, y=
-ou're
-> better off simply doing:
->=20
-> 	if (sev_status & MSR_AMD64_SEV_ENABLED)
->=20
-> I can fix that up when applying if you prefer - it is easy enough.
+Several guest state buffer comments use copied function or parameter
+names. In particular, kvmppc_gsm_for_each() describes a parser and an
+element argument, although it takes a message and yields IDs.
+kvmppc_gsm_include_all() also describes an ID argument it does not take.
 
-IOW, I merged them all three into this simple one.
+Match the headings and parameter descriptions to their declarations,
+and describe the parser argument and vector output with their actual
+roles.
 
-Author: Joerg Roedel <joerg.roedel@amd.com>
-Date:   Mon Aug 3 14:58:25 2026 +0200
+Fixes: 6ccbbc33f06a ("KVM: PPC: Add helper library for Guest State Buffers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ arch/powerpc/include/asm/guest-state-buffer.h | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-    x86/sev: Report MSR_AMD64_SEV in sysfs
-   =20
-    Add SEV_STATUS to the cpu/sev/ sysfs hierarchy and report it for all =
-SEV
-    guest types.
-   =20
-      [ bp: Merge into a single patch, simplify. ]
-   =20
-    Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
-    Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-    Link: https://patch.msgid.link/20260803125827.718024-2-joro@8bytes.or=
-g
-
-diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documen=
-tation/ABI/testing/sysfs-devices-system-cpu
-index 82d10d556cc8..cec413a71491 100644
---- a/Documentation/ABI/testing/sysfs-devices-system-cpu
-+++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
-@@ -690,15 +690,20 @@ Description:	Umwait control
-=20
- What:		/sys/devices/system/cpu/sev
- 		/sys/devices/system/cpu/sev/vmpl
-+		/sys/devices/system/cpu/sev/sev_status
- Date:		May 2024
- Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
- Description:	Secure Encrypted Virtualization (SEV) information
-=20
--		This directory is only present when running as an SEV-SNP guest.
-+		This directory is only present when running as an SEV guest.
-=20
- 		vmpl: Reports the Virtual Machine Privilege Level (VMPL) at which
--		      the SEV-SNP guest is running.
-+		      the SEV-SNP guest is running. This file is only present
-+		      when running as an SEV-SNP guest.
-=20
-+		sev_status: Reports the value of the SEV_STATUS MSR which
-+			    enumerates the enabled features of an SEV
-+			    environment.
-=20
- What:		/sys/devices/system/cpu/svm
- Date:		August 2019
-diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index ec8fc02bd636..4751bfbe694f 100644
---- a/arch/x86/coco/sev/core.c
-+++ b/arch/x86/coco/sev/core.c
-@@ -1431,15 +1431,22 @@ static ssize_t vmpl_show(struct kobject *kobj,
- 	return sysfs_emit(buf, "%d\n", snp_vmpl);
+diff --git a/arch/powerpc/include/asm/guest-state-buffer.h b/arch/powerpc/include/asm/guest-state-buffer.h
+index acd61eb36d59..95d50ec7f2a9 100644
+--- a/arch/powerpc/include/asm/guest-state-buffer.h
++++ b/arch/powerpc/include/asm/guest-state-buffer.h
+@@ -224,7 +224,7 @@ struct kvmppc_gs_buff_info {
+ 
+ /**
+  * struct kvmppc_gs_header - serialized guest state buffer header
+- * @nelem: count of guest state elements in the buffer
++ * @nelems: count of guest state elements in the buffer
+  * @data: start of the stream of elements in the buffer
+  */
+ struct kvmppc_gs_header {
+@@ -779,6 +779,7 @@ static inline u64 kvmppc_gse_get_u64(const struct kvmppc_gs_elem *gse)
+ /**
+  * kvmppc_gse_get_vector128() - return the data of a vector element
+  * @gse: guest state element
++ * @v: output vector in host endianness
+  */
+ static inline void kvmppc_gse_get_vector128(const struct kvmppc_gs_elem *gse,
+ 					    vector128 *v)
+@@ -849,7 +850,7 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
+ /**
+  * kvmppc_gsp_for_each - iterate the <guest state IDs, guest state element>
+  * pairs
+- * @gsp: guest state buffer bitmap
++ * @gsp: guest state parser
+  * @iden: current guest state ID
+  * @gse: guest state element
+  */
+@@ -866,9 +867,8 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
+ /**
+  * kvmppc_gsm_for_each - iterate the guest state IDs included in a guest state
+  * message
+- * @gsp: guest state buffer bitmap
++ * @gsm: guest state message
+  * @iden: current guest state ID
+- * @gse: guest state element
+  */
+ #define kvmppc_gsm_for_each(gsm, iden)                            \
+ 	for (iden = kvmppc_gsbm_next(&gsm->bitmap, 0); iden != 0; \
+@@ -908,10 +908,9 @@ static inline bool kvmppc_gsm_includes(struct kvmppc_gs_msg *gsm, u16 iden)
  }
-=20
-+static ssize_t sev_status_show(struct kobject *kobj,
-+			       struct kobj_attribute *attr, char *buf)
-+{
-+	return sysfs_emit(buf, "0x%llx\n", sev_status);
-+}
-+
- static struct kobj_attribute vmpl_attr =3D __ATTR_RO(vmpl);
-+static struct kobj_attribute sev_status_attr =3D __ATTR_RO(sev_status);
-=20
--static struct attribute *vmpl_attrs[] =3D {
--	&vmpl_attr.attr,
-+static struct attribute *sev_status_attrs[] =3D {
-+	&sev_status_attr.attr,
- 	NULL
- };
-=20
- static struct attribute_group sev_attr_group =3D {
--	.attrs =3D vmpl_attrs,
-+	.attrs =3D sev_status_attrs,
- };
-=20
- static int __init sev_sysfs_init(void)
-@@ -1448,7 +1455,7 @@ static int __init sev_sysfs_init(void)
- 	struct device *dev_root;
- 	int ret;
-=20
--	if (!cc_platform_has(CC_ATTR_GUEST_SEV_SNP))
-+	if (!(sev_status & MSR_AMD64_SEV_ENABLED))
- 		return -ENODEV;
-=20
- 	dev_root =3D bus_get_dev_root(&cpu_subsys);
-@@ -1463,7 +1470,20 @@ static int __init sev_sysfs_init(void)
-=20
- 	ret =3D sysfs_create_group(sev_kobj, &sev_attr_group);
- 	if (ret)
--		kobject_put(sev_kobj);
-+		goto drop_kobj;
-+
-+	if (sev_status & MSR_AMD64_SEV_SNP_ENABLED) {
-+		ret =3D sysfs_add_file_to_group(sev_kobj, &vmpl_attr.attr, NULL);
-+		if (ret)
-+			goto drop_sysfs;
-+	}
-+
-+	return 0;
-+
-+drop_sysfs:
-+	sysfs_remove_group(sev_kobj, &sev_attr_group);
-+drop_kobj:
-+	kobject_put(sev_kobj);
-=20
- 	return ret;
+ 
+ /**
+- * kvmppc_gsm_includes - indicate all guest state IDs should be included when
++ * kvmppc_gsm_include_all - indicate all guest state IDs should be included when
+  * serializing
+  * @gsm: guest state message
+- * @iden: guest state ID
+  */
+ static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
+ {
+@@ -919,7 +918,7 @@ static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
  }
+ 
+ /**
+- * kvmppc_gsm_include - clear the guest state IDs that should be included when
++ * kvmppc_gsm_reset - clear the guest state IDs that should be included when
+  * serializing
+  * @gsm: guest state message
+  */
+@@ -958,7 +957,7 @@ static inline int kvmppc_gsb_receive_data(struct kvmppc_gs_buff *gsb,
+ }
+ 
+ /**
+- * kvmppc_gsb_recv - receive a single guest state ID
++ * kvmppc_gsb_receive_datum - receive a single guest state ID
+  * @gsb: guest state buffer
+  * @gsm: guest state message
+  * @iden: guest state identity
+@@ -998,7 +997,7 @@ static inline int kvmppc_gsb_send_data(struct kvmppc_gs_buff *gsb,
+ }
+ 
+ /**
+- * kvmppc_gsb_recv - send a single guest state ID
++ * kvmppc_gsb_send_datum - send a single guest state ID
+  * @gsb: guest state buffer
+  * @gsm: guest state message
+  * @iden: guest state identity
 
->=20
-> --=20
-> Regards/Gruss,
->     Boris.
->=20
-> https://people.kernel.org/tglx/notes-about-netiquette
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.39.5 (Apple Git-154)
 
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
