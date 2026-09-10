@@ -1,144 +1,142 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB9547B403
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789042068; cv=pass; b=dJWiMUEfBtODVZi3JSLc1/XRW5DIKiAwWkiJ1LA07T2R/5nfzoBhMWdMRZZT2OnmbeZaDwwwUJ+7uvjIehulSG7LrIgESa+wmdI10rGb3m9WAHwCKVNRJupiiNtHZYGFPlqahrjepdthGj9fqHpPu3j4l/HrPCW2DGiOZnrt5ZY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789042068; c=relaxed/simple;
-	bh=tSzuqoYB9TXawK7iVxpqBGLCSAEWlfbPZXo1ULqmVg4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IJUTSeY5uwVamPq2KhqNpiA9//jXrGlPcr6Z3v+72JQYb6e69om92XbIjdhGN4FQHHKyu0ltH70OxIKYXvWNGzW/ygapyU4uMjwkn88IV9s6tddlpiNGw3osTFKQ3PGhFowGi4bQ2EkCBjV62qTt1nt4YCaNwQLJGG80wA7O4Os=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PEZJ7RxE; arc=pass smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BC7471246
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789042105; cv=none; b=GSzozF6dZ7fhXlnaGzMAXtjiNPOlI9z/UTbt00hxHVltwiCy++dPk3N6OlERmic4MRSQAhZ3VKkhNO1KpcfuMkzfPzAEfkUA7VTl2A9UkI5pHf6JiFuLRKOptgRhDZTkRrzIQkrwFPEbT7OkpIkwTXqNLBFWs1++zg9Ck++Jrn8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789042105; c=relaxed/simple;
+	bh=CCJg+gA6k5cGOU3SmBMdyo7VC/bOq+f1/pHk41HmmWA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=uZ3XzqsibjcI2u8RGw4CWxXFtxe9uSeRqS7nbq21Ea21f3VDJ4ILFc9SQA+yWy1uap+AQ3RPJ19l8139Ueaq3SyxGmUTcbxtQ/OtbFVRJfgyEWZSmdg4vWvLKJY7MYU2ALKYx9SiqsdnifsBGmIrIIXyJyutNNhVy9ZHCzlYCio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gdRCo9V9; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PEZJ7RxE"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso1338061e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:07:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789042064; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lG1SepGm4dAOKqmeDeHczpIPo/MfXBwybj2y+TUMRsJGrbkJNgMArtWiM9Ok2nLptz
-         GjbUiIqDBzki5oo2lxeFG7++6ipMJKPgLNsOd0aPGPqdTkX5T5Mxjw3tIJCZbm+CF6oJ
-         U1tPG1wQjSI27LmbRezCkdUJumrEXcEZyvL3r43H8zPBNVtiHfFR8AyAiV2mQs7gZUhz
-         z5RAVGjQysJbh5m27chcwObJ24N7sR+wEmY2+x/VI0SvFNZ7Hhmzfj9ky8sdsdXPXU6o
-         u63mnx4G860jGm21qUK0AEe2/rlA5cakLpqqhSy2D8EMUebYKxkl/x1lt05kJ0AsbZyB
-         TjGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/nSVcwff+CVcVUGrv8pukezXki6t7yHP2l4nc4EnAh4=;
-        fh=dYAxZ3LSjQXJNatObUKNZD9Inod1HswnuBENq+ggkFA=;
-        b=R08NPhHnhkOPWXIpZadBalNjsAsW89locaCqEgpD4qiiUyynXJo2GvJ9dYooVTpWAA
-         B/oUKKAixjucIImx5L7CRCPlnqSqW6bK99CaDVmU56Mf8qU9MXRkuU4NLjXNzwzTtbMl
-         uKSEHgp/QD4iN9RPbNYi7LwVHkRm/AMmn5mo0YGe0xKdLUisQSKvqorvky5nIHjHZQTN
-         olQSQLYjWSK/ZfmSbN68YuwxCUIFgJAv6bWjq/pj1RSefzzJ+tQwuLSifZIHvdtwy9F3
-         0AGjluXBaBe0LxaiB0efWtTpjmfYkR1oRIAIuTpmabBcVv9etiGbH0mJJ8aQZW8hMhXf
-         QvLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gdRCo9V9"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1225336f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:08:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789042064; x=1789646864; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/nSVcwff+CVcVUGrv8pukezXki6t7yHP2l4nc4EnAh4=;
-        b=PEZJ7RxEjMNv/tPHD5CtnOhfntcTrmL2Y/VEpmM7XeGisRFdGXOSjK9e2PXN46eLzJ
-         uMhJAIEcMhevU5NwZwWmI1vWLPoX+ayOyY1jWVXEUEBB7OrbD46D/vg6DJgN9aX1r23x
-         ZNz7m90jpOX4bIkYCQuYXtJEVb2vLfheS4XDteLVELEPwVvu0v/uzevTRBoUHXInGjjR
-         VFPcI9BFexevmZ4JXMxBuozraZrRnUSQSyzc4v0ZLQNYOSg/L/p/MRBBDUx4mTHr/iRm
-         gM1gEWYHYQ2AdoDfjDhupZlyRrIMi4Fuzu5h2TiDchtPdcIYH5cOShNqybw6BDoN+gu0
-         TQHQ==
+        d=gmail.com; s=20251104; t=1789042102; x=1789646902; darn=vger.kernel.org;
+        h=references:in-reply-to:subject:cc:to:from:message-id:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kr90axAl39Wct6vUhubTPo3djvuufRCk0pWZynFpKbM=;
+        b=gdRCo9V9kPPlNj9GfbyI7Th5Scxr/X98Z8eTv1zzJG0SyOvoiZc4otqfI2ttE0lyHI
+         rr6YhwjyzeYMT01gnbSxcGyk8yed7fhe+nZSwZpOerc1nBp4UEG3SHOZXl15T0q3mYx5
+         K0R73AYoNYcHMGG6xUZay1VhPCT0SchGKISVdDgWxhxmNwTpNMLUVfj5g/paImzYKyIJ
+         mGOT2qTFZ75iLq8JyoJAnjhAyfJt9hWcQhsurXBI1306MJ69zKwFEAtqbsh3PXun1d17
+         RfZpILsg9dlwGf0/Qi5v9dxxkEp07Tu8MzQQ8aEPRkxVl7ln4nZfQU8s8/MUQJ8RfpmR
+         jduA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789042064; x=1789646864;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789042102; x=1789646902;
+        h=references:in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/nSVcwff+CVcVUGrv8pukezXki6t7yHP2l4nc4EnAh4=;
-        b=dSvGzXdrrYTKX2otbtizKp7Hk8swCZMRIwXRbDTfyrusyIfFcxDMT+f8yg4mTT0Big
-         wC9CJ7qij/7KU0kWHPDXgVLUePEuYzj9/4yrl9XJBgjdo86aUy+2HWsfnE2MMa1rZ3AF
-         rhuvHpm1pALUCTaBAR8p73XkWZgkGQOZTf6XX0ezKVALGYsLvTD1djoEi38fc4zXa4PG
-         Q9N2dtqOnwwJ0F9CUrJJKUisMrNUqg0i8cN53lZDOyM+Z0UMeLgKciuLdl/o3m4jAcCu
-         ARSuatHS4Ot5TrJzWw4ZHovQX36rMJF+Gb5GtyQajvaEc+NEEanmeYb1dCO2JO7LI4cb
-         031A==
-X-Forwarded-Encrypted: i=1; AKwUvByELWgGDWkQpzaqFP7hdMDWzevdIdiTPDC/KtV6UVwr2wsw62q9LieCjgvcUfM1Yx3eXr9QnzH0nRcDWj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntgxRzJY8bkmv7MkJkuHRoJJ3r8SsjC2FckgWa+JXSKoAQv6np
-	bJG8VG0hFPJwfwOlOeC6gH8MZakcIqlsv79m77MYTLAqm9DFpwx/uzzT5YqEJzepvY4r52TuV1H
-	RZYL4UFiHXavvhZoYu1HlOb9zRz48J0A=
-X-Gm-Gg: AYBFou3peD5bzzZkRqLG1q9acP1+efmW68T4puZ0fbykuWlZ+kkixQ+DFp/BYiFUGKl
-	EP+pBBRQ8FRWW5LKF3gNJxnVOmSi/stRvQCB/lXqzMtHfmfKn0oIQfporDx4W8UNDeWAQQ6X11P
-	G5cTdhV6UpHbNz3ZOybbzRVxYjSblnk2PvdnobIUt/dGDOxW5ioey0DLcRC+D0ZLM8nXelbpH2l
-	m+tdixQ08hKZa/QwT5i8FpUEjCfx5Zt4W0GnyqF6rhbLdFQTvV6LQRwAvRd2ZXkO+KZaLCxXOUQ
-	m/N0yal1i0D0KThdubRUZLWhinwhgZNJ5GsqfdtysLOqGQw/B2LQaKptf/uemKUyyNJ828huhch
-	/7vdWByg8h4Vgjg==
-X-Received: by 2002:a05:6512:224b:b0:5b6:1a7c:fd8b with SMTP id
- 2adb3069b0e04-5b61a7cfeebmr7039690e87.49.1789042063842; Thu, 10 Sep 2026
- 05:07:43 -0700 (PDT)
+        bh=kr90axAl39Wct6vUhubTPo3djvuufRCk0pWZynFpKbM=;
+        b=ThM0YtfeTHsP1zmmSp5RCSZYxEZfaFLqVX/RLdn4zBc6RZRnFt6Cq89Py85ENr/Zql
+         JYVQ1n/dhRHSjBGs1yYTH3+mSr1UVxEpnoUWaxvHaYfbKEoHa23thybWdwngYqktDx+j
+         WaMKVqZ05IXCMs0I/FOqoegb4JbYUbe9uMfvHUnFgbVD0y8y0peRgY7n1d85UWTWCKGu
+         PEFfN45iVGBWhjbVP50IzS8vfGWEQTMv4KAemTDArZD2QZCiGHKt9jn0qCyk5gJbNx4+
+         6tBi78nSkEtiGkJYP+VcZTGXLXVI2XDSqZnDg8bLfuvrqHQOSA0xKglSpXCjYz2zV98w
+         rlIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxjL+JuSi31IGXl2p5XIpbxtKnjXkCPMQu913nU3U7MsCIzB0Vv3trUSrPfoq3iFBD+NmHusTy0uxvbtDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mS9usul2TFvrYuemnFfA/JgQb5ycz8aTwDpakhiF3EamLv971y
+	gyCZgZV4AupVNVkJD+5Nv3dixK6Y4aNiNDtD+3wGJGxRhPAIGDRuhRqPBNl29gWgiPpSow==
+X-Gm-Gg: AYBFou0mD/CkHtFQODw3QQhoKY2SI6LSO6Nu8sMMshidqaudI3nGGSwlPqQyAZDF7Vm
+	3eED7PbHAk6VXhJ8ldbfQXED2c5olwC4FlItpZsZvdnB9Tu3VOSRLkrRG82+aj4iNOV4Fn4GnqP
+	SdXmq03sqtCmHu2qdaXxv6LeKdpGWaleNdkyvmVv/JwZo6ci5o7CzWhpKoNokOtjkZYJr11ZRHz
+	u2MgRWyNRFns3mu2kne9VJgKceD0UHjC+UekFdyV8/h3x7j/JvjJrs8LR5woHvVAOlI2AChwAKG
+	lS0Tl8/n1A8lVtx7+dA+7Sp9vjB+ESsS4XGUI7Z0g4vW/0wUjBh8FjqfFm7KYgduycf2aP5FKF+
+	0ZNKyqRPdMqJ3fr5qfrXEYz3lO/cpo0cVVUmVPcf66RvqkftBbtrin/hhjiKJFG5PJE+8FQ5/GL
+	T0t7IwuHuryOu6jm79f4E2vTedtJAKuANZGWJRc+4rcb32C9lKW2rmjj2/wQIfuLUC68zfSYFxe
+	DAsJDfL0Gu5Tz20AMQcENb9bSJdsOzkS5nKhaKvKVK2bs6pStwF1QoKLnmUn4K0kKpzjZyth5sf
+	2owCMHGox+Lb2Q==
+X-Received: by 2002:a05:6000:1883:b0:482:ea08:8c97 with SMTP id ffacd0b85a97d-485aad9458dmr21686931f8f.2.1789042101895;
+        Thu, 10 Sep 2026 05:08:21 -0700 (PDT)
+Received: from localhost (adsl-178-39-48-248.adslplus.ch. [178.39.48.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c81c3sm51597465f8f.26.2026.09.10.05.08.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 05:08:20 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:08:20 +0200
+Message-ID: <4d885f9e201df6f48a06f4ab3b27a7f1@gmail.com>
+From: Robin Räber <robin.raebi@gmail.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260909134230.441546314@linuxfoundation.org>
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-From: Dileep malepu <dileep.debian@gmail.com>
-Date: Thu, 10 Sep 2026 17:37:31 +0530
-X-Gm-Features: AcwNN1VDrzOq3YTtrG0etUeC6fialLxE7RZyO0hylbbPOfOu-9j4MEH0Rj6kjX4
-Message-ID: <CAC-m1rrWxAUSOw3H8jiztm5DbXFk--LopHmhyB040WA5ieAtMQ@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 9, 2026 at 7:48=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.5 release.
-> There are 556 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.5-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
-> -------------
-tested Linux stable-rc 7.2.5-rc1 on both x86_64 and arm64.
+Hi Cristian,
 
-The kernel built successfully and booted successfully under QEMU
-on both architectures. I also checked the dmesg output after boot
-and did not find any regressions.
+I tested this series on a Xunlong Orange Pi 5 (RK3588S) driving an
+AOC Q32G1WG4 monitor (2560x1440@144, TMDS char rate 592 MHz) and can
+report that scrambling works, with one interop issue described below.
 
-Kernel version: 7.2.5-rc1
-Configurations tested: x86_64_defconfig, defconfig
-Architectures tested: x86_64, arm64
-Kernel source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux=
--stable-rc.git
-Commit: e01c81012950bb7454e595765197025a0fcbc0d5
+A note on the test base: drm-misc-next at the series' base commit does
+not boot on this board for reasons unrelated to the series (the
+unpatched base commit hangs early as well; I can dig into that
+separately). I therefore backported the series onto v7.2.3, dropping
+the vc4/sun4i/tests patches and adjusting for minor context drift in
+drm_connector.c and the scdc/hdmi helpers. The dw-hdmi-qp, rockchip,
+bridge_connector and helper patches applied without functional
+changes.
 
-Tested-by: Dileep Malepu <dileep.debian@gmail.com>
+With the backport applied, all four 2560x1440 modes (60/100/120/144)
+are exposed and 144 Hz works, but scrambling initially failed:
+
+  rockchip-drm display-subsystem: [drm] Sink doesn't support scrambling.
+  dwhdmiqp-rockchip fde80000.hdmi: Failed to enable scrambling: -22
+
+The cause is the monitor's EDID: its HF-VSDB declares a Maximum TMDS
+Character Rate of 600 MHz but leaves the SCDC Present flag unset, so
+drm_scdc_sink_supports_scrambling() rejects it. The SCDC interface of
+this display is nevertheless fully functional: reading SCDC via DDC
+returns sink version 1, writes are accepted, and after the change
+below TMDS_CONFIG reads back 0x03 (scrambling + 40-bit clock ratio)
+with a stable picture at 592 MHz.
+
+Since HDMI 2.0 mandates SCDC support for character rates above
+340 MHz, I worked around it by trusting the declared rate:
+
+--- a/drivers/gpu/drm/display/drm_hdmi_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+@@ static bool drm_scdc_sink_supports_scrambling(struct drm_connector *connector)
+ {
+ 	const struct drm_display_info *info = &connector->display_info;
+ 
+-	return info->is_hdmi &&
+-	       info->hdmi.scdc.supported &&
+-	       info->hdmi.scdc.scrambling.supported;
++	if (!info->is_hdmi)
++		return false;
++
++	/*
++	 * Some displays (e.g. AOC Q32G1WG4) declare a Max TMDS Character
++	 * Rate above 340 MHz in their HF-VSDB but leave the SCDC Present
++	 * flag unset, even though SCDC is functional. The spec mandates
++	 * SCDC support for rates above 340 MHz, so trust the declared rate.
++	 */
++	if (info->max_tmds_clock > 340000)
++		return true;
++
++	return info->hdmi.scdc.supported &&
++	       info->hdmi.scdc.scrambling.supported;
+ }
+
+I'm happy to test further revisions on this hardware, and to submit
+the above as a proper patch if you think this is the right place to
+handle such non-conformant EDIDs.
+
+For the dw-hdmi-qp/rockchip/helper parts, on the backport described
+above:
+
+Tested-by: Robin Räber <robin.raebi@gmail.com>
 
 Best regards,
-Dileep Malepu.
+Robin
