@@ -1,128 +1,100 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CE33BB680
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:37:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029467; cv=pass; b=EQzS7iVnZCeYSShkgBVWL1olbAnZMH7dqU1dFmzoSHtNuYPMDYFri8fUwcnbuhyel8MVtI/9d1OskNJVGcL5osqUHzPohE0zON3CCoTU6tkqM8v0MvG+GNEKlfuT5VAszyD587l67ueWSSZNVFOeo2mJGiFqxhhkQRnJplxkljM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029467; c=relaxed/simple;
-	bh=sc9Cfq2daynLd+xZRF9G1RrBj/E/QZge6eVGxMNfuTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gtpXbqry0exQlXznEbCfb+QbKcErPTS7aOnhIPtBGFeRMKJHJ3U8pnWpEgbrtX53/dbUwxX0B0ZzvX9e6//VtS3MTkbZ2H+M3zFbzH8uqXYuJuFNpnYUk2P8nFGBxCdzkkERYXPX4PQfsjwkAxjLqcwnrRt0UeqqDbbQcOXDjLM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G6wfuOD0; arc=pass smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162F63C277B;
+	Thu, 10 Sep 2026 08:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789029487; cv=none; b=LyUPFJXxyR+FJleUqgsaMhuakcdNN7s/6NhRRts+A2vTZjkK1J9WooyNrYueyE9FdkCV88MV82q1bLWHRnkvvhVdocaawAunWEdzckPL0O5R7tN0dcrNmOMdw7BqjgT5ER5eCVMw2JogTwFSL1ILZ654DhkkJhOnuHZ9tHcOLMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789029487; c=relaxed/simple;
+	bh=yOOXWXHM2+5YroYJ2g1ayyRggEFN5VM6tshAWAfszyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J21bTT86lHCsSOZtMeRIHnF91RK1EbYXpjCYQnS557VPjETmCrClc6s4ItZCtStwP2N2GZkeEuZPIJ2L0lQratEVSN/zhhdqj49j+tUO5+0PZDNwOyFI45PcDyX0yQ1pMax+9rNHp+aBPLxUVSrvcXMu/Eo2xz8gVaev0EuG59Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqDayxOB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G6wfuOD0"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482ea739de2so4602753f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:37:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789029464; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ecS/16KZORo2QVrWCNTEUvXL1mOz2OpP5BF7DQ+w5TLE8MlG1eLWHU+p1m99nePTQT
-         sQE/WMr3BW9zt/QitEINvWA4I/TSiLh/L0PrrBLBaMmLqKuihCTaKuqDrsux5pR9Vi0D
-         YhElPHCQQS6YzCsyMX4JG6btMeOWUpnqcGSZJ7vHWmUlVkhOcoP7aRViHKj9IAA8ipBs
-         qIjI6t7nKFrIruohPlOGS0Uu0sR4KUZnkmIuvazYltkanplcF5iXM22Dispr+VX9UJwE
-         l2sM6zRNYOuI3uyE0m/yv6jWJmemOaHofonzzert/Ntb/t+tUGUl47QEpJOHdNfnfP+g
-         GfzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sc9Cfq2daynLd+xZRF9G1RrBj/E/QZge6eVGxMNfuTE=;
-        fh=TMCZdkoVL9SiXGAD8KuMjCog02qknxl9jV2GpUo/p+s=;
-        b=OcOP3zRz5iaLpqBk6wxZWDmDBzqJruws2/fLDKjMHPC/LmtaKXsnM6Aj33ZpiGBFCE
-         9l1tUGYsd1/0KOIkzVBxNFts8jd+VWgIOZJawwSvqxXBlNH6A4BAPTXCQRbR1vs7OI4H
-         Z4tXMlH7A4isXYd2vSpMY+rNlAsVQdQRrmNywMMN80kGAb+ym5oWcdkXIgVTlubT9rnR
-         +aN/3Y0hoREmgJ8R7zQPwRB3fE96h0+KWM/AOqTWMX+38xwJ5TxiQDX+RjCsyldUaYU9
-         YQhGMSeDb4o+j9pG/HPHXH69t4oxkYY+3miiaM+PEWux+mZfVyU/5D9BqAs2iQbsYEwh
-         lK8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789029464; x=1789634264; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sc9Cfq2daynLd+xZRF9G1RrBj/E/QZge6eVGxMNfuTE=;
-        b=G6wfuOD0GgeSMycPWzGkHC6pJtjh6k5UX+pJJaUn7LNZCxmKnblfjv6WmAsa3lnO1G
-         NUCu27CyARa2+vMNtiHi6Jqw8CghBJmYYQSG6//H7GoFIoZGOXVMKubWcCOjQFLaIbrO
-         gBCgKrDIE4Oafj64U9IhhNsbnYT8omxsKaMFb9a3mRPevZV34O7OHKjaiSqottHQ+Drb
-         XKQ3fII+JTYuM1DvCSLzAxUhdbQPWmNkPPvEW/zyuvtXoRZmVcGu6SYXuQTLnkEPhAb6
-         ioC9FP0WspoMVvQ8rTZbhHqStKmVJTRe0Nrq5OkLkixS85uDCUGZZZ8y7w1a9QQ71rFb
-         hB9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789029464; x=1789634264;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sc9Cfq2daynLd+xZRF9G1RrBj/E/QZge6eVGxMNfuTE=;
-        b=BuPI6jSoLOkK3Id/29dW58+c11ybdOW9hm9ucTYbEFVnDYr/y8y6Kx5y1m+9GmZSOG
-         9GGEV7U40gc0ofdusU+BdwNBzthEu7sI8g0gy4s+m22QxPPmoyoD6RKkdbezIs6v/X6f
-         Nw/fiIt6j90vyRNzIWuomNdRjuJzFvri3D2oPnMb//0CdfDDyJkAQPNZflQ99NqLDjTQ
-         ZjPLK94veO08PsOV727yPg9HYgzWbiNgymawG3FZAZoSPDzZ9ziHyLyQrdoaYTHCr040
-         1Ze4lWr33YUUtw91gr0qEccPdjWTNm7FVE8yNeefG39ziyqj0bBVZfecTkLqNXbrVl/l
-         lpqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxhmWJExMNg0quKGjY12rGPPYbuzNHRBapzAA3vLh22/qa+s9iscfxMjmuuUedl0viCg3AOc6tcZtrUxQc=@vger.kernel.org
-X-Gm-Message-State: AFuF++khvgsZIOEZKV2BaXBdlB/YDGwzRYheuKMTkTuLn6HKRYwIaWlq
-	fFTbDV/nJ8wHn2rtD7vOjd9M6qkbzzMNr/HnoafBvYSPL+HR7KMJ3DNqENVUbqkWABoNBre1PhD
-	bDjgonEmNZ9KhM/Mqlao5T8VpvuGFA9Xbecgq6hui
-X-Gm-Gg: AYBFou3xowu47lh1FmxDbytrcFk9dklL2nv9w0nbKPD6kmrAiF/tx5jKAHYPPnmZZft
-	L11TWA5p7xZD6er95BrvkvkDYieolp2rxv+WV3qAD4zVws43L/YDEbARwH6FPEiSNNkUxCzxPK8
-	0qsFSXceFw7eSDORZxMei2B6WobS4gX8NPRfe7MUvWecILsiU3/fphk6KpvmmsNv7Rgzwe1GjFN
-	CzFLDeoyRIZqg+ZH8PMY9Vwz2Ui8rEFOKy3dxU39O9MUSab4iBp2MIv3cUYumCF3C6vJgHpzz62
-	kRLWWEpa7Sb8zoy3mxzVIm2t+1R0qeLhZqV+f23O7pUmhbH+H9//qXqRfG6ut57KzOiSdL+vPQM
-	tQt2xrD77EK+PpeVZprl/
-X-Received: by 2002:a05:6000:4a16:b0:485:8c16:a361 with SMTP id
- ffacd0b85a97d-4858c16a757mr37879090f8f.57.1789029463048; Thu, 10 Sep 2026
- 01:37:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqDayxOB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C261F000FF;
+	Thu, 10 Sep 2026 08:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789029478;
+	bh=EZGyD4HcrjDRUcR2xnLZUcoNWJUpQvPh9c9ez8Kckcc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqDayxOBxh7RZhoahGQfIr5nqGXH1m09RD+JiuwnolPYrMt+KHGlvS9sqRNJrXINB
+	 AQ2AARvY1wPptsSFIQ4l/Mp6QDdD4MsSgiKeO5MuXqRMSmSZTY5eIt/faPDLK8jtQA
+	 KGAn403hcc0XarQhKfmXw5n5QfIxqO1LREKhekOND+u4NjMteJlota8eMUE+bPD6bO
+	 9SM8b6qVaEhkHHeZxrpmGfP/uTOBj4hTNR6CSPKaatn7SIg23PURpI/HPDRlt5yOP7
+	 8VS2JFKZEcCb/Wgds0zeLjWin3qqBM+h7QUWvcJlWtu3taZkeWKWkCu26ah+Pz81Lo
+	 LVrIAcdhmb+oQ==
+Date: Thu, 10 Sep 2026 10:37:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
+	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
+	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH v3 18/19] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+Message-ID: <20260910-determined-fantastic-seriema-3ff701@quoll>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826131213.1820408-1-beata.michalska@arm.com>
- <20260826131213.1820408-2-beata.michalska@arm.com> <aqEox8rYYBcfxtrN@google.com>
- <aqJqICNMitP3JTJw@arm.com>
-In-Reply-To: <aqJqICNMitP3JTJw@arm.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 10 Sep 2026 10:37:30 +0200
-X-Gm-Features: AcwNN1XzpH-G7K26BQl6iCpALzC0tIsAPD3Utlt434iR5Pwrv8_DVtOsPo8QrAM
-Message-ID: <CAH5fLgjWcO5fTn3fRwdt8Zh8U+AubtHfVuNOUCnm0U8HjJe61g@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] rust: add runtime PM support
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: ojeda@kernel.org, dakr@kernel.org, gregkh@linuxfoundation.org, 
-	rafael@kernel.org, boqun@kernel.org, gary@garyguo.net, 
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
-	tmgross@umich.edu, daniel.almeida@collabora.com, 
-	boris.brezillon@collabora.com, work@onurozkan.dev, samitolvanen@google.com, 
-	acourbot@nvidia.com, rust-for-linux@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
 
-On Thu, Sep 10, 2026 at 10:28=E2=80=AFAM Beata Michalska
-<beata.michalska@arm.com> wrote:
->
-> On Wed, Sep 09, 2026 at 09:37:11AM +0000, Alice Ryhl wrote:
-> > On Wed, Aug 26, 2026 at 03:10:55PM +0200, Beata Michalska wrote:
-> > > +/// Result type returned by runtime PM callbacks.
-> > > +pub type PMCallbackResult<T> =3D Result<Option<T>, (Option<T>, Error=
-)>;
-> >
-> > So I think my number one feedback is that it would be really nice to ge=
-t
-> > rid of this Option.
-> Guess this can be done. And I'm assuming that's for both Options here (?)
+On Fri, Sep 04, 2026 at 03:27:19PM +0200, Michal Wilczynski wrote:
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> index 9c3e4598747eb5541effe697044484715569a285..0f981f4c89586269b987be8591037c9461e04703 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
+>  		#clock-cells = <0>;
+>  	};
+>  
+> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
+> -		compatible = "fixed-clock";
+> -		clock-output-names = "hdmitx0_pixelclk";
+> -		#clock-cells = <0>;
+> -	};
+> -
+>  	i2srx_bclk_ext: i2srx-bclk-ext-clock {
+>  		compatible = "fixed-clock";
+>  		clock-output-names = "i2srx_bclk_ext";
+> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
+>  		#clock-cells = <0>;
+>  	};
+>  
+> +	xin24m: xin24m {
 
-Yeah. I'm thinking that one approach could be to use the AtomicFlag to
-track whether a value is stored in the container, and possible change
-the Option to ManuallyDrop. Then in drop of that type, you check the
-AtomicFlag and only if it's false you drop the value. That way, you
-can take the value in/out of the ManuallyDrop so that you can transfer
-ownership to/from the storage.
+Other clocks are called foo-clock, so follow this as well (even though
+it does not follow recommended practice of clock-foo, but at least some
+consistency).
 
-Alice
+Best regards,
+Krzysztof
+
