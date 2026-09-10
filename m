@@ -1,68 +1,68 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F7741C302
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AAA45D927
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037100; cv=none; b=hH2ooYTVZ+nrDETO3PV6zf1KW4fXToxnT+ZsEJatzG6JoQbo+8D/e52sNd355uhioTatz3js3kOW5ZnOQU/L5owKsq0I7W5wriGjZukZet0Z739KXfb0x4MRfexUG0NTo5aOooqAWnBYEckIG+dYaBMV5TP0513mhDz2MXTBpwg=
+	t=1789037104; cv=none; b=TsGWgIVdVovgg5XFt4701C/fhrNfBVaBvqmj2je7nZzPbsFW5deTZKurdz8ND5KEA/f7AdWjwTlNK8rvJbyPAdHp/G7dY3uIRJmY3y5QrtZAd0fmr4oJWMRTDH6u5f7FuhOv3uoNI+zTC++XGdbp94CBsK+YHxoN+zLJsbC189k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037100; c=relaxed/simple;
-	bh=GJPDThOnszeiZ3vt9KH8FW9Eaxz3tFiR4MX/ju/T7HQ=;
+	s=arc-20240116; t=1789037104; c=relaxed/simple;
+	bh=HxfOQgxeNC2M/0FZuUE7U8uVbNE1FfEV8GtT6PXgiCc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kT+AjS+9FEPFN1iecUDtpP3vsu9OBgY2eTvijbBwzkjaj3n4A0iGgRgmx2qH2Icn7jO8qr01ut0xQl9zL7KQ1etOxEE9yzU4WsPlz2UFQqdPXZFxJXvn5HLeQYHanog9uIlDKuH/4Z+hdd2oAEsALm1aZ0YhWW6vw88mBd8qrLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oLX1UIEw; arc=none smtp.client-ip=209.85.128.45
+	 In-Reply-To:To:Cc; b=eY4olyj3ZAB8cs2hpJhpUq9a2GuySR8HDpJEvxdzejZdR9gAZ+7Jb59RFhwjP8/fe0+rQjG82DN6MIsmVEvYNvzPGar12IuGI9qoHJL66SR11qSC2VOiNnJu1ObDuGO+zYBblKGhvFzYslb6b+52rhpHacVq+xiYxEKzbXnfjP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S0ZORa9N; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oLX1UIEw"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso68515265e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:44:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S0ZORa9N"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso1026119f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:44:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789037094; x=1789641894; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1789037096; x=1789641896; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4df3jNNf+SwA47LnnMoTuv12BdxZ5QKPK9X6Eu1aAJA=;
-        b=oLX1UIEwrzXr6XNxNIXjGiIMF47J6pdkF0wted53IyufnlfsxVKLrByJ/T3InPCgxe
-         aImyKlDFdUeYeAH/jGxAwP4D53EWaTwz5+MauzelZUWnDCHrls0MHG7SpuS8DmH7AIq2
-         24H02ztN6H6EsepFIbOhNkjtL8GwNxG/vbg4gO2f7BMHKCnMHnvitLROQwaWCfn0o4qm
-         A+Ftwvl4BrtuVc4zqN1yocKglEIot71+ECLyJBiKW4Mq5id23wTZrzy4FNaYizjIhXqr
-         EaWsr+x6okoYFBeJXte2mzCRVm5CEDqBrnGhh11X23wvo5VA3HfMXayOAtN2pAF53ZwO
-         WFmg==
+        bh=9frimrJtum7yK2qZWoLc4swbgstoZT3xwJT/qEIOZUI=;
+        b=S0ZORa9NFTGwfTI7QiWdjvh8FJcMWjRQgerNsRaVL//dIva67oRh2RsPYfZqysVndU
+         fA47ttt7OYV5ZR+5CI3sxRlTkfDUzW1XaffYQP/CsORySxEy6c6Cm1fYil39rc5eMjb3
+         jrOLbtDG/Ux6HlilfNXjA9pnE9J9yUv8GIqdvxYegc4YgJA+vKOAbfnIBC0XSButqnLM
+         NIsnabiIHkmGyh6xvCwd3YytREvp5dioYKbl+yV7dLI7D7nzglmp1bvdbMq7dqKAlf+S
+         tq89OPCxEp93vIO0c4RRo+Ty9kN4RJVTT3JM+mZpej1oXpRhRCYg3znHxQlYB59vuI+L
+         QMuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037094; x=1789641894;
+        d=1e100.net; s=20251104; t=1789037096; x=1789641896;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4df3jNNf+SwA47LnnMoTuv12BdxZ5QKPK9X6Eu1aAJA=;
-        b=qE9llDiumas4qqwjQvjiXa25ufvaFKSjvXow7ch1QkHmmZIom+mOD8HPGuDBci8Qzu
-         BMWKAPRPgDhHgwoRQSCBVCrmlbwplMfvTHOhXqw28+MTLDqN9fqR3LSppwwvAucYG3wi
-         MP1GYs8lCEA6pgaM0Ev9Ugvn5GTMXqQymwQmeWungqHshif8cA2V2zDbaFk7l0l7AE/e
-         kuQt4sRsAFp4rAuqfOCv/h+haMW8afTmq9U1SQGzOl+7LtnZMUShsN7xD35II0SxJ7/t
-         rESepWFG0KZbl86CS/MTtu1VSeVyxEoCc6+sv7XigXJqfdYRl4dAYC/nDmkPgN7QjPXy
-         5vww==
-X-Forwarded-Encrypted: i=1; AKwUvBwO43sW0JkDIwzK3+DltcSN+bfKGsc6yDJyvXPf2S6pwjb99+wFbQCl5aDbnWLEXm/GBQWHn51eAo7EKbA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4qSMfaVnjFIb2hIOOHZYK5qRz44NShc/SSmQCm9PhPAyebh+7
-	7AII+aKUCGeRbPuZI+cKDWalu2rmjWXZiZI+SeKG+dUoCfJ4qJBhoBIaoMSJKBOGLK8=
-X-Gm-Gg: AYBFou0N/LRkC2HW8AYBuAH6ucPO6pKuFoXUMfxqfRM6KpiI/nGpeHRRAxbzkMjWkkn
-	5LfCyRLmSwKfTVAzLAziANQREIhn5oQS4Fy1Ogl8aB07ZYHEhICnXb13vnifTc1hZQtD7Ydjwoo
-	Ek9IULeQkIYXE6hln8ZbxNyQItX7VLggNtW6dsNYjNMYiKHXrOgqbMESGrwXFClBBwe7r1DMnAf
-	wl76hmB3GBC6FTm+EeSaWIKXHAYicUALeJeelB6NiJAtOvLqx8rZ4sDm9fVG2aMPNKycICv0M6f
-	7HYVM3jLTsZJ/NjUM78lurT21cYRPIZaBACztRTzl+PNGKcm80q+ypySabRaqKuW/zvmwuDCXNi
-	JM+Y19AaQsVzJtOz8+eEkfHjzrrCz4zVwuVuK+jVDd/K2BzkqqZB+6xtQSl/dMyQrXP2iGtWsWT
-	+vZbQhHrJ8lDOK5GnAedJVrdW95zZAEGG9C1ngfFPwIstyaPokuHO7d0t29VoLLjnEkckY+dY0h
-	ac1LkjKOWtu+8kkYA==
-X-Received: by 2002:a05:600c:314f:b0:49c:ffde:45ff with SMTP id 5b1f17b1804b1-49cffde4629mr343074845e9.17.1789037093673;
-        Thu, 10 Sep 2026 03:44:53 -0700 (PDT)
+        bh=9frimrJtum7yK2qZWoLc4swbgstoZT3xwJT/qEIOZUI=;
+        b=o1PH7SNtGRL3cTouYKCc+a1pDxXMg2CXXLJBgk15RLQxzNkStjzHu6xQhKdiNIMTP+
+         Xw1QXOFA8836ym9TcCEPmmdhsc0K6+wvVl8d6xd++LV4sxm+5K/I+yuLtckD9G3+vdn5
+         lFaRMr0hnV3mBHUySXKc/oMPDHc8PRgF2DDJBPm3nSPOAlJLYXbYcopl0U9mlpAQw6KL
+         wW3tppgutVZq8Ay8LK/Vz7QL2iZMUaUNjORw1+kfF6AfhKcQcIrcCsdnUkHBrD2s55Tq
+         Wgd9WJoXV6WEk88fC3ZiQ9498hg7flfFl2qsm0+H6R39ZqvSN6mMZTdmdb0QJYjMCOg7
+         xutw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2oKdkhlY15U0erxLUh02QkACgRvKEFFFjwQkaPZ7tGsg8/ZHIowQuc5kcKnnTVG0NZprhbgsgXzMNHrk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRmo4V3vVNVYGcBl4OedEcPKGFYO+X6cWiUQpade/JAXaamwB8
+	Ww8lK9R1OQZj/UZwX40huSWp1wlQAYNKGiyiMuZQ80cVjF3m/qFpw4iUVA96grV+u1k=
+X-Gm-Gg: AYBFou0WS8Tw4kuAhYaYCCYMxff7RQrsbbC6etoJYoYzLnz5SMXWGPc7zLwJZ9uaBm/
+	sz1CLGsP/x0qA9oucoCe5n7yDMU2CzAywLJZrTTNAWZSyXPyvOdsgkFO+F9avZhNHI/k6IWLrxN
+	Qjfy++Fq2usz2TD8a+sOvhAH3va3bS34kY3VQu6AQQ1uakSnOqNn/jHajmOoN99UByTiWuk4QWs
+	7VXVUqOFzpd7L8IcMzfXkFvaftfNUB1d7O7ajGcJla/NUAW+jfahrTWVE7CBoGktCI5LWmmngTj
+	7L2cUfJSnZ8Dzw7Ly0ltcY+RzLnNVhKtOwBjuppfOorQkQl6aCjqkc6W5TXtjk3/sSlkJ9/Gg7W
+	MFbKwDMeqy38FaTXK93PgplA4sjg17qJ9ctKJ5BjGDouYqAA8b4cZJs8+aoKT2Bbo/SozRDxEtX
+	L60IgFe5jr3ikmvQuQi6OTXWDkmJQ96MExSyw+0vIGSEZadqDiBp6FzOGXgOr3eDe2WEr8Awo3D
+	v13G9Wo5vvbU6FpTw==
+X-Received: by 2002:a05:6000:430e:b0:482:ea08:8c8a with SMTP id ffacd0b85a97d-485c23e5411mr11946509f8f.20.1789037095733;
+        Thu, 10 Sep 2026 03:44:55 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c04ba2sm63146745e9.12.2026.09.10.03.44.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bf3f0sm55469516f8f.33.2026.09.10.03.44.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 03:44:53 -0700 (PDT)
+        Thu, 10 Sep 2026 03:44:55 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 10 Sep 2026 12:44:38 +0200
-Subject: [PATCH v8 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Date: Thu, 10 Sep 2026 12:44:39 +0200
+Subject: [PATCH v8 5/5] regulator: axp20x: add support for the AXP318W
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-axp318-regulator-v8-4-e906a61a7f3d@baylibre.com>
+Message-Id: <20260910-axp318-regulator-v8-5-e906a61a7f3d@baylibre.com>
 References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
 In-Reply-To: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
 To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
@@ -83,394 +83,481 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
  Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12979; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=8KErW1FkPZKKzrIm6143ej3q+jSd6lOTIZxIGTzIMGo=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqoooZtwfiBaHUIc8bzVQcykinbG3jRWKj8fjox
- NIeKZfBzUSJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqKKGQAKCRDm/A8cN/La
- hRy8D/9GH+zGwxI2z3NnksSzCSQdAbEpiilj6AFFhkRZAWbZa9WT/fOFqI2qzwqa6nGBxFAqPNB
- eYxtbVCAukj6vUjEdx6TqhxQJxGQ9CC9GR/yKN6vkaHT4kxuUNaNDa0HQXfelX+YJxp2sxro5DC
- ZR7qYdI8We1o3y2xswhEXMgotPIJfwoq6hI161gJu5ULgMVxUuPh8nlGxLmjvU9H/2yUNGvnvtZ
- L+VXqPAFO3WodftTWKMfRoNN5Ht0bv5rocXFQtnH2hIWfukQZjJLcfqK5Umj2Ka8hqI+gt6gId9
- z81ezeFU42Duvvb6aBXHPzzYLiS6Ts0mF7KBwQVyOPH8x2tdPH0/Bf4z/NYkW9zuSVorn+bMHT7
- 8J/o+jime1TJ28cySojjjjuWhPc6gKxWiaIj3m+GsFi68TVsJxHnOWNaommCvRu7H/jBsrdjrgt
- 4o1lk9JCcxzsIYLPjoR6LAej+NnB/edeG2FXpF2e/dPpmAddYmXmACIRGm8Z/yi4ifEwRDVmeR4
- 2xFgxONyaba/66TW9VC+FIIPsK8uArZgvsGcFfU8Hcw7y577j8UzDwdpoj7SIh5gNePhWtLKSyY
- vInDaICxHYkvRlY90mhCOMRcICydeqTvpPxOYZ1BACOZkiEujjQmTvICjVR/TBo0MRrggTLp5i7
- fwA9c4ZFiLIYV3Q==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19549; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=mM00w2khOQ1luc9sLRr+7THG50AYVfTw02Km56a/ykA=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqoooa9MAMJ8ZCbXCtk9zZke11ozFa5OPMx9QDa
+ jWdZ+yIBsyJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqKKGgAKCRDm/A8cN/La
+ hSnRD/0R5wSQLlb9w3tUVKCKUEq6SrCyoRjzmrp/xX9hqm4tX3HM4tPz60xGFi4vUBPYUuo9iqy
+ DNPQ0WxR6eCDCDm1EcljHW+gO0zveVlJY282jqYRXThIppWooDdXNiUrutitxLCj7i+NaohrUfD
+ 7lEdKn+YYiLG7hKfr1eTBX8w1SoP/Smu0fr4+8Opy9YcjfXHSrHDHa7EKb8NvTHbZRDVaBpmtkP
+ vMZN1fF+uoXXs+RCl2ue/01Ex9u1yIREoY31JPVSsDkkE6Rh2TLY211xNSTyqDPHefOabXrNK16
+ /6E1ek1726zmQbNBTTO0CL7u9vEwpcA0Kj9vSMSpSIcQDYE7Br5apN3IRvoP48O/auC4K4eaPf9
+ i0bsnfGNOkzqS7a9dT3IAeXS3cDJTxegNVnOgiMmZ5GyHP5+U97Y/8d0ZUbBrM+dwLt3mwyKLsG
+ kkK1t9xUZO2GbiSLhD8vjMeIwR86wFTv2TJSJVu5oU9/IpS0EYYmHLQoORRc4S/TnB2iqh4mGaC
+ 47T3lfmHLjRDo+YBwci47/79m2vkTZQmbwOelm498F4fLrbBbtsns4kmiwver0sXaNL8vRvoeN1
+ AtjYNJZCNFKnOuFlmDYwrgxLtPfORFVpJ5ARUqz7oFPKEvCRfs5uJY6sCqlA8hIBa2VClstAs4L
+ 4Ts4G8MaFSOOpZg==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
 From: Andre Przywara <andre.przywara@arm.com>
 
-The AXP318W is a PMIC chip produced by X-Powers, it can be connected to
-an I2C bus.
+The X-Powers AXP318W is a typical PMIC from X-Powers, featuring nine
+DC/DC converters and 28 LDOs, on the regulator side.
 
-It has a large number of regulators: 9(!) DCDC buck converters, and 28
-LDOs, also some ADCs, interrupts, and a power key.
-
-Describe the regmap and the MFD bits, along with the registers exposed
-via I2C only. This covers the regulators and interrupts for now.
-Advertise the device using the new compatible string.
-
+Describe the chip's voltage settings and switch registers, how the
+voltages are encoded, and connect this to the MFD device via its
+regulator ID.
 We use just "318" for the internal identifiers, for easier typing and
-less churn, but use "318W" for anything externally visible. If something
-else other than the "AXP318W" shows up, that's an easy change then.
+less churn. If something else other than the "AXP318W" shows up, that's
+an easy change, externally visible strings carry the additional letter
+already.
 
 Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Reviewed-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- drivers/mfd/axp20x-i2c.c   |   2 +
- drivers/mfd/axp20x.c       |  88 +++++++++++++++++++++++++++
- include/linux/mfd/axp20x.h | 145 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 235 insertions(+)
+ drivers/regulator/axp20x-regulator.c | 319 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 310 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-index a76bec5604c4..64c212b76e5e 100644
---- a/drivers/mfd/axp20x-i2c.c
-+++ b/drivers/mfd/axp20x-i2c.c
-@@ -66,6 +66,7 @@ static const struct of_device_id axp20x_i2c_of_match[] = {
- 	{ .compatible = "x-powers,axp221", .data = (void *)AXP221_ID },
- 	{ .compatible = "x-powers,axp223", .data = (void *)AXP223_ID },
- 	{ .compatible = "x-powers,axp313a", .data = (void *)AXP313A_ID },
-+	{ .compatible = "x-powers,axp318w", .data = (void *)AXP318_ID },
- 	{ .compatible = "x-powers,axp323", .data = (void *)AXP323_ID },
- 	{ .compatible = "x-powers,axp717", .data = (void *)AXP717_ID },
- 	{ .compatible = "x-powers,axp803", .data = (void *)AXP803_ID },
-@@ -84,6 +85,7 @@ static const struct i2c_device_id axp20x_i2c_id[] = {
- 	{ .name = "axp221",	.driver_data = AXP221_ID },
- 	{ .name = "axp223",	.driver_data = AXP223_ID },
- 	{ .name = "axp313a",	.driver_data = AXP313A_ID },
-+	{ .name = "axp318w",	.driver_data = AXP318_ID },
- 	{ .name = "axp323",	.driver_data = AXP323_ID },
- 	{ .name = "axp717",	.driver_data = AXP717_ID },
- 	{ .name = "axp803",	.driver_data = AXP803_ID },
-diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index de6946d4bb13..67ab529ebd2c 100644
---- a/drivers/mfd/axp20x.c
-+++ b/drivers/mfd/axp20x.c
-@@ -42,6 +42,7 @@ static const char * const axp20x_model_names[] = {
- 	[AXP223_ID] = "AXP223",
- 	[AXP288_ID] = "AXP288",
- 	[AXP313A_ID] = "AXP313a",
-+	[AXP318_ID] = "AXP318W",
- 	[AXP323_ID] = "AXP323",
- 	[AXP717_ID] = "AXP717",
- 	[AXP803_ID] = "AXP803",
-@@ -218,6 +219,38 @@ static const struct regmap_access_table axp313a_volatile_table = {
- 	.n_yes_ranges = ARRAY_SIZE(axp313a_volatile_ranges),
+diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
+index da891415efc0..732541ee619e 100644
+--- a/drivers/regulator/axp20x-regulator.c
++++ b/drivers/regulator/axp20x-regulator.c
+@@ -138,6 +138,29 @@
+ #define AXP313A_DCDC_V_OUT_MASK		GENMASK(6, 0)
+ #define AXP313A_LDO_V_OUT_MASK		GENMASK(4, 0)
+ 
++#define AXP318_DCDC1_PFM_PWM_CTRL	BIT(7)
++#define AXP318_DCDC23_POLYPHASE_CTRL	BIT(6)
++#define AXP318_DCDC45_POLYPHASE_CTRL	BIT(7)
++#define AXP318_DCDC1_V_OUT_MASK		GENMASK(4, 0)
++#define AXP318_DCDC2_V_OUT_MASK		GENMASK(6, 0)
++#define AXP318_LDO_V_OUT_MASK		GENMASK(4, 0)
++#define AXP318_ELDO_V_OUT_MASK		GENMASK(5, 0)
++#define AXP318_THRESHOLD_VOLTAGE	1540000
++/*
++ * FIXME:
++ * Some LDOs of the AXP318 may be fed by different supplies and
++ * the documentation repeatedly warns that output voltage must
++ * be less than the supply, which is the case for any LDO really.
++ *
++ * The best way to let the framework handle this is to set the
++ * min_dropout_uV field. However the AXP318 documentation
++ * does not provide any information about this.
++ *
++ * Realistically, it can't be less than 1uV so use this
++ * for all LDOs until we know more.
++ */
++#define AXP318_LDO_MIN_DROPOUT		1 /* uV */
++
+ #define AXP717_DCDC1_NUM_VOLTAGES	88
+ #define AXP717_DCDC2_NUM_VOLTAGES	107
+ #define AXP717_DCDC3_NUM_VOLTAGES	103
+@@ -371,8 +394,8 @@
+ 		.ops		= &axp20x_ops,					\
+ 	}
+ 
+-#define AXP_DESC(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
+-		 _vmask, _ereg, _emask)						\
++#define AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
++		     _vmask, _ereg, _emask, _ops, _bpreg, _bpmask, _dropout)	\
+ 	[_family##_##_id] = {							\
+ 		.name		= (_match),					\
+ 		.supply_name	= (_supply),					\
+@@ -384,13 +407,32 @@
+ 		.owner		= THIS_MODULE,					\
+ 		.min_uV		= (_min) * 1000,				\
+ 		.uV_step	= (_step) * 1000,				\
++		.min_dropout_uV = (_dropout),					\
+ 		.vsel_reg	= (_vreg),					\
+ 		.vsel_mask	= (_vmask),					\
+ 		.enable_reg	= (_ereg),					\
+ 		.enable_mask	= (_emask),					\
+-		.ops		= &axp20x_ops,					\
++		.bypass_reg	= (_bpreg),					\
++		.bypass_mask	= (_bpmask),					\
++		.ops		= (_ops),					\
+ 	}
+ 
++#define AXP_DESC(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
++		 _vmask, _ereg, _emask)						\
++	AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
++		     _vmask, _ereg, _emask, &axp20x_ops, 0, 0, 0)
++
++#define AXP_DESC_DO(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
++		    _vmask, _ereg, _emask, _dropout)				\
++	AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
++		     _vmask, _ereg, _emask, &axp20x_ops, 0, 0, _dropout)
++
++#define AXP_DESC_BYPASS(_family, _id, _match, _supply, _min, _max, _step, _vreg,\
++			_vmask, _ereg, _emask, _bpreg, _bpmask, _dropout)	\
++	AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
++		     _vmask, _ereg, _emask, &axp20x_bypass_ops, _bpreg,		\
++		     _bpmask, _dropout)
++
+ #define AXP_DESC_SW(_family, _id, _match, _supply, _ereg, _emask)		\
+ 	[_family##_##_id] = {							\
+ 		.name		= (_match),					\
+@@ -419,8 +461,9 @@
+ 		.ops		= &axp20x_ops_fixed				\
+ 	}
+ 
+-#define AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges, _n_voltages,	\
+-			_vreg, _vmask, _ereg, _emask, _ramp_delay)	\
++#define AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
++				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
++				  _ramp_delay, _ops)				\
+ 	[_family##_##_id] = {							\
+ 		.name		= (_match),					\
+ 		.supply_name	= (_supply),					\
+@@ -436,10 +479,23 @@
+ 		.enable_mask	= (_emask),					\
+ 		.linear_ranges	= (_ranges),					\
+ 		.n_linear_ranges = ARRAY_SIZE(_ranges),				\
+-		.ramp_delay = (_ramp_delay),					\
+-		.ops		= &axp20x_ops_range,				\
++		.ramp_delay	= (_ramp_delay),				\
++		.ops		= (_ops),					\
+ 	}
+ 
++#define AXP_DESC_RANGES_THRESHOLD(_family, _id, _match, _supply, _ranges,	\
++				  _n_voltages, _vreg, _vmask, _ereg, _emask)	\
++	AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
++				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
++				  0, &axp318_threshold_ops_range)
++
++#define AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges,		\
++			      _n_voltages, _vreg, _vmask, _ereg, _emask,	\
++			      _ramp_delay)					\
++	AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
++				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
++				  _ramp_delay, &axp20x_ops_range)
++
+ #define AXP_DESC_RANGES(_family, _id, _match, _supply, _ranges, _n_voltages,	\
+ 			_vreg, _vmask, _ereg, _emask)				\
+ 	AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges,		\
+@@ -567,6 +623,50 @@ static int axp20x_regulator_enable_regmap(struct regulator_dev *rdev)
+ 	return regulator_enable_regmap(rdev);
  };
  
-+static const struct regmap_range axp318_writeable_ranges[] = {
-+	regmap_reg_range(AXP20X_DATACACHE(0), AXP20X_DATACACHE(3)),
-+	regmap_reg_range(AXP318_DCDC_OUTPUT_CONTROL1, AXP318_DCDC_MODE_CTRL1),
-+	regmap_reg_range(AXP318_DCDC_MODE_CTRL3, AXP318_DCDC_MODE_CTRL3),
-+	regmap_reg_range(AXP318_LDO_OUTPUT_CONTROL1, AXP318_IRQ_EN4),
-+	regmap_reg_range(AXP318_IRQ_STATE1, AXP318_IRQ_STATE4),
-+	regmap_reg_range(AXP318_SHUTDOWN_SRC_CTRL1, AXP318_POK_CTRL),
-+	regmap_reg_range(AXP318_WAKEUP_PWROK_PIN_CFG, AXP318_WAKEUP_PWROK_PIN_CFG),
-+	regmap_reg_range(AXP318_TS_PIN_CFG, AXP318_TS_PIN_CFG),
-+	regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_TEMP_ADC_H_EN),
-+	regmap_reg_range(AXP318_DIE_TEMP_ADC_H_EN, AXP318_DIE_TEMP_ADC_H_EN),
-+	regmap_reg_range(AXP318_GPADC_H_EN, AXP318_GPADC_H_EN),
-+	regmap_reg_range(AXP318_GPIO_CTRL, AXP318_WDOG_CTRL),
-+};
++static int axp318_threshold_check(struct regulator_dev *rdev,
++				  unsigned int sel)
++{
++	int old_sel, old_uV, new_uV, enabled;
 +
-+static const struct regmap_range axp318_volatile_ranges[] = {
-+	regmap_reg_range(AXP318_IRQ_STATE1, AXP318_IRQ_STATE4),
-+	regmap_reg_range(AXP318_POWER_REASON, AXP318_SHUTDOWN_SOURCE),
-+	regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_GPADC_L),
-+	regmap_reg_range(AXP318_GPIO_INPUT, AXP318_GPIO_INPUT),
-+};
++	/* Only applicable if the regulator is enabled */
++	enabled = rdev->desc->ops->is_enabled(rdev);
++	if (enabled <= 0)
++		return enabled;
 +
-+static const struct regmap_access_table axp318_writeable_table = {
-+	.yes_ranges = axp318_writeable_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(axp318_writeable_ranges),
-+};
++	old_sel = rdev->desc->ops->get_voltage_sel(rdev);
++	if (old_sel < 0)
++		return old_sel;
 +
-+static const struct regmap_access_table axp318_volatile_table = {
-+	.yes_ranges = axp318_volatile_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(axp318_volatile_ranges),
-+};
++	old_uV = rdev->desc->ops->list_voltage(rdev, old_sel);
++	if (old_uV < 0)
++		return old_uV;
 +
- static const struct regmap_range axp717_writeable_ranges[] = {
- 	regmap_reg_range(AXP717_PMU_FAULT, AXP717_MODULE_EN_CONTROL_1),
- 	regmap_reg_range(AXP717_MIN_SYS_V_CONTROL, AXP717_BOOST_CONTROL),
-@@ -447,6 +480,15 @@ static const struct regmap_config axp313a_regmap_config = {
- 	.cache_type = REGCACHE_MAPLE,
++	new_uV = rdev->desc->ops->list_voltage(rdev, sel);
++	if (new_uV < 0)
++		return new_uV;
++
++	/* Crossing the threshold ? */
++	if ((old_uV <= AXP318_THRESHOLD_VOLTAGE &&
++	     new_uV > AXP318_THRESHOLD_VOLTAGE) ||
++	    (new_uV <= AXP318_THRESHOLD_VOLTAGE &&
++	     old_uV > AXP318_THRESHOLD_VOLTAGE))
++		return -EBUSY;
++
++	return 0;
++}
++
++static int axp318_threshold_set_voltage_sel(struct regulator_dev *rdev,
++					    unsigned int sel)
++{
++	int ret;
++
++	ret = axp318_threshold_check(rdev, sel);
++	if (ret < 0)
++		return ret;
++
++	return regulator_set_voltage_sel_regmap(rdev, sel);
++}
++
+ static const struct regulator_ops axp20x_ops_fixed = {
+ 	.list_voltage		= regulator_list_voltage_linear,
+ };
+@@ -580,6 +680,15 @@ static const struct regulator_ops axp20x_ops_range = {
+ 	.is_enabled		= regulator_is_enabled_regmap,
  };
  
-+static const struct regmap_config axp318_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.wr_table = &axp318_writeable_table,
-+	.volatile_table = &axp318_volatile_table,
-+	.max_register = AXP318_WDOG_CTRL,
-+	.cache_type = REGCACHE_MAPLE,
++static const struct regulator_ops axp318_threshold_ops_range = {
++	.set_voltage_sel	= axp318_threshold_set_voltage_sel,
++	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
++	.list_voltage		= regulator_list_voltage_linear_range,
++	.enable			= regulator_enable_regmap,
++	.disable		= regulator_disable_regmap,
++	.is_enabled		= regulator_is_enabled_regmap,
 +};
 +
- static const struct regmap_config axp323_regmap_config = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
-@@ -663,6 +705,28 @@ static const struct regmap_irq axp313a_regmap_irqs[] = {
- 	INIT_REGMAP_IRQ(AXP313A, DIE_TEMP_HIGH,		0, 0),
+ static const struct regulator_ops axp20x_ops = {
+ 	.set_voltage_sel	= regulator_set_voltage_sel_regmap,
+ 	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
+@@ -590,6 +699,18 @@ static const struct regulator_ops axp20x_ops = {
+ 	.set_ramp_delay		= axp20x_set_ramp_delay,
  };
  
-+static const struct regmap_irq axp318_regmap_irqs[] = {
-+	INIT_REGMAP_IRQ(AXP318, DCDC8_V_LOW,		0, 7),
-+	INIT_REGMAP_IRQ(AXP318, DCDC7_V_LOW,		0, 6),
-+	INIT_REGMAP_IRQ(AXP318, DCDC6_V_LOW,		0, 5),
-+	INIT_REGMAP_IRQ(AXP318, DCDC5_V_LOW,		0, 4),
-+	INIT_REGMAP_IRQ(AXP318, DCDC4_V_LOW,		0, 3),
-+	INIT_REGMAP_IRQ(AXP318, DCDC3_V_LOW,		0, 2),
-+	INIT_REGMAP_IRQ(AXP318, DCDC2_V_LOW,		0, 1),
-+	INIT_REGMAP_IRQ(AXP318, DCDC1_V_LOW,		0, 0),
-+	INIT_REGMAP_IRQ(AXP318, PEK_RIS_EDGE,		1, 6),
-+	INIT_REGMAP_IRQ(AXP318, PEK_FAL_EDGE,		1, 5),
-+	INIT_REGMAP_IRQ(AXP318, PEK_SHORT,		1, 4),
-+	INIT_REGMAP_IRQ(AXP318, PEK_LONG,		1, 3),
-+	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV2,	1, 2),
-+	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV1,	1, 1),
-+	INIT_REGMAP_IRQ(AXP318, DCDC9_V_LOW,		1, 0),
-+	INIT_REGMAP_IRQ(AXP318, GPIO3_INPUT,		2, 6),
-+	INIT_REGMAP_IRQ(AXP318, GPIO2_INPUT,		2, 5),
-+	INIT_REGMAP_IRQ(AXP318, GPIO1_INPUT,		2, 4),
-+	INIT_REGMAP_IRQ(AXP318, WDOG_EXPIRE,		3, 0),
++static const struct regulator_ops axp20x_bypass_ops = {
++	.set_voltage_sel	= regulator_set_voltage_sel_regmap,
++	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
++	.list_voltage		= regulator_list_voltage_linear,
++	.enable			= axp20x_regulator_enable_regmap,
++	.disable		= regulator_disable_regmap,
++	.is_enabled		= regulator_is_enabled_regmap,
++	.set_ramp_delay		= axp20x_set_ramp_delay,
++	.get_bypass		= regulator_get_bypass_regmap,
++	.set_bypass		= regulator_set_bypass_regmap,
 +};
 +
- static const struct regmap_irq axp717_regmap_irqs[] = {
- 	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL2,		0, 7),
- 	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL1,		0, 6),
-@@ -884,6 +948,17 @@ static const struct regmap_irq_chip axp313a_regmap_irq_chip = {
- 	.num_regs		= 1,
+ static const struct regulator_ops axp20x_ops_sw = {
+ 	.enable			= regulator_enable_regmap,
+ 	.disable		= regulator_disable_regmap,
+@@ -765,6 +886,158 @@ static const struct regulator_desc axp313a_regulators[] = {
+ 	AXP_DESC_FIXED(AXP313A, RTC_LDO, "rtc-ldo", "vin1", 1800),
  };
  
-+static const struct regmap_irq_chip axp318_regmap_irq_chip = {
-+	.name			= "axp318w_irq_chip",
-+	.status_base		= AXP318_IRQ_STATE1,
-+	.ack_base		= AXP318_IRQ_STATE1,
-+	.unmask_base		= AXP318_IRQ_EN1,
-+	.init_ack_masked	= true,
-+	.irqs			= axp318_regmap_irqs,
-+	.num_irqs		= ARRAY_SIZE(axp318_regmap_irqs),
-+	.num_regs		= 4,
++static const struct linear_range axp318_dcdc2_ranges[] = {
++	REGULATOR_LINEAR_RANGE(500000,   0, 70, 10000),
++	REGULATOR_LINEAR_RANGE(1220000, 71, 87, 20000),
 +};
 +
- static const struct regmap_irq_chip axp717_regmap_irq_chip = {
- 	.name			= "axp717_irq_chip",
- 	.status_base		= AXP717_IRQ0_STATE,
-@@ -1061,6 +1136,10 @@ static const struct mfd_cell axp313a_cells[] = {
- 	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
- };
- 
-+static const struct mfd_cell axp318_cells[] = {
-+	MFD_CELL_NAME("axp20x-regulator"),
++static const struct linear_range axp318_dcdc6_ranges[] = {
++	REGULATOR_LINEAR_RANGE(500000,    0,  70,  10000),
++	REGULATOR_LINEAR_RANGE(1220000,  71,  87,  20000),
++	REGULATOR_LINEAR_RANGE(1800000,  88, 118,  20000),
++	REGULATOR_LINEAR_RANGE(2440000, 119, 127,  40000),
 +};
 +
- static const struct mfd_cell axp717_cells[] = {
- 	MFD_CELL_NAME("axp20x-regulator"),
- 	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
-@@ -1248,6 +1327,9 @@ static int axp20x_power_off(struct sys_off_data *data)
++static const struct linear_range axp318_dcdc7_ranges[] = {
++	REGULATOR_LINEAR_RANGE(500000,   0,  70, 10000),
++	REGULATOR_LINEAR_RANGE(1220000, 71, 102, 20000),
++};
++
++static const struct linear_range axp318_dcdc8_ranges[] = {
++	REGULATOR_LINEAR_RANGE(500000,    0,  70,  10000),
++	REGULATOR_LINEAR_RANGE(1220000,  71, 102,  20000),
++	REGULATOR_LINEAR_RANGE(1900000, 103, 118, 100000),
++};
++
++static const struct regulator_desc axp318_regulators[] = {
++	AXP_DESC(AXP318, DCDC1, "dcdc1", "vin19", 1000, 3400, 100,
++		 AXP318_DCDC1_CONTROL, AXP318_DCDC1_V_OUT_MASK,
++		 AXP318_DCDC_OUTPUT_CONTROL1, BIT(0)),
++	AXP_DESC_RANGES(AXP318, DCDC2, "dcdc2", "vin23",
++			axp318_dcdc2_ranges, 88,
++			AXP318_DCDC2_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(1)),
++	AXP_DESC_RANGES(AXP318, DCDC3, "dcdc3", "vin23",
++			axp318_dcdc2_ranges, 88,
++			AXP318_DCDC3_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(2)),
++	AXP_DESC_RANGES(AXP318, DCDC4, "dcdc4", "vin45",
++			axp318_dcdc2_ranges, 88,
++			AXP318_DCDC4_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(3)),
++	AXP_DESC_RANGES(AXP318, DCDC5, "dcdc5", "vin45",
++			axp318_dcdc2_ranges, 88,
++			AXP318_DCDC5_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(4)),
++	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC6, "dcdc6", "vin678",
++			axp318_dcdc6_ranges, 128,
++			AXP318_DCDC6_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(5)),
++	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC7, "dcdc7", "vin678",
++			axp318_dcdc7_ranges, 103,
++			AXP318_DCDC7_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(6)),
++	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC8, "dcdc8", "vin678",
++			axp318_dcdc8_ranges, 119,
++			AXP318_DCDC8_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL1, BIT(7)),
++	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC9, "dcdc9", "vin19",
++			axp318_dcdc8_ranges, 119,
++			AXP318_DCDC9_CONTROL, AXP318_DCDC2_V_OUT_MASK,
++			AXP318_DCDC_OUTPUT_CONTROL2, BIT(0)),
++	AXP_DESC_SW(AXP318, SWOUT1, "swout1", NULL,
++		    AXP318_DCDC_OUTPUT_CONTROL2, BIT(3)),
++	AXP_DESC_SW(AXP318, SWOUT2, "swout2", NULL,
++		    AXP318_DCDC_OUTPUT_CONTROL2, BIT(4)),
++	AXP_DESC_DO(AXP318, ALDO1, "aldo1", "aldo156in", 500, 3400, 100,
++		    AXP318_ALDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(0), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ALDO2, "aldo2", "aldo234in", 500, 3400, 100,
++		    AXP318_ALDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(1), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ALDO3, "aldo3", "aldo234in", 500, 3400, 100,
++		    AXP318_ALDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(2), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ALDO4, "aldo4", "aldo234in", 500, 3400, 100,
++		    AXP318_ALDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(3), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ALDO5, "aldo5", "aldo156in", 500, 3400, 100,
++		    AXP318_ALDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(4), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ALDO6, "aldo6", "aldo156in", 500, 3400, 100,
++		    AXP318_ALDO6_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(5), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, BLDO1, "bldo1", "bldoin", 500, 3400, 100,
++		    AXP318_BLDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(6), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, BLDO2, "bldo2", "bldoin", 500, 3400, 100,
++		    AXP318_BLDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL1, BIT(7), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, BLDO3, "bldo3", "bldoin", 500, 3400, 100,
++		    AXP318_BLDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(0), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, BLDO4, "bldo4", "bldoin", 500, 3400, 100,
++		    AXP318_BLDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(1), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, BLDO5, "bldo5", "bldoin", 500, 3400, 100,
++		    AXP318_BLDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(2), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, CLDO1, "cldo1", "cldoin", 500, 3400, 100,
++		    AXP318_CLDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(3), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, CLDO2, "cldo2", "cldoin", 500, 3400, 100,
++		    AXP318_CLDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(4), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, CLDO3, "cldo3", "cldoin", 500, 3400, 100,
++		    AXP318_CLDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(5), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, CLDO4, "cldo4", "cldoin", 500, 3400, 100,
++		    AXP318_CLDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(6), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, CLDO5, "cldo5", "cldoin", 500, 3400, 100,
++		    AXP318_CLDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL2, BIT(7), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, DLDO1, "dldo1", "dldoin", 500, 3400, 100,
++		    AXP318_DLDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(0), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, DLDO2, "dldo2", "dldoin", 500, 3400, 100,
++		    AXP318_DLDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(1), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, DLDO3, "dldo3", "dldoin", 500, 3400, 100,
++		    AXP318_DLDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(2), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, DLDO4, "dldo4", "dldoin", 500, 3400, 100,
++		    AXP318_DLDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(3), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, DLDO5, "dldo5", "dldoin", 500, 3400, 100,
++		    AXP318_DLDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(4), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, DLDO6, "dldo6", "dldoin", 500, 3400, 100,
++		    AXP318_DLDO6_CONTROL, AXP318_LDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(5), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ELDO1, "eldo1", "eldoin", 500, 1500, 25,
++		    AXP318_ELDO1_CONTROL, AXP318_ELDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(6), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ELDO2, "eldo2", "eldoin", 500, 1500, 25,
++		    AXP318_ELDO2_CONTROL, AXP318_ELDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL3, BIT(7), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ELDO3, "eldo3", "eldoin", 500, 1500, 25,
++		    AXP318_ELDO3_CONTROL, AXP318_ELDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL4, BIT(0), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_BYPASS(AXP318, ELDO4, "eldo4", "eldoin", 500, 1500, 25,
++			AXP318_ELDO4_CONTROL, AXP318_ELDO_V_OUT_MASK,
++			AXP318_LDO_OUTPUT_CONTROL4, BIT(1),
++			AXP318_ELDO4_CONTROL, BIT(6), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_BYPASS(AXP318, ELDO5, "eldo5", "eldoin", 500, 1500, 25,
++			AXP318_ELDO5_CONTROL, AXP318_ELDO_V_OUT_MASK,
++			AXP318_LDO_OUTPUT_CONTROL4, BIT(2),
++			AXP318_ELDO5_CONTROL, BIT(6), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_DO(AXP318, ELDO6, "eldo6", "eldoin", 500, 1500, 25,
++		    AXP318_ELDO6_CONTROL, AXP318_ELDO_V_OUT_MASK,
++		    AXP318_LDO_OUTPUT_CONTROL4, BIT(3), AXP318_LDO_MIN_DROPOUT),
++	AXP_DESC_FIXED(AXP318, RTC_LDO, "rtc-ldo", "ips", 1800),
++};
++
+ static const struct linear_range axp717_dcdc1_ranges[] = {
+ 	REGULATOR_LINEAR_RANGE(500000,   0, 70, 10000),
+ 	REGULATOR_LINEAR_RANGE(1220000, 71, 87, 20000),
+@@ -1347,6 +1620,7 @@ static int axp20x_set_dcdc_freq(struct platform_device *pdev, u32 dcdcfreq)
+ 		step = 150;
+ 		break;
  	case AXP313A_ID:
- 		shutdown_reg = AXP313A_SHUTDOWN_CTRL;
- 		break;
 +	case AXP318_ID:
-+		shutdown_reg = AXP318_SHUTDOWN_CTRL;
-+		break;
- 	default:
- 		shutdown_reg = AXP20X_OFF_CTRL;
- 		break;
-@@ -1312,6 +1394,12 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
- 		axp20x->regmap_cfg = &axp313a_regmap_config;
- 		axp20x->regmap_irq_chip = &axp313a_regmap_irq_chip;
- 		break;
-+	case AXP318_ID:
-+		axp20x->nr_cells = ARRAY_SIZE(axp318_cells);
-+		axp20x->cells = axp318_cells;
-+		axp20x->regmap_cfg = &axp318_regmap_config;
-+		axp20x->regmap_irq_chip = &axp318_regmap_irq_chip;
-+		break;
  	case AXP323_ID:
- 		axp20x->nr_cells = ARRAY_SIZE(axp313a_cells);
- 		axp20x->cells = axp313a_cells;
-diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
-index 1badb4868d17..5c307f41a31f 100644
---- a/include/linux/mfd/axp20x.h
-+++ b/include/linux/mfd/axp20x.h
-@@ -19,6 +19,7 @@ enum axp20x_variants {
- 	AXP223_ID,
- 	AXP288_ID,
- 	AXP313A_ID,
-+	AXP318_ID,
- 	AXP323_ID,
- 	AXP717_ID,
- 	AXP803_ID,
-@@ -116,6 +117,84 @@ enum axp20x_variants {
- #define AXP313A_IRQ_STATE		0x21
- #define AXP323_DCDC_MODE_CTRL2		0x22
+ 	case AXP717_ID:
+ 	case AXP15060_ID:
+@@ -1430,6 +1704,15 @@ static int axp20x_set_dcdc_workmode(struct regulator_dev *rdev, int id, u32 work
+ 		workmode <<= ffs(mask) - 1;
+ 		break;
  
-+#define AXP318_DCDC_OUTPUT_CONTROL1	0x10
-+#define AXP318_DCDC_OUTPUT_CONTROL2	0x11
-+#define AXP318_DCDC1_CONTROL		0x12
-+#define AXP318_DCDC2_CONTROL		0x13
-+#define AXP318_DCDC3_CONTROL		0x14
-+#define AXP318_DCDC4_CONTROL		0x15
-+#define AXP318_DCDC5_CONTROL		0x16
-+#define AXP318_DCDC6_CONTROL		0x17
-+#define AXP318_DCDC7_CONTROL		0x18
-+#define AXP318_DCDC8_CONTROL		0x19
-+#define AXP318_DCDC9_CONTROL		0x1a
-+#define AXP318_DCDC_MODE_CTRL1		0x1b
-+#define AXP318_DCDC_MODE_CTRL3		0x1d
-+#define AXP318_LDO_OUTPUT_CONTROL1	0x20
-+#define AXP318_LDO_OUTPUT_CONTROL2	0x21
-+#define AXP318_LDO_OUTPUT_CONTROL3	0x22
-+#define AXP318_LDO_OUTPUT_CONTROL4	0x23
-+#define AXP318_ALDO1_CONTROL		0x24
-+#define AXP318_ALDO2_CONTROL		0x25
-+#define AXP318_ALDO3_CONTROL		0x26
-+#define AXP318_ALDO4_CONTROL		0x27
-+#define AXP318_ALDO5_CONTROL		0x28
-+#define AXP318_ALDO6_CONTROL		0x29
-+#define AXP318_BLDO1_CONTROL		0x2a
-+#define AXP318_BLDO2_CONTROL		0x2b
-+#define AXP318_BLDO3_CONTROL		0x2c
-+#define AXP318_BLDO4_CONTROL		0x2d
-+#define AXP318_BLDO5_CONTROL		0x2e
-+#define AXP318_CLDO1_CONTROL		0x2f
-+#define AXP318_CLDO2_CONTROL		0x30
-+#define AXP318_CLDO3_CONTROL		0x31
-+#define AXP318_CLDO4_CONTROL		0x32
-+#define AXP318_CLDO5_CONTROL		0x33
-+#define AXP318_DLDO1_CONTROL		0x34
-+#define AXP318_DLDO2_CONTROL		0x35
-+#define AXP318_DLDO3_CONTROL		0x36
-+#define AXP318_DLDO4_CONTROL		0x37
-+#define AXP318_DLDO5_CONTROL		0x38
-+#define AXP318_DLDO6_CONTROL		0x39
-+#define AXP318_ELDO1_CONTROL		0x3a
-+#define AXP318_ELDO2_CONTROL		0x3b
-+#define AXP318_ELDO3_CONTROL		0x3c
-+#define AXP318_ELDO4_CONTROL		0x3d
-+#define AXP318_ELDO5_CONTROL		0x3e
-+#define AXP318_ELDO6_CONTROL		0x3f
-+#define AXP318_IRQ_EN1			0x40
-+#define AXP318_IRQ_EN2			0x41
-+#define AXP318_IRQ_EN3			0x42
-+#define AXP318_IRQ_EN4			0x43
-+#define AXP318_IRQ_STATE1		0x48
-+#define AXP318_IRQ_STATE2		0x49
-+#define AXP318_IRQ_STATE3		0x4a
-+#define AXP318_IRQ_STATE4		0x4b
-+#define AXP318_POWER_REASON		0x50
-+#define AXP318_SHUTDOWN_SOURCE		0x51
-+#define AXP318_SHUTDOWN_SRC_CTRL1	0x52
-+#define AXP318_SHUTDOWN_SRC_CTRL2	0x53
-+#define AXP318_DISCHARGE_OVERTEMP_CTRL	0x54
-+#define AXP318_SHUTDOWN_CTRL		0x55
-+#define AXP318_WAKEUP_VOFF_CTRL		0x56
-+#define AXP318_POK_CTRL			0x57
-+#define AXP318_WAKEUP_PWROK_PIN_CFG	0x5d
-+#define AXP318_TS_PIN_CFG		0x60
-+#define AXP318_TEMP_ADC_H_EN		0x65
-+#define AXP318_TEMP_ADC_L		0x66
-+#define AXP318_DIE_TEMP_ADC_H_EN	0x67
-+#define AXP318_DIE_TEMP_ADC_L		0x68
-+#define AXP318_GPADC_H_EN		0x69
-+#define AXP318_GPADC_L			0x6a
-+#define AXP318_GPIO_CTRL		0x70
-+#define AXP318_GPIO_INPUT		0x71
-+#define AXP318_GPIO_OUTPUT		0x72
-+#define AXP318_PWM_CTRL1		0x73
-+#define AXP318_PWM_CTRL2		0x74
-+#define AXP318_PWM_CTRL3		0x75
-+#define AXP318_BACKUP_BATTERY_CTRL	0x76
-+#define AXP318_WDOG_CTRL		0x77
++	case AXP318_ID:
++		/* Only DCDC1 has PWM control on the AXP318 */
++		if (id != AXP318_DCDC1)
++			return -EINVAL;
++		reg = AXP318_DCDC1_CONTROL;
++		mask = AXP318_DCDC1_PFM_PWM_CTRL;
++		workmode <<= ffs(mask) - 1;
++		break;
 +
- #define AXP717_ON_INDICATE		0x00
- #define AXP717_PMU_STATUS_2		0x01
- #define AXP717_BC_DETECT		0x05
-@@ -498,6 +577,50 @@ enum {
- 	AXP313A_REG_ID_MAX,
- };
+ 	case AXP806_ID:
+ 		/*
+ 		 * AXP806 DCDC regulator IDs have the same range as AXP22X.
+@@ -1543,6 +1826,17 @@ static bool axp20x_is_polyphase_slave(struct axp20x_dev *axp20x, int id)
+ 		}
+ 		break;
  
-+enum {
-+	AXP318_DCDC1 = 0,
-+	AXP318_DCDC2,
-+	AXP318_DCDC3,
-+	AXP318_DCDC4,
-+	AXP318_DCDC5,
-+	AXP318_DCDC6,
-+	AXP318_DCDC7,
-+	AXP318_DCDC8,
-+	AXP318_DCDC9,
-+	AXP318_ALDO1,
-+	AXP318_ALDO2,
-+	AXP318_ALDO3,
-+	AXP318_ALDO4,
-+	AXP318_ALDO5,
-+	AXP318_ALDO6,
-+	AXP318_BLDO1,
-+	AXP318_BLDO2,
-+	AXP318_BLDO3,
-+	AXP318_BLDO4,
-+	AXP318_BLDO5,
-+	AXP318_CLDO1,
-+	AXP318_CLDO2,
-+	AXP318_CLDO3,
-+	AXP318_CLDO4,
-+	AXP318_CLDO5,
-+	AXP318_DLDO1,
-+	AXP318_DLDO2,
-+	AXP318_DLDO3,
-+	AXP318_DLDO4,
-+	AXP318_DLDO5,
-+	AXP318_DLDO6,
-+	AXP318_ELDO1,
-+	AXP318_ELDO2,
-+	AXP318_ELDO3,
-+	AXP318_ELDO4,
-+	AXP318_ELDO5,
-+	AXP318_ELDO6,
-+	AXP318_SWOUT1,
-+	AXP318_SWOUT2,
-+	AXP318_RTC_LDO,
-+	AXP318_REG_ID_MAX,
-+};
++	case AXP318_ID:
++		regmap_read(axp20x->regmap, AXP318_DCDC_MODE_CTRL1, &reg);
 +
- enum {
- 	AXP717_DCDC1 = 0,
- 	AXP717_DCDC2,
-@@ -819,6 +942,28 @@ enum axp313a_irqs {
- 	AXP313A_IRQ_PEK_RIS_EDGE,
- };
- 
-+enum axp318_irqs {
-+	AXP318_IRQ_DCDC1_V_LOW,
-+	AXP318_IRQ_DCDC2_V_LOW,
-+	AXP318_IRQ_DCDC3_V_LOW,
-+	AXP318_IRQ_DCDC4_V_LOW,
-+	AXP318_IRQ_DCDC5_V_LOW,
-+	AXP318_IRQ_DCDC6_V_LOW,
-+	AXP318_IRQ_DCDC7_V_LOW,
-+	AXP318_IRQ_DCDC8_V_LOW,
-+	AXP318_IRQ_DCDC9_V_LOW,
-+	AXP318_IRQ_DIE_TEMP_HIGH_LV1,
-+	AXP318_IRQ_DIE_TEMP_HIGH_LV2,
-+	AXP318_IRQ_PEK_LONG,
-+	AXP318_IRQ_PEK_SHORT,
-+	AXP318_IRQ_PEK_FAL_EDGE,
-+	AXP318_IRQ_PEK_RIS_EDGE,
-+	AXP318_IRQ_GPIO1_INPUT = 20,
-+	AXP318_IRQ_GPIO2_INPUT,
-+	AXP318_IRQ_GPIO3_INPUT,
-+	AXP318_IRQ_WDOG_EXPIRE = 24,
-+};
++		switch (id) {
++		case AXP318_DCDC3:
++			return !!(reg & AXP318_DCDC23_POLYPHASE_CTRL);
++		case AXP318_DCDC5:
++			return !!(reg & AXP318_DCDC45_POLYPHASE_CTRL);
++		}
++		break;
 +
- enum axp717_irqs {
- 	AXP717_IRQ_VBUS_FAULT,
- 	AXP717_IRQ_VBUS_OVER_V,
+ 	default:
+ 		return false;
+ 	}
+@@ -1585,6 +1879,10 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
+ 		regulators = axp313a_regulators;
+ 		nregulators = AXP313A_REG_ID_MAX;
+ 		break;
++	case AXP318_ID:
++		regulators = axp318_regulators;
++		nregulators = AXP318_REG_ID_MAX;
++		break;
+ 	case AXP717_ID:
+ 		regulators = axp717_regulators;
+ 		nregulators = AXP717_REG_ID_MAX;
+@@ -1651,7 +1949,9 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
+ 		if ((regulators == axp22x_regulators && i == AXP22X_DC1SW) ||
+ 		    (regulators == axp803_regulators && i == AXP803_DC1SW) ||
+ 		    (regulators == axp809_regulators && i == AXP809_DC1SW) ||
+-		    (regulators == axp15060_regulators && i == AXP15060_SW)) {
++		    (regulators == axp15060_regulators && i == AXP15060_SW) ||
++		    (regulators == axp318_regulators && i == AXP318_SWOUT1) ||
++		    (regulators == axp318_regulators && i == AXP318_SWOUT2)) {
+ 			new_desc = devm_kzalloc(&pdev->dev, sizeof(*desc),
+ 						GFP_KERNEL);
+ 			if (!new_desc)
+@@ -1709,7 +2009,8 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
+ 		 */
+ 		if ((regulators == axp22x_regulators && i == AXP22X_DCDC1) ||
+ 		    (regulators == axp809_regulators && i == AXP809_DCDC1) ||
+-		    (regulators == axp15060_regulators && i == AXP15060_DCDC1))
++		    (regulators == axp15060_regulators && i == AXP15060_DCDC1) ||
++		    (regulators == axp318_regulators && i == AXP318_DCDC1))
+ 			of_property_read_string(rdev->dev.of_node,
+ 						"regulator-name",
+ 						&dcdc1_name);
 
 -- 
 2.53.0
