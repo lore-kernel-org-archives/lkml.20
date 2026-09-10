@@ -1,43 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A182D4825B8;
-	Thu, 10 Sep 2026 13:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F92B48A2DD
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048302; cv=none; b=ByD/Z5d8vBLzuQ7ogLyt9QDJuAl6HjjPJ/P9O/lFI3skp6vPbwONdQzn/BqgbjJgE9fY/eOWxrzZ1ZMlole3sKr98zgLBfqriEJaDXYTxmAmsRfD8FjaRxdrpPo4grFE3oAegd3E/mJPAgF9vsDDa4tp3T1/QO4cPaABxn/8zIE=
+	t=1789048324; cv=none; b=BDEcj8f7rzolGHI5cuHH7cG3m/xt5fNZ+DAE8xeCInh6xJ5SmH8FN8xbby4/S7W+ntEcrdEImvFNsQSLZjbp1DAxndhHXJIr8z4NYP6tGofV+3L7JUMkgcczgWFvypI4SMsuJT6Qa2ZfEdazC8IUMKmZ3JNV/8TEPAUwRmL4mCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048302; c=relaxed/simple;
-	bh=OIVCL+91sXAX5V9V2CkS3dfj0v4gl4M1LGsQNTcBiq8=;
+	s=arc-20240116; t=1789048324; c=relaxed/simple;
+	bh=QlSh0lMba9S7x+7oC4iH2LRXRIl+WzSV8mlor0TBLPo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkmA0DmMNRBBfTuc/6aVxWvcArsfFE/TP7cZZpg8NGE1PAsB29c2Rzf7evPwOo0ZNoLJKr0UQWtNt/0st8WgHrqdbwGFO4uLKpvO//KYsLMKOsmWs3VrfuMimqM6YTiDMrQ+XfavGX0M9M3wlQ+iqDHk5HKV3YEnns83v+5PabU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCjDBMHK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kJbLam0/D3jMoUV3xUibu7HcD/7g4amAjc3v2mqblsV93Xi2JBAGnwglhZFhYUkz+6ws3eZm2C9F5S6M20Pmwew3nQzJuHTNQ+pg+mjmVFuesV9kqQ1t+66AOII3tiOzo4mdoWlrjpBJbF1a875FSBVBjNZzjwPyKBZZfZB5kd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=dwiyo1qr; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCjDBMHK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3691F000FF;
-	Thu, 10 Sep 2026 13:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789048299;
-	bh=H2YH1JxGqaZT4ML3CJbP3dQevg9d7BkEz4Paw+1vhBI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nCjDBMHKiALdb560kcb+fRnnlvXGXSXek54XXHo0twGn5D7mAAByVv2x9FXnyOzW8
-	 TJMv6J5SmPOOZS+lhFKzKvv3Docll4spwEYnngK5kdh8EowlYIumYPC9CyD4FAzW9c
-	 Z+G6GnqnVEoq7RS2LjOJaiQDvFAOWEQLRq8XSNNoLzAZZn+KP/lxPnfX5r/iStTFI/
-	 0SPGC/kYFvzqamw70xG/10XyKAS8qvS6IlvvXzpcotva2G4hSI0RTJmLvqScObeHqJ
-	 I78wL/bRhFD5L1a0xNmjy9LgporsDogkr8YPU3wP1nszujTyK/naGwB8wGKYsABbef
-	 1Jfa6SeHfk/2A==
-Date: Thu, 10 Sep 2026 08:51:36 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] soc: qcom: rpmh-rsc: Update CMD_MSGID_LEN to 4 bytes
- for read request
-Message-ID: <aqK0D-dnQEi9cwCA@baldur>
-References: <20260910-rsc_read-v1-0-c9b7fa3cdde2@oss.qualcomm.com>
- <20260910-rsc_read-v1-1-c9b7fa3cdde2@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="dwiyo1qr"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso1513440e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:52:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxtx.org; s=google; t=1789048319; x=1789653119; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M1fkFxR9UHjQTFsOht+nEf8zm2sZ01COQeC9Wr8GY5w=;
+        b=dwiyo1qrsnbmeLpdDV09K33CI2i5Aj4QPQ0QjdLhtWZIhqRKRbO8lSUlg32AL3njf5
+         9hHSVjuytV11cgxmT5H9to6fucFMY3s9AFoG7QKdHfk40wykuqJJzeNOhAlGiRLjJrx0
+         ULCcY+KuRZuL1xu2a81jlR4QmAKFRl3cRbFA8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789048319; x=1789653119;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M1fkFxR9UHjQTFsOht+nEf8zm2sZ01COQeC9Wr8GY5w=;
+        b=p4TAQ7uOdHUR5aaA6kIDbpPHLXpnH+6pocD5uRdYxeg9lzgaferGhAVtG+uN9/W0+m
+         SKnGYXaZqey66EQCz0PhPik3g5MDPoDYFgKwEEW8x27VWwwHGmT9DEWzvl7TlxianWd0
+         U0a4m8hjfNwRHW6ZQWlMkpvirJLfXHnJl7go4PvM73LjBVLYDtxlw1Mi7vCHse6du6nE
+         EE/QGTHkN0q7/Z+QDeX84y4s3fCZvKinQGMzr7tIJrg9jlknGXH2iPA3TDUrnqEFJYsP
+         vzFyR/5yA6NnEV6iDtPXuDRgxP71zVAKqSqIyRnAnd1qX89DD1t0EThuic1MotlyyL+n
+         0vFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFcTTQfOICkg08QyE49Wkvr85aIjHjdHTou1uqDqzt8lC1VPMH2bhnPtjO0qCK/l5ffP76c/AObDfrQYk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndmZ/ExYQCIXnkVKhDEqN3lPOAyOZkyyLLpdhTxoQ5ZiF0gb7k
+	SFoASB0IgUA83jCBIKkAyWDd1cqVamGICa0sEzi7XBZHRm4HSLzJ9STfzzimRtgGxQ==
+X-Gm-Gg: AYBFou2G+FXRbYxsiDVP5W/730gjnNeWgBQpa7OqWBBzvv04wZQwt7FgkO5cfAi48oz
+	qSxp4pr4GOWLDTDDh+6ZRpm55Gu0ZxI5xSX4IjpGLVdFDZ+v7e927Bh0k9qZ3ViDSpEprRyrS3D
+	4Uhx7J4hEkKFfYVq6F3/snV3lH2rDuClbhkz+NCrgTDyKOi4VSzz3FMMvBuqhRMlaEP0K5JpmRR
+	Q8of1qX/V2zGcBex4atOgYvOAVxIzo2Qo927H97h/gFkEPy+wxkQoRHRmkCBNhDHj40zBGw9+FF
+	+zdK6d35eqeOGS0nnBfeP0PDDWpL8pnWuQw7bJUVBQLJKHnrsBWJfsYHoUhtZt4KuQ3oKzsqaPx
+	N/BFWQWrNBMkV1JwrZptX4C26kxs7mNT4C/V/9nTFvD9LyhPCY27RA8CvbOCLrTHG3t5zKM0Ho/
+	1aZOZgSsvuJfOGWCQHBOMXB91OF6S0QgI6DDq293AUSb8XCnD84ro6+LDQKs/G6Qm1eEGADok6l
+	PMMMYn1fRMNbpecM1rxhYINM54=
+X-Received: by 2002:a05:6512:b9c:b0:5b6:1a7c:fd87 with SMTP id 2adb3069b0e04-5b61a7cfe93mr6974483e87.45.1789048318560;
+        Thu, 10 Sep 2026 06:51:58 -0700 (PDT)
+Received: from fedora64.linuxtx.org ([98.97.105.164])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6167027dcsm4473627e87.58.2026.09.10.06.51.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:51:57 -0700 (PDT)
+Sender: Justin Forbes <jmforbes@linuxtx.org>
+Date: Thu, 10 Sep 2026 07:51:51 -0600
+From: Justin Forbes <jforbes@fedoraproject.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+Message-ID: <aqK19316rNBHIHg7@fedora64.linuxtx.org>
+References: <20260909134230.441546314@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,83 +80,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910-rsc_read-v1-1-c9b7fa3cdde2@oss.qualcomm.com>
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
 
-On Thu, Sep 10, 2026 at 02:23:01PM +0530, Maulik Shah wrote:
-> Newer SoC like hawi with RSC version v4.5 support 4 byte message read
-> request instead of default 8 byte on older SoCs. The write request
-> continues to be 8 bytes.
+On Wed, Sep 09, 2026 at 03:34:40PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.5 release.
+> There are 556 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Update the read request message accordingly on RSC v4.5 and higher.
+> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
+> Anything received after that time might be too late.
 > 
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/rpmh-rsc.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.5-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
 > 
-> diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
-> index c4542318eac4..f84a399fa5dc 100644
-> --- a/drivers/soc/qcom/rpmh-rsc.c
-> +++ b/drivers/soc/qcom/rpmh-rsc.c
-> @@ -86,6 +86,7 @@ enum {
->  #define TCS_AMC_MODE_TRIGGER		BIT(24)
->  
->  /* TCS CMD register bit mask */
-> +#define CMD_MSGID_LEN_READ_v4_5		4
->  #define CMD_MSGID_LEN			8
->  #define CMD_MSGID_RESP_REQ		BIT(8)
->  #define CMD_MSGID_WRITE			BIT(16)
-> @@ -499,15 +500,21 @@ static void __tcs_buffer_write(struct rsc_drv *drv, int tcs_id, int cmd_id,
->  			       const struct tcs_request *msg)
->  {
->  	u32 msgid;
-> -	u32 cmd_msgid = CMD_MSGID_LEN;
-> +	u32 cmd_msgid = 0;
->  	u32 cmd_enable = 0;
->  	struct tcs_cmd *cmd;
->  	int i, j;
->  
->  	/* Convert all commands to RR when the request has wait_for_compl set */
->  	cmd_msgid |= msg->wait_for_compl ? CMD_MSGID_RESP_REQ : 0;
-> -	if (!msg->is_read)
-> -		cmd_msgid |= CMD_MSGID_WRITE;
-> +	if (!msg->is_read) {
-> +		cmd_msgid = CMD_MSGID_LEN | CMD_MSGID_WRITE;
-
-I know this follows the current code, but CMD_MSGID_LEN doesn't seem
-like a "fixed" part of this message anymore. It seems rather that
-there's a few bits here which denotes the CMD_MSGID_LEN and the value
-thereof is either 8 or 4.
-
-If this is the case, I'd find it cleaner to define CMD_MSGID_LEN_MASK
-and then just FIELD_PREP() to put a 4 or a 8 in the "length field" of
-the command.
-
-> +	} else {
-> +		if (drv->ver.major >= 4 && drv->ver.minor >= 5)
-> +			cmd_msgid = CMD_MSGID_LEN_READ_v4_5;
-
-If I understand your commit message, this line says "on DRV 4.5 and
-higher length is 4 otherwise it's 8" - but there's no way anyone can
-read this line and come to that conclusion.
-
-In contrast, this would actually say that:
-  cmd_msgid |= FIELD_PREP(CMD_MSGID_LEN, 4);
-
-
-Also, is this really supposed to apply to DRV versions such as 5.5, but
-not 6.1?
-
-Regards,
-Bjorn
-
-> +		else
-> +			cmd_msgid = CMD_MSGID_LEN;
-> +	}
->  
->  	for (i = 0, j = cmd_id; i < msg->num_cmds; i++, j++) {
->  		cmd = &msg->cmds[i];
+> thanks,
 > 
-> -- 
-> 2.43.0
-> 
+> greg k-h
+
+Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
+x86_64), and boot tested x86_64. No regressions noted.
+
+Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
