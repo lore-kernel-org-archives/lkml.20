@@ -1,132 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6593603FB;
-	Thu, 10 Sep 2026 03:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F61D306B3D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010966; cv=none; b=BHUSmZ0a+Ql50WauEcX06AYQXWETUDRElmZBNOcgd3OvsecyB/VkObE1bwdrbrB+SB621txJWSDk0PrfJFHh8Wqy7HHfYrExHrKlH7xSAFYvfVyaornFvnhsD4SvIakyNG8P1roE5jq6JJZilLaitM5Nuq5Hgz0I/E125rQziyc=
+	t=1789010984; cv=none; b=BYvx1c5UxhAbbDs9ZV80Nk14MTww6tz+m4S1b22X/J7USmgOvHGCqdAIxLABEoX9DtSzmPhFJs7xAcq0mxKg2UWuvcEBxKu/NnymUI2J9f6C++XH0bTyYOM/bumUouhmAHbqZf5xrEH/9VyvYUswhos9gCAUerc2xAU+Is+EibM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010966; c=relaxed/simple;
-	bh=R5ZmA9ZvPvP1QNDogTCVyoFtS7h5Z+UX4hS7ENIPH24=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=qjjQ4W+M+E5NWZ2uN1TUvlQxg9Tw+f2Xmfb/LCQ7hBJz0lmosOwZ4/nqbPeR7GeP3onuVwllkdIlirmem1XRa8RZOiFK5Uktl5iD9v+RoU8yQIjLg+28cFBg9Pk8QHRp189X97o38Ag3jgUvAzcAX2YzQykeodVDDmqa9yPpiC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jqZo0jYu; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jqZo0jYu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789010964; x=1820546964;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=R5ZmA9ZvPvP1QNDogTCVyoFtS7h5Z+UX4hS7ENIPH24=;
-  b=jqZo0jYu7ijYmdxmtv86GmlfS+cvwRYHTbZCp+LGwePvlgsBhxqgD4zW
-   EJtRz0Eek7bO7M+LnAu3zKtb6pXrnC8GWWQiGrbl6CzbdnavsCZwl9oLP
-   3TA6a5QtiydZFP/FSsiVrnEjrlMp1vIUCzx0K60RoUFcbrCZFefTkto4N
-   7CnJrDny0szR1Pm/ZXb/p394Z2c5u2J/msRMEyfEtgxLBpyXF4WHhGJRS
-   QL7hsb5W8i0ujYjV9E09rPfnG2wjm0Rr7s22/A0X9YAxzukZGxLFZ+6bx
-   EWmghgI8eZjOxMR8rfKytTBjrtb8D/1o/sE+L8nSCo0rRYZWr95T2lTm1
-   Q==;
-X-CSE-ConnectionGUID: e6Uw7himQ0KkV8RWU/J0iw==
-X-CSE-MsgGUID: brf7RhPfTb6PMRUsGoeVPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93276730"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="93276730"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:29:24 -0700
-X-CSE-ConnectionGUID: Gg1zQX4CT9aLpslbT2VlIw==
-X-CSE-MsgGUID: Kd1uG4YoQhqLtUm6gTu4iQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="275646486"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:29:22 -0700
-Date: Thu, 10 Sep 2026 11:29:18 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	yi1.lai@intel.com
-Subject: [linus:master] [lib]  f4806cc63c:
- INFO:trying_to_register_non-static_key
-Message-ID: <202609101106.771b567e-lkp@intel.com>
+	s=arc-20240116; t=1789010984; c=relaxed/simple;
+	bh=SbC+dA/AQ/crXji6m5W8ChM2Su/gCfCkulOxgfe5WtI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OcRFsqmW7PTYCovhgQldh2I7R3u88cDqnwevjVBN7dmemsbXHNvEzGG0O4yGmClo50GH9T0AxcyTTdWYdFJ7LhsK0t3ujrV0sTXiUqLJ4+N840cIIf8jpDtzhCWrjUE+FGDOneM+CX+5ai3nznrZmp9CDWaaYyhWr9CdNb1VvMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d373e99eacc711f19a56ed5b684f684d-20260910
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1d523530-e3ae-43e6-9b58-3482ff809703,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:5bb41d6abf2f87e2c16b66b05e286248,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d373e99eacc711f19a56ed5b684f684d-20260910
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 13065827; Thu, 10 Sep 2026 11:29:27 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v6 0/4] ntfs: fix volume flag update races and persist the recorded error state
+Date: Thu, 10 Sep 2026 11:29:15 +0800
+Message-Id: <20260910032919.1742540-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+Hi all,
 
+v5 of the series, incorporating Baolin's review of v3.  The 3/3
+hygiene patch ("ntfs: NULL vol->vol_ino in the load_system_files()
+error teardown") has been applied separately, so this respin carries
+the remaining work as four patches.  1/4 and 3/4 are unchanged from v3
+(formerly 1/3 and 2/3); 2/4 and 4/4 are new and close the two races
+Baolin spotted.
 
-Hello,
+Changes since v3:
 
-kernel test robot noticed "INFO:trying_to_register_non-static_key" on:
+  2/4 (new): the callers in file.c and namei.c checked VOLUME_IS_DIRTY
+      without any lock before calling ntfs_set_volume_flags(), so the
+      check could race with the ntfs_sync_fs() clear and leave the
+      volume clean on disk despite a metadata modification.  They now
+      call ntfs_set_volume_flags() unconditionally; with the
+      unchanged-value check under the mrec_lock from 1/4 this is a
+      cheap no-op in the write itself when the bit is already set, at
+      the cost of taking the lock on every call - see 2/4's commit
+      message for why that cannot be avoided.
 
-commit: f4806cc63cc65bd752fd72d84937614dca6504ec ("lib: test bitmap vs IDA vs Maple Tree performance for region allocations") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+  4/4 (new): ntfs_put_super() persisted the dirty state before the
+      just-in-case mftmirr/mft commits and the final write_inode_now(),
+      which can themselves record NVolErrors(); errors from those
+      points would leave the volume unmounted with a clean on-disk
+      dirty bit, contradicting the "cannot unmount clean" guarantee.
+      The persistence now happens after the last of them, with the
+      iput(vol->vol_ino) moved to the end of ntfs_put_super() so
+      vol->vol_ino is still available.
 
-[test failed on linux-next/master a9d7ced84989ec05be09b4b8428759ef60450a0f]
+To recap the discussion that shaped v3:
 
-in testcase: boot
+The original patch (now 1/4) fixed the lost-update race where
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() computed the new
+value from vol->vol_flags outside any lock.  The review correctly
+pointed out that a race remained in ntfs_sync_fs(): it checked
+NVolErrors() outside the critical section, so a concurrent error path
+could still record an error after the check and before the clear, and
+the volume would end up persisted as clean despite the recorded error.
+1/4 fixes both: the read-modify-write and the NVolErrors()-checked
+clearing of VOLUME_IS_DIRTY happen inside the same mrec_lock critical
+section.
 
-config: i386-randconfig-054-20260822
-compiler: gcc-14
-test machine: qemu-system-i386 -enable-kvm -cpu SandyBridge -smp 2 -m 4G
+3/4 closes the writer-side half of the window: the runtime
+metadata-corruption paths in fs/ntfs recorded only the in-memory
+NVolErrors() flag and never persisted VOLUME_IS_DIRTY at all, so a
+volume could unmount with a clean on-disk flag despite recorded
+corruption.  Persisting from the error paths themselves is not an
+option: they run under a wide variety of ntfs locks (runlist locks,
+vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks) while the dirty-bit
+write needs the $Volume mrec_lock and can take the $MFT runlist lock,
+which self-deadlocks or forms ABBA cycles.  Instead, 3/4 makes
+persistence a property of the lock-free sync contexts: the new
+ntfs_sync_volume_dirty_state() sets VOLUME_IS_DIRTY when NVolErrors()
+is recorded and clears it otherwise, evaluating the error flag under
+the $Volume mrec_lock.  It is called from ntfs_sync_fs(), the
+remount-to-read-only path and ntfs_put_super(), with NV_Hibernated
+gating so a hibernated volume is never written by these paths.  The
+guarantee is eventual rather than instantaneous (a crash between the
+error record and the next persistence point remains a window); with
+4/4, ntfs_put_super() persists after the last commit that can record
+errors, so a volume that is read-write at unmount time cannot unmount
+clean.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202609101106.771b567e-lkp@intel.com
+One housekeeping note: this series was rebased onto the current ntfs
+tree after the first posting failed to apply there.  Dennis Tighe's
+"ntfs: do not mark the volume clean in sync_fs when errors were
+recorded" landed in the meantime and fixed part of the same sync_fs
+problem this series addresses; 3/4 supersedes that fix with the
+ntfs_sync_volume_dirty_state() helper, which guards the clear in every
+persistence context, not just sync_fs.  No conflict with its intent.
 
-[  157.121248][    T1] INFO: trying to register non-static key.
-[  157.122147][    T1] The code is fine but needs lockdep annotation, or maybe
-[  157.122147][    T1] you didn't initialize this object before use?
-[  157.122147][    T1] turning off the locking correctness validator.
-[  157.122147][    T1] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.2.0-rc4-00086-gf4806cc63cc6 #1 PREEMPT(full)  167be1ded5cf2d764b5931072317f04af057210f
-[  157.122147][    T1] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  157.122147][    T1] Call Trace:
-[  157.122147][    T1]  ? show_stack (x86/kernel/dumpstack.c:319 x86/kernel/dumpstack.c:337)
-[  157.122147][    T1]  ? dump_stack_lvl (dump_stack.c:94 dump_stack.c:120)
-[  157.122147][    T1]  ? dump_stack (dump_stack.c:129)
-[  157.122147][    T1]  ? register_lock_class (locking/lockdep.c:984 locking/lockdep.c:1299)
-[  157.122147][    T1]  ? __lock_acquire (locking/lockdep.c:5237)
-[  157.122147][    T1]  ? __lock_acquire (locking/lockdep.c:5112)
-[  157.122147][    T1]  ? lock_acquire (locking/lockdep.c:5872)
-[  157.122147][    T1]  ? mtree_alloc_range (linux/spinlock.h:342 maple_tree.c:5800)
-[  157.122147][    T1]  ? __lock_acquire (locking/lockdep.c:5237)
-[  157.122147][    T1]  ? lock_acquire (locking/lockdep.c:5833)
-[  157.122147][    T1]  ? mtree_alloc_range (linux/spinlock.h:342 maple_tree.c:5800)
-[  157.122147][    T1]  ? _raw_spin_lock (linux/spinlock_api_smp.h:158 (discriminator 1) locking/spinlock.c:158 (discriminator 1))
-[  157.122147][    T1]  ? mtree_alloc_range (linux/spinlock.h:342 maple_tree.c:5800)
-[  157.122147][    T1]  ? __lock_release+0x42/0x140
-[  157.122147][    T1]  ? kvm_clock_get_cycles (x86/kernel/kvmclock.c:80 (discriminator 1) x86/kernel/kvmclock.c:87 (discriminator 1))
-[  157.122147][    T1]  ? ktime_get (time/timekeeping.c:321 time/timekeeping.c:455 time/timekeeping.c:973)
-[  157.122147][    T1]  ? vprintk_default (printk/printk.c:2494)
-[  157.122147][    T1]  ? benchmark_maple_tree (region_alloc_benchmark.c:136 (discriminator 1))
-[  157.122147][    T1]  ? region_alloc_benchmark (region_alloc_benchmark.c:197 (discriminator 1))
-[  157.122147][    T1]  ? benchmark_ida (region_alloc_benchmark.c:124)
-[  157.122147][    T1]  ? do_one_initcall (main.c:1347)
-[  157.122147][    T1]  ? do_initcalls (main.c:1409 (discriminator 1) main.c:1425 (discriminator 1))
-[  157.122147][    T1]  ? kernel_init_freeable (main.c:1445 main.c:1658)
-[  157.122147][    T1]  ? rest_init (main.c:717)
-[  157.122147][    T1]  ? kernel_init (main.c:1548)
-[  157.122147][    T1]  ? ret_from_fork (x86/kernel/process.c:158)
-[  157.122147][    T1]  ? rest_init (main.c:717)
-[  157.122147][    T1]  ? ret_from_fork_asm (x86/entry/entry_32.S:736)
-[  157.122147][    T1]  ? entry_INT80_32 (x86/entry/entry_32.S:940)
-[  158.731005][    C0] clocksource: Marking clocksource tsc unstable due to frequency skew
-[  158.804793][    C0] clocksource: Watchdog               kvm-clock interval:            63117ns
-[  158.871025][    C0] clocksource: Clocksource                  tsc interval:            62703ns
-[  158.935843][    C0] tsc: Marking TSC unstable due to clocksource watchdog
+Patch layout:
 
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260910/202609101106.771b567e-lkp@intel.com
+  1/4 ntfs: fix volume flag update races
+      Move the read-modify-write of vol->vol_flags inside the
+      $Volume mrec_lock; ntfs_sync_fs() clears the dirty bit under
+      the lock with the NVolErrors() check.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+  2/4 ntfs: set the volume dirty bit unconditionally on metadata
+      changes
+      Drop the racy caller-side VOLUME_IS_DIRTY checks in file.c and
+      namei.c; the locked unchanged-value check makes the unconditional
+      call skip the write when the bit is already set.
 
+  3/4 ntfs: sync the volume dirty bit with the recorded error state
+      New ntfs_sync_volume_dirty_state(), called from the lock-free
+      sync contexts (sync_fs / remount-ro / put_super); NV_Hibernated
+      gating.
 
+  4/4 ntfs: persist the dirty state after the final put_super()
+      commits
+      Move the persistence after the last commits that can record
+      errors, with the iput(vol->vol_ino) moved to the end.
+
+Thanks,
+Hongling Zeng (4):
+  ntfs: fix volume flag update races
+  ntfs: set the volume dirty bit unconditionally on metadata changes
+  ntfs: sync the volume dirty bit with the recorded error state
+  ntfs: persist the dirty state after the final put_super() commits
+
+ fs/ntfs/file.c   |  14 ++--
+ fs/ntfs/namei.c  |  24 +++----
+ fs/ntfs/super.c  | 140 +++++++++++++++++++++++++++++++------------
+ fs/ntfs/volume.h |   4 ++
+ 4 files changed, 130 insertions(+), 52 deletions(-)
