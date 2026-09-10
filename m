@@ -1,188 +1,171 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503F1488210;
-	Thu, 10 Sep 2026 17:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525504AB1A0;
+	Thu, 10 Sep 2026 17:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789061403; cv=none; b=pf4sukhgYOz5Z4bXCCpfLMGMxkxKFtdivDj9v4hb0YxQWlJb+dr9JKy3FFXnUbzlZgBVojqiDgZUO16SFHNJjfbJ6/KwZpmPwVzZQogGcPTLKmpsucpPXUXYZjejW+O0BVNwtsnvMDFjky56drRi4S1RslavByKw9tcfFvyHReA=
+	t=1789061489; cv=none; b=CzpefUkFt+BMZb+uZQk3UL0eqmffhmcezr78bsIuW/w1VxlkGeF6rUgSwthEaGpvXGTQUHa+/ArBChwnH2B3cPO/AWFlfWwBWvlDSrorrg9JFbLmNOGGLbeCY2w6xgfuCnJHwuNhs6B81i5/VAMZw9OTOXVGY5Q0hNepHgWSo8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789061403; c=relaxed/simple;
-	bh=Af5OrrJ+bCyBshOoUk9uiJhzLB72aDPfATvZVCrpLp4=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=dRAYdrucPrvC1uVTVA0AkD9Tk3Xsresc21TR83ik/mNq3TqkWob/CpxRgQHN0D4AIInxLa/5r6u5XB8+thOBd/Lpf8uHRl0uc5t+jjCMGoGsCYVPkZaSW4b3Wz6ULxsy9ZlFePn/gF/Yinkf+JAmeoh+arZRlv6f8Aczd0+t920=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=jLTv41sI; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1789061489; c=relaxed/simple;
+	bh=bRmUphc7RmCTIfHBLbI5m/9UKIWC50UdYbOnhx8jN54=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=qz7ZlapJ53YvNn9USpUlJ/Eno831wqHaPbWFAQ4LMev8ww9Dv/D/w1L8DXixhRQWFPJnUqMOIxpuitT+nZQtqPsjk9c527RcKDdQW72WO4LlUU06wdfQ12bd93nGOpLnOT3WqqOgwhpAC6O9EXgNjieeM9DWyh8s4LFrheCgvW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TiWCjS8G; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="jLTv41sI"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AF80uv3830389;
-	Thu, 10 Sep 2026 13:29:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=WjjrF1YTCsE4rUcLZ6fjU952kYk
-	Xe/913H32DPYOZtU=; b=jLTv41sI+TFB5UCNlRegchs7wl8T0Hcq82416t8Rnwm
-	xInaLyxKlIDNl4spzJwnZNbEzVNVRY6GPgIfKuVWStsPT/qsdU2TKc1uKVCx/5ZQ
-	64099mdzioG6fsCFgFIWipdF/n0gwUEWxNtzhrGF5B4KKsQu+lTXgZ7eL71ZX01w
-	VXXAiXdpxKxNila5OqLN7dPwiLvkiA+0lnegohuVh2goNj/IXv+67nIhUJ2TbaOx
-	mh8ItHuSHuce60dRt1L5U2Gni+hVHBPKpFUREJFVwJu8f8FFTQPKv5RWY/3tsqyH
-	U4UUekPPEOhMEMM+djPYOkmCKFta51O/e10pztAYiXg==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gkcxad1f7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 13:29:30 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68AHTTDF037788
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 10 Sep 2026 13:29:29 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 10 Sep
- 2026 13:29:29 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 10 Sep 2026 13:29:29 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com ([10.32.225.204])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68AHTIdo018670;
-	Thu, 10 Sep 2026 13:29:21 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Subject: [PATCH v8 0/3] gpio: Add AD7768 GPIO support
-Date: Thu, 10 Sep 2026 19:29:09 +0200
-Message-ID: <20260910-ad7768-gpio-v8-0-6aaaa15adeb3@analog.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TiWCjS8G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789061478; x=1820597478;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=bRmUphc7RmCTIfHBLbI5m/9UKIWC50UdYbOnhx8jN54=;
+  b=TiWCjS8GeRiBr5VzfKpI5R9Ukspzbq+zfadm/DP0xh6I9VqokeSb8zdW
+   VIvBkKfOiOJQwMR4alcCvZl2VmD8KVKxRGHmk7W7npvP6pJgvwARLL4ss
+   +nAz0m6OjExvbmuO7JC3elr0+s+E2Be5z/7z1fldW7eCP9gLXT0yg35G6
+   mf+J1LdBmwEA2WWjE3dFBgn2qNRdjipJ1ejdqNhrZ6d0CkTew4oGOiYOW
+   k9MLwy4hLgl5Aay4TiGqsoVR3BDug9NJdxL0yrsgKIVRtiVuW+QZVU4Zd
+   XZqYbN0ku44glxpE41frj7ChARW8oH7p17lvRGuXJEI6kxZqfRz86UaPE
+   A==;
+X-CSE-ConnectionGUID: 6vzZ6PxhSZyJxJ1eB8vbwA==
+X-CSE-MsgGUID: vbPA11FMTUusSxMIsYN1UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="88664574"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="88664574"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 10:31:13 -0700
+X-CSE-ConnectionGUID: nkWk0vOmS0OQ83ilvzAaNw==
+X-CSE-MsgGUID: LG8dZ91ERFe6zRyTzQgyrg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="268411727"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.221])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 10:31:11 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 10 Sep 2026 20:31:08 +0300 (EEST)
+To: Ard Biesheuvel <ardb+git@google.com>
+cc: linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    Ard Biesheuvel <ardb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Subject: Re: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in
+ prefetchable windows
+In-Reply-To: <20260910143440.3865663-2-ardb+git@google.com>
+Message-ID: <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com>
+References: <20260910143440.3865663-2-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOXoomoC/23MQQ6CMBCF4auQWVvTltIWV97DuCgwwCRKSWsaD
- eHuFlaSuHwv+f4FIgbCCJdigYCJIvkpD3sqoB3dNCCjLm+QXGpe85K5zhht2TCTZ8qJWlRlI5T
- hkMUcsKf3Xrvd8x4pvnz47PGkt/d/J2nGmZKVwl63dVPaq5vcww/n1j9hCyXzi+0Rm4wriaixF
- 9YJPOB1Xb+49fCa5AAAAA==
-X-Change-ID: 20260903-ad7768-gpio-4a19153b1470
-To: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Jonathan Cameron
-	<jic23@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>,
-        Janani
- Sunil <jananisunil.dev@gmail.com>,
-        Janani Sunil <janani.sunil@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789061359; l=3060;
- i=janani.sunil@analog.com; s=20260903; h=from:subject:message-id;
- bh=Af5OrrJ+bCyBshOoUk9uiJhzLB72aDPfATvZVCrpLp4=;
- b=BLI0U51tx4U+ng+PKaNGmfjZuQkZO95PZLE89pTi6nSg9LyktUaDidp+c6a4MtJ1THINy025p
- jJFxxqnwV8lCjijOturpgQ+4vVYQPXwYnl1zTyv78dOaVcCYMRCh7z7
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=0UJo4rLJeMHBMco/+wcMHzXI7nV8k1T72+XQlBNV4Rw=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDIxNCBTYWx0ZWRfX+JBEci2ynFEB
- X4F90WjC6tqXqakxz4G07h4n8LWRDvYN0YyR911qhzdco3NyBggcEvdNElIEpMAt+H8zCNCjuwp
- Q45NZ9ahzl5Mx20IMh27keOajoNVSl+TL8tpaRcYoLZIVNcE0ifq
-X-Authority-Analysis: v=2.4 cv=Ao17T+9P c=1 sm=1 tr=0 ts=6aa2e8fa cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
- a=VwQbUJbxAAAA:8 a=ojDj4eUIg0KLFcp6xugA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: LmHyjQWhwOuRYLfaQ3djfu1Dcy02n67L
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDIxNCBTYWx0ZWRfX4Lrifjzah6un
- KeGnlFbn6DBBHWtVdfHhQdxIaCKfczG1FbJbSgxMCuSr+7dmiiPN6OGx5v04IHo96WWiahlfQCV
- ohsrwMF9u+YstigR0QFUi389RiN4qhwg063RBVI7KeSPqyi8C24ryn3Ux8mb92EZ0+nQKOV2rEF
- RmLdSiNHni3P+7laZRER2N72/rFABnaGehJFVF3HjHQefU3llCM1Bg2ZdvAKRRSF6jYRNarDT5n
- /qoBL1UWdWRLDWUEd4tIenDWbLndWXXpUcxEPFd7SjFAwiUbMHt1OTakMkEwo2Qr/h4iwYqUjVa
- CwUaU1spaPNAfuDdurtmwaBY+WrV5g2YTrH2M+4xRTqAkON86W7iAkwBkrCULDZJM6CqMmT/OZP
- tL0feCW6/3lKkXhOg1jxkkNSo1OCiZpD5REwN9MWG36ZsIWpJrqNEY0Oxg/94F7A7V76jwahdnc
- XE5/NGbCI3a44Y+du7A==
-X-Proofpoint-ORIG-GUID: LmHyjQWhwOuRYLfaQ3djfu1Dcy02n67L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_05,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100214
+Content-Type: multipart/mixed; boundary="8323328-1933240820-1789061468=:1174"
 
-Add GPIO support for the Analog Devices AD7768 and AD7768-4
-simultaneous sampling ADCs.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Datasheet:
-https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768-ad7768-4.pdf
+--8323328-1933240820-1789061468=:1174
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-**Device Overview:**
-The AD7768 and AD7768-4 provide five on-chip GPIO pins controlled
-through registers shared with the parent IIO device. The GPIO driver is
-registered as an auxiliary driver and shares the parent's regmap and
-runtime power-management state.
+On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
 
-**Features Implemented:**
-- Use regmap_test_bits() for single-bit gpio-regmap value and direction
-  reads.
-- Add optional runtime PM support to gpio-regmap.
-- Expose the five AD7768 GPIO pins through gpio-regmap.
-- Read output GPIO values from the output-latch register while retaining
-  input-state reads for input pins.
-- Reserve GPIO4 when it is used to select the crystal or LVDS master
-  clock source.
+> From: Ard Biesheuvel <ardb@kernel.org>
+>=20
+> The prefetchable vs. non-prefetchable distinction is a relic of
+> conventional PCI, to denote from which regions PCI-PCI bridges were
+> permitted to perform speculative readahead.
+>=20
+> For software compatibility reasons, PCI Express inherited the Type 1
+> header and models PCIe root ports as PCI-PCI bridges. However, this
+> readahead behavior does not exist in PCIe, and so this distinction has
+> mostly become meaningless on the bridge level.
+>=20
+> As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
+> 'prefetchable' designation has been removed from the specification
+> entirely, on the basis that it is obsolete, and is being abused to
+> inform memory mapping attributes and other device/BAR level properties
+> that it was never intended for.
+>=20
+> Given the limited range for non-prefetchable windows in the Type 1
+> header, and the fact that the distinction no longer exists for PCIe,
+> resource allocation performed by firmware may result in non-prefetchable
+> 64-bit BARs being allocated inside prefetchable bridge windows.
+>=20
+> Linux rejects such allocations ("can't claim; no compatible bridge
+> window") when it encounters them, but will usually fail to produce an
+> alternative allocation, given that firmware wouldn't have placed them
+> there in the first place if there was sufficient space in the
+> non-prefetchable window.
+>=20
+> So at the very least, let's not reject such allocations when they were
+> made by the firmware.
+>=20
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+> Link: https://github.com/tianocore/edk2/issues/13104
+>=20
+>  drivers/pci/pci.c   | 3 ++-
+>  include/linux/pci.h | 4 ++--
+>  2 files changed, 4 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index b2879a6be5f8..e33eb9f3a139 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(const struc=
+t pci_dev *dev,
+>  =09=09=09 * not, the allocator made a mistake.
+>  =09=09=09 */
+>  =09=09=09if (r->flags & IORESOURCE_PREFETCH &&
+> -=09=09=09    !(res->flags & IORESOURCE_PREFETCH))
+> +=09=09=09    !(res->flags & IORESOURCE_PREFETCH) &&
+> +=09=09=09    !pci_is_pcie(dev))
+>  =09=09=09=09return NULL;
+> =20
+>  =09=09=09/*
 
-**Patch Summary:**
-1. Use regmap_test_bits() for single-bit gpio-regmap reads.
-2. Add optional runtime PM support to gpio-regmap.
-3. Add the AD7768 GPIO auxiliary driver.
+I was more thinking along the lines of always setting IORESOURCE_PREFETCH=
+=20
+for 64-bit BARs on PCIe devices but I've not had time to look at that/test=
+=20
+how many things would break as a result. ...It would seem much simpler=20
+solution to differentiate PCI from PCIe while keeping the existing logic=20
+without adding similar pci_is_pcie() checks everywhere.
 
-**Testing:**
-The complete AD7768 driver was compiled and tested on the
-EVAL-AD7768FMCZ using a Zedboard with a mainline kernel.
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1e..1cbb4b6c02c3 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -2684,7 +2684,7 @@ static inline void pci_vf_drivers_autoprobe(struct =
+pci_dev *dev, bool probe) { }
+>   * need to calculate PCIe capability offset from raw device for some
+>   * reasons, please use pci_find_capability() instead.
+>   */
+> -static inline int pci_pcie_cap(struct pci_dev *dev)
+> +static inline int pci_pcie_cap(const struct pci_dev *dev)
+>  {
+>  =09return dev->pcie_cap;
+>  }
+> @@ -2695,7 +2695,7 @@ static inline int pci_pcie_cap(struct pci_dev *dev)
+>   *
+>   * Returns: true if the PCI device is PCI Express capable, false otherwi=
+se.
+>   */
+> -static inline bool pci_is_pcie(struct pci_dev *dev)
+> +static inline bool pci_is_pcie(const struct pci_dev *dev)
+>  {
+>  =09return pci_pcie_cap(dev);
+>  }
+>=20
 
-**Base:**
-This series is based on the GPIO subsystem's gpio/for-next branch,
-commit a2cfc48fee416f0ea78e7dc38acbf2ce072574cc
+This const conversion should be done in a separate preparatory patch (if=20
+needed in the end, though IMO it wouldn't hurt to have it as const=20
+anyway even if it's not necessary for the 64-bit/pref change in the end).
 
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
----
-Changes in v8:
-- Associate the GPIO chip with the AD7768 firmware node and use it for
-  clock-source property lookup.
-- Link to v7: https://lore.kernel.org/r/20260908-ad7768-gpio-v7-0-52ee6ef18a1e@analog.com
+--=20
+ i.
 
-Changes in v7:
-- Replace bitmap_clear() with __clear_bit() and use bitops.h.
-- Initialize the parent device pointer at declaration.
-- Link to v6: https://lore.kernel.org/r/20260903-ad7768-gpio-v6-0-4254ef6c9b38@analog.com
-
-Changes in v6:
-- Split the GPIO patches from the main AD7768 IIO series.
-- Rebase onto gpio/for-next commit
-  a2cfc48fee416f0ea78e7dc38acbf2ce072574cc.
-- Adapt the gpio-regmap callbacks to the operation argument present in
-  gpio/for-next.
-- Align the gpio-regmap runtime-PM member layout with review feedback.
-- Move GPIO valid-mask handling into the GPIO driver and reserve GPIO4
-  there when it is used for crystal or LVDS clock selection.
-- Link to v5: https://lore.kernel.org/r/20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com
-
----
-Janani Sunil (3):
-      gpio: regmap: Use regmap_test_bits() for single bit reads
-      gpio: regmap: Add optional runtime PM support
-      gpio: ad7768: Add AD7768 GPIO auxiliary driver
-
- drivers/gpio/Kconfig        |  12 +++++
- drivers/gpio/Makefile       |   1 +
- drivers/gpio/gpio-ad7768.c  | 121 ++++++++++++++++++++++++++++++++++++++++++++
- drivers/gpio/gpio-regmap.c  |  98 +++++++++++++++++++++++++++++------
- include/linux/gpio/regmap.h |   2 +
- 5 files changed, 219 insertions(+), 15 deletions(-)
----
-base-commit: a2cfc48fee416f0ea78e7dc38acbf2ce072574cc
-change-id: 20260903-ad7768-gpio-4a19153b1470
-
-Best regards,
--- 
-Janani Sunil <janani.sunil@analog.com>
-
+--8323328-1933240820-1789061468=:1174--
