@@ -1,187 +1,190 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010011.outbound.protection.outlook.com [52.101.61.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836873C5855;
-	Thu, 10 Sep 2026 08:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027764; cv=none; b=JCw5jsD9eDrYYQu4QGn0fHO0w40ey0vPucq8wgm2j1yi+oJGMqmMcqMbH5L0scG9rm8ORJoVAT8npkD+9b2SpVS/k+64Ho9WHS7Xlz51x7c9sjjxNBi/kRXaUcN9SBaaxz4ta7Xd83UgXdV4Y1T1Jq+2uBmAYowC6Ehz4hoX8jI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027764; c=relaxed/simple;
-	bh=UBS1HgDJOYamAJTt+ySk4AAA6KHb0MqlPww8ENDQvJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jjj6l1zX8GqDCRRUsPV2b3KuG1DR1uXlipRldS7Y9k8z/9CbMSc+AjtMDnWritBBehIu8PQfgYbQYphU1nWXQWqfyECUFHEPNwLkU7XddHxeiEJhW7FZ6p2FwsUGVStfIpE8ATRP+fY5ePgqbtenZXTNU+pqX63ajYTrrsa/1MY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=ykWp9MEi; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C98371860
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789027765; cv=fail; b=VEx2bFCqRxBr+xA9sBMXskYPKitgRYtR+h0ygjeiFRR5V+tdr4CykNCfMPv2dxSmoQJ8mEuEaaaWCpp3NJDaO196xnwkL0DCkRpQpN2zKzgM9PGZinO9nk9pH9KXZ3JvOFsrG/B6E0wjTAJiOTY9f4zgRo0tiDhtp+za4kb6EHk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789027765; c=relaxed/simple;
+	bh=LhmEioZDC0My7x2e4tQr0Ez8v3ULjiJNkO+7y4pDO+c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=uqmUetR0cZikTBf8ZuQrB/AemH87lBjuWycRoiFabbSslfnrovSmLKlPjhQEDg8wKLeV5lsISFr3wKPOn1XYStsVOSDLrW/o/TIUjVqKD1EBl9uTm77tLvfhleP+o/43VHG869Nu5K5KX7/JeuGdrxpJu/JsBhgGHU1vNBM09ew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2s/umHVS; arc=fail smtp.client-ip=52.101.61.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="ykWp9MEi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1789027646;
-	bh=CHrVd4QupN2Icd5LuQOXtHU8JZxOORarAdWW213eHzg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=ykWp9MEiSk7Jc+yhTjpeebX8Pp7PdhLcJ3kXtQBnhjKPTXM/xF3iJXF/tNf/kmaX1
-	 to8hx3iKMxszLgigEloFvFEPuVsXusS8aJBdcooKYrYZdbIOzpbpg4+r/EdvN0jJUk
-	 chzaSR1PiSbZDEDANYn56MnQ/I/aVzNnDSrolUHU=
-X-QQ-mid: zesmtpsz6t1789027641tf2e5ab1e
-X-QQ-Originating-IP: v57H0f8v9d+o9uYBjxvMedZTdt78u9k9xEX1xQad5tc=
-Received: from hepeiyang-vm.wu.lxd ( [114.212.83.113])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 16:07:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14959840024138416349
-EX-QQ-RecipientCnt: 8
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	bskeggs@redhat.com,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] drm/nouveau: don't bump pin count on failed re-pin in nouveau_bo_pin_locked()
-Date: Thu, 10 Sep 2026 16:06:59 +0800
-Message-ID: <4C61D1CE5BB7CD58+20260910080659.2798052-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2s/umHVS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ldTORc+PMNiu91J4F/IKwPcV4QACvWYuM942VySRjoDhEj5jyocZGm2juoC2yP2TfHSYUKJmBlASC/DkvmXN4y3Jx8GsiOllkL71ugLpBCraEcRYNGxyKz0YaUFDHSWnV1JBN+e4JXsplvRF/RkKPeBRebfZfUTWEeqJsy1EglW0gYi22dC/wHMvWU5ObXlSeccOcJ8+0rWY9Wi+7fw+/p1pSIxrAOMguueddjBqwKFEnvLQ3Eb7Uqvr4VPsLS9PahUV0kSvP8/jF1bVMhn9qDeYxsb8nMVWUy7vVy/qAQThasN7j5FxfSM33Q+CiMVeZxK47FvxiRb8oJN3GHQsNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+CEqbR72SNV2kmoesGh1brp268Q7oskNAY14JDefDMA=;
+ b=xlahf3VkrnF8UxN4sXyh3mEbhRV+QQLCg5uktA70QsyM5Br4pQj7UOmb7qJKdwuyxb5xU7SJIiLoQr1r/rAObtDz4/5zeOrXHvKbZwtvtF/2Jk/lNprA5P4bQjLE537bPx/T4p5CGrRWGKU2d4fFlcIrEijEWmy5FUkusHGbXo6p70i2h6syZI4l0ec8BFBtvTHZFl9u3LYGPrACOFmLlcu/0ARYjMUnj+LkaupvZvVX+WsT+FIppfhrN4Pk5XRcsOfir6BL5YQljrrIz0wU//4lrlA63YNcUOGIV0mLVzN3y/v55VBTAg1DWeb+Q7aZOZOOZK9OG5DU72Y9JVPG1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+CEqbR72SNV2kmoesGh1brp268Q7oskNAY14JDefDMA=;
+ b=2s/umHVSwvm/0WwwaFfkdrnmKce+vGb4ltiiv+9owkqsMJk7I+yhw4BINm+M34/tzZ7Dm6TxPTXNKmavyR4kV6Z3LQM7KDKl1KknwOSI7OdNcrv5xB7adoZ/XiC5zRdsSdBoUAxrSGFzYlNz7y6xSDZDaJRTT5txCltrep4E1Vk=
+Received: from BN0PR04CA0014.namprd04.prod.outlook.com (2603:10b6:408:ee::19)
+ by SAVPR12MB999144.namprd12.prod.outlook.com (2603:10b6:806:4e6::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
+ 2026 08:09:20 +0000
+Received: from BL6PEPF00020E60.namprd04.prod.outlook.com
+ (2603:10b6:408:ee:cafe::14) by BN0PR04CA0014.outlook.office365.com
+ (2603:10b6:408:ee::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 10
+ Sep 2026 08:09:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF00020E60.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 08:09:19 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 03:09:19 -0500
+Received: from [10.136.42.177] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Thu, 10 Sep 2026 03:09:16 -0500
+Message-ID: <f771bdd6-3e4b-47db-bfa9-b04bd58b9a06@amd.com>
+Date: Thu, 10 Sep 2026 13:39:10 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NpfbsqbTlzxUOvzqVtC/TKNNUMMBZqoi3BMLUiaduAYbs2die1X2i2g/
-	EY9q0s7n+cB+RsdxX2JxQyA8Dos0iPQm3xhb54Q27Mg+MtwpFY9jGMW9QhNwM7xcnrUvSOm
-	5EiQ6lxXtRGw3zjwqaMsL1abWg6J2hEFlsE5Rv+Q35cKLrSkwuzdKts5rOUrlnf7DwUChHr
-	7cyJeZqDuVDkZiIvOM7wbznVZe28kd0Ai4x3ybQUWdA93xWCvSL3Sk16g0xvJqdn5MYBjCG
-	HmdbMTCdWsfay1Dw4kC1OSrsXCMLDIHfGGr07eT/p6Pu6FdKmMpal1XASi0QulNHiX/R5SA
-	Dx6rZPzpWSC2uKJXTd534geCr4H7ZILEZfiM5hppxIHcxVPsyAhSte4ksGl/UmNv9hnSoAU
-	0TULnaPwzCx8Rydg4t6NdlDsH2TPXbF8xnSQN1KaoylvuhC24u7KnQ9uFFKwWdpPP/D94xN
-	BoVSCXucZs7YBN1SGcXYtQ64OAWl3Yopac4bR6UWEaCmu0RW8GVbCLX11lNNKvv2wWDT63X
-	zmDYSluXhUCvxF9v/iVdFaxIv0VVrzPjh6wl/hUyUJe8rDnbMHuuB63NRqkSGPPpMzSkjqU
-	tWJNcuBmb7eBC4Np8IhYiSjWFcOL87/3Hc4P0jE2rpvRa/vE1tD+FaIWVYFTiIzB5vVAsTV
-	GtkJyBu5XhO37hCBap0ta1SOJQgPMbX1D4EGO6Yael08h2DCN3vFFMyyybfxVIarYDEH5Db
-	EelEPOOYfpN1Mk1iyp6hRnL6Nfd8XzT1/15I9vwtSEn5SGLCMsBMbxgmXCERhHd72hVHRku
-	ITT3NzI4Mtb9kcLnhJQsi3V/dzEKWcrBVRCP4Kr44nYBeJE/xUxKlCICg5U1om9A7zAYcNL
-	PY7EOT8e29RDAjXJI+LEpRKI2bMLL/3uY6iwR8Ywd8fS/mBMPYA0i8Coz2fsVgxMV8i8GPi
-	Vf7LyTZLiYOdIho0vf+hsKQzRvaaFW5Wssho+nNB9DdVUuWeRuIQEDdSvNx3nQyuvKGcU7h
-	t8Kmz667Ttb5JbxSL/
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH RESEND 03/10] sched/fair: Clear active_balance at the
+ end of active_load_balance_cpu_stop()
+To: Xin Zhao <jackzxcui1989@163.com>, <mingo@redhat.com>,
+	<peterz@infradead.org>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>
+CC: <linux-kernel@vger.kernel.org>
+References: <20260910042950.1619727-1-jackzxcui1989@163.com>
+ <20260910042950.1619727-4-jackzxcui1989@163.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260910042950.1619727-4-jackzxcui1989@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E60:EE_|SAVPR12MB999144:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29b5f3ae-c427-404f-0ed1-08df0f12d0b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|7416014|376014|10067099003|6133799003|22082099003|18002099003|4143699003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info:
+	wEwF+ZqfsRkOuRUNJtrQouENNOJRBN25ujkBFcaRYfhdlavcroT/UVJUOzAS3GP2H8SyP4AAPJ242MfPDGmEYqrVgFXTBaeJE1lKnMkDUoImGne1arU9GJc8luQ8iHhbe0z16nsl0iQrNCNA8NrQpBR0WMF/qxgKXa3EimHyL93M4asTsZQB1veUblHlrnhqJgp9vz2ACJS5BOjepycjsONOMEoE0m5OR3dRj1QJwbsJXRm+E1waKUNzZx7k/uWDrmUbvPWTC4DBFJYnOBzgxu4RbIh5PfYw0aDHmMumwdfTx/yAhuFM10SMc2l/9rjHJVZ6tQsui7K6cGONmroKWyQPlk6iqoShcDFFnH5kwTT0fXORvwwBWn/PSozh/pz5XgzXsFzv+x5881OmNrg6Rfdjd/V9V/VlH71arL97gC/Y5VxtBZ3yi292UHieKd0zVoqVGrtCYiQ59nM3Aewnot3w4TLGeEUEn3vdTWxLs+FFEhTc2ylY02ph+aQTBA7VIDAoCkAyOuKWPxhuO3rpq4ZY9qj6DP2NmENJbao2BrjFQU0ESNINyEfVtgxv9k+7uPcRA+Mrq+xGoYutsMG04vH0MUDJBYfoi3Gfmdqh0jwVNANOukPhQNIxs/JGrQUCY2GVgQQiHchtUzCXwjgtFN8pPXu2aUglDJbyZTrS5rpLYG6rZpzlzkGC+Zjm/hlk91W+o0xqcRUk0YND32F8jSMZu1yk9EE3wUgTYbn2VwMl4I8JZoeVUwtwlANKFW06
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(7416014)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	IAPCt7hwpqf7H1CxP6LTgfaW6cqJ4OuryZTh4/znAfe1XJVxtTKvxi7j3Ye+OTO6zsF4qnM+sMMkOERS29GOBDEZIITsPj4tSQFJIrNJFYSb7xwdMJal2AyHbrTPYl+UaXOoMMPsRUJALLZkFeYJSFqpHPS/+PLX8wNIDW36KTPhVju/6bkk54GnMP4Nhjyezri4ST7n+memGDQHEElDA13udteJu50JzSxc7E5Zbf+gVHAx/l/gx+xw8mPZQhh0bfC/r0bgnTZJdVcTJmkS7j2rkSAFQNfvh9ajN+2jeu3qEbO69952AaF/ZN6Ox7sWh8YY6Nhmjk3yAZSM0b8sSy5OVaRdumK+lZqI8F7WIyJYkSTEZdmPdXUEZnVu4/M84nghVojEQxULaWXE7YB1+OY3yQZ9g/eW81SCw18iflQ4dbxLFSaVa7H/wkReF/Iq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 08:09:19.4956
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29b5f3ae-c427-404f-0ed1-08df0f12d0b6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E60.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999144
 
-nouveau_bo_pin_locked() checks whether an already pinned BO is in a
-memory domain compatible with a new pin request. When the domains are
-incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
-returning.
+Hello Xin,
 
-Callers treat a failed nouveau_bo_pin() as not having acquired a new pin,
-so the extra pin count is never decreased by a matching unpin.
-This triggers the warning in ttm_bo_release():
+On 9/10/2026 9:59 AM, Xin Zhao wrote:
+> The rq->active_balance flag is used to prevent multiple CPUs from
+> simultaneously dispatching active balance stop tasks. Since there can only
+> ever be one consumer of the stop task, it is not strictly necessary to
+> protect the setting of rq->active_balance to 0 with the rq lock in
+> active_load_balance_cpu_stop(). Therefore, we can move the action of
+> clearing rq->active_balance to the end of active_load_balance_cpu_stop().
+> The benefit of this approach is that the task load of dst_rq will change
+> due to the execution of attach_one_task(), which helps avoid prematurely
+> clearing rq->active_balance before attach_one_task(), thus preventing
+> unnecessary dispatch of duplicate active balance stop tasks.
 
-	WARN_ON_ONCE(bo->pin_count);
+Aren't we moving tasks *out* of the busiest CPU where the stopper is
+scheduled?
 
-Found when fuzzing the nouveau driver with a modified Syzkaller:
+As soon as we do detach_one_task() within the rq_lock, the load is
+reflected correctly. There is no need to wait until we attach task to
+a remote target_rq. TASK_ON_RQ_MIGRATING will immediately detach its
+PELT signal from busiest.
 
-	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1: syz.3.24/2212
-	Modules linked in:
-	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24 PREEMPT(lazy) 
-	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19 resp:0x19
-	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-	RIP: 0010:ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256
-	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7 e8
-	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00 00  .........0..-...
-	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
-	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX: ffffffff82bb1b36
-	RDX: ffff888017b68000 RSI: 0000000000000004 RDI: ffff888018e5d2a8
-	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-	RBP: ffff88801261c720 R08: 0000000000000001 R09: ffffed10031cba55
-	R10: ffff888018e5d2ab R11: 00000000000000f3 R12: ffff888018e5d290
-	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15: dffffc0000000000
-	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000) knlGS:0000000000000000
-	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4: 0000000000770ef0
-	PKRU: 80000000
-	Call Trace:
-	<TASK>
-	kref_put include/linux/kref.h:65 [inline]
-	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
-	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
-	nouveau_gem_object_del+0xb2/0x1b0 drivers/gpu/drm/nouveau/nouveau_gem.c:90
-	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
-	kref_put include/linux/kref.h:65 [inline]
-	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
-	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
-	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0 drivers/gpu/drm/nouveau/nouveau_abi16.c:195
-	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle 0x00000000
-	nouveau_abi16_fini+0x1d0/0x340 drivers/gpu/drm/nouveau/nouveau_abi16.c:225
-	nouveau_drm_postclose+0x18b/0x3e0 drivers/gpu/drm/nouveau/nouveau_drm.c:1284
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
-	drm_file_free.part.0+0x6d6/0xb60 drivers/gpu/drm/drm_file.c:267
-	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
-	drm_close_helper.isra.0+0x11a/0x160 drivers/gpu/drm/drm_file.c:290
-	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
-	__fput+0x39c/0xa60 fs/file_table.c:512
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
-	task_work_run+0x15a/0x230 kernel/task_work.c:233
-	exit_task_work include/linux/task_work.h:40 [inline]
-	do_exit+0x82b/0x25a0 kernel/exit.c:1009
-	do_group_exit+0xc2/0x280 kernel/exit.c:1152
-	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
-	arch_do_signal_or_restart+0x7d/0x6e0 arch/x86/kernel/signal.c:337
-	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
-	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
-	__exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-	syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-	syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
-	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-	RIP: 0033:0x7f12bac8594d
-	Code: Unable to access opcode bytes at 0x7f12bac85923.
-	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
-	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX: 00007f12bac8594d
-	RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007f12baf15fac
-	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09: 0000000000000000
-	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-	R13: 00007f12baf16038 R14: 0000000000000006 R15: 00007ffe2ed394b0
-	</TASK>
-	irq event stamp: 47867
-	hardirqs last  enabled at (47883): [<ffffffff815cafc6>] __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
-	hardirqs last disabled at (47892): [<ffffffff815cafab>] __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
-	softirqs last disabled at (47875): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+That last statement seems to be inaccurate.
 
-Fix by going to the out path as soon as the incompatible placement
-is detected. This matches the correct bahaviour in other DRM drivers
-such as amdgpu_bo_pin() in amdgpu.
+> 
+> Active balance stop task is triggered only when rq->active_balance flag
+> changes from 0 to 1, and there can be at most one consumer of active
+> balance stop task at any given time. Therefore, we should never see zero
+> rq->active_balance in active_load_balance_cpu_stop(), use WARN_ON_ONCE
+> instead.
+> 
+> Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
+> ---
+>  kernel/sched/fair.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 11c104010b2e..20d03ceed9d7 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -13769,8 +13769,7 @@ static int active_load_balance_cpu_stop(void *data)
+>  	if (!cpu_active(busiest_cpu) || !cpu_active(target_cpu))
+>  		goto out_unlock;
+>  
+> -	if (unlikely(!busiest_rq->active_balance))
+> -		goto out_unlock;
+> +	WARN_ON_ONCE(!busiest_rq->active_balance);
+>  
+>  	/* Is there any task to move? */
+>  	if (busiest_rq->nr_running <= 1)
+> @@ -13815,13 +13814,13 @@ static int active_load_balance_cpu_stop(void *data)
+>  	}
+>  	rcu_read_unlock();
+>  out_unlock:
+> -	busiest_rq->active_balance = 0;
+>  	rq_unlock(busiest_rq, &rf);
+>  
+>  	if (p)
+>  		attach_one_task(target_rq, p);
+>  
+>  	local_irq_enable();
 
-Cc: stable@vger.kernel.org
-Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to force a contig vram allocation")
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.5
----
- drivers/gpu/drm/nouveau/nouveau_bo.c | 1 +
- 1 file changed, 1 insertion(+)
+As soon as we enable IRQs, a timer for a remote tick may go off which
+may want to push the task from this CPU again but it sees
+->active_balance still set.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 0e8de6d4b36f..bdd0390b590e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -578,6 +578,7 @@ int nouveau_bo_pin_locked(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
- 				      "0x%08x vs 0x%08x\n", bo,
- 				 bo->resource->mem_type, domain);
- 			ret = -EBUSY;
-+			goto out;
- 		}
- 		ttm_bo_pin(&nvbo->bo);
- 		goto out;
+At the very least, I think this should be done before IRQs are enabled
+but I'm not convinced by the justification for this in the commit
+message.
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
+> +	busiest_rq->active_balance = 0;
+>  
+>  	return 0;
+>  }
+
 -- 
-2.43.0
+Thanks and Regards,
+Prateek
+
