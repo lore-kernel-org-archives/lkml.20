@@ -1,114 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91ABB3DD525;
-	Thu, 10 Sep 2026 09:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF48391846;
+	Thu, 10 Sep 2026 09:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032836; cv=none; b=PJkCy4PW94XpH5LtsdwQ+uM9YCi1IZEzCF/xLlvNbm0ciBibF/rN/XazRa9EAO7n7qrlyfg6UczESHVg1b2KWE6dCn9/t0GwNip1ig8bXd+DCdlxikhzEtJYf9MAdmEcB6ZQDjqVPoQNO+b5wmATsa9nIf956wI0vBTnVwNy974=
+	t=1789032855; cv=none; b=hMCogrjlFH7tWngzCIRMYO2ZL6kuY44rMmvYL62wVeeBUtAocy7rNIiGM/m8LZRwW9h2TDulKoGxN9GjWE99jhxxA7l3tTIAVaX66IZcec67yMyoqd/RmaD5KjvTVmTZIIM3knrsKIINY51pDNMXsmXGawIUF7rNCV+fRYNCZII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032836; c=relaxed/simple;
-	bh=FjcDcqvU0235HfXhQqh3BNVRPpVFE3oJFo7uUnHGA88=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=j79tny9sOKOC8csXtjX0sySq32l3SvVfTxPP2J8rF3aKb+AT9LnQ2RpBxpKITfOVFIZGt1yohdSxiQjIKnGZTXrV5ILRpC3QlDyF+yX+QjyLmQhFhMKpsywznRLvASz96WP0L5ahXJ0VvBLGpgBnuTuQJc8TGg1LN9+3T36ZW9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cY8PFmEo; arc=none smtp.client-ip=198.175.65.17
+	s=arc-20240116; t=1789032855; c=relaxed/simple;
+	bh=KWIqtCsgFy3CMIbB0nDeszb6lj7Mdoybp0t1DOWIgg8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=swJwBRW3G4ME64P2ar6lF8xYJRPFf03coAv8fayqhvSymRxaKHSCXjqLZjGcwMwJLz4P0rqY0Xix3IQ/mT7nquzOp+mIAHCZSh6iK5b183HzawNIUTLWTiRG1esvTzgIQmBNhOxZMjr6TD98WKTNu9qFwWycNdB1BHhseb3Qb3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AzNN1uQk; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cY8PFmEo"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AzNN1uQk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789032833; x=1820568833;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=FjcDcqvU0235HfXhQqh3BNVRPpVFE3oJFo7uUnHGA88=;
-  b=cY8PFmEozMPmjnX10Z3PYZoWfUn60dxbjVOu5MErTglZ+2bT4eNbcFsr
-   Ep4+X3Z3OPA1ivNK4wk6UGsYfwWAll9MIlGFwvI1zWqFeFfbGuthNI944
-   XBCzvfvpQaLJH7jqNMHn7zpKTWMbRy1+5l/qp571/2oHDLr0LP9rXErQY
-   Olepj3FGmGSUpBa5Rx3pXNKEzOhEWAEIwrBzSsHc2WdIMx/Le02yGV346
-   9xgbCmKqEWbIQFZF18Lpc4Zk7Ce0K3nwjOVakvG9qZJP2z3GYdvS4VF+l
-   YoKhhTYd/IlnYZJZMJt8Gvkfe0JODFVUzGpTO2yCat7VvwFJktLJBBVhk
+  t=1789032853; x=1820568853;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=KWIqtCsgFy3CMIbB0nDeszb6lj7Mdoybp0t1DOWIgg8=;
+  b=AzNN1uQklffATvvr638Mv0kgeCD6WUJs+8Tb3c0ied/6hiU7igifIfRo
+   HtHUY/yNhw91WzRAjPAugQxhQYrhw/eX95YEC/6RUCNi/11kOoV6DURwg
+   0nKq4K/QK+C6hPAkatg3hZTezIhB9BiFNeY2I0J1TgyH1dYtVi8Ugo5s6
+   ZtaCVBUMptoOENSFi/KKizcdy1eYIg6tIRzxIt3hiTOMy6ELHzX8my0F3
+   NPo5W+kLhYBEcEAxr/aZTg21PODX3d8Tig9OCOgZwJXx45TXV4Radlt+K
+   kOUl26gzriamJWhwpK16ZDpGnq9GFCkaiKIWT0VbKqU+y22q9mxh+BByL
    A==;
-X-CSE-ConnectionGUID: IBZ2LolpTYmMfkJPoQqhVQ==
-X-CSE-MsgGUID: G9L0dvZAR7+xJiGGNR1M1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89509912"
+X-CSE-ConnectionGUID: 0J+nBdFQSmSEHKa+Y1SSyg==
+X-CSE-MsgGUID: d4JZyBhfRwKTtkc7wX1qSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89601511"
 X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="89509912"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:33:50 -0700
-X-CSE-ConnectionGUID: 3jn/nBKeSJK4lhAyBYfZeA==
-X-CSE-MsgGUID: IkjzOK7hQjS96BFYssBhzg==
+   d="scan'208";a="89601511"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:34:12 -0700
+X-CSE-ConnectionGUID: I3CdQm0pTVyez/256/13dA==
+X-CSE-MsgGUID: hRs1CcGuSgSNJSyivTGacg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="272089790"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.221])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:33:42 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 10 Sep 2026 12:33:38 +0300 (EEST)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-cc: zl020895 <zl020895@163.com>, longzhao@ambarella.com, 
-    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-    linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Michael Turquette <mturquette@baylibre.com>, 
-    Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-    Bartosz Golaszewski <brgl@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, 
-    Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-    Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-    devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-    linux-gpio@vger.kernel.org, linux-serial <linux-serial@vger.kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: Re: [PATCH v6 11/13] serial: 8250_dw: add Ambarella CV75
- quirks
-In-Reply-To: <aqJ35vMBiBZo2iUE@ashevche-desk.local>
-Message-ID: <b199eb38-b1a2-4db6-81d8-37bab09a75b7@linux.intel.com>
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com> <20260904-cv75-v5-v6-11-e918514cb3b1@ambarella.com> <aqJrSnr0rwv4BOJ3@ashevche-desk.local> <122573f8.8232.1a08a9765fc.Coremail.zl020895@163.com> <aqJ35vMBiBZo2iUE@ashevche-desk.local>
+   d="scan'208";a="268308887"
+Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.245.216]) ([10.245.245.216])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:34:10 -0700
+Message-ID: <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
+Date: Thu, 10 Sep 2026 12:34:07 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xhci: sideband: check vdev liveness before removing
+ endpoints on unregister
+To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
+ "broonie@kernel.org" <broonie@kernel.org>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026, Andy Shevchenko wrote:
+On 9/7/26 15:24, 胡连勤 wrote:
+> xhci_sideband_unregister() assumes the virtual device (vdev) is still
+> alive when iterating sideband endpoints and issuing stop endpoint
+> commands. However, xhci_disable_and_free_slot() may have already freed
+> vdev and its out_ctx before xhci_sideband_unregister() is invoked.
+> 
+> This happens when xhci_setup_device() gets COMP_USB_TRANSACTION_ERROR
+> (e.g. device not responding to setup address during bus reset recovery),
+> causing vdev to be freed before xhci_sideband_unregister() is called:
+> 
+>    hub_event()
+>      xhci_setup_device()                  <-- COMP_USB_TRANSACTION_ERROR
+>      xhci_disable_and_free_slot()
+>        xhci_free_virt_device()
+>          kfree(out_ctx), kfree(vdev)
+>          xhci->devs[slot_id] = NULL
+>      ...
+>      usb_disconnect()
+>        uaudio_disconnect()
+>          xhci_sideband_unregister()
+>            xhci_stop_endpoint_sync()
+>              xhci_get_ep_ctx()            <-- CRASH (deref freed out_ctx)
+> 
+> Unable to handle kernel paging request at virtual address dead000000000122
+> Call trace:
+>   xhci_get_ep_ctx+0x0/0x38
+>   xhci_sideband_unregister+0x68/0xf0
+>   uaudio_disconnect+0x70/0x144
+>   usb_audio_disconnect+0x7c/0x268
+>   usb_unbind_interface+0x13c/0x340
+>   device_release_driver_internal+0x1c4/0x2bc
+>   device_release_driver+0x18/0x28
+>   bus_remove_device+0x158/0x170
+>   device_del+0x1c8/0x320
+>   usb_disable_device+0x84/0x190
+>   usb_disconnect+0xe8/0x338
+>   hub_event+0xbd8/0x19ac
+>   process_scheduled_works+0x200/0x9d8
+>   worker_thread+0x154/0x3b0
+>   kthread+0x11c/0x1a0
+> 
+> Fix this by caching the slot_id in the sideband structure at
+> registration time, then checking under xhci->lock whether
+> xhci->devs[slot_id] still matches sb->vdev before issuing stop
+> endpoint commands. If vdev has been freed, skip endpoint cleanup
+> entirely - the xHCI has already disabled the slot.
+> The interrupter is still removed as it does not depend on vdev.
+> 
+> The slot_id is cached in sb->slot_id rather than read from vdev at
+> unregister time because vdev may already be freed, making
+> sb->vdev->slot_id a dangling dereference.
+> 
+> Fixes: de66754e9f80 ("xhci: sideband: add initial api to register a secondary interrupter entity")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lianqin Hu <hulianqin@vivo.com>
 
-> On Thu, Sep 10, 2026 at 05:12:52PM +0800, zl020895 wrote:
-> 
-> > > Wondering if we should undo this in the port's .shutdown() callback.
-> > I saw the shutdown path already covers it: dw8250_shutdown() calls
-> > serial8250_do_shutdown(), which does
-> > 	up->ier = 0;
-> > 	serial_port_out(port, UART_IER, 0);
-> > so both the IER shadow and hardware IER are cleared, including ETOI.
-> 
-> Depending on the answer to Ilpo the enabling may need an updated comment
-> summarising the above.
+Thanks, nice catch and layout of the problem.
 
-I'd prefer removing the entire "Force them ..." sentence, it feels really 
-basic detail about how ->ier works. I believe that would resolve your 
-concern if relates to what shutdown does for the flag (clears it while 
-the comment as is says nothing is supposed to clear it).
+I think we need to address this issue a lot earlier than in xhci_sideband_unregister()
 
-> > At 2026-09-10 16:33:14, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
-> > >On Fri, Sep 04, 2026 at 02:38:18PM +0800, Long Zhao via B4 Relay wrote:
-> 
-> ...
-> 
-> > >> +	/*
-> > >> +	 * Ambarella keeps variant IER bits (e.g. ETOI) set for correct RX
-> > >> +	 * timeout behaviour. Force them into the 8250 IER shadow so later
-> > >> +	 * generic IER updates do not clear them.
-> > >> +	 */
-> > >
-> > >Wondering if we should undo this in the port's .shutdown() callback.
-> 
-> 
+xhci_free_virt_device() shouldn't leave any dangling pointers, if vdev->sideband
+is still set at this point then something is wrong, and should as a final resort be
+fixed here. Print a debug message and set  vdev->sideband->vdev = NULL before freeing vdev.
 
--- 
- i.
+Another issue is the transaction error recovery during address device.
+xHCI specs say we should disable and re-enable the slot.
+xhci driver additionally frees and reallocates the vdev.
+We could probably avoid this and just re-initialize the contexts without
+reallocating vdev.  This being said I think it would be even better to not
+try to 'usb persist' sideband over a usb device reset.
 
+Might be best to unregister sideband in qualcomm usb audio driver completely in
+the drv->pre_reset, and re-register it back in drv->post_reset
+
+But to avoid this specific issue we should also set vdev->sideband->vdev to NULL
+in xhci_free_virt_device()
+
+Thanks
+Mathias
