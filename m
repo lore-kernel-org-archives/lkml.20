@@ -1,240 +1,169 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168664CC292
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77AE4A207F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057347; cv=none; b=E2zotedLdCv2ASf0WhWLexAm44rFAXRNL7CVrKj+RIvy+Ne9NW0d8oD0Jb43UEBY04Aakd9tFtV69x7XocPtq6ALWrGUXRoPhERdmHykr4i2bgtQYQnjKukfoeKmpw1OvoN995sEA3KYPzfqZujepgPqC0TC3XgNj0qxgKUNalM=
+	t=1789057359; cv=none; b=a/ukI5YrEX5u7moA2cvYruR79gW4x0rIhOcvJUlRRmd9gkdsvHwv4++kVi282PKiirL5uSVEQ0SW/UJJ6kOxwPpDYNl0jdmItEgLtK+URr6e9eGjb0EXRR4+UZu+hzazKjvGA8MxxyX/7imC/OiLeszcbuKk4/qYmB6ypjdkEqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057347; c=relaxed/simple;
-	bh=p6vQWJN/EafUy/R6o1cCpJ6DDGnl6w2c89vs1ADfHsY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pGS1Xyd6gbDjI4Ze4ZDtrvjaFOWhT5wfwqvv/hn4R+wMlVqmZDtv2o7xhSK5nWmHlcYTF8XxXI9rVAykO75BZNtfSKEooYu8QoHiFMQ623NLH5cD+Z5RaewBsHsyhv9O1Y7+MKWlBUoWqChZRjTMz4fPKx9YIjdoJtmQtKXA+Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mD0j5e5I; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789057359; c=relaxed/simple;
+	bh=jBN8TRyCDKAQ9/DDhIiXO4jDA5sseUac6PzS0fymOnE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=heYBVwfQ7hHVrol0t94tfjY40r9kUaO+Sxs7LqNNAaf03EM2i2jWyTCZeCmxEgkbUR5CLxpJPwatgk8RFZzgFqEQZjo+LPLQQxmG1eDBiXJjlfXyEAoE2eCJ5j2mtaYRmorkAQI1kOAPzWr3RA1ap5z4kyf/i71W9yEXVki/5Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IcXmHvZj; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mD0j5e5I"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1487954a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789057345; x=1789662145; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GIfJU6IVX6KOUqYIRa0zO66YeE92f7Q/x1to1Dv5ucw=;
-        b=mD0j5e5I2waKrdpuGGKWBBGUU4+Sw8v/B94BEhAd5KAAjH5dOaXUSnkEw2UCkhu87w
-         R8cY/iKKTLVDqzdZZnBwLPgF9h2bfl6cEuzxDlII6fjQ60VvEIPqIFfgJHlTLiV7cjlD
-         7lTZ8BtRIV+Lkuf0LDy4SibXzrpEsnoCmuTdpCaITEQ/JQZy58JyOumWTIb+IP8XAUXu
-         nmO6aDCiJFCi6xOPLbJXAeAfgV28xUWc4mRoFBcVrmtnkr3l9jeQE7DGxwYZ6Oaf9kPW
-         JofdpdKyfsW4+ENxFkm9hVXtAeUnldVIaibI3oC3GLJWdSlpVAWiHUFiY6sls4PxDTv9
-         OnmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789057345; x=1789662145;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GIfJU6IVX6KOUqYIRa0zO66YeE92f7Q/x1to1Dv5ucw=;
-        b=scWXfP857QLNkH2BfioLBwZRbRw8EDlXV9AZLK1Mkm149yoGne1KZKfR25BhDWJ55I
-         BewN3U6XZLJaCZuMmoL90SyU8IyPivq1MWEEtysSWaVOcZFLaQjyo7gZOJljfYYaREp/
-         NL85zxev4a74w+kDKmM7bx652My2x97DXPgj2rO2ANv+BjKSQnHpsNyASjL+nAF7Pji/
-         TRgzfiPG1rw3bC/Qs/bHZ8Qa2S2WNo5ui/6cyj70Xt1vSiNlyqWmT21MR1OtX5fMNnnp
-         c1Dt1g2/ecSkj4UZKqjSHxiStF8mHTBvDHoOnLkCRr51D0in7bstzVBSyQQw/MQqR72Q
-         Rb9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwYJ6e3tdjD/s08oWRU+6Zv+uQ15IdD5aRewHG7uOVcBoNes/HlYW1zSted974ShgWtzSi6ivHIqxbTEBk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlyyb4K4WZssFONOToYCEzrjVQ3r0u9Krx2fm7f3Z1bdYzp4wB
-	9L25mz7d1eoNVDoiz2Oc9tkpLDL1dAjypCAKNYF0VTzW9vpZENyHkRoO
-X-Gm-Gg: AYBFou2Q+rjiRMMxE+xrQK/rj1McAijzhN84559/7lxp99PJTjnLZUueSixKJaBIa0r
-	Mzk9AiO7c+XNn9quXSpy4L4u6xE1XRmrqz9et8h9ut7UcHpXS9bVMY2donLxOFgBTly7CYeJT6U
-	JwgfosRSqgQBoHd9OjRtCHEGnLbpqojVCNcP5wyaxFeZanRUd2suhKre+MO99uYouAz2o3VeFNj
-	zCWII3gU48eN3lwhxzrfjKxVrCtOK7Bk4XAGScvvKMo0ije4HhKOxPEd9nnSpRE0hbxTtlOBUZA
-	4HGB4WNPhMEcvJ81yuycorJJi4xsmPm/enGl0yV2Kgp50O3EKS0FXs4Gv4KaFxEL+652u/ig7y/
-	uyC+VXe+Cr24hRrDFoGAPBKiak/b+rmh4zFc30Ex3dce0CBdGUAE+lfowNpoGplla1n3Ki4vNpk
-	rN2mBLv3VbdztFg+jGCEWH4/V4q6YUq90Sc4P1Biy1DuTf2EgtNWyTW9YPEm/1712rQkFB4L+U1
-	g==
-X-Received: by 2002:a17:90b:3c50:b0:399:ea1:5a82 with SMTP id 98e67ed59e1d1-39d7097c59amr11970586a91.3.1789057345300;
-        Thu, 10 Sep 2026 09:22:25 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94b937ebsm361707a91.1.2026.09.10.09.22.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 09:22:24 -0700 (PDT)
-Date: Thu, 10 Sep 2026 21:52:23 +0530
-From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, linux-cxl@vger.kernel.org,
-	Anisa Su <anisa.su887@gmail.com>,
-	Ben Cheatham <benjamin.cheatham@amd.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
-Message-ID: <aqLZP3ORYzCLfSgR@acer-nitro-anv15-41>
-References: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
- <aqBSUSJWVA8JfCvX@4470NRD-ASU.ssi.samsung.com>
- <aqGPliCzr8lS64K7@acer-nitro-anv15-41>
- <aqGo7Rtb00mgS1lH@cxlqual>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IcXmHvZj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789057355;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D9gnGcUQJaBIzpnTu1wUDwoH12yZQz14MwB/lcDpIXw=;
+	b=IcXmHvZjBd36Z2f64XvHfxUZ/5Zpe1HNrv9AaBzFhT6j2wABrIiaplgl9Rr66RCGsTqxJ3
+	UiYoHv4lIV7Inytf08WL/530lpsu7fb7mKoREhNljSSVfbIgqMaNFH7rS8sR5ad0J6liVt
+	y+P/d8oq3SeSZDPh5xpFEgaRGWr5988=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-356-0kZnHKz4Nc2rSVkB25lleQ-1; Thu,
+ 10 Sep 2026 12:22:32 -0400
+X-MC-Unique: 0kZnHKz4Nc2rSVkB25lleQ-1
+X-Mimecast-MFC-AGG-ID: 0kZnHKz4Nc2rSVkB25lleQ_1789057351
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BCC8F19540CE;
+	Thu, 10 Sep 2026 16:22:30 +0000 (UTC)
+Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1D9F81955D84;
+	Thu, 10 Sep 2026 16:22:27 +0000 (UTC)
+Message-ID: <77253fe7-7c0c-4fe1-8155-477e67d6145a@redhat.com>
+Date: Thu, 10 Sep 2026 12:22:27 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqGo7Rtb00mgS1lH@cxlqual>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
+ code
+To: Haakon Bugge <haakon.bugge@oracle.com>,
+ David Laight <david.laight.linux@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yafang Shao <laoar.shao@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+ <CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
+ <20260907182705.54585f73@pumpkin>
+ <89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
+ <44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
+ <dd6a7873-7d23-42e2-adbd-b59c43141d96@redhat.com>
+ <0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
+ <20260910120016.04ba8ae1@pumpkin>
+ <C81B298B-E8FF-4F96-8216-CFC21D167EC8@oracle.com>
+ <20260910130557.74e1ae45@pumpkin>
+ <E2131B35-DE77-41D3-85C7-521143FF94A5@oracle.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <E2131B35-DE77-41D3-85C7-521143FF94A5@oracle.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Thu, Sep 10, 2026 at 03:43:57AM +0900, Anisa Su wrote:
-> On Wed, Sep 09, 2026 at 10:25:50PM +0530, Shaikh Kamaluddin wrote:
-> > On Tue, Sep 08, 2026 at 11:22:09AM -0700, Anisa Su wrote:
-> > > On Sun, Sep 06, 2026 at 09:27:05PM +0530, Shaikh Kamaluddin wrote:
-> > > > CXL event interrupts may share an MSI/MSI-X vector with other event
-> > > > logs or device features. Consequently, cxl_event_thread() is registered
-> > > > with IRQF_SHARED and must determine whether an interrupt belongs to the
-> > > > event-log facility.
-> > > > 
-> > > > The handler masks the Device Event Status register to the event logs
-> > > > supported by the driver. However, when no supported status bit is set,
-> > > > it exits the processing loop and still returns IRQ_HANDLED.
-> > > > 
-> > > > Track whether at least one supported event status bit was observed.
-> > > > Return IRQ_NONE when there was no event to service, while continuing to
-> > > > return IRQ_HANDLED after processing one or more event logs.
-> > > > 
-> > > > Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
-> > > > 
-> > > > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-> > > Hello,
-> > > 
-> > > This looks similar to a patch I sent last week:
-> > > [PATCH v2 4/4] cxl/events: Return IRQ_NONE when no events were processed
-> > > https://lore.kernel.org/linux-cxl/8e22c1c2-8098-492a-8162-3dd27507c853@amd.com/T/#ma4cf2b2dddaeebc06cb73f81647817bdbb51963c
-> > > 
-> > > It was dropped because I received the feedback that in general, the driver does
-> > > not need to handle device-side errors/spec-violating behaviors. I believe it
-> > > would apply here as well. But if I misunderstood the intent of this patch,
-> > > let me know.
-> > >
-> > 
-> > Hi Anisa,
-> > 
-> > Thanks for pointing this out. I came across your v2 patch 4 only after I
-> > had sent my patch.
-> > 
-> > Your patch 4 is based on the preceding robustness changes in the series.
-> > By that point, cxl_event_thread() has been changed from the original
-> > do-while loop to a while (mask) loop, and
-> > cxl_mem_get_event_records() reports both an error return and the set of
-> > drained logs. The handler also uses the drained and stuck masks to
-> > control further retries.
-> > 
-> > My patch leaves the existing event-record retrieval and do-while loop
-> > unchanged. It only tracks whether a supported event-status bit was
-> > observed and uses that information to select IRQ_HANDLED or IRQ_NONE.
-> > It therefore does not change the handling of mailbox errors, undrained
-> > logs, or retry behavior.
-> > 
-> > The handled tracking in both cases addresses the same zero-status
-> > shared-vector case. My motivation was its effect on generic IRQ
-> > spurious-interrupt detection. Jonathan agreed that this is a cleanup
-> > rather than an interrupt-loss fix, so the Fixes tag should be dropped.
-> > 
-> > Since your patch was posted first, would you like to repost the IRQ
-> > return change as a standalone cleanup? If so, I am happy to step back.
-> > If you no longer plan to pursue it, I can continue with a v2
-> > incorporating the review feedback.
-> > 
-> > Please let me know which you prefer.
-> > 
-> Hello Shaikh,
-> 
-> Thank you for your clarification. Please feel free to continue with v2.
-> Can you add me to the CC list for v2? I am working on some prepatory
-> patches for DCD an there would be a minor conflict with this patch,
-> so I will need to rebase on your changes.
+On 9/10/26 11:30 AM, Haakon Bugge wrote:
 >
+>> On 10 Sep 2026, at 14:05, David Laight <david.laight.linux@gmail.com> wrote:
+>> On Thu, 10 Sep 2026 11:31:19 +0000
+>> Haakon Bugge <haakon.bugge@oracle.com> wrote:
+>>
+>>>> On Thu, 10 Sep 2026 09:45:47 +0000
+>>>> Haakon Bugge <haakon.bugge@oracle.com> wrote:
+>>>>
+>>>>>> On 9 Sep 2026, at 22:33, Waiman Long <longman@redhat.com> wrote:
+>>>>> [snip]
+>>>>>
+>>>>>>> Could you make that change to the existing code and rerun the test
+>>>>>>> again on arm64 to see if it can pass?
+>>>>>> osq_lock/unlock() is special in the sense that lock transfer can happen
+>>>>>> either in the lock cacheline or the node->locked cacheline. Try the
+>>>>>> patch below to see if it helps to pass the test.
+>>>>>>
+>>>>>> Thanks,
+>>>>>> Longman
+>>>>>>
+>>>>>> diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+>>>>>> index b4233dc2c2b0..51cecf297692 100644
+>>>>>> --- a/kernel/locking/osq_lock.c
+>>>>>> +++ b/kernel/locking/osq_lock.c
+>>>>>> @@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+>>>>>> * is implemented with a monitor-wait. vcpu_is_preempted()
+>>>>>> relies on
+>>>>>> * polling, be careful.
+>>>>>> */
+>>>>>> - if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
+>>>>>> + if (smp_cond_load_acquire(&node->locked, VAL || need_resched() ||
+>>>>>> vcpu_is_preempted(node_cpu(node->prev))))
+>>>>>> return true;
+>>>>>>
+>>>>>> @@ -224,11 +224,11 @@ void osq_unlock(struct optimistic_spin_queue *lock)
+>>>>>> node = this_cpu_ptr(&osq_node);
+>>>>>> next = xchg(&node->next, NULL);
+>>>>>> if (next) {
+>>>>>> - WRITE_ONCE(next->locked, 1);
+>>>>>> + smp_store_release(&next->locked, 1);
+>>>>>> return;
+>>>>>> }
+>>>>>>
+>>>>>> next = osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
+>>>>>> if (next)
+>>>>>> - WRITE_ONCE(next->locked, 1);
+>>>>>> + smp_store_release(&next->locked, 1);
+>>>>>> }
+>>>>> The test passes with the above patch:
+>>> Confirming that a much more thorough test (permutating the test array
+>>> size and padding) passed.
+>>>
+>>> What concerns me is that I am unable to observe this bug testing
+>>> mutexes or rwlocks.
+>> The explicit test will be a lot more aggressive.
+>> Especially if the lock hold time matters.
+> The algorithm is the same for all lock types. osq_lock failed, whereas mutex
+> and rwlock, based on osq_lock, passes. Weird.
 
-Hi Anisa,
+The purpose of osq_lock is for queuing the lock waiters with minimal 
+contention on the lock cacheline. Even when the locking semantics isn't 
+fully correct, it won't have an ill effect on the locking behavior of 
+rwsem and mutex.  We may have 2 waiters spinning on the lock cacheline 
+instead of one, for instance.
 
-Thank you for offering the handoff. Since you posted this change first,
-I appreciate you allowing me to carry the standalone cleanup forward. I
-will keep you in the Cc list for v2, so you can track the final change
-and rebase your DCD preparation patches accordingly.
+>>>> Do you know which part matters?
+>>> No, but now that I am able to test the OSQ locks as a module, I'll
+>>> quickly find out.
+> Only the first hunk is allegedly required:
+>
+> @@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+>           * is implemented with a monitor-wait. vcpu_is_preempted() relies on
+>           * polling, be careful.
+>           */
+> -       if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
+> +       if (smp_cond_load_acquire(&node->locked, VAL || need_resched() ||
+> 	    vcpu_is_preempted(node_cpu(node->prev))))
+>                  return true;
+>
+> I say allegedly because a passing test doesn't prove anything, it just
+> gives a good indication that it is working.
 
+Yes, as said in my patch, the other two hunks are not really necessary 
+for arm64 due to what how its barriers work.
 
-> Also Ben Cheatham gave the feedback to mention that "MSI will eventually
-> be disabled" as a consequence of this patch in the commit message on my patch,
-> which I think may be valuable here as well:
-> https://lore.kernel.org/linux-cxl/20260901002912.958-1-anisa.su@samsung.com/T/#m866a4fdb159553039d8d47b6ee7f2312caa9ed73
-> 
+Cheers,
+Longman
 
-Hi Ben,
-
-Thank you for the feedback on Anisa's earlier Patch. I will update the
-commit message to describe the consequence more clearly. When the CXL
-evnet thread returns IRQ_NONE, irq_thread_fn() does not increment
-desc->threads_handled. On a subsequent interrupt, note_interrupt()
-observes that the counter didn't change and accounts the previous
-interrupt as unhandled.If more than 99,900 interrupts in its 100,000
-interrupt detection window are unhandled, the generic IRQ code calls
-irq_disable() and disables the affected MSI/MSI-X vector.
-
-Thanks,
-Shaikh 
-
-> Thanks,
-> Anisa
-> 
-
-
-> > Thanks,
-> > Shaikh
-> > 
-> > 
-> > 
-> > 
-> > > Thanks,
-> > > Anisa
-> > > > ---
-> > > >  drivers/cxl/pci.c | 5 ++++-
-> > > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-> > > > index c7c91e8dc51d..8b560cae91f2 100644
-> > > > --- a/drivers/cxl/pci.c
-> > > > +++ b/drivers/cxl/pci.c
-> > > > @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
-> > > >  	struct cxl_dev_id *dev_id = id;
-> > > >  	struct cxl_dev_state *cxlds = dev_id->cxlds;
-> > > >  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
-> > > > +	bool handled = false;
-> > > >  	u32 status;
-> > > >  
-> > > >  	do {
-> > > > @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
-> > > >  		status &= CXLDEV_EVENT_STATUS_ALL;
-> > > >  		if (!status)
-> > > >  			break;
-> > > > +
-> > > > +		handled = true;
-> > > >  		cxl_mem_get_event_records(mds, status);
-> > > >  		cond_resched();
-> > > >  	} while (status);
-> > > >  
-> > > > -	return IRQ_HANDLED;
-> > > > +	return handled ? IRQ_HANDLED : IRQ_NONE;
-> > > >  }
-> > > >  
-> > > >  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
-> > > > 
-> > > > base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
-> > > > prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
-> > > > prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77
-> > > > -- 
-> > > > 2.43.0
-> > > > 
