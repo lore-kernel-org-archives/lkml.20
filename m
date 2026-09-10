@@ -1,298 +1,146 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE7435C6A3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546B647DD76
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057633; cv=none; b=oR8jBeCKCMYpc6BU6TJCzbsWsjD9w3dFfXsnb5dysWKKeDPqAKscNnMAC253rscjiGRinDBxWdVy/3MdSaUIcOCdRYjSTbg7JElV31Wo3cY3qO3f+B8ntghMd3sH+8zuQyeHbvdO02Ikir9tVpaU+HzMufRRrXnb6sDU/tNPPaw=
+	t=1789057643; cv=none; b=q4XGDSsELSqz61tE6vcNAWUMrGEVc4dKiodO67CvIigKevBjCi4h113cTr+ZuZjH//fh6IbCqQwYsoeZX4ZQXAx6mr0W2uUGUh+4Y58rEDB9z4Dwlb49bOaD5tYWkVulUuof/TBwRp7rMXzP4ym4stVeoGGWx/9AWYLDKdr9Zx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057633; c=relaxed/simple;
-	bh=OR/0aL75NB6kFfjOqwZgJyYvWo9KOsGN/WkMJwy+cPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vt99E/8ENYLqCe0xtshv1aSNlYwFtMZjS0IpgUg4OvrwKWjpu0Sva+G/wL3X3zsvW2xAHAbMee+yxHESNoqIL+hv2zzpIE1Bi/XTQoUVoXg6sFGiH8d0J1l0NtZs7p6ruFH0Vp6K1LhVxe7OktxtijMyQZSJmnDxby3gJ+cwYBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eDvzTLMQ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789057643; c=relaxed/simple;
+	bh=kjpF59fe4ubdCkFvENJAVeCWzv0Fgh94P0CK6dGCBfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BMZgL7Li7bmPdnaf05auxKgwruAHvAEJs9PydBx+VR+QSKxxgOlxzVnAWdVMG8hq5TUWmQIdRsSQywS5y3yC/DNlid3dc9G8nKNLSg+VP6A4/urvRgmuI+d6Ol2klU2Irx3qU+zLkd5X5eyGB301ah6iVm7MUjBtQ/BtvEpU4CA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qgFsEhz7; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eDvzTLMQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789057621;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1puZjxs3lQ0OZGjrziHtT77SfFjdKoASATdow4jmCoE=;
-	b=eDvzTLMQD1zk/gF2P1wYfL/knlCJKtqGxuq9L1nx7f55iGLirlEH0FAkCRPpuIskqXIixQ
-	wwn04Zu3hJCdkQvB5U0/8dPcSsim+hU2f4wt40ZswRyJY0FxqnWOrj0kPVlJRdHa+Nqrsh
-	n434uqSSJs5/3KKpJoCVSIoygBwxOX4=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-212-KUPKdFIrNTa6Fvcwg-c9oA-1; Thu,
- 10 Sep 2026 12:26:55 -0400
-X-MC-Unique: KUPKdFIrNTa6Fvcwg-c9oA-1
-X-Mimecast-MFC-AGG-ID: KUPKdFIrNTa6Fvcwg-c9oA_1789057610
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 433171955E7A;
-	Thu, 10 Sep 2026 16:26:49 +0000 (UTC)
-Received: from bfoster (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D1D101800351;
-	Thu, 10 Sep 2026 16:26:43 +0000 (UTC)
-Date: Thu, 10 Sep 2026 12:26:41 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, hughd@google.com,
-	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
-	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
-	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
-	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
-	yukuai@fnnas.com
-Subject: Re: [PATCH v2] mm/truncate: fix data loss when truncating straddling
- large folios
-Message-ID: <aqLaQcZvaFIrAz0e@bfoster>
-References: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qgFsEhz7"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9866so16172405ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:27:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789057631; x=1789662431; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ERs0ZBdo2a6X8YAmXloXdwhR0inMOSFiQbLLSRZtan0=;
+        b=qgFsEhz7ugg9aVwp1qHOEX6snmbPNbKUsH8NfxKlTcNf7SuQZJrXXDxe4tcJv4GptL
+         c3TRxdt2FRM+ZPhOH/TkymuNDjL5v1c85TO0m8VkaJXzR8nMN8cgYHCXI15o3ar/3AAs
+         pPE5ZbaAct3x6GaLHJkwt1KXK04yLEWeplQ24wblQhTrKmS7nXSNrSmkbmukmyo/D/wC
+         gOcE3cTf9rQU88YTedleE0YrxNlsk7q7jbjb1CjfI9t9JY0AlE0FF8+1w5D5foJnE6VC
+         oJoBRk/zYSx9EEgLPUrsC9105H4pT6fQ29cy6OF5Nor/C+PUkpNTfVuuYmMhteNoYA2J
+         z5VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789057631; x=1789662431;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ERs0ZBdo2a6X8YAmXloXdwhR0inMOSFiQbLLSRZtan0=;
+        b=TzJnrJYJligyWPJRv/h1zt+tNQrCxhW8ENoNU8atvzSKB5s0r0+rdIz2SbPljBtAFA
+         MG2i/phvYr2+JOrMeeZqyINu8h4oqTX/5rD4wXrPsdtpf6ZS6Wp9J938/Ep3uAGP6r6i
+         ml+V4rHlulRL1eb3mc1o7lQ2C3MmSTe/lLgJP5NcX6UyEIAByzyXrn3uwGH4I19tydYm
+         frvNEFeCPDB+hNMqvAo2QsaH+soTHfgHKW1pGBLiKyOpuIh5kjeEi9zmvHbyNtW0P165
+         SsVMWNI1/a8BXk9xprmxhbYCzrmHSRT6LKBvmOdIxjSwsRxLsLC9XFMILzLm7SKy36E6
+         9/aQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPTutihmGG9tvCf46ObNb4EabW/pLRNlC14xPb4QV10oJe1/2ovT+KpZM4TZXPB3h6G1G73aixbeKLuVI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ks84rkrwf3GTTJ7rlX8ErBrGWmoeS27ve/vuYIVFor8+FYghA/
+	mtv2I3J3mZJE7kxLBF70w6aj60ibAiWCmehd/KSt77KbscVG8ZSIbBihUPhPAw==
+X-Gm-Gg: AYBFou2+oW61dsZEo3TABVFJ5I0VonQiuimNcie9jEsxRtxfKRc0tKmS4FFOJ2Pq3B3
+	HC6dBhSmaS1hzmHGpnXfiW4cV5mpGb+W8do3fnNU2vSWqMvOhCUSsFEfjEn4NqB1sewCr/Ezkqo
+	rhxAJyMaCSCsblsyD0y6uGAesqzKxl1yUIeyBxcRvzTyU/3qJyJXaluZ7k3JPu32wLn7ZZunTiB
+	F3eKSvpF+gVhSwYcS87ntAdEuAFE3dXIka7vfP/3JoxIKPX0JU1U/2ceGKwV9fCNZFOi0FPb4o1
+	CRrhboKZ+otyvsENvRH82FK0GF0PzZKJRooKQnn/YzbAVdjjTGj6Y1lItbXsBiGKFOzfgxxfr+1
+	2YPGYdIXRWBEsxwQ36JzftoK5k72TGCGsSJ1iik09MD6wvZQkumYrZPSrDKW3tMj1gjRPK9Lqwj
+	hQu37MqqATgnMcY1Jpe1ns0CWJY6MwzqUMzmED/rUefm9H1Hp5lS3lsxzmcKvsrgYUaZCh2/6WM
+	7oKmgRJ+kLbWP/KDfM=
+X-Received: by 2002:a17:902:e745:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd2a3502demr2362075ad.16.1789057631038;
+        Thu, 10 Sep 2026 09:27:11 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:ced9:ef96:e152:2608])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497da04sm91233845ad.34.2026.09.10.09.27.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 09:27:10 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	sashiko-bot@kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: Re: [PATCH v2] HID: multitouch: use GFP_ATOMIC for report/application/usage allocations
+Date: Thu, 10 Sep 2026 23:27:05 +0700
+Message-ID: <20260910162705.31975-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910155305.58E4A1F000FF@smtp.kernel.org>
+References: <20260910155305.58E4A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 02:23:39PM +0800, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
-> 
-> truncate_inode_partial_folio() splits a large folio so that the caller's
-> truncate loop can drop the in-range sub-folios while keeping the
-> out-of-range tail. The first split at the punch start edge is
-> non-uniform, which leaves the sub-folio at the truncation end edge as
-> large as possible, this means it may still straddle the range, holding
-> both zeroed in-range and valid out-of-range data. The function then
-> attempts a second split at offset + length to isolate that tail.
-> 
-> If the second split fails the straddling sub-folio stays merged. The
-> function returned true unconditionally on all exit paths of the success
-> block, telling the caller it was fully handled. The caller kept its
-> default end and the truncate loop truncated every sub-folio below it,
-> including the merged straddler, discarding the valid out-of-range tail.
-> 
-> For example, a 4-page order-2 folio punched from offset 0 to the middle
-> of the last page:
-> 
->   truncate_inode_pages_range()
->     truncate_inode_partial_folio()      # same_folio == true
->       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->       2nd split of folio2 fails / cannot lock
->       return true                       # BUG: caller keeps default end
->     end = 3
->     loop truncates p0, p1, p2-3        # p3's valid tail is lost
-> 
-> This became reachable after commit 7460b470a131 ("mm/truncate: use
-> folio_split() in truncate operation") replaced the atomic split_folio()
-> with folio_split(), whose non-uniform split can partially split a folio
-> and leave the end edge merged.
-> 
-> It has gone unnoticed because a dirty large folio normally carries the
-> filesystem's private data, for example buffer_head, so
-> filemap_release_folio() -> iomap_release_folio() returns false on a
-> dirty folio and folio_split() aborts with -EBUSY before any split,
-> leaving the straddler safely unsplit. The bug is only reachable on paths
-> that produce dirty large folios without filesystem private data, and it
-> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
-> attached.
-> 
-> In addition, even when both splits succeed, data can still be lost when
-> the mapping's minimum folio order (min_order) is non-zero. folio_split()
-> stops at min_order instead of order 0, so the sub-folio containing a
-> split point stays aligned to 1 << min_order rather than to a page. The
-> original success path left start at the page-aligned head of the range
-> and set end to the exact page index of the end edge, neither of which is
-> a folio boundary in general. Either one could land inside the large
-> folio at its edge, and the truncate loop would drop that straddling
-> folio together with its valid out-of-range tail.
-> 
-> For example, a 64K (order-4) folio with min_order = 2 punched from
-> offset 0 to 36K:
-> 
->   truncate_inode_pages_range()
->     truncate_inode_partial_folio()        # same_folio == true
->       1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
->       folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
->       2nd split of folio2 -> [p8-p11, p12-p15]   # success
->       end = p9                           # BUG: p9 inside [p8-p11]
->     loop truncates ... p8-p11           # p9-p11's valid tail is lost
-> 
-> Rework the contract so the caller is told the page range to discard:
-> 
->   - Return true only when a split occurred, false otherwise. This
->     clarifies the existing confusing return value semantics.
-> 
->   - Add pgoff_t *pstart and *pend out-parameters that receive the page
->     range fully covered by [lstart, lend] after any split (or none),
->     i.e. the pages wholly within the range and safe to discard. They are
->     aligned up (pstart) and down (pend) to the mapping's minimum folio
->     order so they always fall on a folio boundary.
-> 
->   - Rename the byte-range parameters start/end to lstart/lend to avoid
->     clashing with the new outputs and to separate byte offsets from
->     folio indices.
-> 
-> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
-> &pstart for the folio at the start edge and &pend for the folio at the
-> end edge, so the truncate loop drops exactly the fully covered pages and
-> never touches a straddling folio that still holds valid out-of-range
-> data.
-> 
-> Suggested-by: Brian Foster <bfoster@redhat.com>
-> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
-> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> ---
-> v1->v2:
->  - Export pstart as a new parameter so that the generic and shmem
->    truncate paths don't need to recompute the start value from the
->    return value. (Brian)
->  - When min_order is nonzero, align [pstart, pend] to the inner
->    boundaries of the folio to ensure they do not point into the middle
->    of a large folio, which could otherwise cause valid data within the
->    folio to be incorrectly cleared. (Joanne)
-> 
-> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
-> 
+mt_allocate_report_data() and mt_allocate_application() devm_kzalloc()
+with GFP_KERNEL, but they are reachable from mt_event()/mt_report()
+via hid_report_raw_event(), which can run in (soft)irq context off a
+USB URB completion (e.g. dummy_hcd's hrtimer softirq). GFP_KERNEL
+there may call into fs_reclaim, which lockdep flags as an
+inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} use of fs_reclaim,
+alongside a "sleeping function called from invalid context" splat.
 
-Hi Zhang,
+Switch both to GFP_ATOMIC since neither is on a path that needs to
+sleep. mt_allocate_usage() is left at GFP_KERNEL: it is only reached
+from mt_touch_input_mapping(), which runs at probe time (hid_hw_start()),
+never from mt_event(), so it does not need the downgrade.
 
-Thanks for the tweaks. I still found some of the logic circuitous as I
-read through it so I spent some time playing with this just to
-experiment with cleaning it up a bit. I ended up removing a couple of
-the labels, lifting the pstart/pend assignment to a default init/case,
-and reshuffling the split case pstart/pend assignments in a way that I
-think also elides the need for the boolean or using folio2. (I'm curious
-if this happens to address the Sashiko feedback as well..?)
+Reported-by: syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=093e05755c2d99caab91
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+v2:
+- Keep mt_allocate_usage() at GFP_KERNEL. It is only reached from
+  mt_touch_input_mapping(), at probe time, never from mt_event(), so
+  the GFP_ATOMIC downgrade there was unnecessary.
+  (feedback from sashiko-bot)
+---
+ drivers/hid/hid-multitouch.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Note that this is completely untested and needs further review. Since
-the current patch looked mostly Ok to me functionally (though I do agree
-with the comment about possibly splitting up into smaller changes) and
-has other reviews, I'm just posting this as an FYI. Here's a diff of the
-changes I made on top of this patch (Assisted-by: LLM, fwiw). Feel free
-to use some, all or none of it. Thanks!
-
-Brian
-
---- 8< ---
-
-diff --git a/mm/truncate.c b/mm/truncate.c
-index d88a1b159084..8da16d7e6763 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -237,10 +237,16 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 	else
- 		length = lend + 1 - pos - offset;
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 2c41bacab1ca..9b78f8f23fcf 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -604,6 +604,7 @@ static struct mt_usages *mt_allocate_usage(struct hid_device *hdev,
+ {
+ 	struct mt_usages *usage;
  
-+	if (pstart)
-+		*pstart = offset ? folio_next_index(folio) : folio->index;
-+	if (pend)
-+		*pend = (pos + size > (u64)lend) ? folio->index :
-+						   folio_next_index(folio);
-+
- 	folio_wait_writeback(folio);
- 	if (length == size) {
- 		truncate_inode_folio(folio->mapping, folio);
--		goto no_split;
-+		return false;
- 	}
++	/* only called from mt_touch_input_mapping(), at probe time */
+ 	usage = devm_kzalloc(&hdev->dev, sizeof(*usage), GFP_KERNEL);
+ 	if (!usage)
+ 		return NULL;
+@@ -633,8 +634,9 @@ static struct mt_application *mt_allocate_application(struct mt_device *td,
+ 	unsigned int application = report->application;
+ 	struct mt_application *mt_application;
  
- 	/*
-@@ -254,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 	if (folio_needs_release(folio))
- 		folio_invalidate(folio, offset, length);
- 	if (!folio_test_large(folio))
--		goto no_split;
-+		return false;
++	/* may run from hid_report_raw_event() in (soft)irq context */
+ 	mt_application = devm_kzalloc(&td->hdev->dev, sizeof(*mt_application),
+-				      GFP_KERNEL);
++				      GFP_ATOMIC);
+ 	if (!mt_application)
+ 		return NULL;
  
- 	min_order = mapping_min_folio_order(folio->mapping);
- 	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
-@@ -266,29 +272,30 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 		 * for shmem truncate
- 		 */
- 		struct folio *folio2;
--		bool tail_isolated = true;
+@@ -692,7 +694,8 @@ static struct mt_report_data *mt_allocate_report_data(struct mt_device *td,
+ 	struct hid_field *field;
+ 	int r, n;
  
--		if (pend)
--			*pend = round_down(pos + offset + length,
-+		if (pstart)
-+			*pstart = round_up(pos + offset,
- 					   min_nrbytes) >> PAGE_SHIFT;
+-	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_KERNEL);
++	/* may run from hid_report_raw_event() in (soft)irq context */
++	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_ATOMIC);
+ 	if (!rdata)
+ 		return NULL;
  
--		if (offset + length == size)
--			goto split;
-+		if (offset + length == size) {
-+			if (pend)
-+				*pend = round_down(pos + offset + length,
-+						   min_nrbytes) >> PAGE_SHIFT;
-+			return true;
-+		}
- retry:
- 		split_at2 = folio_page(folio,
- 				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
- 		folio2 = page_folio(split_at2);
- 
- 		if (!folio_try_get(folio2))
--			goto split;
-+			return true;
- 
- 		if (!folio_test_large(folio2))
- 			goto out;
- 
--		if (!folio_trylock(folio2)) {
--			tail_isolated = false;
-+		if (!folio_trylock(folio2))
- 			goto out;
--		}
- 
- 		/*
- 		 * split_at2 may no longer belong to folio2 due to concurrent
-@@ -304,28 +311,18 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 		/* make sure folio2 is large and does not change its mapping */
- 		if (folio_test_large(folio2) &&
- 		    folio2->mapping == folio->mapping &&
--		    folio_split_or_unmap(folio2, split_at2, min_order))
--			tail_isolated = false;
-+		    !folio_split_or_unmap(folio2, split_at2, min_order) &&
-+		    pend)
-+			*pend = round_down(pos + offset + length,
-+					   min_nrbytes) >> PAGE_SHIFT;
- 
- 		folio_unlock(folio2);
- out:
--		if (!tail_isolated && pend)
--			*pend = folio2->index;
- 		folio_put(folio2);
--split:
--		if (pstart)
--			*pstart = round_up(pos + offset,
--					   min_nrbytes) >> PAGE_SHIFT;
- 		return true;
- 	}
- 	if (!folio_test_dirty(folio))
- 		truncate_inode_folio(folio->mapping, folio);
--no_split:
--	if (pstart)
--		*pstart = offset ? folio_next_index(folio) : folio->index;
--	if (pend)
--		*pend = (pos + size > (u64)lend) ? folio->index :
--						   folio_next_index(folio);
- 	return false;
- }
+-- 
+2.43.0
 
