@@ -1,96 +1,96 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402A1489FD3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6847139A04D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048755; cv=pass; b=YJot15jCMiPKAG0pnCkaV6yh9WA7DBCeuNCY9Sn11ICKmtOotjkGJ8mccD6bJbebzbxcdSPbRGSpTP6/0hYVcJCFQfwmgrHbAuNn6EH4kx0l/+Tvs5wk2w5ipomDNz9CqtGiUxSZKBCfHUa2BYqp5KfpcqVvLQtdWNUrjQILmqo=
+	t=1789048763; cv=pass; b=TxxZmkB0x0I/qlRe3OrAi/g1hRofHPmBft/V0LWh2RyFbQKDbVKdnUKXMsYstX3iQTt3sEvBF2mv6No+jLce74p64SV7XAl9XYVmeTRkp7ZXzmcYaLSKXXe0B4NM0ZEgAoC6MsVYm+TVi4ED/p9xe8wSvLMj8n8di6idJJZKxvs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048755; c=relaxed/simple;
-	bh=ZZvvuoaYfIXmr8UO0wotjAdQWitg9LH2mpC2WJGAYbg=;
+	s=arc-20240116; t=1789048763; c=relaxed/simple;
+	bh=4FCRoa1ZFnGPclKdf7FZ3h4xxGbrom0G8s8bGT+RMtQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o0ixNhshioSYqjMx2fOHeC0cpLSruV/wI4BLP04cacXORTD49eyFLCxZw4uIn/yJYi7fDGRBXGkD7occDrauyOS4Haj3g32Bp7HkBjLhNVjs8fQG7PMHTk3ervE247imhKvBxvdVXn352J5fxq0RInjhRuo01NBNpYlWpZJB/K8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=ZOm+TsBW; arc=pass smtp.client-ip=74.125.225.76
+	 To:Cc:Content-Type; b=ivu0OCcsJvhvbDNuBs0e8Tafwf1fVB+EawlCndZbYsvcBzu2ouVvT7SoWyDwufTIYSUcYRhKPCr6oOnCERe+Se49ZWd8p2uPohhBmUcx00MibUeimzCm07ZmV9WDDB4beUTuQ6GJzRiHKuvSFeRME9v8V/StRqa76GV9ykV9d6I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=cezdMIZV; arc=pass smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="ZOm+TsBW"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso1479250f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:59:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789048751; cv=none;
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="cezdMIZV"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47de0093c42so6582290f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:59:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789048759; cv=none;
         d=google.com; s=arc-20260327;
-        b=mU9K/kDSPTaV/P3DnmHoi/yAbibkM+k47AE+m6AfkKSSRYk5dR2HDSdD1jCBaaVyFZ
-         qPvIyUJJ2d8P2XkxaI167M/YL2GHlGULXfvf7PskY8W0W7Os0hHcLgS+u+Jot+IdZafi
-         OM1IeJ1hH6j/zAEmFq0rmwCkNXC/6xbQrHuiwHYU7PVrofuajSq8Cj/Cgv3BAGd5cScN
-         +/vYSESg6lg13opImT/qtrrrRdRjjICRAV9RFHiVTEHhlb3vm0ngVsQlIX9s9VkXss91
-         vmmjvsiwTw2KBS+wMcgOfdONsOaHISNANnZzjqwcUZT9KnaC4ezjm/+1HPnEPfk3AUEg
-         T+Iw==
+        b=KlQH8afxRLZVtIIF72d9mGBBfL+0yNLslwiuFisUSTQMyDm3+Nie/uk/qeb7TfwWKR
+         Rbv6o6BEB7Tixf3871y0p1ewPMhdGPrP4x+8xo2JxaN0Sxjdm+4keNrQBUx0IGbb5FZ2
+         Fn9VxKFdczIlNNSrfnG33+yo8UGiz9gQjSn8dmazyVTfRnRZ5KGiiGxR4dcNii7JT6e/
+         HwghehbTzqQIEyjYYwK8/aFKnthunEbrUeln3ROZD2vBN4yPGqMZZaqFYr3sTEtUqH/D
+         bWVmSEGebCVwSVbOpldMNzhPOjabxtWuMlByUx/xZsGt1PvwEsCjg7l5INh3wvYM5uu7
+         DtbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ntUgUOcZUM5+aK8XwHOyZhsMc69vpZvSuPPgaYDDMnc=;
-        fh=t9FMslCz5OdfoNwfAS5g6kI8Eug126wUTaIqo/gav3w=;
-        b=sg3atEDLvTVvOVcCrt6/92I2V4l0TRwSpguubnpw3tRO2o7lHNHCTIVZkE0WZT7tVO
-         O1y+twKzv/Kdrk6shVclgShsIXnj2xqlqmyXWdSODv8sbGkKZmEcGvuKCgJL8P+mAGUq
-         Z56BFFmLqma4ZeUFdvVg2aA7osZgwySQrb5TE68/l8raXibdCf1E6aIXJ10jmADijktP
-         lq+NkXhAYOukq64a+gJ+X8XtTmfnK2lfRsGaZWQGVQqi0mJUmpFXrTN4P/6IOST+hG7r
-         BoD2ZD+vQDz2L83SzpBLCWEiG7MR4R/izSooIvuosD1tjkf6zbk7ywO6lEk/uLqoiGwr
-         oMKw==;
+        bh=a8PvUIr6sHE6mWd/xzRSFBh1HE+N0XSCwjCHHa9qZcw=;
+        fh=VyCQgqzs7jthXWnFrI7TS+rPdk+WECxPlwwp5e8aDa4=;
+        b=YsmHp7Aw7rZue4LHKwgw3pFfijAY66DiVJdHXrU2fkO+7woEMmtBqvuQGIXSlRJL4B
+         gySFDrG3f0UIgETPTOb70TCbJV79d/zrH69yJPUjUabUthBuHtJ+oJ+lAx3vNNmdmDhV
+         ZXrCp8wk1kMT/1++Re7cSMXWmxrD7ceWWFCx8eCgJ0bAkj1R8v8GG5yBm24uYDFggG1P
+         6VuCfWhbWQYDCJVxUR9ChRh4NXlLkRnLVN2Sdn8KSe4zwFeVtuzTfl/Yk9Bo8V3FYoN2
+         oYpnv+GrJK4cYUAV75F2kJGiC+bOXelvZN14z2caRWfYr2Gq/IRpQILvNUQYcOlG3tWW
+         xQyg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789048751; x=1789653551; darn=vger.kernel.org;
+        d=brainfault.org; s=google; t=1789048759; x=1789653559; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ntUgUOcZUM5+aK8XwHOyZhsMc69vpZvSuPPgaYDDMnc=;
-        b=ZOm+TsBW9E6FYiIdVN4eF/oW5j+SgDOQpPiZ8tkY4wK1H4belKr2Ov1LXuAdBTv096
-         Wda8bSUSbXM537LBrFoA8lT8sbV7xvjab1AqlmdDwhnaDdBoqtCDD8Hq4FxKDZKYF+KA
-         UJs3ohuadmzBsiJ02927Op6M8h2dZB6IrVP97e7tMvKoJ6gYYcxGwLSHAG8VrqWhHvJi
-         VgmuOP3BT0H5ofYIuVW5I7E57mMlyzvVyUmJ7JHXQlq39f/btYhsZ2bocXl+hKoxwymx
-         lq+FREiVIgfiv+yrTeS92gNkhJbliOKbvlVjX1rIojxU25SPtCGshi9sczB1YDsQ2J2R
-         JsCg==
+        bh=a8PvUIr6sHE6mWd/xzRSFBh1HE+N0XSCwjCHHa9qZcw=;
+        b=cezdMIZVSt/fPfjPM4Tz7FCdYVXwEhvQh4y1VNkoAE6iTTKKxoAwM2P6UpEay8aZRo
+         xkeuPkPs1GKJxYdoFtai1dg31xay+5IogFF/e9TemeVV0ohMBYVMeMsoyqxARbg6vsey
+         bqn4f9KdCZpO4bxWRqgA0LWYRCm0ddgKK2F6DCFGaeIy9oCc7H+Ovmzf2DKYinnjJAzS
+         IoX198GgGsmkCnV/qgo25Cku/TF8djv4y+M+6RcRFn63TN+jTyd/yW/41hfqCRyaOw/4
+         So4AA6wKwzBm7nODwEKHitRIcNBnT07F55ldEm1M/0U5dpiw/PSckrTOMpVVfeSX0+kS
+         yZ1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048751; x=1789653551;
+        d=1e100.net; s=20251104; t=1789048759; x=1789653559;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ntUgUOcZUM5+aK8XwHOyZhsMc69vpZvSuPPgaYDDMnc=;
-        b=f4EVoKyfQ6gVqtQqKg7rd2GDhpiP/VWudBQU5ZuLEbHgP7E0NvIwc4N6KAwyvmg0Ov
-         lIyoCKgRYr83BkO+8UNWaqJmYV6cMe5u7yjnXGDTtoqjf8tu8NjtnD4X5dO2yLAGGgK/
-         9s1Y+iHeV7bFhiNQSsx9+D0bPrscUD33xy54SlsRFaPTn9Gl3Y6J24DFt2w3jk2smBqY
-         aJoLy9PPPfyko1RoQivyoUnCSgD+STf1R/x5E+2rjHTtkUTB6JEzSSrQELIiuTM9zfSo
-         yj4HtbDfRxmf/gtYd+DbClnSljeQ6XFguwptZusTUPmwQdceDCFKNJVCT4A7lWa2iEdW
-         Vhrw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJMGOAM9402AtpmjEpm9cWvT5YedDHsQXCcvkNSvau7c0czk+6C14fMT96+ZyQvStXxBYB0WAObWisHLg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFJnRLv2O4EeO5qZQW8P6jpYsf1Q/oYo5f56JBnJLnWvlavBW7
-	CGAFp2K5XdCx8QtyAscxnCBG2NXOjdWrVeFHO12qCxxTkmyFxOdaopxvfaH+kN/bZCXKb4yHKLk
-	5viOtGqvjZerTEC3A1hV/ZSUVaXQWlLvEkuzbFzjfsA==
-X-Gm-Gg: AYBFou2U1wUlHaIsLDPufKGbhAcANV5ZSz8mS4qWGnUhUwzBdsVkpeT0AqF9aoEA/1G
-	rN6uTqtTnmzgOKWnG5YFY0clrd8hArDRyuxzPgRlwQe61YVX9dHIMEBaExv32EgbaE8Dt2cksJ2
-	8KzoMFwqkr2ene1CaQY7L7PVygkPWXQb3KKx+wE7bL+hLxQLALhwPJ8AMkOCg5PnhSHjz2ydp7u
-	je0Efpmpc8CTswsCe/jdWv1Qnxp7L4qcLhASPNfX7a0bDXj92m2GoCuZvoXpOKY+90pXTO654rP
-	lDoAErtC4vuurmyibmouufxKCcGLhNA2e5wnv6L+DU5o4zXnDpGlNa0d/GaLCHH/FoGtxttl77l
-	iDaNKZz6j97iBOjEMw8tEqo8pu/Jt/tlSpAaxfg2yqmym+cjEmn9UptMDERIPKUzEuJmkVMfaDw
+        bh=a8PvUIr6sHE6mWd/xzRSFBh1HE+N0XSCwjCHHa9qZcw=;
+        b=LLb/SUW6JDEFA2Cg2BUkWSC6y44u3nYMcFNbTHRYO4mjY89c4KdEQCqFx2MhKUpibs
+         y/rYaMb2T7Mag1nK/MBpRF9EAQWc/2i0NX2D3T+oZAvrki5hM8QXSvQhar+vdvHqIVd1
+         vLtDauUC4H9+xMgqJidbl80qmYQUUNiYFQyYWdNGfWCj4TgnOMdr22eLRldWPSFwDhVH
+         ZdvDr5ydlFqLHpcjgCsfByR4XBJe1aXQ5SeXYVyQowEVYWRR6DapZrt//Q8VSVK2nAxy
+         WdqdWN6InTZYCseP91OzR3p7yLQIV+DE80KP4iz77ZK7Uj7zjRzZu7FcJH6B+Zi878GB
+         RnzA==
+X-Forwarded-Encrypted: i=1; AKwUvByuhPDJNCwN36VYwSxp7nlGPSBNpC76Is1fNtb8gB4QLRsWtVLFFFw8z0WkxVTo4goCHOVOx8IRWpqbrXE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4OkXosyWDs5iSXBSUzuziJ9D7TBTyLrLzfWyjN8fcj30CY4oe
+	I654lseg6B/mAop6OApIIhDzGksyoS1wUGjQB+nKRpZlDhNx1GfLs3Juwu02lACw0Kha9dx4tc8
+	9owN2B81z9v81j8JF7DFAcC5/Xf+S3Wl35gP/7QADqQ==
+X-Gm-Gg: AYBFou0yuQyIqx1YRCau1S5XTdYJ8D18/ypooezRlsdrqIPeRiq/pRHtw6iKKbE7jdt
+	1JKvj+r9VfEuyiskcnI2JfaOkwy8FgUCAeEXA8utXKmVSV3t3hKgKbWKxGgq2kiagRbtbTha/CZ
+	M8TN5imvMlScjVZFK/J8EeO465KTvD0tdXt8I1kmbrQLgVdhoc89m2h2aQ1HyXiTFpsD1nGxf5p
+	36sfwrMesoJjCfTY6Y8j59MhoohzM9MGP8chCBBcea5AGX+8F7gU4XXfjUMA24ow+/wFBvc22QT
+	9RHNH+7mgkyxOgYUppCtUdobXSvIvha+eu1TrkWUQQaHhf98r5yr+c2iynqWRLYUafTv9FSfdUC
+	RD6Hnl6D8kAWXgBRO0uBU4X3hSUC2HN+BZdrqH+vA/Y15CS8CzlfiPDkf4k82b8WkbsZXe0h4bg
 	==
-X-Received: by 2002:a05:6000:402c:b0:485:acfd:4fa2 with SMTP id
- ffacd0b85a97d-485acfd572dmr20259573f8f.28.1789048750919; Thu, 10 Sep 2026
- 06:59:10 -0700 (PDT)
+X-Received: by 2002:adf:e19e:0:b0:485:8c16:5eef with SMTP id
+ ffacd0b85a97d-4858c166088mr39391128f8f.41.1789048759310; Thu, 10 Sep 2026
+ 06:59:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810051544.3953925-1-xb@ultrarisc.com> <20260810051544.3953925-2-xb@ultrarisc.com>
-In-Reply-To: <20260810051544.3953925-2-xb@ultrarisc.com>
+References: <20260810051544.3953925-1-xb@ultrarisc.com> <20260810051544.3953925-3-xb@ultrarisc.com>
+In-Reply-To: <20260810051544.3953925-3-xb@ultrarisc.com>
 From: Anup Patel <anup@brainfault.org>
-Date: Thu, 10 Sep 2026 19:28:58 +0530
-X-Gm-Features: AcwNN1VoynwwDilW3Qq5_YgkFrLdSifis-TkUfgosx4SiSWNhFsAD_CF6I0IGk8
-Message-ID: <CAAhSdy16n_zWBudDS0_E8xK=mhKBOvLMz00SRWnY0ArDkJF=qw@mail.gmail.com>
-Subject: Re: [RESEND PATCH 1/2] RISC-V: KVM: Release unused page after MMU invalidation
+Date: Thu, 10 Sep 2026 19:29:06 +0530
+X-Gm-Features: AcwNN1W7Uqn-QGBR02QgV1a2VTJVT2tlA_caJMvDJlneztIk9EUK-XjvcF0ult4
+Message-ID: <CAAhSdy2qxD9x-mvt=5yEKA+xoa8QJ9evnQkJot9n+rkxvOQukA@mail.gmail.com>
+Subject: Re: [RESEND PATCH 2/2] RISC-V: KVM: Propagate interrupted G-stage faults
 To: Xie Bo <xb@ultrarisc.com>
 Cc: kvm-riscv@lists.infradead.org, Atish Patra <atish.patra@linux.dev>, 
 	Paolo Bonzini <pbonzini@redhat.com>, Paul Walmsley <pjw@kernel.org>, 
@@ -102,18 +102,17 @@ Content-Transfer-Encoding: quoted-printable
 
 On Mon, Aug 10, 2026 at 10:46=E2=80=AFAM Xie Bo <xb@ultrarisc.com> wrote:
 >
-> If an MMU invalidation races with a G-stage fault, the fault handler skip=
-s
-> installing the page but leaves ret set to zero. As a result,
-> kvm_release_faultin_page() treats the page as used and can unnecessarily
-> mark it dirty.
+> __kvm_faultin_pfn() reports an interrupted host page fault with
+> KVM_PFN_ERR_SIGPENDING. RISC-V currently handles it as a generic error PF=
+N
+> and returns -EFAULT.
 >
-> Track the invalidation retry separately and release the page as unused,
-> while preserving the existing return value so that the vCPU retries the
-> fault.
+> Return -EINTR for the signal-pending sentinel so callers can distinguish
+> an interrupted fault from an invalid userspace mapping. Do not log the
+> expected interruption as a vCPU exit error.
 >
-> Fixes: 2ed90cb0938a ("KVM: RISC-V: Retry fault if vma_lookup() results be=
-come invalid")
+> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programmin=
+g")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Xie Bo <xb@ultrarisc.com>
 
@@ -128,46 +127,36 @@ Anup
 
 
 > ---
->  arch/riscv/kvm/mmu.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>  arch/riscv/kvm/mmu.c       | 2 ++
+>  arch/riscv/kvm/vcpu_exit.c | 2 +-
+>  2 files changed, 3 insertions(+), 1 deletion(-)
 >
 > diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index 6035b5e..d189fd5 100644
+> index d189fd5..3e955d8 100644
 > --- a/arch/riscv/kvm/mmu.c
 > +++ b/arch/riscv/kvm/mmu.c
-> @@ -627,6 +627,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct k=
+> @@ -708,6 +708,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct k=
 vm_memory_slot *memslot,
->         int ret;
->         kvm_pfn_t hfn;
->         bool is_hugetlb;
-> +       bool unused =3D false;
->         bool writable;
->         unsigned int vma_pageshift;
->         gfn_t gfn =3D gpa >> PAGE_SHIFT;
-> @@ -719,8 +720,10 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct =
-kvm_memory_slot *memslot,
+>                                 vma_pageshift, current);
+>                 return 0;
+>         }
+> +       if (is_sigpending_pfn(hfn))
+> +               return -EINTR;
+>         if (is_error_noslot_pfn(hfn))
+>                 return -EFAULT;
 >
->         write_lock(&kvm->mmu_lock);
+> diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
+> index 88e0c36..8d36eb8 100644
+> --- a/arch/riscv/kvm/vcpu_exit.c
+> +++ b/arch/riscv/kvm/vcpu_exit.c
+> @@ -283,7 +283,7 @@ int kvm_riscv_vcpu_exit(struct kvm_vcpu *vcpu, struct=
+ kvm_run *run,
+>         }
 >
-> -       if (mmu_invalidate_retry(kvm, mmu_seq))
-> +       if (mmu_invalidate_retry(kvm, mmu_seq)) {
-> +               unused =3D true;
->                 goto out_unlock;
-> +       }
->
->         /*
->          * Check if we are backed by a THP and thus use block mapping if
-> @@ -743,7 +746,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct k=
-vm_memory_slot *memslot,
->                 kvm_err("Failed to map in G-stage\n");
->
->  out_unlock:
-> -       kvm_release_faultin_page(kvm, page, ret && ret !=3D -EEXIST, writ=
-able);
-> +       kvm_release_faultin_page(kvm, page,
-> +                                unused || (ret && ret !=3D -EEXIST), wri=
-table);
->         write_unlock(&kvm->mmu_lock);
->         return ret;
->  }
+>         /* Print details in-case of error */
+> -       if (ret < 0) {
+> +       if (ret < 0 && ret !=3D -EINTR) {
+>                 kvm_err("VCPU exit error %d\n", ret);
+>                 kvm_err("SEPC=3D0x%lx SSTATUS=3D0x%lx HSTATUS=3D0x%lx\n",
+>                         vcpu->arch.guest_context.sepc,
 >
