@@ -1,171 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1E73ADBB4;
-	Thu, 10 Sep 2026 11:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C21440642
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038498; cv=none; b=gF1VUPQ8u0MouGau+m5rfhObLCZhn9/rOm6cOJE6NVpwlPULM00w+PAazFZk8Ov5Hzk5y1mrfSyuPzY86TMXZhNkSEmHfB+19I8pewNFviNGB1YroaOkXN6P5B7osbjmll+c2x/6rhWzjJxxM9N0rgMuAVqaQCvUrgiAxqKR3QI=
+	t=1789038501; cv=none; b=Jm21VDa0N/VO69VHTxw1ZQAd5fCjmWsXd8BxSpxLydMht0mdLMWOtU4rKm0/OSfhaSl3pdkjLYISW5JvBTpQbWEg2FDenQvVmgqLdV16aPwq/rEPDTjcEJ16heDOtlJ64UAnW+XnlavqS04/NVycJ3sYALP6OgdUU7yLNdukPiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038498; c=relaxed/simple;
-	bh=lvVwZT5G2DPI26FlTvfYulAsJOceRRV/6N9/zikzNxg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ln23b3nnMzNDA0cjFkh5VVHwGPzkVrkWeJj2aRCnsq5prMXZHBlelXPq3ex80U0uEjDO19kfwvUskv6cbmIKqOt1fFfV/v7Y+87twk7DN5Q65N5vITKrv138gET3mLV2WqKCPTD14j3Nrd8IB/9hbOFUwl/j7yeYSTuU1k8kPYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDm9souj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789038501; c=relaxed/simple;
+	bh=A81B61BRd2x1sSFxHm+OOFOqfMYEtzRTvPX8AsEKQ68=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y78tCHDV3/C1kYwnRvFfcEBUMBQDR/dE957D21DJoHIlueOFefyABJbhyj2R2fAGlaJJpZdmyMRSEF56KB3g6L/omilpfZ82oe1GVg8lF6RvqPovrtUgwGCbcpLcMVZOqaZdYS8nfdYnQ9OjUUKAj9QQ8KHQf9nB5Ah8z6eUD3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hS4PsL9G; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Tj9stkns; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDm9souj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE351F000FF;
-	Thu, 10 Sep 2026 11:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038496;
-	bh=UtBkBjD4fGqm+D0lgDokxYy+g0WlGmIHBZgTasitzQ0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SDm9soujF+lthd6lr2IVDFbJtAFG7AE7dXc/s7MeSEH9gFoS5k/GD+UkH2Jjvzpuo
-	 FqgFe5UeMmBD8H8HN1FcusDB+CDUL8GK0glFoHKMgThz302lFEA1EFHCmh67KEQ0o3
-	 LmPO3op/1nW+qcb3QCw+V3TzLXONev2dtWNLeQnAY3HodbxEE+iA7yHhjg+yn5TsJx
-	 eIMNeXPLTu39g/V6C64wvIw0o/cPe2sfpk3zJu4jQk1mLo+BZje1vY8If6qtQHvBe/
-	 ubgLesNm1W83H4iUEleZOZvteyqEXjFblQfv4qjY4oWTp9O1KloL+vO246JQiAf8Ym
-	 KLybYZZ2KudJg==
-Subject: Re: [PATCH net] r8169: don't enable chip LTR when the platform has
- not enabled LTR
-From: netdev-bot+sashiko@kernel.org
-To: yogeshgaur.83@gmail.com
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, javen_xu@realsil.com.cn
-Date: Thu, 10 Sep 2026 11:08:15 +0000
-Message-ID: <178903849584.219967.12066474820054965044@kernel.org>
-In-Reply-To: <20260909110554.1977-1-yogeshgaur.83@gmail.com>
-References: <20260909110554.1977-1-yogeshgaur.83@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hS4PsL9G";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Tj9stkns"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789038497;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G8CFytEdCGSTDyDlAvIjNaZjMoqpFkxgcAOASoLn7Aw=;
+	b=hS4PsL9Gcz1Iv6m99GXjVLYSsnwASWI1BRAjWZvy+TRVjZSWCPzqphGVurUrUHMRxQJFf5
+	5zpt+F3p16CUuntXu/3jtnpoIjLQR37l7jNjloAKz2jREadILXHoSdBM+ouYCekLxbVVSS
+	2kRoNUZOdzD/cjXwaQP6f4lOdYXuQA4=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-168-FG43aPbcOVavErn9XA-hmA-1; Thu, 10 Sep 2026 07:08:15 -0400
+X-MC-Unique: FG43aPbcOVavErn9XA-hmA-1
+X-Mimecast-MFC-AGG-ID: FG43aPbcOVavErn9XA-hmA_1789038495
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4994cf6cdb9so50018145e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:08:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789038494; x=1789643294; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G8CFytEdCGSTDyDlAvIjNaZjMoqpFkxgcAOASoLn7Aw=;
+        b=Tj9stknsmFyLalVHTz5fsL97nKqzThx/BaJqmTTbj/KBmvVG+40t2aj+eSlPmrcT5a
+         zY9Ifr0XDyhby2a3z8eiewXGSEx8k8XsQCSz6Dtx8IOq6TJvNDfuZa3t5sUXI1n9f2+q
+         x+w+YkWLD6ei1/hs4FhgryyNazsqt+S2MUs+dEoIRyQrgdlzN2q11zk8KtOhrgq99MSp
+         COJiRTzLxvN0AycQs2BS+izAB3OECARKMEgfKMIJYS2Q+V2BxP0kQqwpfv9lrH9LXeUe
+         G/kI5/sNhcqKOmTUbL0nSOT0bocQRHWmFdlujDkTL/z735+GZJ5v91QDaMa+MDRNENqt
+         aCqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789038494; x=1789643294;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G8CFytEdCGSTDyDlAvIjNaZjMoqpFkxgcAOASoLn7Aw=;
+        b=MxNOZRetdmszqJpzAThnf2fE2BLz6Pd2kk+5q4etIW6AtUA8e49OOc5Zu96v2eh++c
+         xb0QH256ZH4eFLPKFEAE2O3qG5gp1WGf+OOXBpgf4ic63i6hq5P069yf4sLhMDOqpU1G
+         m646otLG/zQvV45L6WPdzLnDTqHkWz1HGJewOdH5Ao7r8CpC0fOOGASqHrchbn2ZMcgI
+         uVntoVpDJnw3YbQmkhNd0S2flD5PdRSwscUBjgQBCXPBHt9BbeF2loBXGRg78bHLktXC
+         mSTu0XlOSG9tb4jGjLVhnu6IUqXfJL6JL+SUf8PdjWExJWdBdTU1zrZHny+o+uY8hx5u
+         tTPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxp3RAhdIePM1q53lF1jgjFyuFgiikCUlXduJttaF1WLkaBoY0JslHtt3XqsBEuJ3CYgSi+3QpIgXEaD9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6710GPNxI+UCpo7fsnN4D0zvuO9qvKhbvD6308E7+JsgoZvtx
+	2gX5ywz4eqtpy3P9h/2THC5VDvGUNL11hIimDIAwYkWdNSe7aKKZHfhfdqTcgdVr7hvrjz0HcpU
+	TUAeVKt2d++O31UwKXzlWaXBBr/AzGC4+mld8rOHL7P7oLhSDVK12LnsMME5xz2UsXg==
+X-Gm-Gg: AYBFou12purmCKY/1jauzN0hZG819X7r1Timqyh5VwypThAGcDwdP64Vg76sRs+twA3
+	0IseyO4Xw1C1dmXmB9W50+JWeo0xT6KnOdse4OBp3Fry8iSga8GaxLOnBswGQz3cd4u/DWyKxd4
+	MKPnoAtmtU4FF9XQ9efaZFxhZgaKYgA2skEJUA9wuSqAjUrQ/rOjaigT+jcEDUZwF2mxG8JHSlo
+	u7VoS/sWGSAgMxNcihepxMOT/wLq4OthX2+osyVUwupi/Xh+438Ecn3DMgN9KGetxzEZ8cc/zFg
+	CWKoVx2bZmm6RFNpi0aKIDSa0375vXdNgC3q0wk9HCepnrEfQU5qeS092Oa7W1HhgqaecvtczSs
+	gA41j35pk6G9xHkI5DaINW4hfn+M2afHXAJ96niB0eeW97mtnTCvenaobHA3VpdmV/cZZ8R8eNw
+	==
+X-Received: by 2002:a05:600c:4e8f:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-49d04efc043mr317132035e9.10.1789038494579;
+        Thu, 10 Sep 2026 04:08:14 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e8f:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-49d04efc043mr317131425e9.10.1789038494197;
+        Thu, 10 Sep 2026 04:08:14 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm50339161f8f.1.2026.09.10.04.08.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 04:08:13 -0700 (PDT)
+Message-ID: <54c3768c-ba5b-40f8-9fd9-d2e628c0c592@redhat.com>
+Date: Thu, 10 Sep 2026 13:08:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net V2 1/4] net/mlx5: SD, serialize SD LAG init/cleanup
+ against LAG mode changes
+To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org
+Cc: Akiva Goldberger <agoldberger@nvidia.com>,
+ Edward Srouji <edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>,
+ Kees Cook <kees@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ Maher Sanalla <msanalla@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
+ Or Har-Toov <ohartoov@nvidia.com>, Parav Pandit <parav@nvidia.com>,
+ Patrisious Haddad <phaddad@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Shay Drori <shayd@nvidia.com>, Simon Horman <horms@kernel.org>
+References: <20260906071332.3759199-1-tariqt@nvidia.com>
+ <20260906071332.3759199-2-tariqt@nvidia.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260906071332.3759199-2-tariqt@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
-
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
-
-- [High] rtl_enable_ltr()
-  (drivers/net/ethernet/realtek/r8169_main.c:3038-3048) gates all chip…
-- [Medium] The new gate only skips *programming* the chip's LTR
-  machinery; nothing ever programs it to the off state.
-
---
-
-r8169: don't enable chip LTR when the platform has not enabled LTR
-
-This adds a check in rtl_enable_ltr() that reads the endpoint's
-PCI_EXP_DEVCTL2 register and returns early when PCI_EXP_DEVCTL2_LTR_EN is
-clear, so the chip's LTR machinery is not programmed on hierarchies where
-LTR was not enabled.
-
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
-
-> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-> index ec4fc21fa21f..c1ff4e898570 100644
-> --- a/drivers/net/ethernet/realtek/r8169_main.c
-> +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> @@ -3037,6 +3037,16 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
+On 9/6/26 9:13 AM, Tariq Toukan wrote:
+>  void mlx5_lag_enable_change(struct mlx5_core_dev *dev)
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/sd.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/sd.c
+> index 4cdc50cd6f03..99cf455a61e1 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/sd.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/sd.c
+> @@ -345,7 +345,14 @@ static void sd_lag_init(struct mlx5_core_dev *dev)
+>  		return;
+>  	}
 >  
->  static void rtl_enable_ltr(struct rtl8169_private *tp)
->  {
-> +	u16 ctl2;
-> +
-> +	/* The chip must not issue LTR messages unless the platform enabled
-> +	 * LTR on the whole path up to the root port. The PCI core discovers
-> +	 * that in pci_configure_ltr() and reflects it in LTR Mechanism Enable.
-> +	 */
-> +	pcie_capability_read_word(tp->pci_dev, PCI_EXP_DEVCTL2, &ctl2);
-> +	if (!(ctl2 & PCI_EXP_DEVCTL2_LTR_EN))
-> +		return;
+> +recheck:
+>  	mutex_lock(&ldev->lock);
+> +	if (ldev->mode_changes_in_progress) {
+> +		mutex_unlock(&ldev->lock);
+> +		msleep(100);
+> +		goto recheck;
 
-[Severity: High]
-Is the endpoint's LTR Mechanism Enable bit really what the PCI core uses to
-reflect an end-to-end LTR path?
+My reading of the clashiko report is that the above introduces a
+deadlock.
 
-Looking at pci_configure_ltr() in drivers/pci/pcie/aspm.c, when the bit is
-already set (for example by firmware), the core leaves it alone and only sets
-the path flag if the upstream bridge already has one:
+While I agree that the fairness issue raised by sashiko.dev
+could be deferred to net-next, I think we must avoid introducing
+the mentioned deadlock.
 
-	pcie_capability_read_dword(pdev, PCI_EXP_DEVCTL2, &ctl);
-	if (ctl & PCI_EXP_DEVCTL2_LTR_EN) {
-		if (pci_pcie_type(pdev) == PCI_EXP_TYPE_ROOT_PORT) {
-			pdev->ltr_path = 1;
-			return;
-		}
+/P
 
-		bridge = pci_upstream_bridge(pdev);
-		if (bridge && bridge->ltr_path)
-			pdev->ltr_path = 1;
-
-		return;
-	}
-
-So on a machine where firmware set LTR_EN on the r8169 function but the
-hierarchy above it has no LTR path, the function returns with LTR_EN still set
-and pdev->ltr_path left at 0.
-
-The whole-path result appears to live in pci_dev::ltr_path in
-include/linux/pci.h instead:
-
-	unsigned int	ltr_path:1;	/* Latency Tolerance Reporting
-					   supported from root to here */
-
-and aspm.c uses that field, not DEVCTL2, when deciding L1.2 is unusable:
-
-	if (!child->ltr_path)
-		child_l1ss_cap &= ~PCI_L1SS_CAP_ASPM_L1_2;
-
-If that reading is right, then on the platform class described in the changelog
-the new test passes, rtl_hw_start() -> rtl_hw_aspm_clkreq_enable(tp, true) ->
-rtl_enable_ltr() still programs ALDPS_LTR_EN, LTR_SNOOP_EN,
-LINK_SPEED_CHANGE_EN and finally LTR_OBFF_LOCK_EN, and the chip is still let to
-trigger L1.2. Does the link-flap case the changelog reports stay reachable
-in that configuration?
-
-There is also the CONFIG_PCIEASPM=n build, where pci_configure_ltr() is an
-empty stub in drivers/pci/pci.h while pci_disable_link_state() is a stub
-returning 0, so tp->aspm_manageable stays 1 and rtl_enable_ltr() still runs.
-In that build no path discovery has happened at all - is testing the bit
-meaningful there, or is it just leftover firmware state?
-
-Alongside that, could the comment and the commit message be adjusted? The
-comment states the core "reflects it in LTR Mechanism Enable", and the changelog
-says the core "records the result by setting LTR Mechanism Enable in the
-endpoint's Device Control 2 register", which does not hold for the
-firmware-already-set case shown above.
-
-[Severity: Medium]
-This early return skips the programming, but does anything ever program the
-chip's LTR bits to the off state?
-
-Grepping r8169_main.c, ALDPS_LTR_EN, LTR_SNOOP_EN, LTR_OBFF_LOCK_EN,
-LINK_SPEED_CHANGE_EN and COMBO_LTR_EXTEND_EN only ever appear in set
-operations inside rtl_enable_ltr():
-
-	r8168_mac_ocp_modify(tp, ALDPS_LTR, 0x0000, ALDPS_LTR_EN);
-	RTL_W8(tp, COMBO_LTR_EXTEND, RTL_R8(tp, COMBO_LTR_EXTEND) | COMBO_LTR_EXTEND_EN);
-
-The disable branch of rtl_hw_aspm_clkreq_enable() clears only 0xe092,
-ClkReqEn/INT_CFG0_CLKREQEN and ASPM_en, so those LTR bits stay armed.
-
-If they were armed earlier and rtl_enable_ltr() later takes the new early
-return - say a pre-boot UEFI Realtek driver configured ASPM plus LTR, or an
-earlier call ran while LTR_EN read as set and the bit was cleared afterwards,
-with rtl_reset_work() -> rtl_hw_start() re-entering this path on the same
-device - does the chip keep emitting LTR messages with LTR Mechanism Enable
-clear and ALDPS still tied to them?
-
-Would writing the off values for those bits when the platform has not enabled
-LTR be more robust than skipping the writes, so the driver's view and the
-chip's state cannot diverge?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909110554.1977-1-yogeshgaur.83%40gmail.com
