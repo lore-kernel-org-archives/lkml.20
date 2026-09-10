@@ -1,39 +1,46 @@
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31B644F569;
-	Thu, 10 Sep 2026 21:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A5D44F57F;
+	Thu, 10 Sep 2026 21:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789076010; cv=none; b=qqjM+hqL78pY8YlVD3QWR2EvJJTasmM3ZJy2bwcdXC8o4Xrkgj/JdHS44tv0is6aco7XCKJUQEQ5SN7YXqfkMsSMsdSbyVxsYQx0HnD9H2lkRPNpFE8d6H+eRtiCkWaxTqKuR8obxpgunsyO0Qx+mYJVxF8HyqbVokIHu2OMpJE=
+	t=1789076087; cv=none; b=tnL7fymceA4oCSWLdunKoY0T8XY54vyTyBlFBEWhRu5w4ILeRpvm6my7OBcoT/ArtWlKYKGNgYiqTk6oXk+AeeCiJMBnVWPKRaOUemoSFr6TFmaHvaErYLr362C9VVEXUP1T+oyaumBMbqY5+3t4w9HRFNUeHAxL5qAy75zeNXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789076010; c=relaxed/simple;
-	bh=3f/+NhOOhOjguAVJ5YrM/T0+7rUn8AOexsVT47nwLkQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Y1WweLrTYe11FLdPYc1FQyfF5u0I0Kw0nbLSSY0ebfMSFS9YwMN01spmcHxuOTSVcdb/IMGJHe+/U81GSUEak7Q1Ci5lC2v2PUDB7TIMWYIGQyDFL4jBrV2Ug52cQp3llyyPBoVwdHog9E+rxKaM5qSsKIQq785NOhTvMNQpvPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ODLgx6Uc; arc=none smtp.client-ip=185.70.43.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789076087; c=relaxed/simple;
+	bh=ZGnms2TjxQoWacNdUmF0Qm+c+B3Whog03U4Pfq/FbIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GGN8o4brCAI+IYgBRqmrW1aT+LUNx3LXfOBpoa/IYaCa8GTjgTtHXuxeb1WAippam9Le5tRN0kIg4CAUUCstAgGhd6/puggiZZCj3G/2FzdMQGgYrVnbVRlg4Cw8niicDGaLe+bJgGe8VNeblVPOFX982F9No5f9jDvV7Dnz/PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMnwZ3m9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ODLgx6Uc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789075999; x=1789335199;
-	bh=A3IlrYzmY00CTZvNsB75P4ar/qJNNxSN9EY80mgUNdw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ODLgx6Ucq2iCOGQYrsPDjnR0vYQ3ZZdHGPB5cS4Nc0Xi1lBiSzhkiTnRFScU7iKcf
-	 P1WBC8mhOdqwVldMnRTguGAzbYr0JeUh72bTel0PgZ08bFIDJVrerUplyvE8B6huP/
-	 CdLmKbCeN9gIyfiLs4DJpBOELqgQZrepjBNJTKDXUJgBpUWdBf6q3Q0xyJ4grb2oaR
-	 vSMJ9U/4VOt92mLibtmNscCCPImdnhVNjUY90QQrbEatw+J7rt7LBnp5NUglNzjG61
-	 f59mGexuY/Kdj2cCECx/naJ3VJzo5T8fBrLd/HitAddzdQA+CwDl1qVfc71T/aZbqS
-	 DiFx83Tfcmq1g==
-Date: Thu, 10 Sep 2026 21:33:15 +0000
-To: Peter Marshall <pm@petermarshall.ca>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
-Message-ID: <20260910213308.53429-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 5525e97b4c973c6fb6d27c43f43eb2c204de1658
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMnwZ3m9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2E81F000FF;
+	Thu, 10 Sep 2026 21:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789076084;
+	bh=PKXkT/ObO3AiQVnD0gr+mNUkvO7QaDovBbeHZ8BprGA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LMnwZ3m9+8G6xA4eJcyg1vRKBen51ojARFFWQLxA+XAWKssNS5/JGUuIA9Q3kaQ4M
+	 7iDkzZTk6rPn3jQ6l0xCcb2z4KiVMYykFnFFeV/EOTCrDzyqXvNohLlz+1999VnLAy
+	 /VjLfQZk9KlFP1A+f3C5he1lBEooJPUm7ZFCo83a6U97ux7nvwX/qbC7gVZKXkiVBz
+	 xYJoK9fr3iuTrxVhyXoeg3MqRr2OvSuFmqthLdwvbz21VZ8ednjFGqp+VIpNHNuTCI
+	 rvhouhNv0hhn6eub0AnMJabvvlOw/AftJy2U7UalOkbDpLmBgd77l94K6XpSI9z3JU
+	 OxH2ys6sle/6w==
+Date: Thu, 10 Sep 2026 21:34:42 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Alex Elder <elder@riscstar.com>
+Subject: Re: [PATCH v2] MAINTAINERS: add entry for SpacemiT reset controller
+ driver
+Message-ID: <20260910213442-GKE2346@kernel.org>
+References: <20260603-b4-spacemit-reset-maintainers-v2-1-db0716d43a7f@gmail.com>
+ <62e1781e127176294088cee9c120b3173359ec4b.camel@pengutronix.de>
+ <my7qwtgrgph43hjxwmjm5hkeuxltlqjntnj5zdo7xqlrfrlffx@fp4mt7phdor4>
+ <43ce274d284a4f94815ec25f5ca0604f.docular.xu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,54 +48,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <43ce274d284a4f94815ec25f5ca0604f.docular.xu@gmail.com>
 
-Following up on the firmware blocker I raised on 7 September, since it is
-still the thing that stops anyone but the author from using VD55G0. Relayed
-with Peter Marshall's agreement.
+Hi Guodong, Philipp,
 
-Peter sourced the firmware the same way I did for testing: the version 2.11
-patch array in Andre Gilerson's out-of-tree VD55G0 driver, which he reports=
- is
-identical to the one in ST's standalone driver. He has published the extrac=
-ted
-blobs for testing at
+On 10:09 Thu 10 Sep     , Guodong Xu wrote:
+> Hi Philipp,
+> 
+> On 2026-08-07 19:51, Guodong Xu wrote:
+> > On 2026-06-03 09:34, Philipp Zabel wrote:
+> > [ ... ]
+> > >Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
+> >
+> > Gentle ping. All tags on this one are collected:
+> >
+> > Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
+> > Reviewed-by: Yixun Lan <dlan@kernel.org>
+> > Acked-by: Alex Elder <elder@riscstar.com>
+> >
+> > Could you take it through the reset tree when convenient?
+> 
+> Second ping. This is a MAINTAINERS-only change and carries your
+> Acked-by, plus Reviewed-by from Yixun and Acked-by from Alex.
+> 
+> If it is easier for you, I'd like to ask Yixun whether it could go
+> through the SpacemiT SoC tree instead. Unless you object, I'd suggest
+> we go that way if it has not been picked up by 2026-09-17.
+> 
+Sounds a good plan, let's give Philipp some time to respond, if he still
+unable to proceed by that time, then I will pick it.. just want to avoid
+ collision that both of us picked accidently..
 
-  https://github.com/petm5/vd55g-firmware
-
-and would prefer submission to linux-firmware over a built-in array, so tha=
-t
-firmware can be updated independently of the kernel version. I agree that i=
-s
-the better end state.
-
-Worth adding, because it may lower the bar for getting there: the built-in
-arrangement is already in the tree, from ST, for the sibling part.
-drivers/media/i2c/vd55g1.c is Copyright (C) 2025 STMicroelectronics SA unde=
-r
-SPDX-License-Identifier: GPL-2.0, and it carries vd55g1_patch_array[] - 351=
-2
-bytes, firmware revision 2.9 by its own defines. That file has no
-request_firmware path at all; the built-in array is its only mechanism.
-
-Different sensor and a different binary from the VD55G0 one, which measures
-6868 bytes at revision 2.11, so it is precedent for the arrangement rather
-than for the blob. But it does mean a built-in for VD55G0 would not be aski=
-ng
-ST for something they have not already done one part number over, whereas
-linux-firmware needs an explicit redistribution grant in WHENCE from the
-copyright holder.
-
-So the two routes are not equally hard today, and they are not exclusive: a
-built-in now and linux-firmware when ST are ready is not a wasted step.
-
-Whether GPL-2.0 on the surrounding code carries the blob with it is a licen=
-ce
-question and not one I will answer.
-
-Benjamin, Sylvain - this is the one blocker on the series that nobody outsi=
-de
-ST can clear.
-
-Sergey
-
+-- 
+Yixun Lan (dlan)
