@@ -1,132 +1,127 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC5B475340
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FC94825DD;
+	Thu, 10 Sep 2026 12:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789042429; cv=none; b=ZBbHKSLLEpAEWAGlsYQkuHpqTe5yVYfXK5U2orljkoWQs0kruwdNnu+wfGzlGOcnNVRnrToBXoSpdpsqF5JpkYqh7TRjFpFbajtM4EFXRa7h/pPkMvzSjxbOndnADzrPgRoG171VKVImrFuNmBclWJ/+5SLg3SCTAdPOVn2kOnU=
+	t=1789042436; cv=none; b=C57Tpd1ZuwlWfGwUqo+99QPy1u0m9Gv+3Kp8o7OgCMV2wjEUqtT8raXVlg20uQLYx2ZDcMUGd3KicvthuuOWP6R5LWWXToJLREBFTqfqj71B7T6A8AG47CNCcHjyi50bGHFAQEyLGjPFnucjMYHskoHse+qahKEOmeLdjGHspbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789042429; c=relaxed/simple;
-	bh=7AluFq65iw/e3a/VrEcoJyeiRqVzarE/IVafDI3Q6/k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tvrbzZ7549Kjdtk/ytLfAQPhjBzQoUrtBq/QoZkw+FoiF/H/y/Gjc5JUL/XI86GI1mhQlgJHVEmTxGpXMNk7N43O3UEB0Z3p2Lei58dpEtJAPbRKgBSsMMPNAJ0hk5rmUpwi1/BL96Lo2sNnF8AY5Qc6/2fDphuaRrr3WYBZKSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJXX2exZ; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789042436; c=relaxed/simple;
+	bh=n3RJkJBXPIWZRG7xCF/gK5LRIUmkklOq42FR9s+rT6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EaEJcYHB8gBv+R4lcboJWdiBlxuJy93ViOjlapSf8flyxsN/HrP7EIrYtGwQZxfS5P/jiC/LnbMCoSqPysoUol19iQBuzZXka7dOqwybc1JyHDdfZvpoYkvobZGbkmKKZCrkuzKXRup4vX5N/gi5qmAazlLsAhX/LIt4TKpZev0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Vc1xQ2lc; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJXX2exZ"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910c3e6b1so123294585a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789042425; x=1789647225; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4hqhe5nL5m8h0oyKqgGFnsjXQH8e2lSBQ7XG7ZTQ+wA=;
-        b=IJXX2exZrIZPkHnsW62tS6uZP6t2AGS9WazFiux2eMlt55VaIisij1vhS0JKRC0xKn
-         JtrZX5H/C3FuP5DaJ2mV/bbF68zuKPPys2FoAc7SyMcmi1C6h48usHNmhy/2p+f+8oJI
-         eumLzKEnl7Bo6ovc427tlD8RnQhpCfb8br4wF9uDpPDhea/TabZ4JEmn6BBmivAVIhVc
-         8P6ioV67Xy8Fq20mVs3wirbY4Y0D+gQM8Hw8EsgDBJxOeAWpX1X+Uhr5i+XlOGQsO6nD
-         oGcMgkqAaNgmEaz3Th23pswCKQ9LsQLVOEOID1Dc8KO62hOKe+hdHSjPcLRMzCK3Y32Q
-         61Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789042425; x=1789647225;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4hqhe5nL5m8h0oyKqgGFnsjXQH8e2lSBQ7XG7ZTQ+wA=;
-        b=JAC9FF3byvnEl6heTg8uMw5nEWJ0DSqAiVhyC+ZeVHVs2Gj6qZkRTBbS320CijT3PN
-         bzOFtaIEmWByHQVJ2MNGiMvKA9extAfHmwXbogSXHP0Q2rO3U4KctebqFd+Q9pxU0N8H
-         1gf3/WSZWpKO7axI52w1/azl8eIu0thEMKFjxUNB2cIpwKUrqLE/WRU0SY06Flv4oKkc
-         qaHKA8rpp9NgrDMpYY5at6ncdaTO1ZXAf1vvln/txfmLf9xJfPXZZ6lFabgGl7KQNnoN
-         m+TYBEnKlzhsr3ydUgPj/eLLngZQejEmO6w1z1mlR1/p11eo4ORnV1klL0rgfSD402Hx
-         BlOw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2fGzjuWaD/FuktRLwPMwVqffakqpTb80F+grASGvhhLUJLWD6OtIPppGgxP8VhAWbwmcBZe6Xf8qpRc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZiLi7oMtumKvwCPP8N/YL3HitnTWyKKmNLnrGUKnrp7T8gUx2
-	85OGweKhxkd/+TuAc4KBaf9IJ6GZpDSeI8on0OdArRgU1m9bhdyNiSff
-X-Gm-Gg: AYBFou2M3zB7twIeVlXyCPv3FYGrG3rOmmduXBtMrrRoJ8+6lT0ifS/n0ZV45VBPyyN
-	fkjS2DdXb7AGDVLxdvqK/ErfBq1/ud7pj5gAjxXoa4nt7pcqVwa2RQnPcvDBcFPdhnwmbkg8/SW
-	3/Rd/GNR668R625/6KFcvy6nOqkZRM2mQbnXYJYyB6MMpfHesiNYaKyexXg27QDC/X7bAgjb9hA
-	MNm4lq1/9cpOcR95TtFsAs1ejv4EnzLau7qXfHkQUvtRB0sigxo+xh6LhSbgIKCxpHcSXyPzZZO
-	JJXhiI5+ewGLVQmxfsiEqTsZxetxNQFkPu2www8zcdlF9+BEgICNDLqWZj9g5jPBEP2VmrEWher
-	e12DPAtIDCRzJLvonZyuU10QZZiZyzdahBtksXtEwMsO21S8jG4rh/Ratu5z5bN3JlsgjZv/3ry
-	NHTnbDetIg7WGJBldEgRWe2ef7qoaNBJxR3QNv4zRGw0mPCQ099rcjke1gjSmvXP1YBoSVk1Vu
-X-Received: by 2002:a05:620a:608b:b0:939:934b:dd61 with SMTP id af79cd13be357-939d7fa9584mr459351885a.22.1789042424724;
-        Thu, 10 Sep 2026 05:13:44 -0700 (PDT)
-Received: from adriano.lan ([2803:9810:3d22:1608:a801:3f8c:3321:84a0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fbe31c6sm1691021085a.46.2026.09.10.05.13.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 05:13:43 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Linas Vepstas <linas@austin.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>
-Subject: [PATCH] PCI: rpaphp: report first slot registration error
-Date: Thu, 10 Sep 2026 09:13:30 -0300
-Message-ID: <20260910121330.339150-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Vc1xQ2lc"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id B61BF807BE;
+	Thu, 10 Sep 2026 14:13:44 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id zBcfdv6p7SeR; Thu, 10 Sep 2026 14:13:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1789042424; bh=n3RJkJBXPIWZRG7xCF/gK5LRIUmkklOq42FR9s+rT6c=;
+	h=From:To:Cc:Subject:Date;
+	b=Vc1xQ2lcWX0J2c5XFnrOVils+u/y47iNyDgFxkg0c/Zu3ZGxqiO+a38tWKb8xqDgB
+	 v+tTZIYHSAyiZ7ZET13HpXFUmZsZ0/28REzwBkiOfDCFVqCUjTg4nlYfuvv3uIUzNF
+	 DDuzG9b9bX00KHy4YArrlKOacSEiojzhgz7pd72Vb76QAXfTrXaAdSVnM9Sb9VP60o
+	 +3cFo1UKRPrqXxelqqJiMma8Te4bccgLU3lJQD81/qSUWraAe2XtUrNHRTYzLhunW1
+	 APIhzKUeOvk/l/l/jEkljDqerXDXs1LuKVPzNHlYF82qO0vb6q2WnA+xJqpOydbpk9
+	 aofc67ol1kOdg==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Christian Brauner <brauner@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nls: fix the Unicode to charset tables of cp1251
+Date: Thu, 10 Sep 2026 15:13:31 +0300
+Message-ID: <20260910121335.267148-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-rpaphp_drc_add_slot() overwrites retval on every loop iteration, so a
-failure to register a slot is lost if a later slot registers
-successfully and the function returns success.
+Three of the uni2char() tables in nls_cp1251.c are incorrect, while
+charset2uni() matches the Unicode CP1251 mapping.
 
-Track the first error and return it, while still attempting to register
-the remaining slots.
+page00 incorrectly maps eight U+00xx characters that are not part of
+CP1251 to 0xbb. page04 is off by one for U+0490..U+0492, causing U+0491
+to be stored as 0xa5 and U+0492 to be stored as 0xb4. page20 also stops
+at U+203F, so U+20AC can be decoded but not encoded.
 
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+Regenerate page00, page04 and page20 from charset2uni. glibc iconv
+agrees with the resulting mappings, and a full BMP round trip is now
+lossless.
+
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 ---
- drivers/pci/hotplug/rpaphp_core.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ fs/nls/nls_cp1251.c | 32 +++++++++++++++++++++++---------
+ 1 file changed, 23 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/pci/hotplug/rpaphp_core.c b/drivers/pci/hotplug/rpaphp_core.c
-index 2316de0fd198..af7241d526cf 100644
---- a/drivers/pci/hotplug/rpaphp_core.c
-+++ b/drivers/pci/hotplug/rpaphp_core.c
-@@ -376,6 +376,7 @@ static int rpaphp_drc_add_slot(struct device_node *dn)
- {
- 	struct slot *slot;
- 	int retval = 0;
-+	int first_error = 0;
- 	int i;
- 	const __be32 *indexes, *names, *types, *power_domains;
- 	char *name, *type;
-@@ -407,16 +408,18 @@ static int rpaphp_drc_add_slot(struct device_node *dn)
- 		if (!retval)
- 			retval = rpaphp_register_slot(slot);
+diff --git a/fs/nls/nls_cp1251.c b/fs/nls/nls_cp1251.c
+index 6f46d339f23c..3447df754432 100644
+--- a/fs/nls/nls_cp1251.c
++++ b/fs/nls/nls_cp1251.c
+@@ -122,14 +122,14 @@ static const unsigned char page00[256] = {
+ 	0x00, 0xa9, 0x00, 0xab, 0xac, 0xad, 0xae, 0x00, /* 0xa8-0xaf */
+ 	0xb0, 0xb1, 0x00, 0x00, 0x00, 0xb5, 0xb6, 0xb7, /* 0xb0-0xb7 */
+ 	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xb8-0xbf */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xc0-0xc7 */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xc8-0xcf */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xd0-0xd7 */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xd8-0xdf */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xe0-0xe7 */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xe8-0xef */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xf0-0xf7 */
+-	0x00, 0x00, 0x00, 0xbb, 0x00, 0x00, 0x00, 0x00, /* 0xf8-0xff */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xc0-0xc7 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xc8-0xcf */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xd0-0xd7 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xd8-0xdf */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xe0-0xe7 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xe8-0xef */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xf0-0xf7 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xf8-0xff */
+ };
  
--		if (retval)
-+		if (retval) {
-+			if (!first_error)
-+				first_error = retval;
- 			dealloc_slot_struct(slot);
-+		}
+ static const unsigned char page04[256] = {
+@@ -152,7 +152,7 @@ static const unsigned char page04[256] = {
  
- 		name += strlen(name) + 1;
- 		type += strlen(type) + 1;
- 	}
--	dbg("%s - Exit: rc[%d]\n", __func__, retval);
-+	dbg("%s - Exit: rc[%d]\n", __func__, first_error);
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x80-0x87 */
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x88-0x8f */
+-	0x00, 0xa5, 0xb4, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
++	0xa5, 0xb4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
+ };
  
--	/* XXX FIXME: reports a failure only if last entry in loop failed */
--	return retval;
-+	return first_error;
- }
+ static const unsigned char page20[256] = {
+@@ -164,6 +164,20 @@ static const unsigned char page20[256] = {
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x28-0x2f */
+ 	0x89, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x30-0x37 */
+ 	0x00, 0x8b, 0x9b, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x38-0x3f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x40-0x47 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x48-0x4f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x50-0x57 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x58-0x5f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x60-0x67 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x68-0x6f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x70-0x77 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x78-0x7f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x80-0x87 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x88-0x8f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x90-0x97 */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x98-0x9f */
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xa0-0xa7 */
++	0x00, 0x00, 0x00, 0x00, 0x88, 0x00, 0x00, 0x00, /* 0xa8-0xaf */
+ };
  
- /**
+ static const unsigned char page21[256] = {
 -- 
-2.51.0
+2.55.0
 
