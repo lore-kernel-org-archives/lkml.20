@@ -1,109 +1,87 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100C853A89F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13433A7595;
+	Thu, 10 Sep 2026 16:53:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059198; cv=none; b=d92g2X8CVl6dBdMt0MypjGlyzR7+r8snzNeXy+gOIi9NUoxBPHx46loVQePMyJ4C6eLGEAmCsIw6wWwu5NQ9FibzVR0KbTyWpjZ3OMzowSWCFYJAdspJqWikfj1smmaUJWCXDRP6MIZzaikSOQoia3QgbJ7j++HEZvdfVrajyZQ=
+	t=1789059239; cv=none; b=m8nuaTTnfYwJVhdpggUTBKNqunWaNz/3xDb3+hHs+kCRYIImY5YU3mQPNeVCHJpHZqSHniJHkU4KWJQvjgyVCR0MU39wSjatqTYilexBchFdsDB347eD2EMTlzsS16JBKwWQ2jIMRQ/rB2B2n+i9wi8x/JrGQWcYEAcELTn9lnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059198; c=relaxed/simple;
-	bh=wqcq+a1rbMjwFIMLC4EQzXyafBuwkfuAZlwtlu33Leg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JPRkMgp20E26hnjdOdex7u/9sRXuyaPZemFjlm027tKOFyz7Tgw1HtD0ZtW5UevlGI9NSziX8gsFDJMDbGx+5ow3EqfPX2Vlk58+rTqGjJURlAfDF06+q4xHZjyGficaUaJCh+66+SDPaDa17HfQ8jvOaE7QzpenJmcZ0Q3zQcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H1Pss/qx; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789059239; c=relaxed/simple;
+	bh=EwIRQiZDeP9jcV48+fYK33i7Q5nXsKkdVDUb7jfVuOk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g5oDpJndh4UoUO9aXJiOduElbAQFV1J/HF6Qm2wSQQRQJLNzrNbJFvbLN1dV1KMIhHrCzaMW105BqRbV3yKe3ZpfXQ3kfH/YHuVHynDtGVhHlHSuOP2IeZZOi/GNLf/KwQW/xE0t/6y8ep7x9/WkCgbl7GzZN1ddrOcTyEigt9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dx7dR1rA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H1Pss/qx"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-86927f9ba4dso1573120b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:53:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789059192; x=1789663992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G/vbQHAhPT31Mmibdc9NJTWNHdvmxIIchs3BB/8irg8=;
-        b=H1Pss/qxh2pLx08eL9IkTeoTtMVY5qWfL2bS+Qr6CPDwDsVcCIjca5qSQrCIP2GOW4
-         AeYLw4zsOzyxHlthZr6UPtV+H0xcRkRyskGXTokEtKLjVfCXXcF7249gl4f/FPsx/kUt
-         fvNXcWTW03JeVIArlnRcCZauaQFKYskrAezUjuNtoKkXYvnhoTsdARvKxG9BXXwqFoWN
-         kh2IXq1N3/9v5kBsVLszT/BhzGM/WtEic8b1PM9fY/+eHkSeWLRFvVklMMGG2orl0EBn
-         UC68Z+KZmW7UZKYh5gVB1ApLNqSUt6/uXVOtK1f6sFpQjcbfPwnL8kfv8KuTXQ8nIl9E
-         W6qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789059192; x=1789663992;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G/vbQHAhPT31Mmibdc9NJTWNHdvmxIIchs3BB/8irg8=;
-        b=GIdcpVw+bdSIMczBB04HwAmGYYeRmXyLAOfMopRtBH++dDOoZZ/90smWWp//e+BGH/
-         9e4c6tkTRGybHtPbRo2rrHHOS2EBORyEJBrvT0HipESzSWnUTNliSD58SDe4VE9PaE+I
-         GEAh0ogq4Rev0EQdeplQK+pY63sdAY7B2/G4cbqnQpCxFezmcPBMbHMuYUf+Bl1GFyOH
-         ubLdik9NWGb6Su+l+/ydg1emNoum2N1ErxLPKcTkxQkTGI/7ITuoupkIN+rCIpomiOn8
-         KLZe9Mambb7UqImXAtgMdkOPxymHNwtW4l3xjm6kBxfwSHeeghBsCVK/WxsM5Fyp2H1e
-         tcyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzyw7NtACM500FYR+53aEhC9D3I0xKzN158w9mLlAbyFWWBc+Ytfa4sTMi/CbyK4r7fXIwblcYtq6iA18s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCFM/l2HaxuzuExUPF/qOPbXBsU+jfIYffWWjNSLqihBDpPAFN
-	msHLUPMcHp2fHPFZlcOQa+yr9D7qGaq7RUJjKII0N1dt6m7YvDzPr8mm
-X-Gm-Gg: AYBFou0bPOmWEQcNAWyUzzKHrNiqXz7h6XOQcs0H8AXqCAI8DFfuudnwzFPrZcpY4oE
-	dIZqEoDWzB0OI6Sn9mIa94JBhuXMMblYsqnWGKiVu//GCLXpnu8/800uUusLDqaQTt00lZohvlt
-	CSCzaKOVo3hYPmKJJf2ZrQWp8sX/xqmTpUbbp+JO7RNLgEEY+hZpYIe4YxWJ6Ng8Hvr7atfZmJ1
-	xol+Ebtj1Tfa5FpS6lCXjQI5AeogIuCABIcDM8cYuJE023xfpZS3FT84Y/v3Dhxn7dki1co2K6S
-	XB7M2SijYkeaqZFTzSxrObIlG4dHbPvv5uvKnjUhgwUSzqimgDicDu/rD7ZSBgAlAO/N8xjocTE
-	EHKQln4Jw5lJiPa1R6xKvV+ijdC+6q54Se/P+NSP0iycD2LNJKAsKHhW7cQZrOFCiHzgbG7rTrl
-	RW3ScDvyCszQE0UCnRc+CXbUG0D1OiRY9FC+ejmr1qh1hg7nadkoi0F1J5LsEutNfxDJBxdiWkY
-	84M6dZKPUOU6R14e/efdibS9NNE
-X-Received: by 2002:a05:6a00:6d43:b0:869:201b:7386 with SMTP id d2e1a72fcca58-869201b7831mr9536931b3a.1.1789059191831;
-        Thu, 10 Sep 2026 09:53:11 -0700 (PDT)
-Received: from buffalo-ssd.taila54753.ts.net ([240b:253:4760:f400:1ebf:ceff:fe7f:5e0b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153e3ac21sm8425743b3a.55.2026.09.10.09.53.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 09:53:11 -0700 (PDT)
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com
-Cc: james.lo@mediatek.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Akari Tsuyukusa <akkun11.open@gmail.com>
-Subject: [PATCH v2 RESEND] soc: mediatek: pwrap: Remove obsolete NEED CONFIRM comments
-Date: Fri, 11 Sep 2026 01:52:53 +0900
-Message-ID: <20260910165253.378212-1-akkun11.open@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dx7dR1rA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9731F000FF;
+	Thu, 10 Sep 2026 16:53:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789059238;
+	bh=FD5nXIMiPV61lrBrD1d8yCN+4eakWsm2ZBfangVEUH0=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=dx7dR1rA/DDXLi/TrzG0ESyFYTXbo3jwILMZ5NG1Gcim0UPTtGZeNtXM0uwDrCgaa
+	 8t7+aUyn/5GiYVHvC+63Qqagqf470nm9j0JtJ/MkHwTDKng0zkRsPY1Fms4uXtkDfc
+	 cg12B0q+65vMn1ZmGBn5C0sd93PefkwldGHYVvUyPyYQpuEMm5gmpV3iir5CoFOZRw
+	 ZoBzwEcVhZO3vOAFPi3Nq2ZbxrpL1W55WShcakk9RLeBZIQv2vf2SCusufrHMKtzze
+	 eJmMiv5bXl5SmfD7X2E5GoXv0H2dnrK0rAS7oMoWMo2fLjYqU3FAoMSKmDMlPET8Ox
+	 BEa8ag5bxaUyw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 27436CE1580; Thu, 10 Sep 2026 09:53:58 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:53:58 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] srcutree: Skip torture to-big transition for atomic SRCU
+Message-ID: <8d55847a-9e4d-4f1e-95bc-4dc77bea73c3@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260910041427.3579817-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910041427.3579817-1-kunwu.chan@gmail.com>
 
-Remove the obsolete "/* NEED CONFIRM */" comments from the MT8195
-configuration. These values were previously confirmed during review,
-but the placeholder comments were accidentally left behind.
+On Thu, Sep 10, 2026 at 12:14:27PM +0800, Kunwu Chan wrote:
+> Atomic SRCU does not use the srcu_node combining tree.  Exclude it
+> from the SRCU_SIZING_IS_TORTURE() transition in
+> srcu_torture_stats_print().
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+>  kernel/rcu/srcutree.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> index d462102c6bb6..99d11fb4123a 100644
+> --- a/kernel/rcu/srcutree.c
+> +++ b/kernel/rcu/srcutree.c
+> @@ -2421,7 +2421,7 @@ void srcu_torture_stats_print(struct srcu_struct *ssp, char *tt, char *tf)
+>  		}
+>  		pr_cont(" T(%ld,%ld)\n", s0, s1);
+>  	}
+> -	if (SRCU_SIZING_IS_TORTURE())
+> +	if (SRCU_SIZING_IS_TORTURE() && ssp->srcu_reader_flavor != SRCU_READ_FLAVOR_ATOMIC)
+>  		srcu_transition_to_big(ssp);
+>  }
 
-Link: https://lore.kernel.org/all/2a117e5fe9fe0ece39e9165a463082ef42be973f.camel@mediatek.com/
-Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
-Link to
-v1: https://lore.kernel.org/all/20260522134522.368073-1-akkun11.open@gmail.com/
-v2: https://lore.kernel.org/all/20260525092437.29313-1-akkun11.open@gmail.com/
----
- drivers/soc/mediatek/mtk-pmic-wrap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Much better, thank you!
 
-diff --git a/drivers/soc/mediatek/mtk-pmic-wrap.c b/drivers/soc/mediatek/mtk-pmic-wrap.c
-index 0bcd8582637550..87bcbfa2d5f122 100644
---- a/drivers/soc/mediatek/mtk-pmic-wrap.c
-+++ b/drivers/soc/mediatek/mtk-pmic-wrap.c
-@@ -2396,8 +2396,8 @@ static const struct pmic_wrapper_type pwrap_mt8183 = {
- static const struct pmic_wrapper_type pwrap_mt8195 = {
- 	.regs = mt8195_regs,
- 	.type = PWRAP_MT8195,
--	.arb_en_all = 0x777f, /* NEED CONFIRM */
--	.int_en_all = 0x180000, /* NEED CONFIRM */
-+	.arb_en_all = 0x777f,
-+	.int_en_all = 0x180000,
- 	.int1_en_all = 0,
- 	.spi_w = PWRAP_MAN_CMD_SPI_WRITE,
- 	.wdt_src = PWRAP_WDT_SRC_MASK_ALL,
+Could you also please add an "else" clause with a WARN_ON_ONCE()
+for ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC?
+
+This is after all a user error where someone said to torture atomic SRCU
+but also said to transition to big.
+
+							Thanx, Paul
+
+>  EXPORT_SYMBOL_GPL(srcu_torture_stats_print);
+> -- 
+> 2.43.0
+> 
