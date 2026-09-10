@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396F43D79E2;
-	Thu, 10 Sep 2026 23:55:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C87C3BBFD4;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084541; cv=none; b=SgWyQCqx66pciDcnd0DwvzQd5Phw0xc0QQnETbxNPEicdvu61fjhN12eWeEAoccDkdDMwPHE37rhFbTGl5MfkIhelPlq3ghl4fnVZPhJFg4nC5paAyS85lipXjVrq36UUtgFIdqQf9i0xUmWrlEqbRIjaII2y2IuQFweegOacSs=
+	t=1789084539; cv=none; b=BbTizUMdf+JWPqqwMm0ZGlgtMuREqfFL6jKMDIb9UPwcLwCs5TsdyGcvDC995Yiyw7mlUbpdBs1yngTwrQpBYmRBIkmVRc2be/NM6UYpBNDt5n2Z5XgqqbU8DuGineEdygCzEMiwZ1fuusSFEuYQNs43gSVI1OornJ1WXIk54tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084541; c=relaxed/simple;
-	bh=wz1joYubyC9sBFss2cubJfls0BSPnVFGoTr3Kf+jPIA=;
+	s=arc-20240116; t=1789084539; c=relaxed/simple;
+	bh=6C2augXz8GBviFeBgLjwH0PLN0m7BtLjKuqfJSUI3Sg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E7lQZp/H70O0XfWyVH1nvEN2LCfXL0+YS3D3Fonk2faV15iuNKhKHW387pgTOEDNonwBijvpf6xbZ92s7zBDJzVV1SgVIZaxjw/iOnEOEVK1MgNycHxBhU28ReTLBR9CfRpnDjZv/dNS2Fe3RULtALRu44j/j/XZRJK+QE7eXtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qhvGaerX; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=isQ6KS7BQYBLmnMqWLDZj8ATe2qAD3I66VML6QlP8Ga+F2awFHt4Sh+S+ov32F9c/z/7l/WcDcP0wDHTa0K2ur7u81IeDuqBeXdgeyUcyepZ/CYRSvpMtynFqPkxNUK4PAQ1PcSfKB0Gu6JGlmudCyP+nGn0wwk+arTAPUcTHXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkPHukJT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qhvGaerX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1EA03C2BCFB;
-	Thu, 10 Sep 2026 23:55:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkPHukJT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F180BC2BCFB;
+	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789084541;
-	bh=wz1joYubyC9sBFss2cubJfls0BSPnVFGoTr3Kf+jPIA=;
+	s=k20201202; t=1789084539;
+	bh=6C2augXz8GBviFeBgLjwH0PLN0m7BtLjKuqfJSUI3Sg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qhvGaerX/8ukW3A+MDtN8TqD/BihswxNKIwo80fna9qUtchiAt+i4TMfy1Qlt/YQL
-	 p4YQWtzAIDedxTr9t7UAojiFjspRIwF6tHVrICDHQf0xKlAH7j5hsgnFYl1t79Vksv
-	 nlAm4VWPRtluDZJzfxyn5v+ENsDDvZcE+iNaGm1BVj2czrc8JGMtz6nvKr+CZVXAfT
-	 rgm/Z4cOam0JNzr4M7+msW66MmqQ2Z1ep+VpiLtRZ+uTygvvB39qYZhpGAvf/g/dtu
-	 jXp/sRFjv1Oc4QmXc8r+SmZRVfjDEnmwbEoicWz/gN4QT3J0Q4buBzM5PvVE0nCk+1
-	 SmgT484gmdN0w==
+	b=lkPHukJTePkrsSRwNhKmBl4cswbb3CW4KnifSAredV+Mn7VDFVYRMEkHd6GfTPYe+
+	 cp1Ru3lsfzKrPwhV7tKERbL5YUdPpzrE7szxdKUlkBZyfHOADcpJE7xRxuOIK0cRMx
+	 XSAWovDNi6eWZ54/FzicoKj4TKF5V+eZovgYJWUlpphc2jvoJsSC9BrnHn5aPc4OQ8
+	 8VsUTIW6ExB87pfU7dqWDMFXuqPaSaPWlZtLvoTNGX35FQzQvNCdbWbj24+CTA5fve
+	 vn90I5EOHZc6vNBp/D3JRlUlIfbA9k13ZbKlvbJ0GZOPPB9ikeIG5+5LV71dvQ3a/2
+	 AeoDlulLdQ0CQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 095B4C88E4A;
-	Thu, 10 Sep 2026 23:55:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9650C88E49;
+	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 10 Sep 2026 16:56:10 -0700
-Subject: [PATCH v13 44/44] KVM: selftests: Update private memory exits test
- to work with per-gmem attributes
+Date: Thu, 10 Sep 2026 16:55:48 -0700
+Subject: [PATCH v13 22/44] KVM: Let userspace disable per-VM mem
+ attributes, enable per-gmem attributes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-gmem-inplace-conversion-v13-44-dd6fbf94f4e1@google.com>
+Message-Id: <20260910-gmem-inplace-conversion-v13-22-dd6fbf94f4e1@google.com>
 References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -78,13 +78,14 @@ To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com,
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
- linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>
+ linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
+ Xiaoyao Li <xiaoyao.li@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=3876;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=6402;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=kG4M1fipOsouCgA8R0C4+Zo3TFMa1yM8FRwgKEfMXIw=;
- b=VkVQQTiR5fKR+Tjiv7AhqYj4gaD2VTWMmQaiT0JMuMt5nv3wd6uwY1PRhfR/6iJVbGDZHZWH0
- A9NHJ4d984IAC01HfYYfXn35gCsjLvPGTuO3Q8sPJMOkaw8uptfi1gX
+ bh=70iSyqg/mTnfLo3ttGKfAuj6ZuDf0WvNDgZDQmBtTdY=;
+ b=l0+VuLVeyBboOwY8llw8NkrAe9rbHoo2o6bold91sNzbU5b1vsR/hdAaVMYrZry5krqMlg8cB
+ 4ls/eREGlIgDSuswWQVkA2pydIkxiUgbhsRQzzmuv2GL/nGUCYv2Qpa
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -94,89 +95,151 @@ Reply-To: ackerleytng@google.com
 
 From: Sean Christopherson <seanjc@google.com>
 
-Skip setting memory to private in the private memory exits test when using
-per-gmem memory attributes, as memory is initialized to private by default
-for guest_memfd, and using vm_mem_set_private() on a guest_memfd instance
-requires creating guest_memfd with GUEST_MEMFD_FLAG_MMAP (which is totally
-doable, but would need to be conditional and is ultimately unnecessary).
+Allow the user to disable KVM_VM_MEMORY_ATTRIBUTES even when KVM supports
+PRIVATE and SHARED attributes, and expose gmem_in_place_conversion as a
+module parameter when per-VM attributes are supported.  I.e. let userspace
+enable in-place PRIVATE<=>SHARED conversion of guest_memfd pages.
 
-Expect an emulated MMIO instead of a memory fault exit when attributes are
-per-gmem, as deleting the memslot effectively drops the private status,
-i.e. the GPA becomes shared and thus supports emulated MMIO.
+Provide both a Kconfig option and a (conditional) module param so that
+deployments that use a custom kernel can fully disable per-VM tracking,
+while not forcing distros to ship two separate kernels in order to provide
+backwards compatibility for downstream users.
 
-Skip the "memslot not private" test entirely, as private vs. shared state
-for x86 software-protected VMs comes from the memory attributes themselves,
-and so when doing in-place conversions there can never be a disconnect
-between the expected and actual states.
+Don't allow running VMs with mixed tracking for a given instance of KVM,
+i.e. disallow toggling the module param after KVM is loaded, as the extra
+complexity needed to handle per-VM behavior far outweighs any potential
+benefit.  E.g. neither TDX nor SNP supports live migration, so in effect
+the requirement is that existing deployments that want to support both the
+old and the new models would need to tell their VMM which flavor of
+tracking to use.
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ Xiaoyao: Define module_param only if CONFIG_KVM_VM_MEMORY_ATTRIBUTES is enabled ]
+
+Suggested-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Co-developed-by: Ackerley Tng <ackerleytng@google.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 Tested-by: Shivank Garg <shivankg@amd.com>
 Reviewed-by: Fuad Tabba <tabba@google.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- .../selftests/kvm/x86/private_mem_kvm_exits_test.c | 36 ++++++++++++++++++----
- 1 file changed, 30 insertions(+), 6 deletions(-)
+ Documentation/admin-guide/kernel-parameters.txt | 25 +++++++++++++++++++++++++
+ arch/x86/include/asm/kvm_host.h                 |  4 +++-
+ arch/x86/kvm/Kconfig                            | 14 ++++++++++----
+ virt/kvm/kvm_main.c                             |  5 ++++-
+ 4 files changed, 42 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c b/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
-index e6d16e9d61200..f7228e0f1ac61 100644
---- a/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
-+++ b/tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
-@@ -62,8 +62,9 @@ static void test_private_access_memslot_deleted(void)
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 68647ff4bdd24..a6d7a8109aa79 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -3156,6 +3156,31 @@ Kernel parameters
+ 	kvm.enable_vmware_backdoor=[KVM] Support VMware backdoor PV interface.
+ 				   Default is false (don't support).
  
- 	virt_map(vm, EXITS_TEST_GVA, EXITS_TEST_GPA, EXITS_TEST_NPAGES);
- 
--	/* Request to access page privately */
--	vm_mem_set_private(vm, EXITS_TEST_GPA, EXITS_TEST_SIZE);
-+	/* Request to access page privately. */
-+	if (!kvm_has_gmem_attributes)
-+		vm_mem_set_private(vm, EXITS_TEST_GPA, EXITS_TEST_SIZE);
- 
- 	kvm_pthread_create(&vm_thread, NULL,
- 			   (pthread_fn_t)run_vcpu_get_exit_reason, (void *)vcpu);
-@@ -73,10 +74,26 @@ static void test_private_access_memslot_deleted(void)
- 	kvm_pthread_join(vm_thread, &thread_return);
- 	exit_reason = (u32)(u64)thread_return;
- 
--	TEST_ASSERT_EQ(exit_reason, KVM_EXIT_MEMORY_FAULT);
--	TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, KVM_MEMORY_EXIT_FLAG_PRIVATE);
--	TEST_ASSERT_EQ(vcpu->run->memory_fault.gpa, EXITS_TEST_GPA);
--	TEST_ASSERT_EQ(vcpu->run->memory_fault.size, EXITS_TEST_SIZE);
-+	/*
-+	 * If attributes are tracked per-gmem, deleting the memslot that points
-+	 * at the gmem instance effectively makes the memory shared, and so the
-+	 * read should trigger emulated MMIO.
-+	 *
-+	 * If attributes are tracked per-VM, deleting the memslot shouldn't
-+	 * affect the private attribute, and so KVM should generate a memory
-+	 * fault exit (emulated MMIO on private GPAs is disallowed).
-+	 */
-+	if (kvm_has_gmem_attributes) {
-+		TEST_ASSERT_EQ(exit_reason, KVM_EXIT_MMIO);
-+		TEST_ASSERT_EQ(vcpu->run->mmio.phys_addr, EXITS_TEST_GPA);
-+		TEST_ASSERT_EQ(vcpu->run->mmio.len, sizeof(u64));
-+		TEST_ASSERT_EQ(vcpu->run->mmio.is_write, false);
-+	} else {
-+		TEST_ASSERT_EQ(exit_reason, KVM_EXIT_MEMORY_FAULT);
-+		TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, KVM_MEMORY_EXIT_FLAG_PRIVATE);
-+		TEST_ASSERT_EQ(vcpu->run->memory_fault.gpa, EXITS_TEST_GPA);
-+		TEST_ASSERT_EQ(vcpu->run->memory_fault.size, EXITS_TEST_SIZE);
-+	}
- 
- 	kvm_vm_free(vm);
- }
-@@ -87,6 +104,13 @@ static void test_private_access_memslot_not_private(void)
- 	struct kvm_vcpu *vcpu;
- 	u32 exit_reason;
- 
-+	/*
-+	 * Accessing non-private memory as private with a software-protected VM
-+	 * isn't possible when doing in-place conversions.
-+	 */
-+	if (kvm_has_gmem_attributes)
-+		return;
++	kvm.gmem_in_place_conversion=
++			[KVM] Controls whether KVM enables in-place conversion
++			support for guest_memfd and tracks the private/shared
++			state of memory per guest_memfd instead of per VM.
 +
- 	vm = vm_create_shape_with_one_vcpu(protected_vm_shape, &vcpu,
- 					   guest_repeatedly_read);
++			If enabled, KVM enables the KVM_SET_MEMORY_ATTRIBUTES2
++			ioctl on guest_memfd file descriptors and disables the
++			legacy VM-scoped KVM_SET_MEMORY_ATTRIBUTES ioctl for
++			private memory state tracking. Only the
++			KVM_MEMORY_ATTRIBUTE_PRIVATE attribute moves to
++			per-guest_memfd tracking; other attributes remain
++			per-VM.
++
++			This parameter toggles KVM's in-place conversion
++			capability support. Whether a VMM uses separate backends
++			or out-of-place memory management is determined by
++			userspace VMM design.
++
++			Note, this parameter is only available when
++			CONFIG_KVM_VM_MEMORY_ATTRIBUTES=y. When
++			CONFIG_KVM_VM_MEMORY_ATTRIBUTES is not set, in-place
++			conversion is unconditionally enabled.
++
++			Default is N (off).
++
+ 	kvm.nx_huge_pages=
+ 			[KVM] Controls the software workaround for the
+ 			X86_BUG_ITLB_MULTIHIT bug.
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 83e26ce45fb79..e840418427a1d 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1851,7 +1851,9 @@ enum kvm_intr_type {
+ 	((vcpu) && (vcpu)->arch.handling_intr_from_guest && \
+ 	 (!!in_nmi() == ((vcpu)->arch.handling_intr_from_guest == KVM_HANDLING_NMI)))
+ 
+-#ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
++#if defined(CONFIG_KVM_SW_PROTECTED_VM) ||	\
++    defined(CONFIG_KVM_INTEL_TDX) ||		\
++    defined(CONFIG_KVM_AMD_SEV)
+ #define kvm_arch_has_private_mem(kvm) ((kvm)->arch.has_private_mem)
+ #endif
+ #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
+index abb108886733a..2c3c22aeafa54 100644
+--- a/arch/x86/kvm/Kconfig
++++ b/arch/x86/kvm/Kconfig
+@@ -81,13 +81,21 @@ config KVM_WERROR
+ 	  If in doubt, say "N".
+ 
+ config KVM_VM_MEMORY_ATTRIBUTES
+-	bool
++	bool "Enable per-VM PRIVATE vs. SHARED attributes (for CoCo VMs)"
++	depends on KVM_SW_PROTECTED_VM || KVM_INTEL_TDX || KVM_AMD_SEV
++	help
++	  Enable support for tracking PRIVATE vs. SHARED memory using per-VM
++	  memory attributes.  Using per-VM attributes is deprecated in favor of
++	  tracking PRIVATE state in guest_memfd.  Select this if you need to run
++	  CoCo VMs using a VMM that doesn't support guest_memfd memory
++	  attributes.
++
++	  If unsure, say N.
+ 
+ config KVM_SW_PROTECTED_VM
+ 	bool "Enable support for KVM software-protected VMs"
+ 	depends on EXPERT
+ 	depends on KVM_X86 && X86_64
+-	select KVM_VM_MEMORY_ATTRIBUTES
+ 	help
+ 	  Enable support for KVM software-protected VMs.  Currently, software-
+ 	  protected VMs are purely a development and testing vehicle for
+@@ -138,7 +146,6 @@ config KVM_INTEL_TDX
+ 	bool "Intel Trust Domain Extensions (TDX) support"
+ 	default y
+ 	depends on INTEL_TDX_HOST
+-	select KVM_VM_MEMORY_ATTRIBUTES
+ 	select HAVE_KVM_ARCH_GMEM_POPULATE
+ 	help
+ 	  Provides support for launching Intel Trust Domain Extensions (TDX)
+@@ -162,7 +169,6 @@ config KVM_AMD_SEV
+ 	depends on KVM_AMD && X86_64
+ 	depends on CRYPTO_DEV_SP_PSP && !(KVM_AMD=y && CRYPTO_DEV_CCP_DD=m)
+ 	select ARCH_HAS_CC_PLATFORM
+-	select KVM_VM_MEMORY_ATTRIBUTES
+ 	select HAVE_KVM_ARCH_GMEM_CONVERT
+ 	select HAVE_KVM_ARCH_GMEM_RECLAIM
+ 	select HAVE_KVM_ARCH_GMEM_INVALIDATE
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 05c518c9b8078..929fd3e1a01e6 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -103,7 +103,10 @@ static bool __ro_after_init allow_unsafe_mappings;
+ module_param(allow_unsafe_mappings, bool, 0444);
+ 
+ #ifdef kvm_arch_has_private_mem
+-bool __ro_after_init gmem_in_place_conversion = false;
++bool __ro_after_init gmem_in_place_conversion = !IS_ENABLED(CONFIG_KVM_VM_MEMORY_ATTRIBUTES);
++#ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
++module_param(gmem_in_place_conversion, bool, 0444);
++#endif
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(gmem_in_place_conversion);
+ #endif
  
 
 -- 
