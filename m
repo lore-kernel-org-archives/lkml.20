@@ -1,277 +1,203 @@
-Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com [209.85.210.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4FC476060
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.226
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040699; cv=none; b=JDZM7E5s5pUnLI3YhA60264Mcgoz+Dggv+a2IIS0YntF7fnq8qgCYSW4ReQS3QWo+IDwHvOMYg3V566EQB4oWdYqLa05JsQziWpdrJlQrXUIlNWLtm2itJell7ThJXj6l9tZ33RnWixvcJSMv1XHPfGwyZNp0QX/8v/x/JMrFYw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040699; c=relaxed/simple;
-	bh=/L6bYPkLPhsvm/ib65+sYDOqauXqmVB2gZYqh6G5wLk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JiDj0400dF+Q/6tY7Ugh/FSzreFuY1IeDPctAI9TfLYfLeGm6ZpPjiB1iO3OIRYtLsjLYK9yGKx4Vh/OwfNkxivLjPPf2kP+4znnmqXfNWxlHI0YEOHywJciSPKGssvDHYObRbqwppZodXUbxO5lTwwLtn9uMBkL9q00LClk/fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=TLFCgM/n; arc=none smtp.client-ip=209.85.210.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827CA459AED;
+	Thu, 10 Sep 2026 11:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789040714; cv=fail; b=qtLavUUJxkGsH7Ok86M735Q5dlHSkqF9KONhQiEiXJSd0X6WHBDr5bFqI79JyJLhdzpU3ceUfOqDtbGBT/XxbyVOazozXdS3mWJIdwQv7Gczaee8h+eM+fcNdD84W8P3xqeEPwCTDQG5dyxkksM9uaVvMWLy1wiHGmx3SjbV1aM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789040714; c=relaxed/simple;
+	bh=L7ozkqi3dgU5n47eUKucBBIMX/Tvw01SF8sYplnoHRU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jjYWzy8pU3uDU9q+qFIVtqbr9mSyBHk8XKV0TIQ5xL9qfSjymw/FPrxarSctJ1upr7P3AbvEv2Vf7R/4ca8kAivHQWmNSoXtqy19R7d4dB5vkSJH1iOiK6r54PrEFCiLSxPJw4HEMTKvzQC1tjyM4johDpyLjHuB4No6bdvO55Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=ZEfviTHR; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=0F8XN70L; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="TLFCgM/n"
-Received: by mail-pf1-f226.google.com with SMTP id d2e1a72fcca58-86a31708899so94986b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:44:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789040697; x=1789645497;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5rLTeZm5Q0WZU0MI6O7b5hJ/rqzWUO29MJTRb+d+Tc8=;
-        b=KBhen6AD5HaH+15pZGYXhBN0vGCMcyZZkxvTQOcUtWAY/0C5YPIxn1ieGIzCyn4NnC
-         +fM2GgecwS5fEeYalCwHYZ7QOaBs3p7ocNNuT7Gjz5uSxZtS5sbEQhtmGXvMYc0D3PRV
-         NxQBZBRE5OZ+z/uyVKZAAnyIjqu+PRbqa/mCXpuLXpEeLmsoQ6Asdl6ywt7PjH9L7nVA
-         1TeL7lLz01xvaW2fZTrhdhkLjlUUtOord7ItISWYNcoeSc/e8BIA6mzsXqaZlSQtB0SM
-         Xw0i0oViwUO+78x+/yTfhaYM3DCx99ZfyJ7/aSFf9+MnL/cvTV/hhu0+hX9R3+KKbMgJ
-         enGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxu75qp0BmRwJWFTpeuh9gJ1oV0pXqy0Unq+H3sidCViZPValV2f0IUUW/18mxfB2CLF9BYPlXvF8fis1Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEhdohD5ZHsOKvG4H6OpEWjLSdBuurKLj73Z38HImeChhVPr+0
-	lwr4v46FJEcRdxFtBSNHE03KrsbT88CnWGVrwbLiixJu4pMvy0lF4GLwHXH05sivv5H85EW0/Th
-	UBZurdM5Co4KxwXPsxthyw97/04ZS796pWdQk8qnFh2al8/i5S21M+udrtUDVXyW1j5DbDH1SWE
-	KMSM/ICTBzV2E4L5v2UUbeqvUrf4qEsFZrqmRd2dG265WKVtW7g4RBuV0CBvXfY+JxykYWqQKzK
-	bN5Wcv7P4TVxg+H
-X-Gm-Gg: AYBFou3mjvVWBTV2+Rvp85BDyPoy1ViBLl+na8d1BtYOHN7LVKjpWYbkCUEwr6ceWQk
-	AwpYFukvrh0lrMMQXPrF8TJ3Edp35i9K2Wv9H25LdR7WKIjQ7IU/gWkSzGIYigBkw++lGBD17CG
-	WUMfhLnesDbQxBi/Vu9l8GVMISdTjldOThW3v6cqqWGs9KB6AFsewPiqyyBv1dpCyX0bNsCASUS
-	Cy5p96RyWa9FJsUEoV1Ug5uvy33GcnlnrKk/sEQdaR9Bq8IMi8l7jpg9lBWc86WHsvKRgk8EkYr
-	dy3s2/YSwFzyEjzi73GwHu4s+DzSHS9o7TnCg9uGdyTRTvVP9uq9KuhyzUWHimaUGj+UERNZXQ1
-	CXp4o5PSKDpe0dCWf2IKnAxFP14JJjPKg0A0ePewWZuSdGVBmaJ/hxtXDw15jaoMTDD3bvIb1wB
-	2lJTs6V3gWZWBmcybvsBDej70ShNikstyfzMY=
-X-Received: by 2002:a05:6a20:93a1:b0:3da:c10c:6aa6 with SMTP id adf61e73a8af0-3dacbd6eacdmr11712207637.1.1789040697096;
-        Thu, 10 Sep 2026 04:44:57 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-116.dlp.protect.broadcom.com. [144.49.247.116])
-        by smtp-relay.gmail.com with ESMTPS id a92af1059eb24-1435acb0eb6sm204886c88.3.2026.09.10.04.44.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 10 Sep 2026 04:44:56 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f69.google.com with SMTP id 2adb3069b0e04-5b4fe10d092so5289627e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:44:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="ZEfviTHR";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="0F8XN70L"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689IgkGo2106863;
+	Thu, 10 Sep 2026 06:45:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=RN4XQ8jcBx0tvqDNMTKatutCqBJrQjmiaVWtQD/7upw=; b=
+	ZEfviTHR7TdqtX5zN7p5PmEuYBnGl9bz3D2TOVVKWQZemgHwdSkRpqBrhFvY+4TF
+	kA+AfYXlTDjEyrLncDMzUhAuvh6Ra1RBRzTUQYX/B3N8GntmDLin2xzyz+KIChUz
+	lp8LXpn3TaVLAXHC1AYBVzWVbW0d9Zt06RkWc0scn/DIe+6NrxKDFiXIFJ9YVZ9a
+	n0/2WMSfjNgNqK+1U5UV8tG7cxLFBU+zMB5fsWO5+axsFwL+SE2zCygqLk+3D6pg
+	tfEHevch/cia1Fzk4I68w127u8u8FFrr8rsp2YgUW38CHijcqL152wdc4Q+mJLOM
+	FRdUDwlQrmkTi7KwdVBanA==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11023104.outbound.protection.outlook.com [40.93.201.104])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gkcyms0ke-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 06:45:06 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WEXipSqB7Ql1/gVAfD5y3x+2w3tOfBuZ8kzYloUAgo4zAtfqg6DGb3DEBajpnQc6uafPPN1FCMT5xbxM68jdXkPvee1EOUXg0/SZYakqbyMwo2C/tM6Zr7PC+UF5BJD0MUJx96wS1qcqaveSPn4JcvtkLHs2sQ0jajIAxVX8xnXGI17iVAAFedhq+d1oPjxOLWkoB1/oTeHKc39XrL+Cs+R+mREBmhepI6nAj9OCLxK/K3BPLUfPTo4Jtke5Si3FGat+8OFCQcvkffjSF1DpZDLp2JjzR+jDetjYo508EwqSFbqx6TZzo+xyRSDpashmUeo6ugfwrXp5wJlhaEHtvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RN4XQ8jcBx0tvqDNMTKatutCqBJrQjmiaVWtQD/7upw=;
+ b=r8S8DQTkKyUmDkFMje2ILz0n+vPLgydKnkcDojG5sgOcPDc8QKEDmvWnRVgCmlAmDqC7W6YmIp156ML0sbneViRKHOaxCdAEjeWjv9XrBd/Bw8YF56wBLqJcYnmzr0cbkoFkon7wDtyPNXxS1DVipoXN4gl2h6RlruEaWi168+WIJrTWI1fHNBzpLeFvOi+hRYUTah1zfeLuO1GGHXTZhn1GiVdJCqekAuIFMZXM9DmBth0raU4C7VANzFeHAcOOW5UmCCiN7RAIS88dwyYXT+UugdryCvs21i6kTES6IpBb/XrQQw/FYtVr/YhSEeg78OgauD35xsw8tZpcbp+NWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789040694; x=1789645494; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5rLTeZm5Q0WZU0MI6O7b5hJ/rqzWUO29MJTRb+d+Tc8=;
-        b=TLFCgM/nBnILdpCva/YUnJztVWCXLxXtyjj7pSKXxGV0h7k0IN/91Ypnx5qfFcfeQt
-         AEmDp6rABzf7cHp/PWDjIRNiIZav3ic5iUXenxLOFYvdmyBE/2ME+BEecyZKifxC1zoj
-         yeibOjvF+l8n1lZF26ejORipRWMlByxQROFUo=
-X-Forwarded-Encrypted: i=1; AKwUvBwqd5XCKuhv0Nd0CMpxQmZJCN8R/kNd4HFvcvJyQEt7Q4nvl+PwNB/IODeVLxIaSXrvDmQnZqD23KqhhSk=@vger.kernel.org
-X-Received: by 2002:a05:6512:3f0d:b0:5b6:183b:d20f with SMTP id 2adb3069b0e04-5b8986ce57cmr1233204e87.54.1789040694244;
-        Thu, 10 Sep 2026 04:44:54 -0700 (PDT)
-X-Received: by 2002:a05:6512:3f0d:b0:5b6:183b:d20f with SMTP id
- 2adb3069b0e04-5b8986ce57cmr1233181e87.54.1789040693727; Thu, 10 Sep 2026
- 04:44:53 -0700 (PDT)
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RN4XQ8jcBx0tvqDNMTKatutCqBJrQjmiaVWtQD/7upw=;
+ b=0F8XN70L18Z47unnC1o55oAQLZ2zejDczU0a3gL0dEuM3357ieBX7wKLRwcYBwEM0bZ8ucWCjsmfUPnjEsTZU6p9Jy22asFHGpF9qpyqdpQQeH6xSPgSS7o01bEptPZ9H/r3NFTB7yYe+Z5UWX8sqOndnoDK1KGjqE42V4vSsz4=
+Received: from SJ0PR03CA0299.namprd03.prod.outlook.com (2603:10b6:a03:39e::34)
+ by EA3PR19MB9567.namprd19.prod.outlook.com (2603:10b6:303:2b1::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Thu, 10 Sep
+ 2026 11:45:03 +0000
+Received: from CO1PEPF00012E83.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::9e) by SJ0PR03CA0299.outlook.office365.com
+ (2603:10b6:a03:39e::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 11:45:03 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CO1PEPF00012E83.mail.protection.outlook.com (10.167.249.58) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Thu, 10 Sep 2026 11:45:02 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 46F8240655D;
+	Thu, 10 Sep 2026 11:45:01 +0000 (UTC)
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 20A0C822563;
+	Thu, 10 Sep 2026 11:45:01 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: broonie@kernel.org
+Cc: yung-chuan.liao@linux.intel.com, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Subject: [PATCH 1/5] ASoC: Rename snd_soc_dai_link_ch_map.ch_mask to cpu_ch_mask
+Date: Thu, 10 Sep 2026 12:44:56 +0100
+Message-ID: <20260910114500.1586637-2-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260910114500.1586637-1-rf@opensource.cirrus.com>
+References: <20260910114500.1586637-1-rf@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788414671.git.zack.rusin@broadcom.com> <03e5c9855e9578b00abf8da69764f1b468597218.1788414671.git.zack.rusin@broadcom.com>
- <4e73yd2ofpdzl6rptzvd74no3hnyfblknoq7wzxlw7f3zjbz7c@srfabx6lsusj>
-In-Reply-To: <4e73yd2ofpdzl6rptzvd74no3hnyfblknoq7wzxlw7f3zjbz7c@srfabx6lsusj>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 10 Sep 2026 07:44:40 -0400
-X-Gm-Features: AcwNN1V9O4m5Md-NIpRcZHEks8CoV3j2fYxMn4_4djvvW1loHBxxC_mukyVMqHE
-Message-ID: <CABQX2QNc1GP5ZgizK=9+6XN9Ow4dsUKaFD51oGke=OP6hxCyYw@mail.gmail.com>
-Subject: Re: [PATCH v1 2/4] x86/vmware: Add the vmware_record_panic_msg sysctl
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org, 
-	Petr Mladek <pmladek@suse.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, 
-	virtualization@lists.linux.dev, bcm-kernel-feedback-list@broadcom.com, 
-	linux-kernel@vger.kernel.org, John Ogness <john.ogness@linutronix.de>, 
-	Steven Rostedt <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Kees Cook <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>, 
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>, kexec@lists.infradead.org, 
-	linux-doc@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000016e28d065b1f7f94"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E83:EE_|EA3PR19MB9567:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 291468f6-feee-48dd-b0f5-08df0f30f398
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|376014|61400799027|10067099003|11063799006|56012099006|18002099003|16102099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5JedYuoKQyLb8l797z89P2sfRirhe8lljTIEP838Xv5u2YtNESSflLD7xLwXoLT5c17VNS64HX5r3m16wMyF4XRIZtq9NTNz1Bt3J2rqRJ31rv/c8ZIwY8xkcZrxgmnsb5AKDuiyroUWTNin7xrJD4LqOte65TTF06BEfsyjJ4ggQcJPmMd23yfIfWJ4xAAG25yMzL66nvvoSB/33IehJ7GPp711XFVcRzUk+RvVkdnp1aRXdd2ZueVOoWMMQ0KgZozmztBEnj1miQ3HFpjzj2YbG2znRfH3g/9Q9TIIyZz/lu/H114qXtH2ZLPO2wn8s4w1HddXnC2ChMOFxEoWQt+/yXL2FEJOZpATs8PpYlgwZqf4xYGlbfw95upxjwh/av7LGXlG/rlVnxPdyIzLe8ctF4QTm5X/HZwgbvIaOZntH57PIl8p9QnyFiJxkWFdVXFwP8ycqq2Qz2nSx0uynzxApgQrIB4oweHa6v46e1d2nrgtyrj7/TUcM+CSCJAv+SiO063IIjTUqlIDhfvseLmoddVtd8rNd3cGnOnDnV0rgtR1GxGYJG/z2aefEvvgANO9SoaNekpRQocBhboJT2y4KEtdxP8Mx7UyVu8psDSAFRlR0MObfq/Hr4OTWocCwItUnDg9O2KUWLTrHqRTTlu5hj42ehyfppylfeA1EgTOpP10bmy2/1+fVdYhmWuPej9Zg6ILnXeWL6xnmidQRA==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(61400799027)(10067099003)(11063799006)(56012099006)(18002099003)(16102099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LKaHicZ8rI3Kadh2WbDwezeTxjCfre6YZUMAVDcS8URzu06FTe9ntXSwU5zzRmAhGWdJ2IAnr3bkwDn9kDC0Kw7L+JEux2SxJ7jN6ExDOg0Lpi7nEDHYWUvTbkEF4i/P/ckYhGu2R97iULsOIta2te6wRr+8E4UKg6M5jGxISHw2QU+O0Gma0f5W9gUlNFD8+h4rP39/vJG5CoDCv9HiQsCXJM6nXgObdsQBHoGVoHOoTMA8MQaKZvNu6hq6JGxP98h4RET61P3bF++13g2mMY+rCQ+7IjaV63WWPwdpHwb8bTUN5PESmyGmwchazyDn0Ksrg1JyRBft+rN2dstor+cfP2W/rqln8Te0vCVeXyu/HXXBDdt2xtz4IEM1Uf8DzxD6GN/BNyriCC241AWmgK13HVoAMoarSCaMgnu0/IooEmQzdWsZaj9BBuEyQfma
+X-Exchange-RoutingPolicyChecked:
+	tJlt4yqPezF+xsW2W6ap6wmp/ZQ2Pfdti/YLpc5ODXSCoaFZNJAHouBQKx45XqnfuPY/sILXyE9KmSGgYiUu9iL5HmGirjD5RLS4X6lMmTBDxyZIplHidKWaKvHXG6TXU3eXUhEB1Um+FuYnqsNgfIzsBXgdda5TUMa+IRh9zkc1EOx+8x+5j2HeuuvsOan+Kh/JcZjCSuoufGZQRzbYWg16FsGxKIJHXr2A389pAxJO7CmzOb9vjl/U580Gv+YojSgWMjTzbHZpgQaSMDJCNPIE6eJHNguo0uwbL65CE4/GMY9Q/hIVivMs4aLALLFqe19BPJUWz+mGirrPvIioFA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 11:45:02.6268
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 291468f6-feee-48dd-b0f5-08df0f30f398
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CO1PEPF00012E83.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA3PR19MB9567
+X-Proofpoint-ORIG-GUID: 1ndfweWE3GGUSU-ZNLExd4OWcwyr6792
+X-Proofpoint-GUID: 1ndfweWE3GGUSU-ZNLExd4OWcwyr6792
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDEzOCBTYWx0ZWRfX3zxOari8yGvb
+ igcA1CFF4rBaACtQ8bJ5j+Oh7UJubAL7pb3zeA5jahKyATAnm0CHNOH2DcveVSkZtKWlDMf5wzx
+ UgCkjTD36VFglJbQR1/UXMGLAk7eF3w=
+X-Authority-Analysis: v=2.4 cv=OKiyTiaB c=1 sm=1 tr=0 ts=6aa29842 cx=c_pps
+ a=0zbhqlog1HYD7RdPDvTXcw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=w1d2syhTAAAA:8 a=vyt6Wrf2iDEc68905z4A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDEzOCBTYWx0ZWRfX69G4fNKaZWyb
+ nBGA8EqSb/+ELS4Hr7zYAilkPk29Ei8NeNyown9G1vcIjoej7nEQpAKSyQZQm+3zH4NXp9gU/ui
+ EDn1shLxuk+9Ev5UGOuMCxbl/6aZVccsL97k0gYfLsU6ZXMtn8b4OPyoWaY4Xc7NZHE4GOhpOvp
+ kGlVrqqw+QHGN1fso+8JgsGxkNnz9486e3SsybAdvr5DEIGvZYjMNLY2z9zAhSpA10u1iTy6LfC
+ Wrb0AlS1RjPXrZ9e+90d+3z12uhQS+jdgVKtLKg2NrcMmNvdkF+hBgKSqYY9LFQFYrgjJx4V5GY
+ uVuymSLJisasdFJlURZVN/VlRZFNf/cs3rhaLFrg9JIdxXIktHjNXZqY+qulSAnK5ghZID//3bt
+ aaaE3P8YxT04l1xSD7IClEbYaJWHP/tRHxhUVn67Cm9IedYN5nQeMRe1js7gGy5yDpKQ/S9jBte
+ 6QIkYs51KjXNRKCcP3w==
+X-Proofpoint-Spam-Reason: safe
 
---00000000000016e28d065b1f7f94
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Rename the ch_mask member of snd_soc_dai_link_ch_map to cpu_ch_mask,
+as that is what it is used for.
 
-On Thu, Sep 10, 2026 at 4:32=E2=80=AFAM Joel Granados <joel.granados@kernel=
-.org> wrote:
->
-> On Tue, Sep 08, 2026 at 02:07:14PM -0400, Zack Rusin wrote:
-> > Full panic text is useful on ordinary guests. Encrypted guests should
-> > export it only when an administrator opts in. Reporting a crash does no=
-t
-> > require transferring the log.
-> >
-> > Enable panic recording by default for ordinary VMware guests and disabl=
-e
-> > it when guest memory encryption is active. Expose the policy as the
-> > boolean kernel.vmware_record_panic_msg sysctl and document that it
-> > controls only the vmware.log transfer.
-> >
-> > Register the sysctl only after the panic buffer and dumper are ready, a=
-nd
-> > only when sysctl support is built. A registration failure leaves the
-> > internal default in force.
-> >
-> > Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-> > ---
-> >  Documentation/admin-guide/sysctl/kernel.rst | 14 +++++++++++++
-> >  arch/x86/kernel/cpu/vmware.c                | 23 +++++++++++++++++++++
-> >  2 files changed, 37 insertions(+)
-> >
-> > diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentatio=
-n/admin-guide/sysctl/kernel.rst
-> > index b6328cd0f43e..4577e935ddcf 100644
-> > --- a/Documentation/admin-guide/sysctl/kernel.rst
-> > +++ b/Documentation/admin-guide/sysctl/kernel.rst
-> > @@ -1690,6 +1690,20 @@ entry will default to 2 instead of 0.
-> >  =3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> >
-> > +vmware_record_panic_msg
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Controls whether panic kmsg data is written to the host's ``vmware.log=
-``.
-> > +This setting does not control the separate VMware guest-crash event.
-> > +
-> > +=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +0 Do not write panic kmsg data to ``vmware.log``. This is the
-> > +  default for encrypted guests.
-> > +1 Write panic kmsg data to ``vmware.log``. This is the default for
-> > +  ordinary guests.
-> > +=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> This seems like it can be represented in a boolean value. Any reason why
-> you did not use proc_dobool for your handler? Would it make sense to
-> have vmware_record_panic_msg as a boolean?
+The CPU and codec channel masks are not necessarily the same, and are
+quite likely different. SoundWire and I2S/TDM both support assigning
+different sample slots to each codec, so for example channel 0 on each
+codec could map to different channels at the CPU. So it's quite normal
+that the channel mask at the CPU end is different for each codec, but
+the codec channel masks are the same for each codec.
 
-Thank you for taking a look! This follows the existing Hyper-V
-implementation of hyperv_record_panic_msg, which uses an int and
-proc_dointvec_minmax with 0/1 bounds. I thought that consistency
-across the codebase was more important even though I agree that bool
-and proc_dobool() would be a better fit.
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ include/sound/soc.h                 | 2 +-
+ sound/soc/sdw_utils/soc_sdw_utils.c | 2 +-
+ sound/soc/soc-pcm.c                 | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-z
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index f46b2bc2a022..94c9b75e27e3 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -699,7 +699,7 @@ struct snd_soc_dai_link_component {
+ struct snd_soc_dai_link_ch_map {
+ 	unsigned int cpu;
+ 	unsigned int codec;
+-	unsigned int ch_mask;
++	unsigned int cpu_ch_mask;
+ };
+ 
+ struct snd_soc_dai_link {
+diff --git a/sound/soc/sdw_utils/soc_sdw_utils.c b/sound/soc/sdw_utils/soc_sdw_utils.c
+index 88031238c04e..cab1578b893d 100644
+--- a/sound/soc/sdw_utils/soc_sdw_utils.c
++++ b/sound/soc/sdw_utils/soc_sdw_utils.c
+@@ -1762,7 +1762,7 @@ int asoc_sdw_hw_params(struct snd_pcm_substream *substream,
+ 	 * ASoC will set the corresponding channel numbers for each cpu dai.
+ 	 */
+ 	for_each_link_ch_maps(rtd->dai_link, i, ch_maps)
+-		ch_maps->ch_mask = ch_mask << (i * step);
++		ch_maps->cpu_ch_mask = ch_mask << (i * step);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 0e49290a8c90..cb64ced21149 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1264,7 +1264,7 @@ static int __soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		 */
+ 		for_each_rtd_ch_maps(rtd, j, ch_maps)
+ 			if (ch_maps->cpu == i)
+-				ch_mask |= ch_maps->ch_mask;
++				ch_mask |= ch_maps->cpu_ch_mask;
+ 
+ 		/* fixup cpu channel number */
+ 		if (ch_mask)
+-- 
+2.47.3
 
---00000000000016e28d065b1f7f94
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIAt4
-cev6P7GGT9P7O6xhDkrrsIOwZFgZdA7C8KsFBvldMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkxMDExNDQ1NFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAKVm+t7Ihid+5m7LkmgrTTT/nFDgrcnNZG55rsNZ
-62mD9lzTnUR3EB4aeSLPE4gqjCo2NvGlEge4LxsJMs+xDtH1AXSVGFlLmHPMS5hvYnHbAlgVbxKR
-aj5+O/M/0qRkxMmCbkSoDljUiqc7xOozqnhSMWctS6WZBm+iIOxRGRFNr2Fjc8r2nFRBlwWXqpaO
-pjlp/ZyPZH/vXQHqUTNpYUH2FuoR47zjvzTyKwSEwHbyo1t3mM31hud3yAuzplEA7ZUsk60RW+aD
-ljBy85uU1rkBSCC99YwDars4rGqOH+iGXcDW964DUqSM1QrwbdxgzeJxaIFp+09N6F2fxPzrGVE=
---00000000000016e28d065b1f7f94--
