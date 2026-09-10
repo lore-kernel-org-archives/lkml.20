@@ -1,64 +1,47 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC343C6A56;
-	Thu, 10 Sep 2026 15:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E96A2737FC;
+	Thu, 10 Sep 2026 15:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053870; cv=none; b=iUZKnKyQhigntWw9xaNhVSS+7JM7ehWqGcDtItzecq9rVpkNnggU+EbA8CdIvAFqGe+T17BfbtZYRC2zoC4Zwqro/vnh2xnUNL7YscsNn6HfnR9NuH0nQemSrN12qHUu3+/V63uZmrxxjL93+Am4Nh48JxyIzM2LlK8ShG1ytqc=
+	t=1789053919; cv=none; b=T7fB0TmBK8sqc82T+2cRsSfKM9C5TsK0JTfY7OLm8ZVq9t184TAFdsLlD7Pa20fWArfp4bMKiwTjvG5D0cZcEPr+78jEyaF1NxcIp1v9WDeU9ZSTuPhoXz1q4Zm1qcT/LECTmi+OXoIx2C+s03ncLP5haseKSdH+VE7GzLRGBzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053870; c=relaxed/simple;
-	bh=rc7Bib4zh4ULU+z35qShBnBVaKULUISgwzQhJ3tZgAQ=;
+	s=arc-20240116; t=1789053919; c=relaxed/simple;
+	bh=vktYA/pLE/Uk7TLDrUFPnAYTCTQTQwc8vglCQBHe+0w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F6y9pGvK76SKRDCg73SZGVFwIR6JhT91Hf7UgOp1Rc1CJ0zXrLCgvtQAAqvSRtHl9ig/duH+lNSfKnlLrB88yehS5Y+CLUuxcgpOBMzoy29cUg35EZVkU5rVViX7ETGTwZSaOqtlxCJwy4SgEXPOJ/DLF54U8mADcik4woZsOqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UrBkOiud; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PnY+4Ju33kk17faZ36hre5mpSurqzQId9hQWkL1Cq7eLxMmTHL+cTg99SvIFpWMRI4FR2C4PAv4vbR2gsmtYIFmJJNm9UAkKXY17dfX2aGXkUbMJgggOdujx8fjVulYGTYH+1aTCiHmxwl1czbDwxqlYV4DMq6/51Cyj/us3Mcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQd4j3Ks; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UrBkOiud"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789053867; x=1820589867;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rc7Bib4zh4ULU+z35qShBnBVaKULUISgwzQhJ3tZgAQ=;
-  b=UrBkOiudko6SpeSWkNPsoz+eQjXtNGNXTSthRljCUOFmgqa9Thm1DQLK
-   aGT0U7tHFTRk/Pu8kEWTw+2HC5RPdePaGubNjZbRR0Pj3NNyS71Q+nQ6B
-   adp3GbYfB1jeOwlx4FcaM0/GRTShwNMuMj5bUAJSZZnDwCC4QIjvloR+D
-   uZXjYCU35XR+jhzmGmnjefkocvQz5nEdLXf/L8ALxzOojFfUqALC8wu9j
-   z5r7S6ujjeDkO7Hjn0IwdNnae2OFAs7ytf+PEo1PSOHw1FZG4+8DnGoQL
-   vsba4fAHICCII0pw/3W0gz8aGAIzm+fT+90OWU/IP9HwG1iScUMIvsfj0
-   g==;
-X-CSE-ConnectionGUID: 3+XX/ouLQJuPBox6IvbzHg==
-X-CSE-MsgGUID: JYyGE3cSR6qAQmTY/Gq1EQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="106875133"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="106875133"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 08:24:27 -0700
-X-CSE-ConnectionGUID: WBf9OfTGT0CWyGs+8poi/w==
-X-CSE-MsgGUID: s9cvCnZ2Q2e4q8EIUU9gCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="271653661"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 08:24:25 -0700
-Date: Thu, 10 Sep 2026 18:24:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <jananisunil.dev@gmail.com>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Michael Walle <mwalle@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH v7 3/3] gpio: ad7768: Add AD7768 GPIO auxiliary driver
-Message-ID: <aqLLp54ZuY3LVIcC@ashevche-desk.local>
-References: <20260908-ad7768-gpio-v7-0-52ee6ef18a1e@analog.com>
- <20260908-ad7768-gpio-v7-3-52ee6ef18a1e@analog.com>
- <ap_nqnPLWJpz5N8o@ashevche-desk.local>
- <d597d432-2903-4f0c-883e-eccb6867bc8d@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQd4j3Ks"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9241F00893;
+	Thu, 10 Sep 2026 15:25:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789053917;
+	bh=w3RRJuuctzX6sMBHJVymNiLfogH0RAWrORKD7W2Ej8M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nQd4j3KsNTu/88H/Lf6B541sDwj4aPK6ECgkoSl/ZHcXZrgiMPgRN3xMl8ujdGC9/
+	 Hqcw5t8IxyFTmczNRlaWVPUXChSh5YUm1al2phPAKXd2iqbd1vwnlZEB9BveDxYJUr
+	 +4t2W4jlYHPuQT0FSHyibiyrn71UXeDXsUT3IXjUS89ADEzsE2dsruJznFOzsXv6ba
+	 P+GdMp10HyhemGcwJllwBQTkBBuEx39dfaI+lJTLfTWcqbsOlamTplr/BIDoakFs2P
+	 wTJbME577uQ6xyxWIFMutbhHFTgrMh9GuCES4CaiBekj03KytMQBAPiSi1zl+onK6M
+	 XdrOvG5ZmZLIw==
+Date: Thu, 10 Sep 2026 18:25:14 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Chaitanya Kulkarni <kch@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Ankit Agrawal <ankita@nvidia.com>,
+	Alex Williamson <alex@shazbot.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Tushar Dave <tdave@nvidia.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH 5/5] PCI/P2PDMA: Gate the host bridge whitelist warning
+ on verbose
+Message-ID: <20260910152514.GT13683@unreal>
+References: <20260830-batch-p2p-fixes-v1-5-5044e8dfbe2e@nvidia.com>
+ <20260909021859.GA159841@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,39 +50,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d597d432-2903-4f0c-883e-eccb6867bc8d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260909021859.GA159841@bhelgaas>
 
-On Thu, Sep 10, 2026 at 05:07:12PM +0200, Janani Sunil wrote:
-> On 9/8/26 12:47, Andy Shevchenko wrote:
-> > On Tue, Sep 08, 2026 at 09:24:54AM +0200, Janani Sunil wrote:
-> > > The AD7768 provides five GPIOs controlled through registers shared
-> > > with the parent IIO device. Register an auxiliary gpio-regmap driver
-> > > and use the parent device for runtime PM.
-> > > 
-> > > The device has separate input-state and output-latch registers. Add a
-> > > reg_mask_xlate() callback that checks the line direction and reads the
-> > > programmed output latch for output lines while retaining input-state
-> > > reads for input lines.
-
-...
-
-> > > +	if (ngpios > AD7768_FILTER_GPIO &&
-> > > +	    device_property_match_string(gc->parent->parent, "clock-names",
-> > > +					 "mclk") < 0)
-> > Looking at the length of the line I have just noticed that this uses
-> > gc->parent->parent. Here is the question: what does gc->fwnode refer to?
+On Tue, Sep 08, 2026 at 09:18:59PM -0500, Bjorn Helgaas wrote:
+> On Sun, Aug 30, 2026 at 02:16:23PM +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
 > > 
-> gc->fwnode is currently null. Would you prefer that I explicitly set
-> config.fwnode = dev_fwnode(parent) and use the fwnode_property_match_string()
-> here instead of walking gc->parent->parent?
+> > calc_map_type_and_dist() prints every other diagnostic under its verbose
+> > argument, but reaches the "Host bridge not in P2PDMA whitelist" warning
+> > through host_bridge_whitelist(), which it hands acs_redirects instead.
+> > A caller that asked for a silent answer still gets the warning whenever
+> > any port on the path has an ACS redirect bit set, the CPU is not
+> > whitelisted by cpu_supports_p2pdma(), and the host bridge is not in
+> > pci_p2pdma_whitelist[].
+> 
+> Not in this series, but I would like to see the "whitelist" term
+> removed from drivers/pci.  p2pdma.c and pci-pf-stub.c are the only
+> current uses, and I don't think a change would cause any API issue.
 
-Yes. It's very unusual to access gc->parent->parent in the drivers. IIRC none
-is doing like this (out of GPIO drivers).
+Let's do it after the "Fix ACS ..." series, please, just to reduce the
+number of rebases on my side.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Thanks
 
-
+> 
+> There are similar "blacklist" uses in pci.c, aspm.c, and vpd.c.
+> 
