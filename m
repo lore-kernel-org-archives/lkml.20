@@ -1,103 +1,129 @@
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8684BFE89
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2D9456E07
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037249; cv=none; b=U9xrUWwlj2o6/muO+uiff49/Uzdzn9U8RTMwD11XagQ9B5hhQkRiPwxc7HkQBJ7Qx6w3ShbD/phDi4bsYrI6qWbn4qs4s0tXGXtTz0AZE7bdYlrTxZqHoQdbqjda6TxCb2+ZWcQREEGR5sdZlVDdpxa/5dDEqBfL1z0QtQPTDbw=
+	t=1789037289; cv=none; b=WUKRZdp2Irmxlgey50rKK83Xj23zW/l2jU3BXts2zw0jfzGzqMlZ2B+UZUjYOb7Tad5vFjnaopn1lGmAqBLJw4L7OUpgYsmqf0iFM3q5VsaIrRJHmhvDZHxzeq+s+RFJfWoCg0Gg/etQaDmYgKslfKHVehhb6oW8kZxJOmBuMt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037249; c=relaxed/simple;
-	bh=xRGhYxmMaJ8iKhjgIgc7Z9g+HkGD66oZpno6a5dsLbs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tLQDL1LxNgx8j+MzJqIgAwulSbzvxO+7amX6d1hyGkGLIeRmg59NTeOykrSoAuGE9uNmExdKRASPSmYZe091Q951oum/TLvX/ThPfBqdUyok7XZPw2n2AkyOrKUd3JeFRK7CLpu4KXmXXoXX6ToyEgVaAFdIgiqKWHa9HsAVDCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OMgJu/d4; arc=none smtp.client-ip=95.215.58.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789037289; c=relaxed/simple;
+	bh=CKJP3LWV0XbiTPX5pJ7NiWChkdlri8kaJ5mSH2lh3xY=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Zj8FQ9CusqmiKglzGjsXZmAj3w9Nk0IXk3hnKoZMW6982vfUFFs/DbmpdYxkN79k9Veb1iICy5DW77Lm8xtuPIh9I8hCQoMFEpJ41wMEJcL8QH7wVNkJ6es9iFa6xUIqFBTTDt2/mC4ydSn2eReb4I/3w39ZcaD6Pb6fpbM0fpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JhCJR6Ye; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OMgJu/d4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xRGhYxmMaJ8iKhjgIgc7Z9g+HkGD66oZpno6a5dsLbs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789037240; v=1; x=1789642040;
- b=OMgJu/d4hn9xBmTZn8Q7wyn2QVHD5ecToUlsKPHXHnko88WqKwyF2XP9njiU4KPVNFc2mjgJ
- xjEmK1Rncbx9v1ojyqG66UJMmxucJv6QNUh2qJCvKG1wIuZyzxOq/pDFcKZ+vZpXjPcyevveshG
- 9Z9tEEKYOrKWYV7TW+8cDRXM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4b99439175782190;
-	Thu, 10 Sep 2026 10:47:10 +0000
-X-Mizu-Trace-ID: 4b99439175782190
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 10 Sep 2026 18:47:08 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Chen Yu <yu.c.chen@intel.com>, Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: sched/fair: which tasks should nr_pref_llc_running be compared
- against?
-Message-ID: <aqKKrMKaZORqNpwt@three-body>
-References: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
- <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
- <apPnJaUS5vq2f85J@three-body>
- <06ed8af87506f858176a81a4c29acf92d24b6dc7.camel@linux.intel.com>
- <apmQaelH5Y7czrOM@fengwei-dev>
- <2b0a35122ee615c6fa51076e5d79330e633755ac.camel@linux.intel.com>
- <aqFFu1Xo52cQV3iy@fengwei-dev>
- <a1b1d5f9a58895b65217671678c6e02bd711241a.camel@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JhCJR6Ye"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789037284; x=1820573284;
+  h=date:from:to:cc:subject:message-id;
+  bh=CKJP3LWV0XbiTPX5pJ7NiWChkdlri8kaJ5mSH2lh3xY=;
+  b=JhCJR6YeEVwaEmaaU+mCDxZvv8YElTU8ONTtMp2VAb9Drp1iyJ6V1rtg
+   9ONLKvqlo2p21yKq7o95SQKJEP4dZ3cEXDZRQbH2asp6FdiKvulzyQXPI
+   s+8+UxXHwFZTy9vzOb/T9I4XJUX+n5bHlDG+OEtekPVdjgJcICnKK6j+O
+   Bhjzm+eBnrrlHoAAA2THrwMoTCA4tN5/kBN8a72A5taDWRY7rKD6iD7r3
+   gILnb0w5ixQk9R3VqiHeI0tg5BOuju/yWCHA4fXY9jOycgf+k1/HUz9jG
+   Js85p8CUkR83IRurG8J2gIasCcFuRI2pPnyYiz38/zmsMrlLPJqu9w8VI
+   w==;
+X-CSE-ConnectionGUID: gdxY01GgSr6XK53bw/x7OA==
+X-CSE-MsgGUID: gmFg5KUIRMaBfPHNO3JPug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="5083"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="5083"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 03:48:00 -0700
+X-CSE-ConnectionGUID: AVaUdzUaS9yIf3iUXs2YDA==
+X-CSE-MsgGUID: ym2N2vwNQP6JzLl8MfS//Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="301487735"
+Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
+  by orviesa002.jf.intel.com with ESMTP; 10 Sep 2026 03:47:58 -0700
+Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4cJv-000000001i7-3UeU;
+	Thu, 10 Sep 2026 10:47:55 +0000
+Date: Thu, 10 Sep 2026 18:47:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: arch/s390/include/asm/io.h:30:22: error: implicit
+ declaration of function 'ioremap_prot'; did you mean 'ioremap_np'?
+Message-ID: <202609101854.0eBirOer-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a1b1d5f9a58895b65217671678c6e02bd711241a.camel@linux.intel.com>
 
-On Wed, Sep 09, 2026 at 10:47:11AM -0700, Tim Chen wrote:
-> On Wed, 2026-09-09 at 19:40 +0800, Chen Yu wrote:
-> > Yes, I think this version looks good now. While looking back at Xusheng's proposal,
-> > I noticed there is another option:
-> > if (env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_queued) {
-> > 	...
-> > }
-> > May I know why we did not choose this approach, is it because of the following
-> > scenario?
-> 
-> The reason is that a common condition we are trying to avoid in
-> alb_break_llc() is the following: We have one task T1 running on cpu preferring
-> src LLC and another delay queued task T2 not preferring src LLC and delayed queued.
-> 
-> - runnable domain (current fix): h_nr_runnable == 1, nr_pref_llc_running == 1 → equal → alb_break_llc() true → suppress.
->   Correct: the only thing actually running here wants to be here; don't rip it away.
-> - h_nr_queued alternative: h_nr_queued == 2, nr_pref(queued) == 1 → not equal → alb_break_llc() false → proceed to active balance, 
->   which would then break T1's locality to relieve an "imbalance"
->   that is really just a sleeping T2.
-> 
->
+Hi Mukesh,
 
-Got it, I see.
- 
-> > Suppose there are 3 queued tasks: p1 and p2 prefer the src_rq, while p3 is a delayed
-> > task that also prefers src_rq. In the current implementation, nr_pref_llc_running is 3
-> > and h_nr_runnable is 2, so alb_break_llc() might return false. As a result, active load
-> > balance would be triggered, and p1 or p2 might be migrated away, which is undesirable.
-> > However, would this still be a problem after Lu Wang's active load balance guard patch
-> > has been applied?
-> > https://lore.kernel.org/lkml/20260903020656.3793626-1-wanglu.priv@gmail.com/
-> 
-> Lu Wang's patch only mitigate the migrate_llc case but not other migration reasons.
-> We shouldn't have done active balance in the example I gave if we are doing
-> migration for other non migrate_llc reasons.
->
+FYI, the error/warning still remains.
 
-Indeed. Got it. I've launched some santify tests, will report back later.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   50d05c7c76c96b90462f24debacca971d2e86713
+commit: 0b0379fcf9ce395bb51cadb6552ec3b1380436bb remoteproc: qcom: pas: Map/unmap subsystem region before auth_and_reset
+date:   6 weeks ago
+config: s390-randconfig-r121-20260910 (https://download.01.org/0day-ci/archive/20260910/202609101854.0eBirOer-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 13.4.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609101854.0eBirOer-lkp@intel.com/reproduce)
 
-thanks,
-Chenyu 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 0b0379fcf9ce ("remoteproc: qcom: pas: Map/unmap subsystem region before auth_and_reset")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609101854.0eBirOer-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/scatterlist.h:9,
+                    from include/linux/dma-mapping.h:8,
+                    from drivers/firmware/qcom/qcom_scm.c:13:
+   include/linux/firmware/qcom/qcom_pas.h: In function 'qcom_pas_ctx_map':
+>> arch/s390/include/asm/io.h:30:22: error: implicit declaration of function 'ioremap_prot'; did you mean 'ioremap_np'? [-Werror=implicit-function-declaration]
+      30 | #define ioremap_prot ioremap_prot
+         |                      ^~~~~~~~~~~~
+   arch/s390/include/asm/io.h:36:9: note: in expansion of macro 'ioremap_prot'
+      36 |         ioremap_prot((addr), (size), pgprot_writecombine(PAGE_KERNEL))
+         |         ^~~~~~~~~~~~
+   include/linux/firmware/qcom/qcom_pas.h:29:29: note: in expansion of macro 'ioremap_wc'
+      29 |         void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
+         |                             ^~~~~~~~~~
+   arch/s390/include/asm/io.h:30:22: warning: initialization of 'void *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+      30 | #define ioremap_prot ioremap_prot
+         |                      ^~~~~~~~~~~~
+   arch/s390/include/asm/io.h:36:9: note: in expansion of macro 'ioremap_prot'
+      36 |         ioremap_prot((addr), (size), pgprot_writecombine(PAGE_KERNEL))
+         |         ^~~~~~~~~~~~
+   include/linux/firmware/qcom/qcom_pas.h:29:29: note: in expansion of macro 'ioremap_wc'
+      29 |         void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
+         |                             ^~~~~~~~~~
+   cc1: some warnings being treated as errors
+
+
+vim +30 arch/s390/include/asm/io.h
+
+cd24834130ac655 Jan Glauber 2012-11-29  26  
+b43b3fff042d08a Baoquan He  2023-07-06  27  /*
+b43b3fff042d08a Baoquan He  2023-07-06  28   * I/O memory mapping functions.
+b43b3fff042d08a Baoquan He  2023-07-06  29   */
+b43b3fff042d08a Baoquan He  2023-07-06 @30  #define ioremap_prot ioremap_prot
+b43b3fff042d08a Baoquan He  2023-07-06  31  #define iounmap iounmap
+b43b3fff042d08a Baoquan He  2023-07-06  32  
+
+:::::: The code at line 30 was first introduced by commit
+:::::: b43b3fff042d08a0bcc0a6d87c3216b44860298e s390: mm: convert to GENERIC_IOREMAP
+
+:::::: TO: Baoquan He <bhe@redhat.com>
+:::::: CC: Andrew Morton <akpm@linux-foundation.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
