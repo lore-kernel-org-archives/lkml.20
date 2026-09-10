@@ -1,212 +1,285 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119D538F63D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054557; cv=none; b=A/OPL0eH6isg8SUKfiBBLuI3Q51FiwnvhIjNjEQ70lcetZ0cOasAumgJjcibIPMhrmhXwQwdhqn7fH+QDnfide5KKJ5xKWQe2FW9btRqva1k8UGkeq4/oakGLV/7D/Vs7ve97nsGspoEReUwTzwKbx9kKapwjRfdpmVKSOHqg0E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054557; c=relaxed/simple;
-	bh=Xgcjqjf3P4MGGbQztdNdBHKpAHb0Y3bYS7ovsxn2/ek=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=onPJretQhsmo7JQ3I+8EFNF1sagPZyoNXMPFlAXdH6LcesHwmWdW1+E3+Y4HqejW/CpxLRjDiJOkJ+jrsY001OlsyFQlw6SXswJmEH3RL1O3P/to92a9SDPiAEU2aaGYwuOJfsW7+2H1gm5h0VrYJtRw75VX1voEqIBXJ40z41U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BghkDUfH; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C5F4A3D30
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:35:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789054561; cv=pass; b=rnPEJfrQmHU/AxFvDgyQOQCBqRs4OWdJLUn14hJFIX7gQS0qNLNiCISeBHL3lfGcd3zeeraApXZ/MNQuZlVLdSn+1PZNI3q4Bdba4hbazmaP6+KTyuNznlr6iDahKRmnUoVJxxxUjhhrw5k0NjqP04Q2blcugxxusmzOTWq+IbE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789054561; c=relaxed/simple;
+	bh=DiitSGlyTtlYadnGv7GCYtAsiedBXeB9GoL/mUjtrTA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hwRCx4OHUPqXg2FNqgScooMgFBAEk7QdQYenwalwNOPCnlI9rxxLpTUa6rdLAhic8vg66idOGkt/brM56oUM/KCtgRxF+p7+rYUq0wF3RtkptM9xhcMJocixZ7BgWm5TNIDb5nOlwSC4ly6DrOPaICwkX2V15LthJcJRaCaEBH8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nlG7f3e/; arc=pass smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BghkDUfH"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ccb6823efcso74824585ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:35:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nlG7f3e/"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso320371cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:35:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789054558; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PFTr8x5Y71++KAp4xTVyflWBJM/iTbUNkxkfgwTyly9t0pFJ9TdYfQoN9caPvEkhfb
+         pTwc2ETyma9cTNuKUJK9yo8guZq+wFOg1Lwm0AodUs3jJgUK7nnSZQG592NP0zg0xdGu
+         Z76auovXFqeDWJZJV6+cdHCHa/bZtyS5I527aZxkaiOUPn0GnZkQIfYhLOe3ou1qv2xU
+         AUgIw2OzwwDCP8DhETMlURKxwhAoIoiOOXMzyWLjamvz5qyvli83vkGCTPd4fSZuhrKf
+         nRTjl94ylQf5QLgXxOjq2kv3smOpQalwc46cNCS+W2+YYffIMFrrM02UFUhte8wmq8eG
+         hQBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ou5xudsvhJbATEEDYQzliV91yFmtfTC9oO8glygvNSs=;
+        fh=XPtNSxZSPZMJfJW0SBZeHAyvz8ZmzmRZ6dvMdOqJp0s=;
+        b=jMn7UqXV/3U3bt0l2l21tuWkG03hVXXjF4QCo/9Nv4wmCefHcyRh26Wm28XU3OHnHy
+         BwWmFVi+mDfWWQkVT8K8isnnFlihWc/+bD7EhpuANYm2fk3Z6K/+N/5WFcff1AZlR29T
+         W3xQRU+hsDq2lI5rfaIkCAXjVu0AzXRy4i6WXRR077ePxG8HkqzbdIFXk7fQtlcxp9Cd
+         9KJ87gyndV9v+w56kMSL4cU4FVB93TVbaL/QVm5ARLKpWeTiJcssXFZkF0sdLnu8LGI8
+         JsMbmYuzwvqOlw3QwMqYq5HgxFJpu3v33zV0tfqJr4UuH5B7jxQ4qgislgl4+nWs2jad
+         8c7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789054555; x=1789659355; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2+MOwVd/hSplAvFbBk52yvKLS3w7cDWTRO3ieRL0csc=;
-        b=BghkDUfHl35Zy5Aj9pM+NUXZSvy4UZzmsejvbWmcOeeGxldnNvhElVIQniPQpEr4Co
-         JgRDcA1Gnu74gu97lzzZPSZ6V/9kxdf1zzGqXe0+5nB/L4necGvDv5W+nqyPM4Z+6YQg
-         RkKLWKpatoYGrBQcIFvfE7SgpCy27kyC26F//CaMDm9CC3Tdy2gAVD3pa8AoBLwEP4ju
-         ohtw5hItC160oQjP1zUv4rPmneaAQ7Dnoz/b0jMnjdAtaAJ7+zNep5IMPdj+FJQ8o3xU
-         Nu9Qjx3TgpDqhR9VihGRXKB2GlVTYGcUFqribcc6QRGDn7LiP0jJdHQhgh7bEo8CuLAj
-         Xm6g==
+        d=google.com; s=20251104; t=1789054558; x=1789659358; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ou5xudsvhJbATEEDYQzliV91yFmtfTC9oO8glygvNSs=;
+        b=nlG7f3e/AtMLNiz0BQcWV9M5Pafq9atyP26Z7Uy5HppoUhKrkY/YKyZJVyv6h4LNFl
+         epBtXHaef1iAgEBwe8uVfooIMhLCG2ZMKhVAPLcNU89qO5ssulzUQKK4FNsmLDtqPC0b
+         k3UClLAfSDaYGcgjciXf8FjsSxN6G8C1SpaIAT7JPmb68/OiPEH9MMGNfTisQd6w0GRQ
+         HmKD3hXu14hOTk8hUwFIqG2aVSjb7Dr4epSDlAW9iEDNybqGgghpWEEvxuHfXi+wRhxP
+         OtESdfHwLb6S0Bz6zhQgy7Ww2VCYEgHOz9ibKtiycbZdR7KtmZouX7JjU3gIdDKxnsV2
+         6UGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789054555; x=1789659355;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2+MOwVd/hSplAvFbBk52yvKLS3w7cDWTRO3ieRL0csc=;
-        b=lZqp+LRl+VklwwgOPUmeOHAayav7Fm3C/MPpKp0+lJVTuxSpm3TflqRKNgXmyjv0+3
-         /CwdbPkmtGe0lqeDJeX8/oyJFnUbNc+sIwuBD4qSCnLJsqephwWL42GNuQ5uI9u0qN+d
-         MHRUoTR5EDyw1eLYzXpeGPrfsSYenQzsO//jifGtV3bkCBqzR1TP818BxD/tOLoNY8Kz
-         IVvRJ8GE40rM7xrdwSmUueddKzSu9zuWqS2u94l6TYaawgfONkQC4sxD3i1gZf4dXePF
-         fcRe9HM+vRt+gY9VkNwCyjln8Oezw/ovUtMdWEWasNINvwsOuvgdzFzmK6jsni8dkbQj
-         nDPw==
-X-Forwarded-Encrypted: i=1; AKwUvBwrvTY12obmw5HOEdZfhyimxQSJ2red65ng8COPXy0RT/7JpBf6oxtG5LGMrjYeIGiGzX++3x2c9pQEvHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNBR1AafREUMmkFEytQR3X5iuggBP4Byh4Enzr8HB3CdiGA8tM
-	J9mWS62V6uifgPycyAlBJa3MJSEI8qM6QqhK8juu0WC/FAhuwCe7ct0YCo1CTqUlet0he30Fx0N
-	oZslZAA==
-X-Received: from pjbdt17.prod.google.com ([2002:a17:90a:fa51:b0:39d:8f18:feb5])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:6081:b0:39b:51cc:4586
- with SMTP id 98e67ed59e1d1-39b51cc65admr27199424a91.19.1789054554982; Thu, 10
- Sep 2026 08:35:54 -0700 (PDT)
-Date: Thu, 10 Sep 2026 08:35:54 -0700
-In-Reply-To: <20260910143448.GD3968357@nvidia.com>
+        d=1e100.net; s=20251104; t=1789054558; x=1789659358;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ou5xudsvhJbATEEDYQzliV91yFmtfTC9oO8glygvNSs=;
+        b=M+uZQLvWqhqeFfItPkAiJ8ExAqjJ/QnwuKJTDtuwHLBPnDmRxS4yGnyA61vUvX2uZw
+         NdAyM7yIFPok11G3o8hg162CrInDeuuMmMro9pLEL10uxsyefl1ZaPP+/eP2b2V8sqVo
+         /hu7AIzN3yR4oL3/96h1IDzFsFaLZHUKc1KWGlpXPiyIlFfPwNk+zte2CiLYYIRNCEAy
+         Y6H3x25naWvj0ZopT6Z+XcCo0BF3q8QPoppBHBw72kR7xjFrcR0ZgV73seXuUFfv2ciY
+         HnRTGXSUnYuwBbBAY/Ij1Hu+ESpP5SpfeuBzbQQ6rdO/g2HPVaSugWTEY46SuoHp+b0b
+         VeOw==
+X-Forwarded-Encrypted: i=1; AKwUvBy30/dj2SLvEGcOaBAjqNKhH9IaqlebIRh7CciJ5sMYqGYysMa+ybFIoHPznjyRmcojzwI0eQtIPmnY/sU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzsjQ/7I5EtkOVlUQKo5mFG5KMUG0r/OVQuBwVbfD1neVGO3rY
+	TdtwyBBGAn4nWRob0a9SoYDQXMnBzJJ8VuB1Xx2R2gStra3rTBiqOtMTgk9MJIkgpyOpOPDwxrj
+	f3vn5SurOI0cdBWzvXXGuzeg9B4rVzJbg2BCX+A+iJn6433IhnFzU8U0qlL0=
+X-Gm-Gg: AYBFou1oRgSKw8dKSGyUSPxbY59ymmX/lD94k2q44OgKudXC7RxDPDaYyuF+pAIi3M3
+	F90F90VCbBuXvBbxYN1psbJyy5O8Sju/1aQj67uZK8Ik7FZ5lC/Q7wCRcaWLsn6HuzPz2eHmreV
+	RYsYq8dPIDmcnOJZjeSJyHxqLJQRXrvDO6t/2vKYpceph8ONmw/+wZulm3HWeaGqrHYPzPbzy2t
+	XYvxAKy0Tyc5Exu9KfczrNfsM8KUuv6kgczCDh8+EZFexfUBb45OP2A5DtXJWlqzMN2RnGyz0YN
+	Hg/NA2AD+u5V8PLcaJtYl6A9t0CNQ6rgq7R6qc5Uy0y8AbP/3QFlnuDPd8vLgpXfk7vCPquwF4I
+	3NMFybx0J9Q==
+X-Received: by 2002:ac8:5a48:0:b0:52f:4a75:f840 with SMTP id
+ d75a77b69052e-530b62a9367mr15603781cf.9.1789054557815; Thu, 10 Sep 2026
+ 08:35:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260903023452.721732-1-loganodell@google.com>
- <20260904160009.GV4157646@nvidia.com> <aptFFYqcSiBdMLE8@google.com>
- <20260905012403.GX4157646@nvidia.com> <aqIAtOoew-_6jw29@google.com> <20260910143448.GD3968357@nvidia.com>
-Message-ID: <aqLOWkuVKccR-I7W@google.com>
-Subject: Re: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and
- memfd ABI compatibility
-From: Sean Christopherson <seanjc@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: David Matlack <dmatlack@google.com>, Logan Odell <loganodell@google.com>, arnd@arndb.de, 
-	pasha.tatashin@soleen.com, rppt@kernel.org, pratyush@kernel.org, 
-	graf@amazon.com, akpm@linux-foundation.org, pbonzini@redhat.com, 
-	maz@kernel.org, oupton@kernel.org, bhelgaas@google.com, alex@shazbot.org, 
-	kevin.tian@intel.com, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
-	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
-	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kexec@lists.infradead.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-pci@vger.kernel.org, iommu@lists.linux.dev
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260907063918.3432401-3-surenb@google.com> <20260907164931.131215-1-usama.arif@linux.dev>
+In-Reply-To: <20260907164931.131215-1-usama.arif@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 10 Sep 2026 08:35:45 -0700
+X-Gm-Features: AcwNN1X-343PX52UP9R_xuysezFhln2YO94sOY9W4QKq0I6lyVc17ep5qSeO2A0
+Message-ID: <CAJuCfpHh1pmbhyJW5E2MZsGyMu7daW8aXvJD4A9_K4TRPt18jA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] proc/task_mmu: remove unnecessary inlines in
+ function definitions
+To: Usama Arif <usama.arif@linux.dev>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	vbabka@kernel.org, david@redhat.com, willy@infradead.org, jannh@google.com, 
+	paulmck@kernel.org, pfalcato@suse.de, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026, Jason Gunthorpe wrote:
-> On Wed, Sep 09, 2026 at 05:58:28PM -0700, Sean Christopherson wrote:
-> > On Fri, Sep 04, 2026, Jason Gunthorpe wrote:
-> > > On Fri, Sep 04, 2026 at 10:24:21PM +0000, David Matlack wrote:
-> > > 
-> > > > The proposal here (which is inspired by the KVM UAPI) is to ensure every
-> > > > LUO ABI struct has 2 properties:
-> > > > 
-> > > >  1. A field to encode options/features (e.g. u64 flags).
-> > > >  2. A way way to grow without breaking backward compatibility (e.g. so
-> > > >     we can add new fields).
-> > > > 
-> > > > Each flag can mean whatever it needs to. e.g. It can indicate the
-> > > > precence of one or more fields (i.e. new fields in the struct), or it
-> > > > can mean a field now has a different meaning (i.e. union in the struct).
-> > > > 
-> > > > This would enable adding support for new features without breaking
-> > > > backward compatibility. Downstream users would have to ensure their
-> > > > kernel does not start using a new feature while it can still rollback to
-> > > > a version that does not support the new feature.
-> > > 
-> > > This was never the biggest problem. The main issue was the functional
-> > > behaviors of the kernel that cannot be represented simply as data in a
-> > > struct with some flag bits.
-> > > 
-> > > Like for instance kernel A supports memfd folio sizes far larger than
-> > > kernel B because we fixed MAX_ORDER. You can't fix that just with
-> > > simplistic flags.
-> > 
-> > Can you elaborate on why the folio sizes matter?  Honest question, because I don't
-> > understand why the serialization format wouldn't express things as "N contiguous
-> > pages starting at PFN X".  Then the implementation would rebuild its folios as
-> > appropriate.
-> 
-> That's an idyllic view, yes, but my point is (IIRC) we didn't do
-> exactly that for memfd.
-
-Well, y'all screwed up then.  I don't see why past mistakes should force other
-subsystems to support a flawed implementation.  Learn from the mistakes, add v2
-of serialization for memfd, and move on.
-
-> Sometimes you can do more and more work to try and be more and more
-> general but this is *alot* of work and even then eventually hits
-> problematic limits. Like what do you do with the sealing flags? That's
-> ABI breaking if the successor does not support them, and downgrades
-> make exactly that possible.
+On Mon, Sep 7, 2026 at 9:49=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
+ote:
 >
-> A CSPish user can do things like patch the new sealing flag into their
-> current kernel (while preventing userspace from using it), ensure
-> everything is updated to that, then jump ahead to a newer kernel and
-> enjoy the new flag with full downgrade support. There is so much more
-> control on their part that makes the problem far more managably simple
-> that upstream does not get to have.
-
-I guess maybe we have a different definition of ABI? 
-
-I'm not saying that upstream has to be 100% forwards and backwards compatible.
-I'm saying the serialization payload itself should communicate what features are
-effectively required.  I.e. *if* there are incompatibilities, they should be
-naturally expressed in the serialization format, not communicated out-of-band
-through magic numbers.
-
-The scenario you describe fits exactly with what I am proposing.  Until something
-actually starts using the new sealing flag, the CSP can downgrade to older kernels
-at will.  And if the user cares about downgrading, then they need to prevent the
-flag from being used until the new kernel is rollback-safe and deployed to enough
-hosts to prevent stockout.
-
-> This is why I think the very idea we can support any version pair is
-> too much to ask for. We should focus on supporting a small set of
-> version pairs and not making it too invasive or hard in the kernel or
-> on the maintainers.
+> On Sun,  6 Sep 2026 23:39:15 -0700 Suren Baghdasaryan <surenb@google.com>=
+ wrote:
 >
-> Thus live update within a stable branch only is my proposal for
-> upstream support.
-> 
-> If it really succeeds at that and it becomes very popular, then let's
-> discuss upstreaming doing additional version combinations.
+> > It was pointed out in the previous reviews of this code that many
+> > functions are specified as inline, which is unnecessary as the compile
+> > can make that decision by itself. Cleanup these definitions.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > ---
+> >  fs/proc/task_mmu.c | 32 ++++++++++++++++----------------
+> >  1 file changed, 16 insertions(+), 16 deletions(-)
+>
+> Most of these functions would be inlined anyways so should be ok.
+>
+> Curious if there was a change in binary size with this?
 
-Why on earth would we have version numbers in the first place?  IMO, monotically
-increasing version numbers are flat out the worst way to communicate features.
+No change whatsoever:
 
-I am completely against supporting any scheme that relies on magic version numbers.
-It creates problems where none need exist, and checking for compatibility can't be
-sanely done in a programmatic way, because by definition it relies on magic numbers.
+W/o this patch:
+   text   data    bss    dec    hex filename
+31321399 9024030 1127028 41472457 278d1c9 vmlinux
 
-E.g. if the ABI for a given component hasn't changed, why should anyone care if
-the overall "version" of the kernel is ahead or behind by N kernels?
+With this patch:
+   text   data    bss    dec    hex filename
+31321399 9024030 1127028 41472457 278d1c9 vmlinux
 
-> > I could see things like HugeTLB not working if someone booted the kernel with
-> > support for only 1GiB pages and then tried to feed it payload with sub-1GiB ranges.
-> > But to me, those sorts of things fall into the "well yeah, don't do that" category.
-> 
-> Okay, how about worse, todays kernel has hugetlbfs and there are
-> patches around to luo serialize that. Lots and lots of talks about a
-> post-hugetlbfs world out there.
 
-And?  Adding a compatibility layer to a future kernel so that it understands an
-incoming HugeTLBFS payload should be trivial.  I can totally see not wanting to
-support serializing a post-HugeTBLFS kernel's memory representation into the "old"
-format, though even that probably wouldn't be all that difficult.
-
-> Do we want to constrain what is possible to ensure we accomodate this
-> hugetlbfs serialization? I vote no.
-
-In what way is providing strong ABI guarantees for individual components
-constraining HugeTBLFS serialization?
-
-> Do we want to reject the hugetlbfs serialization until we have a year
-> of debate outlining every possible ABI scenario? I also vote no.
-
-That's a bit of a strawman argument.  Is designing a forward-looking ABI easy?
-No, but IMO "a year" is a massive exaggeration of the effort required to come up
-with a scheme that can survive a variety of plausible upgrade/downgrade scenarios.
-
-And again, I'm not saying we have to support infinite compatibility.  If some
-future kernel drops HugeTLBFS, and we decide not to provide a shim to support
-downgrading (which IMO is totally reasonable), then it's on the user to understand
-that moving to that new kernel is a one-way street.  Given that dropping something
-like HugeTLBFS would require significant changes in the software stack, I think
-it's perfectly fine to put the burden of understanding the implications on the end
-user (though realistically, there would be a copious amount of documentation and
-deprecation warnings).
-
-> Should we make a downgrade round trip a downstream problem? I think
-> so!
-
-Hard NAK.  There will inevitably be boundaries that cannot be crossed, but I am
-not at all ok punting on downgrades.  To me, that's basically saying "we want to
-add just enough support upstream so that it's not too painful to carry full support
-out-of-tree".  That completely goes against the spirit of open source and upstream
-Linux, and I want no part of it.
+>
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+>
+> >
+> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> > index 2f500d639db5..9908ba32f180 100644
+> > --- a/fs/proc/task_mmu.c
+> > +++ b/fs/proc/task_mmu.c
+> > @@ -130,7 +130,7 @@ static void release_task_mempolicy(struct proc_maps=
+_private *priv)
+> >  }
+> >  #endif
+> >
+> > -static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+> > +static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+> >  {
+> >       int ret =3D mmap_read_lock_killable(lock_ctx->mm);
+> >
+> > @@ -140,7 +140,7 @@ static inline int lock_ctx_mm(struct proc_maps_lock=
+ing_ctx *lock_ctx)
+> >       return ret;
+> >  }
+> >
+> > -static inline void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ct=
+x)
+> > +static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+> >  {
+> >       mmap_read_unlock(lock_ctx->mm);
+> >       lock_ctx->mmap_locked =3D false;
+> > @@ -177,7 +177,7 @@ static struct vm_area_struct *get_next_vma(struct p=
+roc_maps_private *priv,
+> >       return vma;
+> >  }
+> >
+> > -static inline bool fallback_to_mmap_lock(struct proc_maps_private *pri=
+v,
+> > +static bool fallback_to_mmap_lock(struct proc_maps_private *priv,
+> >                                        loff_t pos)
+> >  {
+> >       struct proc_maps_locking_ctx *lock_ctx =3D &priv->lock_ctx;
+> > @@ -194,7 +194,7 @@ static inline bool fallback_to_mmap_lock(struct pro=
+c_maps_private *priv,
+> >       return true;
+> >  }
+> >
+> > -static inline void drop_rcu(struct proc_maps_private *priv)
+> > +static void drop_rcu(struct proc_maps_private *priv)
+> >  {
+> >       if (priv->lock_ctx.mmap_locked)
+> >               return;
+> > @@ -202,7 +202,7 @@ static inline void drop_rcu(struct proc_maps_privat=
+e *priv)
+> >       rcu_read_unlock();
+> >  }
+> >
+> > -static inline void reacquire_rcu(struct proc_maps_private *priv)
+> > +static void reacquire_rcu(struct proc_maps_private *priv)
+> >  {
+> >       if (priv->lock_ctx.mmap_locked)
+> >               return;
+> > @@ -1230,7 +1230,7 @@ static const struct mm_walk_ops smaps_shmem_walk_=
+vma_lock_ops =3D {
+> >       .walk_lock              =3D PGWALK_VMA_RDLOCK_VERIFY,
+> >  };
+> >
+> > -static inline const struct mm_walk_ops *
+> > +static const struct mm_walk_ops *
+> >  get_smaps_walk_ops(struct proc_maps_private *priv)
+> >  {
+> >       if (priv->lock_ctx.mmap_locked)
+> > @@ -1238,7 +1238,7 @@ get_smaps_walk_ops(struct proc_maps_private *priv=
+)
+> >       return &smaps_walk_vma_lock_ops;
+> >  }
+> >
+> > -static inline const struct mm_walk_ops *
+> > +static const struct mm_walk_ops *
+> >  get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
+> >  {
+> >       if (priv->lock_ctx.mmap_locked)
+> > @@ -1572,7 +1572,7 @@ struct clear_refs_private {
+> >       enum clear_refs_types type;
+> >  };
+> >
+> > -static inline bool pte_is_pinned(struct vm_area_struct *vma, unsigned =
+long addr, pte_t pte)
+> > +static bool pte_is_pinned(struct vm_area_struct *vma, unsigned long ad=
+dr, pte_t pte)
+> >  {
+> >       struct folio *folio;
+> >
+> > @@ -1588,8 +1588,8 @@ static inline bool pte_is_pinned(struct vm_area_s=
+truct *vma, unsigned long addr,
+> >       return folio_maybe_dma_pinned(folio);
+> >  }
+> >
+> > -static inline void clear_soft_dirty(struct vm_area_struct *vma,
+> > -             unsigned long addr, pte_t *pte)
+> > +static void clear_soft_dirty(struct vm_area_struct *vma, unsigned long=
+ addr,
+> > +                          pte_t *pte)
+> >  {
+> >       if (!pgtable_supports_soft_dirty())
+> >               return;
+> > @@ -1620,8 +1620,8 @@ static inline void clear_soft_dirty(struct vm_are=
+a_struct *vma,
+> >  }
+> >
+> >  #if defined(CONFIG_TRANSPARENT_HUGEPAGE)
+> > -static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+> > -             unsigned long addr, pmd_t *pmdp)
+> > +static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+> > +                              unsigned long addr, pmd_t *pmdp)
+> >  {
+> >       pmd_t old, pmd =3D *pmdp;
+> >
+> > @@ -1646,8 +1646,8 @@ static inline void clear_soft_dirty_pmd(struct vm=
+_area_struct *vma,
+> >       }
+> >  }
+> >  #else
+> > -static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+> > -             unsigned long addr, pmd_t *pmdp)
+> > +static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+> > +                              unsigned long addr, pmd_t *pmdp)
+> >  {
+> >  }
+> >  #endif
+> > @@ -1846,7 +1846,7 @@ struct pagemapread {
+> >
+> >  #define PM_END_OF_BUFFER    1
+> >
+> > -static inline pagemap_entry_t make_pme(u64 frame, u64 flags)
+> > +static pagemap_entry_t make_pme(u64 frame, u64 flags)
+> >  {
+> >       return (pagemap_entry_t) { .pme =3D (frame & PM_PFRAME_MASK) | fl=
+ags };
+> >  }
+> > @@ -3388,7 +3388,7 @@ static const struct mm_walk_ops show_numa_vma_loc=
+k_ops =3D {
+> >       .walk_lock =3D PGWALK_VMA_RDLOCK_VERIFY,
+> >  };
+> >
+> > -static inline const struct mm_walk_ops *
+> > +static const struct mm_walk_ops *
+> >  get_show_numa_ops(struct proc_maps_private *priv)
+> >  {
+> >       if (priv->lock_ctx.mmap_locked)
+> > --
+> > 2.55.0.979.g7e5102b832-goog
+> >
+> >
