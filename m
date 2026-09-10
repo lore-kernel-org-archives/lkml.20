@@ -1,106 +1,86 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD85224E016;
-	Thu, 10 Sep 2026 11:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F653033DF;
+	Thu, 10 Sep 2026 11:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040458; cv=none; b=kHUYKFMsY9qYCp3dPdPP2JdDhnsuE2ibm40b+Y9xqXNTTbNVzjfjAufWKADHTYXOn1uSB9xgtTWNG52qADgOUQsTFDW1+ovQwbLrlorFDmJnH4NLhpjavK8W7L/ijG1OIGtrlNTyuhyv8H97XgHwX46mnZ/IF5j/eSvOEKDHsoE=
+	t=1789040470; cv=none; b=ZlUtzZxPTu3uC/IJ9ZLDGIkBRYvSoVhsfI1y1+bztax5B7UAxNnpdfhAHsPJclWCiG3IXcoMoKr4IfXLZk1YZ70w9ewF5SrTTBhgJwZlyvDEv4vkvfXVReFQsQoVv4h2n0ng8TkELSTkleTdwDayjrTVRTgW6mBuoboYUweGvuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040458; c=relaxed/simple;
-	bh=bKtcY9FT7Pxi1rnMqFGg49+LTjkWx+VDrxDMUvSLsj4=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CcP6pbF2FcJb+2DjiPyC5wC2AuHn8ss2LY2m0sjNYmkGKQUYaR0e8SIM86TV7k5bGrLGLIU18CIjdy6azjc38f5xPtyVJs/eCsGRhz3QmPJw4l1kHWBcaeencAjbUwIj7W+YV2n+tGad1dEpnPzQ/E3Hd2Px+paa5Vj/6mM1X7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbN36tFTzb0tj9;
-	Thu, 10 Sep 2026 19:40:51 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.208.166])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbN15Lmfzb0tj9;
-	Thu, 10 Sep 2026 19:40:49 +0800 (CST)
-Received: from ewan-server (ewan-server [10.28.24.2])
-	by zhaoxin.com (8.30) with ESMTP8faebb235c4cc3404a7e47455dc250e2
-	Thu, 10 Sep 2026 19:40:48 +0800
-X-Eyou-Smtpauth: ewanhai-oc@zhaoxin.com
-X-Eyou-EnvelopeSender: ewanhai-oc@zhaoxin.com
-X-Eyou-From: Ewan Hai <ewanhai-oc@zhaoxin.com>
-From: "=?UTF-8?B?RXdhbiBIYWktb2M=?=" <ewanhai-oc@zhaoxin.com>
-Date: Thu, 10 Sep 2026 19:40:47 +0800
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	Frank Zhu <frankzhu@zhaoxin.com>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ewanhai@zhaoxin.com, cobechen@zhaoxin.com
-Subject: Re: [PATCH 7/8] KVM: selftests: nested_exceptions_test: Add Zhaoxin
- CPU support
-Message-ID: <aqKW7ls1KpdsCxdN@ewan-server>
-References: <20260730110524.2539316-1-ewanhai-oc@zhaoxin.com>
- <20260730110524.2539316-8-ewanhai-oc@zhaoxin.com>
- <apdrtnMGJN7K0wRa@google.com>
+	s=arc-20240116; t=1789040470; c=relaxed/simple;
+	bh=fX5N4faLlxqGlrRi3ZqPEdOKgg7unUH6NkQWjbCmLJw=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=C6vphhvFaK/WjqXD0KdFTHXkp+LOf1aR6zZ4gvqsAbkRbzFTSIoRX9+ZaKvOa4rnyRutuWwemXFsdQhxrmTjPKWAdk4N6f74n5634kztuGuMHVfCUvrOy+Gxuw9VB/kqr1YX9srgaoozDwfx0VG0Q0V/QjXQUNKPC+pitthTio0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+OrbAjN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+OrbAjN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125131F00893;
+	Thu, 10 Sep 2026 11:41:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789040467;
+	bh=DeGR29QlguE5S6672UQs1iNNz/omuVwEQS0a1AuP0ro=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Q+OrbAjNSXS69kLu7KxVfyL/qqSP2DU2RcajzTEaPC6mZp5xAgpWLz1DYvjdA85x4
+	 +LrMq1+C9Su34aX0n9RbYgH3P/sd++76kAljR08YCDtlPHTjCi5l8vqRh6iZPLbR5D
+	 BGABrbyATxWkAWd+RkJFGOA6tifIkX83hk3WVei1JeMoMTb0+1zfG7xP+M091at1yy
+	 Dl/g1R1DRGC+m+BLE9ev+4FNVeAu43nxecmosw1zYWN1ErszZN8iylPoa0EgzHTKM0
+	 l43FdpiAajGB7N3FPHjwBCiZ3s0evwx5nMm6yPwwT5mvWVuXdGoSOdQSqJdUU1sk4B
+	 9rSibZxFhu13w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A8A380CFEC;
+	Thu, 10 Sep 2026 11:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apdrtnMGJN7K0wRa@google.com>
-X-Eyou-Sender: <ewanhai-oc@zhaoxin.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5 0/2] net: restore EEE on MediaTek switches and SoC
+ MACs
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178904040463.1380647.8328651784613064419.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Sep 2026 11:40:04 +0000
+References: <20260903123644.23800-1-f@lex.la>
+In-Reply-To: <20260903123644.23800-1-f@lex.la>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: chester.a.unal@arinc9.com, daniel@makrotopia.org, andrew@lunn.ch,
+ olteanv@gmail.com, nbd@nbd.name, lorenzo@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux@armlinux.org.uk, dqfext@gmail.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
 
-On Tue, Sep 01, 2026 at 05:20:06PM -0700, Sean Christopherson wrote:
-> On Thu, Jul 30, 2026, Ewan Hai-oc wrote:
-> > From: Frank Zhu <frankzhu@zhaoxin.com>
-> > 
-> > In the test, the ERROR_CODE_EXT_FLAG bit should not be set in the #GP
-> > error code on Zhaoxin CPUs.
+Hello:
+
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Thu,  3 Sep 2026 12:36:42 +0000 you wrote:
+> Both drivers fill in phylink_config.lpi_capabilities and
+> lpi_timer_default but never lpi_interfaces. phylink treats a MAC as
+> supporting managed EEE only when the tx_lpi methods are implemented and
+> BOTH bitmaps are non-empty, which phylink_create() decides once and for
+> all, so EEE has been off on every mt753x port and on every mtk_eth_soc
+> MAC that uses mtk_phylink_ops since the two commits named in the
+> Fixes: tags. Because the tx_lpi methods ARE implemented, phylink takes
+> the other branch and calls phy_disable_eee(), which fills
+> eee_disabled_modes - so userspace cannot enable EEE either.
 > 
-> Why not?
+> [...]
 
-We confirmed with the Zhaoxin hardware team that EXT is set only during
-interrupt delivery and for the following guest-mode events: ICEBP, #MC,
-#BR, #UD, #NM, #DB, and #MF.
+Here is the summary with links:
+  - [net,v5,1/2] net: dsa: mt7530: populate lpi_interfaces to fix EEE support
+    https://git.kernel.org/netdev/net/c/3c18e3c9a54e
+  - [net,v5,2/2] net: ethernet: mtk_eth_soc: populate lpi_interfaces to fix EEE support
+    https://git.kernel.org/netdev/net/c/d876c9cb2d16
 
-In this test, #GP is generated while vectoring an injected #SS through
-an empty IDT. Since #SS delivery is not one of the cases that sets EXT
-on Zhaoxin CPUs, EXT remains clear and the resulting error code is 0x62.
-We observed this behavior on the Zhaoxin system used to test the series.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-This explanation is included in patch 8's description in v2.
-
-> 
-> > Add GP_ERROR_CODE_ZX and use it when > running on Zhaoxin hardware.
-> > 
-> > Signed-off-by: Frank Zhu <frankzhu@zhaoxin.com>
-> > Signed-off-by: Ewan Hai <ewanhai-oc@zhaoxin.com>
-> > ---
-> >  tools/testing/selftests/kvm/x86/nested_exceptions_test.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-> > index aeec3121c8e8..bacbbdc5dc69 100644
-> > --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-> > +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
-> > @@ -38,6 +38,7 @@
-> >   */
-> >  #define GP_ERROR_CODE_AMD ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG)
-> >  #define GP_ERROR_CODE_INTEL ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG | ERROR_CODE_EXT_FLAG)
-> > +#define GP_ERROR_CODE_ZX ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG)
-> >  
-> >  /*
-> >   * Intel and AMD both shove '0' into the error code on #DF, regardless of what
-> > @@ -139,7 +140,8 @@ static void l1_vmx_code(struct vmx_pages *vmx)
-> >  	 */
-> >  	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_GP_DF), 0);
-> >  	vmx_run_l2(l2_ss_pending_test, SS_VECTOR, (u16)SS_ERROR_CODE);
-> > -	vmx_run_l2(l2_ss_injected_gp_test, GP_VECTOR, GP_ERROR_CODE_INTEL);
-> > +	vmx_run_l2(l2_ss_injected_gp_test, GP_VECTOR,
-> > +		   host_cpu_is_zx ? GP_ERROR_CODE_ZX : GP_ERROR_CODE_INTEL);
-> >  
-> >  	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF), 0);
-> >  	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);
-> > -- 
-> > 2.34.1
-> > 
-> > 
-> 
 
