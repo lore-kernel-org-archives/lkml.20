@@ -1,166 +1,121 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9A8455622
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D1A46D095;
+	Thu, 10 Sep 2026 10:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037724; cv=none; b=TPCpw7f7tmy1QTJlb0u5ytmTKmrwxdZiacBdm10HUwaxCX/bkhh384teoRG0kpoQLlXIgKTc63K2d/lRXtjxFUXOB7SkpwWmrZie0aVbxynB/4RIsdPwU7SvClo+0r13VaoEH80Tkiei15rjKXgRkiSiYm5X0Qp3hJwsjaGnJrY=
+	t=1789037761; cv=none; b=RuUfyFFJlQZ+ceaTmQCMxSWmRMjOIKeEYkhMhwRzyuioDq/DEk6V8qHTMcsp8gLa5Eg1HXMuexHMIjWjpZfXpkMsyl4XLK/9ctAGYOAQdbTeYiopzNUC+757G/7l/mWLmcX7XqvdcMaYhYnvUrB1/9jJq2XqmkesryKmeUIOYPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037724; c=relaxed/simple;
-	bh=1NyCcixVrXL60MDlTpGIFvmNay2sIq1Ok+sWjQ5AMxc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U+jFFMZWKw8JW2Jbb43+Z0llRH8ohmrYjalUxiZUt6rins3fuMfg2WO6a92SXIxcubhDIsg3LqBh6Hkwqd3MvAQDCBeAFOqu8DeHjw5i5bh9mmX5o1BqM8icQHI49m0yU94G8jCKQr3n30MJ7xVqCqFVKkPmqwtvgH0oZscZuaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TplkauLe; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789037761; c=relaxed/simple;
+	bh=xUmNq+h8P5GOEqnP5pSs7V6mHwoQfX21xBNIHagQvog=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YuZQGK3jU7SPjKRDWl9v6GtxqtQpNt9+5v6c1FobLvx+jqlBC9pAA8QFOZ0LLIBqgCB9JH3zbGhEc431YlW9AGLX2N3NK8BvTZRs+nBDGtwH0p6oy52uX9va0Pu0rdVG0uXIBS5tiynzn0hn21YMjB4s2rs/Um4MdsHBfPPrk+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sc/Krtey; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TplkauLe"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso2264139a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:55:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789037716; x=1789642516; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I/lsWiPytaCYG5VQwzNu/fNcbbKarnBsAuYB2BQ7P9w=;
-        b=TplkauLeUN8EE/NyAJDEHkz5dh7EISNKsX1rXSX/8DugajgRxytxtP/Kj9aMPWOFNL
-         l95eQmKyPHsiiLl3TIWLSAe37AOZx7JrEKnTlWDjTDF6twnW5EMNMnVyg1WIU+aHKjxW
-         4gIKk89f6ovOxQvdGyjZEcSVgYoj+/j7EZKH8EvHbjcSWo2QUwY67GQsODcAGqarjFVP
-         0/ZJQJI6wC4B00yb14S4hadQlrvvj7uIZ2raem/zbSK4Y/JwXPo8hlN5QDHG/VwCyu9h
-         uUHKwJmL9zh2p0edSrtncCabvFYFY+iPyseLhWXX6ZGT+SIc8/8K4h+wjI/QN+b2vImY
-         K/Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037716; x=1789642516;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/lsWiPytaCYG5VQwzNu/fNcbbKarnBsAuYB2BQ7P9w=;
-        b=sVAtFLkq1TKVtwwCksDRdiFVnIVIeQhdYU5eq0qiQPt1a1bhwXtcKJ05KP0rPId7gX
-         DFQvCQVqxwnSJmarqMeQvsz63doXkscURybueZIcneD+1Zh5jvX1u2AeC9U0d1IQW54G
-         F76Fj7mtvV0MVZMJfakCkM2L6w7KaaMO+Jsf8csO0/XspxStvb/Nz4TNlfkICRiefL2Z
-         WyJ9Lf0rRQEl2keOReltDR8UPdytOLW4fyqgPKT8sYSMIko1hkNfKEU7AGQ22n7y6Qwr
-         laBBSO7C5ODXySxl/JgwVM91RurG2TJudr25acq3Yvtcz4kioIHDm86koMtdbTx19ZIr
-         qKNg==
-X-Forwarded-Encrypted: i=1; AKwUvBxY8d9lR9rT9GVj5lS6zXmHeWcfklHDmYCScIAYYmFw23rvRWktZLLJiOGrywYXyh11RINu2iwLKCMJLfc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxxOagc5z/9n4+bAXQXoYAMNK5xGrPNHiojYXg6Vxq9NR94Iz9
-	rHcwyZG88FA4LR7H1R1WuzUkcBrUNwZZxk8gEN/8zODoBpeCIVbfERDv
-X-Gm-Gg: AYBFou0xDieZIxfTVnbrLoyL9yjk8kGL2edLRBDy4Cdn587jScZwrfV46WoJQaSRqnj
-	jFCCYPJ+8fBQbmOA7ArGZ8VKXG0LnY0JhF1tCbyDIWTK9S9ikm6zgvAXfRdsi2Tctkv2+aSNJPv
-	DfYxYimEUCVYuiNOsCMtR9/I97fhSaSfuGm4krD9Aewo3Fw51v1q5mgd/NEJ3OlRXeFse/Trj7y
-	/ZqqUV7Q0MHRfFFP/VlI6ef74aJnsmaD3q0t7RNSrgYcsxNcAYMiDY5nLSswFOyNf6KEHKAZAF4
-	P/Gi+D9+WJ13Ow62Y9cBP3bJ+DUyX9t1Sn7HgtnEZtYQVMO1wvRi2sYSaeuUTb/tPtgT4XZAXhp
-	tPgjkR53lUBVeAYlIpJyCud1hRRlPHWWM42A6l09nRQINnRoHO4lMhs4smY4dJQz0i3qsa/o2Ep
-	7gr14Ajc+EM/SZgT8JkDEnxRwcweZEm7xf0KmVbPKF2mTwcNzYnLrbZuxtdGt7VXl5/i7+D2rZc
-	CHa1gqE9PW38acQcA==
-X-Received: by 2002:a17:90b:4c44:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-39b261cdb38mr58067406a91.13.1789037715868;
-        Thu, 10 Sep 2026 03:55:15 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77611asm3990224a91.6.2026.09.10.03.55.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 03:55:15 -0700 (PDT)
-Message-ID: <7dd9e1c3-ddc8-482e-a560-e8dc4f2f0aac@gmail.com>
-Date: Thu, 10 Sep 2026 18:55:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sc/Krtey"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FEC91F00893;
+	Thu, 10 Sep 2026 10:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789037750;
+	bh=i0k/HI/bcvlOdY3uUk2PaTWHvR+HLRCqNH8Ek21Htnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sc/Krteyn26A4LgEQxcaQ3aIGJQrPiYPJoPeNp7tZ/hRMWj3NuGHWMPxFTWsGav5x
+	 wptWbvudyVSj5LZah6hldUObO9gJUrw/FqALJrudU8w/ZQ6XvreENhQGhT5jqQCTlL
+	 wSmYrFeJXRNV1yMOF7JEX2SjiQFpGARrQ57co0kwAGpS5uPPI5kaqKKFygGvNWIi/k
+	 aAVPHnzVr63YkXDJzeXXEFWAGhCbsXdCoT6gg9W8eA4SNsvVlbC0YCx6d/o+PtdzIV
+	 qZFNSKXnlpZpABb2WgKchhgOH+kvgIFxRFGXgBTsZ7GiiBy7ulWCz+t5k96ldf1zZR
+	 UGrWVYbSz/0Fg==
+Date: Thu, 10 Sep 2026 11:55:44 +0100
+From: Will Deacon <will@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Christoph Hellwig <hch@lst.de>, Ard Biesheuvel <ardb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+Subject: Re: [PATCH 0/2] ARM: preserve DMA_FROM_DEVICE buffer contents
+Message-ID: <aqKMsKpYnAZOoKQo@willie-the-truck>
+References: <20260910063620.17768-1-kmehltretter@gmail.com>
+ <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] of: reserved_mem: skip init for regions whose
- early reservation failed
-To: Marek Szyprowski <m.szyprowski@samsung.com>, robh@kernel.org,
- saravanak@kernel.org, rppt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Cc: akpm@linux-foundation.org
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
- <CGME20260818092438eucas1p20115e5d33908e32ef4433cb246da8098@eucas1p2.samsung.com>
- <20260818092420.2859026-2-chenwandun1@gmail.com>
- <72074a49-2963-4f96-b939-79bf95a829cb@samsung.com>
- <af87036b-0809-4880-b088-545780b4d963@gmail.com>
- <7a964778-adc3-4186-9122-3858bb61c372@samsung.com>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <7a964778-adc3-4186-9122-3858bb61c372@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
 
-
-
-On 9/4/26 16:49, Marek Szyprowski wrote:
-> On 31.08.2026 15:04, Wandun wrote:
->> On 8/26/26 21:14, Marek Szyprowski wrote:
->>> On 18.08.2026 11:24, Wandun Chen wrote:
->>>> From: Wandun Chen <chenwandun@lixiang.com>
->>>>
->>>> __reserved_mem_reserve_reg() discards the error from
->>>> early_init_dt_reserve_memory() and returns 0 unconditionally, so the
->>>> caller counts the node in total_reserved_mem_cnt and the late scan
->>>> initializes it without checking whether the early reservation actually
->>>> succeeded. A region whose reservation failed is then handed to a
->>>> device assuming the memory is protected.
->>>>
->>>> Propagate the error so failed reservations are no longer counted, and
->>>> record the failed nodes so fdt_scan_reserved_mem_late() can skip them.
->>>>
->>>> Recording the failed nodes explicitly is necessary because
->>>> fdt_scan_reserved_mem_late() rescans the DT independently. It cannot
->>>> tell from memblock whether early reservation succeeded.
->>>>
->>>> The failed-node array is bounded by MAX_RESERVED_REGIONS, the number
->>>> of static regions is not bounded by it, so on overflow the extra nodes
->>>> fall back to being initialized, which is the current behavior.
->>> I'm not very keen on such partial solution. Indeed we have no place to
->>>
->>> store the result of the early init call, but we can check if the given
->>>
->>> region has been earlier marked in memblock as reserved or no-map in
->>>
->>> fdt_scan_reserved_mem_late(). If those attributes don't match the
->>>
->>> region can be simply skipped then.
->> Considering the later patches that reject reservations for overlapping
->> nodes, checking the memblock state in fdt_scan_reserved_mem_late() may
->> produce false positives.
->>
->> For example, if region A is reserved first and region B is a subset of
->> A, reserving B will fail because it overlaps with A (in patch 02/03).
->> However, during fdt_scan_reserved_mem_late(), B will still appear to
->> be reserved because its range is already covered by A. As a result,
->> B would be initialized even though its own reservation failed, which
->> is contrary to the intended behavior.
-> Imho the overlapping reserved regions are some kind of configuration 
-> mismatch and it is enough to detect them. fdt_scan_reserved_mem_late()
-> can first store all regions to dynamic reserved_mem array, then check
-> for overlaps, and only then initialize those, which don't overlap and
-> have proper memblock attributes?
-
-Thanks a lot for reviewing this series.
-
-I did try this approach, and it looks clean. The overlap check works
-well for regions within /reserved-memory. But there's one case I
-couldn't make it handle, where it seems to still produce a false
-positive, please correct me if I'm missing something.
-
-For example, region A is reserved before /reserved-memory nodes are
-processed. A is not a /reserved-memory node, so it never appears in
-the reserved_mem array. Now region B in /reserved-memory is a subset
-of A. At early reservation, patch 02/03 rejects B due to the overlap.
-But at the late scan, B's range already appears reserved (covered by A),
-so it looks like a successful reservation and gets initialized.
-
-The root issue is that the late scan can only tell whether a region is
-reserved, but it can't tell whether the reservation was made by
-/reserved-memory node itself or by something else. Maybe we still need
-to record during the early reservation stage.
-
-
-Best regards,
-Wandun
-
+On Thu, Sep 10, 2026 at 11:14:28AM +0200, Arnd Bergmann wrote:
+> On Thu, Sep 10, 2026, at 08:36, Karl Mehltretter wrote:
+> > This series prevents a DMA_FROM_DEVICE map from discarding CPU-written
+> > buffer contents on non-coherent 32-bit ARM. It is based on
+> > v7.3-rc1-324-g986c24e0fe44.
+> >
+> > ARM currently invalidates these buffers before the device writes them.
+> > If the device writes only part of a buffer, discarded dirty cache lines
+> > can expose older memory contents in the untouched bytes. A stock USB
+> > webcam demonstrated this through usbfs. Short isochronous packets left
+> > gaps, and usbfs returned non-zero data to userspace from bytes it had
+> > cleared.
+> >
+> > arm64 changed this handoff from invalidate to clean in 2022 with commit
+> > c50f11c6196f ("arm64: mm: Don't invalidate FROM_DEVICE buffers at start
+> > of DMA transfer"). Arnd Bergmann's 2023 ARM32 cache-maintenance series
+> > left DMA_FROM_DEVICE preservation unresolved [1]. This series keeps the
+> > existing ownership hooks.
 > 
-> Best regards
+> I think the main problem here is that we remain inconsistent about the
+> rules across CPU architectures, and changing Arm on its own does not
+> mean we have a solution if another architecture decides to change it
+> in the opposite direction at some point.
+> 
+> I see this as a tradeoff that can go either way:
+> 
+> - the current 32-bit Arm approach (also arc, hexagon, microblaze, mips,
+>   nios2, openrisc, powerpc32, sh) is obviously faster as it avoids
+>   the writeback, but it relies on device drivers to ensure no stale
+>   data can leak back into userspace.
+> 
+> - Will's patch changed arm64 (later copied into riscv) to avoid that
+>   risk by adding the overhead out of caution, and avoid having to
+>   audit and fix all drivers.
 
+How would you envisage fixing a driver for this? There were two issues
+I tried to address by moving from invalidate to clean on arm64:
+
+1. If the DMA transfer didn't write every cacheline in the buffer, then
+   we could expose stale data in the gaps.
+
+2. If the buffer has a pre-existing userspace mapping, then we expose
+   stale data during the window between the DMA map() call and the DMA
+   itself.
+
+Fixing (1) in the driver would presumably require it to walk through the
+buffer after the transfer and zero all the gaps, with an appreciation
+for the cache writeback granule (!= cacheline size) and then (somehow)
+clean those parts back to the PoC. Is that something any drivers attempt
+today?
+
+Fixing (2) in the driver would presumably require ruling out the
+possibility of a user alias, which sounds hard and possibly ABI breaking
+for some drivers (depending on how they manage their buffers).
+
+> If we decide to align with arm64/riscv and take your series, I think
+> we need two more parts:
+> 
+> - actually measure the performance overhead: you already did the
+>   work to test this on three separate arm implementations but did
+>   not share performance numbers.
+>   Can you quantify how much this costs us on the hardware you used?
+
+It's worth noting that many Arm CPUs upgrade invalidate to
+clean+invalidate (either due to the micro-architecture, errata or because
+of virtualisation).
+
+Will
