@@ -1,108 +1,140 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690A1529403;
-	Thu, 10 Sep 2026 16:55:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059307; cv=none; b=Be7z1JAIlCYu/T+1V/fS5XJzjYBdV1occlahueRl6o+YJFb9jZT3UZ2VyrnCMCnm/dzWtn04CuQYogjOuTS4E0tpYt4lBf5UEc9Rx7g1X/ourGjFsx95IbFM1K+QY1M0bubjYtFIR8OpZ45VSt+ulz5DuuYaN1lhZQn7m3wro3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059307; c=relaxed/simple;
-	bh=7QNs6NXWWKKkLOjDA8WTZScjj03/02sVjQQ7yEMIzYY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M/fCOZRRyD3Io62SSoFuzA5N+PLFVcVmnuiKw+5PUyyBl7s/u3jHRYy4Gp2PFkhqXrGaF7qI55xxJuL4NUBymtHdmJ4KDskYN8X/mwjF6wPl2I7K6IFybnRf5BG7SKjMA5qzXv4byyDk7XlhJXCySd0+TuBXHDfMFM06QMnMbNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=f2zww/OM; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08DD3AE19B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789059335; cv=pass; b=ryRLQ6Z9AQVdRO8uLNdnHchygqt6bY4zdQa5ibf4ApTCqtIYRpwQURxSiLgxdowD23aNX9rdcevDK/hjkxs7hD5rkEMTmHhxOf8A7l+kbxn+eXq1WMi5eaDno66U73i72yl4GspSNVcV6NHbr2/bpyYpEAIUAWsveofVRYppftg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789059335; c=relaxed/simple;
+	bh=Ze8p9X2Zoi1dZkh7hq2RK6uSNiLXlp4tgVATUvETeRU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=Ag8grfAiUwncJUONurS+qcZXaW3wJbdrQs9GVn/JCQC2MUO7upxHTnB59LoT41BHv8cIlxLdbj3UavAuL94R8DcF+8vGsIa80guhfz+UWqy/O3YyzjwJR6d8S02HlpCXGcUu/1xHHduZ5dLLsCmr0TRfH16DAvHOi/rzAZVrzeM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bplwbiiY; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="f2zww/OM"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 9B806C653ED;
-	Thu, 10 Sep 2026 16:55:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0C7065FC38;
-	Thu, 10 Sep 2026 16:54:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9DA3A11C7926E;
-	Thu, 10 Sep 2026 18:54:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789059295; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=aDmdjhRY3UHSS7iyezWcdpKTYmGRyljkJNG/pl1HU84=;
-	b=f2zww/OMGhzX/YwoJEamCphjxEtQAb9F8TuTw3e6RoblSleiLMGEdpLn8pd2SVpPeXhamF
-	lFaqqisyZuyF50HShDRJ3LEja+aUMxh3SE9eEQcp1kuQDU7GD/g3XpaeNv2bJrpPaOhHaV
-	gPDBxeprBNUL9nM9NTQxp4g2IiBPhWZi6jzPbtICdId5OkcSCdNVoOVWG7Q45/HL3xCosD
-	WTgelmFF2l41on6Wifp64wpmi/AVAJgy839MvzJOBpQwq+zYqTy90A11dXAjLdiH8ievac
-	NmFs/HIXV+a0v4KiUt9WSJEZTASXrIeO/vZoFnu3CwzFFNui/TXs1waRWT3E7w==
-From: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Bobby Eshleman <bobbyeshleman@gmail.com>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	matttbe@kernel.org,
-	Stanislav Fomichev <sdf@fomichev.me>
-Cc: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RESEND net-next] tools: ynl: Fix out-of-tree build for ynltool
-Date: Thu, 10 Sep 2026 18:54:50 +0200
-Message-ID: <20260910165451.1027541-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bplwbiiY"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9b2f02so980211fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:55:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789059332; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DW8BSPkuk3y7cfujCVsUxndhYeN2l1YlSBCGvzNlT8tTdrXvn/zlaOda65WQIsoLZh
+         rX95a+VGzFvmF7i3vRAO0MQ79gn5w7D09VpZpW3gpGJhDdli6PN422u3+Ssej/HwxX0M
+         noG5d0s6BAfAZe06IDLAf5maQjQjc20eapg3s8j7xDh8xe8qaipJ4pqZMeeoLDIBgnDd
+         405I7DIRNyxPhgpO4s/8dUwsOcW6PT7IfPGiw0W4Q59r6oQbY2uus/lAUfYx7JxRJNBl
+         sqOakeR1evT5rvfDTzHNor3/GGVRI4NOslfwP36DnB7+fuGkmt+hytGTqEP9Qdeyzd7g
+         OMPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=Ze8p9X2Zoi1dZkh7hq2RK6uSNiLXlp4tgVATUvETeRU=;
+        fh=+Nye9jEeIoa0yWaRzItJZID5YksWxmCtWv8hW9ayEFw=;
+        b=Xb1oefmEpWL5SVF5rBkYY/GzI5zbSMsrVEYD8V9mERk3SMCiqNCL7cMZvdA3bDAVhz
+         B1A4ub0sITckjH8x5mji81TKyIoowapo7lRgNycfAuiHDLH/ZiLEyd8iUIRBfvcbNjXu
+         Qv/zOmYB53C9+TU5Rjj1KGX9W3kmFQCztyFW6RTg6e2h/WNiafn32L3+dmELpALoUrz9
+         /CpSDMKz1n7WqePLKVbzWXmX6lObZGLOzTvoJ4MGnhtWdCE9oa2udSK6sQ4ErLAo14N+
+         nesV6iuTWaXxseSK91VcG18/tSm79eANeev/Q61sLt59kzwVPnc0QeWgOq3jRWm04QSe
+         bifQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789059332; x=1789664132; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ze8p9X2Zoi1dZkh7hq2RK6uSNiLXlp4tgVATUvETeRU=;
+        b=bplwbiiY2uEpL1LMJjiaYMFnMa5gxr+iJRSCsuTJCFSAGiBvOqvU6mwBaSkocCRkdu
+         uR/7hzAyHzSBKc21CL6ImPqOEF2cZxJBFa9PLbmKXUHNJPpjwZDU7DPj40aEpcSCeNKP
+         yLibTecA4bkxlHWu3anReLGy9ZQcS2Fdy9+btgPUKeOBTr3+XoJMSVmBOHXHJD4nk6kD
+         H4qOpmJ6UNURyiVdJkOQF0ilT+NwWoz9s8QyTETtgO8JQ26MD7im/hf4b6WbiynzXABU
+         Mf3LH9pFsn3Hhk97zdgncX6XJ0ATsgeLmWBAbtc3EEgMZTZWGh/Es/JzuPXsCcegoEIH
+         4odQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789059332; x=1789664132;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ze8p9X2Zoi1dZkh7hq2RK6uSNiLXlp4tgVATUvETeRU=;
+        b=NNYLECl4mXS0ovW3lkhkTpej62m+ZfiegppzBaywOCaInwwH2BTcNpQ3YU6/DunqDM
+         a4K57AdqsYkzWEIUMF0veYAEbD2j/firU2Dcb7qbdN0sst2Up8WS4cALBhJK2TyeGYNL
+         7LBvJNuaaOhjzTXkdtb3rDBjBGTVMdHOBnlADRWxLo0A0CBZAooxFRNh4vhQngQ5q63T
+         TNWNcbsHmOf4XXy4C8kZpe5oSfeOJD0NiOu1F7AV+nGFW0/Iy61yyhEjb72YVl4p78lb
+         JlLXw1XU2rUOS4MXYXg3CLuGpRX620LwBYpLvr5aU9a4jm4+uhwB5t5Ji5nPxSkOjfed
+         /6Dw==
+X-Gm-Message-State: AFuF++nGUnUOcWuQXxKDqY3MPKZ/ZqVP5czrcGpZ0O0khkqjhhUjDbvG
+	N2WI7NbPsAkUYkHuurtP173nl03X5UuncnE07mhh8e1TsN7oEDwSZGMVsOJZ2tBvwc/gghhNs+m
+	Wfc2naM6GtEtWPKhNtmnRoWjRVPgUBQY=
+X-Gm-Gg: AYBFou3njfSet+Bn6+b7oq0Ewczmj35ozrUNdQu4Uk/XYVDnTnPqZWYdBb+Ks57XQNF
+	RyhqmpWRYGzHYQcvQKSMHeAW/WJS6jmWeDBjSiIJtPPd8o2uPRePEvZwtqNIqd8RsezeAjQVHj6
+	aEH3IUrrn7mOtS4KFP3Dg8SGQIxJUgFIesEZwjNwKgWfr7gQSJI+MfL/mOnaTv0qA6+oh2VfBql
+	OGxp6ABlrABlUi4VXThSFSdbdvhFEBgpaZpKDSuDUXmdNfu5mfhzMNSbs3C6UHz2OuI0QQScoPy
+	6XluA1Pf8U5SpZ+j+/1KRHkfvQo0Ge0qAfr8l2+pAON+V5X3a81ooN0FfRnhHuS2QA8FSZtnAKX
+	DCZdLsL4ayd8=
+X-Received: by 2002:a05:6871:5a11:b0:470:e96b:43e2 with SMTP id
+ 586e51a60fabf-47dd3f5e9bbmr140773fac.14.1789059332092; Thu, 10 Sep 2026
+ 09:55:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: Brian Anderson <173brian@gmail.com>
+Date: Thu, 10 Sep 2026 11:55:21 -0500
+X-Gm-Features: AcwNN1V_aUZf-EDgVruHlR0V1ORkEqX9SnOsqZip1nS9dAm8K5b9V_KK5Vkgvf0
+Message-ID: <CACQPMpo+f7E+StoQco021PXF=bE-8BOfQxChO5cs=FfO4KM=LA@mail.gmail.com>
+Subject: Custom Power Cap for Radeon Pro v620
+To: kenneth.feng@amd.com
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 
-After the blamed commit, running a out-of-tree build for ynltool fails :
+Hello,
 
-  # make -C tools/net/ynl/ynltool O=/tmp/o1
-  make: Entering directory 'tools/net/ynl/ynltool'
-  make: *** No rule to make target '/tmp/o1/json_writer.o', needed by '/tmp/o1/ynltool'.  Stop.
+Thank you for all that you do with your help maintaining the AMD GPU
+driver. This issue proposes custom power cap values consistent with
+the Radeon Pro v620's SMU that are currently inaccessible due to the
+power caps being derived from the VBIOS.
 
-ynltool's Makefile correctly accounts for $(OUTPUT) to get the list of
-object files to generate :
+Recently I came across a friction point with the kernel driver for AMD
+GPU related to SWSMU. I have a Radeon Pro v620 and after reviewing
+community documentation resources I came across a generative AI
+assisted report
+(https://blivioniag.github.io/gfx1030-wiki/tuning/power.html) that
+talked about the power management for the v620, specifically through
+the lens of LLM processing with the v620. The v620 does indeed list
+it's power_cap_min and power_cap_max as both being 250000000 (250W),
+but the report I linked is also correct that the GPU's VBIOS accepts
+values lower than that. After following the report and rebuilding the
+kernel with changes documented to override the power_cap_min values I
+found that the GPU's VBIOS SMU does indeed accept lower power cap
+values than 250W.
 
-OBJS := $(patsubst %.c,$(OUTPUT)%.o,$(SRCS))
+I understand that this is a difficult issue because it doesn't
+represent a true bug in the sense that something is working
+incorrectly, as the kernel driver is correctly reading the power cap
+min value from the VBIOS. That being said, legitimate functionality is
+being obscured here, and there are many use cases that would benefit
+from being to communicate with the SMU within it's accepted range.
+Would it be possible to include either an override for the v620 or
+another means of deriving the power cap in the AMD GPU driver that
+could enable setting the SMU within it's accepted range for the Radeon
+Pro v620?
 
-but it never actually set $(OUTPUT) before the blamed commit, meaning
-that out-of-tree buils of ynltool were always actually in-tree.
+Steps to reproduce:
 
-Now, the O= parameter is correctly accounted for, and the %o: %c rule fails.
+echo 200000000 | tee /sys/class/drm/card{V620 CARD
+IDX}/device/hwmon/hwmon{HWMON_VAL}/power1_cap
+For instance, I use:
 
-Let's update the %o: %c rule to also use $(OUTPUT).
+$ echo 200000000 | sudo tee /sys/class/drm/card1/device/hwmon/hwmon2/power1_cap
+tee: /sys/class/drm/card1/device/hwmon/hwmon2/power1_cap: Invalid argument
+$ cat /sys/class/drm/card1/device/hwmon/hwmon2/power1_cap_min
+250000000
+$ cat /sys/class/drm/card1/device/hwmon/hwmon2/power1_cap_max
+250000000
 
-Reported-by: Bobby Eshleman <bobbyeshleman@gmail.com>
-Closes: https://lore.kernel.org/all/aqCyWQxqKDuQnZYR@devvm29614.prn0.facebook.com/
-Fixes: 917f713b4ec4 ("tools: ynl: Allow cross-compiling ynl and associated tools")
-Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
----
-Re-sending, the previous submission didn't reach netdev@ :/
-Fixes a bug in net-next, so targetting net-next.
+Kernel version: Linux version 7.2.4-arch1-2
+Distribution: Arch Linux
+CPU Architecture: x86_64 unknown
 
- tools/net/ynl/ynltool/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/net/ynl/ynltool/Makefile b/tools/net/ynl/ynltool/Makefile
-index b8c67cdb4fdf..1053e7606c86 100644
---- a/tools/net/ynl/ynltool/Makefile
-+++ b/tools/net/ynl/ynltool/Makefile
-@@ -31,7 +31,7 @@ $(YNLTOOL): ../libynl.a $(OBJS)
- 	$(Q)echo -e "\tLINK $@"
- 	$(Q)$(CC) $(CFLAGS) -o $@ $(OBJS) ../libynl.a -lm
- 
--%.o: %.c ../libynl.a
-+$(OUTPUT)%.o: %.c ../libynl.a
- 	$(Q)echo -e "\tCC $@"
- 	$(Q)$(COMPILE.c) -MMD -c -o $@ $<
- 
--- 
-2.55.0
-
+Thank you,
+Brian Anderson
