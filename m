@@ -1,253 +1,325 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14513B14AB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2172431F9B4;
+	Thu, 10 Sep 2026 22:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078690; cv=none; b=PDnrdIkTblj3flamtyQuBSwG8Ql5zRXTF8D8PCgKR9rUCerYdTYHJ0jXPMx1EpVtYYS6ckjkp3mCCP0yxacQkIQAqmiIMPrH+IeY7Vz/rDrsHgNGzoTc4nt9GKmhEXGY9lCB74S408Tq3xIUeoop7afHlp5FY6AXU/XqPTvEykQ=
+	t=1789078699; cv=none; b=jdeYQmR9EYR9mmfOxeHz9gE7kn+pfZac9ut9Sq0czIVIPuCW06KPKa8GUZ8Frb/YvjkjPUwbWR8ImxgR/bVBdDL3D7FRYRAXtzfc4/GnM9gV1j/5C3tbMNWnA25qbUYdDtTy9wLBji0zPjbaBv5WeUtZtSKQTTvyw/fvfZPAKS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078690; c=relaxed/simple;
-	bh=FpkQO46f/bUSNGTI5DtlovFLfVgBaVyf5ToZTa2Ns8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mu0SNEJJgcExlFJ2pDf1oFPWvowrzBM1C5+CsPqKNeFPqxEiLtQlJsuYqd33VBC+h7FhL19ji8vby69jlQaj14359SQ10f/qKqnCPAkj2C6STxbRBM0k1Zq4v6TB4HVeD+8MKfAhZOQDEwVht0hZfZ1rrYL+muZ6U10M3NkAA4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePo1guo0; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789078699; c=relaxed/simple;
+	bh=7wVWwurN/h0UfK56gPZolyDAb0z3FbgclCmbEZseAEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dQ5zC5uN93ljEEI8DiBVObqhxDLbUKFo4OuDvYIR2Q8MiJCXJGR0OE/b5d1FClmPtbNqFKxnAznrQfpaxIKu3CqBj7nPqoB6lJIwK6wjDt3G/kV8tqlXgX5sfw3BPN4303KsqqmxAVU7q0ldkWBighTU/JRFF3j0Q8XYGrnKGy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=onLdeVEJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePo1guo0"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4d8d8aso308975e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789078688; x=1789683488; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7KhBqil+DvS5mAyeDQEIkthurB0wyhst9lKXAhOY2nc=;
-        b=ePo1guo0LEwPc3anfuRADIHK6lye/xl3JcOzV/J09RRnBfWtYh0h7BY/pXpbkkpYp0
-         IgWslCTeBffgP/fEg8JahiazBHAF273bpDrbBpBG6nFIZ1GmXw8NgRT9QtexZ55zvj64
-         lfnjLWmxTtjVw39HJ5Qq+2jUP2qRF5tzI9EZ4ruQW8W4gDJkVoUhGRsW6GFz9JzokBu8
-         72qM33gkVc3joniS0cNi+ZdTIz88Ch2lcZRR6ZQ65kuePJy0hdN6XqVU37iYtmJnurnZ
-         bHl6rFzgJjKoPqdAJSfzJ4b0OPad6s9R1Ne91NX1BxyXR4GHFMYy2HT25Jjgqu7+LKsN
-         DoJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789078688; x=1789683488;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7KhBqil+DvS5mAyeDQEIkthurB0wyhst9lKXAhOY2nc=;
-        b=lWylj4xfw6+bN7CB6R1X1hk9PxoHFpwUs6IS3pVPjyyvpPBdJxngKUknXY69Refhx5
-         xMpEWP4jFiUFmgO8Qsq61aw2z1e2yZUd1WDlLd2a5R6xQZo+nvOdO2q+WvVwjR7RJguw
-         pt5oS5W225VDIPeRjLAccEauPe5XHWatLGvPSzBQWWxv3lZKMD7aVC3PX59AxO11S53v
-         Mu2qRRLdN1OcU9/1D2WaAVgn4c7bVL8NXxNfg6n5/6J2x53PAOiWyge23xS2amkT/mbq
-         cEw3aj11PxvOMYaA3kEBf7euC1Bumu8v8cv1AoudKkWHQrQT2/0jRD3qEiaQX0nCTuzn
-         4nqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwm0UZPgLcoV7QUbH9OaIxDapK89thA+GI2+cXLVCjZG8iRsate3gPO16cGSMJbKLogijzjsFyuv5r3Mpg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXNf0fQLsVfuvxDE1XjvXhwS1zAn4AL40CUOkhQCL7alj7z5OL
-	G+isp8hZl8z0dfswZDLfG1gU5UZqnDxw+rYfgDgGYirTrrs4fmw9vy3N
-X-Gm-Gg: AYBFou0tJntn9rewKlgSDtTEQYyAo16mWd9XRU162E3CQogZTwMuUQ4F2db2yw6600c
-	ceGtdyIlJuqJGfK1TwPK8P+OOT7uYs4iq6B1DZ5leMDYB9yAaZxheQ5a3hxqD1nfG9KYsTgyAmT
-	FWKMHkmEHDEwrCOS+SEbIO5cgVbsmPrDfz/nEzlGIBrJvCTywJqXVkiwTFjRDwKWZ67PGF4w2jp
-	SZ+A6HnfKIN3XYnzaIQUIqTi7b62EFc7alJIgR8u/4EGlxD2zRewG+ufD3t4szh6/Mq2a4Tpsqh
-	kARN/dC1mrqgTljcFewD2i0Dn4sU20nBp6zHf9FRJ6j5L1t3unYPm+iSBay8FMwqx3uUMhOpize
-	+9OpFKu0pj9bDVpEREQz7C2c2bBF3QOqAcA4I7ImjxjThXLf4e5KxsAV4MGIB8iLvi7BWp/d1h1
-	rPLXwM7VxntLAkkvqqhJrAcdCSqlkB4lMD8+DZs53vx580pU0WWd96CFSnRidrpp8rzLtEZKN2m
-	jbCUg==
-X-Received: by 2002:a05:6122:3787:b0:5c6:7f44:b001 with SMTP id 71dfb90a1353d-5c845d638e3mr1353063e0c.0.1789078687632;
-        Thu, 10 Sep 2026 15:18:07 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470e7ef4sm827546e0c.9.2026.09.10.15.18.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 15:18:06 -0700 (PDT)
-Date: Thu, 10 Sep 2026 19:19:04 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
- connection mode
-Message-ID: <aqMs2CbWbhzCoDOB@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
- <20260903-liquefy-prologue-9ec914cccf04@spud>
- <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
- <aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
- <20260907-spectator-venomous-7528abe370d8@spud>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="onLdeVEJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5BDA237B;
+	Thu, 10 Sep 2026 15:18:12 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74B8A3F7B4;
+	Thu, 10 Sep 2026 15:18:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789078696; bh=7wVWwurN/h0UfK56gPZolyDAb0z3FbgclCmbEZseAEw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=onLdeVEJh+X78kzwpPJjKiJ+UJ2DE86wjqBwMU4YEDhYM8t9Gpw6YGE/RhQgZuMT2
+	 9guKA845RvwrbbFo8k4GhSOzYLWh2YB/pD16ioOzwKMaeugrwTmog3h+OhvwhRkcaa
+	 QEp982vU6I4KU+kOO0DpmTqVRvAR6y6Ktc6xQ8nw=
+Date: Fri, 11 Sep 2026 00:18:05 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Enzo Adriano via B4 Relay
+ <devnull+enzo.adriano.code.gmail.com@kernel.org>
+Cc: enzo.adriano.code@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
+ Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, Ulf
+ Hansson <ulfh@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org
+Subject: Re: [PATCH 3/4] arm64: dts: allwinner: add Allwinner A733 SoC
+Message-ID: <20260911001805.0a2e033d@ryzen.lan>
+In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
+References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
+	<20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260907-spectator-venomous-7528abe370d8@spud>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello Conor, sorry for delayed reply.
+On Sat, 13 Jun 2026 05:42:15 -0400
+Enzo Adriano via B4 Relay
+<devnull+enzo.adriano.code.gmail.com@kernel.org> wrote:
 
-On 09/07, Conor Dooley wrote:
-> On Fri, Sep 04, 2026 at 07:06:44PM -0300, Marcelo Schmitt wrote:
-> > On 09/04, Marcelo Schmitt wrote:
-> > > On 09/03, Conor Dooley wrote:
-> > > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:
-> > > > > Document how AD4134 chips are connected to the host SPI controller
-> > > > > according to different wiring configurations.
-> > > > > 
-> > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > > > ---
-> > > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++++++
-> > > > >  1 file changed, 22 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > index ea6d7e026419..d843c02a394a 100644
-> > > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > @@ -131,6 +131,28 @@ properties:
-> > > > >      enum: [ free-running, gated ]
-> > > > >      default: gated
-> > > > >  
-> > > > > +  adi,spi-mode:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/string
-> > > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
-> > > > > +    description: |
-> > > > > +      This property indicates the SPI wiring configuration.
-> > > > > +
-> > > > > +      When this property is omitted, it is assumed that the device is using
-> > > > > +      'no-cs' wiring. When this property is present, it indicates that the
-> > > > > +      device is using one of the following wiring configurations:
-> > > > 
-> > > ...
-> > > > I'd also really appreciate a dts example for a system
-> > > > with one-channel-chain or two-channel-chain looks, given the second
-> > > > device may require different supplies etc. I have no impression in my
-> > > > head of how the dt would be constructed, so I'd like to see wht you have
-> > > > in mind.
-> > > 
-> > ...
-> > 
-> > Realized what I said doesn't make much sense. The peripherals can all have
-> > the same configuration and thus share CS, SCLK, and controller SDO. The wiring
-> > would be like the following
-> > 
-> > ::
-> > 
-> >   +-----------------------+                               +-----------------+
-> >   |         AD4134        |                               | SPI Controller  |
-> >   |                       |                               |                 |
-> >   |                       |                               |                 |
-> >   | SPI interface    SCLK |<--------------------+---------| SCLK            |
-> >   | for register       CS |<--------------------|-+-------| CS              |
-> >   | access            SDI |<--------------------|-|-+-----| SDO             |
-> >   |                   SDO |------->|¯¯¯¯\       | | |     |                 |
-> >   |                       |        |MUX  >------|-|-|---->| SDI0            |
-> >   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO            |
-> >   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1            |
-> >   | data read        DCLK |<-------------+------|-|-|-----| DCLK            |
-> >   |                 DOUT2 |<-+           |      | | |     |                 |
-> >   |                 DOUT3 |<-|-+         |      | | |     |                 |
-> >   |                   ODR |<-|-|---------|--+   | | |  +->| Offload Trigger |
-> >   +-----------------------+  | |         |  |   | | |  |  +-----------------+
-> >                              | |         |  |   | | |  +--| PWM1            |
-> >                              | |         |  +---| | | ----| PWM0            |
-> >                              | |         |  |   | | |    +-----------------+
-> >                              | |         |  |   | | |
-> >   +-----------------------+  | |         |  |   | | |
-> >   |         AD4134        |  | |         |  |   | | |
-> >   |                       |  | |         |  |   | | |
-> >   | SPI interface         |  | |         |  |   | | |
-> >   | for register     SCLK |<-|-|---------|--|---+ | |
-> >   | access             CS |<-|-|---------|--|---|-+ |
-> >   |                   SDI |<-|-|---------|--|---|-|-+
-> >   |                   SDO |  | |         |  |   | | |
-> >   | Data interface        |  | |         |  |   | | |
-> >   | for ADC sample  DOUT0 |--+ |         |  |   | | |
-> >   | data read       DOUT1 |----+         |  |   | | |
-> >   |                 DOUT2 |<-+           |  |   | | |
-> >   |                 DOUT3 |<-|-+         |  |   | | |
-> >   |                  DCLK |<-|-|---------+  |   | | |
-> >   |                   ODR |<-|-|---------|--+   | | |
-> >   +-----------------------+  | |         |  |   | | |
-> >                              | |         |  |   | | |
-> >                              | |         |  |   | | |
-> >                              | |         |  |   | | |
-> >   +-----------------------+  | |         |  |   | | |
-> >   |         AD4134        |  | |         |  |   | | |
-> >   |                       |  | |         |  |   | | |
-> >   |                       |  | |         |  |   | | |
-> >   | SPI interface    SCLK |<-|-|---------|--|---+ | |
-> >   | for register       CS |<-|-|---------|--|-----+ |
-> >   | access            SDI |<-|-|---------|--|-------+
-> >   |                       |  | |         |  |
-> >   | Data interface        |  | |         |  |
-> >   | for ADC sample  DOUT0 |--+ |         |  |
-> >   | data read       DOUT1 |----+         |  |
-> >   |                 DOUT2 |              |  |
-> >   |                 DOUT3 |              |  |
-> >   |                  DCLK |<-------------+  |
-> >   |                   ODR |<----------------+
-> >   +-----------------------+
-> > 
-> > 
-> > So we would set them as only one daisy-chained device.
-> > 
-> >     spi {
-> >         ...
-> >         adc@0 {
-> >             compatible = "adi,ad4134";
-> >             reg = <0>;
-> >             spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
-> > 
-> >             <supplies, clock, and other properties ...> 
-> > 
-> >             #daisy-chained-devices = <2>;
+Hi Enzo,
+
+it seems like it's probably a good time now to send a v2. Branch off at
+v7.3-rc1, cherry-pick the DT binding patches for clocks and pinctrl
+(plus anything else missing), then put your patches on top.
+Verify that with (in the build directory, after "make dtbs"):
+$ make W=2 CHECK_DTBS=y allwinner/sun60i-*.dtb
+
+> From: Enzo Adriano <enzo.adriano.code@gmail.com>
 > 
-> Does this property actually provide value here? I assume it does because
-> otherwise you don't know how many devices there are.
+> Add the initial A733 SoC description with CPUs, timers, interrupt
+> controller, clocks, pinctrl, UART0, and MMC0.
 
-Yes, the number of daisy-chained-devices is needed to determine how much data
-to transfer on ADC sample read. We already have some documentation in
-Documentation/devicetree/bindings/common-properties.txt
+This misses the RTC, support for which has been merged recently.
+ 
+> Keep peripherals disabled by default. Board DTS files can enable only the
+> devices that are proven on their hardware.
 
+Not sure we need that needs explicit mentioning, as this is how .dtsi
+files work...
+ 
+> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+> ---
+>  arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi | 198 +++++++++++++++++++++++++
+>  1 file changed, 198 insertions(+)
 > 
-> >             adi,spi-mode = "two-channel-chain";
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+> new file mode 100644
+> index 000000000000..3721aa9e8573
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+> @@ -0,0 +1,198 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+> +
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/clock/sun60i-a733-ccu.h>
+> +#include <dt-bindings/reset/sun60i-a733-ccu.h>
+> +
+> +/ {
+> +	interrupt-parent = <&gic>;
+> +	#address-cells = <2>;
+> +	#size-cells = <2>;
+> +
+> +	cpus {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		cpu0: cpu@0 {
+> +			compatible = "arm,cortex-a55";
+> +			device_type = "cpu";
+> +			reg = <0x000>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <530>;
+> +		};
+> +
+> +		cpu1: cpu@100 {
+> +			compatible = "arm,cortex-a55";
+> +			device_type = "cpu";
+> +			reg = <0x100>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <530>;
+> +		};
+> +
+> +		cpu2: cpu@200 {
+> +			compatible = "arm,cortex-a55";
+> +			device_type = "cpu";
+> +			reg = <0x200>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <530>;
+> +		};
+> +
+> +		cpu3: cpu@300 {
+> +			compatible = "arm,cortex-a55";
+> +			device_type = "cpu";
+> +			reg = <0x300>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <530>;
+> +		};
+> +
+> +		cpu4: cpu@400 {
+> +			compatible = "arm,cortex-a55";
+> +			device_type = "cpu";
+> +			reg = <0x400>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <530>;
+> +		};
+> +
+> +		cpu5: cpu@500 {
+> +			compatible = "arm,cortex-a55";
+> +			device_type = "cpu";
+> +			reg = <0x500>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <530>;
+> +		};
+> +
+> +		cpu6: cpu@600 {
+> +			compatible = "arm,cortex-a76";
+> +			device_type = "cpu";
+> +			reg = <0x600>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <1024>;
+> +		};
+> +
+> +		cpu7: cpu@700 {
+> +			compatible = "arm,cortex-a76";
+> +			device_type = "cpu";
+> +			reg = <0x700>;
+> +			enable-method = "psci";
+> +			capacity-dmips-mhz = <1024>;
+> +		};
+> +	};
+> +
+> +	osc24M: osc24M-clk {
+> +		#clock-cells = <0>;
+> +		compatible = "fixed-clock";
+> +		clock-frequency = <24000000>;
+> +		clock-output-names = "osc24M";
+> +	};
+> +
+> +	osc32k: osc32k-clk {
+> +		#clock-cells = <0>;
+> +		compatible = "fixed-clock";
+> +		clock-frequency = <32768>;
+> +		clock-output-names = "osc32k";
+> +	};
+> +
+> +	iosc: internal-osc-clk {
+> +		#clock-cells = <0>;
+> +		compatible = "fixed-clock";
+> +		clock-frequency = <16000000>;
+> +		clock-output-names = "iosc";
+> +	};
+> +
+> +	psci {
+> +		compatible = "arm,psci-1.0", "arm,psci-0.2";
+
+No need for arm,psci-1.0. PSCI v0.2 requires a version call.
+
+> +		method = "smc";
+> +	};
+> +
+> +	timer {
+> +		compatible = "arm,armv8-timer";
+> +		arm,no-tick-in-suspend;
+> +		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_PPI 14 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_PPI 11 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_HIGH>;
+
+Please add the ARMv8.2 EL2 virtual timer IRQ, see commit
+a186a9742dc5d.
+
+> +	};
+> +
+> +	soc {
+> +		compatible = "simple-bus";
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges = <0x0 0x0 0x0 0x40000000>;
+> +
+> +		pio: pinctrl@2000000 {
+> +			compatible = "allwinner,sun60i-a733-pinctrl";
+> +			reg = <0x02000000 0x600>;
+> +			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&ccu CLK_APB1>, <&osc24M>, <&osc32k>;
+> +			clock-names = "apb", "hosc", "losc";
+> +			gpio-controller;
+> +			#gpio-cells = <3>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <3>;
+> +
+> +			mmc0_pins: mmc0-pins {
+> +				pins = "PF0", "PF1", "PF2",
+> +				       "PF3", "PF4", "PF5";
+> +				function = "mmc0";
+> +				drive-strength = <30>;
+> +				bias-pull-up;
+
+You need an allwinner,pinmux property here.
+Also please add the other MMC pins, at least for mmc1 and mmc2.
+
+> +			};
+> +		};
+> +
+> +		ccu: clock-controller@2002000 {
+> +			compatible = "allwinner,sun60i-a733-ccu";
+> +			reg = <0x02002000 0x2000>;
+> +			clocks = <&osc24M>, <&osc32k>, <&iosc>;
+> +			clock-names = "hosc", "losc", "iosc";
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +		};
+> +
+> +		uart0: serial@2500000 {
+> +			compatible = "snps,dw-apb-uart";
+> +			reg = <0x02500000 0x400>;
+> +			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+> +			reg-shift = <2>;
+> +			reg-io-width = <4>;
+> +			clocks = <&ccu CLK_BUS_UART0>;
+> +			resets = <&ccu RST_BUS_UART0>;
+> +			status = "disabled";
+> +		};
+
+Please add the other UART instances here as well.
+
+> +
+> +		gic: interrupt-controller@3400000 {
+> +			compatible = "arm,gic-v3";
+> +			#interrupt-cells = <3>;
+> +			interrupt-controller;
+> +			reg = <0x03400000 0x10000>,
+> +			      <0x03460000 0x100000>;
+
+Please add the maintenance interrupt here. And do we need
+dma-noncoherent, like in the A523?
+And isn't there an ITS here to describe?
+
+> +		};
+> +
+> +		mmc0: mmc@4020000 {
+> +			compatible = "allwinner,sun60i-a733-mmc",
+> +				     "allwinner,sun20i-d1-mmc";
+> +			reg = <0x04020000 0x1000>;
+> +			interrupts = <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&ccu CLK_BUS_MMC0>, <&ccu CLK_MMC0>;
+> +			clock-names = "ahb", "mmc";
+> +			resets = <&ccu RST_BUS_MMC0>;
+> +			reset-names = "ahb";
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&mmc0_pins>;
+> +			max-frequency = <200000000>;
+> +			cap-sd-highspeed;
+> +			status = "disabled";
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +		};
+
+Please describe the other MMC controllers here as well. The IP is the
+same, so no reason to not add them here.
+
+And what about I2C? We would need that for the AXP PMIC. Having that in
+the initial DT is required to keep the DTBs compatible with older/stable
+kernels later on.
+
+And it seems like the whole r_ side is missing, even those we should
+have bindings for those. At least r_pio and r_ccu would be needed, plus
+r_i2c.
+
+Cheers,
+Andre
+
+> +	};
+> +};
 > 
-> How does this interact with spi-rx-bus-width? Is the value of this
-> consistent with adi,spi-mode? IOW, for adi,spi-mode = "one.." will there
-> only ever be Dout0 connected to the host and for adi,spi-mode = "two.."
-> will Dout1 and Dout0 both be connected?
 
-For this particular ADC design, yes.
-adi,spi-mode = "one-channel-chain" always expects spi-rx-bus-width = <1> (only DOUT0) and
-adi,spi-mode = "two-channel-chain" always expects spi-rx-bus-width = <1>, <1> (DOUT0, DOOUT1).
-Though, it is possible to have spi-rx-bus-width = <1> and
-spi-rx-bus-width = <1>, <1> in non-chained setups.
-
-Will make the constraints explicit on v2.
-allOf:
-  ...
-  - oneOf:
-      - required: [adi,spi-mode, '#daisy-chained-devices']
-        properties:
-          adi,spi-mode:
-            const: one-channel-chain
-          spi-rx-bus-width:
-            maxItems: 1
-      - required: [adi,spi-mode, '#daisy-chained-devices']
-        properties:
-          adi,spi-mode:
-            const: two-channel-chain
-          spi-rx-bus-width:
-            minItems: 2
-            maxItems: 2
-      - properties:
-          '#daisy-chained-devices': false
-
-
-Best regards,
-Marcelo
