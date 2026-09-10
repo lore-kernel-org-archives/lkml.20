@@ -1,135 +1,154 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB44E4A9D50
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFC44A689D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:38:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054674; cv=none; b=MsWWpEdFUdQmjnu8Qt04E5qLBcVvgQ2P+Or9E1rJJ9yPHS7V6duTHLv94AtHl2mcDk0Bp+XXTe7gKy914ABzA41qQXKsMb+xFv2IPpHzwWExl8PJ9ulRocgKxRVE0HNQP37NCotixJNlVmcUwCLuhzjYiZcl/bWgmAPM4XFqVdI=
+	t=1789054689; cv=none; b=UM0w1GnkTQmxD77o+CklXeY+AsU6KkE82GFjuhiAuoClMn8FUr8AF5FsX6fQDWbNnghh+c5YRUK+pu1SR4mBP2O+uZ8vLKdfUpzJSAt0XGYqXQXykMrIe4dkp/SIvpLvtcaHcyG4p5Aty4RDheE5cySg9v7RrQjU/GK4jq7DAZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054674; c=relaxed/simple;
-	bh=HQijiPlwvDLFO+zIPNo2HBbu3dtpiVeMOBm/adtycNg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I9cahnvcw+L2ahDWmrpDX4mt/nCScdr77YGJJ3zFfNVF8AA8NnljihBJdTK2M9QIvxSjodIGVXvsI0dz1CbgNwQSk03kYvmjAdwmzTGAzAFyP6TWLogltC0d5lYVwrtvlnoNuS/+J6q+USIJBfFOrjOMWOLE8AjLaJbBt+FrKD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ec/3s7um; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789054689; c=relaxed/simple;
+	bh=TrTvDfFn/k4uiEHyffaC4IKdjtst9K0k0gvyN6WQHvg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JRtsgwW7kIU0vmYZgz9gygClYGhlzCUNGmLJ6c2bnT61SDg06i1YpQK2TGUDXlU5tVfcj9OTIk2cqFQn79MkUPImtM2ZL1RSh5Sn8CpRDWoT/rbUxgIVG2Tjyqrw2Up9d6Mc4XB/qFE6Ia5dQQc19PP9xmrUowePBoKPEkKezZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eNjk8dot; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ec/3s7um"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso2110611a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:37:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eNjk8dot"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso76394245e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:38:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789054672; x=1789659472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xf27/e13zSRzdWtLn2ZnVwbWOxwXcFNzloo83ia2tDo=;
-        b=Ec/3s7um9niKH4ZQGpW77I0l8Wi0ooJnlbA9vQrVM2jtjZ0TNh5ZK2Cv1Z+ErO4IP3
-         x8wPBynl1Te1Lul1+svaOTFxXokMbRiTwz7LCEmdNXKjSE1d4KBWKAIzc+9Fte6yU+Zg
-         KLR3PcgnPR7NVqsHoG7GJtU/829CPN0q3ThDxFProQIKU8jDf0RSEI/zvboSdrWz8/9K
-         77R914K5mvYiwewaT2GXaABu3wA7DTAu1UXLnLTEiqwvq+TixaQz2MrwFEhU5cjb29AO
-         kh1GBNotoImdhEHDXiHKxe9R+TqQliIPLQg69VJvSJsOenwuacRc/UzNMtWpejDJx9TG
-         YLZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789054672; x=1789659472;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789054685; x=1789659485; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Xf27/e13zSRzdWtLn2ZnVwbWOxwXcFNzloo83ia2tDo=;
-        b=bGAabH8UsnfOSuEZcDsfsKwxg4x5vljNv5VOh1RlK9EKH9soAYqr5Usdx9JJ9HQv2o
-         zOanUiKljxEYrbE8H2q2oS73zs03HIS9AW/tIIdIKNnHk8hpLKvMwzaB9K+q1zitH5BE
-         PCPWJ9sjjnWJ4K3BzimXBKiLTTt15P+K9t4TCZvO3cigH3eBbujAR6ZSX2VtmQu9YBEi
-         v25Qzff+v6MzHo2M3tglTuPWukWrg0LJ6+W+TQ3zVln741qLa4JsHDjBeH9At9biFGJG
-         dZHYfLjiFb3IIeFj0L8qxGBpWVt4pcki6jJ8r/b5Ts7oQ6vNLQUuYoHMVJxT/xFWBX5k
-         HZZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUoYeKQNIHLCFQfeYTE9vv98mWEw8ODoXB61TQ9DM0fuTdaDZ+iItA9HwZKNgCTgGvSTRFMQNfY3rKqb4=@vger.kernel.org
-X-Gm-Message-State: AFuF++luD7PtV02y7I/gmPs7FM5d+FMh9zFsvsDoXMZpFktrA2Q8CKVq
-	P6UtKDMxmRYZfDGG/XKxcXx26uOUJ3jW8MXO19QbhZuX/XCoDjp44qml
-X-Gm-Gg: AYBFou2nPz1GtXv6VxyjnImWyby3I4FJUwGBT9+ckU1LQ4T7MEnn4ejT2mrCc1XZzmm
-	7JdmMMhUR8evKUqR/vY+f4bIZKRBMygfxUYSo3adOLMcn1xBF0l5mxGWMHzDx0sCJdNM7ABjRHZ
-	HijgHxshDe3/8xdCqgd4c+XEjiyleLh4I9y23O1uMacL/rrgg9LQV6aGcXoVJExaW630pJyvo6+
-	+uPm3wX7uy3Hgvdf4LlrKhruduyBoK0kBm6VkPmiKppGJcfxxsVXfWg6AsgI+xxeKH0RgpKJOtM
-	PfZlsbeGCSv0ehaPrDeGX8NLvkL6Qnt4MSo4npGW+miO+2hI/88cRnlojsEgWdlY2sgCqJ9S1nJ
-	97YBnvHlXkHNbx9/hkJRXYU7wJc/6+BcnEoTF15RGs6UuFHtmo2TDSusi8ZZtK6k9uqQCQUds9L
-	hjQqaXrWWiBC5bIAT2qotPtfP572M1SSXClGDET9CscrsA2GSHu87NlPsbcbZOXf+8Gnuy3/HXr
-	UuaHOAMHEX+HP10S1k=
-X-Received: by 2002:a17:90b:3d89:b0:398:dcfe:968e with SMTP id 98e67ed59e1d1-39bac3f9063mr21283299a91.20.1789054672086;
-        Thu, 10 Sep 2026 08:37:52 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:ced9:ef96:e152:2608])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94b9334dsm170730a91.3.2026.09.10.08.37.50
+        bh=oHoaVug1Lx4d7NCtEru06mZWP8AQ/VN7bfbLwwo+zA8=;
+        b=eNjk8dotC2zNygLiLkoqaC1/F21YVPqPHJHri4Clxe00kg3KOtuzT5ngZnS10DXAYM
+         x0J+tvQvA/B0m/K80cd4wX5sokAj+A9BgRy9pJ5W8dKqrG2aerK+0Yuxex9bkPUJcE7Y
+         nmHzlh21oRPpyhHgi/uLKXiWNyZ8W+rpKyyODb8WjJRtuZoawwahyoy41fVWv8FIzgWr
+         GTnDscyMF6pR4gue/gTcZwP9cHmbwUAVW1hhY9NCwhvQBG13aGP3JVTD67g2ppCCEL9S
+         Nzp8Z1/2M1lA7DCxWIkH5O2owpZinPBl41uYSClGq0/08o7GgMdHQq/MZfBvBfsWWb8e
+         NVng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789054685; x=1789659485;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oHoaVug1Lx4d7NCtEru06mZWP8AQ/VN7bfbLwwo+zA8=;
+        b=IE62lchnkFf+Na7HssV0FRUSSfr1tnfCCfifE3CoLzrmS8VnNwSIAFHBIaATW8MqlY
+         jZkOWdFSYZrqj2UirmoGuC3/ys9l8sLpNWHD6EMYM4TzNOYAdTb6USCRWE5B61RGOWhY
+         oC8nlsNqp/Pfd5zHj2Ee4fykn+mrohb5wYjhZxguO6E2wHwDTKmYYH1DLS8QoxD+4HjB
+         psmZEBHBcbcqvd0qu325BzcasevVp5Dsb3lta2an+xGaMRnxjhQeTQc1oqD50UpLm9zG
+         srLyDRE4/tLuGb+bG1d5MLRpYvNu4A25t4zOZVeFv8WZEPxHqebXQdn+umIICvYSyevo
+         ZSDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx71QayvseYwfPPMVl/TJZTZj8EwvxM0/yAj6WBn6F4wbzOje61gEGvG8Lzw3LQ25Pr4lH2+A/3INcBiJk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2iI0I6HHtOlFpo4NPkcJLsAnLo/lA8TwJwjiUqBl8w5xo/iUU
+	QuEsnKCo2VD52XoFrTmht1Hcu5kO3i+wgszj44Dwlv5JzVfgnceHJK8G
+X-Gm-Gg: AYBFou0KlnTioX6BVozQA4BYBiezK83/PkLpnkKuyIo+xRD3w7P0u5TvP1b7z1xcMaW
+	7Ezp/1We19acsI+ia6mTPlIUaoFhudhvAIPAk4lEcGKIg4GHwh+FQDVlkSqnoypR52ittfn89Va
+	K/Xy1Wc9UIU0k+pnJnxBYQf7nblFhbUC4hVYMxjj8JJUJEiXA339WDWRbZZcZZbOTPHBYtiC101
+	bazMcnwzM3+rq0GTX1ki3Kz93b7G6/Ejep1FhKotylQBac7COHO+hUhYgTKz+mU9CSL4lnVgRYI
+	4CC9fEty2PA/OYRo7u0Sx/VcjZEdJ62ecBOap1ICuSq0FJ9GDPvQ4KhCSzess6uwqpduFVDYAGv
+	8f/trCyS9n7WIZ9GnTwYrzcj3tcAvt1xZuu05NkxeIs3Inz9Svy4T3TUmSUms3LojJgLXBwstp1
+	yTUwRwiPALIpVolv+IoZ5J4uDj/Ux7iDZmnak8dxOmhyERRdXsNEera+FBj7Af5syF8xvhGFkwV
+	VIaKLirFNdEQp3RezCXdpDER3e+5BTjEGOXswzjqosvtdvk2X5mpgWgS+Ic/B/VhSptEgKxDA==
+X-Received: by 2002:a05:600c:c4a7:b0:49c:df2b:15fc with SMTP id 5b1f17b1804b1-49cf823d0dcmr440541835e9.8.1789054684861;
+        Thu, 10 Sep 2026 08:38:04 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm3390545e9.14.2026.09.10.08.38.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 08:37:51 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH] HID: multitouch: use GFP_ATOMIC for report/application/usage allocations
-Date: Thu, 10 Sep 2026 22:37:46 +0700
-Message-ID: <20260910153746.16222-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 10 Sep 2026 08:38:04 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Date: Thu, 10 Sep 2026 17:37:57 +0200
+Subject: [PATCH 1/6] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7
+ remoteproc
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-verdin-imx8mp-hmp-camera-ready-v1-1-3c9349ecdb9f@toradex.com>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
+In-Reply-To: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+X-Mailer: b4 0.13.0
 
-mt_allocate_report_data(), mt_allocate_application() and
-mt_allocate_usage() devm_kzalloc() with GFP_KERNEL, but they are
-reachable from mt_event()/mt_report() via hid_report_raw_event(),
-which can run in (soft)irq context off a USB URB completion (e.g.
-dummy_hcd's hrtimer softirq). GFP_KERNEL there may call into
-fs_reclaim, which lockdep flags as an inconsistent {SOFTIRQ-ON-W} ->
-{IN-SOFTIRQ-W} use of fs_reclaim, alongside a "sleeping function
-called from invalid context" splat.
+From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Switch all three to GFP_ATOMIC since none of them are on a path that
-needs to sleep.
+Describe the Cortex-M7 remote processor available on the Verdin iMX8M
+Plus SoM.
 
-Reported-by: syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=093e05755c2d99caab91
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- drivers/hid/hid-multitouch.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi | 33 ++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 2c41bacab1ca..6b68e43fd885 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -604,7 +604,8 @@ static struct mt_usages *mt_allocate_usage(struct hid_device *hdev,
- {
- 	struct mt_usages *usage;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+index 9fee2cf9ef54..45a4713c260f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+@@ -77,6 +77,18 @@ key-wakeup {
+ 		};
+ 	};
  
--	usage = devm_kzalloc(&hdev->dev, sizeof(*usage), GFP_KERNEL);
-+	/* may run from hid_report_raw_event() in (soft)irq context */
-+	usage = devm_kzalloc(&hdev->dev, sizeof(*usage), GFP_ATOMIC);
- 	if (!usage)
- 		return NULL;
++	imx8mp-cm7 {
++		compatible = "fsl,imx8mp-cm7";
++		clocks = <&clk IMX8MP_CLK_M7_DIV>;
++		mbox-names = "tx", "rx", "rxdb";
++		mboxes = <&mu 0 1
++			  &mu 1 1
++			  &mu 3 1>;
++		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
++				<&rsc_table>;
++		syscon = <&src>;
++	};
++
+ 	sound_hdmi: sound-hdmi {
+ 		compatible = "fsl,imx-audio-hdmi";
+ 		model = "audio-hdmi";
+@@ -185,6 +197,27 @@ reserved-memory {
  
-@@ -633,8 +634,9 @@ static struct mt_application *mt_allocate_application(struct mt_device *td,
- 	unsigned int application = report->application;
- 	struct mt_application *mt_application;
+ 		/* Use the kernel configuration settings instead */
+ 		/delete-node/ linux,cma;
++
++		vdev0vring0: vdev0vring0@55000000 {
++			reg = <0 0x55000000 0 0x8000>;
++			no-map;
++		};
++
++		vdev0vring1: vdev0vring1@55008000 {
++			reg = <0 0x55008000 0 0x8000>;
++			no-map;
++		};
++
++		rsc_table: rsc-table@550ff000 {
++			reg = <0 0x550ff000 0 0x1000>;
++			no-map;
++		};
++
++		vdev0buffer: vdev0buffer@55400000 {
++			compatible = "shared-dma-pool";
++			reg = <0 0x55400000 0 0x100000>;
++			no-map;
++		};
+ 	};
+ };
  
-+	/* may run from hid_report_raw_event() in (soft)irq context */
- 	mt_application = devm_kzalloc(&td->hdev->dev, sizeof(*mt_application),
--				      GFP_KERNEL);
-+				      GFP_ATOMIC);
- 	if (!mt_application)
- 		return NULL;
- 
-@@ -692,7 +694,8 @@ static struct mt_report_data *mt_allocate_report_data(struct mt_device *td,
- 	struct hid_field *field;
- 	int r, n;
- 
--	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_KERNEL);
-+	/* may run from hid_report_raw_event() in (soft)irq context */
-+	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_ATOMIC);
- 	if (!rdata)
- 		return NULL;
- 
+
 -- 
 2.43.0
 
