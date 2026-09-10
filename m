@@ -1,142 +1,129 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BC7471246
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09587474274;
+	Thu, 10 Sep 2026 12:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789042105; cv=none; b=GSzozF6dZ7fhXlnaGzMAXtjiNPOlI9z/UTbt00hxHVltwiCy++dPk3N6OlERmic4MRSQAhZ3VKkhNO1KpcfuMkzfPzAEfkUA7VTl2A9UkI5pHf6JiFuLRKOptgRhDZTkRrzIQkrwFPEbT7OkpIkwTXqNLBFWs1++zg9Ck++Jrn8=
+	t=1789042125; cv=none; b=SmUUME57lf1HyeJHfZKe0++eEhRISQ4PD2BwJlpugg5DSSRzBO4qCPwNqs96f3lbiAZCft+epoofzxw7Kf9o7yMfYQ60Q+pGEDZ0cfUz+Wwsiza7WpUz5G4du420T/rj4+EZz+zrXca5MVAD//r64LJcogqgG3mrKYl333kf+8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789042105; c=relaxed/simple;
-	bh=CCJg+gA6k5cGOU3SmBMdyo7VC/bOq+f1/pHk41HmmWA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=uZ3XzqsibjcI2u8RGw4CWxXFtxe9uSeRqS7nbq21Ea21f3VDJ4ILFc9SQA+yWy1uap+AQ3RPJ19l8139Ueaq3SyxGmUTcbxtQ/OtbFVRJfgyEWZSmdg4vWvLKJY7MYU2ALKYx9SiqsdnifsBGmIrIIXyJyutNNhVy9ZHCzlYCio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gdRCo9V9; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789042125; c=relaxed/simple;
+	bh=fyw1d0BE4SBGQVhtWNeTMEuezfuvo5db/GNMTmnH2Zk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k3wi/RpLwJ99iW8QNzwjH440uj/Pry3RUHC03ePxi14C5skiDil1yEgIVizV84lCZ2QQAm8hlGutqHifFOImRo81xSpf+fo1pzs/Z5r+rzntizfruUj6YnSzmNAH51TA1bKBuFKs/1Yl0Dv/b8HDM/K1Uc3DG//rPDmxcL/lb7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M5Vk1kDw; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gdRCo9V9"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1225336f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:08:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789042102; x=1789646902; darn=vger.kernel.org;
-        h=references:in-reply-to:subject:cc:to:from:message-id:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=kr90axAl39Wct6vUhubTPo3djvuufRCk0pWZynFpKbM=;
-        b=gdRCo9V9kPPlNj9GfbyI7Th5Scxr/X98Z8eTv1zzJG0SyOvoiZc4otqfI2ttE0lyHI
-         rr6YhwjyzeYMT01gnbSxcGyk8yed7fhe+nZSwZpOerc1nBp4UEG3SHOZXl15T0q3mYx5
-         K0R73AYoNYcHMGG6xUZay1VhPCT0SchGKISVdDgWxhxmNwTpNMLUVfj5g/paImzYKyIJ
-         mGOT2qTFZ75iLq8JyoJAnjhAyfJt9hWcQhsurXBI1306MJ69zKwFEAtqbsh3PXun1d17
-         RfZpILsg9dlwGf0/Qi5v9dxxkEp07Tu8MzQQ8aEPRkxVl7ln4nZfQU8s8/MUQJ8RfpmR
-         jduA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789042102; x=1789646902;
-        h=references:in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kr90axAl39Wct6vUhubTPo3djvuufRCk0pWZynFpKbM=;
-        b=ThM0YtfeTHsP1zmmSp5RCSZYxEZfaFLqVX/RLdn4zBc6RZRnFt6Cq89Py85ENr/Zql
-         JYVQ1n/dhRHSjBGs1yYTH3+mSr1UVxEpnoUWaxvHaYfbKEoHa23thybWdwngYqktDx+j
-         WaMKVqZ05IXCMs0I/FOqoegb4JbYUbe9uMfvHUnFgbVD0y8y0peRgY7n1d85UWTWCKGu
-         PEFfN45iVGBWhjbVP50IzS8vfGWEQTMv4KAemTDArZD2QZCiGHKt9jn0qCyk5gJbNx4+
-         6tBi78nSkEtiGkJYP+VcZTGXLXVI2XDSqZnDg8bLfuvrqHQOSA0xKglSpXCjYz2zV98w
-         rlIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxjL+JuSi31IGXl2p5XIpbxtKnjXkCPMQu913nU3U7MsCIzB0Vv3trUSrPfoq3iFBD+NmHusTy0uxvbtDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mS9usul2TFvrYuemnFfA/JgQb5ycz8aTwDpakhiF3EamLv971y
-	gyCZgZV4AupVNVkJD+5Nv3dixK6Y4aNiNDtD+3wGJGxRhPAIGDRuhRqPBNl29gWgiPpSow==
-X-Gm-Gg: AYBFou0mD/CkHtFQODw3QQhoKY2SI6LSO6Nu8sMMshidqaudI3nGGSwlPqQyAZDF7Vm
-	3eED7PbHAk6VXhJ8ldbfQXED2c5olwC4FlItpZsZvdnB9Tu3VOSRLkrRG82+aj4iNOV4Fn4GnqP
-	SdXmq03sqtCmHu2qdaXxv6LeKdpGWaleNdkyvmVv/JwZo6ci5o7CzWhpKoNokOtjkZYJr11ZRHz
-	u2MgRWyNRFns3mu2kne9VJgKceD0UHjC+UekFdyV8/h3x7j/JvjJrs8LR5woHvVAOlI2AChwAKG
-	lS0Tl8/n1A8lVtx7+dA+7Sp9vjB+ESsS4XGUI7Z0g4vW/0wUjBh8FjqfFm7KYgduycf2aP5FKF+
-	0ZNKyqRPdMqJ3fr5qfrXEYz3lO/cpo0cVVUmVPcf66RvqkftBbtrin/hhjiKJFG5PJE+8FQ5/GL
-	T0t7IwuHuryOu6jm79f4E2vTedtJAKuANZGWJRc+4rcb32C9lKW2rmjj2/wQIfuLUC68zfSYFxe
-	DAsJDfL0Gu5Tz20AMQcENb9bSJdsOzkS5nKhaKvKVK2bs6pStwF1QoKLnmUn4K0kKpzjZyth5sf
-	2owCMHGox+Lb2Q==
-X-Received: by 2002:a05:6000:1883:b0:482:ea08:8c97 with SMTP id ffacd0b85a97d-485aad9458dmr21686931f8f.2.1789042101895;
-        Thu, 10 Sep 2026 05:08:21 -0700 (PDT)
-Received: from localhost (adsl-178-39-48-248.adslplus.ch. [178.39.48.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c81c3sm51597465f8f.26.2026.09.10.05.08.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 05:08:20 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:08:20 +0200
-Message-ID: <4d885f9e201df6f48a06f4ab3b27a7f1@gmail.com>
-From: Robin Räber <robin.raebi@gmail.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M5Vk1kDw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789042125; x=1820578125;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fyw1d0BE4SBGQVhtWNeTMEuezfuvo5db/GNMTmnH2Zk=;
+  b=M5Vk1kDwOsjhUQX6gtq83+wSJUIG0PeYhIEi55VLl7YWnjTVb+AZHmJP
+   VWvHtKLz76UpKxXDiz6zepIBtPsKisfScq0uafnRroHlSC5Zf3NIR/mD8
+   qgJfOfo8cb9XpwVu9zrxYmUvoBTpR6kJq0N7o6o0Y+cfOexiDDv+dmuRb
+   NKaYn8bTE3d+UaHF8JqGGXxrXt00T+d+4F3PK5RiOoNh5J0rg7eOHLYPM
+   OeUUgvxH8VuD2R68m1cdfdr3O/5M8rmjFwv6BcCUd3IoseoFni41hfr/y
+   WxIki7rwXEhtk1PmwV1SvJUtNxNSa/VoWnfMB2i/ns69l1MKtgGwYLZFS
+   A==;
+X-CSE-ConnectionGUID: dUuF0mObRZq8jntv3Vj4lA==
+X-CSE-MsgGUID: DK+PHdYiSu6TT/80GstTnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99820436"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="99820436"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 05:08:44 -0700
+X-CSE-ConnectionGUID: 9qRxx2HiSrKiC+/xVKQgSg==
+X-CSE-MsgGUID: TnZWZVq3RESYwuOENqHzCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="269842994"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.173]) ([10.245.245.173])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 05:08:40 -0700
+Message-ID: <4aafba3a-d861-45de-9b44-7a7660c6eec0@linux.intel.com>
+Date: Thu, 10 Sep 2026 15:08:50 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: SOF: ipc3: bound firmware-supplied ext header size
+To: =?UTF-8?B?yJh0ZWZhbiBHaGXIm3U=?= <stefanghetu9@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260909212353.69599-1-stefanghetu9@gmail.com>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260909212353.69599-1-stefanghetu9@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Cristian,
 
-I tested this series on a Xunlong Orange Pi 5 (RK3588S) driving an
-AOC Q32G1WG4 monitor (2560x1440@144, TMDS char rate 592 MHz) and can
-report that scrambling works, with one interop issue described below.
 
-A note on the test base: drm-misc-next at the series' base commit does
-not boot on this board for reasons unrelated to the series (the
-unpatched base commit hangs early as well; I can dig into that
-separately). I therefore backported the series onto v7.2.3, dropping
-the vc4/sun4i/tests patches and adjusting for minor context drift in
-drm_connector.c and the scdc/hdmi helpers. The dw-hdmi-qp, rockchip,
-bridge_connector and helper patches applied without functional
-changes.
+On 10/09/2026 00:23, Ștefan Ghețu wrote:
+> ext_hdr->hdr.size comes straight from firmware and is used unchecked
+> as a read length: too large overflows the PAGE_SIZE heap allocation
+> in ext_data, too small underflows the size_t subtraction (hdr.size -
+> sizeof(*ext_hdr)), producing a read length near SIZE_MAX.
+> 
+> Bound hdr.size to [sizeof(*ext_hdr), PAGE_SIZE] before using it.
 
-With the backport applied, all four 2560x1440 modes (60/100/120/144)
-are exposed and 144 Hz works, but scrambling initially failed:
+We tend to trust the firmware on this.
+You would need to compromise the system in so many layers before you
+could even boot a firmware which is malicious to send deliberately wrong
+information that this is the least of the issue...
 
-  rockchip-drm display-subsystem: [drm] Sink doesn't support scrambling.
-  dwhdmiqp-rockchip fde80000.hdmi: Failed to enable scrambling: -22
+You need to sign the firmware with a key which is accepted by the system
+(the signing key is secret, even we developers have no access to it).
+You need root access to deploy the firmware to system.
 
-The cause is the monitor's EDID: its HF-VSDB declares a Maximum TMDS
-Character Rate of 600 MHz but leaves the SCDC Present flag unset, so
-drm_scdc_sink_supports_scrambling() rejects it. The SCDC interface of
-this display is nevertheless fully functional: reading SCDC via DDC
-returns sink version 1, writes are accepted, and after the change
-below TMDS_CONFIG reads back 0x03 (scrambling + 40-bit clock ratio)
-with a stable picture at 592 MHz.
+At this point, there is not really a need to brother with this, you can
+do anything as root...
 
-Since HDMI 2.0 mandates SCDC support for character rates above
-340 MHz, I worked around it by trusting the declared rate:
+And if we are this paranoid, we cannot trust the ext_hdr->hdr.size size
+either, the attacker can deploy the firmware which would pass this check.
 
---- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-@@ static bool drm_scdc_sink_supports_scrambling(struct drm_connector *connector)
- {
- 	const struct drm_display_info *info = &connector->display_info;
- 
--	return info->is_hdmi &&
--	       info->hdmi.scdc.supported &&
--	       info->hdmi.scdc.scrambling.supported;
-+	if (!info->is_hdmi)
-+		return false;
-+
-+	/*
-+	 * Some displays (e.g. AOC Q32G1WG4) declare a Max TMDS Character
-+	 * Rate above 340 MHz in their HF-VSDB but leave the SCDC Present
-+	 * flag unset, even though SCDC is functional. The spec mandates
-+	 * SCDC support for rates above 340 MHz, so trust the declared rate.
-+	 */
-+	if (info->max_tmds_clock > 340000)
-+		return true;
-+
-+	return info->hdmi.scdc.supported &&
-+	       info->hdmi.scdc.scrambling.supported;
- }
+I know, agents flags this (and other similar cases), but we are trying
+to be realistic.
 
-I'm happy to test further revisions on this hardware, and to submit
-the above as a proper patch if you think this is the right place to
-handle such non-conformant EDIDs.
+> 
+> Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
+> ---
+>  sound/soc/sof/ipc3.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
+> index 85bb22bbe18d..6188e43726e2 100644
+> --- a/sound/soc/sof/ipc3.c
+> +++ b/sound/soc/sof/ipc3.c
+> @@ -598,6 +598,14 @@ static int ipc3_fw_parse_ext_data(struct snd_sof_dev *sdev, u32 offset)
+>  	ext_hdr = ext_data;
+>  
+>  	while (ext_hdr->hdr.cmd == SOF_IPC_FW_READY) {
+> +		/* bound hdr.size to avoid heap overflow/underflow */
+> +		if (ext_hdr->hdr.size < sizeof(*ext_hdr) ||
+> +		   ext_hdr->hdr.size > PAGE_SIZE) {
+> +			dev_err(sdev->dev, "invalid ext data size 0x%x\n",
+> +				ext_hdr->hdr.size);
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+>  		/* read in ext structure */
+>  		snd_sof_dsp_block_read(sdev, SOF_FW_BLK_TYPE_SRAM,
+>  				       offset + sizeof(*ext_hdr),
 
-For the dw-hdmi-qp/rockchip/helper parts, on the backport described
-above:
+-- 
+Péter
 
-Tested-by: Robin Räber <robin.raebi@gmail.com>
-
-Best regards,
-Robin
