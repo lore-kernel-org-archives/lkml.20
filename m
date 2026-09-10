@@ -1,146 +1,83 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546B647DD76
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417E74A6898;
+	Thu, 10 Sep 2026 16:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057643; cv=none; b=q4XGDSsELSqz61tE6vcNAWUMrGEVc4dKiodO67CvIigKevBjCi4h113cTr+ZuZjH//fh6IbCqQwYsoeZX4ZQXAx6mr0W2uUGUh+4Y58rEDB9z4Dwlb49bOaD5tYWkVulUuof/TBwRp7rMXzP4ym4stVeoGGWx/9AWYLDKdr9Zx0=
+	t=1789057648; cv=none; b=lev8r43UyGOjVD4RfX3V4JSEZoF7vS9KLbOu/3vBwRb2yFPwEtm1XIMc4hodIIL+tvAdca5LXyDoP0pP9Iz191SjIiWsbwfU9goQ44uLjFv5THbftlMJabC3Mqt7J2wfMRJ2zuVoBB6s1eF3YPywvTLrYJcLfmmNVeGRCjlofyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057643; c=relaxed/simple;
-	bh=kjpF59fe4ubdCkFvENJAVeCWzv0Fgh94P0CK6dGCBfM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BMZgL7Li7bmPdnaf05auxKgwruAHvAEJs9PydBx+VR+QSKxxgOlxzVnAWdVMG8hq5TUWmQIdRsSQywS5y3yC/DNlid3dc9G8nKNLSg+VP6A4/urvRgmuI+d6Ol2klU2Irx3qU+zLkd5X5eyGB301ah6iVm7MUjBtQ/BtvEpU4CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qgFsEhz7; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789057648; c=relaxed/simple;
+	bh=51cFfM5S3umxZrJCaooV7zSyAKYpkpsKge6vy0/4mW0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CfaKpYKgYj8TR1YMq3pkKDPz3iqPCe1KaC2LY5gyM+eR9LZKlobQKbvy0ppX5qkcj1Q+ovDHi/s11U7T7Uh+zGFb2GWxLkN/UF4LOnqLmxbSzAJ2+FOoABAQT19BU4pt/9e+QvMHtAuTB4KmvVA3tG1xnTHLySWiz6jJi2SyDiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7bKDPWj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qgFsEhz7"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9866so16172405ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:27:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789057631; x=1789662431; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ERs0ZBdo2a6X8YAmXloXdwhR0inMOSFiQbLLSRZtan0=;
-        b=qgFsEhz7ugg9aVwp1qHOEX6snmbPNbKUsH8NfxKlTcNf7SuQZJrXXDxe4tcJv4GptL
-         c3TRxdt2FRM+ZPhOH/TkymuNDjL5v1c85TO0m8VkaJXzR8nMN8cgYHCXI15o3ar/3AAs
-         pPE5ZbaAct3x6GaLHJkwt1KXK04yLEWeplQ24wblQhTrKmS7nXSNrSmkbmukmyo/D/wC
-         gOcE3cTf9rQU88YTedleE0YrxNlsk7q7jbjb1CjfI9t9JY0AlE0FF8+1w5D5foJnE6VC
-         oJoBRk/zYSx9EEgLPUrsC9105H4pT6fQ29cy6OF5Nor/C+PUkpNTfVuuYmMhteNoYA2J
-         z5VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789057631; x=1789662431;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ERs0ZBdo2a6X8YAmXloXdwhR0inMOSFiQbLLSRZtan0=;
-        b=TzJnrJYJligyWPJRv/h1zt+tNQrCxhW8ENoNU8atvzSKB5s0r0+rdIz2SbPljBtAFA
-         MG2i/phvYr2+JOrMeeZqyINu8h4oqTX/5rD4wXrPsdtpf6ZS6Wp9J938/Ep3uAGP6r6i
-         ml+V4rHlulRL1eb3mc1o7lQ2C3MmSTe/lLgJP5NcX6UyEIAByzyXrn3uwGH4I19tydYm
-         frvNEFeCPDB+hNMqvAo2QsaH+soTHfgHKW1pGBLiKyOpuIh5kjeEi9zmvHbyNtW0P165
-         SsVMWNI1/a8BXk9xprmxhbYCzrmHSRT6LKBvmOdIxjSwsRxLsLC9XFMILzLm7SKy36E6
-         9/aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPTutihmGG9tvCf46ObNb4EabW/pLRNlC14xPb4QV10oJe1/2ovT+KpZM4TZXPB3h6G1G73aixbeKLuVI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ks84rkrwf3GTTJ7rlX8ErBrGWmoeS27ve/vuYIVFor8+FYghA/
-	mtv2I3J3mZJE7kxLBF70w6aj60ibAiWCmehd/KSt77KbscVG8ZSIbBihUPhPAw==
-X-Gm-Gg: AYBFou2+oW61dsZEo3TABVFJ5I0VonQiuimNcie9jEsxRtxfKRc0tKmS4FFOJ2Pq3B3
-	HC6dBhSmaS1hzmHGpnXfiW4cV5mpGb+W8do3fnNU2vSWqMvOhCUSsFEfjEn4NqB1sewCr/Ezkqo
-	rhxAJyMaCSCsblsyD0y6uGAesqzKxl1yUIeyBxcRvzTyU/3qJyJXaluZ7k3JPu32wLn7ZZunTiB
-	F3eKSvpF+gVhSwYcS87ntAdEuAFE3dXIka7vfP/3JoxIKPX0JU1U/2ceGKwV9fCNZFOi0FPb4o1
-	CRrhboKZ+otyvsENvRH82FK0GF0PzZKJRooKQnn/YzbAVdjjTGj6Y1lItbXsBiGKFOzfgxxfr+1
-	2YPGYdIXRWBEsxwQ36JzftoK5k72TGCGsSJ1iik09MD6wvZQkumYrZPSrDKW3tMj1gjRPK9Lqwj
-	hQu37MqqATgnMcY1Jpe1ns0CWJY6MwzqUMzmED/rUefm9H1Hp5lS3lsxzmcKvsrgYUaZCh2/6WM
-	7oKmgRJ+kLbWP/KDfM=
-X-Received: by 2002:a17:902:e745:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd2a3502demr2362075ad.16.1789057631038;
-        Thu, 10 Sep 2026 09:27:11 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:ced9:ef96:e152:2608])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497da04sm91233845ad.34.2026.09.10.09.27.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 09:27:10 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	sashiko-bot@kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: Re: [PATCH v2] HID: multitouch: use GFP_ATOMIC for report/application/usage allocations
-Date: Thu, 10 Sep 2026 23:27:05 +0700
-Message-ID: <20260910162705.31975-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910155305.58E4A1F000FF@smtp.kernel.org>
-References: <20260910155305.58E4A1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7bKDPWj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7641F00893;
+	Thu, 10 Sep 2026 16:27:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789057641;
+	bh=tWNDrqWCw8zhX+YW2XyBg3uxHDB/fBuRnMf94DdU+MA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O7bKDPWjpZ8y2KwinEehTvAR5FwRMpG8EJ03uBXEOVxDx8tLITVyLwPwrfG9wzrtm
+	 UTxG46SGygJG8jZ+FhWG2pTIWJP7HdCiCEXfiRAekgZMaGUfWBoeVMDHRHUXCMSovv
+	 IZceBBu9sMu7tFZ2zyy/bPVoH8ME/A7LghS5C8Z5CJFiHawAMNP+HZURDyvkAHwcH0
+	 BejqFm3aOol+R7KrI47SQPnF7/CZuTnwJDNeMSx8TwSSGwiqQVoGWS249BHu7tOxMf
+	 7iTYNySaCuSBXofJ7lSonu2BLU7VrS9t9dRlHybjCtMKH36qQEOHGJMkoSiR8/kBF5
+	 7jNttkDpUFMfA==
+Message-ID: <f8ef053f-d73c-47d7-bb81-72ce9844069d@kernel.org>
+Date: Thu, 10 Sep 2026 11:27:19 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 0/4] ASoC: amd: acp: SoundWire machine driver fixes
+Content-Language: en-US
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, yung-chuan.liao@linux.intel.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+ Richard.Gong@amd.com, ckeepax@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910161728.1452808-1-Vijendar.Mukunda@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260910161728.1452808-1-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-mt_allocate_report_data() and mt_allocate_application() devm_kzalloc()
-with GFP_KERNEL, but they are reachable from mt_event()/mt_report()
-via hid_report_raw_event(), which can run in (soft)irq context off a
-USB URB completion (e.g. dummy_hcd's hrtimer softirq). GFP_KERNEL
-there may call into fs_reclaim, which lockdep flags as an
-inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} use of fs_reclaim,
-alongside a "sleeping function called from invalid context" splat.
 
-Switch both to GFP_ATOMIC since neither is on a path that needs to
-sleep. mt_allocate_usage() is left at GFP_KERNEL: it is only reached
-from mt_touch_input_mapping(), which runs at probe time (hid_hw_start()),
-never from mt_event(), so it does not need the downgrade.
 
-Reported-by: syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=093e05755c2d99caab91
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v2:
-- Keep mt_allocate_usage() at GFP_KERNEL. It is only reached from
-  mt_touch_input_mapping(), at probe time, never from mt_event(), so
-  the GFP_ATOMIC downgrade there was unnecessary.
-  (feedback from sashiko-bot)
----
- drivers/hid/hid-multitouch.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 2c41bacab1ca..9b78f8f23fcf 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -604,6 +604,7 @@ static struct mt_usages *mt_allocate_usage(struct hid_device *hdev,
- {
- 	struct mt_usages *usage;
- 
-+	/* only called from mt_touch_input_mapping(), at probe time */
- 	usage = devm_kzalloc(&hdev->dev, sizeof(*usage), GFP_KERNEL);
- 	if (!usage)
- 		return NULL;
-@@ -633,8 +634,9 @@ static struct mt_application *mt_allocate_application(struct mt_device *td,
- 	unsigned int application = report->application;
- 	struct mt_application *mt_application;
- 
-+	/* may run from hid_report_raw_event() in (soft)irq context */
- 	mt_application = devm_kzalloc(&td->hdev->dev, sizeof(*mt_application),
--				      GFP_KERNEL);
-+				      GFP_ATOMIC);
- 	if (!mt_application)
- 		return NULL;
- 
-@@ -692,7 +694,8 @@ static struct mt_report_data *mt_allocate_report_data(struct mt_device *td,
- 	struct hid_field *field;
- 	int r, n;
- 
--	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_KERNEL);
-+	/* may run from hid_report_raw_event() in (soft)irq context */
-+	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_ATOMIC);
- 	if (!rdata)
- 		return NULL;
- 
--- 
-2.43.0
-
+On 9/10/26 11:16, Vijendar Mukunda wrote:
+> This series fixes four defects in the AMD ACP SoundWire machine drivers
+> (acp-sdw-legacy-mach.c and acp-sdw-sof-mach.c).
+> 
+> A bounds check is added to validate the SoundWire link ID before it is
+> used as an array index in create_sdw_dailink(), preventing out-of-bounds
+> access when an unexpected link_mask value is encountered. The codec
+> config count in the SOF machine driver is refactored to use a dedicated
+> variable rather than reusing the endpoint-count variable for two
+> purposes, making the intent clearer and avoiding a stale value being
+> passed to the codec config array. An operator-precedence bug in the
+> ffs(link_mask - 1) expression is corrected to ffs(link_mask) - 1,
+> ensuring the link ID is derived from the correct bit position. Finally,
+> the SOF machine driver card name is shortened to fit within the 16-byte
+> snd_card driver[] field and eliminate a compile-time warning.
+> 
+> Vijendar Mukunda (4):
+>    ASoC: amd: acp: bounds-check SoundWire link ID in machine drivers
+>    ASoC: amd: acp: refactor codec config count in SOF SoundWire machine
+>      driver
+>    ASoC: amd: acp: fix ffs() operator precedence for SoundWire link ID
+>    ASoC: amd: acp: fix card name length warning in SOF SoundWire machine
+>      driver
+> 
+>   sound/soc/amd/acp/acp-sdw-legacy-mach.c | 14 ++++++++++++--
+>   sound/soc/amd/acp/acp-sdw-sof-mach.c    | 23 +++++++++++++++++------
+>   2 files changed, 29 insertions(+), 8 deletions(-)
+> 
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
