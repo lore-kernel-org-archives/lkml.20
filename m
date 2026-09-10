@@ -1,163 +1,242 @@
-Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com [209.85.210.227])
+Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEF34AD7D8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED864AB1B5
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058809; cv=none; b=iVIm5EDH+uMiSqOyppAovod/w+qwvvGpWs5Fjdv+8E7RlCdpMoY5X/l9HJ2pNQbN4iXgg0mWlkIH1IpbkdRFHpZ4g0NG1kNj+fjvJF5N+2s/gtLbUEqWIKNnKf5G/PT0P2IVXINF9HxDy07m8C9kvTwjubofO37aXZvTWXWoIhE=
+	t=1789058819; cv=none; b=oNBv+ninU30MFSRkDBTyayesX8DpClJdTLHePPmwW37jBrpqVmy022MkY/GEpCBdNkGVU2+vYQVDEI4PT5fkY6lCruHNvwVWqAKeMn/yzZQ+wgtRHHxCj0LQNWUQWbkMorWkvnQrU54LEdRBw4mI3OJ2lQpg0z7OaTrWTZy0/+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058809; c=relaxed/simple;
-	bh=C0VDUY1Qn+GKhgB1OBz88lFhG+rPU6LKMkmDDE66l8I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bAy6K+6uV2eaq6hBh1s5igDKYesGjN0QA3H5GxEU17MLuSiezm2vmAXGGqBipyRndcxX6PPbDD3sFqzXhhsyI9+JECwa7dn1FxsX6TaA5FEVWNN455y/DZlnQo+kItlJArlZeNim2pa42OHPCJ+wN83nSglgqmHqGuDC4GisgRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QmBj1QCC; arc=none smtp.client-ip=209.85.210.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789058819; c=relaxed/simple;
+	bh=OoC+vcUQUSkDdm7I8MGBn5ON6kHyud+ofa/Jzk3F8AY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ktAOQn4UPkQDO0vgxCvC6/sQXoWKoosNAH+G6GeMb87XGE7z90JD6+6SMOuLk/3yE2LUR8aQf6+jc0CcnHx9OIcOKeHxxdV1rPEcA/F/Ysnvsw/TlT1/WzQRlGqjSAqsCS3toPXXwtGUxpJEWi2IDZ/V8K6N5avMdAexcVuPuaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OPUsJf9m; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QmBj1QCC"
-Received: by mail-pf1-f227.google.com with SMTP id d2e1a72fcca58-86a686c0fdaso112176b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:46:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789058803; x=1789663603;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=E/hbBP8zfoX+TAOwTlTdxoBwUjk2GjRBIHrshh9UGEs=;
-        b=IFkQKuoVHhOq4H/T7HMxp0Aetf4uQOaRIGhLUOA9Wq/BI8dgKV6HROzEZe4ISKDC1A
-         8nUPkNDAGuljLSbjUgAeWvne1ls/iDXolSq8cfsqvlWHJJ7wqYb7SzEkiqA0Btul+Fsp
-         AvzcAl3UcYzE7f0k0ftuXaKYnj+BfGjs0tPHqVvqCgMi/u8OfhIFky5bxjh4/l+1nMRe
-         NX4KCDk/bnbAEYwX8PDe3uSWqo9/Nd7dzwzbLW4sTElf57TTQWQjoDt/0eebvc0mr4hU
-         LjOwzbLHCRwh48KKXzUp5Yb61xKLnBfLWtMVQQFEGagtY4dqaSd61ZeYvUwQyff8NtzO
-         lQcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuXJW7Jm3cZubns5sJYTwN0bjWP7Wpl8oiXmjZOGW2PaZkx1uRKV7kkVH70nso0fm7XMP5hLPSc1Mm9sU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqDGUYvtb7w1y+GMX17lllbzteZe9vcSPRUZDhsaRzHOPrQqhs
-	3mHFiJn4DbwznHFNwKoOnZNnHLE1J4yRmIK8GEvDv6X4u5j/NSZx79rhRivBBd4PUpqTFKVT3+D
-	SVpFA9V+yINGhjWM+CMuOJ5hr6JKzXDGiYyXKibqdm0jrtgcQy2EzmMZXExN7YcyrvYHMTZ4TBU
-	D1wdLQuV94vuFXz90XcXfZimFN5zav4Tj9npPZkJLv5a7EzvEPG0im9JuBlusMZ2Ol83+RwzLRK
-	lTw4EywDeZt/2ufWt783y/X
-X-Gm-Gg: AYBFou1qrcEdddlp8BZuJSh63imX6lcgRE3fNQjYCQyvJH9+lo3Yp2B31Mn1zKsYspz
-	XHX7jQNy2Gg0S2VWDhy/t2yDExt0pwubumDOWz0swwz0JLbh40u/B1iOcZ/YoGoADLAPDFKJ+59
-	uXhpuSpWia8WCqCYlLzT7CciV2nlic6lOSrS8MUE+MZZFZ8Cm0/qs8MRh06JXragn1DQCUOMsmZ
-	/ZJPgpiJTLKW82WDXqKmaRhZLYqtT5cJuvC1gzV4XGl1fl2JmULCsl9aho48aoQ1uqOTobPKz+D
-	UWezFcE5yXcohvc2OGAXPRyCWm6yAV4ouI8tggJ0GTzOZGXxLSfZd16BRIQfMxIejvR0pNluHaN
-	B8BVmJbH4teUCJOU1nIvkLmRaJg0LfAKuJrUU+iY3IttFtv0hNNvfiTjOw9zEKm7PMw+aKXQQgo
-	Qm5RURJm8DYICVJaSnwns3IqPT6fYprs9zFlRIBO5eyxM=
-X-Received: by 2002:aa7:88c2:0:b0:868:f34f:df63 with SMTP id d2e1a72fcca58-868f34fea42mr10988764b3a.13.1789058803083;
-        Thu, 10 Sep 2026 09:46:43 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc4c60770b6sm19283a12.0.2026.09.10.09.46.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:46:43 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d959904658so130361115ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:46:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789058801; x=1789663601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E/hbBP8zfoX+TAOwTlTdxoBwUjk2GjRBIHrshh9UGEs=;
-        b=QmBj1QCCXb07LmuBHuTN9D0POjkIWvn5ZtgkZm7yiumaMnOc/EqT2O1ygZqQ4Z4I+j
-         G9NJtgQPxV5TELdsDBrDLhshFBdywctgJouk7qwWqvyhvtdLX5ecuxxXOAEg31eKn5Cc
-         zsIdmucUetFa4ppnrH+9LVa8lZG0pUeaBtdqg=
-X-Forwarded-Encrypted: i=1; AKwUvBxPQWyH3nBkBX9uAqcqydNcg4FPaDY5fl/VI4IodWWV+IljOSAkJelC/IfGcuD7Bpmwn/l3o6MSgHZ8MmM=@vger.kernel.org
-X-Received: by 2002:a17:902:d48b:b0:2db:3d9a:173b with SMTP id d9443c01a7336-2dd2a1fe2a1mr5936265ad.9.1789058801199;
-        Thu, 10 Sep 2026 09:46:41 -0700 (PDT)
-X-Received: by 2002:a17:902:d48b:b0:2db:3d9a:173b with SMTP id d9443c01a7336-2dd2a1fe2a1mr5935245ad.9.1789058800733;
-        Thu, 10 Sep 2026 09:46:40 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae36adsm90000605ad.76.2026.09.10.09.46.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:46:40 -0700 (PDT)
-Message-ID: <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
-Date: Thu, 10 Sep 2026 09:46:38 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OPUsJf9m"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OoC+vcUQUSkDdm7I8MGBn5ON6kHyud+ofa/Jzk3F8AY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789058810; v=1; x=1789663610;
+ b=OPUsJf9mnQwC8VB70jM7i5OOQAv5J1r4B1qP6ceUdFXdWg83wXNbnnECEO06u2FrKXiTO8fm
+ xw5ScN2bMAnE4/LU9yhyN/FmhEvtLCL6LHuX0h0xzzNDSqlc10l2wEt0yz45DaPj0Ojtso9MLzE
+ lTqecWsikxRmxoC/ZbxWU1Xw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5d7114d02b135b4c;
+	Thu, 10 Sep 2026 16:46:50 +0000
+X-Mizu-Trace-ID: 5d7114d02b135b4c
+X-Migadu-Flow: FLOW_OUT
+From: Vineet Gupta <vineet.gupta@linux.dev>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com
+Cc: martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	john.fastabend@gmail.com,
+	shuah@kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Vineet Gupta <vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v2 00/13] bpf: track scalar equality across the low 32 bits
+Date: Thu, 10 Sep 2026 22:16:22 +0530
+Message-ID: <20260910164635.459558-1-vineet.gupta@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <zajec5@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260910001209.116465-1-rosenp@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260910001209.116465-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 17:12, Rosen Penev wrote:
-> Add it and set for gmac0, which is the only GMAC used on this board.
-> 
-> nvram size found from a random bootlog online.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->   v2: fix typo.
->   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> index c80ac16ad949..9ab618a097b1 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> @@ -25,6 +25,15 @@ memory@0 {
->   		      <0x88000000 0x08000000>;
->   	};
->   
-> +	nvram@1c080000 {
-> +		compatible = "brcm,nvram";
-> +		reg = <0x1c080000 0x180000>;
+The verifier's linked-scalar machinery tracks register equality only for
+the full 64 bits, optionally with a constant delta. There is no way to
+record "these two registers share just their low 32 bits", so a 32-bit
+operation on a source with unknown high bits has to drop the relationship,
+and a later narrowing of the source never reaches the destination:
 
-Why is not the nvram node moved to bcm5301x.dtsi given it is common to 
-all of the chips?
---
-Florian
+The verifier's linked-scalar machinery tracks register equality only for
+the full 64 bits, optionally with a constant delta. There is no way to
+record "these two registers share just their low 32 bits", so a 32-bit
+operation on a source with unknown high bits has to drop the relationship,
+and a later narrowing of the source never reaches the destination:
+
+  r6 = ...              /* full 64-bit unknown */
+  w7 = w6               /* 32-bit zero-extending mov */
+  if w6 != 0 goto ...   /* not taken: r6's low 32 bits are 0 */
+  if w7 == 0 goto ...   /* not deduced today */
+
+The same gap exists for the 32-bit sign extension, which is what prompted
+this, and -- as pointed out on the RFC -- for loads, which can zero- or
+sign-extend the same way. This series covers all four, plus the spill that
+feeds a narrowing fill.
+
+Record a low-32 link instead of dropping the relation. On a later
+narrowing, sync_linked_regs() rebuilds such a register from the base by
+re-applying the extension the original operation used, rather than copying
+it. The reverse direction is skipped: a low-32 register knows nothing about
+a full register's high half.
+
+There is an upstream test that documents the missing capability directly.
+verifier_reg_equal's "w reg not equal if r reg upper32 bits not 0" asserts
+that w3 = w2 does not let a later w2 < 9 bound r3, and that the program is
+therefore rejected. That bound is sound, so the test becomes __success
+here.
+
+Layout
+======
+The kinds live in bitfields rather than in the top bits of ->id, as
+suggested on 1/6:
+
+	enum bpf_add_const	add_const:2;
+	enum bpf_subreg		subreg:2;
+
+bpf_reg_state stays 80 bytes; 20 bits of padding remain.
+
+Patches
+=======
+ 1     move the kinds out of ->id [NFC]
+ 2     restore the kind comparison in regs_exact() that 1 drops
+ 3-4   zero-extending mov
+ 5-6   keep the range across a sign extension that cannot change it
+ 7-8   sign-extending mov
+ 9-10  narrowing fill
+ 11    record what a narrowing spill actually stores
+ 12-13 narrowing spill
+
+5 and 11 are precision fixes that stand on their own; they are ordered
+ahead of the linking patches that build on them.
+
+Testing
+=======
+clang and bpf-gcc 20260721, x86_64:
+
+  clang    129/2594 PASSED, 6 SKIPPED, 0/0 FAILED  (-t verifier)
+  bpf-gcc  no new failures against the base
+
+A full test_progs run on both the base and the series gives the same 28
+distinct failures, with identical per-test failure counts.
+
+Every patch builds individually.
+
+Changes since the RFC [1]
+=========================
+6 patches became 13. In aggregate:
+
+- The kinds are bitfields rather than a byte of flags, so RFC 1/6 is gone
+  and RFC 2/6 shrank to patch 1.
+- Two precision fixes were split out and ordered ahead of the linking
+  patches that build on them: coerce_reg_to_size_sx() no longer widens a
+  range it cannot change (5), and a narrowing spill records what it stored
+  rather than the wider source (11). Both stand alone.
+- Loads are covered, as asked for on the cover letter: the narrowing fill
+  (9-10) and the narrowing spill that feeds it (12-13).
+- regs_exact() regained a comparison the RFC lost when the kind left ->id
+  (2).
+
+Four of those differ from what was reviewed and are worth describing in
+some detail:
+
+- The wide-source mov no longer excludes an ADD_CONST source. This was
+  suggested on 3/6 and it is the right call, but it has a cost:
+  forming the link clears the source's base+delta relationship, so
+  tracking that used to survive is lost. The two cannot both be kept -- a
+  link the sync path skips would be inert -- and the delta shape is common
+  in the codegen this targets. Patch 3 spells this out, and
+  zext_mov_breaks_add_const_src pins it.
+
+- reconstruct_sext32() does NOT reuse coerce_reg_to_size_sx(), despite that
+  being the explicit ask on 5/6. The RFC's call-then-overwrite is gone --
+  coerce_reg_to_size_sx() is fixed in patch 5 and the mov site now has a
+  single sign-extension path. But the sync path cannot use it: it reads
+  smin/smax, which straddle after a 32-bit compare and collapse to the full
+  field range, so the link propagates nothing. It needs the base's 32-bit
+  range instead, exactly as zext_32_to_64() does for the zero-extending
+  side. Three tests failed on this before it was understood.
+
+- The sign-extending self-mov is narrower than in the RFC. There,
+  r0 = (s32)r0 was never excluded, because reconstruct_sext32() ran at the
+  mov site to keep the range. Patch 5 now does that job, so the link is
+  formed only when r0 already carries an id -- otherwise there is nothing
+  to link to and minting one would leave the register describing itself.
+
+- Patch 11 tightens the state recorded for every narrowing spill, including
+  programs with no links at all. It is separated out for that reason.
+
+[1] 20260814231945.3884596-1-vineet.gupta@linux.dev
+
+Two notes on the tests:
+
+- The two sign-extension range tests live in verifier_movsx.c rather than
+  verifier_linked_scalars.c, contrary to the request on 4/6. They exercise
+  the range a sign-extending mov produces, not the ->id machinery, and that
+  file already gates on the cpuv4 support they need.
+
+- Three tests that were named *_link_mismatch_blocks_pruning are now named
+  for what they actually check. Disabling the ->subreg comparison in
+  regsafe() does not make them fail: the states they compare differ in ids,
+  contents or ranges, so regsafe() keeps them apart for reasons of its own.
+  They verify an outcome, not that specific guard.
+
+Still open
+==========
+- The kind comparison in regsafe() has no test that isolates it, like the
+  pre-existing add_const comparison. The shape it guards is old being a
+  superset of cur -- old SUBREG_ZEXT over [0, U32_MAX] against cur
+  SUBREG_SEXT over [0, 100] passes range_within(), and without the
+  comparison a later sync_linked_regs() would rebuild cur by the wrong
+  rule. Whenever the kinds differ in a way a program can construct directly
+  the ranges differ too, so the range checks reject first. Suggestions
+  welcome.
+
+- The fill arm mints an id when spill_size == 4, but the clearing test does
+  not mention spill_size. A narrow value spilled at 8 bytes and filled at 4
+  therefore inherits a full 64-bit link without the minting gate running.
+  This predates the series; patch 9 builds on that arm without changing it.
+  Is it deliberate?
+
+- regs_exact() loses the kind comparison for exactly one patch, between 1
+  and 2. They can be folded if the [NFC] label matters more than the bisect
+  step.
+
+Vineet Gupta (13):
+  bpf: move linked-scalar flags out of bpf_reg_state->id [NFC]
+  bpf: compare linked-scalar kinds in regs_exact()
+  bpf: track low-32 scalar equality across zero-extending movs
+  selftests/bpf: cover the low-32 link for zero-extending movs
+  bpf: keep the range across a sign extension that cannot change it
+  selftests/bpf: cover sign extensions that cannot change the range
+  bpf: track low-32 scalar equality across sign-extending movs
+  selftests/bpf: cover the low-32 link for sign-extending movs
+  bpf: track low-32 scalar equality across narrowing stack fills
+  selftests/bpf: cover the low-32 link for narrowing stack fills
+  bpf: record what a narrowing spill actually stores
+  bpf: track low-32 scalar equality across narrowing stack spills
+  selftests/bpf: cover the low-32 link for narrowing stack spills
+
+ include/linux/bpf_verifier.h                  |  36 +-
+ include/linux/tnum.h                          |   3 +
+ kernel/bpf/log.c                              |   8 +-
+ kernel/bpf/states.c                           |  38 +-
+ kernel/bpf/tnum.c                             |  15 +
+ kernel/bpf/verifier.c                         | 282 ++++++--
+ tools/testing/selftests/bpf/progs/bpf_misc.h  |   8 +
+ .../selftests/bpf/progs/verifier_bounds.c     |   2 +-
+ .../bpf/progs/verifier_linked_scalars.c       | 653 +++++++++++++++++-
+ .../selftests/bpf/progs/verifier_movsx.c      |  51 ++
+ .../selftests/bpf/progs/verifier_reg_equal.c  |  14 +-
+ .../selftests/bpf/progs/verifier_spill_fill.c |  10 +-
+ 12 files changed, 995 insertions(+), 125 deletions(-)
+
+-- 
+2.53.0-Meta
+
