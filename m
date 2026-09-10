@@ -1,194 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C42F3C3C07
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322563C3F7C;
+	Thu, 10 Sep 2026 07:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025066; cv=none; b=pJn7/fS06DXDbPr+LQd8F0oY4DO/Zn9HJd9CkfzDE+N5swr9bZO66Pnq3YsccnBTM2/Oa2LeReKU6YaMzGUhLuUeLkqFhdFNL4QsI8JaYHlcevboLQDN6oXCtyNMTmZmHaIxGEfJXMwTuM7p2F8mWASpOEKk9dmsiudpQGQaY9w=
+	t=1789025135; cv=none; b=lhgu9K39T46FMbMDOOVovcP5vTQ3Ad+U2tf1e6X/zRnrvUhG92tLWqF/Ok/VY9YXwxZbWS+EXSyZEiqdlNo4i2ULB/VdX+gPkIDL0s+bk+dpHGEDr7bSI4gGQM4DG0zYQpQvhB89WJPs/E0cjR4dFIMGZY3XMa4JDcU2pKJ/Vuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025066; c=relaxed/simple;
-	bh=jF4ADUck7cpKh8RPct8ebdIM6vp2QkmD1KjLT75tLQM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eWg5V4xPnfT7f1aW2VmbN1nVajnqgu95gkz0gvCJC3s89FMV4gJo40xIUL+lgjMfEo5VGM4yeUaPUaVuipQEo5H5zC9iqBBxgJD5spCfft7MDgcOpM1SvFhiQViOottf/J5JR1iBHWsZQp7KI8YHYQ0GzQiJuvLIhnJ4hQvvDD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGNmtk/u; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGNmtk/u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D771F00893;
-	Thu, 10 Sep 2026 07:24:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789025056;
-	bh=5H0fpNs1u2zA59LHwwiy7WHc6/WIJfww4jvMkei3i1w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nGNmtk/uUfrvTANOP4Z71YxO05bFTpamO/8A3iABLVEZ0H5p58w4eKN4eDoxZMawr
-	 u2Qo+FzRBiKnOi4Ut0BI5PjVKJ8UCnbphj/n7kwx+HsMYerTZNtZSf9TZy4mCuBKEx
-	 GTqOpjgvxWXOpM/LV5M5WO3dgUGgkaA69lsELeiMaOV07HAwo2+yOi3d/12/XGPqAe
-	 DbQUSH7ZDKsYJP1GRszmNRlCszWRZCUP5nsQ3XtmpPxUrN4MMvGRGMebRcM+I4T1OF
-	 YpWFa/BbpRw1lnLTJau/r1dkERdMVkVYkNL4dYaSkg0bwyDi8/CkxjyB3XZ9Vm7jBL
-	 J1MEL62jLCcuw==
-Date: Thu, 10 Sep 2026 10:24:05 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org,
-	ljs@kernel.org, usama.arif@linux.dev, ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com, liam@infradead.org,
-	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
-	baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, luto@kernel.org,
-	peterz@infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-Message-ID: <aqJbFXjU53_D7SoP@kernel.org>
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
- <1d5ac9d7-48ce-4fee-b893-f646bade4a86@kernel.org>
- <CA+qSx6yjiXJkQm=hi=F8=_=DU0x_usSuXnL_1yuy0fUU9UU-Zg@mail.gmail.com>
- <d3723be0-46f4-4025-b526-e1bb3cc2cad6@kernel.org>
- <CA+qSx6x2-Md9uVZo+HV0z5CfmGPDzhL482eJNnM2VYVtn_e72w@mail.gmail.com>
+	s=arc-20240116; t=1789025135; c=relaxed/simple;
+	bh=ahUWNle7AF59lnBCQJ26/yG8CqCC1fFevRF8kCaZL0c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NyqpjSb6CfcgepcyAfv+eYWZiORVgOQAuaAuXTRIa9eDeJAFRwfahH0T1R3qc7dd4iKwDYmsffm70zkrivhNd3JCtn42IkX2hxaBO/QNThsXGsrVMzB7ierD5hCKKtWJqFyuM3YAqBuLReN1a/HqLK9jWMVvbC5Hkw7bK+8/pTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
+	by APP-01 (Coremail) with SMTP id qwCowAD3y+9cW6JqR4qWBw--.18774S2;
+	Thu, 10 Sep 2026 15:25:17 +0800 (CST)
+Message-ID: <e66fdb299d87ffdfea1c871cfeab88eeed7755ce.camel@iscas.ac.cn>
+Subject: Re: [PATCH v6 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 15:25:16 +0800
+In-Reply-To: <20260908092840.225220-5-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+	 <20260908092840.225220-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+qSx6x2-Md9uVZo+HV0z5CfmGPDzhL482eJNnM2VYVtn_e72w@mail.gmail.com>
+X-CM-TRANSID:qwCowAD3y+9cW6JqR4qWBw--.18774S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3WFyfCFW5Ar1fJF18tryxXwb_yoWxGw45pF
+	4jyay8WrWUXay29r97tFy8tF90kw1xtw4fGrZ7G34avrn8tF98WFW8XFyUZaykWrZrJF12
+	vFs2gr47Cr42v3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxU2wIDUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Thu, Sep 10, 2026 at 02:22:25PM +0800, Xueyuan Chen wrote:
-> On Wed, Sep 9, 2026 at 11:18 PM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
-> >
-> > On 9/8/26 16:48, Xueyuan Chen wrote:
-> > > On Tue, Sep 8, 2026 at 4:30 PM David Hildenbrand (Arm) <david@kernel.org> wrote:
-> > >>
-> > >> On 9/1/26 17:18, Xueyuan Chen wrote:
-> > >>> The persistent huge zero folio is shared globally and should stay zero
-> > >>> after initialization. As Jann Horn pointed out [1], kernel bugs have
-> > >>> ended up writing to pages that were meant to be read-only, including in
-> > >>> security-sensitive cases. Making the folio read-only in the direct map
-> > >>> turns such writes into faults instead of silent zero-page corruption.
-> > >>>
-> > >>> Add a page-based helper consistent with the existing direct-map interfaces.
-> > >>> Handle TLB invalidation in the architecture implementation; unsupported
-> > >>> architectures retain their current behavior.
-> > >>>
-> > >>> Protect the folio after initialization. Skip highmem folios, which have no
-> > >>> permanent direct-map mapping.
-> > >>>
-> > >>> Inspired by Jann Horn's read-only zero page work [1] and follow-up
-> > >>> discussion [3] with Yang Shi.
-> > >>>
-> > >>> Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
-> > >>> Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
-> > >>> Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
-> > >>>
-> > >>> Suggested-by: David Hildenbrand <david@kernel.org>
-> > >>> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> > >>> Co-developed-by: Lance Yang <lance.yang@linux.dev>
-> > >>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> > >>> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> > >>> ---
-> > >>>  include/linux/set_memory.h | 17 +++++++++++++++++
-> > >>>  mm/huge_memory.c           | 13 ++++++++++---
-> > >>>  2 files changed, 27 insertions(+), 3 deletions(-)
-> > >>>
-> > >>> diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-> > >>> index 3fe293cfed8c..ed9ce04b18a1 100644
-> > >>> --- a/include/linux/set_memory.h
-> > >>> +++ b/include/linux/set_memory.h
-> > >>> @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
-> > >>>  #endif
-> > >>>  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
-> > >>>
-> > >>> +#ifndef set_direct_map_ro
-> > >>> +/**
-> > >>> + * set_direct_map_ro - make a direct-map range read-only
-> > >>> + * @page: first page in the direct-map range
-> > >>> + * @nr: number of pages in the range
-> > >>> + *
-> > >>> + * Make the direct-map range starting at @page read-only and invalidate stale
-> > >>> + * writable translations before returning.
-> > >>> + *
-> > >>> + * Return: 0 on success, or a negative error code on failure.
-> > >>> + */
-> > >>> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
-> > >>> +{
-> > >>> +     return 0;
-> > >>> +}
-> > >>> +#endif
-> > >>> +
-> > >>>  #ifdef CONFIG_X86_64
-> > >>>  int set_mce_nospec(unsigned long pfn);
-> > >>>  int clear_mce_nospec(unsigned long pfn);
-> > >>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> > >>> index 54494c3fa983..742283b36d74 100644
-> > >>> --- a/mm/huge_memory.c
-> > >>> +++ b/mm/huge_memory.c
-> > >>> @@ -42,6 +42,7 @@
-> > >>>  #include <linux/pgalloc_tag.h>
-> > >>>  #include <linux/pagewalk.h>
-> > >>>  #include <linux/cleanup.h>
-> > >>> +#include <linux/set_memory.h>
-> > >>>
-> > >>>  #include <asm/tlb.h>
-> > >>>  #include "internal.h"
-> > >>> @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
-> > >>>       huge_zero_folio = alloc_huge_zero_folio();
-> > >>>       if (!huge_zero_folio) {
-> > >>>               pr_warn("Allocating persistent huge zero folio failed\n");
-> > >>> -     } else {
-> > >>> -             huge_zero_pfn = folio_pfn(huge_zero_folio);
-> > >>> -             count_vm_event(THP_ZERO_PAGE_ALLOC);
-> > >>> +             return 0;
-> > >>>       }
-> > >>> +
-> > >>> +     huge_zero_pfn = folio_pfn(huge_zero_folio);
-> > >>> +     count_vm_event(THP_ZERO_PAGE_ALLOC);
-> > >>> +
-> > >>> +     /* Highmem folios have no permanent direct-map mapping to protect. */
-> > >>> +     if (!folio_test_highmem(huge_zero_folio))
-> > >>> +             set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
-> > >>
-> > >> Assuming we keep the page-based approach, can't we just move the highmem test in
-> > >> there?
-> > >
-> > > Hi David,
-> > >
-> > > We can move the check into set_direct_map_ro(). However, on x86,
-> > > set_direct_map_invalid_noflush() and set_direct_map_default_noflush()
-> > > also expect callers to exclude highmem pages.
-> > >
-> > > Would it make sense to make highmem a documented no-op for those
-> > > helpers as well, so the direct-map APIs handle it consistently?
-> >
-> > I think getting something consistent for now is the most important thing. :)
-> >
-> Hi David,
-> 
-> OK, I'll move the highmem check into set_direct_map_ro().
+=E5=9C=A8 2026-09-08=E4=BA=8C=E7=9A=84 17:28 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> The Verisilicon DC IP family also ships in a DCUltraLite (DC8000
+> generation) configuration that lacks the DC8200's CONFIG_EX staging
+> registers and PANEL_START sync register, and exposes its VSYNC
+> interrupt through a differently laid out status/enable register pair.
+>=20
+> Add a vs_dc_funcs implementation for the DC8000 generation in
+> vs_dc8000.c: framebuffer updates are latched directly through
+> FB_CONFIG's enable/reset/valid bits instead of a staging commit,
+> panel
+> output starts as soon as PANEL_CONFIG.RUNNING is set with no separate
+> sync register to arm, and the VSYNC interrupt is acknowledged through
+> DISP_IRQ_STA/DISP_IRQ_EN.=C2=A0 Select this vtable in the probe path base=
+d
+> on the chip identity's generation field.
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
 
-Consistent means leaving highmem check in the caller ...
- 
-> Should I also update the x86 set_direct_map_invalid_noflush() and
-> set_direct_map_default_noflush() helpers in this series to skip
-> highmem pages?
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-... or checking it in all set_direct_map functions.
+Thanks,
+Icenowy
 
-I'd keep the check in huge_zero_init() in this patchset.
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 5 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 1 +
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8000.c | 92
+> +++++++++++++++++++++++++
+> =C2=A04 files changed, 98 insertions(+), 2 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/Makefile
+> b/drivers/gpu/drm/verisilicon/Makefile
+> index 9d4cd16452fa1..d2fd8e4dff242 100644
+> --- a/drivers/gpu/drm/verisilicon/Makefile
+> +++ b/drivers/gpu/drm/verisilicon/Makefile
+> @@ -1,6 +1,6 @@
+> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
+> =C2=A0
+> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_drm.o vs_hwdb.o \
+> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_dc8000.o vs_drm.o vs_hwdb.o \
+> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
+> =C2=A0
+> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+> b/drivers/gpu/drm/verisilicon/vs_dc.c
+> index 9729b693d360e..3e9e2c0264f5d 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
+> *pdev)
+> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
+> >identity.model,
+> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
+> =C2=A0
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
+> +	else
+> +		dc->funcs =3D &vs_dc8000_funcs;
+> =C2=A0
+> =C2=A0	if (port_count > dc->identity.display_count) {
+> =C2=A0		dev_err(dev, "too many downstream ports than HW
+> capability\n");
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
+> b/drivers/gpu/drm/verisilicon/vs_dc.h
+> index 825f5dd6bf174..ac96ad7011994 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
+> @@ -66,5 +66,6 @@ struct vs_dc {
+> =C2=A0};
+> =C2=A0
+> =C2=A0extern const struct vs_dc_funcs vs_dc8200_funcs;
+> +extern const struct vs_dc_funcs vs_dc8000_funcs;
+> =C2=A0
+> =C2=A0#endif /* _VS_DC_H_ */
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..df7bd5bdd7f2a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,92 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
+> + */
+> +
+> +#include <linux/regmap.h>
+> +
+> +#include <drm/drm_print.h>
+> +
+> +#include "vs_crtc_regs.h"
+> +#include "vs_dc.h"
+> +#include "vs_drm.h"
+> +#include "vs_primary_plane_regs.h"
+> +
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned
+> int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_enable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dc8000_crtc_disable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 hw_irqs, unified =3D 0, known =3D 0;
+> +	unsigned int i;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+> +
+> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
+> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+> +			unified |=3D VSDC_IRQ_VSYNC(i);
+> +	}
+> +
+> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "Unknown hardware IRQ bits: %#x\n", hw_=
+irqs &
+> ~known);
+> +
+> +	return unified;
+> +}
+> +
+> +const struct vs_dc_funcs vs_dc8000_funcs =3D {
+> +	.panel_enable_ex	=3D vs_dc8000_panel_enable_ex,
+> +	.panel_disable_ex	=3D vs_dc8000_panel_disable_ex,
+> +	.crtc_begin		=3D vs_dc8000_crtc_begin,
+> +	.crtc_flush		=3D vs_dc8000_crtc_flush,
+> +	.crtc_enable_ex		=3D vs_dc8000_crtc_enable_ex,
+> +	.crtc_disable_ex	=3D vs_dc8000_crtc_disable_ex,
+> +	.enable_vblank		=3D vs_dc8000_enable_vblank,
+> +	.disable_vblank		=3D vs_dc8000_disable_vblank,
+> +	.irq_ack		=3D vs_dc8000_irq_ack,
+> +};
 
-> Thanks,
-> Xueyuan
-> > --
-> > Cheers,
-> >
-> > David
-
--- 
-Sincerely yours,
-Mike.
