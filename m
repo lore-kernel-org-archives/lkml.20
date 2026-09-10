@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6253AF644;
-	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F3849E122;
+	Thu, 10 Sep 2026 23:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084537; cv=none; b=ILFQLm8g6fUhl0baD/xonCgpMbVdTtnBnp5LR6NssDGew9YDHy1V2UMZJAImcs7SiFOVk5Jn9uGDjztBcgmw5soRUJwRL/qIj4bDgTbsxRnOjvPb2sXXQZt0FC1033lUVb/6uggWYCef2+8pIecrXq/nf7yUU3G3I98PGdtUq6Y=
+	t=1789084536; cv=none; b=obL6l7uFLw/dK5na87gxUkanw6DI+FjKzbab4LbR6JaunW8yFXGu6BnNajJyRh7C7PbugH/LaaS90/UZaIo3n39lIPgGWMZtqKlJQDYQutQZOMh1ZefmVwl+1llDDoU8ONltTlqp0+0hk5P9pxE6nMlBHcmf5YkHoztcOIQ6WIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084537; c=relaxed/simple;
-	bh=5QkLS2pKN+HDoOrAvlZqoVwn+Add7OgMCe7B4hBuSEY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B3uEyEndS197NS5ZiTtxU6Dm2aM3SVbrdaOybDi22YWAeEtSnNMtb2frYy/0sGxR01ouenm/RSOSkTOC/tmIuVtDwWSgpRw7z8fWai4OanHb/d0egYz3SpuYU+doxFJ7jDBZJzMnhbpMqlhJDo56Sdc7wekDRRS/0f319oxb3GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=po3OU40F; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789084536; c=relaxed/simple;
+	bh=3xAm8x8BxRzgrAQrSXJX3gnFRneXWjklDL9ZXrCM6gA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kBj9FEudRBkHdz11V9lSsav1mRY+R4rsHxrtfGmQ4h75OO1t0ULQGMaMesezZwbFAPBsArN4lDdHPH6swECKfmwHO1cVv+OA5LNw+UKxY5AMdf5fFm0+uhKh+l191K2wuL6vrRbSU8S+qFTd0vjZxJL0gOcKP/Dfm6unCP8ClcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRJyfS+I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="po3OU40F"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 026D7C2BCC7;
-	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRJyfS+I"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6FB53C2BCF5;
+	Thu, 10 Sep 2026 23:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789084537;
-	bh=5QkLS2pKN+HDoOrAvlZqoVwn+Add7OgMCe7B4hBuSEY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=po3OU40F1w0xSTYvLwDkvjnQmiqyQMk+IwdJjOo+BmrSZTggMbidUbz5DiBkSjx//
-	 5Td9ZQuPBpmzwZ5d9Ympy7XMQXv4dN1TfTr42dqN3pYFonXw0GcTrGshgyGfJKOgIc
-	 GAcfq6mA4KpmrltNc/VukXiQh5NkVKihbYRyt2yaLeVawnX8sbS2sdtM2PAULFj+Yg
-	 wOzuJ8VpzTHGiU7A2lqmkkqIsCB4lAOIWpU96hyS/ax4033GK9gEXpKBfzop7eO5O3
-	 SUG5SVMlUdoMqEmY346yYs6QLoFjlqEoywmRsh6Mp0oq9sJZsXWeUFOgP947o7Mp5g
-	 ZYhaC4UixFXxA==
+	s=k20201202; t=1789084536;
+	bh=3xAm8x8BxRzgrAQrSXJX3gnFRneXWjklDL9ZXrCM6gA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=aRJyfS+I/6oQ7NgCYNS5fmaQR+KsYLywWvIOhh67twUSNtYkyOUbNPbVUUIIrpi51
+	 6GP9p4pbnVML0vJ2nd8LWSfjo+PnrGERiWFu0eRqSLwZ9UqNVjplFT0CRm9Phg4C2w
+	 oAKM4jE9zC9smkbSe0E4fDbbdhYc3jAZGKRoVOLytlKI76wYKWHNu/D8+0Qo/N+x2w
+	 AhCL13x6FpPQSPkNeUWTLHDPUwzeRe5sZ2tzwcShlzKvdPbhL/0KmtpFn0jfjmMYG/
+	 ehWoEaMOC7YdTLGP8Rbontj1HibTUE3fuYSJWwKpFAMyksKL0ANtyQLSDn74/zZqIt
+	 sC2rzmYHMxyIQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9D7AC88E41;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E354C88E45;
 	Thu, 10 Sep 2026 23:55:36 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 10 Sep 2026 16:55:31 -0700
-Subject: [PATCH v13 05/44] KVM: Enumerate support for PRIVATE memory iff
- kvm_arch_has_private_mem is defined
+Subject: [PATCH v13 00/44] guest_memfd: In-place conversion support
+Date: Thu, 10 Sep 2026 16:55:26 -0700
+Message-Id: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +40,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-gmem-inplace-conversion-v13-5-dd6fbf94f4e1@google.com>
-References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
-In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
+X-B4-Tracking: v=1; b=H4sIAG9Do2oC/33T226cMBAG4FdBXNepPcYnrvoeVS8Ge7yLGmBrC
+ EoU5d1jdhVBREFcGXk+jw//ezlSamks6+K9TDS3Yzv0eSDkj6L0V+wvxNqQf5TAQXMAxS4ddaz
+ tb8/oifmhnyktRawJPDRBOqMklrn6lii2r3f69588bnAk1iTs/XXx/s7dz55ep2XqtR2nIb3dm
+ 5jlUvBYTgp5uNwsGWcqegFoOHnrfl2G4fJMT37oymW9udpAoI+hKkOUp0VyiscYdpBaoQrsMaQ
+ yFKzm1vvoEWAH6RVS3BxDOkNOYKPQNsJhtYPMBgI4hkyGIPKIVDmtJN9BdoW0ONmaXToK4JSTy
+ lgld5BbIXN2Ri5DUkWH5AEp7M9I8FWyZ4ck+H1zXlgiHWSDe0psqLMXIESmOAoVLBrn8D8UbCj
+ JTyjIlFWkYgCVv+/UxyMXif695KRNj3CUHY0j3oNWFxys0Z6QKQOGgceKNYSBGamVI9SR/Lfns
+ I1pXTz6+7rIfmCJppfUs9vCa1E5MAguOlPndHxlMjNdO9XFbJ4kSx5ymx+fPyXVBRgEAAA=
+X-Change-ID: 20260225-gmem-inplace-conversion-bd0dbd39753a
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
  brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
  jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
@@ -79,13 +84,13 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
- Xiaoyao Li <xiaoyao.li@intel.com>
+ Fuad Tabba <fuad.tabba@linux.dev>, Xiaoyao Li <xiaoyao.li@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=2389;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=8646;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=O70DRBCqJPo7OxNTezSDtm49FHHo7FriipOE2XExhRo=;
- b=b1A3ybajair4KCcbVnsjZV+Wg0ASVjE11fejtHIZcieujKw+KbrLgJNSjTgqT8+tVicrZhtEK
- rQo+tRTUvBJAzczj0tfYrGuONxc6tzSlyEvBNpYdVJdjHRdp4FVQL5g
+ bh=3xAm8x8BxRzgrAQrSXJX3gnFRneXWjklDL9ZXrCM6gA=;
+ b=tBwALuhzAg1A20WwgjQXyyFKIY1ex8U5p5pDeeO9K/+7xIvJd7mdEmNUHHn+JEMBtMbo+WCcs
+ /jqpzD96MFVDmtkwsJhys5mJeDZWb0Xhotl8vQrEiE9Jea5+I28Sxwc
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -93,69 +98,153 @@ X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
 X-Original-From: Ackerley Tng <ackerleytng@google.com>
 Reply-To: ackerleytng@google.com
 
-From: Sean Christopherson <seanjc@google.com>
+Here's v13. Thanks everyone for the comments and fast responses!
+We're now at ~3 weeks to soft-close at 7.3-rc5.
 
-Explicitly guard reporting support for KVM_MEMORY_ATTRIBUTE_PRIVATE based
-on kvm_arch_has_private_mem being #defined in anticipation of tracking
-PRIVATE vs. SHARED state per-guest_memfd, not per-VM (to allow in-place
-conversion).
+v13 is based on 7.3-rc2 and:
 
-guest_memfd support for memory attributes is expected to be unconditional
-to avoid yet more macros (all architectures that support guest_memfd are
-expected to use per-gmem attributes at some point), at which point
-enumerating support KVM_MEMORY_ATTRIBUTE_PRIVATE based solely on memory
-attributes being supported by KVM at-large would result in a system-scope
-check (NULL @kvm) over-reporting support on arm64.
++ Hugh's patch to export lru_cache_drain_for_folio()
++ Another series [1], which makes kvm_gmem_get_pfn() NOT return a
+  refcounted page to KVM.
 
-Give architectures full control over overriding the default definition of
-kvm_arch_has_private_mem() by removing the coupling with
-CONFIG_KVM_VM_MEMORY_ATTRIBUTES.
+Here's everything stitched together for your convenience:
 
-In a later patch, kvm_arch_has_private_mem() will be defined based on
-whether architectural features are compiled in, and made orthogonal to
-CONFIG_KVM_VM_MEMORY_ATTRIBUTES.
+https://github.com/googleprodkernel/linux-cc/commits/guest_memfd-inplace-conversion-v13
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Changes in v13:
+
++ Picked up Reviewed-bys
++ Fixed bug Fuad pointed out in "Ensure pages are not in use before
+  conversion", and squashed the lru draining in, adopted Sean's
+  suggestion.
++ Fixed documentation bug that Fuad pointed out in
+  kernel-parameters.txt.
+
+Here's v13 with tests:
+
+https://github.com/googleprodkernel/linux-cc/commits/guest_memfd-inplace-conversion-coco-selftests-v13
+
+Tested with both CONFIG_KVM_VM_MEMORY_ATTRIBUTES enabled and disabled:
+
++ tools/testing/selftests/kvm/guest_memfd_test.c
++ tools/testing/selftests/kvm/pre_fault_memory_test.c
++ tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
++ tools/testing/selftests/kvm/x86/private_mem_conversions_test.c
++ tools/testing/selftests/kvm/x86/private_mem_kvm_exits_test.c
+
+[1] https://lore.kernel.org/all/20260826-gmem-no-return-page-v4-0-3bb9c1ddb4e3@google.com/
+
+v12: https://lore.kernel.org/r/20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com
+v11: https://lore.kernel.org/r/20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com
+v10: https://lore.kernel.org/r/20260807-gmem-inplace-conversion-v10-0-2fc18ee6d3ba@google.com
+v9: https://lore.kernel.org/r/20260728-gmem-inplace-conversion-v9-0-35f9aec2aed2@google.com
+v8: https://lore.kernel.org/r/20260618-gmem-inplace-conversion-v8-0-9d2959357853@google.com
+v7: https://lore.kernel.org/r/20260522-gmem-inplace-conversion-v7-0-2f0fae496530@google.com
+v6: https://lore.kernel.org/r/20260507-gmem-inplace-conversion-v6-0-91ab5a8b19a4@google.com
+RFC v5: https://lore.kernel.org/r/20260428-gmem-inplace-conversion-v5-0-d8608ccfca22@google.com
+RFC v4: https://lore.kernel.org/r/20260326-gmem-inplace-conversion-v4-0-e202fe950ffd@google.com
+RFC v3: https://lore.kernel.org/r/20260313-gmem-inplace-conversion-v3-0-5fc12a70ec89@google.com
+RFC v2: https://lore.kernel.org/r/cover.1770071243.git.ackerleytng@google.com
+RFC v1: https://lore.kernel.org/r/cover.1760731772.git.ackerleytng@google.com
+
+Previous versions of this feature, part of other series, are available at:
+
++ https://lore.kernel.org/all/bd163de3118b626d1005aa88e71ef2fb72f0be0f.1726009989.git.ackerleytng@google.com/
++ https://lore.kernel.org/all/20250117163001.2326672-6-tabba@google.com/
++ https://lore.kernel.org/all/b784326e9ccae6a08388f1bf39db70a2204bdc51.1747264138.git.ackerleytng@google.com/
+
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Tested-by: Shivank Garg <shivankg@amd.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 ---
- include/linux/kvm_host.h | 2 +-
- virt/kvm/kvm_main.c      | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Ackerley Tng (22):
+      KVM: Rename kvm_mem_is_private() to kvm_is_private_gfn()
+      KVM: guest_memfd: Always fault from guest_memfd if in-place conversion is enabled
+      KVM: guest_memfd: Pass mapping type filter to invalidation helper
+      KVM: guest_memfd: Add base support for KVM_SET_MEMORY_ATTRIBUTES2
+      KVM: guest_memfd: Ensure pages are not in use before conversion
+      KVM: guest_memfd: Call arch make_shared callback for to-shared conversion
+      KVM: guest_memfd: Return early if range already has requested attributes
+      KVM: guest_memfd: Zero page while getting pfn
+      KVM: TDX: Make source page optional for KVM_TDX_INIT_MEM_REGION
+      KVM: selftests: Test basic single-page conversion flow
+      KVM: selftests: Test conversion flow when INIT_SHARED
+      KVM: selftests: Test conversion precision in guest_memfd
+      KVM: selftests: Test conversion before allocation
+      KVM: selftests: Convert with allocated folios in different layouts
+      KVM: selftests: Test that truncation does not change shared/private status
+      KVM: selftests: Add helpers to pin pages with CONFIG_GUP_TEST
+      KVM: selftests: Test conversion with elevated page refcount
+      KVM: selftests: Reset shared memory after hole-punching
+      KVM: selftests: Provide function to look up guest_memfd details from gpa
+      KVM: selftests: Make TEST_EXPECT_SIGBUS thread-safe
+      KVM: selftests: Set up page size and alignment independently for guest_memfd
+      KVM: selftests: Update private_mem_conversions_test for in-place conversions
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index cffa16647f2ab..b45fb80b0aca0 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -722,7 +722,7 @@ static inline int kvm_arch_vcpu_memslots_id(struct kvm_vcpu *vcpu)
- }
- #endif
- 
--#ifndef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
-+#ifndef kvm_arch_has_private_mem
- static inline bool kvm_arch_has_private_mem(struct kvm *kvm)
- {
- 	return false;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 7d5325e3cb44b..050757544a1cb 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2422,8 +2422,10 @@ static int kvm_vm_ioctl_clear_dirty_log(struct kvm *kvm,
- #ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
- static u64 kvm_supported_mem_attributes(struct kvm *kvm)
- {
-+#ifdef kvm_arch_has_private_mem
- 	if (!kvm || kvm_arch_has_private_mem(kvm))
- 		return KVM_MEMORY_ATTRIBUTE_PRIVATE;
-+#endif
- 
- 	return 0;
- }
+Michael Roth (1):
+      KVM: SEV: Make 'uaddr' parameter optional for KVM_SEV_SNP_LAUNCH_UPDATE
 
--- 
-2.55.0.1007.g17ff1f9808-goog
+Sean Christopherson (21):
+      KVM: guest_memfd: Optimize away conversion overheads via dead-code elimination
+      KVM: guest_memfd: Use kvm_mem_is_private() when populating guest_memfd memory
+      KVM: guest_memfd: Introduce per-gmem attributes, use to guard user mappings
+      KVM: Rename KVM_GENERIC_MEMORY_ATTRIBUTES to KVM_VM_MEMORY_ATTRIBUTES
+      KVM: Enumerate support for PRIVATE memory iff kvm_arch_has_private_mem is defined
+      KVM: Rename memory attribute APIs to prepare for in-place gmem conversion
+      KVM: Provide generic interface for checking memory private/shared status
+      KVM: guest_memfd: Stub in ability to enable in-place shared<=>private conversion
+      KVM: Consolidate private memory and guest_memfd ifdeffery in kvm_host.h
+      KVM: guest_memfd: Invalidate both SHARED and PRIVATE mappings for in-place conversions
+      KVM: Move KVM_VM_MEMORY_ATTRIBUTES config definition to x86
+      KVM: Let userspace disable per-VM mem attributes, enable per-gmem attributes
+      KVM: guest_memfd: Enable INIT_SHARED on guest_memfd for x86 Coco VMs
+      KVM: selftests: Create gmem fd before "regular" fd when adding memslot
+      KVM: selftests: Rename guest_memfd{,_offset} to gmem_{fd,offset}
+      KVM: selftests: Add support for mmap() on guest_memfd in core library
+      KVM: selftests: Add selftests global for guest memory attributes capability
+      KVM: selftests: Add helpers for calling ioctls on guest_memfd
+      KVM: selftests: Test that shared/private status is consistent across processes
+      KVM: selftests: Provide common function to set memory attributes
+      KVM: selftests: Update private memory exits test to work with per-gmem attributes
+
+ Documentation/admin-guide/kernel-parameters.txt    |  25 +
+ Documentation/virt/kvm/api.rst                     | 110 ++++-
+ .../virt/kvm/x86/amd-memory-encryption.rst         |  14 +-
+ Documentation/virt/kvm/x86/intel-tdx.rst           |   4 +
+ arch/x86/include/asm/kvm-x86-ops.h                 |   2 +-
+ arch/x86/include/asm/kvm_host.h                    |   9 +-
+ arch/x86/kvm/Kconfig                               |  15 +-
+ arch/x86/kvm/mmu/mmu.c                             |  28 +-
+ arch/x86/kvm/svm/sev.c                             |  13 +-
+ arch/x86/kvm/vmx/tdx.c                             |   8 +-
+ arch/x86/kvm/x86.c                                 |  20 +-
+ include/linux/kvm_host.h                           |  83 ++--
+ include/trace/events/kvm.h                         |   6 +-
+ include/uapi/linux/kvm.h                           |  16 +
+ tools/testing/selftests/kvm/Makefile.kvm           |   1 +
+ tools/testing/selftests/kvm/include/kvm_util.h     | 139 +++++-
+ tools/testing/selftests/kvm/include/test_util.h    |  34 +-
+ tools/testing/selftests/kvm/lib/kvm_util.c         | 222 +++++----
+ tools/testing/selftests/kvm/lib/test_util.c        |   7 -
+ .../kvm/x86/guest_memfd_conversions_test.c         | 512 +++++++++++++++++++++
+ .../kvm/x86/private_mem_conversions_test.c         |  66 ++-
+ .../selftests/kvm/x86/private_mem_kvm_exits_test.c |  36 +-
+ virt/kvm/Kconfig                                   |   3 -
+ virt/kvm/guest_memfd.c                             | 468 +++++++++++++++++--
+ virt/kvm/kvm_main.c                                |  92 ++--
+ 25 files changed, 1642 insertions(+), 291 deletions(-)
+---
+base-commit: 5e036ce12de91c6fd674dad33b169c6150be2a7a
+change-id: 20260225-gmem-inplace-conversion-bd0dbd39753a
+prerequisite-message-id: 02876cea-5727-2ca4-bead-73659ea6fec4@google.com
+prerequisite-patch-id: 28922a76dee80792da6e445a55cdbb4bedc85374
+prerequisite-change-id: 20260818-gmem-no-return-page-614927a29f97:v4
+prerequisite-patch-id: 38553271bcb80c17dbae29cef5c20bcf95e804f9
+prerequisite-patch-id: 0d4b50926073ba4f5e5d8b2c0cdae8869a278863
+prerequisite-patch-id: bf39277ddc12818fe562a006f31d7992e5c7d42a
+prerequisite-patch-id: 74fe849c04c187074bd380e664e536a07076292d
+prerequisite-patch-id: f92bdb4870dd7c1a2026fca1083e4400c2be11d8
+
+Best regards,
+--
+Ackerley Tng <ackerleytng@google.com>
 
 
