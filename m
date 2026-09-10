@@ -1,103 +1,103 @@
-Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2223336196C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.241
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1412530D3E8;
+	Thu, 10 Sep 2026 05:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789019388; cv=none; b=oQJYpU9dcBj2LLhRe2GnBzE4g9+ESC8Nrn+HM/Yioqgo6tw37VCUSRcBXsZ6jyhvgsx9CMM94S4r9VV/U6dM9dgh8qBDJXtW/49PapwCe0t+0QfMIqiUu8a0BoKqpd3+0WznLTDfAOPDwpepYWcfc5xi1knfAN+kwt/yuujsuKA=
+	t=1789019467; cv=none; b=i8SY/ldp1rt9NNVOBry9sxsuAoJmfHt0SDurL1KZzAhvySRvgYookB6uXZK0XD5+0nRS8+AVksxDYHIhTkM1VzgjonFSuIC7SYfqBfw2aYSAq2LIqmOho0p3vK6IUNbTk90DciCwFUawxFl+AEnyD0px2bxTkUEBR8M7f+s53Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789019388; c=relaxed/simple;
-	bh=EsjpiLCg3j4sSZFIaJZiwYu7gVBnOusP/hUoo6eG9Ng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fg40ib1Lz+3/Vja7lTDx9A3CiNTc4jq5YYancswwlhlgCLJq9Auz0Bj4Q5GkqhOI68zK4l1plrPsIgYaySHPAbrym8ECk67X8lLlmLbpGuhcGzBj1eS1QHrACdqazb+NIm9tGtmMf/4aTukJY0eRqHYzRyNkXhCgIIdijFEo6GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h7V4gHeo; arc=none smtp.client-ip=95.215.58.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h7V4gHeo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EsjpiLCg3j4sSZFIaJZiwYu7gVBnOusP/hUoo6eG9Ng=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789019382; v=1; x=1789624182;
- b=h7V4gHeohvvPxmraEtOHyNdHRIB+VoMhuZJLi8wX2rT96B+Xq7kTaWQ2ZowGGZePetoEp0RB
- qlkBw9LYtxI8/QMzHZNXRKVRjH6nD1/u3vqKQdaUTruYtsp3g+4iFM7kszmzFKFzK6tHit5JvoB
- UUojjrqBJ42hykPqOa6yMJDg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1cf7bbdbdc900923;
-	Thu, 10 Sep 2026 05:49:42 +0000
-X-Mizu-Trace-ID: 1cf7bbdbdc900923
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <424ef244-f0e0-46e7-bc27-fffee80f348d@linux.dev>
-Date: Thu, 10 Sep 2026 13:49:34 +0800
+	s=arc-20240116; t=1789019467; c=relaxed/simple;
+	bh=DrXfTS8ZxyUDNE5U6sJBSOlmwS0hqMzaEq5mQxDQUFA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=fM2fT3col2MhTMeNgIDJjnsvC663lEqYb6nAi+8IghBVvTWGYP0+/JeAkX3G7Xn04G8Ls0lR1Sec6H4ZLEhRKssqJHHuusGu38A3r2rvZl+Gj98n98gstfm6KQwuw5679wv1xe2pHrYhaU/Dd7Xfa0RuIy3sVI5GooDWqOQTs8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.192.40.33])
+	by mtasvr (Coremail) with SMTP id _____wC3Yz1ARaJqE6kFAQ--.2549S3;
+	Thu, 10 Sep 2026 13:50:57 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.192.40.33])
+	by mail-app3 (Coremail) with SMTP id zS_KCgBHX3FARaJquhMPBQ--.5303S2;
+	Thu, 10 Sep 2026 13:50:56 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 3/3] selftests/bpf: Verify program FD after
- non-autoload programs in lskel
-To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
- Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
- KP Singh <kpsingh@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260909042433.1775591-1-tweek@google.com>
- <20260909042433.1775591-3-tweek@google.com>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <20260909042433.1775591-3-tweek@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
+From: Fan Wu <12321260@zju.edu.cn>
+In-Reply-To: <aqIVzxZyRyx67GPX@hu-petche-lv.qualcomm.com>
+Date: Thu, 10 Sep 2026 13:50:46 +0800
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+ linux-usb@vger.kernel.org,
+ Pawel Laszczak <pawell@cadence.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Song Li <songl@zju.edu.cn>,
+ Sicong Huang <congei42@163.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <4BDFACF5-50C7-43B5-861C-9467B6E3D819@zju.edu.cn>
+References: <20260909095655.694527-1-fanwu01@zju.edu.cn>
+ <aqIVzxZyRyx67GPX@hu-petche-lv.qualcomm.com>
+To: Peter Chen <peter.chen@kernel.org>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:zS_KCgBHX3FARaJquhMPBQ--.5303S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?WHDvpwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNB66d1lXcKtjZp12WNyL+NGUIw2xCv9nnYIkgX6xtv+Pvs
+	3eJmM/Z+qZRsjNnOb0wB5rM+H8XhqwExY4Cjs2QP
+X-Coremail-Antispam: 1Uk129KBj9xXoWrKF1ruw1kCF45CFykWr18CrX_yoWkAwc_Wa
+	yvkr97Ga1UW39rAwnxCr15Ar93GFyxWa48Ww4qyFWfC3yUtrs8Jr18Gr95Cr43Xw4fKFn3
+	A3s5t3yfur9rZosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb-AYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4U
+	YxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
 
-On 9/9/26 12:24, Thiébaud Weksteen wrote:
-> In test_global_percpu_data.c, dump_percpu_data is defined after two
-> non-autoload SEC("?kprobe") programs (verifier_strncmp and
-> verifier_snprintf). Verify in test_global_percpu_data_lskel() that
-> lskel->progs.dump_percpu_data.prog_fd is properly populated (> 0) when
-> loaded via the light skeleton.
+> On Sep 10, 2026, at 10:28, Peter Chen <peter.chen@kernel.org> wrote:
 > 
-> Signed-off-by: Thiébaud Weksteen <tweek@google.com>
-> ---
-> No changes since v1.
-
-The Fixes tags of v1 are dropped.
-
+> We may cancel work before going to de-init. How about move them before
 > 
->  tools/testing/selftests/bpf/prog_tests/global_data_init.c | 2 ++
->  1 file changed, 2 insertions(+)
+> pm_runtime_put_autosuspend(cdns->dev);
 > 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/global_data_init.c b/tools/testing/selftests/bpf/prog_tests/global_data_init.c
-> index 7c539cbcf3a1..ebda60200b71 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/global_data_init.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/global_data_init.c
-> @@ -214,6 +214,8 @@ static void test_global_percpu_data_lskel(void)
->  	lskel = test_global_percpu_data_lskel__open_and_load();
->  	if (!ASSERT_OK_PTR(lskel, "test_global_percpu_data_lskel__open_and_load"))
->  		goto out;
-> +	if (!ASSERT_GT(lskel->progs.dump_percpu_data.prog_fd, 0, "dump_percpu_data.prog_fd"))
-> +		goto out;
+> 
 
-When the light skeleton does not skip the non-autoload progs,
-lskel->progs.dump_percpu_data.prog_fd is 0, actually.
+Hi Peter,
 
-But, theoretically, this ASSERT_GT() is not good enough to prove the FD
-is the correct FD of dump_percpu_data prog.
+Thanks for the review.
 
-How about running the iter subtest against the lskel? Factor out
-test_global_percpu_data_iter_fd() helper first. Then, add an iter
-subtest using lskel.
-When factoring out test_global_percpu_data_iter_fd() helper, pls change
-'do { } while (0);' to '{ /* no-op */ }' btw.
+I think the work items need to be cancelled only after the gadget has
+been quiesced. Moving the cancellations before
+pm_runtime_put_autosuspend() would run them while the gadget driver is
+still bound and requests may still be queued.
+
+In particular, an EP0 status request can queue pending_status_wq from
+cdns3_gadget_ep0_queue(), and an endpoint request can queue
+aligned_buf_wq from cdns3_prepare_aligned_request_buf(). Thus either
+work can be re-queued after an early cancellation and before
+usb_del_gadget() unbinds the gadget driver.
+
+usb_del_gadget() performs the gadget unbind and synchronizes the gadget
+IRQ; devm_free_irq() then removes the driver's IRQ handler. Keeping the
+cancellations after these teardown steps ensures that both works are
+drained before cdns3_free_all_eps() and the aligned buffers are freed.
+
+Could we keep the current placement?
 
 Thanks,
-Leon
+Fan
 
