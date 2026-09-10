@@ -1,161 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE58737A841;
-	Thu, 10 Sep 2026 02:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5439535C69C;
+	Thu, 10 Sep 2026 02:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789007962; cv=none; b=TJkIbMvZ6+4cms4pLBxF8FyF9A8D4DjeprbrxeZJ+b5VtGZfxJwwRIpGUQ/JmegRvJDo9CBYp3EOeMmnm65FmJNrsCLnH+tnOcX16nHxbsUmzhQm4F97IdLl+Gl1JaX8TVy2VFP0PJnViGwkZNVXrsdFeM8FaopxC5vxankU8yo=
+	t=1789008054; cv=none; b=VsuOWYimh4RceU4yZFNxAyTrpEbCOyf6dfpciIeQD/0RERMxCKXklMaNs4oVXsPLPItgRPnF60nwdJVD/RFkSs4kl+PGHvTsO3/tisebob0c6t8g1Vikr2ApmK/zdDTOJWj+A3kr54J//rpsE00cULmxSPtnmv5AYDayn2EnGAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789007962; c=relaxed/simple;
-	bh=Bx1VX/15yWu9NCF3Az7dEIpPPBDhZA23G+v8REPX9lk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OCwbxOTpEIfkx11lu9foxKKHZ3dApeA23BKG8MFM3NZ5msK0qqV5feYGPjLipAaiEX30ApiLEUT464kO41UjzoYqzdew1EWsDfxlidZ3TjkGmDWWuOfnXAa0KuOUYsriq2+ZIoAoeHKJthtidAqBhHcRYLDMRj3l46SQ3DWyatI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nZkbskY0; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789008054; c=relaxed/simple;
+	bh=qFO0jTQBXXaL45Ge3elu9TFhAI69oOsEtteNa/WXtI0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eM4rS2B3bbOASN/+gC+d1ksPCA5wM3swVUzReN15eTjZnK3aj+lbn8R/+uG7x5aZ/1qwTe2Tv2KkT/KPtjgYBSlOQ4NpyzR81ay3qPGkq5t1/hkQGhHKuvPf/fAYNN9OyQ08EIOqW/TOndAJD8AGQOBOb/AoEMD5g6p8OK7RGOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=kU1lrjN1; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nZkbskY0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789007960; x=1820543960;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Bx1VX/15yWu9NCF3Az7dEIpPPBDhZA23G+v8REPX9lk=;
-  b=nZkbskY0oxi4lQIegeNcCpdsjLOgRz11iosVZ0oVkyKIEWoDKDBrFKJQ
-   WqEuXU3qUymqa4gX+scD4QadBYC/F6fG0Jg6pnWdY707Y2NGC15U9Zj9C
-   IMxkch4e1V1slY0Bc553DSXCW6dVMaNTpCO+ep/VYGvcf5YpietchEL4e
-   rGC1sN71pnId7blYGjjSeczmTlCFKJPZo680lGG418f8riqCczAz2aYZS
-   JnztyQYahHwKItellY5B2CUDY//9RuQbhXeByd2OvTAcnNQ34DvjaTyx5
-   NjFfXthHJbdwJLvzyeJV2Y++mFJ7gT9SgciYrMgTncD6A9oe7FJE3LwxS
-   A==;
-X-CSE-ConnectionGUID: z9BSrL/cT0mGzbzfPSZMHg==
-X-CSE-MsgGUID: xpM34bM2TFSbXRjZf4FDBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88392994"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="88392994"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 19:39:18 -0700
-X-CSE-ConnectionGUID: n91tFLOfRoSsBD8hIdUWSw==
-X-CSE-MsgGUID: wj+lylllRDuMnixh2vxSew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="265290060"
-Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 19:39:16 -0700
-Message-ID: <ac43e7f1-2ee3-41a4-85ff-edab7a7caa35@linux.intel.com>
-Date: Thu, 10 Sep 2026 10:39:13 +0800
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="kU1lrjN1"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68A2edk771120726, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789008040; bh=qFO0jTQBXXaL45Ge3elu9TFhAI69oOsEtteNa/WXtI0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=kU1lrjN1n360TdCM2PL9ElRKy9vYf0KHFmo8gapxnki7dXs+C+VyW5nHRNrzOvcEr
+	 OOYdgR4Sv2EgKHcyft6wpS5UrMhNG2bAkcG0FoR/t3XKNALKfOjeORoaRrRuMozBvY
+	 HLOGWjAgTkfsYXLEF/GaYGoj6fRpxnKz+YRwxcUfJNsNgHORZ4W5wcwYybrOFCRJqK
+	 YeTtgApB57LEYoK/AieJkYxT1mrTj226cSLWpvsjYUYhEZI2e/s3CXDiQBx6vD6azp
+	 eTxvEsMnkmkLVIFHq7aennmuXrr5E6XmHxRmiZbUuTt7C4odpVgEDaLjwWuaKOWzFr
+	 jAL3EkqEd33vw==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68A2edk771120726
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 10 Sep 2026 10:40:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 10 Sep 2026 10:40:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 10 Sep 2026 10:40:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Thu, 10 Sep 2026 10:40:39 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: "luka.gejak@linux.dev" <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v11 5/7] wifi: rtw88: sdio: track free TX pages and OQT
+ credits for RTL8723BS
+Thread-Topic: [PATCH v11 5/7] wifi: rtw88: sdio: track free TX pages and OQT
+ credits for RTL8723BS
+Thread-Index: AQHdQC9YAxgQ7t6BwEqCwzl3Ie3kvbbHGw6g
+Date: Thu, 10 Sep 2026 02:40:39 +0000
+Message-ID: <351ffe7fa4d94b34ae6ce9984bb8b5b9@realtek.com>
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
+ <20260909074556.55709-6-luka.gejak@linux.dev>
+In-Reply-To: <20260909074556.55709-6-luka.gejak@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "Li, Xiaoyao" <xiaoyao.li@intel.com>, "seanjc@google.com" <seanjc@google.com>
-Cc: "Gao, Chao" <chao.gao@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <20260827031837.2863609-2-binbin.wu@linux.intel.com>
- <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
- <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
- <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
- <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
- <cfe57e67-49ce-47d7-b20b-a29e23fe16d4@intel.com>
- <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com>
- <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
- <aqHdwkOFVR4XoS2M@google.com>
- <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 9/10/2026 7:18 AM, Edgecombe, Rick P wrote:
-> On Wed, 2026-09-09 at 15:29 -0700, Sean Christopherson wrote:
->> Eh, I'm with Xiaoyao.
-> 
-> I'm not sure what the disagreement is actually. No one is saying *never* TD
-> first I think? Everyone agrees it is ideal to solve normal VMs before settling
-> the TDX behavior.
-> 
->>   Yeah, *ideally* we'd magically enable everything everywhere all at once.  In
->> reality, different VM types are going to support features at different times. 
->> More importantly, as Xiaoyao points out below in #1, unless we enable
->> everyting in a single patch, which is probably a terrible idea in most cases,
->> we'll still end up with staged/progressive enabling, i.e. we still need to
->> have patches that selectively enable and advertise a feature only for the VM
->> types that actually support the feature.
->>
->> This is all quite similar to Intel and AMD feature enabling being done at
->> different times.  The biggest difference is that Intel and AMD are mutually
->> exclusive and so KVM_GET_SUPPORTED_CPUID always reports the correct
->> information, but TDX already provides KVM_TDX_CAPABILITIES, so AFAICT we still
->> get accurate reporting for TDX, just in a slightly different way.
-> 
-> I think this actually surfaces another problem with TD-first enabling.
-> KVM_TDX_CAPABILITIES only returns the directly configurable bits. Then recall,
-> KVM_TDX_GET_CPUID returns the actual TDX module's view of CPUID bits to
-> userspace. Then userspace calls KVM_SET_CPUID to actually put them on KVM's vcpu
-> so they can match between Qemu, KVM and TDX
+luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
+> From: Luka Gejak <luka.gejak@linux.dev>
+>=20
+> The RTL8723BS reports free TX page counts that the generic 8051 path
+> reads back from the chip on every transfer, which is both slow over SDIO
+> and unreliable on this part: the register frequently reads back zero
+> while pages are in fact available. It also gates transmission on a free
+> count in the SDIO output queue, REG_SDIO_OQT_FREE_PG, which rtw88 does
+> not track at all. The vendor driver calls this the OQT free space and
+> never expands the acronym; the register holds the number of further
+> transfers the SDIO output queue can accept, and the chip discards
+> writes that arrive when it has run out.
+>=20
+> Mirror the vendor driver and keep the per-queue and public page counts
+> in software, seeded at start and resynchronised from the chip only when
+> the cached counts say there is not enough room. Wait for a free output
+> queue entry before writing, and account for the pages consumed after a
+> successful transfer.
+>=20
+> rtw_sdio_write_port() becomes a dispatcher. It works out the transfer
+> address and the aligned transfer size, which both paths need, and hands
+> them to rtw_sdio_write_port_8723bs() or rtw_sdio_write_port_generic().
+> The transfer itself moves into rtw_sdio_write_to_port(), which both
+> call, so the generic path is step for step what it was. The padding
+> added by the previous patch stays in rtw_sdio_write_port(), so it still
+> runs once for both paths and stays outside the credit mutex.
+>=20
+> The RTL8723BS path keeps a separate length for the accounting. The chip
+> charges pages by the frame length rather than by the padded transfer, as
+> the vendor driver does, and the two differ just above a block boundary:
+> a 1025 byte frame is nine pages by length and twelve by the padded size.
+>=20
+> The check, the output queue wait and the accounting are serialised by
+> a mutex. The TX worker and the H2C path reach this function
+> concurrently, and two writers that both pass the checks can otherwise
+> claim the same pages and output queue entry, after which the chip
+> silently discards whichever transfer arrives second. The vendor driver
+> avoids the same race by funnelling all transmission through one thread.
+>=20
+> Measured on RTL8723BS hardware against an iperf3 server one hop behind
+> the AP, with the wlan0 byte counters as ground truth. On the generic
+> path the association completes but no data passes at all: TCP and UDP
+> both measure 0 bit/s in either direction. With this patch TCP is
+> 25.3 Mbit/s up and 37.3 Mbit/s down, and UDP is 25.0 Mbit/s up at 0%
+> loss.
+>=20
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
 
-That brings up a point..
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Today, vcpu->arch.cpu_caps[] is capped by kvm_cpu_caps[] (plus a few special
-cases).  As mentioned in the cover letter, this patch series doesn't enforce
-consistency between KVM's view and the guest's view of vCPU capabilities because
-KVM doesn't currently use its own view to make decisions for TDs (e.g.
-saving/restoring feature-related MSRs).
-
-However, if KVM starts making decisions for TDX based on vcpu->arch.cpu_caps[],
-intersecting userspace input with kvm_cpu_caps[] will not work for TDX.  I think
-this is probably needed in the future?  If so, allowing features outside of
-kvm_cpu_caps[] for TDX means we will need TDX-specific handling to construct
-KVM's view of vCPU capabilities.  That likely implies tracking all
-known/supported TDX features, which is doable, but it will make the allow list
-bigger.
-> 
-> So if a bit is enabled for KVM_TDX_CAPABILITIES, but not yet in
-> KVM_GET_SUPPORTED_CPUID. How should userspace interpret KVM_GET_SUPPORTED_CPUID?
-> It can ignore it for TDX, but that is how it can find the PV bits today.
-> 
-> If we have a TD first feature, it could be a documentation update on how to
-> interpret it. Or we could stuff the PV bits somewhere else for TDX and say to
-> ignore KVM_GET_SUPPORTED_CPUID for TDX. I think we don't need to solve it before
-> we begin filtering like this series has.
-> 
->>
->>> I don't think "split lock detection" is a good example. We are discussing
->>> virtualizing a feature, or allowing a feature to be exposed to non-TDX and
->>> TDX guests. While "split lock detection" is not a virtualizable feature and
->>> how KVM handles it is all about how KVM fixes the architectural flaw of it.
->>
->> Yep.  If there are actual decisions to be made, versus simply adhering to the
->> architecture, then we'll need to incorporate the needs/abilities of flavors of
->> VMs KVM supports.  But for feature virtualization where right vs. wrong is
->> dictated by hardware specs, there really isn't anything we can do in KVM to
->> affect the guest-visible behavior (beyond things like performance
->> characteristics, but those aren't ABI in any case).
-> 
-> (Copying from my now aborted response).
-> 
-> I think it is not just the the behavior to the guest that matters. I agree guest
-> behavior should normally be settled by the bare metal arch. But it is also how
-> the TDX module decides to make the host side behave. And how it ends up fitting
-> in to KVM for normal VMs. For "normal bits" it doesn't matter too much. But for
-> anything with extra TDX arch decisions on top, ideally the TDX arch would not be
-> finalized before the normal VM KVM design got to some level of maturity.
-> 
-> In any case, I don't see any big disagreement between anyone actually. If anyone
-> has any big worry please make it clear.
 
