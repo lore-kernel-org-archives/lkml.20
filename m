@@ -1,186 +1,121 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014093955C3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9E739CCF0
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789013158; cv=none; b=a8dUiFHU4neSwoOCE4ILYnS7AwvB/w+eooBf0kzpUmMPZDvbQGyyGKLc0E3POm2i/OxRy3hNPUi0z1EJmSp/REHbCd4YS38I7sAGO1xzNEDuvrVObYJ17ih/muAkL8Lg9cAjYRHKk2+JB/cl0DE/hRsOCBPJdCzZZDoMKJFC5yw=
+	t=1789013194; cv=none; b=VTMMmLXY8wBVGcOmX4mscNrZsFT9JXiEkvQGH8Li16ALlNThc/3XN3oyaeHB04/KyO0gFUveGtL4fSi0evehftMjczpyvatTdNPVZRhH1iN3PN719ToVNxrvtcFuMIjhQbEfJCyg7FdN9iWLOqH0ZvYKzcfCrh9GnE3v4xCqgtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789013158; c=relaxed/simple;
-	bh=SZex78iRRmNEPMFSl7W6+Q7e+5ckE/x74Tq8Bf5J1w0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=QEsgv0+h8EfCSesxOJtWIRIVjCqYt+xqAqlrz7YYVW9tPHohhYbeuAuBdC/0m5dSCbzbHte/TFveTU1SQym2BRSresjvUrdL8oWfYFIVPrRB/lBu10dQExW4SVTfELXE5HIqS6PC9z9kQ4ZtUixa2YL5P0NFsHFwqoXrhOjOxWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=As1RbXNT; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1789013194; c=relaxed/simple;
+	bh=gRm8k0lA6+IZmwfDi7QHofPJ1tCqLQVpoNOipJBhfV8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EQnwlF/4CtGqkBdfOlBny2yCjXEuA9A1/IjuepGEpMGJCun9nfQnCh3viSTMogP6eiHCh0lbZM1KCw0+36Pjv4C6R2Kz0pgY9Kd4Qu0K3juNDKAY0sqNjebmQQi7FTEgYYj+lVTIBQ/3MC/3RmWK7BHFpt+I9yWUq/gCWtHHFFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HLhIpnvY; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="As1RbXNT"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so5214195a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:05:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HLhIpnvY"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38759bcd877so7147615a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:06:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1789013156; x=1789617956; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=X6+WYysp4a7UmvnN2F6aIsypaUaxxW6rRb3Z7ELY0Lg=;
-        b=As1RbXNTCFgY4u39aT7fbd4NvNji6HnzwpHVBJqKU5s+TCixW1zCKIzLidmOfgCWPI
-         pYnbS0EG3ilC0fLBrrcKziVs9ww7xDsrfAFAerf0EzEjfa042LV9cxF23Fi9ZyXAtYEa
-         cNsVFZa3fPfvFp4OxQ0a4PrU1wC7gkOZRZ3vCgxEIbTRcjceXHZgKG0Clw+kE+xxpu2Q
-         32hdnbXEzVTMjNNjRMZ6FhwZZhkuQvCFtpzYrwzRV5R4/2WFF5cpabkPWgJCSbK393xF
-         JoxllxTtLOKanRlimgJNKydFKS6abPb0NklNcjvq4ZHuNJljEQxv8McaNKx5JBIBIRZ7
-         Glrg==
+        d=gmail.com; s=20251104; t=1789013192; x=1789617992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4T51EgZly4ibicIo5lw/2SC/Zwq/woe+QZug39a3X1M=;
+        b=HLhIpnvYzb71n28WQCBucRJ88u/CTHCRMbct+bbXyAGOplZJdIIed4sFStTIGN9wwg
+         N+XLzkhfwbnuSwYFyH3h+QQlH1cyAxv6Us2PGrydzJwFWwzvmSQbpHU+0vfEvrlriRJv
+         2w1E8VJHkDB/vuIvPtL5gkREx2n771DRev4DoWlZcdcdzG8sBeLXTmXG9zTmP1lrrbkB
+         py0GdHsyPNzWCMP4+3FIcHgNpJ85KusJ9HcGjqToca1R9ORxHP6imELNFqhe9rUQjUlV
+         ia7JRNHB6e3m4sUNolnrqw32KJ/SmS510dEeqf/RlDYY8VeMBxAnW8//JIplHuwPoBjk
+         BNig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789013156; x=1789617956;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X6+WYysp4a7UmvnN2F6aIsypaUaxxW6rRb3Z7ELY0Lg=;
-        b=JSLBwk1hHqT9WtaAUIv0jQQf9YgwMybu0P9jfA9/4PByn5oeCNqQByTQhnmInHJcdS
-         YfVZr+a8HP8YqqrZVSk9oCx70dOOFgyBeUxiYwv/ChS2anMgy6SuiNSWLG5WMMyl9AWx
-         6FG5CncbhhRoXE2og4znR75c/te3TXvxrQbdqUSdyZonpgMla8FPGVoUzrX+BsWoEMoQ
-         d5zX3J0ayRzNkVxkmfoRZhwEa8o27ZnDZRMXf0fz2sUsbGn7t8BMEFTZcQg7rYgoriHV
-         Hj8Dwh8h2xseUU4QrXh1ZB9LdY2U39QFQm+o82YiYcEvlFvnazlXAi22DxDyVN8d8BIO
-         4cKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDxNcjNa9FuGBP3ZgNDf03eR6k1fa9MFUEPPXJm5tKh7o0qji43jNk3AUHbypAVfwolxpqxg6zV4Jr8Rs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m72psZKywop893TwJSFtupmvj464x4L9EMi2LK2rA8E0lypEQ2
-	B+jE/xGjLc761dqhjpGiZvyM9ZLWT4qXSbKUolaOiHPhAT4rVUgGlbDn53lWZxw/Pbou7lZyKnc
-	PbjRU
-X-Gm-Gg: AYBFou26zxSvihtyvwR4m6VmQ9SSSKzyyaeDtu3i8HpLDmmYFXyAPNqZ8VVFxLY1hgF
-	Zw1XIk48JolxenMD28tKn//exQnEd5SHbb0aqd+MPfFMD3Qoq0tTxU9mi3mfWMJE+USQv2lej8q
-	u0ivU0E7Y4zQ1vTjTzCFOlVbAGTO16WBwVi2tRaful2ROqDfKJMwfSn1oHkZZGT7TiiTGzpXWsv
-	6oTPVQF2Q/JgZjs7S9Y07CRuJDn7Xl98lnkXB+SFV/XAmR5uCUzam9X3cqkVQAq0M36haNSUcfp
-	WgnJ9RTZ8Qpuk4OtlP0xWZ1pQaaT6FmUfjL8wIygu8YEV1ZMtrj6G9LUO7+ofulSlOtOShPOqo5
-	lQjgLGOjoLl82K/kP5vyp3Z59L3NxYbivPZgWydTF6lj1FobfPxsw0HXYSQCQiys2zmWZ0zBgBT
-	e6u9aAqi+qFyjnUGNnbTC7kcoYRGBZp89UpQ9+DejPvdRaM6stSckOWWxnrff9tg/Qy9C5+rE=
-X-Received: by 2002:a17:90b:2f87:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39b261e75femr58669335a91.16.1789013156095;
-        Wed, 09 Sep 2026 21:05:56 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm49043209eec.26.2026.09.09.21.05.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 21:05:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789013192; x=1789617992;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4T51EgZly4ibicIo5lw/2SC/Zwq/woe+QZug39a3X1M=;
+        b=RB6F/DxtLz/4fDZY8h2gVKfJpjcHEEnh3nyYuK94O185WYVMiqXdTromFYtEdw0bDB
+         wZ+O5O8rY8kxyxaukR39rtKZU4vGAHHbiJxbxtdhPx7x+pzN4C7FYg26iIoYhv4O/8Tx
+         XwefEb09ys5b+tiCvHHHYG7884NwFJiBObROGElSF2M62hZcCtjQNnXa8pvoyvKEmhHG
+         BJIVkLJe3e2skKV355L91cbd0q5ogn8k8vsJ4gZrAXgz2YJlvuzV2utLKfeAe9i9AR10
+         yOwAP944fLN2v9L2xF2ZuKVKoPlTUZ1HErUmME3ROWwcG/nb9i//6W3/TJIzDsjuRpXN
+         +yjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwa59qMPZ/9TWWrp4PqSm/M/dJvb66CPUXViF6qRd6pjgSRfKmxbYTxlLBOVQVwZvGbiBuiTXGb8yqgSXA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhNzr79w0gxfFwtsOlWvTCEpiJ5REY+8t3GA2FPjoX9+ppYLi5
+	ej2cny6tq9bE2Kh18TKDpAZ+hU9+mO36lQgbjLB1zv6NZaY6lW3nARvO
+X-Gm-Gg: AYBFou2MryM+fLzC4lqOVe2zGS5b0WVC0K3MwDf5Dfo5FLmzg3KLzo6G6lTBAs9zRvI
+	bebeapxY8ceQQMyCjyhZ/8Ueao47L07fRTmGxYhLYuMGtD/pSRpYYq2q3lOP65GxlcSS9kLZuNo
+	aWYCH7N2Q/6df/7chAoGiqZKVFCt2Ml7GlpcPv/VrUaMahNFekVzaqtyQyAr0o7dOtA9z3p9JRp
+	CA83KJyfKjThGbgEr6/ZadRJPKUg8qnoqReq87/yGjBGFGmgX4YVciFVIVqVmdEa1VYl/RLfEHJ
+	unkUHmDNkSSVABHcWXWky0Jz7s8bzWEnNiTOKts9+HCQ9QnPJGBkrd4IJEEuDErSm6r787wKBIl
+	flQ8EMZTAYrStbgZrmJ1g5H+VEmnLopV6j+8Vs8IX80ciWae/w9VVM9jgnCd31+HkVCUg5WjDL3
+	zVbEllbeiqsSvnq9vBOomuztnIK71rKzRVFbeFHT+4wYi4V1hoGZDqO1rJl1rze/Et85KlyloXx
+	Ak=
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr59834307a91.17.1789013192044;
+        Wed, 09 Sep 2026 21:06:32 -0700 (PDT)
+Received: from ali-laptop ([128.106.179.207])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d776184fesm2902396a91.17.2026.09.09.21.06.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 21:06:30 -0700 (PDT)
+From: Syed Ali <ali.2012.asghar.cool@gmail.com>
+X-Google-Original-From: Syed Ali <syedalia1000@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	vebohr@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Syed Ali <syedalia1000@gmail.com>
+Subject: [PATCH] media: airspy: Replace deprecated V4L2_TUNER_ADC
+Date: Thu, 10 Sep 2026 12:06:12 +0800
+Message-ID: <20260910040612.23253-1-syedalia1000@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 09 Sep 2026 21:05:53 -0700
-Message-Id: <DLBC8GPBM4MK.3002YEAZ3WPT0@nexthop.ai>
-To: "Rob Herring" <robh@kernel.org>, "Roman Gushchin"
- <roman.gushchin@linux.dev>
-Cc: "Saravana Kannan" <saravanak@kernel.org>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>, <sashiko@lists.linux.dev>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier
- bindings
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-X-Mailer: aerc 0.22.0
-References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai> <CACRMN=cXSy0ZYH78sQ88QKkwYtbE768kh=KzRhkYYCO4SX2m-Q@mail.gmail.com> <20260817145906.GB579285-robh@kernel.org> <7ia4tsosfsj5.fsf@castle.c.googlers.com> <20260817210038.GA1775252-robh@kernel.org>
-In-Reply-To: <20260817210038.GA1775252-robh@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon Aug 17, 2026 at 2:00 PM PDT, Rob Herring wrote:
-> On Mon, Aug 17, 2026 at 07:36:46PM +0000, Roman Gushchin wrote:
->> Rob Herring <robh@kernel.org> writes:
->>=20
->> > On Sun, Aug 16, 2026 at 10:17:08PM -0700, Saravana Kannan wrote:
->> >> On Sat, Aug 15, 2026 at 8:33=E2=80=AFPM Abdurrahman Hussain
->> >> <abdurrahman@nexthop.ai> wrote:
->> >> >
->> >> > Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) referenc=
-e
->> >> > the bus they multiplex with an i2c-parent phandle and hold a refere=
-nce
->> >> > on that adapter from probe until remove. Unlike muxes that are clie=
-nts
->> >> > on the parent bus, they live outside the adapter's device hierarchy=
-,
->> >> > so nothing orders their teardown against it: if the adapter's devic=
-e
->> >> > is unbound first =E2=80=94 e.g. while reverting a device-tree overl=
-ay whose
->> >> > changeset attached the mux nodes before the controller nodes =E2=80=
-=94
->> >> > i2c_del_adapter() blocks forever in
->> >> > wait_for_completion(&adap->dev_released), waiting for a reference t=
-hat
->> >> > is only dropped later in the same teardown sequence.
->> >> >
->> >> > Teach fw_devlink about i2c-parent so the core creates the
->> >> > corresponding device links: consumers are unbound before the parent
->> >> > adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
->> >> >
->> >> > A plain DEFINE_SIMPLE_PROP() cannot be used because the property ha=
-s
->> >> > two incompatible layouts: the i2c mux bindings hold a list of bare
->> >> > phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 ho=
-lds
->> >> > a single phandle followed by an i2c slave-address cell. The two for=
-ms
->> >> > are indistinguishable in the flattened tree, and a 0-cell parse of =
-the
->> >> > tc9563 form would read the slave address as a phandle, linking the
->> >> > consumer to whatever node happens to carry that phandle value. Use =
-a
->> >> > custom parser that only takes entry 0 for toshiba,tc9563 nodes.
->> >> >
->> >> > Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
->> >> > ---
->> >> > Changes in v3:
->> >> > - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
->> >> >   binding compatible) instead of "toshiba,tc9563", which never matc=
-hed
->> >> >   and let the bare-phandle parser misread the i2c slave-address cel=
-l as
->> >> >   a phandle (Sashiko AI review)
->> >> > - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-=
-i2c-parent-v2-1-239c6da9e097@nexthop.ai
->> >> >
->> >> > Changes in v2:
->> >> > - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563=
- puts
->> >> >   an i2c slave-address cell after the phandle, which a 0-cell parse
->> >> >   would misread as a phandle (Sashiko AI review, Rob). Kept the ful=
-l
->> >>=20
->> >> A bit of a tangent, is this a bug in Sashiko bot?
->> >> It just dropped me from the reply in the v1 patch set. Any idea why?
->>=20
->> Hm, can you, please, clarify, what do you mean?
->> https://sashiko.dev/#/patchset/20260813-b4-of-property-add-i2c-parent-v1=
--1-a2487e920ce1%40nexthop.ai
->> has your email in to according to the email policy.
->
-> It has mine, but not Saravana's. The problem is Saravana only gets=20
-> drivers/of/ emails and not all the bindings.
->
-> Saravana, If I enable your email, then you will get all the=20
-> sashiko binding replies. Is that okay?
->
-> Rob
+V4L2_TUNER_ADC is the deprecated alias of V4L2_TUNER_SDR.
+Use V4L2_TUNER_SDR directly throughout the driver.
+no change of function.
+Signed-off-by: Syed Ali <syedalia1000@gmail.com>
+---
+ drivers/media/usb/airspy/airspy.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Hi Rob, Saravana,
+diff --git a/drivers/media/usb/airspy/airspy.c b/drivers/media/usb/airspy/airspy.c
+index 358a66ab8e48..85587c0fbadf 100644
+--- a/drivers/media/usb/airspy/airspy.c
++++ b/drivers/media/usb/airspy/airspy.c
+@@ -50,7 +50,7 @@ enum {
+ static const struct v4l2_frequency_band bands[] = {
+ 	{
+ 		.tuner = 0,
+-		.type = V4L2_TUNER_ADC,
++		.type = V4L2_TUNER_SDR,
+ 		.index = 0,
+ 		.capability = V4L2_TUNER_CAP_1HZ | V4L2_TUNER_CAP_FREQ_BANDS,
+ 		.rangelow   = 20000000,
+@@ -713,7 +713,7 @@ static int airspy_g_tuner(struct file *file, void *priv, struct v4l2_tuner *v)
+ 
+ 	if (v->index == 0) {
+ 		strscpy(v->name, "AirSpy ADC", sizeof(v->name));
+-		v->type = V4L2_TUNER_ADC;
++		v->type = V4L2_TUNER_SDR;
+ 		v->capability = V4L2_TUNER_CAP_1HZ | V4L2_TUNER_CAP_FREQ_BANDS;
+ 		v->rangelow  = bands[0].rangelow;
+ 		v->rangehigh = bands[0].rangehigh;
+@@ -739,7 +739,7 @@ static int airspy_g_frequency(struct file *file, void *priv,
+ 	int ret;
+ 
+ 	if (f->tuner == 0) {
+-		f->type = V4L2_TUNER_ADC;
++		f->type = V4L2_TUNER_SDR;
+ 		f->frequency = s->f_adc;
+ 		dev_dbg(s->dev, "ADC frequency=%u Hz\n", s->f_adc);
+ 		ret = 0;
+-- 
+2.55.0
 
-Gentle ping on this one. The v3 thread turned into a discussion about
-Sashiko's recipient list, but the patch itself has not had any review
-comments since v2.
-
-To recap the state: v2 switched from DEFINE_SIMPLE_PROP() to a custom
-parser because toshiba,tc9563 puts an i2c slave-address cell after the
-phandle, and v3 fixed the compatible check to match "pci1179,0623",
-which is what the tc9563 binding actually uses. Every other i2c-parent
-user is a bare phandle list, and i2c-demux-pinctrl relies on the full
-list being parsed.
-
-Saravana, since this touches the fw_devlink supplier table, I would
-appreciate a look from you in particular. Is the per-compatible special
-case acceptable, or would you prefer a different approach for handling
-the two property layouts?
-
-Happy to respin if anything is still open.
-
-Thanks,
-Abdurrahman
