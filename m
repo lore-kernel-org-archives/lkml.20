@@ -1,174 +1,229 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011043.outbound.protection.outlook.com [52.101.70.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AD334041C;
-	Thu, 10 Sep 2026 01:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7852339375
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003780; cv=fail; b=Y9beWb3pAhz8h2g6upNbJCDo8ju3MQqO8nWnYSrVlfjAcyfAXUTuHSLKoGLQklS5XUQSY3yxvm7gJecXH3RAH3tNzQ/6ZkDpxbn7+fezCgofkZNdF6R9WV0PgVSgui7UAcqG/giXiQbKe8oULSkYkRhnEdUqXckaqR0eVH2Q9UE=
+	t=1789003864; cv=pass; b=mz9ySJMNavhKBAxCf3N9w4O9N0BWf6piIviWhpvz6bgvCUf6C4Kt49A9/uFlPHjGy4pcnxrW6h69GBj7eBoL8jtkvr++y2fY358I4fqW40uKIoVxgLtVn4VdqGC1PpZiETVxG6VeQC2OS1Q3wfSJTvq5Qfs2wSwaPJV1rzDyQCI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003780; c=relaxed/simple;
-	bh=XAjElhtTMvJUy6BMCXloJrGS7qjK1gBP7BVG4jROKs4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=GaNEjs94Hyw5fIDnF3JTPkQqYk7gciG3dy5azHrIM4no57zHvUPnbwIeJPw5y7Ju9ifwD3SSK5WLgkJcCjlENJpCBbD51PBh7K+HE9HBD5/bqor+rVJjdgBXns5IChWpbBAZxpWIsCCsvJPdxd1Xa2RIO8gC4OAmDtloYaAbcF8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hveixBWC; arc=fail smtp.client-ip=52.101.70.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789003864; c=relaxed/simple;
+	bh=2dvSVBbSNzft8jp30lMwkV/rZ01Cn8sLdvjKEI92z8s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l38jtwd1ippb87MEgVfFcSS8ldjoujdvwuM/OPJyBf8W8fDkj55/spCHi7nLUsk2SPMwTAuU8af1KHc0bSsl/6r6jAhvG8nC9pIplEnterUV3TvG8RoQzJCSKta5qbbRgMs1SfEQFQ0fcMTnIV9ZpSIQDPkxbum1nSl0gHj3GEY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8ePS5Yi; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hveixBWC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C7wOHJUq3fuc1sHd7Ke84pk2wY7+ffVChxCViArZ3cF0WiFJ1HWXE58hLByKB/v1UqVMKSPIdpGw/UwbR/bfIvssDq2oIkwaG4K0XR1xA2GXcxIPXzjho16ve8X4S2JE87T1YqneBffq4bZ/kX6uAztAnYtdLvNR88mqHdullS6IqBxzpN69jiG6KNmOcOxKhju2csc349Ql9mJJvFhtWgLp1gSWhJblR9Erq2FwX+/9pKeRuPcFiCB3G5BxmqLbhUyTxYlnTa5U9OzGMycbQswPWdJ1rEHbbpnVHCerI9Hqt2mQhlJK/2jat7ZfC18bkr03NA5TADGFoNMq3L2FBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g6o7MjzKVJojfN1ELt4FGTKb4DoRA84wW90yHNPk270=;
- b=HGkkkeO7Ga9SHgRAh5yUFCeUVf3rvqkHVg0yTfPOONRfGDGIw1CxyKkErWXilnX0Q12wYHsU58gUFPFrmqLkMaCqW4r0yc/l7laiBPkqdjpET/nnjItIjnvP0uT2/GIvqxrgZescXYnJhEvNjVrbSbIuJF1gyj1I8aZ5QClDFTapTLfKSA2Q8ixqqlRJ5uq2t2oxM30po1LuTX8a7fhar6B3FWkRgL8Tdwk/0TMajuJ/0lqIBM2PoV9n3uzYlGhgbN8uVjlpXutL60ZsHuGFbxmqT2X4rNnO5sn5kRd+tSDMSYqiR+HPDRC9wPm2b4oB2ZtTYiDNS3JmJYl+VMzH7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g6o7MjzKVJojfN1ELt4FGTKb4DoRA84wW90yHNPk270=;
- b=hveixBWCXf2Q8mPPs8kmF9nkvI4vpz+w4+TjdOV88CzL/ok4RMlD0WUMvRvq4GALi1yijEUbCGhE0+jv1o4cPkUucUCNmjZkewejfgEgqEMoHecR8xP/HU+5O5lSPBYSjtdmpIHVwDWhrJuvzu6iPkbCVRpq69QmgvLuHjspiTPiHauYW5+mqvSvpIyAYVLRN1Wu9t+PjKH7tCXuQ9i3qSfwB9yAxYF/CLnX1vKjaeyAtcVDOlVr48digaqSIJ3Gz4hIWIWbl/c3hlGexqLkF/LJAuKJK47dKl7GbQdVOHsCaFDqpy1s0sw4q2DNBAlEhPFNKN0ltn6AqZIBoTZOzA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI9PR04MB879416.eurprd04.prod.outlook.com (2603:10a6:290:ba::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 01:29:35 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 01:29:35 +0000
-Date: Wed, 9 Sep 2026 20:29:24 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Maciej Sosnowski <maciej.sosnowski@intel.com>,
-	Lennert Buytenhek <buytenh@marvell.com>,
-	Dan Williams <djbw@kernel.org>, Saeed Bishara <saeed@marvell.com>,
-	Nicolas Pitre <nico@marvell.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dmaengine: mv_xor: add missing dma_wmb() barriers before
- descriptor chain start
-Message-ID: <aqIH9NnlUuGXu3Wf@SMW015318>
-References: <20260909234646.102344-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909234646.102344-1-rosenp@gmail.com>
-X-ClientProxiedBy: CY5PR13CA0054.namprd13.prod.outlook.com
- (2603:10b6:930:11::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8ePS5Yi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b94fce6e8so6909685e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:31:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789003861; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BKGyfswm9sQ6LGAjL+Ob8nNhskJvQsG68Ngu+h1nyzIyhFM0WlrqHBbZ59mpTTOSID
+         WLFA08hzY8amT11FvAtqNI8Z6KJ8FoXM2Ms3wbMcmA1CZlonDqT+EOoU3eFogquHjwyb
+         qGeljiO0IElGL2UqKGPN90J/VXiHI3HWeDckUMmlQF8n3AVgHOHqcINkKpRBm49DrL30
+         cTuscGFfEbze9K/Ww0jrcxmlM84QdJ2wum/mJsIXPs+fzby2sH9ZM4Hw1YF7AhU/fA+8
+         jeH1rg2ErZYbBxunOuaW0gY5Y0SIxB3BCltWTv/5R4d66Rb9vsYYOWpQM8EacKJWFZn4
+         RSKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tJgMCif6Bc9h2AGi3oZjGBmhamfRq6+pvBM7joJo+n0=;
+        fh=V0amR2gGCdI8gj13B1AfwRahak6DtnqvB4VfOD9bEuI=;
+        b=KJLKnR2+/1oZVnORRNPgkGSX6ArTWNNTwnxPbLF1tUKI82T5J7GXq4APshGjzSLLQu
+         gD9PoZ6RFikg1dDcFhK3gMXeh3puStH7WbYZbYuseDkDj9gsoSDcU1MSy6bJbb07fY2b
+         Jr2TzOZwVEsWuFHCjjbyFg5aLzvuEkpm/PCZW+MOkGcyZsEr0hwBkpPubTYbzOfMNFE4
+         z+PmKGQHq/uQoG9QOEeydMHKtOKPY7bdCm2hq6j9ALPTuHxmy9m7rDMIOLaTz4y0IYL2
+         RVINlgwKddzSw6B4vR7iifpx5mPPCwNX7mmh4NZmC08Ntz3fl/SAqjU8VhAekgCL4qDU
+         ZI5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789003861; x=1789608661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tJgMCif6Bc9h2AGi3oZjGBmhamfRq6+pvBM7joJo+n0=;
+        b=n8ePS5YiGBQYkh4LRRVWGS8Ew+iXzXe2Z5ceJOcis0JSsSCwBKPlWiDIEnZm4X0cAo
+         q/XGG2dDM5ittYJok5n21KhYWFEOjZB2Z8lAy86UJncaXJU7yFNKGb/D7er3APB692nF
+         lTsPSNYeyomVz+iYlVeAvqxtq14s2+VXhblUqADRHBzfFeWgras7YWS22xQ4gx4Y8kIi
+         WJWiUCY9golZYDJu2RHzLCHY4AOBpAZ352QUtTLBFLcb9gWMZd4DJROH3Rc5g7OqN8mG
+         WVILWRnbOXfRa+WuSRMw+8JLQDn3qvwcZBDlAk2vd+r/yw5Gy4yK5UTTgBcOSLS0C9pY
+         1Czw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789003861; x=1789608661;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tJgMCif6Bc9h2AGi3oZjGBmhamfRq6+pvBM7joJo+n0=;
+        b=V6a8HSXh2/Zhmwwi9p/7EL3ODqrLwn5pMNrD0AQKLIrLWT3ir5dOUOZLUz5iai4qOi
+         +1lMEs22Q9c5MffbrCBfiDPjlTSRiMuCo7j1JubDm+jC2HQzy1+jwPw0qZxqPSc4Nlcr
+         33GD8XfJbzcCxcNPdr3UEq20ozJTB8ynq47rbd1Q6hO/L54ED10KMnjTEywom0+uKUMw
+         udey72L2xU3zRwBKId2lu6qJR7h/EodBsbNNy6mAiPdFOvZA+h8PlbvW1pM73xopXl0E
+         iamGS4lmLNlxRnYIv12f+RqmMqh5m7Xz/i+8oH+zGImUihP1kg9lLFQIFWifegc5uJq3
+         fV1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxubpHn0W/qxvz4zqG4oWH8QpI9Go9oHT/aFdt2GfhCKslIVHoK+TMlTibwuvrXTt3p+jj/kzaU0Gj9REE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mW25I3bbGfNUV7qtSpOGx7oyLHX8+F6mmKYFTD4hml9YK12HKm
+	n+YoFpghCrB9Ut/F8ZQmC6FCuIUwi2aKYe/fyWZKNT5cTmBst2NPauR/kLmLB8XfV6MG9I9I8y3
+	CWv+KtszWBO+TloksiW8ePyhVLLUU8no=
+X-Gm-Gg: AYBFou1ShGMWEdzORKlKeqXvYmlr7VW7xRy+06IKYZ/mCZ5I5pLkpqSLXJdVpe5jbUT
+	z+bnBOR8JABvwi3mQfPrqCtvOyNeHGy6i00wAEcLp9MWroKFayqGbWlg2cj0Fh4sAZWZIIijFGi
+	Wrd8GK9xZJ0y6DtGa52OkwzrkTA0+/+kDLVhUhw3T6QxjU70CpLrtz566DhoRhyy+tsFnL8WI3n
+	mTeGAC55j/oUU3beOHzUpAMyxb/OitHk/Q2WOwNwUdjeHpu14j+5XYeR71x6xX3k8HnFrr+w7g4
+	caWr6OkAnlLy3IpqKqdD2NyAj1rgpl6qdE+H9y48mlekAyhCnzZR44TQ2Au92YvGBTnHQrrmA5B
+	We1Set9jAbbCdfv+i7juQVBs=
+X-Received: by 2002:a05:600c:8b16:b0:49c:c0d4:53d9 with SMTP id
+ 5b1f17b1804b1-49d258dfc5fmr38888785e9.14.1789003860121; Wed, 09 Sep 2026
+ 18:31:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI9PR04MB879416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ba61299-cc98-40e6-1958-08df0edaf8b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|19092799006|11063799006|56012099006|10067099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xbkLIF/bHLgpGBbwSJ9sjB5j6LSEJLDuCOUiSE456e8YQFJXkrJT83HjgI6aQBR7r996KkHFgCi9bprETLYIGCSKKG1n6xdGtui4/wsyZTJbsix+BTHXAk6NTlhHuhwYFsKzS3GVqZtyu0N2+HRiklQjV4fPhZU4o5pwuncI2EX8f9bmka7R9FDBPeHuOQ/4FT+yFK8MefsiuTgYbV04XOrqIn8KDoH4hwFVa+Qx4whoCuDGGzMJPzqgeTIYAzGnoxXBBUJRA2uN0QaE9aKuWLjSmHwipsY0ag0Uyl6NKf3tNVxQogMNhnDgnxLEwBXe9mUtoI/RK5xdkanXo0AOOhM5+9oU2kP7IVo2FuQOy3PaOMCplxgRAGpxwOuQNz6tATL7j0y04dAmEA3s/BhXsV/iMiBYgZRvxsYG9CB/Yr6rkGEEQ/cVaYkgibNEo9wiBWNMvisDknFUL3gbtAlr3Wohke1EDJZQMTJwacok2YzV5WOtKdqCBwLTpaqNw/8vvDVa+DYfKWAY/KG3zDR61t845GlpMO3SmIqj8kFcgtPer94WFBnPDdL3aB1acrGz8lQ9ZYW18uozpoRjagD56BqhBzYYaUFc8hDRXriRhCGMei5lQbegxLOlmhKYplTK+N6d/9skd4y1RjidE3BwK/m62xiiYJ2o+3C06e4VDr8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(19092799006)(11063799006)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kUgU6h4eGa0GUngHriZhYYVXo6HYuAutBoQTMmIkVadQ6CPRTSpidX26bwWu?=
- =?us-ascii?Q?sZJoRURGItgocANR63NU4rFFqagn16jaI4LHS1ydNa2KySaKwzzJOOoz+Jdp?=
- =?us-ascii?Q?mGweIRyeqETVdrs/CgH8XrWHzhlE7Sy6WqqPoauRZvaQOD3OHBcMYuobEflC?=
- =?us-ascii?Q?wNs0mOVBYK3eGa5rZtCMvHMcc8JNX0BUtxWd8iv+QloALT2Kt/XJOKfac//P?=
- =?us-ascii?Q?etaDvhN5rAsn2JgfXMFtjlW5hRibk14JBujg3jwcwJKMKc29oaexyfZeJyWW?=
- =?us-ascii?Q?rdPBGF2cdvsk0Sa8k05SP/J5GcVrgPe0e7Jh6zOnyjXkOVKdbodGSeFfnYyQ?=
- =?us-ascii?Q?yQdFVMyxEeJ01VQ0x4+6chartfVnK32WLhjrDN9z123BY0Lavi9PNmLEGWt3?=
- =?us-ascii?Q?GDznYZf3JXIgNfUMAZTxj/uIOrLyNvtE8VvZiyVh9W7m9ZjpwaX5ydy8e8LQ?=
- =?us-ascii?Q?fayxur7a78AhuKZyWbO/cQoLliJ8NZ2iLsyiIvhHx8EJbJ0MIiJTS1XcoHHA?=
- =?us-ascii?Q?ViOcpoEmKYo/Uxbdte1rEb3cro7ROGKdu+uAPzHQSZn/Mwlx8Kb+Y8ISJAQQ?=
- =?us-ascii?Q?v+w8BG3ezg35YANVhKMtdxiMBp/XbgM3ZYXREq8V5YdBuRTvNUEhtraM0MCH?=
- =?us-ascii?Q?XoxqFB46I+qYdAEKc9b3otv+CeG0XEDLodP6QOcFcFSqKo73xBJ1h1H07kFV?=
- =?us-ascii?Q?mwPhXUD2Dv+T7d95V4Vio4LeOAUgjqNNWl5K2Jxzv2yhSvwOWY6g8mj17xkP?=
- =?us-ascii?Q?03zDXudSwd38ZFrdZMmE1SgVURjYL2DR54HM05BMIabeCc7ChoYkvyYpo8QL?=
- =?us-ascii?Q?A6HGYrbEQyt/6GP5snp1w+9DYm2SILZlGcJYa+mW2Ulg4xv+4mWkBIwj74lG?=
- =?us-ascii?Q?cSVjUMjtqVbTHQbFtKFMmmTnq3IuftOugp+NEgsehKYWPjfAI438IbPx3pOx?=
- =?us-ascii?Q?lHYycF5P7kaWI8bwavOTqg+hH2hFSFUXfdqHpzr39AQTbt+rbUwRV0H/TTj0?=
- =?us-ascii?Q?QG9ztHzZYnkHmNdLnqwnCZYPsO9HiegUhNsAysIzA0obS57oMJD0QWJ2Z+ve?=
- =?us-ascii?Q?r7TADtmx4nfcuXHOi8lcE/GSjnxgpnwKgPlxdSQZ80UNYD4hMrCyX0zv0Xxd?=
- =?us-ascii?Q?blA7gpZq7uWRjXbS9LWhiv3vYDle79/TySku5dUzDtrxEghB6Syc01lpJX3N?=
- =?us-ascii?Q?8fWYqo9pfYOLv0ajiCjeeV1rwLMZbNx8KaesH2Z4JQ5nOWlwP+sGpDV0ihzn?=
- =?us-ascii?Q?pUMwuPbIJSbSolgR0b4jQkA0BAGjmsB7VgqA/SAVzhhqELZD8wevHkebZnsx?=
- =?us-ascii?Q?ZfiLsIThfoSRUp0ZU0hk/cOc99kaNiO/nlnjH5f92Te49Kn0iEjHkN9yWqxc?=
- =?us-ascii?Q?ypftGwVQpXNpjJ42M5SbCQ79bGBIx17IpufZEL3aiP4hXz9OA3bslxY1RYAE?=
- =?us-ascii?Q?uxpA/PU5De/xTy63YNmskoPB35vdRpFtBZ4u+/R6I9NWLKmJvu1RY8jMCeHg?=
- =?us-ascii?Q?gred1bYXSJ7JFwMt2Wlf6ByZFgvnZU9HiZWNleYRVCQKDVFDig6TzsfaWZaF?=
- =?us-ascii?Q?B1nbkzxGIy5CaztukVxYlwv/UIhaH84ef3yu7IKlf+Q4no8xNDVy+iIhUOdb?=
- =?us-ascii?Q?/p1bqMubtjTSDHxbi4NGzEjavJkkD+jAW88frjHBLzh8NQLooeILR6cpFwjn?=
- =?us-ascii?Q?4JrOTE3FrXsfqy+rEnaydpByPQ2r6AY6Bc2+lRKlpQU6QGpq1pPd3SQVAz4K?=
- =?us-ascii?Q?fdKp8TCFaiULw/qRYss5g3AlQ4SM1rKzUPloRHQSRxChLg/APxqa?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ba61299-cc98-40e6-1958-08df0edaf8b2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 01:29:35.1854
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v7m1MaTUlobTxyskfSnMUWdm9fVYFVPJ6knEXhOoIQF5JaUPIX7ZpBYa4FNhxyuBsdV+du+kF0MAVm8dkgV7QSB65FB7sXgKqixDrOXJ6qmFJkOydMsEYACu4roypHFX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB879416
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <20260907075829.2073224-5-kunwu.chan@linux.dev> <fc49190e-6cec-435d-b853-db906a1e33e3@paulmck-laptop>
+ <26b68ec0-2f21-4dc2-bfcf-20cbc38f4ceb@paulmck-laptop>
+In-Reply-To: <26b68ec0-2f21-4dc2-bfcf-20cbc38f4ceb@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 10 Sep 2026 09:30:48 +0800
+X-Gm-Features: AcwNN1UKqOWmPW09WH7nhEnBrG24gT1wnW6xEa52xDdbLm6ZwKwUsQc4qeRHdcM
+Message-ID: <CAN_Opa-M=qs=ofqdQWikkVRh2mNzKMO5qrtOSn_jMyF+TkMKNQ@mail.gmail.com>
+Subject: Re: [PATCH 04/13] rcutorture: Add atomic-SRCU support to torture.sh
+To: paulmck@kernel.org
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 04:46:46PM -0700, Rosen Penev wrote:
-> The descriptor data written to coherent memory must be visible to the
-> DMA engine before the HW registers that trigger processing are written.
+On Thu, Sep 10, 2026 at 6:35=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
 >
-> Add a dma_wmb() before mv_chan_set_next_descriptor() in
-> mv_chan_start_new_chain() to order descriptor fields before the
-> descriptor-pointer write.
+> On Tue, Sep 08, 2026 at 04:34:41PM -0700, Paul E. McKenney wrote:
+> > On Mon, Sep 07, 2026 at 03:58:20PM +0800, Kunwu Chan wrote:
+> > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > >
+> > > Add the --do-atomic-srcu argument to torture.sh, which runs the
+> > > SRCU-N, SRCU-P, and SRCU-T scenarios, thus covering both Tree SRCU
+> > > (SRCU-N and SRCU-P) and Tiny SRCU (SRCU-T), with
+> > > rcutorture.reader_flavor=3D0x10 appended to the boot parameters so
+> > > that it takes precedence over each scenario's own reader-flavor
+> > > setting.  This exercises srcu_read_lock_atomic(),
+> > > srcu_read_unlock_atomic(), and synchronize_srcu_atomic().
+> > >
+> > > As with other torture.sh tests, the --do-kcsan argument runs a
+> > > KCSAN+PROVE_LOCKING variant of this test.
+> > >
+> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> >
+> > Queued for testing and review, thank you!
 >
-> Add a dma_wmb() after mv_desc_set_next_desc() in
-> mv_chan_handle_chain_append() to order the chain link write before
-> the subsequent check of the current-descriptor register. Without the
-> barrier the hardware may observe stale descriptor data.
+> I did take the liberty of changing "do_atomic_srcu=3Dno" to
+> "do_atomic_srcu=3Dyes" in order to increase test coverage.
 >
-> Fixes: ff7b04796d98 ("DMA engine driver for Marvell XOR engine")
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/dma/mv_xor.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/dma/mv_xor.c b/drivers/dma/mv_xor.c
-> index 24f22db5dfa1..6db7dafac9c8 100644
-> --- a/drivers/dma/mv_xor.c
-> +++ b/drivers/dma/mv_xor.c
-> @@ -181,6 +181,7 @@ static void mv_chan_start_new_chain(struct mv_xor_chan *mv_chan,
->  	dev_dbg(mv_chan_to_devp(mv_chan), "%s %d: sw_desc %p\n",
->  		__func__, __LINE__, sw_desc);
->
-> +	dma_wmb();
->  	/* set the hardware chain */
->  	mv_chan_set_next_descriptor(mv_chan, sw_desc->async_tx.phys);
->
-> @@ -409,6 +410,7 @@ mv_xor_tx_submit(struct dma_async_tx_descriptor *tx)
->
->  		/* fix up the hardware chain */
->  		mv_desc_set_next_desc(old_chain_tail, sw_desc->async_tx.phys);
-> +		dma_wmb();
 
-mv_chan_set_next_descriptor() implement is wrong, it should use writel()
-instead of writel_relax().
+Thanks, no problem.
 
-Frank
+I also found a couple of data races in other subsystems while running
+the tests. I=E2=80=99m still validating the fixes locally and will Cc you i=
+f I
+send patches for them.
 
+Thanks,
+KunWu
+
+>                                                         Thanx, Paul
 >
->  		/* if the channel is not busy */
->  		if (!mv_chan_is_busy(mv_chan)) {
-> --
-> 2.55.0
->
+> > > ---
+> > >  .../selftests/rcutorture/bin/torture.sh       | 24 +++++++++++++++++=
+++
+> > >  1 file changed, 24 insertions(+)
+> > >
+> > > diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tool=
+s/testing/selftests/rcutorture/bin/torture.sh
+> > > index f0083891ee81..8885812d866a 100755
+> > > --- a/tools/testing/selftests/rcutorture/bin/torture.sh
+> > > +++ b/tools/testing/selftests/rcutorture/bin/torture.sh
+> > > @@ -68,6 +68,7 @@ do_clocksourcewd=3D"${ifnotaarch64}"
+> > >  do_rt=3Dyes
+> > >  do_rcutasksflavors=3D"${ifnotaarch64}" # FIXME: Back to "yes" when S=
+MP=3Dn auto-avoided
+> > >  do_srcu_lockdep=3Dyes
+> > > +do_atomic_srcu=3Dno
+> > >  do_rcu_rust=3Dno
+> > >
+> > >  # doyesno - Helper function for yes/no arguments
+> > > @@ -103,6 +104,7 @@ usage () {
+> > >     echo "       --do-rcu-rust / --do-no-rcu-rust / --no-rcu-rust"
+> > >     echo "       --do-scftorture / --do-no-scftorture / --no-scftortu=
+re"
+> > >     echo "       --do-srcu-lockdep / --do-no-srcu-lockdep / --no-srcu=
+-lockdep"
+> > > +   echo "       --do-atomic-srcu / --do-no-atomic-srcu / --no-atomic=
+-srcu"
+> > >     echo "       --duration [ <minutes> | <hours>h | <days>d ]"
+> > >     echo "       --guest-cpu-limit N"
+> > >     echo "       --kcsan-kmake-arg kernel-make-arguments"
+> > > @@ -148,6 +150,7 @@ do
+> > >             do_kcsan=3Dyes
+> > >             do_clocksourcewd=3D"${ifnotaarch64}"
+> > >             do_srcu_lockdep=3Dyes
+> > > +           do_atomic_srcu=3Dyes
+> > >             ;;
+> > >     --do-allmodconfig|--do-no-allmodconfig|--no-allmodconfig)
+> > >             do_allmodconfig=3D`doyesno "$1" --do-allmodconfig`
+> > > @@ -183,6 +186,7 @@ do
+> > >             do_kcsan=3Dno
+> > >             do_clocksourcewd=3Dno
+> > >             do_srcu_lockdep=3Dno
+> > > +           do_atomic_srcu=3Dno
+> > >             ;;
+> > >     --do-normal|--do-norm|--do-no-normal|--do-no-norm|--no-normal|--n=
+o-norm)
+> > >             do_normal=3D`doyesno "$1" --do-normal`
+> > > @@ -212,6 +216,9 @@ do
+> > >     --do-srcu-lockdep|--do-no-srcu-lockdep|--no-srcu-lockdep)
+> > >             do_srcu_lockdep=3D`doyesno "$1" --do-srcu-lockdep`
+> > >             ;;
+> > > +   --do-atomic-srcu|--do-no-atomic-srcu|--no-atomic-srcu)
+> > > +           do_atomic_srcu=3D`doyesno "$1" --do-atomic-srcu`
+> > > +           ;;
+> > >     --duration)
+> > >             checkarg --duration "(minutes)" $# "$2" '^[0-9][0-9]*\(m\=
+|h\|d\|\)$' '^error'
+> > >             mult=3D1
+> > > @@ -497,6 +504,23 @@ then
+> > >     torture_set "rcutorture" tools/testing/selftests/rcutorture/bin/k=
+vm.sh --allcpus --duration "$duration_rcutorture" --configs "$configs_rcuto=
+rture" --trust-make
+> > >  fi
+> > >
+> > > +# Test atomic SRCU across Tree SRCU (SRCU-N and SRCU-P) and Tiny SRC=
+U
+> > > +# (SRCU-T).  The reader flavor selects srcu_read_lock_atomic() and
+> > > +# synchronize_srcu_atomic().  Tiny SRCU requires SMP=3Dn, which aarc=
+h64
+> > > +# does not support.
+> > > +if test "$do_atomic_srcu" =3D "yes"
+> > > +then
+> > > +   torture_bootargs=3D"rcutorture.reader_flavor=3D0x10"
+> > > +   configs_atomic_srcu=3D"SRCU-N SRCU-P"
+> > > +   if test "$ifnotaarch64" =3D yes
+> > > +   then
+> > > +           configs_atomic_srcu=3D"$configs_atomic_srcu SRCU-T"
+> > > +   fi
+> > > +   torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/=
+kvm.sh \
+> > > +           --allcpus --duration "$duration_rcutorture" \
+> > > +           --configs "$configs_atomic_srcu" --trust-make
+> > > +fi
+> > > +
+> > >  if test "$do_locktorture" =3D "yes"
+> > >  then
+> > >     torture_bootargs=3D"torture.disable_onoff_at_boot"
+> > > --
+> > > 2.43.0
+> > >
