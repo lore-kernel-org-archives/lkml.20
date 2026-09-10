@@ -1,115 +1,112 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C576378D72;
-	Thu, 10 Sep 2026 13:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048058; cv=none; b=rvi9wgbTVN3z5RvGxW65je+rVds3lBEuR6fV5rhb8y3zGq/0e1LLf3NjSlug5Cvc/vs1Nl6DOX1ByKsN313DiZdeLdZ3e6DqC85kMyJY7xJjF0kFAhyN21ybo/SCzUO1ZLS27+nPJwe+M7wQMqMUF7JZm1PZKYvHbJ/VDOL5JgI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048058; c=relaxed/simple;
-	bh=5od/dlyb+kOp96iir0idx9mhSTAHf2cA1o63mUYRyhw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tFJhJ1fhw68bm4g8Hs32FrWy7VxVmpeO7Hv+hlIqWflAfqy1jFCGTCPSEVuofEUuYsIT+QeATdIxzAbP//yrtgHdQ8P1rln0rVNzVXqEklokc+LSRfzlbCmDNPSnsbAy25nCNwcFH0cZptcl7RirIB/ijb4MO2AUw8ZG2X+8ImI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=WyJ9GZW3; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=WyJ9GZW3; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE7B4825B2
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789048090; cv=pass; b=BsxnfnHmIH3a+h2N/4mW56UQKO5KTy73+pQsfWlTKBYJS3B/2RtA/lGePOICmv/iftpy5+Exn9FTtz8686FUGG0JRDVCjSbPnEeopaR1lEa0WQ9w+t8UpVqb4pCKor4Np+hBaKn4p8KyQ1fjQX4HmZ9oNgDrNKxnZFymgfaLwGU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789048090; c=relaxed/simple;
+	bh=FxLs2vs/J2uylK62rLnK+7N5L66TpTnceqzDX1Jt2Z0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UM8xi+LKVkl+tPLh+skQD6HKKw5VNQlcOZoygd0BeiRMOoDt7aTlmrYdMDMLmfYPwagpCme1ycA2JO+OK9UTRpDkbvBUx6DqZCdvIf9AFToL5XkZkMbMKKYa2/eSqmtgt4FC9WjQfDVzHUVqDVZqyE0eyDk96O4fU7oTjI5uUNU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rRB2mlx0; arc=pass smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="WyJ9GZW3";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="WyJ9GZW3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789048054;
-	bh=5od/dlyb+kOp96iir0idx9mhSTAHf2cA1o63mUYRyhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WyJ9GZW3QkcUopEh6vawC7FhMuW04Vj3sclDIqMoygBq76NAORw19YEFXB4MdkGK+
-	 7JStIiRcV+w38jI0BVECum6aTRd6RqTzACYN2zm0ZOd6mHxSLM2UkdKtmi6bb8Yint
-	 v8eiipPvA962GCyPEFZcaWe20HZj8xp2q8S75WOculQs4VOG/fYpcYVYWuGAkgv5K6
-	 cMDkZ7EPeP51KfDxJLgnu6UZ7XZMe6QrGpQIPM+t7+1QAlSppwJ9hzeuMZGoT7N1NA
-	 /N2KZyPP+/NVqL5dp42Hs1CmN6VHq5zfd1XnutQY9Lo+E0anfgV0fIZH+/vhj07bjl
-	 Vs0zrM1t4rV6g==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id D3A7619329;
-	Thu, 10 Sep 2026 15:47:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789048054;
-	bh=5od/dlyb+kOp96iir0idx9mhSTAHf2cA1o63mUYRyhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WyJ9GZW3QkcUopEh6vawC7FhMuW04Vj3sclDIqMoygBq76NAORw19YEFXB4MdkGK+
-	 7JStIiRcV+w38jI0BVECum6aTRd6RqTzACYN2zm0ZOd6mHxSLM2UkdKtmi6bb8Yint
-	 v8eiipPvA962GCyPEFZcaWe20HZj8xp2q8S75WOculQs4VOG/fYpcYVYWuGAkgv5K6
-	 cMDkZ7EPeP51KfDxJLgnu6UZ7XZMe6QrGpQIPM+t7+1QAlSppwJ9hzeuMZGoT7N1NA
-	 /N2KZyPP+/NVqL5dp42Hs1CmN6VHq5zfd1XnutQY9Lo+E0anfgV0fIZH+/vhj07bjl
-	 Vs0zrM1t4rV6g==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 88AA919278;
-	Thu, 10 Sep 2026 15:47:34 +0200 (CEST)
-Date: Thu, 10 Sep 2026 15:47:33 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Ahmad Byagowi <ahmadexp@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 0/2] i2c: mux: Propagate firmware nodes to channel
- adapters
-Message-ID: <aqK09c9nrs1946HN@gryt>
-References: <cover.1788623619.git.ahmadexp@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rRB2mlx0"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8557c3f270eso4742610b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:48:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789048088; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NJQSqJ9+wh0BaK8z7ZbtyeWcgvZcjZzOHTQb2gU/Z8NIMZep2P2ljWuOLFDDgZvU4M
+         xKq6yl9TdS0TE2ct9+soXqwAx81EDamE7kt8EHhSKUIvUJXBI+gN5lwl/9z/Xl7ckePe
+         em5RKx0QAbpUBnYo9VYuYnfkYJvnkhXulz3awixFrlutrvYmGpjG9h6XIPrymIoswgR4
+         SrCJLfZJQtfp8IJLIrfGK+oNlQA7cNXefp1yer9I/B383TZyhUyrc0frGFcsFKnkj0MD
+         4KkbCV0Vp3GOohzj6UpqV8Jqzhhrm9caXRr0+6LGES+SsNysSDqx+ZRPTwqHsF7NwoPb
+         YovA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FxLs2vs/J2uylK62rLnK+7N5L66TpTnceqzDX1Jt2Z0=;
+        fh=7XYHhq7SLT017uNXPimQGDY3GCwUi5YbGDX6tvXlz2s=;
+        b=Fz3gWbNu66oa47mkDC0PK3pijRS3EdjntvBg3PIyGhQoC3AWfszkxmJCZiSuLW+ZtY
+         WUJIqfHgVE8SGSiCcWxsyiy/xD5tNE0hpf8GtOiCjPCt3xrRwKMXRmyDnl7YKYjg69TP
+         NGaid/zjzl1tb2AAyCOSWli60UGMy3RaqI+u5t2xWIi3JK+dvMdDY+zP+QHRQcjg4Pub
+         ywI8akYG1b41hDUXcalrqWZ3W+VJlqx/iNOJzlDaUmAyLhemT8dP98b+k+04M3wIh5cK
+         yvKNP+plhhVEmrKbCmauIkKv/PsunCRtSGZ7yJiTwbAc00LmzOifD20oc2KZCNCTQX5D
+         Dkgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789048088; x=1789652888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FxLs2vs/J2uylK62rLnK+7N5L66TpTnceqzDX1Jt2Z0=;
+        b=rRB2mlx0lMjhbda3ADle1Okrab0/BJMgO+TvIq9letyyruGzERKDKSc1CaDRbVKPJN
+         m57pxE6+7GkLMIuzTjA118c3ktnZX5KyN37I9hLuK4U+CLOv8s6o/NxLyCQGpuxWeKin
+         bomxeCgwVhhJAzfXDAeqfYd4C8kw9JWSpAfRHV2iXmy7QVGG7lCzy8Y28G08aXnWiJJI
+         /OOq6SxdiWxc1FpeDbL8FIut7pwTJY61GcULqa9I6CfR3kUHYQ5JLslfnmHyh31kN57y
+         evtrUbrp+J42Egaxq58lcSOZLCfWnVWB3C3EO+XaatLGh7zBQJ1urvX0KDo/TJZ0kVtP
+         kCbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789048088; x=1789652888;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FxLs2vs/J2uylK62rLnK+7N5L66TpTnceqzDX1Jt2Z0=;
+        b=bECkRlPsRcYEzIjemMIq8vc2jS+qNRU7ucgYKKvpDbPpIRpCZdCiO1rpniCsPfIbol
+         nwW806aKDL8yS1i4Tfm4uv9HyuAzWN2ZhUBQXuJ2M77q8Hzt8WuXs97JRGP+f7j5zB91
+         p0F8b1oJ6Ub4eSy5q4su+R3oej0AWJSK6ln4cDCTG0Xw7/y2qdIeNOvKBdWsU4EecLfU
+         NTerz5j6Uvw4YE0vsTlC7U8/qsl2s12eHxU+JrYjCZZaRhHOTyocZLOF6OK2nttmb/I9
+         0E8jtal/he0EkceJseSBPZA2csNczdRGgTynD+L2fhzL7K8ueqvRTpPmeXUic7q5+SMd
+         WheQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4t19vw/4GSLt5x2UDUlEEfYNmmv/HoozHIyUEhTA/Y4EEXqEGhExnSLrRG9hnIxNsLecpPhxhIOLs7wE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kg88HCxjKrr0TQ9j+0rkdjb3AS1Tvldlr1QuWy9cYaf4LCjN8A
+	kFP/Cd2ljX00pAZnhzKKhmYTNCNSr5RvHTygWjA7hMogG8Wb4aGSBVc4xeCZJye/tKKjfh+qLaz
+	6vFIqEvC7Vus+6sz04YA2pYQTy3ss6/Q=
+X-Gm-Gg: AYBFou0RqQJNpGLanMxMoBH7/cuhAbK2y6Cr1818vJtmC4KifO6GzXM/GwduH+vujYH
+	8A774NxLfAMdw5QlJRS0PzRKgik5pr8XNl+Yjmxn/VBOQCFgejGoUcLWQIM8c922jqEntjBW6gQ
+	6v4kmvT/eiNFPZbrJRx1s8YWQnZDIptbqxP+FZY0BZWhqqIviLMDKT1iyGR9Wi8EOdEbB12ACfR
+	R+/p7X73SHt2TXBVOqB694g4JEDlIODfWTgN8ZsTngF8yP4PI+CYRPzcRH6eLBqkqrUj8woN5Lf
+	5aJtgwwBkUUfKyUgGbLkyKe5Vf8kbeEG2H/EjOgGNMm+oxlFadC82vDN8a0QbMeufH6bJw032nO
+	xVvZr2kr7sFPoQOax4dKhNEEN09A0N/jKR8hqmAT5+G9CMhJA7nPOGZk=
+X-Received: by 2002:a05:6a00:32c4:b0:857:73e2:9107 with SMTP id
+ d2e1a72fcca58-8616c8498dfmr51907934b3a.23.1789048087728; Thu, 10 Sep 2026
+ 06:48:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1788623619.git.ahmadexp@gmail.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+References: <CADvbK_dWeqUFR6XqC-BqjjwsWJpNjEeER-fJ2SVYKhUObkMm1A@mail.gmail.com>
+ <20260910020748.3643902-1-scott_gzh@163.com>
+In-Reply-To: <20260910020748.3643902-1-scott_gzh@163.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Thu, 10 Sep 2026 09:47:56 -0400
+X-Gm-Features: AcwNN1XLYo9Tpctj6btW9Am1OvR1X4vsOSgww2ik4xoSX3FAmeg920CXO7UztCE
+Message-ID: <CADvbK_dPtNmc=gaAy_u64JkV9_+nPHT-oniH=0vReKp=oJfJcg@mail.gmail.com>
+Subject: Re: [PATCH] sctp: hold shkey across socket migration
+To: scott_gzh@163.com
+Cc: davem@davemloft.net, david.lee@trailofbits.com, 
+	dominik.czarnota@trailofbits.com, edumazet@google.com, horms@kernel.org, 
+	kuba@kernel.org, kylebot@openai.com, linux-kernel@vger.kernel.org, 
+	linux-sctp@vger.kernel.org, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
+	pabeni@redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 07, 2026 at 11:26:21PM -0700, Ahmad Byagowi wrote:
-> Device Tree channel nodes are associated with the adapters created by
-> i2c-mux, but equivalent firmware-node descriptions are not. Convert the
-> existing lookup to generic firmware-node operations so software-node and
-> ACPI descriptions can use the same property traversal.
-> 
-> This is the remaining I2C prerequisite split out of the Time Card series.
-> The channel-node leak fix from v7 was applied to i2c-next as commit
-> 385c7af4e3b9 ("i2c: mux: Fix channel node leak on adapter add failure"), so
-> it is no longer included here. The first patch factors the Device Tree
-> lookup into a helper without changing behavior. The second converts the
-> helper and node lifetime handling to generic firmware-node operations.
-> 
-> The existing acpi_preset_companion() call remains in place after the generic
-> lookup. A separate reference to the node returned by that lookup is retained
-> because ACPI companion setup may replace the adapter's primary firmware
-> node. The dependent ptp_ocp board profiles will be resent to net-next after
-> the LED and I2C prerequisites land.
-> 
-> Changes since v9:
->   - Declare dev_node, mux_node, and child on separate lines in both patches,
->     as requested by Peter Rosin and agreed by Andy Shevchenko.
-> 
-> The broader __free(fwnode_handle) cleanup remains a separate follow-up.
-> 
-> Validation:
->   - git diff --check
->   - strict checkpatch with an 80-column limit
->   - x86-64 GCC W=1 object build of drivers/i2c/i2c-mux.o
->   - mailbox replay onto the declared base with an identical resulting tree
-> 
-> v9: https://lore.kernel.org/r/cover.1788298883.git.ahmadexp@gmail.com/
-> 
-> Ahmad Byagowi (2):
->   i2c: mux: Factor out channel node lookup
->   i2c: mux: Propagate firmware nodes to channel adapters
-> 
->  drivers/i2c/i2c-mux.c | 98 +++++++++++++++++++++++--------------------
->  1 file changed, 52 insertions(+), 46 deletions(-)
+On Wed, Sep 9, 2026 at 10:08=E2=80=AFPM <scott_gzh@163.com> wrote:
+>
+> Hi Xin Long,
+>
+> Is there any progress regarding this patch?
+>
 
-Thanks!
+I think you need to post v2 with the tag issues addressed.
 
-Andi, you can pick this series now, thanks.
-
-Cheers,
-Peter
+Thanks.
