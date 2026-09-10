@@ -1,120 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0973B95E4
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:51:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A41A3AC0E4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026706; cv=none; b=rk9GuxJB3QLfxdglUpp5URyYUgsEZg47pe3dBQBMfO4VEuCJSvl8AfYHX74VVM4dt3XfXkJQ8P4NEDp9txaMJ5OEI6e0Rj0q68tgHdX8hh/7EYCJOmM913rlDD9HvJftjBU/mYCckENzUBLXX8pO1H49bset0GV7mImqzvIlODE=
+	t=1789026728; cv=none; b=A0rsFZ3YZ6Imx0yTtnYTE480x7U0At+c1VG/lXUoRz46XoERSxXxSXVF0n5nPq2Rz1pg6Aisfw1NEQ2FxRRmNzy1+QSELs3AEugMxWE0mz84Axup1+EhrL/irypwmXvxHqMnksbBou7GzYtINX3Vn7eI63DjIVUgKK4Fs2jdkX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026706; c=relaxed/simple;
-	bh=1ZmSzFG0Fu7fOjSZErepfnaJ3qxrPkB8O4EXS1CbYiE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=kJ3tywA4U0ySrX6LuomvFlZ2A8l0CZKHf/cIUcBLm6lXLSRwXUoJd7R1GAWnUN3EbdjerljeNhWNszcv+oYflODSBwtLL+VnqU4Tt8RNhQxKI5kY+nSYjghWdjkXo549CRDIXh4+zznBBxBWjcrgunQHV0RkcRRLSIGObXH/piI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/20Tw7I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789026728; c=relaxed/simple;
+	bh=1vomQXyHMLEIAkNAUwWX1P5pIY3Bv6hvQbgIZOOwoVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b9JjFHoyE9LZvvJ/Kh3UfPy/IHQwXMTQVFRHuSThoUhVSS3pcl5r7ZRW0ihWyf2v56QMHTG2lcgiOJJuYIsyCgV5yAPeuV/zMZwpJjbOGyTDXChY5lmtc/v7xQI2fcm7d1ofViWSZ8G30twz8ZfepYj3e2nLbrFZ6cagDZllKFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5mzyvha; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/20Tw7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15CF1F000FF;
-	Thu, 10 Sep 2026 07:51:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789026701;
-	bh=fTV1Bf4xq71rXT5Ktql6Fl2ucqZaiTmwx4EnmVZxpco=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=d/20Tw7IbtXipyJONWRVddV2uIcd3EospKzvsLDa9PH3WPkqR16uz8GUnSdDiuGUg
-	 FrqMmaWMVhpPS+JL3q3miVL9oJuQQzFBPJ8xtXidKietUwv99l3DuZBFpfYIcQUKsS
-	 cQ19S+WyB294RWRd0+dm14Eo686eJ0uuUNHJJViITrt+IBHY9jytvK0ixoYVvqtNS9
-	 5mMzflHUAoRPkTmxMNhjJv9IZRGeFyBorvfP9RBJRfpwzeTaRRA/6/QiLxKUPx7umf
-	 spT/dRIs8U7f2nzW0kPw0zHAZ04cYWJGdo1PNtUzMht/MocESIZy9uOF2zgRJRxSSu
-	 kHwRYXI+5ctgQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 30B58198003A;
-	Thu, 10 Sep 2026 03:51:39 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 03:51:39 -0400
-X-ME-Sender: <xms:iWGial0YfZzz8NyxwzBMeERTmoAxSgY4w2u99auDxQRB5qbXcD5LOw>
-    <xme:iWGiam7BcfxEi_byOHLYgCHwOaOIyO-98lLXuMykxBw9DKtEYPmAd4yzrLUYV3u9N
-    PMvoxyjbJZazs7BWy1o5ZsA14bRY7SbX2muiAOfAn7VCW64Jb_7Cbw2>
-X-ME-Proxy-Cause: dmFkZTEPvKawiz7mUAL92o+4JCXIIMD++sKyAcjqH50tYYm8waV6VzHYz24+KXS1F7Dg/L
-    HNUVRMF4DZqFUzwh/ocSTUIjyb9axva+h1Zu+FastzH7GinRY1IJgNW1AqRl2TO8bcAzgY
-    lbDQxZdVODYOFHvOSWcUXi6Knq/PpENCpwa58g6cNC9zkPPWyJeS1RW+hKwaro3nUcMKiu
-    PM5gGnNGef+OWSg9pgnTVcxbKPF4Q1ubRb0lSFGhysR2gVKf+9y9t9yp4iSH1S63DydaMJ
-    kjxxY1Fti8H8Iq40IW9ymYmO6E2X7Q1CTQgzhUJo8G3bW7LKRLnvckD3HHsm3+kd+6C6TS
-    9qAZ0SvjLedrYw9LrLLX8GMv75eodafHzOrMFPD7idiZGHt5oKAO5rCH/38Mq7ONhW4Bli
-    CB0O9xZgMUwepV8ao38M3nnq7JrhrQCSsP5+LvN5h+vDsMi4jQTVOsyc3Otbe9ALwDfFcr
-    Zze91vJiERX28NMq6Zr44DVWmzxHBa/mgErtialwY0GPw3vm2WylTKFwodikV3YpL7Cjba
-    iXcWVZPiP08yjc17gbxTxIZvRiFPrvETn8Dxn3fux23zpKRlpgwrWIFevaqD7giWfEb5hd
-    vB8BRrF51zQj7MvIO3pYu3BLRN1XNVHBhDbEUoRLg3IyBaCysgp3ZfDTg0DA
-X-ME-Proxy: <xmx:i2Giau-YPQZ-qalpUhABGqn9-FpE8kMKaEG7WcYC_4Qg6vxrchd79w>
-    <xmx:i2GiaqIli4zudZJ8i2oghNPm4J98FlR3Xd5t80ivZufWnVaKMY0ILg>
-    <xmx:i2GianilUZDZO0-in8vd_sJq0P-6jd6AvTh8g0xwuTvSdtp4BPxPdA>
-    <xmx:i2Giaq4qOoNFs_L8xHm3ByGUOKQT9BUYt2BWObq-lMiTLUDUjZZNKw>
-    <xmx:i2GiavYSlwHjNRo-wuXnzN99O5R0mY0C8CiKra7Z3ggoldYsawzuQTkS>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id D633BF8007E; Thu, 10 Sep 2026 03:51:37 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5mzyvha"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd82be878so3873765e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:52:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789026721; x=1789631521; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSvkvCa4QalyG2BNxJcMEEX0DpoCO16400N3JfxMgjQ=;
+        b=L5mzyvhaVCPWevXOyHdAXFQ9kQRl+DnxY0Qy91UsffdmJs9pfjZJkYe15g927G+Uoy
+         W8h+Ri6CCSNxtEFkg5FbCEMMfRavdT9Ar1Pf7c+lVdItNNiR6rtgHrTnpZnDPbZrafFK
+         BFu0p28EPvSgAse8dLkQVnuE6Az5eCmg2XqUFfdAB9avYkytxbpGCrpgMhNrjMlpgfRU
+         oqKpWnBLVu9hTMYId7t1baBoPWGwdOCdAPY4sEA8UOO+Ebedrf0Yr+nmy1LH1hYEnYEQ
+         b6WGIFt3+cg02DVg49WagURFcfKkn7cl8iwv4i65/zrSrz9EVCBC9SGZArbOo0VNXKra
+         owmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789026721; x=1789631521;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hSvkvCa4QalyG2BNxJcMEEX0DpoCO16400N3JfxMgjQ=;
+        b=Ixs5miMnwtw+nfl6cD9/8EJoY8hWjYVqPz3Um6yU5JoSP6ewz0bfTz1omQbRROopsn
+         37yPs9EgAuXyDsu/WhFTYqNHNRtQq+8wx+fUJI2KfLXURadlIoy5Z+Fq/2efRaREOjdC
+         r1pqQgEEQIbhjgn/oaiuZKiaSDrwY+RmnLqbvS5+9Tb8u5pM4yyQqgfWrPfgYyOo5gh9
+         hAJhvLWvUAdPhar2O+AgWLBPDXapOiYZJKz72kutQf0B/TXCnjjsbIxeMM79Ow8rnG92
+         v8fr6+N6TMNMj2nNzevBgef/3fgLn3HrE0/LPlvw2Zh3Ycda7DxHgI4sxAPqHlcFKTFL
+         x/JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMk8Wrf6byr1u94AQq5h5YEk/Zq5HtPWnIiiory+NDPGTBnBzD4f/2nTjBgMar6epSkvcpz1+T/m+h75w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrDmVc6dFsDrOaUwGc6UM7msYLf1pEApc9Ipa17FWi2ErZ9j0d
+	6wSQPt/+yK3g8gZzM65J1S5l8dNNb+f96waKYagU30xCplHr+pYKFiCF
+X-Gm-Gg: AYBFou3vUS1Xx0x6qicmxGw9Zr01dKSFi1H8RmmXKHuWOSl5nZW9uSHEpTyj5cWfgaX
+	FdRlq+bJRmtChRHzUyI748WtiYdxH3hASp4dVlGtnQoVp8GsyDl67XKj2V2OUj2uSGTNrui3+mQ
+	tjsybaqgqsdlPAyrk4fkO40KrMixvj6LGX6nWShnTPj3iuwknjuBnbbuwVBtGMwNWW9rAmlXuCk
+	m+dHIarL6+wBoJQyMzzy15cvxpfB8nMerc0wMT2dW02SNDCa6Ik3G2jbNft/d72bXWnYQ57nrtN
+	gDVxMOIKJOLKq1eQ4qCl77RE8BgLpGDvXA05kecMd2vC9qP0NDt+eWhcxXv2YiyvSQj2MTg0KJ3
+	Uq/4euSHzP+9qdT3NqU7+WNNl7tx/OlKXVSPC/IH0TrV/iuAIQxYlXvKg6J7/ddD+K97sSuWZhJ
+	4uDvJtKoefgG1yTWU/lQt2ZcgY4jktWECEaEjwPo71K79V7ReLzzJzNDWiEAhJiRkdgkgb9rMqS
+	84xqtDDYze1ylQQ87/srRXh01NQ50ClUfs+9HpnClefJOuKOJuV0XaCsDNkDJYMxGPzXxDcKhp9
+	83LV
+X-Received: by 2002:a05:600c:530d:b0:49c:e363:c66e with SMTP id 5b1f17b1804b1-49d01dce86fmr291744635e9.1.1789026720937;
+        Thu, 10 Sep 2026 00:52:00 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B9146001C92980EE71198AB.dsl.pool.telekom.hu. [2001:4c4e:1b91:4600:1c92:980e:e711:98ab])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm251593715e9.4.2026.09.10.00.51.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 00:52:00 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Maxime Ripard <mripard@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Ville Syrjala <ville.syrjala@linux.intel.com>,
+	Imre Deak <imre.deak@intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH v2 3/3] drm/rockchip: dw_dp: Attach "max bpc" connector property
+Date: Thu, 10 Sep 2026 09:51:40 +0200
+Message-ID: <20260910075141.48803-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9e77b5c5-f1d9-484b-ae02-846fae1b3642@rock-chips.com>
+References: <9e77b5c5-f1d9-484b-ae02-846fae1b3642@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 10 Sep 2026 09:51:17 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Thorsten Blum" <blum@kernel.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <e41fae7c-9a09-4ae9-aef2-ab4a59d974f0@app.fastmail.com>
-In-Reply-To: <20260830102911.345357-3-blum@kernel.org>
-References: <20260830102911.345357-3-blum@kernel.org>
-Subject: Re: [PATCH 1/2] efi/libstub: Simplify check_image_region()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Chaoyi,
 
-
-On Sun, 30 Aug 2026, at 12:29, Thorsten Blum wrote:
-> Drop the local ret variable and the break statement by returning the
-> result directly. Also use unsigned long for map_offset, since map_size
-> and desc_size are both unsigned long.
+On 9/10/26 09:16, Chaoyi Chen wrote:
+> I don't think this is the correct way to go.
 >
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/firmware/efi/libstub/kaslr.c | 11 ++++-------
->  1 file changed, 4 insertions(+), 7 deletions(-)
->
+> I believe max_bpc should be handled in drm_bridge_connector_init().
+> Take a look at its implementation. HDMI already does max_bpc there,
+> so DP should probably do something similar.
 
-Both patches applied to efi/next - thanks.
+Agreed - that is the question I left open in my reply to the bot. v3
+moves it into drm_bridge_connector_init() and drops this glue patch.
 
-> diff --git a/drivers/firmware/efi/libstub/kaslr.c 
-> b/drivers/firmware/efi/libstub/kaslr.c
-> index 4bc963e999eb..17549bf3dc3e 100644
-> --- a/drivers/firmware/efi/libstub/kaslr.c
-> +++ b/drivers/firmware/efi/libstub/kaslr.c
-> @@ -59,8 +59,7 @@ static bool check_image_region(u64 base, u64 size)
->  {
->  	struct efi_boot_memmap *map __free(efi_pool) = NULL;
->  	efi_status_t status;
-> -	bool ret = false;
-> -	int map_offset;
-> +	unsigned long map_offset;
-> 
->  	status = efi_get_memory_map(&map, false);
->  	if (status != EFI_SUCCESS)
-> @@ -74,13 +73,11 @@ static bool check_image_region(u64 base, u64 size)
->  		 * Find the region that covers base, and return whether
->  		 * it covers base+size bytes.
->  		 */
-> -		if (base >= md->phys_addr && base < end) {
-> -			ret = (base + size) <= end;
-> -			break;
-> -		}
-> +		if (base >= md->phys_addr && base < end)
-> +			return (base + size) <= end;
->  	}
-> 
-> -	return ret;
-> +	return false;
->  }
-> 
->  /**
+Three points I would rather ask than guess, since it is shared code:
+
+1. How the bridge advertises it. drm_bridge.max_bpc is documented as
+   "only relevant if DRM_BRIDGE_OP_HDMI is set" and the helper only
+   reads it inside the OP_HDMI block. I intend to honour it on the
+   non-HDMI path too, relax that doc sentence, and have dw-dp set
+   bridge->max_bpc = 10. If you prefer to keep the field HDMI-only,
+   a separate field is easy - I just did not want to add one unasked.
+
+2. The range. HDMI attaches 8..max_bpc. dw-dp's format table goes down
+   to 6 bpc RGB and i915 attaches 6..N on its DP connectors, so I intend
+   6..max_bpc when connector_type is DisplayPort, 8..max_bpc otherwise -
+   the same gate Dmitry used for the DP subconnector property in his
+   msm series [1]. Nothing is attached unless a bridge declared
+   max_bpc, so existing non-HDMI bridge connectors are unchanged.
+
+3. Where the default lives. 2/3 restores max_requested_bpc from
+   connector->max_bpc after drm_mode_config_reset(), but Cristian's
+   v11 71/74 removes that field [2] (HDMI keeps it in hdmi.funcs). I
+   intend to keep the value in struct drm_bridge_connector and restore
+   it from there in drm_bridge_connector_create_state(), which folds
+   2/3 into the same patch. 1/3 is unaffected.
+
+The state still has to exist before the property is attached, so the
+non-HDMI path gets the same create-state block drmm_connector_hdmi_init()
+has. If you would rather see that block factored into a helper for both
+callers, say so and I will do that instead.
+
+[1] https://lore.kernel.org/all/20260722-drm-msm-display-interface-v1-24-368c10fe62fd@oss.qualcomm.com/
+[2] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-71-bc12954a0688@collabora.com/
+
+Thanks,
+Igor
