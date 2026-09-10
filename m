@@ -1,209 +1,150 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87FD3CC7CD
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025183; cv=none; b=fJreqxJWL05seKdQ/xp8JP3pVrMolYxZMB4JrvkEkKzyVaAbamD7fsYgI1Ne6bJ1p8M0pfi74sOgbpvXbMZyFR/0TXGC1Eq1p9N84EOjm7SESO1TKIBURa8hZnRc6rcQjD74BtrgWp5LSEWRMMxY1R1v+C8iGVabw6IvHR0Oha0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025183; c=relaxed/simple;
-	bh=cnSWqQcASQMLKInn2lI53+JxHJe6k/AWPc/O9s1mt7M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AJFNSjMk+7IMTNw8g4x91V4QPmpiDTHrhCR0diTJUwlXu1dwpnLdA2kkNdxhNJiDkrDlnVBK6LI3JnzFRwvN68dvQ9Xy4nCieqTx/HOEfKtZWJmsnYt261CeeCwMIlcwBQV2NK8VgynMLAoyBPdNbTTujkqRKJj8+idqRudyIf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ggpwfu74; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IQAvvt0c; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2623CB2F8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789025197; cv=pass; b=gskPmiIBl7DU59XCqKe/ZVi45rQ4xFBk5HToQFCW3tNnUZYO+ZbEUGLHyoaFL34hZynB8WcoSJvFWW+bgqE3zfMR9nKa1+p6LCY9w9xYHeWkxhLYn/AE/rS+VbuLcxN92YFaRXbjjIozoyZsbuKD5YQS3rKE+XRxB1pKmILYvKE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789025197; c=relaxed/simple;
+	bh=dVjw4ljiCFw+ESWsURmLdu8hWv/DpVWzvl8Lc62Ew7c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QVFg/bIqKLTZjc++RfrNEgX9Ibqzq8fZKHA26G2RVSh9korx7+PcwIQPG1GF7PPJTO9n4cXOG5r/ANWp0ZaI4IXNq+l5acTrtxWTD01cFPMP+vMs2/peuqG6nHPYqew7LNSo/OkTBnY78nKntGRZjaclUM574usNpv+LmalXj8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=suHkh6UL; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ggpwfu74";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IQAvvt0c"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A71WvH754772
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:26:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=2DuUysS3GqngaCVO/CWJC3HZ
-	jN8ot3KwdZfBElTMIEQ=; b=ggpwfu74ffMEUwo6noqYCw+MoJyWa+Vr8ZCT65yD
-	nlMBH5dtYKZjIWlvNYJjDEKxTKAm1c9mc+rj8+VQ5MmYXUfuLwn3+BPmslgIY6ML
-	NMLAPnZcy9D861SWcjqIBK1hYRNV16kjrAtFsZx9y+4jZQPHRyqok6uMXrMQUq5Y
-	ieX7RhmcwmEFFCaIEop+zQyVapJj7gKqC4myFaOwcyPP8yZcWwwx3vR5l1B2yAFR
-	+FyHJHeBvakLSRkpOqNrL5hkt1Kte6E9ccBFdZl/LDAMCPP+d35Py1+G0COQGojz
-	3EUnVIiQz+1SD8g3HvNeU8E24E88D+xHajdEpGL/+C5puw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkqsvr3ap-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:26:16 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso13344769a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:26:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="suHkh6UL"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836c4474028so67327877b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:26:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789025192; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AAKY+ZuFZLwQ+XmMrxz11ssvXX9HEEGUKJc8cx4Tz5NPmRsy1jfDcFu7w4f7uVScAt
+         8jZe4cmTdHvtfuoHDXTCcaH/7/XDhAkWOln3tJSNwN2g+VijYXxcS9hb3Y8gWZJlsupB
+         gXyyce6jrSvVUFxoi7i93xd31cCTyb02vWXA1CfRNzA5CTBGL7TghlPcS9oPEtXkzQRW
+         7xnqO8L3jFWU8VVMN/y715rE8osevZY5z6Q5dZvHSVCa96/ROT5KZTyN3BoCNHOXT6KW
+         2htY/Db1/54r7h58CtVRhcYHfmNGn5FqUFHA+ojxgluKqh3rAVSRPxGRCZt8Hu4/6nqO
+         ebyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=/vXglpmyQqtm2vQGfMHWvnjy2MGvK+hpILt4Bijo3TU=;
+        fh=Jr6RAlgZsCzsbL96R1hK8ZCxFN4em94pHPSQV2MEjQM=;
+        b=osxitiGBMxCo8hhclmd0fWmL9mbZL1z4YYHf2dqvkfTZpdho1o0tfEqmdx4XDQ+2iD
+         8xuSRCtj8uTmSjidR9TKPpyZ/SKAVfpIWJRFncmY56N1ZTrp2uL+lHMGYA6oV//I2pHK
+         yniZWNL0W+DtXHSaOJuKhxeezV4i3pQrOxFxrbb7KPsu69uGSHSs1NZawWsyzTKru6uw
+         8fwUn1WerPR055yT3IP5+gZP6iT+SU7IncGiTFjUFrJHjdNsANF5z/namJ1zxZ4O2cD3
+         xok7U2t+bjHdLDw20JxjSzf6GMAwUP0F7waSm6XaOwf1H0F8RLQJeAICfIw1cBEoQtqe
+         tkqg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789025176; x=1789629976; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2DuUysS3GqngaCVO/CWJC3HZjN8ot3KwdZfBElTMIEQ=;
-        b=IQAvvt0cimutJmy/bpLGPhGVfAfeW//U9wvcAQ0BXmbPQT5qaudf15Mr1Vhb/Qn2Zv
-         un4VcxOnyCkz1l6f3riVt6YSrt9x1dYQuvm+LZJzIEZUImtcghQg3IXAWJorxdVdIsUK
-         EcgxpKbxPPxJtEJDCCBPJnUdjzlKZReVPjZ/STbXnIIp5Of0s4YVyQMFkPpU8WR6dn/F
-         DHuxZ12MnT5tH0InX6stWcEqr9XU3OV4cSzlJno6qJM2SIe0csA/maVsLb0vO/lXTqjY
-         198JTCdCYlJJOAuCjHWB9onyVD5gWXfg8sdmr0iLitpObnYGGAWhPwvNIpDLqK0VUg6H
-         jkPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789025176; x=1789629976;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=bairaktaris.de; s=google; t=1789025192; x=1789629992; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2DuUysS3GqngaCVO/CWJC3HZjN8ot3KwdZfBElTMIEQ=;
-        b=Vze5d6mb5ofpOZnETnxv0fDdTtJe306W7DNHVqJF/U6dzyCGBf94eC2rWoTkvzDkhA
-         zscBTfD3B07plQVvAxLweu8Q66mxzRrKEscejcCOzf467rmw2PvbM7GLkH+baWFW6Vna
-         XNh1f1zgNe4r72mjp4xvFo94XlNSdJyEiE4UYUqITJrBVTxQt5r6REQeAaE53y/pAupD
-         luP1Y7C6s6Yh1LNE3IFgvyNxzNVPFs45DaeYdP+K542dkzAzShiVgyTnYIKNOG/qK4DU
-         qJisLFBEW+xay4yyisz5bDzxXLpsu1lE3cfariIrV05B5ZBsIq+MrTq/wGzUXzYZ0j9u
-         pP8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwl9xlgrqKzhsypjYeJyKQkrdbNaqO4bYKAUtPLHVCEBDkzoL19khedcXF9Ti8ZTnoxhFUJHhymTL5HnHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX3t3W2njKR62QWUTSuikRMY7DlvlV/0mn7BYUr7hfVcEEnc71
-	ZzP6PG4+7WFjCqQJRu/SKsOEULMaMLOeh2HThi+pROLgAMEzhkWSjkWlYZADroChblCYViPOFhB
-	cUMJTEkBrh9KHuzb4cQrbZ/NKQclIwAK/gUWFRmyJi6hjrGelWnxvuoIVk0RkdVzM/GY=
-X-Gm-Gg: AYBFou3JJmfoUKdFzUAacAOdC8GbIBF0yCaqktsmrw3mxxJI55FMg1M+0EEm2sTMb30
-	R/94p03fyBlIXPF/8aPukemJKyNnzGSHTy6ZiSuzLBObCkoVVjtHhaDjSUvqQBI1N/1lxf+ivlM
-	tWAMumzmS3mokHrzMLFanD6KQnOkLzeYXbLIUMZkn4QCUvV4QOnt3qdfS9NBFHPnJ5tjNyKOmUl
-	NK/FPY0ashHiNvtf8HgQdyIuY8lbVsvgUmClxtKFtVVpce7XFnPqP5Cm1Wl2IqkoFfTIQ0N+RwJ
-	acBliF2vsAjyq3+qnP2+sH9SHJ1/Yts8YzUQVbbIaOmUTJWh6jdNMTttF4aON2t8RPDXpUj/kt0
-	M6Tyr5RpIeMhBw/EK/sOao+XLmv7TWlTyrLWfaPzhMHA=
-X-Received: by 2002:a17:90b:520e:b0:398:9be8:ea65 with SMTP id 98e67ed59e1d1-39bac3c452dmr16830068a91.18.1789025175626;
-        Thu, 10 Sep 2026 00:26:15 -0700 (PDT)
-X-Received: by 2002:a17:90b:520e:b0:398:9be8:ea65 with SMTP id 98e67ed59e1d1-39bac3c452dmr16830014a91.18.1789025175191;
-        Thu, 10 Sep 2026 00:26:15 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm60431654c88.5.2026.09.10.00.26.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 00:26:14 -0700 (PDT)
-Date: Thu, 10 Sep 2026 15:26:10 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Val Packett <val@packett.cool>
-Subject: Re: [PATCH] Revert "usb: dwc3: qcom: Add support to skip phy
- management by USB core"
-Message-ID: <aqJbktGye-8KD-KZ@QCOM-aGQu4IUr3Y>
-References: <20260909-xhci-fixes-revert-v1-1-7cc97fa0f307@oss.qualcomm.com>
+        bh=/vXglpmyQqtm2vQGfMHWvnjy2MGvK+hpILt4Bijo3TU=;
+        b=suHkh6ULwnDEWuDq436Z0xkKK71gJkFK5kmNpji9DlmfxQ5sg6C3wx1SaMmP/hGw9r
+         nMzsMW3AJhSurvDdseK61b388tLYVv/KE1m8IVKsI+cCEe0LjMhWqdlNjE7heQ1CvMPX
+         2iDyssSW8uJoF1oYtyIjgzL64c7gwbna6Is3NmFQVRnTogqO6vIme6ZQvBxqRhsgne11
+         T3RBsGh6Rc3859z5Cqk64eMxHkhCATZn/B2eu4/zZBIYgzkhQbNXI/vHhW0WXJcFhA0u
+         KdxakDtzeD2BwwLbkXKsjpeoTbZkpD/G6+ATxRurL6Tlb8mFv+j3Q1GkoXNk+8dl3o+L
+         BV1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789025192; x=1789629992;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/vXglpmyQqtm2vQGfMHWvnjy2MGvK+hpILt4Bijo3TU=;
+        b=MIYQQc5GAsVWHP7BFFU+/I22aPxJ5XmanTXCpUwvyRhAJOGWvtC+tNwIHCn1KhSK6Y
+         UTZ4fKHKhq2ytqVQXP3n96UyjGOknHXWtjHUY5QHw/f7EgpsSmWlsSrZE3Hrm3ZUJGTv
+         P3E8BEkmzmYyLVKQvDxQSZYcMxviVyayg9tKFy8cORX9JnDyBpEVs4iJTN8f6+4j4JvM
+         CjvcHWx/FMdFXmDP7BlhfqSmDlFolVXzZ0rzr7qXmDpQvm3vsmjL7nHr1KdpsVUcqW1v
+         cBvT0mUeY0AprUJggsUiBVOgWXxrmG6KVkMBRhZySaRU5Zx/Ub2sFfkK89wpGwebdB7J
+         CUWw==
+X-Forwarded-Encrypted: i=1; AKwUvBygQg+LesNoad27pCPXIjF4TkBpqdJ1D0ovrVWKYPfBcQg4j0wyeux8AeY2HoBEs9ft1x3xY/yIYThqTHc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5lnqpL5bfK+Pa+b0mZlHdmtrBiINlfmN2HxJc180Ky374uG8p
+	BhVZfvyfiTIXQwo25ydkAOvv/ZLZsd37uRLB6zcflGl5+4RXoXUqYSWdhXFDpunxmkXlSo8Y8Fb
+	EMw9k4ubvQSDFZRsEAvI3VJxUZ8G5yOhf/ZJDHNs8vSuXwE4VpjBTDuwkML6pomcm
+X-Gm-Gg: AYBFou198ZJZvqdu2ZYZIduQVwJN+8q8nc+7uQyF5rP/1uhhcIvvd8H699nvQPSWdi7
+	rYf4jx2xlSMQMtX28j++VXpPM+ApnRPgwrMwaBXqd9maRxfzVFyWda/m1GVHgUd4Ak+jsqWTet7
+	Y405xHVWdl3kJ38N8ygDHAYf8pLvDM8GRAjikD/C8qMQaZyZSAMmhXu3FngNQkXbag0tDLt2wru
+	TGdQGZL712oMDb+q9qbVWFUzmBXdjm2XCItCyIgxGskFK8uC5Q9HWSAl4QCbiXjwP5xahQesNKR
+	idZY5BKkyr3hPvjMF2ZA8xIWLxqUv4IN7sNK+zT7A6mSahIvp9LG7q8nxRdI1hli1QzZ9g9iHvG
+	m11Z63koTPZW1KnaiRBNrGmgE4Mnp9tFG9eOOKKmOUnYF9/vDJ+wEKGjyu48q8LIdK0e3UXcy5T
+	DzefhWTItiWgIUV3IFia64H0jiHLkH6wDf79gbeYjhx2crT7i1nyQhAqRY1Azou3R818KvnMB9L
+	JC+Cavqa4I9YSqOaL/L5nEJtZhOWYnnEYPzQShgCirmH/ZT5KKfE4nl0EX8eng72211JcGfNZMs
+	FYa43T3x8QUsxWWGPZHO3GJb
+X-Received: by 2002:a05:690c:e28a:10b0:873:5bb2:6c0a with SMTP id
+ 00721157ae682-8735bb26e53mr93150277b3.52.1789025191861; Thu, 10 Sep 2026
+ 00:26:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-xhci-fixes-revert-v1-1-7cc97fa0f307@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=DdOCOftW c=1 sm=1 tr=0 ts=6aa25b98 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=18rzLyZ0tFcJ6Np8f_0A:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA3OSBTYWx0ZWRfX+X6Hg2W7McwD
- FXc5p5lPQGXCK9NR9Pd+NxkAuO0OysTSxYa/TG/5rCCmrbHtHbe/1TOZg3GoeVOREwlrTDVSsuV
- qFpV2cdZTfmB84Xq4EwEFPDPyEEAOzFcDVmcldedM5yQoNwtWrzH+NT+69FuPlufH9WKCFfbxxn
- cCI+lTKrPfTRCmP4MkmDO7G4OL7C+jxlD+UkdbsDD68k2IWsW2O1hy6DzGxVH7JIRtkndSLalpM
- fxrg23yg2DYp3n6Q8APW2EuP2zBJbrFju2IbLSR6bQuL4qvrTyaljHr2pOhpAGbDtsI7PvQb5IK
- j6HIymmlq81yuruAL9nWQDaUD/3MvhTT0O9lD1FoYrqOJEjG9dea82k247n+aOWHXL/Yc0GZT7x
- 4oIASMVNeVARfla19GbjFp5oGF76+EFgCTOyQ8H2eXPxxLTC0wqcD9wUsQ/L9gnO3DxIQXsZR01
- 6cV8zxfYde6Fcw4XL+g==
-X-Proofpoint-ORIG-GUID: gTjkZ5t9JDOM3vP2YzxUtO21zoI_DMAM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA3OSBTYWx0ZWRfX14mhnSgJDMFn
- fQ1bNR3ZP9vWJoN3CFpuKnF2h2CF9D2PlfHCizlm838z+FjPBHMgB7hVE7xoR4mqpTNVeV2fPEB
- C8EB7uNEJ2UibH3PFGurQHIYj5Ci3EQ=
-X-Proofpoint-GUID: gTjkZ5t9JDOM3vP2YzxUtO21zoI_DMAM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 malwarescore=0 adultscore=0
- spamscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100079
+References: <20260910071838.1983652-1-julius@bairaktaris.de>
+In-Reply-To: <20260910071838.1983652-1-julius@bairaktaris.de>
+From: Julius Bairaktaris <julius@bairaktaris.de>
+Date: Thu, 10 Sep 2026 07:25:56 +0000
+X-Gm-Features: AcwNN1WlZOuuaCW-CiTDQ_naRpa8Ngn8cqeQa6DliN7h_89pveR3c7oHeLWNBjo
+Message-ID: <CAC1t37+f7+CJ+kBSe25g31fMWE65hme1m1gvB7ZZ_Ydvmce4vQ@mail.gmail.com>
+Subject: Re: [PATCH] wifi: ath11k: request firmware-2.bin directly
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 03:19:10PM +0530, Krishna Kurapati wrote:
-> This reverts commit be7b1c68cd3e4fc0f5a4e1b85696de1052f21f2f.
-> 
-> Commit be7b1c68cd3e ("usb: dwc3: qcom: Add support to skip phy management by USB core")
-> is causing a regression on qualcomm platforms.
-> 
-> During role switch it tends to cause the following crash:
-> 
-> [    5.620951] refcount_t: underflow; use-after-free.
-> [    5.621114] Call trace:
-> [    5.621115]  refcount_warn_saturate+0xd8/0x140 (P)
-> [    5.621117]  kobject_put+0x11c/0x230
-> [    5.621121]  software_node_notify_remove+0xdc/0xf8
-> [    5.621124]  device_del+0x1dc/0x328
-> [    5.621126]  usb_disconnect+0x1d8/0x348
-> [    5.621129]  usb_remove_hcd+0x100/0x2a8
-> [    5.621131]  xhci_plat_remove+0x8c/0x170
-> [    5.621134]  platform_remove+0x28/0x40
-> [    5.621135]  device_release_driver_internal+0x174/0x290
-> [    5.621138]  device_release_driver+0x20/0x38
-> [    5.621140]  bus_remove_device+0x19c/0x1f8
-> [    5.621142]  device_del+0x1c4/0x328
-> [    5.621143]  platform_device_unregister+0x34/0xc0
-> [    5.621145]  dwc3_host_exit+0x50/0x70
-> [    5.621146]  __dwc3_set_mode+0xa4/0x378
-> 
-> [    5.644535] Unable to handle kernel paging request at virtual address
-> [    5.644657] Workqueue: events_freezable __dwc3_set_mode
-> [    5.644664] pc : __pi_strcmp+0x9c/0x140
-> [    5.644668] lr : software_node_property_present+0x60/0x98
-> [    5.644697] Call trace:
-> [    5.644698]  __pi_strcmp+0x9c/0x140 (P)
-> [    5.644700]  device_property_present+0x9c/0xc0
-> [    5.644703]  dwc3_gadget_init+0x230/0x7b0
-> [    5.644704]  __dwc3_set_mode+0x314/0x378
-> [    5.644707]  process_scheduled_works+0x1b8/0x538
-> [    5.644710]  worker_thread+0x1fc/0x2f8
-> [    5.644711]  kthread+0x114/0x148
-> [    5.644713]  ret_from_fork+0x10/0x20
-> 
-> Revert skipping of usb core phy management for Qualcomm platforms to avoid
-> the above issues.
-> 
-> Reported-by: Val Packett <val@packett.cool>
-> Closes: https://lore.kernel.org/all/f9926203-ee69-4e18-b6c7-95261ba10807@packett.cool/
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Hi,
 
-I'm seeing a duplicate sysfs filename issue on Nord platform. This revert
-fixes it, so:
+This doesn't change functionality, but log lines like
 
-Tested-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+    Could not find firmware /lib/firmware/ath11k/IPQ8074/hw2.0/firmware-2.bin
 
-[    6.412085] sysfs: cannot create duplicate filename '/devices/platform/soc@0/a400000.usb/software_node'
-[    6.412088] CPU: 3 UID: 0 PID: 128 Comm: kworker/u73:3 Not tainted 7.3.0-rc2-next-20260908-00064-gde909f9bbb2a #16 PREEMPT(full)
-[    6.412090] Hardware name: Qualcomm Technologies, Inc. SA8797P Ride Embedded (DT)
-[    6.412091] Workqueue: events_unbound deferred_probe_work_func
-[    6.412098] Call trace:
-[    6.412099]  show_stack+0x18/0x24 (C)
-[    6.412103]  dump_stack_lvl+0x74/0x8c
-[    6.412107]  dump_stack+0x18/0x24
-[    6.412109]  sysfs_warn_dup+0x64/0x80
-[    6.412112]  sysfs_do_create_link_sd+0xf0/0xf8
-[    6.412114]  sysfs_create_link+0x20/0x40
-[    6.412116]  software_node_notify+0xb0/0x100
-[    6.412117]  device_create_managed_software_node+0xec/0x108
-[    6.412119]  dwc3_qcom_set_swnode+0x5c/0x8c
-[    6.412122]  dwc3_qcom_probe+0x4d4/0x9c4
-[    6.412123]  platform_probe+0x5c/0x9c
-[    6.412125]  really_probe+0xbc/0x29c
-[    6.412127]  __driver_probe_device+0x16c/0x19c
-[    6.412129]  driver_probe_device+0x3c/0x114
-[    6.412131]  __device_attach_driver+0xb8/0x118
-[    6.412132]  bus_for_each_drv+0x88/0xe8
-[    6.412134]  __device_attach+0xa0/0x190
-[    6.412136]  device_initial_probe+0x50/0x54
-[    6.412137]  bus_probe_device+0x38/0xa0
-[    6.412139]  deferred_probe_work_func+0x88/0xc0
-[    6.412141]  process_one_work+0x180/0x2dc
-[    6.412143]  worker_thread+0x188/0x300
-[    6.412145]  kthread+0x118/0x124
-[    6.412146]  ret_from_fork+0x10/0x20
+confuse the average user.
+
+linux-firmware does not ship firmware-2.bin for IPQ5424. I don't have the
+hardware, so the fix would be unverified there. Would you like the same
+change for ath12k?
+
+Julius
+
+Am Do., 10. Sept. 2026 um 07:18 Uhr schrieb Julius Bairaktaris
+<julius@bairaktaris.de>:
+>
+> ath11k treats firmware-2.bin as optional and falls back to API 1 when
+> the file is not present. Request it with request_firmware_direct(),
+> which does not fall back to the userspace firmware helper.
+>
+> Closes: https://github.com/openwrt/openwrt/issues/24743
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+> ---
+>  drivers/net/wireless/ath/ath11k/fw.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/wireless/ath/ath11k/fw.c b/drivers/net/wireless/ath/ath11k/fw.c
+> index ef1b4c81843a..88ec2ffd9f00 100644
+> --- a/drivers/net/wireless/ath/ath11k/fw.c
+> +++ b/drivers/net/wireless/ath/ath11k/fw.c
+> @@ -16,10 +16,12 @@ static int ath11k_fw_request_firmware_api_n(struct ath11k_base *ab,
+>         struct ath11k_fw_ie *hdr;
+>         const u8 *data;
+>         __le32 *timestamp;
+> +       char path[100];
+>
+> -       ab->fw.fw = ath11k_core_firmware_request(ab, name);
+> -       if (IS_ERR(ab->fw.fw)) {
+> -               ret = PTR_ERR(ab->fw.fw);
+> +       ath11k_core_create_firmware_path(ab, name, path, sizeof(path));
+> +
+> +       ret = request_firmware_direct(&ab->fw.fw, path, ab->dev);
+> +       if (ret) {
+>                 ath11k_dbg(ab, ATH11K_DBG_BOOT, "failed to load %s: %d\n", name, ret);
+>                 ab->fw.fw = NULL;
+>                 return ret;
+> --
+> 2.53.0
+>
