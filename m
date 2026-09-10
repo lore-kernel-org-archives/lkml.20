@@ -1,278 +1,217 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013057.outbound.protection.outlook.com [52.101.83.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744034AEBED;
-	Thu, 10 Sep 2026 16:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056917; cv=none; b=vGVUKzgQHqfFTymDavrSF7Y0tHtdgt/1eF2PX3NxxG5SVqTWJA4Ud8Hl5auYnce9Hr93noN9k2GQ6YeHp9/bitl4H2zK+fmVI+gkUQkTeYR8vZoRaqCU9QjrwQGNeQ/dyIWzrgWPH6ENCPw93tA7pVjLdXQnhghuxzoeN1oQQyA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056917; c=relaxed/simple;
-	bh=gTz12jkJbmkcu/dc9jIRm7p1HVrJCG1a7M0nlEBn7xM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RZ4VvOqouE4lw1BMePaGz0PsPKSXh7dam6V6hd2vnj/T3HOK0R1hGums5BNpE8IAdpNO0EZDf46GO9C69dO8so7yzxd0mqhVMdOAny36n9ZxTrSrQza5WDPd9pzprcVycAYTYJPQ6yXcRM50Oq35zMulFghHPGet9FWLUovl538=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KwaVR830; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Y2KOBCiA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mpuVyHLN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9piyWGci; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3634BE457;
+	Thu, 10 Sep 2026 16:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789057000; cv=fail; b=dB8zU46+VEMeiFsTuyxUVAYtwpBHXgFRIo2xJb9B6UWJMmBBK5Uymk14gXcJqGsvJO4LeLEurQOrhoyWs37JwIWZ8EWlmQGLiKEosDVgt+L8/vYP/IYw8T4UWRQgB5r7qwy+EhQcLxKkiYZBKPyaX1kYIqY5aGuWGmJm5SttBbE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789057000; c=relaxed/simple;
+	bh=SQAdWzYS5OVb9CY/KCfdYr8ky77O4mtQIdOHeQCWSdw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PeEQbbE7uJtq0KX7VgrQHVxT7EwkvhfPa6r6CB1oogHi6l5ZAJDoqLf3h/IELl35eDceHTCEPyKVWoSRP+uDDMJtUVcVUI2XMmgDBte/Qk+GJHyB6tObgzppW95PV48l9ERg6qYEdhPwmCf1fOKaxIvQg/yZDBn0guZzLrDcDdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HTVvvHKo; arc=fail smtp.client-ip=52.101.83.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KwaVR830";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Y2KOBCiA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mpuVyHLN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9piyWGci"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2393621A5E;
-	Thu, 10 Sep 2026 16:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789056909; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1BRmfG56H5zmUlLl5HniRsrUYDdv+UxK+dNlQeMPFvk=;
-	b=KwaVR83038tEY0UY9Duk1VEc71qo6WCRjE1S3O0gvKvuRCHG42+lMQg4Pv852Z53umQGu9
-	VjGqLOb8QDmQNHY+2pNnRCnchni2H/fLzJXN2LYO/8zb7Dml+uH7yZSNc2VlGsdDCBFr9Y
-	l0PoG4YOAdgBCejTL9J/aXLrVyXMWP8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789056909;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1BRmfG56H5zmUlLl5HniRsrUYDdv+UxK+dNlQeMPFvk=;
-	b=Y2KOBCiAAtdbnR/fQhgCwIyKQWjWRx5/MHZPkKS6JrT5lfmwIstj6yrNTcNtSkn1IjAs+v
-	GHOsOOnR5zkk3ABw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789056905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1BRmfG56H5zmUlLl5HniRsrUYDdv+UxK+dNlQeMPFvk=;
-	b=mpuVyHLNNXhUFU5ob5GDulqEeEvAe2B+tWAEc61ZlcFtZbOHlmYL7q6wFi3kOqkSIwp3Ht
-	msadrbgiCHFI4GA0IxWkHwKY/M7tpBtTeLmcFIGhmKuIAwlBoNOJaJIZvf59DD9Qi3MCQU
-	UDhNrT5e0m3ndCGGYllbX1Aw/alKddc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789056905;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1BRmfG56H5zmUlLl5HniRsrUYDdv+UxK+dNlQeMPFvk=;
-	b=9piyWGciurkgdy/ysqgbRaXReyK2r/tyxBU+KMNlNZL9Ptz0yRCS4W8TV3rMCbOjiQ6xhI
-	/pU/nXC+a01PjLDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 917381326D;
-	Thu, 10 Sep 2026 16:15:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oqY5IoXXompKQQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 10 Sep 2026 16:15:01 +0000
-Date: Thu, 10 Sep 2026 18:15:01 +0200
-Message-ID: <87qzj1jd6i.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Jaya Kumar <jayalk@intworks.biz>,
-	Simona Vetter <simona@ffwll.ch>,
-	Helge Deller <deller@gmx.de>,
-	Sebastian Reichel <sre@kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Rik van Riel <riel@surriel.com>,
-	Harry Yoo <harry@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Anup Patel <anup@brainfault.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Xu Xin <xu.xin16@zte.com.cn>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Michal Hocko <mhocko@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	selinux@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	fuse-devel@lists.linux.dev
-Subject: Re: [PATCH 12/39] ALSA: pcm: use vm_insert_page() to map PCM status page
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-12-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-	<20260908-b4-mmap-prepare-vma-flag-sanify-v1-12-dacf19cce22b@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HTVvvHKo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fPKM9u8efmayRk7M/2ONBqRAuftPgai61JiripcVmYIxD5hqDJOaM+hebbTJYeutGp0+FMN8tRTYwHHXvBHZJVWi+Q2B4HNMAS9BeQW8RCYsOjYoGrmGcHrWNRrpKS2mqtH5dKIA4KfClJ6JxM167L3hKrn62xVKNbgWw/KWP6CqY+BMW+nAESPOHKmfOYyC48HSgWi8e5RSLoPH/2ZB4RT87AyduZKR6j0plmO79DHIl72Q5luv90UL7ol8u+0ATjDaVvdug+RjpFlvzx5vvQXMDbHT3sVI2+GYVwYQ3c4bdztdIjGf0ZVmomHn5jhhranvPO0go9sOUmrHMNIvvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SQAdWzYS5OVb9CY/KCfdYr8ky77O4mtQIdOHeQCWSdw=;
+ b=YV3uvErBandP+VVazjD7MuIq8z/BUdnct06bWlDsbGs+yQErtv4pJJ3DTCTBhvuy64/INqxeo0f08xvUHLnz8UgxKG2YD4Wi2q4nu4swiFtLgZHGt1vkv+RcfOYc09+XJqTu1A0sym9tRKdVG/vC7AS1SgvNkyaufNQuQR0Yd+tdR7YnbnD7aWN6K9ndVt/iD7gL/wJWaGdoLIhnvfx92pEln/YYyo1YsYdkOCholdnD927Grf7IBX3L/O0xpGeqhNp4ayzFRozouPn+rDHucrFMZJtRGVw87Ie2ZeX5Hzj0fD+x+ivWLops1tKzcaxgt7n5CdyJaLDT9hzkQiIRzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SQAdWzYS5OVb9CY/KCfdYr8ky77O4mtQIdOHeQCWSdw=;
+ b=HTVvvHKoO7oe9SP98m1etnpyGwmlXrVQsWVTUn2nSB6ssbmM3uo1RKxDau+cL4Pt8ql66yD0F5q94wxvuI18dDMz/2YPMlzXFa0Dnss9zQZyadjesFkNFU+x3qzCOLnnfzQUKi4ciSl1s1VT7TlRWmk1wLgblLAPrBIYTNJLpKpKxg7Qpi98Gf4XO8Vzsa2AlgQ9/uWRR86prBE0uEwoJ+gozR832uHa6/REX+TZnizPKz+VZRNXw+DcrIQ4417g9Yjugl8pxw7sGgH9zJctJR5NSIfOfEdiJc0MHvJuHTQ9aHnXWZT/SktGVllcpzSvtRaZ5wWFHt3/0iB/pmH/pQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AMBPR04MB451729.eurprd04.prod.outlook.com (2603:10a6:20b:798::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 16:16:35 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 16:16:34 +0000
+Date: Thu, 10 Sep 2026 12:16:24 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>
+Cc: "mchehab@kernel.org" <mchehab@kernel.org>,
+	"hverkuil@xs4all.nl" <hverkuil@xs4all.nl>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"shawnguo@kernel.org" <shawnguo@kernel.org>,
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-imx@nxp.com" <linux-imx@nxp.com>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"jackson.lee" <jackson.lee@chipsnmedia.com>,
+	"lafley.kim" <lafley.kim@chipsnmedia.com>,
+	"marek.vasut@mailbox.org" <marek.vasut@mailbox.org>,
+	Ming Qian <ming.qian@oss.nxp.com>
+Subject: Re: [PATCH v7 6/9] media: chips-media: wave6: Improve debugging
+ capabilities
+Message-ID: <aqLX2DhQFnY3FAFz@lizhi-Precision-Tower-5810>
+References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+ <e7f599a5bd65900eb45daa3b637597fce464c383.1788496816.git.nas.chung@chipsnmedia.com>
+ <aqHES02SJkIGZWDc@lizhi-Precision-Tower-5810>
+ <SL2P216MB24417ACC2BD099E4A5EE1399FBBF2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SL2P216MB24417ACC2BD099E4A5EE1399FBBF2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+X-ClientProxiedBy: CY5PR13CA0004.namprd13.prod.outlook.com (2603:10b6:930::27)
+ To GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: 0.20
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [0.20 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	FORGED_RECIPIENTS(2.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:liam@infradead.org,m:vbabka@kernel.org,m:jannh@google.com,m:david@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:corbet@lwn.net,m:gregkh@linuxfoundation.org,m:dennis.dalessandro@cornelisnetworks.com,m:leon@kernel.org,m:paul@paul-moore.com,m:stephen.smalley.work@gmail.com,m:ast@kernel.org,m:daniel@iogearbox.net,m:andrii@kernel.org,m:eddyz87@gmail.com,m:memxor@gmail.com,m:ziy@nvidia.com,m:baolin.wang@linux.alibaba.com,m:nico.pache@linux.dev,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:usama.arif@linux.dev,m:kas@kernel.org,m:dgilbert@interlog.com,m:James.Bottomley@HansenPartnership.com,m:mkp@kernel.org,m:jayalk@intworks.biz,m:simona@ffwll.ch,m:deller@gmx.de,m:sre@kernel.org,m:jhubbard@nvidia.com,m:mhiramat@kernel.org,m:peterz@infradead.org,m:tglx@kernel.org,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutlan
- d@arm.com,m:harry@kernel.org,m:vincent.guittot@linaro.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:airlied@gmail.com,m:will@kernel.org,m:aneesh.kumar@kernel.org,m:npiggin@gmail.com,m:arnd@arndb.de,m:muchun.song@linux.dev,m:willy@infradead.org,m:maz@kernel.org,m:oupton@kernel.org,m:catalin.marinas@arm.com,m:maddy@linux.ibm.com,m:anup@brainfault.org,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:borntraeger@linux.ibm.com,m:frankja@linux.ibm.com,m:imbrenda@linux.ibm.com,m:agordeev@linux.ibm.com,m:gerald.schaefer@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:davem@davemloft.net,m:andreas@gaisler.com,m:brauner@kernel.org,m:matthew.brost@intel.com,m:joshua.hahnjy@gmail.com,m:gourry@gourry.net,m:ying.huang@linux.alibaba.com,m:apopple@nvidia.com,m:chrisl@kernel.org,m:shikemeng@huaweicloud.com,m:nphamcs@gmail.com,s:miklos@szeredi.hu,s:bpf@vger.kernel.org,s:kvm@vger.kernel.org,s:linux-arch@vger.kernel.org,s:linux-doc@vger.kernel.org,s:linux-fbdev@v
- ger.kernel.org,s:linux-fsdevel@vger.kernel.org,s:linux-kernel@vger.kernel.org,s:linux-perf-users@vger.kernel.org,s:linux-rdma@vger.kernel.org,s:linux-s390@vger.kernel.org,s:linux-scsi@vger.kernel.org,s:linux-sound@vger.kernel.org,s:linux-trace-kernel@vger.kernel.org,s:linux-usb@vger.kernel.org,s:selinux@vger.kernel.org,s:sparclinux@vger.kernel.org,s:xu.xin16@zte.com.cn];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,kernel.org,google.com,suse.de,suse.com,lwn.net,linuxfoundation.org,cornelisnetworks.com,ziepe.ca,paul-moore.com,gmail.com,perex.cz,iogearbox.net,nvidia.com,linux.alibaba.com,linux.dev,arm.com,interlog.com,HansenPartnership.com,intworks.biz,ffwll.ch,gmx.de,redhat.com,alien8.de,linux.intel.com,surriel.com,linaro.org,arndb.de,suse.cz,linux.ibm.com,brainfault.org,dabbelt.com,eecs.berkeley.edu,davemloft.net,gaisler.com,zeniv.linux.org.uk,intel.com,sk.com,gourry.net,tencent.com,huaweicloud.com,lge.com,cmpxchg.org,zte.com.cn,szeredi.hu,kvack.org,vger.kernel.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.ozlabs.org];
-	R_RATELIMIT(0.00)[to_ip_from(RLy48hcyj894bwq9jghcmf9wpe)];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[135];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMBPR04MB451729:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08718576-b375-40fd-2b59-08df0f56e225
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|376014|7416014|366016|6133799003|10067099003|5023799004|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	3yrbk1g8Ac/lKM3d3aN8n2IpsgLuRLgVCD9mJo22eP/II471uhguawDteLFnsilx73sfHrVPSIa8a9HwyNQZGHWWIt/GIxoHa4ycI05WQ+dqUUKyjTzNLQSVHPNWpMcKjvKK9QzqewlGI4K2Bbfl1UYU62ZgRu0DftSSwf6gxuMf4Gydm1M4vhjNmUGPljvtUxrXQFR/5dIUs5Rr4ae4CAvT8Z8N3/wxo1g4Dcz6UiW9nj4J0xCSnW6zmz3OP9Pv3JyeVslHw0y0k6ZoaxIea7cE8sLIrlq+14IYyj/PbvnlYviqj5BZk6E9nLIjTPbH4OSx6izVbT5Kdmufb3wvBIEUUbgosDrzCveE7cfl+KNeD+Xrz/0fmdRAzGRd1wfvcVYoFNfbhl6Xyr+d3jNwfZMocmeNjmp0xW0GJh0T2p8T90Rs8YjESexOlNJPxDFM3wlkgEeNz2+R4TQvLFKc0LPdesPKbAqj0ci6jeEV7I1ZMCncF7T3BeX588dzvN4wAXwisU9HAbOuoCX81N2wmLrBysLNfRd7xJ0Ts3NOQSYdJ/kZK5odIXtACojpl+fWPMYDzk2V6c475qPPaSYFSvzdqWqflrM4tx9YG6I54I9oTSCtVmEHJnUmBA0zDYOsILeZjqUn13t/Vh7JonYlD4XF3VmNFzpsOJsmAD1Y8bo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(7416014)(366016)(6133799003)(10067099003)(5023799004)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4aSeeU5NSjpp7XVEflA/LhSKN+9f39Gmx7hpKZULBGh61weASZLEkslBhRNF?=
+ =?us-ascii?Q?exXWBz7SoAtbxpuSIjxDQP/Jbv6Z9kyOlSHoE3HCAK9PDcu9fFaQkOqqIzm5?=
+ =?us-ascii?Q?i1t68XZo6on2HkL8e7qCSaKsjpO9aCIsn2s1bjaMLEIm0XWFp1PZ/X0N14QU?=
+ =?us-ascii?Q?jSFId3X8VaJ8BFrgJgedBSzorYVJa6RnQVbOSju8HKf3+Jxb20ty24DfLS4q?=
+ =?us-ascii?Q?kV2gwbbgpHN01fKQKVvOi0Wo5JdLEqbkwn5rU2tmPaaZh8tB2RH47IfxEwKJ?=
+ =?us-ascii?Q?1rjNUcyLOH0QKH7zFGWkKA+f2ofAMuXkOBxZGkg6O9abIGjFMDkZGkdlzXgb?=
+ =?us-ascii?Q?QQmir+5X+jZ+S7uz7ozRQOW3YyrgUuG/hhYxia+ELo8MiUMh2fOKP6IukWII?=
+ =?us-ascii?Q?pWSh9hAZd8OBCCOB0k6LPLjmiLFQgWpTgyk+mO+BF5fzrPuiJe9Ui96qSge6?=
+ =?us-ascii?Q?lXvQt4KuPzgmH8Dye80hhSCtBeQt4wdgLlClq/GpbUElkx/TCHXMXcbDRuqY?=
+ =?us-ascii?Q?BMvluW9tyhT7LKK219aVKb1RoRq9hAE7bqyKVQXJ1ntSIpYVZvOPAbG6wSPU?=
+ =?us-ascii?Q?C3aJH2qLZEgGslIWRV3PJIbMvsw30Fd5WWiC73rKjTz52Tm5ggoF61O+IFv8?=
+ =?us-ascii?Q?llMRKxPecBWGn+r0Ed5pt33H+zoX4Lapn1pI+xMrfowUx5PUGsU9k/BS3cEk?=
+ =?us-ascii?Q?owaJF4YR/H5uWnXsAUTHo8ytnLRd1s788vKVcSTDmEWkzh5/7UbnkPss9QRV?=
+ =?us-ascii?Q?A6TaDo1hRpZMhxYNC7Lt4+TrdgZ7tdjSi+DnIpz0zIJ99XPqbVz1PbqaLRaU?=
+ =?us-ascii?Q?C6F0BH+E6r9a2+P9404tP5LyNoQT75/2X/oVKOgm4XCsU2UvMQ+17xYGgppz?=
+ =?us-ascii?Q?zWqk/ofIArXXXulEeXkAwLeldYXQBnBsa6Tc3PoSLowMCYSGu80jM9tA5w0p?=
+ =?us-ascii?Q?YV2x0JDyhjOQ0qQZAed8kTAjNeYrf4QhuJj94/5VRedOLBQhU/CD+sS/C11g?=
+ =?us-ascii?Q?vrY6MZS1/hx+HktXNlj0NjN1E4+xl72VE8tQ+YwWV6onF1EiYiYGbtzPszax?=
+ =?us-ascii?Q?vYgPIrmFwGu8frumHhxt/aMgaEdnYUq5t4AVoiZdnVEd+3IKHNKa++9kVPc4?=
+ =?us-ascii?Q?X2k0QOgErqStG7+gnG9us/MHLHiky0TlCa7KZb6VohrrU4gKMMnBCaqlF0+d?=
+ =?us-ascii?Q?QgRBgrQ6BlLDETJLPBMa7Og/3g7zG7ihYK6FiQoqoH6OaeJu91x82HfKGQp1?=
+ =?us-ascii?Q?G1JVuOEAfH2qXDWbF7EO518M7B/DqHl2QOQqpAExlLNpcUJn26sux42tgCgL?=
+ =?us-ascii?Q?rOR4Cp88Nbcs5StO9RAWC0v/q7L+nX0nZM+qkHBdOtkmOCNdhSn9IZiT+IPH?=
+ =?us-ascii?Q?0oybtf2zRoSoOaYXhb4RnEA1Ckam8kjNRgUF9W4udf9MQUAO9DssK1ppsI8j?=
+ =?us-ascii?Q?insoglAuQi7jWT5uTCdfyQJS4TFqO4hJIIqLw1YY3pN71PCELQkshKA9Z57M?=
+ =?us-ascii?Q?cEVqA27xzeoGRR40JZSgqoDGIUgNpb0QN5a4ajTbAcDH1f7zwiQAhtP3UdYK?=
+ =?us-ascii?Q?quHoQ4XWa9jbWM0onOi/5xH816KuuMtrywpofGGsJxUS3ajCan8LzvBSieAN?=
+ =?us-ascii?Q?F6sMwLtjyfof/GeszfZmxUw1oarOM6viDbKe8A8iQPOYoKy/c0fbg4Mlo9eB?=
+ =?us-ascii?Q?I99HCE+FQZv/+8krHsDqYGzF0+SMTo+315aLZkbjq0ea2JWZ1HuvKn96Xckz?=
+ =?us-ascii?Q?Uka+jtDJazW/Kj0Gl0R26k1U5BnENNPqSNx0iK10o951EUpmbYc3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08718576-b375-40fd-2b59-08df0f56e225
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:16:34.8288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XnI2hjQDu3NeafvrR06y2w3EkV/0VKsCQt7YCJ8SGANMGvGeg73Oeqq0qKkyGSU2L5tXEaf+10gQnb5f5SgJ7ATdF6vYvJdg7XmFQRohD6ygZMqHtg9zMaHRb5Ba5AIj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB451729
 
-On Tue, 08 Sep 2026 22:01:16 +0200,
-Lorenzo Stoakes (ARM) wrote:
-> 
-> There's no need to keep a fault handler around for this, instead map on
-> mmap.
-> 
-> While we're here, rename area to vma to be consistent.
-> 
-> This correctly makes the mapping a mixed map mapping.
-> 
-> This works towards establishing the invariant that only PFN mapped or mixed
-> map mappings may clear the VM_MAYWRITE flag. The status page mapping clears
-> VM_MAYWRITE, so it must be kernel-owned; the control page mapping remains
-> writable and is left fault-based.
-> 
-> The assumption is made that the struct pcm_mmap_status structure is at most
-> a page in size, which is asserted as a build bug.
-> 
-> This is safe to assume, as the size of the structure is 56 bytes at most.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Thu, Sep 10, 2026 at 04:38:27AM +0000, Nas Chung wrote:
+> Hi, Frank.
+>
+> >-----Original Message-----
+> >From: Frank Li <Frank.li@oss.nxp.com>
+> >Sent: Thursday, September 10, 2026 5:41 AM
+> >To: Nas Chung <nas.chung@chipsnmedia.com>
+> >Cc: mchehab@kernel.org; hverkuil@xs4all.nl; robh@kernel.org;
+> >krzk+dt@kernel.org; conor+dt@kernel.org; shawnguo@kernel.org;
+> >s.hauer@pengutronix.de; linux-media@vger.kernel.org;
+> >devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-imx@nxp.com;
+> >linux-arm-kernel@lists.infradead.org; jackson.lee
+> ><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>;
+> >marek.vasut@mailbox.org; Ming Qian <ming.qian@oss.nxp.com>
+> >Subject: Re: [PATCH v7 6/9] media: chips-media: wave6: Improve debugging
+> >capabilities
+> >
+> >On Fri, Sep 04, 2026 at 03:46:32PM +0900, Nas Chung wrote:
+> >
+> >media: chips-media: wave6: Add trace and debugfs
+>
+> I'll address this in v8.
+>
+> >
+> >> Add debugfs entries and trace events to provide detailed
+> >> debugging information.
+> >
+> >Nit: need extra space line here.
+>
+> OK.
+>
+> >
+> >> These enhancements help diagnose issues and improve debugging
+> >
+> >Remove "These enhancements".
+>
+> I'll remove it.
+>
+> ...
+>
+> >
+> >> +
+> >> +#ifndef __WAVE6_VPU_DBG_H__
+> >> +#define __WAVE6_VPU_DBG_H__
+> >> +
+> >> +int wave6_vpu_create_dbgfs_file(struct vpu_instance *inst);
+> >> +void wave6_vpu_remove_dbgfs_file(struct vpu_instance *inst);
+> >
+> >You add this patch 6. but call this funcation at patch 4.
+> >
+> >You need make sure each patch can build without break bisect.
+>
+> You are right that patch 4 calls what patch 6 declares.
+>
+> But the build does not break: wave6/Kconfig and wave6/Makefile are added in
+> patch 8, so nothing under wave6/ is compiled in patches 3-7. I built every
+> commit individually.
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
+Still not good yet, you can add call wave6_vpu_create_dbgfs_file() at
+patch 6, instead of patch4.
 
+You need make sure your code is built and passed at every patch. You
+can add library/makefile firstly, then enable it gradulately. But need make
+sure pass build test, some kernel CI tools build each patch and easy to
+locate the problem, if build failure at last patch, which cause some
+difficult to locate the real patch, which cause problem.
 
-thanks,
+Frank
 
-Takashi
+>
+> Thanks.
+> Nas.
+>
+> >
+> >Frank
+> >
+> >> +
+> >> +#endif /* __WAVE6_VPU_DBG_H__ */
+> >> --
+> >> 2.31.1
+> >>
