@@ -1,317 +1,171 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010034.outbound.protection.outlook.com [52.101.85.34])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C5136196A;
-	Thu, 10 Sep 2026 05:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789017494; cv=fail; b=LzUTjKad6Vt7++9VGc8vk2THaa/DghwEpxNsq5VRZObIJxUj4d+NiVRp9whujGFdGCObPecqRTEzpgVFiHSGTSqZVlU3wKMJqr9wt+Ocr6zNT4L3OHmr+02keg9+FlLMGAv6Zmhiciwzme6UmLQwzY+gMBKmmmDW6kIrG/+iXnQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789017494; c=relaxed/simple;
-	bh=iffgQzbp3IXR54Z9Y3YTReMM+sxS+uD2E2KBI1RK+jI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=hGVVa0bkcdGkm7WMhuevsq7DRDwiQFXcmLZbSpu3L91DMJvPLbzeaoDOrNpQeAsK4B0xIBzPZ/ZNaZmekg/jvrWXHmRYtxsBkcwIZjr0i6/ot/6VZTuY54SneoUxvoNkZcFj4BCLbNSeAG7ZM4BqqN58e3ImcSKOeiBGa0XZw+A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ntFyGQo9; arc=fail smtp.client-ip=52.101.85.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D691C343887;
+	Thu, 10 Sep 2026 05:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789017641; cv=none; b=dviifYYD5VN3vbxc9lo7h4C9a3XTZ8wplFxy6Qbg9lq3Uxe8og8xqHT89daH9Om1F0HH/NXzSJ+EwTZOCevL9ba/kQ058nHFc4BtLy82u9tOXNGFERhuaNGHBRS5c1FTYpfWxeAjIzHDQFdhe9RtK/mE0gHFdOL8mmu3kbMsE2c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789017641; c=relaxed/simple;
+	bh=bxiJni1pfImDDM11Ii2XeuDiBA2kQS2GBBJZlGOPF3o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=brZgbZSNsIqtQT7P2GyD2TIFsV5sAVSdCB1MBO3/Y/bnFKz+zqnCfF5I4KeON6cPJohngzJk1/faQn4ssJVjL09CFnxtZUSA3AjkCeOhrWpmVe0/kg3TcL3VggldeTz7t7URuVeB2WAFQ0h1ZhJGq4zkep1XHIsVOEEBzAIRN20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=U15qeieQ; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ntFyGQo9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WcXZlGQbV60moEsMXSsAkUvaKgjL22zAK2mlHdV34vXSWoUwXWfHUrdAe5IQ9NQsZqhtniWtG7zC2s5d3uIcapwSTSQfWpb83j32vQIkCWGXNpZjDz3AjTE7KdjBkaFwnw7lbWOTwJFF7hUWjVXbT/593AlaJj5PHR54qNKKFR3eq9VLOPfuK/zrgSvcZ9d34FdAwLOcASlA5cCWQZBEFi8z0maCm34xbAnW5xB8zoky5D9GFKEetAzwTIWhrfkhpX80C/yEng5ay9+OsHxHLrYlCXRWWpzBZ+dUEKZxxRu+EnH5Stx/eaPAQCRK9/XhR0NGqBKW+JX53LzoaZNyPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cJxFsWcYXbDlsBBry2EFqqOMA28+N7eLbJ8KtrkFez0=;
- b=K5q0nJ2+Uckn2YSyG9uLkhyEzWNECOigxcGyPhBoFSNyJ+Gg1d3Gaah8pmI8oqbwQCKWSjVwkUt2Ciyd6XD0wHm7CRf60Y0gqBRkO2QPk5WJlrdrBJUd7k2wMlzsvMYw7eMNLs56CLXeSgD7fHdg4SkJ/9c47LztWECjKvIZEvzh1Xqq0XLSF/jwjxror+bT7S3fq79FLaskv1dCHE4OdapNKoXdJ/9lhfwNgX3EHflpnpOZlFte2fB7CR0OpKgGSb6T2r8WYphzQXGeskXsqyZYKs59L6GmaoEr/HhOcWV51CIsWF95TR9qtb8oNIbk3WPJR5jKPGKnhAQdXnY4dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cJxFsWcYXbDlsBBry2EFqqOMA28+N7eLbJ8KtrkFez0=;
- b=ntFyGQo9HgVAkm28C1V6gVOINAi0NCH+5DZ5dDif87V5his2EvgNCilpLn3guzRLfk5fQJrZfAeWqtyffqnDNjupIPWRRj3HyFfQ7t9K68x+ROj8+AmWw/VZ97n7x0L3lCSIws0ydPQ/pNziSOrVJsmziZXd14izXuleFaDp+HUGMKMDnLdzwb8vipUB+lk83CaK5f+r/68X/ALtOLb/tdXqgiKRSoXEJBJxLgGDnZOoQSesWUg0RAVdp0QQH1pbMKIzqfVYL8i3ZzcgMiwhwbSG1eEUQSXmpmSIGGaxZfW22xghTP/ghAt9/S2icf/Z3AGirCAosrLVZ6gh2zqxTg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ1PR12MB6051.namprd12.prod.outlook.com (2603:10b6:a03:48a::18)
- by SN7PR12MB6861.namprd12.prod.outlook.com (2603:10b6:806:266::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 05:18:09 +0000
-Received: from SJ1PR12MB6051.namprd12.prod.outlook.com
- ([fe80::96e1:b300:7b78:d3a9]) by SJ1PR12MB6051.namprd12.prod.outlook.com
- ([fe80::96e1:b300:7b78:d3a9%6]) with mapi id 15.21.0382.014; Thu, 10 Sep 2026
- 05:18:09 +0000
-Message-ID: <e976263f-5382-4e32-a3a6-5639c4d56abf@nvidia.com>
-Date: Thu, 10 Sep 2026 06:18:02 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260909134237.773280130@linuxfoundation.org>
-Content-Language: en-US
-From: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4PR09CA0011.eurprd09.prod.outlook.com
- (2603:10a6:20b:5e0::13) To SJ1PR12MB6051.namprd12.prod.outlook.com
- (2603:10b6:a03:48a::18)
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="U15qeieQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789017619;
+	bh=DsZOltiP1R8W8vsyrS5UrPX+wRdKVv3/djndYWU1II4=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=U15qeieQsFu3gsb4LFFHvNYLyS/pQMqehrogEqnWMZ6JAuUAGdQYSMZl8P5dw3GGD
+	 dgzZfgF0jknJCOck+/Y0ZPcE5gylC3nxxKlGeqfVB8e1yVZvPdJmYEP16pd6QZl256
+	 QDIsDQCHK1n6Jh1jsR1eVWab060PeE55CN2dMSLA=
+X-QQ-mid: esmtpsz19t1789017609t8b058a96
+X-QQ-Originating-IP: DUmqSkz4nEReLFqUyWpMium9HE3atKEqluVbWzOIZ6Q=
+Received: from [10.10.7.69] ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 10 Sep 2026 13:19:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6560279084322675743
+EX-QQ-RecipientCnt: 14
+From: ZhaoJinming <zhaojinming@uniontech.com>
+Date: Thu, 10 Sep 2026 13:19:44 +0800
+Subject: [PATCH net] net: stmmac: fix stale descriptors and DMA mapping
+ leak on Tx map failure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6051:EE_|SN7PR12MB6861:EE_
-X-MS-Office365-Filtering-Correlation-Id: e530c852-9b62-45c1-2405-08df0efae746
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|7416014|376014|23010399003|366016|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	evReHaQNXhcYcJeIQGUnOzySaSdGcSYykP9HGJkHPQ+BXPyBjndKImn7il7luSh4ngYjrRw93h3aOI5MhiJYeRIMd6Gv9Tu4yrIBHXfmxEVvMuUSyHS0UdwkZBCwYfUNlf3xEDR8LmS7/44Tg1hJaJkCZ8dOCf8HrcnQ2hUQUm52/BwduvkOnyWPDGXx2nJe9H/NzmQskPZrZFx5BRG1MeE5tA6klv8dHp3LTf4suqhrsJp4rdUXqlFEDs6xuSdI706sKwlkmUwABMkHX6M/lfQbMI2NKJq/dYbPCyKDADpH/LX6RGqa8cHxEakQck1/ebiubuUpgWRPjF0xc25lvOkNZi3E2Qh/ljME3fsEF4Ia1K/CpPHVEKZ1OpbTDqQCpMFdI4bYvC3HeyvsLFKFEiIo7CC/DwfQbAx2AdZEndIp2XQ1edRSgesgaVdmn5jeJ6UdPc+yRQDgBNfV7q0Kk+3PBlbdM4djvrma+hd4jgvz1TsRW4L45zku0sokFUBjQTRM+fX2hWvkft8haRbM8tcylAnkdphvuLfJDO2OwNptawT2yATrxkis5pCJWR29TXEvzjxEOn48b+LqeIxcBffCy88nQUPcMIl3JdXsQRzmWPcjbqvprh7XtuCGUJgUnI/uzP78WmNuG5l3ilIZ4s0SoDSyD3a5DBrqhVpGLNw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR12MB6051.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eEtFaFVSWEE3ZllJTVRNUWpqaXZzVHlBREg2OHkwYVprTHNyUVkzWFVlLzJI?=
- =?utf-8?B?K2RpazVEbWw1eDBnTzdUQmRPUzM3Z3ZHOVhpNzM1Y2ZLUjNaVTdadUxjck5m?=
- =?utf-8?B?YnRMallIWVJzT01rbVBEOENOYjduT00xVGNZVThCblVQM29VNnVXakVJMEpj?=
- =?utf-8?B?OGVnVnFJSVcwYVl3d2k0REQvSzJIc1kwS3JOandITVhXTzd1WEZBN0l0eEFn?=
- =?utf-8?B?L0tuS3RRQ2RHWkZrc2JRNng4cTlvVmgvNjdZYmN1NnF6Z1VidjNHeXc3Q0RV?=
- =?utf-8?B?ckFURkxsRG9VTjcydDFKRXBBRWRaSFZ6a2FVODBnNGtaR2VYSTVjRnBzTFJJ?=
- =?utf-8?B?MmF6UlJ3Y1g4ekJkV2RQQ0ZoNlZqV25LbC9uZnUvbWpJbk9iUTh1Q1AxS0lB?=
- =?utf-8?B?cTdKNmxjUytaeTE4cEFsSFpCU01ZVmZWMGMzNzg3ZFNnUVBXeVFsZ3U5K3pz?=
- =?utf-8?B?V2tKa0xNaXUwYjJpUHZZbDNJRmhsMGpSbkhQRzNHelQ0blIrRWZyLytvTmlX?=
- =?utf-8?B?a2Z2Tm1meDVGTVR0RHBXZ0RQUEJZY0toWjJqSmRxSk4vL1FDVVVQdmE5L3JU?=
- =?utf-8?B?NEY2T3JRQmJtMUlTcTB5TlRYbjRoazQ3OW9ndExjdjZlK2VIS3JOcWNUcmo5?=
- =?utf-8?B?SmpXZ24vVlBxYTRXeWpYWGpvNEhLQ0ZId0Q4Vm1ZaXd3Rkx6anhYZFhwUUdi?=
- =?utf-8?B?T0p0NGs2emJ3aHNQYnkxOThtZVd5eVJvSDhGc2hEQlJiWmtMMkdGdGZFUC8y?=
- =?utf-8?B?QTN5NzRXZU50cGFwRExCUkVnTHpZK1VxSUZUTzdvWVRxTlNzcS94QVFmMmVj?=
- =?utf-8?B?ejRidG9UdXJxcWllUlVQMHRyVEVKeG1yK2dod3BLQndHbGlBQ1JmMC9HRmlx?=
- =?utf-8?B?YUlNcDQrdEhJVHhDOFNUMmhtTnlJbDk1WkVNQ0F3dll3bzk2NXQxZFlXWmtK?=
- =?utf-8?B?VVVvZXJZcGVyREZkR2RIaXgxZWFkUGYwWGtGQlZsaFZnUmxscVF1SEgwVSsr?=
- =?utf-8?B?b1pFNjgzNSsyaUJvdXpJWlMxS3ZCN1hCdjhoRWxXTW9MZzdZeXZmeUFkZGFL?=
- =?utf-8?B?Tjlsc3JwWnhid2dkQ1h6MklLRTliVXZPRGdzOU1pb1h5T1BQa1F4UUZFNVlM?=
- =?utf-8?B?VS9hUFZOY2RXWm90WXNCV3hXMXhqZEdjUnUzMitQSVZDOTF4d0p2UTBnK2tk?=
- =?utf-8?B?OGIraHJ3a2hTRjJ3bUQxajlxeGdMNGVHYndvMXFMamlsMDBrNjR5ZEdXWWor?=
- =?utf-8?B?WjBPSm5EYWhSUGxwTGk0TFV3d1J3SzdTRk5EWFNwb2puaHMvZ2hxYUhQL1pn?=
- =?utf-8?B?Z1JZNHVzZmVUcFhldFJUNnR3cjA2OEp0SG9OS2lqTHBKTVI0Q1lETDQ1bHJm?=
- =?utf-8?B?WHRsdzdTM2drd3ZHei9FVDlEbzIwM0lDL3J3RElwNzhqVjRnSHZHa1U1L1I1?=
- =?utf-8?B?VGVGcmtzZUR4TUNzRVVOZGMrS2MzS2FXNlo3VHFDWmxVVUNpenllVGd3NWpL?=
- =?utf-8?B?RDJ2SkZNcm44Und1d0VnMk1GNkxESDc3dWwyWjg2UnRtbTR3ckhGcll2WWxG?=
- =?utf-8?B?azUxdUIzVHhoVzZ6MjhIK0ZWYVNPKzgrVzRXejIyTjZkV2ZDRjRpRjNENFlr?=
- =?utf-8?B?L3BNRzR0K0xoQkN4YUJVUHRvazRIaUNjcjZydnkyTGxwOXU1OU83TEY4YXJL?=
- =?utf-8?B?TytEVjBvMFE1VHVWOUtyN1pDYU1hempLN2dzOXcxNWRLYUorTlh1UGU3Znkz?=
- =?utf-8?B?QzZrcjBoNmJySGREN2daU1ZjczVZazVoUVlGRTVLYktBRjhlSHNsbS9lNGh0?=
- =?utf-8?B?QzJsTlFCS1NSN2kvdjVBblZKYUxZbE5MSllDMGdnMTJNS1RySWptdURIcGRW?=
- =?utf-8?B?dEVVVlBTKzBtdWFndVZjSVcxeXNmck9XRmhLTStLR2ZpUkRGUW5xMTFUaGFk?=
- =?utf-8?B?WXE2dnhGZEE2TUhlMjhpSVlGYmNzMlZ5VEVQS2N6d3FGNTgvNXcrbnUzVU1v?=
- =?utf-8?B?Y3RJRzBaeU15cFdRaU5IUFMzaGNLb3NQUVZOZUhIZHpRb0xXSGdkZ1ZWa01F?=
- =?utf-8?B?VUtyQkN1TGtvVDlVaHlORGlsbWZkeVFyc1h1MDREYU1BMTFxWHdjcGt2V0RP?=
- =?utf-8?B?bFIyNXNJSGVpaXIzdHdjT2I4MGIwd2x6RFhvUzcvNEkweENKdzhISmplQ0ow?=
- =?utf-8?B?Mjg4ZVpSZUJuWU5tU3ZZV3pabHNTMm5HZHVvVXZvVERnZzJPcUhWdHE3OTRX?=
- =?utf-8?B?Y0IySEh5MUFNaU1KS21ZU3grMk9zM20ydm5lbkdaTG1hUDZtT1B1cm5RTmxG?=
- =?utf-8?B?UCtBN084QUd6UEdaVTUxc3hBMHJudXRmei8raGxsVVJiL3lmdG9idEkxajFm?=
- =?utf-8?Q?/jxb8LPf+SEwv6Dfmug1JoZSCUIepijXXZs5J2C9guB32?=
-X-MS-Exchange-AntiSpam-MessageData-1: 6j/8R5su7klYqw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e530c852-9b62-45c1-2405-08df0efae746
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6051.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 05:18:09.5867
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PSwPdVUUfLAfmh5OOuwh55Nq19mxtq7Bkkw0/CMnEXp9oaACk6lzE/prge9Qr4Ko9al3caFUKLANEMH7Jm3yaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6861
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-stmmac-fix-vlan-desc-leak-v1-1-6b07dca5e5e8@uniontech.com>
+X-B4-Tracking: v=1; b=H4sIAO89omoC/x2M0QqDMAwAf0XyvEAU7HC/MvYQ2ziDWqWRIhT/f
+ WWPB3dXwCSpGLyaAkmymu6xQvtowM8cv4IaKkNHnaOBBrRz29jjpBfmlSMGMY+r8IIT9c9xJNc
+ GZqj9kaRa//cbopzwue8fTPoWLXAAAAA=
+X-Change-ID: 20260909-stmmac-fix-vlan-desc-leak-f057bb061daa
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <Jose.Abreu@synopsys.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ ZhaoJinming <zhaojinming@uniontech.com>
+X-Mailer: b4 0.14.2
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: N2K7JO7TcIoEXORpfNom9UCEKAHIG1ooxo1cYntwkOz7215O66a+8bOQ
+	phZapzVqBS5x2RfkgpwInRi/Yp5qPkALWWMkGc8PhpCiqHuRgfwxjBdM4bw7oUOTRQMMNFs
+	IruM3ZdvO3HpM5D5WnzCQyTfi/sjBG9qT44aeNQPCOYw6MXSeDuKL8Iid9tsrmZ4ylfKGBA
+	5S8BYBeqvcS58QCy8tpTzFJyA4FKsEq0RCwSHlnW2WbOesGIqt/S7bhYbnyyzw5fXOHIstQ
+	81oIN26cPWFxNoQ9rxyeVymjbuyU8etvf5YLX4ZLoUsnbGjZWhS5Gh7otBjSdFSB2nY6ngD
+	flBKNlwLNdrDdG/b19J1mu7HmGDmEAz8CUn+wKKBf/dlNiePIojxMfUAsqPyxkgqAZ9d9X0
+	RakfevUWgIqqYGjAA/tTLn8AeVKCj2HI2zEM70vblUvrwg0fcQHfvRSnL11dpsUVTgm+qy8
+	SVphzTvBnyvvj6q6pH1ONV3pCmopkPB2KP8Q6eopKPWndJeRfRf6ILXi2r22gtNU6J2TwGK
+	nBAWPhhxQ6pTQwaDfrZBKNUURwJ6Y8OTuzusJblvPspNrMUiu9i9RnN8FerlSm/iJxnHSkG
+	Tb2AYesm0z6wnX3WqQj06DHvMXLGayyDILz//v3iurzMepGGjP4YcLxEl7jHjSATtvmD/su
+	HbDkgzi7mTUd1aMFfeZsr0kDMvE2rBPEDSGKPVN+ds+WOIEdOQZvyCsDuJibwWc92D/FxIF
+	bC7AJwLqqV8xNq5No8Bt7zDSKfOOYfJ4rn3cAB+7UbBaPu7qLiT9TR/CXWqfCVA0nufI4Bx
+	8vn7q+Oujh71796GypOXGdBlF9QAwT63VC5vQHp9ouy/Kbk+Fi1hTEe7jhRDaZDrwjFC8VH
+	RjJ/BOjSEl93ayJYtU3SDoRFE+g8DCE5xaqUBv8E2FE+MP9BdemhZQru/WpXBax+4QXOtA0
+	Wwa46U2oPCcn8RUYRGUesmZwdQnKHL1GC+Tcru4Kz8cPxi3zO6YCsgM3EZbgx2dUiuO/WVc
+	gnKC/mC7+BKmtJKW8TnSEas+ZZw9c=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-Hi Greg,
+In stmmac_xmit(), when the DMA mapping of the linear part or of a
+fragment fails, the error path only frees the skb.  This leaves behind
+the DMA mappings already created for the linear part and for the
+fragments mapped before the failure, which are never unmapped.
 
-On 09/09/2026 14:34, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.51 release.
-> There are 583 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.51-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> -------------
-> Pseudo-Shortlog of commits:
+The VLAN context descriptor programmed by stmmac_vlan_insert() is also
+left behind with its OWN bit set while tx_q->cur_tx has been advanced
+past it, so the DMA engine later consumes the orphaned descriptor and
+applies its stale VLAN tag to an unrelated frame.
 
-...
-  
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tegra210_i2s: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tegra210_i2s: sort the Tegra264 register default table
-> 
-> Jon Hunter <jonathanh@nvidia.com>
->      ASoC: tegra: Fix the MIXER enable default value
-> 
-> Jon Hunter <jonathanh@nvidia.com>
->      ASoC: tegra: Sort ADMAIF register defaults
-> 
-> Jon Hunter <jonathanh@nvidia.com>
->      ASoC: tegra: Sort MBDRC register defaults
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tegra210_mixer: sort the register default table
+Release the descriptors and their DMA mappings in the dma_map_err path
+with stmmac_release_tx_desc() and stmmac_free_tx_buffer(), walking from
+first_entry to entry, then roll back tx_q->cur_tx and release the VLAN
+context descriptor.
 
+Fixes: 30d932279dc2 ("net: stmmac: Add support for VLAN Insertion Offload")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 +++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-These are causing some audio regressions for Tegra ...
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 24656b35350b14454fb10deced6516eb89e2c0c9..2e36c27e2cfb436af3566cf1c3e70d32ce9830a0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4769,12 +4769,12 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	unsigned int nopaged_len = skb_headlen(skb);
+ 	u32 queue = skb_get_queue_mapping(skb);
+ 	int nfrags = skb_shinfo(skb)->nr_frags;
+-	unsigned int first_entry, tx_packets;
++	unsigned int first_entry, entry, tx_packets;
+ 	struct stmmac_txq_stats *txq_stats;
+ 	struct dma_desc *desc, *first_desc;
+ 	struct stmmac_tx_queue *tx_q;
+ 	int i, csum_insertion = 0;
+-	int entry, first_tx;
++	int first_tx, ret;
+ 	dma_addr_t dma_addr;
+ 	u32 sdu_len;
+ 
+@@ -4832,9 +4832,10 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	csum_insertion = skb->ip_summed == CHECKSUM_PARTIAL;
+ 
+ 	if (unlikely(is_jumbo)) {
+-		entry = stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+-		if (unlikely(entry < 0) && (entry != -EINVAL))
++		ret = stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
++		if (unlikely(ret < 0) && (ret != -EINVAL))
+ 			goto dma_map_err;
++		entry = ret;
+ 	} else {
+ 		bool last_segment = (nfrags == 0);
+ 
+@@ -4984,6 +4985,26 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ dma_map_err:
+ 	netdev_err(priv->dev, "Tx DMA map failed\n");
++
++	/* entry points one past the last descriptor written for this frame:
++	 * on failure it is the descriptor whose DMA mapping failed, so walk
++	 * from first_entry up to, but not including, entry.  Reset cur_tx
++	 * unconditionally as both stmmac_vlan_insert() and stmmac_jumbo_frm()
++	 * may have advanced it, and release the VLAN context descriptor.
++	 */
++	while (first_entry != entry) {
++		desc = stmmac_get_tx_desc(priv, tx_q, first_entry);
++		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
++		stmmac_free_tx_buffer(priv, &priv->dma_conf, queue, first_entry);
++		first_entry = STMMAC_NEXT_ENTRY(first_entry,
++						priv->dma_conf.dma_tx_size);
++	}
++
++	tx_q->cur_tx = first_tx;
++	if (has_vlan) {
++		desc = stmmac_get_tx_desc(priv, tx_q, first_tx);
++		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
++	}
+ max_sdu_err:
+ 	dev_kfree_skb(skb);
+ 	priv->xstats.tx_dropped++;
 
-Test results for next:
-     builds:	11 pass, 0 fail
-     boots:	26 pass, 0 fail, aborted 1
-     tests:	139 pass, 15 fail, aborted 1
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260909-stmmac-fix-vlan-desc-leak-f057bb061daa
 
-Linux version:	6.18.51-rc1-g4cfd5b1359b0
-Boards tested:	tegra20-ventana
-                 tegra30-cardhu-a04
-                 tegra124-jetson-tk1
-                 tegra210-p2371-2180
-                 tegra210-p3450-0000
-                 tegra186-p2771-0000
-                 tegra186-p3509-0000+p3636-0001
-                 tegra194-p2972-0000
-                 tegra194-p3509-0000+p3668-0000
-                 tegra234-p3737-0000+p3701-0000
-                 tegra234-p3768-0000+p3767-0005
-
-Test failures:	tegra186-p2771-0000: tegra-audio-loopback-testsuite.sh
-                 tegra186-p2771-0000: tegra-audio-mixer-testsuite.sh
-                 tegra194-p2972-0000: tegra-audio-loopback-testsuite.sh
-                 tegra194-p2972-0000: tegra-audio-loopback-testsuite.sh (rt565x loopback)
-                 tegra194-p2972-0000: tegra-audio-mixer-testsuite.sh
-                 tegra194-p3509-0000+p3668-0000: tegra-audio-loopback-testsuite.sh
-                 tegra194-p3509-0000+p3668-0000: tegra-audio-mixer-testsuite.sh
-                 tegra210-p2371-2180: tegra-audio-loopback-testsuite.sh
-                 tegra210-p2371-2180: tegra-audio-mixer-testsuite.sh
-                 tegra210-p3450-0000: tegra-audio-loopback-testsuite.sh
-                 tegra210-p3450-0000: tegra-audio-mixer-testsuite.sh
-
-This tells me that there is some other dependency missing.
-My intention was to only backport these for v7.2 because
-audio is broken in that release for Tegra. Sorry if I screwed
-up an fixes tags here.
-
-I see this is pulling in a bunch of other related patches, but
-I am not sure if these should be pulled in either. Adding Peter
-if he has any comments.
-
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tas2783-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tas2783-sdw: drop duplicate reg_default entry
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tas2780: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tas2764: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: tas2552: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: sti-sas: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: sgtl5000: sort the register default table
-> 
-> WenTao Liang <vulab@iscas.ac.cn>
->      ASoC: samsung: aries_audio_probe: double of_node_put due to direct assignment without of_node_get
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt721-sdca-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt715: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt715-sdca: sort the register default tables
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt715-sdca: drop duplicate reg_default entries
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt712-sdca-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt712-sdca-dmic: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt711: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt711-sdca: sort the register default tables
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt700: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt700: drop duplicate reg_default entry
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt298: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt286: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt274: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt1318: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt1318-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt1316-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: rt1017-sdca-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: pm4125-sdw: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: pcm512x: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: ml26124: sort the register default table
-> 
-> Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
->      ASoC: max9860: sort the register default table
-
-
-Jon
-
+Best regards,
 -- 
-nvpublic
+ZhaoJinming <zhaojinming@uniontech.com>
 
