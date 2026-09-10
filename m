@@ -1,825 +1,266 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F1C42AFAC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB13036B90C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074899; cv=none; b=QC8OVP7yJfHe5jymQTkotLSZZy5kFqOn5eZSDvlfbSY55fOCW1Q8pCl7NcXlRnrFc/8kHCm4gCfo3felohUbq9nBJcuSu623I0PrGAtlZLqbMNLuk7CoTq1EZi2k2SH9Eq9G/jVB/NgEODc5U939G6bxg2TYu/mJTyLJH5W3VM4=
+	t=1789074954; cv=none; b=ec2S3ROefQlpoxtkyD0ZLd4tMgLcVvWGzonv0YuGbZVPrt8dD8bYKOyG/4zA+Wm1gk3iuRhpi9A5v5EIv8r//tuJeKjoFdJ8BB64NybfMcvpHLyWZwW/LtxAnprqReuwAkx5kHkImzGEsvHY1sjvM/2P7aS1SarRe/V5GZxdlqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074899; c=relaxed/simple;
-	bh=kzUgSvXLi/JZDSr/vK2K0UNxNU3aymUYqEPICh6L/8A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y4g/8eIVNQ4IRWE1HHZ/uGeF/K36WfGanRiezWAL0znCiD/VOJPHuNev/lbyzQe43ndmzj2JPIsGB2bk5OtDVS3yG66rXrL2XcIJe/E9fuu4CSjeSlDycEBtXne6FqmaY++hM7U+uvlGdkJKLkVvH9n2fGJeeZtyxn9s6CxpnEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ZTlyE/tw; arc=none smtp.client-ip=209.85.167.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789074954; c=relaxed/simple;
+	bh=Tchd9h/+ZmlnREp69ysazg2+/LxbpbaawP8hV+zLI3s=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Content-Type; b=DESSJZKRJsLjnaPqM5tMqc+xrYv3VjjTcq6sCRYZFom5YYITRDQslF29eZNvM3oRJb8h7LT1XGN9JQycrJZ08hxCf6BAByiGXDMK9G8ebibrS8L1+tQdjb9s/1/RwemsSs0CwUV6hpdBcOVEYxSWJbOPnzqHFVpMy4vr5OB+mto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uQzLFVm6; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ZTlyE/tw"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b333de9451so291699b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:14:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uQzLFVm6"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39d8646b10eso173805a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:15:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789074882; x=1789679682; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y9MeiO0bVEuDB8kWxbVFOe6+2iOBgBAXWqHDeoInBkU=;
-        b=ZTlyE/twMbdFct47+M2nFaGDRrpFV+FoRfrctctO4OTdFxYw5U6Pkquen6DAQ1VABc
-         Kc/uAeWwodec+W7QoCqiPUpfwgQsya6GWRbJscVtJmVu231ktxx0+ZNIOlLfQRa8WXuE
-         xf7VfHOhxdbOJpTMZMNOSXfqYKF2k4ViZ3auHoQ0rf+tUvJ5uirTscZsI7MBHep6b4l0
-         8dulKqrlkE5ol0oD6ORFfHSzxaG5y3oYXHyLcda7OIixYrLF+Kq0Lmp/vs6ibCPhIVur
-         zK+23ZwraRcCfcsMn+07Wk6aQOr6cc+ksfJADq0N1j7JaW89S5ML/pn417MjmuNFbL1k
-         hgGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789074882; x=1789679682;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789074943; x=1789679743; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=y9MeiO0bVEuDB8kWxbVFOe6+2iOBgBAXWqHDeoInBkU=;
-        b=SeOe+JPLvi2Pu+h0n0yjyrnML2GJsRCDiSUN6zJ/1Mvp83cd2uTy1LkYTYju6HCTiz
-         BUMrYhJJqvUIEStn1/MasjPZ8O3BmU/vHs8WWll91SLO6dOUMrYavxlgVdMp7ivuvVxM
-         smS+3ghA7jytHvaN3KleZcTpFkNovfY8edm/PV7i85UOEYMZvkgYt4GFPFTVn43xZ/37
-         s6BPSqUWMWZqlQyPhnQOcbtaTFspjr7uxzx38E7DWWmlmvKlocTqQhQ5fbLcqCiWLdCn
-         FugtdfCjZJsr+x6P5OSdTYKkd1/7j4ogtZpcahG+M9vksoQS6GoHaeYmQ2W/i6JOPySO
-         tvtg==
-X-Forwarded-Encrypted: i=1; AKwUvBzpqXQN4xwTzT2qks1s/a6dy9tr1NiBgNtPG9RKH2wjUq/DeSUPZK+8S21kR1nx3wb3rxJEhCmdRgdTP7Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEoUPUoZuflFSdzdnZhSaqeYQpcZVpwqYy9VKL70TA5Tn1RCzG
-	p18zOia3Kkfg/7OSufI0zuQu+fk+Det2vUfPBytr9E5KnMU20t/Xkw/HS0+59OGWWZxa+vOMit+
-	2mUIC
-X-Gm-Gg: AYBFou3IAmnkIuA66VHb9hLzw+2GEdEMu+yXnKGqJ+5xHa3/QCcjLufCRiKLVmzn3yw
-	OMOohcjKdpeW2Q7BevfK4YjStNCktOW+fmTgrFZ5mGTczDFeg3cHryOQwwZvtwPnfZ7+bwnuokx
-	oR7m1wHzjoNew8oOCsuFRX/qmRrG24AgVOP5my2Z+KvFK5RZx4WVhQqOrYaCTNnDhjJO/OdKlKx
-	mzW3aVzsCR8z0Z677Q8Btob0t5ps4XSwZhdw/wz7dbOasoWaZ9EVRpBb6PoPm6fcaTryyEdQTVP
-	YI+GFHWJhc5IgWb1KM8XxcgkO8W/LNMD3KNydwyZfXcXF2/j5qZXMYa+4Exs+FxYmftUD1YA5f6
-	l1TutMpamCLJSZth9hKWHOhRnjILKAg+2ca4EK4vr34n+9lfRScJUnMRXxH7rPqszLDDVb4/YGa
-	IEvLGdzH8LEMOVSlcuLKtisC28DbaftIRt4VBa0hgA6Ab4bhVafFFXEn3/N1TuNdqtIXPhmiVR6
-	J+O
-X-Received: by 2002:a05:6808:1b21:b0:4b9:e6ab:d083 with SMTP id 5614622812f47-4c31fdda3admr617829b6e.35.1789074881757;
-        Thu, 10 Sep 2026 14:14:41 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:fbf1:d0da:69e0:11a0])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c330daa42esm347315b6e.4.2026.09.10.14.14.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 14:14:40 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Thu, 10 Sep 2026 16:13:06 -0500
-Subject: [PATCH v3 07/10] iio: adc: ti-ads112c14: add filter support
+        bh=ZPx7iVjI9IMbOhQe2xYSKcLblXCw9w5wIEB9KB5o4uc=;
+        b=uQzLFVm6PKU52EhXUyqH4X2vvRn9r60ZTX8bGeOh3Io+a8OjjYu/GMqJOQuiRNukBT
+         2TIuEgXfyTkwqJRs2xfJive7vHdo8BRXh6bKaQ659UY0HEOObHmQLYkhw/hFyeCidRJ9
+         rmdUbKum0BvGh+q3VwJnNcgC0xLsOHDfX6P8XRVPWcPQzCfRRuG17Cm7gXi+2lDq05Ca
+         8OZKOJ7rMABpeVzn09dZNbJg9PcagWsq1jCRqkpFYfgCUAdTZtGLJoudDG+Vt8KHkD/P
+         gAEqdgigTtMawPYY12s55Wk38Fr+79zh5fpomohHgghsJqT1ZvnE2jAeK8cSkO2bd39+
+         l58A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789074943; x=1789679743;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZPx7iVjI9IMbOhQe2xYSKcLblXCw9w5wIEB9KB5o4uc=;
+        b=QiOQcz/s6lTx6manCXlZvnf9m4CGmeuuMVtHE3NDO06YSl1L5alqyEWsG5avWJ36VP
+         y916z6/2p0ysGtJfBkKt0wyxFQeG/tWNsWba1gQUhsQ526dowHJLBBykYUSA+w2vwP+R
+         YXzF9Uwq05HR0B6GVLatr7yhkAsaVraUQytdTl0A491Bgmco4G2M/BUqTZW8cBukqjv2
+         VInkyd69skzAUa3CF4bWsXRT3Dq/BodroJZYt/kOyCn/1GeUL6QSo6KAD5j1w9lLRdEm
+         PzFkaiYDrTbKqzAAb4bfXr2z2xWuPatVGprX67I6ReN+tXrZ7SwPAoUpEd0WVgvRl+k7
+         xuow==
+X-Forwarded-Encrypted: i=1; AKwUvBwXQziltU9nr5nNiLTVQ9amd+DwZGKKIoBekz9RvXZVk8wFyqVGhhA/ng6KtRBL/00izRcUy9FDcxUGjJM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQqeUoa0KBNUrQWQcb7rwwFPNp554cSvvlOmMprWOw++05RNjR
+	0Cch6LGvmLwfXRLWaDu5EwinIzU7AS+Lk/xEO0MBTzpjdiDJ/UMxauEba5qxH9Vahw5DbBuFNzS
+	Xj/qlfqhDzg==
+X-Received: from dll34.prod.google.com ([2002:a05:7022:222:b0:143:1edf:36a9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2ec4:b0:395:4de5:1054
+ with SMTP id 98e67ed59e1d1-39d9c0b705fmr1098433a91.16.1789074942899; Thu, 10
+ Sep 2026 14:15:42 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:15:39 -0700
+In-Reply-To: <20260910174420.3002597-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-iio-adc-ti-ads112c14-filter-support-v3-7-e5a9b27ddb1a@baylibre.com>
-References: <20260910-iio-adc-ti-ads112c14-filter-support-v3-0-e5a9b27ddb1a@baylibre.com>
-In-Reply-To: <20260910-iio-adc-ti-ads112c14-filter-support-v3-0-e5a9b27ddb1a@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
- Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=26453;
- i=dlechner@baylibre.com; h=from:subject:message-id;
- bh=kzUgSvXLi/JZDSr/vK2K0UNxNU3aymUYqEPICh6L/8A=;
- b=kA0DAAoBwswgAf8Bj8AByyZiAGqjHZqidk7BswbXJcKGkXbD6N+wPO+j3gQin6XNWurkTJbcS
- 4kBMwQAAQoAHRYhBOwY2Z5iDoPWnNhomMLMIAH/AY/ABQJqox2aAAoJEMLMIAH/AY/AQmgH/Aqd
- 2zP6O+aXGGHNs7bjl0sgCQ2FCQU7z1fy8WziG3xc3IH5clXzpSfB06ru1zKSlBOi5Y6paX8F6Xk
- EgLUmXbBvdp7Y8tVJfmNuB86Ft/fbrDMYH6SYaXSgaxe0JnS0x3MbmJer/Yfz/JXiBEpszG1+Ym
- TbVoZUBTYKxlw3xne/jrCZ6RWVMYTWiHDvdYilpZC1rBdqfp8hKk7YScnLt3EdWgGnp3a85xaAc
- W3AGwv8/G1ZHUONhdlRDUIFQPjaglY/htXU8knW8e1lZLLm86zAnm/tCv/HfxHp8+9N6i+AmHzP
- iR3CxehO8go+znX3vMKKVw9TvVHIy1mAYqcFg24=
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+Mime-Version: 1.0
+References: <20260910174420.3002597-1-irogers@google.com>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910211539.3157204-1-irogers@google.com>
+Subject: [PATCH v2] perf python: Fix ilist TreeNode string type drift
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add support for filter_type, oversampling_ratio and sampling_frequency
-attributes to the ti-ads112c14 driver.
+Updates Tree type hints to correctly use TreeNode[TreeValue]
+across all assignments preventing mypy strictness mismatches.
 
-On these chips, these three controls are interdependent and the
-SPEED_MODE register value has a different meaning depending on the
-filter type, which makes the interactions a bit complex. As such, the
-expectation is that the user will set the filter type first, then
-depending on the filter type, either set the oversampling ratio or the
-sampling frequency and finally the other of these two.
+Address some other minor stylistic issues reported by mypy, pylint and
+Sashiko.
 
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
-
-Note: I intend to sumbit a documentation patch later that explains the
-"right way" to set these three attributes since it is a bit odd due to
-the conditional interdependencies.
+v2: Tweak the imports and type annotations for better 3.9
+    compatibility and to be more pythonic.
 ---
- drivers/iio/adc/ti-ads112c14.c | 496 +++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 483 insertions(+), 13 deletions(-)
+ tools/perf/python/ilist.py | 78 ++++++++++++++++++++------------------
+ 1 file changed, 42 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 0e4584b4675e..ee4992b9e029 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -94,6 +94,14 @@
- #define   ADS112C14_DATA_RATE_CFG_DELAY			GENMASK(7, 4)
- #define   ADS112C14_DATA_RATE_CFG_GC_EN			BIT(3)
- #define   ADS112C14_DATA_RATE_CFG_FLTR_OSR		GENMASK(2, 0)
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_16		  0
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_32		  1
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_128	  2
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_256	  3
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_512	  4
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024	  5
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS	  6
-+#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS	  7
+diff --git a/tools/perf/python/ilist.py b/tools/perf/python/ilist.py
+index 0d757ddb4795..ebff0a843b7a 100755
+--- a/tools/perf/python/ilist.py
++++ b/tools/perf/python/ilist.py
+@@ -2,11 +2,13 @@
+ # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+ """Interactive perf list."""
  
- #define ADS112C14_REG_MUX_CFG				0x07
- #define   ADS112C14_MUX_CFG_AINP			GENMASK(7, 4)
-@@ -183,6 +191,43 @@ static const u32 ads112c14_pga_gains_x10[] = {
+-from abc import ABC, abstractmethod
++from __future__ import annotations
++
+ import argparse
++from abc import ABC, abstractmethod
+ from dataclasses import dataclass
+ import math
+-from typing import Any, Dict, Optional, Tuple
++from typing import Any, Optional
+ import perf
+ from textual import on
+ from textual.app import App, ComposeResult
+@@ -19,7 +21,7 @@ from textual.widgets import Button, Footer, Header, Input, Label, Sparkline, Sta
+ from textual.widgets.tree import TreeNode
  
- #define ADS112C14_INTERNAL_CLK_Hz 4096000
  
-+/* Index corresponds to first 2 ADS112C14_DATA_RATE_CFG_FLTR_OSR values. */
-+static const int ads112c14_sinc4_osr_available[] = {
-+	16, 32
-+};
-+
-+/* Index corresponds to next 4 ADS112C14_DATA_RATE_CFG_FLTR_OSR values. */
-+static const int ads112c14_sinc4_sinc1_osr_available[] = {
-+	128, 256, 512, 1024
-+};
-+
-+/* Index corresponds to ADS112C14_DEVICE_CFG_SPEED_MODE value. */
-+static const int ads112c14_sinc4_sinc1_pf1_20sps_osr_available[] = {
-+	1600, 12800, 25600, 51200
-+};
-+
-+/* Index corresponds to ADS112C14_DEVICE_CFG_SPEED_MODE value. */
-+static const int ads112c14_sinc4_sinc1_pf1_25sps_osr_available[] = {
-+	1280, 10240, 20480, 40960
-+};
-+
-+/* Index corresponds to ADS112C14_DEVICE_CFG_SPEED_MODE value. */
-+static const int ads112c14_fmod_div[] = {
-+	128, 16, 8, 4
-+};
-+
-+enum ads112c14_filter_type {
-+	ADS112C14_FILTER_TYPE_SINC4,
-+	ADS112C14_FILTER_TYPE_SINC4_SINC1,
-+	ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1,
-+};
-+
-+static const char * const ads112c14_filter_type_names[] = {
-+	[ADS112C14_FILTER_TYPE_SINC4] = "sinc4",
-+	[ADS112C14_FILTER_TYPE_SINC4_SINC1] = "sinc4+sinc1",
-+	[ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1] = "sinc4+sinc1+pf1",
-+};
-+
- #define ADS112C14_I2C_CRC8_POLYNOMIAL 0x07
- DECLARE_CRC8_TABLE(ads112c14_crc8_table);
+-def get_info(info: Dict[str, str], key: str):
++def get_info(info: dict[str, Any], key: str):
+     return (info[key] + "\n") if key in info else ""
  
-@@ -204,6 +249,8 @@ enum {
- 	ADS112C14_SYS_MON_CHANNEL_SHORT,
- };
  
-+static const struct iio_chan_spec_ext_info ads112c14_ext_info[];
-+
- static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 	{
- 		.type = IIO_TEMP,
-@@ -212,7 +259,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 		.address = 2,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
- 				    | BIT(IIO_CHAN_INFO_SCALE)
--				    | BIT(IIO_CHAN_INFO_OFFSET),
-+				    | BIT(IIO_CHAN_INFO_OFFSET)
-+				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.ext_info = ads112c14_ext_info,
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -220,7 +272,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 		.channel = ADS112C14_SYS_MON_CHANNEL_EXT_REF,
- 		.address = 3,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
--				    | BIT(IIO_CHAN_INFO_SCALE),
-+				    | BIT(IIO_CHAN_INFO_SCALE)
-+				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.ext_info = ads112c14_ext_info,
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -228,7 +285,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 		.channel = ADS112C14_SYS_MON_CHANNEL_AVDD,
- 		.address = 4,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
--				    | BIT(IIO_CHAN_INFO_SCALE),
-+				    | BIT(IIO_CHAN_INFO_SCALE)
-+				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.ext_info = ads112c14_ext_info,
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -236,7 +298,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 		.channel = ADS112C14_SYS_MON_CHANNEL_DVDD,
- 		.address = 5,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
--				    | BIT(IIO_CHAN_INFO_SCALE),
-+				    | BIT(IIO_CHAN_INFO_SCALE)
-+				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.ext_info = ads112c14_ext_info,
- 	},
- 	{
- 		.type = IIO_VOLTAGE,
-@@ -246,8 +313,13 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 		.differential = 1,
- 		.address = 1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
--				    | BIT(IIO_CHAN_INFO_SCALE),
--		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
-+				    | BIT(IIO_CHAN_INFO_SCALE)
-+				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE)
-+				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
-+				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.ext_info = ads112c14_ext_info,
- 	},
- };
+@@ -140,7 +142,7 @@ class ErrorScreen(ModalScreen[bool]):
+     def compose(self) -> ComposeResult:
+         yield Button(f"Error: {self.error}", variant="primary", id="error")
  
-@@ -267,6 +339,11 @@ struct ads112c14_measurement {
- 	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
- };
+-    def on_button_pressed(self, event: Button.Pressed) -> None:
++    def on_button_pressed(self) -> None:
+         self.dismiss(True)
  
-+struct ads112c14_channel_state {
-+	u8 speed_mode;
-+	u8 filter_osr;
-+};
-+
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct regmap *regmap;
-@@ -284,9 +361,13 @@ struct ads112c14_data {
- 	bool refn_is_gnd;
- 	u32 ext_ref_ohms;
- 	struct ads112c14_measurement *measurements;
-+	struct ads112c14_channel_state *channel_states;
- 	u32 num_measurements;
- 	u8 sys_mon_chan_short_gain_val;
- 	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
-+	int sinc4_sample_rate_available[ARRAY_SIZE(ads112c14_sinc4_osr_available)][ARRAY_SIZE(ads112c14_fmod_div)][2];
-+	int sinc4_sinc1_sample_rate_available[ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available)][ARRAY_SIZE(ads112c14_fmod_div)][2];
-+	int sinc4_sinc1_pf1_sample_rate_available[2][2];
- 	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan, ADS112C14_MAX_MEASUREMENT_CHANNELS +
- 						 ARRAY_SIZE(ads112c14_sys_mon_channels));
- };
-@@ -472,14 +553,46 @@ static const struct regmap_config ads112c14_regmap_config = {
- 	.cache_type = REGCACHE_MAPLE,
- };
  
-+static int ads112c14_get_osr(struct ads112c14_channel_state *channel_state)
-+{
-+	u8 i;
-+
-+	switch (channel_state->filter_osr) {
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
-+		i = channel_state->filter_osr;
-+		return ads112c14_sinc4_osr_available[i];
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+		i = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
-+		return ads112c14_sinc4_sinc1_osr_available[i];
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
-+		i = channel_state->speed_mode;
-+		return ads112c14_sinc4_sinc1_pf1_25sps_osr_available[i];
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
-+		i = channel_state->speed_mode;
-+		return ads112c14_sinc4_sinc1_pf1_20sps_osr_available[i];
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
- 						 const struct iio_chan_spec *chan,
- 						 bool en_burnout)
- {
- 	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
-+	struct ads112c14_channel_state *channel_state;
- 	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
- 	int ret;
+@@ -234,7 +236,7 @@ class IListApp(App):
  
-+	channel_state = &data->channel_states[chan->scan_index];
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				 ADS112C14_DEVICE_CFG_SPEED_MODE,
-+				 FIELD_PREP(ADS112C14_DEVICE_CFG_SPEED_MODE,
-+					    channel_state->speed_mode));
-+	if (ret)
-+		return ret;
-+
- 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_MUX_CFG,
- 				 ADS112C14_MUX_CFG_AINP | ADS112C14_MUX_CFG_AINN,
- 				 FIELD_PREP(ADS112C14_MUX_CFG_AINP, chan->channel) |
-@@ -526,10 +639,13 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
- 		return ret;
+     def __init__(self, interval: float) -> None:
+         self.interval = interval
+-        self.evlist = None
++        self.evlist: Optional[perf.evlist] = None
+         self.selected: Optional[TreeValue] = None
+         self.search_results: list[TreeNode[TreeValue]] = []
+         self.cur_search_result: TreeNode[TreeValue] | None = None
+@@ -284,18 +286,18 @@ class IListApp(App):
+             """Sets the focus after the SearchScreen is dismissed."""
  
- 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
--				 ADS112C14_DATA_RATE_CFG_GC_EN,
-+				 ADS112C14_DATA_RATE_CFG_GC_EN |
-+				 ADS112C14_DATA_RATE_CFG_FLTR_OSR,
- 				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
- 					    (measurement->global_chop &&
--					     !en_burnout) ? 1 : 0));
-+					     !en_burnout) ? 1 : 0) |
-+				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_FLTR_OSR,
-+					    channel_state->filter_osr));
- 	if (ret)
- 		return ret;
+             search_label = self.query_one("#active_search", Label)
+-            search_label.display = True if event else False
++            search_label.display = bool(event)
+             if not event:
+                 return
+             event = event.lower()
+             search_label.update(f'Searching for events matching "{event}"')
  
-@@ -572,9 +688,12 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
- static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
- 					     const struct iio_chan_spec *chan)
- {
-+	struct ads112c14_channel_state *channel_state;
- 	u32 gain_val;
- 	int ret;
+-            tree: Tree[str] = self.query_one("#root", Tree)
++            tree: Tree[TreeValue] = self.query_one("#root", Tree)
  
-+	channel_state = &data->channel_states[chan->scan_index];
-+
- 	/*
- 	 * NB: IDAC registers are left as-is in case they are generating current
- 	 * needed for the external reference measurement.
-@@ -601,6 +720,22 @@ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
- 	if (ret)
- 		return ret;
+-            def find_search_results(event: str, node: TreeNode[str],
++            def find_search_results(event: str, node: TreeNode[TreeValue],
+                                     cursor_seen: bool = False,
+-                                    match_after_cursor: Optional[TreeNode[str]] = None
+-                                    ) -> Tuple[bool, Optional[TreeNode[str]]]:
++                                    match_after_cursor: Optional[TreeNode[TreeValue]] = None
++                                    ) -> tuple[bool, Optional[TreeNode[TreeValue]]]:
+                 """Find nodes that match the search remembering the one after the cursor."""
+                 if not cursor_seen and node == tree.cursor_node:
+                     cursor_seen = True
+@@ -332,7 +334,7 @@ class IListApp(App):
  
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				 ADS112C14_DEVICE_CFG_SPEED_MODE,
-+				 FIELD_PREP(ADS112C14_DEVICE_CFG_SPEED_MODE,
-+					    channel_state->speed_mode));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
-+				 ADS112C14_DATA_RATE_CFG_GC_EN |
-+				 ADS112C14_DATA_RATE_CFG_FLTR_OSR,
-+				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN, 0) |
-+				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_FLTR_OSR,
-+					    channel_state->filter_osr));
-+	if (ret)
-+		return ret;
-+
- 	/*
- 	 * REVISIT: if we implement regulator support for the REFOUT pin, we
- 	 * might need to make this voltage match what is required by that. In
-@@ -835,6 +970,45 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 		 */
- 		*val = div_s64((s64)(25 * 405 - 119500) * BIT(fsr_bits), vref_uV);
- 		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		struct ads112c14_channel_state *channel_state;
-+		const int (*available)[2];
-+		u8 i, j;
-+
-+		guard(mutex)(&data->lock);
-+
-+		channel_state = &data->channel_states[chan->scan_index];
-+
-+		switch (channel_state->filter_osr) {
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
-+			j = channel_state->filter_osr;
-+			available = data->sinc4_sample_rate_available[j];
-+			i = channel_state->speed_mode;
-+			break;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+			j = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
-+			available = data->sinc4_sinc1_sample_rate_available[j];
-+			i = channel_state->speed_mode;
-+			break;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
-+			available = data->sinc4_sinc1_pf1_sample_rate_available;
-+			i = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		*val = available[i][0];
-+		*val2 = available[i][1];
-+		return IIO_VAL_INT_PLUS_MICRO;
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		guard(mutex)(&data->lock);
-+
-+		*val = ads112c14_get_osr(&data->channel_states[chan->scan_index]);
-+		return IIO_VAL_INT;
-+	}
- 	default:
- 		return -EINVAL;
- 	}
-@@ -845,6 +1019,9 @@ static int ads112c14_read_avail(struct iio_dev *indio_dev,
- 				int *type, int *length, long mask)
- {
- 	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_channel_state *channel_state;
-+
-+	channel_state = &data->channel_states[chan->scan_index];
+     def action_collapse(self) -> None:
+         """Collapse the part of the tree currently on."""
+-        tree: Tree[str] = self.query_one("#root", Tree)
++        tree: Tree[TreeValue] = self.query_one("#root", Tree)
+         node = tree.cursor_node
+         if node and node.parent:
+             node.parent.collapse_all()
+@@ -343,31 +345,34 @@ class IListApp(App):
+         if not self.selected or not self.evlist:
+             return
  
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SCALE:
-@@ -870,6 +1047,58 @@ static int ads112c14_read_avail(struct iio_dev *indio_dev,
- 		}
+-        def update_count(cpu: int, count: int):
++        def update_count(cpu: int, count: int | float):
+             # Update the raw count display.
+-            counter: Label = self.query(f"#counter_cpu{cpu}" if cpu >= 0 else "#counter_total")
+-            if not counter:
++            counter_query = self.query(f"#counter_cpu{cpu}" if cpu >= 0 else "#counter_total")
++            if not counter_query:
+                 return
+-            counter = counter.first(Label)
++            counter: Label = counter_query.first(Label)
+             counter.update(str(count))
  
- 		return -EINVAL;
-+
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		guard(mutex)(&data->lock);
-+
-+		switch (channel_state->filter_osr) {
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
-+			*vals = (const int *)data->sinc4_sample_rate_available[channel_state->filter_osr];
-+			*length = 2 * ARRAY_SIZE(data->sinc4_sample_rate_available[0]);
-+			*type = IIO_VAL_INT_PLUS_MICRO;
-+			return IIO_AVAIL_LIST;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+			*vals = (const int *)data->sinc4_sinc1_sample_rate_available[channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128];
-+			*length = 2 * ARRAY_SIZE(data->sinc4_sinc1_sample_rate_available[0]);
-+			*type = IIO_VAL_INT_PLUS_MICRO;
-+			return IIO_AVAIL_LIST;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS...ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
-+			*vals = (const int *)data->sinc4_sinc1_pf1_sample_rate_available;
-+			*length = 2 * ARRAY_SIZE(data->sinc4_sinc1_pf1_sample_rate_available);
-+			*type = IIO_VAL_INT_PLUS_MICRO;
-+			return IIO_AVAIL_LIST;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		guard(mutex)(&data->lock);
-+
-+		switch (channel_state->filter_osr) {
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
-+			*vals = ads112c14_sinc4_osr_available;
-+			*length = ARRAY_SIZE(ads112c14_sinc4_osr_available);
-+			*type = IIO_VAL_INT;
-+			return IIO_AVAIL_LIST;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+			*vals = ads112c14_sinc4_sinc1_osr_available;
-+			*length = ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available);
-+			*type = IIO_VAL_INT;
-+			return IIO_AVAIL_LIST;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
-+			*vals = ads112c14_sinc4_sinc1_pf1_25sps_osr_available;
-+			*length = ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_25sps_osr_available);
-+			*type = IIO_VAL_INT;
-+			return IIO_AVAIL_LIST;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
-+			*vals = ads112c14_sinc4_sinc1_pf1_20sps_osr_available;
-+			*length = ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_20sps_osr_available);
-+			*type = IIO_VAL_INT;
-+			return IIO_AVAIL_LIST;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
- 	default:
- 		return -EINVAL;
- 	}
-@@ -914,6 +1143,99 @@ static int ads112c14_write_raw(struct iio_dev *indio_dev,
+             # Update the sparkline.
+-            line: Sparkline = self.query(f"#sparkline_cpu{cpu}" if cpu >= 0 else "#sparkline_total")
+-            if not line:
++            line_query = self.query(f"#sparkline_cpu{cpu}" if cpu >= 0 else "#sparkline_total")
++            if not line_query:
+                 return
+-            line = line.first(Sparkline)
++            line: Sparkline = line_query.first(Sparkline)
+             # If there are more events than the width, remove the front event.
+-            if len(line.data) > line.size.width:
+-                line.data.pop(0)
+-            line.data.append(count)
+-            line.mutate_reactive(Sparkline.data)
++            if line.data is not None:
++                if len(line.data) > line.size.width:
++                    line.data = line.data[1:]
++                line.data = list(line.data) + [float(count)]
++            else:
++                line.data = [float(count)]
++            line.refresh()
  
- 		return -EINVAL;
- 	}
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		struct ads112c14_channel_state *channel_state;
-+		const int (*available)[2];
-+
-+		guard(mutex)(&data->lock);
-+
-+		channel_state = &data->channel_states[chan->scan_index];
-+
-+		switch (channel_state->filter_osr) {
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+			if (channel_state->filter_osr < ADS112C14_DATA_RATE_CFG_FLTR_OSR_128) {
-+				u8 idx = channel_state->filter_osr;
-+
-+				available = data->sinc4_sample_rate_available[idx];
-+			} else {
-+				u8 idx = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
-+
-+				available = data->sinc4_sinc1_sample_rate_available[idx];
-+			}
-+
-+			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_fmod_div); i++) {
-+				if (val == available[i][0] && val2 == available[i][1]) {
-+					channel_state->speed_mode = i;
-+					return 0;
-+				}
-+			}
-+
-+			return -EINVAL;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS: {
-+			available = data->sinc4_sinc1_pf1_sample_rate_available;
-+
-+			for (unsigned int i = 0; i < ARRAY_SIZE(data->sinc4_sinc1_pf1_sample_rate_available); i++) {
-+				if (val == available[i][0] && val2 == available[i][1]) {
-+					channel_state->filter_osr = i + ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS;
-+					return 0;
-+				}
-+			}
-+
-+			return -EINVAL;
-+		}
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		struct ads112c14_channel_state *channel_state;
-+
-+		guard(mutex)(&data->lock);
-+
-+		channel_state = &data->channel_states[chan->scan_index];
-+
-+		switch (channel_state->filter_osr) {
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
-+			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_osr_available); i++) {
-+				if (val == ads112c14_sinc4_osr_available[i]) {
-+					channel_state->filter_osr = i;
-+					return 0;
-+				}
-+			}
-+
-+			return -EINVAL;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available); i++) {
-+				if (val == ads112c14_sinc4_sinc1_osr_available[i]) {
-+					channel_state->filter_osr = i + ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
-+					return 0;
-+				}
-+			}
-+
-+			return -EINVAL;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
-+			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_25sps_osr_available); i++) {
-+				if (val == ads112c14_sinc4_sinc1_pf1_25sps_osr_available[i]) {
-+					channel_state->speed_mode = i;
-+					return 0;
-+				}
-+			}
-+
-+			return -EINVAL;
-+		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
-+			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_20sps_osr_available); i++) {
-+				if (val == ads112c14_sinc4_sinc1_pf1_20sps_osr_available[i]) {
-+					channel_state->speed_mode = i;
-+					return 0;
-+				}
-+			}
-+
-+			return -EINVAL;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
- 	default:
- 		return -EINVAL;
- 	}
-@@ -1202,11 +1524,98 @@ static ssize_t ads112c14_read_burnout_raw(struct iio_dev *indio_dev,
- 	return sysfs_emit(buf, "%d\n", val);
- }
+         # Update the total and each CPU counts, assume there's just 1 evsel.
+-        total = 0
++        total: float = 0.0
+         self.evlist.disable()
+         for evsel in self.evlist:
+             for cpu in evsel.cpus():
+-                aggr = 0
++                aggr: float = 0.0
+                 for thread in evsel.threads():
+                     aggr += self.selected.value(self.evlist, evsel, cpu, thread)
+                 update_count(cpu, aggr)
+@@ -424,16 +429,16 @@ class IListApp(App):
+         # Add spark lines for all the CPUs. Note, must be done after
+         # open so that the evlist CPUs have been computed by propagate
+         # maps.
+-        line = CounterSparkline(cpu=-1)
+-        lines.mount(line)
++        line_sp = CounterSparkline(cpu=-1)
++        lines.mount(line_sp)
+         for cpu in self.evlist.all_cpus():
+-            line = CounterSparkline(cpu)
+-            lines.mount(line)
+-        line = Counter(cpu=-1)
+-        lines.mount(line)
++            c_sp = CounterSparkline(cpu)
++            lines.mount(c_sp)
++        c_val = Counter(cpu=-1)
++        lines.mount(c_val)
+         for cpu in self.evlist.all_cpus():
+-            line = Counter(cpu)
+-            lines.mount(line)
++            c_val2 = Counter(cpu)
++            lines.mount(c_val2)
  
-+static int ads112c14_get_filter_type_from_state(struct ads112c14_channel_state *channel_state)
-+{
-+	switch (channel_state->filter_osr) {
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
-+		return ADS112C14_FILTER_TYPE_SINC4;
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
-+		return ADS112C14_FILTER_TYPE_SINC4_SINC1;
-+	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS...ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
-+		return ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ads112c14_set_filter_type(struct iio_dev *indio_dev,
-+				     struct iio_chan_spec const *chan,
-+				     unsigned int val)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_channel_state *channel_state;
-+	int ret;
-+
-+	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+	if (IIO_DEV_ACQUIRE_FAILED(claim))
-+		return -EBUSY;
-+
-+	guard(mutex)(&data->lock);
-+
-+	channel_state = &data->channel_states[chan->scan_index];
-+
-+	ret = ads112c14_get_filter_type_from_state(channel_state);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * channel_state->filter_osr affects multiple attributes, so don't modify
-+	 * it if the filter type is already set to the requested value.
-+	 */
-+	if (ret == val)
-+		return 0;
-+
-+	/* Otherwise, pick an arbitrary default for each type. */
-+	switch (val) {
-+	case ADS112C14_FILTER_TYPE_SINC4:
-+		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_16;
-+		break;
-+	case ADS112C14_FILTER_TYPE_SINC4_SINC1:
-+		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
-+		break;
-+	case ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1:
-+		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ads112c14_get_filter_type(struct iio_dev *indio_dev,
-+				     struct iio_chan_spec const *chan)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_channel_state *channel_state;
-+
-+	guard(mutex)(&data->lock);
-+
-+	channel_state = &data->channel_states[chan->scan_index];
-+
-+	return ads112c14_get_filter_type_from_state(channel_state);
-+}
-+
-+static const struct iio_enum ads112c14_filter_type_enum = {
-+	.items = ads112c14_filter_type_names,
-+	.num_items = ARRAY_SIZE(ads112c14_filter_type_names),
-+	.set = ads112c14_set_filter_type,
-+	.get = ads112c14_get_filter_type,
-+};
-+
-+static const struct iio_chan_spec_ext_info ads112c14_ext_info[] = {
-+	IIO_ENUM("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
-+	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
-+	{ }
-+};
-+
- static const struct iio_chan_spec_ext_info ads112c14_ext_info_burnout[] = {
- 	{
- 		.name = "burnoutraw",
- 		.read = ads112c14_read_burnout_raw,
- 	},
-+	IIO_ENUM("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
-+	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
- 	{ }
- };
+     def compose(self) -> ComposeResult:
+         """Draws the app."""
+@@ -459,17 +464,18 @@ class IListApp(App):
+                     # Reading events may fail with EPERM, ignore.
+                     pass
+             metrics = tree.root.add("Metrics")
+-            groups = set()
++            groups: set[str] = set()
+             for metric in perf.metrics():
+                 groups.update(metric["MetricGroup"])
  
-@@ -1232,7 +1641,7 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 	struct ads112c14_data *data = iio_priv(indio_dev);
- 	struct device *dev = indio_dev->dev.parent;
- 	struct iio_chan_spec *channels;
--	u32 num_child_nodes, i, pair[2];
-+	u32 num_child_nodes, num_data_chans, i, pair[2];
- 	int ret;
- 
- 	*need_avdd_ref = false;
-@@ -1245,8 +1654,15 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 	if (!data->measurements)
- 		return -ENOMEM;
- 
--	channels = devm_kcalloc(dev, num_child_nodes +
--				ARRAY_SIZE(ads112c14_sys_mon_channels) + 1,
-+	num_data_chans = num_child_nodes + ARRAY_SIZE(ads112c14_sys_mon_channels);
-+
-+	data->channel_states = devm_kcalloc(dev, num_data_chans,
-+					    sizeof(*data->channel_states),
-+					    GFP_KERNEL);
-+	if (!data->channel_states)
-+		return -ENOMEM;
-+
-+	channels = devm_kcalloc(dev, num_data_chans + 1,
- 				sizeof(*channels), GFP_KERNEL);
- 	if (!channels)
- 		return -ENOMEM;
-@@ -1259,7 +1675,9 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 
- 		spec->indexed = 1;
- 		spec->scan_index = i;
-+		spec->ext_info = ads112c14_ext_info;
- 		measurement->gain_val = 1;
-+		data->channel_states[i].filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_16;
- 
- 		if (fwnode_property_present(child, "label")) {
- 			ret = fwnode_property_read_string(child, "label", &measurement->label);
-@@ -1424,8 +1842,13 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 		if (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL)
- 			*need_ext_ref = true;
- 
--		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
--		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE);
-+		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+					   BIT(IIO_CHAN_INFO_SCALE) |
-+					   BIT(IIO_CHAN_INFO_SAMP_FREQ) |
-+					   BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
-+		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE) |
-+						     BIT(IIO_CHAN_INFO_SAMP_FREQ) |
-+						     BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
- 
- 		/*
- 		 * If reference source is resistor rather than voltage supply,
-@@ -1459,6 +1882,10 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 
- 	for (u32 j = 0; j < ARRAY_SIZE(ads112c14_sys_mon_channels); j++) {
- 		struct iio_chan_spec *spec = &channels[i];
-+		struct ads112c14_channel_state *channel_state;
-+
-+		channel_state = &data->channel_states[i];
-+		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_16;
- 
- 		/* Update the template that was already copied with dynamic values. */
- 		spec->scan_index = i;
-@@ -1497,6 +1924,48 @@ static void ads112c14_populate_scale_available(int (*scale_avail)[2],
- 	}
- }
- 
-+static void ads112c14_populate_odr_tables(struct ads112c14_data *data)
-+{
-+	int *available;
-+	u32 osr, fmod_Hz;
-+	u64 odr_uHz;
-+	u32 rem;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_osr_available); i++) {
-+		osr = ads112c14_sinc4_osr_available[i];
-+
-+		for (unsigned int j = 0; j < ARRAY_SIZE(ads112c14_fmod_div); j++) {
-+			fmod_Hz = data->fclk_Hz / ads112c14_fmod_div[j];
-+			odr_uHz = div_u64((u64)fmod_Hz * MICRO, osr);
-+			available = data->sinc4_sample_rate_available[i][j];
-+			available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
-+			available[1] = rem;
-+		}
-+	}
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available); i++) {
-+		osr = ads112c14_sinc4_sinc1_osr_available[i];
-+
-+		for (unsigned int j = 0; j < ARRAY_SIZE(ads112c14_fmod_div); j++) {
-+			fmod_Hz = data->fclk_Hz / ads112c14_fmod_div[j];
-+			odr_uHz = div_u64((u64)fmod_Hz * MICRO, osr);
-+			available = data->sinc4_sinc1_sample_rate_available[i][j];
-+			available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
-+			available[1] = rem;
-+		}
-+	}
-+
-+	odr_uHz = div_u64((u64)25 * data->fclk_Hz * MICRO, ADS112C14_INTERNAL_CLK_Hz);
-+	available = data->sinc4_sinc1_pf1_sample_rate_available[0];
-+	available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
-+	available[1] = rem;
-+
-+	odr_uHz = div_u64((u64)20 * data->fclk_Hz * MICRO, ADS112C14_INTERNAL_CLK_Hz);
-+	available = data->sinc4_sinc1_pf1_sample_rate_available[1];
-+	available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
-+	available[1] = rem;
-+}
-+
- static void ads112c14_populate_tables(struct ads112c14_data *data)
- {
- 	u32 full_scale, fsr_bits;
-@@ -1534,6 +2003,7 @@ static void ads112c14_populate_tables(struct ads112c14_data *data)
- 
- 	ads112c14_populate_scale_available(data->sys_mon_chan_short_scale_available,
- 					   full_scale, fsr_bits);
-+	ads112c14_populate_odr_tables(data);
- }
- 
- static int ads112c14_probe(struct i2c_client *client)
-
+-            def add_metrics_to_tree(node: TreeNode[TreeValue], parent: str, pmu: str = None):
++            def add_metrics_to_tree(node: TreeNode[TreeValue], parent: str, pmu: Optional[str] = None):
+                 for metric in sorted(perf.metrics(), key=lambda x: x["MetricName"]):
+-                    metric_pmu = metric.get('PMU')
++                    metric_pmu_raw = metric.get('PMU')
++                    metric_pmu = str(metric_pmu_raw) if metric_pmu_raw else ''
+                     if pmu and metric_pmu and metric_pmu != pmu:
+                         continue
+                     if parent in metric["MetricGroup"]:
+-                        name = metric["MetricName"]
++                        name = str(metric["MetricName"])
+                         display_name = name
+                         if metric_pmu:
+                             display_name += f" ({metric_pmu})"
 -- 
-2.43.0
+2.55.0.1007.g17ff1f9808-goog
 
