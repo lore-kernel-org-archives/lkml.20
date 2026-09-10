@@ -1,80 +1,92 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC673A2572;
-	Thu, 10 Sep 2026 05:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B7D2F39B8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789018895; cv=none; b=AUXZxg1YVMSRxyk/5RIF+kfGLJFRJFHMQrt+XaNdZVCwds3kjJC4DeXFTWqO/UIoZ+KmvcKS7mnyTLRyoKEBWTsvK3vbFX1TVXYdEJY+K96iUO1hxwnyWT5V57MVMkJdYAxkCrrjuCX1o4OKdNqTn9I2pjFUihsHTQjqXnhk1xA=
+	t=1789019084; cv=none; b=h4194v8JvbkiU8uwejiUULHuO8u60K51QmB9byMx+TfcpDIuK0rCEG/aAVusIiZSntCfKIezN45VD/UdzBmDGY93CwJl56pOtEqqH/HlXOQlMl5V1kX3dKOgpa3YBwZvSX0BLiFNHy8JfYhhEhKUZcj2ZYr/gNKI23ysvGvWSm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789018895; c=relaxed/simple;
-	bh=QTe1maqDB5loOzncoTs+Y0dn6EHlYTRJncmuVOdTIu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hHJ+Op/hSe6Psz9wF3qOnxQoGn2TVLYMcRjElSh9ZwCKbGYaIRkjvmdJJuRCX+8pCkMQByNItsBh585IWikzmeUxcHyd3B+OcrcQMpzYugwg4ZKRP48Qc3xi0WK66StPgV3g4B6Iyvl7sbOD2yCsL35e5UyPJypfEOFEdSzPoPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=RmexEMbB; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1789019084; c=relaxed/simple;
+	bh=vCsAiUiM0PKCV4ccyqUUSnv3id7jD+rmaY3eiA+jZJI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gFOv55MchpohkH3NpOh44pU4+pYY3lw4KiR3stg9DKotNcWZ+ToJh73MjeQxec9PsxRmQNxLOikuuzHeRu6yyl95oHfonBkowchwtdv0P5l5pPv7rdjP1YEjPIdQOkH8KpiIdOqAoWWTEdcRREQNGZ/3TElOmBwCJqY/uPirzyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xq5VqKgG; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="RmexEMbB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Pmlf15rJxZgO7eQQkJpIuKwAVLruLNQvd8UgNwztSEo=; b=RmexEMbBNFMTs50rFaEKMYszrh
-	wWpR52U0Rl2PnvFs48ssHfTr4Ve8ziX8uzWnzndnndAvrSY3Szm15wogstHD+zoviXR230d7XLo1x
-	6rYETcn0EI7gkl2lR/KhT2GEsZbO261EaLEfCgl6gwizb6M+LIMPH7quj05A2AP/G86Y3fwcj5GP8
-	iNbGA7D3zw5hxGFOl+wwX2gcTQeAiaoMW8N8YGfCf6dPwNDh0Cb+kmZ0FYroDqxVmGGvNfgHC4Z6H
-	v7aSPx4DPpMJOk7dW+EXj9pDA+c1JOtXjZyGQN0msRG0QqWpTProH16y8swABORTZNVkYqKoSLaJp
-	WffHRnhg==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4XXO-0000000DT3s-1mkS;
-	Thu, 10 Sep 2026 05:41:30 +0000
-Date: Wed, 9 Sep 2026 22:41:30 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: tj@kernel.org, josef@toxicopanda.com, axboe@kernel.dk,
-	cgroups@vger.kernel.org, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 1/4] blk-iocost: charge flushes as pageless random writes
-Message-ID: <aqJDCtbWqXlPu0X9@infradead.org>
-References: <20260908022135.1429281-1-cui.tao@linux.dev>
- <20260908022135.1429281-2-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xq5VqKgG"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8534d507f59so6688630b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 22:44:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789019083; x=1789623883; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vCsAiUiM0PKCV4ccyqUUSnv3id7jD+rmaY3eiA+jZJI=;
+        b=Xq5VqKgGBwAOAt3G8tBXTese9qs1yGVcwbsFk/TVNI3gSHpRaBH/AP5829mRH8RB/y
+         +69HLaOGp2YNqdZOZQDhxPqKsNDfDDOateupyHNDZtM5WgquULcPtj0Na+YAZjvVeEj8
+         2qEOOyVDA+2GFQVCIkJ0S0vudzZVpgmPmGjrqzceS2Tt14yTcR0sk8aL9LuMkJK3wytQ
+         wTmtUlmLNzNMT/fWVp4jBFXm+tXZLGKOvmeou4UMca5yAhzuSeU6tQeuv26mV2vJHvlX
+         ql3iS13JrP5I3/44f0r+D3t5XgGsRlAgU/ImlI3mHADjE6Jk2nn0p7IzCYSHwVDk777N
+         QthQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789019083; x=1789623883;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vCsAiUiM0PKCV4ccyqUUSnv3id7jD+rmaY3eiA+jZJI=;
+        b=pQ4wRJwrpc9OKHD6shZIqR2pK/FkR0fHzhgVKex0VoG9E0KV28zxcr/osHbViBGjYi
+         yFZ4VzzvGeMJNpu+4594Y+XBkGgwFuolaG5cbq9Lz+tQsHJ03cBe5cdR8/CHq1eGjXCS
+         mZR0UEazoaBkth7IVG5Ybj8RNCc6ec0QCU4JtSUtoNclvXhUpkL/blj4VJsNHXEKrihG
+         86ekWbF8TeODtHB+N2O6bNhAibu3pwPNUGeNOFz0VoCeQ7dofgrJ9C+8/k71fr0r9maM
+         K3RESGFTb8OgKKP8vgfkL/KS1wKiMuTCXuX4RhEenkvUVzqBS4+bQPv7WEKI5ZfssaLv
+         3yug==
+X-Forwarded-Encrypted: i=1; AKwUvBwtSOY0CD5DMXd3vzWXOqzSjM3b4X5XhDrvqYCGdyzuJAKDzin6ciNQarGNuEK5ZZEoZ1DqcUizdkhuWMY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kL2lP5z4KRsuAaoCrmhw463mXKG7L+/4YvI4Jh7U1U+02kwP8d
+	kOw98TAVKGrZAzHgQrUJSgh9XA2elwMHwCfFSC2bDg0ZdOzxgZ/q7PzL
+X-Gm-Gg: AYBFou1R5JksAeQ2+1kUQy2mjKdn/JElDLepkMurPKDqVn+rBFdYhClPfk0Q2yE/o6P
+	1kesuXMtwixOHmZ7MCXQcEAHm6vwrhplYAhapWuDHWs2T5g1b897TGFg3swmz+V8ws7Mp+jUzny
+	0HDBgDpr4V8wuqNS+k/tNc2qLZ3uAKPAzfF9RVN4zf5n+Q6wLyvBhb0yIVzD58Oqu0AizxG6hfU
+	oDtvM8GQSUV8UemMVdzJkmXklMh7ag6Pm1PeC7p43XW3AYI11ALldJmjLfzppjmT3dn0aJbJAY7
+	FEhSL7yqdy39Z18ggrKamEzFcndhEJmWASRG2V0zTiQB04mwNzSWTugDKxtVQ00ofQOutTKlOmK
+	S07QT9jHUqcSj/K2WwlF+qWU5fZaKK9/3MfLxUUtlYh+aX57iiuKioSGaQu/NwVwNX5YVFu3ZK3
+	1ICkUp9MypnrgGTmlWed9dV4Nu6SUZTKmQk3/CWov1rZfzGWrcQFFYpZ26FaTV81vkxAOGJ1OMd
+	N6G
+X-Received: by 2002:a05:6a21:7117:b0:3d8:5a37:549c with SMTP id adf61e73a8af0-3da39eb8acbmr70334644637.7.1789019082449;
+        Wed, 09 Sep 2026 22:44:42 -0700 (PDT)
+Received: from [43.242.224.196] ([43.242.224.196])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3396e7e477csm17937942eec.29.2026.09.09.22.44.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 22:44:42 -0700 (PDT)
+From: Roshan Kumar <roshaen09@gmail.com>
+To: linusw@kernel.org, dri-devel@lists.freedesktop.org
+Cc: leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ pimyn@google.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/pl111: Advertise no pixel blending
+Date: Thu, 10 Sep 2026 05:44:37 -0000
+Message-ID: <178901907705.4155737.5974214979587698317@gmail.com>
+In-Reply-To: <d3a928e0-0faa-4cd4-9d2e-cb9be4cf84c0@suse.de>
+References: <20260825105427.686619-1-roshaen09@gmail.com>
+ <d3a928e0-0faa-4cd4-9d2e-cb9be4cf84c0@suse.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908022135.1429281-2-cui.tao@linux.dev>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 08, 2026 at 10:21:32AM +0800, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> Standalone flushes issued by blkdev_issue_flush() are represented as
-> dataless REQ_OP_WRITE | REQ_PREFLUSH bios, which
-> calc_vtime_cost_builtin() prices at zero.  The flush component of
-> flush-heavy workloads such as database commits, journal flushes, and
-> metadata sync is thus neither charged nor throttled: a cgroup at 1% weight
-> can issue ~510k flushes per 12s, monopolizing the device while iocost
-> reports zero usage.
-> 
-> Price them as pageless random writes (LCOEF_WRANDIO), which provides
-> an approximation of the device time consumed by a flush.  For
-> profiles where WRANDIO clamps to zero (ssd_dfl / ssd_fast), use a
-> one-page floor (LCOEF_WPAGE).  After this patch, the same 1%-weight
-> cgroup is limited to 24 flushes per 12s; on ext4, write+fsync
-> workloads are correctly accounted through the journal layer (~2.2us
-> per flush on the ssd_fast profile).
+Hi Thomas,
 
-Flushes are actually a really interesting case.  For devics with
-a non-volatile write cache they are no-ops, but submit_bio should
-ensure we never see them here.  But devices with a volatile write
-cache they are significantly more expensive than any kind of write.
-If we touch this we should probably figure out a way to model that.
-Note that this includes standalone flushes and PREFLUSH ones,
-so this patch might be a good start, but still is missing a very
-important part.
+You are right, there is no good reason for these formats to be here: the
+hardware never looks at the alpha byte, and the ARGB/ABGR entries just
+duplicate their X counterparts.
 
+I will send a v2 that removes the alpha formats from the driver instead.
+
+(Thanks Leandro for the review of v1; the approach changed in v2 so I have
+dropped the tag.)
