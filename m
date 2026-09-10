@@ -1,69 +1,69 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38026598BF1
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FABB59B677
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068721; cv=none; b=Yes1FDPbk9z8uftujZ9DdIEV+tXH9yXcH1kF91hN2ewiT88XAqmyao2pC7o3D1W9HGYOyu9D5Q2M7Yfb3rrrIuETX0X2XnN+g3mpzmITPAhl7GjMhMvWzNMNn6GwCXKjQyT/bgK9+KnZeaAm1tbnd4/Ey2mN21HJWZKVNhDjQEI=
+	t=1789068809; cv=none; b=BFeN2T2dWqXr4jmrDWqBZ+n3EAaLxWWjQZibOJxvopNnb60EJ2WBrtPJZrrShcC3TQrAdqjL4duUSmzYcbG9Fg+2u1JFQ7mP/3Q7o8IacL5oVzEFJkE/Ff0Qg/lodXl/84/XR2dfxecq3g0rws5Zw8ZMHDnAjF3J/AmTLaKIveY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068721; c=relaxed/simple;
-	bh=RVscuzOwWBLYOqPI0VAq65UPbl5BzTBhY3MPWSu7TYU=;
+	s=arc-20240116; t=1789068809; c=relaxed/simple;
+	bh=z/ntw6rkZ01hf6p5sHZuJQruPYMKRq0GuPPT61YKsXI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mS1Eo53mWlPhEAt4RPt3Vyc1PfVu+9lvlOuc52BZO8kdCJ6ewsrBBI7IgSvKRf2HRfXw1kc+U0vW36eBaXfMSe6cu2WNgHs2WQL5L7H6fVHSPih9n5z3PuBblqqlEXc8BMe4Tb9YXmBAiWqJjzGmV7VpzZweU0R1w486qI4Q7bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RosHvJK9; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	 In-Reply-To:Content-Type; b=eumIHrao+aqykCJufnaufIpO9oRDVjC4vviiKd5H+Q+ZYnjvVGuYi25T2fHuh7NRK8ZYniPQ9uMNxFxJ+bJwVjqoMdwYwRivq6iTow1fOYAVlxdSS3vU6Dh1zmFrqHaLMA+mkGkYsqkPgshrHFGqs77YRti3uUu0YRWs+vUhIwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YLrUzNVB; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RosHvJK9"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so70635b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:31:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YLrUzNVB"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so84129f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:33:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789068712; x=1789673512; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=gmail.com; s=20251104; t=1789068799; x=1789673599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gEdV5Xs8ER2iH6ECRgXfLV1Fk4a++1FtqWHfmbg9CiM=;
-        b=RosHvJK9DLK0FlPnzknkm7VlHCbjT6fsYBPIZKcvabHTFuvKkmzNvbSYKIfikaqHtc
-         7fab1b9E0d3x7/+7bqzQqEkKybK8tvuS1RJM5+ez9HQ3ByWOxS1UTWx4CGZ428GgZPWL
-         mPBxWuS5QN4kF+LEajLA2p6ch7yrI86NwVxJoWW+3acLARqivoKzVNc8A3cPUa67JG8W
-         y+Y81VXs5tzI1Kr5aXGO2kiOfkfJe0LFJB/lG0LnzmLD0ihHV/iUTViFOXYhY1IO0KEJ
-         VwNx2nrsNwn+8yTFMvNE3/ZtaHG/9WrfezbUsXaTPuMioWUfYeRrrG9aOn/IRs0A2SMA
-         ppGA==
+        bh=VKdmL79F/q5jy1ukzo1sZIwlgRGg6y+i6cYUbNQ2MJk=;
+        b=YLrUzNVBJRxSjduF6rkjEH/J1HsxBgX8Mb8q8OqDHdVuokbWtXhA/OXT56dcWiupEi
+         nsAK9yz0H3PE17ekZ45QDfpd/MV9wwcZ7cPJePo+y3B5PkxDtU4c0Qbqor/kqM1SRxiC
+         QIcEzwNqzfqquUJ1Hd2rdFrM8oNuoLP/+Df2Y7CJGub7vZZbCGyn9CRn40/WBwQPociE
+         kzXOIwaWJlgXm9edYOIaWw319V/wbMB9/Z92DFrKYHmc0w8t0+pbnYdoTmDpC2DKDepY
+         l3nZ1uHDcoPGlAK8uwwH8soRwzZ9d3TR/zbvr3S9Y+YGApny+YwIs6xpnAD53v0s0uYf
+         27Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068712; x=1789673512;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=1e100.net; s=20251104; t=1789068799; x=1789673599;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gEdV5Xs8ER2iH6ECRgXfLV1Fk4a++1FtqWHfmbg9CiM=;
-        b=G8+YAtwVb0TE8ISKHW69i61pD28uZ4Zx5LhzwlK1LLg1c5O32IvZxVvfhYOPmUzI6A
-         x7AeEjdQE5EC3YX7/Ix8/pFiSvF82cPnlzP5uEGkVQIdBfzTdcoCI4WmvNIKGquEp7Vy
-         wRq52CfUTjbMNF0xEbfE6DFe6Xw9IDuLx215vVvuTZaC4+Nv92nkaCfimLIo6nMo9bR4
-         aGLasnJEiMTBoIKwIlRxUx2iFW526fhCI3M55P9nxWm/E/NzvXeeneHxS9dQEjOrn0qW
-         UQZUCed/+d9pp7tlKaFj3zWP9Gkj4Tt21cWPwkXE/ah5f4/Wo9zx+TCVwhKTy/D2UzR5
-         e6Gg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+hUAbkU/4CNPh9gHejervoYp/NXmYkrdMwIhZU47Sva+oekKX8e19Ug/b4SVSIw7QCAFXTa8hoHsdnRk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX24HoZ3s/KQrHTRoeo49VrB0ns6X8+Tmj7/So/weZ9BjAl4Av
-	xtQEja/XTAdTtbnuIoFB/ioARsxkBbiS/56g01RT3YyZi4hsx+okUcoL
-X-Gm-Gg: AYBFou2iPvuj5uN9qzcPrw1QYmgaLHWHUCASXN14bWcbngybWAg741p9iCeHL1ODOWP
-	ClMMNws2N8IivLRAjaptWDET/9VScV7wTN9LxVM/pbjbnv000pENSaRU7Tdazx5j9HvVC2wADBr
-	nI188iFUlxdJ+6WSJZqGrSTt3UvIqNLGM+vFKCPu4iu0wv6l0flnLmU8iE9J9UwMq1M8rLEkRd2
-	CdAcuXYkt5MCQoHKePTnyz9iOFySIM3xyM/qsy9+sbnOF8EZLazhhvWCR2mSZsfvr5GKajEGLzW
-	2VE069JEJH0MWDaVL0rmtUT8OwcYldb1pXgTm8alwF/UHTvScDigBum+PlWEvjVG5GoyN959E/u
-	kDijhtltaR0gFdEd8YR7a/M/tLHB5wY9o33+NoPmuOYKdsNOdTkp6oMGS4NItT2k2G3TmNS52hV
-	A/kbfqOY/e3rGio6mbxWxQ+ghBhz6344LXkVK8ISvl6COF7NuiDLY43VzL3nHWAd3szEO8bt1fo
-	9aKOg0NzyBMJryW6CwnACl1hNNOZKmZXxl8ej3LgLcDpi6U
-X-Received: by 2002:a05:6a00:ba8d:b0:857:72ba:ff0f with SMTP id d2e1a72fcca58-86b34efaaebmr529838b3a.23.1789068712105;
-        Thu, 10 Sep 2026 12:31:52 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a5c052csm79353b3a.58.2026.09.10.12.31.49
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VKdmL79F/q5jy1ukzo1sZIwlgRGg6y+i6cYUbNQ2MJk=;
+        b=ZpdUriWkEnrcfDUKqauSii20M7JymFLKnSJ3MlF65apVRAsuc9izPXt+4BMAOPoYfZ
+         Rl0A5YRnIt5x0cadjqPyKRvQgjWxiF4Z6YfILDBnIwNykhRvRk1DY56OOA5WllDvoCAd
+         AllJA6hZlPLaTk/UIeN2Skit+tuVKho7mrj+objCfhz6HTZX4TRDYnk+Bg+WeKJv4QC6
+         YY5AjkUzrgux9CDpA3kdFiLUk7POdtp/bFFLdWJjrzMD1U4tlQFtJpAyrDU28MCDJlTT
+         6dGtKQgp+GNXBsGqCs4hCqnWCON3wl93FBa7YWD9pGkdaJdeoAPUrBCrM2jCr3QHS44z
+         zMDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxvbVdvGkOyuul66mhcQmQ9CPJdXiwGede/JuW9jnC5FL2F5rdAEWKD8PBU/rA7elGh6DhV/qqz4XvkA/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYTYNGr9nYk3Fr4kcHsUVSVXJq8MQFECopT9fq6JmVGSr/5W4Y
+	4X+Y2aOE4OULDHAVeMzExrYKlnTc4zf16UQYOM/EEjv5q0Vbl/HrzR1K
+X-Gm-Gg: AYBFou1doABLuRWKTxcmXqVzgp/tMy1Rog37iOQC1MA98tQDHebHcWc+M9g9/0WQhle
+	fWMQVdG+KqQa1IswL8mZY9PfI7bFoa3LTFEX82ObioMlAzf87eod4aPBwm4sQEbWTR//8iXXtDI
+	OLbHMmgnMWVv+A2NKfSJ9v77MaXOJ2G3Pje0OV/+TX5Zm7FTh7ZEr4X/EAK0OLUP6k1glVapCwY
+	ikjEuQIAiLQkbLupyQ/rH0VpX6GwPp+BtB924mtKs3+voZBoTD4MoQZZRD9ynm7jnH+SB6T0ZDS
+	HTpQZDArXeHqTcSMyZ2tqQ9n06x4hUzQFYxrsSnXzqRYeWB68tflT2rK9HjbBPbodzFp84RQ0MF
+	BP8I8S8OJ/o9GaFGxbQkOAiBO/J5s/wC3Yaamcb+jOoE584x2VC9e0su0OySi/HxjQhcXd4/8kz
+	ZdBbnoZV4POnD8hgH1iUUhtOMcYVfrsFPDSRMNrsTrHRdQ+mlJbOQSZ8itoElPHqmzHG67wGQQf
+	7742Y/4Ufi0OraM608Of+z5ost2ywhFveGPRbZrArap7F/F8UoT1iPMjcQIYIpHwhIEOTIx4lXb
+	7HnzyY+ge4d++TD4B5j40a594mE/oYqVDzwb
+X-Received: by 2002:a05:6000:4a12:b0:484:4537:95ed with SMTP id ffacd0b85a97d-486eafd6f7dmr650425f8f.5.1789068798984;
+        Thu, 10 Sep 2026 12:33:18 -0700 (PDT)
+Received: from ?IPV6:2003:ea:8f2c:d400:9135:d56e:c3ce:edd3? (p200300ea8f2cd4009135d56ec3ceedd3.dip0.t-ipconnect.de. [2003:ea:8f2c:d400:9135:d56e:c3ce:edd3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm620428f8f.5.2026.09.10.12.33.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 12:31:51 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <c5fd98fc-2cfb-434a-8a81-3bf589049670@roeck-us.net>
-Date: Thu, 10 Sep 2026 12:31:49 -0700
+        Thu, 10 Sep 2026 12:33:18 -0700 (PDT)
+Message-ID: <46807790-6f07-4f0a-b50b-375cc1c9b061@gmail.com>
+Date: Thu, 10 Sep 2026 21:33:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,116 +71,197 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-To: Arnd Bergmann <arnd@arndb.de>, Svyatoslav Ryhel <clamor95@gmail.com>,
- Arnd Bergmann <arnd@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Mark Brown <broonie@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Helge Deller <deller@gmx.de>, devicetree@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, Jonathan Cameron <jic23@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev,
- Mauro Carvalho Chehab <mchehab@kernel.org>, mfd@lists.linux.dev,
- Michael Hennerich <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>
-References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
- <7a92a79e-e22a-4e34-9f11-4086b88f62cc@roeck-us.net>
- <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
+Subject: Re: [PATCH net v2] r8169: don't enable chip LTR when the platform has
+ not enabled LTR
+To: Yogesh Gaur <yogeshgaur.83@gmail.com>, nic_swsd@realtek.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Javen Xu <javen_xu@realsil.com.cn>
+References: <20260910130140.910-1-yogeshgaur.83@gmail.com>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Heiner Kallweit <hkallweit1@gmail.com>
+In-Reply-To: <20260910130140.910-1-yogeshgaur.83@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/10/26 12:15, Arnd Bergmann wrote:
-> On Thu, Sep 10, 2026, at 20:38, Guenter Roeck wrote:
->>>
->> ...
->>> drivers/hwmon/ds620.c
->>> drivers/hwmon/f75375s.c
->>> drivers/hwmon/max1111.c
->>> drivers/hwmon/max197.c
->>
->> I missed the rationale for removing those, but then I don't really
->> mind either. I guess we'll hear if someone still uses any of those
->> drivers/chips.
-> 
-> None of these have devicetree support, and they are not usable
-> with any of the remaining board files.
-> 
->  From what I found:
-> 
-> - da620 apparently never had any users upstream, though it does
->    not require platform data and is theoretically usable with
->    an external dtb
-> - f75375s was only used on iop32x (long gone)
-> - max197 was used on x86/elan/ts5500, which is still in the
->    tree but cannot be enabled anymore because it is a 486 class SoC.
->    I have sent a separate patch to remove that platform
-> - max1111 was used on spitz, which is on its way out for 7.4.
+On 10.09.2026 15:01, Yogesh Gaur wrote:
+> rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,
 > 
 
-As I said, I don't have any issues with removing them. Note though
-that the ds620 driver (like many other hwmon drivers) does not require
-devicetree or platform data to work just fine.
+Empty lines, mail formatting issue?
 
-Thanks,
-Guenter
+> LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on
+> 
+> RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on
+> 
+> every ASPM enable, then goes on to let the chip trigger L1.2.
+> 
+> 
+> 
+> The only gate is tp->aspm_manageable, which records that the OS is allowed
+> 
+> to control ASPM. It says nothing about LTR. LTR is a separate PCIe
+> 
+> capability that only works if every device on the path to the root port
+> 
+> supports it. The PCI core works that out in pci_configure_ltr() and
+> 
+> records the result in pci_dev->ltr_path; per PCIe r6.0 sec 7.5.3.16 a
+> 
+> function must not issue LTR messages while LTR Mechanism Enable is clear.
+> 
+> 
+> 
+> So on a platform whose hierarchy has no LTR path, the driver tells the
+> 
+> chip to start sending LTR messages nothing will honour, and ties ALDPS -
+> 
+> the PHY's link-down power saving - to them. A report against RTL8125B
+> 
+> (rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291
+
+Did you verify that this is caused by LTR messages, and not by any other
+root cause?
+
+> 
+> link down/up transitions in one eight-hour boot, with repeated downshifts
+> 
+> to 100Mbps, against four transitions at boot and then a stable link on
+> 
+> the kernel before the LTR change.
+> 
+> 
+> 
+> Gate the chip's LTR programming on pci_dev->ltr_path. That field lives
+> 
+> inside CONFIG_PCIEASPM, and without ASPM support there is nothing here to
+> 
+> enable LTR for, so compile the function out in that configuration.
+> 
+> 
+> 
+> Note this does change CONFIG_PCIEASPM=n builds, which used to program
+> 
+> chip LTR unconditionally: pci_disable_link_state() is a stub that returns
+> 
+> success there, so tp->aspm_manageable ends up set. The PCI core does not
+> 
+> configure LTR in that configuration either.
+> 
+> 
+> 
+> Fixes: 9ab94a32af70 ("r8169: enable LTR support")
+> 
+> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
+ 
+Did you verify that your patch fixes the reported issue? Or do you
+just assume this? Because in the bug comment history I don't see
+a statement that issue has been resolved.
+
+> Assisted-by: LLM
+> 
+> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+> 
+> ---
+> 
+> v2:
+> 
+>  - Gate on pci_dev->ltr_path instead of reading PCI_EXP_DEVCTL2 directly,
+> 
+>    and compile rtl_enable_ltr() out for CONFIG_PCIEASPM=n, where that
+> 
+>    field does not exist and there is nothing to enable LTR for.
+> 
+>    Suggested by Heiner Kallweit.
+> 
+>  - Commit message notes the resulting change for CONFIG_PCIEASPM=n builds.
+> 
+>  - No change to the RTL8125 register programming itself.
+> 
+> 
+> 
+> v1: https://lore.kernel.org/all/20260909110554.1977-1-yogeshgaur.83@gmail.com/
+> 
+> 
+> 
+>  drivers/net/ethernet/realtek/r8169_main.c | 13 +++++++++++++
+> 
+>  1 file changed, 13 insertions(+)
+> 
+> 
+> 
+> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+> 
+> index ec4fc21fa21f..05f7a44aff01 100644
+> 
+> --- a/drivers/net/ethernet/realtek/r8169_main.c
+> 
+> +++ b/drivers/net/ethernet/realtek/r8169_main.c
+> 
+> @@ -3035,8 +3035,16 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
+> 
+>  	}
+> 
+>  }
+> 
+>  
+> 
+> +#ifdef CONFIG_PCIEASPM
+> 
+>  static void rtl_enable_ltr(struct rtl8169_private *tp)
+> 
+>  {
+> 
+> +	/* The chip must not issue LTR messages unless LTR is enabled on the
+> 
+> +	 * whole path up to the root port. pci_configure_ltr() works that out
+> 
+> +	 * and records the result in pci_dev->ltr_path.
+> 
+> +	 */
+> 
+> +	if (!tp->pci_dev->ltr_path)
+
+Simpler would be:
+if (!IS_ENABLED(CONFIG_PCIEASPM) || !tp->pci_dev->ltr_path)
+
+Then you don't need the stub function.
+
+> 
+> +		return;
+> 
+> +
+> 
+>  	switch (tp->mac_version) {
+> 
+>  	case RTL_GIGA_MAC_VER_80:
+> 
+>  		r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);
+> 
+> @@ -3120,6 +3128,11 @@ static void rtl_enable_ltr(struct rtl8169_private *tp)
+> 
+>  	/* chip can trigger LTR */
+> 
+>  	r8168_mac_ocp_modify(tp, LTR_OBFF_LOCK, 0x0003, LTR_OBFF_LOCK_EN);
+> 
+>  }
+> 
+> +#else
+> 
+> +static void rtl_enable_ltr(struct rtl8169_private *tp)
+> 
+> +{
+> 
+> +}
+> 
+> +#endif
+> 
+>  
+> 
+>  static void rtl_hw_aspm_clkreq_enable(struct rtl8169_private *tp, bool enable)
+> 
+>  {
+> 
 
