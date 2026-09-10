@@ -1,277 +1,322 @@
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B7C371D11
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F09348C50
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068685; cv=pass; b=VuDGdTAnzQBolYDCkjzH5jf2lOLKE0qQi1nMMpPWZFgYw4Qa0HtbOVxVIg0yIHLe2CIg6fxpQJqSXdMBZXiY9W4Mov6GDkPhnGqiIgKi8NFmARHbDW32PJb0ZfrSSrpAKqU3MKHnn2AXuq21ysDE+KcJBORaFTZXIRIkrHV06k4=
+	t=1789068716; cv=pass; b=HbIbfr/9YhEGbw1B49WA3gpQDKIPwaJGGxFphaGM4xNhIT6+Fn4cYnxjjPkNAMrj5BlrPlHmpdmTztVYwBZANlmct0xbVw5vT3jutHZ9Pc6k4LjSgXUbi0+c6+l8XAY5WuCStXS3iKPQJjaf8HjRGvM/7ICiQv2YQwykgnKdMiw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068685; c=relaxed/simple;
-	bh=KTq9X+5RKd6MevfODoxvkTeUdtyi6rv9KjZTSYh2TKE=;
+	s=arc-20240116; t=1789068716; c=relaxed/simple;
+	bh=BCOD+UDwEu/EcPHRC55YdZVtEVa30m3T52Lv8r6g084=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xz7yM/j6c0crCUJIVKwGa3Jy5E1DUATcM6K0lDoMRIbpGoohCkb765BMprs8bUMZRimjR2cUpvQlxnOkgPcTEvy/FBJkhrw2X6fuCzrsz0/feKRccEtrNyLUKK2nceLs/dexcusKvYNGbw2balKFaNItlu/vLXo1eD6J+NWjuKM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bTyEgftU; arc=pass smtp.client-ip=209.85.221.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=fRwx9MJlo/U8V9LR8FsHqzF32SWaEOoZ1uLlkg7Iils9QAZoRZ30weuQyKSGT6mhasLYYEAFxKH9JHrUYGtFKbuVhLyoFbOEi0llwRUCeSjW0Lme6bMxrlKE6FxtyfpPQrgzqK/iP+pL02g1CW/z534d/rZcKNe/43mJPgsZgzo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PB0mHArs; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bTyEgftU"
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5c663437fe5so170543e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:31:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789068677; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PB0mHArs"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c262204cc80so21530366b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:31:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789068708; cv=none;
         d=google.com; s=arc-20260327;
-        b=HFQRX2BTiO7FU8N9xCatTcmRywbcBbUl4jRRSQ21T1EN5QTywRPw75B0VrrVJmtGze
-         zE1GDYcsECQYvc8LXKYu07iPzAQn34m7h/4kX4jf9r/nmHZfdW5clvIDO5+jY1SCUlpp
-         tzfscBQzwrgMHv3hGU//TEgxLVeZ2VLjfNpGzl/+2MnyQb9pGgmjJTmUtaAPkibrUTwc
-         c25fQ/qHuNG/4De59PCdzWrZ/gavFkPYD9/v2xSvXuwBoja3mzHoDXlTMRkcDdQrsho7
-         4s0I+fKAH9EvuPBQ2xZjbijHA65qDrK1gtH1G9VIZXOttTftvn8bkWAl5o/n9wFhowrH
-         nDyw==
+        b=J7En+sxM2utwIPbsjLI0xU+hoia6k6rkpFgXpy5v0VKDyf0adfCTXN3+D3Ta7/I4nM
+         /31mfuiswzkck54aBy4aUZqv9KatoGrw+y8B/pViuqaBtXpcymTubX+6qOLq2fT37CWH
+         09A++sxDgRXSSaqLdChOIE4dgohTOwzpfJdxHgZJ1+nk5m06EnRQ5/ORQK1rkwQe95uE
+         +dRxVXkGmjoAfdX+eGkf/xqmYixSL2WklwWtthVmssa7WYHAIxZKvtUTkBeh5KQI17uQ
+         kvh1nA29zxOdN4q9aMl6RM+Qzdjaaeay7+wqobw2Uunxs3cl6r4pQhG6rqByW13J+fQC
+         8f7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=0V/f5lIKQxwY8UDJZpxZzCGcHb+M8Wk6F3+yBI8V0a4=;
-        fh=JcwWubNP/++qRK43a2A2s6h4AB9zuMtiEX5nKg7Th1Y=;
-        b=H9bmfIvNqrl3ln0ElYGqz82RbFct9b/gvIag0KWmtgCGkEU9wuTExlajLqlI8tJLRo
-         hiaDcC+9MH0zxpqgaUoB1ecPWo+ZZgat25yNKmETm7Fbiqo/v1YzKJVJcJhBZY+X4oeV
-         ttUF2S1R89n3EfNeIDNAKgBkiiKhh/OCLSVEsFI5u7mVVy2bsAuKJQ37UvzRAiH7Lah9
-         FLOC960SsIRmD0o5Ov3Ai1aINpjw6j6YqN5L34rx8Vn1iko89+22+G6CjXOunsbB39Km
-         N6rOJeCCzDM1esSZCfYRuCbJWYkoaziPOBUxP/Z1JM65EWDXALiL/+d6RTDhr348UJN+
-         by3Q==;
+        bh=rUpE4/08QQtcu5rn/e3HjQ4bcrKGxxgjRXtpMtuV3So=;
+        fh=YvR3ha5WujmxxWQnhK6VIu4Y9Y67I0Mf2OFRl2AFXIw=;
+        b=mMj9xrCYi4ulsV2CnrROsdpS8K0WVDfEKSIfXHkt5rCb/ilh8oMRXxJApNHkWiueEN
+         EorTdWe459LTL20EUQpaoNHVooqRU7KAuMT7dohNUwiMW8RF1mR0d7bJie6Prci9jvmK
+         fSBxM/LRHWIv8JrftXG5gpBYa4GZejfEAXzyJAjZdhQWlAhKKjIJ2eUeLs8KJv6avBIi
+         LAM+3iabu/3WQQA/NSgP3i0o+g6hNYJClxgaLGS98J0mwzuE0vD8Ua904anvkqkA13PJ
+         650qf9YcoPkbipaeGQSfWQWkEw+rNyAyRXqcFg1zXdBccnK33tisabHyZtNR4QystmCU
+         dF/Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789068677; x=1789673477; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789068708; x=1789673508; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0V/f5lIKQxwY8UDJZpxZzCGcHb+M8Wk6F3+yBI8V0a4=;
-        b=bTyEgftUWKIopOFjcUBu/2KhyIikGf6Tu1DDL0wwWwCBeQuNHF/DSagivn5/pmOxO7
-         7U3doG7W3kvzWMO81f7YlZLMiqtOrQn+32PUDrNIvj1XSYRFFssQku8mVpwT4BpPosUh
-         fthi9hb+NCnSppkJTfPLCdYDX4XPhZNirMuLoetNJ94VKcUTmcWKEKom5ZrXrnpZWz05
-         o7fTBpSEzeel1qee7ZQtEsF70qdoJyYaVODAa9dyKgK/T9kZYZkONNztop09xD3tmWE3
-         Wzau4bN9ObZjURUtR5SxNOFmLx8E8KvX4d3FsBh7p2CB6idxd89ebwg7gc+nBHEXwteD
-         oVtA==
+        bh=rUpE4/08QQtcu5rn/e3HjQ4bcrKGxxgjRXtpMtuV3So=;
+        b=PB0mHArsRH34V11B0DZUd25e8Wo7c02anj9VYaYy02s44WxqGZREV7C/qD2fkeVoWd
+         KueBTjcnbTuodMCo8kkldRT3CKPylQhE617rzRiSiUHyoTGTf/vlXk5lhfAVh/DVvc7/
+         tbAOFnP1W8mb/KlR82eAU2HjI0UlD48nEq2v7W0QmWxdEAi5LtbOMKd0dQq995jn+rFZ
+         iOpktpuoA/9YRQTONP5MhEXmCsaJu9ZqeuEuwOdItE+J/H0N4/zBXg6nAPHGewmvK37c
+         6r7y6usGEhXusRjFmIbXJWhmSHBBqhUOQOAKoTXQ5srXkb0yzOZ/l2CyG3qwQ7LWHuy6
+         OSYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068677; x=1789673477;
+        d=1e100.net; s=20251104; t=1789068708; x=1789673508;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0V/f5lIKQxwY8UDJZpxZzCGcHb+M8Wk6F3+yBI8V0a4=;
-        b=KkTNgrNBs2t6oOVDNoyfV8gjMAGcreloI3oBb2aAYzB5skgGOA8uSZOBd85Yc2reAi
-         yu09/tsPcBIq5Jz0LkwUWvOWXdGDyK6W8ClHbTaIenC4Ort7fRqWu81aJc8RLzyHQ4tX
-         a6xz9K8H8pQPANl6+oXyBCnfF5cIRxXh6mpe2EFuILNPtQwC8uzRXcBsDU8RHd7qNKXd
-         e6TRfhukm+c5kqN5p3lD4f6ZoO2LYPNsvolbZfA7oMR9yXXKhoprDT12y34JOM1EBJ7v
-         SPqVcafQ99eSCX3nrLMurlWEoGfBJHKe8uBSkx3doZH12DrzlyM5BUQICBq2GUtfrEMV
-         LxJw==
-X-Gm-Message-State: AFuF++lphuZ392ZV7EQmjJwLtdFGTiij6tTxe4MjRbD24DD4v28yLkdm
-	P3eCKqEEuX21r1HkSo/hcZ4hkgsnhdbkb/CLUk1FnFlFZMgxxLjtW5ij0V6H8x7+g8QQR+G7I5F
-	GrCx6YGhSxbo+gQ44I3M+Rh5F4tvN6nshxqqDT2I=
-X-Gm-Gg: AYBFou0zSPlK1aMu1Kor5tI+jXSx0wQh5p49KQIeEIagJ5B1QzDURghYOVTBbSlXr0j
-	D6Ivlrs9vQemFrtCq0jz9cygkNJIVhBjz/yMRPm+DxZQesCTw7/VEFooOnCgTGNkgGcvBBEYRL7
-	b1bYz92spA5NlYUje8Rd8J27ztWq/ajQ2c9DVZ2J3U/7Sm9v+Z2mxqZqumWNNuzz6FcYXc7qyV6
-	XLHtrh7/FALwSn4Nm0T7anqojT2lT3qLhf+O1qD/waEl/q5jcSMAgTjLVYZigqymLPlZqsiyczD
-	mPZMjiGLgg93RQMQLmeZOOa8PlKMLTYjNAIOIjSnn9/c1i6kscdQZHoCw2j3iTGBEMiXH0PYxd/
-	u9fcnU9rYUpI5vSaUbsJj24a62AoH66V5tq51wTOaakDYDPjO3gRd
-X-Received: by 2002:a05:6122:3417:b0:5c8:3122:ac47 with SMTP id
- 71dfb90a1353d-5c8462b2288mr1910205e0c.5.1789068676639; Thu, 10 Sep 2026
- 12:31:16 -0700 (PDT)
+        bh=rUpE4/08QQtcu5rn/e3HjQ4bcrKGxxgjRXtpMtuV3So=;
+        b=CtRB07XYJqxMI5Y7LVGZyzF5ovuW933yOYno+Op4FQ6Mg2JKIUtHlRf3ZjbUGc7w+8
+         K5aR48PVclNo8USNldvrtQtiIqutH6E3PgzJf745/MtE5OnlA994nZ+PRM2m4HMqb1Jv
+         ixMAIkuKkOtlq/RsLxuvaBiaNMbZihIR5BM/t84HNh0EdsutV67w1QSCYWpuonDM0PfR
+         I3w0mISMJcWG3LOz5xf9sjOfXoILnJCLG+yB7qGc0tO7fZYcuNELwhiRBr8UpT/mpmUv
+         cHuwqCjSmtDAff0usSz3k7Pd6B69abtKCpmm8mfRilUGnE6f2SCqvOIydsPLnNoy4MJn
+         3afQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEqE3Cl6/SqXlwqT96MZD8NJUbpL220E3ssXTlzUlSP9gL6EBL+wzSX9f+czEvZmX0YsrJ4MITRR9qPds=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVDiKCYoKZmNtwZxVgnYf5xtBELZ86QlFMtppsXpIjAFLB+LQZ
+	lshVrUUJ+WcTkLhGA0rQVmBp3CvhTfn2e/PGYioAD70ybm5BfKf4PYVAh7mzu6a2+z2OXjONFD7
+	8uHJqaGrjivAOw8Ga2aCqqDm89AJG1X4=
+X-Gm-Gg: AYBFou17lgPFTsmNiqCzOKdTPfA7DMyewnrwgdw3b+pMssvus+2fV5BkGcyCXvrSeq5
+	UKMl5R7qHqewMSGECPwMWW4UtFO3VQsoeGJznsZFleD06zAimtPOX8TtnNzyWOeNjYZytPuIst2
+	65KYY/OJsodVjBch9cIlQzI2OGvePnH3/ALZ2mfdDhAGwIDIsJd4Ih2W1aLnrLk/0SDQ1/yLEbW
+	Gy5GNySKKj6mqJVk76agc4CkA0QpqvohjJ/Ze8AaB0/LkUlwj3vwMwI7E+JBQv8pmDGFKP4VGUS
+	Ylyc/01q+wrk78miHHvfxdMzRiFDDKOyTPMogX1lR42cr1dPIba8DB7JfzXTVvr/HBlVuWTH3Sv
+	xD5L7imqx3SrK4DUvUOlewopW4He0rvQstTKHimFZFawTydMyWG9tUv3Uo5stOV+/uQR5XlTjYl
+	wL0lcju3pnh7fJX1k4Sbvu2DPHNELdEhoRulyZPmJebv1UucWKY+Mex1Bk3Suj5EgQrw==
+X-Received: by 2002:a17:907:6e8e:b0:c29:57c4:cb92 with SMTP id
+ a640c23a62f3a-c29661bfe7dmr10767666b.0.1789068708317; Thu, 10 Sep 2026
+ 12:31:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823123549.1120133-1-morbo@google.com> <20260823123549.1120133-3-morbo@google.com>
- <aosNst7K9zaClFEH@google.com>
-In-Reply-To: <aosNst7K9zaClFEH@google.com>
-From: Bill Wendling <morbo@google.com>
-Date: Thu, 10 Sep 2026 12:30:59 -0700
-X-Gm-Features: AcwNN1UAFW8O5KEENv3dVtojFZT_CRKAdk5AOtP2XF5VqSdFHqLVOslXBPVUWeo
-Message-ID: <CAGG=3QX5PQSioCK+5kM5wZvtYoa7iKrRFtPuwvX2d06C2kw-iQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] lib/tests: Add KUnit test for struct stack_trace
- __counted_by_ptr attribute
-To: Kuan-Wei Chiu <visitorckw@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
-	Rae Moar <raemoar63@gmail.com>, Ryota Sakamoto <sakamo.ryota@gmail.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Dmitry Antipov <dmantipov@yandex.ru>, 
-	Petr Mladek <pmladek@suse.com>, Kir Chou <note351@hotmail.com>, 
-	codemender-patching+linux@google.com, linux-hardening@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com
+References: <20260820002816.17382-1-rosenp@gmail.com> <aqK0A4TFCM-laOab@parshuram>
+In-Reply-To: <aqK0A4TFCM-laOab@parshuram>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 10 Sep 2026 12:31:36 -0700
+X-Gm-Features: AcwNN1Uq4fZ-T-KVq39eU8J9hv5nIL5nrMVLIWG1qvJ4Nk2oF1d61Ro6RMGK7r4
+Message-ID: <CAKxU2N_x1cJ2Am1UyBK--Jj+AP85jfkUv7J1_LHLEnmOpgajPQ@mail.gmail.com>
+Subject: Re: [PATCH] dmaengine: fsl_raid: fix sparse warnings
+To: Vinod Koul <vkoul@kernel.org>
+Cc: dmaengine@vger.kernel.org, Frank Li <Frank.Li@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Kuan-Wei,
-
-On Sun, Aug 23, 2026 at 8:11=E2=80=AFAM Kuan-Wei Chiu <visitorckw@gmail.com=
-> wrote:
+On Thu, Sep 10, 2026 at 6:43=E2=80=AFAM Vinod Koul <vkoul@kernel.org> wrote=
+:
 >
-> Hi Bill,
+> On 19-08-26, 17:28, Rosen Penev wrote:
+> > The register maps in fsl_raid.h annotate every field as __be32, but
+> > they are accessed only through ioread32be()/iowrite32be(), which
+> > already perform the byte swap and take plain u32 __iomem pointers.
+> > The __be32 annotation therefore makes sparse reject each access:
+> >
+> >   drivers/dma/fsl_raid.c:116:17: sparse: incorrect type in argument 1
+> >       (different base types) ... got restricted __be32 [noderef] __iome=
+m *
+> >
+> > Drop __be32 from struct fsl_re_ctrl and struct fsl_re_chan_cfg; the
+> > descriptor/CDB structures written via cpu_to_be32() keep their
+> > annotations.
+> >
+> > Also fix the remaining sparse warnings in fsl_raid.c:
+> >
+> >   - compare the desc pointer with !desc instead of desc <=3D 0 in the
+> >     three prep functions,
+> >   - byte swap cdb32 with cpu_to_be32() when programming the XOR, PQ
+> >     and MOVE command descriptor blocks; the plain u32 assignment is
+> >     broken on little-endian hosts.
 >
-> On Sun, Aug 23, 2026 at 12:35:33PM +0000, Bill Wendling wrote:
-> > Add a custom KUnit test suite 'stacktrace_counted_by' to verify that th=
-e
-> > __counted_by_ptr annotation on the 'entries' field of 'struct stack_tra=
-ce'
-> > behaves correctly.
+> Can you split the change per warning type? Also, the subject should
+> describe the change and fix something.
+Would it make sense to do that for a single report though?
+>
+>
 > >
-> > The test verifies that 'max_entries' correctly limits and validates acc=
-ess
-> > to 'entries' when CONFIG_ARCH_STACKWALK is not defined. If it is define=
-d,
-> > the test is cleanly skipped at runtime to prevent compile-time or runti=
-me
-> > failures due to 'struct stack_trace' being undefined on modern
-> > architectures.
+> > No warnings remain.
 > >
-> > Assisted-by: Gemini Next
-> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Closes: https://lore.kernel.org/oe-kbuild-all/202608200637.ro1CqMxi-lkp=
+@intel.com/
+> > Fixes: 68b7fbc23529 ("dma: fsl_raid: keep MMIO bases as void __iomem an=
+d cast at access")
+> > Assisted-by: opencode:deepseek-v4-flash-free
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > > ---
-> > Cc: Kees Cook <kees@kernel.org>
-> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > Cc: Brendan Higgins <brendan.higgins@linux.dev>
-> > Cc: David Gow <david@davidgow.net>
-> > Cc: Rae Moar <raemoar63@gmail.com>
-> > Cc: Ryota Sakamoto <sakamo.ryota@gmail.com>
-> > Cc: Kuan-Wei Chiu <visitorckw@gmail.com>
-> > Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> > Cc: Dmitry Antipov <dmantipov@yandex.ru>
-> > Cc: Petr Mladek <pmladek@suse.com>
-> > Cc: Kir Chou <note351@hotmail.com>
-> > Cc: codemender-patching+linux@google.com
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linux-hardening@vger.kernel.org
-> > Cc: linux-kselftest@vger.kernel.org
-> > Cc: kunit-dev@googlegroups.com
-> > Cc: linux-hardening@vger.kernel.org
-> > ---
-> >  lib/Kconfig.debug            | 10 +++++++
-> >  lib/kunit/.kunitconfig       |  1 +
-> >  lib/tests/Makefile           |  1 +
-> >  lib/tests/stacktrace_kunit.c | 51 ++++++++++++++++++++++++++++++++++++
-> >  4 files changed, 63 insertions(+)
-> >  create mode 100644 lib/tests/stacktrace_kunit.c
+> >  drivers/dma/fsl_raid.c | 12 +++++-----
+> >  drivers/dma/fsl_raid.h | 54 +++++++++++++++++++++---------------------
+> >  2 files changed, 33 insertions(+), 33 deletions(-)
 > >
-> > diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> > index e97bdf3a42a8..51a6ac1a2461 100644
-> > --- a/lib/Kconfig.debug
-> > +++ b/lib/Kconfig.debug
-> > @@ -2716,6 +2716,16 @@ config BITOPS_KUNIT
+> > diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
+> > index a35ddc1297ce..524a7329c3c4 100644
+> > --- a/drivers/dma/fsl_raid.c
+> > +++ b/drivers/dma/fsl_raid.c
+> > @@ -350,7 +350,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
+dma_genq(
+> >       }
 > >
-> >         If unsure, say N.
+> >       desc =3D fsl_re_chan_alloc_desc(re_chan, flags);
+> > -     if (desc <=3D 0)
+> > +     if (!desc)
+> >               return NULL;
 > >
-> > +config STACKTRACE_KUNIT_TEST
-> > +     tristate "KUnit test for stacktrace counted_by attribute" if !KUN=
-IT_ALL_TESTS
-> > +     depends on KUNIT
-> > +     default KUNIT_ALL_TESTS
-> > +     help
-> > +       This option enables the KUnit test for verifying the __counted_=
-by_ptr
-> > +       attribute on struct stack_trace.
-> > +
-> > +       If unsure, say N.
-> > +
-> >  config BITFIELD_KUNIT
-> >       tristate "KUnit test bitfield functions at runtime" if !KUNIT_ALL=
-_TESTS
-> >       depends on KUNIT
-> > diff --git a/lib/kunit/.kunitconfig b/lib/kunit/.kunitconfig
-> > index 9235b7d42d38..b3761b41459e 100644
-> > --- a/lib/kunit/.kunitconfig
-> > +++ b/lib/kunit/.kunitconfig
-> > @@ -1,3 +1,4 @@
-> >  CONFIG_KUNIT=3Dy
-> >  CONFIG_KUNIT_TEST=3Dy
-> >  CONFIG_KUNIT_EXAMPLE_TEST=3Dy
-> > +CONFIG_STACKTRACE_KUNIT_TEST=3Dy
-> > diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-> > index 4ead57602eac..40875e729fc8 100644
-> > --- a/lib/tests/Makefile
-> > +++ b/lib/tests/Makefile
-> > @@ -6,6 +6,7 @@
-> >  CFLAGS_bitfield_kunit.o :=3D $(DISABLE_STRUCTLEAK_PLUGIN)
-> >  obj-$(CONFIG_BASE64_KUNIT) +=3D base64_kunit.o
-> >  obj-$(CONFIG_BITOPS_KUNIT) +=3D bitops_kunit.o
-> > +obj-$(CONFIG_STACKTRACE_KUNIT_TEST) +=3D stacktrace_kunit.o
-> >  obj-$(CONFIG_BITFIELD_KUNIT) +=3D bitfield_kunit.o
-> >  obj-$(CONFIG_BITS_TEST) +=3D test_bits.o
-> >  obj-$(CONFIG_SHDI3_KUNIT_TEST) +=3D shdi3_kunit.o
-> > diff --git a/lib/tests/stacktrace_kunit.c b/lib/tests/stacktrace_kunit.=
-c
-> > new file mode 100644
-> > index 000000000000..7ec48edf84fe
-> > --- /dev/null
-> > +++ b/lib/tests/stacktrace_kunit.c
-> > @@ -0,0 +1,51 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * KUnit test for struct stack_trace counted_by attribute.
-> > + */
-> > +
-> > +#include <kunit/test.h>
-> > +#include <linux/stacktrace.h>
-> > +
-> > +#ifndef CONFIG_ARCH_STACKWALK
-> > +static void test_stack_trace_counted_by(struct kunit *test)
-> > +{
-> > +     unsigned long entries_buf[4];
-> > +     struct stack_trace trace =3D {
-> > +             .entries =3D entries_buf,
-> > +             .max_entries =3D 4,
-> > +     };
-> > +
-> > +     KUNIT_EXPECT_EQ(test, trace.max_entries, 4U);
-> > +     KUNIT_EXPECT_PTR_EQ(test, trace.entries, (unsigned long *)entries=
-_buf);
-> > +
-> > +     /* Write to the allocated elements to verify access */
-> > +     trace.entries[0] =3D 0xdeadbeef;
-> > +     trace.entries[1] =3D 0xbeefcafe;
-> > +     trace.entries[2] =3D 0xcafebabe;
-> > +     trace.entries[3] =3D 0x12345678;
->
-> This only does in bounds array writes.
-> To test __counted_by_ptr, I thought we were supposed to intentionally
-> trigger an out of bounds access and see if it actually catches the
-> error?
->
-True. This is testing only that the existing behavior doesn't fail
-with the new attribute. It looks like you're not the only one to
-comment on this, though...
-
--bw
-
-> > +
-> > +     KUNIT_EXPECT_EQ(test, trace.entries[0], 0xdeadbeefUL);
-> > +     KUNIT_EXPECT_EQ(test, trace.entries[1], 0xbeefcafeUL);
-> > +     KUNIT_EXPECT_EQ(test, trace.entries[2], 0xcafebabeUL);
-> > +     KUNIT_EXPECT_EQ(test, trace.entries[3], 0x12345678UL);
-> > +}
-> > +#else
-> > +static void test_stack_trace_counted_by(struct kunit *test)
-> > +{
-> > +     kunit_skip(test, "CONFIG_ARCH_STACKWALK is enabled, struct stack_=
-trace is not defined");
-> > +}
-> > +#endif
-> > +
-> > +static struct kunit_case stacktrace_test_cases[] =3D {
-> > +     KUNIT_CASE(test_stack_trace_counted_by),
-> > +     {}
-> > +};
-> > +
-> > +static struct kunit_suite stacktrace_test_suite =3D {
-> > +     .name =3D "stacktrace_counted_by",
-> > +     .test_cases =3D stacktrace_test_cases,
-> > +};
-> > +
-> > +kunit_test_suite(stacktrace_test_suite);
-> > +
-> > +MODULE_LICENSE("GPL");
+> >       if (scf && (flags & DMA_PREP_CONTINUE)) {
+> > @@ -365,7 +365,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
+dma_genq(
+> >       cdb |=3D FSL_RE_INTR_ON_ERROR << FSL_RE_CDB_ERROR_SHIFT;
+> >       cdb |=3D FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
+> >       xor =3D desc->cdb_addr;
+> > -     xor->cdb32 =3D cdb;
+> > +     xor->cdb32 =3D cpu_to_be32(cdb);
+> >
+> >       if (scf) {
+> >               /* compute q =3D src0*coef0^src1*coef1^..., * is GF(8) mu=
+lt */
+> > @@ -474,7 +474,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
+dma_pq(
+> >               src_cnt +=3D 3;
+> >
+> >       desc =3D fsl_re_chan_alloc_desc(re_chan, flags);
+> > -     if (desc <=3D 0)
+> > +     if (!desc)
+> >               return NULL;
+> >
+> >       /* Filling GenQQ CDB */
+> > @@ -485,7 +485,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
+dma_pq(
+> >       cdb |=3D FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
+> >
+> >       pq =3D desc->cdb_addr;
+> > -     pq->cdb32 =3D cdb;
+> > +     pq->cdb32 =3D cpu_to_be32(cdb);
+> >
+> >       p =3D pq->gfm_q1;
+> >       /* Init gfm_q1[] */
+> > @@ -558,7 +558,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
+dma_memcpy(
+> >       }
+> >
+> >       desc =3D fsl_re_chan_alloc_desc(re_chan, flags);
+> > -     if (desc <=3D 0)
+> > +     if (!desc)
+> >               return NULL;
+> >
+> >       /* Filling move CDB */
+> > @@ -568,7 +568,7 @@ static struct dma_async_tx_descriptor *fsl_re_prep_=
+dma_memcpy(
+> >       cdb |=3D FSL_RE_DATA_DEP << FSL_RE_CDB_DEPEND_SHIFT;
+> >
+> >       move =3D desc->cdb_addr;
+> > -     move->cdb32 =3D cdb;
+> > +     move->cdb32 =3D cpu_to_be32(cdb);
+> >
+> >       /* Filling frame 0 of CFD with move CDB */
+> >       cf =3D desc->cf_addr;
+> > diff --git a/drivers/dma/fsl_raid.h b/drivers/dma/fsl_raid.h
+> > index 748047996bbc..1b6f6b82c7d3 100644
+> > --- a/drivers/dma/fsl_raid.h
+> > +++ b/drivers/dma/fsl_raid.h
+> > @@ -109,59 +109,59 @@
+> >
+> >  struct fsl_re_ctrl {
+> >       /* General Configuration Registers */
+> > -     __be32 global_config;   /* Global Configuration Register */
+> > +     u32 global_config;      /* Global Configuration Register */
+> >       u8     rsvd1[4];
+> > -     __be32 galois_field_config; /* Galois Field Configuration Registe=
+r */
+> > +     u32 galois_field_config; /* Galois Field Configuration Register *=
+/
+> >       u8     rsvd2[4];
+> > -     __be32 jq_wrr_config;   /* WRR Configuration register */
+> > +     u32 jq_wrr_config;      /* WRR Configuration register */
+> >       u8     rsvd3[4];
+> > -     __be32 crc_config;      /* CRC Configuration register */
+> > +     u32 crc_config;         /* CRC Configuration register */
+> >       u8     rsvd4[228];
+> > -     __be32 system_reset;    /* System Reset Register */
+> > +     u32 system_reset;       /* System Reset Register */
+> >       u8     rsvd5[252];
+> > -     __be32 global_status;   /* Global Status Register */
+> > +     u32 global_status;      /* Global Status Register */
+> >       u8     rsvd6[832];
+> > -     __be32 re_liodn_base;   /* LIODN Base Register */
+> > +     u32 re_liodn_base;      /* LIODN Base Register */
+> >       u8     rsvd7[1712];
+> > -     __be32 re_version_id;   /* Version ID register of RE */
+> > -     __be32 re_version_id_2; /* Version ID 2 register of RE */
+> > +     u32 re_version_id;      /* Version ID register of RE */
+> > +     u32 re_version_id_2;    /* Version ID 2 register of RE */
+> >       u8     rsvd8[512];
+> > -     __be32 host_config;     /* Host I/F Configuration Register */
+> > +     u32 host_config;        /* Host I/F Configuration Register */
+> >  };
+> >
+> >  struct fsl_re_chan_cfg {
+> >       /* Registers for JR interface */
+> > -     __be32 jr_config_0;     /* Job Queue Configuration 0 Register */
+> > -     __be32 jr_config_1;     /* Job Queue Configuration 1 Register */
+> > -     __be32 jr_interrupt_status; /* Job Queue Interrupt Status Registe=
+r */
+> > +     u32 jr_config_0;        /* Job Queue Configuration 0 Register */
+> > +     u32 jr_config_1;        /* Job Queue Configuration 1 Register */
+> > +     u32 jr_interrupt_status; /* Job Queue Interrupt Status Register *=
+/
+> >       u8     rsvd1[4];
+> > -     __be32 jr_command;      /* Job Queue Command Register */
+> > +     u32 jr_command;         /* Job Queue Command Register */
+> >       u8     rsvd2[4];
+> > -     __be32 jr_status;       /* Job Queue Status Register */
+> > +     u32 jr_status;          /* Job Queue Status Register */
+> >       u8     rsvd3[228];
+> >
+> >       /* Input Ring */
+> > -     __be32 inbring_base_h;  /* Inbound Ring Base Address Register - H=
+igh */
+> > -     __be32 inbring_base_l;  /* Inbound Ring Base Address Register - L=
+ow */
+> > -     __be32 inbring_size;    /* Inbound Ring Size Register */
+> > +     u32 inbring_base_h;     /* Inbound Ring Base Address Register - H=
+igh */
+> > +     u32 inbring_base_l;     /* Inbound Ring Base Address Register - L=
+ow */
+> > +     u32 inbring_size;       /* Inbound Ring Size Register */
+> >       u8     rsvd4[4];
+> > -     __be32 inbring_slot_avail; /* Inbound Ring Slot Available Registe=
+r */
+> > +     u32 inbring_slot_avail; /* Inbound Ring Slot Available Register *=
+/
+> >       u8     rsvd5[4];
+> > -     __be32 inbring_add_job; /* Inbound Ring Add Job Register */
+> > +     u32 inbring_add_job;    /* Inbound Ring Add Job Register */
+> >       u8     rsvd6[4];
+> > -     __be32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Registe=
+r */
+> > +     u32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Register *=
+/
+> >       u8     rsvd7[220];
+> >
+> >       /* Output Ring */
+> > -     __be32 oubring_base_h;  /* Outbound Ring Base Address Register - =
+High */
+> > -     __be32 oubring_base_l;  /* Outbound Ring Base Address Register - =
+Low */
+> > -     __be32 oubring_size;    /* Outbound Ring Size Register */
+> > +     u32 oubring_base_h;     /* Outbound Ring Base Address Register - =
+High */
+> > +     u32 oubring_base_l;     /* Outbound Ring Base Address Register - =
+Low */
+> > +     u32 oubring_size;       /* Outbound Ring Size Register */
+> >       u8     rsvd8[4];
+> > -     __be32 oubring_job_rmvd; /* Outbound Ring Job Removed Register */
+> > +     u32 oubring_job_rmvd;   /* Outbound Ring Job Removed Register */
+> >       u8     rsvd9[4];
+> > -     __be32 oubring_slot_full; /* Outbound Ring Slot Full Register */
+> > +     u32 oubring_slot_full;  /* Outbound Ring Slot Full Register */
+> >       u8     rsvd10[4];
+> > -     __be32 oubring_prdcr_indx; /* Outbound Ring Producer Index */
+> > +     u32 oubring_prdcr_indx; /* Outbound Ring Producer Index */
+> >  };
+> >
+> >  /*
 > > --
-> > 2.55.0.860.g4b6b3295ed-goog
+> > 2.55.0
 > >
+>
+> --
+> ~Vinod
