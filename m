@@ -1,110 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B598718859B;
-	Thu, 10 Sep 2026 13:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB6648F03F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047498; cv=none; b=eMkndScWA3lbh87myc637A+lX/zGaSrDzzJZ1aGbt1jAqD4TZOR0LrQzOfZbbcBO+ezwhL6XaKSKAEx860FeSy9jyb6aVzS2BjFdSnkyO6Lg11Bxc7mqJhGjv7qPJcQCAEyMjVZd6yICYCXcvdEAjwnNSnw5zWq+YyGEv44XeuM=
+	t=1789047498; cv=none; b=KgzU9PTxpcosuvLvhbyA5GvrlevcoX0UcWxnssLSzdONN7rvGog9sal0Ht9PJRkRYbFj5LX+pnUWdj+6vyAZSFfCCknOnLf+r0sdn2PVOam5YRPdUaAJ+utztLCPWMBWXw1PpPGANUqmTzRUONK4/tMTprfI0/h5S1xnb+Gc/1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789047498; c=relaxed/simple;
-	bh=KERzQXu4AuOB8o41LGXwQ6MDdb42/46HViF8vTcqx2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tx9YpLeQczu8gPt/u2cZB62TCpohMag+7Iuu1Ub9mWVXGbOBdLT6Dq3KUJQhnhGYVPlQnZUfM4lFFMdl/BgRzVEFfLc6Ti3n57PYVVeiwwyx/hBlNCpnjIZdo6WbzcruelBQ0aRAuxIyruO8QilyvXzs+OybEE3H85ml0/eAQjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xsNrvoCs; arc=none smtp.client-ip=100.103.45.18
+	bh=NmLBd37Hz8e2vPifnUTFDagNY2hbHRfHeZh13dtypFk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aFRbUPf12Som6tc4w48yBvkRiudkhjp61lx4wVb5u8FTSujCM8Es4Yr/cF/CSfbGP15g3VYIX9KSMWP06luyAJzrEI0UIz/xqEe54MtyW5GcLlWdVkiytGYDwLJo5QNUlfpZ0T2HXzbvQfeel/jmgF1rcEMu/S/9AaKKrUUjuO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=e0QtZafv; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xsNrvoCs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24CB1F000FF;
-	Thu, 10 Sep 2026 13:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789047496;
-	bh=IXBSAOGIh6jCZvCkv9yCum8ZJroML+LqgNj3BgTtpxI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=xsNrvoCs9Ftw5+cXXa+IjekEtsA6YzktE0MZJSCvJtXliyEzc6/DT/+fV33QVUdc2
-	 W7UGTKGoHLg1MucSEEoonFQOfEExOoSj6h4fbOGOzlJG4Ip2WbRgir5VW++FBCcHDG
-	 L13Wj+On8GsdLvIp+T7d8A4WHlexX2oUAitBXOmU=
-Date: Thu, 10 Sep 2026 15:38:08 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: phucduc.bui@gmail.com
-Cc: Peter Chen <peter.chen@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	linux-usb@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Sashiko Bot <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v3 2/2] usb: chipidea: ci_hdrc_imx: Fix error handling
- when creating IRQ name
-Message-ID: <2026091054-preflight-capacity-e7e2@gregkh>
-References: <20260810093112.47807-1-phucduc.bui@gmail.com>
- <20260810093112.47807-2-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="e0QtZafv"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=OAXvvf5bBfGy7Tjd5JmbGY2Dey5h8lYm1afhEjpKROg=;
+	b=e0QtZafvVZaDlPFRUy9aIemWklE3yItrmhvC5K45BcvNiwFNmvNPVaIQAIAktYJkPorehkFLC
+	yZXtKNyZ+7M3iGTkEaewypXhrFb9MX+TV8ZMGlfITk0O6dZFsf4kIPIAiz/ZwqhJmh2wCYUk1nV
+	whEq1TmBrlqexQlzW7N3Hfk=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hgdkg2yf4z1prMy;
+	Thu, 10 Sep 2026 21:27:07 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0441D4057D;
+	Thu, 10 Sep 2026 21:38:04 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
+ (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
+ 2026 21:38:02 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <richard@nod.at>, <miquel.raynal@bootlin.com>, <vigneshr@ti.com>,
+	<dedekind@linutronix.de>, <haver@vnet.ibm.com>
+CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH] ubi: try_recover_peb: Don't torture the new PEB if there is no write operation
+Date: Thu, 10 Sep 2026 21:30:27 +0800
+Message-ID: <20260910133027.2738498-1-chengzhihao1@huawei.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810093112.47807-2-phucduc.bui@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-On Mon, Aug 10, 2026 at 04:31:12PM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> devm_kasprintf() can fail when allocating the wakeup IRQ name. The error
-> was logged with dev_err_probe(), but its return value was ignored and
-> probe could continue with a successful return value.
-> 
-> Store the error returned by dev_err_probe() in ret and jump to the error
-> path to propagate the failure.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Acked-by: Peter Chen <peter.chen@kernel.org>
-> Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/20260806065755.C9F361F000E9@smtp.kernel.org/
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
-> 
-> Link v2: 
-> https://lore.kernel.org/all/20260807065619.30604-2-phucduc.bui@gmail.com/
-> Changes in v3:
->  - Use the phy_shutdown label instead of err_clk as suggested by 
->    Sashiko's review. 
->  - Add Peter Chen's Acked-by tag.
->  - Add Frank Li's Reviewed-by tag.
-> 
->  drivers/usb/chipidea/ci_hdrc_imx.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/chipidea/ci_hdrc_imx.c b/drivers/usb/chipidea/ci_hdrc_imx.c
-> index 9e529398c607..edbf9df9b8f2 100644
-> --- a/drivers/usb/chipidea/ci_hdrc_imx.c
-> +++ b/drivers/usb/chipidea/ci_hdrc_imx.c
-> @@ -532,8 +532,8 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
->  	if (data->wakeup_irq > 0) {
->  		irq_name = devm_kasprintf(dev, GFP_KERNEL, "%s:wakeup", pdata.name);
->  		if (!irq_name) {
-> -			dev_err_probe(dev, -ENOMEM, "failed to create irq_name\n");
-> -			goto err_clk;
-> +			ret = dev_err_probe(dev, -ENOMEM, "failed to create irq_name\n");
-> +			goto phy_shutdown;
->  		}
->  
->  		ret = devm_request_threaded_irq(dev, data->wakeup_irq,
-> @@ -541,7 +541,7 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
->  						IRQF_ONESHOT | IRQF_NO_AUTOEN,
->  						irq_name, data);
->  		if (ret)
-> -			goto err_clk;
-> +			goto phy_shutdown;
->  	}
->  
->  	ret = imx_usbmisc_init(data->usbmisc_data);
-> -- 
-> 2.43.0
->
+The new peb is put always with torture flag even there is no write
+operation. For example, ubi_io_read_vid_hdr failure can lead a torture
+operation during the erasing of new PEB, which brings meaningless and
+life-wearing torture verification.
 
-This patch did not apply, please rebase and resend.
+Fix by adding a torture state value to identify whether the write
+operation happens on new PEB. BTW, let ubi write failure warnning be
+printed only when a write operation fails.
 
-thanks,
-greg k-h
+Fixes: 801c135ce73d5d ("UBI: Unsorted Block Images")
+Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+---
+ drivers/mtd/ubi/eba.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/mtd/ubi/eba.c b/drivers/mtd/ubi/eba.c
+index f0c549e62c55..509c90304ab8 100644
+--- a/drivers/mtd/ubi/eba.c
++++ b/drivers/mtd/ubi/eba.c
+@@ -805,7 +805,7 @@ static int try_recover_peb(struct ubi_volume *vol, int pnum, int lnum,
+ {
+ 	struct ubi_device *ubi = vol->ubi;
+ 	struct ubi_vid_hdr *vid_hdr;
+-	int new_pnum, err, vol_id = vol->vol_id, data_size;
++	int new_pnum, err, vol_id = vol->vol_id, data_size, torture = 0;
+ 	uint32_t crc;
+ 
+ 	*retry = false;
+@@ -843,6 +843,7 @@ static int try_recover_peb(struct ubi_volume *vol, int pnum, int lnum,
+ 
+ 	memcpy(ubi->peb_buf + offset, buf, len);
+ 
++	torture = 1;
+ 	data_size = offset + len;
+ 	crc = crc32(UBI_CRC32_INIT, ubi->peb_buf, data_size);
+ 	vid_hdr->sqnum = cpu_to_be64(ubi_next_sqnum(ubi));
+@@ -872,8 +873,9 @@ static int try_recover_peb(struct ubi_volume *vol, int pnum, int lnum,
+ 		 * Bad luck? This physical eraseblock is bad too? Crud. Let's
+ 		 * try to get another one.
+ 		 */
+-		ubi_wl_put_peb(ubi, vol_id, lnum, new_pnum, 1);
+-		ubi_warn(ubi, "failed to write to PEB %d", new_pnum);
++		ubi_wl_put_peb(ubi, vol_id, lnum, new_pnum, torture);
++		if (torture)
++			ubi_warn(ubi, "failed to write to PEB %d", new_pnum);
+ 	}
+ 
+ 	return err;
+-- 
+2.52.0
+
