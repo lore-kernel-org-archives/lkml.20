@@ -1,146 +1,263 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010067.outbound.protection.outlook.com [52.101.228.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28DF3C3BFC;
-	Thu, 10 Sep 2026 08:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030567; cv=fail; b=AwzaJrLvlTCfDlHABnNs/CsEP2lZNfOPy6KdC6NXb/TQoTmk/LsBWcpepYMR3Va/Optz/nGYzqRfpXJz84EX7oofT8UquHrzHcqlyiZwdv1/55cQveYAvZjiDo8X16INfFUlcTD5bivp7pt3eOtpuTopKJnfnVEAI4Ff9YnX/4Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030567; c=relaxed/simple;
-	bh=A95xQ8FoU095WgclZUzYHcD4AKxqfh9gHEZkEgGntMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fp9pOxBq2jTxDSWzg31sL+ZKRxZrXTRgR9fvaRS85EfQCVkZ0uLW/g5GUreolhoui0FlQxG5Ey2fdGUqtxpyjKG7+YYnLeIN6xGp1h49kLrqPo//J2ZPw6WRz2R1caBgw8yrQC6gJHysTyfrvFdeaVCx+sTbuTdFcn+rct31ZfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=gwAjVFJw; arc=fail smtp.client-ip=52.101.228.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA8C3D9020
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789030580; cv=none; b=SnjOZ0CjZpoHyr4fZJ5yMxkEckMfB7pY6mkG0Ks1SYxH5EKPyXV1gKmNJi6NDt7dtAWWSw+lBXXwZQFIY1WPa8JnVJTX/Crr+7/CKb3gcmcFd1w+AbYd5SJMyAx5GKgk64eJ1Fx8Z545Bv+REccy+Xej0utd0IfYo+HHwjDljZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789030580; c=relaxed/simple;
+	bh=PorPBtNASl4ndWzr4uxOw8mg4coEynsM/epHMGCTmlc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bD0Jdj66Fn6uSvRhj/YKFvbJlrMTG5GW2if8XiRkUW2tQF4N028SSKMghn7tIvz46qGgzpWb1sapf+56+AEMxgMsd78ylh1NleMtC9P7aCi/wRBOp1EbQ0ZOe6zIdGSmoqATT0jFLjhdBw8QxFQj7aJuh1JlIpzR8n2bhREi/DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=j5E6vIjp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ru+5Zj8v; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0aQWMUOB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=KXhL5KkZ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="gwAjVFJw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cbhatY0KzOKztZkVzxA77UhBZ5ULAeI/20gHcD57i0kckinCl60sYoBt3RevLk5SmwgJ0XqiZ/zAwVjRjsDMWJSm5KhbOgGtnSKs5AtA+tqAu/6hC+o/buRW1Z2sdi2J1vQYOWkdcXjVmI7zW3ANBMKjwYkGKizZNXr6vH3amNx+eCUAAqzvozsYiFLuu2aZ1ccqgMsJ7PuZ4fzb/e0y7cpqQxmN0Dlek6VKBNBgbtzsDMoG0GiHE66dtc6xS+wI9e4cMSCd9lSUmdaGThgiSvhcpll+2oPUwirsrcS8Vu3vELSaekQwvu/3nKyWsbWYKJyzrXPE+j0ghygcA+uztw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uDVFoaxAdZZKimhYNQK5WwzmRGrnH0ovTie2Ntpfs74=;
- b=wouVUxx06BYEocsVHKeTUieUMo6d9Kr9Oo4398xRHY5IUvx+sNAtxlBfUdrUBX+k1+5zVHlJJJWgOlyw+NfkoCB/2FIONLkGzF1hanL0JbizsCt6f8rirNyePV1sDX3NEis4oGYvrxNQwjz13TIrKsMBT/IkGZ5YA5GDUamNokCMWux6t1YxsX+vXEkBfClMJR1xkYXu7MLv5nCK3yeTSvNslP9nDqiDglxZCap1EoWt21SniJG3bZBkCLJ6sYekwjK4zlqJv5Xv020LmILgWYPCj112dLtooA/ZbJkRJ9Fesx18bvylNhngOlsk3rUvOtgX5lPqYBYN0W+yMq2PWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=analog.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uDVFoaxAdZZKimhYNQK5WwzmRGrnH0ovTie2Ntpfs74=;
- b=gwAjVFJwlPWLMCImK8r2ldqdPpYWXp1cuK5Ln/u02a+SG5AJQaNCa/uFQWJDCDYqR9AlU3CH3aibpvSEEFrZBllk26DeKALaHUiNMM9K0YvlzMaaPeT0g19m/AGkPXllQFnVJOK4bZxFEa6UQDEtoWVnQHIyQeacP0K9HTuL/bs=
-Received: from TYCP286CA0356.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:7c::8) by
- TY3PR01MB11672.jpnprd01.prod.outlook.com (2603:1096:400:370::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 08:56:00 +0000
-Received: from TY2PEPF00005621.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:7c:cafe::6) by TYCP286CA0356.outlook.office365.com
- (2603:1096:405:7c::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Thu, 10
- Sep 2026 08:56:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- TY2PEPF00005621.mail.protection.outlook.com (10.167.240.52) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
- via Frontend Transport; Thu, 10 Sep 2026 08:55:59 +0000
-Received: from demon-pc (REE-0064895.adwin.renesas.com [10.226.92.160])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 49943300037A;
-	Thu, 10 Sep 2026 17:55:55 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/9] iio: adc: rzt2h: claim direct mode on single reads
-Date: Thu, 10 Sep 2026 11:54:25 +0300
-Message-ID: <20260910085430.3173166-5-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j5E6vIjp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ru+5Zj8v";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0aQWMUOB";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KXhL5KkZ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 221751FD96;
+	Thu, 10 Sep 2026 08:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789030572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
+	b=j5E6vIjpyvkzfU88r6HNSxv8eaNlsNjSlZegKZE7iOkY79tBn3LlfKpsU9vtCmF/FChsWG
+	G6hUq7oeOWRJwvz1BnXXSzn8CICJU6RoWGu5UVc3WtAEb3P1T04JhaCF9SwdLwrhE2Eo5C
+	/mnRVTaXzzGtaYkNUaHtxGxaXBNEfbU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789030572;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
+	b=ru+5Zj8vUuYy2pueGmCA4WV430HkZR/BjyS9swwA8OdNtLrbwZcOGuwG+Rf7JDsQEBrzky
+	kMPcv+F1U5kQHIBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789030568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
+	b=0aQWMUOBz7P1cJ2hK3FseSQ3agyCWH57K9oUSqzWSpth+9zcXMqlTIQ8AnWwSHItTLqu7z
+	pyXkGu2pQLTDnonE35s9VTU0DzEvItBVpGOEUcqyV5YwMHeBv1zy7/7Y2gar+mOhQJZ6k8
+	qY13DFND+H6++JLcXjl+4ATCqvBqqfY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789030568;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4rwhxyuBA+qCh6Ot+Pso1MDoW/AxAzW5VW2jyH58NCo=;
+	b=KXhL5KkZ+bX+JZtzWtA3XJKqzLG0zeztZbOxKQtfyRGLKhddZwSqF9gDKQQdLzsBBYiH4o
+	xCQ+KKZmH8D3GyAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C53201321C;
+	Thu, 10 Sep 2026 08:56:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lCapLqdwompscAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 08:56:07 +0000
+Message-ID: <924e1372-6fe2-42ae-a57a-d44d3cf08f5a@suse.de>
+Date: Thu, 10 Sep 2026 10:56:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+ <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
+ <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
+ <d36bc08a7f954be25b0d3e0fe649698b3944f98a.camel@iscas.ac.cn>
+ <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
+ <0f79f3bd5175285de4b2112e6419a8f373b0ff81.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <0f79f3bd5175285de4b2112e6419a8f373b0ff81.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF00005621:EE_|TY3PR01MB11672:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 48cd436a-b903-470c-8bab-08df0f1955aa
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|7416014|10067099003|18002099003|22082099003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	Ra1NQYOtPrRKhZtSyAgoGxWXjxQQMwQIcEFyTrwH20dukFY39EK+gDN7hubrXthTp0kwVFrOU2cBA5NERqQLdXAIbHljB6AwiEu9sdRWUKEZisnTix4wn7WAANyLyZMQ6rWfwBBF1zxjyG+iDD4Ow2dAI3nAPRMF7V2DLXbd6ImZw4OpN8ZwzjXY8thQaYhYGp5At9j1oREVsWYo/sb1R6AOOmeB3NiuuFC5h1TPOvPQrala3oUZljdyusLM32bxDX3xogeoc6aobnImsz4TEE7+3lx8bgzQoxZt0XFtqCe7wEh6hJa/RZILzQBt/lJxwiWSPkZrBcl/t3bv7UpX9jS+Vs8BAM5obo+kLonLyw5tU5DqR6f3qMxTCGym4QzAw0MJtenQ56UgO1O/JXCBvwBYC3D8lRGPGcMASDoeMgn2Elk7XYrFlbt9BsnKbJVWhAz7g/ny2PhqSHLFSI8AVTH0eXq327ogWySG/smwcQDDjWSE8euyWkKcsYjJpyEipdqyVgfyEj4JHCY2c3vJ19aeX2Eak78sB3lOqMJBLA68cffPN/e2lPQyy0+waKxYgQjWvpSdMVlDvxQgkf52EVKoA1t+8GvM4YfTrZMV/xTPuVw0dpS5fAI5B/4KdKHgKyNcgVM3sNQEBBvFFkmGYtuNfETZVGmK+BGeY1qjN3QMxSKTWGGAE3o1nUBz5WAdA2lRkaOZyFUnUlLL3Da4NOnFniCFtCPgPkbt/1jzrN9OpcyfxhWJMvl5U+9o9ikR
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(7416014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5kwnWdK/buZ++7taFFAyf5OZZUJpOtgpMWltwMNgP+u+Y3fI350as8oQn6HgMygvwuCSpClfovgtjnxg6ga8V2HEJh4hWQsIqTHoEAwg5w5DBWcdHDgZty3D/31vdqfsFopoGYJTJZTqUDysYeq6e5kwxzCZ7Lv8fTmNlah2R/Tvs/+3ES09PdHVsDhfUkfe46lN14rZ9uFdqPZCK5y92r+aOmaaLQG7xUOTeq5H+n7nIigVXnA2Hk84Pk5npp12JJ8Qljy16abiV2y2KKEcDvGLWFuRaHnTYZSDXiaxH1jBKH+5sAB6yiDLEqMNOZp/CrqwqZW0/QT4Mak/EUpjUfkDGkcD8YwbzF96svoLpiRNw51oJPjX7z+VeCtWQeIVDUr6p22vG6qsaUFLYuILp7MAC+WGbO7mJ4k+mzJWKerRIDUpMyus4HkDIDcI8Dro
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 08:55:59.5241
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48cd436a-b903-470c-8bab-08df0f1955aa
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF00005621.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11672
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,iscas.ac.cn:email,suse.de:mid]
 
-Claim direct mode around the single read to prevent it from conflicting
-with an ongoing buffered read.
+Hi
 
-Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
----
+Am 10.09.26 um 10:45 schrieb Icenowy Zheng:
+> 在 2026-09-10四的 10:31 +0200，Thomas Zimmermann写道：
+>> Hi
+>>
+>> Am 10.09.26 um 10:00 schrieb Icenowy Zheng:
+>>> 在 2026-09-10四的 09:58 +0200，Thomas Zimmermann写道：
+>>>> Hi
+>>>>
+>>>> Am 10.09.26 um 09:09 schrieb Icenowy Zheng:
+>>>>> 在 2026-09-02三的 01:17 +0800，Icenowy Zheng写道：
+>>>>>> Blend modes are now required to expose pixel formats w/
+>>>>>> alpha.
+>>>>>>
+>>>>>> As it's the primary plane and blending is explicitly
+>>>>>> disabled,
+>>>>>> just
+>>>>>> expose PIXEL_NONE blend mode.
+>>>>> Gently ping for reviews.
+>>>> What do these alpha formats do?  Are they a hardware feature?  It
+>>>> looks
+>>>> like they are programmable, but don't differ from XRGB at all.
+>>> I think they're for consistency with overlay planes.
+>> But there are no overlay planes in this driver, are there?
+>>
+>> What I want to get at is that it might be preferable to remove ARGB
+>> entirely from the primary plane if it does not to serve a purpose.
+>> But
+>> if the driver can do something useful with these formats, it might be
+>> worth exposing that instead.
+> On DC8000 display controllers (support for them is WIP by Joey Lu)
+> there seem to be no way to control the blend behavior of the primary
+> plane.
+>
+> On DC8200 display controllers the primary plane does have a blending
+> register, although it seems to be blending with pure black.
 
-V2:
- * no changes
+IIRC there's a background-color property for the CRTC.  So it might be 
+possible to expose this as read-only property. (Not sure.)
 
- drivers/iio/adc/rzt2h_adc.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> Maybe it's viable to just remove the ARGB formats now, and re-introduce
+> them when overlays are being implemented (and only expose them for the
+> overlay)?
 
-diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-index 995308a419f1..95bcebdc02cb 100644
---- a/drivers/iio/adc/rzt2h_adc.c
-+++ b/drivers/iio/adc/rzt2h_adc.c
-@@ -158,8 +158,13 @@ static int rzt2h_adc_read_raw(struct iio_dev *indio_dev,
- 	struct rzt2h_adc *adc = iio_priv(indio_dev);
- 
- 	switch (mask) {
--	case IIO_CHAN_INFO_RAW:
-+	case IIO_CHAN_INFO_RAW: {
-+		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+		if (IIO_DEV_ACQUIRE_FAILED(claim))
-+			return -EBUSY;
-+
- 		return rzt2h_adc_read_single(adc, chan->channel, val);
-+	}
- 	case IIO_CHAN_INFO_SCALE:
- 		*val = 1800;
- 		*val2 = 12;
+I see. Thanks for digging through this. I've meanwhile acked the patches 
+as there's at least some support in hardware.
+
+Best regards
+Thomas
+
+
+>
+> Thanks,
+> Icenowy
+>
+>> In pl111, we now remove the ARGB foramts because the hardware does
+>> not
+>> handle them at all. The situation seems less clear in verisilicon.
+>>
+>> Best regards
+>> Thomas
+>>
+>>
+>>> Thanks,
+>>> Icenowy
+>>>
+>>>> Best regards
+>>>> Thomas
+>>>>
+>>>>> Thanks,
+>>>>> Icenowy
+>>>>>
+>>>>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
+>>>>>>     1 file changed, 3 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>>>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>>>>> index 1f2be41ae496c..8d58682d88ef8 100644
+>>>>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>>>>> @@ -7,6 +7,7 @@
+>>>>>>     
+>>>>>>     #include <drm/drm_atomic.h>
+>>>>>>     #include <drm/drm_atomic_helper.h>
+>>>>>> +#include <drm/drm_blend.h>
+>>>>>>     #include <drm/drm_crtc.h>
+>>>>>>     #include <drm/drm_fourcc.h>
+>>>>>>     #include <drm/drm_framebuffer.h>
+>>>>>> @@ -179,5 +180,7 @@ struct drm_plane
+>>>>>> *vs_primary_plane_init(struct
+>>>>>> drm_device *drm_dev, struct vs_dc
+>>>>>>     
+>>>>>>     	drm_plane_helper_add(plane,
+>>>>>> &vs_primary_plane_helper_funcs);
+>>>>>>     
+>>>>>> +	drm_plane_create_blend_mode_property(plane,
+>>>>>> +					
+>>>>>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
+>>>>>>     	return plane;
+>>>>>>     }
+
 -- 
-2.55.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
