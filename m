@@ -1,163 +1,185 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1455678C9;
-	Thu, 10 Sep 2026 18:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2961772602;
+	Thu, 10 Sep 2026 18:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789064925; cv=none; b=pI6jGWozEJCxeihY2jDEhsDe4HUNQmbYtUq/ErVuUe9F3KJzhBrv8URtkWUfE1DEp4FkMV4s4/In6t3XiG6OoA719s4Qdd6ZmTjXV3Px8osBYnSy8aSrEBd5EDgldwjJ1kiDPsvdL5pnkXdWAH5jaT1d62XE+H6U7NYNHReByTo=
+	t=1789064949; cv=none; b=knsu9VIsra9Zjsh1AYalTtdaUI2LLlGPkjZ9TWn0vjJ0YnNEVafGEm1gEGpaiq3PM+6W4vIe39g9pqpw1iYxNvUYNJJZ/r9XD/Xple8oxaE4KY0MTcqiZXzkcB3LR4/LTDAv/zKTfAwZ9CK3aK7uI/irV3frdHX62z87UJr65vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789064925; c=relaxed/simple;
-	bh=P6r8qL8JM02zCM7xElGZ6ujGdsdo355IYFvW1YpAx5c=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KKZpzBoRmiLCHs+h9efxiQdZ/r1/Mvj+oAqRFF83p02AMZqNsWcpoX9QkF7IPZgaxoDi0gsiVLiG5sTX+4tjenUHgJKSz92dzYDIDfzhWryIq1ClOprCHGRRav1NEOL7vA8WHhgpb4haZ9vClMryu8ZpMJg/DAehgdN1Dq/aAbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fEJjTob+; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789064949; c=relaxed/simple;
+	bh=cmYjXvdsYciBd0lCZ2ltm/dpXQelBMN3JS54FvQBC4s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pkQsBX56j7BhqvGFD5H4HybFbeONSqn23SaYtf/Yb5gpHKf1KMQntfEKbALviIFst9BVxLd2/pYCfZJuls8lh8vkPqp+bSlryNPSybggHAs8Cg0fdfbe8i70VIJvrwLXGxtnVOF0Q4Law/34RHPMxvoHjQf6XmH8XsONg/2PAjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NXvXgKs9; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fEJjTob+"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NXvXgKs9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789064918; x=1820600918;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=P6r8qL8JM02zCM7xElGZ6ujGdsdo355IYFvW1YpAx5c=;
-  b=fEJjTob+c+CfaneMReWCzcgbdzFK+QLMFOOCW20PzE99oattk72TECnI
-   Qkafp8ClpWU9LODS4jvKMCq/DPeoVEO1zZGHcLq6/5xp0WEhbrLmPT/0G
-   7+Msm80+GtmceT8NO0c8ku+KCBOPLoltH1WDb6ZNUSbfMJ12rpF+vU0Lz
-   f89rJwZqccLMDcp+qpVfcE6bb89uGBlLirflirYiJSY53fSDZYe6MNuFB
-   Ui/au8/sKOVJ2zWtey327Qwzu7X5OZ0JCEevZfHpg+gRmF/DdMLBOkkOV
-   8ne68pDVGRfTczAIp/YwPxcLUSAyQrXuFkJxYkADaDQuE70voW3DtvDqX
-   Q==;
-X-CSE-ConnectionGUID: Vu41G5FyQQ+t6UXcrQ34aA==
-X-CSE-MsgGUID: +AMxJoH6Q5y1RyvwLre1aQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89290569"
+  t=1789064945; x=1820600945;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=cmYjXvdsYciBd0lCZ2ltm/dpXQelBMN3JS54FvQBC4s=;
+  b=NXvXgKs9FoV0GkG0tV7mevwh7iWTPEJGYAT8oAK+Y6CxUgIIKMUMtb6e
+   JNOhw5FZiyPxL8jwFqTun4Kh+GU7bBOHr7BKxDoO8zMNybpKOO4C+HiAX
+   OVJVSGILL86OwmXpx8m023HcKxTc1Q3wucm8KsP0JZk/3hKOUVCUws1W/
+   5MmzQtsyNW5krsMUgl00yq9Li3wWklN4Afnkhi0ETMkA0qOaxKjEpSaHl
+   h3sKYNxe1lmOoyPsfw1XoVtFTXDNtXP3ENDV+t0FDw7uwd0EVWKXC3sUe
+   SNnRXwJL3qjIlzOmbpHLOTQpE9yPNCNayohhIxjmNGKGvdXfeV+3TZnEw
+   g==;
+X-CSE-ConnectionGUID: 7nYHbbR9TLS8TNnyMvMWWw==
+X-CSE-MsgGUID: 5kPQSpn5R2OCWYFbfUwcrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="100118692"
 X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="89290569"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:28:33 -0700
-X-CSE-ConnectionGUID: cXjgPvKtQaCdAn2j+rRl9w==
-X-CSE-MsgGUID: hx2gbnyTRlWT3b+wa77yAA==
+   d="scan'208";a="100118692"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:28:57 -0700
+X-CSE-ConnectionGUID: 4y2rpa5DRmaalaZAHZWkcA==
+X-CSE-MsgGUID: 2lUi3idNRgOaMgZ/izzXoA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="72484"
-Received: from spandruv-desk1.amr.corp.intel.com ([10.124.222.115])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:28:33 -0700
-Message-ID: <9ae8e6b44ffaf5affb7324f802a3626c581ac461.camel@linux.intel.com>
-Subject: Re: [PATCH v1] HID: sensor-hub: synchronize multi-value read
- cancellation
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Yibo Tan <lhfff@tju.edu.cn>, Jiri Kosina <jikos@kernel.org>, Jonathan
- Cameron <jic23@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: Zhang Lixu <lixu.zhang@intel.com>, Andy Shevchenko
-	 <andriy.shevchenko@intel.com>, linux-input@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 11:28:32 -0700
-In-Reply-To: <20260910112338.4171983-1-lhfff@tju.edu.cn>
-References: <20260910112338.4171983-1-lhfff@tju.edu.cn>
-Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
- keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
- YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
- y1JGvdOA0f1lkxCnPXeiiDY4FUqQHr3U6X4FPqfrfGlrMmGvntpKzOTutlQl8eSAprtgZ+zm0Jiwq
- NSiSBOt2SlbkGu9bBYx7mTsrGv+x7x4Ca6/BO9o5dIvwJOcfK/cXC/yxEkr1ajbIUYZFEzQyZQXrT
- GUGn8j3/cXQgVvMYxrh3pGCq9Q0Q6PAwQYhm97ipXa86GcTpP5B2ip9xclPtDW99sihiL8euTWRfS
- TUsEI+1YzCyz5DU32w3WiXr3ITicaMV090tMg9phIZsjfFbnR8hY03n0kRNWWFXi/ch2MsZCCqXIB
- oY/SruNH9Y6mnFKW8HSH762C7On8GXBYJzH6giLGeSsbvis2ZmV/r+LmswwZ6ACcOKLlvvIukAEQE
- AAbQ5U3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5pbnRlbC5j
- b20+iQHRBBMBCAA7FiEEdki2SeUi0wlk2xcjOqtdDMJyisMFAmYHNAsCGwMFCwkIBwICIgIGFQoJC
- AsCBBYCAwECHgcCF4AACgkQOqtdDMJyisMobAv+LLYUSKNuWhRN3wS7WocRPCi3tWeBml+qivCwyv
- oZbmE2LcxYFnkcj6YNoS4N1CHJCr7vwefWTzoKTTDYqz3Ma0D0SbR1p/dH0nDgN34y41HpIHf0tx0
- UxGMgOWJAInq3A7/mNkoLQQ3D5siG39X3bh9Ecg0LhMpYwP/AYsd8X1ypCWgo8SE0J/6XX/HXop2a
- ivimve15VklMhyuu2dNWDIyF2cWz6urHV4jmxT/wUGBdq5j87vrJhLXeosueRjGJb8/xzl34iYv08
- wOB0fP+Ox5m0t9N5yZCbcaQug3hSlgp9hittYRgIK4GwZtNO11bOzeCEMk+xFYUoa5V8JWK9/vxrx
- NZEn58vMJ/nxoJzkb++iV7KBtsqErbs5iDwFln/TRJAQDYrtHJKLLFB9BGUDuaBOmFummR70Rbo55
- J9fvUHc2O70qteKOt5A0zv7G8uUdIaaUHrT+VOS7o+MrbPQcSk+bl81L2R7TfWViCmKQ60sD3M90Y
- oOfCQxricddC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+   d="scan'208";a="265511323"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.111.227])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:28:57 -0700
+From: Vishal Verma <vishal.l.verma@intel.com>
+Date: Thu, 10 Sep 2026 12:28:40 -0600
+Subject: [PATCH] x86/tdx: Remove the early #VE handler
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-b4-tdx_remove_early_ve_handler-v1-1-bf47a4d360c5@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNUQqDMBAFryL73UCMkkqvUkrQ5KVNsVo2Vizi3
+ V3bvzfwmFkpgxMyXYqVGHPKaRwEylNB/tEOd6gUhMloY3VjGtXVagqLY7zGGQ4t918nQ76hB6u
+ zL2tb+aijrUgkb0ZMyy9wvf05f7on/HRYadt2bNswd4IAAAA=
+X-Change-ID: 20260828-b4-tdx_remove_early_ve_handler-7c1463cf0f63
+To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+ kvm@vger.kernel.org, Vishal Verma <vishal.l.verma@intel.com>, 
+ Andi Kleen <ak@linux.intel.com>
+X-Mailer: b4 0.16-dev-62088
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3634;
+ i=vishal.l.verma@intel.com; h=from:subject:message-id;
+ bh=cmYjXvdsYciBd0lCZ2ltm/dpXQelBMN3JS54FvQBC4s=;
+ b=owGbwMvMwCXGf25diOft7jLG02pJDFmLvr1omWodErDFZtrfyZPX8Be+Z6q7lCtZwmGZ6J51/
+ JnmV5f6jlIWBjEuBlkxRZa/ez4yHpPbns8TmOAIM4eVCWQIAxenAEykKZWRYU6JE3OoT0Dd0w15
+ QQFR0ktzVwtv/PbJame8YsvbOS+jexj+WSzwenkpoe/pFJvL1+IW/1+zze73Hce9KnxnrnnfMns
+ cyAEA
+X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
+ fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
 
-On Thu, 2026-09-10 at 19:23 +0800, Yibo Tan wrote:
-> sensor_hub_input_attr_read_values() publishes a caller-owned buffer
-> to the
-> raw-event path. If its interruptible wait times out or is
-> interrupted, it
-> clears pending.status without taking data->lock and returns.
->=20
+tdx_early_handle_ve() emulates port I/O for #VEs taken before
+idt_setup_early_traps() installs the real #VE gate. Per commit
+32e72854fa5f ("x86/tdx: Port I/O: Add early boot support"), it exists to
+support earlyprintk's serial driver.
 
-Hi Lixu,
+"earlyprintk=" and "earlycon=" are both early_param() handlers, so no
+console can be registered before parse_early_param(), which runs from
+setup_arch(), after idt_setup_early_traps() has replaced the early IDT.
+Nothing in the window between idt_setup_early_handler() and
+idt_setup_early_traps() does port I/O, so this emulation doesn't ever
+get called.
 
-Please give me quick test. Change itself looks good, not sure if we
-need something more.
+Remove the handler. Any #VE in the early window now falls through to
+early_fixup_exception(), as it previously did for #VEs that were not I/O
+instructions.
 
-Thanks,
-Srinivas
+Found with the help of an LLM observing that the real IDT is installed
+before parse_early_param(). LLMs were also used to verify this. On a TDX
+guest booted with earlyprintk, a counter added to tdx_early_handle_ve()
+for testing remained 0 after boot.
 
+Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+---
+ arch/x86/include/asm/tdx.h |  4 ----
+ arch/x86/coco/tdx/tdx.c    | 22 ----------------------
+ arch/x86/kernel/head64.c   |  3 ---
+ 3 files changed, 29 deletions(-)
 
-> sensor_hub_raw_event() may already have observed pending.status while
-> holding that lock. The caller can then release its buffer before raw-
-> event
-> finishes copying into it.
->=20
-> Take data->lock when cancelling the request. The raw-event path now
-> either
-> sees the request retired or finishes the copy before cancellation can
-> return.
->=20
-> On an uninstrumented PREEMPT_RT kernel, a valid 16-byte quaternion
-> report
-> overwrote a live futex waiter's plist node with the report's 0x41
-> payload.
-> Two vulnerable runs produced the same general protection fault in
-> plist_del(), after 471 and 91 completed trials. The locking fix
-> completed
-> two 10,000-trial runs without an Oops, panic, warning or payload
-> signature.
->=20
-> The virtual provider setup and FIFO assignment require privilege. The
-> IIO
-> read, signal handling and futex operations run as uid 65534 without
-> effective capabilities. No physical-device or normal-priority hit was
-> tested.
->=20
-> A source reproducer, kernel configuration, complete serial logs and
-> the
-> vulnerable/fixed result table are available at:
->=20
-> https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/ma=
-in/cases/hid-sensor-quaternion-root-a
->=20
-> Fixes: f784fcea4506 ("HID: sensor-hub: Add
-> sensor_hub_input_attr_read_values() for multi-byte reads")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link:
-> https://lore.kernel.org/r/20260610083849.067A11F00893@smtp.kernel.org/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
-> ---
-> =C2=A0drivers/hid/hid-sensor-hub.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
-> hub.c
-> index 6470a290ebfc..80f18aff6f1f 100644
-> --- a/drivers/hid/hid-sensor-hub.c
-> +++ b/drivers/hid/hid-sensor-hub.c
-> @@ -335,7 +335,9 @@ int sensor_hub_input_attr_read_values(struct
-> hid_sensor_hub_device *hsdev,
-> =C2=A0		else if (cycles < 0)
-> =C2=A0			ret =3D cycles;
-> =C2=A0
-> +		spin_lock_irqsave(&data->lock, flags);
-> =C2=A0		hsdev->pending.status =3D false;
-> +		spin_unlock_irqrestore(&data->lock, flags);
-> =C2=A0	}
-> =C2=A0	mutex_unlock(hsdev->mutex_ptr);
-> =C2=A0
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index 89e97d5761d8..495154a7d77d 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -75,8 +75,6 @@ bool tdx_handle_virt_exception(struct pt_regs *regs, struct ve_info *ve);
+ 
+ void tdx_halt(void);
+ 
+-bool tdx_early_handle_ve(struct pt_regs *regs);
+-
+ int tdx_mcall_get_report0(u8 *reportdata, u8 *tdreport);
+ 
+ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
+@@ -91,8 +89,6 @@ void __init tdx_dump_td_ctls(u64 td_ctls);
+ static inline void tdx_early_init(void) { };
+ static inline void tdx_halt(void) { };
+ 
+-static inline bool tdx_early_handle_ve(struct pt_regs *regs) { return false; }
+-
+ #endif /* CONFIG_INTEL_TDX_GUEST */
+ 
+ #if defined(CONFIG_KVM_GUEST) && defined(CONFIG_INTEL_TDX_GUEST)
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index f904a636d449..9bc78cb28710 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -755,28 +755,6 @@ static int handle_io(struct pt_regs *regs, struct ve_info *ve)
+ 	return ve_instr_len(ve);
+ }
+ 
+-/*
+- * Early #VE exception handler. Only handles a subset of port I/O.
+- * Intended only for earlyprintk. If failed, return false.
+- */
+-__init bool tdx_early_handle_ve(struct pt_regs *regs)
+-{
+-	struct ve_info ve;
+-	int insn_len;
+-
+-	tdx_get_ve_info(&ve);
+-
+-	if (ve.exit_reason != EXIT_REASON_IO_INSTRUCTION)
+-		return false;
+-
+-	insn_len = handle_io(regs, &ve);
+-	if (insn_len < 0)
+-		return false;
+-
+-	regs->ip += insn_len;
+-	return true;
+-}
+-
+ void tdx_get_ve_info(struct ve_info *ve)
+ {
+ 	struct tdx_module_args args = {};
+diff --git a/arch/x86/kernel/head64.c b/arch/x86/kernel/head64.c
+index fd28b53dbac5..7b8b13f45454 100644
+--- a/arch/x86/kernel/head64.c
++++ b/arch/x86/kernel/head64.c
+@@ -166,9 +166,6 @@ void __init do_early_exception(struct pt_regs *regs, int trapnr)
+ 	    trapnr == X86_TRAP_VC && handle_vc_boot_ghcb(regs))
+ 		return;
+ 
+-	if (trapnr == X86_TRAP_VE && tdx_early_handle_ve(regs))
+-		return;
+-
+ 	early_fixup_exception(regs, trapnr);
+ }
+ 
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260828-b4-tdx_remove_early_ve_handler-7c1463cf0f63
+
+Best regards,
+--  
+Vishal Verma <vishal.l.verma@intel.com>
+
