@@ -1,128 +1,77 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D80C373C1A;
-	Thu, 10 Sep 2026 06:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65823148A7;
+	Thu, 10 Sep 2026 06:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021414; cv=none; b=FpsVIsRrSJGfUtDXh78bMfCjMiRNzaYSGvVOufmEzQ0sfqZz18KvpK7OPif3cK6zRRXrw1aDF+4af02WD3CDBUb1QWpv/kby3Y6NpHnbAA2/e6gSrNUS1xc6Udnj2+0ycacLY1TBdeUp5O9MKSAu2WqQPOdOQjQHIeZfR3hzhe4=
+	t=1789021441; cv=none; b=FR3OPU5Eb+Y2xpOGmVuDqA/SiIiwAWkdgl0UllG/G09yJO9H2Q35g2Q2milnaVx6/AEVH6MlTq0J9yhqCN3+kFPThzXMv9YNNwhRsesqeL5PZi8WNC9Aej5koUfYFHCCcNgYNdGzjmSHulRDxZzThxSfgfrHWIEHz/XuhLSKUZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021414; c=relaxed/simple;
-	bh=aqNX+9tAjd2/jVm9O8DWI+lgMgxqRluvBk2uSuJJv/s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=taDO+ayM1XLkFAnCEJHqb5BKsBjXwJ8MUhc2TnMbZX98BJFq7X5e51P9EVJBCEeXLV2NptfCPUw093cuBJg3WqT/gGVX8/YQypPuP9fZMg0B/rMpHxbIjbEZJAq5f4lS8gN5oS6DVNnWdAmGH0w1ejsiNKcAAPktvysE8AAmRmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=y5gn1AHo; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789021441; c=relaxed/simple;
+	bh=oqNZ021lQBFP6R4qPLJFbMMgHowi7bB4Z+JfnGU7YnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IXT6AT3K+BPU9LwCtz6a5cUj/iohG/uS3uFcy8bG+34AiSoa1RNaAnLPXvATPq2JphIq1e5C5DwUi6D1dXXYXztM5xIf+sqSDxcQ4t7rroImv+eglI6cap0vbf60HfC8aJc100j7bqgYA94Qp7SawpWb/o6Kc4vfwsm4tvjnK/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XmCeedhD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="y5gn1AHo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=Nr+oq6PsKxcBle0H0lwiDVCL6Vp35iitzfLcmlTGscQ=; b=y5gn1AHogARHFoH8bdigWxHlqv
-	oS3og6i6V0pacOjdVHdKUUJKc9i7gAvLNrZtuCIauSn0y6DFcaYJuAfe8pwhsaMgwLtY/CrPcTd1T
-	BLGilI8k7TX/dIKzzb+jGTkUorL6NEb7caA38Lx2HWtndY8W73DO7/YrhIfKa5j/mGxT/5/hkZYSP
-	9GlE9FgOec4tHwo4jimppN1N4cHVGi7DGGI8dtn24109Iq4C4F4eEmfFWkd49qo6KmYWNt5LGWyJm
-	fk9XchVlfSziME2QlLO+bVLBaWgW4MMQbvCB1BZhEQkxWs73UO3yaZsv51aov+RGzom8+ZCGl5oVk
-	sykDuO3A==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4YBu-0000000DVWG-4AfW;
-	Thu, 10 Sep 2026 06:23:23 +0000
-Message-ID: <a29070be-02ff-49b6-b0dd-625a3371a780@infradead.org>
-Date: Wed, 9 Sep 2026 23:23:21 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XmCeedhD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C6C1F000FF;
+	Thu, 10 Sep 2026 06:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789021439;
+	bh=npIC6rGGOsWIpsmlmTaJVZkwqLIf9OG0BCMb+5BTeV0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XmCeedhDvJpJRHOXHjIFimaBuAQ0JRjvK/ZfVFjXiMwn+dsfcAGMoDvyw0xOqeenn
+	 lXtRw+XhLZu2A26PQ2VCGjP6E/UB/POUkHdTZ6+pFTaBoMD6p/7DhV2o117+fSjFN0
+	 U29aD3/ni5KjpW83jKmUzvRfL7YU/fcP60wJxJGn9PsmvtaAmlcsGa9TXgvakluJ6+
+	 r04KTp+TO9NNBmZiutNWAANjcO1RlFh49WN+Hj4+8WJZ2q52lnwpvi3LpQeVs5JUdX
+	 LSENqR74q7eRUjE5ibNJm56cd+0kAZreQcKaOkl+U4Y7jZrswZELkXPepcsoCkmtBm
+	 ty2a9vEXj5m7A==
+Date: Thu, 10 Sep 2026 08:23:54 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, 
+	Deepanshu Kartikey <kartikey406@gmail.com>, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+Subject: Re: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before
+ insert
+Message-ID: <aqJMy0OrOqBJZ8l2@andromeda.toxiclabs.cc>
+References: <20260906144629.17009-1-kartikey406@gmail.com>
+ <20260907045150.GI1933798@frogsfrogsfrogs>
+ <aqI7LFBkAhMSaDnx@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] spi: docs: Use the multi-lane mode constants in examples
-To: Karl Mehltretter <kmehltretter@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-References: <20260910033219.15996-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260910033219.15996-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqI7LFBkAhMSaDnx@infradead.org>
 
-
-
-On 9/9/26 8:32 PM, Karl Mehltretter wrote:
-> The multi-lane documentation names SPI_MULTI_BUS_MODE_* constants,
-> including in the transfer initializers. The interface introduced with
-> the document uses SPI_MULTI_LANE_MODE_*, so the examples refer to
-> undefined macros.
+On Wed, Sep 09, 2026 at 10:07:56PM -0700, Christoph Hellwig wrote:
+> On Sun, Sep 06, 2026 at 09:51:50PM -0700, Darrick J. Wong wrote:
+> > On Sun, Sep 06, 2026 at 08:16:29PM +0530, Deepanshu Kartikey wrote:
+> > > __xfs_healthmon_insert() asserts that hm->lock is held
+> > > (lockdep_assert_held), but xfs_ioc_health_monitor() called it right
+> > > after allocating hm, before ever taking the lock, triggering a
+> > > lockdep warning.
+> > > 
+> > > Take hm->lock around the call.
+> > > 
+> > > Fixes: b3a289a2a9397 ("xfs: create event queuing, formatting, and discovery infrastructure")
+> > > Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+> > > Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
+> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > 
+> > Heh, I added a patch just like this one to my own tree.
+> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 > 
-> Use the interface's constants in the descriptions and examples.
+> Can we get this queued up ASAP?  It's also causing a lot of failures in
+> our zoned XFS CI.
 > 
-> Fixes: 05c3bd745bb0 ("spi: Documentation: add page on multi-lane support")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
-> ---
->  Documentation/spi/multiple-data-lanes.rst | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/Documentation/spi/multiple-data-lanes.rst b/Documentation/spi/multiple-data-lanes.rst
-> index 69cb532d052f..802aece35d56 100644
-> --- a/Documentation/spi/multiple-data-lanes.rst
-> +++ b/Documentation/spi/multiple-data-lanes.rst
-> @@ -127,7 +127,7 @@ field to indicate which mode they want to use for a given transfer.
->  
->  The possible values for this field have the following semantics:
->  
-> -- :c:macro:`SPI_MULTI_BUS_MODE_SINGLE`: Only use the first lane. Other lanes are
-> +- :c:macro:`SPI_MULTI_LANE_MODE_SINGLE`: Only use the first lane. Other lanes are
->      ignored. This means that it is operating just like a conventional SPI
->      peripheral. This is the default, so it does not need to be explicitly set.
->  
-> @@ -149,7 +149,7 @@ The possible values for this field have the following semantics:
->          ----------   ----------------   ----------
->              SDO 0    0-0-0-1-0-0-0-1    SDI 0
->  
-> -- :c:macro:`SPI_MULTI_BUS_MODE_MIRROR`: Send a single data word over all of the
-> +- :c:macro:`SPI_MULTI_LANE_MODE_MIRROR`: Send a single data word over all of the
->      lanes at the same time. This only makes sense for writes and not
->      for reads.
->  
-> @@ -160,7 +160,7 @@ The possible values for this field have the following semantics:
->          struct spi_transfer xfer = {
->              .tx_buf = tx_buf,
->              .len = 1,
-> -            .multi_lane_mode = SPI_MULTI_BUS_MODE_MIRROR,
-> +            .multi_lane_mode = SPI_MULTI_LANE_MODE_MIRROR,
->          };
->  
->          spi_sync_transfer(spi, &xfer, 1);
-> @@ -172,7 +172,7 @@ The possible values for this field have the following semantics:
->              SDO 0    0-0-0-1-0-0-0-1    SDI 0
->              SDO 1    0-0-0-1-0-0-0-1    SDI 1
->  
-> -- :c:macro:`SPI_MULTI_BUS_MODE_STRIPE`: Send or receive two different data words
-> +- :c:macro:`SPI_MULTI_LANE_MODE_STRIPE`: Send or receive two different data words
->      at the same time, one on each lane. This means that the buffer needs to be
->      sized to hold data for all lanes. Data is interleaved in the buffer, with
->      the first word corresponding to lane 0, the second to lane 1, and so on.
-> @@ -185,7 +185,7 @@ The possible values for this field have the following semantics:
->          struct spi_transfer xfer = {
->              .rx_buf = rx_buf,
->              .len = 2,
-> -            .multi_lane_mode = SPI_MULTI_BUS_MODE_STRIPE,
-> +            .multi_lane_mode = SPI_MULTI_LANE_MODE_STRIPE,
->          };
->  
->          spi_sync_transfer(spi, &xfer, 1);
-> 
-> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
 
--- 
-~Randy
+Oh... this is actually already in my queue, I just need to push it :)
+
+I'm just trying to get darricks attr fsblock fix in too because that is
+also failing my own testing here.
