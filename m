@@ -1,159 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06F92F7F09;
-	Thu, 10 Sep 2026 08:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCE2379ECF
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030152; cv=none; b=M+z6Kll0omrpDUDCBEF7LNfZxdwDYcECbv3CDiHhld71mqODarzTiPgTyNM4kvudIC4CAu9TMhd1D02/HDH7Fjomc175558GMZ4ZW+bjfoSfHIJZOtl9jnnohGjP4skQOEKVSXldkhwZDBmOXLRiundzinlwD3RosjtsUTzfw0g=
+	t=1789030157; cv=none; b=KJgJVpxrFpOqwCyRLi/dzexNiqo9vEGyA2IoY0Po+Sl+GGg059+GjwCmuDbJmi8hkeU/VYQus/5izR5QSPQg2fCaEaqyQrtB0KAQvI/SS2+ApCgwCaWectV52CVvuLqxoemPxLXPr+j8iTkIPW4fxPPAk0vKkzb7eXQmrHuKxm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030152; c=relaxed/simple;
-	bh=8IvN7qTgPgf/1PFeXvPLH9waCGOkjkd8FQOgd80O+XI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kuGNxfpjjbc2k8X9yq9mECeh3hYXD9NGSfMZbByipud0cPSV+tg2TyllGJRyqDGQQhkkuGnkdVB/kRqzmT2RzgsQlClbZWLOKEk7uWmzZ5wRkOaDZViGfq5NqR35iwgwmpJ0U+HfzEXQ9MSURtzVo1t2okwogxJkIQPW79phZ4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCv/DXz2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789030157; c=relaxed/simple;
+	bh=cKuwuIWP8qEeczDc5QlfnsAOInD0LRisQ2KVelC1a+w=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=CzBWwUSzxb6OwapStiezIkTeVMi69IZLyI8wwyOiU9In5KwT2LWKJg/eF6esPz4BlAQ0gyJxJWrRSmG41s15SyLtJxBNyNf/eNxhUxoucsziyKPlr5s2L33Jk+PlI2GF3AlKTS6wQoe0+S6K0w5zFgxJJUkHWlA99ZNBVzYQ/0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eKzxXpg0; arc=none smtp.client-ip=95.215.58.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCv/DXz2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464D61F000FF;
-	Thu, 10 Sep 2026 08:49:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789030151;
-	bh=VfSkPLpOWWd+VItdFa754M+oss4bxhyEVWaKllCEoR8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fCv/DXz2GkQ2jYCc7xWf/313wM6aqpMIKwHxF8glPgcMfbPMnyliOsMgk0eNk5TvB
-	 K2aAyl+mZ3uWjtAjaZxgMntiIelsMcMAV3PO3WbsqEYt8btVzE4hwLjoRho8NPTFCp
-	 ylUV3Vy11jQ16dTdv92dh9HXaccFqbBzIJXPRkRlaUkjAJU+FicEpBKbX9yH6sMlan
-	 ThjNz2rS7OHvSRrSP3iFzVAemCxMztIOdmabPmru+XPPuqZZnfLWfLGSYzGh6eaGpD
-	 mLDzImom5ri+WCsBPA/q1DHXzbpP0WyPnqld7JKpsmQfHDsHU4XLfhUs+xwXvZt+yK
-	 7Y19Sv23+VcSQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x4aSy-00000007AGx-3Og4;
-	Thu, 10 Sep 2026 08:49:08 +0000
-Date: Thu, 10 Sep 2026 09:49:08 +0100
-Message-ID: <86v78d7apn.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Jack Thomson <jackabt@amazon.com>,
-	Jack Thomson <jackabt.amazon@gmail.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH 3/8] KVM: arm64: Propagate and use kvm_s2_fault_result on S2 fault
-In-Reply-To: <20260825-kvm-arm-prefault-v1-3-befe8947702e@kernel.org>
-References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org>
-	<20260825-kvm-arm-prefault-v1-3-befe8947702e@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eKzxXpg0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cKuwuIWP8qEeczDc5QlfnsAOInD0LRisQ2KVelC1a+w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789030152; v=1; x=1789634952;
+ b=eKzxXpg0e1hs7CJm0Qn1KX2+hceWPwqalu45lskTdhbCW5Nulqynl++5BsJreCVTkezCZecP
+ GzYgaW49lP3XNbbcYYShqGF9C7JbSoTzliszift/7eZltVl5Q6V6TJ/HcOn3L2jeo07DTKrp4U0
+ RmWjPObmw1oToqhVro9EVsZU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 6767c20d1bd6aecd;
+	Thu, 10 Sep 2026 08:49:12 +0000
+X-Mizu-Trace-ID: 6767c20d1bd6aecd
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ljs@kernel.org, catalin.marinas@arm.com, will@kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, pbonzini@redhat.com, corbet@lwn.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, jackabt@amazon.com, jackabt.amazon@gmail.com, alexandru.elisei@arm.com, vdonnefort@google.com, aneesh.kumar@kernel.org, seanjc@google.com, imbrenda@linux.ibm.com, Leo.Bras@arm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
-
-On Tue, 25 Aug 2026 17:00:37 +0100,
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> When stage 2 page tables fault the net result may either be that a page is
-> mapped, an error occurred or the fault should be retried (-EAGAIN).
-> 
-> When a fault succeeds it may be upgraded to a PMD size via
-> transparent_hugepage_adjust().
-> 
-> In order to support KVM pre-faulting the outcome of the fault and the
-> mapping size must be recorded.
-> 
-> Track this in the new kvm_s2_fault_result struct, which is threaded through
-> gmem_abort(), user_mem_abort() and kvm_s2_fault_map().
-> 
-> PKVM and SEA aren't relevant to synthetic pre-faulting so neither
-> kvm_inject_sea() nor pkvm_mem_abort() are altered.
-> 
-> Actual hardware faulting doesn't require this information, so
-> kvm_handle_guest_abort() simply passes NULL kvm_s2_fault_result to
-> gmem_abort() and user_mem_abort().
-> 
-> Faults are necessarily ephemeral and pre-faulting can't guarantee what may
-> happen in parallel, so do not store the GFN or PFN in
-> kvm_s2_fault_result. Pre-faulting only needs to know what was mapped in at
-> the point of the fault.
-> 
-> This struct could be replaced with a pointer to an unsigned long, however
-> it's clearer to separate out the mapped flag and having a struct allows us
-> to easily add additional fields in future as needed.
-> 
-> No functional change intended.
-> 
-> Suggested-by: Vincent Donnefort <vdonnefort@google.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  arch/arm64/kvm/mmu.c | 33 +++++++++++++++++++++++++++------
->  1 file changed, 27 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 80cb520e25b9..da15da4e40e6 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -1607,6 +1607,11 @@ struct kvm_s2_fault_desc {
->  	struct kvm_s2_mmu	*mmu;
->  };
->  
-> +struct kvm_s2_fault_result {
-> +	unsigned long mapping_size;
-> +	bool mapped;
-> +};
-> +
->  static bool kvm_s2_fault_is_perm(const struct kvm_s2_fault_desc *s2fd)
->  {
->  	return esr_fsc_is_permission_fault(s2fd->esr);
-> @@ -1632,7 +1637,17 @@ static u64 kvm_s2_perm_fault_granule(const struct kvm_s2_fault_desc *s2fd)
->  	return BIT(ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
->  }
->  
-> -static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
-> +static void populate_fault_result(struct kvm_s2_fault_result *result,
-> +				  unsigned long mapping_size)
-> +{
-> +	/* A THP upgrade may have altered mapping size. */
-> +	result->mapping_size = mapping_size;
-> +	/* -EAGAIN is swallowed so be explicit when we actually map. */
-> +	result->mapped = true;
-
-I'm not sold on this boolean. I'd rather we use the fact that the
-fault handler has passed a result pointer to return -EAGAIN rather
-than turning into a 0, because that's a clear sign that the fault
-hasn't been generated by a vcpu.
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH] mm/hugetlb: account for allowed nodes when gathering
+ surplus pages
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
+Date: Thu, 10 Sep 2026 16:48:56 +0800
+Cc: osalvador@suse.de,
+ linux-mm@kvack.org,
+ david@kernel.org,
+ akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8A0F6014-4E2C-4F07-9732-2DF32418B986@linux.dev>
+References: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
+To: Huaisheng Ye <yehuaisheng@open-hieco.net>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
 
-	M.
 
--- 
-Without deviation from the norm, progress is not possible.
+> On Sep 9, 2026, at 15:46, Huaisheng Ye <yehuaisheng@open-hieco.net> =
+wrote:
+>=20
+> Hugetlb reservations are accounted globally, but hugetlb_acct_memory()
+> also verifies that the current cpuset and MPOL_BIND policy contain =
+enough
+> free huge pages to add a new reservation.
+>=20
+> gather_surplus_pages() calculates its allocation shortfall from the =
+global
+> free and reserved counters. If the global pool has enough free pages, =
+but
+> those pages reside outside the nodes allowed by the task, it allocates =
+no
+> surplus pages. The subsequent allowed_mems_nr() check then rejects the
+> reservation and mmap() fails with ENOMEM, even when
+> nr_overcommit_hugepages permits allocating surplus pages on the =
+allowed
+> nodes.
+>=20
+> Calculate both the global shortfall and the shortfall within the =
+allowed
+> nodes, and allocate the larger of the two. Include surplus pages =
+allocated
+> outside hugetlb_lock in both calculations when rechecking after =
+reacquiring
+> the lock. These pages are constrained by alloc_nodemask, so they =
+satisfy
+> both shortages.
+>=20
+> Easy way to reproduce this issue with 2+ NUMA nodes system:
+>=20
+>  # echo 0 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepage
+>  # echo 3 > =
+/sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
+>  # echo 1 > =
+/sys/kernel/mm/hugepages/hugepages-2048kB/nr_overcommit_hugepages
+>  # cd tools/testing/selftests/mm
+>  # numactl --membind=3D1 ./hugetlb-mmap 2 21
+>  TAP version 13
+>  # [INFO] detected hugetlb page size: 2048 KiB
+>  # [INFO] detected hugetlb page size: 1048576 KiB
+>  # 2048 kB hugepages
+>  1..2
+>  # Mapping 2 Mbytes
+>  Bail out! mmap: Cannot allocate memory (12)
+>  # Planned tests !=3D run tests (2 !=3D 0)
+>  # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+>=20
+> This fixes hugetlb mappings when, for example, a task runs with
+> MPOL_BIND on Node 1 while the existing free huge pages are on Node 0.
+>=20
+> Similar issue also could be found in ltp if the free pages of global =
+pool
+> reside outside the nodes allowed by the application.
+>  # cd ltp/testcases/kernel/mem/hugetlb/hugemmap/
+>  # numactl --cpunodebind=3D0 --membind=3D1 ./hugemmap10
+>=20
+> Signed-off-by: Huaisheng Ye <yehuaisheng@open-hieco.net>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
