@@ -1,110 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D816B5452A8;
-	Thu, 10 Sep 2026 19:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A8F5A0ABA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068946; cv=none; b=azKI/MzwCc2e3ehPxEWJOL4VvOqd2TjdwdYDsAWZAVmuh8Lb8e7V/OxwJ2Guuy8qgcBG1oSu34PzDvoI2NiYjzfuVjdgCj90wD650ZQ5GyvEajQgxwe5vfcw6h5Ow4VpvWvDrFtA4TvNUNf6pEIOR2UBmnWPGsNwY2hLt49Ok6w=
+	t=1789069408; cv=none; b=GiF/OTDPBXZ/Eti+yt6SHVI+66F/QGXBGTsc8Tq6TokxYBeksvVCT6qj3kgX9KngC5T2zldZXtd/j/lLXJx1a9yVFpEmYsP3HfGSprikcmGzwBpZb/inE1a1t0EA77yaFBnkQ6U13PqxqIRV8wWG0Lw2akm6PjPoEWSobSBgKz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068946; c=relaxed/simple;
-	bh=rGQb6pWP3s8+ybob6/+wvJRTEta0FaX+zgcYWjwrBM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UCbKhoQFGCU0Qa5jhT682qN10Y21sRF0Yq4jC0u+kIq0MIwUrc/qkdSc7Q7kKsDQLzzi93aXBFqIIopD4hk29mVsfZmmBsMlaRboPji9grUZp5hx50XimmJzetG4b2ttGMlrzE6x42CeeCpmPP2gP6bpcKRPdKu8/JDSq4tt3Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QHS9bb1g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789069408; c=relaxed/simple;
+	bh=7PnO3Pq1c+iSovghwuQMRdjVQl88oMavnosLpWP8g9w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TzXp53fwx2Fd1Yonyhd/WWVn+uI7iNx/7xnG5UDjAc5Z9Z24BQuvgMMBnajdcZdm6LoQBRfnJJgtxbSeBaYAfOtt75wOMXhZxvromZ7ho6aqsfwBV77MATdsnX3KmAOepy9we7SwE3eTe7i/xxwd7oRXd1WVItb/FVt+BGaj7AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jtr45QhC; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QHS9bb1g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF061F000FF;
-	Thu, 10 Sep 2026 19:35:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789068944;
-	bh=NEHLUGTnGIvTiSnbPaTYiuHz7Py0xQtY1MUskUwmPWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QHS9bb1g4bOEu914forL0x7kDO1MY6HoyQrVpJA2Zm2D1LVGbRvWNR+VyFLDiCt8N
-	 8QfYMhEEX+Kyhwi3OfUTg0Styezbdjj2ltVim1F1O3W2zHp7SODgeElbwy3NAZNPc5
-	 wiRrATApSFP8PeH/VYFIgvdZSOF+zS3qaGiLd7m9jRhljhA4bvbX9kj+3F9WuSJhGJ
-	 I2Zfaq9CfVBf39UClc+CFWuGgk9fK1saxN3UFa9EyAyGqormI/1bzY47F+OJWLwV5Q
-	 wt5/C2qFDN+hrYSbvscC+6dUrPNXBhvdnmDC7mKaFUphaTDcdGaf6UaSraPExJ/Aop
-	 7S5VLmQxxIptw==
-Date: Thu, 10 Sep 2026 14:35:41 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: Add RPi 7-inch DSI panel
- overlays for Monaco/Lemans EVK
-Message-ID: <aqLGFfQ20mCGFkfl@baldur>
-References: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jtr45QhC"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6eeso1017016d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:43:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789069404; x=1789674204; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=snj9tC0bDqpe3dx1Fv5pWoog9eBWG9c9NpwY8U2j6YY=;
+        b=Jtr45QhC2NWE32p5AI44mxyAK0/CxmK8vBXBA6xZ5l/JnDxOAVhmll48rdJGoHVwhP
+         lsNIyzPp+e12G5ptU0KWp0r8EGded49ljaKSoM7oqz3kylXgvTMgllJ3B/zad5NX69zn
+         Dl98EjKf9bZAuGRYn6PdbuuMZ+IfFrmIzSvFCGkVRGjD7kouhp+wUtW5c14H4zCFHkKf
+         t9sdrycm5p3IL/aooSzPNgXRnp+BUA9i4D/mX4mou7amM6xWuAWvrG9Y+qVhGkpQ57P6
+         LGgq9RRh4EpjVKzIxY5VOYwjBRecQCwFf2Ox6NpGo6Fffnpquem1st02JBQ6qMW08GDR
+         +gdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789069404; x=1789674204;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=snj9tC0bDqpe3dx1Fv5pWoog9eBWG9c9NpwY8U2j6YY=;
+        b=jfsVMRNkrLmIQ321N6BGZ9i7SCwJAePa/LH9jMVweGFGMklkCxmzz6RW8vJntk2nZc
+         0G7/8ZXsEVow8wwGHADhUY4MEdjloFYfVDqMjEn4i72TR+X8diUtNNgyEtKhvGCvEj1B
+         kbYVkYGqAr+50NjvgkKTRQGjUl6LBtrtrn4XhTaO6go5q2oP3NGb6y6dphzp82V3eq/r
+         rnzk/Dp1oioCzw4hBTjpEaiUeJ5rF22ytlqa5KR3gLr9XwNrhlCIm/xyO6iwuO0SSfoW
+         v3LmIq5godnEZCwSrd1BqhLE6lCHDvyh2rXKtXdzfh/luU6q1FCzLPPWf416Z4lKaXLk
+         TEjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxgQ+qYt2XkvrcaSrpoNT3aamrDkhN+z97q9zWCZ3DhOKnEj/QanrQLk7O2cjcgotebFjCnvYKx+tJRSG0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0MLEf9ooQhHlaYHKCkC1ngngfDM0NcXx7dNGB92C/HAKy10+4
+	vKlkMamM9gpaqgowebcMvMfjsMsVi6L5BliD3oSJldVvR9mq6DStdS0G
+X-Gm-Gg: AYBFou1NtnAF5E/0F+oQW8MevvaPa90Bjl0KS4VrtYV6Ck8rrVCW6bV89eGJR2abr7s
+	4jpzoo+OAPYMcEAXIVJ4wsJRDPVpj76DsPoahaZ0cjML4JnxUlsKYDQrV9YGiGIOKQ0MRUmajni
+	xi7Xbr8Br4XPt2B8l2ucfgcMQYfsGifLIMrmetDwPbJFEPvVf8ouIdwTKfxV6PGqbrd+30VkNon
+	/qZmKPXAWbv1p74ufRPZHQaxl9XXj0AFfzn4qGFZXTbNoObK2ILA0t0EATInVgpenirRZC1VL/S
+	xTfnxCezhPSS60qwyWcGYJ0EJqAHzZIvMKbSwrIBXi0RCY8G9Z7ICCs7QX+SIxqyVFzPVVbDSaj
+	wz6NQQcOcy04YIJFn3xVS+bOj2nGuf8hLCOZda/8SF+uHH2oZQjjZhpSJAwzyYAAE8SdjikvIth
+	VkhNjETKVC754HdzdG+kqIzGg5/PZJP+ZPxrjiMmKQlZXo6js+9hSvzRh/wFYfHa4UdERCEWS9D
+	b0asoWf2fVJPaYSZc/hnnZCA0Z7LvDGALBt0Kmm/A==
+X-Received: by 2002:a05:6214:2463:b0:910:40d0:27e5 with SMTP id 6a1803df08f44-9121211d247mr4478526d6.31.1789069403991;
+        Thu, 10 Sep 2026 12:43:23 -0700 (PDT)
+Received: from [127.0.1.1] (static-68-235-46-14.cust.tzulo.com. [68.235.46.14])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d389esm3441266d6.42.2026.09.10.12.43.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 12:43:23 -0700 (PDT)
+From: Miles Krause <mileskrause5200@gmail.com>
+Date: Thu, 10 Sep 2026 15:43:20 -0400
+Subject: [PATCH] leds: lp8860: fix device_node leak in lp8860_probe()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-leds-lp8860-of-node-leak-v1-1-d333cff4345b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqEMAwAf0VyNpB2JT5+RTy421SD0koLIoj/b
+ tnjDMzckCWpZBiqG5KcmjWGAqau4LfOYRFUVxgsWabeEO7iMu5H1zFh9Biik+LmDfnztdyS92w
+ aKPmRxOv1X4/T87yu57ToagAAAA==
+X-Change-ID: 20260910-leds-lp8860-of-node-leak-63b2670ff614
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Cc: Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Miles Krause <mileskrause5200@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789069402; l=3259;
+ i=mileskrause5200@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=7PnO3Pq1c+iSovghwuQMRdjVQl88oMavnosLpWP8g9w=;
+ b=qpHo2twLLZEDq8BSL5+VQk6SylAgp9sfM63GEBU9yv/QLSu4oeI9G4nZYA+O/bNGBbJ8JmL69
+ 2KG96/OQJ5CAKc6Uxd446JCXFJMYyJ1NKoJFNeqEJR1pBG9tIq7ogxF
+X-Developer-Key: i=mileskrause5200@gmail.com; a=ed25519;
+ pk=zcIfq4TGtPwMRJUW6WsbE2zLHvOMwk6ZyT/CGd6XzyI=
 
-On Mon, Sep 07, 2026 at 12:03:52PM +0530, Shashank Maurya wrote:
-> Add device tree overlays to enable support for the Raspberry Pi 7-inch
-> DSI touchscreen panel on Qualcomm Monaco and Lemans EVK platforms.
-> 
-> The overlays configure the panel on the primary DSI interface using
-> a 2-lane DSI connection and instantiate the panel MCU on the
-> corresponding touchscreen I2C bus for each platform. The changes
-> allow the Raspberry Pi 7-inch display to be used as an external
-> display option on both EVKs without affecting the default platform
-> configuration.
-> 
-> ---
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Konrad Dybcio <konradybcio@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Florian Fainelli <florian.fainelli@broadcom.com>
-> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-rpi-kernel@lists.infradead.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> 
-> ---
-> Shashank Maurya (2):
->       arm64: dts: qcom: monaco-evk: Add Raspberry Pi 7-inch DSI panel overlay
->       arm64: dts: qcom: lemans-evk: Add Raspberry Pi 7-inch DSI panel overlay
-> 
->  arch/arm64/boot/dts/qcom/Makefile                  |  4 ++
->  .../dts/qcom/lemans-evk-raspberrypi-dsi-7inch.dtso | 83 ++++++++++++++++++++++
->  .../dts/qcom/monaco-evk-raspberrypi-dsi-7inch.dtso | 82 +++++++++++++++++++++
->  3 files changed, 169 insertions(+)
-> ---
-> base-commit: ed2647532a225739e86c7f236a2ce82764ec2772
-> change-id: 20260907-rpi_dts_overlay-58088ffce047
-> prerequisite-message-id: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
+lp8860_probe() looks up the driver's single LED child node with
+of_get_next_available_child() and hands it to the LED core as
+init_data.fwnode, but never drops the reference that lookup returned:
 
-The two dts patches in this series clearly relates to those two
-regulator patches, which has received change requests.
+	child_node = of_get_next_available_child(np, NULL);
+	if (!child_node)
+		return -EINVAL;
+	...
+	init_data.fwnode = of_fwnode_handle(child_node);
 
-I would have sent the 4 patches together in a series, but as you didn't
-you sent this series with unmet dependencies.
+of_get_next_available_child() returns the node with its refcount
+incremented, and the LED core does not take a reference of its own:
+led_classdev_register_ext() only reads properties out of
+init_data.fwnode and then stores the bare pointer with
+device_set_node().  The reference therefore stays owned by the driver
+for as long as it holds the node.
 
-All I can do now is reject this series as well. Please send v2 once the
-driver changes has been merged and you have validated this again.
+Nothing in lp8860_probe() ever releases it, so it is leaked on every
+error return taken after the lookup - the enable GPIO, the vled
+regulator, devm_mutex_init(), the regmap allocation, the optional
+EEPROM programming and the LED class registration - and on a fully
+successful probe alike.  A device that binds and unbinds repeatedly
+leaks one device_node reference per bind.
 
-Regards,
-Bjorn
+Sibling drivers already get this right: leds-lm3692x.c, from the same
+TI LED family, calls fwnode_handle_put(init_data.fwnode) once after
+devm_led_classdev_register_ext() to cover both outcomes, while
+leds-ktd2692.c and leds-aat1290.c take the node with __free(device_node).
 
-> prerequisite-patch-id: 5212bf185b35c36ed8857a67f29e60386d59ac60
-> prerequisite-patch-id: 056a90b913170106a6f8c1feb2366ee83c4375b9
-> 
-> Best regards,
-> --  
-> Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-> 
+Use __free(device_node) here too.  Unlike a single of_node_put() at the
+end of probe it also covers the intermediate error returns, and it keeps
+the node alive for the whole function, which the LED core still needs
+when it reads the child's properties during registration.
+
+Fixes: 99ca0ea57309 ("leds: lp8860: Use generic support for composing LED names")
+Signed-off-by: Miles Krause <mileskrause5200@gmail.com>
+---
+Found by auditing drivers that take a device_node/fwnode reference during
+probe and hand it to a subsystem registration helper without releasing it.
+
+Compile-tested only (x86_64, CONFIG_LEDS_LP8860=m, W=1 clean); I have no
+LP8860 hardware.
+---
+ drivers/leds/leds-lp8860.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/leds/leds-lp8860.c b/drivers/leds/leds-lp8860.c
+index 69f064781f69..f6e4227de903 100644
+--- a/drivers/leds/leds-lp8860.c
++++ b/drivers/leds/leds-lp8860.c
+@@ -7,6 +7,7 @@
+  * Author: Dan Murphy <dmurphy@ti.com>
+  */
+ 
++#include <linux/cleanup.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/leds.h>
+@@ -274,7 +275,6 @@ static int lp8860_probe(struct i2c_client *client)
+ 	int ret;
+ 	struct lp8860_led *led;
+ 	struct device_node *np = dev_of_node(&client->dev);
+-	struct device_node *child_node;
+ 	struct led_init_data init_data = {};
+ 	struct gpio_desc *enable_gpio;
+ 
+@@ -282,7 +282,8 @@ static int lp8860_probe(struct i2c_client *client)
+ 	if (!led)
+ 		return -ENOMEM;
+ 
+-	child_node = of_get_next_available_child(np, NULL);
++	struct device_node *child_node __free(device_node) =
++		of_get_next_available_child(np, NULL);
+ 	if (!child_node)
+ 		return -EINVAL;
+ 
+
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260910-leds-lp8860-of-node-leak-63b2670ff614
+
+Best regards,
+-- 
+Miles Krause <mileskrause5200@gmail.com>
+
