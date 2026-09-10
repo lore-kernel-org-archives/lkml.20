@@ -1,99 +1,140 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172D248E0DB;
-	Thu, 10 Sep 2026 13:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D8A494A0F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047718; cv=none; b=lrHHnzS7z+TWkWtPAoZb7kgsLXuY1eCH4tTO5qbSDoP5kdfDRZUNBCvYXaGLN24us0LGlxCpXmYYz+DXySelSiMcJmHlaBTQ/Ay5xqkgXgTqtHHeyEAMxQXcDi4E5vto7gtuvhvE/6zbnWxUh7gFDegNPWeASf3inEytdhC+Hbk=
+	t=1789047782; cv=none; b=BdZui2TLYEuRgG8F85oSnNRKzex2A0xOBFdfMR3kR+6Z5P268VQ0aHId+LoCrl7Tiy5glcyz4NbWUyFiJoBM4lu1rTzRwk9F5IEUrTWcHzJcXMbUstJetBcxKaeqs8OBNb2s4gF3s5nZnjAlL8Mj/6XTBy3yPiYGLMn4m1SVCGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047718; c=relaxed/simple;
-	bh=xQxLRxF550yGp+tOB7Nbf4yRJJodema3UjeVrM1qlMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKOnzFp/xql5AVdH8agWs+jUQz5Zk3nCLSe+K1b3Th4PTFEFdtA7O5z42k+Th4zQjIsHRr72I6EjGs74tDEcLnaiX+ijo1it0EZnF2fEkdGh0tdPDjG/Odx5nDif0T0hJl5Hj5atjwqbqtaackB+NnvSIYXTEXccdEfGb6aFnuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EMIG831f; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789047782; c=relaxed/simple;
+	bh=98ToWsIS5d7IjM6ytuYwT3/Jd61Z99/5CcphE1jQArU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ohkd9DRshFkrV/4+2zSN0sKH5kQYNQd3iwWra4krYQPGuUm3F7wWt5wk08DJrp/49sx26QV6lq1kPJkKoVOyofsAvIz4deyt+MUqzIC8rC9Vara0rqEHE1YoDDj5DbqubiWcfPbm4Etz8h8mXledSXGyaniAEq59xG5uBdkIacQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iyr3whHP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QL/SaU4q; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EMIG831f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=lEfV4tg3FVpNhBBaFkMoDkUqZnqsQJHNrX+3eQAG4dM=; b=EMIG831fnQGVUNJDiT4i7QDrm5
-	MR9w4OeCq6SdqBvaSEB9Rrc5cncL+NCPpuBpoIujVtz7lEF4KJYfhNMObaHCAzHDfo6sfQcJmDQSy
-	UJMBQzJO2efdlh1Ue4ljuPD/CmiEwb/PO4HDUYDp+qgIHyBHTwm5U8cpg6+bZaUQl35nrg49a7pcA
-	mRF4JXDQ2nXPyg0CkmzJsFKrGve+s2iF0bj+MxwutVBxI2KiF5herQ1OyX0fpRmVtXGggpkNy3WNt
-	OmJywBKdZqtTYtjDpwkm5LJb2VjYULBeu4fI4y55wIrfEZMqYdKIMnX7ZFYXtCN82Ik5m5WSAfbLw
-	9OWXRBHg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4f27-00000002Y8Y-0ykO;
-	Thu, 10 Sep 2026 13:41:43 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2E6F9300400; Thu, 10 Sep 2026 15:41:42 +0200 (CEST)
-Date: Thu, 10 Sep 2026 15:41:42 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 15/18] sched_ext: Delegate proxy donor admission to BPF
- schedulers
-Message-ID: <20260910134142.GU776954@noisy.programming.kicks-ass.net>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-16-arighi@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iyr3whHP";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QL/SaU4q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789047779;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pJZZpHiP7CPuGKYWAqqyZAd3k8D84Jqu2Jb8Skkggz8=;
+	b=iyr3whHPyiAwG5dn8E/SfzANIpfltrCwqPHUy1X5Bn1qhp/6ZF5b7jj1FtJad5e7FRR8E1
+	LXOr40oKG6Xws8LSrQGjYVDObwyAKzgWqm64cwAtMMSCsACrOLF6ayVtz7U/WeNj8/Hx6a
+	adR1MONlYTf7jfW6Mqs/vkFCrzzEuKw=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-104-rhmxyhSPMIuSURW4lAgclw-1; Thu, 10 Sep 2026 09:42:57 -0400
+X-MC-Unique: rhmxyhSPMIuSURW4lAgclw-1
+X-Mimecast-MFC-AGG-ID: rhmxyhSPMIuSURW4lAgclw_1789047776
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so11100925a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:42:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789047776; x=1789652576; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pJZZpHiP7CPuGKYWAqqyZAd3k8D84Jqu2Jb8Skkggz8=;
+        b=QL/SaU4qUMxjSQDoGVgI34D9SeUM45rCEafQP1B24QyBd/58GnMl6eNnwwI8wYIQYi
+         U1BhM44Cvfb2+nw3/Bq3HjuvjfX0YfgC8qlfgW8nmgdACCyaFGKBDHDcIB+NHQfkJV/p
+         LjrA0onvWMG0yUY1kpLw3zZCBAzfkcjyVKtlaPB5mDOErgEaNGx03HBL+J+LLeuSBxVI
+         +9OicTHJciHa4GkOfVBKAMg2sch82Ba3YnegfDZm2NP6ee5LO3SXHPI0+kKEQSSkRdw3
+         L4S/l9UpMDDUxkMnKrHypUatNlH5AZvm/tn3xBpvZNqZ8FizF45osAEbHtyT1Ve6PfhX
+         mb5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789047776; x=1789652576;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pJZZpHiP7CPuGKYWAqqyZAd3k8D84Jqu2Jb8Skkggz8=;
+        b=HGZTbwMJEiZMjjI+mzAHFGPy3uP+PeUwvwQt+3exoRGZ+v1Vcnx1bqSGX96e7gxHif
+         EmugZcm0aEhS3kxEYUMbWw4smr9edH2ujHerEdM3csXhDBg4G9HpEuxn+iXHXDYDTI5N
+         MJdqcHjCotIhaWh+e4fjuU3DpkjTJf7lFRGjb/MJlduRKiToUC/LLe9LIJb0WA8xJxb0
+         3VYofi3HHhgEfm/FuQan3VE7Lco53H+CBXLKHWxzdDcOx/13i0ge0Bi5/kspF2ImgyLS
+         9cRKshM1y6iF2wHEfIZET8uhxa5ytpXOlw332EdC+11qK6L52QJ1X3agSALggCYrCYbu
+         3PSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEx1hmMGLE1WPY/mfkSb8zcKwtPBfDPOIHIZFvZ2eBLe+hdoxWkdNu3IFETwjX1q+PNa6ZlfLSdN2+oXc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kefwzMnOUOolwIEc6+MpS0kF9qFtUgVOPQwm7JQA0utcqMzrTT
+	lYIZ1pmEAjKdk5ngB7gzPm5EVd0LN8GJrnHSJclzzHNJGyHgmLHfT5Me+n6hcr5a9cjy5EUTNbQ
+	480sWos9qj1zpmPrrraF+hn77FGqBcLJaDbSwzp+aaji2xaRW73DulHJ+Q5J89pGw7w==
+X-Gm-Gg: AYBFou2DJJV/7Wm0Njww3yjTxOHbjueiwvEeFZe0fH08owE0I2BR0huZgtKUq2uxV4K
+	VF9hIHERw5lGmZOLjjis43gvrdpPMFUkx1y3hobqJdSrQOuG7z2kEmGUR9FMj5b5zxz1ptKAwxL
+	MbWEisK045uPfkumwCgUgyRFTQMuRDEQks6dN3KIlQfzZsqMCKOtfGf9Bi7eUiwP39ioq25N6tV
+	8cBGDkJk1ny50DMVjfqXsm9KjebSIQjZXlA3GpmWGrqkMCw3o1o88fJZqnBfugzdc6wJwhr1OEq
+	pJUie96gtIHdxGLwE1LwwPxDHIrRxUTMSFipGkEm/97Ql9qwHNTK/Ob+7k3dwC/4wmu1UEEJGg=
+	=
+X-Received: by 2002:a17:90b:268d:b0:398:b71e:60c1 with SMTP id 98e67ed59e1d1-39d70ae1201mr11368182a91.12.1789047776228;
+        Thu, 10 Sep 2026 06:42:56 -0700 (PDT)
+X-Received: by 2002:a17:90b:268d:b0:398:b71e:60c1 with SMTP id 98e67ed59e1d1-39d70ae1201mr11368108a91.12.1789047775647;
+        Thu, 10 Sep 2026 06:42:55 -0700 (PDT)
+Received: from localhost ([240d:1a:c0d:9f00:be24:11ff:fe35:71b3])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc467df7beesm7140566a12.7.2026.09.10.06.42.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:42:55 -0700 (PDT)
+From: Shigeru Yoshida <syoshida@redhat.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>,  "Darrick J. Wong"
+ <djwong@kernel.org>,  Deepanshu Kartikey <kartikey406@gmail.com>,
+  linux-xfs@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+Subject: Re: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before
+ insert
+In-Reply-To: <aqJ6yulX3XBEoj4u@andromeda.toxiclabs.cc> (Carlos Maiolino's
+	message of "Thu, 10 Sep 2026 11:40:09 +0200")
+References: <20260906144629.17009-1-kartikey406@gmail.com>
+	<20260907045150.GI1933798@frogsfrogsfrogs>
+	<aqI7LFBkAhMSaDnx@infradead.org>
+	<aqJ6yulX3XBEoj4u@andromeda.toxiclabs.cc>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 10 Sep 2026 22:42:53 +0900
+Message-ID: <87y0d99q8y.fsf@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831134338.1531664-16-arighi@nvidia.com>
+Content-Type: text/plain
 
-On Mon, Aug 31, 2026 at 03:42:25PM +0200, Andrea Righi wrote:
+Carlos Maiolino <cem@kernel.org> writes:
 
-> +/*
-> + * End retained proxy execution before changing @p's BPF scheduler ownership.
-> + * Called with @p's pi and rq locks held immediately before
-> + * sched_change_begin(). The caller must pass DEQUEUE_NOCLOCK so the rq clock
-> + * is updated only once.
-> + */
-> +void scx_prepare_task_sched_change(struct task_struct *p)
-> +{
-> +	lockdep_assert_held(&p->pi_lock);
-> +	lockdep_assert_rq_held(task_rq(p));
-> +
-> +	update_rq_clock(task_rq(p));
-> +	sched_proxy_block_task(task_rq(p), p);
->  }
->  
->  /*
+> On Wed, Sep 09, 2026 at 10:07:56PM -0700, Christoph Hellwig wrote:
+>> On Sun, Sep 06, 2026 at 09:51:50PM -0700, Darrick J. Wong wrote:
+>> > On Sun, Sep 06, 2026 at 08:16:29PM +0530, Deepanshu Kartikey wrote:
+>> > > __xfs_healthmon_insert() asserts that hm->lock is held
+>> > > (lockdep_assert_held), but xfs_ioc_health_monitor() called it right
+>> > > after allocating hm, before ever taking the lock, triggering a
+>> > > lockdep warning.
+>> > > 
+>> > > Take hm->lock around the call.
+>> > > 
+>> > > Fixes: b3a289a2a9397 ("xfs: create event queuing, formatting, and discovery infrastructure")
+>> > > Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
+>> > > Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
+>> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+>> > 
+>> > Heh, I added a patch just like this one to my own tree.
+>> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+>> 
+>> Can we get this queued up ASAP?  It's also causing a lot of failures in
+>> our zoned XFS CI.
+>> 
+>> 
+>
+> Done. It's in for-next already. Not sure if I'll manage to push the
+> attrs fsblock fix yet this -rc, but this one will go to Linus on
+> Saturday
 
-> @@ -8027,6 +8108,14 @@ static void scx_root_enable_workfn(struct kthread_work *work)
->  
->  		if (old_class != new_class)
->  			queue_flags |= DEQUEUE_CLASS;
-> +		if (old_class == new_class && new_class == &ext_sched_class) {
-> +			/*
-> +			 * This is an EXT-to-EXT scheduler ownership change, so
-> +			 * sched_change_begin() won't end retained proxy execution.
-> +			 */
-> +			scx_prepare_task_sched_change(p);
+I noticed that the second mutex operation in this commit was
+accidentally left as mutex_lock() instead of mutex_unlock(). I've
+sent a fix as a separate patch ("xfs: fix double mutex_lock() call
+in xfs_ioc_health_monitor()"). Feel free to use it if it helps.
 
-Here, see, this is what I was expecting for this thing. Just have it be
-always instead of for ext-ext only.
+Thanks,
+Shigeru
+
