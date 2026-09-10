@@ -1,108 +1,163 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3D837E5EC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22F813FEE;
+	Thu, 10 Sep 2026 02:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789008897; cv=none; b=NFgm/Xzq0eT6dTpbZ+nimLk4yaPInXoQHyNloB7Jo61XQOFb2KB8WHZOlvIfwjVdz4hu9m3XGxOEf8iL6+rrjBKHJ/zJBMc3/3K7RCmNTbUOkE+NN6vCtJMS7ilGJvMQvh0pTQe2GKzBd820REZDy6t1Fmt3iC0xX0SmLa8tOng=
+	t=1789008985; cv=none; b=EJbu3EP5f2mhiMV8yn4hwnYESR+lZ+5tlmxL/FvBIdku1fZHjFNQmfrHXWI5ibXGzUlMcwhajH+UI7LZQxX4AiWGK7b1NcrUG282UHOMzfxImVW9Y5VfNKQXs+hyb+zctL8d2Bg1rL6s63AyF7IADy0mX3lchz/5EV3Hg5tc/LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789008897; c=relaxed/simple;
-	bh=0CsmXKkzESsxC+tRouCw17YPGjua4+WpOUOTalus1XE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HDw9PJHT4bmn5RS0wsahHwrbxvggBE9fjA/zd2bhP61X7m/gRhB2YiH/N1Ue+xbVmE55i2JobcGZuW9OccjBWLXn0SiL5GPIsRbrba6Rd60qzBYADPSzBGOZEK3c9IBk+ey1rNAsdTX8JXhh4ZvNv+uc9qoKyuiaojIHNfAQ5pU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JP/iz75t; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789008985; c=relaxed/simple;
+	bh=GktVKQnEbT9KW8UaajJfm1ICJhdLsgwAgF2qytpdsP8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PKQ+8Oi1l0RJNYapnzW219XdiI/bpORwVVTQG+GP6lcgPgN1lC3pCmqSLRYNLND3AxOeyCOMdSv4UASmaiyaBATG2IVQKPd0SQdZKoHf+FTOZBOPpjwMOnBvHvlqX2yQU0H6E4F+sbyiUJK35iyiKWADwR2ncpkvvHrZ5/hDz3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMIBxMc8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JP/iz75t"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso7060585e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:54:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789008894; x=1789613694; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/bkqSDqoSS4X+8RqIhO4osWZcJjlcPnaK6w17Spzl4k=;
-        b=JP/iz75t+dXd4pMAV06KTUHZY9xBd54UFwRwHgh5EawWWXu6jpb6GaXJChtm6vHAoo
-         j2n0s07RWBavrTiD0zjiuXyPI75FnAvQACuRoqm4wXoKdccI76XMj30Wzzn/PrLHkUyn
-         NvEW4tS7brBXbiS4Bf7TXDKSU9fH8iTfJOURJG9ZXIGK5+va6QybhWtDdG7c+i4qQdcU
-         r7sg6z5zd4T+L/9P4kGr4GpwKU667yLzoyq748KQ/A4XitcnLYJFzq/V8yaCxPYyqh+z
-         5UOnDjpyq5ZibHamQnYsF3JzvBkD9RUWDSTw/tbmZcsPR4mmrQxJwPXc30eNoA05y/TJ
-         Q6kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789008894; x=1789613694;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/bkqSDqoSS4X+8RqIhO4osWZcJjlcPnaK6w17Spzl4k=;
-        b=Im5mmp5u9E1qAq03c41eiejyS4NM9oo254c7c0L798CqGEIyBLd3zinw22gIYL3hh3
-         jeUECqONIlmeuMuRANXMr/mqQdot2mSoRyzA+/iKYBHomcAa4jWHCAxLuxfbc9KBBkyD
-         lST6oN194AoBZaQF1idlsosFz8WMLa6YJeOltWOjelHfwFVlK9YL+kysr9+z0LaXQtlh
-         0fod8+QU9xZcpGcKEpJ/84IE3iCUyYRZpwg+RVUpvVs3dYQp7gv+0Y0WFGktEbRTxgTJ
-         jJ04hFLx4fZMNbdlX/00ECmEpwVqTslXFoXDZPkmJ9fsvD3ucdYjB5OMc4om7ZyUJv7H
-         V7Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBxe+aDiO/J1X2NmSu5oZ9wE3SY52ZL1uBKZIIyTJQ09ZaYrALIS90w7l/ncVUIIUFSUl4uzaNAMG452A+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlVZ92Y6TuKVQGy/hWBeHOBDuYPy0PQosyqQfyC+qKZcaLPcbt
-	T6IQcTkYmkKZyQcwdybwt1XqEnyR9T+k87LOiro/vsvAs6xqUqywvLJB
-X-Gm-Gg: AYBFou0+D6jBPgfkAX0iF2E1g+ikGonzNOMzZf7bnuDBsU8NdVhWJCSSvoqM+w+MMtg
-	4uLlWUMHxrTJcPS8pIaA+Njt+i91ecZk5S1JFaRdBLnqe7HMpJYBhn3fnGOlqsw66QexNysZriz
-	YsPJcwZQJd6/uzcY/RH/y5fU58FswOU0jtT96hGbx2oH+ml2Z9iGF/fRaO9HzfaAT6ti8mk1q33
-	alP4jUzgcDpiWcCuS1dKzIWPeZmSzBmwwBFdY+hZBlbxxpTtMKbQUeErC7LbnJH9d+xhuU8bPlg
-	6RxwUQMkWJXb0AY4p2lKaQS2vVtu4Wxk9rqggKG05fUOkLMEerPuRq2UZdx0uiU97Y+3EOPjuai
-	GNn91J8gndGBxHpetN/q0XrcJIcITUn267LF5qNrJ5gF1znSkgIDKlMzZtFdpre6peVNYwEw/YE
-	sW8Y7WjyzSafBsrBh7o8pwh03j123wWqVkHj/hNQBqTO7GviOUG/rAveA64N9kheWMdJolu/m7A
-	MJD/4YN/gLQDIJQP312j5TAityq+FliAAm+GHiriVQ33IcXq/FP+E57c1HXO2Jgur0MRBsd6xDB
-	qy3DhU9GeN67afuBcgOKulLAKBS552ahGjBYS0T6W9ohbHCH72x0SiP0sP6m7ND2wMsI5Zck
-X-Received: by 2002:a05:600c:630a:b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49d2592c540mr85347385e9.12.1789008893739;
-        Wed, 09 Sep 2026 19:54:53 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b3d9-b901-0402-5aad-0ef4-88ac.310.pool.telefonica.de. [2a02:3100:b3d9:b901:402:5aad:ef4:88ac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c46b64sm33036055e9.13.2026.09.09.19.54.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 19:54:53 -0700 (PDT)
-Date: Thu, 10 Sep 2026 04:54:52 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Quentin Perret <qperret@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Fix kvm_get_vtcr() kernel-doc
-Message-ID: <aqIbvOvIe89_RYHT@gmail.com>
-References: <20260909063156.89636-1-kmehltretter@gmail.com>
- <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMIBxMc8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224061F000FF;
+	Thu, 10 Sep 2026 02:56:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789008983;
+	bh=KI65WBUh40jbbVotgEpM8eZaw1mpVin9nwHnJbG1n4k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iMIBxMc8W/3W5GSN0ZT47y5D5hmSOEhiUnsARpnpoLZuiy3Ot9o//QgCM0J5fZXKg
+	 Kjc2DgsluVKpP20Rd8jsfihQXSeawdbchc/kWq+lIqT1M7fD79lZVHgvGxkSrQJhop
+	 4WXTonvMQ46q0VyxnLLqvCriky3kO1bkPBl1Etq2E0ZQOaPJn5LWvUtFHx1AEQfMZf
+	 ERRPBMPYTaoOPzyuon8r01XLI6VifHJK02GNIFGW9QfPlKDnDRwabRWlokeudip1ra
+	 ELGqVaiTAPAQRNKCfFOk1YskLb8rKxkz/czE0xtbYqLXoJ1g688jZsUGV0IYzhN1Ev
+	 FDwJXi8coDdqg==
+Subject: Re: [PATCH net v2] tcp: fix data-race in tcp_recv_should_stop
+From: netdev-bot+sashiko@kernel.org
+To: quanyeyang@proton.me
+Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ matttbe@kernel.org, geliang@kernel.org, martineau@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 02:56:22 +0000
+Message-ID: <178900898267.219967.2865361878538179994@kernel.org>
+In-Reply-To: <20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me>
+References: <20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
 
-On Wed, Sep 09, 2026 at 08:36:40AM +0100, Fuad Tabba wrote:
-> Hi Karl,
-> While you're on that line, the description is also inaccurate, so you
-> could fix both in one go and save a follow-up touching the same line:
-> 
-> > - * @phys_shfit:        Value to set in VTCR_EL2.T0SZ.
-> > + * @phys_shift:        Value to set in VTCR_EL2.T0SZ.
-> 
-> kvm_get_vtcr() sets T0SZ to 64 - phys_shift, so phys_shift isn't the
-> value written to the field, it's the IPA size in bits. Something like:
-> 
->      * @phys_shift:    IPA size, in bits.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Hi Fuad. 
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-well spotted. A typo seldom comes alone :)
+- [High] Incomplete data-race fix: the patch converts only the sk_err
+  load inside tcp_recv_should_stop() (include/net/tcp.h:3086) to…
 
-I'll fix that.
+--
 
-Thanks,
-Karl
+tcp: fix data-race in tcp_recv_should_stop
+
+This converts the sk_err load inside tcp_recv_should_stop() to READ_ONCE()
+because do_recvmmsg() calls sock_error() without the socket lock and
+sock_error() clears sk_err with xchg(). It carries a Fixes: tag for
+eb477fdd6803 and a Closes: tag for the MPTCP syzkaller report.
+
+Link: https://lore.kernel.org/all/14749060-d011-41e7-9a4b-754eb5bd9d5b@redhat.com/
+
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 436495ff2271..c61d8678eafd 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -3082,7 +3082,8 @@ enum skb_drop_reason tcp_inbound_hash(struct sock *sk,
+>  
+>  static inline int tcp_recv_should_stop(struct sock *sk)
+>  {
+> -	return sk->sk_err ||
+> +	/* sk_err can be cleared locklessly by sock_error(). */
+> +	return READ_ONCE(sk->sk_err) ||
+>  	       sk->sk_state == TCP_CLOSE ||
+>  	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
+>  	       signal_pending(current);
+
+[Severity: High]
+Is annotating only this read enough to close the reported race?
+
+Every caller of tcp_recv_should_stop() keeps a plain read of the same
+field in the other arm of the very same loop.  In mptcp_recvmsg(), the
+function named in the KCSAN splat:
+
+net/mptcp/protocol.c:mptcp_recvmsg() {
+	...
+		if (copied) {
+			if (tcp_recv_should_stop(sk) ||
+			    !timeo)
+				break;
+		} else {
+			if (sk->sk_err) {
+				copied = sock_error(sk);
+				break;
+			}
+	...
+}
+
+The same shape exists in tcp_recvmsg_locked():
+
+net/ipv4/tcp.c:tcp_recvmsg_locked() {
+	...
+		if (copied) {
+			if (!timeo ||
+			    tcp_recv_should_stop(sk))
+				break;
+		} else {
+			if (sock_flag(sk, SOCK_DONE))
+				break;
+
+			if (sk->sk_err) {
+				copied = sock_error(sk);
+				break;
+			}
+	...
+}
+
+and in tcp_splice_read() and mptcp_splice_read(), whose loops both end
+with the now-annotated helper:
+
+net/ipv4/tcp.c:tcp_splice_read() {
+	...
+			if (sk->sk_err) {
+				ret = sock_error(sk);
+				break;
+			}
+	...
+		if (tcp_recv_should_stop(sk))
+			break;
+	...
+}
+
+The writer described in the changelog, do_recvmmsg() calling
+sock_error(sock->sk) with no lock_sock() and clearing the field with
+xchg(&sk->sk_err, 0), races with those four plain reads exactly as it
+raced with the one that was annotated, since lock_sock() in the readers
+gives no exclusion against it.
+
+Would a reproducer that lands in the blocking, copied == 0 arm still
+produce the identical "data-race in do_recvmmsg / mptcp_recvmsg" report,
+just attributed to mptcp_recvmsg() rather than to
+tcp_recv_should_stop()?  If so, should the Closes: tag be dropped, or
+should the four remaining reads be converted in the same patch?
+
+The Fixes: tag points at eb477fdd6803, but that commit only moved these
+pre-existing plain reads into the new helper; the sibling reads left
+behind are part of the same defect.  Does the Fixes: attribution still
+hold with only the helper annotated?
+
+The added comment states "sk_err can be cleared locklessly by
+sock_error()", which reads as a property of the field rather than of this
+one call site.  Should the write side conventions be noted too, since
+the writers in these files already use WRITE_ONCE() and sock_error()
+itself uses data_race() for its own read?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-mptcp-sk-err-net-v2-1-5044abecac90%40proton.me
