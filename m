@@ -1,132 +1,415 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from www.redadmin.org (bc043154.ppp.asahi-net.or.jp [222.228.43.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622BD34A3BF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4DE3546F0;
+	Thu, 10 Sep 2026 01:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=222.228.43.154
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002874; cv=pass; b=WpsOo8kXM2ypCTFDwIbHelU4g0D19k7MaXnUykm10AdrBrZ/NqgNlvzsqTRlGj1UBvr+9eTfa8yUnu7qoWaOVRd0x6peOBAdJaoEtIw/CVpXRu1dAYoQrnIs+gqUnnr5wPPapG9O5XkdDot/Y1J6yfmSDPqgjmJwCHltMVdBmrA=
+	t=1789002895; cv=pass; b=oKBzW5XAzFtL+Nh81c4g6DJPX5imHCScVhgQbUU+SkaL0WUh+lK2KPYRxI/lhD5tgtCnDPlV9Ia7xWdCGVvWISHhOAEYkEFlVj3D+5jA21pZRdl7qbpLcefGTIWLvAD/2u1Pv5W9D8+e9s8tRM2YzA8GAkwPtUYvClTZS5MIGe8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002874; c=relaxed/simple;
-	bh=DxbXvJm+cKO/83qLmQI714EOk18xEDWduFtyz9KMjUc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=feJCxXtb/4MWVBTwqZ7Ab+7QgncHOLdRn+p0hlw2LFMm7bsEJma8CLid84U2SrPtQfYLk1HD91QyDo7d4FZuSn4nu7fiJxUpe9jcyzPNJj6AigFo1UmaSiZTtcV+sc6kUjCeATRI936es53h7SxNKhntyce5BNW2/YXtyySr1j0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Vl97ZcIO; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789002895; c=relaxed/simple;
+	bh=MxHBUWJk32rRNrQsHM/OpUyqNJkhbjCWwS3ZuSAbBsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O2zV/YqJPG+ETyndTMXPrtrN6a9QBVFfGGwK62y0GO3ReAvy81USidFDZQ8msal/5lOZj4RuAo0P23XqytqQo94Vly6t4+suP80mKzYzH6bmTLVVfrPRDgGZsqLhjhzP4VR4Mw3VlBTuUkJ9BPfX/kf7iANxAYaSMuIHZhiTbEI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redadmin.org; spf=pass smtp.mailfrom=redadmin.org; dkim=pass (1024-bit key) header.d=redadmin.org header.i=@redadmin.org header.b=hpbDd3YP; arc=pass smtp.client-ip=222.228.43.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redadmin.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redadmin.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Vl97ZcIO"
-ARC-Seal: i=1; a=rsa-sha256; t=1789002858; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gXEKXHnwU50R0iUBnEMv48LY+zzIWyVa46yjlEIio0orGsWbk35ObFsWl13uGT3gKQf6WqLQDa4f39hafg0gOjW3rMPfG5NIswq4SJiL1D2+VddjJuqCDF8O8EuPajm2YdqnII7qNATuLqREr+dYSXj+3uTqfPe9c+mWKtmXbEY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789002858; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xAViyxVnzKU7sIwQUPeaab/vulcgLpCH31RPs3F/His=; 
-	b=cSvCfCMlaUw5nYCRITy1Qe3LEuChuJ0OgSm7cTI0YQ0BxNvPNGWZyt3WKnKBERRqt2mlZWSnje4Q/CaXBaRsx2eVZsVjgnHIaInVhgid4vPIKs6HMRHLq+0DjwyLuA0bXxUU9+gJdaIY2290FxK/Q7Itjgzz/sNNmTDSnFeFFcE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789002858;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=xAViyxVnzKU7sIwQUPeaab/vulcgLpCH31RPs3F/His=;
-	b=Vl97ZcIOgT1GxrvDyA+EFaF8QrZvSz3pk6aOAWAm/UeZFHnuDrAnWdkKs2B3EyrL
-	dKAxCn5HkxDkPt9NPJW2vmad8PNHGjwOWhLaNZj3ngA+t3aHdi7U6SUFw6Bs486vYiu
-	G4EEa4HSdQP+EvAQP6BoUx3WlZVYm3oqrxXc8fYo=
-Received: by mx.zohomail.com with SMTPS id 1789002856824246.88901405836157;
-	Wed, 9 Sep 2026 18:14:16 -0700 (PDT)
-Date: Thu, 10 Sep 2026 02:14:12 +0100
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/18] drm/panthor: Flush the cleanup_wq in the unplug
- path
-Message-ID: <aqGOgViRY3Tmp3hv@sobremesa>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
+	dkim=pass (1024-bit key) header.d=redadmin.org header.i=@redadmin.org header.b="hpbDd3YP"
+Received: from localhost (localhost [127.0.0.1])
+	by www.redadmin.org (Postfix) with ESMTP id 3DD1310D3F7C0;
+	Thu, 10 Sep 2026 10:14:39 +0900 (JST)
+X-Virus-Scanned: amavis at redadmin.org
+Received: from www.redadmin.org ([127.0.0.1])
+ by localhost (redadmin.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id d0pYvJufg0hb; Thu, 10 Sep 2026 10:14:35 +0900 (JST)
+Authentication-Results: www.redadmin.org; arc=none smtp.remote-ip=127.0.0.1
+ARC-Seal: i=1; d=redadmin.org; s=20231208space; a=rsa-sha256; cv=none;
+	t=1789002875;
+	b=NfWIFADjTaes/vJLAijqirMBWHZNKl8kYJV/1SoUqkk12//Wmhy7htL2t5j0ftzd+jQ6
+	 l9Cajszu3IOSZ3VHUPteqhwMPfmhCUftAB4H9ZqOdVIHrhhF0eLU87aeG00MKC8v4mYvC
+	 PvzI2t/bjl53jaL2lj4MY97X/qxiDybzk8=
+ARC-Message-Signature: i=1; d=redadmin.org; s=20231208space; a=rsa-sha256;
+	c=relaxed/relaxed; t=1789002875;
+	h=DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fQAzUzGGZR5C0TZkJr47c+/haybbNZ80y+AO4puVSIM=;
+	b=rrZqQ6QWFXC0rwnuHRCzmQfaIJLDTtNs1ffgwDw7Ke9hzJO/SP5EettULHQOUbu7JcmG
+	 +kVbKaN3CtDr7VgLHoGIkLPd0Dg7N1UvU7b1K/mYeN4ByLR18UB7cjwpWlVX/SlkEswXq
+	 l7A4sJpMiU68DuZyQE7a11bFHomGAyfut0=
+ARC-Authentication-Results: i=1; www.redadmin.org; arc=none smtp.remote-ip=127.0.0.1
+Received: by www.redadmin.org (Postfix, from userid 1000)
+	id B0EDF10D2A535; Thu, 10 Sep 2026 10:14:35 +0900 (JST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 www.redadmin.org B0EDF10D2A535
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redadmin.org;
+	s=20231208space; t=1789002875;
+	bh=fQAzUzGGZR5C0TZkJr47c+/haybbNZ80y+AO4puVSIM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=hpbDd3YPq9SeXT3sZTengUq0I9TuDOsfnn/z6VDLwP4mqwWMIqLIqIDqgcqf9ljLf
+	 mtpdRQd3CJTNxdUph9DCeAwcLKaR5Iuwi+YfBGwqO3hbSiAEyUBH1PIcRPiN0McgLK
+	 eHo+A3BHYieUK65TsRL+zEv/INXJZDiymIDaEijQ=
+From: Akiyoshi Kurita <weibu@redadmin.org>
+To: corbet@lwn.net
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jikosawa@kernel.org,
+	Akiyoshi Kurita <weibu@redadmin.org>
+Subject: [PATCH v2] docs/ja_JP: translate submitting-patches.rst (review and report tags)
+Date: Thu, 10 Sep 2026 10:14:32 +0900
+Message-ID: <20260910011432.710551-1-weibu@redadmin.org>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260903020356.1055420-1-weibu@redadmin.org>
+References: <20260903020356.1055420-1-weibu@redadmin.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26.08.2026 16:56, Boris Brezillon wrote:
-> If we don't do that, we might face various UAFs, because the resource
-> referenced by these work items might be gone by the time they get
-> executed.
-> 
-> In each subcomponent making use of the panthor_cleanup_wq, we add a
-> flush_workqueue() at the end of the _unplug() function. Note that this
-> assumes no more work items from this subcomponent gets queued after
-> that point, which is not yet guaranteed, but this will be fixed in
-> upcoming changes.
-> 
-> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-> Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
-> Reported-by: sashiko-bot@kernel.org
-> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c   | 6 ++++++
->  drivers/gpu/drm/panthor/panthor_sched.c | 6 ++++++
->  2 files changed, 12 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d43ba1c7cd2a..1385ee28bee5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -3367,6 +3367,12 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
->  		}
->  	}
->  	mutex_unlock(&ptdev->mmu->as.slots_lock);
-> +
-> +	/* Ensure any pending job cleanup work are executed before returning,
-> +	 * otherwise those might access objects that are gone if the work is
-> +	 * executed after other components are unplugged.
-> +	 */
-> +	flush_workqueue(panthor_cleanup_wq);
->  }
->  
->  static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 42adfc76b9e1..a6d57dc1b43e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -4049,6 +4049,12 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
->  		sched->pm.has_ref = false;
->  	}
->  	mutex_unlock(&sched->lock);
-> +
-> +	/* Ensure any pending group release work are executed before returning,
-> +	 * otherwise those might access objects that are gone if the work is
-> +	 * executed after other components are unplugged.
-> +	 */
-> +	flush_workqueue(panthor_cleanup_wq);
+Translate the section describing Reported-by, Tested-by, Reviewed-by,
+Suggested-by, and Fixes tags into Japanese.
 
-I was wondering about resources group_release_work could access after unplug that are torn down in this
-function, and guessing they had to do something with the Panthor scheduler itself. I didn't see any
-because they're all reference counted, so I suppose the problem is the panthor device itself?
+This includes the Reviewer's Statement and the guidance on adding or
+removing review and testing tags in subsequent patch versions.
 
-Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Keep the Japanese submitting-patches documentation aligned with the
+corresponding English section.
 
->  }
->  
->  static void panthor_sched_fini(struct drm_device *ddev, void *res)
-> 
-> -- 
-> 2.55.0
+Signed-off-by: Akiyoshi Kurita <weibu@redadmin.org>
+---
 
-Adrian Larumbe
+Changes in v2:
+
+  - Use "=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=A2" consistently for "r=
+eviewer".
+  - Keep the Reviewer's Statement in English and add a Japanese
+    tentative translation in a formal style.
+  - Reword the Reported-by description as suggested.
+  - Use a file-local reference for "=E5=A4=89=E6=9B=B4=E5=86=85=E5=AE=B9=E3=
+=82=92=E8=A8=98=E8=BF=B0=E3=81=99=E3=82=8B".
+  - Drop the duplicate tagging_people label.
+
+
+ .../ja_JP/process/submitting-patches.rst      | 116 ++++++++++++++++++
+ 1 file changed, 116 insertions(+)
+
+diff --git a/Documentation/translations/ja_JP/process/submitting-patches.rs=
+t b/Documentation/translations/ja_JP/process/submitting-patches.rst
+index 797b70b97fa7..dfc5500f420d 100644
+--- a/Documentation/translations/ja_JP/process/submitting-patches.rst
++++ b/Documentation/translations/ja_JP/process/submitting-patches.rst
+@@ -573,3 +573,119 @@ Acked-by:=E3=80=81Cc:=E3=80=81Co-developed-by: =E3=82=
+=92=E4=BD=BF=E7=94=A8=E3=81=99=E3=82=8B=E5=A0=B4=E5=90=88
+     Signed-off-by: From Author <from@author.example.org>
+     Co-developed-by: Submitting Co-Author <sub@coauthor.example.org>
+     Signed-off-by: Submitting Co-Author <sub@coauthor.example.org>
++
++
++Reported-by:=E3=80=81Tested-by:=E3=80=81Reviewed-by:=E3=80=81Suggested-by:=
+=E3=80=81Fixes: =E3=81=AE=E4=BD=BF=E7=94=A8
++---------------------------------------------------------------------
++
++``Reported-by:`` =E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E3=83=90=E3=82=B0=E3=
+=82=92=E7=99=BA=E8=A6=8B=E3=81=97=E3=81=A6=E5=A0=B1=E5=91=8A=E3=81=97=E3=81=
+=9F=E4=BA=BA=E3=81=AE=E5=8A=9F=E7=B8=BE=E3=82=92=E7=A4=BA=E3=81=99=E3=82=82=
+=E3=81=AE=E3=81=A7=E3=81=82=E3=82=8A=E3=80=81
++=E4=BB=8A=E5=BE=8C=E3=82=82=E5=86=8D=E3=81=B3=E5=8D=94=E5=8A=9B=E3=81=97=
+=E3=81=A6=E3=82=82=E3=82=89=E3=81=86=E3=81=8D=E3=81=A3=E3=81=8B=E3=81=91=E3=
+=81=AB=E3=81=AA=E3=82=8B=E3=81=93=E3=81=A8=E3=81=8C=E6=9C=9F=E5=BE=85=E3=81=
+=95=E3=82=8C=E3=81=BE=E3=81=99=E3=80=82=E3=81=93=E3=81=AE=E3=82=BF=E3=82=B0=
+=E3=81=AF
++=E3=83=90=E3=82=B0=E3=82=92=E5=AF=BE=E8=B1=A1=E3=81=A8=E3=81=97=E3=81=A6=
+=E3=81=84=E3=81=BE=E3=81=99=E3=80=82=E6=A9=9F=E8=83=BD=E8=BF=BD=E5=8A=A0=E3=
+=81=AE=E8=A6=81=E6=9C=9B=E3=81=AB=E5=AF=BE=E3=81=99=E3=82=8B=E5=8A=9F=E7=B8=
+=BE=E3=82=92=E7=A4=BA=E3=81=99=E3=81=9F=E3=82=81=E3=81=AB=E3=81=AF
++=E4=BD=BF=E7=94=A8=E3=81=97=E3=81=AA=E3=81=84=E3=81=A7=E3=81=8F=E3=81=A0=
+=E3=81=95=E3=81=84=E3=80=82=E5=A0=B1=E5=91=8A=E3=81=8C Web =E4=B8=8A=E3=81=
+=A7=E5=8F=82=E7=85=A7=E3=81=A7=E3=81=8D=E3=81=AA=E3=81=84=E5=A0=B4=E5=90=88=
+=E3=82=92=E9=99=A4=E3=81=8D=E3=80=81
++``Reported-by:`` =E3=82=BF=E3=82=B0=E3=81=AE=E5=BE=8C=E3=81=AB=E3=81=AF=E3=
+=80=81=E3=81=9D=E3=81=AE=E5=A0=B1=E5=91=8A=E3=82=92=E6=8C=87=E3=81=99 ``Clo=
+ses:`` =E3=82=BF=E3=82=B0=E3=82=92
++=E4=BB=98=E3=81=91=E3=81=A6=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82=
+=E5=A0=B1=E5=91=8A=E3=81=95=E3=82=8C=E3=81=9F=E5=95=8F=E9=A1=8C=E3=81=AE=E4=
+=B8=80=E9=83=A8=E3=81=A0=E3=81=91=E3=82=92=E4=BF=AE=E6=AD=A3=E3=81=99=E3=82=
+=8B=E3=83=91=E3=83=83=E3=83=81=E3=81=AE=E5=A0=B4=E5=90=88=E3=81=AF=E3=80=81
++``Closes:`` =E3=81=AE=E4=BB=A3=E3=82=8F=E3=82=8A=E3=81=AB ``Link:`` =E3=82=
+=BF=E3=82=B0=E3=82=92=E4=BD=BF=E7=94=A8=E3=81=A7=E3=81=8D=E3=81=BE=E3=81=99=
+=E3=80=82=E3=81=AA=E3=81=8A=E3=80=81
++``Reported-by:`` =E3=81=AF=E3=80=81=E5=90=8D=E5=89=8D=E3=82=92=E8=A8=98=E8=
+=BC=89=E3=81=95=E3=82=8C=E3=82=8B=E6=9C=AC=E4=BA=BA=E3=81=AE=E6=98=8E=E7=A4=
+=BA=E7=9A=84=E3=81=AA=E8=A8=B1=E5=8F=AF=E3=81=AA=E3=81=97=E3=81=AB
++=E4=BD=BF=E7=94=A8=E3=81=A7=E3=81=8D=E3=82=8B=E5=8F=AF=E8=83=BD=E6=80=A7=
+=E3=81=8C=E3=81=82=E3=82=8B=E4=B8=89=E3=81=A4=E3=81=AE=E3=82=BF=E3=82=B0=E3=
+=81=AE=E3=81=86=E3=81=A1=E3=81=AE=E4=B8=80=E3=81=A4=E3=81=A7=E3=81=99=E3=80=
+=82=E8=A9=B3=E7=B4=B0=E3=81=AB=E3=81=A4=E3=81=84=E3=81=A6=E3=81=AF=E3=80=81
++=E5=BE=8C=E8=BF=B0=E3=81=AE=E3=80=8C=E4=BA=BA=E3=82=92=E3=82=BF=E3=82=B0=
+=E4=BB=98=E3=81=91=E3=81=99=E3=82=8B=E3=81=AB=E3=81=AF=E8=A8=B1=E5=8F=AF=E3=
+=81=8C=E5=BF=85=E8=A6=81=E3=80=8D=E3=82=92=E5=8F=82=E7=85=A7=E3=81=97=E3=81=
+=A6=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82
++
++``Tested-by:`` =E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E8=A8=98=E8=BC=89=E3=
+=81=95=E3=82=8C=E3=81=9F=E4=BA=BA=E3=81=8C=EF=BC=88=E4=BD=95=E3=82=89=E3=81=
+=8B=E3=81=AE=E7=92=B0=E5=A2=83=E3=81=A7=EF=BC=89=E3=83=91=E3=83=83=E3=83=81=
+=E3=82=92
++=E6=AD=A3=E5=B8=B8=E3=81=AB=E3=83=86=E3=82=B9=E3=83=88=E3=81=97=E3=81=9F=
+=E3=81=93=E3=81=A8=E3=82=92=E7=A4=BA=E3=81=97=E3=81=BE=E3=81=99=E3=80=82=E3=
+=81=93=E3=81=AE=E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E4=BD=95=E3=82=89=E3=81=
+=8B=E3=81=AE=E3=83=86=E3=82=B9=E3=83=88=E3=81=8C
++=E5=AE=9F=E6=96=BD=E3=81=95=E3=82=8C=E3=81=9F=E3=81=93=E3=81=A8=E3=82=92=
+=E3=83=A1=E3=83=B3=E3=83=86=E3=83=8A=E3=83=BC=E3=81=AB=E7=9F=A5=E3=82=89=E3=
+=81=9B=E3=80=81=E5=B0=86=E6=9D=A5=E3=81=AE=E3=83=91=E3=83=83=E3=83=81=E3=81=
+=A7=E3=83=86=E3=82=B9=E3=82=BF=E3=83=BC=E3=82=92
++=E6=8E=A2=E3=81=99=E6=89=8B=E6=AE=B5=E3=82=92=E6=8F=90=E4=BE=9B=E3=81=99=
+=E3=82=8B=E3=81=A8=E3=81=A8=E3=82=82=E3=81=AB=E3=80=81=E3=83=86=E3=82=B9=E3=
+=82=BF=E3=83=BC=E3=81=AE=E5=8A=9F=E7=B8=BE=E3=82=92=E8=A8=98=E9=8C=B2=E3=81=
+=97=E3=81=BE=E3=81=99=E3=80=82
++
++=E4=B8=80=E6=96=B9=E3=80=81``Reviewed-by:`` =E3=81=AF=E3=80=81=E3=83=91=E3=
+=83=83=E3=83=81=E3=81=8C=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=81=95=E3=82=
+=8C=E3=80=81=E4=BB=A5=E4=B8=8B=E3=81=AE
++=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=A2=E3=81=AE=E5=A3=B0=E6=98=8E=
+=E3=81=AB=E5=BE=93=E3=81=A3=E3=81=A6=E5=8F=97=E3=81=91=E5=85=A5=E3=82=8C=E5=
+=8F=AF=E8=83=BD=E3=81=A8=E5=88=A4=E6=96=AD=E3=81=95=E3=82=8C=E3=81=9F=E3=81=
+=93=E3=81=A8=E3=82=92=E7=A4=BA=E3=81=97=E3=81=BE=E3=81=99=E3=80=82
++
++Reviewer's statement of oversight
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++By offering my Reviewed-by: tag, I state that:
++
++        (a) I have carried out a technical review of this patch to
++            evaluate its appropriateness and readiness for inclusion into
++            the mainline kernel.
++
++        (b) Any problems, concerns, or questions relating to the patch
++            have been communicated back to the submitter.  I am satisfied
++            with the submitter's response to my comments.
++
++        (c) While there may be things that could be improved with this
++            submission, I believe that it is, at this time, (1) a
++            worthwhile modification to the kernel, and (2) free of known
++            issues which would argue against its inclusion.
++
++        (d) While I have reviewed the patch and believe it to be sound, I
++            do not (unless explicitly stated elsewhere) make any
++            warranties or guarantees that it will achieve its stated
++            purpose or function properly in any given situation.
++
++.. note::
++
++   =E3=80=96=E8=A9=A6=E8=A8=B3=E3=80=97
++
++   **=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=A2=E3=81=AB=E3=82=88=E3=82=
+=8B=E7=A2=BA=E8=AA=8D=E5=A3=B0=E6=98=8E**
++
++   ``Reviewed-by:`` =E3=82=BF=E3=82=B0=E3=82=92=E4=BB=98=E3=81=91=E3=82=8B=
+=E3=81=93=E3=81=A8=E3=81=AB=E3=82=88=E3=82=8A=E3=80=81=E7=A7=81=E3=81=AF=E4=
+=BB=A5=E4=B8=8B=E3=82=92=E8=A1=A8=E6=98=8E=E3=81=99=E3=82=8B=E3=80=82
++
++   (a) =E3=81=93=E3=81=AE=E3=83=91=E3=83=83=E3=83=81=E3=81=8C=E3=83=A1=E3=
+=82=A4=E3=83=B3=E3=83=A9=E3=82=A4=E3=83=B3=E3=82=AB=E3=83=BC=E3=83=8D=E3=83=
+=AB=E3=81=B8=E3=81=AE=E5=8F=96=E3=82=8A=E8=BE=BC=E3=81=BF=E3=81=AB=E9=81=A9=
+=E5=88=87=E3=81=A7=E3=81=82=E3=82=8A=E3=80=81
++       =E3=81=9D=E3=81=AE=E6=BA=96=E5=82=99=E3=81=8C=E6=95=B4=E3=81=A3=E3=
+=81=A6=E3=81=84=E3=82=8B=E3=81=8B=E3=82=92=E8=A9=95=E4=BE=A1=E3=81=99=E3=82=
+=8B=E3=81=9F=E3=82=81=E3=80=81=E6=8A=80=E8=A1=93=E7=9A=84=E3=81=AA=E3=83=AC=
+=E3=83=93=E3=83=A5=E3=83=BC=E3=82=92
++       =E5=AE=9F=E6=96=BD=E3=81=97=E3=81=9F=E3=80=82
++
++   (b) =E3=83=91=E3=83=83=E3=83=81=E3=81=AB=E9=96=A2=E3=81=99=E3=82=8B=E5=
+=95=8F=E9=A1=8C=E3=80=81=E6=87=B8=E5=BF=B5=E3=80=81=E3=81=BE=E3=81=9F=E3=81=
+=AF=E8=B3=AA=E5=95=8F=E3=81=AF=E3=81=99=E3=81=B9=E3=81=A6=E6=8F=90=E5=87=BA=
+=E8=80=85=E3=81=AB
++       =E4=BC=9D=E3=81=88=E3=82=89=E3=82=8C=E3=81=A6=E3=81=84=E3=82=8B=E3=
+=80=82=E7=A7=81=E3=81=AF=E3=80=81=E8=87=AA=E5=88=86=E3=81=AE=E3=82=B3=E3=83=
+=A1=E3=83=B3=E3=83=88=E3=81=AB=E5=AF=BE=E3=81=99=E3=82=8B=E6=8F=90=E5=87=BA=
+=E8=80=85=E3=81=AE
++       =E5=9B=9E=E7=AD=94=E3=81=AB=E6=BA=80=E8=B6=B3=E3=81=97=E3=81=A6=E3=
+=81=84=E3=82=8B=E3=80=82
++
++   (c) =E3=81=93=E3=81=AE=E6=8F=90=E5=87=BA=E7=89=A9=E3=81=AB=E3=81=AF=E6=
+=94=B9=E5=96=84=E3=81=A7=E3=81=8D=E3=82=8B=E7=82=B9=E3=81=8C=E6=AE=8B=E3=81=
+=A3=E3=81=A6=E3=81=84=E3=82=8B=E5=8F=AF=E8=83=BD=E6=80=A7=E3=81=8C=E3=81=82=
+=E3=82=8B=E3=81=8C=E3=80=81
++       =E7=8F=BE=E6=99=82=E7=82=B9=E3=81=AB=E3=81=8A=E3=81=84=E3=81=A6=E3=
+=80=81(1) =E3=82=AB=E3=83=BC=E3=83=8D=E3=83=AB=E3=81=AB=E5=AF=BE=E3=81=99=
+=E3=82=8B=E4=BE=A1=E5=80=A4=E3=81=AE=E3=81=82=E3=82=8B=E5=A4=89=E6=9B=B4=E3=
+=81=A7=E3=81=82=E3=82=8A=E3=80=81
++       =E3=81=8B=E3=81=A4 (2) =E3=81=9D=E3=81=AE=E5=8F=96=E3=82=8A=E8=BE=
+=BC=E3=81=BF=E3=81=AB=E5=8F=8D=E5=AF=BE=E3=81=99=E3=82=8B=E7=90=86=E7=94=B1=
+=E3=81=A8=E3=81=AA=E3=82=8B=E6=97=A2=E7=9F=A5=E3=81=AE=E5=95=8F=E9=A1=8C=E3=
+=81=8C
++       =E5=AD=98=E5=9C=A8=E3=81=97=E3=81=AA=E3=81=84=E3=81=A8=E8=80=83=E3=
+=81=88=E3=82=8B=E3=80=82
++
++   (d) =E7=A7=81=E3=81=AF=E3=81=93=E3=81=AE=E3=83=91=E3=83=83=E3=83=81=E3=
+=82=92=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=81=97=E3=80=81=E5=A6=A5=E5=BD=
+=93=E3=81=A7=E3=81=82=E3=82=8B=E3=81=A8=E8=80=83=E3=81=88=E3=81=A6=E3=81=84=
+=E3=82=8B=E3=81=8C=E3=80=81
++       =E5=88=A5=E9=80=94=E6=98=8E=E7=A4=BA=E3=81=95=E3=82=8C=E3=81=A6=E3=
+=81=84=E3=81=AA=E3=81=84=E9=99=90=E3=82=8A=E3=80=81=E3=81=9D=E3=81=AE=E3=83=
+=91=E3=83=83=E3=83=81=E3=81=8C=E8=A8=98=E8=BC=89=E3=81=95=E3=82=8C=E3=81=9F=
+=E7=9B=AE=E7=9A=84=E3=82=92
++       =E9=81=94=E6=88=90=E3=81=99=E3=82=8B=E3=81=93=E3=81=A8=E3=80=81=E3=
+=81=BE=E3=81=9F=E3=81=AF=E3=81=84=E3=81=8B=E3=81=AA=E3=82=8B=E7=8A=B6=E6=B3=
+=81=E3=81=AB=E3=81=8A=E3=81=84=E3=81=A6=E3=82=82=E6=AD=A3=E3=81=97=E3=81=8F=
+=E5=8B=95=E4=BD=9C=E3=81=99=E3=82=8B
++       =E3=81=93=E3=81=A8=E3=81=AB=E3=81=A4=E3=81=84=E3=81=A6=E3=80=81=E3=
+=81=84=E3=81=8B=E3=81=AA=E3=82=8B=E4=BF=9D=E8=A8=BC=E3=82=82=E8=A1=8C=E3=82=
+=8F=E3=81=AA=E3=81=84=E3=80=82
++
++``Reviewed-by:`` =E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E3=81=9D=E3=81=AE=E3=
+=83=91=E3=83=83=E3=83=81=E3=81=8C=E9=87=8D=E5=A4=A7=E3=81=AA=E6=8A=80=E8=A1=
+=93=E7=9A=84=E5=95=8F=E9=A1=8C=E3=82=92=E6=AE=8B=E3=81=97=E3=81=A6=E3=81=84=
+=E3=81=AA=E3=81=84=E3=80=81
++=E3=82=AB=E3=83=BC=E3=83=8D=E3=83=AB=E3=81=AB=E5=AF=BE=E3=81=99=E3=82=8B=
+=E9=81=A9=E5=88=87=E3=81=AA=E5=A4=89=E6=9B=B4=E3=81=A7=E3=81=82=E3=82=8B=E3=
+=81=A8=E3=81=84=E3=81=86=E6=84=8F=E8=A6=8B=E3=82=92=E8=A1=A8=E6=98=8E=E3=81=
+=99=E3=82=8B=E3=82=82=E3=81=AE=E3=81=A7=E3=81=99=E3=80=82
++=E5=BF=85=E8=A6=81=E3=81=AA=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=92=
+=E8=A1=8C=E3=81=A3=E3=81=9F=E6=97=A2=E7=9F=A5=E3=81=AE=E8=BA=AB=E5=85=83=E3=
+=82=92=E6=8C=81=E3=81=A4=E4=BA=BA=E3=81=A7=E3=81=82=E3=82=8C=E3=81=B0=E3=80=
+=81=E9=96=A2=E5=BF=83=E3=81=AE=E3=81=82=E3=82=8B
++=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=A2=E3=81=AF=E8=AA=B0=E3=81=A7=
+=E3=82=82=E3=83=91=E3=83=83=E3=83=81=E3=81=AB ``Reviewed-by:`` =E3=82=BF=E3=
+=82=B0=E3=82=92=E4=BB=98=E3=81=91=E3=82=89=E3=82=8C=E3=81=BE=E3=81=99=E3=80=
+=82
++=E3=81=93=E3=81=AE=E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E3=83=AC=E3=83=93=
+=E3=83=A5=E3=83=BC=E3=82=A2=E3=81=AE=E5=8A=9F=E7=B8=BE=E3=82=92=E7=A4=BA=E3=
+=81=99=E3=81=A8=E3=81=A8=E3=82=82=E3=81=AB=E3=80=81=E3=81=A9=E3=81=AE=E7=A8=
+=8B=E5=BA=A6=E3=81=AE=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=81=8C
++=E8=A1=8C=E3=82=8F=E3=82=8C=E3=81=9F=E3=81=8B=E3=82=92=E3=83=A1=E3=83=B3=
+=E3=83=86=E3=83=8A=E3=83=BC=E3=81=AB=E7=9F=A5=E3=82=89=E3=81=9B=E3=82=8B=E5=
+=BD=B9=E5=89=B2=E3=82=92=E6=9E=9C=E3=81=9F=E3=81=97=E3=81=BE=E3=81=99=E3=80=
+=82=E5=AF=BE=E8=B1=A1=E5=88=86=E9=87=8E=E3=82=92=E7=90=86=E8=A7=A3=E3=81=97=
+=E3=80=81
++=E5=8D=81=E5=88=86=E3=81=AA=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=92=
+=E8=A1=8C=E3=81=86=E3=81=93=E3=81=A8=E3=81=A7=E7=9F=A5=E3=82=89=E3=82=8C=E3=
+=81=A6=E3=81=84=E3=82=8B=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=82=A2=E3=81=
+=8C=E4=BB=98=E3=81=91=E3=81=9F
++``Reviewed-by:`` =E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E9=80=9A=E5=B8=B8=E3=
+=80=81=E3=83=91=E3=83=83=E3=83=81=E3=81=8C=E3=82=AB=E3=83=BC=E3=83=8D=E3=83=
+=AB=E3=81=AB=E5=8F=96=E3=82=8A=E8=BE=BC=E3=81=BE=E3=82=8C=E3=82=8B
++=E5=8F=AF=E8=83=BD=E6=80=A7=E3=82=92=E9=AB=98=E3=82=81=E3=81=BE=E3=81=99=
+=E3=80=82
++
++``Tested-by:`` =E3=81=A8 ``Reviewed-by:`` =E3=81=AE=E4=B8=A1=E6=96=B9=E3=
+=81=AE=E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E3=83=A1=E3=83=BC=E3=83=AA=E3=83=
+=B3=E3=82=B0=E3=83=AA=E3=82=B9=E3=83=88=E4=B8=8A=E3=81=A7
++=E3=83=86=E3=82=B9=E3=82=BF=E3=83=BC=E3=81=BE=E3=81=9F=E3=81=AF=E3=83=AC=
+=E3=83=93=E3=83=A5=E3=83=BC=E3=82=A2=E3=81=8B=E3=82=89=E5=8F=97=E3=81=91=E5=
+=8F=96=E3=81=A3=E3=81=9F=E5=BE=8C=E3=80=81=E6=AC=A1=E3=81=AE=E3=83=90=E3=83=
+=BC=E3=82=B8=E3=83=A7=E3=83=B3=E3=82=92
++=E9=80=81=E4=BF=A1=E3=81=99=E3=82=8B=E3=81=A8=E3=81=8D=E3=81=AB=E3=80=81=
+=E4=BD=9C=E8=80=85=E3=81=8C=E8=A9=B2=E5=BD=93=E3=81=99=E3=82=8B=E3=83=91=E3=
+=83=83=E3=83=81=E3=81=B8=E8=BF=BD=E5=8A=A0=E3=81=99=E3=82=8B=E5=BF=85=E8=A6=
+=81=E3=81=8C=E3=81=82=E3=82=8A=E3=81=BE=E3=81=99=E3=80=82
++=E3=81=9F=E3=81=A0=E3=81=97=E3=80=81=E6=AC=A1=E3=81=AE=E3=83=90=E3=83=BC=
+=E3=82=B8=E3=83=A7=E3=83=B3=E3=81=A7=E3=83=91=E3=83=83=E3=83=81=E3=81=8C=E5=
+=A4=A7=E5=B9=85=E3=81=AB=E5=A4=89=E6=9B=B4=E3=81=95=E3=82=8C=E3=81=9F=E5=A0=
+=B4=E5=90=88=E3=81=AF=E3=80=81=E3=81=93=E3=82=8C=E3=82=89=E3=81=AE=E3=82=BF=
+=E3=82=B0=E3=81=8C
++=E9=81=A9=E7=94=A8=E3=81=A7=E3=81=8D=E3=81=AA=E3=81=8F=E3=81=AA=E3=82=8B=
+=E5=8F=AF=E8=83=BD=E6=80=A7=E3=81=8C=E3=81=82=E3=82=8B=E3=81=9F=E3=82=81=E3=
+=80=81=E5=89=8A=E9=99=A4=E3=81=99=E3=82=8B=E5=BF=85=E8=A6=81=E3=81=8C=E3=81=
+=82=E3=82=8A=E3=81=BE=E3=81=99=E3=80=82
++=E9=80=9A=E5=B8=B8=E3=80=81=E8=AA=B0=E3=81=8B=E3=81=AE ``Acked-by:``=E3=80=
+=81``Tested-by:``=E3=80=81=E3=81=BE=E3=81=9F=E3=81=AF ``Reviewed-by:`` =E3=
+=82=BF=E3=82=B0=E3=82=92
++=E5=89=8A=E9=99=A4=E3=81=97=E3=81=9F=E5=A0=B4=E5=90=88=E3=81=AF=E3=80=81=
+=E3=81=9D=E3=81=AE=E7=90=86=E7=94=B1=E3=82=92=E3=83=91=E3=83=83=E3=83=81=E3=
+=81=AE=E5=A4=89=E6=9B=B4=E5=B1=A5=E6=AD=B4=E3=81=A7=E8=AA=AC=E6=98=8E=E3=81=
+=99=E3=82=8B=E5=BF=85=E8=A6=81=E3=81=8C=E3=81=82=E3=82=8A=E3=81=BE=E3=81=99
++=EF=BC=88``---`` =E5=8C=BA=E5=88=87=E3=82=8A=E3=81=AE=E5=BE=8C=EF=BC=89=E3=
+=80=82
++
++``Suggested-by:`` =E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E3=83=91=E3=83=83=
+=E3=83=81=E3=81=AE=E3=82=A2=E3=82=A4=E3=83=87=E3=82=A2=E3=81=8C=E8=A8=98=E8=
+=BC=89=E3=81=95=E3=82=8C=E3=81=9F=E4=BA=BA=E3=81=AB=E3=82=88=E3=81=A3=E3=81=
+=A6
++=E6=8F=90=E6=A1=88=E3=81=95=E3=82=8C=E3=81=9F=E3=81=93=E3=81=A8=E3=82=92=
+=E7=A4=BA=E3=81=97=E3=80=81=E3=81=9D=E3=81=AE=E3=82=A2=E3=82=A4=E3=83=87=E3=
+=82=A2=E3=81=AB=E5=AF=BE=E3=81=99=E3=82=8B=E5=8A=9F=E7=B8=BE=E3=82=92=E8=A8=
+=98=E9=8C=B2=E3=81=97=E3=81=BE=E3=81=99=E3=80=82
++=E3=82=A2=E3=82=A4=E3=83=87=E3=82=A2=E3=82=92=E6=8F=90=E6=A1=88=E3=81=97=
+=E3=81=9F=E4=BA=BA=E3=81=AE=E5=8A=9F=E7=B8=BE=E3=82=92=E3=81=8D=E3=81=A1=E3=
+=82=93=E3=81=A8=E8=A8=98=E9=8C=B2=E3=81=99=E3=82=8C=E3=81=B0=E3=80=81=E4=BB=
+=8A=E5=BE=8C=E3=82=82=E5=86=8D=E3=81=B3=E5=8D=94=E5=8A=9B=E3=81=97=E3=81=A6
++=E3=82=82=E3=82=89=E3=81=86=E3=81=8D=E3=81=A3=E3=81=8B=E3=81=91=E3=81=AB=
+=E3=81=AA=E3=82=8B=E3=81=93=E3=81=A8=E3=81=8C=E6=9C=9F=E5=BE=85=E3=81=95=E3=
+=82=8C=E3=81=BE=E3=81=99=E3=80=82=E3=81=AA=E3=81=8A=E3=80=81=E3=81=93=E3=82=
+=8C=E3=81=AF=E3=80=81=E5=90=8D=E5=89=8D=E3=82=92
++=E8=A8=98=E8=BC=89=E3=81=95=E3=82=8C=E3=82=8B=E6=9C=AC=E4=BA=BA=E3=81=AE=
+=E6=98=8E=E7=A4=BA=E7=9A=84=E3=81=AA=E8=A8=B1=E5=8F=AF=E3=81=AA=E3=81=97=E3=
+=81=AB=E4=BD=BF=E7=94=A8=E3=81=A7=E3=81=8D=E3=82=8B=E5=8F=AF=E8=83=BD=E6=80=
+=A7=E3=81=8C=E3=81=82=E3=82=8B=E4=B8=89=E3=81=A4=E3=81=AE
++=E3=82=BF=E3=82=B0=E3=81=AE=E3=81=86=E3=81=A1=E3=81=AE=E4=B8=80=E3=81=A4=
+=E3=81=A7=E3=81=99=E3=80=82=E8=A9=B3=E7=B4=B0=E3=81=AB=E3=81=A4=E3=81=84=E3=
+=81=A6=E3=81=AF=E3=80=81=E5=BE=8C=E8=BF=B0=E3=81=AE
++=E3=80=8C=E4=BA=BA=E3=82=92=E3=82=BF=E3=82=B0=E4=BB=98=E3=81=91=E3=81=99=
+=E3=82=8B=E3=81=AB=E3=81=AF=E8=A8=B1=E5=8F=AF=E3=81=8C=E5=BF=85=E8=A6=81=E3=
+=80=8D=E3=82=92=E5=8F=82=E7=85=A7=E3=81=97=E3=81=A6=E3=81=8F=E3=81=A0=E3=81=
+=95=E3=81=84=E3=80=82
++
++``Fixes:`` =E3=82=BF=E3=82=B0=E3=81=AF=E3=80=81=E3=81=9D=E3=81=AE=E3=83=91=
+=E3=83=83=E3=83=81=E3=81=8C=E4=BB=A5=E5=89=8D=E3=81=AE=E3=82=B3=E3=83=9F=E3=
+=83=83=E3=83=88=E3=81=AB=E3=81=82=E3=82=8B=E3=83=90=E3=82=B0=E3=82=92=E4=BF=
+=AE=E6=AD=A3=E3=81=99=E3=82=8B
++=E3=81=93=E3=81=A8=E3=82=92=E7=A4=BA=E3=81=97=E3=81=BE=E3=81=99=E3=80=82=
+=E3=81=93=E3=82=8C=E3=81=AF=E3=80=81=E5=95=8F=E9=A1=8C=E3=81=8C=E3=81=A9=E3=
+=81=93=E3=81=A7=E7=99=BA=E7=94=9F=E3=81=97=E3=81=9F=E3=81=AE=E3=81=8B=E3=82=
+=92=E5=AE=B9=E6=98=93=E3=81=AB=E7=89=B9=E5=AE=9A=E3=81=A7=E3=81=8D=E3=82=8B
++=E3=82=88=E3=81=86=E3=81=AB=E3=81=97=E3=80=81=E3=83=90=E3=82=B0=E4=BF=AE=
+=E6=AD=A3=E3=81=AE=E3=83=AC=E3=83=93=E3=83=A5=E3=83=BC=E3=81=AB=E5=BD=B9=E7=
+=AB=8B=E3=81=A1=E3=81=BE=E3=81=99=E3=80=82=E3=81=BE=E3=81=9F=E3=80=81=E3=81=
+=93=E3=81=AE=E3=82=BF=E3=82=B0=E3=81=AF stable
++kernel =E3=83=81=E3=83=BC=E3=83=A0=E3=81=8C=E3=80=81=E3=81=A9=E3=81=AE sta=
+ble kernel =E3=83=90=E3=83=BC=E3=82=B8=E3=83=A7=E3=83=B3=E3=81=AB=E4=BF=AE=
+=E6=AD=A3=E3=82=92=E9=81=A9=E7=94=A8=E3=81=99=E3=81=B9=E3=81=8D=E3=81=8B=E3=
+=82=92
++=E5=88=A4=E6=96=AD=E3=81=99=E3=82=8B=E9=9A=9B=E3=81=AB=E3=82=82=E5=BD=B9=
+=E7=AB=8B=E3=81=A1=E3=81=BE=E3=81=99=E3=80=82=E3=83=91=E3=83=83=E3=83=81=E3=
+=81=8C=E4=BF=AE=E6=AD=A3=E3=81=99=E3=82=8B=E3=83=90=E3=82=B0=E3=82=92=E7=A4=
+=BA=E3=81=99=E6=96=B9=E6=B3=95=E3=81=A8=E3=81=97=E3=81=A6=E3=81=AF=E3=80=81
++=E3=81=93=E3=82=8C=E3=81=8C=E6=8E=A8=E5=A5=A8=E3=81=95=E3=82=8C=E3=81=A6=
+=E3=81=84=E3=81=BE=E3=81=99=E3=80=82=E8=A9=B3=E7=B4=B0=E3=81=AB=E3=81=A4=E3=
+=81=84=E3=81=A6=E3=81=AF `=E5=A4=89=E6=9B=B4=E5=86=85=E5=AE=B9=E3=82=92=E8=
+=A8=98=E8=BF=B0=E3=81=99=E3=82=8B`_ =E3=82=92
++=E5=8F=82=E7=85=A7=E3=81=97=E3=81=A6=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=
+=E3=80=82
++
++=E6=B3=A8=E6=84=8F: ``Fixes:`` =E3=82=BF=E3=82=B0=E3=82=92=E4=BB=98=E3=81=
+=91=E3=81=A6=E3=82=82=E3=80=81stable kernel rules =E3=81=AE=E6=89=8B=E9=A0=
+=86=E3=82=84=E3=80=81
++stable =E5=90=91=E3=81=91=E3=83=91=E3=83=83=E3=83=81=E5=80=99=E8=A3=9C=E3=
+=81=99=E3=81=B9=E3=81=A6=E3=81=A7 ``Cc: stable@vger.kernel.org`` =E3=82=92
++=E6=8C=87=E5=AE=9A=E3=81=99=E3=82=8B=E8=A6=81=E4=BB=B6=E3=81=8C=E3=81=AA=
+=E3=81=8F=E3=81=AA=E3=82=8B=E3=82=8F=E3=81=91=E3=81=A7=E3=81=AF=E3=81=82=E3=
+=82=8A=E3=81=BE=E3=81=9B=E3=82=93=E3=80=82=E8=A9=B3=E7=B4=B0=E3=81=AB=E3=81=
+=A4=E3=81=84=E3=81=A6=E3=81=AF=E3=80=81
++Documentation/process/stable-kernel-rules.rst =E3=82=92=E5=8F=82=E7=85=A7=
+=E3=81=97=E3=81=A6=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84=E3=80=82
++
++=E6=9C=80=E5=BE=8C=E3=81=AB=E3=80=81=E3=82=BF=E3=82=B0=E3=82=92=E4=BB=98=
+=E3=81=91=E3=82=8B=E3=81=93=E3=81=A8=E3=81=AF=E6=AD=93=E8=BF=8E=E3=81=95=E3=
+=82=8C=E3=80=81=E9=80=9A=E5=B8=B8=E3=81=AF=E9=9D=9E=E5=B8=B8=E3=81=AB=E3=81=
+=82=E3=82=8A=E3=81=8C=E3=81=9F=E3=81=84=E3=82=82=E3=81=AE=E3=81=A7=E3=81=99=
+=E3=81=8C=E3=80=81
++=E7=BD=B2=E5=90=8D=E8=80=85=EF=BC=88=E3=81=99=E3=81=AA=E3=82=8F=E3=81=A1=
+=E3=80=81=E6=8F=90=E5=87=BA=E8=80=85=E3=81=8A=E3=82=88=E3=81=B3=E3=83=A1=E3=
+=83=B3=E3=83=86=E3=83=8A=E3=83=BC=EF=BC=89=E3=81=AF=E3=80=81=E6=8F=90=E7=A4=
+=BA=E3=81=95=E3=82=8C=E3=81=9F=E3=82=BF=E3=82=B0=E3=82=92
++=E9=81=A9=E7=94=A8=E3=81=99=E3=82=8B=E3=81=8B=E3=81=A9=E3=81=86=E3=81=8B=
+=E3=82=92=E8=87=AA=E8=BA=AB=E3=81=AE=E5=88=A4=E6=96=AD=E3=81=A7=E6=B1=BA=E3=
+=82=81=E3=82=8B=E3=81=93=E3=81=A8=E3=81=8C=E3=81=A7=E3=81=8D=E3=81=BE=E3=81=
+=99=E3=80=82
+
+base-commit: d793bcfca6bb493eb8e93900285f951a0c9dbf7c
+--=20
+2.52.0
+
