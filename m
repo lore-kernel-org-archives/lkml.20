@@ -1,228 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7FE35C6A0;
-	Thu, 10 Sep 2026 06:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76663CBE79
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022306; cv=none; b=KnqUHc2wrCyvXr3yoZ5qMhKBMaiqXlh1mkL/WqAiI0MRwt2nB1p+Nviw7VbZBdNDdqTlXty1N7kVIwOZRQimRI7ND712ExYatxCapjB/1UrkZPi3z985FbbycX+l3aNIXSWFn4AebRI2aSV5unRhaPch/v6Z45e39aCk5T5nCPo=
+	t=1789022309; cv=none; b=rnPwcfqqLjv4lnHqa7/ZcPFBP24SGsyf5HQ8RxUcq5kIYarT6ZlGBwExxsAUHpa5zKsYWPE458PQbP9Y27HG6Nz8UiIOGRrQpkNCAoROFerX5YyZwzKxWLw5rMysogk9jJZ1b8OaPei0nLA7gH/kPpIhpNHGY7q+C5hnMMEPSZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022306; c=relaxed/simple;
-	bh=qqtMomsN4Sd/tBQ/4EjEGxD3TtWrBLk+mWCKvG/MC1o=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bcd04YB/do239VeH1AgTff+F5sJ0XcF8g82IYWxLdKro+yTKCHU96FmFB+ELpsnDEpYw0b11LPCiuxsFuRJXQXeErjy++DX9tGV7RTE4ou/3q4H6nJ62QVHyZ/GDrGbuCfij3xaxeaoP9LVE9b1Kwxj5fXdaFpP1Eo6LdEAbSuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifBx0h2U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789022309; c=relaxed/simple;
+	bh=i5nr9zlL7n42aeFEwV94X9Ky6UzQbINjUj5sTjC4cII=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EVsbG/k1IVWcn3MENwn49dnOp/1SAaMqvVj9oDDPVFzdJycVVSjf7pQdwrLdf17jfwyGR/b6O3msMuPdjGvz+ZjTFcLtTxGgw+zA8gu6EuEHxqD7Eb1dURunKkFCFN91jgloqdyW4iv1+1Hl+WxsQ+y1REAzTEoApIf0a4AESj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hec/4zfi; arc=none smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifBx0h2U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340A01F00893;
-	Thu, 10 Sep 2026 06:38:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789022304;
-	bh=pWRK+/droh9EmlpVtLq5n2iywPxHYJisoPAiD47WJVQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ifBx0h2U7AAIN681qPjBTZX5/QrmwwPpNz3J/BC34oSKMoq6wONCGzmJS342QggUg
-	 xboKte9niQ+c1qTewtco/++S+2HNzZwT1pxc2knttlE/G118N1VD1sqRnsbr3Bfjmu
-	 Odc8/kvL44mgAugOtdD7NBDydmMwo3V0wwlTBLIFrn1pr0JhRmKrQjK3tM8WTEaGwA
-	 JvqOW6igQ/p9Ff3H96T2ES1R3TKK8Etgzb7xX8nSxrFMIFk93dJYamK2nzm5Ue3Tc9
-	 Lcpdduqrk2rWPm4889GhXW31jUjnwb/7jKB/5yHhPI0hSPjx4E9U2DQWTaw+At9XqK
-	 wDqv1mJ1D36Mg==
-Subject:
- Re: [PATCH] tipc: validate data size before reading Gap ACK block header
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech,
- tipc-discussion@lists.sourceforge.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Thu, 10 Sep 2026 06:38:23 +0000
-Message-ID: <178902230379.219967.14440737915959725996@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB000136A75E6C720544CAC017C8B32=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB000136A75E6C720544CAC017C8B32=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hec/4zfi"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-857ff9fef54so65952347b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:38:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789022307; x=1789627107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sa7WS57WkiG8wdPJazdCMEUZZmALuhoGF9iK21huDkw=;
+        b=Hec/4zfi6cl9bABDzFxv8hVQUZvTXKzc3rnVt23NBUG8TVs8O4Guy0gxzTBerBYqkO
+         L1WLKe3zO6kGfsOU5KzpgTUVmc7dSE9nAR/Wpj0YKTxtK3nq102iBrpQ69Cke6D1PozK
+         R3Evu3J0uRMor/XDR23JBabt6rNSmNB9Ciy2FE8tE5NIKJpz5I2FZ6fLDPhmm7JGbmqD
+         7kcKbEHL6IwQ9wTMqidpIfDoiV4Rx0LFDZPA3zM4wAkgrZCElmdVl2q8wRLwUm6DWmwy
+         oJ9yGdDDrj2fhaCU4VRih7E/QC+yRwrTidqF/BcST4SRGldnFMhoWnV3EKVWbltjxzJb
+         ud9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789022307; x=1789627107;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sa7WS57WkiG8wdPJazdCMEUZZmALuhoGF9iK21huDkw=;
+        b=BSR42J2VOaYlYXSTyQQDK5ilXCDMgnKeeWf0y1rgqIsyYnF/f6eAfhM6uXHp5WCHIH
+         xOR+yJ1Ae9/kxaKDxvpKLmprz+FS7e2A4pr5Rd7d3j9Yoe3PSqMfkpDxkTh5RF4eEicD
+         aVYaYUe0nDOFmAjAyAG24vkJEUY0Y0uqqQxepqUsJxqnWAaGfMn7ifdQ+OvcsA9Yp1ry
+         CixeUplueA+ZC9Tst35xuzJ+nIbm3aPw55j3C9EN9/NZk1P//0+Gss/As6X6A9CDw9w8
+         CZLGSmkpzskYsJy1MbJH3xGonxcoGl1xDMPVrZy4HU2GJaEUrDJ4XNSwgoRLpzwnku9M
+         I3dg==
+X-Forwarded-Encrypted: i=1; AKwUvBzMHoIplOn8ZDgk/vXIXLny78iB/U5CWJqZAeE51/Ts0yDTYBvhPsT4/Ct0TH3a8ELF12oQcLtIYnDYXoY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljN7qPcSKmvgDiEMC9oWhIvghQ6yObjOkntZlm1crQAmXR64dI
+	2NgdKXXv4cmznx5aqFiGlCmTf9TeoaCWA0ErXGftO9gEsrmXvygOzGI2
+X-Gm-Gg: AYBFou01CwuKIwtYRCtgHW53I8uIO2v6B6yXZ97/MhHeNsccYsGrhzWG3FGm7XRWFGF
+	UxFHa8rPKWNbERqPCovCHZpPt3K4Ks9ffHEycYTCnYkrclPxqPr7x2yRcjIO+lfxk5wIh4o1Acd
+	6BCol8YIA+gL4sRGO0JWmSjM6S57CQE+no9DgwqJZ4dY2/1lU6Mrs84GKiNZetYfgcZjyGxh2P4
+	q7hlXUBqHEsGE/S5HXnX5PolymIf/rK3Bi9j9Q3mTOU940llwUVVAqG3LZWRPo28oVyd1LHHa01
+	MfC9lPp0pY7/dDkI5qXYZDhSsbXAAwSE2XnHoYaukY8tUsyB5DiwYqkF3lIHVRGhMNTS/JI6BAx
+	Jq3Q2+y70q05hfVz/D5Fc0Jz/d8c88gqaULIgdYoC+QprSxpKVXrqvLcCrmwxb69BXN7neyAOdk
+	IcoO7HXOjZByBbZmleMXHU5ZGoXzaVaSqrzyoOkoKFvaHm6fKkANehqFS7H8hazRHl
+X-Received: by 2002:a05:690c:7685:b0:873:5bb2:6c09 with SMTP id 00721157ae682-8735bb26f9cmr92220467b3.51.1789022306735;
+        Wed, 09 Sep 2026 23:38:26 -0700 (PDT)
+Received: from localhost ([2600:1700:5431:250::1e])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714af5581bsm119455507b3.36.2026.09.09.23.38.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 23:38:24 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v3 1/2] dt-bindings: iio: light: add as7343
+Date: Wed,  9 Sep 2026 23:38:12 -0700
+Message-ID: <20260910063813.56419-2-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+References: <20260910063813.56419-1-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+with i2c address of 0x39.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+---
+Changes in v3:
+ - Add missing include for gpio.
+ - Expand GPIO descrption to include hardware synchronization.
+ - Use led-max-microamp instead of led-current-microamp for the LDR pin.
 
-- [Medium] Commit message overstates the impact of the fixed access in
-  tipc_get_gap_ack_blks() (net/tipc/link.c:1422-1434).
+Changes in v2:
+ - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+ - Fix node name and unit address mismatch.
+ - Include MAINTAINERS changes.
 
-Pre-existing issues:
-- [Medium] tipc_get_gap_ack_blks() (net/tipc/link.c:1421-1441), the
-  receive-side validator this patch extends, never bounds the peer-…
-- [Low] The backward-compatibility branch of tipc_get_gap_ack_blks()
-  writes into peer-supplied received packet data: p->bgack_cnt = 0…
+ .../bindings/iio/light/ams,as7343.yaml        | 72 +++++++++++++++++++
+ MAINTAINERS                                   |  6 ++
+ 2 files changed, 78 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
 
---
-
-tipc: validate data size before reading Gap ACK block header
-
-This adds a length check to tipc_get_gap_ack_blks() so the Gap ACK block
-header fields are only read when msg_data_sz(hdr) is at least
-sizeof(struct tipc_gap_ack_blks), otherwise the function takes the
-p = NULL path.  The commit is marked Fixes: d7626b5acff9 and Cc: stable.
-
-(no Link: tags in the commit header)
-
-> diff --git a/net/tipc/link.c b/net/tipc/link.c
-> index 6427c69f89294..0be86cbdc913d 100644
-> --- a/net/tipc/link.c
-> +++ b/net/tipc/link.c
-> @@ -1419,6 +1419,8 @@ u16 tipc_get_gap_ack_blks(struct tipc_gap_ack_blks **ga, struct tipc_link *l,
->  
->  	/* Does peer support the Gap ACK blocks feature? */
->  	if (l->peer_caps & TIPC_GAP_ACK_BLOCK) {
-> +		if (msg_data_sz(hdr) < sizeof(*p))
-> +			goto out;
->  		p = (struct tipc_gap_ack_blks *)msg_data(hdr);
->  		sz = ntohs(p->len);
-
-[Severity: Medium]
-Can the impact described in the changelog actually be produced?  The
-changelog says:
-
-    "causing an out-of-bounds read of up to 4 bytes past the valid skb
-     data"
-
-and
-
-    "the OOB accesses inside the function itself are undefined behavior
-     and are detectable by KASAN."
-
-Both call paths run on a validated and linearized skb.  tipc_msg_validate()
-in net/tipc/msg.c enforces:
-
-	msz = msg_size(hdr);
-	if (unlikely(msz < hsz))
-		return false;
-	...
-	if (unlikely(skb->len < msz))
-		return false;
-
-with hsz bounded by MAX_H_SIZE and pskb_may_pull(skb, hsz) already done.
-tipc_rcv() in net/tipc/node.c linearizes the skb, and tipc_link_proto_rcv()
-linearizes again.
-
-So msg_data(hdr) is at worst exactly at skb_tail_pointer(), and the worst
-case read covers [skb->tail, skb->tail + 4), which is skb tailroom or the
-leading bytes of skb_shared_info.  Both live inside the same kmalloc'ed
-head allocation, which KASAN does not poison.
-
-Would it be more accurate to describe this as a read of stale bytes past
-msg_size() rather than a KASAN-detectable out-of-bounds read?
-
-The changelog also says:
-
-    "In the backward-compatible code path, a 1-byte out-of-bounds write also
-     occurs through "p->bgack_cnt = 0"."
-
-That store is reached only when the stale bytes happen to satisfy
-sz == struct_size(p, gacks, p->ugack_cnt) with a non-zero p->ugack_cnt, so
-"also occurs" reads stronger than the code allows.
-
-Since both callers already discard the result (glen > dlen in
-tipc_link_proto_rcv(), glen > msg_data_sz(hdr) in tipc_bcast_sync_rcv()),
-is the Cc: stable justified, or is this hardening plus a small behavioural
-cleanup?  Before the patch a short STATE_MSG could be dropped or accepted
-non-deterministically depending on the trailing garbage, which is worth
-mentioning in the changelog instead.
-
->  		/* Sanity check */
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but while the validator in
-tipc_get_gap_ack_blks() is being extended: does the sanity check bound the
-peer-supplied counts by MAX_GAP_ACK_BLKS?
-
-The check just below is:
-
-	if (sz == struct_size(p, gacks, size_add(p->ugack_cnt, p->bgack_cnt))) {
-
-With u8 counts this accepts up to 510 blocks, i.e. sz up to about 2044,
-while net/tipc/msg.h declares:
-
-	#define MAX_GAP_ACK_BLKS	128
-
-and the legitimate sender caps each direction in
-__tipc_build_gap_ack_blks():
-
-			if (++n >= MAX_GAP_ACK_BLKS / 2) {
-
-The consumer then asserts the msg.h limit in tipc_link_advance_transmq():
-
-				WARN_ONCE(more(start, end) ||
-					  (!offset &&
-					   si < last_ga->bgack_cnt) ||
-					  si > MAX_GAP_ACK_BLKS,
-					  "Corrupted Gap ACK: %d %d %d %d %d\n",
-
-Can a peer that negotiated TIPC_GAP_ACK_BLOCK send bgack_cnt >= 129 with a
-matching len, get the record accepted here, and then trip that WARN_ONCE
-via tipc_bcast_sync_rcv() -> tipc_link_bc_ack_rcv() ->
-tipc_link_advance_transmq()?  That would be fatal with panic_on_warn.
-
-No out-of-bounds access follows, since the kmemdup is sized by
-struct_size(ga, gacks, ga->bgack_cnt) and every walk is bounded by the same
-count.  Would adding a ugack_cnt + bgack_cnt <= MAX_GAP_ACK_BLKS check here
-be worthwhile while this function is being touched?
-
-> @@ -1435,6 +1437,7 @@ u16 tipc_get_gap_ack_blks(struct tipc_gap_ack_blks **ga, struct tipc_link *l,
->  		}
->  	}
->  	/* Other cases: ignore! */
-> +out:
->  	p = NULL;
->  
->  ok:
-
-[Severity: Low]
-This is a pre-existing issue, but the backward-compatibility branch of
-tipc_get_gap_ack_blks() writes into the received packet:
-
-		} else if (uc && sz == struct_size(p, gacks, p->ugack_cnt)) {
-			if (p->ugack_cnt) {
-				p->bgack_cnt = 0;
-
-Is the data area known to be exclusively owned at that point?  The only
-preparation on this path is skb_linearize():
-
-net/tipc/link.c:tipc_link_proto_rcv() {
-	if (skb_linearize(skb))
-		goto exit;
-
-	hdr = buf_msg(skb);
-	data = msg_data(hdr);
-
-and net/tipc/node.c:tipc_rcv() does the same:
-
-		if (unlikely(skb_linearize(skb))) {
-			tipc_node_put(n);
-			goto discard;
-		}
-
-skb_linearize() returns immediately for an already-linear skb, so it does
-not unshare a cloned-but-linear data buffer, and git grep finds no
-skb_cloned()/skb_unshare()/skb_ensure_writable() on the LINK_PROTOCOL
-receive path in net/tipc/.
-
-If the same frame is delivered to an AF_PACKET tap, packet_rcv() does
-skb_share_check() -> skb_clone(), so the buffer TIPC then writes to is
-shared, and the clone's reader sees bgack_cnt as 0.
-
-This store predates the patch, and the patch only removes its
-out-of-bounds aspect.  If there is a respin, could the unicast count and
-size be returned to the caller instead of zeroing a field inside the
-received packet?
-
+diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+new file mode 100644
+index 000000000000..6b8a05be0043
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AMS AS7343 14-Channel Multi-Spectral Sensor
++
++maintainers:
++  - Chang Yu <marcus.yu.56@gmail.com>
++
++description: |
++  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
++  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
++
++properties:
++  compatible:
++    enum:
++      - ams,as7343
++
++  reg:
++    description:
++      I2C address of the device (0x39).
++    maxItems: 1
++
++  interrupts:
++    description:
++      Open drain output active low interrupt pin.
++    maxItems: 1
++
++  vdd-supply: true
++
++  ams,led-max-microamp:
++    description:
++      The driver current for the external LED connected to the LDR pin.
++    minimum: 4000
++    maximum: 258000
++    multipleOf: 2000
++    default: 12000
++
++  sync-gpios:
++    description: |
++      Optional GPIO pin that can be used either as a synchronization input to
++      start/stop measurement or as an external start/stop signal for
++      synchronizing with the connected LED.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        multispectral-sensor@39 {
++            compatible = "ams,as7343";
++            reg = <0x39>;
++            interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
++            vdd-supply = <&vdd_regulator>;
++            ams,led-max-microamp = <14000>;
++            sync-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 04fa5322d9f7..8cf4e1635053 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1430,6 +1430,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
+ F:	drivers/iio/light/as73211.c
+ 
++AMS AS7343 DRIVER
++M:	Chang Yu <marcus.yu.56@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
++
+ AMT (Automatic Multicast Tunneling)
+ M:	Taehee Yoo <ap420073@gmail.com>
+ L:	netdev@vger.kernel.org
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB000136A75E6C720544CAC017C8B32%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+2.55.0
+
