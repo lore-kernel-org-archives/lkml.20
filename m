@@ -1,215 +1,131 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FA64A2A61
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534BF4A0150
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052144; cv=none; b=TrEplPJbAadUCTslB7KTJAu73vBw5ouZuioGhkute+Rsxc9Idssthl1Pwzyb3XaiWqyFQsf0ya+7v6PpKTv8hQuVCbBj4mF+j3CNyZtRdBmaGj63SJUFBsBu4zIIlqBxcZYr8xdSkkOynUt+5uqFl+OqiIoaCENA0nbulFZe2Iw=
+	t=1789052185; cv=none; b=Qi4Foncgz2j20yrUmPgGIAZt5WgTsnm3wgewouvkufIS2Onot8yXL/k/LG6keT9oQ6xO6i93V8Sqrl5zKOtvm+yXop9hTFjShws2fCxcTeZJyDT+SVplCeRsRhOEIWaLTPf49pwOWeJ7OjDkQKXpXMotvRkXWrder9kyk/Ednd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052144; c=relaxed/simple;
-	bh=D4QDZJ/BhJGnafANKKKHld4iAuwS8mDIcGUUG7IlTII=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VqA4p1An8+pkSy3zoYq12TpyVLzgsodY9ELZhJcurGu5hNl2Y43qgdVVlCIbYMTAeSlXFRaJu3qPmHov4zPe0PdZ0Ll9SsLR6E8WgcKVxBTfyMVDmCIOeNQgecfVc+BryQkd2iirEr+DNC7c8ifRzEk4zWg6YSoQo5+uO6pN+Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=p9sj8iuU; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789052185; c=relaxed/simple;
+	bh=fGoGldEWDvUQ/iRdAxfZ6H/H4+9sW1lky3abHszVxRI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=XZKzex+qtnRas5yijWcUow2ovU9F09jkT9d4OkwjjzCisMWRlFmbKKyS0zyHRaPnqR49ic2PDcAPX8Alaa5idqTtlDEXbKPwF75ItWWsItU++gS2c6AK9OeZ8XeMUiJiqrWlRbsWcTjOMkkBc0T/R1jrl0qQHy6VVb8x7NqAJdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wD23GC7O; arc=none smtp.client-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="p9sj8iuU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=xUDfzTwxG11mZ+J3dXeQ6zMdoSjL7YUgi8RSjzuPL1I=; b=p9sj8iuUbHGRJsN3msTkEH14+u
-	E+OWu7WWJvfngw9KdEc+DvQPZXsYosNyNB4OhgZXCUDXK4rqbLj84c8snpe6edoWBLCEZrSQYhgxM
-	LOaNE1vvFHbvMxvoFh5IR7XXb1P0rhQDztU9CV35fvU6F32QSBXdTyfx8CEVuxIHn2epL7nSJil4U
-	53cP6nENWILQrzZJoSkEdXzX0POJGGO1ZjL2uFe6/1V0HPkpuiEN8glfqKKjXbV9bOJLw1tkW2AgC
-	H28uje127JoUSZcS6CWrBbXE1BxT1BmDiL9YBhVOqeRqPGII0Taaw2MtM6HGG1y6iyP8gdjM8uNmt
-	cfwVpL0w==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x4gBd-000aYU-2v;
-	Thu, 10 Sep 2026 14:55:38 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 10 Sep 2026 07:54:13 -0700
-Subject: [PATCH wq/for-7.4 2/2] workqueue: derive the standard attrs from
- the workqueue flags
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wD23GC7O"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fGoGldEWDvUQ/iRdAxfZ6H/H4+9sW1lky3abHszVxRI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789052180; v=1; x=1789656980;
+ b=wD23GC7O0ZBfu7nuSFWr9X00jdD1K2wWybipM/7tUmvMNKkDPKe31SvWL/oC8yOTPkkNGaM8
+ nlCF/eK4DKvDlE7edTd1sG39u5UxAf/MSp88nsHdtx9513TYgEEnlTG4xaI2fIweZgICBZp5YQ4
+ abd76cJC+pyh0SYs4asW41AY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 251a0a0c0b667829;
+	Thu, 10 Sep 2026 14:56:20 +0000
+X-Mizu-Trace-ID: 251a0a0c0b667829
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-realsplit_last_v2-v1-2-464d64b71b29@debian.org>
-References: <20260910-realsplit_last_v2-v1-0-464d64b71b29@debian.org>
-In-Reply-To: <20260910-realsplit_last_v2-v1-0-464d64b71b29@debian.org>
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
-Cc: marco.crivellari@suse.com, linux-kernel@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>, kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5186; i=leitao@debian.org;
- h=from:subject:message-id; bh=D4QDZJ/BhJGnafANKKKHld4iAuwS8mDIcGUUG7IlTII=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqosTff1wbPG7ov6uGLqOe2Yzx0hBZnIghB9wto
- 9L7rgpOHiqJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqLE3wAKCRA1o5Of/Hh3
- bTZVD/9OFLdgOmAh45vnblIeMGtN2dqpNLtLow3nE8C4io1Oq72lkKNFPBQKX/5wbMor/8lCh6t
- imAs4n8+gAlK1rwmd42pG54hSkSBjogr4RbyhvQsZ3ituRvCyZH0Ha0rJdbStDXpF54wyXIFd07
- EEKhr2vmxcZrI61admEgU9RF0YficNvAKWAqmSWoZj+2XzQME5BE7oRh0taRnw/zvCqAwraBTUS
- Whf1JSP+ldw59t1QdXV0ESItNurycnGVl6u2DiTDcx5fl04gMNR4bsSruJeNWLebug8lPLzglDt
- b4dnuFzG5gl4811Gx0FR+ZkDkr3wlc+dzPczBsDxmNWjMgnh/IrSOalX1riUEykn38rJv38H6TH
- sVIkXd+i2aTvSu+8KmPdYfnekiVXKP/aaTMLpiNxJzy6pMrUcqg8hQG49NOJsDg60Qig5vH5/Tw
- tHH7+p9wRpL008xY1tHowSyCA7SqymucvDpcqdGKRE/4I9fce7K/vtQ+hQbuHHKdS87NMliRgi8
- YCAiZmbjxoeBkt+Nm+e6NRup4IiKB2gEpSKpKSMrir/mwzrh9fuIBA7J6iA3dOJEK0qADmAEH89
- bodsgD6jfST4sdIudHOKs50lhfvYtmY4cS5lkrycH31Kb4ZnNxGCR7vxRhTSIWkDDXf0+Bf8cYB
- PSf6OKRpIYJhbrg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 10 Sep 2026 16:56:19 +0200
+Message-Id: <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
+ TX transfer
+From: "Luka Gejak" <luka.gejak@linux.dev>
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "luka.gejak@linux.dev"
+ <luka.gejak@linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
+ <20260909074556.55709-5-luka.gejak@linux.dev>
+ <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
+In-Reply-To: <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
 
-alloc_and_link_pwqs() picks one of three static attrs arrays indexed by
-WQ_HIGHPRI, and branches to a separate apply_workqueue_attrs_locked()
-call for percpu, ordered and unbound workqueues. The arrays differ only
-in the nice level and the ordered bit, which the flags already say.
+On Thu Sep 10, 2026 at 4:24 AM CEST, Ping-Ke Shih wrote:
+> luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
+>> From: Luka Gejak <luka.gejak@linux.dev>
+>>=20
+>> rtw_sdio_write_port() rounds the transfer up with sdio_align_size() and
+>> then hands that length to sdio_memcpy_toio() while the skb still only
+>> holds skb->len bytes. The difference, between one and 511 bytes, is read
+>> from beyond the end of the frame and transmitted. Whether it stays
+>> inside the skb's allocation depends on how much tailroom the skb happens
+>> to have, so this is at best sending uninitialised memory over the air.
+>>=20
+>> Pad the skb up to the transfer size first. __skb_pad() zeroes the added
+>> bytes, reallocates a cloned skb rather than writing into a buffer a
+>> clone still shares, and leaves skb->len alone, so nothing else in the
+>> transmit path has to change.
+>
+> With __skb_pad(), it might increase CPU usage.
+> Could you roughly measure that?
+>
 
-Build the attrs from the flags instead. alloc_wq_std_attrs() sets nice
-for WQ_HIGHPRI and ordered for __WQ_ORDERED, which collapses the three
-branches into one call and drops the three arrays along with their
-workqueue_init_early() loop.
+Measured with the ftrace function profiler over a 30 second saturating
+uplink transfer, 18.6 Mbit/s, four cores:
 
-The ordering WARN now sits behind its own __WQ_ORDERED test rather than
-the unbound branch. __WQ_ORDERED is internal and every macro that sets it
-pairs it with WQ_UNBOUND, so the WARN covers the same workqueues as
-before.
+  function              hits      time(us)   share of one core
+  rtw_sdio_write_port  48358      26839023        89.2%
+  sdio_memcpy_toio     47855      11783994        39.2%
+  __skb_pad            48344        616489         2.1%
+  pskb_expand_head     47869        466036         1.6%
 
-The attrs are allocated per creation now. apply_wqattrs_prepare() already
-allocates one on the same path, including in workqueue_init_early(), so
-that is not a new constraint, and it only copies what it is given, so the
-caller can free them once apply_workqueue_attrs_locked() returns.
+__skb_pad() is about 2% of one core with the link saturated. The whole
+transfer takes 14.8% of the four cores against 0.77% idle, so the
+padding is roughly 3.5% of the CPU the transfer already uses and 2.3%
+of the driver's write path. On throughput it is about 6%, which is the
+A/B in the commit message.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- kernel/workqueue.c | 76 +++++++++++++++++++++++-------------------------------
- 1 file changed, 32 insertions(+), 44 deletions(-)
+pskb_expand_head() runs on 99% of the calls, so nearly every frame takes
+the reallocating path rather than the memset. That is three quarters of
+the cost; without it the padding would be around 0.5% of one core. I
+have not worked out yet whether the skb is cloned or short of tailroom.
+If it is tailroom it is probably avoidable, and I can chase it as a
+follow up.
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 8232a60e107cf7..39187f424c34e7 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -533,15 +533,6 @@ static DEFINE_IDR(worker_pool_idr);	/* PR: idr of all pools */
- /* PL: hash of all unbound pools keyed by pool->attrs */
- static DEFINE_HASHTABLE(unbound_pool_hash, UNBOUND_POOL_HASH_ORDER);
- 
--/* I: attributes used when instantiating standard unbound pools on demand */
--static struct workqueue_attrs *unbound_std_wq_attrs[NR_STD_WORKER_POOLS];
--
--/* I: attributes used when instantiating ordered pools on demand */
--static struct workqueue_attrs *ordered_wq_attrs[NR_STD_WORKER_POOLS];
--
--/* I: attributes of percpu workqueues, which are backed by the static pools */
--static struct workqueue_attrs *percpu_std_wq_attrs[NR_STD_WORKER_POOLS];
--
- /*
-  * I: kthread_worker to release pwq's. pwq release needs to be bounced to a
-  * process context while holding a pool lock. Bounce to a dedicated kthread
-@@ -5920,9 +5911,27 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
- 	put_pwq_unlocked(old_pwq);
- }
- 
-+/* the attrs @wq asked for, as spelled by its flags */
-+static struct workqueue_attrs *alloc_wq_std_attrs(struct workqueue_struct *wq)
-+{
-+	struct workqueue_attrs *attrs;
-+
-+	attrs = alloc_workqueue_attrs();
-+	if (!attrs)
-+		return NULL;
-+
-+	if (wq->flags & WQ_HIGHPRI)
-+		attrs->nice = HIGHPRI_NICE_LEVEL;
-+
-+	if (wq->flags & __WQ_ORDERED)
-+		attrs->ordered = true;
-+
-+	return attrs;
-+}
-+
- static int alloc_and_link_pwqs(struct workqueue_struct *wq)
- {
--	bool highpri = wq->flags & WQ_HIGHPRI;
-+	struct workqueue_attrs *attrs;
- 	int ret;
- 
- 	lockdep_assert_held(&wq_pool_mutex);
-@@ -5931,23 +5940,24 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
- 	if (!wq->cpu_pwq)
- 		goto enomem;
- 
--	if (!(wq->flags & WQ_UNBOUND)) {
--		ret = apply_workqueue_attrs_locked(wq, percpu_std_wq_attrs[highpri]);
--	} else if (wq->flags & __WQ_ORDERED) {
--		struct pool_workqueue *dfl_pwq;
-+	attrs = alloc_wq_std_attrs(wq);
-+	if (!attrs)
-+		goto enomem;
-+
-+	ret = apply_workqueue_attrs_locked(wq, attrs);
-+	free_workqueue_attrs(attrs);
-+	if (ret)
-+		goto enomem;
-+
-+	if (wq->flags & __WQ_ORDERED) {
-+		struct pool_workqueue *dfl_pwq = rcu_access_pointer(wq->dfl_pwq);
- 
--		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[highpri]);
- 		/* there should only be single pwq for ordering guarantee */
--		dfl_pwq = rcu_access_pointer(wq->dfl_pwq);
--		WARN(!ret && (wq->pwqs.next != &dfl_pwq->pwqs_node ||
--			      wq->pwqs.prev != &dfl_pwq->pwqs_node),
-+		WARN(wq->pwqs.next != &dfl_pwq->pwqs_node ||
-+		     wq->pwqs.prev != &dfl_pwq->pwqs_node,
- 		     "ordering guarantee broken for workqueue %s\n", wq->name);
--	} else {
--		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[highpri]);
- 	}
- 
--	if (ret)
--		goto enomem;
- 	return 0;
- 
- enomem:
-@@ -8378,28 +8388,6 @@ void __init workqueue_init_early(void)
- 			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
- 	}
- 
--	/* create default unbound, ordered and percpu wq attrs */
--	for (i = 0; i < NR_STD_WORKER_POOLS; i++) {
--		struct workqueue_attrs *attrs;
--
--		BUG_ON(!(attrs = alloc_workqueue_attrs()));
--		attrs->nice = std_nice[i];
--		unbound_std_wq_attrs[i] = attrs;
--
--		/*
--		 * An ordered wq should have only one pwq as ordering is
--		 * guaranteed by max_active which is enforced by pwqs.
--		 */
--		BUG_ON(!(attrs = alloc_workqueue_attrs()));
--		attrs->nice = std_nice[i];
--		attrs->ordered = true;
--		ordered_wq_attrs[i] = attrs;
--
--		BUG_ON(!(attrs = alloc_workqueue_attrs()));
--		attrs->nice = std_nice[i];
--		percpu_std_wq_attrs[i] = attrs;
--	}
--
- 	system_wq = alloc_workqueue("events", WQ_PERCPU | __WQ_DEPRECATED, 0);
- 	system_percpu_wq = alloc_workqueue("events", WQ_PERCPU, 0);
- 	system_highpri_wq = alloc_workqueue("events_highpri",
+I do not think this is a blocker. A few percent seems a fair price for
+not putting uninitialised memory on the air.
 
--- 
-2.53.0-Meta
+One thing to decide, though. The commit message says the padding "costs
+nothing observable", which is too strong given the numbers in that same
+paragraph. Do you think it needs rewording? If so, would you be willing
+to amend it yourself when applying? That seems better than a resend of
+seven patches for one line.
 
+>>=20
+>> It must not free the skb on failure: rtw_sdio_write_data() frees the skb
+>> itself and rtw_sdio_process_tx_queue() requeues it, so both callers
+>> still own it and would double free.
+>>=20
+>> Found while reworking this path for the RTL8723BS. Measured on RTL8723BS
+>> hardware, padding the transfer costs nothing observable: uplink is
+>> 19.5 to 19.8 Mbit/s padded against 20.9 to 21.1 Mbit/s unpadded in an
+>> interleaved A/B, with scans, reconnection and a UDP flood clean in both.
+>> The other SDIO parts sharing this path are untested; I have only the
+>> RTL8723BS.
+>>=20
+>> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO=
+ based chipsets")
+>> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+>
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+
+Thanks for the Acked-by tag, one both patches, I will send 2nd series for=
+=20
+the actual driver code after this prep series is merged to rtw-next.
+
+Best regards,
+Luka Gejak
