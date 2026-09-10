@@ -1,131 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1620E47143C;
-	Thu, 10 Sep 2026 11:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D96472080
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039348; cv=none; b=B0NC4EKChJwk7bXg664JHPchoBCuCbOwfWfDxuHP45VrqgnALelzp+K0EVjzNfPNLLWZ6fupkiXXBvWLro6XOBb2j5P6DSJFZd8ul1kJIReWR7mhqJ8dKExCRnnBwBc4UgiCUK/5l4Z1sy27HlekWjGRLSPqX6/3Jf5kDUNYq1U=
+	t=1789039351; cv=none; b=l5QPPMzUpMJoC93FMLgVGaeB1EXqV/87gzU6DY+6X+SMc0EX64ETPRUEBEZAgNWkqOhNBlKzHUxvbapWADHvobxjHZe+wwxP1djmkt9EJlP5v3sEk/LqcGLHkI1aru/jU0uvGkPntp2ntGhzMgsuLnEcf6O5XbXV8ql2rkgFUcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039348; c=relaxed/simple;
-	bh=38/OLHfK+M+1zXHjINgFF+BX6QfD20XmuFGEDGmyA0o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I2IZY0n8g+dS3Pj8tO/vM1kMUaenUURBDI14jR9mpZj8dkseaK5qArz2bIk/SPZksN7uVH0YF6ji0P5IZC+oTc7arFUuL+bPX9/B5VoIBpqrMe81oyxBLVWwgIqzIqVQ2ViGYWTAyyU2faMviEagYx66msWI7/u26wEj1Zj+K5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gNyRJvPv; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789039351; c=relaxed/simple;
+	bh=AUBJWJWJkve3e0pYxDXtyEsmvYME9Ru4V70ME25n62o=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=jXy7qqerngs51+GiIPCxWCw/Q+fCpSzNsuregXIxy6LSlclVCNMHQhTDIS9Avrhk8DFStzcGiS+b2ON+4jvVOsTm4cAcu/PEcKBshItwfGx2TYlb/AcN/K1pPzauaR4a1dz+6r3J1ShkYFakuI6456vBNrMdpwUxNCIf8/jRqaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OCNMzlHb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fjcbd85h; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gNyRJvPv"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE457153B;
-	Thu, 10 Sep 2026 04:22:22 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED7A73F528;
-	Thu, 10 Sep 2026 04:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789039346; bh=38/OLHfK+M+1zXHjINgFF+BX6QfD20XmuFGEDGmyA0o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gNyRJvPvTorSclWHavC3DluONl2GqzDYewmuGoFwfuSu95jgspzfpgyIeNA5lq8U8
-	 2FENBwt8PF8W4hLeiuNSCZvUO7KTGzv0/LxQ42Zm2/QF8gtjerY30MPZpvnQV1+u8K
-	 qE7nMiXoExbF3ZBVGOPVjxGpcw/SpJ734ssJvuCA=
-Date: Thu, 10 Sep 2026 12:22:20 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-Message-ID: <aqKS7CP67X4h6NiM@e129823.arm.com>
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-3-822b810458bc@arm.com>
- <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
- <aqKOVGECsCNtSMIV@e129823.arm.com>
- <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OCNMzlHb";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fjcbd85h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789039348;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VW7WG5gI3vGojP7Xj/wxG4Oo1lstFTv7nlO/pfTslGk=;
+	b=OCNMzlHb7CLIbNldHDIx+qQeP0fCgpfAz0AW0BCEu4PlMNUh04R8KS/Bq13L6PsivVEkni
+	lB6SCZXySXVdpyKc/CqOIhoTnJhi/gIddaqEvQZk4oWzdaOCGzppvcekYr2GP5aHggo35S
+	qwWGmJfygh48ibVrVp396I7Lmt4zykw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-652-n_nsEZrdNG27NwgJ2PM2PA-1; Thu, 10 Sep 2026 07:22:27 -0400
+X-MC-Unique: n_nsEZrdNG27NwgJ2PM2PA-1
+X-Mimecast-MFC-AGG-ID: n_nsEZrdNG27NwgJ2PM2PA_1789039346
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cdc4080ddso4705635e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:22:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789039346; x=1789644146; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VW7WG5gI3vGojP7Xj/wxG4Oo1lstFTv7nlO/pfTslGk=;
+        b=Fjcbd85h46KdsVRF35vSD+EN65X+OSVJXakJyiei+K778e/v0qh7lv8fuM5feNNxOD
+         npQV4LJOpqZ+ocjuW3NRIrES6qGN6q671BHnHFp+sLjeTngwijW4IX37qs3w1ThIiuXp
+         I2BMxICzcYWuBsRrjIaZyYNN3lnfZg2ojAEWnMDuu7slM+FO9OtIYJ8TelzzUmCvsnYC
+         4I65oNnGw6XmxHmMIl3+mCBid7+8A4a1wQYYhc58RUR89CC56FVfXJJCsdJg9tmE/J8r
+         n0MKcwdecflMyW6SJHyKwyvYPrTT6pcEdPGhtzqZiRP+Vt8gISoGmxXoUgsttoS78zKo
+         ZTWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789039346; x=1789644146;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VW7WG5gI3vGojP7Xj/wxG4Oo1lstFTv7nlO/pfTslGk=;
+        b=Br/5Y/gs55r59DaOwl2COZtNWOav8BxiXy0C1jPmywuf+gSvJCDVH35ip7YTN515hd
+         LsqN9LGOg/xk39vT6zOoukKAIPv0z8AH/5HOim9Y2HHTU9RhrJMrqcxoaXE1CgqXS37I
+         pxxX5kftIZH5hz7UQ2KDbER4q3f9dLh5Cb19+qnXZLc9VASKEUHoQ26j1GFTp5HkjbSU
+         QE49yzrWypQ1zNjDwK3UadgmoTLs0oCZD6X1r3KTmOf8B7EYV0Zbb2iN51xzTWcmZLaq
+         p9ufkyuhskfJ9tNp+36J7s33T9Zc/ztJZOdzwftY/DcAdaUZQg4X2+HzdXxM+syxjRWW
+         b1jA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4mA6BQJOmFJYq5FWH3ea3w7DvqEEjCUU2CAF6ZBNJbaZQSlDOFvxxm+9xu8Aiem/E64D8+874Qke71O8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXw0r2j6Wik1zR8C/8CTwsKBMMLOwMTY2ycLCXQzntNZvpv2S7
+	q8SObbP0zFd8+kX2MmDvAA0YD3x6luYtYC59xgHm46SeaKOLO0G4C1ULwXFob8nq3MLTurD8UcP
+	e9YcdKlHiiCHZ6v9QyU1dWqJOpbRruU8A7xX0qfZWSiNGl9fHxykMRn663woxZgAtog==
+X-Gm-Gg: AYBFou0SvMueusL8LjVW9m6oXt75CJjAylsFQ5Ph5bnFgSwCjcBNvHZkZocEFbV//vc
+	V8ZBt3gasq+O0OVSRkJkNy68Fm1Mnw9EOJAhsHTjnQZToU8FVSbBWQ0vPpd9wv3yU3tZiGeWs7S
+	9oYcZO5nGCRZUuaSRR07RK8zuyIC0Pl8QIZO3sEbCBQ/hu9zUhJ68dGMrjrI4DmyxrC3ClA6dYH
+	hY7ALWdbkSdZXyZ3CMiS/jKz35AtpG+a806cEB/f7UvTPtwjlVSezoQINbKxxtUFti+ttnyRlgs
+	Eg2HeIsoXJg/tGxn4PHoycPcfymNsJfVx+svWSwt0ufOAwf2PdY7a+OT2FI0tbz3cZNcNtDkdYK
+	2KC4SU20txfKUY0UjPOWtYxL2okpQUJGoCBKM/2uG2jyJqc+JA2uTBPEJdg==
+X-Received: by 2002:a05:600c:164a:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49d26d863e3mr29452495e9.3.1789039346119;
+        Thu, 10 Sep 2026 04:22:26 -0700 (PDT)
+X-Received: by 2002:a05:600c:164a:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49d26d863e3mr29452165e9.3.1789039345750;
+        Thu, 10 Sep 2026 04:22:25 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e35sm65309185e9.2.2026.09.10.04.22.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:22:25 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: andriy.shevchenko@intel.com, holofermes@gmail.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: Re: [PATCH v5 5/6] drm/ssd130x: Implement ssd130x_write_cmd() on
+ top of ssd130x_write_cmds()
+In-Reply-To: <20260823111959.17029-6-amit.barzilai22@gmail.com>
+References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
+ <20260823111959.17029-6-amit.barzilai22@gmail.com>
+Date: Thu, 10 Sep 2026 13:22:24 +0200
+Message-ID: <87wlstl5an.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
+Content-Type: text/plain
 
-On Thu, Sep 10, 2026 at 01:14:42PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/10/26 13:02, Yeoreum Yun wrote:
-> >>> diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
-> >>> index 5f278913c4d7..b6fad38c8bee 100644
-> >>> --- a/tools/testing/selftests/mm/soft-dirty.c
-> >>> +++ b/tools/testing/selftests/mm/soft-dirty.c
-> >>> @@ -92,9 +92,9 @@ static void test_hugepage(int pagemap_fd, int pagesize)
-> >>>  	if (!hpage_len)
-> >>>  		ksft_exit_fail_msg("Reading PMD pagesize failed");
-> >>>  
-> >>> -	map = memalign(hpage_len, hpage_len);
-> >>> +	map = alloc_isolated_mem(hpage_len, hpage_len);
-> >>>  	if (!map)
-> >>> -		ksft_exit_fail_msg("memalign failed\n");
-> >>> +		ksft_exit_fail_msg("alloc_isolated_mem failed\n");
-> >>>  
-> >>>  	ret = madvise(map, hpage_len, MADV_HUGEPAGE);
-> >>>  	if (ret)
-> >>> @@ -130,7 +130,7 @@ static void test_hugepage(int pagemap_fd, int pagesize)
-> >>>  		ksft_test_result_skip("Test %s huge page allocation\n", __func__);
-> >>>  		ksft_test_result_skip("Test %s huge page dirty bit\n", __func__);
-> >>>  	}
-> >>> -	free(map);
-> >>> +	free_isolated_mem(map, hpage_len);
-> >>>  }
-> >>
-> >> smaps is really only problematic with merged VMAs when relying on exact page
-> >> statistics. For other properties (vm flags, MMUPageSize) it's not a problem as
-> >> long as our smap search just finds the VMA that covers an address.
-> >>
-> >> Assuming we fixed check_huge_anon() to not use smaps, why is this change here
-> >> required?
-> > 
-> > Since there is no interface to get vm_flags not via /proc/self/smaps,
-> > It might be good to have it for preventing unwanted VMA merge.
-> > 
-> > And might be useful for future to prevent unwated VMA merge.
-> 
-> See my reply on why vm flags are generally not a problem. Just like other
-> properties that are not changed during VMA merging.
-> 
-> Let's not perform random code changes without a clear picture.
-> 
-> And just to emphasize again: VMA merging could already be a problem before
-> memalign() internal changes.
-> 
-> (also observe here how we do a MADV_HUGEPAGE, so this is all rather arbitrary,
-> which is not good)
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-As I mentioned in my previous reply, what I’m trying to prevent here is
-a failure when checking, immediately after memory allocation,
-that a specific vm_flag is not set.
+> ssd130x_write_cmd() and ssd130x_write_cmds() each carried their own
+> regmap_write() loop over SSD13XX_COMMAND, differing only in how the caller
+> supplies the bytes.
+>
+> Turn ssd130x_write_cmd() into a thin variadic wrapper that collects its
+> arguments into a small stack buffer and defers to ssd130x_write_cmds(), and
+> move the protocol comment onto the latter, which is where the loop now
+> lives.
+>
+> No functional change: the bytes sent and the bus transactions used to send
+> them are identical for every chip on both the I2C and SPI transports.
+>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+> ---
 
-Yes, I agree that this could have been a problem even before
-the internal changes to memalign(). An unwanted VMA merge could already
-occur at the time of memory allocation.
-
-So what I’m trying to avoid is a test failure where, due to such an
-unexpected VMA merge during allocation, the subsequent check that
-a specific vm_flag is not present fails.
-
-I probably didn’t explain this clearly enough and ended up causing
-more confusion. Sorry about that.
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
 -- 
-Sincerely,
-Yeoreum Yun
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
