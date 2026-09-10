@@ -1,121 +1,112 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D521937A851
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA701E51E0
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789007119; cv=none; b=LaeF9VtFW0eZh3kyf8oWIBTanb89VyBfCHbNoukN/MVE8fpJlEpAXk/laucHLLJ5DuKDFZPTCiO2Ca6HWEevrdVv7rAR7EhRwfHEfswS2zC4km/IFKB3y298wDH6p84CjVUgFvRg9BIqALkyiIlZFE8k0thBiIdns5q3nhPvaX0=
+	t=1789007272; cv=none; b=G5YZ6ioBpLSB5aD06oUj72LElHO2BHfPDeAGJlOf4DrRn6o7M5J0cyNqy/Y7p+LS7HnpXFqCyQtSA9tCgNtYqMSCsf4pj6+vK27MjSq7RyZTp7e8KYJBGV8hSBhGNUoQYtZTHpmUyVxX4kPNfMRuJGZgZvXMHMMdmnn3NfJ7HJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789007119; c=relaxed/simple;
-	bh=h7jlRf2IsDI9qQdqGv2bSdvzHPNhhTR1Nonfg/W40cU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E/n0B7Z5CL0naj71Z12YfsabCk3ksLnFPSRCCpdnJ5CcuRJI5BVUBKi/3JyP2GDE55Py+yK+ztRQdFRQGIIs5YVUSFAfBqsojbZU2VpveTBCf4Q+4cvYUgeXpZOqE97xOwxbqaGYTFCmzqtkYnUnmpRycRK13mwGXsSPUKTZYYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=L2whPWgI; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789007272; c=relaxed/simple;
+	bh=epHSXBuQ2AIm4Hu/Zr1y7hIy117Ko3f+MG5YEzbXX7g=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RaRkA4TbnEDb+5wHL/oAubHAsJ8cabrU4z7TWX2CdAad7jdrdbw3GqVLYnmUbQULu5Rh2J9oWr8hLvkAbHsteOFRplsgVrqIkOGrtn2eRJfAEGYPAk8vtMmCQ7eD1NzTQpOTq/eGOwkyhHeGLXcasz+SPOrJxB0zuM7Gl7L9rtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Tmh50WBA; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="L2whPWgI"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso4353892a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Tmh50WBA"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so821062166b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:27:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789007115; x=1789611915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+mClRprXurGsMr2UxPPq1/QlRUj/VLPAMpoAcj6a2AM=;
-        b=L2whPWgIXodOTfJfr3JwG3F5vO9y5tCMyLCBh7Z4vmFpj2dt7DB6UHuxwMiCCmP+Yj
-         q/WaU65CJNtll58G8iWi1U6FmeYUpgzWz/BUqnqvNxzNKeWtuloSvajiNxFWTX7kpEQU
-         tH7hWa7bSFcizXwOH7V/EO8GksAhwNL+orLBq6K6SVD82LTEeiBmmnKoyqzUgEcg4fYr
-         IO64HT1l7kAjd4MyCZufmvWg1rmnh1NFZGrxgyWX1pDGTvf/oAJs+2nIgZ/F4zTK4q4l
-         WGW5yWIeffU/yGjcnyn6FWu0ZlZdAH7EZkURia20epwBhGaT+OLPmm5qNNjTt1dYW1cf
-         Xd5Q==
+        d=suse.com; s=google; t=1789007269; x=1789612069; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tjOhy7ms73Ne+PBWfcDOjVBGfsqw9byyhSgof+mlxb0=;
+        b=Tmh50WBABi1rd+7fg+XuLh2NU0zNOKYIkP9jAXDOx9gP9akRHbv5W2qSIB+acQeNOe
+         Lmk4TG51UFx+BvqKm0qXZ9P0iE2wRFuCLnFyIujCjV+Z8AWGoooO+PnvwLvji8mor1zW
+         3l5mczJMJTPND+7icZefjVBfhfm5OHd7oMbvHUNzEHax38cDhbFFaDVp91Y182VFY2an
+         dyDNvuKbd2tTQMVn5HuEtpMY0J5fqdjPbpbqsDoLTsBBGxC971gKWErUFNXnpaTURH+H
+         1WgvutuT4JQxp4PiRSRqE3B6fd7wZqDwDF7publfonza0qu0d4Di5UR0Hmm3Hh5SgP8a
+         lLjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789007115; x=1789611915;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+mClRprXurGsMr2UxPPq1/QlRUj/VLPAMpoAcj6a2AM=;
-        b=Lz+Txa+RJn7CHUQktV1fOp48LtHY54FrndJfsXLUJD5TI8AHY5ymGt5SqZRzdMQWk4
-         OUzxJk1xDvllbH2RjdYdzUINBN80rRBqI3/GisrcGHgM4nEw2BA9rUf+hBbR995JZJbi
-         b3YvJ+iBOVAT+OsdxTGUjDKKI3wYWUh8NNDHYiVZhptEe/lBh1jmThSD8ilEI4rj+vKg
-         yJr8VakMPhGieXH2POx5Isfd6/bAAEwVWPwdn4juj4tCOIuQje+/A9Zs0/9jknmRfv1Z
-         zVCfxh3RGpbCnxivs4lzSbeji22hBK/qYl42p9WQpv4orbd87k8TjwORZf05/EDWGjIo
-         PYoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWQkzfpmSADRiY5unl9zGm187IqO/Qvf3NfpzDLTf3g6UZf1jWx1IaZkolS/krUKrSOPozkWmz9OzIpTM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLk+w5qfDJrbmNoqYpH+lQhjaKJhOJCFem2DB4u5DPRqXHvAKs
-	j87UBxiCUYkXZ/WQfdcSlIehDXz/8VW4KP344SxN0nrnyOEvQ4m7tKF84vlmDImOVg==
-X-Gm-Gg: AYBFou0mwWMl9tC5frJv3/rPlDOyAFa3AiS8QytjbHNhOvOlhqz/QpKajexryjo2PpC
-	2GHBUXFTC+sFaVH8idGzoZn0LvC6OepywFViLM2nfj+dlVkjWhf9OnwYY7xbMpURwBsdfuDyMK6
-	BY4Fz4UEdU2f3HEgR8fodEUBHIKYpf52fHdG4UQcKQzyxSubWnud3XsyVPWIGeCu/LPn8EZufDt
-	rUxZbwly3ii0lQ3LwwNJVVNCA9jr6aW/2fwI2kdHpXtj8lsUrc58uuxg47WwUJ5klERPYt2B5oD
-	QL/GM5ZCKoqmW4CKQW54ce6O8xR7hZhWD71zrN/AYvUfbeqX2VWl9LS1Vel88opwTNgTmOFh5pY
-	AGzRq+SMOLVxQV1qGf779p20yYt9/8GTMQX3YQHebi/J/21jmpmItt0I4BP1NmkhiH58UGdwhgu
-	z6D+dHxiHfopbgsPK+pIgxpBfuhDpk0kqleWTSQxpdSPDx+1HfGcmBaA7TxjPVyaF53fOU8ev8S
-	wh4SlqGKsU8k4tVOUAOrK3QoDc5MDL+WlDrPZmEboVENg==
-X-Received: by 2002:a17:90b:498c:b0:38f:7f60:ba35 with SMTP id 98e67ed59e1d1-39b260d3351mr53425599a91.5.1789007115401;
-        Wed, 09 Sep 2026 19:25:15 -0700 (PDT)
-Received: from p1.. (129-219-8-31.nat.asu.edu. [129.219.8.31])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1435c2ae6b5sm2688847c88.1.2026.09.09.19.25.14
+        d=1e100.net; s=20251104; t=1789007269; x=1789612069;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tjOhy7ms73Ne+PBWfcDOjVBGfsqw9byyhSgof+mlxb0=;
+        b=SPgi4yMp1f/2pgzSquoib+u3c1eGyS//zps+d1a7oCS/w4i3PP+Cm/VqzIIoQWhYhc
+         9jiw2LvtUSgxHxz73JtUN6TloLlYIgTurInfUd4vb5WpCfYrssL4S6ruKdpPkvq58Rky
+         5fFY3CMY0kkb0edT49U4V8FMnapRmSRG27rKh2ya15wGoIle9YZL5soIAcR9ZiLr5X1M
+         lEghWAVBiUfmpqaMc+o/BAPzD2zWGfrcdG/JCg0D0PTISvkmUK0NatzIRZbKpEauU05+
+         CUBs5Pgan17gK/5FcuL6liM/ZYJfrcRltkmPsiTiKpf/WnqSCfmjqjg+jMU1SFEZ1qoe
+         7SBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPXU4UcwDDrcB3xVucsh8ie4bpBK86coguGD5Zhd2JT3X7a1Q63QkosVeFDaFnUPmGThftw+BxX9/Ytg8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4R1EZJnfWXjyGGv2hPKLyOTsp9H3aG42NGVshwvBXVj+wOrTz
+	LomdulJ8vJku9hlRQV7rzahQunSJwG07FMc6YIfa4On9EqC5bIAjg6v40yXAdW9wiZ8=
+X-Gm-Gg: AYBFou3p8IufASTyhjsZAEbv8Khyir2K8YTuK7mpwu7xdvzV7W6wX5NOG0pIAwC0k3p
+	+t0q5Y7HmCTXM5qRWwJnMBAS8PUY1Vn595ANXB9VmRudybvcXE5haCWSdS+5Klyvc9WxehZ6t58
+	o6abQgK7TVa2sSdmfVLpnaG07gKSQ8JagQ+LzZ9DLryyCJS6YM6Yedl4Bno31OmHbSU6YbuzG2p
+	zaho0Z9Ih7Rpf2+HEDJgt2NOGH3Vyc0VoxOAS5kw3ejTu1eBpcPox4yt/Aex7IstbiPr1C2VJDB
+	EQitnrXrve6EYAU8FtqtAcCXHw1lhxGudq3aB/UCoWw2kaNsltAoUdqzEBkg85N/kwIX/Nt1cKD
+	El2FYzW6wV2uymZVWd7Ms1vc9MUVffhVUwhCGji/iyaLCT0qB11RDTpx1HX+5glfxz5DQjDSlHf
+	/waaV/x3IIGP6uxtisBjj7KRtAi/UgCWkUsdQ2VVTxY0VlUmbd9MTxPUT2bjmL+xnCkvCn2g+9g
+	yaUipL2t2hzwqBvpCZEVw==
+X-Received: by 2002:a17:907:7b82:b0:c21:9b4b:2690 with SMTP id a640c23a62f3a-c260c9e75e9mr1456183466b.17.1789007268656;
+        Wed, 09 Sep 2026 19:27:48 -0700 (PDT)
+Received: from r1chard ([2401:e180:8d23:5f05:2c5b:a1bb:33f1:a712])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e83d9cdsm1275985a91.11.2026.09.09.19.27.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 19:25:15 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>
-Cc: fuse-devel@lists.linux.dev,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Luis Henriques <luis@igalia.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	bestswngs@gmail.com,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v7 2/2] fuse: return -E2BIG for an oversized SETXATTR over io-uring
-Date: Wed,  9 Sep 2026 19:24:42 -0700
-Message-ID: <20260910022442.3594649-2-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910022442.3594649-1-xmei5@asu.edu>
-References: <20260910022442.3594649-1-xmei5@asu.edu>
+        Wed, 09 Sep 2026 19:27:47 -0700 (PDT)
+From: Richard Lyu <richard.lyu@suse.com>
+X-Google-Original-From: Richard Lyu <r1chard@r1chard>
+Date: Thu, 10 Sep 2026 10:27:43 +0800
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Richard Lyu <richard.lyu@suse.com>, peterhuewe@gmx.de, jgg@ziepe.ca,
+	fourier.thomas@gmail.com, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tpm: Remove ineffective wmb() from tpm_pm_resume()
+Message-ID: <aqIVn0cDBvIYKggE@r1chard>
+References: <20260908095748.78967-1-richard.lyu@suse.com>
+ <aqHjDClIsaboPBSh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <aqHjDClIsaboPBSh@kernel.org>
+User-Agent: Mutt/2.2.16 (2025-11-22)
 
-fuse_dev_do_read() answers a request that does not fit the server's
-buffer with -EIO, except for FUSE_SETXATTR, which gets -E2BIG since the
-value may legitimately be larger than the buffer and setxattr(2) reports
-that to userspace.
+On 2026/09/10 01:51, Jarkko Sakkinen wrote:
+>On Tue, Sep 08, 2026 at 05:58:02PM +0800, Richard Lyu wrote:
+>> The comment above the wmb() in tpm_pm_resume() states that the barrier
+>> guarantees TPM_CHIP_FLAG_SUSPENDED is written last, so that hwrng does
+>> not activate before the chip has been fully resumed.  It cannot do so:
+>> it is placed after the store that clears the flag, and therefore does
+>> not order the preceding resume work before that store.  It also has
+>> nothing to pair with, as tpm_try_get_ops() contains no matching read
+>> barrier.
+>>
+>> Drop the barrier along with the comment rather than leave a no-op
+>> behind.  Should such ordering turn out to be needed, it would require
+>> paired barriers or locking.
+>>
+>> Fixes: 99d464506255 ("tpm: Prevent hwrng from activating during resume")
+>> Link: https://lore.kernel.org/all/a62fc816-259a-4d28-a265-e425bc17ed50@gmail.com/
+>> Signed-off-by: Richard Lyu <richard.lyu@suse.com>
+>
+>I agree that wmb() is necessary but what is the bug here?
+>
+>Agree with the change but I'm not convinced about fixes tag here.
 
-Over io-uring the copy fails with -EIO for every opcode, so the two
-transports report different errnos for the same condition.  Map that
--EIO to -E2BIG for SETXATTR.
+You're right. There is no actual bug being fixed here, so a Fixes tag is not
+needed. This patch only removes redundant code. I will send a v2 without the
+tag.
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- fs/fuse/dev_uring.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index c6dd420c4034..6351f2470e09 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -893,6 +893,8 @@ static int fuse_uring_args_to_ring(struct fuse_req *req,
- 	fuse_copy_finish(&cs);
- 	if (err) {
- 		pr_info_ratelimited("%s fuse_copy_args failed\n", __func__);
-+		if (err == -EIO && args->opcode == FUSE_SETXATTR)
-+			err = -E2BIG;
- 		return err;
- 	}
- 
--- 
-2.43.0
-
+Best Regards,
+Richard Lyu
