@@ -1,454 +1,246 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70583594812
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A33E58FD06
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066304; cv=none; b=sd1zKAd7YLFJ9qbqVTcOgLjw98TrISMZVoDK6NC2FiUiYZz2SpOLIyN/0xd84iEvn7bC+YzZUFywIc0e7RViO57uQZddKjOubDIN9ia171Blb8bbkYxYIdt02QPK1h97LEzezTa5GJBoiNw3Do7yWlOyZgTJS1Gv8SewRCmaVfU=
+	t=1789066298; cv=none; b=VTmimgb1VU7J/cvcc03xCjXDwzU2f4TE9M84In0mJNiH26LHS1VA1SCQ5tz+43RtOr184+I7Nzo5qUazEZTaKTZwPuz2ZcdG6CLhtvNmSG66AhMhTWSK9NCx/UYz1v5s2bynCqam2ZgrGLjgqD0qoVqkARiir/QJIw2bE+gYEDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066304; c=relaxed/simple;
-	bh=hPcqGdFxo+b+ijS7jNB+8GMowmEDvopzKnpNmpphVrY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jz3MDXIn6PGPUoZJnfYe95AQqpENkXQLWiD2E2p0Wv0e/1IVgbUCdxaVt2fOasDm8urDdLbz+KgaNq9ymd/C8NsBXLhJgwtsjaLEnaKp4Gqce/FQqiHQ2V3pNIEnqr2hCQtY/rXC9s42513X6H7GCPIMB8YZWdcErae6ZL8suSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=XDllTevf; arc=none smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1789066298; c=relaxed/simple;
+	bh=L+2ZhQGcjhpHfRCkNGkXqSTUy81ieP0Y8o2V0ExHZBw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ipLdFjrPpFI6inzCgFT9loEqhNylPKW9eMXgFS6p9lQvRTAsvD9DcxQxm3O4Umzz/ASPGsMUnCewUsSeW/KKeczT4a5GeNP2QO7COqyRzSeaecdOXSA0nosNnLhAQtui31UeSNO29BUt0VyvqmlAADusT8L7RaB3xNdP7PwoBgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RHG/kJ8B; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="XDllTevf"
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-97e9adae64cso86794241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:51:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHG/kJ8B"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-86162c086f8so754197b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:51:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789066273; x=1789671073; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789066265; x=1789671065; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=32pR0m9lJbbl6oefWflQ2FM2YWt9ii7Ub9HEHMaojiA=;
-        b=XDllTevfPFAA/shBdvlXSEieA74LE6VArJRuG721HwcVAX6EgcaQx+7AjWDDHhhwBf
-         ZeyGft5cw9etEmo9wqwElqS/XU37xduhPVYtKhkoHTo90jOSVb59SxEJi0daPzNCfVym
-         s7Ou3HS39P438WwbXUA+42OZYA0XNuFZp8G9t1W4mmVP72JHgXVRk/ziuQ31p8TIfGvW
-         rwvoKkNz6PTu5tIlKUq82S5oKSAT8pW+mmBSStpOD+s/kQKXBu8XjGPIK+9b83h/88J7
-         XMjVYmt+lR70Mx0zZJSeZhqJZSosgwEmq8CwDTFiC87ma7IxQMenNh+PAHh/5IU48KTt
-         IEJQ==
+        bh=6m8h8p8x3swINqHznguOqnp4bmSBliy9kDD6omjjK2s=;
+        b=RHG/kJ8Bcrb0KjnhApceJphsDreV45eQzKpQcK3QkE/cBFjqzqfZkTmRPhifezsgX4
+         ZYBK+JUUEbMY43bQhXGU3Se3/KvoGsu4qi/A4dVKr7BlcgMb4xM/tglRUjwi3BUW/5GS
+         UFj95LLMPZUvmtT+tXIJsaeZQ86aqdxrV7P3NRjnio6dyNNfZndwUTP42iefkwUZ7pHD
+         zChoJ4yOR1ncRQOdYpjT3UGeH/5VRN5PQJMb6jcUkpF7sqhtDIcaitsuR7XDr9ImR078
+         ZobP/22+hiS+ZoIJNYsrxPTkaIXnoY7AWA5ih5vvXAh0r5RQ119zoX5fuFPtPp5HdEj0
+         0F9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066273; x=1789671073;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=32pR0m9lJbbl6oefWflQ2FM2YWt9ii7Ub9HEHMaojiA=;
-        b=I2F2HeNMTbZCm5Tjx6R8GTMp+nfcwSqBmYZPPNSMR2tsoSUM0W7x89exW4YEnQbpfa
-         Qj3hWNRfPcDDstfYW5huA/toZK43FUE0HwQr2YhBBdDPWBzjFj14UMm+Qh3HQaAxn3/j
-         yiKSvbGyiGCnUxdCnQpl45d2XeJr2ZRmDYJQU+bhR/ZDBsRCdgKuAqLGLT+FEABIm/rp
-         54GMhklnRcsP8xfLT7dagcYVJsAB3DhOJrrnU+snJzz5I+xiLnG4sj0wU8QrcJiW15pp
-         j4VH/yJaX/iv2IXl2/6afIinokxtV0WNP2oSSWy9F+wcEuUPatdvQRU7HlZDdrmoV7KA
-         ZWQw==
-X-Forwarded-Encrypted: i=1; AKwUvBx01n4Lvx3g+/xMX6sbIsUhLGVhgw9zevvXXhc3YC7RlUvKzyE+IxNtNWFyaC45LYxCQNNVK62LL4DQufE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBV0ITdp/ae3FpJ9+yfAFyFMA3HSjr1p2Kws3qGBy51+AM4Et+
-	m18JJ17QZ1OoVYVAGhcaTE8BI0qug0pLUg5K54KnM7H1eNeof6rD1bGGziyEJbBqpyQ=
-X-Gm-Gg: AYBFou3WfzVn6n2EVbj5rrEPGtG6dw3dmdg/mHSLp0MxXWhurWsmXrN9elkuUZmDvz5
-	FxNQz0PtT+PeN2lipRbicc82ZUahdGhN9ymba2Bx9dxLSbcw+qH1Q+4JjUUHSbhso5UFJJHA9fr
-	oCp5zyKsfZ9cntTBKs87hwO9dl/tAEZlok/vhYE2BT1vp2bw6ODs3uGLx5eJplxBeIcKR5fJRsl
-	kYXUazbnXXOFOuUtBNHnPs7gGcUzuyscDVAUebkQwwLoa3KNYellEzUMy+bdx0ehTezuKmXnDaA
-	x1Xxu9STodkEwHbHzgzMtsjPbBA4opz+9skFrh0ZBui5EwEP3Ueen6syhvIrGX0QV3er7F3arkH
-	P+5gQKLa/gPE6Ves0UBuSXRNyurH3G+yzRBsiFXHjgq/PwRi6CDueQOnHpOrrzKz80itAFT211S
-	MHoUwdPsGy038dCZIfCRshSV0DVYHr+bBrd68DmRs05YbSYRN/CsZ6Mk7XVwk8Y8YuNUaVPxVie
-	Q4WAP30k0D6PYz3iBhJcel+6jta/vsM+ofz7bnfXsxybU1yvl2sHqeh
-X-Received: by 2002:a67:e117:0:b0:790:f691:2d5b with SMTP id ada2fe7eead31-792a5b8b8a7mr1152469137.4.1789066272932;
-        Thu, 10 Sep 2026 11:51:12 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47aeb7sm2503906d6.24.2026.09.10.11.51.12
+        d=1e100.net; s=20251104; t=1789066265; x=1789671065;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6m8h8p8x3swINqHznguOqnp4bmSBliy9kDD6omjjK2s=;
+        b=rLWk2roxs4h149qbMkCby6BnJmMlmqb+wziVXLfVhSO2LGPvSEjLRzBcbodfd3sgAC
+         gM6MjwYZQyCY3TbN9F6wX5Cuh8jvNtORpClu4X9pQwF6SDN5ocSi7U5ojt5bwfwsX7EU
+         Hc0N/yuSpZ0oRnuuOe4HynefeWoJo1RnH8Myl1tCzgm4T5j4ISn+b+IuweXj9s0es/mg
+         Rd9kdlDUnq39FDzKyde1EjznLj+hN8MNTiT8WPqDPgj703SdkUCweerAyxctyeUzd2ZC
+         2sNMzEZVFcEZki/CbXEFNbxabesO/McLfRq+k3T9M2RPeFPYGrn5vb7qWw8+r8XxI+YQ
+         Y3Ow==
+X-Forwarded-Encrypted: i=1; AKwUvBwoVjKS0UOdYzeNsCqgeYJtc7rHrjsshlJraGYAY/idZsfuTGadX4wrtu7q33BB2mEaGVLjPUbhcvWPM2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++njX49k9Wdn80GpDCqCtqhxxYJM6i9hL7dPWIgmzbATszMJMyNh
+	5C9TdXX4/ljvvxvh6o/9BdaXw3F9mVVxZSrM5UDhgTk2UN+o87miBx8f
+X-Gm-Gg: AYBFou0NWQtY6MBAX0ZzN0lmDfNGZ6T0W7QbHiKDbRH8sb7FjvkLiR6Nny5g0xMGeeR
+	JCBpcdvNzN8EVOrTjDSqU1E+vj6WFPRriiMN9Wa6Rmi7PEFjdQiN+4hPXApbnpqf5uKPEFahQBF
+	oQLHqWRrtvRgcfvZjX7sD7lQ1cxx0HBhk4l/cJAp2MWuPl8IVLYW7BFXBpRiWN0EEErOyjPJlQI
+	Wlj24yT7Gk+u79G19e+MTFy7GDgMd6vR0gsK/GJ2G7hV6JNp9KJ0Iuwj8Dsa7Fs+6Av14CrgMDr
+	Tj6u+4XnrLS97VGELs9ReG5jAo3/7Zs8ooIX3aAXG0fFO1lL6QAHh3TSScVg3PwOzADySmdayeI
+	LxdnfgdT8SRtSLXTdKF5eggPBuh9RZWn31ovVyFDILRwjjziJ5Wxx8YK4dfAZsz2f4w9Gcuwd1m
+	51BpvaE4UBIrzc2k7Bcdo87pp6gjrJQjzN6S4Fb4wkHpbM3bC/f0TC/YYX/Sb4LAXDmgtwO3gj4
+	8UnpVonRQ==
+X-Received: by 2002:a05:690c:9c04:b0:861:7cb6:5790 with SMTP id 00721157ae682-88200ebff7cmr20543767b3.4.1789066265217;
+        Thu, 10 Sep 2026 11:51:05 -0700 (PDT)
+Received: from DESKTOP-TLFH1MG ([76.255.203.42])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88486086a50sm3291707b3.17.2026.09.10.11.51.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 11:51:12 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 10 Sep 2026 18:50:34 +0000
-Subject: [PATCH RFC 11/13] samples: ftrace: Maintain Tasks RCU trampoline
- nesting in direct-call trampolines
+        Thu, 10 Sep 2026 11:51:04 -0700 (PDT)
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Maxime Ripard <mripard@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Jonathan Frazin <frazinjonathan@gmail.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Subject: [PATCH v1 2/2] drm/tiny: allow a framebuffer larger than the panel on MIPI DBI drivers
+Date: Thu, 10 Sep 2026 13:48:57 -0500
+Message-ID: <20260910185030.870-3-frazinjonathan@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260910185030.870-1-frazinjonathan@gmail.com>
+References: <20260910185030.870-1-frazinjonathan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-b4-rcu-tasks-preempt-qs-v1-11-d4469f4cc101@toxicpanda.com>
-References: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
-In-Reply-To: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- Xu Kuohai <xukuohai@huaweicloud.com>
-Cc: Andy Lutomirski <luto@kernel.org>, 
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
- Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Follow the register_ftrace_direct() contract in the sample modules: on
-x86-64 and arm64, have each hand-written trampoline increment
-current->rcu_tramp_nesting before calling its C handler and decrement it
-before returning, via a small shared samples/ftrace/ftrace-direct.h.
-%r11 and x12/w13 are used as scratch; both are caller-saved, non-argument
-registers and therefore dead on entry to and exit from an fentry
-trampoline.
+Every drm/tiny MIPI DBI driver pins mode_config.max_width/max_height to
+the panel size, so KMS rejects any framebuffer that is not exactly
+panel-sized:
 
-The header pulls in the generated asm-offsets.h only on those two
-architectures, since it is not generally safe to include from C (PPC32's
-TASK_SIZE and arm64's TRAMP_VALIAS clash with the C definitions; the
-latter is worked around locally with push_macro/pop_macro).  Other
-architectures get empty macros and are unchanged.
+    ili9341 spi0.0: bad framebuffer width 480, should be >= 240 && <= 240
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Raise the maximums to DRM_SHADOW_PLANE_MAX_WIDTH/HEIGHT (which its
+kerneldoc recommends for shadow-plane drivers) on the drivers that flush
+through the shared drm_mipi_dbi_plane_helper_atomic_update(), so a client
+can allocate a larger framebuffer and pick the displayed region through
+the plane source rectangle - a crop / pan with no scaling, now that
+drm_mipi_dbi honours the source offset (previous patch):
+
+    ili9341, hx8357d, ili9486, mi0283qt, ili9163, panel-mipi-dbi
+
+The fixed mode, the minimums and the connector are unchanged. The plane
+check (drm_mipi_dbi_plane_helper_atomic_check) still forbids scaling and
+repositioning, and the transfer buffer is sized from the display mode,
+so the flushed rectangle stays bounded by the panel regardless of the
+framebuffer dimensions.
+
+ili9225 is left out: it has its own atomic_update / ili9225_fb_dirty()
+that addresses the panel from the damage rectangle without the source
+offset, so raising its limits would let a mispositioned buffer through.
+
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Signed-off-by: Jonathan Frazin <frazinjonathan@gmail.com>
 ---
- samples/ftrace/ftrace-direct-modify.c       |  9 ++++
- samples/ftrace/ftrace-direct-multi-modify.c |  9 ++++
- samples/ftrace/ftrace-direct-multi.c        |  5 +++
- samples/ftrace/ftrace-direct-too.c          |  5 +++
- samples/ftrace/ftrace-direct.c              |  5 +++
- samples/ftrace/ftrace-direct.h              | 64 +++++++++++++++++++++++++++++
- 6 files changed, 97 insertions(+)
+ drivers/gpu/drm/tiny/hx8357d.c        | 8 ++++++--
+ drivers/gpu/drm/tiny/ili9163.c        | 8 ++++++--
+ drivers/gpu/drm/tiny/ili9341.c        | 8 ++++++--
+ drivers/gpu/drm/tiny/ili9486.c        | 8 ++++++--
+ drivers/gpu/drm/tiny/mi0283qt.c       | 8 ++++++--
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c | 8 ++++++--
+ 6 files changed, 36 insertions(+), 12 deletions(-)
 
-diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-direct-modify.c
-index 164d9dd6fd92..eb8230fa4242 100644
---- a/samples/ftrace/ftrace-direct-modify.c
-+++ b/samples/ftrace/ftrace-direct-modify.c
-@@ -2,6 +2,7 @@
- #include <linux/module.h>
- #include <linux/kthread.h>
- #include <linux/ftrace.h>
-+#include "ftrace-direct.h"
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
- #include <asm/asm-offsets.h>
- #endif
-@@ -73,7 +74,9 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	call my_direct_func1\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp1, .-my_tramp1\n"
-@@ -85,7 +88,9 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	call my_direct_func2\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp2, .-my_tramp2\n"
-@@ -141,11 +146,13 @@ asm (
- "	.globl		my_tramp1\n"
- "   my_tramp1:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #16\n"
- "	stp	x9, x30, [sp]\n"
- "	bl	my_direct_func1\n"
- "	ldp	x30, x9, [sp]\n"
- "	add	sp, sp, #16\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp1, .-my_tramp1\n"
+diff --git a/drivers/gpu/drm/tiny/hx8357d.c b/drivers/gpu/drm/tiny/hx8357d.c
+index f942a8d09..0599b8ccf 100644
+--- a/drivers/gpu/drm/tiny/hx8357d.c
++++ b/drivers/gpu/drm/tiny/hx8357d.c
+@@ -320,9 +320,13 @@ static int hx8357d_probe(struct spi_device *spi)
+ 		return ret;
  
-@@ -153,11 +160,13 @@ asm (
- "	.globl		my_tramp2\n"
- "   my_tramp2:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #16\n"
- "	stp	x9, x30, [sp]\n"
- "	bl	my_direct_func2\n"
- "	ldp	x30, x9, [sp]\n"
- "	add	sp, sp, #16\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp2, .-my_tramp2\n"
- "	.popsection\n"
-diff --git a/samples/ftrace/ftrace-direct-multi-modify.c b/samples/ftrace/ftrace-direct-multi-modify.c
-index b03766c6217b..c8f1062e5d1a 100644
---- a/samples/ftrace/ftrace-direct-multi-modify.c
-+++ b/samples/ftrace/ftrace-direct-multi-modify.c
-@@ -2,6 +2,7 @@
- #include <linux/module.h>
- #include <linux/kthread.h>
- #include <linux/ftrace.h>
-+#include "ftrace-direct.h"
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
- #include <asm/asm-offsets.h>
- #endif
-@@ -77,10 +78,12 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	pushq %rdi\n"
- "	movq 8(%rbp), %rdi\n"
- "	call my_direct_func1\n"
- "	popq %rdi\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp1, .-my_tramp1\n"
-@@ -92,10 +95,12 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	pushq %rdi\n"
- "	movq 8(%rbp), %rdi\n"
- "	call my_direct_func2\n"
- "	popq %rdi\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp2, .-my_tramp2\n"
-@@ -154,6 +159,7 @@ asm (
- "	.globl		my_tramp1\n"
- "   my_tramp1:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #32\n"
- "	stp	x9, x30, [sp]\n"
- "	str	x0, [sp, #16]\n"
-@@ -162,6 +168,7 @@ asm (
- "	ldp	x30, x9, [sp]\n"
- "	ldr	x0, [sp, #16]\n"
- "	add	sp, sp, #32\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp1, .-my_tramp1\n"
+ 	drm->mode_config.min_width = dbidev->mode.hdisplay;
+-	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	/*
++	 * Allow a framebuffer larger than the panel so a sub-region can be
++	 * displayed via the plane source rectangle (crop / pan, no scaling).
++	 */
++	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
+ 	drm->mode_config.min_height = dbidev->mode.vdisplay;
+-	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
+ 	drm->mode_config.funcs = &hx8357d_mode_config_funcs;
+ 	drm->mode_config.preferred_depth = 16;
+ 	drm->mode_config.helper_private = &hx8357d_mode_config_helper_funcs;
+diff --git a/drivers/gpu/drm/tiny/ili9163.c b/drivers/gpu/drm/tiny/ili9163.c
+index 884242450..fe6c13056 100644
+--- a/drivers/gpu/drm/tiny/ili9163.c
++++ b/drivers/gpu/drm/tiny/ili9163.c
+@@ -251,9 +251,13 @@ static int ili9163_probe(struct spi_device *spi)
+ 		return ret;
  
-@@ -169,6 +176,7 @@ asm (
- "	.globl		my_tramp2\n"
- "   my_tramp2:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #32\n"
- "	stp	x9, x30, [sp]\n"
- "	str	x0, [sp, #16]\n"
-@@ -177,6 +185,7 @@ asm (
- "	ldp	x30, x9, [sp]\n"
- "	ldr	x0, [sp, #16]\n"
- "	add	sp, sp, #32\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp2, .-my_tramp2\n"
- "	.popsection\n"
-diff --git a/samples/ftrace/ftrace-direct-multi.c b/samples/ftrace/ftrace-direct-multi.c
-index 3fe6ddaf0b69..bc6a88dd4ffc 100644
---- a/samples/ftrace/ftrace-direct-multi.c
-+++ b/samples/ftrace/ftrace-direct-multi.c
-@@ -3,6 +3,7 @@
+ 	drm->mode_config.min_width = dbidev->mode.hdisplay;
+-	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	/*
++	 * Allow a framebuffer larger than the panel so a sub-region can be
++	 * displayed via the plane source rectangle (crop / pan, no scaling).
++	 */
++	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
+ 	drm->mode_config.min_height = dbidev->mode.vdisplay;
+-	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
+ 	drm->mode_config.funcs = &ili9163_mode_config_funcs;
+ 	drm->mode_config.preferred_depth = 16;
+ 	drm->mode_config.helper_private = &ili9163_mode_config_helper_funcs;
+diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
+index 003381aa2..1e4bb56e3 100644
+--- a/drivers/gpu/drm/tiny/ili9341.c
++++ b/drivers/gpu/drm/tiny/ili9341.c
+@@ -282,9 +282,13 @@ static int ili9341_probe(struct spi_device *spi)
+ 		return ret;
  
- #include <linux/mm.h> /* for handle_mm_fault() */
- #include <linux/ftrace.h>
-+#include "ftrace-direct.h"
- #include <linux/sched/stat.h>
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
- #include <asm/asm-offsets.h>
-@@ -56,10 +57,12 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	pushq %rdi\n"
- "	movq 8(%rbp), %rdi\n"
- "	call my_direct_func\n"
- "	popq %rdi\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp, .-my_tramp\n"
-@@ -101,6 +104,7 @@ asm (
- "	.globl		my_tramp\n"
- "   my_tramp:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #32\n"
- "	stp	x9, x30, [sp]\n"
- "	str	x0, [sp, #16]\n"
-@@ -109,6 +113,7 @@ asm (
- "	ldp	x30, x9, [sp]\n"
- "	ldr	x0, [sp, #16]\n"
- "	add	sp, sp, #32\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp, .-my_tramp\n"
- "	.popsection\n"
-diff --git a/samples/ftrace/ftrace-direct-too.c b/samples/ftrace/ftrace-direct-too.c
-index bf2411aa6fd7..247e418644a2 100644
---- a/samples/ftrace/ftrace-direct-too.c
-+++ b/samples/ftrace/ftrace-direct-too.c
-@@ -3,6 +3,7 @@
+ 	drm->mode_config.min_width = dbidev->mode.hdisplay;
+-	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	/*
++	 * Allow a framebuffer larger than the panel so a sub-region can be
++	 * displayed via the plane source rectangle (crop / pan, no scaling).
++	 */
++	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
+ 	drm->mode_config.min_height = dbidev->mode.vdisplay;
+-	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
+ 	drm->mode_config.funcs = &ili9341_mode_config_funcs;
+ 	drm->mode_config.preferred_depth = 16;
+ 	drm->mode_config.helper_private = &ili9341_mode_config_helper_funcs;
+diff --git a/drivers/gpu/drm/tiny/ili9486.c b/drivers/gpu/drm/tiny/ili9486.c
+index fab8bd7ce..de33d702a 100644
+--- a/drivers/gpu/drm/tiny/ili9486.c
++++ b/drivers/gpu/drm/tiny/ili9486.c
+@@ -309,9 +309,13 @@ static int ili9486_probe(struct spi_device *spi)
+ 		return ret;
  
- #include <linux/mm.h> /* for handle_mm_fault() */
- #include <linux/ftrace.h>
-+#include "ftrace-direct.h"
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
- #include <asm/asm-offsets.h>
- #endif
-@@ -61,6 +62,7 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	pushq %rdi\n"
- "	pushq %rsi\n"
- "	pushq %rdx\n"
-@@ -70,6 +72,7 @@ asm (
- "	popq %rdx\n"
- "	popq %rsi\n"
- "	popq %rdi\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp, .-my_tramp\n"
-@@ -110,6 +113,7 @@ asm (
- "	.globl		my_tramp\n"
- "   my_tramp:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #48\n"
- "	stp	x9, x30, [sp]\n"
- "	stp	x0, x1, [sp, #16]\n"
-@@ -119,6 +123,7 @@ asm (
- "	ldp	x0, x1, [sp, #16]\n"
- "	ldp	x2, x3, [sp, #32]\n"
- "	add	sp, sp, #48\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp, .-my_tramp\n"
- "	.popsection\n"
-diff --git a/samples/ftrace/ftrace-direct.c b/samples/ftrace/ftrace-direct.c
-index 5368c8c39cbb..9e1964baf28b 100644
---- a/samples/ftrace/ftrace-direct.c
-+++ b/samples/ftrace/ftrace-direct.c
-@@ -3,6 +3,7 @@
+ 	drm->mode_config.min_width = dbidev->mode.hdisplay;
+-	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	/*
++	 * Allow a framebuffer larger than the panel so a sub-region can be
++	 * displayed via the plane source rectangle (crop / pan, no scaling).
++	 */
++	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
+ 	drm->mode_config.min_height = dbidev->mode.vdisplay;
+-	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
+ 	drm->mode_config.funcs = &ili9486_mode_config_funcs;
+ 	drm->mode_config.preferred_depth = 16;
+ 	drm->mode_config.helper_private = &ili9486_mode_config_helper_funcs;
+diff --git a/drivers/gpu/drm/tiny/mi0283qt.c b/drivers/gpu/drm/tiny/mi0283qt.c
+index b0121e89e..df3801914 100644
+--- a/drivers/gpu/drm/tiny/mi0283qt.c
++++ b/drivers/gpu/drm/tiny/mi0283qt.c
+@@ -290,9 +290,13 @@ static int mi0283qt_probe(struct spi_device *spi)
+ 		return ret;
  
- #include <linux/sched.h> /* for wake_up_process() */
- #include <linux/ftrace.h>
-+#include "ftrace-direct.h"
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
- #include <asm/asm-offsets.h>
- #endif
-@@ -54,9 +55,11 @@ asm (
- "	pushq %rbp\n"
- "	movq %rsp, %rbp\n"
- 	CALL_DEPTH_ACCOUNT
-+	RCU_TASKS_TRAMP_ENTER
- "	pushq %rdi\n"
- "	call my_direct_func\n"
- "	popq %rdi\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	leave\n"
- 	ASM_RET
- "	.size		my_tramp, .-my_tramp\n"
-@@ -97,6 +100,7 @@ asm (
- "	.globl		my_tramp\n"
- "   my_tramp:"
- "	hint	34\n" // bti	c
-+	RCU_TASKS_TRAMP_ENTER
- "	sub	sp, sp, #32\n"
- "	stp	x9, x30, [sp]\n"
- "	str	x0, [sp, #16]\n"
-@@ -104,6 +108,7 @@ asm (
- "	ldp	x30, x9, [sp]\n"
- "	ldr	x0, [sp, #16]\n"
- "	add	sp, sp, #32\n"
-+	RCU_TASKS_TRAMP_EXIT
- "	ret	x9\n"
- "	.size		my_tramp, .-my_tramp\n"
- "	.popsection\n"
-diff --git a/samples/ftrace/ftrace-direct.h b/samples/ftrace/ftrace-direct.h
-new file mode 100644
-index 000000000000..d0313f33f47f
---- /dev/null
-+++ b/samples/ftrace/ftrace-direct.h
-@@ -0,0 +1,64 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef _SAMPLES_FTRACE_DIRECT_H
-+#define _SAMPLES_FTRACE_DIRECT_H
-+
-+#include <linux/stringify.h>
-+
-+/*
-+ * A direct-call trampoline is entered with no lock, refcount or RCU marker
-+ * held; only Tasks RCU keeps it (and, for a module, its text) alive while a
-+ * task is inside it or preempted in something it called.  On architectures
-+ * that select ARCH_HAS_RCU_TASKS_PREEMPT_QS a preemption is a Tasks RCU
-+ * quiescent state unless current->rcu_tramp_nesting is non-zero, so the
-+ * trampoline must raise it before calling out and drop it afterwards, exactly
-+ * like the ftrace and BPF trampolines do.  See rcu_tasks_trampoline_enter()
-+ * and register_ftrace_direct().  The instructions before the increment and
-+ * after the decrement are covered by ftrace_direct_mark_module().
-+ *
-+ * These expand to instruction strings for use inside the samples' asm()
-+ * trampolines.  The scratch register is caller-saved and not an argument
-+ * register, so it is dead on entry to and exit from an fentry trampoline.
-+ *
-+ * The generated asm-offsets.h is only pulled in on the architectures that need
-+ * it here: it is not generally safe to include from C (e.g. PPC32's TASK_SIZE
-+ * and arm64's TRAMP_VALIAS clash with the C definitions), which is why the
-+ * samples themselves guard their own include of it.
-+ */
-+#if defined(CONFIG_TASKS_RCU) && defined(CONFIG_X86_64)
-+
-+#include <asm/asm-offsets.h>
-+
-+#define RCU_TASKS_TRAMP_ENTER						\
-+	"	movq %gs:current_task(%rip), %r11\n"				\
-+	"	incl " __stringify(TASK_rcu_tramp_nesting) "(%r11)\n"
-+#define RCU_TASKS_TRAMP_EXIT						\
-+	"	movq %gs:current_task(%rip), %r11\n"				\
-+	"	decl " __stringify(TASK_rcu_tramp_nesting) "(%r11)\n"
-+
-+#elif defined(CONFIG_TASKS_RCU) && defined(CONFIG_ARM64)
-+
-+/* arm64's asm-offsets.h redefines TRAMP_VALIAS from <asm/fixmap.h>. */
-+#pragma push_macro("TRAMP_VALIAS")
-+#undef TRAMP_VALIAS
-+#include <asm/asm-offsets.h>
-+#pragma pop_macro("TRAMP_VALIAS")
-+
-+#define RCU_TASKS_TRAMP_ENTER						\
-+	"	mrs	x12, sp_el0\n"						\
-+	"	ldr	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"	\
-+	"	add	w13, w13, #1\n"						\
-+	"	str	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"
-+#define RCU_TASKS_TRAMP_EXIT						\
-+	"	mrs	x12, sp_el0\n"						\
-+	"	ldr	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"	\
-+	"	sub	w13, w13, #1\n"						\
-+	"	str	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"
-+
-+#else
-+
-+#define RCU_TASKS_TRAMP_ENTER
-+#define RCU_TASKS_TRAMP_EXIT
-+
-+#endif
-+
-+#endif /* _SAMPLES_FTRACE_DIRECT_H */
-
+ 	drm->mode_config.min_width = dbidev->mode.hdisplay;
+-	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	/*
++	 * Allow a framebuffer larger than the panel so a sub-region can be
++	 * displayed via the plane source rectangle (crop / pan, no scaling).
++	 */
++	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
+ 	drm->mode_config.min_height = dbidev->mode.vdisplay;
+-	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
+ 	drm->mode_config.funcs = &mi0283qt_mode_config_funcs;
+ 	drm->mode_config.preferred_depth = 16;
+ 	drm->mode_config.helper_private = &mi0283qt_mode_config_helper_funcs;
+diff --git a/drivers/gpu/drm/tiny/panel-mipi-dbi.c b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
+index 60cd65cae..a0a098b0d 100644
+--- a/drivers/gpu/drm/tiny/panel-mipi-dbi.c
++++ b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
+@@ -448,9 +448,13 @@ static int panel_mipi_dbi_spi_probe(struct spi_device *spi)
+ 		return ret;
+ 
+ 	drm->mode_config.min_width = dbidev->mode.hdisplay;
+-	drm->mode_config.max_width = dbidev->mode.hdisplay;
++	/*
++	 * Allow a framebuffer larger than the panel so a sub-region can be
++	 * displayed via the plane source rectangle (crop / pan, no scaling).
++	 */
++	drm->mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
+ 	drm->mode_config.min_height = dbidev->mode.vdisplay;
+-	drm->mode_config.max_height = dbidev->mode.vdisplay;
++	drm->mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
+ 	drm->mode_config.funcs = &panel_mipi_dbi_mode_config_funcs;
+ 	drm->mode_config.preferred_depth = bpp;
+ 	drm->mode_config.helper_private = &panel_mipi_dbi_mode_config_helper_funcs;
 -- 
-2.55.0
+2.53.0
 
