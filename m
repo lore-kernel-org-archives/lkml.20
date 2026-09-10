@@ -1,96 +1,77 @@
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DCD38237F;
-	Thu, 10 Sep 2026 23:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F069C3876DF
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789081499; cv=none; b=XtjP+kFm8rk1qDGJJlYxEmeyth6JW+MtcpesURslJQGBUBEImJ51jOMsGTvw3/yVGxstUkPhM9pgKyv8jZbDAvExV4x8AsCdP1+z7JRmAZLYkEEg+Rcji9Nx5EbMALiAYcDvBdZhVOUII6+ewVxd/84J+kxIvO9VsB2V7Crv5GI=
+	t=1789081533; cv=none; b=hhfE+2wIXl7QEWzxQMa51+/Q5fmqUjEtEmXA75RHMQm73nQfHb+auGo2RmlGHP9eWL1gq31owfgGSxKGT761RqIMuNqAhtr88t99+UOmik44Mr89zzQjJ8uMWqf9r+atHOYeXmTkkBDtbzf1GQOanp/WoiZOjpYNwYHxa+fuZ6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789081499; c=relaxed/simple;
-	bh=jVUWsFjnTkxFQjWUlWXzsvWXAkzItBYf1BTO5E3F/7M=;
-	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID; b=kDBs/n7GtWgUfCAeOteKQBSKnJsP5ICtrmsz1WK8kVIg2nEImQqxj2XJltCi58KwFWUYrnAeLNyTZzzOaOiK02Kz/LuIP4NGvjBTYPWkw+rKqh59JuWijVB8tT21zRkhU1mcS5qbiRyS2Gd5PAjE/WOoFk8kZGbxDCt3KItw2Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=jEdYidEm; arc=none smtp.client-ip=35.162.73.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1789081533; c=relaxed/simple;
+	bh=EYxqIBRnHdPzMGItZOP96wrO/LDgbK1BMtGLH/fKksw=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=YRXfJWMgy3ykMxk7ehOyrCgxqnhPhuv11sjeapy6io1OZNotgDIpNDnaEmhFp5NC5FV0RxxAvOVb9f+3qmwfXEHLOO5C7Ej50sv/jgKlauj6d/qG3zkpC8uPkhKOexifg05yUf3J+zng3EFP29sRx8OcHMhnlyuCtLPmJls2+lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=le70C3Mw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="jEdYidEm"
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="le70C3Mw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A2CA1F0089A;
+	Thu, 10 Sep 2026 23:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1789081498; x=1820617498;
-  h=mime-version:content-transfer-encoding:subject:from:to:
-   cc:in-reply-to:references:date:message-id;
-  bh=IOsxt71KzjuvZPnWRLz+Zt819tnVf/OX6nBy2DXTBZw=;
-  b=jEdYidEmEOAEAq64DH+3Fa2+cfIL2zj5db34V2I7PvZ6XqH20lNRM0/O
-   FdogPfwiIOQ+YH6/SwAVIbRqpW2g1EscU+o186zbOfTFPCH9VxwhHk9uY
-   eroGJJ9cFS/OtojRJkkAnIz6HEUWERCMGk1ePQANOLHsiMvbY2ql+SalX
-   OZFDhKItyVhadNC/nCiRj1ALIZq9mCeM5cOJjgYgu8kIant8jnKwdJCBj
-   fkHaJRMSqNNPZ5OC4JtmyX5kJyWsJyU4Z1+REEc6VW2RpPTFdyFKVmbCk
-   AaCEnTtrW429Lv3UyZPUhN+6duBj5cqriubG++6aeh+dPo6gP71lznUYk
-   A==;
-X-CSE-ConnectionGUID: b7E1F3vDSUuMCM84df39YQ==
-X-CSE-MsgGUID: 5KMnDUnCQjmoC2958yP+VA==
-X-IronPort-AV: E=Sophos;i="6.27,96,1787011200"; 
-   d="scan'208";a="28174146"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 23:04:58 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:6383]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.160:2525] with esmtp (Farcaster)
- id d5404f53-ad6a-4991-8fbd-b62fddfbd916; Thu, 10 Sep 2026 23:04:58 +0000 (UTC)
-X-Farcaster-Flow-ID: d5404f53-ad6a-4991-8fbd-b62fddfbd916
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Thu, 10 Sep 2026 23:04:57 +0000
-Received: from u34cccd802f2d52.ant.amazon.com (10.106.178.32) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Thu, 10 Sep 2026 23:04:54 +0000
+	d=linux-foundation.org; s=korg; t=1789081531;
+	bh=amOPDCiAno1NOdE5Q6HrVP/LyJBGQ/6Zm7f6CaXwps4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=le70C3MwovpeE01RxcZJn1UDUGEwvptIsnglPECn2vVXSRV/mOw5SMBvnbaToZ4S0
+	 qTPlQuNwI5FWDEAR2xG5pt1/LdXA8KsYnFb5axvqc9ICceuZGWpSJuV2FGZ1pCNsNu
+	 n22fMkC50Uit+9LFUO5g6CN8eiTL6aPhvywiZC/U=
+Date: Thu, 10 Sep 2026 16:05:31 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Oscar Salvador <osalvador@suse.de>, David Hildenbrand
+ <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko
+ <mhocko@suse.com>, David Laight <david.laight.linux@gmail.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Suren Baghdasaryan
+ <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
+Subject: Re: [PATCH v6 00/17] mm: Introduce section-based vmemmap
+ optimization for HugeTLB
+Message-Id: <20260910160531.64390c48445e8844b6f672ea@linux-foundation.org>
+In-Reply-To: <20260910063256.64386-1-songmuchun@bytedance.com>
+References: <20260910063256.64386-1-songmuchun@bytedance.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v15 16/16] barrier: timeout validity checks for
- smp_cond_load_acquire_timeout()
-From: Haris Okanovic <harisokn@amazon.com>
-To: Ankur Arora <ankur.a.arora@oracle.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arch@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-pm@vger.kernel.org>,
-	<bpf@vger.kernel.org>, <arnd@arndb.de>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <peterz@infradead.org>, <akpm@linux-foundation.org>,
-	<mark.rutland@arm.com>, <harisokn@amazon.com>, <cl@gentwo.org>,
-	<ast@kernel.org>, <rafael@kernel.org>, <daniel.lezcano@linaro.org>,
-	<memxor@gmail.com>, <zhenglifeng1@huawei.com>, <xueshuai@linux.alibaba.com>,
-	<rdunlap@infradead.org>, <david.laight.linux@gmail.com>,
-	<broonie@kernel.org>, <joao.m.martins@oracle.com>,
-	<boris.ostrovsky@oracle.com>, <konrad.wilk@oracle.com>, <ashok.bhat@arm.com>
-In-Reply-To: <20260831202251.305046-17-ankur.a.arora@oracle.com>
-References: <20260831202251.305046-1-ankur.a.arora@oracle.com>
- <20260831202251.305046-17-ankur.a.arora@oracle.com>
-Date: Thu, 10 Sep 2026 18:04:27 -0500
-Message-ID: <178908146779.2725577.4332112514491271355.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: EX19D033UWA002.ant.amazon.com (10.13.139.10) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon, 31 Aug 2026 13:22:51 -0700, Ankur Arora <ankur.a.arora@oracle.com> wrote:
-> Extend timeout tests in smp_cond_expiry_params to also test
-> smp_cond_load_acquire_timeout().
+On Thu, 10 Sep 2026 14:32:39 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
+
+> This series is split out from the earlier, larger series "mm: Generalize
+> HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+> vmemmap optimization across HugeTLB and device DAX, this subset addresses
+> a single, self-contained step: making the generic sparse-vmemmap code
+> section-based optimization aware and switching HugeTLB bootmem pages to
+> this path.
 > 
-> The interface supports clocks that can return error on timeout.
-> These are used by rqspinlock. Test that by using a similar clock
-> that starts returning error past timeout.
+> HugeTLB vmemmap optimization currently has its own early boot setup
+> path. It pre-populates optimized vmemmap mappings before the normal
+> sparse-vmemmap population code runs, and sparsemem carries
+> SPARSEMEM_VMEMMAP_PREINIT only to support that special case.
 > 
-> [...]
+> That makes the HugeTLB vmemmap optimization path harder to share with
+> other users of sparse-vmemmap optimization and leaves a fair amount of
+> HugeTLB-specific boot-time state in the generic memory initialization
+> flow.
+> 
+> This series introduces section-based vmemmap optimization support in
+> the sparse-vmemmap code and switches HugeTLB bootmem pages over to it.
+> Instead of having HugeTLB pre-populate optimized vmemmap mappings
+> itself, HugeTLB now records the compound page order in the corresponding
+> memory sections. The generic sparse-vmemmap population path can then
+> allocate or reuse shared tail vmemmap pages based on section metadata.
 
-Tested-by: Haris Okanovic <harisokn@amazon.com>
-
--- 
-Haris Okanovic
-AWS Graviton
-
+Thanks, I updated mm-unstable with this series.
