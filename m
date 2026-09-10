@@ -1,293 +1,208 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229F044780F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886853F23A6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037035; cv=none; b=Ti+t9hhxbUjGsiPtIHA11g3u+XwXJGzTQCoYxz2vjEfNVF6mrgUwSID4YMzpQW+oiIxUnY0i4f8OGvSRHRdCZbusdyJtAWv5InMVvuQOp4T1pAMmilB8NHTsm3HLk3gsxrKC96Ril0R3+imjHvz3CnCRzpjukXvfu672JNKwhH4=
+	t=1789037093; cv=none; b=K+s9IWea9oV4P/+hw7M6JeJ85RN5MvEcJXn1PmizuqK4Dp+Bs9d7J0RR9mlMCG9cA5PLdNhWDzVVAqD2Y2/e4lIbMwQNJY5wZRSAYTi1huN5gVl/KQ3yV8VyA89Iwz4U0DbPQ0KAqh24Rvl0tfphVmTOkz1WCUw+eKrc39+luKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037035; c=relaxed/simple;
-	bh=uu50+H83ErVbUYoUsw0HKt/tnaNbvoRTwzn8S2fb/uI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MbKAc4236mPctP8LkI7S7ulJcAOEzxXOGlaiqpDbQ5XIzEpfvfh0wtXK9zRyYjt7oMKx5iBaKJYYH8SHYi0VKW3UqyDWBkW13XfJltjWMrKbJsVYc2MOUt0AmtXY6hntsH/j5vCd1NMtsmpqx0yCcL9kLH2jvu0AUdQECFROY94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VvEZGcqK; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789037093; c=relaxed/simple;
+	bh=v9SvlQTTPC8msrAjpqACpgkRhrk2SZByhdgymL5efvw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TN73+nxyTV5+g21biIWengvy0rfhNjpsUmhbytmA42SMUQ5gPxQoVdofaKnE4tTa2yY86N4SD1dS5KAfeSngQVNGJUe3bFVFP5NJEneF80LfaWqLmFcM6i3NEEbhCwlo0XlAjiZt8BxbtHE7pb2bxIOTogItJ4rDHkOrAjnh5bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YV1jXMSq; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VvEZGcqK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789037032; x=1820573032;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=uu50+H83ErVbUYoUsw0HKt/tnaNbvoRTwzn8S2fb/uI=;
-  b=VvEZGcqKYMOqObdjjYEG8epkATo7eMFjCA22ovT07PvTDZ9K9bogA1n7
-   HHmTF7R3AljaWr1zS0OkK7pbgQd/xgQ+355HklAko6man2io2eZqU3WyO
-   L1Zi8H0rxrJZviwFHMzSE+H+FRwArR4Wxmltk2wCQLgnYPM4AO624b1ll
-   hzxdzEFb87eJrCaF+cbxtjFymOMdPZgNEIqfSX2CAC26rfI0CdQLbCZQa
-   3Q0hFc2X1/TDFrPN+8nQYEbcs8Jdqhg1R9e4UGXeoTOf/TdMskSEGp1Ja
-   XMp4ad0wBJ+ZnuNjaDFNSyBcv+g6iR4f5i75TKtw9RcP9oDoK17IKw2QS
-   g==;
-X-CSE-ConnectionGUID: itDCAjMvR4aH53nOQGurCw==
-X-CSE-MsgGUID: 64cvtMhCTaC9uDx+nMikBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91997555"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="91997555"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 03:43:51 -0700
-X-CSE-ConnectionGUID: 9jhC5fsQTk+dLicuV71asQ==
-X-CSE-MsgGUID: EZmY66bEQIOJJsbeuY5kfw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="265387782"
-Received: from yilunxu-optiplex-7050.sh.intel.com ([10.239.47.46])
-  by fmviesa009.fm.intel.com with ESMTP; 10 Sep 2026 03:43:48 -0700
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: dave.hansen@intel.com,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: kas@kernel.org,
-	nik.borisov@suse.com,
-	rick.p.edgecombe@intel.com,
-	yilun.xu@intel.com,
-	yilun.xu@linux.intel.com,
-	linux-coco@lists.linux.dev,
-	tony.lindgren@linux.intel.com,
-	binbin.wu@linux.intel.com
-Subject: [PATCH v6] x86/virt/tdx: Formalize SEAMCALL leaf version encoding support
-Date: Thu, 10 Sep 2026 18:43:47 +0800
-Message-Id: <20260910104347.625378-1-yilun.xu@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YV1jXMSq"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso73178425e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:44:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789037085; x=1789641885; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eocd1TrCP06USmsC7lSoJaG2tjHqdhNNAT5kckVmtUY=;
+        b=YV1jXMSqe4naj/m+XzR2Qj6CPY9M6IO9g2e8WbGxjSUzRq4BN3CcehIUnp3RQkX4uZ
+         sSVIh7rF177bvGr4GNsqyioTzR2aMuWYpxIGQ4MDpsFQqKvrO1cGtQ7yUoC2Q6VBcBB0
+         Cfm42laucgAJ+BAthEbSig9ma81abcLiRP2iQlri6ac8+5XWDktpqym6VD44/gANymCS
+         wCvwHZOOxrciELx8crvQKUv+lQNbbNaA1XNa3WH1Lwundowck72rYZeN4IQq05WniYtx
+         xn5mWxYOmx62ZA541Am3AivZ+eE+BhyJqOA/A0uXFq7S2iKDcqrngx9LVLkrGd8qbS/F
+         JseA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789037085; x=1789641885;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eocd1TrCP06USmsC7lSoJaG2tjHqdhNNAT5kckVmtUY=;
+        b=LqnIYz84HmVwpq4PYCFAFsMzIPKjmNL9MoiSiYJsys+bMiieJGIkB1X4LkX7HPnUw0
+         kiBdWtg6RywNJ+vaMfM3Hk49FhTRlA5EAuzrQorxyfpTNBtTwsMyycElbS4Z9m0l1GiB
+         mi/BWt4oaAQuab6Nwj6BeFx4dUlV1mY2hUxk/QccQRI7E7+K0H0+mZxpDx1ZvYpZ6F7a
+         gy9UXCr5ZmBnG2b/Kj8xktDRjXlG4ztzThAXDYybFl02pXYT2nrulyx3ge+9eovePSi9
+         QwiX4yiUiEo/lvJhLKo9qLy08WT9pPO6P7Q7tLHz+qX8JLlQEWfXi1PfBa3RlaT9s3N1
+         AUHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqn0buVhPt7o93TSJcZZ5YSTFobJhxF5BTBr+8Dcy7b2/DjbXtM4eA4eOv62tX/1irbYuVKCTmNo9adko=@vger.kernel.org
+X-Gm-Message-State: AFuF++ke4vLboT3xkHF0LyqYLFGX5lwXKZu+hb+bG2FKdiqjyqXqKfYm
+	Ta1Ae6W9RxNDpGQFVI79ApDL80oRlizQHJEHdvh94HfSlcv2DKzDnVkZtzI0wVGoBMLjAjCmQRJ
+	SHbht3zQ=
+X-Gm-Gg: AYBFou0mvV6vBlAbObXya6m4jtLsQPJiAcPRpC5Q8w2aL7HBnPJ9Mb0cwvyA3OBwV4v
+	QOiwOld5D0gQbZbcAL/c/XcQFOTSF7OB1pDlOp3gWl3kY7KYfAFrPCtnsSoE4fTuOeLaMC85iBk
+	F0JP8GuKD0cdol93nDSr61aMpVdPYc1o8/rA4bI1hVYOWVNCbldcb3LqmstoapzKRHvJKZYLkpV
+	5qNOh4pEnMYZu+DN5SiVZPWylzBBbhzdwhir7Sd3JM9G2dB6RYeOYJLr5ecAr9OaNzFAGa6H7Pk
+	BGM5Ey8oPFTIAqzV52Cpqk4gJS5cwVtQ2FqF50y9p7FV6uI0ZeL5zJkEPuHSkyP6WQfH63olm6x
+	LZh2kSpIK65ZN/qdzKCV4PcRyhBT138xgZNsNMBgQSoJEvNaZjUuxTXlfAJ8I2XdN8e+4m8vrgG
+	mz7OMsqEej8rQpEaXS+ZMMWgFmDqTcMc0Mpg6UfGKhbBaiI7Yfk8XhZp5IGY+/HNloWLiGJ6Qg/
+	CokkBuPGyFYuWrgzA==
+X-Received: by 2002:a05:600c:354a:b0:49c:fc6e:8cb6 with SMTP id 5b1f17b1804b1-49cfc6e8f48mr382783535e9.26.1789037085141;
+        Thu, 10 Sep 2026 03:44:45 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20db6e76sm137213565e9.3.2026.09.10.03.44.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 03:44:44 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Subject: [PATCH v8 0/5] regulator: Add X-Powers AXP318W PMIC support
+Date: Thu, 10 Sep 2026 12:44:34 +0200
+Message-Id: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABKKomoC/4XQTW7DIBAF4KtEXpeI4ceErnKPqosBhoQqsSOcu
+ HEj3704VdWoQu3ySfC9B7dmoJxoaJ5XtybTmIbUdyVsnlaN32O3I5ZCyY3gouUGOMPrScKGZdp
+ dDnjuM1NSK+1JihZiU66dMsV0vZMvr195uLg38ufFWU7E3B/ZeZ8Jv2kNXACA4CDXorRYLhkw7
+ EKm9Sl/TO+YcYv5uPb9cRH2aSjV0331KJamPwaOgnFGpCN43Tpl49bhdEiu2Au3bBzlo2Eqhiy
+ GMTZ4cNaEoCqG+s9QxdAcY7SGb1QIFUM/GKL2Fl0MBIxoiISKtmK0D4aEitEWwykySmstUOqKY
+ X4MW/1TU4xAZaMnZx36X8Y8z59imNoXWwIAAA==
+X-Change-ID: 20260710-axp318-regulator-43545ce3261f
+To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Hans de Goede <hansg@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
+ Jerome Brunet <jbrunet@baylibre.com>, Sashiko <sashiko-bot@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4322; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=v9SvlQTTPC8msrAjpqACpgkRhrk2SZByhdgymL5efvw=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqoooVp1GIj89lIXLk4kqEA11q4ukkurtJ8IqnO
+ UIG4WWF+heJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqKKFQAKCRDm/A8cN/La
+ hQ7pD/sEPON2uG18ftINPRBNQANqgW0FluxFbJcdfnrxgg564u5kIOIwi9cm9LSPpUlCXzWGRSe
+ HxFB/WBCgiKEZsBQYj/WEcySspTINF2EBFdby4xQOYPmLCJQHcgX5rq2oJfWVaRQWDu/fw+jyWg
+ QbBhUS0L1XNTQLBbCImcBSpepewRDNQyYRQNscdkfRiALGsJYqCOoziOVOaC0v3LLiwmId++6Gz
+ UTQ5Mxssg/JM7ZylIgkvFivr4a6BgIPOOMSmO7gQh2C1rueHdlwyt7msIHgsptvIhEaSaa8LZAF
+ st0AjKcSWZF+tV324IRj6iQcf3ShoLl2pTw1/mXfch/hZ2BhWukeUYOQFyn9m5/kbw+IlIObx3H
+ U1JtDxw/Njt0nVFFZd9Hfpssl7lzaFV8UaDj+fzJCgiOcmkrMquXOXDCOZIl/Jn2AIuhBOXdSc4
+ 6lZK+3BqnnIT+bfc2fsqc7RkBSHmugIx9dCyobaVHg0jk6nWuC8M1RcppNBUvDfxJCp/Gy0+ahO
+ lqznBTcxgKWG6udGe3YJT4/IUjwPUqdmfaWcdQtF7ypQ3VtaSLLezWqwe9p7k/Ut9mmdsngF9Is
+ VkUvNbcniZSnpZ7R1MeX4GW2zGJGiLxEQm1JUZaEdKx1NO1925+eQCQ4oT40o/fTl0nY+/btrwu
+ O1+4NV+9/d8E2og==
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-The TDX architecture includes a syscall-like ABI for OSes to communicate
-with SEAM mode software. This ABI has the concept of a "leaf". Each leaf
-is roughly analogous to a Linux syscall: it has a set of register
-arguments and does one logical thing like adding a page of memory to a
-VM or running a VM. The TDX architecture refers to this interface
-function as a "SEAMCALL leaf".
+This patch series adds support for the X-Powers AXP318W PMIC, which is
+used recently on new boards with Allwinner SoCs (the A733).
 
-Just like syscalls, the TDX architecture wants to evolve the ABI to
-extend functionality while keeping compatibility. But unlike syscalls,
-which do this by picking a totally new syscall number, the ABI encodes
-the "version" number directly into the bits of a register argument. So
-instead of openatN being whatever the next free number is, the SEAMCALL
-leaf number and version number are encoded into certain bits in how the
-RAX register is defined in the ABI.
+The PMIC features 9 DCDC buck converters and 28 LDOs, plus the usual ADC,
+interrupts, and power key components.
+A datasheet can be found linked in this Wiki table:
+https://linux-sunxi.org/AXP_PMICs
 
-In Linux, several seamcall*() wrappers have been introduced to invoke
-SEAMCALL leafs. They all take a u64 "fn" argument for the leaf number
-which eventually get set in the register. As above, the version number
-lives in the same register as the leaf number. So callers that want to
-select a specific version of the leaf, can jam it in the right place in
-the register by passing it in the "fn" argument. Today only the caller
-of TDH.VP.INIT does this hack, but future kernel changes will need to
-select versions for more SEAMCALL leafs, so a less hacky solution is
-needed.
+There was an unclosed topic regarding the handling of LDOs output
+voltage being limited to input voltage being provided by the supply.
+Chen-Yu noted the min_dropout_uV would be a good fit for that but
+the actual minimal dropout value was unknown. I've arbitrarily picked
+1uV because it is the minimum the framework supports. Realistically a low
+dropout regulator is bound to have some dropout. This choice does the
+trick for now and is certain be less restrictive than what it is in
+reality.
 
-Explicitly define the arguments for seamcall*() wrappers:
+If anyone has problems because the dropout is actually higher
+* it is arguably an HW design error
+* it is a good time to let us know what the actual dropout is
 
-  - Add a build-time assertion to ensure "fn" only contains valid
-    SEAMCALL leaf number bits. Note the P-SEAMLDR selector bit (bit 63)
-    is part of the leaf number for SEAM loader calls, so it is allowed.
-    This also means the "fn" can't be a narrower type, such as u16, to
-    exclude unrelated bits.
+Changes in v8:
+- Fix interrupt optional in the binding (mis-understanding on my end)
+  Resent quickly to avoid wasting time on v7 over this
+- Link to v7: https://patch.msgid.link/20260910-axp318-regulator-v7-0-de720ceb9bac@baylibre.com
 
-  - Add a "version" field in struct tdx_module_args [1], so most
-    existing callers get a default "version == 0" behavior without code
-    churn. Update the TDH.VP.INIT caller to specify the version
-    descriptively.
+Changes in v7:
+- Rebased on v7.3-rc1.
+- Applied Chen-Yu change requests.
+  - More complete register definition all in the MFD change.
+  - Add writeable region holes.
+  - Fix invertion between short and long press IRQ.
+  - Drop confusing comment about DVM.
+  - Use MFD_CELL_NAME() for the regulator device.
+- Link to v6: https://patch.msgid.link/20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com
 
-Encode the leaf number and tdx_module_args.version into RAX in assembly,
-because this is the place where the "fn" and struct tdx_module_args
-fields are marshaled into registers.
+Changes in v6:
+- Apply wording suggestions from Chen-Yu
+- Link to v5: https://patch.msgid.link/20260720-axp318-regulator-v5-0-a1afa7ee24f9@baylibre.com
 
-AI was used under supervision to review code and workshop logs. In
-particular, it helped evaluate the assembly changes.
+Changes in v5:
+- Fix shutdown register offset
+- Re-order patches to put fixes first
+- Tighten DT regexp around swout
+- Other points raised by Sashiko on v4 are unrelated to the addition
+  of the AXP318 support and pre-exist the series. They are not
+  addressed ATM.
+- Link to v4: https://patch.msgid.link/20260717-axp318-regulator-v4-0-50aff97084dd@baylibre.com
 
-Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
-Link: https://lore.kernel.org/kvm/4f4b0f29-424b-45ed-8cfd-c77da2ea390f@intel.com/ # [1]
+Changes in v4:
+- Capitalize patch 3 title
+- regulator: add support for workmode and poly-phase.
+- i2c: fix probe through i2c sysfs
+- Link to v3: https://patch.msgid.link/20260717-axp318-regulator-v3-0-779dc1b97dd4@baylibre.com
+
+Changes in v3:
+- Correct mess up v2 errors regarding ops and ids.
+- Correctly propagate errors when checking axp318 threshold.
+- Fix DT binding regex regarding dcdc max ids
+- Add missing RTCLDO.
+- Remove axp318 PEK MFD cell:
+  As pointed out by sashiko, the driver name did not match anything in the
+  pek driver. While the device does support some handling of the power
+  button, it does not seem to match the existing driver. Register 0x36
+  relates to DLDO3, not the power key, as expected by the misc driver.
+  Leave this out for now.
+- Constify axp313 and axp717 mfd_cells array for consistency.
+- Link to v2: https://patch.msgid.link/20260710-axp318-regulator-v2-0-ee5f1c56b49f@baylibre.com
+
+Changes in v2:
+- Dropped _NUM_VOLTAGES macros
+- Use min_dropout_uV to limit LDO voltage to supplies
+- Add bypass mode for EDLO4/5
+- Prevent crossing 1.54V threshold for DCDC6/7/8/9
+- Link to v1: https://lore.kernel.org/r/20251021112013.2710903-1-andre.przywara@arm.com
+
 ---
-Two alternative schemes were considered:
+Andre Przywara (3):
+      dt-bindings: mfd: x-powers,axp152: Document AXP318W
+      mfd: axp20x: Add support for AXP318W PMIC
+      regulator: axp20x: add support for the AXP318W
 
- 1. Define versioned macros like TDH_VP_INIT_V0, TDH_VP_INIT_V1, etc.
-    Then callers could use them without encoding RAX bits themselves.
-    However, this would break naming consistency unless all existing
-    stable function macros are changed to TDH_XXX_V0.
+Jerome Brunet (2):
+      mfd: axp20x: Constify axp313 and axp717 cells
+      mfd: axp20x-i2c: Fix i2c instantiation
 
- 2. Add an explicit "version" parameter to seamcall*() wrappers. This
-    would unnecessarily force all stable seamcall*() wrappers to pass a
-    meaningless '0' argument. Additionally, the magic '0' or '1' values
-    at caller sites are not descriptive.
-
-v6:
-- Don't change comments for struct tdx_module_args, comment on the
-  version field (Dave & Tony)
-- Add more Reviewed-by tags
-
-v5: https://lore.kernel.org/all/20260901105436.461823-1-yilun.xu@linux.intel.com/
-- Refactor the changelog. Retained the Reviewed-by tags, please let me
-  know if you object.
-- Rebase to v7.3-rc1
-
-v4: https://lore.kernel.org/all/20260804085054.190847-1-yilun.xu@linux.intel.com/
-- Add Reviewed-by tags
-
-v3: https://lore.kernel.org/all/20260722084634.131020-1-yilun.xu@linux.intel.com/
-- Move the RAX encoding in assembly code.
-- Compile-time check that fn only contain base leaf number bits
-- Add the full description of SEAMCALL leaf according to TDX module SPEC
-- Fix the description of struct tdx_module_args.
-
-v2: https://lore.kernel.org/all/20260708170330.83850-1-yilun.xu@linux.intel.com/
-v1: https://lore.kernel.org/all/20260702144614.59464-1-yilun.xu@linux.intel.com/
+ .../devicetree/bindings/mfd/x-powers,axp152.yaml   |  29 +-
+ drivers/mfd/axp20x-i2c.c                           |  26 +-
+ drivers/mfd/axp20x-rsb.c                           |   1 +
+ drivers/mfd/axp20x.c                               |  93 +++++-
+ drivers/regulator/axp20x-regulator.c               | 319 ++++++++++++++++++++-
+ include/linux/mfd/axp20x.h                         | 148 +++++++++-
+ 6 files changed, 590 insertions(+), 26 deletions(-)
 ---
- arch/x86/include/asm/shared/tdx.h         |  5 +++++
- arch/x86/virt/vmx/tdx/seamcall_internal.h | 19 +++++++++++++++++++
- arch/x86/virt/vmx/tdx/tdx.h               |  8 --------
- arch/x86/virt/vmx/tdx/tdxcall.S           | 10 ++++++++--
- arch/x86/kernel/asm-offsets.c             |  1 +
- arch/x86/virt/vmx/tdx/tdx.c               |  5 +++--
- 6 files changed, 36 insertions(+), 12 deletions(-)
-
-diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
-index f20e91d7ac35..f8ce302afd1c 100644
---- a/arch/x86/include/asm/shared/tdx.h
-+++ b/arch/x86/include/asm/shared/tdx.h
-@@ -143,6 +143,11 @@ struct tdx_module_args {
- 	u64 rbx;
- 	u64 rdi;
- 	u64 rsi;
-+	/*
-+	 * leaf ABI version. Note that it gets encoded into RAX along with the
-+	 * leaf number.
-+	 */
-+	u8  version;
- };
- 
- /* Used to communicate with the TDX module */
-diff --git a/arch/x86/virt/vmx/tdx/seamcall_internal.h b/arch/x86/virt/vmx/tdx/seamcall_internal.h
-index be5f446467df..051ad2d45cab 100644
---- a/arch/x86/virt/vmx/tdx/seamcall_internal.h
-+++ b/arch/x86/virt/vmx/tdx/seamcall_internal.h
-@@ -11,6 +11,7 @@
- #ifndef _X86_VIRT_SEAMCALL_INTERNAL_H
- #define _X86_VIRT_SEAMCALL_INTERNAL_H
- 
-+#include <linux/bitfield.h>
- #include <linux/printk.h>
- #include <linux/types.h>
- #include <asm/archrandom.h>
-@@ -23,9 +24,27 @@ u64 __seamcall_saved_ret(u64 fn, struct tdx_module_args *args);
- 
- typedef u64 (*sc_func_t)(u64 fn, struct tdx_module_args *args);
- 
-+/*
-+ * SEAMCALL leaf:
-+ *
-+ * Bit 15:0	Leaf number
-+ * Bit 23:16	Leaf ABI version number
-+ * Bit 24	Pending interrupts detection mode
-+ * Bit 63	1 for P-SEAMLDR leaf, 0 for TDX module leaf
-+ */
-+#define SEAMCALL_LEAF_MASK		GENMASK_U64(15, 0)
-+#define SEAMCALL_SEAMLDR_MASK		BIT_U64(63)
-+
- static __always_inline u64 __seamcall_dirty_cache(sc_func_t func, u64 fn,
- 						  struct tdx_module_args *args)
- {
-+	/*
-+	 * fn contains leaf number for TDX module calls and P-SEAMLDR calls.
-+	 * Other fields in SEAMCALL leaf like leaf ABI version number are in
-+	 * struct tdx_module_args.
-+	 */
-+	BUILD_BUG_ON(fn & ~(SEAMCALL_LEAF_MASK | SEAMCALL_SEAMLDR_MASK));
-+
- 	lockdep_assert_preemption_disabled();
- 
- 	/*
-diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
-index bdfd0e1e337a..63e3acfb5d0c 100644
---- a/arch/x86/virt/vmx/tdx/tdx.h
-+++ b/arch/x86/virt/vmx/tdx/tdx.h
-@@ -50,14 +50,6 @@
- #define TDH_SYS_UPDATE			53
- #define TDH_SYS_DISABLE			69
- 
--/*
-- * SEAMCALL leaf:
-- *
-- * Bit 15:0	Leaf number
-- * Bit 23:16	Version number
-- */
--#define TDX_VERSION_SHIFT		16
--
- /* TDX page types */
- #define	PT_NDA		0x0
- #define	PT_RSVD		0x1
-diff --git a/arch/x86/virt/vmx/tdx/tdxcall.S b/arch/x86/virt/vmx/tdx/tdxcall.S
-index 016a2a1ec1d6..a194e83613e7 100644
---- a/arch/x86/virt/vmx/tdx/tdxcall.S
-+++ b/arch/x86/virt/vmx/tdx/tdxcall.S
-@@ -45,8 +45,14 @@
- .macro TDX_MODULE_CALL host:req ret=0 saved=0
- 	FRAME_BEGIN
- 
--	/* Move Leaf ID to RAX */
--	mov %rdi, %rax
-+	/* Leaf ABI version -> RAX[23:16]. Zero rest of RAX. */
-+	movzbl	TDX_MODULE_version(%rsi), %eax
-+	shl	$16, %eax
-+	/*
-+	 * Combine leaf number arg and leaf ABI version into RAX, they don't
-+	 * overlap.
-+	 */
-+	or	%rdi, %rax
- 
- 	/* Move other input regs from 'struct tdx_module_args' */
- 	movq	TDX_MODULE_rcx(%rsi), %rcx
-diff --git a/arch/x86/kernel/asm-offsets.c b/arch/x86/kernel/asm-offsets.c
-index 081816888f7a..b3c00ff4d819 100644
---- a/arch/x86/kernel/asm-offsets.c
-+++ b/arch/x86/kernel/asm-offsets.c
-@@ -95,6 +95,7 @@ static void __used common(void)
- 	OFFSET(TDX_MODULE_rbx, tdx_module_args, rbx);
- 	OFFSET(TDX_MODULE_rdi, tdx_module_args, rdi);
- 	OFFSET(TDX_MODULE_rsi, tdx_module_args, rsi);
-+	OFFSET(TDX_MODULE_version, tdx_module_args, version);
- 
- 	BLANK();
- 	OFFSET(BP_scratch, boot_params, scratch);
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 1b9ff749dd8e..1668f8615607 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -1912,10 +1912,11 @@ u64 tdh_vp_init(struct tdx_vp *vp, u64 initial_rcx, u32 x2apicid)
- 		.rcx = vp->tdvpr_pa,
- 		.rdx = initial_rcx,
- 		.r8 = x2apicid,
-+		/* apicid requires version == 1. */
-+		.version = 1,
- 	};
- 
--	/* apicid requires version == 1. */
--	return seamcall(TDH_VP_INIT | (1ULL << TDX_VERSION_SHIFT), &args);
-+	return seamcall(TDH_VP_INIT, &args);
- }
- EXPORT_SYMBOL_FOR_KVM(tdh_vp_init);
- 
-
 base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.25.1
+change-id: 20260710-axp318-regulator-43545ce3261f
+
+Best regards,
+--  
+Jerome
 
