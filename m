@@ -1,313 +1,349 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218453D3492;
-	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C25538D3F4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022337; cv=none; b=V8/B8zoAjIw7NPr+xGuy/FodQwh2vKDUQwqiynmwD9LWeaj1Zj+WoTemy31NHCEKZ4dBL7zR7WM/7IhlNRxIL67f+hBDqYFWPq8q9qurrHPbDfaArKWQMXD79sd+oA3dq8FfhJMd38Kz7kc3Lzbgzmytdm7MjKQ5X0N3bX/vIBY=
+	t=1789022418; cv=none; b=YzaOaxJorklLp3uj0iM4+ckNi3QL1a4eJ8faJri7IWNPJXR0jSvi6UlgWqIv9OwwGAWmT6ABobCeGRs5O/nxxYlmgqGSi1gO4FML0qdiUQUFaIqX/FYb4BBv/giHwHIqGv29fvkCPxOWcHZDvTFOJNU8MKfRVZmca6VgsYa2Q7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022337; c=relaxed/simple;
-	bh=Zb/LwgGr7DEM3tO0ucLyrTnmcy1CRThDJrc9WTV8lvw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=afjRr2zWZpnAnzCjEgkIezwjQgHvBJotjs/GEg8uEuINYqKYfSAsWDuHQSRYQr2oPSTOChg2oKyooP9nYTMev2WDtWXY0GDMEqwygGVTsRpH2yrfuu9Ey6UGXDn/Q65vOVhPtT2pwb9v7/IV29Uc4X8n+UWzxkCAqZXdlMx5/zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jv4CuJQm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789022418; c=relaxed/simple;
+	bh=oYclOY1YwnIQR+tcV+KQns6iO0ESNNsEZx76cGgf2yw=;
+	h=Mime-Version:References:From:Subject:Date:Content-Type:
+	 In-Reply-To:To:Message-Id:Cc; b=sNGnNha75m7LnfmNUt222QCel7JuzxW2AnC541bX0fWZLa8yzl3l2cMmZ5e7cckb/mTNLNAW3mlvLzDboA51N15bxd1fN+EamqCO6Exc33seEacC+obAyw4A6yfcsA/BupmzNZMtU+ArXRceiPgIChM7i6l4FYax0C0vX13VaGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kLIRIzzw; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jv4CuJQm"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9E9A6C2BCFB;
-	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789022336;
-	bh=Zb/LwgGr7DEM3tO0ucLyrTnmcy1CRThDJrc9WTV8lvw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jv4CuJQmb8nCqAad34jJJ7eAqEyxRXKYwxyoeWs4KA2t06fCOI2WaNNztsTtnFRzY
-	 hNTs4Fk3df2gx5L9r8Rvh3yM2M/+Z74AU+4mioBV+ZXTQZCSoN3+gJKNJoI28TlB3M
-	 QPbmGVPsZIOF3rCV81+PU9Mqf5gllxX7c0AObjYaBPFGMc14HoEYovbVmVFCaIHPol
-	 tFe72Vhl2yCWaHXEw3wI2gAUtjnE1QgP/aJmn4rzgnWt2XgfTa6pEL4mM3wfpS7e3d
-	 Nvyo/Bjo0b8KH8juVwL0jgRuHSdMKn4sOG/zj7S9CI8izJrNAseckbKOyp3OqsXjy2
-	 Dh539ky6MmItw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E749C79FB9;
-	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 10 Sep 2026 06:38:53 +0000
-Subject: [PATCH v5 2/2] thermal: amlogic: Add support for A9 thermal
- controller
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kLIRIzzw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1789022398; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=mhx/dsFP2CMObhPGokTuIC/TPYYGoTzzepENJHonJ3Y=;
+ b=kLIRIzzwapaOW1qFNrO6YDGrFCDgjf0nTTV9CD9AESNRfVMbp/edJxskNzTyVIw1670ZvF
+ YTxZi1lEsmKHpkdxvFjngBZp8HbdWQQ1i6uhAGu3cwGVeothz9E3SVZD0gZrjW8pD/k8/r
+ gI5SA/KXUKXeKMjtfwELvdKQUUYl62D0zCWOsgDb4O8cLmaLo0ithgJkx3AHY1yKHkgCxJ
+ 3xfk6/6wcRqfWNGxlunrlL/GkbezF2NQNkZJBWs8R3pTMa0rHMSgkjYUH3YLHRnP8y8HH5
+ qdfxiLmeWpr7VGeGr6Zk1vJv0mbi7Ha22uacrJOl/U5H7WICgvhjPwt2Rb/EsA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-a9-thermal-v5-2-892d798723e1@amlogic.com>
-References: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
-In-Reply-To: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789022333; l=7899;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=oYdIslolzA3DJMsonLIFZ8XXaiSWr9vCeZbDJqhZZ+8=;
- b=8afdYiCb4M8S5u40CzJgmoU1mo831WNIy/wj2QJ06RlamFx1QDeoS/lru0BoJBN4I4aJlQf6/
- rCWVeUwDL8pBtiK0Ech4QGd6MsoxGEcOkjFRcCM0dKwLiI0kpYPcB29
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Mime-Version: 1.0
+References: <20260831091023.66581-1-lizhe.67@bytedance.com> <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org> <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org> <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com> <d1ede193-bc56-46de-9d0d-fc037ddf835d@kernel.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
+Date: Thu, 10 Sep 2026 14:39:29 +0800
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <d1ede193-bc56-46de-9d0d-fc037ddf835d@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	"Andrew Morton" <akpm@linux-foundation.org>
+Message-Id: <ab3d20db-380b-4b37-8a8f-2a0d9a6f7d6e@bytedance.com>
+X-Lms-Return-Path: <lba+26aa250b2+623d63+vger.kernel.org+lizhe.67@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Cc: <muchun.song@linux.dev>, <osalvador@suse.de>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>, <aiqi.i7@bytedance.com>
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On 9/10/26 12:59 AM, David Hildenbrand (Arm) wrote:
+> On 9/8/26 09:09, Li Zhe wrote:
+>> On 9/7/26 11:29 PM, David Hildenbrand (Arm) wrote:
+>>> On 9/1/26 02:32, Andrew Morton wrote:
+>>>> Thanks.
+>>>>
+>>>> So a modest performance improvement?
+>>> Is that worth the complexity, though?
+>>
+>> That is a fair concern.
+> In you setup, are the page tables ever being shared? I suspect you just r=
+un a VM
+> with no other processes actually sharing the memory?
 
-Add support for the Amlogic A9 thermal controller.
 
-The A9 thermal controller uses different calibration parameters, requires
-separate core and bus clocks, and supports a hardware over-temperature
-reset mechanism, and restore the hardware reset configuration after resume.
+Yes. In the tested setup, there is only one QEMU process mapping the
+hugetlbfs file for the VM. The hugetlb page tables are not actually shared.
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>
+> One idea would be to just remember whether any sharing ever happened for =
+a
+> hugetlb file.
+
+
+I reworked the patch based on your suggestion. Instead of walking the
+page tables during unmap, this version records, per hugetlbfs inode,
+whether PMD sharing has ever actually been established for the file. The
+flag is set only after huge_pmd_share() successfully populates a shared
+PMD table.
+
+For the hugetlbfs zap/unmap paths, the conservative PUD-sized MMU
+notifier expansion is skipped while the file has never seen PMD
+sharing. Once PMD sharing has ever happened for the file, the code falls
+back to the existing conservative behavior.
+
+>
+>> I tried to simplify the approach. Instead of computing the exact PUD
+>> sub-ranges that contain shared PMD tables, this version keeps the
+>> existing adjust_range_if_pmd_sharing_possible() logic unchanged and only
+>> adds an actual shared-PMD check as a gate before it.
+>>
+>> So the behavior becomes:
+>>
+>>   =C2=A0 - if no shared PMD table is found, keep the notifier range unch=
+anged;
+>>   =C2=A0 - if any shared PMD table is found, fall back to the existing
+>>   =C2=A0 =C2=A0 conservative PUD-sized expansion.
+>>
+>> This should still avoid the unnecessary 1G KVM invalidation for the
+>> common unshared-PMD case, while keeping the range expansion policy
+>> unchanged when a shared PMD is present.
+>>
+>> The resulting diff would look like this:
+>>
+>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>> index 816dde7..7a61fc3 100644
+>> --- a/mm/hugetlb.c
+>> +++ b/mm/hugetlb.c
+>> @@ -5355,10 +5357,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *=
+vma,
+>>   =C2=A0 =C2=A0 =C2=A0if (!vma->vm_file)=C2=A0 =C2=A0 /* hugetlbfs_file_=
+mmap error */
+>>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+>>
+>> -=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, start, end);
+>>   =C2=A0 =C2=A0 =C2=A0hugetlb_vma_lock_write(vma);
+>> -=C2=A0 =C2=A0 if (vma->vm_file)
+>> +=C2=A0 =C2=A0 if (vma->vm_file) {
+>>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i_mmap_lock_write(vma->vm_file->f_ma=
+pping);
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (range_has_shared_pmd(vma, *start, *end)=
+)
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_p=
+ossible(vma, start, end);
+>> +=C2=A0 =C2=A0 }
+>>   =C2=A0}
+>>
+>>   =C2=A0void __hugetlb_zap_end(struct vm_area_struct *vma,
+>> @@ -5397,7 +5401,9 @@ void unmap_hugepage_range(struct vm_area_struct
+>> *vma, unsigned long start,
+>>
+>>   =C2=A0 =C2=A0 =C2=A0mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, =
+0, vma->vm_mm,
+>>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0start, e=
+nd);
+>> -=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &range.start, &=
+range.end);
+>> +=C2=A0 =C2=A0 if (range_has_shared_pmd(vma, range.start, range.end))
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &=
+range.start,
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&range.end);
+>>   =C2=A0 =C2=A0 =C2=A0mmu_notifier_invalidate_range_start(&range);
+>>   =C2=A0 =C2=A0 =C2=A0tlb_gather_mmu(&tlb, vma->vm_mm);
+>>
+>> @@ -6958,6 +6964,52 @@ void adjust_range_if_pmd_sharing_possible(struct
+>> vm_area_struct *vma,
+>>   =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*end =3D ALIGN(*end, PUD_SIZE);
+>>   =C2=A0}
+>>
+>> +static bool range_has_shared_pmd(struct vm_area_struct *vma,
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned =
+long start, unsigned long end)
+>> +{
+>> +=C2=A0 =C2=A0 unsigned long v_start =3D ALIGN(vma->vm_start, PUD_SIZE);
+>> +=C2=A0 =C2=A0 unsigned long v_end =3D ALIGN_DOWN(vma->vm_end, PUD_SIZE)=
+;
+>> +=C2=A0 =C2=A0 struct hstate *h =3D hstate_vma(vma);
+>> +=C2=A0 =C2=A0 struct mm_struct *mm =3D vma->vm_mm;
+>> +=C2=A0 =C2=A0 unsigned long address;
+>> +
+>> +=C2=A0 =C2=A0 if (huge_page_size(h) !=3D PMD_SIZE)
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;
+>> +
+>> +=C2=A0 =C2=A0 /*
+>> +=C2=A0 =C2=A0 =C2=A0* First apply the same cheap test as
+>> +=C2=A0 =C2=A0 =C2=A0* adjust_range_if_pmd_sharing_possible(). Only the =
+PUD-aligned
+>> +=C2=A0 =C2=A0 =C2=A0* intersection can contain shared PMD tables.
+>> +=C2=A0 =C2=A0 =C2=A0*/
+>> +=C2=A0 =C2=A0 if (!(vma->vm_flags & VM_MAYSHARE) || !(v_end > v_start) =
+||
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 end <=3D v_start || start >=3D v_end)
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;
+>> +
+>> +=C2=A0 =C2=A0 start =3D max(ALIGN_DOWN(start, PUD_SIZE), v_start);
+>> +=C2=A0 =C2=A0 end =3D min(ALIGN(end, PUD_SIZE), v_end);
+>> +
+>> +=C2=A0 =C2=A0 hugetlb_vma_assert_locked(vma);
+>> +=C2=A0 =C2=A0 i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+>> +
+>> +=C2=A0 =C2=A0 for (address =3D start; address < end; address +=3D PUD_S=
+IZE) {
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *ptep;
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool shared;
+>> +
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 ptep =3D hugetlb_walk(vma, address, PMD_SIZ=
+E);
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!ptep)
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
+>> +
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_lock(huge_pte_lockptr(h, mm, ptep));
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 shared =3D ptdesc_pmd_is_shared(virt_to_ptd=
+esc(ptep));
+>> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_unlock(huge_pte_lockptr(h, mm, ptep));
+> I really don't like this piece of code to optimize something that is alre=
+ady
+> questionable in practice: overcommiting hugetlb folios for VMs.
+>
+> Can you share some more details which mechanism ends up zapping hugetlb f=
+olios
+> for the VM?
+>
+> If it's virtio-balloon's free-page-reporting, you should likely disable t=
+hat for
+> the VM.
+
+
+It is not virtio-balloon free-page-reporting.
+
+The setup uses a downstream, out-of-tree QEMU/KVM reclaim mechanism for
+hugetlb-backed VM memory. KVM maintains hot/cold information for guest
+memory. QEMU then asks KVM to select cold guest ranges and releases the
+corresponding hugetlbfs-backed host ranges after taking care of the
+required device-side unmapping.
+
+The release path uses PUNCH_HOLE on the hugetlbfs file for 2M hugetlb
+pages.
+
+This is the case where the current conservative range expansion becomes
+unnecessarily broad.
+
+Does this patch look reasonable to you?
+
+The updated patch looks like this:
+
 ---
- drivers/thermal/amlogic_thermal.c | 121 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 118 insertions(+), 3 deletions(-)
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 7611a84..1e24b8d 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -921,6 +921,9 @@ static struct inode *hugetlbfs_get_inode(struct=20
+super_block *sb,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0simple_inode_init_ts(inode);
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info->resv_map =3D resv_map;
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info->seals =3D F_SEAL_SEAL;
++#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 info->pmd_sharing_seen =3D false;
++#endif
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch (mode & S_IFMT) {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0init_special_inode(inode, =
+mode, dev);
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 16c4c4c..8f1f899 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -509,6 +509,9 @@ struct hugetlbfs_inode_info {
+ =C2=A0 =C2=A0 =C2=A0struct inode vfs_inode;
+ =C2=A0 =C2=A0 =C2=A0struct resv_map *resv_map;
+ =C2=A0 =C2=A0 =C2=A0unsigned int seals;
++#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
++=C2=A0 =C2=A0 bool pmd_sharing_seen;
++#endif
+ =C2=A0};
 
-diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
-index a0b530624b60..e7cedb944315 100644
---- a/drivers/thermal/amlogic_thermal.c
-+++ b/drivers/thermal/amlogic_thermal.c
-@@ -45,6 +45,19 @@
- 		 TSENSOR_CFG_REG1_DEM_EN |	\
- 		 TSENSOR_CFG_REG1_CH_SEL)
- 
-+#define TSENSOR_CFG_REG2			0x8
-+	#define TSENSOR_CFG_REG2_HITEMP_EN	BIT(31)
-+	#define TSENSOR_CFG_REG2_REBOOT_EN	BIT(30)
-+	#define TSENSOR_CFG_REG2_REBOOT_CODE	GENMASK(15, 4)
-+	#define TSENSOR_CFG_REG2_REBOOT_TIME	GENMASK(23, 16)
-+	#define TSENSOR_CFG_REG2_ENABLE		\
-+		(TSENSOR_CFG_REG2_HITEMP_EN |	\
-+		 TSENSOR_CFG_REG2_REBOOT_EN)
-+
-+#define TSENSOR_REBOOT_TIME_MAX		(0xff << 16)
-+
-+#define TSENSOR_TEMP_CAL		1
-+
- #define TSENSOR_STAT0			0x40
- 
- #define TSENSOR_STAT9			0x64
-@@ -63,6 +76,7 @@
- 
- #define TSENSOR_CALIB_OFFSET	1
- #define TSENSOR_CALIB_SHIFT	4
-+#define TSENSOR_HW_RESET_DEFAULT_TEMP	110000
- 
- /**
-  * struct amlogic_thermal_soc_calib_data
-@@ -85,14 +99,18 @@ struct amlogic_thermal_soc_calib_data {
-  * @u_efuse_off: register offset to read fused calibration value
-  * @calibration_parameters: calibration parameters structure pointer
-  * @regmap_config: regmap config for the device
-+ * @reset_temp: the hardware-controlled reset temperature value
-  * @use_sm: read data from secure monitor instead of efuse
-+ * @has_sysclk: sensor driver control sysclk
-  * This structure is required for configuration of amlogic thermal driver.
-  */
- struct amlogic_thermal_data {
- 	int u_efuse_off;
- 	const struct amlogic_thermal_soc_calib_data *calibration_parameters;
- 	const struct regmap_config *regmap_config;
-+	u32 reset_temp;
- 	bool use_sm;
-+	bool has_sysclk;
- };
- 
- struct amlogic_thermal {
-@@ -101,8 +119,10 @@ struct amlogic_thermal {
- 	struct regmap *regmap;
- 	struct regmap *sec_ao_map;
- 	struct clk *clk;
-+	struct clk *sysclk;
- 	struct thermal_zone_device *tzd;
- 	u32 trim_info;
-+	u32 temp_code;
- 	struct meson_sm_firmware *sm_fw;
- 	u32 tsensor_id;
- };
-@@ -138,6 +158,51 @@ static int amlogic_thermal_code_to_millicelsius(struct amlogic_thermal *pdata,
- 	return temp;
- }
- 
-+/*
-+ * Calculate a temperature code from a temperature value .
-+ * The unit of the temperature is degree milliCelsius.
-+ */
-+static u32 amlogic_thermal_millicelsius_to_code(struct amlogic_thermal *pdata, int millicelsius)
+ =C2=A0static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct inode=
+=20
+*inode)
+@@ -516,6 +519,27 @@ static inline struct hugetlbfs_inode_info=20
+*HUGETLBFS_I(struct inode *inode)
+ =C2=A0 =C2=A0 =C2=A0return container_of(inode, struct hugetlbfs_inode_info=
+, vfs_inode);
+ =C2=A0}
+
++#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
++static inline void hugetlbfs_set_pmd_sharing_seen(struct inode *inode)
 +{
-+	const struct amlogic_thermal_soc_calib_data *param =
-+					pdata->data->calibration_parameters;
-+	s64 factor, uptat, uefuse;
-+	u32 temp_code;
-+
-+	uefuse = pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
-+			     ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 :
-+			     (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
-+
-+	factor = param->B + div_s64(millicelsius, 100);
-+	factor = BIT(16) * factor;
-+	factor = div_s64(factor, param->A);
-+	factor = factor - uefuse;
-+
-+	uptat = param->n * factor;
-+	uptat = div_s64(uptat, BIT(16));
-+	uptat = param->m - uptat;
-+
-+	factor = factor * 100;
-+	if (!uptat)
-+		factor = (TSENSOR_TEMP_MASK - TSENSOR_TEMP_CAL) << 0x4;
-+	else
-+		factor = div_s64(factor, uptat);
-+
-+	temp_code = ((factor >> 0x4) & TSENSOR_TEMP_MASK) + TSENSOR_TEMP_CAL;
-+
-+	return temp_code;
++=C2=A0 =C2=A0 HUGETLBFS_I(inode)->pmd_sharing_seen =3D true;
 +}
 +
-+static void amlogic_tsensor_setup_hw_reset(struct amlogic_thermal *data)
++static inline bool hugetlbfs_pmd_sharing_seen(struct inode *inode)
 +{
-+	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REBOOT_CODE,
-+			   data->temp_code << 0x4);
-+	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REBOOT_TIME,
-+			   TSENSOR_REBOOT_TIME_MAX);
-+	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2,
-+			   TSENSOR_CFG_REG2_ENABLE, TSENSOR_CFG_REG2_ENABLE);
++=C2=A0 =C2=A0 return HUGETLBFS_I(inode)->pmd_sharing_seen;
++}
++#else
++static inline void hugetlbfs_set_pmd_sharing_seen(struct inode *inode)
++{
 +}
 +
- static int amlogic_thermal_enable(struct amlogic_thermal *data)
- {
- 	int ret;
-@@ -254,6 +319,13 @@ static const struct amlogic_thermal_soc_calib_data amlogic_thermal_g12a = {
- 	.n = 324,
- };
- 
-+static const struct amlogic_thermal_soc_calib_data amlogic_thermal_a9 = {
-+	.A = 9164,
-+	.B = 2747,
-+	.m = 370,
-+	.n = 270,
-+};
++static inline bool hugetlbfs_pmd_sharing_seen(struct inode *inode)
++{
++=C2=A0 =C2=A0 return false;
++}
++#endif
 +
- static const struct amlogic_thermal_data amlogic_thermal_g12a_cpu_param = {
- 	.u_efuse_off = 0x128,
- 	.calibration_parameters = &amlogic_thermal_g12a,
-@@ -272,6 +344,14 @@ static const struct amlogic_thermal_data amlogic_thermal_a1_cpu_param = {
- 	.regmap_config = &amlogic_thermal_regmap_config_g12a,
- };
- 
-+static const struct amlogic_thermal_data amlogic_thermal_a9_param = {
-+	.use_sm			= true,
-+	.has_sysclk		= true,
-+	.calibration_parameters	= &amlogic_thermal_a9,
-+	.regmap_config		= &amlogic_thermal_regmap_config_g12a,
-+	.reset_temp		= 110000,
-+};
-+
- static const struct amlogic_thermal_data amlogic_thermal_t7_param = {
- 	.use_sm			= true,
- 	.calibration_parameters	= &amlogic_thermal_g12a,
-@@ -291,6 +371,10 @@ static const struct of_device_id of_amlogic_thermal_match[] = {
- 		.compatible = "amlogic,a1-cpu-thermal",
- 		.data = &amlogic_thermal_a1_cpu_param,
- 	},
-+	{
-+		.compatible = "amlogic,a9-thermal",
-+		.data = &amlogic_thermal_a9_param,
-+	},
- 	{
- 		.compatible = "amlogic,t7-thermal",
- 		.data = &amlogic_thermal_t7_param,
-@@ -305,6 +389,7 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	void __iomem *base;
- 	int ret;
-+	u32 reset_temp;
- 
- 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
- 	if (!pdata)
-@@ -323,9 +408,18 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 	if (IS_ERR(pdata->regmap))
- 		return PTR_ERR(pdata->regmap);
- 
--	pdata->clk = devm_clk_get(dev, NULL);
--	if (IS_ERR(pdata->clk))
--		return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
-+	if (pdata->data->has_sysclk) {
-+		pdata->clk = devm_clk_get(dev, "core");
-+		if (IS_ERR(pdata->clk))
-+			return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get core clk\n");
-+		pdata->sysclk = devm_clk_get_enabled(dev, "pclk");
-+		if (IS_ERR(pdata->sysclk))
-+			return dev_err_probe(dev, PTR_ERR(pdata->sysclk), "failed to get pclk\n");
-+	} else {
-+		pdata->clk = devm_clk_get(dev, NULL);
-+		if (IS_ERR(pdata->clk))
-+			return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
-+	}
- 
- 	if (pdata->data->use_sm)
- 		ret = amlogic_thermal_probe_sm(pdev, pdata);
-@@ -346,6 +440,17 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 
- 	devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
- 
-+	if (pdata->data->reset_temp) {
-+		reset_temp = pdata->data->reset_temp;
-+	} else {
-+		dev_dbg(dev, "using default hardware reset temperature\n");
-+		reset_temp = TSENSOR_HW_RESET_DEFAULT_TEMP;
-+	}
-+
-+	pdata->temp_code = amlogic_thermal_millicelsius_to_code(pdata, reset_temp);
-+
-+	amlogic_tsensor_setup_hw_reset(pdata);
-+
- 	ret = amlogic_thermal_enable(pdata);
- 
- 	return ret;
-@@ -363,6 +468,8 @@ static int amlogic_thermal_suspend(struct device *dev)
- 	struct amlogic_thermal *data = dev_get_drvdata(dev);
- 
- 	amlogic_thermal_disable(data);
-+	if (data->data->has_sysclk)
-+		clk_disable_unprepare(data->sysclk);
- 
- 	return 0;
- }
-@@ -370,7 +477,15 @@ static int amlogic_thermal_suspend(struct device *dev)
- static int amlogic_thermal_resume(struct device *dev)
- {
- 	struct amlogic_thermal *data = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (data->data->has_sysclk) {
-+		ret = clk_prepare_enable(data->sysclk);
-+		if (ret)
-+			return ret;
-+	}
- 
-+	amlogic_tsensor_setup_hw_reset(data);
- 	return amlogic_thermal_enable(data);
- }
- 
+ =C2=A0extern const struct vm_operations_struct hugetlb_vm_ops;
+ =C2=A0struct file *hugetlb_file_setup(const char *name, size_t size,=20
+vma_flags_t acct,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int creat_fl=
+ags, int page_size_log);
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 7857728..e370960 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5359,10 +5359,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *vma=
+,
+ =C2=A0 =C2=A0 =C2=A0if (!vma->vm_file)=C2=A0 =C2=A0 /* hugetlbfs_file_mmap=
+ error */
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
 
--- 
-2.52.0
+-=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, start, end);
+ =C2=A0 =C2=A0 =C2=A0hugetlb_vma_lock_write(vma);
+-=C2=A0 =C2=A0 if (vma->vm_file)
++=C2=A0 =C2=A0 if (vma->vm_file) {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i_mmap_lock_write(vma->vm_file->f_mappin=
+g);
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (hugetlbfs_pmd_sharing_seen(file_inode(vma-=
+>vm_file)))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_poss=
+ible(vma, start, end);
++=C2=A0 =C2=A0 }
+ =C2=A0}
+
+ =C2=A0void __hugetlb_zap_end(struct vm_area_struct *vma,
+@@ -5401,7 +5403,9 @@ void unmap_hugepage_range(struct vm_area_struct=20
+*vma, unsigned long start,
+
+ =C2=A0 =C2=A0 =C2=A0mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, v=
+ma->vm_mm,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0start, end);
+-=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &range.start, &ran=
+ge.end);
++=C2=A0 =C2=A0 if (hugetlbfs_pmd_sharing_seen(file_inode(vma->vm_file)))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &ran=
+ge.start,
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&range.end);
+ =C2=A0 =C2=A0 =C2=A0mmu_notifier_invalidate_range_start(&range);
+ =C2=A0 =C2=A0 =C2=A0tlb_gather_mmu(&tlb, vma->vm_mm);
+
+@@ -7004,6 +7008,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct=20
+vm_area_struct *vma,
+ =C2=A0 =C2=A0 =C2=A0if (pud_none(*pud)) {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pud_populate(mm, pud,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(pmd_t *)((u=
+nsigned long)spte & PAGE_MASK));
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 hugetlbfs_set_pmd_sharing_seen(mapping->host);
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mm_inc_nr_pmds(mm);
+ =C2=A0 =C2=A0 =C2=A0} else {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ptdesc_pmd_pts_dec(virt_to_ptdesc(spte))=
+;
+--=20
 
 
+Thanks,
+Zhe
+
+>
