@@ -1,295 +1,213 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E07748AE20
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048906; cv=pass; b=sDEs2N/KLqWwwYetg5eGNOn6S59iy4uzDvuQSPIj0SfJdmKcj5tcNMTdci5qqL4PhV/2DFIDwYik9b0d9EabC5r+PtsWu1udm8jirK1DvJMsMSm/Z1WeuCGcKhNuieu2SjaG9dVG+qS90Goq0A6VxmlDy2i/5w7O6i0lmrOMuCE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048906; c=relaxed/simple;
-	bh=757DtCJuY1QNjGvpICrLV3nMNss/QMd+lFaVPDK3Skw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j78s4cpVMWUzxHAgmA9+Zh7nhED6RJBb9XXeUZS2FkGW31qFPHrPCdEuVli7lcs/j0+sgp1d/eY/rF5GUdFTFnTm+TU7ykdUqMNrBvC+OMrsmY+5lx6ApETpad0LPtnAGhJ3ghw5bZgxoZluXjk8mM6DpvTDtb1UWrOtDUvadkQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/kIZNHF; arc=pass smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66554963BB
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789048978; cv=none; b=UluNixL0PdFbIYxpMOPvrSHeP3LLBf0cJuBRSWvm8PFUWFpFb0nisMIKrdoSjaG/5gJc8y8xB6v84xWDYMLQ7mF6KToeed7vBlOxevkg1G0h1uGZjvzPnuymtCDHBcWd2dOC5v5ZPhZ64A52ndEiapElu6kzx6bG+WhPW4XmMKw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789048978; c=relaxed/simple;
+	bh=8aIsvPXTu/pIz4UpkptzLCCX3S+Aa/MK8wSV/nc+Mhc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KK681PjKMIwq5/td6NQG7g8J1vNbaZmm57ffTAJttpVBDwe56Bb4FAJaBgMPtKX9ht0Q4S26TXabGuYV5lDoIAenPJ99Gt9vQX8ZRm60os7iVt4K7cyF09b94cFgOP2mPpfy5tIsFtm8rEDAgLuhdAekTFUQ2Y3kluQTj5soyZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fA2x/ub3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/kIZNHF"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66825847b2cso7636517d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:01:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789048903; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rFvwsgdRHlYK/NTnIkOFrdF7a/l3DyO0DY0pxBO2jGS68L9DYag4ervjh3JKOLEHa7
-         Cr6eDRZ4WKqKlDV1KL2QoazXJGJT+66Gr07w1RjwByXBH01hvB91+DlgZbuw086pvpaK
-         2THCLExjUXOedhEQIlEldMUmJIcWBPaIXKiC9cAUvFk9S/+xE73E6AJsLHyyM9+17uXQ
-         p5xArmFEDveOL1GZ92071n/3dqUxQpNG01jmfmNOWsLMaPsUnSXb605Bvp6UcWbVr8KD
-         sPtWsGGFvPUXy6agBS9a8xjDwGgvMSaQFiMgcREh186LtD4oiOhAUthhnUF9f/0ry6xA
-         geFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QVTBVvK/LTuo8gf4v/dR/3J2cjbjkp2QfVZbK4iqBUA=;
-        fh=CWyctGS47ctXwXdYYpwNav7Jeggh+JuBdXzyC+fLwj0=;
-        b=q3L6mI/1M5ZHqIv3wjEfyDpO/vhRffttISDToANkbGH/F5l2r3KNLs3yxWuPXBOrWn
-         8IIF/l/Url0KWWLX2w24EV9/PEu3SKBNS9kMTJ3Crv5kI19EXGiKluCYlOcocOg4hGDk
-         O/dnZVtx4MeWiMdVpIDF5863qUBZ04zGWPE3ZhxfnIFLhJ5yiTaM//OzTS/mfbFeYgXH
-         RF/QFebsW1ZxWYxxfCEEWiC80kBpZOravoxS+DS11wuauJr12aU7KaB6hWoeDYDTjGFc
-         fuMlHJa9xLkARc81sVho7TbSR5NuRj+BMgdBsstXgiZ9DLXkMnawVPLGE8OPUyDlbZls
-         CivA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789048903; x=1789653703; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QVTBVvK/LTuo8gf4v/dR/3J2cjbjkp2QfVZbK4iqBUA=;
-        b=C/kIZNHFd6CjS/DALS1apqcXfcI4YWc2ioTDgGhforDU0v7dLqZT8mKZT74OjcF6H3
-         2jLwZbbwMP+8MwXPFOMZ5gCr+1SkwTKIxg+lCwvYhNzSA0tTsZJgPRw6tH2vsY+0Zj/h
-         QH9drmgRLHaCC1VZRFKSFBiuaxbInqUWCrl8TAezD1k1kzezp/VgdQ833XNUV+UgUjEw
-         DFwXv14bAA5fMv5zidVr5l5d6HcN8b9rIU36XJ6n8em2ACWZElAUqkLdQG8bkzFxQdN9
-         cQwt6y2RnhI1En8ntbjnlc7h+ljJt5LiFpVsSjAxmespcvc1R/yn3aUNaKY9uN8unMeX
-         Ux2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048903; x=1789653703;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QVTBVvK/LTuo8gf4v/dR/3J2cjbjkp2QfVZbK4iqBUA=;
-        b=LJVtISQNf+cjAlf9rO1Nc91+MKUtaEFj8z2mgGg2H1SEQyeSxPQvDfoG7Cppgw34TZ
-         3qCWGuGnr2MJZDWnIHYUyDe3674U3mgdjEk/cYno0x5VtHcadDxkJOarFq66Vhb7zx0e
-         6VNm4PLmO+BdNY8CaRY5GEiTYtiK0t1ohyiHKJI8E0/BhD+AM35UKgeEIVo0YT8OPSwy
-         9SZx2ZpFaGszpnbNXAq5o0QiOShURBMplx135AdYZuVxi9PDJFIGxI5jV3Fgf8KuXVQv
-         WYUT3jlr0uiGnPagZpR6evHY0RDe/eqHqCZkiMNCEMwvaX/JjlOoWXmWITcgQulPFjfN
-         7diw==
-X-Forwarded-Encrypted: i=1; AKwUvBygqWrQNLtMS0/zHfqBd2zNR4achksgjmxjL4rpLQPW/Eqv9kWd6B2cHmri/4CNiZVjlzXIxAnX3+sx91c=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndYByu22kYTyb+LK0eK8jabMJNrd+mm3XILradJwsp6ljzv9Q4
-	chXSAnk4jlR8LYVu+MSE0p4bO1HQEJo7TZ+QXRcoJUJiu3gCD1WBtWBCgvianWXi/CCosivuyvw
-	7C8MZEHnhUOweghm93Hz8ND1MGdI22hbqSWs+g14=
-X-Gm-Gg: AYBFou0WeFcZ21nSmxchRbX02SpXn7WAI23vOoRP2le4nV/SUkZaIzVoxyn8HPLleO8
-	5b0v567/Zf3bS6oysKR7BqyITCNFdAichaRDF9vRyLITLvyJrFLJEWqn7vRn9sdsBId1eXmwGSP
-	L4nwRugZ8tt21BmEIY0jztWFDfikvVmnnFlOv2ToMm5JjcVdQTsuCAD7xtCGT0ErNP5bDYTzg85
-	i0+1uBsR/kPIbNlF29y4wrUXWw5B/jK11vZaMZ1jEHVN1m34EUncXfGFz2XmWDIskXmDKNO2UTR
-	hg+0D4335Z0nIPgZMuxd2BXqan6bkr35NgWuqb87HhzEwn5d4aaCV+RMIFZ1Sgq+Yg80XN3PQDy
-	iVFSFsH43qiQYWHC721ysk57uMG58ZAA4z0u0+Vi6QWvlMttSXFIrZqM3ksmVDe+wDD46QWH1p0
-	xiVjrCkQ==
-X-Received: by 2002:a05:690e:184:b0:66f:c1be:84ec with SMTP id
- 956f58d0204a3-66fc1be8749mr9414432d50.90.1789048902818; Thu, 10 Sep 2026
- 07:01:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fA2x/ub3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0BB01F00899;
+	Thu, 10 Sep 2026 14:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789048976;
+	bh=Qj7jerQrIGn+60nnavoJTceZpIvkRfaJD46i+mDcQ4k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fA2x/ub3LYfGaIOregLfIXJPVcmYC7hAkDtUCKcAdCRS0QPrURkadHTHdMm/1fTyn
+	 zTBFoqftDYUE6bdM2VNXsSADqAQ7ymuRz8BBrqlC3Vbzc7xzFy9r09pCdObupSaLMz
+	 P7e5VmCwBULqN5PprSOoP/xt27w159ha0e67YOhFK7sNSwgvnVDeH9pdOC/gU1sk0P
+	 29L/IjWnH04bauvPl590zCvm4iQBV3l8hFdeulzAw3yIQye2cQpXDzwsgKAez9oe1Y
+	 C8kt+nmb3SdVtrrVGVPiiz1EVgRjh4LHtaUctDFh+7GGooCY6MBRlSN4wTALPo7CYD
+	 wIKyEW5mIV52g==
+Message-ID: <7d779a3e-0c12-42fc-91e1-fe53ae2dc641@kernel.org>
+Date: Thu, 10 Sep 2026 16:02:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <908a5b29-e6d8-4595-b451-6c328e25c60e@rowland.harvard.edu>
- <CAFmvuTU5HnBKbve=v_C7Mhw2586rR_8qsRNua2XPokgKy_o31w@mail.gmail.com>
- <0305182d-5914-4022-a0a6-1ab4221b0a6c@rowland.harvard.edu>
- <CAFmvuTULxq6O0t7FyhEwnGVdMMpbj1yZrPN6mVRDWTgF0ODJxg@mail.gmail.com>
- <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
- <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
- <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
- <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
- <f928b74b-ce57-4454-bdd4-511b823bf742@rowland.harvard.edu>
- <CAFmvuTXwUiap39-FHv6aqGbJVzORRx8tV1QfN0BDjJaPsbfKHg@mail.gmail.com> <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
-In-Reply-To: <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
-From: Minseo Kim <neck3922@gmail.com>
-Date: Thu, 10 Sep 2026 23:00:00 +0900
-X-Gm-Features: AcwNN1V6_1IfAu83Vxg6wMCAVqhduCS26yaYX8_GJMz2wtDNO_vaTq0-kfaHAeE
-Message-ID: <CAFmvuTUwGr-=joWrsYMu-Ra3XpHTe_HFhaY5inJnhg=e5b=1PA@mail.gmail.com>
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF in ep_aio_cancel()
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: implement and use vma_anon_tracked(), silence
+ KCSAN
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+References: <20260910-vma-is-faulted-v2-1-e81ebc7d146b@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260910-vma-is-faulted-v2-1-e81ebc7d146b@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Alan,
+On 9/10/26 15:18, Lorenzo Stoakes (ARM) wrote:
+> Provide a function to abstract the common task of checking whether
+> a VMA is faulted in or not.
+> 
+> A VMA or mmap lock must be held when calling this function. For an attached
+> VMA the transitions between unfaulted/faulted state are:
+> 
+>        Transition        |              VMA/mmap Lock state
+>  ------------------------|-----------------------------------------------
+>    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
+>    faulted to unfaulted  | write lock
+> 
 
-Thank you for the second patch.
+Still using the faulted/unfaulted terminology above is subotimal but I don't
+mind too much as long as the code is easy to grasp :)
 
-> In your earlier testing, didn't you find that with the unpatched driver,
-> the driver module's usage count remained elevated as long as the
-> ep_user_copy_worker() was pending on the workqueue? And therefore it
-> was impossible to unload the module while a work item was still queued
-> or running?
+> So vma_anon_tracked() never provides a false positive (the lock precludes
+> it), but if only a read lock is held, a negative result must be re-checked
+> with mm->page_table_lock held.
+> 
+> Detached VMAs cannot be concurrently manipulated as they are removed from
+> the maple tree so require no guarantees.
+> 
+> Use data_race() to silence KCSAN about non-existent data races between
+> concurrent vma->anon_vma read/write on optimistic fault tests.
+> 
+> Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
+> dependants.
+> 
+> Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
+> preparation callers which test vma->anon_vma directly to use
+> vma_anon_tracked() instead.
+> 
+> Note that the lockless read in reusable_anon_vma() is doing more than
+> checking whether the VMA is faulted - it is returning the anon_vma to be
+> used on fault, so this check is not altered.
+> 
+> There is one odd one out - file_backed_vma_is_retractable() - which holds
+> neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
+> 
+> Therefore just add a comment to explain why the direct vma->anon_vma check
+> is required.
+> 
+> Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+> Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
+> Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+> v2:
+> - Renamed vma_is_faulted() to vma_anon_tracked() as per David.
+> 
+> v1:
+> https://lore.kernel.org/r/20260909-vma-is-faulted-v1-1-3a701f48984a@kernel.org
+> ---
 
-To check that point directly, I tested the unpatched upstream copy-work
-path using diagnostic gates at two points in ep_user_copy_worker(). The
-module usage count remained elevated when I held the worker at entry,
-before iocb->ki_complete(). When I held the worker after that call, the
-usage count reached zero and the module was unloaded before the worker
-finished; the kernel then warned and panicked. This suggests that
-AIO may not retain the file reference throughout the worker tail after
-ki_complete().
 
-> Could you test it and verify that it prevents the problem you observed
-> with only the first patch installed?
 
-Yes. I applied your first patch and then your second patch to upstream
-v7.2-rc1, commit dc59e4fea9d83f03bad6bddf3fa2e52491777482.
+> index dd66c6ad5af1..40669bec953c 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -264,7 +264,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>  	 * Allow page fault since anon_vma may be not initialized until
+>  	 * the first page fault.
 
-With the first patch alone, I reproduced the earlier module-unload
-failure with ep_unlink_worker() held at entry. With both patches applied
-using the same reproducer and ep_unlink_worker() entry gate,
-gadgetfs_unbind() reached the flush point and the ep0 close remained
-blocked, while unmount and rmmod attempts were rejected. After I released
-the worker, the close completed and subsequent unmount and rmmod attempts
-succeeded. Holding ep_user_copy_worker() at entry with both patches
-applied produced the same result.
+Do we directly want to fix up such comments to not talk about "anon_vma" but
+instead of the abstraction?
 
-I also tested the boundary where gadgetfs_unbind() reached the flush
-point before the completion callback queued copy_work. After the
-callback queued the work, I held the worker tail immediately after
-iocb->ki_complete(). In this ordering, rmmod did not complete while the
-worker was held; after I released the worker, rmmod completed cleanly.
+Not immediately sure how to rephrase, but I guess the goal would be to avoid the
+term "anon_vma" and least outside of core-rmap/anon_vma code.
 
-I reran the exact pre-queue cancellation matrix, the original
-null-ptr-deref reproducer, the directed cross-CPU UAF reproducer,
-deferred giveback, forced dequeue failure, the earlier NULL-endpoint
-case, payload checks, and CPU hotplug. With both patches applied, all
-produced the expected results without a KASAN report, Oops, or LOCKDEP
-warning. Strict KCSAN did not report a race involving GadgetFS or its AIO
-work functions.
+[...]
 
-In my x86-64 QEMU and dummy_hcd tests, the second patch prevented the
-module-unload problem that remained with the first patch alone. I did not
-find a new failure attributable to the second patch in these tests.
+>  		/* KSM folios don't reach here because of the !anon_vma check */
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 01e7b6b046b6..9f9cd6657360 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -2705,7 +2705,7 @@ static int unuse_mm(struct mm_struct *mm, unsigned int type)
+>  	if (check_stable_address_space(mm))
+>  		goto unlock;
+>  	for_each_vma(vmi, vma) {
+> -		if (vma->anon_vma && !is_vm_hugetlb_page(vma)) {
+> +		if (vma_anon_tracked(vma) && !is_vm_hugetlb_page(vma)) {
+>  			ret = unuse_vma(vma, type);
+>  			if (ret)
+>  				break;
 
-With sincere appreciation and great respect,
-Minseo Kim
+[...]
 
-2026=EB=85=84 9=EC=9B=94 9=EC=9D=BC (=EC=88=98) =EC=98=A4=EC=A0=84 4:03, Al=
-an Stern <stern@rowland.harvard.edu>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Mon, Sep 07, 2026 at 10:00:00PM +0900, Minseo Kim wrote:
-> > Hi Alan,
-> >
-> > > Is it okay to add your Tested-by: tag?
-> >
-> > Yes, please add:
-> >
-> > Tested-by: Minseo Kim <neck3922@gmail.com>
->
-> Will do.
->
-> > Thank you for the time and care you have put into this fix. I have lear=
-ned
-> > a great deal while working through this issue with you.
->
-> You're welcome.
->
-> In your earlier testing, didn't you find that with the unpatched driver,
-> the driver module's usage count remained elevated as long as the
-> ep_user_copy_worker() was pending on the workqueue?  And therefore it
-> was impossible to unload the module while a work item was still queued
-> or running?
->
-> This patch introduces the possibility of that happening.  Therefore I
-> would like to have a second patch, which flushes the workqueue and
-> prevents the kernel from trying to run code in an unloaded module, ready
-> to submit along with the first one.
->
-> My version of this second patch (meant to apply on top of the first
-> patch) is below.  It is closely based on the version you wrote, the main
-> difference being that it uses a single workqueue for both work routines.
-> Could you test it and verify that it prevents the problem you observed
-> with only the first patch installed?
->
-> Thank,
->
-> Alan Stern
->
->
->
-> Index: usb-devel/drivers/usb/gadget/legacy/inode.c
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> --- usb-devel.orig/drivers/usb/gadget/legacy/inode.c
-> +++ usb-devel/drivers/usb/gadget/legacy/inode.c
-> @@ -237,6 +237,7 @@ static const char *CHIP;
->  static DEFINE_MUTEX(sb_mutex);         /* Serialize superblock operation=
-s */
->
->  static DEFINE_SPINLOCK(aio_lock);      /* Protect aio cancellation info =
-*/
-> +static struct workqueue_struct *gadgetfs_wq;
->
->  /*----------------------------------------------------------------------=
-*/
->
-> @@ -514,9 +515,7 @@ static int ep_aio_cancel(struct kiocb *i
->                 spin_unlock_irqrestore(&aio_lock, flags);
->                 return 0;       /* ep_aio() will call us again if needed =
-*/
->         }
-> -
->         priv->cancel_state =3D AIO_UNLINKING;
-> -       spin_unlock_irqrestore(&aio_lock, flags);
->
->         /*
->          * We are called with the aio core holding iocb's context lock.
-> @@ -527,7 +526,9 @@ static int ep_aio_cancel(struct kiocb *i
->          * For this reason, do the dequeue operation in a work routine.
->          */
->         INIT_WORK(&priv->unlink_work, ep_unlink_worker);
-> -       schedule_work(&priv->unlink_work);
-> +       queue_work(gadgetfs_wq, &priv->unlink_work);
-> +
-> +       spin_unlock_irqrestore(&aio_lock, flags);
->         return 0;
->  }
->
-> @@ -597,7 +598,7 @@ static void ep_aio_complete(struct usb_e
->
->         if (new_req_state =3D=3D AIO_COMPLETED) {
->                 INIT_WORK(&priv->copy_work, ep_user_copy_worker);
-> -               schedule_work(&priv->copy_work);
-> +               queue_work(gadgetfs_wq, &priv->copy_work);
->         }
->         if (cancel_state !=3D AIO_UNLINKING) {
->                 usb_ep_free_request(ep, req);
-> @@ -1773,6 +1774,8 @@ gadgetfs_unbind (struct usb_gadget *gadg
->         spin_unlock_irq (&dev->lock);
->
->         destroy_ep_files (dev);
-> +       flush_workqueue(gadgetfs_wq);
-> +
->         gadget->ep0->driver_data =3D NULL;
->         set_gadget_data (gadget, NULL);
->
-> @@ -2245,10 +2248,17 @@ static int __init gadgetfs_init (void)
->  {
->         int status;
->
-> +       gadgetfs_wq =3D alloc_workqueue("gadgetfs", WQ_PERCPU, 0);
-> +       if (!gadgetfs_wq)
-> +               return -ENOMEM;
-> +
->         status =3D register_filesystem (&gadgetfs_type);
-> -       if (status =3D=3D 0)
-> -               pr_info ("%s: %s, version " DRIVER_VERSION "\n",
-> -                       shortname, driver_desc);
-> +       if (status) {
-> +               destroy_workqueue(gadgetfs_wq);
-> +               return status;
-> +       }
-> +
-> +       pr_info("%s: %s, version " DRIVER_VERSION "\n", shortname, driver=
-_desc);
->         return status;
->  }
->  module_init (gadgetfs_init);
-> @@ -2257,6 +2267,7 @@ static void __exit gadgetfs_cleanup (voi
->  {
->         pr_debug ("unregister %s\n", shortname);
->         unregister_filesystem (&gadgetfs_type);
-> +       destroy_workqueue(gadgetfs_wq);
->  }
->  module_exit (gadgetfs_cleanup);
->
->
+> +/**
+> + * vma_anon_tracked() - is @vma tracked by an anon_vma?
+> + * @vma: The VMA to be checked.
+> + *
+> + * A VMA or mmap lock must be held.
+
+I would document here what the implication is: if untracked, there cannot be any
+anon folios, if tracked, there might. Some callers of this function (e.g., ksm,
+swapfile) want to know exactly that: could there be any anon folio in there such
+that they have to provess the VMA.
+
+-- 
+Cheers,
+
+David
