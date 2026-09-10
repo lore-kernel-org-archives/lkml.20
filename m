@@ -1,47 +1,73 @@
-Received: from b224-5.smtp-out.eu-central-1.amazonses.com (b224-5.smtp-out.eu-central-1.amazonses.com [69.169.224.5])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF0B484235
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=69.169.224.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811EE4746AE
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040008; cv=none; b=F5EzHAtTqCbE86gRyBHDIB507nclemf+g+TVfjU2EAXp/kJoCNSOkGEEsbVLkFlAEbU7PncN/wYWOqjfDjuh/HkZzMk1fSbY0gHfxsfekJqets8WLKaZmVnUp9Q1gmdpMU5EIc6LD1h3lsdFXAF/XHQcHXgVNzjxY0iZiwRdbJw=
+	t=1789040052; cv=none; b=Xy8RWk0xNWVpE/sPI0JNvr4J6lHypv92Cn2DjMsb1fVcX35Fn/43N0if4xtlEjej6OlFc26GYjrZ1ojtIWADUR0zL1oB9cvObYE/o5XjFut+pdjLxQxlpUwtLaM5uHherVcLPGTreZHUhfsiqAIHq/t6TyQnEdJdo5MzilqhzRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040008; c=relaxed/simple;
-	bh=gU+TosqF0bmNRmsn9m+cbxl0ah+pcAiVRzQfc5xFUoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dm++yo63ADSnS52FT7p9o5Yt8u8cHyD/YvDI4bI6ezXMWOT9pBPi1Kuye77mUuKwJHxEJg3pDDK3THqZ/asXCgLNmKeFg0uiFPXGpKsOaU5qB8uB4lyXUBsyZNavOlfcwMNZsnBLmpfmoPxwRhW3Ksqv0TN2OhRgmgm4YQqiKv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sagnik.me; spf=pass smtp.mailfrom=mailer.sagnik.me; dkim=pass (2048-bit key) header.d=sagnik.me header.i=@sagnik.me header.b=qRUbXAh2; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=S5jf2uWe; arc=none smtp.client-ip=69.169.224.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sagnik.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailer.sagnik.me
+	s=arc-20240116; t=1789040052; c=relaxed/simple;
+	bh=CJUuoQ2iTfwcG6oeIrw7E+rGr4DRPBFegg1mGe30BQk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LnquyKHQ9tJYka0C2gDoAX2J22qfp+HVsxP2ceyATZEuQZbylSD5oiG6+hEZN55ghdQ9Pcnq17s60q1SzWz5AgvU5+F+44tJkD36Dmac/ugimTr/K+YSkKL+Z3U1xxsuvWu2KJz+GahSU21wC5zArmN3QVBXhZqpOsThK4XBkA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTwQvbQX; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sagnik.me header.i=@sagnik.me header.b="qRUbXAh2";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="S5jf2uWe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=hi6pntjfnmhxrdkbpi4sl3ndfqswqs3i; d=sagnik.me; t=1789040003;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=gU+TosqF0bmNRmsn9m+cbxl0ah+pcAiVRzQfc5xFUoI=;
-	b=qRUbXAh2X0f+DDinEefav43TE67elGf1HnusH7qJpcXuh4NTNE/gTvANWG4Pa6z5
-	5c45KDU2kuizYrcaqFNTfrcpEHgjOBNuFvB2b5ukcr86Ns9yNr4NAQXqpkLIzZynk4e
-	/GuCrRwsdm7y/zhs9nyxbpveHM39PcSJTySG/fRofbeFwOWsGWbkBHLkZmJXm1J+sp9
-	Fj88fjrPsVCaw9K8PgcRNj5aLllwZoNddG0ZugIK/afwry7sdb0yiaQP7Hf4R/3MMJ/
-	a6+hqvgf+4jhUmaA3lPNDVVAu2TU9YuUDKcO98kNNJl4I2BdH4hoqOUAxzoUQZHiGxB
-	DQLyFD4m4Q==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=sokbgaaqhfgd6qjht2wmdajpuuanpimv; d=amazonses.com; t=1789040003;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
-	bh=gU+TosqF0bmNRmsn9m+cbxl0ah+pcAiVRzQfc5xFUoI=;
-	b=S5jf2uWeUej6tj1l06lHggDCo8vY+YHmqUkTCAOBowju0eI9sZ2OXy2kmqgih+6l
-	I0bOyz5/cwi/kBrpJfPW6fFJZWNUbGCY//ypo0oEEP0f8BldRh9wHj0jQBxJzDzILtI
-	e296s5L+myPiRv4jbjMduZUFSh/Py4G6UMkUFvt0=
-From: Sagnik Sasmal <sagnik@sagnik.me>
-To: miquel.raynal@bootlin.com
-Cc: richard@nod.at, vigneshr@ti.com, tudor.ambarus@linaro.org, 
-	mikhail.kshevetskiy@iopsys.eu, linux-mtd@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mtd: spinand: Do not update the QE bit on devices without one
-Date: Thu, 10 Sep 2026 11:33:23 +0000
-Message-ID: <010701a08b180a21-f4b7e929-ff1c-494e-99ec-c563bf7c92f4-000000@eu-central-1.amazonses.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTwQvbQX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b0dd3e1d0so2540365e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:34:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789040047; x=1789644847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hbLnIWJycW550lJgcztROooyzxfaoCBFJTCFjxtrh3I=;
+        b=JTwQvbQXoYmvd5WjFiN5Cty9lyfVXerC+Luhp2ACyu+xoyfBKzm31EJTDtw2LT7poj
+         yVeXDCIMxUVJ+ex54TjCMPvBA1PBQkA1FifH7jU0pIoGD8sWBWGd+9rY9nWHAKVTCu6u
+         UgkanNZafDTiiYpQ8pYGSpt6xWegucV9netyvnN0Tsh6TRVkyoB4xRbo6wOJcvgiIZXZ
+         EpItQhLtQewTM3/+j1ZPVFKMIRrYSe0iPwoP3lCjffqWUpW7NfStBVYUHwqc554CnN1u
+         XqBhW6sXy7sEI7E+r5OsvWq0DhqaBY6K7mD8flIN3ZkV37GAvbd3C35wo58RWvHwkABt
+         GBrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789040047; x=1789644847;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hbLnIWJycW550lJgcztROooyzxfaoCBFJTCFjxtrh3I=;
+        b=gbAZNIDOet7ESnpeiekPrt1LCGDyA/vfEkfTS/C1tXCGJjOCH9BmMkfVBX5DePfT4H
+         TuAgG+MONUsVKdpNXM8u/TY4wa8IxGzDGgIDt6gNoaPYglZwk1wbe1NeBeAf7dO3Nmrm
+         tntQd8Q+D/XqjGZ/IiU8e2m/KMGQY1HqKXwhwEEPlgFzgQ0oqw+86qG76i5H875uQ/6T
+         DEquE+Oo8VkVmQSFd/wHfW29BX/bZSmF7W0tKYgLLQILVEEykfSlV9rI1jlyDg7LbIjd
+         6JXECUAWuEqJyMFpOaiHKvHw0NkriJfMcXOUWYHjyUgHJid0lEqV2oajg7xgFj0DuxW4
+         dj9A==
+X-Gm-Message-State: AFuF++kxo9/IXlvoLoWq7dwJzOV2UubrJfx+Ry+XEdLR4Lch95sqVw7L
+	UdbbP2RmPsbbXvMt+Irtpwd3Pk4A+GyWWeIxwZyJwGNuTbe6yvNSCvtM
+X-Gm-Gg: AYBFou1l/+n+i1qyJPo4fCdvRx4dq3LdH+znICc5so2mTW7R4gx6uslHvSVycesbMtM
+	TIXMEYyANDpUNxxIX5GPAe7M1R+31HwFg2LshHGHY1pmqeTyG7bBF1xiZVfgnKKtYf8c/OfzqHJ
+	hEwYomJBnLAEYLTliccocMDwUo/cDbEififmzPRyC9iRb/KUz8yyGteBY5bCOHWby8TFWLH8qFR
+	oqzRepE2OiAEkh6JyivYpxgRQeOZvOJDS8YIz84krAmMeLZPlPnxX00SbWRdyjHVtiAuulukGDn
+	mmLOXojK6zkXArFwrhTFpXyoH3FF6jYViwQiUVlciDffjqdOs3YULOBEuYATIUPBzQQEI6Dazkx
+	9xiGxxGYNw6POdHZ/QMNYWMLS12Wg9EtNwsgTKqcBXZaey6+GICDvwNN1ZPNWhWjy49X+VRQHMN
+	BEoSaF8CV5e4N1drYIJ+3v2YeHbPJiod+UmGKxlYwxvQLoWfKPokUqHfYwCLuKOjQjpc7XqLm8S
+	zlPcSYGqJzyxbgm0i8=
+X-Received: by 2002:a05:6000:2c0e:b0:484:3328:1ad1 with SMTP id ffacd0b85a97d-48590805fabmr30378346f8f.6.1789040047066;
+        Thu, 10 Sep 2026 04:34:07 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm49155813f8f.22.2026.09.10.04.34.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:34:06 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: broonie@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org,
+	michal.simek@amd.com,
+	Itai Handler <itai.handler@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
+Date: Thu, 10 Sep 2026 14:33:25 +0300
+Message-Id: <20260910113325.717882-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,56 +75,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
-Feedback-ID: ::1.eu-central-1.PI0qW2sOnv0WHLkqY53RTxXQVzstwFEIoB04n7YZrig=:AmazonSES
-X-SES-Outgoing: 2026.09.10-69.169.224.5
 
-Commit be0b86c648bf ("mtd: spinand: Gather all the bus interface
-steps in one single function") moved quad-enable setup into
-spinand_configure_chip(). The new code only determines whether quad
-mode is needed when SPINAND_HAS_QE_BIT is set, but calls
-spinand_init_quad_enable() unconditionally. This clears configuration
-register bit 0 on devices without a QE bit.
+The driver has no ->shutdown, and platform_drv_shutdown() has no
+fallback of its own.  Unlike pci_device_shutdown(), which clears bus
+mastering when kexec_in_progress, nothing on the platform bus disarms a
+device that can still write to memory.  The normal kexec path never
+calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
+reached.
 
-That bit is not universally a QE bit. On the Winbond W25N02KV it is
-H-DIS, which disables the active-low HOLD function. Clearing H-DIS
-enables HOLD during single and dual I/O operations. If IO3 is not kept
-high, the flash can pause a command and ignore clock and data.
+A controller that is still executing a DMA read may therefore keep
+writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
+memory owned by the kernel that called kexec, DST_SIZE is non-zero and
+the flash is still clocked, so data can keep landing in RAM while the
+new kernel is being relocated, and after it has started executing.
 
-H-DIS is not restored by the FFh reset command, allowing the incorrect
-state to survive an SoC warm reboot while the flash remains powered.
+That destination is a physical address which means nothing to the new
+kernel, so the writes can corrupt whatever now occupies it: kernel text
+or data, page tables, or the initrd.  Nothing reports an error and the
+resulting behaviour is undefined.
 
-Before the refactoring, spinand_init_quad_enable() returned without
-touching the configuration register when SPINAND_HAS_QE_BIT was not
-set. Restore that behavior.
+This can be observed by reading GQSPI_EN (offset 0x114) and
+QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
+kernel, before the driver probes: without this patch GQSPI_EN reads 1
+and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
 
-The regression was reproduced on a Jio JIDU6401 with an MT7986 SoC and
-a W25N02KV. With Linux 6.18.44, sysupgrade failed and the following warm
-reboot hung in BL2. With this change applied, both sysupgrade and warm
-reboot completed successfully.
+Write 0 to GQSPI_EN_OFST, as zynqmp_qspi_remove() and
+zynqmp_qspi_suspend() already do.  Skip it only when
+pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
+are gated, so the registers are unreachable and the controller cannot be
+mastering the bus.  A negative return is not the same thing - it is what
+the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
+and refclk for good, so the controller is running and must be stopped.
 
-Fixes: be0b86c648bf ("mtd: spinand: Gather all the bus interface steps in one single function")
+Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Sagnik Sasmal <sagnik@sagnik.me>
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
 ---
- drivers/mtd/nand/spi/core.c | 3 +++
- 1 file changed, 3 insertions(+)
+Note for stable: before commit 1c26372e5aa9 ("spi: spi-zynqmp-gqspi:
+Update driver to use spi-mem framework") this driver stored the
+spi_master in the platform drvdata rather than the zynqmp_qspi, so a
+backport to those trees needs spi_master_get_devdata() in place of the
+platform_get_drvdata() used here.
 
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 8bf9301f25e7..89e9f5410cfa 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -281,6 +281,9 @@ static int spinand_init_cfg_cache(struct spinand_device *spinand)
- static int spinand_init_quad_enable(struct spinand_device *spinand,
- 				    bool enable)
- {
-+	if (!(spinand->flags & SPINAND_HAS_QE_BIT))
-+		return 0;
-+
- 	return spinand_upd_cfg(spinand, CFG_QUAD_ENABLE,
- 			       enable ? CFG_QUAD_ENABLE : 0);
+ drivers/spi/spi-zynqmp-gqspi.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index 4d55090..24f680b 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -1373,11 +1373,35 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(xqspi->pclk);
  }
+ 
++static void zynqmp_qspi_shutdown(struct platform_device *pdev)
++{
++	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
++	int ret;
++
++	/*
++	 * Only a runtime suspended controller can be left alone: its clocks
++	 * are gated, so it cannot be mastering the bus, and its registers
++	 * must not be accessed either.  Any other answer means it may be
++	 * running and has to be stopped.  In particular, on a kernel built
++	 * without runtime PM this returns -EINVAL, and there the clocks
++	 * enabled in probe() are never gated at all.
++	 */
++	ret = pm_runtime_get_if_in_use(&pdev->dev);
++	if (!ret)
++		return;
++
++	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
++
++	if (ret > 0)
++		pm_runtime_put_noidle(&pdev->dev);
++}
++
+ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
+ 
+ static struct platform_driver zynqmp_qspi_driver = {
+ 	.probe = zynqmp_qspi_probe,
+ 	.remove = zynqmp_qspi_remove,
++	.shutdown = zynqmp_qspi_shutdown,
+ 	.driver = {
+ 		.name = "zynqmp-qspi",
+ 		.of_match_table = zynqmp_qspi_of_match,
 -- 
-2.53.0
+2.34.1
 
