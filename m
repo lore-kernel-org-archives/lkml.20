@@ -1,142 +1,218 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012040.outbound.protection.outlook.com [40.93.195.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F5C3B47D5
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025533; cv=none; b=DjTzSXrSa6Kpj96sZSkhAz1SY40axyrNowFIj+Nl0tdehwlx13NWzvlNAz+9tjY8k+a/V7AKlxeraXpG+7yvw6FlfejNBo05jdneoVtH6UQvq6JLwIA2b3G8yxBXlzwqlYtFlsAodtq/zk9AMJhoBm7V0Ha0zd0vZcCVpI/K56w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025533; c=relaxed/simple;
-	bh=eM3CqgBL4woW3uvSNQaMJnpyezKNnY1o9BhD8Hdd+3E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Goa2zXtT77WVLE7Sjc+pg1q8bY/p27vlxvbeDvh2x915pn7Vy9CNXTJo7WChia6rDJLLNISvgZ+o3SPcO/A3tWx1QDfwbIkxPgnDGwIQ3/WJbdvLndX1sFOWswRJuzMlfrpvZb9mlxoVa1PQVqJSF494f+NOpPXlg+GFv5D2G1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nQddMCG2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ec4rr1Ut; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B564935676A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789025534; cv=fail; b=MDxCdeqmBkalDHMIF7Vj9M0CRvBOwNcMC08HYc999O1HfqvLFJWyH8ghVN7D4V+ST1frTwTAMDn6IXCZW7UnWsy8nGa/9u5Xr5hnH74C6I6S0iqQdFmzH1t1dirox7Hrmnk9/oAK6aQHCOZz9BhH+Up9HvBcTygIo5IElWQxpUI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789025534; c=relaxed/simple;
+	bh=J3+FYdZAdbViQos/XyBXPGjQ/o9luGlv+Dylmp+RoUQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=C5Y5yldQ+6tYd6ec1eHqukMrQ9+lE9iFnwm+A1Wvh7OmyJ1Jc9+Hyo8R7YoK7t8kRu8C9VEcSfOsNtKazBL3pX/b4wYQTMgRTCvcYkk1wbdTdnSMQJHZOYkySDjC8cI3HOub6d7MgrTp4usndtwo4W+EcdWGqO7pruvm5ZZIkhE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LloP5C3C; arc=fail smtp.client-ip=40.93.195.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nQddMCG2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ec4rr1Ut"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5GSlv3487387
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ScjaRXisa630raTeVAXO2NA5
-	6DeU2lojj5oSTcac+p4=; b=nQddMCG24aHiOxH14YsKQxQveYr2cCixpJ2/df8I
-	eZi8z4qjC+Qtw58AC+E3EDilx9xjtIEp32jaZfNVmoQOWQw/RF2BqrCUVmlD7QRA
-	MCQfhgqSGkGvc5jBciKAh3jLb+NhZ2fyIDQapwuSnCVUpsvb3EGXfcQJnZ65D13I
-	dn/2eUVH+BP+wYY3OpzuqPqJV4D/7QiokrHGqjZ8kwYOESEO9kurZX9HoWdaczML
-	7npESgPByKoDYe4qrkI943K897uow5nW2cpmWH29ms5tHLIFsrQZ4KxywLHRbdKa
-	Bg3F7o9hCPVZxXJensMAO0x6n3uUA+ZXwrYE6SXT0Vif/Q==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyejmf0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:10 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c7ab4af214so1854269e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:32:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789025529; x=1789630329; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ScjaRXisa630raTeVAXO2NA56DeU2lojj5oSTcac+p4=;
-        b=Ec4rr1UtVR8SJp5ghLfkDQZ+7v7bIWsRYvSvy90S800nwP3CroVZm4p144a/EFd/Xo
-         7ypr1mGImUJdhM4XxTt6it5iY0YpHQ08+J0LZvmSs6T/B3I1QUGPLJEWbNRxt/4MkKTY
-         YiDwTpaMegddKV3aa4j4sdG43qPAp1nsHz+3JC6afiPY23WgKFSydq7xgIvomyGx+EMF
-         Y7Zd7iFwuO+efO96lUJoaufO70yxGucflT754TgpmuIIAaX37pjeKMRvg+yvmQq8cnNP
-         UwQoQIDJXn2wQsWxgtUVxqIgqO4nkEuH83Ony8srJiZ/JUloKWNC4vlSaHjxgThU09rP
-         HqJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789025529; x=1789630329;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ScjaRXisa630raTeVAXO2NA56DeU2lojj5oSTcac+p4=;
-        b=cDNukEgAkNWfzFbDEIVMhamxKJnCvBBWMpTB83ldh6T0n04kuDjpnMMlolZKmqd2KM
-         FbkxwOkal76qi0IYQmF3Pr65yb8bKHPm7AxglTjSOGzQcprxM550+2m3puf8xdyOt2Rt
-         T1WsVUxgPrBHbnnRlerVM2wct8ZjQZdsnpWnc0pd8PuHuhOYzl8d3qKGmOz6MN872pU2
-         7WhGTDck2pKfql8V5WdI+cbxHg55uNE809w/xdsaU73FKktd5Z96++05PiDVV+vMr6bW
-         gQek73b13N41MyHeOx8N8LeL4vE7tWpnux+taCM7jy944PILUR7PpRoEd6IY3zCig3L1
-         +NEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoYiipmNQ2Xj/aQlUXlm+blDcQJwoK7hllQupGCq1XqgZabaa+Hb+nKqesJsyFCSIBVwWKH9wDH4rzYsc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nx+6/JlZiiLte7mC6Q4Z6iDo6+mnTuWLmqh0bQXE0C9/JR74mt
-	W10+Q+YgQyozo3YRCWFAQJuDaomqCHlXFcgz11oDldfHnLXZjdwYsHPDNtQUkcAziuwHxbPnVGB
-	+02C+zQoZI2ZVuKdkfBGLzPYzfd2YffqXtI6pMBpS+FY59LeLtYAgiPjjrIr9n7HgLgo=
-X-Gm-Gg: AYBFou1BlOY9g+ziXTF3lqbi+OsgR4jd5x4D7OOpNbTecNXLvPAraCnUWhT9hsh8C0q
-	AwgMOwumdTZ8rrQfYi3pWU2+UVb8loJjyWVFleYS+vFbSstdGcrLnaYLIXZVH5hV2g7I8fsRTxL
-	roO6h8DmGxRMhRcnjTk5z262sPjBY19nIJQeaFeS5kkstpkvVfWjPGRG1UwfRglY3S+K55IYFvR
-	tv27kpKO/2E8SzgGebr0AYMs+uZJO7DRkR6hOotiED65VDsJHq+ujBIpkAAfChNukSCNCYh8pmo
-	0JO8UV4+YdQL85O5VtFswTzYWC0UGrixZyb2IklbR62l5XZOIHOdYeq11ijr+fVm2qV64yQErv/
-	14S6RseWFcyGi
-X-Received: by 2002:a05:6122:551:b0:5bf:a179:b2be with SMTP id 71dfb90a1353d-5c7ed4087bemr17567168e0c.7.1789025525432;
-        Thu, 10 Sep 2026 00:32:05 -0700 (PDT)
-X-Received: by 2002:a05:6122:551:b0:5bf:a179:b2be with SMTP id 71dfb90a1353d-5c7ed4087bemr17567156e0c.7.1789025524876;
-        Thu, 10 Sep 2026 00:32:04 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.7.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bc5fsm52719385e9.3.2026.09.10.00.32.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 00:32:03 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:32:01 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Georgi Djakov <djakov@kernel.org>, Evan Green <evgreen@chromium.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 5/6] interconnect: qcom: msm8996: Configure auxiliary
- Venus QoS port
-Message-ID: <swtgayqrm4lbjg6ayd6qovtweqyutjbtjx2ymvar4rcflq5hrq@k576b7geg7q4>
-References: <20260909-topic-icc_rpm_smd_qol-v1-0-6dc5b5e97626@oss.qualcomm.com>
- <20260909-topic-icc_rpm_smd_qol-v1-5-6dc5b5e97626@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LloP5C3C"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=utppVEkJS+uid+vUi9TOqPOLWXs2xCRn5/AvOzMoN20TRJT6Ey4UQCaXqUZn8Z31bumxqtlWfNEJyGz9hfri7Y++WLSoxknPF85aLCLc5r0OG3qwhowx+bU9W3Jvufi/JLru9eO5vx7wLHiukA/lhVH+XaKjxP0Z0x5I8YlMKX+tVUYRjfMAGla7dMU6AoT4TkMQUYvPltBuAtMJK31s/UR2TpC/QLtkmKzOfxcNbJ7lacjySYEdpYi35IcrN+4SlYh/ohuzclQa/7wr2sE3lRQcJWnqB51azPZplO3K8fG4hf3sS3HRb+RUmM6Uop2Z5gXEx4GF5307FRXEXmcy6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aWVE04E06qCRLyHJ4eh85dsFfj1fbJBHPfFB9QFCink=;
+ b=qSDzTOWmGFqQfvq1Mq07RAiZrCMbnuVGqCM82RZs1IMFOfLeSw80VX9g7nXR4nMJz5vyhuVGrqhcc+AN1oLwQ3XRZLP0NXioTfVr5OkIZ8h5Szh1yviFmGSdraAcpK5u1i5ckjiNUFKReO0pnXutWEhEGVh0IZMitWmDlZT9oW/JtxMeMxPDsCwqlnwyt1z0d5YEqnzS2MOBB13j2eIrBOnHekX6oEDXR3Ll2uaV3Z4Vd87c0HQMVFuSUncCywS7Q6TXK/QyMFcMyZJHOazllewdYU6p7CrIbhWwWOKh8UjOBxjte+dRo8Pjv3MAewi+YboXjqfbgG1h1NkY/+5MQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aWVE04E06qCRLyHJ4eh85dsFfj1fbJBHPfFB9QFCink=;
+ b=LloP5C3CalOQb4vKsUwWpIvrOQjF1eFrbrBpxAo7w62NqC0IIbwHq2G/XCMDJug4vcebvfoxyF2dKpoIOSJ2+83A5uxfHEZN1z1yS+43WdaFZDvUAWJnXj6pjEaaoyjIASGJU+H7L/W6XrZ3woz2NybwVO4TW8V/M3TF/9IPztU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 07:32:09 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 07:32:09 +0000
+Message-ID: <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com>
+Date: Thu, 10 Sep 2026 09:32:05 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm/sched: run queues freed before the TDR that drm_sched_fini()
+ waits for
+To: phasta@kernel.org, Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Luben Tuikov <ltuikov89@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
+ <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0190.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ca::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-topic-icc_rpm_smd_qol-v1-5-6dc5b5e97626@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4MCBTYWx0ZWRfXw5FipyASUNSF
- +6wdRGb2bwMSZcG+6aN5xQcshPmwGLS7ewlGnj6abLwk39PIXkd+blb8D+OmcorvDSqt8/XJkH9
- d2JrWRtxlilWzDob8k2MyRoEPXeAoLM=
-X-Proofpoint-GUID: 2eqC5fN3SqGHOtDdIuRb6jukJVP7iy6K
-X-Proofpoint-ORIG-GUID: 2eqC5fN3SqGHOtDdIuRb6jukJVP7iy6K
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4MCBTYWx0ZWRfX2HLVntrjxNcV
- y/wdbKhjFVZd2f4v/Czq0WLXiTBt6ubh5+s0YohWR2FMc053nCQXg9yW/oSGjSgSa+VmO5fHemX
- 42h/ThfXYq4J7ejxMDwLUb5a+HDog9XcOkjEgEnu1awW7p4pverzYW0juzZpRIzXId4AwXneWmM
- ckQkqd/IChIyo8dLPo3Y1pUdA4GlCCw5eKtoaQwUgUFcja9rzVIatAbDIjfztpx69Cha1NyawdE
- QHZ0FUq+K7H0vVSBL6lhR+aTh+r0ZZ3buTGUw50VhA3Vt1+Wp39sHu0B5gR9ERrLOjr6MHjudjE
- 6HCx+G/gcyyfw23+goHLh3UR41RWg3ovNupfc3vgkMlRFXGdx/q+9GqeeW4NXtO1AGatxvIwToI
- S3oZ64d3gQX397NMXe/LYwvSei6s/Rg/0q2wmx5H/kiXipPuVidUskEuQU9fER9A8YAf9XUuwaQ
- TbNkvfBrcWsHyxUKm+g==
-X-Authority-Analysis: v=2.4 cv=Go/XaU1C c=1 sm=1 tr=0 ts=6aa25cfa cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=dePp4Gl7O00gmbwhyVsZwA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=YMW5T1WhuyZJOF4bxVQA:9 a=CjuIK1q_8ugA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- clxscore=1015 spamscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100080
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5937:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ec744b9-155d-4039-29f2-08df0f0d9f6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|5023799004|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	EruHSVDxgeiOgMwDJQK1prxDuRCwzzEfCbrNmkuQU0v4R6uuMuPqe3lAXJeu5emosIHAphaUR1iXE6B9Z+vU5OQrWCsTzCP6ECu548eIVJgRZ5PGixzgHPDDRi9qni0fUe42msUCOGbJO3pvrJH0QUDVd/NKF7EJIIFRhDGH/J+jBTeK4KCBIhkrupY2WCzWdaCQAcZGd79u/3gzvlVCUo1ZoyxxiPL9UGah3FH4s1szZaVM7S/lJBV62IbPiV5pDOnUoBhQrVVrkXk3h6Cs19Ew1/eVb0eVK2x0at/k4tUo8TYEO4115Z30HnwC+5vGJI2dTDfAfw2Tc5MuTaXFLX6So3o9cZ11RSLZ1MUzY4sZWArzVN55t8wqN/0TznkFYpvcpZR8ba2WU4701I/g3k0VY6Kx4H7V9C+jp2GFiTv3ZeKozBHa+EjgBR4drjF9VDyogIMGi9JAx4JzVn7kXHkecinNJNt4ro35WAPj1XxBQB/6Z4bX5NTXEKVc2q9cjx6kA+DlvPjESaWPd7QtU9urHuSL6J+MndCqBZzBgwO6a2o8KetwYkFIsG4gmouHqyWZTGVXeLmtaTd9Wcyh7PfrKcGNvncoiTrnGGf0H10outmyYUUW40U5JUU4i11aT9zxA37l0jSpPvFOHE0b3sRmWaQB2cGv/9PDLltMyh8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UVg3SDFQcllsM2FTK2xaYUw0aVpBM1ZQUnc5SzhTVVl1VDZRckhPOEJwVkZO?=
+ =?utf-8?B?RnAxeVl6S3ZSVVRHdlFuSlliRnZqcEZYOW01Rzhob21oTU9PZlpuMHRKdGN0?=
+ =?utf-8?B?eUg5MXZOZFZHZStnN1BFT0Z3YW4zK0hlRlk0bm9vWjJTVUpmbEdxQkQ4TDR0?=
+ =?utf-8?B?OXU2YUZqTHZCazBOc1loS1JZN3RwOUcwam9wcklhSXh1ODEyVHhreWUxNWtQ?=
+ =?utf-8?B?eUg4YWJUeXRTaFlFaVBYTGdycjZCWlQ4WElYMHBtaFcwNUVRcnlIY0RyN3d0?=
+ =?utf-8?B?RGZPeS9reFRxajJjYjRxMWx4NTlpekx3d244cXhQMUxDUmZXa1MwMFdVVmUv?=
+ =?utf-8?B?Sll2Tkp5QXdPcklTY2hRQWhuL0dXYW15SDR6UkFTWEtRVysvaldSRGNuSTJr?=
+ =?utf-8?B?bVErcmZDd3B4QVlpdXQ4ZDhXakwwVElKelhnaTZZcUppZmFPZUdUSjlDdEI1?=
+ =?utf-8?B?cVZFZEhCSGN6R2JVVGtubzljN3UvVFFQMXduZW4vZHJsTXNqYWF4MU5zZ2ty?=
+ =?utf-8?B?Mno3cno2eTU4TENRemt6L3gxeStwbXhzVDJWWGFKdGdYVU9KWnp4NG85TlB5?=
+ =?utf-8?B?NE1UenlkQWhQY0JHNlBGZkJGVEluYlF3dlF6dVpoTXZFcFJvZXRnSE5pNHE4?=
+ =?utf-8?B?NjBCQk5jSmhnajBBNitoMnM1bUpTV1JEQ0hrZmdDVXNJOE05VmdUWC8reWFG?=
+ =?utf-8?B?aSsvWFRydjEza2V2ckpZUy9wNFZ1MjV6cGZHZXc2QzFEMG1rRTA2T3RXOE1C?=
+ =?utf-8?B?R3FmZFFzSGpETjFqVGpyL0p1ZmJGc1VhczM5azhqMTNmTzhKSGM4ZmdvYjRU?=
+ =?utf-8?B?QzVPY0VHWm5ibHhlY250anFXcldLL3hQS05yTVZtdUpNSExDTEhiQ1Q3ck5j?=
+ =?utf-8?B?K0pGcXhvZHlNUDVBSmt5NnlBc0VBUG43ay9BR3laS29pSktNSjYxVGUzYkh6?=
+ =?utf-8?B?SUtiM0Q2WXRSM2RTL0lYUTE5R1NsTzc5VlFMdldpK2VGVjJKd2pPL1RpZzFE?=
+ =?utf-8?B?bEd0RWpkVFU3SDJqbnp2RCtnSnNXOUhtWlNvUXFPSHVBQVdsVWFXUEVBejBq?=
+ =?utf-8?B?VUhvOVF1VytoeFZSbGdITHEvUlREUVZQazBCcjNwTExiNlYrMHR5OGt4Umgz?=
+ =?utf-8?B?bHRlTHpqRFBaQmNzaFJ4d3BKNVU5SFg4TDIxNllyU253azBvMFlGYjc5QzJ3?=
+ =?utf-8?B?a2lQbTRBQXE2TDdrRVJsWVl2ZnQ1U3ZnbHljRWVrbWJMMlNCejJHOEZmK3hq?=
+ =?utf-8?B?TC9DOEZkbjFlRVZXdUJFRVc5c1NiL0QxNitTamY4Uk44Y0pycXBJL21CQkgw?=
+ =?utf-8?B?NlhZcnFyMndOVHNKWEI0d2tDUCtXWFBNWUFITUZFTFhGZU1wVmJPYUM4Qzlv?=
+ =?utf-8?B?WXBJM2xNQ2J6KzBuSFZ6dk9iWERyZzQwZmtmRzdyYUk0RExudEZLblQrUE1R?=
+ =?utf-8?B?UUZTL0dXNi82QjVEU2x6eTV1VjZXaGxYUkVrL05ybDhhbGlvZEZpWjVRWXdz?=
+ =?utf-8?B?KzVpMEttUENTNTErWW1peTVBRjd1RmdtSWhzWCsxemZ2cjVLTE9NSXFhbnB1?=
+ =?utf-8?B?RkJPdm1CV1UvOXA1VXl0dmtDMXBDUXZQVWc2VFFiYXNDZHU3bURBWXVwZ3E2?=
+ =?utf-8?B?QnVHQms3NC9icHJLZm1ITWFTUnRBd09iSS8rUzdtd0Nzbk13T3luRXVsVm5R?=
+ =?utf-8?B?SVp0NmN1N1FtdC80MlpSUFVVY2tYTVdzaHdHWUM1WkpkQXRHSnRqc284WFll?=
+ =?utf-8?B?WTlDTWVGV09SVUxqY21RdW5CNGtKOXJFU1IxRVJaYTk2K1hNMW9HVlRNMFA4?=
+ =?utf-8?B?L1dUZXJhY0ZUT29JNVJhZFRsOUxibnYyZTRBdC9PM2duZzhUWkg0b0NNbHdx?=
+ =?utf-8?B?Rkowa2lFUU9pRjBRbEZSOTNLeWNNWVFLUkJRbkVWN2JSM0xMQS9qZ2YxY2Y1?=
+ =?utf-8?B?dk1OS09lY2tEbkdzd2FuRmszRlp1eWZ1TTUrYXJUVXRYSlZxeGZ0d0VOT1ZL?=
+ =?utf-8?B?K0JpS3pKNkQzRjlDekRpK056K3ZlSVBpOXBxRTV0b0lSWU1HcmNFMmIydzl2?=
+ =?utf-8?B?ZHBucnVuVStMQ2NuSkNDWWZXTzVTdEJRTXcxOTdWOXh0UEtLYmtIbUtCWGR6?=
+ =?utf-8?B?cjh6TXZXZFdZRXg2anFweS9wckZEUU1lQUhmbi9mSzcwbHNXRDdTZUdCc05l?=
+ =?utf-8?B?SFJjMXJ0OTN1U2Y0ckV6LzBUb1JIT1puR1YzY0t1eFRLNWw0V3NsZVZGT3ZI?=
+ =?utf-8?B?OVAvUEVaSXUrYmgxdmJUYnIyVS9DWTB1dHFRcUlGQUY2U3BVK3NIZXhHWUFF?=
+ =?utf-8?Q?TkGCxXAzSFw04Z3kQl?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ec744b9-155d-4039-29f2-08df0f0d9f6e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 07:32:09.6242
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pV9wU/UUeze7/+A6UAkLsRbabYLQNtITmK9qcFfsg/CN6pr/y9pscGSf2sVxGJ3t
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5937
 
-On 26-09-09 18:41:58, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Enable the secondary QoS port used by the MSM8996 Venus node.
-> 
-> Assisted-by: LLM
-> Fixes: 7add937f5222 ("interconnect: qcom: Add MSM8996 interconnect provider driver")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Hi,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On 9/10/26 08:52, Philipp Stanner wrote:
+> +Cc Tvrtko
+> 
+> On Thu, 2026-09-10 at 14:46 +0900, Donggeun Yoo wrote:
+>> Hi Philipp,
+> 
+> Hello,
+> 
+>>
+>> drm_sched_fini() frees the run queues above the two steps that wait for
+>> users of them:
+
+No it doesn't. You quoted the wrong code, this is what really matters:
+
+        drm_sched_wqueue_stop(sched);
+
+        for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++)
+                kfree(sched->sched_rq[i]);
+
+>>
+>>  for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++)
+>>  kfree(sched->sched_rq[i]);
+>>
+
+>>  /* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
+>>  wake_up_all(&sched->job_scheduled);
+
+That was an extremely ugly hack applied long long time ago because amdgpu was broken at that time and didn't waited for drm_sched_entity_flush()/drm_sched_entity_fini() before calling drm_sched_fini().
+
+>>
+>> A KUnit case that keeps the TDR inside timedout_job() while drm_sched_fini()
+>> runs, with the callback calling drm_sched_increase_karma() as amdgpu does:
+
+Amdgpu shouldn't do that any more.
+
+It is perfectly possible that we still have a bug in the driver teardown during hot remove, but we certainly shouldn't work around that by adding such hacks to the scheduler.
+
+> 
+> How precisely are you reproducing the problem? I'm wondering why it
+> wasn't observed sooner.
+> 
+> Since you mention amdgpu, many of the twirks in the drm_sched code base
+> were added to work around ordering problems in that driver.
+> 
+> The drm_sched life time rules are:
+> 
+>    1. All fences returned through ops->run_job() must be signaled by
+>       the driver before calling drm_sched_fini().
+>    2. Entities must be torn down before the scheduler.
+> 
+> IOW, I would dare to say that the wake_up_all() maybe shouldn't even
+> exist in an ideal world, because the driver would never call
+> drm_sched_fini() while it's still blocking in drm_sched_entity_flush().
+> Maybe Christian has some wisdom on the background.
+
+Yes, exactly that. This line should potentially just be removed.
+
+Regards,
+Christian.
+
+> 
+>>
+>>   BUG: KASAN: slab-use-after-free in _raw_spin_lock+0x2b/0x40
+>>   Workqueue: events drm_sched_job_timedout
+>>    drm_sched_increase_karma+0x138/0x3e0
+>>    fini_uaf_timedout_job+0x4c/0x140
+>>    drm_sched_job_timedout+0x1b4/0x620
+>>   allocated by drm_sched_init+0x49c, freed by drm_sched_fini+0xec
+>>
+>> Moving the loop down beside kfree(sched->sched_rq) silences it, and nothing
+>> between the two positions reads the run queues. Is that the right fix, or is
+>> the intended rule that the TDR can never still be running at that point?
+> 
+> Can you post a patch or RFC patch for fixing it? It's easier to discuss
+> then. I think I get what you mean, and it's probably the best cost-
+> benefit-ratio fix. I'd then just put some brain power into
+> understanding the ordering between threads though
+> 
+> 
+> 
+> Regards
+> P.
+
