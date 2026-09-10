@@ -1,56 +1,56 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D5B42AF82
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043FA42E413
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074771; cv=none; b=aFFxO4/GYVakLGXtvkUcwgd20OZ+DzFAZo/EaEXwWsmobL+xLpRb4QU6D7Ni6HpNcmA9dYtmz5GKhc9xqeVovnd8MQ8AWfbhIyqn5IdUiX8dEj0kte69IRXsEeMzl70rV721WdF5PMlb7lhWf0CGR0wrVW9Wm/48jyurbpEeqsM=
+	t=1789074778; cv=none; b=XidV3k24A1SEblrvS8vV/IVp++8qmXqwjg/VKI/JWni4XlPgTxKHwH+ZBulCu/Qb0epn/CkXTuTAJeATc7YKMYMNPdq+JROPWfMHdsKok4DCpwDMoLr/LKdqyogz3yNz+7XvntdrCNqQu507rVFnyE6uwA/SFkp1lcyAUrdklfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074771; c=relaxed/simple;
-	bh=GFno87KOND++0pTkbVyfXGfOMrlcWDgKnNEmxfOzH3o=;
+	s=arc-20240116; t=1789074778; c=relaxed/simple;
+	bh=pHmH4FKVoanWCsK6EvzxcfwQB0GYW9gq4JtV5uiHIwM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=cUai/svO39Ncxz8nfJs+1OIxWuz2FFnRbM57RaSfvCTjHCpSAgqqZeE5Tychkj3vyvgjfDkr/KsA2vNsycGxHFbHP1+SjUO9NTD9bc420il9W6XMr/pxRSlejOPa+fzMKm2Bdng2lr5bnl+tnxozcpTcYqeA8DPnHoCjQZfMXD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H4Te1NjI; arc=none smtp.client-ip=209.85.216.70
+	 To:Content-Type; b=BoP/A7mpLtKrwg4f8hju5cgrW1U0LGTMRdiPL8MyOZilw3lGBK68y4BJyvvd+fjPhjre7o0zIQh1JyvXIc3kg83zb3IGnDA8K4010Eg+bdafEioc8imXaAVEOuKHAV5x+xfZ6WIi71nwduOt/aSknTTO6ll57c1+Y3XF30YgW1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ae1y8A5c; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H4Te1NjI"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39af92138f9so412997a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:12:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ae1y8A5c"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so385503a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:12:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789074757; x=1789679557; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789074762; x=1789679562; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=du1Euo+bpbmMcY488P/S5lzZFDL0wvPLdizijcyISy0=;
-        b=H4Te1NjIL8t6eG7j6ZmD6cdg5yhw32YD40I420G1lkP6QRs/hl45RfYSd5kvAjADpx
-         oXe9aBW/P3ewpbeSLNMQhB52VzaCF5P01G189xZpYez0EnmaYBpJps7660HqeXchrOeW
-         Q7BJiJPybnN1xW65ZFPjF6SvcHASYQznEtZ/WeDjLSBkUCxlVc18qlBP0lAKDpc5beOp
-         vc1SiKQ+zKbE4iY1ZP+HRP5c7f/m66FUSQmkB/OYdgwi3MZeOSlbiXRZM9ffu4WA2Nt7
-         Xbf9KvHHi3zlJ5R6B6ClPhoPp7GSp2ldwXBOePHsCz6HycJH5xBI6sc0Ou/HwCKQcFhp
-         zddQ==
+        bh=BmuwdNR4NKfLQOl78IvOzdTNOGEQTEMkPYahKNXJxGY=;
+        b=ae1y8A5cGiboZjuE9w7IHqGVAX3yh+AoiTAJZKHJJudD8gniefqgHkrYyqufYZPg5B
+         CydwIuRRqZlAmOp02dqkzNm2uSDS08AaIqDBGvXSQcA3MHsj79R/lkQb799TdAwDLy9p
+         8/EhdW1Nt3JIyCEain74Syv+shim9eCv9T/j7z0NDgQIYtddJmt1hG8s73uAnfbgwnor
+         9slYUSpzEesRkPpNS/p/bRFh7Rc66DHhb7dJC7Oistwozxj7YtZlLaeLBETkmwoEslPg
+         yqki1Ni4/ETj23ZhOkRgs7xAZz3LaNOeBYIhxs36e21zkW7zCCQI7e/6T5oFQIwshMUQ
+         MGTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789074757; x=1789679557;
+        d=1e100.net; s=20251104; t=1789074762; x=1789679562;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=du1Euo+bpbmMcY488P/S5lzZFDL0wvPLdizijcyISy0=;
-        b=itFDyLYtPAIPCUBfxZOthQbZMV4PsA7EgOj0/iTgIsSt2l0hQ2/tqXC87qXoHmq+8D
-         FV0fDuzJig4rAqZ+ehmbbX3Pr+VwL8qbakkUksejly03RJNhgpvI57SlUV16LnADkHfr
-         aC9WeKYT7MYiWuSuM98PABjes1Cgvnl45OIcFFgAMbGuNQyrn9P2CGwDc35g5xgpak4/
-         rWSsdaZtlMUE48BVce5DcafDtqucVQqC/1cDwZ3wBfG6P20nmg3Rv1qdE3P3n6NFiBUE
-         7ntqrq402htO5rFpmv95OGFQjEYN+tB/pmyjd2LydgjFYr8R8gKWhmA3OQCdHcUd60p0
-         QZ4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxMU37i4KWCKeCKlpvwACu5NKZ6dQ0pSfKd3GHY1TYeCKGnJEolhgeKCT2oBxQeciENatC6zJAdNyCxp74=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbiN0leuyLMbgEDyaMWQ1TweVE1DSgF8KyDuUkTk72pDIGbt5V
-	oChmPl4XCw4/kGE1EzqksXrFD/+OLVETU0MprlZOeTOW65NJCp+AOBsL7UWqIf6BxXSNC1UBO6R
-	c3ijhkDxFIA==
-X-Received: from dlbay9.prod.google.com ([2002:a05:7022:6609:b0:143:5969:748])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b11:b0:36b:b903:994
- with SMTP id 98e67ed59e1d1-39d77916d33mr8158316a91.4.1789074756839; Thu, 10
- Sep 2026 14:12:36 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:12:18 -0700
+        bh=BmuwdNR4NKfLQOl78IvOzdTNOGEQTEMkPYahKNXJxGY=;
+        b=idEHi9fg3BHydWST2sCL2CwZ3VyTYefoziHMQomFilR8urKlEwoEtA40vxEXzL58Ug
+         3gYsH9b3gf5sc1GdC0mfGnXwr7GUnHujqfE1CzMRI8IjNbhNFWnRnxGzSr/TFbHXy+Vc
+         1UIkReSsteiLzumpInC4fiermn8NpnrR1CzB0cbV0GKObSkecopMBtqf4IGB0qUALKMS
+         zOTT61WqyXaTbx+au1rM01mxEWLqpyLs2NqN0pg0Dz3mJj10qkT+sD7F+Piw9G0ue1ie
+         vXPgcBLSKdV2Vx9S6CfKVeXwPksVYQPGIA7CD/LKcTyNzxAZdihLfj+M0xwtzpibmFba
+         QCiw==
+X-Forwarded-Encrypted: i=1; AKwUvByhHuZpVdqrMu6yv+pjvatlSKCAS9QiHvuNv7eVdCK8uvNYYl49v3U4+8FC20DAmglGiAdeWNFMPd1j0ZA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSyQqssQdX5RI32IAr8Lroj3kUi/4fISTLZQP7igVBrgiY42XL
+	dDE+eI3KOtvwKvidlbGuVAH3Xt4V8heBN9cXpdBx0cc5KNUmI8g2EnOUO2ayk/JlcSsvq8hndbT
+	uBACLyQAQ9g==
+X-Received: from dlbdt18.prod.google.com ([2002:a05:7022:2592:b0:143:6670:4d89])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6300:618d:b0:3cc:f008:8123
+ with SMTP id adf61e73a8af0-3daed153d75mr1559765637.8.1789074761613; Thu, 10
+ Sep 2026 14:12:41 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:12:20 -0700
 In-Reply-To: <20260910211221.3154261-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260910175634.3014018-1-irogers@google.com> <20260910211221.3154261-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260910211221.3154261-2-irogers@google.com>
-Subject: [PATCH v3 1/3] perf header: Fix HEADER_COMPRESSED validation for comp_mmap_len
+Message-ID: <20260910211221.3154261-4-irogers@google.com>
+Subject: [PATCH v3 3/3] perf header: Transition WARN macros to debug.h equivalents
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -70,139 +70,101 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-This commit updates process_compressed() to ignore comp_mmap_len == 0
-when validating the compressed header. A zero size is valid and may
-occur during testing.
-
-Sashiko review flagged string.h was missing (preexisting problem) and
-so I opportunistically fixed this and sorted the header files.
+Avoid a checkpatch.pl warning on the use of asm/bug.h by switching the
+use of WARN macros to explicit tests and then using pr_warning from
+debug.h.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
 ---
- tools/perf/util/header.c | 79 +++++++++++++++++++++-------------------
- 1 file changed, 42 insertions(+), 37 deletions(-)
+ tools/perf/util/header.c | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
 diff --git a/tools/perf/util/header.c b/tools/perf/util/header.c
-index 7db7da090a1e..974ce1c926cd 100644
+index 0a4236fc0293..c7f2c29f02b0 100644
 --- a/tools/perf/util/header.c
 +++ b/tools/perf/util/header.c
-@@ -1,65 +1,69 @@
- // SPDX-License-Identifier: GPL-2.0
-+#include "header.h"
-+
- #include <errno.h>
- #include <inttypes.h>
- #include <limits.h>
--#include "string2.h"
--#include <sys/param.h>
--#include <sys/types.h>
--#include <byteswap.h>
--#include <unistd.h>
--#include <regex.h>
- #include <stdio.h>
+@@ -8,7 +8,6 @@
  #include <stdlib.h>
-+#include <string.h>
-+
-+#include <asm/bug.h>
-+#include <byteswap.h>
-+#include <dirent.h>
-+#include <linux/bitops.h>
- #include <linux/compiler.h>
--#include <linux/list.h>
-+#include <linux/ctype.h>
- #include <linux/kernel.h>
--#include <linux/bitops.h>
-+#include <linux/list.h>
- #include <linux/string.h>
- #include <linux/stringify.h>
-+#include <linux/time64.h>
- #include <linux/zalloc.h>
-+#include <regex.h>
-+#include <sys/param.h>
- #include <sys/stat.h>
-+#include <sys/types.h>
- #include <sys/utsname.h>
--#include <linux/time64.h>
--#include <dirent.h>
--#ifdef HAVE_LIBBPF_SUPPORT
--#include <bpf/libbpf.h>
--#endif
-+#include <unistd.h>
-+
-+#include <api/fs/fs.h>
-+#include <api/io_dir.h>
-+#include <internal/lib.h>
- #include <perf/cpumap.h>
- #include <tools/libc_compat.h> // reallocarray
+ #include <string.h>
  
-+#include "../perf.h"
-+#include "bpf-event.h"
-+#include "bpf-utils.h"
-+#include "build-id.h"
-+#include "cacheline.h"
-+#include "clockid.h"
-+#include "cpumap.h"
-+#include "cputopo.h"
-+#include "data.h"
-+#include "debug.h"
- #include "dso.h"
- #include "evlist.h"
- #include "evsel.h"
--#include "util/evsel_fprintf.h"
--#include "header.h"
-+#include "evsel_fprintf.h"
- #include "memswap.h"
--#include "trace-event.h"
--#include "session.h"
--#include "symbol.h"
--#include "debug.h"
--#include "cpumap.h"
- #include "pmu.h"
- #include "pmus.h"
--#include "vdso.h"
-+#include "session.h"
- #include "strbuf.h"
--#include "build-id.h"
--#include "data.h"
--#include <api/fs/fs.h>
--#include <api/io_dir.h>
--#include "asm/bug.h"
--#include "tool.h"
--#include "../perf.h"
-+#include "string2.h"
-+#include "symbol.h"
- #include "time-utils.h"
-+#include "tool.h"
-+#include "trace-event.h"
- #include "units.h"
--#include "util/util.h" // perf_exe()
--#include "cputopo.h"
--#include "bpf-event.h"
--#include "bpf-utils.h"
--#include "clockid.h"
--#include "cacheline.h"
-+#include "util.h" // perf_exe()
-+#include "vdso.h"
- 
--#include <linux/ctype.h>
--#include <internal/lib.h>
-+#ifdef HAVE_LIBBPF_SUPPORT
-+#include <bpf/libbpf.h>
-+#endif
+-#include <asm/bug.h>
+ #include <byteswap.h>
+ #include <dirent.h>
+ #include <linux/bitops.h>
+@@ -385,8 +384,10 @@ static int do_read_bitmap(struct feat_fd *ff, unsigned long **pset, u64 *psize)
+ static int write_tracing_data(struct feat_fd *ff,
+ 			      struct evlist *evlist __maybe_unused)
+ {
+-	if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++	if (ff->buf) {
++		pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 		return -1;
++	}
  
  #ifdef HAVE_LIBTRACEEVENT
- #include <event-parse.h>
-@@ -3903,7 +3907,8 @@ static int process_compressed(struct feat_fd *ff,
- 	 * checks decomp_len + sizeof(struct decomp) against SIZE_MAX
- 	 * before allocating, which handles 32-bit safety.
- 	 */
--	if (env->comp_mmap_len < 4096 || env->comp_mmap_len % 4096) {
-+	if (env->comp_mmap_len &&
-+	    (env->comp_mmap_len < 4096 || env->comp_mmap_len % 4096)) {
- 		pr_err("Invalid HEADER_COMPRESSED: comp_mmap_len (%u) must be a 4K-aligned value >= 4096\n",
- 		       env->comp_mmap_len);
+ 	return read_tracing_data(ff->fd, &evlist__core(evlist)->entries);
+@@ -407,8 +408,10 @@ static int write_build_id(struct feat_fd *ff,
+ 	if (!perf_session__read_build_ids(session, true))
  		return -1;
+ 
+-	if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++	if (ff->buf) {
++		pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 		return -1;
++	}
+ 
+ 	err = perf_session__write_buildid_table(session, ff);
+ 	if (err < 0) {
+@@ -1014,8 +1017,10 @@ static int write_auxtrace(struct feat_fd *ff,
+ 	struct perf_session *session;
+ 	int err;
+ 
+-	if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++	if (ff->buf) {
++		pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 		return -1;
++	}
+ 
+ 	session = container_of(ff->ph, struct perf_session, header);
+ 
+@@ -1109,9 +1114,10 @@ static int write_dir_format(struct feat_fd *ff,
+ 	session = container_of(ff->ph, struct perf_session, header);
+ 	data = session->data;
+ 
+-	if (WARN_ON(!perf_data__is_dir(data)))
++	if (!perf_data__is_dir(data)) {
++		pr_warning("Expected data to be a directory\n");
+ 		return -1;
+-
++	}
+ 	return do_write(ff, &data->dir.version, sizeof(data->dir.version));
+ }
+ 
+@@ -3715,9 +3721,10 @@ static int process_dir_format(struct feat_fd *ff,
+ 	session = container_of(ff->ph, struct perf_session, header);
+ 	data = session->data;
+ 
+-	if (WARN_ON(!perf_data__is_dir(data)))
++	if (!perf_data__is_dir(data)) {
++		pr_warning("Expected data to be a directory\n");
+ 		return -1;
+-
++	}
+ 	return do_read_u64(ff, &data->dir.version);
+ }
+ 
+@@ -4395,8 +4402,10 @@ static int do_write_feat(struct feat_fd *ff, int type,
+ 		if (!feat_ops[type].write)
+ 			return -1;
+ 
+-		if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++		if (ff->buf) {
++			pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 			return -1;
++		}
+ 
+ 		(*p)->offset = lseek(ff->fd, 0, SEEK_CUR);
+ 
 -- 
 2.55.0.1007.g17ff1f9808-goog
 
