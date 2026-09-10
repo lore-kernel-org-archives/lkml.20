@@ -1,472 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10A948EC99;
-	Thu, 10 Sep 2026 15:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055117; cv=none; b=U8epOb9QZtyD2kkwimsOJ/8XushX7+MCLwQDsOUrLkmvF+E8PD0/U+lcDQ0tJz2SaYfnfmZGLmWFGs4FcXuxR1RjWj+oCqmRcRjU73w3Z5fI1L6SduHwuj57wMbMIdIzPChBIEDoD9Bgz5izbhppvZxFXro0gh02xJ8gArtimvY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055117; c=relaxed/simple;
-	bh=AbgPeNtUPv7OQIB35BNW6UH/pTTIBTW8j/eglEJ5AnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hHiLfAbWzH9OFDwRJzYJDlxT2fvCmBzm0ncgfiM7OW60PDEqycyNd63oBWEZT3pnrBKRfIG/RFvpkKe9xbhMCWE7qRVrVvTSiqwk8m14KBjT6yUiBODhl4QEAafiNpX48HmFy/oyBVJLE3wI6Acd4iAB8gVPvzZDbYuxla20LAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtpahXqC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138B1362120
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789055141; cv=pass; b=Sdsx1H5LqlYEw7P/UWAxPx9+dJgYjHdZwkU6g8daR3fNHdx6lmg7q8sfjkFbfSeokmh8uY2tg/BCMQ7T7DGkAhD4mEU8U0rFgo1jfjtYX4xVPlbsmFK2cv3mf5F0tfgZ84SkI82i9USZEv8IFx8vX2WOFygTqFEVvyzJPq1Uhzo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789055141; c=relaxed/simple;
+	bh=tNMD9jaaAoiM5HIHauNaGThj4A1PZWuOXh1Xmlg4seg=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=lYpWkdH2UDjYI1SS3nbLSJX9v6NlKshfq6Qs6TfMmjYhBS73gqPuMWN8eCbyQRHgzxTxGJGRD6zg8t20Av3kKCCLcxGzDj6HulJ7OZkCQiwDNKrBM8KFdHi3uFmMGK0t2o9IbbKArN7yfjfD1q4YL412xasipBBZokpENFZAaHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QCNbF+nA; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtpahXqC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C341F000FF;
-	Thu, 10 Sep 2026 15:45:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055115;
-	bh=B7E2u8qHzB1StvosXk8V2JIB/UZpJyVXellXMeSa9yA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MtpahXqCXtVjQJn/r6TG9GjhfOTeTWWz1P1cogmqd43En8QQUiVARQj3jIoihTdKE
-	 ekquC7nxg82uULrPpf/6P0NRzGGKayIPQlsbdyhDnSGcbNvj9D2lyQFTGMa3HXwEhO
-	 g2+PPMYzxLda3hIRNZBOcVfPxF106tqa9+dLepCC9fAeFfKgZkczxI5KpiRhhA4ckt
-	 +GJuLK1w9oQP/Jyh0ToypQuTYjc1jmQp2IB7FUR7sVxD0xLY5Ytj71K3b2Wa/ZaIPW
-	 3Jq5mAgDYRR2iberLLgfpymY+f98oG0S6sYccMW/27z5yP0kNThFrKXXWZJiuEFCyY
-	 bAki/YEM5wpKg==
-Date: Thu, 10 Sep 2026 16:45:06 +0100
-From: Lee Jones <lee@kernel.org>
-To: Rong Zhang <i@rong.moe>
-Cc: Pavel Machek <pavel@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Ike Panhc <ikepanhc@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Vishnu Sankar <vishnuocv@gmail.com>,
-	Vishnu Sankar <vsankar@lenovo.com>, linux-leds@vger.kernel.org,
-	netdev@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v6 09/12] leds: trigger: Add
- led_trigger_notify_hw_control_changed() interface
-Message-ID: <20260910154506.GH1051768@google.com>
-References: <20260902-leds-trigger-hw-changed-v6-0-55693cd78877@rong.moe>
- <20260902-leds-trigger-hw-changed-v6-9-55693cd78877@rong.moe>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QCNbF+nA"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2940d16190so267046266b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:45:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789055138; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NmC/HNbxsfSaPWDZs5dQHLLgdM99HS+0O2jxPHoq5Zx429n+8onVHW43sjfk45PSAm
+         wIBxRdp6wo7q4CNPQ5EbGmVQRvDR84k4MfxbelCWGAL08VOBgk2TMBX52QBGWxCBbab5
+         29IIPmVc4oH2zbUxe0aWzO2KU1kuCYT2xN9WSRPuQxLfyH3XPsXNII/Z5vzNAminjee8
+         0azoUstX+qEk+A9tzgQyULJ5XO1uR3h/U4+2mtSj4SMlswmBZ02FgM/QvNuvABZNOteq
+         VQ8UHXGbP8KKHB9da6eAU25/oQTUdH0ubbyp7vmhHl+jLmNmy9w2j9qVQ//1sDqowCkA
+         k4zA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=MlQ4rFKTwWyoMEkW1u8Rf4R2+/mUltCh0nILf514HPE=;
+        fh=FyThfcM1Y9uxDNcCqPEHsyb4ppnqIkldNBoodDG82tk=;
+        b=rAQnDdSFr4bHcShADP2rlpxRqAoYAGR0pbAhvgEPVNByTImvzBns+giDZ41B5VW30m
+         hiRzpFrf7ydS1cXux8/7Car1QVz0VeiFK9TqmsZPtZHE9ZNG3EDtmlPLbVG3bUmIXeFo
+         CXyvlbgU9D6Jkchaw1jjk4u1ubxZC20ijiZG5UXz+IHg0Ucl82LM3tK/eXuxQ6Hve/Ji
+         +Npc33RKFlg/p2BuK9IWQ7Um78mPyDuwaQc7YIOlyxIOk6O4gnbSY9WN8DyHHvHhIUHV
+         4OWyDs2xRfP0h3VxA7WZ9N8oK/YYwZVLUqOf5gJJ3ZbUFcMIjMYFtoujIMRWCi3xbiLE
+         EOcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789055138; x=1789659938; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MlQ4rFKTwWyoMEkW1u8Rf4R2+/mUltCh0nILf514HPE=;
+        b=QCNbF+nApYiEjTOgfUb7ykTvOm7AHBafbUA7YKyP675ZAdFaWWMtz1FGa1qrKXcvxD
+         l3Xw7ZxefOfgeWvacsInmvESWLTAPISIll9AoZo/MY8A/koJUvqghWJqE7PlT8uq3AvG
+         55Rke4hMddv4rgGYdIv4Rrn5Ddqv7v9asOG0wLDsOEVxUU+eQ1pCe6pvHmF6Pwj0F8DX
+         N1JJrVLeChKvc54Hvopsi3B7tTca3uhAX2GHe7ocP5nhSmk/N5a8Vh1FWKYDUKBASztu
+         EYOEqniARW3eRZezhh79tU9/FKZhFfV+MpRpkZTJxM3JsYEo6Eg2B1LvfZjqIegY4JIM
+         68rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789055138; x=1789659938;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MlQ4rFKTwWyoMEkW1u8Rf4R2+/mUltCh0nILf514HPE=;
+        b=KP/Ecm0MQJH8pP3ypS44L/PRoUtItrX5JjcHY+Vvkn8kfPC9R4EPK3LTRQV/9CXfg1
+         5ikBdijVHGWMXaLN01Ck9opsq5lTVOdxTtHMcM81+aHeJUWq8BYsApOIbJ8BQl+zSmaC
+         UQLTqVkEupgcxUUCuVPNW9oVqLH/izX9I5jkKJtpx560qHqDM71j3S/V255gcIg8MIZB
+         Tmpj0XfB9rgE6Zn+2MgBfNTVQaTrggwKW7EW6NWJwE92UV0oiNrUCdOK1kYDWFOWrq0U
+         6qrQQYBARcDxPnLgI4hlqc3ouvy3O+FfHBrPYCy8mDOjHchHZuSH+UDf9dwRw/ZtBCyO
+         FMkA==
+X-Forwarded-Encrypted: i=1; AKwUvBymMV+mdRUF2WzxlJGNRmhDs+kXvktOBztSncxmQyZu+2tfY7qOsAM1g1hPbl6gTWealqd+ClbyzTGi3/c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbCSdoXBpzTpdRAxCXdB0axzc0pWYczhmx+8lX9cPSWhueN+vu
+	rL5X04aYeoA/Ql6tgEhtQUeBsn9q2gqqvkTQDgmDfZgXIdTyz76R9agEUBlINNTBnzfgI5XkN6p
+	ciTmu82+lR9x8TOswTU7KZUquIjN9RuTDX9CpcVH4lw==
+X-Gm-Gg: AYBFou1QyV8UwbZJfwHDd0sCKNuIi6wuq0mc7jnDxffNBzQUffzjmpgid+y80Ra+TYa
+	mMpV9ng1SdcQDWQRY7fKlYz3cnqCX+WkW0OV5h8tz2r8MhbazKx82g7YGpvZGUQoLjoTJWtA7et
+	YJw4DbATtVN9gB22g100+lu9/YGpQpOSBwq7B0E6FvUHSNDRMy1puShx8ftvNNVyk8fllF20Uc2
+	D5UR0+OVs6ApmQOscG9l/jomEJ3ATZ5ETN+7XKoZgBQq+nEk41ckvOaX3KC2Q3fIbgXBHRw9gEZ
+	dKR1yC+Pi2GfjfIxCI8CsnF5CX9mEgfI9pym542bJkaBMYsw3xUR/2AUWZi+UwWLFgXNK0pSIm7
+	gSAYygvAa8r67ozoaSnODRn4AwWfB73I/PZz1MZGi3i2WxJfINJUAOPyv1UmiF+V818J2Ypd0/r
+	0loGghOSYKyFW0RQxgxXl35XGnGvlKgKJHTt23XBN7FA==
+X-Received: by 2002:a17:907:7a8e:b0:c26:19e3:e97d with SMTP id
+ a640c23a62f3a-c2619e3eefbmr1540707066b.29.1789055138082; Thu, 10 Sep 2026
+ 08:45:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902-leds-trigger-hw-changed-v6-9-55693cd78877@rong.moe>
+From: =?UTF-8?B?2K3Zhtin2YYg2KfZhNmF2LfZitix2Yo=?= <ha2020anan@gmail.com>
+Date: Thu, 10 Sep 2026 18:45:26 +0300
+X-Gm-Features: AcwNN1W7ipGTBvTBjeLBQjyXiPRmLzeN_Sk4LWMur1Ju8wfsMqjbFDUxxbJE9eM
+Message-ID: <CANai08MgfRTOw3Ryx=QTfkbwu7OyjkWg9UfpWmSw5JVmDWof2Q@mail.gmail.com>
+Subject: [PATCH] arch/um: Add security sandboxing by enforcing read-only on
+ host system
+To: richard@nod.at
+Cc: linux-um@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 02 Sep 2026, Rong Zhang wrote:
+Hi,
 
-> Some hardware can autonomously activate/deactivate hardware control.
-> After that, the LED hardware notifies the LED driver. Currently, there
-> is no mechanism for LED drivers to notify the LED core about such events
-> and initiate a trigger transition to reflect the hardware state.
-> 
-> Add a new interface called led_trigger_notify_hw_control_changed(), so
-> that LED drivers can call it to notify the LED core about the
-> transition.
-> 
-> The interface only allows two transitions:
-> 
-> 1. "none" => private trigger
-> 2. private trigger => "none"
-> 
-> If the current trigger is neither the private trigger nor "none", no
-> transition will be made. This protects the currently selected software
-> trigger.
-> 
-> Note that LED_OFF won't be emitted during the #2 transition, as some
-> hardware may have selected a new brightness level during its hardware
-> state transition (e.g., laptop keyboards with a shortcut cycling through
-> different backlight brightnesses and auto mode).
-> 
-> The interface is designed as a void function as any failure should be
-> non-fatal and the result of transition should not have any impact on the
-> LED drivers' event handling procedures.
-> 
-> To use the interface, the config LEDS_TRIGGERS_HW_CHANGED must be
-> enabled, and the LED driver must set the LED_TRIG_HW_CHANGED flag for
-> the classdev.
-> 
-> By default, the config is enabled when LEDS_BRIGHTNESS_HW_CHANGED is
-> enabled.
-> 
-> Acked-by: Ike Panhc <ikepanhc@gmail.com>
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
-> Changes in v6:
-> - Implement workqueue deferal mechanism
->   - https://msgid.link/e2b081dfd8f96511a73b86ab3ec75e5cd759b79b.camel@rong.moe
-> 
-> Changes in v5:
-> - Address a concern from Sashiko:
->   - led_trigger_notify_hw_control_changed() might sleep, but without any
->     internal deferral mechanism or annotation
->   - Annotate the method with might_sleep(), since the very first users
->     of the interface, i.e., ideapad-laptop and (supposedly)
->     thinkpad_acpi, will call the interface from work contexts. It does
->     not deserve the overhead of internal deferral mechanism
->   - https://sashiko.dev/#/patchset/20260802-leds-trigger-hw-changed-v4-0-f97e2ca976fe@rong.moe?part=9
-> 
-> Changes in v4:
-> - Enable LEDS_TRIGGERS_HW_CHANGED by default when
->   LEDS_BRIGHTNESS_HW_CHANGED is enabled
-> 
-> Changes in v3:
-> - Adopt guard() (Thanks Thomas Weißschuh)
-> - Reword documentations
-> ---
->  Documentation/leds/leds-class.rst |  52 ++++++++++++++++++
->  drivers/leds/led-class.c          |   6 +++
->  drivers/leds/led-triggers.c       | 108 +++++++++++++++++++++++++++++++++++++-
->  drivers/leds/leds.h               |   8 +++
->  drivers/leds/trigger/Kconfig      |  10 ++++
->  include/linux/leds.h              |  13 +++++
->  6 files changed, 195 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/leds/leds-class.rst b/Documentation/leds/leds-class.rst
-> index 2d41a6db602c..adbc57b9f49c 100644
-> --- a/Documentation/leds/leds-class.rst
-> +++ b/Documentation/leds/leds-class.rst
-> @@ -334,6 +334,58 @@ not necessary for them to coordinate via `hw_control_*` callbacks.
->  When the LED is in hw control, no software blink is possible and doing so
->  will effectively disable hw control.
->  
-> +Hardware-initiated trigger transition
-> +=====================================
-> +
-> +Some hardware can autonomously activate/deactivate hardware control. After that,
-> +the LED hardware notifies the LED driver.
-> +
-> +If the driver can detect such transitions and thus wants to notify the LED core
-> +to update the current trigger then the `LED_TRIG_HW_CHANGED` flag must be set in
-> +flags before registering. To update the current trigger accordingly, call
-> +`led_trigger_notify_hw_control_changed` on the LED classdev.
-> +
-> +This capability is restricted to the LED device's private trigger. The private
-> +trigger must have been properly registered (see above) and named after
-> +`hw_control_trigger`.
-> +
-> +Only two transitions are defined:
-> +
-> +- "none" => private trigger:
-> +        This happens when the hardware autonomously activates hardware control
-> +        and when "none" (i.e., no trigger) is currently active. If the private
-> +        trigger is already active when the method is called, this is essentially
-> +        a no-op.
-> +
-> +        The activation sequence for the private trigger will be executed as
-> +        normal.
-> +
-> +        The LED driver and its private trigger must be able to handle the
-> +        activation sequence even if the hardware is currently in hardware
-> +        control.
-> +
-> +        If error occurs in the activation sequence, the LED Trigger core reverts
-> +        the effective trigger to "none".
-> +
-> +- private trigger => "none"
-> +        This happens when the hardware autonomously deactivates hardware control
-> +        and when the private trigger is currently active. If "none" (i.e., no
-> +        trigger) is active when the method is called, this is essentially a
-> +        no-op.
-> +
-> +        The deactivation sequence for the private trigger will be executed as
-> +        normal, except that the current LED brightness is retained. The reason
-> +        for keeping the brightness unchanged is that some hardware may choose a
-> +        specific brightness instead of simply turning off the LED after
-> +        autonomously deactivating hardware control.
-> +
-> +        The LED driver and its private trigger must be able to handle the
-> +        deactivation sequence even if the hardware is not currently in hardware
-> +        control.
-> +
-> +If the current trigger is neither the private trigger nor "none", no transition
-> +will be made.
-> +
->  Known Issues
->  ============
->  
-> diff --git a/drivers/leds/led-class.c b/drivers/leds/led-class.c
-> index 7e571bd1de5b..3b438d8da5e0 100644
-> --- a/drivers/leds/led-class.c
-> +++ b/drivers/leds/led-class.c
-> @@ -611,6 +611,9 @@ int led_classdev_register_ext(struct device *parent,
->  	led_trigger_set_default(led_cdev);
->  #endif
->  
-> +	if (led_cdev->flags & LED_TRIG_HW_CHANGED)
-> +		led_trigger_init_hw_changed(led_cdev);
-> +
->  	mutex_unlock(&led_cdev->led_access);
->  
->  	dev_dbg(parent, "Registered led device: %s\n",
-> @@ -631,6 +634,9 @@ void led_classdev_unregister(struct led_classdev *led_cdev)
->  	if (IS_ERR_OR_NULL(led_cdev->dev))
->  		return;
->  
-> +	if (led_cdev->flags & LED_TRIG_HW_CHANGED)
-> +		led_trigger_destroy_hw_changed(led_cdev);
-> +
->  #ifdef CONFIG_LEDS_TRIGGERS
->  	down_write(&led_cdev->trigger_lock);
->  	if (led_cdev->trigger)
-> diff --git a/drivers/leds/led-triggers.c b/drivers/leds/led-triggers.c
-> index cb49a02a8b3c..a9d992a88616 100644
-> --- a/drivers/leds/led-triggers.c
-> +++ b/drivers/leds/led-triggers.c
-> @@ -7,7 +7,9 @@
->   * Author: Richard Purdie <rpurdie@openedhand.com>
->   */
->  
-> +#include <linux/bug.h>
->  #include <linux/cleanup.h>
-> +#include <linux/compiler.h>
->  #include <linux/export.h>
->  #include <linux/kernel.h>
->  #include <linux/list.h>
-> @@ -193,7 +195,8 @@ ssize_t led_trigger_read(struct file *filp, struct kobject *kobj,
->  EXPORT_SYMBOL_GPL(led_trigger_read);
->  
->  /* Caller must ensure led_cdev->trigger_lock held */
-> -int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
-> +static int __led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig,
-> +			     bool hw_triggered)
->  {
->  	char *event = NULL;
->  	char *envp[2];
-> @@ -224,7 +227,21>  		led_cdev->trigger_data = NULL;
->  		led_cdev->activated = false;
->  		led_cdev->flags &= ~LED_INIT_DEFAULT_TRIGGER;
-> -		led_set_brightness(led_cdev, LED_OFF);
-> +
-> +		/*
-> +		 * Hardware may have selected a new brightness level during its
-> +		 * hardware control transition, so only reset brightness if we
-> +		 * are switching to another trigger or if the switching is not
-> +		 * hardware triggered.
-> +		 *
-> +		 * Note that this does not apply to the error path, as running
-> +		 * into the error path implies a none => private trigger
-> +		 * transition. This hints that the LED driver and its private
-> +		 * trigger must have some fundamental bugs, so don't bother
+I have developed a security feature for arch/um that protects the host
+filesystem. It boots directly from the host system files (making it
+fast and lightweight) but enforces a strict Read-Only policy on the
+host, while allowing full Read/Write operations only within a specific
+sandbox directory (/tmp/sandbox). Any write or modifications outside
+this path will be blocked with an -EACCES error.
 
-"don't bother" sounds abrasive.  Please reword.
+Since I don't use Git locally, I am sending the configuration, file
+path, and explanations directly below. The actual implementation code
+is appended at the very bottom of this message.
 
-> +		 * leaving the LED in an undefined state.
-> +		 */
-> +		if (trig || !hw_triggered)
-> +			led_set_brightness(led_cdev, LED_OFF);
->  	}
->  	if (trig) {
->  		spin_lock(&trig->leddev_list_lock);
-> @@ -288,6 +305,11 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
->  
->  	return ret;
->  }
-> +
-> +int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
-> +{
-> +	return __led_trigger_set(led_cdev, trig, false);
-> +}
->  EXPORT_SYMBOL_GPL(led_trigger_set);
->  
->  void led_trigger_remove(struct led_classdev *led_cdev)
-> @@ -468,6 +490,88 @@ int devm_led_trigger_register(struct device *dev,
->  }
->  EXPORT_SYMBOL_GPL(devm_led_trigger_register);
->  
-> +#ifdef CONFIG_LEDS_TRIGGERS_HW_CHANGED
-> +
-> +static void led_trigger_do_hw_control_transition(struct led_classdev *led_cdev, bool activate,
-> +						 struct led_trigger *hc_trig)
-> +{
-> +	int err = 0;
+---
 
-'ret' is used in this file.
+### 1. File Path to Modify:
+arch/um/kernel/skas/syscall.c
 
-> +
-> +	if (!led_cdev->trigger) {
-> +		/* "none" => private trigger. */
-> +		if (activate)
-> +			err = __led_trigger_set(led_cdev, hc_trig, true);
-> +	} else if (led_cdev->trigger == hc_trig) {
-> +		/* private trigger => "none". */
-> +		if (!activate)
-> +			err = __led_trigger_set(led_cdev, NULL, true);
-> +	} else {
-> +		/* Other trigger is active. */
-> +		dev_dbg(led_cdev->dev,
-> +			"Ignoring hw control transition (%s %s) while %s is active",
-> +			activate ? "activate" : "deactivate", hc_trig->name,
-> +			led_cdev->trigger->name);
-> +
-> +		return;
-> +	}
-> +
-> +	if (err)
-> +		dev_warn(led_cdev->dev, "Failed to %s %s in hw control transition: %d",
-> +			 activate ? "activate" : "deactivate", hc_trig->name, err);
+### 2. How it Works:
+- The modified handle_syscall acts as a dynamic firewall for the kernel.
+- It intercepts critical file manipulation syscalls (open, openat,
+unlink, unlinkat, mkdir, mkdirat, rmdir, rename, renameat, renameat2)
+right before execution.
+- If a syscall attempts to modify, create, or delete a file, it checks
+the path string using strncpy_from_user.
+- If the path is absolute and doesn't start with /tmp/sandbox, or if
+it contains relative path traversal (..), it rejects the request
+instantly by injecting -EACCES into the return register, thus
+protecting the underlying host filesystem from any modifications.
 
-How helpful are these debug messages now development is complete, really?
+### 3. Why the Custom Command and Script are Required:
+- **Why the Command is necessary (rootfstype=hostfs):** Traditionally,
+UML boots from an isolated disk image (rootfs). By passing this exact
+command, we force UML to mount the real host directory (/) as its root
+filesystem. This allows the sandbox to boot instantly using the host's
+native system binaries and configurations without duplication.
+- **Why the Script must be changed:** Since we are booting directly
+from the host files, the boot and initialization scripts within the
+runtime environment must be adapted to redirect their active system
+state, logging, and temporary data writing exclusively into
+/tmp/sandbox. If they attempt to write to the regular host paths (like
+/var/log or /etc), the kernel security logic will drop the request.
 
-> +}
-> +
-> +static void led_trigger_hw_control_changed_worker(struct work_struct *work)
-> +{
-> +	struct led_classdev *led_cdev =
-> +		container_of(work, struct led_classdev, triggers_hw_changed_work);
-> +	bool activate = READ_ONCE(led_cdev->triggers_hw_changed);
-> +
-> +	scoped_guard(rwsem_read, &triggers_list_lock) {
-> +		struct led_trigger *trig;
-> +
-> +		list_for_each_entry(trig, &trigger_list, next_trig) {
-> +			if (trig->trigger_type == led_cdev->trigger_type &&
-> +			    !strcmp(trig->name, led_cdev->hw_control_trigger)) {
-> +				guard(rwsem_write)(&led_cdev->trigger_lock);
-> +
-> +				led_trigger_do_hw_control_transition(led_cdev, activate, trig);
-> +				return;
-> +			}
-> +		}
-> +	}
-> +
-> +	dev_err(led_cdev->dev,
-> +		"%s() is called, but the private trigger (%s) is not properly registered\n",
-> +		__func__, led_cdev->hw_control_trigger);
+Recommended Kernel Boot Command (Ensure CONFIG_HOSTFS=y is enabled):
+./linux root=/dev/root rootfstype=hostfs rootflags=/ init=/sbin/init rw
 
-Please make all user-facing messages user-friendly.
+---
 
-No internal function names please.
+### 4. Implementation Code (Please append this at the end of the file):
 
-Also, since this is effectively an issue, it should be dev_warn().
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2026 Tamim N. Almutairi (Tamimdevlopment@hotmail.com)
+ */
 
-> +}
-> +
-> +void led_trigger_notify_hw_control_changed(struct led_classdev *led_cdev, bool activate)
-> +{
-> +	/* Restricted to private triggers. */
-> +	if (WARN_ON(!(led_cdev->flags & LED_TRIG_HW_CHANGED) ||
-> +		    !led_cdev->hw_control_trigger || !led_cdev->trigger_type))
-> +		return;
-> +
-> +	WRITE_ONCE(led_cdev->triggers_hw_changed, activate);
-> +
-> +	schedule_work(&led_cdev->triggers_hw_changed_work);
-> +}
-> +EXPORT_SYMBOL_GPL(led_trigger_notify_hw_control_changed);
-> +
-> +void led_trigger_init_hw_changed(struct led_classdev *led_cdev)
-> +{
-> +	INIT_WORK(&led_cdev->triggers_hw_changed_work, led_trigger_hw_control_changed_worker);
-> +}
-> +EXPORT_SYMBOL_GPL(led_trigger_init_hw_changed);
+#include <linux/kernel.h>
+#include <linux/ptrace.h>
+#include <linux/seccomp.h>
+#include <kern_util.h>
+#include <sysdep/ptrace.h>
+#include <sysdep/ptrace_user.h>
+#include <linux/time-internal.h>
+#include <asm/syscall.h>
+#include <asm/unistd.h>
+#include <asm/delay.h>
+#include <linux/fcntl.h>
+#include <linux/slab.h>
+#include <linux/uaccess.h>
 
-Where is this exported to?
+void handle_syscall(struct uml_pt_regs *r)
+{
+struct pt_regs *regs = container_of(r, struct pt_regs, regs);
+int syscall;
 
-> +
-> +void led_trigger_destroy_hw_changed(struct led_classdev *led_cdev)
-> +{
-> +	disable_work_sync(&led_cdev->triggers_hw_changed_work);
-> +}
-> +EXPORT_SYMBOL_GPL(led_trigger_destroy_hw_changed);
+UPT_SYSCALL_NR(r) = PT_SYSCALL_NR(r->gp);
+PT_REGS_SET_SYSCALL_RETURN(regs, -ENOSYS);
 
-This to?
+if (syscall_trace_enter(regs))
+goto out;
 
-> +
-> +#endif /* CONFIG_LEDS_TRIGGERS_HW_CHANGED */
-> +
->  /* Simple LED Trigger Interface */
->  
->  void led_trigger_event(struct led_trigger *trig,
-> diff --git a/drivers/leds/leds.h b/drivers/leds/leds.h
-> index b08a289397e4..bdac2336012e 100644
-> --- a/drivers/leds/leds.h
-> +++ b/drivers/leds/leds.h
-> @@ -33,4 +33,12 @@ ssize_t trigger_may_offload_show(struct device *dev,
->  extern struct rw_semaphore leds_list_lock;
->  extern struct list_head leds_list;
->  
-> +#ifdef CONFIG_LEDS_TRIGGERS_HW_CHANGED
-> +void led_trigger_init_hw_changed(struct led_classdev *led_cdev);
-> +void led_trigger_destroy_hw_changed(struct led_classdev *led_cdev);
-> +#else /* !CONFIG_LEDS_TRIGGERS_HW_CHANGED */
-> +static inline void led_trigger_init_hw_changed(struct led_classdev *led_cdev) { }
-> +static inline void led_trigger_destroy_hw_changed(struct led_classdev *led_cdev) { }
-> +#endif /* CONFIG_LEDS_TRIGGERS_HW_CHANGED */
-> +
->  #endif	/* __LEDS_H_INCLUDED */
-> diff --git a/drivers/leds/trigger/Kconfig b/drivers/leds/trigger/Kconfig
-> index c11282a74b5a..a11d04ce4ab2 100644
-> --- a/drivers/leds/trigger/Kconfig
-> +++ b/drivers/leds/trigger/Kconfig
-> @@ -9,6 +9,16 @@ menuconfig LEDS_TRIGGERS
->  
->  if LEDS_TRIGGERS
->  
-> +config LEDS_TRIGGERS_HW_CHANGED
-> +	bool "LED hardware-initiated trigger transition support"
-> +	default LEDS_BRIGHTNESS_HW_CHANGED
-> +	help
-> +	  This option enables support for hardware initiated hardware control
-> +	  transitions, where the LED hardware autonomously switches between
-> +	  "none" (i.e., no trigger) and its private trigger.
-> +
-> +	  See Documentation/leds/leds-class.rst for details.
-> +
->  config LEDS_TRIGGER_TIMER
->  	tristate "LED Timer Trigger"
->  	help
-> diff --git a/include/linux/leds.h b/include/linux/leds.h
-> index bee2b4309a09..93b3fd7e5636 100644
-> --- a/include/linux/leds.h
-> +++ b/include/linux/leds.h
-> @@ -109,6 +109,7 @@ struct led_classdev {
->  #define LED_INIT_DEFAULT_TRIGGER BIT(23)
->  #define LED_REJECT_NAME_CONFLICT BIT(24)
->  #define LED_MULTI_COLOR		BIT(25)
-> +#define LED_TRIG_HW_CHANGED	BIT(26)
->  
->  	/* set_brightness_work / blink_timer flags, atomic, private. */
->  	unsigned long		work_flags;
-> @@ -239,6 +240,11 @@ struct led_classdev {
->  	struct kernfs_node	*brightness_hw_changed_kn;
->  #endif
->  
-> +#ifdef CONFIG_LEDS_TRIGGERS_HW_CHANGED
-> +	bool			triggers_hw_changed;
-> +	struct work_struct	triggers_hw_changed_work;
-> +#endif
-> +
->  	/* Ensures consistent access to the LED class device */
->  	struct mutex		led_access;
->  };
-> @@ -609,6 +615,13 @@ led_trigger_get_brightness(const struct led_trigger *trigger)
->  
->  #endif /* CONFIG_LEDS_TRIGGERS */
->  
-> +#ifdef CONFIG_LEDS_TRIGGERS_HW_CHANGED
-> +void led_trigger_notify_hw_control_changed(struct led_classdev *led_cdev, bool activate);
-> +#else
-> +static inline void led_trigger_notify_hw_control_changed(struct led_classdev *led_cdev,
-> +							 bool activate) {}
-> +#endif
-> +
->  /* Trigger specific enum */
->  enum led_trigger_netdev_modes {
->  	TRIGGER_NETDEV_LINK = 0,
-> 
-> -- 
-> 2.55.0
-> 
+if (!seccomp_permit_syscall())
+goto out;
 
--- 
-Lee Jones
+syscall = UPT_SYSCALL_NR(r);
+
+if ((time_travel_mode == TT_MODE_INFCPU ||
+    time_travel_mode == TT_MODE_EXTERNAL) &&
+   syscall == __NR_sched_yield)
+tt_extra_sched_jiffies += 1;
+
+if (syscall >= 0 && syscall < __NR_syscalls) {
+unsigned long ret;
+int violate_sandbox = 0;
+
+if (syscall == __NR_openat || syscall == __NR_open ||
+   syscall == __NR_unlinkat || syscall == __NR_unlink ||
+   syscall == __NR_mkdirat || syscall == __NR_mkdir ||
+   syscall == __NR_rmdir ||
+   syscall == __NR_renameat2 || syscall == __NR_renameat || syscall ==
+__NR_rename) {
+unsigned long arg_flags = 0;
+unsigned long uptr = 0;
+unsigned long uptr2 = 0;
+int check_path = 0;
+
+if (syscall == __NR_openat) {
+uptr = UPT_SYSCALL_ARG2(&regs->regs);
+arg_flags = UPT_SYSCALL_ARG3(&regs->regs);
+if ((arg_flags & O_ACCMODE) == O_WRONLY ||
+   (arg_flags & O_ACCMODE) == O_RDWR ||
+   (arg_flags & O_CREAT) ||
+   (arg_flags & O_TRUNC)) {
+check_path = 1;
+}
+} else if (syscall == __NR_open) {
+uptr = UPT_SYSCALL_ARG1(&regs->regs);
+arg_flags = UPT_SYSCALL_ARG2(&regs->regs);
+if ((arg_flags & O_ACCMODE) == O_WRONLY ||
+   (arg_flags & O_ACCMODE) == O_RDWR ||
+   (arg_flags & O_CREAT) ||
+   (arg_flags & O_TRUNC)) {
+check_path = 1;
+}
+} else if (syscall == __NR_unlinkat || syscall == __NR_mkdirat) {
+uptr = UPT_SYSCALL_ARG2(&regs->regs);
+check_path = 1;
+} else if (syscall == __NR_renameat2 || syscall == __NR_renameat) {
+uptr = UPT_SYSCALL_ARG2(&regs->regs);
+uptr2 = UPT_SYSCALL_ARG4(&regs->regs);
+check_path = 1;
+} else if (syscall == __NR_rename) {
+uptr = UPT_SYSCALL_ARG1(&regs->regs);
+uptr2 = UPT_SYSCALL_ARG2(&regs->regs);
+check_path = 1;
+} else {
+uptr = UPT_SYSCALL_ARG1(&regs->regs);
+check_path = 1;
+}
+
+if (check_path && uptr && !violate_sandbox) {
+char *kname = kmalloc(256, GFP_KERNEL);
+if (kname) {
+long res = strncpy_from_user(kname, (const char __user *)uptr, 255);
+if (res > 0) {
+kname[res] = '\0';
+if (kname[0] == '/') {
+if (strncmp(kname, "/tmp/sandbox", 12) != 0)
+violate_sandbox = 1;
+} else {
+if (strstr(kname, "..") != NULL)
+violate_sandbox = 1;
+}
+}
+kfree(kname);
+}
+}
+
+if (uptr2 && !violate_sandbox) {
+char *kname2 = kmalloc(256, GFP_KERNEL);
+if (kname2) {
+long res2 = strncpy_from_user(kname2, (const char __user *)uptr2, 255);
+if (res2 > 0) {
+kname2[res2] = '\0';
+if (kname2[0] == '/') {
+if (strncmp(kname2, "/tmp/sandbox", 12) != 0)
+violate_sandbox = 1;
+} else {
+if (strstr(kname2, "..") != NULL)
+violate_sandbox = 1;
+}
+}
+kfree(kname2);
+}
+}
+}
+
+if (violate_sandbox) {
+PT_REGS_SET_SYSCALL_RETURN(regs, -EACCES);
+goto out;
+}
+
+ret = (*sys_call_table[syscall])(UPT_SYSCALL_ARG1(&regs->regs),
+UPT_SYSCALL_ARG2(&regs->regs),
+UPT_SYSCALL_ARG3(&regs->regs),
+UPT_SYSCALL_ARG4(&regs->regs),
+UPT_SYSCALL_ARG5(&regs->regs),
+UPT_SYSCALL_ARG6(&regs->regs));
+
+PT_REGS_SET_SYSCALL_RETURN(regs, ret);
+
+if (IS_ERR_VALUE(ret) &&
+   (time_travel_mode == TT_MODE_INFCPU ||
+    time_travel_mode == TT_MODE_EXTERNAL)) {
+um_udelay(1);
+schedule();
+}
+}
+
+out:
+syscall_trace_leave(regs);
+}
+
+---
+Please review this architectural enhancement and let me know your feedback.
+
+Best regards,
+Tamim N. Almutairi
