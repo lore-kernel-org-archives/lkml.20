@@ -1,117 +1,241 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053AF34750D;
-	Thu, 10 Sep 2026 02:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24ED37C10A;
+	Thu, 10 Sep 2026 02:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789008790; cv=none; b=VSuic4AGozqH44kUT/cbSUBUZukpnwbR5zGefkAFqqM1487hshsOF3FulfxgZJHv7s95Q/smIoRyrMFC63wuR2I6n4CkrY+9flnDfPQ+kc43QoBlB5ryB/WYT780aaSiEb0lTmX4bAH3DvhfUm7aRU9wN4zpStwNsln9l6/GgX0=
+	t=1789008792; cv=none; b=sGoypTabEVwAjXvsbd5DFLnDa0x2mmTHPrAx6uu+7+HayvuTHNw3J80Pco/bVAFCRkaauxbHJciXBraCqZ6nWyJAjoINX4r6lE25srx9Iu2T/WocDRcY2lwWWQOhFkhYzciCmKsr+g1QsIDYrm1a6cbdPy4M7cUGoEBQCIYxgyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789008790; c=relaxed/simple;
-	bh=ZNSDFcR9xZcUPah6kMHTbXLMt0r/jAU6wMb7+a+Agww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AhYxfFvU/c4zc8DFzCbKYrM9Uz3EHDlEjqv/XY1XernBXPcIG5fVkgwpfO40bc8q9iaAbJkwOYU72vAmU2h9VqSpYxl0473b4NB1n5OsyWe7p0GcZoobBTFveh1u55ThfeRGD3NngbjvG8qR+A84j1pNdFMbMQHdY0CsVGC2qqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gETUZdRO; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789008792; c=relaxed/simple;
+	bh=43FG7pkpL/skF9Ii9G7n8wA1bnEefSTZ5+H9O0X6wmU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=B0rWc+XGy/FTJRBMc6EUzndWNZFNNvLi2IOte8RJ8lvFb4yDUAr0V3E3JMmrvlCtUMWEcOz6QBOnhM4Zr7deSdjnpP2VBwf+8HXoVaCvLrTLG7pJj7jcAHHgyt9Qt7LeH6FJc9V2it36KlcGAi/ebBLRRYUEaZ2jxkdIDIzrywg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQT99cNF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gETUZdRO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789008789; x=1820544789;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZNSDFcR9xZcUPah6kMHTbXLMt0r/jAU6wMb7+a+Agww=;
-  b=gETUZdROQPaQSfIK69exQh9IhhwYYzMP5QfAWK0hGKeBfL2Ya8fcdq5b
-   ilI30SziiH+VGdU3OlRp0USjzDPh9w4V6C2RWGoMpyUSfFpcCrPbQ7iql
-   JIEUL9pT4h/xq8SHztGc//vmrD2rBP+bHfvr0pEzHuScgEJD/eIVpE9aY
-   MNeOWNEKxYviQYTjRkp/fj7KkkTHVpq3kpl1yKR5Z8VzTPCLAPKTsWgc1
-   uRz4Tw3OqpVomDMlqUgTVYQzJDbRBrYRPgdOSkI27eat8qu1FZ2Ohcc01
-   7caNbtuBgQDgFKl9qvVepVkpPNJT8drfHIhLWl4V0cdpupX3c947ej1yV
-   Q==;
-X-CSE-ConnectionGUID: TayZ3JZgSpiX8jmdjBn6jg==
-X-CSE-MsgGUID: 5AHybgb9Qu2JH5RAIdN2DA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106818187"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="106818187"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 19:53:09 -0700
-X-CSE-ConnectionGUID: entTxNr5TDCEv2YWLqXTjw==
-X-CSE-MsgGUID: DrUr9IbpQpKwqWC2KM5Atg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="296459852"
-Received: from unknown (HELO [10.238.208.122]) ([10.238.208.122])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 19:53:06 -0700
-Message-ID: <94b3473c-7e44-4f6f-8721-b43ff4e2c423@intel.com>
-Date: Thu, 10 Sep 2026 10:53:03 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQT99cNF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9711F00893;
+	Thu, 10 Sep 2026 02:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789008790;
+	bh=dQgDCT5aZalq1n0/D0fRroWpHmS8F4tkO1hZ7FGOReI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cQT99cNF2krihWnpIe3mvi76S9xr1or1Ol/pY5w1WviKGcG50aGB3RDVSXzolbsXV
+	 nksIdIcm6Pe0hnyYHEv4PLqvO8P+WXYhNXGY+uxm11d9HZfhyJPdGnlVGkxU5cr17g
+	 f6ndYWey7xztX+ILyFjWHGWEudBrP/dSoqXl1cz+aTXIzLH3deZEwfBudqfQBdq/da
+	 Sp3xhb60yMnhCJovIbQEIh3QGMVIF5Fpb3jtYf/lbeHDKUgDFouq4BQq7ifJZf8d7S
+	 Qo27x3Ekt1kIinYD6kfC+zlfDJWCvUVVJ3TxButGBG6GRtNPmGBg3n8Xc72Civoj4b
+	 yTAUX/wRAlbtA==
+Subject: Re: [PATCH v2 net] octeontx2-af: fix PF/CGX debugfs PCI bus lookup
+From: netdev-bot+sashiko@kernel.org
+To: rkannoth@marvell.com
+Cc: kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ rsaladi2@marvell.com, sbhatta@marvell.com, sgoutham@marvell.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com
+Date: Thu, 10 Sep 2026 02:53:09 +0000
+Message-ID: <178900878938.219967.12274726532197277893@kernel.org>
+In-Reply-To: <20260904085114.3385530-1-rkannoth@marvell.com>
+References: <20260904085114.3385530-1-rkannoth@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "seanjc@google.com" <seanjc@google.com>
-Cc: "Gao, Chao" <chao.gao@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>,
- "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <20260827031837.2863609-2-binbin.wu@linux.intel.com>
- <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
- <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
- <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
- <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
- <cfe57e67-49ce-47d7-b20b-a29e23fe16d4@intel.com>
- <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com>
- <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
- <aqHdwkOFVR4XoS2M@google.com>
- <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 9/10/2026 7:18 AM, Edgecombe, Rick P wrote:
-> On Wed, 2026-09-09 at 15:29 -0700, Sean Christopherson wrote:
->>   Yeah, *ideally* we'd magically enable everything everywhere all at once.  In
->> reality, different VM types are going to support features at different times. 
->> More importantly, as Xiaoyao points out below in #1, unless we enable
->> everyting in a single patch, which is probably a terrible idea in most cases,
->> we'll still end up with staged/progressive enabling, i.e. we still need to
->> have patches that selectively enable and advertise a feature only for the VM
->> types that actually support the feature.
->>
->> This is all quite similar to Intel and AMD feature enabling being done at
->> different times.  The biggest difference is that Intel and AMD are mutually
->> exclusive and so KVM_GET_SUPPORTED_CPUID always reports the correct
->> information, but TDX already provides KVM_TDX_CAPABILITIES, so AFAICT we still
->> get accurate reporting for TDX, just in a slightly different way.
-> I think this actually surfaces another problem with TD-first enabling.
-> KVM_TDX_CAPABILITIES only returns the directly configurable bits. Then recall,
-> KVM_TDX_GET_CPUID returns the actual TDX module's view of CPUID bits to
-> userspace. Then userspace calls KVM_SET_CPUID to actually put them on KVM's vcpu
-> so they can match between Qemu, KVM and TDX
-> 
-> So if a bit is enabled for KVM_TDX_CAPABILITIES, but not yet in
-> KVM_GET_SUPPORTED_CPUID. How should userspace interpret KVM_GET_SUPPORTED_CPUID?
-> It can ignore it for TDX, but that is how it can find the PV bits today.>
-> If we have a TD first feature, it could be a documentation update on how to
-> interpret it. Or we could stuff the PV bits somewhere else for TDX and say to
-> ignore KVM_GET_SUPPORTED_CPUID for TDX. I think we don't need to solve it before
-> we begin filtering like this series has.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-The PV bits reported in KVM_GET_SUPPORTED_CPUID are the bits supported for
-non-TDX VMs. Only some of them are actually supported for TDX. I would suggest
-reporting TDX supported PV CPUIDs in KVM_TDX_CAPABILITIES as well.
+Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 1
 
+- [High] Incomplete fix: the identical PF->PCI-device lookup in the
+  sibling CGX debugfs file is left broken.
+- [Low] The recorded commit message describes only the bus-number change
+  ('It assumed PF0 always sits on PCI bus 1 and derived other PF bus…
+
+Pre-existing issues:
+- [High] get_cpt_pf_num() (rvu_cpt.c:387-407) derives the RVU PF number
+  from the PCI bus number using the assumption this patch declares…
+- [Medium] The inverse bus->PF translation in rvu_sdp_init() still
+  hardcodes base bus 1 and is consumed from inside the function this…
+
+--
+
+octeontx2-af: fix PF/CGX debugfs PCI bus lookup
+
+This changes rvu_dbg_rvu_pf_cgx_map_display() so that the PF-to-CGX map
+debugfs file derives the PCI domain and the base bus number from the AF
+device (rvu->pdev->bus) instead of assuming domain 2 and bus 1. Each PF
+lookup now uses pf + start.
+
+A few questions below.
+
+>     Use rvu->pdev->bus->number as the base bus instead, so each PF lookup
+>     uses pf + start on systems where RVU functions are on contiguous buses
+>     but do not start at bus 1.
+
+[Severity: Low]
+The changelog only describes the bus-number change, but the diff also
+replaces domain = 2 with pci_domain_nr(rvu->pdev->bus), which is a second
+independent behaviour change for systems whose RVU devices are not in PCI
+domain 2.
+
+The only mention of it is the "v1 -> v2: Added fixes tag, and fixed domain
+number" note below the --- separator, which is dropped when the patch is
+applied.
+
+Since this carries a Fixes: tag, could the commit body also state the
+domain change so backporters can see the full scope?
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+> index 22ee996768796..904374baae6f3 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+> @@ -829,19 +829,25 @@ static int rvu_dbg_rvu_pf_cgx_map_display(struct seq_file *filp, void *unused)
+>  	int pf, domain, blkid;
+>  	u8 cgx_id, lmac_id;
+>  	u16 pcifunc;
+> +	u8 start;
+>  
+> -	domain = 2;
+> +	domain = pci_domain_nr(rvu->pdev->bus);
+>  	mac_ops = get_mac_ops(rvu_first_cgx_pdata(rvu));
+>  	/* There can be no CGX devices at all */
+>  	if (!mac_ops)
+>  		return 0;
+>  	seq_printf(filp, "PCI dev\t\tRVU PF Func\tNIX block\t%s\tLMAC\tCHAN\n",
+>  		   mac_ops->name);
+> +
+> +	/* All the PF devices are on contiguous PCI bus numbers, but the PF0(AF)
+> +	 * may not start from 1 always. Hence get domain and bus from PCI device.
+> +	 */
+> +	start = rvu->pdev->bus->number;
+>  	for (pf = 0; pf < rvu->hw->total_pfs; pf++) {
+>  		if (!is_pf_cgxmapped(rvu, pf))
+>  			continue;
+>  
+> -		pdev =  pci_get_domain_bus_and_slot(domain, pf + 1, 0);
+> +		pdev =  pci_get_domain_bus_and_slot(domain, pf + start, 0);
+>  		if (!pdev)
+>  			continue;
+
+[Severity: High]
+The subject says "PF/CGX debugfs PCI bus lookup", but the sibling CGX
+debugfs lookup in the same file is left with the old assumptions.
+cgx_print_dmac_flt() still has:
+
+	pf = cgxlmac_to_pf(rvu, cgx_get_cgxid(cgxd), lmac_id);
+	domain = 2;
+
+	pdev = pci_get_domain_bus_and_slot(domain, pf + 1, 0);
+	if (!pdev)
+		return 0;
+
+and it is reachable through a registered file:
+
+	static int rvu_dbg_cgx_dmac_flt_display(struct seq_file *s, void *unused)
+	{
+		return cgx_print_dmac_flt(s, rvu_dbg_derive_lmacid(s));
+	}
+
+On the very systems this patch targets (AF not on bus 1, or not in domain
+2), does reading the CGX dmac_filter file just produce empty output because
+of the "if (!pdev) return 0;" early exit, with no header and no error?
+
+And if the domain does happen to be 2 while the base bus differs, can the
+lookup resolve an unrelated PCI device at that bus/slot and print its
+dev_name() as the RVU PF?
+
+After this change the driver holds two contradictory rules for the same
+PF-to-BDF mapping. Would it make sense to convert cgx_print_dmac_flt() in
+the same patch?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but get_cpt_pf_num() in
+rvu_cpt.c has the same wrong bus base in a non-debugfs path. It reads the
+domain dynamically yet still probes bus i + 1:
+
+	domain_nr = pci_domain_nr(rvu->pdev->bus);
+	for (i = 0; i < rvu->hw->total_pfs; i++) {
+		pdev = pci_get_domain_bus_and_slot(domain_nr, i + 1, 0);
+		...
+			cpt_pf_num = i;
+
+With the AF at bus start != 1, either no CPT device is found and
+rvu->cpt_pf_num stays -1, or the device found at bus i + 1 is really RVU PF
+(i + 1 - start), so cpt_pf_num is shifted by (start - 1).
+
+Can that shift then deny the genuine CPT PF/VF, given is_cpt_pf() /
+is_cpt_vf() compare rvu_get_pf(pcifunc) against cpt_pf_num and gate
+CPT_RD_WR_REGISTER, CPT_STATS and CPT_RXC_TIME_CFG with
+CPT_AF_ERR_ACCESS_DENIED?
+
+	if (rvu_get_pf(rvu->pdev, pcifunc) != cpt_pf_num)
+		return false;
+
+And with cpt_pf_num == -1, does cpt_inline_inb_lf_cmd_send() index the mbox
+array out of bounds?
+
+	req = (struct cpt_inst_lmtst_req *)
+	       otx2_mbox_alloc_msg_rsp(&rvu->afpf_wq_info.mbox_up,
+				       cpt_pf_num, sizeof(*req),
+				       sizeof(struct msg_rsp));
+
+otx2_mbox_alloc_msg_rsp() in mbox.c does not validate devid:
+
+	struct otx2_mbox_dev *mdev = &mbox->dev[devid];
+	...
+	spin_lock(&mdev->mbox_lock);
+
+This path is reached without any is_cpt_pf() gating on non-otx2 silicon:
+
+	rvu_nix_lf_teardown() -> rvu_cpt_ctx_flush() ->
+		cpt_inline_inb_lf_cmd_send()
+
+Should get_cpt_pf_num() also start its scan at rvu->pdev->bus->number, or
+at least should cpt_pf_num be validated before it is used as an mbox device
+index?
+
+[Severity: Medium]
+This is a pre-existing issue, but the inverse bus-to-PF translation in
+rvu_sdp_init() still encodes the base bus 1 that this patch declares
+invalid:
+
+	/* The RVU PF number is one less than bus number */
+	sdp_pf_num[i] = pdev->bus->number - 1;
+	pfvf = &rvu->pf[sdp_pf_num[i]];
+
+Under this patch's premise, shouldn't the inverse be
+pdev->bus->number - rvu->pdev->bus->number?
+
+With a base bus start != 1, sdp_pf_num[] is offset by (start - 1), so
+is_sdp_pfvf() compares rvu_get_pf(pcifunc) against a wrong PF number. Can
+that make a non-SDP PF pick up SDP channel/ring parameters through
+pfvf->sdp_info while the real SDP PF is treated as an ordinary PF?
+
+This is also visible from the loop being changed here, since
+is_pf_cgxmapped() consults is_sdp_pf():
+
+	return (pf >= PF_CGXMAP_BASE && pf <= rvu->cgx_mapped_pfs) &&
+		!is_sdp_pf(rvu, rvu_make_pcifunc(rvu->pdev, pf, 0));
+
+Separately, the index is unchecked while rvu->pf is allocated with only
+hw->total_pfs entries in rvu_setup_hw_resources():
+
+	rvu->pf = devm_kcalloc(rvu->dev, hw->total_pfs,
+			       sizeof(struct rvu_pfvf), GFP_KERNEL);
+
+If pdev->bus->number - 1 >= hw->total_pfs, does &rvu->pf[sdp_pf_num[i]] and
+the following pfvf->sdp_info assignment write past the array? I could not
+confirm from the tree that a shipping board combines a non-1 base bus with
+an SDP PF, so this part is unproven.
+
+Since the patch makes the two halves of the bus/PF convention openly
+contradictory, would it be reasonable to fix them together?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904085114.3385530-1-rkannoth%40marvell.com
