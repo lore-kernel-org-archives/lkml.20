@@ -1,172 +1,249 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF863E5ED1
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037845; cv=pass; b=Kf94bsiazimM1ZTOs0WrNfn7J5dCeL4LikLUBqO7yMSq9ERiSSb/yLYQZ5HqcBNNXUlHJfnef7sF8VRiS9MqBzStUCFfFsm1E9xmlux/Bk317aW6/LmtuvD7ao9fvfFe8nvnHMRjjQ0n48Yi8gBjHQVyrtME50KIt2215H0w2nE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037845; c=relaxed/simple;
-	bh=G98wm182ByRQjNH5zsXThdRTx0J7xMSr1hsaIvb95Fk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KWYauEfbl4+5+V8BFDv//XB8+Fx1vc0EXwC8kmmRbeLVSQI+Lc6c0KylbOX6OlZaOp+Z70WUNql+MaPMYD9NC+s9Kclxd3STTxCP6LvK35jRhn2+hKezeA8ZIm36DPe0A/abMMHUVsHMZqLUd5kbyQjAtRTdofmvJ9WfAvUQ95A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jGXGpp8/; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E80245A28B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789037852; cv=none; b=h5sOTR4/w1PLvf8ht/myY6ziJlGVyRSpSofkD3YWI0M2xljRwpRHNS2C7ojUqOhJjIDpEyQchVhR3ByHOdu7V/fKqzHz4co2EHyveZGZozoTCRj6VoTHxnzbIcVz5RG/nvF5sdnCQzVSh6yfJwJAtCDEEDufD0ZXA487Q5YnBvU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789037852; c=relaxed/simple;
+	bh=YdzrMk8ilrdPcMZUfLVgW8yhf7sgCuNAjKqnreba/YM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nW4tTukw+0R61ns/h0i8E4WkIyW+vE+5U9MZadFZlk4V8XBsKtTiEINzEGikn7xxve/BJM7VBCQcNwpuc1Xg357+V/RqmZhSNVjmQxH0y/24GcVSTX7pgOSGLq1lgoG1jCspsWodrQ2b/UacMDyQR2VkRE74aVKl0xOiGuky36s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SDUP0OXg; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jGXGpp8/"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso13379365e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:57:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789037841; cv=none;
-        d=google.com; s=arc-20260327;
-        b=COfYms9xtvYHlKRbYI1P2DFNDWMeesR4m6Eyfoq9RGMB47tW3bs4kq/eTe9hDtWWOl
-         e5Rj0Gl4y9aEpRJeH/b1IjdWNkhWugKZgW2/3LrlS499KZX/hoEpR+5VqN5mDE3w5Plz
-         tzSBai3eVLQUUTjXnzSau7qvKuDsNa1/X1vbEHV0TS+BfePgXNrYjrUV0fzYyjm37FJO
-         0ySw2sju4mtWvwv9t7NJUjhODT+jDKKi3W8hfHmnaaZb1ipw43j0I5OjgkWP3sjPHyC+
-         9IeEiDKycqteE0ThmR3fVz+iCkaeGbiemHmnSpUpNq00pe958CzL8QbfcuPWc7GTLoEI
-         z0/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sqo1ROF5ElJGcJZJBe8UZKlFcnLYT8iWyrDB0Jbm0Bc=;
-        fh=3KutE/WtIG3plVYSNCF5B3mXXJ0wnGVCIR7hitxZbJo=;
-        b=cMWFcubtTZ9zshNGaEfOkMyMSvYMd+sOWbKX9ZONSvz1tZDT93PaGBtLPnfK7xCufl
-         GZ5nk6bgRgEerRpJvBw2Z88+sbS549rWedMYARzKFkCn/H2OyDEe+2+xjr1fvVR63m7o
-         yoU0DTHnQUMwjXNFc8rnd21LxLU+R1gUCvcdfNx6mV+2W88kJV2ShnFqgdKy9sJ9ouIC
-         pqHNjAVfWygTKaV0a9dEKPIRcvNac4sXmt0BM2Sk6YFX14sd1paSoXB9mB14Ie2b+5W7
-         kJDvQFh2AqKhHKTEX88dXGpvdhK2M5kbMDcYhDa0M+VJsraKYzCr+SIBFGPKiyGAmjsn
-         5pVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789037841; x=1789642641; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sqo1ROF5ElJGcJZJBe8UZKlFcnLYT8iWyrDB0Jbm0Bc=;
-        b=jGXGpp8/UdJzSiM3Vy5EJ8ovzGB/y0KliV6/IA4Wc0w05nrj+Cz16G4kQeJsQc1eXp
-         XU9fod3KD2qrUN32ZGR3xblO2EfVHQz6LGwCFdH0Yc0CQEakeHCurfW7U5Np1vdnlLvd
-         /Y3N9sQApu9P24YQrYkN2741W4Lu0QVwj/2csEMIbGVAkxdKbX52mNEtX/fMiGXDOZSP
-         O3FvGLCgCZJ3wNTyuEy1qBy1ZaNluV9unTcTxxhIKZBM+0we+u+asD3TVMPbApli2sTF
-         ZMSTK93KSsTNoWji3CgKDRTjlOurnYf8pQmcJeeZPrupiH+lkwzGTHfdmxtfGGr9LBpi
-         4bxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037841; x=1789642641;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sqo1ROF5ElJGcJZJBe8UZKlFcnLYT8iWyrDB0Jbm0Bc=;
-        b=Vrwb7rlurW7k3YGaB9FdYUhCXHoalzdiNOfuw1crOTtkqCozFblPKAmP4d6A1/Alxz
-         j6xeS3wo43RmeWvhUcdA6NN0PgmiMrSP2yD+PZWnyRwF/ykRvRUfORyQNpsyhOJdvH51
-         wPuoFdsuijN0ES3O7z8DQjfLKb2ZScTuAASJTgjslzO1SdUCq4tJgHuTjEg0DM6W6lln
-         y5WxXT8h0aqTSozadAdcK3MrG+h3E4gN9n4568JwRPX+XQJlMqzzUuRsSJ70BP6lPQ2s
-         kkysd5oeBEGojhkCkDkQlsCKQCD47t2suOgmYmILy6x2cPHzlLuLiyqlr1TF38QLFiXC
-         ypsA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtbJ1cHQAa+eEEmwA217D3iNXEAL3kylmqoFbJ/yPxPKyHZfu4IJSr9iaErWgKhZAtsbZtr65INT6v6Vk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nk0VQB172qsWYqZ9Nri4PN3LUNTT/ODyBJWQspD5B0c4a7x0sS
-	fu5II2zLPPZyGNkAtb9qXO1yj9tIgg/i9bQpGk3FIhQkadMdn7Nqa5yhszR6QFHMrpW7PQ6yqJs
-	omfY8c26MlTj++SIW9TTXHArUZixQ0h0=
-X-Gm-Gg: AYBFou33Wp7KWtKMPZ7YdspnuQnFwDQfyq35oKGA003wIwJd7c+KyCrm34SHjXAdfo5
-	mJ3yVF3v9CP0/AKZJ8B8B02HMUry13YTB18ZA1+zEtsI2D535w5zl0y5WZhkFGziYMN1OJVQ/Y+
-	ksS0bRjvgFIAhQNJq2ChNjDCB4bsSq+p8IYr8dRVCTqWdhzT69QivkZxXDkSZIC9+Sx7ywSYUTg
-	Gao75Yuo/lRtgB0m2ialI++bus3jOi+7DOXIKXycuXAmzCZPducFPSC/x5iRDnTAk2kteBKpCmL
-	ci1ZLT2kqmnrKV2wOqlqDICSCVzLkyGxIk7f57swE8ARKJmNDofo/gu9nkDhNRJk4QU=
-X-Received: by 2002:a05:600c:4f44:b0:49d:e0c:e55e with SMTP id
- 5b1f17b1804b1-49d25914e45mr64006245e9.23.1789037841326; Thu, 10 Sep 2026
- 03:57:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SDUP0OXg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vI
+	h0xwNIpntqCuDSbP8n7bFxK9BFVqY3UFuS+N7bAuQ=; b=SDUP0OXgNuSCp6cTlb
+	GgZLyHC75GzV3f3ER5bcIgopZS6lmn8B8ybDElv1OKkvNIg6y1ObZ8tk4/tZMXg5
+	CtLLNG3YWvwig4+MEk7Ey+Gdd1SrBK+fYsaAWRe+z2ckxUZTKzVpohx8vIwv3nPA
+	RWHTSPNnSEkJzEkq53Fr8PF10=
+Received: from localhost (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCHaACSjKJq207aRw--.7088S2;
+	Thu, 10 Sep 2026 18:55:15 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	tim.c.chen@linux.intel.com,
+	yu.c.chen@intel.com,
+	kprateek.nayak@amd.com
+Cc: juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	connoro@google.com,
+	jstultz@google.com,
+	arighi@nvidia.com,
+	tj@kernel.org,
+	void@manifault.com,
+	changwoo@igalia.com,
+	linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev
+Subject: Re: [PATCH v4 5/5] sched/core: Fix donor slice accounting under proxy execution
+Date: Thu, 10 Sep 2026 19:55:14 +0900
+Message-ID: <20260910105514.2788543-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909092901.2989564-6-sh_def@163.com>
+References: <20260909092901.2989564-1-sh_def@163.com> <20260909092901.2989564-6-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com> <2026091034-slicing-same-692a@gregkh>
-In-Reply-To: <2026091034-slicing-same-692a@gregkh>
-From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-Date: Thu, 10 Sep 2026 15:57:10 +0500
-X-Gm-Features: AcwNN1UYDtkvMAOTQp5N6tgZWBENzlNjkY4td5DzUUFN3PGSmoQuBP93u4dW6oQ
-Message-ID: <CAKD4hN5x9McTTAVKSK90VfcPTZZJmUAXwXyzY9m3RkZYnygJVQ@mail.gmail.com>
-Subject: Re: [PATCH] usb: gadget: u_serial: fix use-after-free between tty
- open/close and gserial_free_line
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: David Brownell <dbrownell@users.sourceforge.net>, 
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCHaACSjKJq207aRw--.7088S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFWDXrW7tr1rWFWfWrWDtwb_yoW3WFWrpF
+	Z0v3WUtw4Dta4jgFWUArs8Wa43K3s3Ja45Xrn5tayFkr1rt3yFqFySqryYyF45Cryv9F12
+	yrsF93y7Crnrt3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UtfHUUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwROK6WqijJNs+QAA3z
 
-Thanks for catching that. Yes to both. I have sent a Patch v2 with the
-added assisted-by tag.
+On Wed, Sep 09, 2026 at 06:29:01PM +0900, Hui Su wrote:
+> Core scheduling uses __entity_slice_used() to decide whether the current
+> scheduling context has consumed enough of its slice to let a force-idled
+> SMT sibling run.
+>
+> The check is correctly made against rq->donor, since the slice belongs
+> to the scheduling context. With proxy execution, however, task runtime
+> is accounted to rq->curr. The donor's sum_exec_runtime therefore does
+> not advance while another task executes on its behalf, causing
+>
+>         se->sum_exec_runtime - se->prev_sum_exec_runtime
+>
+> to remain near zero and preventing the force-idle reschedule from
+> triggering.
+>
+> Using rq->curr is not correct either, as that would compare the execution
+> task's runtime against its own slice rather than the donor's slice.
+>
+> Track the donor's task-clock timestamp when it is selected and measure
+> the elapsed service using se->exec_start. update_se() advances the donor's
+> exec_start from rq_clock_task() even under proxy execution, while the
+> accumulated task runtime itself is charged to rq->curr.
+>
+> Keeping the comparison in the task-clock domain also avoids depending on
+> the entity's weight. A vruntime delta accumulated across different
+> weights cannot reliably be compared against a slice converted using only
+> the current weight.
+>
+> Only snapshot task entities, as task_tick_core() performs the consumed
+> slice check on the donor task.
+>
+> In non-proxy testing, the task-clock predicate matched the existing
+> sum_exec_runtime predicate across HZ=100/250/1000 and nice -10/0/+10.
+> Under proxy execution, the donor's sum_exec_runtime delta remained zero
+> while the task-clock delta advanced and triggered the force-idle
+> reschedule.
 
-Best Regards,
-Tayyab
+Following up on the task_tick_core() discussion with Tim and Chen Yu, I
+reworked the implementation while keeping the slice check associated with
+rq->donor, because the slice belongs to the scheduling context.
 
-On Thu, Sep 10, 2026 at 1:38=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Sep 10, 2026 at 01:17:19PM +0500, Syed Tayyab Farooq wrote:
-> > syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
-> > involving struct gs_port. The port is allocated when a gadget serial
-> > function instance is created via configfs mkdir (gserial_alloc_line())
-> > and freed via a plain kfree() in gserial_free_port() when the instance
-> > is removed via configfs rmdir(). Nothing prevented a concurrent
-> > open("/dev/ttyGS*") from racing with rmdir: the tty core could still
-> > reach gs_open()/gs_close() and dereference the gs_port after it had
-> > already been freed, since the ports[] table entry these functions
-> > looked up was a bare pointer with no refcounting tied to the tty core.
-> >
-> > Fix this by giving struct gs_port proper tty_port-managed lifetime:
-> >
-> >  - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
-> >    the port once under ports[idx].lock, takes a tty_port_get()
-> >    reference, and stores the result in tty->driver_data. gs_cleanup()
-> >    drops that reference when the tty_struct is released. This ties the
-> >    gs_port's minimum lifetime to the tty_struct using it, so it can no
-> >    longer be freed out from under an open tty.
-> >
-> >  - Give tty_port a destructor (gs_port_destruct()) that does the
-> >    kfree() that gserial_free_port() used to do directly, and
-> >    switch gserial_free_port() to tty_port_put() instead of an
-> >    unconditional kfree(). Also, tty_port_destroy is automatically calle=
-d
-> >    when the reference reaches 0. The struct is now only actually freed =
-once
-> >    its last reference (held by either the ports[] table or a live tty)
-> >    is dropped.
-> >
-> >  - Stop gs_open() from independently re-deriving the port from
-> >    ports[port_num].port and reassigning tty->driver_data. gs_install()
-> >    is now the single place that looks up and pins the port; gs_open()
-> >    re-deriving it separately could, on an unlucky race with the port
-> >    index being freed and reallocated, leave tty->port and
-> >    tty->driver_data pointing at two different gs_port instances, with
-> >    the one gs_close() uses left unprotected. gs_open() now just uses
-> >    the already-validated tty->driver_data, while still holding
-> >    ports[port_num].lock across the first-open kfifo allocation to
-> >    serialize concurrent first opens against each other (kfifo_alloc()
-> >    needs GFP_KERNEL, so it can't run under port_lock).
-> >
-> >  - In gs_close(), a tty's .close() can legitimately run against a port
-> >    whose port.count is still 0, e.g. when gs_open() fails and the tty
-> >    core unwinds via tty_release(). The previous code treated this as
-> >    an impossible state (WARN_ON(1)), which trips panic_on_warn on
-> >    syzbot and isn't actually a bug -- it's an expected outcome of a
-> >    failed open. Treat count =3D=3D 0 the same as any other "not the las=
-t
-> >    closer" case and return quietly instead of warning.
-> >
-> > Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3Dfe63e4d633540f230624
-> > Fixes: c1dca562be8a ("usb gadget: split out serial core")
-> > Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-> > ---
-> >  drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
-> >  1 file changed, 57 insertions(+), 7 deletions(-)
->
-> Did you forget an Assisted-by: tag?  And did syzbot test this?
->
-> thanks,
->
-> greg k-h
+The new predicate measures consumed service in the task-clock domain rather
+than using the donor's sum_exec_runtime:
+
+  rtime = se->exec_start - rq->core_sched_start;
+
+update_se() advances the donor's exec_start from rq_clock_task() during
+proxy execution even though task-level sum_exec_runtime is charged to
+rq->curr. This keeps both sides of the comparison in the task-clock domain.
+
+The deadline/virtual-time prototype did not work reliably in my reproducer:
+update_deadline() can advance the deadline before task_tick_core() evaluates
+the predicate, making the reconstructed virtual service small again after
+the donor has consumed service.
+
+The baseline is stored in struct rq rather than every sched_entity. There is
+one active donor per runqueue, so per-entity storage was unnecessary and
+increased sched_entity from 224 to 256 bytes on i386 with
+CONFIG_SCHED_CORE=y.
+
+One proxy-specific detail is that an execution-owner handoff can retain the
+same donor. The scheduler then uses a synthetic put_prev_task()/
+set_next_task() pair for balance handling. That reselect must not reset the
+donor's core_sched_start, or service before the handoff would be discarded.
+The implementation refreshes the baseline only when selecting a different
+donor or when reactivating a task after a scheduling-class transition.
+
+In non-proxy testing, the new predicate matched the existing
+sum_exec_runtime predicate in 89,900 samples across HZ=100/250/1000 and
+nice -10/0/+10 with zero mismatches. The proxy-enabled
+CONFIG_SCHED_CORE=y scheduler objects and full bzImage also build with this
+change. A focused force-idle test which splits one donor's service across two
+execution owners is still pending; I will not claim owner-handoff runtime
+coverage until that case runs.
+
+Could you take a look at whether this task-clock and per-rq baseline approach
+is reasonable? If so, I will complete the focused owner-handoff test and carry
+the result into v5 before posting the updated series.
+
+For reference, the complete current core-slice patch follows.
+
+Thanks,
+Hui
+
+---
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index ed08b287016a..0fea899d61c7 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6469,7 +6469,8 @@ dequeue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+ }
+ 
+ static void
+-set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
++set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se,
++		bool reset_core_slice)
+ {
+ 	/* 'current' is not kept within the tree. */
+ 	if (se->on_rq) {
+@@ -6502,6 +6503,10 @@ set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 	}
+ 
+ 	se->prev_sum_exec_runtime = se->sum_exec_runtime;
++#ifdef CONFIG_SCHED_CORE
++	if (reset_core_slice && entity_is_task(se))
++		rq_of(cfs_rq)->core_sched_start = se->exec_start;
++#endif
+ }
+ 
+ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags);
+@@ -14786,16 +14791,15 @@ static void rq_offline_fair(struct rq *rq)
+ 
+ #ifdef CONFIG_SCHED_CORE
+ static inline bool
+-__entity_slice_used(struct sched_entity *se, int min_nr_tasks)
++__entity_slice_used(struct rq *rq, struct sched_entity *se, int min_nr_tasks)
+ {
+-	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
+-	u64 slice = se->slice;
++	u64 rtime = se->exec_start - rq->core_sched_start;
+ 
+-	return (rtime * min_nr_tasks > slice);
++	return (rtime * min_nr_tasks > se->slice);
+ }
+ 
+ #define MIN_NR_TASKS_DURING_FORCEIDLE	2
+-static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
++static inline void task_tick_core(struct rq *rq, struct task_struct *donor)
+ {
+ 	if (!sched_core_enabled(rq))
+ 		return;
+@@ -14815,7 +14819,8 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
+ 	 * if we need to give up the CPU.
+ 	 */
+ 	if (rq->core->core_forceidle_count && rq->cfs.h_nr_queued == 1 &&
+-	    __entity_slice_used(&curr->se, MIN_NR_TASKS_DURING_FORCEIDLE))
++	    __entity_slice_used(rq, &donor->se,
++				MIN_NR_TASKS_DURING_FORCEIDLE))
+ 		resched_curr(rq);
+ }
+ 
+@@ -15049,7 +15054,7 @@ static int task_is_throttled_fair(struct task_struct *p, int cpu)
+ 	return throttled_hierarchy(cfs_rq);
+ }
+ #else /* !CONFIG_SCHED_CORE: */
+-static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
++static inline void task_tick_core(struct rq *rq, struct task_struct *donor) {}
+ #endif /* !CONFIG_SCHED_CORE */
+ 
+ /*
+@@ -15257,6 +15262,8 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
+ {
+ 	struct sched_entity *se = &p->se;
+ 	bool throttled = false;
++	/* Keep service accumulated across a same-donor proxy reselect. */
++	bool reset_core_slice = !first || rq->donor != p;
+ 	struct cfs_rq *cfs_rq = &rq->cfs;
+ 	unsigned long weight = NICE_0_LOAD;
+ 	bool on_rq = se->on_rq;
+@@ -15271,7 +15278,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
+ 
+ 		if (!IS_ENABLED(CONFIG_FAIR_GROUP_SCHED) ||
+ 		    !first || !cfs_rq->h_curr)
+-			set_next_entity(cfs_rq, se);
++			set_next_entity(cfs_rq, se, reset_core_slice);
+ 
+ 		/* ensure bandwidth has been allocated on our new cfs_rq */
+ 		throttled |= account_cfs_rq_runtime(cfs_rq, 0);
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index bb6f87552220..b430092fc9ad 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1382,6 +1382,7 @@ struct rq {
+ 	unsigned int		core_forceidle_seq;
+ 	unsigned int		core_forceidle_occupation;
+ 	u64			core_forceidle_start;
++	u64			core_sched_start;
+ 	unsigned int		core_pick_in_flight;
+ #endif /* CONFIG_SCHED_CORE */
+ 
+
