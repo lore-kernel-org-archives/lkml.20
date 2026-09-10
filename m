@@ -1,60 +1,47 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE99545FFB5;
-	Thu, 10 Sep 2026 10:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4B545FFC3
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037628; cv=none; b=aRZn5DU65USuoYxtWKafXTWltW28+r2a1W5ghG1I7TjcIzB1P4+JWWJBm5V3Eflf0+iabc06KWEO3Lid2r705cBOzbfS0fF728pqxqu5RGhmUySWrhyWtvTXdqHo+sh+FEq212srOI7mQc+tIbGf3lssdJ7L9REHTKmLPqLPuGo=
+	t=1789037649; cv=none; b=re0I64Bv4Szv+a29hMV2DgaH1qdicEeIint0BjFiwHVyouK4O9iO2NBcz7w8y+VIHTuw0mrk5JouladdXbYD2AOKFLhtL1194hyTMb9IYEDGJNTmQJ+6rgqQ8jPdkYbMMaZHStHqFNtEsyA2ATpO4MfXINVEheBhSVN0cS7f0x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037628; c=relaxed/simple;
-	bh=AE87lusMPfPjdrB3o6pXNzFg0voaAAjsIOr74KNCMOE=;
+	s=arc-20240116; t=1789037649; c=relaxed/simple;
+	bh=03aumKCBVmkCYS6FKh4lw9BzTJVJCb8iE4Pu4y2zKJc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pY0TZgjlCwAZjdt7+VIHeVo61fl7YvEtsD7Ibe7LWgv/EbswIJuP7E9CsTQlLGkgspnKHHLFFlJbtPe3YRExrk/URwY4nP+0vLlz4appLFnkkbPMSWzCmXoAHMPWkkPNqyt7hK9rgjNj8byWlh/JMYakeE/0JUg+arK+6HIuPwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=qk/Ho36h; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tik6p/rzT1Hh7QZJz31uNf8lDbThFzquTzyY1ZjMqP/Q/bCGZJBOvw+NPZj+09azi3WJlHXxY+cVxRPshFqIMj+Fx2wefYStpX78V+VVUxQ1533tyG1j0DMBYB2kFO78ehCptEbpdAXefHnldvd+OgPqj3CfhEETisx8X+Qa5LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=HG7wWlZy; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="qk/Ho36h"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="HG7wWlZy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=VVwOnaOLvHrmUaRFj0thYlhFFoEcWPkUZVoSbzPkH9U=; b=qk/Ho36hMAqkPKl6+7NAXjyIvF
-	7u76wg+bo0qO7NcQb347SO6o7qkadwSDLlS9yNtLN9gDnhhk8JOlsplDkZufyrHborZlFP7h0Rs2j
-	7LZmZ0fO56Ovvi0JPZtLivtd3IoJkCQTKU6daNeygOLOH2IIf5SKOxZGp47OzvIs+tl9fVJgfl8gO
-	lq9sZXxb1cQNogApEJn8VprKrCvDC/Aatl5/1Sj40I/WuPdJCqFxG4+lM29OyFD7Wajm8CwC4gHM4
-	6K85oTOH/gcfJOn8+dJOzHUeCV+RYvAJbbp3vJwUTGJmGX5u3R42jo8GuaGjzu17kXgNDzG18+sU2
-	0METmk/w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4cPQ-0000000FrM0-19G2;
-	Thu, 10 Sep 2026 10:53:36 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id CF87C30056B; Thu, 10 Sep 2026 12:53:35 +0200 (CEST)
-Date: Thu, 10 Sep 2026 12:53:35 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/18] sched_ext: Block proxy donors across scheduler
- transitions
-Message-ID: <20260910105335.GJ4120091@noisy.programming.kicks-ass.net>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-10-arighi@nvidia.com>
+	bh=exriCEPKpORG5XesYYVjTH38jJkgEZ6FOwFmdYoWl5w=; b=HG7wWlZyGNp/i3ltdU95fi9Enh
+	rkT4KECUxK9KihTw0WpgTK0Lq4iZheXgiTffCJdbHR16NodtUsprKTAWrwspVIzQWchSReYpPoDzp
+	F81MkSRAPaRADNFhCu+Wzu5hiB6jYBCWrDUSjCKypmmTbSimVTMGzqC3IKr3OZ9Ue+fPzlmXo5RcD
+	WYQIODFV3myRyhwv1FizOjwCMHDhla6XZ4Haxtl3ap9XeIA2RScfD/Y4L6BiyqDR+/RcHVEcVYNnX
+	vu7qbKngAtrh7wVY2QY0BxWY3J6ZsQ0KosHeeOYVhJ6kARfk4XCRl26x3aDuAVNoCKy4r9JmKv3TL
+	S+6YbuxA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x4cPm-000SfQ-2E;
+	Thu, 10 Sep 2026 10:53:59 +0000
+Date: Thu, 10 Sep 2026 03:53:53 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Yao Kai <yaokai34@huawei.com>, liuyongqiang <liuyongqiang13@huawei.com>
+Subject: Re: [PATCH 3/3] workqueue: Make flush_workqueue() visit only pwqs
+ active since the last flush
+Message-ID: <aqKMNEyn_iG6iC21@gmail.com>
+References: <20260901210929.3092513-1-tj@kernel.org>
+ <20260901210929.3092513-4-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,80 +50,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831134338.1531664-10-arighi@nvidia.com>
+In-Reply-To: <20260901210929.3092513-4-tj@kernel.org>
+X-Debian-User: leitao
 
-On Mon, Aug 31, 2026 at 03:42:19PM +0200, Andrea Righi wrote:
-> Proxy execution retains mutex-blocked donors on the runqueue so their
-> scheduling context can execute a lock owner. sched_ext cannot safely retain
-> such donors unless the BPF scheduler explicitly participates in their
-> admission and ordering.
+On Tue, Sep 01, 2026 at 11:09:29AM -1000, Tejun Heo wrote:
+> 636b927eba5b ("workqueue: Make unbound workqueues to use per-cpu
+> pool_workqueues") fixed unbound workqueue scalability on large machines but
+> made flush_workqueue() walk one pwq per possible CPU, cycling each pool
+> lock, up to three times per flush. 85f0d8e39aff ("workqueue: Reduce
+> expensive locks for unbound workqueue") coalesced same-pool locks for
+> unbound workqueues but the walk remains. Yao Kai reported the XFS CIL
+> workqueue, flushed on every log force, spending up to 64us per flush in the
+> walk on a 128-CPU machine.
 > 
-> Make sched_ext reject retained donors by default. Implement
-> scx_allow_proxy_exec() to force blocked EXT tasks through the regular block
-> path in schedule().
+> Idle pwqs can't just be skipped: the lock-and-advance of every pwq's work
+> color is what keeps a concurrently queued work item from being stamped with
+> a retired color unseen by the flusher, which would let a later flush return
+> before it finishes.
 > 
-> Also fully deactivate any retained proxy donor in sched_change_begin()
-> before changing its scheduling class. This prevents sched_setscheduler(),
-> PI transitions and sched_ext activation from carrying an existing proxy
-> session into the new class.
+> Track active pwqs instead. Each workqueue gets a wq_flush_pnode per node
+> with a lock, a mirror of wq->work_color and a list of pwqs. Queueing to an
+> off-list pwq syncs pwq->work_color from the mirror and adds it under
+> fpn->lock, and flush_workqueue_prep_pwqs() advances the mirror and splices
+> the list in one fpn->lock section per node before visiting the pwqs under
+> pool->lock as before. That replaces the fence: a racing queueing either gets
+> its pwq on the list before the splice or stamps the advanced color. A pwq
+> stays on the list until a visit finds nothing in flight, so a cascade arming
+> an older color still finds it, barriers need no separate add as the work
+> item they follow keeps the pwq on the list, and pwq_release_workfn() removes
+> a released pwq under wq->mutex.
 > 
-> Some RT/DL PI transitions could usefully preserve the proxy session. For
-> example, an RT waiter can boost a FAIR donor which is itself blocked on a
-> non-PI mutex; retaining the donor would allow the boosted context to keep
-> proxy-executing that mutex owner. Doing so safely requires defining which
-> scheduling classes can carry retained proxy state across a transition. Keep
-> the conservative reset for now and leave compatible RT/DL PI chains for
-> future work.
+> On a 192-CPU 2-node machine, flushing an idle per-cpu workqueue goes from
+> 40k to 4.2M per second and an idle unbound one from 450k to 4.3M. 16 threads
+> each queueing a work item and flushing, go from 30k to 110k flushes per
+> second on a per-cpu workqueue and 60k to 180k on an unbound one. Dense
+> flushes with every pwq active are unchanged on per-cpu workqueues and 15-20%
+> slower on unbound ones. The queue path is unchanged.
 > 
-> This is a preparatory change to support proxy execution with sched_ext.
-> 
-> Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> ---
->  kernel/sched/core.c    | 9 +++++++++
->  kernel/sched/ext/ext.c | 2 +-
->  2 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index f142ab455b797..4bd956182af8d 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11302,6 +11302,15 @@ sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
->  		flags |= DEQUEUE_NOCLOCK;
->  	}
->  
-> +	/*
-> +	 * Don't carry retained proxy state across scheduling class changes.
-> +	 * Compatible RT/DL PI transitions could preserve the session so that a
-> +	 * boosted donor continues proxy-executing its lock owner. Defining which
-> +	 * class transitions can safely retain that state is left for future work.
-> +	 */
-> +	if ((flags & DEQUEUE_CLASS) && next_class != p->sched_class)
+> Reported-by: Yao Kai <yaokai34@huawei.com>
+> Link: https://lore.kernel.org/all/0a030145-c108-4365-ba2d-ac1973a1e352@huawei.com/
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-That's a tautology, having DEQUEUE_CLASS means next_class !=
-->sched_class.
-
-> +		sched_proxy_block_task(rq, p);
-> +
->  	if ((flags & DEQUEUE_CLASS) && p->sched_class->switching_from)
->  		p->sched_class->switching_from(rq, p);
->  
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index f3e59f4fad4ac..d5ed996ebfb4c 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -26,7 +26,7 @@ DEFINE_RAW_SPINLOCK(scx_sched_lock);
->  
->  bool scx_allow_proxy_exec(const struct task_struct *p)
->  {
-> -	return true;
-> +	return p->sched_class != &ext_sched_class;
->  }
-
-
-Hmmmm... I don't like this. I was expecting this
-sched_proxy_block_task() thing to be called in the big switcheroo
-function when loading one of these ext thing. (scx_root_enable_ or
-somesuch).
-
-We most certainly don't want to do this on every sched class change. It
-isn't even gated by scx_allow_proxy_exec().
+Tested-by: Breno Leitao <leitao@debian.org>
