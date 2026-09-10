@@ -1,41 +1,41 @@
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A7246D2DC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:55:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF804A0905
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052140; cv=none; b=Yy7gYCHKJywdijXCQ2wRriIDT91A2dGQeZ7dK1nzoHGa1rMb2580WHhla1x14ldqRJQ8p/11809zQcY8ex9CqBXOMs6nST2EgoENFtISJP1WmeIAzzjuPb2q0iJzrf1DnSlOikXk/f/26SGAvRpNYi46658R7GJUu9dFtLXrpyY=
+	t=1789052141; cv=none; b=StRoDjqra578hk7ae7C8UOghRtHGx8fCxzpdcspG6A61LBuh/sY0I81zyPpkppDkvUANOZIzkaX0swRMIhZSvoWyMvOmftA3XMuDysCHWF0pHQ/G6ZwwANAW29E2jeW/NL4YxzxlmDeeLA8Nqi0aNTH4MplgtstUwXCXV8fmoEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052140; c=relaxed/simple;
-	bh=o1ewjkqfgV1Swi0tJItMpYkoa5hd7Q9dks9ukBFKtjU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tscN7uq1QAuv4sbL0xzZ3zDOkSKVI3qDehAsh9i7LnvwNMbAjLJwHaDLzdVaJbLp52eTeCvG0r6p7osCrENalu7bb1meQNf6f8caW+5QGBkCpK0hWwCae0EmOwZhBrwI9YNbzpUdNMrThF/ZOrDQRVOTyculJABUQj3tTCAWAfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=p5gdFvmm; arc=none smtp.client-ip=82.195.75.108
+	s=arc-20240116; t=1789052141; c=relaxed/simple;
+	bh=iUmX7xwBOdLuORHq56tUAF4FC5C6OctphCzxQIwPX6Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dAVgmnEb2/qKb/ucG8G/uwKDI9GtsrZDv5tCAJvdvL2LVfkUeTW1C1RzlWzqFwusTCSLai835xI3SwNjIdRfhzy8vCvg/DXq1baepWqNePGH+qK5AjqeaFLwzAwdRRCjuP1HiZiGdaE5M5KPg1b325z+2xTDtgMBE3tFLvCgdq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=easagslF; arc=none smtp.client-ip=82.195.75.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="p5gdFvmm"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="easagslF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=KfWgQiNeb60QLGo8EtL43FicRRzpsV/1Z6y9YLOAIAE=; b=p5gdFvmmDNmkB1kbSw/7lpwXqB
-	7chMfeLmy6uywgvIGgai+ApRizx6mZ3U4cLJmg7l9g3Ig/cqryC5wCTiz23LTzoSK0XhVAdbF1Nga
-	QzC+g1gedq0tBMEbzWowTUQaynrwuFCOLnpITzOB7c+Eo/ymaGzxYVbkVLmz8VN7EK4a0KaaICWYn
-	o2Xu1WCefpCq6dGpwudesqHFZrT6uHmcDS4PWV52q3TFEzHQsv30XFXpAlXrhC3FbqpwbULQTYXKZ
-	G3UHIL1Y96N1OlfiqZ8417Y0Zt+1agLrPQsUET7dtSh6LVf+NUPZl/cSxFobRUZOS8j93DKwtlNX+
-	rRZ9y3nQ==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=oz6RGj/PQEpqn4o/qi03F2U5MZb51VPgoSqrIPYTw44=; b=easagslFcwbfCU6Oe719P2qPgk
+	nBhiUbWKDum2atxrhZrgcUniTH3Xz+W3Ph9YjIjERjkwDdg8UuuaM2p2wN+6+mndrz0DAr0YlsjxF
+	7Nh4vkkPqt2aZ6vPk3DQReXa53DtRSnI8ILZBOHdqLhzKwfWQQowtofFGE8udQZjPOu8srm3W6umG
+	DbsG3TtBdIzRkIE613UG00YRSyxQzyRCcKfiIzK+RXpR+jB0LpXN1hGRZHAuwL0ObQBbSSzczdzOF
+	wTR2K/UOlDuG5HQFVEnnlWblPuveglBQimAr826qOMM+ehA0Dr1w0nrCMWK8WEwo2NHOJyRuK3OvK
+	HxI5BONg==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1x4gBW-000aXl-2f;
-	Thu, 10 Sep 2026 14:55:31 +0000
+	id 1x4gBa-000aXr-14;
+	Thu, 10 Sep 2026 14:55:34 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH wq/for-7.4 0/2] workqueue: give percpu its own max_active
- and derive attrs from flags
-Date: Thu, 10 Sep 2026 07:54:11 -0700
-Message-Id: <20260910-realsplit_last_v2-v1-0-464d64b71b29@debian.org>
+Date: Thu, 10 Sep 2026 07:54:12 -0700
+Subject: [PATCH wq/for-7.4 1/2] workqueue: give percpu workqueues their own
+ max_active
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,60 +44,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJPEomoC/x3M4QqCMBQG0Fe5fL9dzSku9yoRstq1Lgy1XbFAf
- Peg8wBnh3IRVgTaUXgTlXlCoLoiPF5xerKRhEBw1nW2r60pHLMuWdYhR12HzZkm+ib5/tKle4u
- KsBQe5fs/r/i8z+NcjD+1uB3HDxUuumBvAAAA
-X-Change-ID: 20260910-realsplit_last_v2-3a73d7986db4
+Message-Id: <20260910-realsplit_last_v2-v1-1-464d64b71b29@debian.org>
+References: <20260910-realsplit_last_v2-v1-0-464d64b71b29@debian.org>
+In-Reply-To: <20260910-realsplit_last_v2-v1-0-464d64b71b29@debian.org>
 To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
 Cc: marco.crivellari@suse.com, linux-kernel@vger.kernel.org, 
  Breno Leitao <leitao@debian.org>, kernel-team@meta.com
 X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1130; i=leitao@debian.org;
- h=from:subject:message-id; bh=o1ewjkqfgV1Swi0tJItMpYkoa5hd7Q9dks9ukBFKtjU=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqosTe+3llhihR/GdO+mnsZHnXpqqBgVLMYIWEt
- rcAf7Rv6bWJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqLE3gAKCRA1o5Of/Hh3
- bYmDD/9EJWpI+dzXX4mhmokibZyV3KffCMGl6DtixF/jwSf2POgeWT8dTMvLPMXtbIgZ3pldjt5
- rpg10YmAlVnEmbFgsOKq1CKgPtKC5oksIFpMdzvEHrf86zaaC3atNGaRw4niV+OlGp9psayrn3r
- CuI7zPQ1h57jRt2yhcxtHqRO9mnBCIT934sCQishwA5zITveZ/PXBNH/Ike6py7D6sBRclxXmpb
- NZ5Si3Xm9+3hZDh8z3iA0kaJ72TttM789AqVUK+CWXRw1eJTZaWTEPqFvhA6MU9ykGdER4eEo6e
- ZfQaPCekus4ETm9yeAHxczMqUVWFwIR0rqWWNTSyzLoo8dKNChN7yuB+lkq00kPXUs/eNsZhWxb
- +6VcVjZ7gJrdd00b5fgvM1tou/a11c2tkXhj0Gv2+6fT3zWkyTkhmpTkAA0pBVw+q/+Cym5Q4pO
- lCf4WI0gbOxM+M5/+K3w8QSGVXtdORCiMQNoC4ATZaDjl/kevaIijbv1HueMp28aLJ9a+P6+2mH
- e4t6ctNEIvSDRFnqz/pQLAp7I4uGIkC5t/MTl+iwngLDGCj7sin3pbDbdPLxwtRO3Q6gmu4GoIR
- K/UnsRP8OpB3Kg+yaoj5rF2BG2JYq9F6xCqdfMVw5N9ibpLrXknPp1jmUFwReEc5VCkYsErlK1X
- xknADlyEJfth57w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4430; i=leitao@debian.org;
+ h=from:subject:message-id; bh=iUmX7xwBOdLuORHq56tUAF4FC5C6OctphCzxQIwPX6Y=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqosTfA1nAcaC/elwWgiLJRZuqaQOIEhxXA2O49
+ Z0ZHjzArJiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqLE3wAKCRA1o5Of/Hh3
+ bQQ4D/9peq3+3X8dk/AbcsGpMJGnQuROIMxcs2XXknJduu3KmhnJtl0oSQV3Z0DgejnNLmC+w2I
+ dIkoTSC8vh19iPKTVGV9EzTCIXTMqvgxIZHzpegN6t+mWry6y7vEr7LTCSJMTz2j2L16kl+vdaV
+ zAVu7Atp1OnW8HGaW5pBM8zSd+PgiyTBEeuSHaP6HHHM8vTpDMGCGqxVKCcX16xgCaOQm4PxKcH
+ +yeYq6fZwDWIL5YibTv7qiwF5hCcc7D0MjCzK2gwg+BP3H2yonETLhSJAeeb1wAU7Hk8SFhFZ9z
+ S5GQ1UlvK7QPOd/bZPG4EpbgIS9r6/mPCFMQu0uqWXLh8YMGpx0pGYWSsiiD9NRfsO4A1zv/4l4
+ adObvEMGq76Z45I/Yt75POM68tKIrbXH6N2LxOTBdNMkoDwSSzfGjJyFjQA2/5jZ0xYb1Q90D4e
+ meb6LmosxrBfrLyLtGucpp1Rl7utIanK7T9x2aa2g5cmqpmnYXUKfjrXPT866heDhiGkjx2gSD9
+ QpbvKxxcdYSohqypQt13ea0ZnRdZ3YghTRMYDKqmC7upjwBCpqmKcI7glfWIa2mEdx1DYGzjjt1
+ lz0XsZ1zXTUaZ9ZtAaacci48xk0omYqw4de3gN1pbVBtr1N7zzmKKlxP4NkIQ53fpupuo/J7JlY
+ Sky98npTv7TR85g==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-Phase two of unifying the percpu and unbound workqueue paths, following
-the discussion at [1].
+wq->max_active means two different things, depending on how the workqueue
+is backed. On a concurrency managed per-cpu pool it caps pwq->nr_active,
+so it is a per-cpu limit. On an unbound pool it feeds
+wq_node_nr_active() and is shared by the whole workqueue.
 
-wq->max_active means one thing on a concurrency managed per-cpu pool and
-another on an unbound one. Patch 1 gives the per-cpu case its own field,
-as Tejun suggested.
+Tejun once said [1]:
 
-Patch 2 builds the standard attrs from the workqueue flags instead of
-picking one of three static arrays, which leaves alloc_and_link_pwqs()
-with a single apply_workqueue_attrs_locked() call for every workqueue
+	It kinda sucks that max_active's meaning is different across the
+	boundary tho. Maybe percpu max_active should be separate into
+	its own field, idk.
 
-No visible change intented for our workqueue users.
+Add wq->percpu_max_active for the first meaning and leave max_active as
+the system wide one. wq_adjust_max_active() updates whichever of the two
+applies, and min_active stays with max_active as only the unbound side
+uses it.
 
-[1] https://lore.kernel.org/all/20260714-tejun1-v1-0-024d59241386@debian.org/
-
+Suggested-by: Tejun Heo <tj@kernel.org>
+Link: https://lore.kernel.org/all/amESSqf0TMmzhFGz@slm.duckdns.org/ [1]
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Breno Leitao (2):
-      workqueue: give percpu workqueues their own max_active
-      workqueue: derive the standard attrs from the workqueue flags
+ kernel/workqueue.c | 44 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 27 insertions(+), 17 deletions(-)
 
- kernel/workqueue.c | 120 ++++++++++++++++++++++++++---------------------------
- 1 file changed, 59 insertions(+), 61 deletions(-)
----
-base-commit: f1639cde5f5c1bee25498ef988227ee8cf5ddb04
-change-id: 20260910-realsplit_last_v2-3a73d7986db4
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index f868011e291f4b..8232a60e107cf7 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -389,6 +389,7 @@ struct workqueue_struct {
+ 
+ 	/* See alloc_workqueue() function comment for info on min/max_active */
+ 	int			max_active;	/* WO: max active works */
++	int			percpu_max_active; /* WO: max active works per cpu */
+ 	int			min_active;	/* WO: min active works */
+ 	int			saved_max_active; /* WQ: saved max_active */
+ 	int			saved_min_active; /* WQ: saved min_active */
+@@ -1855,10 +1856,10 @@ static bool pwq_tryinc_nr_active(struct pool_workqueue *pwq, bool fill)
+ 
+ 	/*
+ 	 * A concurrency-managed per-cpu pool accounts nr_active per pwq, so
+-	 * pwq->nr_active against wq->max_active is sufficient.
++	 * pwq->nr_active against wq->percpu_max_active is sufficient.
+ 	 */
+ 	if (is_percpu_pool(pool)) {
+-		obtained = pwq->nr_active < READ_ONCE(wq->max_active);
++		obtained = pwq->nr_active < READ_ONCE(wq->percpu_max_active);
+ 		goto out;
+ 	}
+ 
+@@ -6016,9 +6017,9 @@ static int init_rescuer(struct workqueue_struct *wq)
+  * wq_adjust_max_active - update a wq's max_active to the current setting
+  * @wq: target workqueue
+  *
+- * If @wq isn't freezing, set @wq->max_active to the saved_max_active and
+- * activate inactive work items accordingly. If @wq is freezing, clear
+- * @wq->max_active to zero.
++ * If @wq isn't freezing, set the limit that applies to @wq's backing to the
++ * saved_max_active and activate inactive work items accordingly. If @wq is
++ * freezing, clear it to zero.
+  */
+ static void wq_adjust_max_active(struct workqueue_struct *wq)
+ {
+@@ -6035,20 +6036,25 @@ static void wq_adjust_max_active(struct workqueue_struct *wq)
+ 		new_min = wq->saved_min_active;
+ 	}
+ 
+-	if (wq->max_active == new_max && wq->min_active == new_min)
+-		return;
+-
+ 	/*
+-	 * Update @wq->max/min_active and then kick inactive work items if more
+-	 * active work items are allowed. This doesn't break work item ordering
++	 * Update the limit and then kick inactive work items if more active
++	 * work items are allowed. This doesn't break work item ordering
+ 	 * because new work items are always queued behind existing inactive
+ 	 * work items if there are any.
+ 	 */
+-	WRITE_ONCE(wq->max_active, new_max);
+-	WRITE_ONCE(wq->min_active, new_min);
++	if (wq->flags & WQ_UNBOUND) {
++		if (wq->max_active == new_max && wq->min_active == new_min)
++			return;
+ 
+-	if (wq->flags & WQ_UNBOUND)
++		WRITE_ONCE(wq->max_active, new_max);
++		WRITE_ONCE(wq->min_active, new_min);
+ 		wq_update_node_max_active(wq, -1);
++	} else {
++		if (wq->percpu_max_active == new_max)
++			return;
++
++		WRITE_ONCE(wq->percpu_max_active, new_max);
++	}
+ 
+ 	if (new_max == 0)
+ 		return;
+@@ -6145,10 +6151,14 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 
+ 	/* init wq */
+ 	wq->flags = flags;
+-	wq->max_active = max_active;
+-	wq->min_active = min(max_active, WQ_DFL_MIN_ACTIVE);
+-	wq->saved_max_active = wq->max_active;
+-	wq->saved_min_active = wq->min_active;
++	if (flags & WQ_UNBOUND) {
++		wq->max_active = max_active;
++		wq->min_active = min(max_active, WQ_DFL_MIN_ACTIVE);
++		wq->saved_min_active = wq->min_active;
++	} else {
++		wq->percpu_max_active = max_active;
++	}
++	wq->saved_max_active = max_active;
+ 	mutex_init(&wq->mutex);
+ 	atomic_set(&wq->nr_pwqs_to_flush, 0);
+ 	INIT_LIST_HEAD(&wq->pwqs);
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.53.0-Meta
 
