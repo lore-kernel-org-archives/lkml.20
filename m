@@ -1,52 +1,47 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12183BB135;
-	Thu, 10 Sep 2026 06:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DD23B0587;
+	Thu, 10 Sep 2026 06:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020547; cv=none; b=b8r5ZlXizDHiMcgBjMAn/UfUSDJbmd8j0xThENEqVtErl39Ewe84Kc6eF1xIRkvO+q4x2s2FP9Yfq4QoEB0Lotf/b5OROe3xLTb2I+EKFRG5cv8jJbm17uesa5cpX6GXRrL2CNwvllxP2sh48tkjdbR+ChV9m8bt4T3vT3V50/0=
+	t=1789020574; cv=none; b=n4fB3ZoO6S1siOHRgzxS6aVxNXC7HLmwuMSFkRxELHP+V4vDt+Fa/S83u6ri3VTXD4aCUAYoSW7R8eoHgZMljvt0CIPXb/dvSc/Qbu9596CC2TcJa8iHGHlcDdUAYJn63xC71n4GHr3aetHQdpNWd1CVpDZ0D/hKVYFMfXBfcdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020547; c=relaxed/simple;
-	bh=1eLOnwow/djpmHX7VdGdO1rAK4zqVtvR3BsezklmFPM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=D21Kd61/ctHB7FPcuAeU9HVvKWRPv7cTlVxb6OY6RiMUnxjeuzS2GaG/IoVYvBu2jokmYRNXIFOlgB3e/FIicskeqNb3ATiJuphBe31RphOy4XiRaeQGjEbBBn/8an9Op1opObkPT9rd0FwLv7dMwc0+HCkST48djxyHb0ENsH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 194e73b0acde11f19a56ed5b684f684d-20260910
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1fba7cec-b3fd-4b98-86e2-b471f77c4043,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:7a276f440987b426b6cc69c9ee45f6d4,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 194e73b0acde11f19a56ed5b684f684d-20260910
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 275124331; Thu, 10 Sep 2026 14:08:53 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v7 1/4] ntfs: fix volume flag update races
-Date: Thu, 10 Sep 2026 14:08:46 +0800
-Message-Id: <20260910060849.1817072-2-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260910060849.1817072-1-zenghongling@kylinos.cn>
-References: <20260910060849.1817072-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1789020574; c=relaxed/simple;
+	bh=t8JANTFU7UxtiP+6KgcsdKxe35jESsN4YGFqLP2pFRY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mvveB6zdZYXxsFZXeQBIe4W9OkhCRVgUXkMXKQnGPEABJhi90D1VjrgbK6lLJK4s4Nj9BWmrWTs1+3V0ClZ3ysSKHCJRgFgHXYWl2/qbmVBhQXhb7eUSv9kPl5dJtrbkOzU0Qx+ZbEYnZGXZML2gGGm/W1q8WZBg6HrIajJeuQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2D22F2000FD;
+	Thu, 10 Sep 2026 08:09:28 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E6542200369;
+	Thu, 10 Sep 2026 08:09:27 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id B24C918000B1;
+	Thu, 10 Sep 2026 14:09:24 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	wim@linux-watchdog.org
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	lakshay.piplani@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH v3 0/4] Add driver for NXP PCF8525 RTC
+Date: Thu, 10 Sep 2026 11:39:08 +0530
+Message-Id: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,159 +49,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-vol->vol_flags outside any lock to compute the new value before handing
-it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-the actual write. The read-modify-write is therefore not atomic, and two
-concurrent callers can lose an update: ntfs_sync_fs() may derive a
-"clean" value from vol->vol_flags while a writer concurrently records an
-error and sets VOLUME_IS_DIRTY; the locked write then silently
-overwrites the freshly-set dirty bit. The on-disk volume looks clean
-despite the recorded errors, so chkdsk will not run on the next mount
-and corrupted metadata can persist.
+The PCF8525 is an NXP I2C real-time clock with integrated crystal
+oscillator, dual timestamp capture inputs, backup battery switch-over,
+a windowed watchdog, and an on-chip temperature sensor.
 
-Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-to set and to clear separately, and combine them with the current flag
-state under the lock inside ntfs_write_volume_flags(). The set/clear
-helpers pass only the bits to modify, not the complete flag state. The
-bit manipulation is done on CPU-endian values, and the result is
-converted back to little-endian before storing it. The wrappers keep
-their signatures so callers are unchanged.
+This series adds:
+  - DT binding (YAML schema)
+  - Core RTC driver: timekeeping, alarms, dual timestamps, crystal
+    configuration, backup switch-over, and clock offset correction
+  - Watchdog support via the Linux watchdog framework
+  - Temperature sensor support via the hwmon framework
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 45 insertions(+), 18 deletions(-)
+Changes in v3:
+- patch 2: protect the Write-0-to-Clear (W0C) status flags in the
+  CTRL2/CTRL3 read-modify-write cycles so concurrently asserted
+  interrupt events are not silently cleared
+- patch 2: replace the timestamp spinlock with a mutex and re-read
+  CTRL4 under it, closing the TOCTOU race between the threaded IRQ
+  handler and the sysfs timestamp store
+- patch 3: configure the nINTB/CLKOUT pin (CLKOE=0) before requesting
+  the watchdog IRQ to avoid a spurious interrupt storm
+- patch 3: add suspend/resume PM ops to stop and re-ping the watchdog
+  across system sleep
+- patch 3: add WDIOF_PRETIMEOUT so the watchdog core attaches a
+  pretimeout governor
+- patch 3: re-mask INTA/INTB interrupts on driver unbind via devm
+  cleanup actions
+- patch 4: enable TEMP_RD_EN before registering the hwmon device and
+  add a devm cleanup to disable it on unbind
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f4a73e45773d..6ba19986a598 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
- }
- 
- /*
-- * ntfs_write_volume_flags - write new flags to the volume information flags
-+ * ntfs_write_volume_flags - apply flag changes to the volume information flags
-  * @vol:	ntfs volume on which to modify the flags
-- * @flags:	new flags value for the volume information flags
-+ * @set_bits:	bits to set in the volume information flags
-+ * @clear_bits:	bits to clear in the volume information flags
-  *
-  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-  * instead (see below).
-  *
-- * Replace the volume information flags on the volume @vol with the value
-- * supplied in @flags.  Note, this overwrites the volume information flags, so
-- * make sure to combine the flags you want to modify with the old flags and use
-- * the result when calling ntfs_write_volume_flags().
-+ * Combine @set_bits and @clear_bits with the current in-memory flag state and
-+ * write the result back.  The set/clear helpers pass only the bits to modify,
-+ * not the complete flag state.  The read-modify-write happens under
-+ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-+ * All bit manipulation is done on CPU-endian values, and the result is
-+ * converted back to little-endian before storing it.
-  *
-  * Return 0 on success and -errno on error.
-  */
--static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-+static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-+		const __le16 set_bits, const __le16 clear_bits,
-+		const bool skip_if_errors)
- {
- 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
- 	struct volume_information *vi;
- 	struct ntfs_attr_search_ctx *ctx;
-+	u16 flags;
- 	int err;
- 
--	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
--			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
- 	mutex_lock(&ni->mrec_lock);
--	if (vol->vol_flags == flags)
-+
-+	if (skip_if_errors && NVolErrors(vol))
-+		goto done;
-+
-+	flags = le16_to_cpu(vol->vol_flags);
-+	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-+	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-+			le16_to_cpu(vol->vol_flags), flags);
-+
-+	if (le16_to_cpu(vol->vol_flags) == flags)
- 		goto done;
- 
- 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
- 
- 	vi = (struct volume_information *)((u8 *)ctx->attr +
- 			le16_to_cpu(ctx->attr->data.resident.value_offset));
--	vol->vol_flags = vi->flags = flags;
-+	vol->vol_flags = vi->flags = cpu_to_le16(flags);
- 	mark_mft_record_dirty(ctx->ntfs_ino);
- 	ntfs_attr_put_search_ctx(ctx);
- done:
-@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-  * @flags:	flags to set on the volume
-  *
-  * Set the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-+	return ntfs_write_volume_flags(vol, flags, 0, false);
- }
- 
- /*
-@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * @flags:	flags to clear on the volume
-  *
-  * Clear the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
--	return ntfs_write_volume_flags(vol, flags);
-+	return ntfs_write_volume_flags(vol, 0, flags, false);
-+}
-+
-+/*
-+ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-+ * @vol:	ntfs volume whose dirty bit should be cleared
-+ *
-+ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-+ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-+ * recorded.
-+ */
-+static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-+{
-+	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
- }
- 
- int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
-@@ -1858,8 +1886,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 		return 0;
- 
- 	/* If there are some dirty buffers in the bdev inode */
--	if (!NVolErrors(vol) &&
--	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-+	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
- 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
- 	}
+Changes in v2:
+- Fix include: use <linux/pm_wakeirq.h> instead of <pm_wakeup.h>
+- Add spinlock_t ts_lock to protect ts[]/ts_valid[] from IRQ/sysfs race
+- Fix W0C ordering: clear AF/TSF flags before acting on alarm/timestamp
+  events
+- Use dev_pm_set_wake_irq() for suspend wakeup wiring
+- Clear stale WDTF before unmasking watchdog interrupt on INTB to prevent
+  boot loop when battery-backed flag persists across resets
+- Add watchdog_notify_pretimeout() call in INTB IRQ handler
+- Set WDOG_HW_RUNNING if bootloader left watchdog running at probe time
+- Register hwmon device first, then enable PCF8525_CTRL5_TEMP_RD_EN only
+  after successful registration
+
+Shiv Prakash Gupta (4):
+  dt-bindings: rtc: Add NXP PCF8525 RTC
+  rtc: pcf8525: Add NXP PCF8525 RTC driver
+  rtc: pcf8525: Add watchdog support
+  rtc: pcf8525: Add temperature sensor support via hwmon
+
+ .../devicetree/bindings/rtc/nxp,pcf8525.yaml  |   86 +
+ drivers/rtc/Kconfig                           |   26 +
+ drivers/rtc/Makefile                          |    1 +
+ drivers/rtc/rtc-pcf8525.c                     | 1600 +++++++++++++++++
+ 4 files changed, 1713 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+ create mode 100644 drivers/rtc/rtc-pcf8525.c
+
 -- 
-2.25.1
+2.34.1
 
