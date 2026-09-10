@@ -1,150 +1,99 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592433D4E4;
-	Thu, 10 Sep 2026 07:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FFF38655E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789023647; cv=none; b=hzD5eJFvk68wKb94NVd36UwTd008HTq+/LPbT6w96zGdXJpIGo5ozdmHbebZmqvBVbNTRko5FqBuqoMz3tdNS9aS1o8wOOIpONeX1qcIQrHwQ8OQ6a6kIAmRW211Hd4ACJv2Kn18ITYhswer5TZoa5nSOCpKx2HBDUIblmc2TTU=
+	t=1789023671; cv=none; b=W0XLt5wK6T7f7zpN7NYhbqTctplaSyLAS39EyFsbAVq0nPmLe3nZdpEYBcTYLBYkr7WDXUj9GicPp3facL9Du2nyOJUuGPnWouapMl+BCHRTZhgITofiZ7YDPpBioLJ+DbTdwlMIvw+eHFiLd/EnHL28TRlagKGkkoOvYwFOvAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789023647; c=relaxed/simple;
-	bh=D2jYWFs8W5OEAdd0sm7uNjsN5yahdu2gDS7Rvwd5Qog=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IoQj1+GILe8l27Ic9ULeRwGHBLU0TFxraiz9QigfPKmYXkk0PqH8mnotFZGQXE3f0sI5IUFXeRrzkkYhhdf7WR3hjHcgGZTIgRvUL1xZFIlh2+sOWbmtRAmfA2XgJFBHR3yXyH3P1Jyj8ZIxO+vjKjcX99mhZr3OUqlj/tfKzBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=Qywlz2B8; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789023671; c=relaxed/simple;
+	bh=39qjdQpv/Zd/usFOms8XcJOqA2TxHP/SPA42YxXPiEg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=cdBbuZOA+FvdiBmjcyIcNslKUX9QEDb+x/gLobds1H5Sije2lPENTsyhGI0pOka6vqAPlkc3GsC9feg0qZ68bqjou7BaOE3NxRzvFQgPcQJHAxNKh57oxnPgTxxPPd6w821ltkpmkylpWT1RvEeqG8WcVKuaprmC5RGNP0r5Pvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GMOG0m2S; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="Qywlz2B8"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hgT7h4LbTz6CF0;
-	Thu, 10 Sep 2026 08:59:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789023584;
-	bh=D2jYWFs8W5OEAdd0sm7uNjsN5yahdu2gDS7Rvwd5Qog=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Qywlz2B8XtGCYV+0E8wow1Ml2SlfZ11Q3UX0PcuWEwlOumsicoL/J2tr8K+96XXkB
-	 1zpwYkFRUbb13JNH4L+NXZBfEhHV638UJoD6tvRi/O9JchWIeqaFAQDjYguhA/8GhS
-	 wANhRWwUdEYmXZ0yW/VUaZAGjr/SDX23AMOa/7zm5o1xVFzkDESq+8R3Hkiwco1vDW
-	 HfYTHDzyBMdVf8By6GTlLfJgXn7is7huqiJQCE+2J+lDIemP6vCvuVqBBxqM/6UCyv
-	 NyyG9tUCO3YDqsEvdJLUwrheOSVSdnSlzalmLTRUWOs9TsO3sj3xqjdn7csbDZVhlf
-	 s996ksLx5GtYg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hgT7367Vgz505K;
-	Thu, 10 Sep 2026 08:59:11 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hgT723gF1z8sgw;
-	Thu, 10 Sep 2026 08:59:09 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DBE7F5F9CB;
-	Thu, 10 Sep 2026 08:59:04 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <6e4cb304-fc9c-4cd8-bd6d-2d0dd635f3cf@leemhuis.info>
-Date: Thu, 10 Sep 2026 08:59:04 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GMOG0m2S"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 541771A1939;
+	Thu, 10 Sep 2026 07:01:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 18C76602B8;
+	Thu, 10 Sep 2026 07:01:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 833BC11C7AFA4;
+	Thu, 10 Sep 2026 09:00:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789023657; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=moZmuwdhAHffTIXrCepgjiJWqMPrDet/eOSiRWDzc8A=;
+	b=GMOG0m2S3u4f2JTgoLH5G8Um2Dql+X3bGcX4wZLmd2yB/M6VdNjGujQw8WT9VfSuEphGbw
+	xs3Lm194t8WXcwkIGCx9eHEAIl7iHym8hlAhybFW8kTla7VMD3CGlbWCa6Wn1+HFBkqFYp
+	DQu1/SwxjomBCQiu7i1ziTDFyAEQILJ5oSAX6Wd0kST6xrv6xcvA5mrq4iD2KnhwyiPkQy
+	Ga+KY2NyJf698F1YRNlLN62/d4tyG5RIpRlzLu5quwctR1Us+E+VtqnuVQUJE9S9fi+HdT
+	0FwfXC2q9cBhoVwMM9J9ubpVHuO++dA0wO9jmfTNw3rC2HuNz/89JlMz8yb5yw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: process: use gender-neutral pronouns
-To: Kees Cook <kees@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: Ruben Sutton <ruben@scstudios.tech>, linux-doc@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, workflows@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-References: <20260909144100.78177-1-ruben@scstudios.tech>
- <87pkymlao3.fsf@trenco.lwn.net> <202609091143.0B34CB0E1@keescook>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <202609091143.0B34CB0E1@keescook>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178902354536.1041764.4073810869587590223@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: DBE7F5F9CB
-X-NC-CID: F6F9KUrDJudinD49Cj01h90KohvGO+xPsxF5N2tUFJQqqoGTuJo=
+Date: Thu, 10 Sep 2026 09:00:50 +0200
+Message-Id: <DLBFYF283RPD.BDAHXD7VCGHQ@bootlin.com>
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Guenter Roeck" <linux@roeck-us.net>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+Cc: "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <linux-hwmon@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] hwmon: (nct6775) Add support for NCT6126D
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260909-bootlin-hwmon-nct6126-v1-0-4e85615fef10@bootlin.com>
+ <20260909-bootlin-hwmon-nct6126-v1-2-4e85615fef10@bootlin.com>
+ <be37aafc-6b6b-478e-b01e-9e6f0a932608@roeck-us.net>
+In-Reply-To: <be37aafc-6b6b-478e-b01e-9e6f0a932608@roeck-us.net>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/9/26 20:47, Kees Cook wrote:
-> On Wed, Sep 09, 2026 at 09:14:04AM -0600, Jonathan Corbet wrote:
->> Ruben Sutton <ruben@scstudios.tech> writes:
->>
->>> Several process documents use gendered pronouns when referring
->>> generically to developers and maintainers. Use singular they instead,
->>> making the language inclusive without changing its meaning.
->>>
->>> Leave pronouns referring to named people and text in attributed
->>> quotations unchanged.
->>
->> Ouch.
->>
->> I have no objection in principle to this change, but if we try to clean
->> up the whole kernel in this way we're going to have a *lot* of churn
->> and, undoubtedly, some unpleasant discussions at some point.
->>
->> I'm tempted to raise this question at the maintainers summit to see if I
->> can get some sort of project-wide policy laid out.
-> 
-> FWIW, I'd agree "indefinite they" (or "singular they") is the right
-> language here: "his or her" is both annoying to read (too many words)
-> and non-inclusive. Using "their" solves both.
-I do, too.
+On Wed Sep 9, 2026 at 10:28 PM CEST, Guenter Roeck wrote:
+> On Wed, Sep 09, 2026 at 08:25:55PM +0200, Paul Louvel wrote:
+>> Add support for the hardware monitoring functionality of the NCT6126D
+>> Super-I/O chip.
+>>=20
+>> The NCT6126D hardware monitor is nearly identical to the NCT6116D: the
+>> fan, PWM, temperature, TSI, alarm.
+>>=20
+>> The differences are:
+>>=20
+>> - Device IDs 0xd283 (A version) and 0xd284 (B version), which both fall
+>>   into the NCT6116D ID range (0xd280) when masked with SIO_ID_MASK.
+>>   Instead, compare the full value to distinguish from NCT6116D.
+>>=20
+>> - One additional VIN: VHIF scaled at 16 mV/LSB.
+>>=20
+>> - The fan count limit registers are documented for all five fans.
+>>   Also expose fan4_min.
+>>=20
+>> Assisted-by: opencode:z-ai/glm-5.3-flash
+>> Signed-Off: Paul Louvel <paul.louvel@bootlin.com>
+>
+> Signed-off-by:
+>
+> I can not change that, so you'll have to resend.
+>
+> Thanks,
+> Guenter
 
-But all this makes me wonder: In case we decide to go down that route,
-how do we prevent gendered pronouns from accidentally sneaking back in,
-for example, through subsystems that change their docs directly? Do we
-maybe have something already somewhere that watches changes to
-Documentation/ where we could plug in a test script that yells if it
-detects this in next? And yes, obviously someone would then also need to
-write such a script.
+Whoops, sorry.
+I guess manually adding this trailer is not a very good idea..
 
-Ciao, Thorsten
+Thanks,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
