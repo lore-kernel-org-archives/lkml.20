@@ -1,112 +1,104 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93B033556D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4DC3CA4B6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030326; cv=none; b=MXaqsFnEczDTcsgou1IvSIvCej0yBLsacGUM6xe0ND0Dc8JZ9FMEpTmu8Si0yl0vCVcc+VeLVZlnaGYDm5g0YQXkoEHF6htYQH3g6xFqpfYUwOhyp5nqFeiHw8pY+dSCPjSJlNSuZlobiQrXGIJzvKa9+EAMrNoZkWJpCvu1sS0=
+	t=1789030329; cv=none; b=eTsekdSasm+7dPSivRDTUoZ0pHF6pbpzrBLzV32gjP/8Hcl+tQk1dqJHdat3K49cOZcwf/N0hwmmxYlJCdstDU7AfOf4/C7O26N+QtqR5PpUKb1rAR+6mlYGHO1lpJLhfAw+s6miCTntxc/l0fzzGMP0bSlD2N3SyAkjJ/byayc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030326; c=relaxed/simple;
-	bh=TXzO4CxPzjTWN3U88b9u7QNjcehYD1X95K6OmaJcnBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iNc7YCFztWzLih8yGYQEh97EGMcYTjYfVF1d46neqcZ697BHPAMwawVW0qqeerxdPqKWGPJjg7bE3cL5OWV1r/LQGTAHzoUW+xKa98H429IB3hsSx1laHSuU9QqwVSPMReuvmHGW1ZFSVMM7QoL6st3chT0v/ag81v3hKWPEfTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=m/qWy0qS; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789030329; c=relaxed/simple;
+	bh=FX2cFaHch8amRDc3UqW68hr3WD9WI3VSFQDVtgOwqrM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XnurJhb7GjFlFOR/bnLA9ZR0KrqgoVTmi6lN6uSeNMOv5iSp9rbtqg0vURUSjic0KeQeU5xvMdRrz2uPg6w3M3+LnlIeUy1AVIfw1GBG7GQcCDHulSrppaj1/4m+u+WdypF0P6I9H0YRBjSgyXr9ujC79mzSi3f+WzUYQHJP9z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=uFNhIYU2; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="m/qWy0qS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id AA78F1A1A85;
-	Thu, 10 Sep 2026 08:51:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7BA26602B8;
-	Thu, 10 Sep 2026 08:51:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CC76311C78279;
-	Thu, 10 Sep 2026 10:51:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789030317; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=TBLkc4TPeJSt/F5BCY8MXYJHCqRMVqlyOb7GOdhCGeg=;
-	b=m/qWy0qSwc5w5dL1z8Bhusn/fEg/7Pj2WypzTvNWlIxazW6w86wFo4WSiP2FgBRPvjTJMG
-	Pcce/QZife/H1E4GDDFi2zI8L0Xi+JP9X+Fe27jHAqeNUvIG8NMVGuNkje8TYQz4DS32Jg
-	lWlJ7RRWGop3KbwsL70wXDKHMM8IVhkwRiRJR612OP2aPoxB8i+n/KwPZR2PwMfTJ+B4MD
-	PJPU3GvBDSDtdcSKOYeLy0hjmV+Ig0E3ii1QenVTpiqTlIr2Avd4z5JqA3SkDKVJKa3Qsi
-	MrPsaKJakTBQvnicil6VLh1Xc6pzOJHCnxBAOfAigIOUlup5gVI+PN8zd/zKAQ==
-Message-ID: <4a07a3d6-b515-43b6-918d-87806c479430@bootlin.com>
-Date: Thu, 10 Sep 2026 10:51:41 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="uFNhIYU2"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hgWdC6J6jzMlGp;
+	Thu, 10 Sep 2026 10:51:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789030319; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FX2cFaHch8amRDc3UqW68hr3WD9WI3VSFQDVtgOwqrM=;
+	b=uFNhIYU2YFabjGfb7xmKDdNA+ZXXGo15RPXKgtUUi9z3CWkc2Dn/+Zw703YGib3ZiMQ3C7
+	dYZXU4RnTr0ZcGbhFd5L0oztN1QMr0yl+fOyootHI+cQDGs6iEIlOjrDVsL/U5bjf6StNJ
+	4A8scFYcEFIKF6uqsclb3m2621EmNJJ8eKiA5HPrsaqbpWd9doDKW+pXD1aVBGoJ7UPnlr
+	Bvt6E3gP0iwaLVIVHATjknv9ng0TLOJ/uCnH+gP1/NsH7soos/6FasI/dmMTHnkjEGPIUZ
+	YKTxAUuKAIO9mNIsi4Sb9tjmNxKH85c5GImfNOXI7NFk7dXXdCFqywTV37WErQ==
+Message-ID: <608f03824420323f9c9d3bc29cfeb0bed714074e.camel@mailbox.org>
+Subject: Re: drm/sched: run queues freed before the TDR that
+ drm_sched_fini() waits for
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=
+	 <christian.koenig@amd.com>, phasta@kernel.org
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Luben Tuikov	
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 10:51:55 +0200
+In-Reply-To: <20260910084408.703333-1-donggeunyoo.kernel@gmail.com>
+References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
+	 <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org>
+	 <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com>
+	 <20260910084408.703333-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: stmmac: fix stale descriptors and DMA mapping
- leak on Tx map failure
-To: ZhaoJinming <zhaojinming@uniontech.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260910-stmmac-fix-vlan-desc-leak-v1-1-6b07dca5e5e8@uniontech.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260910-stmmac-fix-vlan-desc-leak-v1-1-6b07dca5e5e8@uniontech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MBO-RS-META: jxeqag5trg4hyy7kc7891ys68f6a66x5
+X-MBO-RS-ID: e605a9458ce16b4baf2
 
-Hi,
+On Thu, 2026-09-10 at 17:44 +0900, Donggeun Yoo wrote:
+> On 9/10/26 09:32, Christian K=C3=B6nig wrote:
+>=20
+> work_tdr is queued on sched->timeout_wq and is only canceled by the
+> cancel_delayed_work_sync() below the loop, so a timeout handler can still
+> be running while the run queues are freed.
 
-On 9/10/26 07:19, ZhaoJinming wrote:
-> In stmmac_xmit(), when the DMA mapping of the linear part or of a
-> fragment fails, the error path only frees the skb.  This leaves behind
-> the DMA mappings already created for the linear part and for the
-> fragments mapped before the failure, which are never unmapped.
-> 
-> The VLAN context descriptor programmed by stmmac_vlan_insert() is also
-> left behind with its OWN bit set while tx_q->cur_tx has been advanced
-> past it, so the DMA engine later consumes the orphaned descriptor and
-> applies its stale VLAN tag to an unrelated frame.
-> 
-> Release the descriptors and their DMA mappings in the dma_map_err path
-> with stmmac_release_tx_desc() and stmmac_free_tx_buffer(), walking from
-> first_entry to entry, then roll back tx_q->cur_tx and release the VLAN
-> context descriptor.
-> 
-> Fixes: 30d932279dc2 ("net: stmmac: Add support for VLAN Insertion Offload")
-> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 +++++++++++++++++++----
->  1 file changed, 25 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 24656b35350b14454fb10deced6516eb89e2c0c9..2e36c27e2cfb436af3566cf1c3e70d32ce9830a0 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4769,12 +4769,12 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->  	unsigned int nopaged_len = skb_headlen(skb);
->  	u32 queue = skb_get_queue_mapping(skb);
->  	int nfrags = skb_shinfo(skb)->nr_frags;
-> -	unsigned int first_entry, tx_packets;
-> +	unsigned int first_entry, entry, tx_packets;
->  	struct stmmac_txq_stats *txq_stats;
->  	struct dma_desc *desc, *first_desc;
->  	struct stmmac_tx_queue *tx_q;
->  	int i, csum_insertion = 0;
-> -	int entry, first_tx;
-> +	int first_tx, ret;
->  	dma_addr_t dma_addr;
->  	u32 sdu_len;
+It is not as obvious to me as it is to you why you think that the
+timeout handler is exploding.
 
-Please follow the reverse xmas tree ordering, from longest line to shortest
+> On how I got there: the KUnit case never signals the hardware fence, whic=
+h
 
-The rest seems OK. By any chance, do you have a reproducer ?
+Which KUnit test case exactly?
 
-Maxime
+I kindly asked you to provide more details about how and where the bug
+occurs. Can you post a longer stacktrace and also run
+scrips/decode_stacktrace.sh on it?
 
+> is what keeps the handler inside timedout_job() while drm_sched_fini() ru=
+ns.
+> That breaks the rule that all run_job() fences are signaled before
+> drm_sched_fini(), so a correct driver should not reach this, and I have n=
+o
+> reproducer that does not cheat that way. The same caveat is in the patch.
+
+If the bug only exists because someone does not signal all hardware-
+fences (that's what we call the ones returned from run_job()), then I
+tend to think that this is not a scheduler bug.
+
+Maybe a kunit test bug that should be fixed.
+
+Though for robustness reasons we _could_ nevertheless stop the timeout
+work item before releasing other resources. But that's just a best-
+effort nice-to-have change, since the change making a difference would
+mean that there are life time violations with ordering issues anyways.
+
+
+P.
