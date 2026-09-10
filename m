@@ -1,144 +1,223 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04DD3D953E
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034011; cv=pass; b=J6kypCPoVkBcNbgYy5uC2/4J+NMToHn7yQlEb2NMM2el06eNIsNDVC7khCY0iWn5sElnxHeReLGQ2uehM5ca9t7lgjZr9ywXYhATOLakSSWfAjwSwDZ+fh8DSgeY7araiaapwoQBt29tNDlsg2+VxLp30JNJQgTLAGWRhunu+RU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034011; c=relaxed/simple;
-	bh=3QU1jfCWX7LaB00N5H0qL0k+c5PTLtBxL0zT3CyJSO0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SJEijp6JorgIXci/N8pnx7hfYKfusJNRyn8SaCyYQMsqOigIoblr3fhrhUzFD3lBdwCrTHENX3LV1BIaQRuplQCKMZdRZN1fOz0ESTLFGLlueniocghugX7W/989kTyPjbrYkF/WALU0ORQVRRGrKfs2n7ryvoODj4bXj0mYkMQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=rzo/mAU2; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B81213D969E;
+	Thu, 10 Sep 2026 09:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789034095; cv=none; b=gsTV3NaDuJ5wiMEhyleTIkcYZEONPPQceELVr3fUgE0mAoX/oeE/fK9slq7vIYX4gqJsRMfi6q8dJ0vk6gAV9uZCRnKed7Ii5ZkCMPMsxEAV531Y1BTZ88BsryIpdhXOOwnLBc6B+5++FlMExYRuKSxt9YuPrpMmPBuO1TU5fGs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789034095; c=relaxed/simple;
+	bh=2LjNVNFnGAExPMOHDuu2W4rvhsAPsUNWJI3Uu9zy/ZQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EfcmGDuObX+EKW5Qir+F0xiHlTVW915Up8yvBKvZk70LJUrhlJ/VEckdpkasD2DolwF1I+sd0ybnWErDgrO0Ooy5L6uGuk/ppH0Q/r0pNiUEChk5hjYLU967n2CQeRlyN1WfS4fImVuyTBUekSyFfx5HRbphCJk56jfiHDXyufg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vdTRqS5o; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="rzo/mAU2"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c294183384fso222407966b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:53:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789034005; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QJ2ttC0oo4zbJepi6h4BxbmZoUVSG/kUwKAq5m3ZfijzStRVKydIWkPZNCuS6XNOBH
-         vh7SjC4T0gB7mrTm8A0yYZLywsRU2BttSV7rN0ntjWaSWTcozr8lJy//m8vHbiOlGcS0
-         fyO+ZFWx1IVKOeui1y+o/vjuFOsyZ8BHeSwXb4Rs8Lp3o/Qsg04xw1qrSfaLCiQMJIcP
-         lpXm9J44eGNstjdN6nl3Litfs9ljh/f4WhJRzLTH6blE79C74/42iVdvcGLIVYu+GTmD
-         61AYR+A5NSuA6sn/+m0QdnLNg0Aa6f/NcJBbO+MLFtz/yDp9P8gY/KJ1Ro+dIn0x4uBR
-         a6yQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3QU1jfCWX7LaB00N5H0qL0k+c5PTLtBxL0zT3CyJSO0=;
-        fh=MMnc83fe2/Ta1R21FPzYMWk0APlWw2enLYJzCVpWbl0=;
-        b=LA92DeZy1fV8BQuXr/dbsmXrbPEHULdaI0dbldW/HA+8KYjNZOu3NeatBuT0mim7aX
-         iWhZFbdYUseOh+ZYaFODHrLJAbstUiXmgLkyuTObcfiN8KqcKLAZYBDLCAa2jp0Vc0HK
-         53yU70wTBc3L1VGzusq3djKgFTHivhSWSdemHSH/5icFR8aY/u04TcDs3ZOueoLzFsTp
-         8KWkonqUOuQunxWNz+GiAo7k47VS2aIk5gf+REuxrrQnw1cdNSU1V70Kkxb5p5F41+B9
-         e2/jEmS3YfrGumkH2tNggLclv0SYBkC0W4Vo/lTBF6DJHllbpOJI0zSBlwPzHhYIO6vf
-         7E0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1789034005; x=1789638805; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3QU1jfCWX7LaB00N5H0qL0k+c5PTLtBxL0zT3CyJSO0=;
-        b=rzo/mAU2ziGKLpvybwiDmCPq5Fq/pFXsTMY8qPbQ1DruoEIR7hpQoPR0v/JmiXPkyt
-         FXjV6kfdvzaLGlAGDrwmNtfqXs7m3UmTvykHh7cKQkpMQSLO87t37QRGMOWqkS3sxnlJ
-         OVg2P3aandCQZuszWHXZA3EJvnm3c/IsrvNQ8TGxzaa0JnGghW2K4Vv4TWRxCV7zOy/t
-         OyAILl4ce386R/9joBv2BrKak74sFU9I5Pkf35oOIF5rO1DBdCqnPW6LFZfpoqxaDuCp
-         gk2Gj3fpKFr2mxEhSbvo1q7q/hHT1lBNoBNsO+4QsCWBE9gCzQ/yUdfJynvaHkqlU2u9
-         dpEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789034005; x=1789638805;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3QU1jfCWX7LaB00N5H0qL0k+c5PTLtBxL0zT3CyJSO0=;
-        b=kRNQw2UOh9bVPR8EPXjg9qCyxIybW4xnkgXBmNl6zWp1HJ8RnXLS1WfTKiX6MnmNJc
-         0vbguPEpvIoWwZ5BrggvOYWppZ0t3pgTkkUFylhLEBVjHVjOSLVPhfB0IBacEeVpjptD
-         2nF+kwnTrCTOX503XvkUKUWX8qNbeqOiLfi6oWtBltcsImPS3tB7x0PSxXpBn0IfGxp5
-         TkYjIihf+73LxdXVYgzMZoEmnFeTy5E2bCzEe2AVWYau6mzSrsn1K9Kbj+7g4R6rFm5B
-         R+U7Fvf6v3B0Bc6bRYmWD/vkM/S00Gv1Sg8mRyxYjkRUNtffFH/rffREZDW+K09GBnRY
-         in2w==
-X-Forwarded-Encrypted: i=1; AKwUvBwfYIHSygsAr1AVjhaIHWI8wnoJXMPwl14IHQN5jK3FKMIJfh+Xfmz4fflNJ7W7VcBMEJuUP00Qn0HLy0g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRbHiFUzvf+eICbDq3GgOZgR4e+D4Psw1UmQd+AmCvEpsLV24N
-	ERLvJEVjOtIIMPXzgPeAQnchynd0IYOaz0+F966iuSJDPaqVD+HAbkrjPa2xMx/csLYJQhaf6kK
-	63261vDWfPHt76bC0G8QKdoAKKd2j35M7xsvHcd78HQ==
-X-Gm-Gg: AYBFou2u2r2mkmVGECPNTCnfe3KvtyG3G8zc4arCCa4K5Oy2Qaao4W9RIZ1DLzgWj7W
-	RVdRxvhFZENQfuqUpZNI/yiT2cdAiwNKyVbV4OFGJngVIW1Vji7hwnWgNTX8Zoynohtl5g0mYfo
-	p+/wJsTtImoJuNRt6HXNGG45llWFfEW0+KpHrNYLnjcnLcEfzYKvQI+NMJ7GIOz/C8yZf9I3QfL
-	WDos0sG+e3Cnm9eFsUwSd6otmdvmg3jhMBndXfQQNM0uOd2axO3NDV0iVyWs3GuDyJo7jXchCmw
-	CVUgw+Zf6+X/IMDgjLwdbSpElwX0iKM+zFSu/N9gwXauxkfSTFxi/3PQTvkuOeIn09g3hID5FPV
-	WQhiZEPbmebIi
-X-Received: by 2002:a17:907:7b82:b0:c21:9b4b:2690 with SMTP id
- a640c23a62f3a-c260c9e75e9mr1533229166b.17.1789034004977; Thu, 10 Sep 2026
- 02:53:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vdTRqS5o"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A57F1570;
+	Thu, 10 Sep 2026 02:54:49 -0700 (PDT)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 519FE3F528;
+	Thu, 10 Sep 2026 02:54:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789034092; bh=2LjNVNFnGAExPMOHDuu2W4rvhsAPsUNWJI3Uu9zy/ZQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vdTRqS5oXpEq0R1MYUj9EUAyYPBmdbSqAvkIxeAoRMCwXbAmqkMnIddbRQbPoC3Na
+	 2tbrePBDgL4/afMswkWxqU4N2aNfkJBPTnAW9XXvKbjfI9Lq2o5DoPrAwqlEl8uUL6
+	 exHe+6xHkjnA0qO/2OTk4DYluPqI39iNh6w625u4=
+Message-ID: <6aa14157-1542-445b-99bc-61a4e14a7864@arm.com>
+Date: Thu, 10 Sep 2026 10:54:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909-bq257xx-init-v2-0-deb4076b1f02@flipper.net>
- <20260909-bq257xx-init-v2-2-deb4076b1f02@flipper.net> <aqG3p_GKtncRCRI8@venus>
-In-Reply-To: <aqG3p_GKtncRCRI8@venus>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 10 Sep 2026 13:53:08 +0400
-X-Gm-Features: AcwNN1W2BrkdebgjQ65zbLYQqJgSpk3t26ruwQKsK8HzTRUFbxoKV_vgeb2TRlU
-Message-ID: <CAKTNdwHCN7D=W1o088RnEYQrNRf=RzfZ=qJiUa0Wz1N-kubgPg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] power: supply: core: Allow getting battery info
- before psy is registered
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Lee Jones <lee@kernel.org>, Chris Morgan <macromorgan@hotmail.com>, Pavel Machek <pavel@ucw.cz>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-2-suzuki.poulose@arm.com>
+ <c9990440-acab-4c6c-b67f-8bde17feddce@redhat.com>
+ <aca629b2-27a0-4c47-acac-87edb3b0d3d9@arm.com>
+ <52e58930-8fa4-4c75-981c-25be42d83f2d@redhat.com>
+ <44f02c8c-db52-4f3e-b5d9-f25c1c8c5f0b@arm.com>
+ <7223aeec-b269-4ef5-b5b9-693d4d12afd1@redhat.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <7223aeec-b269-4ef5-b5b9-693d4d12afd1@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello Sebastian,
+On 10/09/2026 10:47, Gavin Shan wrote:
+> On 9/9/26 6:39 PM, Suzuki K Poulose wrote:
+>> On 08/09/2026 23:41, Gavin Shan wrote:
+>>> On 9/8/26 8:37 PM, Suzuki K Poulose wrote:
+>>>> On 08/09/2026 07:19, Gavin Shan wrote:
+>>>>> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+>>>>>> From: Steven Price <steven.price@arm.com>
+>>>>>>
+>>>>>> The RMM (Realm Management Monitor) provides functionality that can be
+>>>>>> accessed by SMC calls from the host.
+>>>>>>
+>>>>>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
+>>>>>>
+>>>>>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
+>>>>>>
+>>>>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>>
+>>>> ...
+>>>>
+>>>>>> ---
+>>>>>>   include/linux/arm-smccc-rmi.h | 494 ++++++++++++++++++++++++++++ 
+>>>>>> ++ ++++
+>>>>>>   1 file changed, 494 insertions(+)
+>>>>>>   create mode 100644 include/linux/arm-smccc-rmi.h
+>>>>>>
+>>>>>
+>>>>> Some nitpicks below, please pick up the commits that look 
+>>>>> reasonable :)
+>>>>>
+>>>>
+>>>>
+>>>>>> +
+>>>>>> +#define RMI_RETURN_STATUS_MASK        (0xFFUL)
+>>>>>> +#define RMI_RETURN_INDEX_MASK        (0xFFUL << 8)
+>>>>>> +#define RMI_RETURN_MEMREQ_MASK        (0x3UL << 8)
+>>>>>> +#define RMI_RETURN_CAN_CANCEL_MASK    (0x1UL << 10)
+>>>>>> +
+>>>>>> +#define RMI_RETURN_STATUS(ret) FIELD_GET(RMI_RETURN_STATUS_MASK, 
+>>>>>> ret)
+>>>>>> +#define RMI_RETURN_INDEX(ret) FIELD_GET(RMI_RETURN_INDEX_MASK, ret)
+>>>>>> +#define RMI_RETURN_MEMREQ(ret) FIELD_GET(RMI_RETURN_MEMREQ_MASK, 
+>>>>>> ret)
+>>>>>> +#define RMI_RETURN_CAN_CANCEL(ret) 
+>>>>>> FIELD_GET(RMI_RETURN_CAN_CANCEL_MASK, ret)
+>>>>>> +
+>>>>>
+>>>>> If I'm correct enough, RMI_RETURN_{STATUS, INDEX, MEMREQ, 
+>>>>> CAN_CANEL} _MASK are used
+>>>>> for once in this header file. So we needn't explicitly expose them 
+>>>>> and combine their
+>>>>> definitions with users to fetch the corresponding fields, as below.
+>>>>>
+>>>>> #define RMI_RETURN_STATUS(ret)        FIELD_GET(GENMASK(7, 0), ret)
+>>>>> #define RMI_RETURN_INDEX(ret)        FIELD_GET(GENMASK(15, 8), ret)
+>>>>> #define RMI_RETURN_MEMREQ(ret)        FIELD_GET(GENMASK(10, 8), ret)
+>>>>> #define RMI_RETURN_CAN_CANCEL(ret)    FIELD_GEt(GENMASK(10, 10), ret)
+>>>>
+>>>> I belive the header files were generated from a tool (by Steven) and
+>>>> these would make it easier to compare with the generated header file 
+>>>> for
+>>>> any deviation from the spec. So, I am a bit reluctant make these
+>>>> changes.
+>>>>
+>>>> That said, I am happy to convert the mask definitions to GENMASK() for
+>>>> consistency and readability. i.e., something like:
+>>>>
+>>>> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm- 
+>>>> smccc- rmi.h
+>>>> index 3eb88caf40964..078197284415e 100644
+>>>> --- a/include/linux/arm-smccc-rmi.h
+>>>> +++ b/include/linux/arm-smccc-rmi.h
+>>>> @@ -139,10 +139,10 @@
+>>>>   #define RMI_ABI_VERSION_GET_MINOR(version) ((version) & 0xFFFF)
+>>>>   #define RMI_ABI_VERSION(major, minor)      (((major) << 16) | 
+>>>> (minor))
+>>>>
+>>>> -#define RMI_RETURN_STATUS_MASK         (0xFFUL)
+>>>> -#define RMI_RETURN_INDEX_MASK          (0xFFUL << 8)
+>>>> -#define RMI_RETURN_MEMREQ_MASK         (0x3UL << 8)
+>>>> -#define RMI_RETURN_CAN_CANCEL_MASK     (0x1UL << 10)
+>>>> +#define RMI_RETURN_STATUS_MASK         GENMASK(7, 0)
+>>>> +#define RMI_RETURN_INDEX_MASK          GENMASK(15, 8)
+>>>> +#define RMI_RETURN_MEMREQ_MASK         GENMASK(10, 8)
+>>>> +#define RMI_RETURN_CAN_CANCEL_MASK     BIT(10)
+>>>>
+>>>
+>>> Ok.
+>>>
+>>>>>
+>>>>>> +#define RMI_SUCCESS            0
+>>>>>> +#define RMI_ERROR_INPUT            1
+>>>>>> +#define RMI_ERROR_REALM            2
+>>>>>> +#define RMI_ERROR_REC            3
+>>>>>> +#define RMI_ERROR_RTT            4
+>>>>>> +#define RMI_ERROR_NOT_SUPPORTED        5
+>>>>>> +#define RMI_ERROR_DEVICE        6
+>>>>>> +#define RMI_ERROR_RTT_AUX        7
+>>>>>> +#define RMI_ERROR_PSMMU_ST        8
+>>>>>> +#define RMI_ERROR_DPT            9
+>>>>>> +#define RMI_BUSY            10
+>>>>>> +#define RMI_ERROR_GLOBAL        11
+>>>>>> +#define RMI_ERROR_TRACKING        12
+>>>>>> +#define RMI_INCOMPLETE            13
+>>>>>> +#define RMI_BLOCKED            14
+>>>>>> +#define RMI_ERROR_GPT            15
+>>>>>> +#define RMI_ERROR_GRANULE        16
+>>>>>> +
+>>>>>> +#define RMI_CONTINUE_KEEP_GOING        0
+>>>>>> +#define RMI_CONTINUE_STOP        1
+>>>>>> +
+>>>>>> +#define RMI_OP_MEM_REQ_NONE        0
+>>>>>> +#define RMI_OP_MEM_REQ_DONATE        1
+>>>>>> +#define RMI_OP_MEM_REQ_RECLAIM        2
+>>>>>> +
+>>>>>> +#define RMI_DONATE_SIZE_MASK        3UL
+>>>>>> +#define RMI_DONATE_COUNT_MASK        GENMASK(15, 2)
+>>>>>> +#define RMI_DONATE_CONTIG_MASK        BIT(16)
+>>>>>> +#define RMI_DONATE_STATE_MASK        GENMASK(18, 17)
+>>>>>> +
+>>>>>> +#define RMI_DONATE_SIZE(req)        
+>>>>>> FIELD_GET(RMI_DONATE_SIZE_MASK, req)
+>>>>>> +#define RMI_DONATE_COUNT(req) FIELD_GET(RMI_DONATE_COUNT_MASK, req)
+>>>>>> +#define RMI_DONATE_CONTIG(req) FIELD_GET(RMI_DONATE_CONTIG_MASK, 
+>>>>>> req)
+>>>>>> +#define RMI_DONATE_STATE(req) FIELD_GET(RMI_DONATE_STATE_MASK, req)
+>>>>>> +
+>>>>>
+>>>>> As above, RMI_DONATE_{SIZE, COUNT, CONTIG, STATE}_MASK are used for 
+>>>>> once in this
+>>>>> header file. So their definitions can be dropped by modifying the 
+>>>>> followup macros,
+>>>>> as below. Some enhancements are also applicable: (a) Use 'BLOCK' to 
+>>>>> indicate the
+>>>>> unit encoded in the request. (b) The macros are put into order from 
+>>>>> MSB to LSB.
+>>>>>
+>>>>> #define RMI_DONATE_STATE(req)        FIELD_GET(GENMASK(18, 17), req)
+>>>>> #define RMI_DONATE_CONTIG(req)        FIELD_GET(GENMASK(16, 16), req)
+>>>>> #define RMI_DONATE_BLOCK_COUNT(req)    FIELD_GET(GENMASK(15, 2), req)
+>>>>> #define RMI_DONATE_BLOCK_SIZE(req)    FIELD_GET(GENMASK(1, 0), req)
+>>>>
+>>>> Same as above.
+>>>>
+>>>
+>>> Please rename RMI_DONATE_{SIZE, COUNT} to RMI_DONATE_BLOCK_{SIZE, 
+>>> COUNT} if possible.
+>>
+>> Sorry, forgot to add that, I have renamed RMI_{DONATE,ADDR_RANGE}_SIZE
+>> => RMI_{*}_BLOCK_SIZE, left  the _COUNT as it is.
+>>
+> 
+> It's ok to me. The point is to have "BLOCK", indicating it's related to
+> a block. In rmi.c, 'unit' is also used and needs to be replaced with 
+> 'block',
+> consistent with the spec.
 
-On Wed, Sep 9, 2026 at 11:52=E2=80=AFPM Sebastian Reichel
-<sebastian.reichel@collabora.com> wrote:
->
-> Hello Alexey,
->
-> On Wed, Sep 09, 2026 at 07:41:45PM +0400, Alexey Charkov wrote:
-> > Some power supplies, such as battery chargers, may need to program the
-> > device parameters based on what their connected battery allows. Current
-> > API requires registering the power supply to access battery information=
-,
-> > which is problematic because a registered power supply is immediately
-> > available to the rest of the system, but the battery parameters may not
-> > be set yet in the charger.
-> >
-> > Given that the battery info helpers really only need a fwnode and a str=
-uct
-> > device to hang devres-allocated resourses on, add a pure dev-based get/=
-put
-> > API alongside the existing psy-based one, which can be used to query th=
-e
-> > battery information before registering the power supply.
->
-> Use the new init callback for that, which got introduced in the v7.3
-> cycle:
->
-> c1eb5905fdce ("power: supply: Add registration init callback")
->
-> See for example fdece8642eca ("power: supply: bq25630: Initialize
-> hardware before exposing the power supply") for a driver that was
-> converted to this.
+Yep, I could see why Steven went with "unit". But I have replaced them
+with block everywhere to be consistent with the spec.
 
-Indeed, that should work quite neatly, thank you for pointing it out
-(I've missed that addition). I'll then drop patch 2 and rework patches
-3 and 4 to use the init callback. I believe they can then form a
-separate mini-series only touching the driver but not the core.
+Cheers
+Suzuki
 
-Patch 1 still stands on its own, though, as it prevents a
-use-after-free during teardown. Would you mind giving that a look?
-
-Thanks a lot,
-Alexey
