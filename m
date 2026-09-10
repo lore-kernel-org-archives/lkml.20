@@ -1,137 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6D04446E6;
-	Thu, 10 Sep 2026 10:34:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C126A44D00D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036492; cv=none; b=VS+N5naNxZ/Suk/L6vIg9QbXDnDnIaJFc+ynCYKwHPh3X4mOvVm2CQ65actr30YPuGfo+qOR+y1EvoNW5BKt/axyGJJSN/AYi2F0h2ydMdlrJ9Hu1aeWf22hbM2flKZZ2CXIgyzsXjtCYLPMuVKGlX6PySe0wsecdo0uceAVHQM=
+	t=1789036587; cv=none; b=oLAbXCP/uGOpQ7PRF9hkUtpOO08/xbDIWYZSnYa6gWUQ6qF0dupfCs6RL/8kw+wgataLXYUtJp4NECdXex6z9JKq+FPdgBDL9s7SaQDMfjsx05ZBcHS/NPXXzA1Lc4OUmdgRRAvl4zKMEAgALCsNSc7UTEIjjtGRWJQPNUpXSVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036492; c=relaxed/simple;
-	bh=kEzd5HVTORxF9DutpObwmbzNLmVhHzcl1WWUwoBdg5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZYwfhKcUbs7RVOMDSddPOE5XRJmoxzyfqGDFeKnOBFV7JRd0My6pmSFcXZjQy3g2zge9eKX4rC0Fo2fi9qUvOIc1Z+AgV0NS0YJnDTS4u2c5vGFYk7ULv+ArjRilmJL4e2fL/sq8Ykj42Z6IzgMHFYnY0uRrzQJkYtFNc0wOwCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSnkxusa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789036587; c=relaxed/simple;
+	bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UolhoM0bMY8A7llvva0d0JeTOkDvU2g2qTwxz3wZAoITUjZabS+Pt7rD7RlTegZsKBtc95ev8mzLuT6GCnWCIXZmqou4HGVE47crgrToIYzYALsphZqaNsp6k8VKHLTvg/RQji6N/h6tHHM6iMtz2+svTKrGT9n2/1XeBZM/1U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5Ztca64; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSnkxusa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5583B1F000FF;
-	Thu, 10 Sep 2026 10:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789036491;
-	bh=xPoAJQ8RVtTcl+HZmeHhbo2ptnfrxfTfihttt1e6Wso=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MSnkxusaee5aoWIGIGQi7pPtsnXjreNTB0RV3NddkGoNuvcRSiSt7ifMpT+wuVWQI
-	 52PLeyPiZRMdWMUpiqFDaOsUGPXqlzlasC5Sa1NC+N7Ej0gotbzJ9GQyNzPa8LVvsu
-	 xgg6uSvaN/+4DkCIGIJFLFle890YE1jVcqgyeqWvQL/jXgUSqGHq1gzX287vGcgO1l
-	 rLnh/OxXJtoglp1HuAWl0mXm62CVgpWLMZbB5W0OccpF0RrYIVruwsMy6RrL9cj3lh
-	 mhWC0q7fVr3ZndwP2s6pZUViv1rhdis1W4/otlQ8HgrMuJOPOr4zDIl7ns5NIKsTsf
-	 3yBhtGZcSQKww==
-Message-ID: <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
-Date: Thu, 10 Sep 2026 12:34:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5Ztca64"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso15384505e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:36:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789036584; x=1789641384; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
+        b=h5Ztca64mSFji+xzYHGuILjsU+vsuZBcidj4JpnnKbeWjStzrlpWIvcsH8KtFJPyug
+         nFfw/KPsXNnjrGBsT9bbHvESO5EeFU7qlIzfZQZImA8gTQJI8B5GL/iXCIBU5UY6AzPG
+         wzSypiTAWJuo95phyampBpj/0e8EADBbrAtXOqRglSdEZFqFzMQjQ766Mg2vqe0vE3p4
+         7uksG4+XcoV1N8oR0ubxYGkut1BhSoYt8occbpJ5KZqE5RihERFOCz2MrXalgn/Kv6k/
+         axqgDu/QSWsl7uCwB/eJtaBV4z4NFBKzy9V4zpuimOMYDfcUCRrPtGiMGc9hh9jEKpUQ
+         d/fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789036584; x=1789641384;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c/awOCqUccuwHv1bu6mH5ayUSTzx+jzCTlB1GMYOoSw=;
+        b=hUDZRr1PxPvrp8isDA/LssiK67Xe1aI3ddpalCoCrPasb7htJI4tKsTCDzc/s30NeD
+         cIO7ua3IkEcKYlQOxRm0dzDXZciM3+rIZ1FdV0ZlhqVJmg+eK2aH5W5MpwRg99TDuYIv
+         /apKb0K05nkZRFV0xEecKNuoBZTNqPI9tvgVJf6o9X0q/jZz0mLVN7kk7GIXbIbUp87D
+         jlcjUZNwyV6gVmegqskHRj+JK/yCbokC+s93+v7C0znSOtSGqaf+qsnaoTwzfCrru+Zl
+         0ulVb1Gb1j7rncS+4fv1KdBdU4Cuvh6ui3aB+mbzSXIM0nB7Jv1DNMKxr/ApgmVHs99W
+         AdXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ5O5I9xtzUGzfQG0YJm6WJPcR9Kf3FUbGbVkPLtw/Mz/p7CZxN5zkUHsbdFNcKQHWvq6QEzEFq++iY2g=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7iP0oUuz8udmUzGo2TbCHX/uoLEBKwEI8IXGvdHWTE6ZzVVB+
+	P6YrgLpAV4Hm5IrixlNQugT3TwFyy3WU2Z6bomGHib6Ri+vIGGvqBu6T
+X-Gm-Gg: AYBFou123dq6kk/dW1oRL1AnPRxID9zhOl+0P/y/Qy2ssI55p2SEUQOWlyxvvP1pZ8z
+	El55tl93CqAI8AcWspvTvypv+u/1wvuxwugF0IPeSvMDvk8G7zYFEjs5mXcJnlkA3ARvJwCZ1pg
+	nA3U+RcjQlKRXpa2qDIJ/fXJlKW4cAjNVy8i4VW+ExBLUXHVMv0Ge3Ujn2Kc0Xv3OyLgrkh6B/D
+	jqCrRBAE4X69f7AZ2PTJ19+ymD3vFDCsh/U1y6l7SBcjv7+UeJKkZz5ZlWxw2PivdeG2//dxrQZ
+	b4iEu5m+I5HHWf90mBg05wxZ+gQH9T/uFPw1liNTKLKCDJvjqbJwfJDt1iJAQSidaHJ3geBX2nS
+	2yJomp2jrfUqU+QPTUHbuOvq53k+fXkJDc8+5WOsGxvDU/2YThsjBZ2BqVs646JW5soKsQ3AC2b
+	fwcKGK3nmTo6NWwalSnkXOj1HfEsKJRrjqTaCrtxyUV2MGY4OpWAzAMrayaAg/8QCM8/kG5rMug
+	ylgqsOwW4ycrANCxDlWREE6BQJh8jGezUd8s/tcSDutYvuGrYg5Ot3zObeU5Bcb
+X-Received: by 2002:a05:600c:638d:b0:49d:2450:68ac with SMTP id 5b1f17b1804b1-49d258dfc8bmr142550555e9.5.1789036582306;
+        Thu, 10 Sep 2026 03:36:22 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb04f1esm103415165e9.0.2026.09.10.03.36.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 03:36:21 -0700 (PDT)
+From: German <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: Test for [PATCH v3 0/3] media: Add support for the Sony IMX681
+Date: Thu, 10 Sep 2026 12:36:02 +0200
+Message-ID: <20260910103602.19228-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-To: Yeoreum Yun <yeoreum.yun@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-3-822b810458bc@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907-fix_split-v5-3-822b810458bc@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-> diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
-> index 5f278913c4d7..b6fad38c8bee 100644
-> --- a/tools/testing/selftests/mm/soft-dirty.c
-> +++ b/tools/testing/selftests/mm/soft-dirty.c
-> @@ -92,9 +92,9 @@ static void test_hugepage(int pagemap_fd, int pagesize)
->  	if (!hpage_len)
->  		ksft_exit_fail_msg("Reading PMD pagesize failed");
->  
-> -	map = memalign(hpage_len, hpage_len);
-> +	map = alloc_isolated_mem(hpage_len, hpage_len);
->  	if (!map)
-> -		ksft_exit_fail_msg("memalign failed\n");
-> +		ksft_exit_fail_msg("alloc_isolated_mem failed\n");
->  
->  	ret = madvise(map, hpage_len, MADV_HUGEPAGE);
->  	if (ret)
-> @@ -130,7 +130,7 @@ static void test_hugepage(int pagemap_fd, int pagesize)
->  		ksft_test_result_skip("Test %s huge page allocation\n", __func__);
->  		ksft_test_result_skip("Test %s huge page dirty bit\n", __func__);
->  	}
-> -	free(map);
-> +	free_isolated_mem(map, hpage_len);
->  }
+I have tested the three patches mentioned in this email in the linux version 7.3.0-rc2 in order to test if they solve the IMX681 problem
 
-smaps is really only problematic with merged VMAs when relying on exact page
-statistics. For other properties (vm flags, MMUPageSize) it's not a problem as
-long as our smap search just finds the VMA that covers an address.
+##DEVICE USED
+Microsoft surface pro 11
+Cachy OS
 
-Assuming we fixed check_huge_anon() to not use smaps, why is this change here
-required?
+##WORKING:
+The camera is totally functional in apps like qcam and firefox after aplying the apropiate configuration and installing the IPU7 Hal and bin of intel
 
--- 
-Cheers,
+##NOT WORKING:
+For some reason, when i tested the camera on gnome snapshot (version 50, istalled with pacman) the colors where completelly wrong (the whole image had a magenta tint to it in addition with some horizontal magenta and yellow lines and a diagonal line that went from the bottom left cornet to the top rigth corner) and the image was inverted
 
-David
+##MINOR ISSUES
+all things reported here are little details barely noticable and dont influence on the usability of the device
+- When exposed to a really bright ligth the image starts to gain a green color and blue if the room is almost devoided of ligth
+- The cammera has some kind of "Snow" on the image captured
+- The image captured tends to be brighter than a normal camera, this error increases the more ligth there is in the room
