@@ -1,50 +1,54 @@
-Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534654A014B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA294A2070;
+	Thu, 10 Sep 2026 15:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052635; cv=none; b=CXLiy8T42QeFFvli+1E/53DvWykT+NSKn3Ob1lPvWVcKrv2ZiMi96KKx6SLq0gXXCDjspXRcwiF6btUshUcGn1iUM8AgzUcHvV6NxmLZ7b37UYdlVwxxSHmP3yHqlUNve0kGAU9L8lGeC7geA2HpsfwSCIaNSBiOdtAuuO6vvmc=
+	t=1789052703; cv=none; b=RaiVSW8GOueflogUAtC3KWpNKZzfMvdDZqOdUQ8sjuacAXUPJLLg3XMU04NF4zWBkM8kCZbb9Yr09yCQbMOhV9w5KD2mmjEBO/GFceAxnD6GuXJnbu64CbpDA/dRUlYsjBwOMtt/aOD/Lbnfzz8SXXEo9x3h/ZSsxXBULDPa4Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052635; c=relaxed/simple;
-	bh=GoX9FyVzwtAl5KrZNOVZWeiSnDzUZvNTKJ9UxxAUGKg=;
-	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=UAaDivrYbUfy6OtiRsSmEbS8zOA42DxLSruUwqZF8TLMw5FUmVqwxjMiwqt4nlQ6KN7B6TYJz4BzTUA6hVQ1CXsYDG090Tt3UwsdJHTn24zTP9IM1oXMlZzFYxAzORfk1+GP5xHBN9PkbyeHloVWUIROswgDAEchsi1p6LQ+Fuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=Gk+FFMx+; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=UolOn0yF; arc=none smtp.client-ip=104.30.16.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
+	s=arc-20240116; t=1789052703; c=relaxed/simple;
+	bh=dNV3aSQcFt34AeVZJe+EqTeTysO5AcNaMzAJeC3+ev0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f0yGAq2Wlv+buljottuF2C5HE4tmjM9bbZtssYJZ0yMTj1bR3k+RUC2/As+P74Dz6KyrP/re2+7zJ/I+FHuunNmLSGa7+nuvyMmomDZMW/HwtW4GRc6eHPij6HHb5GUr1PE2vgrqmHeMKdwdUedPMniLq4GsQujacE1NZ0OPGLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=PRpm+L73; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="Gk+FFMx+";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="UolOn0yF"
-DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789052633; x=1789657433; bh=9mcCJYBOvgbRqUansu
-	4tqwyDHJn2WYXOCjsqowyaeoA=; b=Gk+FFMx+U4aRWb3vqOns334tIIcRCbqXEjkZ6yJ3MQiJr
-	3TX+pY16Ip8Smlhs9Od2qBlBj22mPg/y5gsuoP3QIERVZCMZcCW37ISjxI3KvY+JqU4yQA1zhmV
-	dAIgIqVrIN+kBi9AyK21wciSb5OrK21347+umgG6QkQ3G0H7SDjTMc0rJHELuZ4hVS26x1iBHDB
-	0Ry5sI6c0S/D7q7kiJGZNF9zJfjGP17uxT6In1XmjutJ0jXjpnUxk8yMf7h1nza1/A0uCf5/9FN
-	F/DWwCskMZEKtNtt6tNR1BQJAAv81WETxrbvCyIwYN/dY8tWB5QTZvYlrkXC4wASumxDSPvQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789052633; x=1789657433; bh=9mcCJYBOvgbRqUansu
-	4tqwyDHJn2WYXOCjsqowyaeoA=; b=UolOn0yFv86+Jq7YyLqSIsY87A0lQJKXY6Q7TiyiB5vl4
-	grs67x3fK7Mzp7dVGPwFGqMTmUUazW4uC3zZnFyfCGsDWq69+cRbBjSat7yThntkRZVQV0jlMED
-	Rageb89WEnjE5y84Kc9Mpfs6HKzmoe92m4QT4KPz+BzIlByenqJ7ns0kZcw1wi7Q9GeZj1Z3O/D
-	REHitE5eUGwKp4K+Sa+Bnj+/yI7tARyrQb0bBuXdaBLsTUch6UDePv7nLOkxhHlNmlsGO3+uoaO
-	C3tZyorLk8XQRqSTCjaZ+YBcUJwcLsZwzdOHrhLIspyey3Hn1fQYl7Ujb7ANdIMMCoY7gfVQ==;
-Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+4bda3bf8e1a2b780@bugs.sh>
-Message-ID: <XNNBJQCVSRi1dUNtFoqHoHlP3XDSNifVcPOu@bugs.sh>
-Date: Thu, 10 Sep 2026 15:03:41 +0000
-Subject: [BUG] drivers/net: out-of-bounds in pcan_usb_pro_decode_buf()
-To: linux-can@vger.kernel.org, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent
- Mailhol" <mailhol@kernel.org>
-Cc: "Wolfgang Grandegger" <wg@grandegger.com>, =?utf-8?b?U3TDqXBoYW5lIEdy?=
- =?utf-8?b?b3NqZWFu?= <s.grosjean@peak-system.fr>, linux-kernel@vger.kernel.org, co <co+4bda3bf8e1a2b780@bugs.sh>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PRpm+L73"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9CD5022B;
+	Thu, 10 Sep 2026 17:03:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789052598;
+	bh=dNV3aSQcFt34AeVZJe+EqTeTysO5AcNaMzAJeC3+ev0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PRpm+L73T/S67lGfoKdH6zmIGw0sDpPp1iLwaLlCa5MOB6fPetg9MemEooFevTVUA
+	 PDhSicpfYG0pnpyL9cClurfEJf9wqN92a+atfq/xoWnb/r4U6ltAbjf5GuSZxuw5CS
+	 dJZ4sum1gklyuK/vBr+0XQEin6CwgM2HKz+DrucU=
+Date: Thu, 10 Sep 2026 18:04:54 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Dave Stevenson <dave.stevenson@raspberrypi.org>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [PATCH v3 6/9] media: videobuf2: Allow exporting of a struct
+ dmabuf
+Message-ID: <20260910150454.GP1892234@killaraus.ideasonboard.com>
+References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com>
+ <20260717-b4-vchiq-isp-v3-6-fb8235e15c68@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,128 +56,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20260717-b4-vchiq-isp-v3-6-fb8235e15c68@ideasonboard.com>
 
-We found a bug reachable in:
+(CC'ing Hans)
 
-    path    drivers/net/can/usb/peak_usb
-    crash   out-of-bounds in pcan_usb_pro_decode_buf()
-    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
-rg/pub/scm/linux/kernel/git/trace/linux-trace")
+Tomasz, Hans, could you review this patch ? It is the only one in the
+series that touches the V4L2 core.
 
-Config, environment, the sanitizer report and a C reproducer follow.
+On Fri, Jul 17, 2026 at 04:34:21PM +0530, Jai Luthra wrote:
+> From: Dave Stevenson <dave.stevenson@raspberrypi.org>
+> 
+> videobuf2 only allowed exporting a dmabuf as a file descriptor,
+> but there are instances where having the struct dma_buf is
+> useful within the kernel.
+> 
+> Split the current implementation into two, one step which
+> exports a struct dma_buf, and the second which converts that
+> into an fd.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.org>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 21 ++++++++++++++++++---
+>  include/media/videobuf2-core.h                  | 15 +++++++++++++++
+>  2 files changed, 33 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..0e62f3d97194 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -2419,11 +2419,11 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
+>  	return 0;
+>  }
+>  
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
+> +int vb2_core_expbuf_dmabuf(struct vb2_queue *q, unsigned int type,
+> +			   struct vb2_buffer *vb, unsigned int plane,
+> +			   unsigned int flags, struct dma_buf **dmabuf)
+>  {
+>  	struct vb2_plane *vb_plane;
+> -	int ret;
+>  	struct dma_buf *dbuf;
+>  
+>  	if (q->memory != VB2_MEMORY_MMAP) {
+> @@ -2468,6 +2468,21 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+>  		return -EINVAL;
+>  	}
+>  
+> +	*dmabuf = dbuf;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
+> +
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> +		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
+> +{
+> +	struct dma_buf *dbuf;
+> +	int ret;
+> +
+> +	ret = vb2_core_expbuf_dmabuf(q, type, vb, plane, flags, &dbuf);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
+>  	if (ret < 0) {
+>  		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..15aeaaeaf8ad 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -954,6 +954,21 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
+>   */
+>  int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
+>  
+> +/**
+> + * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
+> + * @q:         videobuf2 queue
+> + * @type:      buffer type
 
-=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    If you patch the bug based on our artifacts, a tag would be
-    appreciated:
+The type must be identical to the queue type. I would remove the
+argument from the function, and move the type check to
+vb2_core_expbuf().
 
-Reported-by: co+4bda3bf8e1a2b780@bugs.sh
+A separate patch could then push the check out of vb2_core_expbuf() as
+well, as in most cases the type received from userspace in the
+v4l2_exportbuffer structure is used to get the corresponding queue.
 
-    Everything in this mail is validated by the reproducer below.
+> + * @index:     id number of the buffer
 
-    We also hold an LLM-generated root-cause analysis and a candidate
-    patch. The patch passes an A/B test: the same reproducer panics the
-    unpatched kernel and runs clean on the patched one. Neither has had
-    human review, so both still require validation before you send or
-    apply them. Available on:
+This isn't correct, the function takes a pointer to a vb2_buffer.
 
-        patch.diff  https://bugs.sh/b/4bda3bf8e1a2b780/patch.diff
-        report.md   https://bugs.sh/b/4bda3bf8e1a2b780/report.md
+> + * @plane:     index of the plane to be exported, 0 for single plane queues
+> + * @flags:     flags for newly created file, currently only O_CLOEXEC is
+> + *             supported, refer to manual of open syscall for more details
+> + * @dmabuf:    Returns the dmabuf pointer
 
-    This is an open science project. The code and the full set of PoCs
-    are not public at this moment, as we intend to disclose our findings
-    in an ethical way.
+Is there a reason not to return the dmabuf directly from the function,
+with an error pointer for errors ?
 
-    Happy to test patches. Complaints and suggestions about our work
-    are welcome at:
+> + *
+> + */
+> +int vb2_core_expbuf_dmabuf(struct vb2_queue *q, unsigned int type,
+> +			   struct vb2_buffer *vb, unsigned int plane,
+> +			   unsigned int flags, struct dma_buf **dmabuf);
+> +
+>  /**
+>   * vb2_core_expbuf() - Export a buffer as a file descriptor.
+>   * @q:		pointer to &struct vb2_queue with videobuf2 queue.
 
-        cedalion@bugs.sh
+-- 
+Regards,
 
-=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
-ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
-    VM setup       https://bugs.sh/b/4bda3bf8e1a2b780/run.sh
-    config         https://bugs.sh/b/4bda3bf8e1a2b780/config.gz
-    poc            https://bugs.sh/b/4bda3bf8e1a2b780/repro.c
-
-=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in pcan_usb_pro_decode_buf (drivers/net/can/=
-usb/peak_usb/pcan_usb_pro.c:562 (discriminator 6) drivers/net/can/usb/peak_=
-usb/pcan_usb_pro.c:753 (discriminator 6))
-Read of size 15 at addr ffff888030c74c00 by task swapper/1/0
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Tainted: G        W           7.3.0-rc=
-1-00234-g6a1094c34d17 #66 PREEMPT(full)
-Call Trace:
-<IRQ>
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-__asan_memcpy (mm/kasan/shadow.c:105 (discriminator 1))
-pcan_usb_pro_decode_buf (drivers/net/can/usb/peak_usb/pcan_usb_pro.c:562 (d=
-iscriminator 6) drivers/net/can/usb/peak_usb/pcan_usb_pro.c:753 (discrimina=
-tor 6))
-peak_usb_read_bulk_callback (drivers/net/can/usb/peak_usb/pcan_usb_core.c:2=
-67)
-__usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-dummy_timer (drivers/block/aoe/aoedev.c:523 (discriminator 1) drivers/block=
-/aoe/aoedev.c:298 (discriminator 1) drivers/block/aoe/aoedev.c:377 (discrim=
-inator 1))
-__hrtimer_run_queues (kernel/time/hrtimer.c:2067 kernel/time/hrtimer.c:2124)
-hrtimer_run_softirq (kernel/time/hrtimer.c:2141)
-handle_softirqs (kernel/softirq.c:645)
-__irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:=
-767)
-irq_exit_rcu (kernel/softirq.c:784)
-sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminato=
-r 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-</IRQ>
-Allocated by task 5028:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-__kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-__kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5414 mm/slub.c:5439)
-peak_usb_ndo_open (./include/linux/slab.h:995 drivers/net/can/usb/peak_usb/=
-pcan_usb_core.c:451 drivers/net/can/usb/peak_usb/pcan_usb_core.c:583)
-__dev_open (net/core/dev.c:1724)
-__dev_change_flags (net/core/dev.c:9812)
-netif_change_flags (net/core/dev.c:9877)
-dev_change_flags (net/core/dev_api.c:68)
-devinet_ioctl (net/ipv4/devinet.c:1199)
-inet_ioctl (net/ipv4/af_inet.c:1009)
-sock_do_ioctl (net/socket.c:1325)
-sock_ioctl (net/socket.c:1446)
-__x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:597 fs/ioctl.c:583 fs/ioctl.c:583)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
-4)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-The buggy address belongs to the object at ffff888030c74800
-which belongs to the cache kmalloc-1k of size 1024
-The buggy address is located 0 bytes to the right of
-
-
----
-The report format is based on syzbot bug report.
-
-This report is generated by a bot. It may contain errors.
-See https://github.com/n132/cedalion for more information.
-
-For any issue with this report, reach out to cedalion@bugs.sh
-
-If the report is already addressed, let us know by replying with:
-#co fix: <commit hash>
-
-If the report is a duplicate of another one, reply with:
-#co dup: <lore link>
-
-If you want to undo deduplication, reply with:
-#co undup
-
-
+Laurent Pinchart
