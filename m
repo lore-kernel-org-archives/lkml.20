@@ -1,161 +1,185 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756D945FFAD
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BF33C10B0;
+	Thu, 10 Sep 2026 11:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037993; cv=none; b=sziQvSaIVMi7ARyfHW2RX2MMYfMC6szi+HFF/kJ+k2olj8M/dnaq19O1r1TDeA0YcSHzSqzJg2A9kqzVc3MJmGCzc57AfPJV250eaprnDkLUQV1TcEQiEdlgHc1s0rZCRb9HDiVWJvOrfYx/xltZPDnWjFdJTddfdE+1Smzelcs=
+	t=1789038004; cv=none; b=YC8KIBB/4Oe8Cbtx0uPDjFCJRv6eSO4YSwtvCjJZtJ05lHNFnzCgAGI958nXy91EVT7maxRNqm5bEh7RMULJ7eoJpZdw+gbsRhw3oxItlFGTdQLMTKeBApipf2g4iPyt00RBX1/jDFsHvEM+9Ru3nDFsKATGtVh61Nb+u61MWVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037993; c=relaxed/simple;
-	bh=K6vTRC6I31fQK6gVtUTNl3XwnQl2ZtJnVVWEd3Z7WFc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nPZ94BhHWdCz6WJ3fQxBpQDCFjOFf1fMuvei64yrF9o4KYpoaIM3YLGN8/3HP+nu7sU7Y3SuLUK1eqPjHRcEJ/r53GhbG2h3paoc2r9ZdKX5UH40bYrPea0onf0QYZnjJSTa4RRltBygCZ7hUMe+0HQrUbhqGE3vHyetRPqP6+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MyKQSv9q; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789038004; c=relaxed/simple;
+	bh=jqL0GtlTc/rqKOGoRk1Zi8UVUamCx++PEdF2Dryjl4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PN0sF+EQsWKqN2n9jE7mVQaVQyz0EAfQynqguqd20Oyx5PxNLYKMa7WGEoSLJFw6ceTknFCIo0cxxRbXZyMfdv4sf15LSPJMxb53DVWtivC7hR/5o+U2vtmm1BGRTuY05Jc8TMpz5LscbJCSUUNu0oiZNfdPnPtuOWnUpYoETWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBG2Xis6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MyKQSv9q"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C00B11A1A97;
-	Thu, 10 Sep 2026 10:59:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8764F602B8;
-	Thu, 10 Sep 2026 10:59:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C298211C78279;
-	Thu, 10 Sep 2026 12:59:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789037987; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=PiVPoZqxXQzLSRnTyxJY0LUsG2EsVds3etvNlaImVXs=;
-	b=MyKQSv9qy+ede1HK7HqbuXAUK7XqNhdafo5puwBvBNW5aeh0/tXviCEzLnnfor378UQg5p
-	m4mN7KciSm6fhsKKUzhpiUcwf3efVd8QrepBSI+Kjyc6gj7yyzge1Yq5ghMACgVZ49GVjQ
-	3QIjLBajCgtFqs4oHzyZkcx1X5HNhQdUho0sRSXTfFYWlARolRHSYAy6Hwh4qxgQAOyxLG
-	A/Nh1wXO4WaXuIqnYXIoK+EBu4aAWRsLBYQ9HP+stBv970OTB/N2/jE2MZHuY/7LVEKZOM
-	vzekn7UQdE/lQi/BQ2Pk2LLO4Ms1RCTsjouURhrT5P0dFgc/ta+2ICbS/giMHQ==
-Message-ID: <44d7840d-0cde-4022-937c-4c630398c45d@bootlin.com>
-Date: Thu, 10 Sep 2026 12:59:36 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBG2Xis6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B6E31F00898;
+	Thu, 10 Sep 2026 10:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789038003;
+	bh=rH49KjocGWRkJ+AZJQhcm2lj6KEBkusUet19acjfj5c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XBG2Xis6aC2x/TFiRhgODNHYxMsm9AepijpQMJLiqGJS2lxSLsxOf+CTbdiEH9Fg7
+	 WR7MjDDhyRRBUsOFpbxeN9nm4odVyTHdNN2h+M+AOb8VZsSMhCIMfBNtqb9j7yhu9F
+	 9E80Yd1DWtWvPL6hdktW9e+aJ2MKlEz3IxuD82KF3or9xnpT5GRh28m13ae5AzDEdK
+	 GTqk0D/qMhaSfCzPZ3Hq7mA6hZajZ8baL4mU1jblluQrILkPVl0XG54BRP+o8PpLFb
+	 bQvtujHLityCH1kc2rr1NQxKpn+fgba64Qzq43EdmJc41t6NlWX1VyB1G1BN+80GJ1
+	 G6CWH17PIcZJQ==
+Date: Thu, 10 Sep 2026 11:59:48 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 09/23] kbuild: do not allocate .modinfo in vmlinux
+Message-ID: <aqKNKBt2RX-cFKtP@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-9-5dc1ac01672d@kernel.org>
+ <178901395291.3971858.229822965899686230.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Add support for Allwinner
- A733 GMAC210
-To: Jerome Brunet <jbrunet@baylibre.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andre Przywara <andre.przywara@arm.com>
-References: <20260910-allwinner-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com>
- <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178901395291.3971858.229822965899686230.b4-review@b4>
 
-Hi Jerome,
+On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
+> > Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
+> > placed MODULE_INFO() strings in the .modinfo section in vmlinux.unstripped,
+> > however it left the section allocatable, so it gets assigned an address and
+> > on arm64, arm and riscv, the section is tagged as PT_LOAD.
+> >
+> > This is useless as the data is ultimately stripped anyway.
+> >
+> > Doing this results in a lot of unnecessary work - each pass copies the
+> > whole file, 450 MIB with relocations for an x86 allmodconfig build and 250
+> > MiB for an arm64 allmodconfig build.
+> >
+> > This adds ~0.7s on the serial tail of every build for arm64 and ~0.2s for
+> > x86 (the tail is single-threaded work done after parallel work has
+> > finished).
+> >
+> > Nothing requires .modinfo to exist at an address, so fix this by using
+> > --dump-section which prevents the allocation.
+> >
+> > Image, bzImage, System.map and modules.builtin.modinfo are unchanged and
+> > the stripped vmlinux differs only in its program headers.
+> >
+> > The objcopy passes are on the serial tail of every build that links
+> > vmlinux, no-op builds are unchanged.
+> >
+> > Whole build, 128-thread Threadripper 9980X, best of N runs:
+> >
+> >                                          before   after     delta
+> >                                          -------------------------------
+> >   x86 defconfig, touch mm/vma.c, gcc        8.9s     8.8s    -0.16s (-2%)
+> >   x86 defconfig, touch mm/vma.c, clang      8.1s     7.9s    -0.20s (-2%)
+> >   x86 defconfig, clean, gcc                27.6s    27.5s    -0.13s (0%)
+> >   x86 defconfig, clean, clang              27.2s    27.0s    -0.18s (-1%)
+> >   x86 allmodconfig, touch mm/vma.c, gcc    42.0s    41.6s    -0.40s (-1%)
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >
+> > diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+> > index b2988aa12f66..7be9e0321867 100644
+> > --- a/include/asm-generic/vmlinux.lds.h
+> > +++ b/include/asm-generic/vmlinux.lds.h
+> > @@ -855,7 +855,7 @@
+> >  		KLP_SYMID
+> >
+> >  #define MODINFO								\
+> > -		.modinfo : { *(.modinfo) . = ALIGN(8); }
+> > +		.modinfo (INFO) : { *(.modinfo) . = ALIGN(8); }
+> >
+> >  #ifdef CONFIG_GENERIC_BUG
+> >  #define BUG_TABLE							\
+> > diff --git a/scripts/Makefile.vmlinux b/scripts/Makefile.vmlinux
+> > index 4b54aaeca65d..1fc7a0ca8eaf 100644
+> > --- a/scripts/Makefile.vmlinux
+> > +++ b/scripts/Makefile.vmlinux
+> > @@ -90,11 +90,9 @@ remove-section-$(CONFIG_ARCH_VMLINUX_NEEDS_RELOCS) += '.rel.*'
+> >
+> >  remove-symbols := -w --strip-unneeded-symbol='__mod_device_table__*'
+> >
+> > -# To avoid warnings: "empty loadable segment detected at ..." from GNU objcopy,
+> > -# it is necessary to remove the PT_LOAD flag from the segment.
+> > +# none of the removed sections is allocated, so no segment is left empty
+>
+> I think we could just drop this comment, I don't think it is
+> particularly helpful
 
-On 9/10/26 12:25, Jerome Brunet wrote:
-> The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
-> the A523 GMAC200 already supported by this driver, with the following
-> differences to handle:
-> 
-> * The glue configuration registers are a dedicated MMIO region of the
->   controller instead of a syscon register. This new register region
->   appears to be in the reset domain of stmmac's main reset. This requires
->   the glue driver to handle the reset rather than letting stmmac deal with
->   it.
-> * The TX clock delay value is 5 bits wide, split over 2 register fields,
->   allowing delays up to 3100ps.
-> * The DMA channels have their own interrupt lines, so the per-DMA-channel
->   interrupt mode is enabled, as the vendor SDK does.
-> * TX LPI clock gating is supported, as the vendor SDK indicates. Follow
->   the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
->   forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
->   property.
-> 
-> Unlike the A523, both GMAC instances are supported by the same driver.
-> 
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Ack!
 
-[...]
+>
+> >  quiet_cmd_strip_relocs = OBJCOPY $@
+> > -      cmd_strip_relocs = $(OBJCOPY) $(patsubst %,--set-section-flags %=noload,$(remove-section-y)) $< $@; \
+> > -                         $(OBJCOPY) $(addprefix --remove-section=,$(remove-section-y)) $(remove-symbols) $@
+> > +      cmd_strip_relocs = $(OBJCOPY) $(addprefix --remove-section=,$(remove-section-y)) $(remove-symbols) $< $@
+> >
+> >  targets += vmlinux
+> >  vmlinux: vmlinux.unstripped FORCE
+> > @@ -103,21 +101,11 @@ vmlinux: vmlinux.unstripped FORCE
+> >  # modules.builtin.modinfo
+> >  # ---------------------------------------------------------------------------
+> >
+> > -# .modinfo in vmlinux.unstripped is aligned to 8 bytes for compatibility with
+> > -# tools that expect vmlinux to have sufficiently aligned sections but the
+> > -# additional bytes used for padding .modinfo to satisfy this requirement break
+> > -# certain versions of kmod with
+> > -#
+> > -#   depmod: ERROR: kmod_builtin_iter_next: unexpected string without modname prefix
+> > -#
+> > -# Strip the trailing padding bytes after extracting .modinfo to comply with
+> > -# what kmod expects to parse.
+> > +# use --dump-section to include non-allocated sections
+>
+> Same thing here, I am not sure anyone will question '--dump-section'
+> here. Otherwise, this seems reasonable. I was curious about the $@.tmp
+> until I read the objcopy manual but that probably is not worth a
+> comment.
 
-> +
-> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *pdev,
-> +						struct plat_stmmacenet_data *plat)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 1);
-> +	if (IS_ERR(base)) {
-> +		dev_err_probe(dev, PTR_ERR(base), "unable to get glue memory region\n");
-> +		return ERR_CAST(base);
-> +	}
-> +
-> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
+Ack too.
 
-Why check stmmac_ahb_rst, but not do anything with it ?
+>
+> I can probably take this one faster than the rest if you want to put it
+> early in the stack since it is pretty low hanging fruit and earlier it
+> gets exposure to -next, the better.
 
-> +		dev_err(dev, "missing required reset controls\n");
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	/*
-> +	 * The configuration registers are inside the controller
-> +	 * reset domain, so the reset must happen before any write to them
-> +	 * and should not be done again by stmmac or the configuration will
-> +	 * be lost.
-> +	 */
-> +	ret = reset_control_assert(plat->stmmac_rst);
-> +	if (!ret)
-> +		ret = reset_control_deassert(plat->stmmac_rst);
-> +
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "device reset failed\n");
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, sun60i_gmac210_reset_assert,
-> +				       plat->stmmac_rst);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	plat->stmmac_rst = NULL;
-> +
-> +	return devm_regmap_init_mmio(&pdev->dev, base, &sun60i_a733_regmap_cfg);
+Sure sounds good, the sooner we get these in -next the better.
 
-I wonder if this is the first glue to face this...
+I was planning to go through feedback/sashiko (+ give a bit more time for people
+to respond) before doing a v2, but I guess you could put this to -next as-is,
+given v2 will just be stripping comments here (as it stands anyway!)
 
-If you need further setup to be done after reset has been deasserted, I suggest
-adding a dedicated callback in plat_stmmacenet_data, instead of doing this behind
-the generic code's back.
+>
+> --
+> Cheers,
+> Nathan
+>
 
-maybe something like "post_reset_init()", something like that ?
-
-the ->mac_setup already runs after reset, but isn't really for this type of usecase.
-
-For readability of the patch, maybe you should split this patch to first do the
-a523 rework, then add a733 support.
-
-Thanks !
-
-Maxime
+--
+Cheers, Lorenzo
