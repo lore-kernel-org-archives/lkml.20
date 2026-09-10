@@ -1,103 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D644BAA11;
-	Thu, 10 Sep 2026 16:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA06A4BAA11
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056562; cv=none; b=gRu2qX0BUicJAB53SNVomsSSSk2kSqDVossXTfw1s0oVKU3eDASGrNXnp+h0CW90uMCnAGR5zeh5cbo7OWF6+O0gLGgPIXFG5dXlMW6S7hjHNGr/IBlQEaME0U7WmbXCQXE44sIaw70USVrRhFCYekuNEKxrBTP4T2OvV1Gg/4Y=
+	t=1789056577; cv=none; b=aWt09Oc0FWNvgbAk7/Hl+8VOcpMjDBhc46D0vcxrJctjRprIWhCl9GpN16KIqEc+s+bHKXv1b/mAgeXGU56ZF3b+SGBYM1iYWhA0aONYZCr8Xf6HV4W+oe+hde7IDHswqCfNvbdCFDH7+sfWIkvQCmcjl4teKrmWN550g3Z2KM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056562; c=relaxed/simple;
-	bh=2U+ltwTMYXVi268fLCTmLLyzR8pRlBbwry1hESU4vmY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hsTSQqNvrpH8KWRMx7CXA/dlhuj6/KXZ/ILroh2lgP5RgBFPURmOjZrvcAh2GCf89TjuRR6qp5Y7k7rSchmq8Dv+yaBhsp/15l0BJzeq13v+17sNrh6RrIY2r6T2CGz3lAr7UnbqpNri4yfjWqxWQBAWCdmARwaPs+GbFgKFd54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjy0BHbI; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjy0BHbI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FBC81F000FF;
-	Thu, 10 Sep 2026 16:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789056560;
-	bh=whGOP8ry5KPgaWQs8fLSDE+EARpX6C5SukzqMWGdOzs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gjy0BHbIvE9M4P14oFmxBamBCvnsFWxZoEcpHVoE4CtL8F9RC3OCsF64+AezugUfz
-	 D3Z3Cx/+Fs6zl8BpxFGxWJUuN56FTKSYkh01tbhhtPcp9fqTHohEhOtbzXF7WYQuvy
-	 FBajWDxYwAAp0WA5oI6S6Wm8PNkIAyZIJHUhpYkpk2/TB9YZ7GclIKxfnR3Il0A2Qj
-	 hF56nYWC2fLMMQdOYxb1R+0TENpbDumQjS7pVAc0QXPSNZc0uQrUcFK4SfjaOtaxWt
-	 0hRgp9H3UK583qCTQMD1NA6TgcozPmPh4O8wosRNL1p+9GzK6f6oYv420bJ0fCP7UE
-	 +fnong2p8AB+g==
-Date: Thu, 10 Sep 2026 17:09:13 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org,
- Nicolas Pitre <nico@fluxnic.net>, Ingo Molnar <mingo@redhat.com>, Thomas
- Gleinxer <tglx@linutronix.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Peter
- Zijlstra <peterz@infradead.org>, rodrigo.alencar@analog.com
-Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
-Message-ID: <20260910170913.1a3ab4b2@jic23-hlaptop>
-In-Reply-To: <20260910034527.GBaqIn13O6zSuD4vak@fat_crate.local>
-References: <20260803163955.627bdd3f@pumpkin>
-	<20260823233536.30b984ed@jic23-huawei>
-	<20260901175101.1e059ac8@jic23-huawei>
-	<20260907231444.7fa2d116@jic23-huawei>
-	<20260908033216.GAap-BwAmBqoVDUbMK@fat_crate.local>
-	<ap_cLN807bC56OBU@monoceros>
-	<20260908152127.GCaqAn9zI09T7qvMhH@fat_crate.local>
-	<aqAtRgouK7DyDlpJ@monoceros>
-	<20260908165501.GDaqA95YQKx_IL416d@fat_crate.local>
-	<20260910042029.7c78f6dd@jic23-hlaptop>
-	<20260910034527.GBaqIn13O6zSuD4vak@fat_crate.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789056577; c=relaxed/simple;
+	bh=2e3L0H683hDjd0GrUF5XICElxaBuw5v4BC2yDef3aXE=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lROj8xiIZ3dqTeRF0xdSYk312sPORBcMDUFnYiqmeLY7glAOS0CKStn1MZ/DzFEGZ/Bted97NhQqYEk3nfyICjiEakJMgrMMYAUVuGKI+xsubTOp/gh3ZtFi/VzW8IFKxnVyOsLqV78UH+3DE18Cj+CAqMcr4GTIJWG/B30Hcnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a4492f5cd1so865398b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:09:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789056574; x=1789661374;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H71bxvxYKoFv59ri60MFSnW6MrPgym86hxTl65YUMdQ=;
+        b=Tp11+Vq1h5NQsmypL1Xvs3iNbeHn8S7jHn8U/xyJcdw8K9anOCE2S29vqCrQT5uD5w
+         cRW88fnNaCXw8j4GoCbTO+iRVXRtPLVQkdsnQhpeJ2CegN7dZL+XWZnft1gUzLRjqteh
+         NuqbXNc98SvQqDNDIRSFqXvnqyAt/CGb3lqph79k4zNdlbIB3yGbgJO2fSVcNXquPNLW
+         /15Hf+Oy+mhgImpF9TxyzDysZISyz7aZ1xe3qSPOT2ZMkSrdmnC4RclITamppr+IS3vd
+         foHkyq+gB9PSl6ffSzqITr/RFjyN8FfwX8OjvSsIWEQqs0o8q228JdksDXprAqmWf4yq
+         ZesA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEmZ3EC6aAASTDJhUREmtIlFgilHy9av/gbOnT+ZlEdoCQMCiWuRakMKuFqzUl8pZD6yG0XzfPX/gHryI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiggdXTB+ZfrEsN6d7JHkAoZnJEdZsinkm0KPmKrz78+fZ5THx
+	fKduRPlBR2be02/rfmIAszE5aslghF6vl+K7OIVbBTkhWR/rzBZ6wSzLEJzeZVK6rfR3NYypTTW
+	+OXlV2KitzZGaGk0fAF7XGEoTARGUZYCKz8np4EYRtMm6MprVbh/ECPncVZQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:6807:b0:4b9:e5fa:8a1d with SMTP id
+ 5614622812f47-4b9e5fa8f23mr25474168b6e.34.1789056574511; Thu, 10 Sep 2026
+ 09:09:34 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:09:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa2d63e.6e6c5f9e.28f11f.0036.GAE@google.com>
+Subject: [syzbot] [bluetooth?] possible deadlock in rfcomm_dlc_close
+From: syzbot <syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com>
+To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 9 Sep 2026 20:45:27 -0700
-Borislav Petkov <bp@alien8.de> wrote:
+Hello,
 
-> On Thu, Sep 10, 2026 at 04:20:29AM +0100, Jonathan Cameron wrote:
-> > I've dropped the branch from IIO. That's fine because it was still being
-> > tested and hasn't gone out as non-rebasing yet.  
-> 
-> Ack, will do first thing tomorrow.
-> 
-> > Next time I'll maybe find an IRC gateway and ping you on that.  I can't
-> > find any reference to that being your preference in the kernel docs.
-> > Given you have a helpful page on tip, might be worth adding a note.
-> > I might of course be missing it.  
-> 
-> I'll send you a private note after this.
-> 
-> > If it goes into a reasonably early rc, I'll just merge the relevant rc
-> > rather than needing an immutable. If next cycle, immutable please.  
-> 
-> First one can go to Linus now, second one would go next cycle. Do you want to
-> base ontop of both?
+syzbot found the following issue on:
 
-Only need the first patch, so I'll just pick it up by merging
-an RC once it this is upstream.
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15ad0905580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=0cece8fa7d83523f47a3
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13ad0905580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12752c8e580000
 
-Thanks,
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6f77d29903f3/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/23b2961d9c5d/bzImage-50d05c7c.xz
 
-Jonathan
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com
 
-> 
-> > I started out a bit grumpy that I had to hold a non trivial series for
-> > a cycle because of an x86 bug (having been very happy when David
-> > fixed it incredibly quickly!), that got reviewed then disappeared
-> > down a hole and didn't look like it would ever be seen again.
-> > Meh, got me on a belligerent day.  
-> 
-> No worries, happens to all of us.
-> 
-> Thanks!
-> 
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.0.67/5982 is trying to acquire lock:
+ffffffff90f80f40 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_close+0x33/0x240 net/bluetooth/rfcomm/core.c:508
 
+but task is already holding lock:
+ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
+ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: rfcomm_sock_close net/bluetooth/rfcomm/sock.c:245 [inline]
+ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: rfcomm_sock_cleanup_listen net/bluetooth/rfcomm/sock.c:190 [inline]
+ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: __rfcomm_sock_close+0x1c3/0x300 net/bluetooth/rfcomm/sock.c:224
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       lock_sock_nested+0x41/0xf0 net/core/sock.c:3830
+       lock_sock include/net/sock.h:1713 [inline]
+       rfcomm_connect_ind+0x327/0x9e0 net/bluetooth/rfcomm/sock.c:968
+       rfcomm_recv_pn net/bluetooth/rfcomm/core.c:1509 [inline]
+       rfcomm_recv_mcc net/bluetooth/rfcomm/core.c:1727 [inline]
+       rfcomm_recv_frame net/bluetooth/rfcomm/core.c:1868 [inline]
+       rfcomm_process_rx net/bluetooth/rfcomm/core.c:2020 [inline]
+       rfcomm_process_sessions net/bluetooth/rfcomm/core.c:2114 [inline]
+       rfcomm_run+0x438b/0x54c0 net/bluetooth/rfcomm/core.c:2204
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 (rfcomm_mutex){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       rfcomm_dlc_close+0x33/0x240 net/bluetooth/rfcomm/core.c:508
+       __rfcomm_sock_close+0x181/0x300 net/bluetooth/rfcomm/sock.c:231
+       rfcomm_sock_close net/bluetooth/rfcomm/sock.c:246 [inline]
+       rfcomm_sock_cleanup_listen net/bluetooth/rfcomm/sock.c:190 [inline]
+       __rfcomm_sock_close+0x1d2/0x300 net/bluetooth/rfcomm/sock.c:224
+       rfcomm_sock_shutdown+0x111/0x250 net/bluetooth/rfcomm/sock.c:920
+       rfcomm_sock_release+0x61/0x1a0 net/bluetooth/rfcomm/sock.c:941
+       __sock_release+0xb3/0x260 net/socket.c:735
+       sock_close+0x1c/0x30 net/socket.c:1526
+       __fput+0x3ff/0xb50 fs/file_table.c:512
+       task_work_run+0x150/0x240 kernel/task_work.c:233
+       resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+       __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+       exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+       syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+       do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM);
+                               lock(rfcomm_mutex);
+                               lock(sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM);
+  lock(rfcomm_mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz.0.67/5982: 2, last CPU#0:
+ #0: ffff88805501bbc0 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ #0: ffff88805501bbc0 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x86/0x260 net/socket.c:734
+ #1: ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
+ #1: ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: rfcomm_sock_close net/bluetooth/rfcomm/sock.c:245 [inline]
+ #1: ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: rfcomm_sock_cleanup_listen net/bluetooth/rfcomm/sock.c:190 [inline]
+ #1: ffff8880234b9260 (sk_lock-AF_BLUETOOTH-BTPROTO_RFCOMM){+.+.}-{0:0}, at: __rfcomm_sock_close+0x1c3/0x300 net/bluetooth/rfcomm/sock.c:224
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5982 Comm: syz.0.67 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ rfcomm_dlc_close+0x33/0x240 net/bluetooth/rfcomm/core.c:508
+ __rfcomm_sock_close+0x181/0x300 net/bluetooth/rfcomm/sock.c:231
+ rfcomm_sock_close net/bluetooth/rfcomm/sock.c:246 [inline]
+ rfcomm_sock_cleanup_listen net/bluetooth/rfcomm/sock.c:190 [inline]
+ __rfcomm_sock_close+0x1d2/0x300 net/bluetooth/rfcomm/sock.c:224
+ rfcomm_sock_shutdown+0x111/0x250 net/bluetooth/rfcomm/sock.c:920
+ rfcomm_sock_release+0x61/0x1a0 net/bluetooth/rfcomm/sock.c:941
+ __sock_release+0xb3/0x260 net/socket.c:735
+ sock_close+0x1c/0x30 net/socket.c:1526
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fd18819e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe0b172838 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007ffe0b172920 RCX: 00007fd18819e159
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 000000000000e138 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000001b32a20000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fd188425fac R14: 00007fd188425fa8 R15: 00007fd188425fa0
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
