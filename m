@@ -1,136 +1,344 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F1F37B032
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066613; cv=pass; b=kQS3KvWa0Z9O0D+hnviS6uPmWt5nLxsyFle1a0x+dl3kNAJxhhnCqvb4hn3J2xWW04ddOlsR+awcPhUFzmA6OYtTM729rOsk+xCqaXEKA0LkLwDAE3YHHP5qkPbYv8sQVOhV/EfWeynpPYjOVizgaSTayFMpRCBDeZN0GzR8oZk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066613; c=relaxed/simple;
-	bh=KYzmAlHaz7Clc/Y0Jls+1V6fGOjaYyOAWFoPDWex4WA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S58EhQgGLvAAyBJFBhVeiJcJlSIelke6peezAUa4WOk5Fs/hTbGjeQVYj67BdOd5ZWq4wTxQCzPmsVmEqnmDOKMzqxOHAVgF2sVwhdUZ017iwO7+mq57erBPutf8D4/WC3+cslLc5okW8K1FlCxlyuBlsjjHhawW/F9w7sRO5gc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhyIEhiy; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E94F58E2C8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789066623; cv=none; b=n+aYTFsIyUgNCEtDq+MsFOEf/Pmz921QSc0vtBi2wGPZ7iYEQveXzHv4hCC+VzRc2cU9eQvH4GbIthnrfTsAGZ6beYz46a7chuGGvsasqCZXvZw8+aDMVoNpE2SfDOYCZCYGaVSIjbU+c3H2xCMFE1WOff02Mp8vxYVbBZTsXq8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789066623; c=relaxed/simple;
+	bh=bAG76qlu9oaRJYAAdIIzEDQtqG/bBgx4rgMWo3RtEDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EYGVqavPQXcP4yg6PqETrfWgvmmIFndqhdq2LB1dqbRZS0TzlMBW3MWLnxpRU7+sHgpPaWgcDwZYeS8f58R4NwboPH/REWeyhwrl6ueFeY3BEo7aLXB+eczcAdZoQguwPJ9ljhq1FkyX13ZKK5vtdn8QceTJFEs5CLfyzigkq6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=vaeAadkt; arc=none smtp.client-ip=83.166.143.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhyIEhiy"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2946dc8dbfso20795366b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:56:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789066611; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K6rdd52Lbvgaf7sJ8mH8HUA59gHrv2OAfkuk0Px2GEhsvxidJ7Tl2el0+6PkIj8ntS
-         lBiFFK1UqoEgJ5AXwC6KJMuu34ua6vbRymjV4EPLpDzL+VL6utNEPSx8vSMFVXieFaRn
-         oVZ3dvR4L3F5aWeuvcyI2KoP9sTVZwYs4fvUp0VgIg6NalfMJSI/zcqWOmaKoHvB/idl
-         8cTsNB+IE7I2qCgHGdo4h2ixGqzvtnaWIzGYCi1EqVtFSyb6J8EXYlxRq+KbhCAa4PpP
-         02BGLthfPCVhJW/48ZE/tzgdTCIzA7xce/KsfftbN/1YFqztrZvYkXFlQaMOMVcmaQYj
-         AsCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
-        fh=2rujaqw6K1/dP+w9VY+x8JuJY4lwj4c2H5aN7WMelEU=;
-        b=k6rjzQYQEUiK3ZyFO33uUZQhvNuIUf0cslk5qK/WZTR4k4NXgACIlh272RM3TDac4d
-         e4xDh6L9ZctdTOxmKqDD1s6459q536L427blJCOfUZN/rTpeCjdrQ6380qh8UEqvwHwz
-         7+OriEzkjYpw5c2tRjU06ECD/ESJmtjCbTEESb3QBOCo+zeG2UMq681rvqH68niw/yLE
-         6c0FD/D8nDRtp5zDjiIXFyYu0UTI7W96ZryWRa0m6iDkUE5DStbSQVD6Oh0cIIkpS10m
-         0IHVO/9jJ5IzbhnC1zyTp82d5hYLe79zk3W59XOMcW+mXbT6g7c0muE2g82HUN7RV6DU
-         QzuA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789066611; x=1789671411; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
-        b=XhyIEhiye/PryYCft1Q3UIsTvAEO/LDR3QJ0eXsVi5VGaVLXWYjVlMWVpcK0oj/BFI
-         T6UyeHHGz1UXty4xmtJCOwR4arM5KdrXuanUmEgWPOL6Dnc5fkQ4ZIcvKt6PemcpCPQT
-         1BuhoaEkqYNm/UZbYQPW1HWbXWAznI3Z99eiM3HWb6/T83hbjggR0OaQB9pLpDoqpNz2
-         7VBlzw7X+OUekiMmhbkk1WMAvFxnSBOtKuNcgsETgBS3AT+/qYr7u+rlq4WivoI0efUd
-         R6HKGfLteQbO9v8p2nKLFwxDVE4d8TE3MnweXQFLCQDfR+SZ+sWDU9dEmRGehNVsHQB1
-         ZMGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066611; x=1789671411;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
-        b=IEHhKsVcuJd55Uf9ccZChkh98augzAEHkGhDLOdckU7PjPyVMzhsmcEaervqYA4yCH
-         AaorPTED8tH9lJ3lY2ZtgQ8OzQikXMyC35gYaLWotEjxDqZ14qo3Nt8l6sVuqClQRI5f
-         yVm6z/20CkmXADd/44zj2EPvn+0hEOq9zX/op1rPnYjroxThlr4HlqFJv96P9KcPQzq+
-         gaFf2o6E3zXZ3QDcBzak+4zN0eBVSf76YpCHT6IUof8E+3y8RCs0vFn3pZy/M1KTzGSI
-         dFL6E8V0OGtIknA+/jD2nRJZjG+qqfoRn5dwxkDCHXJNPHQQNBNuMKc4f1KsFDPG8Grf
-         ILKA==
-X-Forwarded-Encrypted: i=1; AKwUvByGJ+RP4qK8qiRNJB1v79gXOe59GCv9T7nhbQHsI4f70LKPJeESNZVQusuh4XnwnSAv38G8ZRg6on1zAXY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLF+SawPnaQzE4qqg55VJPQKlXvZR2CAwFHnYmxBWw1kMaksS2
-	g9kr5w45YBYfxTaYRLcUxypFoSNcOvyEUMelE/fdKRwEVjKgvikOCIJQOzzb8igLajZbujzGdM2
-	8GcbF9gJ7jiEFLTgRMzvsw8Fb+5fI4zU=
-X-Gm-Gg: AYBFou0OluMCs0yafYqs0d1axKuzf7wFSi7B2FP/iJc75wdy0chceHM6AkGyuBwdJO2
-	J6tGSjpDz2RjErl8Iw5GfVDslXDFfCCGG9aG9MWMjkHsxPtHpNynieTtr3ZYmFFJFmuXlBKu4c1
-	GzzOfVSJfwZb620emDLp4DSTdJfLisCpOTF4/gQZhoLHKfnP6gBuIfhENGmzIW/VVyFFBod/g5Z
-	pRrBBdUlVT3mtx0N1UP2/1xlqKtOBXHPoVbACLH/vPOBYIQY339YyMedpxzYB8CEHz4lz7v6jnM
-	zQEDIL2g4W5YWLRYkSN3XGrALv3TzTQljcUfol7VVJgJEGJWUjE85/nfMy3PR+HBPF4yWEDZf5l
-	f4COhU2SfoOCL7Uzg7aLohnflEcpUJuUoUi5Y9MUTVSMoMMv+g/cbXIRJiXeeBI6j83aVrFw065
-	v8nfZBBHGkDjN9ROy8V0HBZZJASbZDQHDvt0oUfmFFD4/4BnXEwJPY+84FstnGSZ6V3g==
-X-Received: by 2002:a17:907:3e87:b0:c29:386c:58df with SMTP id
- a640c23a62f3a-c296668deb5mr944166b.30.1789066610568; Thu, 10 Sep 2026
- 11:56:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="vaeAadkt"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hgn363twqzHqd;
+	Thu, 10 Sep 2026 20:56:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+	s=20250113; t=1789066610;
+	bh=79untcTBsMIh0N42cp6pQROVUMP4JU0DTMgmss7VSJQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=vaeAadktJowWe+S26ivlP6ydI3jCWGFQTkyc3tM9VdKDAJmcphttPR3bj6AwXTxoN
+	 vh84MZtGZxMziRHJ7MHdUmbKv4h598k5xsRr1rxelMWiidvdHPXrjYPnZ3m173hh4b
+	 SCST2iUwlMz0mMR628DxPZSi2XrjSTngu8fk4b0O4AfgCSeySoF3T1oKH7whFIj919
+	 utNNUwQ9atIyRjCRh1zeLxv3JrzB6+tVuLSD/yh+5IPe2E/t1DbxUFLYKW8fckVVKv
+	 GgDavr38ZGkVIoFJ9Huq6vrZmLzezX9J/h2ahVwYWSwsb1omnqSSdafmsPlm36Zo89
+	 7lbjihjYx9sEg==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hgn344h4gzngl;
+	Thu, 10 Sep 2026 20:56:48 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Satyajit Roy <sroy14@alum.utk.edu>,
+	Alex Hung <alex.hung@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/amd/display: Default HDMI RGB output to limited range on CTA modes
+Date: Thu, 10 Sep 2026 20:56:48 +0200
+Message-ID: <20260910185648.75182-1-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910181517.68781-1-adrian.betschart@cinemaone.ch>
+References: <20260910181517.68781-1-adrian.betschart@cinemaone.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910001209.116465-1-rosenp@gmail.com> <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
-In-Reply-To: <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Thu, 10 Sep 2026 11:56:39 -0700
-X-Gm-Features: AcwNN1V6aaA1o2c79sKoypMBaKIL_zofsrFDIKG1O8uwY83YC9Mz1J-mEf9e4HU
-Message-ID: <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-On Thu, Sep 10, 2026 at 9:46=E2=80=AFAM Florian Fainelli
-<florian.fainelli@broadcom.com> wrote:
->
-> On 9/9/26 17:12, Rosen Penev wrote:
-> > Add it and set for gmac0, which is the only GMAC used on this board.
-> >
-> > nvram size found from a random bootlog online.
-> >
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >   v2: fix typo.
-> >   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 +++++++++++++=
+With the Broadcast RGB property at Automatic, amdgpu_dm_get_output_color_space()
+selects COLOR_SPACE_SRGB for RGB output, so DC neither compresses the pixels
+nor, without a QS-capable sink, signals full range in the AVI InfoFrame. A sink
+that follows CTA-861 treats the default quantization of a CTA video format as
+limited and expands 16-235 to 0-255: everything below 16 is crushed to black,
+everything above 235 clips.
+
+Follow the CTA-861 default for Automatic instead, as the DRM HDMI state helper
+(hdmi_is_limited_range()) and i915 do: limited range on an HDMI sink for CTA
+modes other than 640x480, full range elsewhere. Full and Limited keep their
+explicit meaning. The same rule applies to the BT.2020 RGB branch. With
+commit a56a50074 ("drm/amd/display: Propagate HDMI RGB quantization
+selectability") the AVI InfoFrame then carries the matching Q value on
+sinks that support selection.
+
+Measured on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100 at
+1920x1080p24 RGB 12 bpc: the sink reports the signal as limited range while
+the picture shows crushed shadows; rendering limited range in the client makes
+it match a reference source.
+
+The KUnit fixtures that reach amdgpu_dm_get_output_color_space() now carry
+a connector, since Automatic reads its display_info, and five cases cover
+the new rule.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5796
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude Code:claude-fable-5-1
+---
+Changes in v2:
+- KUnit: give the AUTO test states a connector (the new rule reads
+  connector->display_info.is_hdmi) and add cases for Automatic on an HDMI
+  CTA mode, on VIC 1, on a non-HDMI sink, for Full on a CTA mode, and for
+  BT.2020 RGB. Reported by the Sashiko review.
+
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  22 +++-
+ .../tests/amdgpu_dm_connector_test.c          | 120 ++++++++++++++++++
+ 2 files changed, 140 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 0b446133e..13cbe099c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -734,6 +734,24 @@ get_aspect_ratio(const struct drm_display_mode *mode_in)
+ }
+ EXPORT_IF_KUNIT(get_aspect_ratio);
+ 
++/*
++ * CTA-861 5.1: RGB video formats default to limited range except 640x480 (VIC 1).
++ * With Broadcast RGB left at Automatic follow that default, as i915 does.
++ */
++static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_timing,
++					const struct drm_connector_state *connector_state)
++{
++	switch (connector_state->hdmi.broadcast_rgb) {
++	case DRM_HDMI_BROADCAST_RGB_FULL:
++		return false;
++	case DRM_HDMI_BROADCAST_RGB_LIMITED:
++		return true;
++	default:
++		return connector_state->connector->display_info.is_hdmi &&
++		       dc_crtc_timing->vic > 1;
++	}
++}
 +
-> >   1 file changed, 14 insertions(+)
-> >
-> > diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arc=
-h/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > index c80ac16ad949..9ab618a097b1 100644
-> > --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > @@ -25,6 +25,15 @@ memory@0 {
-> >                     <0x88000000 0x08000000>;
-> >       };
-> >
-> > +     nvram@1c080000 {
-> > +             compatible =3D "brcm,nvram";
-> > +             reg =3D <0x1c080000 0x180000>;
->
-> Why is not the nvram node moved to bcm5301x.dtsi given it is common to
-> all of the chips?
-To avoid probe errors on hardware where sizes are unknown.
-> --
-> Florian
+ enum dc_color_space
+ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 				 const struct drm_connector_state *connector_state)
+@@ -759,7 +777,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+-			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+ 				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
+ 			else
+ 				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+@@ -771,7 +789,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 	default:
+ 		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+ 			color_space = COLOR_SPACE_SRGB;
+-			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+ 				color_space = COLOR_SPACE_SRGB_LIMITED;
+ 		/*
+ 		 * 27030khz is the separation point between HDTV and SDTV
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 6e70d7213..64ad47403 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -412,7 +412,9 @@ static void dm_test_output_color_space_default_rgb_full(struct kunit *test)
+ {
+ 	struct dc_crtc_timing timing = {};
+ 	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+ 
++	state.connector = connector;
+ 	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+ 	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+@@ -562,7 +564,9 @@ static void dm_test_output_color_space_bt2020_rgb(struct kunit *test)
+ {
+ 	struct dc_crtc_timing timing = {};
+ 	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+ 
++	state.connector = connector;
+ 	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+ 
+@@ -587,6 +591,110 @@ static void dm_test_output_color_space_bt2020_rgb_limited(struct kunit *test)
+ 			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+ }
+ 
++/**
++ * dm_test_output_color_space_default_rgb_auto_hdmi_cta - Automatic follows the CTA-861 default
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_auto_hdmi_cta(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++
++	connector->display_info.is_hdmi = true;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	timing.vic = 32;
++	state.connector = connector;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_SRGB_LIMITED);
++}
++
++/**
++ * dm_test_output_color_space_default_rgb_auto_hdmi_vga - 640x480 (VIC 1) stays full range
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_auto_hdmi_vga(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++
++	connector->display_info.is_hdmi = true;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	timing.vic = 1;
++	state.connector = connector;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_SRGB);
++}
++
++/**
++ * dm_test_output_color_space_default_rgb_auto_dp_cta - Automatic on a non-HDMI sink is full range
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_auto_dp_cta(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	timing.vic = 32;
++	state.connector = connector;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_SRGB);
++}
++
++/**
++ * dm_test_output_color_space_default_rgb_full_hdmi_cta - Full overrides the CTA-861 default
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_default_rgb_full_hdmi_cta(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++
++	connector->display_info.is_hdmi = true;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	timing.vic = 32;
++	state.connector = connector;
++	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_FULL;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_SRGB);
++}
++
++/**
++ * dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta - BT.2020 RGB follows the same default
++ * @test: The KUnit test context
++ */
++static void dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta(struct kunit *test)
++{
++	struct dc_crtc_timing timing = {};
++	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++
++	connector->display_info.is_hdmi = true;
++	timing.pixel_encoding = PIXEL_ENCODING_RGB;
++	timing.vic = 32;
++	state.connector = connector;
++	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
++	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
++
++	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
++			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
++}
++
+ /**
+  * dm_test_output_color_space_bt2020_ycc - Test Output color space bt2020 ycc
+  * @test: The KUnit test context
+@@ -650,7 +758,9 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_encoding(struct kunit *tes
+ {
+ 	struct dc_crtc_timing timing = {};
+ 	struct drm_connector_state state = {};
++	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+ 
++	state.connector = connector;
+ 	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+ 	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+ 
+@@ -3594,6 +3704,7 @@ static struct dm_test_fill_ctx *dm_test_fill_ctx_alloc(struct kunit *test)
+ 
+ 	ctx->conn_state = drmm_kzalloc(ctx->drm, sizeof(*ctx->conn_state), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->conn_state);
++	ctx->conn_state->connector = &ctx->aconnector->base;
+ 	ctx->stream = kunit_kzalloc(test, sizeof(*ctx->stream), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->stream);
+ 	ctx->mode = kunit_kzalloc(test, sizeof(*ctx->mode), GFP_KERNEL);
+@@ -4063,6 +4174,7 @@ static struct dm_test_stream_ctx *dm_test_stream_ctx_alloc(struct kunit *test)
+ 
+ 	ctx->dm_state = kunit_kzalloc(test, sizeof(*ctx->dm_state), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->dm_state);
++	ctx->dm_state->base.connector = &ctx->aconnector->base;
+ 	ctx->dm_state->scaling = RMX_OFF;
+ 
+ 	ctx->mode = kunit_kzalloc(test, sizeof(*ctx->mode), GFP_KERNEL);
+@@ -6818,6 +6930,7 @@ dm_test_cvs_ctx_alloc(struct kunit *test, int connector_type)
+ 
+ 	ctx->dm_state = kunit_kzalloc(test, sizeof(*ctx->dm_state), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->dm_state);
++	ctx->dm_state->base.connector = &ctx->aconnector->base;
+ 	ctx->dm_state->base.max_requested_bpc = 4;
+ 
+ 	ctx->mode = kunit_kzalloc(test, sizeof(*ctx->mode), GFP_KERNEL);
+@@ -6872,6 +6985,7 @@ static void dm_test_create_validate_stream_writeback(struct kunit *test)
+ 
+ 	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, dm_state);
++	dm_state->base.connector = &wbcon->base.base;
+ 	dm_state->scaling = RMX_OFF;
+ 
+ 	mode = kunit_kzalloc(test, sizeof(*mode), GFP_KERNEL);
+@@ -7120,6 +7234,7 @@ static struct dm_test_cvs_dc *dm_test_cvs_dc_alloc(struct kunit *test)
+ 
+ 	c->dm_state = kunit_kzalloc(test, sizeof(*c->dm_state), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, c->dm_state);
++	c->dm_state->base.connector = &c->aconnector->base;
+ 	c->dm_state->base.max_requested_bpc = 8;
+ 	c->dm_state->scaling = RMX_OFF;
+ 
+@@ -8940,6 +9055,11 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_output_color_space_oprgb),
+ 	KUNIT_CASE(dm_test_output_color_space_bt2020_rgb),
+ 	KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_limited),
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_hdmi_cta),
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_hdmi_vga),
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_dp_cta),
++	KUNIT_CASE(dm_test_output_color_space_default_rgb_full_hdmi_cta),
++	KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta),
+ 	KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
+ 	KUNIT_CASE(dm_test_output_color_space_default_ycbcr709_y_only),
+ 	KUNIT_CASE(dm_test_output_color_space_default_ycbcr601),
+-- 
+2.55.0
+
