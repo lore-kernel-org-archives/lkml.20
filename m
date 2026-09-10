@@ -1,105 +1,146 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21D83E0C47;
-	Thu, 10 Sep 2026 09:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C433C37C115;
+	Thu, 10 Sep 2026 09:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032604; cv=none; b=hkGDFJQIdng2biMP8cNN6lCa0dlXnAnww9KW1nGHugYqghO2YR1JjHW2/fcw+WS5h8wXi+GFSkGxbFkt7QkJWwVbgEBNBTmfzlKkImho2RgeW6VIv5xFlOv+1zZSqF0VwDuQbzMu3ZjeZt9LVxzkQBzwi5p7vHSx0eDSErKlIOc=
+	t=1789032617; cv=none; b=tfDEjmIeA8mAD6jeCq7zJcirMZN3F4xjwEewWnQb0E4z4FGLT8SjQ6A0RDebwFUyMx7N93Ihu5qHHbpOQJWof+RMqQ4y7bKctGVh5R17MoN0YMTFjnUxKXphGWnL5hfAdjQqJteqHX6d5BI+2JuzDiTcoo+U9bxH3yaxofGjU2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032604; c=relaxed/simple;
-	bh=IYAf/0uTqDEHjYUNJHPrzwYkqDC7PC1hMbv3pif6maY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dzBQPxTeRhDa4c2nCMGWzxLhp9MLvhPVzhJlNEM+y+3kQ8CYFtnkkjtjsFlf+BdZFhJFg41zAL8782cgOVtQipeoR5cZwqZWT0tQOM5I8o/kWOFcfFySlOgIxOCPGPhLpd1ZhiJvlGXBKPVFb6/SuAZ+NDcbBJqswWhfscH1JH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=V3qdTsOz; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789032617; c=relaxed/simple;
+	bh=uRqstXESvREbE7sgABus3VPsikH/WGsWpiYKC8RGfyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B5eXaIIiaM21UL3o9nqavoXeCEILBpnV6RORSsE6rreUSNp3KjUE3InKf8NLjcsbA4RPAheEj49nZvkFa81xPqAWR03YJi6F4FpQhw96Aw/kZaDY9k0suXVtXYfxhmAnjz3VHMeUK8XuHEksxxExVFYHI9Smnpqc3vwLzgPUjc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m849NaLZ; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="V3qdTsOz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789032599;
-	bh=IYAf/0uTqDEHjYUNJHPrzwYkqDC7PC1hMbv3pif6maY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=V3qdTsOz1DbFEG4Q56tPCGZK2r12HcgpwcsQqMmzqiqiFMg3ZwlQJfxpvLyVo1CWA
-	 OU1uJ6t5sAYdcYTQDFdWF2L5hctJ3IOwqVz4U6Uzw/ISmvO5/DfETz8I53ka5WQTpa
-	 rccPnXVy8L6esVPEmpwQCBtxoEIEq+9FVKjjUzmGiRQg4EprW5gtVgrLfcVbetUUHl
-	 VxroTCPPXzP/0g2/f51kXqDTi4ijRNdS8SPFFzKdOhPw15jzNOluR8/iHuzhgQ8cl0
-	 Y6ag4DvBb7V76zs+hNJ1fG3j7HshCJfLgTFzEPYJGV1sE6kzaOmSfQBjMsBVxEgNxe
-	 r3LfszAsOwODw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DB25517E0C7E;
-	Thu, 10 Sep 2026 11:29:58 +0200 (CEST)
-Message-ID: <71d15182-c90c-4c50-902c-1d14af9ed54e@collabora.com>
-Date: Thu, 10 Sep 2026 11:29:58 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m849NaLZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789032616; x=1820568616;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=uRqstXESvREbE7sgABus3VPsikH/WGsWpiYKC8RGfyc=;
+  b=m849NaLZ6sxQ5gBpvzjfBGt2DwyvTsOson0htAtAHUSG5PcjEhEoXv4I
+   EgoOrvnOPgNQO2qnZKnjlXffuuVwhNTqR9xWr6fE6I0o2kPq4p/Q+k5xO
+   O/2rkGKbNeUTwJ/YfOVl1v3apI/w/ywmaf3D+t2PBZSZYc6b5xynqzqjn
+   tOMu03LL7hsavOxwDurtnYNEL1wgkU/urhTBOAiwgkECHchh/2ENGZ5qX
+   OQRHYKsQaSd2SepuhThowH8xYm5DqvK/FxxBWCuaxbE6MciO6e+himMXu
+   RtGTkAa+kkQ41wmQCyAKk6TFUu6Nu346qgZgapZLLtwfs32M/Es4+wnqd
+   g==;
+X-CSE-ConnectionGUID: s4To8yddSZOMk9q31zU2Zg==
+X-CSE-MsgGUID: 1jlASZOVR+m2PqhFTufz0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89319705"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="89319705"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:30:15 -0700
+X-CSE-ConnectionGUID: lCnUWz4jQ8CM6GL6fh/4ZA==
+X-CSE-MsgGUID: 9Om9URfuRdabHB7tU3BG+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="271089393"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:30:09 -0700
+Date: Thu, 10 Sep 2026 12:30:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: zl020895 <zl020895@163.com>
+Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: Re: [PATCH v6 08/13] gpio: regmap: support
+ write_data_after_dir and girq
+Message-ID: <aqJ4n43eYYochJl4@ashevche-desk.local>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
+ <apqxwRgi-uVKkOpr@ashevche-desk.local>
+ <27a1901.423e.1a07a183bd4.Coremail.zl020895@163.com>
+ <ap5BgWtHMAxl28wF@ashevche-desk.local>
+ <6ca46138.9970.1a07b6abb25.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] ARM: dts: mediatek: mt8127: Add watchdog support
-To: zkh@mailbox.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, zkh1@proton.me
-References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
- <20260909-mt8127-amazon-ford-basic-v4-3-e9af5c420ab1@mailbox.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-3-e9af5c420ab1@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6ca46138.9970.1a07b6abb25.Coremail.zl020895@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 9/9/26 21:38, Zakariya Hadrami via B4 Relay wrote:
-> From: Zakariya Hadrami <zkh@mailbox.org>
+On Mon, Sep 07, 2026 at 06:29:47PM +0800, zl020895 wrote:
+
+> Thanks for the bxtwc pointer.
 > 
-> Add watchdog node and disable it by default as it was not present
-> initially.
+> I looked at mapping PL061 onto regmap-irq. Status/mask/ack (MIS/IE/IC)
+> could fit, but PL061 still needs the chained demux plus IS/IBE/IEV type
+> programming (including EDGE_BOTH) and the existing gpiochip immutable
+> helpers. That looks like a poor fit versus idi-48/bxtwc-style chips, and
+> switching the long-standing ARM PL061 path from chained to threaded
+> regmap-irq seems risky.
 > 
-> Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
-> ---
->   arch/arm/boot/dts/mediatek/mt8127.dtsi | 7 +++++++
->   1 file changed, 7 insertions(+)
+> What I plan for the next round (without extending gpio-regmap with girq):
+> keep the custom irqchip + chained handler, create the irq_domain in
+> gpio-pl061, and pass it via config.irq_domain to gpio-regmap.
 > 
-> diff --git a/arch/arm/boot/dts/mediatek/mt8127.dtsi b/arch/arm/boot/dts/mediatek/mt8127.dtsi
-> index bd61ec7e70c0..3e23673e7a9e 100644
-> --- a/arch/arm/boot/dts/mediatek/mt8127.dtsi
-> +++ b/arch/arm/boot/dts/mediatek/mt8127.dtsi
-> @@ -99,6 +99,13 @@ soc {
->   		compatible = "simple-bus";
->   		ranges;
->   
-> +		watchdog: watchdog@10007000 {
-> +			compatible = "mediatek,mt8127-wdt","mediatek,mt6589-wdt";
+> Does that match what you had in mind, or do you still prefer a
+> regmap-irq-based approach?
 
-Missing space:
+Okay, let's continue with this approach. Just make sure the commit message
+covers the choice made (explains why GPIO IRQ chip is customised).
 
-compatible = "mediatek,mt8127-wdt", "mediatek,mt6589-wdt";
+> At 2026-09-07 12:45:53, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
+> >On Mon, Sep 07, 2026 at 12:20:03PM +0800, zl020895 wrote:
+> >
+> >> > Are you going to fix this HW in the next version of the SoC?
+> >> No — Ambarella does not use write_data_after_dir. It only preserves the
+> >> existing ARM PL061 quirk already documented in gpio-pl061 (data writes
+> >> ignored while the pin is still an input). Only pl061_arm sets the flag.
+> >
+> >Ah, this is a good news!
+> >
+> >In any case when documenting that flag, please also mention that any new HW
+> >should not use it as it's considered buggy (glitches during direction change
+> >are guaranteed).
+> >
+> >> I will also make the first gpio_regmap_set() conditional so the quirk
+> >> path writes once after direction_output, not twice.
+> >
+> >I see that original pl061 actually writes twice. TBH I don't know the best
+> >effort here and if it's really required to do so. Probably others have
+> >better ideas...
+> >
+> >> > This needs to be in a separate update. Also we need to understand why
+> >> > it is required.
+> >> OK, girq will be a separate patch. PL061 keeps a custom chained
+> >> irqchip (not regmap-irq); gpio_regmap today only takes irq_domain or
+> >> regmap_irq_chip, so we passed girq to keep the usual gpio_irq_chip +
+> >> gpiochip_add flow. Open to using a caller-created irq_domain instead if
+> >> you prefer.
+> >
+> >If there is a chained IRQ, look how PMIC drivers usually do similar setups.
+> >First what comes to my mind is drivers/mfd/intel_soc_pmic_bxtwc.c.
 
-After fixing,
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-P.S.: If you send a v5 between now and now (or next week too :-P) I can pick it
-in this cycle.
-
-Cheers,
-Angelo
-
-> +			reg = <0 0x10007000 0 0x100>;
-> +			interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_LOW>;
-> +			status = "disabled";
-> +		};
-> +
->   		timer: timer@10008000 {
->   			compatible = "mediatek,mt8127-timer",
->   					"mediatek,mt6577-timer";
-> 
