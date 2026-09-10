@@ -1,128 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1526146EF94;
-	Thu, 10 Sep 2026 11:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBB6376481
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038221; cv=none; b=MnclnnM/HIr4rMtNZAq7uFbohX/e/PBa80bKSd+VokbjsozLl6zqP+Y1RhGhhXAsT1ZylJojY7ZkELjsRgImE9ZbIo2lxvAD3i51umI37OI9hpeNdWEx28EEJD02kCwrtEE8GOdexBe9ZVXnXYQBZPb3m3UcfbnldfsVLdMKD1g=
+	t=1789038282; cv=none; b=TrAMppKEYBmw6xdKXHuiN6R43s6YGuRj+ijvcfDqtgGpZtQOFXf/AaVSBWxeBgtoeEkjna6Fko9sltFHYmT9Pprf9GqXnlptYMFqHZmmRjhfRbedhsrG+FMkaMj/x+LsOy3oGUDFUDKyyoEiUpXZrME6A2K27mEePvqBaPg1huM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038221; c=relaxed/simple;
-	bh=zkF+okllJHqKXvQdM/EqvzsMOtDxyc5TsolTsb/xGl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SoMb6Y2JMk0VlvExEyH/+KhFf4RDVlYp8m0nYHMLrUvE53+MqUF8nTsSaXzjVW6F3Fjk8F5TeBPCMPeL1sdXcxHcS8ZwoUBl3OrsgNSYqgZo89lUfILL8Wad+8Ijc/1n90BvTk+p0wDtIWmn94sxUSex+6GmsIQZ6C/OGgH44q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuxcQ5jw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789038282; c=relaxed/simple;
+	bh=3q++fkQISw/DqZy/79hTcf7bnPSwjh/Vc1ryjSPvQTA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=T1vFnWPzb0j9G9ksJEPqsCYhxTPFSlHyajIUiSiaQfaTd54Wlq1zSRncny+W3fxWS5eC8T9k7NknWuDEtNMFw3WbPvYu6jHJPxTE6ANjwQyK1Tgp+JHNctOkZgut72JZhxofoQ/Vpm/EoFrPHmQy9JiH1xMMenS55YviQW4ts7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hZkMbrL6; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuxcQ5jw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72CBB1F000FF;
-	Thu, 10 Sep 2026 11:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038220;
-	bh=zkF+okllJHqKXvQdM/EqvzsMOtDxyc5TsolTsb/xGl8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cuxcQ5jw3m5rzCB46cgEUCPdWQH2FZQJvP80czAO5zYsV5hzlkMBwq353jvE2+SlC
-	 EsOH7NRCi1jSQHG6KMUX9oKr38OlGyWcmfsrMYJdAMof2w+IP2n77ZzKB/cQdOS0KB
-	 DS551N6VCg1Gix5tUP72Eds63nkBcKhfHqCXzqGsy0xp2QnF9vMCnGWQWtmO6qy+hf
-	 /lJ2rvjRJpWW4OJ9D/XkL/CSnsj/ERj2S/Dv6ruCjs73ckc+cRSd9WPcpsHnocp49K
-	 z1e05dQ+uMCNuRgf8Y0N2ZWNxMdpYiM1JsjE8gxntujzUZ+EHS1CIM+MFUPb0K9szo
-	 rJGQeSQbm3XLQ==
-Date: Thu, 10 Sep 2026 12:03:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 01/23] scripts/mksysmap: drop the MODULE_INFO() symbols
- from kallsyms
-Message-ID: <aqKN-SwzZRY93p6V@gremlin>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-1-5dc1ac01672d@kernel.org>
- <178901395288.3971858.7586978173036863863.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hZkMbrL6"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hgZZC3897zMlK1;
+	Thu, 10 Sep 2026 13:04:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789038275; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3q++fkQISw/DqZy/79hTcf7bnPSwjh/Vc1ryjSPvQTA=;
+	b=hZkMbrL6XtJaJoOnMcljhximRCiwm8CN4oRKxPI4Hn24Dc2a+jSPEyh8sOfquutCczPYNM
+	KNmj5MO2fuZTmocR+JNC1gf+viriG4PIOqs2gUpQmkyO244fUmMZEib/ilU8R5KtQk0/mg
+	4rCnmFq52cbbAp7wPS7WyKfExRY/DKvBcgtsgTENfyzZf5GLPIDjOsVjE2eOBZwqf5t+Bp
+	uO2bUudrtVlSrsLO2d0H/YrgIMDWc56s0f1YRxrIp0Z7rkj89dcrPjhdzSfSslAyeq+9CS
+	h2noU0RwqW/137XRuycN1pJvVGmOl02newBNdJoXz2d8jrxF3uTLZsKtlVnrEw==
+Message-ID: <f47c44133a976532c0831816f776a879dbf3963a.camel@mailbox.org>
+Subject: Re: drm/sched: run queues freed before the TDR that
+ drm_sched_fini() waits for
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=
+	 <christian.koenig@amd.com>, phasta@kernel.org
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Luben Tuikov	
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>, Danilo
+ Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 13:04:31 +0200
+In-Reply-To: <20260910095053.727808-1-donggeunyoo.kernel@gmail.com>
+References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
+	 <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org>
+	 <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com>
+	 <20260910084408.703333-1-donggeunyoo.kernel@gmail.com>
+	 <608f03824420323f9c9d3bc29cfeb0bed714074e.camel@mailbox.org>
+	 <20260910095053.727808-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178901395288.3971858.7586978173036863863.b4-review@b4>
+X-MBO-RS-META: aoxdbofbsfs93fjuw48jj3qxog3659q9
+X-MBO-RS-ID: f6a14d98396b2592022
 
-On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
-> > Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-> > keeps .modinfo symbols out of System.map and kallsyms, which assumes unique
-> > IDs have a format like '__UNIQUE_ID_modinfo123'.
-> >
-> > However, commit afb026b6d35c ("compiler: Tweak __UNIQUE_ID() naming"), sent
-> > in the same cycle, changes this to '__UNIQUE_ID_modinfo_123'.
-> >
-> > As a result this regexp has never matched and every kernel since v6.18 has
-> > carried one kallsyms entries for every MODULE_INFO() declaration in the
-> > kernel whether the modules are compiled or not.
-> >
-> > That's 5,810 entries for an x86 defconfig build and 15,200 for arm64.
-> >
-> > On x86 defconfig that is 113 KiB of kallsyms tables and 32 KiB of bzImage,
-> > and every lookup walks past them.
->
-> Bummer :/
+On Thu, 2026-09-10 at 18:50 +0900, Donggeun Yoo wrote:
+> On 9/10/26 10:51, Philipp Stanner wrote:
+> > Which KUnit test case exactly?
+>=20
+> A local one. It is not in the tree - I wrote it for this, which is why yo=
+u
+> could not find it. I should have said that explicitly.
 
-Yeah super easy to miss though I think!
+OK. For the future please provide the reproducer somehow, for example
+through a repo link.
 
->
-> > Fix the pattern.
-> >
-> > Fixes: 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-> >
-> > No measurable change in build time, the smaller tables are not on any path
-> > the build waits for.
->
-> I don't think this needs to be in the commit message, it could be below
-> the fold, since it appears to be a valid fix on its own. Agree with
-> Nicolas on adjusting the Fixes tag.
+>=20
+> It is a mock scheduler whose run_job() returns a hardware fence that is
+> never signaled,
 
-Ack yeah I screwed this bit up sorry!
+Alright, so as we agreed on that's then not a bug fix relevant for
+upstream.
 
->
-> Is this worth Cc'ing stable for?
+>=20
+> Right, that's what my patch does: drm_sched_wqueue_stop(), then
+> cancel_delayed_work_sync(&sched->work_tdr), then the frees. The report is
+> gone and nothing else in the suite fails.
+>=20
+> As you say, that is closer to a cleanup - or to making the teardown order
+> state its intent - than to a fix. Do you still want the reordering patch?
 
-Yeah I wasn't sure, it's not like it breaks anything but you see stuff in
-kallsyms that you shouldn't.
+I think it's a good idea. I'd move the deallocations above the related
+kfree at the bottom.
 
-So I'd say probably on balance yes we should actually?
 
->
-> > Assisted-by: LLM
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+What would be more valuable, though, would be a hint in the docu that
+the hardware fences must have been signaled before drm_sched_fini() is
+called. I thought we had sth like that, but apparently we don't.
 
-Thanks!
+@Christian: Could you address this here [1]?
 
->
-> --
-> Cheers,
-> Nathan
->
 
---
-Cheers, Lorenzo
+Thanks
+P.
+
+
+[1] https://lore.kernel.org/dri-devel/20260909131808.2201-3-christian.koeni=
+g@amd.com/
