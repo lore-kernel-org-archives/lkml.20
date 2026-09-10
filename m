@@ -1,177 +1,159 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420F638F651
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E83390200;
+	Thu, 10 Sep 2026 03:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010175; cv=none; b=KxrrD0SDYTW053jhVrh2PYzYwF0+CWOnrfVdscb4m8A0E5VcIRYZsFqtmJaetPUrFrOL2SNu9pzKUTCMDKcXmOZEirH6JPsMQoRZzzrXAxTmKZtERsE1cJ0YLq9WAeZVww0c8XbdP0iwCgXSi3uJ64+K3GSGt5aJ+5jwx0hSTUg=
+	t=1789010194; cv=none; b=aqL6HIiouvFfOpLvHhMk8z2quqsXd60q5OVo39vDhEUKY6Z709dB3GwywukqQ9YYcrLQ1BS9qP3fbVI+mZvNxAly6rlgGja1JeI7lE3Qq8BIXd8NG8DEfquTE/Q+g1+QLjPFYg9TLDD0wEaex13db12/cCTJWycQZ45XJNGk60A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010175; c=relaxed/simple;
-	bh=D5sMfP/g4a8owh8Yj/JlMZu99s1At47ByDkMHtxVGR0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tv3XBPlybcftYHf+lKPxI54BBwIf7yHDySexI38qBQObfRNCO8bKF6AFfeztVcthGJrIZw0yEbMCFfh2D3ntlo071v6tKxqryDJwmuqguBtFkbV/4ujr+Zfx3WaNWqfcaWdMX4wubRwsxLrrD7za3XeVi2ubxT18/qrsaEC4qew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sYDx8fsR; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789010194; c=relaxed/simple;
+	bh=qfxhNHG0Z1RhgkZUy5OlUfu6fj3lZtQEmv2yXYyJ4Vg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YUJNPtMv7gV+H9lnHb+4/6rTvF696b1niXhu45drgYy3eL1W5c08rM+p5u/PHrj9EqYEXQjdIMUZPetJGLNT58u1hT5n1rM3tGhALTEQHgkMcEt58U0eFQ/tZx5KMTT/eFdFKFphUrJhXIrPNxJ30WoOF0flxFSGqDh7Oxr2H0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Lw4PVTj+; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sYDx8fsR"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a67fa7a64eso1486514a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:16:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789010172; x=1789614972; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xYSjnZ7o6t7LHnF5MCbffFkXr8Iwz82fqgMZavKGTtw=;
-        b=sYDx8fsRH3EHBOvOLgEfDgGyU2yuauLp1hywhs2FMWEWTRbaQZ1WvMzV+fd82JUhPR
-         1SlK1Ppgzv5X5Jr7nP84A+Emuxix/18LMGPnEF6mRiiaIiZLLl2vut0IfwljQ6B9w4X4
-         E53VyzfzVyQ0O8MzDMcLVpnmUHWMn3Gu9OX3LuFFK5L2SyAs9PUnw4w1hDGiTM3PovKF
-         YgAgnl3Qz/qeZUnK18sPA7KN2e7XeYsMWgKCiTx43DZ6j/BXzezZqhg0EBGLsVGnWAEE
-         euWQijHDFe8f3LYUvxAAptbuF8ryhgI6hB+ZlIacLj/DTvdvGkPg/1VN7+Hi3kk31Mqj
-         G/Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789010172; x=1789614972;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xYSjnZ7o6t7LHnF5MCbffFkXr8Iwz82fqgMZavKGTtw=;
-        b=TrfvUaD+qa6d/TQsXgH+un4Ymf0fntADfysiHnfqglNxdDGXxYZvZz4wjWZU/XmnTr
-         BOmUc1+CKKjvWj+ZXPuqGfBgw4j3dzMXjQpZaaaZrny5wAbS0W2nIUgvNb2uGiMJ4MDL
-         aPF4x9ftajKDO+TAizuDpf5VZStFoBHPQNUnGUXYQZ0g/Xq3tmvGVn9wFtIVEoBegtty
-         fPFSIVC3QcEIEGQRTqtDbn0H/gsh2w9cAa1l27VETUMmnmp4TobCFRrRC963WIls2OeY
-         wJxvid9/RM7y7Xp8/ckw41oQGlkmyAi85RXFY4+OGf4NaLJj4sRh/PAxYkEXjZ3syC5V
-         5RVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrZMkwY5wwt5MWTKxzp+VYE0YsLboWQ7dmyJBCjK0tJ4/rZFW791QZgdmVJiyDsHru0ntlR1D9rjfZuW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGDMNDSMlKJj5CfeRHkzsa/LcDySEob1R11bQ3TklHVvN1W7Ck
-	1KJG/kWAdMyN691gBDKQpsMVQ4Ldt6UAJx0InKQ7/NgklLn2GJ051fY5
-X-Gm-Gg: AYBFou2r7auUw0g2kJXIzOI7P/IKi1FWrzUT+cH1n5r7vZuaGW0TIoywz2aYj9YNUWh
-	Vyq+mYSXmJ/ma8tF5P4pmz4V0NF6TaxE8bzjl4ihOalThj9Z4kFqoNBUuX2I0x8C8zc/9i6VIxn
-	Cb2IMGqnkUiMq0epJgAXTWnzhCFNHmb+wSULAF2KziXNGZNcBx3I4zfW58KyX2Fs7m0xwFs7UZH
-	E+Vs3dYevwOOzr8SZnx0aL0oxdDLHPil4OPZBgBsFDhQ7Rd/znXQmDa7Uu8AZvcR3pZjkQo+7/w
-	qTv0ZrYVZoYzVTgZHu0C7OqtCb3KTC8QDPpjwGpoiVnbKSM0SjwyfDpbq1f8VsiozKvJ+uuQYEe
-	GtbLpOIQV80Ew3JCVyvIwxBprjr8utn4L5Df262cDzpkQ/avbtWC/CXlfUoNwDk3ZGeODQfx09f
-	EmEDEVfwRKeWRNEHwxOu5Qu6Pmqp0AdA8UF74Xhdd0PtpGw+uy5SyW4SMHkqIy7JuKM4/gVs8=
-X-Received: by 2002:a05:6402:4496:b0:6a6:c4b:c92f with SMTP id 4fb4d7f45d1cf-6a99caa4ab3mr1949381a12.9.1789010172185;
-        Wed, 09 Sep 2026 20:16:12 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9939349dcsm1765945a12.1.2026.09.09.20.16.10
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Wed, 09 Sep 2026 20:16:10 -0700 (PDT)
-Date: Thu, 10 Sep 2026 03:16:09 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yuan Liu <yuan1.liu@intel.com>, Oscar Salvador <osalvador@suse.de>,
-	Mike Rapoport <rppt@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Chen Yu <yu.c.chen@intel.com>,
-	Jason Zeng <jason.zeng@intel.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [BUG] mm/memory_hotplug: panic due to race between compaction
- and memory hot-unplug
-Message-ID: <20260910031609.qbn2qcxzbitau5xc@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <20260903095543.3752338-1-yuan1.liu@intel.com>
- <1d625a60-9473-4f48-a384-7d756ccb7135@kernel.org>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Lw4PVTj+"
+Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A1kkXZ4173415;
+	Wed, 9 Sep 2026 20:16:13 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=JWMWzi6f44G/es0DiDhckjo
+	ib2Sk76tCNKSE/IrNFXI=; b=Lw4PVTj+CFInq8CwNJkPECkSj3N/7nqfOinrOoM
+	z1uI2Ej8x8syEkNmdiQYspCSfah6ZrRYZOqZ5UDy+arI+4st/3D2bkddjaDqhcI9
+	gcEp56zprxb6nW9260OR2w3T2gBwkI2lJ6bvUUE5jKnrHycfbbIQa86c8mJOo0gN
+	EuK80DblHo/nCemA0IzlGbcHdboe4wpq813+ZtfxfWWATDNW01ewR2Z/Tv2mzn0X
+	+3253LBapZmwsYHAR3FfX8NVIjrDTI2iW6xXWGReEMdNlKYDA8t0Z+ueAxEQr6g9
+	YT2njUbqmRTPWEsovzNdu90s8HNj6Ij0nqnxkX/9wkFmAYw==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gkcxnsx1w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 20:16:13 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 9 Sep 2026 20:16:12 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Wed, 9 Sep 2026 20:16:12 -0700
+Received: from kernel-ep2.caveonetworks.com (unknown [10.29.36.53])
+	by maili.marvell.com (Postfix) with ESMTP id 8A0153F7057;
+	Wed,  9 Sep 2026 20:16:08 -0700 (PDT)
+From: <nshettyj@marvell.com>
+To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Rakesh Kudurumalla <rkudurumalla@marvell.com>,
+        Nitin Shetty J
+	<nshettyj@marvell.com>,
+        Sunil Goutham <sgoutham@marvell.com>,
+        "Ratheesh
+ Kannoth" <rkannoth@marvell.com>,
+        Geetha sowjanya <gakula@marvell.com>,
+        Subbaraya Sundeep <sbhatta@marvell.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>
+Subject: [PATCH net v2] octeontx2-af: Fix BPID leak in nix_bp_enable()
+Date: Thu, 10 Sep 2026 08:46:04 +0530
+Message-ID: <20260910031604.1045397-1-nshettyj@marvell.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1d625a60-9473-4f48-a384-7d756ccb7135@kernel.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDAzMyBTYWx0ZWRfX5YrGlZ8fvgc9
+ h437DadRbTCvd2iQoI8UU9jguFQ72WI5U0yfUMjhWaSakRii60TwlYGLADeQNNImTTLhDRnPaKr
+ hBVDRdJ/nv/I6EsEeqNOYXfDU2K1EkCovGg/w8NABjw7GZggz/rXXgeLiPAgU8ldudqY0RpQoH9
+ ONsHDcD/tlN1z+5ez7z4vRH2fGeuyJYlFV8e0cLP5Xtm3YStOFJwmVtwKcbI582RrR/N9+y/p7k
+ SVK0hywdJtmHNXCEAr5Ofr/aXJl68rDRyH8Do7AFDMRHljts28LhsSaRYyQCXEfY/2tekKWzufq
+ Ce5PN1Z7BOVdX/3nMP8S+Np14u0q6AZE0KH3Rt8RaT5GDvlznBKaPejJCPOe4elIvX83AuMJ9Ko
+ +cN806QxPvmsgRel10BgFmIholsF4vUwlbirJaUcoOdW7qzq1Zt6FmQUOWO1xeHFaiVbPEPUTjq
+ kbPFbI+TaNVbI56Ay9Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDAzMyBTYWx0ZWRfXxrWUpw8qebVO
+ qKhMbq7si2QsBRkogYjB3WD7TfnxcgU8MDf5HnU5+PqdulTedMLv+bwynAYvK3NeK/YQnfOCP42
+ /KzweFKrafldWX4G0YoeF+fn9lg52wo=
+X-Authority-Analysis: v=2.4 cv=UJxIjyfy c=1 sm=1 tr=0 ts=6aa220fd cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=qit2iCtTFQkLgVSMPQTB:22 a=M5GUcnROAAAA:8 a=_GkZ78KWd3HuAaUqZusA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-ORIG-GUID: UkOaB3RKQ7XK8-mBESIfWFbF33tjgTuc
+X-Proofpoint-GUID: UkOaB3RKQ7XK8-mBESIfWFbF33tjgTuc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_01,2026-09-09_02,2025-10-01_01
 
-On Mon, Sep 07, 2026 at 04:27:50PM +0200, David Hildenbrand (Arm) wrote:
->On 9/3/26 11:55, Yuan Liu wrote:
->> Hi all,
->
->Hi!
->
->> 
->> While stress testing memory hotplug on a VM guest running an
->> unmodified vanilla mainline kernel (7.3.0-rc1, as reported by
->> uname -r), we hit a kernel panic in the guest when memory
->> hot-unplug runs concurrently with memory compaction.
->> 
->> The kernel was built from mainline at commit:
->> 
->>     cee9395acd80 ("Linux 7.3-rc1")
->> 
->> To be more specific, after a large virtio-mem hot-unplug, the guest
->> kernel takes a fatal page fault in suitable_migration_target(), called
->> from isolate_freepages() during compaction.
->
->Sounds like a real problem we should tackle.
->
->> 
->> We are not sure whether this race is reachable under realistic
->> workloads or only under this synthetic stress test. Sharing it here
->> in case it is useful, and in case this is already a known issue.
->> Thanks.
->> 
->> 
->> Call trace (top to bottom)
->> ==========================
->> - RIP: suitable_migration_target+0x5/0x70
->>    isolate_freepages() <- compaction_alloc() <-
->>    migrate_pages() <- compact_zone() <- compact_node() <-
->>    sysctl_compaction_handler().
->> 
->> 
->> Why the race happens
->> ====================
->> CPU0 (compaction free-scanner)          CPU1 (virtio-mem hot-unplug)
->> ----                                    ----
->> page = pageblock_pfn_to_page()
->>    /* checks pass, section ONLINE */
->>    /* returns valid struct page* */
->> 
->>                                          offline_pages()
->>                                            /* section -> offline */
->>                                          __remove_pages()
->>                                            vmemmap_free()
->>                                            /* struct page UNMAPPED */
->> 
->> suitable_migration_target(page)
->>    PageBuddy(page)
->>      read page->page_type
->>      *** not-present fault -> panic ***
->> 
+From: Rakesh Kudurumalla <rkudurumalla@marvell.com>
 
-Does it mean, the combination of pfn_to_online_page() / PageBuddy(page) is not
-safe, when there is hot-remove, even for other users. Not only compaction.
+For LBK interfaces, rvu_nix_get_bpid() allocates a BPID from the free
+pool on every call. nix_bp_enable() called it unconditionally before
+the loop, and again after the last channel was programmed, leaking a
+BPID whenever that extra call's result went unused. With
+req->chan_cnt == 0, the pre-loop call leaked a BPID on every call.
 
->
->If it can be hit with virtio-mem, it can be hit with any other memory hotunplug
->code path (e.g., dimm, dax).
->
->It is known that pfn_to_online_page() is racy. We usually expect the race window
->to be extremely small. But for compaction the race window is much larger.
->
->We do have get_online_mems()/put_online_mems(), big its the big hammer.
->
->We once discussed using RCU to protect pfn_to_online_page(), but I suspect for
->comapction that's not actually helpful (again, large race window).
->
->We'd have to use the memory notifier or a dedicated callback to let memory
->offlining sync with compaction.
->
->That's where it gets tricky :)
->
->
->It would be sufficient to let MEM_OFFLINE wait until any previous compaction
->users would be done with the range. In that case, the sections would be offline,
->but the memmap and zone range would not have been adjusted yet.
->
->-- 
->Cheers,
->
->David
+Move the allocation into the loop body so it runs exactly once per
+channel actually programmed, and reject req->chan_cnt == 0 upfront.
 
+Fixes: d6212d2e41a0 ("octeontx2-af: Create BPIDs free pool")
+Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
+Signed-off-by: Rakesh Kudurumalla <rkudurumalla@marvell.com>
+---
+changes in v2:
+- Move the rvu_nix_get_bpid() call for LBK BPID allocation from before
+  the loop into the loop body.
+- Validate req->chan_cnt before allocating BPIDs.
+- updated commit message and fix tag
+---
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+index 153eb57bad06..3a43432d29c1 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+@@ -764,19 +764,25 @@ static int nix_bp_enable(struct rvu *rvu,
+ 	if (cpt_link && !rvu->hw->cpt_links)
+ 		return 0;
+ 
++	if (!req->chan_cnt)
++		return NIX_AF_ERR_INVALID_BPID_REQ;
++
+ 	pfvf = rvu_get_pfvf(rvu, pcifunc);
+ 	blkaddr = rvu_get_blkaddr(rvu, BLKTYPE_NIX, pcifunc);
+ 
+-	bpid_base = rvu_nix_get_bpid(rvu, req, type, chan_id);
+ 	chan_base = pfvf->rx_chan_base + req->chan_base;
+-	bpid = bpid_base;
++	bpid_base = -1;
+ 
+ 	for (chan = chan_base; chan < (chan_base + req->chan_cnt); chan++) {
++		bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
+ 		if (bpid < 0) {
+ 			dev_warn(rvu->dev, "Fail to enable backpressure\n");
+ 			return -EINVAL;
+ 		}
+ 
++		if (bpid_base < 0)
++			bpid_base = bpid;
++
+ 		chan_v = nix_get_channel(chan, cpt_link);
+ 
+ 		cfg = rvu_read64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v));
+@@ -784,7 +790,6 @@ static int nix_bp_enable(struct rvu *rvu,
+ 		rvu_write64(rvu, blkaddr, NIX_AF_RX_CHANX_CFG(chan_v),
+ 			    cfg | (bpid & GENMASK_ULL(8, 0)) | BIT_ULL(16));
+ 		chan_id++;
+-		bpid = rvu_nix_get_bpid(rvu, req, type, chan_id);
+ 	}
+ 
+ 	for (chan = 0; chan < req->chan_cnt; chan++) {
 -- 
-Wei Yang
-Help you, Help me
+2.48.1
+
