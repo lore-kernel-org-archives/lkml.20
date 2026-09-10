@@ -1,237 +1,482 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1654B34F255
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054005; cv=none; b=K5MqmyoJqtcH4vgKu5YxduSPfyUqj6DaqvYHk9N2/sth7rELkhxIsHqbzEmaKtOIIyuS1I/Ba2H8xgfvGVBR0V0WtbdBtgpafWMDP6bdvxIUH3jDFOH4UwvXXFi7Clx2feJp3Vr2hSk8LzpoUMBbatyeRYAK2wsB5Z4PvIyydRc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054005; c=relaxed/simple;
-	bh=ZO2yvDepDB5xzJbShcoDrCcUNzgfujqH7PRPIfeteTQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SOLdTf/v9YoiUMPe0JSkThVsCXmvL3jR76byftZ2b63qvcBfYrN7hmJKcoVIcdST0Mt0xyK8RB9O2FX8C9Y7lZypNf0Gl+k3EVROkssqyum3hK5BjsHu3qboljZXS4WSrn+IYViZJrpE+B1lmaDa+21laictlWpgR7Tlc/Tc3Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=i5b59XKn; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F47408031
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789054116; cv=pass; b=WW1BB2HebSqKZe8vsa5bunsfKih0xf4G60VY70gri9uk/7/QhDPx1Cr43zsO+yra0TRonobPZ+M/irYTpUIHrGzx86r6cSD9eLS0DPGQUg8BJdfHTgsPwnxHWtP1t+TVimnNXbIwrDr5tsJ8wTF2HTqVFd43eZxgLwEEKExtV1E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789054116; c=relaxed/simple;
+	bh=ot1MDAiX1bkE79ZfytaWVGQiLliZNPAGQ/ha5i2UYDE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=LiO5uP8+dOMwc6RRtZY5EISTjudkRzcXxdEzoENONrzcbphhZk7MGxbSV64hcpPpN2BiQPeQjGX2T0MY4ytKAdL8eEe+PnJr+/+4sAhBB3vZZhkO4tCU8yBPyLbHxBzD+1tUzMcfi5izORDAW3MhCRE2zbsS9pgwL6qATlZYkGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qNqM/V7L; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="i5b59XKn"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90e970f710cso75905036d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:26:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qNqM/V7L"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so91605ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:28:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789054113; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QtbB5F98RG91Vi4w6E41MtDsbwQ3+H1xt9D9XFM6D/BgyD1hxc+5ptPsTg0Otoz7s2
+         dNebXxI+tiTFKN98rubgoRNYVpyIvKN+IAvKer7TvRkrU0S6VwRYe2zm/X3p3Oqq0BzE
+         jCwXSf44eYMR6E8PcycON2nP66oIrLx9mvhAJbPGsVvUXGcqZeW6NN0xTEDMWSfk4/vV
+         idOVIkmreVG9ZBFgMFGwZ4S0/fckbcrl83mPoAYMIz1s2pKbVKkE4jgW+rLeuH4dkOdj
+         6dMyNed8r/HmhI1UFQR/TtdteQ3BzLMQTSe5Xf1MWecDFB5IwcSgd2ln3v+RK5Gy2b9a
+         vVzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=xo3WnTQ2bjcUUvcq+sZLWjr91B/KOL9hrB7vKtu8+KQ=;
+        fh=/SJJKIc7haf/+DXfKSwd9nj6ZC4/bya3PXkdMH7yGfw=;
+        b=IesBFJ4RctcR10UkWeLeoeuUGX6YOnhwLlvIkylqUorpn3n+mJ+uHVlsf6Vh7C/osJ
+         forwvs9JsFzD8DH11b5RbbeSjxtTfTI3/PttRNlErGVoE8U28jYYAp8JhhSky0+ILqAf
+         NR6QTj/xrwOy/8xqKoI1x45DHSWqu68SBesiwMVKkdDkJz//qnyGhPV3nYUwWybBsWH+
+         Tg6Gar8Qvyn1MMDsqP+gdYnhgojpXvXDfPq7YUdvpCgoBPq4E9OQtOEKaW8ptEiSNNz3
+         5Pf94TPeLigFgUQPcQazGX0rb/DGgy6vofbmlYoDPMljIigtBAuQKmogKGow9pdmn0Hj
+         +hYA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789054003; x=1789658803; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UbXQIuo0NcIuxxmA533Eh1W7sX2mi8fyfrtvA9Iq3dc=;
-        b=i5b59XKnqtA8P6Pd2S7vU5C8YRVGG5RDn8/sQ3GVkL1v6VsAWlG7YrWa1X5UP+UsN5
-         zKVihZvvEN9Fr8Tkv/ksEeZk2h+e3X/IpoWu2FITJ7+Rbp+fR/2dAXk3y4Fm4012MV7m
-         PtgovVrv6MZq1X1BVvwIY0/4Y0rWElKqbEcmZJlzUy0mdNj3O2T+dXd70mdkBgKIxg4c
-         +ozf6Me4+CxZ/41gpg7vld6gNXHMOo2Ga9H+kym0CyzbU0aZUfWJin0G2fq+7WKvh2eB
-         IAt0pKnUxR2cE8OVYk4DNsrFuPgyAYlUPmdXOMQO5zu3Ss0LZOVGR7ChUXA1lr12FLbq
-         P/PA==
+        d=google.com; s=20251104; t=1789054113; x=1789658913; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xo3WnTQ2bjcUUvcq+sZLWjr91B/KOL9hrB7vKtu8+KQ=;
+        b=qNqM/V7LLRkcOl0aVoG8ArPDXi0CSENE/RkL3/+vDoEq9BSLnBvEA2J9OnNvVGKQIS
+         Qr5+L4LWur9dlpV19KPF/QQqH5uZZOD5dmfkuWLZfminYSrV8gUGe1shktuB52VJ/Ffg
+         eoaNntgY0lmmMAoXOJpXN5k7En0BRXlxHNdDjKCKsIhEr4C82GWtq8d4O4OQk71C3aHl
+         lv7YiKX1fEfv53/LOJLqJpeF7g/68erHaldojYrOsxfxlvjxud6HuKYsQPSCCvTaVJvb
+         xzB+vrmFuVQzVJ9RqO4/7TtgJIAfAj16tt6luv/+MIbIgpP9Xv5kv9hmGW5uPGXOOZIK
+         KYpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789054003; x=1789658803;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UbXQIuo0NcIuxxmA533Eh1W7sX2mi8fyfrtvA9Iq3dc=;
-        b=Ogjt429BrRVduPy4YovAd+m0fv0u3BLBVy4v8LxuOMqgNSza3/YCn1HI0h/F5Yimlz
-         /mtr8QvyhKCStKmFCqKx1SBZ+6feX9PUmQGZP2ofrYnCTA2MarEZjs5AgkDco3qznvmE
-         wYhCKMWEM7lvlDPSkba9KVFUCKsiQmnnk9JXtsU/2xbtJDty+75YT+NHGXFR7kRX64rq
-         unQwOTLSf3DG5FTVXxT/ECOCO5Sm0cEFQKQeyP84mAZMNxoAPrd5TNjmR00t00gwP/9T
-         Mty5EQ2bgcL46WUDZgSOH2WzNaYMrT3Aq2MOnIMSFZAOaKNwJBfsoxnfGmGrO9pAy+d1
-         q2bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwOVmByLinJPA9nYufTIWWpErsDee1ivh+LUdA1yRO61y6+zm+OILEtEz9Fle0RI8CgN4m8++4oyAjoLy8=@vger.kernel.org
-X-Gm-Message-State: AFuF++knUvhFQ2qitV7k0CrkPgjapwEqbOKJ94ifAbjrt5UlE+cL+bUO
-	9uW/z7V2uvtXkUDyMkzAFF7d/57zBv0IgeBrnFIB9lZbsgHN+mjXkhZvVMDYSgBr3g==
-X-Gm-Gg: AYBFou0VyiCobWAnMKvLBwf1ec0WCgHigL9CtUhJDuwC+p3Hqo//J/NpXBGhq63rvwc
-	eTA6i/UyfATU/ugRiNMX+naRHgF27ILoLOeCVGYPfgWbKg0OK6xfoXNQZGkYZU43xF+0RJfWFl/
-	j1k2BbVI0olK/11J71FobUEvReIWYJyKTcgaLpw9N/YltDs0K8jS4zcto+ac3uziKVOshGk90Ma
-	mQ1QIGHnLXpZ3rduDH/p68wYBLIFCJKsxFTcl1evV7VrwOEj6klZbmtZtx1/DE55ceI0GCqd9X7
-	/ii88Q94XJALG2jUJJxvzV55ct2X/zccJa9lEQjwINGWbGAIsh5pUj6/CZz8Rhfeyg/SZcrcR+Q
-	0MhA5bZONCGTbsz+AV7IBQlg7FQlmiZZjxFuL4aay+eEcOtCzt3IZ8JSEGmr2P1/ZgNIXG0vuHc
-	vRix7ZYqMINMLfStO3tyg9NjsoupI4RjM1LYVGKfEf0nJx6+MISAVppc9qA91X/SzvxFll71HP
-X-Received: by 2002:a05:6214:230f:b0:8fd:d5a7:f970 with SMTP id 6a1803df08f44-9103efef7b2mr506271296d6.11.1789054002587;
-        Thu, 10 Sep 2026 08:26:42 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040646d59sm171288396d6.8.2026.09.10.08.26.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 08:26:41 -0700 (PDT)
-Date: Thu, 10 Sep 2026 11:26:38 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <541b1db8-8649-46a9-9fa1-1b5f93cded7f@rowland.harvard.edu>
-References: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
- <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
- <aqKu8nJqPsmKOo1d@localhost.localdomain>
+        d=1e100.net; s=20251104; t=1789054113; x=1789658913;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xo3WnTQ2bjcUUvcq+sZLWjr91B/KOL9hrB7vKtu8+KQ=;
+        b=VypfbcU4wZ2hINhMwEHo6QSQomy83xzcHnDtwh1A/cmT/HLJlGL/SEJEdamnCSobkd
+         LkD83yTyAjBMohGyQ/mcbTLpplc6gn8x9MrPgi/gBehSHWxokrei0GA7dbt12VVKCr4l
+         dUzjLeGWN+EQvZZjfmnDZ6Wb0kpjouI0X+ZdZ8SwKP5mod37mDXnd1hIN93keBefWeYe
+         uHOv8lUO2bcv909kmJyqYU78A8ZDZp2iADMLUj5f52tQf6sJgaaPxXhOV+KcpIiblgGB
+         /j+nPHqyolNnya51C8t11lkFaMMu3bJHcwYzJDnExyoyoDd9fgDGl0cEV5RvqTsyzVOf
+         /xPw==
+X-Gm-Message-State: AFuF++lip8s3BPmxUmzvVXfxgn6lzm8iWDh3GEcyRzZfjYNFqx0HORBY
+	1NgHcNByVG1q/uSJzHuzpcOFU0y5/yw6jNqnaUo73pmTZQn38gfB6hjKn+e09ZI0U2kOBTkSxnM
+	+7wD9s7Vs6WseA6GHPCdPpk8SweVmcK5m1YKSEGri
+X-Gm-Gg: AYBFou0Q8YtW2UkTAbT/rqdkEvXVVnT/Cnv6LLUVrSE34hzUYuGxFHyOtxlygyhDhOW
+	69VzLis76jAVbUkkj6LxYI02DhE7p4eqQaOmv5Gh6B6h5G21wwzDJUTdJl+e5dDr8TG7WO6JS/e
+	OlK7xW7bLAdfhrmzkxJhEN11JHKE9OigMvSY+Q/gQqbnY9jvFdzRLrvn7eLqdqXH250Eev+GGUX
+	0SaZ8jBO/x5MqPqF0vqlrvT7YP9XEkwTWSsX23TczdwXF75ks81uI3QPZVq6lHBlOiRO7Yu3Etd
+	QelN5PNdD0GW8qxwqRLLDoYB3ZwIzrdDSglN5evtoOocmtUrZgyPm9At5P6tIYbyA+ffXwdndyF
+	ayEwhIt+wbu9zq2i1wYLI+86713t+BB9NxeWZrBcddQ==
+X-Received: by 2002:a17:903:32c3:b0:2d5:db38:8013 with SMTP id
+ d9443c01a7336-2dd1174b3efmr6298935ad.18.1789054112293; Thu, 10 Sep 2026
+ 08:28:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqKu8nJqPsmKOo1d@localhost.localdomain>
+From: Jann Horn <jannh@google.com>
+Date: Thu, 10 Sep 2026 17:27:54 +0200
+X-Gm-Features: AcwNN1VBED9vrLC13TsybE0t8qGPUg2fRNaIzbWmVlEkeSoQ0FVvh7SF41nS5so
+Message-ID: <CAG48ez26PrUOb8er9TP1gWLsqVLU8TEDr+1Zs25fgH0++=zhUQ@mail.gmail.com>
+Subject: [BUG] futex: scheduling-while-atomic because nested vfork can break guard(private_hash)
+To: Hyunwoo Kim <imv4bel@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Cc: kernel list <linux-kernel@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="000000000000da0e2e065b229eda"
 
-On Thu, Sep 10, 2026 at 03:21:54PM +0200, Frederic Weisbecker wrote:
-> Alan, let me ask you something, because I'm the only one here puzzled by
-> this data dependency.
-> 
-> The following scenario works (the bad outcome never happens) because
-> UNLOCK+LOCK pairs with smp_load_acquire():
-> 
-> 	C MP+polocks
-> 
-> 	{}
-> 
-> 	P0(int *A, int *B, spinlock_t *mylock)
-> 	{
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*A, 1);
-> 		spin_unlock(mylock);
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*B, 1);
-> 		spin_unlock(mylock);
-> 	}
-> 
-> 	P1(int *A, int *B)
-> 	{
-> 		int r0;
-> 		int r1;
-> 
-> 		r0 = smp_load_acquire(B);
-> 		r1 = READ_ONCE(*A);
-> 	}
-> 
-> 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-> 
-> 
-> So I understand this one. Now unfortunately litmus doesn't support
-> structures, but let's suppose it could. I'm taking the previous script
-> and introduce a small change in P1:
-> 
-> 	C MP+polocks
-> 
-> 	{}
-> 
-> 	P0(int *A, int *B, spinlock_t *mylock)
-> 	{
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*A, 1);
-> 		spin_unlock(mylock);
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*B, 1);
-> 		spin_unlock(mylock);
-> 	}
-> 
-> 	P1(int *A, int *B)
-> 	{
-> 		int r0;
-> 		int r1
-> 
-> 		r0 = READ_ONCE(*B);
-> 		spin_lock(r0->somelock)
-> 		r1 = READ_ONCE(*A);
-> 		spin_unlock(r0->somelock)
-> 	}
-> 
-> 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-> 
-> 
-> So instead of doing a LOAD-ACQUIRE on B, I do a plain READ but I also
-> do a spin_lock right after on a data that depends on that READ. I can't
-> run that on litmus but this is the same (simplified) pattern as what we
-> had in this discussion and therefore I assume that it also works (ie: the
-> bad outcome shouldn't happen), is that right?
+--000000000000da0e2e065b229eda
+Content-Type: text/plain; charset="UTF-8"
 
-Yes.
+Introduction
+============
+The futex private hash implementation was written with the assumption
+that any MM used by more than one running task either has a private
+hash or has irrevocably opted out of having a private hash; but this
+isn't actually the case.
 
-> Would it also work if spin_lock() was just a LOAD-ACQUIRE?
+Commit ee9dce44362b ("futex: Drop CLONE_THREAD requirement for private
+default hash alloc") tried to fix cases where processes can share an
+MM without triggering private hash allocation, but overlooked that
+nested vfork can also result in concurrently running processes sharing
+an MM. After that was discovered, commit bde023808364 ("futex: Fix
+race on the initial mm->futex.phash.ref allocation") instead changed
+futex_hash_allocate() to not rely on this assumption anymore; but
+other places in the futex code still make this assumption.
 
-Yes.
+Issue description
+============
+exit_pi_state_list() contains this code to handle waiters on PI
+futexes held by the current task, which is exiting or going through
+execve:
+```
+ /*
+* Ensure the hash remains stable (no resize) during the while loop
+* below. The hb pointer is acquired under the pi_lock so we can't block
+* on the mutex.
+*/
+[...]
+guard(private_hash)(current->mm);
+[...]
+raw_spin_lock_irq(&curr->pi_lock);
+while (!list_empty(head)) {
+  [...]
+  if (1) {
+    CLASS(hbr, hbr)(&key);
+```
 
-> Does it mean that data dependency implies sufficient ordering such that
-> a LOAD-ACQUIRE to a data that depends on B provides the same guarantees as
-> a LOAD-ACQUIRE to B?
+CLASS(hbr, hbr)(&key) calls futex_hash(), which (if the MM is in the
+middle of switching between two futex_private_hash instances) can call
+futex_pivot_hash(), which can block on scoped_guard(mutex,
+&mm->futex.phash.lock). guard(private_hash) is supposed to have taken
+a reference on the futex_private_hash, which would prevent switching
+to another futex_private_hash instance; but guard(private_hash) will
+have been a no-op if the MM didn't have a futex_private_hash yet at
+that time.
 
-Indeed it does, with the obvious exception that a load-acquire of B 
-also provides ordering to any statements in between it and the load of 
-the data depending on B.  That is:
+So it is possible to race as follows:
 
-	r0 = smp_load_acquire(B);
-	X;
-	r1 = READ_ONCE(r0->A);
+First, use nested vfork to create three processes P1, P2, and P3 that
+share one MM and can run concurrently. That can be done like this:
 
-orders the load from B before everything that follows, including X, 
-whereas:
+ - P1 vforks to create P2'
+ - P2' vforks to create P2
+ - P2 sends SIGKILL to P2' to unblock P1
+ - P1 vforks to create P3'
+ - P3' vforks to create P3
+ - P3 sends SIGKILL to P3' to unblock P1
 
-	r0 = READ_ONCE(B);
-	X;
-	r1 = smp_load_acquire(r0->A);
+Then race like this (view this in monospace):
 
-orders the load from B before the load from r0->A and everything 
-following it, but not before X.
+P1         P2                   P3          RCU
+==         ==                   ==          ===
+           futex(FUTEX_LOCK_PI|FUTEX_PRIVATE_FLAG)
+             [success]
+                                futex(FUTEX_LOCK_PI|FUTEX_PRIVATE_FLAG)
+                                  [blocks]
+           do_exit
+             exit_mm
+               mm_exit_exec_release
+                 futex_exit_exec_release
+                   futex_cleanup
+                     exit_pi_state_list
+                       guard(private_hash)(current->mm)
+futex_hash_prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS)
+futex_hash_prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS)
+  futex_hash_allocate
+    scoped_guard(mutex, &mm->futex.phash.lock)
+    futex_ref_drop
+      __futex_ref_atomic_begin
+        call_rcu_hurry(..., futex_ref_rcu)
+                                            futex_ref_rcu
+                                              __futex_ref_atomic_end
+                       raw_spin_lock_irq(&curr->pi_lock)
+                       CLASS(hbr, hbr)(&key)
+                         futex_hash
+                           futex_private_hash_get [fails]
+                           futex_pivot_hash
+                             scoped_guard(mutex, &mm->futex.phash.lock)
+                               *** scheduling-while-atomic ***
+    __futex_pivot_hash
 
-> The reason I'm asking that is because, unlike control dependency, data
-> dependency and its guarantees are not well documented. It is defined in
-> tools/memory-model/Documentation/explanation.txt but not really described
-> in Documentation/memory-barriers.txt. There is a mention in a scenario within
-> the section "MULTICOPY ATOMICITY" just to show that it's not as strong as
-> a full memory barrier.
-> 
-> So if data dependency can provide the guarantee above in my second script
-> but it's not as strong as a full barrier, this suggests that data dependencies
-> have their own specific properties that should probably be documentated.
+Impact, related issues
+==========
+futex_wait_multiple_setup() follows the same pattern of using
+guard(private_hash)(current->mm) to ensure that a later CLASS(hbr,
+hbr)(&q->key) won't sleep and is probably affected by the same issue.
 
-Perhaps so.  Can you suggest a place in explanations.txt that could be 
-improved?
+__futex_unlock_pi() and requeue_pi_wake_futex() also use
+futex_private_hash(), but there the race seems benign.
 
-Here's how I think about ordering guarantees in general.  Not in terms 
-of pairing of memory barriers, since (as you pointed out) dependencies 
-aren't memory barriers, and also since ordering cycles can involve more 
-than two CPUs (so triples or higher, not just pairs).
+This issue also means that different futex users could disagree about
+the hash bucket that a private futex belongs in (older futex_hash()
+calls returning a pointer into the global hash, newer futex_hash()
+calls returning a pointer into the private hash). For most users of
+CLASS(hbr, hbr)(...), that probably just leads to futex wake/wait
+operations on the same userspace address not interacting with each
+other, without affecting the kernel. But an interesting aspect of
+exit_pi_state_list() is that it does spin_lock(&hb->lock) further down
+without any visible access to the corresponding hash bucket; I can't
+tell if that actually protects against something, but if yes, this
+locking might be broken if the corresponding locking in another task
+is holding the hb->lock of a global hash entry instead?
 
-Instead there's a hierarchy of ordering classes.  The lowest level only 
-orders events on a single CPU; it includes dependencies, smp_rmb(), and 
-load-acquires.
+Sidenote
+========
+Maybe we should block CLONE_VFORK when current->vfork_done!=NULL ? It
+is clearly bad to allow nested vfork() such that a SIGKILL can cause
+two threads to run concurrently on the same userspace stack.
 
-The next level orders cross-CPU events (i.e., writes), but only in a way 
-that affects two CPUs at a time.  It includes things like smp_wmb() and 
-store-releases, and it guarantees that if CPU 1 writes A first and B 
-second, then CPU 2 will observe the store to A before it observes the 
-store to B.  Likewise for CPU 3, CPU 4, etc., but there is no guarantee 
-about the order in which differing CPUs will observe the stores.
+But I'm not sure if that's a good fix for these futex issues - a fix
+that doesn't rely on such distant assumptions might be nicer...
 
-The highest level orders events in a way that involves all CPUs.  It 
-includes things like smp_mb() and synchronize_rcu(), and it says that if 
-CPU 1 writes A first and B second, then _every_ CPU will observe the 
-store to A before _any_ CPU (including CPU 1!) observes the store to B.
+Reproducer
+==========
+Tested at mainline commit 50d05c7c76c96b90462f24debacca971d2e86713,
+with a build with options:
 
-This is a little imprecise, and there are varying details within the 
-levels, but the overall idea is basically right.
+CONFIG_PREEMPT=y
+CONFIG_RCU_STRICT_GRACE_PERIOD=y
+CONFIG_DEBUG_ATOMIC_SLEEP=y
 
-At any rate, the point you're raising is that dependencies and 
-load-acquires both sit at the lowest level of this hierarchy, so they 
-provide pretty much the same ordering guarantees.
+To test, patch delays into the kernel like this (also attached as
+kernel-delay-patch.diff):
+```
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index a061f54b606d..94ebd2c25b2a 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -47,6 +47,7 @@
+ #include <linux/vmalloc.h>
+ #include <linux/kmemleak.h>
+ #include <linux/wait_bit.h>
++#include <linux/delay.h>
 
-Alan Stern
+ #include <vdso/futex.h>
+
+@@ -1359,6 +1360,7 @@ static void exit_pi_state_list(struct task_struct *curr)
+         */
+        WARN_ON(curr != current);
+        guard(private_hash)(current->mm);
++       if (strcmp(current->comm, "SLOW-1") == 0) mdelay(1000);
+        /*
+         * We are a ZOMBIE and nobody can enqueue itself on
+         * pi_state_list anymore, but we have to be careful
+@@ -1945,6 +1947,7 @@ static int futex_hash_allocate(unsigned int
+hash_slots, unsigned int flags)
+                                 * reference on the existing hash.
+                                 */
+                                futex_ref_drop(cur);
++                               if (strcmp(current->comm, "SLOW-2") ==
+0) mdelay(10000);
+                        }
+
+                        if (new) {
+```
+
+And run the following testcase:
+```
+#define _GNU_SOURCE
+#include <err.h>
+#include <sched.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/prctl.h>
+#include <sys/syscall.h>
+#include <linux/futex.h>
+
+static void *alloc_stack(void) {
+  size_t stack_size = 1024*1024;
+  void *p = mmap(NULL, stack_size, PROT_READ|PROT_WRITE,
+MAP_ANONYMOUS|MAP_PRIVATE, -1, 0);
+  if (p == MAP_FAILED)
+    err(1, "stack mmap");
+  if (madvise(p, 0x1000, MADV_GUARD_INSTALL))
+    err(1, "stack madvise");
+  return p + stack_size;
+}
+
+static pid_t child1, child1b;
+
+static unsigned int futex_var;
+
+int child_fn2(void *arg) {
+  printf("child_fn2 entry, will kill %d\n", child1);
+
+  syscall(__NR_futex, &futex_var, FUTEX_LOCK_PI|FUTEX_PRIVATE_FLAG, 0, NULL);
+  if (kill(child1, SIGKILL))
+    err(1, "kill");
+
+  usleep(100000);
+  prctl(PR_SET_NAME, "SLOW-1", 0, 0, 0);
+  exit(0);
+}
+int child_fn1(void *arg) {
+  child1 = getpid();
+  if (clone(child_fn2, alloc_stack(),
+CLONE_VM|CLONE_VFORK|CLONE_PARENT|SIGCHLD, NULL) == -1)
+    err(1, "second clone");
+  errx(1, "child_fn1 running after clone");
+}
+
+int child_fn2b(void *arg) {
+  printf("child_fn2b entry, will kill %d\n", child1b);
+  if (kill(child1b, SIGKILL))
+    err(1, "kill");
+
+  // this will block until the bug has been hit
+  syscall(__NR_futex, &futex_var, FUTEX_LOCK_PI|FUTEX_PRIVATE_FLAG, 0, NULL);
+  exit(0);
+}
+
+int child_fn1b(void *arg) {
+  child1b = getpid();
+  if (clone(child_fn2b, alloc_stack(),
+CLONE_VM|CLONE_VFORK|CLONE_PARENT|SIGCHLD, NULL) == -1)
+    err(1, "second clone");
+  errx(1, "child_fn1b running after clone");
+}
+
+int main(void) {
+  setbuf(stdout, NULL);
+  if (clone(child_fn1, alloc_stack(), CLONE_VM|CLONE_VFORK|SIGCHLD, NULL) == -1)
+    err(1, "first clone");
+  if (clone(child_fn1b, alloc_stack(), CLONE_VM|CLONE_VFORK|SIGCHLD,
+NULL) == -1)
+    err(1, "first clone");
+  printf("parent running after clone\n");
+  usleep(500000);
+  prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, 4, 0, 0);
+  prctl(PR_SET_NAME, "SLOW-2", 0, 0, 0);
+  prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, 8, 0, 0);
+  return 0;
+}
+```
+
+This gives me a "sleeping function called from invalid context"
+warning, a "Invalid wait context" warning, and a
+scheduling-while-atomic BUG:
+```
+sh-5.3# /host/h/test/nested_vfork/nested_vfork
+child_fn2 entry, will kill 82
+[...]
+child_fn2b entry, will kill 84
+parent running after clone
+ BUG: sleeping function called from invalid context at
+kernel/locking/mutex.c:623
+ in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 83, name: SLOW-1
+ preempt_count: 1, expected: 0
+ RCU nest depth: 0, expected: 0
+ locks held by SLOW-1/83: 2, last CPU#0:
+  #0: ffff888101e73100 (&tsk->futex.exit_mutex){+.+.}-{4:4}, at:
+futex_exit_exec_release+0x27/0x160
+  #1: ffff888101e726f0 (&p->pi_lock){-.-.}-{2:2}, at:
+exit_pi_state_list+0xd7/0x5a0
+ irq event stamp: 3306
+ hardirqs last  enabled at (3305): [<ffffffff838780bb>] __schedule+0x13eb/0x18d0
+ hardirqs last disabled at (3306): [<ffffffff83886c47>]
+_raw_spin_lock_irq+0x17/0x50
+ softirqs last  enabled at (3294): [<ffffffff814b251d>]
+__irq_exit_rcu+0xad/0x180
+ softirqs last disabled at (3283): [<ffffffff814b251d>]
+__irq_exit_rcu+0xad/0x180
+ CPU: 0 UID: 0 PID: 83 Comm: SLOW-1 Tainted: G                 N
+7.3.0-rc2-00099-g50d05c7c76c9-dirty #77 PREEMPT
+ Tainted: [N]=TEST
+ Call Trace:
+  <TASK>
+[...]
+  __might_resched+0x290/0x2b0
+  __might_sleep+0x54/0x90
+[...]
+  __mutex_lock+0x69/0x1180
+[...]
+  mutex_lock_nested+0x16/0x20
+  futex_hash+0x2a4/0x310
+[...]
+  exit_pi_state_list+0x110/0x5a0
+  futex_exit_exec_release+0x159/0x160
+  mm_exit_exec_release+0x1e/0x1b0
+  exit_mm+0x3b/0x200
+  do_exit+0x43c/0x1390
+  do_group_exit+0x139/0x140
+[...]
+  __x64_sys_exit_group+0x26/0x30
+[...]
+  </TASK>
+
+ =============================
+ [ BUG: Invalid wait context ]
+ 7.3.0-rc2-00099-g50d05c7c76c9-dirty #77 Tainted: G        W        N
+ -----------------------------
+ SLOW-1/83 is trying to lock:
+ ffff888100098488 (&fd->phash.lock){+.+.}-{4:4}, at: futex_hash+0x2a4/0x310
+ other info that might help us debug this:
+ context-{5:5}
+ locks held by SLOW-1/83: 2, last CPU#0:
+  #0: ffff888101e73100 (&tsk->futex.exit_mutex){+.+.}-{4:4}, at:
+futex_exit_exec_release+0x27/0x160
+  #1: ffff888101e726f0 (&p->pi_lock){-.-.}-{2:2}, at:
+exit_pi_state_list+0xd7/0x5a0
+ stack backtrace:
+ CPU: 0 UID: 0 PID: 83 Comm: SLOW-1 Tainted: G        W        N
+7.3.0-rc2-00099-g50d05c7c76c9-dirty #77 PREEMPT
+ Tainted: [W]=WARN, [N]=TEST
+ Call Trace:
+  <TASK>
+[...]
+  __lock_acquire+0xade/0x2c30
+  lock_acquire+0xf1/0x210
+[...]
+  __mutex_lock+0xb7/0x1180
+[...]
+  mutex_lock_nested+0x16/0x20
+  futex_hash+0x2a4/0x310
+[...]
+  exit_pi_state_list+0x110/0x5a0
+[...]
+  </TASK>
+ BUG: scheduling while atomic: SLOW-1/83/0x00000002
+ INFO: lockdep is turned off.
+ irq event stamp: 3306
+ hardirqs last  enabled at (3305): [<ffffffff838780bb>] __schedule+0x13eb/0x18d0
+ hardirqs last disabled at (3306): [<ffffffff83886c47>]
+_raw_spin_lock_irq+0x17/0x50
+ softirqs last  enabled at (3294): [<ffffffff814b251d>]
+__irq_exit_rcu+0xad/0x180
+ softirqs last disabled at (3283): [<ffffffff814b251d>]
+__irq_exit_rcu+0xad/0x180
+ CPU: 0 UID: 0 PID: 83 Comm: SLOW-1 Tainted: G        W        N
+7.3.0-rc2-00099-g50d05c7c76c9-dirty #77 PREEMPT
+ Tainted: [W]=WARN, [N]=TEST
+ Call Trace:
+  <TASK>
+  __dump_stack+0x21/0x30
+  dump_stack_lvl+0x76/0xa0
+  dump_stack+0x15/0x20
+  __schedule_bug+0x83/0xa0
+  __schedule+0x12a7/0x18d0
+[...]
+  schedule+0xf9/0x160
+[...]
+  schedule_preempt_disabled+0x11/0x20
+  __mutex_lock+0x2ba/0x1180
+[...]
+  mutex_lock_nested+0x16/0x20
+  futex_hash+0x2a4/0x310
+[...]
+  exit_pi_state_list+0x110/0x5a0
+[...]
+  </TASK>
+```
+
+--000000000000da0e2e065b229eda
+Content-Type: application/x-patch; name="kernel-delay-patch.diff"
+Content-Disposition: attachment; filename="kernel-delay-patch.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mtvmbuul0>
+X-Attachment-Id: f_mtvmbuul0
+
+ZGlmZiAtLWdpdCBhL2tlcm5lbC9mdXRleC9jb3JlLmMgYi9rZXJuZWwvZnV0ZXgvY29yZS5jCmlu
+ZGV4IGEwNjFmNTRiNjA2ZC4uOTRlYmQyYzI1YjJhIDEwMDY0NAotLS0gYS9rZXJuZWwvZnV0ZXgv
+Y29yZS5jCisrKyBiL2tlcm5lbC9mdXRleC9jb3JlLmMKQEAgLTQ3LDYgKzQ3LDcgQEAKICNpbmNs
+dWRlIDxsaW51eC92bWFsbG9jLmg+CiAjaW5jbHVkZSA8bGludXgva21lbWxlYWsuaD4KICNpbmNs
+dWRlIDxsaW51eC93YWl0X2JpdC5oPgorI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+CiAKICNpbmNs
+dWRlIDx2ZHNvL2Z1dGV4Lmg+CiAKQEAgLTEzNTksNiArMTM2MCw3IEBAIHN0YXRpYyB2b2lkIGV4
+aXRfcGlfc3RhdGVfbGlzdChzdHJ1Y3QgdGFza19zdHJ1Y3QgKmN1cnIpCiAJICovCiAJV0FSTl9P
+TihjdXJyICE9IGN1cnJlbnQpOwogCWd1YXJkKHByaXZhdGVfaGFzaCkoY3VycmVudC0+bW0pOwor
+CWlmIChzdHJjbXAoY3VycmVudC0+Y29tbSwgIlNMT1ctMSIpID09IDApIG1kZWxheSgxMDAwKTsK
+IAkvKgogCSAqIFdlIGFyZSBhIFpPTUJJRSBhbmQgbm9ib2R5IGNhbiBlbnF1ZXVlIGl0c2VsZiBv
+bgogCSAqIHBpX3N0YXRlX2xpc3QgYW55bW9yZSwgYnV0IHdlIGhhdmUgdG8gYmUgY2FyZWZ1bApA
+QCAtMTk0NSw2ICsxOTQ3LDcgQEAgc3RhdGljIGludCBmdXRleF9oYXNoX2FsbG9jYXRlKHVuc2ln
+bmVkIGludCBoYXNoX3Nsb3RzLCB1bnNpZ25lZCBpbnQgZmxhZ3MpCiAJCQkJICogcmVmZXJlbmNl
+IG9uIHRoZSBleGlzdGluZyBoYXNoLgogCQkJCSAqLwogCQkJCWZ1dGV4X3JlZl9kcm9wKGN1cik7
+CisJCQkJaWYgKHN0cmNtcChjdXJyZW50LT5jb21tLCAiU0xPVy0yIikgPT0gMCkgbWRlbGF5KDEw
+MDAwKTsKIAkJCX0KIAogCQkJaWYgKG5ldykgewo=
+--000000000000da0e2e065b229eda--
