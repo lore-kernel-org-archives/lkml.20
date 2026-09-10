@@ -1,107 +1,143 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E800471401;
-	Thu, 10 Sep 2026 11:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E888447127D;
+	Thu, 10 Sep 2026 11:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039437; cv=none; b=F7nRI6HSn8mR0uAx+A6QenkYpOgkp9NAqpgDW54KzVtrxYgCuEx7F9Sj6D/s2U8MdRk8uSm+ELFXuV+PKiNVxBBv3SOQ3yip6ZsFHaI01dmBkOl+eMbxCZIPwr89BAoCc+2cs1WsLcIbpwA6sIyXihEVOv3oEELEyeu8FmO9+6E=
+	t=1789039467; cv=none; b=Q6QSG/2BMgRKH+FiVKMkpGpi6lPvKn3XVbf/xxzJO2Jlqu76h70tecP7aACRcvTTQoNiLmM8VUdbuj8pWKIqBjZT4qxKotnCNkq35x92hNd6+1D0ToEG9Z2ePEBaybtkbQsydZ4Pqje65+bK5J+i2HFKX1GWu4D7E233M3ShyEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039437; c=relaxed/simple;
-	bh=TbPcGhmhvAT+HJa1L0LlMMi+b1WBwQBL9mQBG7evoUI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L7DKuhYA93xWfT2BCk+WGI1fplcjTzB/NVHKREut2kzDDMKClgbO/5fYFVOH/mNdzVhGwXhSs70GUibGLaL7uejCHIym92kmeFFgxNV1GPCIHZyXmjc8uetgg4ya6tWNWTYaxZC1FvFcHl0okJta5U3hVCpjfJZrMnx1L/DLISQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=OTwclKvz; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789039467; c=relaxed/simple;
+	bh=BVBVVjUGIAZgqIbSCdL88puIw63UNRr7Hk0NZHCgLLc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fn0xYAD1IK54ko7+XNL+rH7AScq9T2c4Huk9Hwtsyd0CxEIz7oPIKs5NkcUaXMHF7PYK+NhIpqpytzfkyczoPmUbqhXJX87Y6seZJNbHe7L4lg3QQ3UAg4CYhmBLF5fk7IIReOOi5OhXN5Y44J8bNBLtOM6v3CJNy/ZSOieyQqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+VdKMTZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="OTwclKvz"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-3-entmail-virt135.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d48b904a;
-	Thu, 10 Sep 2026 19:23:43 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Jiri Kosina <jikos@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Zhang Lixu <lixu.zhang@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	linux-input@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] HID: sensor-hub: synchronize multi-value read cancellation
-Date: Thu, 10 Sep 2026 19:23:38 +0800
-Message-Id: <20260910112338.4171983-1-lhfff@tju.edu.cn>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+VdKMTZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E651F000FF;
+	Thu, 10 Sep 2026 11:24:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789039465;
+	bh=D8lcb2nj5Qw+R2h/P0sXPBSrOuWk4kRlxcimVGz/6uc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c+VdKMTZQ/uO5Mf/ZmrRZ1jhqqlUW+oRuXyXaXjT6xqCIEI5zWcPjhGXnkfV14n94
+	 W39+6DQ95wE3xgFYkI09MnVXNlKJyymdRZ1bm1IMuI3vuRful0+ig/zVU2VHwAtLX7
+	 dXoyF40NkApa79X324P9AKBcE+efTSKfGCfW7q7bu5VSMT6r3QDpp1FZg0qqRU6BwJ
+	 pK8zPKHy4O4qHAyc6U5EHgZOlXN3BEjm9FmTjfMNJM8PU2bfe65Eu9dz7TBbN5PwZc
+	 Gv6+G37ITEeP5kcyoQVFEXv++15r1ncXxqvhtHVo5CT1yOGSc1xMMrWmgo+WTAYeoF
+	 d9D9zxr7ArzvA==
+Message-ID: <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
+Date: Thu, 10 Sep 2026 13:24:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+ <20260907-fix_split-v5-3-822b810458bc@arm.com>
+ <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
+ <aqKOVGECsCNtSMIV@e129823.arm.com>
+ <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
+ <aqKS7CP67X4h6NiM@e129823.arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqKS7CP67X4h6NiM@e129823.arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08b0f2ec903a1kunmc4544b99195297
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0xPVhlKSUsYHR1ITk4ZGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0lPT0
-	9LVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=OTwclKvz66OqBCpX7SVMA1AQCiVSYfzZ79HddhpZthgAdsb+qmErSJERTb+NFRk/qHSrZ1kb2ja1DgjyuD++E9V2BlecA30uL+uv2MXCmMfSJ/djgx1tYBFbQjmKvUQYQfarBPNCL4qlo1b8j3FXVKhQ0hTd99uZUhCS6J5iG0g=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=pKIciFMSv+IZt3QVmdUJPW2BaKBKIvGXVnkqwCkWS64=;
-	h=date:mime-version:subject:message-id:from;
 
-sensor_hub_input_attr_read_values() publishes a caller-owned buffer to the
-raw-event path. If its interruptible wait times out or is interrupted, it
-clears pending.status without taking data->lock and returns.
+On 9/10/26 13:22, Yeoreum Yun wrote:
+> On Thu, Sep 10, 2026 at 01:14:42PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/10/26 13:02, Yeoreum Yun wrote:
+>>>
+>>> Since there is no interface to get vm_flags not via /proc/self/smaps,
+>>> It might be good to have it for preventing unwanted VMA merge.
+>>>
+>>> And might be useful for future to prevent unwated VMA merge.
+>>
+>> See my reply on why vm flags are generally not a problem. Just like other
+>> properties that are not changed during VMA merging.
+>>
+>> Let's not perform random code changes without a clear picture.
+>>
+>> And just to emphasize again: VMA merging could already be a problem before
+>> memalign() internal changes.
+>>
+>> (also observe here how we do a MADV_HUGEPAGE, so this is all rather arbitrary,
+>> which is not good)
+> 
+> As I mentioned in my previous reply, what I’m trying to prevent here is
+> a failure when checking, immediately after memory allocation,
+> that a specific vm_flag is not set.
+> 
+> Yes, I agree that this could have been a problem even before
+> the internal changes to memalign(). An unwanted VMA merge could already
+> occur at the time of memory allocation.
+> 
+> So what I’m trying to avoid is a test failure where, due to such an
+> unexpected VMA merge during allocation, the subsequent check that
+> a specific vm_flag is not present fails.
+Which is only a guard-region marker problem?
 
-sensor_hub_raw_event() may already have observed pending.status while
-holding that lock. The caller can then release its buffer before raw-event
-finishes copying into it.
-
-Take data->lock when cancelling the request. The raw-event path now either
-sees the request retired or finishes the copy before cancellation can
-return.
-
-On an uninstrumented PREEMPT_RT kernel, a valid 16-byte quaternion report
-overwrote a live futex waiter's plist node with the report's 0x41 payload.
-Two vulnerable runs produced the same general protection fault in
-plist_del(), after 471 and 91 completed trials. The locking fix completed
-two 10,000-trial runs without an Oops, panic, warning or payload signature.
-
-The virtual provider setup and FIFO assignment require privilege. The IIO
-read, signal handling and futex operations run as uid 65534 without
-effective capabilities. No physical-device or normal-priority hit was
-tested.
-
-A source reproducer, kernel configuration, complete serial logs and the
-vulnerable/fixed result table are available at:
-
-https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/main/cases/hid-sensor-quaternion-root-a
-
-Fixes: f784fcea4506 ("HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260610083849.067A11F00893@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- drivers/hid/hid-sensor-hub.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
-index 6470a290ebfc..80f18aff6f1f 100644
---- a/drivers/hid/hid-sensor-hub.c
-+++ b/drivers/hid/hid-sensor-hub.c
-@@ -335,7 +335,9 @@ int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
- 		else if (cycles < 0)
- 			ret = cycles;
- 
-+		spin_lock_irqsave(&data->lock, flags);
- 		hsdev->pending.status = false;
-+		spin_unlock_irqrestore(&data->lock, flags);
- 	}
- 	mutex_unlock(hsdev->mutex_ptr);
- 
 -- 
-2.39.5
+Cheers,
 
+David
