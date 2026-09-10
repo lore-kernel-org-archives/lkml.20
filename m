@@ -1,281 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2101.outbound.protection.partner.outlook.cn [139.219.17.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34A63B14B6;
-	Thu, 10 Sep 2026 10:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034634; cv=none; b=YI9zCO20JhIgXqtVDw16guS1qHLSrxgns2khmHpk8NfoxbAEoDkGi+1wzsZ1QK73UcteDTOQq5+hzDNdYTJr9Bvw+vS8RECC7vKaT2BHZjocpa8Xge18mawSO2ZLAG7KXJAhzAC1fA1lt9j/5s//9F/zgF6lN0UB3rEcakJ26b8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034634; c=relaxed/simple;
-	bh=hlvb4WNjzMB0gRvMldagX4Uhid9PpyKhPjjmMAyVjvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sBEEdlqWvCZIvsTAg+6QatyHSB1mv5eSSbsBJ7yyLCKVBsMo8IBz5bnqusL/IgECTsYcV2kxfqqgkcnniu6g06+KnTBI7EBcB9SZCA1tTw+k6FiUoZ0Hb8i4bOs09zGS/P4LKILg3zksQrLQDcNYeaP5EWl5Cu4Q93ldpXUpjVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSilTxny; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSilTxny"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107771F000FF;
-	Thu, 10 Sep 2026 10:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789034622;
-	bh=d6X874Xrr4USoK1MTGkxBCcI6O6k/kEejm0Rs8M2xgI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KSilTxnykwDLR+U3kjOVLr+CmFJNrFBj+ywnUwLG4EDY6T7i9rZ0/XFHJRAUxB8Cg
-	 uqldP1L+oOYwVYS+nTPu9ABsJ/c4y13h6g8tMTZP05a5LhHIQGcJgTz7N4er5qin/P
-	 TdDYrSZqPhFpvfWNrCv2w8cKPMKZ2pjwRnlmep6cVJr8RB8MUjJ8ZYY7H4eN8GF7tm
-	 z1qahItZ9O9f5fZTHZnfmxkt4xxnbxtyNAUDI3cGONITin5oQR90wv7UX+e7Nn0Tcf
-	 +q+DIRfuBfX1UoO8t5Ai2ZyWKSJvKhnAtfQjvp3VJ7tFGlZDMAkXCkaCAaLqSainrz
-	 cD2P0SJBso/cg==
-Message-ID: <8fa1b403-99b0-4508-b705-f9e93c6bf0c8@kernel.org>
-Date: Thu, 10 Sep 2026 12:03:28 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33FC3AE18A;
+	Thu, 10 Sep 2026 10:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789034669; cv=fail; b=KQcYKlHuJSdNt44f+LkOUsn/nS6edeF7jWzY2cyI7zXw7T3VgX8iVI1/KjquKOdVGx52uvNjJ1MEOyKR7AiAiwt10qGa3wX3QnyU47pZETmgA93sce9quS+oOKwsDQlc5wzX1P3b2+wW/RvOKMW7gnKfewsCE3H58ClnjW6zFgI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789034669; c=relaxed/simple;
+	bh=UCJ9QNgqf7DZ446bIlwaWxt4eW1hU8giwzGqrs5ways=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=UAAkMwVTFWcRAl0yYbd5zk2YJgbUIMKUAgxv/yHLabm5Hd8HUhztrYUELb++NbFFeIgUZc0NCS93HJmTWZf0xoJYT4RLCcSfritB7rA+dhz4HOTdO8gsT7jYso2ypLVNuN8HOS9QnJn1B0/Lf3lgX+B/JcwsqJuk22tMPj7a8u4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aL0t0a6w/xTOm9fplLLDJi1K+jYgIzWQ5tsodsd+slpXTdnHh+MO46r1mF8g9eMz4rVJN8tw8YAMzkijEAMr4BWgmXxeEUI7jeHhAY8l/txJ7ItWOfvlnwq3fI+ELgPBJNJT+l7kTF2+LFGlET5X/1ppLPMVTDVoSIjXMHliynT+Fi9igGc8L0JT3CDIr+0mNBPKn1blla9zBEuurAKwwBkTjoklSm78jimy5Rxepe/dxKaX2NoATAWDOasTKPxd0L5ACHTbIB2+sN280BHR3OnhEMlBeIhQu7pyNW4F4TpdheHbXio2WGgoifXi5k5S8rmM2FVRTsFWZY3/dd38Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HdDpd2HZ9sxk5Pac91US6gyd5lUb/s//Y3TQnwqc2KU=;
+ b=YyT600gv8TN0l3po5SohPew0EboTuFPiXTQKPEo+PL1f0AKIBXjcx52uX9hd8+y0yMzNi6VVTJZx0RINXed1nxsxyruPONYSrqfa5IWiDajP6lvnDNCWqYKM8Ks0A/w3MeOtFVk5ociP6PO0zT0VbznI3B6ncKy0SmJ8Dv3+xMpk37TmfcDOJOg/qJzpsTvqcP/A/SA6CCKMcx66ao1rqlSoO7pyWd+GorCjeq7SnfD1qTR5EJOuJ20UKEvWOZiA3azk+32Erm3lv0QMDUQXHcU6dKdg8MetfVQVzva/b/eZ8f6ojSHa83f8k1OBUFXtT5YgAoLLi2I4ObKHgr4c7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1233.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Thu, 10 Sep
+ 2026 10:04:09 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0339.017; Thu, 10 Sep 2026 10:04:09 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
+Date: Thu, 10 Sep 2026 03:03:35 -0700
+Message-Id: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZQ0PR01CA0035.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:2::21) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/9] mm: split AS_UNMOVABLE back out of AS_INACCESSIBLE
-To: Shivank Garg <shivankg@amd.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <jackmanb@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Shuah Khan <shuah@kernel.org>, Chao Peng <chao.p.peng@linux.intel.com>,
- Nikunj A Dadhania <nikunj@amd.com>, Michael Roth <michael.roth@amd.com>,
- Pankaj Gupta <pankaj.gupta@amd.com>, Ackerley Tng <ackerleytng@google.com>,
- Sean Christopherson <seanjc@google.com>,
- Vishal Annapurve <vannapurve@google.com>,
- Nikita Kalyazin <nikita.kalyazin@linux.dev>,
- Patrick Roy <patrick.roy@linux.dev>, Pratik Sampat <prsampat@amd.com>,
- Ashish Kalra <Ashish.Kalra@amd.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Peter Shier <pshier@google.com>,
- Jim Mattson <jmattson@google.com>, Ricardo Koller <ricarkol@google.com>,
- Ira Weiny <iweiny@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: linux-fsdevel@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20260805-shivank-gmem-migrate-v3-0-00d8bdec4e1d@amd.com>
- <20260805-shivank-gmem-migrate-v3-2-00d8bdec4e1d@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260805-shivank-gmem-migrate-v3-2-00d8bdec4e1d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1233:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca40df03-4852-4cbc-4e89-08df0f22db43
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|52116014|7416014|376014|23010399003|56012099006|10067099003|18002099003|38350700014|921020;
+X-Microsoft-Antispam-Message-Info:
+	++uJwwSnt+ehsZfKaRKVNaxIc5Mp0lcHwvdHSd+zUS/nxONYouqf3T12aXGHUZ3B+aytBVLAgDwoAVXBdOL+Hnidn4YqIMZSfsChbbviQoM+fVtsE/ZeyUazIPlS1IqlLHAz0hLtTJoqMwcle13Z+A8+VoBEbZtB17FOEolFNldLSGW2Ti94imGHee7pcuXVmGZqouIRW/zSltmyiqmNFnKNZjrsgkIApzya7Bm4/gAVe9jwG4wYb0LG7JMypRsKIjqvNdxN1A7HxxSWO3FcrvkDoneRidvst/TsoxurFrimcT61ioaamzLkRJF1GgVi9sAxd/EQdg4yFm9BzNxS1sL3AQ/3s9zWiBtFfQ1B1lOmChd3iqqOvnL0UDk1GGXnUlRZqLSOPTnBvQ62NEsDH+sA5GmVkSGdyY7zXr8ODj/QDbrz1hA8sVChBjXJLh10w76Pfm6769mYJozloRGE0hjEzNb76uisqZlvTdXoG2OaiXVLCSydZAGRiXBig3N+YP7AITkReXuJ1pYgz/2OIBseiDw/QdCLEl5UsDaps+wtFFhKW25GkaKBlgJpn2aT6ToCuMWdKLxJkrSgD0fqkw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(23010399003)(56012099006)(10067099003)(18002099003)(38350700014)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HEI9tFVnQCxCCSc7iMMtwJcDmdS1bYZkBRGrCDi/yAwDuqs7SMe00aagoUli?=
+ =?us-ascii?Q?bpENJJqFlfmoxcFmvlXTujPAhos9xRVvEkixwTbu47gLRX13hFhh/k0GtDBS?=
+ =?us-ascii?Q?eEF51s2fRxkYH13mFoRTD+Zq/xqFb4iwu0Tf2Mv+ABi3fgjIa1WxI9BcwA00?=
+ =?us-ascii?Q?uLK+2c57eYawmJnXcjw+zDaGLSxkAac2XK5o4PKo+jqEo83OjOL3VRePPdah?=
+ =?us-ascii?Q?H4yOkjabJshP7b1+oTcYD8rCA5xvWuQz/qtNoacz95WyWacbrDwi4lrtk65/?=
+ =?us-ascii?Q?NnS2wP/qF1zDJULOtSf+OyCBWclm4nmy7LxNlsTYPLPC5jC9hcMOWClIjK7v?=
+ =?us-ascii?Q?Gbj0c0vo9Kc9q8U92rytqJg68Lo8drzCSE7OWwnathYbBSyryg6e3ymAmjT5?=
+ =?us-ascii?Q?yNjA5fyYJ1vKuj6xyqz1PXE39G5+2LS2UuZ3lGbalCkxLSgGW6olL/z2qHos?=
+ =?us-ascii?Q?3uwinmlDIblFZASzQvGxIVDo2pidX+jcaEqU6+PaLjOXtPQWamlpHtuXX4ue?=
+ =?us-ascii?Q?YqMW5xl7UN0v1Q+H9X0od3ebfIiPU9ZXEoZ1ZYWAmyogmkIfwD0Ukbllh5Ek?=
+ =?us-ascii?Q?XJ6oGOchaMnq3F7+qrWIPcNgOnj79Ig0NtYX4X51vQ4Y/5VhRrrXAQHfkFdE?=
+ =?us-ascii?Q?mdNeKLOZDZLr2NuhHJz3TZ513mkQlhK0I81CUXPIZlU0lwHegPeQ19dDXsT4?=
+ =?us-ascii?Q?lgp0ngExifhmXWZH5cm6mwUu0naRs29sh+aG97DD+tsTDjntzMZZeoq0xDwC?=
+ =?us-ascii?Q?K/eOdnRVuIPI/5REaG5wr8ZOWq5zxIa/fJKG59sPNugd07b8tvHc9flQKoSM?=
+ =?us-ascii?Q?PzVWfKtkyJ43JJ/QoK22L37o5WI9rSFAMh3qcyK1FVzIGLI46iuZbc9kxNZE?=
+ =?us-ascii?Q?BtgwVTlZyiubWCmaBIQgZYeEolkHnkr/jLX3BXYhupyxKO/YGaBu5fBxSB2f?=
+ =?us-ascii?Q?9Qr7hU5VNECwImWtgYY+BfmobR2kxtHj1/5yGoXkX8/f1xqeE0t7LlVN1IZP?=
+ =?us-ascii?Q?IBa7gyx7c6B5oohVxgUVnVCRwsMMSfFNJf+/rEu/cIdLPheYTkBTPZlWLz4i?=
+ =?us-ascii?Q?pLmG0VMZfeTSXvWPdG4v3+pYz69vMVvmFD1JyQmM1rFTYHu7Z6CoxcuMY78G?=
+ =?us-ascii?Q?oUL3K1oxUEjI25Z848/N7to68sQMdHpRNem5P7coYUUN6J5HbpB6GUP2TIzj?=
+ =?us-ascii?Q?oqxNOoe8SUuMNYbynppffSsYwQut5gKFJ38TvQJTtS7fXtJveAM1E+UiKsoA?=
+ =?us-ascii?Q?Qoz51wdHFU3iaQxGn4nuuRCEb78CZ+ddZhj/RzLXzeJzEULYcvIw1ynJyDBG?=
+ =?us-ascii?Q?cnwsh4mDYMBv/+bjlkekVqIa9xMLWwhN/0Gi9g57h2HJV6bTjJnGjyfF9eS3?=
+ =?us-ascii?Q?YuJeRfFxJDS8kps8E6KJgr3nEqnLoP+xh9J5+AQYg0HqmzigUTY9XPF2WT5E?=
+ =?us-ascii?Q?Hprz0urPz/o0y7JCOX8hOrXg0gOON2aO2kEVEQUavfADn7W5pQnlEL+EHhh/?=
+ =?us-ascii?Q?8hQ5EUZAfEd85MUqiWNzfhzhIX4eFuNqFTetlNp/SwnbQalA1CpyPAIIO4in?=
+ =?us-ascii?Q?fBDz82UbR+RcuJsr2vM59ljRmQEvKax7bkAypkb6ZylLWJff3Kaxws1fNtKm?=
+ =?us-ascii?Q?26IRvyJDGH1ikA7Rd97R3YdEgmrqxex5dErw6KjgkkIamvzlMr/21nEdqraJ?=
+ =?us-ascii?Q?eQgxtUU/xFoHapVOkXMMx4jb1SOFIrztaXl2qQtdCO/HEEJXaBoRNM7Wiw6d?=
+ =?us-ascii?Q?2OBlHrdSTKjBu2VkE7Xh1+lmRqXbWpV4jl6uu6DB2e6lwrOcvPPT?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca40df03-4852-4cbc-4e89-08df0f22db43
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 10:04:09.3090
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BkzLfyRHb2/cuFuhibqb2WRLlqGRRlKk2AV3JeeVtISz+R/qvCJs8g5ntTlCvZbwPyTn/LScNF8K6MS46AuMDyG8hLjW8D+CS6jQX0/glUCeHo8tu0fZ/rSnU+E7jZY2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1233
 
-On 8/5/26 08:40, Shivank Garg wrote:
-> Commit 27e6a24a4cf3 ("mm, virt: merge AS_UNMOVABLE and AS_INACCESSIBLE")
-> folded the two flags into one, on the grounds that guest_memfd was the
-> only user and always set both. But the two flags were added for
-> different reasons and guard different things:
-> 
->   AS_UNMOVABLE (0003e2a41468) marks a mapping whose folios cannot be
->   migrated.
-> 
->   AS_INACCESSIBLE (c72ceafbd12c) marks a mapping whose contents must
->   not be directly R/W accessed. Its only job is to stop
->   truncate_inode_partial_folio() from zeroing the folio.
-> 
-> The merge assumed unmovable and inaccessible were the same thing.
-> This cannot express a mapping that is inaccessible yet still movable,
-> which is exactly what guest_memfd wants.
-> 
-> Reintroduce AS_UNMOVABLE and restore the original split: truncate keeps
-> checking AS_INACCESSIBLE, while migration and compaction go back to
-> checking AS_UNMOVABLE.
-> 
-> Currently guest_memfd sets both, so the resulting flags and behaviour
-> are unchanged. Preparatory change to support folio migration for
-> non-confidential guest_memfd VMs.
-> 
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
->  include/linux/pagemap.h | 24 ++++++++++++++++++++----
->  mm/compaction.c         | 12 ++++++------
->  mm/migrate.c            |  2 +-
->  virt/kvm/guest_memfd.c  |  1 +
->  4 files changed, 28 insertions(+), 11 deletions(-)
-> 
-> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-> index 2c3718d592d6..a7dcaa66e4e3 100644
-> --- a/include/linux/pagemap.h
-> +++ b/include/linux/pagemap.h
-> @@ -210,6 +210,7 @@ enum mapping_flags {
->  	AS_WRITEBACK_MAY_DEADLOCK_ON_RECLAIM = 9,
->  	AS_KERNEL_FILE = 10,	/* mapping for a fake kernel file that shouldn't
->  				   account usage to user cgroups */
-> +	AS_UNMOVABLE = 11,	/* The mapping cannot be moved, ever */
->  	/* Bits 16-25 are used for FOLIO_ORDER */
->  	AS_FOLIO_ORDER_BITS = 5,
->  	AS_FOLIO_ORDER_MIN = 16,
-> @@ -322,11 +323,10 @@ static inline void mapping_clear_stable_writes(struct address_space *mapping)
->  static inline void mapping_set_inaccessible(struct address_space *mapping)
->  {
->  	/*
-> -	 * It's expected inaccessible mappings are also unevictable. Compaction
-> -	 * migrate scanner (isolate_migratepages_block()) relies on this to
-> -	 * reduce page locking.
-> +	 * The mapping's contents must not be accessed by the CPU through
-> +	 * the kernel direct map or other internal paths (e.g. zeroing of
-> +	 * pages during truncation).
->  	 */
-> -	set_bit(AS_UNEVICTABLE, &mapping->flags);
->  	set_bit(AS_INACCESSIBLE, &mapping->flags);
->  }
->  
-> @@ -335,6 +335,22 @@ static inline bool mapping_inaccessible(const struct address_space *mapping)
->  	return test_bit(AS_INACCESSIBLE, &mapping->flags);
->  }
->  
-> +static inline void mapping_set_unmovable(struct address_space *mapping)
-> +{
-> +	/*
-> +	 * It's expected unmovable mappings are also unevictable. Compaction
-> +	 * migrate scanner (isolate_migratepages_block()) relies on this to
-> +	 * reduce page locking.
-> +	 */
-> +	set_bit(AS_UNEVICTABLE, &mapping->flags);
-> +	set_bit(AS_UNMOVABLE, &mapping->flags);
-> +}
-> +
-> +static inline bool mapping_unmovable(const struct address_space *mapping)
-> +{
-> +	return test_bit(AS_UNMOVABLE, &mapping->flags);
-> +}
-> +
->  static inline void mapping_set_writeback_may_deadlock_on_reclaim(struct address_space *mapping)
->  {
->  	set_bit(AS_WRITEBACK_MAY_DEADLOCK_ON_RECLAIM, &mapping->flags);
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index f08765ade014..e6b0fdfaf79d 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -1133,22 +1133,22 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
->  		if (((mode & ISOLATE_ASYNC_MIGRATE) && is_dirty) ||
->  		    (mapping && is_unevictable)) {
->  			bool migrate_dirty = true;
-> -			bool is_inaccessible;
-> +			bool is_unmovable;
->  
->  			/*
->  			 * Only folios without mappings or that have
->  			 * a ->migrate_folio callback are possible to migrate
->  			 * without blocking.
->  			 *
-> -			 * Folios from inaccessible mappings are not migratable.
-> +			 * Folios from unmovable mappings are not migratable.
->  			 *
->  			 * However, we can be racing with truncation, which can
->  			 * free the mapping that we need to check. Truncation
->  			 * holds the folio lock until after the folio is removed
->  			 * from the page so holding it ourselves is sufficient.
->  			 *
-> -			 * To avoid locking the folio just to check inaccessible,
-> -			 * assume every inaccessible folio is also unevictable,
-> +			 * To avoid locking the folio just to check unmovable,
-> +			 * assume every unmovable folio is also unevictable,
->  			 * which is a cheaper test.  If our assumption goes
->  			 * wrong, it's not a correctness bug, just potentially
->  			 * wasted cycles.
-> @@ -1161,9 +1161,9 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
->  				migrate_dirty = !mapping ||
->  						mapping->a_ops->migrate_folio;
->  			}
-> -			is_inaccessible = mapping && mapping_inaccessible(mapping);
-> +			is_unmovable = mapping && mapping_unmovable(mapping);
->  			folio_unlock(folio);
-> -			if (!migrate_dirty || is_inaccessible)
-> +			if (!migrate_dirty || is_unmovable)
->  				goto isolate_fail_put;
->  		}
->  
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index dd15a84b2a52..d4dcd7f142ce 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -1101,7 +1101,7 @@ static int move_to_new_folio(struct folio *dst, struct folio *src,
->  
->  	if (!mapping)
->  		rc = migrate_folio(mapping, dst, src, mode);
-> -	else if (mapping_inaccessible(mapping))
-> +	else if (mapping_unmovable(mapping))
->  		rc = -EOPNOTSUPP;
->  	else if (mapping->a_ops->migrate_folio)
->  		/*
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 45cbdf4801ec..169f75f95433 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -593,6 +593,7 @@ static int __kvm_gmem_create(struct kvm *kvm, loff_t size, u64 flags)
->  	inode->i_size = size;
->  	mapping_set_gfp_mask(inode->i_mapping, GFP_HIGHUSER);
->  	mapping_set_inaccessible(inode->i_mapping);
-> +	mapping_set_unmovable(inode->i_mapping);
+The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
+per2, per2pok, per3, adc0, adc1, emmc, and vga.
 
-For shared-only guest_memfd, is there even a reason to mark it as
-mapping_set_inaccessible() ?
+In the current series, we will only add the following pinctrl:
+ - sys0, sys0h, sys1, sys2
+ - per0, per1, per2, per2pok, per3
 
-mapping_inaccessible() is only used in truncation and compaction logic.
+The remaining pinctrl will be implemented in future series.
 
-Wouldn't we want compaction to work here?
+This series depends on the series:
+https://lore.kernel.org/all/20260508053632.818548-1-changhuang.liang@starfivetech.com/
 
-IOW, for shared-only with migration support, can't we just not do
-mapping_set_inaccessible() ?
+Change since v7:
+Add a new patch 21.
 
--- 
-Cheers,
+PATCH 3/5/7/9/11/13/15/17/19:
+- Delete the file starfive,jhb100-pinctrl.h in the
+  binding directory.
 
-David
+PATCH 4/6/8/9/10/12/14/16/18/20:
+- Add definitions specific to .c files
+
+v7: https://lore.kernel.org/all/20260831113514.66382-1-changhuang.liang@starfivetech.com/
+v6: https://lore.kernel.org/all/20260829025720.23915-1-changhuang.liang@starfivetech.com/
+v5: https://lore.kernel.org/all/20260810063650.239303-1-changhuang.liang@starfivetech.com/
+v4: https://lore.kernel.org/all/20260801072711.153217-1-changhuang.liang@starfivetech.com/
+v3: https://lore.kernel.org/all/20260603055347.66845-1-changhuang.liang@starfivetech.com/
+v2: https://lore.kernel.org/all/20260514111218.94519-1-changhuang.liang@starfivetech.com/
+v1: https://lore.kernel.org/all/20260424111330.702272-1-changhuang.liang@starfivetech.com/
+
+Changhuang Liang (22):
+  dt-bindings: pincfg-node: Add property 'input-debounce-ns'
+  pinctrl: pinconf-generic: Add property 'input-debounce-ns'
+  dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 per0 controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 per1 controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 per2 controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
+  dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
+  pinctrl: starfive: Add StarFive JHB100 per3 controller driver
+  riscv: dts: starfive: Add JHB100 pinctrl pad number header
+  riscv: dts: starfive: jhb100: Add pinctrl nodes
+
+ .../bindings/pinctrl/pincfg-node.yaml         |   11 +
+ .../pinctrl/starfive,jhb100-per0-pinctrl.yaml |  179 ++
+ .../pinctrl/starfive,jhb100-per1-pinctrl.yaml |  178 ++
+ .../pinctrl/starfive,jhb100-per2-pinctrl.yaml |  168 ++
+ .../starfive,jhb100-per2pok-pinctrl.yaml      |  162 ++
+ .../pinctrl/starfive,jhb100-per3-pinctrl.yaml |  166 ++
+ .../pinctrl/starfive,jhb100-sys0-pinctrl.yaml |  164 ++
+ .../starfive,jhb100-sys0h-pinctrl.yaml        |  162 ++
+ .../pinctrl/starfive,jhb100-sys1-pinctrl.yaml |  164 ++
+ .../pinctrl/starfive,jhb100-sys2-pinctrl.yaml |  165 ++
+ MAINTAINERS                                   |    9 +
+ arch/riscv/boot/dts/starfive/jhb100-evb1.dts  |    3 +
+ .../boot/dts/starfive/jhb100-pinctrl.dtsi     |   23 +
+ arch/riscv/boot/dts/starfive/jhb100.dtsi      |  107 ++
+ .../dts/starfive/starfive,jhb100-pinctrl.h    |  247 +++
+ drivers/pinctrl/pinconf-generic.c             |    2 +
+ drivers/pinctrl/starfive/Kconfig              |  107 ++
+ drivers/pinctrl/starfive/Makefile             |   11 +
+ .../starfive/pinctrl-starfive-jhb100-per0.c   |  182 +++
+ .../starfive/pinctrl-starfive-jhb100-per1.c   |  193 +++
+ .../starfive/pinctrl-starfive-jhb100-per2.c   |  136 ++
+ .../pinctrl-starfive-jhb100-per2pok.c         |   99 ++
+ .../starfive/pinctrl-starfive-jhb100-per3.c   |  129 ++
+ .../starfive/pinctrl-starfive-jhb100-sys0.c   |  121 ++
+ .../starfive/pinctrl-starfive-jhb100-sys0h.c  |   99 ++
+ .../starfive/pinctrl-starfive-jhb100-sys1.c   |   94 ++
+ .../starfive/pinctrl-starfive-jhb100-sys2.c   |  140 ++
+ .../starfive/pinctrl-starfive-jhb100.c        | 1446 +++++++++++++++++
+ .../starfive/pinctrl-starfive-jhb100.h        |  153 ++
+ include/linux/pinctrl/pinconf-generic.h       |    5 +
+ 30 files changed, 4825 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per1-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per3-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys0-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys0h-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys2-pinctrl.yaml
+ create mode 100644 arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi
+ create mode 100644 arch/riscv/boot/dts/starfive/starfive,jhb100-pinctrl.h
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per0.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per1.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per2.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per2pok.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per3.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys0.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys0h.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys1.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys2.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100.h
+
+--
+2.25.1
