@@ -1,91 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A9C39A81B;
-	Thu, 10 Sep 2026 20:55:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5063BE636
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073715; cv=none; b=uLnrXyqble9e8FyuSMfNlLESXm6UQsRgsLekG04exUIX0oi4yjXu/EFCeRpqiyucOMrdEfnfjhO2qG2xrzyYt2I8VuNG+Hp8y4CZGM6GuacFGIUVy9YpZvNJGzK77GOW8DNlQUYVrmNUHlbzoY+Evl/BYJWbjP9vzLPqji/CEH0=
+	t=1789073727; cv=none; b=Wo47OFjyaYnWAggtTAqp1gcEoQOxQyD6ZqdVitUc519V6H64lHxcjFWQ3jLo4NDmsThkqyuHEFS3S1zH9cM1uNsJsG9srSYQtQHzgwxYydw+m+f4FFum6b5iT9nBKe8FRDN5XmboCv7q79/cu90mgICjLmj3TDyXjT/GNiskVg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073715; c=relaxed/simple;
-	bh=crOnlbHbyUPuGLh0JGVd37vqRbssmx4tna3eDDxQncM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AYYxVkUrYyfKfewkZF6l47FusRaxr89cTJB3evhv9VlwA7u5ZQy95S/0OTlRXCEqOx7Qbt0SEuIf0FEkpP9bcSwillGW8hw8BLgFLvdzLrumAwRSqUvcGZxD5vIwIJIwS803Q7CbHP7cRBy4xBtM9hx4gBmHMkkqtzKNEQGAqOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xoh0feO1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789073727; c=relaxed/simple;
+	bh=hFrf47wiCRa+Xp/RSbKkY05XcZwBmlybD2veRYYsg0I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=KlhOmF92RU/dVhHdWgDnoFkKfYKQ+yQl5jHkfbTA6+OJksAeWgZJbo+HGdpiP/U9h6szh4pZkLK0EOzDoUKqPski0NRiJUdNhKwjKafsJTS39XtfH3zHRAQylxmS4sVjWkI4Hkz/eeig39HlbDkZXGjtwOJKwpaAT7bAZxeqoJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=cHd6WKoA; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xoh0feO1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FC31F000FF;
-	Thu, 10 Sep 2026 20:55:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789073714;
-	bh=D+msI9wYLgAPXjQbPqwb4BUHIoNDxsNY1NG+JACt0is=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Xoh0feO1QBoUTvaFc9nj+FXL/MEaEmvlbGSfUeqPWb00hKvvJgPsh9nRIl0MzQhVd
-	 HuBezLD31zsfxmGSg9IuazudLg2IfqkNRg7Oui1pnp/TcqHqecQXcO0UhsrBkcIn3P
-	 nn7HIZX4J/Dml0TL2nd69TZG1NMX5EAwoea/fy99bkbLyUGO1eq8cOxx50leJvM8y/
-	 eOVeYgZaHriObwlQyMZC4p7/m38jZwvXaV2ObMO1IMO+aTr9nlNIFDDJpr66+LKhws
-	 tIJtZoi71NOeTDe2xM+nKQlgwV+3E5ToD9PK9kyMDi3PFG7wHaPTfvT32nm72bDL8D
-	 SzTt0cUwJn+Fg==
-Date: Thu, 10 Sep 2026 21:55:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: Junjie Cao <junjie.cao@intel.com>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- linux-cxl@vger.kernel.org, Ira Weiny <iweiny@kernel.org>, Li Ming
- <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cxl/regs: Reject register blocks in an unassigned BAR
-Message-ID: <20260910215507.0b704da8@jic23-hlaptop>
-In-Reply-To: <6bb0b537-eaef-48a6-aadb-232e44522dee@intel.com>
-References: <20260910093858.535969-1-junjie.cao@intel.com>
-	<6bb0b537-eaef-48a6-aadb-232e44522dee@intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="cHd6WKoA"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f4e729368fso238033a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:55:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789073725; x=1789678525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pkbEmlLYOqHu2rT/pG1b8F4ZrumOvKHVAf/LIvXXM5Y=;
+        b=cHd6WKoAkZVsRuu8KoPan46EIfg6VdtlPtEjUgBLJ19o6s1C/So7zaFjSumnMYu52q
+         g+3GprZpgU0qqMUqp+UrgaslT8B+rasqcvgdgxaJjLlxpgNB5bLc+pW2uIgtZuO50nIN
+         8FddKuSLz9D6zKO2i4DK7tPcw7Jr8FfiZj8U+yXum0nx5TON+d78WYjsZEgmdVpqMuBo
+         lpf6R+zGcruYC6JtOBQi9qbGI3djIIKqnjdtTScIeqK0RHFiOH6Xj1GRaKoBYgs/tjxW
+         UpcjGmb23ts0wrHJG7xwegI2ArRgUltSREuDSdffE77y5yNlQSNvMQ+ExKi8opZqMeiZ
+         C09Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789073725; x=1789678525;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pkbEmlLYOqHu2rT/pG1b8F4ZrumOvKHVAf/LIvXXM5Y=;
+        b=SoTv+TmFQ8PgWHI/h5ISzzmPL/nftOXp8dW8v7DmkVe5aqSia7MxNDO/L68l79vHbR
+         vFuz/4TWke9d3/7XtWWc7harH0DFq0ilI2LU9Ndkb0Qa3s2g0a9bqJzDh2f+OUZYx/te
+         HbRKlIFfeklP/NYPixGHwIwnlfpZdiUc2qoCHOt4eh+ODx5FwaaKOXaZh8799LjIhJpX
+         W7Qi6NT7vBkE8cVde7J3RuCTh/ovtoQ0H1tVPwSjja55t8Xrn4SPj+uI5qG1TRuC1TvI
+         9TJOxXKEYbpkKPqesWCO6KA+HUUY6I4YnRN3UullZZoeIIZhiyc4EYOPmMcBslau9xz4
+         sOPw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXVtxX4Nkwxc1RNqZ7ifHiqJNTDbKGFMWWn/FZ+It/+2PVj2/2fSs07LqfLuL0yPL/zARgw5ZDv55FAIs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0fCFLL4HwdlbqIyVypL847QgZEbmRVeuJdfM6XVaKFiwCbtrg
+	8wUo1O/LBMw480o66Sg1bY/AAhDgWM6MXea6ddH+SINSOhlOINC/Pvvbt5nnY1cfJqs=
+X-Gm-Gg: AYBFou1/DD4KBHy5pYzfrjoxJUQlwTlkJP3KZdIcon5WsLfb9ylF0HKwmT9AyDdTK+9
+	FM/dEq4KGAWtp21i0jC5dkVtMPjqaxd90qeqYrjvfClYyvMRetqrIKFH51SV2Y3UCLMvAwZ2n2q
+	wJII+dJAFwfrhSJ4R/Hmg+uI5EXUXgl8zt6FXfdytNGi7UuSkyP+lMMvatDTaahazDMKeRthLy9
+	0hGzZhln0JUEC2pasxQMkznQHny9rMFiQ+/YcJywNfWCJTG3UeIH9Q8LFhm0YXtm8d9aVcxDjgc
+	zqpw1XS4vEA5OrXAHn7zrheBbfulRv0PaJpbu79PsQc+kHXwwhHqmPKhwzSf5goI2omvgx5NmPA
+	GeyouZ7bhYVYHS65/G1jcNZmh6v0exRutbS2KlCgXqEDja4VhBqidFYEUS8M8H946NQBAjKsLDx
+	FbUERrNfinFcWpSwDz+TRxfTLN1ugpCnxLpHMN5/q9TKorJouqq2mMXmCWtLMHjreJjF75iCxzm
+	kJnAi5/TnooIuCHkq++NzPXpaXQypeKv7HfDXtlO1JLmPXYTnc=
+X-Received: by 2002:a05:6830:2702:b0:800:d883:997f with SMTP id 46e09a7af769-803fec02e59mr471619a34.2.1789073724704;
+        Thu, 10 Sep 2026 13:55:24 -0700 (PDT)
+Received: from [127.0.0.1] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f60fe54asm635779a34.15.2026.09.10.13.55.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 13:55:23 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, Pavel Begunkov <asml.silence@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, 
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>, 
+ William Power <william.power@intel.com>, 
+ Phil Cayton <phil.cayton@intel.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+ Mikulas Patocka <mpatocka@redhat.com>, 
+ Benjamin Marzinski <bmarzins@redhat.com>, 
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev, 
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
+In-Reply-To: <cover.1785596451.git.asml.silence@gmail.com>
+References: <cover.1785596451.git.asml.silence@gmail.com>
+Subject: Re: [PATCH v5 00/16] Add dmabuf read/write via io_uring
+Message-Id: <178907372259.484803.15807864431748251506.b4-ty@b4>
+Date: Thu, 10 Sep 2026 14:55:22 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Thu, 10 Sep 2026 08:38:06 -0700
-Dave Jiang <dave.jiang@intel.com> wrote:
 
-> On 9/10/26 2:38 AM, Junjie Cao wrote:
-> > cxl_decode_regblock() only checks that the Register Locator offset fits
-> > pci_resource_len().  A BAR the PCI core could not place is reset to zero
-> > start, end and flags while config space keeps the firmware value, so a
-> > zero offset passes and the block is mapped at physical address 0.  On
-> > x86 ioremap() of the reserved low megabyte succeeds, the component
-> > register header does not match, and a switch port fails with "HDM
-> > decoder capability not found", pointing at the HDM decoders rather than
-> > at the BAR.
-> > 
-> > Reject a BAR with no length or still unassigned, next to the existing size
-> > check.  Skip empty Register Locator entries first: they decode as BAR0
-> > offset 0 and would trip the check, and nothing looks them up.
-> > 
-> > Seen with edk2-stable202602 (f6489621b8ae, reverted in stable202605),
-> > which places 64-bit non-prefetchable BARs behind a bridge in the
-> > prefetchable window.  Linux refuses to claim them and the switch
-> > upstream and downstream port BAR0s find no room in the 32-bit window.
-> > QEMU q35 with a CXL switch, Fedora 43 edk2-ovmf-20260213, before:
-> > 
-> > pci 0000:0d:00.0: BAR 0 [mem size 0x00010000 64bit]: can't assign; no space
-> > cxl_port port2: HDM decoder capability not found
-> > 
-> > after:
-> > 
-> > pcieport 0000:0d:00.0: BAR0: not assigned (type: 1)
-> > cxl_port port2: No component registers mapped
-> > cxl_port port2: Failed to map HDM decoder capability
-> > 
-> > Link: https://github.com/tianocore/edk2/issues/13104
-> > Signed-off-by: Junjie Cao <junjie.cao@intel.com>  
+On Sat, 01 Aug 2026 16:46:12 +0100, Pavel Begunkov wrote:
+> The patch set allows to register a dmabuf to an io_uring instance for
+> a specified file and use it with io_uring read / write requests. The
+> infrastructure is not tied to io_uring and there could be more users
+> in the future. A similar idea was attempted some years ago by Keith [1]
+> (from where I borrowed a good number of changes). Later it was brough
+> back up to life by Tushar and Vishal.
 > 
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> [...]
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Applied, thanks!
+
+[01/16] dma-buf: introduce initial file I/O infrastructure
+        (no commit info)
+[02/16] iov_iter: add iterator type for dmabuf maps
+        (no commit info)
+[03/16] block: rename bi_bvec_done
+        (no commit info)
+[04/16] block: always adjust bi_offset on bio_advance_iter
+        (no commit info)
+[05/16] block: move bvec init into __bio_clone
+        (no commit info)
+[06/16] block: introduce bio_iov_iter_set()
+        (no commit info)
+[07/16] block: introduce dma map backed bio type
+        (no commit info)
+[08/16] block: add dma-buf support for raw bdev
+        (no commit info)
+[09/16] nvme-pci: implement dma-buf backed requests
+        (no commit info)
+[10/16] nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
+        (no commit info)
+[11/16] nvme-pci: add SGL support for the dmabuf path
+        (no commit info)
+[12/16] io_uring/rsrc: introduce buf registration structure
+        (no commit info)
+[13/16] io_uring/rsrc: extend buffer update
+        (no commit info)
+[14/16] io_uring/rsrc: add uncloneable regbuf flag
+        (no commit info)
+[15/16] io_uring/rsrc: add regbuf import flags
+        (no commit info)
+[16/16] io_uring/rsrc: add dmabuf backed registered buffers
+        (no commit info)
+
+Best regards,
+-- 
+Jens Axboe
+
+
+
