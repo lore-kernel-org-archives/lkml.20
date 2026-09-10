@@ -1,191 +1,264 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAD447125B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB27B46D56E;
+	Thu, 10 Sep 2026 11:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039508; cv=none; b=QZOxLO0nBQcgqPaVIJq1Yv39/0JMVUjnr/i1GCXLjkNQSjp0lexqhs5dV+uzYtIJXLQgd/K4NP6KogbfhvqxBqR/6sxxWNYQgLOPXSYbsu2QMgeRBOS5LtcS3G3f3jCI4hQ8Fk/IZglEZWftRqeMlcA37uQXRFZOXzaOHJ0uy8w=
+	t=1789039509; cv=none; b=K7cFWpd1B9GoHFJC3fmYuD06RnLT3+quh00JicwzIKBBOuM9tCpypmS0kDIB+y0CWnes3ZfI2crATi+CKcg+HXnI/VN6odCkMLgR5y51OvpG2ylxEOpDkxceKdKfLc23EN8M/K7gEpPhH7G+giMVxI+E4FR8q+gBRhYqki/1/fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039508; c=relaxed/simple;
-	bh=4Hjex3oCeXjPGzALeMaPEQW++8B/xL5HaZz4fxPh4jc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=QhOEy4ZrtNfbTfZc/CHaaModzPLraA0G+ADZjuODhsp7OxaC4/DbJtGbtF6QgI724d4rJsn1Vrbt7BXdfVWt+NdWuh5tOPtEVaEHIiwI2tZKoqbXCW37f0uUPetTejsDQFFiNcVlnW2dB6REl4rANqxZDTcMqQqYxf7SS0vItfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=YO6aIXzx; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789039509; c=relaxed/simple;
+	bh=Ok2rWjqDwyoQUWviMsDqNihKaJmVy/EFBU5yzCIP6KA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hQv/2uyMDBEa9oEq7ewGLhDqRkAt2qRzGUdeFcXPPlB7hawkJO9F1la7aGvI+KPz3qol2pSzRbdI471yO+Yb+GzV8wdvqCysUQUbiK8kNDH9guTOOpgA0L/rSX1f+vbQvFJVwpS2ulQD8qOpkuvd6TKQ7KxVIhDt+RYPgWZBPHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=t5j8XbhQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=KQ0rH2MX; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=sWm6MCGI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=uims9Jbt; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="YO6aIXzx"
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260910112503epoutp03ec705d89a508ee61428a8ad8a009f9a9~T8fMOLXGE3114231142epoutp03N
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:25:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260910112503epoutp03ec705d89a508ee61428a8ad8a009f9a9~T8fMOLXGE3114231142epoutp03N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789039503;
-	bh=R8h1yIEsIROnrfMiWl52bn3VimeVF2ZaPu7ScCbriDM=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=YO6aIXzxZVDIppjRMDRXJd5fkuqxVg8AIlL1WWZdEmmGQemfLZDBZqYUFP+ljsKnU
-	 088c4IMGseRJ9oNwgvJwcorxCx8yBfVhTFyVSfZl7pd3cVazXiLEXBr6bUgV70hwgo
-	 cvojGqHbEb8HXMg8rVaGemkwH6fhc92YeTt8mqu8=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260910112502epcas5p2fc302ad1f944329a56c9eb334497cc13~T8fL1axni2810328103epcas5p2g;
-	Thu, 10 Sep 2026 11:25:02 +0000 (GMT)
-Received: from epcpadp1new (unknown [182.195.40.141]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4hgb1p5Hh4z6B9m7; Thu, 10 Sep
-	2026 11:25:02 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260910111004epcas5p15c5293f941e45eb25a5930eda494b5ee~T8SHjLNvN2834228342epcas5p1F;
-	Thu, 10 Sep 2026 11:10:04 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260910111003epsmtip27f09ad88e73efe41ecfe487f6297e70c~T8SGY65Nk1874218742epsmtip2d;
-	Thu, 10 Sep 2026 11:10:03 +0000 (GMT)
-Message-ID: <360067785.01789039502721.JavaMail.epsvc@epcpadp1new>
-Date: Thu, 10 Sep 2026 16:40:02 +0530
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="t5j8XbhQ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="KQ0rH2MX";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="sWm6MCGI";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uims9Jbt"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 808E621C15;
+	Thu, 10 Sep 2026 11:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789039501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
+	b=t5j8XbhQgEKCpoUU5ZC4JxMiQMklEuM+OHnH/ZXiSchomhMCJklPwxNLoCbM6TEdSH8Ybp
+	BpXaXr+awQh9XpdyL9Xlk9T8SIffKTFuX1z54KVR6CVvIEGRylMMsyOW4xm8neF9+efrbU
+	g3Y7XwhHosFlKEpAjg1LEq6aniNyUFM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789039501;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
+	b=KQ0rH2MXraL/UOZwVElkZQDdJByn0AnBw6HJ5PHG8OV1MPyFWjZdiMLa3sN7QVktpCZE3W
+	gQ43Lp1bDBR7+TBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789039497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
+	b=sWm6MCGIfrlDqlHXV8pzBeLbiAeYCwYicqxvkTgCAIavcFniTHvVsEK32JDjmv0t03/5NQ
+	ji1RuiAV5pgKjaSA3WWd9gmmqfLnfB45gx8ZBboJ09US1RcPjsdxLJDXtgiH/0KPuhpsLX
+	6rDtiJ8hrq27McEf3INF6jU9VWbDo/c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789039497;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
+	b=uims9JbtpdBbtS6EqJAA5f+UCkkMipwfIKyUFZmnvnaJ6lL5zd9IwvdulumwNBKz+DItQM
+	BbK3UOb/947YFHCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B1581321C;
+	Thu, 10 Sep 2026 11:24:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sNlKEomTomq3CQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 11:24:57 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id D1F32A12EA; Thu, 10 Sep 2026 13:24:52 +0200 (CEST)
+Date: Thu, 10 Sep 2026 13:24:52 +0200
+From: Jan Kara <jack@suse.cz>
+To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Tejun Heo <tj@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Dennis Zhou <dennis@kernel.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
+ rotating b_attached
+Message-ID: <vciagp74qvys2zdbsfcr2brhbv4uyabvm67czm255ascytesjz@n6q775zxxwvb>
+References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: sideband: check vdev liveness before removing
- endpoints on unregister
-To: Mathias Nyman <mathias.nyman@linux.intel.com>, =?UTF-8?B?6IOh6L+e5Yuk?=
-	<hulianqin@vivo.com>, Mathias Nyman <mathias.nyman@intel.com>, Greg
-	Kroah-Hartman <gregkh@linuxfoundation.org>, "quic_wcheng@quicinc.com"
-	<quic_wcheng@quicinc.com>, "broonie@kernel.org" <broonie@kernel.org>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	cpgs@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260910111004epcas5p15c5293f941e45eb25a5930eda494b5ee
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b
-References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
-	<CGME20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b@epcas5p1.samsung.com>
-	<c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
 
+On Wed 09-09-26 18:50:27, Patrick Lu (Anthropic) wrote:
+> cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
+> per call and is called again until the dying wb is drained, but every
+> call walks wb->b_attached from the head. Inodes already prepared (they
+> stay on the list with I_WB_SWITCH set until the switch worker runs) and
+> inodes that cannot be switched (I_FREEING, I_WILL_FREE, !SB_ACTIVE,
+> DAX, already on the target wb) stay at the head, so each pass rescans a
+> growing prefix under wb->list_lock and a full drain is quadratic in the
+> number of attached inodes. With ~17M inodes attached to one dying cgwb
+> we have seen this end in soft lockups, with CPUs reported stuck for
+> 21-48s.
 
-On 9/10/2026 3:04 PM, Mathias Nyman wrote:
-> On 9/7/26 15:24, 胡连勤 wrote:
->> xhci_sideband_unregister() assumes the virtual device (vdev) is still
->> alive when iterating sideband endpoints and issuing stop endpoint
->> commands. However, xhci_disable_and_free_slot() may have already freed
->> vdev and its out_ctx before xhci_sideband_unregister() is invoked.
->>
->> This happens when xhci_setup_device() gets COMP_USB_TRANSACTION_ERROR
->> (e.g. device not responding to setup address during bus reset recovery),
->> causing vdev to be freed before xhci_sideband_unregister() is called:
->>
->>    hub_event()
->>      xhci_setup_device()                  <-- COMP_USB_TRANSACTION_ERROR
->>      xhci_disable_and_free_slot()
->>        xhci_free_virt_device()
->>          kfree(out_ctx), kfree(vdev)
->>          xhci->devs[slot_id] = NULL
->>      ...
->>      usb_disconnect()
->>        uaudio_disconnect()
->>          xhci_sideband_unregister()
->>            xhci_stop_endpoint_sync()
->>              xhci_get_ep_ctx()            <-- CRASH (deref freed 
->> out_ctx)
->>
->> Unable to handle kernel paging request at virtual address 
->> dead000000000122
->> Call trace:
->>   xhci_get_ep_ctx+0x0/0x38
->>   xhci_sideband_unregister+0x68/0xf0
->>   uaudio_disconnect+0x70/0x144
->>   usb_audio_disconnect+0x7c/0x268
->>   usb_unbind_interface+0x13c/0x340
->>   device_release_driver_internal+0x1c4/0x2bc
->>   device_release_driver+0x18/0x28
->>   bus_remove_device+0x158/0x170
->>   device_del+0x1c8/0x320
->>   usb_disable_device+0x84/0x190
->>   usb_disconnect+0xe8/0x338
->>   hub_event+0xbd8/0x19ac
->>   process_scheduled_works+0x200/0x9d8
->>   worker_thread+0x154/0x3b0
->>   kthread+0x11c/0x1a0
->>
->> Fix this by caching the slot_id in the sideband structure at
->> registration time, then checking under xhci->lock whether
->> xhci->devs[slot_id] still matches sb->vdev before issuing stop
->> endpoint commands. If vdev has been freed, skip endpoint cleanup
->> entirely - the xHCI has already disabled the slot.
->> The interrupter is still removed as it does not depend on vdev.
->>
->> The slot_id is cached in sb->slot_id rather than read from vdev at
->> unregister time because vdev may already be freed, making
->> sb->vdev->slot_id a dangling dereference.
->>
->> Fixes: de66754e9f80 ("xhci: sideband: add initial api to register a 
->> secondary interrupter entity")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Lianqin Hu <hulianqin@vivo.com>
->
-> Thanks, nice catch and layout of the problem.
->
-> I think we need to address this issue a lot earlier than in 
-> xhci_sideband_unregister()
->
-> xhci_free_virt_device() shouldn't leave any dangling pointers, if 
-> vdev->sideband
-> is still set at this point then something is wrong, and should as a 
-> final resort be
-> fixed here. Print a debug message and set vdev->sideband->vdev = NULL 
-> before freeing vdev.
->
-> Another issue is the transaction error recovery during address device.
-> xHCI specs say we should disable and re-enable the slot.
-> xhci driver additionally frees and reallocates the vdev.
-> We could probably avoid this and just re-initialize the contexts without
-> reallocating vdev.  This being said I think it would be even better to 
-> not
-> try to 'usb persist' sideband over a usb device reset.
->
-> Might be best to unregister sideband in qualcomm usb audio driver 
-> completely in
-> the drv->pre_reset, and re-register it back in drv->post_reset
->
-> But to avoid this specific issue we should also set 
-> vdev->sideband->vdev to NULL
-> in xhci_free_virt_device()
+Hum, somehow I've missed this case when fixing slow inode switching couple
+months ago. Likely because I was more focused on the b_dirty_time case back
+then :) since that was what the user was hitting.
 
-Regarding the suggestion to set vdev->sideband->vdev = NULL within 
-xhci_free_virt_device() to avoid dangling pointers, I agree that this 
-effectively prevents the use after free during unregistration.
+> Move every scanned inode to the tail of b_attached, so the next pass
+> starts where the previous one stopped and the drain becomes linear.
+> b_attached is unordered and isw_prepare_wbs_switch() is its only
+> walker, so nobody else sees the reorder. b_dirty_time is ordered by
+> expiry for move_expired_inodes() and keeps its current scan.
 
-But, I would like to highlight a critical point regarding the 
-interrupter lifecycle. Even if sb->vdev is set to NULL , 
-__xhci_sideband_remove_interrupter() must still be invoked during the 
-unregistration sequence.
+OK, but isn't there the very same quadratic behavior problem with
+b_dirty_time scan which you don't touch (and where your trick cannot work)?
 
-If the interrupter removal is skipped because vdev=NULL , the secondary 
-interrupter resource is leaked. In our observations, this leads to a 
-failure during the subsequent device connection and registration 
-attempt, resulting in the error: "Failed to add secondary interrupter, 
-max interrupters".
+								Honza
 
-So it is essential that the cleanup path ensures the interrupter is 
-released regardless of whether the vdev is still alive.
-
-
-Thanks,
-Selva
->
-> Thanks
-> Mathias
-
+> 
+> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
+> ---
+> Seen in production on a 6.18-based kernel: with ~17M inodes attached
+> to one dying cgwb, a node spent 36 minutes in back-to-back
+> wb->list_lock holds by the cleanup scanner (~6ms each, ~46% of wall
+> time, starving writeback on that wb); with this patch the same workload
+> drains in ~30 seconds. Also seen on stock Amazon Linux 2023 6.12.68 as
+> isw workers spinning on the list_lock in inode_switch_wbs_work_fn()
+> while cleanup_offline_cgwbs_workfn() runs.
+> 
+> Tested with a QEMU A/B setup at 100k attached inodes and patched vs
+> unpatched on production-class hardware at ~17M attached inodes.
+> 
+> Josef Bacik's patch making the drain loop report a Tasks-RCU quiescent
+> state [1] fixes BPF/ftrace detach stalls behind the same drain; this
+> patch bounds the walk itself. The two are independent.
+> 
+> [1] https://lore.kernel.org/linux-mm/20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com/
+> ---
+>  fs/fs-writeback.c | 39 ++++++++++++++++++++++++++++-----------
+>  1 file changed, 28 insertions(+), 11 deletions(-)
+> 
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index e744f9f9d43f..69a452b12b12 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -725,21 +725,37 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
+>  
+>  static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
+>  				   struct inode_switch_wbs_context *isw,
+> -				   struct list_head *list, int *nr)
+> +				   struct list_head *list, bool rotate, int *nr)
+>  {
+> -	struct inode *inode;
+> +	struct inode *inode, *tmp;
+> +	LIST_HEAD(scanned);
+> +	bool full = false;
+> +
+> +	list_for_each_entry_safe(inode, tmp, list, i_io_list) {
+> +		/*
+> +		 * Rotate scanned inodes to the tail so the next scan resumes
+> +		 * at unscanned ones instead of re-walking an ever-growing
+> +		 * prefix of prepared and skipped inodes.  b_dirty_time is
+> +		 * expiry-ordered and so must not be rotated.
+> +		 */
+> +		if (rotate)
+> +			list_move_tail(&inode->i_io_list, &scanned);
+>  
+> -	list_for_each_entry(inode, list, i_io_list) {
+>  		if (!inode_prepare_wbs_switch(inode, new_wb))
+>  			continue;
+>  
+>  		isw->inodes[*nr] = inode;
+>  		(*nr)++;
+>  
+> -		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
+> -			return true;
+> +		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
+> +			full = true;
+> +			break;
+> +		}
+>  	}
+> -	return false;
+> +	if (rotate)
+> +		list_splice_tail(&scanned, list);
+> +
+> +	return full;
+>  }
+>  
+>  /**
+> @@ -747,8 +763,9 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
+>   * @wb: target wb
+>   *
+>   * Switch all inodes attached to @wb to a nearest living ancestor's wb in order
+> - * to eventually release the dying @wb.  Returns %true if not all inodes were
+> - * switched and the function has to be restarted.
+> + * to eventually release the dying @wb.  Returns %true if the scan stopped
+> + * early after making progress; the caller should call again to continue
+> + * draining.
+>   */
+>  bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+>  {
+> @@ -783,13 +800,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+>  	 * bandwidth restrictions, as writeback of inode metadata is not
+>  	 * accounted for.
+>  	 */
+> -	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, &nr);
+> +	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, true, &nr);
+>  	if (!restart)
+>  		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
+> -						 &nr);
+> +						 false, &nr);
+>  	spin_unlock(&wb->list_lock);
+>  
+> -	/* no attached inodes? bail out */
+> +	/* nothing to switch? bail out */
+>  	if (nr == 0) {
+>  		atomic_dec(&isw_nr_in_flight);
+>  		wb_put(new_wb);
+> 
+> ---
+> base-commit: e14d4302cbd0de773960bec33c2281508c8d8855
+> change-id: 20260909-wb-cgwb-rotate-f17a75facfdc
+> 
+> Best regards,
+> --  
+> Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
