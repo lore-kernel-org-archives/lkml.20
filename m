@@ -1,101 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047C35616C3;
-	Thu, 10 Sep 2026 17:52:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6D4569F0D;
+	Thu, 10 Sep 2026 17:52:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062740; cv=none; b=m3PcTT1vhd8jSSnhvyGDiH8CAFxfnav81MN5n6Bo6G2JcMj+RaE2mN+phD2QUvHcJWS21Dgd3cmkZbpPBQMxjXHlSxOwUgkT3NQgaH5NbgEUGRdjTjLbDyuqaZKUS+3PNLQoG4ApHICM0TDVk6xCgzCiYlcvxmx1M48u6vn01dM=
+	t=1789062752; cv=none; b=MY4HtrVgRiCz/mELqAPQG67npbSpXF9lKskyxIBUjMsXUyFUthVYKeNPZmVWD5enwIzyJTaYdsmZIqYidbcEYkSTYdhF6Cn2kXDvBOOTDLCAmb9JQQzfgpezCRmg6/lLpolnVEn7LmxyUTSTwx0Pc6VDZ175USHwBrNXHSFFkPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062740; c=relaxed/simple;
-	bh=1l9MKvLje7G6Wwag53dqheoEnlWi+kpE1QV5wsx4Jl0=;
+	s=arc-20240116; t=1789062752; c=relaxed/simple;
+	bh=MOPbC9/TM0L/il6+yN2NgUWeu2QozNMvz/+pQ8olNtQ=;
 	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=AHAYoO55qCikDM7LtFf1WmeEMG29eW4b0Az0jSwvpHmAbfe40bX/NrpfPdrBMIKHlVg0COoZn3K4S0uVYD/2xyXTO3SO8xpLPCV3q0U8giT6uuBfFfUgVtcEwIvPdmVm3l1j3qRtVjhIt7FQDaAJ2mr60QiclfolhqScYtQIv4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/TiHMx0; arc=none smtp.client-ip=100.103.45.18
+	 Subject:From:To:Cc:Date; b=QVl9lpPaPwZIHQzztZPW5/yWSq0kAtNsgdg6e4NKnJjQF9j3AkaEXmBWYvaRHTcCesyw210RnDwIokQnifXSsobYKUbCSsAJV8ZFRN/rPrhR5br/frsvI4cdh0epjpkD2y5YP4NMnSCYZlJ5986fcnnANmu/GwDKAZt3ziif/Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obvxioOZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/TiHMx0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9218D1F00893;
-	Thu, 10 Sep 2026 17:52:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obvxioOZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8011F00899;
+	Thu, 10 Sep 2026 17:52:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789062732;
-	bh=SAe1Afn0WX/BhtJe9o/mAJhxxXBq/BfMIl6/mouBZzY=;
+	s=k20260515; t=1789062737;
+	bh=4V4iQfn8TzPY39W/R2NquBCS3jTB0DVC42D0ENZGGa8=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=D/TiHMx0cx6lC56Bxf8FeAkeBCPF974agbY2hcd8S9WagtWqeeKtXlnYPY4rStLQg
-	 daABA90Koi43vx1FFw2vxdE3HQppeN1x4PA7LrsSH9sFpDjR0f4HRKoWNbZCCjoZCj
-	 hEnRK8aim9mfFp6bMI7O/l5vjVeOGKo2fbVWZx+G55rdswqWM+D1A9Lyy/7Qo+8Iew
-	 fSPIgomdURQFAGwCek0PGrooqzeNx6wEvU4ZTspsDF6dQOlivlkFVzzXhzNplcfEnn
-	 TH884Js5EE8JpltLk7DgbTEkiNSE96jS2lGt/UFxvYFIIKm6VAvaezS+uilmcW1+QI
-	 9Dp3IMbwrT4QQ==
-Content-Type: multipart/mixed; boundary="===============3359032784248855412=="
+	b=obvxioOZNFpe0cro9pq+88nmU217cj2OhHxVMwFWWk0jU2jcgKa6x1k8eh4BgJIQx
+	 P2KoqcMw5vStGWp11lax13tU5MCqC/VEXkkCY+0cguf72WFSmkUo+PII7UPnS95u7y
+	 1IxVWxlKyKLSkxoVr+fnnzmFT7NGNBmtuZyAidB4C2qekJG4/QxpnM2ZP4TxWOJLua
+	 FjBr8YpCcrBkl7aLwJtPRaBXjxKB75f8zBDLgRjJ9S6dgkBVY9iegSvvTBYBPLfZMD
+	 uzWuopNVbu3QFZMPRVjLE9yAJxd9ViHYlBZA5UJZtetxacyswl29TgxAQUjfuNs8Ee
+	 HnTkmW4zJdq0w==
+Content-Type: multipart/mixed; boundary="===============5691876850880909347=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <5c3e4124ce20a8c5b435ae68e4facd38b0dab5b9f643e74d014287dc9172076e@mail.kernel.org>
-In-Reply-To: <20260910164635.459558-9-vineet.gupta@linux.dev>
-References: <20260910164635.459558-9-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v2 08/13] selftests/bpf: cover the low-32 link for sign-extending movs
+Message-Id: <ad011852b5532901853fbc1c16d5a27d50231065dad9b1e4bbfee1c02b4735e5@mail.kernel.org>
+In-Reply-To: <20260910164635.459558-4-vineet.gupta@linux.dev>
+References: <20260910164635.459558-4-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality across zero-extending movs
 From: bot+bpf-ci@kernel.org
 To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
 Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 10 Sep 2026 17:52:11 +0000 (UTC)
+Date: Thu, 10 Sep 2026 17:52:16 +0000 (UTC)
 
---===============3359032784248855412==
+--===============5691876850880909347==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> selftests/bpf: cover the low-32 link for sign-extending movs
->
-> Five programs, mirroring the zero-extending set:
->
->  - sext_mov_wide_src: narrowing the source reaches the destination, and
->    the value that arrives is sign-extended rather than zero-extended
->  - sext_self_mov_keeps_link: r0 = (s32)r0 on an already-linked register
->    stays in its set, the shape a sign-extended int return takes
->  - sext_self_mov_no_link: the same mov on an unlinked register mints no id
->  - sext_no_sync_when_base_has_delta: a delta on the base stops propagation
->  - sext_no_sync_from_subreg_base: narrowing the link does not run
->    backwards into the rest of the set
->  - sext_kinds_reach_different_values: the same low half reaches -1 through
->    a sign extension and 0xffffffff through a zero extension
->
-> Each guards a div by zero that is only unreachable if the propagation
-> happened, so losing the link is a verification failure rather than a test
-> that quietly stops checking anything.
-
-This isn't a bug, but should the count read "six programs", and could the
-closing sentence be scoped to the two __success programs, since
-sext_self_mov_no_link has no div and the __failure ones expect it to be
-reachable?
-
-> diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
-> index eb88d9ce6c34..45bfa02a5338 100644
-> --- a/tools/testing/selftests/bpf/progs/bpf_misc.h
-> +++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
-> @@ -269,6 +269,14 @@
->  #define CAN_USE_BPF_ST
->  #endif
->
-> +#if (defined(__TARGET_ARCH_arm64) || defined(__TARGET_ARCH_x86) ||	\
-> +     (defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64) ||		\
-> +     defined(__TARGET_ARCH_arm) || defined(__TARGET_ARCH_s390) ||	\
-> +     defined(__TARGET_ARCH_loongarch)) &&				\
-> +	(__clang_major__ >= 18 || defined(__BPF_FEATURE_MOVSX))
-> +#define CAN_USE_MOVSX
-> +#endif
-> +
-
-This isn't a bug, but now that the gate lives in bpf_misc.h, would it be
-worth switching verifier_movsx.c's inline #if over to #ifdef CAN_USE_MOVSX
-so the arch/feature list exists in one place?
-
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> index 65cb0efd268f..9d060d8b0c1f 100644
+> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+> index afb1e5628698..f1b01059c5da 100644
+> --- a/include/linux/bpf_verifier.h
+> +++ b/include/linux/bpf_verifier.h
 
 [ ... ]
+
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 0ca229f6e7ac..58e788f53ae5 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+
+[ ... ]
+
+> @@ -17115,6 +17126,23 @@ static void collect_linked_regs(struct bpf_verifier_env *env,
+>  	}
+>  }
+>
+> +/*
+> + * Set @reg to the zero-extension of @known_reg's low 32 bits: it shares those
+> + * bits and its high half is zero. Copy the base to keep its precise low-32
+> + * tnum, then re-apply the zext_32_to_64() the 32-bit mov itself used.
+> + * @reg->id and ->delta already equal @known_reg's; only ->subreg is its own.
+> + */
+> +static void reconstruct_zext32(struct bpf_reg_state *reg,
+> +			       struct bpf_reg_state *known_reg)
+> +{
+> +	enum bpf_subreg subreg = reg->subreg;
+> +
+> +	*reg = *known_reg;
+> +	reg->subreg = subreg;
+> +	zext_32_to_64(reg);
+> +	reg_bounds_sync(reg);
+> +}
+> +
+>  /* For all R in linked_regs, copy known_reg range into R
+>   * if R->id == known_reg->id.
+>   */
+> @@ -17134,6 +17162,27 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>  			continue;
+>  		if (reg->id != known_reg->id)
+>  			continue;
+> +		/*
+> +		 * A ->subreg register shares only the base's low 32 bits, so it
+> +		 * is rebuilt rather than copied. Not modelled together with a
+> +		 * delta, so skip if either side has one (sound, less precise).
+> +		 */
+> +		if (reg->subreg) {
+> +			if (reg->add_const || known_reg->add_const)
+> +				continue;
+> +			reconstruct_zext32(reg, known_reg);
+> +			if (e->is_reg)
+> +				mark_reg_scratched(env, e->regno);
+> +			else
+> +				mark_stack_slot_scratched(env, e->spi);
+> +			continue;
+> +		}
+> +		/*
+> +		 * The reverse: known_reg knows only its low 32 bits, which say
+> +		 * nothing about reg's high half.
+> +		 */
+> +		if (known_reg->subreg)
+> +			continue;
+>  		/*
+>  		 * Skip mixed 32/64-bit links: the delta relationship doesn't
+>  		 * hold across different ALU widths.
+
+Can reconstruct_zext32() lose bounds that reg already learned on its own?
+
+Looking at the code, reconstruct_zext32() does:
+
+    *reg = *known_reg;
+    reg->subreg = subreg;
+    zext_32_to_64(reg);
+
+This overwrites reg's state wholesale without intersecting it with what reg
+already knew.
+
+For pre-existing full-64-bit links, sync_linked_regs() propagates changes
+in both directions, so the base is always at least as narrow as every
+member and the overwrite can only narrow. But the new low-32 link skips
+the member->base direction:
+
+    if (known_reg->subreg)
+        continue;
+
+so the base can end up strictly wider than the ->subreg member.
+
+Consider this sequence:
+
+  call bpf_get_prandom_u32;    /* r0 -> 64-bit unknown */
+  r6 = r0;                     /* r6 is 64-bit unknown */
+  w7 = w6;                     /* r7->id = r6->id, r7->subreg = SUBREG_ZEXT */
+  if w7 > 7 goto out;          /* fall-through: r7 u32 range [0,7]
+                                * sync_linked_regs(known_reg=r7) skips r6 due
+                                * to `if (known_reg->subreg) continue;`
+                                * so r6 stays fully unknown */
+  if r6 > 100 goto out;        /* fall-through: r6 narrows to [0,100]
+                                * sync_linked_regs(known_reg=r6) reaches r7
+                                * via reconstruct_zext32(r7, r6) which does
+                                * *r7 = *r6 then zext_32_to_64() */
+
+After the second jump, does r7 become [0,100] instead of staying [0,7]?
+
+If so, a jump on an unrelated wide register would widen the bounds of a
+narrow copy that the verifier had already proved tighter, on a
+straight-line path. That would reject programs that narrowed the 32-bit
+copy first and the wide original second, then relied on the copy's
+narrower bound for a memory access or helper argument.
+
+The changelog acknowledges the other precision loss this patch introduces
+("forming one costs the source its delta ... That loses tracking a wide
+source used to keep") and the follow-up selftest commit 36b84852a200 pins
+it down with zext_mov_breaks_add_const_src. But neither the changelog nor
+reconstruct_zext32()'s comment ("Copy the base to keep its precise low-32
+tnum"), nor any of the 10 new tests in 36b84852a200, mentions or covers
+this path. The only test that checks the member's fate is
+zext_narrow_dst_keeps_base, which verifies the base is not narrowed but
+does not check what happens to the member afterwards.
+
+Would intersecting the rebuilt state with the member's existing one, or
+narrowing the base's low half on the member->base direction instead of
+skipping it, prevent the member from ever being wider than what it already
+proved?
 
 
 ---
@@ -103,4 +178,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
---===============3359032784248855412==--
+--===============5691876850880909347==--
