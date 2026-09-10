@@ -1,150 +1,69 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E62440642
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CCB45D5D9;
+	Thu, 10 Sep 2026 10:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037706; cv=none; b=pibTKX1YVef7xZyzwB5rNF4lj9uO74Jn1/UFehx5TuD6HKxxQMkeaWe8Lv/zc7sknwNO5IbBKgxdID45Plah1LKzVno81iGPC0uIHcgfZVayYbGSagqu/U/tnUtBGQ/zj/esDxVWqH97I+dD8MJDTQmE0y7DX5ic0ewn05SJvLU=
+	t=1789037717; cv=none; b=PKh4eb+hHsHgXjAOw2s3jz5jHG9e6N5fW5sZ6AgKnSx8b4YiHgqaMOek84Bk5VALYSu/0bVxxkTWPhnObN9EF8L3cAqFqFSoHvisH6nC3o3eJZkK2V+CZraX7cSWcw2q5zKv4pqJiE5i7Pg8I+E6WdiJRMDFEIhVq8eB81XC20U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037706; c=relaxed/simple;
-	bh=RbXmQFeSH7mmKX56IZaeqWN7oWfNBWP8fIZ7+tLYk7I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bUe6QVcPYmHT+Wtypj25l5bK0ziXmcI5jX/OVKENH4UsJ+i0R7QJ7I5chf98FdVQyJsZEzBoGbC5rGBSmQplkEhCLxOMgeAfDZwKNfuzXNV15nPTZ32Vj7oIZnIycyeCb/B8vvAQHr0EWHqRHZAW4B0r8ouc2tet7HPD/wAdufs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=i1hAAaBB; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789037717; c=relaxed/simple;
+	bh=SYToPn8hMgIWzJHVd0/vB/XaoFYRH4qpk/JrZuBcZDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k5oFXtcNOm9PFwc885BFAPBonoJWqiKHLjZtqhaDv68oVcCNxIGBzAFVta9DzrFivlqDRufgrg1uiBrrR5yDyQwDZMaMTO6svrzlPSSYi3ZJGj78N8uJjupJqQJixmbFDCjM3S1tU5ESPVKP8YGBbGnkXr+y0KleBqfvasyWaSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kzKdwTob; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="i1hAAaBB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bP
-	xug+HQ7zJoPKSaqtgyc4kVuXMtxt4YXY2vEMHagmw=; b=i1hAAaBB/sl0qesTxh
-	DXwOgyZW8q9UDuAJDUbuPH5KYyqxNZnLzunZI4efNYR86lhw7DDDO6bn6DGAOJyQ
-	JwgMDmZfwqo2rOOOxq28jedJuVE/LjnsvMtR2OZM7K+SctB0pvhGdHO46ewcnajV
-	cJ5r90IuQSgcTsy95mUOdJdQU=
-Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgBHs8EMjKJqpHWKQw--.37487S2;
-	Thu, 10 Sep 2026 18:53:01 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com,
-	kprateek.nayak@amd.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	connoro@google.com,
-	jstultz@google.com,
-	arighi@nvidia.com,
-	tj@kernel.org,
-	void@manifault.com,
-	changwoo@igalia.com,
-	linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Subject: Re: [PATCH v4 3/5] sched/cache: Drive cache task tick from execution context
-Date: Thu, 10 Sep 2026 19:53:00 +0900
-Message-ID: <20260910105300.2781275-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909110348.GZ4120091@noisy.programming.kicks-ass.net>
-References: <20260909092901.2989564-1-sh_def@163.com> <20260909092901.2989564-4-sh_def@163.com> <20260909110348.GZ4120091@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kzKdwTob"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DBC1F000FF;
+	Thu, 10 Sep 2026 10:55:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789037707;
+	bh=k3y95bxLAFvgrNyCob/CXhQ0nzIPehv0odU98AOnHxM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kzKdwTobAZaNcb4z4zK32QVmVnd/h/QC5nwTosfoFsoajAQoDWYkQE41ERnw2kXib
+	 HRPpViyHRg2chKUeQcxAMnZNoEbRnP0L6bJt9tv+2lkD7yNbRMBAlpsonzBjLJPEAR
+	 BIhJwUbjmiuqa+RhZ1lvzmnCZy7Q8aK8z0C5txnxt77e3RLrTRB16c185/uUy8oE1l
+	 QTd4aQ4gwQQy5ZFlXZ1Kf8QBG8jRZff9R2D7eU200Lh5z+C4mSIOwTtiXU2zygTkuX
+	 KzYoYyLuougMv4jJc4FAnJ878qut5FEZHxU/RslEX3TK6qJATJXf1H3hvFK+ZGoyjb
+	 mYsfLIHe0KQgg==
+Date: Thu, 10 Sep 2026 11:55:04 +0100
+From: Simon Horman <horms@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v3] net: davicom: Propagate wakeup IRQ errors
+Message-ID: <20260910105504.GD40544@horms.kernel.org>
+References: <20260909045738.16705-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgBHs8EMjKJqpHWKQw--.37487S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr1kAF43Ww4rAF48uF1xXwb_yoW8uw1xpF
-	ZIk3s7WrWDKa1UXF17Zrn8X3Wfuws3J34j9FWkWFW8uF90qFyF9r95tw47uFsFy3yYkFy2
-	vrWj9r9rKr1Utw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UK4EiUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQ1pyGqijA1kAgAA3C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909045738.16705-1-phucduc.bui@gmail.com>
 
-On Wed, Sep 09, 2026 at 01:03:48PM +0200, Peter Zijlstra wrote:
-> The result at this point in the series is:
->
-> ~ static void task_tick_fair(struct rq *rq, int queued)
->   {
-> ~         struct task_struct *curr = rq->curr, *donor = rq->donor;
->
-> ~         if (donor->sched_class == &fair_sched_class) {
-> ~                 struct sched_entity *se = &donor->se;
->
-> ~                 if (se->on_rq) {
-> ~                         unsigned long weight = NICE_0_LOAD;
-> ~                         struct cfs_rq *cfs_rq;
->
-> +                         for_each_sched_entity(se) {
-> +                                 cfs_rq = cfs_rq_of(se);
-> ~                                 entity_tick(cfs_rq, se, queued);
->
-> +                                 weight = __calc_prop_weight(cfs_rq, se, weight);
-> +                         }
-> +
-> ~                         se = &donor->se;
-> ~                         reweight_eevdf(cfs_rq, se, weight, se->on_rq);
-> +                 }
->           }
->
->           if (queued)
->                   return;
->
-> +         /* Update state owned by the execution context. */
-> +         if (curr->sched_class == &fair_sched_class) {
-> ~                 if (static_branch_unlikely(&sched_numa_balancing))
-> ~                         task_tick_numa(rq, curr);
->
-> ~                 task_tick_cache(rq, curr);
-> +         }
->
-> +         /* Update state owned by the scheduling context. */
-> +         if (donor->sched_class == &fair_sched_class) {
-> ~                 update_misfit_status(donor, rq);
-> ~                 check_update_overutilized_status(task_rq(donor));
->
-> ~                 task_tick_core(rq, donor);
-> +         }
->   }
->
->
-> And that is rather weird given how task_tick() works. Please order
-> things in a single donor_class and a single curr_class block. A second
-> donor_class block makes no sense.
+On Wed, Sep 09, 2026 at 11:57:37AM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> The wakeup IRQ is optional, but errors from platform_get_irq_optional()
+> are currently ignored. Propagate errors from the IRQ lookup, except
+> -ENXIO which indicates that the optional IRQ is not available.
+> 
+> Found by manual code inspection.
+> 
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+> 
+> Changes in v2:
+>  - Add a Fixes: tag.
+> Changes in v3:
+>  - Remove the goto statements for the error paths in request_irq() 
+>    and irq_set_irq_wake().
+>  - Drop the Fixes: tag as this patch is intended for net-next.
 
-Agreed. I reordered task_tick_fair() so the final form has a single
-scheduling-context block followed by a single execution-context block.
-
-Patch 2 moves NUMA handling into the execution block, and patch 3 moves
-cache handling into that same block. Misfit, overutilized, and core
-scheduling work remain in the donor block.
-
-The resulting layout is:
-
-  if (donor->sched_class == &fair_sched_class) {
-          entity_tick();
-          reweight_eevdf();
-          misfit/overutilized/core(donor);
-  }
-
-  if (queued)
-          return;
-
-  if (curr->sched_class == &fair_sched_class) {
-          task_tick_numa(rq, curr);
-          task_tick_cache(rq, curr);
-  }
-
-This excerpt shows that there is no second donor block.
-
-Could you take a look at whether this layout addresses your concern? If so,
-I will carry it into v5 and post the updated series.
-
-Thanks,
-Hui
+Reviewed-by: Simon Horman <horms@kernel.org>
 
