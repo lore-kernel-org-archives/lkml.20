@@ -1,131 +1,106 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B94B38E100
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DFD221FB6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029533; cv=none; b=cVH55mRx/PxZkZofFsFcE4nYeyF0XW88h+dkB62qIvjtNmiTlSd7HYBOSf7aEZ6MSY0Gku3vtaZ+fnsybpC823h7YACzM7p/m6Wcb1xhEQBt9kLIui32jAYbC3zn85P0nVcA2P1DZ1FuXZOuW6Bn9+9wHnbCdEUO57aYHx9IHdI=
+	t=1789029550; cv=none; b=Y91tUBrGofM50vQetcWAo4DIzamKPOMXxRjhaVvMbHLxHAWjed+sZ3Cl1u+fm1GOACJb/4rBoE58DbF2DrnXmsn6iooWc0XPETHGDm708CH6J3mKARVyjepHTstUS4YbuPAZdD9Pug9u3TfwG/Yl+QmRJuLlU2+jE329Ze+QytM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029533; c=relaxed/simple;
-	bh=Iv/FuHLzpjRfX/Hu97z4K4S4AtbS4uRUVjP2BEKtEN0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gltoZuVqDPjI18btTrA59L1a1amO0Fo6Nsbm1BGwSlORP6yzOOurvqitzkGwHWm1Jhw1rqyHrv+aMe3Vp+h52mREwJozwFa3KDlQWLvCMn1JDZYzPSmuPLcM9i/D8L14kETn1CGwQtN3AFZJyIp3cVcmv0JleLPEFN+6uNAEgCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PNr+DALi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789029550; c=relaxed/simple;
+	bh=SiT1KDjlCQxg3SPpGnO4slKadQA03M3dNbnhOGR63yg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=goEoBIyZ5TD9yKhETuiuNOJXt/pXKwFIZJDxWr8+Y0yZ17x0ljLY+3xE/bTtMBMzb/IM5ibOe/NJnmb/IOSgDu3divgt+L3o1wHpY8ZeWlswjzh/RUKhvtIf+dvF6PVHpfsJVMnsXsWIjjdLdfaQoR4C1A0YH2ondQuNXMU0qA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=R2s0wZee; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PNr+DALi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so11097925e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:38:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789029529; x=1789634329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=krWlsGzKhYn79KLVkVDG+CVwssGuEXbVIFgPkModltY=;
-        b=PNr+DALiX77pVm3xrCt3IDwjU6z1l1QfxmxYeXwqBBcnn/8/9OXnr7bAYuK6jYLkAJ
-         sslbhYMAEmEY35sU6/hpAwNsIFG13Ch8SiNXcc57jEnKrBjdMxsOuRvAilN6iqlH1bZ3
-         2HdURyW5Rk2LAt/r5VPYtPZ9YoKqhtWPbrID1PTGAYhv1spnOdyOaX1/UhphxiylbNVL
-         rfe4RfHTstNZBfxbBZQtV+DesJtr3tVjFBk5OC+dThvBemHHVZFDgTB2umWciz0EFDrz
-         7b57/23fFTkfuLWA+i0fnZZy7NubgpqoQBTWKd34DWKNcaKwo7nHolqp+AB23Qqe0aIb
-         9E8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789029529; x=1789634329;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=krWlsGzKhYn79KLVkVDG+CVwssGuEXbVIFgPkModltY=;
-        b=IV65q0VKubzd6bBGwQskvPrXMU2yYKrKujPJ48eqpaGyqZWO5YsNafDisGnS8rr/Ih
-         IjIuqUTq/0GJVqRsRsZKTMizYZ6LuZJPHEaE3FPLdBEu4OdduCJfauvVtWQ2viyBOeHg
-         PCV0KOmsk3tW6E9XHA793gwu6LggXiyttw/RsfIX6iC/5uLzLO8LEDTq4HeTWGV3a9wQ
-         tpC0qBxqCzwBG8ni3T/4PlPLR0mYP3q+fjjBxhylBhPpYRZTeRDNGecF+X03vhl7nZYA
-         OIbw/NEM+npbrb3PcoVlh3xhDD0yiEh52ssLvNJ0WHaBefu8nMQNrSJ9hj0azzSgrgVd
-         NJhw==
-X-Forwarded-Encrypted: i=1; AKwUvBz18PnMmsLpI66bFXoZYs8jKmRv6PTwwvNOC2NBiV3jvsJE+W1t0BXFyuOItkoKsphXJ5qkzhBI27LlapY=@vger.kernel.org
-X-Gm-Message-State: AFuF++niy1IP7IIXQQPiPbQe/9kf6+hpmUELN0QMnX/P0yf6wPuD/Tgm
-	q0qBPyuDgoyul0Ijmt8TH/eS4eX/10NtQhCyjE39j8HQvo7de9o4wn1D
-X-Gm-Gg: AYBFou1nNTpwhzcRT7yNUPvKu1Qf9cpIm1rRB1CsYI4Yl92HL9LZTXo/fQXxVCTrvhJ
-	BlZFvTwBboHFzyhL5to+dHrS/RxIYg484j8YMd8BWX+hlglWu5YZVuBy+GidVyc1vICltjBNuMF
-	qi+HFmRg/Y9U7xknOdXMJID67N44m9eWjeW5fpq1Kz9aKUZ7dNZ1jXcwGIKEjxWD82oHRNriFIW
-	wjWJGSccm9XH0wwXM2Xy/PQR2dcG6w0yRvAwmmjJiBsWKdx6oWENH+0gH+YDBCScyqIIe7ID/y9
-	PLAbijnjjMAaZIoJo8b4bx6N23DG5ckb45w7MyHjpIllUp4VV3VOuBFs4wnKWa4NeUauQ2q3icN
-	5LoUSCR4rVu3pqi+NLpRixNyrrSoaNl3oB5r3Hq1BZNrcoWIFr1fNLoD/Sk66t8lgb+qc4w0QT3
-	PJHiX2uy/9Oyd/c9CnzOrMM1ypTyq+e3Wm9nA01uCHjpXLoQBKDmFlsO42Q6vdr/YTT6sjMbEi1
-	JbW41aeig==
-X-Received: by 2002:a05:600c:8b10:b0:49d:1e79:35d6 with SMTP id 5b1f17b1804b1-49d26dcaa22mr38489625e9.14.1789029528985;
-        Thu, 10 Sep 2026 01:38:48 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb058c8sm57245275e9.0.2026.09.10.01.38.48
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 10 Sep 2026 01:38:48 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:38:45 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Quinn Schive <quinnschive@hotmail.com>
-Cc: linux-input@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [BUG] HID: logitech-hidpp: G502 LIGHTSPEED loses hi-res scroll
- state after S3 resume
-Message-ID: <20260910103845.71b194f4.michal.pecio@gmail.com>
-In-Reply-To: <CY8PR14MB59803EC0F6C7FD39A6D3C42FA0BF2@CY8PR14MB5980.namprd14.prod.outlook.com>
-References: <CY8PR14MB59809F95431FC6FFB0D0A56DA0B02@CY8PR14MB5980.namprd14.prod.outlook.com>
-	<20260909222724.30fc8f52.michal.pecio@gmail.com>
-	<CY8PR14MB59803EC0F6C7FD39A6D3C42FA0BF2@CY8PR14MB5980.namprd14.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="R2s0wZee"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789029547;
+	bh=SiT1KDjlCQxg3SPpGnO4slKadQA03M3dNbnhOGR63yg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=R2s0wZeeGzlnMvAx9MIhuWw8oPIAKtAakw4b/WmlnFndxmywHJ4IK1Q0A77sO9h6b
+	 QWGEPwCjOB/TQdvdnTqtmBYOO9CCm0Wdrgpj6zNfasuTNf3ZuIvZ2jFoNu5466sAJo
+	 vX9Y/pnCvAZTHq04QrLQH0/aKhpZMuyEOWItNQgdA6H106HvixPmo/5Acz1/HTfB2u
+	 K4A9A4tuHYZ4Fo69UZrk5XU5uYXwpTERx1bpkrIvV0cX9N1UfdrR8m8yy/ENoITuTU
+	 oWCveip499+7Nbyz5IONwMHt58+wi2QczhgMPGFhL3h3fcRqKFlHy/EWR2l8QINn0C
+	 sSAN8vA+RQdRg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 87CC117E05D3;
+	Thu, 10 Sep 2026 10:39:06 +0200 (CEST)
+Message-ID: <cb72ff50-b62f-47fe-af40-d38558bdff6e@collabora.com>
+Date: Thu, 10 Sep 2026 10:39:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit
+ ratio setting
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: chunfeng.yun@mediatek.com, p.zabel@pengutronix.de,
+ chunkuang.hu@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
+ matthias.bgg@gmail.com, granquet@baylibre.com, justin.yeh@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+References: <20260701121936.19407-1-angelogioacchino.delregno@collabora.com>
+ <20260701121936.19407-3-angelogioacchino.delregno@collabora.com>
+ <5bmxa4pcwkiemubwfjun3dti4szu66gnxe6yw2pudq3wplpc23@inyswc2bdlhw>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <5bmxa4pcwkiemubwfjun3dti4szu66gnxe6yw2pudq3wplpc23@inyswc2bdlhw>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 9 Sep 2026 18:13:17 -0600, Quinn Schive wrote:
-> I tested the patch you suggested, and so far it appears to have fixed 
-> the problem on my system.
+On 9/9/26 17:06, Manivannan Sadhasivam wrote:
+> On Wed, Jul 01, 2026 at 02:19:36PM +0200, AngeloGioacchino Del Regno wrote:
+>> The comment in the mtk_phy_tmds_clk_ratio() function clearly and
+>> correctly explains that the TMDS ratio has to be 1/10 for data
+>> rates under 3.4Gbps, and 1/40 over that.
+>>
+>> Unfortunately though, the TXC_DIV register setting was wrong, as
+>> in value 3 means to divide by 8 and, in order to achieve the in
+>> spec 1/40 (tmds) data rate, this has to divide by 4 instead!
+>> In order to achieve the correct 1/40 (tmds) data rate, this has
+> 
+> This statement is cut-off!
+> 
 
-Thanks for testing, looks like that issue may be somewhat widespread.
-BTW, you may respond to the patch (in its original thread) with:
+Oh oops. It's just a forgotten line that has to be removed....
 
-  Tested-by: Your Name <email@address>
+Should I resend or can you simply remove the line
+"In order to achieve the correct 1/40 (tmds) data rate, this has"
+while applying?
 
-and a brief note that it's confirmed to work for you as well.
+Thanks,
+Angelo
 
-As for the Logitech driver, I'd guess it needs something like this.
-Of course, the xHCI patch must be removed to reproduce this again.
+>>
+>> Add definitions for the TXC_DIV register values clearly explaining
+>> the meanings (DIV2, DIV4, DIV8), and program the correct, DIV 4,
+>> value to the register in mtk_phy_tmds_clk_ratio().
+>>
+>> This fixes out of spec clocking and, with this change, SoCs using
+>> the MT8195 class HDMI PHYs can now successfully be configured to
+>> output 3840x2160@60Hz over HDMI.
+>>
+>> Fixes: 45810d486bb4 ("phy: mediatek: add support for phy-mtk-hdmi-mt8195")
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> With above comment addressed,
+> 
+> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> 
+> - Mani
+> 
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 1504de32b1c8..0107ffc9efb3 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -4711,6 +4711,21 @@ static bool hidpp_application_equals(struct hid_device *hdev,
- 	return report && report->application == application;
- }
- 
-+static int hidpp_reset_resume(struct hid_device *hdev)
-+{
-+	struct hidpp_device *hidpp = hid_get_drvdata(hdev);
-+	int ret = 1234;
-+
-+	/* reset disables hi-res scroll, restore if it was used */
-+	if (hidpp && hidpp->vertical_wheel_counter.wheel_multiplier > 1)
-+		ret = hi_res_scroll_enable(hidpp);
-+
-+	dev_info(&hdev->dev, "hidpp_reset_resume mult %d ret %d\n",
-+			hidpp ? hidpp->vertical_wheel_counter.wheel_multiplier : 4321,
-+			ret);
-+	return 0;
-+}
-+
- static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
- {
- 	struct hidpp_device *hidpp;
-@@ -5059,6 +5074,7 @@ static struct hid_driver hidpp_driver = {
- 	.input_configured = hidpp_input_configured,
- 	.input_mapping = hidpp_input_mapping,
- 	.input_mapped = hidpp_input_mapped,
-+	.reset_resume = pm_ptr(hidpp_reset_resume),
- };
- 
- module_hid_driver(hidpp_driver);
+
+
