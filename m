@@ -1,105 +1,91 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A9729D294
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:27:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF8423EAAD;
+	Thu, 10 Sep 2026 00:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789000046; cv=none; b=QO9xaUKWVsOg38HJzMR36Veh9EWY68NkgrSoLNkAy2e4Dm0DP9NGeOb28ciXhgcRH8hiyoqwsyyFEGwh8s4+8u74JyFWXVGhjeNA2t+WkgEs8HoMvIdL7gPBI+eD2OpOaRjYW/FAJGyAoDVi4rCsiopQ9CIHAVgXle0daUbwdIA=
+	t=1789000253; cv=none; b=ffLbURlX2FFqWD44kqqtNLwfl7hjKQ+9rc1z6oCrO0XITGhU+V8ZARgv2REZ7pc60ddJutsgMfQ4SZ3pbIYVGWSpo9Ig1qY6nSe9VZm2gBiOY5PRJGwVFMWs4HjEgK1k7h60U1cEqJRKBglM7vMEhL81QEqpexEo9Qf4gxA32QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789000046; c=relaxed/simple;
-	bh=W/cQoJNpCMvhT/b6a6u/tSJdTecPVVcp+05IoAxGuKA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=cfOzBl1OjWHFFnZUvIojjprfjN8AwZa44e0KeqKzVogiEc8DKat9f6D2EysAheavyBoZYgr8PqWajmRjdser1LVMCBx0lDGJUQyEHKSLhV8fqPOOP28IoLPFs2+VHRJMlGsOPnGD6gNeP40aeGYDsO/39F5DTstk5INVicv3B+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PbUnAEEx; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789000253; c=relaxed/simple;
+	bh=IqnGyI4kETiwj7vUo8HxhMF+sWJkmT0jRUGRae+/GBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CN2HCHrhXJThCN3v2lJ6Ntd08r7+YMoE6VY0hvPNFipGHucO4Kq4IxdKUHq0fH3NMGiSXBiK2ebkO68ZkmcfQFlhsbG8UPOc7jJ8Qxy3LMLenuuAQYDZgkKnKGgX8VL8Ma5l6HTltdn7tsYB+bhpCI0VZ/vCw+/73wXuVkYhFO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwk//jcx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PbUnAEEx"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so6868756a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 17:27:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789000044; x=1789604844; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p8JHNVACgZQItEORarLzV/z1PEss/g3cX3jzovh/lk8=;
-        b=PbUnAEExmovGEajL6NhjjxfLfji05OgqzSc4vwM92DyZXyWvWjVNVAkffB0H2zsKLK
-         OSwJDFrw2p+lyq5hIpz65AV9fT2WLLU1kXWepTW1DaEtfgfoLb6Vyglkz3axBIJ4XSdS
-         C0UwmRiwLGy4aaNv9XN41f3nRBxfJ9rLqDukC045kjnXl3FkRmk05xIHPPFG5BS3qaw+
-         Citka/2OGOaGef6QPdstHPoqv1+0Ons31adlCGyB43M9We2Vm9RsN2ZazdbKLBGLymaD
-         JUl5ftx4Ych04vcPilxrwjD5GMRel7sN1ym9QXZ25DsqWRSG8LgjNcqNKH0CAj3dwbwC
-         wQAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789000044; x=1789604844;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p8JHNVACgZQItEORarLzV/z1PEss/g3cX3jzovh/lk8=;
-        b=sYA568ucYXdoJLlDst9D+MPE+Ce/qdoQWRhUgK35Z9TbG8IafCEK1VmgwnxvDwZN/g
-         TfBxJHdmLWbLGaNBC7BINq/iY0jpcvPKzN0FRJiNtgtbDR7REvBWktPDgR1E5WnL4tuE
-         jAXfB9ri/YMWgxxBOcj7owVFa1sWOqjIlVoh1BM1RIDUiT67e1FIgg0Hf4ZMuN5WNEgt
-         bqLn7zEzSEZHmUT0wq653rgYBt8gIxG+Q+AQ3N1O618pKM0lJyd620xRlAoUm2DO9CZQ
-         +5EXW7lLi6urgbcW3mbjHsQdLDHgOkkG44tCGp1C7JDHVEXEotNmP2H1SI8IvsH5eBmw
-         69Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrqZKO7jswOHW7cdKAJPu2ygJINdlI2TxMTUIuktObavizi7SAp4GgBNlM67PB/8BbZFAmR900Q+L3MyE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvAaXurbxZOAtictHzjNA1Oc/DsGvPeFE8JoEwfUGWl2BGDp+d
-	yTXTqHMjiX/52h/BRwoq2fP1CbL8qaYjVdXtWW1PmQyGyMELih9DkydVGUz1xH8BQSXWzqR2Z0I
-	mEWfLOQ==
-X-Received: from pjqo21.prod.google.com ([2002:a17:90a:ac15:b0:39b:7935:6c42])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4d87:b0:380:540:d499
- with SMTP id 98e67ed59e1d1-39b26100bfdmr51740780a91.6.1789000043798; Wed, 09
- Sep 2026 17:27:23 -0700 (PDT)
-Date: Wed, 9 Sep 2026 17:27:23 -0700
-In-Reply-To: <20260908160426.6547-2-tharitt97@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwk//jcx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416801F000FF;
+	Thu, 10 Sep 2026 00:30:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789000250;
+	bh=rFkP9UpkopXJcBtutREeJmpmh/HBxk07oyFyZlOMnio=;
+	h=From:To:Cc:Subject:Date;
+	b=Zwk//jcxR0f5lPf3BvFiitdL0MdWK05S8/vN1N8n3TtsqzK9VfekstvgMSFRa50EU
+	 yOAU6E1R6Fbc3fghqgS/8atMMGeuGsqiJK+UYIpNKG9p71A1SVxvC1ACxoMi/Svvtz
+	 FN6MbSimocj6vCnC8eMpCnWeY6NHkdBZ4xHaAYRJ5hlxfJpkVCXXCsWKmLTSS0Ob+s
+	 ynjBrVkpdVrNvFH3AT25eQHTV4l7yemOgGyG32mWSyMKcTIyTDratkg4b+wqF6YNSO
+	 a51kGzbu0UOAvacmt7wX3VpoUgJRGC5MTbjWwgu/v8e3n7CXKWPF+nHC+wE0TwphW9
+	 Hny9PxhPC8jXA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH] tools/bootconfig: Fix integer overflow in size check
+Date: Thu, 10 Sep 2026 09:30:46 +0900
+Message-ID: <178900024679.183840.10345859264677533824.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260908160426.6547-1-tharitt97@gmail.com> <20260908160426.6547-2-tharitt97@gmail.com>
-Message-ID: <aqH5azSkQJVXg3ef@google.com>
-Subject: Re: [PATCH v1 1/2] KVM: x86: Reject reserved CR8 bits in KVM_SET_SREGS
-From: Sean Christopherson <seanjc@google.com>
-To: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, shuah@kernel.org, hpa@zytor.com, 
-	binbin.wu@linux.intel.com, kai.huang@intel.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org, 
-	me@brighamcampbell.com, jkoolstra@xs4all.nl
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026, Tharit Tangkijwanichakul wrote:
-> kvm_is_valid_sregs() validates the incoming CR0, CR4, and efer values but
-> never checks CR8.
-> 
-> When userspace passes a CR8 value with any of the
-> reserved bits [63:4] set, __set_sregs_common() forwards it to
-> kvm_set_cr8(), which rejects the reserved bits and returns early. That
-> return value is not checked, so the ioctl reports success while the
-> requested value is silently dropped. A subsequent KVM_GET_SREGS then
-> returns a CR8 different from the one userspace believed it had written.
-> 
-> Factor the reserved-bit check out into kvm_is_valid_cr8() and use it both
-> in kvm_set_cr8() and in kvm_is_valid_sregs().
-> 
-> Fixes: 2f5bb3fe5835 ("KVM: x86: Move the bulk of register specific code from x86.c to regs.c")
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Heh, this goes back much further than just moving code around, all the way to:
+Sashiko reported that on 32-bit systems, if the size in the bootconfig
+footer is corrupted such that adding BOOTCONFIG_FOOTER_SIZE wraps
+around (for instance, if size is 0xFFFFFFFF), the size check in
+load_xbc_from_initrd() can be bypassed:
 
-  6aa8b732ca01 ("[PATCH] kvm: userspace interface")
+    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
+        pr_err("bootconfig size is too big\n");
+        return -E2BIG;
+    }
 
-which did this in kvm_vcpu_ioctl_set_sregs():
+This would lead to load_xbc_fd() being called with a negative size,
+resulting in an undersized allocation, heap overflow on read, and
+out-of-bounds write on the terminating null byte.
 
-  6aa8b732ca01 (Avi Kivity         2006-12-10 02:21:36 -0800 2109)        vcpu->cr8 = sregs->cr8;
+Avoid the integer overflow by checking whether size is greater than
+stat.st_size - BOOTCONFIG_FOOTER_SIZE. Since stat.st_size is already
+verified to be at least BOOTCONFIG_FOOTER_SIZE earlier in the function,
+this subtraction will never underflow.
 
-I suppose one could argue that:
+Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+ tools/bootconfig/main.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  Fixes: 7017fc3d1a12 ("KVM: Define and use cr8 access functions")
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 7dc9fff9b637..b380ad6777fa 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -218,7 +218,7 @@ static int load_xbc_from_initrd(int fd, char **buf)
+ 	csum = le32toh(csum);
+ 
+ 	/* Wrong size error  */
+-	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
++	if (size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
+ 		pr_err("bootconfig size is too big\n");
+ 		return -E2BIG;
+ 	}
 
-is more appropriate, since this specific behavior was introduced then.  I'll
-probably just shove both in there and massage the changelog to explain the history.
-
-No need for a v2, I'll fixup when applying.  Thanks!
