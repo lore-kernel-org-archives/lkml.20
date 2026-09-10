@@ -1,81 +1,33 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034FD3BBA18
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81814384CF5;
+	Thu, 10 Sep 2026 06:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020962; cv=none; b=afBOrIgnSAXGaiT+gFIx6G3d7o3/oAOU8kYsZn5gTPtAXH6AtVyrduk+NLUrWHLnsDBrsqcXEpC/ffMWi3cthAZumLivL+DDDbz2F9/a3lIucLmZNZuZ3GUJ3ynAs3KVnQsUnbkyMC7VjO3thwjI7Tf3YJYljrKO4+WRyZdiyHc=
+	t=1789020980; cv=none; b=hvYld4Est4E5lUQ+qEyCx18o0lCcLKuOrrfo4/UZ7c7fEsiSQXi+U4FpdD0Z77sFVtB8OjfEdV9Khj2ODKJbYnGOYY84f3aT1puFhASlt/ZNvIWJMb4A3cE5EMl2Tp7PiYuW6cLzkMBfGnDB86wwvXcC98LGzl2Q/Pdd6fxXDZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020962; c=relaxed/simple;
-	bh=BzF0wZH3kpgbu6/mScuAeLJTtUL1mCIKUIrerzCuIp4=;
+	s=arc-20240116; t=1789020980; c=relaxed/simple;
+	bh=dy8JF2HPHqpbKppZPV0XvOy0C89bNiEmcRH7MGBdAB8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jdDHqaae+/Uf4/jX8zZuAsCWDE61moM51z3k5FLFyIIot4ESqQeMbNwVaSyL46nepqCqDuvO/ZvkFV0dseEgOms7W4Z1MqwcwRF53qARYzfpOGdA/1JcTNLu8gVktx23YpV+XmZUlbLA5zR91hRNNNV5dcsjp20k8wf1uu5EWIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qq84fnAF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sF6zO0RI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kI4u8I/n; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CUYsT65Q; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=Q1SFaZuXKeQ/oPZItLXOuA51YmZgvVQRxvWLuIp0ClT1VPLZSt2r8xronyIwqr4CF9hBTXNSEgBbYx7HJ9uSjXH2Km2lnVN2oxy3CN2dAIdMA7IzAo8drRmiSynYwpwB+I1j9tEySATiIYxJ2vnVkGMstIvJ69izOFljeMMKOWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRb6JNW/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qq84fnAF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sF6zO0RI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kI4u8I/n";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CUYsT65Q"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2887D21A96;
-	Thu, 10 Sep 2026 06:15:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789020950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mtZ6KKo0m8q9d/XrPphq/EW6xUtWRsSpn3xh5iY2+i4=;
-	b=qq84fnAF/3i3OA/r/RT14SsIpolJYOH1myvzTxFt2oFH8u8U9VncRGd/lfmTy2wNQswdOr
-	VbEWl+qqNeWEAAoQ2+sEyyagIy3L4HkMSepmUzWd3ahWzT1Ae2r3/TmsuQvX4aOmForDee
-	Kgm4GPsH2wrJTQc6rM/PzfrumFSKoR0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789020950;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mtZ6KKo0m8q9d/XrPphq/EW6xUtWRsSpn3xh5iY2+i4=;
-	b=sF6zO0RIi/ea/OvAdi/BPQMSHeO0wjHin9vwAFvlPkXDjyWOXgKvBT7vvgor+32Dv6umPL
-	UNZXyjyiuRT7tjBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="kI4u8I/n";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CUYsT65Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789020946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mtZ6KKo0m8q9d/XrPphq/EW6xUtWRsSpn3xh5iY2+i4=;
-	b=kI4u8I/n6LcAfzWvf+t+Q/Q+zj2l4Js+dGSgfgQMTxzLRnAOEmDp5AuSktwjV0eOlzCn+I
-	e/jajGpGljcTePjq+mQS9Cli0U/oeN2acVVWiaNXx8XnmEoPVS9/JeFzuC2oRjUlJur1MH
-	+l76yZQyhjkmJyX7OEaNfWln9OQKhoo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789020946;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mtZ6KKo0m8q9d/XrPphq/EW6xUtWRsSpn3xh5iY2+i4=;
-	b=CUYsT65Qj/scyaPId9g7tNGhSTEDgc2kOTf0uQfBwUC19l8+w5yctWZi4nkaqeNwSnVoun
-	3H2TJhzuQHubQ4Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9262613185;
-	Thu, 10 Sep 2026 06:15:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HtyWGxFLomp9PgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 06:15:45 +0000
-Message-ID: <f938789c-3dd7-4fb1-8adf-2b535989e4c3@suse.de>
-Date: Thu, 10 Sep 2026 08:15:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRb6JNW/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D258E1F00893;
+	Thu, 10 Sep 2026 06:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789020968;
+	bh=h6Exf0e8vILsYNXuRufIR8cElvccbDJONMs+KKdJ0hs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iRb6JNW/uIyBGIC+b02KqPdx2+r9VaLnKuR5wE17VK6k56okkHiUb3tZWT2mP6RDu
+	 3KIqIiuykcum2z8JXcgpRDEPk3OjwwkXTLr53LzeIwYNsfPU/TF3cXn8RR2+ZvFOPq
+	 3xytP6LFyl3pexeKCqNUCI6ZY40w9QnNLCQIOWGThgbsW6qYyRYeXtVoeCd1wZGkPN
+	 fV2DGDzhEne76CL5cYsKPtSdeCNOa9SZsUWyPaN51ckRr+rbrg1kV6VhTXLw2mFSFm
+	 a0xbUkWBrV1wvJd4jdc0LeeU7kxILnh2f8xH1mxubodQJwwJQocaC+IPZPiVtF+NpW
+	 jeuXxAlItUFXw==
+Message-ID: <a05c4086-1681-44f4-88c6-de1073b0f5a6@kernel.org>
+Date: Thu, 10 Sep 2026 08:16:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,234 +35,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/pl111: drop alpha formats the hardware cannot scan
- out
-To: Roshan Kumar <roshaen09@gmail.com>, linusw@kernel.org,
- dri-devel@lists.freedesktop.org
-Cc: leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, pimyn@google.com,
- linux-kernel@vger.kernel.org
-References: <20260825105427.686619-1-roshaen09@gmail.com>
- <20260910054503.4155812-1-roshaen09@gmail.com>
+Subject: Re: [PATCH] mfd: fix typos in comments
+To: Lee Jones <lee@kernel.org>
+Cc: Botsz HUANG <huang.botsz@gmail.com>,
+ Hemanth Selam <hemanth.selam@gmail.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org
+References: <20260904122834.33723-1-hemanth.selam@gmail.com>
+ <apwFlV97bLVlvsOJ@botszhome>
+ <59747ea8-bd89-4dff-ba13-ff9c66318e8c@kernel.org>
+ <20260909161454.GF2133376@google.com> <20260909161710.GG2133376@google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260910054503.4155812-1-roshaen09@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 2887D21A96
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,lists.freedesktop.org];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[collabora.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,google.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid,suse.com:url]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260909161710.GG2133376@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi
+On 09/09/2026 18:17, Lee Jones wrote:
+> On Wed, 09 Sep 2026, Lee Jones wrote:
+> 
+>> On Tue, 08 Sep 2026, Krzysztof Kozlowski wrote:
+>>
+>>> On 05/09/2026 14:05, Botsz HUANG wrote:
+>>>> On Fri, Sep 04, 2026 at 05:58:28PM +0530, Hemanth Selam wrote:
+>>>>> 2.48.1
+>>>>>
+>>>>
+>>>> good job~
+>>>> Acked-by: Botsz HUANG <huang.botsz@gmail.com>
+>>>
+>>> I don't think this is real identity. It always comes with other
+>>> LLM-generated content - as in this case as well - from Nick Huang
+>>> <sef1548@gmail.com>.
+>>
+>> sef1548@gmail.com is Googleable and appears to be legit.
+>>
+>> They also have commits dating back to May last year.
+> 
+> Botsz Huang is also a real name [0].
+> 
+> Now, whether they should be Acked-by:ing patches is another issue entirely!
 
-Am 10.09.26 um 07:45 schrieb Roshan Kumar:
-> The PL110/PL111 controller scans out a single framebuffer and never
-> blends its alpha channel with anything. In the pixel-format tables every
-> alpha-carrying entry (ARGB/ABGR in 8888, 1555 and 4444) maps to exactly
-> the same register configuration as its XRGB/XBGR counterpart, so the
-> alpha byte was never used by the hardware.
->
-> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> with alpha exposed") added validation that warns when a plane exposes
-> alpha formats without a pixel blend mode property, and PL111 does exactly
-> that. With panic_on_warn enabled the warning prevents the syzkaller
-> vexpress-a15 manager from booting.
->
-> Drivers should not report formats they do not support, so remove the
-> alpha formats from the PL110, PL111 and Nomadik PL110 variant tables and
-> the now dead case labels in the display setup, instead of advertising a
-> blend mode property. Behavior is unchanged for userspace that picks an
-> XRGB/XBGR/RGB format; alpha-picking clients fall back to the identical
-> X variant.
+But:
+1. The questionable account only acks when sef1548 acks
+2. Even the style is exactly the same repeating the same mistake of not
+removing quoted text:
+ - big wall of text
+> LGTM
+> Acked-by: Nick Huang <sef1548@gmail.com>
 
-Please see the comment from the Sashiko bot about additional alpha 
-formats. Apart from that that patch looks good.
-
-BTW, do you have this hardware available for testing?
-
-Best regards
-Thomas
-
->
-> Link: https://github.com/google/syzkaller/issues/7805
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
-> Changes in v2: drop the alpha formats entirely instead of advertising a
-> DRM_MODE_BLEND_PIXEL_NONE property, per review feedback from Thomas
-> Zimmermann. Leandro's Reviewed-by from v1 is not carried as the
-> approach changed.
->
-> ---
->   drivers/gpu/drm/pl111/pl111_display.c |  6 ------
->   drivers/gpu/drm/pl111/pl111_drv.c     | 16 ----------------
->   2 files changed, 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl111/pl111_display.c
-> index 5d10bc5fdf1f..e1b513d36c27 100644
-> --- a/drivers/gpu/drm/pl111/pl111_display.c
-> +++ b/drivers/gpu/drm/pl111/pl111_display.c
-> @@ -267,14 +267,12 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_ST_LCDBPP24_PACKED;
->   		break;
-> -	case DRM_FORMAT_ABGR8888:
->   	case DRM_FORMAT_XBGR8888:
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_LCDBPP24 | CNTL_BGR;
->   		else
->   			cntl |= CNTL_LCDBPP24;
->   		break;
-> -	case DRM_FORMAT_ARGB8888:
->   	case DRM_FORMAT_XRGB8888:
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_LCDBPP24;
-> @@ -297,13 +295,11 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
->   		else
->   			cntl |= CNTL_LCDBPP16_565 | CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ABGR1555:
->   	case DRM_FORMAT_XBGR1555:
->   		cntl |= CNTL_LCDBPP16;
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_ST_1XBPP_5551 | CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ARGB1555:
->   	case DRM_FORMAT_XRGB1555:
->   		cntl |= CNTL_LCDBPP16;
->   		if (priv->variant->st_bitmux_control)
-> @@ -311,13 +307,11 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
->   		else
->   			cntl |= CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ABGR4444:
->   	case DRM_FORMAT_XBGR4444:
->   		cntl |= CNTL_LCDBPP16_444;
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_ST_1XBPP_444 | CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ARGB4444:
->   	case DRM_FORMAT_XRGB4444:
->   		cntl |= CNTL_LCDBPP16_444;
->   		if (priv->variant->st_bitmux_control)
-> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
-> index ac7b1d12a0f5..2175ac953795 100644
-> --- a/drivers/gpu/drm/pl111/pl111_drv.c
-> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
-> @@ -341,13 +341,9 @@ static void pl111_amba_shutdown(struct amba_device *amba_dev)
->    * This early variant lacks the 565 and 444 pixel formats.
->    */
->   static const u32 pl110_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
->   };
->   
-> @@ -361,19 +357,13 @@ static const struct pl111_variant_data pl110_variant = {
->   
->   /* RealView, Versatile Express etc use this modern variant */
->   static const u32 pl111_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
->   	DRM_FORMAT_BGR565,
->   	DRM_FORMAT_RGB565,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
-> -	DRM_FORMAT_ABGR4444,
->   	DRM_FORMAT_XBGR4444,
-> -	DRM_FORMAT_ARGB4444,
->   	DRM_FORMAT_XRGB4444,
->   };
->   
-> @@ -387,19 +377,13 @@ static const struct pl111_variant_data pl111_variant = {
->   static const u32 pl110_nomadik_pixel_formats[] = {
->   	DRM_FORMAT_RGB888,
->   	DRM_FORMAT_BGR888,
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
->   	DRM_FORMAT_BGR565,
->   	DRM_FORMAT_RGB565,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
-> -	DRM_FORMAT_ABGR4444,
->   	DRM_FORMAT_XBGR4444,
-> -	DRM_FORMAT_ARGB4444,
->   	DRM_FORMAT_XRGB4444,
->   };
->   
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+ - big wall of text
+> good job~
+> Acked-by: Botsz HUANG <huang.botsz@gmail.com>
 
 
+Best regards,
+Krzysztof
