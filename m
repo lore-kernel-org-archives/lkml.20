@@ -1,99 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BD63F1045;
-	Thu, 10 Sep 2026 09:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B033E16A8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033422; cv=none; b=KWv3HdR3k95r9te1OVntd/o0hzb4nKwtX0MYJYjYW7F4yUV5UH0tu/vXd/FrIaD/g9/nV+lbA4IzrlZT5aJDczuYgaexffTdTWvZ1XwNNhiHUAVICFJ9iYNhgEnfVqcIt51yVxeYJxeVSdNIDifCLof+/8PvdqNXqi3nLp7BjOE=
+	t=1789033419; cv=none; b=XeQegUBKywJg3dh4fAEpqJZdLUTe9K6FaeXqhCJgVV1T+ZxtFeIZV0naMtViJvSTRq9PQZOTcNyHiXW5Ps1R0xZuPgBQdT30E4OdUN4yrSiOBP1cmjMR685WOlD9IdjnCE+NCBD/ZIOWnlttBcheWbpg3ku+qxS4NZrJeRsbBkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033422; c=relaxed/simple;
-	bh=YaoGfQ84ks+iaR2dKeqY8M15G+lBDfndgtqit6O3r5Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TDghwMMfcF3sRVwIZg/95rBjZQUUueOslPXpX/ce2kVw8mJLA3QhRsGsX65QfdPtBo2JLAzBHxzTd7ZhdSNqGt4dggIXXHtM4UNCKHDfWnjaChtFRpAF1S9Elldy/cgH2rvlhrQu/5jAtif87j+63/6158d+RSGrjxNRrdyZDk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JU0pPDhQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789033419; c=relaxed/simple;
+	bh=KnS4FREeAKzpHL8fFTZa5rjNeAMn6U9PigOahw3tm9s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eL4mMIo+vwVgfwkLBCEtMe3OAuL3HUMkKiYKzZ387mdTpPbOFvGHhqLoi38X6GZ457qdc6E+f2NEzVrmNWNoGaXU7lTpojrRcAwjyKMOQy2TRM/1cJBorYscnPTLA/rl6Hu7BuH+GgB2DbuiAXZ7czK+ujTkRFf2ls4lrHVMuMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SI6PwCXk; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JU0pPDhQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03DD1F00893;
-	Thu, 10 Sep 2026 09:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789033411;
-	bh=OYLEwdz7aP8UsgD+AaSdAYjyNHvX+ERbt9ZD4hVP2Vw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JU0pPDhQWLMlJankpgTKk/VMDFm6H3Hp5m4ZY6B607EaX3t95xdIL1zjBXlP/l0+z
-	 09OxRYv34EgaxUJQnF65T6sWTQVntJT14aRkKCwG81eTqzq8dUMeifQtfCBUil14s+
-	 wdk3UZB04f6H72qp/Mv+JCTpAKkvudu35GRS8IQNAC61WCVaqHqBm4VTF2wfdh1S/d
-	 u+u6uyhruGS409IYYNbiwvjn8CoIOBByb2/1ttq0FjPARDUKkaQD59SD+dI2vjPoVe
-	 +IBxM/eRfVLC3IcwpuYQNtus8GneyyYOrt/7oHkwvSHjpeowBgzUpFy+w8TbEhrbvX
-	 7xbhovkh12ZqQ==
-Date: Thu, 10 Sep 2026 10:43:26 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Botsz HUANG <huang.botsz@gmail.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH] mfd: fix typos in comments
-Message-ID: <20260910094326.GP2133376@google.com>
-References: <20260904122834.33723-1-hemanth.selam@gmail.com>
- <apwFlV97bLVlvsOJ@botszhome>
- <59747ea8-bd89-4dff-ba13-ff9c66318e8c@kernel.org>
- <20260909161454.GF2133376@google.com>
- <20260909161710.GG2133376@google.com>
- <a05c4086-1681-44f4-88c6-de1073b0f5a6@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SI6PwCXk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KnS4FREeAKzpHL8fFTZa5rjNeAMn6U9PigOahw3tm9s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789033407; v=1; x=1789638207;
+ b=SI6PwCXkC1akEW66K7nj/nSDItlzqc/zNXEBhaycSP6a5qG1RSmqteUxDI4BzptTdAj310Zl
+ gLU7iseREFdm69afWBD432Qv1s4FxbZWMzIN+OwYUw7pGiYXAoWyl1W5rTRx47K7kwGoTNLcM6b
+ eS28VOij3fD9lBCqdHtM8Wmc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f283204ef0f696d7;
+	Thu, 10 Sep 2026 09:43:27 +0000
+X-Mizu-Trace-ID: f283204ef0f696d7
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <95330c25-d5ed-4e5d-8f62-528df543f8f3@linux.dev>
+Date: Thu, 10 Sep 2026 17:43:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a05c4086-1681-44f4-88c6-de1073b0f5a6@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nf] net/sched: act_ct: set net pointer before publishing
+ flowtable
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: netfilter-devel@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Oz Shlomo <ozsh@nvidia.com>, Vlad Buslov <vladbu@nvidia.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260909075606.1508155-1-qingfang.deng@linux.dev>
+ <fa0181b9-d715-41c6-8086-af410ee4131b@linux.dev>
+ <94103430-c2e8-491d-880c-c4690c5e3f98@linux.dev>
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+In-Reply-To: <94103430-c2e8-491d-880c-c4690c5e3f98@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 10 Sep 2026, Krzysztof Kozlowski wrote:
 
-> On 09/09/2026 18:17, Lee Jones wrote:
-> > On Wed, 09 Sep 2026, Lee Jones wrote:
-> > 
-> >> On Tue, 08 Sep 2026, Krzysztof Kozlowski wrote:
-> >>
-> >>> On 05/09/2026 14:05, Botsz HUANG wrote:
-> >>>> On Fri, Sep 04, 2026 at 05:58:28PM +0530, Hemanth Selam wrote:
-> >>>>> 2.48.1
-> >>>>>
-> >>>>
-> >>>> good job~
-> >>>> Acked-by: Botsz HUANG <huang.botsz@gmail.com>
-> >>>
-> >>> I don't think this is real identity. It always comes with other
-> >>> LLM-generated content - as in this case as well - from Nick Huang
-> >>> <sef1548@gmail.com>.
-> >>
-> >> sef1548@gmail.com is Googleable and appears to be legit.
-> >>
-> >> They also have commits dating back to May last year.
-> > 
-> > Botsz Huang is also a real name [0].
-> > 
-> > Now, whether they should be Acked-by:ing patches is another issue entirely!
-> 
-> But:
-> 1. The questionable account only acks when sef1548 acks
-> 2. Even the style is exactly the same repeating the same mistake of not
-> removing quoted text:
->  - big wall of text
-> > LGTM
-> > Acked-by: Nick Huang <sef1548@gmail.com>
-> 
->  - big wall of text
-> > good job~
-> > Acked-by: Botsz HUANG <huang.botsz@gmail.com>
+On 9/10/26 5:03 PM, Qingfang Deng wrote:
+> Hi,
+>
+> On 2026/9/10 14:09, Xuanqiang Luo wrote:
+>>> nf_flow_table_init() adds the flowtable to the global flowtables list.
+>>> However, tcf_ct_flow_table_get() sets the table's network namespace 
+>>> only
+>>> after that call, leaving a window where the published table has a NULL
+>>> namespace pointer.
+>>
+>> The window does exist, but can any existing code path actually read
+>> flowtable->net during this window? Could you also describe that path
+>> in the commit message? 
+>
+> There's none. The patch is a preparation for:
+> https://lore.kernel.org/netfilter-devel/20260909081705.1512600-1-qingfang.deng@linux.dev/ 
+>
+>
+Thanks for clarifying.
 
-Suspect indeed.  Huangs anything to say?
+Reviewed-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
--- 
-Lee Jones
+Thanks,
+Xuanqiang
