@@ -1,242 +1,238 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17FE43DEBA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6BC48F031
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789075088; cv=none; b=g7QZWINC0n35NGMebHnL6RMqxXPAjegmUntJFKG1jlfk2LnlB+JxiWl/jZGkeOZK/HRNYUjnC1EgRNdmKFb1JHlSW2HVVS9duDdeFIijlQPouJJkqR517Qmx3V9UwdB5gJLniz40URQb4hIOwH47QYhWx4+oLaDnk0Zz9K/Sq+s=
+	t=1789075205; cv=none; b=t728UaxUME+19k8xe+pINzWc5cGuPuFUz5HD+BMV0VInQDGsSE9EIyU2bBA0xHs7suQ7czc4R9ti120xZZCt2OGhkO+MeWhpThQJY4ljhMPVDSieIzSn3LeBJdsg5Ie/xhMWqjShMW2VeyuZZown9AyHeY4q6MB8pj7CvoBJQ/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789075088; c=relaxed/simple;
-	bh=F9HgVcWPXpU8hJ9oNZYqhSMCDj8N62eZk5P035qTYQA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ayy7nwV2/NJrqXx2aPgucaSxkG/MIkdpX+oO30HKkOPNDhpxf3uDkWmR8OZENcRHwVl2QZRCNyzkq6hHwwfh4s0V47qrMyfwMl6kwONNwY9JdQ5tyLX87eS0nOOy9/UTFh6G1yur3uN+n4xaaQiOwZChotdBagxzRKXTNRZomJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lb3K4ynJ; arc=none smtp.client-ip=209.85.221.52
+	s=arc-20240116; t=1789075205; c=relaxed/simple;
+	bh=0aH1/xZq6BqoJ8NBok0Fya68fVfmA8ZB4sdGtLgyxas=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJYwU2hfB7i4DlDpzH5Ath7LFcrmMp9inqL4YdC8u53UCK9GVYEZMj335EzvyOk1QMSaMf10jrLPfDTKK3whYjK9iqfcwU3UKuiBBvDbcdO88a9qIYZWhPR5+g38S0FmcbNOOJqvK/0eM/8w3Zb8Kh2RBB4afyIQLtImKcKODTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rowc8lce; arc=none smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lb3K4ynJ"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48589798dbbso161549f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:18:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rowc8lce"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-38de693676dso127163a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:19:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789075079; x=1789679879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5aCQnhClDl9eNpW8F+cN6KkIYA0TsSlZlvTBInA/6z0=;
-        b=Lb3K4ynJNVElpJ39InDMIJ5MPmOErz8P5gGHc/P7yDveW8t1MBr8LGQ0TVmswVRUn9
-         kh0lZjvIHPtGKsEmxMt2YVTB1/e0W0j2JT27xtQXfB8vjLzJVO+yAO0TDDj1YzpTsQ81
-         KB2GGQK+iqOvE8uv/ORla2V/JBorE4pfHNB5FHEu61rux1yRVMDkx3Q27eH9BvCGtJNe
-         aLvOJGX82fYex/RNyYWv/yBVSRAiONrlf/4dlJd3/vApU2lUyK65uTZ5kO1c+VrszTCf
-         eJprpDWPpWd7+OVnGkogfO9CUw2PkrXQM6WBtHJAKLs/xeHlrI57bjTPAHHMzS6L0SPA
-         M3Bw==
+        d=gmail.com; s=20251104; t=1789075182; x=1789679982; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u1rqc5jPkp4qWs7zOMQ/40kpJI2gBjFB0iGuKAIdw1E=;
+        b=Rowc8lcevd/wERc/j0B+/EZnNBqPzlzXXHuaSQETM0R8azx35V+0fkb7kUe/JkCuI+
+         aL/uqFD3M8fSe7R0CvlHJO26ZeLp4QPC6ttRcdiwBQ15+ZSORiWVcwoG/pw7PFyh2jtT
+         fOzLf83G6hosKeWYkcYPB/MzTptXgsaQClTNSxwSCVW+lddxHmm72Hfv17LGe0oPWGkc
+         0u3/Bhhz7HpbFFkq28avgX6psamoxh5e37DQN0BWYcNPRpB85zjLFpNYxxaMcls+6cpK
+         SSkGn4MHP5X2lCY6t1Vcd2/C1IV308Qk2lBnx/Nyehu0tpW5x21gIRcMydUUd+9DPKg1
+         ST1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789075079; x=1789679879;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5aCQnhClDl9eNpW8F+cN6KkIYA0TsSlZlvTBInA/6z0=;
-        b=fdDA3mxvgG+pYbv8lKSU2jgEqE2ipgxBAfcKwhiXEVei+lJAGdNkjcP8bwvTnkvjIe
-         VqvIjQ6BtMXtqou+aqVddPe477UtpdUVdzqUHU6Il/Xvr92j0NObiQ0FpgzC+OJ73iHl
-         tUANg1u5yD8XnsiNy47iCUSu+cBfjPQYaHLuS6+8K49mqvqTpJjLVCv0ByFxtvEsiBCz
-         bmW8+h3ruOPlKaVmhfUz7RozTudnMgNj5zthzglCa9MTcfKiMihHkZadXKXoqqCGdGp2
-         LApiKIePiHZ7THcF+57QW4DXvn7sJzNyVtTNrKqclfgQY10roHkRl3fclT79zuUYORJQ
-         tvYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzYzQMHPlNiZmcv+Sw8nJmoG3iy3ES6SWAPj4YfaMmGR5jcKEFj1CM5HmKeQsviXcHesAw+STLXKNzMNDQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDIwZTB570MdIUmJl486G/nRoDLuJkDgzrSsUVsiT1ZxVJfJAF
-	juphDqW5wfLPHECGD3uFg6E7nnmtSMEWIcWMlMWPf6aJcpYlHot2TuEj5IrvmacI
-X-Gm-Gg: AYBFou16XC5ur6o1zbAMu8mUaAUl2hIrXdzW1FhykO6ElmjV4cxt5yEleP6fp/0rd+M
-	JhZp3iUXuMvV7UiG+M1loxvkT8AeKHMvjaadYi1yEmDGR4XCphKqVATDlTPmiJApiN/0aZwdAJr
-	k12rnE6SBUQjLf7eyNR9/C0thZ40DkAJGvqbgsXP/c/1hT/eHEm+z7iq34Ac+2bYqqQiKShobMe
-	EviX7mf3tFydx8cDRHqul/PyOMs+M7vAgeaA6q7kr3hiLIpoe6Wju9Pp0xZ4jXisgIBwQTqqiMN
-	CMf2Zd2343QkEQtd7maMEBrjsDS00PGytjcnaGeXN3NueELWGH52K2bF+YfZ4oZNM+y55IxlCwX
-	BEYECOsijud82sD+seb5Bxc7/nFYtUxRZtZNZ2fHbM9N9E8GtLYYMEulh2lZaT1tOxNC8AugRrS
-	m7VS1aPESxYtgA5I71ZhZB5KLBSd4WSPz9c0N8AsDBTLhrJ5nwPL7rG58gtBrktVrel135Z8jXN
-	zg0i25+kaRDC4gNhY53py4HpouzjRldgI2riHmssfAfY14oWVEFTl5ne0K14WsARJ9THBeO26XR
-	kQ==
-X-Received: by 2002:a5d:648f:0:b0:484:3310:f395 with SMTP id ffacd0b85a97d-486eb308d7bmr760212f8f.24.1789075078967;
-        Thu, 10 Sep 2026 14:17:58 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm1112262f8f.5.2026.09.10.14.17.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 14:17:58 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <55e18f27-0ba1-433e-b4dc-a7db70172f7a@gmail.com>
-Date: Thu, 10 Sep 2026 22:17:57 +0100
+        d=1e100.net; s=20251104; t=1789075182; x=1789679982;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u1rqc5jPkp4qWs7zOMQ/40kpJI2gBjFB0iGuKAIdw1E=;
+        b=OPc8lMnoxssYGIk3q+fNb4b0mPXmDRMMFjsOboZ7xxaZQJOhlY8MxZLG+/HiDkyrw6
+         S3qmMLuFjeGwCiNxN+aO2Pt92PLys8nyVD4Hw2U7ljA8xCXerSM2fViVxKLXSfQLIUnR
+         St/JwjRxZraNOPrUH+wWbp0WT00WiaPpiIuwpMyPdVwnAnwPgXkdiMDZryiWZPjhbDZu
+         +iwrE2cGzKluiFHjMYXYFp2lQ6xYP8Zg3p1TlUi76nr/WRe32ak8Pz4PB9oR4WN3wFvo
+         NJt/XYvFn7zXGlLyJFj0V4ST9rnZhjk8wFsuIHZV+gOZXaw48I23xVKxtAMkDreImfB7
+         CHTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWSZjXMqMyFiYau+AkktI9w5kdvIGu6fam6uWtKgI3jJ9Bpd0H7vvvilngdIQ/+WyTizjvsSK4zTX538A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuDZNFnUnZRMJKkn6upG+yk76CCzL01avWdNzbIbEcnG+s2pzu
+	ZALflADHOGX6wkQAidiZPtIDf9OOjxI2CwjTWzaXQ5qFKUevvZgoQuTq
+X-Gm-Gg: AYBFou3L0okHND610vtxUGxoHyvqA+dqARKruijJcViCxt90x/mtdKiZeHMY+6Z2MFx
+	AFccxfStmJ000YqkrZigWRV69M4M53Lm0s4XuRW0FM2/2f4kHNsWlAT/n0SUaWB3qizddTdfc4R
+	FGpeLOOkX90TW8lSol33kI340pN+97Yeh/2xLeNDXZHRLdAt0BmlaDVqEr5wKOe6Kn3N+FCijJx
+	B1uUCSvbFu5pqbCkPP0Lv4ga39P0UxiE/otpisWW0zSERptJIGEboQrNJ9Da9NQKkNCh+hyHZAq
+	ZRNVJC3HnikrvInMTz/117GkdaIQ03rAOho9CIqcD7kR2DGs+c9ml298+Yi1ykjxlWjOZh9iv1Y
+	Ok1bEotzTE/LkoRbhmewOURxdd2i0Hc3aE+OSaqHlak4QdgRIaEUjDvpiRaVhWiFzWKcUOAl0vn
+	1kwc9EP9KneaW6RRYMnQ+mW+KbBtR1cxt2MW/lsf4wlpJl/ld7AUz4ZbJhoDCekwoS
+X-Received: by 2002:a05:6a00:4fc9:b0:846:bc60:5bf7 with SMTP id d2e1a72fcca58-86b31401661mr1235255b3a.6.1789075181652;
+        Thu, 10 Sep 2026 14:19:41 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:47::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb760sm146528b3a.46.2026.09.10.14.19.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 14:19:41 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:19:35 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Fernando Fernandez Mancera <fmancera@suse.de>
+Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, edumazet@google.com, davem@davemloft.net, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	Willem de Bruijn <willemb@google.com>, Kees Cook <kees@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Richard Gobert <richardbgobert@gmail.com>, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, Jeff Layton <jlayton@kernel.org>, Qi Tang <tpluszz77@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/13 net-next] net: inet: relocate ip_generic_getfrag
+ and guard IPv4 socket logic
+Message-ID: <aqMeeDnj4pcuvz7-@devvm7509.cco0.facebook.com>
+References: <20260910144914.8025-1-fmancera@suse.de>
+ <20260910144914.8025-4-fmancera@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] kconfig: warn about malformed KCONFIG_PROBABILITY
- values
-To: Dmitrii Tulnov <tulnov.dl@gmail.com>, nathan@kernel.org, nsc@kernel.org
-Cc: jacmet@uclibc.org, yann.morin.1998@free.fr, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <71d40a5d-21a7-47ae-aa18-34f640a08779@gmail.com>
- <20260910120442.26-1-tulnov.dl@gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260910120442.26-1-tulnov.dl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910144914.8025-4-fmancera@suse.de>
 
-On 9/10/26 13:04, Dmitrii Tulnov wrote:
-> randconfig checks the numeric range of each probability but does not
-> validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
-> accepted as 50:0:0: the '%' is parsed repeatedly as zero. For the
-> documented value 50, tristate y/m/n probabilities are 25%/25%/50%.
-> With 50%, both y/m probabilities silently become zero, reducing the
-> coverage of random configuration builds. Empty fields and extra fields
-> are also accepted.
+On 09/10, Fernando Fernandez Mancera wrote:
+> To enable compiling the INET subsystem without IPv4, shared generic
+> utilities must be relocated and IPv4 socket logic must be guarded for
+> CONFIG_IPV4.
 > 
-> Warn when the value does not follow the documented decimal format. For
-> malformed inputs whose parsed probabilities are in range, preserve the
-> existing interpretation unless KCONFIG_WERROR is set. In that case, exit
-> with an error before writing the configuration. Leading whitespace and
-> signs are accepted by strtol(), but also trigger the warning because they
-> are outside the documented format.
+> This patch moves the generic ip_generec_getfrag() from ip_output.c to
+> af_inet.c. It also introduces CONFIG_IPV4 guards around af_inet.c to
+> reject IPv4-specific ioctls, protocol registrations and bind requests.
+> The same guard is added to reject IPv4-mapped IPv6.
 > 
-> Keep the strtol() result as long until the range check. This rejects
-> out-of-range values that narrowing to int previously made valid, such as
-> 4294967296 becoming zero on a 64-bit host, regardless of KCONFIG_WERROR.
-> 
-> Add regression tests for one warning per malformed input, preserved
-> configurations, KCONFIG_WERROR, out-of-range values, the supported
-> probability formats, and the documented empty-value default.
-> 
-> Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
-> Assisted-by: LLM
-> Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
+> Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 > ---
-> Changes since v2:
-> - Move the expected tristate distribution into the problem description.
-> - Simplify the initial format check to !isdigit((unsigned char)*env).
-> - Pass probability values and seeds through conf._run_conf(extra_env=...).
->   Use monkeypatch.delenv only to remove inherited variables.
-> - Add -0, +0, bare + and - warning cases, and the +101 range-error case.
-> - Honor KCONFIG_WERROR for malformed format warnings, as discussed with
->   Julian. Check unset, empty, 0 and 1 flag behavior.
-> - Compare 50% with 50:0:0 and -0 with 0 across 20 fixed seeds and check
->   that each malformed input produces exactly one warning.
-> - Clarify that compatibility applies to malformed in-range inputs with
->   KCONFIG_WERROR unset; values previously accepted by narrowing now fail.
+>  net/ipv4/af_inet.c   | 96 +++++++++++++++++++++++++++++++++++++-------
+>  net/ipv4/ip_output.c | 18 ---------
+>  net/ipv6/af_inet6.c  |  5 +++
+>  net/ipv6/datagram.c  | 12 ++++++
+>  4 files changed, 99 insertions(+), 32 deletions(-)
 > 
-> Changes since v1:
-> - Warn about malformed in-range values while retaining their previous
->   interpretation by default.
-> - Warn about leading whitespace and signs as undocumented input.
-> - Clarify that 50 gives tristate y/m/n probabilities of 25%/25%/50%, and
->   compare it with the equivalent input 50:25:25 across 20 fixed seeds.
-> 
-> Validation on kbuild-next, x86_64, GCC 13.3.0:
-> - make testconfig with HOSTCFLAGS=-Werror: 138 passed. With the unpatched
->   conf: 74 failed, 64 passed; failures cover missing format warnings,
->   unchecked narrowing and ignored KCONFIG_WERROR. The previous v3 draft
->   fails only the nine strict-mode regression cases; 129 tests pass.
-> - ASan/UBSan at -O1, with leak detection disabled: the same 138 tests passed.
-> - Both v3 builds matched the submitted v2 on 1,635 inputs: 916 accepted
->   values and 719 range errors, with KCONFIG_WERROR unset. Each also matched
->   the original on 380 documented-input comparisons with fixed seeds.
-> - Each build passed 120 strict format-error checks: no output created in
->   a fresh directory; existing .config, .config.old and input files stayed
->   unchanged, including with KCONFIG_ALLCONFIG and KCONFIG_OVERWRITECONFIG.
->   Valid inputs, range diagnostics and other configuration modes were also
->   checked with KCONFIG_WERROR set.
-> - The probability tests also passed with conflicting probability and seed
->   values and KCONFIG_WERROR=1 inherited from the test runner's environment.
-> - make defconfig, allnoconfig, allmodconfig and valid randconfig passed.
->   KCONFIG_PROBABILITY=50% now produces a warning and remains compatible.
-> - No vmlinux build or boot test; this changes the host configuration tool.
->   32-bit hosts and other libc implementations were not tested.
-> 
->  scripts/kconfig/conf.c                        |  16 +-
->  .../tests/randconfig_probability/Kconfig      |  12 ++
->  .../tests/randconfig_probability/__init__.py  | 137 ++++++++++++++++++
->  3 files changed, 164 insertions(+), 1 deletion(-)
->  create mode 100644 scripts/kconfig/tests/randconfig_probability/Kconfig
->  create mode 100644 scripts/kconfig/tests/randconfig_probability/__init__.py
-> 
-> diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-> index fe8ba09b0..ca6d9d735 100644
-> --- a/scripts/kconfig/conf.c
-> +++ b/scripts/kconfig/conf.c
-> @@ -186,12 +186,23 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
+> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+> index d9421ac38d78..b0c48ba544bf 100644
+> --- a/net/ipv4/af_inet.c
+> +++ b/net/ipv4/af_inet.c
+> @@ -129,6 +129,28 @@
+>  int disable_ipv6_mod;
+>  EXPORT_SYMBOL(disable_ipv6_mod);
 >  
->  	if (mode == def_random) {
->  		int n, p[3];
-> +		bool warned = false;
->  		char *env = getenv("KCONFIG_PROBABILITY");
+> +/* Keep the function here for now as it is generic, it should be moved
+> + * to a common L3 place
+> + */
+> +int
+> +ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
+> +{
+> +	struct msghdr *msg = from;
+> +
+> +	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+> +		if (!copy_from_iter_full(to, len, &msg->msg_iter))
+> +			return -EFAULT;
+> +	} else {
+> +		__wsum csum = 0;
+> +
+> +		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
+> +			return -EFAULT;
+> +		skb->csum = csum_block_add(skb->csum, csum, odd);
+> +	}
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(ip_generic_getfrag);
+> +
+>  /* The inetsw table contains everything that inet_create needs to
+>   * build a new socket.
+>   */
+> @@ -425,8 +447,10 @@ int inet_release(struct socket *sock)
+>  		if (!sk->sk_kern_sock)
+>  			BPF_CGROUP_RUN_PROG_INET_SOCK_RELEASE(sk);
 >  
->  		n = 0;
->  		while (env && *env) {
->  			char *endp;
-> -			int tmp = strtol(env, &endp, 10);
-> +			long tmp = strtol(env, &endp, 10);
-> +
-> +			if (!isdigit((unsigned char)*env) ||
-> +			    (*endp && *endp != ':') ||
-> +			    (*endp == ':' && (!endp[1] || n == 2))) {
-> +				if (!warned) {
-> +					fprintf(stderr,
-> +						"warning: KCONFIG_PROBABILITY has malformed format\n");
-> +					warned = true;
-> +				}
-> +			}
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  		/* Applications forget to leave groups before exiting */
+>  		ip_mc_drop_socket(sk);
+> +#endif
 >  
->  			if (tmp >= 0 && tmp <= 100) {
->  				p[n++] = tmp;
-> @@ -227,6 +238,9 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
->  			perror("KCONFIG_PROBABILITY");
->  			exit(1);
->  		}
-> +
-> +		if (warned && getenv("KCONFIG_WERROR"))
-> +			exit(1);
->  	}
+>  		/* If linger is set, we don't return until the close
+>  		 * is complete.  Otherwise we return immediately. The
+> @@ -478,6 +502,7 @@ EXPORT_SYMBOL(inet_bind);
+>  int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
+>  		u32 flags)
+>  {
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  	struct sockaddr_in *addr = (struct sockaddr_in *)uaddr;
+>  	struct inet_sock *inet = inet_sk(sk);
+>  	struct net *net = sock_net(sk);
+> @@ -570,6 +595,9 @@ int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
+>  		release_sock(sk);
+>  out:
+>  	return err;
+> +#else
+> +	return -EAFNOSUPPORT;
+> +#endif
+>  }
 >  
->  	menu_for_each_entry(menu) {
-> diff --git a/scripts/kconfig/tests/randconfig_probability/Kconfig b/scripts/kconfig/tests/randconfig_probability/Kconfig
-> new file mode 100644
-> index 000000000..84f4e5fcc
-> --- /dev/null
-> +++ b/scripts/kconfig/tests/randconfig_probability/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config MODULES
-> +	bool
-> +	default y
-> +	modules
-> +
-> +config BOOL
-> +	bool "Bool"
-> +
-> +config TRI
-> +	tristate "Tristate"
-> diff --git a/scripts/kconfig/tests/randconfig_probability/__init__.py b/scripts/kconfig/tests/randconfig_probability/__init__.py
-> new file mode 100644
-> index 000000000..76fc39c94
-> --- /dev/null
-> +++ b/scripts/kconfig/tests/randconfig_probability/__init__.py
-> @@ -0,0 +1,137 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +"""Validate KCONFIG_PROBABILITY without changing the supported distributions."""
-> +
-> +import pytest
-> +
-> +
-> +@pytest.fixture(autouse=True)
-> +def clear_werror(monkeypatch):
-> +    # extra_env can set strict mode, but cannot remove an inherited flag.
-> +    monkeypatch.delenv('KCONFIG_WERROR', raising=False)
+>  int inet_dgram_connect(struct socket *sock, struct sockaddr_unsized *uaddr,
+> @@ -962,18 +990,24 @@ EXPORT_SYMBOL(inet_shutdown);
+>  int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+>  {
+>  	struct sock *sk = sock->sk;
+> -	int err = 0;
+> -	struct net *net = sock_net(sk);
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  	void __user *p = (void __user *)arg;
+> -	struct ifreq ifr;
+> +	struct net *net = sock_net(sk);
+>  	struct rtentry rt;
+> +	struct ifreq ifr;
+> +#endif
+> +	int err = 0;
+>  
+>  	switch (cmd) {
+>  	case SIOCADDRT:
+>  	case SIOCDELRT:
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  		if (copy_from_user(&rt, p, sizeof(struct rtentry)))
+>  			return -EFAULT;
+>  		err = ip_rt_ioctl(net, cmd, &rt);
+> +#else
+> +		err = -EOPNOTSUPP;
+> +#endif
+>  		break;
+>  	case SIOCRTMSG:
+>  		err = -EINVAL;
+> @@ -981,18 +1015,26 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+>  	case SIOCDARP:
+>  	case SIOCGARP:
+>  	case SIOCSARP:
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  		err = arp_ioctl(net, cmd, (void __user *)arg);
+> +#else
+> +		err = -EOPNOTSUPP;
+> +#endif
+>  		break;
+>  	case SIOCGIFADDR:
+>  	case SIOCGIFBRDADDR:
+>  	case SIOCGIFNETMASK:
+>  	case SIOCGIFDSTADDR:
+>  	case SIOCGIFPFLAGS:
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  		if (get_user_ifreq(&ifr, NULL, p))
+>  			return -EFAULT;
+>  		err = devinet_ioctl(net, cmd, &ifr);
+>  		if (!err && put_user_ifreq(&ifr, p))
+>  			err = -EFAULT;
+> +#else
+> +		err = -EOPNOTSUPP;
+> +#endif
+>  		break;
+>  
+>  	case SIOCSIFADDR:
+> @@ -1001,9 +1043,13 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+>  	case SIOCSIFDSTADDR:
+>  	case SIOCSIFPFLAGS:
+>  	case SIOCSIFFLAGS:
+> +#if IS_ENABLED(CONFIG_IPV4)
+>  		if (get_user_ifreq(&ifr, NULL, p))
+>  			return -EFAULT;
+>  		err = devinet_ioctl(net, cmd, &ifr);
+> +#else
+> +		err = -EOPNOTSUPP;
+> +#endif
 
-Clearing this environment variable doesn't belong here, it should be
-part of scripts/kconfig/tests/conftest.py.
+(passing by comment)
 
-- Julian Braha
-
+Don't we have a coding style rule to avoid ifdef conditional in C code?
+Should we add some new devinet4_ioctl/etc wrappers that we can conditionally
+compile out in the headers?
