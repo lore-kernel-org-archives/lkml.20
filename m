@@ -1,173 +1,253 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7965A49B5A3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14513B14AB
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078660; cv=none; b=dzirVQUvk78ySvOCfVWeitRbv2jlltujSWX8H+BpMe/GWIQA4qcAJwJqYpB4PH1XngH1pOKJaUsrYm7L1Rr3hfJdhSTasKt702xhJcgSIWAlQhU1XxXyvHPbCvBGuPWhU7hBF8bihrJVbwnJi7qZ8xzGet+PndQBlov22THUaYA=
+	t=1789078690; cv=none; b=PDnrdIkTblj3flamtyQuBSwG8Ql5zRXTF8D8PCgKR9rUCerYdTYHJ0jXPMx1EpVtYYS6ckjkp3mCCP0yxacQkIQAqmiIMPrH+IeY7Vz/rDrsHgNGzoTc4nt9GKmhEXGY9lCB74S408Tq3xIUeoop7afHlp5FY6AXU/XqPTvEykQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078660; c=relaxed/simple;
-	bh=dD2MbE8iWzrOQjOcB9Fc+ItDw8U6u6JrMfm3i3wPru4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OrHVIJE1xH7TuwblFiNpQbukEqNKisKby9nCv6VTVEU7MSKEyR89gIe08V+xEFCIDqdKDLp192XH1Ft8GeLnIJsqrI6cjbz6b+qTiuaRUv7b76knYOqkaHpWpJU+2dkdLTesndqzHa2g3/yMr1lBQNNTQOcN1Euorx+aiOdmZe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gq4KVn9I; arc=none smtp.client-ip=74.125.230.140
+	s=arc-20240116; t=1789078690; c=relaxed/simple;
+	bh=FpkQO46f/bUSNGTI5DtlovFLfVgBaVyf5ToZTa2Ns8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mu0SNEJJgcExlFJ2pDf1oFPWvowrzBM1C5+CsPqKNeFPqxEiLtQlJsuYqd33VBC+h7FhL19ji8vby69jlQaj14359SQ10f/qKqnCPAkj2C6STxbRBM0k1Zq4v6TB4HVeD+8MKfAhZOQDEwVht0hZfZ1rrYL+muZ6U10M3NkAA4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePo1guo0; arc=none smtp.client-ip=74.125.227.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gq4KVn9I"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcc3e03so868406d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:17:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePo1guo0"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4d8d8aso308975e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:18:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789078657; x=1789683457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=phZqrumo434IM6M4R3cvUgGvziwdgVdo1+7d/hsBRIU=;
-        b=gq4KVn9Ilm1wljKBeVQy592L/SpDUiJN2XnPgfvdH+47cShKSxeXua/19r30MF801E
-         jCAanBo1QVEAbUuFfp1kvwJ33U6wY6p3lJsftZEG5iRF6omFv2corCxi7ye5NDXXiPko
-         NW8gZGvvRINCJ6qngKybtvs7anG+f7n1Wht9Kds3FmTfTQNZc9PoWrEVl3aT/ufYifEb
-         11oeC6vAyv8QQyR0z2bfR4dji0OtNkQDiwFOr/MOJSZhAfyFxhR9BL8BDL11Fzj1D1Fw
-         jkAx1/NeRQ5oo6w/KzWQZ4rVwzf173N1i4MIgYVVuo0vHdAFtrK6WueOSqSv5ObAJ0KG
-         8smA==
+        d=gmail.com; s=20251104; t=1789078688; x=1789683488; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7KhBqil+DvS5mAyeDQEIkthurB0wyhst9lKXAhOY2nc=;
+        b=ePo1guo0LEwPc3anfuRADIHK6lye/xl3JcOzV/J09RRnBfWtYh0h7BY/pXpbkkpYp0
+         IgWslCTeBffgP/fEg8JahiazBHAF273bpDrbBpBG6nFIZ1GmXw8NgRT9QtexZ55zvj64
+         lfnjLWmxTtjVw39HJ5Qq+2jUP2qRF5tzI9EZ4ruQW8W4gDJkVoUhGRsW6GFz9JzokBu8
+         72qM33gkVc3joniS0cNi+ZdTIz88Ch2lcZRR6ZQ65kuePJy0hdN6XqVU37iYtmJnurnZ
+         bHl6rFzgJjKoPqdAJSfzJ4b0OPad6s9R1Ne91NX1BxyXR4GHFMYy2HT25Jjgqu7+LKsN
+         DoJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789078657; x=1789683457;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=phZqrumo434IM6M4R3cvUgGvziwdgVdo1+7d/hsBRIU=;
-        b=ctlL80JeogZx5WfOpbyvMSU3mZ0cBg3JQUTBqW5g3hDdpKQhJs477dF98XdZaYWg2e
-         rjRswnAio8UqUBQ+UqQ+3JXO1eFDLnCLxKVANFLbriIHUalzEwPNHUPhHQsIexGbZNX9
-         Ob3jOIRmQpOratPGqd9OxndQCwgrJA2OgklbC7XDMy4mmjQN+eJcNAhD8Z5wslNtgWyZ
-         mua+aSKo6S3BF/LGiwRcCAJWIe7PzJtSZdBpj/aD6VEdX/pgL7Jx20tp+T4iKnFXx0AE
-         Z8xtfWUQVpS4UYjYR+is+7uq96cgxxebThA5TBZfMQyhJkKlYGpfmDhFeS4Finbp4/11
-         pq7A==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ8VcTTXaMawXwOUonmEs9ATOGcL2KOSlp/FRRa+7guNY89Xj0AkOFDrbG2WLhLsb3A9dpy87f44yx8XM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqIyhD3BFIk+piA81iNArbJ1IlhL9RTfg6rHTwCgNv8YsNR/Ss
-	kPKW9x4tQHI/GEAUvFq1BQelsL5W3uWQJt6glsLz9QdpZqi0PkZWAm4=
-X-Gm-Gg: AYBFou3Xi0XrbA/pjmG7Z1g1nnXinU2vxpg8zEZhFATGJw6tgyJbzhFtkd3uzL5WE2W
-	hjCZboLj59ZN/82PoHsVLe70ZKmAj961I0XXhi7ZuyUPsnTcxKDbchbDJmmlLfEZPZhXtNgOa3u
-	L1dAbxLD5l3W1KSeEgI08xCcxZ2+Hh2BnBV3ZIIrIQYwHl7L/9dfipPso+NmxIuL1xoGz8j5Qyk
-	z4oD+DpQghvlMEiHfhPjmd9KRwePuYxTHVM6rkb7EVTlXKDyMtmrx5AYF3NJXugMiwLeao0E0J4
-	ZwcfnOJvmdLyflN/F7ZBFcvVCtJ0DAhqgbc7EDF/nfaOq9Df12apzfkGy0QaI7tIRE57Uc5WO8J
-	/UsV/MYuVUR0EabrKaSsY9f5PaL2AlLRSlsVSDNA1RU8B56VMT83cxNnELz2ci9mkBSc4Vt9tsP
-	k+T1Ad/ZRZY2FO1YKVfXGrb46B+4FNqmWv5SpsRRTH+1Iykh2VqzVLzc4zefi+GaACjsMc2zESo
-	vZgY1NyWNHSZReHCiebzmFOSCQsXAB7x7vLrZc5F4DoXFTyLdbOLm9U+CqBrHUWlqREt/amU4+i
-	hWzIfAyhdz4bnuBiSuxjK4cviGRUPTK76g==
-X-Received: by 2002:a05:620a:2604:b0:939:a9de:83ea with SMTP id af79cd13be357-939e8b1c875mr207985085a.10.1789078655448;
-        Thu, 10 Sep 2026 15:17:35 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80d453esm87548985a.38.2026.09.10.15.17.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 15:17:34 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: linux-pci@vger.kernel.org
-Cc: thomas.petazzoni@bootlin.com,
-	pali@kernel.org,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] PCI: aardvark: Disable PHY on probe failures
-Date: Thu, 10 Sep 2026 18:17:25 -0400
-Message-ID: <20260910221725.91980-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20251104; t=1789078688; x=1789683488;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7KhBqil+DvS5mAyeDQEIkthurB0wyhst9lKXAhOY2nc=;
+        b=lWylj4xfw6+bN7CB6R1X1hk9PxoHFpwUs6IS3pVPjyyvpPBdJxngKUknXY69Refhx5
+         xMpEWP4jFiUFmgO8Qsq61aw2z1e2yZUd1WDlLd2a5R6xQZo+nvOdO2q+WvVwjR7RJguw
+         pt5oS5W225VDIPeRjLAccEauPe5XHWatLGvPSzBQWWxv3lZKMD7aVC3PX59AxO11S53v
+         Mu2qRRLdN1OcU9/1D2WaAVgn4c7bVL8NXxNfg6n5/6J2x53PAOiWyge23xS2amkT/mbq
+         cEw3aj11PxvOMYaA3kEBf7euC1Bumu8v8cv1AoudKkWHQrQT2/0jRD3qEiaQX0nCTuzn
+         4nqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwm0UZPgLcoV7QUbH9OaIxDapK89thA+GI2+cXLVCjZG8iRsate3gPO16cGSMJbKLogijzjsFyuv5r3Mpg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXNf0fQLsVfuvxDE1XjvXhwS1zAn4AL40CUOkhQCL7alj7z5OL
+	G+isp8hZl8z0dfswZDLfG1gU5UZqnDxw+rYfgDgGYirTrrs4fmw9vy3N
+X-Gm-Gg: AYBFou0tJntn9rewKlgSDtTEQYyAo16mWd9XRU162E3CQogZTwMuUQ4F2db2yw6600c
+	ceGtdyIlJuqJGfK1TwPK8P+OOT7uYs4iq6B1DZ5leMDYB9yAaZxheQ5a3hxqD1nfG9KYsTgyAmT
+	FWKMHkmEHDEwrCOS+SEbIO5cgVbsmPrDfz/nEzlGIBrJvCTywJqXVkiwTFjRDwKWZ67PGF4w2jp
+	SZ+A6HnfKIN3XYnzaIQUIqTi7b62EFc7alJIgR8u/4EGlxD2zRewG+ufD3t4szh6/Mq2a4Tpsqh
+	kARN/dC1mrqgTljcFewD2i0Dn4sU20nBp6zHf9FRJ6j5L1t3unYPm+iSBay8FMwqx3uUMhOpize
+	+9OpFKu0pj9bDVpEREQz7C2c2bBF3QOqAcA4I7ImjxjThXLf4e5KxsAV4MGIB8iLvi7BWp/d1h1
+	rPLXwM7VxntLAkkvqqhJrAcdCSqlkB4lMD8+DZs53vx580pU0WWd96CFSnRidrpp8rzLtEZKN2m
+	jbCUg==
+X-Received: by 2002:a05:6122:3787:b0:5c6:7f44:b001 with SMTP id 71dfb90a1353d-5c845d638e3mr1353063e0c.0.1789078687632;
+        Thu, 10 Sep 2026 15:18:07 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470e7ef4sm827546e0c.9.2026.09.10.15.18.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 15:18:06 -0700 (PDT)
+Date: Thu, 10 Sep 2026 19:19:04 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <aqMs2CbWbhzCoDOB@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+ <20260903-liquefy-prologue-9ec914cccf04@spud>
+ <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
+ <aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
+ <20260907-spectator-venomous-7528abe370d8@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907-spectator-venomous-7528abe370d8@spud>
 
-advk_pcie_setup_phy() initializes and powers on the PHY before the
-emulated bridge and IRQ domains are created.  If any of those later
-initialization steps or pci_host_probe() fails, probe returns without
-powering off or exiting the PHY.
+Hello Conor, sorry for delayed reply.
 
-Replace the direct returns with staged cleanup labels.  Remove IRQ
-domains in reverse order, release the emulated bridge allocation only
-after successful initialization, and disable the PHY on every failure
-after advk_pcie_setup_phy() succeeds.  A setup_phy() failure still
-returns directly, so its partial internal cleanup is not repeated.
+On 09/07, Conor Dooley wrote:
+> On Fri, Sep 04, 2026 at 07:06:44PM -0300, Marcelo Schmitt wrote:
+> > On 09/04, Marcelo Schmitt wrote:
+> > > On 09/03, Conor Dooley wrote:
+> > > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:
+> > > > > Document how AD4134 chips are connected to the host SPI controller
+> > > > > according to different wiring configurations.
+> > > > > 
+> > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > > > ---
+> > > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++++++
+> > > > >  1 file changed, 22 insertions(+)
+> > > > > 
+> > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > index ea6d7e026419..d843c02a394a 100644
+> > > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > @@ -131,6 +131,28 @@ properties:
+> > > > >      enum: [ free-running, gated ]
+> > > > >      default: gated
+> > > > >  
+> > > > > +  adi,spi-mode:
+> > > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> > > > > +    description: |
+> > > > > +      This property indicates the SPI wiring configuration.
+> > > > > +
+> > > > > +      When this property is omitted, it is assumed that the device is using
+> > > > > +      'no-cs' wiring. When this property is present, it indicates that the
+> > > > > +      device is using one of the following wiring configurations:
+> > > > 
+> > > ...
+> > > > I'd also really appreciate a dts example for a system
+> > > > with one-channel-chain or two-channel-chain looks, given the second
+> > > > device may require different supplies etc. I have no impression in my
+> > > > head of how the dt would be constructed, so I'd like to see wht you have
+> > > > in mind.
+> > > 
+> > ...
+> > 
+> > Realized what I said doesn't make much sense. The peripherals can all have
+> > the same configuration and thus share CS, SCLK, and controller SDO. The wiring
+> > would be like the following
+> > 
+> > ::
+> > 
+> >   +-----------------------+                               +-----------------+
+> >   |         AD4134        |                               | SPI Controller  |
+> >   |                       |                               |                 |
+> >   |                       |                               |                 |
+> >   | SPI interface    SCLK |<--------------------+---------| SCLK            |
+> >   | for register       CS |<--------------------|-+-------| CS              |
+> >   | access            SDI |<--------------------|-|-+-----| SDO             |
+> >   |                   SDO |------->|¯¯¯¯\       | | |     |                 |
+> >   |                       |        |MUX  >------|-|-|---->| SDI0            |
+> >   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO            |
+> >   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1            |
+> >   | data read        DCLK |<-------------+------|-|-|-----| DCLK            |
+> >   |                 DOUT2 |<-+           |      | | |     |                 |
+> >   |                 DOUT3 |<-|-+         |      | | |     |                 |
+> >   |                   ODR |<-|-|---------|--+   | | |  +->| Offload Trigger |
+> >   +-----------------------+  | |         |  |   | | |  |  +-----------------+
+> >                              | |         |  |   | | |  +--| PWM1            |
+> >                              | |         |  +---| | | ----| PWM0            |
+> >                              | |         |  |   | | |    +-----------------+
+> >                              | |         |  |   | | |
+> >   +-----------------------+  | |         |  |   | | |
+> >   |         AD4134        |  | |         |  |   | | |
+> >   |                       |  | |         |  |   | | |
+> >   | SPI interface         |  | |         |  |   | | |
+> >   | for register     SCLK |<-|-|---------|--|---+ | |
+> >   | access             CS |<-|-|---------|--|---|-+ |
+> >   |                   SDI |<-|-|---------|--|---|-|-+
+> >   |                   SDO |  | |         |  |   | | |
+> >   | Data interface        |  | |         |  |   | | |
+> >   | for ADC sample  DOUT0 |--+ |         |  |   | | |
+> >   | data read       DOUT1 |----+         |  |   | | |
+> >   |                 DOUT2 |<-+           |  |   | | |
+> >   |                 DOUT3 |<-|-+         |  |   | | |
+> >   |                  DCLK |<-|-|---------+  |   | | |
+> >   |                   ODR |<-|-|---------|--+   | | |
+> >   +-----------------------+  | |         |  |   | | |
+> >                              | |         |  |   | | |
+> >                              | |         |  |   | | |
+> >                              | |         |  |   | | |
+> >   +-----------------------+  | |         |  |   | | |
+> >   |         AD4134        |  | |         |  |   | | |
+> >   |                       |  | |         |  |   | | |
+> >   |                       |  | |         |  |   | | |
+> >   | SPI interface    SCLK |<-|-|---------|--|---+ | |
+> >   | for register       CS |<-|-|---------|--|-----+ |
+> >   | access            SDI |<-|-|---------|--|-------+
+> >   |                       |  | |         |  |
+> >   | Data interface        |  | |         |  |
+> >   | for ADC sample  DOUT0 |--+ |         |  |
+> >   | data read       DOUT1 |----+         |  |
+> >   |                 DOUT2 |              |  |
+> >   |                 DOUT3 |              |  |
+> >   |                  DCLK |<-------------+  |
+> >   |                   ODR |<----------------+
+> >   +-----------------------+
+> > 
+> > 
+> > So we would set them as only one daisy-chained device.
+> > 
+> >     spi {
+> >         ...
+> >         adc@0 {
+> >             compatible = "adi,ad4134";
+> >             reg = <0>;
+> >             spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
+> > 
+> >             <supplies, clock, and other properties ...> 
+> > 
+> >             #daisy-chained-devices = <2>;
+> 
+> Does this property actually provide value here? I assume it does because
+> otherwise you don't know how many devices there are.
 
-Fixes: 366697018c9a ("PCI: aardvark: Add PHY support")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/pci/controller/pci-aardvark.c | 31 ++++++++++++++++++-------------
- 1 file changed, 18 insertions(+), 13 deletions(-)
+Yes, the number of daisy-chained-devices is needed to determine how much data
+to transfer on ADC sample read. We already have some documentation in
+Documentation/devicetree/bindings/common-properties.txt
 
-diff --git a/drivers/pci/controller/pci-aardvark.c b/drivers/pci/controller/pci-aardvark.c
-index ecb81ac73019..2bbdb73cfb45 100644
---- a/drivers/pci/controller/pci-aardvark.c
-+++ b/drivers/pci/controller/pci-aardvark.c
-@@ -1864,28 +1864,25 @@ static int advk_pcie_probe(struct platform_device *pdev)
- 	ret = advk_sw_pci_bridge_init(pcie);
- 	if (ret) {
- 		dev_err(dev, "Failed to register emulated root PCI bridge\n");
--		return ret;
-+		goto err_disable_phy;
- 	}
- 
- 	ret = advk_pcie_init_irq_domain(pcie);
- 	if (ret) {
- 		dev_err(dev, "Failed to initialize irq\n");
--		return ret;
-+		goto err_cleanup_bridge;
- 	}
- 
- 	ret = advk_pcie_init_msi_irq_domain(pcie);
- 	if (ret) {
- 		dev_err(dev, "Failed to initialize irq\n");
--		advk_pcie_remove_irq_domain(pcie);
--		return ret;
-+		goto err_remove_irq_domain;
- 	}
- 
- 	ret = advk_pcie_init_rp_irq_domain(pcie);
- 	if (ret) {
- 		dev_err(dev, "Failed to initialize irq\n");
--		advk_pcie_remove_msi_irq_domain(pcie);
--		advk_pcie_remove_irq_domain(pcie);
--		return ret;
-+		goto err_remove_msi_irq_domain;
- 	}
- 
- 	bridge->sysdata = pcie;
-@@ -1893,14 +1890,22 @@ static int advk_pcie_probe(struct platform_device *pdev)
- 	bridge->map_irq = advk_pcie_map_irq;
- 
- 	ret = pci_host_probe(bridge);
--	if (ret < 0) {
--		advk_pcie_remove_rp_irq_domain(pcie);
--		advk_pcie_remove_msi_irq_domain(pcie);
--		advk_pcie_remove_irq_domain(pcie);
--		return ret;
--	}
-+	if (ret < 0)
-+		goto err_remove_rp_irq_domain;
- 
- 	return 0;
-+
-+err_remove_rp_irq_domain:
-+	advk_pcie_remove_rp_irq_domain(pcie);
-+err_remove_msi_irq_domain:
-+	advk_pcie_remove_msi_irq_domain(pcie);
-+err_remove_irq_domain:
-+	advk_pcie_remove_irq_domain(pcie);
-+err_cleanup_bridge:
-+	pci_bridge_emul_cleanup(&pcie->bridge);
-+err_disable_phy:
-+	advk_pcie_disable_phy(pcie);
-+	return ret;
- }
- 
- static void advk_pcie_remove(struct platform_device *pdev)
+> 
+> >             adi,spi-mode = "two-channel-chain";
+> 
+> How does this interact with spi-rx-bus-width? Is the value of this
+> consistent with adi,spi-mode? IOW, for adi,spi-mode = "one.." will there
+> only ever be Dout0 connected to the host and for adi,spi-mode = "two.."
+> will Dout1 and Dout0 both be connected?
 
--- 
-2.50.1
+For this particular ADC design, yes.
+adi,spi-mode = "one-channel-chain" always expects spi-rx-bus-width = <1> (only DOUT0) and
+adi,spi-mode = "two-channel-chain" always expects spi-rx-bus-width = <1>, <1> (DOUT0, DOOUT1).
+Though, it is possible to have spi-rx-bus-width = <1> and
+spi-rx-bus-width = <1>, <1> in non-chained setups.
+
+Will make the constraints explicit on v2.
+allOf:
+  ...
+  - oneOf:
+      - required: [adi,spi-mode, '#daisy-chained-devices']
+        properties:
+          adi,spi-mode:
+            const: one-channel-chain
+          spi-rx-bus-width:
+            maxItems: 1
+      - required: [adi,spi-mode, '#daisy-chained-devices']
+        properties:
+          adi,spi-mode:
+            const: two-channel-chain
+          spi-rx-bus-width:
+            minItems: 2
+            maxItems: 2
+      - properties:
+          '#daisy-chained-devices': false
+
+
+Best regards,
+Marcelo
