@@ -1,145 +1,91 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238303B71AA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A9C39A81B;
+	Thu, 10 Sep 2026 20:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073610; cv=none; b=rq+JKky6RhO3nvmyKC/VUbuyMBoNvGGHFFf2RQztE7AjRNz1EcA8dwekKMAieOUsaIewX3l7dbXqk0+cguRae2SQyZYhVAdb1s1hl7xEqTa/X/GoarphltmwfQaF+shaFPQyFh/LwrItBRkvEor3N6aGQ9DzL+mcd433n1MwW9w=
+	t=1789073715; cv=none; b=uLnrXyqble9e8FyuSMfNlLESXm6UQsRgsLekG04exUIX0oi4yjXu/EFCeRpqiyucOMrdEfnfjhO2qG2xrzyYt2I8VuNG+Hp8y4CZGM6GuacFGIUVy9YpZvNJGzK77GOW8DNlQUYVrmNUHlbzoY+Evl/BYJWbjP9vzLPqji/CEH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073610; c=relaxed/simple;
-	bh=KPgoBO1nv2ixXnAOeXDLi+rIWIYBz8Puw7NNm00WdZk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MaXwdr32svB9Mmp74Lg9MPwn3le0hzi06Xpp4+DaSnQE+nVCA4FvtsvawxNGM3ERe37wazrQmT/whpTm7ep5nLmXiBNuI/v4Om2dLmO3fezSDaaXt/6LgNCYUd4guscB+q8QZDa8QOSevHNPA4gWDkt2VzgPRR79zpb8NNOKIsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L1MBckCY; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789073715; c=relaxed/simple;
+	bh=crOnlbHbyUPuGLh0JGVd37vqRbssmx4tna3eDDxQncM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AYYxVkUrYyfKfewkZF6l47FusRaxr89cTJB3evhv9VlwA7u5ZQy95S/0OTlRXCEqOx7Qbt0SEuIf0FEkpP9bcSwillGW8hw8BLgFLvdzLrumAwRSqUvcGZxD5vIwIJIwS803Q7CbHP7cRBy4xBtM9hx4gBmHMkkqtzKNEQGAqOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xoh0feO1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L1MBckCY"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8523cc41f3dso17249b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:53:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789073608; x=1789678408; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qV7jCnMrMxqcUpoF7Sb7Bgwuj9krY+1lli75M73Ykr8=;
-        b=L1MBckCYOnw3QT2pnPFAYFGdATLtTRC563OR1JE+3R7tL6+x1s9/jxIxvJDJoBulfO
-         z2GYxRaigBxXNf/zMNvP0Z7KRpCtItZaNwRqtHjnazsOKNO7PBb9jbdppf+Z/wgdrL25
-         oRQR9aHbmf5EB8wFanv/sI2799v+DrUb/7fQ8WbmCEHKPEwjPm5bdQ09h/njmnke8q/Q
-         35/m7Az7opoCMfxn0yPeqyFZgkvYNsOeG9y/zSM4E+PQ8Me8VA7+LNwuxer34M1L+x20
-         SSZ0AmVRb8TtiDsFpIziH22v21pmLJmnnvoIEqYdr4iqfJJZKp2h3hpSqA/+kejjugxL
-         1/PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789073608; x=1789678408;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qV7jCnMrMxqcUpoF7Sb7Bgwuj9krY+1lli75M73Ykr8=;
-        b=ErI7WSo/mVYJlxXn5jXRx9nsGW6GutAhnm4CHUUXSNwQfNvEHQ4pIZ/wrKVR/ub0E+
-         dbiHYQwhx16+yP4w3JVx/CJWdxPux3ugwy75AOAEjTtjBerI+Olb/TxqdP5jU6EjYV98
-         FzzlH+SRYTGXOZYCVymoaaDjOL1lWlDVDPRYfPJN/ASx9EHlF4F9tlIy3VbO0LlbL94y
-         XjPjXGoxmuTQCqMTZoOqPzojqIRwCBxS/KytPWih2Jk1KyvnR28CkK7JToexZ7X0D+rS
-         R1Xk2fscYX3scmGoEose5Ai9Vn0lV+j+egswq1QMDyithPo/fC6IA364nFIrO1iOceCm
-         1wjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxhgUJtcbw5XF8J4lliJslxiOo3gy7AtzW/p1vWSydWhwYQHgMCOqHeZFANv9n/SqzNQWtjtZ36srfbhdM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmc5m60Yl2Zr2nIjb9XUOY5K6/TTzeJgL55BhJyDkkpD1ISmWR
-	IO9ZMSKTDcaROv+AmcrsLR+GLMysQsamliLFWSol98H7UK4QL0jFT/3B
-X-Gm-Gg: AYBFou2bUej9pMsmQDXVAXecpns1D5bN5KJGKm/NaSwoWnEEfKg1nbkdedJuj1Tizkt
-	s4HuPy9XMro0j6jJ/sAq9ew5x4L5ibqLIipRmwl6XvkoqLuEz1THvFhzOYNvnDKFeVbABN97ObL
-	NwKDXNbzqifgAyMOoTb7Pa9iyeSvYUuE14/quryV5bIWQshPvtS+kuzdQiMMLZR9CWBfRewplgR
-	E/D7QuMq/LRHrksIvWsR6Cn5j5t0P5LF65mABWKdhMOlGFaIJ1Nbayq31I1OucALvrAJ7Wl3sTm
-	dYdm5b0f0nbumTkE5/I1ngUBzkPx2tLeBqN7dxqDwPAr3S/0Els3Mmd0prYetOgrJg1M9uixVmA
-	iZuV8wuX6V0iFsmhkGx6TnNnwhc0s4pQidwENZtlbEgBz5xqWyE2QRwdPnQM6CRak59NmIbWr4L
-	nUj9I3gyxEEYymFS7jxKXkZ6/coPZvQzHFk4FvB2Y3JDbM0R9colfKhNYKimrErplTr9eKiAeoU
-	E4VyZ/oXhsl
-X-Received: by 2002:a05:6a00:4891:b0:845:cf73:5bd8 with SMTP id d2e1a72fcca58-86b30e0e9e2mr502408b3a.1.1789073608481;
-        Thu, 10 Sep 2026 13:53:28 -0700 (PDT)
-Received: from [172.29.212.252] ([2409:40c2:5431:4168:e542:5202:be02:6ae4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250bf3e6sm150822b3a.5.2026.09.10.13.53.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 13:53:28 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Fri, 11 Sep 2026 02:22:51 +0530
-Subject: [PATCH 2/2] ARM: dts: keystone-k2g: Move usb-phy nodes out of
- simple-bus
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xoh0feO1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FC31F000FF;
+	Thu, 10 Sep 2026 20:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789073714;
+	bh=D+msI9wYLgAPXjQbPqwb4BUHIoNDxsNY1NG+JACt0is=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Xoh0feO1QBoUTvaFc9nj+FXL/MEaEmvlbGSfUeqPWb00hKvvJgPsh9nRIl0MzQhVd
+	 HuBezLD31zsfxmGSg9IuazudLg2IfqkNRg7Oui1pnp/TcqHqecQXcO0UhsrBkcIn3P
+	 nn7HIZX4J/Dml0TL2nd69TZG1NMX5EAwoea/fy99bkbLyUGO1eq8cOxx50leJvM8y/
+	 eOVeYgZaHriObwlQyMZC4p7/m38jZwvXaV2ObMO1IMO+aTr9nlNIFDDJpr66+LKhws
+	 tIJtZoi71NOeTDe2xM+nKQlgwV+3E5ToD9PK9kyMDi3PFG7wHaPTfvT32nm72bDL8D
+	 SzTt0cUwJn+Fg==
+Date: Thu, 10 Sep 2026 21:55:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Dave Jiang <dave.jiang@intel.com>
+Cc: Junjie Cao <junjie.cao@intel.com>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ linux-cxl@vger.kernel.org, Ira Weiny <iweiny@kernel.org>, Li Ming
+ <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cxl/regs: Reject register blocks in an unassigned BAR
+Message-ID: <20260910215507.0b704da8@jic23-hlaptop>
+In-Reply-To: <6bb0b537-eaef-48a6-aadb-232e44522dee@intel.com>
+References: <20260910093858.535969-1-junjie.cao@intel.com>
+	<6bb0b537-eaef-48a6-aadb-232e44522dee@intel.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-ti-keystone-usb-phy-fix-v1-2-9f6e9cd649a3@gmail.com>
-References: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
-In-Reply-To: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
-To: Nishanth Menon <nm@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789073586; l=1455;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=KPgoBO1nv2ixXnAOeXDLi+rIWIYBz8Puw7NNm00WdZk=;
- b=up0xZHUD3oEBsdfWzUu/NU4e1y2rfEMY2fmQpXizS1C1K3D5SCKhUi7ySXSFdAMIQn9hR3Hrs
- Ru30k6VE7rUB3PtpD64dNdeVJ4nAb5Q3PqemLm0mC13HF2jj7dusCdy
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-usb0_phy and usb1_phy are usb-nop-xceiv NOP PHYs with no registers. They
-sit under a usbphy simple-bus wrapper with unit-address names, which
-forces a meaningless reg.
+On Thu, 10 Sep 2026 08:38:06 -0700
+Dave Jiang <dave.jiang@intel.com> wrote:
 
-Drop the wrapper, reg and unit-addresses, move the PHYs to root with
-plain unique names to fix dtbs_check errors.
+> On 9/10/26 2:38 AM, Junjie Cao wrote:
+> > cxl_decode_regblock() only checks that the Register Locator offset fits
+> > pci_resource_len().  A BAR the PCI core could not place is reset to zero
+> > start, end and flags while config space keeps the firmware value, so a
+> > zero offset passes and the block is mapped at physical address 0.  On
+> > x86 ioremap() of the reserved low megabyte succeeds, the component
+> > register header does not match, and a switch port fails with "HDM
+> > decoder capability not found", pointing at the HDM decoders rather than
+> > at the BAR.
+> > 
+> > Reject a BAR with no length or still unassigned, next to the existing size
+> > check.  Skip empty Register Locator entries first: they decode as BAR0
+> > offset 0 and would trip the check, and nothing looks them up.
+> > 
+> > Seen with edk2-stable202602 (f6489621b8ae, reverted in stable202605),
+> > which places 64-bit non-prefetchable BARs behind a bridge in the
+> > prefetchable window.  Linux refuses to claim them and the switch
+> > upstream and downstream port BAR0s find no room in the 32-bit window.
+> > QEMU q35 with a CXL switch, Fedora 43 edk2-ovmf-20260213, before:
+> > 
+> > pci 0000:0d:00.0: BAR 0 [mem size 0x00010000 64bit]: can't assign; no space
+> > cxl_port port2: HDM decoder capability not found
+> > 
+> > after:
+> > 
+> > pcieport 0000:0d:00.0: BAR0: not assigned (type: 1)
+> > cxl_port port2: No component registers mapped
+> > cxl_port port2: Failed to map HDM decoder capability
+> > 
+> > Link: https://github.com/tianocore/edk2/issues/13104
+> > Signed-off-by: Junjie Cao <junjie.cao@intel.com>  
+> 
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi | 26 +++++++++----------------
- 1 file changed, 9 insertions(+), 17 deletions(-)
-
-diff --git a/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi b/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi
-index 5a63874090eb..c18bec46d9bf 100644
---- a/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi
-+++ b/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi
-@@ -69,24 +69,16 @@ pmu {
- 		interrupts = <GIC_SPI 4 IRQ_TYPE_EDGE_RISING>;
- 	};
- 
--	usbphy {
--		#address-cells = <1>;
--		#size-cells = <0>;
--		compatible = "simple-bus";
--
--		usb0_phy: usb-phy@0 {
--			compatible = "usb-nop-xceiv";
--			reg = <0>;
--			#phy-cells = <0>;
--			status = "disabled";
--		};
-+	usb0_phy: usb0-phy {
-+		compatible = "usb-nop-xceiv";
-+		#phy-cells = <0>;
-+		status = "disabled";
-+	};
- 
--		usb1_phy: usb-phy@1 {
--			compatible = "usb-nop-xceiv";
--			reg = <1>;
--			#phy-cells = <0>;
--			status = "disabled";
--		};
-+	usb1_phy: usb1-phy {
-+		compatible = "usb-nop-xceiv";
-+		#phy-cells = <0>;
-+		status = "disabled";
- 	};
- 
- 	soc0: soc@0 {
-
--- 
-2.55.0
-
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
