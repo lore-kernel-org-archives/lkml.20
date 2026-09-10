@@ -1,171 +1,94 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E7D48A8B9;
-	Thu, 10 Sep 2026 13:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997BB489882;
+	Thu, 10 Sep 2026 13:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046199; cv=none; b=Z/k4/3+jRaDTVJSgfxPIqjBAc2suKyrfGRcyNwIT0YBEi9MW6AozZi1vgbiRiaj0WYyX+mvl8C9WK3l5geMYkh9IZ/wW+3XZChagmZIVFISVAzuLD1JeltLBB0r7v3c/uQLTE1icUiuGCNUgyPtxl8Gn0r8u17AQOceH2fqOKdY=
+	t=1789046285; cv=none; b=AIoiwKh+rMYJ6HHfU/j5xS+mgt0zfVPLZYNpBxSN7aMJppI3FMPAXv7/byq0BO2jtflGUK4WqItzZKjFl9gx8XMozu+O5uZ6RN7yWUVtwmFnJQ3VNlPBfEz+ceUAuI4EsNuZUK7YfwwvU3Grn6fad7ebXixW8NLwmEsrbPSxe6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046199; c=relaxed/simple;
-	bh=0AFyZVt79MBqmDgSqh1BCUiQfV7ujVh0oIziE26dPrQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=jA6ZrtEhW/FOQMav0iwi8W8/qIhyOjGpxpf66ijDJ+69xUSiocmifbDOKRytNnBKRvIGAbyZkvGn9wL/txFyS/Q4xMwSoVeq3/ljL4EkG9kWxdKask7D1JYVsI/jBASST0h2ZLj3k+sC35tKocWekHCqPAt509JuAblsKA38tt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=M65EOCsY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=guO3ci0B; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789046285; c=relaxed/simple;
+	bh=qQrItInjJmJYkwqN2J3a6oD0Faw1CDbdOVtEASc676g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jW8I0xgEpo7vh2Ext5sSugqLlOAM9/anLRotEHrL/wkAaV3yloG/fLez0xADXqW8S75rMPDwjJi5BW+vYrBFyLrLAUI29XX/1x2PvH+KeRMMdC4i2tkePkXrMiTEh82mADNTP9yIA7Rpup7arLp15JMyH7SXrrJ6CE82rSio57c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yh28SgK7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="M65EOCsY";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="guO3ci0B"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3BC9E1D000EA;
-	Thu, 10 Sep 2026 09:16:35 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 09:16:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789046194;
-	 x=1789132594; bh=e3stYz9jx1b9Q2oH4Nnw+NNtqnXMxwA+Xc4jXa61Nfk=; b=
-	M65EOCsYFY8qmqItH4KPbmfa/S34hmo77EREMEDGsZBeXbI6ZTlc2vFWbUlEfM/j
-	LDlo1+RtGHUsjG3bWAf7EFyEHA34UjpTgHeTP0bTIndd9renbVNYBNeguwKfngXh
-	dI3PsBl2U3yoYay7zh7hGN1VeRBtfChmr/X8Bg4/osTsGphX0+SqJcUX3gLLHHRq
-	rmpS0Vx6JvGkj12LTXpYO2KODhBtzWYY5BYimY1Mfsy9+h/fz5Ag2UAj50wulGNh
-	1uN0uLWH9apk26Tup24MfPvpKpCsURkOIU3PGFccB/MPqbVr+7O8Rues6iirDn4e
-	aKUIEaZWJihYmYwdam8u0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789046194; x=
-	1789132594; bh=e3stYz9jx1b9Q2oH4Nnw+NNtqnXMxwA+Xc4jXa61Nfk=; b=g
-	uO3ci0Bto6gNKUNATnUiKqMqxNt0NqnA5uLXCayUeaV8aQYYfJbe+czjGBt5wbjV
-	uLpyZ7dqJLe7Owvqd8zRRlgKNyWBuYRaL02yYm6q0rJSbr0gafsuWtgOrkOyxlqG
-	4wRhOVGwaY0p1oqm3ZvHLzDO8W1tT7h/NdavvLLm7CedmQSfJbCP9T3xpkOrtiTs
-	AvU/EC6PwdMtaT4wCbNAS7d73LMamu5lvba86+p4sXwHKpML0OPHmKm5jq1Pj6co
-	rNgR4FforNmJ6g28pmvzogG3ZePOBb1Sfuzq2nbAI41p7bVAKJM5zZ9ljJzg8IvB
-	JxaEBANtl/RvVsbGOkeXg==
-X-ME-Sender: <xms:rK2iaskI4Am06FtWWADsfzmMHorSeF92jvhOBx7tmiDMxq6BFQ6wyA>
-    <xme:rK2iamonI79JfvsN3L2CrtgxTrTQdBqvNX1IiAGb30rOwIuIHDcbJt7Pi1gGX8vU5
-    GUVb_mhPtev2m2APHfIU2uuYoG3hTnv_rt4CxYByCOPT6aPEfh0ObUV>
-X-ME-Proxy-Cause: dmFkZTF3HB9fRiN65EDoc3yMO7VBmb45FRf2lV1lgfDonJBDFaMYlj3UtcPsxXYQQnXRgs
-    bS+GdOCkZTgtyJs4zSKCinFCCrtA2bxdiH19evYPKT5QvJ/XmfrdjyHvo+vUPATGIk6Zd/
-    zhvkn1FqT+fRgGmGZvUk0gq8HmYb6mHZEUTuRyaZ9LQg+x81N4FhWB1NJgSkvHSiuAC8YZ
-    JRQQi2XqbVB5/HLWUzglPl3nPTNk+T+PX0heWOF/7kB/fHvNWhcFLserxEPe+SY9yZ+iD4
-    Jlay7FyZ8ATt9dZosXZsBjAQUDN/xP5FjTgDPuP/QiRCzukLHdnLwmDZ62cDSY2r5uCLbI
-    sEnfyPj/KS6oBvJGdB/D6Bi7nZrYT9PkuHsG6n8YT0dXzi8jppGjQ13UtgUc0oDUiakfa9
-    kQt8vrWi/id48mOJpRT+DAjkKETcosiMo9d/NgqvHUEMdg/H0FUrDImcJhtm6A3xYjcdYf
-    B/wB2UUjyC09sn/7hiUeWT+XzjrevoG/CdVOF+qgXXzNRW6zBKawQWFl1i+zAf5kzlqeuI
-    NE5Oldc7bpOPQfUaDVra1I8Ff57DP0oDclNNMbKzJOPVZ1o2kuQkuXX1Rk70/aToYMeZj+
-    u6eNmuZx9Lo98moAPmg3XEZ8Vt/8g1kdeT8ZrKvlqmzbVo6iRWPA+5rvElVg
-X-ME-Proxy: <xmx:rq2iajFyLkzrXydI_q2MVo78QEeePnXV_HcVtnMBgA99jPuVnnjBoA>
-    <xmx:rq2iaqavdIaG18sH6W-GdmcgON1IPQ7wkG18c1ol2oT5Eu3JGqN13g>
-    <xmx:rq2iaqE5MARX_Hgg5SpAvtjY4p6c-ylMx_KYTPZ8Fn2RQCAf14Enbw>
-    <xmx:rq2iao0SqVRdIpK_8kZUWnutOlx9bRRX-ZN7DDSddSMasHs8JjBe-w>
-    <xmx:sq2iaosSXlGB3x82dfvIMLkWakrO4QJFxUYQwKUB5_tt1HjSEDzm4T-t>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 51C7932A007B; Thu, 10 Sep 2026 09:16:28 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yh28SgK7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76B11F000FF;
+	Thu, 10 Sep 2026 13:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789046284;
+	bh=63mYHX7mtuoiPipaFKq34F2k9faAGyQ8nFHA1oVLU8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yh28SgK7gOsyNTvjOGWgVG1/MDJixzQwQhYPAGNTeDU4OCLsroi21iNV/clvoIEh5
+	 uKFGiJ3Oi1dp52stLFPNgzYrIwY8vNlOCjtj1+b4kort8izKB+rqCmiPcTI2gh7VgM
+	 tnC4jvDMu1aBxEAWYpTLCVl4tx5EUYH1Eo4S55XiuIvhDgkXE6oCXY/ZV/qc9qh0co
+	 NXrZ88fbtKVa75c5eqBXedcleXEgyodSEZT+Sa1MLTSh3o3RmvxJy3XY5E77JyMUO4
+	 o5wNJdeykoOuBVD3BDFefmraJ/IoJNeQ3gvvoxGkawTwMXxtIDWfOV+WxREmvKXjJl
+	 YyFwTlmBFNxlA==
+Date: Thu, 10 Sep 2026 14:17:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?B?yJh0ZWZhbiBHaGXIm3U=?= <stefanghetu9@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] ASoC: SOF: imx: Prevent stack OOB read in DSP panic dump
+Message-ID: <f64a008a-8bdd-4c06-aa12-a721cebc3a11@sirena.org.uk>
+References: <20260909204042.46656-1-stefanghetu9@gmail.com>
+ <20260909204042.46656-2-stefanghetu9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ATaKlDvsEa83
-Date: Thu, 10 Sep 2026 15:15:48 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Will Deacon" <will@kernel.org>
-Cc: "Karl Mehltretter" <kmehltretter@gmail.com>,
- "Russell King" <linux@armlinux.org.uk>,
- "Hans Ulli Kroll" <ulli.kroll@googlemail.com>,
- "Robin Murphy" <robin.murphy@arm.com>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>,
- "Christoph Hellwig" <hch@lst.de>, "Ard Biesheuvel" <ardb@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>
-Message-Id: <56fbf5bc-f138-4ad6-a1db-b16b8de601c3@app.fastmail.com>
-In-Reply-To: <aqKMsKpYnAZOoKQo@willie-the-truck>
-References: <20260910063620.17768-1-kmehltretter@gmail.com>
- <2ea28a17-f36f-4dfb-8e2a-375e7a3a4d6b@app.fastmail.com>
- <aqKMsKpYnAZOoKQo@willie-the-truck>
-Subject: Re: [PATCH 0/2] ARM: preserve DMA_FROM_DEVICE buffer contents
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Bxz62p+0qLECbO21"
+Content-Disposition: inline
+In-Reply-To: <20260909204042.46656-2-stefanghetu9@gmail.com>
+X-Cookie: Gravity brings me down.
 
-On Thu, Sep 10, 2026, at 12:55, Will Deacon wrote:
-> On Thu, Sep 10, 2026 at 11:14:28AM +0200, Arnd Bergmann wrote:
->> I see this as a tradeoff that can go either way:
->> 
->> - the current 32-bit Arm approach (also arc, hexagon, microblaze, mips,
->>   nios2, openrisc, powerpc32, sh) is obviously faster as it avoids
->>   the writeback, but it relies on device drivers to ensure no stale
->>   data can leak back into userspace.
->> 
->> - Will's patch changed arm64 (later copied into riscv) to avoid that
->>   risk by adding the overhead out of caution, and avoid having to
->>   audit and fix all drivers.
->
-> How would you envisage fixing a driver for this? There were two issues
-> I tried to address by moving from invalidate to clean on arm64:
->
-> 1. If the DMA transfer didn't write every cacheline in the buffer, then
->    we could expose stale data in the gaps.
->
-> 2. If the buffer has a pre-existing userspace mapping, then we expose
->    stale data during the window between the DMA map() call and the DMA
->    itself.
->
-> Fixing (1) in the driver would presumably require it to walk through the
-> buffer after the transfer and zero all the gaps, with an appreciation
-> for the cache writeback granule (!= cacheline size) and then (somehow)
-> clean those parts back to the PoC. Is that something any drivers attempt
-> today?
 
-I'm not aware of any driver doing this, but also haven't tried looking
-for them. I think the usual assumption is that a driver asking for
-a variable-length reply should ensure that it doesn't access of the
-data that was not returned, and that the driver understands which
-parts were received.
+--Bxz62p+0qLECbO21
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-One thing that the arm32 implementation (but not any others as far
-as IIRC) does is to do a writeback+invalidate for any partial
-cache lines passed into dma_sync_*(), but this of course does
-not handle short transfers.
+On Wed, Sep 09, 2026 at 11:40:42PM +0300, =C8=98tefan Ghe=C8=9Bu wrote:
+> Commit 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore
+> call stack") added a shared Xtensa helper that iterates over a flexible
+> array of AR registers (`ar[]`) controlled by `plat_hdr.numaregs`.
 
-We had at some point discussed using KASAN to debug these better:
-mark any memory that is passed to a device as unaccessible through
-the DMA mapping API (rounded up to full cache lines), and then mark
-the data as accessible again during the sync to the CPU (not rounding
-up). As long as the driver only passes the actually received size
-into dma_sync_single_for_cpu(), any later access would trigger
-a KASAN assertion.
+You've sent multiple tengentially related patches in a single thread
+without anything indicating that it's a patch series.  This is really
+confusing tooling, please resend as either a coherent series or
+individual patches.
 
-> Fixing (2) in the driver would presumably require ruling out the
-> possibility of a user alias, which sounds hard and possibly ABI breaking
-> for some drivers (depending on how they manage their buffers).
+--Bxz62p+0qLECbO21
+Content-Type: application/pgp-signature; name="signature.asc"
 
-There are not that many subsystems that do streaming DMA into
-user-mapped buffers, so I also can't think of any good example
-here where things would actually go wrong in practice. Have you
-been able to find an example that runs into this scenario?
+-----BEGIN PGP SIGNATURE-----
 
-Block drivers always transfer entire pages, and I don't think you
-can access a page until a transfer from userspace has completed.
-GPU and media drivers might be affected, but it looks like those
-usually use coherent mappings.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqirgUACgkQJNaLcl1U
+h9AwYQf+OIH7nMiz45cq2dAIjQSTZ7xvYRJFfL7NgH9LmIUJzCDA5iD/8JHzAJqH
+HtB/dbJUg5yoPkH8vB9DmrouOKM1/ZnoGMZLz2md/fcHprBKzTRRY/hpS/SLL7uG
+ebPii0YZt+JZnq0WeDpOljT7LfjU7mcSxobur3AjJd84pHxsxFHB1XnjtBPGHhdT
+O77Q+yTV8DjIgXy4iZSWTvmxxYFIagg6w7DiuJ7G5VogrWpFJGOFw1PRw+Xg+S7F
+YP96GFRjjB+BMtmXvRYpIyB6Uvm3NYGkYlIMP2TOLR+vEbuz/UxWOwUVFFw9Jg38
+W8RJHuPrDPsz/7g1TH6r92mrmYo0ig==
+=uzC5
+-----END PGP SIGNATURE-----
 
->> - actually measure the performance overhead: you already did the
->>   work to test this on three separate arm implementations but did
->>   not share performance numbers.
->>   Can you quantify how much this costs us on the hardware you used?
->
-> It's worth noting that many Arm CPUs upgrade invalidate to
-> clean+invalidate (either due to the micro-architecture, errata or because
-> of virtualisation).
-
-Right.
-
-    Arnd
+--Bxz62p+0qLECbO21--
