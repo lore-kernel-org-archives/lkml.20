@@ -1,138 +1,120 @@
-Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4DD394496
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71C63AA50B;
+	Thu, 10 Sep 2026 04:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789016089; cv=none; b=a5ScJ4XgKQRwxLHCWi8GjCQB4p7pccptSc1IyHR0MwC29nHV0SYPgF/BoC+8T5HEq1ifcVcM7PtlvGruGfAvBntNJHq2dex8wysgTSRoPjUpcetEJsk7j8q9Wml9wcCcyG7Nt7a8mknMwoZrBKdpSiDekZ1sxDFvvmaSJXlTxng=
+	t=1789016105; cv=none; b=eVgcbdJbNETZUSKFud9u4vJtHQlf6711K4WFVpX/2WLIESuKGKATnt0JiE9ccRlftJ0YsvdwDUEqFFuXex9roFLkT58kti759d7aP4Em+NwuwGXgBbsuOnaLKYbSs+PrtZnJibKizOzHxiQLpVEzkdcs2WIxQI6xYxmN9nFwdzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789016089; c=relaxed/simple;
-	bh=7V15OWJcmmXZk9s3hgjd0010D1RdxNLIGIQBgGBHgMk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qVAkWp57kqT/2iNO8AFZpz1s8PmlRRzypT0jE5nVC8nmhHcEZEOuZUS5NjRMdrbkwaOPyklI57+ACF2PnPeqAL3TgDSJj3ziBCutvJ5viJnH5NMD2so9XOQitvFT24r8sxD1Ne2swX4KiWUjsrH3XKZ6XdhrcVYfWE1yZy0Zt4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wZgRpdKy; arc=none smtp.client-ip=95.215.58.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789016105; c=relaxed/simple;
+	bh=KDE7UNTDJIQ2uWjvJCEGyTyC62DCbKod/dyQyTTUmHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tkuDV9DBf98FvferxJb3Cazc4mfc/56Zyek88iUGQocqf+pjFqxWELQoE2l6amSkMRCsHQxgLoaWB5latHDBDLDuwtoHiNKax/ZdmfEwaek603E1yp/PV8OPTRwecQIvZFqFU4YF0+mfjITHmszFhhULf1r27wyYsvVRUUWVCso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RH1pdJKJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wZgRpdKy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7V15OWJcmmXZk9s3hgjd0010D1RdxNLIGIQBgGBHgMk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789016084; v=1; x=1789620884;
- b=wZgRpdKygjfN41hhVcF21wYotEb6t2QKkDeHp4e2GKmGm27Kbh7jUk6lfPLNAkUr0XXnFzbh
- yJnnTTgua5y8QJe8v4SXabke4eH051cVjg81Z3SQiB7fKMQvF4k2/xv0+RfsTNa3n2XCF7yYu1/
- pWinON5b1iGfvoSV9LnX+IWM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a36025855c7c4800;
-	Thu, 10 Sep 2026 04:54:43 +0000
-X-Mizu-Trace-ID: a36025855c7c4800
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-fsdevel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] kernfs: allocate the open node outside the open file mutex
-Date: Wed,  9 Sep 2026 21:54:33 -0700
-Message-ID: <20260910045433.489413-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RH1pdJKJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5071F000FF;
+	Thu, 10 Sep 2026 04:55:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789016104;
+	bh=4b8PYqv4VWkKA9hB1zFAscNK0cfZC015fuLfwpBZ3G4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RH1pdJKJSnU7hItjQj34V4BOEhh1rua9xC9Ylp7MDPO+gzzNAlBT5xtpwojTqa/vq
+	 IEUD4jxF/GrqOzUkQRP9W2jr171jumcvrhD0cMekeaUp9zyOHZOEFCBsAXU/ndRMnV
+	 cjweQ/SRZzgVc5XMoQpBYvEiLHYFFlcSvSUYawGlFMzYyYgM/DiqfnFQ2vastSO2Uv
+	 QydTfLtgZa3tp0odhE1T6SryJVNFW2z5KzAYSuK/vCeOCc152pJxHNRhQ2GAlIiY6x
+	 3QHhP5Sb5HvxGTyuibtDNZzoppawOi08mzbokCUAkp1iSriLXJqNBl9ILbjR3dchnE
+	 iHFHigmJiNvRw==
+Date: Thu, 10 Sep 2026 12:35:14 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Shubham Patil <shubhamsanjay.patil@amd.com>
+Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, michal.simek@amd.com,
+	radhey.shyam.pandey@amd.com
+Subject: Re: [PATCH v2 0/2] i3c: dw: Document optional core reset and drop
+ redundant name
+Message-ID: <aqIzgh9hA7lcome_@xhacker>
+References: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
 
-kernfs_get_open_node() allocates the kernfs_open_node while holding one
-of the hashed kernfs_open_file mutexes, so opening a file nobody has open
-yet can enter reclaim with that mutex held.  The mutex is shared by every
-node that hashes to it, so unrelated opens, closes and xattr updates in
-the same bucket wait.
+On Mon, Jul 20, 2026 at 01:05:08PM +0530, Shubham Patil wrote:
+> This series documents the optional core reset for the Synopsys
+> DesignWare I3C master and updates the driver to match the binding.
+> The DesignWare I3C master IP has a single core reset input. The
+> binding never documented this reset, and the driver looked it up by
+> the "core_rst" name even though a name is redundant for a single
+> reset line.
 
-It is the most contended lock in kernfs on our fleet: 2.19M waiters over
-29 days, more than two hundred times the waiters on kernfs_rwsem, and the
-highest median hold of any kernfs lock at 77ms.  Most of it is monitoring
-daemons opening cgroup control files, and the open node is freed once the
-last descriptor closes, so an open-read-close loop allocates every time.
+Hi DT maintainers,
 
-Look at kn->attr.open before taking the mutex, and allocate then if
-nothing has the file open.  Should the peek be wrong, which needs the
-last descriptor to close inside the window, fall back to allocating under
-the mutex as before.
+AIUI, the dw i3c explicitly says there are three reset signals in
+total:
+core_rstn, for core
+presetn, for apb
+dmareset, for dma
 
-Eight tasks opening and closing four cgroup files 20000 times each, with
-lock_stat on the hashed mutex:
+and I'm adding apb reset suppport, given this series has been applied,
+we have three choices:
 
-                     contentions    hold total    hold avg
-   before                    198        4.19 s     8.67 us
-   after                     119        2.31 s     4.78 us
+1.revert patch2 and document the "core_rst" reset dt-binding. This
+equals to v1 of this series.
 
-and the same number of acquisitions either way.
+2.add a patch to add the "core_rst" reset, but allow no reset name
 
-This does not empty the bucket.  kernfs_fop_release() and
-kernfs_xattr_set() still sleep under the same mutex.  It stops opens
-doing it.
+3.add a patch to add the "core" reset, but allow no reset name
 
-Assisted-by: LLM
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- fs/kernfs/file.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+Which one do you prefer?
 
-diff --git a/fs/kernfs/file.c b/fs/kernfs/file.c
-index 7e3800526b1e..cca9f83fc9b5 100644
---- a/fs/kernfs/file.c
-+++ b/fs/kernfs/file.c
-@@ -525,18 +525,31 @@ static int kernfs_fop_mmap(struct file *file, struct vm_area_struct *vma)
- static int kernfs_get_open_node(struct kernfs_node *kn,
- 				struct kernfs_open_file *of)
- {
--	struct kernfs_open_node *on;
-+	struct kernfs_open_node *on, *new_on = NULL;
- 	struct mutex *mutex;
- 
-+	/*
-+	 * Peek without the mutex: if nothing has this open, we will need a
-+	 * node and can allocate before taking a mutex shared by every node
-+	 * hashing to it.
-+	 */
-+	if (!rcu_access_pointer(kn->attr.open))
-+		new_on = kzalloc_obj(*new_on);
-+
- 	mutex = kernfs_open_file_mutex_lock(kn);
- 	on = kernfs_deref_open_node_locked(kn);
- 
- 	if (!on) {
- 		/* not there, initialize a new one */
--		on = kzalloc_obj(*on);
-+		on = new_on;
-+		new_on = NULL;
- 		if (!on) {
--			mutex_unlock(mutex);
--			return -ENOMEM;
-+			/* the peek raced; rare, so allocate here */
-+			on = kzalloc_obj(*on);
-+			if (!on) {
-+				mutex_unlock(mutex);
-+				return -ENOMEM;
-+			}
- 		}
- 		atomic_set(&on->event, 1);
- 		init_waitqueue_head(&on->poll);
-@@ -549,6 +562,7 @@ static int kernfs_get_open_node(struct kernfs_node *kn,
- 		on->nr_to_release++;
- 
- 	mutex_unlock(mutex);
-+	kfree(new_on);
- 	return 0;
- }
- 
--- 
-2.53.0-Meta
+Thanks
 
+> 
+> This series addresses both:
+>   - Patch 1 documents the optional 'resets' property in the binding.
+>     The reset is kept optional because the reset line is
+>     integration-specific.
+>   - Patch 2 removes the "core_rst" reset name from the driver and
+>     looks the reset up by passing NULL, since the name is redundant
+>     for a single reset.
+> 
+> Changes in v2:
+> - Updated commit description for binding patch
+> - Dropped reset-names from the binding
+> - Added driver patch to remove redundant reset name
+> 
+> Note:
+> The DesignWare I3C driver support was added by
+> commit 1dd728f5d4d4 ("i3c: master: Add driver for Synopsys DesignWare IP").
+> 
+> The original Synopsys DesignWare I3C binding was added by
+> commit 116e246a8bcd ("dt-binding: i3c: Document Synopsys DesignWare I3C"),
+> but it did not document the optional core reset.
+> ---
+> Shubham Patil (2):
+>   dt-bindings: i3c: dw: Document missing optional core reset
+>   i3c: master: dw: Drop redundant core reset name
+> 
+>  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 3 +++
+>  drivers/i3c/master/dw-i3c-master.c                            | 2 +-
+>  2 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> 
+> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+> -- 
+> 2.34.1
+> 
+> 
+> -- 
+> linux-i3c mailing list
+> linux-i3c@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-i3c
