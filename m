@@ -1,141 +1,131 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796BD367285
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025547; cv=none; b=ZDMuNFpy95FB6sWft3Sbt85OVuRk3wAS+0r6W3viF3sjJhYzdzDdvKUgEk8Oy31tv1mAl1BGvdABivUuF2CUeSOJt+CPt21XTXUSLkIBQwO/zNxRqOpwLKuQTMsiQHA9b9Z93rEX5tVtHFLTFx4+WVE3tAWTCaFgELGBXZA2XEY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025547; c=relaxed/simple;
-	bh=YwG3ShPeEoDdW/VvtVBJ93NMcAnPV4JbQbuTOD40zKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F1kWbCnpRZfc4w6YGnaphtvlmF/esZqfJCe/yI6UHUO8NaS2TSth8m4/Z6/eAxFSp0X35C0P//55YpRAMFKJJ94du0/jKNPGJyryzvQGbV4OZANe3rmRqUwgDfOFYb7Rbwt1h1Z97QXCS/OB703A4YT323BJEaoXjVQZGU8yL7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KkTKHuXW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KkizFbiD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086303AC0FC;
+	Thu, 10 Sep 2026 07:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789025551; cv=fail; b=Er1fDv2Yv/ETE7jeYMuEeS8yvs+KjcnLvIebf2RfG9aUuAHkhCOyXszkOEStreA24mvIur52XyFBxopIM4mlJIbHAtHgxTMZuj78xXi4oaqGi/nxLlX2I4dCszu7XIT580iKU47PfnD/kJ29XeIesVZ809E9NmUE5YkV2vUIeeQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789025551; c=relaxed/simple;
+	bh=J3ADOhthKTF9IFebgLITi7HtFXM0xf2Mzd0/b52zCVc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=qcJ4MbvcWjm2bOC/qM90/3ItXrgkkNgJbfmb+Ooj9ty0xrwwSiE1c7VIaYXb+fv+1ehIEAXnfyIZ/+tIvSYDpncS4cVdvot+zBBrbzLuZZhRUOEFkqoYvfMjyRVaW+nNHQnrmEbwhHe7kASL7izKnBXfNxUX3WFdd4Afk0lUmxs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HR3Sm+nj; arc=fail smtp.client-ip=52.101.48.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KkTKHuXW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KkizFbiD"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Gvuk810424
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=poC52eCWfGjTRuyFHqnXPZmO
-	tWy55VBXZIWXrPhthEQ=; b=KkTKHuXWfu99YB5ufLTwRvjc6+Y6GFSWIW+6zY4d
-	pXW9tEU6P0qArWNSdla/Vfpk0TfdA5+5wdZxcWn2kWK5jtowGBaov4Nou4kxoM9j
-	kMYIaAwv30HrRpWfolHUDvI/L4wUSHjZuG9WsF3fQoNUXvnpgxZZ2wq2Ps/1hWen
-	eqO+XJ9BDW65bccb/i4B9UdQV+mDJ+vXM7IAuOtI8101mE2v9FgNgSkAwHNphnEi
-	5wEpbzxbxd8NJfyzi/lPD7+uNLQm8JLMMRrI0cqrY3cFQSWZfQC0UNlxoB83Cpjs
-	+hRNdbZbE1qeeHJndX6zuNOVnvmF67dAFEqJuLfnHS9ePQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydjn2n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:32:25 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-938153538caso1053359085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789025545; x=1789630345; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=poC52eCWfGjTRuyFHqnXPZmOtWy55VBXZIWXrPhthEQ=;
-        b=KkizFbiDgfzHsA4e7KQqLRCVprmXQ2xMaWGHVMOXiYO/ejHtZ1A6sUp6ZXya++CrVH
-         fVV0ToYdzZD3eaZDtRQ6smVXbs+qbiBeRu2zGjAOdujtYkOi33VP/A6j9DfzGRd3UuNt
-         zAC2vUchA9HJozYNEkaRktUKo1g8KRiQVTM41VarcfTkPmAJKZyHCBcw8xCmEqwpmVRY
-         z8R75QhC9XyyaycWVRJUrD+K0LG8sZydCLfYhmQ7kBLWUpMLC1yk3PGF4B0JBkLO/l1n
-         sefdmMrPoD7uYcBG/ESlUab7xy11d5qL7e2Z8ekGIUyDFsqpCAxVsuqAgz/diO2+BcXF
-         CR0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789025545; x=1789630345;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=poC52eCWfGjTRuyFHqnXPZmOtWy55VBXZIWXrPhthEQ=;
-        b=hiRVm6gKqi0kGWJfgD2XN6ZHhd6jMN5usWvo8xQ5Xbl9arkOdUfs9JXEWc4Wurb7Fo
-         s1npL+bI1vlP0jYMPwovJeehd/W3QEQK7dBO98Q91UCj2JzhfhZ1VBUwEzNGn7CZ9zTV
-         P6fGy/+2VpBvcMHnqa2zHAh3zKKGm2PBSJoc5Zp1/EOmFi5Lk++Iwgb88LYHPEXazkNc
-         bsG0cganamL3dBaJLq39rPG+Z8mkib4EDyG93wPVjMvZyn7dePbA+y63d78bsusmpSmc
-         TV8Ica3Urvf/tyfwfFhpg8vP9BnFI22JLeTiG/GDwYP2xo+OB10eNLBGG++D61lYPxRd
-         5iEg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2EoNFqrN1lr7RbT+Pm/DwnCY9tGMPX9b9oEQFU461KmtyKKrHu+7NYH5agjRv/n/d59EX7bmMSrbpUjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWzgonIVfpl8ubdqJhOWSp3gjEhA8CkBuafVnppKmdriIMHj2I
-	E43OOKvkoyCzEf+fiLXd224o5sTA9eg5DyvVCPZLDgxxV5Mq45AKGTykZVEOLKm95EicaAbdnKw
-	PBZ7uAZhhjAMf57hCjTyccJ5NnL/XtVQGC5Xin/7depUUHnPQLruKBNmrMQ2nGE0iCFg=
-X-Gm-Gg: AYBFou1of9ziovyStHUKXQYjDJ6ZqwP6Ys3yy0QezUSgStIVLKQJHg78TV6XVKC7e6h
-	ficU53qxyxSTbVPU7YPmT1kjIZdZkXKjHx6yALHfR+hR2zptU3jrMZ0WfjEfXLh1nqJaH+0X4UV
-	Iu4lnU7m7pfdzhdiQAEzVOv5m3fFfeomWeBr6Hy/9YP6bgJScFlZRFGMzA7vdxduEIV4q3Xc81i
-	QwdOR35nkCo6wq4tY7QFHhwRKJxh4IoS4iFIfHzIp9e3NagafCTkIfUZ+Gsd0jyHwYwjmVecd8Y
-	6JlHvzzGBhM/QvJyGb/zRZvmbfnrLjTqXDv53n8+ahn1IjRNXqiXmz3h9xn2gA7io8iHCtz+jdL
-	rWsC3i7WoLsyF
-X-Received: by 2002:a05:620a:3186:b0:939:c9e9:81a3 with SMTP id af79cd13be357-939c9e9e6d3mr1215272285a.30.1789025544732;
-        Thu, 10 Sep 2026 00:32:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:c9e9:81a3 with SMTP id af79cd13be357-939c9e9e6d3mr1215259585a.30.1789025543213;
-        Thu, 10 Sep 2026 00:32:23 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.7.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm249206745e9.4.2026.09.10.00.32.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 00:32:21 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:32:20 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Georgi Djakov <djakov@kernel.org>, Evan Green <evgreen@chromium.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 6/6] interconnect: qcom: msm8976: Configure auxiliary GPU
- QoS port
-Message-ID: <lhle6hy3ewf6tahr3ynmvrzlgai55n2rngy25vhqaawj7jsmt4@znu23yqxfn5v>
-References: <20260909-topic-icc_rpm_smd_qol-v1-0-6dc5b5e97626@oss.qualcomm.com>
- <20260909-topic-icc_rpm_smd_qol-v1-6-6dc5b5e97626@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HR3Sm+nj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YNHjL2Y4WcIfvVaTsE7J1uqt433qurxA4OaA0t3TleCn7gsfn7UAIxWeszsRjpyuUFm7wFiTHO5yQJiQsDcWi2yn/stwYMhpyY4J3TEdoctTPEsOiP4P7xDnmOYzSClvezMMSNpdic/fm1k93QXP77Vs7mVcUo2Kx7Du4pbZpBw1GH9qTnzoyhlaupS1C0bZRA73lVdKPdWMPdLY21SGIFeV+co9XS9Cz0aN4vuXeeiQIgpJ+HL+Rh3Ec5BvTLbJ8IBpzXyWKI1e9iPQZCKPHmBpr9CHYSBkwkvb1b2Aw6dkeAgwRhKYJvdNeSm1LMT9kMjeu3tRFPAnMfMtWRtr4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fnxr3tm8SVYvfFuJLIsEGvFF8C7830ApA1OyTK7h8sw=;
+ b=oO1p6pTP958a+GjVtygy3Tf4n6XVrud8yZ67Pvc5u2DDTkDeNK1Is5ZCLV4iTOGp+h3Iuj8kbTQVGIekv5Y8g22KLHDgTWJEFGQDvWXKT2G2SfJ4vog5vf/B74PHLRUCE1uMsfQeHFI+UiPpGm2QouHFCmMHBz3S1ki4hDuCGCA21FbZJHWXu3235stBhMQzNYdjWEMvbPuvGbPUPeanMFSsDLZjrNY7079sPJs3QlwUTTutDI+zBHVaFUKxVxUJov0Mvik5KrJsWU3zGTfFxIbivKHltsJ6GJCWPLuvxKRcTi3SL/mDbJXMMLetV3DFf2JT8zFHBKSU8tfUopzbNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fnxr3tm8SVYvfFuJLIsEGvFF8C7830ApA1OyTK7h8sw=;
+ b=HR3Sm+njNUnTOkgnTv3QNPzzrW9P1PHTSQ4Aps9NgEy7amgJlPDuyGSU2pzrWMkZbiBvpwbqmducNgoMeVd07h/xQIx59Sd9RwnineATudZjKzQw489Jm9PaP5KGIWPPuebB1NtYYrbpSgboUBl6dzKdzf9FyhtRG9/kxRRqxuM=
+Received: from BY3PR05CA0002.namprd05.prod.outlook.com (2603:10b6:a03:254::7)
+ by CY8PR12MB7539.namprd12.prod.outlook.com (2603:10b6:930:96::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 07:32:27 +0000
+Received: from CO1PEPF00012E61.namprd05.prod.outlook.com
+ (2603:10b6:a03:254:cafe::13) by BY3PR05CA0002.outlook.office365.com
+ (2603:10b6:a03:254::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.4 via Frontend Transport; Thu, 10
+ Sep 2026 07:32:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00012E61.mail.protection.outlook.com (10.167.249.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 07:32:27 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 02:32:24 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 02:32:24 -0500
+Received: from [10.136.42.177] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Thu, 10 Sep 2026 02:32:22 -0500
+Message-ID: <15beffa4-aa61-4e9c-86b8-764fd43989b7@amd.com>
+Date: Thu, 10 Sep 2026 13:02:16 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-topic-icc_rpm_smd_qol-v1-6-6dc5b5e97626@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4MSBTYWx0ZWRfX/4hv6Xj4sVq2
- mSZFd/4+fzifF4VOfUxeeXz9pvh/YmW42TCY4XYG4O21GZo5+2qkXUtfP81uqgFtcm42OGEhsm5
- H7VOUb/F96L/GKPUbjs3pEubVl0DPu4=
-X-Authority-Analysis: v=2.4 cv=UJNIjyfy c=1 sm=1 tr=0 ts=6aa25d09 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dePp4Gl7O00gmbwhyVsZwA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=jW8lGn9s46bW74Nh9CgA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: ci3cnezZk816c1hz6siwx-tGGaV8khhJ
-X-Proofpoint-ORIG-GUID: ci3cnezZk816c1hz6siwx-tGGaV8khhJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4MSBTYWx0ZWRfX38xJUg4GS05e
- 5qfRtAoSG3WnzKyzbh9apT/4ldfSijbq4cyceQTyaJ7BXjVC3NCPnWK9vo8jhOUz9H/b9lWVs6I
- 9LydwvdMCo9/15+qtq9uMZFlq5oBzNZaEjdYacmhtGGwCoxehgEojw524MtKpCnd7s2ZUUR70Aj
- npGFwLC1dSykGTnMTfnR1u1lUz4Viblt7H17HX0WNKgzYdOVO7i0XajmHokNT0bZeTYNWnybzRy
- rqZsk7FqdU6TBYA316/Yz4xtRqhm3/0siKnFU657YCXqelZ6QFlAWYdmb0+2aiYqNuTMv6DI+KY
- YR0O2oUFvbkqTwfI9989FdqobnQrPLrx5d2jOcz/C9dhsmThtrcfDEFV9U4BIr0Nipg/2t3k5TS
- UTavv6ZzJALuVmWEOuKp5jMr6sQXZxVui4PDAcXHbQAY4kICT0iUwvodlrRBkNT9kLCj4JFfppn
- TLmA+oIImVLjhFkRqaw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100081
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] Add support for Zen 6 client EPP tunings
+To: Mario Limonciello <mario.limonciello@amd.com>
+CC: Perry Yuan <perry.yuan@amd.com>, "open list:X86 ARCHITECTURE (32-BIT AND
+ 64-BIT)" <linux-kernel@vger.kernel.org>, "open list:CPU FREQUENCY SCALING
+ FRAMEWORK" <linux-pm@vger.kernel.org>, Mario Limonciello <superm1@kernel.org>
+References: <20260909033623.454449-1-mario.limonciello@amd.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260909033623.454449-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E61:EE_|CY8PR12MB7539:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1046fe7-da59-406e-ce78-08df0f0daa35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	V0ou9UENFUmFoVnyCSWcILGtzN2fvhJskWTSm5L0kGTWNz7Wwq3AHi5naU7DxbG0tI48exGxgyEzEN0WilbFGIhFIzfk6XIqSRH4il4/mX/PXSsGILdC1icuV9/RQL07hG5RLg2iaFlMmRZ0XpBb7t9S3EtqzVHarPI3Hw2x5MVcepDo0XZ/hicWE107/hlvxhh3SK3/eGy9NuMjWiBcmHwiLx99V5/ALXD9oTwSJNmzDsfq0UXToSQIrE495fatUtomLft5OzdT5AEiImALw28H4hzMmv3bRY3GMuvog+y2BAXO0ANxXyi1cNwqkGm4iGIwDNsV/Xqp8edWQnKUdw5AZT76wR4oTMjDPjyX32H4p5NEKqoCX0xwYAc0TyPfQNwyI40BJxQAmr2Xf2sCnolE2GyXxA/Q7DqWk/HR4mq6NBEQKJfDw+z1ufphZEUrTPPj/Shx7n5qGczaynEIHfvS0fMg+WeMl9gncJUKM4Pt5HSznHE56nmfvbIfyZr88TgMVbrgbgyNYCdupdNzwkTuAeuPX/wtEiHU4mtA46MUTHo3GB6EOkreG4LgRZ2KYlUaV0IE7yM33DgSj1TRX6wD6VgG3xqGsJJkFzKo58vO7vC61ia4UMQO3qVz8X8+cPOWY5BFsgjywCZtWD1zcQJYtwY6S3BIpVqca2xO4kXzfUnLan6nc8H+QF9u+pbhwcZhBKrAT0/XWv3TgrG2lw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	JEe22hATx0rxig5CgK+94tP3+wJOYxr1aKZATtb/Ls11fDYkYXBhr9UEAGgsSjHPnn4IGy1CLIOVvABeVCVdcM7PF2A3OFRj/R1XaEAd79rYtM0aJ62evNq4CK53Rnk2Ee04bxqwvaQmq+tHTU2JmiXbjjrgjrInMGXV2fCAC0Abfb/+L0Sdz/zoAGT7sRBcWD9HWwamLq/7HR6V/2TrXzYbV8w8bnP38eGiBnm88lMOSKI9g3Ge1AaZ1rvo9MkcSfSjxpS5SW83yF5NRjRZpLkl1EwJaPh9cOFpwvxNBDaUSzKhRlfULJn3TGkB/+1L8MvHyRBWwOxMu5lIXuUOvIxs39w+J68qdECBvdLORXqfan0uvJOlvFbc/HR0wqs2wFX/sVJ8bzTl4A6d7VwxaELLUzgMT7bs3z6J8o6Zq49OxqGVBgRk0zpDOYDQJNDE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 07:32:27.3223
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1046fe7-da59-406e-ce78-08df0f0daa35
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E61.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7539
 
-On 26-09-09 18:41:59, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Enable the secondary QoS port used by the MSM8976 GPU node.
-> 
-> Assisted-by: LLM
-> Fixes: 6e3ea1f36b10 ("interconnect: qcom: Add MSM8976 interconnect provider driver")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Hello Mario,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On 9/9/2026 9:06 AM, Mario Limonciello wrote:
+> Zen6 client platform firmware uses EPP values differently than previous
+> platforms. To optimize performance and power consumption tunings are
+> applied that match platform characteristics.
+> 
+> v3:
+>  * Enhancements suggested by Prateek to patch 1
+
+I took it for a spin yesterday while debugging another issue and
+everything ran fine. Feel free to include:
+
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+
+-- 
+Thanks and Regards,
+Prateek
+
