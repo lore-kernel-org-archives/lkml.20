@@ -1,564 +1,116 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AAA45D927
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20D445D92D;
+	Thu, 10 Sep 2026 10:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037104; cv=none; b=TsGWgIVdVovgg5XFt4701C/fhrNfBVaBvqmj2je7nZzPbsFW5deTZKurdz8ND5KEA/f7AdWjwTlNK8rvJbyPAdHp/G7dY3uIRJmY3y5QrtZAd0fmr4oJWMRTDH6u5f7FuhOv3uoNI+zTC++XGdbp94CBsK+YHxoN+zLJsbC189k=
+	t=1789037144; cv=none; b=sqfB2k3Sz2lQ5Cg7/0oGw2jg3VoS1bZM+5xPkoOfPLLN+HL+trkPEX6ar8wTTn8JBAy8+IDuUkkUxSravNvs60+XdBVkmVFWg/V7zWz/EBNGAmA0LJ6naynlIjcT+a/UNVCXvLm2Mr+Z6FIDzZ4OPUvevAN5mX24Xk0j2jisnXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037104; c=relaxed/simple;
-	bh=HxfOQgxeNC2M/0FZuUE7U8uVbNE1FfEV8GtT6PXgiCc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eY4olyj3ZAB8cs2hpJhpUq9a2GuySR8HDpJEvxdzejZdR9gAZ+7Jb59RFhwjP8/fe0+rQjG82DN6MIsmVEvYNvzPGar12IuGI9qoHJL66SR11qSC2VOiNnJu1ObDuGO+zYBblKGhvFzYslb6b+52rhpHacVq+xiYxEKzbXnfjP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S0ZORa9N; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789037144; c=relaxed/simple;
+	bh=7mB91F2bpOIoDuvFbgbmZ3E1vU8W06FnaPbbY4+0ucs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NYtUOMUxRqz47ch7gXR0yBJVIWL3+bYZCPRjV1ZBi4pJ6aiF9jmkmJKc2OmnlP2Mtv2jIDbjgL4Rj8z7xCf5Bd0ADJmawXPg7fGiF+98ovnQGlulH9Tv90zGVJVwu1HHhFCXAs5c2b0OsxRX4VhbzGgQ4cynBw/uh2Q1LTrBTrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Owjx0cIN; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S0ZORa9N"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso1026119f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:44:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789037096; x=1789641896; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9frimrJtum7yK2qZWoLc4swbgstoZT3xwJT/qEIOZUI=;
-        b=S0ZORa9NFTGwfTI7QiWdjvh8FJcMWjRQgerNsRaVL//dIva67oRh2RsPYfZqysVndU
-         fA47ttt7OYV5ZR+5CI3sxRlTkfDUzW1XaffYQP/CsORySxEy6c6Cm1fYil39rc5eMjb3
-         jrOLbtDG/Ux6HlilfNXjA9pnE9J9yUv8GIqdvxYegc4YgJA+vKOAbfnIBC0XSButqnLM
-         NIsnabiIHkmGyh6xvCwd3YytREvp5dioYKbl+yV7dLI7D7nzglmp1bvdbMq7dqKAlf+S
-         tq89OPCxEp93vIO0c4RRo+Ty9kN4RJVTT3JM+mZpej1oXpRhRCYg3znHxQlYB59vuI+L
-         QMuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037096; x=1789641896;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9frimrJtum7yK2qZWoLc4swbgstoZT3xwJT/qEIOZUI=;
-        b=o1PH7SNtGRL3cTouYKCc+a1pDxXMg2CXXLJBgk15RLQxzNkStjzHu6xQhKdiNIMTP+
-         Xw1QXOFA8836ym9TcCEPmmdhsc0K6+wvVl8d6xd++LV4sxm+5K/I+yuLtckD9G3+vdn5
-         lFaRMr0hnV3mBHUySXKc/oMPDHc8PRgF2DDJBPm3nSPOAlJLYXbYcopl0U9mlpAQw6KL
-         wW3tppgutVZq8Ay8LK/Vz7QL2iZMUaUNjORw1+kfF6AfhKcQcIrcCsdnUkHBrD2s55Tq
-         Wgd9WJoXV6WEk88fC3ZiQ9498hg7flfFl2qsm0+H6R39ZqvSN6mMZTdmdb0QJYjMCOg7
-         xutw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2oKdkhlY15U0erxLUh02QkACgRvKEFFFjwQkaPZ7tGsg8/ZHIowQuc5kcKnnTVG0NZprhbgsgXzMNHrk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRmo4V3vVNVYGcBl4OedEcPKGFYO+X6cWiUQpade/JAXaamwB8
-	Ww8lK9R1OQZj/UZwX40huSWp1wlQAYNKGiyiMuZQ80cVjF3m/qFpw4iUVA96grV+u1k=
-X-Gm-Gg: AYBFou0WS8Tw4kuAhYaYCCYMxff7RQrsbbC6etoJYoYzLnz5SMXWGPc7zLwJZ9uaBm/
-	sz1CLGsP/x0qA9oucoCe5n7yDMU2CzAywLJZrTTNAWZSyXPyvOdsgkFO+F9avZhNHI/k6IWLrxN
-	Qjfy++Fq2usz2TD8a+sOvhAH3va3bS34kY3VQu6AQQ1uakSnOqNn/jHajmOoN99UByTiWuk4QWs
-	7VXVUqOFzpd7L8IcMzfXkFvaftfNUB1d7O7ajGcJla/NUAW+jfahrTWVE7CBoGktCI5LWmmngTj
-	7L2cUfJSnZ8Dzw7Ly0ltcY+RzLnNVhKtOwBjuppfOorQkQl6aCjqkc6W5TXtjk3/sSlkJ9/Gg7W
-	MFbKwDMeqy38FaTXK93PgplA4sjg17qJ9ctKJ5BjGDouYqAA8b4cZJs8+aoKT2Bbo/SozRDxEtX
-	L60IgFe5jr3ikmvQuQi6OTXWDkmJQ96MExSyw+0vIGSEZadqDiBp6FzOGXgOr3eDe2WEr8Awo3D
-	v13G9Wo5vvbU6FpTw==
-X-Received: by 2002:a05:6000:430e:b0:482:ea08:8c8a with SMTP id ffacd0b85a97d-485c23e5411mr11946509f8f.20.1789037095733;
-        Thu, 10 Sep 2026 03:44:55 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bf3f0sm55469516f8f.33.2026.09.10.03.44.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 03:44:55 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 10 Sep 2026 12:44:39 +0200
-Subject: [PATCH v8 5/5] regulator: axp20x: add support for the AXP318W
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Owjx0cIN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=yhrca4I4IvshIQRv8T/Y6iGQz4G4HSyXgNE0gKp/I2w=; b=Owjx0cIN4maISN3fg2YEEtJouq
+	rJ20mERSUj35VPVu1S1YijmRi+yYMNSnGsqBvmOhuwBbDBIESlXOUReAVeshafzzfQRM3l9jYeAoy
+	01gvfpuh2U420bB/VZlObpUQpTAOCitD5t/eWLPnd2pmZn4gEy0m+S5knSVx2AYUmDeSHnTtYuTMF
+	6hOT2rEwk5s7xCKqchMS0ZrqpFGGKqWBtul2MJClMa7MgDujrk+8+YqfVRb6APSp5aDRO0qT6aDYi
+	mu5ATQzpvo3u8rc0euJDYaE0HktoIGdbBfX6HnhK+tzqP50woxs7pKwgPkWRPvhWDz9B5hn6bMMJK
+	ofejRszQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4cHZ-0000000FlVb-0nQo;
+	Thu, 10 Sep 2026 10:45:29 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 29FC2300400; Thu, 10 Sep 2026 12:45:28 +0200 (CEST)
+Date: Thu, 10 Sep 2026 12:45:28 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/18] sched: Introduce WF_ON_RQ wake flag
+Message-ID: <20260910104528.GI4120091@noisy.programming.kicks-ass.net>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-9-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-axp318-regulator-v8-5-e906a61a7f3d@baylibre.com>
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
-In-Reply-To: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
-To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Hans de Goede <hansg@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=19549; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=mM00w2khOQ1luc9sLRr+7THG50AYVfTw02Km56a/ykA=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqoooa9MAMJ8ZCbXCtk9zZke11ozFa5OPMx9QDa
- jWdZ+yIBsyJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqKKGgAKCRDm/A8cN/La
- hSnRD/0R5wSQLlb9w3tUVKCKUEq6SrCyoRjzmrp/xX9hqm4tX3HM4tPz60xGFi4vUBPYUuo9iqy
- DNPQ0WxR6eCDCDm1EcljHW+gO0zveVlJY282jqYRXThIppWooDdXNiUrutitxLCj7i+NaohrUfD
- 7lEdKn+YYiLG7hKfr1eTBX8w1SoP/Smu0fr4+8Opy9YcjfXHSrHDHa7EKb8NvTHbZRDVaBpmtkP
- vMZN1fF+uoXXs+RCl2ue/01Ex9u1yIREoY31JPVSsDkkE6Rh2TLY211xNSTyqDPHefOabXrNK16
- /6E1ek1726zmQbNBTTO0CL7u9vEwpcA0Kj9vSMSpSIcQDYE7Br5apN3IRvoP48O/auC4K4eaPf9
- i0bsnfGNOkzqS7a9dT3IAeXS3cDJTxegNVnOgiMmZ5GyHP5+U97Y/8d0ZUbBrM+dwLt3mwyKLsG
- kkK1t9xUZO2GbiSLhD8vjMeIwR86wFTv2TJSJVu5oU9/IpS0EYYmHLQoORRc4S/TnB2iqh4mGaC
- 47T3lfmHLjRDo+YBwci47/79m2vkTZQmbwOelm498F4fLrbBbtsns4kmiwver0sXaNL8vRvoeN1
- AtjYNJZCNFKnOuFlmDYwrgxLtPfORFVpJ5ARUqz7oFPKEvCRfs5uJY6sCqlA8hIBa2VClstAs4L
- 4Ts4G8MaFSOOpZg==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831134338.1531664-9-arighi@nvidia.com>
 
-From: Andre Przywara <andre.przywara@arm.com>
+On Mon, Aug 31, 2026 at 03:42:18PM +0200, Andrea Righi wrote:
+> ttwu_runnable() handles wakeups for tasks which are already on the
+> runqueue, but scheduling classes cannot distinguish that path from a
+> full wakeup activation in wakeup_preempt().
+> 
+> Pass WF_ON_RQ to wakeup_preempt() from ttwu_runnable() so scheduling
+> classes can handle already-runnable wakeups separately.
+> 
+> This is a preparatory change to support proxy execution with sched_ext.
+> No functional change.
+> 
+> Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> ---
+>  kernel/sched/core.c  | 2 +-
+>  kernel/sched/sched.h | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index d578dd635f2eb..f142ab455b797 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3908,7 +3908,7 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
+>  		 * When on_rq && !on_cpu the task is preempted, see if
+>  		 * it should preempt the task that is current now.
+>  		 */
+> -		wakeup_preempt(rq, p, wake_flags);
+> +		wakeup_preempt(rq, p, wake_flags | WF_ON_RQ);
+>  	}
+>  	ttwu_do_wakeup(p);
+>  	return 1;
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 56ac104f1f825..f30d122909e7b 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -2538,6 +2538,7 @@ static inline int task_on_rq_migrating(struct task_struct *p)
+>  #define WF_MIGRATED		0x20 /* Internal use, task got migrated */
+>  #define WF_CURRENT_CPU		0x40 /* Prefer to move the wakee to the current CPU. */
+>  #define WF_RQ_SELECTED		0x80 /* ->select_task_rq() was called */
+> +#define WF_ON_RQ		0x100 /* Wakeup of an already runnable task */
 
-The X-Powers AXP318W is a typical PMIC from X-Powers, featuring nine
-DC/DC converters and 28 LDOs, on the regulator side.
+I are confused again... help?
 
-Describe the chip's voltage settings and switch registers, how the
-voltages are encoded, and connect this to the MFD device via its
-regulator ID.
-We use just "318" for the internal identifiers, for easier typing and
-less churn. If something else other than the "AXP318W" shows up, that's
-an easy change, externally visible strings carry the additional letter
-already.
+wakeup_preempt() can only ever be called for tasks that are on the
+runqueue. That is more or less the point of wakeup-preemption.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- drivers/regulator/axp20x-regulator.c | 319 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 310 insertions(+), 9 deletions(-)
+Even the already-runnable distinction would mean things like
+move_queued_task() should also have this. The task is new to this
+runqueue, but was definitely already runnable before.
 
-diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
-index da891415efc0..732541ee619e 100644
---- a/drivers/regulator/axp20x-regulator.c
-+++ b/drivers/regulator/axp20x-regulator.c
-@@ -138,6 +138,29 @@
- #define AXP313A_DCDC_V_OUT_MASK		GENMASK(6, 0)
- #define AXP313A_LDO_V_OUT_MASK		GENMASK(4, 0)
- 
-+#define AXP318_DCDC1_PFM_PWM_CTRL	BIT(7)
-+#define AXP318_DCDC23_POLYPHASE_CTRL	BIT(6)
-+#define AXP318_DCDC45_POLYPHASE_CTRL	BIT(7)
-+#define AXP318_DCDC1_V_OUT_MASK		GENMASK(4, 0)
-+#define AXP318_DCDC2_V_OUT_MASK		GENMASK(6, 0)
-+#define AXP318_LDO_V_OUT_MASK		GENMASK(4, 0)
-+#define AXP318_ELDO_V_OUT_MASK		GENMASK(5, 0)
-+#define AXP318_THRESHOLD_VOLTAGE	1540000
-+/*
-+ * FIXME:
-+ * Some LDOs of the AXP318 may be fed by different supplies and
-+ * the documentation repeatedly warns that output voltage must
-+ * be less than the supply, which is the case for any LDO really.
-+ *
-+ * The best way to let the framework handle this is to set the
-+ * min_dropout_uV field. However the AXP318 documentation
-+ * does not provide any information about this.
-+ *
-+ * Realistically, it can't be less than 1uV so use this
-+ * for all LDOs until we know more.
-+ */
-+#define AXP318_LDO_MIN_DROPOUT		1 /* uV */
-+
- #define AXP717_DCDC1_NUM_VOLTAGES	88
- #define AXP717_DCDC2_NUM_VOLTAGES	107
- #define AXP717_DCDC3_NUM_VOLTAGES	103
-@@ -371,8 +394,8 @@
- 		.ops		= &axp20x_ops,					\
- 	}
- 
--#define AXP_DESC(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
--		 _vmask, _ereg, _emask)						\
-+#define AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
-+		     _vmask, _ereg, _emask, _ops, _bpreg, _bpmask, _dropout)	\
- 	[_family##_##_id] = {							\
- 		.name		= (_match),					\
- 		.supply_name	= (_supply),					\
-@@ -384,13 +407,32 @@
- 		.owner		= THIS_MODULE,					\
- 		.min_uV		= (_min) * 1000,				\
- 		.uV_step	= (_step) * 1000,				\
-+		.min_dropout_uV = (_dropout),					\
- 		.vsel_reg	= (_vreg),					\
- 		.vsel_mask	= (_vmask),					\
- 		.enable_reg	= (_ereg),					\
- 		.enable_mask	= (_emask),					\
--		.ops		= &axp20x_ops,					\
-+		.bypass_reg	= (_bpreg),					\
-+		.bypass_mask	= (_bpmask),					\
-+		.ops		= (_ops),					\
- 	}
- 
-+#define AXP_DESC(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
-+		 _vmask, _ereg, _emask)						\
-+	AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
-+		     _vmask, _ereg, _emask, &axp20x_ops, 0, 0, 0)
-+
-+#define AXP_DESC_DO(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
-+		    _vmask, _ereg, _emask, _dropout)				\
-+	AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
-+		     _vmask, _ereg, _emask, &axp20x_ops, 0, 0, _dropout)
-+
-+#define AXP_DESC_BYPASS(_family, _id, _match, _supply, _min, _max, _step, _vreg,\
-+			_vmask, _ereg, _emask, _bpreg, _bpmask, _dropout)	\
-+	AXP_DESC_EXT(_family, _id, _match, _supply, _min, _max, _step, _vreg,	\
-+		     _vmask, _ereg, _emask, &axp20x_bypass_ops, _bpreg,		\
-+		     _bpmask, _dropout)
-+
- #define AXP_DESC_SW(_family, _id, _match, _supply, _ereg, _emask)		\
- 	[_family##_##_id] = {							\
- 		.name		= (_match),					\
-@@ -419,8 +461,9 @@
- 		.ops		= &axp20x_ops_fixed				\
- 	}
- 
--#define AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges, _n_voltages,	\
--			_vreg, _vmask, _ereg, _emask, _ramp_delay)	\
-+#define AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
-+				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
-+				  _ramp_delay, _ops)				\
- 	[_family##_##_id] = {							\
- 		.name		= (_match),					\
- 		.supply_name	= (_supply),					\
-@@ -436,10 +479,23 @@
- 		.enable_mask	= (_emask),					\
- 		.linear_ranges	= (_ranges),					\
- 		.n_linear_ranges = ARRAY_SIZE(_ranges),				\
--		.ramp_delay = (_ramp_delay),					\
--		.ops		= &axp20x_ops_range,				\
-+		.ramp_delay	= (_ramp_delay),				\
-+		.ops		= (_ops),					\
- 	}
- 
-+#define AXP_DESC_RANGES_THRESHOLD(_family, _id, _match, _supply, _ranges,	\
-+				  _n_voltages, _vreg, _vmask, _ereg, _emask)	\
-+	AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
-+				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
-+				  0, &axp318_threshold_ops_range)
-+
-+#define AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges,		\
-+			      _n_voltages, _vreg, _vmask, _ereg, _emask,	\
-+			      _ramp_delay)					\
-+	AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
-+				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
-+				  _ramp_delay, &axp20x_ops_range)
-+
- #define AXP_DESC_RANGES(_family, _id, _match, _supply, _ranges, _n_voltages,	\
- 			_vreg, _vmask, _ereg, _emask)				\
- 	AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges,		\
-@@ -567,6 +623,50 @@ static int axp20x_regulator_enable_regmap(struct regulator_dev *rdev)
- 	return regulator_enable_regmap(rdev);
- };
- 
-+static int axp318_threshold_check(struct regulator_dev *rdev,
-+				  unsigned int sel)
-+{
-+	int old_sel, old_uV, new_uV, enabled;
-+
-+	/* Only applicable if the regulator is enabled */
-+	enabled = rdev->desc->ops->is_enabled(rdev);
-+	if (enabled <= 0)
-+		return enabled;
-+
-+	old_sel = rdev->desc->ops->get_voltage_sel(rdev);
-+	if (old_sel < 0)
-+		return old_sel;
-+
-+	old_uV = rdev->desc->ops->list_voltage(rdev, old_sel);
-+	if (old_uV < 0)
-+		return old_uV;
-+
-+	new_uV = rdev->desc->ops->list_voltage(rdev, sel);
-+	if (new_uV < 0)
-+		return new_uV;
-+
-+	/* Crossing the threshold ? */
-+	if ((old_uV <= AXP318_THRESHOLD_VOLTAGE &&
-+	     new_uV > AXP318_THRESHOLD_VOLTAGE) ||
-+	    (new_uV <= AXP318_THRESHOLD_VOLTAGE &&
-+	     old_uV > AXP318_THRESHOLD_VOLTAGE))
-+		return -EBUSY;
-+
-+	return 0;
-+}
-+
-+static int axp318_threshold_set_voltage_sel(struct regulator_dev *rdev,
-+					    unsigned int sel)
-+{
-+	int ret;
-+
-+	ret = axp318_threshold_check(rdev, sel);
-+	if (ret < 0)
-+		return ret;
-+
-+	return regulator_set_voltage_sel_regmap(rdev, sel);
-+}
-+
- static const struct regulator_ops axp20x_ops_fixed = {
- 	.list_voltage		= regulator_list_voltage_linear,
- };
-@@ -580,6 +680,15 @@ static const struct regulator_ops axp20x_ops_range = {
- 	.is_enabled		= regulator_is_enabled_regmap,
- };
- 
-+static const struct regulator_ops axp318_threshold_ops_range = {
-+	.set_voltage_sel	= axp318_threshold_set_voltage_sel,
-+	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.enable			= regulator_enable_regmap,
-+	.disable		= regulator_disable_regmap,
-+	.is_enabled		= regulator_is_enabled_regmap,
-+};
-+
- static const struct regulator_ops axp20x_ops = {
- 	.set_voltage_sel	= regulator_set_voltage_sel_regmap,
- 	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
-@@ -590,6 +699,18 @@ static const struct regulator_ops axp20x_ops = {
- 	.set_ramp_delay		= axp20x_set_ramp_delay,
- };
- 
-+static const struct regulator_ops axp20x_bypass_ops = {
-+	.set_voltage_sel	= regulator_set_voltage_sel_regmap,
-+	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
-+	.list_voltage		= regulator_list_voltage_linear,
-+	.enable			= axp20x_regulator_enable_regmap,
-+	.disable		= regulator_disable_regmap,
-+	.is_enabled		= regulator_is_enabled_regmap,
-+	.set_ramp_delay		= axp20x_set_ramp_delay,
-+	.get_bypass		= regulator_get_bypass_regmap,
-+	.set_bypass		= regulator_set_bypass_regmap,
-+};
-+
- static const struct regulator_ops axp20x_ops_sw = {
- 	.enable			= regulator_enable_regmap,
- 	.disable		= regulator_disable_regmap,
-@@ -765,6 +886,158 @@ static const struct regulator_desc axp313a_regulators[] = {
- 	AXP_DESC_FIXED(AXP313A, RTC_LDO, "rtc-ldo", "vin1", 1800),
- };
- 
-+static const struct linear_range axp318_dcdc2_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(500000,   0, 70, 10000),
-+	REGULATOR_LINEAR_RANGE(1220000, 71, 87, 20000),
-+};
-+
-+static const struct linear_range axp318_dcdc6_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(500000,    0,  70,  10000),
-+	REGULATOR_LINEAR_RANGE(1220000,  71,  87,  20000),
-+	REGULATOR_LINEAR_RANGE(1800000,  88, 118,  20000),
-+	REGULATOR_LINEAR_RANGE(2440000, 119, 127,  40000),
-+};
-+
-+static const struct linear_range axp318_dcdc7_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(500000,   0,  70, 10000),
-+	REGULATOR_LINEAR_RANGE(1220000, 71, 102, 20000),
-+};
-+
-+static const struct linear_range axp318_dcdc8_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(500000,    0,  70,  10000),
-+	REGULATOR_LINEAR_RANGE(1220000,  71, 102,  20000),
-+	REGULATOR_LINEAR_RANGE(1900000, 103, 118, 100000),
-+};
-+
-+static const struct regulator_desc axp318_regulators[] = {
-+	AXP_DESC(AXP318, DCDC1, "dcdc1", "vin19", 1000, 3400, 100,
-+		 AXP318_DCDC1_CONTROL, AXP318_DCDC1_V_OUT_MASK,
-+		 AXP318_DCDC_OUTPUT_CONTROL1, BIT(0)),
-+	AXP_DESC_RANGES(AXP318, DCDC2, "dcdc2", "vin23",
-+			axp318_dcdc2_ranges, 88,
-+			AXP318_DCDC2_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(1)),
-+	AXP_DESC_RANGES(AXP318, DCDC3, "dcdc3", "vin23",
-+			axp318_dcdc2_ranges, 88,
-+			AXP318_DCDC3_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(2)),
-+	AXP_DESC_RANGES(AXP318, DCDC4, "dcdc4", "vin45",
-+			axp318_dcdc2_ranges, 88,
-+			AXP318_DCDC4_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(3)),
-+	AXP_DESC_RANGES(AXP318, DCDC5, "dcdc5", "vin45",
-+			axp318_dcdc2_ranges, 88,
-+			AXP318_DCDC5_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(4)),
-+	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC6, "dcdc6", "vin678",
-+			axp318_dcdc6_ranges, 128,
-+			AXP318_DCDC6_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(5)),
-+	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC7, "dcdc7", "vin678",
-+			axp318_dcdc7_ranges, 103,
-+			AXP318_DCDC7_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(6)),
-+	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC8, "dcdc8", "vin678",
-+			axp318_dcdc8_ranges, 119,
-+			AXP318_DCDC8_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL1, BIT(7)),
-+	AXP_DESC_RANGES_THRESHOLD(AXP318, DCDC9, "dcdc9", "vin19",
-+			axp318_dcdc8_ranges, 119,
-+			AXP318_DCDC9_CONTROL, AXP318_DCDC2_V_OUT_MASK,
-+			AXP318_DCDC_OUTPUT_CONTROL2, BIT(0)),
-+	AXP_DESC_SW(AXP318, SWOUT1, "swout1", NULL,
-+		    AXP318_DCDC_OUTPUT_CONTROL2, BIT(3)),
-+	AXP_DESC_SW(AXP318, SWOUT2, "swout2", NULL,
-+		    AXP318_DCDC_OUTPUT_CONTROL2, BIT(4)),
-+	AXP_DESC_DO(AXP318, ALDO1, "aldo1", "aldo156in", 500, 3400, 100,
-+		    AXP318_ALDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(0), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ALDO2, "aldo2", "aldo234in", 500, 3400, 100,
-+		    AXP318_ALDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(1), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ALDO3, "aldo3", "aldo234in", 500, 3400, 100,
-+		    AXP318_ALDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(2), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ALDO4, "aldo4", "aldo234in", 500, 3400, 100,
-+		    AXP318_ALDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(3), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ALDO5, "aldo5", "aldo156in", 500, 3400, 100,
-+		    AXP318_ALDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(4), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ALDO6, "aldo6", "aldo156in", 500, 3400, 100,
-+		    AXP318_ALDO6_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(5), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, BLDO1, "bldo1", "bldoin", 500, 3400, 100,
-+		    AXP318_BLDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(6), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, BLDO2, "bldo2", "bldoin", 500, 3400, 100,
-+		    AXP318_BLDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL1, BIT(7), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, BLDO3, "bldo3", "bldoin", 500, 3400, 100,
-+		    AXP318_BLDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(0), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, BLDO4, "bldo4", "bldoin", 500, 3400, 100,
-+		    AXP318_BLDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(1), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, BLDO5, "bldo5", "bldoin", 500, 3400, 100,
-+		    AXP318_BLDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(2), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, CLDO1, "cldo1", "cldoin", 500, 3400, 100,
-+		    AXP318_CLDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(3), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, CLDO2, "cldo2", "cldoin", 500, 3400, 100,
-+		    AXP318_CLDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(4), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, CLDO3, "cldo3", "cldoin", 500, 3400, 100,
-+		    AXP318_CLDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(5), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, CLDO4, "cldo4", "cldoin", 500, 3400, 100,
-+		    AXP318_CLDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(6), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, CLDO5, "cldo5", "cldoin", 500, 3400, 100,
-+		    AXP318_CLDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL2, BIT(7), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, DLDO1, "dldo1", "dldoin", 500, 3400, 100,
-+		    AXP318_DLDO1_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(0), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, DLDO2, "dldo2", "dldoin", 500, 3400, 100,
-+		    AXP318_DLDO2_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(1), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, DLDO3, "dldo3", "dldoin", 500, 3400, 100,
-+		    AXP318_DLDO3_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(2), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, DLDO4, "dldo4", "dldoin", 500, 3400, 100,
-+		    AXP318_DLDO4_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(3), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, DLDO5, "dldo5", "dldoin", 500, 3400, 100,
-+		    AXP318_DLDO5_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(4), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, DLDO6, "dldo6", "dldoin", 500, 3400, 100,
-+		    AXP318_DLDO6_CONTROL, AXP318_LDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(5), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ELDO1, "eldo1", "eldoin", 500, 1500, 25,
-+		    AXP318_ELDO1_CONTROL, AXP318_ELDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(6), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ELDO2, "eldo2", "eldoin", 500, 1500, 25,
-+		    AXP318_ELDO2_CONTROL, AXP318_ELDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL3, BIT(7), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ELDO3, "eldo3", "eldoin", 500, 1500, 25,
-+		    AXP318_ELDO3_CONTROL, AXP318_ELDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL4, BIT(0), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_BYPASS(AXP318, ELDO4, "eldo4", "eldoin", 500, 1500, 25,
-+			AXP318_ELDO4_CONTROL, AXP318_ELDO_V_OUT_MASK,
-+			AXP318_LDO_OUTPUT_CONTROL4, BIT(1),
-+			AXP318_ELDO4_CONTROL, BIT(6), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_BYPASS(AXP318, ELDO5, "eldo5", "eldoin", 500, 1500, 25,
-+			AXP318_ELDO5_CONTROL, AXP318_ELDO_V_OUT_MASK,
-+			AXP318_LDO_OUTPUT_CONTROL4, BIT(2),
-+			AXP318_ELDO5_CONTROL, BIT(6), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_DO(AXP318, ELDO6, "eldo6", "eldoin", 500, 1500, 25,
-+		    AXP318_ELDO6_CONTROL, AXP318_ELDO_V_OUT_MASK,
-+		    AXP318_LDO_OUTPUT_CONTROL4, BIT(3), AXP318_LDO_MIN_DROPOUT),
-+	AXP_DESC_FIXED(AXP318, RTC_LDO, "rtc-ldo", "ips", 1800),
-+};
-+
- static const struct linear_range axp717_dcdc1_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(500000,   0, 70, 10000),
- 	REGULATOR_LINEAR_RANGE(1220000, 71, 87, 20000),
-@@ -1347,6 +1620,7 @@ static int axp20x_set_dcdc_freq(struct platform_device *pdev, u32 dcdcfreq)
- 		step = 150;
- 		break;
- 	case AXP313A_ID:
-+	case AXP318_ID:
- 	case AXP323_ID:
- 	case AXP717_ID:
- 	case AXP15060_ID:
-@@ -1430,6 +1704,15 @@ static int axp20x_set_dcdc_workmode(struct regulator_dev *rdev, int id, u32 work
- 		workmode <<= ffs(mask) - 1;
- 		break;
- 
-+	case AXP318_ID:
-+		/* Only DCDC1 has PWM control on the AXP318 */
-+		if (id != AXP318_DCDC1)
-+			return -EINVAL;
-+		reg = AXP318_DCDC1_CONTROL;
-+		mask = AXP318_DCDC1_PFM_PWM_CTRL;
-+		workmode <<= ffs(mask) - 1;
-+		break;
-+
- 	case AXP806_ID:
- 		/*
- 		 * AXP806 DCDC regulator IDs have the same range as AXP22X.
-@@ -1543,6 +1826,17 @@ static bool axp20x_is_polyphase_slave(struct axp20x_dev *axp20x, int id)
- 		}
- 		break;
- 
-+	case AXP318_ID:
-+		regmap_read(axp20x->regmap, AXP318_DCDC_MODE_CTRL1, &reg);
-+
-+		switch (id) {
-+		case AXP318_DCDC3:
-+			return !!(reg & AXP318_DCDC23_POLYPHASE_CTRL);
-+		case AXP318_DCDC5:
-+			return !!(reg & AXP318_DCDC45_POLYPHASE_CTRL);
-+		}
-+		break;
-+
- 	default:
- 		return false;
- 	}
-@@ -1585,6 +1879,10 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
- 		regulators = axp313a_regulators;
- 		nregulators = AXP313A_REG_ID_MAX;
- 		break;
-+	case AXP318_ID:
-+		regulators = axp318_regulators;
-+		nregulators = AXP318_REG_ID_MAX;
-+		break;
- 	case AXP717_ID:
- 		regulators = axp717_regulators;
- 		nregulators = AXP717_REG_ID_MAX;
-@@ -1651,7 +1949,9 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
- 		if ((regulators == axp22x_regulators && i == AXP22X_DC1SW) ||
- 		    (regulators == axp803_regulators && i == AXP803_DC1SW) ||
- 		    (regulators == axp809_regulators && i == AXP809_DC1SW) ||
--		    (regulators == axp15060_regulators && i == AXP15060_SW)) {
-+		    (regulators == axp15060_regulators && i == AXP15060_SW) ||
-+		    (regulators == axp318_regulators && i == AXP318_SWOUT1) ||
-+		    (regulators == axp318_regulators && i == AXP318_SWOUT2)) {
- 			new_desc = devm_kzalloc(&pdev->dev, sizeof(*desc),
- 						GFP_KERNEL);
- 			if (!new_desc)
-@@ -1709,7 +2009,8 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
- 		 */
- 		if ((regulators == axp22x_regulators && i == AXP22X_DCDC1) ||
- 		    (regulators == axp809_regulators && i == AXP809_DCDC1) ||
--		    (regulators == axp15060_regulators && i == AXP15060_DCDC1))
-+		    (regulators == axp15060_regulators && i == AXP15060_DCDC1) ||
-+		    (regulators == axp318_regulators && i == AXP318_DCDC1))
- 			of_property_read_string(rdev->dev.of_node,
- 						"regulator-name",
- 						&dcdc1_name);
-
--- 
-2.53.0
-
+What actual distinction are you needing?
