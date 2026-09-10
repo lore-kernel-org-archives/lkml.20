@@ -1,174 +1,149 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011067.outbound.protection.outlook.com [40.107.130.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833EB4A207F;
-	Thu, 10 Sep 2026 15:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053279; cv=fail; b=d7KUCBO+AqIUkA+73q6KyVrApsvldVwf3VZpNXgzpHkH/pWxm3dtUMx6alBPRY1ON6Eabgv9+N+BhWRsR8NAnoq9lmuv7tv7i8UEF8eGK2oSyqomCDKA5qpG+7lCkSaTcAnuhjBi9+aI87RTsfZgJ39z8nRFsXGRp2mrmtXE+ao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053279; c=relaxed/simple;
-	bh=C7j8Ef93HoeS4ELgctk42esiuDYEkqRjMghRdUlNeVc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=g/Rw4LVNB6Qr7ZJFVPRMIRaCVPRoyDi8I2Y1ZvkFWanKFn1ccj+Skv2urvkKofQwUVgeYUeAr+/EAMdaczJgPkwcFjJnrr1AYd3bBRCwFScMdAYJWUv8DeZ3X8H/VWtnUY9rLwgij4pTvcu7rWi0qGazDWJKXap2OZGHTy5096Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=N1klzqkA; arc=fail smtp.client-ip=40.107.130.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A3C4A012D;
+	Thu, 10 Sep 2026 15:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789053281; cv=none; b=I4i2CnQn2K/NZpgNjq/c3k0Ik8QLZZR6vXXw0L87y3OUCIwtuftqqXZh8TkoNFSgJZr2QheGje/WumTQWt7jvpG3yPQ97WNoZ5GYpXOY1lNz9bUKJHiCjzsw0zaWnA+i9alOvGl77CbAGHNor7vFfnMN+QJGTnjr0rDNepnF3A4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789053281; c=relaxed/simple;
+	bh=Ynr/ckk26RhLLelorBcIu18tQiV+tpozmDiIXpmErFM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dmFt10z3ktuOctfze2Z8iBoTFe0x3V8E96YqkUddneNkBmMeUCMXAXLoCZlWJMg7c3/NcFjIGkXtN9Sl3onPOk3lES8xyUecvTulfOCX4cP6ifLtyIgqGnbpg55UN0gvw4yC/T9oQbtUfhwNFg7lQp2VbOEydm4E6bD8Go9TMSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8/Hh26n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="N1klzqkA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=de/R6vtyhjEz/6+rXGlH3BtxqfYq4mGcV2ODFF79aI/jxwdmboWgEmnhFU7PPeTllFk3e2c0XXCXQF57KvElS4pJeBmvusLHvUAkc9hoKww17/vsUiPTvPIhXj/kKfwNseWlw+Zon/vEOIcN5peDskio5uqjTmd1cc68VaodY2d62paxC2W4MeRDIVwxAPZzVPTmP617VuQu9skYjzZyj1p2eGdY0ncFWHGujZmRYDhZHw5kiVC56laf5VieGUKUTqHlyjAsu8xvLjeoGC6KuM2vDlRbKGa7oaIZmjK87ET34EK3En7uxLZXSVpM15Msiteywt3arSecdnflCzcsVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bkECvjPYOX3wPrKx9OcExkvbVe1e1qMXOX5r+nCzWnw=;
- b=v6De9sTEFd+TjYcDa3L7ZsEEsWX7a4PTCjbrmceab1i6MTKyjNw00MiTTKWdLhKLuXTPMkS7kTHAwBJ6l4BMGbin8ymBiqZbIj245DMLuAAxv5JAnxdzqyVUYAF1ivf9RvwsGfsD71mN/TsEcqp92hI68rVX+ZUuUp3L70J5OlYlR4dCAjCWTSC3OfjyLZnSNxlU9qYSGAqehbVO7hzXHGXoCn8twldDEdyXz2Bi87IShNhtvYxECCRIwURPzXpPAPNuUXUDf3pNERyQVklfF5GiOnp0CIYnUiG5CEMBnKmuBWt7IcakfBaJXVu0fLG0C6DPjUV+iQynmmAPcL6RLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bkECvjPYOX3wPrKx9OcExkvbVe1e1qMXOX5r+nCzWnw=;
- b=N1klzqkA63K3Clc+MvhEmxe7Am2FhZxc9mBDtON3/3u/eRU3KCh2QEaFUHf4NV1iqnQdQFL4QrAhKJzqGmZ88FFj/x43w3P46/1eaASsfMLw6mGWCklkZ5KG0kiOtAyKrNPnHXm5s/fnn6MzYYrCF6AuinEmkUmrHGwVm6BYyeFW+WFh8ddLounUc3zd49m2ln+I//uJqj85UwZ1kpb3Lr30tz2JJK2j2p7DRthIptrfPfyI9a3OMksz87SCefOORP2OlEgm2l8tTXEp8f8Mo5oYN3i9TZhQr4GaSQS+Gtvud96AReyulRfwHKHeWqoeHbQjMrbkSs5aAdN086lJLQ==
-Received: from DU6P191CA0030.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:53f::9) by
- AS2PR10MB7658.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:641::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 15:14:28 +0000
-Received: from DB1PEPF000509E4.eurprd03.prod.outlook.com
- (2603:10a6:10:53f:cafe::4d) by DU6P191CA0030.outlook.office365.com
- (2603:10a6:10:53f::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 15:14:28 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB1PEPF000509E4.mail.protection.outlook.com (10.167.242.54) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 10 Sep 2026 15:14:28 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 10 Sep
- 2026 17:19:55 +0200
-Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 10 Sep
- 2026 17:14:27 +0200
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Thu, 10 Sep 2026 17:14:24 +0200
-Subject: [PATCH 1/5] ARM: dts: stm32: add TAMP backup register in
- stm32mp131.dtsi
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8/Hh26n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25AB31F000FF;
+	Thu, 10 Sep 2026 15:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789053272;
+	bh=i71iPk/nmN9G4xlBgwAONHJyflCRetRnssw9AwqSJHM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f8/Hh26nq+vVlLOiS5KT2eaI74x8SSamCLxJp5B6lM9ghwH1iXmyQ5ZQzxvpEfzVy
+	 1SRAiuz7mwiqt3spBDTCSj41GoNnyifoWTweI0P/VHXIAsbLhEDaG9bHXsOOmFS5mi
+	 9JIVLu5oH9n1sr9qnTQvpZNiP55Ue57JLPbsBSChckpNhn8HFS0jYo6J2JzRCkso7y
+	 AxU2zVNMuNOv+sd0UEci6u4kV28SP+2o4gHy5VzDFGqdi/ysuN/JLyXyk97/8Tsa5b
+	 Z8OaFqrw2q+YooSjvOwkk1PqwFoA6KqQKest7wl5OdBcVVkx+zKaxwxvCM8H0wJv1F
+	 ZBsCF1NXVdODw==
+Message-ID: <a44c51dc-1bd2-4773-be48-3a640f48e767@kernel.org>
+Date: Thu, 10 Sep 2026 17:14:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/12] fs/proc/page: clarify comment in get_max_dump_pfn()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-11-008fc8d579fe@kernel.org>
+ <aqLBc20gZyDfkhdH@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqLBc20gZyDfkhdH@gremlin>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260910-upstream_tamp_nvram_dts_part-v1-1-e2bca58a65f4@foss.st.com>
-References: <20260910-upstream_tamp_nvram_dts_part-v1-0-e2bca58a65f4@foss.st.com>
-In-Reply-To: <20260910-upstream_tamp_nvram_dts_part-v1-0-e2bca58a65f4@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>, Simeon Marijon
-	<simeon.marijon@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509E4:EE_|AS2PR10MB7658:EE_
-X-MS-Office365-Filtering-Correlation-Id: e70a6881-b4df-40a5-f473-08df0f4e350a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	NYzLKRSuV+Jcq9U9o+4yz6yQ35BHulnKLT5hO3z2CQv+n5T5gDw/D29g1yS7Q6fihXG7Ty7koQl3S1BjxGaFGd0/CVrmNAXPerWCxHcDUmd8CZoaaQRhv4xiBFfXMohsNx8yMPwIS+cbAfhLmw8ZxLqebTqKd6VHTUeLZk8RmX9wTiJzAbkQUCUwt0dIfkoKVOQFrkKU6BJBtGLTZDmcn/t7diWyDBe0nyznw3DYdARSRR+amFxKslfTqGiKc+hTVyCkrXvQakiVxwCC8H4JVlXFAUzUOdKlzjfINcY8g+My+mgsr5EG2dbnTjzNYo2tv2pIbno1ijw8EDAUds0u4q6BAay9xNEa3wu3jyiGP238ezFHINwUOOudD9+fqUxmrTTSXcqAFwk01HkiP8o9SVjZTWg9om1BlHh7n2mTiRr7x95Jw6Vym0wwwojKCmuzs/t0gXsqRzIKnoWlkGxH32dSiBbWl6AW2okR+ULnW1KIAm52jY0D4oIhBEq9eOKXzAUr+AlB2L04nJwvPiTmP0ss497oH+MhNGxjQmgGlTrUaAK99JCDKpWd/Vyc3K2nT2JStmTIRvJ+VcRUGe8boh+Gtlc162vgRtSZNHxDW/KQZd+z92+707qOCJ/zZudo1ysDeZIfXu7Zp/RNB/pAbbnJiqKMSTofHfRrvKEGfhMefQY3ljjR53m6d8rh5shWt2cjNBkoQy+IRmfkDa8mmQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	v6Wp4h99NJd7IpkqcDozvtVcP2D4FvDht1sDC4FowVrlyDFjUWxxyWqd7F8+hpsyc49nBHjPrLcCg7LV6VjW8/yHsLLIKkiTqtRqRzYZNEdQRr1Nly8Q/zORjl9SyiJHVpl+wDmAPuUwXKYYnYaSTnWRP+Yszj5gNZyYnl/jUmlnCalm/ZKnKCcgVo0Ry7ihKDAJVVa0oRCLsRixLVWil29nDnBl3zhXyBXcQ4wd8ZJ0c77XbpC7EI4a3JRd3CIT/Qc6GwzKruumJqa/QUgkhq1Ai4fujNwEwK6hDoG15ZzJSY0JfYuEfND2BAK2Ld2TkaNTahaQDj59PN0cAghIB2xNt7fv8Xce5VIKmChN3kTJ1fZyFxSLFTmkKnqxaJbW1z/MRrORPVA2Nbvv6MSKuVby2wHUuk/URlmqKl6ttlVCY4jP6GL9fmNmD4Po4JKU
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 15:14:28.0461
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e70a6881-b4df-40a5-f473-08df0f4e350a
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509E4.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7658
 
-From: Simeon Marijon <simeon.marijon@foss.st.com>
+On 9/10/26 16:41, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Sep 09, 2026 at 03:33:04PM +0200, David Hildenbrand (Arm) wrote:
+>> pfn_to_online_page() will only succeed on some PFNs within the same
+>> section, not necessarily all. Let's make that clearer.
+>>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Nit on comment below, but LGTM so:
+> 
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+>> ---
+>>  fs/proc/page.c | 7 +++----
+>>  1 file changed, 3 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/fs/proc/page.c b/fs/proc/page.c
+>> index 260772b20bd99..6856ff3e3cf28 100644
+>> --- a/fs/proc/page.c
+>> +++ b/fs/proc/page.c
+>> @@ -31,10 +31,9 @@ static inline unsigned long get_max_dump_pfn(void)
+>>  {
+>>  #ifdef CONFIG_SPARSEMEM
+>>  	/*
+>> -	 * The memmap of early sections is completely populated and marked
+>> -	 * online even if max_pfn does not fall on a section boundary -
+>> -	 * pfn_to_online_page() will succeed on all pages. Allow inspecting
+>> -	 * these memmaps.
+>> +	 * If max_pfn does not fall on a section boundary, pfn_to_online_page()
+>> +	 * can succeed on PFNs beyond max_pfn within the same section. Allow
+>> +	 * inspecting these memmaps.
+> 
+> 'Allow inspection of' these memmaps is clearer I think. But this odd turn of
+> phrase existed before this change also :)
 
-TAMP backup registers allow information sharing between different
-software components/execution levels.
-They are described individually as nvmem cells.
-
-Signed-off-by: Simeon Marijon <simeon.marijon@foss.st.com>
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp131.dtsi | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index 83ae59b73dd0..b37c22b1379c 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -1918,5 +1918,39 @@ gpioi: gpio@5000a000 {
- 				gpio-ranges = <&pinctrl 0 128 8>;
- 			};
- 		};
-+
-+		tamp: tamp@5c00a000 {
-+			compatible = "st,stm32-tamp", "syscon", "simple-mfd";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			reg = <0x5c00a000 0x400>;
-+			ranges;
-+
-+			nvram: nvram@5c00a100 {
-+				compatible = "st,stm32mp15-tamp-nvram";
-+				reg = <0x5c00a100 0x80>;
-+
-+				nvmem-layout {
-+					compatible = "fixed-layout";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+
-+					saes_secret_key: tamp-bkp@0 {
-+						/* see saes secret key feature */
-+						reg = <0x0 0x20>;
-+					};
-+
-+					boot_mode: tamp-bkp@78 {
-+						/* see boot mode selection feature */
-+						reg = <0x78 0x4>;
-+					};
-+
-+					boot_counter: tamp-bkp@7c {
-+						/* see boot counter feature */
-+						reg = <0x7c 0x4>;
-+					};
-+				};
-+			};
-+		};
- 	};
- };
+Done, thanks!
 
 -- 
-2.43.0
+Cheers,
 
+David
