@@ -1,291 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5C43859E6
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DE43859E6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789075618; cv=none; b=RweFe51Or8F+x0L8FQlZmiBHRAGAp8aSG4Mt6AhkCLrxOS7O/nRmhVQl3R9QT58PiCmY3zL/0G71Otn3GZK/H0urLai+aeOd7F/F+y4KKk8HtR89M7+l3d1H38U/U0DOJbxrW2ci95Tis3SQWpBJ0BcwN0v23lO2iPMuGB1p3l8=
+	t=1789075645; cv=none; b=kf9l0Za+XLs8p1zvxYmZ1X77kuXcuANvg89+8l4KHR/RYxui7DibRxgOplcN38bW7LVMxoRdXqrA560XGn6aYD5p/4iecAcOThe2UAAxQZpm08hChRJ06svqFXtnE1xATk1s06+uUxDxOr35ZZ1okdZG5OJBhBXDZ23CvQ2plFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789075618; c=relaxed/simple;
-	bh=JjcfqAaG1S1v46CyBneVA9pzUWvSHTjojxk8roA6rkA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u1KD8a80SS6wcDM2MuCBjmSB4dRxd2eOCQGkYhDU6P1i/qs7aDllEcmwyr6+MZxgYh7kjujDpmPeel6uolLu3EcU7CaEIxGR3jIV62K28yP9WjVTpozhtoGzTF6fGkFMvNbUYn5kIPXpoyc/3Mr3oDCH+kl9hjZMr3Sj845709Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxCSOyWR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789075645; c=relaxed/simple;
+	bh=aaWDf2Y8OUVV/DuOP50oCYw1JB2P8lsqtrXUZ2Gt2bc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NGBwzx+oNRQLAQM0rJ0cDLuyM5Dm5KWSg/ouHrmMzeshVFpkUBKHE3A/C9iCVIhmMgAuwF8ntwd8318K/EBGc5GbGoqjlD+ccI9kwuXg9sJNVwhG4q5rGp3pQ4SlZ/JLnRxXyMEgcSLD9B3k6vUR5G9/Ec+tTSUlXDlvG5okvHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwsmlmjA; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxCSOyWR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F8A1F000FF;
-	Thu, 10 Sep 2026 21:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789075615;
-	bh=bu68vbqNnGp2CQdc7xwHZtBbShMb5uR0NI7RGHf5Elk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fxCSOyWRk/swTL+6vQQvsIi8QjkyYM5rFfQVhb/Tq1h8uKy2vfpQnM+pjCvOFI35F
-	 /SGbZ5JRnK02uxFRjrh2/swah/dC6w6kcM31d5hPeBGjSGQ+2xMaRSvNUeKA7EX2Of
-	 9RMPO+sEOOYE9HOoa4uIDYYWrtzwB+8WiBFsiIzUUJbAX1wyauQtlM2+Ok/4kx9CgE
-	 4Jhr6hjXST4j/87SdbKo7gVf4+WYQAsATXN/OoZPUaU5unzoBBuQ42rnHtjXKcf0wa
-	 nqtM76q/v3+bC9lPYTWyfBxFLStloll2kvCjrTknW9z2hafOIS4UPsL5Kyaj8ro8oE
-	 egdpuQ5Ion7mA==
-Date: Thu, 10 Sep 2026 21:26:54 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Chao Yu <chao@kernel.org>
-Cc: Zhiguo Niu <zhiguo.niu@unisoc.com>, stable@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net
-Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to avoid folio->mapping dereference
- in is_{meta, node}_folio()
-Message-ID: <aqMgnpBYj0zBpioI@google.com>
-References: <20260910022026.3301257-1-chao@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwsmlmjA"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5306baf6b53so3673381cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:27:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789075643; x=1789680443; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hQ/m1bh13HRSAAm/Dn2ucW4zjUQh0zEldVfEHRn3I7Q=;
+        b=RwsmlmjAnbLrqalYP7Uk1s5H9tdNV+K55NTw5EqdlRB4hzE1XL57FfD9uo35vBX8wO
+         yyI6Nm7GLWewJYdbchIJO3vh1RFUUFCwJpdPeKMgBBzCyCR0Ygz/1s5Pz/TxUaz5ClMz
+         vLkRdh99kjuSzOwkDYXyB8xpw/gVCF+Cn4Yfa9YQK2axs06HT9OTjmyznn+NStXhXDfQ
+         ijbaa/65VgAzw0yj7xKDfY6owhuByEdhm6g1yIj96mVVz51hqYMFO2M/hKoZfr3eECl5
+         dHeElkOhUyXcM+XoSNPQLCud12oPsIab5k62AkOXY1OXuenAPVXklGXEl8KhCsM0XuYe
+         a1IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789075643; x=1789680443;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hQ/m1bh13HRSAAm/Dn2ucW4zjUQh0zEldVfEHRn3I7Q=;
+        b=V+njSNmsOvAQTiZbgsWtNvpM7Nsyq0BdubRY6aFd1417ZqFhbDTRJy/UNt6h7hQ0ci
+         0P1nZhnluGtxJ8TBmVDBTOlDJabadhswe6SQauSSAW9FtvcG02DXRiNIs0k3dgqIaKhK
+         4pw6BYk4qVsAs2WEnPFLQDYmQSOedBQoKaf6pvfDxeZ40C0CwQrRXF0vTgQi6gWkC59g
+         0OJkdyqbPPCeBzSdaq9yBBbJzFACYbWtuCarJ/gIuhfd7QDKiMiFDrp523Q9uq++iAG1
+         d92ZpIA8Q9Edq/T6Zt6Zcpz8DWzHK/z3EqibVXp1911qd6ynChQnpbeCdk5Jyqsk/Zlu
+         wGAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoQJsAh9sZz3RXrb7GrKpAxDmw5nrEPevfcHlzYBd59ibhi9r6A06YRqg47ffr4Vcmt6Z6DrMk6V2WoBM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ky+8AZ5D9xu6qWkKvMXVdMrixCJJrKRCWNyalNaP8Ovow+EFco
+	petF0Gf4XOYbFBpEpfkmA1M577PHlohLjFBchfHCBAcdI04jk3+93z0h
+X-Gm-Gg: AYBFou3vHPrZmS6YsNOwbUCWHbSqBShcKMsn+2EIMDhSat9QwijA60+f245JnT7Ku71
+	CIYM0yNnXISUlYF0UDQ+f02DEse2nJRN0a/mJx7MNNxRQr8t4YzPo5AAEPRG+iHp4vI0FuhkyZj
+	eSb40nk02+eIi81631gt2z/XVdXEN0CYyPsqtQ5lHLRJO2iie6N8P724wuSlxszGGpaUdwY+hif
+	dtDy4Jiy5jGGcleBW+HbasnD5DwVvzUdP6lJNJkkeDyJGzzD59utSL+IUtUhnonxfLSJXYHGten
+	Ao/AzmkTMD9eelW8qg6LI+1cSQ2drvO7DfujG8HVtLt44bIHTKWZJLoADfpr6zAqPet47BcbFHD
+	X7N3XbUyNhJSPfQJ1hqahglKWpQoLllYUGBZ9bdpwgqnYbvfYp5KRg0Q986N7mKdYV/S8Kwp3Zi
+	Dte9G5C0oJQA2AR9N1B5P68pwxctWAhu86WiKZdbIJuJOyr1opOTv45ROwZcPJXWR0PQIz43mY9
+	v0EAzOpEHagSix7leFnVXpl3jGXuzRhIzqZSJeEohhn5AdNpPMltp/vJe7pxmpDIGLfL5o/Ewt7
+	swjZ3UwXI/D/84zmjrywBT0gLc9OsOjFWSXFblgW3N6c32Ym
+X-Received: by 2002:ac8:7d56:0:b0:52d:882e:4986 with SMTP id d75a77b69052e-530c8527d46mr21504931cf.4.1789075642737;
+        Thu, 10 Sep 2026 14:27:22 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca4f08f5sm3180891cf.26.2026.09.10.14.27.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 14:27:22 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dmaengine: ppc4xx: convert irq_of_parse_and_map to platform_get_irq
+Date: Thu, 10 Sep 2026 14:27:20 -0700
+Message-ID: <20260910212720.70721-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910022026.3301257-1-chao@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Can you rebase on -dev?
+Replace irq_of_parse_and_map() with platform_get_irq(), which is the
+preferred way to obtain IRQ resources from platform devices.  This
+eliminates the corresponding irq_dispose_mapping() calls since the
+framework manages the mapping.
 
-On 09/10, Chao Yu via Linux-f2fs-devel wrote:
-> From: Chao Yu <chao@kernel.org>
-> 
-> Otherwise, it may cause NULL pointer dereference in race condition:
-> 
-> Thread A			Thread B
-> 				- f2fs_setattr
-> 				 - f2fs_truncate
-> 				  - f2fs_truncate_blocks
-> 			    	   - f2fs_do_truncate_blocks
-> 				    - f2fs_truncate_inode_blocks
-> 				     - truncate_dnode
-> 				      - truncate_node
-> 				       - invalidate_mapping_pages
-> 				        - folio->mapping = NULL
-> - folio_lock
-> - is_node_folio
->  - F2FS_F_SB(folio): dereference on folio->mapping
-> 
-> Cc: stable@kernel.org
-> Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
-> Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-> Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
-> Signed-off-by: Chao Yu <chao@kernel.org>
-> ---
->  fs/f2fs/checkpoint.c |  4 ++--
->  fs/f2fs/data.c       |  7 ++++---
->  fs/f2fs/f2fs.h       | 10 +++++-----
->  fs/f2fs/gc.c         |  2 +-
->  fs/f2fs/node.c       | 22 +++++++++++-----------
->  fs/f2fs/segment.c    |  2 +-
->  6 files changed, 24 insertions(+), 23 deletions(-)
-> 
-> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-> index 712c4508f38c..dfbfe42086f2 100644
-> --- a/fs/f2fs/checkpoint.c
-> +++ b/fs/f2fs/checkpoint.c
-> @@ -291,7 +291,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
->  	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE(sbi));
->  
->  	folio_lock(folio);
-> -	if (unlikely(!is_meta_folio(folio))) {
-> +	if (unlikely(!is_meta_folio(sbi, folio))) {
->  		f2fs_folio_put(folio, true);
->  		goto repeat;
->  	}
-> @@ -638,7 +638,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
->  
->  			folio_lock(folio);
->  
-> -			if (unlikely(!is_meta_folio(folio))) {
-> +			if (unlikely(!is_meta_folio(sbi, folio))) {
->  continue_unlock:
->  				folio_unlock(folio);
->  				continue;
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 93ed8416a289..0da78bf05ac0 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -172,7 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
->  			dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
->  
->  		if (bio->bi_status == BLK_STS_OK &&
-> -			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
-> +			F2FS_F_SB(folio)->node_inode &&
-> +			is_node_folio(F2FS_F_SB(folio), folio) &&
->  			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
->  				folio, folio->index, NODE_TYPE_REGULAR, true))
->  			bio->bi_status = BLK_STS_IOERR;
-> @@ -359,12 +360,12 @@ static void f2fs_write_end_bio(struct bio *bio)
->  			}
->  		}
->  
-> -		if (is_node_folio(folio)) {
-> +		if (is_node_folio(sbi, folio)) {
->  			f2fs_sanity_check_node_footer(sbi, folio,
->  				folio->index, NODE_TYPE_REGULAR, true);
->  			f2fs_bug_on(sbi, folio->index != nid_of_node(sbi, folio));
->  		}
-> -		if (f2fs_in_warm_node_list(folio))
-> +		if (f2fs_in_warm_node_list(sbi, folio))
->  			f2fs_del_fsync_node_entry(sbi, folio);
->  
->  		dec_page_count(sbi, type);
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 693153cbd8a0..ebc621f302e1 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -2371,14 +2371,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
->  	return sbi->node_inode->i_mapping;
->  }
->  
-> -static inline bool is_meta_folio(struct folio *folio)
-> +static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
->  {
-> -	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
-> +	return folio->mapping == META_MAPPING(sbi);
->  }
->  
-> -static inline bool is_node_folio(struct folio *folio)
-> +static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
->  {
-> -	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
-> +	return folio->mapping == NODE_MAPPING(sbi);
->  }
->  
->  static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
-> @@ -4063,7 +4063,7 @@ enum node_type;
->  
->  int f2fs_check_nid_range(struct f2fs_sb_info *sbi, nid_t nid);
->  bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type);
-> -bool f2fs_in_warm_node_list(struct folio *folio);
-> +bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio);
->  void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi);
->  void f2fs_del_fsync_node_entry(struct f2fs_sb_info *sbi, struct folio *folio);
->  void f2fs_reset_fsync_node_info(struct f2fs_sb_info *sbi);
-> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> index aedb45c8ee4a..c70deac9f1a3 100644
-> --- a/fs/f2fs/gc.c
-> +++ b/fs/f2fs/gc.c
-> @@ -1431,7 +1431,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
->  						F2FS_BLKSIZE(fio.sbi));
->  
->  		folio_lock(mfolio);
-> -		if (unlikely(!is_meta_folio(mfolio) ||
-> +		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
->  			     !folio_test_uptodate(mfolio))) {
->  			err = -EIO;
->  			f2fs_folio_put(mfolio, true);
-> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-> index 8c150d4966e5..f16144b75d11 100644
-> --- a/fs/f2fs/node.c
-> +++ b/fs/f2fs/node.c
-> @@ -332,10 +332,10 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
->  							start, nr);
->  }
->  
-> -bool f2fs_in_warm_node_list(struct folio *folio)
-> +bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
->  {
-> -	return is_node_folio(folio) && IS_DNODE(F2FS_F_SB(folio), folio) &&
-> -					is_cold_node(F2FS_F_SB(folio), folio);
-> +	return is_node_folio(sbi, folio) && IS_DNODE(sbi, folio) &&
-> +					is_cold_node(sbi, folio);
->  }
->  
->  void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
-> @@ -1296,7 +1296,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
->  			goto fail;
->  		if (offset[1] == 0 && get_nid(sbi, folio, offset[0], true)) {
->  			folio_lock(folio);
-> -			BUG_ON(!is_node_folio(folio));
-> +			BUG_ON(!is_node_folio(sbi, folio));
->  			set_nid(sbi, folio, offset[0], 0, true);
->  			folio_unlock(folio);
->  		}
-> @@ -1612,7 +1612,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
->  
->  	folio_lock(folio);
->  
-> -	if (unlikely(!is_node_folio(folio))) {
-> +	if (unlikely(!is_node_folio(sbi, folio))) {
->  		f2fs_folio_put(folio, true);
->  		goto repeat;
->  	}
-> @@ -1731,7 +1731,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
->  
->  			folio_lock(folio);
->  
-> -			if (unlikely(!is_node_folio(folio))) {
-> +			if (unlikely(!is_node_folio(sbi, folio))) {
->  continue_unlock:
->  				folio_unlock(folio);
->  				continue;
-> @@ -1841,7 +1841,7 @@ static bool __write_node_folio(struct folio *folio, bool atomic, bool do_fsync,
->  				f2fs_need_dentry_mark(sbi, ino_of_node(sbi, folio)));
->  
->  	/* should add to global list before clearing PAGECACHE status */
-> -	if (f2fs_in_warm_node_list(folio)) {
-> +	if (f2fs_in_warm_node_list(sbi, folio)) {
->  		seq = f2fs_add_fsync_node_entry(sbi, folio);
->  		if (seq_id)
->  			*seq_id = seq;
-> @@ -1965,7 +1965,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
->  
->  			folio_lock(folio);
->  
-> -			if (unlikely(!is_node_folio(folio))) {
-> +			if (unlikely(!is_node_folio(sbi, folio))) {
->  continue_unlock:
->  				folio_unlock(folio);
->  				continue;
-> @@ -2023,7 +2023,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
->  		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
->  			   ino, last_folio->index);
->  		folio_lock(last_folio);
-> -		if (unlikely(!is_node_folio(last_folio))) {
-> +		if (unlikely(!is_node_folio(sbi, last_folio))) {
->  			f2fs_folio_put(last_folio, true);
->  			ret = -EAGAIN;
->  			goto out;
-> @@ -2101,7 +2101,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
->  
->  			folio_lock(folio);
->  
-> -			if (unlikely(!is_node_folio(folio)))
-> +			if (unlikely(!is_node_folio(sbi, folio)))
->  				goto unlock;
->  			if (!folio_test_dirty(folio))
->  				goto unlock;
-> @@ -2173,7 +2173,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
->  			else if (!folio_trylock(folio))
->  				continue;
->  
-> -			if (unlikely(!is_node_folio(folio))) {
-> +			if (unlikely(!is_node_folio(sbi, folio))) {
->  continue_unlock:
->  				folio_unlock(folio);
->  				continue;
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index 0b6267d0354e..ffdd2c510b3c 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -4161,7 +4161,7 @@ static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info *fio)
->  			__func__, fio->ino, folio->index, type,
->  			fio->old_blkaddr, fio->new_blkaddr, err);
->  		folio_end_writeback(folio);
-> -		if (f2fs_in_warm_node_list(folio))
-> +		if (f2fs_in_warm_node_list(fio->sbi, folio))
->  			f2fs_del_fsync_node_entry(fio->sbi, folio);
->  		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
->  							CP_ERROR_FLAG));
-> -- 
-> 2.49.0
-> 
-> 
-> 
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+While here, fix a latent bug in the err_req2 error path: the error IRQ
+was not freed when a subsequent step (I2O setup) failed.
+
+The struct device_node *np declaration is moved to the scope where
+it is still needed (I2O register lookup).
+
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/dma/ppc4xx/adma.c | 28 +++++++++++-----------------
+ 1 file changed, 11 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+index 279a431ccae3..42fc1791662b 100644
+--- a/drivers/dma/ppc4xx/adma.c
++++ b/drivers/dma/ppc4xx/adma.c
+@@ -3865,28 +3865,25 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 				     int *initcode)
+ {
+ 	struct platform_device *ofdev;
+-	struct device_node *np;
+ 	int ret;
+ 
+ 	ofdev = container_of(adev->dev, struct platform_device, dev);
+-	np = ofdev->dev.of_node;
+ 	if (adev->id != PPC440SPE_XOR_ID) {
+-		adev->err_irq = irq_of_parse_and_map(np, 1);
+-		if (!adev->err_irq) {
++		adev->err_irq = platform_get_irq(ofdev, 1);
++		if (adev->err_irq < 0) {
+ 			dev_warn(adev->dev, "no err irq resource?\n");
+ 			*initcode = PPC_ADMA_INIT_IRQ2;
+-			adev->err_irq = -ENXIO;
+ 		} else
+ 			atomic_inc(&ppc440spe_adma_err_irq_ref);
+ 	} else {
+ 		adev->err_irq = -ENXIO;
+ 	}
+ 
+-	adev->irq = irq_of_parse_and_map(np, 0);
+-	if (!adev->irq) {
++	adev->irq = platform_get_irq(ofdev, 0);
++	if (adev->irq < 0) {
+ 		dev_err(adev->dev, "no irq resource\n");
+ 		*initcode = PPC_ADMA_INIT_IRQ1;
+-		ret = -ENXIO;
++		ret = adev->irq;
+ 		goto err_irq_map;
+ 	}
+ 	dev_dbg(adev->dev, "irq %d, err irq %d\n",
+@@ -3927,6 +3924,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 			    XOR_IE_ICIE_BIT | XOR_IE_RPTIE_BIT,
+ 			    &adev->xor_reg->ier);
+ 	} else {
++		struct device_node *np;
+ 		u32 mask, enable;
+ 
+ 		np = of_find_compatible_node(NULL, NULL, "ibm,i2o-440spe");
+@@ -3956,14 +3954,13 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 	return 0;
+ 
+ err_req2:
++	if (adev->err_irq > 0)
++		free_irq(adev->err_irq, chan);
+ 	free_irq(adev->irq, chan);
+ err_req1:
+-	irq_dispose_mapping(adev->irq);
+ err_irq_map:
+-	if (adev->err_irq > 0) {
+-		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref))
+-			irq_dispose_mapping(adev->err_irq);
+-	}
++	if (adev->err_irq > 0)
++		atomic_dec(&ppc440spe_adma_err_irq_ref);
+ 	return ret;
+ }
+ 
+@@ -3987,13 +3984,10 @@ static void ppc440spe_adma_release_irqs(struct ppc440spe_adma_device *adev,
+ 		iowrite32(mask, &adev->i2o_reg->iopim);
+ 	}
+ 	free_irq(adev->irq, chan);
+-	irq_dispose_mapping(adev->irq);
+ 	if (adev->err_irq > 0) {
+ 		free_irq(adev->err_irq, chan);
+-		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref)) {
+-			irq_dispose_mapping(adev->err_irq);
++		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref))
+ 			iounmap(adev->i2o_reg);
+-		}
+ 	}
+ }
+ 
+-- 
+2.55.0
+
