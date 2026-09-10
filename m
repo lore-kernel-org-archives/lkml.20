@@ -1,125 +1,477 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE2946EC70
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9A446D083
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037784; cv=none; b=hs/FPdxU9thvo4ax73nx49fCOY4edahL2bKkKo2QyVsL5u0BywGfAt5omzHIej+NGQ7Nxmz0zRaZ+ndMZSjNHcgF7Qz0nOKJAL22V09VSs5NYqQUM09iPdJUsCco1Bw5+LOFSi3546jCPoHpcf6BgpOH69KSn7AttMjxvH4k45Q=
+	t=1789037805; cv=none; b=EIhhEWaFrguWpDSNLXf9HgIHcuq9SmfgGO4GigPp5jdfD0rHs+IQbBJPlPS0xoAjZ002MLOm7v8/TUeJ5ZtA0pcEOcd5n1fgrad62lQQlNfbVwd5oUYMu4WUJ/76ab/8Q6U1b1HLNdTP0p3amBIc2JEeIMj/+c6tpm+CG6Hjnxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037784; c=relaxed/simple;
-	bh=RZzN/VrGO/Lcn9qkFcksdPvlKhl+S3I4NUmDeoONm8Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S6KSTL/dYnqx1NfremijTYLIvRT/veDWBn6QCkFbpQ4yfbAazhKN5eIFFxgvDGnkz41ZB4eRJ/pD6knRE8jnF87U6oeWg/U6lUbJYAO7WWACyM8Xeg5lfJVqZevXxl0O/9cGYAZOEAF0QTCkPyHhWY9GIKRn6a7RO9vtzNDVmZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ERxovQ/Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PXNlOfKU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ERxovQ/Y";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PXNlOfKU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789037768;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b+kS+43ImV+1fkCyHmKwfuzV6agDs57MtzRJAv0xXyM=;
-	b=ERxovQ/YeCVqi08hEgT9+Ya5BjcY03p/OQNujhIgb0PBVUEA7LO2yDsMxBZpFJOhJURZrn
-	hTrkzstr3OR78+aBQsTE9jNSidS3qa9+wSJmp2PC/1F6ceo1F5HiZLHCwNl9+LdLq4Ueb4
-	lefBfGZDHzl6A/L1WqkG4xIKaJHhSww=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-584-qtMEfDGPNjOeBq0OqoG66g-1; Thu, 10 Sep 2026 06:56:07 -0400
-X-MC-Unique: qtMEfDGPNjOeBq0OqoG66g-1
-X-Mimecast-MFC-AGG-ID: qtMEfDGPNjOeBq0OqoG66g_1789037766
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4858f06e142so4100804f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:56:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789037766; x=1789642566; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b+kS+43ImV+1fkCyHmKwfuzV6agDs57MtzRJAv0xXyM=;
-        b=PXNlOfKUaYExOxWNtY1ZMuZPi8BLheCZIWYhnWWH5JLYwjlHACBf1RhSfMCLb7bz3b
-         yjhZdqh1rUsTUH+pVZn3OXezBTT4ul9nru3zeGG76YKfKxkiNBzMmvGebnnqFDyBin8l
-         TxjNynGh5jAPWmCsucs18F0p+chM6THZ3rqXPLR0241PQXLFq5JZvDugvPKr2sKpwg+5
-         4UrtnkEwFjcl6MD0/crQrZHlLj7ZNdrd7Qc7ZWiy8mcULU5ffga/vIikvym+F1frGYrn
-         ULOQX5WiD8SE+75N7oOUWTOnm630E3bh/5uJQHFBqzqFe/XvcvbKN8nF9CPBbzfUlqo8
-         ROFA==
+	s=arc-20240116; t=1789037805; c=relaxed/simple;
+	bh=TwnlEbu5fa8vhkUeGH4BI7kLguEhSrayIGxkbzqHRQ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tOTv7nmWxt4ptEZBsASwcZuo0ZX5PdqwX6PV+KpcvfZUILewnO/6MYTieMoQhlPpBz1pJv4gJlHN3ke44jvZ9JY0q5NJCmEKh6ZfKZ/Qo8Jhr303ksGp7hvyttQ4M6xZApHkW5fQQRqkMujOA03F403sBm6J1sgJeRrraylNXnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49b0dd21eb8so15215475e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:56:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037766; x=1789642566;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789037797; x=1789642597;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b+kS+43ImV+1fkCyHmKwfuzV6agDs57MtzRJAv0xXyM=;
-        b=k7I3JWl2D8BN8/C89h4kKokmFN8dvHgM2R0qhPFInSIYRctR+TAFK483rAudF5+ePQ
-         teZl/bY+hXXu+6HqiY+VSMbF1lQ7gi0ahevoXkDI2rjMGbScNi4JlmH7bE3bL9D3zDjO
-         lDcCKUIW7lST7Crji3dyi0X9wgHbncKB/+inn82R5jw0qjZ9pQo2W99HdG8JwqFUPzxd
-         jlXw10fd7rUUY6Jd9sRGCNsHF3XGQ4bM9DekltYCG90MooB6/TlXgKfBWCO4Ap+DMHam
-         obhOX6kApzkdh+pW/ZwAfX59B/QvLl693Uf1O8J3w1Sv41dothOwqX4gjA7N+aO1RJEo
-         sZYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwb/fDOz65Z9RMmx1y9LM53oFp1t0I7WRZ6i5DinXXukpKw2DWwQQdPnz7NoIT9aR0Wy+OS/8NHn/bTDuo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYIvmMvyheI3Ly8vszmVl3muf6TUBgQzxSxiNim9R7vEn+HGsh
-	g3VGK6kj4Af9EIPsgzw7wGMfxF/qBMPpyShYfGyU9tE2WLYW/DJk7qAvB4/kBiOhP/47nD1O4Ve
-	3wN9yeToKNGQksoZfvHRQWVoAgwzd2P9LaproI8RlmtMHU7ZIbNMS9uh6ZLIzjdAXxqnDc1F+Ww
-	==
-X-Gm-Gg: AYBFou3Jf4duy0D0BahUqy6mRMpqcPsW4UNP024SK0ZZFi/42+OggMyie35Dw4GG2lK
-	xZ9W2ePLB0/QNn9AGDbqD8pJQxRdavA20ZqiwJL6hCrjiliULzLjzKM5JW+GEpfZ5SV6dKTTouu
-	Xwtzg7eertBpzqzbIkLWEw27C6KX//gzuzw8TX1zkkYaVLDtH3EjUDNd+Ev8UxDl1kSMbDG6pxt
-	PGr/z1RuZVCkJq3w3wUOcNwAZKk72ZqMl+S80071J5QrB5VL2kOISSQdTTCPJUHkB7ACN6AcBMz
-	r4x+lkbTuO02PL3ahVD6VhIjww2VZnORY2GmEftp8XAZaOgLVveMQUw0NFtBDulPGfB22sLfOoT
-	vpaxK4Y+q6NDjWzsrh4tVVgooUO3uK6TU2r95n1VqlFXRp1cKvO93Va+I4l6VYUPYPQtTZ2xdBQ
-	==
-X-Received: by 2002:a05:6000:2311:b0:485:b027:a79b with SMTP id ffacd0b85a97d-485c23ade14mr6287045f8f.21.1789037766064;
-        Thu, 10 Sep 2026 03:56:06 -0700 (PDT)
-X-Received: by 2002:a05:6000:2311:b0:485:b027:a79b with SMTP id ffacd0b85a97d-485c23ade14mr6287022f8f.21.1789037765706;
-        Thu, 10 Sep 2026 03:56:05 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm44784660f8f.9.2026.09.10.03.56.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 03:56:05 -0700 (PDT)
-Message-ID: <bb5eeef9-a78d-44c2-a8f5-2cddd274d3ab@redhat.com>
-Date: Thu, 10 Sep 2026 12:56:04 +0200
+        bh=BxFCPGv8kRt3odkYGIDhBj4Cy6nMTztKwFqF9zi+rH4=;
+        b=JWxBG+FEoaprxPxtQMOB3Lv8BSm3HZrfPQMKGhhI72Rl1LJWGMIAWHpaaZD3FZzSKh
+         wJbZQSW+MNeWnHQ9G/vCKqkA7nFsn45eH+ZsI1apIGZSGWu4pycj6WR8iWpnBeGLU3PC
+         MzNGJspM7tvcqBd2jJFs/Ds8TQRwdHUvyYt7Qrd38En0m2WdOIQsnUjlVlVNIEkTvanV
+         xSmu9KtoxgTM09yWfG6qz742gwC8TdWzBFFQ524DNEhluhger1P+B4QLPESJpwCpHSwp
+         GJK9UEVcfs4w/7VESCc4VXHDTYzTSdwFUJVA8dByq49KiT37Nxt/b9sj4ro2FLcLDYMV
+         Z+JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEz1heotdVSKS6SNYm0ITFHESkvCFsbPIqkUi+WFANSE9uh2zvdo0HtXA29ca8H+myPlA4BM9l0Z02I9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++laGBk+erxSDEL8C24SBHOOjJqVIk8NgyLooi/8UlM5TTMTJCt3
+	9FGL7s7Wy1Mfku+1YHXPoT+X+RvwcnX6FdEf58TWNxnkVzX+hA/gFYDR
+X-Gm-Gg: AYBFou35ZOBKOG4je2gkPQvQDs31I6FZY7ZHck4iFtHSPit8k15/0cQZciPXyJK7zHu
+	Zy46cMmMB6MPjZghngz/N8tRMRtSuvpXcrrj4K4vblqInFmAAfdG7bJUq3kDI3qePhT+5OhjVuo
+	MXCIu7OyEgu/JTdEbNdZZ6zvluIqdVNJ6gjKmkfPMfiBMdOgs51q2RRpVA4fVHM5C06u0A4iLJt
+	QgSZlhYa6bA186+1mLCgVP+ERkvJ6QldNXVKuHvZmYW5K7D//3BnhXkDvzpu10AplaIc2dYsPhW
+	AK+lgSDaDYzWOSxnFLApMEAyAH/oCAPi6FEigNGQ8Tn2em6zB3zH+nyeXpztkM+VVZOYS8F1STa
+	/yMd57Dx+UKx61/aBhHm+SN1L65Mnnth/8BH15IgzSDDwcYJ1tkzVAmAygtxkARnjYAMSsLREww
+	JcTI4hKyd/qxCxCQZG0l6xXnGxRw9fYoGLUuDcMFXh5dWLpF2AwDOV1lAMwDUjyID97k9umESD4
+	mN16gkIcHcDg8PEJuX7mFNitIArUsFztbOwMqr4dg==
+X-Received: by 2002:a05:600c:46d5:b0:49c:fc6c:be06 with SMTP id 5b1f17b1804b1-49cfc6cc142mr349599165e9.29.1789037797136;
+        Thu, 10 Sep 2026 03:56:37 -0700 (PDT)
+Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c2985dsm119191695e9.6.2026.09.10.03.56.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 03:56:36 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: netfilter-devel@vger.kernel.org
+Cc: netdev@vger.kernel.org,
+	Donald Hunter <donald.hunter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Shuah Khan <shuah@kernel.org>,
+	=?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	"Remy D. Farley" <one-d-wide@protonmail.com>,
+	linux-kernel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org,
+	Ilya Maximets <i.maximets@ovn.org>
+Subject: [PATCH nf-next v2] netfilter: conntrack: make filtering by zone discoverable
+Date: Thu, 10 Sep 2026 12:54:13 +0200
+Message-ID: <20260910105629.3688497-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: vlan: fix vlan name truncation
-To: Janis Edvarts Lacis <janislacis06@gmail.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- horms@kernel.org, linux-kernel@vger.kernel.org
-References: <20260904210024.263220-1-janislacis06@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260904210024.263220-1-janislacis06@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 11:00 PM, Janis Edvarts Lacis wrote:
-> register_vlan_device() from net/8021q/vlan.c sets name based on a field
-> name_type from struct vlan_net. If name_type is VLAN_NAME_TYPE_RAW_PLUS_VID
-> or VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD, register_vlan_device() sets vlan
-> device's name to the actual net_device's name and adds vid at the end of
-> this name separated by a dot.
-> 
-> Network interface's name is limited to at most 16 characters, including NUL.
-> Therefore, if the real_dev->name is long enough, then adding the vid
-> at the end of this name can lead to the result exceeding 16 bytes which
-> leads to a truncated name for the vlan device created in register_vlan_device().
-> 
-> This patch fixes the issue by returning -ENAMETOOLONG from
-> register_vlan_device() if the newly created name does not fit in 16
-> bytes.
+Conntrack flush supports filtering by zone using CTA_ZONE, but this
+attribute is really hard to use from user space applications.  The
+reason is that it is not possible to tell if it's supported or not.
 
-I'm sorry, but I don't think we can accept this patch: this change an
-user-space visible behavior: even if a strange one, existing applications
-and/or setups may relay on it and they will be broken by this change.
+Older kernels silently ignore CTA_ZONE.  And in that case they just
+happily flush all the entries from all zones breaking all the existing
+connections.  So, applications have to infer support from the kernel
+version.  While it works in most cases, it's not a particularly
+reliable or desired way to check kernel capabilities from applications
+that aim to be portable.  There should be a better way to probe or
+discover features in the kernel.
 
-/P
+The CTA_FILTER interface on the other hand is simple enough to probe.
+We can check for NLM_F_DUMP_FILTERED in the dump to see if filtering
+is supported.  And unknown sub-attributes in CTA_FILTER are rejected
+explicitly since strict validation is in use there.
+
+Let's add new CTA_FILTER_ZONE that signals that CTA_ZONE should be
+filtered on.  It is a flag, since everything in the CTA_FILTER is a
+bit mask, i.e., a form of a flag.  If set, it means that CTA_ZONE must
+be present and be used for filtering.  If the flag is not set however,
+the filtering on CTA_ZONE will still take place to ensure backwards
+compatibility.  So, the flag doesn't really change the filtering
+behavior, but it allows user space applications to properly discover
+support for CTA_ZONE filtering without need to rely on kernel version
+parsing or risk accidental flushes of the entire conntrack table,
+and also without modifying the kernel state.
+
+A new test variant is added to test with and without the new flag.
+Since the setup code is moved into a shared function, expectations
+replaced with assertions to bail early if the base setup fails to
+avoid the cascade of secondary failures that can be misleading.
+Error return is only for the SKIP cases.
+
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+---
+
+One other alternative is to make CTA_FILTER_ZONE a U16 sub-attribute
+instead of a FLAG and prioritize it over the CTA_ZONE.  But it feels
+like a FLAG is better suited for the CTA_FILTER, even if it takes a
+bit of extra space in the request.  Though I'm OK with reworking this
+into U16 or some other mechanism that would make the feature
+discoverable, if there are better ideas.
+
+Version 2:
+ * Mostly a re-post now that CI / selftest build is fixed.
+ * selftest: replaced one missed expectation with an assertion in the
+   conntrack_zone_setup(). [sashiko-gemini]
+ * Switched the doc comment to '>-' style as it seems to be a more
+   common way of writing multi-line comments.
+
+Version 1:
+ * https://lore.kernel.org/all/20260904174452.1913072-1-i.maximets@ovn.org/
+
+ Documentation/netlink/specs/conntrack.yaml    |   6 +
+ .../linux/netfilter/nfnetlink_conntrack.h     |   1 +
+ net/netfilter/nf_conntrack_netlink.c          |  11 ++
+ .../net/netfilter/conntrack_dump_flush.c      | 145 ++++++++++++------
+ 4 files changed, 117 insertions(+), 46 deletions(-)
+
+diff --git a/Documentation/netlink/specs/conntrack.yaml b/Documentation/netlink/specs/conntrack.yaml
+index b1eb102ab8432..9202baf1352a6 100644
+--- a/Documentation/netlink/specs/conntrack.yaml
++++ b/Documentation/netlink/specs/conntrack.yaml
+@@ -371,6 +371,12 @@ attribute-sets:
+         name: reply-flags
+         type: u32
+         doc: bitmask of tuple fields to filter on, reply direction
++      -
++        name: zone
++        type: flag
++        doc: >-
++          Filter on conntrack zone id; requires the top-level zone
++          (``CTA_ZONE``) attribute.
+   -
+     name: conntrack-attrs
+     attributes:
+diff --git a/include/uapi/linux/netfilter/nfnetlink_conntrack.h b/include/uapi/linux/netfilter/nfnetlink_conntrack.h
+index 43233af75b9d5..985f9c08d3e9b 100644
+--- a/include/uapi/linux/netfilter/nfnetlink_conntrack.h
++++ b/include/uapi/linux/netfilter/nfnetlink_conntrack.h
+@@ -285,6 +285,7 @@ enum ctattr_filter {
+ 	CTA_FILTER_UNSPEC,
+ 	CTA_FILTER_ORIG_FLAGS,
+ 	CTA_FILTER_REPLY_FLAGS,
++	CTA_FILTER_ZONE,
+ 	__CTA_FILTER_MAX
+ };
+ #define CTA_FILTER_MAX (__CTA_FILTER_MAX - 1)
+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
+index 9b4e29557ec33..ffc29a407749d 100644
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
+@@ -911,6 +911,7 @@ struct ctnetlink_filter {
+ static const struct nla_policy cta_filter_nla_policy[CTA_FILTER_MAX + 1] = {
+ 	[CTA_FILTER_ORIG_FLAGS]		= NLA_POLICY_MASK(NLA_U32, CTA_FILTER_F_ALL),
+ 	[CTA_FILTER_REPLY_FLAGS]	= NLA_POLICY_MASK(NLA_U32, CTA_FILTER_F_ALL),
++	[CTA_FILTER_ZONE]		= { .type = NLA_FLAG },
+ };
+ 
+ static int ctnetlink_parse_filter(const struct nlattr *attr,
+@@ -930,6 +931,9 @@ static int ctnetlink_parse_filter(const struct nlattr *attr,
+ 	if (tb[CTA_FILTER_REPLY_FLAGS])
+ 		filter->reply_flags = nla_get_u32(tb[CTA_FILTER_REPLY_FLAGS]);
+ 
++	if (tb[CTA_FILTER_ZONE])
++		filter->zone_filter = true;
++
+ 	return 0;
+ }
+ 
+@@ -1006,6 +1010,7 @@ ctnetlink_alloc_filter(const struct nlattr * const cda[], u8 family)
+ 	if (err)
+ 		goto err_filter;
+ 
++	/* CTA_ZONE is allowed without CTA_FILTER_ZONE. */
+ 	if (cda[CTA_ZONE]) {
+ 		err = ctnetlink_parse_zone(cda[CTA_ZONE], &filter->zone);
+ 		if (err < 0)
+@@ -1020,6 +1025,12 @@ ctnetlink_alloc_filter(const struct nlattr * const cda[], u8 family)
+ 	if (err < 0)
+ 		goto err_filter;
+ 
++	/* CTA_FILTER_ZONE cannot be set without CTA_ZONE. */
++	if (filter->zone_filter && !cda[CTA_ZONE]) {
++		err = -EINVAL;
++		goto err_filter;
++	}
++
+ 	if (filter->orig_flags) {
+ 		if (!cda[CTA_TUPLE_ORIG]) {
+ 			err = -EINVAL;
+diff --git a/tools/testing/selftests/net/netfilter/conntrack_dump_flush.c b/tools/testing/selftests/net/netfilter/conntrack_dump_flush.c
+index 31b8250ddc53d..0c777323f4ba7 100644
+--- a/tools/testing/selftests/net/netfilter/conntrack_dump_flush.c
++++ b/tools/testing/selftests/net/netfilter/conntrack_dump_flush.c
+@@ -215,7 +215,22 @@ static int count_entries(const struct nlmsghdr *nlh, void *data)
+ 	return MNL_CB_OK;
+ }
+ 
+-static int conntrack_count_zone(struct mnl_socket *sock, uint16_t zone)
++static void put_zone_attr(struct nlmsghdr *nlh, uint16_t zone,
++			  bool use_cta_filter)
++{
++	struct nlattr *nest;
++
++	mnl_attr_put_u16(nlh, CTA_ZONE, htons(zone));
++
++	if (use_cta_filter) {
++		nest = mnl_attr_nest_start(nlh, CTA_FILTER);
++		mnl_attr_put(nlh, CTA_FILTER_ZONE, 0, NULL);
++		mnl_attr_nest_end(nlh, nest);
++	}
++}
++
++static int conntrack_count_zone(struct mnl_socket *sock, uint16_t zone,
++				bool use_cta_filter)
+ {
+ 	char buf[MNL_SOCKET_BUFFER_SIZE];
+ 	struct nlmsghdr *nlh;
+@@ -235,7 +250,7 @@ static int conntrack_count_zone(struct mnl_socket *sock, uint16_t zone)
+ 	nfh->version = NFNETLINK_V0;
+ 	nfh->res_id = 0;
+ 
+-	mnl_attr_put_u16(nlh, CTA_ZONE, htons(zone));
++	put_zone_attr(nlh, zone, use_cta_filter);
+ 
+ 	ret = mnl_socket_sendto(sock, nlh, nlh->nlmsg_len);
+ 	if (ret < 0) {
+@@ -261,7 +276,8 @@ static int conntrack_count_zone(struct mnl_socket *sock, uint16_t zone)
+ 	return reply_counter;
+ }
+ 
+-static int conntrack_flush_zone(struct mnl_socket *sock, uint16_t zone)
++static int conntrack_flush_zone(struct mnl_socket *sock, uint16_t zone,
++				bool use_cta_filter)
+ {
+ 	char buf[MNL_SOCKET_BUFFER_SIZE];
+ 	struct nlmsghdr *nlh;
+@@ -281,7 +297,7 @@ static int conntrack_flush_zone(struct mnl_socket *sock, uint16_t zone)
+ 	nfh->version = NFNETLINK_V0;
+ 	nfh->res_id = 0;
+ 
+-	mnl_attr_put_u16(nlh, CTA_ZONE, htons(zone));
++	put_zone_attr(nlh, zone, use_cta_filter);
+ 
+ 	ret = mnl_socket_sendto(sock, nlh, nlh->nlmsg_len);
+ 	if (ret < 0) {
+@@ -304,43 +320,40 @@ static int conntrack_flush_zone(struct mnl_socket *sock, uint16_t zone)
+ 	return 0;
+ }
+ 
+-FIXTURE(conntrack_dump_flush)
+-{
+-	struct mnl_socket *sock;
+-};
+-
+-FIXTURE_SETUP(conntrack_dump_flush)
++static int conntrack_zone_setup(struct __test_metadata *_metadata,
++				struct mnl_socket **sock)
+ {
+ 	struct in6_addr src, dst;
+ 	int ret;
+ 
+-	self->sock = mnl_socket_open(NETLINK_NETFILTER);
+-	if (!self->sock) {
++	*sock = mnl_socket_open(NETLINK_NETFILTER);
++	if (!*sock) {
+ 		perror("mnl_socket_open");
+-		SKIP(return, "cannot open netlink_netfilter socket");
++		SKIP(return -1, "cannot open netlink_netfilter socket");
+ 	}
+ 
+-	ret = mnl_socket_bind(self->sock, 0, MNL_SOCKET_AUTOPID);
+-	EXPECT_EQ(ret, 0);
++	ret = mnl_socket_bind(*sock, 0, MNL_SOCKET_AUTOPID);
++	ASSERT_EQ(ret, 0);
+ 
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID);
++	ret = conntrack_count_zone(*sock, TEST_ZONE_ID, false);
+ 	if (ret < 0 && errno == EPERM)
+-		SKIP(return, "Needs to be run as root");
++		SKIP(return -1, "Needs to be run as root");
+ 	else if (ret < 0 && errno == EOPNOTSUPP)
+-		SKIP(return, "Kernel does not seem to support conntrack zones");
++		SKIP(return -1,
++		     "Kernel does not seem to support conntrack zones");
+ 
+-	ret = conntrack_data_generate_v4(self->sock, 0xf0f0f0f0, 0xf1f1f1f1,
++	ret = conntrack_data_generate_v4(*sock, 0xf0f0f0f0, 0xf1f1f1f1,
+ 					 TEST_ZONE_ID);
+-	EXPECT_EQ(ret, 0);
+-	ret = conntrack_data_generate_v4(self->sock, 0xf2f2f2f2, 0xf3f3f3f3,
++	ASSERT_EQ(ret, 0);
++	ret = conntrack_data_generate_v4(*sock, 0xf2f2f2f2, 0xf3f3f3f3,
+ 					 TEST_ZONE_ID + 1);
+-	EXPECT_EQ(ret, 0);
+-	ret = conntrack_data_generate_v4(self->sock, 0xf4f4f4f4, 0xf5f5f5f5,
++	ASSERT_EQ(ret, 0);
++	ret = conntrack_data_generate_v4(*sock, 0xf4f4f4f4, 0xf5f5f5f5,
+ 					 TEST_ZONE_ID + 2);
+-	EXPECT_EQ(ret, 0);
+-	ret = conntrack_data_generate_v4(self->sock, 0xf6f6f6f6, 0xf7f7f7f7,
++	ASSERT_EQ(ret, 0);
++	ret = conntrack_data_generate_v4(*sock, 0xf6f6f6f6, 0xf7f7f7f7,
+ 					 NF_CT_DEFAULT_ZONE_ID);
+-	EXPECT_EQ(ret, 0);
++	ASSERT_EQ(ret, 0);
+ 
+ 	src = (struct in6_addr) {{
+ 		.__u6_addr32 = {
+@@ -358,9 +371,9 @@ FIXTURE_SETUP(conntrack_dump_flush)
+ 			0x02000000
+ 		}
+ 	}};
+-	ret = conntrack_data_generate_v6(self->sock, src, dst,
++	ret = conntrack_data_generate_v6(*sock, src, dst,
+ 					 TEST_ZONE_ID);
+-	EXPECT_EQ(ret, 0);
++	ASSERT_EQ(ret, 0);
+ 	src = (struct in6_addr) {{
+ 		.__u6_addr32 = {
+ 			0xb80d0120,
+@@ -377,9 +390,9 @@ FIXTURE_SETUP(conntrack_dump_flush)
+ 			0x04000000
+ 		}
+ 	}};
+-	ret = conntrack_data_generate_v6(self->sock, src, dst,
++	ret = conntrack_data_generate_v6(*sock, src, dst,
+ 					 TEST_ZONE_ID + 1);
+-	EXPECT_EQ(ret, 0);
++	ASSERT_EQ(ret, 0);
+ 	src = (struct in6_addr) {{
+ 		.__u6_addr32 = {
+ 			0xb80d0120,
+@@ -396,9 +409,9 @@ FIXTURE_SETUP(conntrack_dump_flush)
+ 			0x06000000
+ 		}
+ 	}};
+-	ret = conntrack_data_generate_v6(self->sock, src, dst,
++	ret = conntrack_data_generate_v6(*sock, src, dst,
+ 					 TEST_ZONE_ID + 2);
+-	EXPECT_EQ(ret, 0);
++	ASSERT_EQ(ret, 0);
+ 
+ 	src = (struct in6_addr) {{
+ 		.__u6_addr32 = {
+@@ -416,14 +429,51 @@ FIXTURE_SETUP(conntrack_dump_flush)
+ 			0x08000000
+ 		}
+ 	}};
+-	ret = conntrack_data_generate_v6(self->sock, src, dst,
++	ret = conntrack_data_generate_v6(*sock, src, dst,
+ 					 NF_CT_DEFAULT_ZONE_ID);
+-	EXPECT_EQ(ret, 0);
++	ASSERT_EQ(ret, 0);
+ 
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID);
++	return 0;
++}
++
++FIXTURE(conntrack_dump_flush)
++{
++	struct mnl_socket *sock;
++};
++
++FIXTURE_VARIANT(conntrack_dump_flush)
++{
++	bool use_cta_filter;
++};
++
++FIXTURE_VARIANT_ADD(conntrack_dump_flush, cta_zone)
++{
++	.use_cta_filter = false,
++};
++
++FIXTURE_VARIANT_ADD(conntrack_dump_flush, cta_filter)
++{
++	.use_cta_filter = true,
++};
++
++FIXTURE_SETUP(conntrack_dump_flush)
++{
++	int ret;
++
++	if (conntrack_zone_setup(_metadata, &self->sock))
++		return;
++
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID, false);
+ 	EXPECT_GE(ret, 2);
+ 	if (ret > 2)
+ 		SKIP(return, "kernel does not support filtering by zone");
++
++	if (variant->use_cta_filter) {
++		ret = conntrack_count_zone(self->sock, TEST_ZONE_ID, true);
++		if (ret < 0 && errno == EINVAL)
++			SKIP(return, "kernel does not support CTA_FILTER_ZONE");
++		ASSERT_GE(ret, 0);
++	}
+ }
+ 
+ FIXTURE_TEARDOWN(conntrack_dump_flush)
+@@ -434,39 +484,42 @@ TEST_F(conntrack_dump_flush, test_dump_by_zone)
+ {
+ 	int ret;
+ 
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID,
++				   variant->use_cta_filter);
+ 	EXPECT_EQ(ret, 2);
+ }
+ 
+ TEST_F(conntrack_dump_flush, test_flush_by_zone)
+ {
++	bool filter = variant->use_cta_filter;
+ 	int ret;
+ 
+-	ret = conntrack_flush_zone(self->sock, TEST_ZONE_ID);
++	ret = conntrack_flush_zone(self->sock, TEST_ZONE_ID, filter);
+ 	EXPECT_EQ(ret, 0);
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID, filter);
+ 	EXPECT_EQ(ret, 0);
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 1);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 1, filter);
+ 	EXPECT_EQ(ret, 2);
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 2);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 2, filter);
+ 	EXPECT_EQ(ret, 2);
+-	ret = conntrack_count_zone(self->sock, NF_CT_DEFAULT_ZONE_ID);
++	ret = conntrack_count_zone(self->sock, NF_CT_DEFAULT_ZONE_ID, filter);
+ 	EXPECT_EQ(ret, 2);
+ }
+ 
+ TEST_F(conntrack_dump_flush, test_flush_by_zone_default)
+ {
++	bool filter = variant->use_cta_filter;
+ 	int ret;
+ 
+-	ret = conntrack_flush_zone(self->sock, NF_CT_DEFAULT_ZONE_ID);
++	ret = conntrack_flush_zone(self->sock, NF_CT_DEFAULT_ZONE_ID, filter);
+ 	EXPECT_EQ(ret, 0);
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID, filter);
+ 	EXPECT_EQ(ret, 2);
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 1);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 1, filter);
+ 	EXPECT_EQ(ret, 2);
+-	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 2);
++	ret = conntrack_count_zone(self->sock, TEST_ZONE_ID + 2, filter);
+ 	EXPECT_EQ(ret, 2);
+-	ret = conntrack_count_zone(self->sock, NF_CT_DEFAULT_ZONE_ID);
++	ret = conntrack_count_zone(self->sock, NF_CT_DEFAULT_ZONE_ID, filter);
+ 	EXPECT_EQ(ret, 0);
+ }
+ 
+-- 
+2.55.0
 
