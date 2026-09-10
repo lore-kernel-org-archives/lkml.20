@@ -1,353 +1,195 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012068.outbound.protection.outlook.com [40.93.195.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7339F41441E
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:58:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFD841441E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070304; cv=fail; b=sOVytkKyQE2+mbhFKJ9DRz8cnmvbAATWFUiUX91pPPtMdqoFH7pVg4dGUYNgPFUbl6TnI6fRz9FL4TucwtlKdikUej1fAeQN0D3GBsPt+TsZKLEd9V+5us/d7DOzdbCAcYPUqblC9yEnHk2WIGs1+ZcjnRFH4fAIYVwNrwssmno=
+	t=1789070352; cv=pass; b=XYPtx0UD4dRa+5XpRPU3IQAlFBK85bn1uwT/E32BtzxzsVK08/weASznFsIFbHft/6b2v5z2iMjEhYpRiJI7DWIcjd3jFFJz5VtCVVzfWMLfCn3u5hQJSyts7oOUFfJDfUj4bX39QXrF3ywZ97I87yQRktbpVGi5K2gW9eenLRc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070304; c=relaxed/simple;
-	bh=S+V0iJS92xvHSXBkxzF2bNTDLto8qgwhcPOGqT4CaUE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=X5lxZlpv5fE/GcRxCejIbVukYqsH0ibCCFDev6/gQqa9SfKEc3FFrt5yxW18g8wgGA4m4tmMgz05OVdqz7xc9Yc2pj4mV6uG82wP1ZsFWcUSp7mVYvTokuR9AuNhDRb32ZQi/uAGfQQRXcAAiIlbxEkZ1+VjWr/xQZzPBNz5PJY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=IwlYktdt; arc=fail smtp.client-ip=40.93.195.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789070352; c=relaxed/simple;
+	bh=ty91lziidXZxmAMM66DZHkOcSSsElmV5TL2zAt87H6k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l1rbtOgdrWqgiivrjVphXeH+/AwvNcJaSdkaxVwPrxpOzygzzjPOD5HG6UzF0ar/bHZqTYjJGzGJQhsZLhfBDm/wp6XGTLZ6F1IUQX4sDREzLRWjHF/xk3I281BxlY8Y5wYvqIhq1FIJcIHVB6ZHDjql79Mz/pjG38h2XbmA7tY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mX+w3VK7; arc=pass smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="IwlYktdt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D9Q1B/LwGsjufOCGa7/87k6oT5rz+QU3TzqPL+O3/skUPW/WC8DUCp0KcFmGXr0xsDdWZK0XbmuCorF+3fGRIwKXX2FMy8FOWetqsP2COJCyhnpOFJtQm+YP5D3Nr0A0lOoTGLpOT84Ba6kSuUUWjtqJGb/sXFYCLSMbvgSAcT8URGxmwcHtnWs7/6vNZs0yzzlAryxicuVGKbavrBGuJ93Bug4l/f6oy5OXe51LGXuywDPbBPTCQAuYszNQhYR1vF9eNnLMB/ZFXixHLYLMrHQBWmGZSISJ7p1vu1HpGXoKZOQcrWmi2SUwKw7tISFFDQHZ9xJl7u7D7rMkturiag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eF7n2fY2lL2UgLJ9njeCNH/IWTx0dWQZwrBQsVfbYEw=;
- b=a1y3/wmAnHvALQn22a44ms2VCMWQf6pZd+/x2VXXyCu2SYOzh5LM3GhvWobF5JG8VyLy0SIAATMuIZgp1o6+8MDWZLjHt/EaOoITb+GPf0GrBivxKhzZdHE1rGZP6S0f5r38XHNtvD4vWMlKsyHeB5WP9BqDafNcauknsJKq0inWgvHJMsbgb8d0dzGXo7aenSf2SyosDl4OsvGtkV+UVOhZT1a2nZyIwVJJnfgpEQSX2HSFtdJBVbDsyHQfWqOHCneOyYP/0WC7Iys2w7eo2YAEPOV0eRIWEHb2kbnhqib92QzbLV/y39pTr3wN1S+LBJGH1Qp7ZA3T6A1ykTqoJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eF7n2fY2lL2UgLJ9njeCNH/IWTx0dWQZwrBQsVfbYEw=;
- b=IwlYktdtuphTtRhsxi/XlfQgUEpLQfi+OcOrlbG1H3r1GzetWXhqgK/KuuPAVcPhBNlDmZUtaMHWf5oQeV6dQnbGYLkPnKonTL8/dDTBIOW5iR9ZjPY0sofYA2DPpxNgUnBMFbEmdqw39Q+CWm7yctb1ttrhHyfs81gk2IRrq8A=
-Received: from BL1PR13CA0114.namprd13.prod.outlook.com (2603:10b6:208:2b9::29)
- by SN7PR12MB7371.namprd12.prod.outlook.com (2603:10b6:806:29a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 19:58:16 +0000
-Received: from BN7PEPF00000093.namprd03.prod.outlook.com
- (2603:10b6:208:2b9:cafe::8f) by BL1PR13CA0114.outlook.office365.com
- (2603:10b6:208:2b9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Thu, 10
- Sep 2026 19:58:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF00000093.mail.protection.outlook.com (10.167.245.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 19:58:13 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 14:58:13 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 14:58:12 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 14:58:12 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
-	<dri-devel@lists.freedesktop.org>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>
-Subject: [PATCH V2] accel/amdxdna: Fix unsafe use of handle_mm_fault()
-Date: Thu, 10 Sep 2026 12:58:07 -0700
-Message-ID: <20260910195807.1093852-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mX+w3VK7"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-86cba60d4f2so669587b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:59:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789070350; cv=none;
+        d=google.com; s=arc-20260327;
+        b=halz2ex8BCjN5RoUxXluCW2u2wg+cW40SEItrrYsHOeFnULvYbHq4X9uR6QBVywYlz
+         oC60+MaUTkbFTGGrfDsCeXU4Rr6RkQQNa8BD6IES7XedhLp/RkpqF1vV4K7nyeTxgYHD
+         gdPkFEwa/g0fkZReQvlypFqEhmIGfJIHh4Xc/P7ZJKWztp6Rz9fhRh9XrW8EfNTF299S
+         3QuPNjVRrX5SUvLKX80qKX8dlc5ITpChpYnzYkcauJn9yP8+VKxYu7ngHeS0ZDSWOE3/
+         ACXBKkmqPgypmVID8vM7LbUT1Fn5EyVUTWZR/prgrsug7rrBzumVZogArOm/FwEcsKxn
+         NZLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x8V9Q/N2TETnzSfWfUpZ6dEVCEuKJUGf18w0ts5/6IM=;
+        fh=glL33IqeX3o6GD+k0Ld6U0Uj6kr6LCFH9Bj6sd6bsWc=;
+        b=GmTZqe8C3mRo/5BLT09AJheHWHnFRd0GDXdly8M17HbaD4AtktQc+awtY2ve4lCsX7
+         eVsLDsrQVqEtROnBRJv80MgXzO3v+GyE/CmbGHQBJGQXWMKycoPkJNZ/yjfqc6mnnRj8
+         CjBRWywGeLF7IlPBtetsrNd5TjQqNXfrIEBJ2cbwMhCCJGUonaQHuBCl3OKSbGDh4K5+
+         woWlzaVESG69kpwUmT1BAlPSjx3jAFKpZfO4xmqkW/ieT6uUaNwD4jia4BSjctqwxVSo
+         69KVEP5rIyLsFgvE8CKlju0aIr48K2vTmd6SoJLaDP3wDWJB6q4G+Fs9p72cPtckT/1g
+         atNQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789070350; x=1789675150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x8V9Q/N2TETnzSfWfUpZ6dEVCEuKJUGf18w0ts5/6IM=;
+        b=mX+w3VK7+TYzXs7SulSpJiJMyww50y3L9PZeo57pIqkkJxyRApdCPWe130hI6zjMDL
+         lrJxIx00aQVaIPIJMHz0XOonazmAoVCuSBF15gM2VHwzFojVF4JzQWNXou1G5hhWF6K9
+         ZhdwVwUB1p0RNC92pk/eVY00ghEm90t67AGXn2b6PycEsTZCmYKHQeZQPFEMGCDFjq6t
+         0xEXekyYbpl0E3YLP/ppbg01KoJdjzHGeoPRw5e/WlGHCdaHq5MIjBKgvusxvetQt8dE
+         OXu12zNot/cxHWy6f12DRwXiSqHlUsMwRw14wutRy9ZyNVTtyi6c+3a92woPke1AA0ml
+         cgUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789070350; x=1789675150;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x8V9Q/N2TETnzSfWfUpZ6dEVCEuKJUGf18w0ts5/6IM=;
+        b=GxEwxaNs1SyAFYnvYAI2J1ooTm0Uyt43gwTX97+EAVM37yDK40LGS4n1giN0VGVnu7
+         h00+5c6S65JoJLLfzV70yVmdxK2FXzZEkrlGhhuIhD/rQ9EJNjilEPLtY+InimVhClhg
+         WY5buzskvKG9AtgYFvdZLUtYZ5PW5sDX3a5r38Wb639U8Zs+BVF38hx0uzCotVJv7GFt
+         loOJAx6i1lqxdo3ggkLrq88s9g1j+p6ZdL2ER1LuDReiEfIpzCsCPOapB3GdbegBXdy5
+         DtAw5EFnjmXQQj1azWIuatCa6AZ2kF1Ld8Esi58bi2g61a7fOoyC3mXZPMvw6F9Vcq33
+         ZQ/A==
+X-Forwarded-Encrypted: i=1; AKwUvByRHL7+0aBLzWS7csDKtpLWQtD+ofKVVXd15bYqowelJqXf/lmnbOm4g0YQdezxkCtRdrsKHm9q/UjcTCo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk1UivJt3hrJREhibfyDUT08yXNNGiUBLpuApRubjsXY4X2bB3
+	kFt9guuTKPTBXYvg/OJdoJAfI+l1BHPaoSlyFbYdss/qLIx0n9kX/dQgO8+MWMcewi8B2JSH8rq
+	qVcLeypGsHkNDe91WhE8bOGPr88JNNyEf+CLO
+X-Gm-Gg: AYBFou0whrIjTdURD4j8KxVpVd8Far6HIDA2fCcs6iLVteaDw32v0bTESctlu2kVGj0
+	ciY2NwiGuFpYsa/VkEt6Iz46352tXqo5CfvbMWDuVsXzQdROr4Z+Sb7wIzk9XmRMoZfncSvy1pu
+	myv/zBE+1K8bHyC63vC78cUU6P+ChxKmT+U2+21VGgsH1rYJTDBiRVK6rNgpR+Qk2kEN8izYCst
+	k0ZIbJl2Zwy07Ap3oDBbWBlUcY0fgMmZeXquiYoParh+7PUc9g+7dkEAh62ziHO18cVQtB30i8P
+	0NLdRabgocCT94Ja9LoDuNiXaMHN1NwLDg0Ic/2elZb92tV9jo5yOBCy8/oCJIHzoMRe1L2ifUk
+	hZiHOg+SIJkmYVbBANeVsxU7nypvdYvTSkwp7jqmOhA==
+X-Received: by 2002:a05:690c:6e87:b0:841:773e:8d86 with SMTP id
+ 00721157ae682-884aec92ac6mr5789117b3.15.1789070350256; Thu, 10 Sep 2026
+ 12:59:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260820140547.1148128-1-lidaoxun25@mails.ucas.ac.cn>
+In-Reply-To: <20260820140547.1148128-1-lidaoxun25@mails.ucas.ac.cn>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Thu, 10 Sep 2026 15:58:58 -0400
+X-Gm-Features: AcwNN1UcCn1NgQQZghiLaxTYFaiVVwdXbhlLm0BkXgLeWRgYGH9EZgSOBXNocPM
+Message-ID: <CABBYNZ+meesuqnY1KUzT=khvi6b5V77U58-0ZzrTzgFvVECAPA@mail.gmail.com>
+Subject: Re: [RFC PATCH bluetooth-next] Bluetooth: hci_event: Use General
+ Bonding for ATS2851
+To: Li Daoxun <lidaoxun25@mails.ucas.ac.cn>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000093:EE_|SN7PR12MB7371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56ca72f2-3894-4eba-5610-08df0f75d8d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2RI3OVpCtkIQNzqum8AMP4AAqtRYbAyDQE0T3dhzqgFDocE3F6CYPp4PNdu+PqAdbbSFJulYtb9EXCKckiIWXh2/kZq4adWkzOJH/K45VmCIoayw552JRj55w0kZXQznrPPEao1iwUXfOgFdF46V6yx1ihy73H2qNTtbEsRFywBNX5yYioppwhNzSZTyRY0j0v2w7sW685wk3O7Wb58WJGzF58ddZHXvMRNt6o5qrAplcyURcSd/AkYRrXOoDUR/NRptwYjW2UE5XPnG+BfI+g9NKN12+Aybx9kS+MVCbHAvI9uZ3ywts5SR6DCDdSovpkUuPQDxI/yzUCAK7xXDGqNDVdSw9YM2iY+pkV/tPDrTzOaCYbgBliG1P37o0zIbKF3Ql54gXI7dLNv5+P0A3vV3z+qMmkO6ZuGsKRZsymo3p9CKcw00eXVl6jneIEXSegb+Rf4C6HfPDpMvujKwlJ/FmEu7bQREMYDprvme1wIj1ccYnFRdTJPk1pYbDaVIAlt3ZBQLBEhJMf1y4E0sGiI+pCR8DTIHStTYEPSmSZBiaTs8FH71fM1yIqqWup6fgvI9hEOPsWZjacyMbq9QsR1ZcUdz/LJXsZ/DEqUC9z6QuKNjg5EjXK5t/eE+QRC9SkhVuwdPIS18Y2vq+pZZCo1JUZBGXknP81cG+4XkbodNnerW22n3RFFMfpPFKYXwRNUuvwYNRbBSPivT1AYJ6g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8UYW1bMwWf/0JSfjIYGSGS1iTFMgpZXzRAeo2sNi2KISZnqyDSqg+Ev6KA2nxTWp2nCJJUTdIlmzRLAut1RiuMG9ZINS+ufeXSBM34GabTOVUDDlhyp99WnwlDVuKORlNLNap8YJ5e+ZiATWlvXpKzAk4MgjvclWeRtjg/rDT6Z7goDrvSCg+J4oYB/3u5ODyaXpvlnNQTBxAQFvHjQ57nGWc7Vyg3Vwg8tf0ZRzdt56ZX53DZtqagSMGJTmCEBmaeOENYZgWzORjHVjvvQkRUcOWAFMhyrvqcWMT5u4y3kzJMGh5di6I/0JYB+8pFoUr8LwUWazw6uoXzB49zAb7YAXJT+YHcE5U2ek7nqFHNkSQiY3rue+SWEvLBRQkeEbtskCQ+jrvLJSZbuGbb39/zbC8v6QGWSkktoT/2FgSGCVaalMCeHJOnJ5CXU3eyc8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 19:58:13.3108
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56ca72f2-3894-4eba-5610-08df0f75d8d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF00000093.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7371
+Content-Transfer-Encoding: quoted-printable
 
-handle_mm_fault() must not be called from the mmap callback because
-the VMA has not yet been linked. The handle_mm_fault() API contract
-assumes that the VMA is already linked.
+Hi,
 
-Remove the handle_mm_fault() call from the mmap callback. For imported
-BOs, mark the mapping as invalid and rely on the first command submission
-to fault in the pages.
+On Thu, Aug 20, 2026 at 10:06=E2=80=AFAM Li Daoxun <lidaoxun25@mails.ucas.a=
+c.cn> wrote:
+>
+> Actions Semiconductor ATS2851 controllers can stall BR/EDR Secure
+> Simple Pairing when the host replies to an IO Capability Request with
+> Dedicated Bonding.
+>
+> This was observed with an Actions controller at USB ID 10d7:b012,
+> revision 88.91, while pairing a Sony WF-C510. After the host sent
+> Dedicated Bonding, no peer IO Capability Response arrived and the local
+> host disconnected after approximately 30 seconds.
+>
+> Sending General Bonding instead allowed the IO capability exchange to
+> continue, followed by successful Simple Pairing, link key notification
+> and encryption.
+>
+> Add a quirk that substitutes General Bonding in the HCI IO Capability
+> Reply while preserving the MITM bit and the connection authentication
+> state. Enable it for ATS2851 based devices.
+>
+> Signed-off-by: Li Daoxun <lidaoxun25@mails.ucas.ac.cn>
+> ---
+>  drivers/bluetooth/btusb.c   |  1 +
+>  include/net/bluetooth/hci.h | 10 ++++++++++
+>  net/bluetooth/hci_event.c   |  4 ++++
+>  3 files changed, 15 insertions(+)
+>
+> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+> index 2bae85b001..e82cb0c44c 100644
+> --- a/drivers/bluetooth/btusb.c
+> +++ b/drivers/bluetooth/btusb.c
+> @@ -4384,6 +4384,7 @@ static int btusb_probe(struct usb_interface *intf,
+>                 hci_set_quirk(hdev, HCI_QUIRK_BROKEN_READ_ENC_KEY_SIZE);
+>                 hci_set_quirk(hdev, HCI_QUIRK_BROKEN_EXT_CREATE_CONN);
+>                 hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_AUTH_PAYLOAD_T=
+IMEOUT);
+> +               hci_set_quirk(hdev, HCI_QUIRK_BROKEN_DEDICATED_BONDING);
+>         }
+>
+>         if (!reset)
+> diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+> index 1641d879db..ee01795ea5 100644
+> --- a/include/net/bluetooth/hci.h
+> +++ b/include/net/bluetooth/hci.h
+> @@ -320,6 +320,16 @@ enum {
+>          */
+>         HCI_QUIRK_BROKEN_WRITE_AUTH_PAYLOAD_TIMEOUT,
+>
+> +       /*
+> +        * When this quirk is set, Dedicated Bonding authentication
+> +        * requirements are sent to the controller as General Bonding whi=
+le
+> +        * preserving the MITM requirement. This is required for Actions
+> +        * Semiconductor ATS2851 based controllers, which can fail to con=
+tinue
+> +        * the SSP IO capability exchange with some peers when Dedicated =
+Bonding
+> +        * is used.
+> +        */
+> +       HCI_QUIRK_BROKEN_DEDICATED_BONDING,
 
-For shmem BOs, set the VM_MIXEDMAP flag and use vm_insert_pages().
-Implement amdxdna_gem_mixed_vm_ops to handle the page faults.
+I don't think that works out, though; dedicated bonding is used to
+persist the bonding, usually triggered with devices like the
+Device.Pair() method, so I don't think we can really just switch to
+general bonding and expect it to work.
 
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
-v2:
-  Fix sashiko comment.
+>         /* When this quirk is set, MSFT extension monitor tracking by
+>          * address filter is supported. Since tracking quantity of each
+>          * pattern is limited, this feature supports tracking multiple
+> diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+> index 2f5e21ff97..5496913d8d 100644
+> --- a/net/bluetooth/hci_event.c
+> +++ b/net/bluetooth/hci_event.c
+> @@ -5386,6 +5386,10 @@ static void hci_io_capa_request_evt(struct hci_dev=
+ *hdev, void *data,
+>                         conn->auth_type &=3D HCI_AT_NO_BONDING_MITM;
+>
+>                 cp.authentication =3D conn->auth_type;
+> +               if (hci_test_quirk(hdev, HCI_QUIRK_BROKEN_DEDICATED_BONDI=
+NG) &&
+> +                   (cp.authentication & ~0x01) =3D=3D HCI_AT_DEDICATED_B=
+ONDING)
+> +                       cp.authentication =3D HCI_AT_GENERAL_BONDING |
+> +                                           (cp.authentication & 0x01);
+>                 cp.oob_data =3D bredr_oob_data_present(conn);
+>
+>                 hci_send_cmd(hdev, HCI_OP_IO_CAPABILITY_REPLY,
+> --
+> 2.43.0
+>
 
- drivers/accel/amdxdna/amdxdna_gem.c | 144 +++++++++++++++++++++-------
- 1 file changed, 111 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 0d165b66c1fc..f4dbe165d800 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -14,6 +14,7 @@
- #include <linux/dma-direct.h>
- #include <linux/iosys-map.h>
- #include <linux/pagemap.h>
-+#include <linux/swap.h>
- #include <linux/vmalloc.h>
- 
- #include "amdxdna_cbuf.h"
-@@ -490,16 +491,12 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	unsigned long num_pages = vma_pages(vma);
--	unsigned long offset = 0;
- 	int ret;
- 
--	if (!is_import_bo(abo)) {
--		ret = drm_gem_shmem_mmap(&abo->base, vma);
--		if (ret) {
--			XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
--			return ret;
--		}
--	} else {
-+	if (vma->vm_pgoff - drm_vma_node_start(&to_gobj(abo)->vma_node))
-+		return -EINVAL;
-+
-+	if (is_import_bo(abo)) {
- 		vma->vm_private_data = NULL;
- 		vma->vm_ops = NULL;
- 		ret = dma_buf_mmap(abo->dma_buf, vma, 0);
-@@ -508,23 +505,28 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- 			return ret;
- 		}
- 
-+		amdxdna_mark_mapp_invalid(abo, vma);
-+
- 		/* Drop the reference drm_gem_mmap_obj() acquired.*/
- 		drm_gem_object_put(to_gobj(abo));
-+		return 0;
- 	}
- 
--	do {
--		vm_fault_t fault_ret;
--
--		fault_ret = handle_mm_fault(vma, vma->vm_start + offset,
--					    FAULT_FLAG_WRITE, NULL);
--		if (fault_ret & VM_FAULT_ERROR) {
--			XDNA_ERR(xdna, "Fault in page failed");
--			amdxdna_mark_mapp_invalid(abo, vma);
--			break;
--		}
-+	ret = drm_gem_shmem_mmap(&abo->base, vma);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
-+		return ret;
-+	}
- 
--		offset += PAGE_SIZE;
--	} while (--num_pages);
-+	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
-+	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed to insert pages %d", ret);
-+		dma_resv_lock(to_gobj(abo)->resv, NULL);
-+		drm_gem_shmem_put_pages_locked(&abo->base);
-+		dma_resv_unlock(to_gobj(abo)->resv);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -536,6 +538,10 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
- 	int ret;
- 
-+	XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx size 0x%lx",
-+		 drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
-+		 vma->vm_start, gobj->size);
-+
- 	ret = amdxdna_hmm_register(abo, vma);
- 	if (ret)
- 		return ret;
-@@ -546,9 +552,6 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 		goto hmm_unreg;
- 	}
- 
--	XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx size 0x%lx",
--		 drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
--		 vma->vm_start, gobj->size);
- 	return 0;
- 
- hmm_unreg:
-@@ -556,33 +559,108 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 	return ret;
- }
- 
-+/*
-+ * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
-+ *
-+ * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because its fault
-+ * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which contains:
-+ *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
-+ * All amdxdna shmem pages are ordinary struct pages so pfn_valid() is always
-+ * true, making the combination fatal.
-+ *
-+ * These ops use vmf_insert_page() (struct-page based) instead, which is the
-+ * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  The open and
-+ * close handlers replicate drm_gem_shmem_vm_open/close using only exported
-+ * symbols.
-+ */
-+static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+	loff_t num_pages = gobj->size >> PAGE_SHIFT;
-+	vm_fault_t ret = VM_FAULT_SIGBUS;
-+	pgoff_t page_offset;
-+	struct page *page;
-+
-+	page_offset = vmf->pgoff - drm_vma_node_start(&gobj->vma_node);
-+
-+	dma_resv_lock(gobj->resv, NULL);
-+
-+	if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
-+		goto out;
-+
-+	page = shmem->pages[page_offset];
-+	if (WARN_ON_ONCE(!page))
-+		goto out;
-+
-+	/*
-+	 * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
-+	 * (PFN path) because this VMA carries VM_MIXEDMAP.
-+	 */
-+	ret = vmf_insert_page(vma, vmf->address, page);
-+	if (ret == VM_FAULT_NOPAGE)
-+		folio_mark_accessed(page_folio(page));
-+
-+out:
-+	dma_resv_unlock(gobj->resv);
-+	return ret;
-+}
-+
-+static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+
-+	/*
-+	 * Bump pages_use_count so the page array stays alive for the new
-+	 * mapping copy created by fork().  Mirrors drm_gem_shmem_vm_open().
-+	 */
-+	dma_resv_lock(gobj->resv, NULL);
-+	drm_WARN_ON_ONCE(gobj->dev, !refcount_inc_not_zero(&shmem->pages_use_count));
-+	dma_resv_unlock(gobj->resv);
-+
-+	drm_gem_vm_open(vma);
-+}
-+
-+static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+
-+	dma_resv_lock(gobj->resv, NULL);
-+	drm_gem_shmem_put_pages_locked(shmem);
-+	dma_resv_unlock(gobj->resv);
-+
-+	drm_gem_vm_close(vma);
-+}
-+
-+static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops = {
-+	.fault  = amdxdna_gem_mixedmap_fault,
-+	.open   = amdxdna_gem_mixedmap_vm_open,
-+	.close  = amdxdna_gem_mixedmap_vm_close,
-+};
-+
- static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
- {
- 	struct drm_gem_object *gobj = dma_buf->priv;
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
--	unsigned long num_pages = vma_pages(vma);
- 	int ret;
- 
--	vma->vm_ops = &drm_gem_shmem_vm_ops;
-+	vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
- 	vma->vm_private_data = gobj;
- 
- 	drm_gem_object_get(gobj);
-+	vma->vm_pgoff += drm_vma_node_start(&gobj->vma_node);
- 	ret = drm_gem_shmem_mmap(&abo->base, vma);
- 	if (ret)
- 		goto put_obj;
- 
- 	/* The buffer is based on memory pages. Fix the flag. */
- 	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
--	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages,
--			      &num_pages);
--	if (ret)
--		goto close_vma;
- 
- 	return 0;
- 
--close_vma:
--	vma->vm_ops->close(vma);
--	return ret;
- put_obj:
- 	drm_gem_object_put(gobj);
- 	return ret;
-@@ -878,7 +956,7 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
- 	.vmap = amdxdna_gem_obj_vmap,
- 	.vunmap = amdxdna_gem_obj_vunmap,
- 	.mmap = amdxdna_gem_obj_mmap,
--	.vm_ops = &drm_gem_shmem_vm_ops,
-+	.vm_ops = &amdxdna_gem_mixedmap_vm_ops,
- 	.export = amdxdna_gem_prime_export,
- };
- 
--- 
-2.34.1
-
+--=20
+Luiz Augusto von Dentz
