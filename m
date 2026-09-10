@@ -1,229 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A6D23395D;
-	Thu, 10 Sep 2026 08:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B64E3C3459
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029832; cv=none; b=i+W/PPiupeQ5GxQ1Q2zySiFYsOX/R1doyEG2cPiXXdn8z7nkQkbkE/c1G7yBzDltO1Kk9VZEdWWpRyOH0HMZBWjB92J1TsMGcgu29BFjgBv/uHFqH0YEZfolv5VjLsqrbPOPLYZRr3/bbri+kRiWhpCw73YAxhxLt7DUYr6LEio=
+	t=1789029857; cv=none; b=jCgcCd4k6BIsKw1RbGnffXcTm+QACvQXdDFitGallb+bOFQfhajROzQxt6AX3BAx2aiAcmg4RzlXfrafY22gnFkUh+JpR9YMuiTqmKl7KMCNp8ujc/SQRnXgsO/6QFxYmGPPr22mehPJmnRqVHCvRDsFvNHOtj/GcxHhgIisjVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029832; c=relaxed/simple;
-	bh=GwscfBrlwlJ4OfLnuhq6+VRNnnQ2CC3GGxRnzmZy45c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N8bOaf3GUMtSKi5xvsPQAQHdGRIbQOsD7gjMDAAudSjlNzpfHNSayfNd83CkXsQ48CTsPeGk/EXss8F2nGkJ9dmrQ5IRj/nM6WxWaUs/IUssea4w5iIgrvrfHy0Ok7KQJSH/K3Fb3yIsOnm7UUMrlE1MUj7UZX6eEYp0npohh5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2HP7y+v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789029857; c=relaxed/simple;
+	bh=vhqQ2mEalDcG1ZLq91FWT2EZSbp9RSILCXkqmqs85xU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l3KAUX1TADznE1Rq1r7qIXNV+80vbX/aSkSISjFRu2FOYDE21aMQu2x29tu/4SBJT1O4fb9tK24SuGYOtvAwgEWWYcy4Sj5vDp8rs1WwW5Bh1FjhQPLDmoITa28T6o2TUi3WwVg70asHLT6v7VUdixWcw/vdFqw/i6W9uaS3sys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YppxNDi7; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2HP7y+v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4006D1F000FF;
-	Thu, 10 Sep 2026 08:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789029831;
-	bh=ErRlIXkdJ4/rRpN+QKa7XDjPMLHUV1wufabVSUtAsQI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P2HP7y+vQFK2rr4JQhfnWLQMcAoRUjYl4ShV0NJRFVhOU01TwpojXqi5Jbf1VLxtt
-	 5H9xKB2rEUeMkwUkTm5zk539OYXH0eiWTbsiy9jycZVsGQzCIayr6NiL0YWH1JR3l1
-	 buZNmfJ+GpiTDrFMdLrNywunrZUioJ75icRB1IFBoL2ji1IPNU3+4jgJinv8TZG+TW
-	 L439PYO2ICtBackUaHH4CaeZWo0b/I8QDxYt6BXfeZdBBeVop2JbHKCVChZvjoYU5Q
-	 Xb1w6rKuHpgTSCZnAML1njltCXVnefNYTP1iYvbYePrxP4gp1ZbjAGRaM5XdClNwnT
-	 yVPzcZRhjUumw==
-Message-ID: <fb373298-717e-4047-bf47-770bc39d1b81@kernel.org>
-Date: Thu, 10 Sep 2026 10:43:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YppxNDi7"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8557c3f270eso4524724b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:44:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789029856; x=1789634656; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hTyYRl2YZ/oM02ctlIcPWPHMCgn8HGs1uC6kTHGWSeM=;
+        b=YppxNDi7nLBFDAgdyiyAjdPRdqVHBCJFvbbQTKzlpPn24Dkb39g5NNP2WQzdzCsVIt
+         UHrStN7MHeJOuqnzlDa+JG0/E+7mNBCG787EoizGM/CsFqTnPVLboZKjBFMGjewuJE0k
+         iebkhPlz2N98hJmQ3AxZLVOkHN3ZmhkyXrLmizg51XPrZSRuGvX/nQdIdvVGqw+TKryF
+         Azg2w8ceHQrWLKpMGNtgMOQRrwBkdsX70Q/TjTAMWEaEH2IS86/wYGIsjbjCwu7QAm8n
+         vZikJxJyLFPMqTCdjJNwJW4nvlCeEK4Vz54f7/fPDpPdbXvtdiouZkKFnT7UU5W9d5q2
+         MPlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789029856; x=1789634656;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hTyYRl2YZ/oM02ctlIcPWPHMCgn8HGs1uC6kTHGWSeM=;
+        b=OgKPSBVCdiJtD1tmGu0uOl2rf7QiuXoNv0I8FQBezDw0TLD5BEHG3dRPQn11PZ/G2l
+         Te/PP7R15qpk2qlDZIKaEnbz5B3gzx/OT732R1HuYF3KYQfWNQ6FsFE4R3iep2gLxupu
+         EzZ4X4XBjjLax95YUDG9EJXaTmXl5LxiMf+yNCP3PQH5HoFO7DHOcs9DFW+hSYSN27rq
+         FlsH272tdAsLqN1tGQiCwKNR2Vd4G6dCwp0kTTvKzmLTJTVJFINYR1quKe3YP1w5M2GI
+         EdzWZYJKtllOtMiGlBx9YLkcuqRCAaR6bSYZQaQEJX4tiS6fppcB+76AcsTlTSL3UJkq
+         dNZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYsQ+YGaXmYiCHVMTRyCIs1TXtDSNMfTPIDCcTqs/MncSHjyEKxpvFGGbotB363c0lU1oN2rrfKqsVNHQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++klzk6li3y7FQ96Mqvq70hcTJylo49YJfTdZLF8QziLf5JDoQLm
+	BDn8ymb1nNxsa3r/H4XAl1LQf20TsicVfUDIsnTCP9BZUZKPy1aAjgE=
+X-Gm-Gg: AYBFou1hvCaj1jVpuj5py8rxYHpyrZTyLjHsLXNoDyYuiIvTF7X9BQz5M5YYHg1Kucf
+	IZrAsfHy8I8xlH8eLugdQmiAKTuNcld8CZm+7qveH4sG+4sD2o3DzvC19cBe+x/N9yQleGuERTI
+	POFLIkdJqL4rxsDFMTW3ReV6PDi9bmuyh1h4MPW1ShvbTqW5q/zrjUFsZwahcUFWYOWC7hP1Fju
+	mG06Hv0L01iJvbrkxWAIPiYJqm0tSIoQTKiqsGrdHxLUf0H3MpOixO7fDXGLg+YoQnuJDtufV3B
+	Mh+94XJVF/13GLal7Mgia6GKJrRCPZt1Tj1FdWfA1tYLzRY+cmQkT1vTJZxlTuIpXWElyU0itIr
+	fDItE6uZLaFyghNduKjMSbbEPJMPUNlM6ICgH5gHl3VGYgKOktPSXbR19f6DSDumWSBetlDzar5
+	wvmEn1jDfj2YKRO4HIdal+EJxp0u0rUP3tHLaHfry9EqtGLkXscXLwKzuNAvFeTZph4GIOl0shh
+	XrJ3AZP+Q/QPVJ1fIJgv8hBHQ==
+X-Received: by 2002:a05:6a00:181c:b0:85f:b00b:8760 with SMTP id d2e1a72fcca58-86168f83f7amr53037833b3a.5.1789029855475;
+        Thu, 10 Sep 2026 01:44:15 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153728c37sm7968329b3a.46.2026.09.10.01.44.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 01:44:15 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	phasta@kernel.org
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Philipp Stanner <phasta@mailbox.org>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Luben Tuikov <ltuikov89@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: drm/sched: run queues freed before the TDR that drm_sched_fini() waits for
+Date: Thu, 10 Sep 2026 17:44:08 +0900
+Message-ID: <20260910084408.703333-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com>
+References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com> <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org> <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] KVM: guest_memfd: take the invalidate lock when
- unbinding a dying file
-To: Shivank Garg <shivankg@amd.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/1/26 09:20, Shivank Garg wrote:
-> kvm_gmem_unbind() takes mapping->invalidate_lock only if the
-> get_file_active() succeeds. When the guest_memfd file is dying, its
-> reference count is already zero so get_file_active fails and the binding
-> is removed without holding the invalidate lock.
-> 
-> kvm_gmem_invalidate_{start,end}() checks f->bindings independently to
-> decide whether to begin or end KVM MMU invalidation. So, the bindings
-> must therefore remain stable between the two calls. Otherwise, unbind
-> can remove a binding after start increments mmu_invalidate_in_progress,
-> but before end finds the binding and decrements it.
-> Example, unbind race with memory failure:
-> 
->   CPU 0: memory failure               CPU 1: memslot delete
->   ----------------------------------  ---------------------------
->                                       (guest_memfd file is dying)
->   kvm_gmem_error_folio()
->     kvm_gmem_invalidate_start()
->       finds binding
->       mmu_invalidate_in_progress++
->                                       kvm_gmem_unbind()
->                                         get_file_active() fails
->                                         removes binding
->     kvm_gmem_invalidate_end()
->       no binding found
->       counter stays elevated
-> 
-> mmu_invalidate_retry() then returns 1 forever, so guest page faults
-> retry without ever installing a mapping and the guest hangs.
-> 
-> Remove the distinction between live and dying files in the unbind path.
-> Always use slot->gmem.file and take the invalidate lock when it's non-NULL.
-> Normal unbind callers hold slots_lock, which prevents release from clearing
-> the pointer or freeing the file state until unbind completes. Final VM
-> teardown can only see a NULL pointer because guest_memfd pins the KVM until
-> release has cleared all bindings.
-> 
-> Fixes: ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when gmem is dying")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260728092027.225CF1F000E9@smtp.kernel.org
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
-> Tested on a 7.3-rc1, AMD EPYC 7713.
-> 
-> Changes in V2:
-> - Treat a dying file as the normal case: always use slot->gmem.file and
->   take invalidate lock, drop use of gmem_get_file for unbind and fold
->   __kvm_gmem_unbind() into caller. (Sean) 
-> - Drop NUMA selftests changes from this series, and will be sent separately. (Sean)
-> - Link to V1: https://lore.kernel.org/kvm/20260823-shivank-gmem-fix-split-v1-0-512a29fb8e86@amd.com
-> ---
->  virt/kvm/guest_memfd.c | 44 ++++++++++++++++++--------------------------
->  1 file changed, 18 insertions(+), 26 deletions(-)
-> 
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 625e62e1a031..21bb3710edfe 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -668,48 +668,40 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
->  	return r;
->  }
->  
-> -static void __kvm_gmem_unbind(struct kvm_memory_slot *slot, struct gmem_file *f)
-> +void kvm_gmem_unbind(struct kvm_memory_slot *slot)
->  {
-> +	struct file *file = slot->gmem.file;
->  	unsigned long start = slot->gmem.pgoff;
->  	unsigned long end = start + slot->npages;
-> +	struct gmem_file *f;
->  
-> -	xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-> -
-> -	/*
-> -	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
-> -	 * cannot see this memslot.
-> -	 */
-> -	WRITE_ONCE(slot->gmem.file, NULL);
-> -}
-> -
-> -void kvm_gmem_unbind(struct kvm_memory_slot *slot)
-> -{
->  	/*
->  	 * Nothing to do if the underlying file was _already_ closed, as
->  	 * kvm_gmem_release() invalidates and nullifies all bindings.
->  	 */
-> -	if (!slot->gmem.file)
-> +	if (!file)
->  		return;
->  
-> -	CLASS(gmem_get_file, file)(slot);
-> -
->  	/*
->  	 * However, if the file is _being_ closed, then the bindings need to be
->  	 * removed as kvm_gmem_release() might not run until after the memslot
-> -	 * is freed.  Note, modifying the bindings is safe even though the file
-> -	 * is dying as kvm_gmem_release() nullifies slot->gmem.file under
-> -	 * slots_lock, and only puts its reference to KVM after destroying all
-> -	 * bindings.  I.e. reaching this point means kvm_gmem_release() hasn't
-> -	 * yet destroyed the bindings or freed the gmem_file, and can't do so
-> -	 * until the caller drops slots_lock.
-> +	 * is freed.  Modifying the bindings is safe even if the file is dying
-> +	 * as kvm_gmem_release() nullifies slot->gmem.file under slots_lock,
-> +	 * and only puts its reference to KVM after destroying all bindings.
-> +	 * I.e. reaching this point means kvm_gmem_release() hasn't destroyed
-> +	 * the bindings or freed the gmem_file and can't do so until the caller
-> +	 * drops slots_lock, so there's no need to verify the file is live.
->  	 */
-> -	if (!file) {
-> -		__kvm_gmem_unbind(slot, slot->gmem.file->private_data);
-> -		return;
-> -	}
-> +	f = file->private_data;
->  
->  	filemap_invalidate_lock(file->f_mapping);
-> -	__kvm_gmem_unbind(slot, file->private_data);
-> +	xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-> +
-> +	/*
-> +	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
-> +	 * cannot see this memslot.
-> +	 */
-> +	WRITE_ONCE(slot->gmem.file, NULL);
->  	filemap_invalidate_unlock(file->f_mapping);
->  }
+On 9/10/26 09:32, Christian König wrote:
+> Amdgpu shouldn't do that any more.
 
-Besides fixing something, this does make the code simpler :)
+Correct, and I should have checked before writing it - 182bdd59be41
+("drm/amdgpu: deprecate guilty handling") removed it. The callers left are
+etnaviv, lima, panfrost and v3d. v3d is the one I should have named.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> That was an extremely ugly hack applied long long time ago because amdgpu
+> was broken at that time and didn't waited for
+> drm_sched_entity_flush()/drm_sched_entity_fini() before calling
+> drm_sched_fini().
 
--- 
-Cheers,
+Understood, I am dropping that half of the argument.
 
-David
+> No it doesn't. You quoted the wrong code, this is what really matters:
+>
+>         drm_sched_wqueue_stop(sched);
+>
+>         for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++)
+>                 kfree(sched->sched_rq[i]);
+
+I am not sure I follow this one. If the point is that
+drm_sched_wqueue_stop() has already quiesced the users of the run queues
+by the time the loop runs, I cannot find where it covers the timeout work:
+
+	WRITE_ONCE(sched->pause_submit, true);
+	cancel_work_sync(&sched->work_run_job);
+	cancel_work_sync(&sched->work_free_job);
+
+work_tdr is queued on sched->timeout_wq and is only canceled by the
+cancel_delayed_work_sync() below the loop, so a timeout handler can still
+be running while the run queues are freed. Is there something else that
+rules that out? And if I have misread your point, please elaborate.
+
+On how I got there: the KUnit case never signals the hardware fence, which
+is what keeps the handler inside timedout_job() while drm_sched_fini() runs.
+That breaks the rule that all run_job() fences are signaled before
+drm_sched_fini(), so a correct driver should not reach this, and I have no
+reproducer that does not cheat that way. The same caveat is in the patch.
+
+I am writing up the patch Philipp asked for. The only change is moving the
+kfree loop down beside kfree(sched->sched_rq); no new code.
+
+Regards,
+Donggeun
