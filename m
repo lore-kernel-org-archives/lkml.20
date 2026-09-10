@@ -1,232 +1,221 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAC33B71B7
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769033D300F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028370; cv=pass; b=p6qOoxbpi2wmDRjHMwyym/XpviAJd86ZzC2TSpFwxgV7ch7q+JTcGacGWXRHvPjN+gDVWQf3pvSOOgw4/Yo2UTOApUM1Q+o17KNzG4ABonr3HZzbB9I9rbRKw+H3iRuru7OmiZZeU13XWuAN0o4rLy+jW5oTLcy4ddqdwlEX+ao=
+	t=1789028452; cv=pass; b=qYDXksx0HxKcW451y+k05pIgwXC4I5+YTz2K+3HioWYZrg/qMYb2L840E8O04cMp2BclDLG4ifSOShc+1OWFygvrVFRTvMOlkE85HO17Qa8G50VZ9kxKIHyGKoHqPLni9Od3xdblmJjp75ynQvkTn90TAYbhzV3qDU97qj5PIog=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028370; c=relaxed/simple;
-	bh=K2GAiQiK/4u6Ovc1cbUO3z+pu5qtI5i/H1nT+4BbYT0=;
+	s=arc-20240116; t=1789028452; c=relaxed/simple;
+	bh=WvmQjKnGuI0dGsnyCGxoMDIHpfNF476NUnQtUUHZ7Xs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=In+1LQtpLM1J+qDBK0TEo2angJe5i4s4U/elaSbfm/7SsRhkgvhTL4PUDmW3ku7MYy/1552h6RMdJ08Mx0W96keTBfMDvxGH8JxG2+3YBjk39HRm0CRzLaFPLZnIBe6CoaTLrkIpZ6aQJ68qukjtPkGaVWt8fDffn975k8EFcl8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F916H9Y4; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 To:Cc:Content-Type; b=kgfN8hvy/jOKVEyYlpaj3p4Bd3MLAxgTYzxmvdRVU/1Gx33f0DDOSd87jt8l8AXrMmH1V9LCDSvo7Ey8hpiCvUNUrO/4vI/rnGPdN4KWDVAVPggiYD1Yw0Kxa9lXxQfGlLabQUpyEHl1xOoL1hJXvNqY2yHFLGnVgqPFVy6J+Mw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WMVmnSIU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LJHe6JlB; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F916H9Y4"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso298051666b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:19:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789028366; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WMVmnSIU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJHe6JlB"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A71Cl9754346
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:20:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=; b=WMVmnSIUNnQMnz+G
+	E9htb2pX1Xxykkf68zC7TAYJgyqUHA1f3o5ozjQ8z7p2MSpQxex3q5ed/RPjsYEi
+	1V1FpicOGtHk6bxkUR84+7y6ixvBxPCo29gDlr8JW+i5SRxPuCBok446iWdXJvRB
+	mde5/iWYIa4j0QfcqhxfGSJFDptmxM9KeydmOXGnVjixZvS0bVsy/SAB0adwsoyN
+	eIWPN+tjQ7fvKnHcoFy8yBM826WJfVogBgQzKfXHoLpcMazXnPgq/8xATJowU7Up
+	v81UceUP+o2B3qNBVWkIVvSBh94v0Tg59/bLIQat7ZOvwyAjSAgMN/XgaXZU7w4C
+	/777LA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkqsvr9u0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:20:49 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9399b66e0e7so917423685a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:20:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789028448; cv=none;
         d=google.com; s=arc-20260327;
-        b=eoxinjsU6Rmn/h1/LYRNHIybTl+sT28JgyfAsmoonlkmJnoMjB1AVAgXDPoUCNfGbM
-         nBxgJkH8ru5hOeGqCWgzCMtkKGnw5GbbGtHgWN7taSJWoksHXweSPGJw43fBIdFTGnmW
-         QMRyJ9Pfp1W+4MgMx/Nc90+VMjNcNwjp9gdbze4+tdbAXnBsiT+nnim8Cz9nDVAx1NYR
-         6ZRq7FpRcPU5yGdw905Siw9bDly5nYP34yIM63tU42fbdQzTHVk3x5VQtBLFRyt1pUX2
-         gMagcR27kJpGyd7262PKHJolqW7J7rtFYt9EUEDBz0XU+EOEZJaiN2LpEgQFsFICcx9X
-         WG8w==
+        b=OuMUou2aqlI0PT8gNPnMs1zQcUz6n5VtcmXy01Xzdmaw8/5SoBvdyynwI8WUj4cXwk
+         dB/WMehmSUYjWmheN0ES06+uxXQOxmoD5Fty+qGAsNOvgicSGgg+18LbJTHDZRlCsAGr
+         td6/dAmP/Al2w4yhEoFLyxKNxScb6XgCqCB2Ftv0I4ev5IFYEUn+DNS+7Dbst4RaE0OS
+         bMmsvmCMgTVVbhqov5k5w3uAiNxouf4+lDaElwVce7JYhc2law7Duzy4vix1dLTuHyz6
+         QQiMjvmdYfMO5F13C3FVeoU2SL0zY6mmALvSMWofsLWEENG/W30t2GfRRmhy+bQ70g/u
+         Whzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=QoLOo1pL9NwyVcDoXZ1U/S/IRYh4VYE5bjthZYgZJ5s=;
-        fh=+niziz8WjwSb9xGNlwjmyQ+mhtdhoCQmXrs4hyrLHQY=;
-        b=eBRW7+02d5hXiQa5C0v4MBMjITxNqsB1Oe0+QUXH76D90kIzaGJhLIFIKqKKIbrP4n
-         oHjICDHDDsU28ZLcu9GOuQxA1VcwseQbWaf97KYbKyibYLO7bgclbM+PCJQCWEouQRG9
-         zLVXRfZdSuGQ4JzKaH61hNohywxOUB6pK50k07QArB66JxabJE+C2dySiUNt04jklder
-         u4lM3FAnjvHncKNiQeyBZr6OBzt2pK7oyOM5rfIY/BSm8OzWtN0xvQEQUClLH9XqWCVT
-         XLpjfy4uCGQVq9/T42X2X4YoMTpelzve5H4VU2l6VXqbxy4k1EPdmPZ1m//huFv3n2fe
-         YPFQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=;
+        fh=QZpEuLN7m1roxlYl01Y9qytDW60SfRv6JmcpY5VXgnI=;
+        b=n3LlA1r6JENA9HU9dbbqo57KGCSl9ZCbCD6QSWXMbRn4U7GHYbuGbN43bouNGVhDM8
+         N1A5Fu9LKrOtP8JSkyxP7KeiaBwrMr+93wrL6a+161DhMDDi8I7Qe1ZwDmxvWnhF8GcW
+         LLe+Yyp0KqWkg3zGJrrbbji88fBDFJTyMcJWfAmvrI3H12DtsJlAcS5DMonyqqwu5YfT
+         vpz6pRMeAX5HibgJ9CFgJc+HTUo+bx3F0jiZLXRygkodquWB/rnzsqbwg8zDBW7XNa04
+         Y2dMmWDVjMWW+bzCas/us4MQQx2KBWTufiMpfgyjRFLryqbG7atJckn4RiktlCvrbmzN
+         Vrdg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789028366; x=1789633166; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QoLOo1pL9NwyVcDoXZ1U/S/IRYh4VYE5bjthZYgZJ5s=;
-        b=F916H9Y4go+GInpcVb83p5OjDIGrrpvulobU4ERrGFqvSdXW1i6tYti6jvRz6nxrft
-         fSeCUBCYfld+EHxbX0TDuR/GiWi0biQWDzb0KfcvKX4luuLt7bLLN3sFkPrkcPtxLRZz
-         whF+knYe52+pSBa6nUhhXxvpKUw8d1q85rPHTOaBUXgQJT5jqPJQdQzsjgeSSksogCKz
-         BErN3G9SgXNydMwv4RCymmUy+GFnLQGzVl3ET/fs2jVRAhIpCjzarWdHFRVMu/gFgc0Z
-         8LBJyjg756kIAlvMSEXnRi4A9gu6BnD/ZCEaU7lkPosoxO9uLeBPaC/6KwCFBiM94kw8
-         Y0VQ==
+        d=oss.qualcomm.com; s=google; t=1789028448; x=1789633248; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=;
+        b=LJHe6JlBbhJWlHS4rr8d0hZj5P2uLSN9vsuXmqs/fJNLym7ctREas4rFzVxGdsd6Uv
+         vR1C4UFr4AFGeOukLItrRaOZEjSpeJ9baYMl6WAgROh5ZL/CmmAb22TMsYthRRDLL1On
+         LpPF34rm9jcMKeiftMSO9Y+4wBPFGGYxzMF8gXNSlnWo9sQ8eSI9i4b6zgkZPTB4bS5P
+         jcvlvSv7zkxWXgY6K3JAQF9m5n/dewrKZ2/iIrvjcsVCqvzN1rdNp+Iy2vw05DxrOxBE
+         sb6nvkC/wDyrsCD2yNiLBL09FLchX5w5iNOchCHdBHRJX2oLKnO0vwIptVOKuaK1i2fE
+         +1Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789028366; x=1789633166;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QoLOo1pL9NwyVcDoXZ1U/S/IRYh4VYE5bjthZYgZJ5s=;
-        b=dDOIE63Ei4bgDLEmMMPQR1qnb+wXgQoZldllNqeAUMzP8JLAKLOHoc36x+ZZartJu8
-         wZCETcw9l7TZMBbKiTVvAnCpJ/237UXDx71TguYS5zPYFD2QIYV0QchPaYEISx/ViaUB
-         i89MaAel/qnhK1qMNGU3b7FK9EcRnwDrXnt88aBb2I0fy48sU8PcvO3wjBUqAUZ3uMS8
-         HRvse52lPJ7JdX1b3DGvKUFMfx4fchXQNCE0sgf2GNF5Djqpjl2nfLhItoCqVYcOlAUj
-         ukdY9SNYA4KdtGMr9+GpgeUyD23vOMBForNGeU2BBmsPWl79CxLaKmJg/xwa6++1OhIv
-         CKVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwht9KecRxNRkEEE+AX2jTmQTzXRtIXDJBtnlDMOj2mQoq5YNatGVBgfjAM+hKaijsefSAtdgmEh5Y7DMc=@vger.kernel.org
-X-Gm-Message-State: AFuF++meOM81KLqufTGvww6AbUC61p9bd9Oybolfy9FPiSemGSCkYKUF
-	jQ/whrYYQTTsCNCm1QNA29bx/LlMKfaMJehKA9ruuGC+mNxs4YjUKaWppnLFfRKnrlNdDU8hwjV
-	BsgMbkH3jK8FDdOzDosYXhBuFGDt+WsLIrDob2OvHVw==
-X-Gm-Gg: AYBFou1yEg9Nqikh/Djaf+/RM/YtfDlUcaUsNv3jFYy8MNaqvnjJaSlIfmZwmQGUFRV
-	1J8MF70y8DQhz0Lx8XQNwqN3ZThqRdnAFJb/Oid4JZEgp6ijLzoMcJbGhgYdITduRC47UnkyQSY
-	p6xtSpw4U8UKINvIiWTRT/5ieSzBmBTrCykdZklF0UIZ9VbGUzOuo6IvX4SBp8UbrZ9a/2CPQ08
-	AvwZc6Pkq9GGA9ksLDsU6SJjn2FV0AKho9iaj0X3HmjxxxerYrbY1/nNo9zvIZ8SJO/PFMkZZ1Q
-	30oy6ZZokPsi/u3FHjR8qEpYZIXEW8n1y9NvMhtgkVQ3KYzrG/s865aqLadpxPLu4vyFRk03gfm
-	VYe30Y7S6DQoJ
-X-Received: by 2002:a17:906:7308:b0:c25:8e53:45ca with SMTP id
- a640c23a62f3a-c292b1d17c0mr1019545866b.21.1789028366226; Thu, 10 Sep 2026
- 01:19:26 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789028448; x=1789633248;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=;
+        b=O+6oVWG9U7cdruR4sPc2xtEWf0tRhXeyTVH+RtrSoWk84O6DBdJizB+aVmxQmKbr56
+         SiV6enWWAiJ/t42V83w1QwGubuwvLN4oNs1JgKFiMNuyfq5dSoLmCs7MQPk2SfktETCM
+         4RZvoE60sOmv/7d7I+aO52X69zo7Mt5ifuJ5wGcpvYq6KLSixzZF/nG5JmJ93yhUgvPk
+         801uSXmofoxsqSUveEjbQVlGHyLqAxzT3p1ZqJG+q6GRGAF7QSvrWBUn+NvatNL/OdbH
+         UW+vaRRZHOEFm7S4WDgXHrI01PDecPnV9AW65j0EBr/9AwQuj5OtjfEiYvecSiE2mkCI
+         153g==
+X-Forwarded-Encrypted: i=1; AKwUvBzJkX/85v+YriRS8L9PiPzr1lWCq1q94aPaeAbuEJrFfkDeobgkXGIH+smAAL/NuDgICQ9e2inHZP7zWZY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8Fw3XKDqsE9of9sWgP0ePSii74cIRheXCTPW7sUZBRyp9U3z7
+	r+Zp0/AJetdteep9J50xyQ/emSTEn/3r1r0MDI/VX+ZbhT5DWIxRCNAHg/dskTfrvgETOqf8AD5
+	zKTF/8nNsYcT4h46J88zl3M0LZgoSbGGJg1OAPJuuBkQTVH161OvQx+AZ+r1vbpuFEJMJW3Nc6F
+	CAwjIDNSmARIFDvyAPiaIkOmgvw/M6ax8OwW6/68YdJA==
+X-Gm-Gg: AYBFou1hoVHVB7rRym4PycpL5NPuWKq21lakjB79I3r0Dq/7+XoJtjMc3/gagn+/+HZ
+	zYUivcL9w8+m9SS7cMV0EO87U8s5VLbEkP6Ehqd+2XmgrILWL9V6c4r86lke9npCEjimD4FjSjM
+	nuWZrRrdKKjBohGEaj0/bhKBWXF3Qjty65Nt8B+lWNeIXLwuhFmRqI2wfblCF/PoDAlZoHLrE3C
+	O2t2s5uwAV3me+iSX3qwMG6JaIz5d1MU3I6Ps6HPGRrN/zIRVJfOZ0ujdBX5Z5IksmO4ApcPorx
+X-Received: by 2002:a05:620a:4389:b0:939:6de8:43db with SMTP id af79cd13be357-939804d76e4mr4288511385a.47.1789028448412;
+        Thu, 10 Sep 2026 01:20:48 -0700 (PDT)
+X-Received: by 2002:a05:620a:4389:b0:939:6de8:43db with SMTP id
+ af79cd13be357-939804d76e4mr4288463985a.47.1789028443258; Thu, 10 Sep 2026
+ 01:20:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910042950.1619727-1-jackzxcui1989@163.com> <20260910042950.1619727-6-jackzxcui1989@163.com>
-In-Reply-To: <20260910042950.1619727-6-jackzxcui1989@163.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 10 Sep 2026 10:19:13 +0200
-X-Gm-Features: AcwNN1WCPNUfbHwVPQC6u-JCMBrpBQBPwJmyEif5Q5jKdFl1o7AzP9-8o2TbVQg
-Message-ID: <CAKfTPtAmB8pQms38CWoXPmG7bL64mY8L7Gyd=_LvNoM7wvEgdA@mail.gmail.com>
-Subject: Re: [RFC PATCH RESEND 05/10] sched/fair: Introduce
- select_task_rq_fair_thin() to select rq when LB_PROMOTE
-To: Xin Zhao <jackzxcui1989@163.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org
+References: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 10:20:31 +0200
+X-Gm-Features: AcwNN1UxpGXbZOkTtYTEFpfk69pJe6c5Zo9ztfNY-JIQ24mBlchhctEeZIV-neA
+Message-ID: <CAFEp6-3QOiY27ViJKtSbXZs4fBDQ7pVr3T0V4Q7ERnmUw0jjOA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] net: wwan: mhi_wwan_mbim: guard against a cyclic NDP chain
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+        Liu Haijun <haijun.liu@mediatek.com>,
+        Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=DdOCOftW c=1 sm=1 tr=0 ts=6aa26861 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EgahoUkMAAAA:8 a=VwQbUJbxAAAA:8
+ a=bSoUDPcfU04rEmEJkLgA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=D2SkTF70-_n5gOfERQdM:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA5MiBTYWx0ZWRfX23SXaOJkHyVb
+ 1V/wj/tu0HNNDLDQd856RHEPEwuWHgw9llMu1vqdeY1IUv/hlVSDtCXZvhQFppBJ0dynOOUT5NM
+ VpNJpIzuZsPUOu1xY1AWJXN+7rMYSNl0TQVvhFqLDkrCByOknsRT/HtIBbw67/jGOkp0CI0I+St
+ 0jL1IyOqF/T3o2NKN0pq7KCiZy4WKOuUvA8rPmD7fzOeWlHnxemt4gDLSIH2xMIFehcVhILjSsS
+ oe9n5fQiFGlmo7pYdfWXwwa0d1bzYJoVyXNOeqTEpLuMCLJTcy/l7/jCnY85ycFgwkZP6xY471q
+ +HTZF9LJSjBGz71GY7j2Wxm6Y/QrD2QKPKGqaVcBqKMg56C09bCdEt4xdPd6C6KdpC8HA0qM451
+ kH3EA/z5ZtaJuvTfB0JEjnF1GdKl6SN/Fh6JeyX6qvi7Yd9EVHeyId8Gei7USurYzcmecuB8Ngr
+ NkI0dVo0llwLmflbCtg==
+X-Proofpoint-ORIG-GUID: 40iVde6sIbBAOUztN4j0gi5mQGSv0bwf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA5MiBTYWx0ZWRfXw6w1jmcwMfPl
+ Oga0q16f+TurYMfBvqrAT1lDlhY3oSdEwAbwsI4q1mIcWJ55+FzasVF9sMpz4++JQf/Uq1e034O
+ Cj8fmOmDDtfUoWaXB32fSaMdeqY4O2Q=
+X-Proofpoint-GUID: 40iVde6sIbBAOUztN4j0gi5mQGSv0bwf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 phishscore=0 malwarescore=0 adultscore=0
+ spamscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100092
 
-On Thu, 10 Sept 2026 at 06:30, Xin Zhao <jackzxcui1989@163.com> wrote:
+On Thu, Sep 10, 2026 at 5:34=E2=80=AFAM Guanglei Zhu <zhugl3@xiaopeng.com> =
+wrote:
 >
-> The logic of select_task_rq_fair() is relatively complex, and on typical
-> embedded systems, the number of CPUs in sd_llc domain is often limited to
-> a maximum of 4, and sometimes only 2. This makes the complex logic of
-> select_task_rq_fair() seem less necessary. Additionally, the update logic
-> for the nr_idle_scan value that select_task_rq_fair() relies on is also
-> quite time-consuming.
+> The NDP traversal in mhi_mbim_rx() only stops when wNextNdpIndex is
+> zero.  Nothing requires the offsets to advance, so a modem that
+> points an NDP at itself, or at an earlier NDP, keeps the loop
+> spinning forever on one CPU.
 >
-> Moreover, embedded systems require better real-time performance, and with
-> fewer CPUs available, it becomes necessary to bind certain tasks across
-> the sd_llc range. The default enabled feature, SD_WAKE_AFFINE, causes
-> select_task_rq_fair() to take the fast path, often overlooking some idle
-> CPUs across sd_llc domain, leading to increased scheduling latency.
+> Break out when the next NDP offset is not larger than the current
+> one.
 >
-> To address this, we introduce the select_task_rq_fair_thin() function,
-> which serves as a streamlined version of select_task_rq_fair(). It can
-> quickly perform CPU selection while also considering the real-time
-> requirements of embedded systems. select_task_rq_fair_thin() retains the
-> priority selection logic for prev_cpu and recent_used_cpu, and it will
-> prioritize CPUs within the sd_llc. If there are no idle CPUs in the
-> sd_llc, it will then look for other available CPUs to run.
->
-> When the LB_PROMOTE feature is enabled, select_task_rq_fair_thin() will
-> replace the original select_task_rq_fair(), and the update logic for
-> nr_idle_scan that select_task_rq_fair() relies on will no longer need to
-> be executed.
->
-> Testing has shown that in our system with 18 CPUs running at 2.1GHz, where
-> the first three sd_llc domains each contains 4 CPUs and the last sd_llc
-> contains 2 CPUs, under same fillback scenario, select_task_rq_fair_thin()
-> executes 25% faster than the original select_task_rq_fair(). It saves 22ms
-> over a 10-second period, with this optimization accounting for 0.174% of
-> total system time. Additionally, we measured the execution time of
-> update_idle_cpu_scan, which took 0.5ms over the same 10-second period. If
-> we use select_task_rq_fair_thin() instead, this time can be eliminated,
-> accounting for 0.04% of total system time. Therefore, the overall
-> optimization contributes to a reduction of 0.214% of total system time.
->
-> Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
+> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 > ---
->  kernel/sched/fair.c | 52 ++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 51 insertions(+), 1 deletion(-)
 >
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 20d03ceed9d7..f10e709921fd 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -9661,6 +9661,51 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
->         return target;
->  }
+> Verified in a QEMU guest with a fault injector feeding the driver's
+> receive callback an NTB whose single NDP points at itself: the
+> unpatched driver spins in mhi_mbim_rx() with one CPU pinned at 100%
+> and the thread never returns.  With this check the loop terminates
+> within one iteration.
+>  drivers/net/wwan/mhi_wwan_mbim.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 >
-> +/*
-> + * A streamlined version of select_task_rq_fair().
-> + * It runs faster than select_task_rq_fair, especially when there are not
-> + * many CPUs. It will prioritize selecting an idle CPU in the following order:
-> + * 1. prev_cpu
-> + * 2. recent_used_cpu
-> + * 3. cpu belongs to intersection of sd_llc and cpus_ptr
-> + * 4. cpu belongs to cpus_ptr but not belongs to sd_llc
-> + * If there is no idle CPU in cpus_ptr, it will select prev_cpu.
-> + */
-> +static int select_task_rq_fair_thin(struct task_struct *p, int prev_cpu, int wake_flags)
-
-We don't want yet another select idle cpu function.
-The only reason select_idle_sibling() would not select an idle cpu in
-your llc is nr_idle_scan which will abort the loop before checking all
-CPUs. You should look at why nr_idle_scan doesn't keep all CPUs in
-your small size use cases
-
-
-> +{
-> +       int recent_used_cpu, target, cpu, start = nr_cpu_ids;
-> +       struct sched_domain *sd;
+> diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan=
+_mbim.c
+> index a94998712..ef158edeb 100644
+> --- a/drivers/net/wwan/mhi_wwan_mbim.c
+> +++ b/drivers/net/wwan/mhi_wwan_mbim.c
+> @@ -254,6 +254,7 @@ static int mbim_rx_verify_ndp16(struct sk_buff *skb, =
+struct usb_cdc_ncm_ndp16 *n
+>  static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *s=
+kb)
+>  {
+>         int ndpoffset;
+> +       int last_ndpoffset =3D 0;
+>
+>         /* Check NTB header and retrieve first NDP offset */
+>         ndpoffset =3D mbim_rx_verify_nth16(mbim, skb);
+> @@ -265,6 +266,13 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbi=
+m, struct sk_buff *skb)
+>         /* Process each NDP */
+>         while (1) {
+>                 struct usb_cdc_ncm_ndp16 ndp16;
 > +
-> +       if (likely(available_idle_cpu(prev_cpu)))
-> +               return prev_cpu;
-> +
-> +       recent_used_cpu = p->recent_used_cpu;
-> +       p->recent_used_cpu = prev_cpu;
-> +       if (recent_used_cpu != prev_cpu && available_idle_cpu(recent_used_cpu))
-> +               return recent_used_cpu;
-> +
-> +       target = prev_cpu;
-> +       rcu_read_lock();
-> +
-> +       sd = rcu_dereference(per_cpu(sd_llc, target));
-> +       if (sd)
-> +               start = cpumask_first_and(sched_domain_span(sd), p->cpus_ptr);
-> +       if (start >= nr_cpu_ids)
-> +               start = cpumask_first(p->cpus_ptr);
-> +
-> +       for_each_cpu_wrap(cpu, p->cpus_ptr, start) {
-> +               if (available_idle_cpu(cpu)) {
-> +                       target = cpu;
-> +                       goto unlock;
+> +               if (ndpoffset <=3D last_ndpoffset) {
+> +                       net_err_ratelimited("mbim: non-increasing NDP off=
+set (%u)\n",
+> +                                           ndpoffset);
+> +                       break;
 > +               }
-> +       }
-> +
-> +unlock:
-> +       rcu_read_unlock();
-> +
-> +       return target;
-> +}
-> +
->  /*
->   * select_task_rq_fair: Select target runqueue for the waking task in domains
->   * that have the relevant SD flag set. In practice, this is SD_BALANCE_WAKE,
-> @@ -9682,6 +9727,9 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
->         /* SD_flags and WF_flags share the first nibble */
->         int sd_flag = wake_flags & 0xF;
->
-> +       if (sched_feat(LB_PROMOTE))
-> +               return select_task_rq_fair_thin(p, prev_cpu, wake_flags);
-> +
->         /*
->          * required for stable ->cpus_allowed
->          */
-> @@ -12564,8 +12612,10 @@ static void update_idle_cpu_scan(struct lb_env *env,
->          * So the write of this hint only occurs during periodic load
->          * balancing, rather than CPU_NEWLY_IDLE, because the latter
->          * can fire way more frequently than the former.
-> +        * When LB_PROMOTE is enabled, select_task_rq_fair() is no longer
-> +        * used, and there is no need to update nr_idle_scan.
->          */
-> -       if (!sched_feat(SIS_UTIL) || env->idle == CPU_NEWLY_IDLE)
-> +       if (!sched_feat(SIS_UTIL) || env->idle == CPU_NEWLY_IDLE || sched_feat(LB_PROMOTE))
->                 return;
->
->         sd_share = sd->shared;
+> +               last_ndpoffset =3D ndpoffset;
+
+It would be better to address this under the next_ndp retrieval, something =
+like:
+```
+n =3D (int)le16_to_cpu(ndp16.wNextNdpIndex);
+if (n > ndpoffset)
+   ndpoffset =3D n;
+else
+  break;
+```
+
+>                 struct usb_cdc_ncm_dpe16 dpe16;
+>                 struct mhi_mbim_link *link;
+>                 int nframes, n, dpeoffset;
 > --
-> 2.34.1
+> 2.43.0
 >
