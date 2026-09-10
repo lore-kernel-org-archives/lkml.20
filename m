@@ -1,88 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A66420496;
-	Thu, 10 Sep 2026 08:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE622931C1;
+	Thu, 10 Sep 2026 08:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027538; cv=none; b=VxudNFrN+99qEhK3hB3dyfKJoZQOdugNOnMcfww/CJ86PQynM2UE2Gju2ezFanJvUH2dHomcIjiaSq0U2ATS49KavTqQzk51hnmkqqzQWo2MAahGb1JDuaPpR0QTQSl8gLxaUutN3ycEOo6FXZ25lJLBZ7O5xjLzNDvz7hAfqPk=
+	t=1789027561; cv=none; b=aVXekgf8sgUKV4QfmuXnROlkIl6FgXgl3kz/EfqEDPQfq4BJY7LSEdloc0lojZdJ4USZG6zsuq9t6d/3xerlJzq8N9bZou1Mj+3hogtlr+SyUNHLlKJ4GZDAd9tDuybE1OAniTBjrIXi3kk0AfXWOF+IMPTBvYjceAiRH15uP7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027538; c=relaxed/simple;
-	bh=Co/xDGyGBm71ZNsClBUBL2FknCJYkPSGnzGLjnGPnv4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=su0hixHAeKGLCL4QpKBUC+QwTzqkU8DPGsepU6Coinl6KxceYCWVqTb3mtoi9AJnAvL6q3t6jashW0Q/Kb9uUe91gE5Kql+HJhkKAsAIt+NmKI9FSVrN3C4cV3vZK+hP3ocXu+YJ85Gyk+g/lm1Z3qAhLzEYTNAGenGMabmNs8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erHB84hB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789027561; c=relaxed/simple;
+	bh=0JEHB1CVXrdFnN3LPuRcWzkTlUzphNBBF5h7ooLy6hA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AAMyTv5CVK3sNlf8Z+h0g/vjLVJNnxg7oPLe3tXIQV1qzuSr3H2ZJ6ntrZshkJcsS1j9PA3CIGoFZcDaKGCVI7kmbQqCBAwx7aiFRpAKlF3n8KgvuOYIBaWogsQZA+rGwhfVDOmCgML2NoD5FZ5qovMK9wDgse7JiC0FKqDKiPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=frgBGjzA; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erHB84hB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154CE1F000FF;
-	Thu, 10 Sep 2026 08:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789027537;
-	bh=6/2XfJC86Fm/Ad/wm4hX1MWJfptljS23xiR21EMrGbc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=erHB84hBAIebbCGO0Kuj8g+pDl4x0Y2EJYaU0+8UMfx4Qh2uhStkAbm7Pf5t5xLUr
-	 xM1fZc53eUw6Qg+UwT5KSGVOBQEAVoafbEuTu8advWHSHF+Wgs7jJlHyjLsqYAhl4i
-	 S8LAkx9+wckIJShKUwvLqM9v+X3twZzF3NM9CbmpTorcf9PlUxOc8RFv705fc6GkAT
-	 v3UekI/YBsnH/zvnWo5VV3cXRHcHTUb2Aq4lahX3f9UB8hdBsm8el9aRhJdDEEVNPt
-	 NTbms2jxVq3Jq7PfHJS6UeoTbRmfZM7n67ZLmmixQdR0HZ7It0n+kwOF7sRAkkvvzJ
-	 XEWHLWyjpf/mA==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>, linux-fsdevel@vger.kernel.org, 
- nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260904152749.84493-1-kaitao.cheng@linux.dev>
-References: <20260904152749.84493-1-kaitao.cheng@linux.dev>
-Subject: Re: [PATCH 0/2] fs/dax: Clean up busy page lookup helpers
-Message-Id: <20260910-getappt-rundreise-aromen-858ffbf41406@brauner>
-Date: Thu, 10 Sep 2026 10:05:29 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="frgBGjzA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789027560; x=1820563560;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0JEHB1CVXrdFnN3LPuRcWzkTlUzphNBBF5h7ooLy6hA=;
+  b=frgBGjzAeghkMhHmWfIUnIXB8OKM7ncVrt35sw29nH/y1igJ/8V1ejs3
+   pNZcXxBIi0usV4bVgPU8R2YrKb14Iew8Obr42sd6ZQavu2W/2mCu4xA5A
+   0mTjsdaRkxf/DRvCKLgzT95KX1j6/3DpgT3rkRAQ6Tv8hK1cA/ZZx+gtq
+   KorODw8qOPs5Dx6aIXoJwlz4CGMZSW+9upGzixQo6B43FEM57qoEOlAFk
+   CzipnEByQNbN+DQ7rty8zTdP/Xnk95ReLo7UNQ52hfzRafLm/dJcaQh20
+   NZ17KAz+Igx0BcRLMW+s99aN6sW+aWNQcxrh5F0N7MTrENkiIosVModEf
+   A==;
+X-CSE-ConnectionGUID: +QNR488KRAKDs5e0b8+c1Q==
+X-CSE-MsgGUID: zOBHB4MnS0aSjvrvznNUkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93160113"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="93160113"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 01:05:56 -0700
+X-CSE-ConnectionGUID: HRWvFi9XROqN2tiFRG/vnA==
+X-CSE-MsgGUID: FGOjymXsSxCSUdTmPbdkpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,271,1787036400"; 
+   d="scan'208";a="267870063"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 10 Sep 2026 01:05:43 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 810E799; Thu, 10 Sep 2026 10:05:42 +0200 (CEST)
+Date: Thu, 10 Sep 2026 10:05:42 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] thunderbolt: Validate DP bandwidth notification port
+Message-ID: <20260910080542.GQ106095@black.igk.intel.com>
+References: <20260909035040.2929285-1-4ncienth@gmail.com>
+ <20260909035040.2929285-2-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1328; i=brauner@kernel.org;
- h=from:subject:message-id; bh=Co/xDGyGBm71ZNsClBUBL2FknCJYkPSGnzGLjnGPnv4=;
- b=kA0DAAoWkcYbwGV43KIByyZiAGqiZMyiPX+nmQud3pHo+LH1RfDUmJt0BnYDYrr9eHfVKYdPt
- oh1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmqiZMwACgkQkcYbwGV43KKyagEA4whf
- JOmXgUnRJSjjTsB6BByqnoi3U6tWgeQyArk18LMA/Rhk+gx2xCwFNQF1af2xGr2ApQoq7FfAVW8
- yu0D4Zn8C
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909035040.2929285-2-4ncienth@gmail.com>
 
-On Fri, 04 Sep 2026 23:27:47 +0800, Kaitao Cheng wrote:
-> fs/dax: Clean up busy page lookup helpers
+Hi,
+
+On Wed, Sep 09, 2026 at 12:50:39PM +0900, Daehyeon Ko wrote:
+> The port number in a DP bandwidth notification is six bits wide and
+> comes from the router. A router whose maximum port number is smaller can
+> therefore make tb_handle_dp_bandwidth_request() index beyond the
+> max_port_number + 1 entries allocated for sw->ports. The first
+> tb_port_is_dpin() check then reads the out-of-bounds object.
 > 
-> The dax_layout_busy_page() and dax_layout_busy_page_range() helpers were
-> originally exposed so filesystems could find pinned DAX pages before
-> changing file layouts. Filesystem callers now use dax_break_layout(),
-> which provides the complete operation, leaving no direct users of these
-> lookup helpers outside fs/dax.c.
+> Reject notifications that refer to a non-existent adapter before
+> dereferencing the port.
 > 
-> [...]
+> Fixes: 6ce3563520be ("thunderbolt: Add support for DisplayPort bandwidth allocation mode")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+> ---
+>  drivers/thunderbolt/tb.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+> index 47753a5c0f2eb..8551dafe98c8e 100644
+> --- a/drivers/thunderbolt/tb.c
+> +++ b/drivers/thunderbolt/tb.c
+> @@ -2756,6 +2756,11 @@ static void tb_handle_dp_bandwidth_request(struct work_struct *work)
+>  		goto unlock;
+>  	}
+>  
+> +	if (ev->port > sw->config.max_port_number) {
+> +		tb_sw_warn(sw, "bandwidth request from non-existent port %u\n",
+> +			   ev->port);
+> +		goto put_sw;
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+For this can you make a helper function tb_switch_port(sw, ev->port) that
+issues a warning and then replace the direct access sw->ports[] with that?
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/2] fs/dax: Remove unused dax_layout_busy_page()
-      https://git.kernel.org/vfs/vfs/c/cc939930c450
-[2/2] fs/dax: Make dax_layout_busy_page_range() static
-      https://git.kernel.org/vfs/vfs/c/24bf180c869b
-
+> +	}
+>  	in = &sw->ports[ev->port];
+>  	if (!tb_port_is_dpin(in)) {
+>  		tb_port_warn(in, "bandwidth request to non-DP IN adapter\n");
+> -- 
+> 2.55.0
