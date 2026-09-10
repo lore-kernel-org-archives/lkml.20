@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FCE3B05B2;
-	Thu, 10 Sep 2026 10:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 853093A7F45;
+	Thu, 10 Sep 2026 10:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035665; cv=none; b=JdtD+9aQft0RRVN3a7YnluVXG25xlj2F+d/3Xk5g9iy2/IYiUEi0PiwNN6lqFW0a99BpGTO9UIDxbTvBpWD1HLXKBTnkb1Vt9A7FVPXugEopK8bCxDOGkSKNeRuqXzJcrWtwU9EkbFBn1KPbQdomIr9IB/VGtTkXQBF+tnKbo4g=
+	t=1789035697; cv=none; b=fq7RDvi2+dg3WeskYoK28XmKosWsGXyirRZv2JHiyh2mvvq+fVKOq4yImaDf+/CGX8Rq0CsJD98LxttWvorDNanJEPWjWkzSp19rQpVDFQS85R2hqWQ4Ct0avsTJyBr3WbW/3MKotd3IHjmSq2qCyjTsZCIHdy3I2Qfvubtp128=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035665; c=relaxed/simple;
-	bh=wM9NfSZD6O3T04Mhq9A1yZn+d/3E9jbY1u4IYz/CxeI=;
+	s=arc-20240116; t=1789035697; c=relaxed/simple;
+	bh=NdJwICU4hKphndkhJfKo4meJGdIZvN650SafLlOB/BM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jjpU+K+vTo7ivmrf25JpjAHgcYMgoZFcE1QSEOTlfb13KJhRwNBEA33dHUPEJ6fudWiEF9xZlFlkjULZs2T2A1S3uIGZZIUmWDEdIIZUlVRC8VguZdDytRUHWFtTSTA4IkLqzhxR5De5kXD6ScS/LcVfgc2mqc6k5xCdrNAeU9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiLgP0iU; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=gEKFmEtlk1HFN8SIrdSA9kC/DopyPcymRnUAbOWzkTqJeoxWiacGjO+yAMX6JQ7fouoxrHaK7BhPBvxd/Z7255UZLtl+V4ooNs/nVwNm54ctUyF7FogWQ7DcPWPIBrUBS28f6LRaSL+WUNDes+FubZakNVp9divq7FWRXjOSd/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=k//7Ud38; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiLgP0iU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81CA1F00898;
-	Thu, 10 Sep 2026 10:20:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789035663;
-	bh=VNqAmjn7vwuecUWun/yj3LWAkYuAP3u7AHtle9TvBmY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XiLgP0iUsnOLzVKKvCt33C/duL0ZjMqv/RyWaXpMwHO+aUoP3TNxa2utHfFlAODHu
-	 DmOlmNl6rKZvn1EaUHf0D/ouerBwA1AdWaUok4+mrCeLEf88PbMTDWr6sOzQBi4D17
-	 ngQpqWiIp0cCiHPiLsMNKo3NHa7W4e31E+X3Y7yfbi+83u3xxqYBxmJZW39jnuODZj
-	 kmCw6xTWUioYw3/CbjSkxdML86R6nAwyJ0EX4DvV718lQTaCFTgAArINxrA4iMPYxp
-	 EqUFHNB3AN/f4jNsnaH6S3ZILEK6UbH0GvZrJH86wy7xS7dVO/bDSKQiYRK1Wr4XU0
-	 VRoAiXqnr9tEA==
-Message-ID: <956df69d-8c0a-420f-889e-7df2842605dc@kernel.org>
-Date: Thu, 10 Sep 2026 12:20:56 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="k//7Ud38"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 51C7D143D;
+	Thu, 10 Sep 2026 03:21:31 -0700 (PDT)
+Received: from [10.0.129.245] (unknown [10.0.129.245])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 899BA3F7B4;
+	Thu, 10 Sep 2026 03:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789035695; bh=NdJwICU4hKphndkhJfKo4meJGdIZvN650SafLlOB/BM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=k//7Ud38dQTnvnKQxVZAcd73FhyR9Iv9bKLlrmoT04DSSuniGXJGJi8nFSmCLEuE8
+	 fX11Ow/pTfdIBC/fgh+DTGC9ZRproSkmFOyVb9rmmwngQfXyaH/MYJCYNZcxFenoQH
+	 YnDm/TS+rtBLyZhhM83WRgOUSjTOe3zhZn+o0zjo=
+Message-ID: <b7a8e864-d7a3-4765-8b62-c5452766769d@arm.com>
+Date: Thu, 10 Sep 2026 11:21:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,221 +35,124 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-To: Yeoreum Yun <yeoreum.yun@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-2-822b810458bc@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907-fix_split-v5-2-822b810458bc@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v17 04/20] KVM: arm64: Refactor the vcpu_load to allow for
+ VM specific callbacks
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+ <20260908162223.1683432-5-suzuki.poulose@arm.com>
+ <a0c5c373-b5c2-4ad2-9e53-ede58c392972@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <a0c5c373-b5c2-4ad2-9e53-ede58c392972@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 9/7/26 10:19, Yeoreum Yun wrote:
-> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> made by memalign().
+On 10/09/2026 05:00, Gavin Shan wrote:
+> Hi Suzuki,
 > 
-> The underlying VMA may start at a different address from the aligned
-> address returned by memalign(). Furthermore, a subsequent
-> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> already set.
+> On 9/9/26 2:22 AM, Suzuki K Poulose wrote:
+>> Based on a work by Marc Zyngier
+>>
+>> To keep the VCPU load/put handling cleaner with the different kinds of 
+>> VM types,
+>> we are about to introduce VM specific callbacks to do just the right 
+>> thing.
+>> In preparation for that, make some refactoring to add the change easier.
+>>
+>> No functional changes intended.
+>>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>>   arch/arm64/kvm/arm.c | 46 +++++++++++++++++++++++++++-----------------
+>>   1 file changed, 28 insertions(+), 18 deletions(-)
+>>
 > 
-> This causes split_huge_page_test to fail because the check_huge_xxx()
-> helpers incorrectly require the address returned by memalign() to
-> match the VMA start address reported in /proc/self/smaps.
+> Nitpicks below, none of them are introduced by this patch itself. In 
+> either way:
 > 
-> Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
-> /proc/kpageflags to detect huge-page mappings and large folios:
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+
+Thank you !
+
 > 
->   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
->      using check_large_folios(), since only the mapping type matters.
->      This identifies PMD-mapped huge pages.
->   2. Otherwise, use check_large_folios() to detect large folios. This
->      covers mTHP cases.
->   3. Check the folio flags according to the type of huge page.
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+>> index 67f1ff9bc4fbe..51fc651267157 100644
+>> --- a/arch/arm64/kvm/arm.c
+>> +++ b/arch/arm64/kvm/arm.c
+>> @@ -683,14 +683,11 @@ static bool kvm_vcpu_should_clear_twe(struct 
+>> kvm_vcpu *vcpu)
+>>       return single_task_running();
+>>   }
+>> -void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+>> +static void vcpu_prepare_mmu(struct kvm_vcpu *vcpu)
+>>   {
+>>       struct kvm_s2_mmu *mmu;
+>>       int *last_ran;
+>> -    if (is_protected_kvm_enabled())
+>> -        goto nommu;
+>> -
+>>       if (vcpu_has_nv(vcpu))
+>>           kvm_vcpu_load_hw_mmu(vcpu);
+>> @@ -720,10 +717,33 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, 
+>> int cpu)
+>>           kvm_call_hyp(__kvm_flush_cpu_context, mmu);
+>>           *last_ran = vcpu->vcpu_idx;
+>>       }
+>> +}
+>> +
+>> +static void vcpu_set_wfx_traps(struct kvm_vcpu *vcpu)
+>> +{
+>> +    if (kvm_vcpu_should_clear_twe(vcpu))
+>> +        vcpu->arch.hcr_el2 &= ~HCR_TWE;
+>> +    else
+>> +        vcpu->arch.hcr_el2 |= HCR_TWE;
+>> +
+>> +    if (kvm_vcpu_should_clear_twi(vcpu))
+>> +        vcpu->arch.hcr_el2 &= ~HCR_TWI;
+>> +    else
+>> +        vcpu->arch.hcr_el2 |= HCR_TWI;
+>> +}
+>> +
 > 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  tools/testing/selftests/mm/vm_util.c | 145 ++++++++++++++++++++++-------------
->  tools/testing/selftests/mm/vm_util.h |   1 +
->  2 files changed, 92 insertions(+), 54 deletions(-)
+> It seems FIELD_MODIFY() can be applied here if no visible constraints 
+> exist:
 > 
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index 4821a3563036..dc62ce84e143 100644
+>      FIELD_MODIFY(HCR_TWE, vcpu->arch.hcr_el2, ! 
+> kvm_vcpu_should_clear_twe(vcpu));
+>      FIELD_MODIFY(HCR_TWI, vcpu->arch.hcr_el2, ! 
+> kvm_vcpu_should_clear_twi(vcpu));
 
-[...]
+I would leave this out for now. Can be a separate patch
 
->  
-> -	if (hpage_size == pmd_pagesize)
-> -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
-> +static bool check_huge_type(uint64_t categories, uint64_t kpageflags,
-> +			    enum check_huge_type type)
-> +{
-> +	const bool file = categories & PAGE_IS_FILE;
-> +	const bool swapbacked = kpageflags & KPF_SWAPBACKED;
-> +
-> +	switch (type) {
-> +	case CHECK_HUGE_ANON:
-> +		return !file;
-> +	case CHECK_HUGE_FILE:
-> +		return file && !swapbacked;
-> +	case CHECK_HUGE_SHMEM:
-> +		return file & swapbacked;
-> +	}
+> 
+>> +static void vcpu_load_pvtime(struct kvm_vcpu *vcpu)
+>> +{
+>> +    if (kvm_arm_is_pvtime_enabled(&vcpu->arch))
+>> +        kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
+>> +}
+>> +
+>> +void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+>> +{
+>> +    if (!is_protected_kvm_enabled())
+>> +        vcpu_prepare_mmu(vcpu);
+>>
+> 
+> I think we probably try to depend on kvm->arch.vm_flavor instead
+> of !is_protected_kvm_enabled().
+> 
+>      struct kvm *kvm = vcpu->kvm;
+> 
+>      if (kvm_vm_is_protected(kvm) || kvm_vm_flavor_eq(kvm, VM_PKVM))
+>          vcpu_prepare_mmu(vcpu);
 
-Why do we even need CHECK_HUGE_SHMEM?
+This will be removed as part of the call back in the next patch.
 
-That's really just a legacy thing for using smaps to identify huge pages.
-
-It's sufficient to identify CHECK_HUGE_FILE if you know that you have shmem mapping.
-
-You will not arbitrarily have non-shmem folios in a shmem mapping :)
-
->  
-> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
-> +	return false;
->  }
->  
-> -bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> +static bool __check_huge(void *addr, size_t len, int nr_hpages,
-> +			 uint64_t hpage_size, enum check_huge_type type)
->  {
-> -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> +	bool ret = false;
-> +	int pagemap_fd, kpageflags_fd;
-> +	int nr_pmd_mappings = 0;
-> +	uint64_t pmd_pagesize, scan_mapping_size;
-> +	uint64_t categories, kpf;
-> +	unsigned long pfn;
-> +	bool check_pmd_mapping, allow_nonpresent;
-> +	char *start = addr;
-> +	char *end = start + len;
->  
-> +	pmd_pagesize = read_pmd_pagesize();
->  	if (!pmd_pagesize)
->  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
->  
-> -	if (hpage_size == pmd_pagesize)
-> -		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
-> +	check_pmd_mapping = (hpage_size == pmd_pagesize);
-> +	scan_mapping_size = (nr_hpages > 0) ? hpage_size : psize();
-> +	/* Some mTHP tests check a partially populated PMD-sized range. */
-> +	allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
->  
-> -	return check_large_folios(addr, len, nr_hpages, hpage_size);
-> +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> +	if (pagemap_fd < 0)
-> +		ksft_exit_fail_msg("open pagemap fail\n");
-> +
-> +	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
-> +	if (kpageflags_fd < 0) {
-> +		close(pagemap_fd);
-
-No need to cleanup when exiting.
-
-> +		ksft_exit_fail_msg("open kpageflags fail\n");
-> +	}
-> +
-> +	if (!check_pmd_mapping &&
-> +	    !check_large_folios(pagemap_fd, kpageflags_fd,
-> +				addr, len, nr_hpages, hpage_size))
-> +		goto out;
-> +
-> +	for (; start < end; start += scan_mapping_size) {
-> +		categories = pagemap_scan_get_categories(pagemap_fd, start);
-> +		pfn = pagemap_get_pfn(pagemap_fd, start);
-> +		if (pfn == -1UL) {
-> +			if (!allow_nonpresent)
-> +				goto out;
-> +			else
-> +				continue;
-> +		}
-> +		if (pageflags_get(pfn, kpageflags_fd, &kpf))
-> +			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
-> +		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
-> +			nr_pmd_mappings++;
-> +		if (kpf & KPF_COMPOUND_TAIL)
-> +			continue;
-> +		if (!check_huge_type(categories, kpf, type))
-> +			goto out;
-> +	}
-> +
-> +	if (check_pmd_mapping && (nr_pmd_mappings != nr_hpages))
-> +		goto out;
-> +	ret = true;
-> +
-> +out:
-> +	close(pagemap_fd);
-> +	close(kpageflags_fd);
-> +	return ret;
->  }
-
-
-
--- 
-Cheers,
-
-David
+Cheers
+Suzuki
