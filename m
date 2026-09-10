@@ -1,77 +1,35 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB5E4772AE
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E253932D5;
+	Thu, 10 Sep 2026 16:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056020; cv=none; b=rzXPltM+cWSfJjjJTT+0HHPgwmIi0pIkjLredoJesXnsm7E2Y8dCOSjVdBtQ8QIe6e398QPGtS2cVUHYkuWV4LUnWqF84se6kbbJVj8Vj+Ag9iAIM3iR1OAakvZ5RbERDZSzekl1YtzLI8qRb8Cgcpp0XOhVA/GjbSPSzpG+3Fw=
+	t=1789056068; cv=none; b=V/fjxRSTWDmOhhnEyQIeyPFY5WXxXcqLy9/Ug6Q49yUTJpyx7WcY8hGqdNVw0HPsVHN/xEvGM4jAazqHS62WF/lLzpXsoKcT/611M5f02ZILTib50E7/A9g1ip0OGM3GKiYZkmdqt8rUJ3zGcYMKUGy5Y1llwhnwpNjFlNHMZYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056020; c=relaxed/simple;
-	bh=TnQXoS38wBDQ0fYg3BINxDkZah/N2z408lV7zZuFq2Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lzPBjTGCsqfAfpzAUKk43NVruuC54finM+a4FZ6dWVaTMPAESKSuprWCJ50CdTCvA0My9A3StaO4iC1nnKrTeRYKe1Mc+ngUOltahw6TXbu9wwnw7aXa3zMovdrwSmeuCGkCViLmrmgmj5d5a19Nc8o57Uj1YrMWY+fwMsIUD4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CPGkKkvq; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789056068; c=relaxed/simple;
+	bh=nYOAiLHnVhlq0Tdrl7niE3XueZXcWVh056mMHWJfyk0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=M1Cu1MnpntnjTSECysEVPqkPsay53f3DYMvLxpNZ3xd/UdQuKGjEimf/zJ+NozDvm8z4kYBO/IPnX2L5C7RrSrac5GdDV+3/mM5hR6mg2sv8GcuBosA0LM5wF9PWasPHnYQQ6vCSLhyUk88uHTz+YuZFz28lF/65tG5PPDu+2lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bf+e+K0k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CPGkKkvq"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79fbso12275535ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:00:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789056018; x=1789660818; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bXD/U7hlVPQRpHS1AI7lVEOW2y8sGkOWMG9ZHqUS/sc=;
-        b=CPGkKkvqc38BMtexpds5Hm0gcZXw39LlHWlHMelZCiLyJbcud0iNSvf9C2q2qkVHl8
-         uRAETjn3b0cTO3zApan2DaH9YdSABL7E0S7AKuPRojYgxgkiMjhUQl8CxwpB8J8KVsyP
-         YNqt8uVG5yd3XdxgBH6b1stfzdJqNSvmmrD+lJM/HN34UBvocpHk7fO3rq166HcBfmRk
-         i7offLWrznOo047vQa+U4ecbFQ39QAHu7GUJCFceTQVFfoILmOGQcXSxcBk038UXlsDV
-         WrdIK5wwWQ3/trMtE6Fy9k9EDONnSNYaRt/KkprECrF0VwqFXm1GbMUbgmr2M0Ky3GAR
-         Z+mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789056018; x=1789660818;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bXD/U7hlVPQRpHS1AI7lVEOW2y8sGkOWMG9ZHqUS/sc=;
-        b=ND4kcAMeFq7xN+hhYNMOABx/EJE8iCE/hh5C+93fKNV2JP6aO+SdCwXILO1M41ZvK8
-         seRIkTksrponRK0otuSECUmQjYB0Kv28VaApWTqfdNh4/p573ceetpk9ku/mDkfxQuhT
-         2IG5QV1hual7Y/zdoe4+MfbyF5Dv42tUO30Tz+lOhGbjpRQpn7IEM1PYLfF011glQgf0
-         P1gz0xTC3WTryZf26M5T7fQvMhU7zFBsyidF5GKRdVu0XI/gjTg3sRTA6YFotmrzQCvf
-         lkiipN60dJbfdtzC0PFqErY4f5/o5k1lVLvQ2/6j9X7WkbyKWVaf73lOxnJtCwy/Zc+m
-         S+Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWIkpwRW8hPSh7mJKZuWgY+C4Oybnw84ypaU5Db1Pku6MXMKzo6NAHqgg9F0gk9RUNT/kCBKYQX604wKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU/SjVC43XNYlJ5pRLJmjzgwARoZK1fbq87i+m3hNGn4Sx8TEz
-	FcavlTtvViAE2g6HN3O6KgpEJ6NwvWFE/gB7tjWIBBOoT7CRUTwojQ8W
-X-Gm-Gg: AYBFou26qRlj3mcT93bn1Cpfl0QdM9WuQzii0ZfRjM843utOKTzyS69GODTWHlcnipC
-	QuQ/OqQJkXvhTYxZbg0s234Ee+ulWEKo12qyjpi3dq+u4ValDCSeSNo5J6YiL93K92y5MsRdhHb
-	i/wDqpQ5jDvWeaxR/AaI4Xo3nT6eQkfbpaujbWtr37DGbkgYL2ov8J7BAAKAhTWhJNp65vyYlQj
-	01TXOTANkRoyAV8YQgsXOvpivdk3jqQpROvvtWPUcVpVWYfjHTTigRu7u52tYT1YolDc46c/qXk
-	aFbiCDYkG1O8WuPt/Unly2RpnRCRlFAXT1nWAMu2uWsiv5+wGDNmE+jjxA7A48f8xiDVfnnNShH
-	ILB6A2eR3UcCo65NogjKf8KEdNzq5u6TWR4dRUKdrSAGj8Es5b34/sQ8GMBvHtW8afd8ksmGDM2
-	0l7gpTNHrmM7mSYlc/q+KQu3SxaySK8rSURYhCl+OwSEeWwbGX6A51xUG76QCmzrj6+Arn5CE=
-X-Received: by 2002:a17:902:ea0b:b0:2d6:3c22:99bf with SMTP id d9443c01a7336-2dd2a1ef505mr1333475ad.9.1789056017830;
-        Thu, 10 Sep 2026 09:00:17 -0700 (PDT)
-Received: from G15-5520 ([103.206.144.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397d6d1becsm15350364eec.22.2026.09.10.09.00.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 09:00:17 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS),
-	intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS),
-	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] drm/i915/fb: replace kmalloc_array with kmalloc_objs
-Date: Thu, 10 Sep 2026 15:58:45 +0000
-Message-ID: <20260910155846.79513-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bf+e+K0k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CAE91F000FF;
+	Thu, 10 Sep 2026 16:01:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789056067;
+	bh=sI4wy2pepgKMEe5fr3L5f858dFoevafAETpn/X5YMxw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=bf+e+K0kAEflDHSKsl2nnEEvlmjTek983URq0ruZpPMhHFYBfC2JllZk1QqLKmaii
+	 U2QGO8Byd7k3jfYLMn4GUW+pVCPdvgxJh+D1PYUtcWbU50w77L+gk3A5s6BoDlzvUC
+	 qua3+a7NT211Gr847B0a44NoxQBD1xYtZPsHSodbyL+EhZv5EOEFbc2QX2rNFQaEmQ
+	 gC4UyRouBY+rpLRwl3uUpQcQoX2F7kbUKflqHqZGPaL+MwyDMEHeqe3xngvN7HfGw0
+	 qxm0xC/yA2DIrLT7dE3a37ePlCk28DhyYJ+9+dlIPENBnMWSWfLr4NAFTr9+posi7R
+	 nEGRA5k7ck0EA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D097D380CFFA;
+	Thu, 10 Sep 2026 16:00:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,27 +37,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4 0/1] ipmr: unaccounted multicast table memory
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178905600438.1516091.3467977714685054154.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Sep 2026 16:00:04 +0000
+References: <cover.1788784801.git.zihanx@nebusec.ai>
+In-Reply-To: <cover.1788784801.git.zihanx@nebusec.ai>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, kaber@trash.net, linux-kernel@vger.kernel.org
 
-Replace the remaining kmalloc_array instance with kmalloc_objs.
+Hello:
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-index 1c0859d5f829..c3e4c3f6d8cf 100644
---- a/drivers/gpu/drm/i915/display/intel_fb.c
-+++ b/drivers/gpu/drm/i915/display/intel_fb.c
-@@ -596,7 +596,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
- 			count++;
- 	}
- 
--	list = kmalloc_array(count, sizeof(*list), GFP_KERNEL);
-+	list = kmalloc_objs(*list, count);
- 	if (drm_WARN_ON(display->drm, !list))
- 		return NULL;
- 
+On Tue,  8 Sep 2026 11:58:38 +0000 you wrote:
+> Hi Linux kernel maintainers,
+> 
+> We found and validated a issue in net/ipv6/ip6mr.c. The bug is
+> reachable by a non-root user via user and net namespace.
+> We've tested it, and it should not affect any other functionality.
+> 
+> We will provide detailed information about the bug
+> in this email, along with a PoC to trigger it.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v4,1/1] ipmr: account multicast table and route memory
+    https://git.kernel.org/netdev/net/c/b7ee18725f22
+
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
