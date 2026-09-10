@@ -1,259 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED309488741;
-	Thu, 10 Sep 2026 12:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D2A48988D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044386; cv=none; b=UgEkugsPM5AYrq5zbTgM3b5ZpjeOwuG7QZA2VVN4HsvpSdKdXdyXKN007tONZPbG8EvBYhujEMNt6bEG4S9es606TX9FV4yxA9flJQdjepkje2igcfWMiaCsKTL/kbrvPzt9EuuA2d4ft4K+WeGHIywATs87aMp83I44lB7O7ls=
+	t=1789044398; cv=none; b=jOaDq/FQxO/6yQ4G6Im22xaqMdIqFUs3+uHWoBfyqe/vyaRyPUOPKdltAyYEj2nV9yWvqA2pxy8Sj5BJdmBUFRbOfO58nbF8wIs6DozekLvjBe0naozCcbjT3guRGpQ4aGGuES/DyLonAh8qx1oufBq5rxCpXu2RbInO9EMAx8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044386; c=relaxed/simple;
-	bh=PPTZOOwrBo0xAyIDhPi/8KGdNalSXPAwU0S7x0iveAk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Wg/S4xz1eTSb3tqDPxR8KgzzLc1Ii/zQwZxm/TZD1xaXTZPytuxCsIjMig4+RvyZoYlf1+sn42wKvSXHZZUNjdfR8J9iZzm2OMV7/BAsCG2fxRHNH5Cs9oa7sLd4vjj6A7WO02+y+ffmah+VEPwJ1cOMUeyccstS5wj08lzQy5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axfB2bZy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789044398; c=relaxed/simple;
+	bh=BHjSrs+Mxio25cWIAgxeq9qg9MSFeun0di9yy9+Eyro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WfjLP5bE+7aA5eSDNjPcldhMBKXC5apSR/z9K//tnkcrBS4wfHCjCrnI8ZnmLwU26K7K09zuLlsbWrg2eovfMIpJswXbedeyS7QS6YrICMDHXe1ziV8tk+iClc+n9bOM4QNO+y2GoL/aiot2gEEfsFRdr8KGKT2kRHTEVcgpDB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=ETCqVC2b; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axfB2bZy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC291F00893;
-	Thu, 10 Sep 2026 12:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044382;
-	bh=cwYOsc4JExSInv+TOcwbAh1z0HVTWDEwXBC25sOTT0c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=axfB2bZyHV7N1y//Ra/oW2XdwWi9t7ABVh4HMe62P6CtbN+BxWHARB9uSWl4rpWRM
-	 raXjBezauUqkMPDZGtBkCbKoci0a7yzzIbv8rbkpdtYiMsd4C52XwAfKfoagYVRXjt
-	 lGKgM9XHJX0wcwT5aFYLAqSxyhJnb5FxSenEIm2QvI//lMOGxJuvAc6P/XeI9tOIMt
-	 XXRm3hofUJofDMZjrseh026Rm8SFPcbrJSljRX8sZzZWtoV1yT1CuBXZ7BxHKqoN/R
-	 JwDK1+Iv2FT0nTtEDYwHhdVkiYg2IbFGUqDtd+CmqwkXPl22BSMyOSp3nf16kzE6xP
-	 oxaSOS7LhqO1w==
-Subject: Re: [PATCH net] net: mana: do not discard an ethtool-configured RSS
- table on a queue rebuild
-From: netdev-bot+sashiko@kernel.org
-To: longli@microsoft.com
-Cc: kotaranov@microsoft.com, kuba@kernel.org, davem@davemloft.net,
- pabeni@redhat.com, edumazet@google.com, andrew+netdev@lunn.ch, jgg@ziepe.ca,
- leon@kernel.org, haiyangz@microsoft.com, kys@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, shradhagupta@linux.microsoft.com,
- horms@kernel.org, ernis@linux.microsoft.com, stephen@networkplumber.org,
- shirazsaleem@microsoft.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 12:46:20 +0000
-Message-ID: <178904438067.219967.6198285642265210218@kernel.org>
-In-Reply-To: <20260905004401.3937066-1-longli@microsoft.com>
-References: <20260905004401.3937066-1-longli@microsoft.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="ETCqVC2b"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90e95a18c92so98852896d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:46:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789044395; x=1789649195; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y0IKNLxM5TSX9mM0DsyrNhze53zUnc7LA/ctMt4Lh+M=;
+        b=ETCqVC2bQuZy1GAs2zReN4tOlJgBBosczzRWVh7s/KK/k6GejDin2d3keyqzcdx33t
+         WdSqoJIiaJ/7oShh2ROr7SZCIOL2yh7RqIcHnrg628g9dORGzzmj1x2q+TOudOPFi4Cp
+         N1WeJ5vCfiZM9PUX9GnCNcxMsV1Uf+D+CVEsYpLRLzZvAp65bwIkqYPnA+l0MhjjeinH
+         P9EFSSQjLl0tsVm9qIosq1EZoJ52eg7kViZyVYyhGzvHdQU4zRM+K2wdqrMT3eofzUbN
+         71NHDujp/Nj9ymJeUhRdu4vM8dCBC/TEAawGZEx54IMWUddB28XQgnDAOiJ5VnWqW2MH
+         Fblg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789044395; x=1789649195;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y0IKNLxM5TSX9mM0DsyrNhze53zUnc7LA/ctMt4Lh+M=;
+        b=SiCVHAw5Ufep717Dqb14eChFqQO6Qn4ouqqxRbOD9xaKVfImqa96ArN5Y2OigpiTbn
+         78lNeXH7hWIXfyFF0G7r+OrPVnC4+5Q2w55jtVmmnhSvXzaCTD4mMG6ewNcEsVbLAp52
+         e8NTOqLN3FZFxc8K1/ZW22IG2eoBShRdFp3wUjguEMhSAiuhb3WzIaC03PGKTCI0RjU6
+         Yk722j70pKOQmPD+0dgHEgj7uJtVYW2ns5+TkyUDIa8LskB7bKTz/TcNk0sQaG+ulanH
+         3SbONoddNnGEr9wAt7IlyKXnizxdL5qRCU44ySKuEITmf0b85cCI02uS+qet4ltnlael
+         yH/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwgOST4DpzD1t79kQfldmi6H2eCV8INDyOBUs3qb7t/HSGD/MTFNFinOGPsuPEnZDpK8wTj5eZ/s7dZXzM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lt5h/ylkGelXMNRKDcrGpInHKPjxJJbiWnKjH2SzszqkiIZXHx
+	SPOUZjeGfqk7mlI5RE+hGiO2AEqtUZcljnLrA8o1sRgk4TH9Hc3ATYMmBZNyOJ8YFYY=
+X-Gm-Gg: AYBFou1MNJ8y5zWtmXrUEXTwizKcW2edxYDFlUdWICBnew4yA9WnNUWssL/k6Xt8+xj
+	kfxm7SbNgVy/82GF6bAc+y7LakSU8bHsCc4VLVy0CaknxiPt5iPw0xnHH8JM7N/yXc39ugkFTWC
+	TPZluu7M/76XOU4wqwB/0eY8GqH4rJdvfS+Fk4BLQXdiZQCjOVCmbkgnm4B9kQwEION4Ulp83aL
+	o9lUrtkiP776Lw7paTSLuXRfDJVPLWSaJ8O0eMzpwjwJcEMJRS1l/IYFUFK5+sJgNK5w73jQi6E
+	BmZISBJuDIwPk7PzK2w7F0BnrxWw4PKGYcna0YhIfS4OiXa3KsV2Ux2ALrrmXIn2SnE7JO+Is8b
+	dNyEOw84gMNkTZagwlk8tdMkjTIbAosrZozZtrFgnden0MGEZPO0A9pZ0fLVVbSzYkRPtzz9lzW
+	ab7uvdwdSubZycZD40i+qmWtyTSYvns/+XnjXAA+X7i61keljQkqPMpQSJlYd8HoPEzGaYgBywh
+	oPiY9JRNBNjP1KyGwYcHXxUBBUSTQ3B3pFXolDDb96uCWdduSuyLUkcEMPHQbdySaM=
+X-Received: by 2002:a05:6214:d89:b0:910:4b85:a298 with SMTP id 6a1803df08f44-9104b85a587mr381394946d6.26.1789044394511;
+        Thu, 10 Sep 2026 05:46:34 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104059615dsm168922596d6.3.2026.09.10.05.46.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 05:46:33 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x4eAi-00000002O5s-42fb;
+	Thu, 10 Sep 2026 09:46:32 -0300
+Date: Thu, 10 Sep 2026 09:46:32 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <20260910124632.GB4083318@ziepe.ca>
+References: <yq5aik4nztdt.fsf@kernel.org>
+ <yq5aecfbzjyk.fsf@kernel.org>
+ <20260902235609.GG2890729@ziepe.ca>
+ <yq5a8q5izxz4.fsf@kernel.org>
+ <20260903171704.GK2890729@ziepe.ca>
+ <yq5acxupjsy2.fsf@kernel.org>
+ <20260907125228.GB667892@ziepe.ca>
+ <yq5atsnyag84.fsf@kernel.org>
+ <20260909124628.GH2543240@ziepe.ca>
+ <CO1PR11MB4835512E374074A5F4AD0A6C8CBF2@CO1PR11MB4835.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CO1PR11MB4835512E374074A5F4AD0A6C8CBF2@CO1PR11MB4835.namprd11.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+On Thu, Sep 10, 2026 at 09:52:12AM +0000, Tian, Kevin wrote:
+> > The mmio is owned by vfio, there should be a handshake in VFIO to
+> > remove mmio when it becomes private, otherwise I don't think we need
+> > to do anything more?
+> 
+> for TDX a callback in VFIO is invoked to revoke the dmabuf.
+> 
+> btw I didn't see any dmabuf related in this series (even in a hackish
+> way as Yilun sent out last year). Is it not required by CCA or just
+> skipped now waiting for the framework to be settled?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2 (1)
+I think just one step at a time :\ I think CCA needs it as well, you
+also cannot safely leave private MMIO floating around the host
+userspace on CCA.
 
-- [Medium] Undisclosed TX-side consequence of preserving the indirection
-  table.
-- [Low] The commit message states: "The driver never clears the core's
-  IFF_RXFH_CONFIGURED, so netif_is_rxfh_configured() keeps reporting a…
-- [Low] When the surviving table cannot be honoured (an entry >=
-  apc->num_queues after mana_init_port() lowered the queue count),…
+> So viommu will become the abstraction point for tsm operations and
+> directly talks to the tsm driver instead of going through the merged 
+> tsm_ops (bind/unbind/guest_req).
 
-Pre-existing issues:
-- [Low] Incomplete lockset for apc->indir_table on the ethtool read side.
+More precisely for what was being called the TDI - ie it is the
+abstraction point for the host side of a guest virtual PCI device.
 
---
+iommufd vdevice already represents this, so we use it again.
+ 
+> currently what tsm_ops provides additionally is more about synchronization
+> with connect/disconnect, otherwise just calls into underlying tsm driver. As
+> long as viommu creation holds a reference to tsm then disconnection is
+> blocked then it's safe.
 
-net: mana: do not discard an ethtool-configured RSS table on a queue rebuild
+Yes, this already has to be true or our lifecylce model is
+nonsense. Once the iommufd creates the vdevice the guest is running
+and we cannot disconnect it without unplugging it from the guest. Thus
+the locking can rely on that. Within an iommufd ioctl context the vdev
+and underlying connection must be stable.
 
-mana_alloc_queues() no longer regenerates the RSS indirection table from the
-driver default when the table was installed by the user, so an "ethtool -X"
-table now survives operations that rebuild the queues.  A table whose
-entries point past the last queue is still replaced by the default.  The RSS
-ethtool operations are also opted into rtnl_lock() via
-ETHTOOL_OP_NEEDS_RTNL_RSS.
+> and IOMMU_VDEVICE_TSM_BIND will be removed. 
 
-A couple of questions about the commit message and the new code below.
+Replaced, the same logical operations should flow through the viommu
+command ioctl
 
->     The driver never clears the core's IFF_RXFH_CONFIGURED, so
->     netif_is_rxfh_configured() keeps reporting a user table while the
->     hardware has been reprogrammed with the default one.
+> Seems originally this series
+> does SMC_RMI_VDEV_CREATE and SMC_RMI_VDEV_LOCK both in tsm
+> bind op. Then the proposal is moving them all to vdevice creation time so
+> no separate bind step is required.
 
-[Severity: Low]
-Is IFF_RXFH_CONFIGURED still the right name here?  A tree-wide grep for
-IFF_RXFH_CONFIGURED at this commit returns nothing.  The state that
-netif_is_rxfh_configured() consults is now:
+Hmm, lock still should be guest visible on CCA, and the device has to
+start up in the guest as TDISP unlocked. I'm not 100% on the RMI side
+of the flow, but this does not look right.
 
-net/ethtool/common.c:
-bool netif_is_rxfh_configured(const struct net_device *dev)
-{
-	return dev->ethtool->rss_indir_user_size;
-}
+VDEV create should be done before the realm is started. We need this
+setup right because Linux VM is going to validate the vdev during boot
+if it is affiliated to a vSMMU. lock should be done only when
+requested by the guest. The guest must start with a normal unlocked
+T=0 PCI device.
 
-set and cleared by the core in net/ethtool/rss.c and net/ethtool/ioctl.c.
-The mechanism described matches, only the symbol name looks stale.
+> Does it mean that ARM CCA is essentially an early-bind model i.e. the TDI
+> starts in locked state from guest p.o.v.?
 
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index 45a7520491a65..396b741fa86ed 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> @@ -3310,6 +3310,28 @@ static void mana_rss_table_init(struct mana_port_context *apc)
->  			ethtool_rxfh_indir_default(i, apc->num_queues);
->  }
->  
-> +/* Whether the current indirection table can be kept for apc->num_queues,
-> + * rather than rebuilt from the driver default.
-> + *
-> + * Only a user table ("ethtool -X") is worth keeping; a driver-generated one
-> + * is rebuilt so that it spreads over every queue. An entry pointing past the
-> + * last queue cannot be kept: mana_config_rss() uses these entries to index
-> + * apc->rxqs[], which holds apc->num_queues pointers.
-> + */
-> +static bool mana_rss_table_keep(struct mana_port_context *apc)
-> +{
-> +	u32 i;
-> +
-> +	if (!netif_is_rxfh_configured(apc->ndev))
-> +		return false;
-> +
-> +	for (i = 0; i < apc->indir_table_sz; i++)
-> +		if (apc->indir_table[i] >= apc->num_queues)
-> +			return false;
-> +
-> +	return true;
-> +}
+No
 
-[Severity: Medium]
-Does keeping the table also pin the TX side?  In this driver
-apc->indir_table selects the transmit queue too:
+> but https://lore.kernel.org/all/yq5aecfbzjyk.fsf@kernel.org/ seems to indicate
+> that guest_req() still handles the bind request from the guest:
+> 
+> "
+> - cca_tsm_guest_req() now handles TSM_REQ_SET_TDI_STATE requests for
+>    the unlocked, locked, and running states.
+> "
 
-mana_en.c:mana_get_tx_queue() {
-	...
-	txq = apc->indir_table[hash & (apc->indir_table_sz - 1)];
-	...
-}
+Right the guest side request to lock should come that way.
 
-reached from mana_select_queue(), and the struct member itself is commented
-"Indirection Table for RX & TX" in include/net/mana/mana.h.
+> 
+> a bit confusing, but maybe due to stale info cited from different timing...
+> 
+> for TDX we're currently pursuing a late-bind model (i.e. TDI starts in shared
+> state in guest), so a separate bind interface is still necessary. We could look
+> at whether it should be an explicit @bind viommu op or carried by 
+> @guest_req (say, if most preparation works can be moved to vdevice creation).
 
-Before this change every rebuild ran mana_rss_table_init() and restored
-index % num_queues, so this sequence ended up with both RX and TX spread
-over all 16 queues:
+It should go over the viommu command ioctl. It looked like there was
+alway some iommu specific format to the command in the tsm version of
+this, so that is the appropriate way.
 
-	ethtool -X ens1 equal 2
-	ethtool -L ens1 combined 16
+> btw per past discussions VFIO should block some operations (reset, etc.)
+> while a TDI is locked. Do we expect a callback into VFIO to notify the locked
+> state, or require VFIO's own interface to place a cdev into a special state
+> which prevents sensitive operations even before binding it to iommufd
+> (and allow creating TDI vdevice only on such idevice)?
 
-After the change mana_rss_table_keep() returns true, since every entry (0
-and 1) is below the new apc->num_queues of 16, so the two-entry table
-survives mana_set_channels() -> mana_attach() -> mana_alloc_queues().
-netif_set_real_num_tx_queues() then publishes 16 TX queues while
-mana_get_tx_queue() can only ever return 0 or 1.
+At a minimum I think we have to synchronize with vfio, somehow, that
+when the device enforces its private MMIO so it can unmap it. Thay may
+be an argument we need a few standard viommu ops so the core code can
+capture lock/unlocks and do this prep work. Or maybe a special cdev
+state is simpler.
 
-The changelog lists the rebuild paths that are affected but describes the
-change purely in terms of the RSS indirection table.  Would it be worth
-mentioning that TX queue selection becomes sticky in the same way?
+This should be figured out before any uapi is settled.
 
-> @@ -3625,7 +3647,20 @@ int mana_alloc_queues(struct net_device *ndev)
->  		goto destroy_rxq;
->  	}
->  
-> -	mana_rss_table_init(apc);
-> +	/* Keep a user-configured table across the rebuild: its entries are
-> +	 * queue indices and stay meaningful while they are all still in range.
-> +	 * Only a driver-generated table is regenerated here.
-> +	 *
-> +	 * A table that cannot be kept is replaced by the default without
-> +	 * telling the core, which keeps reporting the table as user
-> +	 * configured. That is what this function did for every table before,
-> +	 * and reporting it here is not an option: ethtool_rxfh_indir_lost()
-> +	 * sends ETHTOOL_MSG_RSS_NTF, which requires the netdev instance lock,
-> +	 * and this runs both with that lock held (ndo_open) and without it
-> +	 * (mana_attach() from the reset and resume paths).
-> +	 */
-> +	if (!mana_rss_table_keep(apc))
-> +		mana_rss_table_init(apc);
+I don't know about reset, that sounds like something the pci core
+should deal with?
 
-[Severity: Low]
-This is the acknowledged case, so mostly a question about whether it can be
-narrowed rather than a new problem.
-
-When mana_attach() -> mana_init_port() lowers apc->num_queues and an entry
-falls out of range, this branch installs the driver default while
-dev->ethtool->rss_indir_user_size stays set, so netif_is_rxfh_configured()
-and "ethtool -x" keep advertising a user table the user never installed.
-
-The stated reason for skipping ethtool_rxfh_indir_lost() does hold up: its
-own assert accepts RTNL,
-
-net/ethtool/common.c:ethtool_rxfh_indir_lost() {
-	WARN_ONCE(!rtnl_is_locked() &&
-		  !lockdep_is_held_type(&dev->ethtool->rss_lock, -1),
-		  "RSS context lock assertion failed\n");
-	...
-	dev->ethtool->rss_indir_user_size = 0;
-	ethtool_rss_notify(dev, ETHTOOL_MSG_RSS_NTF, 0);
-}
-
-but the notification lands in ethnl_notify(), which runs
-netdev_assert_locked_ops_compat(dev).  mana registers net_shaper_ops, so
-with CONFIG_NET_SHAPER=y that reduces to lockdep_assert_held(&dev->lock),
-which the rtnl-only reset and resume paths do not hold.
-
-Is there a way to reach the same result without the notification, so that
-the core's view and the programmed table agree in this case?
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-> index ece7ff9cc409a..e3acaf17efabc 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-> @@ -871,7 +871,8 @@ const struct ethtool_ops mana_ethtool_ops = {
->  	.op_needs_rtnl		= ETHTOOL_OP_NEEDS_RTNL_SCHANNELS |
->  				  ETHTOOL_OP_NEEDS_RTNL_SRINGPARAM |
->  				  ETHTOOL_OP_NEEDS_RTNL_SPFLAGS |
-> -				  ETHTOOL_OP_NEEDS_RTNL_GLINK,
-> +				  ETHTOOL_OP_NEEDS_RTNL_GLINK |
-> +				  ETHTOOL_OP_NEEDS_RTNL_RSS,
-
-[Severity: Low]
-This isn't a problem introduced by this patch, but does the new flag cover
-the read side as well?
-
-The core only consults ETHTOOL_OP_NEEDS_RTNL_RSS for ETHTOOL_MSG_RSS_SET
-and for the SRSSH / SRXFH / SRXFHINDIR ioctls:
-
-net/ethtool/common.h:
-	case ETHTOOL_MSG_RSS_SET:
-		return ops->op_needs_rtnl & ETHTOOL_OP_NEEDS_RTNL_RSS;
-
-so mana_get_rxfh() still runs with the netdev instance lock plus rss_lock
-only, while the rebuild writes the same array entry by entry holding RTNL
-alone when it comes from mana_attach():
-
-mana_en.c:mana_rss_table_init() {
-	for (i = 0; i < apc->indir_table_sz; i++)
-		apc->indir_table[i] =
-			ethtool_rxfh_indir_default(i, apc->num_queues);
-}
-
-CPU0: mana_per_port_queue_reset_work_handler() -> rtnl_lock() ->
-      mana_attach() -> mana_alloc_queues() -> mana_rss_table_init()
-CPU1: ethtool -x -> rss_prepare_get() -> mana_get_rxfh()
-
-Can "ethtool -x" print a mix of old and new entries in that window?  The
-hardware itself is programmed from the driver copy by mana_config_rss(), so
-this looks limited to the reported table.  The write/read race the patch set
-out to close on the set side does get closed by the new flag.
-
-For what it is worth, the freed-table variant of this does not appear to
-exist: mana_attach()'s failure path calls mana_cleanup_port_context(), which
-only frees apc->rxqs and the debugfs dentry, and mana_cleanup_indir_table()
-is only reached from mana_probe_port() before register_netdev() and from
-mana_remove() after unregister_netdevice().
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260905004401.3937066-1-longli%40microsoft.com
+Jason
