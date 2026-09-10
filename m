@@ -1,41 +1,46 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-57.mta1.migadu.com [95.215.58.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67D1384CDD;
-	Thu, 10 Sep 2026 04:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC2F368D70
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789016065; cv=none; b=YDcGp1HcnZ0iCj3pUl7BTkaJn216yozWoTYYZSoWilJOK6QhKmk6SG1ECV2Bzarw+hhb2oNueWwynzH1wfgo9Rs2EvlEaMyk9371J4ho8It7Tlh9LYijLsNFjLjUNR1rfK47RfG5OVB/gM45aNOPKaYM1HcBm5ZvqW7byfgYrRI=
+	t=1789016063; cv=none; b=ShvhBfqQsIz6n2UjLGpVMbQMpOSCZI/aeH+x/104jSALKuGGE9X8ogoHwcIbploZYC1F9VJWhCSpxWTTNUpRsH3tYJCXo76jy2E82iqFhCkWtYtrfeL3CgyY3ZLmFwcdo+OboHPq2ZgAdWIfDYohrN9TX+iJQvU0JhFpeemWYYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789016065; c=relaxed/simple;
-	bh=Ug7qX+4vRsUXWFK8FGHW49zfSGDgtHiJD4+F9815LM0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mp6jj/ihpMZVGW91mVE85h3uSUxA+wf1kLuNgA8uQS6+E1tJW6if+XN8e6CYvMwZ0RXfVZJMaIUp80bKAj6+47XUS+4ugd1n/SFuA5et2+FMcwbmpn+s4NBkovG9k+l5stEqJienVW21DXLnbDeB2yNWy5wM/ZkWJao2tvM4V/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=l7QwzizM; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789016063; c=relaxed/simple;
+	bh=V383zAfWwZwigQCsoN9reju52t9jYgCgai+gj9LwMlE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gt/dTWyS0I4SRgknE5NA1ebT3vvOqN2bxOudix3UXjimBWzst7Zw3akw5Byk1qNIWV+tSxQ2FGpM0P8/t9DF4bRKPDutp54OvyZZN101LvIo9DWx83mQQTI9jCpfV/sgC7HlPkQw6YQypqB7sul9T8IYdAwaLjsLLchQwfKInYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TylA1K5U; arc=none smtp.client-ip=95.215.58.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="l7QwzizM"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d3a5a3cc;
-	Thu, 10 Sep 2026 12:54:11 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v3 2/3] nvmet: avoid recursive configfs open for file-backed namespaces
-Date: Thu, 10 Sep 2026 12:53:59 +0800
-Message-Id: <20260910045400.1201582-3-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910045400.1201582-1-runyu.xiao@seu.edu.cn>
-References: <20260902103202.GB8095@lst.de>
- <20260910045400.1201582-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TylA1K5U"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V383zAfWwZwigQCsoN9reju52t9jYgCgai+gj9LwMlE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789016055; v=1; x=1789620855;
+ b=TylA1K5UcWkXZPyl9I0LaRGkYxPzSHZPADlsQAVd8ANzU7zACo3IwoTzFLjY9oyE5hrk1EWZ
+ g85XSLEWaBk2/OZCkh/EBJpFuvhSQJHPJD6DHQtltyP2b8pT6AbKTz1esN24RxgiWHL0URa14Kf
+ 5sewEBp/4JT7nZzRVJIKYhN0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 38b1e1fbd4224c91;
+	Thu, 10 Sep 2026 04:54:15 +0000
+X-Mizu-Trace-ID: 38b1e1fbd4224c91
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] kernfs: don't hold kernfs_rwsem across notification delivery
+Date: Wed,  9 Sep 2026 21:54:06 -0700
+Message-ID: <20260910045406.485295-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,81 +48,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa089aa8dcf03a1kunm413fe85d18135f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDShhCVhlITk0aGR8aSExJQ1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=l7QwzizMF6Qh78XoOPLh1sRc0qLZV3i91uLMhEcyX0d8TtDDnG3017L22U9hv3N0Wiq/hQXUKZtXxWjNcKKY3gOHEf07LPn6C05fcogHHjY3AueL0Vxwh5XSUkwkJHPqSyl+XF70/wkhnBhtOzEffSmnlqWg61sN6TUrDRMa3Sc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=xh7JsIVIqlqNdpmS1/fMVr20nh1KQUtlcaOcE6VOBMI=;
-	h=date:mime-version:subject:message-id:from;
 
-nvmet_ns_enable_store() runs as a configfs store callback while configfs
-holds the item's frag_sem. A file-backed namespace then opens the
-configured device_path with filp_open(). If the path resolves into
-configfs, the open path re-enters __configfs_open_file() and attempts to
-acquire the same frag_sem again.
+Recently at Meta we noticed that on multi-tenant systems, a workload
+under extreme memory pressure negatively impacts unrelated workloads and
+system daemons like below [1] and fb-oomd [2]. Mainly we observed that
+system daemons were stuck on kernfs_rwsem in cgroup-related interfaces
+for long periods of time.
 
-Resolve the configured path first, reject paths resolved on configfs, and
-open the resolved path with file_open_root(). This preserves the standard
-open-time permission checks without performing a second pathname walk. Use
-the configfs helper for the filesystem type check so this caller shares the
-classification with other configfs users.
+On further inspection, we found that the workload under pressure had
+registered inotify watches on its memory.events and was continuously
+receiving limit-hitting notifications. The cgroup notification is done in
+kernfs_notify_workfn(), which holds kernfs_supers_rwsem and kernfs_rwsem
+and calls fsnotify(), which allocates the event with
+kmalloc(GFP_KERNEL_ACCOUNT|__GFP_RETRY_MAYFAIL) charged to the watching
+cgroup, which is already under memory pressure. So the notify worker
+ended up in memory reclaim of a cgroup already under pressure, and itself
+kept triggering the limit notifications.
 
-Fixes: d5eff33ee6f8 ("nvmet: add simple file backed ns support")
-Cc: stable@vger.kernel.org
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+This notification path takes the locks in read mode, but a waiting writer
+blocks all future readers. That is exactly what is happening in the Meta
+fleet, and it leaves daemons that are critical to the reliability of the
+system stuck for long periods of time.
+
+Commit 400188ae361a ("kernfs: Acquire kernfs_rwsem in
+kernfs_notify_workfn().") added kernfs_rwsem just to safely read
+kernfs_node::name.  Let's sample the name once before the loop and drop
+the lock.  kernfs_supers_rwsem still covers the list, and the removal
+paths take that one for reading too, so a stalled worker can still hold
+a removal up once a mount or unmount is queued behind it.
+
+Two things change for a watcher.  A name longer than NAME_MAX now gives
+an event with no name, where before it gave one with the full name;
+fsnotify() takes the name as optional, so the event still arrives.  And
+the name and the parent are no longer sampled under one lock, so a rename
+between the two would name a file against the directory it moved to.
+That cannot happen today: kernfs_notify() rejects anything that is not a
+file, and no caller of kernfs_rename_ns() renames one.
+
+[1] https://github.com/facebookincubator/below
+[2] https://github.com/facebookincubator/oomd
+
+Fixes: 400188ae361a ("kernfs: Acquire kernfs_rwsem in kernfs_notify_workfn().")
+Assisted-by: LLM
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- drivers/nvme/target/io-cmd-file.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ fs/kernfs/file.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 0b22d183f..fbe58aa4a 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -8,7 +8,9 @@
- #include <linux/uio.h>
- #include <linux/falloc.h>
- #include <linux/file.h>
-+#include <linux/configfs.h>
- #include <linux/fs.h>
-+#include <linux/namei.h>
- #include "nvmet.h"
+diff --git a/fs/kernfs/file.c b/fs/kernfs/file.c
+index 8e0e90c93372..7e3800526b1e 100644
+--- a/fs/kernfs/file.c
++++ b/fs/kernfs/file.c
+@@ -904,9 +904,12 @@ static loff_t kernfs_fop_llseek(struct file *file, loff_t offset, int whence)
  
- #define NVMET_MIN_MPOOL_OBJ		16
-@@ -33,12 +35,28 @@ void nvmet_file_ns_disable(struct nvmet_ns *ns)
- int nvmet_file_ns_enable(struct nvmet_ns *ns)
+ static void kernfs_notify_workfn(struct work_struct *work)
  {
- 	int flags = O_RDWR | O_LARGEFILE;
-+	struct path path;
- 	int ret = 0;
+-	struct kernfs_node *kn;
++	char name_buf[NAME_MAX + 1];
+ 	struct kernfs_super_info *info;
++	struct kernfs_node *kn;
+ 	struct kernfs_root *root;
++	struct qstr name;
++	bool have_name;
+ repeat:
+ 	/* pop one off the notify_list */
+ 	spin_lock_irq(&kernfs_notify_lock);
+@@ -922,14 +925,20 @@ static void kernfs_notify_workfn(struct work_struct *work)
+ 	root = kernfs_root(kn);
+ 	/* kick fsnotify */
  
- 	if (!ns->buffered_io)
- 		flags |= O_DIRECT;
++	/*
++	 * Sample the name once so kernfs_rwsem need not be held across the
++	 * loop.  A name that does not fit is reported without one; fsnotify()
++	 * takes the name as optional, so a watcher loses the name and not the
++	 * event.
++	 */
++	have_name = kernfs_name(kn, name_buf, sizeof(name_buf)) >= 0;
++	name = QSTR(name_buf);
++
+ 	down_read(&root->kernfs_supers_rwsem);
+-	down_read(&root->kernfs_rwsem);
+-	list_for_each_entry(info, &kernfs_root(kn)->supers, node) {
++	list_for_each_entry(info, &root->supers, node) {
+ 		struct kernfs_node *parent;
+ 		struct inode *p_inode = NULL;
+-		const char *kn_name;
+ 		struct inode *inode;
+-		struct qstr name;
  
--	ns->file = filp_open(ns->device_path, flags, 0);
-+	ret = kern_path(ns->device_path, LOOKUP_FOLLOW, &path);
-+	if (ret) {
-+		pr_err("failed to open file %s: (%d)\n",
-+		       ns->device_path, ret);
-+		return ret;
-+	}
-+
-+	if (configfs_path_is_configfs(&path)) {
-+		pr_err("configfs paths cannot back namespace %s\n",
-+		       ns->device_path);
-+		path_put(&path);
-+		return -EINVAL;
-+	}
-+
-+	ns->file = file_open_root(&path, "", flags, 0);
-+	path_put(&path);
- 	if (IS_ERR(ns->file)) {
- 		ret = PTR_ERR(ns->file);
- 		pr_err("failed to open file %s: (%d)\n",
+ 		/*
+ 		 * We want fsnotify_modify() on @kn but as the
+@@ -941,15 +950,14 @@ static void kernfs_notify_workfn(struct work_struct *work)
+ 		if (!inode)
+ 			continue;
+ 
+-		kn_name = kernfs_rcu_name(kn);
+-		name = QSTR(kn_name);
+ 		parent = kernfs_get_parent(kn);
+ 		if (parent) {
+ 			p_inode = ilookup(info->sb, kernfs_ino(parent));
+ 			if (p_inode) {
+ 				fsnotify(FS_MODIFY | FS_EVENT_ON_CHILD,
+ 					 inode, FSNOTIFY_EVENT_INODE,
+-					 p_inode, &name, inode, 0);
++					 p_inode, have_name ? &name : NULL,
++					 inode, 0);
+ 				iput(p_inode);
+ 			}
+ 
+@@ -962,7 +970,6 @@ static void kernfs_notify_workfn(struct work_struct *work)
+ 		iput(inode);
+ 	}
+ 
+-	up_read(&root->kernfs_rwsem);
+ 	up_read(&root->kernfs_supers_rwsem);
+ 	kernfs_put(kn);
+ 	goto repeat;
 -- 
-2.34.1
+2.53.0-Meta
+
