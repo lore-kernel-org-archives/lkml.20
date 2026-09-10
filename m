@@ -1,185 +1,154 @@
-Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9134C3C3459
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334F83C3459
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029683; cv=none; b=osLO7KMiy2rAb5eyPpkBqnjsSsafyW9heo0ZTBggXYacrOyREXuwBUKDUyRDKfLwkAHD7nS7fqt+af+/IkntNfCRo0Te8hq2WyIRDiXTxHQHkNA55ypBVBn0xjT5LOjNtZPDyIjzAx3i1srzzro0mosgH5neRpxg5usYxp4oOBI=
+	t=1789029751; cv=none; b=sUI66SPxbMInBKN1RDgFrfwGqKIaD3PPMF2XlC+VU3KSNcBYavQiuC9FFcR7wjXWIEH30nzHoR6vNEapZga7J4Wbv9Bdvkdjgr5Qf3luf/IJ15A5GGBZf4Tg1EwaGA3DsOeylYgc6vMYpO4J5Vxott+umflU63N3JyZlhHAESCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029683; c=relaxed/simple;
-	bh=qylLZ1SIaMrhXfONKdy81GiXEDGBxa/m+KiPwamBoKg=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=kaXCo7URCMIlHLM7iVNzndNsKxkQp1IEbwW8Q+2DIxGpj0ju73U+irqjEVmXC+OACaj3rLdQUs5yzyMVIyxHeERs7Ho7TkTxIRo4lqq9azgjbFnuHW9zsGdGNGLNaDxXqRp+lxV22NEkn/jZKxCSLwr+pwbDfIxub50dcXae724=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qobnmHrx; arc=none smtp.client-ip=91.218.175.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qobnmHrx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qylLZ1SIaMrhXfONKdy81GiXEDGBxa/m+KiPwamBoKg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789029677; v=1; x=1789634477;
- b=qobnmHrxMG+4H012iOBuF07zQsO4/TOO6UL9EFBAjwypFoxRq1A3MaGrCfB3YEKXOkmRbKlS
- z+wifzOWw3pNk6/R2C9bqC+fHLKitgVKYuR63G+2+UoKUdljTnOKlshI1UQ8YRJbPs29EPVv8ft
- Y7mtZoHxoGitX6Yx/dKKh5jI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 502bbddc9c24ce59;
-	Thu, 10 Sep 2026 08:41:17 +0000
-X-Mizu-Trace-ID: 502bbddc9c24ce59
-X-Migadu-Flow: FLOW_OUT
+	s=arc-20240116; t=1789029751; c=relaxed/simple;
+	bh=JNl0zh8BnEuuCh7htFUt6zpVfviGIeCDSQw3Nu79xh8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=D3mI4qNOnXTsLb1AYBW7qobgqvs46HwKWSZH0eX6JN1jPbTRuW75FZQeMB4zfRc1ndjK9pHCVyNx64EcbBmbndCjE7G/J8dBLEJofTYjW6GmYRFX5oR5hPd3o9ARj7YrTJP1kn5JPOvBBIqVFsK3lVTzGLsSW1FYIaEaCpLE/+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
+	by APP-01 (Coremail) with SMTP id qwCowAA3Cu5tbaJqvaeXBw--.20048S2;
+	Thu, 10 Sep 2026 16:42:21 +0800 (CST)
+Message-ID: <70931e5e69ba1a9db5f391792ec4c8b5124e670f.camel@iscas.ac.cn>
+Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary
+ plane
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 16:42:20 +0800
+In-Reply-To: <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
+References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+	 <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
+	 <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
+	 <d36bc08a7f954be25b0d3e0fe649698b3944f98a.camel@iscas.ac.cn>
+	 <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 10 Sep 2026 08:41:17 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Tianchu Chen" <tianchu.chen@linux.dev>
-Message-ID: <7d58756ac12f7b324c2d8693b03287b786020fd6@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v2] staging: rtl8723bs: fix protected RX frame validation
- in decrypt path
-To: "Greg KH" <gregkh@linuxfoundation.org>
-Cc: hansg@kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-In-Reply-To: <2026090919-stammer-outclass-5c6f@gregkh>
-References: <7848fcb635963ddb8474924ed71fdd687b5d6ec7@linux.dev>
- <2026090714-sneezing-unrated-b0ef@gregkh>
- <aa1496d71e0867c1e04f6442ab97520f531531ca@linux.dev>
- <2026090919-stammer-outclass-5c6f@gregkh>
+X-CM-TRANSID:qwCowAA3Cu5tbaJqvaeXBw--.20048S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZr4UCrW5Xr45Wr43Zr4rGrg_yoW5Wry7pF
+	sIyFWqyFWrArn7JryUtw4UtFWaya1rG3Z7Wr15XwnrX3yDtr15uF48JrZxuFWkJr4kWr1Y
+	qrs3JF9rur1UCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
+	w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
+	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
+	rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
+	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5k9NDUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-September 9, 2026 at 3:44 PM, "Greg KH" <gregkh@linuxfoundation.org mailt=
-o:gregkh@linuxfoundation.org?to=3D%22Greg%20KH%22%20%3Cgregkh%40linuxfoun=
-dation.org%3E > wrote:
-
-
+=E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 10:31 +0200=EF=BC=8CThomas Zimmerman=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> Hi
 >=20
->=20On Tue, Sep 08, 2026 at 04:02:15PM +0000, Tianchu Chen wrote:
+> Am 10.09.26 um 10:00 schrieb Icenowy Zheng:
+> > =E5=9C=A8 2026-09-10=E5=9B=9B=E7=9A=84 09:58 +0200=EF=BC=8CThomas Zimme=
+rmann=E5=86=99=E9=81=93=EF=BC=9A
+> > > Hi
+> > >=20
+> > > Am 10.09.26 um 09:09 schrieb Icenowy Zheng:
+> > > > =E5=9C=A8 2026-09-02=E4=B8=89=E7=9A=84 01:17 +0800=EF=BC=8CIcenowy =
+Zheng=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > Blend modes are now required to expose pixel formats w/
+> > > > > alpha.
+> > > > >=20
+> > > > > As it's the primary plane and blending is explicitly
+> > > > > disabled,
+> > > > > just
+> > > > > expose PIXEL_NONE blend mode.
+> > > > Gently ping for reviews.
+> > > What do these alpha formats do?=C2=A0 Are they a hardware feature?=C2=
+=A0 It
+> > > looks
+> > > like they are programmable, but don't differ from XRGB at all.
+> > I think they're for consistency with overlay planes.
 >=20
->=20>=20
->=20> September 8, 2026 at 12:13 AM, "Greg KH" <gregkh@linuxfoundation.or=
-g mailto:gregkh@linuxfoundation.org?to=3D%22Greg%20KH%22%20%3Cgregkh%40li=
-nuxfoundation.org%3E > wrote:
-> >=20=20
->=20>=20=20
->=20>  -snip-
-> >=20=20
->=20>  >=20
->=20>  > drivers/staging/rtl8723bs/core/rtw_recv.c | 21 +++++++++++++++++=
-+---
-> >  > 1 file changed, 18 insertions(+), 3 deletions(-)
-> >  >=20
->=20>  > diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers=
-/staging/rtl8723bs/core/rtw_recv.c
-> >  > index 7568fc514d7ce..4756e0fedd46f 100644
-> >  > --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-> >  > +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-> >  > @@ -426,8 +426,21 @@ static union recv_frame *decryptor(struct ada=
-pter *padapter, union recv_frame *p
-> >  > u32 res =3D _SUCCESS;
-> >  >=20
->=20>  > if (prxattrib->encrypt > 0) {
-> >  > - u8 *iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
-> >  > + u8 *iv;
-> >  > + u32 min_len =3D prxattrib->hdrlen + prxattrib->iv_len + prxattri=
-b->icv_len;
-> >  >=20
->=20>  Why will this not overflow?
-> >=20=20
->=20>  The overflow(without this fix) happens inside the per-suite decryp=
-t routines
-> >  when a received frame is shorter than this minimum. For example:
-> >=20=20
->=20>  rtw_aes_decrypt() computes length =3D len - hdrlen - iv_len, so a
-> >  30-byte frame with hdrlen =3D 26 and iv_len =3D 8 wraps length to ~4=
-GiB,
-> >  and aes_decipher() then iterates num_blocks =3D (plen - 8) / 16 16-b=
-yte
-> >  blocks, reading and writing gigabytes past the skb.
-> >=20=20
->=20>  The WEP and TKIP decryptors start from the same subtraction and
-> >  underflow the same way.=20
->=20>=20=20
->=20>  min_len is the minimum size of a legitimate protected frame: heade=
-r +
-> >  IV + ICV, plus the 8-byte Michael MIC for TKIP.
-> >=20=20
->=20>  The min_len computation itself cannot wrap either: all three
-> >  addends are u8 fields, hdrlen is at most 36 and iv_len/icv_len are
-> >  per-suite constants (max 18/16), so the sum stays below 80 even with
-> >  the TKIP +8. A frame shorter than min_len cannot even hold its IV
-> >  and ICV, so only malformed frames are dropped.
-> >=20=20
->=20>=20=20
->=20>  >=20
->=20>  > + /* TKIP appends an 8-byte Michael MIC that icv_len doesn't acc=
-ount for */
-> >  > + if (prxattrib->encrypt =3D=3D _TKIP_)
-> >  > + min_len +=3D 8;
-> >  > +
-> >  > + /* a protected frame must be long enough to hold the IV and ICV/=
-MIC */
-> >  > + if (precv_frame->u.hdr.len < min_len) {
-> >  > + rtw_free_recvframe(precv_frame,
-> >  > + &padapter->recvpriv.free_recv_queue);
-> >  > + return NULL;
-> >  > + }
-> >  > +
-> >  > + iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
-> >  >=20
->=20>  What prevents this from overflowing?
-> >=20=20
->=20>  The check above keeps the offset within the frame: it guarantees
-> >  len >=3D hdrlen + iv_len + icv_len, and iv_len >=3D 4 for every suit=
-e, so
-> >  len >=3D hdrlen + 4 and both iv and the iv[3] dereference stay withi=
-n the
-> >  first len bytes ([rx_data, rx_data + len)).
-> >=20=20
->=20>=20=20
->=20>  Those len bytes are in turn inside the allocation: hdr.len is set =
-by
-> >  recvframe_put() only after pkt_exceeds_tail() verified that pkt_len
-> >  bytes were actually copied from the RX FIFO into an skb sized for
-> >  them (rtl8723bs_recv.c), so any offset below len is inside the
-> >  buffer.
-> >=20=20
->=20>  This is also why the iv assignment moved: the iv[3] read that foll=
-ows
-> >  it would otherwise be an out-of-bounds read when the frame is shorte=
-r
-> >  than hdrlen + 4. The IV may only be examined once the frame is known
-> >  to actually contain it.
-> >=20=20
->=20>=20=20
->=20>=20=20
->=20>  thanks,
-> >=20=20
->=20>  greg k-h
+> But there are no overlay planes in this driver, are there?
+>=20
+> What I want to get at is that it might be preferable to remove ARGB=20
+> entirely from the primary plane if it does not to serve a purpose.
+> But=20
+> if the driver can do something useful with these formats, it might be
+> worth exposing that instead.
+
+The device has overlay planes, but they're currently not supported.
+
+The manual for MA35D1 does list formats with alpha for
+DcregFrameBufferConfig0 register, and the hardware can properly handle
+these format values (by ignoring the A bits).
+
+Thanks,
+Icenowy
+>=20
+> In pl111, we now remove the ARGB foramts because the hardware does
+> not=20
+> handle them at all. The situation seems less clear in verisilicon.
+>=20
+> Best regards
+> Thomas
+>=20
+>=20
 > >=20
->=20>=20=20
->=20>  Regarding the format issue being mentioned earlier, I can send a v=
-3
-> >  patch. Also, I believe decryptor() is also where this check should b=
-elongs.
+> > Thanks,
+> > Icenowy
 > >=20
->=20Please send a v3.
->=20
->=20thanks,
->=20
->=20greg k-h
->
+> > > Best regards
+> > > Thomas
+> > >=20
+> > > > Thanks,
+> > > > Icenowy
+> > > >=20
+> > > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > > > ---
+> > > > > =C2=A0=C2=A0=C2=A0drivers/gpu/drm/verisilicon/vs_primary_plane.c =
+| 3 +++
+> > > > > =C2=A0=C2=A0=C2=A01 file changed, 3 insertions(+)
+> > > > >=20
+> > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > index 1f2be41ae496c..8d58682d88ef8 100644
+> > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > @@ -7,6 +7,7 @@
+> > > > > =C2=A0=C2=A0=20
+> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_atomic.h>
+> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_atomic_helper.h>
+> > > > > +#include <drm/drm_blend.h>
+> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_crtc.h>
+> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_fourcc.h>
+> > > > > =C2=A0=C2=A0=C2=A0#include <drm/drm_framebuffer.h>
+> > > > > @@ -179,5 +180,7 @@ struct drm_plane
+> > > > > *vs_primary_plane_init(struct
+> > > > > drm_device *drm_dev, struct vs_dc
+> > > > > =C2=A0=C2=A0=20
+> > > > > =C2=A0=C2=A0=C2=A0	drm_plane_helper_add(plane,
+> > > > > &vs_primary_plane_helper_funcs);
+> > > > > =C2=A0=C2=A0=20
+> > > > > +	drm_plane_create_blend_mode_property(plane,
+> > > > > +				=09
+> > > > > BIT(DRM_MODE_BLEND_PIXEL_NONE));
+> > > > > =C2=A0=C2=A0=C2=A0	return plane;
+> > > > > =C2=A0=C2=A0=C2=A0}
 
-
-Hi Greg,
-
-V3 has been sent: https://lore.kernel.org/all/8ee3bdd1c45034200cb1aa9a7e9=
-b575b9584643a@linux.dev/
-
-Best regards,
-
-Tianchu
