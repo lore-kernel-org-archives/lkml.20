@@ -1,144 +1,129 @@
-Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D8A514767
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAB13B7B91;
+	Thu, 10 Sep 2026 16:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058882; cv=none; b=jyzHsb0tXZf4NOjZbs9InOqhLIKH4CvVpiNlu/2ju8ZdOs/V/mcdF4v/Xk7utVSZaTw0vAAHLTrc9ji2/s+CfnRMtljhL3lUAJu8P6P+9vELLR+r3ovWlt+aEyhia5mKMINOIHI7zz0EgvvzsoMZbyLuXJBmDTB17+88FqIkyus=
+	t=1789058945; cv=none; b=u9yg+F7dPP+BjaS/G61qvK5PGo6bZuNMTQBO5BbX3M+FZ43Mw2mC8kXV/z71ZF1GIK+P4DyN4at+OEC1I+hFYkMLekuOC802DtGLuPohAADNa1mxPwYabhCixeA5SYp+DK46wlpuRr30V1ZHAFUGjh6vh0bK8KQPqUbjQBWwGeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058882; c=relaxed/simple;
-	bh=0ha2sGkGjon+eeZcJRjjPBS803qtaTj8dM/pQbd2s7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hCoDU0cURUGVdIuiTENDXwFZ6DrwHwIBadUTZ5VzHhJfKj1TGaxWqfeP0yc11O4Hosd5Y+Y9Ws+suPXTXPorTMhXyuSklng3MAqiBNR8/uYbrsrkBc8hftls3jcy6cIBts9vjs7JKqg0WfkhLcgy1zWjoMT3SFnMqkBgUfZdFrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Nw7nC7sZ; arc=none smtp.client-ip=91.218.175.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789058945; c=relaxed/simple;
+	bh=eORlhWAwiRfJuTnuq0ulVuM+TiRnVArI9BkOr1FpWOg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qna+i0ZaXyB93sIE9ARMUMNgsCGrWH4fNi1uqHnJMRv9ZzhCMvPxYTohmlsbVGEMK/nkVUslaI1DIM+E4kZS/T3fMTIeu/7pjLGjeFIg1gJ+dVg/wT/QE69qxtREIv3UBZYSz3Z9QpTrLLXUHAkMkleUDRMEgHCkhgP3pWuzklo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=NWqSmn84; arc=none smtp.client-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Nw7nC7sZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0ha2sGkGjon+eeZcJRjjPBS803qtaTj8dM/pQbd2s7w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789058873; v=1; x=1789663673;
- b=Nw7nC7sZHlrBu1Mxta+EC44VdEdsyWl8pqsRoTjoZgl1d/85uUZ6L8DcVoHFVJS4Bo2k69FT
- r5fvZ1B9iZiBfRALjaYwDgZobKQHrg+07C7mPjMyc7hbqeqicGp6T199iTXaMHyYTnAuu2ILE2f
- ME+2kvdlju54kfBpVBxVCb34=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b8644919bbe2bd5d;
-	Thu, 10 Sep 2026 16:47:53 +0000
-X-Mizu-Trace-ID: b8644919bbe2bd5d
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com
-Cc: martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	shuah@kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v2 13/13] selftests/bpf: cover the low-32 link for narrowing stack spills
-Date: Thu, 10 Sep 2026 22:16:35 +0530
-Message-ID: <20260910164635.459558-14-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910164635.459558-1-vineet.gupta@linux.dev>
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="NWqSmn84"
+Received: by chaosmail.tech (Postfix) id DEA251C8DA7;
+	Thu, 10 Sep 2026 16:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1789058533;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kQkb6gWom8B8sf7tnCB4kepo3gvA1Kc1t11RUjin2x4=;
+	b=NWqSmn84480UeJF9J6RCN9GKGbS33Grcs27E+i19Kw1VbjZtWRQEi1wSOX5Y/huA0s8Blf
+	z8deKig/ajq2YwDrBfCFMI/NG5/+bOLbz+BwNamVzoFScZB9l/f2eXdN5ejik0T9tUHgwT
+	wGoDvCUvXLS3aoh3+EFh/of4iBcpr24=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Subject: [PATCH v7 0/3] usb: typec: tipd: Add sn201202x (ACE3) support
+Date: Thu, 10 Sep 2026 18:42:06 +0200
+Message-Id: <20260910-tipd-ace3-v7-0-6c6ebe2193f2@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PQW7DIBAF0KtErEsFDAMmq96jygLDUFO1cWQcq
+ 1XkuxenixLVyy/m/RlurNCUqbDj4cYmWnLJ47kG+3RgYfDnN+I51syUUEZYhXzOl8h9IODCiT6
+ hFZTQsTp/mSjlr3vX6+k3l2v/TmHeCraJIZd5nL7vyxa5ze31LpILbqG+RDASOv9SLxnLp88fz
+ zOFgW3li2q5bbmqXIJGh7aPBnCXwx/vhGx5/RjvAFRSFLxOYZfrlpuW6+141yH2EoWTepdjw9X
+ DdqwclNYUoY8B0i43LX/YbionJ10C5x149Y+v6/oDBOIR8vQBAAA=
+X-Change-ID: 20260725-tipd-ace3-090bf570ef59
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>, 
+ Alyssa Milburn <amilburn@zall.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789058532; l=2883;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=eORlhWAwiRfJuTnuq0ulVuM+TiRnVArI9BkOr1FpWOg=;
+ b=2LzfSqo02MCBOz0gkLaY17VVxskwg1QQyN/q26jTLpgnzGtzxlwXRbkt9dnWiPwicudjM16cD
+ XSqz99084LIB/X+2Cq0ISLj32Wj/QTksz6ZIBr78378mYW6L0JMm4tw
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Two programs:
+Add support for sn201202x (a.k.a ACE3), an Apple-specific tps6598x
+variant that wraps the tps6598x core register set with a SPMI based
+regmap-like protocol, first appearing in Apple M3 devices. This series
+first makes the core parts bus-agnostic, and then adds the new SPMI
+interface as a custom regmap implementation.
 
- - zext_narrowing_spill_keeps_link: a 32-bit spill of a wide register,
-   filled back out, still follows a later narrowing of the source
- - zext_narrowing_spill_byte_no_link: a 1-byte spill forms no link, since
-   the relation is not expressible
+To simplify the merge strategy, the device tree entries will be sent
+in a future patch series.
 
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
-v2: new, with 12/13.
- .../bpf/progs/verifier_linked_scalars.c       | 54 +++++++++++++++++++
- 1 file changed, 54 insertions(+)
+Changes in v7:
+- Rebase on usb-testing
+- Link to v6: https://patch.msgid.link/20260826-tipd-ace3-v6-0-e919f39a93a2@chaosmail.tech
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-index e8a44e7579c8..ca7471f0293d 100644
---- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-@@ -1048,6 +1048,60 @@ __naked void zext_fill_byte_forms_no_link(void)
- 	: __clobber_all);
- }
- 
-+/*
-+ * A narrowing spill stores only the source's low 32 bits, so the slot is their
-+ * zero-extension. A later narrowing of the source must still reach anything
-+ * filled back out of that slot.
-+ */
-+SEC("socket")
-+__success
-+__naked void zext_narrowing_spill_keeps_link(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r0 <<= 32;						\
-+	r6 |= r0;		/* r6 = full 64-bit unknown */	\
-+	*(u32 *)(r10 - 8) = r6;	/* narrowing spill, forms the link */ \
-+	r2 = *(u32 *)(r10 - 8);	/* fill it back */		\
-+	if w6 != 0 goto 1f;	/* narrows r6, propagates to r2 */ \
-+	if r2 == 0 goto 1f;					\
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
-+/*
-+ * A sub-word spill is below the low-32 model, so no link is formed there.
-+ */
-+SEC("socket")
-+__failure __msg("div by zero")
-+__naked void zext_narrowing_spill_byte_no_link(void)
-+{
-+	asm volatile ("						\
-+	call %[bpf_get_prandom_u32];				\
-+	r6 = r0;						\
-+	call %[bpf_get_prandom_u32];				\
-+	r0 <<= 32;						\
-+	r6 |= r0;						\
-+	*(u8 *)(r10 - 8) = r6;	/* 1-byte spill: no link */	\
-+	r2 = *(u8 *)(r10 - 8);					\
-+	if w6 != 0 goto 1f;					\
-+	if r2 == 0 goto 1f;	/* not deduced */		\
-+	r0 /= 0;						\
-+1:								\
-+	r0 = 0;							\
-+	exit;							\
-+"	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
-+
- #ifdef CAN_USE_MOVSX
- 
- /*
--- 
-2.53.0-Meta
+Changes in v6:
+- Fix rebase issues
+- Link to v5: https://patch.msgid.link/20260821-tipd-ace3-v5-0-3244ed3bdc3f@chaosmail.tech
+
+Changes in v5:
+- Rebase on usb-next
+- Link to v4: https://patch.msgid.link/20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech
+
+Changes in v4:
+- Unexport variant data
+- One more debugfs-safety fix
+- Link to v3: https://patch.msgid.link/20260801-tipd-ace3-v3-0-8332f2eca4fc@chaosmail.tech
+
+Changes in v3:
+- Restore accidentally deleted static
+- Fix building with tracepoints
+- Sleep the device on failed probe
+- Link to v2: https://patch.msgid.link/20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech
+
+Changes in v2:
+- Use a -core module instead of building everything twice
+- Fix completion handling
+- Make regmaps debugfs-safe
+- Link to v1: https://patch.msgid.link/20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech
+
+---
+Alyssa Milburn (1):
+      usb: typec: tipd: Factor out i2c specifics
+
+Sasha Finkelstein (2):
+      dt-bindings: usb: tps6598x: Add sn201202x/ACE3
+      usb: typec: tipd: Add sn201202x support
+
+ Documentation/devicetree/bindings/usb/apple,sn201202x.yaml |  78 +++++++++++++++++++++++++++++++
+ MAINTAINERS                                                |   2 +
+ drivers/usb/typec/Makefile                                 |   1 +
+ drivers/usb/typec/tipd/Kconfig                             |  20 +++++++-
+ drivers/usb/typec/tipd/Makefile                            |  14 ++++--
+ drivers/usb/typec/tipd/core.c                              | 247 +++++++++++++++++++++++--------------------------------------------------------------------------
+ drivers/usb/typec/tipd/i2c.c                               | 107 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/typec/tipd/spmi.c                              | 300 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/typec/tipd/tps6598x.h                          | 132 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 9 files changed, 705 insertions(+), 196 deletions(-)
+---
+base-commit: bbed88f72dbbb960080282de3b90ca0933fa6226
+change-id: 20260725-tipd-ace3-090bf570ef59
+
+Best regards,
+--  
+Sasha Finkelstein <k@chaosmail.tech>
 
