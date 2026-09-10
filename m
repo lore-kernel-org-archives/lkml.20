@@ -1,158 +1,169 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 853093A7F45;
-	Thu, 10 Sep 2026 10:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D8B3C9880;
+	Thu, 10 Sep 2026 10:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035697; cv=none; b=fq7RDvi2+dg3WeskYoK28XmKosWsGXyirRZv2JHiyh2mvvq+fVKOq4yImaDf+/CGX8Rq0CsJD98LxttWvorDNanJEPWjWkzSp19rQpVDFQS85R2hqWQ4Ct0avsTJyBr3WbW/3MKotd3IHjmSq2qCyjTsZCIHdy3I2Qfvubtp128=
+	t=1789035784; cv=none; b=rLDGSpHhyEnCHXwC3UeixtdplnpuCFD7eZjaXQuTKA1FG07YM/lcy1I3xrZiMgHNjEOppUJhTy6jLNVPIzQo7EqM5wvrEuyKJrKgYoCB5rSgCSS6pAPybZKri5YwEzRc26iodUal0f1hWoKtpwZs3L0PRZ4AzrfgcMSUyBeHFgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035697; c=relaxed/simple;
-	bh=NdJwICU4hKphndkhJfKo4meJGdIZvN650SafLlOB/BM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gEKFmEtlk1HFN8SIrdSA9kC/DopyPcymRnUAbOWzkTqJeoxWiacGjO+yAMX6JQ7fouoxrHaK7BhPBvxd/Z7255UZLtl+V4ooNs/nVwNm54ctUyF7FogWQ7DcPWPIBrUBS28f6LRaSL+WUNDes+FubZakNVp9divq7FWRXjOSd/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=k//7Ud38; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789035784; c=relaxed/simple;
+	bh=rVXLyktI7mSIOkIkcRQzt6dAq357+68etA3pY8cy8wE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YRD+15B+5idLC/c5/iyCFJefEHbUvKkkLX4lTxxoBszO52M4SDzlJu8QMryrHtjTI+9KYIaeyfI42Ypw3MaCJduHrtisxJMPua6KY9QDmkPWP7waGbVVwQSlNuJOCFWyXhW/uKA144EffsTIF9acalzWkMa/dyCWKmQUo/YfVgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=l3iuTWrm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=FC0Z9UxO; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oXjWKpGG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=gYcg7YLo; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="k//7Ud38"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 51C7D143D;
-	Thu, 10 Sep 2026 03:21:31 -0700 (PDT)
-Received: from [10.0.129.245] (unknown [10.0.129.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 899BA3F7B4;
-	Thu, 10 Sep 2026 03:21:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789035695; bh=NdJwICU4hKphndkhJfKo4meJGdIZvN650SafLlOB/BM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=k//7Ud38dQTnvnKQxVZAcd73FhyR9Iv9bKLlrmoT04DSSuniGXJGJi8nFSmCLEuE8
-	 fX11Ow/pTfdIBC/fgh+DTGC9ZRproSkmFOyVb9rmmwngQfXyaH/MYJCYNZcxFenoQH
-	 YnDm/TS+rtBLyZhhM83WRgOUSjTOe3zhZn+o0zjo=
-Message-ID: <b7a8e864-d7a3-4765-8b62-c5452766769d@arm.com>
-Date: Thu, 10 Sep 2026 11:21:29 +0100
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="l3iuTWrm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="FC0Z9UxO";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oXjWKpGG";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="gYcg7YLo"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F14231F7C4;
+	Thu, 10 Sep 2026 10:22:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789035777; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
+	b=l3iuTWrmmY9bMCANceEGo6myn19W/R43VaVu5FQfS7UcrlwgkMc+RiAgVmi4A5tIP1uVm2
+	4FLEe2O9n2Cx4kIY5OyZmX2p1ag75DZb0bvG9HR7zIdBn9IqDSPc1zo9F0g8AS7f32+Urx
+	L91nFzBkI7c2B8XvFbXm+RmG6tAU6D0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789035777;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
+	b=FC0Z9UxOApeStL1uaOisFAv+nO3iyNp66qL3nOWC2u0H59Jr+6eTh5Kqy65FsWiqYMDw3i
+	B5kdZSLyRu4wZdCw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789035772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
+	b=oXjWKpGGg4KPUi5gPx7N2ku2nBkWBVmqpfnZDTjZb6UIl5YgYNL3aoOBxqOlYtsKGpS7eK
+	dfbIxn8TCMarJvIVcbDq6r2cPO9sgGaK83kA+PhrEkJZCKfdY3zn1ulj5AcuuVyguzPJic
+	GVVShiLlUlGPvkQtOfYiYb+rV6J+js8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789035772;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
+	b=gYcg7YLoLf+2bTzgCi4Z8zZOwPQd0dAbEQykeXfKoQT5ex65FiB3Lcdjtg0XJJMZwG8e/e
+	FIt/JYpphzYH41CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C832113180;
+	Thu, 10 Sep 2026 10:22:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ssndMPyEompZSgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 10:22:52 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 51DBEA12EA; Thu, 10 Sep 2026 12:22:52 +0200 (CEST)
+Date: Thu, 10 Sep 2026 12:22:52 +0200
+From: Jan Kara <jack@suse.cz>
+To: Yichong Chen <chenyichong@uniontech.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, aneesh.kumar@linux.vnet.ibm.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ext4: cap migration extent length at EXT_INIT_MAX_LEN
+Message-ID: <w2gsa6zrn2tbeuha3jsruqtw5g3b4fg6524xq44a6dwp57can5@vfo4m6scjdsu>
+References: <20260910034000.3155420-1-chenyichong@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 04/20] KVM: arm64: Refactor the vcpu_load to allow for
- VM specific callbacks
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <20260908162223.1683432-5-suzuki.poulose@arm.com>
- <a0c5c373-b5c2-4ad2-9e53-ede58c392972@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <a0c5c373-b5c2-4ad2-9e53-ede58c392972@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910034000.3155420-1-chenyichong@uniontech.com>
+X-Spam-Level: 
+X-Spam-Score: -2.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.vnet.ibm.com,vger.kernel.org];
+	MISSING_XM_UA(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,uniontech.com:email,suse.cz:email]
 
-On 10/09/2026 05:00, Gavin Shan wrote:
-> Hi Suzuki,
+On Thu 10-09-26 11:40:00, Yichong Chen wrote:
+> update_extent_range() keeps merging physically and logically contiguous
+> blocks without limiting the accumulated range.  The maximum length of an
+> initialized extent is EXT_INIT_MAX_LEN, because the MSB of the 16-bit
+> ee_len field is used to mark unwritten extents.
 > 
-> On 9/9/26 2:22 AM, Suzuki K Poulose wrote:
->> Based on a work by Marc Zyngier
->>
->> To keep the VCPU load/put handling cleaner with the different kinds of 
->> VM types,
->> we are about to introduce VM specific callbacks to do just the right 
->> thing.
->> In preparation for that, make some refactoring to add the change easier.
->>
->> No functional changes intended.
->>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   arch/arm64/kvm/arm.c | 46 +++++++++++++++++++++++++++-----------------
->>   1 file changed, 28 insertions(+), 18 deletions(-)
->>
+> finish_range() can therefore store a range longer than EXT_INIT_MAX_LEN
+> in ee_len.  A range of 32769 blocks is stored as 0x8001, which
+> ext4_ext_is_unwritten() treats as an unwritten extent and
+> ext4_ext_get_actual_len() reports as 1 block, so the migrated file
+> silently loses its data.
 > 
-> Nitpicks below, none of them are introduced by this patch itself. In 
-> either way:
-> 
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Stop merging once the accumulated range reaches EXT_INIT_MAX_LEN, so
+> migration creates several valid extents instead.
 
-Thank you !
+Yeah, or the extent length could overflow the u16 type. The fix looks good.
+Feel free to add:
 
-> 
->> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->> index 67f1ff9bc4fbe..51fc651267157 100644
->> --- a/arch/arm64/kvm/arm.c
->> +++ b/arch/arm64/kvm/arm.c
->> @@ -683,14 +683,11 @@ static bool kvm_vcpu_should_clear_twe(struct 
->> kvm_vcpu *vcpu)
->>       return single_task_running();
->>   }
->> -void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
->> +static void vcpu_prepare_mmu(struct kvm_vcpu *vcpu)
->>   {
->>       struct kvm_s2_mmu *mmu;
->>       int *last_ran;
->> -    if (is_protected_kvm_enabled())
->> -        goto nommu;
->> -
->>       if (vcpu_has_nv(vcpu))
->>           kvm_vcpu_load_hw_mmu(vcpu);
->> @@ -720,10 +717,33 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, 
->> int cpu)
->>           kvm_call_hyp(__kvm_flush_cpu_context, mmu);
->>           *last_ran = vcpu->vcpu_idx;
->>       }
->> +}
->> +
->> +static void vcpu_set_wfx_traps(struct kvm_vcpu *vcpu)
->> +{
->> +    if (kvm_vcpu_should_clear_twe(vcpu))
->> +        vcpu->arch.hcr_el2 &= ~HCR_TWE;
->> +    else
->> +        vcpu->arch.hcr_el2 |= HCR_TWE;
->> +
->> +    if (kvm_vcpu_should_clear_twi(vcpu))
->> +        vcpu->arch.hcr_el2 &= ~HCR_TWI;
->> +    else
->> +        vcpu->arch.hcr_el2 |= HCR_TWI;
->> +}
->> +
-> 
-> It seems FIELD_MODIFY() can be applied here if no visible constraints 
-> exist:
-> 
->      FIELD_MODIFY(HCR_TWE, vcpu->arch.hcr_el2, ! 
-> kvm_vcpu_should_clear_twe(vcpu));
->      FIELD_MODIFY(HCR_TWI, vcpu->arch.hcr_el2, ! 
-> kvm_vcpu_should_clear_twi(vcpu));
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-I would leave this out for now. Can be a separate patch
+								Honza
+
 
 > 
->> +static void vcpu_load_pvtime(struct kvm_vcpu *vcpu)
->> +{
->> +    if (kvm_arm_is_pvtime_enabled(&vcpu->arch))
->> +        kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
->> +}
->> +
->> +void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
->> +{
->> +    if (!is_protected_kvm_enabled())
->> +        vcpu_prepare_mmu(vcpu);
->>
+> Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
+> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+> ---
+>  fs/ext4/migrate.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> I think we probably try to depend on kvm->arch.vm_flavor instead
-> of !is_protected_kvm_enabled().
+> diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
+> index d467b5a13c62..2aa6572088cf 100644
+> --- a/fs/ext4/migrate.c
+> +++ b/fs/ext4/migrate.c
+> @@ -70,7 +70,8 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
+>  	 */
+>  	if (lb->first_pblock &&
+>  		(lb->last_pblock+1 == pblock) &&
+> -		(lb->last_block+1 == lb->curr_block)) {
+> +		(lb->last_block+1 == lb->curr_block) &&
+> +		(lb->last_block - lb->first_block + 1 < EXT_INIT_MAX_LEN)) {
+>  		lb->last_pblock = pblock;
+>  		lb->last_block = lb->curr_block;
+>  		lb->curr_block++;
+> -- 
+> 2.51.0
 > 
->      struct kvm *kvm = vcpu->kvm;
-> 
->      if (kvm_vm_is_protected(kvm) || kvm_vm_flavor_eq(kvm, VM_PKVM))
->          vcpu_prepare_mmu(vcpu);
-
-This will be removed as part of the call back in the next patch.
-
-Cheers
-Suzuki
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
