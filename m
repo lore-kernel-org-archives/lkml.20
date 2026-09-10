@@ -1,136 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006E84718CA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852C44718C1
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789076355; cv=none; b=cWaDbKQ0dbAhgeJJiukoHK+vDa+hRVac214qJIxFdNdX1L5NjvunGXZ65yJ5oBsH9/j2183o5t5lnXPxDNElIgyauUGNpP3SSZLJxzbB0CrpvvDrFdJ83EY8Q5aZCJcpPLxMqCxIEN0+32uk8LA+NAXuBkABgmnjRycbHTaJ5zU=
+	t=1789076358; cv=none; b=s7VeAMBZzmO3MmYrvJ93Ss2x/my9tiP8mpF6/7eUwOWTCiA7EKKMKWCY01izdbxmlVYHduEqmQgCsyD4RVTShgvQ/isqIfDPeC4PlakTCo4Gx5SOHbjQohW285M8PAWFfiiKkqJwI4UsaOQW+gPu5f4TkLe8OkHmdf2d0G1dFww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789076355; c=relaxed/simple;
-	bh=IayyLRI5WzvNXFeFFOVv7BzXQfoJhh7IiQl/vObe6pM=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=fWzGxwMU96ad3o4Hr5cuNiq4nRyElBq68baEglqm92pLITDWNY+3JDV4+hZ2zyCsvQSEd9eBAArRkI/1EAz5QuOK8inJRW2iPLm3v96Jnw80twfxFmBWumLqTj8zkxsDoWwnDnJ6thcFCCIqx+btxrDYwgx9uwCM7OFdhvNU5Kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IyY/P2pp; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789076358; c=relaxed/simple;
+	bh=VZ7i9g/d+H47coYO3Xc9M1wiqaAKR5dvjmJyK4FiQPk=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=Mc4fseOFrFJqosE4V0wOdHdfFfSILrm0ZKl2LjyluADaDonAeCXKNrh2GapXeq7OvmAdF0JGiRDx7Q0VIZgdg11yM/QvqvwA+Hz99TNkqiqVf8yzAxvIAy4OV70IGocJMu/QUotxFivaRQN4/2XExyBhGly/SNcYzCYTFjAKOJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=psf1nRm8; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IyY/P2pp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789076353; x=1820612353;
-  h=date:from:to:cc:subject:message-id;
-  bh=IayyLRI5WzvNXFeFFOVv7BzXQfoJhh7IiQl/vObe6pM=;
-  b=IyY/P2pp9BDGlD98PVF4FffF2IzLNtyo8l5w2kDkFO6+FkKI3iFx7rJu
-   4vNh7/XtnR32Obf6tdb0aeNKvc6Ap88KFwHqKGiMUwprCyiW3vkqs4EuY
-   2XgXNQRFRPf4jcVOmmW8PgCO5WKpTeEnZSMVYlA4awT2O6Vqp67qGhByt
-   QUYlK1+A7morglbHSGcepZ1KpPJwlMlGSZ7WWpSyNt67bN7jihRlJdywh
-   BULBS0NnY261ns9KyEdDvt75jV9gCLHy+yAJajjUTrEfqEUGXgS5228PP
-   Nq1ZJOfEsIdZRDqQpYExLp/Ny44z3xcbUb6nH0pvW9UVnjXk9TzAw3IYC
-   A==;
-X-CSE-ConnectionGUID: PifNBIoTTbWlQr5DVViI7Q==
-X-CSE-MsgGUID: uIZ8rXVzTiG9QKIAy92Zwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89569271"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="89569271"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 14:39:12 -0700
-X-CSE-ConnectionGUID: GRNq1U0IQr+dtCREYS7wJQ==
-X-CSE-MsgGUID: 5wJwGzVTQRCgkoCzLYJcWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="276985744"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by fmviesa005.fm.intel.com with ESMTP; 10 Sep 2026 14:39:10 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4mTy-000000000Yx-41th;
-	Thu, 10 Sep 2026 21:39:02 +0000
-Date: Fri, 11 Sep 2026 05:38:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chao Yu <chao@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: fs/f2fs/checkpoint.c:782:14: sparse: sparse: incorrect type
- in assignment (different address spaces)
-Message-ID: <202609110512.VUqyKAz1-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="psf1nRm8"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso345205a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:39:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789076355; x=1789681155; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:mime-version:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6fbf9eOsE32d1ZOxCGBZBdmKD77pEwD9k19mpGO+TR8=;
+        b=psf1nRm8pyZ5OcEswNdDl0zaYmyEuhYApnmTgbLffPHub5TfTThZtLyvuUMbDc9zIk
+         FAIkxnHKlYQLbdGs/BXNcqHoFEVScS9yR3RMzEOPoRizKNHogmGoMlwNph6h8N+r6BS2
+         3UxXIddPQPrwadzGSTHcR3jwTlbH7sXcka+pr9lOq/sn5hI4sDP6ffVLs7fjZF1KT9jV
+         5kOXasWCt11pEOPr2uuX5DUwRl5Pli4v2VSsBuPYhikNafzeTV0iGbxjxmhLeXyAcSzT
+         tmjEewAe+MYR7MOhZnrJ6Pg2Bb/T69PEFH+07Ccx2M5v0otGVlPMdqXyv+GPRatjmnRs
+         VWeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789076355; x=1789681155;
+        h=content-type:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6fbf9eOsE32d1ZOxCGBZBdmKD77pEwD9k19mpGO+TR8=;
+        b=HFxoGTyRobB1cVh9dyOT+TiOqwp7WnPhiIRFHMRJw19rjGNefj5Ft3f0HxOtJRltzj
+         PyebnrZr3ftvIJAnYS3oy5j8qIh8fbGB4gLJ4TLQ1V9e4/tgHEB3iuHfR0Nc4VdibDQI
+         34UO9cepqkgrzOldOZpVRZqd0bBwN5p8JAPxhs1cDc6z/M/XlHl93KfnV2AVkRZiWnze
+         YJ+LuID+aeaUP2+DYMBOYhaUy1a9P9A1mTkv3c6ulRB2y5LdkKe3+mlbxnGZ87lTuM/T
+         tISkkDdTIJ7BwKwI7QtVvwFYoYMgGa/Lojxp0g7pvxXUG2dyFnCYx8ajhk/jNnQLfLmC
+         w1LA==
+X-Forwarded-Encrypted: i=1; AKwUvBzY8poEzIE+PUrVmBUpTTGC69DtmNlIFnBrWwRb0Ky5x45naS7eGMl4AfgW8/M+uVb4kfXZ1mL7rVUprEo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVtXRfLbavB2NGt/byGmEAdPVlbZw7ZpEP/I98HWIZBiofIWwc
+	uoS/BuKNO2LVsFwqNoYWzdk3wQ4VZaVUKceAZA4dWHkdaLOJiITrT2BdG2DT9gLBNJplnLALKkW
+	dDcocWQ92hw==
+X-Received: from dlbbq8.prod.google.com ([2002:a05:7022:6708:b0:143:65eb:f1ec])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1c8b:b0:398:9c00:29ee
+ with SMTP id 98e67ed59e1d1-39d9c38fa48mr1037351a91.22.1789076355117; Thu, 10
+ Sep 2026 14:39:15 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:39:07 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910213907.3206529-1-irogers@google.com>
+Subject: [PATCH v1] tools build: Fix timerfd feature detection with clang
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   50d05c7c76c96b90462f24debacca971d2e86713
-commit: 9a9ee7408a1f8271bd1978baff2dd09457054ef4 f2fs: reduce memory footprint of ino management
-date:   3 weeks ago
-config: arm-randconfig-r133-20260911 (https://download.01.org/0day-ci/archive/20260911/202609110512.VUqyKAz1-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 8.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609110512.VUqyKAz1-lkp@intel.com/reproduce)
+Clang's uninitialized-const-pointer warning causes a feature test to
+fail when building perf with clang. This disables support for 'perf
+kvm stat live'. Add default initialization to new_value as a
+workaround.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 9a9ee7408a1f ("f2fs: reduce memory footprint of ino management")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609110512.VUqyKAz1-lkp@intel.com/
+  test-timerfd.c:15:30: error: variable 'new_value' is uninitialized when passed
+			       as a const pointer argument here
+			       [-Werror,-Wuninitialized-const-pointer]
+     15 |         if (timerfd_settime(fd, 0, &new_value, NULL) != 0)
+        |                                     ^~~~~~~~~
+  1 error generated.
 
-sparse warnings: (new ones prefixed by >>)
->> fs/f2fs/checkpoint.c:782:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected void **slot @@     got void [noderef] __rcu ** @@
-   fs/f2fs/checkpoint.c:782:14: sparse:     expected void **slot
-   fs/f2fs/checkpoint.c:782:14: sparse:     got void [noderef] __rcu **
-   fs/f2fs/checkpoint.c:784:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
-   fs/f2fs/checkpoint.c:784:57: sparse:     expected void [noderef] __rcu **slot
-   fs/f2fs/checkpoint.c:784:57: sparse:     got void **slot
-   fs/f2fs/checkpoint.c:789:64: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
-   fs/f2fs/checkpoint.c:789:64: sparse:     expected void [noderef] __rcu **slot
-   fs/f2fs/checkpoint.c:789:64: sparse:     got void **slot
-   fs/f2fs/checkpoint.c:810:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected void **slot @@     got void [noderef] __rcu ** @@
-   fs/f2fs/checkpoint.c:810:14: sparse:     expected void **slot
-   fs/f2fs/checkpoint.c:810:14: sparse:     got void [noderef] __rcu **
-   fs/f2fs/checkpoint.c:812:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
-   fs/f2fs/checkpoint.c:812:57: sparse:     expected void [noderef] __rcu **slot
-   fs/f2fs/checkpoint.c:812:57: sparse:     got void **slot
-   fs/f2fs/checkpoint.c:819:64: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
-   fs/f2fs/checkpoint.c:819:64: sparse:     expected void [noderef] __rcu **slot
-   fs/f2fs/checkpoint.c:819:64: sparse:     got void **slot
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/build/feature/test-timerfd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-vim +782 fs/f2fs/checkpoint.c
+diff --git a/tools/build/feature/test-timerfd.c b/tools/build/feature/test-timerfd.c
+index 9c72c697a9df..f88e8cc63ef3 100644
+--- a/tools/build/feature/test-timerfd.c
++++ b/tools/build/feature/test-timerfd.c
+@@ -6,7 +6,7 @@
+ 
+ int main(void)
+ {
+-	struct itimerspec new_value;
++	struct itimerspec new_value = {};
+ 
+ 	int fd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK);
+ 	if (fd < 0)
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
-   768	
-   769	static void __set_ino_bitmap(struct f2fs_sb_info *sbi, nid_t ino, int type)
-   770	{
-   771		struct inode_management *im = &sbi->im[type];
-   772		unsigned long index = INO_SLOT_INDEX(ino);
-   773		unsigned int ofs = INO_BIT_OFFSET(ino);
-   774		void **slot, *entry;
-   775		unsigned long bitmap = 0;
-   776		int ret;
-   777	
-   778		ret = radix_tree_preload(GFP_NOFS | __GFP_NOFAIL);
-   779		f2fs_bug_on(sbi, ret);
-   780	
-   781		spin_lock(&im->ino_lock);
- > 782		slot = radix_tree_lookup_slot(&im->ino_root, index);
-   783		if (slot) {
-   784			entry = radix_tree_deref_slot_protected(slot, &im->ino_lock);
-   785			bitmap = xa_to_value(entry);
-   786			if (!(bitmap & (1UL << ofs))) {
-   787				bitmap |= (1UL << ofs);
-   788				entry = xa_mk_value(bitmap);
-   789				radix_tree_replace_slot(&im->ino_root, slot, entry);
-   790			}
-   791		} else {
-   792			bitmap |= (1UL << ofs);
-   793			entry = xa_mk_value(bitmap);
-   794			if (unlikely(radix_tree_insert(&im->ino_root, index, entry)))
-   795				f2fs_bug_on(sbi, 1);
-   796		}
-   797		spin_unlock(&im->ino_lock);
-   798		radix_tree_preload_end();
-   799	}
-   800	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
