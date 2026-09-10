@@ -1,127 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9DC49B5D0;
-	Thu, 10 Sep 2026 22:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7965A49B5A3
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078630; cv=none; b=TKdrJYFyEklZ4Prr7ee8JDkF8fypYNF2oDTjFAohMkMCI2oRkh//8E8ZkTpAGZhH0im/CqYU6ClMxt2Ess/gvzqc0v2AKwP+znZTWTIVgxcRRweWG/72Snh722W+APGEWiJMjYrzDnqQS1rWIBwytuAi2wqkCm3tv6OhVOlzTPM=
+	t=1789078660; cv=none; b=dzirVQUvk78ySvOCfVWeitRbv2jlltujSWX8H+BpMe/GWIQA4qcAJwJqYpB4PH1XngH1pOKJaUsrYm7L1Rr3hfJdhSTasKt702xhJcgSIWAlQhU1XxXyvHPbCvBGuPWhU7hBF8bihrJVbwnJi7qZ8xzGet+PndQBlov22THUaYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078630; c=relaxed/simple;
-	bh=beq27RQOuBz3rmFCqPNVU5aWnBcD61l1tdD2FKrwUYs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BsuE3lDB0V8KKIvicxG+yyQAXKiouVDyYWrbiOoD7FUifR0iaE+dUSSrtA/BjyTUPOwN7zgpSerOTuJuAG6iKTWTq2/yzfaUndpU7o4+qWVixArd0Zlm8p9pY2JiLLtUxUw4I43MlP3ZrdCJ6xywzEP8hFYDj4lpnFmCVfEA54I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhZ6GkK5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789078660; c=relaxed/simple;
+	bh=dD2MbE8iWzrOQjOcB9Fc+ItDw8U6u6JrMfm3i3wPru4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OrHVIJE1xH7TuwblFiNpQbukEqNKisKby9nCv6VTVEU7MSKEyR89gIe08V+xEFCIDqdKDLp192XH1Ft8GeLnIJsqrI6cjbz6b+qTiuaRUv7b76knYOqkaHpWpJU+2dkdLTesndqzHa2g3/yMr1lBQNNTQOcN1Euorx+aiOdmZe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gq4KVn9I; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhZ6GkK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D0C1F000FF;
-	Thu, 10 Sep 2026 22:17:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789078628;
-	bh=URxl+o12EE5hMsUw7PASgNl0kBa2m8/VC3cuEfTrfVU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QhZ6GkK5Fi+B92sXeqP2okF2KVRInAO6KAai3sgu99GWqIo4awuMhRcjdEwv2a7TR
-	 sSXFZHcpv2jryjIhMjqjS5CgU35POEjp9ptdzXZrr8Upd6T0xxPYarfmzP/5XGOnjg
-	 ArY8U37vevokDBDgXk+iKq4zokwlJZgLAAdU9TOLCSnig63pc3vf2qpdvwMQg8h54K
-	 GtiRXyt4KHR1bDemNlCRNc7wgrZCHgHmioJoTSgv6syeI9/UZ9/rLq+t6tzbD4x51A
-	 UaW0yW8iER2m/TKd4kfpMuwVWq64avcSJ4ah3LLBmVb6bCHoAwZk0IWah0Czu1k8KZ
-	 grDQAJ2/yeZog==
-Date: Thu, 10 Sep 2026 23:17:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] spi: dw: use threaded interrupt and optimize the
- threaded ISR
-Message-ID: <8303de6e-20a6-482c-82bf-ec87034042f0@sirena.org.uk>
-References: <20260909143652.9234-1-jszhang@kernel.org>
- <20260909143652.9234-6-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gq4KVn9I"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcc3e03so868406d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:17:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789078657; x=1789683457; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=phZqrumo434IM6M4R3cvUgGvziwdgVdo1+7d/hsBRIU=;
+        b=gq4KVn9Ilm1wljKBeVQy592L/SpDUiJN2XnPgfvdH+47cShKSxeXua/19r30MF801E
+         jCAanBo1QVEAbUuFfp1kvwJ33U6wY6p3lJsftZEG5iRF6omFv2corCxi7ye5NDXXiPko
+         NW8gZGvvRINCJ6qngKybtvs7anG+f7n1Wht9Kds3FmTfTQNZc9PoWrEVl3aT/ufYifEb
+         11oeC6vAyv8QQyR0z2bfR4dji0OtNkQDiwFOr/MOJSZhAfyFxhR9BL8BDL11Fzj1D1Fw
+         jkAx1/NeRQ5oo6w/KzWQZ4rVwzf173N1i4MIgYVVuo0vHdAFtrK6WueOSqSv5ObAJ0KG
+         8smA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789078657; x=1789683457;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=phZqrumo434IM6M4R3cvUgGvziwdgVdo1+7d/hsBRIU=;
+        b=ctlL80JeogZx5WfOpbyvMSU3mZ0cBg3JQUTBqW5g3hDdpKQhJs477dF98XdZaYWg2e
+         rjRswnAio8UqUBQ+UqQ+3JXO1eFDLnCLxKVANFLbriIHUalzEwPNHUPhHQsIexGbZNX9
+         Ob3jOIRmQpOratPGqd9OxndQCwgrJA2OgklbC7XDMy4mmjQN+eJcNAhD8Z5wslNtgWyZ
+         mua+aSKo6S3BF/LGiwRcCAJWIe7PzJtSZdBpj/aD6VEdX/pgL7Jx20tp+T4iKnFXx0AE
+         Z8xtfWUQVpS4UYjYR+is+7uq96cgxxebThA5TBZfMQyhJkKlYGpfmDhFeS4Finbp4/11
+         pq7A==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ8VcTTXaMawXwOUonmEs9ATOGcL2KOSlp/FRRa+7guNY89Xj0AkOFDrbG2WLhLsb3A9dpy87f44yx8XM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqIyhD3BFIk+piA81iNArbJ1IlhL9RTfg6rHTwCgNv8YsNR/Ss
+	kPKW9x4tQHI/GEAUvFq1BQelsL5W3uWQJt6glsLz9QdpZqi0PkZWAm4=
+X-Gm-Gg: AYBFou3Xi0XrbA/pjmG7Z1g1nnXinU2vxpg8zEZhFATGJw6tgyJbzhFtkd3uzL5WE2W
+	hjCZboLj59ZN/82PoHsVLe70ZKmAj961I0XXhi7ZuyUPsnTcxKDbchbDJmmlLfEZPZhXtNgOa3u
+	L1dAbxLD5l3W1KSeEgI08xCcxZ2+Hh2BnBV3ZIIrIQYwHl7L/9dfipPso+NmxIuL1xoGz8j5Qyk
+	z4oD+DpQghvlMEiHfhPjmd9KRwePuYxTHVM6rkb7EVTlXKDyMtmrx5AYF3NJXugMiwLeao0E0J4
+	ZwcfnOJvmdLyflN/F7ZBFcvVCtJ0DAhqgbc7EDF/nfaOq9Df12apzfkGy0QaI7tIRE57Uc5WO8J
+	/UsV/MYuVUR0EabrKaSsY9f5PaL2AlLRSlsVSDNA1RU8B56VMT83cxNnELz2ci9mkBSc4Vt9tsP
+	k+T1Ad/ZRZY2FO1YKVfXGrb46B+4FNqmWv5SpsRRTH+1Iykh2VqzVLzc4zefi+GaACjsMc2zESo
+	vZgY1NyWNHSZReHCiebzmFOSCQsXAB7x7vLrZc5F4DoXFTyLdbOLm9U+CqBrHUWlqREt/amU4+i
+	hWzIfAyhdz4bnuBiSuxjK4cviGRUPTK76g==
+X-Received: by 2002:a05:620a:2604:b0:939:a9de:83ea with SMTP id af79cd13be357-939e8b1c875mr207985085a.10.1789078655448;
+        Thu, 10 Sep 2026 15:17:35 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80d453esm87548985a.38.2026.09.10.15.17.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 15:17:34 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: linux-pci@vger.kernel.org
+Cc: thomas.petazzoni@bootlin.com,
+	pali@kernel.org,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] PCI: aardvark: Disable PHY on probe failures
+Date: Thu, 10 Sep 2026 18:17:25 -0400
+Message-ID: <20260910221725.91980-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e6MNrUW3BJ/Ft3nO"
-Content-Disposition: inline
-In-Reply-To: <20260909143652.9234-6-jszhang@kernel.org>
-X-Cookie: Gravity brings me down.
+Content-Transfer-Encoding: 8bit
 
+advk_pcie_setup_phy() initializes and powers on the PHY before the
+emulated bridge and IRQ domains are created.  If any of those later
+initialization steps or pci_host_probe() fails, probe returns without
+powering off or exiting the PHY.
 
---e6MNrUW3BJ/Ft3nO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Replace the direct returns with staged cleanup labels.  Remove IRQ
+domains in reverse order, release the emulated bridge allocation only
+after successful initialization, and disable the PHY on every failure
+after advk_pcie_setup_phy() succeeds.  A setup_phy() failure still
+returns directly, so its partial internal cleanup is not repeated.
 
-On Wed, Sep 09, 2026 at 10:36:52PM +0800, Jisheng Zhang wrote:
-> To avoid blocking for an excessive amount of time, eventually impacting
-> on system responsiveness, hard interrupt handlers should finish
-> executing in as little time as possible.
+Fixes: 366697018c9a ("PCI: aardvark: Add PHY support")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/pci/controller/pci-aardvark.c | 31 ++++++++++++++++++-------------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-> +static irqreturn_t dw_spi_irq_thread_fn(int irq, void *dev_id)
-> +{
-> +	struct spi_controller *ctlr =3D dev_id;
-> +	struct dw_spi *dws =3D spi_controller_get_devdata(ctlr);
-> +	u32 rx, tx, imask, mask =3D 0;
-> +	bool finalize =3D false;
-> +
-> +	do {
+diff --git a/drivers/pci/controller/pci-aardvark.c b/drivers/pci/controller/pci-aardvark.c
+index ecb81ac73019..2bbdb73cfb45 100644
+--- a/drivers/pci/controller/pci-aardvark.c
++++ b/drivers/pci/controller/pci-aardvark.c
+@@ -1864,28 +1864,25 @@ static int advk_pcie_probe(struct platform_device *pdev)
+ 	ret = advk_sw_pci_bridge_init(pcie);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register emulated root PCI bridge\n");
+-		return ret;
++		goto err_disable_phy;
+ 	}
+ 
+ 	ret = advk_pcie_init_irq_domain(pcie);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to initialize irq\n");
+-		return ret;
++		goto err_cleanup_bridge;
+ 	}
+ 
+ 	ret = advk_pcie_init_msi_irq_domain(pcie);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to initialize irq\n");
+-		advk_pcie_remove_irq_domain(pcie);
+-		return ret;
++		goto err_remove_irq_domain;
+ 	}
+ 
+ 	ret = advk_pcie_init_rp_irq_domain(pcie);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to initialize irq\n");
+-		advk_pcie_remove_msi_irq_domain(pcie);
+-		advk_pcie_remove_irq_domain(pcie);
+-		return ret;
++		goto err_remove_msi_irq_domain;
+ 	}
+ 
+ 	bridge->sysdata = pcie;
+@@ -1893,14 +1890,22 @@ static int advk_pcie_probe(struct platform_device *pdev)
+ 	bridge->map_irq = advk_pcie_map_irq;
+ 
+ 	ret = pci_host_probe(bridge);
+-	if (ret < 0) {
+-		advk_pcie_remove_rp_irq_domain(pcie);
+-		advk_pcie_remove_msi_irq_domain(pcie);
+-		advk_pcie_remove_irq_domain(pcie);
+-		return ret;
+-	}
++	if (ret < 0)
++		goto err_remove_rp_irq_domain;
+ 
+ 	return 0;
++
++err_remove_rp_irq_domain:
++	advk_pcie_remove_rp_irq_domain(pcie);
++err_remove_msi_irq_domain:
++	advk_pcie_remove_msi_irq_domain(pcie);
++err_remove_irq_domain:
++	advk_pcie_remove_irq_domain(pcie);
++err_cleanup_bridge:
++	pci_bridge_emul_cleanup(&pcie->bridge);
++err_disable_phy:
++	advk_pcie_disable_phy(pcie);
++	return ret;
+ }
+ 
+ static void advk_pcie_remove(struct platform_device *pdev)
 
-=2E..
-
-> +	} while (rx !=3D 0 || tx !=3D 0);
-
-This will sit and drive the FIFOs for as long as we manage to push data
-through them.  Usually we should have DMA so any long transfers wouldn't
-be here but if there's systems with this controller wired up without DMA
-we could potentially end up doing very large transfers, that can trigger
-the hung task detector.  The simplistic solution is to use cond_resched()
-to give other things a chance to run.
-
-The hardirq handler would just do one round of FIFO operations and
-return, allowing other things to happen until the device interrupts
-again.
-
-> +static irqreturn_t dw_spi_host_handler(struct dw_spi *dws)
-> +{
-> +	if (dw_spi_check_status(dws, false)) {
-> +		spi_finalize_current_transfer(dws->ctlr);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	dw_spi_mask_intr(dws, 0xff);
-> +
-> +	return IRQ_WAKE_THREAD;
-> +}
-
-It feels like it might be good to do one round of FIFO in the hardirq
-handler before deferring for a longer transfer, that would avoid needing
-to schedule for very short transfers.  Essentially a copybreak like we'd
-use for choosing between PIO and DMA.  This is entirely based on vibes
-rather than having benchmarked anything, but all your numbers seem to be
-for larger transfers rather than a continual stream of short transfers.
-The people doing stuff like running CAN buses often run into trying to
-saturate the bus which means they are very concerned with the latency
-=66rom transaction initiation to completion, and from completion to
-initiating the next transfer.
-
-TBH along those lines with really short transfers (eg, read/write 16 bit
-registers) we might not want to bother with the interrupt at all and
-poll but that's a separate thing.
-
---e6MNrUW3BJ/Ft3nO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqjLGAACgkQJNaLcl1U
-h9AHIQf+J74EtVYvLl9CcdiDt0gfsgKDRFSet8CgLa/bpWROMLnJe/AahN3aYTsL
-6uSISfkYeWk6zhnRyElAZLXRVoEJA5GwM9iau2Uw06ffAQAjpjR3DsWraFnsOKr6
-ln42pQc86nfnonzdWS+xH5oW+6SR4n/hhK6VQT8qSV+NLj7LOJDu5YDo8ZmCU222
-eU9mRVyX4JXs9TSGj9/AnGV2CQ12wT1QmNNKuovGISMEeP+dIU0Wobw2ZFqrmZ9s
-7mTAnVdiDtdWQvKsyQNnNbHwyU3TcPnzlMyxRNSRQNODVESUgar8AlfGgIdvHXjV
-IZ15Y23C1EfLsIaPwdkNobURLX65pg==
-=cT1g
------END PGP SIGNATURE-----
-
---e6MNrUW3BJ/Ft3nO--
+-- 
+2.50.1
