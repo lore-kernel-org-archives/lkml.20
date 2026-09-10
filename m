@@ -1,231 +1,369 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011036.outbound.protection.outlook.com [40.107.130.36])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3504AA577;
-	Thu, 10 Sep 2026 15:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055336; cv=fail; b=GgzwNQSinKMdsRrwUNkQipUHj6YyWbWlh3/PKtzJf0Rwnj+qkKjYtLjRm/GbrNOeQetJF277w4oUe5FcmX7u9M+75HGAnPzFBuQn5sRN/8DLA2fHMeDH9+w8Ln9vfiRZLz4Yx+GuJfztGQNW1jeFYOhfSHxgmSJC18Be27mz/Q4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055336; c=relaxed/simple;
-	bh=fDQb9pxa3awaWLxpUINOC1kp290NvXPZR3m8TGW+6Xg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KTqq1gpNfvKvj6BilSiP2p69Z1KE2/FcOsUvqPInoanp9v3fJDpWEjfUcnbhVF1CZojIIV7U8kz6/6eogCVo1twExtCEdzeV7IcgLPcvxF8vsb0KLzl+hGryaGUkA7voIuz918LoAuXGiRtogB9UME9/iQ+5ZEc0AJqvykEZDJY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gb6pMQlC; arc=fail smtp.client-ip=40.107.130.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8EE4ACC78
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789055337; cv=none; b=EmKphkkNoKs50urrGonhZUYTFVkRjqzHFtXnyDpVbrDXs//cGyhB6A2eFmQydFLbRFYEVrj/41BIJhJLvcn3HZVlkXqCE4qL/lQezKIaH2ymsbd0XLuWcBUZZU3vYyTMVuu4cxJI2EiWGlipJsZe9cWIzw0yVYhrmVv7fpDoB4o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789055337; c=relaxed/simple;
+	bh=e6zLNLHv68xztiRqeoGkOfpBTaxlTytDMuciS/F+GUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EavJ8PBoqSzzjREIyTkyVKCR49POKD1L1PfsC1wzQTNpnN+puKIsccKIeIlP8IO9+W+ObxGeMtym1TdZy+QVHz1MZMqDGQOssED6QwxdMas2Vkv2Feq7+/9jS0XeMmCxh7of1JKs64lV7jNJAj1JiIKR+aI1s0c5W1Hl6inG72U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dciU92a9; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gb6pMQlC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wFQpStIxHc6JCGOIzPlveIam2y4t6LzCQpAW4EsRKJqaqyA9uEu+sQA/qyiURoPZxoN+JS0rVxG9/kJWRn/yxAfx0S3sx6Hu2K6veqvlVaZ6LsLcSKIMZTFHuztv+c3BS7qkgFU28kMLncMcHi0lA/jPRQt4k2bmLqkorY9EH5EfiLxL0pADapv3PZwLOXgQKRgDCZI8WNd8wQNMYWE7A6Bz8Tb8x6tCD7F/s2LJiBizgFhTKkx5199jnxrIdP77Q3QS/4fkIiKubY/idXc7JCdZ0HSZ8eby54P5nWGRFZ2JSMLGLfBDEq4EmGxuyjef9vXXCXJQtoZ5QwCePuWBIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qIpYEvehT1CEM0D38twvoOSM7txdCWPLHwkaegpEhpM=;
- b=Mz4fP6CAH0OXuYU2JFGhefGuAMKY2cFHh/iqJ+aZqPMru277Vsgo1+mRFmv0Vyxo9jhAHA7Hsy+OYSgJEW+ZJPsGv4n7hn0blaLndRXEFR7SDZS1wd+D7bO+Lk7OXzM7MWTbKBRaijC75jJAYBLeFlycbJdTrj/KtnV2Q8cQQ0c3EpXN7qYiStJjEMBPJhZp3yYC6WwSYHHjlQWonqKUWwkoU2sqVduuH61bwaiga9jKw8luhjQlP+E3haEuJQ2j6qwGbrXRGCqWt1+zsUNSXa56nxjuTWPPzB35Q7W8A4Pux6GGhx8wdo4KTq/iGvvWVFzFKPUOjGQpVpLywn+adQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qIpYEvehT1CEM0D38twvoOSM7txdCWPLHwkaegpEhpM=;
- b=gb6pMQlC67H/YaaWeXJ4PVzq1lvGMZQQjCjwethdvuLZqn0zZ5D9PHbk6l5XSnd0AekxmAstCGUIYf+ufB8HnNDQ+fOMoceZQ4CcHnckeGYZpwJXW7D/OCUciJ/oRiaivNpkoM/AhtNDFStdUtbRBExG+095eRm6OqyRrnlrXlXVwvM9sT0MtfU+/eJMTf5yFsLBAhiUu0EfV5hekV6pxNoSLanFHnn/LBE7MLBaxgxsi5HsrwD5g0IC/jPNvyNZLFgLB7FwTNXCTKLDpbSUW+wD7TPUNpuYIJ6VsV96sr4AGTCIvTwPdprktF2hq0rAiY1ASqKN+ZJ3JYPvZxR93w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB11526.eurprd04.prod.outlook.com (2603:10a6:150:282::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 15:48:45 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 15:48:45 +0000
-Date: Thu, 10 Sep 2026 10:48:34 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: hongxing.zhu@oss.nxp.com, frank.li@nxp.com, l.stach@pengutronix.de,
-	lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org,
-	bhelgaas@google.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Richard Zhu <hongxing.zhu@nxp.com>
-Subject: Re: [PATCH v5] PCI: imx6: Update MPLLB bandwidth to improve i.MX95
- Gen3 PCIe stability
-Message-ID: <aqLRUlosjuQPUJ5J@SMW015318>
-References: <20260803034319.992323-1-hongxing.zhu@oss.nxp.com>
- <ojbp5v6txcdvrs2hcrknai7kkb4bu6cnp6fometzkrf2mdzvv4@cepxzg4r7jvd>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ojbp5v6txcdvrs2hcrknai7kkb4bu6cnp6fometzkrf2mdzvv4@cepxzg4r7jvd>
-X-ClientProxiedBy: CY8PR02CA0004.namprd02.prod.outlook.com
- (2603:10b6:930:4d::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dciU92a9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789055334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=F5w0jy246kHftjN+D2Du9qEiLGYhb901y8Up9PxXONM=;
+	b=dciU92a9X0Mc2SbDnSdGH5/vYPwj6MJnX5dP/af7BVbdcb2iPqSSumeMs+kiIA+Xrkhq1z
+	LJqBr57RPt80xg61kDpZQGgf5qfkROHjr3DqS+wTSGQ2zVmW8gnYd0iTx5o8VHXFeJ5DOL
+	HOiHtQAHN6m5M8Zgh/OeQdGHlgl4L0Q=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-646-_AgsWjZpMvisMCj0xFMMFw-1; Thu,
+ 10 Sep 2026 11:48:51 -0400
+X-MC-Unique: _AgsWjZpMvisMCj0xFMMFw-1
+X-Mimecast-MFC-AGG-ID: _AgsWjZpMvisMCj0xFMMFw_1789055329
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8E72A1955DDB;
+	Thu, 10 Sep 2026 15:48:48 +0000 (UTC)
+Received: from ShadowPeak.redhat.com (unknown [10.44.48.140])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B3B0F418;
+	Thu, 10 Sep 2026 15:48:44 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Priyalee Kushwaha <priyalee.kushwaha@intel.com>,
+	Kiran Patil <kiran.patil@intel.com>,
+	Wojciech Drewek <wojciech.drewek@intel.com>,
+	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH iwl-next 2/2] ice: don't offload drop filters that bypass higher priority filters
+Date: Thu, 10 Sep 2026 17:48:24 +0200
+Message-ID: <20260910154824.3603687-3-poros@redhat.com>
+In-Reply-To: <20260910154824.3603687-1-poros@redhat.com>
+References: <20260910154824.3603687-1-poros@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB11526:EE_
-X-MS-Office365-Filtering-Correlation-Id: 236889c9-961d-4e89-a3c7-08df0f52feca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|19092799006|4143699003|10067099003|3023799007|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	1+SIickxKvfBh0w1eH07VIG7E+yEQmdgTJqah4jpefBAiLwM6t0UKCjnm8z8EpCUoyyp1SR+4Mk+nZ2fTWo+CGUEMl05e2SjZfXrjpOeiBeyAKkMYVlYfRiv0t3/4x2HfHsmNzSsUrcPRNVvERZSKZVKGAfVYZugOpkbzPxipUg9GUvmVpxnpeUQOn1oqVrNDFhlYjMKwzzwCbaxEN+DD1JLoaBR+LfYeAGl7yc8J5AE9pBPjuOR0/wvYxn1aSph9b4HT/6+4B7JKxNXj3v0chgTybOQY4Ow5fKMgqYso8794Zn4peJn8o6OtIzEpBmMt0S6NvK8X3orM5hq9WOOUtfYJ68WR0WKI/3Wy+DHMol7GlhFcWqF6ci9xPe9On6amUzv4fAD7K8jYIfUvB4rKLjADR+c46g+ldi2oZyFdNwB06JLsGiR36X67EhCOqIjdXmWx6fqkYZceBPb/wk3Wqz9Z8kyBMwyj5GQDMKVUaKNDmOZcv0PtHKXnD9w08AUm2FpSXolU6nn7Imx6KiicmMadeb5PUHHCUnSq7Ub7SUITW+HeCWPQEW+2fASTBXUv4Vi6x1cfV2kmWMfWrZ3H1dP0idYi7jcZ6Z4cCE2QYWNv/BBj8DKNTu2POZpdWkhvh0RQ3QgqOLbID8pLpkQBLNvLXE2sJz0CO5ZfdaIY7M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(19092799006)(4143699003)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SWIrQlVtYjc1NDBiaGZyeCs0VDFFS0wybjF1WHNCK0VHZk9CODhjZzVYRnNu?=
- =?utf-8?B?OWoxUjcwMk93RGJ4M2Y4aS9KSmpsVE85YTVaZ3hTT0J1aHhMeTYyRUc3ZHJX?=
- =?utf-8?B?YmxtVDVGMlNLQVA1eGl3WHpONHJBQ1VJZGFaQ0l3cVlUOU9jK0UxVVpWWlF1?=
- =?utf-8?B?cy9VQXAybFpvLzBIckpEM0taZVN5cXhqL0hpbWVOd3VNbmFCUE5TblM1YW9P?=
- =?utf-8?B?dGFuT0NsdkVCZm56YjJ2ZDZmaG5sYWliTm5xVElvSUptN20vYi8rK09IQzM4?=
- =?utf-8?B?bmdhUWlWTm4yTHppd1NEczFSdU5aNWx1SW1jd2JVTE0zRGNkMEIzZkNoOWV2?=
- =?utf-8?B?VlBWVEVJU0dUWVVDSVc4RlFUSE9iRzVkekJiaXYzQmRoYzZHU200L0RzVG1p?=
- =?utf-8?B?LzNTS0tjemZmSVN0US9pTmJ6dGZqc2FFejZvUitxYWRSMWQvYk9Wcy9kL0xi?=
- =?utf-8?B?cThWYk4vZFY1OEVUYW1YM1hhUmhIc0FvT2JPQUN1ZC93MXhxc1Z0cmx3Rnh0?=
- =?utf-8?B?bVFYZ1Jya2Q5cVZ1dXpkNStHYTZrNGFiSzdVdjNrZmRnSXZJNHlURFhTcGlT?=
- =?utf-8?B?Y3NUaWFsYzJQY0ZLZERLUlBGWjFwK1piTmtuMjYwWWJjVUdYQlN6MXI1Q01r?=
- =?utf-8?B?eTk4L201T1hlTHhkMWsyazdTS2FMVk1NT21jTnZNcFNvOHU3TVQrRHpoR0dh?=
- =?utf-8?B?R1ZCM1lnT2FMOGNFSktWQW9tU1VsdUVSYUlKb1pyckhuaDNZTm11dzg2LzBL?=
- =?utf-8?B?RjV4am03dXAvdjA1QWI0RDEyVGR2SUdkanprREkzM3hZTG15YldZYnpKTlBG?=
- =?utf-8?B?WWlGbERyWC9udGNnbDI0UExBL1dpMTRvOEQxREZPVkpqMUJkUE9sQ3Fja0Ex?=
- =?utf-8?B?eUczeE5tbUpGU01yVmNmb003Z21QV2JLNENEUFRnbUhPZHlwb0tqM3lPd3ly?=
- =?utf-8?B?YlpBc0g3MFd4RlNOc2FEZXYzV1RXbXRtVkpvSGQ2TXZ6Qk1aNThiUWVNVFgv?=
- =?utf-8?B?RHNqaS92eDRUdmlIakhQY2xMclh3NHNXUGx6dUFGUC83TjVDMmZjell3YUFO?=
- =?utf-8?B?YjFncm9rbFpwdGd5YzhkQjcxV2llbm1TcFRDN0c5aWZzVFVMS0pjRG5ZN2lF?=
- =?utf-8?B?VnFMS1ZjQmNEZmNCOUgvQlpaQmZwbzdyVk56OE1hb3ZJck1TbkYyejdDUC9h?=
- =?utf-8?B?YjFwdlBOVmNSd2k4VXFVL2RLUlFKL3ZYNzcvZFU3V2xqekdvamhiM3JveEVF?=
- =?utf-8?B?Szk2Tnpnc3pqa3FweE1kVFhPN2c4aEdoTXI0WllNNE8vaXB2RXNCaUdKcWFC?=
- =?utf-8?B?YWpLRUJtbjZSUWsrMlVJbWxIZjU3TFcwWHcyMFlwK09DaElQSElQRVU1UWtm?=
- =?utf-8?B?SzlrZE41cXFtM3ZKakl4M0ZPMmlpMklYYzFwZEQwcXlNc0dkb3VEdTd6ZU9G?=
- =?utf-8?B?MlNzaUx2U1gwMysyTjVydGhTV2pXUC9zV2loTk42SHNLOGNuTHNsNUpQVmZh?=
- =?utf-8?B?STFBcExxcG9SbERzM0dnS0xYeUk3QzhyZWxoTDVEK25VQzVma0NLNFllUXYy?=
- =?utf-8?B?RmZNaEJmVWJBVnFqelllVytqSFVQZFNQdXp3NGxwekJTY3djeWNzQ2FROGZR?=
- =?utf-8?B?eXZrR3dLNFYya3U1eGdydHFTQ3JzcGc4aUJsUVE1dGRSUk5qNWtrYklRcFJi?=
- =?utf-8?B?US9tZ1JzZ0dObXVhMVBUSVdUL2VubFRJT2daWUtYUDUrZXpGbmVpQXVXT05Y?=
- =?utf-8?B?TUhVdzlhTEM2c09tZnVsMjFuck1IU0hrdUxhS3ZOaFE1NTFlaGkwR0Z4RlF5?=
- =?utf-8?B?QkdNN2ZmR3kxTTFobDkwYUpXRFF5QzQ5aUlsRWhPT29Na3F1bEwySVd4cktR?=
- =?utf-8?B?ZDFVZTZGalZRMWRzUFN5NkhoVFB0ckwrT2xPVEZ1b1h4Q2M0Z0RHaGVjWSta?=
- =?utf-8?B?UkZKTEdzV1ZOQmk4V3JpWnk5d25LcjU2dUtQeDFTWUVVeEVmbXczbHBBWnp3?=
- =?utf-8?B?R1VqWEJISUZ4ak56T1NOQWhzV1c0N3NPVVZKakkzTUdNTm92djYwN0doazRa?=
- =?utf-8?B?dUlRU09sc1A3SEt3dmlqMFErZllqZW1zZ3gwTFJuUzVVMW1aeDNFRU90eWpH?=
- =?utf-8?B?UjdrYUluaWtJd3laQUR1M3p4dzZxczFBRm1NYU52NU5vcjFibVFWVDFhZjNX?=
- =?utf-8?B?VGpMSVpVUDhVMytuZWwwUWhBcWpDbDUralloOVp2dUVmMW1EbWg3dXYxcWw0?=
- =?utf-8?B?QWRIZmpvUTQ1dlZySHlvRG03TkRYV2VSR25MVXRNTXBvOVlUaTJpdVdyZ1RR?=
- =?utf-8?B?a21XRDdYVGdyOVF4MUdTMEtqNDkzZlBqcDZZM0FjRlJSS3ZmTEZ3bGgzcGt6?=
- =?utf-8?Q?G9pQzHEWoCDMmdSwrgR4pyTi5mXqfjdNqcPie?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 236889c9-961d-4e89-a3c7-08df0f52feca
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 15:48:44.9544
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4YxOmxIUxMJF/qas5c8iQKQNAsGLWrm4dOjaBUNJ1KVVgj3583tWTdbJUjkr4H7ptt9NE7NkVIqlAOUvqEzy7RxEEcFce4rhiVw2CLdZGZI3Z9qnnSozcz81P1TCpNLA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB11526
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Thu, Sep 10, 2026 at 12:46:43PM +0200, Manivannan Sadhasivam wrote:
-> On Mon, Aug 03, 2026 at 11:43:19AM +0800, hongxing.zhu@oss.nxp.com wrote:
-> > From: Richard Zhu <hongxing.zhu@nxp.com>
-> >
-> > We observed poor bandwidth margins during i.MX95 Gen3 PCIe tests with
-> > the default MPLLB_BANDWIDTH value (120). The margins worsened across
-> > voltage and temperature (VT) variations and different test matrices,
-> > potentially causing link stability issues.
-> >
-> > Testing with MPLLB_BANDWIDTH value of 140 (0x8c) shows significant
-> > improvement in bandwidth margins across all VT conditions and test
-> > scenarios.
-> >
-> > Implement PHY register write helper function and configure:
-> > - MPLLB_BW_OVRD_IN = 140 (0x8c) for improved bandwidth margin
-> > - MPLLB_BW_OVRD_EN to enable the override
-> >
-> > This ensures robust PCIe Gen3 performance across all operating
-> > conditions.
-> >
-> > Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> > Changes in v5:
-> > Update the commit log refer to Bjorn's suggestions.
-> >
-> > Changes in v4:
-> > Move the delay to imx95_pcie_init_phy() with a comment added.
-> >
-> > Changes in v3:
-> > Regarding Frank's comments, refine naming consistency and clarity.
-> >
-> > Changes in v2:
-> > Update the register name and bit definitions.
-> > Don't move IMX95_PCIE_PHY_CR_PARA_SEL settings.
-> > ---
-> >  drivers/pci/controller/dwc/pci-imx6.c | 32 +++++++++++++++++++++++++++
-> >  1 file changed, 32 insertions(+)
-> >
-> > diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-> > index 39790e66b98dc..3bc52c4781903 100644
-> > --- a/drivers/pci/controller/dwc/pci-imx6.c
-> > +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> > @@ -80,6 +80,17 @@
-> >  #define IMX95_SID_MASK				GENMASK(5, 0)
-> >  #define IMX95_MAX_LUT				32
-> >
-> > +#define IMX95_PCIE_PHY_REG_ADDR			0x3008
-> > +#define IMX95_PCIE_PHY_REG_EN			BIT(31)
-> > +#define IMX95_PCIE_PHY_REG_ADDR_MASK		GENMASK(15, 0)
-> > +#define IMX95_PCIE_PHY_REG_DATA			0x300c
-> > +#define IMX95_PCIE_PHY_MPLLB_OVRD_IN		0x2004
-> > +/* BIT(10): Override enable for mpllb_bandwidth[15:0] */
-> > +#define IMX95_PCIE_PHY_MPLLB_OVRD_BW_EN		BIT(10)
-> > +/* Register offset: Override value for mpllb_bandwidth[15:0] */
-> > +#define IMX95_PCIE_PHY_MPLLB_BW_IN		0x2005
-> > +#define IMX95_PCIE_PHY_MPLLB_BW_VAL		0x8c
-> > +
-> >  #define IMX95_PCIE_RST_CTRL			0x3010
-> >  #define IMX95_PCIE_COLD_RST			BIT(0)
-> >
-> > @@ -270,6 +281,15 @@ static int imx95_pcie_select_ref_clk_src(struct imx_pcie *imx_pcie)
-> >  	return 0;
-> >  }
-> >
-> > +static void imx95_pcie_phy_write(struct imx_pcie *imx_pcie, int addr, u16 data)
-> > +{
-> > +	regmap_update_bits(imx_pcie->iomuxc_gpr, IMX95_PCIE_PHY_REG_ADDR,
-> > +			   IMX95_PCIE_PHY_REG_EN, IMX95_PCIE_PHY_REG_EN);
-> > +	regmap_update_bits(imx_pcie->iomuxc_gpr, IMX95_PCIE_PHY_REG_ADDR,
-> > +			   IMX95_PCIE_PHY_REG_ADDR_MASK, addr);
-> > +	regmap_write(imx_pcie->iomuxc_gpr, IMX95_PCIE_PHY_REG_DATA, data);
-> > +}
-> > +
-> >  static int imx95_pcie_init_phy(struct imx_pcie *imx_pcie)
-> >  {
-> >  	/*
-> > @@ -290,6 +310,18 @@ static int imx95_pcie_init_phy(struct imx_pcie *imx_pcie)
-> >  			IMX95_PCIE_PHY_CR_PARA_SEL,
-> >  			IMX95_PCIE_PHY_CR_PARA_SEL);
-> >
->
-> I've added regmap_read() to flush the IMX95_PCIE_PHY_CR_PARA_SEL update before
-> below delay, while applying.
+The E810 switch gives drop rules absolute precedence over forwarding
+rules regardless of recipe priority (verified on E810 in every
+combination of installation order and match specificity). TC however
+requires filters to be evaluated in priority order, so when a higher
+priority filter stays software-only because its match or action cannot
+be offloaded while a lower priority drop filter is offloaded, the
+hardware drops packets the higher priority filter should have seen:
 
-Thanks
+  tc filter add dev $pf ingress prio 1 protocol ip flower \
+      ip_proto l2tp action pass
+  tc filter add dev $pf ingress prio 2 protocol ip flower action drop
 
-Frank
+The pass filter is rejected (unsupported action), the drop filter is
+offloaded and the hardware drops all IPv4 traffic including the L2TP
+packets the prio 1 filter should accept.
 
->
-> - Mani
->
-> --
-> மணிவண்ணன் சதாசிவம்
->
+Track filters that were presented to the driver but not offloaded and
+refuse to offload a drop filter when a higher priority filter on the
+same device block and direction is software-only or is offloaded with a
+forwarding action, which the hardware drop would equally override. The
+refused drop filter keeps working in software. Filters are compared
+only within one device block since TC priorities are not ordered across
+blocks. Filters with skip_sw bypass the check because the user
+explicitly requested hardware-only operation and refusing would fail
+the filter add entirely, and the tracking applies to the legacy switch
+mode only, switchdev pipelines manage rule priorities themselves.
+
+The check does not analyze match overlap, so it is conservative, and it
+runs only at drop offload time. A conflicting filter installed after a
+drop filter was already offloaded cannot un-offload it, and filters the
+driver never saw (added while hw-tc-offload was off) are invisible to
+it. Installing filters in priority order with offload enabled avoids
+both.
+
+Fixes: 0d08a441fb1a ("ice: ndo_setup_tc implementation for PF")
+Signed-off-by: Petr Oros <poros@redhat.com>
+---
+ drivers/net/ethernet/intel/ice/ice.h        |   1 +
+ drivers/net/ethernet/intel/ice/ice_tc_lib.c | 150 +++++++++++++++++++-
+ drivers/net/ethernet/intel/ice/ice_tc_lib.h |  21 +++
+ 3 files changed, 166 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/ice/ice.h b/drivers/net/ethernet/intel/ice/ice.h
+index db3c7015c56c43..6c596e5a315175 100644
+--- a/drivers/net/ethernet/intel/ice/ice.h
++++ b/drivers/net/ethernet/intel/ice/ice.h
+@@ -643,6 +643,7 @@ struct ice_pf {
+ 	 */
+ 	u16 num_dmac_chnl_fltrs;
+ 	struct hlist_head tc_flower_fltr_list;
++	struct hlist_head tc_sw_fltr_list;
+ 
+ 	u64 supported_rxdids;
+ 
+diff --git a/drivers/net/ethernet/intel/ice/ice_tc_lib.c b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
+index fbd8cbad150a98..7cfc8941b7ba57 100644
+--- a/drivers/net/ethernet/intel/ice/ice_tc_lib.c
++++ b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
+@@ -2269,6 +2269,112 @@ ice_find_tc_flower_fltr(struct ice_pf *pf, unsigned long cookie)
+ 	return NULL;
+ }
+ 
++/**
++ * ice_tc_fltr_is_drop - check if a filter carries a drop action
++ * @cls_flower: offload request describing the filter
++ *
++ * Return: true if any action of the filter is a drop, false otherwise.
++ */
++static bool ice_tc_fltr_is_drop(struct flow_cls_offload *cls_flower)
++{
++	struct flow_rule *rule = flow_cls_offload_flow_rule(cls_flower);
++	struct flow_action_entry *act;
++	int i;
++
++	if (cls_flower->classid)
++		return false;
++
++	flow_action_for_each(i, act, &rule->action)
++		if (act->id == FLOW_ACTION_DROP)
++			return true;
++
++	return false;
++}
++
++/**
++ * ice_tc_untrack_sw_fltr - forget a tracked software-only filter
++ * @pf: pointer to PF structure
++ * @cookie: unique filter identifier from the offload request
++ *
++ * Return: true if the filter was tracked, false otherwise.
++ */
++static bool ice_tc_untrack_sw_fltr(struct ice_pf *pf, unsigned long cookie)
++{
++	struct ice_tc_sw_fltr *sw_fltr;
++
++	hlist_for_each_entry(sw_fltr, &pf->tc_sw_fltr_list, node) {
++		if (sw_fltr->cookie != cookie)
++			continue;
++
++		hlist_del(&sw_fltr->node);
++		kfree(sw_fltr);
++		return true;
++	}
++
++	return false;
++}
++
++/**
++ * ice_tc_track_sw_fltr - remember a filter that was not offloaded
++ * @pf: pointer to PF structure
++ * @filter_dev: device the filter was requested on
++ * @cls_flower: offload request describing the filter
++ * @direction: block direction the filter was requested for
++ */
++static void ice_tc_track_sw_fltr(struct ice_pf *pf,
++				 struct net_device *filter_dev,
++				 struct flow_cls_offload *cls_flower,
++				 enum ice_eswitch_fltr_direction direction)
++{
++	struct ice_tc_sw_fltr *sw_fltr;
++
++	hlist_for_each_entry(sw_fltr, &pf->tc_sw_fltr_list, node)
++		if (sw_fltr->cookie == cls_flower->cookie)
++			return;
++
++	sw_fltr = kzalloc_obj(*sw_fltr);
++	if (!sw_fltr)
++		return;
++
++	sw_fltr->cookie = cls_flower->cookie;
++	sw_fltr->filter_dev = filter_dev;
++	sw_fltr->prio = cls_flower->common.prio;
++	sw_fltr->direction = direction;
++	sw_fltr->is_drop = ice_tc_fltr_is_drop(cls_flower);
++	hlist_add_head(&sw_fltr->node, &pf->tc_sw_fltr_list);
++}
++
++/**
++ * ice_tc_drop_bypasses_fltr - check if a drop rule would bypass a filter
++ * @pf: pointer to PF structure
++ * @filter_dev: device the drop filter is requested on
++ * @prio: TC priority of the drop filter
++ * @direction: block direction of the drop filter
++ *
++ * Return: true if such a filter exists, false otherwise.
++ */
++static bool
++ice_tc_drop_bypasses_fltr(struct ice_pf *pf, struct net_device *filter_dev,
++			  u32 prio, enum ice_eswitch_fltr_direction direction)
++{
++	struct ice_tc_flower_fltr *fltr;
++	struct ice_tc_sw_fltr *sw_fltr;
++
++	hlist_for_each_entry(sw_fltr, &pf->tc_sw_fltr_list, node)
++		if (sw_fltr->filter_dev == filter_dev &&
++		    sw_fltr->direction == direction && sw_fltr->prio < prio &&
++		    !sw_fltr->is_drop)
++			return true;
++
++	hlist_for_each_entry(fltr, &pf->tc_flower_fltr_list, tc_flower_node)
++		if (fltr->filter_dev == filter_dev &&
++		    fltr->direction == direction && fltr->prio < prio &&
++		    fltr->action.fltr_act != ICE_DROP_PACKET)
++			return true;
++
++	return false;
++}
++
+ /**
+  * ice_add_cls_flower - add TC flower filters
+  * @netdev: Pointer to filter device
+@@ -2284,14 +2390,24 @@ int ice_add_cls_flower(struct net_device *netdev, struct ice_vsi *vsi,
+ {
+ 	struct netlink_ext_ack *extack = cls_flower->common.extack;
+ 	struct net_device *vsi_netdev = vsi->netdev;
++	enum ice_eswitch_fltr_direction direction;
+ 	struct ice_tc_flower_fltr *fltr;
+ 	struct ice_pf *pf = vsi->back;
++	bool track_sw_fltrs;
+ 	int err;
+ 
+-	if (ice_is_reset_in_progress(pf->state))
+-		return -EBUSY;
+-	if (test_bit(ICE_FLAG_FW_LLDP_AGENT, pf->flags))
+-		return -EINVAL;
++	direction = ingress ? ICE_ESWITCH_FLTR_INGRESS :
++			      ICE_ESWITCH_FLTR_EGRESS;
++	track_sw_fltrs = !ice_is_eswitch_mode_switchdev(pf);
++
++	if (ice_is_reset_in_progress(pf->state)) {
++		err = -EBUSY;
++		goto track_sw;
++	}
++	if (test_bit(ICE_FLAG_FW_LLDP_AGENT, pf->flags)) {
++		err = -EINVAL;
++		goto track_sw;
++	}
+ 
+ 	if (ice_is_port_repr_netdev(netdev))
+ 		vsi_netdev = netdev;
+@@ -2304,7 +2420,8 @@ int ice_add_cls_flower(struct net_device *netdev, struct ice_vsi *vsi,
+ 		 */
+ 		if (netdev == vsi_netdev)
+ 			NL_SET_ERR_MSG_MOD(extack, "can't apply TC flower filters, turn ON hw-tc-offload and try again");
+-		return -EINVAL;
++		err = -EINVAL;
++		goto track_sw;
+ 	}
+ 
+ 	/* avoid duplicate entries, if exists - return error */
+@@ -2314,14 +2431,32 @@ int ice_add_cls_flower(struct net_device *netdev, struct ice_vsi *vsi,
+ 		return -EEXIST;
+ 	}
+ 
++	if (track_sw_fltrs && !cls_flower->common.skip_sw &&
++	    ice_tc_fltr_is_drop(cls_flower) &&
++	    ice_tc_drop_bypasses_fltr(pf, netdev, cls_flower->common.prio,
++				      direction)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Drop filter not offloaded because it would bypass a higher priority filter");
++		err = -EOPNOTSUPP;
++		goto track_sw;
++	}
++
+ 	/* prep and add TC-flower filter in HW */
+ 	err = ice_add_tc_fltr(netdev, vsi, cls_flower, &fltr, ingress);
+ 	if (err)
+-		return err;
++		goto track_sw;
++
++	fltr->filter_dev = netdev;
++	fltr->prio = cls_flower->common.prio;
+ 
+ 	/* add filter into an ordered list */
+ 	hlist_add_head(&fltr->tc_flower_node, &pf->tc_flower_fltr_list);
+ 	return 0;
++
++track_sw:
++	if (track_sw_fltrs && !cls_flower->common.skip_sw)
++		ice_tc_track_sw_fltr(pf, netdev, cls_flower, direction);
++	return err;
+ }
+ 
+ /**
+@@ -2336,6 +2471,9 @@ ice_del_cls_flower(struct ice_vsi *vsi, struct flow_cls_offload *cls_flower)
+ 	struct ice_pf *pf = vsi->back;
+ 	int err;
+ 
++	if (ice_tc_untrack_sw_fltr(pf, cls_flower->cookie))
++		return 0;
++
+ 	/* find filter */
+ 	fltr = ice_find_tc_flower_fltr(pf, cls_flower->cookie);
+ 	if (!fltr) {
+diff --git a/drivers/net/ethernet/intel/ice/ice_tc_lib.h b/drivers/net/ethernet/intel/ice/ice_tc_lib.h
+index 752af65e70b7bf..37d6f4100ecfbc 100644
+--- a/drivers/net/ethernet/intel/ice/ice_tc_lib.h
++++ b/drivers/net/ethernet/intel/ice/ice_tc_lib.h
+@@ -139,12 +139,33 @@ enum ice_eswitch_fltr_direction {
+ 	ICE_ESWITCH_FLTR_EGRESS,
+ };
+ 
++/**
++ * struct ice_tc_sw_fltr - filter presented to the driver but not offloaded
++ * @node: node in the pf->tc_sw_fltr_list
++ * @cookie: unique filter identifier from the offload request
++ * @filter_dev: device the filter was requested on
++ * @prio: TC priority, lower value is evaluated first
++ * @direction: block direction the filter was requested for
++ * @is_drop: the filter carries a drop action
++ */
++struct ice_tc_sw_fltr {
++	struct hlist_node node;
++	unsigned long cookie;
++	struct net_device *filter_dev;
++	u32 prio;
++	enum ice_eswitch_fltr_direction direction;
++	bool is_drop;
++};
++
+ struct ice_tc_flower_fltr {
+ 	struct hlist_node tc_flower_node;
+ 
+ 	/* cookie becomes filter_rule_id if rule is added successfully */
+ 	unsigned long cookie;
+ 
++	struct net_device *filter_dev;
++	u32 prio;
++
+ 	/* add_adv_rule returns information like recipe ID, rule_id. Store
+ 	 * those values since they are needed to remove advanced rule
+ 	 */
+-- 
+2.55.0
+
