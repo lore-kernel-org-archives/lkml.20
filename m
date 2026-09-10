@@ -1,99 +1,104 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29FB3DCD95;
-	Thu, 10 Sep 2026 10:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28CC3D6CB7;
+	Thu, 10 Sep 2026 10:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037480; cv=fail; b=Sd6OciiEkZFcV9rygyjfP100P5VnO/sKlTFrSNHcIx1wTyv56b8XW6TT68ZBMmS7Pns+DrTLUXN3fBAukNJu5s6zcU4Vna71oVpUJlPQUor/Uah08aaF07sZPM0D4JyXYd12vEfyFlmbGzgBV3UvOc1OoWEVUg9jnmpPPEGEe7s=
+	t=1789037492; cv=fail; b=EbCpTkCg/oG65fEoS9yb03TWTSkUZ5tKRXUOepZvn9qk/X/nHVbqOxY49sOn/1BrZNfJqULaGG3qwjkCEYr05aLdC2heyaKk3cBrMtZ+9HQOLMU1tTxMLw2GzxNnQwNei9Oiz63xL3/wyFDrKhBgmhKJPqd624WnovxPljopPvE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037480; c=relaxed/simple;
-	bh=PUoWAy2RFQ+98uMnLazzgy19wgKhGAuU26t8uwukb1M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MHFC+jgQmCwCJkBdAaReysvwe/NdqSjlE2WC687WUnlRk6Yhsci8LYfQzH2VBMN6ZRkCCwUOl76QemcO26/71yyuq2u5DZSiQ0dg53W/2x6WqstmBkgx7Qtv+pdSZcJwPTzhGUZhJTIU1q8Slr+w6siRveUw/Gl1BA1gE3xkNNs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=hfCPlEFE; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=PkY8xuky; arc=fail smtp.client-ip=148.163.150.75
+	s=arc-20240116; t=1789037492; c=relaxed/simple;
+	bh=q9MAuYSuN1kffDCZyNaLAwVYaqgyIuMuwkDX/U95FAo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Mkywz/nF5IJ6kQGYQi1X4shn0HLHpD9p/0VOpIFu7MuXt37eBqs4vuQnburkLOp4AK28hYSuTAM7LpoHN07SNFGNSvTNDZqNfo4nCGuYJMbHjUXgEJsLQUZj64f3WsxphLa8a1DY7Qc6FuolLGcREf0YA7kU/gtV2OM2TB235EE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Awjd0LWa; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=jrl9Cc3K; arc=fail smtp.client-ip=148.163.154.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="hfCPlEFE";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="PkY8xuky"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68A8oGf9712608;
-	Thu, 10 Sep 2026 05:51:10 -0500
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Awjd0LWa";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="jrl9Cc3K"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8p6OT2670764;
+	Thu, 10 Sep 2026 05:51:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=m9u0VPNnqnttd
-	IlSl/yjQpV9L7dOZYLYW8AsaawYriE=; b=hfCPlEFENeUmMlf/v84gKqxycojj1
-	L42+am4KJClDJqzSbMkKxlcHJbb0S31w916UjJXKK6kpT+g/tkYs1Ju3Zlh3pcC5
-	9NUgnn+mJBVwkGDy6+DA7EIGkrREy1yIaH7j8z/qEXx3psgEe4pbOa4lW1Vjg61I
-	YOwMLMjRt2nxHkLuc4P35RKRdHJfv6JwmRkMPdpWRoht+xuasLQdB0Ei902T+3YQ
-	QvtoqY6zfEU/nGPFAaZ1VTsw4aHpJv49rCF9r/ky5kPhNCaQpy8nsTm9SsiCJ0ks
-	qBHjviic6fFPMQHUm0PPZb8C/Jzhc/0HDCUwGCRTrEwrGDQtvLIk0IHFg==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013061.outbound.protection.outlook.com [40.93.201.61])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gkcxgcpt1-1
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=RHxUPnshjPsza7iZ+qVDbeSwA1fOpVsX+CNr5+3lN
+	aE=; b=Awjd0LWaopDr41K82f5KqYB+KGmUIxVpoBo6DLMTB2bIqknFHsGw4dsak
+	FyXmFiWvD17ynQsxQUJuRTBM2U7kcpSGGlKKkZKZFc2tLSA/zJTjesSNA5qw/5+a
+	SMZnuZIFH56YEUk6TMJbkNaKDGwwtiS8B22ym3SGRZjaaIPmJ+vcIumHJ3cVr6Lp
+	rigtn85iIFRPefGNfr0S8ek6e8hhiBCWWjLlvuzqmWRrk2eWeSS4F2OibtR8ka8E
+	9o/ihkJ0Mc70OoXNmsz/PEjmymrRvuFXHpJU95I7Pv5B0Ol5amoNcKUAiTA3loNi
+	Q2JmWEhVH4hh/WpWbK31atYkkJ1Ng==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012026.outbound.protection.outlook.com [52.101.48.26])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gkcxfvy4f-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 05:51:10 -0500 (CDT)
+	Thu, 10 Sep 2026 05:51:23 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XV5eA/25nDJoS/OBWcZeLhvjZ6zknX6MyRgsjfHDejWYZ2vsci0EaCFaOyq5ptSpVow6WrupFGHlvpA92tjumTiSNvrlBhg4MK+9c6hddQvPsgmJEvOmMHQ/N/YkfpPV0+ogxL2qmAJCvSKwNu6+lZekBmdjbFmNj+T7xbjdT0V6xQv7A75u4rziTqLav0Qm0BDRDf1D/lOX2njwNGckCG74CaEiJvWb0kyYyKGg2lQwn7yJSotb7mOlN9f8VF1a6zoFgYcCjXtq0vKgJ/YFZ4bZ08cyjS7bww4l4VxrfnZp2dTwlumKT9H2ad8o7oJMEThlIAKymqjXa5n8v6EegQ==
+ b=rgDjxHJc37XcZkuPe1cweIPDX2AMr3Rxs6mvmNJYrb4RCII35l41U0X2AE2rCWpbqQtAnOfQMKF6gv8D+WIiIUQlqLCdS5cC6ZSmtvJy/TU2tD/N6i+QDJLojB8PhGzNp89Zf/30pLma3JXhx28cZnzRIB5ZRjycJO+QYhnIGLswVp94pNRviXpYhSCAKacXASElezSH5nLiR+MYwXe1rOf2qGV1PlRgvgGruA1znkc34XpsK1kXSrJLcb6DMZ29gaAs7dKdx097/PVF0U9QXq/NcS4f5bH+iAnCBN7eIVp3+77mK7Y4ihCpxywxCEHNgR0s099wn7N5P1FHEKydFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m9u0VPNnqnttdIlSl/yjQpV9L7dOZYLYW8AsaawYriE=;
- b=JthchP2+dcbCw2EdAwpDCeLtOUMDpVBERc5YtttaFUTwwXuP0lxDLhU4FcXvgEgAOxfTCPoyWX9W1aW7Q2UVOPMTROXCzEI9XNMtsAwHRlx0kGSYQfl37u61CAoquL3HOve7eNTI0JCzC9AuxWjH9KyQHRb67EApaf5Re6YRKgBimHR2VJZ3IIppq9HVKiuzA0pt2AWsBBudyLwIEFOy+Bnr/02Ni9eRsA/1MrzEMxlXJ5/xSA/ntvquRNMDMQ82degjcaqmUkBDMO/5v/JSPEu2UWoHRx9KcLZ0zrBvF/TJiFwH0GgxxrrG67WLOEPAGiUxNZ6aOCqhDW5se4K60w==
+ bh=RHxUPnshjPsza7iZ+qVDbeSwA1fOpVsX+CNr5+3lNaE=;
+ b=PciQWt6PUdksK5X1h5asQsLfl8cRyBdaPX6sZ3idb9yoiKDMUq56tV0J6pdI5Ak6bquUuUCPHHWaE6oLiX1ct2J4Cn7KlfzMSghz9B6Hk6Zzilx3vbbXuQSzvLWMutWnN6Q2QvJIwRY2BdJ5Zq2G2zWGI7EYtARV7RUC1KJ8hLtNdWc78WeG04GuJ7/TR3/TBLxCCHNnDJJUHYKKaMLK9rlrCw+OHXv/FIZVTYoxCFxzk5/DqXX9oQ3oFqL4I0E4TnaUE7wy4OdiVgFpyOSic/jm8YOQLqY/4CHVzHQ5sH3X8Or8QKA/xQ99uM3INJQt6IZSU7BbFWwjWrGw/IrEow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=gondor.apana.org.au smtp.mailfrom=ti.com;
+ 198.47.21.195) smtp.rcpttodomain=gondor.apana.org.au smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m9u0VPNnqnttdIlSl/yjQpV9L7dOZYLYW8AsaawYriE=;
- b=PkY8xukyAS7AmmMDJYfUlaOZrVkcFerjs2hR5a6WzBb+ZlQI3bcwGpmZ2BzfXOtmNQivJ3+GasGpoWQb2zdgE7hyTpaygeAtWdC0V8Y9igCY5L86AWkZWWe/k8BaN/9DJU5OUyb+drdFBPED9bmBOu6xF+zdcCyjGQHcKE2ZMF4=
-Received: from BL1PR13CA0158.namprd13.prod.outlook.com (2603:10b6:208:2bd::13)
- by MW5PR10MB5761.namprd10.prod.outlook.com (2603:10b6:303:19a::19) with
+ bh=RHxUPnshjPsza7iZ+qVDbeSwA1fOpVsX+CNr5+3lNaE=;
+ b=jrl9Cc3KR77HTz6jRpPAIolboeKB0ZctczuBpjf0k9+F4wboPFEZ5JkhV9q8YI/YJcLhgc60DjqUfm8GmtG/Y8VlFVGDn9VfD3g16lldNqgErQgYI6nhNotFux9ENsIXLrbMh48TIwRgCqk4uChRzmSMsvZXarZ/Hg3Xx8WsIdI=
+Received: from CH2PR18CA0026.namprd18.prod.outlook.com (2603:10b6:610:4f::36)
+ by BY5PR10MB4257.namprd10.prod.outlook.com (2603:10b6:a03:211::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.4; Thu, 10 Sep
- 2026 10:51:05 +0000
-Received: from BN2PEPF0000A891.namprd04.prod.outlook.com
- (2603:10b6:208:2bd:cafe::ac) by BL1PR13CA0158.outlook.office365.com
- (2603:10b6:208:2bd::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Thu, 10
- Sep 2026 10:51:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.5; Thu, 10 Sep
+ 2026 10:51:18 +0000
+Received: from BN5PEPF0004698E.namprd02.prod.outlook.com
+ (2603:10b6:610:4f:cafe::2b) by CH2PR18CA0026.outlook.office365.com
+ (2603:10b6:610:4f::36) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 10:51:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN2PEPF0000A891.mail.protection.outlook.com (10.167.248.183) with Microsoft
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN5PEPF0004698E.mail.protection.outlook.com (10.167.245.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 10:51:03 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 10:51:15 +0000
+Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 05:50:19 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 05:50:27 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 05:50:19 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 05:50:27 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 10 Sep 2026 05:50:19 -0500
+ Transport; Thu, 10 Sep 2026 05:50:27 -0500
 Received: from pratham-Workstation-PC (pratham-workstation-pc.dhcp.ti.com [10.24.53.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68AAoHT92188730;
-	Thu, 10 Sep 2026 05:50:18 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68AAoPkr3161578;
+	Thu, 10 Sep 2026 05:50:26 -0500
 From: T Pratham <t-pratham@ti.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller"
-	<davem@davemloft.net>
-CC: T Pratham <t-pratham@ti.com>, <linux-crypto@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Sebin Francis <sebin.francis@ti.com>,
-        "Manorit Chawdhry" <m-chawdhry@ti.com>,
-        Vishal Mahaveer <vishalm@ti.com>, "Praneeth Bajjuri" <praneeth@ti.com>
-Subject: [PATCH v8 0/2] Add support for hashing algorithms in TI DTHE V2
-Date: Thu, 10 Sep 2026 16:20:12 +0530
-Message-ID: <20260910105014.1552521-1-t-pratham@ti.com>
+To: T Pratham <t-pratham@ti.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>
+CC: Sebin Francis <sebin.francis@ti.com>,
+        Manorit Chawdhry
+	<m-chawdhry@ti.com>,
+        Vishal Mahaveer <vishalm@ti.com>, Praneeth Bajjuri
+	<praneeth@ti.com>,
+        <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v8 2/2] crypto: ti - Add support for HMAC in DTHEv2 driver
+Date: Thu, 10 Sep 2026 16:20:14 +0530
+Message-ID: <20260910105014.1552521-3-t-pratham@ti.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260910105014.1552521-1-t-pratham@ti.com>
+References: <20260910105014.1552521-1-t-pratham@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,137 +109,570 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A891:EE_|MW5PR10MB5761:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84ee2974-be6b-45e4-6b18-08df0f2968da
+X-MS-TrafficTypeDiagnostic: BN5PEPF0004698E:EE_|BY5PR10MB4257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40730764-4b2b-4be7-c4a8-08df0f297025
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|10067099003|18002099003|56012099006|3023799007|13003099007;
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|10067099003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	P4t7KJ92/BP2GLFqc1W8gxuIw32nZAMCnYwg8T3bK1DwpoSzUw3xluFRdrbQ81VhUjqNcM6zjAyHr83aascu8XHYowQQHhHQAbXBhlMYTO06krJjGUCbypLYqnbAAOmG+DCb0Ycew6ZWnVeZNveN+dHw/MWycPgviS+vjhcDmSR42PLQRJiSGiS22d3C3XGAM/VBcq6BGgSjgDoL4iiDuzEQRJ1EFeZ/wNH7W+2HvlkNAd5RmKm5XeqhtLWCT/5zMDYZMiz34QNj2DGS9mBLuGzZAOdLmA/PSS8eWjb7CCzFCqAAfdO8m5tGHDr3x/fCJVfp2ToAixAY+Cc1sGIzwiqknGAm6AYOsE6/kqp0dGedRcrRbaeqJR1snGDiv/ss8KxCNlrUU6VhdbpnvPRL8Ejd91roWsKg4CWDzjJm+5ACKDWIQ1M+p7eJEaPC+QT8cFL3PsdVkklTFhIRoBRyZc2LEP9DI77ZyIKJc+KEuxzkqBFWHHKtfGoXqRyILm0KwPUhxYF4Eo8jMVDJZEJTqDb9rxrK/xjEruUnTNRWsqgImIrLvXGYYtD9i7nIOq0i0fCyz542xs5OQAIvgYCr6qoikTnXVwsapB8MjWZgazJMgJxCURg1eEw/ZC/quSfVPEkQK/eGOvIK+z6ig6KMkEOrILhCEGveNLeJPbysqrI=
+	l/6etI/oSboo0icd1uHVdmYDTEvgHJPm7IQ7l1aGiDAL6XEY3GsR8tpPIYeQkuwXAMsRKQM3BIPkoaBtk4UcskrrrtTzHCFpGbVx5JQ6pGgHl3emN875UPVbpL4lGBU1b4xNFAnospqBr89RCxyMNhzWh3vpLR52GOo63H3UqjppMHeBZa4ojmfqb/7GFCXTAE/FEjEY3RaDpkl2ANQceHkLx1wk1CYTTVpmg7IpHAhlULq5+5uDcsMkfvF19pXK/5i5q8QfCJJMgs1NFvypt0V3EN1lTTgZYnO7P8ooCb6Xj56aNeCSCEP026sYsssOp9/yxvuweyFVKREF9/LOLkmPiRN6Vx7quW3TgOL8Fh3pTJtDgVzWJtkBKfnE1xlj5w2DrBGkXxJ5zTVlqiMQZMiycCYsoxWCXrnvCt4EZeyvnq2FtnuetTtaN8jRkbV7IP5Vgxu3KnXoEb+0nYS/qFwluHh8YKuDfNJOR80CUt1Q+AiOBa91XpxS+4PAQBjy1rUo6Q7n7J6wAm53rB2liC7wHSs0iCDDICQy3yzAeE8s7rEwy67i4C/UNAQXUNoGOVxRF8pukcqA/jcWM0L8bqRowcRRghN6mKAmJmN6dREZZkoeZpVhPBFuFdasAXaskcdgPcqhPnUOyVQD/MzLa0ZjvUJf3nG9ynfQvuAmrgkMicfcVZmFDWrIZP7Q7YXqYRmvGx6SnP6WYpIuSs6ByQ==
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(10067099003)(18002099003)(56012099006)(3023799007)(13003099007);DIR:OUT;SFP:1101;
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	mxGEqBYD/tMxScdg5UuIlgFvcz/4Cy0Z9bBkspesg7Oq1y4LRr3ARutYqJ7QkS2uZsmY374JaaMbIPCRP48F0G5uBqxkvRB7+rn1FtG0oQrIF3S1HdsdGxLaFXA712YTD06E76duFL7pauKydnO2V2Qz9UjVjBjTrpmpjLOOMb0m1vt5L5omyD66jnbYT33Xe+9MFugHLQXjDk/ktfr7iLloPkB6/YSQrde1RVahOPlXCQ9McgQZWE8x+21NydA81vMEHThGIj55TKuzxKrGnEplhXcJlrTjOosomYtn3b1bqKEGV2fARrZ60+67OU/IIvqxqtd2FWj4cQlNQAf3eNXSl0FSFluan3rYdwx0rjfRBEQfQPz9ebuKkk9045z2WO2bl9aeo4SrU0bhjvH8yjBkpL6EWYWXbg36II+6cdpyB2Ogr5SxZ3PRsxeZioIh
+	FZhzCae/Uwt22jFBBP9fYw15rJBz7leQtMGVdQ5bFNa/OQ7Cypn3kh2hSIidkhguoKUl+BHYt4nHSt/2LrZdkjJaHMdxWOOa+6+34CLeqfDmuQZ56gL5NylLGaiQo+rIpGHNxLrJAWu4NS7CTtLmbWedAYzPlhqkaMbcQjymVzMPYqqzs6DT4HjQRuRshKAtyOGYyBMjrhWrpPbG+HJg5lLzmdnjFI+zRiY1DH5Pej1SBXXHIJ2q8VW5ioi2FkRglpJ0SEY2hQ8SC8tEr9V7lO9dGWOnu+KqkWAcUjF3f6Pn1e1D3N1N2DgbidOFqdWEvLFz5CMAbv5rCwkTVwjbCLn1EooVaePWqDr7y+h6Eetb1qlc2jGP+E/srHRlrykmLJsHrPsAVfjo9Ybkx/pWv4SGEExuL5nsJ4NNoRLjev/CHl4grshAU0V/6rQA85de
 X-Exchange-RoutingPolicyChecked:
-	J6nqSu86r3IGKRVTkM0LQMMkvTJ9o0vakROfLDKofxj6zgPtzGvxPatLEcqG1BBE6086FtxgPUTKPudgjnNMpEjWAPkomjgNOTYITRS1j8yycmjK+uutvzeTnFULGdupv+bM2pUEeZEnuAP91wvU20Xceqdu4d0r4EHj2/H28S3ig4VEXZLCjppgs1zV2a8rJSx9o8L2g5B6oroNTGt9e8pc9Qw/8hstqZdsLp+tO/oYnLtlzCABWfVqLP4H+o6jLEu0HKLAmGZLEOAjDAo7WOST1mQ51slQf3DEG2QX6bhOll29WQSA2o0yKBjKPvuGqtqNAog56DGprBUgnE4ZAA==
+	ibBU7diflurThOCWrE4uPjB8w6y9DXc6UnmLQYBiNT2bZuOzI1NJcldt2JWExVK96XJt+ysodffdhW3fr60wLphMy8yS8ceRQmkiJDCbZLQa7v5Uas6OWHMhZ2zqrP3MxpCJ0AqI9LCGG13xqK9H9PRpNkjw2nkUd2gB2fp0bwbUyI6qV0X5Ea9itTJg966OTuS2WWhSS9z4rp+rek8/VIHJrq1tdSUBxJYSWs88WrCJm0amMWV72ePBkCqJuhlqgFYB13QNK56aeEY6YO1UjJdPDChJZKYh0YgZe1mR749CAZ0ncvcnWWVqN/4stl+5mhB1FlAI6487feI5bWQl4Q==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 10:51:03.5888
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 10:51:15.8354
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84ee2974-be6b-45e4-6b18-08df0f2968da
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40730764-4b2b-4be7-c4a8-08df0f297025
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A891.namprd04.prod.outlook.com
+	BN5PEPF0004698E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5761
-X-Proofpoint-ORIG-GUID: jqfMkN0ARUsHENdG9y1s55M26Zyi8cE0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDEyNiBTYWx0ZWRfX0Zd6LHZgxPC/
- eAKlsC3sEKhgQ5FFUuH6l6Z/itpIeqFNvTVaQEg4gcM23Gnb+JQaUqVMnzwyq7cmzL8vUa+KzAw
- k3kAHWwfH+6cG+Ien/n7npAT3P1G9SE=
-X-Proofpoint-GUID: jqfMkN0ARUsHENdG9y1s55M26Zyi8cE0
-X-Authority-Analysis: v=2.4 cv=MqbHeGae c=1 sm=1 tr=0 ts=6aa28b9e cx=c_pps
- a=fvoc8Rb8ruZSznP819E46A==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4257
+X-Proofpoint-ORIG-GUID: 83L9YOGnW1-CL3gKzWhs52ODZh2wIopb
+X-Authority-Analysis: v=2.4 cv=SoAFe/O0 c=1 sm=1 tr=0 ts=6aa28bab cx=c_pps
+ a=NPM8+NhlmoQiEOpqaaNCjw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=NEAV23lmAAAA:8 a=EkVIMCltSqSwak4VvQUA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDEyNiBTYWx0ZWRfX1qFdYYqAIBVI
- Eep0RNUYi/euunJETBgRs0OoXz3W+52uRHzcWurULT160SFk/CALMRluuhsM9AG9L6DTUWj5a+9
- mnT+T8SAYE5JQbnsX0RHfOdpEsGj7Bn4/42o3FlamMIzWgSAol3YudbMjnAPTST+lVWKsK4SI7x
- SiU9vR+867ObryxIvPrf7Kh6clW8TJa77Q0GniwfGwOJR6yVkInNboPiZP7E1PpCbkkDUJ7lOpL
- s2Bq3nw/DL1J1/VQczneSgYkH93q5VhQT/TvDpVp9xDBPLMN3X8NnShTq63KVHNkiGyR1IIn6Tg
- zkePaA4hi8m9VgTxPAczPWze5A3DiRWEomCnXBfiy+Pd4G3eE9JPe313OwHD7dRV6aSpPP0Un4m
- woTaYG41G8fkHsPpi80+elaj1EKu/7wBnrb1Nf+rxVykBWteQ4S4+ayqiGE0siqRPcCssES3Fqf
- UpAy4e9tWqaJO2WYCdQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
+ a=sozttTNsAAAA:8 a=o1aAZExnmDak7Ir64ZkA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDEyNiBTYWx0ZWRfXzJt/57B+tUF3
+ kvMv3NkH/Pey0vMxrySLGXTH2+j986rK1TOHanFRqn04Vtwb6W6Oe9NvY3b7l3XeJBSuCA25f6g
+ HXA3at3zwUmwUCXgqUDf7IA4AucAUTQguRsRcQLeNx6MiHDOeTWfTlY4SNMAO6D7CKmrdHT7U2J
+ rrqOQYsGY8KYdYObN9+DRVIKUCHIlR2ifougtzjHYU8TJd6pnaNz4ntSwiItnkvg4NPCJn3QSg2
+ jaCmF45O0tq1Z02jEeYh9rr0h00SMZl19Qmxn6fgDbHaMLPq0y/Ykw+hHt9T/kX/l3KeSbuSI3u
+ YZbPEuFcROmID4559USz/siqwnhK6BXlDLvFo4I7N5fYspZcgLVRlITlbC3HWFBwDQ/vDftl5wX
+ w+gcQeYmQzaAp/oiALMxGj44NxoLs3k5gf7A0chyepz+WvPX0T97sLglHHrWG3CMN0SLa5JCoQO
+ b/LbXG+BruGCN0qtywg==
+X-Proofpoint-GUID: 83L9YOGnW1-CL3gKzWhs52ODZh2wIopb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDEyNiBTYWx0ZWRfX/+SBWDWZYECj
+ esj3wxc0+CbANhcIRPOk4dyXrnGaypHL7FdioJjcUsPF9L4EA9ka6X1QKRnVOXtG7tnoNTM0kvo
+ lVTCSNK+qJNhXm+XHHP1yf6oaNlYcEI=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ impostorscore=0 adultscore=0 clxscore=1015 spamscore=0 phishscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609100126
 
-DTHEv2 is a new cryptography engine introduced in TI AM62L SoC. The
-features of DTHEv2 were detailed in [1]. Additional hardware details
-available in SoC TRM [2]. DTHEv2 includes, among its various
-sub-components, a hashing engine which is compliant with various IETF
-and NIST standards, including FIPS 180-3 and FIPS PUB 198.
-
-This patch series adds support for the hashing algorithms
-SHA224/256/384/512 as well as their HMAC counnterparts for the hashing
-engine of Texas Instruments DTHE V2 crypto driver.
-
-The driver is tested using full kernel crypto selftests
-(CRYPTO_SELFTESTS_FULL) which all pass successfully [3].
-
-Some of the pre-existing errors caught by Sashiko are fixed in a
-separate series [4]. This patch series depends on [4].
+Add support for HMAC-SHA512/384/256/224 algorithms in the hashing engine
+driver of the DTHEv2 hardware cryptographic engine.
 
 Signed-off-by: T Pratham <t-pratham@ti.com>
 ---
-[1]: [PATCH v7 0/2] Add support for Texas Instruments DTHEv2 Crypto
-Engine
-Link: https://lore.kernel.org/all/20250820092710.3510788-1-t-pratham@ti.com/
+ drivers/crypto/ti/Kconfig         |   1 +
+ drivers/crypto/ti/dthev2-common.h |  10 +-
+ drivers/crypto/ti/dthev2-hash.c   | 310 +++++++++++++++++++++++++++++-
+ 3 files changed, 315 insertions(+), 6 deletions(-)
 
-[2]: Section 14.6.3 (DMA Control Registers -> DMASS_DTHE)
-Link: https://www.ti.com/lit/ug/sprujb4/sprujb4.pdf
-
-[3]: DTHEv2 kernel self-tests logs
-Link: https://gist.github.com/Pratham-T/fd15b8e0ee815bcb420a60d451a0cf18
-
-[4]: [PATCH v3 0/12] Fix several issues in DTHEv2 driver
-Link: https://lore.kernel.org/all/20260910104202.1537226-1-t-pratham@ti.com/
-
-Changelog:
-v8: 
- - Minor fixes based on Sashiko comments on [4] and changes in [4]
-v7:
- - Minor fixes based on Sashiko comments on [4]
-v6:
- - Dropped MD5 and HMAC(MD5)
- - Fixed errors pointed by Sashiko
-v5:
- - Removed CRYPTO_AHASH_ALG_FINAL_NON_ZERO and FINUP_MAX. Implemented
-   the same mechanism in the driver itself by witholding one block in
-   the req ctx. 
-v4:
- - Export initial state when phash_available = 0
-v3:
- - Check for error in registration individualy for hash and aes driver
-   algos.
- - Fixed comment style in dthev2-common.c
-v2:
- - Completely revamped the driver to use the new CRYPTO_AHASH_BLOCK_ONLY
-   framework for handling partial blocks and crypto_engine for queueing.
- - Added HMAC as well.
-
-Link to previous versions:
-v7: https://lore.kernel.org/all/20260827133542.619717-1-t-pratham@ti.com/
-v6: https://lore.kernel.org/all/20260827112653.530273-1-t-pratham@ti.com/ 
-v5: https://lore.kernel.org/all/20260807110501.975130-1-t-pratham@ti.com/
-v4: https://lore.kernel.org/all/20260526094355.555712-1-t-pratham@ti.com/
-v3: https://lore.kernel.org/all/20260226131103.3560884-1-t-pratham@ti.com/
-v2: https://lore.kernel.org/all/20260121132408.743777-1-t-pratham@ti.com/
-v1: https://lore.kernel.org/all/20250218104943.2304730-1-t-pratham@ti.com/
----
-
-T Pratham (2):
-  crypto: ti - Add support for SHA224/256/384/512 in DTHEv2 driver
-  crypto: ti - Add support for HMAC in DTHEv2 driver
-
- drivers/crypto/ti/Kconfig         |    3 +
- drivers/crypto/ti/Makefile        |    2 +-
- drivers/crypto/ti/dthev2-aes.c    |   10 +-
- drivers/crypto/ti/dthev2-common.c |   43 +-
- drivers/crypto/ti/dthev2-common.h |   68 +-
- drivers/crypto/ti/dthev2-hash.c   | 1047 +++++++++++++++++++++++++++++
- 6 files changed, 1152 insertions(+), 21 deletions(-)
- create mode 100644 drivers/crypto/ti/dthev2-hash.c
-
+diff --git a/drivers/crypto/ti/Kconfig b/drivers/crypto/ti/Kconfig
+index 90af2c7cb1c55..200728b919fca 100644
+--- a/drivers/crypto/ti/Kconfig
++++ b/drivers/crypto/ti/Kconfig
+@@ -12,6 +12,7 @@ config CRYPTO_DEV_TI_DTHEV2
+ 	select CRYPTO_CCM
+ 	select CRYPTO_SHA256
+ 	select CRYPTO_SHA512
++	select CRYPTO_HMAC
+ 	select SG_SPLIT
+ 	help
+ 	  This enables support for the TI DTHE V2 hw cryptography engine
+diff --git a/drivers/crypto/ti/dthev2-common.h b/drivers/crypto/ti/dthev2-common.h
+index 57a6cfb8ab587..94c5064004db2 100644
+--- a/drivers/crypto/ti/dthev2-common.h
++++ b/drivers/crypto/ti/dthev2-common.h
+@@ -34,9 +34,9 @@
+ #define DTHE_POLL_TIMEOUT_INTERVAL	HZ
+ /*
+  * Size of largest possible key (of all algorithms) to be stored in dthe_tfm_ctx
+- * This is currently the keysize of XTS-AES-256 which is 512 bits (64 bytes)
++ * This is currently the keysize of HMAC-SHA512 which is 1024 bits (128 bytes)
+  */
+-#define DTHE_MAX_KEYSIZE	(AES_MAX_KEY_SIZE * 2)
++#define DTHE_MAX_KEYSIZE	(SHA512_BLOCK_SIZE)
+ 
+ enum dthe_hash_alg_sel {
+ 	DTHE_HASH_MD5		= 0,
+@@ -101,9 +101,9 @@ struct dthe_list {
+ /**
+  * struct dthe_tfm_ctx - Transform ctx struct containing ctx for all sub-components of DTHE V2
+  * @dev: Device this transform is bound to.
+- * @keylen: AES key length
++ * @keylen: Key length for algorithms that use a key
+  * @authsize: Authentication size for modes with authentication
+- * @key: AES key
++ * @key: Buffer storing the key
+  * @aes_mode: AES mode
+  * @hash_mode: Hashing Engine mode
+  * @phash_size: partial hash size of the hash algorithm selected
+@@ -147,6 +147,7 @@ struct dthe_aes_req_ctx {
+  * @phash: buffer to store a partial hash from a previous operation
+  * @digestcnt: stores the digest count from a previous operation; currently hardware only provides
+  *             a single 32-bit value even for SHA384/512
++ * @odigest: buffer to store the outer digest from a previous operation
+  * @padding: padding buffer for handling unaligned data
+  * @data: buffer to store one block of data to defer operations for non-zero final.
+  * @flags: bitfield of flags for internal use.
+@@ -159,6 +160,7 @@ struct dthe_aes_req_ctx {
+ struct dthe_hash_req_ctx {
+ 	u32 phash[SHA512_DIGEST_SIZE / sizeof(u32)];
+ 	u64 digestcnt[2];
++	u32 odigest[SHA512_DIGEST_SIZE / sizeof(u32)];
+ 
+ 	__dma_from_device_group_begin();
+ 	u8 padding[SHA512_BLOCK_SIZE];
+diff --git a/drivers/crypto/ti/dthev2-hash.c b/drivers/crypto/ti/dthev2-hash.c
+index 6e41aeb429141..003c5733ed945 100644
+--- a/drivers/crypto/ti/dthev2-hash.c
++++ b/drivers/crypto/ti/dthev2-hash.c
+@@ -8,6 +8,7 @@
+ 
+ #include <crypto/algapi.h>
+ #include <crypto/hash.h>
++#include <crypto/hmac.h>
+ #include <crypto/internal/hash.h>
+ #include <crypto/scatterwalk.h>
+ #include <crypto/sha2.h>
+@@ -24,6 +25,7 @@
+ /* Registers */
+ 
+ #define DTHE_P_HASH_BASE		0x5000
++#define DTHE_P_HASH512_ODIGEST_A	0x0200
+ #define DTHE_P_HASH512_IDIGEST_A	0x0240
+ #define DTHE_P_HASH512_DIGEST_COUNT	0x0280
+ #define DTHE_P_HASH512_MODE		0x0284
+@@ -46,6 +48,12 @@
+ 
+ #define DTHE_HASH_MODE_USE_ALG_CONST		BIT(3)
+ #define DTHE_HASH_MODE_CLOSE_HASH		BIT(4)
++#define DTHE_HASH_MODE_HMAC_KEY_PROCESSING	BIT(5)
++#define DTHE_HASH_MODE_HMAC_OUTER_HASH		BIT(7)
++
++/* Misc */
++#define DTHE_HMAC_SHA512_MAX_KEYSIZE		(SHA512_BLOCK_SIZE)
++#define DTHE_HMAC_SHA256_MAX_KEYSIZE		(SHA256_BLOCK_SIZE)
+ 
+ /* rctx flag bitfields */
+ #define DTHE_HASH_FLAG_OP		BIT(0)
+@@ -102,6 +110,19 @@ static void dthe_hash_write_zero_message(enum dthe_hash_alg_sel mode, void *dst)
+ 	}
+ }
+ 
++static int dthe_hmac_write_zero_message(struct ahash_request *req)
++{
++	HASH_FBREQ_ON_STACK(fbreq, req);
++	int ret;
++
++	ahash_request_set_crypt(fbreq, req->src, req->result,
++				req->nbytes);
++
++	ret = crypto_ahash_digest(fbreq);
++	HASH_REQUEST_ZERO(fbreq);
++	return ret;
++}
++
+ static enum dthe_hash_alg_sel dthe_hash_get_hash_mode(struct crypto_ahash *tfm)
+ {
+ 	unsigned int ds = crypto_ahash_digestsize(tfm);
+@@ -153,6 +174,17 @@ static unsigned int dthe_hash_get_phash_size(struct dthe_tfm_ctx *ctx)
+ 	return phash_size;
+ }
+ 
++static const char *dthe_hash_get_alg_name(struct dthe_tfm_ctx *ctx)
++{
++	switch (ctx->hash_mode) {
++	case DTHE_HASH_SHA224:	return "sha224";
++	case DTHE_HASH_SHA256:	return "sha256";
++	case DTHE_HASH_SHA384:	return "sha384";
++	case DTHE_HASH_SHA512:	return "sha512";
++	default:		return NULL;
++	}
++}
++
+ static int dthe_hash_init_tfm(struct crypto_ahash *tfm)
+ {
+ 	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
+@@ -213,6 +245,7 @@ static int dthe_hash_dma_start(struct ahash_request *req, struct scatterlist *sr
+ 	enum dma_data_direction src_dir = DMA_TO_DEVICE;
+ 	u32 hash_mode;
+ 	int ds = crypto_ahash_digestsize(tfm);
++	bool is_hmac = (ctx->keylen > 0);
+ 	int ret = 0;
+ 	u32 *dst;
+ 	u32 dst_len;
+@@ -259,8 +292,11 @@ static int dthe_hash_dma_start(struct ahash_request *req, struct scatterlist *sr
+ 
+ 	hash_mode = ctx->hash_mode;
+ 
+-	if (dthe_hash_flag_is_op(rctx, DTHE_HASH_OP_FINUP))
++	if (dthe_hash_flag_is_op(rctx, DTHE_HASH_OP_FINUP)) {
+ 		hash_mode |= DTHE_HASH_MODE_CLOSE_HASH;
++		if (is_hmac)
++			hash_mode |= DTHE_HASH_MODE_HMAC_OUTER_HASH;
++	}
+ 
+ 	if (dthe_hash_has_flag(rctx, DTHE_HASH_FLAG_PHASH_AVAIL)) {
+ 		for (int i = 0; i < ctx->phash_size / sizeof(u32); ++i)
+@@ -268,9 +304,28 @@ static int dthe_hash_dma_start(struct ahash_request *req, struct scatterlist *sr
+ 				       sha_base_reg +
+ 				       DTHE_P_HASH512_IDIGEST_A +
+ 				       (DTHE_REG_SIZE * i));
++		if (is_hmac) {
++			for (int i = 0; i < ctx->phash_size / sizeof(u32); ++i)
++				writel_relaxed(rctx->odigest[i],
++					       sha_base_reg +
++					       DTHE_P_HASH512_ODIGEST_A +
++					       (DTHE_REG_SIZE * i));
++		}
+ 
+ 		writel_relaxed(rctx->digestcnt[0],
+ 			       sha_base_reg + DTHE_P_HASH512_DIGEST_COUNT);
++	} else if (is_hmac) {
++		hash_mode |= DTHE_HASH_MODE_HMAC_KEY_PROCESSING;
++
++		for (int i = 0; i < (ctx->keylen / 2) / sizeof(u32); ++i)
++			writel_relaxed(ctx->key[i], sha_base_reg +
++				       DTHE_P_HASH512_ODIGEST_A +
++				       (DTHE_REG_SIZE * i));
++		for (int i = 0; i < (ctx->keylen / 2) / sizeof(u32); ++i)
++			writel_relaxed(ctx->key[i + (ctx->keylen / 2) / sizeof(u32)],
++				       sha_base_reg +
++				       DTHE_P_HASH512_IDIGEST_A +
++				       (DTHE_REG_SIZE * i));
+ 	} else {
+ 		hash_mode |= DTHE_HASH_MODE_USE_ALG_CONST;
+ 	}
+@@ -318,6 +373,13 @@ static int dthe_hash_dma_start(struct ahash_request *req, struct scatterlist *sr
+ 					    (DTHE_REG_SIZE * i)),
+ 			      &dst[i]);
+ 
++	if (is_hmac) {
++		for (int i = 0; i < dst_len; ++i)
++			rctx->odigest[i] = readl_relaxed(sha_base_reg +
++							 DTHE_P_HASH512_ODIGEST_A +
++							 (DTHE_REG_SIZE * i));
++	}
++
+ 	rctx->digestcnt[0] = readl_relaxed(sha_base_reg + DTHE_P_HASH512_DIGEST_COUNT);
+ 	dthe_hash_flag_set(rctx, DTHE_HASH_FLAG_PHASH_AVAIL);
+ 
+@@ -439,6 +501,7 @@ static int dthe_hash_init(struct ahash_request *req)
+ 	rctx->digestcnt[0] = 0;
+ 	rctx->digestcnt[1] = 0;
+ 	memzero_explicit(rctx->data, sizeof(rctx->data));
++	memzero_explicit(rctx->odigest, sizeof(rctx->odigest));
+ 
+ 	return 0;
+ }
+@@ -494,6 +557,10 @@ static int dthe_hash_final(struct ahash_request *req)
+ 		return dthe_hash_transfer_to_engine(ctx, req);
+ 	}
+ 
++	if (ctx->keylen > 0)
++		/* HMAC with zero-length message */
++		return dthe_hmac_write_zero_message(req);
++
+ 	dthe_hash_write_zero_message(ctx->hash_mode, req->result);
+ 
+ 	return 0;
+@@ -547,6 +614,53 @@ static const void *dthe_hash_get_init_state(struct dthe_tfm_ctx *ctx)
+ 	}
+ }
+ 
++/*
++ * Compute the HMAC inner or outer pad state (the intermediate hash state after
++ * processing one block of key XOR pad_byte) and write it to @out. Only the
++ * first ctx->phash_size bytes are written, which is always the raw hash state
++ * at the start of the shash export struct.
++ */
++static int dthe_hmac_compute_pad_state(struct dthe_tfm_ctx *ctx, u8 pad_byte,
++				       void *out)
++{
++	const char *alg_name = dthe_hash_get_alg_name(ctx);
++	struct crypto_shash *ktfm;
++	u8 data[SHA512_BLOCK_SIZE];
++	unsigned int ss;
++	u8 *state;
++	int ret;
++
++	ktfm = crypto_alloc_shash(alg_name, 0, 0);
++	if (IS_ERR(ktfm))
++		return PTR_ERR(ktfm);
++
++	ss = crypto_shash_statesize(ktfm);
++	state = kmalloc(ss, GFP_ATOMIC);
++	if (!state) {
++		crypto_free_shash(ktfm);
++		return -ENOMEM;
++	}
++
++	SHASH_DESC_ON_STACK(desc, ktfm);
++
++	desc->tfm = ktfm;
++	for (int i = 0; i < ctx->keylen; i++)
++		data[i] = ((u8 *)ctx->key)[i] ^ pad_byte;
++
++	ret = crypto_shash_init(desc) ?:
++	      crypto_shash_update(desc, data, ctx->keylen) ?:
++	      crypto_shash_export(desc, state);
++
++	if (!ret)
++		memcpy(out, state, ctx->phash_size);
++
++	memzero_explicit(state, ss);
++	kfree(state);
++	crypto_free_shash(ktfm);
++	memzero_explicit(data, sizeof(data));
++	return ret;
++}
++
+ static int dthe_hash_export(struct ahash_request *req, void *out)
+ {
+ 	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
+@@ -557,9 +671,12 @@ static int dthe_hash_export(struct ahash_request *req, void *out)
+ 		u8 *u8;
+ 		u64 *u64;
+ 	} p = { .u8 = out };
++	int ret = 0;
+ 
+ 	if (dthe_hash_has_flag(rctx, DTHE_HASH_FLAG_PHASH_AVAIL))
+ 		memcpy(out, rctx->phash, ctx->phash_size);
++	else if (ctx->keylen > 0)
++		ret = dthe_hmac_compute_pad_state(ctx, HMAC_IPAD_VALUE, out);
+ 	else
+ 		memcpy(out, dthe_hash_get_init_state(ctx), ctx->phash_size);
+ 
+@@ -568,11 +685,16 @@ static int dthe_hash_export(struct ahash_request *req, void *out)
+ 	if (ctx->phash_size >= SHA512_DIGEST_SIZE)
+ 		put_unaligned(rctx->digestcnt[1], p.u64++);
+ 
++	if (ctx->keylen > 0) {
++		memcpy(p.u8, rctx->odigest, ctx->phash_size);
++		p.u8 += ctx->phash_size;
++	}
++
+ 	memcpy(p.u8, rctx->data, bs);
+ 	p.u8 += bs;
+ 	put_unaligned(rctx->flags, p.u8++);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int dthe_hash_import(struct ahash_request *req, const void *in)
+@@ -592,6 +714,11 @@ static int dthe_hash_import(struct ahash_request *req, const void *in)
+ 	if (ctx->phash_size >= SHA512_DIGEST_SIZE)
+ 		rctx->digestcnt[1] = get_unaligned(p.u64++);
+ 
++	if (ctx->keylen > 0) {
++		memcpy(rctx->odigest, p.u8, ctx->phash_size);
++		p.u8 += ctx->phash_size;
++	}
++
+ 	memcpy(rctx->data, p.u8, bs);
+ 	p.u8 += bs;
+ 	rctx->flags = get_unaligned(p.u8++);
+@@ -599,6 +726,53 @@ static int dthe_hash_import(struct ahash_request *req, const void *in)
+ 	return 0;
+ }
+ 
++static int dthe_hmac_setkey(struct crypto_ahash *tfm, const u8 *key,
++			    unsigned int keylen)
++{
++	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
++	struct crypto_ahash *fb = crypto_ahash_fb(tfm);
++	const char *hash_alg_name = dthe_hash_get_alg_name(ctx);
++	unsigned int max_keysize;
++
++	memzero_explicit(ctx->key, sizeof(ctx->key));
++
++	switch (ctx->hash_mode) {
++	case DTHE_HASH_SHA512:
++	case DTHE_HASH_SHA384:
++		max_keysize = DTHE_HMAC_SHA512_MAX_KEYSIZE;
++		break;
++	case DTHE_HASH_SHA256:
++	case DTHE_HASH_SHA224:
++		max_keysize = DTHE_HMAC_SHA256_MAX_KEYSIZE;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	if (keylen > max_keysize) {
++		struct crypto_shash *ktfm;
++		int err;
++
++		ktfm = crypto_alloc_shash(hash_alg_name, 0, 0);
++		if (IS_ERR(ktfm))
++			return PTR_ERR(ktfm);
++
++		SHASH_DESC_ON_STACK(desc, ktfm);
++
++		desc->tfm = ktfm;
++		err = crypto_shash_digest(desc, key, keylen, (u8 *)ctx->key);
++		crypto_free_shash(ktfm);
++		if (err)
++			return err;
++	} else {
++		memcpy(ctx->key, key, keylen);
++	}
++
++	ctx->keylen = max_keysize;
++
++	return crypto_ahash_setkey(fb, key, keylen);
++}
++
+ static struct ahash_engine_alg hash_algs[] = {
+ 	{
+ 		.base.init_tfm	= dthe_hash_init_tfm,
+@@ -728,6 +902,138 @@ static struct ahash_engine_alg hash_algs[] = {
+ 		},
+ 		.op.do_one_request = dthe_hash_run,
+ 	},
++	{
++		.base.init_tfm	= dthe_hash_init_tfm,
++		.base.exit_tfm	= dthe_hash_exit_tfm,
++		.base.init	= dthe_hash_init,
++		.base.update	= dthe_hash_update,
++		.base.final	= dthe_hash_final,
++		.base.finup	= dthe_hash_finup,
++		.base.digest	= dthe_hash_digest,
++		.base.export	= dthe_hash_export,
++		.base.import	= dthe_hash_import,
++		.base.setkey	= dthe_hmac_setkey,
++		.base.halg	= {
++			.digestsize = SHA512_DIGEST_SIZE,
++			.statesize = sizeof(struct dthe_hash_req_ctx),
++			.base = {
++				.cra_name	 = "hmac(sha512)",
++				.cra_driver_name = "hmac-sha512-dthev2",
++				.cra_priority	 = 299,
++				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
++						   CRYPTO_ALG_ASYNC |
++						   CRYPTO_ALG_NEED_FALLBACK |
++						   CRYPTO_ALG_KERN_DRIVER_ONLY |
++						   CRYPTO_ALG_ALLOCATES_MEMORY |
++						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
++						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
++				.cra_blocksize	 = SHA512_BLOCK_SIZE,
++				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
++				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
++				.cra_module	 = THIS_MODULE,
++			}
++		},
++		.op.do_one_request = dthe_hash_run,
++	},
++	{
++		.base.init_tfm	= dthe_hash_init_tfm,
++		.base.exit_tfm	= dthe_hash_exit_tfm,
++		.base.init	= dthe_hash_init,
++		.base.update	= dthe_hash_update,
++		.base.final	= dthe_hash_final,
++		.base.finup	= dthe_hash_finup,
++		.base.digest	= dthe_hash_digest,
++		.base.export	= dthe_hash_export,
++		.base.import	= dthe_hash_import,
++		.base.setkey	= dthe_hmac_setkey,
++		.base.halg	= {
++			.digestsize = SHA384_DIGEST_SIZE,
++			.statesize = sizeof(struct dthe_hash_req_ctx),
++			.base = {
++				.cra_name	 = "hmac(sha384)",
++				.cra_driver_name = "hmac-sha384-dthev2",
++				.cra_priority	 = 299,
++				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
++						   CRYPTO_ALG_ASYNC |
++						   CRYPTO_ALG_NEED_FALLBACK |
++						   CRYPTO_ALG_KERN_DRIVER_ONLY |
++						   CRYPTO_ALG_ALLOCATES_MEMORY |
++						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
++						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
++				.cra_blocksize	 = SHA384_BLOCK_SIZE,
++				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
++				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
++				.cra_module	 = THIS_MODULE,
++			}
++		},
++		.op.do_one_request = dthe_hash_run,
++	},
++	{
++		.base.init_tfm	= dthe_hash_init_tfm,
++		.base.exit_tfm	= dthe_hash_exit_tfm,
++		.base.init	= dthe_hash_init,
++		.base.update	= dthe_hash_update,
++		.base.final	= dthe_hash_final,
++		.base.finup	= dthe_hash_finup,
++		.base.digest	= dthe_hash_digest,
++		.base.export	= dthe_hash_export,
++		.base.import	= dthe_hash_import,
++		.base.setkey	= dthe_hmac_setkey,
++		.base.halg	= {
++			.digestsize = SHA256_DIGEST_SIZE,
++			.statesize = sizeof(struct dthe_hash_req_ctx),
++			.base = {
++				.cra_name	 = "hmac(sha256)",
++				.cra_driver_name = "hmac-sha256-dthev2",
++				.cra_priority	 = 299,
++				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
++						   CRYPTO_ALG_ASYNC |
++						   CRYPTO_ALG_NEED_FALLBACK |
++						   CRYPTO_ALG_KERN_DRIVER_ONLY |
++						   CRYPTO_ALG_ALLOCATES_MEMORY |
++						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
++						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
++				.cra_blocksize	 = SHA256_BLOCK_SIZE,
++				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
++				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
++				.cra_module	 = THIS_MODULE,
++			}
++		},
++		.op.do_one_request = dthe_hash_run,
++	},
++	{
++		.base.init_tfm	= dthe_hash_init_tfm,
++		.base.exit_tfm	= dthe_hash_exit_tfm,
++		.base.init	= dthe_hash_init,
++		.base.update	= dthe_hash_update,
++		.base.final	= dthe_hash_final,
++		.base.finup	= dthe_hash_finup,
++		.base.digest	= dthe_hash_digest,
++		.base.export	= dthe_hash_export,
++		.base.import	= dthe_hash_import,
++		.base.setkey	= dthe_hmac_setkey,
++		.base.halg	= {
++			.digestsize = SHA224_DIGEST_SIZE,
++			.statesize = sizeof(struct dthe_hash_req_ctx),
++			.base = {
++				.cra_name	 = "hmac(sha224)",
++				.cra_driver_name = "hmac-sha224-dthev2",
++				.cra_priority	 = 299,
++				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
++						   CRYPTO_ALG_ASYNC |
++						   CRYPTO_ALG_NEED_FALLBACK |
++						   CRYPTO_ALG_KERN_DRIVER_ONLY |
++						   CRYPTO_ALG_ALLOCATES_MEMORY |
++						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
++						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
++				.cra_blocksize	 = SHA224_BLOCK_SIZE,
++				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
++				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
++				.cra_module	 = THIS_MODULE,
++			}
++		},
++		.op.do_one_request = dthe_hash_run,
++	},
+ };
+ 
+ int dthe_register_hash_algs(void)
 -- 
 2.34.1
 
