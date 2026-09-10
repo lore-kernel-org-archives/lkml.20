@@ -1,428 +1,362 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D688215161;
-	Thu, 10 Sep 2026 23:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC853A784F;
+	Thu, 10 Sep 2026 23:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084162; cv=none; b=bU1DPCsrh9lHCeOAG8554aMhyeOa41/7bY6hhARb9m0H6s5klwq6Q9JIo1xXmBtLTC8z7OdFcWBGpYljUcxDTnc7ZwxsGddwQT4T26IOtgXLKCv16XrPZzY+uh5mts7yqa1vGs/8HsPKbRhfpesu2ljwH4OR936uUzEjPUOJndc=
+	t=1789084173; cv=none; b=lzl8OmoBgEQkaxJqcm8rLWVxtREtlxNpYHB/TRlpwEAhwhqaeuEhPPUTH99zSrsnUw/RbSYiC4ZUcY+Qgvbewlp4pbqOCK06eKzC0s+0arxKhj5Qdjt2I/5WIDqRPArAGvJaaEzDIzl0PEfQXT57i1KPX6Gi1uip6nhqy8OmtTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084162; c=relaxed/simple;
-	bh=8t/fx9Gm9YGrNSPsolHZYzWPnJ5o11Rgg3qhhyVsILs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=AMewpn+5DjkrOVKabk5M54odZesAk4lKOQ3TPU6tNlGDf9+CEFlfDleDGmISPf3VAdFg8ndRJvKoDrjADiS6CnvTChm/Zo8LIY2/XmrEnpL8bG51qcHylDagysyb3dhoMTnpSiCG+cFkusYGH/6QI51hYPn1zKSfoQMLvktpTFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=fd+RqFDz; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1789084173; c=relaxed/simple;
+	bh=GniLviUPIjDaEa1gqtaII0N0z5XcLo4ZXvSD4msaZmY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=re7J7Zv9sKpdCHmG59aWhniIjO/qW4sAnE5/e2HBczNVMUxNxmPnyJWnM9JA7IKEacIigkNiSpDtBHBplFmlwIJfwPMs1ZHkMC6KSwc/XUSPVT49NgLhxbITOZfBcnEXjcnrqrRv7mbCY80jRkxqVs/dw/R+LP7rL2NM5p36aMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=eli6qMGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="fd+RqFDz"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ALWBDp1089904;
-	Thu, 10 Sep 2026 19:49:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=HoSwv
-	H5VcrWRBom1hwjzwl6HfXuzPJUoPXnPlOFjsYM=; b=fd+RqFDzqyhTCi2QrL5vS
-	o4nBJfXacw7woMaRo2UsbiQIzlO6Zz1zdGLu1lBIaeyrJ3Mvtq4GanRXrH7psk9P
-	In8QeULfDL0aaSbaVDDeEGnZQiGmawAWXokZWFAOSYiNRgKZ9qSFw/9q5KSEyCDv
-	N6OkTTfNDDSX4yLwgI2uF2x1/HfXzDv+9zxKLYVQyzSCnfODE/xjZfGQnImFBWGe
-	ngFTOyRp6M2qhB91zhyUpvbwTkrk4vVuhg+bcfoOUe9F5sTsI4eGAcWRnLVUNiyK
-	DBu7WrU/+wbBRRYbF/+LRqXh9UU9xQGth3WuY0Ixj27Ps9cESf4lb/42y8pb1wPS
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gkcx96caj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 19:49:16 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68ANnF3I022545
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 10 Sep 2026 19:49:15 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 10 Sep
- 2026 19:49:15 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 10 Sep 2026 19:49:15 -0400
-Received: from HYB-VFz9h4bIQxi.ad.analog.com (HYB-VFz9h4bIQxi.ad.analog.com [10.118.4.26])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68ANmte3030659;
-	Thu, 10 Sep 2026 19:49:10 -0400
-From: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-Date: Fri, 11 Sep 2026 07:48:33 +0800
-Subject: [PATCH v12 2/2] leds: ltc3208: Add driver for LTC3208 Multidisplay
- LED Driver
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="eli6qMGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45831F000FF;
+	Thu, 10 Sep 2026 23:49:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789084171;
+	bh=VF1IzpkvEZpz8vf0zB2nL50NHFRi+ukaTt7C4SFlbI4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eli6qMGSmz4lm+Ip/4jVK6MLz8m76VA2SZpkZJMK63aPYDQl/jurHC0HPodPWxyfk
+	 IVLRqvcTgRZA75S/PEmbchQw+wlSOJM0+r6Uz7rodzsywLcV1tw4cpzLPz2LV1wk9+
+	 g2DsZN4aOSrRDHGa3XPs8/H7rY8FhdTjUIrevcRE=
+Date: Thu, 10 Sep 2026 16:49:30 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com>
+Cc: cgroups@vger.kernel.org, hannes@cmpxchg.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-usb@vger.kernel.org, mhocko@kernel.org, muchun.song@linux.dev,
+ roman.gushchin@linux.dev, shakeel.butt@linux.dev,
+ syzkaller-bugs@googlegroups.com, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, bentiss@kernel.org>,
+ linux-input@vger.kernel.org
+Subject: Re: [syzbot] [mm?] [cgroups?] inconsistent lock state in
+ fs_reclaim_acquire (4)
+Message-Id: <20260910164930.4be969ed38cb0d5b4b45cd27@linux-foundation.org>
+In-Reply-To: <6aa1e191.f81106d8.2ab401.0004.GAE@google.com>
+References: <6aa1e191.f81106d8.2ab401.0004.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260911-upstream-ltc3208-v12-2-9107f5f0a7b0@analog.com>
-References: <20260911-upstream-ltc3208-v12-0-9107f5f0a7b0@analog.com>
-In-Reply-To: <20260911-upstream-ltc3208-v12-0-9107f5f0a7b0@analog.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-leds@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>,
-        Jan Carlo Roleda <jancarlo.roleda@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084135; l=11302;
- i=jancarlo.roleda@analog.com; s=20260317; h=from:subject:message-id;
- bh=8t/fx9Gm9YGrNSPsolHZYzWPnJ5o11Rgg3qhhyVsILs=;
- b=zZLejtwDgQCMdO1i6O8rNwcWGpVKC7Hp8yusafWH237wGiRIZcXM6F265d37CB01CpIwk9O0c
- g9758Upt/c9AhT0TfJ9gd7wOcZtKS2i3H5NeYP/8nFqf6caRVp7SIg+
-X-Developer-Key: i=jancarlo.roleda@analog.com; a=ed25519;
- pk=zPMh+eO6/Mj6tqaie75BLiTLQvE3f9pck0UejKLmLMc=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDMwMCBTYWx0ZWRfX4KCG0DXi5ysC
- oYpwF1zTixirKgcBHnctrb5W7ZvoYXOYNkxlGULfgR7uR7o+JFiznwrEzY/vnFLagTucNcwmn2m
- AyTvSAW0eMM0+e50mQFlWwPLM22aTgJ4kkQ0vT7m1wj/FxnLzMOZ
-X-Proofpoint-GUID: r8ThLik5E8czjB-23AobGIy_sAC7kB8f
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDMwMCBTYWx0ZWRfXxiEDoSKviZT6
- ku/LDk4M6rOxa2ZiOdtFLI+nkp55jC1GUG/5Xv5nKgOtabPXpplaPYnFJuCmFL1FpSXiQ9ALtdL
- jw1U/h9l4BaJFiOQRbqxZhevoKbNPy/ZlpnNJhafBOfojUI+mpAJsXf/PjfHA2U2yeBGjIqicrA
- qlq8/NSJkFPcxgMVxDTkb2DexD151EMUuMnJ4ZE/TNI/uMaJma9CxKiNo5YQK7RA8rT3Vj1PjIo
- R7lnwWwLlhbI/qPxmDy+vZqgpUaIU7Jr/Dt0eDCEoX7uO7D4PRKSFLrvVkgXEEFq03w/7bbiyBh
- M3oPFHfin2vaP6U3G7Jhb+MYjFo7f5omjn0LdNpBF7lGA5MpkHpqd75U+Rhni9xCsNz7olqflwX
- jnylRzQ3FXDrXXpPnIO5xsP4wD0pL79FqWhcMQcJeRR5IMdyHQm/7p9GYChbYbQR0/Wy+OSpxtu
- pYCZqx1XbyznjOGO6OQ==
-X-Authority-Analysis: v=2.4 cv=G8CJgNk5 c=1 sm=1 tr=0 ts=6aa341fc cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=VwQbUJbxAAAA:8 a=FfwCkgHInPnU5R23u4kA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: r8ThLik5E8czjB-23AobGIy_sAC7kB8f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_07,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100300
 
-Kernel driver implementation for LTC3208 Multidisplay LED Driver.
+On Wed, 09 Sep 2026 15:45:37 -0700 syzbot <syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com> wrote:
 
-The LTC3208 is a Multi-display LED driver, designed to control up to
-7 distinct LED channels (MAIN, SUB, AUX, CAMHI, CAMLO, RED, GREEN, BLUE),
-each configurable with its own current level that is equally set to its
-respective output current source pins for external LEDs.
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    34c9c5517033 Merge 7.3-rc2 into usb-next
+> git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1408d749580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
+> dashboard link: https://syzkaller.appspot.com/bug?extid=093e05755c2d99caab91
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=102c2ef9580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=156d7af9580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/8a384e63cde6/disk-34c9c551.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/e5a73decdc30/vmlinux-34c9c551.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/13abc163bbdc/bzImage-34c9c551.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com
+> 
+> ================================
+> WARNING: inconsistent lock state
 
-It is programmed via the I2C serial interface.
-MAIN and SUB support 8-bit current level resolution,
-while AUX, CAMHI/LO, RED, GREEN, and BLUE support 4-bit levels.
+Thanks.  tl;dr: drivers/hid/hid-multitouch.c
 
-The AUX LED channel can be configured to mirror the CAM, SUB, and MAIN
-channel current levels, or as its own independent AUX channel.
 
-The CAM LED channel is configured as 2 separate CAMHI and CAMLO register
-sub-channels, which current is selected via the CAMHL pin, or set to
-CAMHI register only via setting the S_CAMHILO bit high in register G (0x7).
+My friendly local LLM tells me
 
-Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
----
- MAINTAINERS                 |   1 +
- drivers/leds/Kconfig        |  12 +++
- drivers/leds/Makefile       |   1 +
- drivers/leds/leds-ltc3208.c | 234 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 248 insertions(+)
+  So I would not initially blame mm/cgroups despite syzbot's [mm?]
+  [cgroups?] classification.  fs_reclaim is just where lockdep detects
+  the violation.  The suspicious code is
+  drivers/hid/hid-multitouch.c:mt_allocate_report_data(): it
+  dynamically allocates report bookkeeping from mt_event(), and
+  mt_event() can evidently execute in atomic/softirq context.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2fd6ffdaaf04..e3b59485ecb3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15229,6 +15229,7 @@ L:	linux-leds@vger.kernel.org
- S:	Maintained
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
-+F:	drivers/leds/leds-ltc3208.c
- 
- LTC4282 HARDWARE MONITOR DRIVER
- M:	Nuno Sa <nuno.sa@analog.com>
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index f4a0a3c8c870..d917ce3b72f4 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -1028,6 +1028,18 @@ config LEDS_ACER_A500
- 	  This option enables support for the Power Button LED of
- 	  Acer Iconia Tab A500.
- 
-+config LEDS_LTC3208
-+	tristate "LED Driver for Analog Devices LTC3208"
-+	depends on LEDS_CLASS && I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the LTC3208 LED driver.
-+	  This enables the LED device LTC3208, a 7-channel, 17-current source
-+	  multidisplay high-current LED driver, configured via I2C.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called ltc3208.
-+
- source "drivers/leds/blink/Kconfig"
- 
- comment "Flash and Torch LED drivers"
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 7db3768912ca..0148b87e16ba 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
- obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
- obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
- obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
-+obj-$(CONFIG_LEDS_LTC3208)		+= leds-ltc3208.o
- obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
- obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
- obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
-new file mode 100644
-index 000000000000..e2cc06be2371
---- /dev/null
-+++ b/drivers/leds/leds-ltc3208.c
-@@ -0,0 +1,234 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * LED driver for Analog Devices LTC3208 Multi-Display Driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ *
-+ * Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-+ *
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/bitmap.h>
-+#include <linux/errno.h>
-+#include <linux/i2c.h>
-+#include <linux/leds.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+/* Registers */
-+#define LTC3208_REG_A_GRNRED_CURRENT	0x1	/* Green and Red current DAC */
-+#define LTC3208_REG_B_AUXBLU_CURRENT	0x2	/* AUX and Blue current DAC */
-+#define LTC3208_REG_C_MAIN_CURRENT	0x3	/* Main current DAC */
-+#define LTC3208_REG_D_SUB_CURRENT	0x4	/* Sub current DAC */
-+#define LTC3208_REG_E_AUX_SELECT	0x5	/* AUX DAC Select */
-+#define  LTC3208_AUX1_MASK		GENMASK(1, 0)
-+#define  LTC3208_AUX2_MASK		GENMASK(3, 2)
-+#define  LTC3208_AUX3_MASK		GENMASK(5, 4)
-+#define  LTC3208_AUX4_MASK		GENMASK(7, 6)
-+#define LTC3208_REG_F_CAM_CURRENT	0x6	/* CAM (High and Low) current DAC */
-+#define LTC3208_REG_G_OPT		0x7	/* Device Options */
-+#define  LTC3208_OPT_CPO_MASK		GENMASK(7, 6)
-+#define  LTC3208_OPT_DIS_RGBDROP	BIT(3)
-+#define  LTC3208_OPT_DIS_CAMHILO	BIT(2)
-+#define  LTC3208_OPT_EN_RGBS		BIT(1)
-+
-+#define LTC3208_MAX_BRIGHTNESS_4BIT	0xF
-+#define LTC3208_MAX_BRIGHTNESS_8BIT	0xFF
-+
-+#define LTC3208_NUM_AUX_LEDS		4	/* Number of configurable aux channels */
-+#define LTC3208_NUM_REGS		7	/* Number of available registers to access */
-+
-+enum ltc3208_aux_channel {
-+	LTC3208_AUX_CHAN_AUX = 0,
-+	LTC3208_AUX_CHAN_MAIN,
-+	LTC3208_AUX_CHAN_SUB,
-+	LTC3208_AUX_CHAN_CAM
-+};
-+
-+enum ltc3208_channel {
-+	LTC3208_CHAN_MAIN = 0,
-+	LTC3208_CHAN_SUB,
-+	LTC3208_CHAN_AUX,
-+	LTC3208_CHAN_CAML,
-+	LTC3208_CHAN_CAMH,
-+	LTC3208_CHAN_RED,
-+	LTC3208_CHAN_BLUE,
-+	LTC3208_CHAN_GREEN,
-+	LTC3208_CHAN_N_COUNT,
-+};
-+
-+static const char *const ltc3208_dt_aux_channels[] = {
-+	"adi,aux1-channel",
-+	"adi,aux2-channel",
-+	"adi,aux3-channel",
-+	"adi,aux4-channel"
-+};
-+
-+static const char *const ltc3208_aux_opt[] = { "aux", "main", "sub", "cam" };
-+
-+struct ltc3208_led {
-+	struct led_classdev cdev;
-+	struct regmap_field *rfield;
-+};
-+
-+static const struct reg_default ltc3208_reg_defaults[] = {
-+	{ LTC3208_REG_A_GRNRED_CURRENT, 0 },
-+	{ LTC3208_REG_B_AUXBLU_CURRENT, 0 },
-+	{ LTC3208_REG_C_MAIN_CURRENT, 0 },
-+	{ LTC3208_REG_D_SUB_CURRENT, 0 },
-+	{ LTC3208_REG_E_AUX_SELECT, 0 },
-+	{ LTC3208_REG_F_CAM_CURRENT, 0 },
-+	{ LTC3208_REG_G_OPT, 0 }
-+};
-+
-+static const struct regmap_config ltc3208_regmap_cfg = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = LTC3208_NUM_REGS,
-+	.cache_type = REGCACHE_FLAT_S,
-+	.reg_defaults = ltc3208_reg_defaults,
-+	.num_reg_defaults = LTC3208_NUM_REGS,
-+};
-+
-+static const struct reg_field ltc3208_led_reg_field[LTC3208_CHAN_N_COUNT] = {
-+	[LTC3208_CHAN_MAIN]  = REG_FIELD(LTC3208_REG_C_MAIN_CURRENT, 0, 7),
-+	[LTC3208_CHAN_SUB]   = REG_FIELD(LTC3208_REG_D_SUB_CURRENT, 0, 7),
-+	[LTC3208_CHAN_BLUE]  = REG_FIELD(LTC3208_REG_B_AUXBLU_CURRENT, 0, 3),
-+	[LTC3208_CHAN_AUX]   = REG_FIELD(LTC3208_REG_B_AUXBLU_CURRENT, 4, 7),
-+	[LTC3208_CHAN_CAML]  = REG_FIELD(LTC3208_REG_F_CAM_CURRENT, 0, 3),
-+	[LTC3208_CHAN_CAMH]  = REG_FIELD(LTC3208_REG_F_CAM_CURRENT, 4, 7),
-+	[LTC3208_CHAN_RED]   = REG_FIELD(LTC3208_REG_A_GRNRED_CURRENT, 0, 3),
-+	[LTC3208_CHAN_GREEN] = REG_FIELD(LTC3208_REG_A_GRNRED_CURRENT, 4, 7),
-+};
-+
-+static int ltc3208_led_set_brightness(struct led_classdev *led_cdev, enum led_brightness brightness)
-+{
-+	struct ltc3208_led *led = container_of(led_cdev, struct ltc3208_led, cdev);
-+	u8 current_level = brightness;
-+
-+	return regmap_field_write(led->rfield, current_level);
-+}
-+
-+static int ltc3208_probe(struct i2c_client *client)
-+{
-+	enum ltc3208_aux_channel aux_channels[LTC3208_NUM_AUX_LEDS];
-+	DECLARE_BITMAP(registered_chans, LTC3208_CHAN_N_COUNT) = { };
-+	struct regmap *regmap;
-+	bool disable_rgb_aux4_dropout_signal;
-+	bool disable_camhl_pin;
-+	bool set_sub_control_pin;
-+	int ret;
-+	u8 dev_options;
-+
-+	regmap = devm_regmap_init_i2c(client, &ltc3208_regmap_cfg);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(&client->dev, PTR_ERR(regmap), "Failed to initialize regmap");
-+
-+	regcache_mark_dirty(regmap);
-+	ret = regcache_sync(regmap);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to sync register cache");
-+
-+	disable_camhl_pin = device_property_read_bool(&client->dev, "adi,disable-camhl-pin");
-+
-+	set_sub_control_pin = device_property_read_bool(&client->dev, "adi,cfg-enrgbs-pin");
-+
-+	disable_rgb_aux4_dropout_signal =
-+		device_property_read_bool(&client->dev, "adi,disable-rgb-aux4-dropout");
-+
-+	dev_options = FIELD_PREP(LTC3208_OPT_EN_RGBS, set_sub_control_pin) |
-+		      FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, disable_camhl_pin) |
-+		      FIELD_PREP(LTC3208_OPT_CPO_MASK, 0) |
-+		      FIELD_PREP(LTC3208_OPT_DIS_RGBDROP, disable_rgb_aux4_dropout_signal);
-+
-+	ret = regmap_write(regmap, LTC3208_REG_G_OPT, dev_options);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to set device options register");
-+
-+	/* Initialize AUX channel configurations */
-+	for (int i = 0; i < LTC3208_NUM_AUX_LEDS; i++) {
-+		/* Default value (AUX) if property is not present in DT */
-+		if (!device_property_present(&client->dev, ltc3208_dt_aux_channels[i])) {
-+			aux_channels[i] = LTC3208_AUX_CHAN_AUX;
-+			continue;
-+		}
-+
-+		ret = device_property_match_property_string(&client->dev,
-+							    ltc3208_dt_aux_channels[i],
-+							    ltc3208_aux_opt, LTC3208_NUM_AUX_LEDS);
-+		if (ret < 0)
-+			return dev_err_probe(&client->dev, ret, "Error reading AUX Channel %d", i);
-+
-+		aux_channels[i] = ret;
-+	}
-+
-+	dev_options = FIELD_PREP(LTC3208_AUX1_MASK, aux_channels[0]) |
-+		      FIELD_PREP(LTC3208_AUX2_MASK, aux_channels[1]) |
-+		      FIELD_PREP(LTC3208_AUX3_MASK, aux_channels[2]) |
-+		      FIELD_PREP(LTC3208_AUX4_MASK, aux_channels[3]);
-+
-+	ret = regmap_write(regmap, LTC3208_REG_E_AUX_SELECT, dev_options);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Error writing to aux channel register");
-+
-+	device_for_each_child_node_scoped(&client->dev, child) {
-+		struct ltc3208_led *led;
-+		struct led_init_data init_data = { };
-+		u32 chan;
-+
-+		ret = fwnode_property_read_u32(child, "reg", &chan);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret,
-+					     "Failed to get register value of LED");
-+		if (chan >= LTC3208_CHAN_N_COUNT)
-+			return dev_err_probe(&client->dev, -EINVAL, "%u is an invalid LED ID",
-+					     chan);
-+		if (test_and_set_bit(chan, registered_chans))
-+			return dev_err_probe(&client->dev, -EINVAL, "%u is already registered",
-+					     chan);
-+
-+		led = devm_kzalloc(&client->dev, sizeof(*led), GFP_KERNEL);
-+		if (!led)
-+			return -ENOMEM;
-+
-+		led->rfield = devm_regmap_field_alloc(&client->dev, regmap,
-+						      ltc3208_led_reg_field[chan]);
-+		if (IS_ERR(led->rfield))
-+			return dev_err_probe(&client->dev, PTR_ERR(led->rfield),
-+					     "Cannot allocate regmap field");
-+		led->cdev.brightness_set_blocking = ltc3208_led_set_brightness;
-+		led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_4BIT;
-+
-+		if (chan == LTC3208_CHAN_MAIN || chan == LTC3208_CHAN_SUB)
-+			led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_8BIT;
-+
-+		init_data.fwnode = child;
-+
-+		ret = devm_led_classdev_register_ext(&client->dev, &led->cdev, &init_data);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret, "Failed to register LED %u", chan);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ltc3208_match_table[] = {
-+	{ .compatible = "adi,ltc3208" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ltc3208_match_table);
-+
-+static struct i2c_driver ltc3208_driver = {
-+	.driver = {
-+		.name = "ltc3208",
-+		.of_match_table = ltc3208_match_table,
-+	},
-+	.probe = ltc3208_probe,
-+};
-+module_i2c_driver(ltc3208_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Jan Carlo Roleda <jancarlo.roleda@analog.com>");
-+MODULE_DESCRIPTION("LTC3208 LED Driver");
+  The interesting question for the actual fix is why this structure
+  wasn't allocated earlier.  mt_find_report_data() presumably normally
+  finds preexisting report data, but this reproducer gets an HID report
+  for which none exists and falls into mt_allocate_report_data() at
+  runtime.  The likely proper fix is therefore to arrange for this data
+  to be allocated during device/report initialization in sleepable
+  context, rather than merely changing this allocation to GFP_ATOMIC. 
+  The latter could suppress the reclaim problem but devm_* itself and
+  the lifetime/list manipulation deserve checking before assuming
+  that's sufficient.
 
--- 
-2.43.0
+which is sufficient for me to cc relevant folks and run away.
 
+> syzkaller #0 Not tainted
+> --------------------------------
+> inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
+> syz.3.17/3981 [HC0[0]:SC1[1]:HE0:SE0] takes:
+> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
+> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4636 [inline]
+> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: slab_alloc_node mm/slub.c:4974 [inline]
+> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: __do_kmalloc_node mm/slub.c:5413 [inline]
+> ffffffff89ab7bc0 (fs_reclaim){+.?.}-{0:0}, at: __kmalloc_node_track_caller_noprof+0xcc/0x820 mm/slub.c:5545
+> {SOFTIRQ-ON-W} state was registered at:
+>   lock_acquire kernel/locking/lockdep.c:5942 [inline]
+>   lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+>   __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+>   fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+>   might_alloc include/linux/sched/mm.h:316 [inline]
+>   xa_alloc include/linux/xarray.h:876 [inline]
+>   mem_cgroup_alloc mm/memcontrol.c:4160 [inline]
+>   mem_cgroup_css_alloc+0x7e/0x1ce0 mm/memcontrol.c:4225
+>   cgroup_init_subsys+0x223/0x700 kernel/cgroup/cgroup.c:6431
+>   cgroup_init+0x569/0xe50 kernel/cgroup/cgroup.c:6558
+>   start_kernel+0x470/0x490 init/main.c:1176
+>   x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
+>   x86_64_start_kernel+0x12b/0x130 arch/x86/kernel/head64.c:291
+>   common_startup_64+0x13e/0x158
+> irq event stamp: 317
+> hardirqs last  enabled at (316): [<ffffffff878ad162>] __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:210 [inline]
+> hardirqs last  enabled at (316): [<ffffffff878ad162>] _raw_spin_unlock_irqrestore+0x52/0x80 kernel/locking/spinlock.c:221
+> hardirqs last disabled at (317): [<ffffffff878acd32>] __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:153 [inline]
+> hardirqs last disabled at (317): [<ffffffff878acd32>] _raw_spin_lock_irqsave+0x52/0x60 kernel/locking/spinlock.c:181
+> softirqs last  enabled at (302): [<ffffffff8177a2a8>] __do_softirq kernel/softirq.c:679 [inline]
+> softirqs last  enabled at (302): [<ffffffff8177a2a8>] invoke_softirq kernel/softirq.c:519 [inline]
+> softirqs last  enabled at (302): [<ffffffff8177a2a8>] __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+> softirqs last disabled at (313): [<ffffffff8177a2a8>] __do_softirq kernel/softirq.c:679 [inline]
+> softirqs last disabled at (313): [<ffffffff8177a2a8>] invoke_softirq kernel/softirq.c:519 [inline]
+> softirqs last disabled at (313): [<ffffffff8177a2a8>] __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+> 
+> other info that might help us debug this:
+>  Possible unsafe locking scenario:
+> 
+>        CPU0
+>        ----
+>   lock(fs_reclaim);
+>   <Interrupt>
+>     lock(fs_reclaim);
+> 
+>  *** DEADLOCK ***
+> 
+> locks held by syz.3.17/3981: 1, on CPU#0:
+>  #0: ffff888122130870 (&hiddev->existancelock){+.+.}-{4:4}, at: hiddev_ioctl+0x165/0x15b0 drivers/hid/usbhid/hiddev.c:610
+> 
+> stack backtrace:
+> CPU: 0 UID: 0 PID: 3981 Comm: syz.3.17 Not tainted syzkaller #0 PREEMPT(lazy) 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> Call Trace:
+>  <IRQ>
+>  __dump_stack lib/dump_stack.c:94 [inline]
+>  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+>  print_usage_bug.part.0+0x258/0x340 kernel/locking/lockdep.c:4086
+>  print_usage_bug kernel/locking/lockdep.c:4054 [inline]
+>  valid_state kernel/locking/lockdep.c:4100 [inline]
+>  mark_lock_irq kernel/locking/lockdep.c:4311 [inline]
+>  mark_lock+0x956/0x1020 kernel/locking/lockdep.c:4797
+>  mark_usage kernel/locking/lockdep.c:4686 [inline]
+>  __lock_acquire+0x7f1/0x1f40 kernel/locking/lockdep.c:5242
+>  lock_acquire kernel/locking/lockdep.c:5942 [inline]
+>  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+>  __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+>  fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+>  might_alloc include/linux/sched/mm.h:316 [inline]
+>  slab_pre_alloc_hook mm/slub.c:4636 [inline]
+>  slab_alloc_node mm/slub.c:4974 [inline]
+>  __do_kmalloc_node mm/slub.c:5413 [inline]
+>  __kmalloc_node_track_caller_noprof+0xcc/0x820 mm/slub.c:5545
+>  alloc_dr drivers/base/devres.c:141 [inline]
+>  devm_kmalloc+0xa5/0x2b0 drivers/base/devres.c:951
+>  devm_kzalloc include/linux/device/devres.h:50 [inline]
+>  mt_allocate_report_data+0x59/0xcc0 drivers/hid/hid-multitouch.c:695
+>  mt_find_report_data drivers/hid/hid-multitouch.c:745 [inline]
+>  mt_event+0x1bf/0x270 drivers/hid/hid-multitouch.c:1570
+>  hid_process_event+0x37d/0x5a0 drivers/hid/hid-core.c:1572
+>  hid_process_report drivers/hid/hid-core.c:1730 [inline]
+>  hid_report_raw_event+0xb14/0x14c0 drivers/hid/hid-core.c:2109
+>  __hid_input_report.constprop.0+0x349/0x470 drivers/hid/hid-core.c:2180
+>  hid_ctrl+0x4a4/0x560 drivers/hid/usbhid/hid-core.c:486
+>  __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+>  usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+>  dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>  __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
+>  hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
+>  handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
+>  __do_softirq kernel/softirq.c:679 [inline]
+>  invoke_softirq kernel/softirq.c:519 [inline]
+>  __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+>  irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+>  instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+>  sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+>  </IRQ>
+>  <TASK>
+>  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+> RIP: 0010:__raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+> RIP: 0010:_raw_spin_unlock_irqrestore+0x31/0x80 kernel/locking/spinlock.c:221
+> Code: f5 53 48 8b 74 24 10 48 89 fb 48 83 c7 18 e8 56 f7 05 fa 48 89 df e8 de 4d 06 fa f7 c5 00 02 00 00 75 23 9c 58 f6 c4 02 75 37 <bf> 01 00 00 00 e8 65 a3 f8 f9 65 48 83 3d d4 ee 98 05 00 74 16 5b
+> RSP: 0018:ffffc90001bff9f0 EFLAGS: 00000246
+> RAX: 0000000000000002 RBX: ffff8881f5625fc0 RCX: 0000000000000040
+> RDX: 0000000000000001 RSI: ffffffff89329b79 RDI: ffffffff87d2b780
+> RBP: 0000000000000287 R08: 0000000000000001 R09: 0000000000000000
+> R10: 0000000000000001 R11: 0000000000000000 R12: ffff8881f5625fc0
+> R13: 0000000000000000 R14: 00000000ffffffff R15: ffff8881f5626008
+>  __mod_timer+0x409/0xca0 kernel/time/timer.c:1139
+>  add_timer+0x62/0x90 kernel/time/timer.c:1249
+>  schedule_timeout+0x122/0x280 kernel/time/sleep_timeout.c:98
+>  usbhid_wait_io+0x24e/0x420 drivers/hid/usbhid/hid-core.c:648
+>  usbhid_init_reports+0x1a7/0x390 drivers/hid/usbhid/hid-core.c:787
+>  hiddev_ioctl+0xddb/0x15b0 drivers/hid/usbhid/hiddev.c:794
+>  vfs_ioctl fs/ioctl.c:51 [inline]
+>  __do_sys_ioctl fs/ioctl.c:597 [inline]
+>  __se_sys_ioctl fs/ioctl.c:583 [inline]
+>  __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> RIP: 0033:0x7f01bd5ee159
+> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+> RSP: 002b:00007f01bd42e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> RAX: ffffffffffffffda RBX: 00007f01bd876090 RCX: 00007f01bd5ee159
+> RDX: 0000000000000000 RSI: 00000000c018480b RDI: 0000000000000004
+> RBP: 00007f01bd68503b R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+> R13: 00007f01bd876128 R14: 00007f01bd876090 R15: 00007ffe3b7b3048
+>  </TASK>
+> ------------[ cut here ]------------
+> do not call blocking ops when !TASK_RUNNING; state=2 set at [<ffffffff818d66ad>] prepare_to_wait_event+0x8d/0x720 kernel/sched/wait.c:318
+> WARNING: kernel/sched/core.c:9179 at __might_sleep+0x94/0xc0 kernel/sched/core.c:9179, CPU#0: syz.3.17/3981
+> Modules linked in:
+> CPU: 0 UID: 0 PID: 3981 Comm: syz.3.17 Not tainted syzkaller #0 PREEMPT(lazy) 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> RIP: 0010:__might_sleep+0x97/0xc0 kernel/sched/core.c:9179
+> Code: 8b 94 24 c0 17 00 00 48 85 d2 75 14 48 83 c4 08 89 ee 48 89 df 31 d2 5b 5d 41 5c e9 33 fc ff ff 48 8d 3d 5c d9 92 09 48 89 d1 <67> 48 0f b9 3a eb db e8 fd 20 9c 00 eb 9f 89 74 24 04 e8 22 21 9c
+> RSP: 0018:ffffc90000007828 EFLAGS: 00010082
+> RAX: dffffc0000000000 RBX: ffffffff8931ad45 RCX: ffffffff818d66ad
+> RDX: ffffffff818d66ad RSI: 0000000000000002 RDI: ffffffff8b16a1e0
+> RBP: 0000000000000142 R08: 0000000000000001 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000001 R12: ffff888107ed3c80
+> R13: 0000000000000dc0 R14: 00000000ffffffff R15: 00000000ffffffff
+> FS:  00007f01bd42e6c0(0000) GS:ffff8882683e4000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007f01bd42dff8 CR3: 00000001214ba000 CR4: 00000000003506f0
+> Call Trace:
+>  <IRQ>
+>  might_alloc include/linux/sched/mm.h:322 [inline]
+>  slab_pre_alloc_hook mm/slub.c:4636 [inline]
+>  slab_alloc_node mm/slub.c:4974 [inline]
+>  __do_kmalloc_node mm/slub.c:5413 [inline]
+>  __kmalloc_node_track_caller_noprof+0x473/0x820 mm/slub.c:5545
+>  alloc_dr drivers/base/devres.c:141 [inline]
+>  devm_kmalloc+0xa5/0x2b0 drivers/base/devres.c:951
+>  devm_kzalloc include/linux/device/devres.h:50 [inline]
+>  mt_allocate_report_data+0x59/0xcc0 drivers/hid/hid-multitouch.c:695
+>  mt_find_report_data drivers/hid/hid-multitouch.c:745 [inline]
+>  mt_event+0x1bf/0x270 drivers/hid/hid-multitouch.c:1570
+>  hid_process_event+0x37d/0x5a0 drivers/hid/hid-core.c:1572
+>  hid_process_report drivers/hid/hid-core.c:1730 [inline]
+>  hid_report_raw_event+0xb14/0x14c0 drivers/hid/hid-core.c:2109
+>  __hid_input_report.constprop.0+0x349/0x470 drivers/hid/hid-core.c:2180
+>  hid_ctrl+0x4a4/0x560 drivers/hid/usbhid/hid-core.c:486
+>  __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+>  usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+>  dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
+>  __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
+>  __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
+>  hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
+>  handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
+>  __do_softirq kernel/softirq.c:679 [inline]
+>  invoke_softirq kernel/softirq.c:519 [inline]
+>  __irq_exit_rcu+0x168/0x210 kernel/softirq.c:758
+>  irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+>  instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+>  sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+>  </IRQ>
+>  <TASK>
+>  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+> RIP: 0010:__raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+> RIP: 0010:_raw_spin_unlock_irqrestore+0x31/0x80 kernel/locking/spinlock.c:221
+> Code: f5 53 48 8b 74 24 10 48 89 fb 48 83 c7 18 e8 56 f7 05 fa 48 89 df e8 de 4d 06 fa f7 c5 00 02 00 00 75 23 9c 58 f6 c4 02 75 37 <bf> 01 00 00 00 e8 65 a3 f8 f9 65 48 83 3d d4 ee 98 05 00 74 16 5b
+> RSP: 0018:ffffc90001bff9f0 EFLAGS: 00000246
+> RAX: 0000000000000002 RBX: ffff8881f5625fc0 RCX: 0000000000000040
+> RDX: 0000000000000001 RSI: ffffffff89329b79 RDI: ffffffff87d2b780
+> RBP: 0000000000000287 R08: 0000000000000001 R09: 0000000000000000
+> R10: 0000000000000001 R11: 0000000000000000 R12: ffff8881f5625fc0
+> R13: 0000000000000000 R14: 00000000ffffffff R15: ffff8881f5626008
+>  __mod_timer+0x409/0xca0 kernel/time/timer.c:1139
+>  add_timer+0x62/0x90 kernel/time/timer.c:1249
+>  schedule_timeout+0x122/0x280 kernel/time/sleep_timeout.c:98
+>  usbhid_wait_io+0x24e/0x420 drivers/hid/usbhid/hid-core.c:648
+>  usbhid_init_reports+0x1a7/0x390 drivers/hid/usbhid/hid-core.c:787
+>  hiddev_ioctl+0xddb/0x15b0 drivers/hid/usbhid/hiddev.c:794
+>  vfs_ioctl fs/ioctl.c:51 [inline]
+>  __do_sys_ioctl fs/ioctl.c:597 [inline]
+>  __se_sys_ioctl fs/ioctl.c:583 [inline]
+>  __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> RIP: 0033:0x7f01bd5ee159
+> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+> RSP: 002b:00007f01bd42e028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> RAX: ffffffffffffffda RBX: 00007f01bd876090 RCX: 00007f01bd5ee159
+> RDX: 0000000000000000 RSI: 00000000c018480b RDI: 0000000000000004
+> RBP: 00007f01bd68503b R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+> R13: 00007f01bd876128 R14: 00007f01bd876090 R15: 00007ffe3b7b3048
+>  </TASK>
+> ----------------
+> Code disassembly (best guess):
+>    0:	f5                   	cmc
+>    1:	53                   	push   %rbx
+>    2:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+>    7:	48 89 fb             	mov    %rdi,%rbx
+>    a:	48 83 c7 18          	add    $0x18,%rdi
+>    e:	e8 56 f7 05 fa       	call   0xfa05f769
+>   13:	48 89 df             	mov    %rbx,%rdi
+>   16:	e8 de 4d 06 fa       	call   0xfa064df9
+>   1b:	f7 c5 00 02 00 00    	test   $0x200,%ebp
+>   21:	75 23                	jne    0x46
+>   23:	9c                   	pushf
+>   24:	58                   	pop    %rax
+>   25:	f6 c4 02             	test   $0x2,%ah
+>   28:	75 37                	jne    0x61
+> * 2a:	bf 01 00 00 00       	mov    $0x1,%edi <-- trapping instruction
+>   2f:	e8 65 a3 f8 f9       	call   0xf9f8a399
+>   34:	65 48 83 3d d4 ee 98 	cmpq   $0x0,%gs:0x598eed4(%rip)        # 0x598ef11
+>   3b:	05 00
+>   3d:	74 16                	je     0x55
+>   3f:	5b                   	pop    %rbx
+> 
+> 
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> 
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+> 
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
+> 
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+> 
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+> 
+> If you want to undo deduplication, reply with:
+> #syz undup
