@@ -1,76 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98816331ECE;
-	Thu, 10 Sep 2026 17:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789060809; cv=none; b=ewc+laSQ0tazjTfjZoTLyDhGFO1dSK1tRVHbW8TF+c2+8oEOAMW3AldvW/nO+PvlE4/bUGy9w1mmJEqEisWGUM+dVpAu3u0ZLaPyUzkWi5/sYNLKpOpqxJwYEFNB/q0oz8+ljRF4zcg4+bVit7XswrKqxQGIQND22bQczK7LXAE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789060809; c=relaxed/simple;
-	bh=XBr0kJEwPKSxxjdY4oM1dcTpoX7nbVAYdo4N3Ba/33w=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SUUiNYTr15zHm/Sf4QIEqUxihjZWd2uJmMjLtNZkn274C8wCcRcepU/Cx8IQu4+LFUXOOn/nCLmRp8YtPLBifFj1ZiKXVqidsh60FwwTzaXAy4fVXj3uceLdgmjUuXr2zPq6HjXbPtP+Mj+YtCNC7Ji8gq/P+SzkZDgQ9yVSe7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjT5ZxYj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1045452AA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789060819; cv=pass; b=WKVmZjtO/uNWuCP1ilIkvDuH/gKYnY25qZZ+8BgkSMP7GWPr4nCpkQBNHK/Zff9VviINNPiP6+L/8nqprc9nqUL/R9Yad7vmCQBP5F9pkWzhT/mSX29w1QUoo9YnpNhhgfVag7uypi5ptRjI/Or2/IJCx/00bnuQ4a9ySxr8oW8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789060819; c=relaxed/simple;
+	bh=/v015ZI2cSC/eglT0djeEARyRLz+9lux+yuLnGVDWVI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PbvEAuW8CV8S/N/d9pjdR7IJnN5OgSvRP4cxJxvl+FPbdZudbYQHZTzYY9kwWbNEOm/WzX1EBQfqXB7Qev+V7DbLzQOnfcHvsmNPW7kGZdUfG3ETM/LNInRsL+RtCZGsCExveR3d06PVcXLvLH77ht0Dxj5kZeJ2dahw9Fdi9cs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=um5h4Sh6; arc=pass smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjT5ZxYj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DBA81F000FF;
-	Thu, 10 Sep 2026 17:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789060790;
-	bh=DrX4NOQJok5n2M/naSkHQ3webuu6aCc83fNaqLNjriE=;
-	h=Date:From:To:Subject:References:In-Reply-To;
-	b=JjT5ZxYjbXe7W0NJ0665wBdWFWmLz94HAfEnTsESs1nQC/dJp+j2WSfQWQSzVoF0T
-	 TNDYTZEoqAeleSLHGdCz8ERu3BzfVvfDOQRMq4E2H39Csq/IIllWJlCIcesVybdZnP
-	 xKpn7ot6zEYOJiYpA47T6p/pWoUPVxESkBx3IwCCW2scs19TqqjJmkY1oqCRuNf8w2
-	 gPtBK2uNiQVLal9ODs5lt5EetpTiZ9LuBEAntWTZ9CQVJPftjxQ4ODZH10C5OWAmgS
-	 wcq049gzrVsD0GAaqDLW4EPMh8X7PW4Xi35hZyvilWzPFDI2pn8mYbulaEcAY5+gls
-	 9+FML5n2WpYMg==
-Date: Thu, 10 Sep 2026 19:19:46 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: dlemoal@kernel.org, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Pei Xiao <xiaopei01@kylinos.cn>
-Subject: Re: [PATCH v2 0/2] ata: pata_parport: fix UAF on protocol module
- unload
-Message-ID: <aqLmskJMHq2iMetP@ryzen>
-References: <cover.1788867690.git.xiaopei01@kylinos.cn>
- <178895116744.2768460.12721406127250514018.b4-ty@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="um5h4Sh6"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-939adff838bso349509485a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:20:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789060801; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R8V55AMF7QNXRyNAZPWrHqYpq4UOQ7VTmtxeNhGy9trfvbQSVIz/pY0BBMehLfN4li
+         Kax11yp5gkDpOxmtKUbNNeImX28f9QWE+6GleHeidk1ozn0DxZk/hVwBHqS2p9V2FnOk
+         Jl6AXrwV7dmFBwZ1KIYJp0hUChhpx3Vl3jo7kVTKdt7DijcJPQ4nYgmC5tqwRVghHsox
+         km+cdVm/ma+36KksZ1nue2P/3WZKyLwceW/Y1w7ywpwBjJtR1sGXVfbvsD2/8xufO7r/
+         vtfswGnMSiZPJvJh6oBbe00gyc1pGJx4b40G/DWs76xGMti/BxB/b2iGVgxstAXMBtwg
+         I6jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=waC8vF2dtDUS7XnDxfIfPJDfjo2BuEf9qI8Li791zgk=;
+        fh=nzJdMQ8QUpAhCWBkkoRiqLuYKz4XOB+gJrg6Nd4MWrI=;
+        b=mx/rXWpWVXOr266ySeQHgeHWDyEOK93QGSQ1r3NekTY9HC0jxeMsiJ0daS94632nA9
+         ZHjZ10vyfMjrWihCz1Acj+CRaiR/R3Oif0VgnrXqEnZGZiUgb7K/tfOy10AnEvmVa/Hb
+         RvAATSXgZEC9bMxVma+eSZu7Y9DeT9vADgjvgdZ0C6WGcE1bdQgUBFI0wfRVnY7wDC/A
+         66y/yCzhj5Cm9eacCgjjjuFpWo++NCL+WPQ9cCkFozffxOHiXzWSw1hJxXGAQNbp48QK
+         pAevUy0MAKD7hg2kDkwiDDoCQjguiqt/wlInQZl6pZoglXXAOZrqzO+HAymbx6k3efZ+
+         tPVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789060801; x=1789665601; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=waC8vF2dtDUS7XnDxfIfPJDfjo2BuEf9qI8Li791zgk=;
+        b=um5h4Sh6DKHcukdnBv0YbZ8+mBotxXVCwrEHB1SRB5LzrPINznwq2jTF10giKZ36Ue
+         Q/WsX3ycMVDykik3w9U6Bp7Hc6lGFZWsVVaq8Zib7CYia6PIU/MhQSKPMSDzhlWssJ3G
+         dEipx1cq4mv4BjXj0ME//dAvy+/grDBPMPbmc9MdAJHmZ/tQPRJNI/wXT9v1rOy21OTf
+         +reXIeC88vmSeo5BwNql5r5CONatG/h4DKkKstAiheNsV1OT1SFPW/iCC8PKjfgt/Hy5
+         aOyLvRUrdgY00Uu84Kv44VvIp5v40og8ehTy2ZO/P+SlM4YFpZp5H6a5w5/fxCAhV/ra
+         MBaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789060801; x=1789665601;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=waC8vF2dtDUS7XnDxfIfPJDfjo2BuEf9qI8Li791zgk=;
+        b=ftN+rTza1mOKQCxz8bMqx3zrgaSoAowhYXZ1GOXWHa3rONn7DhRgluo6xAJGmTsHzH
+         X516Ej7dgxJupHFQXw3Yz2Dn3rx8mJDQayjX3HuQoKwhQTCyKQCmqatWnf6vhlIQricH
+         WOpQ/779jVO1mQ6LoYqDaDTatULFEZaKGQB2YG0/GoNUiWH7FRhlZ7dgWh+DIluYbjss
+         YpbCQOfBleWOtmdnUHEdeqatXFOh39YiRY4FogVissQjdjKDkaTAXaEAyQyZkApgOhD+
+         EjCcZu+YrcHxZTSfWbLOUeBRi0m8HRNA04vLoFKoYrKZEk1Ygsp10hREMwvGzmftgHAE
+         tR3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzDHfLe+cRruDfdmoIBVmHANRQ7nYzBBZfMchyH91gY4iR7GPp2jKtx9CygDLEds3pKquXR7OGGccktcAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9KQ4qDWnCSoap7z9rB1CjpHPg0kFookvI79GDEkVRicK0gD6g
+	Cc99oO4O94/0FwzPOnRPTbyH1xvCESItM2PUeujJ6gcEfiHYSdTH6IhPAbL+HqUWTKY/UfN/5Z3
+	6td0SOBxMUlh/KMglvzj3DrAP+xorq9yDqBD/SO4A+Ha57Dl258NCB1af
+X-Gm-Gg: AYBFou1HBNYhXOIc3fN8Y38G9KK/aYbJm4hS4fUZk8WI2CYDZEXd0VZQjurI0D/Anvt
+	p0/GOrX+gpFczGdFsyt96TSBBcuzZGQa1lgj/yupp2Qwc4RizA4gbmR2tdXNux6zcDkbCxk7VgH
+	R7O0xl9N//WO3AIG9fVVDtTURkvfWK9sBp7y16HbU4VtQchN0gd9GhYSNrJeck6H0tb6na+h15z
+	mO/5vm+3+CBFcBFGaEWfSY+ZqWAJgUMBEkZ/m2L0r8PZL3x7T86gFl2whR3kNtJ/Z1h3bPAHxmE
+	cYNGuxeY8raVFBgCkDvWlSdAV8N0N+idY8syeLnODTF7eoknpdNiaHJRhH+eJ4KaNcUBaCjouR5
+	Znix5OgZMnA==
+X-Received: by 2002:a05:6820:3404:10b0:6b1:4a71:775a with SMTP id
+ 006d021491bc7-6c0bae083dcmr10697eaf.19.1789060331694; Thu, 10 Sep 2026
+ 10:12:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178895116744.2768460.12721406127250514018.b4-ty@kernel.org>
+References: <20260910162343.4092060-1-elver@google.com> <20260910162343.4092060-3-elver@google.com>
+ <aqLbHvD5lqQP8PRd@google.com>
+In-Reply-To: <aqLbHvD5lqQP8PRd@google.com>
+From: Marco Elver <elver@google.com>
+Date: Thu, 10 Sep 2026 19:11:34 +0200
+X-Gm-Features: AcwNN1X74FFLXo3tfvC8iadNXegd-2_Lr_knvP8WkNgyIr-_V-yJ7lG2ubIqDNU
+Message-ID: <CANpmjNOZPFQ9FcaA6+GH9PZ8DRyEMYW3+FKBO9B3d2CY+2C-5w@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/10] KVM: Allow reading memslots while holding slots_arch_lock
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 12:52:47PM +0200, Niklas Cassel wrote:
-> On Tue, 08 Sep 2026 19:47:26 +0800, Pei Xiao wrote:
-> > This series fixes use-after-free issues in pata_parport when a protocol
-> > module goes away while pi_adapter devices created by it are still
-> > attached.
-> > 
-> > Patch 1 pins the protocol module before the device becomes visible.
-> > Previously try_module_get() ran after device_register(), so a forced
-> > module unload in between left pi->proto dangling from the moment the
-> > device appeared on the bus.
-> > 
-> > [...]
-> 
-> Applied to libata/linux.git (for-7.4), thanks!
-> 
-> [1/2] ata: pata_parport: pin the protocol module before device_register()
->       https://git.kernel.org/libata/linux/c/5d3355c7
-> [2/2] ata: pata_parport: unregister devices on protocol unregister
->       https://git.kernel.org/libata/linux/c/d82c5cf6
+On Thu, 10 Sept 2026 at 18:30, Sean Christopherson <seanjc@google.com> wrote:
+>
+> On Thu, Sep 10, 2026, Marco Elver wrote:
+> > kvm_swap_active_memslots() updates kvm->memslots[as_id] while holding both
+> > kvm->slots_lock and kvm->slots_arch_lock. Holding either lock guarantees
+> > that memslots cannot be concurrently modified.
+>
+> Sure, but that's irrelevant.  The goal of the srcu_dereference_check() is to
+> ensure that readers see a stable view of the VM's overall memory, not simply that
+> kvm->memslots can't be written.
 
-This series was dropped because of kernel test robot reporting
-build error.
+Functionally, this is irrelevant for readers. But under lockdep it
+isn't for writers: srcu_dereference_check() (with lockdep) asserts
+that the srcu reader-lock is held, or the condition 'c' holds, which
+here is holding any of the writer locks.
 
-(Interestingly, Sashiko did only reported an unrelated pre-existing issue,
-but did not report the build error.)
+> > Allow reading memslots in __kvm_memslots() when kvm->slots_arch_lock is
+> > held.
+>
+> Why?
 
-
-Kind regards,
-Niklas
+Holding any of the writer locks guarantees no concurrent modification;
+therefore, if any writer lock is held, it's not required that the srcu
+reader-lock is held. There are few places where only either slots_lock
+or slots_arch_lock is held, which is sufficient for reading.
