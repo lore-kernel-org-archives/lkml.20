@@ -1,141 +1,130 @@
-Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C066D47D46D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789042611; cv=none; b=dHR+vpChZPIXk3o1QqiT9iOXBkALaCsRUH/qQDYqbqqfsERWU9lsFd8cWt3IOXfTz//6HefVgxZYKtubTovAmXScsexEfy6PDKQEAgWuwgn4nFGR5CS19V92K8jf2vg69GkrHJJsleb5xKXyeAeRjhF/ogRxNH6iOd4BgeTfTj8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789042611; c=relaxed/simple;
-	bh=pUeAzDI4OMNm7fLmWdRK7cq3PUYuAemTDShKix3Bpa8=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=BJPfGMLowaRkAuYrccRS3r4/4ov4CcVb8soL02uz7h2crgRO49NGqiRWPUfBgm53KKYY8rppuj0Q0tU9j1PP/K5YFv9NykXB0lTUSEGABLH9GEsZkA2RT1N86rZVCSsPF4vf46btQ6UtPzxO5fa94YP7VC4JtekQD4SkWaApAbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UPP3yeZB; arc=none smtp.client-ip=91.218.175.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFC34825CB;
+	Thu, 10 Sep 2026 12:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789042647; cv=pass; b=mTLruf3mN+XRUzJLheSpdvI7pgGna6g74MuXJ3EWknA4Yoq1wXZpoJ4F4tKCayey+XdwOEg8WqZCEd+ooQ7CHK0f12uiWU8oWmvbQGeevxuh9GbfWEw99xCNGSgNPy4y7jjbN+7HPw3Nyjp/ohuPB6MG7iFoDPgiuDaRb1kKv1o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789042647; c=relaxed/simple;
+	bh=XqfBBi0ToHqfQuSFWAUDnRXWEzzIcqz+Wi0omWRavS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cY/qfTRHh/bw5Vw4ZmPF1MYELOc6IdBdi9u1eFb/H6k6Bsz3xWq6V4juTn8XlBoXIdeMcV3a6lMoIsHqnSB6kfr0RcDJd9mEtMNXrVvInOVcFHcDBgJ28F4ztOPETR1Y068V1tbB3U0U4jeJ5WmowqTG3r6RAyD+mvZOaZpE+vw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=E5SFTABp; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UPP3yeZB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pUeAzDI4OMNm7fLmWdRK7cq3PUYuAemTDShKix3Bpa8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789042604; v=1; x=1789647404;
- b=UPP3yeZBKisKbmEKVufuuvY/UPoIBBs7NZ+G+lFF/UIp/Gdgw/SL6TR4JoE5Y1JG+LOYX0bB
- F/LFbCy5a4TVWW+ZtCnQyiHnf27hQDSCyejd9qtMD38CXV3WnoYEV6Kr1/FuG5cZ0RgMYBsVvDm
- mgi9zg1vCDpuOEqxpKVfVinw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 123ebebfecc01040;
-	Thu, 10 Sep 2026 12:16:44 +0000
-X-Mizu-Trace-ID: 123ebebfecc01040
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="E5SFTABp"
+ARC-Seal: i=1; a=rsa-sha256; t=1789042561; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eiFmGZSkzZnvdcn2Yd4jasR4zJjj/F3mE8Zk084P5wgyf1KLSWejb1wGED5LCfCSESZbB583Lflwg6+lsAz2UzTS4PO6OGjOHhbvaVaJEA0QdyhZSXPnhhEPpFPypsWsWdhQ2eKWvP0FGXktp8yyX5xy3Fxzbn85nUmNfsZlZjo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789042561; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=0rFMiU8kFEuo55R90X9kb89jBCP9eUdAYLBLr3iWUq0=; 
+	b=Zj3b8x0gzciX6Vq74QXuL7uFWmnaqeU+KkQZTAorb0IjLhPyKLqJMVP+A+/7HsX3vBRKrvE+GEA4LKqd63QBUkRodwcEwhvWc3nMtgM9Hi7xw85EDdV2LnT60KaPQrb6AzJyrHh4fcnl0S3d5ABpY/xQEHlMANrgHzxdx4IGESM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789042561;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=0rFMiU8kFEuo55R90X9kb89jBCP9eUdAYLBLr3iWUq0=;
+	b=E5SFTABpWoUMa04sEEBesqi8SptYqwobUdF1WVfyP+/hd3zcf6yjL/2JAi2leF0z
+	lNnSIk3c91rFkUWNH83saTh5TqyDrQjstRV7Pmw4cprofqm1RreJzX77NhmKmst8rcI
+	khTHOC+QkyQoSpPGqXHaKWXl+mV2IcIvxICBSxyM=
+Received: by mx.zohomail.com with SMTPS id 1789042559214896.8848926233107;
+	Thu, 10 Sep 2026 05:15:59 -0700 (PDT)
+Date: Thu, 10 Sep 2026 12:15:39 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Yao Zi <me@ziyao.cc>
+Cc: Inochi Amaoto <inochiama@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Alex Elder <elder@riscstar.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Randolph Lin <randolph@andestech.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 1/6] PCI: spacemit-k1: Add device data support
+Message-ID: <aqKfa8KAh2JJwivA@pie>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-2-inochiama@gmail.com>
+ <ap_i5Pw4nVB4LZ-7@ashevche-desk.local>
+ <aqESGs3_BxOd4PYg@inochi.infowork>
+ <aqJDvogeo3avWWQ3@pie>
+ <aqJRbzZhROtXncZu@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 10 Sep 2026 12:16:43 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <c201584b58aec856342e0f23f8df9f81baccba1d@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH 00/13] srcu: Round out atomic SRCU support
-To: "Kunwu Chan" <kunwu.chan@gmail.com>, paulmck@kernel.org
-Cc: rostedt@goodmis.org, mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Kunwu Chan" <kunwu.chan@gmail.com>,
- jiangshanlai@gmail.com, josh@joshtriplett.org
-In-Reply-To: <20260907075829.2073224-1-kunwu.chan@linux.dev>
-References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqJRbzZhROtXncZu@ashevche-desk.local>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.29.40
+X-ZohoMailClient: External
 
->=20
->=20From: Kunwu Chan <kunwu.chan@gmail.com>
->=20
->=20This series rounds out atomic SRCU support with a reader-free fastpat=
-h,
-> some atomic-context fixes, and additional test coverage.
->=20
->=20The core change is a reader-free fastpath for synchronize_srcu_atomic=
-().
-> Atomic SRCU's read-side critical sections disable preemption, so when
-> the summed lock and unlock counts match for both ranks,
-> synchronize_srcu_atomic() can end the grace period immediately, without
-> the index flip or the srcu_advance_state() scans. Correctness depends
-> on the grace-period anchor written by srcu_gp_start() preceding the
-> lock-count scan; two LKMM litmus tests (patches 1-2) verify that
-> ordering.
+On Thu, Sep 10, 2026 at 09:42:55AM +0300, Andy Shevchenko wrote:
+> On Thu, Sep 10, 2026 at 05:44:50AM +0000, Yao Zi wrote:
+> > On Wed, Sep 09, 2026 at 04:00:33PM +0800, Inochi Amaoto wrote:
+> > > On Tue, Sep 08, 2026 at 01:26:44PM +0300, Andy Shevchenko wrote:
+> > > > On Mon, Sep 07, 2026 at 07:26:00PM +0800, Inochi Amaoto wrote:
+> 
+> ...
+> 
+> > > > > +	data = device_get_match_data(dev);
+> > > > > +	if (!data)
+> > > > > +		return -ENODEV;
+> > > > 
+> > > > It's better to use -ENODATA which will help to distinguish from other ENODEV
+> > > > cases (which are more often to happen).
+> > > 
+> > > OK, thanks
+> > 
+> > Honestly, I don't think this should even happen, since every compatible
+> > supported by the driver carries its own of_match_data, and failing to
+> > do so is obviously a driver bug, so I think this branch could be
+> > dropped.
+> 
+> Does this driver do not support driver_override? How comes?
 
-For synchronize_srcu_atomic(), the following items maybe also
-need to be added:
+Oops, it's my fault not to come up with this case. Sorry for the noise.
 
-        srcu_lock_sync(&ssp->dep_map);
+> (Note, Sashiko is full of the issues of not checking for NULL the matching data
+>  and hence it describes a scenario in which this leads to NULL pointer
+>  dereference.)
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
 
-        RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
-                         "Illegal synchronize_srcu() in same-type SRCU re=
-ad-side critical section");
-
-        if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
-                return;
-
-Thanks
-Zqiang
-
-
-
->=20
->=20The series is:
->=20
->=20 1-2 LKMM litmus tests for the reader-free fastpath ordering.
->  3 srcutree: add the reader-free fastpath.
->  4 rcutorture: add --do-atomic-srcu to torture.sh.
->  5-7 srcutree: honor and propagate is_atomic so atomic SRCU never
->  transitions to big.
->  8 srcutree: forbid srcu_expedite_current() on atomic SRCU.
->  9 rcutorture: disable srcu_expedite_current() for atomic SRCU.
->  10 srcutree: skip callback scheduling for atomic SRCU grace periods.
->  11 srcutree: drop the srcu_barrier() sleep for atomic SRCU.
->  12 srcutree: remove leftover debug pr_alert()s.
->  13 srcu: restrict the non_block annotation to task context, fixing a
->  KCSAN data race.
->=20
->=20The KCSAN race in patch 13 is a data race on the interrupted task's
-> ->non_block_count when a timer callback runs atomic-SRCU readers in
-> inline softirq context.
->=20
->=20Tested with herd7 7.58 (litmus tests), torture.sh --do-atomic-srcu, a=
-nd
-> torture.sh --do-atomic-srcu --do-kcsan (KCSAN+PROVE_LOCKING).
->=20
->=20Kunwu Chan (13):
->  litmus: Add SRCU fastpath anchor-before-scan test
->  litmus: Add SRCU fastpath scan-before-anchor test
->  srcutree: Add reader-free fastpath to synchronize_srcu_atomic()
->  rcutorture: Add atomic-SRCU support to torture.sh
->  srcutree: Honor is_atomic in check_init_srcu_struct()
->  srcutree: Make init_srcu_struct_atomic() prevent transition to big
->  srcutree: Don't transition atomic SRCU to big in srcu_gp_end()
->  srcutree: Forbid srcu_expedite_current() on atomic SRCU
->  rcutorture: Disable srcu_expedite_current() for atomic SRCU
->  srcutree: Skip callback scheduling for atomic SRCU grace periods
->  srcutree: Remove srcu_barrier() sleep for atomic SRCU
->  srcutree: Remove debug pr_alert()s
->  srcu: Restrict atomic-SRCU non_block annotation to task context
->=20
->=20 include/linux/srcu.h | 10 +-
->  kernel/rcu/rcutorture.c | 1 +
->  kernel/rcu/srcutree.c | 95 ++++++++++++++-----
->  tools/memory-model/litmus-tests/README | 16 ++++
->  .../SRCU-fastpath-anchor-before-scan.litmus | 56 +++++++++++
->  .../SRCU-fastpath-scan-before-anchor.litmus | 53 +++++++++++
->  .../selftests/rcutorture/bin/torture.sh | 24 +++++
->  7 files changed, 229 insertions(+), 26 deletions(-)
->  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-ancho=
-r-before-scan.litmus
->  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-scan-=
-before-anchor.litmus
->=20
->=20base-commit: ef15070f96c5f07de3a9b593c36f6e83bc9e3d58
-> --=20
->=202.43.0
->
+Thanks,
+Yao Zi
