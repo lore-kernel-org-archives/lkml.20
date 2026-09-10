@@ -1,91 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF8423EAAD;
-	Thu, 10 Sep 2026 00:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B90F23EAAD
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789000253; cv=none; b=ffLbURlX2FFqWD44kqqtNLwfl7hjKQ+9rc1z6oCrO0XITGhU+V8ZARgv2REZ7pc60ddJutsgMfQ4SZ3pbIYVGWSpo9Ig1qY6nSe9VZm2gBiOY5PRJGwVFMWs4HjEgK1k7h60U1cEqJRKBglM7vMEhL81QEqpexEo9Qf4gxA32QA=
+	t=1789000292; cv=none; b=fbTw6exSkvdpvq4M9aZ0NNxQ8BSoCQyqdaEM7L0TQYj4Hy6KlzlEQspgXld9CEIvrXOWSLJsFYNKZfaSGNfdPSm8Icd0aq6IgLUyJX9Abv+ozeQafz1aJy16qlNXjK9AH2wIt1da5aqEfs4vyxQi/OtG7JANDuIojT4Xwh9POzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789000253; c=relaxed/simple;
-	bh=IqnGyI4kETiwj7vUo8HxhMF+sWJkmT0jRUGRae+/GBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CN2HCHrhXJThCN3v2lJ6Ntd08r7+YMoE6VY0hvPNFipGHucO4Kq4IxdKUHq0fH3NMGiSXBiK2ebkO68ZkmcfQFlhsbG8UPOc7jJ8Qxy3LMLenuuAQYDZgkKnKGgX8VL8Ma5l6HTltdn7tsYB+bhpCI0VZ/vCw+/73wXuVkYhFO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwk//jcx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789000292; c=relaxed/simple;
+	bh=Rv/fkaKjqZXBKAzecGYXOSHJhPfhRyYr9BpLAp9kdqQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=JKOH4n+tzXhnS0YkXELeCZ8iKHli0/FpcDKLBHu5KsjIsDhublv5+pNBfpEzeAJr14hWmeHC3aPkt4eavBVEsC/1iaSc1io8X2w+TVFrH5mXICWKjtlgxx/nRnuJxjI1W4V8uON3nFiLNLuel8jlOa9ylOJBh1BzXrJeGKeZ+Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cEwi3Xg6; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwk//jcx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416801F000FF;
-	Thu, 10 Sep 2026 00:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789000250;
-	bh=rFkP9UpkopXJcBtutREeJmpmh/HBxk07oyFyZlOMnio=;
-	h=From:To:Cc:Subject:Date;
-	b=Zwk//jcxR0f5lPf3BvFiitdL0MdWK05S8/vN1N8n3TtsqzK9VfekstvgMSFRa50EU
-	 yOAU6E1R6Fbc3fghqgS/8atMMGeuGsqiJK+UYIpNKG9p71A1SVxvC1ACxoMi/Svvtz
-	 FN6MbSimocj6vCnC8eMpCnWeY6NHkdBZ4xHaAYRJ5hlxfJpkVCXXCsWKmLTSS0Ob+s
-	 ynjBrVkpdVrNvFH3AT25eQHTV4l7yemOgGyG32mWSyMKcTIyTDratkg4b+wqF6YNSO
-	 a51kGzbu0UOAvacmt7wX3VpoUgJRGC5MTbjWwgu/v8e3n7CXKWPF+nHC+wE0TwphW9
-	 Hny9PxhPC8jXA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: [PATCH] tools/bootconfig: Fix integer overflow in size check
-Date: Thu, 10 Sep 2026 09:30:46 +0900
-Message-ID: <178900024679.183840.10345859264677533824.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cEwi3Xg6"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b90cc0d5cso4201855a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 17:31:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789000290; x=1789605090; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EvmU+MjUGFaoqjWOY3jG9f7Ny3ODqzWI2t6vRNXu4oc=;
+        b=cEwi3Xg6FG8yJkhKVXkXYK/+ySZ4k9D7Q8NCkAGCM7zsfqtEwoVshNNxSOCDPcFuNj
+         K69aIQtTnaEZ2ruxFUdmjX1mW8A7lqeOVzh+nhVut50Blgc93JwhdnwyYEF/znyoaxD1
+         Pyf8ZpjYX0tgRhR8fus0V81gs559mVnLIet8BSxHBgYaXdNC5RuUoxjpl0kkC0owWiqg
+         AkHIG19Y1jSltDxwK8ER8n4J9LuoDLxkq9FuvhoLBxzg0Ek0W78zfsnvm6pOk47Pnzkj
+         MwFtDmKfyo+UDB/7Of6LJOXGOhgWbYyKqqW7psIOuzhoWwZvSPMNh5xqrn9phwxbeqwb
+         Mi6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789000290; x=1789605090;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EvmU+MjUGFaoqjWOY3jG9f7Ny3ODqzWI2t6vRNXu4oc=;
+        b=IYKr8EyWKWShrmaF+tEg0aq2ZFcuNYEcw+BFs81qTXwweaXxlahfnNLFYtCFJ2ftNJ
+         dCBqy/ApJrCSnz2XaBclUrBDXvEa7WLCsYZjgDma/2LAiAMSZ0Wtxas/SXfnTt9lxtI3
+         Qs8x5YHMGFFvGJoRksl71F3lax32ROOxnuVliU66EC2JA5Tz8Moeo64KN2U+7+zt5iL2
+         vCzE11aecILtoRrRPh0QksNevqIFtDC/ovkCz4+6vem1XQf8H8kWGCQhYfQBUYu3Q5sg
+         Mf7tzsNe7R1C6CAeRqBsnJHNSVh1Ru1PH0iQZO3Yu2ApxYcvcSe7nhKCO4CRc04ppD4L
+         LH4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwBbWuh8Y+/jYnkeCQJLt52jeL1uRnPh96xrq4ElEeF7xcc27dc4KxICIETExZ2l2F6CUH5dfmy82cE0RE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIEGvC+VI68xrOGcqStkQE/42ogZ16ghz8bG3z+ZivjtsQGIKG
+	bqnxF02STrd1/ea0S2Vm0GBpbqdbIW4EKVzr5VAvBqBW6EUt3D8+JRRZ6TR7Moqo6X8gfXWVwEw
+	JK5hzhg==
+X-Received: from pjbce15.prod.google.com ([2002:a17:90a:ff0f:b0:395:1a86:4fe8])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5246:b0:39a:e983:d4bd
+ with SMTP id 98e67ed59e1d1-39b262a3cf7mr61444800a91.24.1789000290319; Wed, 09
+ Sep 2026 17:31:30 -0700 (PDT)
+Date: Wed, 9 Sep 2026 17:31:29 -0700
+In-Reply-To: <20260908120133.2381-1-lirongqing@baidu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260908120133.2381-1-lirongqing@baidu.com>
+Message-ID: <aqH6YcHWk_GmJlqF@google.com>
+Subject: Re: [PATCH] KVM: irqchip: allocate routing entries in chunks
+From: Sean Christopherson <seanjc@google.com>
+To: lirongqing <lirongqing@baidu.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Yanfei Xu <yanfei.xu@bytedance.com>
+Content-Type: text/plain; charset="us-ascii"
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
++Yanfei
 
-Sashiko reported that on 32-bit systems, if the size in the bootconfig
-footer is corrupted such that adding BOOTCONFIG_FOOTER_SIZE wraps
-around (for instance, if size is 0xFFFFFFFF), the size check in
-load_xbc_from_initrd() can be bypassed:
+On Tue, Sep 08, 2026, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
+> 
+> kvm_set_irq_routing() allocates each routing entry separately, so
+> a routing table with thousands of GSIs needs thousands of small
+> allocations and frees, adding significant allocator overhead.
+> 
+> Allocate the entries in chunks instead: each chunk holds up to
+> PAGE_SIZE / sizeof(struct kvm_kernel_irq_routing_entry) entries, and
+> the chunk pointers are kept in the routing table so that all entries
+> are freed together when the table is released.
+> 
+> Each chunk is capped at PAGE_SIZE instead of allocating one array for
+> the whole table: with nr up to KVM_MAX_IRQ_ROUTES (4096), a single array
+> would be a multi-page contiguous request, which is what tends to fail
+> once memory is fragmented. Page-sized chunks stay on the normal kmalloc
+> path, and a failed allocation only costs one chunk. The chunk pointer
+> array uses kvzalloc_objs() and can fall back to vmalloc.
+> 
+> The last chunk is sized to the number of entries actually left, so a
+> table smaller than one chunk - the common case - allocates only what it
+> needs.
 
-    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-        pr_err("bootconfig size is too big\n");
-        return -E2BIG;
-    }
+Please look at Yanfei's series and help come to an agreement on how best to fix
+this.  I am trying to get to Yanfei's series, and normally would take a close
+look at both, but I am extremely short on cycles at the moment.
 
-This would lead to load_xbc_fd() being called with a negative size,
-resulting in an undersized allocation, heap overflow on read, and
-out-of-bounds write on the terminating null byte.
+https://lore.kernel.org/all/20260525035242.107264-1-yanfei.xu@bytedance.com
 
-Avoid the integer overflow by checking whether size is greater than
-stat.st_size - BOOTCONFIG_FOOTER_SIZE. Since stat.st_size is already
-verified to be at least BOOTCONFIG_FOOTER_SIZE earlier in the function,
-this subtraction will never underflow.
-
-Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- tools/bootconfig/main.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 7dc9fff9b637..b380ad6777fa 100644
---- a/tools/bootconfig/main.c
-+++ b/tools/bootconfig/main.c
-@@ -218,7 +218,7 @@ static int load_xbc_from_initrd(int fd, char **buf)
- 	csum = le32toh(csum);
- 
- 	/* Wrong size error  */
--	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-+	if (size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
- 		pr_err("bootconfig size is too big\n");
- 		return -E2BIG;
- 	}
-
+> 
+> Measured with an eBPF probe on kvm_set_irq_routing() on an Intel EMR CPU:
+> when a VM has a 2000+ entry routing table, the time spent in the function
+> drops from about 700us to about 300us.
+> 
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
+> ---
+>  include/linux/kvm_host.h |  2 ++
+>  virt/kvm/irqchip.c       | 62 +++++++++++++++++++++++++++++++++++++++---------
+>  2 files changed, 53 insertions(+), 11 deletions(-)
+> 
+> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+> index 03bfc92..83848d7 100644
+> --- a/include/linux/kvm_host.h
+> +++ b/include/linux/kvm_host.h
+> @@ -693,6 +693,8 @@ struct kvm_kernel_irq_routing_entry {
+>  struct kvm_irq_routing_table {
+>  	int chip[KVM_NR_IRQCHIPS][KVM_IRQCHIP_NUM_PINS];
+>  	u32 nr_rt_entries;
+> +	u32 nr_entry_chunks;
+> +	struct kvm_kernel_irq_routing_entry **entry_chunks;
+>  	/*
+>  	 * Array indexed by gsi. Each entry contains list of irq chips
+>  	 * the gsi is connected to.
+> diff --git a/virt/kvm/irqchip.c b/virt/kvm/irqchip.c
+> index 462c706..044b831 100644
+> --- a/virt/kvm/irqchip.c
+> +++ b/virt/kvm/irqchip.c
+> @@ -18,6 +18,9 @@
+>  #include <linux/export.h>
+>  #include <trace/events/kvm.h>
+>  
+> +#define KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK	\
+> +	(PAGE_SIZE / sizeof(struct kvm_kernel_irq_routing_entry))
+> +
+>  int kvm_irq_map_gsi(struct kvm *kvm,
+>  		    struct kvm_kernel_irq_routing_entry *entries, int gsi)
+>  {
+> @@ -107,12 +110,14 @@ static void free_irq_routing_table(struct kvm_irq_routing_table *rt)
+>  		struct kvm_kernel_irq_routing_entry *e;
+>  		struct hlist_node *n;
+>  
+> -		hlist_for_each_entry_safe(e, n, &rt->map[i], link) {
+> +		hlist_for_each_entry_safe(e, n, &rt->map[i], link)
+>  			hlist_del(&e->link);
+> -			kfree(e);
+> -		}
+>  	}
+>  
+> +	for (i = 0; i < rt->nr_entry_chunks; ++i)
+> +		kfree(rt->entry_chunks[i]);
+> +	kvfree(rt->entry_chunks);
+> +
+>  	kfree(rt);
+>  }
+>  
+> @@ -170,9 +175,11 @@ int kvm_set_irq_routing(struct kvm *kvm,
+>  			unsigned nr,
+>  			unsigned flags)
+>  {
+> +	struct kvm_kernel_irq_routing_entry **chunks = NULL;
+>  	struct kvm_irq_routing_table *new, *old;
+>  	struct kvm_kernel_irq_routing_entry *e;
+>  	u32 i, j, nr_rt_entries = 0;
+> +	u32 nr_chunks;
+>  	int r;
+>  
+>  	for (i = 0; i < nr; ++i) {
+> @@ -183,6 +190,13 @@ int kvm_set_irq_routing(struct kvm *kvm,
+>  
+>  	nr_rt_entries += 1;
+>  
+> +	/*
+> +	 * The chunks hold the routing entries, so they are sized by the number
+> +	 * of entries passed in by the caller, not by nr_rt_entries, which is
+> +	 * the size of the GSI map.
+> +	 */
+> +	nr_chunks = DIV_ROUND_UP(nr, KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK);
+> +
+>  	new = kzalloc_flex(*new, map, nr_rt_entries, GFP_KERNEL_ACCOUNT);
+>  	if (!new)
+>  		return -ENOMEM;
+> @@ -192,26 +206,54 @@ int kvm_set_irq_routing(struct kvm *kvm,
+>  		for (j = 0; j < KVM_IRQCHIP_NUM_PINS; j++)
+>  			new->chip[i][j] = -1;
+>  
+> +	r = -ENOMEM;
+> +	if (nr_chunks) {
+> +		chunks = kvzalloc_objs(*chunks, nr_chunks, GFP_KERNEL_ACCOUNT);
+> +		if (!chunks)
+> +			goto out;
+> +
+> +		new->entry_chunks = chunks;
+> +		new->nr_entry_chunks = nr_chunks;
+> +	}
+> +
+>  	for (i = 0; i < nr; ++i) {
+> +		u32 idx = i / KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK;
+> +		u32 off = i % KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK;
+> +
+>  		r = -ENOMEM;
+> -		e = kzalloc_obj(*e, GFP_KERNEL_ACCOUNT);
+> -		if (!e)
+> -			goto out;
+> +		if (!chunks[idx]) {
+> +			struct kvm_kernel_irq_routing_entry *chunk;
+> +			/*
+> +			 * A chunk is only entered at its first entry, so nr - i
+> +			 * is the number of entries left for this chunk; the last
+> +			 * chunk is short.
+> +			 */
+> +			u32 cnt = min_t(u32, nr - i,
+> +					KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK);
+> +
+> +			chunk = kzalloc_objs(*chunk, cnt, GFP_KERNEL_ACCOUNT);
+> +			if (!chunk)
+> +				goto out;
+> +
+> +			chunks[idx] = chunk;
+> +		}
+> +
+> +		e = chunks[idx] + off;
+>  
+>  		r = -EINVAL;
+>  		switch (ue->type) {
+>  		case KVM_IRQ_ROUTING_MSI:
+>  			if (ue->flags & ~KVM_MSI_VALID_DEVID)
+> -				goto free_entry;
+> +				goto out;
+>  			break;
+>  		default:
+>  			if (ue->flags)
+> -				goto free_entry;
+> +				goto out;
+>  			break;
+>  		}
+>  		r = setup_routing_entry(kvm, new, e, ue);
+>  		if (r)
+> -			goto free_entry;
+> +			goto out;
+>  		++ue;
+>  	}
+>  
+> @@ -228,8 +270,6 @@ int kvm_set_irq_routing(struct kvm *kvm,
+>  	r = 0;
+>  	goto out;
+>  
+> -free_entry:
+> -	kfree(e);
+>  out:
+>  	free_irq_routing_table(new);
+>  
+> -- 
+> 2.9.4
+> 
