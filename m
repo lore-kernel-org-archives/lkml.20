@@ -1,60 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4F0449EB7;
-	Thu, 10 Sep 2026 10:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB3C455176;
+	Thu, 10 Sep 2026 10:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036683; cv=none; b=TJm3kRLinrztQ7GeyOEPVIJdLkRPJq2pYMiDyj4SyB0ETFipFzBf5kDwcXTMNsBccSDK9Gg9Ekq+pk/mcQX2PQ+kg+chiX1AeoQaWXa+QrevqgYmrEVjuSAQhiTwEMxsXL/pKKmjFlYWEAd/gCktgqGOo/pdugDAhbatZJjc7JE=
+	t=1789036712; cv=none; b=MPv7IqTPyM9n1bW+LwMThvCGUp+uZzFqs6zgs1hRV2INFfWjsUD41U/uReE2vgStu4lNAg22vWDD4J5t8TNG4Ufbho0yecfuB8HuRUry9jxz7L1XjLfcAFv8Vt6QCGCGO/puut4uGileW2H85NecS28QxguG+cF1O17T/BepvZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036683; c=relaxed/simple;
-	bh=HwTJ5XRi2oFFYrUdFhcBBdiIzkqoJXU+X4GMTMWUyak=;
+	s=arc-20240116; t=1789036712; c=relaxed/simple;
+	bh=6vnFr65x8+MgNoAd6e1I2W0+ljuPVyeuH7FB4u4TqPE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K8MSH5psXTVCIXjAImavR2lgFNb1ScJxFPE08RmEpyhDF/1ih0rYRDzMlO3q4MwDgmDx37Y+wptwMXx4U05jMmGk5lUtbJCYT5JEgd9cbY+OXf7edQ0ZVle7ycBZXg6CHQXTaU7ZFpKkoulU/pwrVNUu+5+RMWqbEPfv3BOdMis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBT/KBAD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CQfh0tFdVLSLR3/sl5Z4BLulIfS408cgSR7wlMTIH7WH+D44npi9BPVYc7CzSS6reoPsj+QACJmvCmSxg5ajEHiVK2Butn7NywE1w0u+N6ACiAwU/yJjtcSZaSh4bOsnn1XLDEeSRNamdBX+BjivwxffIFa6W658Azu68YccOd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m3IDpAg2; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBT/KBAD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4E91F000FF;
-	Thu, 10 Sep 2026 10:37:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789036682;
-	bh=5uGM4BuLClBRTLbuUzqGRM8QUAEWCT/UcZAz/YLURFk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jBT/KBAD4yybhYqkv+rDbyV/jbSb+uRPzvRQR+1GZZldnMkFuAoVnw0z0JKHdJvK5
-	 qs05eSae0M/o8DCbh/jEZiMKLCoP5tWXir6XJxh7WstLkuZQ07lFtSTjP+iBqBZUVv
-	 y4Hpuxw28gbvFCjQsqhQeeoQ5qDUNAaD2KGF6Eflmc82o+wN4DaQLtmXNfpQHkAMkT
-	 sq+wnMARloySRyuTvA21ikQ3ckPA7SX2BDu2+hUbf9MqC5579v0RrVXKWJMKhIiEe0
-	 KqioDX/hPlaodMgm8wkAHheqMIgaHk7YEnXNdM9r5om5OC7IVYTLvSCFotO+hhsFrj
-	 2XC3tFU2hAQzQ==
-Date: Thu, 10 Sep 2026 11:37:55 +0100
-From: Simon Horman <horms@kernel.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Chris Snook <chris.snook@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	GR-Linux-NIC-Dev@marvell.com, Geetha sowjanya <gakula@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>, Rahul Verma <rahulv@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shahed Shaikh <shshaikh@marvell.com>, Shuah Khan <shuah@kernel.org>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Sunil Goutham <sgoutham@marvell.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-parisc@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v3 10/10] net: dec: fix typos in comments
-Message-ID: <20260910103755.GB40544@horms.kernel.org>
-References: <20260908052602.27497-1-hemanth.selam@gmail.com>
- <20260908052602.27497-11-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m3IDpAg2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8r6IyBpcLFd8eGwMl+s54hpnssHIQXxQVO6P+3A6Prw=; b=m3IDpAg2cgu9vNfEQuM6yRy89t
+	AN7pCCLryAK2Kk0m6xGaKH16hg/sCyUyemYjV5junlTsQHHkRGF09Bm63B3T9lvAJlKNx9rtqSfIj
+	UHTuxpejXUxqjsDHDuxPNAednXrfqq2h/hueZhJB0Cw3Y3Jm1Lbrby7DTDYg5iB47O3vw032RN8aQ
+	+C7ZgnysoKl/BQKba0UyHjTF748+/1haYQyGQFRLIE1WHg/paNVAF+LeYBVzIOnGJxIBqYDFq28E9
+	FcSNFv5QmsrXAwz/Sd2wRIIY00GAcMgE/77nMph25oU03jsO3et0Rz5sGm5gmM3B1h4D5CLfbvHR7
+	P3Lk/PFw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x4cAd-00000002LAx-3QFs;
+	Thu, 10 Sep 2026 10:38:19 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 60A4B30056B; Thu, 10 Sep 2026 12:38:18 +0200 (CEST)
+Date: Thu, 10 Sep 2026 12:38:18 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 07/18] sched: Add sched_ext hooks for proxy execution
+Message-ID: <20260910103818.GH4120091@noisy.programming.kicks-ass.net>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-8-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,15 +62,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908052602.27497-11-hemanth.selam@gmail.com>
+In-Reply-To: <20260831134338.1531664-8-arighi@nvidia.com>
 
-On Tue, Sep 08, 2026 at 10:56:02AM +0530, Hemanth Selam wrote:
-> Fix misspellings in comments, found with scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Comments only, no code
-> changes.
+On Mon, Aug 31, 2026 at 03:42:17PM +0200, Andrea Righi wrote:
+> Proxy execution splits the scheduling context (the donor) from the
+> execution context (the lock owner). sched_ext needs to observe that
+> split at three points in __schedule():
 > 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+>  - whether a blocked EXT task can be retained on the runqueue as a
+>    donor,
+>  - when a donor's scheduling context starts driving a lock owner,
+>  - once proxy resolution has settled for the current pick.
+> 
+> Introduce scx_allow_proxy_exec(), scx_proxy_donor_start() and
+> scx_proxy_resolved(), and add their call sites in __schedule(). The
+> implementations are empty here and are filled in by the sched_ext
+> changes that follow, so that all the sched core changes needed by proxy
+> execution stay together in the preparatory patches.
+> 
+> SCHED_PROXY_EXEC still depends on !SCHED_CLASS_EXT, so the new hooks are
+> inert: they are compiled out with CONFIG_SCHED_CLASS_EXT=n and
+> unreachable otherwise.
+> 
+> This is a preparatory change to support proxy execution with sched_ext.
+> No functional change.
+> 
+> Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> ---
+>  kernel/sched/core.c    | 12 +++++++-----
+>  kernel/sched/ext/ext.c | 13 +++++++++++++
+>  kernel/sched/ext/ext.h |  6 ++++++
+>  3 files changed, 26 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index bb79fcfa21cd2..d578dd635f2eb 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -7217,13 +7217,12 @@ static void __sched notrace __schedule(int sched_mode)
+>  		}
+>  	} else if (!preempt && prev_state) {
+>  		/*
+> -		 * We pass task_is_blocked() as the should_block arg
+> -		 * in order to keep mutex-blocked tasks on the runqueue
+> -		 * for slection with proxy-exec (without proxy-exec
+> -		 * task_is_blocked() will always be false).
+> +		 * Keep mutex-blocked tasks on the runqueue for proxy execution
+> +		 * only when their scheduling class allows it. Without proxy
+> +		 * execution, task_is_blocked() always returns false.
+>  		 */
+>  		try_to_block_task(rq, prev, &prev_state,
+> -				  !task_is_blocked(prev));
+> +				  !task_is_blocked(prev) || !scx_allow_proxy_exec(prev));
+>  		switch_count = &prev->nvcsw;
+>  	}
+>  
+> @@ -7244,6 +7243,7 @@ static void __sched notrace __schedule(int sched_mode)
+>  			}
+>  			if (next == rq->idle) {
+>  				zap_balance_callbacks(rq);
+> +				scx_proxy_resolved(rq);
+>  				goto keep_resched;
+>  			}
+>  		}
+> @@ -7264,6 +7264,8 @@ static void __sched notrace __schedule(int sched_mode)
+>  			donor->sched_class->put_prev_task(rq, donor, donor);
+>  			donor->sched_class->set_next_task(rq, donor, true);
+>  		}
+> +		scx_proxy_donor_start(rq);
+> +		scx_proxy_resolved(rq);
+>  	} else {
+>  		rq_set_donor(rq, next);
+>  	}
 
-Reviewed-by: Simon Horman <horms@kernel.org>
-
+Can you expand on the need for scx_proxy_resolved() ? I understand the
+other two, but this one I'm struggling with a bit.
