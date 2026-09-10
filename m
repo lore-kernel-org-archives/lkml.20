@@ -1,86 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D1F355F5F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3F2355F5F;
+	Thu, 10 Sep 2026 09:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031409; cv=none; b=D4j1IbXG/ALH04/pybRwVx+Qd9J8CIpBoprxGcj9kgZ/61T6Hr3t5TlIOCTRh/w3s3EmLP8xGheHhWC9sIWmKaJw3G+R/Vx8oVYCz8PQpZujtVzXtPo56vMC/ws6Zj662Pd41SmFhdycXmUoLBE0b6LcDA5dse9iFDuxsqpHGIc=
+	t=1789031441; cv=none; b=m2XIERgtEtohAAuU3LWV13C6A3ILYQOYL4hRmV8FqOLSkGCWdHJDktyWqMhSAZ497NAl7cWgcVsQfeACqY3PcJxO9Arh/V0NXDhiJNuXCXkL4eoT9S8RH93EKBSU4gqNIFGkanOYwaihF4V1+3fjmodwWgZU+RTEIMzPwnWvO14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031409; c=relaxed/simple;
-	bh=MYsUh7urxhgOMr+Qi8MfeXHMmzPh55LuXDz7NmF32GI=;
+	s=arc-20240116; t=1789031441; c=relaxed/simple;
+	bh=wa8+AB71aWAAABk7jurpjv26ahxiui1HCF9JZAeOVYk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IMnzT9JvITu+k4Dsj6KqjuGroa5f1qwMep96L8AlWXb5+t/c9rrDf3Y7MiE3ZE7n605Gr6Fd6VNEvHwZ2knlbA2iqPW3q4lSm7VIuLChLklR+9s9b+vGfDg9jhAf5NM5ntOlqwbf0GQ2Xr11AgcRcWRNj/P8PVgp3Eu0Z472jLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WFvD3Fnq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z+8mfaxm; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=jUK5DTARrp8zzCyh5uN/dJ2LVG6OS3SyzK7eLccBvZkbJvBJEpatcu0/5YdUUe3+wGo0oqOWzz4lmTyA7yNqQlONOJ3EBgPfIo3Zo23Oanygad2r93r44WWeoV9tBbSIIK3fRu2x5Dv/ko0TjrkzPAdq7NshvTVJFW0VfbLR2kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=P/Y0fYIF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sHfk8gXf; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Mp62uj+j; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2AmFRRB+; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WFvD3Fnq";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z+8mfaxm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789031405;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="P/Y0fYIF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sHfk8gXf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Mp62uj+j";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2AmFRRB+"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5C2941FDB7;
+	Thu, 10 Sep 2026 09:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789031429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+3XiVm2BSc0hPt9jP/xvmeAgnaOCDwoBy+TAIUxAixM=;
-	b=WFvD3FnqFE6XfdJz3XIQKXwUcvYIH/ko7KcREraa3e2LSMG9svjZQWgr0DXvACp88xG4Mj
-	UvY0Ej/tRSkbUaLOUv9X69c9bVEay2b3xzEzWEOj/CbdDvebegmjwpjeTK+e33OxWF7n7m
-	l7aT+TcyGEbjw1rFqy0GgA9W8mvgEe8=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-137-DberjuPMPGeISMP4kE0_EA-1; Thu, 10 Sep 2026 05:10:04 -0400
-X-MC-Unique: DberjuPMPGeISMP4kE0_EA-1
-X-Mimecast-MFC-AGG-ID: DberjuPMPGeISMP4kE0_EA_1789031403
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49b7c1dc61eso54595445e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:10:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789031403; x=1789636203; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+3XiVm2BSc0hPt9jP/xvmeAgnaOCDwoBy+TAIUxAixM=;
-        b=Z+8mfaxm9C1zWPeHslJIU8VIATH/AduLrXgdzA/68+gMxxUaT1kOXmlKoY/q+NBD4L
-         YLYj7R03EkvvyjjUyozS31t3aBoYRTp76oNCT/B8WqMk9+FscRlezT+aVgzz17zzxLcc
-         /yDKw6DhDuF+a17uBHdSfDQVWUbPF9tOpoWavm2BX2L2tvzsKPWnr8a8Y81QLFtENgHL
-         wHlLW/T5rzr+1n+SWy4blzU54Bz+274LT3wKgOMzFleTbH+n8lLj6n5Gu2jgsHXoTYjA
-         gmySNAkMdKIwqbFjqNv6q2C2M+Kilp03oDkOsWDg/ChIAI2bJn6+40x3hmmhJ8cJwKwb
-         /ySQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789031403; x=1789636203;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+3XiVm2BSc0hPt9jP/xvmeAgnaOCDwoBy+TAIUxAixM=;
-        b=UUUv353bX9PGbkLN/30zci88iKbRAquopZAZnNSHJKMqz54KctiPsr4eHvP3B/CKLm
-         jEmTyprl9kyVFaysqSX4JC6J+6o7pCaoCBCcRFQVIz822V6KO8XiPjVhbJgAotPJx6qP
-         OZJ7mnhm1hdM5jHejHzVzPUm2t7tMwIUwo75iojbuu1CRvbrgo9fXr1l9j0WaxQeqHDX
-         /BrRU+x/ugbZQEc2Q0xzPuR4nRi2uu4Csp3VXG6RV7Nbmi/IHZCyiuna0h4RIbRod7gn
-         WOVJBtl98ycQuD2xd405N7JVerqZH5Hjme4cO6wK6hPDsaM8MpimBtypWzm7E71fLRt2
-         waYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwf9s+WR+C4E+f/7TI+cQckwKy7wAAIa5A3GPD192djAWzccxFEWs30DeQqRt9+DlmIBMXajgRsmtDXBGM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m322GSasqUtoeSI/MKdtMWGRPg+Bnff6BTGLD14nyiT/Mk8VzW
-	59UVfxbQNZWIDNMnuq4nLWBsHpD/vs2XgQ0XtbKnUonYHQDdyuvMSkZnevF0h1C6ry/DVob18GQ
-	nmRUyY2R/iJzE3a7GjZSzo2kxgGya6EIwigzveGihs6vh4wD0YW3IRtBGlkD1uhak9A==
-X-Gm-Gg: AYBFou24VUyaA+jdJ+NXdD+1OFAw18Ouwrrnyq5HIwFXCPS6aW8ItCYMZ3EFVdlQ0E7
-	XkL4hD+PTULMAOvTChNGykh/pgPWE1qfrdZkUHhWJJ2vLNlvPFlJ21S96LJzVySdbDSidzCN7Nv
-	8+CuOEEi3HqJ5DF3VGCG52cFWMI2+16psmgftz8lXcOQGoHCDHwqmz8onRii/bbCt4l7ghBl9zB
-	6w5ecJCT+LMNtDzWMFEwIA9NSQ+gY+7LP8TcsUg3ABoNEYHPH4ib2g1OqaNCQfMOvzVZrxSJtTK
-	y5H/zU5bL5uhW/d8zxLgTgwmd/WsMNLFQWrIJX5VQF94DKCx3ZxybrztqKsPPUEZyauTcGheDg=
-	=
-X-Received: by 2002:a05:600c:2045:b0:49c:fa21:e746 with SMTP id 5b1f17b1804b1-49d259158a5mr40225835e9.28.1789031402800;
-        Thu, 10 Sep 2026 02:10:02 -0700 (PDT)
-X-Received: by 2002:a05:600c:2045:b0:49c:fa21:e746 with SMTP id 5b1f17b1804b1-49d259158a5mr40225375e9.28.1789031402430;
-        Thu, 10 Sep 2026 02:10:02 -0700 (PDT)
-Received: from [192.168.0.9] ([47.64.114.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c0f8d9sm60394615e9.15.2026.09.10.02.10.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 02:10:01 -0700 (PDT)
-Message-ID: <140605b8-251c-47b7-95fa-69db40bf465b@redhat.com>
-Date: Thu, 10 Sep 2026 11:09:59 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=s9nYzq2znk7osZTamSzy01Swvtojf1hO+2D9mmw5CNU=;
+	b=P/Y0fYIFHrc/h1GPP5D/fHo2sTUwzOSc4rC07N0meWX97ZtIdZu21HqL4sZjSdsNIvsQVd
+	tC7wba2rk4WQzUpclbakSrpeebgYkNCxTjGCFt16jyQo+sZcOCJj9wCyJz+yfjA7AIxB3T
+	AxTNxbhjUB3TDCTmzPG0+zx+zgGUoh4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789031429;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s9nYzq2znk7osZTamSzy01Swvtojf1hO+2D9mmw5CNU=;
+	b=sHfk8gXfjccHcp27eVbITSKXqy15+2GfK5byVAMK1gbKoWG66vAE3gEvCvlbMMLMkCNP16
+	NZccDP2ApvnT/oBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Mp62uj+j;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=2AmFRRB+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789031425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s9nYzq2znk7osZTamSzy01Swvtojf1hO+2D9mmw5CNU=;
+	b=Mp62uj+jMMWLmvATNok5E9z6uvqdO1Uz61bR7MYBokF3it8PHV2BbqHSNNv69+CCe9qufb
+	TeFJJzl9QcO1jG6lZaVTGWdnpgcAXFc3W4Gdw/+K5A6R/+mw6giWt5qzG/o9WVaajBEGYy
+	9xxFweoQArTQRdW6RmPjceAhUPeLmHc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789031425;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s9nYzq2znk7osZTamSzy01Swvtojf1hO+2D9mmw5CNU=;
+	b=2AmFRRB+KVGBB1eoBpOXACNx+8dg7UxATPM4FguLC0qmlzsuIWD00H5bquYC5uz7VHrl2g
+	OvmmGAiqMd7NbKBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 86EF7137FD;
+	Thu, 10 Sep 2026 09:10:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id b0IiHgB0omokfwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Thu, 10 Sep 2026 09:10:24 +0000
+Message-ID: <e84cd7a1-8708-43bb-bbdc-25c10611f3ad@suse.de>
+Date: Thu, 10 Sep 2026 11:09:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,79 +83,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] lib/crypto: Add documentation about zeroization
- of key and context data
-To: Jonathan Corbet <corbet@lwn.net>, Eric Biggers <ebiggers@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org
-References: <20260909115455.157093-1-thuth@redhat.com>
- <20260909115455.157093-14-thuth@redhat.com> <87bja6muf0.fsf@trenco.lwn.net>
+Subject: Re: [PATCH net] net: hsr: enable promiscuous mode on interlink port
+ with fwd offload
+To: MD Danish Anwar <danishanwar@ti.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Felix Maurer <fmaurer@redhat.com>,
+ Hangbin Liu <liuhangbin@gmail.com>, Kees Cook <kees@kernel.org>,
+ Xiaoliang Yang <xiaoliang.yang_1@nxp.com>, Lukasz Majewski <lukma@denx.de>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908090856.2876114-1-danishanwar@ti.com>
 Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <87bja6muf0.fsf@trenco.lwn.net>
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20260908090856.2876114-1-danishanwar@ti.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 5C2941FDB7
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FREEMAIL_TO(0.00)[ti.com,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,nxp.com,denx.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,ti.com:email,suse.de:dkim,suse.de:email,suse.de:mid];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Spam-Flag: NO
 
-On 09/09/2026 15.22, Jonathan Corbet wrote:
-> Thomas Huth <thuth@redhat.com> writes:
-...
->> +For other cases, the kernel provides ``memzero_explicit()`` for clearing the
->> +memory.  Unlike plain ``memset()``, ``memzero_explicit()`` is guaranteed not
->> +to be optimized away by the compiler, even when the memory being cleared
->> +appears to be dead.
+On 9/8/26 11:08 AM, MD Danish Anwar wrote:
+> hsr_portdev_setup() skips promiscuous mode on non-master ports when
+> hsr->fwd_offloaded is set. fwd_offloaded is derived only from the ring
+> slaves' NETIF_F_HW_HSR_FWD bit, so this also skips it for the interlink
+> port, which never gets forwarding offload. Without promiscuous mode,
+> the interlink NIC drops unicast frames addressed to hsr_dev's MAC
+> (e.g. SAN traffic to the RedBox), breaking RedBox whenever the ring is
+> HW-offloaded.
 > 
-> Don't mark up function names, just say memzero_explicit().  The
-> automarkup code will then do the right thing, including cross-references
-> when the functions have kerneldoc documentation.
-OK, thanks for the hint, I'll fix it in the next version!
+> Fixes: 5055cccfc2d1 ("net: hsr: Provide RedBox support (HSR-SAN)")
+> Signed-off-by: MD Danish Anwar <danishanwar@ti.com>
 
-  Thomas
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+
+Thanks!
+
+> ---
+>   net/hsr/hsr_slave.c | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
+> index 01c73b4b50ddd..a546f70f9cc8b 100644
+> --- a/net/hsr/hsr_slave.c
+> +++ b/net/hsr/hsr_slave.c
+> @@ -149,9 +149,12 @@ static int hsr_portdev_setup(struct hsr_priv *hsr, struct net_device *dev,
+>   	int res;
+>   
+>   	/* Don't use promiscuous mode for offload since L2 frame forward
+> -	 * happens at the offloaded hardware.
+> +	 * happens at the offloaded hardware. The interlink port never
+> +	 * gets forwarding offload (RedBox forwarding to/from it is done
+> +	 * by this driver), so it still needs promiscuous mode to receive
+> +	 * frames addressed to hsr_dev's MAC rather than its own.
+>   	 */
+> -	if (!port->hsr->fwd_offloaded) {
+> +	if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK) {
+>   		res = dev_set_promiscuity(dev, 1);
+>   		if (res)
+>   			return res;
+> @@ -176,7 +179,7 @@ static int hsr_portdev_setup(struct hsr_priv *hsr, struct net_device *dev,
+>   fail_rx_handler:
+>   	netdev_upper_dev_unlink(dev, hsr_dev);
+>   fail_upper_dev_link:
+> -	if (!port->hsr->fwd_offloaded)
+> +	if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
+>   		dev_set_promiscuity(dev, -1);
+>   
+>   	return res;
+> @@ -240,7 +243,7 @@ void hsr_del_port(struct hsr_port *port)
+>   		netdev_update_features(master->dev);
+>   		dev_set_mtu(master->dev, hsr_get_max_mtu(hsr));
+>   		netdev_rx_handler_unregister(port->dev);
+> -		if (!port->hsr->fwd_offloaded)
+> +		if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
+>   			dev_set_promiscuity(port->dev, -1);
+>   		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
+>   			vlan_vids_del_by_dev(port->dev, master->dev);
+> 
+> base-commit: 8d6cd188508513503805c156165de38e4e4a8615
 
