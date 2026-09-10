@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E2D37E5CB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B57934AB01
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014680; cv=none; b=KUN24ES+0SuBqEmIKYLVfqwI3xcpo4Jnq/TefkK5YpyrpuyG5EVt1X5UZgE5QaQ+PJpSkpWq4W6qo5r0EAJGBLPVeb1Wm48XLnnH6uk7e4ZPQeUXuQotSwCvTkmVDccaGLCxw5vEi+hBoms6QuRX0LhxeU+NpAMnuGbItu9Dipc=
+	t=1789014680; cv=none; b=Tin1c9OXqiwMRclF4zjheDqt8CXuHD2swHwieABfs9lATKIXZqX8im++cmPl1GZH0iqWUR1dVQ9uVxu+kgEnOrZf+iy5NJ3MPmieMsBFAuFm7G3dLCp6lo6WKiaXWPHYH398mmJNv/6xsHrFgH1nIT7dVcRR0xmNf/ANWXQt4QI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789014680; c=relaxed/simple;
-	bh=MmE42vByQegAZN4de4r4cEy2IgaWKlOiDSWRCGZyQM8=;
+	bh=gQ2GOV8Dmrszsdh+wQhrIb1AXtKM9wHta2VUf59x08M=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=n9R9V4V2Z9ETdnISBpjl2goIKpRwJtawlCKRxkCbKUfOUCML3Rca0v+zwx5ofAiJZi5egzfryxs8zZqZlA7yAMJzwqwJ264qoKexOznYBFciWJaQfkDnI0nlkfPGuzd8aVzYaqtBNYfvp3DV4cgDI08Z/YMyo2iSuJ/JYsCDJPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aMS/tKfb; arc=none smtp.client-ip=117.135.210.4
+	 MIME-Version; b=p5wlwH+Pvju2LG2+OfJ/Plnpg7i2iK8iEaa+i4x1hpqzGEDT0tLpZEcGsKOloo9k9yVN0EIcr6GfTyMHcApV+OpEMJWHZnaX4N3Wdn51FM0a49UAqgFNlsgITOXA2DCkXkYTi4X2sx+Qbpe+Iz+GrPyd9rt9aDjp+eCl7Ca71lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=agyzdUVW; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aMS/tKfb"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="agyzdUVW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=A6
-	5RVDN267qKaanvkAeYvWohUstOEpo7HrQt+WE9L84=; b=aMS/tKfbHEEcW5zvYz
-	TXCClqtH3fNm/0upcqUi/ryL06s2EnPrKAgjsQ4okzRI2aEDYDsHXq9KqptxMdnX
-	5U4UpRarEK0iwmL/Nk7kMlLW3aHQm7wlQPhRr/H8xRjF7CmJrSIJqjlVKapKbdVh
-	mPDFYpW2FgB2WApMXyIExtcYs=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=T7
+	aj3ANDLcZnLgr2CwfVQ6lQY11yYofrsfu5AMmmt8M=; b=agyzdUVW2XyxzCXQ67
+	HzjkCQoNECrQ/JnFx8HSTsqtOjKg7ealzeBAZrV1AlNoetQqStXSMcWYyFQ9+14z
+	jkT5xJV/Y8lP4K+Hwki4hct6NYH9IVhuckXOJnNJEVqdjGY8mCL8/9Zcxg8SQrPE
+	HuC/stG3UQVqoipirCE8U3k7o=
 Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXgp5AMqJqap0YBw--.51115S5;
-	Thu, 10 Sep 2026 12:29:58 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXgp5AMqJqap0YBw--.51115S6;
+	Thu, 10 Sep 2026 12:29:59 +0800 (CST)
 From: Xin Zhao <jackzxcui1989@163.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -38,9 +38,9 @@ To: mingo@redhat.com,
 	kprateek.nayak@amd.com
 Cc: linux-kernel@vger.kernel.org,
 	Xin Zhao <jackzxcui1989@163.com>
-Subject: [RFC PATCH RESEND 03/10] sched/fair: Clear active_balance at the end of active_load_balance_cpu_stop()
-Date: Thu, 10 Sep 2026 12:29:43 +0800
-Message-Id: <20260910042950.1619727-4-jackzxcui1989@163.com>
+Subject: [RFC PATCH RESEND 04/10] sched/fair: Add LB_PROMOTE feature to enhance real-time performance of fair tasks
+Date: Thu, 10 Sep 2026 12:29:44 +0800
+Message-Id: <20260910042950.1619727-5-jackzxcui1989@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260910042950.1619727-1-jackzxcui1989@163.com>
 References: <20260910042950.1619727-1-jackzxcui1989@163.com>
@@ -51,64 +51,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXgp5AMqJqap0YBw--.51115S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFy5CFW5Ar48Zr15JF1DJrb_yoW8ZF1fpr
-	WjyayIgw4ktayYvrZ2ka18ury7uan8Jr4UGrnFqrWrZF15C3s5tw1F934xur45Zrs5CFn0
-	yay7tr4UCa4rGr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UrGYXUUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC6Abg6mqiMkaCYgAA34
+X-CM-TRANSID:_____wAXgp5AMqJqap0YBw--.51115S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxurWUJw13JF45CFy5Xr13urg_yoWrGrykpa
+	93Xr4Yyr4DJryIy34fZr4xXr1ru393Cry3tr1kGw1xXas8Xr1ayw4IgF4UKFs3C397Za1j
+	q3W2q343uF1jvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziqjgfUUUUU=
+X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC5wfg6mqiMkeBzAAA3a
 
-The rq->active_balance flag is used to prevent multiple CPUs from
-simultaneously dispatching active balance stop tasks. Since there can only
-ever be one consumer of the stop task, it is not strictly necessary to
-protect the setting of rq->active_balance to 0 with the rq lock in
-active_load_balance_cpu_stop(). Therefore, we can move the action of
-clearing rq->active_balance to the end of active_load_balance_cpu_stop().
-The benefit of this approach is that the task load of dst_rq will change
-due to the execution of attach_one_task(), which helps avoid prematurely
-clearing rq->active_balance before attach_one_task(), thus preventing
-unnecessary dispatch of duplicate active balance stop tasks.
+Embedded platforms commonly use CONFIG_HZ_250, and testing has revealed
+that there are numerous instances of unreasonable CPU idle events on such
+platforms. Unreasonable CPU idle refers to situations where the CPU enters
+an idle state for a duration of time (t), while there are tasks that can
+run on the idle CPU and are not limited by cgroup constraints, yet these
+tasks remain unscheduled for a duration greater than (t), t > 2.5 ms.
 
-Active balance stop task is triggered only when rq->active_balance flag
-changes from 0 to 1, and there can be at most one consumer of active
-balance stop task at any given time. Therefore, we should never see zero
-rq->active_balance in active_load_balance_cpu_stop(), use WARN_ON_ONCE
-instead.
+Testing has shown that over 95% of these events last less than 4 ms, but
+there are still some instances of longer durations between 4-5ms, even
+occasionally between 5-10 ms. For a real-time system, scheduling delays
+greater than 4 ms can lead to performance spikes.
+
+Enabling this option can effectively reduce the occurrence of unreasonable
+CPU idle events on low HZ systems like CONFIG_HZ_250, and completely
+eliminate events exceeding 4 ms. Note that the feature only affects fair
+tasks.
+
+Note that enabling this feature will increase sys%, as it uses CPU time
+that would have been idle to expedite the scheduling of tasks. There will
+also be some CPU overhead involved in searching for suitable tasks.
+
+This feature has been split into several smaller patches, which will be
+elaborated on one by one later. Below are some test data:
+
+Test one compares the number of unreasonable CPU idle events and their
+distribution when this feature is enabled versus when it is not, under
+the same fillback scenario. The test duration was 60 seconds.
+
+      LB_PROMOTE(on/off) 2.5-3ms 3-4ms  4ms+
+index 0               on       0     0     0
+index 1              off       4    13     1
+index 2               on       0     0     0
+index 3              off       6     3     0
+index 4               on       0     0     0
+index 5              off       1     1     0
+
+Test two compares the performance of the system with and without the
+feature enabled, based on the same fillback scenario. Each test lasts for
+25 minutes, and a total of 15 comparative tests were conducted. The
+results include a comparison of the maximum and median values of
+end-to-end latency and sys%.
+
+LB_PROMOTE(on/off)                    on        off
+end-to-end latency(max)              172        180
+end-to-end latency(median of avg)    166     167.68
+sys%(max)                           9.68       9.35
+sys%(median of avg)                 8.81       8.55
 
 Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
 ---
- kernel/sched/fair.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ kernel/sched/features.h | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 11c104010b2e..20d03ceed9d7 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -13769,8 +13769,7 @@ static int active_load_balance_cpu_stop(void *data)
- 	if (!cpu_active(busiest_cpu) || !cpu_active(target_cpu))
- 		goto out_unlock;
- 
--	if (unlikely(!busiest_rq->active_balance))
--		goto out_unlock;
-+	WARN_ON_ONCE(!busiest_rq->active_balance);
- 
- 	/* Is there any task to move? */
- 	if (busiest_rq->nr_running <= 1)
-@@ -13815,13 +13814,13 @@ static int active_load_balance_cpu_stop(void *data)
- 	}
- 	rcu_read_unlock();
- out_unlock:
--	busiest_rq->active_balance = 0;
- 	rq_unlock(busiest_rq, &rf);
- 
- 	if (p)
- 		attach_one_task(target_rq, p);
- 
- 	local_irq_enable();
-+	busiest_rq->active_balance = 0;
- 
- 	return 0;
- }
+diff --git a/kernel/sched/features.h b/kernel/sched/features.h
+index 8f0dee8fc475..4916a4b89ab3 100644
+--- a/kernel/sched/features.h
++++ b/kernel/sched/features.h
+@@ -142,3 +142,27 @@ SCHED_FEAT(LATENCY_WARN, false)
+  */
+ SCHED_FEAT(NI_RANDOM, true)
+ SCHED_FEAT(NI_RATE, true)
++
++/*
++ * Embedded platforms commonly use CONFIG_HZ_250, and testing has revealed that
++ * there are numerous instances of unreasonable CPU idle events on such
++ * platforms. Unreasonable CPU idle refers to situations where the CPU enters
++ * an idle state for a duration of time (t), while there are tasks that can run
++ * on the idle CPU and are not limited by cgroup constraints, yet these tasks
++ * remain unscheduled for a duration greater than (t), t > 2.5 ms.
++ *
++ * Testing has shown that over 95% of these events last less than 4 ms, but
++ * there are still some instances of longer durations between 4-5ms, even
++ * occasionally between 5-10 ms. For a real-time system, scheduling delays
++ * greater than 4 ms can lead to performance spikes.
++ *
++ * Enabling this option can effectively reduce the occurrence of unreasonable
++ * CPU idle events on low HZ systems like CONFIG_HZ_250, and completely
++ * eliminate events exceeding 4 ms. Note that the feature only affects fair
++ * tasks.
++ *
++ * Note that enabling this feature will increase sys%, as it uses CPU time that
++ * would have been idle to expedite the scheduling of tasks. There will also be
++ * some CPU overhead involved in searching for suitable tasks.
++ */
++SCHED_FEAT(LB_PROMOTE, false)
 -- 
 2.34.1
 
