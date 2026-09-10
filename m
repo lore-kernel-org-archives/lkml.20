@@ -1,123 +1,154 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4B0489FD6;
-	Thu, 10 Sep 2026 14:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A02549BD94;
+	Thu, 10 Sep 2026 14:42:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051339; cv=none; b=eYnEnl+4heWhRf/Q7ysGi0Ln5e48/RA+l/4SJvlakkt/qMUc/hsHPz+Q4tdP/SwHsuQZvnKTNooIqx2LyODTqjk2wOMI0MoYqHiDVvYj7B1/uiQlePhXagrSUF9NH2vtzoioNc80rx0mYLA635Drc+ZNMiRWu9kNAKFdD+Sd+48=
+	t=1789051347; cv=none; b=puRR/Xpi7/lV5vHq8bG76HWPy7iEcRDNQ4WxLDSO8NwYhO37slk0OzFqQsCP6sUyayeF6k8Bm2LQxkDGTa6pD/p0fX8ZGTMtPrktaEl/l9SW/sidjhqSx9a/oMySs868/dBw8Bo9CNv8DTfGpBbvZa5IWJZRJACk3VpCg8PSC6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051339; c=relaxed/simple;
-	bh=qPqjuUdASs9Y65n69OhxSNlg/J55Ht5KUqLO2cTCHVk=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fXqeOcOlgCADZvnLrqbRJY9NH8/9p4Ny+72cXQrLkIDhAfLn4r0AwPh0LiLsajnrAUZvmhOsaVNVdOHgOI4/UMuZMDtMJ8zSCmrAntK4hDJWB6/ViRtbocCq1lf6LxMUaznuWHaRbSiSLy06FFgPYQ+2ahmAFNKh3LE4FbupJkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=j22MncXL; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789051347; c=relaxed/simple;
+	bh=nKvAjS37ofFsoaTqwVf9kCG5yWF1OQzptBUJZ/e8M6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNa/UljdCrUCY+XoNGIxutUeR33UyIDidvaKpsOhQnETYQTYlcAQeXAt53LJvIiMG4PdtbRolefVzdMMZxeeQJnG0nZRhRbK+EU1poUwjxs7qepGPEDom4h9Zv8a5aGCydkodLTB5qvJrRoMXePcA0z4m8dNpVRlteF3e2xSzNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tg3JIP7z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+c+t2R+G; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tuqBJmti; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=guScsU49; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="j22MncXL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789051338; x=1820587338;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=qPqjuUdASs9Y65n69OhxSNlg/J55Ht5KUqLO2cTCHVk=;
-  b=j22MncXL8gq3H0/OpbAYkFuxZhAYpw9AyfSfIKgrGhLRtqMaQIYHFId8
-   NoXxtWW4qRr0K2v/0JnEQHWeSUIgVHWlcZEPCVRCmG+iFwTSLFRlaWvIj
-   r8O88JHe1LaCRRlaGqiEwP2MLf/Ri0PzTGoPkGytwK787wTqhnNPqi21c
-   lmLKqr6jenNePLpRjo4eXU1cj3B/2o74qIOQfJCCbc1TtnLEurmvIGVXR
-   SE0Au91JJFLaj9HULcx1w3Mgo6dV2wS+K6QEBJqcgkHR+OwKxoOaxEOBO
-   u5iH95APwNsBaQbtGzu9zuhAJqaFWwPrM2LfZaGJg9OBc/iaZphHv+Mjm
-   w==;
-X-CSE-ConnectionGUID: ++gFX0kJTeughVEf/8o8fA==
-X-CSE-MsgGUID: 9SI3P4RTS8GgOmBtetQaKg==
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="63425380"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 10 Sep 2026 07:42:17 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 10 Sep 2026 07:42:16 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 10 Sep 2026 07:42:12 -0700
-Message-ID: <5ee1b3f9832621686adbde94324e7b6350254f37.camel@microchip.com>
-Subject: Re: [PATCH net-next v12 2/9] dt-bindings: net: lan9645x: add
- LAN9645X switch bindings
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: <UNGLinuxDriver@microchip.com>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Simon
- Horman" <horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung
- Huh <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
- Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
-	<daniel.machon@microchip.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-Date: Thu, 10 Sep 2026 16:42:12 +0200
-In-Reply-To: <f745c884-ecfd-4dbd-ae33-6b713f8ab73d@lunn.ch>
-References: <20260908-dsa_lan9645x_switch_driver_base-v12-0-2d6aa59350cd@microchip.com>
-	 <20260908-dsa_lan9645x_switch_driver_base-v12-2-2d6aa59350cd@microchip.com>
-	 <f745c884-ecfd-4dbd-ae33-6b713f8ab73d@lunn.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tg3JIP7z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+c+t2R+G";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tuqBJmti";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="guScsU49"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1BA4B21D3D;
+	Thu, 10 Sep 2026 14:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789051339; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=rzJHAZZxRdOkdADShKQfaJLBVNvFkp8HnumvkPHvunY=;
+	b=tg3JIP7zWfYsIgJlNzZ4ba5mSKyn3q5Or9IwOaxi2q6b1o3LxzrBHSkeOuds9T86dXRfa5
+	omzzyX/hXsZffIziZt2u80ucgi+3pdnQV26AR++AdmeuTTKHxbA7xnBGKfi2VGPYETrg0u
+	2cq3fPi1KcZdXiHTU/IAFZXWdcDUgts=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789051339;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=rzJHAZZxRdOkdADShKQfaJLBVNvFkp8HnumvkPHvunY=;
+	b=+c+t2R+GHXR5fOWEEezO+QECxEycCEeC8H/vblq4XSqe8i0FxDu48WtbUpq6/oI0Xkilza
+	PAOz8AZAorFHLwBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tuqBJmti;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=guScsU49
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789051335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=rzJHAZZxRdOkdADShKQfaJLBVNvFkp8HnumvkPHvunY=;
+	b=tuqBJmtiON+cz/cUA3NSZXGkEpGUhO2MH/rG+X7pxBf/Yk1dkiYm6yRAC9Zsxf6wOTQEAb
+	HjFm6LR1VmLS33kLEZvXYjz+HQ6xen0t1uaff9VZCxnPUXe4Fd/GhWm5n+maAcXeo4RRo+
+	y1N8Pp6C2kr3KPXOkFdQ1XbWJQ4BpHs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789051335;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=rzJHAZZxRdOkdADShKQfaJLBVNvFkp8HnumvkPHvunY=;
+	b=guScsU49FQRhsvnZlAqcbw+ccawD0mgFghDn6yYssItm0t038meGZrUh4oFG7dE+bHpdRN
+	OngxzmT0GYSFGDDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CD3EB13180;
+	Thu, 10 Sep 2026 14:42:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qWrOMMbBomriXgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 10 Sep 2026 14:42:14 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	AtmanActive <alsa.atmanactive.3dfqt@slmail.me>
+Subject: [PATCH] ALSA: hdspm: Add a new PCI device ID (1d18:3fc6) for RME HDSPe AIO PCI express audio
+Date: Thu, 10 Sep 2026 16:41:50 +0200
+Message-ID: <20260910144204.973359-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -3.01
+X-Rspamd-Queue-Id: 1BA4B21D3D
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	DISPOSABLE_ENVRCPT(0.00)[slmail.me];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[slmail.me:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
+	FROM_EQ_ENVFROM(0.00)[];
+	DISPOSABLE_CC(0.00)[vger.kernel.org,slmail.me];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Tue, 2026-09-08 at 14:59 +0200, Andrew Lunn wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> > rx/tx-internal-delay-ps is used to model a direct MAC to MAC fixed link=
-,
-> > using RGMII, where exactly one of them must supply the delay.
-> > Documentation/networking/phy.rst describes plain rgmii as the mode wher=
-e
-> > the MAC or the PCB adds the delay rather than the PHY.
->=20
-> This is not correct. phy-mode 'rgmii' in DT means the PCB adds the
-> delay.
->=20
-> If the value is not 'rgmii', then the MAC/PHY pair need to decided on
-> which adds the delay, and by convention, it is normally the PHY.
->=20
-> Where it gets interesting is MAC to MAC, which you do see in
-> switches. Using rx/tx-internal-delay-ps makes a lot of sense in this
-> setting.
->=20
-> The binding itself looks O.K, its just this commit message text which
-> is wrong.
->=20
->         Andrew
+The RME HDSPe AIO PCI express audio card has a new PCI vendor ID (1d18)
+while keeping the same device ID (3fc6).  The card seems working fine by
+just adding the new ID.
 
-This is exactly intended to model the MAC to MAC fixed link situation.
-So no PHYs between, and one side needs to supply the delays.
+While we're at it, use the standard macro to cleann up the existing PCI
+ID entry, too.
 
-I had originally implemented this by using the phy interface mode to progra=
-m
-the MAC delays off of. This is what we had done previously in lan966x say.
+Reported-by: AtmanActive <alsa.atmanactive.3dfqt@slmail.me>
+Closes: https://lore.kernel.org/178674392532.7.10140952469564861620.1550442282@slmail.me
+Tested-by: AtmanActive <alsa.atmanactive.3dfqt@slmail.me>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/rme9652/hdspm.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-But I was instructed that the modern approach is to use rx/tx-internal-dela=
-y-ps
-along with phy interface mode rgmii. There are a few other examples of
-dsa bindings doing this:
+diff --git a/sound/pci/rme9652/hdspm.c b/sound/pci/rme9652/hdspm.c
+index d8bbedbc8ff6..95fd82bb1c6d 100644
+--- a/sound/pci/rme9652/hdspm.c
++++ b/sound/pci/rme9652/hdspm.c
+@@ -1071,14 +1071,8 @@ struct hdspm {
+ 
+ 
+ static const struct pci_device_id snd_hdspm_ids[] = {
+-	{
+-	 .vendor = PCI_VENDOR_ID_XILINX,
+-	 .device = PCI_DEVICE_ID_XILINX_HAMMERFALL_DSP_MADI,
+-	 .subvendor = PCI_ANY_ID,
+-	 .subdevice = PCI_ANY_ID,
+-	 .class = 0,
+-	 .class_mask = 0,
+-	 .driver_data = 0},
++	{ PCI_DEVICE(PCI_VENDOR_ID_XILINX, PCI_DEVICE_ID_XILINX_HAMMERFALL_DSP_MADI) },
++	{ PCI_DEVICE(0x1d18, 0x3fc6) }, /* RME HDSPe AIO PCI express audio */
+ 	{0,}
+ };
+ 
+-- 
+2.55.0
 
-Documentation/devicetree/bindings/net/dsa/microchip,lan937x.yaml
-Documentation/devicetree/bindings/net/dsa/realtek.yaml
-
-I will remove the paragraph from the commit message if that is wrong. I hav=
-e
-misunderstood that part of phy.rst.
-
-Thanks,
-Emil
