@@ -1,69 +1,69 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0996D58E2CB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D686D34252D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066264; cv=none; b=U3Hr1i1x7o7U4gPZ7tlMO6DVVFHXe/JXyWZDc96efU8Yuv9OcnvrUJV52Iug/EVqx6LskP49jtvJV354t4Fj0x7v7w4VZtn/Qliu3EbBUrGiFL9MRY6l2sub5CQgV+LBG6MN8v5HmZ4LyOShQWypCtu86HdwGM5o7ZMN/ptl96I=
+	t=1789066268; cv=none; b=PC2YcYxTfJlrodv1XcoQm6QhV2Hg9hKJxWozbmfuQk2G8IQuD/qN8qIyYcRusU4j2T/O+Iay/TJTVKh0cUf02KC8eqxt/Zssq0TmnJNeV3KKYsIGbFpfosZgBqYCfggs0jrA/zkjZDjnuGC3usoO0Zt6m9cRmJQcZ2beR600ZDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066264; c=relaxed/simple;
-	bh=lYdFz9QIpBbv18s7vNFL415owdJ/HvkbTUnKX5a6LVk=;
+	s=arc-20240116; t=1789066268; c=relaxed/simple;
+	bh=wax+gU4S8O6EbLEMHcnuQdChZkiSg/zKdiccnkmuOZ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SSJ97CqKlBmDyYJ5InXIZeh2SXft5ibbbZ5CNobQNJO+I0RkG8QQfbNU5iIC3MNDNTzu6ovekQONJlXb4EW+hXxNTeRj3sWCCxODHua+Vo08GVBenOUdLiTrrsjbt7Z9fS6pekP3a4Uf8joHF6zwD1vVLm8E1iExY4iV/1Q15tY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=ZTFsEcMs; arc=none smtp.client-ip=209.85.222.173
+	 In-Reply-To:To:Cc; b=WcNzqUYVRa6UO56DmCyLihfhJZUE2aD3ewlR7mnUeSW+fG4bYXzA+UqMdC7CTYWMbDkUxHhnATzi6iEUbo0T/6US4dUt1yb0FYBsKaFLZ2yFXhvfmmoby1wiM25v2IOZKy5foOGX3VjmvHuny/LtRG+50XDQdUclOVYPi34Sw+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=pZCUnctf; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="ZTFsEcMs"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-9399798cdd2so391093485a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:50:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="pZCUnctf"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5306abbdccbso1139611cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:51:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789066255; x=1789671055; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1789066260; x=1789671060; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dxBJRgyuHY3W/iJApny4mLX1c4wnn/TYh39J8mu564M=;
-        b=ZTFsEcMsBBq2ulmPb/BCrMfdkASo0w8240Jh0XomclfIovxMdLGkkwRDpL2Xi9sRBM
-         yks9hjEOCb8ZaeXAZPTi/g5x5RHucCIvIWWKpRuByBFJ503E9Ufb9Z8ugl/d9o5EhJD4
-         RItdJ0JzZcRrZI+uP+nv9HZBuaU7We4jWpLZGLvMoUhmnCrreCmQbTZWoEc73GIom8v0
-         t/jN7fuXqCsvCmztVVHSd8hnOqHzRC37fw33186SJVTM4YVUZI7c1FqS0UXlXfm6OSgo
-         PHrd4W/6LRiMVK6CcbC1MX0TO7isQnFcm2FQZxZTDWA71Gq3yURC+BldsyFKyg2eU6vZ
-         8G+w==
+        bh=+J5TsPokEtcBZgoC4/eVwMDHhzV3+rip9BUfjH6oWiE=;
+        b=pZCUnctf88czGBSnwjwd/ZUml1GAlmDbIe6PSH2gbzo2QftAlY+BiDx03gRy+iJYDt
+         byZ1j2UsTrFeEqzzdbPyCDp4nRwF9LewjX7BkaXulSmgwAoJxmxgBggqrtsGMJvT8m4Y
+         yxA+ESKAtyntzcfMhgqrGhaiZhEjEdK8Z5MNX4R+vpLMqpaAT0a+mnr6Cakm3lnOlyHp
+         U4bwuhKGyna3Oj3lFJwIAVHgYqiGP4SWvfw28tUZXQfOQPMdLTFXWoM97UlcipH1yPhN
+         ZbXut7LtG0TKIW3qg7FnZN3qXT/C56Fh5k1wHZ5OQlpjcsvRnt1fBI7LcXT5tBVfrU4/
+         prVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066255; x=1789671055;
+        d=1e100.net; s=20251104; t=1789066260; x=1789671060;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dxBJRgyuHY3W/iJApny4mLX1c4wnn/TYh39J8mu564M=;
-        b=SHRBjog+vF10QAoH5rGimX1yXyxKLZ1bCtF5yM6Em6aXUjdYKNnPqvmHP7QX+w1xBr
-         APIeezrzoIpS9FmlIRuAs6uL4jpJ0iwDY+9vLOZ2jGpaLfK2622Ou1Hlqo7FFzd18x2I
-         2tRhVDp2yprAoPeJA4mpdPAh0VkfZ+0B/D7og49f+b2dqWptDIxLWOQUCPUamAkC7rhV
-         2dzntEsa23D4GMuZFiqCVrJI91NRAVU8WTFzyEimIIdW30Pf1YkX4oRjRL91UJTFYo/U
-         PW9TNzPov67CRu5CNcAbRyvFR835JQibq2gU9UX+LIaYIxolSpzvh2KsD6+8/YUrXzPk
-         jsmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxMWckB0iv53jSotcOrt7mt5oYKL/AjxNbBEtN0J5pcAA9kdxeLYt3gGMTPCxyVdNYb+tkqD4xNuNQIQQ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNr73Li/wh+edb7DD6RSBuVzX2GsLZzSQOm+5tNcKUNYIT1N+4
-	dgwShQR2u/Jb/vMt/mMNa0NdYeomrCIlHWrvipkmn+vCu1KwN5p2Ky7GcIKVr5ImyxY=
-X-Gm-Gg: AYBFou21hZnwvadtj70rBqatuX5Q3jNv3RFhldsd4laLdTOv1vLPi4rbWzG3pPFTS+3
-	9HIVSXL184/vUPbRSxAkeiJW4R6vOpDN2D0U0ZC8MM59IofcC/nj++ZvVaz1oFZp7GxPXQM5cUN
-	TbVjST0TF2gEAdW6q6HCCwgNemZ0jXKLhyvWY0uzxaNO5qjlntBjRM+b00qYz4xjo7QY21kfkfm
-	7sUsTYlklqmMWALmT89NzojHokcEAzQCVU0J08WmQnP+DdSfquzGyBy8mUFBYsKkO1+wMEQkge9
-	II8ZU7KJlx2/v0GZpRUVGlLouL3qUfYYPMgd9CWf8RpM9faM+d30Cflkx2R8I3WX7BPcuVMfPtX
-	xqcKu9G5NI1PNKIUK590HTyHvqs8S1hT3rKMSw5tz6w8l4MBaXoOV/zohh6GSLYm4g+d4mpf3/g
-	vzGKF2FaY3XZQIcdN96KfYFfpA6R997Rf9UusvnWQKRVQ/wLrnSzECGyQw0cLFC637Tad5RXXEr
-	v0Rd4rB0LpqxMZLpwAAunNxA0DLyuVff2OPCpkigEW3d1zLdpngc5ba
-X-Received: by 2002:a05:620a:280d:b0:939:78ab:3c5f with SMTP id af79cd13be357-939ea0137a8mr26249085a.9.1789066254480;
-        Thu, 10 Sep 2026 11:50:54 -0700 (PDT)
+        bh=+J5TsPokEtcBZgoC4/eVwMDHhzV3+rip9BUfjH6oWiE=;
+        b=Va4MzV8SS837Govf23feaPKPatwz4HfI9hFOsIEQERwA6fIBx9YvO/SKPe3fOQ1aZg
+         OFySNP7mhanroScU1NS+wvm6j/qg4Lp3oG+PVxkUkDCZxsjdYDGZQ1GqI0dWUJnnD9r+
+         ecCRaiTosFd2qvTVljfO7WJDsc6mH8miMwm9FbLLRH8jV5SLqtZhA36tHf1LZs61mebC
+         IKY7QTOTboJiZEnJZg9HIMCE0YJauEISSDYVxZctHABPDJXvPUK0pKIHLEvgrrVnHo5W
+         CjfsA7UBArn1rO7c33VQdAJCRIN6NUqOs9QsFO8lGvbPWE5ItZboYG5kNMaDNlcZe7Gg
+         iyMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKuoQEZcJRIseZgEy3oJQXOjjnk2/ti9IFMfgIgV99ps67vJmye7RzYY2OLAUwKpx++oYyFvpgRi8yAxw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtxrUztOt51F/HNmlZZI51RNG6YCnfV4/ZFWnD/Gh5hXQRaaP0
+	QHD2K+4lTz59lFMp6mbJ/NTkiI8cQ1c70iC7mzFRraRzskX6ws+wYtoEYpHnU5XNvr0=
+X-Gm-Gg: AYBFou14pILTVO5Tp7Y9BHss6A6a+9eYm2nuGLWIOjZfIzgOyyA5y6x8SG6JNjo+/L4
+	sWggSwGCeAcZacXQP0gBTc6nOh0/gVf9LxSB3gP47lAeSE8279ogASF9yFosUaAui0Apu2kp621
+	UFLGKczXyiTQDrXLIXCotA/khufJ51Z/N9JPb7CvE+bzfBWjo87WARjjbQ+IFK/geMImqbZKY0l
+	JKcUe+t3qRFPiQj7vB3xYonfEz+ynD5NbWjkg81pVcmzsvlC7djBsOmC+HB4QtCwboVqbzqQQhB
+	7Xg5cJJdd/2Tfc9Tf4ikze+SszaNtI2fk2XpD462UFmsmo9dOaOIj9cpB5ZyCnoN9Tjw6mfxWK7
+	KJWTT0ZFTR4b3gDLFC7c//J4v94dpzzBnVADxzg8LD+CDeYzpjeRUwdye0qkh5bpzNElN+ksr9N
+	DiI5/w8a/Il6dci7rvpPB51YNBXNSf8Eps4C73EkmIMK4zqpMDgbfPMhiztB8rxwz7zqmexNFq2
+	EkzfeqYGggKuAz8i7WJ+sAjHgtDTOtyp8YtM7CRB5lCuoEHMuqk5QWM
+X-Received: by 2002:ac8:6f19:0:b0:530:4773:113d with SMTP id d75a77b69052e-530b35ec4f6mr85380621cf.27.1789066260401;
+        Thu, 10 Sep 2026 11:51:00 -0700 (PDT)
 Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8bf9d51sm34965885a.14.2026.09.10.11.50.53
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45bbd7sm230971cf.8.2026.09.10.11.50.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 11:50:53 -0700 (PDT)
+        Thu, 10 Sep 2026 11:50:59 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 10 Sep 2026 18:50:25 +0000
-Subject: [PATCH RFC 02/13] entry: Pass pt_regs to
- irqentry_exit_cond_resched()
+Date: Thu, 10 Sep 2026 18:50:28 +0000
+Subject: [PATCH RFC 05/13] ftrace: Mark modules hosting direct-call
+ trampolines for Tasks RCU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-b4-rcu-tasks-preempt-qs-v1-2-d4469f4cc101@toxicpanda.com>
+Message-Id: <20260910-b4-rcu-tasks-preempt-qs-v1-5-d4469f4cc101@toxicpanda.com>
 References: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
 In-Reply-To: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -98,104 +98,179 @@ Cc: Andy Lutomirski <luto@kernel.org>,
  xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
 
-The irq-exit preemption path is about to need the interrupted context's
-registers to decide whether the preemption may be reported to Tasks RCU
-as a quiescent state.  irqentry_exit_to_kernel_mode_preempt() already
-has them; hand them down through irqentry_exit_cond_resched(), its
-PREEMPT_DYNAMIC static-call and static-key variants, and
-raw_irqentry_exit_cond_resched().  The only caller outside the generic
-entry code is Xen PV's upcall handler, which has regs as well.
+An out-of-line direct trampoline registered with register_ftrace_direct()
+is kept alive only by Tasks RCU while a task executes it or is preempted
+in something it called; ftrace_shutdown()'s synchronize_rcu_tasks() is
+what stops rmmod freeing it under such a task.  Once preemption becomes a
+Tasks RCU quiescent state, such a trampoline must hold
+current->rcu_tramp_nesting across its call-out like the ftrace and BPF
+trampolines do, so document that in register_ftrace_direct().
 
-No functional change.
+That still leaves the few instructions before the increment and after
+the decrement.  For BPF images those are in dynamically allocated text
+that rcu_tasks_ip_in_trampoline() already treats as protected, but the
+in-tree samples (and any similar user) place their trampolines in module
+.text.  Add a sticky module::ftrace_direct_tramp flag, set by every
+register/modify path when the direct address is module text, and have
+rcu_tasks_ip_in_trampoline() treat a task interrupted anywhere in such a
+module as a potential reader.  Other modules' text is unaffected.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- arch/x86/xen/enlighten_pv.c      |  2 +-
- include/linux/irq-entry-common.h | 12 ++++++------
- kernel/entry/common.c            |  6 +++---
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ include/linux/module.h |  7 +++++++
+ kernel/rcu/tasks.h     | 23 +++++++++++++++++++++--
+ kernel/trace/ftrace.c  | 39 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 67 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 2c64b388f616..3d85035f5624 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -739,7 +739,7 @@ __visible noinstr void xen_pv_evtchn_do_upcall(struct pt_regs *regs)
- 
- 	inhcall = get_and_clear_inhcall();
- 	if (inhcall && !WARN_ON_ONCE(state.exit_rcu)) {
--		irqentry_exit_cond_resched();
-+		irqentry_exit_cond_resched(regs);
- 		instrumentation_end();
- 		restore_inhcall(inhcall);
- 	} else {
-diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-index 8da571622000..fc04725ae46b 100644
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -348,21 +348,21 @@ typedef struct irqentry_state {
+diff --git a/include/linux/module.h b/include/linux/module.h
+index 96cc98568eea..ea4727f53fab 100644
+--- a/include/linux/module.h
++++ b/include/linux/module.h
+@@ -521,6 +521,13 @@ struct module {
+ 	unsigned int num_ftrace_callsites;
+ 	unsigned long *ftrace_callsites;
+ #endif
++#ifdef CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
++	/*
++	 * An ftrace direct-call trampoline lives in this module's text; see
++	 * rcu_tasks_ip_in_trampoline().  Sticky once set.
++	 */
++	bool ftrace_direct_tramp;
++#endif
+ #ifdef CONFIG_KPROBES
+ 	void *kprobes_text_start;
+ 	unsigned int kprobes_text_size;
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index a55dc2a20fb7..df68a330769a 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -1117,19 +1117,38 @@ bool __weak arch_rcu_tasks_ip_in_trampoline(unsigned long ip)
+  *  - inside the bytes following a registered kprobe that jump optimization
+  *    may overwrite, which kprobe_optimizer() protects with
+  *    synchronize_rcu_tasks();
+- *  - in core text the architecture flags via arch_rcu_tasks_ip_in_trampoline().
++ *  - in core text the architecture flags via arch_rcu_tasks_ip_in_trampoline();
++ *  - in the text of a module that hosts an ftrace direct-call trampoline,
++ *    which covers the instructions before that trampoline's increment and
++ *    after its decrement (see ftrace_direct_mark_module()).
   *
-  * Conditional reschedule with additional sanity checks.
+  * A false positive only defers the quiescent state to the task's next
+  * context switch.
   */
--void raw_irqentry_exit_cond_resched(void);
-+void raw_irqentry_exit_cond_resched(struct pt_regs *regs);
+ bool rcu_tasks_ip_in_trampoline(unsigned long ip)
+ {
++	bool ret = true;
++
+ 	if (kprobe_in_optimized_region(ip))
+ 		return true;
  
- #ifdef CONFIG_PREEMPT_DYNAMIC
- #if defined(CONFIG_HAVE_PREEMPT_DYNAMIC_CALL)
- #define irqentry_exit_cond_resched_dynamic_enabled	raw_irqentry_exit_cond_resched
- #define irqentry_exit_cond_resched_dynamic_disabled	NULL
- DECLARE_STATIC_CALL(irqentry_exit_cond_resched, raw_irqentry_exit_cond_resched);
--#define irqentry_exit_cond_resched()	static_call(irqentry_exit_cond_resched)()
-+#define irqentry_exit_cond_resched(regs)	static_call(irqentry_exit_cond_resched)(regs)
- #elif defined(CONFIG_HAVE_PREEMPT_DYNAMIC_KEY)
- DECLARE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
--void dynamic_irqentry_exit_cond_resched(void);
--#define irqentry_exit_cond_resched()	dynamic_irqentry_exit_cond_resched()
-+void dynamic_irqentry_exit_cond_resched(struct pt_regs *regs);
-+#define irqentry_exit_cond_resched(regs)	dynamic_irqentry_exit_cond_resched(regs)
- #endif
- #else /* CONFIG_PREEMPT_DYNAMIC */
--#define irqentry_exit_cond_resched()	raw_irqentry_exit_cond_resched()
-+#define irqentry_exit_cond_resched(regs)	raw_irqentry_exit_cond_resched(regs)
- #endif /* CONFIG_PREEMPT_DYNAMIC */
+ 	if (core_kernel_text(ip))
+ 		return arch_rcu_tasks_ip_in_trampoline(ip);
+-	return !is_module_text_address(ip);
++
++#ifdef CONFIG_MODULES
++	scoped_guard(rcu) {
++		struct module *mod = __module_text_address(ip);
++
++#ifdef CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
++		if (mod)
++			ret = READ_ONCE(mod->ftrace_direct_tramp);
++#else
++		if (mod)
++			ret = false;
++#endif
++	}
++#endif
++	return ret;
+ }
+ NOKPROBE_SYMBOL(rcu_tasks_ip_in_trampoline);
  
- /**
-@@ -467,7 +467,7 @@ static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs *regs,
- 		return;
- 
- 	if (IS_ENABLED(CONFIG_PREEMPTION))
--		irqentry_exit_cond_resched();
-+		irqentry_exit_cond_resched(regs);
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 53d5db60bfa5..14f27b887231 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -6076,6 +6076,29 @@ static void reset_direct(struct ftrace_ops *ops, unsigned long addr)
+ 	ops->trampoline = 0;
  }
  
++/*
++ * A direct trampoline may live in module text rather than in dynamically
++ * allocated text that rcu_tasks_ip_in_trampoline() recognises on its own (see
++ * samples/ftrace/ftrace-direct*.c).  The trampoline itself must hold
++ * current->rcu_tramp_nesting across its call-out (see register_ftrace_direct());
++ * marking the owning module here covers the instructions before that increment
++ * and after the decrement, where a task interrupted in the module's text must
++ * not be treated as Tasks-RCU quiescent, so that ftrace_shutdown()'s
++ * synchronize_rcu_tasks() still keeps the module text from being freed under
++ * it.
++ */
++static void ftrace_direct_mark_module(unsigned long addr)
++{
++#ifdef CONFIG_MODULES
++	struct module *mod;
++
++	guard(rcu)();
++	mod = __module_text_address(addr);
++	if (mod)
++		WRITE_ONCE(mod->ftrace_direct_tramp, true);
++#endif
++}
++
  /**
-diff --git a/kernel/entry/common.c b/kernel/entry/common.c
-index e3d381fd3d25..e4acd50bd81a 100644
---- a/kernel/entry/common.c
-+++ b/kernel/entry/common.c
-@@ -134,7 +134,7 @@ static inline bool arch_irqentry_exit_need_resched(void);
- static inline bool arch_irqentry_exit_need_resched(void) { return true; }
- #endif
+  * register_ftrace_direct - Call a custom trampoline directly
+  * for multiple functions registered in @ops
+@@ -6090,6 +6113,17 @@ static void reset_direct(struct ftrace_ops *ops, unsigned long addr)
+  * and save the parameters of the function being traced, and restore them
+  * (or inject new ones if needed), before returning.
+  *
++ * Nothing but Tasks RCU keeps the trampoline at @addr alive while a task is
++ * executing it or is preempted in something it called.  On architectures that
++ * select ARCH_HAS_RCU_TASKS_PREEMPT_QS a preemption is a Tasks RCU quiescent
++ * state unless current->rcu_tramp_nesting is non-zero, so the trampoline must
++ * increment it before calling out and decrement it before returning, as the
++ * ftrace and BPF trampolines do (see rcu_tasks_trampoline_enter() and
++ * samples/ftrace/ftrace-direct.h).  The few instructions before the increment
++ * and after the decrement are covered by the irq-exit IP check: automatically
++ * for trampolines outside kernel and module text (e.g. BPF images), and via
++ * ftrace_direct_mark_module() for trampolines in module text.
++ *
+  * Returns:
+  *  0 on success
+  *  -EINVAL  - The @ops object was already registered with this call or
+@@ -6169,6 +6203,7 @@ int register_ftrace_direct(struct ftrace_ops *ops, unsigned long addr)
+ 	ops->flags |= MULTI_FLAGS;
+ 	ops->trampoline = FTRACE_REGS_ADDR;
+ 	ops->direct_call = addr;
++	ftrace_direct_mark_module(addr);
  
--void raw_irqentry_exit_cond_resched(void)
-+void raw_irqentry_exit_cond_resched(struct pt_regs *regs)
- {
- 	if (!preempt_count()) {
- 		/* Sanity check RCU and thread stack */
-@@ -150,11 +150,11 @@ void raw_irqentry_exit_cond_resched(void)
- DEFINE_STATIC_CALL(irqentry_exit_cond_resched, raw_irqentry_exit_cond_resched);
- #elif defined(CONFIG_HAVE_PREEMPT_DYNAMIC_KEY)
- DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
--void dynamic_irqentry_exit_cond_resched(void)
-+void dynamic_irqentry_exit_cond_resched(struct pt_regs *regs)
- {
- 	if (!static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
- 		return;
--	raw_irqentry_exit_cond_resched();
-+	raw_irqentry_exit_cond_resched(regs);
- }
- #endif
- #endif
+ 	err = register_ftrace_function_nolock(ops);
+ 	if (err)
+@@ -6237,6 +6272,8 @@ __modify_ftrace_direct(struct ftrace_ops *ops, unsigned long addr)
+ 
+ 	lockdep_assert_held_once(&direct_mutex);
+ 
++	ftrace_direct_mark_module(addr);
++
+ 	/* Enable the tmp_ops to have the same functions as the direct ops */
+ 	ftrace_ops_init(&tmp_ops);
+ 	tmp_ops.func_hash = ops->func_hash;
+@@ -6419,6 +6456,7 @@ int update_ftrace_direct_add(struct ftrace_ops *ops, struct ftrace_hash *hash)
+ 		hlist_for_each_entry(entry, &hash->buckets[i], hlist) {
+ 			if (__ftrace_lookup_ip(direct_functions, entry->ip))
+ 				goto out_unlock;
++			ftrace_direct_mark_module(entry->direct);
+ 		}
+ 	}
+ 
+@@ -6702,6 +6740,7 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+ 			tmp = __ftrace_lookup_ip(direct_hash, entry->ip);
+ 			if (!tmp)
+ 				continue;
++			ftrace_direct_mark_module(entry->direct);
+ 			tmp->direct = entry->direct;
+ 		}
+ 	}
 
 -- 
 2.55.0
