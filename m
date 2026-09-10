@@ -1,74 +1,88 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-vk1-f226.google.com (mail-vk1-f226.google.com [209.85.221.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD874496D41
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69FA28505E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789072131; cv=none; b=XDZQPp9HzgDJ5V4xYaDkMv8XfUU3kCRZbyXi/H3U3I93gplvVgiLtUm3QZ8FUPx/UrbmwHbQJpRFclELCYYf68NSvZPqYPNDy6SJ5xPgqBOCSHrApo09eY+MTQtb91MYo9XbGN8V/wKbgOMTN5MLJLvH/vULSJFIsEtigMk94nw=
+	t=1789072143; cv=none; b=ienjaTbYEQ2JwRNixFRUuL4afY06i6XQD6u8xe4KKjhqRQkJl4vJ3mtgCtQKRSwYXe50PucBONIQIAzrnFbVipCcDn3btyxqD/PHbF1sAwcUraHOTD5kqwto6r61IAPpBslslWg4jJ0tXeJ3ZEwkvCNSyGl9QdMewfkZW/O4y8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789072131; c=relaxed/simple;
-	bh=x4/uElXbKPNsHJIECqgisA9YuQG0BqXHRecovgEqQPg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=obz5OI/BiGWg7buu+X0JafoLWPsHq7B741pHxelEJoLE/6T5Sv86uvJffnbclGEZAeIdfZoUm3ZchX2OdgTZ2KucjXU8ZbQ6BGe1ByInt9SYki6gehew6XApiXfOQ+TYMpWKYxWU517okiJQ6GRzA5cvJsulgZzOpPXDr9rTg4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVqZ4/FG; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789072143; c=relaxed/simple;
+	bh=w5qIasXbZ8QltJ+wv9iGuUVg8HATw1SkxO3Xz/8hbis=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AREEx9X9hiCyQ/Q0snzsvnfuHYci5mKLrvhRvChJiElCKAoqTO8ShM/siXMy8PlNuh15fElgipJqxfleWbJh83TRJItu3uO97hYve/5GzfPtZpEpwfj/2/eOUjHsbOpVRULhZ1zbt+uhHiJWDSQ6SKQ3UzqftZDKzDZrsvgCYIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=axBWX4mT; arc=none smtp.client-ip=209.85.221.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVqZ4/FG"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6f9e2f681so1136145ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:28:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="axBWX4mT"
+Received: by mail-vk1-f226.google.com with SMTP id 71dfb90a1353d-5c65093556aso264649e0c.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789072129; x=1789676929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aa3oYV4B3MU/10qO4ouQXqPc/oc+sYQCXCIbQhucJYo=;
-        b=lVqZ4/FGOZcsVRYMZLrW7ijoAy1CYNgnLzKs2s4NQt5l18ebH+OwlycdzgkQfDZDIg
-         4PruWKO6DDQBiFYX8S0zk9zZjWaN7LZCxqU6GrtJF0bPo0NwfR0nAPTt5BWPqkyUikJu
-         yQkzuTz6iQqEtE6By3CGUsWdy6tqMQ6emLzDUpB449oQudEAB1n0e/rtc/Irqz1Gg13z
-         12hFo5N/LcC1F59i2qs7uSFIl/2YCgBhQnurGTN77v4Y5rayMWlfoGHHiUllRzJMzK43
-         YG4G85J+yjpCa5Utr6m6AQQJ4q7E+qnO+LIRKmAvgkClM0WzWNgfB2a2z0Y5W4cd/6+v
-         RJOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789072129; x=1789676929;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=purestorage.com; s=google2022; t=1789072141; x=1789676941; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Aa3oYV4B3MU/10qO4ouQXqPc/oc+sYQCXCIbQhucJYo=;
-        b=UAMKSH9zNeDCiGKwUbkhhK++c2DqPT/bbu68kzehQZVCDSD3mqpqGPpSjzkVGo3ch7
-         I3Xux37buAjO/g8wsaMMcTLqA4whUZ4iNWdP9R872Ra6kNLUSH05dtRE02XciT2Oa9Kx
-         tcVQWLJgjKwVqllcM8KAoi0FqTfEnazCCpeP7z8OfEGIyj8FgY+INczhb0VG5QP/XeSS
-         w4k2uN9zxM1vq/U5J36b6unJQVamFPjFRILNtSOJLjTeNx8Ge2CY5rpHFMN3+ckMPgWE
-         WGxcbMKOiKUiXf5AwGRsDEs03jvG1lneQH60ePmSzgRS2a/SF7KhcRHakAET2OFcQ3B6
-         tAEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWfOTVbJAiijowFCNRo74c4tsMp9SzRAra0Tq03wJvIAi0td0cvcdg1GTjjAszWTWcVPzBIVxcuLDoaeY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/I8KZOTKFEhNPgs4GYMYeJd/rx5C72Zw401KECUIVw/aeF/o+
-	X7hVu5KXkHzUCtrIKjs35+Uq0Zw1MRc7RGhgzO008O0sS6NL2EIqNhA1
-X-Gm-Gg: AYBFou115cK4sVXwM7v0lwTJWDRbt4Hn5b7izChKiMNIZvpWGO0JFOtFlMZRvyY/G4i
-	B0kv56gHEm0Y9mqZRSq1pxGMvtgEfIVYtAR3fH3Lg4IrJ0Hcxk6/qdOrq+4cjOsaX27vxrQ46g0
-	9AbjtUUqiZf2OlwBtwvsQ8CjqMuHyvb4WbnfRXsmvQmkz3V7StrveiFSpCx1OFdncDDHvqX+nG9
-	lJVCdiKm1WrMAtQwY64J9/OZsieBFgLmhJAzIOfT28F9mSxjtKg98z+3+z0/JK1fdLzo9HUvUES
-	j/JY4QwupjdgLRx2gOIfDyVrziI1LFDHF5d+a3TpvMuSexua24nsuZv+jvz88QngLIqUsG0vqrc
-	5XAZxsVlZbeKHG33Y+rAFc4+Dw/dEvtGAPc88AD+ZGDqsqHkRo9vgCv2g+8TIBYX0zCkDE3SUDZ
-	DNS0knBTgNGAWcifF4CzanExGS1mldtvRABpeX/ItzD7llBd6RcL50WFUQaYX2l964X+XGH0z1U
-	Ur9IlMNMKJErpvLqtcKxYN0l0XGtOVYuI7xG5pDvVg74oYubUt5F32ZW9JBcNQtZOOX1lQHzWO3
-	e+uXdT4X2bRgW2iYJJYMNYetr6ciAVHh3qW3pporFGApfrn5
-X-Received: by 2002:a17:903:1a4d:b0:2d9:2149:57c0 with SMTP id d9443c01a7336-2dd2a56f3e4mr20652425ad.22.1789072128998;
-        Thu, 10 Sep 2026 13:28:48 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ceb4024sm1430895ad.33.2026.09.10.13.28.47
+        bh=+jY8D98dI3BJh9bGxWJLTam08cqOXeCPFw0Ktg9MgRA=;
+        b=axBWX4mTxY1D5R11miYohkuZeaDPCeLjVMeQ9Zp0k+ok/R3MuX1w4SH62l1WpEVy6+
+         B+BXFqxTmq9HhkOnaOK+935GtN9KniqBckpn2vR1YxwRSmJa9m9jFI8uG8NrCOx5HpA6
+         MSfL4EkQlTASjP6umGu5v7/xB1ndT5ARYkZG3vL2aq9nO56d5YsBCpC2QK4Wibax/8yR
+         1iRh2qvjCyksfxu77L6clyB5lKXFyzx5DFgUWSTYxigvL3A33NHeWedYNAPAduNsRC3q
+         TLmBEkHOnww2zl9HIEeBwSlnnf9Yd3nZ6l3nZP+m6WwgUR2DtHNklFYaYOz9VBIqG+BT
+         vFSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789072141; x=1789676941;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+jY8D98dI3BJh9bGxWJLTam08cqOXeCPFw0Ktg9MgRA=;
+        b=JvixKWCPZBYMm57lgJaTKCwz0FKntZl7AxcUP5YBx/KjRfWQQSeWqTjYiVWjzqV4uD
+         3ObDcXxqYq/y1tTUGI1MSA/hN1ukOBGBhdfY4r+i8UiwkX6UmmAAbYTuh/lAFBo2HI/Y
+         zwCFDAykBQJc0z7ks3C0wldMrnPAxjaJWB5F+5komj/106lHhbeWNSjy6+993Y1KFGPO
+         gObmZ4/3FfJDI0K+Y5BHbDlSTy9UJJOWgH1sdpKX+OObIEIfd1Q5lOIj5T3PqF9T4r9A
+         gaTLeM3QDYGlyO7+lcYE/FQOJYLiBu/PzP6/8Vti8iQw6zgQHpaqyB/P+Nh0//OJvm/H
+         M/ew==
+X-Forwarded-Encrypted: i=1; AKwUvByIOqNT2qDBukFnk3f4gKY5gk49wTJFGbNWx5u+WojZsCG4FTV9l2KSvIgjmIhwizNPkgUDeBho1DcXpPE=@vger.kernel.org
+X-Gm-Message-State: AFuF++maKVGuO8bnD3O/PrlFkF+1M35zkVC3+p2r3GQNXWFLXCIJRjVe
+	Inm+LgCeIoWRwhPfn2VdaLjX0bTV1A+rkoH0c4NFd40JTiQeuJl2abpLAfBj4UEeFnFYC9Zi7ft
+	nV3dl2D3SG9ATxhoCiDN8CGS6RobPNzja3972
+X-Gm-Gg: AYBFou2SAf9/OLmjDOJdX8Xsw64J47pi+knN/a7CDWRuqWknKyXnI2jFX7JbCx+EiuB
+	I/BCnzcjpNOP6sEIVk4BPOPHjmnm8rIc3ZHqA4bz2lIUzIkpeZvxvHSAezJM3i89ERbC7z62ctr
+	vtcvyv1MNUX0FxSyxht+ltiGNA/d/8cEHm2gQsY4IHlv33z+oB8a2SGulpR0PSctZq7MRBoQrUL
+	qBiTv3v7pgkbI+kiySzWOXcmtkIuUZyxnbcTX87hSpKDtbiFo0pKUHINxrH4qGduHL1060DL5Sz
+	NWNqJXLKxUJ8T5fS4wzZ0iaE1bmkFy0zJfH3N3IJHkg9V8fKNfqehmCEH0JkhHcwv4IEbvm2N2Y
+	luKIwVNZdSzZIQh25aWoHWnwnwXxUUqY=
+X-Received: by 2002:a05:6122:4894:b0:5c6:8480:35c8 with SMTP id 71dfb90a1353d-5c8462f5c71mr2417289e0c.8.1789072140729;
+        Thu, 10 Sep 2026 13:29:00 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
+        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c846f624f2sm163189e0c.2.2026.09.10.13.29.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 13:28:47 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Zhang Wei <zw@zh-kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE DMA DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] dmaengine: fsldma: kill tasklet before removing channel
-Date: Thu, 10 Sep 2026 13:28:46 -0700
-Message-ID: <20260910202846.48941-1-rosenp@gmail.com>
+        Thu, 10 Sep 2026 13:29:00 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-sgogte.dev.purestorage.com (dev-sgogte.dev.purestorage.com [10.112.19.91])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 24849400F1;
+	Thu, 10 Sep 2026 14:29:00 -0600 (MDT)
+Received: by dev-sgogte.dev.purestorage.com (Postfix, from userid 1557734945)
+	id 20E1551EC2; Thu, 10 Sep 2026 14:29:00 -0600 (MDT)
+From: Surabhi Gogte <sgogte@purestorage.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Solganik Alexander <sashas@lightbitslabs.com>,
+	Roy Shterman <roys@lightbitslabs.com>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	mkhalfella@purestorage.com,
+	randyj@purestorage.com,
+	adailey@purestorage.com,
+	Surabhi Gogte <sgogte@purestorage.com>
+Subject: [PATCH v3 1/3] nvme-tcp: store and use the caller's network namespace
+Date: Thu, 10 Sep 2026 14:28:10 -0600
+Message-ID: <20260910202812.1642832-2-sgogte@purestorage.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910202812.1642832-1-sgogte@purestorage.com>
+References: <20260910202812.1642832-1-sgogte@purestorage.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,30 +91,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add tasklet_kill() in fsl_dma_chan_remove() to prevent a race where the
-tasklet is scheduled by the IRQ handler and runs after the channel has been
-freed.
+nvme_tcp_alloc_queue() creates each socket using
+current->nsproxy->net_ns, which is correct for the initial connect that
+runs in userspace context. However, the reconnect and error recovery
+paths run from a workqueue where current netns is a kernel thread in
+init_net, so sockets created during reconnect end up in a different
+namespace than the one the controller was originally connected from.
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Fix this by capturing the caller's network namespace at controller
+allocation time. Use ctrl->net for all socket creation so that every
+queue, on initial connect, reset, or reconnect, is created in the same
+namespace.
+
+Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
+Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
 ---
- v2: split from series and wrap at 75 characters
- drivers/dma/fsldma.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/nvme/host/tcp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma/fsldma.c b/drivers/dma/fsldma.c
-index 6ce0e5668dc2..5eca8ab23564 100644
---- a/drivers/dma/fsldma.c
-+++ b/drivers/dma/fsldma.c
-@@ -1207,6 +1207,7 @@ static int fsl_dma_chan_probe(struct fsldma_device *fdev,
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 5fda9661bdb7..8e5e22febe2a 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -171,6 +171,7 @@ struct nvme_tcp_ctrl {
+ 	struct delayed_work	connect_work;
+ 	struct nvme_tcp_request async_req;
+ 	u32			io_queues[HCTX_MAX_TYPES];
++	struct net		*net;
+ };
  
- static void fsl_dma_chan_remove(struct fsldma_chan *chan)
- {
-+	tasklet_kill(&chan->tasklet);
- 	irq_dispose_mapping(chan->irq);
- 	list_del(&chan->common.device_node);
- 	iounmap(chan->regs);
+ static struct workqueue_struct *nvme_tcp_wq;
+@@ -1846,7 +1847,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+ 		queue->cmnd_capsule_len = sizeof(struct nvme_command) +
+ 						NVME_TCP_ADMIN_CCSZ;
+ 
+-	ret = sock_create_kern(current->nsproxy->net_ns,
++	ret = sock_create_kern(ctrl->net,
+ 			ctrl->addr.ss_family, SOCK_STREAM,
+ 			IPPROTO_TCP, &queue->sock);
+ 	if (ret) {
+@@ -2638,6 +2639,7 @@ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
+ 
+ 	nvmf_free_options(nctrl->opts);
+ free_ctrl:
++	put_net(ctrl->net);
+ 	kfree(ctrl->queues);
+ 	kfree(ctrl);
+ }
+@@ -3036,12 +3038,15 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+ 		goto out_free_ctrl;
+ 	}
+ 
++	ctrl->net = get_net(current->nsproxy->net_ns);
++
+ 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_tcp_ctrl_ops, 0);
+ 	if (ret)
+ 		goto out_kfree_queues;
+ 
+ 	return ctrl;
+ out_kfree_queues:
++	put_net(ctrl->net);
+ 	kfree(ctrl->queues);
+ out_free_ctrl:
+ 	kfree(ctrl);
 -- 
 2.55.0
 
