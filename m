@@ -1,223 +1,70 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18114AA1D5
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7353A4F4A;
+	Thu, 10 Sep 2026 16:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058322; cv=none; b=rB50oM30jf5SY4b0NORCAkhs8ouIxa12mgQVcEIQ1Wx2Qx/ibi6ISbRU1zzqbnDpXf7/rGaOTbF0TseHXK2/V3Tk66JSsD9QM+hFQJRlDHC022o1v12NM+deeg9TG0HWpDjZlycmgtWu7dGKs8qse9BV0zXhIl95SkBFQm80X6M=
+	t=1789058350; cv=none; b=d0k+B4LGle0JIFLN2OiSgnecrF+x4BaLPQPbgzUD7eRXRDNuzOWP/dudJjBEHff4OkMUlbthUQaia/Pzss5C+fH0Yjpq8pyktXU7THythMKMOGLwzwvyQwhBso48D2J+UlDI7rvkyQDU8f8IHGMaIBXatbtEowUzV5bh1zGKF88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058322; c=relaxed/simple;
-	bh=cRUce6TKrSWMsa9ZsOkBFnWjOLHEVLQY4P6V2RCGZLU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=aF5Jjv4VU+SO8UV1Nl68m4vz8ukqq2OFLJKd8WbtNUcaGm5s5DtSLp8ZFC/E9u7LGDVIFSfrcu/lnOUDcEBEyB7KoYYRzmwzkZpBGce7JjJws97VPbkl5GrnvgWh10r66+ntAh3tFQZ+GU/oNLdD41x8kJHXyJKlE4YrPGUHsgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZRA72GH3; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789058350; c=relaxed/simple;
+	bh=Ta7gu2SURjls0C3yd3Ubg1mY+sBZiejfBfLWaQsKXVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BeDoMQOicbL994QsV6vOAwHhdYVzhxHbWZLPnSAGTL5gxfqXAv3JzkYo2jflBg/9CbEdBLmRkIhHmH0rXnCKsDHNJWgAsL8lB2FZ30bblW83+sH/jVJUXV3caKek1bS1C9lD9mG2oCvcld1gTuULUR7D5bBTzU54TwJYqdd/hfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JZ5Hc1Mw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZRA72GH3"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso30833a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:38:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789058317; x=1789663117; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pLO/yg2gAb4tQ7ZA84YrrqYOhPHyp8iAfdCQyiFWl6A=;
-        b=ZRA72GH31VhqUx1dhrDvNvVehw9dkxCL1nNc/DiA3e2J5uz4tfgwDVUksBQlgzXjj6
-         cZNNMT+cDgjVeyGzGwKcIHrKnOe+Kdlt9JDC4PXAFiuNBWTLMBgxEukSMPXnGBUZOjDF
-         1LPNu21wixT3LCjgYiznxw5JziAlwqi7aMdSQy7MKswz70nELNL4FrzRfVCHfY/ovy8s
-         QfS74Iygd3NeyVxDMmXjcLDhEEOOa6+nWZVNmlAg/M9hN/yOevtde5X94vGCmyAfk5Kc
-         2uf6xSLpxYjA5f7XRRU8ibr+zv8aIeIsqFnqKtvig/XrBl3uiV0+z1j4C9bv2IQBVrwK
-         Rk1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789058317; x=1789663117;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pLO/yg2gAb4tQ7ZA84YrrqYOhPHyp8iAfdCQyiFWl6A=;
-        b=PbvckUYBMM2IOfPoP24FrcpgPYxgksPbDuhK5oMj/tlk0XwOBcjU2BDPLf3iN9gSai
-         5rboyYampH+x5pUyLQ1pw7lWPG0AqrKqL8yPhmJcl5pro6IE9JvehtHroK8z85ZmAcn4
-         7uXbr63ZAUzcB8nu6OWYzu4+Xd5frDzfZyoqspZYwpEhuxxAv8MSynLzRnlkrKoxiOV1
-         RGVH/KEgZo1/W4boYw2l/th9n+yif/kmpBfBnKWfIB1IxD6wjpn/DquVbpSLgHLxuVGA
-         a1VUD44/Oq7TOY14Eg20uYifQSNRa1pS8LJA76l3iV++AFZ3PlijtIjfpBZlhPKrP1Sh
-         pO9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwFvXhXtM8sCEtv9goVESnz6QNK11ybkISKRx4vS2YkHzpJwhtoIkxo8mRtMRj7i9SPx4fFUAoj2h42j6w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIa822V2zafMwoQkqAtNXEvlkyxZg6uR5D5mQpnxv1CKdtHVtu
-	UfZvSSmuSalmLxi2JqHL99MYztDJdXnk4VXbNupxVDlXQP4EjNYvBUDOS02RQ1yDXQsH11Dzal9
-	XTHVEHA==
-X-Received: from pgmo17.prod.google.com ([2002:a63:5d51:0:b0:cc2:7a40:4d51])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9397:b0:3c3:a3f4:5485
- with SMTP id adf61e73a8af0-3da39cff434mr71061363637.6.1789058317301; Thu, 10
- Sep 2026 09:38:37 -0700 (PDT)
-Date: Thu, 10 Sep 2026 09:38:36 -0700
-In-Reply-To: <20260910162343.4092060-5-elver@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JZ5Hc1Mw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919A11F000FF;
+	Thu, 10 Sep 2026 16:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789058348;
+	bh=J1DxlwO1SBdCyEGtWOR+zVNhrDhFkdpFxBdKteLQo+I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JZ5Hc1Mwtqzu82LhttrRUmeNlpFGPoY/bvKKGXp0zNzZeCve25kEo7dE5/MTLLrTo
+	 V3kaRcRTsTTSMPXUvcjx1+vxlE0faXEcaXLeUh0ZnBDYFdkZzJI5LSGu1aag8/NYiB
+	 gO1D980rZweXLHkH+hv9NaGqROLVzJLcMEWD2mfU=
+Date: Thu, 10 Sep 2026 18:38:59 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+098999e05b6b877c01b3@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: gadget: f_phonet: fix use-after-free in pn_bind
+Message-ID: <2026091047-cover-resolute-5d4a@gregkh>
+References: <20260804074432.2906951-1-khiemtranzo532001@gmail.com>
+ <20260805041319.3197126-1-khiemtranzo532001@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910162343.4092060-1-elver@google.com> <20260910162343.4092060-5-elver@google.com>
-Message-ID: <aqLdDIGPaclTYpjU@google.com>
-Subject: Re: [PATCH RFC 04/10] KVM: Refactor kvm_handle_hva_range() to avoid
- conditional mmu_lock
-From: Sean Christopherson <seanjc@google.com>
-To: Marco Elver <elver@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805041319.3197126-1-khiemtranzo532001@gmail.com>
 
-On Thu, Sep 10, 2026, Marco Elver wrote:
-> Refactor kvm_handle_hva_range() to check for overlapping memslots
-> upfront via interval_tree_iter_first() instead of tracking found
-> memslots inside the range iteration with a 'found_memslot' flag and
-> conditionally acquiring and releasing mmu_lock.
+On Wed, Aug 05, 2026 at 12:13:19PM +0800, Nguyen Quang Le Kien wrote:
+> pn_bind() and phonet_free_inst() race on opts->bound and opts->net.
+> If configfs removes the function instance while pn_bind() is between
+> the !bound check and setting bound = true, free_inst() frees opts->net
+> and pn_bind() then writes to net->dev.parent via gphonet_set_gadget().
 > 
-> This simplifies the control flow by cleanly decoupling the search for
-> overlapping memslots from the subsequent walk. It also separates the
-> lockless path from the serialized path into distinct branches,
-> eliminating the conditional locking, which subsequently enables Clang
-> context analysis to validate locking in this function.
-
-At the cost of duplicating code and adding overhead when there is a relevant
-memslot.  I'm not wedded to the exact implementation, but IMO this is not at all
-an improvement.  Without a clear explanation of what value is added by enabling
-Clang to "validate locking", I don't see any justificatoin for the change.
-
-> No functional change intended.
+> The old "no race condition" comment was wrong - configfs_rmdir() can
+> run in parallel with the composite bind path.
 > 
-> Signed-off-by: Marco Elver <elver@google.com>
+> Add a mutex to f_phonet_opts, use scoped_guard(mutex) in both paths,
+> add kernel-doc on the struct, and destroy the mutex before freeing
+> opts.
+> 
+> Fixes: 00a2430ff07d ("usb: gadget: Gadget directory cleanup - group usb functions")
+> Reported-by: syzbot+098999e05b6b877c01b3@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=098999e05b6b877c01b3
+> Signed-off-by: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
 > ---
->  virt/kvm/kvm_main.c | 94 ++++++++++++++++++++++++++++-----------------
->  1 file changed, 58 insertions(+), 36 deletions(-)
+> v3: drop the redundant #include <linux/mutex.h> in f_phonet.c -
+>     u_phonet.h already includes it.
 > 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 65eb26a0520d..f7bfa2d32507 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -558,31 +558,14 @@ static void kvm_null_fn(void)
->  	     node;							     \
->  	     node = interval_tree_iter_next(node, start, last))	     \
->  
-> -static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
-> -							 const struct kvm_mmu_notifier_range *range)
-> +static __always_inline bool __kvm_handle_hva_range_walk(struct kvm *kvm,
-> +							const struct kvm_mmu_notifier_range *range)
->  {
-> -	struct kvm_mmu_notifier_return r = {
-> -		.ret = false,
-> -		.found_memslot = false,
-> -	};
->  	struct kvm_gfn_range gfn_range;
->  	struct kvm_memory_slot *slot;
->  	struct kvm_memslots *slots;
-> -	int i, idx;
-> -
-> -	if (WARN_ON_ONCE(range->end <= range->start))
-> -		return r;
-> -
-> -	/* A null handler is allowed if and only if on_lock() is provided. */
-> -	if (WARN_ON_ONCE(IS_KVM_NULL_FN(range->on_lock) &&
-> -			 IS_KVM_NULL_FN(range->handler)))
-> -		return r;
-> -
-> -	/* on_lock will never be called for lockless walks */
-> -	if (WARN_ON_ONCE(range->lockless && !IS_KVM_NULL_FN(range->on_lock)))
-> -		return r;
-> -
-> -	idx = srcu_read_lock(&kvm->srcu);
-> +	bool ret = false;
-> +	int i;
->  
->  	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
->  		struct interval_tree_node *node;
-> @@ -620,28 +603,67 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
->  			gfn_range.slot = slot;
->  			gfn_range.lockless = range->lockless;
->  
-> -			if (!r.found_memslot) {
-> -				r.found_memslot = true;
-> -				if (!range->lockless) {
-> -					KVM_MMU_LOCK(kvm);
-> -					if (!IS_KVM_NULL_FN(range->on_lock))
-> -						range->on_lock(kvm);
-> +			ret |= range->handler(kvm, &gfn_range);
-> +		}
-> +	}
-> +
-> +	return ret;
-> +}
->  
-> -					if (IS_KVM_NULL_FN(range->handler))
-> -						goto mmu_unlock;
-> -				}
-> -			}
-> -			r.ret |= range->handler(kvm, &gfn_range);
-> +static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
-> +							 const struct kvm_mmu_notifier_range *range)
-> +{
-> +	struct kvm_mmu_notifier_return r = {
-> +		.ret = false,
-> +		.found_memslot = false,
-> +	};
-> +	struct kvm_memslots *slots;
-> +	int i, idx;
-> +
-> +	if (WARN_ON_ONCE(range->end <= range->start))
-> +		return r;
-> +
-> +	/* A null handler is allowed if and only if on_lock() is provided. */
-> +	if (WARN_ON_ONCE(IS_KVM_NULL_FN(range->on_lock) &&
-> +			 IS_KVM_NULL_FN(range->handler)))
-> +		return r;
-> +
-> +	/* on_lock will never be called for lockless walks */
-> +	if (WARN_ON_ONCE(range->lockless && !IS_KVM_NULL_FN(range->on_lock)))
-> +		return r;
-> +
-> +	idx = srcu_read_lock(&kvm->srcu);
-> +
-> +	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
-> +		slots = __kvm_memslots(kvm, i);
-> +		if (interval_tree_iter_first(&slots->hva_tree, range->start, range->end - 1)) {
-> +			r.found_memslot = true;
-> +			break;
->  		}
->  	}
->  
-> -	if (range->flush_on_ret && r.ret)
-> -		kvm_flush_remote_tlbs(kvm);
-> +	if (!r.found_memslot)
-> +		goto out;
-> +
-> +	if (range->lockless) {
-> +		r.ret = __kvm_handle_hva_range_walk(kvm, range);
-> +		if (range->flush_on_ret && r.ret)
-> +			kvm_flush_remote_tlbs(kvm);
-> +	} else {
-> +		KVM_MMU_LOCK(kvm);
-> +		if (!IS_KVM_NULL_FN(range->on_lock))
-> +			range->on_lock(kvm);
-> +
-> +		if (!IS_KVM_NULL_FN(range->handler))
-> +			r.ret = __kvm_handle_hva_range_walk(kvm, range);
-> +
-> +		if (range->flush_on_ret && r.ret)
-> +			kvm_flush_remote_tlbs(kvm);
->  
-> -mmu_unlock:
-> -	if (r.found_memslot && !range->lockless)
->  		KVM_MMU_UNLOCK(kvm);
-> +	}
->  
-> +out:
->  	srcu_read_unlock(&kvm->srcu, idx);
->  
->  	return r;
-> -- 
-> 2.55.0.1003.g10538fe699-goog
-> 
+> v2: scoped_guard(mutex) instead of open-coded lock/unlock; kernel-doc
+>     on the struct; mutex_destroy(); remove the wrong comment.
+
+You did not use the Assisted-by: tag as you should have :(
+
