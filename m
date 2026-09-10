@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9444BFE7C;
-	Thu, 10 Sep 2026 13:13:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A815360EF6;
+	Thu, 10 Sep 2026 13:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046018; cv=none; b=WeJl4WZxNX9t4nBfwxFWS2o+8Iipz41zcB+uYOjI2baNwLVcCEDUyCc8TX+9EtgaH9iyFtgyPhrFkks88kJWjHolZv/jY2jpk2Rn/ZPdiL4UKA6Sinwxi7OfoOhXYEN2CemYpuy4KqKu9NkFdFarqIGbPPXOqfwio9D9HLKdCx0=
+	t=1789046087; cv=none; b=GU1bres5VNH+7VmakVlHVar7BWgYVhyhLZv0mSHMLfKNAuN7iQI7cIUAgLiVTruJFXvwRCggG5wi6dz++0H4ZTNn6BAVvfsvwDrtNiF+9O/DKzHA7KO1Us6UFrdr/e9mF2H8o5KLOYBH9hNnStWq/YVh8tURzFOTLNR0nue7Yc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046018; c=relaxed/simple;
-	bh=F/kBY+/HTGHAmsSpoI8vpAkogugi5+e2jeYE6axmV6Y=;
+	s=arc-20240116; t=1789046087; c=relaxed/simple;
+	bh=q5dx5vdC7jgTdn5dH1WIZZ8Ax2heETi+DvzQR7TMSMQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ABrjzELgPEqZmxCxHrBrSh6xwsa/XdnB/HEn380JkeUMF3m/hrAq0mLTb6gNeYeIEz56XqwSAhZLCNUj2kMqd2xpbjRJiLbLUq2nH3Qxr9phCIwqcKDmmjnymnIdLEqi4cqREeTLsT41vRI36cu29wT1lwS9woIvCHhjBq0a14g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqAwcaXh; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Ad79Ti7/DO2YimObTMUdwR1lHk53qEsN3d2Bs9lVVEeaiytTzjaWHRF5/+QYHWerwyfJrMOkhmroH41RPU2PdUzoYl16tgGE/458jNBuSbBWeymkSqhO84qXFIsWXU0QZqLqCZ5hxkcUdDsjyGtJpH8BlaWopxwOG65ZqfzhgC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1UWoH0w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqAwcaXh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416C01F000FF;
-	Thu, 10 Sep 2026 13:13:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1UWoH0w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337541F00893;
+	Thu, 10 Sep 2026 13:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046017;
-	bh=M03ebMR2GKtikJbVp9or77lbtsT5C8bLQjQstJD9IH0=;
+	s=k20260515; t=1789046086;
+	bh=obrsEf1MMzEije3mF7OvjrrlMFk7kbRaeS4alytnrZA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hqAwcaXhDzP+yYjnbYdR3g1bT4aceHrBAgY/kWg1c2IIMDwKU8Dgoyl3FeIJskkTf
-	 q9lQ+AoPFumCh12tvrOwwxIFYJkwL3mcZ4HAGeEqLYBwvHMersfljYsEowmwE1lFrk
-	 VODA8neke1SK7KST2MZMFJe2YpE5Gahxjeh+dlaY7GEAK1AWkDja4ZZuApeVWqcvBd
-	 EYbr5EzErcvNmYtl0E6fS2UGEH3S5A08tlBbh/9j15OIs4zI/SJKUrQL1LL9sAbM6O
-	 6by5bkxMXZgcEWraEFa/Nv8Yhy/HYlw16OWa3sUwHiDwqGYnvDQZfrC0yh5bjex3Ky
-	 K4gqbtwTJv+kg==
-Message-ID: <ff5ac35e-1dfa-483c-82b1-0e542a850550@kernel.org>
-Date: Thu, 10 Sep 2026 15:13:26 +0200
+	b=O1UWoH0wjxnkd0+6YaNDY/1W8OkDpvWuJwac8Ox+sLdrh2d5ZeNWuC552Ce3xc6OL
+	 Lerke7gJsYZX24q11I5HKpfvO17Ai28S+4dD2G5Xhx3uOfQruwhU9n4u3f5dCTNKc6
+	 lEjiFdilNrqqyf6ZK3giQ8X08NnunzlK6mWbdt616AQ3aDdFEigHIm44+JrAigQMJE
+	 sgfMLJrYiJNVrOiE2AcZZoSq26Ng1A4Dynn7jetvjnO9gMCFBvXh4NWGOHXEThUjNf
+	 gabXjDTR3V5R+OkhxLRjN6Hg3RcUBvRNgfzZ2KbnwGBckpsv0FdDIJ54mYyqNbU8Ni
+	 k4kak9nneVsAg==
+Message-ID: <8d27168e-5443-4073-bc65-24ddbe32e29a@kernel.org>
+Date: Thu, 10 Sep 2026 15:14:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,29 +35,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] mm/sparse: move mem_section init to
- sparse_extreme_init()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
+To: Yeoreum Yun <yeoreum.yun@arm.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
- <20260909-b4-sparsemem_cleanups-v1-1-008fc8d579fe@kernel.org>
- <aqKnDa6ukWwAXs19@gremlin>
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907-fix_split-v5-3-822b810458bc@arm.com>
+ <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
+ <aqKOVGECsCNtSMIV@e129823.arm.com>
+ <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
+ <aqKS7CP67X4h6NiM@e129823.arm.com>
+ <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
+ <aqKU0-Gm4yh78F3V@e129823.arm.com>
+ <d6f2e6b2-9dc9-4f02-be37-14329c1a6798@kernel.org>
+ <aqKfjqa6ye2AOU5k@e129823.arm.com>
+ <11a36d52-89a0-4f43-8a51-a4930e171ba0@kernel.org>
+ <aqKj5ojQ3dabOV5g@e129823.arm.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -104,47 +105,31 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <aqKnDa6ukWwAXs19@gremlin>
+In-Reply-To: <aqKj5ojQ3dabOV5g@e129823.arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/10/26 14:52, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 09, 2026 at 03:32:54PM +0200, David Hildenbrand (Arm) wrote:
->> Let's just avoid another pair of ifdef inside a function. While at it,
->> switch to INTERNODE_CACHE_BYTES by just defining a fallback in cache.h
->> as well, given that the x86 variant already provides one.
+On 9/10/26 14:34, Yeoreum Yun wrote:
+> On Thu, Sep 10, 2026 at 02:25:40PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/10/26 14:16, Yeoreum Yun wrote:
+>>>
+>>> True. I overlooked guard bit is sticky.
+>>>
+>>>
+>>> It's enough but alloc_isolated_mem() could be modified to allocate with
+>>> PROT_NONE first and then change the prot.
+>>>
+>>> It seems whether make a helper or testcase should write the code
+>>> properly in case of unwanted VMA merge.
+>>>
+>>> IMHO, instead of testcase write them all
 >>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> So far I am aware of exactly one test case, which others do absolutely need this?
 > 
-> Nic ecleanup, one nit below.
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
->> ---
->>  include/linux/cache.h |  1 +
->>  mm/sparse.c           | 19 ++++++++++++-------
->>  2 files changed, 13 insertions(+), 7 deletions(-)
->>
->> diff --git a/include/linux/cache.h b/include/linux/cache.h
->> index e69768f50d532..b6e857b985bca 100644
->> --- a/include/linux/cache.h
->> +++ b/include/linux/cache.h
->> @@ -89,6 +89,7 @@
->>   */
->>  #ifndef INTERNODE_CACHE_SHIFT
->>  #define INTERNODE_CACHE_SHIFT L1_CACHE_SHIFT
->> +#define INTERNODE_CACHE_BYTES (1 << INTERNODE_CACHE_SHIFT)
-> 
-> NIT: 1UL?
+> True. I'll respin with your suggestion.
 
-I decided to replicate the existing
-
-arch/x86/include/asm/cache.h:#define INTERNODE_CACHE_BYTES (1 << INTERNODE_CACHE_SHIFT)
-
-If the shifted value would ever not fit into an int something would be 
-going really wrong ;)
-
-Thanks!
+Don't get me wrong, if we'll need this for other tests we can add helpers. But
+for a single user adding a helper is not really worth it.
 
 -- 
 Cheers,
