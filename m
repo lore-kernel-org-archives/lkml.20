@@ -1,75 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B11A3CB542;
-	Thu, 10 Sep 2026 07:24:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5875217DFFA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025055; cv=none; b=kbPXpLJ0s3ZHcGCFSgn5l47uM/ZAlkwd4jfY1WPvoFRVfIeYdRwVQeSfUjdDKWpKWXVhyNveyD4Y1pAvUKVVK9ePz7xw1CezYDvmwAkv5b44rkXH14vNTIG21e4ZipRLYu4Wv/8QmDqiDvIIyZg5jYQPwXd2+f/HxuGzymsSphA=
+	t=1789025066; cv=none; b=P74PFqnqqQJKdYtnYi0/R9PhnmYfhVwC89IpTcDUmsDSts4v1e//yp2bEKoyuw7orylVHuDEUq/F5QEd1RWxIDiAjnFrYmu7MqhRVkFuKUqRSKObAWBJO1MJa4bWUpXYDNrtMu/BEbZWh4GciLzw8bhX3AvaI/4h1gqOdvtNRSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025055; c=relaxed/simple;
-	bh=9y0ucskyS6kC/bOvGUOM3FlpdzRpx8CdKDJDoY9nUyg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rzgISz7phhkvVzk/aJ7rDlfdZR2NsQZuwiyZSNOz9hem4BrJxKObX1Zbf+slQfvDf9mARzLgV7bP41Xz2GOh2Je0/rmlL0NXmFHDI3gQ7rHLuB/v4ouXdRKDl7HWIEfqNEETiCI5TgWY9m/QjVgj6WLwuy4t/73RgD0TeNzcLfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2XvVlOZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789025066; c=relaxed/simple;
+	bh=+U3CsgVsX98Bv1eArnHlNvqaVE6TND6nINIu7hrzK+U=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jwv202VOZAl43oQS3b8MyNAPfIH8ZIJJcO1reZIr4iWkGJDYrQQWYXq1Jq3rUIrnG7XBX2nodlQr4bamJHVcwj7jYVCSzp3s48epbb+DX3XSbLhokd5szni8vKImLDDDGAf0wgXWjexGKu1tX3sL6OaH/4Myzw8IDbB52oabdqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lx475Gaz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2XvVlOZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4C21F000FF;
-	Thu, 10 Sep 2026 07:24:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lx475Gaz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4291F0089F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:24:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789025051;
-	bh=3K/5jxz2DpMibdRxxyvG0gZi7vwsVMxfXJLuXGz7N8c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O2XvVlOZWSUAaeddC+u8OBIk5bQwqE+as5bwNIuFFOj/dYc6Ssjfm/8BKro1UaSqa
-	 S39yfT0Jnn+dtE3l/gOprpHfY0EwXxbq8V10FLWk92EFnZmPNZGDByFJbJ6oWIHAUj
-	 9UyxXgXSuuUa+pcYkRkXA2ds+Crsb++CEp5aYfDPDr/b/9IOdbj1o6KWzotVV9xYfE
-	 s/+Bs/ikT9C9giPQsszyOBaJC60fKnMKuYD+WSvukX9pFUz1+yqXZ8b6PeXFfyzW/J
-	 PlLARU69dyhMCpuZw8Ryah6NnGtK9B56VJCfnzf8ttaOvmgdsS8HyiqrNvsABPwlqq
-	 /fu4NQYUiGUow==
-Date: Thu, 10 Sep 2026 09:24:01 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, shengchao.guo@oss.qualcomm.com, 
-	Qiang Yu <qiang.yu@oss.qualcomm.com>
-Subject: Re: [PATCH v3 4/5] phy: qcom: qmp: Move
- qphy_setbits/clrbits/checkbits to common header
-Message-ID: <iwd7bhclrdxjdiq7bfukojef6dzx4ff3xq7svkpsbcx65asmoq@utu2papslzrw>
-References: <20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com>
- <20260909-nord-v3-4-b0a82721c547@oss.qualcomm.com>
+	s=k20260515; t=1789025060;
+	bh=+U3CsgVsX98Bv1eArnHlNvqaVE6TND6nINIu7hrzK+U=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Lx475Gazuys68iHJTZl+TWFJfxPzg25YPfTf/ER633EImwQXGSeBqjSlTGiplBfsV
+	 OJadQw319gQC2RFH7nBUXLQnsKnBifshyHeUzK/Mec8oz7mBNM9BcIcSyyF+qO7Qso
+	 pyHiBL3AZ6cOzmXZwKUo+7e6gXlyOF7EM+HWPaAzc7gPD0Fm3FA8zH7jyoSfOTthEG
+	 FOeYF14nMn9Be7eRZjJn1CgKolofuy0WEEKelLDnqe8OUHVHPtSBvcpDWFHec06yHQ
+	 7huu/H2ys0ZwN0woMeHAAkW1XcuV6LeQcJXopl+6TE9YY2TVzuZi5108bcGIIRFNfQ
+	 Kew04k0H75ewQ==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a5938ab935so4484831fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:24:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwvuTTcMLH6AOsCfJywaz7EnoyHjQdBmgLg6BFgD0OcjYeC2Tz4hCmDYmDcoWWEhLLAJlMcbS3rw9gcq0c=@vger.kernel.org
+X-Gm-Message-State: AFuF++loJLsMSdzsHohi16N+l+d6O4rRSqX5EXaxKOcDckEGRJdmLBQm
+	B+1N/73nca8C4Yrd74Z/AReOsn34hO2LUR1sRzxEqui5StgI2zWHQ5nedmHmiOgEp3DyaB0/gww
+	Z//WLFmHdNBsKRHL2ZcrOAvuwOjsOF6A7QZuRhlIApw==
+X-Received: by 2002:a05:651c:19a9:b0:3a3:462f:329a with SMTP id
+ 38308e7fff4ca-3a371be7d52mr49246631fa.13.1789025059432; Thu, 10 Sep 2026
+ 00:24:19 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 10 Sep 2026 00:24:18 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 10 Sep 2026 00:24:18 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <alUyZ2zVWCPhyHHX@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260909-nord-v3-4-b0a82721c547@oss.qualcomm.com>
+References: <alUyZ2zVWCPhyHHX@google.com>
+Date: Thu, 10 Sep 2026 00:24:18 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Me5FPXqLzpMvr6MMGJcSqfah4yaRU0EDrV+jOn=X7iTbg@mail.gmail.com>
+X-Gm-Features: AcwNN1VcRf3mEWCD3x1wh-CxVmrq8hB-EFgGIfSDmr_ZS3mGsHSgozFtnP9n4xk
+Message-ID: <CAMRc=Me5FPXqLzpMvr6MMGJcSqfah4yaRU0EDrV+jOn=X7iTbg@mail.gmail.com>
+Subject: Re: [RESEND PATCH] sh: ecovec24: use static device properties to
+ describe the touchscreen
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
+	jacopo mondi <jacopo@jmondi.org>, linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 05:18:19PM +0530, Krishna Chaitanya Chundru wrote:
-> qphy_setbits(), qphy_clrbits() and qphy_checkbits() were duplicated
-> verbatim across phy-qcom-qmp-pcie.c, phy-qcom-qmp-pcie-msm8996.c,
-> phy-qcom-qmp-ufs.c, phy-qcom-qmp-usb.c, phy-qcom-qmp-usbc.c and
-> phy-qcom-qmp-combo.c. Move them to the shared phy-qcom-qmp-common.h,
-> which all of these drivers already include, and drop the local copies.
-> 
-> This also makes the helpers available to phy-qcom-qmp-pcie-multiphy.c
-> without introducing yet another copy.
-> 
-> Suggested-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+On Mon, 13 Jul 2026 23:41:31 +0200, Dmitry Torokhov
+<dmitry.torokhov@gmail.com> said:
+> Convert the board to use static device properties instead of platform
+> data to describe the touchscreen, so that support for platform data can
+> be removed from tsc2007 driver (ecovec24 is the last board using this
+> mechanism of describing tsc2007).
+>
+> Device properties do not allow custom board methods, so the method for
+> getting "pen down" state was removed (the driver is capable of working
+> without it). If this functionality is needed proper pin control/gpio
+> support needs to be implemented so that the same pin can serve as an
+> input GPIO and an interrupt.
+>
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
+>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
