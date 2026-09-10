@@ -1,62 +1,64 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA58361DBA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:14:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF323DDB1C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031696; cv=none; b=gg8NAQGBuUYLMMKr0ODN8kaSjbjionHn/g5HGCMK+NSvqSoIx40SFT1zLzW5R7Gz8aBSASw8pbfi29d4YnJSHTPTHhSpulq4qgKQ4Ux/Bas2KiOgAGJgD2l0OlQcnjfXhRwOkQpUHdvjXk5U9QFEBGl7iFJB6281u4+q4SwH1kU=
+	t=1789031700; cv=none; b=H4UNlgseg449sTQnAXugS6GZreLDjIhQXWwL6ZFoZwXys4e6wm5FYm+LCci9G4Nk9Pv62zW0IzMYjZXPnkZxEXfz8d73DuQ1wSyX02mJa+xLAaEvxmdFHglrvYlIIrmt6hADH9Ow+jl6utLhY94chGW5wHGKS/y3d6khOAAsG/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031696; c=relaxed/simple;
-	bh=NRKScEnPh0zPdlf0AwpfifvXkF3txZwkPfUFOR044BU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q157vLInCB75TrkH4KQpYCLI9I/a8DuYECJhd2Dh9PIABp8FRy+Z7rf3d/TLI8NGf+AcaGsAi3elgNRTgo2RWoNlZctCIWD0OyiMVCTbbzF9VLKVSkwsXRqrPlJMQXpPrkyDvMKIpv2qQf7MEgBqX6ArWQjAbbnBkHHWscfuL2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pbGJ+MYZ; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1789031700; c=relaxed/simple;
+	bh=P2OqeAVCWHFS1/46fjXp/GqTmb5OLthjWFq4IcxNSrc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qSVxIr+2K2YGG2JmbP1r7SP1NvFzA1ItXlvxWLALz8a8kzSfwNK/b0FPBJvFBaRTt8T34iQw28JRECPjflxc19iyGgzK4571gXhz1AmRVMezi3ArGevb1O6Z85NjxidzctRn9hSlMxh3uZAgpqlbjdUR7oEiAf9D0/pF9AHXDM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZxnMWR72; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pbGJ+MYZ"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-482e067e908so5304603f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:14:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZxnMWR72"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so1242134f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789031693; x=1789636493; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M4Bwx1DhVI6FUsnbRcI8yiZi82mxSdYhwi0jzDrPMfE=;
-        b=pbGJ+MYZqSXeCbCxdZoTfArzHkOBPnHCD/Cogl5BL1zpbOKh1zAAz9C1IoXQFy3f5Z
-         g4970VGjUkYlUEu7ItdnWUp5SmoZNzkBCd4IY24aygYPgJ/jzNsmWQXEj7aCyFajNg5G
-         +wdLTeTgQshpQcoytCRt+LooPhAmoK90Ir5pHegLYYvANY/2pzbFFJOvG3eqQgwg3LXm
-         /g+PMWgYlP5nFvkAQ97Qgllg5by+weJjGWNsUEP0GtuFf0aHVLYhK9XvqJrxAOEibBoC
-         1JwMPl8HExV2OO1y83oE5WtfreuFaCrqlPz6C589wqnKlaqUqVfaLFkqfr7XKpbUiElM
-         qnbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789031693; x=1789636493;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789031696; x=1789636496; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M4Bwx1DhVI6FUsnbRcI8yiZi82mxSdYhwi0jzDrPMfE=;
-        b=plNDpoullh7XO6AIvZNHnwv4V+sb5WPEbMFCgC5P9E1QN2/N/OIQUUh5jS9bTnOcQL
-         zPMk/dCDbuSPJOab7pPc+v5A8a3ymbeQHxOpoyc1aOuQZeGyTlp8NkNPCCY0C85noXC8
-         MRYIyCR/jUoMr4Q3W7yr3dZF/KcRpx5JXJvFlXcMUyrLMaSqNddwOZt/uftcjQiMnFi2
-         /I51zpkUC//OroC2MqmCw2KQkitjrf047rSnOwCsctf3oLXCptrMyHTlMbSELFN8ZA3b
-         7LZ6wF3iUA5pZNu0IjLA84meycaQSQSQo2vhONbhcKSoKd5E3+Z2O8yqWtrJOp49yY/M
-         j3WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmUJvow5+zRugYM177ykxIFubfzCF4Cdj1DEapbEFan1uojFmVmkKHX6A9csYy8bAX9nJ2nrYOfS6ConA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6s9y7EJNt72HJ3E3FZyY7hu4xW86fPoOq3SkqnW6iCpN+FEf1
-	hUENLQToAI0U1FWoH14yL+8d2EqK7+VpXI0CrSJr6C4PK1IDeum6Jqqj
-X-Gm-Gg: AYBFou1NXogkGl1B/mlE4Yrz2GCvS+8jgXM9SES3/u2vrm7Ls8zEBQlsc7RuUMZ5wUi
-	YwKXALA1wdCCHcRM0yhltp+jl5zYgQCOKj8ttdR4bN2BkLV++dK8ZS/gNG9i6C3wa3IMrV5Tv79
-	NgYiwO/y92NUoZeahhQprqT/DVWTvkcGKwiQXSnhxlTKbFu3rxWU45kfS4UM0S85l7/GQuXLUdN
-	BvwWDD/doOiMYbAq+r0vcZQo5B3y77v3S6UTisITlTNGB5315m0Q32TOA8QKaWIa7VmrQiGMfe1
-	oijhy344ub3Tl2f0UHJ3Flm6jb4HoAwL7craFXkmETRYjD2cj0KLh44+YXI7tLA/LhSfuCR5z7C
-	BpucCHJquXnNivVf/QUAJ9mzRCRwEgOzoPK+Qx1qElmRxAH8CCIl+NkzlLQxq67wJ/+PpD+MvmX
-	bJcI9iKjD5hu9+Hq0KHQMuPQYI94RLUxLgb0pVtvCu810+rGLkF8ZS6W6nxHLIGvfmwHUngS6xE
-	DxzT3pBmoTivw==
-X-Received: by 2002:a5d:5848:0:b0:486:e37d:c58d with SMTP id ffacd0b85a97d-486e37dc646mr2555494f8f.22.1789031692803;
-        Thu, 10 Sep 2026 02:14:52 -0700 (PDT)
+        bh=6N41mPYMtwHJxcU+b3y0AU5P4+rfzOFqefvh/tO1NTI=;
+        b=ZxnMWR72/gX/rO1xUmdhzOYteRXubworPwEIhaY5T7L3lDtJS3N5fXdaNFrj03HNGX
+         qJbxdgZb/HEJwmmBmat9D9zcPX7lQQplVOqKTmMeqyWym3QAIRZYMxMkVZ5l17lpnfCg
+         NoQj+gR3/I2M6HUg6rlLel5Bdgy6T0X2MQsP63mdOewA6vAYmhytBt2LWZ65hraoFpFW
+         sU58eCrpg3qHEWiIfA/yDQHBMpd/22ml8s/Ms4BKLL3qUrZoaCwk+4gGYLjgniJJ1vRh
+         YiGWYhkeJlxTi8Re0LzddI59dTSU38ArAUN0LoKjc2rnyiOWDo8xBqptAMB9RDczCzpS
+         rPgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789031696; x=1789636496;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6N41mPYMtwHJxcU+b3y0AU5P4+rfzOFqefvh/tO1NTI=;
+        b=nfqSVZff5bOTzKm4GqEOFLtneABP0jif7av7ilys/Rr/jONBuXtll/cmsmtHLLFx02
+         wBlxmwAIKTjer6K0uWv7NIhG3SUD9SAkqWySIhVmti4TIVK8QP8PUrmzFbT99Ex7mPGi
+         lzvCJ1WQOdvY9EvcUA4BjSaeQ+1rLSwKfmDe79CoYKgpKZnn7KqcYubxAyvVoJ6a0zux
+         wQAl1eM4YTrinmCqI6HfBMhQQEhgcgi6NQJKD5Mghamp3MBreu1azXedfVbcNu7jHSDa
+         Nrrr8vZK9IXEa2sHitk2RwFLOZTva6ZiKSFHgvwEmu1/XfecqvbaRL1sED2Q8PT2WOoH
+         kZmA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6ICkIjyqGwJzjTeLO4x0H+ZHZDsKzYGKmJ+13nCo45YbkTgL6fWSJwgLB7fr2wh/GJD2niokV9sgFZ0k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIMODWJWMVyRg5I13oiVF8IXOxtNlT8YmYWBMtvNALJ1WsbHLH
+	CGsssSpaz6RCISgBTd1j/4p2ah1Y59y4YCSdSw4og3HMDAwSJjWWTmp2
+X-Gm-Gg: AYBFou1olyPxD4SiD1SNpL+zXUy0ssbbUjRr8Ey9QwiSH7NzLX63vjNCVRsDFKB7PfB
+	VZAHd0gvvDYLJ2ZyWcXWvpmX90AaSv54WExiglPHXXfBQO+Lyca31kQWtUgcwjONc4ZF+64xTsy
+	A9vdRmD28d57KenXb1j/eTJyLQiL8b1QnQ4xEW4pbmYr4fLn8XF9XZaUHq6dDuYfJz0cSzmpdyC
+	/CnK4mR9NMItwt/2L43bZO6FRt33HjCI4TgMsUjjCyvBCJMgEGHKbf2QFkParVm9vK2SpTIxIPn
+	IkRd90p6uEz12ul6q47mMPsTGjQ3znmCDyQe2fNvnZ3bso6VZ/xEl02D1acgSeosji1OYRjjR3e
+	Nw4qaV9fM/IM9yKZJ9SYhWv2LdveLcm0XI0uJvbfEyUB3MuV4WQA+Ca6XQ2Ar6N2VL1Gyo8RFOW
+	64ETDNUKy18bym4kmAEXB48IVtZ5FtF6XC1y/PHIegzIeKzvmVuPjBveFYhdWr1JWHjja2VTs9n
+	lY=
+X-Received: by 2002:a05:6000:38f:b0:482:f0ee:1390 with SMTP id ffacd0b85a97d-485aaddef92mr23597846f8f.22.1789031696449;
+        Thu, 10 Sep 2026 02:14:56 -0700 (PDT)
 Received: from Empers0n ([193.23.219.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm52065435f8f.30.2026.09.10.02.14.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm52065435f8f.30.2026.09.10.02.14.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 02:14:52 -0700 (PDT)
+        Thu, 10 Sep 2026 02:14:55 -0700 (PDT)
 From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -67,10 +69,12 @@ Cc: Henrik Rydberg <rydberg@bitmath.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-Subject: [PATCH v2 0/2] Input: add Synaptics TouchComm I2C touchscreen driver and bindings
-Date: Thu, 10 Sep 2026 16:14:03 +0700
-Message-ID: <20260910091405.354058-1-sevanevorotov29@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: input: touchscreen: add Synaptics S3908 controller
+Date: Thu, 10 Sep 2026 16:14:04 +0700
+Message-ID: <20260910091405.354058-2-sevanevorotov29@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910091405.354058-1-sevanevorotov29@gmail.com>
+References: <20260910091405.354058-1-sevanevorotov29@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,59 +83,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds devicetree schema bindings and an input touchscreen
-driver for Synaptics TouchComm (TCM) generation-1 touchscreen controllers
-connected over I2C, such as the Synaptics S3908 found in the OnePlus 9RT.
+Add devicetree schema binding for the Synaptics S3908 TouchComm
+generation-1 I2C touchscreen controller, found in devices such as
+the OnePlus 9RT.
 
-The S3908 and compatible generation-1 controllers boot autonomously into
-application mode directly out of their embedded flash memory. The driver
-implements communication using the Synaptics TouchComm packet protocol,
-retrieving device identify information and handling reports through a
-threaded interrupt handler.
-
-Features supported:
- - Multi-touch reporting using the input_mt framework (Protocol B)
- - Dynamic touch report layouts and coordinate/pressure decoding
- - Standard touchscreen properties (axis swapping/inversion)
- - Low-power wakeup gestures (double-tap to wake)
- - System suspend / resume with deep sleep transition
- - Regulator and reset GPIO lifecycle management
-
-Changes in v2:
- - Fixed continued-read chunking in syna_recv_message(): accurately track
-   stream bytes including the trailing 0x5a padding byte, request full
-   64-byte I2C chunks (up to 62 stream bytes), and ensure trailing padding
-   is consumed and verified even for 60-byte aligned payloads.
- - Clamped active touch object count in syna_parse_touch_report() to
-   ts->max_objects and guarded offset calculations against integer overflow
-   and OOB access in syna_get_bits().
- - Made regulator power management idempotent with ts->powered flag to
-   prevent unbalanced regulator disable warnings during teardown if
-   hardware recovery fails; power down controller and propagate error code
-   on recovery failure in syna_resume().
- - Removed touchscreen-size-x / touchscreen-size-y overrides from driver
-   and DT binding example, relying on native resolution reported by
-   controller firmware.
- - Documented mutex locking contract on syna_exec_command().
- - Added explanatory comments for ABS_MT_PRESSURE and TOUCH_MAJOR/MINOR
-   default limits.
- - Sorted TOUCHSCREEN_SYNAPTICS_TCM_I2C alphabetically in Kconfig.
- - Fixed commit title casing and checkpatch warnings.
-
-Vsevolod Nevorotov (2):
-  dt-bindings: input: touchscreen: add Synaptics S3908 controller
-  Input: synaptics_tcm_i2c - add Synaptics TouchComm I2C touchscreen
-    driver
-
- .../input/touchscreen/syna,s3908.yaml         |   69 ++
- MAINTAINERS                                   |    7 +
- drivers/input/touchscreen/Kconfig             |   15 +
- drivers/input/touchscreen/Makefile            |    1 +
- drivers/input/touchscreen/synaptics_tcm_i2c.c | 1066 +++++++++++++++++
- 5 files changed, 1158 insertions(+)
+Signed-off-by: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+---
+ .../input/touchscreen/syna,s3908.yaml         | 69 +++++++++++++++++++
+ 1 file changed, 69 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
- create mode 100644 drivers/input/touchscreen/synaptics_tcm_i2c.c
 
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml b/Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
+new file mode 100644
+index 00000000000..68479b0b7d7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/touchscreen/syna,s3908.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synaptics S3908 TouchComm I2C Touchscreen
++
++maintainers:
++  - Vsevolod Nevorotov <sevanevorotov29@gmail.com>
++
++description:
++  Synaptics S3908 is a TouchComm generation-1 touchscreen controller connected
++  over I2C.
++
++allOf:
++  - $ref: touchscreen.yaml#
++
++properties:
++  compatible:
++    const: syna,s3908
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  vdd-supply:
++    description: Core / digital power supply regulator (VDD)
++
++  avdd-supply:
++    description: Analog power supply regulator (AVDD)
++
++  wakeup-source: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - reset-gpios
++  - vdd-supply
++  - avdd-supply
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        touchscreen@4b {
++            compatible = "syna,s3908";
++            reg = <0x4b>;
++            interrupt-parent = <&tlmm>;
++            interrupts = <23 IRQ_TYPE_LEVEL_LOW>;
++            reset-gpios = <&tlmm 22 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&vreg_l3c_3p0>;
++            avdd-supply = <&vreg_l8c_1p8>;
++            wakeup-source;
++        };
++    };
 -- 
 2.55.0
 
