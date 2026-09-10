@@ -1,158 +1,102 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BD231618B;
-	Thu, 10 Sep 2026 01:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90931A6811
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789004027; cv=none; b=PQ7OQdKygSOinUdTbITyUOzC2tJuKTYgwsVJsUq8bzquwEKBtARftycrT/s6i2bw3LObw5NiZzggMkq9eMiipYGDOQZ8q4AhLuqxAfd1/WoiO4oPlv2FThHV6btMoZXurzR61/Kns1VaqimkxxkiHPHHdIw9juxELcVq7Ayo6yc=
+	t=1789004081; cv=none; b=LkfLawykqAWhrfxKwlWq9yA5CIZmR4VnwB5Cx5RkRAkZp62Gx6kIiLYX7etW2bnAhyFJuzrHZAhmzXiWL/o3+x79CTP3ZVDNfkuqHJwrX8Se+pGjXifOxe8rAPOaCmU7c63Ijf8B93YRPq8oQKRtjQV1C/HYdp5ks7yzaC8/vYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789004027; c=relaxed/simple;
-	bh=1upMGiJeLzYtdrPLZ63MwfmHRhcTf7sTr78NB/LK/UQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=OOI0sSr7Kn6NKmoEKRF4yLpudWDnAC9LtNi7iq/OGSbpDL5F+GAkh5opqAWn4WQjXw4MGnmP/F5+jPc3clD1n4MiiSN2kEUmhbpeGc13/3BIp9rNrJleDJUpb8xERdO6VOAUBSttrk0iuSvrMh10yzk5n2Z3YLXiFnO6u7C5O6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=ILqw91Yp; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1789004081; c=relaxed/simple;
+	bh=1Xvq+UeFOACbMD6FikYtCusL0FnxSEvSVl2fjWDdxuY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P3EP/w37GO5Q9ptZBu84UIDMmK2YMXeMifuzrwkmvxm/40m4fo6aeJ3YKAQ2Z6U92trX9zR+wBUkaDeKSvHJxXfKo3ROG+qaLxdUdapoc+FCd/ApuRIvYRLhYf2pE2A8FtCi8N3+3IFOXolvGoKLULJa1sx7etBIwY71GKrGXGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MIo4OiTb; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="ILqw91Yp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789003960;
-	bh=JRLAWTIhqaaecsAukWfEk30ICvbbdNAr1t0TIDEE89s=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=ILqw91YpOSY14+c8I7VK8ruo6YRhT7Am77O0aUoQRK3PGTB4zzQ9nAg9i6CT12w2T
-	 1S8+BNAVnCpA8jyIuMt2kQcIQkmXXcYS3fuKZCsC+3hl5Rd8GgtRypSV+IHTZb590q
-	 lDgZxKgJHfc1spEpNMTtcndXAfrhvU9Ld5+zYZo8=
-X-QQ-mid: esmtpgz15t1789003953t3e8991ed
-X-QQ-Originating-IP: e+6YXafASxPf1eSSOf6GAwmVakYdPq8Bw8GPT1vxgas=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 09:32:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 11798593259033511261
-EX-QQ-RecipientCnt: 20
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MIo4OiTb"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D7F3040E00B9;
+	Thu, 10 Sep 2026 01:34:36 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id sziD0aMq6eqH; Thu, 10 Sep 2026 01:34:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789004055; bh=g1owsa3i2u7oPerTIrH3fxCOkucuCFo92voW+waLK28=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MIo4OiTbfuP2AReGC7xi/S9liHKnRIu2T5Vt9u4litmVUw+sM4Rpzm8BkmBiNOB8e
+	 hRdgd0p8L+SPwriDiFJ4hPNMNb6iWtcxwK1cXxjmufLyYLfJ9EXs1Ng9bxnUJuAsyO
+	 qibRsa6rUZYhtk7z1cFtlN2tA3fox3frM37G+lXz2pmtT1lMZYKWQ46mP0AoA4f5Lu
+	 5NFZ7PWqMvjDc+4OVEEIb1NFLrj1+g8lJgTeLkh0IC/7p5XhA/ZnpaBK6Sm2saSbIu
+	 /sWdrWLbmjR9YUGtuJ4mQgXk0fkX0UNII75s8sgJ9tRSQmQbUNUc0zJvdLq1htaRa8
+	 GrngbUEdCTYlVOa/7gjmn71tC/K9gzUjvmfswaBJQG3oUWOpL/n7mgS61ukZxx6/w7
+	 GMhSsrRQIbTNYZhnuJeaBm9zYeIZYpqEd2Qt+2AFPZ9NFRDs0h8wD/RcwN9J/RpPxn
+	 D66lARgirfxRmAx8Ey4NdzG0oPaJ6AGAvvrsUgFHA5I238j5ZPJ1OsqrbsfqcMDv4T
+	 3jXSSRorbmmbizNh9AAKm41MvyuXqdkR8sWxtMJNb2rB3T1MpqZd07em2+Sy67ZzYY
+	 hJ/rQlOmXxom1TSC7X/G8fzIO8Gw/x4Ksu3LmgfvIOrAqQq/liYY8qBjPcKwmLOEtF
+	 T8KREOJYcmD84/pJOP6cDcJU=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6528140E0320;
+	Thu, 10 Sep 2026 01:34:10 +0000 (UTC)
+Date: Wed, 9 Sep 2026 18:34:07 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Melody Wang <huibo.wang@amd.com>, g
+Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH v1 6/8] x86/sev: Register the guest with the SVSM APIC
+ protocol
+Message-ID: <20260910013407.GCaqIJD0YlUCYaPHQN@fat_crate.local>
+References: <cover.1787973545.git.huibo.wang@amd.com>
+ <10ac277c26ad416d480e5c9ebfb89eedd4bd5b95.1787973545.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=11bbd86e82698157b531ee79da7e296696d006f746390c3a0d4a79aa529a;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 10 Sep 2026 09:32:28 +0800
-Message-Id: <DLB8Z04I9AJ5.14D1ET3LMEICL@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Liam Girdwood"
- <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, "Jaroslav Kysela"
- <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>, "Yixun Lan"
- <dlan@kernel.org>, "Jinmei Wei" <weijinmei@linux.spacemit.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>
-Cc: <linux-sound@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Arnd Bergmann" <arnd@arndb.de>
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260910-kx-i2s-dts-v2-1-91f5376c899d@linux.spacemit.com>
- <20260909172639.BCDE91F000FF@smtp.kernel.org>
-In-Reply-To: <20260909172639.BCDE91F000FF@smtp.kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NwZEY09ZZGEZVvqf8+YezEAmM5w3WON858kCV+075xnJtCMxOzbXSBlq
-	yqTq2sJ1xcR802fNLAUOVHhMYcQlsWLqIy2z7x9UD1Zc3hx/ofGmS9FNlWt/oOoPvLo/8xO
-	SaX1fmnY2r7HCGU/l8KVYmOAb7wU8hfdRVUBqxEZ+9ncVdkWTIXqPjM/bZS+Q5SjuQIH1iA
-	N7uKC5xQlv2C8hSidNKXHD/KjTzwyrE1xvquwnV/JM+fjEhmuVsowvYAgsjSE/rGAGtY8hf
-	uBDRKTVnBUnmLl6FLf5xVw6KQKwPYbEqLoCBKMqQGHzcOFfwX+kqDC1F9iOFhdihl7dhASv
-	C10ujbWeT/2r9M9asl3DblFWHYSz6W6HDlMGdwmfAhAXbMGcqPjqaX1z7FW0P+FQfia404P
-	PI8K/4wqj1eOgsEkb3c61nw1UTnVPE3aCvt1/IVBECeu31l8z5DIhzqpUS9P/Zi1ur0dJ3i
-	umYWf3iH8Ugr7vypSsu/wDs1UPOaiHBHwdBlMk/77Bmcsa9UhJ6aX367NZFAUF/GCVs2OIZ
-	82Ic/q6Sbx1QRinOdGd6TxZCAcT5K5jbVcS/0c17skiZAS+yLpONik4k86J9m0lwdYyqFfp
-	KnLBU7r29s26S0Dgg3nvQp+rD8YjKiMVeh//ddvxybjlLuvYX0GIV/3BdqHpk9M1pQk2heK
-	4KerA4UU5MSx1PQ0vkoYdBBMHeLE+voTo24UR8LDWI52RIb0PI64TuySpuXLiZe2XoXk5X5
-	zdyIZXrm6cEp516N/U/INu3228f2H9PNKi/mJKSsFtIQNqUC/QbQ/nHRgTPYujs7aaPLvp6
-	ZSjScuOshIpI+9Anw0pBu1J/3pE8FqhcbdkSgKb6Mj3SUS1ZbXix95U/F/EYm1xXle4lDxz
-	8yFq+w7Vy4j/GTCeSE0c5rCXK7eeRZkIP9/b9xtnZXJxOzEmdWpqxxWs1OJks18jiEosxmB
-	1XwiOduVvGN4G4AhjJAqsa74s/BVyQhuzhCs8+0rtH6oBJiVt8LRhmkbddo6uDQuTq6cYK7
-	JdDuTmbqzcWxK1qnTMvchhF7T414zMOXq1YFOuV4TbGP3V/xKXa89oGeG13SVJMxETX31HB
-	yc6IfAOOATC5G7zwkxzhWqe6cwk0XIbdwluooxwh3pdelAKeWjYR/DVXj1jNQCclg==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <10ac277c26ad416d480e5c9ebfb89eedd4bd5b95.1787973545.git.huibo.wang@amd.com>
 
---11bbd86e82698157b531ee79da7e296696d006f746390c3a0d4a79aa529a
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Sat, Aug 29, 2026 at 03:39:44AM +0000, Melody Wang wrote:
+> @@ -520,5 +520,22 @@ bool sev_prepare(void)
+>  		return true;
+>  	}
+>  
+> +	/* Register Alternate Injection */
+> +	if (early_is_sevsnp_guest() && snp_vmpl) {
+> +		struct svsm_call call = {};
+> +		int ret;
+> +
+> +		if (!(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
+> +			return 0;
 
+Function is a bool - this needs to be
 
-On Thu Sep 10, 2026 at 1:26 AM +08, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] The newly added I2S device tree nodes use hardcoded magic numbers=
- for DMA channels instead of the available hardware macros from `k3-pdma.h`=
-.
-> --
->
-> commit 8163a94c4a6b08c0fea00752b0853d3f434a12d1
-> Author: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->
-> riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
->
-> Add the six SSPA-based I2S controller nodes for the K3 SoC.
-> i2s0 and i2s2-i2s5 each have a dedicated per-controller sysclk
-> divider, so they use the published 7-clock layout.
->
-> Link: https://lore.kernel.org/all/20260721-kx-i2s-dts-v1-0-d22cb6cfaab5@l=
-inux.spacemit.com/
->
->> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/=
-spacemit/k3.dtsi
->> index c3f2dce0969c0..f2ff9f02249c3 100644
->> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
->> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
->
-> [ ... ]
->
->> @@ -1140,6 +1140,85 @@ uart10: serial@d401f000 {
->>  			status =3D "disabled";
->>  		};
->> =20
->> +		i2s0: i2s@d4026000 {
->> +			compatible =3D "spacemit,k3-i2s";
->> +			reg =3D <0x0 0xd4026000 0x0 0x30>;
->> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S0_SYSCLK>,
->> +				 <&syscon_apbc CLK_APBC_I2S0_BCLK>,
->> +				 <&syscon_apbc CLK_APBC_I2S0_BUS>,
->> +				 <&syscon_apbc CLK_APBC_I2S0>,
->> +				 <&syscon_mpmu CLK_MPMU_I2S0_SYSCLK_DIV>,
->> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
->> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
->> +			clock-names =3D "sysclk", "bclk", "bus", "func",
->> +				      "sysclk_div", "c_sysclk", "c_bclk";
->> +			dmas =3D <&pdma 21>, <&pdma 22>;
->
-> [Severity: Low]
-> Could this use the available hardware macros from k3-pdma.h instead of
-> hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA0_TX>,
-> <&pdma K3_PDMA_SSPA0_RX>?
-Yes, will fix in the next version.
+			return false;
 
+> +
+> +		call.caa = (struct svsm_ca *)boot_svsm_caa_pa;
+> +		call.rax = SVSM_APIC_CALL(SVSM_APIC_CONFIG_EMULATION);
+> +		call.rcx = SVSM_AI_REGISTER;
+> +
+> +		ret = svsm_call_msr_protocol(&call);
+> +		if (ret)
+> +			sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
+> +	}
+> +
+>  	return false;
+>  }
 
---=20
-Troy Mitchell
+-- 
+Regards/Gruss,
+    Boris.
 
-
---11bbd86e82698157b531ee79da7e296696d006f746390c3a0d4a79aa529a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqIIrA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvKIoBALwKLoo7uuF39mKvybSqI95DC3y1EIi91MJWsMzL
-lcWYAP98Y3nrDXnshzSwNi8LYPiY6ALW3eKvkhvPGtofCXnNAQ==
-=1jI+
------END PGP SIGNATURE-----
-
---11bbd86e82698157b531ee79da7e296696d006f746390c3a0d4a79aa529a--
+https://people.kernel.org/tglx/notes-about-netiquette
