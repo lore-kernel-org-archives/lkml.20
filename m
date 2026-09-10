@@ -1,41 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-194.mta0.migadu.com [91.218.175.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F613C3F6B;
-	Thu, 10 Sep 2026 08:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77703C3F6B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027607; cv=none; b=h5rFW0Y8RFX5vyU8QzAcG9PxF4VrnJVIkCxx2Rq6Wi1pBrRVEfQyGYEf7C3ZYV1NQcmaxj1sSNA5CNzVwGgiV/I0CeIkjWf2m7h/letxdYNtpmkKh5PbeTPhV0sRzZENPjytQzwFZ/RZo6QQzoKUnf+apLDJGRupNeNE4qLPd8A=
+	t=1789027642; cv=none; b=o+UHit6VfE/l0tJPqae8CFJ7lU2ZqutR8Chnlr2ejfVMf9ykP+sOEPdc2ZhnewWjDuWFW7TChOwye/mNM9W2CG8c1lTUQwsj0YpFU3gkoFKh0dqxD6wHM2BeHaVVpmZaxmSf3QedT46oSslkcOXfl89WK6+/cofRPa49zQQE24Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027607; c=relaxed/simple;
-	bh=s6pDXbQJ6bGpQKjRB3mirKnQVFqVsz5oxlx5PscAV40=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=YLBs5dh7mKv0RgTmf45oOznE/jA3nfzx8BatU98P+Vn5DVyCTsgUYHrIbiERuJAcb/YX9oKRVE6USshtzOk1i3u2aQulRpI9BPwnekASt9OznbO5BR2iv5yVniT5kNSXE0fHvI5ZCoSdrpMfJGvSl5g0fH8vhlAiR4dp0neAPCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bw+eji8N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789027642; c=relaxed/simple;
+	bh=RNsmLPwonwNvXWmvwdyUuCmNIqO0zcfuzsQ6a72c5uA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hKZH7eEqgbOJysFW3I5ZF7dLViMPhsQVfo2+GleFTDy/cELuf6tgFeNB57dYwshOTskFlAW8FYKzay8DJ1jn2EBD1BgvxHRDnEX9YBjOC2mf5yLs26E3TGJSc7WzL2MFem6qmSP8byGhNlk4plivemTiRyrjSOEONJcv5+W4GOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UR3ShMZT; arc=none smtp.client-ip=91.218.175.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bw+eji8N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68DC41F000FF;
-	Thu, 10 Sep 2026 08:06:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789027605;
-	bh=32sl6fctNK9b8HPuCgPO2C1sDy28MMssNMfhX+6wjj4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Bw+eji8N7oQSjfpaG0nmvLhUK8XckDDNYR0SvXx6mqLSS+e6+2P7c+FlJzmisgXuN
-	 5Ew2R2I5fdh2PiwoQ3TuNsim8WxmkikMTDxxO1pzWgwuwSgaewEUTSFA4lk1PUkSDX
-	 AuAp/JWreAF+BkfEt9BhulKAPqLOMpsFj0FZ1vjKApoi4BOZWt6+FwJrTy/ty5ZDjR
-	 TlyB8KUEWirxn0rgjk7nJnjDYhLWPhVUlApbv5D+WnkbOgdOgbEA2q5AHVRlBn4B8/
-	 sHfLUqSEWinsZ1AKaVFokRh/dZWi88Eqpp8yGlc6G2lsM+zxldRO8LccuD59TPI0xt
-	 QcPnAqZwJr0/g==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Benjamin LaHaise <bcrl@kvack.org>, Hemanth Selam <hemanth.selam@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-aio@kvack.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260907063252.21433-1-hemanth.selam@gmail.com>
-References: <20260907063252.21433-1-hemanth.selam@gmail.com>
-Subject: Re: [PATCH] fs: fix typos in comments
-Message-Id: <20260910-vorverlegen-eisbahn-operieren-7a15d9717bcd@brauner>
-Date: Thu, 10 Sep 2026 10:06:39 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UR3ShMZT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RNsmLPwonwNvXWmvwdyUuCmNIqO0zcfuzsQ6a72c5uA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789027634; v=1; x=1789632434;
+ b=UR3ShMZT/lLmRhfgwNzLasLRXoe/rCii7Og3IXCumvSCxti/TT6JxZ3mxTybw5+fBTB5SEeB
+ jU7LIDZozLpomb+nuSSrboBEgMufdLdv3U4panC4MCHcV5o2kgP7atMesxYms2MHWdnZdv/H+C4
+ A2sQV3YLqFGdO3iwlbXRxxzE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7030ea7761e91a2c;
+	Thu, 10 Sep 2026 08:07:14 +0000
+X-Mizu-Trace-ID: 7030ea7761e91a2c
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Thu, 10 Sep 2026 16:06:58 +0800
+Subject: [PATCH net-next] selftests: netdevsim: add TEST_INCLUDES to
+ Makefile
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,34 +40,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=836; i=brauner@kernel.org;
- h=from:subject:message-id; bh=s6pDXbQJ6bGpQKjRB3mirKnQVFqVsz5oxlx5PscAV40=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQtShUK8/XR1U8pn81rFluy/4F3UZnJrsqnl350f7cU9
- jlYnlnWUcrCIMbFICumyOLQbhIut5ynYrNRpgbMHFYmkCEMXJwCMBERJkaGma+q5tmrNRdfmW9r
- nhN74eiPvswps5fe38qx/V9s5XrZxQx/+E75SG1ZrxHl+8ZyQaK26T5eQwddvmvWzi9375+woGM
- BLwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Message-Id: <20260910-nsim_lib-v1-1-0be0d49eaa42@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAMAxA0atI1hZqcb6KiHSIGtAorYhQvLvF5
+ YPPjxDQEwboswgebwp0cEKRZ2BXzQsKcsmgpKplV0jBgfZpIyPKtrOu0maWTQkpPz3O9PyrARg
+ vwfhcML7vBy7FUu9kAAAA
+X-Change-ID: 20260910-nsim_lib-489cd5abf074
+To: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-On Mon, 07 Sep 2026 12:02:52 +0530, Hemanth Selam wrote:
-> fs: fix typos in comments
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Some netdevsim selftests source forwarding/lib.sh and other files, but
+the Makefile doesn't have TEST_INCLUDES targets, which makes
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+  make INSTALL_PATH=/tmp/kself TARGETS=drivers/net/netdevsim \
+     -C tools/testing/selftests install
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+failed to install related lib files. Add TEST_INCLUDES to the Makefile
+to install the dependencies.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+As there are multi nsim selftests include the lib.sh but no error report
+for the installation issue. So I won't bother fixes tags and just post
+this patch to net-next.
+---
+ tools/testing/selftests/drivers/net/netdevsim/Makefile | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
+diff --git a/tools/testing/selftests/drivers/net/netdevsim/Makefile b/tools/testing/selftests/drivers/net/netdevsim/Makefile
+index 9808c2fbae9e..bb90fe89d9a1 100644
+--- a/tools/testing/selftests/drivers/net/netdevsim/Makefile
++++ b/tools/testing/selftests/drivers/net/netdevsim/Makefile
+@@ -22,4 +22,12 @@ TEST_FILES := \
+ 	ethtool-common.sh
+ # end of TEST_FILES
+ 
++TEST_INCLUDES := \
++	$(wildcard ../../../net/lib/sh/*.sh) \
++	../../../net/forwarding/devlink_lib.sh \
++	../../../net/forwarding/fib_offload_lib.sh \
++	../../../net/forwarding/lib.sh \
++	../../../net/lib.sh \
++# end of TEST_INCLUDES
++
+ include ../../../lib.mk
 
-[1/1] fs: fix typos in comments
-      https://git.kernel.org/vfs/vfs/c/21a62663d473
+---
+base-commit: 63487bb38a97918656751a2a4b74809bbe22eacb
+change-id: 20260910-nsim_lib-489cd5abf074
+
+Best regards,
+-- 
+Hangbin Liu <liuhangbin@kylinos.cn>
 
