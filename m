@@ -1,128 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C26F493D3D;
-	Thu, 10 Sep 2026 14:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42518493D36
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050536; cv=none; b=eWiAFgR1htiavLqhnRTJH4QrnCrJ0qxquuFF3wuvlMrqeTHx4KxjN35z2gNbet4Oog89Ng8uzc+dOky/74+jHZG1vs7nfhqBs5RG8NEAbt6eDnFgurO3JVbgjIsdrwOgPop/kR4R5ADoMevYWNQnsljTEhlaYHMncd9R1jQwBq8=
+	t=1789050546; cv=none; b=nA7f7cpSql88zSS4fXxQdSI4nmJJeYs6aNCWa50i2EGMpdrR2jTbYcrHIvk/zeQjmQKTuRv4NYjZP0BzT8fEg2i9CYZk3C08wyK7wqpkjnRnqiBtn7yL/KDnr7lyczc9BvrU5hG2xhiCN8bBVEY/i93AE2s7GJ6dUkVZ8VCxQEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050536; c=relaxed/simple;
-	bh=Vs4wjfHszeZkCmfK7zEffUP85vyI8R7s0ImJGwV3oe0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jpsgrlXdJ+UjQ3Ll7FFXgw+4rXWCcBHKIvsZDiYfyJqfZqvzhPT0MZlFF5bMqhidMYASqCROpi4FZTd4V5Q8pvW/l7FJwASDMpByed/HNukxQAYsmD6w6pUrmW9X1IpMrvUZUlFP3tJw76PLmd/Lh53fAaxe3HippZbhrj75PeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USlad1nL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789050546; c=relaxed/simple;
+	bh=lyspu3aOKLbIRf5XENbtCVfMBm8FA06IHpc+MnfQ5hI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qb66w7eZdIPzgYNiysWlUft6fFtJQ6QX/hvhOPOlH0+uwwW13YEZ7FpuCbUUZ712PztzZ2RvoLwrG9wVJV1n+caPEvosfqT5APz3X9Y2MsN6RoN6TqiVEvWtnHgUHhvBkDa8tni5JCbfWMnq1FISqF7DValZKztE0usnQWuWeAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qc3FFWC1; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USlad1nL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3E81F000FF;
-	Thu, 10 Sep 2026 14:28:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050535;
-	bh=SW8evpy02DamdqiEXgaSrgnCDzWYzeYmnUuButPjW68=;
-	h=From:To:Cc:Subject:Date;
-	b=USlad1nLJGBwm1TYjCXfWCjFwVc1+yp1yNfaYzaZ2UJTL28VarH9mHjDofJ5U7qdV
-	 yWXTkCa/SzEwXLxakf5RFyH7CY7LMTIHvqcYDuegGK7bfn2gk5RbIrWbJEo9S+wlkd
-	 4duC0LuhDN3UJH7DgtLTMNm6efHvoqmzIXtCsqlV2EJuoGTzpQS86cY4/CWCYDea6d
-	 ALvqaZeSwbE/JQCTCzbYz5E37L/ffg3v3krMg/iF9/p7ZHnAVlAdiMfLGYCJZ6QNLE
-	 Pq/2/bKG+mVUCkVR6sQrTfozCGq9RpnpEmVOl5r9zVu8w+8v+y1JYxog7C4jwqlGfq
-	 6qqXOstwzJBPg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Enze Li <lienze@kylinos.cn>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2] mm/damon/core: reset invalid quota->charge_target_from
-Date: Thu, 10 Sep 2026 07:28:45 -0700
-Message-ID: <20260910142846.172957-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qc3FFWC1"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so230261cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:29:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789050544; x=1789655344; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U4B0H2819dU8lEDJ1XLSE6/+8p+h2NlR6cCuK8RNsxY=;
+        b=qc3FFWC1HUyyNzEFobjj3oObW2yalxpGDLwSNwVqvxnC+LCUUB5Jxgz4YtcUGtFup+
+         TdHK9PVo4tC/e3RRo55grkhz4e90w6I6u1c0NYheGeJbhpf3U0ed6HjIQiacYLZICGtH
+         XCan3FkoqktWHhkJqMebIhxGthTtZZnf8IxvzqqBdYT1y5ccky/gIDBzqmR9EX0XKOZB
+         n40tbkHmdfcc7PX1vYgrwxEbUCZo8jBrvrVLDG0WOGiMt7W49w6mVaISePsQRM81/Wkr
+         rtVTl/69Q8aYD/t+OcJUpyjp8UELv+wA1xsT97i709w3/TFOJ1YZkGth6/hrnJLUE6nX
+         xZQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789050544; x=1789655344;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U4B0H2819dU8lEDJ1XLSE6/+8p+h2NlR6cCuK8RNsxY=;
+        b=XFA/ktpdeEp6vVUQoWcgwqcFnjqKVD+J7wbOZulYrB6NjvqnkDQFT0sPGPQGliaxIZ
+         HdHFjsxW7czQDl9i2LnnMBN+6/aInpd7Imf2yZPOd2GOiEjjKRUimfwkmIjdBofoqGCB
+         Jz/dEP9kItU4vpF/VZOVcchk8ab87sOAQ7shuYpF51CbUguM0ZoeotYeH/cDVNKSnL/U
+         IRFXntMX4LZHxwoCpy6pPP+o1YnTbeAZ3ra46ZQmgBxEbhTF+F4IgKb/bqfXJgNok18g
+         ZjNYupaSQkw89VTijbuL/BYgZuZKmcYHSuVX/ToYLjGQnk9mlt/Sv6jisahwsTuJYVoW
+         ryrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDdbAgHJktyYDL0gwHFnb1JyqcG6Iry5jkbbuhLcd1HWcYCr/Wl2g1uLJmMYxGG/K1HNjdx5f8zDVLsP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcU/rv7FMCbXnhvMEfOBvtsnLhsC1oKhonCSRYj5HZFL+sPeRS
+	MoFxGuJrOq9fDHd25QhOH0lpN6thneXuMVC30Ms/wNBFjYVbtE9GVx0QXtGNFKtN0g==
+X-Gm-Gg: AYBFou1SzLD1uo3VZhQUVSIb8HneODxdvurRVwmizCyzSiAzBKHPfbvFeQG3dQaYgmi
+	dn7kkofUQXDH5dPC1VoybJmW3o5z8jtUb7FOb0di53uR1gDECua+fXa2/VxbCjCQq7moqBjANKZ
+	D7PNmm7BPg2+DzP0FlsC1Iq6T8BVcN52jhs+N3J/tHWZtHqc+8Ybpe2DBTeXhe87EGNvmrvVDkL
+	3dvP4kz/MrMAI/vDafuQvbWW2QcMibEedI/MGKjMB+MDc8kmJ6mwDPhlMVpdxo0rKf9zZwZDxcI
+	zrgdLfyWBcCm4QwxYygBUJmWqDO7w0yTlqPDnnx9smtRix2UP/h776yUszZWrcgiz9Hvq2QpKeU
+	/nxCWzg2YdzywSWwYhutOf/Cb1G51ZFNeMbr07bCbjbqyHq7gr2y/NHQMqzgVSn2WNX9pZHdfm0
+	BnVit8ZNJBciB99HZyE5Dui7o9K+JaLBgccwxRxVMjEtHJA5D8gPKbs8SZHpPFYAVz4wpDR2+aS
+	5/L9HXxaN2qT3TYCOCBzxWDEnIbMjbwg3Z2eHEKzUgceq8=
+X-Received: by 2002:ac8:5cd6:0:b0:530:2f98:cebb with SMTP id d75a77b69052e-530b62fb6a3mr16703951cf.11.1789050543398;
+        Thu, 10 Sep 2026 07:29:03 -0700 (PDT)
+Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6bebe8d3f3fsm3196267eaf.10.2026.09.10.07.29.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:29:03 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:28:57 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Vasant Hegde <vasant.hegde@amd.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, iommu@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Ankit Soni <ankit.soni@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>, sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] iommu/amd: Fix DTE clearing and rename
+ iommu_ignore_device()
+Message-ID: <aqK-qfJ0x8-RLMgT@google.com>
+References: <ao3oHn8HiXIx5Wrl@google.com>
+ <50ffc453-f918-47f8-9556-9813308690a9@amd.com>
+ <20260826122147.GA3666382@nvidia.com>
+ <bfb7be5b-2da3-4bd3-8146-9bd079011a75@amd.com>
+ <20260828115331.GC3922654@nvidia.com>
+ <399db967-050d-48dc-afb5-5c77ee9cce65@amd.com>
+ <20260904142547.GU4157646@nvidia.com>
+ <9be08ef1-7ae0-483a-938e-17e606b5d214@amd.com>
+ <aqK04hq575iwY5BR@google.com>
+ <cb98a268-c709-4489-981a-07d662a1f4da@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cb98a268-c709-4489-981a-07d662a1f4da@amd.com>
 
-DAMOS can suddenly stop working if a target process that the quota is
-just fully charged on is terminated.  Fix by catching and processing the
-corner case.
+On Thu, Sep 10, 2026 at 07:45:01PM +0530, Vasant Hegde wrote:
+> 
+> 
+> On 9/10/2026 7:17 PM, Pranjal Shrivastava wrote:
+> > On Thu, Sep 10, 2026 at 05:25:25PM +0530, Vasant Hegde wrote:
+> >>
+> >>
+> >> On 9/4/2026 7:55 PM, Jason Gunthorpe wrote:
+> >>> On Fri, Sep 04, 2026 at 03:43:01PM +0530, Vasant Hegde wrote:
+> >>>> Jason,
+> >>>>
+> >>>>
 
-When DAMOS quota is fully charged, the target and the region to continue
-applying the action in the next round is saved in
-damos_quota->charge_{target,addr}_from.  In the next round, DAMOS
-iterates targets and regions from the beginning.  It skips applying the
-action to the regions until it visits and skips the saved target/region.
+[...]
 
-Virtual address space targets become invalid if the process is
-terminated.  Trying to apply the scheme to invalid target is just a
-waste of time.  Hence commit 6e4930e33329 ("mm/damon/core: fix wasteful
-CPU calls by skipping non-existent targets") made the logic to skip
-invalid targets.  However, it does skip before the charged target/region
-skipping/updating.
+> >>>>
+> >>>> During boot, it sets certain default values includ dte.v. It doesn't
+> >>>> clear everything.
+> >>>
+> >>> ?? It starts out with a 0 DTE table? There is no inherited DTE table
+> >>> except for kdump.
+> >>>
+> >>>> May be we should just remove ignore_device() completely? as
+> >>>>   - normal boot, its not yet configured, so no DMA is allowed
+> >>>>   - kdump boot, old DTE is still valid and let it continue?
+> >>>
+> >>> Yes, that makes alot more sense to me.
+> >>
+> >> Ack. @Pranjal, Can you fixup and send v4?
 
-Let's suppose the user runs DAMOS for multiple virtual address spaces
-with a quota.  The quota exceeded in the middle of a virtual address
-space.  And the process of the address space is terminated.  Then the
-charge_target_from points to the invalid target.  The pointer update
-logic is skipped for the invalid target, so the charge_target_from is
-never updated.  DAMOS action to every target/region is skipped.  From
-the user's perspective, it would look like suddenly DAMOS has stopped
-working.
+[...]
 
-No critical leak or crash can happen.  The user could reinstall the
-scheme.  But this makes use of DAMOS under certain setups quite
-unreliable.
+> >>
+> >> Yeah. One of the cleanup patch missed to update below comment.
+> >>
+> >>>
+> >>>         /*
+> >>>          * Order is important here to make sure any unity map requirements are
+> >>>          * fulfilled. The unity mappings are created and written to the device
+> >>>          * table during the iommu_init_pci() call.
+> >>>          *
+> >>>          * After that we call init_device_table_dma() to make sure any
+> >>>          * uninitialized DTE will block DMA, and in the end we flush the caches
+> >>>          * of all IOMMUs to make sure the changes to the device table are
+> >>>          * active.
+> >>>          */
+> >>>         for_each_pci_segment(pci_seg)
+> >>>                 init_device_table_dma(pci_seg);
+> >>>
+> >>> The DTE starts out with blocking because it starts out as 0. This
+> >>> isn't making the DTE blocking, it is doing something else. And it is
+> >>> very suspicious and racey looking to me.
+> >>
+> >> IIRC there were some requirement to keep V bit ON. Otherwise I don't see why we
+> >> should set and flush the dte here. Let me dig the details.
+> >>
+> > 
+> > Should I also update the comment in this series? (It seems less relevant
+> > to the ATS stuff)
+> 
+> I'd say lets do that as separate patch. For now lets get this series finalized.
 
-When the invalid target is found, further check the corner case and
-reset the pointer.
+Ack. Sent out: https://lore.kernel.org/all/20260910142655.3281464-1-praan@google.com/
 
-This issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260830064708.40CA61F000E9@smtp.kernel.org
-
-Fixes: 6e4930e33329 ("mm/damon/core: fix wasteful CPU calls by skipping non-existent targets")
-Cc: <stable@vger.kernel.org> # 7.0.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from RFC v2
-- RFC v2: https://lore.kernel.org/20260908144246.104162-1-sj@kernel.org
-- Drop RFC tag again.
-Changes from v1
-- v1: https://lore.kernel.org/20260907165529.98874-1-sj@kernel.org
-- Move the corner case check to invalid target found case, to handle
-  dynamic quota uninstall case.
-- Add RFC tag again.
-Changes from RFC v1
-- RFC v1: https://lore.kernel.org/20260906183654.95634-1-sj@kernel.org
-- Drop RFC tag.
-
- mm/damon/core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 645cb367019ae..06cf2ab7e97d7 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3393,8 +3393,15 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
- 	max_region_sz = damon_region_sz_limit(c);
- 	mutex_lock(&c->walk_control_lock);
- 	damon_for_each_target(t, c) {
--		if (c->ops.target_valid && c->ops.target_valid(t) == false)
-+		if (c->ops.target_valid && c->ops.target_valid(t) == false) {
-+			damon_for_each_scheme(s, c) {
-+				if (s->quota.charge_target_from != t)
-+					continue;
-+				s->quota.charge_target_from = NULL;
-+				s->quota.charge_addr_from = 0;
-+			}
- 			continue;
-+		}
- 		damos_apply_target(c, t, max_region_sz);
- 	}
- 
-
-base-commit: bd699d8a4388cda037f01797294c834fb422ebe6
--- 
-2.47.3
+Thanks,
+Praan
