@@ -1,264 +1,262 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9F3379C34
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012367; cv=fail; b=WQrn3V8A+Yl1eXApzJSJLrU2y13IRT3+uGkeEE1tXoQrpTVSR6UhjuRzYkCM9V14DIwH8tZogrnKwPw54xjUDL1gJ0RI84tHvfVB7TN2vsY0MJ4TYrGaGjf6EYY5C5fu1SW1A5jOsiN97OnT6Xtl3WFiGOAdM1GKoG3KO+N9sFU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012367; c=relaxed/simple;
-	bh=0ekgyaC8ZvKxXSBrjaakcnRjy4Piq8RX/SSYRfZmhmc=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=k0wm5QEP7Dhld+DGZ1jxyYhdlbgolC9voJkZQ2qg7ZhJYwrJheyLPzfvve9k1i+9TapFfq+IQGdQSMQZnkmAthnfutLHjP+jY6Q6TPSYdHakya1JBMDvDypwevQnwW6avMK6uDXKC8ucQL0n0YyxNvb9PtluB6sHXeH2VOl9r2w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aVxtgEA+; arc=fail smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505B837F73D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789012467; cv=none; b=ewEA+FFqSPUUwyjKDvSjisBfhDKcYvcOKeuvAbAXdLtEtalgA68dZ6UGsb4j8zy7PriW9/lYEgH/IxjF4cBH/ZsVTDVbJ6phM7eAdSMVfhO45XpNNfkkE6xe8xWb2FSEt2ylpHnLe6MPWsvHFDoB3bl5TvEgj0yCVya+aQgWz9M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789012467; c=relaxed/simple;
+	bh=d/AtSbK/FrcKXUPP17SvF9Q6aAL31yz8d1rOrT0WoAE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=H105P7UijWqY7WJty3p18afqwsQjh5Ogjhqj7dIpQ68r4HjKQgGs5+SmPCEC/PGFqE+k9qgQQ5tmyFP7eOtybAizy2DC4NWB0cwrjKxvhJADEN/b3PHB/F6oEO94eN4uSAWCmgQxrJlwzG05CZ4kBFSmnNAuYHPoqLdvPdXjavs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jJeI8K+/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TVyaaYq+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aVxtgEA+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789012366; x=1820548366;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=0ekgyaC8ZvKxXSBrjaakcnRjy4Piq8RX/SSYRfZmhmc=;
-  b=aVxtgEA+/84J2IffDnpsCRg595Fc5k3UdfYedwH5h2L3sQYRn4+/p7un
-   7PYL9hb+7Myl8MCTnoWeFG/mYqS62CLNcQkIC+8oUWsH45xV5Vabl17dU
-   EgUiGDPlMGykPxPmWNpUpjuncAV0H4yJGgPu0AMmlL6zA3oBi8Cd/ikET
-   IP6y+6XrUnxWc8d+GRgi6+i0Gq2iFDB4dcTnYLiAb+NVvaXibJneD2kqy
-   IgoXzC4E1HucvXM4OpnwQ1dr0cHudwEm5kFeiYhHxOvH2CAFVhvx27h8q
-   0AJ1L1sOH9NDe/TUj13eJAlnG2onnd+tQZXwXeHS5NFACRdhQKoqfcl4f
-   g==;
-X-CSE-ConnectionGUID: sZf83uLHRcmLpGGkGCWNVA==
-X-CSE-MsgGUID: BoRPFPGVQBCyfxtGPZ8s0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106822006"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="106822006"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:52:45 -0700
-X-CSE-ConnectionGUID: 8GCG3eHUR9WpVk6EWc1ZLw==
-X-CSE-MsgGUID: EBnTmZPCR4GTdM7ugZbgPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="276754752"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:52:44 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:52:44 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:52:44 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.66) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:52:44 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JALgNa6gbapWXEd1HQZG4fkZ6Vc0F1M/AYibqzTq+WwDLqOoWemUnfHaBjw0wGI2Xb/iPt86SS3ZPXWkIwKr0nu3OrrWla3QjlbB6bISJGzxj3B8O2QSAz4/NviIfiZf0gLlyLLMSh2Gj9oWSEh1gK7oFXs8LPI2HYw4BijPuOqz6ztUAHghil5apwkeDiorfbW5HuSgU8brnprm4AvdLCkkAaps1TTVuVFNvnzPSgOGePr95QOzEyrkuwL/3Dx1kvr83jQgWYCpDMH/7FtNmHfOAOjIYzXOYDOdCLjkkZ4yrWyYfAOYq/AV+BQ0tVTHbFGzbO9952+ykkDMjQM1/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zwQzS/M4Y07F85VkquLJKr1wpcljirZJywa/5RvuBdI=;
- b=bePFCwO1DGq3sxfMPTXVQhwSLzpLFwB/8+6A6Njq8WSjn2xMI8E9pFiiPvdCmmgt30H5ONKCWEGl85AyrdLZ1kSxlqJF7zVycehOilBFwHMq1urk83Iacl/vEAIKjFLPC5NsP2+qGEfuavZHJlDdp+qSP8XdVgvzsn81Kvoz4khH0q9aclSos6VInQh1cYxSrB9S3CmUhixlPMqvGTOZxeBMgCjZEaXx8L6m6LUd2W4jmgZOV8Jku7EEE1z6D4iNliAOOldySbp0cYd6NdtS+7BXiCjUfWze8IPgu8zM7yI5CN75vSYnrFKbShVdRKwe7sWTQoYeD32iJySKEFyejw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by SA3PR11MB8073.namprd11.prod.outlook.com (2603:10b6:806:301::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 03:52:41 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 03:52:41 +0000
-Message-ID: <e063f882-ebf3-4a25-9d43-b23acf5db4c5@intel.com>
-Date: Wed, 9 Sep 2026 20:52:39 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 02/23] x86/resctrl: Check if monitoring features are
- enabled
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
- Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
-	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
-	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
-	<david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <20260831174421.13921-1-tony.luck@intel.com>
- <20260831174421.13921-3-tony.luck@intel.com>
-From: Reinette Chatre <reinette.chatre@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260831174421.13921-3-tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0274.namprd04.prod.outlook.com
- (2603:10b6:303:89::9) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jJeI8K+/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TVyaaYq+"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A1lHqB352032
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:54:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=lMVcJQ+sqvw2l53XlRY8ZC
+	TqZm8AqXejZyjHgWGkYTo=; b=jJeI8K+/j5d0ufRBd37Ln+QJrnkHsvftwozgsX
+	/6/rB3X463T+15rXVMoh3PzdUT3Gx4/CaiZ0JA8bEX/H+3SYiKL/0qZ1Xf9cAcy2
+	dkuxf0vTqqi0+bv65X8HNhdJTl1gTDEks1SPPxFe03tDT1o7v3wJXBQb4pKudQ+Q
+	KM/SwRYqO4tk4Bf22lhyuBuWqSv2JxiKkCYwOBjsVIxO/ls2nV4phimd8Tq1EtPA
+	OJa2WNItsXCIMmAJQSzYToaWNqia9gEG2dpKrPv7CQihHJkgJ4FRXAPTFDoGdRZQ
+	MlEYDVMiOTwXwm3qP+2zLPEj/YJ+fgCOOwUrrPKsihQKg7YQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydhxh2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:54:25 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso697364a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:54:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789012465; x=1789617265; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lMVcJQ+sqvw2l53XlRY8ZCTqZm8AqXejZyjHgWGkYTo=;
+        b=TVyaaYq+IoLio22G7Sy5pI0ITuZnOkPiMFlWh4berg5p9PZ2WxFQzlVh3+JyeyDw0S
+         3wsYHJ8RqU9kmvbNM4HRJj+ZXgSm8szL1cwxN0OaxaYrDSxYCZB74zpsvL0wLl98bfDd
+         3ohiGhsy5d7ZoDeQ+NaBevU9VqhXflH74qStsX3xANptk3NxdXyVVaKBbdIYAftEN4ar
+         imGuZOBfRVSIUHGk8DbEBRZZNI8fAAxz8fIqOdt6qHOPcXWUW7Big/8dRvP7K1XuWiPB
+         t2x3K1Z6yUVPImu1vA27vKTphJ6pzlyziZAuG3AoqLdUIT+Jk/BOk/YFRwm5AvjZrYAa
+         aCyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789012465; x=1789617265;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lMVcJQ+sqvw2l53XlRY8ZCTqZm8AqXejZyjHgWGkYTo=;
+        b=JiBoONlLlLMvl+MusBQ/RTJ3BmrzYwLSYtoGw37cZP1hDVby+xGQ+23YZkddj5z0BI
+         WMyMhIafXIoESU4uYWDbCmM/1eYOB+F9fwjJPPsWj615Qepu4xK4l1ym7FggVtVm5AMq
+         03WmQdwPJNWHhMYUsdSGXgjoAhj6yUzSlzq3r5JTUmbDrG6dhGqbTbaaiJWnUc5l6v+O
+         tPKHsKwBnGT+Beh5tpAMPcZtiB2KX1eFUOLcCYvJrxvAxIQCsB4vgJqEgacCjcByxKwj
+         eVqkZreYyBX2dEzApu8uqfeejx4r+4Ugkqfu9nPa61l3VsWoMn0CNsX6aIAnJU+dPcPa
+         P+kA==
+X-Gm-Message-State: AFuF++lK47OPBzIxrZdwNvLkHd+3gbJUKBGD2mTvz0WeK8CWJ4NjK7pU
+	gs+tezh+6i4Cs2U0AdCHtbYFPj70D+qm4a91SQThRZYpGqhdUOM/zHb3Dw6joiSeiTrvDHfypBw
+	Ltplkh32S0CjyecUZ4JhKoGy5qd3AMgfs/8DHel1NUv2ESnwVMnOrM9eEtYoMz67JVgo=
+X-Gm-Gg: AYBFou2qzBLHTam5ymjfGmCVSIJt4DpViB4OOlAu5H5PhqBh7gHbTk4CwV70O+5BAD0
+	CgUG64jkF8kUDCBEuMFAm4dNWkXWm1gneobzrC1d0YcZAFVA/sL414xdHyIpu69u9OcqrYLkYrR
+	BBvllOnUPebLEWXwxuYZH2SiOcBuV1ULp6xIrHD2z5CbI2DzaNBP/TpV1baRehkVLy6OFC+dY0T
+	26Lcj7L9igBa80JKZr+mmSN9Koqo0v7S+ldq7gVeXx3ueOGiDHA4PdxVG7JsLFvotvrxJ+GUfMW
+	E1RCVHl8rCqfxA1Jac2OEjyRQs2wagWoYreG4/s1ykULUGvRvRF4Sv5Y9GTvn/8R6CVZkbUF2gA
+	cKhUW5eavjI7xC4coOLY4
+X-Received: by 2002:a17:90b:2685:b0:395:c3f7:2895 with SMTP id 98e67ed59e1d1-39d7791458cmr3194399a91.7.1789012464639;
+        Wed, 09 Sep 2026 20:54:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:2685:b0:395:c3f7:2895 with SMTP id 98e67ed59e1d1-39d7791458cmr3194362a91.7.1789012464035;
+        Wed, 09 Sep 2026 20:54:24 -0700 (PDT)
+Received: from [10.213.104.145] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243bfbe3sm44933554c88.11.2026.09.09.20.54.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 20:54:23 -0700 (PDT)
+From: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 09:23:55 +0530
+Subject: [PATCH v2] stop_machine: Defer legacy console flushes while a CPU
+ runs a stopper callback
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA3PR11MB8073:EE_
-X-MS-Office365-Filtering-Correlation-Id: d19e983e-d62e-4864-3f94-08df0eeef668
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|11063799006|56012099006|4143699003|10067099003|921020|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: LywsjB6MNIb1HXANTY/AA12ePLYMXFXBt3TSHLf+HNDlHTfhVvKNctSeslqMpivt3uD/rac4io7XSxL0Qiya7L6yysH/vI7M3iFOAqbNt3pz0iLCsxVtjibE3lfRBmbOJxpnB/BdE7OpQBqgWLrUyjXzi1yDN48LEVL2Xw2RnJbcAm6Sh3BaReXg7MZrQaISQ9xF6wLnUAjpzrYQPef7PUadTV0e59CIQFN0O/RbR7TJ/VBlZo4Ri6VuxYCWZI9IRtvxb12bQAnk4jaWhacajYvwFzJFKg5st7tJM7ZijQrDZJoFrwQI2cOFtsxeIzJCJJtFr+aCpPKoXcT9ymXGKMkFOtmOxeFYOfDtoljXREIHb3LIlqYosnlNnHfpoY1gcGSMvVs10kKy3Lh9dMwvr4pCLQ8APFsG1tEsNLLhG3tnDY7Op5SlwJzAN6ZtHdwy8BONAliQQjrSpFbOUE2ikrB/XYe6EJ9XJ6WT1to5Mv0IAJFhGOgxWXG+BJ+2dWvltfpxkiqZHnxnuFsAQmJfWc3+OhQsKlbFCqXGq5Ne1vJKeYT3vOsIyR+WRh88yaSacgHUI6SEtiDtJRHSAVa8F3GuJeg9iyA0PS8AKjhgsYAr2Q5DJyWzMQgQ7N+d7iPSZDviMmQQebpjA0tUG07rSfop+cEc9Jv84baNUmvM9Rzaz32MakiMQXSf69oqaaMxG3NeXZpelurXb75cn3/I0A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTZyVUlVQ3g4K2ZQc0dvNEZsKzBjY2FmeDhuM08wRE5iZkpyazQyb2t1bWEx?=
- =?utf-8?B?cndWK3ZoV3pvNHk4ZXZBNkpTK2U3MURubnlSdFFmTzJiY0M2dnk2VmFYS1lU?=
- =?utf-8?B?ZGVGZEx5aXFRVEdNSk96dzZJMHhPb1ljNmhjTU1ReVN6WStVNnJSbVQyTzYy?=
- =?utf-8?B?b2FCQUJYelYwa3RNY1ZVeHBqZE5FVmtEcHJBTjdOcC85Vm1IcFBxM2JIL0ZQ?=
- =?utf-8?B?TmpqVUZlMGpqK3U0Vy9xV2FFazZ4Ukc5TzE3aXZQS0ZoaEZsV280S3pvTzJz?=
- =?utf-8?B?eFNxTVozYWJ5TVovbFlkK21ZZ1o5VkF1NjJXQ1BxKzRpNUpCNUxtbHRuVzZO?=
- =?utf-8?B?ZzVqVGhiMXhGUkJjbGZvY2tBWUlDRTFNUVBtY0lzUThMeml0c1BmWDBubXBr?=
- =?utf-8?B?VkFHWE1aa3YxQWxTYkd3czZsdlR6SVp3d2EreHMwWHdRck8zcGFZTS9sOXZN?=
- =?utf-8?B?Mkl1ZHVGdXZBcTJ6NGlHamZDdDJnaytIQ3pmd2RIUlJVaHJNZGRUdEpyRFU0?=
- =?utf-8?B?ak1uV09qaVU1eldqWWZSZmR4akNNakQ5aVRBa01JbGdQVy9QaFpjMmxYeE1s?=
- =?utf-8?B?QWVkQjV3Y0hiVFBZQXdhMVUxWElxektiL29IT1JJU011MnNLMnNFSUVZZjNh?=
- =?utf-8?B?YkhFYkxCL0JjUis1Z3J5R3ZmRFc5VU5BaGw2Nm1uS25MeXJIZWRKQ2JCa1h4?=
- =?utf-8?B?RjhWVy9ER2lBakZYa1llUW5QbEZaeW9pVGI1UldpT21QUG16MU9FRFVCNzl6?=
- =?utf-8?B?WGt3MHZIc0ZscllaaU92eVZDQmhpVU9lNzJ5QlVrN1EwZURQUkNrbW9lU2hq?=
- =?utf-8?B?M3dPeFdqZlhrcHkxZ3FUUG16eGZNVmpTaDVNT2NmNGR2MkFwRm5jVEFBZU9O?=
- =?utf-8?B?OHROK2dSa05YdDRaUFhxenFJYkl2eDF5UklSdk95ZFh1NzhDZUhWK21nVnpw?=
- =?utf-8?B?THkwUEFwczFwY1hhQmsxYm1ueG9BcmhkdTdpalpSV0VPWlJqK0dodG1VVWRS?=
- =?utf-8?B?U2pQSXcvOWlqMWd4b1hZc1VYb204QWRLaEVacGY5ZmRqeU9mMWc4WU9zU3kz?=
- =?utf-8?B?bVpwSTUvVVN3UGk0WDRUdWZEVEIxZzFnRlZkVlUvMUJKZGZaTFo1cTQ1SWVG?=
- =?utf-8?B?Q01sUmxiVW05NnpvQlNMbVVwQjdkVjBwd1JISVFzNGg1TXJDSVV0cW10K3Y0?=
- =?utf-8?B?T3lEdEFhVWUxWUlZV1ladzh1aHZaa1c3aVljMHpmRWgzdUV5aDRCcmhZODRH?=
- =?utf-8?B?cXhtRUdkeTQ3M0M5aWdhYVZCdlkrYlRpRXZHcjVwVWIzeTdISTNUb2szV09v?=
- =?utf-8?B?U0N6RnZwSlRrTzQrd1ZKS0p0ZEdZbUdpV2hkOVRIQy83QUo1clZVQzFGQzhm?=
- =?utf-8?B?OG1RL1I4aS9oaUtWSDVDY0YveFFONUYveWE5VVJVdXZkRzdwVmFaV2Z4OTZ6?=
- =?utf-8?B?aVFPMDNiNnZNVEZaTEcyM3ZEaUhteW1YT21BMWtobWxleCtSNThtSDZaLzJq?=
- =?utf-8?B?RkdsVWFIKzNMdDhwa2VuZ1d5N3ZNWDdKSTJ6bDhuNmtTVmU0bzNsLys3VU8w?=
- =?utf-8?B?YlFNY0lRT0lacklLQjF0Z2NvM2NXSi9qcTE2emI3QWllWGQ1N3JDSWhZdTVu?=
- =?utf-8?B?eVpEMzRONGk2MGVxY0VEQUYrOEljandhNGNwUDJFamVWWDJIaEt0dHRnTXNr?=
- =?utf-8?B?VGRGbmFCL01kT0xuTG9HRHhPV0dZWlpIVTZNSVF2ZTNKZjA2S2RSYUYwei9S?=
- =?utf-8?B?b0svMGNxUzgyNkVhNHBKT0dIY2F4ZHgveDdhZnJFeC96bGIzVFZWSVN4UDRX?=
- =?utf-8?B?NW5zNjRWcUhnZEZGVkdVUkpMTHRwaUk5bE9LL0dCL3VmVXh2a1NwR25EcCtq?=
- =?utf-8?B?V2tBYzlvT2JWWTN1UDdPRVBXTHU0S2szcDNuVnQ5bG9laU1FWVVDYWR1MEFU?=
- =?utf-8?B?RkZqd0pna2E5OFZBTGorV1JuTHVqTC9lak9CaC9ZS1NzbENVVnN4d3dJK3Fj?=
- =?utf-8?B?RWhpUnE0TGUrUVdBUDNnTUlnaHdCbjQ1T1orR0NVRy9DMDY0N1JBWmxsUFBM?=
- =?utf-8?B?cXcvbU5kd2lRMnZVbHVCSjM2TE1LWDZWQmx6VG9yeHNUMmRuRTQ5T1lTODJ2?=
- =?utf-8?B?MXA3WUEwUGNHcXl4TVZNcGR6WVdPc3FFSlM4Q3Fha0tDbzdoZ2FjeDhsQVhK?=
- =?utf-8?B?V2NzK1JPcnpYdU54QmFEZ2VrNTJMdGNDQkdST3FGNlNsdG5yd2dFdUMwbHRv?=
- =?utf-8?B?YzdlRkxTYmcxVzRQSTRHT1RFeGl3ZTNMS2VwVFRTSE1GbVMyOWJTRmlhb1Ux?=
- =?utf-8?B?SkN5alpaWXE3eTJWR0s2QjlBdVBtd0dwV2FnVXp1WlpURjdnQm12UUxtd0lq?=
- =?utf-8?Q?S00tG+ssrnfkubB4=3D?=
-X-Exchange-RoutingPolicyChecked: oHUiVeWGi2RjFHFZilTHgoL8/jru6aAotPC9J6a7me3RzaZOtlw3dWE8Wh2KjkF6qUpIjq7NdzsmkE4abK/dulBV0519haxDE+JCbFEEQBzMDuMX7H6Rx6HAgjh2iL9jJ5r6y0T6wXFlnHK5DKoy+BFYS4H/IL35Mi7YdUfBUUZPUYGRNoNd75i5/96rHeh+X4EVEZLvHXeeSSMl0jogXnunJkEY+xgooLvO53Y9qOBzeG1NE/9AjrbGKJd4sXyBKzfA4vOK8/wLpLJ3e1jv9/kHPUP+DhKt5P829CLlt9X5DMl+iDwj4aLoLeWvHHz5Wybp5wWvbB6a9zkNsw9CdA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d19e983e-d62e-4864-3f94-08df0eeef668
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:52:41.0153
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 03OqPtySQpSpcvfPM2QNeueKAtX0ZkbiNvztnX1Tic+bgazwx061GuGWC+aNQ7C1z4wzyNEeW/HROIemu14pxQBXTWjaV27XyU9VWDV0sPU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB8073
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-defer-legacy-console-write-on-multi_cpu_stop-v2-1-88324d2f4e7f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANIpomoC/5WOWw6CMBBFt0L67ZDysIhf7sMQQssUaqDFFlBC2
+ LsF4wL8uclJ7sy5K3FoFTpyDVZicVZOGe0hPgVEtJVuEFTtmcQ0ZvQSp1CjRAsdNpVYQBjtTIf
+ wsmpEMBr6qRtVKYapdKMZoE5QMsl4dKac+JeDRaneh+5efNlN/IFi3B17o1X+0C7Hnjnaez919
+ p96joBCwnNv5ynLcnkzzoXPqeqE6fvQBym2bfsAsy0gYAEBAAA=
+X-Change-ID: 20260824-defer-legacy-console-write-on-multi_cpu_stop-d3ef6f6b150b
+To: Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
+        John Ogness <john.ogness@linutronix.de>,
+        Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: linux-kernel@vger.kernel.org,
+        Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789012460; l=4641;
+ i=aditya.chillara@oss.qualcomm.com; s=20260626; h=from:subject:message-id;
+ bh=d/AtSbK/FrcKXUPP17SvF9Q6aAL31yz8d1rOrT0WoAE=;
+ b=YvOYF6gHgrvGW79SIFbZeEayvfmdV7XqVZNptoruMXlOh8ciDMHnQI5W8SZ4nc36eLkw8Oznr
+ gBtlHI9MLn5Cl7OeSKJPReIxq4HD1IJ3OuuyJWIqQFwriINpK28Ezoz
+X-Developer-Key: i=aditya.chillara@oss.qualcomm.com; a=ed25519;
+ pk=3vcOzHlHNCpL/4rvfU3cpTk2xIC7SI+TH0gypa9FdZQ=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDAzOCBTYWx0ZWRfXzi8ziVRP7F4w
+ kV0TadkKrnt0VrLfETn3aoQ4KOfcWtphSni3capBOy+kapsH2GYwgPgpYcS7olzfGOcUEP4fAih
+ KVvbfuUSVG15HwbGIfze7Pj9uedP+Qs=
+X-Authority-Analysis: v=2.4 cv=UJNIjyfy c=1 sm=1 tr=0 ts=6aa229f1 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=ADoWPsIPcHmb7yck61MA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: fAWf4Kzf3hMkuv8gxtDakjK1KIaIxn6V
+X-Proofpoint-ORIG-GUID: fAWf4Kzf3hMkuv8gxtDakjK1KIaIxn6V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDAzOCBTYWx0ZWRfX4+Y0AFIVyaPt
+ 1q1WCQE0RkIxBCpJyAmHYPnqQa9ZM0idcqdA3/dRxmhVtSoWkJPxe+JYgtInjZbQ9EjgJf5rCTw
+ Yw0y7r/Sq4xfg1ZdpOjSlgQl8iObScropyTrr2CSbDhJC0n2e8CfvmrkSekHIXo0IsmNmMBhg3d
+ f9swo7Z4viL21tIJgozwNW42ddUGvlN6FkI1yvmYNEDpE4L32YztUiYm4QXdcmRp/UVXTce9kGp
+ n15sLOCCaRJTXUFL3MQOhQFGrJ690OipEAKB7eBCYnMeOq0tuEdVamhkBkpyr0ihRpTJqTC1jQD
+ 82Vfgv/50ZnpAuj7NBdxEIKU5EjRjFWY6qSws7/1dGNMheHxgK1A8kQOgTfLvYaRnS9GgIdOn9y
+ fAf+i6nD7xxWxlGVCYT42JX9hqHESxbOTP2ZDUH+TtNytDNsOFsKa4ooVlwxOe0DPiJ+2KbM44B
+ xWj2hCChOy0lupBAtFg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_01,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100038
 
-Hi Tony,
+The cpu stopper thread runs above every other scheduling class, so while a
+stopper callback executes, nothing else on that CPU is scheduled. If such a
+callback emits a normal-priority printk(), the legacy console path can
+synchronously flush the pending console backlog. On systems with a slow
+UART and a large backlog, this holds the CPU long enough to starve RT
+kthreads such as the watchdog pet, and for multi_cpu_stop() prevents the
+CPU from advancing the state machine while the other CPUs wait. The
+resulting delay can prevent watchdog servicing long enough to trigger a
+watchdog bark or bite.
 
-On 8/31/26 10:44 AM, Tony Luck wrote:
-> Both Intel and AMD manuals say that software must first check
-> CPUID(0x7,0x0).EBX[12] to see if any monitoring features are enabled
-> before checking for specific features enabled in subleaves.
-> 
-> Each of the L3-based monitoring features is gated by X86_FEATURE_L3_MON
+The same can happen from an interrupt taken during the callback:
+multi_cpu_stop() keeps interrupts enabled during MULTI_STOP_PREPARE, and a
+printk() may be emitted from a softirq run on irq exit.
 
-(nit: Sentence should end with period. There goes the promise that the available
-AI tools means reviewers only need to focus on what matters :()
+Run CPU stopper callbacks in printk-deferred context to prevent legacy
+console flushes while they execute.
 
-To support this change above could perhaps be expanded with "... which in
-turn is gated by X86_FEATURE_RDT_M."
+Signed-off-by: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+---
+A device using a legacy UART console (console=ttyMSM0,115200n8) hit a
+watchdog bark/bite about 40 seconds after boot.
 
-> 
-> Add check feature bits.
+stop_machine() (used here for kprobe text patching) stops every CPU by
+running multi_cpu_stop() on each of them, through the per-CPU
+"migration/%u" threads. These threads run at a higher priority than the
+msm_watchdog thread. At bite time, all eight CPUs were still spinning in
+multi_cpu_stop()'s MULTI_STOP_PREPARE state, where interrupts are left
+enabled.
 
-This sentence does not sound right. How about something like "Add checks for these feature bits."?
+Heavy SELinux denial logging had built up a large backlog on the
+console. One CPU took an interrupt while spinning in MULTI_STOP_PREPARE.
+Handling it eventually led to a printk(), and because the console was a
+legacy console, that printk() synchronously drained the whole backlog
+over the slow UART. While the drain was still running, the watchdog bark
+interrupt hit the same CPU, found no recent pet, and escalated to a
+bite.
 
-> 
-> Fixes: cbc82b172638 ("x86: Add support for Intel Cache QoS Monitoring (CQM) detection")
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
+The captured stack for that CPU, innermost frame first:
 
-...
+  qcom_soc_set_wdt_bite
+  qcom_wdt_bark_handler
+  __handle_irq_event_percpu
+  handle_irq_event
+  handle_fasteoi_irq
+  generic_handle_domain_irq
+  gic_handle_irq
+  do_interrupt_handler
+  el1_interrupt
+  el1h_64_irq_handler
+  el1h_64_irq
+  console_flush_all
+  console_unlock
+  vprintk_emit
+  dev_vprintk_emit
+  dev_printk_emit
+  __dev_printk
+  _dev_err
+  btspi_sleep_timeout_handler
+  call_timer_fn
+  __run_timer_base
+  run_timer_softirq
+  handle_softirqs
+  __do_softirq
+  ____do_softirq
+  call_on_irq_stack
+  do_softirq_own_stack
+  __irq_exit_rcu
+  irq_exit_rcu
+  el1_interrupt
+  el1h_64_irq_handler
+  el1h_64_irq
+  multi_cpu_stop
+  cpu_stopper_thread
+  smpboot_thread_fn
+  kthread
+  ret_from_fork
 
-> diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-> index 2435eddd24eb..fcbecf677914 100644
-> --- a/arch/x86/kernel/cpu/resctrl/core.c
-> +++ b/arch/x86/kernel/cpu/resctrl/core.c
-> @@ -968,20 +968,27 @@ static __init bool get_rdt_mon_resources(void)
->  	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
->  	bool ret = false;
->  
-> -	if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
-> -		resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
-> -		ret = true;
-> -	}
-> -	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
-> -		resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
-> -		ret = true;
-> -	}
-> -	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
-> -		resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
-> -		ret = true;
-> +	/* Any monitoring at all? */
-> +	if (!cpu_feature_enabled(X86_FEATURE_RDT_M))
+Every other CPU stayed parked in the rendezvous the whole time, since
+their stopper threads outrank msm_watchdog. Nothing could pet the
+watchdog until the drain finished.
 
-Previous patch aimed for "symmetry with X86_FEATURE_RDT_A" ... but the "symmetrical"
-code in get_rdt_alloc_resources() is:
+This was observed through multi_cpu_stop(), but the hazard is not
+specific to it. Every cpu stopper callback runs in stop_sched_class,
+above msm_watchdog and every other thread on the CPU, so a slow flush
+from any of them (including single-CPU callbacks such as the migration
+and task-migration stoppers) can starve the watchdog just as well. The
+fix therefore covers all stopper callbacks, not only multi_cpu_stop().
 
-	if (!boot_cpu_has(X86_FEATURE_RDT_A))
-		return false;
+Fix this by running the CPU stopper callbacks in printk-deferred context.
 
-Why is enumeration of these feature bits done differently (cpu_feature_enabled() vs
-boot_cpu_has())?
+Reproduced and verified with an out-of-tree test module that triggers
+stop_machine() with a queued console backlog and a printk() inside the
+rendezvous, paired with a kprobe-based script that flags any console
+flush happening while a CPU is inside a stopper callback.
+---
+Changes in v2:
+- Use printk_deferred_enter/exit() to defer legacy console flushes instead
+  of in_cpu_stop().
+- Link to v1: https://patch.msgid.link/20260827-defer-legacy-console-write-on-multi_cpu_stop-v1-0-3b9f6bb4679f@oss.qualcomm.com
+---
+ kernel/stop_machine.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
+index d085ba1f4b44..31f7af41249f 100644
+--- a/kernel/stop_machine.c
++++ b/kernel/stop_machine.c
+@@ -507,7 +507,9 @@ static void cpu_stopper_thread(unsigned int cpu)
+ 		stopper->caller = work->caller;
+ 		stopper->fn = fn;
+ 		preempt_count_inc();
++		printk_deferred_enter();
+ 		ret = fn(arg);
++		printk_deferred_exit();
+ 		if (done) {
+ 			if (ret)
+ 				done->ret = ret;
 
-> +		return false;
-> +
-> +	/* Any of the L3 monitoring features? */
-> +	if (cpu_feature_enabled(X86_FEATURE_L3_MON)) {
+---
+base-commit: 77ae27fd98f3b548797c9f22c10ab5cf1c4ada53
+change-id: 20260824-defer-legacy-console-write-on-multi_cpu_stop-d3ef6f6b150b
 
-Could this reduce indentation and churn by negating the check? Patch #12 and #13 seem
-to build on the flow introduced here so my comments about this function are split between
-these patches.
-
-> +		if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
-> +			resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
-> +			ret = true;
-> +		}
-> +		if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
-> +			resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
-> +			ret = true;
-> +		}
-> +		if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
-> +			resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
-> +			ret = true;
-> +		}
-> +		if (rdt_cpu_has(X86_FEATURE_ABMC))
-> +			ret = true;
->  	}
-> -	if (rdt_cpu_has(X86_FEATURE_ABMC))
-> -		ret = true;
->  
->  	if (!ret)
->  		return false;
-
-In further support of above suggestion the code below calls rdt_get_l3_mon_config(), the
-enumeration depending on X86_FEATURE_L3_MON, outside the block where this feature bit is
-confirmed to be set.
-
-Reinette
-
+Best regards,
+--  
+Aditya Chillara <aditya.chillara@oss.qualcomm.com>
 
