@@ -1,102 +1,130 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C000536DA00;
-	Thu, 10 Sep 2026 15:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B3448664A;
+	Thu, 10 Sep 2026 15:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054857; cv=none; b=lV13L181xmVLsNDF/7EHIkfH9bG5WWt/bWJox9QJxXEn15un8LdrSOjgayZ0uU5v0IAHwMvJpNIGTz0RFWVUPfauiI41DT0lVQUOhgTY7BBGzMpeDcHyFlgLXyFXY8VDttbbsJDnwa0qJc3DGdtafaslSKSbMWa9/CRlGwU5sQ0=
+	t=1789054873; cv=none; b=iLu/wE38PhhX2rTPoPPqAzghVjCjA8p+4M3TZeztIji3Nty47wjNo4JF9T6/IDGykql2Jm5fhco5itr7mnIvX3ELrlQKg2Y+cFHUDpzNIvbD5sP9EqgrrhWcGLLxNNolSurwoKgC9TSWVitXFgSb5avUSSYrWtjGxajhhnPo5BY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054857; c=relaxed/simple;
-	bh=zLZhcdz43NUrZIZASgPkE6Q4DKtvuzt/ZbbWtBdOLRs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=duQUfnOPGK9SRy3F8jNHuJGfwsOgHP5/5Fmz2Hzle9sTYQE7F8eYs/cMIbsWHk86FZlsECiGzOowLIx2Q8PAUzQv2ip80VTdhHd0MrTSNINu2YzD4uZpq/WZdaXB4ZgTPsB9Rur749GRjvRBhVmGCr7Oh4vkMFC3uuGFn6UB+MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=fzrEWeGZ; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789054873; c=relaxed/simple;
+	bh=38iNAKbKJDNm7y94oFhd+Hh2UDcpYGGHN+ODnfGKfzs=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=oDWiibF8WUXGN7L2hLeE4nNtdO7Qv0hJsNPRheqVN+MQFuBp5rG4PRfhiI9+WEtn53BAo3fFk5XbFRdBPw/WFEF+f4mGYtKnbj7qWCxH1jybIQGSfY2htwt199m0gY/oAIF+854Nwe+EGHcAmwBaiJudDof8uTs0lq1m8zXhw0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPT1gMlQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="fzrEWeGZ"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id CAF5640E0320;
-	Thu, 10 Sep 2026 15:40:51 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 4Vby3mrPxHxu; Thu, 10 Sep 2026 15:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789054841; bh=gp2teKxKliqTw5kfDWAHhiXM2zQQkqngJBZCjBMNz/8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fzrEWeGZ+mjqz31Tp3NNB3bvCfEl1HRu6UlhRBSzXPz1FSFRQOtFvS7CJjv1dpUnK
-	 71ZnStWglj/s9fwU3ukQCmgk8x1K4c9IUV1QsiGuwWXHbP83U66iYDXxqVMp9fzQWt
-	 v2TjH7qf6OEu1AL3a2rWYdBTBBENG+l2OpWp+Di3D85TxmoKttn80lslrbSYxE3Wtp
-	 DXh/D/vmK9D+X4zbsFzqilv/cSPBefH+/2DDGIX7XxWtJRLDjLbF/JEsEAFR0RWhuv
-	 dQ8AZaj6hC9GVXqEuoJA0UXo+r5SGslhdTsmchDZeD3C5x7KUn8TOkBElIslSLBknR
-	 1Df6I8CjFm2ivlp7R6Ouvb8FrtPcePIn4BZWr/9egCWM5SWHQYF50kyIAK3u+SLmSG
-	 KYZHdkNEU5cBI0BIIJZzoAgkfCQsKw1qGRul+TSdPWTWgLYu2Tr1g5fPDR8zZ0ZIsW
-	 ZBBlS6R8cPt3wooD9ttXpPwR7yq7klJ1NhMpL1TLJBWJdkw4oV6kJYbOp8XgPeLGn3
-	 EmTF92p4d0Swg7Pq4+cRglMPFZnlnnS0VTkDEaCJTwurxrS2G6Kd0NHBjL7LsX8MZl
-	 zQtt/JccGm0y9k+571whocVfxbf7uLqvBkBNJ9i/VwEv2BNrBcvZhBghB8uJsuTG9d
-	 kDR1wj5Kvf3W538EhVYzNi6g=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 391DE40E01DD;
-	Thu, 10 Sep 2026 15:40:30 +0000 (UTC)
-Date: Thu, 10 Sep 2026 08:40:26 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Thomas Huth <thuth@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: Re: [PATCH v3 00/13] libcrypto: Provide more __cleanup functions for
- zeroizing data
-Message-ID: <20260910154026.GBaqLPam9ofZoyiDCR@fat_crate.local>
-References: <20260910124138.417439-1-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPT1gMlQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675981F000FF;
+	Thu, 10 Sep 2026 15:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789054872;
+	bh=wPcCiBBITeASDRG4XzbQSWp2WzppaOy28h2ruAqwXi8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ZPT1gMlQYCE5N332MSVM0S9U6d4FLGUsbQCPoHUb5X9ttBkjazudHOj9UQKHqJd9D
+	 oCxLRURVb5tbXz224n1kpk9IHDZKYSVtYQLgyTtMMjylmSzWSojqj/lBSwJf/HCe10
+	 8eK+ueByj4l9PPmFbUW99Ru6kp/Esl/vw0Jow4TK/QeBk7pNtQko/5Rzw55iFnQRCy
+	 JpF435LHDVBZH2psN6u4pDeISC01VD3AFrU0Nt8kyUXTDMID7VVYLIU0mj9/Qyipnb
+	 S4Y4lP/lzFr9Zd89xKt5hBEQanbRxpuXnz3U+wIwdzHcUBWviuJXTGM3h4In4P2Nn0
+	 jqW8F+/u1JH4A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19B95380CEF9;
+	Thu, 10 Sep 2026 15:40:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260910124138.417439-1-thuth@redhat.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v3 00/10] net: fix typos and repeated words in
+ comments
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178905480977.1504082.16408401600046600222.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Sep 2026 15:40:09 +0000
+References: <20260908052602.27497-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: davem@davemloft.net, andrew+netdev@lunn.ch, bbhushan2@marvell.com,
+ bcm-kernel-feedback-list@broadcom.com, chris.snook@gmail.com,
+ edumazet@google.com, florian.fainelli@broadcom.com,
+ GR-Linux-NIC-Dev@marvell.com, gakula@marvell.com, kuba@kernel.org,
+ shenjian15@huawei.com, shaojijie@huawei.com, manishc@marvell.com,
+ marcin.s.wojtas@gmail.com, pabeni@redhat.com, rahulv@marvell.com,
+ rkannoth@marvell.com, linux@armlinux.org.uk, shshaikh@marvell.com,
+ shuah@kernel.org, horms@kernel.org, sbhatta@marvell.com,
+ skalluru@marvell.com, sgoutham@marvell.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org
 
-On Thu, Sep 10, 2026 at 02:41:19PM +0200, Thomas Huth wrote:
-> v3:
-> - Don't put function names into ``quotes`` in the last patch, so the
->   cross-references will be generated right now.
-> - Added a missing #include <linux/string.h> in the sm3 patch
+Hello:
 
-From: Documentation/process/submitting-patches.rst
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Don't get discouraged - or impatient
-------------------------------------
+On Tue,  8 Sep 2026 10:55:52 +0530 you wrote:
+> Fix misspellings and repeated words in comments across the networking
+> code, found with scripts/checkpatch.pl using the misspelling list in
+> scripts/spelling.txt.  Comments only, no code changes.
+> 
+> Changes since v2:
+>  - v2 put 184 changes in a single patch.  Andrew Lunn asked for it to be
+>    split by vendor, which comes to 54 patches, so this is the first
+>    batch.  maintainer-netdev.rst asks for no more than 15 patches
+>    outstanding against a tree at a time and I have five in flight
+>    already, so this batch is 10.  The rest will follow as these are
+>    applied.
+>  - patches 1 and 2 are unchanged from v2 and carry Andrew's
+>    Reviewed-by.  They are resent because the v2 series was marked
+>    superseded, so they would otherwise be dropped on the floor.
+>  - dropped the sfc mcdi_pcol.h patch (v2 4/6) even though Andrew had
+>    reviewed it.  Edward Cree pointed out that header and the Siena copy
+>    are generated from the firmware definitions, so an edit here would be
+>    overwritten the next time they are regenerated; he has forwarded the
+>    typos to the firmware team instead.  The sfc changes outside pcol are
+>    unaffected and will come in a later batch.
+>  - dropped the 8390 patch, the driver is Orphan / Obsolete in
+>    MAINTAINERS.
+>  - dropped one octeontx2 hunk, in otx2_pf.c, because the comment holding
+>    the typo has since been rewritten upstream.  The remaining octeontx2
+>    typos are still fixed in the marvell patch.
+>  - dropped an "amount of times" to "number of times" change in qed_dev.c.
+>    That is a wording fix rather than a misspelling, so it does not belong
+>    in this series.
+>  - v2 6/6 (net: usb, "Medium Mode mode") is not in this batch.  Andrew
+>    asked me to check the data sheet for that one, and I will answer on
+>    that thread before resending it.
+>  - rebased onto net-next.
+> 
+> [...]
 
-After you have submitted your change, be patient and wait.  Reviewers are
-busy people and may not get to your patch right away.
+Here is the summary with links:
+  - [net-next,v3,01/10] net: llc: fix repeated word 'all' in comment
+    https://git.kernel.org/netdev/net-next/c/2d2c2ea6650e
+  - [net-next,v3,02/10] selftests: net: fix repeated word 'use' in comment
+    https://git.kernel.org/netdev/net-next/c/a2c9decb21b2
+  - [net-next,v3,03/10] net: broadcom: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/a08b0a9e5e5f
+  - [net-next,v3,04/10] net: cavium: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/405829119fdc
+  - [net-next,v3,05/10] net: qlogic: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/12ae2a2b298a
+  - [net-next,v3,06/10] net: fddi: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/ef7ed063b48f
+  - [net-next,v3,07/10] net: marvell: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/36ca708b7cc7
+  - [net-next,v3,08/10] net: hisilicon: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/1b4109e4a024
+  - [net-next,v3,09/10] net: atheros: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/eeea715379b2
+  - [net-next,v3,10/10] net: dec: fix typos in comments
+    https://git.kernel.org/netdev/net-next/c/f36cb539fd97
 
-Once upon a time, patches used to disappear into the void without comment,
-but the development process works more smoothly than that now.  You should
-receive comments within a week or so; if that does not happen, make sure
-that you have sent your patches to the right place.  Wait for a minimum of
-						     ^^^^^^^^^^^^^^^^^^^^^
-
-one week before resubmitting or pinging reviewers - possibly longer during
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-busy times like merge windows.
-
+You are awesome, thank you!
 -- 
-Regards/Gruss,
-    Boris.
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-https://people.kernel.org/tglx/notes-about-netiquette
+
