@@ -1,71 +1,70 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF92336EDA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1656B3B7772
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015552; cv=none; b=Lbxrb8vPj71pB7gYdCSqG/2veJI9ij7+a6q8XiBxNoaD8+iJGPYjG2Rcxjy/KUtG5bLNgZp+ZWg+gqIxAkZGTwZIirnOR9SZwEBgx8auq4Lt7tOSZ32YBlBT/XkcFagj2Hx+0NQ6lBKD38Ya6eLywrNG9ekrTnERAC2PbEjEgOA=
+	t=1789015558; cv=none; b=Ak9cuM1fW5lp0txd+Q2kLM97mHRZjaeWbbN2RlSdrGyH+FA4Pi9Gzo2jDTeW0Eo0A9hDRKLTll1i2VCMBgsV+7pEjamj2JlTfhoySG42G9mf+XABZ1zyn1qVanl2ASrxP9tOE4c/mItFMLrINhHk9HW97f3l9fZszxwEO4+KLsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015552; c=relaxed/simple;
-	bh=Pd4H0pkta7Qbh3kWSRXYBoydIxmEAb5Kxu72LzoN5SM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nxiFBXvZ1zpim29wrt2ZU5IO1zHtpBQfLHgOH4WYJ3izVzH7T6k1ljFhH/pLJ7x4N7mQaRb6u3qSHHYePFeS1MeBS8ifaEvd79MPuSOUJjF5j0PSBVz3zyNez6k5IncHnscot66Qxbwbhb/E/J2O863+iRUbD1GySWxa3FKccpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptwcmFRb; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1789015558; c=relaxed/simple;
+	bh=VC7otQZ74/U0zxfBSCtsUkyb+mSNjbA+kl9FOsvo7Ys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YNWE1bhEhwGobjib/FB8jQZT5OFn9Ln2A21nowsrELRfDMPdW+bPGY2XLEw7CrAD31/nivTv1thkma2fj0ZziGvVGFnDndFoBf3T2JycCQWjkHC9aB9/9UMK4WMCTFUuETGJc1bVZz+fzrrA9gUvMQ2nkqei1PDl3StqKwoZGe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anIo3uz3; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptwcmFRb"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so6647104a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:45:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anIo3uz3"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso5856343a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:45:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789015551; x=1789620351; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789015556; x=1789620356; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bngJIhfOMKuLkdJ2ArarfYrqTvvdpGe/G7JNNNVxMzI=;
-        b=ptwcmFRbNlMbxvvBHCtykaSnbivI0qAaudeccZ6thCgZ8xyofbvvTAzF/7NhjgYsYk
-         NI3J7wERhfCyqCqPq3NU5wZ6xONDJyQlhL+Al1jcHqPyC1Iq70yPT3dYyQjbUtVEahNT
-         K/2hyakw6lWI/9mvYrFjjdmUEg91iDrYkFNRTXddSwHmOs79DFxr7NYc4Hhi2Jbn0P7Q
-         4zxbv54NLClhOM+Aq9SMBVmpfzNOWFibrZbncq+7QwXNE8mRazLoysurybud+d405i1N
-         ILbQZiibigPVNrgJVXlPsCp+l1AtA+xDkFjzkuv4UQw7jbngvcON2oGE9ICYtWqMk8qM
-         awpg==
+        bh=0z6JGFLaGBLU0pTN5TYYEvd6B7WsmC5aNfWVo9r7wJ8=;
+        b=anIo3uz3pF8Kh/xNR+O2qxLbO3aPRS97dpLfKX9zofecB2bOWzoTt7kL0112lDD+6Q
+         wgpxRBV0cY6+ePD89VEmYmSBKTbvmAQjh78rBsjA1snhytv1RHZUHIM9O7hoX7iqh/RG
+         Cb1JnbXCyrfsc3JSbR5S14kR6Cw2ygRRnz0+FQo3RJSMW7/Q3mrOv7CKm+oWf2a8nMJc
+         07lSEmKQf65Je6Kfm4Gls4RWCa1YYmwuBk8mk12OTc3VgSobX7wsO7YyO4jzpXMUqA6f
+         mMlVHHy3gca0Onne29drz17jnJN2U8DsGLUCGUsKeOYtUeWYbuGurIr1MSCfuxn42vCl
+         4SHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789015551; x=1789620351;
+        d=1e100.net; s=20251104; t=1789015556; x=1789620356;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bngJIhfOMKuLkdJ2ArarfYrqTvvdpGe/G7JNNNVxMzI=;
-        b=AImcJD/xGB+pW9cOjuBjAYxCxXcD/oPxMizKq6mdib5lfy6fd72lHhfNiT+dYfYkOm
-         61mpi4HlN/GJigXbBNZtwUry2aYnXs7nqxiqr+RoY7J/3n9JwdADuW0NquACvoNr8PgF
-         +Tj+/ud2KhfccfGSXlRNennFa6l8oVisLfzxhXBkeIeAClJs+lKRyfi/eW7aIn8smDIJ
-         aLGfyJcYpxDUAG7VxMzXGvGpz7yn4O+Yea4wn4IumlH6kyx6m//JS7cdlVvTVQnx+zg/
-         d5a342/m2foIOY1fapV6oUANoUiYwSatFsY2ZNQ1YwL5ClXDKK4O4Gfib+0WdbNyu81O
-         5frw==
-X-Forwarded-Encrypted: i=1; AKwUvBxj1qtGkXMO3r9yvH/uXH561H+l1HixUL+brEZQgFnsA1CMeiUOappeucQ7Amb8TqxIeFvazuTonJY6LIw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWo13IXS1yAAyApd7z+3LMOqQtAVkU4KRwb/x/5HNXFaTWjwCy
-	w/segtiDKhyEHpzbnucXJsD/F8c2zy98E0heXzlMhaZ1R/8jhesiNcT/
-X-Gm-Gg: AYBFou3kE9IzDEZ/Df26Y7Ddvf0zKn/5nHQWkG8fB2pLqyf8qISwuIY/u9PbBvWc2D7
-	IJhNXzogNTPn43d3O5/dc1SNfBXgyV7JfZi6w2UXW8Je7BsRa8eoZizfM4czMXz+49ZhlGylTsc
-	+LNwfOOnFno07j9C2k9yaW+Jj2quvRGt6df5XblIH0w7m3vOm/fj0w8S/VtUGZtNfAiQAU54iq2
-	Eoe2V4cK3wtNlnXu3DXgR9JG+a6Sdx/UKsehFkxxscJ0yBwUjNcXsVSEBxuofEG3X2NtrHLU8V9
-	zlYOysYhbfOZq972iBzhKc7xfkznne22J7d5I7H1RwAD6XQLW36IZibSaP3PmK9NQJ7vYRgKMWc
-	6p3eSRX6zFSeG5Q0atuFnmHUPbEVC8vouz0RSd5V75/TsqNoJgdF7lBPizuxQNeDPf4ZDWrwfHL
-	t35X0a6O+xdA9saaMnVLGZ8UUOY7FHasmQd7oL93U+OgqsZcjl1wLUlWDRKU/wmso5Qjb0WVQva
-	E2LBtmKO/h0rl1J4kHaugHlOQ==
-X-Received: by 2002:a17:90b:4984:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39b26104798mr54382631a91.6.1789015550835;
-        Wed, 09 Sep 2026 21:45:50 -0700 (PDT)
+        bh=0z6JGFLaGBLU0pTN5TYYEvd6B7WsmC5aNfWVo9r7wJ8=;
+        b=qLwH2qYuQs52RG6n1vMDkPAJLFZ/t+vRfc6TvxU0W9lO2GygDuYDeo7/MrdyjaySNe
+         oj6zePpSP7SBmpk4641OGLbau6mpSZr1vxhXiGBtLBMond+8xs33Ts1Tyq115Vr8OCFB
+         A1dRyEoMF+jJ9MTquQKVfSkJjae2OYUIjwZ1GzlJK7o0lZGOuqK5OPViTKIhRUWTV6+b
+         1WrXwv/3LQOf1Au367YIEWLXotjQN7BQy3PhUf4VpBDCM/RtnIAYvvtm8YB54reczYty
+         A5iGh6NC241RSSX63oJoThGvDdv9mO9LBgXpSol0+qFsgnGUvEgaL/PjyM603kf+6jcn
+         E3JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvlF1qeloKfOJZSxL/XbMfJWtLFa6RnlStDhIUQdWCqDHA2Y/8W/1ZB6I29ef4JD1A0QndNRxeeOVXmvg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k51Bpv5eP2yXpmOEBNMUH9aKtg6yiE/gXCsDR475Sl7MKiwTv5
+	XrFOhhsbjRP+JcyHZv2q+IcT+y3LmmaownYviQcI3TKPReEuzxc4qSmzqcq3zw==
+X-Gm-Gg: AYBFou2L9y2/Z4LEBGHpFE7V0enq8N7jTvu//4X0BZ5taD/w+SeMNqobfmCwSKTwTXG
+	06FTSGgzRLULURbMtBAIzsWgwRuuZI3pqlLiuCRbooJ7gjNObX3Q8KmW9pjpUhcHSbNf+x/vsgc
+	A4UGUTUkpWifH9iVeDzvx+uMR2WXbWTACUc//ncCcCfrQGDxaqpxdauYlDA1uq+pN6zDT9sCXj/
+	YQ4JfJYppO7sOEwAsviFezmOwVoL80bdlO8FQOWOegdm7/vVZi1Z5rdCrFbJW38HDxs/WPpwVsY
+	HOk7ecplLdQIL0sXuq1UDud+jojlCaapKc5xCyp+zGJhIFaKPoKbYt2YvSnlyXLnJn2beJlMg96
+	SvDqgkUJXAEnKLSQ6j3V4S+wdpFDcTZdWRVMkW8syCLqkVtbqhff/gpcLMEtz+rhqlnAR/iMuMm
+	8KV070nplEn4rybo/E4lLSo1sfa7Em4PPvrIZOTMEKbISvgzZyXT6u9L+W9rTdy7cH36Xx/IG7h
+	P4sSbIzBszGlqirUadCHWJ9Aw==
+X-Received: by 2002:a17:90b:2b4e:b0:398:9be9:ab8f with SMTP id 98e67ed59e1d1-39b2622b9ecmr58740166a91.20.1789015556341;
+        Wed, 09 Sep 2026 21:45:56 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm48377608eec.12.2026.09.09.21.45.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm45547140eec.18.2026.09.09.21.45.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 21:45:50 -0700 (PDT)
+        Wed, 09 Sep 2026 21:45:55 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: mdf@kernel.org,
-	yilun.xu@intel.com
-Cc: trix@redhat.com,
-	linux-fpga@vger.kernel.org,
+To: nm@ti.com,
+	ssantosh@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] fpga: fix typo in s10_ops_write() comment
-Date: Thu, 10 Sep 2026 10:15:45 +0530
-Message-ID: <20260910044545.50261-1-hemanth.selam@gmail.com>
+Subject: [PATCH v2] soc: ti: knav_qmss_queue: Fix typos in comments
+Date: Thu, 10 Sep 2026 10:15:51 +0530
+Message-ID: <20260910044551.50308-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,42 +74,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The comment reads "reuse it to send more data or free if if all data has
-been sent".  The first "if" is not a repetition, it should be "it", to
-match the "reuse it" earlier in the same sentence.
-
-Only touches a comment, no code changes.
+Correct "specifes" to "specifies" in the knav_queue_open() kernel-doc and
+"accomodate" to "accommodate" in knav_pool_create().  No code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
-v3:
- - move the version history out of the commit message and below the ---
-   line, so it does not land in git history (Xu Yilun)
-
 v2:
- - "free it if" rather than deleting the second "if", which left the
-   sentence without an object (Xu Yilun)
+ - use the subject convention this file already follows, which names the
+   driver and capitalises the description (Nishanth Menon)
+ - also correct "specifes" in the knav_queue_open() kernel-doc, so the
+   file is done in one go rather than a patch per word (Nishanth Menon)
 
-v1: https://lore.kernel.org/all/20260904112153.35820-1-hemanth.selam@gmail.com/
-v2: https://lore.kernel.org/all/20260907044344.3130-1-hemanth.selam@gmail.com/
+codespell reports nothing else in this file.  The remaining hits under
+drivers/soc/ti/ are in other drivers and are left for a separate patch;
+"indx" in k3-ringacc.c is a struct field name, not a typo.
 
- drivers/fpga/stratix10-soc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v1: https://lore.kernel.org/all/20260907062247.9994-1-hemanth.selam@gmail.com/
 
-diff --git a/drivers/fpga/stratix10-soc.c b/drivers/fpga/stratix10-soc.c
-index b8ec2e6f615f..5aed560050c2 100644
---- a/drivers/fpga/stratix10-soc.c
-+++ b/drivers/fpga/stratix10-soc.c
-@@ -286,7 +286,7 @@ static int s10_ops_write(struct fpga_manager *mgr, const char *buf,
+ drivers/soc/ti/knav_qmss_queue.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/soc/ti/knav_qmss_queue.c b/drivers/soc/ti/knav_qmss_queue.c
+index 3e4041454f69..6186454dff51 100644
+--- a/drivers/soc/ti/knav_qmss_queue.c
++++ b/drivers/soc/ti/knav_qmss_queue.c
+@@ -509,7 +509,7 @@ static int knav_queue_flush(struct knav_queue *qh)
+ /**
+  * knav_queue_open()	- open a hardware queue
+  * @name:		- name to give the queue handle
+- * @id:			- desired queue number if any or specifes the type
++ * @id:			- desired queue number if any or specifies the type
+  *			  of queue
+  * @flags:		- the following flags are applicable to queues:
+  *	KNAV_QUEUE_SHARED - allow the queue to be shared. Queues are
+@@ -805,7 +805,7 @@ void *knav_pool_create(const char *name,
+ 	}
  
- 	/*
- 	 * Loop waiting for buffers to be returned.  When a buffer is returned,
--	 * reuse it to send more data or free if if all data has been sent.
-+	 * reuse it to send more data or free it if all data has been sent.
+ 	/* Region maintains a sorted (by region offset) list of pools
+-	 * use the first free slot which is large enough to accomodate
++	 * use the first free slot which is large enough to accommodate
+ 	 * the request
  	 */
- 	while (count > 0 || s10_free_buffer_count(mgr) != NUM_SVC_BUFS) {
- 		reinit_completion(&priv->status_return_completion);
+ 	last_offset = 0;
 -- 
 2.48.1
 
