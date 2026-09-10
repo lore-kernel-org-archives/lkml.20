@@ -1,220 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83C233B975;
-	Thu, 10 Sep 2026 07:49:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0973B95E4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:51:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026572; cv=none; b=Sjd8dt9Tu09RQlApk0tYmAvzwtra172s5jYMs/eKrfsrHWEfZVvc8WbJt04fGnZkEAJH2clFygLBVpYIbLmZYnK4eUPDsl889i8YhTgd1JsT18Sr0KQ60MdFCyB3X4OUIxSWUwGljXSMoxOXMYmNCto132dC4OtbfP4GDh7maqA=
+	t=1789026706; cv=none; b=rk9GuxJB3QLfxdglUpp5URyYUgsEZg47pe3dBQBMfO4VEuCJSvl8AfYHX74VVM4dt3XfXkJQ8P4NEDp9txaMJ5OEI6e0Rj0q68tgHdX8hh/7EYCJOmM913rlDD9HvJftjBU/mYCckENzUBLXX8pO1H49bset0GV7mImqzvIlODE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026572; c=relaxed/simple;
-	bh=MiSnufNVEvH4ApBGXkBlEdbx6Rp46M+uIptD4jUyyYY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dYW8wLollt4zMnrPQS2uUfgtfj8ZM3sc0v6/qcJ/u704QscxrL/0XZml32qq4Wi47yUvLNK4ehCQ37tpfZsr1sydDw6Pv9UJe+ct3OnGq1AwL583GLlbtdpIuhSod5+hJc1zqF/YsoVrYOIsA+OZMDGoMvOuBy9XFYAxZz8m7bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5CJrKBc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789026706; c=relaxed/simple;
+	bh=1ZmSzFG0Fu7fOjSZErepfnaJ3qxrPkB8O4EXS1CbYiE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=kJ3tywA4U0ySrX6LuomvFlZ2A8l0CZKHf/cIUcBLm6lXLSRwXUoJd7R1GAWnUN3EbdjerljeNhWNszcv+oYflODSBwtLL+VnqU4Tt8RNhQxKI5kY+nSYjghWdjkXo549CRDIXh4+zznBBxBWjcrgunQHV0RkcRRLSIGObXH/piI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/20Tw7I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5CJrKBc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE961F000FF;
-	Thu, 10 Sep 2026 07:49:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/20Tw7I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15CF1F000FF;
+	Thu, 10 Sep 2026 07:51:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789026570;
-	bh=kv2kqfqZeeIYq8cX50TYZbSNuAOAnCdazBGTUePN3pI=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=N5CJrKBcuw9ZlWHk6ws47wP3eerx9XlAF2kzqC5dUltgzRHAKVAx/mQM7mWXjhHt4
-	 hKJFS1O6Dg+XeTKmvB2Ow9dNW17jGz9Q8DdsC+x455Peba5/wPusXZwhBcG/WVx4z9
-	 OIlZGAjYEKA4P1YhikD5ASJuvo4EiYRf7EVHb+bq3O6i99eFdAuFB0YkeTbOCGt1AP
-	 SmN730Dlw7S0b6xUMwuUdGuQHxzNi7oUdrox1pCZabOksdAc6lxn8FqZeswNGECXcW
-	 AziStP4ZIACkQKdWqVvzZjBUa6vvSIjZ0G8dxRBbXUqPSVfZsxICpOR78Z9K84A6w9
-	 z/5VUm4Infzwg==
-Message-ID: <98399307-338b-4a16-9ac3-2a342c12b318@kernel.org>
-Date: Thu, 10 Sep 2026 09:49:26 +0200
+	s=k20260515; t=1789026701;
+	bh=fTV1Bf4xq71rXT5Ktql6Fl2ucqZaiTmwx4EnmVZxpco=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=d/20Tw7IbtXipyJONWRVddV2uIcd3EospKzvsLDa9PH3WPkqR16uz8GUnSdDiuGUg
+	 FrqMmaWMVhpPS+JL3q3miVL9oJuQQzFBPJ8xtXidKietUwv99l3DuZBFpfYIcQUKsS
+	 cQ19S+WyB294RWRd0+dm14Eo686eJ0uuUNHJJViITrt+IBHY9jytvK0ixoYVvqtNS9
+	 5mMzflHUAoRPkTmxMNhjJv9IZRGeFyBorvfP9RBJRfpwzeTaRRA/6/QiLxKUPx7umf
+	 spT/dRIs8U7f2nzW0kPw0zHAZ04cYWJGdo1PNtUzMht/MocESIZy9uOF2zgRJRxSSu
+	 kHwRYXI+5ctgQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 30B58198003A;
+	Thu, 10 Sep 2026 03:51:39 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 03:51:39 -0400
+X-ME-Sender: <xms:iWGial0YfZzz8NyxwzBMeERTmoAxSgY4w2u99auDxQRB5qbXcD5LOw>
+    <xme:iWGiam7BcfxEi_byOHLYgCHwOaOIyO-98lLXuMykxBw9DKtEYPmAd4yzrLUYV3u9N
+    PMvoxyjbJZazs7BWy1o5ZsA14bRY7SbX2muiAOfAn7VCW64Jb_7Cbw2>
+X-ME-Proxy-Cause: dmFkZTEPvKawiz7mUAL92o+4JCXIIMD++sKyAcjqH50tYYm8waV6VzHYz24+KXS1F7Dg/L
+    HNUVRMF4DZqFUzwh/ocSTUIjyb9axva+h1Zu+FastzH7GinRY1IJgNW1AqRl2TO8bcAzgY
+    lbDQxZdVODYOFHvOSWcUXi6Knq/PpENCpwa58g6cNC9zkPPWyJeS1RW+hKwaro3nUcMKiu
+    PM5gGnNGef+OWSg9pgnTVcxbKPF4Q1ubRb0lSFGhysR2gVKf+9y9t9yp4iSH1S63DydaMJ
+    kjxxY1Fti8H8Iq40IW9ymYmO6E2X7Q1CTQgzhUJo8G3bW7LKRLnvckD3HHsm3+kd+6C6TS
+    9qAZ0SvjLedrYw9LrLLX8GMv75eodafHzOrMFPD7idiZGHt5oKAO5rCH/38Mq7ONhW4Bli
+    CB0O9xZgMUwepV8ao38M3nnq7JrhrQCSsP5+LvN5h+vDsMi4jQTVOsyc3Otbe9ALwDfFcr
+    Zze91vJiERX28NMq6Zr44DVWmzxHBa/mgErtialwY0GPw3vm2WylTKFwodikV3YpL7Cjba
+    iXcWVZPiP08yjc17gbxTxIZvRiFPrvETn8Dxn3fux23zpKRlpgwrWIFevaqD7giWfEb5hd
+    vB8BRrF51zQj7MvIO3pYu3BLRN1XNVHBhDbEUoRLg3IyBaCysgp3ZfDTg0DA
+X-ME-Proxy: <xmx:i2Giau-YPQZ-qalpUhABGqn9-FpE8kMKaEG7WcYC_4Qg6vxrchd79w>
+    <xmx:i2GiaqIli4zudZJ8i2oghNPm4J98FlR3Xd5t80ivZufWnVaKMY0ILg>
+    <xmx:i2GianilUZDZO0-in8vd_sJq0P-6jd6AvTh8g0xwuTvSdtp4BPxPdA>
+    <xmx:i2Giaq4qOoNFs_L8xHm3ByGUOKQT9BUYt2BWObq-lMiTLUDUjZZNKw>
+    <xmx:i2GiavYSlwHjNRo-wuXnzN99O5R0mY0C8CiKra7Z3ggoldYsawzuQTkS>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id D633BF8007E; Thu, 10 Sep 2026 03:51:37 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v5 2/5] media: v4l2-core: Add support for video encoder
- ROI control
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
-References: <20260815-enc_roi_enable-v5-0-ded944f0fc7f@oss.qualcomm.com>
- <20260815-enc_roi_enable-v5-2-ded944f0fc7f@oss.qualcomm.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260815-enc_roi_enable-v5-2-ded944f0fc7f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Thu, 10 Sep 2026 09:51:17 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Thorsten Blum" <blum@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <e41fae7c-9a09-4ae9-aef2-ab4a59d974f0@app.fastmail.com>
+In-Reply-To: <20260830102911.345357-3-blum@kernel.org>
+References: <20260830102911.345357-3-blum@kernel.org>
+Subject: Re: [PATCH 1/2] efi/libstub: Simplify check_image_region()
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 15/08/2026 21:22, Deepa Guthyappa Madivalara wrote:
-> Add necessary support for controls V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP
-> and V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE.
 
-See my comment at the end of patch 1/5: this split should be done differently,
-the first patch adds V4L2_CTRL_TYPE_S8 support, the second adds support for
-the new controls.
 
-> 
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+On Sun, 30 Aug 2026, at 12:29, Thorsten Blum wrote:
+> Drop the local ret variable and the break statement by returning the
+> result directly. Also use unsigned long for map_offset, since map_size
+> and desc_size are both unsigned long.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 > ---
->  drivers/media/v4l2-core/v4l2-ctrls-api.c  |  1 +
->  drivers/media/v4l2-core/v4l2-ctrls-core.c | 23 ++++++++++++++++++++++-
->  drivers/media/v4l2-core/v4l2-ctrls-defs.c | 10 ++++++++++
->  include/media/v4l2-ctrls.h                |  3 ++-
->  4 files changed, 35 insertions(+), 2 deletions(-)
+>  drivers/firmware/efi/libstub/kaslr.c | 11 ++++-------
+>  1 file changed, 4 insertions(+), 7 deletions(-)
+>
+
+Both patches applied to efi/next - thanks.
+
+> diff --git a/drivers/firmware/efi/libstub/kaslr.c 
+> b/drivers/firmware/efi/libstub/kaslr.c
+> index 4bc963e999eb..17549bf3dc3e 100644
+> --- a/drivers/firmware/efi/libstub/kaslr.c
+> +++ b/drivers/firmware/efi/libstub/kaslr.c
+> @@ -59,8 +59,7 @@ static bool check_image_region(u64 base, u64 size)
+>  {
+>  	struct efi_boot_memmap *map __free(efi_pool) = NULL;
+>  	efi_status_t status;
+> -	bool ret = false;
+> -	int map_offset;
+> +	unsigned long map_offset;
 > 
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
-> index 93d8d4012d0f4fef004e417d0aee2ae44b1b30bd..7d41cfd7378baaa929d4da0266c45f731bb54285 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
-> @@ -980,6 +980,7 @@ int __v4l2_ctrl_modify_range(struct v4l2_ctrl *ctrl,
->  	case V4L2_CTRL_TYPE_U8:
->  	case V4L2_CTRL_TYPE_U16:
->  	case V4L2_CTRL_TYPE_U32:
-> +	case V4L2_CTRL_TYPE_S8:
->  		if (ctrl->is_array)
->  			return -EINVAL;
->  		ret = check_range(ctrl->type, min, max, step, def);
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> index 5b8a594fb9e24e16128c9c763a3b1dd311fad2ba..db6577070ebd2eb6a60599b3b2394fe128236705 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> @@ -290,6 +290,14 @@ static void __v4l2_ctrl_type_op_init(const struct v4l2_ctrl *ctrl, u32 from_idx,
->  			memset(ptr.p_u32 + from_idx, 0, elems * sizeof(u32));
->  		}
->  		break;
-> +	case V4L2_CTRL_TYPE_S8:
-> +		if (value) {
-> +			for (i = from_idx; i < tot_elems; i++)
-> +				ptr.p_s8[i] = value;
-> +		} else {
-> +			memset(ptr.p_s8 + from_idx, 0, elems * sizeof(s8));
-
-It's a single byte, so you can just do memset with 'value'. Just cast value to u8.
-
-> +		}
-> +		break;
->  	default:
->  		for (i = from_idx; i < tot_elems; i++) {
->  			switch (which) {
-> @@ -370,6 +378,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
->  	case V4L2_CTRL_TYPE_U32:
->  		pr_cont("%u", (unsigned)*ptr.p_u32);
->  		break;
-> +	case V4L2_CTRL_TYPE_S8:
-> +		pr_cont("%d", *ptr.p_s8);
-> +		break;
->  	case V4L2_CTRL_TYPE_AREA:
->  		pr_cont("%ux%u", ptr.p_area->width, ptr.p_area->height);
->  		break;
-> @@ -1397,6 +1408,8 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
->  			return -EINVAL;
->  		break;
->  
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
-> +		break;
->  	default:
->  		return -EINVAL;
+>  	status = efi_get_memory_map(&map, false);
+>  	if (status != EFI_SUCCESS)
+> @@ -74,13 +73,11 @@ static bool check_image_region(u64 base, u64 size)
+>  		 * Find the region that covers base, and return whether
+>  		 * it covers base+size bytes.
+>  		 */
+> -		if (base >= md->phys_addr && base < end) {
+> -			ret = (base + size) <= end;
+> -			break;
+> -		}
+> +		if (base >= md->phys_addr && base < end)
+> +			return (base + size) <= end;
 >  	}
-> @@ -1410,6 +1423,7 @@ static int std_validate_elem(const struct v4l2_ctrl *ctrl, u32 idx,
->  	size_t len;
->  	u64 offset;
->  	s64 val;
-> +	s32 tmp;
->  
->  	switch ((u32)ctrl->type) {
->  	case V4L2_CTRL_TYPE_INTEGER:
-> @@ -1435,7 +1449,11 @@ static int std_validate_elem(const struct v4l2_ctrl *ctrl, u32 idx,
->  		return ROUND_TO_RANGE(ptr.p_u16[idx], u16, ctrl);
->  	case V4L2_CTRL_TYPE_U32:
->  		return ROUND_TO_RANGE(ptr.p_u32[idx], u32, ctrl);
-> -
-> +	case V4L2_CTRL_TYPE_S8:
-> +		tmp = ptr.p_s8[idx];
-> +		ROUND_TO_RANGE(tmp, s32, ctrl);
-> +		ptr.p_s8[idx] = (s8)tmp;
-
-'ROUND_TO_RANGE(ptr.p_s8[idx], u8, ctrl)' should work just fine. No need for 'tmp'.
-The 'u8' type is used for an offset variable inside the macro that is always >= 0.
-
-> +		return 0;
-
-Add back the newline you removed above. It separates the 'integer' types from the
-boolean type.
-
->  	case V4L2_CTRL_TYPE_BOOLEAN:
->  		ptr.p_s32[idx] = !!ptr.p_s32[idx];
->  		return 0;
-> @@ -2030,6 +2048,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
->  	case V4L2_CTRL_TYPE_U32:
->  		elem_size = sizeof(u32);
->  		break;
-> +	case V4L2_CTRL_TYPE_S8:
-> +		elem_size = sizeof(s8);
-> +		break;
->  	case V4L2_CTRL_TYPE_MPEG2_SEQUENCE:
->  		elem_size = sizeof(struct v4l2_ctrl_mpeg2_sequence);
->  		break;
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> index e062f2088490470c42d6c579ff7675be454a29b0..8f895060799ea13443143edd398dfb97f4ba0085 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> @@ -974,6 +974,8 @@ const char *v4l2_ctrl_get_name(u32 id)
->  	case V4L2_CID_MPEG_VIDEO_AVERAGE_QP:			return "Average QP Value";
->  	case V4L2_CID_FWHT_I_FRAME_QP:				return "FWHT I-Frame QP Value";
->  	case V4L2_CID_FWHT_P_FRAME_QP:				return "FWHT P-Frame QP Value";
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:		return "Encoder ROI MB Delta QP";
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:			return "Encoder ROI MB Size";
->  
->  	/* VPX controls */
->  	case V4L2_CID_MPEG_VIDEO_VPX_NUM_PARTITIONS:		return "VPX Number of Partitions";
-> @@ -1622,6 +1624,14 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
->  	case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
->  		*type = V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
->  		break;
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP:
-> +		*type = V4L2_CTRL_TYPE_S8;
-> +		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-> +		break;
-> +	case V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE:
-> +		*type = V4L2_CTRL_TYPE_U8;
-> +		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> +		break;
->  	default:
->  		*type = V4L2_CTRL_TYPE_INTEGER;
->  		break;
-> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-> index a1806ddbc797efa52e83cd3f685ef70d5b5483d2..9a68a3555e349f1e55aa01af5c10f08201d62bae 100644
-> --- a/include/media/v4l2-ctrls.h
-> +++ b/include/media/v4l2-ctrls.h
-> @@ -27,6 +27,7 @@ struct video_device;
->  
->  /**
->   * union v4l2_ctrl_ptr - A pointer to a control value.
-> + * @p_s8:			Pointer to a 8-bit signed value.
->   * @p_s32:			Pointer to a 32-bit signed value.
->   * @p_s64:			Pointer to a 64-bit signed value.
->   * @p_u8:			Pointer to a 8-bit unsigned value.
-> @@ -61,10 +62,10 @@ struct video_device;
->   * @p_const:			Pointer to a constant compound value.
->   */
->  union v4l2_ctrl_ptr {
-> +	s8 *p_s8;
->  	s32 *p_s32;
->  	s64 *p_s64;
->  	u8 *p_u8;
-> -	s8 *p_s8;
->  	u16 *p_u16;
->  	u32 *p_u32;
->  	char *p_char;
 > 
-
-Regards,
-
-	Hans
+> -	return ret;
+> +	return false;
+>  }
+> 
+>  /**
