@@ -1,156 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839B846E01E;
-	Thu, 10 Sep 2026 11:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFCC46EC6C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038892; cv=none; b=qot6M1FnojMAdr3Wf6o+uPa2sf+5uIHuJsnEZM+rwD+pVJWp/Cp+XZRojOCKQ0pOIhimAbPIw5mh+OSVw1rS7cCp8UepDZIBuhftxnV3IBa9sfDYogNceK11xPgrpMW5d0e1u4kk+cwKJu38Z8VTQud9Xjru26gOCDVE3WjcKDY=
+	t=1789038892; cv=none; b=GgXnjH93F3BOIfaC2gB1PfALBjQ2Jz+UDAv4PeGDGcJNzfJQU3dTlaAKSaKr6/FV0g7TlabNz9smXB4nP4hbrKTuWMvfepS1W5bHv2pBRhWd75P8vJdPrRywIYhKtQvhhfIXV1VB0kwyEa2UKcAWlpAGvSms+hqtr+qVKppArhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789038892; c=relaxed/simple;
-	bh=+iNltnroMtmCrjYqPz4G3jfFuqZCi0WBjE1SxKe6NZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q3qD2JH0XtjcTu+KTTv1cmcJ5s0c7BKPIWAGSLCu557O211U3854OoEmrJ0NMTyZSo6hMVDhCJpW/B8UkuT0KTtVuPV2Xv/7LtfGLjbPPwFiYfF6/8Fi+yTosooglDdwrRa7fyuIh10NiSofSammV7sChU++KEH4R+vYLApK3bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohxqqE/h; arc=none smtp.client-ip=100.103.45.18
+	bh=hM+j5vZvepjnpgp47k2nQCLQxo8iIPo4FwoLBdM9RuY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=AuIzP2sWgFHhOTgrImliqgX5MMAHYK603zrx59qezKnCGf8BNsrrg+gdrMssWU6BxEif4QithhCpUTSwcT+Fs8J1B1kEANzxhE90nkjwgKgi2NqiznY1Ciy9KhjNiMy2FG0RW4gskSYXezSrMCiCqJmPQd3IMuceMw9dnvqUt8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ekcny5/p; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rOJ1Kk0v; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohxqqE/h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB881F000FF;
-	Thu, 10 Sep 2026 11:14:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038890;
-	bh=PTk08ghQEYuYo89c0VG6xsdyLB9DUgU/FUr7ab35PKM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ohxqqE/h8/pErTUSk94yiONeiZNIo5OYZZfvgXM/isBkATQx22xTOFjqP5ws1BX0r
-	 O/zuLixBlzlJMHNnTACJ5rau/3/pmfku0CYHOYwr341hc958uhJFPQJzmQGlvmcJVK
-	 HYHi9WSHCL5dBDzixrjyPXW18twNc27UbTCDvuQbM6VLjdGGpOm2mwdddVhpj1/AQ9
-	 N1vl4sxz7shcP8PQTxuztAszZk/x3NV1rLZ10aCpyGyNvgb3l1FJu2SqeliCsTtd7Y
-	 h9tz8KscbXjxI0bjVYTG764s6Oj34cer8zl4Glja/WzCDcwN50uGP7cZ3bR0ttfFU6
-	 JDNUXhSywWWOQ==
-Message-ID: <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
-Date: Thu, 10 Sep 2026 13:14:42 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ekcny5/p";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rOJ1Kk0v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789038889;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4aJeoI50tbrmnYJ3Ms6Bai05KfSCa+A5Ag4laiMRAqw=;
+	b=ekcny5/pdU/lc4halXfVG5i53fOZ4OKLBo64HYK/9ccAE0NqSJWMdhqH+2nbzrcNtvHsY0
+	1J7H3u1ocBfafotkL0kMt4TuBH9ifEa73VWW7qqhjK6/qrnNmfyaMMYcf7kez1ct3neqU9
+	gyTJ47IifSTTZ146tXtvTpvBIVClRcU=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-556-4n_TujFhPu-oy_aeyTLrnA-1; Thu, 10 Sep 2026 07:14:47 -0400
+X-MC-Unique: 4n_TujFhPu-oy_aeyTLrnA-1
+X-Mimecast-MFC-AGG-ID: 4n_TujFhPu-oy_aeyTLrnA_1789038886
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4858e4b3e92so3079502f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:14:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789038886; x=1789643686; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4aJeoI50tbrmnYJ3Ms6Bai05KfSCa+A5Ag4laiMRAqw=;
+        b=rOJ1Kk0vVo68HArhUJyzWgI4S0/+2pskdr2LtTP/5jSFHxNyWmNlVCJ+wmNMLlpIxq
+         Tdbxu6dosOst4FWjqPd77uTSaA2zfO07wZ44p22fBNegRaPrD/J963U0c2A4aWMSTIhN
+         C9ENYL4qIiXbDkDeCV0hvcvVzLZilPj+vY3irMEKubWJTjTGvJVKltRY+RhXmlGQAeip
+         VZ7uYXywHUNH2bfzQdvxnyfsPCu7sfYYtx2uimDBcEOJpbUOWEMG4mj2jWTYNUnbaqeH
+         LsMDKINpv9ifoVeOdw3Uqd9+/AULK4EJ9ml740vFc4Nmww6wBlQjqAV6+wsPyVBGr0Wr
+         RK+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789038886; x=1789643686;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4aJeoI50tbrmnYJ3Ms6Bai05KfSCa+A5Ag4laiMRAqw=;
+        b=qcSlsPgwq61oJ/c4SnuyMOldv5Y0b41ueCEAC0qfFuARq9de7UGrym26bUzX0wSI0f
+         QcDNrmZNSBAB9/FoiYt3FXkA04VHZjtJl9EGBQstcFMe5tQ/qPPa1WIweBRmziJo8OKP
+         7ko/rIRFWEgO7pu+RDaCUkIcCrw8UfV7O5bDTeQ7tH0CH3pJUVZEGn42xIkmKxFzCSW2
+         bZQTBcCWp/GKvGITyUaF78Q0FYyS1kryp49OYN5KKWigT7IjNd1Nq4oLv1R6Exavqybh
+         U0wYIVIzwZrBsDmupESFYtGKCLSGb6p8PtRgf2L61DK/QefZnltJQm6lc53QAAKNqCQu
+         Dfuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDrzYvgsNBDivujlI/jj3Q4fFWo5PhKxiJrYgQWXCFCbdDYrSHep3xnln6nfdAPsp0MhxguxQDhXo7l5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5ZptIv7mDvRjsR5KVhm4WhKw8y7VnzwEgN6vTZEm58nuVwbwF
+	X40Vqc/LmU669KTyDc4IHY+iuCEmRIWRHNyTC5HX0UGZnBxu7K7W2KWe3Vp+KjJQXXVNFg9ciYR
+	11d/rGiogHihZviEmrmyICxptQlBSfHTXMRIQObq3m35+wsGaShXT2MyHzxWa/S2ZUg==
+X-Gm-Gg: AYBFou3ROoQSuqYxtEaA5l4cyTjpsvIhDohdGlMhw9NCt9kCCjXL4E74Q+z6VNLoRWl
+	+CMGmfQ38QV2ngu6LQYnMViq73qJX+FhdbbjE4ZHvMWjkOymEZa35k0D1fX0BhOnT1oEaOtRLOH
+	oRsuur1pfl5MWgxWEJGM27gTTOCu+YwiTFozRErF9hVGF0LH+e4w/nr5r+z665sT1qG+N6Qhuc6
+	oclXsU1NF5xez+pYJYUxiJ8zgRlFkdGbPI+s5a5XsEPnuMUVMDaQls8pRWzQO7QMMnuNl6mJzuD
+	DcH+M4u3nttLLlWPGogjQM/Evn7tVNT1Ugs5Htis6PUnwPtBTBz+2pd6lcPwKOrkosY4vXiHqsZ
+	zhmNKRyDGNcemPaTqsYEvLf+AC1kmDKQn5e1t2/QJ9So=
+X-Received: by 2002:a05:6000:29c3:b0:486:4fff:da40 with SMTP id ffacd0b85a97d-4864fffdc49mr4596024f8f.57.1789038886596;
+        Thu, 10 Sep 2026 04:14:46 -0700 (PDT)
+X-Received: by 2002:a05:6000:29c3:b0:486:4fff:da40 with SMTP id ffacd0b85a97d-4864fffdc49mr4596001f8f.57.1789038886245;
+        Thu, 10 Sep 2026 04:14:46 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm53587265f8f.10.2026.09.10.04.14.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:14:45 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: andriy.shevchenko@intel.com, holofermes@gmail.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Amit Barzilai
+ <amit.barzilai22@gmail.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/6] dt-bindings: display: Add Solomon SSD1351 OLED
+ controller
+In-Reply-To: <20260823111959.17029-2-amit.barzilai22@gmail.com>
+References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
+ <20260823111959.17029-2-amit.barzilai22@gmail.com>
+Date: Thu, 10 Sep 2026 13:14:44 +0200
+Message-ID: <875x0dmk7v.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-3-822b810458bc@arm.com>
- <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
- <aqKOVGECsCNtSMIV@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqKOVGECsCNtSMIV@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 9/10/26 13:02, Yeoreum Yun wrote:
->>> diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
->>> index 5f278913c4d7..b6fad38c8bee 100644
->>> --- a/tools/testing/selftests/mm/soft-dirty.c
->>> +++ b/tools/testing/selftests/mm/soft-dirty.c
->>> @@ -92,9 +92,9 @@ static void test_hugepage(int pagemap_fd, int pagesize)
->>>  	if (!hpage_len)
->>>  		ksft_exit_fail_msg("Reading PMD pagesize failed");
->>>  
->>> -	map = memalign(hpage_len, hpage_len);
->>> +	map = alloc_isolated_mem(hpage_len, hpage_len);
->>>  	if (!map)
->>> -		ksft_exit_fail_msg("memalign failed\n");
->>> +		ksft_exit_fail_msg("alloc_isolated_mem failed\n");
->>>  
->>>  	ret = madvise(map, hpage_len, MADV_HUGEPAGE);
->>>  	if (ret)
->>> @@ -130,7 +130,7 @@ static void test_hugepage(int pagemap_fd, int pagesize)
->>>  		ksft_test_result_skip("Test %s huge page allocation\n", __func__);
->>>  		ksft_test_result_skip("Test %s huge page dirty bit\n", __func__);
->>>  	}
->>> -	free(map);
->>> +	free_isolated_mem(map, hpage_len);
->>>  }
->>
->> smaps is really only problematic with merged VMAs when relying on exact page
->> statistics. For other properties (vm flags, MMUPageSize) it's not a problem as
->> long as our smap search just finds the VMA that covers an address.
->>
->> Assuming we fixed check_huge_anon() to not use smaps, why is this change here
->> required?
-> 
-> Since there is no interface to get vm_flags not via /proc/self/smaps,
-> It might be good to have it for preventing unwanted VMA merge.
-> 
-> And might be useful for future to prevent unwated VMA merge.
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-See my reply on why vm flags are generally not a problem. Just like other
-properties that are not changed during VMA merging.
+Hello Amit,
 
-Let's not perform random code changes without a clear picture.
+Sorry for the delay. I've been on vacation for a few weeks and just catching
+up on my email backlog.
 
-And just to emphasize again: VMA merging could already be a problem before
-memalign() internal changes.
+> Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
+> RGB OLED display controller driven over a 4-wire SPI bus. The binding
+> builds on the shared solomon,ssd-common.yaml properties already used by
+> the other Solomon display controllers.
+>
+> Assisted-by: Claude:claude-opus-4-8
 
-(also observe here how we do a MADV_HUGEPAGE, so this is all rather arbitrary,
-which is not good)
+There have been recent changes on how the attribution should be done and
+you should just use "Assisted-by: LLM":
+
+https://docs.kernel.org/process/coding-assistants.html#attribution
 
 -- 
-Cheers,
+Best regards,
 
-David
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
