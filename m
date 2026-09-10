@@ -1,423 +1,148 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE1B33F5A5
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002911; cv=pass; b=IudWlwAUFgYiP5pPhCWKXBW5PZ77z7CEiBDGcNzA9QFOaQl+TCj9uSWW8VPRm4M13VHgQi5jegwiHUZA99XZAHGQffJfYq+9G9iLaemBHc50fM3J/vQC9pI9hXeVlr5DfFWg0gDYlVLLVvSxnjnf7BiwdTSNqH3Xk9i2iJO9PZM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002911; c=relaxed/simple;
-	bh=A9cCwlUoGvG98SZDuJYkNtcyF5vxnbMnHeXsof/LZ2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tUesRsnyHYoaMoM6HowX7MebSFg0yG8TdXbJRMjIJ7ybY1w6dFmD8P/WrPJpVf9SdlDjA7LyfKcCISPoZd/FMUZPkJZKxgyKQFcRQCm/Bbw9QVzind876jcTUc405on5+eDyAARYCDQLWjxvHxsFhurDBQEhwySXd9Nzyo1YVTs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=kMHuMAd7; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA093563E8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789002921; cv=none; b=dHPzygUEcQoxs+EUIbaH20CM3ANvb8yXxGfd9PXOnKvlDcdfRvbSnnjPhw87IBs0Vb5iwczGTbm8TNphmNKfnW/y6zRoPxLgzh+EJFjEQInvJ9Guvpd5CaeaZQPYvu50G6td4shdYYJmVTKkLOY1T0o6m3jjhtAF3V/Ys/ob6Co=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789002921; c=relaxed/simple;
+	bh=SDq3/nEQKBMZ1T3IskkmMPRXQQna8pvfKHYVrixlIKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fKYhf/MoJnQhkXMDJOJNTkgAAGpMAZjuKc/AtKgMBTqz5b341htGq1Ga3V0DIhqhHJY1elouYtMLuou7NzCYKhYY9P/NJRbq+7hRAOASxMHQTq30KzwJtOWpqXv1e/eKF8rlss6s3e3Sj0+opUm7gZsxGz8RP1I8SIDYigz4U3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=plEDX3iA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zxdv7Gkv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="kMHuMAd7"
-ARC-Seal: i=1; a=rsa-sha256; t=1789002898; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=m9yx0c05e3I1zNXUSRwoSoQyRyZUNvrvVsTis/5q/V7vngmKC9xorKv2ng/ZbLxPX0BUOwIbTMya4jyyMxly9BzEaKwc3pjP44XO9yE5x3FB7Taxxi8v57MoSyBaGpojUDbAEOMSX0XlVFW1nPwBwqaKHYwOBCeK4EajXdag6z4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789002898; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3oC9RBGZwwLl+2eg6YWwzEqmPdWx0cUghtON8zh2x1s=; 
-	b=UCRhWwYftpvvW9B6OklzJgU270fnK7L09p56mNcJAVAsBs8DvWK2N3wHvghO8bMw2yFuzangecf3XzIHNtWahm5cJo/KRTSuThnaW4OdD8rFNO7sQi/1/zE/y/I7PkZEzEvQ6TQc2wd5ryQ2+qtKgM8XG64mFZ0pGPOb+Bbe+Gw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789002898;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=3oC9RBGZwwLl+2eg6YWwzEqmPdWx0cUghtON8zh2x1s=;
-	b=kMHuMAd7zQppttb5IKopBOr6cdcrH0KQETG8LmPzSgdzYUlWL1N/BIneeEydbstF
-	Ay7zPO5nX9L5N98HM3Z2Wo+p6+kzs4Aq8388A9BODiKmKBQ9/JaE1raEQPyyr/dQyLd
-	J9JSPXA9yn+phn/EcM6FVyDWu1aGLtq+z18gZymE=
-Received: by mx.zohomail.com with SMTPS id 1789002896917598.8996754488871;
-	Wed, 9 Sep 2026 18:14:56 -0700 (PDT)
-Date: Thu, 10 Sep 2026 02:14:52 +0100
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 05/18] drm/panthor: Make the page table cache and
- cleanup workqueue device-local
-Message-ID: <aqH_Fn-dVo0fdmJ5@sobremesa>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-5-982cc8f4234b@collabora.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="plEDX3iA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zxdv7Gkv"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689M9TI14076007
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:15:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=TcyNSAMZC//xVH9qquYthMcknQJKP5aSIvO
+	Zl1B3/Ps=; b=plEDX3iAFsnzhJmWyJ++S8JZUnR4XWzeaRxjgXtdik05k1g8xwr
+	Br2ybuzcldZFGvla8dby0kAM+7HjhtSghqYjOmA1MY4FT8mIeu/9AnOeh4e5Umai
+	67RLkS5PFsjLyny0fb10BV4uTgHolZQcM+4Yf4olkkZ933dwmWGRIGKxrDnw8VSw
+	srhvjcAOO4plsscsOT22V6SyyfeqMhzuOYNO48JM2wnf3jDQ/JmIuJ7XJrc6jsSe
+	mHRWjsbKjvQ4Q+tca/5quQPWjkIWMGdvdBGhEo7cOLAi+qgKaRzuYgc97GZrKGqJ
+	qmm2jfxWtcKj07TurP9InBdtfvw3C+zTmGw==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydhe6m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:15:14 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b19eab8bso3910420eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:15:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789002913; x=1789607713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TcyNSAMZC//xVH9qquYthMcknQJKP5aSIvOZl1B3/Ps=;
+        b=Zxdv7GkvoEajGVShxLZdvm7qCd+JYLPHxAvOA58UPidrXB8cgMR1SSgzpmPqQtioU4
+         CPztk20QtQbAp4rnJdFHT5ZQ4qEDNPHKikqaFhhnkP2w1P97ba2FaoCAigqcUpLwra6D
+         Iex0HuzgrA1abfIut9sOUVE7dOUOLjrO3CANUeGXWdEP9N90P0DW0UrU73id0SNi2LAz
+         8Uu9x2usKoMbTet5l1FGNnmvtmhjKBPayerjinQoGsijlvI0+2LkRaUmknsiomRqu+pF
+         Jop/rWjSA7ux9CacfZZi61nN4BEk0GsA9hT9A0tVJT9rbkxk7BLvQVWBgwND1MfPIlID
+         MkNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789002913; x=1789607713;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TcyNSAMZC//xVH9qquYthMcknQJKP5aSIvOZl1B3/Ps=;
+        b=lKXjqVGijRMJuDApbWDvt54EpKH/ihc6oAxUDPEGlrM6hTPyOBx6UUtRuv4cT8+FIp
+         uEYhEIjCAar8pPSixo/EEHJYf9pDPLtV1cup2PYU4O087FmfJIyfNXN1PU33JfOkNkAf
+         G9gr6vjEXRkzZPypAz6uIFb7tIhb2yLsAyzP9K0lJMTCxVLVh1UVdiNHvfXnq+VKTZ3+
+         Eg/0ZRq9UHkWQuv1JFSYCj7zZfcBDU+NGgJ2vvDw2bl2vz86OidaE9Gp/ck5OBGHKU7c
+         Dqp4OwCsaIDlIMZfr1lku6bI1J4FiD2sthii9nhW7bbZQFoGoti73arbdSyV20ThhhLx
+         vKaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1/kKWNRvnq33Lxt2LIouJS8URj8fJFKboVSWKMw/kka8bXa7m4Tv+HYUnJRfXxZjGwF3k/AykFQLDOXQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRMsE6lZuZtbKq5M3humcAz+gWWMJn9yroSq1px0+/IsiNVR63
+	o3Hc7ZTSK85KENxScKeVu1eNXIC9yATEYR1YBRFuWrBhh3qJNdMheD/kQ63stnjaQD6syWv9MkL
+	zq8UfrExiQL9spO4Q1Wgh1aM4Lu/7s3uB9E3yK5igdwoajtxTxLk/7X17Ook2GisUD1A=
+X-Gm-Gg: AYBFou0AR7jfRcMjSfVkNj4CExHAXU/XwNvmaYrhy/h5kcnFYA99A68r5WYzUpzLKAr
+	Ol4RwFHYnGqSEXl222FXAC9g1LArwIpbNgvMWIR7jglLE7dQeIrYKJAng0PB8Y1bHCrvowJcfEj
+	UArD2TKXYoXWfrypE+o8ubl9vFkQLLdttcg7qTDt3vBCIEAm2Wv5Nhm/9br1liJAFdA7FYaUO9o
+	m3SztgqEAwVvYjnpwzrnVulKQFXVi3vsALKGg+yHBYW+2pJr2WT0rdMRMKvBVr2bsbpjpZ37dAq
+	Dnp54JrgeS6nb00asulWcgMRzZKhSQRzuPRkiRTLHnkmhi9ONmIV8Z7gB6muC/MFnlZbsChuW3B
+	2aydlReVDrzjIuEx9etE/lxIDxb1CGs5CgbRYrHI/JCQa6EWe++sp77wOZr35
+X-Received: by 2002:a05:6820:f02c:b0:6b7:8396:f3ca with SMTP id 006d021491bc7-6b78396f950mr20792487eaf.44.1789002913605;
+        Wed, 09 Sep 2026 18:15:13 -0700 (PDT)
+X-Received: by 2002:a05:6820:f02c:b0:6b7:8396:f3ca with SMTP id 006d021491bc7-6b78396f950mr20792462eaf.44.1789002913243;
+        Wed, 09 Sep 2026 18:15:13 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1434c745a09sm15284220c88.7.2026.09.09.18.15.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 18:15:12 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Prudhvi Yarlagadda <quic_pyarlaga@quicinc.com>,
+        Wenbin Yao <wenbin.yao@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] phy: qcom: qmp: Fix alignment in pcs-v8_50 register header
+Date: Thu, 10 Sep 2026 09:15:00 +0800
+Message-ID: <20260910011500.659353-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-5-982cc8f4234b@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDAxMSBTYWx0ZWRfX2+sI62K89yU/
+ 4frN7K3yBRc70Iq9b+IsSd4QxNDcFsLr5Vgs9JTiUZ1WKv/sgy/muO9hJHNFfquqtUIuLLQmqQ2
+ bSpTqsp+SMwiuC3ohPCXacTyJad4Y2U=
+X-Authority-Analysis: v=2.4 cv=UJNIjyfy c=1 sm=1 tr=0 ts=6aa204a2 cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=dxXbasm6c_75TwCK60EA:9 a=-UhsvdU3ccFDOXFxFb4l:22
+X-Proofpoint-GUID: ksSX0uUK5-HV75LU39nkvsiKVxs4d5a0
+X-Proofpoint-ORIG-GUID: ksSX0uUK5-HV75LU39nkvsiKVxs4d5a0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDAxMSBTYWx0ZWRfX+yCgPyK9ovtJ
+ d7V5pPABoaeDawNAkYjHNARFmN1MSQKS0oMzGjuxxWuPdo8Zllx28ZTgFZ5rUDZeSparNdDRmyT
+ gPlYgH8Nap+SX3rsSa7sMIMPnsuCPCkWkZ4IleHrDJ+pFhe1SV15vHlxKOe6OBfndRcmUGiEUay
+ NvVpSvp5wg1Cast06thhlYxOxU99cEOfRDztXiLnF/O3sM9721p5Lv9j4NwIXOVbJmw91M9gtK/
+ HtK8zb1Y2JB3XJkjI+0HCjaVFzh9okrCUpBt/VTIslnT7rmBi2+kYTXweKabZ3n93MHZElnEmvq
+ XTL0a6p42fJwaj6AzfElgeqpw2JL6miw7TMRROY6aEgF6DHejUyANhsMM55xYBiQDLcwXoRwMJm
+ PkcY+v5U2z/pJ0eApIwJZUHrhG5bFg0yonM7OsY7xU3/7tqFZs2qz7GbCUSCPcdf+zRTFQmjPSb
+ O8DkC8Xlc5JutiYY0mw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-09_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100011
 
-On 26.08.2026 16:56, Boris Brezillon wrote:
-There's no clue that we'll ever have an SoC with multiple Mali GPUs,
-> and even then, the gains of sharing the PT caches and cleanup workqueue
-> remains unclear.
-> 
-> On the other hand, binding those resources to the device allows us to
-> detect leaks or UAF at drm_device removal time instead of when the
-> module is removed.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 17 ++++---
->  drivers/gpu/drm/panthor/panthor_device.h |  8 ++++
->  drivers/gpu/drm/panthor/panthor_drv.c    | 47 +------------------
->  drivers/gpu/drm/panthor/panthor_mmu.c    | 78 +++++++++++++++-----------------
->  drivers/gpu/drm/panthor/panthor_mmu.h    |  3 --
->  drivers/gpu/drm/panthor/panthor_sched.c  |  4 +-
->  6 files changed, 58 insertions(+), 99 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 133e3895cd0a..08bb4d410941 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -131,12 +131,9 @@ static void panthor_device_unplug_work(struct work_struct *work)
->  	panthor_device_unplug(ptdev);
->  }
->  
-> -static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
-> +static void destroy_wq(struct drm_device *ddev, void *wq)
->  {
-> -	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
-> -
-> -	disable_work_sync(&ptdev->reset.work);
-> -	destroy_workqueue(ptdev->reset.wq);
-> +	destroy_workqueue(wq);
->  }
->  
->  static void panthor_device_reset_work(struct work_struct *work)
-> @@ -242,7 +239,15 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (!ptdev->reset.wq)
->  		return -ENOMEM;
+Fix up the whitespace so all offsets align. No functional change.
 
-Nit: When we allocate ptdev->reset.wq right above this line, maybe we could leave a whitespace
-for the sake of keeping the same spacing convention as with other alloc_workqueue +
-drmm_add_action_or_reset pairs. Although maybe we could have a helper that does both the
-workqueue allocation and drmm_add_action_or_reset since there are quite a few places across
-the code where we do both in succession.
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v8_50.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v8_50.h b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v8_50.h
+index 325c127e8eb7..f094517ae3c1 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v8_50.h
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v8_50.h
+@@ -7,7 +7,7 @@
+ #define QCOM_PHY_QMP_PCS_V8_50_H_
+ 
+ #define QPHY_V8_50_PCS_STATUS1			0x010
+-#define QPHY_V8_50_PCS_START_CONTROL			0x05c
+-#define QPHY_V8_50_PCS_POWER_DOWN_CONTROL			0x64
++#define QPHY_V8_50_PCS_START_CONTROL		0x05c
++#define QPHY_V8_50_PCS_POWER_DOWN_CONTROL	0x64
+ 
+ #endif
+-- 
+2.43.0
 
-> -	ret = drmm_add_action_or_reset(&ptdev->base, panthor_device_reset_cleanup, NULL);
-> +	ret = drmm_add_action_or_reset(&ptdev->base, destroy_wq, ptdev->reset.wq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ptdev->cleanup_wq =  alloc_workqueue("panthor-cleanup", WQ_UNBOUND, 0);
-> +	if (!ptdev->cleanup_wq)
-> +		return -ENOMEM;
-> +
-> +	ret = drmm_add_action_or_reset(&ptdev->base, destroy_wq, ptdev->cleanup_wq);
->  	if (ret)
->  		return ret;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 217eec811bdb..a7ea475fb407 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -327,6 +327,14 @@ struct panthor_device {
->  		atomic_t recovery_needed;
->  	} pm;
->  
-> +	/**
-> +	 * @cleanup_wq: Workqueue used for cleanup operations.
-> +	 *
-> +	 * We create a dedicated workqueue so we can flush on unplug and
-> +	 * make sure all resources are freed before we finish the unplug.
-> +	 */
-> +	struct workqueue_struct *cleanup_wq;
-> +
->  	/** @profile_mask: User-set profiling flags for job accounting. */
->  	u32 profile_mask;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 46a3080b0b20..67db6701699b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1904,52 +1904,7 @@ static struct platform_driver panthor_driver = {
->  		.dev_groups = panthor_groups,
->  	},
->  };
-> -
-> -/*
-> - * Workqueue used to cleanup stuff.
-> - *
-> - * We create a dedicated workqueue so we can drain on unplug and
-> - * make sure all resources are freed before the module is unloaded.
-> - */
-> -struct workqueue_struct *panthor_cleanup_wq;
-> -
-> -static int __init panthor_init(void)
-> -{
-> -	int ret;
-> -
-> -	ret = panthor_mmu_pt_cache_init();
-> -	if (ret)
-> -		return ret;
-> -
-> -	panthor_cleanup_wq = alloc_workqueue("panthor-cleanup", WQ_UNBOUND, 0);
-> -	if (!panthor_cleanup_wq) {
-> -		pr_err("panthor: Failed to allocate the workqueues");
-> -		ret = -ENOMEM;
-> -		goto err_mmu_pt_cache_fini;
-> -	}
-> -
-> -	ret = platform_driver_register(&panthor_driver);
-> -	if (ret)
-> -		goto err_destroy_cleanup_wq;
-> -
-> -	return 0;
-> -
-> -err_destroy_cleanup_wq:
-> -	destroy_workqueue(panthor_cleanup_wq);
-> -
-> -err_mmu_pt_cache_fini:
-> -	panthor_mmu_pt_cache_fini();
-> -	return ret;
-> -}
-> -module_init(panthor_init);
-> -
-> -static void __exit panthor_exit(void)
-> -{
-> -	platform_driver_unregister(&panthor_driver);
-> -	destroy_workqueue(panthor_cleanup_wq);
-> -	panthor_mmu_pt_cache_fini();
-> -}
-> -module_exit(panthor_exit);
-> +module_platform_driver(panthor_driver);
->  
->  MODULE_AUTHOR("Panthor Project Developers");
->  MODULE_DESCRIPTION("Panthor DRM Driver");
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 1385ee28bee5..b4e41556247a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -61,6 +61,16 @@ struct panthor_mmu {
->  	/** @irq: The MMU irq. */
->  	struct panthor_irq irq;
->  
-> +	/**
-> +	 * @pt_cache: Cache used to allocate MMU page tables.
-> +	 *
-> +	 * The pre-allocation pattern forces us to over-allocate to plan for
-> +	 * the worst case scenario, and return the pages we didn't use.
-> +	 *
-> +	 * Having a kmem_cache allows us to speed allocations.
-> +	 */
-> +	struct kmem_cache *pt_cache;
-> +
->  	/**
->  	 * @as: Address space related fields.
->  	 *
-> @@ -440,16 +450,6 @@ struct panthor_vm_bind_job {
->  	struct panthor_vm_op_ctx ctx;
->  };
->  
-> -/*
-> - * @pt_cache: Cache used to allocate MMU page tables.
-> - *
-> - * The pre-allocation pattern forces us to over-allocate to plan for
-> - * the worst case scenario, and return the pages we didn't use.
-> - *
-> - * Having a kmem_cache allows us to speed allocations.
-> - */
-> -static struct kmem_cache *pt_cache;
-> -
->  /**
->   * alloc_pt() - Custom page table allocator
->   * @cookie: Cookie passed at page table allocation time.
-> @@ -530,7 +530,7 @@ static void free_pt(void *cookie, void *data, size_t size)
->  		return;
->  
->  	/* Return the page to the pt_cache. */
-> -	kmem_cache_free(pt_cache, data);
-> +	kmem_cache_free(vm->ptdev->mmu->pt_cache, data);
->  }
->  
->  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
-> @@ -1179,7 +1179,8 @@ static void panthor_vm_cleanup_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  				     !op_ctx->map.bo;
->  
->  	if (remaining_pt_count) {
-> -		kmem_cache_free_bulk(pt_cache, remaining_pt_count,
-> +		kmem_cache_free_bulk(vm->ptdev->mmu->pt_cache,
-> +				     remaining_pt_count,
->  				     op_ctx->rsvd_page_tables.pages +
->  				     op_ctx->rsvd_page_tables.ptr);
->  	}
-> @@ -1279,7 +1280,8 @@ static void panthor_vm_init_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  	op_ctx->va.addr = va;
->  }
->  
-> -static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
-> +static int panthor_vm_op_ctx_prealloc_pts(struct panthor_device *ptdev,
-> +					  struct panthor_vm_op_ctx *op_ctx)
->  {
->  	u64 size = op_ctx->va.range;
->  	u64 va = op_ctx->va.addr;
-> @@ -1298,7 +1300,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
->  	if (!op_ctx->rsvd_page_tables.pages)
->  		return -ENOMEM;
->  
-> -	if (!kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, pt_count,
-> +	if (!kmem_cache_alloc_bulk(ptdev->mmu->pt_cache, GFP_KERNEL, pt_count,
->  				   op_ctx->rsvd_page_tables.pages)) {
->  		op_ctx->rsvd_page_tables.count = 0;
->  		return -ENOMEM;
-> @@ -1385,7 +1387,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  	op_ctx->map.vm_bo = drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
->  	op_ctx->map.bo_offset = op->bo_offset;
->  
-> -	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
-> +	ret = panthor_vm_op_ctx_prealloc_pts(vm->ptdev, op_ctx);
->  	if (ret)
->  		goto err_cleanup;
->  
-> @@ -1444,8 +1446,9 @@ static int panthor_vm_prepare_unmap_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  			goto err_cleanup;
->  		}
->  
-> -		if (!kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, pt_count,
-> -				op_ctx->rsvd_page_tables.pages)) {
-> +		if (!kmem_cache_alloc_bulk(vm->ptdev->mmu->pt_cache,
-> +					   GFP_KERNEL, pt_count,
-> +					   op_ctx->rsvd_page_tables.pages)) {
->  			ret = -ENOMEM;
->  			goto err_cleanup;
->  		}
-> @@ -2580,7 +2583,7 @@ static int remap_evicted_vma(struct drm_gpuvm_bo *vm_bo,
->  	bool found = false;
->  	int ret;
->  
-> -	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
-> +	ret = panthor_vm_op_ctx_prealloc_pts(vm->ptdev, op_ctx);
->  	if (ret)
->  		goto out_cleanup;
->  
-> @@ -2821,7 +2824,7 @@ panthor_vm_bind_free_job(struct drm_sched_job *sched_job)
->  	/* Do the heavy cleanups asynchronously, so we're out of the
->  	 * dma-signaling path and can acquire dma-resv locks safely.
->  	 */
-> -	queue_work(panthor_cleanup_wq, &job->cleanup_op_ctx_work);
-> +	queue_work(job->vm->ptdev->cleanup_wq, &job->cleanup_op_ctx_work);
->  }
->  
->  static enum drm_gpu_sched_stat
-> @@ -3372,7 +3375,7 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
->  	 * otherwise those might access objects that are gone if the work is
->  	 * executed after other components are unplugged.
->  	 */
-> -	flush_workqueue(panthor_cleanup_wq);
-> +	flush_workqueue(ptdev->cleanup_wq);
->  }
->  
->  static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
-> @@ -3385,6 +3388,11 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
->  	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
->  }
->  
-> +static void free_pt_cache(struct drm_device *, void *pt_cache)
-> +{
-> +	kmem_cache_destroy(pt_cache);
-> +}
-> +
->  /**
->   * panthor_mmu_init() - Initialize the MMU logic.
->   * @ptdev: Device.
-> @@ -3414,6 +3422,14 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> +	mmu->pt_cache = kmem_cache_create("panthor-mmu-pt", SZ_4K, SZ_4K, 0, NULL);
-> +	if (!mmu->pt_cache)
-> +		return -ENOMEM;
-> +
-> +	ret = drmm_add_action_or_reset(&ptdev->base, free_pt_cache, mmu->pt_cache);
-> +	if (ret)
-> +		return ret;
-> +
->  	mmu->iomem = ptdev->iomem + MMU_AS_BASE;
->  	ptdev->mmu = mmu;
->  
-> @@ -3498,25 +3514,3 @@ void panthor_mmu_debugfs_init(struct drm_minor *minor)
->  				 minor->debugfs_root, minor);
->  }
->  #endif /* CONFIG_DEBUG_FS */
-> -
-> -/**
-> - * panthor_mmu_pt_cache_init() - Initialize the page table cache.
-> - *
-> - * Return: 0 on success, a negative error code otherwise.
-> - */
-> -int panthor_mmu_pt_cache_init(void)
-> -{
-> -	pt_cache = kmem_cache_create("panthor-mmu-pt", SZ_4K, SZ_4K, 0, NULL);
-> -	if (!pt_cache)
-> -		return -ENOMEM;
-> -
-> -	return 0;
-> -}
-> -
-> -/**
-> - * panthor_mmu_pt_cache_fini() - Destroy the page table cache.
-> - */
-> -void panthor_mmu_pt_cache_fini(void)
-> -{
-> -	kmem_cache_destroy(pt_cache);
-> -}
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-> index 3522fbbce369..de6b4ee4e41a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-> @@ -104,9 +104,6 @@ void panthor_vm_update_resvs(struct panthor_vm *vm, struct drm_exec *exec,
->  			     enum dma_resv_usage private_usage,
->  			     enum dma_resv_usage extobj_usage);
->  
-> -int panthor_mmu_pt_cache_init(void);
-> -void panthor_mmu_pt_cache_fini(void);
-> -
->  #ifdef CONFIG_DEBUG_FS
->  void panthor_mmu_debugfs_init(struct drm_minor *minor);
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index a6d57dc1b43e..4ea16b40d6b9 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -972,7 +972,7 @@ static void group_release(struct kref *kref)
->  	drm_WARN_ON(&ptdev->base, !list_empty(&group->run_node));
->  	drm_WARN_ON(&ptdev->base, !list_empty(&group->wait_node));
->  
-> -	queue_work(panthor_cleanup_wq, &group->release_work);
-> +	queue_work(ptdev->cleanup_wq, &group->release_work);
->  }
->  
->  static void group_put(struct panthor_group *group)
-> @@ -4054,7 +4054,7 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
->  	 * otherwise those might access objects that are gone if the work is
->  	 * executed after other components are unplugged.
->  	 */
-> -	flush_workqueue(panthor_cleanup_wq);
-> +	flush_workqueue(ptdev->cleanup_wq);
->  }
->  
->  static void panthor_sched_fini(struct drm_device *ddev, void *res)
-> 
-> -- 
-> 2.55.0
-
-
-Adrian Larumbe
