@@ -1,218 +1,198 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010038.outbound.protection.outlook.com [52.101.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AE42EB5A6;
-	Thu, 10 Sep 2026 16:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056233; cv=fail; b=NRBB7VuyF3K4KKBVLYGXQt6TeSCLVDbyuNpIk6R4pLzOz/FTO3R2tXWt7cXIVQ5hAeIt7X1OSuio9SY/kUYs+wKeeR2lCndvspiduwDeyVJsIMH7zVSlf7Ojc7olsFZeEcZN70r23ZKinnZUBfJrpbaPEze8igWhe4osRGRgqpU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056233; c=relaxed/simple;
-	bh=rpR60oG9pCtDqqYRsH37aCAXxhNxb/+ywveDqx1hh+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I6QAcFhikxPpgjQzUrIhS966TeolE4QvMzRJC6pmP0ChOlwdSWjcsyxUQ3469XThMoZkYvWnsJXFt8pBwA7eejkYWksVgzIrHdAvtaAiVI+VRgmXuZOpduSpHGlEsBThwkvau6zNhWQRxWlZMGxtO5L+s/oS7cM+Qd4s5Nq70fc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=f8/bDxEw; arc=fail smtp.client-ip=52.101.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32A64BAA11
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789056239; cv=none; b=DlnFCJkNCEyD2CCEJUwSg6QWlpA76RrmDPZQ2BxD2+Kl1OXjh6AVIJJWapL7U91Hyo1rPaGq4xPDhNpLbFOUUfFSCurQICaWPV4rWC3632WqY/ksMmtUjZhFvCtfgut/uEawLE24r8EkvMWmyW5u0EskuXhjPLJr1NTgY7T1ees=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789056239; c=relaxed/simple;
+	bh=AHkASD+KT9hovr17X9EfCxN+oDA7ZS7vi9iIUeCFVhs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tQV5uaTZgJNPaihupdmbow8IQMdxvIYeudks7anyGnOq4TFcVmDR8zRWBd4hJADcGZBHY3tgnlLeFgoxD7qW4nHklOdYMMp6tQRfELF1mEQU34zo+1iNjacJ9vXEwlHJWpgT38ocW1vmBvjKbbf3e5qb4rj+PptsN/4sWmtTmMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iuhY13a8; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="f8/bDxEw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oXUEEcnFV2d70XGb2Z/NInSxgrODAQ9m69iERoEtZhr42S8eLb5nLp3gI4WMlrkSY8Yh2GuW4xyv+PZ67Q3Fu9Y2bep8iA6Z2u7QbgfY5mQo1pNDcdeteQof4WyVLBSl6HN4y8+8oMQke1ZjvRlNNsmGRmt8yyxUcdiczfRYVSTD/00jsxsiXy4CBMgY1nep/v6LsZcnGv7N8sQ3E58wk3Yse6qymVw3K+v49vTYPfuTZjYa5UeF3YNsQZDNt9nKNxQUsynhCBGZXN8yo7huFVVAZkeQNfezt35skaIZXknpaY5eXiGaM0IAqAUuTTfAAI/qa6IUfsvhojzQQj1rrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3vzucJ3+1m8wzjgnGHs0+KTlzU+0pSFkZaZgxgZwCe8=;
- b=wZYltWUulcdmxqHyQ4Lcw2jJzQ7OmoTaonnNteDNS2WfieF47WBFTPkKwfNCQ/v94ykzBAVYW77OxES8P40gExK/Ejp+xOieJ49qlWAIBDfaKnoOYtZk86dvNqok9lbXm8RuxVRnUGNe9fYupwUIwrdvSJspKCBUkTHV8/7gIlNXo9lK2FzGSbK05W9yBIprSQSQWDdZg4bnaR8Vz9GvcI5pME3tr3ZUYDmSwcgcD8iFDzEBf2mviqN/T9wdUEHvC/b+Ay6sixGzaCx/t19ZjaQBrScdwkbykcF6QX1zP9WKAncOEQVkhX+cwhwo6U1xsw+DgRkQ2TKEyrwZhzriQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=glider.be smtp.mailfrom=renesas.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=renesas.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3vzucJ3+1m8wzjgnGHs0+KTlzU+0pSFkZaZgxgZwCe8=;
- b=f8/bDxEwhMi8Tp9O8rgOktmQN1C5AWQfycDilNXLC2rzkt8vfwrImzURbm4X9fn59AqvtQdRgSfNh8QCYcv4m44AUWBliB3m0na/tkyVZ34ULaQVdmlgPh4/0zb2mv5TyMRb6OrDQB93Ln6d7HSMWUvFA8905xsLQjDIkokUs7A=
-Received: from TYCP286CA0022.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:263::8)
- by TY7PR01MB17246.jpnprd01.prod.outlook.com (2603:1096:405:32b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 16:03:48 +0000
-Received: from TY1PEPF0000BADA.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:263:cafe::45) by TYCP286CA0022.outlook.office365.com
- (2603:1096:400:263::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 16:03:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- TY1PEPF0000BADA.mail.protection.outlook.com (10.167.240.39) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
- via Frontend Transport; Thu, 10 Sep 2026 16:03:47 +0000
-Received: from demon-pc (DEU-5CG5050QD0.adwin.renesas.com [10.226.92.160])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 451D430083C7;
-	Fri, 11 Sep 2026 01:03:45 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] pinctrl: renesas: rzt2h: reuse helpers
-Date: Thu, 10 Sep 2026 19:02:26 +0300
-Message-ID: <20260910160226.489183-5-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910160226.489183-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260910160226.489183-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iuhY13a8"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-869b8d63e28so862016b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789056237; x=1789661037; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PjpQmguvZKqFc40yaCCUF9DxHpcHtd3drRjNMUjWpE8=;
+        b=iuhY13a80KGseO7HZmuA3y94fmHZB0TSKy1X56JoxJyaiXkGKyG10ot87xmhbpxJP6
+         W8fA5QrJKRypQSa+l9BxY//kK8JoC6TiQnGWZr9E3EoWzmtEplTg30Ke8A/yT2pXivDv
+         6b8B4rJf2oLbGheKWXq54phZ3mmC8j8fjWTLtjPFl0QezZRlrU0G6x6gr7eqOM4SwiOK
+         kij6G5FSKnBbmQcXWtfwFby5h8YCVznkRdrXf9Ce6oGz75L1eb25lEoOSirVkGdN2PKO
+         DOIoP2NXZX1D80e9v01orGBOtvq5EfCzmZpnzN2kVluOH8O29+1M24CNDR5Dn8H2mXdL
+         Pnrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789056237; x=1789661037;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PjpQmguvZKqFc40yaCCUF9DxHpcHtd3drRjNMUjWpE8=;
+        b=I3krzb4QxcKNmJDH/3AnGpUAwyVuU2VCT6Fu7/MaOxJTLTJy5UT4qLppex+4PjfVSH
+         TPeZq79sm9LVQ0FuVPdMV8PafDDa/09dh7NxzvrgrSs2slPmeAEZPAj65cczFvDsUOS9
+         5Q/NmsHGcmxHE+4s7w26wO3Usrpg77rRs5QCTnUrTQjpMKtcY47LFr5yo+X64mfEBzC5
+         Ddw/I5frD3z3TU8V2ZWU1NK9w2PW9/oIZPkLAlOCGIQXCgu8Us+qbTmHZQsDfH03/K4b
+         pdzDMNTM0OenkdkZBRFd9sBJgLSQ72G31p2KLSQLKWP3T1V5Xu3lbdD0Xw9SGAHqSAGF
+         uw1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzK0ZsuvcIZms1wvcRhMmv6gTP8YvWX0VkBBS3IUw11smLBKU5Tpp9Sq3H5k5QIMt5DHryNehpNBCf467c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kb7CWm7VEd1hO+b/Fn0b8M+KGbKqTByqJaxak8+d4PeNx0Q3En
+	1xtTrOk3XyZ6pXRxX8UfRITsEWBqGh1o5dtjU77fHuX6Hn716qQOYetWsSx/vdCJcXNhhiCQKKP
+	pdeZrsg==
+X-Received: from pgmh20.prod.google.com ([2002:a63:5754:0:b0:cc4:3b01:7730])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:4303:b0:3c3:7179:a640
+ with SMTP id adf61e73a8af0-3dacbd6e061mr12520616637.3.1789056236336; Thu, 10
+ Sep 2026 09:03:56 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:03:55 -0700
+In-Reply-To: <20260905011956.GA856309@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY1PEPF0000BADA:EE_|TY7PR01MB17246:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 6e92d28d-e30c-4e08-af98-08df0f5518ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|10067099003|3023799007|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	HpUY+M0FQb4JWRDLFt5rtsX6Fl0PTgwf67sMIBuvjyYZ+Jw9Zkxxn8JVh1ewNXwkTQ5LrorA0MH5LcIgD455Jd3hYAfWTb7ZCWuojlk/DRGYuBYeX7FFPqrgKOGvBuBpJM2kkao1/ix/y1wl2yMYZDLHkuBaitI28KeFRMuY1nRnDO9BCd0+sBtsFkahD5ItCX0LYatuexqLlpNiyX+adV3L+I49emmSmsh1oLBw+7axNnIYLTbblCjmRwwpb8joS7oJ0OpCBNxGavqj2OCo9qbwBUxs7EjMnnX6exTJN3S2m2Q/DlM79wphRFhYtVYmCfCMG86d1EQ8TORnKa4ESS7l5k6AC1CN3lTJFYDRgoq/F40DNLXDkJiGvSyZffYRPTyXy5muEBKsKZKwv1H/acxjmyreQu7PFuzO1/QqDu2sXS3WTNH60U0Aijd3dMN2Rm4hYBx/rOSDyj8kwJNg/BXm2GCyFtlLVU3bTjFHV7TrABfw8DyEqyp5L97XspPOw+h3p3TuJscBjgqeJFehX7QEXkFHL2ZO7zgnAOfV4NLLdcU6Z+yb/5oX2e3Ew7y+8k8Sifi6UdBKsU1soSvPZBeTQkYeQJ/dk9eogObqJmCNyhR2MnU6ezvCzraPjFD0840DLafVxUGK0ydT5QE0hVuPvfOkK6YVukxezmMYY4tpAt6YD7HjmCZ4Pw6NPUXDtpCchJAerk0IF6hy5PnOsg==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(10067099003)(3023799007)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	az18aeV1anxaI+gT+alvhWuY7MK+Lv1iBIds7ZC+4E1O7765H4jxYKXSor3nXEg+RHrJfkFDT6swlxF4pPZrcT3kBJ3qIec0FM8UEEherv/08uXw97ZJoKAsxOzQd7MBAxmr7R8iQfUUoyTzixgsIfUstpPwFPMIPb9ZmXz1sY65zzmDW+mNRPhKhct6hBMrZTeCqYJMkpqNIvQonSNsKg8FX2TU74JGuLJsRMnPBCCSIskxd0EC3XY19yaYLo0B7LGnzci95UShmTTwg2G8W+DLvuLVL1/pQOELr19ZsEX9L4iPGdUXa/6k6UV6ib4Q0PWueyPuzJhjieD8bDoWbb4fwRanEucdmFKG8XlXM2rO6oY1Zt51uVXq6rdBK+piXb6N1FhUi1OjaRZDZiSrDB38Vo857t9nCIPZKdJ0pDWXeD2rvF7QpWg6KZxjcqVo
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:03:47.5454
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e92d28d-e30c-4e08-af98-08df0f5518ff
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY1PEPF0000BADA.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB17246
+Mime-Version: 1.0
+References: <anphyjFv3FhF61iB@google.com> <2vxzpkzo51wg.fsf@kernel.org>
+ <anssOQFNZ2LfihbU@google.com> <2vxzik5f311e.fsf@kernel.org>
+ <anyObKiZIhfok5mk@google.com> <2vxzqzjz1x5f.fsf@kernel.org>
+ <aoMcqp0gr06YXAPU@google.com> <2vxzy0e3zgqz.fsf@kernel.org>
+ <aoSCCTTBn9D5hqzk@google.com> <20260905011956.GA856309@nvidia.com>
+Message-ID: <aqLU653FXjJjhbop@google.com>
+Subject: Re: [PATCH v4 05/11] KVM: LUO: Support VM preservation across live updates
+From: Sean Christopherson <seanjc@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Tarun Sahu <tarunsahu@google.com>, ackerleytng@google.com, 
+	fuad.tabba@linux.dev, Andrew Morton <akpm@linux-foundation.org>, dmatlack@google.com, 
+	Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>, david@redhat.com, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, sagis@google.com, 
+	Paolo Bonzini <pbonzini@redhat.com>, Mike Rapoport <rppt@kernel.org>, Alexander Graf <graf@amazon.com>, 
+	linux-kselftest@vger.kernel.org, andre.przywara@arm.com, michael.roth@amd.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, will@kernel.org, 
+	vannapurve@google.com, maz@kernel.org, fvdl@google.com, kvm@vger.kernel.org, 
+	oliver.upton@linux.dev, kvmarm@lists.linux.dev, alexandru.elisei@arm.com, 
+	skhawaja@google.com, aneesh.kumar@kernel.org, linux-doc@vger.kernel.org, 
+	David Hildenbrand <david@kernel.org>, yan.y.zhao@intel.com, kexec@lists.infradead.org, 
+	suzuki.poulose@arm.com
+Content-Type: text/plain; charset="us-ascii"
 
-The PMCm peripheral-mode test, the PFCm function read, the PINm input
-read, the PMm write, and the PMm read are open-coded in several places.
+On Fri, Sep 04, 2026, Jason Gunthorpe wrote:
+> On Tue, Aug 18, 2026 at 09:02:17AM -0700, Sean Christopherson wrote:
+> > The rule is thou shalt not break userspace.  Whether or not the
+> > breakage is the result of an explicit ABI change is irrelevant.
+> 
+> I argued strongly for this simpler approach, I will write here the
+> reasoning I gave.
+> 
+> Firstly, "live update" is not uABI per-say. It is not "userspace
+> breaking", and it is not a "regression". It is an internal kernel
+> mechanism to allow the kernel to self-upgrade. In the industry it is
+> typical any of these hitless update/patch/etc schemes to only work
+> between a few tightly controlled version pairs.
+> 
+> Asking upstream to carry a full matrix of every single version pair
+> ever released is massive over-engineering and cost on upstream
+> maintainers. Refusing to do this is not a uABI breakage, it is not a
+> regression, it is simply a lack of a feature.
+> 
+> I think upstream should start by agreeing to only support forward
+> going upgrades within a single stable branch. If live update becomes a
+> success then maybe we could do from a stable branch to the immediate
+> next stable branch too. I don't know.
 
-Reuse the already existing helpers.
+From that perspective, what I am proposing actually goes a step further.  I'm
+saying don't commit to supporting *any* specific versions in upstream.  Express
+the feature requirements in the serialization payloads, and let userspace sort
+out what kernels are compatible based on their actual usage.  The kernel may need
+to provide additional discovery mechanisms, e.g. so that userspace can probe to
+see what is supported, but discovery is usually fairly simple to implement and
+maintain.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
----
+> This alone is already much more powerful than live patching.
+> 
+> The balancing issue here is the impact on the kernel subsystems
+> adopting luo. Every time you change anything about the internal
+> function of the subystem you now have to go test a massive version
+> pair matrix to make sure everything works? No thanks.
 
-V2:
- * pick up Geert's Reviewed-by
+No, the subsystem just needs to make sure that it serializes its data using the
+defined ABI (where ABI here means the format of the payload and the meaning of
+any flags in the header).  That should be *easier* for maintainers to handle than
+trying to support arbitrary versions, because it eliminates subjectivity and
+having to make judgment calls or remember magic version numbers.
 
- drivers/pinctrl/renesas/pinctrl-rzt2h.c | 39 +++++++++----------------
- 1 file changed, 13 insertions(+), 26 deletions(-)
+> Luo is very invasive and a huge PITA at the best of times. It doesn't
+> need to be even worse.
+> 
+> > It's probably fine for Google and other large companies that tightly
+> > control their kernels and use cases, and have the resources to
+> > juggle the resulting complexity, e.g. have kernel engineers on staff
+> > to track feature and dependencies, coordinate and plan kernel
+> > upgrades, etc.
+> 
+> Every downstream that wants to support luo is going to necessarily
+> severely restrict the version pairs that can work. Like a RH type
+> distro may only support it for 9.1.x -> 9.1.x+1 - they can carry the
+> cost of figuring out how to manage their patching and compatability
+> matrix on their own with the tools upstream provides.
+> 
+> > engineers on staff to help them thread the needle you describe
+> > above.  And if supporting live update as a general feature for all
+> > users of the kernel isn't being factored into design considerations,
+> > then that needs to change, otherwise this is all dead in the water.
+> 
+> General uses can use upstream and do CVE upgrades within a single
+> stable branch. That's good enough, lets start there. We don't need to
+> boil the ocean.
 
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzt2h.c b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-index 8cf4b7f48e7e..4872a208e0c3 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-@@ -230,7 +230,7 @@ static void rzt2h_pinctrl_set_pfc_mode(struct rzt2h_pinctrl *pctrl,
- 
- 	reg64 = rzt2h_pinctrl_readq(pctrl, port, PFC(port));
- 	/* Check if pin is already configured to the desired function */
--	if ((rzt2h_pinctrl_readb(pctrl, port, PMC(port)) & BIT(pin)) &&
-+	if (rzt2h_pin_mode_is_peripheral(pctrl, port, pin) &&
- 	    field_get(PFC_PIN_MASK(pin), reg64) == func)
- 		return;
- 
-@@ -784,15 +784,7 @@ static int rzt2h_gpio_request(struct gpio_chip *chip, unsigned int offset)
- static void rzt2h_gpio_set_direction(struct rzt2h_pinctrl *pctrl, u32 port,
- 				     u8 bit, bool output)
- {
--	u16 reg;
--
--	guard(raw_spinlock_irqsave)(&pctrl->lock);
--
--	reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
--	reg &= ~PM_PIN_MASK(bit);
--
--	reg |= (output ? PM_OUTPUT : PM_INPUT) << (bit * 2);
--	rzt2h_pinctrl_writew(pctrl, port, reg, PM(port));
-+	rzt2h_pin_write_pm(pctrl, port, bit, output ? PM_OUTPUT : PM_INPUT);
- }
- 
- static int rzt2h_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
-@@ -800,9 +792,8 @@ static int rzt2h_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
- 	struct rzt2h_pinctrl *pctrl = gpiochip_get_data(chip);
- 	u8 port = RZT2H_PIN_ID_TO_PORT(offset);
- 	u8 bit = RZT2H_PIN_ID_TO_PIN(offset);
--	u64 reg64;
--	u16 reg;
- 	int ret;
-+	u8 pm;
- 
- 	ret = rzt2h_validate_pin(pctrl, offset);
- 	if (ret)
-@@ -810,7 +801,7 @@ static int rzt2h_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
- 
- 	guard(raw_spinlock_irqsave)(&pctrl->lock);
- 
--	if (rzt2h_pinctrl_readb(pctrl, port, PMC(port)) & BIT(bit)) {
-+	if (rzt2h_pin_mode_is_peripheral(pctrl, port, bit)) {
- 		/*
- 		 * When a GPIO is being requested as an IRQ, the pinctrl
- 		 * framework expects to be able to read the GPIO's direction.
-@@ -820,19 +811,16 @@ static int rzt2h_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
- 		 * called to enable the IRQ function.
- 		 * Default to input direction for IRQ function.
- 		 */
--		reg64 = rzt2h_pinctrl_readq(pctrl, port, PFC(port));
--		reg64 = (reg64 >> (bit * 8)) & PFC_MASK;
--		if (reg64 == PFC_FUNC_INTERRUPT)
-+		if (rzt2h_pin_read_pfc(pctrl, port, bit) == PFC_FUNC_INTERRUPT)
- 			return GPIO_LINE_DIRECTION_IN;
- 
- 		return -EINVAL;
- 	}
- 
--	reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
--	reg = (reg >> (bit * 2)) & PM_MASK;
--	if (reg & PM_OUTPUT)
-+	pm = rzt2h_pin_read_pm(pctrl, port, bit);
-+	if (pm & PM_OUTPUT)
- 		return GPIO_LINE_DIRECTION_OUT;
--	if (reg & PM_INPUT)
-+	if (pm & PM_INPUT)
- 		return GPIO_LINE_DIRECTION_IN;
- 
- 	return -EINVAL;
-@@ -862,16 +850,15 @@ static int rzt2h_gpio_get(struct gpio_chip *chip, unsigned int offset)
- 	struct rzt2h_pinctrl *pctrl = gpiochip_get_data(chip);
- 	u8 port = RZT2H_PIN_ID_TO_PORT(offset);
- 	u8 bit = RZT2H_PIN_ID_TO_PIN(offset);
--	u16 reg;
-+	u8 pm;
- 
- 	if (rzt2h_pin_mode_is_peripheral(pctrl, port, bit))
- 		return rzt2h_pin_read_input(pctrl, port, bit);
- 
--	reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
--	reg = (reg >> (bit * 2)) & PM_MASK;
--	if (reg & PM_INPUT)
--		return !!(rzt2h_pinctrl_readb(pctrl, port, PIN(port)) & BIT(bit));
--	if (reg & PM_OUTPUT)
-+	pm = rzt2h_pin_read_pm(pctrl, port, bit);
-+	if (pm & PM_INPUT)
-+		return rzt2h_pin_read_input(pctrl, port, bit);
-+	if (pm & PM_OUTPUT)
- 		return !!(rzt2h_pinctrl_readb(pctrl, port, P(port)) & BIT(bit));
- 
- 	return -EINVAL;
--- 
-2.55.0
+We're in violent agreement on this point, I think we just disagree on how to
+express compatibility.
+
+> > I also don't see the point.  Maintaining a rigid save/restore ABI is
+> > annoying, but it's not _hard_ (or at least, not _that_ hard),
+> > especially if there's a set
+> 
+> I was told KVM had the smallest luo footprint of everything, so
+> perhaps your perspective is different.
+
+Only because KVM already has a massive ABI surface for save/restore.  If you
+want to convince me that magic version numbers are the right approach, then show
+me how KVM's existing save/restore support would be made "better" and easier to
+maintain by throwing away all of KVM's save/restore uAPI and replacing it with a
+versioning scheme.
+
+> In other places luo becomes coupled to the internal datastructures of
+> the kernel, we literally have to preserve lots of kernel memory
+> utterly unchanged without any kind of serialization at all. 
+
+Have to, or choose to?  I have a very, very hard time believing that it's infeasible
+to define a serialization format that is decoupled from kernel internals.
+
+> This inevitably creates restrictions on the evolution of the kernel in
+> general if we can no longer change in-kernel architecture because it would
+> make some data structure incompatible with a kernel 10 years old.
+
+Only if the relevant subsystem defined a poor save/restore ABI in the first place.
+
+> There is also a need for *downgrade*. Meaning the N+1 kernel has to
+> strictly emulate the limitations and capabilities of the N kernel so
+> it can be rolled back. Can you imagine the nightmare of trying to
+> codify the feature progression for every single kernel release forever
+> in some impossible scheme to enable this? Again, no thanks.
+> 
+> So, what upstream can reasonably do, that still provides real value
+> without severely burdening every subsystem, is upgrades within a
+> stable kernel branch only.
+> 
+> If some distro or CSP wants to do more, they can deal with it. They
+> have a far, far simpler problem because they can exactly lock down
+> their version pairs to a very small universe. They don't need a single
+> kernel that can emulate 10 different releases of behaviors
+> concurrently.
+> 
+> Jason
