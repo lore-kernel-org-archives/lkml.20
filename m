@@ -1,117 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0673C0635;
-	Thu, 10 Sep 2026 10:19:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26413C0630
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035599; cv=none; b=g94ic0GTBgYtWTD3D7tgp78lEH6TSAFXTPVuNDF4gcrd7meMVUmPcY9tKkPj28sF4Mo49cy8QbzNbmkAmdaNTG/BWi/+ZXiSD+13Dvumgif/YP4ahCT905fpcWjfowLKAh8NxfzVDWhscDZITDreCVIcemwUn1A7E8DFi0eveiA=
+	t=1789035629; cv=none; b=Zy5XKOgktii8q/BdhjE6hjyrvYaTNHdaG2tJI1XWsZQL5V4jX/sKu7E5vJIO0SR0HX7BlcNUp29U8DnY0b4aKxbDXBY6mFW6HwE2CHAbZbiCVQ4RBaeP6/sqLn2nQMcbWjbG3DywAofltdXuDANM7BpRTuCq8GfE+1u6TiXEJoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035599; c=relaxed/simple;
-	bh=AGMXOz9WooLtmxCka5jf4X5QiuyLIh02VQs1iSo0TnA=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=KKUieZI2zMQ2GVJFL2KWJAE06rDFPUDCx8Dw6qmLqPMBHkc1+sedbIeBSYAC4hHeAg8y9uQ0CZv2lNVFr5Bhh1EBHOGZVHCtbTzsxJRJdwkwY4g4tNURIs2klxSBOtBc4uuStrZRS8V+EPzW40Nxs3ktTxGyvJbnTaeWrHnavPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mwp/OYZ+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789035629; c=relaxed/simple;
+	bh=yUtEsfPLjWZamfNRfg9VMtJcusHCb8N2rwynWztzht0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p/pqusDWdsVI8LgiAG719/geiK5u66HSinC1TpPPmGmUZUgxJTDGW90Bc6KmCDn5ahjTdTM0q4MHqGconzBTFFDDXihKahgSp/rjqaasFPzG/z6rMFRGygpwdH33cTKh7/3EL8u8j0rgTCTNVPOrw64WNTXfSobfIMi/InVsxYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QmAzDaZW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mwp/OYZ+"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E85261F000FF;
-	Thu, 10 Sep 2026 10:19:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QmAzDaZW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1991F00893
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:20:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789035597;
-	bh=1td4zs8wZKlsu/Ec/TS1O57yTzxpXdAFyxHvF+VC3sE=;
-	h=From:To:Cc:Subject:Date;
-	b=Mwp/OYZ+jSKHM/OkdunoCw336mPjlitqLIODgIYIR/EV/Oud6w1dYZjb2f+txl6zA
-	 njkUaSgRFgnFjlSYlVxha3EUTr8kTJsSnxldUJa6stxfmwWuX+eyeBS+1V09cAa8ug
-	 vsJsjpKdl8BW4HPlfBYRd5ygOd8ipFnLeaP39jM5U8dwSTj0fb+S1is56rWFBCG93E
-	 hhhHOHcIxZjG99GMlnF4RafvjI4OWpRXHP1i32c8JcX/1aycpzgMKCcVY6lTKivgqu
-	 MNq02pH3990xDjcTbci5SLxINHvkjz34FclzT6uqcjV5l3uJWh3wWvRCOACFKVfkSV
-	 1iVkVsZib509g==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Krystian Kaniewski <krystianmkaniewski@gmail.com>, "Jens Axboe" <axboe@kernel.dk>, <linux-block@vger.kernel.org>, "Nilay Shroff" <nilay@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] blk-mq: fix out-of-bounds read in blk_mq_free_rqs
-Message-ID: <c92b0c7e-17fb-44c8-99d9-59d45004d05a@mail.kernel.org>
+	s=k20260515; t=1789035627;
+	bh=cdEmpVyv56kKc6AhGYdPAfYFd5B5dnDIFz6+xaDxQFc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QmAzDaZWfvVQyqQLjmvIlHpG8GGTWEDOqslZrCFNLTT5V68oAMJhd39eA/by6J/vI
+	 6oCe4xTj+QunMxFAot8H1u98Zt33iLMJjdEb0dk0Nrj8Zo326K1ej3Lk2YnH0iAivK
+	 a6a2ZeVoK4F2kLUXlw3No5ZLwKcWeNJQSGrtHWA+p8EtDCYn3E4CUo7Yf1HfPRgE4M
+	 smeoV//aMC/rFN6PEYZ6UBXV3nAdI2MqxYEpJXydcf2nVNr+HsD57NE7Z1f46UJP+m
+	 9Km6bRlF7X25TvcdvO+ygAZJxb5QcvN/62Ma7Zthiu2kPb7+iMZA4ZpjB+VBh15d/6
+	 wUsoNMWTCJBgQ==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2055573c8cso963915566b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:20:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBywaEFDkt++UNJlO8sQHqhYAi3JsMDLtXDZLr+a3d6bTILbdK31ZzvjHj8OQly4GkbJRpoaETv6iY56yoQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM/wmFixCeSJx9Uo6undF2BFyMwkApjVxliX7CjGqmByZe+xgl
+	5+wMlyZstVNwnNA3YF/Tly6ItHUSFvzfdtmiqbtCvQyFwxCdNRMmvY+F6dxxP10Acte7FuCCSo2
+	8K05eX8L8uHX/45cRqFH/Y6nBmhOFWtk=
+X-Received: by 2002:a17:907:9485:b0:c25:541:fd3a with SMTP id
+ a640c23a62f3a-c260c7b5cfemr1652863966b.7.1789035626494; Thu, 10 Sep 2026
+ 03:20:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Thu, 10 Sep 2026 10:19:56 +0000 (UTC)
+References: <20260907161938.1932355-1-usama.arif@linux.dev>
+ <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org> <7975ef1f-8d2d-4be3-b206-7c6326bed2db@linux.dev>
+In-Reply-To: <7975ef1f-8d2d-4be3-b206-7c6326bed2db@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 10 Sep 2026 03:20:13 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPsK1i2wcDEOx0M3Qb_VaUS0-8aGrdyp_-E8i--Napbtw@mail.gmail.com>
+X-Gm-Features: AcwNN1VENlP2SEMBSV-Te_X5pjM4wPgRb3x6c-WQl0KNc5q59hkAJHGQQmBlbmU
+Message-ID: <CAO9r8zPsK1i2wcDEOx0M3Qb_VaUS0-8aGrdyp_-E8i--Napbtw@mail.gmail.com>
+Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
+ not in zswap
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, hannes@cmpxchg.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com, 
+	kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+On Thu, Sep 10, 2026 at 3:11=E2=80=AFAM Usama Arif <usama.arif@linux.dev> w=
+rote:
+>
+>
+>
+> On 10/09/2026 03:47, Andrew Morton wrote:
+> > On Mon,  7 Sep 2026 09:19:38 -0700 Usama Arif <usama.arif@linux.dev> wr=
+ote:
+> >
+> >> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
+> >> zswap_never_enabled() to decide whether a swapin may use a large folio=
+.
+> >> zswap_load() samples the same one-way static key again once the read
+> >> reaches it.  Nothing serialises the two reads, and in between the task
+> >> allocates and pins a high-order folio, which can sleep.
+> >>
+> >> If zswap is enabled for the first time in that window, a large folio t=
+hat
+> >> was correctly permitted reaches zswap_load(), which rejects every larg=
+e
+> >> folio with -EINVAL.  swap_read_folio() treats anything other than -ENO=
+ENT
+> >> as "zswap handled it" and skips the backing-device read, so the folio
+> >> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -=
+EIO
+> >> for shmem.  The data is intact on the swap device - it was written the=
+re
+> >> before zswap was ever enabled - and the not-uptodate folio stays in th=
+e
+> >> swap cache, so every retry of the fault fails the same way.  With
+> >> panic_on_warn the WARN takes the machine down rather than the task.
+> >>
+> >> Scan the range instead of rejecting the folio.  The caller has pinned
+> >> every slot before issuing the read, so zswap cannot start a store or a
+> >> writeback into the range and the scan is stable.  If nothing in the ra=
+nge
+> >> is in zswap it is all on the backing device: return -ENOENT and let
+> >> swap_read_folio() read it.
+> >>
+> >> A range that does have a slot in zswap is still refused, because zswap
+> >> stores large folios as order-0 entries and cannot reconstruct one.  Th=
+at
+> >> stays reachable - a slot shared with another task can be stored inside
+> >> the same window - and refusing is correct, since the alternative is
+> >> returning the stale device copy.  Report it as -EIO rather than -EINVA=
+L:
+> >> the request is valid, zswap just cannot serve it.  The only caller
+> >> distinguishes -ENOENT from everything else, so that part is a
+> >> documentation fix.
+> >
+> > So to hit this bug the user needs to enable zswap system-wide during a
+> > teeny race window in the swapin code?
+> >
+> > I suspect nobody has ever hit this and couldn't do so if they tried?
+>
+>
+> Yes, I think it would be very very difficult to hit this.
+>
+> It was part of my PMD swap series, where its actually needed for the feat=
+ure.
+>
+> I think we can drop cc:stable, unless you think its needed Yosry?
 
-A KASAN slab-out-of-bounds read can occur in blk_mq_free_rqs() when there
-is a mismatch between the number of hardware queues allocated for the IO
-scheduler (et->nr_hw_queues) and the number of hardware queues in the block
-tag set (set->nr_hw_queues).
-
-This mismatch can happen if blk_mq_update_nr_hw_queues() fails halfway
-through (e.g., due to memory pressure during
-blk_mq_prealloc_tag_set_tags()). In this error path, the elevator is
-restored with a larger number of hardware queues than the block tag set
-actually has.
-
-When the elevator is later freed, blk_mq_free_sched_tags() iterates up to
-the new et->nr_hw_queues and calls blk_mq_free_rqs(). In blk_mq_free_rqs(),
-it attempts to access set->tags[hctx_idx] to get the driver tags. Because
-set->nr_hw_queues was not updated due to the earlier failure, set->tags
-still has the old (smaller) size, leading to an out-of-bounds read.
-
-BUG: KASAN: slab-out-of-bounds in blk_mq_free_rqs+0xde/0x680
-Read of size 8 at addr ffff88818d67fc28 by task syz-executor117/5839
-Call Trace:
- blk_mq_free_rqs+0xde/0x680
- blk_mq_free_map_and_rqs+0x40/0xf0
- blk_mq_free_sched_tags
- blk_mq_free_sched_res+0xeb/0x280
- elevator_change_done+0x1d2/0x5c0
- elevator_change+0x34f/0x480
- elv_iosched_store+0x504/0x630
- queue_attr_store+0x207/0x2b0
-
-To fix this, explicitly check if hctx_idx < set->nr_hw_queues before
-accessing set->tags[hctx_idx]. If hctx_idx >= set->nr_hw_queues, the
-hardware queue doesn't exist in the tag set, meaning there are no driver
-tags to clear mappings from. In this case, safely set drv_tags to NULL. The
-subsequent call to blk_mq_clear_rq_mapping() already handles a NULL
-drv_tags pointer and will safely return.
-
-This fix also prevents a similar out-of-bounds read in the failure path of
-blk_mq_alloc_rqs(), where a failure during new driver tag allocation could
-lead to blk_mq_free_rqs() being called with an hctx_idx greater than or
-equal to set->nr_hw_queues.
-
-Fixes: 04225d13aef1 ("block: fix potential deadlock while running nr_hw_queue update")
-Assisted-by: Gemini:gemini-3.5-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+e90526cab23b9efcd03c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e90526cab23b9efcd03c
-Link: https://syzkaller.appspot.com/ai_job?id=827b5760-86a0-4f44-9c69-430b572eac12
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-
----
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 2c850330a..8e6726b37 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3473,8 +3473,10 @@ void blk_mq_free_rqs(struct blk_mq_tag_set *set, struct blk_mq_tags *tags,
- 
- 	if (blk_mq_is_shared_tags(set->flags))
- 		drv_tags = set->shared_tags;
--	else
-+	else if (hctx_idx < set->nr_hw_queues)
- 		drv_tags = set->tags[hctx_idx];
-+	else
-+		drv_tags = NULL;
- 
- 	if (tags->static_rqs && set->ops->exit_request) {
- 		int i;
-
-
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
--- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+I am fine either way.
