@@ -1,191 +1,97 @@
-Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D2C43B3E6
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9A343CE7F;
+	Thu, 10 Sep 2026 08:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028148; cv=none; b=oL0hovb1rgvftrYs6hSvD90i7e7nk5TVzL6p9atXC7O942OqRPKBBeIV5n0xMcnpnaPwxdZ7b4r2zTOvYc0BW/b33M6YSaRbSOwclVzScKBgDp8GabdfgG4QaVFhFtcm9TxwFB/8ltr8WYnwbGC5zBMpcoferXKvUMSIaMoEyrA=
+	t=1789028149; cv=none; b=OUZ8rv1wCJnYQ9pLOnj+t8oKnsELbpcUf6mkuc+6WRYKOqc8iNacXyrRonOoAF3xnlvX0AKFoKwmNNjMKxnpQrQhnapqVDTJURJj2yWJuO4kuVkpYitvGmxWUMX8Ko7KixBlvb5/sqkz/ady7h+Zes0SdR1wUH05t0EYenkVZrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028148; c=relaxed/simple;
-	bh=oFqtJ5EmgLf6Ze95TtwfjG5mlQjaQOcAOwGTGPesNNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NRzJK0k8HyLhoCzJzvky3kwzCxhDnMYvubNuwWz9Zuv47/mVw1qIlNSd3xeUSaB1cfakWcTSxkBTLidWd7jm8cyrefcxQocj+eeDomWP6TXx/trWS8k4IYBFJEUkd8pw+edX5JNEttSZHus3kRE5xx93hnGHWrKklY4sa8i+HKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k6x+pe1q; arc=none smtp.client-ip=95.215.58.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789028149; c=relaxed/simple;
+	bh=3gq0RFMdJclzfJxFzLp1eQN0N7a+xavx9I/D0sjlg+w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Deerqz2x6r0VLOTcfoMElgDVnhhzxSGsnw4SGQbjjR/OJMM+ZLnk68Tq/ReusVCf01DV4uV6rev2Lw84wgHTSp8xcxg/S4+kKspYiBN+xN3uClad5dvFSgVc1lEbPhS/9hXT4kcXpdU2GB0TRX+wVA3KbjsnFB1qv2/IXUBMtBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HX6Jk197; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k6x+pe1q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oFqtJ5EmgLf6Ze95TtwfjG5mlQjaQOcAOwGTGPesNNY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789028143; v=1; x=1789632943;
- b=k6x+pe1qnOl9YVOTuuTm9UIpyxZ/JLoJjKo2a9rx6cqoVX1N0yWO1Jjt4yKL6+dEBUQx9y95
- rFnChD6Wzi5NmivHKztNJ4CB+/+KITm77VemgncPLTWSj/ZQ8ez2Gpi8SJMeO5L9c73w4MzCBz0
- BXwi5e/dffeuuXqZOoB/OXAA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id f7a365cfa6531857;
-	Thu, 10 Sep 2026 08:15:43 +0000
-X-Mizu-Trace-ID: f7a365cfa6531857
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 10 Sep 2026 16:15:32 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Janis Edvarts Lacis <janislacis06@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: vlan: fix vlan name truncation
-Message-ID: <aqJnJBNbcv1LTV_7@fedora>
-References: <20260904210024.263220-1-janislacis06@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HX6Jk197"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1399E1F00893;
+	Thu, 10 Sep 2026 08:15:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789028147;
+	bh=cQvvaoG1lMvUXXuqPW4x4BfHpu4GyKiKwKXuUucQD6I=;
+	h=From:Date:Subject:To:Cc;
+	b=HX6Jk197W9hdCAlM8Ce9CWgkOOeuKRtbWFAjKOcOONVr9Ol5rmw8wKgfVdVM1lNQa
+	 O7CYUjK198zCsi+jz9QDwpBrjVFoT0/fNgBHRlxIbkYHxbOMo1nEp0US8y823C0pmh
+	 wLpWf/EpgUcTyapG1dgBLZFwwopy2FqYzZBkQ8I16uL+A1n8zFnT5NAKpkR3XkJWM6
+	 qcjnU/DN4Gfiu8E+pGJmUXultIjpVXqaZMOX/VTN1bqV5bRpfjIXFpYz2vlgMExf+j
+	 lzuaY5pzAJ4uyS3aoryxTzHyzRgzO7GELkwkDpRmyow3KzinpMyXo9trJsRYYrKch9
+	 xWlJbxtrv2sQQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Thu, 10 Sep 2026 10:15:42 +0200
+Subject: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Fix up the mic
+ sample rate
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904210024.263220-1-janislacis06@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-topic-zenbook_mic_sampling-v1-1-2532136d5a9b@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBAAwK+QPdukYFT0K4aQdllgUdqmi4RI+
+ LsFj3OZFYQik8AjWyHSzMLeJeSnDLA3riPFTTIUurjqe67V5AOj+pKz3r/qkbEWM4Y3u06haUo
+ 6l/bS3ghSECK1vBz5s/pbPnYgnPYRtu0HQPM1o34AAAA=
+X-Change-ID: 20260910-topic-zenbook_mic_sampling-cad8e38b5f7e
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789028143; l=1135;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=+cEY6rhxTB/F0M6Gc6IN+lIDNC82LAF+/DdHfogTqnM=;
+ b=RRHdGU8kI5rZKm6daF5ZQEbL0MW3Mzr2y7RJ5julphPfrkMknCyOXMxQ/lSPT+DJgbeq2B78u
+ ElMJoPe5Wi3AqUrvPNPMJSlVnVNqa+w2IWBQa+42TYtm1PQJE15KWwK
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Sat, Sep 05, 2026 at 12:00:24AM +0300, Janis Edvarts Lacis wrote:
-> register_vlan_device() from net/8021q/vlan.c sets name based on a field
-> name_type from struct vlan_net. If name_type is VLAN_NAME_TYPE_RAW_PLUS_VID
-> or VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD, register_vlan_device() sets vlan
-> device's name to the actual net_device's name and adds vid at the end of
-> this name separated by a dot.
-> 
-> Network interface's name is limited to at most 16 characters, including NUL.
-> Therefore, if the real_dev->name is long enough, then adding the vid
-> at the end of this name can lead to the result exceeding 16 bytes which
-> leads to a truncated name for the vlan device created in register_vlan_device().
-> 
-> This patch fixes the issue by returning -ENAMETOOLONG from
-> register_vlan_device() if the newly created name does not fit in 16
-> bytes.
-> 
-> The bug was discovered when compiling with flag W=1, the following warning comes up:
-> linux/net/8021q/vlan.c: In function ‘vlan_ioctl_handler’:
-> linux/net/8021q/vlan.c:250:46: error: ‘%i’ directive output may be truncated writing between 1 and 5 bytes into a region of size between 0 and 15 [-Werror=format-truncation=]
->   250 |                 snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
->       |                                              ^~
-> In function ‘register_vlan_device’,
->     inlined from ‘vlan_ioctl_handler’ at linux/net/8021q/vlan.c:588:9:
-> linux/net/8021q/vlan.c:250:42: note: directive argument in the range [0, 65535]
->   250 |                 snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
->       |                                          ^~~~~~~
-> 
-> Build & run the reproducer:
->     gcc poc.c -o poc
->     chmod +x poc.sh
->     ./poc.sh
-> 
-> ======BEGIN poc.sh======
-> #!/usr/bin/env bash
-> 
-> sudo ip link add vlan1234567890 type dummy
-> sudo ./poc
-> 
-> # name will not match the expected printed from poc.c on the unpatched
-> # kernel, there will be no vlan interface at all on the patched one
-> ip a
-> ======END poc.sh========
-> 
-> ======BEGIN poc.c======
-> #include <stdio.h>
-> #include <string.h>
-> #include <unistd.h>
-> #include <sys/ioctl.h>
-> #include <linux/if.h>
-> #include <linux/if_vlan.h>
-> #include <linux/sockios.h>
-> 
-> #define IF_NAME "vlan1234567890"
-> 
-> int main()
-> {
->     struct vlan_ioctl_args args = {
-> 	.cmd = ADD_VLAN_CMD,
-> 	.u.VID = 1234,
->     };
-> 
->     strcpy(args.device1, IF_NAME);
-> 
->     int fd = socket(AF_INET, SOCK_STREAM, 0);
->     if (fd < 0) {
-> 	perror("socket");
-> 	return 1;
->     }
-> 
->     /* fails with -ENAMETOOLONG */
->     if (ioctl(fd, SIOCSIFVLAN, &args) < 0) {
-> 	perror("SIOCSIFVLAN");
-> 	close(fd);
-> 	return 1;
->     }
-> 
->     printf("Expected name: %s.%i\n", IF_NAME, args.u.VID);
->     close(fd);
->     return 0;
-> }
-> ======END poc.c========
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Janis Edvarts Lacis <janislacis06@gmail.com>
-> ---
->  net/8021q/vlan.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
-> index 2d2efb877975..b51092d217de 100644
-> --- a/net/8021q/vlan.c
-> +++ b/net/8021q/vlan.c
-> @@ -220,7 +220,7 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
->  	struct net *net = dev_net(real_dev);
->  	struct vlan_net *vn = net_generic(net, vlan_net_id);
->  	char name[IFNAMSIZ];
-> -	int err;
-> +	int err, len;
->  
->  	if (vlan_id >= VLAN_VID_MASK)
->  		return -ERANGE;
-> @@ -234,7 +234,9 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
->  	switch (vn->name_type) {
->  	case VLAN_NAME_TYPE_RAW_PLUS_VID:
->  		/* name will look like:	 eth1.0005 */
-> -		snprintf(name, IFNAMSIZ, "%s.%.4i", real_dev->name, vlan_id);
-> +		len = snprintf(name, IFNAMSIZ, "%s.%.4i", real_dev->name, vlan_id);
-> +		if (len >= sizeof(name))
-> +			err = -ENAMETOOLONG;
->  		break;
->  	case VLAN_NAME_TYPE_PLUS_VID_NO_PAD:
->  		/* Put our vlan.VID in the name.
-> @@ -246,7 +248,9 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
->  		/* Put our vlan.VID in the name.
->  		 * Name will look like:	 eth0.5
->  		 */
-> -		snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
-> +		len = snprintf(name, IFNAMSIZ, "%s.%i", real_dev->name, vlan_id);
-> +		if (len >= sizeof(name))
-> +			err = -ENAMETOOLONG;
->  		break;
->  	case VLAN_NAME_TYPE_PLUS_VID:
->  		/* Put our vlan.VID in the name.
-> @@ -256,6 +260,9 @@ static int register_vlan_device(struct net_device *real_dev, u16 vlan_id)
->  		snprintf(name, IFNAMSIZ, "vlan%.4i", vlan_id);
->  	}
->  
-> +	if (err)
-> +		return err;
-> +
->  	new_dev = alloc_netdev(sizeof(struct vlan_dev_priv), name,
->  			       NET_NAME_UNKNOWN, vlan_setup);
->  
-> -- 
-> 2.43.0
-> 
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Nice catch!
+Set the correct value for the hardware, matching the readout from
+Windows during audio recording.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+The microphone seems to work fine either way.
+
+Fixes: e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16 (UX3607OA)")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+index 939e1a927a79..40433dc2d6cf 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+@@ -737,7 +737,7 @@ &lpass_vamacro {
+ 	pinctrl-0 = <&dmic01_default>;
+ 	pinctrl-names = "default";
+ 
+-	qcom,dmic-sample-rate = <4800000>;
++	qcom,dmic-sample-rate = <2400000>;
+ };
+ 
+ &mdss {
+
+---
+base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
+change-id: 20260910-topic-zenbook_mic_sampling-cad8e38b5f7e
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
