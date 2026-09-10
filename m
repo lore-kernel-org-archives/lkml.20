@@ -1,189 +1,183 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780A7376A01
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1D1568FDC;
+	Thu, 10 Sep 2026 17:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062564; cv=none; b=aCmBYsyJjnHOJhs1mVybVlXq19RKrX6So+EYNY+AZTN358mRr1cLY4jyjX8FhlJdmMnl7KwTjdV5qPpcx9z7ISSxCDRT2pQshxhMywJkEWvpsRV494i8S0BClzyOQehy79XgpOfRSlCKTvFfCDaZaIs48TibASplkBJOnk68ass=
+	t=1789062727; cv=none; b=bGcMyVHbLbAXxZW6NCKMJa902/CAgx5EebEHwQhqm0RohtguCzjb8+xw5sac06JkEdp7lMHt/S8pBJ2p4t8ZDINhupz1H9gMNNwBzUmWu1Q7aCM1Gud8tD+m0vcM9DYCHWml8vGqLMq5S1s6B4CLq2fj84/L/tmjP1rywBhtPEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062564; c=relaxed/simple;
-	bh=of8Min8jQHatci7yA4a8bBMCHi4+w1P7IxV3FDsHcSI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AzkGeSDTjPUbPKJnOt9YvUnL5gweu6dawK/LBAvS/xqB+iNZ1XXwvTJfXfaHFu4zr41OuRkf2TjdYwH3HDJdqQc2KyTK2Tmd2zL6PMKPLmxLUlDpVdTBw62q5Zsteyrqu1/rOdVAS1+jVHI+jZN3dnUekWeaWKZle9jEB0S0TeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D222fF0V; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789062727; c=relaxed/simple;
+	bh=AnnNIzpbOfyYqkmvYoAw7hwb2MzMdlHdv89Xe+blWGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bF2QmkcRTUHT4SHStEUZBHfGV+e0xAOP3rVNeDCJd0rJsTczy2unNyMld+9X8sxJmGW4BFBaFWpFWGNUQ3AwLVB2oAwM/6mpdJSHL93MSXWooXw9fhA/wit3stiP+XuTYXnI78QITVL49TLrMUz9B64wKQLmzGN0KfGZvCJVa/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2j9lgpD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D222fF0V"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b4ba7fe26so73765e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:49:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789062553; x=1789667353; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O+Y33ifQJ8/eGSJF9NUK/wyESJTtkXuplimgmPx5EAw=;
-        b=D222fF0VFhPhtNu/sKleerGwFQCqTgdBtWy64cfY8Z0Y7loMIBRuy/IjLfBY0PGcW+
-         7oXAqdlFNWSlIlfk/pVEZV4gPuQOf52iDGR7vpn6HWplLzzA8PT4Hm2Y8TsfELYQ6ryY
-         HPP3x+AznopEH/I3uFR6702KpQS5Udl5WUIpAPkmWKMmQs8t+HMuqnBOIFZlDiL3W+ep
-         6tVbpvRYy+bNVs+R/GP5S0xkQ3uIIe7vELof2jasrtUuRgUUFLzVwAp3Kxrl2fumfaVO
-         y0lsvF45tQ3IviuHZmTmmyHR3F0uQOwb3AiujBM2fdhrfeH4syjljkMJifR1tJCLTHsL
-         QZ+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789062553; x=1789667353;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O+Y33ifQJ8/eGSJF9NUK/wyESJTtkXuplimgmPx5EAw=;
-        b=XWD9HNO7tRZKQfxBo8A4/VhqS5+MNS8MN1xaY9ICAat2HYeyiv3wg7yw0hCffLdd/G
-         9DZ7hwvBp+XeVQqhdZudF09SFJJJT9fynIuc4GjXnFcXNKUou9090pjanAycDlkrwS1R
-         hxfXzJiqqJhVRU0p1bxTOOY2ft/WpkzieyJ5RK+FftSGJycbLoh51K7ze2nUJgJqwi+S
-         yHlZGYYBha5Zdb3BwMCTE5qf4Y25mBMGw4pQ4dR71ysWXIZFAraYLrFcq6fQSWccMIuO
-         7SK3Na5AVhK/SJwavzIg3wonCWwJc6bynkYF2Y3+ujVy9t9xGWh3ubEm7r1l4H4yeTHz
-         hOaw==
-X-Gm-Message-State: AFuF++nHTgElBISxALi6NoxgpfAILnCoGQjRkrFZffa49gQKgcL7EKQ5
-	mtJ19ZNdng/u/l+m+FsYVWrkUTbwQBxxes/DHmGaSBieYcWDKujcTqcB
-X-Gm-Gg: AYBFou0Q0my61flwO8KOd05878ERZrbsaArdd0FxrYjAr2T/q4Nw6sUY1bjt1RjRBZV
-	tLtAn4t1AVLLaJj5wiLVutHlgwDfeFOZ/GwygcldTXRPH5PDZLnu1HXkQO755kGiG0wrLApp1u/
-	76uyOv9u67tAi2/FswoyS3Z4g96RmwkPeORs/+8wxHNPE8RoJ2kqLNg/3uNKh3d6EsFgcDbk8DK
-	tI/J+IESCLTtsKG2iIeI8iKxLXVWag4arWreBeKFyC0Znf8qKHNVfMIo8xtHP//4s4esl35yBpk
-	o0mHyDBHJ7P1Qprrz+7lY7hZDWUh8oHJjx/+8+Y6UXKR7gtbadxL6WoSXy2nFgJvQ6p+jRCEJo8
-	sUb4hsKY1XoXwD66NEB/C02DMQC/iyISRj81awa4f4uUmyqBs9tINC+ymTIqE5VtwIEI9uQkvex
-	ZfMF+F6CTiIA0sqI5RA+RI12N2EJiQ9mCxcHesp772h+LVmDFoqjLBfd85eIXSz819O+qVAWWdn
-	b7pX0jHk7bQNyyo5ak=
-X-Received: by 2002:a05:600c:8b71:b0:49c:ff81:e062 with SMTP id 5b1f17b1804b1-49e619d6a4emr1272515e9.2.1789062552366;
-        Thu, 10 Sep 2026 10:49:12 -0700 (PDT)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26d4e3f3sm94881105e9.15.2026.09.10.10.49.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 10:49:11 -0700 (PDT)
-From: Itai Handler <itai.handler@gmail.com>
-To: broonie@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	michal.simek@amd.com,
-	Itai Handler <itai.handler@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Date: Thu, 10 Sep 2026 20:48:32 +0300
-Message-Id: <20260910174832.873352-1-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2j9lgpD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919901F00893;
+	Thu, 10 Sep 2026 17:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789062716;
+	bh=Ga2HOa1loKq0jBHu59mKdChd26mC2i9x8MQreihVwCk=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=i2j9lgpDVLRaoN4+nZpvoEmxQjIWi/WUTqHCARRpW9v1qb0eK+3RomrY+8XNJgSDP
+	 njKLU11hVrGVJLXioGK4gl5m1cjfT3RNs5V7PG5Ki9DH95snF4uL29cpl8voGj9mDl
+	 vUXwjugOv/Vc4FmiIRdY4Nhqmm3OyqoiGybf4BecBn6G6I4cU0q0NqVsJ8QiLuTE/S
+	 4VQ2j2k7aontLvX2UayKWOric2A5BPY11UEoqEGsc/LcSg2D2WyBfvGMaD24FFPmVW
+	 ftCDpluXqe1KapNtb/eIYxW/2Kzn86gNc+RCE48SIhq4+PZEv7cMzrRB3gm6PHler3
+	 xFI37FcWoJVSw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 4662DCE19CD; Thu, 10 Sep 2026 10:51:56 -0700 (PDT)
+Date: Thu, 10 Sep 2026 10:51:56 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: urezki@gmail.com, harry@kernel.org, frederic@kernel.org,
+	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
+	josh@joshtriplett.org, boqun@kernel.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
+	rdunlap@infradead.org, surenb@google.com, vbabka@kernel.org,
+	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] rcu: make userspace barrier hook drain kvfree_rcu
+ work
+Message-ID: <6092a9d0-0125-4da4-ac48-85ccaeb83beb@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260910101112.1648978-1-matthias.goergens@gmail.com>
+ <20260910170040.344864-1-matthias.goergens@gmail.com>
+ <20260910170040.344864-2-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910170040.344864-2-matthias.goergens@gmail.com>
 
-The driver has no ->shutdown, and platform_drv_shutdown() has no
-fallback of its own.  Unlike pci_device_shutdown(), which clears bus
-mastering when kexec_in_progress, nothing on the platform bus disarms a
-device that can still write to memory.  The normal kexec path never
-calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
-reached.
+On Fri, Sep 11, 2026 at 01:00:40AM +0800, Matthias Goergens wrote:
+> The bcachefs ktest allocation-leak check writes rcutree.do_rcu_barrier
+> before reading /proc/allocinfo. While testing bcachefs performance
+> changes, small objects released with kfree_rcu() remained visible after
+> repeated writes to the hook and 20 seconds of waiting, causing otherwise
+> clean tests to fail their leak check.
+> 
+> The test assumes a stronger contract than the hook currently documents:
+> rcu_barrier() waits for ordinary callbacks, but does not flush objects
+> still held in kfree_rcu() batching or per-CPU SLUB sheaves. The retained
+> population eventually fell as a sheaf filled; there is no evidence here
+> of unbounded growth or OOM.
+> 
+> Changing the hook to drain kvfree_rcu() work let the same unmodified
+> bcachefs workload pass its allocation check. All eight checkpoints in
+> one VM, after 50 through 400 option changes, reported zero retained
+> reconcile_scan objects. This motivated the separate private-cache
+> reproducer used to isolate the incomplete drain from bcachefs.
+> 
+> Calling kvfree_rcu_barrier() from rcu_barrier_throttled() was proposed
+> when the former API was added in 2024, to restore a clean baseline
+> between userspace benchmark runs. The discussion concluded that keeping
+> the existing hook name, adding the second operation and documenting both
+> was the safest compatibility choice, but the follow-up was not added.
+> 
+> Add that drain and document the stronger test interface. Keep the
+> explicit rcu_barrier() so the hook's ordinary-callback contract does not
+> depend on kvfree_rcu_barrier() reaching an ordinary barrier internally.
+> 
+> Do not reuse the ordinary rcu_barrier() sequence as an early-completion
+> check while throttling: an unrelated ordinary barrier does not establish
+> that kvfree_rcu() work was drained. Retain the existing start-rate limit.
+> 
+> Four fresh VM pairs with the full private-cache fixture retained the
+> queued object without the patch (60 to 60 active objects) and drained it
+> with the patch (60 to 59). A separate ordinary-callback regression test
+> passed on both kernels.
+> 
+> Link: https://lore.kernel.org/all/20240820155935.1167988-1-urezki@gmail.com/
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+> ---
+>  .../admin-guide/kernel-parameters.txt         |  7 ++---
+>  kernel/rcu/tree.c                             | 27 ++++++++++++-------
+>  2 files changed, 21 insertions(+), 13 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..244a53166249 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -5699,9 +5699,10 @@ Kernel parameters
+>  			there is an ongoing too-long CSD-lock wait.
+>  
+>  	rcutree.do_rcu_barrier=	[KNL]
+> -			Request a call to rcu_barrier().  This is
+> -			throttled so that userspace tests can safely
+> -			hammer on the sysfs variable if they so choose.
+> +			Request that deferred kfree_rcu() objects and
+> +			ordinary call_rcu() callbacks be drained.  This is
+> +			throttled so that userspace tests can safely hammer
+> +			on the sysfs variable if they so choose.
+>  			If triggered before the RCU grace-period machinery
+>  			is fully active, this will error out with EAGAIN.
+>  
+> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> index 96848fc1f02b..014e28ec3bd3 100644
+> --- a/kernel/rcu/tree.c
+> +++ b/kernel/rcu/tree.c
+> @@ -3989,12 +3989,12 @@ EXPORT_SYMBOL_GPL(rcu_barrier);
+>  static unsigned long rcu_barrier_last_throttle;
+>  
+>  /**
+> - * rcu_barrier_throttled - Do rcu_barrier(), but limit to one per second
+> + * rcu_barrier_throttled - Drain deferred RCU frees, but rate-limit starts
+>   *
+> - * This can be thought of as guard rails around rcu_barrier() that
+> - * permits unrestricted userspace use, at least assuming the hardware's
+> - * try_cmpxchg() is robust.  There will be at most one call per second to
+> - * rcu_barrier() system-wide from use of this function, which means that
+> + * This can be thought of as guard rails around the deferred-free barriers
+> + * that permit unrestricted userspace use, at least assuming the hardware's
+> + * try_cmpxchg() is robust.  There will be at most one drain operation started
+> + * per sixteenth of a second from use of this function, which means that
+>   * callers might needlessly wait a second or three.
+>   *
+>   * This is intended for use by test suites to avoid OOM by flushing RCU
+> @@ -4011,18 +4011,25 @@ static void rcu_barrier_throttled(void)
+>  {
+>  	unsigned long j = jiffies;
+>  	unsigned long old = READ_ONCE(rcu_barrier_last_throttle);
+> -	unsigned long s = rcu_seq_snap(&rcu_state.barrier_sequence);
+>  
+>  	while (time_in_range(j, old, old + HZ / 16) ||
+>  	       !try_cmpxchg(&rcu_barrier_last_throttle, &old, j)) {
+>  		schedule_timeout_idle(HZ / 16);
+> -		if (rcu_seq_done(&rcu_state.barrier_sequence, s)) {
+> -			smp_mb(); /* caller's subsequent code after above check. */
+> -			return;
 
-A controller that is still executing a DMA read may therefore keep
-writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
-memory owned by the kernel that called kexec, DST_SIZE is non-zero and
-the flash is still clocked, so data can keep landing in RAM while the
-new kernel is being relocated, and after it has started executing.
+Don't we still want to skip the rcu_barrier() in this case?  Or am I missing
+something subtle here?
 
-That destination is a physical address which means nothing to the new
-kernel, so the writes can corrupt whatever now occupies it: kernel text
-or data, page tables, or the initrd.  Nothing reports an error and the
-resulting behaviour is undefined.
+								Thanx, Paul
 
-This can be observed by reading GQSPI_EN (offset 0x114) and
-QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
-kernel, before the driver probes: without this patch GQSPI_EN reads 1
-and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
-
-Add a ->shutdown that stops the controller the way zynqmp_qspi_suspend()
-already does.  spi_controller_suspend() stops the queue, waits for a
-message that is already executing and makes any later transfer fail with
--ESHUTDOWN, so nothing can be cut short by the register write that
-follows.  It may sleep, which is fine here: device_shutdown() runs in
-process context.  Unlike ->suspend this cannot abort on error, because a
-controller left mastering the bus is worse than a truncated transfer, so
-a failure to drain is only logged.
-
-GQSPI_EN_OFST is then cleared, as zynqmp_qspi_remove() and
-zynqmp_qspi_suspend() already do.  Skip that write only when
-pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
-are gated, so the registers are unreachable and the controller cannot be
-mastering the bus.  A negative return is not the same thing - it is what
-the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
-and refclk for good, so the controller is running and must be stopped.
-
-Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
----
-Changes in v2:
-- Quiesce through spi_controller_suspend() before touching the hardware,
-  so nothing can start a new transfer and a message that is already
-  executing is waited for (Mark Brown).
-
-Note for stable: before commit 1c26372e5aa9 ("spi: spi-zynqmp-gqspi:
-Update driver to use spi-mem framework") this driver stored the
-spi_master in the platform drvdata rather than the zynqmp_qspi, so a
-backport to those trees needs spi_master_get_devdata() in place of the
-platform_get_drvdata() used here.
-
- drivers/spi/spi-zynqmp-gqspi.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 4d55090..15e9d3e 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -1373,11 +1373,45 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
- 	clk_disable_unprepare(xqspi->pclk);
- }
- 
-+static void zynqmp_qspi_shutdown(struct platform_device *pdev)
-+{
-+	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
-+	int ret;
-+
-+	/*
-+	 * Stop the queue and reject any later transfer first, so the write
-+	 * below cannot cut into a message that is still being executed.
-+	 * Unlike ->suspend this cannot abort on error: a controller left
-+	 * mastering the bus is worse than a truncated transfer.
-+	 */
-+	ret = spi_controller_suspend(xqspi->ctlr);
-+	if (ret)
-+		dev_warn(&pdev->dev, "could not stop the queue: %d\n", ret);
-+
-+	/*
-+	 * Only a runtime suspended controller can be left alone: its clocks
-+	 * are gated, so it cannot be mastering the bus, and its registers
-+	 * must not be accessed either.  Any other answer means it may be
-+	 * running and has to be stopped.  In particular, on a kernel built
-+	 * without runtime PM this returns -EINVAL, and there the clocks
-+	 * enabled in probe() are never gated at all.
-+	 */
-+	ret = pm_runtime_get_if_in_use(&pdev->dev);
-+	if (!ret)
-+		return;
-+
-+	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
-+
-+	if (ret > 0)
-+		pm_runtime_put_noidle(&pdev->dev);
-+}
-+
- MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
- 
- static struct platform_driver zynqmp_qspi_driver = {
- 	.probe = zynqmp_qspi_probe,
- 	.remove = zynqmp_qspi_remove,
-+	.shutdown = zynqmp_qspi_shutdown,
- 	.driver = {
- 		.name = "zynqmp-qspi",
- 		.of_match_table = zynqmp_qspi_of_match,
--- 
-2.34.1
-
+> -		}
+>  		j = jiffies;
+>  		old = READ_ONCE(rcu_barrier_last_throttle);
+>  	}
+> +	/*
+> +	 * kfree_rcu() can retain objects outside the ordinary callback lists in
+> +	 * per-CPU SLUB sheaves and kvfree_rcu batches.  Test suites use this hook
+> +	 * to prevent deferred frees from spilling into the following test, so
+> +	 * drain those queues as well as ordinary call_rcu() callbacks.
+> +	 *
+> +	 * kvfree_rcu_barrier() currently includes an ordinary barrier, but that
+> +	 * is not part of its documented API.  Keep the explicit rcu_barrier() so
+> +	 * this hook's original contract does not depend on slab implementation
+> +	 * details.
+> +	 */
+> +	kvfree_rcu_barrier();
+>  	rcu_barrier();
+>  }
+>  
+> -- 
+> 2.55.0
+> 
