@@ -1,73 +1,74 @@
-Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com [139.138.36.225])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B257035BDCE;
-	Thu, 10 Sep 2026 04:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA922D7DE9;
+	Thu, 10 Sep 2026 04:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015804; cv=none; b=siZtHy3FEVeRbC2eR0/zzer9/zoeqNg7qRupctVtABegYs0Y98xFvpIax3dWRfgik0d2sbFKQ2wwv/K1A7HAo4XNz/8/uBsvE61/mnLxrLyAk6yiQiyA62HyHS4CG7V2qJGeI1mbYJJLYX1HtvTEy399+d+M6OA4QlxTsdAuhNg=
+	t=1789015840; cv=none; b=Jyc8doRRc4U6N4+2poJoNLCOOUME3z/Wp6RJ/taIIXjMpVinhGLGDnCzj00TDRnaSJYpT7sM6qPAOqbQlpOp/jyoW3jtOKwms45FGVMvkY0R9oQgFeNqQI2QlNTix+6RdhavYOulpidr7hNMD2638sR0VtmUHTG2nemZM5jGzTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015804; c=relaxed/simple;
-	bh=Xk47tdIucK/5Zzi/z/QsVNoFQM47eXx+3YilT3u56PI=;
+	s=arc-20240116; t=1789015840; c=relaxed/simple;
+	bh=27sjqAX3mzIarYqMVpWaoeAe05sB9malX0xlN8XrmvM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qQx2TrgLRkYQygi83MKVcq3r0qoFucICICNMIoOXLtUOjUoo6bvfkmu621uTy9vTuwxqpeM1LnsE1FmlKsTwTibQY+7X/QkARAk6SUd71pjc9vLbh3nCNenmjJ6oDLWQ1toARsR7KAukuiKnsKIpHAxGIpy4vLrTj1RVrmAltLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=hU1FE3bl; arc=none smtp.client-ip=139.138.36.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qLEyusByUf8q7sqtlOf+SLpuiN8wUfn3yvSzBMnOSIKocc7xUC0DqihYtfde3jvrnNUf1gkxz5zvB+GrxYqAa53lyjz1igXaDRz+3CKM8HE+vnJrea2X2MxRIy5OtzX8z36IOg9ScB4VQert7Z3m+B1GQGdke64rhYW00kDameE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mJx4LAk+; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="hU1FE3bl"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1789015807; x=1820551807;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mJx4LAk+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789015839; x=1820551839;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=Xk47tdIucK/5Zzi/z/QsVNoFQM47eXx+3YilT3u56PI=;
-  b=hU1FE3blOSc/P1bhwBvbW4fTdkCAZ9EZB4Nf1uCJ4UaeNLxU8G2odxmJ
-   WB/ILSiqF9z5ibaVlyOTeXKD7tDKp3GKEy5qwnRS8QS8L/9IdXaJJSw0H
-   53KGmJ5rL7A2ZL5W15UHEsIBOe0rY8RoL9Naah0naiI0MVNFp1t4zdlS8
-   WNFQVEzmVdK9UmVDkleqYJAOiBVSBksKwh0QCK0phhsQdOwCgCxVIQoLi
-   D21EE4IOZboWn1agM+9ONMG9pHY6woqZ3keSPuc6sZiNJLgCmswdjJUNX
-   ySl+fo/w+6U+f2PSGzG8ByHRk1NDBHKzzgou9VZadh5Sph+v8Huwl0BVn
-   g==;
-X-CSE-ConnectionGUID: BhIsIVwuSoG5RLHMueRpFA==
-X-CSE-MsgGUID: riQ6oJEPSGqj6mxaueXA5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="240745747"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779116400"; 
-   d="scan'208";a="240745747"
-Received: from gmgwnl01.global.fujitsu.com (HELO mgmgwnl01.global.fujitsu.com) ([52.143.17.124])
-  by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:49:59 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mgmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 5E07733E3;
-	Thu, 10 Sep 2026 04:49:55 +0000 (UTC)
-Received: from az2uksmom2.o.css.fujitsu.com (unknown [10.151.22.203])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 0C2B51800D50;
-	Thu, 10 Sep 2026 04:49:55 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.22.105])
-	by az2uksmom2.o.css.fujitsu.com (Postfix) with SMTP id 0379A14000ED;
-	Thu, 10 Sep 2026 04:49:47 +0000 (UTC)
-Date: Thu, 10 Sep 2026 13:49:44 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, 
-	tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, 
-	fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org
-Subject: Re: [PATCH v17 06/20] KVM: arm64: CCA: Add a new mode for supporting
- Realm guests
-Message-ID: <aqI2eI8IbCJQMx5d@FCCLS0092175.localdomain>
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <20260908162223.1683432-7-suzuki.poulose@arm.com>
- <aqDFcgzXOTWUkPtp@FCCLS0092175.localdomain>
- <86zexq3dk5.wl-maz@kernel.org>
+  bh=27sjqAX3mzIarYqMVpWaoeAe05sB9malX0xlN8XrmvM=;
+  b=mJx4LAk+y+YN+2aSbVTt37cXNVg7ZMnIS3I+KPJOf3T9R2wOJya41L0R
+   I7LlxEZfC6jaYQ7IRQvzScnKAyX4vHZAgmVFc2Da6jF1Ijoz1gYfxiPVT
+   l1p1Pyg0iQ3BsvkeA/Ebtmw70gwlEVcKdnbiMQO0xAv/cjVjFzJ1AFDxX
+   JmjL5uzctE85PRka5OWMInJ355OGshTZnbb9YtUjq3NJYz9YslFHZNGfp
+   jCXp3gf1wTmjxLTEm6HHfu6hXGID1a05k2HMq7HYeJWU7vPFcLHW8DO+G
+   hUQKVBtmcrAdk+BJv8SSAxXplSA6rHwPSI3jo+AIIxOoprZ9tPCtn8YiY
+   A==;
+X-CSE-ConnectionGUID: Hq1ATJH7RHWsDNFXmc5/0w==
+X-CSE-MsgGUID: PHRRL8YOSbiY5nHwPEsKAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100621089"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="100621089"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 21:50:39 -0700
+X-CSE-ConnectionGUID: t3yLjyHCRoasgCwgzmWvog==
+X-CSE-MsgGUID: u1n+qZFcRfqsUdFaiUs8fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="268257232"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 09 Sep 2026 21:50:35 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 999D699; Thu, 10 Sep 2026 06:50:33 +0200 (CEST)
+Date: Thu, 10 Sep 2026 06:50:33 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 19/22] thunderbolt: Add Apple Silicon support
+Message-ID: <20260910045033.GN106095@black.igk.intel.com>
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-19-1f80085f93fb@kernel.org>
+ <20260908091844.GD106095@black.igk.intel.com>
+ <22808191-5310-4d90-9fac-68d0d85b4c54@kernel.org>
+ <20260909060615.GJ106095@black.igk.intel.com>
+ <33699664-6afb-4b46-99d1-98a0f5e57f39@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,86 +77,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <86zexq3dk5.wl-maz@kernel.org>
+In-Reply-To: <33699664-6afb-4b46-99d1-98a0f5e57f39@kernel.org>
 
-Hi Marc,
+Hi,
 
-On 09/09 11:48, Marc Zyngier wrote:
-> On Wed, 09 Sep 2026 04:26:41 +0100,
-> Kohei Enju <enju.kohei@fujitsu.com> wrote:
-> > 
-> > Hi Suzuki,
-> > 
-> > On 09/08 17:22, Suzuki K Poulose wrote:
-> > > Add an explicit mode to support Arm CCA guests.
-> > > 
-> > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > > ---
-> > >  Documentation/admin-guide/kernel-parameters.txt | 3 +++
-> > >  arch/arm64/include/asm/kvm_host.h               | 1 +
-> > >  arch/arm64/kvm/arm.c                            | 5 +++++
-> > >  3 files changed, 9 insertions(+)
-> > > 
-> > > diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> > > index 68647ff4bdd24..1afe3df3b923e 100644
-> > > --- a/Documentation/admin-guide/kernel-parameters.txt
-> > > +++ b/Documentation/admin-guide/kernel-parameters.txt
-> > > @@ -3256,6 +3256,9 @@ Kernel parameters
-> > >  			nested: VHE-based mode with support for nested
-> > >  				virtualization. Requires at least ARMv8.4
-> > >  				hardware (with FEAT_NV2).
-> > > +			rmm: Support for running confidential guests in Realm
-> > > +			     world using RMM, as defined by Arm Confidential
-> > > +			     Compute Architecture (CCA)
-> > >  
-> > >  			Defaults to VHE/nVHE based on hardware support. Setting
-> > >  			mode to "protected" will disable kexec and hibernation
-> > > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> > > index b2e99c5cb1cd3..31ae9d8d8e92f 100644
-> > > --- a/arch/arm64/include/asm/kvm_host.h
-> > > +++ b/arch/arm64/include/asm/kvm_host.h
-> > > @@ -69,6 +69,7 @@ enum kvm_mode {
-> > >  	KVM_MODE_DEFAULT,
-> > >  	KVM_MODE_PROTECTED,
-> > >  	KVM_MODE_NV,
-> > > +	KVM_MODE_RMM,
-> > >  	KVM_MODE_NONE,
-> > >  };
-> > >  #ifdef CONFIG_KVM
-> > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> > > index 9af3bbb2f8c24..50f0adfadab38 100644
-> > > --- a/arch/arm64/kvm/arm.c
-> > > +++ b/arch/arm64/kvm/arm.c
-> > > @@ -3264,6 +3264,11 @@ static int __init early_kvm_mode_cfg(char *arg)
-> > >  		return 0;
-> > >  	}
-> > >  
-> > > +	if (strcmp(arg, "rmm") == 0 && !WARN_ON(!is_kernel_in_hyp_mode())) {
-> > > +		kvm_mode = KVM_MODE_RMM;
-> > > +		return 0;
-> > > +	}
-> > 
-> > Does this make NV support and CCA Realm VM support mutually exclusive?
-> > 
-> > Until the v16 series, we could run Realm VMs with:
-> >   'kvm-arm.mode=nested'
-> > 
-> > As far as the AArch64 architecture is concerned, there does not seem to
-> > be a reason to make them mutually exclusive. I am therefore wondering
-> > whether this restriction is intentional.
+On Wed, Sep 09, 2026 at 05:20:35PM +0200, Sven Peter wrote:
+> Hi,
 > 
-> I have a hack somewhere that will allow this, but this requires to
-> change the above to be a capability mask rather than a simple
-> enumeration. I'll see if I can spin that as a separate series.
-
-Ack. Thank you for the clarification.
-Looking forward to seeing the series.
-
-Thanks,
-Kohei
-
+> On 09.09.26 08:06, Mika Westerberg wrote:
 > 
-> 	M.
+> [...]
 > 
-> -- 
-> Without deviation from the norm, progress is not possible.
+> > 
+> > If it is possible, I suggest to use the same way we do in ACPI side here:
+> > 
+> > https://learn.microsoft.com/en-us/windows-hardware/drivers/pci/dsd-for-pcie-root-ports#map-native-protocols-pcie-displayport-tunneled-through-usb4-to-usb4-host-routers
+> > 
+> > It was specifically designed so that it should support DT as well (that's
+> > why it uses the device properties _DSD).
+> 
+> Oh, nice, I didn't know those existed. Konrad already has a PR open to add
+> these to dt-schema [1] and a PR that already makes use of these for dwc3
+> [2].
+
+Great.
+
+> I can just write generic code similar to the ACPI one then to add the device
+> links and split it off from this series, though I think that dt-schema PR
+> must be merged before we're allowed to use that representation.
+> I'll adjust the dt-bindings here for v3 to just drop the representation as
+> OF ports/endpoints as well.
+> For the PCIe/DP tunnel notifications I should be able to use the same
+> representation, possibly with an additional usb4-adapter-index property or
+> similar to differentiate between the two DP IN adapters, once I get to that
+> then.
+
+For PCIe yes, for DP you should not need those at all.
