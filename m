@@ -1,188 +1,207 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D943793BF;
-	Thu, 10 Sep 2026 03:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012696; cv=none; b=BKkS30FalgQjBEQm86JbHf8Ikfb36JHdZq4cEjy5HTGpmZAv1TnO0Rqdt4256F4JSd5kVLw0Cadm7aCvGhLuZm/EkJo3QT1jb2rbZwzi/+ZP6JNUH9tZnKs5tx02mloU76ePni4paR5KhOR3QnL3e+bdS3OPPU7NHsFgVveUoAs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012696; c=relaxed/simple;
-	bh=9ZCrTUPQ/2kHb244eHAehIrJdOn/ra7tdhDBjDzk8Y0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IpLsInFTKPrr261TGhCc+jibMKCRAhQzK+MMB4WJb1/mm3Jc0BcGiQO6j4lr6gVjCekFToVAWKq5ULEQlC45CYTqujET0kUuTlNvPHTpAiGKOPo1fiirQXegPXNHl+MAvRO4qoX0dmQBzKg1oU4+k3e0HvKsBCjTiC0nlLWdxPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:783a6890-3efb-439e-bcd4-658632ac3b45,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:d8f48e63ea9b832664a29e31d998231e,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
-X-User: liwang@kylinos.cn
-Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1146476214; Thu, 10 Sep 2026 11:58:06 +0800
-Message-ID: <9447bb67-96e9-43b3-87c8-db231051fa2d@kylinos.cn>
-Date: Thu, 10 Sep 2026 11:57:58 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127E0397E89
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789012723; cv=fail; b=oTO7nIyw6/mBOX8U+529OvCOY5ief87RQjRevDUZnazXNUxMiPEKY7Bj00jWRZIGb3vXLK5UbRbyZ96m35hCfSSOthA1p6EeWjmjv+AvTSoIot2HKEBG1NG0/LuxJIIIZmJLXEqsLzBcRrN1opJ7pG9uWGjKyzLf4e70+kvyXBk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789012723; c=relaxed/simple;
+	bh=+gJ7u0/k7zDWGbShLpk7mOi4crZMKxbFTlzG3BtJGl8=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ct8S836IS6G+1//dLacRYpefjkZubyOnuPgYmLKGKHmihILpuTJWr5WxctcVlV9ErTqfPomRXPoQDdDAN+dDtGLr1bv3oMDxz3WpW1o08qJvr0NWXS5la+aGKKtOX8crbt4JpdElPp9deYtGu5T1JHLC/+EGDzUtOnayaYQ3dAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jVag1qo+; arc=fail smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jVag1qo+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789012722; x=1820548722;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=+gJ7u0/k7zDWGbShLpk7mOi4crZMKxbFTlzG3BtJGl8=;
+  b=jVag1qo+BbuevCPxSCIQZBp1b0Z8iPOLgxnAhovCTCfzpgOvONiMoI7I
+   91QDMAgILauW4kTRBUwtsYaLN2iAmBFGDv1qaCrFs5cMSaVto4A8WAPOp
+   GdaMcbvyA4mr/2xKMktxvz2lyyR/GPgJZv0CdgUosdDf/8iUupTLHBB5l
+   J97dFmqDlR3mhQ0OBq7xDA7u1OqY+ar8itREXsrrAWaDI9NQgCnU+Ttsg
+   pYfK4SZgGfkckZ732Mc/0cjgt07OIQuaxNjzYCo6nDf66a6YHk+5VNuye
+   LN7jE5DEVW+Id4HYXhTYzWVW7ha0Z30mmE4tJlL71OLqkkg3lPAWkinOZ
+   A==;
+X-CSE-ConnectionGUID: RBY6T1/uSISTvINYzIkpkg==
+X-CSE-MsgGUID: P7VyY0n4QDe8yD92YVYoGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89385328"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="89385328"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:58:42 -0700
+X-CSE-ConnectionGUID: NKiieRG5TWCDRkDQRv9vOQ==
+X-CSE-MsgGUID: arNMkMqfSgGlvj1VmpWPPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="273477802"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:58:41 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 20:58:41 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:58:41 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.11) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 20:58:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VR7PFovDXI2xGKByurrBWn4YkibUHO+flPztxNi/qEpWmJ9SOROvD2PZ6NtBlngZtXViFPUbe8mIYLnGtm0bdTO9kDqMfUHvDy9msDM3VyntFVDCS4UD1QxPNiEtv6wfFPjiPKudKzj0zVmeiYmgTov7fohhThdKyh4/ZNf+i2xbZl0N9PC1wBSpl4OHXGaeWPb/4k9gHT3pzNFaQ9udGdQSIpVEMhUku4VouFcxE/AvdYQyuI268c9IIiqb2//SI36BtEekXDDxNB2l0bSu13aMFxfD5dXbpjL6+TaJHZ1Ad0PrwcIUcDIilwyAmIGucO2ZWi/UStq+yoLA3jqQuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gz7/tX57lo9e82LOxdhxulSdUR9nzoKyoc3lFMmA17Y=;
+ b=RHYY4q6f6862M1eZFQrt8wBBGFAFwYmFF3wiRNf17ze5R+mNXZhtIqcJQeMAPTooi9fVI9pJsW5rGStmsynHyOZQhR0d2PK3/cIT2dYeqFBD4/hqFGdDeBd3QK/8TiVWpyF+wvjcsCHgIzAyNs6+iNMrFwS/2LNR2qOzuP3EsrhhKC/BzkFf8Ir0zS/PjBVZERw1TWM+2d2BhCmxl2bA3dbxzUl863bO1C4VaUmBCWUdG9chvxyPT+z8fpbTzjgkd45bfnb/BpDzrg5CObXL3vx8qjDHyhNgZszMVx9j9dBBEBtcs/I6eDhGttEmfo3UyC4IlMHv1YQJU14dPpKtcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by BL1PR11MB5979.namprd11.prod.outlook.com (2603:10b6:208:386::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
+ 2026 03:58:38 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 03:58:38 +0000
+Message-ID: <f9f3cb40-bc98-449d-a801-6af836900e76@intel.com>
+Date: Wed, 9 Sep 2026 20:58:36 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 11/23] fs/resctrl: Add interface to disable a monitor
+ event
+To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
+ Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
+	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
+	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
+	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
+	<david.e.box@intel.com>, <x86@kernel.org>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20260831174421.13921-1-tony.luck@intel.com>
+ <20260831174421.13921-12-tony.luck@intel.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <20260831174421.13921-12-tony.luck@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P221CA0018.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:303:8b::23) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
- io_uring
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
- <2026090913-landline-encroach-c544@gregkh>
- <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
- <2026090924-corsage-shout-833d@gregkh>
- <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
-Content-Language: en-GB
-From: Li Wang <liwang@kylinos.cn>
-In-Reply-To: <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|BL1PR11MB5979:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04c1d938-4670-4727-a4e7-08df0eefcb95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|921020|10067099003|56012099006|11063799006|4143699003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: SuBl7dE6LuQ0J2u5d7JCXHMjohKPsWRKza2Gy8z5rtxlpxHn3cfVCFEnGPyXqOvZluCo1vQt54f63FUO+LY5SBkHjmaJyzQsMorMbjx243jU+Nd44YXAjZx7OePmujWfxzxpmyYKWAd4/biHuu9HOX/v91kjiXQh7KgpeOoRRuq+Day6GAAjFqTgsqhreAyRwb4qhCxd8nkhijlikjJyNTsvSDHGMSEM39Kd6aC11Z1z4SDDe5AxbczDry3HByClEjuh7NZiGef/3JWjzT+KDGl7SUYQt434JxIzIsywWevvDy6rXCfDemZx1G/Me3SbYvbyBXJGsFNn/xa+tY5iuVZAA7jzTmuFvvhlZnoVUjpaOKBaILFtQwcA/cRhEBvRZaTbag8W7+IzOdBhbfi5UoYpj1YmSVjbPiIDu8z00EKeEyqLZGg86FbdRwPV7Uyw1hx+SonH1bTJyuSS/2guXDZHJnr8OUsHnBocRTJXHfBTC8BSAs8E+DA34UJV4tWyvty2KKjC4jnlkaORlcORywTLN2IZ5h8bG5Lc/+AI+D1XocWaizAUF2k+/cYfEGU+T55rfVne1bY7ORs9hGRevGliKnXVRYaei2FFF/crnhzT7UpC/AS9yXCkrrLpsZCJoOgf8733qpdDbraOKnO3LrzmY6mnoPYzWz9rf+BUPGFXDhzosgnr8MTBigfJo8VjbIZ8EaVXDAE5uUISD5wM3Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(921020)(10067099003)(56012099006)(11063799006)(4143699003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3N3UzdaR2MvU0tpdzZiYjRlZ3gzclBBbjBFaWNwN0lyZDNCbFZrU2dzTzE2?=
+ =?utf-8?B?Mk15VGFlNU1VVFVaRm4xVHVVZHU2S1ZQd3B4emJxNzVxNmdGNXF1MllmWFI1?=
+ =?utf-8?B?S3E1WURCbEd6YzRYL0VGamwzOGVMZHpQeE9NOXVkSUd2L3J2ZmdnVWJzSmhS?=
+ =?utf-8?B?bktzeFJ0c2NVemhVZmxqTzFnL2VHL1dmNmQwZnRFOWRIQllDWlhhN2dVbDNu?=
+ =?utf-8?B?R2swVXpjeVJmWEQ5UXlhd0RRQ1VzVE9neFQzaWV2c3VWRjlIQzdnaE9VVnpP?=
+ =?utf-8?B?d2FzOTBmbVUyQW5NNmlIZml4WjFEcm56UTY3cnZ4MHFnaGdOSHl1ZTdVak43?=
+ =?utf-8?B?MnhmRUZwT1BkRkU1YTQ1NWQwSFg2UEwyTE5VRnMvWUtrTW5UcHREcC9MRVpP?=
+ =?utf-8?B?R3preGpFb2d4SnhGOHhCemZLRzR6WXF1dkFGUUZqWFZwNHJmOW5XRGRxR2xL?=
+ =?utf-8?B?REtseGdZckV5djdEQXFEcWgxT1V2UkhlUnlhc1NFYTBEOUNYbkNuN0hCZ3hX?=
+ =?utf-8?B?dFBFc0NNWnphT0ZxUnFVZXMrQnJQbGZITlpBYkVjOFBQTFl4Nzd2TWZSRWhL?=
+ =?utf-8?B?U1NOVUd2Y05CTGxlbGZjUG8vOWZEWi9GbHBWQlJrWXlxS0xtamoyRWlwNHgv?=
+ =?utf-8?B?WU1OYjh5d3ZGUy9MYy9zTHRmd0VMUzlVaUl3TFhIOEtPSWtUTFVKMGFhVTcz?=
+ =?utf-8?B?TWc0aWVNNHlSNHhCd2ZmOHJuY3BJTWk5aTU0REdDYmV5VUo3Q3NhMFdtaTZB?=
+ =?utf-8?B?MHh3OHc1TGxzWHVuQ3doQUEzd0RhMzRrNWZOU3dVam80UW1UUXVla2Z1Qi9t?=
+ =?utf-8?B?UkErUk1VZTU3TkM3OUNDd1lvaUxPdEFsNWpSTjdDSmJMMVJFd3NKUW1SNG1l?=
+ =?utf-8?B?V3RxTXRpYktmSUszVWhnY0h3a2xmdHpkZzhPWXgwNTFoNUh0Z3JVQ1VEUlV0?=
+ =?utf-8?B?cGNCZ09UckVoZEZuNkdCMElrTXhRZDB5VE9rOHFWbE1uTzJwbVJFQXFrOTRM?=
+ =?utf-8?B?N20vRFBmNnNibmxhZFlxVmZ6MWhWa1BlMkcrdWlhSHhhQTVXMXdmMTJENm1G?=
+ =?utf-8?B?SCtyRkFqSXhaMCtWb095aTZrNWZxcEd2ZE5MRjcxcGlIUFd6WUZMOUE2QXlB?=
+ =?utf-8?B?NEdXbHQvcm5Qdk9BQnFNLzV3a2luZDRQOVBKSUVHUnFISE5xdGE4N1oyOUY3?=
+ =?utf-8?B?ZHRuTGtleElKamw4dTdHTHJHQzEzSWdvSzdyUEQvaDBKSDc4Y25Cbis2aU8r?=
+ =?utf-8?B?RmcyTER1S2lmR1lKUEptalY4NEtrcWVjNzdHdDlOaHg2MFIyOTlwaEYzenVz?=
+ =?utf-8?B?ZVBLUGk3YkJtMzBINENkczZSbHBrUUcveExlWXE0UU84WkVCVXVRK25pd2Jy?=
+ =?utf-8?B?QjZSYngrNExRWHF0VjFSNnNvWHdOdjhkUlMxVS9YWmpyYjBlVCs3NXBCSGtQ?=
+ =?utf-8?B?d3ZSSEJ5Qy9zaWRaOEYyQzNud3dkVC9SVDl3eTRoNUlrZGNXNENuUGN0RWJ5?=
+ =?utf-8?B?SDZoNnp6VUtTeXMyVWMzZVQ2bFJrWk1UNlpUdCt3bnhCa1FKaWVrenVNb041?=
+ =?utf-8?B?eWR5QlRiS1FlMDZZWjJBNDE4U3czZEgrOFdIeHd0L0QwL3lmMFBsdXkxYk5F?=
+ =?utf-8?B?V3VhUXE0cG11K1JPNkZwcnFxWjBhcEw0WGNQMGJucU9jMGhWNTZPc3hVWlRE?=
+ =?utf-8?B?azhxVkZoOVdmR1pIRWpYbG1LNG1iRTV0Q044OFRaUG1yRDAyVHVrL0tKNkx1?=
+ =?utf-8?B?WFd4OXgxNUFOaWVNUVVFdllBR1kzSEFNcWtRRk9hb1VFRnhNQ2o0OTZhVDhL?=
+ =?utf-8?B?bEpRVDFYTmpUckIzS0NSOUxmK3dYWHBBc2xnejAvdDF0OWtwOS84NjBiekpU?=
+ =?utf-8?B?Z0VQWmkrSWJtam93ZzlHUm1mRjlSR213M0FnYXFlYUlJc3l6TmVlWkZDWm9G?=
+ =?utf-8?B?ME5Vam1BQXcraVNOSjZFSkttcFBORzFleG5pdEVIQlZjSVdkTGd5a1Urd0xs?=
+ =?utf-8?B?STRLekxhdGloZnBBbHJqY2VqdVpVM0d4bDRUbkV6NEZFK2N5bXZ4MVdaNzla?=
+ =?utf-8?B?NjgySEppOHdiRjlaeGZSRmNwZ0NaT1ZvM2dEbGRMRFRmYUczS3pFN0s1K0cv?=
+ =?utf-8?B?YkpnWW02UGF3OHMrWFg4aFl0R2llbVlmenplZmxxUmhHNThXQjczM0RzdmM0?=
+ =?utf-8?B?WHVteEdlRzViSUlKNU9ISExlSDNseHZXRysxc0N3bGp5bTZOckRTdzhKQ3JE?=
+ =?utf-8?B?TDZBTWloR1NEdHgzNDBqWnNOemU2STRXbFNtV3hYZ2tjWC9nUXpsbVRKbEll?=
+ =?utf-8?B?ekdpbzk4aUJjdVl3R1B5RkU1TStYdTJlMS9HV0RsZjJaQ21WcUNmZWE5RUlW?=
+ =?utf-8?Q?JLUkWNYRDDksBZA8=3D?=
+X-Exchange-RoutingPolicyChecked: DUotNYA0gNzqdY3nMIY1BTQg2lsin4I9k95hil92s3YgHCidpwSsVUHRne4qo6noIR501TrWFBd02sb0PqgNE/SZjR2gGHO9gYpxyq1tj8hqps5KYFmGNafe5KFB7LNbP4kvwLHRoKHQyHDIjz3QOaUyN11DZUS6xmkeaT5xnUC9s8dfQyKxDc9LEw8HYE7EMAEBEFTj1GBGhBg72lgE1FW77MTMO668vmhNtKwjjxAGI+7NwOQo9lcrxJOIbOuMa3ehxuHbViYZw6odl93aulz11Rd60sDpUo2i3zWMYO7nkfrs1LGsLoAbPamAB+lxOe0Hg+fLX95QYK8l7p1KEg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04c1d938-4670-4727-a4e7-08df0eefcb95
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:58:38.6923
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kFQt/jaTR6tToJDJHjujRvzsvv3UI1xDsdLR+u+uQbfLSf62buVxy8DLerBQD+8befKIFHmc6VtA61iJSa2+yokQHG6W2jYPTz4anIBHzfk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5979
+X-OriginatorOrg: intel.com
 
-Hi Christian,
+Hi Tony,
 
->>>> Nor why "fgds" is the name, that's going to be hard to remember, does it
->>>> stand for something?
->>>>
->>> "FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
->>> technology enabling direct I/O between GPU memory and files on NVMe, 
->>> widely used in LLM workloads to bypass CPU overhead.
->>
->> That's nvidia's specific solution, but this works on other devices,
->> right?  Or just for that one platform?
+On 8/31/26 10:44 AM, Tony Luck wrote:
+> resctrl currently assumes all monitor events are enabled before any domain
+> is created, because per-domain state is allocated by the architecture's CPU
+> hotplug callbacks. There is no way to disable an event once registered.
 > 
-> That was nvidia's specific and very hacky out of tree solution 
-Exactly, I completely agree with your viewpoint. In fact, we previously conducted 
-a deep analysis of NVIDIA's GDS implementation code, which was also one of the 
-motivations for us to develop fgds.
-
-Please allow me to introduce NVIDIA's GDS implementation briefly:
-NVIDIA introduced two kernel modules: one module called nvidia-fs, and the other module 
-is a customized NVMe driver replacing the Linux kernel's default NVMe driver. 
-nvidia-fs creates a device file for every NVIDIA GPU on the machine: /dev/nvidia-fs<gpu-id>.
-
-Applications call cuFileBufRegister to register the GPU memory buffer to perform I/O. 
-cuFileBufRegister executes the following operations: calls nvidia-fs via ioctl. The 
-implementation of this ioctl allocates a corresponding phony buffer of the same size 
-in the host memory, and establishes a mapping between the CPU memory phony buffer 
-and the GPU memory buffer.
-
-Then, the application calls cuFileRead/cuFileWrite to perform file I/O operations. 
-Its implementation calls ioctl on nvidia-fs with NVFS_IOCTL_READ/NVFS_IOCTL_WRITE 
-as parameters. Inside the ioctl implementation, it calls the common kernel interface 
-filp->f_op->read_iter/write_iter() on the file on NVME. These interfaces can only take 
-the CPU memory phony buffer address as a input, constructing read/write requests sent 
-through the block layer to the customized NVMe driver.
-
-The customized NVMe driver intercepts the I/O operations, calls the nvidia-fs interface to 
-query, replaces the phony buffer address with the GPU memory dma address, and performs 
-DMA transfer between GPU memory and NVMe.
-
-As we can see, this implementation is indeed very hacky and non-elegant. Furthermore, 
-as evaluated in this paper published in SC'25 [1], the phony buffer brings a considerable 
-performance overhead.
-
-> which as far as I know is pretty much abandoned everywhere.
-However, despite the overhead of phony buffers, GDS performance is still significantly higher 
-than transferring through CPU host memory (as shown in our performance benchmark tests [2]). 
-Therefore, GDS is actually still widely used in the LLM ecosystem. For instance, model loading 
-plugins used in inference engines like vLLM and SGLang—such as fastsafetensors and InstantTensor—
-both support acceleration via GDS [3,4], with fastsafetensors enabling GDS by default for model loading. 
-Furthermore, LMCache, a plugin used for KV cache offloading in vLLM and SGLang, also supports 
-GDS acceleration [5]. PyTorch itself also provides file access APIs based on GDS [6].
-
+> AET events are enumerated by the INTEL_PMT_TELEMETRY driver. To allow that
+> driver to be a loadable module, resctrl must tolerate AET events appearing
+> and disappearing, which requires the ability to disable an event when the
+> driver is unloaded.
 > 
-> AMD came up with something similar, but all those approaches are so fundamentally broken that we didn't even considered upstreaming it.
->> And you are using this as a "bypass" for the normal accel subsystem,
->> shouldn't this be part of that subsystem instead of a custom user/kernel
->> api like you are creating here?
+> Add resctrl_disable_mon_event(). The architecture owns domain lifetime
+> and knows mount state, so it is responsible for calling this only while
+> resctrl is unmounted and for cleaning up any per-domain state. Document
+> those requirements in the kerneldoc since they are not enforced in code.
 > 
-> As far as I know there is a patch set under review and even already partially merged which enables exactly that functionality as general feature for DMA-buf which is vendor independent and should at least in theory work with all drivers.
-> 
-> I'm really surprised that somebody is still working on the vendor specific stuff.
-As you pointed out, every vendor has been inventing their own way and interfaces to support GDS, 
-introducing custom kernel modules and proprietary UAPI interfaces, with varying performance that 
-leaves developers heavily frustrated. Apologies for not making this clear enough in our commit 
-messages, which understandably caused some confusion. We merely borrowed the name "GDS" to describe 
-the functional purpose of fgds.
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
+> ---
+> v11:
+> 	Add Reinette RB tag.
 
-In fact, we believe fgds offers four key advantages: 
-(1) GPU platform independence; 
-(2) POSIX/io_uring interface compatibility;
-(3) Higher performance than GDS;
-(4) Minimal kernel footprint and UAPI footprint
+This is missing.
 
-Regarding (1), (2), and (3), please allow me to briefly explain the design mechanism of fgds:
-fgds turns a GPU memory buffer into a POSIX/io_uring-compatible user-space virtual address via 
-three main steps:
+...
 
-Step 1: Utilizing ZONE_DEVICE support, we remap the GPU memory exposed via PCIe BAR into struct pages 
-using devm_memremap_pages();
+> +/**
+> + * resctrl_disable_mon_event() - Disable monitoring event
+> + * @eventid:	ID of the event
+> + *
+> + * The file system must not be mounted when disabling an event.
 
-Step 2: Utilizing dma-buf support, the GPU memory buffer is exported as a dma-buf file descriptor (fd). 
-Using this fd as a bridge, we look up the corresponding DMA addresses for the GPU memory buffer inside 
-the kernel;
+There are a bit more sharp corners with disabling of events since events
+may be used while filesystem is unmounted. How about adding something like:
 
-Step 3: Through mmap, we insert the struct pages corresponding to the GPU memory buffer into the userspace 
-VMA, mapping their physical/DMA addresses directly. The virtual address returned by mmap can then be directly 
-passed into standard POSIX or io_uring interfaces.
+	"Never disable an event that may be accessed while the file system is unmounted."
 
-As you can see, since almost all major GPU vendors support exporting GPU memory buffers via dma-buf, 
-all remaining technical dependencies of fgds rely on standard Linux kernel infrastructure. Therefore, 
-fgds is completely vendor-agnostic and natively compatible with POSIX/io_uring without introducing any proprietary 
-vendor interfaces, which greatly simplifies development, deployment, operations and unifies standard usage. 
-Furthermore, because this technique completely eliminates the phony buffer, its performance is significantly 
-better than NVIDIA's GDS (as shown in our benchmarks [2]).
-
-In addition, since fgds uses only the most fundamental dma-buf mechanisms, it relies on baseline dma-buf features 
-that have been supported in the upstream kernel for a long time, rather than any new dma-buf features currently 
-under active development. In fact, before we recently ported fgds to the latest kernel tree, it was developed 
-and ran on our internal 6.6 kernel. It has been running stably in our production clusters for over half a year 
-across various hardware platforms (including NVIDIA, AMD, and several other vendors) without requiring a single 
-line of GPU-platform-specific fgds code modification.
-
-Regarding (4): We believe that implementing GDS-like functionality inherently requires kernel assistance to map 
-the GPU memory buffer to a valid userspace virtual address. This inevitably requires userspace-kernel interaction. 
-To the best of our knowledge, the mainline kernel currently lacks a dedicated, unified path for this specific interaction, 
-which is why various vendors ended up writing their own out-of-tree interfaces. In contrast, fgds introduces 
-only one single new ioctl parameter (REG_BUFFER, excluding UNREG_BUFFER), and confines its scope strictly to a 
-standalone device driver. We believe this achieves a minimal kernel footprint and minimal UAPI addition.
-
-[1] https://dl.acm.org/doi/10.1145/3712285.3759862
-[2] https://github.com/Storage-and-OS-for-AI/fgds
-[3] https://github.com/foundation-model-stack/fastsafetensors/blob/main/docs/configuration.md
-[4] https://github.com/scitix/InstantTensor/blob/main/csrc/loader_io_cufile.cpp
-[5] https://github.com/LMCache/LMCache/blob/dev/lmcache/v1/storage_backend/gds_backend.py
-[6] https://docs.pytorch.org/docs/2.14/generated/torch.cuda.gds.GdsFile.html
-
-Thanks,
-Li Wang> Regards,
-> Christian.
-> 
->>
->> thanks,
->>
->> greg k-h
-
+Reinette
