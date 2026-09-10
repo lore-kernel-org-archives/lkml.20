@@ -1,131 +1,175 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010064.outbound.protection.outlook.com [52.101.85.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E093554488A
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059747; cv=none; b=owE2ip/2tS/2Aw2tWaeSlkn72xCyQ9cHll6117L75P7fwV5ZbqNvwthxLgEOZXujX/J0LPZ8DvWCklpwRibFsD3stynab+vSddIwTQuueBhDBfxm4pvvgu6euclBTzMXeRkvmIGfAEVWeoanonYtlTO8UjJLnNwJHk9o4Ow7SSg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77124E13E7;
+	Thu, 10 Sep 2026 17:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789059747; cv=fail; b=gTNAUvuLPHO2w8Fr5ziuKIhPGRYPFlGukF/2yOkeaF2Ut93zbfYFs6EMlihQkT8bVYX9gEJ8FXlzoUa8ExHtVMFIE7XZiLaxFmLpFPtLZ91p5ryAVG9qhxmSs8zwXgDR13MoAl38LRFPcYcCO/9+Y3qU5AUdjSV2GU9Dc8aHyzI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789059747; c=relaxed/simple;
-	bh=Sq+3ZPDvtDiwDZEiPtzE5bg4NQcIOhzYCUKUumcK7+g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E3+u6PiOG74TSQFkuDvX5Vu0VhRYbqpO+LK+TycHHysnQ5dHk9W3ygTU+/G01dSyz7QceoTyWchJD4kHqVrO218t2wVEkmLER9oasKMEEhm++CMhydLXNUv9D21JkEZ/HdoZ/hMnoN95tX1LXc6gaCIxklqqJQgdeS+oUdlp1qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=FewE3Tzc; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	bh=KYoqxubR0AwieSmQQAVsr2aNa6oqbTm0FLZaTlIuyfk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QCWxJpQ9MaDR/VbsUxrAVFCPOLy/8nh9htQmnaFKnqszsnOaaFreXvCOu1Nbt7cLjNp+TAUyeTq8zI8rTN5ST22ImGzhyyYZAQb4jrSuq5ZUz61d1x6aSqwHGzkXjPHtAmzOF91wuWVqVgFQSBeWcvJTQx2znE11s0tQ8yzyy3w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3EUr+y5k; arc=fail smtp.client-ip=52.101.85.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="FewE3Tzc"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2941f7229dso1462466b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789059735; x=1789664535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u+7YvFjPPo9k/FqxxQZH7F6PYUlcKWqkhxEgYotuD+A=;
-        b=FewE3TzcVbRnYLM4SXtZVBHC/EVbfw0GLQGCRxsRB4s9negJ79ko682/XZkqJVg+/V
-         XSaVx6Aeeffivd8U1HOprR2RpqC2uUx2l89KH7N+iH9U8MKrqio3+A1gcL9Q/IbArk78
-         nh9Bt8wOqNsguvcwfseNIzHdh3NERUfmKQlYU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789059735; x=1789664535;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u+7YvFjPPo9k/FqxxQZH7F6PYUlcKWqkhxEgYotuD+A=;
-        b=lUJkpE35xfPKHX2oNETlThhDzCtFduqUqW4xHbCc7+BTB6Kf7SyX/JauV6P9yjutCy
-         vbXVMioJO2wiWTHSgoqVP+o620kvJrGtsoWXI7Tm1t74Zaq1PFb1Mr5wzIr9Id7DphGn
-         IbjqC10qDImRJXH88KAI8b+KrNlExSQ1XTkwLzGmh90UiURvZQCggFWBjrWrSDLEyX6N
-         E0yUTKBmlVq19357/cuVbAdC5jIDHvzsVTwlVAba0vnk8m+P/SzpwE0+c1frcGZKAclU
-         u9GmMRZt4+P1mYZQ7ymFRcak96xcseXnh8azYEzqNFk8HoK8eEh+eNgBZOosvyrjQcCj
-         1VBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzMIr82mrgXSV9UEmGT9fK41ejzWp7aTSUoiTsKZO58wIfW/BemBvs//TMsszFVP5/oHNWAcjavzkdHZRk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6LUngJRWHUahEps+yz3wjsQJLcTaaS6+AX66XuhOmF9CTimrG
-	iY9o314DRQS+b0owfQTUjhZjmGBmD6PCeOKMkLDkLxgsDXlkbaMYJwUlZNzmjsxHQl3ZiduD73/
-	wQxQ2zw==
-X-Gm-Gg: AYBFou3fQyV/lMhyQTGrAQHBxR+RQpDZGPAIwtD6Xf6hXkr6xFUFaX5JJxiWfcGV0IV
-	Ixq9BWjV/4FilEAyiCQeZX44D3yJhUpmSetginYmFuyBQHufPB/7H5PSPALkVR7LStcwmuXmLJt
-	iJzGvXMjK+WQ/hSJzgIeMITp+8cep6GzLLr9FKLK1sraa3vNMr3BhtHyOXKLaVO33siVuKMY7x4
-	BZDh+eLwWMb48K+E4ATwHnDQmg0bUXPwUimfq02nrEG3rMuID+4E90zz4rDMf23Vepo3qnoDMNS
-	F8h8aKbeEfvti0N5UJkm8WzbacWvZwL/0ju6c+0UfReJbbnTYwfmIV0QB8v6RMPxf/VuYnrMbTg
-	zeXVppenVdvEsbXOjMIRbQBm1XkILG5R83kh9kUD+ke2I5dUnCBu6ocZs83Q0U4YJgytNkeTrHA
-	CGQUAGrXompz+va9DCs18zJ7ujdk/3qo/bABtRmiUdBeiYyN6RFr6x+teO3BMe7LYEmqsvQR2PD
-	/P1dnMhUDQIzFnZGAscaMDbDRFJLwpAbhp4dA==
-X-Received: by 2002:a17:907:c313:b0:c29:4fcb:2886 with SMTP id a640c23a62f3a-c294fcb2cc1mr186320766b.39.1789059735433;
-        Thu, 10 Sep 2026 10:02:15 -0700 (PDT)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com. [209.85.128.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c294682fcfbsm144709466b.16.2026.09.10.10.01.54
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 10:01:59 -0700 (PDT)
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so612915e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:01:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5v6SWhDM2fPYqYW3qEniX7YfQt1RiYq6kBgPUOk5D91omKGC4p4AygNnrYxCBeCh4Zk/B5e+pElNHJe4=@vger.kernel.org
-X-Received: by 2002:a05:6000:658:b0:484:4817:85db with SMTP id
- ffacd0b85a97d-485872b5c09mr38411439f8f.14.1789059713626; Thu, 10 Sep 2026
- 10:01:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3EUr+y5k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ka/e1RWIaByd5i8EMaAhVNRsm483eLkCH6DqZ1yHUfAJMEF94msEw0cdfj1oX1AyTjbQ9KjVsu2tYmwel9tETO9No0mHhX0ndQCPXveo9/gxHTu8ypVinSyR5rwG+FGKZsd2++1KSotSyNi6DLQbCzfXdNCWa9vjwOH/7YmI1MhchxqATG6Wf0b3aFrKlUGHLweFRCBVdmd1bF9ar3tBDUK/GYBTZekMLSegnEjilZhdhev9wh+meV+KDC8ZeY/p/NblKyngLxvYqJBlHrMElFF9ckWx6AeEHwwL11dxF9eo4f0aa5JBUpRk7i++67D/a1RrTr4lUiameLwuJVfk3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OdR/un3hDMCI6bOrJIAYfqjGzc3NMMr4OySb246lIJM=;
+ b=UYleeUjw8plV2ZCFSD5BkBIBBEQznLscsmXfa5UJaKWrbPkV5LFVIKoJMOJFfx62cLaUxTT6LVRn7orXNLCPC52LI0wv9CQSMxKKzBxZwWiwxfX5iivlMpd7OtfPY1Lke0GgbWLu6jXNs9WrpBbBCgTN9l9cXTpYruaNn8CzXr11AArZyi/eboN94lGTmbxMzGc7Ls593Op6jTeEZluzLltQBSYJnLalUI4CPI/pjJLlDkOCEyjlx/BYXLex379835lUDGrjDkyo1fx0ji4GcdLgcYnNhXfJME4/sb08cubAnjvt6TT/KfaZo/ivsbkmvFayE7yS8YL/cLf9pSmZzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OdR/un3hDMCI6bOrJIAYfqjGzc3NMMr4OySb246lIJM=;
+ b=3EUr+y5kwwKYIDcH0hYgTFOuwrNt9bUmhDyCxtScVaUuutFy94OkJ5qXlhIRP3Q9ypvBBjK8FxwjK2UvCSdlM++UBH+qj5zE/HvlSjdZg9XQKwUo0Yc0p+eNtUwUTtP/1SqEfL4I6KxVHYWcOTBa3bXNM2IZXW8CjXomj6GmTqk=
+Received: from CH0PR04CA0039.namprd04.prod.outlook.com (2603:10b6:610:77::14)
+ by DM4PR12MB6039.namprd12.prod.outlook.com (2603:10b6:8:aa::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Thu, 10 Sep
+ 2026 17:02:09 +0000
+Received: from CH1PEPF0000AD77.namprd04.prod.outlook.com
+ (2603:10b6:610:77:cafe::a8) by CH0PR04CA0039.outlook.office365.com
+ (2603:10b6:610:77::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 17:02:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD77.mail.protection.outlook.com (10.167.244.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 17:02:09 +0000
+Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 12:02:08 -0500
+From: "Pratik R. Sampat" <prsampat@amd.com>
+To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
+	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
+	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
+CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
+	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
+	<shansinha@google.com>, <prsampat@amd.com>
+Subject: [PATCH 0/7] Implement SNP live firmware update support
+Date: Thu, 10 Sep 2026 17:01:55 +0000
+Message-ID: <cover.1789059391.git.prsampat@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909224818.2177311-1-mrungta@google.com>
-In-Reply-To: <20260909224818.2177311-1-mrungta@google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 10 Sep 2026 10:01:40 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WFBmq3kniULxcXNsKgY-Zrb82JfaX5uRWVewQi_tJyJw@mail.gmail.com>
-X-Gm-Features: AcwNN1Xl_nzhNtJWsI6953UZiPelgeSEkWzryufpn6N_ETw7Yj-N-KcRVJNqhak
-Message-ID: <CAD=FV=WFBmq3kniULxcXNsKgY-Zrb82JfaX5uRWVewQi_tJyJw@mail.gmail.com>
-Subject: Re: [PATCH v2] PM: sleep: Add DPM watchdog to prepare/late/early/noirq/complete
- phases
-To: Mayank Rungta <mrungta@google.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Tzung-Bi Shih <tzungbi@kernel.org>, linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD77:EE_|DM4PR12MB6039:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3bb48823-bc69-4af6-66aa-08df0f5d4036
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|7416014|376014|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NnDopVVE6iqDhLKfDimV4+4U9KNbbRxH9HzlVpcqZRHyO8kxpzhkgHYm31BOTYcoJ4iwq9H0343QwSC5Wcyt3Hn/fj6fxgXKKXW0FeqAyuQWxMXvWz1h/3958NNsWyVm6qOQBqkm2RDdqMwlQARX/5FtLAcaw05ZKrHvqvwo6paMgAAbe55HG/gQENloqyDOZYb1m+doBJYyOlE7ruPxcsyjLcCk0bsQL+K57xsgLGeP+XTMltoD8j9lg4pOuXh52hFFcQPhIhdEoZ1aDKocrC6OH8Bfh6QBt89DTLav7gDyuipcJa1WNQVmDi+W/vFLLt59BA9vXRl4U68cJY0pKl6Lmy6UYvc/1fN+ExMK9bgrnzUkGP4OtQNwOfbJtNzX05Kj9OWFDlbPS2jEB5IT0dhxfpsUnXO7YCdcdg6PWhhQqlOc3JZBcPYHfwr7yqDC1JV3KEVdDth5it1jmScTNCXyC23tLO/LT41WrqW+n+UzWcmXX2zpg930kMH+/YR1mBnJyjoTTOQGC/adaHjohqEOJiPLSXg+D5G87pymGMynOyLEO56QTNPRhiCaR0IekDQGIPVvs24uJLkcoEa8B85S48+qCVhfOY9LAmr99+Ahpo9uogKB2bF5F9UWW3GpY3rYjfXOLqqDZA7/Nl3+zTPKX1hoUi3CFz7NDAyUrWyH+7JsbGRKu1b54pbAgum/veIdEiRJ4ux2x6MEyzP+1A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(7416014)(376014)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zT2mEnKgHYLqdD8+TYTzHpVDpPV/uj0NuE+fkOFBMzV442QikkejWkrOKF/QHvzBFH5ALtfb6RWC8zDAnDiK3NiNRryjn0OF2wrUzU29z5j+TFlr/0MPRBFeamedwgMbhVPnfdKF53OERtkxZw+/lA3coZX2tbR88bKMfRIE/ma2h74YCS7v7hgx2cn2OLvEWK8MuEVFoB6se0qHZ3QvRYEPEZ8fARciBHq5B28xpFmsvBbwE3Y2VAN3W+Zy7uxpblAbMlf/ofEbRI0FhGSZtBtGd2YPEqU0ZiRsbWQuqARCsxqVBEr9QJAcmNxR1+dGWiIjnFiI5oeW07V9/hbMsh5CdFr6vsN3dsd1woDHbIf5a1Z0Bz8jicdfPLU90CDUObmevyPUgbFg7HgKwyoWvQMvcs2flzXPi4U4i4qtHYLACtrUp+wq/DbWQwuc7JiN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 17:02:09.3047
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bb48823-bc69-4af6-66aa-08df0f5d4036
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD77.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6039
 
-Hi,
+Introducing support for live update on AMD SEV-SNP platforms via
+DOWNLOAD_FIRMWARE_EX.
 
-On Wed, Sep 9, 2026 at 3:48=E2=80=AFPM Mayank Rungta <mrungta@google.com> w=
-rote:
->
-> Extend the DPM watchdog to wrap device_prepare, device_suspend_late,
-> device_suspend_noirq, device_resume_noirq, device_resume_early, and
-> device_complete callbacks. If a driver hangs during these transitions,
-> the watchdog will fire and dump a stack trace to help identify the
-> offending driver.
->
-> To prevent false-positive timeouts, the watchdog is set only after
-> waiting for subordinate (during suspend) and superior (during resume)
-> devices. With this change, DPM watchdog coverage is extended across all
-> phases of system sleep transitions.
->
-> Signed-off-by: Mayank Rungta <mrungta@google.com>
-> ---
-> v2:
->  - Extend DPM watchdog to device_prepare and device_complete callbacks.
->  - Update commit subject and description to reflect coverage across all
->    system sleep phases.
-> v1:
->  - Initial version adding DPM watchdog to late/early/noirq phases.
->
-> Testing:
->  - Tested on an ARM64 SoC (Pixel platform running a 6.18-based kernel wit=
-h
->    DPM watchdog enabled; Android 6.18 kernel has latest DPM changes
->    backported).
->  - Verified hang simulation in device_prepare and device_complete
->    triggers DPM watchdog panic and stack trace as expected.
->
->  drivers/base/power/main.c | 31 ++++++++++++++++++++++++++++---
->  1 file changed, 28 insertions(+), 3 deletions(-)
+This patchset is an extension of the RFC patchset from Tycho
+Andersen[1].
 
-Thanks! I guess you dropped my (and Tzung-Bi's) Reviewed-by tags
-because of the minor changes between v1 and v2? They look right to me,
-so:
+This series also fronts firmware_loader patches from Dan Williams[2]
+which majorly cleans up refcount issues so that registering the upload
+interface no longer pins the module. Without which having live firmware
+update will cause failure to reload the ccp module as well as break
+kexec.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Patches based on cryptodev-2.6
+
+RFC..v1:
+ * firmware-loader patches are rebased as-is and only incorporates
+   fixes for minor build issues
+ * Dropped crypto/ccp: Hoist kernel part of SNP_PLATFORM_STATUS as that
+   patch has been merged since
+ * Dropped crypto/ccp: Reclaim command buffer when the PSP dies and
+   subsequent handling since firmware quirk is now resolved and need not be
+   handled in the OS
+ * Use guard(mutex) for the locked region, which the split makes
+   possible since sev_get_api_version() acquires sev_cmd_mutex - Maxwell
+ * Added a patch factoring out the TMR and INIT_EX teardown, so the update
+   path and __sev_firmware_shutdown() share it - Shantanu
+ * Skip the re-init when the PSP is dead, not just when a rollback is
+   outstanding - Shantanu
+ * Re-initialize the platform before refreshing the cached status -
+   Shantanu
+ * Split the monolithic .write into a locked update helper, an error
+   translation helper, and a thin .write that refreshes the cached status
+   once the lock is dropped and clean up various allocations
+ * Convert rollback required and reinit required globals to reside in
+   sev_dev struct to avoid carrying over states if manually reloaded
+
+[1]: https://lore.kernel.org/all/20260430160716.1120553-1-tycho@kernel.org/
+[2]: https://lore.kernel.org/lkml/20260331214726.903274-2-dan.j.williams@intel.com/
+
+Dan Williams (3):
+  firmware_loader: Stop pinning modules on registration
+  firmware_loader: Stop pinning parent device per workqueue invocation
+  treewide: firmware_loader: Drop the unused @module argument
+
+Pratik R. Sampat (4):
+  crypto: ccp - Factor out the release of the SEV firmware buffers
+  crypto: ccp - Allow SNP platform data to be queried after SNP INIT
+  crypto/ccp: Register with fw_uploader and always fail
+  crypto/ccp: Implement SNP Download Firmware EX
+
+ .../driver-api/firmware/fw_upload.rst         |   2 +-
+ drivers/base/firmware_loader/sysfs_upload.c   |  50 +-
+ drivers/base/firmware_loader/sysfs_upload.h   |   1 -
+ drivers/crypto/ccp/sev-dev.c                  | 446 ++++++++++++++++--
+ drivers/crypto/ccp/sev-dev.h                  |   4 +
+ drivers/cxl/core/memdev.c                     |   4 +-
+ drivers/firmware/microchip/mpfs-auto-update.c |   2 +-
+ drivers/fpga/intel-m10-bmc-sec-update.c       |   4 +-
+ drivers/greybus/gb-beagleplay.c               |   2 +-
+ drivers/media/i2c/thp7312.c                   |   2 +-
+ drivers/net/pse-pd/pd692x0.c                  |   4 +-
+ drivers/virt/coco/tdx-host/tdx-host.c         |   4 +-
+ include/linux/firmware.h                      |  15 +-
+ include/linux/psp-sev.h                       |  19 +
+ lib/test_firmware.c                           |   3 +-
+ 15 files changed, 474 insertions(+), 88 deletions(-)
+
+-- 
+2.43.0
+
