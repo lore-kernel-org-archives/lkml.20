@@ -1,64 +1,64 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AB54349A9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:11:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1B241D228
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027895; cv=none; b=JxQXpBc4rR/l3wpuQwolrJXIm+u1b7CKyaz7ZVL2NRNFmJOAHYX6YRLx3qOfbK9J9th1g+LLt5bjiHZrGPZKx0xAELENO7pi5rukqaGhdzdtTff4NocsUIIFsw/jWW8TFNq2iO+bJMV8UvaTBAXbGT4eq5iB4BORV6oayp9Kqfg=
+	t=1789027892; cv=none; b=m9hF+oA2KJcLt2osmTHTxDbUAO80QQeALmfTK/5Z7LafYcunpP2ob16JPa15LAcxa6LqRZ1ZN2xzAi8H7201IAGmCK4/pxIYcBhX+TcCnAU88hi/oJ+H7FGkTvsW5b4HdoboP5q9P3FQELbvSnvdVJ3b02Uxkxj9UAfZSC/LkPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027895; c=relaxed/simple;
-	bh=VWJq79Pbtf4IbOZyn7AR5EcaHFmtf9h2nH5b25XhR2E=;
+	s=arc-20240116; t=1789027892; c=relaxed/simple;
+	bh=nnUwbAGw66z8p9c5609SWShTLPj32yaDP8/9sn1ddGI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VeaMUixw1lHJNSUtKmFeLTAxQrzBGHUIVyoGN6+nRlJeh5ZLETfgAsnv03bOXvnPvTqTsr/wHGZsofDlbU7bAUqpGI0ADRn0JpiLTnuHoaFmAzdi4k66dfzK3mnH4kWcWBtnsVYnfkibgo9Yvf0Guki2vOs6VBHQwzJbniO1MrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=TE/57EFV; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=ON/oCQz8RHpVJJDtJtuBzFATBXLqDjOdJn+e0jl0NJOcD+W8ZyIV9YbOLJXK6IhehoSvBk2nmNux1EXgAFP4692CO4UCX2vbijE+Tz3A0kVOgQDt3zvd0jbLgU3aEtdPe18LiH1fQXDshImUnlHxC4B1cZkbJIIOigRMyaWFcgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=RXtYQWaf; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="TE/57EFV"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db17b40eso3000725e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:11:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="RXtYQWaf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b4ba7fe26so2624285e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:11:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1789027888; x=1789632688; darn=vger.kernel.org;
+        d=ionos.com; s=google; t=1789027885; x=1789632685; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7WxxmD3yg0pg+i13gK8J2zlyLTSoxJMhIHGtHp0KYMk=;
-        b=TE/57EFVuI+OZ/IiWW5Il/G1G+sP8z2qb3niY8ltt02d7SvWDiEv4y2+JsgB1uZpuZ
-         NlkOcgVOmzdfLBo9dKE+TTnKthv2BzaS0uqpu8kS6oB1CO01zW5ZmrjEx7b7wncNv2az
-         BkIAzeBogew5N2LQwO14t/UYLzSmCN/yHsEwHOn2pKe9N5SNTVNyK2W0O+vyF733wB6P
-         wJzf7A4Vft/wXSE6lh4pKXtUDSPqqfK11SVkykpc4GiSfk6Cg1E56HPlrEzgIOCGiH96
-         ulWcvp0M9aF4WHHbDkxS/g1tI55KUguX0D/0aHgIrgkFHi5WnintFHxUT4o5R+F9qATX
-         lrIQ==
+        bh=MhyUVR5/3y9z/7b63ssenZZXMXcVxCwIZBzS9kva6Eg=;
+        b=RXtYQWafYePgLxrGr+r+JiD9xLy7UKAp5pW/E2/+Kx/S+aAPPveCsgjO5bc8IXHuJR
+         pXFjDM+PghMS+eyIIOOwvPo7O40VrYgvzDGH9aR2XauL4GW4HppkEBodoySkmLWmsqM9
+         lGYeZij3bx38HvnrhlinCfJVuNlYb6rYATZOCGTIXV/mH6l35CsoSSlQ+EFxMk531fM5
+         rA+5E7n81Fu8QwGyGeOVvGXln5CoYxoBHPsCWgkU9PGU2LMw1IrsjAmet9WC+yzHJC9l
+         OsJ30r+e6+yDHV3Tohi42bVnIhbgWHJvHO+Iq5R5NVULcr6Dr3ykRZ80IJaY+T8MHIbl
+         gLCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789027888; x=1789632688;
+        d=1e100.net; s=20251104; t=1789027885; x=1789632685;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7WxxmD3yg0pg+i13gK8J2zlyLTSoxJMhIHGtHp0KYMk=;
-        b=FphYOJnZJ9MZLNRsuJ36ulLwE5FRk3FmoN9fJj4MU+fN1aM3ezRLrIAGQgkMw/EoAZ
-         2a+kHocOEVO8f8d961YKQ1bVBnT94lRwaZ4N61rAOaXMyK2fpMubD8q97JhscFeW7wvL
-         qBfS+j88L6mN6jJMa2UtnOabw5tpt8anXixtbgJMEKiD2N7IW5YHhugk5u3+f2rZTorF
-         GDw+15zRBK9jSTqmbjIkPrOqaQ9kCzMvuPiHGKwy22gDHWyX+Jv35376tIbWA4mAOwOO
-         38/cm/7TyqCZjb6rJ427T10kkjv3w9wd1kBW95CqG27iuB2M/rBUnP2cwr5Opei+3LQ0
-         aqaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkfU2RdwmoXY5lMrW3N26HtUv9yvOi7z40aey8hoTJFzMykbFdU12eHDqbesNIbCuEXvNXTsb5fxiBrkE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYipi4LUOzqemAqNiEphZcwaCb9pn5qxyq9hZR08EzPOE9Xm35
-	NX+yWcLmzFy9TimEHL9dn7eUb1QHVx1V1v5PJYVXezENMD+IshvdLpmwYTJ2WQt0QMc=
-X-Gm-Gg: AYBFou3Btgzg+IiV9xGUIBGGd3x898KHN7rbs4qNXc1GEbWcEaXFEXIUb7DqLY9pzxE
-	yS+1D521SRSaMX4dhCGTpxJU6UydQvh86Qq3lUs/YkH4Oywn/sXu/pr3A9CTRME/Lmx1pr4/ebC
-	3BDkvIyV8Z7py2DMk/SEYxtgOOh/0loRrb/Sp+BE0qy5cGz4O6mHIlgjpbYeXQwfUWb80RpnO43
-	iHx/HhILghvqhtERDsGOr3Ir1lZWVKrK8pRxKmRYlr90Pn7D67oP8Y2wt6g3UEiNO4Dmk3rDDc2
-	9kRYnFWiTp5TTpNwLoF3svhCEyznz9zdwonzFtZImwmdLUsDB6vq2h5OE4zLhVJdGRXXsDp+bZg
-	IqjCaN10ENwmDC5OqdR/wMivU0Hhme0piuKuKqP5okAdz7AJQOrzHtYUdqYJC9/cabj3ZKFuTqL
-	rhd1vvFiIo6MY2LITtHwpbgnGYN2fN6RX5C1LYSJbyT7GuQgbk/JnVzRSy/mq38Aw+0lSXaKLaI
-	yiXG2yRP/qxWjd5oDjMwVRqeW1iU/romutnkPWHfNsP
-X-Received: by 2002:a05:600c:3b25:b0:49b:910c:76fb with SMTP id 5b1f17b1804b1-49d01dd415bmr272852515e9.2.1789027887561;
-        Thu, 10 Sep 2026 01:11:27 -0700 (PDT)
+        bh=MhyUVR5/3y9z/7b63ssenZZXMXcVxCwIZBzS9kva6Eg=;
+        b=hgi5rPJ8j8f1NrgDP1rmeIZgtU9UJWVSVm/+bGx6NTVmrVrX660El8LDiTwAFF+4gV
+         oxfZKuup3jFvfNvByWk6cHVAc4BvMUU5wRwCHh2oviZkzg9Z4zhf84IkIVl5WKSZ6RqR
+         VqkBcmUA2EC0M8CTTapOqWoRWH219QBUu89wg7OC927v4WhrzOHWJq8PT54zqz6NGool
+         8MWf1CMp/1099EGtmfe9Ay1nskz7yBETwqtmHR9EvMNh0hhr/pWVLC0aqIBs3+B/shTW
+         q3FcpAaNQbsf5LVrvEHb+L2uaqf7R7HNWHp4hT9VVoRqSSQfqW/Dw/DLEXAD9jfI3egB
+         Dz6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzRIZ9Zvx4FQsUod3LPRrXIY5BOgbEqc2ofPk0hJk/Na4iJwSpY5CkJwbIt6mAgDN96NuJq7yhkYVbpUMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXqnA/Kz5h8sDbphZLzwF1vBf9v0tbT5JY09fCpvk6sO+UWyRF
+	e2bPNU2m8141vuPqMzcGqUAHQ5rnPs8eBa9TopFYpcNUDaGRHPpru97eJLitfknF9VE=
+X-Gm-Gg: AYBFou0BkAO58AvGLsiUtvyOZrypNEuKxBhe4+tVMFDzENASVuAEk5oDXQw0g7Y0QVO
+	BEZvQHdZsVxYu2JLvD3whafaM1Cg2fbxh6zuO2ElHpsDoVUhmPEGZuTKQZqQJ2C4rkoBkBwdzGk
+	7qOgE4oNnQe2hlDO2Qp/bOFTtKmDI8hRC0pou1Z+NQbCHKMrojOO7exFgtKBuF0AEPbjVjZHLJX
+	l0T3y/DNMv4aKor3P6yrJSnWvPKKWfI7/3/SqNRkOkr7RrBJwZSJFDCf/D0qZNt9qQWIHWB+AQX
+	xfkkhQuQ8Y7rLr9Pw/pyolOskg+ivf18e/lF0SgBTFKhhgt5+55tjMsV4TPf8qTOX6C2bz0JLqn
+	1Yr+SE4BwHT0lLhAeyp6vNc/J02yvXXl1wQU+BRt0vjTmeWA6B6H5L4LNJPHKi95ZNaD41U1lBz
+	uz4/LOrmFmCEXPBbAOiY72ld8qOVceJPfGsvDHFUcMneucD2LYsxKMlOFLToie96tMI8MrwWv5T
+	Pu5GfMnRaRZRJnMgQyH0jqMHTnKWVCMFeMQGQoPT6G7
+X-Received: by 2002:a05:600c:6289:b0:49d:1da4:511b with SMTP id 5b1f17b1804b1-49d27670d04mr24484735e9.1.1789027884500;
+        Thu, 10 Sep 2026 01:11:24 -0700 (PDT)
 Received: from jwang-ThinkPad-T14-Gen-6.fkb.profitbricks.net ([212.227.34.98])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fc1be3sm55261135e9.4.2026.09.10.01.11.25
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fc1be3sm55261135e9.4.2026.09.10.01.11.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 01:11:26 -0700 (PDT)
+        Thu, 10 Sep 2026 01:11:23 -0700 (PDT)
 From: Jack Wang <jinpu.wang@ionos.com>
 To: Song Liu <song@kernel.org>,
 	Yu Kuai <yukuai@fygo.io>,
@@ -77,9 +77,9 @@ Cc: linux-block@vger.kernel.org,
 	dm-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Jack Wang <jinpu.wang@cloud.ionos.com>
-Subject: [PATCH v2 8/8] md: link a new leg's holder before locking the array
-Date: Thu, 10 Sep 2026 10:11:13 +0200
-Message-ID: <20260910081114.1605746-9-jinpu.wang@ionos.com>
+Subject: [PATCH v2 6/8] md: pass a queue_limits through ->run()
+Date: Thu, 10 Sep 2026 10:11:11 +0200
+Message-ID: <20260910081114.1605746-7-jinpu.wang@ionos.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260910081114.1605746-1-jinpu.wang@ionos.com>
 References: <20260910081114.1605746-1-jinpu.wang@ionos.com>
@@ -93,308 +93,604 @@ Content-Transfer-Encoding: 8bit
 
 From: Jack Wang <jinpu.wang@cloud.ionos.com>
 
-bd_link_disk_holder() takes the leg's disk->open_mutex, and
-bind_rdev_to_array() calls it with reconfig_mutex held, so the
-dependency the previous patch removed from md_import_device() is still
-there by another route:
+raid*_run() -> queue_limits_set() takes q->limits_lock with
+reconfig_mutex held, the order the previous patches inverted.  With
+lockdep on, creating an array and then adding a leg reports it:
 
-  -> #2 (&q->limits_lock):        sd_revalidate_disk / sd_open
-  -> #1 (&disk->open_mutex):      bd_link_disk_holder
-                                  bind_rdev_to_array
-                                  md_add_new_disk
-                                  md_ioctl        <- ADD_NEW_DISK
-  -> #0 (&mddev->reconfig_mutex): md_ioctl        <- RUN_ARRAY
+  -> #1 (&q->limits_lock):        -> #0 (&mddev->reconfig_mutex):
+       queue_limits_set                md_ioctl     <- ADD_NEW_DISK
+       raid1_run
+       do_md_run
+       md_ioctl                   <- RUN_ARRAY
 
-bd_unlink_disk_holder() only takes blk_holder_mutex, which is why the
-release side needs no change and made the link side easy to miss.
+The earlier patch left this for level_store() alone; RUN_ARRAY reaches
+it too, so every array creation records the wrong order.
 
-Link the holder where the leg is opened, before the array is locked, and
-record it in a new HolderLinked flag so the release side knows whether
-there is a link to drop.  A failed link is not fatal, as before.  A leg
-that is linked but not yet bound is released through md_export_rdev(),
-which drops the link first.
+Give ->run() a queue_limits argument and take the update at the entry
+points that start an array: md_ioctl() for RUN_ARRAY, level_store(),
+autorun_devices(), md_setup_drive(), and array_state_store() for
+readonly, read_auto and active -- but only while mddev->pers is NULL,
+as with the array running those states go to md_set_readonly(), which
+waits in stop_sync_thread() for the work that takes the same lock.
 
-A leg is now linked before it is known to be acceptable, so a leg the
-array goes on to reject shows up in its slaves directory until the
-error path releases it.
-
-md then no longer takes disk->open_mutex under reconfig_mutex: of the
-functions that take it, md reaches bdev_open() and bd_link_disk_holder()
-from the paths above, bdev_release() and bdev_fput() only through fput(),
-which defers to task work, del_gendisk() only from mddev teardown, and
-never sync_bdevs().
+dm-raid passes NULL: with no gendisk the personalities return before
+touching any limits.
 
 Assisted-by: LLM
 Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
 ---
- drivers/md/md-autodetect.c |  2 +-
- drivers/md/md.c            | 70 ++++++++++++++++++++++++++++----------
- drivers/md/md.h            |  7 +++-
- 3 files changed, 59 insertions(+), 20 deletions(-)
+ drivers/md/dm-raid.c       |   2 +-
+ drivers/md/md-autodetect.c |  21 ++++++-
+ drivers/md/md-linear.c     |   4 +-
+ drivers/md/md.c            | 116 +++++++++++++++++++++++++++++++------
+ drivers/md/md.h            |  11 +++-
+ drivers/md/raid0.c         |  16 ++++-
+ drivers/md/raid1.c         |  16 ++++-
+ drivers/md/raid10.c        |  16 ++++-
+ drivers/md/raid5.c         |  16 ++++-
+ 9 files changed, 182 insertions(+), 36 deletions(-)
 
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index 21a1922bee4f..d043a5c49608 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3258,7 +3258,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	/* Keep array frozen until resume. */
+ 	md_frozen_sync_thread(&rs->md);
+ 
+-	r = md_run(&rs->md);
++	r = md_run(&rs->md, NULL);
+ 	rs->md.in_sync = 0; /* Assume already marked dirty */
+ 	if (r) {
+ 		ti->error = "Failed to run raid array";
 diff --git a/drivers/md/md-autodetect.c b/drivers/md/md-autodetect.c
-index e592577356ad..b6f9fb36f1bb 100644
+index 929513109657..e15ae2fb58a2 100644
 --- a/drivers/md/md-autodetect.c
 +++ b/drivers/md/md-autodetect.c
-@@ -231,7 +231,7 @@ static void __init md_setup_drive(struct md_setup_args *args)
- 		mddev_lock_nointr(mddev);
+@@ -126,6 +126,9 @@ static void __init md_setup_drive(struct md_setup_args *args)
+ 	dev_t devices[MD_SB_DISKS + 1], mdev;
+ 	struct mdu_array_info_s ainfo = { };
+ 	struct mddev *mddev;
++	struct request_queue *q = NULL;
++	struct queue_limits lim;
++	struct queue_limits *limp = NULL;
+ 	int err = 0, i;
+ 	char name[16];
  
- 		md_add_new_disk(mddev, &dinfo, &nd, NULL);
--		md_put_new_disk(&nd);
-+		md_put_new_disk(mddev, &nd);
+@@ -216,11 +219,27 @@ static void __init md_setup_drive(struct md_setup_args *args)
+ 		md_add_new_disk(mddev, &dinfo, NULL);
  	}
  
- 	/*
++	/*
++	 * do_md_run() restacks the array's limits, and q->limits_lock must
++	 * not nest inside reconfig_mutex, so start the update with the array
++	 * unlocked.  This is __init and the array is not reachable yet.
++	 */
++	if (!err && !mddev_is_dm(mddev)) {
++		mddev_unlock(mddev);
++		q = mddev->gendisk->queue;
++		lim = queue_limits_start_update(q);
++		limp = &lim;
++		mddev_lock_nointr(mddev);
++	}
++
+ 	if (!err)
+-		err = do_md_run(mddev);
++		err = do_md_run(mddev, limp);
+ 	if (err)
+ 		pr_warn("md: starting %s failed\n", name);
+ out_unlock:
++	/* apply the limits before the array takes I/O */
++	if (limp)
++		queue_limits_commit_update(q, limp);
+ 	mddev_unlock_and_resume(mddev);
+ out_mddev_put:
+ 	mddev_put(mddev);
+diff --git a/drivers/md/md-linear.c b/drivers/md/md-linear.c
+index da82c313d459..5438c23a7242 100644
+--- a/drivers/md/md-linear.c
++++ b/drivers/md/md-linear.c
+@@ -178,7 +178,7 @@ static struct linear_conf *linear_conf(struct mddev *mddev, int raid_disks,
+ 	return ERR_PTR(ret);
+ }
+ 
+-static int linear_run(struct mddev *mddev)
++static int linear_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	struct linear_conf *conf;
+ 	int ret;
+@@ -186,7 +186,7 @@ static int linear_run(struct mddev *mddev)
+ 	if (md_check_no_bitmap(mddev))
+ 		return -EINVAL;
+ 
+-	conf = linear_conf(mddev, mddev->raid_disks, NULL);
++	conf = linear_conf(mddev, mddev->raid_disks, lim);
+ 	if (IS_ERR(conf))
+ 		return PTR_ERR(conf);
+ 
 diff --git a/drivers/md/md.c b/drivers/md/md.c
-index fa033d7d3831..235f0d645cea 100644
+index 0668a048db71..5be956e80563 100644
 --- a/drivers/md/md.c
 +++ b/drivers/md/md.c
-@@ -2632,7 +2632,7 @@ static int bind_rdev_to_array(struct md_rdev *rdev, struct mddev *mddev)
- 		sysfs_get_dirent_safe(rdev->kobj.sd, "bad_blocks");
+@@ -4105,13 +4105,30 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 	long level;
+ 	void *priv, *oldpriv;
+ 	struct md_rdev *rdev;
++	struct request_queue *q = NULL;
++	struct queue_limits lim;
++	struct queue_limits *limp = NULL;
  
- 	list_add_rcu(&rdev->same_set, &mddev->disks);
--	bd_link_disk_holder(rdev->bdev, mddev->gendisk);
-+	/* the holder is linked with the open, see md_link_rdev_holder() */
+ 	if (slen == 0 || slen >= sizeof(clevel))
+ 		return -EINVAL;
  
- 	return 0;
- 
-@@ -2648,6 +2648,23 @@ void md_autodetect_dev(dev_t dev);
- /* just for claiming the bdev */
- static struct md_rdev claim_rdev;
- 
-+/*
-+ * bd_link_disk_holder() takes the leg's disk->open_mutex, so the link is
-+ * made with the open, before the array is locked.  bd_unlink_disk_holder()
-+ * only takes blk_holder_mutex, so dropping it is safe under any lock.
-+ */
-+static void md_link_rdev_holder(struct md_rdev *rdev, struct mddev *mddev)
-+{
-+	if (!bd_link_disk_holder(rdev->bdev, mddev->gendisk))
-+		set_bit(HolderLinked, &rdev->flags);
-+}
++	/*
++	 * The new personality restacks the array's queue limits in ->run(),
++	 * and q->limits_lock has to be taken before the array is locked and
++	 * suspended, see md_start_sync().
++	 */
++	if (!mddev_is_dm(mddev)) {
++		q = mddev->gendisk->queue;
++		lim = queue_limits_start_update(q);
++		limp = &lim;
++	}
 +
-+static void md_unlink_rdev_holder(struct md_rdev *rdev, struct mddev *mddev)
-+{
-+	if (test_and_clear_bit(HolderLinked, &rdev->flags))
-+		bd_unlink_disk_holder(rdev->bdev, mddev->gendisk);
-+}
-+
- static void export_rdev(struct md_rdev *rdev)
- {
- 	pr_debug("md: export_rdev(%pg)\n", rdev->bdev);
-@@ -2661,11 +2678,18 @@ static void export_rdev(struct md_rdev *rdev)
- 	kobject_put(&rdev->kobj);
- }
- 
-+/* release a leg that was linked before the array was locked */
-+static void md_export_rdev(struct mddev *mddev, struct md_rdev *rdev)
-+{
-+	md_unlink_rdev_holder(rdev, mddev);
-+	export_rdev(rdev);
-+}
-+
- static void md_kick_rdev_from_array(struct md_rdev *rdev)
- {
- 	struct mddev *mddev = rdev->mddev;
- 
--	bd_unlink_disk_holder(rdev->bdev, rdev->mddev->gendisk);
-+	md_unlink_rdev_holder(rdev, rdev->mddev);
- 	list_del_rcu(&rdev->same_set);
- 	pr_debug("md: unbind<%pg>\n", rdev->bdev);
- 	mddev_destroy_serial_pool(rdev->mddev, rdev);
-@@ -4974,9 +4998,11 @@ new_dev_store(struct mddev *mddev, const char *buf, size_t len)
- 	if (IS_ERR(rdev))
- 		return PTR_ERR(rdev);
- 
-+	md_link_rdev_holder(rdev, mddev);
-+
- 	err = mddev_suspend_and_lock(mddev);
- 	if (err) {
--		export_rdev(rdev);
-+		md_export_rdev(mddev, rdev);
- 		return err;
- 	}
+ 	rv = mddev_suspend_and_lock(mddev);
+-	if (rv)
++	if (rv) {
++		if (limp)
++			queue_limits_cancel_update(q);
+ 		return rv;
++	}
  	noio_flags = memalloc_noio_save();
-@@ -5003,7 +5029,7 @@ new_dev_store(struct mddev *mddev, const char *buf, size_t len)
- 	err = bind_rdev_to_array(rdev, mddev);
-  out:
- 	if (err)
--		export_rdev(rdev);
-+		md_export_rdev(mddev, rdev);
+ 
+ 	if (mddev->pers == NULL) {
+@@ -4280,7 +4297,7 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 		mddev->in_sync = 1;
+ 		timer_delete_sync(&mddev->safemode_timer);
+ 	}
+-	pers->run(mddev);
++	pers->run(mddev, limp);
+ 	set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
+ 	if (!mddev->thread)
+ 		md_update_sb(mddev, 1);
+@@ -4288,6 +4305,9 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 	md_new_event();
+ 	rv = len;
+ out_unlock:
++	/* apply the limits before the array takes I/O again */
++	if (limp)
++		rv = queue_limits_commit_update(q, limp) ?: rv;
  	memalloc_noio_restore(noio_flags);
  	mddev_unlock_and_resume(mddev);
- 	if (!err)
-@@ -7519,6 +7545,10 @@ static void autorun_devices(int part)
- 			limp = &lim;
- 		}
- 
-+		/* link before locking, see md_link_rdev_holder() */
-+		rdev_for_each_list(rdev, tmp, &candidates)
-+			md_link_rdev_holder(rdev, mddev);
-+
- 		if (mddev_suspend_and_lock(mddev)) {
- 			pr_warn("md: %s locked, cannot run\n", mdname(mddev));
- 			if (limp) {
-@@ -7538,7 +7568,7 @@ static void autorun_devices(int part)
- 			rdev_for_each_list(rdev, tmp, &candidates) {
- 				list_del_init(&rdev->same_set);
- 				if (bind_rdev_to_array(rdev, mddev))
--					export_rdev(rdev);
-+					md_export_rdev(mddev, rdev);
- 			}
- 			autorun_array(mddev, limp);
- 			if (limp && queue_limits_commit_update(q, limp))
-@@ -7552,7 +7582,7 @@ static void autorun_devices(int part)
- 		 */
- 		rdev_for_each_list(rdev, tmp, &candidates) {
- 			list_del_init(&rdev->same_set);
--			export_rdev(rdev);
-+			md_export_rdev(mddev, rdev);
- 		}
- 		mddev_put(mddev);
- 	}
-@@ -7730,7 +7760,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 	     nd->minor_version != mddev->minor_version)) {
- 		pr_warn("%s: array reconfigured while opening %pg\n",
- 			mdname(mddev), nd->rdev->bdev);
--		export_rdev(nd->rdev);
-+		md_export_rdev(mddev, nd->rdev);
- 		nd->rdev = NULL;
- 		return -EBUSY;
- 	}
-@@ -7763,13 +7793,13 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 				pr_warn("md: %pg has different UUID to %pg\n",
- 					rdev->bdev,
- 					rdev0->bdev);
--				export_rdev(rdev);
-+				md_export_rdev(mddev, rdev);
- 				return -EINVAL;
- 			}
- 		}
- 		err = bind_rdev_to_array(rdev, mddev);
- 		if (err)
--			export_rdev(rdev);
-+			md_export_rdev(mddev, rdev);
- 		return err;
- 	}
- 
-@@ -7806,7 +7836,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 			/* This was a hot-add request, but events doesn't
- 			 * match, so reject it.
- 			 */
--			export_rdev(rdev);
-+			md_export_rdev(mddev, rdev);
- 			return -EINVAL;
- 		}
- 
-@@ -7832,7 +7862,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 				}
- 			}
- 			if (has_journal || mddev->bitmap) {
--				export_rdev(rdev);
-+				md_export_rdev(mddev, rdev);
- 				return -EBUSY;
- 			}
- 			set_bit(Journal, &rdev->flags);
-@@ -7847,7 +7877,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 				/* --add initiated by this node */
- 				err = mddev->cluster_ops->add_new_disk(mddev, rdev);
- 				if (err) {
--					export_rdev(rdev);
-+					md_export_rdev(mddev, rdev);
- 					return err;
- 				}
- 			}
-@@ -7857,7 +7887,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 		err = bind_rdev_to_array(rdev, mddev);
- 
- 		if (err)
--			export_rdev(rdev);
-+			md_export_rdev(mddev, rdev);
- 
- 		if (mddev_is_clustered(mddev)) {
- 			if (info->state & (1 << MD_DISK_CANDIDATE)) {
-@@ -7919,7 +7949,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 
- 		err = bind_rdev_to_array(rdev, mddev);
- 		if (err) {
--			export_rdev(rdev);
-+			md_export_rdev(mddev, rdev);
- 			return err;
- 		}
- 	}
-@@ -8031,7 +8061,7 @@ static int hot_add_disk(struct mddev *mddev, struct md_new_disk *nd)
- 	return 0;
- 
- abort_export:
--	export_rdev(rdev);
-+	md_export_rdev(mddev, rdev);
- 	return err;
- }
- 
-@@ -8577,15 +8607,18 @@ int md_import_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 		return err;
- 	}
- 
-+	/* link the holder here too, for the same reason */
-+	md_link_rdev_holder(rdev, mddev);
-+
- 	nd->rdev = rdev;
- 	return 0;
- }
- 
- /* release a leg md_add_new_disk() did not take ownership of */
--void md_put_new_disk(struct md_new_disk *nd)
-+void md_put_new_disk(struct mddev *mddev, struct md_new_disk *nd)
+ 	return rv;
+@@ -4708,6 +4728,10 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
  {
- 	if (nd->rdev) {
--		export_rdev(nd->rdev);
-+		md_export_rdev(mddev, nd->rdev);
- 		nd->rdev = NULL;
+ 	int err = 0;
+ 	enum array_state st = match_word(buf, array_states);
++	bool starts_array, need_lim;
++	struct request_queue *q = NULL;
++	struct queue_limits lim;
++	struct queue_limits *limp = NULL;
+ 
+ 	/* No lock dependent actions */
+ 	switch (st) {
+@@ -4753,9 +4777,39 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		spin_unlock(&mddev->lock);
+ 		return err ?: len;
  	}
- }
-@@ -8717,6 +8750,7 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			err = -EINVAL;
- 			goto out;
++
++	/*
++	 * These states start the array when it is not running, and ->run()
++	 * restacks its limits, so take q->limits_lock first.  Only then:
++	 * with mddev->pers set they go to md_set_readonly(), which waits for
++	 * the very work that takes the same lock.
++	 */
++	starts_array = (st == readonly || st == read_auto || st == active) &&
++		       !mddev_is_dm(mddev);
++retry:
++	need_lim = starts_array && !READ_ONCE(mddev->pers);
++	if (need_lim) {
++		q = mddev->gendisk->queue;
++		lim = queue_limits_start_update(q);
++		limp = &lim;
++	}
++
+ 	err = mddev_lock(mddev);
+-	if (err)
++	if (err) {
++		if (limp)
++			queue_limits_cancel_update(q);
+ 		return err;
++	}
++
++	/* mddev->pers was read without the lock, so redo it if it changed */
++	if (need_lim != (starts_array && !mddev->pers)) {
++		mddev_unlock(mddev);
++		if (limp) {
++			queue_limits_cancel_update(q);
++			limp = NULL;
++		}
++		goto retry;
++	}
+ 
+ 	switch (st) {
+ 	case inactive:
+@@ -4772,7 +4826,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		else {
+ 			mddev->ro = MD_RDONLY;
+ 			set_disk_ro(mddev->gendisk, 1);
+-			err = do_md_run(mddev);
++			err = do_md_run(mddev, limp);
  		}
-+		md_link_rdev_holder(nd.rdev, mddev);
+ 		break;
+ 	case read_auto:
+@@ -4787,7 +4841,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 			}
+ 		} else {
+ 			mddev->ro = MD_AUTO_READ;
+-			err = do_md_run(mddev);
++			err = do_md_run(mddev, limp);
+ 		}
+ 		break;
+ 	case clean:
+@@ -4813,7 +4867,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		} else {
+ 			mddev->ro = MD_RDWR;
+ 			set_disk_ro(mddev->gendisk, 0);
+-			err = do_md_run(mddev);
++			err = do_md_run(mddev, limp);
+ 		}
+ 		break;
+ 	default:
+@@ -4826,6 +4880,9 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 			mddev->hold_active = 0;
+ 		sysfs_notify_dirent_safe(mddev->sysfs_state);
  	}
++	/* apply the limits before the array takes I/O */
++	if (limp)
++		err = queue_limits_commit_update(q, limp) ?: err;
+ 	mddev_unlock(mddev);
+ 
+ 	if (st == readonly || st == read_auto || st == inactive ||
+@@ -6763,7 +6820,7 @@ static void md_bitmap_set_none(struct mddev *mddev)
+ 		md_bitmap_sysfs_add(mddev);
+ }
+ 
+-int md_run(struct mddev *mddev)
++int md_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	int err;
+ 	struct md_rdev *rdev;
+@@ -6892,7 +6949,7 @@ int md_run(struct mddev *mddev)
+ 	if (start_readonly && md_is_rdwr(mddev))
+ 		mddev->ro = MD_AUTO_READ; /* read-only, but switch on first write */
+ 
+-	err = pers->run(mddev);
++	err = pers->run(mddev, lim);
+ 	if (err)
+ 		pr_warn("md: pers->run() failed ...\n");
+ 	else if (pers->size(mddev, 0, 0) < mddev->array_sectors) {
+@@ -6988,12 +7045,12 @@ int md_run(struct mddev *mddev)
+ }
+ EXPORT_SYMBOL_GPL(md_run);
+ 
+-int do_md_run(struct mddev *mddev)
++int do_md_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	int err;
+ 
+ 	set_bit(MD_NOT_READY, &mddev->flags);
+-	err = md_run(mddev);
++	err = md_run(mddev, lim);
+ 	if (err)
+ 		goto out;
+ 
+@@ -7349,7 +7406,7 @@ static int do_md_stop(struct mddev *mddev, int mode)
+ }
+ 
+ #ifndef MODULE
+-static void autorun_array(struct mddev *mddev)
++static void autorun_array(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	struct md_rdev *rdev;
+ 	int err;
+@@ -7364,7 +7421,7 @@ static void autorun_array(struct mddev *mddev)
+ 	}
+ 	pr_cont("\n");
+ 
+-	err = do_md_run(mddev);
++	err = do_md_run(mddev, lim);
+ 	if (err) {
+ 		pr_warn("md: do_md_run() returned %d\n", err);
+ 		do_md_stop(mddev, 0);
+@@ -7387,6 +7444,9 @@ static void autorun_devices(int part)
+ {
+ 	struct md_rdev *rdev0, *rdev, *tmp;
+ 	struct mddev *mddev;
++	struct request_queue *q = NULL;
++	struct queue_limits lim;
++	struct queue_limits *limp = NULL;
+ 
+ 	pr_info("md: autorun ...\n");
+ 	while (!list_empty(&pending_raid_disks)) {
+@@ -7427,12 +7487,29 @@ static void autorun_devices(int part)
+ 		if (IS_ERR(mddev))
+ 			break;
+ 
+-		if (mddev_suspend_and_lock(mddev))
++		/*
++		 * autorun_array() runs the array, which restacks its limits;
++		 * q->limits_lock has to be taken before the array is locked
++		 * and suspended, see md_start_sync().
++		 */
++		if (!mddev_is_dm(mddev)) {
++			q = mddev->gendisk->queue;
++			lim = queue_limits_start_update(q);
++			limp = &lim;
++		}
++
++		if (mddev_suspend_and_lock(mddev)) {
+ 			pr_warn("md: %s locked, cannot run\n", mdname(mddev));
+-		else if (mddev->raid_disks || mddev->major_version
++			if (limp) {
++				queue_limits_cancel_update(q);
++				limp = NULL;
++			}
++		} else if (mddev->raid_disks || mddev->major_version
+ 			 || !list_empty(&mddev->disks)) {
+ 			pr_warn("md: %s already running, cannot run %pg\n",
+ 				mdname(mddev), rdev0->bdev);
++			if (limp)
++				queue_limits_cancel_update(q);
+ 			mddev_unlock_and_resume(mddev);
+ 		} else {
+ 			pr_debug("md: created %s\n", mdname(mddev));
+@@ -7442,9 +7519,13 @@ static void autorun_devices(int part)
+ 				if (bind_rdev_to_array(rdev, mddev))
+ 					export_rdev(rdev);
+ 			}
+-			autorun_array(mddev);
++			autorun_array(mddev, limp);
++			if (limp && queue_limits_commit_update(q, limp))
++				pr_warn("md: %s: could not apply queue limits\n",
++					mdname(mddev));
+ 			mddev_unlock_and_resume(mddev);
+ 		}
++		limp = NULL;
+ 		/* on success, candidates will be empty, on error
+ 		 * it won't...
+ 		 */
+@@ -8536,7 +8617,8 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
+ 		flush_work(&mddev->sync_work);
  
  	/* q->limits_lock nests outside both, see md_start_sync() */
-@@ -8864,7 +8898,7 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
+-	if (md_ioctl_may_add_disk(cmd) && !mddev_is_dm(mddev)) {
++	if ((md_ioctl_may_add_disk(cmd) || cmd == RUN_ARRAY) &&
++	    !mddev_is_dm(mddev)) {
+ 		q = mddev->gendisk->queue;
+ 		lim = queue_limits_start_update(q);
+ 		limp = &lim;
+@@ -8660,7 +8742,7 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
+ 		goto unlock;
  
- out:
- 	/* a leg we opened but nothing took ownership of */
--	md_put_new_disk(&nd);
-+	md_put_new_disk(mddev, &nd);
+ 	case RUN_ARRAY:
+-		err = do_md_run(mddev);
++		err = do_md_run(mddev, limp);
+ 		goto unlock;
  
- 	if (cmd == STOP_ARRAY_RO || (err && cmd == STOP_ARRAY))
- 		clear_bit(MD_CLOSING, &mddev->flags);
+ 	case SET_BITMAP_FILE:
 diff --git a/drivers/md/md.h b/drivers/md/md.h
-index 73a27d83d65a..1a0d57d58ad1 100644
+index 7f4e3ea8b826..73f6ef20f266 100644
 --- a/drivers/md/md.h
 +++ b/drivers/md/md.h
-@@ -294,6 +294,11 @@ enum flag_bits {
- 				 * serial bios.
- 				 */
- 	Nonrot,			/* non-rotational device (SSD) */
-+	HolderLinked,		/* bd_link_disk_holder() succeeded for this
-+				 * leg.  The link is made before the array is
-+				 * locked, as it takes disk->open_mutex,
-+				 * see md_import_new_disk().
-+				 */
- };
- 
- static inline int is_badblock(struct md_rdev *rdev, sector_t s, sector_t sectors,
-@@ -1069,7 +1074,7 @@ struct md_new_disk {
- 
- int md_import_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 		       struct md_new_disk *nd);
--void md_put_new_disk(struct md_new_disk *nd);
-+void md_put_new_disk(struct mddev *mddev, struct md_new_disk *nd);
+@@ -760,7 +760,12 @@ struct md_personality
+ 	 * start up works that do NOT require md_thread. tasks that
+ 	 * requires md_thread should go into start()
+ 	 */
+-	int (*run)(struct mddev *mddev);
++	/*
++	 * @lim: a queue limits update the caller owns, or NULL.  Non-NULL
++	 * means stack into it rather than take q->limits_lock, which has to
++	 * nest outside reconfig_mutex, see md_start_sync().
++	 */
++	int (*run)(struct mddev *mddev, struct queue_limits *lim);
+ 	/* start up works that require md threads */
+ 	int (*start)(struct mddev *mddev);
+ 	void (*free)(struct mddev *mddev, void *priv);
+@@ -959,7 +964,7 @@ extern void mddev_destroy(struct mddev *mddev);
+ void md_init_stacking_limits(struct queue_limits *lim);
+ struct mddev *md_alloc(dev_t dev, char *name);
+ void mddev_put(struct mddev *mddev);
+-extern int md_run(struct mddev *mddev);
++extern int md_run(struct mddev *mddev, struct queue_limits *lim);
+ extern int md_start(struct mddev *mddev);
+ extern void md_stop(struct mddev *mddev);
+ extern void md_stop_writes(struct mddev *mddev);
+@@ -1048,7 +1053,7 @@ void md_autostart_arrays(int part);
+ int md_set_array_info(struct mddev *mddev, struct mdu_array_info_s *info);
  int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info,
- 		    struct md_new_disk *nd, struct queue_limits *lim);
- int do_md_run(struct mddev *mddev, struct queue_limits *lim);
+ 		    struct queue_limits *lim);
+-int do_md_run(struct mddev *mddev);
++int do_md_run(struct mddev *mddev, struct queue_limits *lim);
+ #define MDDEV_STACK_INTEGRITY	(1u << 0)
+ int mddev_stack_rdev_limits(struct mddev *mddev, struct queue_limits *lim,
+ 		unsigned int flags);
+diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+index 35e103f0c2c3..59141e4299a8 100644
+--- a/drivers/md/raid0.c
++++ b/drivers/md/raid0.c
+@@ -379,7 +379,8 @@ static void raid0_free(struct mddev *mddev, void *priv)
+ 	kfree(conf);
+ }
+ 
+-static int raid0_set_limits(struct mddev *mddev)
++static int raid0_set_limits(struct mddev *mddev,
++			    struct queue_limits *caller_lim)
+ {
+ 	struct queue_limits lim;
+ 	int err;
+@@ -398,10 +399,19 @@ static int raid0_set_limits(struct mddev *mddev)
+ 	err = mddev_stack_rdev_limits(mddev, &lim, MDDEV_STACK_INTEGRITY);
+ 	if (err)
+ 		return err;
++	/*
++	 * The caller owns an update and commits it itself; taking
++	 * q->limits_lock here would take it a second time.
++	 */
++	if (caller_lim) {
++		*caller_lim = lim;
++		return 0;
++	}
++
+ 	return queue_limits_set(mddev->gendisk->queue, &lim);
+ }
+ 
+-static int raid0_run(struct mddev *mddev)
++static int raid0_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	struct r0conf *conf;
+ 	int ret;
+@@ -414,7 +424,7 @@ static int raid0_run(struct mddev *mddev)
+ 		return -EINVAL;
+ 
+ 	if (!mddev_is_dm(mddev)) {
+-		ret = raid0_set_limits(mddev);
++		ret = raid0_set_limits(mddev, lim);
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index 78effcac138d..6713a53fd460 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -3170,7 +3170,8 @@ static struct r1conf *setup_conf(struct mddev *mddev)
+ 	return ERR_PTR(err);
+ }
+ 
+-static int raid1_set_limits(struct mddev *mddev)
++static int raid1_set_limits(struct mddev *mddev,
++			    struct queue_limits *caller_lim)
+ {
+ 	struct queue_limits lim;
+ 	int err;
+@@ -3185,10 +3186,19 @@ static int raid1_set_limits(struct mddev *mddev)
+ 	err = mddev_stack_rdev_limits(mddev, &lim, MDDEV_STACK_INTEGRITY);
+ 	if (err)
+ 		return err;
++	/*
++	 * The caller owns an update and commits it itself; taking
++	 * q->limits_lock here would take it a second time.
++	 */
++	if (caller_lim) {
++		*caller_lim = lim;
++		return 0;
++	}
++
+ 	return queue_limits_set(mddev->gendisk->queue, &lim);
+ }
+ 
+-static int raid1_run(struct mddev *mddev)
++static int raid1_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	struct r1conf *conf;
+ 	int i;
+@@ -3219,7 +3229,7 @@ static int raid1_run(struct mddev *mddev)
+ 		return PTR_ERR(conf);
+ 
+ 	if (!mddev_is_dm(mddev)) {
+-		ret = raid1_set_limits(mddev);
++		ret = raid1_set_limits(mddev, lim);
+ 		if (ret) {
+ 			md_unregister_thread(mddev, &conf->thread);
+ 			if (!mddev->private)
+diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
+index 5580ca77ef1e..16143db6085b 100644
+--- a/drivers/md/raid10.c
++++ b/drivers/md/raid10.c
+@@ -3930,7 +3930,8 @@ static unsigned int raid10_nr_stripes(struct r10conf *conf)
+ 	return raid_disks / conf->geo.near_copies;
+ }
+ 
+-static int raid10_set_queue_limits(struct mddev *mddev)
++static int raid10_set_queue_limits(struct mddev *mddev,
++				   struct queue_limits *caller_lim)
+ {
+ 	struct r10conf *conf = mddev->private;
+ 	struct queue_limits lim;
+@@ -3948,10 +3949,19 @@ static int raid10_set_queue_limits(struct mddev *mddev)
+ 	err = mddev_stack_rdev_limits(mddev, &lim, MDDEV_STACK_INTEGRITY);
+ 	if (err)
+ 		return err;
++	/*
++	 * The caller owns an update and commits it itself; taking
++	 * q->limits_lock here would take it a second time.
++	 */
++	if (caller_lim) {
++		*caller_lim = lim;
++		return 0;
++	}
++
+ 	return queue_limits_set(mddev->gendisk->queue, &lim);
+ }
+ 
+-static int raid10_run(struct mddev *mddev)
++static int raid10_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	struct r10conf *conf;
+ 	int i, disk_idx;
+@@ -4020,7 +4030,7 @@ static int raid10_run(struct mddev *mddev)
+ 	}
+ 
+ 	if (!mddev_is_dm(conf->mddev)) {
+-		int err = raid10_set_queue_limits(mddev);
++		int err = raid10_set_queue_limits(mddev, lim);
+ 
+ 		if (err) {
+ 			ret = err;
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index 22759c631c4d..28bd81de86c1 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -7944,7 +7944,8 @@ static int raid5_create_ctx_pool(struct r5conf *conf)
+ 	return conf->ctx_pool ? 0 : -ENOMEM;
+ }
+ 
+-static int raid5_set_limits(struct mddev *mddev)
++static int raid5_set_limits(struct mddev *mddev,
++			    struct queue_limits *caller_lim)
+ {
+ 	struct r5conf *conf = mddev->private;
+ 	struct queue_limits lim;
+@@ -7996,10 +7997,19 @@ static int raid5_set_limits(struct mddev *mddev)
+ 	/* No restrictions on the number of segments in the request */
+ 	lim.max_segments = USHRT_MAX;
+ 
++	/*
++	 * The caller owns an update and commits it itself; taking
++	 * q->limits_lock here would take it a second time.
++	 */
++	if (caller_lim) {
++		*caller_lim = lim;
++		return 0;
++	}
++
+ 	return queue_limits_set(mddev->gendisk->queue, &lim);
+ }
+ 
+-static int raid5_run(struct mddev *mddev)
++static int raid5_run(struct mddev *mddev, struct queue_limits *lim)
+ {
+ 	struct r5conf *conf;
+ 	int dirty_parity_disks = 0;
+@@ -8259,7 +8269,7 @@ static int raid5_run(struct mddev *mddev)
+ 	md_set_array_sectors(mddev, raid5_size(mddev, 0, 0));
+ 
+ 	if (!mddev_is_dm(mddev)) {
+-		ret = raid5_set_limits(mddev);
++		ret = raid5_set_limits(mddev, lim);
+ 		if (ret)
+ 			goto abort;
+ 	}
 -- 
 2.43.0
 
