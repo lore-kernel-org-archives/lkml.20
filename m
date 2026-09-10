@@ -1,119 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD4739CD12
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3014A3A6EEC;
+	Thu, 10 Sep 2026 07:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026249; cv=none; b=U3XK5YngWCUrQCr4LU72sCVOfb7EAbrt0b1MGHpRAvi2lZIWGrYRv79P2zj+QYAdRDRbrMdcAN7R0reUrhZ1oGzg33lWi0wfH6VcFML3BeQpPAwFTF5uszgroX+9FjOky0AqTbsPFqtgl21AsbYAD7Fy+An2barRCLj1goCUf9U=
+	t=1789026281; cv=none; b=YyVX3V7VLNhfPO9qbkprgvobdjNy0WQOyMcG5VuSZkogb6Bx9No1Adw8x1TXW6Nr9ud8XHlj1Ag9xyHJ+1Ncc41G8itISgUj/KYoy6hbg3priuDmPpfJocGfuXEpdsoZvoS6TXr6ELJMSO0e+aDh+roABiZ93J91mugx4xgL4qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026249; c=relaxed/simple;
-	bh=+TzsVF4Sf+laEColmGzdaySxxrb8mVMEFLeaCwCAGxU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=hAIyHF7wwx6PGyIdQdHAi0kdV7711lv3qUThdjKyRqcMCP739R7mb0h2/z4ZCnLolm0n91umo3WWzUo6KfViBPBSkY7ZBB5brcJ5y1679ljisZKQ3H8hsu59x0N20MvyFqub5gZQ5dvGhOVMsU+6GPJGqBbiwqXPxdvKhD+vzSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHTwqcx6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789026281; c=relaxed/simple;
+	bh=oXHqWI81ExKc994Budubub91hz5MKneNZl7a2oh+O20=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=th60UXe18vQ0VzgfXfuiZwgJJn6MLSkVFZfuy5eK39NLOXMNc1Y76kDrEemkF2FLrBbD7KlN/OX1L825UP0dorrgF/xeIetEsS7TxClncYVzm1Os2iIONWTcHtUb7J9YU0+KUwe6h1cOFoI6BSiqib31glPnmE/eYZ8NEeKRu9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/1yX6wY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHTwqcx6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6E001F00893;
-	Thu, 10 Sep 2026 07:44:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/1yX6wY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534431F000FF;
+	Thu, 10 Sep 2026 07:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789026247;
-	bh=b6OpRuQYvAAGOb22ASjcA3RaqhNtPXU8PoMlJBJ1q/Y=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=nHTwqcx65W/Rjk0bw8h5Q3nnn+H1liybwRD5yWQMYGpLqMYLQyY/6WeQAbfAsRth1
-	 xuuts9PxR784Y2wMPYq5CK46lHGex5r6ZRfLXHU/cDAgKXVUzFFQKklcWue7EHoccm
-	 s3DTnLj+FhGeE7YBNwq6xG+TYrvu7L+6+wUUkbYf5vSiiNY93u55CzQKVYl3TmqLfJ
-	 ofz/iqrdxdR09LEnT/aYThNMsqYEyXtPgOnWDNOpgT2MqvJQlCZ7vd0BDNhnKgCfZS
-	 ihmu5ySx9HXu4oamZM7KL8kcoq/uM92EjRCg/gwZNcHtiJwWYQEJ6o94yM0ZJ6U3/I
-	 zbL/WXKUTA7ww==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 330E3198003A;
-	Thu, 10 Sep 2026 03:44:05 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 03:44:05 -0400
-X-ME-Sender: <xms:w1-iaowRyeha88iqqUIB7qbLz0Wp7THB4uvbQ52MnM9pKHV6g8o7Eg>
-    <xme:w1-ianEU_zOVf6JQoKXuDyc5rkSdEoBMP77Yi5E6QYVwjZ4buR5BVxnizgCtt2iET
-    KsCWQqNzhgW9liCnsVHUJFBQgHSkOP_KuLNr6dNSzmn7JS5hzmFsQBk>
-X-ME-Proxy-Cause: dmFkZTFDBlCYWrFxP3XXlINjjr6BqUytts/FxhOMA/3y+VJKIaUZPfC7jiKmFkswLGU3ek
-    dvSFXzBwoV5ySuIMuEA/wmxcMGnWs8YDPFMkmSYYeVNgn7BYd0pn3kHqNodJW1D613PQUI
-    2AJ3N0m8dMbbRoaSHs0tiC3wjfE8+2RcEMc4aj/xmNBS03y7lDoxX/UfGLMt6WrDz0xRCg
-    S8YHXu4RXHv8LhOjBwoVjlMDmx6zbFjuXsWMegy8seOyxA8/IW+5Ium9vp+20+X0cG03VD
-    Gdnk2Xxvhk9Hx9sUhwTP+/lPxjAFU94DMvnlhfZYm8mhbS6RLC7I/Vzus3TMSLqYJChhGE
-    BvnP+SFBxu15EMzNcd1v1zzt+wAwF2U3ryWQ9r3n2Znrmg6yR7U2y47ymE4zJO6MA4g854
-    BM/nol9YOzM+wJrXYiIXjSSryVp+ln1R/m3egx2JCCwLIvt4AXsE6BxaMYdpMGyPPoAq+Q
-    sM+vgahXRj7EC4UwxYhEoUqdcoi161tTL3LzM6SGUAIvUb5KclVm6up5PxnOUuZqx6AeUc
-    rfTAJpXbrTLBnaaiRnMy+dEaJmQBunkcG82jszXw58kKy2FxPrQ8Nf/Q5+lndFVrQzdrFX
-    VQDPRrY5Y/9iqmJa+zPGX+rH0nqj3G+ilyhKwDJ9ewQZPevhQU2D7QWDVEtg
-X-ME-Proxy: <xmx:xV-iauBjo4lb-I-mvIQ-kOy8t9ODB1_6SWv4y4omMsyPNUZdZFCArQ>
-    <xmx:xV-iao98bspWWGzcMRKDY89TTf3N6SkHzJR2yYLHSbMA8T2n37f5VQ>
-    <xmx:xV-iaiR_zhOrjns82DP2OFlGJD_CFJOWsVUMIy7_3icnlRIc4fSrqQ>
-    <xmx:xV-iakVhItqUHg2xHjCc3gvFxonNALpL6HWYVn9pny_M85mNlCh8yA>
-    <xmx:xV-iakShSbkE6v_lQqAU7PcqqU7A48eghpQcPmX27JFXy-RSOIq50C1o>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 7C8B6F8007D; Thu, 10 Sep 2026 03:44:03 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1789026279;
+	bh=KeY2ecBYXILjnJfvlD+aKbn3Fj7q03e1zhdxzP3owm4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K/1yX6wYqGx3DlHOpx6z/zg5BRMRmre61T0TfyWVd7E6qvYnkkqKgkjYP8bl+8p4K
+	 Fz/WMtRF+bz6n4RmOcAd4SRb1SS9EBF+Wam8pC4EKJqKfHOiVbxbwC1pQW5e72ATWn
+	 BTulP01ah/PWT1SKdtfCFZ835ua++8yjbDQgpnWcCbcMaIF7w9F+GCauHPtwyuWqXJ
+	 lijRSdW/evnZOnPtk6oD+LlfebWXweMNXh80ckD2iODwAySofHwKwFOi8WKGtUrLXT
+	 g84/ydHeHETnkXPU5XSl13qkllkRGo7e+SjUzrHEza8LSKroR1KzNDTpgmyaJ/K89y
+	 XOETAU5f/2JTA==
+Message-ID: <d24c425e-7913-4f80-987d-7105a8b13432@kernel.org>
+Date: Thu, 10 Sep 2026 09:44:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 10 Sep 2026 09:43:43 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Thorsten Blum" <blum@kernel.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Javier Martinez Canillas" <javierm@redhat.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Lenny Szubowicz" <lszubowi@redhat.com>, "Borislav Petkov" <bp@alien8.de>,
- "Francesco Pompo" <francescopompo2@gmail.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <7df8a578-06da-4769-9e9f-f8765fb87e9e@app.fastmail.com>
-In-Reply-To: <20260829212037.335569-2-blum@kernel.org>
-References: <20260829212037.335569-2-blum@kernel.org>
-Subject: Re: [PATCH] efistub/x86: Use struct boot_e820_entry for size calculations
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] proc/task_mmu: read proc/pid/smaps_rollup under
+ per-vma lock
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, willy@infradead.org, jannh@google.com,
+ paulmck@kernel.org, pfalcato@suse.de, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+References: <20260907063918.3432401-1-surenb@google.com>
+ <20260907063918.3432401-5-surenb@google.com>
+ <19e428e5-d8bc-4abb-b052-e23442464cba@kernel.org>
+ <CAJuCfpF-xeED3zVL9YyCwrTUxcYXw4s6gVcCYY8p7rx_09mgLg@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAJuCfpF-xeED3zVL9YyCwrTUxcYXw4s6gVcCYY8p7rx_09mgLg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On Sat, 29 Aug 2026, at 23:20, Thorsten Blum wrote:
-> alloc_e820ext() and setup_e820() use sizeof(struct e820_entry) when
-> calculating the sizes of boot_e820_entry structures.
->
-> Even though struct e820_entry and struct boot_e820_entry have the same
-> size, use sizeof(struct boot_e820_entry) for consistency instead.
->
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/firmware/efi/libstub/x86-stub.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-
-Queued up in efi/next - thanks.
-
-> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
-> b/drivers/firmware/efi/libstub/x86-stub.c
-> index cef32e2c82d8..ae2481f8a4c3 100644
-> --- a/drivers/firmware/efi/libstub/x86-stub.c
-> +++ b/drivers/firmware/efi/libstub/x86-stub.c
-> @@ -648,7 +648,7 @@ setup_e820(struct boot_params *params, struct 
-> setup_data *e820ext, u32 e820ext_s
->  		}
+On 9/9/26 19:58, Suren Baghdasaryan wrote:
+> On Wed, Sep 9, 2026 at 10:23 AM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
+>>
+>>
+>>> -     vma_start = vma->vm_start;
+>>> -     do {
+>>> -             smap_gather_stats(priv, vma, &mss, vma->vm_start);
+>>> -             last_vma_end = vma->vm_end;
+>>> +     if (!IS_ERR(vma) && vma != get_gate_vma(lock_ctx->mm))
+>>> +             vma_start = vma->vm_start;
+>>> +
+>>> +     while (vma) {
+>>> +             if (IS_ERR(vma)) {
+>>> +                     ret = PTR_ERR(vma);
+>>> +                     goto out_unlock;
+>>> +             }
+>>> +
+>>
+>> Can we add a comment whey we break (and not e.g., continue) whenw e hit the gate
+>> VMA?
+>>
+>> (I seriously don't kmow ... should I know? :) )
 > 
->  		if (nr_entries == ARRAY_SIZE(params->e820_table)) {
-> -			u32 need = (nr_desc - i) * sizeof(struct e820_entry) +
-> +			u32 need = (nr_desc - i) * sizeof(struct boot_e820_entry) +
->  				   sizeof(struct setup_data);
+> The way m_next() is implemented, the gate VMA always placed at the end
+> of the address space, so the next VMA will be NULL and we can break
+> once we see the gate. But now that I'm looking closer into this code,
+> reading smaps_rollup file does not invoke m_next(), so we should never
+> encounter a gate VMA (it's not in the maple tree, so for_each_vma()
+> should never return it). I think I can remove the special handling for
+> that case.
 > 
->  			if (!e820ext || e820ext_size < need)
-> @@ -684,7 +684,7 @@ static efi_status_t alloc_e820ext(u32 nr_desc, 
-> struct setup_data **e820ext,
->  	unsigned long size;
-> 
->  	size = sizeof(struct setup_data) +
-> -		sizeof(struct e820_entry) * nr_desc;
-> +		sizeof(struct boot_e820_entry) * nr_desc;
-> 
->  	if (*e820ext) {
->  		efi_bs_call(free_pool, *e820ext);
+> Thanks for the question, David! It made me realize we can simplify this further.
+
+good! :)
+
+-- 
+Cheers,
+
+David
