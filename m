@@ -1,252 +1,155 @@
-Received: from mta0.migadu.com (out-242.mta0.migadu.com [91.218.175.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A7248E0FF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461CC2DEA89;
+	Thu, 10 Sep 2026 14:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051659; cv=none; b=WVNFD5l88Yh+imb+N+p/hDdzI0GKE+gSKLhtNSMtNp8oDGJOVC08yx9NWPDFQnwfXcA5mPLHdaiO1on0u0TZvSXqvTnJwohbAJBlqgIO276R2/rpknofV0dRfK7bJVO84r/NJqrVI6Nj/WsBVjlyv1xjkDs+68DBLDRi4nNoxRs=
+	t=1789051684; cv=none; b=X/WtlugcYOdacTXpjVji/Wp4i87WZg+5web6uKPJQ3PReIef19yPDis9jTlT7U0QnosSj+GoWOeO+/zpkYrJbL3iiOm7qBdZg5a8m0d8lRxOw6BCJlFF49QcPm7cBLYdI0vDlzif9v1DQAymgI+6KI+0aJ1+S7ZsyTzW4Jeg+NI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051659; c=relaxed/simple;
-	bh=ntAolI/OA7Z9WQW3bybNLUTDyMwEX6yK+A8WCHOuLy4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ieK5BtWlNC0uDz5fC2B56E/vpDLBvpcvjsPo3FCxX1Bo+lcrXbOGBlglPtkX3mkBxgEIUTQriebZn8sFMv6ikRpssmCetiK2GKjlsOiXV46I08ZJURKXBPzwWC2+fEw33Q9Lw8HoTIci0/c79K5un7SxjjCPKgGWQW0xQdy333c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZIzROk8H; arc=none smtp.client-ip=91.218.175.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789051684; c=relaxed/simple;
+	bh=6wfsnoeAuoZ76WOMF5fx/DDG23jdmfWwK5WbNgWkOBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZPchxcow5Qial+rUEIr86wgnNCFOaAN+xyRl+tBy9bbQ2KD9D5bLed5TdoK5vEKr+J6J0RgwgSx3b3lkXeEKUJqP4ABcfz09Ka8hUzMW1gu4SaQC187loAnehfC1NNk/FT1DFThAcYQklFKLCjViZjKZQ3t0LgpnB28XDJFojJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZS2dzQ+N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZIzROk8H"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ntAolI/OA7Z9WQW3bybNLUTDyMwEX6yK+A8WCHOuLy4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789051653; v=1; x=1789656453;
- b=ZIzROk8H7B2z/ktYGaEa8PeNVB4JD9/YhF7eY7TeK8JMr/zfP9jBD6oqImeK5OG+X7oQ3M6Y
- 7gvx0IZ82Je8Pa28rWujLev9ZwNinPPqRqOrrCG2oR0jO1Va5hJh08PlrYYXhz9Jby1BxhDbp68
- MCWTJC3kfikK2M0o6nTqVsTs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 87455dd506a8cc65;
-	Thu, 10 Sep 2026 14:47:33 +0000
-X-Mizu-Trace-ID: 87455dd506a8cc65
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384c4so6731e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:47:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwyaYf5klli0ra31oz1KfUZIBU/1ro1Cin9bgTLqv8pOKw5UA9oFaoPJlwkyaYfnOC0zso1Fkh9GAm/tfk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7a6i/1MSqIiNE2F48UsD2cWN5YABgPfICai+vh+KLRHLE+WTr
-	PSwlsoVcmU/ji0+unRs4BF3Y9wKOVbgNUFf/Xfn61vswwtVByeAZzByil9bPqySaYpPdWaZRYLI
-	Ty8/KltkBKdIujprTrYVeDVs/jSPbpn8lkkfRZ35+
-X-Received: by 2002:ac2:4e10:0:b0:5b6:4ad:d6ba with SMTP id
- 2adb3069b0e04-5b89af5179fmr118268e87.15.1789051651809; Thu, 10 Sep 2026
- 07:47:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZS2dzQ+N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 601061F000FF;
+	Thu, 10 Sep 2026 14:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789051683;
+	bh=B8LvULR1C7zHsgbEpOUrhn3DOAKTICCIgCcp9Moo1AI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZS2dzQ+Np0U4OAn0VVXIzCeZ5ieBiFxzuXO32HXGZjox2imU5YQqAvF8SDv3+HvpB
+	 NxKzJ7t53F+QsLxd/CAKfh/ceBGbni9Duv70Wf65QpPhB0zouKNuCKjxwxHBz7Ulrb
+	 YX/D12ZD9xp4XqsIIVhy+Pz4Q98Vhg7jVxbdMioUiDrhm08tGlgTlHSNBC5ULoSm7P
+	 RjDqnY3JtId+Xe4grDputbR5RuXHVt8PwdzEvcy+eynCsYB2Ookav39t3u54y4bkvh
+	 iX1Yd4WaL2lpHCK6hln10VYqPdfl55bipsdfB0oRiHwHmEfLJXIjbCAbdjH9fkO7ly
+	 YP/fvHYNEODkg==
+Date: Thu, 10 Sep 2026 15:47:52 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 12/12] mm/memory_hotplug: drop CONFIG_HAVE_ARCH_PFN_VALID
+ handling from pfn_to_online_page()
+Message-ID: <aqLB0Fe_bCRSph9E@gremlin>
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-12-008fc8d579fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807164322.2970811-2-sebastianene@google.com> <20260807164322.2970811-5-sebastianene@google.com>
-In-Reply-To: <20260807164322.2970811-5-sebastianene@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 10 Sep 2026 15:46:55 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTz0jJ1+n2emZg1E7Gvzqgj8OzR5PDjsVHWz=L6CyX4W6Q@mail.gmail.com>
-X-Gm-Features: AcwNN1XDpd22jFdnDXPjIgJ7hGk7rymiE-YpHTGhy-VaFZD3HQl71sh9cUV8gas
-Message-ID: <CA+EHjTz0jJ1+n2emZg1E7Gvzqgj8OzR5PDjsVHWz=L6CyX4W6Q@mail.gmail.com>
-Subject: Re: [PATCH v2 03/13] KVM: arm64: Support host MMIO trap handlers for
- unmapped devices
-To: Sebastian Ene <sebastianene@google.com>
-Cc: catalin.marinas@arm.com, joey.gouly@arm.com, mark.rutland@arm.com, 
-	maz@kernel.org, oupton@kernel.org, rananta@google.com, 
-	Sascha.Bischoff@arm.com, suzuki.poulose@arm.com, will@kernel.org, 
-	kvmarm@lists.linux.dev, android-kvm@google.com, bgrzesik@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	nathan@kernel.org, perlarsen@google.com, seiden@linux.ibm.com, 
-	smostafa@google.com, tglx@kernel.org, vdonnefort@google.com, 
-	vladimir.murzin@arm.com, yuzenghui@huawei.com, zenghui.yu@linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-12-008fc8d579fe@kernel.org>
 
-Hi Seb,
+On Wed, Sep 09, 2026 at 03:33:05PM +0200, David Hildenbrand (Arm) wrote:
+> Drop CONFIG_HAVE_ARCH_PFN_VALID handling, as CONFIG_HAVE_ARCH_PFN_VALID
+> is never used with CONFIG_MEMORY_HOTPLUG, as the latter depends on
+> CONFIG_SPARSEMEM_VMEMMAP. Make sure it stays that way.
 
-On Fri, 7 Aug 2026 at 17:43, Sebastian Ene <sebastianene@google.com> wrote:
+So argument is:
+
+mm/Makefile:
+
+memory-hotplug-$(CONFIG_MEMORY_HOTPLUG) += memory_hotplug.o
+
+Is memory_hotplug.c even compiled at all?
+
+mm/Kconfig:
+
+menuconfig MEMORY_HOTPLUG
+	bool "Memory hotplug"
+	select MEMORY_ISOLATION
+	depends on SPARSEMEM_VMEMMAP
+	depends on ARCH_ENABLE_MEMORY_HOTPLUG
+	depends on 64BIT
+	select NUMA_KEEP_MEMINFO if NUMA
+
+$ cd arch
+$ rg HAVE_ARCH_PFN_VALID
+Kconfig
+1762:config HAVE_ARCH_PFN_VALID
+
+arm/Kconfig
+94:	select HAVE_ARCH_PFN_VALID
+
+arm/mm/init.c
+121:#ifdef CONFIG_HAVE_ARCH_PFN_VALID
+
+arm/include/asm/page.h
+178:#ifdef CONFIG_HAVE_ARCH_PFN_VALID
+
+m68k/Kconfig.cpu
+23:	select HAVE_ARCH_PFN_VALID
+40:	select HAVE_ARCH_PFN_VALID
+
+arc/Kconfig
+463:	select HAVE_ARCH_PFN_VALID
+
+All of arm, m68k and arc are 32-bit arches so by definition MEMORY_HOTPLUG
+can't be selected.
+
 >
-> Hook a handler to the host mem abort so that the hypervisor can
-> intercept host accesses to unmapped memory regions.
-> When a Stage-2 fault occurs on a registered device region, the
-> hypervisor will look if there is any registered function that
-> can handle the access. On the back of this, mediate host accesses
-> to devices and emulate them in pKVM.
->
-> Signed-off-by: Sebastian Ene <sebastianene@google.com>
-> Signed-off-by: Bart=C5=82omiej Grzesik <bgrzesik@google.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Is this co-authored by Bart=C5=82omiej, or a stray tag?
+So LGTM and:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
->  arch/arm64/include/asm/kvm_arm.h      |  2 ++
->  arch/arm64/include/asm/kvm_pkvm.h     |  4 +++
->  arch/arm64/kvm/hyp/nvhe/mem_protect.c | 49 +++++++++++++++++++++++++++
->  arch/arm64/kvm/hyp/nvhe/setup.c       |  3 ++
->  4 files changed, 58 insertions(+)
+>  mm/memory_hotplug.c | 9 ++-------
+>  1 file changed, 2 insertions(+), 7 deletions(-)
 >
-> diff --git a/arch/arm64/include/asm/kvm_arm.h b/arch/arm64/include/asm/kv=
-m_arm.h
-> index 3f9233b5a130..6360c90f9855 100644
-> --- a/arch/arm64/include/asm/kvm_arm.h
-> +++ b/arch/arm64/include/asm/kvm_arm.h
-> @@ -304,6 +304,8 @@
+> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+> index b428da66d279c..58ce35cb48f57 100644
+> --- a/mm/memory_hotplug.c
+> +++ b/mm/memory_hotplug.c
+> @@ -344,6 +344,8 @@ struct page *pfn_to_online_page(unsigned long pfn)
+>  	struct dev_pagemap *pgmap;
+>  	struct mem_section *ms;
 >
->  /* Hyp Prefetch Fault Address Register (HPFAR/HDFAR) */
->  #define HPFAR_MASK     (~UL(0xf))
-> +#define FAR_MASK       GENMASK_ULL(11, 0)
+> +	BUILD_BUG_ON(IS_ENABLED(CONFIG_HAVE_ARCH_PFN_VALID));
 
-FAR_TO_FIPA_OFFSET() a few lines further down is the same mask, and
-mem_protect.c already uses it.
+Haha nicest way of removing some later code I've seen. Just make it not compile
+if such a thing happens :)
 
 > +
->  /*
->   * We have
->   *     PAR     [PA_Shift - 1   : 12] =3D PA      [PA_Shift - 1 : 12]
-> diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/k=
-vm_pkvm.h
-> index ab26bec079d6..0a471564be00 100644
-> --- a/arch/arm64/include/asm/kvm_pkvm.h
-> +++ b/arch/arm64/include/asm/kvm_pkvm.h
-> @@ -20,9 +20,13 @@
->  /* The maximum number of hypervisor protected regions from the host */
->  #define PKVM_PROTECTED_REGS_NUM        8
+>  	if (nr >= NR_MEM_SECTIONS)
+>  		return NULL;
 >
-> +struct pkvm_protected_reg;
-> +typedef void(pkvm_emulate_handler)(struct pkvm_protected_reg *region, u6=
-4 offset,
-> +                                  bool write, u64 *reg, u8 reg_size);
->  struct pkvm_protected_reg {
->         u64 pfn;
->         u64 nr_pages;
-> +       pkvm_emulate_handler *cb;
->  };
+> @@ -351,13 +353,6 @@ struct page *pfn_to_online_page(unsigned long pfn)
+>  	if (!online_section(ms))
+>  		return NULL;
 >
->  extern struct pkvm_protected_reg kvm_nvhe_sym(pkvm_protected_regs)[];
-> diff --git a/arch/arm64/kvm/hyp/nvhe/mem_protect.c b/arch/arm64/kvm/hyp/n=
-vhe/mem_protect.c
-> index 500c18c2fd48..7e978e0c44b9 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-> @@ -14,6 +14,7 @@
->  #include <asm/stage2_pgtable.h>
+> -	/*
+> -	 * Save some code text when online_section() +
+> -	 * pfn_section_valid() are sufficient.
+> -	 */
+> -	if (IS_ENABLED(CONFIG_HAVE_ARCH_PFN_VALID) && !pfn_valid(pfn))
+> -		return NULL;
+> -
+>  	if (!pfn_section_valid(ms, pfn))
+>  		return NULL;
 >
->  #include <hyp/fault.h>
-> +#include <hyp/adjust_pc.h>
 >
->  #include <nvhe/arm-smccc.h>
->  #include <nvhe/gfp.h>
-> @@ -752,6 +753,50 @@ static void host_inject_mem_abort(struct kvm_cpu_con=
-text *host_ctxt)
->         inject_host_exception(esr);
->  }
->
-> +static bool handle_host_mmio_trap(struct kvm_cpu_context *host_ctxt, u64=
- esr, u64 addr)
-> +{
-> +       u64 offset, reg_value =3D 0, start, end;
-> +       u8 reg_size, reg_index;
-> +       bool write;
-> +       int i;
-> +
-> +       for (i =3D 0; i < num_protected_reg; i++) {
-> +               if (!pkvm_protected_regs[i].pfn || !pkvm_protected_regs[i=
-].nr_pages ||
-> +                   !pkvm_protected_regs[i].cb)
-> +                       continue;
-> +
-> +               start =3D PFN_PHYS(pkvm_protected_regs[i].pfn);
-> +               end =3D start + PFN_PHYS(pkvm_protected_regs[i].nr_pages)=
-;
-> +               reg_size =3D BIT((esr & ESR_ELx_SAS) >> ESR_ELx_SAS_SHIFT=
-);
-> +
-> +               if (start > addr || addr + reg_size > end)
-> +                       continue;
-> +
-> +               reg_index =3D (esr & ESR_ELx_SRT_MASK) >> ESR_ELx_SRT_SHI=
-FT;
-> +               write =3D (esr & ESR_ELx_WNR) =3D=3D ESR_ELx_WNR;
-> +               offset =3D addr - start;
-> +
-> +               if (write && reg_index !=3D 31)
-> +                       reg_value =3D host_ctxt->regs.regs[reg_index];
-> +
-> +               pkvm_protected_regs[i].cb(&pkvm_protected_regs[i], offset=
-, write,
-> +                                         &reg_value, reg_size);
-> +
-> +               if (!write && reg_index !=3D 31)
-> +                       host_ctxt->regs.regs[reg_index] =3D reg_value;
-> +
-> +               kvm_skip_host_instr();
-> +               return true;
-
-The callback returns void, so a rejection can't reach this code, and
-both of the lines below it run anyway. On a read the host gets
-reg_value, still the 0 it was initialised to, and the instruction is
-skipped either way.
-
-The later patches use the same callback, and their rejections are bare
-returns: cwriter_write() drops a command that process_cmd() rejects,
-ctlr_write() drops a GITS_CTLR enable, baser_write() drops a layout
-change. That's invisible to the host, and to a test.
-
-Could the callback return bool, and this return false on a rejection?
-handle_host_mem_abort() then falls into host_stage2_idmap(), which
-returns -EPERM for a donated page, so the case there already injects
-the abort.
-
-Cheers,
-/fuad
-
-> +       }
-> +
-> +       return false;
-> +}
-> +
-> +static bool is_dabt(u64 esr)
-> +{
-> +       return (ESR_ELx_EC(esr) =3D=3D ESR_ELx_EC_DABT_LOW) && (esr & ESR=
-_ELx_ISV);
-> +}
-> +
->  void handle_host_mem_abort(struct kvm_cpu_context *host_ctxt)
->  {
->         struct kvm_vcpu_fault_info fault;
-> @@ -774,6 +819,10 @@ void handle_host_mem_abort(struct kvm_cpu_context *h=
-ost_ctxt)
->         BUG_ON(!(fault.hpfar_el2 & HPFAR_EL2_NS));
->         addr =3D FIELD_GET(HPFAR_EL2_FIPA, fault.hpfar_el2) << 12;
->
-> +       if (is_dabt(esr) && !addr_is_memory(addr) &&
-> +           handle_host_mmio_trap(host_ctxt, esr, addr | (fault.far_el2 &=
- FAR_MASK)))
-> +               return;
-> +
->         switch (host_stage2_idmap(addr)) {
->         case -EPERM:
->                 host_inject_mem_abort(host_ctxt);
-> diff --git a/arch/arm64/kvm/hyp/nvhe/setup.c b/arch/arm64/kvm/hyp/nvhe/se=
-tup.c
-> index 64c0290da888..4395595b7f7e 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/setup.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/setup.c
-> @@ -294,6 +294,9 @@ static int donate_protected_mmio_regions(void)
->                                                   pkvm_protected_regs[i].=
-nr_pages << PAGE_SHIFT);
->                 if (ret)
->                         goto err_setup;
-> +
-> +               if (pkvm_protected_regs[i].cb)
-> +                       pkvm_protected_regs[i].cb =3D kern_hyp_va(pkvm_pr=
-otected_regs[i].cb);
->         }
->
->         return 0;
 > --
-> 2.55.0.654.g21b8a5bc05-goog
+> 2.43.0
 >
+
+--
+Cheers, Lorenzo
