@@ -1,185 +1,136 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A923B19BA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066578; cv=none; b=rbwA7pytrc2/PMhq3MJs++NuuXQEGNla3nyVvxuFJA01EirO0PaZDMSxiJzo4bJKeulqLyBOT5GGttU+F0Ob2MMk1Wguahv2ZjQ59mnLt67il4jfn2fo4biD6kDTe64Iv9NYXDdACE8fmsfORNkW9CFFYkbUoz7vaKTyEzPQVeo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066578; c=relaxed/simple;
-	bh=ADY0E/FRYWRHk7Nt4TCtye/O+NyvQw/YCRQZj37EZz8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bgIQRGxWEM9i7RClT7GCy/mdpGirx6wBXi5HQw7Yl3Ayoj7IAraPgtJS7kU/sURfyvGfxFe4b5xqnTcAsh3/2Q5yOfgGvDbFypEC/As2xiHYvGgqLWif6V4ZzHaUDiLoGAul/Td3V67yMB+vnzg3+veABl1zD3M9c5IhzzlWBss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--shayba.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lchHCQ8C; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--shayba.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F1F37B032
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789066613; cv=pass; b=kQS3KvWa0Z9O0D+hnviS6uPmWt5nLxsyFle1a0x+dl3kNAJxhhnCqvb4hn3J2xWW04ddOlsR+awcPhUFzmA6OYtTM729rOsk+xCqaXEKA0LkLwDAE3YHHP5qkPbYv8sQVOhV/EfWeynpPYjOVizgaSTayFMpRCBDeZN0GzR8oZk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789066613; c=relaxed/simple;
+	bh=KYzmAlHaz7Clc/Y0Jls+1V6fGOjaYyOAWFoPDWex4WA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S58EhQgGLvAAyBJFBhVeiJcJlSIelke6peezAUa4WOk5Fs/hTbGjeQVYj67BdOd5ZWq4wTxQCzPmsVmEqnmDOKMzqxOHAVgF2sVwhdUZ017iwO7+mq57erBPutf8D4/WC3+cslLc5okW8K1FlCxlyuBlsjjHhawW/F9w7sRO5gc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhyIEhiy; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lchHCQ8C"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so93777a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:56:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhyIEhiy"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2946dc8dbfso20795366b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:56:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789066611; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K6rdd52Lbvgaf7sJ8mH8HUA59gHrv2OAfkuk0Px2GEhsvxidJ7Tl2el0+6PkIj8ntS
+         lBiFFK1UqoEgJ5AXwC6KJMuu34ua6vbRymjV4EPLpDzL+VL6utNEPSx8vSMFVXieFaRn
+         oVZ3dvR4L3F5aWeuvcyI2KoP9sTVZwYs4fvUp0VgIg6NalfMJSI/zcqWOmaKoHvB/idl
+         8cTsNB+IE7I2qCgHGdo4h2ixGqzvtnaWIzGYCi1EqVtFSyb6J8EXYlxRq+KbhCAa4PpP
+         02BGLthfPCVhJW/48ZE/tzgdTCIzA7xce/KsfftbN/1YFqztrZvYkXFlQaMOMVcmaQYj
+         AsCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
+        fh=2rujaqw6K1/dP+w9VY+x8JuJY4lwj4c2H5aN7WMelEU=;
+        b=k6rjzQYQEUiK3ZyFO33uUZQhvNuIUf0cslk5qK/WZTR4k4NXgACIlh272RM3TDac4d
+         e4xDh6L9ZctdTOxmKqDD1s6459q536L427blJCOfUZN/rTpeCjdrQ6380qh8UEqvwHwz
+         7+OriEzkjYpw5c2tRjU06ECD/ESJmtjCbTEESb3QBOCo+zeG2UMq681rvqH68niw/yLE
+         6c0FD/D8nDRtp5zDjiIXFyYu0UTI7W96ZryWRa0m6iDkUE5DStbSQVD6Oh0cIIkpS10m
+         0IHVO/9jJ5IzbhnC1zyTp82d5hYLe79zk3W59XOMcW+mXbT6g7c0muE2g82HUN7RV6DU
+         QzuA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789066576; x=1789671376; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fAhSPIEvBmS+PCKcxa/XH9lFSCc/+FANgNlh9nivbso=;
-        b=lchHCQ8CgLkxGuhndPrDWwSlfLHXu0H776JFB860mkPF40Ndv4BYaob0EPa3ACgaxX
-         o9yTzVrjKHr/8zpIrrBn4HUKglgYsvJxubbDWb8pFQ4tVsgmy1BWN4D2W8jlb5rmsYLu
-         Vx7KaLgiSRPLoRjI8Nmpst+ZbDYmy7FSMnwigrG05C2zMij6dpxbvAT2xpTp7jKFZiZn
-         7Q00srPBp+7OpFsS/GTYJ5lNTWRx3M2t0w/xcBoenCzC0Omsc2SvxJoHCaVyKbPbHuV7
-         brHRnKSdXAEUiymfX+gdcyBC+KDsaAHMsU/o/oscOBs2NxsUJJ5v6zrzhw7+pFAG1jIi
-         nJXA==
+        d=gmail.com; s=20251104; t=1789066611; x=1789671411; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
+        b=XhyIEhiye/PryYCft1Q3UIsTvAEO/LDR3QJ0eXsVi5VGaVLXWYjVlMWVpcK0oj/BFI
+         T6UyeHHGz1UXty4xmtJCOwR4arM5KdrXuanUmEgWPOL6Dnc5fkQ4ZIcvKt6PemcpCPQT
+         1BuhoaEkqYNm/UZbYQPW1HWbXWAznI3Z99eiM3HWb6/T83hbjggR0OaQB9pLpDoqpNz2
+         7VBlzw7X+OUekiMmhbkk1WMAvFxnSBOtKuNcgsETgBS3AT+/qYr7u+rlq4WivoI0efUd
+         R6HKGfLteQbO9v8p2nKLFwxDVE4d8TE3MnweXQFLCQDfR+SZ+sWDU9dEmRGehNVsHQB1
+         ZMGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066576; x=1789671376;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fAhSPIEvBmS+PCKcxa/XH9lFSCc/+FANgNlh9nivbso=;
-        b=nEqng08dsGL5fPER720xoVKVlz95JjRCulmUb+kBtM7Otl3p53aCg+gUu+ODmuv3j2
-         W6uhQZ7Q71/pU7JHVlaoFtWr3HJR/Y0NAS6wX9uonfkkzNJieRgi/jQ2K6CvroCTwjnw
-         Eu6XS2FzqUY3luuIaqP+WG2Z7AwNu86oID9FrK7rhVAdC/TIe1eXoovP9sEg5fvID/Qw
-         /01CRLZRcz2WJrXryWYKiEmtyb6Vmtkn96Fp0doDkV6NRGcSRH1BA+tUFL7C36hB6Qxv
-         MNSJ5yX+E0PQqEvraPuUfkLZxnz1EN37mfCv4vZ3/WpR7ualBgb6Cze5aS4doDuhY7Pk
-         3HhA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhlHILYCHiwtA06iSzEPJJpGmCb9nuQPFPQ2UW2MdCP8ncA5awahvU3+MRMOJ0nHjMJrqH6QIeh6VCKoQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIYRQ0E6fCqe1wb8YEZCcTLCtuAfzafEmZ59gEvM/koejVyR+f
-	k/sZvo4RQbqWfDmo7qKwdbv0aB3laHFcElHG3PmGLOvcLFL6Flu7DnEAHcrKb+NCkY4wxEDtRte
-	FeTtjNA==
-X-Received: from dld34.prod.google.com ([2002:a05:7022:322:b0:142:e0f7:1a4d])
- (user=shayba job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5287:b0:398:9bd5:490d
- with SMTP id 98e67ed59e1d1-39d9c22e224mr103903a91.20.1789066576318; Thu, 10
- Sep 2026 11:56:16 -0700 (PDT)
-Date: Thu, 10 Sep 2026 18:56:14 +0000
-In-Reply-To: <20260909232351.1533034-1-shayba@google.com>
+        d=1e100.net; s=20251104; t=1789066611; x=1789671411;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
+        b=IEHhKsVcuJd55Uf9ccZChkh98augzAEHkGhDLOdckU7PjPyVMzhsmcEaervqYA4yCH
+         AaorPTED8tH9lJ3lY2ZtgQ8OzQikXMyC35gYaLWotEjxDqZ14qo3Nt8l6sVuqClQRI5f
+         yVm6z/20CkmXADd/44zj2EPvn+0hEOq9zX/op1rPnYjroxThlr4HlqFJv96P9KcPQzq+
+         gaFf2o6E3zXZ3QDcBzak+4zN0eBVSf76YpCHT6IUof8E+3y8RCs0vFn3pZy/M1KTzGSI
+         dFL6E8V0OGtIknA+/jD2nRJZjG+qqfoRn5dwxkDCHXJNPHQQNBNuMKc4f1KsFDPG8Grf
+         ILKA==
+X-Forwarded-Encrypted: i=1; AKwUvByGJ+RP4qK8qiRNJB1v79gXOe59GCv9T7nhbQHsI4f70LKPJeESNZVQusuh4XnwnSAv38G8ZRg6on1zAXY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLF+SawPnaQzE4qqg55VJPQKlXvZR2CAwFHnYmxBWw1kMaksS2
+	g9kr5w45YBYfxTaYRLcUxypFoSNcOvyEUMelE/fdKRwEVjKgvikOCIJQOzzb8igLajZbujzGdM2
+	8GcbF9gJ7jiEFLTgRMzvsw8Fb+5fI4zU=
+X-Gm-Gg: AYBFou0OluMCs0yafYqs0d1axKuzf7wFSi7B2FP/iJc75wdy0chceHM6AkGyuBwdJO2
+	J6tGSjpDz2RjErl8Iw5GfVDslXDFfCCGG9aG9MWMjkHsxPtHpNynieTtr3ZYmFFJFmuXlBKu4c1
+	GzzOfVSJfwZb620emDLp4DSTdJfLisCpOTF4/gQZhoLHKfnP6gBuIfhENGmzIW/VVyFFBod/g5Z
+	pRrBBdUlVT3mtx0N1UP2/1xlqKtOBXHPoVbACLH/vPOBYIQY339YyMedpxzYB8CEHz4lz7v6jnM
+	zQEDIL2g4W5YWLRYkSN3XGrALv3TzTQljcUfol7VVJgJEGJWUjE85/nfMy3PR+HBPF4yWEDZf5l
+	f4COhU2SfoOCL7Uzg7aLohnflEcpUJuUoUi5Y9MUTVSMoMMv+g/cbXIRJiXeeBI6j83aVrFw065
+	v8nfZBBHGkDjN9ROy8V0HBZZJASbZDQHDvt0oUfmFFD4/4BnXEwJPY+84FstnGSZ6V3g==
+X-Received: by 2002:a17:907:3e87:b0:c29:386c:58df with SMTP id
+ a640c23a62f3a-c296668deb5mr944166b.30.1789066610568; Thu, 10 Sep 2026
+ 11:56:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260909232351.1533034-1-shayba@google.com>
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260910185614.262511-1-shayba@google.com>
-Subject: [PATCH v2] fuse: Forward vfs_fadvise to backing_file in passthrough mode
-From: Shai Barack <shayba@google.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Amir Goldstein <amir73il@gmail.com>, Bernd Schubert <bschubert@ddn.com>, 
-	Sandeep Dhavale <dhavale@google.com>, Akilesh Kailash <akailash@google.com>, 
-	Suren Baghdasaryan <surenb@google.com>, fuse-devel@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Shai Barack <shayba@google.com>
+MIME-Version: 1.0
+References: <20260910001209.116465-1-rosenp@gmail.com> <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
+In-Reply-To: <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 10 Sep 2026 11:56:39 -0700
+X-Gm-Features: AcwNN1V6aaA1o2c79sKoypMBaKIL_zofsrFDIKG1O8uwY83YC9Mz1J-mEf9e4HU
+Message-ID: <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
+Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When an application invokes posix_fadvise(..., POSIX_FADV_DONTNEED) or
-other fadvise advice on a FUSE passthrough file descriptor, the VFS
-currently only executes generic_fadvise() on the upper FUSE inode
-mapping.
-
-Because FUSE passthrough does not forward fadvise operations to the
-underlying backing file, pages residing in the lower filesystem's
-pagecache remain resident in memory.
-
-During media-heavy workloads (such as image thumbnail generation or
-streaming), single-access file data accumulates in the inactive pagecache
-of the lower filesystem. Under memory pressure, the kernel retains these
-stale media pages and instead evicts active executable pages from
-running processes, leading to severe direct reclaim latency spikes.
-
-Architecturally, Linux VFS supports filesystem-specific fadvise
-delegation via the .fadvise hook in struct file_operations. Implement
-fuse_file_fadvise() in fs/fuse/file.c and register it in
-fuse_file_operations. When passthrough is active on a fuse_file,
-fuse_file_fadvise() forwards the vfs_fadvise() call to the lower
-backing_file under the opened credentials, allowing POSIX_FADV_DONTNEED
-to cleanly invalidate the physical backing filesystem pagecache.
-
-Signed-off-by: Shai Barack <shayba@google.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Amir Goldstein <amir73il@gmail.com>
-Cc: Bernd Schubert <bschubert@ddn.com>
-Cc: Sandeep Dhavale <dhavale@google.com>
-Cc: Akilesh Kailash <akailash@google.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: fuse-devel@lists.linux.dev
-Cc: linux-fsdevel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
-v2:
-- Remove redundant !backing_file check in fuse_passthrough_fadvise() (Amir Goldstein)
-- Remove unused fuse_passthrough_fadvise() stub under #ifndef CONFIG_FUSE_PASSTHROUGH (Amir Goldstein)
-- Reorder fuse_passthrough_fadvise() above fuse_passthrough_open() alongside other passthrough ops (Amir Goldstein)
-- Add fuse-devel@lists.linux.dev to CC list (Amir Goldstein, TJ Mercier)
-
- fs/fuse/file.c        | 11 +++++++++++
- fs/fuse/fuse_i.h      |  1 +
- fs/fuse/passthrough.c | 13 +++++++++++++
- 3 files changed, 25 insertions(+)
-
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index a4d736945..81709ab82 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3537,6 +3537,16 @@ static ssize_t fuse_copy_file_range(struct file *src_file, loff_t src_off,
- 	return ret;
- }
- 
-+static int fuse_file_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
-+{
-+	struct fuse_file *ff = file->private_data;
+On Thu, Sep 10, 2026 at 9:46=E2=80=AFAM Florian Fainelli
+<florian.fainelli@broadcom.com> wrote:
+>
+> On 9/9/26 17:12, Rosen Penev wrote:
+> > Add it and set for gmac0, which is the only GMAC used on this board.
+> >
+> > nvram size found from a random bootlog online.
+> >
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > ---
+> >   v2: fix typo.
+> >   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 +++++++++++++=
 +
-+	if (fuse_file_passthrough(ff))
-+		return fuse_passthrough_fadvise(ff, offset, len, advice);
-+
-+	return generic_fadvise(file, offset, len, advice);
-+}
-+
- static const struct file_operations fuse_file_operations = {
- 	.llseek		= fuse_file_llseek,
- 	.read_iter	= fuse_file_read_iter,
-@@ -3557,6 +3567,7 @@ static const struct file_operations fuse_file_operations = {
- 	.fallocate	= fuse_file_fallocate,
- 	.copy_file_range = fuse_copy_file_range,
- 	.fop_flags	= FOP_DONTCACHE,
-+	.fadvise	= fuse_file_fadvise,
- };
- 
- static const struct address_space_operations fuse_file_aops  = {
-diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
-index 939553b34..6c60716e7 100644
---- a/fs/fuse/fuse_i.h
-+++ b/fs/fuse/fuse_i.h
-@@ -1581,6 +1581,7 @@ ssize_t fuse_passthrough_splice_write(struct pipe_inode_info *pipe,
- 				      struct file *out, loff_t *ppos,
- 				      size_t len, unsigned int flags);
- ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma);
-+int fuse_passthrough_fadvise(struct fuse_file *ff, loff_t offset, loff_t len, int advice);
- 
- /* backing.c */
- 
-diff --git a/fs/fuse/passthrough.c b/fs/fuse/passthrough.c
-index 059e57969..8a8fa6b8c 100644
---- a/fs/fuse/passthrough.c
-+++ b/fs/fuse/passthrough.c
-@@ -160,6 +160,19 @@ ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma)
- 	return backing_file_mmap(backing_file, vma, &ctx);
- }
- 
-+int fuse_passthrough_fadvise(struct fuse_file *ff, loff_t offset, loff_t len, int advice)
-+{
-+	struct file *backing_file = fuse_file_passthrough(ff);
-+	const struct cred *old_cred;
-+	int ret;
-+
-+	old_cred = override_creds(ff->cred);
-+	ret = vfs_fadvise(backing_file, offset, len, advice);
-+	revert_creds(old_cred);
-+
-+	return ret;
-+}
-+
- struct fuse_backing *fuse_backing_get(struct fuse_backing *fb)
- {
- 	if (fb && refcount_inc_not_zero(&fb->count))
--- 
-2.43.0
+> >   1 file changed, 14 insertions(+)
+> >
+> > diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arc=
+h/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > index c80ac16ad949..9ab618a097b1 100644
+> > --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > @@ -25,6 +25,15 @@ memory@0 {
+> >                     <0x88000000 0x08000000>;
+> >       };
+> >
+> > +     nvram@1c080000 {
+> > +             compatible =3D "brcm,nvram";
+> > +             reg =3D <0x1c080000 0x180000>;
+>
+> Why is not the nvram node moved to bcm5301x.dtsi given it is common to
+> all of the chips?
+To avoid probe errors on hardware where sizes are unknown.
+> --
+> Florian
