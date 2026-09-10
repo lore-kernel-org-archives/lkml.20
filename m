@@ -1,36 +1,36 @@
 Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9347A391846;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935C13AB496;
 	Thu, 10 Sep 2026 22:19:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078789; cv=none; b=Y0iiGn7QHK/0UOHIvgdxIRcaojStQCfGPP2OwUJk/KMd4WIZock/bVeoPkxDHiSS5bjsNE+qEkxoT8BVv3meUU6v+xJG55ol/WxG2hQDrRkYnREF3qbLq4gFRM9Hmy2IrrhBkr/9s0oPoc7qMtoUFzcQTMUq0HjrDXZAE0lMfxU=
+	t=1789078790; cv=none; b=cydGsiMfm9aRxpDQoz+M53CoqKpFWcDoIVdeoEvF95tTr6qIas9qvnSiDhne2bB3o31cgA7lT7sjxnME/dwtrwJpw4wDywunGqLbBPkAW9Z3rvTO48NRiSfSc8zSyhrX/YFiJRM2Md7Nuzpda73ii7NiMMS5mTKeUwLM9h9yL2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078789; c=relaxed/simple;
-	bh=5SVbkqIRTJ6vFBojUaOqULhwVzhidmNYRFGSJ1RSPZg=;
+	s=arc-20240116; t=1789078790; c=relaxed/simple;
+	bh=wfwCmT8DoKSSUntYp3RrEFWgEP9KlheUfTkbMuIxZTo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=riD+6Y3aHBocV2yM3+mEZU2aGYOSj/4nAEw0LYQiE/XW13r5Bm/KfCy/skvHXy6+iIc8SKYp9M5ldH04kZ6Og+vJS1/MUVrod24ERhXZKZyZTJIEU2Bl0Lh9NQxi63ARsTG8sP6rNbMl2ucamW0sCrxgd4qwww8+rpSUIzTEUhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=JYr9dWnk; arc=none smtp.client-ip=193.104.135.124
+	 MIME-Version:Content-Type; b=kdUXxI2tQMZZJ9bAoeHcPge3m+JFpme5NSLa8eajYRrY5yoo322dvGuhhFgXVNMP0FQ6eL0LrIUpqsWT3iF2eDVQ9DcE3WKVwrRe5sGDXYmggpxesN7AcznEIz+DGNChESqHIb+P7YHa7T06mYh1ovlP643NeAnaisvitUHUNCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=tJDpaA3F; arc=none smtp.client-ip=193.104.135.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="JYr9dWnk"
+	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="tJDpaA3F"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
 	s=202008; t=1789078778;
-	bh=5SVbkqIRTJ6vFBojUaOqULhwVzhidmNYRFGSJ1RSPZg=;
+	bh=wfwCmT8DoKSSUntYp3RrEFWgEP9KlheUfTkbMuIxZTo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JYr9dWnkkntyKQp9kW8/kMvsgyBo34DoixPCEvWvW1LWUyUcSJzN4KyIAW+Oy0Elq
-	 4SSTPCrm+dkRZIddIsDLAeTRp4TEjxSqMdSn/88jNmKttWkoy4+Ia4yBp84845ny4r
-	 UtNoTKDk8+TWKXlRK5y2F8lnU82m81XsWK2shfP92ORX2GQ/Psv64aDhkPmuIHD2su
-	 eH9l2Av5qIfXbh9NFpm3WjaAfHVNehKvgbE4YOTjQcnAkNS+JQ5hs6EPyT2fWDNwtp
-	 VCU+aPGqCacyIxdwCawWo4ZSoECltHrbyrvpZFdgqQCglG09767n73BnWsaywVDTbQ
-	 IqWnAB/XuOLDA==
+	b=tJDpaA3FkllyflGf/hu3IkoNB/2VeUyZAhg0cua1z3wUA6a6ZXU1ddTZO7jfN4VID
+	 GWlueKfdUTwTXt4I8CWYF6XXhLhRl1k/Az8PAJrctPCSrvIa8WOaUE4XWuSe3UXIH+
+	 ElgW5Oflk7qBqmYF8zQtPtjfDnrLc/33cvLrxDNN23JDBXmpg+irMprSxlK6cRQIdu
+	 oVkYrU+fi6QAcAo/92MsGV19t3SE7ueE2SOuNCYCL07c48JL1S3cysLIytSZscdEf/
+	 lqZoAqcUTMJBSYA9QJ7ONckPhhvDSL/VIGcH6cPzikbf5kSDXJBUmWPi0vjcrvJ9K/
+	 u4F0hZs9h9Q2Q==
 Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id 2D2F2600FC;
+	by mail1.fiberby.net (Postfix) with ESMTPSA id 3F2B260107;
 	Thu, 10 Sep 2026 22:19:19 +0000 (UTC)
 Received: by x201s (Postfix, from userid 1000)
-	id DAFC9201FE5; Thu, 10 Sep 2026 22:17:35 +0000 (UTC)
+	id DCAEE2025B6; Thu, 10 Sep 2026 22:17:39 +0000 (UTC)
 From: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>
 To: netdev@vger.kernel.org
 Cc: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
@@ -49,9 +49,9 @@ Cc: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
 	Stanislav Fomichev <sdf.kernel@gmail.com>,
 	Heng Guo <heng.guo@windriver.com>,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net-next 2/8] netlink: specs: conntrack: add uapi-header
-Date: Thu, 10 Sep 2026 22:17:22 +0000
-Message-ID: <20260910221733.1021864-3-ast@fiberby.net>
+Subject: [RFC PATCH net-next 8/8] netlink: specs: rt-link: fix netkit-policy names
+Date: Thu, 10 Sep 2026 22:17:28 +0000
+Message-ID: <20260910221733.1021864-9-ast@fiberby.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910221733.1021864-1-ast@fiberby.net>
 References: <20260910221733.1021864-1-ast@fiberby.net>
@@ -64,25 +64,36 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Define uAPI header, as needed for C code gen.
+Correct the names of these `enum netkit_action` constants:
+
+- NETKIT_PASS is 0, so "pass", not "forward".
+- NETKIT_DROP is 2, so "drop", not "blackhole".
+
+Note, the other enum members are not used in netlink, and
+are not allowed by netkit_check_policy().
 
 Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
 ---
- Documentation/netlink/specs/conntrack.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/netlink/specs/rt-link.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/netlink/specs/conntrack.yaml b/Documentation/netlink/specs/conntrack.yaml
-index b1eb102ab843..543dcddb0464 100644
---- a/Documentation/netlink/specs/conntrack.yaml
-+++ b/Documentation/netlink/specs/conntrack.yaml
-@@ -2,6 +2,7 @@
- ---
- name: conntrack
- protocol: netlink-raw
-+uapi-header: linux/netfilter/nf_conntrack_common.h
- protonum: 12
- 
- doc: >-
+diff --git a/Documentation/netlink/specs/rt-link.yaml b/Documentation/netlink/specs/rt-link.yaml
+index 6639b7f5677b..fe52d508d607 100644
+--- a/Documentation/netlink/specs/rt-link.yaml
++++ b/Documentation/netlink/specs/rt-link.yaml
+@@ -827,10 +827,10 @@ definitions:
+     name-prefix: netkit-
+     entries:
+       -
+-        name: forward
++        name: pass
+         value: 0
+       -
+-        name: blackhole
++        name: drop
+         value: 2
+   -
+     name: netkit-mode
 -- 
 2.55.0
 
