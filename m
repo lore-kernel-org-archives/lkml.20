@@ -1,77 +1,71 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B06545DAB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBDE577E24
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789064270; cv=none; b=SRc8/5xCiHZ7ARgbMGih1xFJB4yDtomZf/wcqH2SmjQA56xJFiPg86JJvXSbD22DPumxxf0GtlbtZ+CHv5FjLw8pkYw48fzIp+JVfkNvvUcbC9L9/DkvLOxGKXut51FpOZJ7Fbyt9j8vPBppzO0NO07hKUnVeNrc6T0HPMO1Fvo=
+	t=1789064302; cv=none; b=ZH/wUj+ghRNU5OjqZtn3gMqpqNLXRkmZtfTCRYt0v4Qy5HqzCnPW12J07pi15fy1eXhjcUh1zVojPQO6aVYI9na6uQRgBcANS4Ol5ce/x7Yq7Y8B4mJMBQffrXVymOI+cIChY989VCLRdLEo+O4+/KT3oOPGr4M79sirTXiWTlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789064270; c=relaxed/simple;
-	bh=PkLazTUBfgnHFJX/6j/z6D+G9f+NFxfIEs9XpadXfmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bN4hxQDiPvGgrWcxHt6ANcBca+auZEpUYF8AITV1Yb6c/XzhjJJ2k6yH2hH4wZesaCyLz0j1qS631DXPNXeaHFjmlnQP6EnA3rHG23/yE5DrRUzaoF2YN9RU4tyXEIslptPf60jvlgLP9GOZkKzVea46CVHhwmsMSX9zKNKCUmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJOZ3BS3; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1789064302; c=relaxed/simple;
+	bh=eDS9k0Z7DXDAETJ5/yPSzUbbzVgsPSZZLaN4q1i66E0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bMVHspe0OB1Gbfk6y7qA04Rig6ggGpXmzwn40E7UAF5El561CPNiQyb0ZTZIiosrthgzNZwACaYafJnFpANWeZ9G7l81EATxmpo+1EKP7Jn8Y4umdp/bZgfS3ERiuA5WOHg4337NcXqf7JLRHayKcrNyeKWn7igqrZv91dNxEho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zt5B15ui; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJOZ3BS3"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4956869750eso1322725e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:17:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zt5B15ui"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e2540eso1216039b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:18:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789064267; x=1789669067; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789064299; x=1789669099; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IUTLqgsQRaPjkfGX1A5Z4hZOpq+shaE/5Jc/zgW3F80=;
-        b=qJOZ3BS3KJJDJD5kOy/Ksp7zHq7utotgeahdmTp2zsywk8bqvHTV2zc4S5bbYnjzik
-         GHj8g+zp5xSSGOjEYOrLjbiwTX9+Vx4oaM1CaXX1NS4WR5NKjAyUTmX1z5iY/NBq+oxi
-         ChhNUEUZQeBUlAUu+Be788nOfZwLViHq37IJvAe0csbFL+DGEYWkiUY3HYVQFPyaCqGu
-         uVTQb97VBViS6sPO5fuRIqRG2mlMIErNQCeNqYNICgq0yB0P/Jbq+cH5pC7eA3i8Uel5
-         OEznWIPpDj0qahugyOjjPS1xSAOJNEIP6LyPcztVORus7AhHMBG8sXknov27binfYVsz
-         LCbw==
+        bh=jMuTEYKkyyrLqeX97xIC/Z56ogCyVEt8VnZlLfJ3DOI=;
+        b=Zt5B15uiLA9D9RsQMMtWEAvjguI34fZIzSxGP5ohuQsLkbtJRiGekWpySvDT0BLEkd
+         g79PlxknEW9kTNPvj/Sm+WeRhuIYVYbFgCg/IEb4+1WX7PlCxVi3pGv94dWyqK/qZAg6
+         LiJNcKfw4+Og4DbAN6CKs9jl0I3/I65EkFQhvnIwrUMIRQxlosaFT8lIVKqG7JIVRF9/
+         RMInyOBOcT9sW7YAGwsNmvLqQlHpWMbA6Hqs1q+rHiWAzw0lQO2F8FAa51fcawlU2rrt
+         DUSo27xqQ4yRry//ofTBuFZ2QlROOPtM69VUiGh4fCMtd4HwV8BhTWeXj7hafvmk8gTH
+         oZlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789064267; x=1789669067;
+        d=1e100.net; s=20251104; t=1789064299; x=1789669099;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IUTLqgsQRaPjkfGX1A5Z4hZOpq+shaE/5Jc/zgW3F80=;
-        b=MWRRDqJTTGVHAJUlPAvl2sdGVKEDr5pFE3QQDKWIEytKm8bX2wzjo5zjybX0kHGgbL
-         0Rd3QQODCAo5U3CMh+VlrV/+JR6hCuevpQCDBtK+z4DoZMbiEsQnXutpFnUyZC+CvCAM
-         dtEREfu5kZMzOBm2zKH6oCdxNvNgqWM+59I8w4AafjTeXPWBWKfqfj+XehiMrFv+7Y0o
-         j6lAADqcD07zfRClPrW5ySfBIEczly6g+TTRSMJGW6VcAOkBwrNir+yEaUr8Cgsw5YwG
-         5P7JvsoN224q10eOLS6ikK7bDljbqukrajd6NmXznE8urdU57KyMX8Uov81uqoJspPM7
-         LEkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzh965dE4Kknw/lUXH/Ejp2o75dWc7Nb2rYK8dTWNCTWyI9/LdMiUhcn92Yh5ZbAKkClQQyVd5zC6VcTCg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntJb8c6DldG4a7nDnWL4hxHMp0s6UIDkNTTeN74Zk0NGJOJQon
-	n2I48zQFi0j7IVYmPvuzMP3//Fj2P4lVZ4P6G4aCC4RT6InEeWH3eYl7
-X-Gm-Gg: AYBFou3Noh+zkOfqzKSKKVmVtxLMb2RsFskeSZUJjrYOP3HmltrbgwO6fKzK9qII/Du
-	dU+Nb4WOhBbuvuHQdcr6kWGZ65ZliVEo0kwZ1+YcORg4StVk8ah5gngC859UnGNP0SfAZNVXZyi
-	lf0r7ZNVta6kKsoNVaUJD7VJ43h7Iv+kf+dn23VvCyHkENMU+LsOxPLxwzpvLDyISQ9EzoEw2K4
-	8kHUDUcj/Q5ZvYDQLPAhhLkP6ppP9CnfIP1bQPIJyFhKMbCJza8+EGdoDTUQDjXnBnBJTXRJrYJ
-	AVyv8ESa0zMdlAPwjoE6IL2jFXFbHwAWbXXIfgEUtG+k9N7DRgvPHZ7dI9R0n7SfW24nZ37Vh9W
-	OF90vdt/w4ty6b6qYMQoqHaftWvchO8xoAo+MJ+Y2DTWhqSCGLOJoWecl67OTy+h2Ubswir9YhD
-	JSEBu0aNpLYu9C85OSfsby8DlAAtMwMwwpPXPK+w92gfIJ0e33CEeYHSIv2yeHHaiJakew8qR4t
-	7KwkyuGHx7jMMI+hZUxovze4lsCv2UDzdeOw1hT/CVUxca4oVrJ8OYdTYXifoh/7z0JzDDXPdEW
-	7uGx4Jq+ACA=
-X-Received: by 2002:a05:600c:3acb:b0:49c:dcec:bd27 with SMTP id 5b1f17b1804b1-49e61987ecfmr3015785e9.8.1789064266810;
-        Thu, 10 Sep 2026 11:17:46 -0700 (PDT)
-Received: from localhost.localdomain ([41.90.145.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fd3bsm221063f8f.19.2026.09.10.11.17.44
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 11:17:45 -0700 (PDT)
-From: Kenneth Kabogo <kennethkabogo2@gmail.com>
-To: Alex Elder <elder@kernel.org>
-Cc: netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Kenneth Kabogo <kennethkabogo2@gmail.com>
-Subject: [PATCH] net: ipa: validate QMI sender for modem-only server requests
-Date: Thu, 10 Sep 2026 21:17:37 +0300
-Message-ID: <20260910181737.55570-1-kennethkabogo2@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=jMuTEYKkyyrLqeX97xIC/Z56ogCyVEt8VnZlLfJ3DOI=;
+        b=AXw+tZW2SBFY0lT0+k64poqenTc7rXxprGrw1H/CCwVI2HjET7V5V6yIjlclimNFsS
+         eonXypQBkKO0SDY0eNBmk5tI4FKvv0VCuyAjSYZZkNTc4u1kZatS56ihwxPNx0gyApob
+         W96uyRgbxG4SgVIRAQSklbIlh5IkOHb+Pw97R/6GcQVUJu3hZf0EIwIX/YatXJ2kGehZ
+         IOw+B4gJ5F0A1i+8Rl8q7gO6gokobdnkeAhZtY9l3IiUjbrsvOZnnfnz3gNqdfQLvRUz
+         c8oZRh5wCnaH+YtZgLH5fnXeV5A8oSW8CA8uXlG5ZpDHaEMrNYdkZKp5GwAYHoT7ibdi
+         RU+Q==
+X-Gm-Message-State: AFuF++k7gJ+qPNDom7yF9oxHcB870C5TymEDmGguqSIfdm9yjFxCcYts
+	0vDE2B/irIPeZj5d4q6RsbeNLa827AFh1UikScoFpRSaX/QT2HNKQNKTdmHU2u5N
+X-Gm-Gg: AYBFou1VHOLkUHSrcOUBc7V6kmNWPnFljd078ufxpn8/A41vNEYMlCyyyBr5CZGGJ5w
+	48J5N9G30DJTc1Re/9lQR8Xz1oI7e2AjAfMX307dUdcfM0sYdiwPoH7pmt/cgqtY41nI1RCArB+
+	zavOlPV+usW3qBR/Py4OfubZtLET+/oQn5LWp5BEkkjKfW06dvdfinszthBoBY5S026WGUiFrBs
+	xCtZKVFQkvmtqIL3xyFt/OGbF5l6itMMEbKtRPgXIS9zUhZ/HHCNl9jS7u+97OaBQJwGRMnlAnJ
+	5FDvvvHkbxTiwaAy/LolikQWnVKaW//wnQCQbBrfMVSOzMGUeVahPNBPTHtUT2O2HM12m73yGz9
+	RGi7iv9zj1qpK7tt00CARkY9S+H9YbwFBB2Bn8ZgLpicZT6Hsfuwr3IryHIWcmkv4TEVe+ike7/
+	xj2W4Rr74lOdOhXgl3StYUNs7U39oVqBv1N4LXTWzQLYJH2UvUXLA2M72TZXS6bClO4QltS5WuU
+	sTJ63gbiqxzDp3S8p6Z3s8KTy4tchdkIxGKdVSgmT+S7upYsxUjxDdtY8NX2D0esA3C/NnJfGt4
+	vISAIpSH3jDcFQeK/lxLAA==
+X-Received: by 2002:a05:6a20:be8f:b0:3d3:adbf:7782 with SMTP id adf61e73a8af0-3daed4a71damr233450637.23.1789064298963;
+        Thu, 10 Sep 2026 11:18:18 -0700 (PDT)
+Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:4a5b:802b:c0b:d1d7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-336c2571039sm32309407eec.25.2026.09.10.11.18.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 11:18:17 -0700 (PDT)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>
+Subject: [PATCH] f2fs: introduce reserve_shrink mount option for filesystem shrinkage
+Date: Thu, 10 Sep 2026 11:10:56 -0700
+Message-ID: <20260910181057.640203-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,99 +74,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IPA driver's QMI server has two request handlers,
-ipa_server_indication_register() and ipa_server_driver_init_complete(),
-that are only ever legitimately sent by the paired modem. Neither checks
-the sender address (struct sockaddr_qrtr *sq) against ipa_qmi->modem_sq,
-which the driver already caches when the modem's QMI service appears in
-ipa_client_new_server().
+From: Daeho Jeong <daehojeong@google.com>
 
-Both handlers set a readiness flag (indication_requested, uc_ready) and
-call ipa_qmi_ready(), which starts the modem netdev via ipa_modem_start()
--> register_netdev() once both flags are set. A local process able to
-send QMI messages on the qrtr socket, other than the modem, can spoof
-both signals and drive ipa_qmi_ready() to completion before the modem
-has confirmed its endpoint configuration, bringing up the modem network
-interface out of sequence with real modem readiness. The realistic
-outcome is a data-path stall requiring a subsystem restart to recover.
-It is not a memory-safety issue.
+When preparing for subsequent online filesystem shrinkage (e.g., during
+partition resizing or FOTA updates), sufficient free space must be
+preserved so that valid data blocks can be evacuated and the filesystem
+can safely shrink.
 
-On Android the qrtr socket is not reachable by untrusted apps (SELinux
-neverallow on qipcrtr_socket), so this is gated to privileged system
-components, hence the low severity. It is still a missing trust check on
-a cross-processor control interface.
+Existing reserve_root cannot prevent space exhaustion by privileged root
+processes (such as OTA updaters, package managers, and system daemons
+running with CAP_SYS_RESOURCE), which can allocate blocks from the root
+reserve and lead to resize failures due to lack of space. Moreover,
+runtime configurable reserved_blocks represents permanent GC and metadata
+headroom that must persist after resize, which would cause double-counting
+if inflated for shrinkage.
 
-Reject server requests whose sender does not match the cached modem
-address. modem_sq is populated before the modem sends these requests and
-is zeroed in ipa_server_bye(); a zeroed modem_sq does not match any real
-sender's address, so requests arriving during the teardown window are
-rejected without a separate check.
+To resolve this, introduce a dedicated reserve_shrink=<blocks>
+mount option:
+1. Symmetrically mirrors reserve_root=<blocks> in block units to
+   pre-reserve space specifically for subsequent filesystem shrinkage.
+2. In get_available_block_count(), unconditionally deducts
+   reserve_shrink_blocks for all callers, strictly rejecting all
+   allocations (including root / CAP_SYS_RESOURCE) once available blocks
+   are exhausted.
+3. In f2fs_statfs(), deducts reserve_shrink_blocks from f_bfree (and
+   f_bavail) so that filesystem statistics accurately reflect usable space.
+4. In f2fs_resize_fs(), automatically resets reserve_shrink_blocks to 0
+   and clears F2FS_MOUNT_RESERVE_SHRINK upon successful shrink completion,
+   releasing any remaining reservation.
+5. In sysfs: reserved_blocks, subtracts reserve_shrink_blocks when
+   validating the upper limit of configurable reserved blocks.
 
-Found by code inspection; no runtime proof-of-concept.
-
-Signed-off-by: Kenneth Kabogo <kennethkabogo2@gmail.com>
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
-Build-tested only (arm64 allmodconfig); I don't have IPA hardware to
-test at runtime.
+ Documentation/filesystems/f2fs.rst |  7 +++++
+ fs/f2fs/f2fs.h                     |  9 ++++++
+ fs/f2fs/gc.c                       |  5 ++++
+ fs/f2fs/super.c                    | 47 ++++++++++++++++++++++++++++++
+ fs/f2fs/sysfs.c                    | 13 +++++++--
+ 5 files changed, 79 insertions(+), 2 deletions(-)
 
-This assumes modem_sq is always populated (via ipa_client_new_server(),
-the NEW_SERVER path) before the modem sends INDICATION_REGISTER /
-DRIVER_INIT_COMPLETE. That ordering looks right from the code, but QMI
-delivery is asynchronous - if the modem's request can legitimately
-arrive before we've processed its NEW_SERVER event, this would wrongly
-drop it, and the check should instead only be enforced when modem_sq is
-non-zero. Happy to respin that way if you prefer.
-
- drivers/net/ipa/ipa_qmi.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/drivers/net/ipa/ipa_qmi.c b/drivers/net/ipa/ipa_qmi.c
-index d771f3a71..a7cc98b27 100644
---- a/drivers/net/ipa/ipa_qmi.c
-+++ b/drivers/net/ipa/ipa_qmi.c
-@@ -168,6 +168,14 @@ static const struct qmi_ops ipa_server_ops = {
- 	.bye		= ipa_server_bye,
+diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+index 771216f45207..dbdc5d5a83ad 100644
+--- a/Documentation/filesystems/f2fs.rst
++++ b/Documentation/filesystems/f2fs.rst
+@@ -191,6 +191,13 @@ reserve_node=%d		 Support configuring reserved nodes which are used for
+ 			 gid, the default limit is 12.5% of all nodes.
+ resuid=%d		 The user ID which may use the reserved blocks and nodes.
+ resgid=%d		 The group ID which may use the reserved blocks and nodes.
++reserve_shrink=%d	 Support pre-reserving space for subsequent filesystem
++			 shrinkage (e.g. during partition resizing or FOTA),
++			 unit: blocks. Unlike reserve_root, allocations from
++			 this reserved space strictly reject all callers
++			 (including root / CAP_SYS_RESOURCE). Once the
++			 filesystem is successfully shrunk via resize, this
++			 value is automatically reset to 0.
+ fault_injection=%d	 Enable fault injection in all supported types with
+ 			 specified injection rate.
+ fault_type=%d		 Support configuring fault injection type, should be
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 62efc25cd107..c21ed3eacc6f 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -145,6 +145,7 @@ enum f2fs_mount_opt {
+ 	 */
+ 	F2FS_MOUNT_LAZYTIME,
+ 	F2FS_MOUNT_RESERVE_NODE,
++	F2FS_MOUNT_RESERVE_SHRINK,
  };
  
-+/* True if a QMI request arrived from the modem we are paired with */
-+static bool ipa_server_from_modem(const struct ipa_qmi *ipa_qmi,
-+				  const struct sockaddr_qrtr *sq)
+ #define F2FS_OPTION(sbi)	((sbi)->mount_opt)
+@@ -226,6 +227,7 @@ struct f2fs_mount_info {
+ 	unsigned long long opt;
+ 	block_t root_reserved_blocks;	/* root reserved blocks */
+ 	block_t root_reserved_nodes;	/* root reserved nodes */
++	block_t reserve_shrink_blocks;	/* reserve blocks for shrink */
+ 	kuid_t s_resuid;		/* reserved blocks for uid */
+ 	kgid_t s_resgid;		/* reserved blocks for gid */
+ 	int active_logs;		/* # of active logs */
+@@ -2658,6 +2660,13 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+ 	if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
+ 		avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
+ 
++	if (test_opt(sbi, RESERVE_SHRINK)) {
++		if (avail_user_block_count > F2FS_OPTION(sbi).reserve_shrink_blocks)
++			avail_user_block_count -= F2FS_OPTION(sbi).reserve_shrink_blocks;
++		else
++			avail_user_block_count = 0;
++	}
++
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+ 		if (avail_user_block_count > sbi->unusable_block_count)
+ 			avail_user_block_count -= sbi->unusable_block_count;
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index bc22dde1cb30..556c4793478d 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -2492,6 +2492,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+ 		spin_lock(&sbi->stat_lock);
+ 		sbi->user_block_count += shrunk_blocks;
+ 		spin_unlock(&sbi->stat_lock);
++	} else if (test_opt(sbi, RESERVE_SHRINK)) {
++		spin_lock(&sbi->stat_lock);
++		F2FS_OPTION(sbi).reserve_shrink_blocks = 0;
++		clear_opt(sbi, RESERVE_SHRINK);
++		spin_unlock(&sbi->stat_lock);
+ 	}
+ out_err:
+ 	f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index f96abecb3c55..f7f82a32f99f 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -196,6 +196,7 @@ enum {
+ 	Opt_data_flush,
+ 	Opt_reserve_root,
+ 	Opt_reserve_node,
++	Opt_reserve_shrink,
+ 	Opt_resgid,
+ 	Opt_resuid,
+ 	Opt_mode,
+@@ -328,6 +329,7 @@ static const struct fs_parameter_spec f2fs_param_specs[] = {
+ 	fsparam_flag("data_flush", Opt_data_flush),
+ 	fsparam_u32("reserve_root", Opt_reserve_root),
+ 	fsparam_u32("reserve_node", Opt_reserve_node),
++	fsparam_u32("reserve_shrink", Opt_reserve_shrink),
+ 	fsparam_gid("resgid", Opt_resgid),
+ 	fsparam_uid("resuid", Opt_resuid),
+ 	fsparam_enum("mode", Opt_mode, f2fs_param_mode),
+@@ -407,6 +409,7 @@ static match_table_t f2fs_checkpoint_tokens = {
+ #define F2FS_SPEC_lookup_mode			(1 << 24)
+ #define F2FS_SPEC_reserve_node			(1 << 25)
+ #define F2FS_SPEC_resizable_tail_secno		(1 << 26)
++#define F2FS_SPEC_reserve_shrink		(1 << 27)
+ 
+ struct f2fs_fs_context {
+ 	struct f2fs_mount_info info;
+@@ -538,6 +541,27 @@ static inline void limit_reserve_root(struct f2fs_sb_info *sbi)
+ 					   F2FS_OPTION(sbi).s_resgid));
+ }
+ 
++static inline void limit_reserve_shrink(struct f2fs_sb_info *sbi)
 +{
-+	return sq->sq_node == ipa_qmi->modem_sq.sq_node &&
-+	       sq->sq_port == ipa_qmi->modem_sq.sq_port;
++	block_t block_limit;
++
++	if (!test_opt(sbi, RESERVE_SHRINK))
++		return;
++
++	block_limit = sbi->user_block_count - sbi->reserved_blocks;
++	if (test_opt(sbi, RESERVE_ROOT)) {
++		if (block_limit > F2FS_OPTION(sbi).root_reserved_blocks)
++			block_limit -= F2FS_OPTION(sbi).root_reserved_blocks;
++		else
++			block_limit = 0;
++	}
++	if (F2FS_OPTION(sbi).reserve_shrink_blocks > block_limit) {
++		F2FS_OPTION(sbi).reserve_shrink_blocks = block_limit;
++		f2fs_info(sbi, "Reduce reserved blocks for shrink = %u",
++			  F2FS_OPTION(sbi).reserve_shrink_blocks);
++	}
 +}
 +
- /* Callback function to handle an INDICATION_REGISTER request message from the
-  * modem.  This informs the AP that the modem is now ready to receive the
-  * INIT_COMPLETE indication message.
-@@ -185,6 +193,13 @@ static void ipa_server_indication_register(struct qmi_handle *qmi,
- 	ipa_qmi = container_of(qmi, struct ipa_qmi, server_handle);
- 	ipa = container_of(ipa_qmi, struct ipa, qmi);
+ static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
+ {
+ 	if (!F2FS_OPTION(sbi).unusable_cap_perc)
+@@ -941,6 +965,14 @@ static int f2fs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 		F2FS_CTX_INFO(ctx).root_reserved_nodes = result.uint_32;
+ 		ctx->spec_mask |= F2FS_SPEC_reserve_node;
+ 		break;
++	case Opt_reserve_shrink:
++		if (result.uint_32)
++			ctx_set_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
++		else
++			ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
++		F2FS_CTX_INFO(ctx).reserve_shrink_blocks = result.uint_32;
++		ctx->spec_mask |= F2FS_SPEC_reserve_shrink;
++		break;
+ 	case Opt_resuid:
+ 		F2FS_CTX_INFO(ctx).s_resuid = result.uid;
+ 		ctx->spec_mask |= F2FS_SPEC_resuid;
+@@ -1763,6 +1795,9 @@ static void f2fs_apply_options(struct fs_context *fc, struct super_block *sb)
+ 	if (ctx->spec_mask & F2FS_SPEC_reserve_node)
+ 		F2FS_OPTION(sbi).root_reserved_nodes =
+ 					F2FS_CTX_INFO(ctx).root_reserved_nodes;
++	if (ctx->spec_mask & F2FS_SPEC_reserve_shrink)
++		F2FS_OPTION(sbi).reserve_shrink_blocks =
++					F2FS_CTX_INFO(ctx).reserve_shrink_blocks;
+ 	if (ctx->spec_mask & F2FS_SPEC_resgid)
+ 		F2FS_OPTION(sbi).s_resgid = F2FS_CTX_INFO(ctx).s_resgid;
+ 	if (ctx->spec_mask & F2FS_SPEC_resuid)
+@@ -2288,6 +2323,13 @@ static int f2fs_statfs(struct dentry *dentry, struct kstatfs *buf)
+ 	buf->f_bfree = user_block_count - valid_user_blocks(sbi) -
+ 						sbi->current_reserved_blocks;
  
-+	if (!ipa_server_from_modem(ipa_qmi, sq)) {
-+		dev_warn_ratelimited(ipa->dev,
-+				     "ignoring QMI request from non-modem sender %u:%u\n",
-+				     sq->sq_node, sq->sq_port);
-+		return;
++	if (test_opt(sbi, RESERVE_SHRINK)) {
++		if (buf->f_bfree > F2FS_OPTION(sbi).reserve_shrink_blocks)
++			buf->f_bfree -= F2FS_OPTION(sbi).reserve_shrink_blocks;
++		else
++			buf->f_bfree = 0;
 +	}
 +
- 	rsp.rsp.result = QMI_RESULT_SUCCESS_V01;
- 	rsp.rsp.error = QMI_ERR_NONE_V01;
+ 	if (unlikely(buf->f_bfree <= sbi->unusable_block_count))
+ 		buf->f_bfree = 0;
+ 	else
+@@ -2512,6 +2554,9 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
+ 					F2FS_OPTION(sbi).s_resuid),
+ 				from_kgid_munged(&init_user_ns,
+ 					F2FS_OPTION(sbi).s_resgid));
++	if (test_opt(sbi, RESERVE_SHRINK))
++		seq_printf(seq, ",reserve_shrink=%u",
++				F2FS_OPTION(sbi).reserve_shrink_blocks);
+ #ifdef CONFIG_F2FS_FAULT_INJECTION
+ 	if (test_opt(sbi, FAULT_INJECTION)) {
+ 		seq_printf(seq, ",fault_injection=%u",
+@@ -3093,6 +3138,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
  
-@@ -214,6 +229,13 @@ static void ipa_server_driver_init_complete(struct qmi_handle *qmi,
- 	ipa_qmi = container_of(qmi, struct ipa_qmi, server_handle);
- 	ipa = container_of(ipa_qmi, struct ipa, qmi);
+ 	adjust_pinned_area_boundary(sbi);
+ 	limit_reserve_root(sbi);
++	limit_reserve_shrink(sbi);
+ 	fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
  
-+	if (!ipa_server_from_modem(ipa_qmi, sq)) {
-+		dev_warn_ratelimited(ipa->dev,
-+				     "ignoring QMI request from non-modem sender %u:%u\n",
-+				     sq->sq_node, sq->sq_port);
-+		return;
-+	}
+ 	sbi->umount_lock_holder = NULL;
+@@ -5310,6 +5356,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sbi->current_reserved_blocks = 0;
+ 	sbi->alias_reserved_blocks = 0;
+ 	limit_reserve_root(sbi);
++	limit_reserve_shrink(sbi);
+ 	adjust_unusable_cap_perc(sbi);
+ 
+ 	f2fs_init_extent_cache_info(sbi);
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index aaca9ed9b169..d61940d095b4 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -591,9 +591,18 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+ 	}
+ #endif
+ 	if (a->struct_type == RESERVED_BLOCKS) {
++		unsigned long limit;
 +
- 	rsp.rsp.result = QMI_RESULT_SUCCESS_V01;
- 	rsp.rsp.error = QMI_ERR_NONE_V01;
- 
+ 		spin_lock(&sbi->stat_lock);
+-		if (t > (unsigned long)(sbi->user_block_count -
+-				F2FS_OPTION(sbi).root_reserved_blocks)) {
++		limit = sbi->user_block_count -
++				F2FS_OPTION(sbi).root_reserved_blocks;
++		if (test_opt(sbi, RESERVE_SHRINK)) {
++			if (limit > F2FS_OPTION(sbi).reserve_shrink_blocks)
++				limit -= F2FS_OPTION(sbi).reserve_shrink_blocks;
++			else
++				limit = 0;
++		}
++		if (t > limit) {
+ 			spin_unlock(&sbi->stat_lock);
+ 			return -EINVAL;
+ 		}
 -- 
-2.50.1 (Apple Git-155)
+2.55.0.1007.g17ff1f9808-goog
 
