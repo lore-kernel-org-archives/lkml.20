@@ -1,165 +1,123 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811EE4746AE
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 430E14746C9;
+	Thu, 10 Sep 2026 11:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040052; cv=none; b=Xy8RWk0xNWVpE/sPI0JNvr4J6lHypv92Cn2DjMsb1fVcX35Fn/43N0if4xtlEjej6OlFc26GYjrZ1ojtIWADUR0zL1oB9cvObYE/o5XjFut+pdjLxQxlpUwtLaM5uHherVcLPGTreZHUhfsiqAIHq/t6TyQnEdJdo5MzilqhzRM=
+	t=1789040159; cv=none; b=L9U21OLOce/UFpeSs3LeV4EMYUeuqCTYIJzoUpugYLAur1mik47oUNWZs3gdPtalbXBSHa5NVQuQPfcclU+tPRGwuTmY52ppDDkkLNR1fhSMVkz4wQrW6phJJshy7qrJNjF+VUA1c+biIAsvKzue57KE6QUpjKg4+HIxrk+9eWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040052; c=relaxed/simple;
-	bh=CJUuoQ2iTfwcG6oeIrw7E+rGr4DRPBFegg1mGe30BQk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LnquyKHQ9tJYka0C2gDoAX2J22qfp+HVsxP2ceyATZEuQZbylSD5oiG6+hEZN55ghdQ9Pcnq17s60q1SzWz5AgvU5+F+44tJkD36Dmac/ugimTr/K+YSkKL+Z3U1xxsuvWu2KJz+GahSU21wC5zArmN3QVBXhZqpOsThK4XBkA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTwQvbQX; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789040159; c=relaxed/simple;
+	bh=aczfw/OR9qUx8B3t8k1OQ/240hod4So0X5+xLV4/xTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bZRi7PqJXhbmHt609FyFycyjPpB3gLrn/rKkeHYJ8P5SQpeOCDAoZqGVCo87nngSqhNkzXUCHE2i7UqadcI4OBwjf2EVeKQ/efvICo6G9q2mzGIAsSoBMt062Cc8wHoM1NTE4Glhzx3khVZ7Tygph2/QDzNTzW26fcuxXtryk0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CgX/mRT0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTwQvbQX"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b0dd3e1d0so2540365e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:34:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789040047; x=1789644847; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hbLnIWJycW550lJgcztROooyzxfaoCBFJTCFjxtrh3I=;
-        b=JTwQvbQXoYmvd5WjFiN5Cty9lyfVXerC+Luhp2ACyu+xoyfBKzm31EJTDtw2LT7poj
-         yVeXDCIMxUVJ+ex54TjCMPvBA1PBQkA1FifH7jU0pIoGD8sWBWGd+9rY9nWHAKVTCu6u
-         UgkanNZafDTiiYpQ8pYGSpt6xWegucV9netyvnN0Tsh6TRVkyoB4xRbo6wOJcvgiIZXZ
-         EpItQhLtQewTM3/+j1ZPVFKMIRrYSe0iPwoP3lCjffqWUpW7NfStBVYUHwqc554CnN1u
-         XqBhW6sXy7sEI7E+r5OsvWq0DhqaBY6K7mD8flIN3ZkV37GAvbd3C35wo58RWvHwkABt
-         GBrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789040047; x=1789644847;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hbLnIWJycW550lJgcztROooyzxfaoCBFJTCFjxtrh3I=;
-        b=gbAZNIDOet7ESnpeiekPrt1LCGDyA/vfEkfTS/C1tXCGJjOCH9BmMkfVBX5DePfT4H
-         TuAgG+MONUsVKdpNXM8u/TY4wa8IxGzDGgIDt6gNoaPYglZwk1wbe1NeBeAf7dO3Nmrm
-         tntQd8Q+D/XqjGZ/IiU8e2m/KMGQY1HqKXwhwEEPlgFzgQ0oqw+86qG76i5H875uQ/6T
-         DEquE+Oo8VkVmQSFd/wHfW29BX/bZSmF7W0tKYgLLQILVEEykfSlV9rI1jlyDg7LbIjd
-         6JXECUAWuEqJyMFpOaiHKvHw0NkriJfMcXOUWYHjyUgHJid0lEqV2oajg7xgFj0DuxW4
-         dj9A==
-X-Gm-Message-State: AFuF++kxo9/IXlvoLoWq7dwJzOV2UubrJfx+Ry+XEdLR4Lch95sqVw7L
-	UdbbP2RmPsbbXvMt+Irtpwd3Pk4A+GyWWeIxwZyJwGNuTbe6yvNSCvtM
-X-Gm-Gg: AYBFou1l/+n+i1qyJPo4fCdvRx4dq3LdH+znICc5so2mTW7R4gx6uslHvSVycesbMtM
-	TIXMEYyANDpUNxxIX5GPAe7M1R+31HwFg2LshHGHY1pmqeTyG7bBF1xiZVfgnKKtYf8c/OfzqHJ
-	hEwYomJBnLAEYLTliccocMDwUo/cDbEififmzPRyC9iRb/KUz8yyGteBY5bCOHWby8TFWLH8qFR
-	oqzRepE2OiAEkh6JyivYpxgRQeOZvOJDS8YIz84krAmMeLZPlPnxX00SbWRdyjHVtiAuulukGDn
-	mmLOXojK6zkXArFwrhTFpXyoH3FF6jYViwQiUVlciDffjqdOs3YULOBEuYATIUPBzQQEI6Dazkx
-	9xiGxxGYNw6POdHZ/QMNYWMLS12Wg9EtNwsgTKqcBXZaey6+GICDvwNN1ZPNWhWjy49X+VRQHMN
-	BEoSaF8CV5e4N1drYIJ+3v2YeHbPJiod+UmGKxlYwxvQLoWfKPokUqHfYwCLuKOjQjpc7XqLm8S
-	zlPcSYGqJzyxbgm0i8=
-X-Received: by 2002:a05:6000:2c0e:b0:484:3328:1ad1 with SMTP id ffacd0b85a97d-48590805fabmr30378346f8f.6.1789040047066;
-        Thu, 10 Sep 2026 04:34:07 -0700 (PDT)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm49155813f8f.22.2026.09.10.04.34.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 04:34:06 -0700 (PDT)
-From: Itai Handler <itai.handler@gmail.com>
-To: broonie@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	michal.simek@amd.com,
-	Itai Handler <itai.handler@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Date: Thu, 10 Sep 2026 14:33:25 +0300
-Message-Id: <20260910113325.717882-1-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CgX/mRT0"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE4EF153B;
+	Thu, 10 Sep 2026 04:35:52 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E863B3F528;
+	Thu, 10 Sep 2026 04:35:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789040156; bh=aczfw/OR9qUx8B3t8k1OQ/240hod4So0X5+xLV4/xTA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CgX/mRT04r6IGfuQdDy64iV7rk9c3tmgqtkbP4fAHIXXQyY1qGDmqhzrIGyBV/x4d
+	 6VCv3Ejrr5df0vlUe/MKPJyXEN0lFj6n7DXxd5v6HhF8nC2JCBMcBt1BitEZZ0JtGb
+	 G6tL2+pAkuCeWX/2qbtSouG74LXKcFbRexY4TzWA=
+Date: Thu, 10 Sep 2026 12:35:50 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/3] kselftest: mm: fix some failure of
+ split_huge_page_test
+Message-ID: <aqKWFihYpLrLILcZ@e129823.arm.com>
+References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+ <b923f63c-db7c-4ecb-949d-368bc6311626@kernel.org>
+ <aqKHHWKvOonYZPy0@e129823.arm.com>
+ <21e0a933-63b6-42b4-8cd7-df05b0c9acfc@kernel.org>
+ <aqKRdIjAYB2PEwRN@e129823.arm.com>
+ <9750125c-49b4-48b1-adab-3a1cbec4255a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9750125c-49b4-48b1-adab-3a1cbec4255a@kernel.org>
 
-The driver has no ->shutdown, and platform_drv_shutdown() has no
-fallback of its own.  Unlike pci_device_shutdown(), which clears bus
-mastering when kexec_in_progress, nothing on the platform bus disarms a
-device that can still write to memory.  The normal kexec path never
-calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
-reached.
+On Thu, Sep 10, 2026 at 01:23:15PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/10/26 13:16, Yeoreum Yun wrote:
+> > On Thu, Sep 10, 2026 at 12:45:39PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 9/10/26 12:31, Yeoreum Yun wrote:
+> >>>
+> >>> Well, users currently for using /proc/self/smaps are for check vm-flags:
+> >>>   - guard-regions where using check_vmflags_guard()
+> >>>   - pfnmap test where uses check_vmflag_pfnmap()
+> >>
+> >> Most vm-flags should not be an issue when it comes to merging. The only
+> >> exception are vmflags that do not prevent VMA merging.
+> >>
+> >> So it's VM_SOFTDIRTY and VM_MAYBE_GUARD. And I agree that for guard-regions.c we
+> >> likely have to care such that we don't merge by accident with other VMAs (guard
+> >> regions).
+> >>
+> >> But that's independent of memalign.
+> >>
+> >> ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
+> >> ASSERT_FALSE(check_vmflag_guard(ptr));
+> >>
+> >> could be problematic on its own (unlikely but possible).
+> > 
+> > Yes. That's why I'm think it would be good to use alloc_isolated_mem()
+> > in case of ANON mapping for this case.
+> 
+> It's really only guest-region code that needs this.
+> 
+> > 
+> >>
+> >> For other flags, you really only have to find the smaps area that covers the
+> >> given address and look at the vm-flags.
+> >>
+> >> Or am I missing something important?
+> >>
+> >> (merging vnas with VM_PFNMAP is impossible right now IIRC)
+> > 
+> > No. what I want to say including the patch #3 is for the above case
+> > where you point out -- ASSERT_FALSE(check_vmflag_guard(ptr)).
+> > 
+> > Since we don't have any interface to check vm_flags execpt smap
+> > and for memory mmaped with anon would have a chance to merge,
+> > We need something to replace memalign() with preventing unexpected VMA
+> > merge. 
+> Only for the cases that actually really needs this, which is in my understanding
+> guard-regions.
+> 
+> And I repeat, this is not a memalign() problem.
 
-A controller that is still executing a DMA read may therefore keep
-writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
-memory owned by the kernel that called kexec, DST_SIZE is non-zero and
-the flash is still clocked, so data can keep landing in RAM while the
-new kernel is being relocated, and after it has started executing.
+Yes. I'm not claim memalign() is problem but want to prevent unwanted
+VMA merge. That's all.
 
-That destination is a physical address which means nothing to the new
-kernel, so the writes can corrupt whatever now occupies it: kernel text
-or data, page tables, or the initrd.  Nothing reports an error and the
-resulting behaviour is undefined.
+And as I mentioned in another reply, if we get rid of
+ASSERT_FALSE(check_vmflag_guard(ptr)), this patch would be droppable.
 
-This can be observed by reading GQSPI_EN (offset 0x114) and
-QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
-kernel, before the driver probes: without this patch GQSPI_EN reads 1
-and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
-
-Write 0 to GQSPI_EN_OFST, as zynqmp_qspi_remove() and
-zynqmp_qspi_suspend() already do.  Skip it only when
-pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
-are gated, so the registers are unreachable and the controller cannot be
-mastering the bus.  A negative return is not the same thing - it is what
-the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
-and refclk for good, so the controller is running and must be stopped.
-
-Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
----
-Note for stable: before commit 1c26372e5aa9 ("spi: spi-zynqmp-gqspi:
-Update driver to use spi-mem framework") this driver stored the
-spi_master in the platform drvdata rather than the zynqmp_qspi, so a
-backport to those trees needs spi_master_get_devdata() in place of the
-platform_get_drvdata() used here.
-
- drivers/spi/spi-zynqmp-gqspi.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 4d55090..24f680b 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -1373,11 +1373,35 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
- 	clk_disable_unprepare(xqspi->pclk);
- }
- 
-+static void zynqmp_qspi_shutdown(struct platform_device *pdev)
-+{
-+	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
-+	int ret;
-+
-+	/*
-+	 * Only a runtime suspended controller can be left alone: its clocks
-+	 * are gated, so it cannot be mastering the bus, and its registers
-+	 * must not be accessed either.  Any other answer means it may be
-+	 * running and has to be stopped.  In particular, on a kernel built
-+	 * without runtime PM this returns -EINVAL, and there the clocks
-+	 * enabled in probe() are never gated at all.
-+	 */
-+	ret = pm_runtime_get_if_in_use(&pdev->dev);
-+	if (!ret)
-+		return;
-+
-+	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
-+
-+	if (ret > 0)
-+		pm_runtime_put_noidle(&pdev->dev);
-+}
-+
- MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
- 
- static struct platform_driver zynqmp_qspi_driver = {
- 	.probe = zynqmp_qspi_probe,
- 	.remove = zynqmp_qspi_remove,
-+	.shutdown = zynqmp_qspi_shutdown,
- 	.driver = {
- 		.name = "zynqmp-qspi",
- 		.of_match_table = zynqmp_qspi_of_match,
 -- 
-2.34.1
-
+Sincerely,
+Yeoreum Yun
