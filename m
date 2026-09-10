@@ -1,64 +1,64 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176664A5C45
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101A149B1EF
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053077; cv=none; b=pTs7zsizeX8ss3V8vdFeozjT/DbJgTIG3AUDZ5NV1UeDJaTaB6iF+waJav1yMvg9jZbYsEAHMzBwVXNMyNsTKCraC9XeE/nAsAsDNnUj2TT9AP1IfayzKm35czNM0rZ/u17Js23dnwJbLfrgHTtlvUn/NIuRdtKtKnq4k6DhJ/8=
+	t=1789053074; cv=none; b=paIKvP2+zppk1BBVlxYrnb+VNuEIjbXr85eEtGhJdkYY41jSpTYokA5K9QEqbm5UauTC4gCKI2O31oyVoOlrTmeJyH18acDxbfdkL5hbYjSfbnPn4e1jSZghNU5t/6NdcCxsrNHoPEf5EIwIHs/vOZhYFi3Xzy85vwAArHAiPds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053077; c=relaxed/simple;
-	bh=cEgo8nnQmkJEpRZ1/68xRReSRAPTxcuAW+yA8flOcrc=;
+	s=arc-20240116; t=1789053074; c=relaxed/simple;
+	bh=Pix0x7ZA+vLQwBfkt3zx1HIIBxzWAfp+J7S35JuyRFM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iQQib/sN1MW7ZXB6+6mfQVGYbPZuXpxAdHoDVbL+rlIGNNS4nU5IaziGnS5ScgJ+ucf15qL6G1OY9VlmnWfesgZoo7qWtjR+7Ko4V76DTvR6kyJZuVoxM1hMvCpouADF0yw/hefxx8YsFVZFYUZlLLjNZxWFu4R3nEifcHznqZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O7HoG0sU; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=mLU9tlFtDuxBrFkyK0O2fJFEZSoweNf2vs/XVtr6L+/cN8uTGXHtKub23r3aL4Np1pe5Lvl8yPvkAqcQWqXXWLfxWvGQLLoPxOWFrSoXXXNbw5qSSwe/jg3Egusvo/zpCVNiIYqR1ik5wQFSgeWCLKwNwgkJYsIgq8oqwg7YnoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=enneoEoM; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O7HoG0sU"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49d05d51553so46696705e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:11:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="enneoEoM"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d05d51553so46696235e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:11:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789053066; x=1789657866; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789053064; x=1789657864; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t7z7yI/bUngFYIiaK8kW93MOF+YxMwhoVqpDAC52084=;
-        b=O7HoG0sUYBCjoJud4zoVKzdXR/KZQN/PXSO83PaeIQ4iIif85yjZsBuVzWVygsyRA1
-         W0UVoJ6lVGQXAVf83Uepprf5A19/nh1cvCNQkZlWzhtgApsY+VWQy15fsa3N0YWnlGBU
-         apf+tH+4HFmsLibS9iAvGh+2C49+3UjqiF1EIYM2Nsiv0DH4fg85PW6vkLQjwaLSa3Fs
-         nCA+aK3jbf9mMVZjNxZeZMEM9zOIlZ2cEIT4YrxPUN0QFJ/gu7HRvxH6Z0O9eeHw3QSK
-         t+9vAugUfr6eDJQHMcfBm8Trq+j3g8wFhTUchT0sVrDNl8WplgcfdgbUYmRdHTWoerQv
-         lhQw==
+        bh=J9LDATQNDM7sK4CtXsRLQsYMPm6MmFZyIYEO/4FzPzE=;
+        b=enneoEoM/ynB6cNTGNTpmswZReM3TfImTw56Mh7kMfc5q7F453Fz6UMJdjO+hQvjAH
+         DpjI78LpBiiEQHXKgvz/sONBU1uIAfKfVZ5WQw0QXJcUOSGRA91ReeOXwAmwrbvtWHUS
+         Zi9Cxl+X9lmgNZeTFxvfeOxzlyTNGIAI1/hT0GnbGCeXqvuPhv/MuewWhbnv5TrzvMq1
+         8gtGKJYEdz1XUScOEwPrP/YEGLjCoecIOL5Yf/EFFU+dbdCXvnx+oTTwObCAGG5n2vce
+         q/glHskX2ptgBZAgZqxCtwz5XBuIlmHIHcqAJM2agXxspHU0TuaqHoLjr2w2xt/ao42j
+         PsCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789053066; x=1789657866;
+        d=1e100.net; s=20251104; t=1789053064; x=1789657864;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t7z7yI/bUngFYIiaK8kW93MOF+YxMwhoVqpDAC52084=;
-        b=fZX5Ro5P9J8taKYf1bJg9kdFhbPUA5NaH4gYxSOf3buo0rAKItLJl2ul8FBK+EZVP8
-         aKGs2Q1NrVJJIpmerrxVp2AJucyo9TmWwihLkL9iFALN5XlB/yZa2FfYZPcecamnSsZe
-         MtchkF+34B+mTXYRKBLuoku0P4JiHQRfyQ16lqGs+KRqTK4PQg8DHDi7wVO+Q6xPmHX1
-         IxKwJ1/qvu8z0GmtwLI08gtuuhMjkDEcCTnVOpvKtK0sMr1Su1Y+Lbbmi7KzMd+Bs4Wp
-         8NlWYmz2PtK5z8oug0xfA20M3aNC1737i9rF4naBflWjaeGXMegrKMpJvhUiOh7Eaa4X
-         RZVw==
-X-Forwarded-Encrypted: i=1; AKwUvByxEny2fJONNAJlRO6kH2zHif7WbdkawwnSaIkb2Xz+b4UWFpINh8PdsLcEHLOS0dzKK8DR244Fkz/OVFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWLWRQxANVTtbPp7vq41Q1649jIglciLa7k5N1mAGdStyapXTD
-	00SSoJnQIl8dQsiTEZcRAknLNeVxYN9bnV679AHYsfIUweDiJZ5SCKZ00thhNJR4dyOzYA==
-X-Gm-Gg: AYBFou2viB74m5A0fr+xqZ56/s/F9FW+MKK+xr0ayvqOczP2SWHmKfTpwPBMZxOyNjp
-	fSt1SJnnV3su4kgN85VkBTys4PRghNCT9t2BEB6puBydwg4UdImvL+aYNxD6hC05nTVOmocpw5Z
-	XX3PCXyrRPPBqi1OSchUSa8vWDp0/L+ylpMcHxJ6Rvp4x/sDN2FeZd4LQcTfbaGA6ubTXDOB7c3
-	lXpydWJ2KHq9JgH0oqUA180J9Tax9v1ztvoLDnBv04iGurJpfFSuCM4JF5MNpZ8rsAcVBJ/Qtvw
-	sjtGIcvFgUng6Ei2QuExUeulNSe+HXMg/SPGQVOs4xiwTM4BcLE1lGGMDlNlGo/iSM+KDEoERH4
-	1w8ujIRq5aHcpyhY5Ww4B55cQ+BhLjCj76uFb31x3RVu10csHdHkTUXPq9exip1RQXjEviQRsXq
-	TkHS/hWlawcOXngC6kVHcZAczFSDM6PUKm1+klrXsSul91zCjtkml1vFcH5F4zRf9jTAhNYd2a1
-	opr4H6A4tHcagfQ18H+3b3+PfThfsQxNtcTb+Y=
-X-Received: by 2002:a05:600c:3b0e:b0:49c:fc6e:a3d5 with SMTP id 5b1f17b1804b1-49cfc6ea726mr379851185e9.20.1789053066253;
-        Thu, 10 Sep 2026 08:11:06 -0700 (PDT)
+        bh=J9LDATQNDM7sK4CtXsRLQsYMPm6MmFZyIYEO/4FzPzE=;
+        b=Ujvv5/mz5NW7iS0fEZSec0qYZVolMkjt/a0bfGbvTNs25wg1VE+URTqTHnLuWJfb4Q
+         zSiMXjQChaWPpxUX89xfVKaulx0Gb+ir5AdBNAj6LXcwihevHVjNGRPkJ7oMXUtjgwOo
+         /qA/QNKKUDJYLf58+HfrAQNi0cK5yXvaKRlQ16W6edSbVIaExbGKrd7lPl3MATQ+BDWW
+         jEHPARRQlLFoa/4kv380HrUCE/3EVy4iqGyzj62R7TGWFaIo8++EdyuCwwyE8nhwb+g8
+         rwmgvKGGe4asRSG2dW1HA1ZX/JcjLJmTfP/DeKCr7DADHbBtMHQobylifwv+RHGxxnNV
+         OnLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXm19iI6QRg7BNieAR1gplWqW3gt5G7vGXHExF788Ri/BWOlwIwFBrRjPXbZzR9IZKeUwm/Rg/g6mRdwo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK2tXAJvknLeVFzu/Dw9UqdfX25UvPmuG9cWU9dMNYeQV+g75e
+	25pnCdVCmixzeBZX0KpNEDADC2mS7dZ73aWRRcJk2ofADrlywarwkGAW
+X-Gm-Gg: AYBFou3VayC7hpofyKbN/htGGoeYRACrYv+u9BU6RrPeNFqTU/VCGdU+SIk0ZQEf68M
+	tC0CluwDJNn/UZbDyMT2yVYU+rXKatn7AZiIMApVVNH0fq86T++fdeA92mZZmUwx1l1c4lmHzIu
+	KucjsoHZ1JD8godo6bAe3uM2fEss9qijsiBvDo1yFruvElJl0b9sl3xKHW4yijmawyPj5+Eup1p
+	DwcTDZ1T8DqaqqFCd4zVgOzO30PoiRXU9EDWbKIdCRv8hJZgsN4GSH7NweTd4RQCy4Zo0LItzEc
+	bR00CE32BkAyXzSChdpEVvUDKWlvv9/9gEE05/raSM8FalQDxle72EUv7bmV6osZ1FbfkvT6FJh
+	gphFXKSzzkCF7p4kFEqiVdsC6xJZ0DyZW3GdxytWvyIGDe+V+iqj8MQ36tvf/2MZwZWoxXQd2Y4
+	+kSmmjW6s2HgQsWGVj62wh0nlJmNbG+PGX4DVWyNlEoNZCptSt6sOxntWGU/9VdZ3174Zbg/EJH
+	TuRmnAufY2PYtGDMcrEhjoruSDgKSiQ7MF1wYk=
+X-Received: by 2002:a05:600c:c3cc:10b0:49d:1d6a:4cfb with SMTP id 5b1f17b1804b1-49d1d6a4d7emr116017625e9.1.1789053064225;
+        Thu, 10 Sep 2026 08:11:04 -0700 (PDT)
 Received: from localhost.localdomain (mob-31-26-70-91.net.vodafone.it. [31.26.70.91])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d1fd532dcsm123568545e9.1.2026.09.10.08.11.04
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d1fd532dcsm123568545e9.1.2026.09.10.08.11.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 08:11:05 -0700 (PDT)
+        Thu, 10 Sep 2026 08:11:03 -0700 (PDT)
 From: Oleg Keri <okerixx@gmail.com>
 To: "Derek J. Clark" <derekjohn.clark@gmail.com>,
 	Mark Pearson <mpearson-lenovo@squebb.ca>,
@@ -68,9 +68,9 @@ To: "Derek J. Clark" <derekjohn.clark@gmail.com>,
 	Bernhard Seibold <mail@bernhard-seibold.de>
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] HID: lenovo: allocate the trackpoint drvdata before exposing its sysfs attributes
-Date: Thu, 10 Sep 2026 17:10:51 +0200
-Message-ID: <20260910151051.12975-3-okerixx@gmail.com>
+Subject: [PATCH 1/2] HID: lenovo: stop the hardware before the per-model teardown
+Date: Thu, 10 Sep 2026 17:10:50 +0200
+Message-ID: <20260910151051.12975-2-okerixx@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910151051.12975-1-okerixx@gmail.com>
 References: <20260910151051.12975-1-okerixx@gmail.com>
@@ -82,56 +82,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lenovo_probe_tpkbd() creates its sysfs group before allocating the
-lenovo_drvdata that every attribute handler dereferences through
-hid_get_drvdata(), and drvdata is explicitly NULL at that point.  A read of
-e.g. the sensitivity attribute between the two steps is a NULL pointer
-dereference.
+lenovo_remove() runs the per-model teardown first and calls hid_hw_stop()
+last.  For the ThinkPad 10 Ultrabook Keyboard and the X1/X12/X13 Tablet
+keyboards that teardown ends in cancel_work_sync(&data->fn_lock_sync_work),
+but the hardware is still delivering events at that point, and
+lenovo_event_tp10ubkbd() re-queues that work on every Fn-Esc press.  A
+press landing after the cancel leaves the work pending when remove()
+returns; devres then frees the drvdata and the work runs on freed memory.
 
-Allocate and install the drvdata first, then create the group.  The
-allocation failure path no longer has a group to remove, so it returns
-directly.
+Stop the hardware first so no event can arrive once the teardown starts.
+The LED-off writes issued by led_classdev_unregister() after the stop are
+harmless: usbhid sets HID_DISCONNECTED in usbhid_stop() and
+__usbhid_submit_report() drops the request on it, and the raw_request path
+used by the tablet keyboards is a plain synchronous control transfer.
 
-Fixes: c1dcad2d32d0 ("HID: Driver for Lenovo Keyboard with Trackpoint")
+Fixes: bc04b37ea0ec ("HID: lenovo: Add ThinkPad 10 Ultrabook Keyboard support")
 Link: https://lore.kernel.org/all/20260910064345.9BF1E1F000FF@smtp.kernel.org/
 Signed-off-by: Oleg Keri <okerixx@gmail.com>
 ---
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/hid/hid-lenovo.c b/drivers/hid/hid-lenovo.c
-index ff7c5ef..62bb805 100644
+index 617bba6..ff7c5ef 100644
 --- a/drivers/hid/hid-lenovo.c
 +++ b/drivers/hid/hid-lenovo.c
-@@ -1253,17 +1253,12 @@ static int lenovo_probe_tpkbd(struct hid_device *hdev)
- 	if (!hid_validate_values(hdev, HID_OUTPUT_REPORT, 3, 0, 2))
- 		return -ENODEV;
+@@ -1498,6 +1498,8 @@ static void lenovo_remove_tp10ubkbd(struct hid_device *hdev)
  
--	ret = sysfs_create_group(&hdev->dev.kobj, &lenovo_attr_group_tpkbd);
--	if (ret)
--		hid_warn(hdev, "Could not create sysfs group: %d\n", ret);
--
- 	data_pointer = devm_kzalloc(&hdev->dev,
- 				    sizeof(struct lenovo_drvdata),
- 				    GFP_KERNEL);
- 	if (data_pointer == NULL) {
- 		hid_err(hdev, "Could not allocate memory for driver data\n");
--		ret = -ENOMEM;
--		goto err;
-+		return -ENOMEM;
- 	}
- 
- 	// set same default values as windows driver
-@@ -1272,6 +1267,10 @@ static int lenovo_probe_tpkbd(struct hid_device *hdev)
- 
- 	hid_set_drvdata(hdev, data_pointer);
- 
-+	ret = sysfs_create_group(&hdev->dev.kobj, &lenovo_attr_group_tpkbd);
-+	if (ret)
-+		hid_warn(hdev, "Could not create sysfs group: %d\n", ret);
+ static void lenovo_remove(struct hid_device *hdev)
+ {
++	hid_hw_stop(hdev);
 +
- 	ret = lenovo_register_leds(hdev);
- 	if (ret)
- 		goto err;
+ 	switch (hdev->product) {
+ 	case USB_DEVICE_ID_LENOVO_TPKBD:
+ 		lenovo_remove_tpkbd(hdev);
+@@ -1518,8 +1520,6 @@ static void lenovo_remove(struct hid_device *hdev)
+ 		lenovo_remove_tp10ubkbd(hdev);
+ 		break;
+ 	}
+-
+-	hid_hw_stop(hdev);
+ }
+ 
+ static int lenovo_input_configured(struct hid_device *hdev,
 -- 
 2.55.0
 
