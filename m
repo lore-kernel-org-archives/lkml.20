@@ -1,1229 +1,408 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00B63AD529;
-	Thu, 10 Sep 2026 18:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065CD3655FC;
+	Thu, 10 Sep 2026 18:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063541; cv=fail; b=mEFTASScimTTbOU/Z5Lw1tF/358PQfHwrDsEpMEq5DGVtzmrHBJFFeSxgs3fdLHkIWbQaw0n1wPemnBym6Uu+l6Kke2+5PfpVayoyxpgbv8ilhuNcGqSsqaCIA5I5nCX+Vh10ImpKhc2foxPcZkIsymDxKjwN/vGpK8YwOFFL70=
+	t=1789063640; cv=pass; b=KsT4LD/ezPM8A2C8YJfgRUza9oTZKp2gqo1y7cepJbgJ8Fgw9cmJw8rxEuQPho/+asVzf3A2AnXXEfHgAvRruWumgT2gmbEtLYCEVYnVQ0EUEZgfDcctU763EAXQbvfgFYzNwKMbRDRa2PCszpCqgW6QQGCIxZh9tXlJpVAUd2s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063541; c=relaxed/simple;
-	bh=frdRvAseGzSeStl8JGFIXPbfSr1/mDVeGpC35UsuOv8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WdLsXmcYQ04SMFs/VpfaIx0yP+F0UXtNb3pf/nkSEbfG6uxPnpOO9R6ROJmxT9S+v6xR6u0GayMbt3IacN/i+Fn8Sg5nTJTe+mm29GaQigdjgVA3wYrCBqDr3WxJc4Cpm/q/A93gg1axxEDnwMvmt0/rbJ36iwTgY6PR1/Y22Dg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Ag19Iyk1; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=LPElaoqa; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1789063640; c=relaxed/simple;
+	bh=ZZ9k9BJPDjyec6NUEKK5xZV+5aftBFmoP6dqleK93NA=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=pEd0tC/79gy9UTvlF8W2p5L9zE+9tsJSWbAJ7Xl0gNrlC6acnz6b0dmK0sx2Lf0m59xRcjmZF6fVUstCevQ4Q/XmQKlRaXI4v8efbLnfchpmb75Y3lKghBfMFQwppUe2Hh8upf9bvtWZWZZADEJCFeatw8OU0DKQ5DZ80fQXWC0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=cYGoeRQi; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Ag19Iyk1";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="LPElaoqa"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68AF642H1431151;
-	Thu, 10 Sep 2026 13:05:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=mCJM8XJ8pEmY6GkKSjdeZiTj3miFY+G5dsfKBfF2T
-	xQ=; b=Ag19Iyk1bMDdJi41S1msyAXsHxhe4wlVMyde2Sh0BbvMGc0xa8d+emT2S
-	XMEpv9uM4dsSr8c9FyHz7cxpraOvMCTIatZu/xuFmiFDu1dkCF6nNxQ4ZUz0ojvb
-	QZriDS4Yf5CTpRjPCeIoGpKjObxruDsEShIm0ZrPdmRRBZM60PK34kyVWP1YMqZs
-	SsEVP14Jve0+FBpk3gkS9on1Tmj/zuwC8NZE+BWAG+kfjgMF4tnVb53bmqwWZWxI
-	odsrvhMeaBcA+6PgAYi8lDvXLhfdmxZbe8FvCMjwp8TjOWKJRUySjP8/v5eGRbId
-	AkNQKDsQU3u2i4Ynon2zSdAS2bhBg==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gkcxgfdft-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 13:05:36 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pT+JqY25XF2DHiSng0W77fNDTB4HWuBMBpxxSQtOwMfBP1TFgSFer6CT7wfRDrMmiCvTmwK5FWkXsfHDXwBya1nV8CtyBlXD4bEN2xMpAVy/V7QpdcXMhY3SVisn7SIOUH7Oeg3f2EUhxoBt5EUi0xLWiJshhVN6OPSz9GtvX0fIrOt2ca6NpK8GN+zXMtwi4gEX8DOIJn63R+ru24YewWenje3UApw4LO1DdBqJwNsjMqtVK4zBsPcyZfuj/j9cao1KCQxXofXUU3vkFQ2ETkRD9zXqOTsuloaAbkRRvBertGj5vvZv1NoJzJrl7Ga0frR/2ksIPIWr3EXc4Ils9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mCJM8XJ8pEmY6GkKSjdeZiTj3miFY+G5dsfKBfF2TxQ=;
- b=naUPAj1P/T74t+GHsRM3V3Io9IXiNnSy/RzwSq/vGTmzlsYn36uVwoRxqTj75Vm5wvFFdERkgI8M2XQLrH3oOh7ELdHWX+TVjDwY3keSdaGRbhdjD5QgdYp0jwve9XqYW/UYLx0Mui6zy8GSiou0MDyhxi1yGgKCMGY2mt2pjlp0FMZnrvzqlrRX+K4urRRN/wCvtExuCVcmQLrj9I8GEXh2l0ey0jkhnz3tlnq7hW68vXRt6OAmLKizX2SOj7KVOyIfok9iS+yzWjjPHavp7QhPgkoeIjxOjPLevmG8kZcpXxvAiTweCTo4IGG6nl9GVUHDcPot77TxzE+ZD6AsZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=gondor.apana.org.au smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mCJM8XJ8pEmY6GkKSjdeZiTj3miFY+G5dsfKBfF2TxQ=;
- b=LPElaoqaQ4z2a4LHdr5zCdu4tY8nbhvvqSvNMlX8LgDY1xaJLfMVNMGhhK35CI5KZ9xOCt0vic5YHkqCSYQr0FgIIO0qPIO12b8YXKiYfPWKS/jMv60p1aQ/gjlj6P9qWEtXBAny7ZUz8trtZ05MG10nbWLNStVowSL4931057M=
-Received: from MN0PR05CA0021.namprd05.prod.outlook.com (2603:10b6:208:52c::16)
- by DS0PR10MB6151.namprd10.prod.outlook.com (2603:10b6:8:c5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Thu, 10 Sep
- 2026 18:05:31 +0000
-Received: from BN1PEPF00004688.namprd05.prod.outlook.com
- (2603:10b6:208:52c:cafe::27) by MN0PR05CA0021.outlook.office365.com
- (2603:10b6:208:52c::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Thu, 10
- Sep 2026 18:05:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 18:05:29 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 13:04:30 -0500
-Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 13:04:30 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 10 Sep 2026 13:04:30 -0500
-Received: from pratham-Workstation-PC (pratham-workstation-pc.dhcp.ti.com [10.24.53.205])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68AI4TY83777612;
-	Thu, 10 Sep 2026 13:04:30 -0500
-From: T Pratham <t-pratham@ti.com>
-To: T Pratham <t-pratham@ti.com>, Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>
-CC: Sebin Francis <sebin.francis@ti.com>,
-        Manorit Chawdhry
-	<m-chawdhry@ti.com>,
-        Vishal Mahaveer <vishalm@ti.com>, Praneeth Bajjuri
-	<praneeth@ti.com>,
-        <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>
-Subject: [PATCH v9 1/2] crypto: ti - Add support for SHA224/256/384/512 in DTHEv2 driver
-Date: Thu, 10 Sep 2026 23:34:22 +0530
-Message-ID: <20260910180424.2131193-2-t-pratham@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910180424.2131193-1-t-pratham@ti.com>
-References: <20260910180424.2131193-1-t-pratham@ti.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="cYGoeRQi"
+ARC-Seal: i=1; a=rsa-sha256; t=1789063612; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=dTq9HnrijxZVGb1l75Lla0qH6Bqe/9AMX6xReITqc5sDkBx0WQDro5KtgO/GHB8x81Cj545e2EGrvlww+sh0e5zov87TJvYHHDKiREqgZUbfupr936LkQjLJwo3L4a4VXSB0sSKzT+a6mGliLS9zeIMwdT9hjX4J3ZuvEIoRJXo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789063612; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=2SfrWRVMTCicD0vrJdm191v2eUq49w3e51Pb9Wn9R+s=; 
+	b=f6NQfwxKjRHJgA1IcA6j2zmhYL3pApoRvbQT9bB74i4u0mrVaoPVs6LNCFh4655iwY9y3gDs6Y3POVozfJu4+b9QzLl0V7b5v3Lbs5w1ghGDxCMQn9L74sqXD3w50CK0MxB9UKOTM6sV7gHrxnQM1KUj8JuSnXEOd7aHT8U9d7U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789063612;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=2SfrWRVMTCicD0vrJdm191v2eUq49w3e51Pb9Wn9R+s=;
+	b=cYGoeRQiXZuS63LAJT9evzWh7kc94SDr5dsRLNofhzzgTTXKymjN6+6rRmj84U/g
+	Dsc+6YgIr4EI9LCs+zMKnoI970M12AJIA2k97loW97EItvYFgDZm6Wh9tBDH0aJ7nqE
+	hASjpfji5sgUNGcWtqbGFuzzJVGHzDtwoXeya6VKVAAWuxWkoe19OTgp+frIWPzjBDc
+	9ET0lG7BApz60gRC+Gqkuk6akISmspn68jy1LZms3p042P4/5qgYUplJ5W/dRqxgw0n
+	v92hdIu1qGYr/Zyq6+DjFTKjOH+HvuyhtDjgnanOcI8KLyL+eYRcYkmoTYy2NGSZbu9
+	VWaXBKEZPw==
+Received: by mx.zohomail.com with SMTPS id 1789063609615346.12294702549775;
+	Thu, 10 Sep 2026 11:06:49 -0700 (PDT)
+Message-ID: <cdecf33094742331552a4b86d43673cdf1590bf2.camel@rong.moe>
+Subject: Re: [PATCH v6 04/12] leds: trigger: Add offloaded() callback and
+ provide trigger_may_offload attribute
+From: Rong Zhang <i@rong.moe>
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas =?ISO-8859-1?Q?Wei=DFschuh?=
+ <linux@weissschuh.net>,  Benson Leung <bleung@chromium.org>, Guenter Roeck
+ <groeck@chromium.org>, Marek =?ISO-8859-1?Q?Beh=FAn?=	 <kabel@kernel.org>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark"	
+ <derekjohn.clark@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Ike Panhc
+ <ikepanhc@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski
+ <kuba@kernel.org>, Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar
+ <vsankar@lenovo.com>, 	linux-leds@vger.kernel.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ chrome-platform@lists.linux.dev, 	platform-driver-x86@vger.kernel.org
+In-Reply-To: <20260910150535.GG1051768@google.com>
+References: <20260902-leds-trigger-hw-changed-v6-0-55693cd78877@rong.moe>
+	 <20260902-leds-trigger-hw-changed-v6-4-55693cd78877@rong.moe>
+	 <20260910150535.GG1051768@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 02:01:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|DS0PR10MB6151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56441766-649b-420a-6dfe-08df0f661950
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|3023799007|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	y3WlHh7VcSTYbyjI+t4clQNBLiPrsfkEULvl/Pyn7drzIl+ghSxYH27b8mYahPfGeOWMQE1cNmHsebs7mmdjwYF8FEic3Jly1IbOPd/Tp9fg51qqnb514ijH2nTjaAJW7WNEmrfm3Glx7ygMzpRofPt8VVg0doXvSHi9fBklQv0Jpf/WNjRz3yhu8D3s7mDgkPhtm6o4xJJBKrdynsWKS+pmCi2I60e86HW4OJXMUuVpSgJ49ktQR8kwzKOjD4N9TwHuKwdaIV3YWl2wQs6kkCBYio5ffPvvF7LuqEZgRqHqTmqhxJkw3IwWpkD9UL/SMYvSnH3zMw6jjUqcqf6U4TgTZS4f7FAcTXuD9PcLLTrjyNuqACev6YYlaeefJ6X0/oDmvLxyHJRAY4TUcvYlydZSu4iLfc2mexEXUY2rAKq3yvgvZvLtNTTpEz1fqhODC3KqFb0chd5azdZPXONZ4I+HwXRD2DcHKqjN+IIH8OTyHQxgNOguL6Hf8bJdYqNwVUR6z9CNAjcGkMDDvjDMoATuPaWEqUrFiVFtRZL25xSprP+yXyJMO7FWS54iiLy4huoryHev+Ee2e5no0aHlHDzrj/QgIAM7eV07lWAMmOQ/GhPKWflZ8mnslO3gt+sbS9DSKHkOBC4bBZk3pUrsVA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	GdWNgbtcRRGQu2/59V/gHcTyDI9loCpLcXQt0Rwt3f3zK1WdmdsFzLIJBxl1fj8HSqtnMQ3ktJdSxJeHvW/SO/CaGrCT6qxROvecozI6Ng3MSgxkXEnUAtE/mtpLZFpzz9A63ImdOr8GFVyHTxIlnMVoT+Q7Z9eLPIpif54qSTKdc9lbtb9XCmPl/Hk5vHY1iIWBOf++ADleYUbvOQwgqUNTYjauXBvy94/3XM9viZJacpbBCBX1gS2yM8yREoyL1Gyz45tAMbX2m5SKq1Ny3pcY8ZWo6+qKaDlDA0X7GlsPfrl3sAnrwOCG3kZGpfXn7Rn6KDpPoHP658mFINoPnuUHAHeMcs8Rf+t53QUmqXCHAUE08gci3EbXfomxFB7diiiG5m4er3qHtjHxs57GuXfE1Pmw/+WIHcjZinTflYC+gpXzw3eQN04z2uvMBzbG
-X-Exchange-RoutingPolicyChecked:
-	YWtqNRh6cyGickjEYn4lvbGaNTEedy8iCiblaxbV+Sf5KgQ0062Vn2w+Jimeswy7pCU2vRPAnFpBr51aMQjGlZyXhSZmNmScpDYf/ai2vljzwJOvBNiXqY2m+5eEGObCdY8QV2dDd+EvjeAO3k62VZcSAkrA60ztKU4EdIoajIU2IQEBK6UAVTJ3MRNFyNdQDTUvll6ijykeiu8P4FsCIHb5Fr04Pz3o53jvj7EJkF1M9GqowiUnY3NULVIHYQFOPlmrdC0Okuv1EViY0KisuGca5WijY++ANKtmUI5bOskXIiICcVmPZ2iuA7+8GFvAHKxQlEK7IZ+0DsZ3QB0laQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 18:05:29.4515
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56441766-649b-420a-6dfe-08df0f661950
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004688.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6151
-X-Proofpoint-ORIG-GUID: mIPeKTqiClRFEquUpsBF6lVFYogot66q
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDIyMiBTYWx0ZWRfXwP7gqK2NoLcl
- PIwW8fpaT38PFDGkl9ukyq9bc+tmwVOBOLNybPlaZh2U5ZBrfLJIoO8EGMumjdhk+eqTTtTvnrk
- xC88pLf3zcuO/UvadVpri+50cWv7808=
-X-Proofpoint-GUID: mIPeKTqiClRFEquUpsBF6lVFYogot66q
-X-Authority-Analysis: v=2.4 cv=MqbHeGae c=1 sm=1 tr=0 ts=6aa2f170 cx=c_pps
- a=bIHOvEVewOWTfzx0yc51bg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=sozttTNsAAAA:8 a=MIZQ4TNqQ82ztgmBYB0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDIyMiBTYWx0ZWRfX/nX/nhJ9iz3h
- QoqKxfX1p/PsA7tGjHqe4bGMTRf8XOVFTCi2YOauB6stTxi2hgsXf/9Z1Z22qxGtVrsxn0flNjS
- EI7nmfgTHOi5MB4O7lkXQYHBmFrTfLtbEbGBAYc1271EjUTI4Hp8r4jb7tp6OxQr+FosFHjMn2C
- I4dxjfmz96PMcCti2m+QVy/aAApv4VNXq9VQHWeTJTg+9BeeeJ113H7Z3U1dv/Xr+VnhqkzKf3z
- SKvH59PX+PFoGmfz0QyCeWxqyrFRkeyoeCwGIbjA5mXY/3cJjJRNAsBL8vcLbCDGG3G6hljjhcG
- WmQg5i0YbaK+8z0c2h/MabXKT2yvXmFWdDg7PeJAKi0j+LZDsEzgf1YW7L4aPrmeNGjnrnxWcF0
- xX7gohqSFmoMr9n8wor26CezWKE7MeqWf8uG/9jjJnsxdGyPjVQqj7hFOlYQSuy1TYtJbEyNsJZ
- Z6FeY6u8fZsQpbPcnNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_05,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100222
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-Add support for SHA224, SHA256, SHA384, SHA512 algorithms in the Hashing
-Engine of the DTHEv2 hardware cryptographic engine.
+Hi Lee,
 
-Signed-off-by: T Pratham <t-pratham@ti.com>
----
- drivers/crypto/ti/Kconfig         |   2 +
- drivers/crypto/ti/Makefile        |   2 +-
- drivers/crypto/ti/dthev2-aes.c    |  10 +-
- drivers/crypto/ti/dthev2-common.c |  43 +-
- drivers/crypto/ti/dthev2-common.h |  58 ++-
- drivers/crypto/ti/dthev2-hash.c   | 745 ++++++++++++++++++++++++++++++
- 6 files changed, 843 insertions(+), 17 deletions(-)
- create mode 100644 drivers/crypto/ti/dthev2-hash.c
+Thanks for your review.
 
-diff --git a/drivers/crypto/ti/Kconfig b/drivers/crypto/ti/Kconfig
-index 1a3a571ac8cef..90af2c7cb1c55 100644
---- a/drivers/crypto/ti/Kconfig
-+++ b/drivers/crypto/ti/Kconfig
-@@ -10,6 +10,8 @@ config CRYPTO_DEV_TI_DTHEV2
- 	select CRYPTO_XTS
- 	select CRYPTO_GCM
- 	select CRYPTO_CCM
-+	select CRYPTO_SHA256
-+	select CRYPTO_SHA512
- 	select SG_SPLIT
- 	help
- 	  This enables support for the TI DTHE V2 hw cryptography engine
-diff --git a/drivers/crypto/ti/Makefile b/drivers/crypto/ti/Makefile
-index b883078f203d7..a90bc97a52321 100644
---- a/drivers/crypto/ti/Makefile
-+++ b/drivers/crypto/ti/Makefile
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-$(CONFIG_CRYPTO_DEV_TI_DTHEV2) += dthev2.o
--dthev2-objs := dthev2-common.o dthev2-aes.o
-+dthev2-objs := dthev2-common.o dthev2-aes.o dthev2-hash.o
-diff --git a/drivers/crypto/ti/dthev2-aes.c b/drivers/crypto/ti/dthev2-aes.c
-index ca87aacc39c5d..b828143c8b47a 100644
---- a/drivers/crypto/ti/dthev2-aes.c
-+++ b/drivers/crypto/ti/dthev2-aes.c
-@@ -21,7 +21,6 @@
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
- #include <linux/io.h>
--#include <linux/iopoll.h>
- #include <linux/scatterlist.h>
- 
- /* Registers */
-@@ -105,7 +104,6 @@ enum aes_ctrl_mode_masks {
- #define DTHE_AES_GCM_AAD_MAXLEN			(BIT_ULL(32) - 1)
- #define DTHE_AES_CCM_AAD_MAXLEN			(BIT(16) - BIT(8))
- #define DTHE_AES_CCM_CRYPT_MAXLEN		(BIT_ULL(61) - 1)
--#define POLL_TIMEOUT_INTERVAL			HZ
- 
- static int dthe_cipher_init_tfm(struct crypto_skcipher *tfm)
- {
-@@ -519,7 +517,7 @@ static int dthe_aes_run(struct crypto_engine *engine, void *areq)
- 
- aes_inval_nent_err:
- 	local_bh_disable();
--	crypto_finalize_skcipher_request(dev_data->engine, req, ret);
-+	crypto_finalize_skcipher_request(engine, req, ret);
- 	local_bh_enable();
- 	dthe_put_drvdata(dev_data);
- 	return 0;
-@@ -563,7 +561,7 @@ static int dthe_aes_crypt(struct skcipher_request *req)
- 
- 	rctx->dev_data = dev_data;
- 
--	engine = dev_data->engine;
-+	engine = dev_data->aes_engine;
- 	ret = crypto_transfer_skcipher_request_to_engine(engine, req);
- 	if (ret != -EINPROGRESS && ret != -EBUSY)
- 		dthe_put_drvdata(dev_data);
-@@ -740,7 +738,7 @@ static int dthe_aead_read_tag(struct dthe_aes_req_ctx *rctx, u32 *tag)
- 
- 	ret = readl_relaxed_poll_timeout(aes_base_reg + DTHE_P_AES_CTRL, val,
- 					 (val & DTHE_AES_CTRL_SAVED_CTX_READY),
--					 0, POLL_TIMEOUT_INTERVAL);
-+					 0, DTHE_POLL_TIMEOUT_INTERVAL);
- 	if (ret)
- 		return ret;
- 
-@@ -1261,7 +1259,7 @@ static int dthe_aead_crypt(struct aead_request *req)
- 
- 	rctx->dev_data = dev_data;
- 
--	engine = dev_data->engine;
-+	engine = dev_data->aes_engine;
- 	ret = crypto_transfer_aead_request_to_engine(engine, req);
- 	if (ret != -EINPROGRESS && ret != -EBUSY)
- 		dthe_put_drvdata(dev_data);
-diff --git a/drivers/crypto/ti/dthev2-common.c b/drivers/crypto/ti/dthev2-common.c
-index f5c834a9c011d..fd87cae3644f5 100644
---- a/drivers/crypto/ti/dthev2-common.c
-+++ b/drivers/crypto/ti/dthev2-common.c
-@@ -120,6 +120,11 @@ static int dthe_dma_init(struct dthe_data *dev_data)
- 		goto err_dma_sha_tx;
- 	}
- 
-+	/*
-+	 * Do AES Rx and Tx channel config here because it is invariant of AES mode
-+	 * SHA Tx channel config is done before DMA transfer depending on hashing algorithm
-+	 */
-+
- 	memzero_explicit(&cfg, sizeof(cfg));
- 
- 	cfg.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-@@ -154,11 +159,21 @@ static int dthe_dma_init(struct dthe_data *dev_data)
- 
- static int dthe_register_algs(void)
- {
--	return dthe_register_aes_algs();
-+	int ret = 0;
-+
-+	ret = dthe_register_hash_algs();
-+	if (ret)
-+		return ret;
-+	ret = dthe_register_aes_algs();
-+	if (ret)
-+		dthe_unregister_hash_algs();
-+
-+	return ret;
- }
- 
- static void dthe_unregister_algs(void)
- {
-+	dthe_unregister_hash_algs();
- 	dthe_unregister_aes_algs();
- }
- 
-@@ -190,15 +205,26 @@ static int dthe_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto probe_dma_err;
- 
--	dev_data->engine = crypto_engine_alloc_init(dev, 1);
--	if (!dev_data->engine) {
-+	dev_data->aes_engine = crypto_engine_alloc_init(dev, 1);
-+	if (!dev_data->aes_engine) {
- 		ret = -ENOMEM;
- 		goto probe_engine_err;
- 	}
-+	dev_data->hash_engine = crypto_engine_alloc_init(dev, 1);
-+	if (!dev_data->hash_engine) {
-+		ret = -ENOMEM;
-+		goto probe_hash_engine_err;
-+	}
-+
-+	ret = crypto_engine_start(dev_data->aes_engine);
-+	if (ret) {
-+		dev_err(dev, "Failed to start crypto engine for AES\n");
-+		goto probe_engine_start_err;
-+	}
- 
--	ret = crypto_engine_start(dev_data->engine);
-+	ret = crypto_engine_start(dev_data->hash_engine);
- 	if (ret) {
--		dev_err(dev, "Failed to start crypto engine\n");
-+		dev_err(dev, "Failed to start crypto engine for hash\n");
- 		goto probe_engine_start_err;
- 	}
- 
-@@ -211,7 +237,9 @@ static int dthe_probe(struct platform_device *pdev)
- 	return 0;
- 
- probe_engine_start_err:
--	crypto_engine_exit(dev_data->engine);
-+	crypto_engine_exit(dev_data->hash_engine);
-+probe_hash_engine_err:
-+	crypto_engine_exit(dev_data->aes_engine);
- probe_engine_err:
- 	dma_release_channel(dev_data->dma_aes_rx);
- 	dma_release_channel(dev_data->dma_aes_tx);
-@@ -237,7 +265,8 @@ static void dthe_remove(struct platform_device *pdev)
- 
- 	wait_event(dev_data->drain_wq, !atomic_read(&dev_data->req_refcnt));
- 
--	crypto_engine_exit(dev_data->engine);
-+	crypto_engine_exit(dev_data->aes_engine);
-+	crypto_engine_exit(dev_data->hash_engine);
- 
- 	dma_release_channel(dev_data->dma_aes_rx);
- 	dma_release_channel(dev_data->dma_aes_tx);
-diff --git a/drivers/crypto/ti/dthev2-common.h b/drivers/crypto/ti/dthev2-common.h
-index f78420ba871e2..57a6cfb8ab587 100644
---- a/drivers/crypto/ti/dthev2-common.h
-+++ b/drivers/crypto/ti/dthev2-common.h
-@@ -17,6 +17,7 @@
- #include <crypto/internal/aead.h>
- #include <crypto/internal/hash.h>
- #include <crypto/internal/skcipher.h>
-+#include <crypto/sha2.h>
- 
- #include <linux/atomic.h>
- #include <linux/delay.h>
-@@ -24,17 +25,29 @@
- #include <linux/dmapool.h>
- #include <linux/dma-mapping.h>
- #include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <linux/scatterlist.h>
- #include <linux/wait.h>
- 
- #define DTHE_REG_SIZE		4
- #define DTHE_DMA_TIMEOUT_MS	2000
-+#define DTHE_POLL_TIMEOUT_INTERVAL	HZ
- /*
-  * Size of largest possible key (of all algorithms) to be stored in dthe_tfm_ctx
-  * This is currently the keysize of XTS-AES-256 which is 512 bits (64 bytes)
-  */
- #define DTHE_MAX_KEYSIZE	(AES_MAX_KEY_SIZE * 2)
- 
-+enum dthe_hash_alg_sel {
-+	DTHE_HASH_MD5		= 0,
-+	DTHE_HASH_SHA1		= BIT(1),
-+	DTHE_HASH_SHA224	= BIT(2),
-+	DTHE_HASH_SHA256	= BIT(1) | BIT(2),
-+	DTHE_HASH_SHA384	= BIT(0),
-+	DTHE_HASH_SHA512	= BIT(0) | BIT(1),
-+	DTHE_HASH_ERR		= BIT(0) | BIT(1) | BIT(2),
-+};
-+
- enum dthe_aes_mode {
- 	DTHE_AES_ECB = 0,
- 	DTHE_AES_CBC,
-@@ -51,7 +64,8 @@ enum dthe_aes_mode {
-  * @dev: Device pointer
-  * @regs: Base address of the register space
-  * @list: list node for dev
-- * @engine: Crypto engine instance
-+ * @aes_engine: Crypto engine instance for AES Engine
-+ * @hash_engine: Crypto engine instance for Hashing Engine
-  * @dma_aes_rx: AES Rx DMA Channel
-  * @dma_aes_tx: AES Tx DMA Channel
-  * @dma_sha_tx: SHA Tx DMA Channel
-@@ -62,7 +76,8 @@ struct dthe_data {
- 	struct device *dev;
- 	void __iomem *regs;
- 	struct list_head list;
--	struct crypto_engine *engine;
-+	struct crypto_engine *aes_engine;
-+	struct crypto_engine *hash_engine;
- 
- 	struct dma_chan *dma_aes_rx;
- 	struct dma_chan *dma_aes_tx;
-@@ -90,6 +105,8 @@ struct dthe_list {
-  * @authsize: Authentication size for modes with authentication
-  * @key: AES key
-  * @aes_mode: AES mode
-+ * @hash_mode: Hashing Engine mode
-+ * @phash_size: partial hash size of the hash algorithm selected
-  * @aead_fb: Fallback crypto aead handle
-  * @skcipher_fb: Fallback crypto skcipher handle for AES-XTS mode
-  */
-@@ -98,7 +115,11 @@ struct dthe_tfm_ctx {
- 	unsigned int keylen;
- 	unsigned int authsize;
- 	u32 key[DTHE_MAX_KEYSIZE / sizeof(u32)];
--	enum dthe_aes_mode aes_mode;
-+	union {
-+		enum dthe_aes_mode aes_mode;
-+		enum dthe_hash_alg_sel hash_mode;
-+	};
-+	unsigned int phash_size;
- 	union {
- 		struct crypto_sync_aead *aead_fb;
- 		struct crypto_sync_skcipher *skcipher_fb;
-@@ -121,6 +142,34 @@ struct dthe_aes_req_ctx {
- 	struct dthe_data *dev_data;
- };
- 
-+/**
-+ * struct dthe_hash_req_ctx - Hashing engine ctx struct
-+ * @phash: buffer to store a partial hash from a previous operation
-+ * @digestcnt: stores the digest count from a previous operation; currently hardware only provides
-+ *             a single 32-bit value even for SHA384/512
-+ * @padding: padding buffer for handling unaligned data
-+ * @data: buffer to store one block of data to defer operations for non-zero final.
-+ * @flags: bitfield of flags for internal use.
-+ *         bit 0: Current operation (update/finup)
-+ *         bit 1: If phash is available from a previous operation
-+ *         bit 2: If data is buffered from a previous operation
-+ * @hash_compl: Completion variable for use in manual completion in case of DMA callback failure
-+ * @dev_data: Device data struct pointer
-+ */
-+struct dthe_hash_req_ctx {
-+	u32 phash[SHA512_DIGEST_SIZE / sizeof(u32)];
-+	u64 digestcnt[2];
-+
-+	__dma_from_device_group_begin();
-+	u8 padding[SHA512_BLOCK_SIZE];
-+	u8 data[SHA512_BLOCK_SIZE];
-+	__dma_from_device_group_end();
-+
-+	u8 flags;
-+	struct completion hash_compl;
-+	struct dthe_data *dev_data;
-+};
-+
- /* Struct definitions end */
- 
- /**
-@@ -179,4 +228,7 @@ struct scatterlist *dthe_copy_sg(struct scatterlist *dst,
- int dthe_register_aes_algs(void);
- void dthe_unregister_aes_algs(void);
- 
-+int dthe_register_hash_algs(void);
-+void dthe_unregister_hash_algs(void);
-+
- #endif
-diff --git a/drivers/crypto/ti/dthev2-hash.c b/drivers/crypto/ti/dthev2-hash.c
-new file mode 100644
-index 0000000000000..075515087fc1e
---- /dev/null
-+++ b/drivers/crypto/ti/dthev2-hash.c
-@@ -0,0 +1,745 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * K3 DTHE V2 crypto accelerator driver
-+ *
-+ * Copyright (C) Texas Instruments 2025 - https://www.ti.com
-+ * Author: T Pratham <t-pratham@ti.com>
-+ */
-+
-+#include <crypto/algapi.h>
-+#include <crypto/hash.h>
-+#include <crypto/internal/hash.h>
-+#include <crypto/scatterwalk.h>
-+#include <crypto/sha2.h>
-+
-+#include "dthev2-common.h"
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/dmaengine.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/io.h>
-+#include <linux/overflow.h>
-+#include <linux/scatterlist.h>
-+
-+/* Registers */
-+
-+#define DTHE_P_HASH_BASE		0x5000
-+#define DTHE_P_HASH512_IDIGEST_A	0x0240
-+#define DTHE_P_HASH512_DIGEST_COUNT	0x0280
-+#define DTHE_P_HASH512_MODE		0x0284
-+#define DTHE_P_HASH512_LENGTH		0x0288
-+#define DTHE_P_HASH512_DATA_IN_START	0x0080
-+#define DTHE_P_HASH512_DATA_IN_END	0x00FC
-+
-+#define DTHE_P_HASH_SYSCONFIG		0x0110
-+#define DTHE_P_HASH_IRQSTATUS		0x0118
-+#define DTHE_P_HASH_IRQENABLE		0x011C
-+
-+/* Register write values and macros */
-+#define DTHE_HASH_SYSCONFIG_INT_EN		BIT(2)
-+#define DTHE_HASH_SYSCONFIG_DMA_EN		BIT(3)
-+#define DTHE_HASH_IRQENABLE_EN_ALL		GENMASK(3, 0)
-+#define DTHE_HASH_IRQSTATUS_OP_READY		BIT(0)
-+#define DTHE_HASH_IRQSTATUS_IP_READY		BIT(1)
-+#define DTHE_HASH_IRQSTATUS_PH_READY		BIT(2)
-+#define DTHE_HASH_IRQSTATUS_CTX_READY		BIT(3)
-+
-+#define DTHE_HASH_MODE_USE_ALG_CONST		BIT(3)
-+#define DTHE_HASH_MODE_CLOSE_HASH		BIT(4)
-+
-+/* rctx flag bitfields */
-+#define DTHE_HASH_FLAG_OP		BIT(0)
-+#define DTHE_HASH_FLAG_PHASH_AVAIL	BIT(1)
-+#define DTHE_HASH_FLAG_IS_DATA_HELD	BIT(2)
-+
-+enum dthe_hash_op {
-+	DTHE_HASH_OP_UPDATE = 0,
-+	DTHE_HASH_OP_FINUP  = 1,
-+};
-+
-+static inline bool dthe_hash_has_flag(struct dthe_hash_req_ctx *rctx, u8 flag)
-+{
-+	return rctx->flags & flag;
-+}
-+
-+static inline void dthe_hash_flag_set(struct dthe_hash_req_ctx *rctx, u8 flag)
-+{
-+	rctx->flags |= flag;
-+}
-+
-+static inline void dthe_hash_flag_clear(struct dthe_hash_req_ctx *rctx, u8 flag)
-+{
-+	rctx->flags &= ~flag;
-+}
-+
-+static inline bool dthe_hash_flag_is_op(struct dthe_hash_req_ctx *rctx, enum dthe_hash_op op)
-+{
-+	return FIELD_GET(DTHE_HASH_FLAG_OP, rctx->flags) == op;
-+}
-+
-+static inline void dthe_hash_flag_set_op(struct dthe_hash_req_ctx *rctx, enum dthe_hash_op op)
-+{
-+	FIELD_MODIFY(DTHE_HASH_FLAG_OP, &rctx->flags, op);
-+}
-+
-+static void dthe_hash_write_zero_message(enum dthe_hash_alg_sel mode, void *dst)
-+{
-+	switch (mode) {
-+	case DTHE_HASH_SHA512:
-+		memcpy(dst, sha512_zero_message_hash, SHA512_DIGEST_SIZE);
-+		break;
-+	case DTHE_HASH_SHA384:
-+		memcpy(dst, sha384_zero_message_hash, SHA384_DIGEST_SIZE);
-+		break;
-+	case DTHE_HASH_SHA256:
-+		memcpy(dst, sha256_zero_message_hash, SHA256_DIGEST_SIZE);
-+		break;
-+	case DTHE_HASH_SHA224:
-+		memcpy(dst, sha224_zero_message_hash, SHA224_DIGEST_SIZE);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static enum dthe_hash_alg_sel dthe_hash_get_hash_mode(struct crypto_ahash *tfm)
-+{
-+	unsigned int ds = crypto_ahash_digestsize(tfm);
-+	enum dthe_hash_alg_sel hash_mode;
-+
-+	/*
-+	 * Currently, all hash algorithms supported by DTHEv2 have unique digest sizes.
-+	 * So we can do this. Otherwise, we would have to get the algorithm from the
-+	 * alg_name and do a strcmp.
-+	 */
-+	switch (ds) {
-+	case SHA512_DIGEST_SIZE:
-+		hash_mode = DTHE_HASH_SHA512;
-+		break;
-+	case SHA384_DIGEST_SIZE:
-+		hash_mode = DTHE_HASH_SHA384;
-+		break;
-+	case SHA256_DIGEST_SIZE:
-+		hash_mode = DTHE_HASH_SHA256;
-+		break;
-+	case SHA224_DIGEST_SIZE:
-+		hash_mode = DTHE_HASH_SHA224;
-+		break;
-+	default:
-+		hash_mode = DTHE_HASH_ERR;
-+		break;
-+	}
-+
-+	return hash_mode;
-+}
-+
-+static unsigned int dthe_hash_get_phash_size(struct dthe_tfm_ctx *ctx)
-+{
-+	unsigned int phash_size = 0;
-+
-+	switch (ctx->hash_mode) {
-+	case DTHE_HASH_SHA512:
-+	case DTHE_HASH_SHA384:
-+		phash_size = SHA512_DIGEST_SIZE;
-+		break;
-+	case DTHE_HASH_SHA256:
-+	case DTHE_HASH_SHA224:
-+		phash_size = SHA256_DIGEST_SIZE;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return phash_size;
-+}
-+
-+static int dthe_hash_init_tfm(struct crypto_ahash *tfm)
-+{
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+
-+	ctx->dev = dthe_get_dev();
-+	if (!ctx->dev)
-+		return -ENODEV;
-+
-+	ctx->hash_mode = dthe_hash_get_hash_mode(tfm);
-+	if (ctx->hash_mode == DTHE_HASH_ERR) {
-+		dthe_put_dev(ctx->dev);
-+		return -EINVAL;
-+	}
-+
-+	ctx->phash_size = dthe_hash_get_phash_size(ctx);
-+
-+	return 0;
-+}
-+
-+static void dthe_hash_exit_tfm(struct crypto_ahash *tfm)
-+{
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+
-+	dthe_put_dev(ctx->dev);
-+}
-+
-+static int dthe_hash_config_dma_chan(struct dma_chan *chan, struct crypto_ahash *tfm)
-+{
-+	struct dma_slave_config cfg;
-+	int bs = crypto_ahash_blocksize(tfm);
-+
-+	memzero_explicit(&cfg, sizeof(cfg));
-+
-+	cfg.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-+	cfg.dst_maxburst = bs / 4;
-+
-+	return dmaengine_slave_config(chan, &cfg);
-+}
-+
-+static void dthe_hash_dma_in_callback(void *data)
-+{
-+	struct ahash_request *req = (struct ahash_request *)data;
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+
-+	complete(&rctx->hash_compl);
-+}
-+
-+static int dthe_hash_dma_start(struct ahash_request *req, struct scatterlist *src,
-+			       int src_nents, size_t len)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+	struct dthe_data *dev_data = rctx->dev_data;
-+	struct device *tx_dev;
-+	struct dma_async_tx_descriptor *desc_out;
-+	int mapped_nents;
-+	enum dma_data_direction src_dir = DMA_TO_DEVICE;
-+	u32 hash_mode;
-+	int ds = crypto_ahash_digestsize(tfm);
-+	int ret = 0;
-+	u32 *dst;
-+	u32 dst_len;
-+	u32 _status;
-+	void __iomem *sha_base_reg = dev_data->regs + DTHE_P_HASH_BASE;
-+
-+	u32 hash_sysconfig_val = DTHE_HASH_SYSCONFIG_INT_EN | DTHE_HASH_SYSCONFIG_DMA_EN;
-+	u32 hash_irqenable_val = DTHE_HASH_IRQENABLE_EN_ALL;
-+
-+	writel_relaxed(hash_sysconfig_val, sha_base_reg + DTHE_P_HASH_SYSCONFIG);
-+	writel_relaxed(hash_irqenable_val, sha_base_reg + DTHE_P_HASH_IRQENABLE);
-+
-+	/* Config SHA DMA channel as per SHA mode */
-+	ret = dthe_hash_config_dma_chan(dev_data->dma_sha_tx, tfm);
-+	if (ret) {
-+		dev_err(dev_data->dev, "Can't configure sha_tx dmaengine slave: %d\n", ret);
-+		goto hash_err;
-+	}
-+
-+	tx_dev = dmaengine_get_dma_device(dev_data->dma_sha_tx);
-+	if (!tx_dev) {
-+		ret = -ENODEV;
-+		goto hash_err;
-+	}
-+
-+	mapped_nents = dma_map_sg(tx_dev, src, src_nents, src_dir);
-+	if (mapped_nents == 0) {
-+		ret = -EINVAL;
-+		goto hash_err;
-+	}
-+
-+	desc_out = dmaengine_prep_slave_sg(dev_data->dma_sha_tx, src, mapped_nents,
-+					   DMA_MEM_TO_DEV, DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
-+	if (!desc_out) {
-+		dev_err(dev_data->dev, "OUT prep_slave_sg() failed\n");
-+		ret = -EINVAL;
-+		goto hash_prep_err;
-+	}
-+
-+	desc_out->callback = dthe_hash_dma_in_callback;
-+	desc_out->callback_param = req;
-+
-+	init_completion(&rctx->hash_compl);
-+
-+	hash_mode = ctx->hash_mode;
-+
-+	if (dthe_hash_flag_is_op(rctx, DTHE_HASH_OP_FINUP))
-+		hash_mode |= DTHE_HASH_MODE_CLOSE_HASH;
-+
-+	if (dthe_hash_has_flag(rctx, DTHE_HASH_FLAG_PHASH_AVAIL)) {
-+		for (int i = 0; i < ctx->phash_size / sizeof(u32); ++i)
-+			writel_relaxed(rctx->phash[i],
-+				       sha_base_reg +
-+				       DTHE_P_HASH512_IDIGEST_A +
-+				       (DTHE_REG_SIZE * i));
-+
-+		writel_relaxed(rctx->digestcnt[0],
-+			       sha_base_reg + DTHE_P_HASH512_DIGEST_COUNT);
-+	} else {
-+		hash_mode |= DTHE_HASH_MODE_USE_ALG_CONST;
-+	}
-+
-+	writel_relaxed(hash_mode, sha_base_reg + DTHE_P_HASH512_MODE);
-+	writel_relaxed(len, sha_base_reg + DTHE_P_HASH512_LENGTH);
-+
-+	dmaengine_submit(desc_out);
-+
-+	dma_async_issue_pending(dev_data->dma_sha_tx);
-+
-+	ret = wait_for_completion_timeout(&rctx->hash_compl,
-+					  msecs_to_jiffies(DTHE_DMA_TIMEOUT_MS));
-+	if (!ret) {
-+		dmaengine_terminate_sync(dev_data->dma_sha_tx);
-+		ret = -ETIMEDOUT;
-+	} else {
-+		ret = 0;
-+	}
-+
-+	/* Poll output ready status register */
-+	if (!ret)
-+		ret = readl_relaxed_poll_timeout(sha_base_reg + DTHE_P_HASH_IRQSTATUS, _status,
-+						 (_status & DTHE_HASH_IRQSTATUS_OP_READY),
-+						 0, DTHE_POLL_TIMEOUT_INTERVAL);
-+
-+	/**
-+	 * We need to read the output registers even in case of failure (ret != 0) to clear
-+	 * them properly for future operations. But the function returning a non-zero value
-+	 * should indicate that something went wrong and the result value should not be used.
-+	 */
-+	if (dthe_hash_flag_is_op(rctx, DTHE_HASH_OP_UPDATE)) {
-+		/* If coming from update, we need to read the phash and store it for future */
-+		dst = rctx->phash;
-+		dst_len = ctx->phash_size / sizeof(u32);
-+	} else {
-+		/* If coming from finup or final, we need to read the final digest */
-+		dst = (u32 *)req->result;
-+		dst_len = ds / sizeof(u32);
-+	}
-+
-+	for (int i = 0; i < dst_len; ++i)
-+		put_unaligned(readl_relaxed(sha_base_reg +
-+					    DTHE_P_HASH512_IDIGEST_A +
-+					    (DTHE_REG_SIZE * i)),
-+			      &dst[i]);
-+
-+	rctx->digestcnt[0] = readl_relaxed(sha_base_reg + DTHE_P_HASH512_DIGEST_COUNT);
-+	dthe_hash_flag_set(rctx, DTHE_HASH_FLAG_PHASH_AVAIL);
-+
-+hash_prep_err:
-+	dma_unmap_sg(tx_dev, src, src_nents, src_dir);
-+hash_err:
-+	return ret;
-+}
-+
-+static int dthe_hash_run(struct crypto_engine *engine, void *areq)
-+{
-+	struct ahash_request *req = container_of(areq, struct ahash_request, base);
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+	struct dthe_data *dev_data = rctx->dev_data;
-+
-+	struct scatterlist *src, *sg;
-+	int src_nents = 0;
-+	unsigned int bs = crypto_ahash_blocksize(tfm);
-+	unsigned int tot_len = req->nbytes;
-+	unsigned int len_to_process;
-+	unsigned int len_to_buffer;
-+	unsigned int len_to_send;
-+	unsigned int pad_len = 0;
-+	bool is_data_held = dthe_hash_has_flag(rctx, DTHE_HASH_FLAG_IS_DATA_HELD);
-+	u8 *pad_buf = rctx->padding;
-+	int ret = 0;
-+
-+	if (dthe_hash_flag_is_op(rctx, DTHE_HASH_OP_UPDATE)) {
-+		len_to_process = tot_len - (tot_len % bs);
-+		len_to_buffer = tot_len % bs;
-+
-+		if (len_to_process == 0) {
-+			ret = len_to_buffer;
-+			goto hash_buf_all;
-+		}
-+
-+		/*
-+		 * Additionally hold back a trailing block in req ctx, so
-+		 * that hardware has data to do CLOSE_HASH in finup.
-+		 * Consume any block held from a previous round first.
-+		 */
-+		len_to_process -= bs;
-+		len_to_send = len_to_process + (is_data_held ? bs : 0);
-+
-+		if (len_to_send == 0) {
-+			memcpy_from_sglist(rctx->data, req->src, 0, bs);
-+			dthe_hash_flag_set(rctx, DTHE_HASH_FLAG_IS_DATA_HELD);
-+			ret = len_to_buffer;
-+			goto hash_buf_all;
-+		}
-+	} else {
-+		len_to_process = tot_len;
-+		if (check_add_overflow(len_to_process, (is_data_held ? bs : 0), &len_to_send)) {
-+			ret = -EOVERFLOW;
-+			goto hash_buf_all;
-+		}
-+		len_to_buffer = 0;
-+	}
-+
-+	src_nents = sg_nents_for_len(req->src, len_to_process);
-+	if (src_nents < 0) {
-+		ret = src_nents;
-+		goto hash_buf_all;
-+	}
-+	if (is_data_held)
-+		src_nents++;
-+
-+	/*
-+	 * Certain DMA restrictions forced us to send data in multiples of BLOCK_SIZE
-+	 * bytes. So, add a padding 0s at the end of src scatterlist if data is not a
-+	 * multiple of block_size bytes (Can only happen in final or finup). The extra
-+	 * data is ignored by the DTHE hardware.
-+	 */
-+	if (len_to_send % bs) {
-+		pad_len = bs - (len_to_send % bs);
-+		src_nents++;
-+	}
-+
-+	src = kcalloc(src_nents, sizeof(*src), GFP_KERNEL);
-+	if (!src) {
-+		ret = -ENOMEM;
-+		goto hash_buf_all;
-+	}
-+
-+	sg_init_table(src, src_nents);
-+	sg = src;
-+	if (is_data_held) {
-+		sg_set_buf(sg, rctx->data, bs);
-+		sg = sg_next(sg);
-+	}
-+	sg = dthe_copy_sg(sg, req->src, len_to_process);
-+	if (pad_len > 0) {
-+		memset(pad_buf, 0, pad_len);
-+		sg_set_buf(sg, pad_buf, pad_len);
-+	}
-+
-+	ret = dthe_hash_dma_start(req, src, src_nents, len_to_send);
-+	if (!ret) {
-+		if (dthe_hash_flag_is_op(rctx, DTHE_HASH_OP_UPDATE)) {
-+			memcpy_from_sglist(rctx->data, req->src, len_to_process, bs);
-+			dthe_hash_flag_set(rctx, DTHE_HASH_FLAG_IS_DATA_HELD);
-+		}
-+		ret = len_to_buffer;
-+	}
-+
-+	kfree(src);
-+
-+hash_buf_all:
-+	local_bh_disable();
-+	crypto_finalize_hash_request(engine, req, ret);
-+	local_bh_enable();
-+	dthe_put_drvdata(dev_data);
-+	return 0;
-+}
-+
-+static int dthe_hash_init(struct ahash_request *req)
-+{
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+
-+	rctx->flags = 0;
-+	rctx->digestcnt[0] = 0;
-+	rctx->digestcnt[1] = 0;
-+	memzero_explicit(rctx->data, sizeof(rctx->data));
-+
-+	return 0;
-+}
-+
-+static int dthe_hash_transfer_to_engine(struct dthe_tfm_ctx *ctx, struct ahash_request *req)
-+{
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+	struct dthe_data *dev_data;
-+	int ret;
-+
-+	dev_data = dthe_get_drvdata(ctx->dev);
-+	if (!dev_data)
-+		return -ENODEV;
-+
-+	rctx->dev_data = dev_data;
-+
-+	ret = crypto_transfer_hash_request_to_engine(dev_data->hash_engine, req);
-+	if (ret != -EINPROGRESS && ret != -EBUSY)
-+		dthe_put_drvdata(dev_data);
-+
-+	return ret;
-+}
-+
-+static int dthe_hash_update(struct ahash_request *req)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+
-+	if (req->nbytes == 0)
-+		return 0;
-+
-+	dthe_hash_flag_set_op(rctx, DTHE_HASH_OP_UPDATE);
-+
-+	return dthe_hash_transfer_to_engine(ctx, req);
-+}
-+
-+static int dthe_hash_final(struct ahash_request *req)
-+{
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+
-+	/**
-+	 * We are always buffering data in update, except when nbytes = 0.
-+	 * So, either we get the buffered data here (nbytes > 0), or there is
-+	 * a full block held back from a previous update (IS_DATA_HELD), or it
-+	 * is the case that we got a zero message to begin with.
-+	 */
-+	if (req->nbytes > 0 || dthe_hash_has_flag(rctx, DTHE_HASH_FLAG_IS_DATA_HELD)) {
-+		dthe_hash_flag_set_op(rctx, DTHE_HASH_OP_FINUP);
-+
-+		return dthe_hash_transfer_to_engine(ctx, req);
-+	}
-+
-+	dthe_hash_write_zero_message(ctx->hash_mode, req->result);
-+
-+	return 0;
-+}
-+
-+static int dthe_hash_finup(struct ahash_request *req)
-+{
-+	/* With AHASH_ALG_BLOCK_ONLY, final becomes same as finup. */
-+	return dthe_hash_final(req);
-+}
-+
-+static int dthe_hash_digest(struct ahash_request *req)
-+{
-+	dthe_hash_init(req);
-+	return dthe_hash_finup(req);
-+}
-+
-+static const u32 sha224_init_state[SHA256_DIGEST_SIZE / sizeof(u32)] = {
-+	SHA224_H0, SHA224_H1, SHA224_H2, SHA224_H3,
-+	SHA224_H4, SHA224_H5, SHA224_H6, SHA224_H7
-+};
-+
-+static const u32 sha256_init_state[SHA256_DIGEST_SIZE / sizeof(u32)] = {
-+	SHA256_H0, SHA256_H1, SHA256_H2, SHA256_H3,
-+	SHA256_H4, SHA256_H5, SHA256_H6, SHA256_H7
-+};
-+
-+static const u64 sha384_init_state[SHA512_DIGEST_SIZE / sizeof(u64)] = {
-+	SHA384_H0, SHA384_H1, SHA384_H2, SHA384_H3,
-+	SHA384_H4, SHA384_H5, SHA384_H6, SHA384_H7
-+};
-+
-+static const u64 sha512_init_state[SHA512_DIGEST_SIZE / sizeof(u64)] = {
-+	SHA512_H0, SHA512_H1, SHA512_H2, SHA512_H3,
-+	SHA512_H4, SHA512_H5, SHA512_H6, SHA512_H7
-+};
-+
-+static const void *dthe_hash_get_init_state(struct dthe_tfm_ctx *ctx)
-+{
-+	switch (ctx->hash_mode) {
-+	case DTHE_HASH_SHA224:
-+		return sha224_init_state;
-+	case DTHE_HASH_SHA256:
-+		return sha256_init_state;
-+	case DTHE_HASH_SHA384:
-+		return sha384_init_state;
-+	case DTHE_HASH_SHA512:
-+		return sha512_init_state;
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static int dthe_hash_export(struct ahash_request *req, void *out)
-+{
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+	unsigned int bs = crypto_ahash_blocksize(tfm);
-+	union {
-+		u8 *u8;
-+		u64 *u64;
-+	} p = { .u8 = out };
-+
-+	if (dthe_hash_has_flag(rctx, DTHE_HASH_FLAG_PHASH_AVAIL))
-+		memcpy(out, rctx->phash, ctx->phash_size);
-+	else
-+		memcpy(out, dthe_hash_get_init_state(ctx), ctx->phash_size);
-+
-+	p.u8 += ctx->phash_size;
-+	put_unaligned(rctx->digestcnt[0], p.u64++);
-+	if (ctx->phash_size >= SHA512_DIGEST_SIZE)
-+		put_unaligned(rctx->digestcnt[1], p.u64++);
-+
-+	memcpy(p.u8, rctx->data, bs);
-+	p.u8 += bs;
-+	put_unaligned(rctx->flags, p.u8++);
-+
-+	return 0;
-+}
-+
-+static int dthe_hash_import(struct ahash_request *req, const void *in)
-+{
-+	struct dthe_hash_req_ctx *rctx = ahash_request_ctx(req);
-+	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
-+	struct dthe_tfm_ctx *ctx = crypto_ahash_ctx(tfm);
-+	unsigned int bs = crypto_ahash_blocksize(tfm);
-+	union {
-+		const u8 *u8;
-+		const u64 *u64;
-+	} p = { .u8 = in };
-+
-+	memcpy(rctx->phash, in, ctx->phash_size);
-+	p.u8 += ctx->phash_size;
-+	rctx->digestcnt[0] = get_unaligned(p.u64++);
-+	if (ctx->phash_size >= SHA512_DIGEST_SIZE)
-+		rctx->digestcnt[1] = get_unaligned(p.u64++);
-+
-+	memcpy(rctx->data, p.u8, bs);
-+	p.u8 += bs;
-+	rctx->flags = get_unaligned(p.u8++);
-+
-+	return 0;
-+}
-+
-+static struct ahash_engine_alg hash_algs[] = {
-+	{
-+		.base.init_tfm	= dthe_hash_init_tfm,
-+		.base.exit_tfm	= dthe_hash_exit_tfm,
-+		.base.init	= dthe_hash_init,
-+		.base.update	= dthe_hash_update,
-+		.base.final	= dthe_hash_final,
-+		.base.finup	= dthe_hash_finup,
-+		.base.digest	= dthe_hash_digest,
-+		.base.export	= dthe_hash_export,
-+		.base.import	= dthe_hash_import,
-+		.base.halg	= {
-+			.digestsize = SHA512_DIGEST_SIZE,
-+			.statesize = sizeof(struct dthe_hash_req_ctx),
-+			.base = {
-+				.cra_name	 = "sha512",
-+				.cra_driver_name = "sha512-dthev2",
-+				.cra_priority	 = 299,
-+				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
-+						   CRYPTO_ALG_ASYNC |
-+						   CRYPTO_ALG_OPTIONAL_KEY |
-+						   CRYPTO_ALG_KERN_DRIVER_ONLY |
-+						   CRYPTO_ALG_ALLOCATES_MEMORY |
-+						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
-+						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
-+				.cra_blocksize	 = SHA512_BLOCK_SIZE,
-+				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
-+				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
-+				.cra_module	 = THIS_MODULE,
-+			}
-+		},
-+		.op.do_one_request = dthe_hash_run,
-+	},
-+	{
-+		.base.init_tfm	= dthe_hash_init_tfm,
-+		.base.exit_tfm	= dthe_hash_exit_tfm,
-+		.base.init	= dthe_hash_init,
-+		.base.update	= dthe_hash_update,
-+		.base.final	= dthe_hash_final,
-+		.base.finup	= dthe_hash_finup,
-+		.base.digest	= dthe_hash_digest,
-+		.base.export	= dthe_hash_export,
-+		.base.import	= dthe_hash_import,
-+		.base.halg	= {
-+			.digestsize = SHA384_DIGEST_SIZE,
-+			.statesize = sizeof(struct dthe_hash_req_ctx),
-+			.base = {
-+				.cra_name	 = "sha384",
-+				.cra_driver_name = "sha384-dthev2",
-+				.cra_priority	 = 299,
-+				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
-+						   CRYPTO_ALG_ASYNC |
-+						   CRYPTO_ALG_OPTIONAL_KEY |
-+						   CRYPTO_ALG_KERN_DRIVER_ONLY |
-+						   CRYPTO_ALG_ALLOCATES_MEMORY |
-+						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
-+						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
-+				.cra_blocksize	 = SHA384_BLOCK_SIZE,
-+				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
-+				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
-+				.cra_module	 = THIS_MODULE,
-+			}
-+		},
-+		.op.do_one_request = dthe_hash_run,
-+	},
-+	{
-+		.base.init_tfm	= dthe_hash_init_tfm,
-+		.base.exit_tfm	= dthe_hash_exit_tfm,
-+		.base.init	= dthe_hash_init,
-+		.base.update	= dthe_hash_update,
-+		.base.final	= dthe_hash_final,
-+		.base.finup	= dthe_hash_finup,
-+		.base.digest	= dthe_hash_digest,
-+		.base.export	= dthe_hash_export,
-+		.base.import	= dthe_hash_import,
-+		.base.halg	= {
-+			.digestsize = SHA256_DIGEST_SIZE,
-+			.statesize = sizeof(struct dthe_hash_req_ctx),
-+			.base = {
-+				.cra_name	 = "sha256",
-+				.cra_driver_name = "sha256-dthev2",
-+				.cra_priority	 = 299,
-+				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
-+						   CRYPTO_ALG_ASYNC |
-+						   CRYPTO_ALG_OPTIONAL_KEY |
-+						   CRYPTO_ALG_KERN_DRIVER_ONLY |
-+						   CRYPTO_ALG_ALLOCATES_MEMORY |
-+						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
-+						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
-+				.cra_blocksize	 = SHA256_BLOCK_SIZE,
-+				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
-+				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
-+				.cra_module	 = THIS_MODULE,
-+			}
-+		},
-+		.op.do_one_request = dthe_hash_run,
-+	},
-+	{
-+		.base.init_tfm	= dthe_hash_init_tfm,
-+		.base.exit_tfm	= dthe_hash_exit_tfm,
-+		.base.init	= dthe_hash_init,
-+		.base.update	= dthe_hash_update,
-+		.base.final	= dthe_hash_final,
-+		.base.finup	= dthe_hash_finup,
-+		.base.digest	= dthe_hash_digest,
-+		.base.export	= dthe_hash_export,
-+		.base.import	= dthe_hash_import,
-+		.base.halg	= {
-+			.digestsize = SHA224_DIGEST_SIZE,
-+			.statesize = sizeof(struct dthe_hash_req_ctx),
-+			.base = {
-+				.cra_name	 = "sha224",
-+				.cra_driver_name = "sha224-dthev2",
-+				.cra_priority	 = 299,
-+				.cra_flags	 = CRYPTO_ALG_TYPE_AHASH |
-+						   CRYPTO_ALG_ASYNC |
-+						   CRYPTO_ALG_OPTIONAL_KEY |
-+						   CRYPTO_ALG_KERN_DRIVER_ONLY |
-+						   CRYPTO_ALG_ALLOCATES_MEMORY |
-+						   CRYPTO_AHASH_ALG_BLOCK_ONLY |
-+						   CRYPTO_AHASH_ALG_NO_EXPORT_CORE,
-+				.cra_blocksize	 = SHA224_BLOCK_SIZE,
-+				.cra_ctxsize	 = sizeof(struct dthe_tfm_ctx),
-+				.cra_reqsize	 = sizeof(struct dthe_hash_req_ctx),
-+				.cra_module	 = THIS_MODULE,
-+			}
-+		},
-+		.op.do_one_request = dthe_hash_run,
-+	},
-+};
-+
-+int dthe_register_hash_algs(void)
-+{
-+	return crypto_engine_register_ahashes(hash_algs, ARRAY_SIZE(hash_algs));
-+}
-+
-+void dthe_unregister_hash_algs(void)
-+{
-+	crypto_engine_unregister_ahashes(hash_algs, ARRAY_SIZE(hash_algs));
-+}
--- 
-2.34.1
+On Thu, 2026-09-10 at 16:05 +0100, Lee Jones wrote:
+> On Wed, 02 Sep 2026, Rong Zhang wrote:
+>=20
+> > There are multiple triggers implementing hardware control. However, the
+> > LED trigger core doesn't really know the hardware control (offloaded)
+> > state since the coordination is done directly between the trigger and
+> > the LED driver. It can only assume private triggers as offloaded and
+> > generic ones as not offloaded.
+> >=20
+> > Add an offloaded() callback so that triggers can report their offloaded
+> > states to the LED trigger core. When unimplemented, it defaults to true
+> > for private triggers and false for generic ones to keep the current
+> > behavior unchanged.
+> >=20
+> > With that, provide a new attribute "trigger_may_offload", so that
+> > userspace can determine:
+> >=20
+> > - if the LED device supports hardware control (supported =3D> visible)
+> > - which trigger is the hardware control trigger selected by the LED
+> >   device
+> > - if the trigger is selected ("<foo_trigger>")
+> > - if the trigger is offloaded ("[foo_trigger]")
+> >=20
+> > Note: the documentation describes the attribute as "returning a list"
+> > despite the LED core currently only supports one hardware control
+> > trigger per LED device. This is intentional to make the attribute
+> > extensible in the future without breaking userspace.
+> >=20
+> > Acked-by: Ike Panhc <ikepanhc@gmail.com>
+> > Signed-off-by: Rong Zhang <i@rong.moe>
+> > ---
+> > Changes in v6:
+> > - Update Date: and KernelVersion: for the document of
+> >   /sys/class/leds/<led>/trigger_may_offload
+> >=20
+> > Changes in v3:
+> > - Rearrange the series so that the code using the offloaded() callback =
+is
+> >   introduced before the driver implementation (thanks Thomas Wei=C3=9Fs=
+chuh)
+> > - Reword documentation (ditto)
+> > - Adopt guard() and lockdep (ditto)
+> > - Adopt __led_trigger_is_hw_controlled() from newly-integrated PATCH 1
+> > ---
+> >  Documentation/ABI/testing/sysfs-class-led | 22 ++++++++++++++++++++++
+> >  Documentation/leds/leds-class.rst         | 20 ++++++++++++++++++++
+> >  drivers/leds/led-class.c                  | 22 ++++++++++++++++++++++
+> >  drivers/leds/led-triggers.c               | 30 +++++++++++++++++++++++=
++++++++
+> >  drivers/leds/leds.h                       |  2 ++
+> >  include/linux/leds.h                      |  1 +
+> >  6 files changed, 97 insertions(+)
+> >=20
+> > diff --git a/Documentation/ABI/testing/sysfs-class-led b/Documentation/=
+ABI/testing/sysfs-class-led
+> > index d4c918cc11a1..e3605fc55fa8 100644
+> > --- a/Documentation/ABI/testing/sysfs-class-led
+> > +++ b/Documentation/ABI/testing/sysfs-class-led
+> > @@ -78,6 +78,28 @@ Description:
+> >  		(which would often be configured in the device tree for the
+> >  		hardware).
+> > =20
+> > +What:		/sys/class/leds/<led>/trigger_may_offload
+>=20
+> *_to_hw?
 
+ACK.
+
+>=20
+> > +Date:		September 2026
+> > +KernelVersion:	7.4
+> > +Contact:	linux-leds@vger.kernel.org
+> > +Description:
+> > +		Names and states of triggers that may be offloaded to hardware.
+> > +		Such triggers are also called "hardware control trigger" in some
+> > +		context.
+> > +
+> > +		Only exists when the LED supports trigger offload.
+> > +
+> > +		Reading this file returns a list of triggers that are capable to
+> > +		be offloaded. The optional brackets around the trigger name
+> > +		indicate the state of the current trigger:
+> > +
+> > +		- `foo_trigger`: the trigger is not selected.
+> > +		- `<foo_trigger>`: the trigger is selected, but falls back to
+> > +		  software blink for some reason (e.g., incompatible trigger
+> > +		  parameters)
+> > +		- `[foo_trigger]`: the trigger is selected and offloaded to
+> > +		  hardware.
+> > +
+> >  What:		/sys/class/leds/<led>/inverted
+> >  Date:		January 2011
+> >  KernelVersion:	2.6.38
+> > diff --git a/Documentation/leds/leds-class.rst b/Documentation/leds/led=
+s-class.rst
+> > index 3913966cfdac..2d41a6db602c 100644
+> > --- a/Documentation/leds/leds-class.rst
+> > +++ b/Documentation/leds/leds-class.rst
+> > @@ -242,6 +242,9 @@ ops and needs to declare specific support for the s=
+upported triggers.
+> > =20
+> >  With hw control we refer to the LED driven by hardware.
+> > =20
+> > +A sysfs attribute `trigger_may_offload` is provided for userspace to
+> > +query supported triggers and their states.
+> > +
+> >  LED driver must define the following value to support hw control:
+> > =20
+> >      - hw_control_trigger:
+> > @@ -298,6 +301,15 @@ LED driver must implement the following API to sup=
+port hw control:
+> >                  Returns a pointer to a struct device or NULL if nothin=
+g
+> >                  is currently attached.
+> > =20
+> > +LED trigger should implement the following API to indicate hw control:
+> > +    - offloaded:
+>=20
+> hw_offloaded?
+
+ACK.
+
+>=20
+> > +                return a boolean indicating if the trigger is currentl=
+y
+> > +                offloaded to hardware.
+> > +
+> > +                If a trigger doesn't implement this callback, the defa=
+ult
+> > +                value will be true for private triggers and false for =
+generic
+> > +                ones.
+> > +
+> >  LED driver can activate additional modes by default to workaround the
+> >  impossibility of supporting each different mode on the supported trigg=
+er.
+> >  Examples are hardcoding the blink speed to a set interval, enable spec=
+ial
+> > @@ -311,6 +323,14 @@ the end use hw_control_set to activate hw control.
+> >  A trigger can use hw_control_get to check if a LED is already in hw co=
+ntrol
+> >  and init their flags.
+> > =20
+> > +Alternatively, a private trigger can be implemented along with the LED=
+ driver if
+> > +the LED's hardware control doesn't fit any generic trigger. To associa=
+te the
+> > +private trigger with the LED classdev, their `trigger_type` must be th=
+e same. To
+> > +declare that the private trigger provides hardware control for the ass=
+ociated
+> > +LED classdev, set the `hw_control_trigger` string to the trigger's nam=
+e. Since
+> > +both the LED classdev and the private trigger are in the same LED driv=
+er, it's
+> > +not necessary for them to coordinate via `hw_control_*` callbacks.
+> > +
+> >  When the LED is in hw control, no software blink is possible and doing=
+ so
+> >  will effectively disable hw control.
+> > =20
+> > diff --git a/drivers/leds/led-class.c b/drivers/leds/led-class.c
+> > index 39cc2f3ea63f..7e571bd1de5b 100644
+> > --- a/drivers/leds/led-class.c
+> > +++ b/drivers/leds/led-class.c
+> > @@ -96,8 +96,30 @@ static const struct bin_attribute *const led_trigger=
+_bin_attrs[] =3D {
+> >  	&bin_attr_trigger,
+> >  	NULL,
+> >  };
+> > +
+> > +static DEVICE_ATTR_RO(trigger_may_offload);
+> > +static struct attribute *led_trigger_attrs[] =3D {
+> > +	&dev_attr_trigger_may_offload.attr,
+> > +	NULL
+> > +};
+> > +
+> > +static umode_t led_trigger_is_visible(struct kobject *kobj,
+>=20
+> Why doesn't all of this live in the triggers file as well?
+
+The current revision only exports trigger_may_offload() to coordinate the
+two files (led-class.c and led-trigger.c).
+
+If we had to move led_trigger_is_visible() into led-triggers.c, the
+trigger_may_offload and led_trigger_attrs must be moved as well. Due to
+the movement, we would have to export led_trigger_attrs and
+led_trigger_is_visible() to fill led_trigger_group.
+
+in short, moving led_trigger_is_visible() requires exporting more
+symbols.
+
+To make things tidier, how about moving led_trigger_group and
+led_trigger_bin_attrs into led-triggers.c as well? In this manner we only
+need to export led_trigger_group, and the #ifdef block here is
+eliminated. What do you think?
+
+>=20
+> > +				      struct attribute *attr,
+> > +				      int idx)
+> > +{
+> > +	struct device *dev =3D kobj_to_dev(kobj);
+> > +	struct led_classdev *led_cdev =3D dev_get_drvdata(dev);
+> > +
+> > +	if (attr =3D=3D &dev_attr_trigger_may_offload.attr)
+> > +		return led_cdev->hw_control_trigger ? attr->mode : 0;
+> > +
+> > +	return attr->mode;
+> > +}
+> > +
+> >  static const struct attribute_group led_trigger_group =3D {
+> >  	.bin_attrs =3D led_trigger_bin_attrs,
+> > +	.attrs =3D led_trigger_attrs,
+> > +	.is_visible =3D led_trigger_is_visible,
+> >  };
+> >  #endif
+> > =20
+> > diff --git a/drivers/leds/led-triggers.c b/drivers/leds/led-triggers.c
+> > index 804a04b326c4..de17a8bbb4d4 100644
+> > --- a/drivers/leds/led-triggers.c
+> > +++ b/drivers/leds/led-triggers.c
+> > @@ -42,6 +42,10 @@ static bool __led_trigger_is_hw_controlled(struct le=
+d_classdev *led_cdev)
+> >  	if (!led_cdev->trigger)
+> >  		return false;
+> > =20
+> > +	if (led_cdev->trigger->offloaded)
+> > +		return led_cdev->trigger->offloaded(led_cdev);
+> > +
+> > +	/* Otherwise assume private triggers as always offloaded. */
+>=20
+> s/as/are/
+
+ACK.
+
+>=20
+> >  	return led_cdev->trigger->trigger_type;
+> >  }
+> > =20
+> > @@ -341,6 +345,32 @@ void led_trigger_set_default(struct led_classdev *=
+led_cdev)
+> >  }
+> >  EXPORT_SYMBOL_GPL(led_trigger_set_default);
+> > =20
+> > +ssize_t trigger_may_offload_show(struct device *dev,
+> > +				 struct device_attribute *attr, char *buf)
+> > +{
+> > +	struct led_classdev *led_cdev =3D dev_get_drvdata(dev);
+> > +	struct led_trigger *trig;
+> > +	bool hit, offloaded;
+> > +	int len;
+> > +
+> > +	guard(mutex)(&led_cdev->led_access);
+> > +	guard(rwsem_read)(&led_cdev->trigger_lock);
+> > +
+> > +	trig =3D led_cdev->trigger;
+> > +
+> > +	offloaded =3D __led_trigger_is_hw_controlled(led_cdev);
+> > +	hit =3D offloaded || (trig && !strcmp(led_cdev->hw_control_trigger, t=
+rig->name));
+> > +
+> > +	/* [offloaded] <active_but_not_offloaded> inactive */
+>=20
+> Why do they have to live in different 'containers'?
+
+The comment might be somewhat misleading...
+
+An LED device can never have an offloaded trigger and an active-but-not-
+offloaded trigger at the same time. The comment just demonstrates how the
+output might look like.
+
+The output is multiplexed to help userspace determine two things in one
+read:
+
+- The name of the LED device's hardware control trigger
+- The state of the said trigger
+
+That being said, if the complexity is undesired, it's OK to convert the
+attribute into a dumb one that only returns the plain name of the
+hardware control trigger. In this manner we will need to provide an
+additional attribute to expose the offloaded state. This can be achieved
+by adopting the attribute "offloaded" from netdev into led-triggers.c.
+What do you think?
+
+Thanks,
+Rong
+
+>=20
+> > +	len =3D sysfs_emit(buf, "%s%s%s\n",
+> > +			 offloaded ? "[" : (hit ? "<" : ""),
+> > +			 led_cdev->hw_control_trigger,
+> > +			 offloaded ? "]" : (hit ? ">" : ""));
+> > +
+> > +	return len;
+> > +}
+> > +EXPORT_SYMBOL_GPL(trigger_may_offload_show);
+> > +
+> >  /* LED Trigger Interface */
+> > =20
+> >  int led_trigger_register(struct led_trigger *trig)
+> > diff --git a/drivers/leds/leds.h b/drivers/leds/leds.h
+> > index bee46651e068..b08a289397e4 100644
+> > --- a/drivers/leds/leds.h
+> > +++ b/drivers/leds/leds.h
+> > @@ -27,6 +27,8 @@ ssize_t led_trigger_read(struct file *filp, struct ko=
+bject *kobj,
+> >  ssize_t led_trigger_write(struct file *filp, struct kobject *kobj,
+> >  			const struct bin_attribute *bin_attr, char *buf,
+> >  			loff_t pos, size_t count);
+> > +ssize_t trigger_may_offload_show(struct device *dev,
+> > +				 struct device_attribute *attr, char *buf);
+> > =20
+> >  extern struct rw_semaphore leds_list_lock;
+> >  extern struct list_head leds_list;
+> > diff --git a/include/linux/leds.h b/include/linux/leds.h
+> > index d778709f5b1b..bee2b4309a09 100644
+> > --- a/include/linux/leds.h
+> > +++ b/include/linux/leds.h
+> > @@ -485,6 +485,7 @@ struct led_trigger {
+> >  	const char	 *name;
+> >  	int		(*activate)(struct led_classdev *led_cdev);
+> >  	void		(*deactivate)(struct led_classdev *led_cdev);
+> > +	bool		(*offloaded)(struct led_classdev *led_cdev);
+> > =20
+> >  	/* Brightness set by led_trigger_event */
+> >  	enum led_brightness brightness;
+> >=20
+> > --=20
+> > 2.55.0
+> >=20
