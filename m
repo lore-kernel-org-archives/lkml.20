@@ -1,127 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E175E59B661;
-	Thu, 10 Sep 2026 19:00:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96945908AF;
+	Thu, 10 Sep 2026 19:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066836; cv=none; b=Z6dINhMINVZpiX7PkWHiLCHhiRDciw55hG7/t0eTZLAiQhhy1zivyl2rvD/ZLsLdkYRwBl36yMM1GhfdoGP06wWfdVJ1sXbI6QQEILe6IcRo/U4qENzfjX808AGNUdHvIh3b4sFjr1fay4VyVaQk4/jpHHcRxRsXAaox/xJ6dBo=
+	t=1789066902; cv=none; b=mhw/wUChjZg42ULHuWLbvvg7qgbUt1Qjl2ad/BkgjdrSEMbZqhLxNUBRbyYRQULArfSmoudh2VmViZbYHM5KeoAKvouPS97W2UKv/YSn3CxNtOUgeelfQ5p/oylzWUu+mC67qgwanDV1qKGt6kkQtHU7UhtQIH5zE1I7CDa2n+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066836; c=relaxed/simple;
-	bh=Jy4DXAG0SPTzwfacTiq4mR+y0f3/zcZiNxvzDjsPQNs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f6y0v0wDiIb0sg25kWxnISxEdjwSzto/dOVCb8f4oxphMneomP6OuX4l3pt/pfwWevx2WU4kgYcD5xrobMzF4Ldj34evPDU4kQGXAJ6FZy27TFpXAEexzIpb33W+vxcE+t4PqaTDr14FCju9BsuTcdKcWaj6p+aRR2ZcU6/BVKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uo6MJqki; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789066902; c=relaxed/simple;
+	bh=oM36+sCiJzLl1vlQuOx2XFLCpKIJ9874GC4BB6iAR04=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tqlvPZg8Jw6ak4/mE2VQmnnMPGPELpNkcEclzZmDqdhX3O4ml6DJqdsehYlP5a74gWIVN0+yuEWbxKD2pLHum8kox2miE7Fz2D2IYeWW2Rp+4YgZZtYB5tjTrLZummVX2D+FcnbLgyIPxNLG4CvNYjlVDLHxsUmCgp/O1MWcLNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9kDcbfr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uo6MJqki"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 156B11F0089D;
-	Thu, 10 Sep 2026 19:00:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9kDcbfr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6231F000FF;
+	Thu, 10 Sep 2026 19:01:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789066834;
-	bh=adpUAXMLWlwls3uA0tHpuBpUMbpToZc2bhx+dPqey8c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uo6MJqkiza5YQp8bmOAnZZ7Clc3G4MCqQgdKfnCBsPBugXp/06M0nPAXCsmC8NpwI
-	 sXIcCQcWDcUKPDlMwiuyrKxmuiuj/of1ACyYxanR5qSG8LOCML5FtrJ7/T429DaAEq
-	 GG8p/bKvaUOzzKlZEPxAneoX1o5Lz0hX6QrC4vPGMGXR55tnZVsvE81ITy6gcMjJ6w
-	 TmQiePj48cDDpnvMR3NrRqPFm7ZLv+5rKuhm0n1HGvXyj7T7UNuJOoVs00l/jQxE1w
-	 /8HTbwN9Hd38NoU2MTSbv3XawJfpUUhnYe9+RygWi0HdpC0JEr7CWkIpFzGtKzdaYQ
-	 vCh3f4bpTQdnA==
-From: Nicolas Schier <nsc@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 02/23] scripts/mksysmap: fix escape of '$' in the __pi_ pattern
-Date: Thu, 10 Sep 2026 21:00:16 +0200
-Message-ID: <178906667522.724141.8105989008359153155.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908-build-speedup-v1-2-5dc1ac01672d@kernel.org>
-References: <20260908-build-speedup-v1-2-5dc1ac01672d@kernel.org>
+	s=k20260515; t=1789066900;
+	bh=o/aJgC7/v4Ab0Ev6JyLQT1mN8r2uNaekGe8w0Q8Fi4k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K9kDcbfrBDWRVngAIGGKwdtDSajfbjWd5JjJtsPDjlQZxCUNjMzw01/5bP9X80uKF
+	 lHzIUUriCuZerdqhq/yVaYD76SA2MC8dTZGLC/gqIK6nc+xYROXN6vI3a6nd13UkuI
+	 mTzSCpnC6FiOa6PoTKWU0gn+yeVP5z8j90WI77F4LAB3lxIdpGGGtLqB7YSiBH/v1e
+	 S1vhNjaH0rPBcQYtlEnQisISaxXMp5wiG1AeOlUlyau57RDlln7Sd5w2XfCI4HhVZP
+	 zUbSIehwFt0tJXxIpFHQrB1ePpaL3CyzUui++f405FmO3J8p8GikOB6wpOiaxKzFj1
+	 0JDwNz23IO70A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] mtd: spi-nor: take the flash lock in
+ spi_nor_shutdown()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: mwalle@kernel.org, "Itai Handler" <itai.handler@gmail.com>, pratyush@kernel.org
+Cc: linux-kernel@vger.kernel.org, takahiro.kuwano@infineon.com, richard@nod.at, stable@vger.kernel.org, miquel.raynal@bootlin.com, linux-mtd@lists.infradead.org, vigneshr@ti.com
+In-Reply-To: <20260910184452.895485-2-itai.handler@gmail.com>
+References: <20260910184452.895485-1-itai.handler@gmail.com>
+ <20260910184452.895485-2-itai.handler@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 19:01:39 +0000
+Message-Id: <20260910190139.BF6231F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Tue, 08 Sep 2026 21:55:02 +0100, Lorenzo Stoakes (ARM) wrote:
-> Commit b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
-> converted scripts/mksysmap from a shell script to a sed script.
-> 
-> However an error was made - escaping of '$' required \\ escaping in shell
-> but only \ in a sed script.
-> 
-> This was mostly corrected in commit 7a6c355b55c0 ("scripts/mksysmap: Fix
-> escape chars '$'"), but this fix missed arm64 PIE namespace local symbols
-> like __pi_$x and __pi_$d which appear in System.mapand /proc/kallsyms:
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Applied to kbuild/linux.git (kbuild-fixes-unstable), thanks!
+New issues:
+- [High] Unsafe Killable Wait in Shutdown/Remove skips hardware restoration
 
-[02/23] scripts/mksysmap: fix escape of '$' in the __pi_ pattern
-        https://git.kernel.org/kbuild/c/b99d1f50
+Pre-existing issues:
+- [Critical] Race condition leading to data corruption after shutdown resto=
+re
+- [High] Resource leak in locking helpers on fatal signal interruption
+--
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped,
-reverted or modified (e.g. trailers).
+commit 7d7b032d63ce9b4009f7d886e821261d29fb7c2a
+Author: Itai Handler <itai.handler@gmail.com>
 
-The patch is applied to the kbuild-fixes-unstable branch and accepted
-pending wider testing in linux-next and any post-commit review; it will
-generally be moved to the kbuild-fixes branch within about a week if no
-issues are found.
+mtd: spi-nor: take the flash lock in spi_nor_shutdown()
 
-Best regards,
--- 
-Nicolas
+This commit modifies spi_nor_shutdown() to acquire the device lock before
+restoring the flash addressing mode. This serializes the restore operation
+against operations already in flight during system shutdown.
 
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index ccf4396cdcd04..96dd6ae6d6191 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
+>  static void spi_nor_shutdown(struct spi_mem *spimem)
+>  {
+>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
+> +	int ret;
+> +
+> +	/*
+> +	 * Wait for an operation started by another thread to finish.
+> +	 * device_shutdown() runs with MTD users still active: a busy flash
+> +	 * ignores the commands spi_nor_restore() issues, leaving it in
+> +	 * 4-byte address mode, and a restore landing mid-read changes the
+> +	 * chip's address width under the transfer.
+> +	 */
+> +	ret =3D spi_nor_prep_and_lock(nor);
+
+[Severity: High]
+This is a pre-existing issue, but does spi_nor_prep_and_lock() leak device
+preparation resources if interrupted by a fatal signal?
+
+If a process is killed while waiting on wait_event_killable() inside
+spi_nor_prep_and_lock(), it returns -ERESTARTSYS but fails to invoke
+spi_nor_unprep() to roll back the earlier spi_nor_prep() call. Does this
+also apply to the other locking helpers like spi_nor_prep_and_lock_pe() and
+spi_nor_prep_and_lock_rd()?
+
+> +	if (ret)
+> +		return;
+
+[Severity: High]
+If a fatal signal is pending during the reboot process, such as from the OOM
+killer or a manual SIGKILL, wait_event_killable() in spi_nor_prep_and_lock()
+will immediately return -ERESTARTSYS.
+
+Will this early return skip the spi_nor_restore() hardware state reset? Sin=
+ce
+this skips restoring the 3-byte addressing mode, could the bootloader read
+garbage on the next boot, leaving the device unbootable until a power cycle?
+
+> =20
+>  	spi_nor_restore(nor);
+> +	spi_nor_unlock_and_unprep(nor);
+
+[Severity: Critical]
+This is a pre-existing issue, but could releasing the lock while the MTD
+device remains active expose the flash's modified 3-byte addressing state
+to concurrent operations?
+
+If a concurrent thread acquires the lock immediately after spi_nor_shutdown=
+()
+finishes and issues a write command, the driver will assume 4-byte mode
+and send 4 address bytes. Could the hardware misinterpret the 4th address
+byte as data, resulting in permanent data corruption by shifting the
+destination address?
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910184452.8954=
+85-1-itai.handler@gmail.com?part=3D1
