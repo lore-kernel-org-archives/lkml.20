@@ -1,137 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060CB34A79D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC64B3E1D0B;
+	Thu, 10 Sep 2026 07:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027154; cv=none; b=TJLsCtVPnvqnqSwStaIDtzJvV6wr6eIDBJ2mCrlpxViurzkvQMvCPVU6rDB2EhNrbHntc7bVE49Bmg4V07+/OnJYJrvioLGDy38RWVkhtQJMDIdZXj/wboPis0oiga8shgKIDfA5Ok0Drlh9KEGSFY5inW1xHOaaezoeh4G92QY=
+	t=1789027159; cv=none; b=ZIplQ7nwJyAkJZfMCj9DwrGPSKbvrnaUkKrBNlLyPKW++1x0blqleg9LgJo6FZcMeUzJYY6WAVvb9QjuNTOlqft//9KaHl5AOWTJevSvzec1FC5k8FykEPYOnPkcocXHwcrYRCmFdBPxhJBZJQhUEQ6OZ3v8ThExiMPMcsBiTeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027154; c=relaxed/simple;
-	bh=+tSVGHYluMghAiERypGLAKiFGJVcuO1hjr/vqDKFeSQ=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=bsDSRbCEyA9y7DZTP8qV8WaEz0c5fSCOVTk2XckZRB2B/CkoKbCFLI5gWIZsgjTD0XOjPkzwzbpYTedMjYQ7jDIkcijJp7Pbr7EhsvvrANMyTP1hw1zzzb5+JVlEk3Ld6xbn07nql2L5MgRewRTYl52uYZ2IL15t4PO11RdVrxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GXQfYWIM; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789027159; c=relaxed/simple;
+	bh=QBEqFvG49KXMsUBHY3b3Wrm2c+A9EmPSlprClXsGqzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aF5b0e499MWA1/WYXGo4AZV2n/xflwEXQeXfQYLgc8LrmdBzPJtLRYOGuPdgONfqlmDtfXpVMTBkdRb6HMfnWlpcxU63mHoJeivpg7dO7CcxcbZdD8E6kh+s7L/K7wlbW+fTFDsmoM7lIR7LSrJS9c8Gt3rTHIz9F2LhcNhU634=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQFA2UmQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GXQfYWIM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789027152; x=1820563152;
-  h=date:from:to:cc:subject:message-id;
-  bh=+tSVGHYluMghAiERypGLAKiFGJVcuO1hjr/vqDKFeSQ=;
-  b=GXQfYWIMg/sLVb+btU059matH8toHaeOd6fGasX71/DuI0lHv1o2t8Oi
-   idwtO/uKSxCJcSYW2fibE65Mktdlp5CXgw3Ja6IkFC55qH68n7nH8ptCB
-   9kAjntMl+qagjM8/JJ/CcWZG4xogxVpCTWnKxdhYvxonJdF5V/Ezk5Kya
-   0H5WSPGUweiaB6a7AB9ckwl4ahkusNpP7gS6lD5Mel0NyR3wwvcbWAZOb
-   X55L2/NSVz5Nn3zAGFjcEF99H2saxOkTYae5z9kz7ZxdO136tcFla+mib
-   XVohP4qKKQiQEhl1stNRD7VDBvSRylQHUvx0E3XSTYYeCF4/OOQCbR+3O
-   A==;
-X-CSE-ConnectionGUID: RLG9iioMQxW5LRoxs2WwqA==
-X-CSE-MsgGUID: T38cGlrfRESfGTlnv+bQnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106838481"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="106838481"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:59:12 -0700
-X-CSE-ConnectionGUID: nnds1CkvTZyM23Kl+1hDSg==
-X-CSE-MsgGUID: bEG5tgFvSaqpU4ced0wZ6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="275707554"
-Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 10 Sep 2026 00:59:11 -0700
-Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4Zga-000000001Y7-1VkE;
-	Thu, 10 Sep 2026 07:59:08 +0000
-Date: Thu, 10 Sep 2026 15:58:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:x86:urgent] BUILD SUCCESS
- f7491d7c81db0e7c304a7bd757a76d2fbeaff80e
-Message-ID: <202609101530.8O3CL2sx-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQFA2UmQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD62B1F000FF;
+	Thu, 10 Sep 2026 07:59:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789027157;
+	bh=NRs/chg0KdnpHvHLY9kfJ9kqDasmfHkg3JlNvfdFpxc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NQFA2UmQHMnTly+2eXTG8Pj8f+tmN8nLepBmX5vYFNjVw1HfO3ezcE2e3msAZcGKZ
+	 Nj85KlHQ7ImLxXVhEMr+AXBT/ULU3Zh58BBiYEUMCZqu6PX/SkPJqMSjP/vdKr/sZ1
+	 Cw0SThBCYzl9SW8qCmYWP0gGyLp6/njf2s0ydXIJBfvnFG7iJgU0/dbdRvT+LNQq8B
+	 vI+IaR3JxmLvUBbRZBwNJxifjFC1r4u+XndAlj32yr5YoDSkSOfFpfnaouIaJwP1Za
+	 e/HMCoMOkXuEQ0wm5waUt0AjJkPOFVYQJSJFxLrgvOB+YGpM24gUHIfypCoQ9/EgJK
+	 Hinjfj/aUvopQ==
+Date: Thu, 10 Sep 2026 09:59:08 +0200
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 07/12] mm/sparse: remove pfn_in_present_section()
+Message-ID: <aqJjTE04G1A1l0A3@localhost.localdomain>
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-7-008fc8d579fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-7-008fc8d579fe@kernel.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/urgent
-branch HEAD: f7491d7c81db0e7c304a7bd757a76d2fbeaff80e  x86/mm: Fix user-space data loss with MADV_FREE and THP
+On Wed, Sep 09, 2026 at 03:33:00PM +0200, David Hildenbrand (Arm) wrote:
+> Unused, let's remove it.
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-elapsed time: 1335m
+Acked-by: Oscar Salvador <osalvador@suse.de>
 
-configs tested: 60
-configs skipped: 0
+ 
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
-
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc          allmodconfig    clang-24
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arc          allyesconfig    gcc-16.1.0
-arm           allnoconfig    gcc-16.1.0
-arm          allyesconfig    clang-24
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-19
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-m68k         allyesconfig    clang-24
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips         allmodconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    clang-20
-openrisc      allnoconfig    clang-24
-parisc       allmodconfig    gcc-16.1.0
-parisc        allnoconfig    clang-24
-parisc       allyesconfig    clang-17
-parisc       allyesconfig    gcc-16.1.0
-powerpc      allmodconfig    gcc-16.1.0
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-riscv        allyesconfig    clang-24
-s390         allmodconfig    clang-17
-s390         allmodconfig    clang-24
-s390          allnoconfig    clang-24
-s390         allyesconfig    gcc-16.1.0
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sh           allyesconfig    clang-17
-sh           allyesconfig    gcc-16.1.0
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um           allmodconfig    clang-17
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    clang-20
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Oscar Salvador
+SUSE Labs
