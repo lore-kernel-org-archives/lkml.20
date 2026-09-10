@@ -1,132 +1,139 @@
-Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FF72F5337;
-	Fri, 11 Sep 2026 02:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739013D79FE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:18:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093070; cv=none; b=lNpWT0KMAsPKeuONujjp/O4K2RbanHaYUaMozXSdZo31N47wnzP2bEre67aJ0rQc22kJEfs3I0F376+JuoTz0kYjUZd/WXG3+fOGH6KpEa/bNpXdfcCkdzOXOi+5kE00ZnrtpZ6ELDb8gU4e1IB0KmJAA1oxkF7ItSkpNBT4mDk=
+	t=1789093091; cv=none; b=Anyz/Rat2yrdTqemYqnpWPWRR+gZcxYtibw2ngHJ8eVCeEGTVLhQxRQjk/2pbdlrgOJrCEFzNVyH2+OIA2TTuYefImX6V0KeF+B9WlgF+XriNBZHoV+QJ45lUga8BuACk6l4UE08Yf+BV42TYNa8Ez+AqlJJU4Ps5qo/03IKL40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093070; c=relaxed/simple;
-	bh=3+tnQ5BYa5PVuOobhEitKH0AxA5wA83jA3P7EeiXVQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W+LYikkr2Sdg8uHidTEERA3ODVhujmQpTpuuGX94eeyAPta9vZBAZTcP1ILgwBJvOY0NKhItlnlBMZ9Sca/lg/nELZLc4A2NbJ7+o/AR+QEU9Zh1O+K1u1ZZWfes62R1/c+hnl2XaLMe4kPJxYyUDKVb/K4hS+oFO5ImauQQCvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=aBG6bXk8; arc=none smtp.client-ip=115.124.28.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789093091; c=relaxed/simple;
+	bh=Q4+PSDx6/s3fYpqtGntPkd23n1MmCP1JH2CydIJrigU=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=PSKR5A8+Ttx9etSVeFyvWDACbQd4v4NYOfjY0jhMYpVVszu5EABII0RVMHdtR8WJKNL7r4l+HR6IP8iq9zjHWetINEprWQPskd+rHp0GvXjrxjKsbaH1KsYERNUkCVZxQ2/wPpu7yndO9SKepCM2VwYKYFaoTSqOt/JcQTf5syQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=YBr9Jjd/; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="aBG6bXk8"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789093057; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Su3jKz0LJj1JiZogLzcFp1cmOtMqUdinCFR1tQMNH+c=;
-	b=aBG6bXk848RSKEsIYyksO4C1O3bdPDxBCBl7czC/5Z3RBjwtWpOvkKZ8UCOuXMc97wD2PLhOT8cegmYjmHAblrt2fXnQPoLU4cl2cV626BSFhX/NDKKvVEkAqs45484HXf25mrQmz3bva+0akk9JuIQjVPXQGNcuX+HabVT+oFU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07440189|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0897427-0.00111239-0.909145;FP=13572140810037101666|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jArxPlD_1789093055;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jArxPlD_1789093055 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 11 Sep 2026 10:17:35 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-	Liu Haijun <haijun.liu@mediatek.com>,
-	Ricardo Martinez <ricardo.martinez@linux.intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: [PATCH v2 2/3] net: wwan: mhi_wwan_mbim: check skb_copy_bits() return value
-Date: Fri, 11 Sep 2026 10:17:33 +0800
-Message-ID: <20260911021734.1396599-2-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911021734.1396599-1-zhugl3@xiaopeng.com>
-References: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
- <20260911021734.1396599-1-zhugl3@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="YBr9Jjd/"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260911021803epoutp01dffb6fd14a10ca3cfd41028af128f319~UIq4T59vg1820518205epoutp01v
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260911021803epoutp01dffb6fd14a10ca3cfd41028af128f319~UIq4T59vg1820518205epoutp01v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789093083;
+	bh=zg3eP0xfFnnvxihTFudnitZKRaskOF78/ArFi6db/og=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=YBr9Jjd/tLDS1Ouh4n/oMQGiWDKNpbGQlREmjEcE+LQxLWn//O1g1A0TucHqfsMSu
+	 F8da5vcG1VJxlVfidpL0fdWJJfHkBwiJPyyCOSHtSGfsrbUCMAJg45wxrw2gt9aTX+
+	 HiR01uY/4uPMwJQYG1hLb0Fkre8b7JtboM8PPbVk=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260911021802epcas5p1934405434cae972b5397d63c8a600c57~UIq38BlJh1486114861epcas5p1e;
+	Fri, 11 Sep 2026 02:18:02 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hgyrB4MHRz6B9mJ; Fri, 11 Sep
+	2026 02:18:02 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260910145211epcas5p29abffd4523c683de3ac96c5e4a256097~T-UDI2d8c1658516585epcas5p2e;
+	Thu, 10 Sep 2026 14:52:11 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260910145210epsmtip27121fb27835bf4e781e8446a54a80db1~T-UBsyo711915319153epsmtip2E;
+	Thu, 10 Sep 2026 14:52:10 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>,
+	<linux-fsd@tesla.com>, "'Krzysztof	Kozlowski'" <krzk@kernel.org>, "'Peter
+ Griffin'" <peter.griffin@linaro.org>, "'Rob	Herring'" <robh@kernel.org>,
+	"'Conor Dooley'" <conor+dt@kernel.org>
+Cc: <linux-arm-kernel@lists.infradead.org>,
+	<linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-2-1b755a446b22@oss.qualcomm.com>
+Subject: RE: [PATCH 2/5] arm64: dts: fsd: evb: Correct node order
+Date: Thu, 10 Sep 2026 20:22:08 +0530
+Message-ID: <1860250540.01789093082598.JavaMail.epsvc@epcpadp2new>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQI+vGmeAYQ1M8KGwzLNRALcGC0DngJYshc/Afimduy14mOI0A==
+Content-Language: en-us
+X-CMS-MailID: 20260910145211epcas5p29abffd4523c683de3ac96c5e4a256097
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260909141817epcas5p3ca45b73a93df14f08e47eb9beee485d6
+References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.com>
+	<CGME20260909141817epcas5p3ca45b73a93df14f08e47eb9beee485d6@epcas5p3.samsung.com>
+	<20260909-dts-samsung-cleanup-strict-v1-2-1b755a446b22@oss.qualcomm.com>
 
-mhi_mbim_rx() ignores the return value of skb_copy_bits() when it
-copies each datagram out of the NTB.  The datagram offset and length
-come from the DPE, which is only checked to lie within the NTB
-itself, so a modem can point a datagram outside the received skb.
-The copy then fails and the freshly allocated skbn is passed to
-netif_rx() with its uninitialized contents still in place, leaking
-kernel heap memory into the network stack.
 
-Free the skb and account an error when the copy fails.
 
-Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
-Cc: stable@vger.kernel.org
-Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Sent: Wednesday, September 9, 2026 7:48 PM
+> To: Alim Akhtar <alim.akhtar@samsung.com>; linux-fsd@tesla.com;
+> Krzysztof Kozlowski <krzk@kernel.org>; Peter Griffin
+> <peter.griffin@linaro.org>; Rob Herring <robh@kernel.org>; Conor Dooley
+> <conor+dt@kernel.org>
+> Cc: linux-arm-kernel@lists.infradead.org; linux-samsung-
+> soc@vger.kernel.org; devicetree@vger.kernel.org; linux-
+> kernel@vger.kernel.org; Krzysztof Kozlowski
+> <krzysztof.kozlowski@oss.qualcomm.com>
+> Subject: [PATCH 2/5] arm64: dts: fsd: evb: Correct node order
+> 
+> Order nodes by name to fix dt-check-style warning:
+> 
+>   fsd-evb.dts:61: [child-name-order] child node 'codec' out of name order
+> 
+> Signed-off-by: Krzysztof Kozlowski
+> <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
 
-Verified in a QEMU guest with a fault injector pointing a DPE
-outside the received NTB: the copy fails, and the unpatched driver
-hands the uninitialized skbn to the network stack (observed as
-"unknown protocol" on bytes that were never written).  With this
-check the failed datagram is dropped and counted as an rx error.
+>  arch/arm64/boot/dts/tesla/fsd-evb.dts | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts
+> b/arch/arm64/boot/dts/tesla/fsd-evb.dts
+> index 503abe52a81c..a1f3d3fbbf8b 100644
+> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
+> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
+> @@ -50,6 +50,11 @@ simple-audio-card,dai-link@0 {
+>  			bitclock-master = <&tlv320aic3x>;
+>  			frame-master = <&tlv320aic3x>;
+> 
+> +			codec {
+> +				sound-dai = <&tlv320aic3x>;
+> +				system-clock-frequency = <33000000>;
+> +			};
+> +
+>  			cpu-0 {
+>  				sound-dai = <&i2s_0 0>;
+>  			};
+> @@ -57,11 +62,6 @@ cpu-0 {
+>  			cpu-1 {
+>  				sound-dai = <&i2s_0 1>;
+>  			};
+> -
+> -			codec {
+> -				sound-dai = <&tlv320aic3x>;
+> -				system-clock-frequency = <33000000>;
+> -			};
+>  		};
+>  	};
+>  };
+> 
+> --
+> 2.53.0
 
-Changes in v2: factor the free-and-count sequence out into
-mhi_mbim_rx_drop(), shared with the unknown-protocol path, as
-suggested by Loic Poulain.
----
- drivers/net/wwan/mhi_wwan_mbim.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
-index 5679948546..336f89756f 100644
---- a/drivers/net/wwan/mhi_wwan_mbim.c
-+++ b/drivers/net/wwan/mhi_wwan_mbim.c
-@@ -251,6 +251,14 @@ static int mbim_rx_verify_ndp16(struct sk_buff *skb, struct usb_cdc_ncm_ndp16 *n
- 	return ret;
- }
- 
-+static void mhi_mbim_rx_drop(struct mhi_mbim_link *link, struct sk_buff *skb)
-+{
-+	dev_kfree_skb_any(skb);
-+	u64_stats_update_begin(&link->rx_syncp);
-+	u64_stats_inc(&link->rx_errors);
-+	u64_stats_update_end(&link->rx_syncp);
-+}
-+
- static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *skb)
- {
- 	int ndpoffset;
-@@ -320,7 +328,10 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *skb)
- 				continue;
- 
- 			skb_put(skbn, dgram_len);
--			skb_copy_bits(skb, dgram_offset, skbn->data, dgram_len);
-+			if (skb_copy_bits(skb, dgram_offset, skbn->data, dgram_len)) {
-+				mhi_mbim_rx_drop(link, skbn);
-+				continue;
-+			}
- 
- 			switch (skbn->data[0] & 0xf0) {
- 			case 0x40:
-@@ -332,10 +343,7 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *skb)
- 			default:
- 				net_err_ratelimited("%s: unknown protocol\n",
- 						    link->ndev->name);
--				dev_kfree_skb_any(skbn);
--				u64_stats_update_begin(&link->rx_syncp);
--				u64_stats_inc(&link->rx_errors);
--				u64_stats_update_end(&link->rx_syncp);
-+				mhi_mbim_rx_drop(link, skbn);
- 				continue;
- 			}
- 
--- 
-2.43.0
 
