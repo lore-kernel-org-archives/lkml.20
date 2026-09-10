@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F82449BD98;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBF9489FC0;
 	Thu, 10 Sep 2026 14:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049942; cv=none; b=hj/npz6o5dtB2VnxxrZmAOt1IUJrs0rY+zvD8uRojws2rJqHXduF9AiMun8w64UAE9uK1yPZ/FbuS42MDL5DjF617RLcXqWA4W2C+41ibwOWN2b2GcvIZV3dFwJLFOj0dcN63p0iCZSCnRjROACuvWxc6tCztfJzKF3Pv59Qi10=
+	t=1789049942; cv=none; b=CFELbFxNq8rj3wb+sksJB/uFb3B5RrhpPrnFOrTY/3ys/EGQR/HNe2l3vv4LI7VHTwpKraJ9PBAdjxy3pSwNLXPSGdNIvzivK9adY0q8ARQA5KMf3d5fX0jzm9CQERoee07erPEpoyQFE64keXTPdQSrJNeC+EEXCPiLvjMB66s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789049942; c=relaxed/simple;
-	bh=mX4Rm5gtqdT+P17ZxUZ/MvnsjwSmQIw1kotJP1i7qeI=;
+	bh=fgvSLC/gXautyKR9CQkvAKHXgVlLvuXKciF4/d8Tuao=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MhtIgX4y6MeHN9hMhRaoBh0vxwWAOZykX+uCfw5auZxhPaR7iuACIazHkFqg6VQ+9e9K2lHA3zhAxTyxFr1NZUyMfcnVnm5Fn/TnYyYPa4VDWRNuk2RdbqKiYo8XPh8Yegwt/GJxJvvWzvZ1fullLN/rKS+GwyDSdMw76yBnVs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nyak9dtw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DpKV6rSNp3Wn5lLhDmv5v8tPAWEAQ+tLRYWLcfm9w9ylCc4mp5jdL7P4TPCNiy+OnRxsW6P09ZMV8G1qOmDcnF+ICGvX/5VYtnou3W5ZfseROm0AbCDA7BGGYG9mH2QlB3CO8MlMgOsBMhfA7N0aJdC350ouI5umdiq4qfKyEbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZmGB171; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nyak9dtw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34221F00898;
-	Thu, 10 Sep 2026 14:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZmGB171"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9501F00899;
+	Thu, 10 Sep 2026 14:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789049941;
-	bh=//P9EELBAWJiTTEfH8OFzItA8Z77D6zhflq7gYb2N2k=;
+	bh=ILNnV2GNeZ514oIRb82a8/magMxY2v4d8tE00F50zJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nyak9dtwBifrw34nlqILyA/okiRc91+DBtJ39xCKbVV14Yiq1/h0WzuiJ/iF9rc7Z
-	 mBV9wMUXZtC2N5cwd7avFdF9dFnaF9fSWuT6gGDGu1dTNP063p/i59JMEcJpQ++sKZ
-	 ML4tOd79iQ8xe2jM1UWbXBHNQohMBsCjS3bBKOXj7WGmNDFfvyRbKQWTJIWADOWOfW
-	 /zdXWQiZ6xhXwJznqX0nrp/pTs+x76fKp0vkfsu5lKyhcYYgvm0ocS5OSRey6yUb2H
-	 OdBeoSeqQoYEQSRGIxV0NHDIOOhSx/BPN+SXwo2FfbYghBZp3MbH3RZQVup37QmB3L
-	 sGgYqXx+6MRJw==
+	b=KZmGB171Z8YtFpiMyv6D5GxB4EDZwCezzp+D6uct9Plsd8XSd0XAavCRhmEPsIQLn
+	 FSrnIvak9wyOjMLczs70ISJMJ2ZgJ4/nya0ShwsKxx5TdvWFabSEPgUDI4BuNMirx5
+	 klfl9h607/UrENPnEa8y4ft+oQ3FUHtB6Y7unzxNOZvqvhAIxO58wphDL3+suC9S37
+	 OwRbNvWBRWcid7PK/Xh/xutRV6bjNycuyFeHBWU+bjRIDuLyEjXFcmpwfcfiEenEN/
+	 1W/qJK1uBX3BIexhGr6xI3LwY0ULqB37eZJT1b7qJLGrN/KEM6Crcw00lOixOlsDVq
+	 glMPiN9V0ehNw==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 2/7] mm/damon/core: extend probe_hits_wsum() for moving sum based calculation
-Date: Thu, 10 Sep 2026 07:18:42 -0700
-Message-ID: <20260910141849.170896-3-sj@kernel.org>
+Subject: [PATCH 4/7] mm/damon/sysfs-schemes: rename sysfs_filter->sz_range to range_{min,max}
+Date: Thu, 10 Sep 2026 07:18:44 -0700
+Message-ID: <20260910141849.170896-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260910141849.170896-1-sj@kernel.org>
 References: <20260910141849.170896-1-sj@kernel.org>
@@ -46,96 +46,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_probe_hits_wsum() is being called only in aggregation time.  In
-future, it could also be used by DAMOS.  In this case, since DAMOS uses
-its own apply_interval, it could be called in sampling time.  Then using
-the not yet fully aggregated probe_hits could result in suboptimum
-outcomes.  Extend damon_probe_hits_wsum() to get the weighted sum based
-on moving sum to prepare the DAMOS usage.
+DAMON sysfs interface provides 'min' and 'max' files under the DAMOS
+filter directory.  The purpose is setting the general range arguments
+for hugepage_size like filters that require range arguments.  So far,
+hugepage_size was the only filter using it.  Hence sz_range field of
+damon_sysfs_scheme_filter struct was connected to the files.
+
+In future, we could add a new filter that can reuse the 'min' and 'max'
+files.  And the filter might use a range of a type that is not size. For
+example, probe_hits weighted sum.  In this case, simply reusing the
+sz_range field would make it a little confusing.  Rename sz_range to
+range_{min,max} to avoid such confusion.
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- include/linux/damon.h | 2 +-
- mm/damon/core.c       | 8 ++++++--
- mm/damon/paddr.c      | 2 +-
- mm/damon/vaddr.c      | 2 +-
- 4 files changed, 9 insertions(+), 5 deletions(-)
+ mm/damon/sysfs-schemes.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index ef99ff778ae10..4a36f344bbc7c 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -1073,7 +1073,7 @@ unsigned int damon_nr_accesses_mvsum(struct damon_region *r,
- 		struct damon_ctx *ctx);
- unsigned char damon_probe_hits_mvsum(int probe_idx, struct damon_region *r,
- 		struct damon_ctx *ctx);
--unsigned int damon_probe_hits_wsum(struct damon_region *r, bool last,
-+unsigned int damon_probe_hits_wsum(struct damon_region *r, bool last, bool mv,
- 		struct damon_ctx *ctx);
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index d9b81d7b5910e..4d9147d2a269e 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -534,7 +534,8 @@ struct damon_sysfs_scheme_filter {
+ 	bool allow;
+ 	char *memcg_path;
+ 	struct damon_addr_range addr_range;
+-	struct damon_size_range sz_range;
++	unsigned long range_min;
++	unsigned long range_max;
+ 	int target_idx;
+ };
  
- int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 645cb367019ae..e9630f41e51fe 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -469,11 +469,12 @@ static bool damon_is_last_region(struct damon_region *r,
-  * damon_probe_hits_wsum() - Returns probe hits weighted sum of a region.
-  * @r:		region to get the weighted sum of.
-  * @last:	if the request is for last-window aggregated probe hits.
-+ * @mv:		use moving sum.
-  * @ctx:	context of &r.
-  *
-  * Return: the weighted sum of probe hits of the region.
-  */
--unsigned int damon_probe_hits_wsum(struct damon_region *r, bool last,
-+unsigned int damon_probe_hits_wsum(struct damon_region *r, bool last, bool mv,
- 		struct damon_ctx *ctx)
+@@ -588,6 +589,7 @@ damos_sysfs_filter_type_names[] = {
+ 		.type = DAMOS_FILTER_TYPE_TARGET,
+ 		.name = "target",
+ 	},
++
+ };
+ 
+ static ssize_t type_show(struct kobject *kobj,
+@@ -778,7 +780,7 @@ static ssize_t min_show(struct kobject *kobj,
+ 	struct damon_sysfs_scheme_filter *filter = container_of(kobj,
+ 			struct damon_sysfs_scheme_filter, kobj);
+ 
+-	return sysfs_emit(buf, "%lu\n", filter->sz_range.min);
++	return sysfs_emit(buf, "%lu\n", filter->range_min);
+ }
+ 
+ static ssize_t min_store(struct kobject *kobj,
+@@ -786,7 +788,7 @@ static ssize_t min_store(struct kobject *kobj,
  {
- 	struct damon_probe *probe;
-@@ -483,6 +484,9 @@ unsigned int damon_probe_hits_wsum(struct damon_region *r, bool last,
- 	damon_for_each_probe(probe, ctx) {
- 		if (last)
- 			sum += r->last_probe_hits[i++] * probe->weight;
-+		else if (mv)
-+			sum += damon_probe_hits_mvsum(i++, r, ctx) *
-+				probe->weight;
- 		else
- 			sum += r->probe_hits[i++] * probe->weight;
- 	}
-@@ -3449,7 +3453,7 @@ static unsigned int damon_merge_score(struct damon_region *r, bool last,
- 		struct damon_ctx *ctx, bool use_probe_hits)
+ 	struct damon_sysfs_scheme_filter *filter = container_of(kobj,
+ 			struct damon_sysfs_scheme_filter, kobj);
+-	int err = kstrtoul(buf, 0, &filter->sz_range.min);
++	int err = kstrtoul(buf, 0, &filter->range_min);
+ 
+ 	return err ? err : count;
+ }
+@@ -797,7 +799,7 @@ static ssize_t max_show(struct kobject *kobj,
+ 	struct damon_sysfs_scheme_filter *filter = container_of(kobj,
+ 			struct damon_sysfs_scheme_filter, kobj);
+ 
+-	return sysfs_emit(buf, "%lu\n", filter->sz_range.max);
++	return sysfs_emit(buf, "%lu\n", filter->range_max);
+ }
+ 
+ static ssize_t max_store(struct kobject *kobj,
+@@ -805,7 +807,7 @@ static ssize_t max_store(struct kobject *kobj,
  {
- 	if (use_probe_hits)
--		return damon_probe_hits_wsum(r, last, ctx);
-+		return damon_probe_hits_wsum(r, last, false, ctx);
- 	if (last)
- 		return r->last_nr_accesses;
- 	return r->nr_accesses;
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index d7c81829445ba..b8f4d28165dd7 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -202,7 +202,7 @@ static unsigned int damon_pa_apply_probes(struct damon_ctx *ctx,
- 				folio_put(folio);
- 			if (return_max_wsum)
- 				max_wsum = max(damon_probe_hits_wsum(r, false,
--							ctx), max_wsum);
-+							false, ctx), max_wsum);
+ 	struct damon_sysfs_scheme_filter *filter = container_of(kobj,
+ 			struct damon_sysfs_scheme_filter, kobj);
+-	int err = kstrtoul(buf, 0, &filter->sz_range.max);
++	int err = kstrtoul(buf, 0, &filter->range_max);
+ 
+ 	return err ? err : count;
+ }
+@@ -2835,12 +2837,13 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
+ 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
+ 			filter->target_idx = sysfs_filter->target_idx;
+ 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
+-			if (sysfs_filter->sz_range.min >
+-					sysfs_filter->sz_range.max) {
++			if (sysfs_filter->range_min >
++					sysfs_filter->range_max) {
+ 				damos_destroy_filter(filter);
+ 				return -EINVAL;
+ 			}
+-			filter->sz_range = sysfs_filter->sz_range;
++			filter->sz_range.min = sysfs_filter->range_min;
++			filter->sz_range.max = sysfs_filter->range_max;
  		}
- 	}
- 	return max_wsum;
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 9a38dc89a156e..4aecf34e39be2 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -704,7 +704,7 @@ static unsigned int damon_va_apply_probes(struct damon_ctx *ctx,
- 			__damon_va_apply_probes(ctx, mm, r);
- 			if (return_max_wsum)
- 				max_wsum = max(damon_probe_hits_wsum(r, false,
--							ctx), max_wsum);
-+							false, ctx), max_wsum);
- 		}
- 		if (mm)
- 			mmput(mm);
+ 
+ 		damos_add_filter(scheme, filter);
 -- 
 2.47.3
