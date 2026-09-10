@@ -1,144 +1,191 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012001.outbound.protection.outlook.com [40.107.209.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7630E330328
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789080530; cv=none; b=HtJkjSL68hW+P9cE/ZKydDHov9jc5u8z0VNIU/WMreMU8aS1h2MulB+tRLvZL8YDTyl13a7wNvhl8NEh4Se6sGUvkbLkffj5HU5UVfoNPWSxZPzqj9sIGUt4U3pgEM4LUUQKHIvQ6HgHowzoXF5ohEl1ZuBskFdU1wfJGGG4n8I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789080530; c=relaxed/simple;
-	bh=FD1CVR6P390fK5SosNu21bCJZwzv/9aYQoB8hxCdVYQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tqO6jirjmZ1gNuVBQMLMQqVDTLtXbEENxx4vdgiaScJFNfkoKVnF7cCnASydvYFmAoVAqi28HsTrzvUYgf1NewuDNcJJFmY/DZbGiU6L4CQ79vTB2zlrHMf/P/2OMI7EdBmVTY1KFgwg6rbtvC47JgjfmgWycKTeGxWqw7m6NhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F+270yTv; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145DF49E122;
+	Thu, 10 Sep 2026 22:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789080639; cv=fail; b=DShaAg+8rtTPl9NiJTaRQb6yMCVuwGM3YwDmXP1djZbFnSdFq+9b53C7hbZkHiqLLr3PUborGaGe7KohLJgXHsDxQaHAwtNYGMls+2xz5kOwh6B5fnsUv0galgRmWhIl5xJvHt/2MzU6VVVF8MoYxDCHQMst/Dx0hbldlGu1eGE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789080639; c=relaxed/simple;
+	bh=0E80x3L9bqd1Je3f6dDWG3bk4X+pC8eH+Q0jXyh18lM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Uh14dqMyt64uIecC+jSHU4cxxUpuE4DxTCLrQk47jK2XazbNEks+kLw847MT1XVcgPTYG55We1HzazLw3k1tmzeDxwEUGf0TGo52I+RqMqhCTAnDzn0qFjzbyXTuZeBVBjyNQ3O/tAYDNdyVQPxyB9KuXE2tx1c8+gbBYPtFXts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=R2w17/6S; arc=fail smtp.client-ip=40.107.209.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F+270yTv"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90ce6d5271dso1201186d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:48:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789080526; x=1789685326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gm6ysHQo5XVbaM7QmaAZGcihUIXrGGRXHoGmW7yFDKk=;
-        b=F+270yTv/NXZvrIRXPEVgsgixMf2s9a4KV60/kvCnL3GlUO2KYZgMkxJly9nD2iFio
-         R26EWGATWHSgKCtFIFZTiUZLQeAaFemMAUubbjumDJ+4Ec+YedbZ/sq5sfNBTNHMELyF
-         SQvi9qf6UHBeqfwgfBB/f7epxCMovBx2OChMb/vVIDEXVluXfi5kbL0BHIcKkmGByNgG
-         TALz5jt8dIvQFO4kMjpCHcvCiZ1LOUExesvRFZJu3vUg9lxNvraxGdwGX6KGH/i/ce8Q
-         iLk6jgtWiQJMcUVa+J0qnP3oCtk7JQDnqnTx3B7ZjrRLMgQhPZcwHsTjBnQ2Jd+Lk/df
-         OHdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789080526; x=1789685326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gm6ysHQo5XVbaM7QmaAZGcihUIXrGGRXHoGmW7yFDKk=;
-        b=a1abtfBWXd6tI86nXpfh/bPNM9hGcremUl1cLTb7B9oBQ1jCSLTQYnk6d9Zxjofomm
-         bX2X7/4cZo84liEj4L80hTlG70/w3/QD0yfKSykopnFiXsKoTxQsCN4yqEvqO1y4ycV8
-         dX+H45JRI1IoVfQEPC7oeDtKScoJtX8ty2zBnXci1IbMkiAxiEJDdo4lt+n3NlFhoio0
-         yJ3GeyQv06XZ5LLiSp03QHBbGn7pppf5gJAhGN7FqHp6wTSt/3ZAX1p0ancKlyI+Sy+k
-         2uZEEamW6e/ylXRKJp1SvlF9MparW70W6gI6RLSgnwEflkxjM3rjE9Hz44v/NZXjx4Dk
-         uG8g==
-X-Forwarded-Encrypted: i=1; AKwUvBz28cZMZIhKgOAg56ZJpOQ83F+fmVWp7ceo1HNMiWD6gvkZRRpScR8fbi7BTMHDoeubdgIM6o8h9cR9Hg8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0gw84P6w2dQ7g7ymZVFLmNwDq0AjSwbj53Hvq4CQ/mvSMfhSn
-	V4UYiedUlLqXXPeP/FNhbUtsJMx5Xz8dEmWKz877+N3JwVJxyrAm/9I=
-X-Gm-Gg: AYBFou3h0BwRw0lJaP9NRdKcHrhueO8GbouAtr5JWWZ9LthlKHkyfFLfEzK5AWdh8+d
-	fBI7f92YFcdDwkWtmru9s9zc2Bep0EaTKeAxZcYzxGQ8MIwZ7X0r1sdZRVjabBYMz5wWS7Gshpq
-	qbKsy3KOwjQWjcZMh0/dHu2ywwurMeY3z9WgMkzOQFsLlDy0YIAsbnw3kC+pJdgvU7MJDdMd3au
-	ap9zMOT8EUeotE9mK4Oe4lc4xL+M8ppkI485Wf49Rg4ueXss50gPOuIvnJJEkBTX8Wzl55n8D33
-	fnFXiDRk6tXguAH9Jcdie1HTcME1mEenzW/9A0Df80xiJDElkm0U9WrL9Eoj+j6wk5ENURaYDke
-	bEiX/plXHb4wtMcGdGFLvxjP7ujBH7JhfXpr3CHbCctYPzHRFB4UPCEn3nR3XVuGLZwpt52a6Lr
-	0Qr08ZSOEMNJC1if/1J+Ugiz3LzBdNBwxO9ybonANVIuTMX0y93C8dOsLgGS8eLbCF2owFK2MaZ
-	1T9nw1Hm77onIZaMBrTKiYgpQCbct9LFZjJnAqLIfE6Hf1EIdtp8cA7hALcy6ilbA+BtXQGKCNz
-	BWdC+iTBjuPac5HkucbEgcJ28kpkmmierj4=
-X-Received: by 2002:a05:6214:2b8a:b0:90c:a989:a68a with SMTP id 6a1803df08f44-9120ec865c1mr22173266d6.11.1789080526563;
-        Thu, 10 Sep 2026 15:48:46 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45a78bsm6777996d6.8.2026.09.10.15.48.45
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 15:48:45 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: ehristev@kernel.org,
-	mchehab@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: microchip-csi2dc: Power off on probe failure and remove
-Date: Thu, 10 Sep 2026 18:48:37 -0400
-Message-ID: <20260910224837.15554-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="R2w17/6S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p6eLhMyijS8LwqWTHbiLohwCiG7474BWYCdiZ6E9Fb/gQTnIrvYKyuVPzOpLuv9lkJGH3fjQ4woJ4ObkE40izdr1faWa2HUFm0r/TncM6RRAAnSLL7qEVwhncdUxler042bal5ebJMD3qvzOE02skwXQ6GXjMo7WYqS2nfp5ZosM2bMM1qev49rB3UYhbZzCU1fdQ2UJnI2mf4L2ajUozi8XU1K6KI/APgin+Fl1iAor7UYt+mLrUyzgNC92o0LCpllsxjAK+IPPxYJyjmylRbS6D9YHLOJKTgUzPnSQcU//lKUn1/hUhwXyiXxWZzbiuEEPxvBHvt54vq7zcujCiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hRrrFu33y23h3eWeQu0e27HPy/KK9gjN2Ne0gediGZU=;
+ b=tsbIYFtwaEW0l57OIzvzVeZzcZ86wfGj19+g7wOOy9D/az6hgXHYvK0M7Oa+5N+VOGAZ8ANfIAFlA7zboBjV7lStDuHD/iyOt+a+4gwtieyItZ5bqGZE0UqC784C3A7AbD1f7+xxW0XNC67LIpIZuEuI+LZgG/4iYS8cI0jtHG1N9c9xo1W43Gsy+k1by+lB/mEfVPyHkxk8WJzNFh+5N0hTR4iXlY1hXjEN6eU5HHq8wsicPoD3A4C1HZKi7a+QPpbXElbyC0KdmIdk0lXgZAyluCKDFrXBLm2eZKU/+KIjoed9Huh5uyJToC+Dv6lqQUHamHXpdyLpW+UREydHcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hRrrFu33y23h3eWeQu0e27HPy/KK9gjN2Ne0gediGZU=;
+ b=R2w17/6SfoqxyiwyOdSRK9/j9Zx23QHm3ktqs0aenR92lcj5/mg2Ehc+sRIHSsny7h+zsocPsJulU0RHZQNL9CRTxQeLvWMhHJoPNMZsAkzF0RKWbWm7tmiuYOGRgTyrE1F5cf4iil63/LgIeExoRmyVbdtJMUpnj0IpDNfOU3BZNpUpWrMxW/jp532XJ3HWMa3wXlLmCMyIQtW+H4UI0wOPZvS28q0wuqxvsbn/50tcidgG0iaQwiwWqgKsLn/UHQQ0plSPTv4XWyjFs7LUCgnezO7bIE7+PVgZhXoPGRlt4k+cnvm45jJBNEcOfakukAUrPzT3us/C10+9WwM4SA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9411.namprd12.prod.outlook.com (2603:10b6:408:215::20)
+ by SN7PR12MB7955.namprd12.prod.outlook.com (2603:10b6:806:34d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 22:50:33 +0000
+Received: from LV3PR12MB9411.namprd12.prod.outlook.com
+ ([fe80::98b7:86de:b69:2a15]) by LV3PR12MB9411.namprd12.prod.outlook.com
+ ([fe80::98b7:86de:b69:2a15%6]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 22:50:33 +0000
+Date: Thu, 10 Sep 2026 16:50:30 -0600
+From: Alex Williamson <alex.williamson@nvidia.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm <kvm@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Yi Liu
+ <yi.l.liu@intel.com>
+Subject: Re: [PATCH 2/4] selftests/vfio: Wait out transient -EBUSY on
+ open/bind
+Message-ID: <20260910165030.3d5f2c06@nvidia.com>
+In-Reply-To: <aqHSZY2IhWfK-jhl@google.com>
+References: <20260901215358.2421359-1-alex.williamson@nvidia.com>
+	<20260901215358.2421359-3-alex.williamson@nvidia.com>
+	<aqHSZY2IhWfK-jhl@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1PR02CA0023.namprd02.prod.outlook.com
+ (2603:10b6:806:2cf::25) To LV3PR12MB9411.namprd12.prod.outlook.com
+ (2603:10b6:408:215::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9411:EE_|SN7PR12MB7955:EE_
+X-MS-Office365-Filtering-Correlation-Id: e03cc1f8-10c3-478d-567a-08df0f8deb97
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|6133799003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hduImsMaiQd/5u3WSYGVO+qwIuZrmk2k9CASLzwGjJ84q09ZhRe8FmUdYyJak7CWhJiVjPCki1BaQc0oJDTVxLTWj7HynDLulx4HwRiRglCpukaDwA+GIUU6+KABMhdy6cfgm+p21Doz7l4B9U64h3X6GlumRp+LhZG7L1byP3Qcjipz/BSnlQKqF2m50Cqy73hnOD4IE5ivVqq5x9QseefQeZg53o7q7UVlGiObxmA3kWmxzgQIlHJuGbr096Yc66ZpV9odDxTEjhItQAjuWQRj+24NUJh9Vltw6kVFdsNGD/PDv9e24Dx8iAzqZ9C/LnFrr/wqdSSBvm2dVCuULg67cbI1nrvEEkhtpntLTI/aAq5bTCgecfuYmJoRmwHZDBbvb3yxi5e/TYRlIlwlY4Qqt2boi/CS8+1ZmPOpBmoD0Fvju68GQNZ2vswjmArrFK3GLuNQzhL0apumYACQ3h/UQAMmbPg/mpKfWFom2D1EeZ99hW0BGliIqRWIq9PvIA3Hx+kuxnE2Fu3Vb0sqvMi4kvF2RwjQL4Lwf9C2T5tEbyNk+VQrzt31mo7IO9IPtR512051qnfHp4+9vC/twOURp2fpv8brpH0Kpcjc/GePJUm2fOkYpVGeXeb1Wx0ve3SMEH1lXvGYd9VBC7DYFR8E3WTltce51dVqF0H9UVE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9411.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rITBQYbUEgdkDC05LbhZlpPXnBjIjSmXDlqSa7KlliOnI4Sioh+YEu1TRHta?=
+ =?us-ascii?Q?o5LslNkSPNV0a2ArtFeZ/s2VmrufHeuC4b2ahAXNit4HqWDjn1EBgRe0gFbF?=
+ =?us-ascii?Q?rMFkcVWYxNeLJPij54NmPESiWhNam4qgCeLEkaH+PRd7Y+GLDi3f3iwe5FK6?=
+ =?us-ascii?Q?BExYaqwvpufUyw50siqtjboKB9Ga0goXBc24F5NvNUglppSgKWOV/WkH7ypj?=
+ =?us-ascii?Q?fLkI9Ty4lnCcdVBeoybrsAAk9H3vEuUqGyBe52QDKm5YopTrgGGQ8f9CtzV4?=
+ =?us-ascii?Q?lPgxyNFCtQ2KciOhtgUDQFrNTYCpC28+BUW5sJpvdMEHN7gA218iJPk96jME?=
+ =?us-ascii?Q?0dmlkYVGD5PeyYbPdUr/SyeQxLcekleNUmBZm7O+QcdUk7af55D5j2LtaQEl?=
+ =?us-ascii?Q?zX9C8jnBzd264b9RVINgYkT33XeSB4rMmG2RQphfxVe5zYBqG7OqSKUK8Gt4?=
+ =?us-ascii?Q?vG71vRJiUsE/CLeGeDhGzebEGhICMH4jIIRQvD9HxFNOIXdeGu53BpfwF3xx?=
+ =?us-ascii?Q?rQibhxJYE9dcQniYHgzlBQFTDal8LxNOtlV9DuTY3DtsdG8YOlSwkXaTwibK?=
+ =?us-ascii?Q?7M+QNC8IY+ISxNTdVH6TCtSsXirt42pFvXxZ79zORqev4T4JHWDkDCfCZpIJ?=
+ =?us-ascii?Q?VnA4PXvh0U7Gl3ystuRXE7rhbx6TFnRZP7/Wb0rAA/Zj2bLhRqfXjg3Qa8WT?=
+ =?us-ascii?Q?LOoxh+p1l9R6sQx7oG4TEyRcLImbIowiohjMCcMBjqhUqnX5J8kplz8h5e5m?=
+ =?us-ascii?Q?lIbENaT6ZBEc2L+Ung2zSIQQzSMXHvtwU2yOIycmUHqe/LDJw67oECb2fMIt?=
+ =?us-ascii?Q?SQcGMdOuH1DvFeajZ4IoqbgY5/8OgoeVFXPoc9olOr1sIvsch5b43HUJtRrR?=
+ =?us-ascii?Q?ytMl+XzL60UiMtok8bT23XGP1DGxjiQLlcZcEImqrmh/k0cS8Is6cxxLGEva?=
+ =?us-ascii?Q?5JQnXEN00nkRTaeT5ssnzrYl5y4GdiYJwxQiVef+GReI39cgadQoH5U8MkIZ?=
+ =?us-ascii?Q?XJtl94MP7Kx0RVkgTBKg7jxGIimXvcfS/FWQb58nhk2AEmL5OA3EV7wrEiAI?=
+ =?us-ascii?Q?97MOAwJCd/sxVvbkIb4o/Bl3mWpQXvTiVjd1rrEzLbiQ6sehpznvwhd5VzD3?=
+ =?us-ascii?Q?dWP4NXM4q2cg8kBOgrSwYybWmHkxYaLnbm8M8mgN/KhhrdesDJxI8ZgiZx2l?=
+ =?us-ascii?Q?QJ80tPUTw5xEJwRudkGpY4d1UerViTpy/Ecnar1JcxALl0pDB29v5B4f3STf?=
+ =?us-ascii?Q?G19muozfC46e+SOJgpioW/T+aGdjudpODsO+JZCSZAqFUOF+J2dN22ppyiT1?=
+ =?us-ascii?Q?hUrbh/S04AAbkd/kkyXfjrcOXAw2UHMi8WbsMxHi3bLBg35BA1qMLmi8mJq3?=
+ =?us-ascii?Q?tyXEeW8rVFWoWkcsMlKvz0lT7R9ab+lQWEgGn8n0BdY6j5ffD2au8r3XCbGk?=
+ =?us-ascii?Q?7JU8oN+Jo9ohymuL+9ZLHkM1ir+ozuVBxYDaGk7ckN0q70P/wlwXK+UKsaNc?=
+ =?us-ascii?Q?oLmn1/4eZLXqdo5N78DF/xuZNwS32f+10xElv76PSTC/zzP4xNABmmdUseUL?=
+ =?us-ascii?Q?XrwXdbg4y5ppAyemQhAmn/I0O8wYkWaIAqsks9fNRwcl7XQdJ9Lgk8kIoT7Y?=
+ =?us-ascii?Q?Vq3yaYYKstP7bo9/5U0X+8Uoj74szMt8JJWRFwslWkCL0Pt8QGZDuoCEwLf/?=
+ =?us-ascii?Q?mWrmgZPa1tuZVbtnb5QbUoUfxjkHnwj4ZldMj+wxwmXgcXHN8E3DKWsqCCkI?=
+ =?us-ascii?Q?84vGsu8XQA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e03cc1f8-10c3-478d-567a-08df0f8deb97
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9411.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 22:50:32.9513
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XWU/WP+XV6NSidAv7mH+fjOtHVueZ97mhPS0b+kIIBEFXEbaInyHice0I190lenpjSHKI2RcozXJAkJtbueHBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7955
 
-csi2dc_probe() leaves runtime PM enabled and the controller powered on
-if subdevice registration fails. Removal also leaves an active controller
-powered on, since pm_runtime_disable() does not suspend it.
+On Wed, 9 Sep 2026 21:40:53 +0000
+David Matlack <dmatlack@google.com> wrote:
 
-Disable runtime PM and power off the controller on both paths, then mark
-it suspended. Check pm_runtime_status_suspended() after disabling runtime
-PM to avoid turning off clocks that runtime suspend has already disabled.
+> On 2026-09-01 03:53 PM, Alex Williamson wrote:
+> > If a test is killed, for example due to timeout, fput can be delayed,
+> > allowing the subsequent test to be started while the failing test still
+> > holds the device open count elevated.  This results in a cascade of
+> > failures as each subsequent test fails on open, blocked by the single
+> > user requirement at the group or device cdev file.
+> > 
+> > We can make the test framework more robust, and allow better
+> > identification of specific failing scenarios, by waiting-out transient
+> > -EBUSY failures on group open and cdev bind.
+> > 
+> > The 20s retry window is heuristically determined in testing on a system
+> > where scheduling can be significantly delayed due to SMI handling of
+> > platform errors generated from the mix-and-match test.
+> > 
+> > The SR-IOV uAPI and IOMMUFD setup tests retain their non-retry bind
+> > paths as these are not expected to encounter process kills due to
+> > underlying platform error handling variability.
+> > 
+> > Assisted-by: Qwen3.8-27B
+> > Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>  
+> 
+> I think we should fix this in kselftest_harness.h instead.
+> 
+> If the poll() times out the harness issues SIGKILL but then does not
+> wait for the process to finish exiting (waitpid(..., WNOHANG). If we
+> drop WNOHANG then the harness will wait for the killed process to exit
+> before proceeding with the next test case.
+> 
+> diff --git a/tools/testing/selftests/kselftest_harness.h b/tools/testing/selftests/kselftest_harness.h
+> index 1e459619fe86..150bd690ca7b 100644
+> --- a/tools/testing/selftests/kselftest_harness.h
+> +++ b/tools/testing/selftests/kselftest_harness.h
+> @@ -1008,7 +1008,7 @@ static void __wait_for_test(struct __test_metadata *t)
+>          /* signal process group */
+>          kill(-(t->pid), SIGKILL);
+>      }
+> -    child = waitpid(t->pid, &status, WNOHANG);
+> +    child = waitpid(t->pid, &status, 0);
+>      if (child == -1 && errno != EINTR) {
+>          t->exit_code = KSFT_FAIL;
+>          fprintf(TH_LOG_STREAM,
+> 
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+I had done something like this when debugging, but found it
+insufficient.  More digging turns up why.  t->pid only runs the
+TEST_F() wrapper, another child process is actually forked to run the
+fixture test.  The kill(-(t->pid), SIGKILL) at the top of the diff
+signals the whole process group, but dropping WNOHANG here only reaps
+the wrapper process.  The grandchild process that actually holds the
+vfio device files that require exclusive ownership is released
+asynchronously.
 
-Fixes: 2de0b3c0f678 ("media: atmel: introduce microchip csi2dc driver")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/microchip/microchip-csi2dc.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+Therefore we actually need to wait(2) for the wrapper process to exit
+to reap the zombie, and then poll the process group with kill(, 0)
+until it no longer exists, while not introducing an unbounded loop into
+the harness.  Only then do we avoid the cascade failures.  And then we
+don't need this retry on -EBUSY patch.
 
-diff --git a/drivers/media/platform/microchip/microchip-csi2dc.c b/drivers/media/platform/microchip/microchip-csi2dc.c
-index e69292f3b2a909be6a044db6ad086a7b0e082802..56cccb02bc562febe5e6a36e69a9ae014e005ccc 100644
---- a/drivers/media/platform/microchip/microchip-csi2dc.c
-+++ b/drivers/media/platform/microchip/microchip-csi2dc.c
-@@ -727,13 +727,18 @@ static int csi2dc_probe(struct platform_device *pdev)
- 	ret = v4l2_async_register_subdev(&csi2dc->csi2dc_sd);
- 	if (ret) {
- 		dev_err(csi2dc->dev, "failed to register the subdevice\n");
--		goto csi2dc_probe_cleanup_notifier;
-+		goto csi2dc_probe_disable_pm;
- 	}
- 
- 	dev_info(dev, "Microchip CSI2DC version %x\n", ver);
- 
- 	return 0;
- 
-+csi2dc_probe_disable_pm:
-+	pm_runtime_disable(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		csi2dc_power(csi2dc, false);
-+	pm_runtime_set_suspended(dev);
- csi2dc_probe_cleanup_notifier:
- 	v4l2_async_nf_cleanup(&csi2dc->notifier);
- csi2dc_probe_cleanup_entity:
-@@ -746,12 +751,15 @@ static void csi2dc_remove(struct platform_device *pdev)
- {
- 	struct csi2dc_device *csi2dc = platform_get_drvdata(pdev);
- 
--	pm_runtime_disable(&pdev->dev);
--
- 	v4l2_async_unregister_subdev(&csi2dc->csi2dc_sd);
- 	v4l2_async_nf_unregister(&csi2dc->notifier);
- 	v4l2_async_nf_cleanup(&csi2dc->notifier);
- 	media_entity_cleanup(&csi2dc->csi2dc_sd.entity);
-+
-+	pm_runtime_disable(&pdev->dev);
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		csi2dc_power(csi2dc, false);
-+	pm_runtime_set_suspended(&pdev->dev);
- }
- 
- static int __maybe_unused csi2dc_runtime_suspend(struct device *dev)
+I'll send a patch for this outside of the vfio series since the cascade
+failure is also resolved if we just extend the mix_and_match test to
+avoid the timeout in the first place.  Thanks,
 
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.47.1
+Alex
