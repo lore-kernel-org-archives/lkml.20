@@ -1,501 +1,319 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02E33C1D7F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021163; cv=none; b=cbFoUOt7/8sVhP13WDIL4KqWMcbEpCFTUD9b0q+QzeeIIH7R9IduyxWi5m+O1yIph9dK/yS7r8ZiGlLvfUSvnd4mhazvRejujv4eqC8iChQCMa31eTD/bh7aXJ52f7KvSCWeSY+XpmJ2iL45lbiS10laHD9EVFlw1hhW1F3v218=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021163; c=relaxed/simple;
-	bh=kSJ4sL8idbs2NRFYHBdSnR2wVhipENMc03TN8gRnGW0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=f17K4W4sbnFSuw5eeVmGefSjCrA/0fpv7i0fSBrhjzI3/ojeG1+FJxJsUMdMC8ylFhucoGeD2nrtG+O49oYisH6XD5Bpp13oszm5HCkANDH42Pcx29D0hsCspeGKQGpcU7jQ6/8Ei5Uttd7SUOp9EoHulsCg0+7NublBgyF4+8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xfT0KhTh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=J/yJmeNx; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=amGcVMHS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wsDvyjxl; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0759131E82E;
+	Thu, 10 Sep 2026 06:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789021176; cv=fail; b=ErLPKxMjBSM0/EmhOQTpHZq6UrdSVcx1B9zGQdWZtW7Evm7Cq9Q0MI3cm4kDfuBV2Z/I21mwwj9Exl46ewdlboy5Se0lfT2ZaBfNR+yUhEkIZH1vKvf6FDdJBD+INkQ7ExKgfXhPRH9pSUrhDaZIxDpBII8vS0QeBiErt+5JQ3c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789021176; c=relaxed/simple;
+	bh=UU4kGJdlqQz3Av9tJZPyXUZayP0nDr+Wqid/CzWqtAg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=FA7RTH/y6zMIyx8FF9zLQSDoCqTTF/WGe13N4HhgKSgIjqIo+hmwufNePhNvbp02qGxqPPhd1mkIxRdNxSsCdl0RH3sFnn0n11t4XzujDt0Yb6oG9oZuBrbx3zSeCz0iiY705NznMD2p8HhVI6h3DfQs4tBS1CnU3+UMzan0z4s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AnloXddZ; arc=fail smtp.client-ip=52.101.56.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xfT0KhTh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J/yJmeNx";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="amGcVMHS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wsDvyjxl"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 366441FD90;
-	Thu, 10 Sep 2026 06:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789021143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=nVLVc+IGXcOzgczLWJwX8qmORWyrGKhNdPGp1kdsM2E=;
-	b=xfT0KhThSIutVmQj7awPGLTnr1FWECZpHpHsC6GLH5fcCfPhZr3jN7B9AjPUtzBsL3QNAp
-	Z9ABvVNinFJ3JHDp/CBYy5XRw0p7VdlwO/WFeZFpzKE40F/mnxP+zuLMHqQeCaD5TjqgPR
-	cxOd47vFieOPEWi7AznksYQJ8QycHMk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789021143;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=nVLVc+IGXcOzgczLWJwX8qmORWyrGKhNdPGp1kdsM2E=;
-	b=J/yJmeNx2MDZP2q+MigOwLWIyWe5TO6Yhz+gHa3uUCu4Q7uXq1t1554J3TcvOzHSNED85w
-	Z5gYlCgFuxqsdDAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789021139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=nVLVc+IGXcOzgczLWJwX8qmORWyrGKhNdPGp1kdsM2E=;
-	b=amGcVMHSP5X0T6lerl0EK/k0OxZwiEjdlbfsDG4H1d/WxwU4Q06UztUmTEEnpDoWvN2s/O
-	iSPXTNheMJ/zTls2jXiWsxA39741ZHlHSdt0fEVRgkCfNlsYEouW8cjmIH8gjnV7hhf2zm
-	CimZUurmShncyK4y9ZOiMUKISUlkwAI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789021139;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=nVLVc+IGXcOzgczLWJwX8qmORWyrGKhNdPGp1kdsM2E=;
-	b=wsDvyjxl31NZHNJ3UDZOZUViKaoqSYhhPzPzYtWo3adlTqUKRkJ+vSS2VmVYKFtmflA3yi
-	98gko85GAEBYOqAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A654313889;
-	Thu, 10 Sep 2026 06:18:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3A1iJ9JLomqJFgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 06:18:58 +0000
-Message-ID: <25a054ed-fe77-47e2-8537-f572cb7fc9a8@suse.de>
-Date: Thu, 10 Sep 2026 08:18:58 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AnloXddZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HpbGKwI/gbQVJdYNDNUix0e3C51V+kpGbcZxQk4akPDrLuC7vt2ct2vBZwkd8PJHVFhL7XUQjdUn8cS0JqQ/4c8OBNGEaePgGUENMVZVV4GmyE8BMSYWbyfO0XlpcrFPFyHt+6+MKwxNOdzu1Zh/twqhmdtw+KsUuUfjtY5X1FBD/XoLgOSGZAPnnevflvjn5+u1T/xSwNJuRn7nRcVeUosOQGpEOLYAkgw7HJhhfFA7KXJH6t9YKqSwQ0LOHCptbEdy8/XJ20cSaCSq/C5AmOkp/rVmvD2KnFLpHe+IJ9uilXyPOyAhhJ+wdIGh6ZDOS78mhvdry1aqZ/rK4dgzyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0Y0NMEtxBmoJ6tC1bgq7cu3GpAcQHKWKfDPO01w4B8c=;
+ b=NqXq6BgdAWY/vqDc/acPm032Hs9+2qTvJluRPSV3k4CFNWt2exjHzEUsvoeJ30LDvWcog+/gnedKtumERCwKK0b+LY9eeAu/Q7Uy8tTICgVmPPVJiIbPTbEkvdLE+pVqIFQxVNj1Yutdk5lnlID4ysSR0RKLs/vqVMnaXiIHLEwbamE18GA86SiAoosr6xOB8UHVa9//CxN4oKoaitHOPkoIDcF/QCNoxhQrqTHatZsJfW7j8OxnfMxKasJVnl7LeXyFGAyta/PPJlIQfMSvP8M8aNPE9zsjmUf81Ji3H0sUdAKKRo0iSX4yYNSXRToToOaseoTulPjj0vuChaYEyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=roeck-us.net smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0Y0NMEtxBmoJ6tC1bgq7cu3GpAcQHKWKfDPO01w4B8c=;
+ b=AnloXddZDKA1mzirO7O5jCnB4unbxsgVvykJbSL5qYNVb66T51zyGgdPeZfJ55xhWJkVFX+++lBMXmQGmEvWEaorCFH7G/N3viIGNQjHQBcYQ13T8DWKgMwyBNHsAJ/H4U65CXSBuB/k0Df0ea0D0U5csg6dlFQM7RQDh9cfARw=
+Received: from BN9PR03CA0765.namprd03.prod.outlook.com (2603:10b6:408:13a::20)
+ by SA1PR12MB6846.namprd12.prod.outlook.com (2603:10b6:806:25d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
+ 2026 06:19:16 +0000
+Received: from BN1PEPF00018071.namprd04.prod.outlook.com
+ (2603:10b6:408:13a:cafe::4e) by BN9PR03CA0765.outlook.office365.com
+ (2603:10b6:408:13a::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Thu, 10
+ Sep 2026 06:19:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00018071.mail.protection.outlook.com (10.167.245.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 06:19:16 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 01:19:15 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Thu, 10 Sep 2026 01:19:13 -0500
+From: Colin Huang <colin.huang2@amd.com>
+Date: Thu, 10 Sep 2026 14:18:56 +0800
+Subject: [PATCH v3 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
+ TDA38740/TDA38725
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/tiny: arcpgu: Replace simple display pipe with
- regular atomic helpers
-To: Davide Bonatto <bonatto.davide@gmail.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260909092455.131962-1-bonatto.davide@gmail.com>
- <20260909125806.174851-1-bonatto.davide@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260909125806.174851-1-bonatto.davide@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,synopsys.com,linux.intel.com,kernel.org,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.com:url]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260910-add-tda38740-and-tda38725-v3-2-3e87637da3d6@gmail.com>
+References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
+In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <colin.huang2@amd.com>, Colin Huang
+	<u8813345@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789021144; l=6027;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=tGmgNWPbrOgEwq/hyJSGK2A0E4LAtco3aimV9WfyijI=;
+ b=YP//aZ5V0v1ME54b1Bmrv0b0E1iWmYtrKgLvGoUHEPpL7CmD/fn+CClwbheQJ5K81GlJKDNdv
+ Z9bSHEG7CPqC4+EV038HZrWauSNTd7Ibbj6GFJPHeBdbfHOOc6qc87k
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|SA1PR12MB6846:EE_
+X-MS-Office365-Filtering-Correlation-Id: 058b9455-fc76-42db-aa69-08df0f0370cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|22082099003|18002099003|11063799006|56012099006|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	dsh7lyMjBuQy+fIJ+A9y5aZetTgaBLyLIxiUVHz9xsFaqI6UwHaSBoS25f/Jfx/LYJ/BVltmb7VW8qel+X8Bz4glnfGp2tp2TjvUM1B9D5MTqrg2Ipke3nQOqoJJPQistFfTemZQ6gWY13vh7o6QlcuYzEIPh6u7b69Otz8VRI0LhzGq2/7qbxKHOip7Dp+/6F7iQlQkbtoBUj1iI34RL+2LBR5VEStC1Rx4lGskXymLb0IdNJ6hU5S8Ob1kHfjZ3zUO+iBoNgQF8xy1SlXasccMBb9I0WOO1D/Ffvnx5Z+UK9XubXX0sxN1Pf0HLpHN27NCfQcnDI+8f5ZCKCeN32D5n2MzPhL/CUFsfRkPrVMacjeoTol02vTFLear99tIT9mW1ub/ABVHUxzWp3i+7hurfOWVQzdrniJCThVZKY5Xf7GAOFyTfmU+DJQNvZiQjMkOnpVaz9RU/AFFr8tszIHTShAFkJVHRvAMPfnWRbCyfUzAupXAi7T+MrXY259/OPmK3ZnXXmYRfylHv6mfZB0ZLlqKr/qlxVnR6yijnZWTpHLMDFMvb+8EP6mv1YKaKs4EoHMvvrAWeMEQlonSnyI5KiFnjgO5IFH+pZzzD2byv+8vuJu1ibJ8w8UKUN4einobWD+cJRx4Mt6lM0ojVQxxa0kfnd0tLhkbK5d0W7vlLNyyOvulGv6IF+uS1b8a11HlbtYnZoKkU1t6FrCjog==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	EjY1u9Eudq76pUaYMab6kstxnTK3fJwhiN2ASVwI1l7BO5dShGc/B5DmT6XScoxx1lAxfhmP6MbvSh07cTniTKmoWFZC4Uai8nOQuQCERcD1oTKjDw8bsiJXYGaXvsWEWAt9FB0AtV+Wj5ArHeVmLF9pk7PEDoD5/iHMYp9o3QdFeWrKyRgbEACWLH4Es0+Wof9PANPziTr0LnOnJyLf9sxg2xHfUlcUwdB+5EpWx63otxh2qGCav+wjACnY/bsM0GgTEuY61K8hc1dpClaSWhvcJQ1vpyaPfgy+/NDP36QA5H7Zc4cWiEq65myhcK6Une9xFOcOso5BJplleCipXIRPccTyneQA16L8LtP2Kktjry3+B4+SKDtny6o1/Tho8+m2mA0CHiu/DsiWpNLfZAshzMtTDsrMQtxr/0WeQT2KZcHoafCBELBkrx4w2rZX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 06:19:16.1183
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 058b9455-fc76-42db-aa69-08df0f0370cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018071.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6846
 
-Please stop spamming this list with patch mails
+From: Colin Huang <u8813345@gmail.com>
 
-Am 09.09.26 um 14:58 schrieb Davide Bonatto:
-> The drm_simple_display_pipe helper is considered legacy/deprecated in
-> favor of explicitly managing individual plane, CRTC, and encoder objects
-> using standard atomic helpers.
->
-> Migrate arcpgu to initialize its primary plane, CRTC, and encoder
-> explicitly, and route mode validation, enable, and disable hooks
-> through drm_crtc_helper_funcs, and plane updates through
-> drm_plane_helper_funcs.
->
-> Signed-off-by: Davide Bonatto <bonatto.davide@gmail.com>
-> ---
-> v5:
->    - Fix NULL pointer dereference in arc_pgu_crtc_atomic_check() by checking
->      crtc_state->plane_mask instead of manually querying plane state.
-> v4:
->    - Use drm_atomic_get_plane_state() in CRTC .atomic_check to ensure
->      the primary plane state is attached and locked, avoiding false -EINVAL
->      rejections and broken partial atomic commits.
-> v3:
->    - Add CRTC .atomic_check hook to validate primary plane presence
->      and avoid NULL pointer dereference in arc_pgu_set_pxl_fmt().
->    - Pass framebuffer explicitly to arc_pgu_mode_set() and read plane
->      state via drm_atomic_get_new_plane_state() in CRTC enable to prevent UAF.
->    - Keep CRTC global enable bit intact during plane disable to avoid
->      hardware state desync.
-> v2:
->    - Add .prepare_fb callback to support implicit synchronization.
->    - Add .atomic_check using drm_atomic_helper_check_plane_state()
->      to validate hardware scaling/clipping constraints.
->    - Implement arc_pgu_plane_atomic_disable() to stop DMA and clear
->      buffer address register, preventing hardware DMA scanout UAF.
->
->   drivers/gpu/drm/tiny/arcpgu.c | 188 +++++++++++++++++++++++++++-------
->   1 file changed, 150 insertions(+), 38 deletions(-)
->
-> diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-> index c93d61ac0bb7..c6308fee568d 100644
-> --- a/drivers/gpu/drm/tiny/arcpgu.c
-> +++ b/drivers/gpu/drm/tiny/arcpgu.c
-> @@ -5,6 +5,8 @@
->    * Copyright (C) 2016 Synopsys, Inc. (www.synopsys.com)
->    */
->   
-> +#include "drm/drm_gem_atomic_helper.h"
-> +
->   #include <linux/clk.h>
->   
->   #include <drm/clients/drm_client_setup.h>
-> @@ -23,6 +25,8 @@
->   #include <drm/drm_of.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_simple_kms_helper.h>
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_bridge.h>
->   #include <linux/dma-mapping.h>
->   #include <linux/module.h>
->   #include <linux/of_reserved_mem.h>
-> @@ -52,13 +56,17 @@ struct arcpgu_drm_private {
->   	struct drm_device	drm;
->   	void __iomem		*regs;
->   	struct clk		*clk;
-> -	struct drm_simple_display_pipe pipe;
-> +	struct drm_plane	plane;
-> +	struct drm_crtc		crtc;
-> +	struct drm_encoder	encoder;
->   	struct drm_connector	sim_conn;
->   };
->   
->   #define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
->   
-> -#define pipe_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, pipe)
-> +#define crtc_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, crtc)
-> +
-> +#define plane_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, plane)
->   
->   static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
->   				 unsigned int reg, u32 value)
-> @@ -115,14 +123,19 @@ static const u32 arc_pgu_supported_formats[] = {
->   	DRM_FORMAT_ARGB8888,
->   };
->   
-> -static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
-> +static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu,
-> +				const struct drm_framebuffer *fb)
->   {
-> -	const struct drm_framebuffer *fb = arcpgu->pipe.plane.state->fb;
-> -	uint32_t pixel_format = fb->format->format;
-> +	u32 pixel_format;
->   	u32 format = DRM_FORMAT_INVALID;
->   	int i;
->   	u32 reg_ctrl;
->   
-> +	if (!fb)
-> +		return;
-> +
-> +	pixel_format = fb->format->format;
-> +
->   	for (i = 0; i < ARRAY_SIZE(arc_pgu_supported_formats); i++) {
->   		if (arc_pgu_supported_formats[i] == pixel_format)
->   			format = arc_pgu_supported_formats[i];
-> @@ -139,10 +152,10 @@ static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
->   	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL, reg_ctrl);
->   }
->   
-> -static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *pipe,
-> -					       const struct drm_display_mode *mode)
-> +static enum drm_mode_status arc_pgu_crtc_mode_valid(struct drm_crtc *crtc,
-> +						    const struct drm_display_mode *mode)
->   {
-> -	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
-> +	struct arcpgu_drm_private *arcpgu = crtc_to_arcpgu_priv(crtc);
->   	long rate, clk_rate = mode->clock * 1000;
->   	long diff = clk_rate / 200; /* +-0.5% allowed by HDMI spec */
->   
-> @@ -153,9 +166,10 @@ static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *p
->   	return MODE_NOCLOCK;
->   }
->   
-> -static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
-> +static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu,
-> +			     const struct drm_framebuffer *fb)
->   {
-> -	struct drm_display_mode *m = &arcpgu->pipe.crtc.state->adjusted_mode;
-> +	struct drm_display_mode *m = &arcpgu->crtc.state->adjusted_mode;
->   	u32 val;
->   
->   	arc_pgu_write(arcpgu, ARCPGU_REG_FMT,
-> @@ -189,54 +203,127 @@ static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
->   	arc_pgu_write(arcpgu, ARCPGU_REG_STRIDE, 0);
->   	arc_pgu_write(arcpgu, ARCPGU_REG_START_SET, 1);
->   
-> -	arc_pgu_set_pxl_fmt(arcpgu);
-> +	arc_pgu_set_pxl_fmt(arcpgu, fb);
->   
->   	clk_set_rate(arcpgu->clk, m->crtc_clock * 1000);
->   }
->   
-> -static void arc_pgu_enable(struct drm_simple_display_pipe *pipe,
-> -			   struct drm_crtc_state *crtc_state,
-> -			   struct drm_plane_state *plane_state)
-> +static void arc_pgu_crtc_atomic_enable(struct drm_crtc *crtc,
-> +				       struct drm_atomic_commit *state)
->   {
-> -	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
-> +	struct arcpgu_drm_private *arcpgu = crtc_to_arcpgu_priv(crtc);
-> +	struct drm_plane_state *plane_state =
-> +		drm_atomic_get_new_plane_state(state, &arcpgu->plane);
-> +	const struct drm_framebuffer *fb = plane_state ? plane_state->fb : NULL;
->   
-> -	arc_pgu_mode_set(arcpgu);
-> +	arc_pgu_mode_set(arcpgu, fb);
->   
->   	clk_prepare_enable(arcpgu->clk);
->   	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL,
->   		      arc_pgu_read(arcpgu, ARCPGU_REG_CTRL) |
-> -		      ARCPGU_CTRL_ENABLE_MASK);
-> +		ARCPGU_CTRL_ENABLE_MASK);
->   }
->   
-> -static void arc_pgu_disable(struct drm_simple_display_pipe *pipe)
-> +static void arc_pgu_crtc_atomic_disable(struct drm_crtc *crtc,
-> +					struct drm_atomic_commit *state)
->   {
-> -	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
-> +	struct arcpgu_drm_private *arcpgu = crtc_to_arcpgu_priv(crtc);
->   
->   	clk_disable_unprepare(arcpgu->clk);
->   	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL,
-> -			      arc_pgu_read(arcpgu, ARCPGU_REG_CTRL) &
-> -			      ~ARCPGU_CTRL_ENABLE_MASK);
-> +		      arc_pgu_read(arcpgu, ARCPGU_REG_CTRL) &
-> +		~ARCPGU_CTRL_ENABLE_MASK);
->   }
->   
-> -static void arc_pgu_update(struct drm_simple_display_pipe *pipe,
-> -			   struct drm_plane_state *state)
-> +static void arc_pgu_plane_atomic_update(struct drm_plane *plane,
-> +					struct drm_atomic_commit *state)
->   {
-> -	struct arcpgu_drm_private *arcpgu;
-> +	struct arcpgu_drm_private *arcpgu = plane_to_arcpgu(plane);
-> +	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
->   	struct drm_gem_dma_object *gem;
->   
-> -	if (!pipe->plane.state->fb)
-> +	if (!new_plane_state->fb)
->   		return;
->   
-> -	arcpgu = pipe_to_arcpgu_priv(pipe);
-> -	gem = drm_fb_dma_get_gem_obj(pipe->plane.state->fb, 0);
-> +	gem = drm_fb_dma_get_gem_obj(new_plane_state->fb, 0);
->   	arc_pgu_write(arcpgu, ARCPGU_REG_BUF0_ADDR, gem->dma_addr);
->   }
->   
-> -static const struct drm_simple_display_pipe_funcs arc_pgu_pipe_funcs = {
-> -	.update = arc_pgu_update,
-> -	.mode_valid = arc_pgu_mode_valid,
-> -	.enable	= arc_pgu_enable,
-> -	.disable = arc_pgu_disable,
-> +static void arc_pgu_plane_atomic_disable(struct drm_plane *plane,
-> +					 struct drm_atomic_commit *state)
-> +{
-> +	struct arcpgu_drm_private *arcpgu = plane_to_arcpgu(plane);
-> +
-> +	arc_pgu_write(arcpgu, ARCPGU_REG_BUF0_ADDR, 0);
-> +}
-> +
-> +static int arc_pgu_plane_atomic_check(struct drm_plane *plane,
-> +				      struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc_state *crtc_state;
-> +
-> +	if (!new_plane_state->crtc)
-> +		return 0;
-> +
-> +	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
-> +	if (!crtc_state)
-> +		return -EINVAL;
-> +
-> +	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
-> +						   DRM_PLANE_NO_SCALING,
-> +						   DRM_PLANE_NO_SCALING,
-> +						   false, true);
-> +}
-> +
-> +static int arc_pgu_crtc_atomic_check(struct drm_crtc *crtc,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *crct_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +
-> +	if (!crct_state->enable)
-> +		return 0;
-> +
-> +	if (!crct_state->plane_mask)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct drm_crtc_helper_funcs arc_pgu_crtc_helper_funcs = {
-> +	.mode_valid	= arc_pgu_crtc_mode_valid,
-> +	.atomic_enable	= arc_pgu_crtc_atomic_enable,
-> +	.atomic_disable = arc_pgu_crtc_atomic_disable,
-> +	.atomic_check	= arc_pgu_crtc_atomic_check,
-> +};
-> +
-> +static const struct drm_crtc_funcs arc_pgu_crtc_funcs = {
-> +	.reset			= drm_atomic_helper_crtc_reset,
-> +	.destroy		= drm_crtc_cleanup,
-> +	.set_config		= drm_atomic_helper_set_config,
-> +	.page_flip		= drm_atomic_helper_page_flip,
-> +	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
-> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
-> +};
-> +
-> +static const struct drm_plane_helper_funcs arc_pgu_plane_helper_funcs = {
-> +	.atomic_update	= arc_pgu_plane_atomic_update,
-> +	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
-> +	.atomic_check	= arc_pgu_plane_atomic_check,
-> +	.atomic_disable = arc_pgu_plane_atomic_disable,
-> +};
-> +
-> +static const struct drm_plane_funcs arc_pgu_plane_funcs = {
-> +	.update_plane = drm_atomic_helper_update_plane,
-> +	.disable_plane = drm_atomic_helper_disable_plane,
-> +	.destroy = drm_plane_cleanup,
-> +	.reset = drm_atomic_helper_plane_reset,
-> +	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
-> +};
-> +
-> +static const struct drm_encoder_funcs arc_pgu_encoder_funcs = {
-> +	.destroy = drm_encoder_cleanup
->   };
->   
->   static const struct drm_mode_config_funcs arcpgu_drm_modecfg_funcs = {
-> @@ -301,13 +388,38 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->   			return ret;
->   	}
->   
-> -	ret = drm_simple_display_pipe_init(drm, &arcpgu->pipe, &arc_pgu_pipe_funcs,
-> -					   arc_pgu_supported_formats,
-> -					   ARRAY_SIZE(arc_pgu_supported_formats),
-> -					   NULL, connector);
-> +	ret = drm_universal_plane_init(drm, &arcpgu->plane, 0,
-> +				       &arc_pgu_plane_funcs, arc_pgu_supported_formats,
-> +				       ARRAY_SIZE(arc_pgu_supported_formats), NULL,
-> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
-> +
->   	if (ret)
->   		return ret;
->   
-> +	drm_plane_helper_add(&arcpgu->plane, &arc_pgu_plane_helper_funcs);
-> +
-> +	ret = drm_crtc_init_with_planes(drm, &arcpgu->crtc, &arcpgu->plane, NULL,
-> +					&arc_pgu_crtc_funcs, NULL);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_crtc_helper_add(&arcpgu->crtc, &arc_pgu_crtc_helper_funcs);
-> +
-> +	ret = drm_encoder_init(drm, &arcpgu->encoder, &arc_pgu_encoder_funcs,
-> +			       DRM_MODE_ENCODER_NONE, NULL);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	arcpgu->encoder.possible_crtcs = drm_crtc_mask(&arcpgu->crtc);
-> +
-> +	if (connector) {
-> +		ret = drm_connector_attach_encoder(connector, &arcpgu->encoder);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->   	if (encoder_node) {
->   		/* Locate drm bridge from the hdmi encoder DT node */
->   		struct drm_bridge *bridge __free(drm_bridge_put) =
-> @@ -315,7 +427,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->   		if (!bridge)
->   			return -EPROBE_DEFER;
->   
-> -		ret = drm_simple_display_pipe_attach_bridge(&arcpgu->pipe, bridge);
-> +		ret = drm_bridge_attach(&arcpgu->encoder, bridge, NULL, 0);
->   		if (ret)
->   			return ret;
->   	}
-> @@ -342,7 +454,7 @@ static int arcpgu_show_pxlclock(struct seq_file *m, void *arg)
->   	struct drm_device *drm = node->minor->dev;
->   	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
->   	unsigned long clkrate = clk_get_rate(arcpgu->clk);
-> -	unsigned long mode_clock = arcpgu->pipe.crtc.mode.crtc_clock * 1000;
-> +	unsigned long mode_clock = arcpgu->crtc.mode.crtc_clock * 1000;
->   
->   	seq_printf(m, "hw  : %lu\n", clkrate);
->   	seq_printf(m, "mode: %lu\n", mode_clock);
+Add a PMBus driver for Infineon TDA38740 and TDA38725
+single-voltage synchronous buck regulators.
+
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+ drivers/hwmon/pmbus/Kconfig    |   9 +++
+ drivers/hwmon/pmbus/Makefile   |   1 +
+ drivers/hwmon/pmbus/tda38740.c | 150 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 160 insertions(+)
+
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index bcfdc4ce4c10..e4ca80dd0574 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
+ 	  If you say yes here you get regulator support for Infineon
+ 	  TDA38640 as regulator.
+ 
++config SENSORS_TDA38740
++	tristate "Infineon TDA38725/TDA38740"
++	help
++	  If you say yes here you get hardware monitoring support for Infineon
++	  TDA38725 and TDA38740.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called tda38740.
++
+ config SENSORS_TPS25990
+ 	tristate "TI TPS25990"
+ 	help
+diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+index e288fe72a437..eb06d47816fd 100644
+--- a/drivers/hwmon/pmbus/Makefile
++++ b/drivers/hwmon/pmbus/Makefile
+@@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)	+= stef48h28.o
+ obj-$(CONFIG_SENSORS_SQ24860)	+= sq24860.o
+ obj-$(CONFIG_SENSORS_STPDDC60)	+= stpddc60.o
+ obj-$(CONFIG_SENSORS_TDA38640)	+= tda38640.o
++obj-$(CONFIG_SENSORS_TDA38740)	+= tda38740.o
+ obj-$(CONFIG_SENSORS_TPS25990)	+= tps25990.o
+ obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
+ obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
+diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda38740.c
+new file mode 100644
+index 000000000000..df5173d8da0c
+--- /dev/null
++++ b/drivers/hwmon/pmbus/tda38740.c
+@@ -0,0 +1,150 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Hardware monitoring driver for Infineon TDA38725/TDA38740
++ *
++ * Copyright (c) 2023 9elements GmbH
++ *
++ */
++
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/init.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/property.h>
++#include "pmbus.h"
++
++#define TDA38740_VOUT_SCALE_DEFAULT_MICRO	1000000
++#define TDA38740_VOUT_SCALE_MIN_MICRO		100000
++#define TDA38740_VOUT_SCALE_MAX_MICRO		2000000
++
++struct tda38740_data {
++	struct pmbus_driver_info info;
++	u32 vout_scale_micro;
++};
++
++static int tda38740_read_word_data(struct i2c_client *client, int page,
++				   int phase, int reg)
++{
++	const struct tda38740_data *data;
++	int ret;
++	u64 scaled;
++
++	if (reg != PMBUS_READ_VOUT)
++		return -ENODATA;
++
++	ret = pmbus_read_word_data(client, page, phase, reg);
++	if (ret < 0)
++		return ret;
++
++	data = container_of(pmbus_get_driver_info(client), struct tda38740_data,
++			    info);
++
++	scaled = (u64)ret * data->vout_scale_micro;
++	scaled = DIV_ROUND_CLOSEST_ULL(scaled,
++				       TDA38740_VOUT_SCALE_DEFAULT_MICRO);
++
++	return clamp_val(scaled, 0, U16_MAX);
++}
++
++/*
++ * TDA38725/TDA38740 only support Linear format for VOUT related commands,
++ * with exponents in the range of -8 to -12 (see datasheet VOUT_MODE
++ * description). Direct format is not supported by this device.
++ */
++static int tda38740_identify(struct i2c_client *client,
++			     struct pmbus_driver_info *info)
++{
++	int vout_mode;
++
++	vout_mode = pmbus_read_byte_data(client, 0, PMBUS_VOUT_MODE);
++	if (vout_mode < 0 || vout_mode == 0xff)
++		return vout_mode < 0 ? vout_mode : -ENODEV;
++
++	if ((vout_mode >> 5) != 0)
++		return -ENODEV;
++
++	info->format[PSC_VOLTAGE_OUT] = linear;
++
++	return 0;
++}
++
++static struct pmbus_driver_info tda38740_info = {
++	.pages = 1,
++	.format[PSC_VOLTAGE_IN] = linear,
++	.format[PSC_CURRENT_OUT] = linear,
++	.format[PSC_CURRENT_IN] = linear,
++	.format[PSC_POWER] = linear,
++	.format[PSC_TEMPERATURE] = linear,
++	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
++	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
++	    | PMBUS_HAVE_IIN
++	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
++	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
++	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
++	.identify = tda38740_identify,
++};
++
++static int tda38740_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct tda38740_data *data;
++	const char *propname;
++	u32 vout_scale_micro;
++	int ret;
++
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	propname = "infineon,vout-scale-micro";
++	if (device_property_present(dev, propname)) {
++		ret = device_property_read_u32(dev, propname, &vout_scale_micro);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "%s property read fail.\n",
++					     propname);
++	} else {
++		vout_scale_micro = TDA38740_VOUT_SCALE_DEFAULT_MICRO;
++	}
++
++	if (vout_scale_micro < TDA38740_VOUT_SCALE_MIN_MICRO ||
++	    vout_scale_micro > TDA38740_VOUT_SCALE_MAX_MICRO)
++		return -EINVAL;
++
++	memcpy(&data->info, &tda38740_info, sizeof(tda38740_info));
++	data->vout_scale_micro = vout_scale_micro;
++	data->info.read_word_data = tda38740_read_word_data;
++
++	return pmbus_do_probe(client, &data->info);
++}
++
++static const struct i2c_device_id tda38740_id[] = {
++	{ .name = "tda38725"},
++	{ .name = "tda38740"},
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, tda38740_id);
++
++static const struct of_device_id __maybe_unused tda38740_of_match[] = {
++	{ .compatible = "infineon,tda38725"},
++	{ .compatible = "infineon,tda38740"},
++	{ },
++};
++MODULE_DEVICE_TABLE(of, tda38740_of_match);
++
++/* This is the driver that will be inserted */
++static struct i2c_driver tda38740_driver = {
++	.driver = {
++		.name = "tda38740",
++		.of_match_table = of_match_ptr(tda38740_of_match),
++	},
++	.probe = tda38740_probe,
++	.id_table = tda38740_id,
++};
++
++module_i2c_driver(tda38740_driver);
++
++MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("PMBUS");
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
