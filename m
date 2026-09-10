@@ -1,135 +1,79 @@
-Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F954480965
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B82248593C;
+	Thu, 10 Sep 2026 12:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043022; cv=none; b=Uaax+VEW4dt9hkK7jg69Rz0GjTfYGukFT58cZYF4+7gNxkOpcr0hg9ioO3YmDQM/H+YXzNbdDUBgoWek3n5HJaWWO2yT0+jYRDz4lsDWQ+7cqpxN7WnshzYWFTTXpzCrToq9XbQi8Nm2VE3aY7rMkYOO9Rcj2NLthNluim+mJnU=
+	t=1789043029; cv=none; b=FbVxCxtjgdwGISB/+OXHJQbQCuSsFBVofGqCycYsEUL1aNXKaRIeEHHYk4OFBO5NaEbidJ0yMDKBxBL1VVSTjozvgRwQAUbjUF6XF6kbrgbcWvZoNTMl/ctBB/ZiitZmFUFLycww6gDfdUuikeuVMd5LAcMOlym+rr3D9JoJkfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043022; c=relaxed/simple;
-	bh=57KixXK0jLSgxLPsjVJJCKlr3Q1akw4Iat31BLzPYuE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CvqI/m5J9ZehYv577PH/u2haFK45pCc611rrv5t9B1YWriJDTZoiTxOe332UGnwwL3V8sHg0msxab0OtjMDIzQpxE2GM5kRu38Vd3IpY1pYzNoflrgp3PRBhq4as9k46/EAkKCXVTytwZOQWSE7laLlnEleXmGGq+eZjrbdENl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o3DO2PhD; arc=none smtp.client-ip=91.218.175.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789043029; c=relaxed/simple;
+	bh=aKNIgiiXJVkvUc/+xAj4Wu2P7aPpl/cZu7ivAUmAS+0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tq6hAzhReYIkOtiL0nTdDnkjjngkQeQryvtrnhk10HhRjvlSiyVEiA6/wz95NTr3p345r93SSL7uROEXA6fWjsoAXby667ZNXh7/B/jrsA2vwmT7H5VQZQ0iHQVxsbjLKEf2P8MFRhxtme5cUPD+xio76gLFCkMXbiyXZ3fF0RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktuQmeDT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o3DO2PhD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=57KixXK0jLSgxLPsjVJJCKlr3Q1akw4Iat31BLzPYuE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789043018; v=1; x=1789647818;
- b=o3DO2PhDZ6Kh9v/HJYDlhPS6whwkfw7fAQdRWzfvTMjPqsUlWCFakEZnfmMCBkZntxg0kRxB
- uVQLbJF44zD8hkYe2uMKpZU75wrFR1d4p7fuZbZN0Y76/an5z52twx0tnujVmAGoHb5GaYVZtxD
- V9NKlKKwSr8+4k+tyl29nhD8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dc779369e26ad385;
-	Thu, 10 Sep 2026 12:23:38 +0000
-X-Mizu-Trace-ID: dc779369e26ad385
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Amery Hung <ameryhung@gmail.com>,
-	Tejun Heo <tj@kernel.org>,
-	Matt Bobrowski <mattbobrowski@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf 1/2] bpf: Fix divide-by-zero in btf_struct_walk()
-Date: Thu, 10 Sep 2026 20:22:55 +0800
-Message-ID: <20260910122316.186384-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktuQmeDT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E413E1F000FF;
+	Thu, 10 Sep 2026 12:23:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789043027;
+	bh=m1VhSVCtMgiBJf29Yc8esGBmlET73PXMwLnKd186wJc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ktuQmeDThejQ3JxmUDBQrDaFgL6jaZfxdugefXOh8UQciZGravx0r+/2Ra517iLbp
+	 VUCQ9jP7nzKTLYg574KrbCFJBy5wkf52oUeDIlKUiWxkVd0lvdCVGB1cOr7194KL7j
+	 9qKJG0ijmM16ldzGs2lSoIaqmkBc8k5btkgoclv9uaXlthtglNCRo335sANvj7rvIP
+	 VdsXADVnS/PXZLBV5ntpyixYZVOOalQShcWgoE3KzbQh4R9jHDjp21bOVdITOzcVkg
+	 vIYC0Pbvf8fIzlY/7+Vkc/AkjstGTVuZPxq9X742HDCodJ97QWJDfetyLp7COC5O4s
+	 UqBJgal6/ewfg==
+Date: Thu, 10 Sep 2026 12:23:44 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: gsh517025@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	pjw@kernel.org, robh@kernel.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: enable onboard eeprom for
+ OrangePi
+Message-ID: <20260910122344-GKB20735@kernel.org>
+References: <4e8e6f90-9731-4416-8b1a-be1cef12bb72@gmail.com>
+ <20260907063010.1882362-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260907063010.1882362-1-amadeus@jmu.edu.cn>
 
-When an access goes past the struct and the last member is a flexible
-array, btf_struct_walk() folds the offset back into a single element with
-(off - moff) % t->size, but never checks that the element type has a size.
+Hi Chukun,
 
-BTF takes an empty struct, so this in program BTF
+On 14:30 Mon 07 Sep     , Chukun Pan wrote:
+> Hi,
+> 
+> > -         mac-address {
+> > +         mac_address: mac-address {
+> 
+> This requires removing the aliases for Ethernet.
+> 
+> > But I am not sure whether this wiring should be part of this patch.
+> > Without such wiring, the kernel falls back to random MAC addresses
+> > on this board.
+> 
+> Currently, U-Boot patches the MAC address using the Ethernet alias
+> from the Device Tree. The vendor U-Boot reads the MAC address from
+> the eeprom. I think the mainline U-Boot will add this feature, so
+> we don't need to add this one?
+> 
+I think it would take long time for us to get there - to have a mainline
+U-Boot which support parsing MAC address from eeprom. So, I have no
+objection to the idea of adding mac info into the dts.. 
 
-	/* event could be empty */
-	struct event {
- #ifdef HAVE_TIMESTAMP
-		__u64 ts;
- #endif
-	};
+Just let me know if you guys want to do in another separate patch, so I could
+take this patch first, or want to squash together and send an incremental
+ version? P.S checked k1-bananapi-cm6 board which already done as suggested..
 
-	struct batch {
-		int nr;
-		struct event events[];
-	};
-
-divides by zero at prog load time. Getting there needs a PTR_TO_BTF_ID that
-is not MEM_ALLOC, e.g. a plain read of a local kptr stashed in a map from a
-sleepable program.
-
-Oops: divide error: 0000 [#1] SMP KASAN PTI
-RIP: 0010:btf_struct_walk+0x53f/0x1570
-Call Trace:
- <TASK>
- btf_struct_access+0x42a/0xcd0
- check_ptr_to_btf_access+0x4dc/0x1160
- check_mem_access+0x3a45/0x8740
- check_load_mem+0x36a/0xd10
- do_check_common+0x3ef0/0xb210
- bpf_check+0x6d3b/0x8580
- bpf_prog_load+0xf7c/0x2720
- __sys_bpf+0xa83/0x3690
- __x64_sys_bpf+0xc7/0x150
- x64_sys_call+0x1f3f/0x27e0
- do_syscall_64+0xe5/0x610
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
- </TASK>
-
-Reject a zero-sized element type. The fixed array path in the same function
-already bails out on the same thing:
-
-	btf_struct_walk()
-	...
-		/* skip empty array */
-		if (moff == mtrue_end)
-			continue;
-
-		msize /= total_nelems;
-
-Fixes: 9c5f8a1008a1 ("bpf: Support variable length array in tracing programs")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- kernel/bpf/btf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index 31057c8f3a7c..1c5de50b9cab 100644
---- a/kernel/bpf/btf.c
-+++ b/kernel/bpf/btf.c
-@@ -7203,7 +7203,7 @@ static int btf_struct_walk(struct bpf_verifier_log *log, const struct btf *btf,
- 		if (btf_type_is_int(t))
- 			return WALK_SCALAR;
- 
--		if (!btf_type_is_struct(t))
-+		if (!btf_type_is_struct(t) || !t->size)
- 			goto error;
- 
- 		off = (off - moff) % t->size;
 -- 
-2.43.0
-
+Yixun Lan (dlan)
