@@ -1,164 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BF95678C9;
-	Thu, 10 Sep 2026 17:52:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EAD568FA0;
+	Thu, 10 Sep 2026 17:52:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062736; cv=none; b=gs7ppcwLrIi+MjE1jPg/Q/TZW8Hb0JRpkAerbI1SyCx7lRahOW38EkDz8dRLHhnmURc1agTZDMCBvIm9y4hS9lGnioha4MuHRAiXk4A7oCXJtV4Iz6Vd3GGWp+OWphzBdWcpQErL2h+Wm2AfJfBHD3XBNGYG0oP6lp75DylXGk4=
+	t=1789062743; cv=none; b=Zhm6P9zvKUrP4f70YIXBKs4Z0qeIlCaiGMN5TcD4JMnyZjfYYW2VylcS3ZhrEXG6uMI3fMk6gzZP5ar+7+YZRcaCkWGaalr5kmscXv3qY5XbbPrzvPAKupGjDsf4Zt2KD0E2WMi4uDYfZAfE01yg+RZgtHIHL5UC4bHOEYf6hjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062736; c=relaxed/simple;
-	bh=GOGYs9yTwHdzorC8tVK0sxJhBpZG+pEwQaWaAoR7TTE=;
+	s=arc-20240116; t=1789062743; c=relaxed/simple;
+	bh=mqIjDgwt1k4t/LjJAiodLZiq4rf4oaNlRQSqNUKnMiU=;
 	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=Yb0tvdQ/rI+BjvHqHPdr0C8yrQNFzpcmxGRZO9kxuwDJimBu1gigMhpT0maDHBb2r2LLGE5+hcMsvwWzZB/icDZHLLafMmjT5ypOSIVyNxtUJe4dpj/Ck2CUjU+wJ+sjVckNJ05itSGanl2wGbrbl/ZJG/yIfwVRc8AesKOHz7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ll1x28+r; arc=none smtp.client-ip=100.103.45.18
+	 Subject:From:To:Cc:Date; b=aDP+lxf/MX7Ik9O9WbWaDDq5HyEyWdV8MHLTmZeL/AnRkdeDT2QFkXdrMfwD+bCR0FKV9eOGY6WS1hc0oT/LVk1uCzVruhXFyyLt+DjWJvY+6rJ/ALQMxpwsii50nk2/Qxj5XrVNQgFqY94xa8W6yXchmYy0Dvt7ZlZ7u5AwWGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NpgfJEhs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ll1x28+r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46EC11F000FF;
-	Thu, 10 Sep 2026 17:52:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NpgfJEhs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF1A1F00898;
+	Thu, 10 Sep 2026 17:52:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789062730;
-	bh=YrqrIjdyKnBWYjMwIRcLZddqKSeufHfRNBxrhshS8sM=;
+	s=k20260515; t=1789062734;
+	bh=rwS1M3RLr+vDcDVapVJ2NACS29ZPvvCWeN6sAturq+U=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=ll1x28+rJIgBto1mf8T0HXKQk9tls0YZElGwlUQ8TQwdaE8IpnnQKL4N9uD6GUZhB
-	 rPZ0sRbdmOax9nObgWntMWE71GzC2bDxTX2Wk80GTBsIbEqzp/glWwDac/FCVfSBZX
-	 pVwiD47TvNbWkjqs2mjliqzH/eSCGqFb92XJEuDJ2I8Hpq2AW7geAVucNpBhV1qp+O
-	 89AW2VBkIIGIEpPngqM2LGRlhvhFC10kEVWGKgZM7P/ZeLXMj10CfRwCMUtQaXrXKL
-	 63yFXr7+jZGgzrY/97+Gzqo5sUCGMWuRkK5SjqbIMUJwXdii2zZHqCMUbnfZ4lE8Wx
-	 fdlvmfpwc7HZQ==
-Content-Type: multipart/mixed; boundary="===============4355563254654798491=="
+	b=NpgfJEhsVIw/Zk9OHA+GVJTi6kTpOnZAtxAdTNopMrEAaaBYwF6+FuElVr6VyYIW6
+	 gD7IInjuAwbTI4FLlo/VAjMMlTpRP8udb1p7fovkWfg4wJHfT1DN3NjXS1+9/ozyJ9
+	 Z1FnYoOeS4/BsllkEJeNhhKvJGDoR9kA/Hb9ndxudulIq3AHj0nTlyhi+8B7OcRhFg
+	 eU4cDXRbu92Tzme2of8txzH4A8IRY7X4VjH3+1nymI5C12KjzyVnD2JK73vRX4L6kM
+	 +J5euLyRSeOPZ8CAwjFKCA0DUAkzNqi/oQ9H9t+rImkmtbKofjiKIwf/J9idp6lKBU
+	 ZysjOIfa6FnWA==
+Content-Type: multipart/mixed; boundary="===============7603380297199476794=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <92fc8746a5a16b3e0e544244b584cc6b287a466539230bdb4043e0e8a716c9af@mail.kernel.org>
-In-Reply-To: <20260910164635.459558-6-vineet.gupta@linux.dev>
-References: <20260910164635.459558-6-vineet.gupta@linux.dev>
-Subject: Re: [PATCH bpf-next v2 05/13] bpf: keep the range across a sign extension that cannot change it
+Message-Id: <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
+In-Reply-To: <20260910164635.459558-2-vineet.gupta@linux.dev>
+References: <20260910164635.459558-2-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of bpf_reg_state->id [NFC]
 From: bot+bpf-ci@kernel.org
 To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
 Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 10 Sep 2026 17:52:09 +0000 (UTC)
+Date: Thu, 10 Sep 2026 17:52:13 +0000 (UTC)
 
---===============4355563254654798491==
+--===============7603380297199476794==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> bpf: keep the range across a sign extension that cannot change it
->
-> coerce_reg_to_size_sx() decides whether a sign extension is lossless by
-> comparing the bits above the field in smin and smax:
->
->         top_smax_value = ((u64)reg_smax(reg) >> num_bits) << num_bits;
->         top_smin_value = ((u64)reg_smin(reg) >> num_bits) << num_bits;
->         if (top_smax_value != top_smin_value)
->                 goto out;
->
-> Equal high bits do imply the truncation is lossless, but the converse does
-> not hold. Whenever the range straddles zero the high bits necessarily
-> differ -- smin sign-extends to all ones, smax to all zeroes -- even when
-> every value in the range fits the field and (sN)v == v throughout. The
-> second gate, "both of s64_max/s64_min positive or negative", rejects the
-> same shape again for the same reason.
->
-> So a register holding an errno-or-zero value, [-4095, 0], comes out of r0
-> = (s32)r0 as the full [S32_MIN, S32_MAX] even though the instruction is a
-> no-op on it. The no_sext test at the call site does not help: it is an
-> unsigned check, so it only covers non-negative values that fit.
->
-> Test the range against the field directly and return early when it fits.
-> Sign extension is then the identity, so nothing needs updating -- which
-> also preserves var_off, where the existing path would have replaced known
-> bits with a coarse tnum_range().
->
-> This only tightens: the early return fires exactly where the value is
-> provably unchanged, and the cases the current tests do accept still take
-> the same path and produce the same bounds.
+> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+> index 66fb11b6c6a7..d974baad37ee 100644
+> --- a/kernel/bpf/states.c
+> +++ b/kernel/bpf/states.c
 
-Does the last sentence accurately describe the change? The early return
-is placed before the top_s*_value and sign gates, so it intercepts every
-fitting range, including those the existing gates accept.
+[ ... ]
 
-For example, with 'w0 &= 0x3c; r0 = (s8)r0', the register holds [0, 60]
-with var_off = (0; 0x3c). The old path passed both gates (equal top bits,
-both non-negative) and set var_off = tnum_range(0, 60) = TNUM(0, 0x3f),
-losing the known low bits. The early return now keeps (0; 0x3c).
-
-This is the var_off preservation the message describes two sentences
-earlier, so "produce the same bounds" seems inaccurate. Would "produce
-bounds no wider than before" be more precise, given that the accepted
-cases are where the behaviour actually changes?
-
->
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
-
-This looks like a bug fix for sign extension handling in the verifier.
-Should this include:
-
-  Fixes: 1f9a1ea821ff ("bpf: Support new sign-extension load insns")
-
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index 58e788f53ae5..eb093194e2a3 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -5754,6 +5754,7 @@ static void set_sext64_default_val(struct bpf_reg_state *reg, int size)
->  static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
+> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>   * and r7.id=0 (both independent), without temp IDs both would map old_id=X
+>   * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
+>   * X->temp2, but X is already mapped to temp1, so the check fails correctly.
+> - *
+> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
+> - * base id (flag stripped) must both map consistently. Example: old has
+> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
+> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
+> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
+> - * with A->B. The base ID cross-check catches this.
+>   */
+>  static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
 >  {
->  	s64 init_s64_max, init_s64_min, s64_max, s64_min, u64_cval;
-> +	s64 field_smin, field_smax;
->  	u64 top_smax_value, top_smin_value;
->  	u64 num_bits = size * 8;
+> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
 >
-> @@ -5773,6 +5774,27 @@ static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
->  		return;
->  	}
+>  	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
 >
-> +	if (size == 1) {
-> +		field_smin = S8_MIN;
-> +		field_smax = S8_MAX;
-> +	} else if (size == 2) {
-> +		field_smin = S16_MIN;
-> +		field_smax = S16_MAX;
-> +	} else {
-> +		/* size == 4 */
-> +		field_smin = S32_MIN;
-> +		field_smax = S32_MAX;
-> +	}
-> +
-> +	/*
-> +	 * The range already fits the field, so (sN)v == v for every value the
-> +	 * register can hold and the sign extension changes nothing. The tests
-> +	 * below cannot reach this case once smin is negative: a negative smin
-> +	 * and a non-negative smax never share their high bits.
-> +	 */
+> -	if (!check_ids(old_id, cur_id, idmap))
+> -		return false;
+> -	if (old_id & BPF_ADD_CONST) {
+> -		old_id &= ~BPF_ADD_CONST;
+> -		cur_id &= ~BPF_ADD_CONST;
+> -		if (!check_ids(old_id, cur_id, idmap))
+> -			return false;
+> -	}
+> -	return true;
+> +	return check_ids(old_id, cur_id, idmap);
+>  }
 
-Is the comment's condition accurate? It says the tests below cannot
-reach this case once smin is negative, but the justification only covers
-a negative smin together with a non-negative smax.
+[ ... ]
 
-A fitting range that is entirely negative is reached and accepted by
-the tests below. For reg_smin = -63, reg_smax = -1 with size == 1:
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> index d571fbfc86a3..da6cb961a520 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
 
-  top_smax_value = ((u64)-1 >> 8) << 8 = 0xffffffffffffff00
-  top_smin_value = ((u64)-63 >> 8) << 8 = 0xffffffffffffff00
+[ ... ]
 
-The first gate passes (equal top bits), and the second gate also accepts
-since (s64_max >= 0) == (s64_min >= 0) holds for both negative. The same
-is true for entirely non-negative fitting cases like [0, 60] with size == 1.
+> @@ -648,10 +648,10 @@ l_exit_%=:							\
+>  }
+>
+>  /*
+> - * Test that regsafe() verifies base_id consistency for BPF_ADD_CONST
+> + * Test that regsafe() verifies base_id consistency for ADD_CONST_*
+>   * linked scalars during state pruning.
+>   *
+> - * The false branch (explored first) links R3 to R2 via ADD_CONST.
+> + * The false branch (explored first) links R3 to R2 via ADD_CONST_64.
+>   * The true branch (runtime path) links R3 to R4 (unrelated base_id).
+>   * At the merge point, pruning must fail because the linkage topology
+>   * differs.
 
-So the early return intercepts cases the tests below handle, which is
-the var_off-preserving improvement the commit message describes. Should
-the condition be "once the range straddles zero" rather than "once smin
-is negative"?
+Does this comment still match what the code does? The patch removes the
+"base_id" concept from kernel/bpf/states.c (deleted the paragraph that
+defined it, removed the two-level compound/base id check from
+check_scalar_ids), but the comment here still describes the test as
+verifying "base_id consistency" and refers to "unrelated base_id" on the
+next line.
 
-> +	if (reg_smin(reg) >= field_smin && reg_smax(reg) <= field_smax)
-> +		return;
-> +
->  	top_smax_value = ((u64)reg_smax(reg) >> num_bits) << num_bits;
->  	top_smin_value = ((u64)reg_smin(reg) >> num_bits) << num_bits;
+Looking at the function name and __description below:
+
+>   */
+>  __description("add_const base_id must be consistent for pruning")
+>  __failure __msg("invalid variable-offset")
+>  __naked void add_const_base_id_pruning(void)
+
+and later at line 695:
+
+>  	/* Runtime: R2.id=A, R4.id=C: base_ids A vs C inconsistent,
+>  	 * pruning should have failed. */
+
+Should these be updated to use current terminology, or does "base_id"
+still have meaning in this context? The test itself still works correctly
+after the patch, so this appears to be a documentation consistency
+question rather than a functional issue.
 
 
 ---
@@ -166,4 +137,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
---===============4355563254654798491==--
+--===============7603380297199476794==--
