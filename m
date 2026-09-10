@@ -1,130 +1,111 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28280280318
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:55:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A44361969
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005304; cv=none; b=EwjzzxknJ6VfSFHUVFH7CeM4l2DvV9/YocRo9vnCv3aaYeyfJNttT074B8nZm57sf1BecK4zPuAK48BAZBdETJeaIv5PGnaPxrSeXFjc0t7pH7K1KKmr1t+U3HtA4vqq2C6XY7sNQv5dJ2gI0imhL3m/2YBwZe3oR+/g68MVPjk=
+	t=1789005308; cv=none; b=F4d1sV22jC9Ff1kXNAVf8UE0w9O5xFJTtbMd4cu7LcRA1Ro7YUltLhww67e9ZDa6PYAQFupT/T5WEwL9oTxtPmtU/eETV3lITg3FS51pqAOwdrno2WZP5l6ZJ597r4KCtbNB/oOESCI9jM7IniG278pavZcNrKbTzNG723tc4F4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005304; c=relaxed/simple;
-	bh=U50mXAKZslWPGncMaFFrnOpXADVR0A7auDu2s/EoAcE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FwHMjV6nMhhSU82ofC61hinZyNAk/J648Y0KVJzdArcMAvk1NUda8Sc6RMKFpquJAyKSxGUfn2PdoZ3W0WH+jopZRCoRcPo/8VaaRogs8DhizK+o9O3iVenHXP5CJZvLP+UfyeARY/G26oO9o+hSH2YrRoS+ySrVH672nsgUwa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=LbB8j5mX; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1789005308; c=relaxed/simple;
+	bh=M6g75GxKPZwfj0M4wb39/wMW2fm2x6bFOZ9iXsZaaCA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=jUahjrxAru8vUB83l8t+sFdzEUwKKsKhJxy2t8dH6BohrpIZbd3L+sRNkEqWnDjjpa6veOISMRoMJsaV5yRlTTMKL8t3CdhfHiiTYRrgg7WHDJlWKTRGLEx6rqSyUpnsJRM6SxlmMeDe3DXNuozn6YdxLlFPElAzAYW/DL8lR60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UJD//NZ4; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="LbB8j5mX"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-382ef647e20so7109943a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:55:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UJD//NZ4"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8623e5d4279so7689240b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:55:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1789005299; x=1789610099; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U50mXAKZslWPGncMaFFrnOpXADVR0A7auDu2s/EoAcE=;
-        b=LbB8j5mXCzPCQca2q216DoVlAlaBHT10ww5034cqd5ba9/PAWA84XJLLUrhr2J2EJd
-         aoEkg8+1xIZow8S/mEzcD37QRWKWcLeNGr7xPjHm1UxSsarRlHSIV5K9S0MplZhxBemZ
-         b5U/PpmonZYnsKI68K2AUcoHEll8iA4YibWysJrdX6HBsWyLZma5k0JoBypL6I4XK2Uv
-         fnl0+0g17ci7b2gxRXVxgbN7fgjs9BxLLORv9kuzL+PYy7CXFvLG1vCOQJfrZ3yDtciO
-         bOwjjbRGQ719kQC+rwuvABXAbUXGDCrK+ozyPQTQ3uE+bncPwIz0MbF2EPnF49k9rpNa
-         ldrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789005299; x=1789610099;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1789005305; x=1789610105; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U50mXAKZslWPGncMaFFrnOpXADVR0A7auDu2s/EoAcE=;
-        b=fekfUl7m2nw7kZ7hBQjQwGKlFMfIGnLOlBL9w7lPJpbYIe48Y6X74KXe03yPs2mw5r
-         NJs/PBByIpcg9P+08r9IYOFWbmd8BJniJP/atIBCJ8jhWcd2FDS/m0jrJiPhBZhJjEFJ
-         uUrdwDEGiTiFpMRZau7/MDfKXawBMr1xxkOpLG3jadiq1q0lgihe0u0aEB3lZaRJqzdA
-         tvnbeEJ1q/03zCrHAbt1elFDPG3Mmruq2xFFUhHfIWVNhL4pPYRIdRhu6kqiQYOF7w7O
-         ZfHj2/oZnvjfl4/kx8Rn7sXUnEKhywB43az3k/KT5MGsVNLxTKvZoTSdwBy+GbAHWuDA
-         dhjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxI06Se9dZNWfXEzpq7l4Ljow+T3CFh7K9N6G9C6TxKrMaIVeLnvkaF0n8yiG1uNrCK5xvXsdhSfmmTA1w=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4dttIfY2rq5ipdZR0dDKYHqzBuqBBioDSneHTrsECr5gwEZfW
-	J1g/8Ax2N+JdRumCVK457/H2lqKrvMhmGjsv2L3rg/1As2tZVCTtd0EBlL25cBSmiMM=
-X-Gm-Gg: AYBFou2TQYDrBGqE7SG7sjR0xPy1E+UDjjIIZgWb2zsU143XRbt97xO8uG27WmFOsLk
-	ebFhce23fUOmpg+R6u64FjChUk8f7EhfehhH608wD9brqsR+8SMPEplBzIN3yiOKsx9UAoD7CSs
-	X5GQ6C9Gkb2vWMDJiuz4vLtuTN9m+qLkwrCPRYYf9/wQTBrRy6sYeyYr07m4YCfNgPY/KU/hV59
-	mCGtTRYpwQnXIScKgyPrwBhIjOdyfA7Qg8cl680YBPlLUjsDXn+pDqfZQG68EaTNli3qUuXgQ2g
-	2wgx64pT3E4RbcZEVYePWJUg3XK04j1OslOO+OdgpmQB2ShwDK9aLrTXTl6DT0z6BPGYpVh/kvS
-	e0fm5P8JV2udsorVGxV7OQFOwenxmAPV/2WiQ/7VpCZUGAtHLQnntWMjC5FspGVRDNJvFnklK6z
-	N0OZSD1OO031sxbOQApt4EITDyuaCONye987KH3154/V3MdbQ/Ahd+oqR0HCunOC/Ax2BcRxbrW
-	FkuMPehs5Aa0n48kLOZEoNha5Z7CD6ivMD3oKVeRNRGXPym
-X-Received: by 2002:a17:90b:3c42:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-39b260d2977mr56616781a91.4.1789005299313;
-        Wed, 09 Sep 2026 18:54:59 -0700 (PDT)
-Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([2601:645:c68a:b830:4ca7:3a29:2409:820c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1434bb7d71fsm16129763c88.15.2026.09.09.18.54.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 18:54:58 -0700 (PDT)
-From: Krishna Iyer <kiyer@crusoe.ai>
-To: Nilay Shroff <nilay@linux.ibm.com>
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	sj@kernel.org,
-	saravanand@crusoe.ai
-Subject: Re: [PATCH] nvme-multipath: add fail_io_now sysfs attribute to fail queued I/O
-Date: Wed,  9 Sep 2026 18:54:57 -0700
-Message-ID: <20260910015457.77845-1-kiyer@crusoe.ai>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
-References: <20260904032605.65758-1-kiyer@crusoe.ai> <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
+        bh=NePljxZM68cBmWkIS+a2JA3eYMxsrjX7Iv9xSSnRDn8=;
+        b=UJD//NZ4w6moNQYpZzdMtf6AQ8kZKoSN0yk12n48AJBFfP/4d1qgtU1H1ihZA4kv6/
+         kBATjSP7xC+v1J3BXDoVxISVDJHNa31szJrRS29bdMr3xmyIWyb9TcCmOHkUCxlztZZO
+         vGCxgd1g2BrU+/NMxAKqEnppfQ7l2ewTmFKGhh5qr8SahgzP/H/ri/quvxfdez7+aDsz
+         63sZFVzbcfBkxXXvuheBKOQkTxst1fQQwkuWEp/j/hX4ds/YslmCMjx17dVpeaT+BYRD
+         1iyKcfbYYxexg00DzKcDa3jVGyfIFRm8kht9Jp+UWgpeOXC/ocdKS485vElm7f+DPpy0
+         gLCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789005305; x=1789610105;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NePljxZM68cBmWkIS+a2JA3eYMxsrjX7Iv9xSSnRDn8=;
+        b=W3Yy+laoyrkEHzYn5msl+eBFwqieGZdEI5L4Hgz9g/ZNuIObS/gNdr6+PBp2vqeSBv
+         Aypw1VfU/+5vWNiHpXmOvGpteWeDD88enApI00GCZqlr1hyGvvNnk/uSOXWvhHhaEa2H
+         0W2isgvjTNgrfO067N0cbN49aEOwW8Lad52n8i9qPGCRHVECJ0Z1oefWfUtTdm4EKmod
+         siq4KpRb7mJRYEkL4e2YdGM8sKb1qJrINTroUo1FXTVi+UcNd9DljupcC7JEucI2J2Iw
+         +JzZBtS9Zpq7B6982AoZkT7VhY9/2KTEAKEhfkNqsj4WMSHpdRkeOdFVNSQTgE4XlDkJ
+         MTnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAeTKxyVLO6IRUnKC4cSXZxGfviCyv94RrCyXKnAyVpACxUFF3mCSFd53DjhLtySg7fKXvmOr16RMCC50=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwNQUQ8Xh4OI74hgMWzuiW6EU+oQXE6k5ifH+4sQ5L4erekrXF
+	Z2nbgO3skqHpHIaJh7l7ODFcSw81OOB/wmbvazMSOCtxW2hWXaupbNUHG0bSmtz1B7Djj/JTMgs
+	d8PzsUtikkZXO6NfSQfTtKA==
+X-Received: from pfbgq17.prod.google.com ([2002:a05:6a00:3bd1:b0:862:b45b:e636])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:7583:b0:869:2e7:977 with SMTP id d2e1a72fcca58-86902e70c55mr4810484b3a.4.1789005305453;
+ Wed, 09 Sep 2026 18:55:05 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:55:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910015503.1991119-1-stanleyjhu@google.com>
+Subject: [PATCH v3 0/2] scsi: ufs: rpmb: Fix bus registration and device lifecycle
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-scsi@vger.kernel.org
+Cc: Brian Kao <powenkao@google.com>, Bean Huo <beanhuo@micron.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Can Guo <can.guo@oss.qualcomm.com>, Li Qiang <liqiang01@kylinos.cn>, 
+	Ao Sun <ao.sun@transsion.com>, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/7/26 6:15 AM, Nilay Shroff wrote:
+This series fixes bus registration and device lifecycle defects in the
+UFS OP-TEE RPMB driver.
 
-> Does the intention here is to force I/O to fail irrespective of the
-> controller state, or the intention here's to fail I/O only when no
-> usable path exist? If it's latter then I believe this is not the right
-> place to enforce this policy as since this check makes nvme_available_path()
-> return false unconditionally when NVME_NSHEAD_FAIL_IO_NOW is set, without
-> considering whether a usable path exists.
+Why:
+1. ufs_rpmb_bus_type was never registered with bus_register(), causing
+   device_register() in ufs_rpmb_probe() to unconditionally fail with
+   -EINVAL.
+2. struct ufs_rpmb_dev embeds struct device but was allocated via
+   devm_kzalloc() tied to hba->dev. On host unbind, devres frees the
+   structure prematurely while external references remain active,
+   causing a Use-After-Free (UAF) Oops.
 
-The latter. nvme_available_path() is only called once nvme_find_path()
-has come up empty, so the flag only decides whether pathless I/O is
-queued (default) or failed.
+What:
+- Patch 1: Register ufs_rpmb_bus_type during ufshcd_core_init() and
+  unregister it in ufshcd_core_exit(), with stubs for !CONFIG_RPMB.
+- Patch 2: Allocate ufs_rpmb with kzalloc_obj() and free it via kfree()
+  in ufs_rpmb_device_release(). Pin the underlying SCSI WLUN via
+  scsi_device_get/put() and unregister in ufs_rpmb_remove().
 
-Agreed on the rename. For v2 I'll make fail_if_no_path a plain
-per-namespace policy: admin-set, no self-clearing, toggleable at any
-time including mid-outage.
+Differences from v2:
+- Drop generic RPMB core changes (sent as a separate patch).
+- Reorder patches so bus registration comes first for bisectability.
+- Call rpmb_dev_unregister() in ufs_rpmb_remove() to break cyclic refcount.
+- Pin underlying SCSI WLUN via scsi_device_get/put().
 
-> This attribute should be only exposed for fabric controller.
-> It looks this is being exported for non-fabric controller
-> as well. Moreover, I like attribute fail_if_no_path better
-> than fail_io_now, since it describes the actual policy being
-> enabled: when no usable path exists, fail I/O instead of
-> queueing it.
+Tested:
+- Verified clean probe, RPMB I/O, and unbind on QEMU ARM64 without UAF.
 
-Right, v1 exposes it everywhere. Since v2 makes this a plain
-fail_if_no_path policy though, is fabric-only still what you'd want?
-The queue-vs-fail choice isn't fabric-specific: a PCIe head kept
-alive by delayed_removal_secs parks pathless I/O the same way, and
-dm's fail_if_no_path is transport-agnostic. If you'd still prefer
-fabric-only, I'll have the visibility callback check a sibling for
-NVME_F_FABRICS under head->srcu.
+Stanley Jhu (2):
+  scsi: ufs: rpmb: Register and unregister ufs_rpmb_bus_type
+  scsi: ufs: rpmb: Decouple device lifecycle from devres to avoid UAF
 
-> This patch appears to be based off older kernel branch. Please
-> rebase it against the nvme-7.3 branch.
+ drivers/ufs/core/ufs-rpmb.c    | 107 ++++++++++++++++++++-------------
+ drivers/ufs/core/ufshcd-priv.h |  13 +++-
+ drivers/ufs/core/ufshcd.c      |  16 ++++-
+ 3 files changed, 91 insertions(+), 45 deletions(-)
 
-Will do; v2 will be based on nvme-7.3.
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
-Thanks for the review. Unless there are further comments, v2 will
-have the fail_if_no_path rename with the persistent semantics above,
-visibility per your call on the PCIe question, the nvme-7.3 rebase,
-and the fast_io_fail_tmo rationale from Sagi's branch of the thread
-folded into the commit message.
-
-Thanks,
-Krishna
