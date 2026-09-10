@@ -1,71 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B634A3D21;
-	Thu, 10 Sep 2026 14:06:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35214A3F3A;
+	Thu, 10 Sep 2026 14:06:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049213; cv=none; b=XvYRBycK4GzEprkoY8SLOiH//7VUwHSHbMu1dmz3g4why/4TsIMdg65eXf7Zl/PxrwPKnOp+Ez29DaIUM6qdxr9PU3Sj3IBzMtCkOfmLTWGFgAIp8oBB3Gi0vycoakKlO6KPpT2QLiDKiSbF34R2w4/+xkYC0LVDlvSC0lbIv4E=
+	t=1789049216; cv=none; b=dFnvsoulJpXqtAnpS8ppCYHI04QWoy/rS/7PgiQOOsBw7vwq9scDMtua53S0BtZFYEcqvC5ebegrTQNaZz1Gv20o8/q8hPdYXoYK6wR4Wgg4VTbzkyaGHh7zreQD5utvKAir8OBDK3kEFDLaFky6MUry3h0swjw4gF31N3BNl3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049213; c=relaxed/simple;
-	bh=gHmmDFYXcl4BFQ6ooprpIeIdGlWv/6M3F6KrXoLY4AY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=pifZvMd9hPdmM9MLnmDB2swt5EHoKxn8n3V87n/SUS+SHMG3iOIjzXw3e1uXWuRgTeZDiy82+OxMgVOF5VBpc7w+Fg/pjTt8Kw4Lyxjm7UkslEyKDvuEpPeaX+38tdk+eW1wjaL6kpJJmQRFIaJbR0QhUfghl+q88d9IZLHVKrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+OhKHMj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789049216; c=relaxed/simple;
+	bh=c5lfmiCJYlY+UhANXT9srmqmEWUJIiCKECCxpceAQII=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NgdqUnfNE5TSjppgS/zyBYpDgMCrw2Z9zdMyVg1SMUvmvyryxFncAuwN/0bblHG/Zvxc+tmtEZeWOEUqqxikz6NubOt4g6iDkqYpNUmT2Fkjljqckr/eTo0V2E3TgpGHSloyCddb0JQmRtUoVlVIdj2NAgqnPMlOpcpDMPfRwwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g16gXhhx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+OhKHMj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 724A81F000FF;
-	Thu, 10 Sep 2026 14:06:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g16gXhhx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039471F00898;
+	Thu, 10 Sep 2026 14:06:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049211;
-	bh=CBqu5VqU+X7aB+8c5EeB4WIxVldGwxAwHMHbFNnCBOI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=k+OhKHMjvkpwfk9wSOyKmv6Z+oyVQipOnoqJhhShlmbZqLluZUAa19j0d/WXM+Xhx
-	 Bg9zv76j7tpgWZfTX/LVpjMbWEAFG74APsmo3Aoc+3D6aCEMepvoXgajNX/qmeXIpz
-	 nbfRhJx8z7nySUq2weHJVtF5FLVlW6PnPVfxXybMzroCQfPtQsNrsSDUiM1SOKjTY5
-	 KaZ2e+jzxCYDMH1PBDVP9kg2X9Bq895+fVDrGLbO92Yon4RKmoZudD363uT73XzHaZ
-	 /M9zMXs0VxgsgRbTupQwqtq1k2IqaumkRuH549jPJKL/laolSC0FdqyjRHh/e5S5nW
-	 /1bzpuWEFo8Ww==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>, 
- Kedareswara rao Appana <appana.durga.rao@xilinx.com>, 
- Alex Bereza <alex@bereza.email>
-Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260817-fix-hw-buf-desc-reuse-v1-1-d79827a844c7@bereza.email>
-References: <20260817-fix-hw-buf-desc-reuse-v1-1-d79827a844c7@bereza.email>
-Subject: Re: [PATCH] dmaengine: xilinx_dma: Fix hardware buffer descriptor
- reuse order
-Message-Id: <178904920902.109109.8238525405953023415.b4-ty@kernel.org>
-Date: Thu, 10 Sep 2026 19:36:49 +0530
+	s=k20260515; t=1789049214;
+	bh=HfACVSTqqZWVHHMsfW9j7D8zjVuyoIFAMlGVkuERVwY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g16gXhhxkVq5S5oxzfWsaWCw3urd025JZW1sxsu9eBUu1CdJDqpISr68hktAo/CHr
+	 2F2O/QCunWoL+37JccgSRDvuhWzbmLGW4J0X2PhPFNGRVwApRS5XmPH5Lf0Ylg4PPa
+	 YbhNeDsiLtUHHK83QQtbLdaJ3I9v5IhzjCI5tAM3J049vv7Atw+WEUIhjtbQvwAAf4
+	 dDzmBw1Y1FPRD6I1J8/MaZjYuBAMNfvOZl1N2XddNvNnW4w4BWdXCZSt6NfMABdXqd
+	 KBVRcFCrHkdq0LMLI22NTuK2daML6fj7B3HFs5psQJtkawQQmgXk/MYUp4/fhuY4nP
+	 mtTkAoj8KrYTA==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>
+Subject: [PATCH v5 14/15] coco: host: arm64: Add NCOH_SYS stream support for RC endpoints
+Date: Thu, 10 Sep 2026 19:35:07 +0530
+Message-ID: <20260910140509.868402-15-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910140509.868402-1-aneesh.kumar@kernel.org>
+References: <20260910140509.868402-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
+Teach the host CCA pdev setup to handle PCI_EXP_TYPE_RC_END devices.
 
-On Mon, 17 Aug 2026 11:23:55 +0200, Alex Bereza wrote:
-> xilinx_dma_alloc_chan_resources() builds a static ring of hardware
-> buffer descriptors once and the driver uses this ring throughout the
-> lifetime of a channel. This requires the allocation order of hardware
-> buffer descriptors from chan->free_seg_list to stay in sync with the
-> hardware buffer descriptor ring built at channel allocation time by
-> returning oldest descriptors to chan->free_seg_list first.
-> 
-> [...]
+Classify RC integrated endpoints as RMI_PDEV_FLAGS_CATEGORY_ON_CHIP_EP when
+building the RMM pdev parameters, and only advertise SPDM support when a
+DOE mailbox is present.
 
-Applied, thanks!
+Also add the stream setup path for these devices by creating an
+RMI_PDEV_STREAM_NCOH_SYS stream using the endpoint pdev and its bridge
+address windows. This allows RC endpoints to participate in the TDISP flow
+without requiring a separate root-port pdev.
 
-[1/1] dmaengine: xilinx_dma: Fix hardware buffer descriptor reuse order
-      commit: cee9c863ee68cb27d66745eb03f60e357f4f8ad2
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ drivers/virt/coco/arm-cca-host/main.c   | 28 +++++++++++++++++++++++++
+ drivers/virt/coco/arm-cca-host/rmi-da.c | 10 +++++++++
+ 2 files changed, 38 insertions(+)
 
-Best regards,
+diff --git a/drivers/virt/coco/arm-cca-host/main.c b/drivers/virt/coco/arm-cca-host/main.c
+index 70cbff181561..b7b0cc0a016c 100644
+--- a/drivers/virt/coco/arm-cca-host/main.c
++++ b/drivers/virt/coco/arm-cca-host/main.c
+@@ -252,11 +252,39 @@ static int cca_pdev_create_ncoh_stream(struct pci_dev *pdev, unsigned long strea
+ 	return ret;
+ }
+ 
++static int cca_pdev_create_ncoh_sys_stream(struct pci_dev *pdev)
++{
++	int ret;
++	long stream_handle;
++	struct rmi_pdev_stream_params *params;
++	struct cca_host_pf0_ep_dsc *pf0_ep_dsc = to_cca_pf0_ep_dsc(pdev);
++
++	params = (struct rmi_pdev_stream_params *)get_zeroed_page(GFP_KERNEL);
++	if (!params)
++		return -ENOMEM;
++
++	params->flags = 0;
++	params->stream_type = RMI_PDEV_STREAM_NCOH_SYS;
++	params->pdev_1 = virt_to_phys(pf0_ep_dsc->pdev.rmm_pdev);
++	params->pdev_2 = 0; /* ignored */
++	params->ide_sid = 0; /* ignored */
++	params->num_addr_range = pci_dev_addr_range(pdev, params->addr_range);
++
++	ret = cca_pdev_stream_connect(pdev, NULL, params, &stream_handle);
++	if (!ret)
++		pf0_ep_dsc->stream_handle = stream_handle;
++
++	free_page((unsigned long)params);
++	return ret;
++}
++
+ static int cca_pdev_create_streams(struct pci_dev *pdev, unsigned long stream_id)
+ {
+ 	switch (pci_pcie_type(pdev)) {
+ 	case PCI_EXP_TYPE_ENDPOINT:
+ 		return cca_pdev_create_ncoh_stream(pdev, stream_id);
++	case PCI_EXP_TYPE_RC_END:
++		return cca_pdev_create_ncoh_sys_stream(pdev);
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/virt/coco/arm-cca-host/rmi-da.c b/drivers/virt/coco/arm-cca-host/rmi-da.c
+index fcca9f73b5fb..794385f818ce 100644
+--- a/drivers/virt/coco/arm-cca-host/rmi-da.c
++++ b/drivers/virt/coco/arm-cca-host/rmi-da.c
+@@ -66,6 +66,16 @@ static int init_pdev_params(struct pci_dev *pdev, struct rmi_pdev_params *params
+ 		category = RMI_PDEV_FLAGS_CATEGORY_ROOT_PORT;
+ 		break;
+ 	}
++	case PCI_EXP_TYPE_RC_END: {
++		struct cca_host_pf0_ep_dsc *pf0_ep_dsc = to_cca_pf0_ep_dsc(pdev);
++
++		/* Use SPDM if present */
++		if (pf0_ep_dsc->pci.doe_mb)
++			params->flags = RMI_PDEV_FLAGS_SPDM;
++
++		category = RMI_PDEV_FLAGS_CATEGORY_ON_CHIP_EP;
++		break;
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
 -- 
-~Vinod
-
+2.43.0
 
