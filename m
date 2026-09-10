@@ -1,87 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420B329BD91;
-	Thu, 10 Sep 2026 14:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAF92DEA89
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052242; cv=none; b=kV4SaFa5XuKKyjBgHrMRsiGkQm3kN/WWRKsg6xP9QJB6/UeGULRpGV0k1n6U3xIvu/GP/XOMufy4HFpfFhSu+q4/bN/FrycC/xfI7HKq0v5xRfOUyxHVPmyls4UvNYEhpoQCDZDjSHz5XO1CPZrmAo1XU2RyyoULn02guSwQdKk=
+	t=1789052259; cv=none; b=d5v7HZGKZyZiYPUAiGyWe+7O96+NRb/dICuxxfFI41TVsLpt7LWwFWO5wRPU5KfmX9GgcVCPOFnllK3dEXCUesr/GwUymEnupu1d5T/+c/HSJgOrXGsSxBsTvttGDMk6qBRyBylD2WuMXdhqy7l9Ul2ZyqpeZDm7mR859OXYWfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052242; c=relaxed/simple;
-	bh=OkKB7XcMcj8Cr6VWih3v7a8i/XzJXDsUqlIeBneOloo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OIJcHc7y3ohBfv1m3rDGgBsnwVe59Fc4wgeoYi9XOFgAE0ZwJShs3nke70U8Epkx6uDd1t6OhraS64Q0mv41CtOLx/PHbO8tkr/ikdVDwKEfaEpkwBPC2INsOuaR/HObe5bsyEwF3BCNWIV7CJobYNU+YSGRsQx/o4tl+Wc2xqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VpcXBbme; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789052259; c=relaxed/simple;
+	bh=MdLSULf3d3qvKV+vE3zXiAyNrNZe0yPTzOESM2avdlc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=up8Fmf0PTN3HNcSUdt/CDOCjynjhcKAX/AiuY+QRgbOJ/zIN+h7Q7ZhbQKBfu3Qnw9EGHzkmI3qcgZDgaTLb3bRZME4NCdEATWftwQWbYWo8xwMRe2jPQuzISgOnZyYI9Hyt5EauZRw1OpSiAHMLkWyIguZ8OQuu0LIB5iTp1TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=q83puyE2; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VpcXBbme"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 107801F000FF;
-	Thu, 10 Sep 2026 14:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789052241;
-	bh=BdLegtGVaf+JW8AlcE9C4kdkOOmDrH5Fv6ZDMyOYrJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VpcXBbme7WyttsiE0tm3Mim1bHQD91VQrgz6p7Ao9ETExt2+Tw8gORcg83TypQHig
-	 dB3hBpkdgdpaFibF5THJBWk7+Z8oYMn9EbN56e27pRVSSo0sX+AtZNdPVF2lues2Di
-	 rmqcsP/tfooSFopUlw325VWHaK1vD6NXaojmgHF+AZVJMx2eNz/hOQ0Svbk6cUnIVZ
-	 bOrbiRqZUQrBXLkKi7KuQ5NubIl+7I2+3WFN3W3sffcSzJNIcZiFMnGBgGKyOzBu2u
-	 Y9mHqZ3amizfzwlQ/WbvdtEpYe+W3fLW5XUPbzW01BywXoHWTK76g3kHGU7M6g6wYt
-	 8BePW1EFPz9MA==
-Date: Thu, 10 Sep 2026 07:57:20 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Shigeru Yoshida <syoshida@redhat.com>
-Cc: Carlos Maiolino <cem@kernel.org>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xfs: fix double mutex_lock() call in
- xfs_ioc_health_monitor()
-Message-ID: <20260910145720.GB6238@frogsfrogsfrogs>
-References: <20260910132956.538828-1-syoshida@redhat.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="q83puyE2"
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id 4g3kxBMVSJFmF4gDTx8qyO; Thu, 10 Sep 2026 14:57:31 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 4gDSxbCe6bQ0n4gDSxR0yn; Thu, 10 Sep 2026 14:57:31 +0000
+X-Authority-Analysis: v=2.4 cv=S4XZwJsP c=1 sm=1 tr=0 ts=6aa2c55b
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=HsQM0NtH+7ObRZRg4qitg2mGRHy2UjGToKtnghGJ6mk=; b=q83puyE2hgYiYtAzNTkqEYgelH
+	7+hdutQ7UiBQk2+k8VfCSGAf7IwT53iuJdjQnqoeij+IqY7wUiZEu0p+wd7iYTz4cMre8HgmFWD7r
+	fv7U74hnB6F6f9GtfScgcTOb5XGglov4cNFP2+UwcBm/WIFKA9pU+gU2m+uTiAcKlyjTrjNJsvRjL
+	iOMMZSuaogQpoT6DudZ5Vd4KIoTyd1d70u+KCPkH70DViH6X8JXaz8m9UBnG18uD/96b5fWjGBKtM
+	PaBmaxALiwTUulDfgx5AivWeVFgJypmtOo2jm1en52Or76OaFEo/6gLyngSjkRvM4M1MT5wEqmRYb
+	nK/mcEXQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:40986 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1x4gDR-00000000HwG-3kGu;
+	Thu, 10 Sep 2026 08:57:29 -0600
+Message-ID: <887fff2e-ef6f-469d-a4e6-4455276518c9@w6rz.net>
+Date: Thu, 10 Sep 2026 07:57:28 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910132956.538828-1-syoshida@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260909134230.441546314@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x4gDR-00000000HwG-3kGu
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:40986
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMvwJdObQivoenl+qx+oTh1lZZFT/CcSL8XHz6aABv57UZHxpxPGlRjCMl/K+vKxJd9wZ4rB/4XSofoqSy+DaFRXWWZGo6pFY0/m6EKD6OgniKJpvx6W
+ Wtnmkd8CSS3zY0udZ0ZCvhFgJedf5sdwQdUOD0d6AenTr3nu2VQMQtB8QsUpr5BJHTv1g+Me4J9Pbckv/cecmfWdxd6ILl81uZ8=
 
-On Thu, Sep 10, 2026 at 10:29:55PM +0900, Shigeru Yoshida wrote:
-> Commit 4870da4f49ae ("xfs: take hm->lock in xfs_ioc_health_monitor()
-> before insert") intended to protect the __xfs_healthmon_insert() call
-> with hm->lock, but the second mutex operation was accidentally left as
-> mutex_lock() instead of mutex_unlock(), causing self-deadlock. Change
-> the second call to mutex_unlock() as originally intended.
-> 
-> Fixes: 4870da4f49ae ("xfs: take hm->lock in xfs_ioc_health_monitor() before insert")
-> Signed-off-by: Shigeru Yoshida <syoshida@redhat.com>
+On 9/9/26 06:34, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.5 release.
+> There are 556 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.5-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-The original patch I reviewed unlocked hm->lock correctly, not sure how
-it got corrupted by the tooling such that we need this.  I think cem
-fixed it already(?) but in case anyone needs it,
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Tested-by: Ron Economos <re@w6rz.net>
 
---D
-
-> ---
->  fs/xfs/xfs_healthmon.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
-> index 6dc3f69d6798..c3749675ef19 100644
-> --- a/fs/xfs/xfs_healthmon.c
-> +++ b/fs/xfs/xfs_healthmon.c
-> @@ -1225,7 +1225,7 @@ xfs_ioc_health_monitor(
->  	running_event->domain = XFS_HEALTHMON_MOUNT;
->  	mutex_lock(&hm->lock);
->  	__xfs_healthmon_insert(hm, INSERT_HEAD, running_event);
-> -	mutex_lock(&hm->lock);
-> +	mutex_unlock(&hm->lock);
->  
->  	/*
->  	 * Preallocate the unmount event so that we can't fail to notify the
-> -- 
-> 2.55.0
-> 
-> 
