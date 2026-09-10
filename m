@@ -1,196 +1,224 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4492534CCE
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:13:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850D73905E7
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024396; cv=none; b=uE2PPsAnrcFA7jV99pNWJ3yrW67/jOcZ0rMICoFU/Db5dgVGR5w0FLSUMDbEW80+zV5nVEKVK4C80vwW2UwOm2jZFBPE9AX9aqf4LV+5/guXjN/ggJdZikSREuWqhaQVsZduP6aRLC1JtaFICTRPUIie85AgyXDMzTcpfduu9tU=
+	t=1789024397; cv=none; b=BCeO/a7NoP6P6kT66cvxW6CzMwoyhWr+tHN6lOuSPC91hzUwlNu8Q6G8dn7NYoioItuHR81YTZPU54FN8nWfxRPFqGX9ZDphft0xFN8dQ/MLDPw2NlknFFSeCBdKQQYzV+gU5oI/phhsJX9qXz715DZGLVzneYQrH0X2H7BTPqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024396; c=relaxed/simple;
-	bh=gpk4QCTkMMoVEQ2hU/PY3Bgu//ErkeN2hdFFYL0E0/g=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UfE2s8vVXcGsFCF3oEKAXlw7b1Dhhxn9PB+wlUBmjdqsDRkhsTiX8umGovWDQ3Fw305dRx4xoOtQQ1WbyoSUjgzWWRrVJ9wwTQOqlC4F4fLZcBke5FKTDl4qYguLtIQTk4UX9MY2TVt2UPo2ONfo8my/bCDTtmR9B57Aia7ATEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xNNGKL/O; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789024397; c=relaxed/simple;
+	bh=fCdtyTmQLFJCppzzCnTNnwRvkB3lcC2v6IB30SxEUK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GSei7O87/xMYYdTqrA/SEZHE9/vDt/nZDFlS+qZXDyDs946eC4wHboZp90PxsvPg9j18tFvvuHE1NgOc0TBVgtqmX7XPTboLfVSQSSz0gyXmHY1pyjLRarQnKhAhilgn5ilLyns2SFXg6CPUUYjGl2fyFH7ckkdymTgX4iHVPUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJpoeeyq; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xNNGKL/O"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso97215795e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:13:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJpoeeyq"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so13872275ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:13:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789024392; x=1789629192; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=udAblsmxBxBfrNPUP96gC45YbWeS/a2NvUFAIRjIBU8=;
-        b=xNNGKL/OgvZfEgwpuu83dNNxocsmP92+qtaHINbzckwCulhu9S1M9qfYxYHPdec4RH
-         ZYOAXEX42LKanydu6VbxIFT4FcjEOXVGs/B7CEzCY13293U+AIe9kYYm1MWfQK9ihfr1
-         07jHqlcGgOWKXmKcLxTpaWOSVq9fgtkBiLfBXQtzv0eRTBbhdUyfz1dNB149+0bqmofn
-         08d4QpRrvBAsg2dvhG6J4W+CnhdNVtkSbSS5V7r0N1yj5qs8dIZueMA3/XsRX8FW1Th+
-         2T2xahvLdBndziMdeyrd+4jUU/4YfgKmnTCAcZbuyhEBTYV4qF7PhQKJZNjczEvryGEc
-         mqKw==
+        d=gmail.com; s=20251104; t=1789024395; x=1789629195; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2oXTxVfBODKLGSc/9HbMzKqtFz+JtlQq+nSqeCi24+U=;
+        b=tJpoeeyqtUgppSt53xkFE55Yc7jRV7VFQP2zVZl5BEEAFj6Q/ZgMq7yfNISydPWWLe
+         6ftHg9l6ibSwpHPg8i16H/kOBDgyxp9PgKhaKUohG5nL00g1hVFxpO7jRGBPnsKvUwHi
+         3yTJDry3yF8aveR170GFgBdjjG14fl9JQ4fXWo9+3dsq+Gg11SKCC6UkNs7gJ30r9ayg
+         D/l+AhNCaM/7+kyD5DwRFmL092QfVdyiHWaenFvFAhuDmRBngg8k28wfjvnpuUrQ8KaB
+         jGXSuJ5DbkIpbGoNjhfpIXGtsuRGFl6DZBv+Ur1o8uAQ6TM8TfJH7OrlyY2y2akuAN/2
+         mJyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789024392; x=1789629192;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=udAblsmxBxBfrNPUP96gC45YbWeS/a2NvUFAIRjIBU8=;
-        b=pgXKAraSAffgvgNsTtJMf60NQSyGemEc4MTNURyBx/MYrO+In61ClzOxyDOvaNfYxF
-         hJDfUA/rWiPc9+fipOFRGM5TcTYdn7U/f9a9Q03nNjkQ2i3SXBQHsK3k0SdSHnBb+fi6
-         yspxGTtPy+LpuTc5H2vsZD+MsqwSqsFzNWI2Efte8F9+2IVt9OIpcOg9z/EuwABk4EFc
-         5hExjoDoqZ8CvUTSGikPJBPO/3YgGlOHQ0notxc2PzfhyUOybydFoADoiyN17PabPXAN
-         tLcN1DNxL6cB/fjxOLl+jKfELNVyAFPXe4+BNP6wPa0o0gjR0XoWq030dpg8dbEIVltR
-         r/AA==
-X-Forwarded-Encrypted: i=1; AKwUvBzu+SQ8QcQH8VG2ZpLVNOw8izrRfzOMbKDu+6I4ZzNPPHaoLJZ/Et9U8gJFhp7347kPiNlotlQSgosp/Ms=@vger.kernel.org
-X-Gm-Message-State: AFuF++kut6ssP7yCrYOp0FgQpJNkFrbXVQKSUCrmCslwzXtDA7A6bHAY
-	2jG6T0vjGSIJ+Fi+zaVnr950n3oc+t0lU5v/UYKFJZRK4cnOuiZ7wS81xd9XD12eFiw=
-X-Gm-Gg: AYBFou1DkZBrrWCj0LA0kfEgJNtyLsUg5FiY/1Cx+Q/WB38MTrnaGKiBTRCubddQ/z8
-	6gvZpSqCSZ7pLUWaMbMyWrRqacsO6limj5sCyQOQENP2IXoV8SCI+8SvQPlrA7IvzVAlO+F5bG/
-	p/qvDxCm4/M3PADlNBnrSE+6v2BKNywZFk1u6qsde11cVB1kM732QTN4uoPuOhzpLiF9Cw/n8jd
-	KNEpEPwiC2EqNGU1YXEH7VIjcWRnDxrCwtznDtyUunP1e/XKtWcY55CKA6Si4QL+JYjMbW2DNs1
-	AVWaf8JDwpqwxDHurw7Nq+H0jCupzirHuQfGo08mLyF4XwinrYBW+daFjgpiW42LlEYhwWv/7b4
-	dr/D6exxw5S/WLl+7pYHBOhRvCMrwvIjrRcF5EgnGs1/UTMzX14URgdO2nOjb6h3mzE85ZRakEx
-	6HjBltSz+RgdiU1fhws/FHK+02P9tFdqcYr5shzFEIrn8y5QD1is3O54X4CYI1Rw9wVSxWtpTl3
-	dxv1X2x31Gf1VuOf3TOwa5nQePEqI1Sul0YraDJg1KOwO5ho1ZerA==
-X-Received: by 2002:a05:600c:4e4c:b0:499:621a:2ec2 with SMTP id 5b1f17b1804b1-49cf8206e4dmr412212555e9.3.1789024392371;
-        Thu, 10 Sep 2026 00:13:12 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:3caf:d840:c911:29a9? ([2a01:e0a:106d:1080:3caf:d840:c911:29a9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be64a5sm49914055e9.6.2026.09.10.00.13.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 00:13:09 -0700 (PDT)
-Message-ID: <cc06ba9b-c866-4c43-a7d4-e25188b84f22@linaro.org>
-Date: Thu, 10 Sep 2026 09:13:06 +0200
+        d=1e100.net; s=20251104; t=1789024395; x=1789629195;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2oXTxVfBODKLGSc/9HbMzKqtFz+JtlQq+nSqeCi24+U=;
+        b=EcQXoPWfqobsy/o33lsVzJFmNOBoIjqvrdb5XqPdNrhBS/htJVpg3lsb1Bao0sqkn1
+         QdDiyoSxYmu5FZEZUHpSATuHMdAFktQC8G6yJyv1TYwxACw0kjGuKO+/MviE8EiDeW/0
+         t3tOzbIb0lY1S0u3weYLae5hafTF8125iK72n4Z3XFFAWcjSqCE0NoKh3QXIr8pgwNmK
+         g04wTR/lG8BKDhAicmblCD+t6yIbtmNw4qDvMEWA2VUW6J28KShv9DA6a08PKLsgQvgP
+         t0ZvRq3K1129UlPD5S18iLan6BhEvs2/5UFrSbFzI06mLLtiGRpmXwa5Q6VRNNgRz+Jg
+         +OZg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3NgT1IWh5x/q4bxP87+eLe5GDtbqRH/AGtTH5AH2CspQnk4hA3ERlPurJPwSq4wpk8NIRaohK2cQI0XE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKve+pHs4vPj8bCZ7iyCYZtY2FcsISUCZrywghpUzNfc5p9wDy
+	qtDDrHDu6pd2ePepvDpq0zP+hOWKRWCaNNHuUotArDscmjD53/AP4ITA
+X-Gm-Gg: AYBFou0t5lPFyjW1rGJMG7WdKBwPS56jzI4iOkXkZd/ga6cWZClc3xxnbJq6EzujYS/
+	Q5x9CWi+t8X9I/O3ilwfj0cLkbePsbJ3isZkD+BSJBcR7JCikrtjUJIuLaZa+1a2Ng/dlldglae
+	GV/RZO8UPyuLNvk6+t03pT/D763rUSf2vr1J4TNpofHljVRvS4MCFd8aeVc0gYvQm/gERyfS8g+
+	1gOx+MwlHjA0VlVawcp4vI3hOs4NGMiR0ESgZnimYk4T/9MAKG2JaS9/SmetB48SAYAoDvlzLiV
+	xz4OTvLZKn8uriL3R8nBkW8/pHqnQS6FQhrChN3hPtDzZMzvjhzZc/Zvs362D3d+JmhENtV2F5m
+	fNQbRoNlTgEOWNTasdC5Hj2dZ/6jxPhr3OxyvC6030bkG7mJpK8+XKR3nb1Mm2QZIp50/sUbYoP
+	MSj9iYFKuVwbUXNAKNe5I8fpgCd63IEuHkVVf1sbMet4kRE12/HD2YvpQsUiOuWl3xgrfljntaT
+	04DhBnD8SbyIJ3J7d3QrrP6WY+how2/+5UBFPE7/zeAkHzNF4nVUA==
+X-Received: by 2002:a17:903:17cc:b0:2d9:4871:393d with SMTP id d9443c01a7336-2dd07cb17dbmr88797695ad.21.1789024394747;
+        Thu, 10 Sep 2026 00:13:14 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae8af3sm82366995ad.80.2026.09.10.00.13.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 00:13:14 -0700 (PDT)
+From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+To: maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	mkchauras@gmail.com,
+	linkmauve@linkmauve.fr,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	rust-for-linux@vger.kernel.org
+Cc: FUJITA Tomonori <tomo@flapping.org>
+Subject: [PATCH V2] powerpc/bug: Add ARCH_WARN_ASM and refactor _EMIT_BUG_ENTRY for Rust support
+Date: Thu, 10 Sep 2026 12:42:53 +0530
+Message-ID: <20260910071252.1950488-2-mkchauras@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/4] mmc: meson-gx: enable the bus pipeline clock on T7
-To: Lucas Tanure <tanure@linux.com>, Ulf Hansson <ulfh@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>, Chuan Liu <chuan.liu@amlogic.com>,
- Jian Hu <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>,
- linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905153234.133217-1-tanure@linux.com>
- <20260905153234.133217-3-tanure@linux.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260905153234.133217-3-tanure@linux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/5/26 17:32, Lucas Tanure wrote:
-> On the T7 SoC, the bus path between the SD/eMMC controllers and the
-> NIC_MATRIX fabric goes through a pipeline stage inserted by the hardware
-> design to help timing closure. The stage has its own gate clock and,
-> when that clock is disabled, a controller that starts a DMA transfer can
-> never complete it, hanging the storage devices and, from there, the
-> whole system.
-> 
-> Add a dedicated match data for the amlogic,t7-mmc compatible that makes
-> the driver claim and enable the "pipeline" clock for as long as the
-> device is bound.
-> 
-> The clock is deliberately not optional: the hardware cannot do DMA
-> without it, and failing the probe with a clear error is preferable to
-> booting and hitting an undiagnosable DMA hang later.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> ---
->   drivers/mmc/host/meson-gx-mmc.c | 20 ++++++++++++++++++++
->   1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
-> index 694bb443d5f3..c0f1e929fc13 100644
-> --- a/drivers/mmc/host/meson-gx-mmc.c
-> +++ b/drivers/mmc/host/meson-gx-mmc.c
-> @@ -139,6 +139,7 @@ struct meson_mmc_data {
->   	unsigned int always_on;
->   	unsigned int adjust;
->   	unsigned int irq_sdio_sleep;
-> +	bool has_pipeline_clk;
->   };
->   
->   struct sd_emmc_desc {
-> @@ -1204,6 +1205,15 @@ static int meson_mmc_probe(struct platform_device *pdev)
->   	if (IS_ERR(core_clk))
->   		return PTR_ERR(core_clk);
->   
-> +	if (host->data->has_pipeline_clk) {
-> +		struct clk *pipe_clk;
-> +
-> +		pipe_clk = devm_clk_get_enabled(&pdev->dev, "pipeline");
-> +		if (IS_ERR(pipe_clk))
-> +			return dev_err_probe(&pdev->dev, PTR_ERR(pipe_clk),
-> +					     "missing pipeline clock\n");
-> +	}
-> +
->   	ret = meson_mmc_clk_init(host);
->   	if (ret)
->   		return ret;
-> @@ -1322,12 +1332,22 @@ static const struct meson_mmc_data meson_axg_data = {
->   	.irq_sdio_sleep	= CLK_V3_IRQ_SDIO_SLEEP,
->   };
->   
-> +static const struct meson_mmc_data meson_t7_data = {
-> +	.tx_delay_mask	= CLK_V3_TX_DELAY_MASK,
-> +	.rx_delay_mask	= CLK_V3_RX_DELAY_MASK,
-> +	.always_on	= CLK_V3_ALWAYS_ON,
-> +	.adjust		= SD_EMMC_V3_ADJUST,
-> +	.irq_sdio_sleep	= CLK_V3_IRQ_SDIO_SLEEP,
-> +	.has_pipeline_clk = true,
-> +};
-> +
->   static const struct of_device_id meson_mmc_of_match[] = {
->   	{ .compatible = "amlogic,meson-gx-mmc",		.data = &meson_gx_data },
->   	{ .compatible = "amlogic,meson-gxbb-mmc", 	.data = &meson_gx_data },
->   	{ .compatible = "amlogic,meson-gxl-mmc",	.data = &meson_gx_data },
->   	{ .compatible = "amlogic,meson-gxm-mmc",	.data = &meson_gx_data },
->   	{ .compatible = "amlogic,meson-axg-mmc",	.data = &meson_axg_data },
-> +	{ .compatible = "amlogic,t7-mmc",		.data = &meson_t7_data },
->   	{}
->   };
->   MODULE_DEVICE_TABLE(of, meson_mmc_of_match);
+The Rust kernel infrastructure generates inline asm for WARN() via
+ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
+preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
+arch-specific asm template string for use in Rust's core::arch macros.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
+Rust builds to fail on powerpc with
+```
+error: no rules expected `ARCH_WARN_ASM`
+   --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_warn_asm.rs:1:28
+    |
+  1 | ::kernel::concat_literals!(ARCH_WARN_ASM("{file}", "{line}", "{flags}", "{size}"))
+    |                            ^^^^^^^^^^^^^ no rules expected this token in macro call
+    |
+   ::: ../rust/kernel/lib.rs:279:1
+    |
+279 | macro_rules! concat_literals {
+    | ---------------------------- when calling this macro
+    |
+    = note: while trying to match sequence start
 
-Thanks,
-Neil
+error: no rules expected `ARCH_WARN_REACHABLE`
+   --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_reachable_asm.rs:1:28
+    |
+  1 | ::kernel::concat_literals!(ARCH_WARN_REACHABLE)
+    |                            ^^^^^^^^^^^^^^^^^^^ no rules expected this token in macro call
+    |
+   ::: ../rust/kernel/lib.rs:279:1
+    |
+279 | macro_rules! concat_literals {
+    | ---------------------------- when calling this macro
+    |
+    = note: while trying to match sequence start
+
+error: aborting due to 2 previous errors
+```
+
+Refactor _EMIT_BUG_ENTRY to accept explicit (file, line, flags) string
+arguments rather than relying on positional asm operand references
+(%0, %1, %2, %3). This allows the macro to be composed as a plain
+string concatenation, which is required for ARCH_WARN_ASM where no asm
+operand context exists.
+
+Move the .org and .previous directives out of _EMIT_BUG_ENTRY and into
+the BUG_ENTRY() call site to preserve existing behaviour while enabling
+ARCH_WARN_ASM to supply its own size operand independently.
+
+Add ARCH_WARN_REACHABLE as an empty define, matching the arm64
+convention, indicating that no additional reachability annotation is
+needed after a WARN on powerpc.
+
+This brings powerpc into line with x86, arm64, s390, and riscv, all of
+which already define ARCH_WARN_ASM and ARCH_WARN_REACHABLE.
+
+Reported-by: FUJITA Tomonori <tomo@flapping.org>
+Closes: https://lore.kernel.org/all/anG67Q6Y59kDqh-c@desktop
+Fixes: 73b741adb264 ("rust: Add PowerPC support")
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
+Changelog:
+V1 -> V2:
+- commit message now has error, fixes tag and closes tag
+
+ arch/powerpc/include/asm/bug.h | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
+index 0db48977c70c..8aba39e0cf26 100644
+--- a/arch/powerpc/include/asm/bug.h
++++ b/arch/powerpc/include/asm/bug.h
+@@ -32,34 +32,38 @@
+ #endif /* verbose */
+ 
+ #else /* !__ASSEMBLER__ */
+-/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
+-   sizeof(struct bug_entry), respectively */
+ #ifdef CONFIG_DEBUG_BUGVERBOSE
+-#define _EMIT_BUG_ENTRY				\
++#define _EMIT_BUG_ENTRY(file, line, flags)	\
+ 	".section __bug_table,\"aw\"\n"		\
+ 	"2:	.4byte 1b - .\n"		\
+-	"	.4byte %0 - .\n"		\
+-	"	.short %1, %2\n"		\
+-	".org 2b+%3\n"				\
+-	".previous\n"
++	"	.4byte " file " - .\n"		\
++	"	.short " line ", " flags "\n"
+ #else
+-#define _EMIT_BUG_ENTRY				\
++#define _EMIT_BUG_ENTRY(file, line, flags)	\
+ 	".section __bug_table,\"aw\"\n"		\
+ 	"2:	.4byte 1b - .\n"		\
+-	"	.short %2\n"			\
+-	".org 2b+%3\n"				\
+-	".previous\n"
++	"	.short " flags "\n"
+ #endif
+ 
+ #define BUG_ENTRY(cond_str, insn, flags, ...)		\
+ 	__asm__ __volatile__(				\
+ 		"1:	" insn "\n"			\
+-		_EMIT_BUG_ENTRY				\
++		_EMIT_BUG_ENTRY("%0", "%1", "%2")	\
++		".org 2b+%3\n"				\
++		".previous\n"				\
+ 		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
+ 		  "i" (flags),				\
+ 		  "i" (sizeof(struct bug_entry)),	\
+ 		  ##__VA_ARGS__)
+ 
++#define ARCH_WARN_ASM(file, line, flags, size)		\
++		"1:	twi 31, 0, 0\n"			\
++		_EMIT_BUG_ENTRY(file, line, flags)	\
++		".org 2b+" size "\n"			\
++		".previous\n"
++
++#define ARCH_WARN_REACHABLE
++
+ /*
+  * BUG_ON() and WARN_ON() do their best to cooperate with compile-time
+  * optimisations. However depending on the complexity of the condition
+-- 
+2.55.0
+
