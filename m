@@ -1,127 +1,114 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A5C3939BC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FE03C1F54
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073587; cv=none; b=GzSvi07PB/zUFGxZKnI1XLObRXsv4vIoVxXp+uq5xjLGqhjZSPt4/PvkKyU4ZKD//HuA1/LPfYQHN1muc6H/SaxF8Kc5/ADLKCTP+sOwVlznNMPApQRv6618MHatSKZhK+VUatUyg5nOzihvxZP5+8IUIxlsSpHgvVlx29PsO5g=
+	t=1789073595; cv=none; b=MMSh2l6nciAt+r1VUVguZRvDN/tNp44e2KAm1TkzPPKT1O3rwKgidxpZIsAd7GKM7ldcy/N5oyVmUPx1kEI4NZqKmKKGRP2cZ0oJFpVqUv/MI+B9bSy3azpe7lumYW1paMpzLKe7TBwxr7wHi2teR+JeFkYpvYWS/9sV5kkLVYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073587; c=relaxed/simple;
-	bh=4mRR/lct3JxUI7us99LWGMyA0AfdcUxcoiGG5tWdAAw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tIyzAi+nhIXHw+0D64JQVcOxjw82+sLB7jySxQctWnSQqEJjPtuTqYKrSWPSg2JnbfEr1tnhp6BjpPEnL7qeJ1Va1fvGsgug60cmm2gyoMP5V6tMmHDx/9vpSpdwnb3njZC+O5cmoWFH8pjXGeYnT7NPD2CcKswnhUL5PICiW/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bu9KASFl; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789073595; c=relaxed/simple;
+	bh=1etk4KOXi29s0+VqLc6HiucY8F0vF73XSX3ZY6UDxlQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i69W9sid+Y0htMl+MT8rLT8i1EKiTwkdcuxA0vvup5xZ8wRO4K3bZcdD9fMLwsL/V+PIKxSvfG3OMVRSjyLYqASo+Tv5wjvd8OiuUahWA0q1KH0v4meD7HBdfvxaCoxE1oOAksnojtXALoVyRRfv+yz6miV3suXDsPJuODes384=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAS2Z78I; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bu9KASFl"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so1509655e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:53:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAS2Z78I"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8523cc41f38so20242b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:53:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789073583; x=1789678383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6mCkJNb+QrKnJKj/QcqFSE5iIzRjiFJzvF62FVz0jZM=;
-        b=bu9KASFlGGGxmRLJbDyzgrVwnhC3NefLPjdz491XeLiDdncfYVBpbv4Rk4DcSD3+9Z
-         k0QpusZHCNPCKxDG36xpp+eboSutpa1iMbygSjDwnJofkE1uIUZA3G4UvZwKx12P48Lo
-         SRbOgio03zdVGZ74m+y0gBzwv9vpUx4BchJjM/8CkdgRh0eZJeaXU8V4cbz0tKyaWeHR
-         bCv35twcpJTbkI4akALS1DvXSVOAHZfpmU0xhAlvPfGYhdPuxtiUYFQw42cdPSIVjJtu
-         wcpkHSNuUJ1Ks/qrBHpoFj7Z76Ric92vRZ7YQMMVluMI+Kjpr+MP0YxU5UFv6rYD4kI7
-         sLqw==
+        d=gmail.com; s=20251104; t=1789073593; x=1789678393; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a73flGMOwQ2zw+tC92cS5o7YqiRzKglgGjirm26OwL8=;
+        b=tAS2Z78IHB8vYGX0XrZituet/YZ55bFHQQvrAPRj+7ntMAC5kMr4nERJ8tnRUhDF7V
+         B4+KbAtkRWDsXvKVDeUGeUuSYz/ZNn1J+Nfk474tans9o2YkQY54HsXfP8a/8hIYzPRA
+         mYK0H7qbE9M63PX/k0I3GfLz6I19H9v7Ap8ytypZz80LS4DXlY07Dp2JaE1rlkNx1hF1
+         HCgdl+VJ7+1jzUZvMBB5gTpw2axtXbxsJdGimgDjloOkSBYTDHouJAWZEFsFRy7ckh9g
+         1URQwgeLYhFYLnhXAeCDOEPJB1c81v4g79daXrtEH2yVy/J2P+zvAFwnY+M8YqCVjtSj
+         8PvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789073583; x=1789678383;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6mCkJNb+QrKnJKj/QcqFSE5iIzRjiFJzvF62FVz0jZM=;
-        b=Q9R26gNePIk98RcCVOy6EZsXdaKWRbX3JbLctceGCFIsx3A5p1pxuPFYx5dC3UMNRT
-         wfmLxNOpO8c/YcqoynCNltmAFZmzEOCLcKcPHwFfMplvYfpwhObTFPLIhv2rxG98gNsq
-         tn+mWLTD7C4iE/8+8bNaEjXbxv43QUQiMkuiWaAVyDhIamR29aG8l+Zro005XchajMMf
-         DfmasNeIIKQEpaTfIgH6EUgYZWLK9bLorJ30Jjb5lQOcoUuJWpjko28BdbFn+P5BPjLe
-         POSo2KnWCi/jlbJ3AfkSI7Bg4MN2WIobZ7geRNz7oYoxrJtpIVIBKIM/8xPqLopvLmtR
-         OL8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw1E/o1rvVlkJ5l1x8hKlEq7m8frmF842dhEIfYMVaV25jrgy4xr34CV1Cq1oe2JiVRwv956XQKlnLBIJQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvafQaGniA10XgFeNXB6OuqJigdJIZXza8UzAtz6Rl0iJYNbE8
-	zaTabUeUNj7F8Blp13HNCjKiK35THaSAfq554CS0K9mGPpTHU6zVfAbN
-X-Gm-Gg: AYBFou0OVpWEkp32HiqveFfAkevxC/jPcQXoRRM6LJrKXcRliLwaIUNbpPgI9hA8j/d
-	4lvfJcXr2jszmI997XTP9d8lpv9Bj/NSGTJo7dDPWcuH8JtjEWi9DtSkPKWpHD2BaU1xiC4veZD
-	HdVC1EmbDuDMPAm2fyImBf22adD/9EwaiMR0JwSr3T5gQRhV8oEUkreKvnBxRx8IpWYtK6+aMM3
-	BnsAOzauZSkgunGOUTm47ZeoHJ3chAblvGcVBzzF+Yx4W+SqZtcjGNkAugE956zSew+hdKZhzky
-	bPteICW4N4o3vm2suJ9/qaajW6vyyXXeHYzhZdS1jWxKACztB0KEgm4CftOSxEGoslqWxON6H8M
-	sDv/gUGt/EQzdk+3v56H1SKDJYjA/n0Y49AHLd/uTwONt9K1MlOLGKHo7fE/T+nzyGExwBuskqe
-	/J/iwMLIIPQ553Ed9wwCDYufFDIyB3TymCvjrIUuzz5udTNtmp0J0Z1IyzCCJCvNPCl6V/UouHy
-	qRs7qZtWdHdyahxUAkim7/VkyySEhg6Lt1ZvAZ9k5NS391iZfWEVYNqYGKi0e6HtEtN7mqsrarD
-	8bBx2u/OmzGUw1UoRwnC9UMLUWfYqtAAKPTfXTIq4o5XXpj+569P4IqjAEma25lwjqw99EsI2Z5
-	LTTxhvVLfeDwRua7V9Ky2tQ==
-X-Received: by 2002:a05:600c:a0b:b0:49c:e1f1:3dd5 with SMTP id 5b1f17b1804b1-49e618863bcmr18595615e9.4.1789073583171;
-        Thu, 10 Sep 2026 13:53:03 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b3d9-b901-601c-58ef-b3f5-74f5.310.pool.telefonica.de. [2a02:3100:b3d9:b901:601c:58ef:b3f5:74f5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49db038401fsm77237325e9.13.2026.09.10.13.53.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 13:53:02 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Lukasz Luba <lukasz.luba@arm.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] PM: EM: allocate the cpumask for every perf domain
-Date: Thu, 10 Sep 2026 22:52:34 +0200
-Message-Id: <20260910205234.5392-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1789073593; x=1789678393;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a73flGMOwQ2zw+tC92cS5o7YqiRzKglgGjirm26OwL8=;
+        b=KyWsiMsbyWxiv29BX62xc0SaaXEwm0ljqLmuMagfod9hrvIOMnjA0cVU8xVpFWPSvB
+         Dnm8M1CB12SZN8NNdlyAWTuEFhidP5YNAkUqrDjvXVl7Ock9jMwCmPrExIOiial7Tm7C
+         vd4v7AwG+cr0QPci7OA9f5wDtt0Xzwcls6oYBqTsd8phXHS84PBDK2MLg3pWkrQnOxah
+         wNqr+Ojr5HcpG8jURb71woB19VIrr5deBhRwKx6rOQY73iwe/LGQ0jt7gOhBgVx49vRp
+         R3jJnyVfmO9EyJrOHzapY0/N31v6mexv38GU7uPWNIEWYEN7sxfKuPoyfOh9uyLuNCUI
+         i5Nw==
+X-Forwarded-Encrypted: i=1; AKwUvByfBkNUh3TW36CgFs3EAGFQTF0eB47d/u99BVebC3tfJRvkyec5S3mjz9riIMLJaPSNpRZuub8+PdcY3uw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5DpWoqxtybI7WfjkfQRRfIZGWGRobBNOT++wi4o52u45pc+Pn
+	RA+5/dhmcruIXKX+uPue563O9tx1Ht/VSGkA4LxYnt4BtwPjakyAeAqAaVfNWA==
+X-Gm-Gg: AYBFou3ZoOD/S2uPjnOWEG2Dh8iOnkpbS/3KID4Isj1p8Qa4h0XMX/EotbzEhMh1pJf
+	a+iCB69yBCarON0jXW2B12NTnS9q4fv6Ah4g0sots3dc6S77bPlVPXLwl0BwD5t0KNf/nmSvMGC
+	eBKYsmCGtBmg5ws23jyTNS5I0Xw0mwcEbqp1k4Da2+uwWkKtOnfJbjrVm+6yrO5+EpSwix2BL1S
+	M6qQ3I7j2dvRoR0Q+MwBXaqP6dYMUOW7O8CXsUCqzopiDbSlM6RPNqa3cwGt9bQLjuQWQTIRY3W
+	SyZfRvkwGqU1jm/kyUoL/T6XqtHneBX6oNvTaYPD7buNerOm5KlOacIq5jbp/2hLJ0vo07qbTI+
+	YZz1axzxbWQQwo4sy36+OkDNOd662x8ig1KbTQNH7EZWTCP59U7yG8mhBcvKE+bQBEcib871mD1
+	HbDsYOz5hHOlrtVJgHvxG9nZ/Y4AeGxapNOTL+uXspYld5wLPJEXgMf60AOG5IICivTL/mE4tJ1
+	V8K1zkazhKA3Q==
+X-Received: by 2002:a05:6a00:4706:b0:842:4af4:3080 with SMTP id d2e1a72fcca58-86b2db09168mr433675b3a.1.1789073593092;
+        Thu, 10 Sep 2026 13:53:13 -0700 (PDT)
+Received: from [172.29.212.252] ([2409:40c2:5431:4168:e542:5202:be02:6ae4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250bf3e6sm150822b3a.5.2026.09.10.13.53.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 13:53:12 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH 0/2] ARM: dts: keystone-k2g: Fix usb-nop-xceiv dtbs_check
+ warnings
+Date: Fri, 11 Sep 2026 02:22:49 +0530
+Message-Id: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wqDMBCE4VeRve6CifSgr1K8qDqtqxAlm5SK+
+ O5Ge/kNzL+SwguUqmwlj6+oTC7BXDJq+5f7gKVLJpvbW14aw0F4xKJhcuCoDc/9wm/5sbEdgLJ
+ 43Isrpffskeaz/Kz/1tgMaMORo23bAREne817AAAA
+X-Change-ID: 20260911-ti-keystone-usb-phy-fix-12deee938735
+To: Nishanth Menon <nm@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789073586; l=763;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=1etk4KOXi29s0+VqLc6HiucY8F0vF73XSX3ZY6UDxlQ=;
+ b=I58F2Ztvq5Yw4MKly35QrlL677tsLpM8s3BEC7GGLLbtmngGRS/qsw1o2QnO0jUDXBqppxWC0
+ z9Y/0+VNb2ABnG833oRMZ0sMVp2YAqbDcdPe6agtuKmZWdS5yaEXcZN
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-em_create_pd() allocates space for the trailing cpus[] flexible array
-only for CPU devices.  A performance domain registered for another
-device therefore has no storage for its cpumask.
+usb0_phy and usb1_phy fail dtbs_check because:
+- missing the required #phy-cells.
+- simple-bus wrapper that forces unnecessary reg.
 
-All performance domains are added to em_pd_list.  The netlink interface
-does not distinguish CPU and non-CPU domains when it calls
-cpumask_weight() or iterates over pd->cpus.  A request for a non-CPU
-domain reads cpumask_size() bytes beyond the allocation and can report
-bits from the following memory as CPU attributes.
+Patch 1 adds #phy-cells with value 0 as required by binding.
+Patch 2 drops the wrapper and moves the PHYs to root.
 
-KASAN reports slab-out-of-bounds reads for both dump and by-ID requests
-against a synthetic non-CPU performance domain.
-
-GET_PERF_DOMAINS does not require GENL_ADMIN_PERM, so an unprivileged
-request can reach this path when a GPU or another devfreq device has
-registered an energy model.
-
-Allocate the cpumask for non-CPU domains too.  The zeroed mask remains
-empty, as required for the documented unused field.
-
-Fixes: d8eef0453132 ("PM: EM: Implement em_nl_get_pds_doit()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- kernel/power/energy_model.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Bhargav Joshi (2):
+      ARM: dts: keystone-k2g: Add required #phy-cells to usb-nop-xceiv nodes
+      ARM: dts: keystone-k2g: Move usb-phy nodes out of simple-bus
 
-diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
-index e610cf8e9a06..fd07c564c201 100644
---- a/kernel/power/energy_model.c
-+++ b/kernel/power/energy_model.c
-@@ -439,7 +439,9 @@ static int em_create_pd(struct device *dev, int nr_states,
- 
- 		cpumask_copy(em_span_cpus(pd), cpus);
- 	} else {
--		pd = kzalloc_obj(*pd);
-+		/* Readers expect pd->cpus to exist and remain empty. */
-+		pd = kzalloc_flex(*pd, cpus,
-+				  BITS_TO_LONGS(large_cpumask_bits));
- 		if (!pd)
- 			return -ENOMEM;
- 	}
+ arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260911-ti-keystone-usb-phy-fix-12deee938735
+
+Best regards,
 -- 
-2.53.0
+Bhargav
 
