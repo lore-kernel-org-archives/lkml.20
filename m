@@ -1,168 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887373E0C4C;
-	Thu, 10 Sep 2026 09:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4362F397695;
+	Thu, 10 Sep 2026 09:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033144; cv=none; b=iFpZlv4o/EtHoZZf4s8vLw4AMc2gqVVhnC79C96q8juydv2osQU3JBjsikr/+dOl3IDp9nJlklFgIs7sbDj8JF/j2FKWacTNqLMCSGZ3/6UkJ/sKmBja8pX7uLy3cvzmvLPlnr9yP2XrOStR9Vz7kkj98zXnTYuKw7wei3kfU40=
+	t=1789033153; cv=none; b=LQ/LuaoIMtMtWqt5cIoC2Pjz5NKs8uEsIDQL6DhdN7GkcDoV9gVILUwbtmedpfC7SAdJFlUjRYzlB/FwvfQl8FkgzqrGUalcn5ALbQ87lryarNrvleoCMqxjsq8Ouk1MpDJ8x8kJRnxYcvMEYJyD3v8nNnXSCAUGhPwaSwwCeKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033144; c=relaxed/simple;
-	bh=qwKzP20F+V9VShHP1J5vtOL1QvhxrdxQ/mZ8TC+Nuiw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=K+MIVWIoYF1baoelgUnO1NDaGk1GqSpoBRb2uEX+2lKdSaeUbkeLLm87U1wWqwezvm6czDmX5EWr8I8I4kYeZWOx1v377bDekcjfvpDrHnkwOXKgPAKEj7MGrQEb/RVPgPSSACfTYnHAi8G7xEG+0rwx+djjuZLrL0tbBwDiqaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+CixY8S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789033153; c=relaxed/simple;
+	bh=4IjxNCMSkE9NrLUOlPIVyyeUMQF88Cbi2YiXdSDkGi4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mghbnZT/XKPXN5Xqpa8CHeTQnzH85dKdIwh5w+I1Ip07G+K5JzHRzwhcsvrp+6EUTGKp5XoNK/8KWg/XeirzmZuw8uX0LkEhkQqGM/TsA0ctayDBMV7gFBHzO7QEj1tg0zZJjCDLvN5xloGV4zf8W3d9wvHjPKl5Vw1ZzbTd26E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hcdClrlg; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+CixY8S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FE01F00899;
-	Thu, 10 Sep 2026 09:39:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789033142;
-	bh=9vbyzbXoNope4m/E98fT/D/U3csHTzjzJphWG4NeJ5k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=i+CixY8StmiNKIONwe0jOeJATuAqnudmZApSHMRB9wM+iyL88F/3aCdvZrioI851B
-	 GORCC6CHLVFrLwIhm3KJ4pLaOWCL84E6ymksBuhQ995u4Z7bFdRI6tQ9cHcWDkEepH
-	 XRObAM8Snb4fymfWeCTQCU4MGCSRkpQoIIakWjCfHuglfk2DPkYYwxglsDwq7IIVrX
-	 CA6+wBd7Bxl4QPzSUBvG6nU6TUdcNXP8DenTIbaSMeoy8aNE8VgSsMv8HJsQqHB3rx
-	 8J6+3pwICMYN6RwcnEitUQ6cnzJ5zu8RGIQEzuqgxq/5D1cJqMXy29f7FLGXPUFwVV
-	 aCq0dbwjJx0hA==
-Subject:
- Re: [PATCH net 3/3] selftests: net: test the vxlan vnifilter VNI range limit
-From: netdev-bot+sashiko@kernel.org
-To: alishmery18@gmail.com
-Cc: netdev@vger.kernel.org, idosch@nvidia.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, edumazet@google.com,
- andrew+netdev@lunn.ch, razor@blackwall.org, roopa@nvidia.com,
- linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 09:39:01 +0000
-Message-ID: <178903314108.219967.3512996102367717526@kernel.org>
-In-Reply-To: <20260909092645.3105263-4-alishmery18@gmail.com>
-References: <20260909092645.3105263-4-alishmery18@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hcdClrlg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789033151; x=1820569151;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=4IjxNCMSkE9NrLUOlPIVyyeUMQF88Cbi2YiXdSDkGi4=;
+  b=hcdClrlgCE7/v9gRtA8kstWUvGBQonrMDg+w0s785rP0Bvg2cm7Oq3Go
+   6pldV8zNOObuzoFY6T3KkaPaZIY/n9WWFGwlvV4Ee/kT25GqnP92o2IVl
+   snWaFS8XaAXpyVd4nD3hQCbo7unQsETgyw0An289Db0IFJrI11BgrjAdO
+   5fvvmZaLb48RSjdWt5IF6SI7MErEWbljfSpVltXjF4ysnQ1T74AW/bUY+
+   D6Mj7TuAVBWDX4SJM9kBOlveFXAfY4u3e5lsefZoJEIpK17hXt3mOnEvO
+   iuT5aQnnlJMfs5or+bN5uItQVHhabC8xf5BNjb88nfwTgoDgM1IBP7JvP
+   w==;
+X-CSE-ConnectionGUID: P3b5Vt9WRWyaFa3YzK2dKw==
+X-CSE-MsgGUID: +4lUhvbCQIGFyWi5TYXphg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100832787"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="100832787"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:39:11 -0700
+X-CSE-ConnectionGUID: vMX4C2njQPGDAJTGF9mrDw==
+X-CSE-MsgGUID: v9HAY5zBSdKw9pCEDD/5aA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="301478834"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:39:08 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Dave Jiang <dave.jiang@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	linux-cxl@vger.kernel.org
+Cc: Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] cxl/regs: Reject register blocks in an unassigned BAR
+Date: Thu, 10 Sep 2026 17:38:58 +0800
+Message-ID: <20260910093858.535969-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+cxl_decode_regblock() only checks that the Register Locator offset fits
+pci_resource_len().  A BAR the PCI core could not place is reset to zero
+start, end and flags while config space keeps the firmware value, so a
+zero offset passes and the block is mapped at physical address 0.  On
+x86 ioremap() of the reserved low megabyte succeeds, the component
+register header does not match, and a switch port fails with "HDM
+decoder capability not found", pointing at the HDM decoders rather than
+at the BAR.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Reject a BAR with no length or still unassigned, next to the existing size
+check.  Skip empty Register Locator entries first: they decode as BAR0
+offset 0 and would trip the check, and nothing looks them up.
 
-- [High] The series' stated guarantee — "A single RTM_NEWTUNNEL or
-  RTM_DELTUNNEL request may span at most 4096 VNIs" (this selftest's…
-- [Medium] The new "Cannot delete vni range larger than maximum" case
-  (tools/testing/selftests/net/test_vxlan_vnifiltering.sh:382-383) has…
+Seen with edk2-stable202602 (f6489621b8ae, reverted in stable202605),
+which places 64-bit non-prefetchable BARs behind a bridge in the
+prefetchable window.  Linux refuses to claim them and the switch
+upstream and downstream port BAR0s find no room in the 32-bit window.
+QEMU q35 with a CXL switch, Fedora 43 edk2-ovmf-20260213, before:
 
---
+pci 0000:0d:00.0: BAR 0 [mem size 0x00010000 64bit]: can't assign; no space
+cxl_port port2: HDM decoder capability not found
 
-selftests: net: test the vxlan vnifilter VNI range limit
+after:
 
-This adds four cases to vxlan_vnifilter_api() in
-test_vxlan_vnifiltering.sh covering the new 4096-VNI cap on a vnifilter
-request: an add and a delete of exactly the maximum span are expected to
-succeed, and an add and a delete one VNI larger are expected to fail.
-No Link: tags were present in the commit header.
+pcieport 0000:0d:00.0: BAR0: not assigned (type: 1)
+cxl_port port2: No component registers mapped
+cxl_port port2: Failed to map HDM decoder capability
 
-> diff --git a/tools/testing/selftests/net/test_vxlan_vnifiltering.sh b/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-> index 8deacc565afa..464ff353d6c0 100755
-> --- a/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-> +++ b/tools/testing/selftests/net/test_vxlan_vnifiltering.sh
-> @@ -371,6 +371,19 @@ vxlan_vnifilter_api()
->  	# change vxlan vnifilter flag
->  	run_cmd "ip -netns $testns link set dev vxlan-ext1 type vxlan external novnifilter"
->  	log_test $? 2 "Cannot unset vnifilter flag on a device"
-> +
-> +	# a single request may span at most 4096 vnis
-> +	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 10000-14095"
-> +	log_test $? 0 "Add vni range of maximum size"
-> +
-> +	run_cmd "bridge -netns $testns vni add dev vxlan-ext1 vni 10000-14096"
-> +	log_test $? 255 "Cannot add vni range larger than maximum"
+Link: https://github.com/tianocore/edk2/issues/13104
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+---
+ drivers/cxl/core/regs.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-[Severity: High]
-The comment here, and the commit message wording "A single RTM_NEWTUNNEL
-or RTM_DELTUNNEL request may span at most 4096 VNIs", describe a
-per-request property.  Is that what the companion patch actually
-enforces?
-
-The check lives in vxlan_process_vni_filter():
-
-	if (vni_end >= vni_start &&
-	    vni_end - vni_start >= VXLAN_VNI_FILTER_RANGE_MAX) {
-		NL_SET_ERR_MSG_ATTR_FMT(extack, nlvnifilter,
-					"VNI range spans more than %u VNIs",
-					VXLAN_VNI_FILTER_RANGE_MAX);
-		return -EINVAL;
-	}
-
-and vxlan_vnifilter_process() calls that helper once per
-VXLAN_VNIFILTER_ENTRY attribute present in the message:
-
-	nlmsg_for_each_attr_type(attr, VXLAN_VNIFILTER_ENTRY, nlh,
-				 sizeof(*tmsg), rem) {
-		err = vxlan_process_vni_filter(vxlan, attr, nlh->nlmsg_type,
-					       extack);
-		vnis++;
-		if (err)
-			break;
-	}
-
-So a message carrying N entries, each an individually legal 4096-VNI
-span, still results in N * 4096 add/del operations inside one rtnl_lock
-hold.  An entry nest with only START and END is roughly 20 bytes on the
-wire, and netlink_sendmsg() accepts messages up to sk_sndbuf/2, so
-thousands of entries fit in a single request.
-
-Since iproute2 emits exactly one VXLAN_VNIFILTER_ENTRY per message, can
-any of the four new cases observe a multi-entry request?  They all
-exercise the per-entry path only.
-
-Would it make sense either to accumulate the span across entries in
-vxlan_vnifilter_process(), or to reword the comment above
-VXLAN_VNI_FILTER_RANGE_MAX, the commit messages and these test names to
-say "per entry"?
-
-> +
-> +	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 10000-14096"
-> +	log_test $? 255 "Cannot delete vni range larger than maximum"
-> +
-> +	run_cmd "bridge -netns $testns vni del dev vxlan-ext1 vni 10000-14095"
-> +	log_test $? 0 "Delete vni range of maximum size"
-
-[Severity: Medium]
-Can the "Cannot delete vni range larger than maximum" case distinguish
-the range limit from a plain missing-VNI error?
-
-Only 10000-14095 were installed by the first case, so the delete of
-10000-14096 has two ways to return non-zero.  With the cap present,
-vxlan_process_vni_filter() returns -EINVAL and nothing is touched.
-With the cap removed, vxlan_vni_add_del() deletes 10000-14095 and then
-vxlan_vni_del() hits:
-
-	vninode = rhashtable_lookup_fast(&vg->vni_hash, &v,
-					 vxlan_vni_rht_params);
-	if (!vninode) {
-		err = -ENOENT;
-		goto out;
-	}
-
-which the loop propagates.  iproute2 maps either errno to exit status
-255, the same coarse value the pre-existing "vni add dev vxlan-ext2 vni
-200" case already expects, so log_test $? 255 passes in both cases.
-
-In the no-cap case the 4096 VNIs are already gone, so the next
-assertion, "Delete vni range of maximum size" expecting 0, is the one
-that fails.  Does that not report the regression under the wrong test
-name?
-
-Would deleting a span whose every VNI exists (for example installing
-10000-14096 with two capped adds first), or matching the extack text
-rather than only the exit status, make the case specific to the limit?
-
+diff --git a/drivers/cxl/core/regs.c b/drivers/cxl/core/regs.c
+index 20c2d9fbcfe7..41416fa2ce4a 100644
+--- a/drivers/cxl/core/regs.c
++++ b/drivers/cxl/core/regs.c
+@@ -277,6 +277,20 @@ static bool cxl_decode_regblock(struct pci_dev *pdev, u32 reg_lo, u32 reg_hi,
+ 	u64 offset = ((u64)reg_hi << 32) |
+ 		     (reg_lo & PCI_DVSEC_CXL_REG_LOCATOR_BLOCK_OFF_LOW);
+ 
++	if (reg_type == CXL_REGLOC_RBI_EMPTY)
++		return false;
++
++	/*
++	 * A BAR the PCI core could not place is reset to zero; decoding it
++	 * would map the block at physical address 0.
++	 */
++	if (!pci_resource_len(pdev, bar) ||
++	    (pci_resource_flags(pdev, bar) & IORESOURCE_UNSET)) {
++		dev_warn(&pdev->dev, "BAR%d: not assigned (type: %d)\n", bar,
++			 reg_type);
++		return false;
++	}
++
+ 	if (offset > pci_resource_len(pdev, bar)) {
+ 		dev_warn(&pdev->dev,
+ 			 "BAR%d: %pr: too small (offset: %pa, type: %d)\n", bar,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909092645.3105263-1-alishmery18%40gmail.com
+2.43.0
+
