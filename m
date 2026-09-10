@@ -1,107 +1,172 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690C7489FDC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069971; cv=pass; b=c0cKw+Po0kpLEShUTw4DY4os+UIGqGBUIzgmk091ZOVQdbxtgcxR8LXPnIt3/l1eDoVt7COrTr9bsMeC8eMi5VgGQhpbQ67X2fXMPBpLnY6BEaiPoaQXtLe1/7MacbveSjp5t/Ox7r4v01AVPfnnVBV2yZJ5QovJLsJQcV+Lie8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069971; c=relaxed/simple;
-	bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=to8urZYmJsxIu/TSnlHqjaCflsN2KZkcAdCZpEgAKKSUDg7aLX+ZBsml7b1PU9uHHbE5BtmckfmPTNzRk+wnnEYyuUls6ALdSJN6RUhs5PMxSd3CG19FsEKdxcLdMkKPvk8d0Djjpa+O0F5nnAqUGCDDpHwkaiDxg7WOaqlLeiw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PDrO6TR5; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B1241443D;
+	Thu, 10 Sep 2026 19:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789070012; cv=none; b=YMbbbj0cNXXUlzbhM4V+sc7EDNH8QV6EvVc7jyb2HNupqJ+s/yn8W1W4qWJDV9zEbZWFmtk/muLGwK9BmsMyAplCKkd49c7KyaPUxY23DLWIS7c+bMvccLwNdaZodJ0PmuM/nFdglFNPo/blswFxTx22xwCzZ8BtEVR/qH2lLWs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789070012; c=relaxed/simple;
+	bh=iWqOT9+0/3sOX827MIawvxL+XwBkdYbstgbzA9QJIlE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CojKxSA9usXK5Qr3P/n12G1rnw5CVF9uQ2DnCFTQhKoMjNHuBj5Yp1esvvjXlvAOtRyCSlUGcYyZ0Bj/Nm5MdLWMP6i5WlVKGXazjpmp/dF11ZvlYaNhTa6KH+Hd5rHsJ6TEVDLFPSrNUlAYX3W5V0ZiC5W6u9o/hkXEoStEEow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEPF3+3A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PDrO6TR5"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso80502f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:52:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789069967; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JqlDFl5J328u6jlRK2ZOrjRDCrpvuIAVBlic5EM4fDNn383co0mxZ2CoPsXyo0szWm
-         Yg+ajb1Ri9A7H4cgoRNPJ7XHRmmsaMu4CXNAJRKRibWYf1fNcygkIeJ8R526oTIM3VLx
-         Fn9xbSJBbKIrOQ66VSQetNLr+8oczMtKYDtP+nErhSNb/ONBvKPrc6BJ+G11JcH2Mwma
-         +bYyUgJo+SROXGkVG35kZkdd2Z8SYC0IgGURZcSGJYjPqEIIwXMqhzCzXeL7R8kvilT3
-         mUUqn6oxinPG2y8h8b0OHGrae9ej3C+FMDpBM2sbgx0a/1pd95FjyeWxQ009zRfTUZI6
-         vlqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
-        fh=c7IswQ4SvC/7Y93ZItvcfOES783dqEU6ZOTA0lGj6kk=;
-        b=eWaqNUUBSiC40NDQO8YW9GdOb34GxWQ+Zmfqq/iFz/1Iw2hOT63FQZfM3d2mYk2tSn
-         wYvSfmCm9NSE6Z4wH4prdIVDdb6QQ/JqlANswJ26POObeH+ba0g003NVrcra40cWMg0V
-         OhSO+BykaKOD8QV4LFc+l7qHArRbasLVdgOPo3HwNJcM9KoZNgLafIeKBrxMjjlKnnyD
-         m8cA65ooXFWONIgQESjT0UGgRQEw5sjz6lc+jd7Z6xry6R3wGK+dpMhlibIeK3LQLfdb
-         LLSK0J7tmFz5ookleWopxtUcbAGVgbg3I1evA/T6Aa7l3QWRY/LSc8vcWqyMpD9UgiPx
-         EmoA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789069967; x=1789674767; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
-        b=PDrO6TR5mHiQ6mkfx3NfMoUR+P1inFsrAZ095Ddog1bZa/C8T2HrTVJucMd1/wImuc
-         VTYJ53FTrIo8pO0o792CjTEcUs8tbp8u1Nkkz/jK/MhRyO06432FWYfJ6FLew3FXjubO
-         PlY4oU/WdLAF93SxgxAcYKhj1FRrtm9O74Go/MqEZ503bFBZjm0JEWaFBmrCz2tLle81
-         zYQxlODiLL5k9wC8kwRIjWrcqyMbHd2Hweovjsji+1muXNvY3rvoOOR/d78cGdEIv+Ff
-         Kmsdq3B9OWUgaBgc7aENU8I07kTfkdgkrotJkws/Mi3Hqzu89rTynCZE/26hSEPmocjV
-         FngQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789069967; x=1789674767;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5BYR2LAlRCG7N5sJ/J8MZfMB9gZi5CyLaZoJi76cKSw=;
-        b=KsCYVtGZ1l3eMzP/ruEKkNh19349cTNe3nMenOih4FmVRW38ynKwpVh5/5jCWK3DLR
-         1mZS9EF11XVJnlE0U6tXKekajBCsmIiKTSjFc4B1+tm89ublsUdFCjH+BPQrGAkrX1WD
-         0TizsRld9mUAaaU/lXiBXqD9bAtJ5PqQop4GowKevsqUgQqbE6lftDfJbsofkQe58Bz3
-         rQPoZMvIyTMZAYHKpfB6TK9qNyjt6WSmI1OAK2Nle08M6lZ1SpCgNMXYltoO6Dck0554
-         LX/qwVO/PgpA5Wp5zdZFDRlxN/YsNx3fGlPjKviqKMnJ9IMtd1vuWgAtrDebmD/jZ0hS
-         xkQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxv/LmQNuQb6/FFI1/HH2Vp8Xa7pmKpLCWEqYw9pwJy9faXqbARHcsH0KxfiuyANyHPG57bx8JVP+lDJOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9mHlaIvwNFAUB48MIMPCsiQXnO2Nod4/o33FWeCS0BBSk9kF0
-	/3XndZ5m7nYSyxvRmLcSRpNO0bd4ot2uD0CV3F3quFEJT9GQ9o+Ck+CPR8z6OK+Vznpmky1mPdM
-	CLFZWD+vGXOLrQ/KgE56ignxcjNujBlGIEpE+UK88
-X-Gm-Gg: AYBFou0CkSP5eKUDnl0pzgzRjU4AR/FatV2Eq+l1P10a3SelxZXG7VcLQRP6BZYKz74
-	l/Ow9jdLkpmIdJfftbpNikxRywvca6RQtaoano6sH6we1Hfk37z/RCmszKOggIOxzzDePlqB52B
-	SHWG8WxX/heE+Q9Rv1n2Cl5UQbALGGmYdpio1ruGtGgVzKTX5GJ/b4kC0Uqf5sCAA2+1WV4bt3L
-	W/CldzZg+BEqXQGcIDZV7FFtWiw+Y3UyouSjjRFHTanQ3AzD/1yL1Q5QwDs1YQ8xupSOIw7xb3a
-	MZhrdok6jC1V9bgMO7Xma07OshJ9Uvqi9Jm7sG+z/wJxy9eGgQIKptn6SYQSt5rPMzQH+fWLo4H
-	4yXiFmfgwsw==
-X-Received: by 2002:a5d:4483:0:b0:482:dac8:cd0d with SMTP id
- ffacd0b85a97d-486eb33ec05mr931955f8f.21.1789069966721; Thu, 10 Sep 2026
- 12:52:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEPF3+3A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD7A1F000FF;
+	Thu, 10 Sep 2026 19:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789070011;
+	bh=LWCw1vI1TLupqhlfARjSwb6dKvjuY9OTFIJZELmfBL4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WEPF3+3A1c+SfmoQrIcZuPZ0jMVYuH3HDxDLG54ZBO/Q/dFxt5hdWRGMGAqS4K1PD
+	 twFGnF13OWICRQjXvEWtqtPNLIK4Xu0VKKPiecbW+5c2LBsGZAsY0wMnFXnuDicz1l
+	 CzN8fC6I3erLiP2Vdf4W6BnYzZvnDhrboXw/yq22VleHv3E+jizf1ea9D2w7d4NNus
+	 F4NFRVTrbKBsMnZJ8RngoBDtkCx51MCEPn8bVFAVxMfaRs1hZmNE4qnns7CxSwqWYr
+	 fEVUJSYxCfrp8fRTFZd60REhCyq9cWl1yXUjlfI/k8EypbDEJseBoYEK8Nc/JBPMiC
+	 mti6j3gXJ7A+g==
+Message-ID: <1799b944-535e-4019-9dce-e12e71aa96e0@kernel.org>
+Date: Thu, 10 Sep 2026 20:53:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904234401.2339633-1-jthies@google.com> <2026091023-numeric-husband-1b03@gregkh>
-In-Reply-To: <2026091023-numeric-husband-1b03@gregkh>
-From: Jameson Thies <jthies@google.com>
-Date: Thu, 10 Sep 2026 12:52:34 -0700
-X-Gm-Features: AcwNN1W1WwceoXxfw7kV1OcYc7DN9h4A1Bt3IOdWqxeC9UAzLths1l0qeH57h3g
-Message-ID: <CAMFSARfnRpkq21j7WZYqdthy4aC7VSPjQAKm1eHvbYxhM6pOnQ@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array index
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bleung@chromium.org, akuchynski@chromium.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] bpftool: Add explicitly sequenced -lzstd to libbfd
+ feature fallback
+To: Ian Rogers <irogers@google.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Josh Poimboeuf
+ <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>,
+ David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>,
+ Costa Shulyupin <costa.shul@redhat.com>,
+ Michael Jeanson <mjeanson@efficios.com>,
+ Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ bpf@vger.kernel.org
+References: <20260909204122.1993010-1-irogers@google.com>
+ <20260909204122.1993010-4-irogers@google.com>
+ <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
+ <CAP-5=fUC+2+qafs=GjfC6K5X1o8t8BTxj8L7NuGAm40n_UTYWg@mail.gmail.com>
+From: Quentin Monnet <qmo@kernel.org>
+Content-Language: en-GB
+In-Reply-To: <CAP-5=fUC+2+qafs=GjfC6K5X1o8t8BTxj8L7NuGAm40n_UTYWg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Greg.
+2026-09-10 08:37 UTC-0700 ~ Ian Rogers <irogers@google.com>
+> On Thu, Sep 10, 2026 at 2:20 AM Quentin Monnet <qmo@kernel.org> wrote:
+>>
+>> On 09/09/2026 21:41, Ian Rogers wrote:
+>>> Distributions like Fedora currently ship a statically compiled binutils
+>>> libbfd that natively depends on zstd to decompress sections (e.g.
+>>> undefined reference to 'ZSTD_decompress').
+>>>
+>>> Extend the newly supplemented libbfd-liberty-z-zstd feature probe into
+>>> bpftool's Makefile so it can natively build against static binutils
+>>> distributions.
+>>>
+>>> Signed-off-by: Ian Rogers <irogers@google.com>
+>>> Assisted-by: Antigravity:gemini-3.1-pro
+>>> ---
+>>>  tools/bpf/bpftool/Makefile | 4 ++++
+>>>  1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
+>>> index b0f7168e7943..1cac4508eb0c 100644
+>>> --- a/tools/bpf/bpftool/Makefile
+>>> +++ b/tools/bpf/bpftool/Makefile
+>>> @@ -125,6 +125,7 @@ FEATURE_TESTS += libcap
+>>>  FEATURE_TESTS += libbfd
+>>>  FEATURE_TESTS += libbfd-liberty
+>>>  FEATURE_TESTS += libbfd-liberty-z
+>>> +FEATURE_TESTS += libbfd-liberty-z-zstd
+>>>  FEATURE_TESTS += disassembler-four-args
+>>>  FEATURE_TESTS += disassembler-init-styled
+>>>  FEATURE_TESTS += libelf-zstd
+>>> @@ -135,6 +136,7 @@ FEATURE_DISPLAY += libcap
+>>>  FEATURE_DISPLAY += libbfd
+>>>  FEATURE_DISPLAY += libbfd-liberty
+>>>  FEATURE_DISPLAY += libbfd-liberty-z
+>>> +FEATURE_DISPLAY += libbfd-liberty-z-zstd
+>>>  endif
+>>>
+>>>  check_feat := 1
+>>> @@ -201,6 +203,8 @@ else
+>>>      LIBS += -lbfd -ldl -lopcodes -liberty
+>>>    else ifeq ($(feature-libbfd-liberty-z),1)
+>>>      LIBS += -lbfd -ldl -lopcodes -liberty -lz
+>>> +  else ifeq ($(feature-libbfd-liberty-z-zstd),1)
+>>> +    LIBS += -lbfd -ldl -lopcodes -liberty -lz -lzstd
+>>>    endif
+>>>
+>>>    # If one of the above feature combinations is set, we support libbfd
+>>
+>>
+>> Hi Ian, thanks for this!
+>>
+>> Just checking: my understanding is that if libbfd depends on libzstd,
+>> then it always also depends on zlib, so we never need to check some
+>> variant such as "feature-libbfd-liberty-zstd" (without the "-z"), is
+>> this correct?
+> 
+> Hi,
+> 
+> You make a good point. Normally we want to use pkg-config to get the
+> libraries necessary for a dependency. Unfortunately pkg-config is
+> generally broken around binutils/libbfd. This is why we have all of
+> these tests to determine the list of libraries we need to link with
+> libbfd for things to work, which pkg-config normally provides. It is
+> perfectly possible to build libbfd with libzstd and without libz, but
+> currently, we haven't encountered a distribution doing this. I can
+> imagine a memory hardened future where libz has become zlib-rs that
+> conveniently provides C headers.
+> 
+> For perf we don't build with binutils by default; this matter is only
+> an issue for our build tests. We don't depend on libbfd because its
+> GPLv3+ license isn't compatible with perf's GPLv2 license, which would
+> create an undistributable binary. This isn't an issue for bpftool
+> because its BSD 2-clause license is compatible with libbfd. In perf
 
-> Does not apply against 7.3-rc2 :(
 
-7.3-rc2 and usb-next include the v1 version of this patch which fixes
-the OOB issue but doesn't incorporate Heikki's or Andrei's feedback.
-I'll send a quick series to revert the existing change and followup
-with the v2 version.
+We still have some issues for bpftool related to libbfd: for Debian
+packaging, building against the shared libbfd is "Not Allowed" [0]. This
+was one of the motivations for introducing the use of LLVM as an
+alternative dependency. I didn't know elfutils offered a similar
+feature, I should look into it.
 
-- Jameson
+[0] https://packages.debian.org/sid/amd64/binutils-dev
+
+
+> we've been replacing libbfd based functionality with that in elfutils.
+> libLLVM is another consideration, but it's generally too heavyweight
+> for the effort to be worthwhile (it is generally large, distributions
+> don't want a dependency on it, and it runs many initialization hooks
+> at startup that don't benefit perf). Hopefully elfutils can provide a
+> stable API for its disassembler (libasm) as that would cover pretty
+> much everything perf needs without requiring us to fork objdump, use
+> libcapstone or use libLLVM.
+> 
+> Anyway, we could add another flavor (zstd without libz) to the feature
+> tests for libbfd but since this isn't currently an issue I think we
+> can cross our fingers for binutils to fix pkg-config or for other
+> tools in the kernel, like perf, to migrate away from the use of
+> libbfd. If we add every flavor of libbfd's dependencies, it feels like
+> a lot of build clutter (imo) and I don't know where we stop.
+
+
+Thanks for all the context, very much appreciated! I agree, sticking to
+the zlib + zstd variant sounds like a good option for now, thanks.
+
+Acked-by: Quentin Monnet <qmo@kernel.org>
