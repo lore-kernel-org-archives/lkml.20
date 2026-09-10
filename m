@@ -1,79 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B82248593C;
-	Thu, 10 Sep 2026 12:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85579484254;
+	Thu, 10 Sep 2026 12:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043029; cv=none; b=FbVxCxtjgdwGISB/+OXHJQbQCuSsFBVofGqCycYsEUL1aNXKaRIeEHHYk4OFBO5NaEbidJ0yMDKBxBL1VVSTjozvgRwQAUbjUF6XF6kbrgbcWvZoNTMl/ctBB/ZiitZmFUFLycww6gDfdUuikeuVMd5LAcMOlym+rr3D9JoJkfM=
+	t=1789043037; cv=none; b=AyLYcw+XDTK7g3hbCebm1CErrYAVOwWL9Pu+0ZaEjjI35cmtdCLIxy1oP57pnUIjyzaUG1tf7m9JK/7AHyr9urt8I3WZI9k/k6CdwuyWOHyBjojmNSCZ4uMzgOYYAcO5qcIV5zJBmmJOx6Ykcxgzo0cqGs/sjlGcxKg290EysgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043029; c=relaxed/simple;
-	bh=aKNIgiiXJVkvUc/+xAj4Wu2P7aPpl/cZu7ivAUmAS+0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tq6hAzhReYIkOtiL0nTdDnkjjngkQeQryvtrnhk10HhRjvlSiyVEiA6/wz95NTr3p345r93SSL7uROEXA6fWjsoAXby667ZNXh7/B/jrsA2vwmT7H5VQZQ0iHQVxsbjLKEf2P8MFRhxtme5cUPD+xio76gLFCkMXbiyXZ3fF0RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktuQmeDT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789043037; c=relaxed/simple;
+	bh=jgzMo+jc3q+A/v2xMacCodsLl/Wrx/OHS3haDtdDJtE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=kS0iqAcc+bNs4lZSBBE+lHtnnKGmbLh5h2wrYU0Zuy81DDmaubbyZOzJdf3Pq1amPFBoMMkCHYyEt2ETtZ5yLi9XW40kqPoXQPZ4NKCvMB/ihHQ+MUwnaHWe0Z1VZ9U8Ai6sgnYm0D7eKNo4C8b6O/2vVrTW5YUS2OL277IheAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=HMxWYxGz; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktuQmeDT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E413E1F000FF;
-	Thu, 10 Sep 2026 12:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789043027;
-	bh=m1VhSVCtMgiBJf29Yc8esGBmlET73PXMwLnKd186wJc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ktuQmeDThejQ3JxmUDBQrDaFgL6jaZfxdugefXOh8UQciZGravx0r+/2Ra517iLbp
-	 VUCQ9jP7nzKTLYg574KrbCFJBy5wkf52oUeDIlKUiWxkVd0lvdCVGB1cOr7194KL7j
-	 9qKJG0ijmM16ldzGs2lSoIaqmkBc8k5btkgoclv9uaXlthtglNCRo335sANvj7rvIP
-	 VdsXADVnS/PXZLBV5ntpyixYZVOOalQShcWgoE3KzbQh4R9jHDjp21bOVdITOzcVkg
-	 vIYC0Pbvf8fIzlY/7+Vkc/AkjstGTVuZPxq9X742HDCodJ97QWJDfetyLp7COC5O4s
-	 UqBJgal6/ewfg==
-Date: Thu, 10 Sep 2026 12:23:44 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: gsh517025@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	pjw@kernel.org, robh@kernel.org, spacemit@lists.linux.dev
-Subject: Re: [PATCH 1/1] riscv: dts: spacemit: enable onboard eeprom for
- OrangePi
-Message-ID: <20260910122344-GKB20735@kernel.org>
-References: <4e8e6f90-9731-4416-8b1a-be1cef12bb72@gmail.com>
- <20260907063010.1882362-1-amadeus@jmu.edu.cn>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="HMxWYxGz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789043040; x=1820579040;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=jgzMo+jc3q+A/v2xMacCodsLl/Wrx/OHS3haDtdDJtE=;
+  b=HMxWYxGzEb6h/CFuAtPpjl7I1EtvN0xkoXpgSa6GGxGjPN4dRcYa+mqR
+   YOMkeJkzLm0MAbwItnrS4tbEP3tyjvTGxJ+Taiqmpph11u8vmltCOM//c
+   xpYeJsitjy40cO6+hcnu40atvw620gv9mkVm3eGCr0VAZOVzVtbWDz1GF
+   pfVmGIVvlQx26T02a4agtBY3eOw2CEloUZsl9/GZPv7GB5wCmSxUfv+tL
+   jRrvYy/ia3fOu1G2B9e25pVsPvaNEExmz3CbMDYGrGiJRuT55AFJUC13z
+   rY7F0/WefnUP6OqPkhXm6xNiV0GCrPjRSgULBBBdatVbWMYLn2HirxhOS
+   g==;
+X-CSE-ConnectionGUID: xFhwPbRkQRugnQXNKtFw3A==
+X-CSE-MsgGUID: NYit3wuCSTaiBpQ/FT2mrg==
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="294821368"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 05:23:52 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Thu, 10 Sep 2026 05:23:47 -0700
+Received: from [10.171.248.45] (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 10 Sep 2026 05:23:38 -0700
+Message-ID: <86617617-0c89-485d-994e-7c98b42e526a@microchip.com>
+Date: Thu, 10 Sep 2026 14:23:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260907063010.1882362-1-amadeus@jmu.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
+To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij
+	<linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
+CC: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob
+ Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liviu Dudau
+	<liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan
+ Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Aaro Koskinen
+	<aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman
+	<khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+	<tony@atomide.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn
+	<andrew@lunn.ch>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik
+	<robert.jarzmik@free.fr>, Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Geert Uytterhoeven
+	<geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre
+	<npitre@baylibre.com>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <linux-omap@vger.kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-13-arnd@kernel.org>
+From: Nicolas Ferre <nicolas.ferre@microchip.com>
+Content-Language: en-US, fr
+Organization: microchip
+In-Reply-To: <20260908152808.3928630-13-arnd@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Chukun,
+On 08/09/2026 at 17:28, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The Atmel at91 line, now known as Microchip SAM contains both
+> SoCs using ARM926 and Cortex-A CPUs as well as a number of
+> microcontrollers. Only a single one of those MCUs currently
+> has Linux support, and has no known users.
+> 
+> The samv7 platform was deprecated in Linux-7.3LTS, which will
+> remain supported a while longer after it is gone from mainline.
+> 
+> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
 
-On 14:30 Mon 07 Sep     , Chukun Pan wrote:
-> Hi,
-> 
-> > -         mac-address {
-> > +         mac_address: mac-address {
-> 
-> This requires removing the aliases for Ethernet.
-> 
-> > But I am not sure whether this wiring should be part of this patch.
-> > Without such wiring, the kernel falls back to random MAC addresses
-> > on this board.
-> 
-> Currently, U-Boot patches the MAC address using the Ethernet alias
-> from the Device Tree. The vendor U-Boot reads the MAC address from
-> the eeprom. I think the mainline U-Boot will add this feature, so
-> we don't need to add this one?
-> 
-I think it would take long time for us to get there - to have a mainline
-U-Boot which support parsing MAC address from eeprom. So, I have no
-objection to the idea of adding mac info into the dts.. 
+Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
 
-Just let me know if you guys want to do in another separate patch, so I could
-take this patch first, or want to squash together and send an incremental
- version? P.S checked k1-bananapi-cm6 board which already done as suggested..
+Regards,
+   Nicolas
 
--- 
-Yixun Lan (dlan)
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>   arch/arm/Kconfig.debug      | 10 ----------
+>   arch/arm/mach-at91/Kconfig  | 11 +----------
+>   arch/arm/mach-at91/Makefile |  1 -
+>   arch/arm/mach-at91/samv7.c  | 17 -----------------
+>   drivers/soc/atmel/soc.c     | 36 ------------------------------------
+>   5 files changed, 1 insertion(+), 74 deletions(-)
+>   delete mode 100644 arch/arm/mach-at91/samv7.c
+
+[..]
