@@ -1,76 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9873B0AC7;
-	Thu, 10 Sep 2026 20:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BA0496D4E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789071991; cv=none; b=EKeiGqc1L7Ns3kEyAEBbFtTZ3P3GsacmNqXUYyUvx2d6mn2VU7Rxgf+sH+TgpAsP8P/uwOHudaADJ43HAAEegr13GfJXJ0I8C207KAWdmycP1uUxRf1FWd/9kOuWuwktY6J2uPFDyJmAyiA0E6ZsqKfrRtyBGaC1g0QcKAMjJek=
+	t=1789072050; cv=none; b=m+POHt7hxgFf02epUAGkZes9vuuO1mPz/C4S4P+oCEDS6FEhqbipIHMh6VsD1l+eNErn8pqrDF5WxqnGaPL34eNVIot7utHY+vmhFYRGf+yPXE2HjNbqwxnzc7+2jqsfY/kK4ndf3yDavaoIHh4BBfBaCPE5RHgc2Z2s7MVjuwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789071991; c=relaxed/simple;
-	bh=7koiVX/lCaxcGb0MkS76Fxd7ELAOTzsK6AQ3YEBq6Iw=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rQRhEY0n1lZFPunY9S9v/35JayrT03DFD1W/lGzeBIciKk8IJFV8WptOsP3o6I2FNzTLwclkwdJJXanbl5O3x5YZlqmYnJpKc4CyTrlNXR2azNOjdKkYQq5NSOOdbNw0I0ZNtT0JKRTCjhYXHn4Vn6B/SdjoF4sbpHES4exlybE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyzzpFcF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789072050; c=relaxed/simple;
+	bh=XvoPw/+1g4GThZaoDlcAPP28Aajw1FYDK2p3nevInQ0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=k59ElD4wMZrGS4XYifqc6pwjdQVgytJOvl1EDLjo+rIKJ4TtiQJM81TvpbqBQgRSaWPpn3RzyCnRUfdU/hrVsD1z+0ZAMEw/yVZTs4DoaaVg5eQL8MXLCErqtR3MLyP8N3o+PzxWFijhPQlV3fridpJ2Ijc5TcWxZpXTm9XGwOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=cWFDD15C; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyzzpFcF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBB561F000FF;
-	Thu, 10 Sep 2026 20:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789071983;
-	bh=7JYzx+I4R+iQOFjAX/HqL1NA0EJaM43MXTTBGSVtubI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nyzzpFcFQSteZyeqxeS/CdS1niqa/6nmcVEh5kaqNYhF8jBsZQ9KsQUipWwNBcqay
-	 EL67nJbYskOXHmmx/N3U2boCLT7hF8HsfB/WjpCxJKOjf5oSfCC7ThjPNyaHXVDl5X
-	 fVHWC4UpMZcIgz3WtzHPkuSemMZEsku/hAfd/kw/k3CZQN1pe3aF73lgc4Z88ToZQy
-	 yO1dzVWbh135pXbpPQaji99z097JoUlDYqOmW+RZJJ9Ljnoar5xyWyxfur/WaFUsu1
-	 heYeb6ZtJfwF2iM+vh6F+mnTq2qKgt8EUD9IoWGAlUlsDK+0S/rrKQpBAdnf5eiFJD
-	 ZY4AqyWmPoU1w==
-Message-ID: <10a6491d3de9cd67dbeccda8bee4ae7c@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Brauner <christian@brauner.io>, Tejun Heo <tj@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] kernfs: don't hold kernfs_rwsem across dir_emit()
-Date: Thu, 10 Sep 2026 10:24:18 -1000
-In-Reply-To: <20260910003650.1680854-3-shakeel.butt@linux.dev>
-References: <20260910003650.1680854-1-shakeel.butt@linux.dev>
- <20260910003650.1680854-3-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="cWFDD15C"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 3A7B7408B4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1789072044; bh=XvoPw/+1g4GThZaoDlcAPP28Aajw1FYDK2p3nevInQ0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=cWFDD15Cai31dWTc7mYf1cWDllRRlD1Q7/augOl2OVtrvs5BqGQuQ8ouYbehuOx+f
+	 9PmsiusfVhJOUEThWSmwKQcfvYTzUhWwTZDTzFhQET2coqUD7BeRoyp3QwGoh3jq+8
+	 cdmsUVBnm4cEoMcg7kzP8spJvsSvlFQ2NPq8PlyP7LtoIZB9frC+faHogR2kqYA7Y4
+	 08Au8+1dLRL8UPkLHXCeRMu//XlL7IiPTxKOqeKBR37uknoR9CxxOzF7cjFjdHNwBR
+	 rW+WNHZlZyUb9LThWVBq3SRVXIw0eb9E4w6D6RLQH0yrVocMBiJtgUjXEWy7Cd0wh1
+	 gAv8WJFkzTKeQ==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 3A7B7408B4;
+	Thu, 10 Sep 2026 20:27:24 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: =?utf-8?B?2K3Zhtin2YYg2KfZhNmF2LfZitix2Yo=?= <ha2020anan@gmail.com>,
+ torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Add general reviewer for arch/ with flexible
+ alternative subsystem assignment
+In-Reply-To: <CANai08NF1Ghj7fwdjppqVgb0HVCOhpetAbdy4r=3ZxcTzm-B8w@mail.gmail.com>
+References: <CANai08NF1Ghj7fwdjppqVgb0HVCOhpetAbdy4r=3ZxcTzm-B8w@mail.gmail.com>
+Date: Thu, 10 Sep 2026 14:27:23 -0600
+Message-ID: <87a4poj1hw.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello, Shakeel.
+=D8=AD=D9=86=D8=A7=D9=86 =D8=A7=D9=84=D9=85=D8=B7=D9=8A=D8=B1=D9=8A <ha2020=
+anan@gmail.com> writes:
 
-On Wed, Sep 09, 2026 at 05:36:49PM -0700, Shakeel Butt wrote:
-> under the lock and emit the copy, and pass it to the resume so that a
-> resume within one call keys on (hash, ns_id, name) and not on the hash
-> alone.
+> I am requesting to be added as a general Reviewer (R:) for the arch/
+> subsystem in the MAINTAINERS file.
 
-Please split this into a preparation patch for full-key resumption,
-including the name copy, and a separate patch dropping kernfs_rwsem around
-dir_emit(). Keep the existing locking in the preparation patch.
+Nobody is preventing you from reviewing patches at any time; just do it.
+Recognition in the MAINTAINERS file generally only comes after a
+demonstrated history of useful reviews.
 
-> +	pos = kernfs_dir_pos(ns, parent, hash, pos, name, &resumed);
+Thanks,
 
-The fast path in kernfs_dir_pos() still accepts the pinned node based on
-active state, parent and hash alone. Please compare the saved name too
-before setting resumed.
-
-For example, akl, ala and baa have the same kernfs hash. If readdir emits
-akl and it is renamed to baa while unlocked, the fast path accepts the
-renamed node and rb_next() skips the unchanged ala. Falling back to the
-saved key would preserve ala.
-
-Thanks.
-
--- 
-tejun
+jon
