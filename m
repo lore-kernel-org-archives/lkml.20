@@ -1,254 +1,128 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B1D3ADBB4
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1526146EF94;
+	Thu, 10 Sep 2026 11:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038216; cv=none; b=AyE0uFlkuJiEhcdVkWSdOqnH1Yx4MobX3wzR+xKwcqpiiknRFt64435M91RoLIeexYk9ZOY3NneLc77jF/twMHQwA+mSXjprUrhp5nj0xf9ORrdyTnrcowEbAp/kfiQ/j9CVECOBwMISPjn9P2nYmpHlCwT4+aCaJmgSzPUJbX0=
+	t=1789038221; cv=none; b=MnclnnM/HIr4rMtNZAq7uFbohX/e/PBa80bKSd+VokbjsozLl6zqP+Y1RhGhhXAsT1ZylJojY7ZkELjsRgImE9ZbIo2lxvAD3i51umI37OI9hpeNdWEx28EEJD02kCwrtEE8GOdexBe9ZVXnXYQBZPb3m3UcfbnldfsVLdMKD1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038216; c=relaxed/simple;
-	bh=OJnRbsz0Z0wuuRjbDynQZg0DigpTcDZBSsHTs9ylcgw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KEvupTJj7VtV/Sfp9MJoxlW1ELJfEVKpizTbZy0qLDyZiVrxbhEiRP6xrJoIwK7WqKfk2r6Vux32bYX7pHs+jvGrK64v1RgSLl769/ws9x0mewoALD2qjRk+rxl1jpvKtmwv+hsQAAR7w/fKyt5D8JQPT33eA5UAWhqejPM5jR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uhXbmsJu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xJz56hU6; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0FER41Kx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MpRYXXlM; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789038221; c=relaxed/simple;
+	bh=zkF+okllJHqKXvQdM/EqvzsMOtDxyc5TsolTsb/xGl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SoMb6Y2JMk0VlvExEyH/+KhFf4RDVlYp8m0nYHMLrUvE53+MqUF8nTsSaXzjVW6F3Fjk8F5TeBPCMPeL1sdXcxHcS8ZwoUBl3OrsgNSYqgZo89lUfILL8Wad+8Ijc/1n90BvTk+p0wDtIWmn94sxUSex+6GmsIQZ6C/OGgH44q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuxcQ5jw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uhXbmsJu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xJz56hU6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0FER41Kx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MpRYXXlM"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C782D21C40;
-	Thu, 10 Sep 2026 11:03:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789038208; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
-	b=uhXbmsJumbeXhcl9C46oL4wXQkRxZUMj8Up3YX3M8bvZ9I8E1v9Apd2XQVnGpzhniyiTV+
-	OiJ/iGQDqT6ieowCLldLCng3Vh3qDPwwMi53dNm8W4GcQH7UBzkyzveWCyYat1IT8cojeb
-	TojFQfGXDvgwC8hpTzPMhM7yvLR4MjE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789038208;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
-	b=xJz56hU6SsvWbQpKhCmJmL8CsEX1xvZJQhAIutP3fxtul8sRu16M2wibpigz531UmAwkMy
-	dnOtTdhgGakOQXCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0FER41Kx;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MpRYXXlM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789038204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
-	b=0FER41Kxs2yd3e5eAq6c7WNcOL1DoSI2MpAq7HOEJs731DyWi7hsc0B0lylMZ0GB0QUZpa
-	4McvmCNCruQKc6hC9Wo8XptyAoWb54LJI2XCv77IjuJC94RM/Y0MmyWzxEx2mSLEFgyXVV
-	7WqpPntff8v05oJDlMZhFclrW7MjwRo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789038204;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wWqhgF1J2JRbMZMddiRQ+EjnJbf+ErBMlr9RMj9sbNY=;
-	b=MpRYXXlMwLiSnwlNkUFMhW257O1+rO9hw4YadG9uB9tW1eAHN+fO7DEorAMvYbi/vfcci9
-	STOiCvR3okNkDLDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FD3313180;
-	Thu, 10 Sep 2026 11:03:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hOydDHyOompscgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 11:03:24 +0000
-Message-ID: <5ba5cc8c-37fc-4490-a4d4-0ede476035de@suse.de>
-Date: Thu, 10 Sep 2026 13:03:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuxcQ5jw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72CBB1F000FF;
+	Thu, 10 Sep 2026 11:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789038220;
+	bh=zkF+okllJHqKXvQdM/EqvzsMOtDxyc5TsolTsb/xGl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cuxcQ5jw3m5rzCB46cgEUCPdWQH2FZQJvP80czAO5zYsV5hzlkMBwq353jvE2+SlC
+	 EsOH7NRCi1jSQHG6KMUX9oKr38OlGyWcmfsrMYJdAMof2w+IP2n77ZzKB/cQdOS0KB
+	 DS551N6VCg1Gix5tUP72Eds63nkBcKhfHqCXzqGsy0xp2QnF9vMCnGWQWtmO6qy+hf
+	 /lJ2rvjRJpWW4OJ9D/XkL/CSnsj/ERj2S/Dv6ruCjs73ckc+cRSd9WPcpsHnocp49K
+	 z1e05dQ+uMCNuRgf8Y0N2ZWNxMdpYiM1JsjE8gxntujzUZ+EHS1CIM+MFUPb0K9szo
+	 rJGQeSQbm3XLQ==
+Date: Thu, 10 Sep 2026 12:03:25 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 01/23] scripts/mksysmap: drop the MODULE_INFO() symbols
+ from kallsyms
+Message-ID: <aqKN-SwzZRY93p6V@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-1-5dc1ac01672d@kernel.org>
+ <178901395288.3971858.7586978173036863863.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/verisilicon: add primary modifier for format
- tables
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>
-References: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260910095000.3505878-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C782D21C40
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,icenowy.me];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,iscas.ac.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178901395288.3971858.7586978173036863863.b4-review@b4>
 
-Hi
-
-Am 10.09.26 um 11:49 schrieb Icenowy Zheng:
-> Currently the format tables are only used for the primary plane.
+On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
+> > Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
+> > keeps .modinfo symbols out of System.map and kallsyms, which assumes unique
+> > IDs have a format like '__UNIQUE_ID_modinfo123'.
+> >
+> > However, commit afb026b6d35c ("compiler: Tweak __UNIQUE_ID() naming"), sent
+> > in the same cycle, changes this to '__UNIQUE_ID_modinfo_123'.
+> >
+> > As a result this regexp has never matched and every kernel since v6.18 has
+> > carried one kallsyms entries for every MODULE_INFO() declaration in the
+> > kernel whether the modules are compiled or not.
+> >
+> > That's 5,810 entries for an x86 defconfig build and 15,200 for arm64.
+> >
+> > On x86 defconfig that is 113 KiB of kallsyms tables and 32 KiB of bzImage,
+> > and every lookup walks past them.
 >
-> Add primary modifiers to names related to the tables.
+> Bummer :/
+
+Yeah super easy to miss though I think!
+
 >
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-for both patches.
-
-> ---
->   drivers/gpu/drm/verisilicon/vs_hwdb.c          | 12 ++++++------
->   drivers/gpu/drm/verisilicon/vs_hwdb.h          |  4 ++--
->   drivers/gpu/drm/verisilicon/vs_primary_plane.c |  4 ++--
->   3 files changed, 10 insertions(+), 10 deletions(-)
+> > Fix the pattern.
+> >
+> > Fixes: 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
+> >
+> > No measurable change in build time, the smaller tables are not on any path
+> > the build waits for.
 >
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 2a0f7c59afa3a..56aa450443068 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -10,7 +10,7 @@
->   #include "vs_dc_top_regs.h"
->   #include "vs_hwdb.h"
->   
-> -static const u32 vs_formats_array_no_yuv444[] = {
-> +static const u32 vs_primary_formats_array_no_yuv444[] = {
->   	DRM_FORMAT_XRGB4444,
->   	DRM_FORMAT_XBGR4444,
->   	DRM_FORMAT_RGBX4444,
-> @@ -44,7 +44,7 @@ static const u32 vs_formats_array_no_yuv444[] = {
->   	/* TODO: non-RGB formats */
->   };
->   
-> -static const u32 vs_formats_array_with_yuv444[] = {
-> +static const u32 vs_primary_formats_array_with_yuv444[] = {
->   	DRM_FORMAT_XRGB4444,
->   	DRM_FORMAT_XBGR4444,
->   	DRM_FORMAT_RGBX4444,
-> @@ -79,13 +79,13 @@ static const u32 vs_formats_array_with_yuv444[] = {
->   };
->   
->   static const struct vs_formats vs_formats_no_yuv444 = {
-> -	.array = vs_formats_array_no_yuv444,
-> -	.num = ARRAY_SIZE(vs_formats_array_no_yuv444)
-> +	.primary_array = vs_primary_formats_array_no_yuv444,
-> +	.primary_num = ARRAY_SIZE(vs_primary_formats_array_no_yuv444)
->   };
->   
->   static const struct vs_formats vs_formats_with_yuv444 = {
-> -	.array = vs_formats_array_with_yuv444,
-> -	.num = ARRAY_SIZE(vs_formats_array_with_yuv444)
-> +	.primary_array = vs_primary_formats_array_with_yuv444,
-> +	.primary_num = ARRAY_SIZE(vs_primary_formats_array_with_yuv444)
->   };
->   
->   static struct vs_chip_identity vs_chip_identities[] = {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> index 2065ecb730437..616076d931a57 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> @@ -10,8 +10,8 @@
->   #include <linux/types.h>
->   
->   struct vs_formats {
-> -	const u32 *array;
-> -	unsigned int num;
-> +	const u32 *primary_array;
-> +	unsigned int primary_num;
->   };
->   
->   struct vs_chip_identity {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496c..8e94491693019 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -168,8 +168,8 @@ struct drm_plane *vs_primary_plane_init(struct drm_device *drm_dev, struct vs_dc
->   
->   	plane = drmm_universal_plane_alloc(drm_dev, struct drm_plane, dev, 0,
->   					   &vs_primary_plane_funcs,
-> -					   dc->identity.formats->array,
-> -					   dc->identity.formats->num,
-> +					   dc->identity.formats->primary_array,
-> +					   dc->identity.formats->primary_num,
->   					   NULL,
->   					   DRM_PLANE_TYPE_PRIMARY,
->   					   NULL);
+> I don't think this needs to be in the commit message, it could be below
+> the fold, since it appears to be a valid fix on its own. Agree with
+> Nicolas on adjusting the Fixes tag.
 
--- 
+Ack yeah I screwed this bit up sorry!
+
+>
+> Is this worth Cc'ing stable for?
+
+Yeah I wasn't sure, it's not like it breaks anything but you see stuff in
+kallsyms that you shouldn't.
+
+So I'd say probably on balance yes we should actually?
+
+>
+> > Assisted-by: LLM
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+
+Thanks!
+
+>
+> --
+> Cheers,
+> Nathan
+>
+
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Cheers, Lorenzo
