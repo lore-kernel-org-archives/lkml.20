@@ -1,233 +1,199 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBA14B5CA2
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB6B4A0905;
+	Thu, 10 Sep 2026 14:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051877; cv=none; b=EqG2peA4w93icY4jpmVNUruvm8/v18Nta6WA0N6LBna7E0XzniHHbxbGwdbk91RtY6WhFyJ76Movnz6kifsKaqbjgtImjJQkssHmSVVdmA/A38WRPCIFb5GCy3nwPXUiVeguCt/Sojd4ATE75sR3Ju8N5mQR6Dqv3SbiQ9t0cz4=
+	t=1789051913; cv=none; b=ULDJAFAKzOQ4MpxylTZRHtF9UsqSDEdLeEpD2bauyPk4Ql6c+QL9FGPJTtSEcsOAXMdLuZFnCefOkj5ocHfmaRhK+38MNVMW/Tw0CdbTgj67WKjOdry6BJPcgOpbuDhK0T+KzTUXngkK6gjpIxy7mTLz6UNkcH5/MKJXnjKkbOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051877; c=relaxed/simple;
-	bh=MhddNrmrZwmeTvC1OhCTLgh7ZbHYoDZbylqC1X1rPIs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZCqGaohTUsmhGh5gfINmB2s67udbPB+TKfeFncUny8f20MSHKDU9ZHWnMboyOvjDElAYOFz/89kP4XbiXIiVQD1C80gPKnpqc9xBZ7xZhbQ3gpea1YBnuUazqIxq0oF54CrK4HoFg8pgYBIplMGhIAt6ENx7Sea/5OTk9ogBfAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ericchancf.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MoQ+DEU4; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ericchancf.bounces.google.com
+	s=arc-20240116; t=1789051913; c=relaxed/simple;
+	bh=xTIvBLza7FppaOAr4bJHGg1SXg8nXEViVJbfPhvD/wA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZFYOn11wWNr8EP4ZobEuzlLkxRnCO+M96sN2/yPxn3c2LKvP9YJUi2DAHcJ1quvMbv6SvQJgomM7b0ScHJiQIFpAge9VrCWGmq5XPfKiE7zS0NmuxBEl6jWT1lX8PjRywjfc8l6bSQQF6jXcpXvLdhhIGhwbup9u98o3ofaYLUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4IeR6K4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MoQ+DEU4"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfc52ddc55so102785195ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:51:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789051874; x=1789656674; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iPR+8RLWsIHJc9acjgG1g7ANa3O2x38Ojpgbt/bpoPQ=;
-        b=MoQ+DEU4FAs/1fNcUWcgR3MLmbR+34wnAYv8cAcWL285060C1YuLyKv1byMxoDnuvh
-         LYHHNjMtVZ8cXrZrMQFS1ztDVON+9VeCIeMZABivZGQiaY/gCzzNBJG2B1lrjNUoB7KN
-         dyZpLPgGD/p9tRIZMjct9l1+rKghMaWLVMLNEArkV1MMm18hry5FGFcUy4ToFqTS7h2D
-         CHcXUg8A+Reuq8JMqxhqIMam0pCEZhpawVf1xzmsdgHgTG73ei27+CohTN1nZmwxqvkJ
-         UdZTMSPUQHGJ1sNeXJSCrIZnsDb8cEh399Q7jP82RMGuTN2OkJ8hk5NffS+tpGdXZWZv
-         BpQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051874; x=1789656674;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iPR+8RLWsIHJc9acjgG1g7ANa3O2x38Ojpgbt/bpoPQ=;
-        b=j+57gVMMz3ZOIVkYTa8IqfgeSXsJaZPwx4DhU1LCRCULIPid8zt1V06aFYGtrRijBt
-         6p3x1L7ac7j9qbmX60rpzk9F36Fp5Jhrbna+KpFpc4g0tcyMJDO85Hnar6rsDvD9iQyW
-         vYpLyoxuKKxxYTi3J79AHGE9Tka8YMInbhzV0laCEDJUoJB7LIFzJqQhyUCv2G7Qgdnv
-         xVue95kKdRfNBb4pQ3wzhz+i986FdvgpRxDsGuLY23lddmGW5he/eSBY832k19VvkVLp
-         lOGCn+rfZK6pYcw6W9p8N7/jaCS6gn4SqqTmRB6WANh1xBVekIP011tfXf4yKH8mf/pY
-         3emw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrG57rz5zVDak5hA/4Z1QlY0cjjjGxtM0+5a5ZvU4sJeesBD2hfcoyFg2TJCDJz7kj5320PaiHvTSmiQg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk5EMsrsOkP5SdG0DGCFSuTHyliSrzN7c4gFocw3Lf8hjku6Z5
-	J4E+o7OpPx9QTNlHqkengwnCy409QCDXAANcSJgaQuS8XDqN4SozfHhBM0P+k1lMpVFSadndALn
-	DN6GEeRtxia45hpv3IU9l0Q==
-X-Received: from plw20.prod.google.com ([2002:a17:903:45d4:b0:2ca:f1f8:ea00])
- (user=ericchancf job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:3804:b0:2cf:9347:f445 with SMTP id d9443c01a7336-2db126d8a54mr668494555ad.10.1789051873909;
- Thu, 10 Sep 2026 07:51:13 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:51:07 +0000
-In-Reply-To: <20260910145107.3640991-1-ericchancf@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4IeR6K4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C8C1F000FF;
+	Thu, 10 Sep 2026 14:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789051911;
+	bh=QKA3SAsCwTPWb3dPRkQeAzxCc+HHNUR0nyN0zBxrxTk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e4IeR6K4gUKeSBAujGH+MKT4fOWNEz9VqQPkSMplHJzxLh8B4iN0Y4MJCwaMAdPBf
+	 PACby5HC1tL9sC+aAj+zHjq64Uc+Ur3UaZVjsdf351gH42WQGsE1gq5a2m+Kc9B9hJ
+	 HRLWDcq3k6QjkB1R4B8rs0PnBWFmHojkspiFP9qB1h2QFqpq6x7D5pdv+HIEcm7K4d
+	 rJ7PdbLawcU2QLlzV7zRv6vmIAJgSFrNattw1dWdaOxuuhIH1UB8hiXtVwl/xBw1BD
+	 8VA6MGaaWC4pzOo1ZDHyEk648RbYscoFea2/LnKpo/xXjOrNIBea1+VxcFF4APx0EN
+	 ghr+JA8aupWZA==
+Date: Thu, 10 Sep 2026 15:51:41 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 08/12] mm/sparse: move __highest_used_section_nr handling
+Message-ID: <aqLDR2jbBVdupryZ@gremlin>
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-8-008fc8d579fe@kernel.org>
+ <aqK2_RpAlMbVYcuN@gremlin>
+ <c72f7358-cb6c-448d-9ce9-c17b425964bf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910145107.3640991-1-ericchancf@google.com>
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260910145107.3640991-3-ericchancf@google.com>
-Subject: [PATCH 2/2] coresight: Switch to DEFINE_RUNTIME_DEV_PM_OPS()
-From: Eric Chan <ericchancf@google.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
-	Leo Yan <leo.yan@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, coresight@lists.linaro.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Eric Chan <ericchancf@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c72f7358-cb6c-448d-9ce9-c17b425964bf@kernel.org>
 
-According to Documentation/power/runtime_pm.rst and
-include/linux/pm_runtime.h, modern drivers are encouraged to use
-DEFINE_RUNTIME_DEV_PM_OPS() and pm_ptr() to simplify runtime PM ops
-definitions and eliminate unnecessary #ifdef CONFIG_PM guards.
+On Thu, Sep 10, 2026 at 04:29:06PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/10/26 16:16, Lorenzo Stoakes (ARM) wrote:
+> > On Wed, Sep 09, 2026 at 03:33:01PM +0200, David Hildenbrand (Arm) wrote:
+> >> Let's move it to sparse_init_one_section(). However, to keep early
+> >> boot processing working, we also have to initialize it in
+> >> sparse_sections_init().
+> >
+> > A why might be nice :)
+>
+> Agreed, I'll mention that.
+>
+> >
+> > I guess preparing for removal of __section_mark_present()?
+> >
+>
+> Right intuition :)
+>
+> > Also good to have arguments as to why this is equivalent of previous
+> > behaviour.
+> >
+> > E.g. higher pfn = higher section nr so naturally the highest is the one you
+> > end up wtih at the end of sparse_sections_init()?
+>
+> We go over all sections, just earlier.
+>
+> >
+> >>
+> >> Should we use READ_ONCE/WRITE_ONCE with __highest_used_section_nr?
+> >> Probably, something for another day.
+> >
+> > It might be worth expanding this a bit. Do multiple threads read/write this
+> > concurrently?
+>
+> Hah, I'll probably just drop it. I was just stumbling over readers vs.
+> concurrent updates and thought "that looks suspicious".
 
-Convert the CoreSight TMC, CATU, and ETM4x drivers to use
-DEFINE_RUNTIME_DEV_PM_OPS() and replace direct references to their
-dev_pm_ops structures with pm_ptr(). This removes the #ifdef CONFIG_PM
-blocks around the runtime suspend and resume callbacks, allowing the
-compiler to always validate them regardless of CONFIG_PM.
+Ack. KCSAN will bring our sins back to bear if they matter anyway :>)
 
-Signed-off-by: Eric Chan <ericchancf@google.com>
----
- drivers/hwtracing/coresight/coresight-catu.c       | 12 +++++-------
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 11 ++++-------
- drivers/hwtracing/coresight/coresight-tmc-core.c   | 12 ++++--------
- 3 files changed, 13 insertions(+), 22 deletions(-)
+>
+> >
+> > No functional change intended here or is one intended? :)
+> >
+>
+> Certainly no change intended ;)
+>
+> > Before it was:
+> >
+> > mm_core_init_early() -> sparse_sections_init() -> __section_mark_present()
+> >                           sparse_add_section() -> __section_mark_present()
+> >
+> > Now:
+> >
+> >                                                  mm_core_init_early() -> sparse_sections_init() [early]
+> >                                                  sparse_add_section() -> sparse_init_one_section()
+> >
+> > But also called from mm_core_init_early():
+> >
+> > sparse_init() -> sparse_metadata_init() -> sparse_metadata_init_nid() -> sparse_init_one_section()
+> >
+> > Are both required?
+>
+> sparse_metadata_init() relies on __highest_used_section_nr in the
+> for_each_early_section_nr / for_each_present_section_nr, so it is required.
 
-diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
-index d9a12d5e48fa..e3bbfb707f73 100644
---- a/drivers/hwtracing/coresight/coresight-catu.c
-+++ b/drivers/hwtracing/coresight/coresight-catu.c
-@@ -14,6 +14,7 @@
- #include <linux/io.h>
- #include <linux/kernel.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/slab.h>
- 
- #include "coresight-catu.h"
-@@ -640,7 +641,6 @@ static void catu_platform_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- }
- 
--#ifdef CONFIG_PM
- static int catu_runtime_suspend(struct device *dev)
- {
- 	struct catu_drvdata *drvdata = dev_get_drvdata(dev);
-@@ -666,11 +666,9 @@ static int catu_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
--static const struct dev_pm_ops catu_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(catu_runtime_suspend, catu_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(catu_dev_pm_ops,
-+				 catu_runtime_suspend, catu_runtime_resume, NULL);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id catu_acpi_ids[] = {
-@@ -688,14 +686,14 @@ static struct platform_driver catu_platform_driver = {
- 		.name			= "coresight-catu-platform",
- 		.acpi_match_table	= ACPI_PTR(catu_acpi_ids),
- 		.suppress_bind_attrs	= true,
--		.pm			= &catu_dev_pm_ops,
-+		.pm			= pm_ptr(&catu_dev_pm_ops),
- 	},
- };
- 
- static struct amba_driver catu_driver = {
- 	.drv = {
- 		.name			= "coresight-catu",
--		.pm			= &catu_dev_pm_ops,
-+		.pm			= pm_ptr(&catu_dev_pm_ops),
- 		.suppress_bind_attrs	= true,
- 	},
- 	.probe				= catu_probe,
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index ace5e077a10c..ef664a84120f 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -2460,7 +2460,6 @@ static const struct amba_id etm4_ids[] = {
- 
- MODULE_DEVICE_TABLE(amba, etm4_ids);
- 
--#ifdef CONFIG_PM
- static int etm4_runtime_suspend(struct device *dev)
- {
- 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev);
-@@ -2486,11 +2485,9 @@ static int etm4_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
--static const struct dev_pm_ops etm4_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(etm4_runtime_suspend, etm4_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(etm4_dev_pm_ops,
-+				 etm4_runtime_suspend, etm4_runtime_resume, NULL);
- 
- static const struct of_device_id etm4_sysreg_match[] = {
- 	{ .compatible	= "arm,coresight-etm4x-sysreg" },
-@@ -2514,14 +2511,14 @@ static struct platform_driver etm4_platform_driver = {
- 		.of_match_table		= etm4_sysreg_match,
- 		.acpi_match_table	= ACPI_PTR(etm4x_acpi_ids),
- 		.suppress_bind_attrs	= true,
--		.pm			= &etm4_dev_pm_ops,
-+		.pm			= pm_ptr(&etm4_dev_pm_ops),
- 	},
- };
- 
- static struct amba_driver etm4x_amba_driver = {
- 	.drv = {
- 		.name   = "coresight-etm4x",
--		.pm	= &etm4_dev_pm_ops,
-+		.pm	= pm_ptr(&etm4_dev_pm_ops),
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe		= etm4_probe_amba,
-diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-index ece2e8c9be26..77588d53e1b0 100644
---- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-+++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-@@ -980,8 +980,6 @@ static void tmc_platform_remove(struct platform_device *pdev)
- 	__tmc_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
--
--#ifdef CONFIG_PM
- static int tmc_runtime_suspend(struct device *dev)
- {
- 	struct tmc_drvdata *drvdata = dev_get_drvdata(dev);
-@@ -1007,11 +1005,9 @@ static int tmc_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
--static const struct dev_pm_ops tmc_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(tmc_runtime_suspend, tmc_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(tmc_dev_pm_ops,
-+				 tmc_runtime_suspend, tmc_runtime_resume, NULL);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id tmc_acpi_ids[] = {
-@@ -1029,14 +1025,14 @@ static struct platform_driver tmc_platform_driver = {
- 		.name			= "coresight-tmc-platform",
- 		.acpi_match_table	= ACPI_PTR(tmc_acpi_ids),
- 		.suppress_bind_attrs	= true,
--		.pm			= &tmc_dev_pm_ops,
-+		.pm			= pm_ptr(&tmc_dev_pm_ops),
- 	},
- };
- 
- static struct amba_driver tmc_driver = {
- 	.drv = {
- 		.name   = "coresight-tmc",
--		.pm	= &tmc_dev_pm_ops,
-+		.pm	= pm_ptr(&tmc_dev_pm_ops),
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe		= tmc_probe,
--- 
-2.55.0.1003.g10538fe699-goog
+Ahh yeah, makes sense. Worth spelling that out :)
 
+>
+> I could probable move the update on the hotplug side into sparse_add_section()
+> instead!
+
+Ack yeah would separate things out a bit between the two!
+
+>
+> >
+> >
+> >>
+> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> >> ---
+> >>  mm/sparse.c | 5 +++--
+> >>  mm/sparse.h | 6 +++---
+> >>  2 files changed, 6 insertions(+), 5 deletions(-)
+> >>
+> >> diff --git a/mm/sparse.c b/mm/sparse.c
+> >> index 2b41ae36f20b8..2d0f2db34f4cf 100644
+> >> --- a/mm/sparse.c
+> >> +++ b/mm/sparse.c
+> >> @@ -177,7 +177,7 @@ static inline unsigned long first_present_section_nr(void)
+> >>
+> >>  void __init sparse_sections_init(void)
+> >>  {
+> >> -	unsigned long pfn, start_pfn, end_pfn;
+> >> +	unsigned long pfn, start_pfn, end_pfn, section_nr;
+> >>  	int i, nid;
+> >>
+> >>  	sparse_extreme_init();
+> >> @@ -187,9 +187,9 @@ void __init sparse_sections_init(void)
+> >>  		mminit_validate_memmodel_limits(&start_pfn, &end_pfn);
+> >>
+> >>  		for (pfn = start_pfn; pfn < end_pfn; pfn += PAGES_PER_SECTION) {
+> >> -			unsigned long section_nr = pfn_to_section_nr(pfn);
+> >>  			struct mem_section *ms;
+> >>
+> >> +			section_nr = pfn_to_section_nr(pfn);
+> >>  			sparse_index_init(section_nr, nid);
+> >>  			ms = __nr_to_section(section_nr);
+> >>  			if (ms->section_mem_map)
+> >> @@ -201,6 +201,7 @@ void __init sparse_sections_init(void)
+> >>  			__section_mark_present(ms, section_nr);
+> >>  		}
+> >>  	}
+> >> +	__highest_used_section_nr = section_nr;
+> >>  }
+> >>
+> >>  #ifndef CONFIG_SPARSEMEM_VMEMMAP
+> >> diff --git a/mm/sparse.h b/mm/sparse.h
+> >> index 7c5d82ceb7142..a3af4967fd5c5 100644
+> >> --- a/mm/sparse.h
+> >> +++ b/mm/sparse.h
+> >> @@ -97,6 +97,9 @@ static inline void sparse_init_one_section(struct mem_section *ms,
+> >>
+> >>  	BUILD_BUG_ON(SECTION_MAP_LAST_BIT > PFN_SECTION_SHIFT);
+> >>
+> >> +	if (section_nr > __highest_used_section_nr)
+> >> +		__highest_used_section_nr = section_nr;
+> >> +
+> >
+> > Could also be:
+> >
+> > 	section_nr = max(section_nr, __highest_used_section_nr);
+>
+> Ack!
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
