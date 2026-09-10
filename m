@@ -1,167 +1,197 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F9D47C0E6;
-	Thu, 10 Sep 2026 15:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CD34A3414;
+	Thu, 10 Sep 2026 15:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054965; cv=none; b=uqZpHhWW4VhWb3IYUuUn0vlNNivFRNnFgYtKLdVf+qlml2jIDTPAS/tqp805UoR9gyXwDah9y62aBfUCPjFM1JTI6uTSgv32DbvidOvzz0QKq+qhkIck+okeqxtbyJV1lzQgTyCPCjC1MvWKQFV3hMy3q9QZIGq1tVKi2fZ5R9Q=
+	t=1789054991; cv=none; b=J2KHh3P3KKoS3vUt+J5BcIViv3CDpN5OtHL2lz1zFLzm7//D7KlBRS7L2RaAX8fXxecVe08f2hMrBQ03dokgSkpxZljMklS6q5OFa8JhishhWArnt0yz4dQzd5e1gyebukuOwN88lxPwyfrOwehuUY3DYnIbqOE4MkKPrlPsJX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054965; c=relaxed/simple;
-	bh=LK8bkV1Vz0floem0tDs4fowSkN+VH/bI8JorqlPfxFI=;
+	s=arc-20240116; t=1789054991; c=relaxed/simple;
+	bh=w+0KqQh4wxbH4rrrBfmQMPhNRMQyYOpSoboeeUpwggI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vEhI2adnYKEjFaB2+xveoEcnm1S+SPsbE1Uz9LCU86YqeHWXdnnTHw21RWTjXLKf1N5Y8vJuBOuJjYv6HhJjzDQLqleeHV6ioNF47LrlwLAPTvUIWxJ4UlRqZPeVL81F9unhRwSSjy4rQdcpyB9WRSVG3eRdwXDjVwb4Kh3i6S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=m2t/gCBQ; arc=none smtp.client-ip=212.42.244.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=r3WeoOn1zk70mHYB6QeC1elbt1kMIpcFvkfBr8myBOOdsaaxxu3GHPJTmq+twfl9VHZrf3F0q4t7uJQHnYMLixnF9Ij7UFt4RJFWY17vpYmv7uFX/CwqctgblYdeckbaCBtdRVwYJ4k85ym6jvcRyNyeH93pW1aElZjuhJZhQJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PtcfTxtw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="m2t/gCBQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789054956; bh=LK8bkV1Vz0floem0tDs4fowSkN+VH/bI8JorqlPfxFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m2t/gCBQ5Ji+klRB77okzADkIBpOjucABpFdn1joI6CGFroNQ2dok89iTW7zlsgDJ
-	 OhupApf9LKIRvcGE2XGbdgRc1L/Cyu778E8qiCt5Mx3N/HSwPKfTDWrLuQBULuYETh
-	 DEpZTMKIWNIB95kcOEYyM+KTdXBA1kly0af9dVc2J1yCQpvugpbSIq04iHmdW/EGZ3
-	 Y4A/qaU5/ks6TeFtBhGFS/mS3OdzSq+oJRGgjHfaRsaS82LquTqTSeUDZk3Yd/dQog
-	 lg48YsTm0IrzSWtTPbK8Ble4vH9U4bTyk8isOlH6ribTe1cTR6+aKHV2VGyYR9cK7K
-	 zTVgF+ct8Jfhw==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6aa2cfec-6dc7-7f0000032729-7f000001a7b2-1
-	for <multiple-recipients>; Thu, 10 Sep 2026 17:42:36 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Thu, 10 Sep 2026 17:42:36 +0200 (CEST)
-Date: Thu, 10 Sep 2026 17:42:35 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 12/23] kbuild: avoid re-running compiler and linker probes
-Message-ID: <20260910-translucent-sweet-sidewinder-7acacb@l-nschier-aarch64>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-12-5dc1ac01672d@kernel.org>
- <178901395292.3971858.13236774094648272066.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PtcfTxtw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F481F000FF;
+	Thu, 10 Sep 2026 15:43:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789054989;
+	bh=jdfnsdvWI0jRNqVLMdcR0r8HJLdhTYwH56oScH4f4Pk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PtcfTxtw45R5MAhwdS6U8KTXfpVokzs3jxEpTI9fNqRYbNG8tO8oIN6VOk4J/zpDz
+	 l7fF5oH34xgjuorX5jaiX4Okbtal8yV2+Ib/6+GIFhJDLrwb322Bveh2+XiuaylYCO
+	 AoVYaUg2TSwF1stGN0IDxRm6IkaSSDb3QA6faezOvPq743U0knl01zmkYvEXucPnkg
+	 k2ony48DnokaTCyyOYp3/M1dr9W8WQ3Dp8YpTbf8CpSybrx/yDod3z5IgtNcC4cM1u
+	 FDlYntAFMq7ttb+PBptS7mI34Tg5IF8nzjCEirqMMhG63KvuJxmnK5W7yvjTISPWaw
+	 TLY8z5R14Sm8Q==
+Date: Thu, 10 Sep 2026 16:43:03 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] proc/task_mmu: remove unnecessary helpers
+Message-ID: <aqLOusjRNlQtQsj-@gremlin>
+References: <20260907063918.3432401-1-surenb@google.com>
+ <20260907063918.3432401-2-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6NJv2EjhorC/TYUZ"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178901395292.3971858.13236774094648272066.b4-review@b4>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1789054956-F1CDF0BC-4895A414/0/0
-X-purgate-type: clean
-X-purgate-size: 2705
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-03  mail-id: 9AB3CA045E  external: no
+In-Reply-To: <20260907063918.3432401-2-surenb@google.com>
 
+On Sun, Sep 06, 2026 at 11:39:14PM -0700, Suren Baghdasaryan wrote:
+> When per-vma locks were behind a config option, a number of helper
+> functions were needed to simplify the locking code. Now that these
+> locks are universally available, we can do a little cleanup.
+> Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
+> query_vma_teardown() helpers.
 
---6NJv2EjhorC/TYUZ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Oh nice :)
 
-On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
-> > diff --git a/init/Kconfig b/init/Kconfig
-> > index 8583d9f06c52..3c92c87254a3 100644
-> > --- a/init/Kconfig
-> > +++ b/init/Kconfig
-> > @@ -144,6 +144,44 @@ config CC_HAS_ASSUME
-> >  config CC_HAS_NO_PROFILE_FN_ATTR
-> >  	def_bool $(success,echo '__attribute__((no_profile_instrument_functio=
-n)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
-> > =20
-> > +config CC_HAS_ZERO_INIT_PADDING_BITS
-> > +	def_bool $(cc-option,-fzero-init-padding-bits=3Dall)
-> > +
-> > +config CC_HAS_NO_STACK_CLASH_PROTECTION
-> > +	def_bool $(cc-option,-fno-stack-clash-protection)
-> > +
-> > +config CC_HAS_NO_ADDRSIG
-> > +	def_bool $(cc-option,-fno-addrsig)
->=20
-> I am generally in favor of this proposal since I think these checks
-> should be cached by Kconfig where possible to clear up running them
-> twice. That said, I wonder if we should pick a better dumping ground for
-> these checks other than init/Kconfig. Maybe init/Kconfig.tools or
-> scripts/Kconfig.tools or something?
+>
+> No functional change intended.
+>
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-Yes, skimming through the patch, I thought about that, too.  Moving more=20
-cc option checks to Kconfig will make building out-of-tree kmods with a=20
-different compiler more dangerous.  Maybe we will have to make the=20
-warning in Makefile's prepare (external kmods) target a bit louder.
+LGTM so:
 
-> I also worry about backsliding and growing cc-option checks. Should we
-> update the documentation to state that it is preferrable for these
-> checks to live in Kconfig so that they can be properly cached?
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Sounds good, yes.
+> ---
+>  fs/proc/task_mmu.c | 67 ++++++++++++----------------------------------
+>  1 file changed, 17 insertions(+), 50 deletions(-)
+>
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index e671b4fd8ded..2f500d639db5 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -160,25 +160,6 @@ static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
+>  	}
+>  }
+>
+> -static inline bool lock_vma_range(struct seq_file *m,
+> -				  struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	rcu_read_lock();
+> -	reset_lock_ctx(lock_ctx);
+> -
+> -	return true;
+> -}
+> -
+> -static inline void unlock_vma_range(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	if (lock_ctx->mmap_locked) {
+> -		unlock_ctx_mm(lock_ctx);
+> -	} else {
+> -		unlock_ctx_vma(lock_ctx);
+> -		rcu_read_unlock();
+> -	}
+> -}
+> -
+>  static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
+>  					   loff_t last_pos)
+>  {
+> @@ -286,13 +267,8 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+>  		return NULL;
+>  	}
+>
+> -	if (!lock_vma_range(m, lock_ctx)) {
+> -		mmput(mm);
+> -		put_task_struct(priv->task);
+> -		priv->task = NULL;
+> -		return ERR_PTR(-EINTR);
+> -	}
+> -
+> +	rcu_read_lock();
+> +	reset_lock_ctx(lock_ctx);
+>  	/*
+>  	 * Reset current position if last_addr was set before
+>  	 * and it's not a sentinel.
+> @@ -325,7 +301,12 @@ static void m_stop(struct seq_file *m, void *v)
+>  		return;
+>
+>  	release_task_mempolicy(priv);
+> -	unlock_vma_range(&priv->lock_ctx);
+> +	if (priv->lock_ctx.mmap_locked) {
+> +		unlock_ctx_mm(&priv->lock_ctx);
+> +	} else {
+> +		unlock_ctx_vma(&priv->lock_ctx);
+> +		rcu_read_unlock();
+> +	}
+>  	mmput(mm);
+>  	put_task_struct(priv->task);
+>  	priv->task = NULL;
+> @@ -518,21 +499,6 @@ static int pid_maps_open(struct inode *inode, struct file *file)
+>  		PROCMAP_QUERY_VMA_FLAGS				\
+>  )
+>
+> -static int query_vma_setup(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	reset_lock_ctx(lock_ctx);
+> -
+> -	return 0;
+> -}
+> -
+> -static void query_vma_teardown(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	if (lock_ctx->mmap_locked)
+> -		unlock_ctx_mm(lock_ctx);
+> -	else
+> -		unlock_ctx_vma(lock_ctx);
+> -}
+> -
+>  static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ctx *lock_ctx,
+>  						     unsigned long addr)
+>  {
+> @@ -653,12 +619,7 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+>  	if (!mm || !mmget_not_zero(mm))
+>  		return -ESRCH;
+>
+> -	err = query_vma_setup(&lock_ctx);
+> -	if (err) {
+> -		mmput(mm);
+> -		return err;
+> -	}
+> -
+> +	reset_lock_ctx(&lock_ctx);
+>  	vma = query_matching_vma(&lock_ctx, karg.query_addr, karg.query_flags);
+>  	if (IS_ERR(vma)) {
+>  		err = PTR_ERR(vma);
+> @@ -732,7 +693,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+>  		vm_file = get_file(vma->vm_file);
+>
+>  	/* unlock vma or mmap_lock, and put mm_struct before copying data to user */
+> -	query_vma_teardown(&lock_ctx);
+> +	if (lock_ctx.mmap_locked)
+> +		unlock_ctx_mm(&lock_ctx);
+> +	else
+> +		unlock_ctx_vma(&lock_ctx);
+>  	mmput(mm);
+>
+>  	if (karg.build_id_size) {
+> @@ -773,7 +737,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+>  	return 0;
+>
+>  out:
+> -	query_vma_teardown(&lock_ctx);
+> +	if (lock_ctx.mmap_locked)
+> +		unlock_ctx_mm(&lock_ctx);
+> +	else
+> +		unlock_ctx_vma(&lock_ctx);
+>  	mmput(mm);
+>  out_file:
+>  	if (vm_file)
+> --
+> 2.55.0.979.g7e5102b832-goog
+>
 
---=20
-Nicolas
-
---6NJv2EjhorC/TYUZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEDv+Fiet06YHnC6RpiMa8nIiabbgFAmqiz+cACgkQiMa8nIia
-bbgNERAAgCLMWkWnCF5POqjQiZGkZbm/i9SwwH2BVVg0H8Bf+O6WGCZ4YiM0NOu7
-6d9EZV95NkDD36Y3vCEaq1/GclFeUn2ET6HEprS7tQsmYbcofxLYoQuMV/5Si/18
-jJBz3eksIZYRAnSFGG6K1+Hq3u63l3cV5TmRaquZg76LwJkTjCNsFmfT2wxHP40y
-LmkyOsw9NiHo2Bm75Bz8ds7EVqHU/wPxCAWBuiw6ervOrw4RR7PURz61DaBGIuOc
-9B/HnhACn44debha9z9dUTsDIsPsK2sftFLfgJvD8c1V8vj6D1uhX7Fx/hXRElRA
-srsyf2q67EuQ8hKIU8sch6rKkD9slQJd0/w2XNQsONffnO9RghF+Qu8dzo9mUusZ
-l1vYg30SglV5c7m1FlgCvvmvJSppryu6zZw4FgzOUTfcxt6l+VXTm9jaigCWPXbT
-KAYgvQqNVVgkIAg2WDqyiVTeWQxrxo9ctf3m/6srxI4/AkuGZV/XU2m1QiQJxQ5/
-rdm3WGYjD/gVrLPBr6oIoPWDSgP7C4U4kSuZGq1jWAhPeqaa691z+Z5WbRVoVDO/
-SEc1cIdDE88/z8QwIEsgmaXaVhnaCiW66Npfh9zP1J+/pQV3kvU4kf9CIEQ6QMDf
-MPfl1Si0rJA9thzauvNi6Mu6JsUi9FPz7+Oen1Y22eMfv2st6Sc=
-=TUj9
------END PGP SIGNATURE-----
-
---6NJv2EjhorC/TYUZ--
+--
+Cheers, Lorenzo
