@@ -1,120 +1,168 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85579484254;
-	Thu, 10 Sep 2026 12:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F6C48592D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043037; cv=none; b=AyLYcw+XDTK7g3hbCebm1CErrYAVOwWL9Pu+0ZaEjjI35cmtdCLIxy1oP57pnUIjyzaUG1tf7m9JK/7AHyr9urt8I3WZI9k/k6CdwuyWOHyBjojmNSCZ4uMzgOYYAcO5qcIV5zJBmmJOx6Ykcxgzo0cqGs/sjlGcxKg290EysgQ=
+	t=1789043039; cv=none; b=IJ6LnC+eG/onM8RxbxVH/gbhbYbK0zt/eh7Fx0e6IMkZmORfC7NRKxNIJ5+V6s7j0ITX/LQRbSbMdFsrBVe5Bf5OSb6Njg6bqhTYd9ebo66OXuUZ7K6z0k7d3KbsX35v9CVDT+6BsQorx7JGY9PlMZdx2G0BdL9wNQ98mHunEgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043037; c=relaxed/simple;
-	bh=jgzMo+jc3q+A/v2xMacCodsLl/Wrx/OHS3haDtdDJtE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kS0iqAcc+bNs4lZSBBE+lHtnnKGmbLh5h2wrYU0Zuy81DDmaubbyZOzJdf3Pq1amPFBoMMkCHYyEt2ETtZ5yLi9XW40kqPoXQPZ4NKCvMB/ihHQ+MUwnaHWe0Z1VZ9U8Ai6sgnYm0D7eKNo4C8b6O/2vVrTW5YUS2OL277IheAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=HMxWYxGz; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789043039; c=relaxed/simple;
+	bh=DohzmBQXhTc3W9IsG0RnpMnqXNv9xW9Kj1PEpt+9ROI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q8+8prVSgJvYq8koZUf/WTcO0nMII+HZWAEQZl77wauxWfdQrSvdz0nld8GX1UHX8AJsG3J2kQbRmKntMCLXhCieph6BwE3cAcI4Fdmdne9Yt8ffEWe4qMIuD2hdtNorTaspyDn3L39egGl9/0Grr1m4I7ZLxls/UXPO7lsqI4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dz/s32Yx; arc=none smtp.client-ip=95.215.58.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="HMxWYxGz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789043040; x=1820579040;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jgzMo+jc3q+A/v2xMacCodsLl/Wrx/OHS3haDtdDJtE=;
-  b=HMxWYxGzEb6h/CFuAtPpjl7I1EtvN0xkoXpgSa6GGxGjPN4dRcYa+mqR
-   YOMkeJkzLm0MAbwItnrS4tbEP3tyjvTGxJ+Taiqmpph11u8vmltCOM//c
-   xpYeJsitjy40cO6+hcnu40atvw620gv9mkVm3eGCr0VAZOVzVtbWDz1GF
-   pfVmGIVvlQx26T02a4agtBY3eOw2CEloUZsl9/GZPv7GB5wCmSxUfv+tL
-   jRrvYy/ia3fOu1G2B9e25pVsPvaNEExmz3CbMDYGrGiJRuT55AFJUC13z
-   rY7F0/WefnUP6OqPkhXm6xNiV0GCrPjRSgULBBBdatVbWMYLn2HirxhOS
-   g==;
-X-CSE-ConnectionGUID: xFhwPbRkQRugnQXNKtFw3A==
-X-CSE-MsgGUID: NYit3wuCSTaiBpQ/FT2mrg==
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="294821368"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 05:23:52 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Thu, 10 Sep 2026 05:23:47 -0700
-Received: from [10.171.248.45] (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 10 Sep 2026 05:23:38 -0700
-Message-ID: <86617617-0c89-485d-994e-7c98b42e526a@microchip.com>
-Date: Thu, 10 Sep 2026 14:23:36 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dz/s32Yx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DohzmBQXhTc3W9IsG0RnpMnqXNv9xW9Kj1PEpt+9ROI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789043035; v=1; x=1789647835;
+ b=dz/s32YxXbXGjOc8dD/qjJS/mM8SgHCH5vDU6KHEeLRaVW80ZMoWsB9VVwtrAlVKC1QaGQEt
+ NAKuQQHoBEQ0gSozMR+Dx9cxHQ8DJESK9F6kZaG9xPZDZskFkbVhCcYvy3kl/+JP38Y1HUPdTt3
+ 37SDUKCqatmAz0yD+QFr24tU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f8d3cdd5053f8d02;
+	Thu, 10 Sep 2026 12:23:54 +0000
+X-Mizu-Trace-ID: f8d3cdd5053f8d02
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Yazhou Tang <tangyazhou518@outlook.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Matt Bobrowski <mattbobrowski@google.com>,
+	Tejun Heo <tj@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf 2/2] selftests/bpf: Test BTF walk into a flexible array of zero-sized elements
+Date: Thu, 10 Sep 2026 20:22:56 +0800
+Message-ID: <20260910122316.186384-2-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910122316.186384-1-jiayuan.chen@linux.dev>
+References: <20260910122316.186384-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
-To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij
-	<linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
-CC: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob
- Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liviu Dudau
-	<liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan
- Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Aaro Koskinen
-	<aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman
-	<khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
-	<tony@atomide.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn
-	<andrew@lunn.ch>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik
-	<robert.jarzmik@free.fr>, Kristoffer Ericson <kristoffer.ericson@gmail.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Geert Uytterhoeven
-	<geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre
-	<npitre@baylibre.com>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <linux-omap@vger.kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-13-arnd@kernel.org>
-From: Nicolas Ferre <nicolas.ferre@microchip.com>
-Content-Language: en-US, fr
-Organization: microchip
-In-Reply-To: <20260908152808.3928630-13-arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08/09/2026 at 17:28, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> The Atmel at91 line, now known as Microchip SAM contains both
-> SoCs using ARM926 and Cortex-A CPUs as well as a number of
-> microcontrollers. Only a single one of those MCUs currently
-> has Linux support, and has no known users.
-> 
-> The samv7 platform was deprecated in Linux-7.3LTS, which will
-> remain supported a while longer after it is gone from mainline.
-> 
-> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+The program stashes a bpf_obj_new() object whose type ends with a flexible
+array of empty structs, then reads it back as an untrusted kptr. Without
+the previous patch this divides by zero in btf_struct_walk() instead of
+being rejected.
 
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+  # ./test_progs -t verifier_btf_flex_array
+  ...
+  #602     verifier_btf_flex_array:OK
+  Summary: 1/1 PASSED, 0 SKIPPED, 0/0 FAILED
 
-Regards,
-   Nicolas
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ .../selftests/bpf/prog_tests/verifier.c       |  2 +
+ .../bpf/progs/verifier_btf_flex_array.c       | 56 +++++++++++++++++++
+ 2 files changed, 58 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c
 
-> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->   arch/arm/Kconfig.debug      | 10 ----------
->   arch/arm/mach-at91/Kconfig  | 11 +----------
->   arch/arm/mach-at91/Makefile |  1 -
->   arch/arm/mach-at91/samv7.c  | 17 -----------------
->   drivers/soc/atmel/soc.c     | 36 ------------------------------------
->   5 files changed, 1 insertion(+), 74 deletions(-)
->   delete mode 100644 arch/arm/mach-at91/samv7.c
+diff --git a/tools/testing/selftests/bpf/prog_tests/verifier.c b/tools/testing/selftests/bpf/prog_tests/verifier.c
+index f7f94ccebce2..33a5da37e3ad 100644
+--- a/tools/testing/selftests/bpf/prog_tests/verifier.c
++++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
+@@ -24,6 +24,7 @@
+ #include "verifier_bpf_trap.skel.h"
+ #include "verifier_bswap.skel.h"
+ #include "verifier_btf_ctx_access.skel.h"
++#include "verifier_btf_flex_array.skel.h"
+ #include "verifier_btf_unreliable_prog.skel.h"
+ #include "verifier_call_large_imm.skel.h"
+ #include "verifier_cfg.skel.h"
+@@ -188,6 +189,7 @@ void test_verifier_bpf_get_stack(void)        { RUN(verifier_bpf_get_stack); }
+ void test_verifier_bpf_trap(void)             { RUN(verifier_bpf_trap); }
+ void test_verifier_bswap(void)                { RUN(verifier_bswap); }
+ void test_verifier_btf_ctx_access(void)       { RUN(verifier_btf_ctx_access); }
++void test_verifier_btf_flex_array(void)       { RUN(verifier_btf_flex_array); }
+ void test_verifier_btf_unreliable_prog(void)  { RUN(verifier_btf_unreliable_prog); }
+ void test_verifier_call_large_imm(void)       { RUN(verifier_call_large_imm); }
+ void test_verifier_cfg(void)                  { RUN(verifier_cfg); }
+diff --git a/tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c b/tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c
+new file mode 100644
+index 000000000000..59b84261f622
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++
++#include "bpf_experimental.h"
++#include "bpf_misc.h"
++
++struct test_empty_event {};
++
++struct test_flex_batch {
++	int nr;
++	struct test_empty_event events[];
++};
++
++struct map_value {
++	struct test_flex_batch __kptr *batch;
++};
++
++struct {
++	__uint(type, BPF_MAP_TYPE_ARRAY);
++	__type(key, int);
++	__type(value, struct map_value);
++	__uint(max_entries, 1);
++} batches SEC(".maps");
++
++SEC("syscall")
++__description("btf walk into flexible array of zero-sized elements")
++__failure __msg("access beyond struct test_flex_batch at off 4 size 1")
++int stash_and_peek(void *ctx)
++{
++	struct test_flex_batch *b, *old;
++	struct map_value *v;
++	int key = 0;
++
++	v = bpf_map_lookup_elem(&batches, &key);
++	if (!v)
++		return 0;
++
++	b = bpf_obj_new(struct test_flex_batch);
++	if (!b)
++		return 0;
++	b->nr = 1;
++
++	old = bpf_kptr_xchg(&v->batch, b);
++	if (old)
++		bpf_obj_drop(old);
++
++	b = v->batch;
++	if (!b)
++		return 0;
++
++	return b->nr + *(char *)&b->events[0];
++}
++
++char _license[] SEC("license") = "GPL";
+-- 
+2.43.0
 
-[..]
