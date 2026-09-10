@@ -1,183 +1,137 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A67D41834D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:10:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378F53A7F54
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027825; cv=none; b=T0xJ0azBTAD7uHNX8ptttLjHRMBxVMEFEC+Xxd57UVd/yFLPC1ISw32HLfV+I6bKU8zhxOvTyfgN2b0QZRXK/ywVkyqDi3n/93Euc0/FG+6pwLiM5LjB22oDYG6DQ0m7T4PDfqADqiYxTinFjMdHcoUzBOg7cdU0N7caSw10jGs=
+	t=1789027830; cv=none; b=QgevY2UNoQ+iVXb2MnBTREZEDxSFZrVQsNVLQ7WGi3bVxlkYFdcraCIYzzMb+vYv1n7joTtmyGmxYYvfKJOERcjRKsdR1pp1N1yb6rziKQNkm+woBOXqqvdyCwDY8BR+TQCchK+iUGVNOAPEpo6NP5rvFyC9elz1JG6JlA4rw9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027825; c=relaxed/simple;
-	bh=rW7h0pjx3xQ6ZwumnFP1L2VwCmAWNOwsMjrV4wnRwr8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PFntjRdH1ePh7HN2im8PWt6daqHByJsa+zyZeH1X2SB4spDMmz2YkZ6J2Puj1L3gwJTiodH+fkEmeH1jZ6EaLj8ydAsTI0S5mV+vw3fEsm6hiAH8G+Z7hWRansxiBI/eFhm3Gcf1GCqLzn3n/qXWPA2wA7tcCeG1BNx4ueW9xR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W/VXvI5k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZgKe8cq8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789027830; c=relaxed/simple;
+	bh=Ups6Na12RMvnO7T8H4wHROVUdgJrEy7x5iqCKw6n8wA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Y2BuDA+3xvxjDYN/lMatlM37XdY60P6KWEWipr6nZ2WXvMR9X88UuaHdxgya/SgH+HFAcaCZfDc76KAFfWIps6OAsX5qi7I0dp0jTxH/WSV21OI9VGOpszBl2MJlibmzfGzn1PlmSNK9csYbTMOalYQkVrWkJhQmQgUlxmGtqZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GOewAPJV; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W/VXvI5k";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZgKe8cq8"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A6faGw3842463
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:10:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8ieSl0yvDlmicXq4UcAFfQwP5Clzxto1Dk2QFC58iXA=; b=W/VXvI5kK2vFS272
-	V8si69bAyTI5Btzl+GR3EHvAb2pdZfN6HqiojOJg8AmT/BeCQQwKJbL4ThpQFyx+
-	JFEIo2h7iVA1xssnqvcW8c2LrGes08Lum/naSsTvT9AUp84JThpzwSC8TWQOUr3U
-	1tHI5rECSoNsGFRXvCTGMqmurJqAn9ncuqHTpDBg8Q6qBQ5LU//aIXRKzY7Wahbr
-	e5QvEPrZtDqgyzIrEhSDnYQYhkHWa+NQFjH2GECOFDvdvryiU9/ybFX5qkKX8cY+
-	gzar47VwbZ0qTtK7ML1UhU8ibgRoPBUABpu5Sj65CU2aMYsOyDXL5xUUaQo0b0tB
-	oZcBrg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydtsjg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:10:23 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db0a41434bso125964365ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:10:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GOewAPJV"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso1686947a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:10:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789027823; x=1789632623; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ieSl0yvDlmicXq4UcAFfQwP5Clzxto1Dk2QFC58iXA=;
-        b=ZgKe8cq8WT9U/Culz/3FWdWbTP9rn8L93EtIY8+uh9fTlIwM1ltoB17VJGGOHK8bm+
-         0FoUWmDBba0+Ao/4Pq3rDgMkCUpJJbGGPMiwHpILjts8rsFGASTwgNf+ckcn3ucz+IhD
-         UkktzNGFH8OTr/45c9LwLcfgiHvnOgIkwK42pSxRnxy8weBHY1jypUJbWB+6uZkDCizg
-         nQQRCRpnthN7907Kq8/AJT76ZLxFpGubcx9QIn+j4ZZbzE1UQdeHRlb9I9WoWW/m+DDd
-         zclTz2e32QC11TqleHwPThhmTgqrhi8V+qJc6WsoXME1vfDfBEd8fa3/Na0iVjLVQ7Jj
-         1ADQ==
+        d=gmail.com; s=20251104; t=1789027828; x=1789632628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LGTao/KdTdduxv+yT3fMuwnoAGn1zACXJ7pG0Rb21UQ=;
+        b=GOewAPJVOL37bjW4dw5RZc8rupUWtuWllDfVW1QVJwx5uDeidAR03o3Pykj8V6cxna
+         3FnPQfo7l1Rz+z6a0dQpMJrJW2fZflyFL6S05Hpraervzs3ijtO4YdeUVLB7AeiN1Kk+
+         hZ+Y6ghmDwd1jw647JB+zyCzj5M8+2E4o9JFwvRpCN3tTagU3C1/OjsMAzKyzP0Of7r4
+         7kMWu7y5xwaTfo8rCs2Fg3AYkIS/YZCWIc7TpBWqgDxI02znaXC6NNwSnDyCOUOGCjJF
+         B3OCTRdSnGg9smpUsYIqTieVUDYrUD4tyM8PHjRJGy5tUIBT9RIOVnEAE6f9uhR2j5or
+         9drg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789027823; x=1789632623;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789027828; x=1789632628;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8ieSl0yvDlmicXq4UcAFfQwP5Clzxto1Dk2QFC58iXA=;
-        b=UocrB841jk312prR/47tWBAz54aPn2t2Tm52Va7+hYp4C6ftCL5zxoHdE1AOeax4VT
-         6iFcz56fuXKd5Gu2HLwztZLK+fPGI45aXeHaU/AhcqGK8GsMeWB9Xs2apE4G3JeoQeS0
-         BmBsjHWIx6mfZxHfMYHj++6fgCFwIWO2s5SEEGlADyVaiKfpnjvcKiKaZ87t1ITC8T8C
-         Iu0Csddb1u3odDSOURHNBguMieypi+xlbRNe3yjvLlsE6UMtrt/JkY9OtmL3fXg4zzci
-         0K4/yGEzvQyJz3m9wK4/7BQ7DIJQu0aGPfqt6+PIQEciLoOLFkaL8reA9KYq8KESuO2U
-         WlUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxXouFbkQgYFuDYaYcu7eTLMPMNJlWeBDnut/rVk9tGNCC45yiSlC8Ab4NZfn/DpxndirBjQvIy6ZrhS8g=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7rglDTDKmB/bdxNmaZV6sVpblV5OR4hh0RhI0iWCnCrKyZk23
-	Ir1bH0M/ociWGyYliuwhYBm7TmxX2XQFQU3Wo9QKzcYtVUGSN+RTohPybXpQlUA8+MnhKxei5ZG
-	pho73B9lXturePU6jh2NIrHTMMssTJGMF+3rjvdjlEeDPfAft7zSGmNbg1a/VSQm1c04=
-X-Gm-Gg: AYBFou28Dik3kYRRoJ68W4Z7mKN2VMFuzWv1egFuZe0q/a0n1Fiz/HUUVb4Lpf5+5Br
-	F198HQaNXv0XiaSVajATyABu7H4lDlQq0Pwa7m3Olp4PJy7O2MAXveznfAitOQYTup3JS05Yjh/
-	aBRwlhV71aCj3Q9QTfR7gVDlvVEVsgeHYZb3Nn1pdKqjQuPUl7vJL8CfT48Uu6PWzxXvNjAD/L/
-	JpI/cfFkF3UryGsBCHbpxXZovgrPppJlO7sN6+gLD9o0wHAzOpIqjcfHorbsmNZP26nJQaPlOx8
-	hAFqVjhYuvD1MFoedNYAsKZU72xnQhlD173h4sxBc74DBRp4FkTkdW1+T9qMXtV1kQz04MKBBUr
-	ZMjY2KszkCBF6BXglOMobyfx6Xtk=
-X-Received: by 2002:a17:90b:3fc3:b0:39a:e002:f192 with SMTP id 98e67ed59e1d1-39d70b57638mr8669794a91.22.1789027822768;
-        Thu, 10 Sep 2026 01:10:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:3fc3:b0:39a:e002:f192 with SMTP id 98e67ed59e1d1-39d70b57638mr8669709a91.22.1789027822306;
-        Thu, 10 Sep 2026 01:10:22 -0700 (PDT)
-Received: from [10.217.217.79] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33b95282a73sm2145880eec.31.2026.09.10.01.10.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 01:10:21 -0700 (PDT)
-Message-ID: <3dbb0310-c2d3-4b81-9197-8c275242eb47@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 13:40:15 +0530
+        bh=LGTao/KdTdduxv+yT3fMuwnoAGn1zACXJ7pG0Rb21UQ=;
+        b=I8we0ZprK8EBMauoKD3kaJ+slEL4Zhxmsy0JjrEGNAxKIGCA921dg7zaCF6HfbzViP
+         BFiSS6K0/Oajmss0Vbu5AiXu+sgDzG8ZvnawJxZ058onxfoLqDKL6CuxFGoS9muxzsu/
+         cOxzAk9IELLPDY80eXL18jOv9PDX9sv4isYu4vtHxygBzFujnrdvrJQkAkVCgv9hqwMo
+         eNbrct/iRX14/KD71J8nvBDm1+YE+bZnt4XozEpzCKL40HPRC+xreyVypUpGRI6hdCoA
+         RF/UMBwLvAkwqHC0yCIDK+FirESJwNJ5iNStWAZ8wTKKLzt34/DKlqiPUjtjR6QKQefv
+         RVyw==
+X-Forwarded-Encrypted: i=1; AKwUvBxuX3ytS2Dlpc+NKeO5DZHkZtwsobJuXG3RhBxkf3CPJl+jRfboN+SNRXrumAaU9D0xsPZZOk9reWYfcFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/qwNLp6c1jVyiZouq4iQPk0UM+txzJRbg9ddRr3T0J177NsNX
+	NNreHV8rGIlygZM7zJbq4SJbByfmdgzpgf+XRF2GwAnM77V2gygajUin
+X-Gm-Gg: AYBFou2+U/a8W0RsbqiLh3cnb7J8+Db/JFczr4nwURlBZGtYM4OEfrDrggv1r/LgAYG
+	SgwFZGXZtfeBkGrDz957QQ4f44xJyLFqYQDCG4VnZ+PJmtKWytmT0xwuOWGbre5wifgnN+gC9eF
+	/D5ZFJpbtSlIQfifj3waW/od3MylGVXD/GzM+nhJemxLh99PNH/TLgnU6mr0tec27BUgujz7t3s
+	4jPutBH78kP0api9FhAAFLruJQamMIkWEV+v3qJIAe5Avhg7fqAF7IceQOklYOqAtIKlFPV6IdC
+	yT2bgIM6tsbiM9lzmz6tBiMycmWNDQ0qF+Nd9ws2cfS5hi0tXkE48VdiB527nRH3zKGybjTD1vU
+	FVa4YfqY5+Xtf8HyM02BnMU/aZ9Z4UMkegMCnZHGQAiUY1dkSNNYgMPmu9rsNgjAJochTgxManc
+	rMdA0X4oiHWHCfUwUEs8ZJtzDEYC0q35Bb++O+BFj0VaNQ9fVu1hqEkWreOxZCdvt/fBlrzgdHM
+	OZrLymZ
+X-Received: by 2002:a17:90b:4d84:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39bac138257mr15353888a91.1.1789027828457;
+        Thu, 10 Sep 2026 01:10:28 -0700 (PDT)
+Received: from server227.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770bc9f5sm4442434a91.2.2026.09.10.01.10.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 01:10:27 -0700 (PDT)
+From: Zxyan Zhu <zxyan0222@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	richardcochran@gmail.com,
+	maxime.chevallier@bootlin.com,
+	muhammad.nazim.amirul.nazle.asmade@altera.com,
+	rohan.g.thomas@altera.com,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Zxyan Zhu <zxyan0222@gmail.com>
+Subject: [PATCH net-next v5 0/2] net: stmmac: dwxgmac2: timestamp interrupt support + Agilex5 fix
+Date: Thu, 10 Sep 2026 16:10:18 +0800
+Message-Id: <20260910081020.86227-1-zxyan0222@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL
- width
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
- <20260907-nords_dprx-v1-1-d472af3f01b1@oss.qualcomm.com>
- <aqEbvx0Q8X33XE-O@QCOM-aGQu4IUr3Y>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <aqEbvx0Q8X33XE-O@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=IfsSymqa c=1 sm=1 tr=0 ts=6aa265ef cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=p7gtr9YVPtY6mnSyxn4A:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: 0byrNuiiUROKL-_ZEp5kMKzO4FcrxGAk
-X-Proofpoint-ORIG-GUID: 0byrNuiiUROKL-_ZEp5kMKzO4FcrxGAk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4OSBTYWx0ZWRfXw64JYvPgB98N
- 26vBaD9tOKt0VWKvj2DjDku/tWj+SUF8+qTVLs9eCwOOD4bTbg4EtbgudwYg8B8wLd9cxnxhXx6
- pBeLt8Ct5Vbb6MGmYKmMJJhZhP34KtQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4OSBTYWx0ZWRfX3Rsugu4iAOZ6
- yUUnT7IbHcv1MKtY3/mQlC/Ill3z/Z3iBZNCQc3eGbL3DLDiBa8map/AN5GmAvzzSWVDJbigZaJ
- 5e5R1QJLhtiiXgYNixdYe09JvoKIctpUL64RQbWa5QiIpcVqYXg9V6PZsyNuuK87YC243fJMse8
- jL/M1MfwAQGyGJfbTKxRlPf8pcYk2vXeA01HM4X5Pbqo+bIBjVT9Y1XWa1HHA8X2MQkDQOQ7CxF
- X14lsLqdjKbLplao/WuWBNdj1rO5YSj0MHNiztEIzMg0L/vYb+/pG2fVDnumTOuvFL+4S96r3n+
- j0I0Wy+mk4TrpAnOW5R46PoiaQCDw6Pskd5yhc5eRa1XUd9YdUOy70ds5KIlMCx0+vrH9pL9Qmn
- PVx5Az+r9vgQKO4vzm2zqxf3qB/9zxE6MnnW+4QwKSyabST+KklHkE0pkWChE++/NS5rdjqJDR3
- eqfa4f/KzAU07BMZHxw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100089
+Content-Transfer-Encoding: 8bit
 
+This series adds auxiliary snapshot (EXTTS) interrupt support to
+DWXGMAC2/DWXLGMAC2 and fixes a stale TSIS race on the Agilex5
+cross-timestamp path that the new handler would otherwise expose.
 
+Patch 1 makes smtg_crosststamp() complete on the persistent ATSNS count
+instead of the transient TSIS bit, waits for the ATSFC FIFO clear to
+complete before arming, and derives the pop count from the poll result,
+so the completion condition is immune to the destructive reads of
+XGMAC_TIMESTAMP_STATUS performed by the DWXGMAC2 timestamp interrupt
+handler and the TX timestamp completion path.
 
-On 9/9/2026 2:11 PM, Shawn Guo wrote:
->> diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
->> index 60173b076cc5f16bb55343a1d1136eb07f3c050f..981f973da02f379832fdc0cded3f2b4cae5879e4 100644
->> --- a/drivers/clk/qcom/clk-alpha-pll.c
->> +++ b/drivers/clk/qcom/clk-alpha-pll.c
->> @@ -382,8 +382,9 @@ EXPORT_SYMBOL_GPL(clk_alpha_pll_regs);
->>  #define ZONDA_PLL_FREQ_LOCK_DET	BIT(29)
->>  
->>  #define pll_alpha_width(p)					\
->> -		((PLL_ALPHA_VAL_U(p) - PLL_ALPHA_VAL(p) == 4) ?	\
->> -				 ALPHA_REG_BITWIDTH : ALPHA_REG_16BIT_WIDTH)
->> +		((p)->alpha_width ? (p)->alpha_width :		\
->> +		 ((PLL_ALPHA_VAL_U(p) - PLL_ALPHA_VAL(p) == 4) ?	\
->> +				 ALPHA_REG_BITWIDTH : ALPHA_REG_16BIT_WIDTH))
-> The inner ternary kept its original indentation, so the two continuation
-> lines are now misaligned relative to the new outer ternary. Worth
-> re-wrapping.
-> 
+Patch 2 wires up a dedicated DWXGMAC2 timestamp interrupt handler.
+Before this change the XGMAC hwif entries used the generic stmmac_ptp
+ops, whose timestamp_interrupt callback read the dwmac4 offset
+GMAC_TIMESTAMP_STATUS (0xb20) instead of the XGMAC register at 0xd20,
+and XGMAC_TSIE was never enabled, so auxiliary snapshot events were
+never reported on XGMAC platforms.
 
-I will re-wrap.
+Because v5 changes the completion mechanism, the previous Tested-by for
+the mask approach no longer applies; Patch 1 needs re-verification on
+Agilex5 hardware.
 
->>  
->>  #define pll_has_64bit_config(p)	((PLL_CONFIG_CTL_U(p) - PLL_CONFIG_CTL(p)) == 4)
->>  
->> @@ -2290,7 +2291,7 @@ static int clk_zonda_pll_set_rate(struct clk_hw *hw, unsigned long rate,
->>  	if (ret < 0)
->>  		return ret;
->>  
->> -	if (a & PLL_ALPHA_MSB)
-> PLL_ALPHA_MSB becomes dead code then.
-> 
-Yes, I can remove the macro.
+v1: https://lore.kernel.org/netdev/20260806-dwxgmac2-timestamp-irq-v1-1-c051c79c9d90@gmail.com/
+v2: https://lore.kernel.org/netdev/20260810100221.9166-1-zxyan0222@gmail.com/
+v3: https://lore.kernel.org/netdev/20260818132722.1852876-1-zxyan0222@gmail.com/
+v4: https://lore.kernel.org/netdev/20260902131441.322167-1-zxyan0222@gmail.com/
+v5:
+- Replace the XGMAC_TSIE masking approach with completing the
+  cross-timestamp on the persistent ATSNS count, and reorder the series
+  so it is bisect-safe.
+- Wait for the ATSFC FIFO clear to complete before arming, so a stale
+  ATSNS count from a previous snapshot cannot be observed.
 
+Zxyan Zhu (2):
+  net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
+  net: stmmac: dwxgmac2: add XGMAC timestamp interrupt support
+
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 29 ++++++++++---
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 43 +++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.c    |  4 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  1 +
+ .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 12 ++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_ptp.h  |  1 +
+ 7 files changed, 84 insertions(+), 8 deletions(-)
 
 -- 
-Thanks,
-Taniya Das
+2.34.1
 
