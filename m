@@ -1,92 +1,170 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676F93CAE76
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6115C3CB547
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022086; cv=none; b=D9jxL4fcoCoHsy9kkF0RtyrSth+39oDLD2mz7kadACg0c44Wq5OGCtJ3oX+dkvJzAU6vkF11qTH9i1O1gwk6fE+VGTCt9TRE8WhlSJJlRinwTVJf/Ozu+UJid0pZJGVHOaSe+i/LauFRNLqRAxbLEiDldrc7FIVwDESVhXpj6D0=
+	t=1789022098; cv=none; b=qqvVJ9auw7ReqQowLZfQ2QZ8lVFMEOYCpzLKMfRcqZ7BTv230EiFYEdPw2hdbDyOgY/Vw9f14WzhRCd8gvpC0WVaF8f60Y1cWQ25MEpL5X8jyakap/F/cVjVnhATWAOyrPCiA0uIjNG6ENYodAikUJokVmbfeRindpQiKCnkcUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022086; c=relaxed/simple;
-	bh=/uaCqa1UBzrB4l/x0ktWW2Ji3uA4tmOrYEYh+8w3GLM=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=DDFEoXGG8VI1UKg6d1XkJEUP/H8EQVgfnRVP+UUMDrj79OsHnrmFYh8iNxqIIsHiqrw3XgA1ZW1Ov1g5Ih+7SiaHtr9NJTo2bkJsnH5qL5AQt1IW1qe1M0p7AHKJ0HZ5XdFX4qXJjis9WS0diinmaG5huwHGo786Nc8kURB0Jj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DLLS2CsB; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1789022098; c=relaxed/simple;
+	bh=2bHvA86LBVnNVn37kqizVxucld93jNqngtRyL/3L6mc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uge9FiyXohuTzZgh3PvSeD6OrCCvjJl0RgPUjPzH6a8lwlqI9wnlmRPXgf39LJQELokUcVx4skUkTKGNx6seTNRc+q/y3negNYO14JfOnE/PXn6jyhrYoihEpUlNMBaoYBMDT7XyGeTer3vbdVYB/NDrZodKif97G1N9rDgAmuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsVRWnXM; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DLLS2CsB"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db18e5cb56so67540615ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:34:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsVRWnXM"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d05d51553so41732525e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789022084; x=1789626884; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/uaCqa1UBzrB4l/x0ktWW2Ji3uA4tmOrYEYh+8w3GLM=;
-        b=DLLS2CsBM/3zcihuPySTyvClBm44cM83nB5Qgwyl1nt/+zPA5+33GRfbfTD8JJNShz
-         DbSQjoP+mUboKMKVZ8AqJ+pCBQwBF36bEl65kXCOdriAR0x9h2vbXdmfE/kYjTA3UNGb
-         VYMABcaD9fNEKpRBAK/ZxOa01HjzMD1kBjYT6C9ywqQx58Oo0JeCNSusm2bZvZK/Bmhx
-         /44CyQY1rpVJWFGYM8Wun1q5bCdFuIxrXo/8jSbDqd6F/uBdoM19kXpaoODXhf3aqaWD
-         pCrGcHac0sNZ7raw2KT9l4O6/9Vs6gjEfTwEOR9KA5OWzRb/USpMbIA8vHj1W7LCaN+j
-         J6gg==
+        d=gmail.com; s=20251104; t=1789022095; x=1789626895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D92+v0nqxMJ3pOaah+t0R5RhuqJf5mej5Aw3sSQ7mCo=;
+        b=bsVRWnXMe0fE7e9ip07uTIHdWZSuSqrwtiPDea3ak7rLGxgIx3LMwP8wKLSeIq028K
+         yiWHKPADSMluFY2c2G40W/1s+quXMIgoWVb/Luj1BWdQFvI6z2oxSGeCjz/JNq+/fjtP
+         bvtOfTjvru2FlnDCUd6EUffPrhTf2yc6LU3+56rEVMMR10fnvkjPTVskao+vtdrvZIMh
+         GgTgy8NScwWNFr8XiHRhzhQgriB1w6J2f0FbuiL02Sn4R2ELOLethd/qABWHuRGN3eCt
+         n6cfsxq/z70Vy/3HUf6PwHJtVQCw0DoPnkR79TtCTgfbPT9XI4Rtqh8O3V5sWhhVfFMq
+         GAjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022084; x=1789626884;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/uaCqa1UBzrB4l/x0ktWW2Ji3uA4tmOrYEYh+8w3GLM=;
-        b=rXwY7RkdWvUHy3VYqKHxF+Bdi6ZU9zJtqduIM9hVPhAMv7y9DBLeLJRShKAUZVS14r
-         tkE63wGYg++iP/z5I+LSbfNzDS6GCUBHKMqVg8upU1GeCziV92DdNth5nerK1QBqcv1Z
-         iv7SK2aIbinEkSHg8+fzaNUGsFg7uVBHP8EI+ezI3W0X34QV62MRCOPDo47+s3hXBs34
-         a3pNCHiRLoyogSn4ulZP+5BqAcJknDofjFe0mJyFEmVY7hYW2JxC3tbUjHrYIlTiiWOy
-         dil3+qE0iVs5WZueHNcJFROrHqOJvwuFkNbbyGPmIqQ9mB+myt10FnQrZX5fq/qP5nqt
-         jthQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuSdKICv0xWX16d58G9Plcr7MJyML7SxTm9DE6nHrKYbw7/08SVdtg3mmh8kXNFUgXllGOX//0eChGiV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOMNzlyML/Qg8qye90icNsBjJ0dJGsMsfXIl1txCmkPhpLAujS
-	nMed7THgUzuNVlw6cccIUtSqhQ3vbt5d213bAMXP+s/gBnAAUAPFJQMp
-X-Gm-Gg: AYBFou1+g252CVB4aMEHSwDCixVg+dXKOJr1HYtYTgpaQa50U8py8VeNbj134RXrv4Y
-	YE9MWKxd8EG+s27v9vtXic4tLxDQOy/mH9TAya/wuMLTw1OM4OIjbLMsJC7HB6KM0F0ZXzVs1/T
-	6TeVarSaGz6jImDtnphG9XkPQu3yeMmyYk0dfhpyt9g/qINOIQO35i/bCa2I6ibReXbaBdsvHgt
-	VNAbUsHsVbzINp8A8ZwHFpQIbSnRF73e25+u6n72CdXg28lXYrHhTnkTS/iJEPhQqg6FjgdDPhL
-	9I54bdsaO1WsWw83hjPHVilAEvHQRxLPqXdGbRF+tQMImUQtJoJHNYekc5lUnL/n/bHiCxGu00e
-	kCip2Kt1Ys8Srn54kKySUWYmFjIDxfgNP0UASZpZ76yw97/hWJ844eXkhJdkVyeK4uOwNanm4Q8
-	Wqr96OR63Wg+WJJ5I/7q8QkBAwa+kYlSj79FFM/uJ/LJCa0+HMbYw41VUXZuzxXu/tdw4j+1ZBM
-	8ffKG80lpFsoeXxu2fq9BNID7oJPyere2XKwSGRsJ6S0Lt2wra1NTc=
-X-Received: by 2002:a17:90b:57d0:b0:395:4de0:b78f with SMTP id 98e67ed59e1d1-39b260d28eamr57429977a91.1.1789022083690;
-        Wed, 09 Sep 2026 23:34:43 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33987ccf483sm10434389eec.20.2026.09.09.23.34.33
+        d=1e100.net; s=20251104; t=1789022095; x=1789626895;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D92+v0nqxMJ3pOaah+t0R5RhuqJf5mej5Aw3sSQ7mCo=;
+        b=NIOctLetFBKz3V7CMxzVv+6MgT0EP+QizIZdeajS6fNRBayHCnpVZ3yyBRKA+2dF5U
+         DD9h4wVba72PyO6TDqoVWEetWU3UWAdQZJj02uBa8hnFrCke1Llb4Rl1bdUSphiwNej4
+         lCFdLwW/xB7aqbmamF4BUAlXKJWtLXQozxfUo0L68lHdXqFwAjKmV0FmkLZq5LSFeXa3
+         uflmPxnHm8pd9j8cSzoJ2wXaGqsYRm8zUHtIJQUW74WbxjM9s1KPSxcpnB2EIMymsSVh
+         HXmHJ7fglfPnzV51LdwgxIBd7SxfZVpQoE8rQhs8R3FthfBAVRFJhJU9yu2rMXoZPPAP
+         uOLg==
+X-Forwarded-Encrypted: i=1; AKwUvByliPD6Y7hfLe2FgzpSoSiQ8dBBlF5ecfZgbWNwbKR6RVUj0f38FgJ044sNcj0p5vYSCJaa86lxEHjjtB8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiaIhtjaqGUbLWumxNV8eIJdrvEHFEypVsVwezrGjhySw3z5FA
+	aoGXSbe2YwzL8Sda2i6gr9Ta6ygkmKFt3Ca/R6dI5zhhubq3+NPO1gZJ
+X-Gm-Gg: AYBFou3tquIgun4dgSTaRhkGLp4oAFaI0P4cvuQyZe6N2iOmhXAGU0yY8m2pD4pO6Ti
+	7mwec3ZPYxHYPYGpJZx/X4iLTQqIEmYuRJUPoX2TtkCXqUXtJgeDt5UGmlXM8kzHVWO0WMHKYih
+	v9f4Bxhqd2atYOSBCtqRKNMmmOIQXb/hp1vPyt2vxUe0dMi9yjJd0ETa0iYJuKwYnb90221Qwpr
+	1DURiQ/u9VGHiuze3CssWy4DMQW0yDHRoasKe9tWOfhfENq/bY5RIbMkXJdehD+9XK6DcGogqrI
+	UOhIC04cHreBZlIdQpSdry/PFNVxzkduoOgXtgcSq7uYvPkPf8QnUaZv4Ip7fKAIceIotZIRikv
+	KirzVZuTHBEPuB3zp+IaP7C9wwcYsk5Miu08BLlq8fT5JSyUY6b8R89Vlmr+nAfSvkxR8ULeKPq
+	JZSJDXvVWVnvkbwPiV77jADeiryR9K+tWN7NojLeSzZKvRYyXUiKAJoNK+CV/xzSbM95BvmC2U3
+	71XiJJ8OPjxf/RVHej+mnsqQ2vNYWSYTD41KOJFjIwhz1q2fTsh9Q==
+X-Received: by 2002:a05:600c:46d1:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49cf820c992mr407515105e9.6.1789022095224;
+        Wed, 09 Sep 2026 23:34:55 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e2212193esm2595255e9.1.2026.09.09.23.34.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:34:42 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, Nicholas Piggin <npiggin@gmail.com>
-Subject: Re: [PATCH v2 06/20] KVM: selftests: Extend page allocator to support naturally aligned allocations
-In-Reply-To: <20260902164123.2546762-7-seanjc@google.com>
-Date: Thu, 10 Sep 2026 10:57:06 +0530
-Message-ID: <fqzh1xsl.ritesh.list@gmail.com>
-References: <20260902164123.2546762-1-seanjc@google.com> <20260902164123.2546762-7-seanjc@google.com>
+        Wed, 09 Sep 2026 23:34:54 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+	Beata Michalska <beata.michalska@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	jonathan.cameron@oss.qualcomm.com,
+	sibi.sankar@oss.qualcomm.com
+Subject: [PATCH v3 0/2] arm64/cpufreq: report and track frequencies above 4.19 GHz
+Date: Thu, 10 Sep 2026 08:34:38 +0200
+Message-ID: <20260910063440.4677-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Sean Christopherson <seanjc@google.com> writes:
+The Snapdragon X2 Elite (Glymur) is the first arm64 laptop part I have
+seen whose boost OPP, 4723200 kHz, sits above 4194304 kHz.  Two
+independent problems become visible there, both of which make the
+kernel believe a boosted CPU is running slower than it is.
 
-> Extend the page allocator to support naturally aligned allocations, as some
-> flavors of PowerPC page tables require multiple guest pages per table, and
-> those tables need to be naturally aligned.
->
+Patch 1 fixes an overflow in arch_freq_get_on_cpu(): the u64 product of
+the frequency scale and the reference frequency is truncated to
+unsigned int before being shifted back down, which wraps for any
+reference frequency above 2^32 / SCHED_CAPACITY_SCALE = 4194304 kHz.
 
-That's true.
+Patch 2 makes capacity_freq_ref follow the boost state.  It is latched
+once on CPUFREQ_CREATE_POLICY, and boost frequencies are excluded from
+policy->cpuinfo.max_freq while boost is off, so on a machine that boots
+with boost disabled it keeps the sustained maximum forever.  On arm64
+that saturates the AMU frequency scale at SCHED_CAPACITY_SCALE, so the
+scheduler cannot distinguish a boosted CPU from one at the sustained
+maximum, and arch_freq_get_on_cpu() cannot report above it.
 
-> Take care to align the potential base address *inside* the retry loop, i.e.
-> the base needs to be (re)aligned on every attempt.
->
-> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+The order matters: patch 2 is what raises capacity_freq_ref past
+4194304 kHz on this machine, so patch 1 has to land with or before it.
 
-Thanks for sharing the changes. Looks good to me.
+Measured on a Lenovo Yoga Slim 7x Gen 11 (Glymur, 4032000 kHz
+sustained, 4723200 kHz boost), pinning a policy to a single OPP and
+timing a fixed workload on one of its CPUs:
 
-Feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+  requested OPP    time     cpuinfo_avg_freq
+  ---------------------------------------------------------
+  4032000 kHz      2.011s   4031325   (0.02% low)
+  4723200 kHz      1.726s    524283   before
+  4723200 kHz      1.726s   4032000   with patch 1 only
+  4723200 kHz      1.726s   4718587   with both  (0.10% low)
+
+The timings never change: 2.011 / 1.726 = 1.165 against a frequency
+ratio of 4723200 / 4032000 = 1.171, so the hardware was running at the
+requested frequency throughout.  Only the kernel's view of it was wrong.
+
+Note that cpuinfo_cur_freq still reports 4032000 kHz at the boost OPP
+on this machine.  That is a separate path -- scmi_dvfs_freq_get()
+asking firmware for the current performance level -- with no clamp in
+the kernel, and it is not addressed here.
+
+Changes in v3:
+- Patch 1: drop the Suggested-by trailer.  It was not warranted for a
+  review comment on the shape of an existing patch; my mistake.
+- No code changes.
+- Link to v2: https://lore.kernel.org/all/20260909192351.33910-1-okerixx@gmail.com/
+
+Changes in v2:
+- Patch 1: fold the multiply and the shift into a single expression, as
+  suggested on v1, instead of reusing the u64 scale variable as scratch.
+  Same semantics - the multiply and the shift both stay in u64 and only
+  the final value is narrowed to the unsigned int - but it reads better.
+- Patch 2: unchanged.
+- Link to v1: https://lore.kernel.org/all/cover.1788712186.git.okerixx@gmail.com/
+
+
+Oleg Keri (2):
+  arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
+  cpufreq: update capacity_freq_ref when the boost state changes
+
+ arch/arm/include/asm/topology.h   |  1 +
+ arch/arm64/include/asm/topology.h |  1 +
+ arch/arm64/kernel/topology.c      |  3 +--
+ arch/riscv/include/asm/topology.h |  1 +
+ drivers/base/arch_topology.c      | 19 +++++++++++++------
+ drivers/cpufreq/cpufreq.c         |  2 ++
+ include/linux/arch_topology.h     |  1 +
+ include/linux/cpufreq.h           |  7 +++++++
+ 8 files changed, 27 insertions(+), 8 deletions(-)
+
+-- 
+2.55.0
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
