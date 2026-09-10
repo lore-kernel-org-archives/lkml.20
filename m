@@ -1,168 +1,112 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064D33D954F;
-	Thu, 10 Sep 2026 09:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BA03D6478;
+	Thu, 10 Sep 2026 09:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032831; cv=none; b=L264ydMmCdsU25LYIfsxbF6KLMdawS5DqFwgmLv1Z+C6UA4o2HT1mh2QPqCy+ugaD55desl6D63yoPPry2TCwGmEVZraeKoZ0OxrLv1n7XGqFU59DpX0FD/RdtppzesFBJ9arw+4WdGTsEhm6hSABzzpFjL7MV+QANrYqINGz5I=
+	t=1789032833; cv=none; b=GfIr5IOnEG1Pjkkbbi7cpyOHGr007nW9C2cwB6YQLqCdHPSETfKTa6rSS54kU8iBNKqztLVchI4TG9ftPYWLSls6UXqzFWeiyprfa/Ei+3xrCflixL0nJd7uKcBx8gOqIHCiAPvJ0gClJQ1FT1D/7YswLzCQP7rNXvPeHqxs/Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032831; c=relaxed/simple;
-	bh=Jwh4+7LHpGg9xSW1Coyg9Vi5EOs5vAMxDStHli6bcv4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nq0NkqSwC6NjRrMvGZJSO2KgdxAgkGf2odEzW76KO1kSoX6izw08et9JWRvfM8LCaw1BbgiSe/vsTe7fHdQNx+ZaYFtaCbKrrYvLwdVf453bJW0GK3TphbYcbF7ajj4Ako69+8PA0rpaBb4c0HZHHg/n7YVyjIJkaOGxWl2yDxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cK1G+v5Q; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789032833; c=relaxed/simple;
+	bh=1em9aq9gzUl+zPgBvcxhxZd9TdbDXSqR40mgmMVYAMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jIEMySnK2NO6H8AJPOgQyIboeyETjztgqK/deXX0jtgp9sRY0dCYel39wIOw4qRQfXJDODYEIRkChscxArDAai5qjGAA4lcc3IJWTc6+l2dJJc0h/h73rfWcJyIuVOKK4Wf2GbnAzbCtb8TDI+oDH3wC6hogBMCAImbNZs6xWmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VfBFHzg/; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cK1G+v5Q"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A259B4E415BF;
-	Thu, 10 Sep 2026 09:33:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 71250602B8;
-	Thu, 10 Sep 2026 09:33:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42CFA11C78279;
-	Thu, 10 Sep 2026 11:33:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789032821; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=QI+N1LsIeIqVwD7/ezD2/TXfd1mqYGhxBGBovU1NpOA=;
-	b=cK1G+v5QgGp34yXNKlX9AhxKkwk6j0YWxsa2VseD+qFlM+pqAFDZoqMhfOOqtjAFYVIS44
-	McaJmzevk4mAkagNS0sGqLIR9WcLj93hSJyqiha7mvtUY0LWSqNt6WchM/Mt55w3EqXKLr
-	tr2dgz2paFGE1cqsjjgY5KMcORCX0rMJOdwJeK5KOFq3lzEBpCloyNYCFybdxxlGw+Vy4/
-	lxQ2OLbeKyVg+L4SGVXCWix75x0yutnXECuIYm5MiJfw7b4N9m3GEnkXqRzam96HZCxyDm
-	w8/TR01zdzyCKO7xyHxaMd+cSkBzGt74Oj+KxIcopKOt1yi8EgNAHlCK3ax/pQ==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Thu, 10 Sep 2026 11:33:28 +0200
-Subject: [PATCH 5.15.y] bpf: Enforce expected_attach_type for tailcall
- compatibility
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VfBFHzg/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789032831; x=1820568831;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1em9aq9gzUl+zPgBvcxhxZd9TdbDXSqR40mgmMVYAMA=;
+  b=VfBFHzg/D7PtAbUHv+DfTYsykiS8uGagGfOHi/MQ21XeH8VIaAJhdwdr
+   twUCQDdByd9w5oO1a5/Cn9Kqzh0VWP8javlYncEJJ4X0E2rRgZp1do0Wk
+   uaFKSZgxrfXp0FK5iRljEmLBX91RGX+PygVw2mHvPUNV7Vuy8mITRyo83
+   xd0XhknWB2YuyU3Mr7y8/fWR1ZkGwUhrXci0z+7GMVYkeXXoQoM5BNS8t
+   z9D5i84/Z8hu9LL4t+0t6NfjQjQZjgC2mfHdXyhCXk6wg/PWgieA828PH
+   x0BRd8uGKfS1NkLOga6LukukfOpp4m1O70kA9UDsOdpAKHWhnizuMAkSy
+   w==;
+X-CSE-ConnectionGUID: UMXdb+sWRfGcQCeuEGqXeA==
+X-CSE-MsgGUID: 4uTBVpa/SDykUYgYKJArwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91992591"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="91992591"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:33:47 -0700
+X-CSE-ConnectionGUID: FZK/4208RgGo59/IgLKZMw==
+X-CSE-MsgGUID: T3eFll+kTeyXwnB5iRtisw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="275733812"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:33:44 -0700
+Date: Thu, 10 Sep 2026 12:33:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Mark Brown <broonie@debian.org>
+Cc: Lukas Wunner <lukas@wunner.de>,
+	"Shih-Yuan Lee (FourDollars)" <fourdollars@debian.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v16 5/7] spi: pxa2xx: disable DMA for Apple MacBook8,1
+Message-ID: <aqJ5dqLKht5ezDw1@ashevche-desk.local>
+References: <CAAT15mPuO71WbbS2ZpWjceCVj3FUTqHLi3wbbeV7B33JHbPRsQ@mail.gmail.com>
+ <CAAT15mPrwAqLmFVF730G+iJugzNzaT=HDj_7G5-wXbhBNU7ANg@mail.gmail.com>
+ <f7449a69-98e3-41c0-b535-847b8c520e10@sirena.org.uk>
+ <CAAT15mNppZ6nPQ9a8Hp54XK4BXndfv+G24n4VeQ1X8GOk6fSyQ@mail.gmail.com>
+ <CAAT15mMc73=cnqx7jvPXWjVUuzr-E54qh5+BR3d_G6m3NoXrng@mail.gmail.com>
+ <al_ZlTkEUHj-X1YS@ashevche-desk.local>
+ <CAAT15mMaZWdkp9YRKvRDRw-WCA-4nWGGo8gge=D7oBKUr1yysw@mail.gmail.com>
+ <amYya_hiHM6lrxTX@wunner.de>
+ <ampdJY4LcP6Qc1de@wunner.de>
+ <c05bb236-5aa2-4050-a030-8caed6d47a40@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-cve-2025-40123-5-15-v1-1-547774d4a00b@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CQAyE4Vchc7ZkWyiKr2I8yFq1HtDsKtEQ3
- t1Vj98k88/IltwyttWMZJNnv40FvKoQL4fxbOTHYkiQLvQcKE5GBUptYGlIiZWkF9s060G72KI
- 878lO/vpVd9CatX5j/9/zc7hafHyTWJYPDLz4i38AAAA=
-X-Change-ID: 20260910-cve-2025-40123-5-15-292e837b56c4
-To: stable@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <kafai@fb.com>, Song Liu <songliubraving@fb.com>, 
- Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>, 
- KP Singh <kpsingh@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
- Andrey Ignatov <rdna@fb.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yinhao Hu <dddddd@hust.edu.cn>, Kaiyan Mei <M202472210@hust.edu.cn>, 
- Dongliang Mu <dzm91@hust.edu.cn>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789032812; l=4232;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=gUafZzjf5WznKHgn5eGzWtYE9PDR/yy9rByv/cE7nj0=;
- b=rdJ8ORMUYXYJCLg3EYIF+yQSpZpNS/4UOHMkmHhO26KsbwXacq43+wV6Q86ZRO07SKity1EKS
- MfbZQqiYikRDmW1bFd0LJJWB9B+g+KRfSkFA5csyDOH3E989NKvuWq6
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c05bb236-5aa2-4050-a030-8caed6d47a40@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+On Wed, Jul 29, 2026 at 09:21:41PM +0100, Mark Brown wrote:
+> On Wed, Jul 29, 2026 at 10:05:57PM +0200, Lukas Wunner wrote:
+> > On Sun, Jul 26, 2026 at 06:14:35PM +0200, Lukas Wunner wrote:
+> 
+> > > I'm not sure why Apple chose to keep the DMA controller in reset,
+> > > but have you explored enabling it on boot?
+> 
+> > Thinking about this some more and after taking a look at
+> > drivers/input/keyboards/applespi.c, I realize messages exchanged via SPI
+> > are always 256 bytes in size.  That's not a whole lot, and of course
+> > messages are only exchanged when a key is pressed or the trackpad is
+> > used.  So perhaps Apple determined that sending this in PIO mode is
+> > ultimately more efficient than keeping a DMA engine powered on all the
+> > time.  The CPU load saved through offloading the SPI transfer is offset
+> > by having to program the DMA engine for each transfer.
+> 
+> > So perhaps usage of PIO mode was indeed an intentional choice by Apple
+> > and need not be second-guessed.  I'm not sure.
+> 
+> DMA can also add extra latency with interrupt handling, it's possible
+> someone decided to trade some CPU time for minimal latency (though you
+> could probably arrange for shorter messages...).
 
-[ Upstream commit 4540aed51b12bc13364149bf95f6ecef013197c0 ]
+Okay, so let's go with the disabled DMA approach, but this will need
+a good commit message and a big comment in the code explaining all findings
+and some kind of summary of this discussion(s).
 
-Yinhao et al. recently reported:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-  Our fuzzer tool discovered an uninitialized pointer issue in the
-  bpf_prog_test_run_xdp() function within the Linux kernel's BPF subsystem.
-  This leads to a NULL pointer dereference when a BPF program attempts to
-  deference the txq member of struct xdp_buff object.
-
-The test initializes two programs of BPF_PROG_TYPE_XDP: progA acts as the
-entry point for bpf_prog_test_run_xdp() and its expected_attach_type can
-neither be of be BPF_XDP_DEVMAP nor BPF_XDP_CPUMAP. progA calls into a slot
-of a tailcall map it owns. progB's expected_attach_type must be BPF_XDP_DEVMAP
-to pass xdp_is_valid_access() validation. The program returns struct xdp_md's
-egress_ifindex, and the latter is only allowed to be accessed under mentioned
-expected_attach_type. progB is then inserted into the tailcall which progA
-calls.
-
-The underlying issue goes beyond XDP though. Another example are programs
-of type BPF_PROG_TYPE_CGROUP_SOCK_ADDR. sock_addr_is_valid_access() as well
-as sock_addr_func_proto() have different logic depending on the programs'
-expected_attach_type. Similarly, a program attached to BPF_CGROUP_INET4_GETPEERNAME
-should not be allowed doing a tailcall into a program which calls bpf_bind()
-out of BPF which is only enabled for BPF_CGROUP_INET4_CONNECT.
-
-In short, specifying expected_attach_type allows to open up additional
-functionality or restrictions beyond what the basic bpf_prog_type enables.
-The use of tailcalls must not violate these constraints. Fix it by enforcing
-expected_attach_type in __bpf_prog_map_compatible().
-
-Note that we only enforce this for tailcall maps, but not for BPF devmaps or
-cpumaps: There, the programs are invoked through dev_map_bpf_prog_run*() and
-cpu_map_bpf_prog_run*() which set up a new environment / context and therefore
-these situations are not prone to this issue.
-
-Fixes: 5e43f899b03a ("bpf: Check attach type at prog load time")
-Reported-by: Yinhao Hu <dddddd@hust.edu.cn>
-Reported-by: Kaiyan Mei <M202472210@hust.edu.cn>
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20250926171201.188490-1-daniel@iogearbox.net
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- include/linux/bpf.h | 1 +
- kernel/bpf/core.c   | 5 +++++
- 2 files changed, 6 insertions(+)
-
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index ed42bac04a79..e9081b1ec436 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -259,6 +259,7 @@ struct bpf_map_owner {
- 	bool xdp_has_frags;
- 	u64 storage_cookie[MAX_BPF_CGROUP_STORAGE_TYPE];
- 	const struct btf_type *attach_func_proto;
-+	enum bpf_attach_type expected_attach_type;
- };
- 
- struct bpf_map {
-diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
-index ac921214059f..bbf95bc2d408 100644
---- a/kernel/bpf/core.c
-+++ b/kernel/bpf/core.c
-@@ -1854,6 +1854,7 @@ static bool __bpf_prog_map_compatible(struct bpf_map *map,
- 		map->owner->jited = fp->jited;
- 		/* Note: xdp_has_frags doesn't exist in aux yet in our branch */
- 		/* map->owner->xdp_has_frags = aux->xdp_has_frags; */
-+		map->owner->expected_attach_type = fp->expected_attach_type;
- 		map->owner->attach_func_proto = aux->attach_func_proto;
- 		for_each_cgroup_storage_type(i) {
- 			map->owner->storage_cookie[i] =
-@@ -1866,6 +1867,10 @@ static bool __bpf_prog_map_compatible(struct bpf_map *map,
- 		      map->owner->jited == fp->jited;
- 		/* Note: xdp_has_frags check would go here when available */
- 		/* && map->owner->xdp_has_frags == aux->xdp_has_frags; */
-+		if (ret &&
-+		    map->map_type == BPF_MAP_TYPE_PROG_ARRAY &&
-+		    map->owner->expected_attach_type != fp->expected_attach_type)
-+			ret = false;
- 		for_each_cgroup_storage_type(i) {
- 			if (!ret)
- 				break;
-
----
-base-commit: 0996e0926f6b4d6123e1b94407d726bc9810248e
-change-id: 20260910-cve-2025-40123-5-15-292e837b56c4
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
