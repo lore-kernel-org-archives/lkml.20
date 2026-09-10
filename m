@@ -1,105 +1,115 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E0C566C7B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E1E3AD529;
+	Thu, 10 Sep 2026 18:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063159; cv=none; b=KxDqHj558yxSgI0uVpfLGZjxkITV43CAzHs/cm9oGbw3r5UBHCnmcxGaUS6Ya7SBwvgNYX9UCgReF8X0UbN83BySgwNPV3i/n9sFBalrR50M9w/dH/d8XK256/KXq47N8D0oT6ZINja2TEl5WFtBh+hYVpQt5ZoJpw4RJZeRpIE=
+	t=1789063226; cv=none; b=py8/mfD5NVRb31NvvCRNiglMmHYC179DfBtNel8bvz1dwBFRKKCwmnbNn+Pgeekjb810iw68NAOFNkqFUYebaJkJNJyqJnN6Bzju0nu8ZBvq93P2ia5SulQIT2rzLvQzAMjGcSuAj641Mfxg1Q37nP5T2vby/gTJHjL0978lgFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063159; c=relaxed/simple;
-	bh=iihdVpeTD7xqvFs81N5pzrr3yHNO8lXqn++m5NS1tpY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=GS9aPbE9EbFZy6leO0dyYlqdcwPCiErS9YGm8nBbgz9oAAnXRQzuIoLWW1x3Asi2WIVsgN6MLXP5ElcniXKVdoDEJKIKov9kP74vjAhu+hCsExFTUyi1exhooWeyJwtY+qu3S4X2Cz/Rd2iGGzyP9OO67x1JPgjfKcJCT0WuDLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Qp0PeyC1; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789063226; c=relaxed/simple;
+	bh=PTuor0aBxcQXT7iWTuuawTSFwX070gg0qGMwIPaQJoI=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=cx1ipR/SjFGdA3xGgpjaJUKxpNPdVY4BxMXgwknuOTdof96OTYwXJZZPHJJOYe5W8JUzRV7YR2irYgJ8ZIXSmQjlMl5is0fGFp9858VDcAn4usWcRER9I7aczl55qxevtXP5/lXKAXu4tKC+N70DdXKzf3+k4aoEN2I2INZ1/c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VFWUFq/C; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=jZrXZm8W; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Qp0PeyC1"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6fb956002so107265605ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789063157; x=1789667957; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VdUk7xT6Q2S0XYOIdYUuypvFM5moeaGi7+AJeTxN8N4=;
-        b=Qp0PeyC1s/TlCYvWFn3xsZc47//NfWkIAzttYA+mbNnTss7pmMXJpRYv4tU+ObTZN+
-         x680/ndDKtd4iof2E5/Npt/XrEqItRPArY0pUeRjKh5RvXjdCqn0ssDE9bCrX9UFjShk
-         DpNQ+mSlH+FyvQKJYI9+11ES0TOChqQk3jfmF93W8v5rk77jOoDfdiq8uN91LZgjOE2B
-         dOMDDM9j3So7ee/tFy9tEIRtpd/YOEokwpbVSIWJqvedhbsZLD1DkkuKNcPS/vdiVGdj
-         c9l/hiXm+Z6gTnufOs+N9ybQmPtk0sCF9wEOpWNaSu/khgVuVxJwMn+MooE2lbgxZG0K
-         4yXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789063157; x=1789667957;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VdUk7xT6Q2S0XYOIdYUuypvFM5moeaGi7+AJeTxN8N4=;
-        b=C3tF9eQvI+wZ1FpjKM71CZX75xzo9Ppx23gF4ucOXVi2PS9iVGaF86t/m3WiNGBLfi
-         SOMQ1hD2qiLAYu59CcCmAtv6hYcZ36aS/b4MM3Swdz7NLXgBWKPjZOv28wMmDMSrWHtn
-         ym/Yq9j7A4I6pppaG9FT9Z63VCvnm7ooAZW1UVyB1JozmI5zJzwljULA/YMNUQvTKPXv
-         gnC6SZukc+UYhuh6Hh6N90CGRF+Utjui4eGASRGFLE7j7aQUD0DwJYArAfVX+nav6hko
-         8znWor4Ac0s8yMUfkLe+IJ4NUQzPTQxkjxHhsW8QiuXgzR7HUG6BX6Q1mac5wB4kPKdR
-         akLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxad/J7vhpxLLbHomabpcVGkKuH5zZtbDcqN6wS7YpFG6U0E6Dm2nKHKHsjXL7CA98GZin2GK4f7bjc0Bg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ln0GcdU7zC0mAhM4KhdCuGeh7jGjsHH+lQ+OMrSbXLG19PWZ56
-	2UrULxU4HHa/iKvZJ+kMkVq2x9tiE9gsRBn77FzL4h5tZNppIKb5Dy/l5G2/aibEiZWsx+F7N2W
-	6a4N/KA==
-X-Received: from pleg13.prod.google.com ([2002:a17:902:e38d:b0:2c9:b703:3bfb])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ce8b:b0:2d7:2edd:d140
- with SMTP id d9443c01a7336-2dd2a1c3e42mr9017035ad.3.1789063156725; Thu, 10
- Sep 2026 10:59:16 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:59:16 -0700
-In-Reply-To: <20260806233609.212337-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VFWUFq/C";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="jZrXZm8W"
+Date: Thu, 10 Sep 2026 18:00:18 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789063221;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8JzF1nPf7AsVOy2fuFnGSRgZdX8jFtMs/1vDi3QO6NQ=;
+	b=VFWUFq/C2wztUwmxWQopngaurinKUYavuL1DNs9L8KsYw0CFnG5MjUPoO8xvj5bBPK1NCM
+	3vSfpY1NVol1TD8nKEgEads9LdhNsiW2WNS2vaXSySL/g9A8YoyE0VtADrETxHJYTPz5jP
+	cWdRFRrpXGteXkr0pNSKsgrJ42y8oCRGjRRMbq/bd4WEhwibXQH9Q3spTrZD0aQwV9AF3e
+	0CW/kt4IfQneuYTsiFOSS8Nsi4PTgSO+HGXX+bprutXzOMxxSQ+LhiSvV7Kg34cJlphIXe
+	FtWPi87WoHLszGsvIvvcczG9F4EamgKSCYAa8O8VNCtlUcly12ru2AyG6uvoLA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789063221;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8JzF1nPf7AsVOy2fuFnGSRgZdX8jFtMs/1vDi3QO6NQ=;
+	b=jZrXZm8WZga/yXhAyDIlimCNOCJ1ebf413u9Na8Qhvi4HHCWYdtL99eZqYaElvJx7davwK
+	ZsIJBbVyb1CBiwDQ==
+From: "tip-bot2 for David Laight" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/div64: Fix addition of large constants in
+ mul_u64_add_u64_div_u64()
+Cc: David Laight <david.laight.linux@gmail.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260803094702.3852-2-david.laight.linux@gmail.com>
+References: <20260803094702.3852-2-david.laight.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260806233609.212337-1-seanjc@google.com>
-Message-ID: <aqLv9GwBNymyHs8q@google.com>
-Subject: Re: [PATCH v6 00/51] x86: Try to wrangle PV clocks vs. TSC
-From: Sean Christopherson <seanjc@google.com>
-To: Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
-	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>, 
-	Jan Kiszka <jan.kiszka@siemens.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	John Stultz <jstultz@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, x86@kernel.org, linux-coco@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, Michael Kelley <mhklinux@outlook.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	David Woodhouse <dwmw@amazon.co.uk>, David Woodhouse <dwmw2@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Message-ID: <178906321863.623050.13970846088171673609.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 06, 2026, Sean Christopherson wrote:
-> The primary goal of this series to fix flaws with SNP and TDX guests where a
-> PV clock provided by the untrusted hypervisor is used instead of the secure
-> TSC that is controlled by trusted firmware.
-> 
-> The secondary goal is modernize running under KVM.  Currently, KVM guests will
-> use TSC for clocksource, but not sched_clock.  And Linux-as-a-KVM-guest doesn't
-> support paravirt enumeration of the TSC/APIC frequencies, even though QEMU
-> provides that information by default.
-> 
-> The tertiary goal is to clean up the PV clock code to deduplicate logic across
-> hypervisors, and to hopefully make it all easier to maintain going forward.
-> 
-> The quaternary goal is to clean up the TSC calibration code, which was made
-> stupidly hard to follow by hypervisor code mixing in with the native
-> calibration routines, instead of being implemented as a pure alternative.
-> 
-> Note, the VMware and Xen changes still probably should get acks from those
-> maintainers, as my understanding of what they're trying to do may be flawed.
+The following commit has been merged into the x86/urgent branch of tip:
 
-This (thankfully) still applies cleanly.  What can I do to help move this forward?
+Commit-ID:     f65d38155aef069c897a64643a03db237dd1e0c8
+Gitweb:        https://git.kernel.org/tip/f65d38155aef069c897a64643a03db237dd=
+1e0c8
+Author:        David Laight <david.laight.linux@gmail.com>
+AuthorDate:    Mon, 03 Aug 2026 10:47:01 +01:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Thu, 10 Sep 2026 10:40:22 -07:00
+
+x86/div64: Fix addition of large constants in mul_u64_add_u64_div_u64()
+
+Adding constants over 2^31 fails to compile because the ADD instruction only
+supports 32bit signed immediates.
+
+Replace the "irm" constraint with "erm" so that the compiler loads large
+constants into a register.
+
+Found by a patch to drivers/iio/frequency/ad9910.c
+
+  [ bp: Massage commit message. ]
+
+Fixes: 6480241f31f5 ("lib: add mul_u64_add_u64_div_u64() and mul_u64_u64_div_=
+u64_roundup()")
+Signed-off-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: H. Peter Anvin <hpa@zytor.com>
+Link: https://patch.msgid.link/20260803094702.3852-2-david.laight.linux@gmail=
+.com
+---
+ arch/x86/include/asm/div64.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/div64.h b/arch/x86/include/asm/div64.h
+index 30fd06e..8a2d343 100644
+--- a/arch/x86/include/asm/div64.h
++++ b/arch/x86/include/asm/div64.h
+@@ -111,7 +111,7 @@ static inline u64 mul_u64_add_u64_div_u64(u64 rax, u64 mu=
+l, u64 add, u64 div)
+=20
+ 	if (!statically_true(!add))
+ 		asm ("addq %[add], %[lo]; adcq $0, %[hi]" :
+-			[lo] "+r" (rax), [hi] "+r" (rdx) : [add] "irm" (add));
++			[lo] "+r" (rax), [hi] "+r" (rdx) : [add] "erm" (add));
+=20
+ 	asm ("divq %[div]" : "+a" (rax), "+d" (rdx) : [div] "rm" (div));
+=20
