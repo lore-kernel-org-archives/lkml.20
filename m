@@ -1,260 +1,175 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A7B498920
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:02:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D2A49AA57
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045325; cv=none; b=lapD1edB1tGOaiNGfmwHQWlBfC25lbVHr5XNhjehWMXarCItF9Vxcn1uOd1hL24SOY9S1burZVSmQp26fARGs27JXUnstm5/t96iMW/fywIdHMIUk9mMVclmBRbiaQxqfHRiKzjcZ+RapJ2LhQkBtWhx7blIz1Tg7iztt60o+8k=
+	t=1789045328; cv=none; b=bfNg/m/Exq6XHT/j6hbAFL6GsZ/m0pHHO0DiRj/xcO2FWy+VItZ1tDN6h31SFDrYejzylOL3PTI4BiGI9NqG19V0+RuZqVuGrm72rLqp2BhtvNpfgkdk3UROPXnWvfrL4EnIrc1yGxjpHnfeRrZMYRA8L8MIntB1pImAUGe/xE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045325; c=relaxed/simple;
-	bh=KW1xboFDIw7GUw5/K1L/QGR8hCZPAPAXS2iVODYVr6I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=R+/81NZXYUlRccU4IlhhouEnwaOZ3SLuRbtiJne6mv/sTtrS1WPRA8PT0gk5aYzhztLG+fP3kSNmFX7LDmeC7/zOjdNHokgIG5gn9vSp3xMnixGkuxpftV8A80VvAQZkVSbvKEN1LjoBs1XWnhPFKzU4iHN1vGDHsg+q5UYknr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PhSy16JG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FVU6q5Am; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789045328; c=relaxed/simple;
+	bh=N/b/q/uzmSxos8Iew06bDzpCf5ZY+3UhCakxp4lntWs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NaYHVGTxqlbL3rTtzMVn7VA3fgbOqmODSolDiUVrVUUYGAtr8fDZzmeG56rlX2yyuPbUGBzYGVqBTCsw7f+jEieNBYAN5CMOLZ41vyJ83aeuQItae8N50SUOwKgFWRlXmjJFE0/hhdOsDonWNUGE941ckb4kkOi5AYyeQWZHF34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=li6AsCIn; arc=none smtp.client-ip=209.85.167.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PhSy16JG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FVU6q5Am"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7ntu1242074
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:02:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7EU+wkow0wdDIWrKXMXcNY/o+lSeS9qvjpj3PNv9N8s=; b=PhSy16JGud3aN7Ip
-	AajNj3x+7TjwIXShzDgfhQFg/k2CkB/mpnV/gXBBxNPwU6i35orUQxTdOjbuqQYO
-	w2kvHD+jsePLgSvADwNNRAenyh7SQxPCv5ghlsnuG3c+cDNWArWvPqiR3LExXItd
-	5KAOkwYjjbQ6juGcQ/FmkVgJkdeYgD3WX5Y+/prmmgX5t3fNkFdE+ho8sax3dkIY
-	x2YHFC+KIYzKuIyVLiroEluZN/20z8dtm9MGdVll8A4hZ1GAxena8bMcvMoTKK/t
-	md7ZyLhd0BMrUfqqdUEQswhY+k/KchyKzgVk5J2OulkZgUC5UG7U5NcBGw/QaSdW
-	cMRvPg==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrcjs7fk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:02:01 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c7b0f8e40bso7496473e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:02:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="li6AsCIn"
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4be6057c9c1so3057331b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:02:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789045320; x=1789650120; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7EU+wkow0wdDIWrKXMXcNY/o+lSeS9qvjpj3PNv9N8s=;
-        b=FVU6q5Ami1CDAU5fWd74g3Uil08ir/1RlOHgOEO4/5APeU9/iJGu4sp5jFUsFkVdjL
-         tLa5wM1XwnK+dcn5/+HoQSKXe4nCW7t+XB2MnpvbTjiFWxeUJEa83gqomthyX+QoSju+
-         loPzjtXs1d9ON2SsZhwftuT5ylhd9KYhYvP/E+khvUUqdPjWLX0hhU5PYjzH3XXg1MG6
-         eMyM3t3IDwNSk8QWlzfSxUjxk7y+lyjVnOJ+0zQdMtQ67itQSR2GSzxjr3K+mlTcfJaz
-         tYukVaSKHAexM4REFFFKptrwHdYzKOaA3KWQTGOe/U8hMeL+7H4OrV5TuXj6ntCgwzwC
-         1Ftw==
+        d=gmail.com; s=20251104; t=1789045324; x=1789650124; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iqDMD9CvlNAztFnDyHXHWtHzKTDStZHHy9fL//d1qZ8=;
+        b=li6AsCInljdjxpYjy809ADRsuNGldSHMLU3EIL1XhopNbUH+9Z06kWbXFxZqPpn5Zv
+         dkhvrmfLqd5nUz6C9vYGnZZ0SLVOuv+LqVrP7V4KO/zXqMlC3M2jQCGxdGUReA+tq2Sz
+         Yrfi2ibAQxzj9KkpETGJQRXLjg/9yF3EnzFeuP5wlW1XhAWfA3eE0Tm+ptYEakR5W+5U
+         yqa1u8n0cATqEHYAFXKiDzXtJ5ZlL+/BbzzUuoO/ngNMm86e08SnoS5oqhOzPwmIuVu/
+         2V+USiuS1BOV+tvyKnp/kR+6NBy2zJrZCsvn27WxXKrI37ONQ+sslMHrxlz9odn4ojKJ
+         ywpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789045320; x=1789650120;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7EU+wkow0wdDIWrKXMXcNY/o+lSeS9qvjpj3PNv9N8s=;
-        b=sYdTLr8lIOd4E/k8t/j/fnEMBIHhZcLWUQK5fmQNfxiw4RE+GfBSUvYCnpI36m7cq4
-         o+POImAXocJy8wlyK0QlyUlh2j9OQFUbeLnshS6VgfL7ww3qOwBk5QWMF0XUsK/P4y/v
-         VFrMdjh5+m8d6Bxl1roe5ZxuLw/26DyxSB4MlzgBJ4BdQqs0Sdz6ZpmeVZGG5JkwCAHO
-         6UDoLEWLp0uLVv5BWnIC5Yr3Kq3RXORLBOfoGMikrzzL+vaNsLRC1beNrJ3yier+tauF
-         AiHbyk9f+yzeVT9vJdFTlrP7qp29wgwpeP3TUB5Nm4bZ6dfIGMOTlVGRZSRZ0yw1ppdQ
-         jR7A==
-X-Forwarded-Encrypted: i=1; AKwUvBz7qKWA9yLPVABT8QhQntfvs491Uu/EfjqFESE3Zfmo0o9ahNjD0/WjSQXIEC/7/7o63TyYmuI8TaJCjOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgfKULxOGg27C0Azax2NNIZFH3JiXnIIjgbp22DOfLR622LbAv
-	vS7vaSG1WKDpcuZoNlnUdniiMOdQBr9yIPhu/l1bOsrwSHthxAx5Ykc3s75cY+ZPp3IAD9Gt+Em
-	lAUrJ08NQRvaOychTHEEMr8biRPTcOFOIEb7vQ8palVdPKx5PqKVrkV+pTxkJFEZR11g=
-X-Gm-Gg: AYBFou2usbfa1cnBtRtw5L391AvwXGyYrq+IqN0h7tgpMUPZLfYeAm2Nd1G4vqn1zwq
-	UyDNA+8hPV90a1Gawq8UZuf90ri4ul13fUB5rj6wZpjsEDthK82+rwGfq6JgqBx6IS8LGGWuaHY
-	VteRX095qkgVvHP/TmhdQNbqwULTBQ9VWtvSWbNx5IDl9vJIXmkjSMOUDcJXvEN6rTMPLSw3ydn
-	UMgzQQfnTA6T5XGCqg8/Jj46OhxpBhsKcl/oKP6z8CwudP/26KmG3HJGSh+x5po5mMDTY00OCF/
-	ZfXW7RilqZPnAg5VycjLvnm/ZA3sC4kD5yqb/RVWC74ofg7Hi413MfIoWp4Z4u/sWAflSCjxJKo
-	ec9vwmDe0M/LwJw4lQbqyal8Jy8/5
-X-Received: by 2002:a05:6122:881:b0:5c5:db2b:5baa with SMTP id 71dfb90a1353d-5c7ed7cba16mr23879210e0c.6.1789045295749;
-        Thu, 10 Sep 2026 06:01:35 -0700 (PDT)
-X-Received: by 2002:a05:6122:881:b0:5c5:db2b:5baa with SMTP id 71dfb90a1353d-5c7ed7cba16mr23876494e0c.6.1789045286926;
-        Thu, 10 Sep 2026 06:01:26 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:c9b1:abfb:f300:5e98])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26204ecdbcsm831849866b.25.2026.09.10.06.01.25
+        d=1e100.net; s=20251104; t=1789045324; x=1789650124;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iqDMD9CvlNAztFnDyHXHWtHzKTDStZHHy9fL//d1qZ8=;
+        b=tM3HXWOgCw0zu7AsSgnDKbOesuZkcA5TlaXO336j9Fm2aTWkfvHnTrjih0hg7fQsXi
+         ubcC8ORmqK1uaHn8yfLrkkt134pAmPz5sMB13gSGRNdq4z979fbhz8immkVF0BfeTwDS
+         s+9S15OismQ1iSDR6pwDvTAJ6fi9wNBwCAFOx4bJ2ffhkF5wy40TSB3+36GKU6hzp8tY
+         qAgBQtglqqC3dJW7LJ0+9LZqxMYvSkxi824gq5Nn7eEP2LS+lU2jCdhX2hQEiTgcYTbE
+         kvjamLQm4ShviYh++xpK+g8j9FMVJZ5x1qGnmWH4ilf+6D3CpbRP9pMLnR0C6OgWcOuV
+         gHkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyhsQy4ZzC2C32x2DddBYZosklSqKK4ZpmOP8kE72EdnZwZQowukzYXQACkrulmDU/LvZ1i4iRnA6/RsE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdObfYNFiIwG2T9j60hyj4O3sVfs4IMKc/21/Dj5g8rFc9NT2n
+	1yHgInNZxZeuPZx9wIoY4+fcpLQCTBUHOILyani1OgHUvWBUU2KN0Xfe
+X-Gm-Gg: AYBFou0z2PznkkUclknpqkkueqHHK6FFqpe79c51Lp+YfvHE8QpnReUk+xbS1uBnhKg
+	8loOHgH/NFKdDFEco6wnNTKfMdwalaWg9HH2cKjt5fIOqFHmB25+fy48rzhI6iZWpalYU6Pq/pa
+	BMSeHZSCDPRTkNRAgr9w+npXZCusApxOKeasMFY+mr4Z39wPj/ZGl6uR9aDmu8Plksy5W27LKzM
+	Zbyce4sLSWn9R8Q7+LJ0RF1DrOAKl0SBzSOc6PId2a9C26EPCu07n9eRMr/3raW2fEhFMxcaW1Y
+	rD/1A/UXO/1NdMLHcjWqqQu/TpYvradusOxnQcfynmd7OjGT2mLywmQnDwSE9X/gwk7nOy3KmaR
+	0Cn7aklb/nPFWkaWUlyZXowEoX3pgm17ZUCpoUIGwF15OSPP67UKsQ8XJtMTnbPx74HcINNoZJN
+	/3hjXpqC+I1APpUnU6hs/mx1+6Ql8sljvHKeNKBgMqJl6K8KXoCV31S+sqJqYwMlgR3dWGuz+44
+	BAuKUURl15wpKYO06k70+iK
+X-Received: by 2002:a05:6808:d4e:b0:4b9:a829:f00f with SMTP id 5614622812f47-4b9a829f90cmr21412378b6e.27.1789045319616;
+        Thu, 10 Sep 2026 06:01:59 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.135.143])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4ae9cef7dsm1250087a12.28.2026.09.10.06.01.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:01:26 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 15:00:47 +0200
-Subject: [PATCH v7 06/12] crypto: qce - Fix xts-aes-qce for weak keys
+        Thu, 10 Sep 2026 06:01:58 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Heiner Kallweit <hkallweit1@gmail.com>,
+	nic_swsd@realtek.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Javen Xu <javen_xu@realsil.com.cn>,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>
+Subject: [PATCH net v2] r8169: don't enable chip LTR when the platform has not
+ enabled LTR
+Date: Thu, 10 Sep 2026 18:31:40 +0530
+Message-ID: <20260910130140.910-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-qce-fix-self-tests-v7-6-cdbd2718af14@oss.qualcomm.com>
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
-To: Thara Gopinath <thara.gopinath@gmail.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Stanimir Varbanov <svarbanov@mm-sol.com>,
-        Eneas U de Queiroz <cotequeiroz@gmail.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Eric Biggers <ebiggers@kernel.org>,
-        Demi Marie Obenour <demiobenour@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4152;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=LHxn8qZQ7172JYTQczFIpOi+jAmwYv5eGxN5U2DeL2I=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqoqoPgcYYNiS9bUT7TKZOvXgiycY+xCV/pgRGj
- 9yf2ltWAsKJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqKqDwAKCRAFnS7L/zaE
- w1sIEACsCiS++eDUogxIPE2LIXSNpcedycPtCM2m5ypQYo0berGKN7DnBkEt62W0a6zrMGKwx7w
- ifuQwMzYrEJHbkcA6siFI8kgNIn1ogCka5vvbHmLRmj7TCo4MGVaIJz2t7CE6rcBtH3lShR2mLQ
- EgD0VWSw0wEQcuAKBB8/MU28JXRDirKeIcuyqzmAt/Vv5JWnc0ETq9MwKs79e9VntK9D+XTgCCW
- Y0xNniIyWz2CC611h8tHPylhx2lNGJlMMhxZ/7sHQbqbgO9mXcUoWKnu180tse4Mv0HMXb+XkLJ
- c5+AK6dsKpMKMtSyL3cTjGiusL1HOzvpWdrDDOg4vQE3vX7wcgWffRjgTeJrTi8m3unLgVMYwA+
- HMB1urFNmPRWzzB4buwpHiPOyH1mpOBIa5aP5WXPI3YOUOOO2MiEeF2zM4x6Y1JCXs0v24VMkQU
- ao1dCjmNLy1ymqSwHt6Z+L38iGCQkoq5/3dbdRYA1jciT3jlfYcy7BGsv3iQqi7CXcqb0aFFxzj
- CO4F1om6lfNtEQ4WrLuOrxe4QKVbPC//oQwpHwnTfOLF5O8zrccrHxyY3AO3QuR9IQ60rwEN8Rx
- 84UbgCqSTSNMy3/AQ7bFSz0poa6gU2aSqLEQRhg0zdu1DshnJIoCWUtNwTE90yKsA6POk5BqnSl
- QfT5+JYR3phTK9w==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NiBTYWx0ZWRfX+UO1usMlQowj
- OwefjXWBpqFi+RoobEwuMmXv/Iy3yMv5zXd2LiAYaajqLz2ntK/YEC+0wdwsrQkTkGLgaYi/WAc
- EgyppcWd374GFQ3rIHPtFVUPHVKNQTs=
-X-Proofpoint-GUID: dJXlvMax6eKKetup6QBKfvjm9mQlTxN4
-X-Authority-Analysis: v=2.4 cv=aef0Dhot c=1 sm=1 tr=0 ts=6aa2aa49 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=tpKvEUOkdOp8HkJiz7sA:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NiBTYWx0ZWRfX08gnZ9vr65Ru
- T7mGdV15yqKYlmj96XM1optFleozoWBKRUTPvE2LNe705jcCanlLCMNvLZTLvifgwP/RbQKP0jE
- j5w8NCCGy3iTwQ6MDtrJjJsbDW/bRUh8XouJek93jri8ILQ2Dx6QzlciBLO/f9mSbuJ+iFW5mUF
- CRmJedFrLkKUv6kd4gomdzJSKWtuva2bfXPlOKqPIfjd7rB1V5dFtBZ1AFwPM9sNkjR2d4mQ2RP
- rpAZSnhJTs5YjrhfiDc8JyKFqJQgWQtPCqIF6LxpFdATJ+gBdKI3rpuwfYYDSOiyNfkYsRVu6O8
- 7S1jA0NLZIyXf3opNTsFegGZRJPSkWp+x/M/GzM3IgbALhlniePMIxNb4GRxTT1V+p4O/U4JII+
- IoxES1wD+cE+WneJLRK62C9w2xI4BkoB1ZxEcS9QAgaW929frRpDcyTLpvJc1R/EaK5y5BVspFy
- LbxwhHkO3oBhi2NsnEw==
-X-Proofpoint-ORIG-GUID: dJXlvMax6eKKetup6QBKfvjm9mQlTxN4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100156
+Content-Transfer-Encoding: quoted-printable
 
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-
-The QCE hardware does not support AES XTS mode when key1 and key2 are
-equal. The driver was handling this by unconditionally rejecting the
-keys with -ENOKEY(-126), regardless of whether FIPS mode is active or
-the FORBID_WEAK_KEYS flag is set.
-[    5.599170] alg: skcipher: xts-aes-qce setkey failed on test vector 0; expected_error=0, actual_error=-126, flags=0x1
-[    5.599184] alg: self-tests for xts(aes) using xts-aes-qce failed (rc=-126)
-
-In general for weak keys,
-- If FIPS mode is active or FORBID_WEAK_KEYS is set: return -EINVAL.
-- In non-FIPS mode, Accept the key and encrypt successfully.
-
-Since QCE was returning -ENOKEY for non-FIPS mode whereas the
-expectation is to encrypt content and return success, the selftest saw a
-mismatch and failed.
-
-There are two problems in QCE behavior:
-  * -ENOKEY is returned instead of -EINVAL for the FIPS/weak-key
-    rejection case.
-  * key1 == key2 is rejected even in non-FIPS mode
-
-Fix xts-aes-qce behavior by using generic helper xts_verify_key() to
-reject keys early with -EINVAL for FIPS mode active(or FORBID_WEAK_KEYS
-set). For non-FIPS mode, since QCE hardware cannot accept the keys, use
-software fallback mechanism to encrypt the data.
-
-Cc: stable@vger.kernel.org
-Fixes: f0d078dd6c49 ("crypto: qce - Return unsupported if key1 and key 2 are same for AES XTS algorithm")
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/crypto/qce/cipher.h   |  1 +
- drivers/crypto/qce/skcipher.c | 18 ++++++++++++------
- 2 files changed, 13 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/crypto/qce/cipher.h b/drivers/crypto/qce/cipher.h
-index 850f257d00f3aca0397adc1f703aea690c754d60..daea07551118d444d2f749588bdfe2ae2c6c553f 100644
---- a/drivers/crypto/qce/cipher.h
-+++ b/drivers/crypto/qce/cipher.h
-@@ -14,6 +14,7 @@
- struct qce_cipher_ctx {
- 	u8 enc_key[QCE_MAX_KEY_SIZE];
- 	unsigned int enc_keylen;
-+	bool use_fallback;
- 	struct crypto_skcipher *fallback;
- };
- 
-diff --git a/drivers/crypto/qce/skcipher.c b/drivers/crypto/qce/skcipher.c
-index 4b7545e6aed220b7fb5af7dbf20ab47db5d1d180..35bd59656931c5f12614405490f1e254849b9eb5 100644
---- a/drivers/crypto/qce/skcipher.c
-+++ b/drivers/crypto/qce/skcipher.c
-@@ -12,6 +12,7 @@
- #include <linux/errno.h>
- #include <crypto/aes.h>
- #include <crypto/internal/skcipher.h>
-+#include <crypto/xts.h>
- 
- #include "cipher.h"
- 
-@@ -194,14 +195,17 @@ static int qce_skcipher_setkey(struct crypto_skcipher *ablk, const u8 *key,
- 	if (!key || !keylen)
- 		return -EINVAL;
- 
--	/*
--	 * AES XTS key1 = key2 not supported by crypto engine.
--	 * Revisit to request a fallback cipher in this case.
--	 */
- 	if (IS_XTS(flags)) {
-+		ret = xts_verify_key(ablk, key, keylen);
-+		if (ret)
-+			return ret;
- 		__keylen = keylen >> 1;
--		if (!memcmp(key, key + __keylen, __keylen))
--			return -ENOKEY;
-+		/*
-+		 * QCE does not support key1 == key2 for XTS.
-+		 * Use fallback cipher in this case.
-+		 */
-+		ctx->use_fallback = !crypto_memneq(key, key + __keylen,
-+						       __keylen);
- 	} else {
- 		__keylen = keylen;
- 	}
-@@ -261,6 +265,7 @@ static int qce_skcipher_crypt(struct skcipher_request *req, int encrypt)
- 	 * needed in all versions of CE)
- 	 * AES-CTR with a partial final block (the CE stalls waiting for a full
- 	 * block of input).
-+	 * AES-XTS with key1 == key2 (not supported by the CE).
- 	 * A payload fragmented across more than one scatterlist entry (the CE
- 	 * stalls waiting for input in that case too).
- 	 */
-@@ -270,6 +275,7 @@ static int qce_skcipher_crypt(struct skcipher_request *req, int encrypt)
- 	    (IS_XTS(rctx->flags) && ((req->cryptlen <= aes_sw_max_len) ||
- 	    (req->cryptlen > QCE_SECTOR_SIZE &&
- 	    req->cryptlen % QCE_SECTOR_SIZE))) ||
-+	    (IS_XTS(rctx->flags) && ctx->use_fallback) ||
- 	    sg_nents_for_len(req->src, req->cryptlen) > 1 ||
- 	    sg_nents_for_len(req->dst, req->cryptlen) > 1)) {
- 		skcipher_request_set_tfm(&rctx->fallback_req, ctx->fallback);
-
--- 
-2.47.3
-
+rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,=
+=0D
+LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on=0D
+RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on=0D
+every ASPM enable, then goes on to let the chip trigger L1.2.=0D
+=0D
+The only gate is tp->aspm_manageable, which records that the OS is allowed=
+=0D
+to control ASPM. It says nothing about LTR. LTR is a separate PCIe=0D
+capability that only works if every device on the path to the root port=0D
+supports it. The PCI core works that out in pci_configure_ltr() and=0D
+records the result in pci_dev->ltr_path; per PCIe r6.0 sec 7.5.3.16 a=0D
+function must not issue LTR messages while LTR Mechanism Enable is clear.=0D
+=0D
+So on a platform whose hierarchy has no LTR path, the driver tells the=0D
+chip to start sending LTR messages nothing will honour, and ties ALDPS -=0D
+the PHY's link-down power saving - to them. A report against RTL8125B=0D
+(rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291=0D
+link down/up transitions in one eight-hour boot, with repeated downshifts=0D
+to 100Mbps, against four transitions at boot and then a stable link on=0D
+the kernel before the LTR change.=0D
+=0D
+Gate the chip's LTR programming on pci_dev->ltr_path. That field lives=0D
+inside CONFIG_PCIEASPM, and without ASPM support there is nothing here to=0D
+enable LTR for, so compile the function out in that configuration.=0D
+=0D
+Note this does change CONFIG_PCIEASPM=3Dn builds, which used to program=0D
+chip LTR unconditionally: pci_disable_link_state() is a stub that returns=0D
+success there, so tp->aspm_manageable ends up set. The PCI core does not=0D
+configure LTR in that configuration either.=0D
+=0D
+Fixes: 9ab94a32af70 ("r8169: enable LTR support")=0D
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=3D2529752=0D
+Assisted-by: LLM=0D
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>=0D
+---=0D
+v2:=0D
+ - Gate on pci_dev->ltr_path instead of reading PCI_EXP_DEVCTL2 directly,=0D
+   and compile rtl_enable_ltr() out for CONFIG_PCIEASPM=3Dn, where that=0D
+   field does not exist and there is nothing to enable LTR for.=0D
+   Suggested by Heiner Kallweit.=0D
+ - Commit message notes the resulting change for CONFIG_PCIEASPM=3Dn builds=
+.=0D
+ - No change to the RTL8125 register programming itself.=0D
+=0D
+v1: https://lore.kernel.org/all/20260909110554.1977-1-yogeshgaur.83@gmail.c=
+om/=0D
+=0D
+ drivers/net/ethernet/realtek/r8169_main.c | 13 +++++++++++++=0D
+ 1 file changed, 13 insertions(+)=0D
+=0D
+diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethern=
+et/realtek/r8169_main.c=0D
+index ec4fc21fa21f..05f7a44aff01 100644=0D
+--- a/drivers/net/ethernet/realtek/r8169_main.c=0D
++++ b/drivers/net/ethernet/realtek/r8169_main.c=0D
+@@ -3035,8 +3035,16 @@ static void rtl_disable_exit_l1(struct rtl8169_priva=
+te *tp)=0D
+ 	}=0D
+ }=0D
+ =0D
++#ifdef CONFIG_PCIEASPM=0D
+ static void rtl_enable_ltr(struct rtl8169_private *tp)=0D
+ {=0D
++	/* The chip must not issue LTR messages unless LTR is enabled on the=0D
++	 * whole path up to the root port. pci_configure_ltr() works that out=0D
++	 * and records the result in pci_dev->ltr_path.=0D
++	 */=0D
++	if (!tp->pci_dev->ltr_path)=0D
++		return;=0D
++=0D
+ 	switch (tp->mac_version) {=0D
+ 	case RTL_GIGA_MAC_VER_80:=0D
+ 		r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);=0D
+@@ -3120,6 +3128,11 @@ static void rtl_enable_ltr(struct rtl8169_private *t=
+p)=0D
+ 	/* chip can trigger LTR */=0D
+ 	r8168_mac_ocp_modify(tp, LTR_OBFF_LOCK, 0x0003, LTR_OBFF_LOCK_EN);=0D
+ }=0D
++#else=0D
++static void rtl_enable_ltr(struct rtl8169_private *tp)=0D
++{=0D
++}=0D
++#endif=0D
+ =0D
+ static void rtl_hw_aspm_clkreq_enable(struct rtl8169_private *tp, bool ena=
+ble)=0D
+ {=0D
+-- =0D
+2.34.1=0D
+=0D
