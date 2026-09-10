@@ -1,53 +1,60 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2670348F03E;
-	Thu, 10 Sep 2026 13:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5993837C10C;
+	Thu, 10 Sep 2026 13:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047543; cv=none; b=ExzUC4pWWLfbj2qNnA8tvl/+SnTJ5zQsKK+bd5a8LDuzzJ1vclbU48XdtAHZT0z2/Fn3PyDLmZz50JETUAW1Oj9xNPgi9HgshvNdfH0bumFlLJ4Ln8Oe/inlhnEIDe5SfgfVxJQdpcLYDOz865tCdeamIEQiZve6Iz6tiAsEKEk=
+	t=1789047556; cv=none; b=Jsvu118hzhH0jC5MWWkiyEdXeoHSQopHBsErdwmBLxvNJgo4gCDNry/jhxMXqqkSY+wHnw1khRhrHwJLL1uIUMIjQGzC18rM9u/t14zQQ1DvuaiQvraJEpgvcCQp3mxoEUMBPaFgumLfvd4DrXdiwiuPCHBvQpol27CrR2jV41c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047543; c=relaxed/simple;
-	bh=qNQbWhzkJJssUJVitD2nzb/OS5KtUH+QbWhYXxuUlV4=;
+	s=arc-20240116; t=1789047556; c=relaxed/simple;
+	bh=mcMJDM8a1eJCC094E8iHtLaECQdPmcra7LuwvzVQ7M8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mmSo2/KZvpFr7/eonGKJ7soIqp1HXacu55u1Bf/VKOKvqzlcOBwlT4CLY83t/ct8rUGUXvPKqGHIDs7+wRuqWCkvgvI6sBIQJ+2L2ZJN9GmCFIOM0LYE22tl8t6G5XE4RH1dzhq5FY5ciqrm7jVuof1etd7Z2qBtIm1Z+1jUxEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AVM5p1SV; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=UPBYh6oilFB80P8pG3iNqs5peLOahEOqZO1nRAscZMTY6rNhlwvKojPqcfeQ0EtmfCfHD1/38TrAuEulf3/Z6T1OgbPL3bClJ0cePQX4M5l6C3iuPRkZJ7OPIDzpsA3a2XjXhfq0VV44RmsH46vwmGZZ1IwZhOR98eEh8z1VZHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=blKeRR+/; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AVM5p1SV"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hgf0B2FPgzKnVM;
-	Thu, 10 Sep 2026 15:38:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789047530;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KUX5+gLyZAnP+hET6uf/pLlFw8Zwibdi/KIZTVJajXU=;
-	b=AVM5p1SVJTMybgY83sDrM8ghcdxBl9w7DmaxUYlPh5qWX7HHkdbzsQylsQRLzy0cOFPU9D
-	+Bxff/k8aRv7Ddt0x0in+04pTa5VfvYDCoVn3EhR4+kB6a0ZEtIFNK8YCjbuYY3GCVuS3n
-	yESj7lYVCqsYZ/mI2Sup5xhke19KMsez3MoRrNHaH6m6LRaaeF2EfEg8LqT1sPQXLhNgY5
-	L6smBxrBrwnnSIpfNAHRa5cWybNrhb9S6bkh8KH+4lU7z9dzhvVkqvG0tn4UEBQen5953v
-	tEYxajEOSWBdZF9rOTAMhbsHH6HTepUZl4s26b8y4ZDR1vp5K81HXruopDqxGw==
-Date: Thu, 10 Sep 2026 15:38:43 +0200
-From: Zakariya Hadrami <zkh@mailbox.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, zkh1@proton.me
-Subject: Re: [PATCH v4 4/4] ARM: dts: mediatek: Add basic support for Amazon
- ford board
-Message-ID: <aqKxMgAI4bPNx78kzjYD05-zkh@mailbox.org>
-References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
- <20260909-mt8127-amazon-ford-basic-v4-4-e9af5c420ab1@mailbox.org>
- <ab00e8c8-cbc2-4fe1-8900-f169aeab5a98@collabora.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="blKeRR+/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=GiWQPrjaz8+nxLgM6sOizDmSUd/SxTm1oiFePM6L7So=; b=blKeRR+/SpQgaMamNKPkdB8jiw
+	aA0uG479JNcDvP66mpFIZT3fqOtWGMehUHIJ8Jvt4Qdy3Hv+qTP3Le5GS5omjVHIXROURV6jX/HhU
+	qc0/yCYesJz44esdwx0dEGN7XSWKfcLxOK1zfohBW1TN26fdgcRypqp0qtG1nLAojzYh11f2bnY7T
+	orlwK8j/VNjq+fwc4ip7YtA8toPbdt+jfNniHiAjcBbgBPlEfyrxTJStB8yvLa3vn1fEVA0VaG9LX
+	iloCtlMZQI/5+WMF0kNW1wmG9mE8NZwRLJlRiLQRd/NEf3tHgx5vvHNVXcJR/V0/QoBvUViH3NRrl
+	cswtJ/PQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4ezV-00000000THO-3SnK;
+	Thu, 10 Sep 2026 13:39:02 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C127130056B; Thu, 10 Sep 2026 15:39:00 +0200 (CEST)
+Date: Thu, 10 Sep 2026 15:39:00 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 15/18] sched_ext: Delegate proxy donor admission to BPF
+ schedulers
+Message-ID: <20260910133900.GT776954@noisy.programming.kicks-ass.net>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-16-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,48 +63,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ab00e8c8-cbc2-4fe1-8900-f169aeab5a98@collabora.com>
-X-MBO-RS-META: bxmk3mkmxrb34g5mrb17nipnddazm3fu
-X-MBO-RS-ID: d3b653577f41815733c
+In-Reply-To: <20260831134338.1531664-16-arighi@nvidia.com>
 
-On Thu, Sep 10, 2026 at 11:29:55AM +0200, AngeloGioacchino Del Regno wrote:
-> >diff --git a/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-> >new file mode 100644
-> >index 000000000000..8edad5482de2
-> >--- /dev/null
-> >+++ b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-> >@@ -0,0 +1,54 @@
-> >+// SPDX-License-Identifier: GPL-2.0
-> >+
-> >+/dts-v1/;
-> >+#include "mt8127.dtsi"
-> >+
-> >+/ {
-> >+	model = "MediaTek MT8127 Amazon Ford";
-> 
-> Please be friendlier with whoever reads this model string :-)
-> 
-> 	model = "Amazon Fire 7 2015 (Ford)";
-> 
-> that's better, isn't it?
+On Mon, Aug 31, 2026 at 03:42:25PM +0200, Andrea Righi wrote:
 
-My bad, sorry!
+> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+> index 5f4956cf7e369..aa6ba9e8d7cb0 100644
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -26,7 +26,28 @@ DEFINE_RAW_SPINLOCK(scx_sched_lock);
+>  
+>  bool scx_allow_proxy_exec(const struct task_struct *p)
+>  {
+> -	return p->sched_class != &ext_sched_class;
+> +	struct scx_sched *sch;
+> +
+> +	if (p->sched_class != &ext_sched_class)
+> +		return true;
+> +
+> +	sch = scx_task_sched(p);
+> +	return !sch || (sch->ops.flags & SCX_OPS_ENQ_BLOCKED);
+> +}
 
-This and the missing space in watchdog compatible fixed in v5.
-Link to v5: https://patch.msgid.link/20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org
+Can we have this thing either be inline or wrapped in an inline function
+that has scx_enabled() on?
 
-Thank you very much!
-
-> 
-> After applying the proposed change,
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> Cheers,
-> Angelo
-> 
-> >+	compatible = "amazon,ford", "mediatek,mt8127";
-> >+	chassis-type = "tablet";
-
--- 
-Best regards,
-Zakariya
