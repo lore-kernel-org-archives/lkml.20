@@ -1,125 +1,78 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B37E473C76;
-	Thu, 10 Sep 2026 11:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB52453A5E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040860; cv=none; b=Bo0cEZLqHhZf/4eXX996hQcVb+sEC88yqj9XVXwYtbzinsNuH1SuBhd64Hxrn2if1Nl+M9RDJlafjRrT+QPJJ+9seVqb0RKNDR6nJzNwLwdUNJUgs2HhMuXIKo6HHY9Iyn2dqBPn6d0ZhDeSPuf9rxqtGI+887suw8+UsNWj5bg=
+	t=1789040926; cv=none; b=UUZKrKXDLLH938G+6dIjSF9plnkxE8SGC0ya3dUb/tlaC4CvFVoY1oNRsVN9GgeTF2aQesZQ5modd0Y1IfJkeWgNDbQ+Bn1UKwtmNJ9brgoA37cGAY+bdRL8QM/2aNXPZ2IlsdSThZ4JESk07fW/hHD6TWS1HrLwgym385MeniY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040860; c=relaxed/simple;
-	bh=Qf/ty3xDnT9ta1DPBM7dqflzHLLH0CYUrg2l6QLtve8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XckNV22BXn3a5FwjiT6wFEdrkMB8W6qQjbFYK9w28M9FD8IrTtf1TwZz6D61BVqMHkpINjmL+ZhCVbqBBQq3HJvsF9wrhWAQZvFkKwG7HYOAsMqO0IVOQ8naLh/TSS2qBM1W6CKwnPhDH3iMIXym1s4cZzxoLE813EQc9UxQLEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=neutb/6G; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="neutb/6G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=AP5XdrbtCpbt0OBV3AQsk9iIA1wwjdQcbxqP+TdiSWI=; b=neutb/6GBhCj6Dl43J3U449RA+
-	8EfAki+svyNwUQrQs0XYVFvs7Jg5eGDXC7DzEpiE0RoPezVEbO+nvMkSGDpwaFe8Q3xL9fu8MXoJA
-	gA//IOGbOtTCaRGdz7W23T/C8BA/UEynC0bjsbnHmVmyHEc08M+qPjL/TN2JImZeRp1WQD3Q/yeds
-	z6wgTqfwspHZ7pax6xZZNciuQ51AnOtlfQ0edScanCb4cFqLW8KiKXwwi8+Lbjd/Bsg9fxKBVAZ3e
-	ZU7x5VNkoJ+zkP5BRYPRAaRLxROzcSGZieF6K8z25aqRGbzdawl7Zi/mLRaxCH/HuYd/eOlRcRaq6
-	ZmpJbNWQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4dFX-0000000GbIo-1esh;
-	Thu, 10 Sep 2026 11:47:27 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9A8DF300400; Thu, 10 Sep 2026 13:47:26 +0200 (CEST)
-Date: Thu, 10 Sep 2026 13:47:26 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 14/18] sched_ext: Split curr|donor references properly
-Message-ID: <20260910114726.GR776954@noisy.programming.kicks-ass.net>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-15-arighi@nvidia.com>
+	s=arc-20240116; t=1789040926; c=relaxed/simple;
+	bh=GiJtBRQd0xHqR+tc6VrPEYqLqIRh8L6y/3T9gHQIV38=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=a8J9TI94uEY9i/WK6BtkHVfH0NRkWSJ6MgDZr30EdJGEKPw6myFSnMg7vY1JAh65M8NxUqxsxihlMsM6zKa6Ln6O7nFysMyF4CKNBrP7Hrd2S/hvzQ30/vZwU2wLkQONqdjy2R7vknRiTh/iMKzZmvTRlLMAPRDWb2rBVjbpH1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a45b3f0bdfso10473597b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:48:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789040924; x=1789645724;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l1xxYAesGwsl1PGA4fLjtTeL9m2ZNFbUgY1KxDeHAdM=;
+        b=Fh+aFCl+8uk3D7D5EAl4d0NxCW4z1BW70422fsnxXgWsU5cYxAHUaUXxknkkum1ITP
+         lB4g+LUYP7DIn0dZEqKZa7yvDb7koCCgQt3JVu+Jw0cTd7SbLkcpN0CuzhA1ZIEZo5ti
+         9B1my4rk+IyHs1MrjeoVnOlJ1h6SAzHDXf2mwLNjY9lUQl9vYLlrDUJFv89P1yg8YAV2
+         7BBwTmQaCouEH96TMVsDbnXltbLQKtYr6hKo33xUEMkaQaHvcc/OrNV8O51krieRYic/
+         05cRuVRwkg9KoRERrKsHYKeV3APEJH+jrsEaUUNQpr2dv+ToSCGbk4IOr3sewhl5wNGC
+         I4VQ==
+X-Gm-Message-State: AFuF++mWAcqHd6vGrhCpUOCSjv0eOsSYmyxIm7HvB50Of49Zy5dsgg6m
+	8NyA7Pi98tWAZwhJ9esn8dQJfgZz4JBkrPF735PwPaQh37gOJ5sXzraJoXVq24SoOn33pNSn70H
+	w6FJySRTW65lEu9zc7Thnb6QyYnsclco3/f13vZm8DKuTkV+A9wCtEF64BU4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831134338.1531664-15-arighi@nvidia.com>
+X-Received: by 2002:a05:6809:34b:20b0:4bd:e96e:482d with SMTP id
+ 5614622812f47-4bde96e4ce8mr8871448b6e.42.1789040924099; Thu, 10 Sep 2026
+ 04:48:44 -0700 (PDT)
+Date: Thu, 10 Sep 2026 04:48:44 -0700
+In-Reply-To: <6a9dc9e7.87c06881.102b7.0007.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa2991c.f2639fcc.29487d.0015.GAE@google.com>
+Subject: Forwarded: Re: test patch
+From: syzbot <syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Aug 31, 2026 at 03:42:24PM +0200, Andrea Righi wrote:
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-> Consider FAIR and EXT tasks with sched_ext running in partial mode. FAIR
-> can be replaced with a higher scheduling class such as RT or deadline
-> without changing the class interaction described here. The possible
-> combinations are:
-> 
->   1. D is EXT, O is EXT, T is EXT
-> 
->      D can interrupt T according to BPF scheduling policy. O executes
->      with D's EXT priority and runtime budget, while T waits in EXT.
-> 
->   2. D is EXT, O is EXT, T is FAIR
-> 
->      D is visible to the BPF scheduler, but cannot preempt T because
->      EXT is below FAIR. Once T stops, BPF can dispatch D and O executes
->      with D's EXT priority and runtime budget. If T becomes runnable
->      again, it preempts the D/O proxy execution.
-> 
->   3. D is EXT, O is FAIR, T is EXT
-> 
->      This cannot represent T preempting O because EXT is below FAIR.
-> 
->   4. D is EXT, O is FAIR, T is FAIR
-> 
->      D cannot boost O above T because EXT is below FAIR. O and T
->      continue competing under FAIR. Once O releases M, D wakes and
->      resumes normal EXT scheduling.
-> 
->   5. D is FAIR, O is EXT, T is EXT
-> 
->      D preempts T as the higher-class scheduling context. O executes
->      with D's FAIR priority and runtime budget, while T waits in EXT.
->      D is not visible to the BPF scheduler.
-> 
->   6. D is FAIR, O is EXT, T is FAIR
-> 
->      D competes with T according to its FAIR deadline. When D is
->      selected, O executes with D's FAIR priority and runtime budget.
->      D is not visible to the BPF scheduler.
-> 
->   7. D is FAIR, O is FAIR, T is EXT
-> 
->      This cannot represent T preempting O because EXT is below FAIR.
-> 
->   8. D is FAIR, O is FAIR, T is FAIR
-> 
->      O, T, and D all have FAIR scheduling contexts. D remains runnable
->      as a blocked proxy donor. When CFS selects D, O executes using D's
->      FAIR scheduling context. When CFS selects O, O executes using its
->      own FAIR context, and when CFS selects T, T executes normally. D
->      is not visible to the BPF scheduler.
+***
 
-I don't see how 3,4 can happen. If there is a runnable FAIR task, then
-pick will pick that directly.
+Subject: Re: test patch
+Author: tahasami8@gmail.com
 
-Per the pick priority, the donor class must always be higher than the
-owner class.
+#syz test git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 9c03a555a6ba..98130182e05d 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7995,8 +7995,10 @@ int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
+ 		goto out;
+ 
+ 	reader = rb_get_reader_page(cpu_buffer);
+-	if (WARN_ON(!reader))
++	if (!reader) {
++		WARN_ON(cpu_buffer->reader_page != cpu_buffer->commit_page);
+ 		goto out;
++	}
+ 
+ 	/* Check if any events were dropped */
+ 	missed_events = cpu_buffer->lost_events;
