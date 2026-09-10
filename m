@@ -1,201 +1,188 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90F63793BF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012665; cv=fail; b=BOt4sSszzrG9NB6tMqpU6MpgqPxdvZBigvpN+Xtgr2ex84mHjLPXvnh/KKgp77PupaDgi2pmwDqoaJErnSRX+YmooUHCqxkGocwOwHAWb21djyuFE0s1rvlpu4EOdyGIstZgwdz/PxxhRE/tNLr9OU7/bOSulIk4HxgpNdITJCA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012665; c=relaxed/simple;
-	bh=L/Su7uWU+6iu5ya5fKL30nhHkXymilZiojXOSNs/n0o=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WDHKjMiIbmCNcFI8zgrHqMDDaifs8Nec00Bjy9v8yRrH5ISDfxvZA1SlCF2mkMCCj+pFy2+/Qr0v20ucpEVZ/5vPSMg/X8RFFR2wHjcHnr/D2LW5dLbN2bKK5L0ZaBsahNtB/3Tuy3xeYuEHMhV6hDvFgCvKZfYAjWc6igDuBiE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NBOdF+cx; arc=fail smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NBOdF+cx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789012664; x=1820548664;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=L/Su7uWU+6iu5ya5fKL30nhHkXymilZiojXOSNs/n0o=;
-  b=NBOdF+cxXzZ7i9tTBeLWTP998FkOk1pFWavK9cvVP+HyvcP7SABHEwUt
-   FpbNvKVzeRiutylSrvIoMAiauv83hFv42JGz8eZZT4B9WiKNVOdR4ondt
-   YMYmpVCTtmv/UjY2IwoWlx0NiLk6F4MPe3icU9opKDuHYGNfUZPsZYJb2
-   w/rr7vhlWxqYKoxXc7lxeQLOlcoaDRzKHlbEmPm4+1ktuYdNRlVXQZSlx
-   wTj2/lL9gjnCD7myM1gQ0fKpbpgdK1bdolYjfP9ny/tDpe6d/hhTkKvIh
-   yqEPoNsAUlk7r8UIXkqJXl4jKXjoz8ovOjDeM5uJGl36FoiA61zYFG4lU
-   A==;
-X-CSE-ConnectionGUID: Wr3ZDauuRfqYLCJESP/G3A==
-X-CSE-MsgGUID: bNprQQmJRymhZ8EpspTjBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100617901"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="100617901"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:57:44 -0700
-X-CSE-ConnectionGUID: DYRSucIwQJ6/ltn3BxPRUg==
-X-CSE-MsgGUID: Af7CwRFxR4SHmH8nsc5n3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="267222252"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:57:43 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:57:42 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:57:42 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.12) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:57:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=doh0XBsE2Lf5aBhnY7i/MynJEkJwn/t4AkD8a6UZt6qlLVLXV4lcgrw7js2d1tV+5NLp/xoEXyW5vT9gUPqoQWoWwBL0A4vQaYtq+0h4v5QTa5FOz4JcBceCkCp9x78zQ3KxEL8ePm65aPJq0Gnbb6CHp19IpDKpXamvijOB66k22xugXGvfHTYKOOAP1HEIRgamtmTXuYq7XzITgus9eGfxx8NDwQjBi71fsVtlkqwHsql2kvnLer3z95EOVztUn+5m+uQur/0m0dkf25PDc7mVqpIOyO8bTnt+xipSJ9QTVuc9IhWkKGjUyTm22oE10IrQsis1UcKB5pBAdnwWZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S3bRl4pm4OsVx38R4ftPp1ZdFeq2qLBBLVVVcvB6wec=;
- b=Tj62ezoAEvm2AUm/8hOJaJCntQBnkds7BmsaqIPlVHgh5PSPal3nubl2VkzSOJesbyoid4ENK6gQyVNzcV2g21d5OUD2XHAG46jNwYbSuiAyCjqDA8scfgi87PZJxtvNltJ6QMa0rUW5T9gQt+g3pQF61sGEZoALjAhoT2cY1cu+SayQ5SAGeUTy1wQpX00heDyCVUNr3k1J6NLAnhverWRXb/oD5eZ8ZI1g19Ld7jd+jy3b3Cr1mLiaJQRcgoMh5P4Iit+uUIDTk6EhoTT1mcVAWUXN+1JbxGem7460PufjQuvIosuutE6KQ+Nepxja3BSxqR/hZIkJdN+PX7smzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by BL1PR11MB5979.namprd11.prod.outlook.com (2603:10b6:208:386::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
- 2026 03:57:40 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 03:57:40 +0000
-Message-ID: <66038771-a3bb-4b8e-a075-275716b9a476@intel.com>
-Date: Wed, 9 Sep 2026 20:57:38 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 09/23] fs/resctrl: Remove redundant calls to
- resctrl_mon_capable()
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
- Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
-	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
-	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
-	<david.e.box@intel.com>, <x86@kernel.org>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-References: <20260831174421.13921-1-tony.luck@intel.com>
- <20260831174421.13921-10-tony.luck@intel.com>
-From: Reinette Chatre <reinette.chatre@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260831174421.13921-10-tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0359.namprd04.prod.outlook.com
- (2603:10b6:303:8a::34) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D943793BF;
+	Thu, 10 Sep 2026 03:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789012696; cv=none; b=BKkS30FalgQjBEQm86JbHf8Ikfb36JHdZq4cEjy5HTGpmZAv1TnO0Rqdt4256F4JSd5kVLw0Cadm7aCvGhLuZm/EkJo3QT1jb2rbZwzi/+ZP6JNUH9tZnKs5tx02mloU76ePni4paR5KhOR3QnL3e+bdS3OPPU7NHsFgVveUoAs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789012696; c=relaxed/simple;
+	bh=9ZCrTUPQ/2kHb244eHAehIrJdOn/ra7tdhDBjDzk8Y0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IpLsInFTKPrr261TGhCc+jibMKCRAhQzK+MMB4WJb1/mm3Jc0BcGiQO6j4lr6gVjCekFToVAWKq5ULEQlC45CYTqujET0kUuTlNvPHTpAiGKOPo1fiirQXegPXNHl+MAvRO4qoX0dmQBzKg1oU4+k3e0HvKsBCjTiC0nlLWdxPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:783a6890-3efb-439e-bcd4-658632ac3b45,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d8f48e63ea9b832664a29e31d998231e,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d424ba0eaccb11f19a56ed5b684f684d-20260910
+X-User: liwang@kylinos.cn
+Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1146476214; Thu, 10 Sep 2026 11:58:06 +0800
+Message-ID: <9447bb67-96e9-43b3-87c8-db231051fa2d@kylinos.cn>
+Date: Thu, 10 Sep 2026 11:57:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|BL1PR11MB5979:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1124913d-358a-43d2-b4c3-08df0eefa8a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|921020|6133799003|10067099003|56012099006|11063799006|4143699003|5023799004|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: CWT7VtONUJYyG42Jiz9ARoHiH8qdM+z65b7kUQzb+CTPHt2ZtTFeNdtz1rZEraInasKvy5nzO1LrJEQlaEOYkJVGaYGklGaIFjL72dapSMaJMLdlUKBbAAAdhpbWrI69OFxY+No6UbxgAUG9/UszGzYgHgQZhJlvnV3GtGtIni8hJNOUVr2aIGVgrLPYD8XBApEXX2cF9wScHOV/B/uKHaPNYiMHUPeHh9yn+O6RkfTdz19fQa/lIYzko3lR6w/+II5sJOu4ai1AnT0sFIIzsn0TYio6zHl2Y45EIBo95MyxhoBFT9f9GOP8waXBmGvwzSbNx/q4nEZB7lxOlpzXP5t46X/81HV93YQh6Cm0DRBE3IHJuyG0qDqdQm4H+3jBqGey5DG5g19AYA10AB+niQn0gm+gsAdeghM3GXHKZje/aq6mhKRLQV2dLW4bbUW6UieGkiLUpgpzhOXNCzuQ8VRoe+BWTImm+yv18Uq4ZR/BBWycUxqfn5KOJPDpIJ1tvo+FIbqpQtPbDrAOfdctyLKVrLBYjeNj7I6hCVr4lIk0nt26/lr8g6LHqVxxpohk/CRlDTekKHDujN08GIfEmaU2cc27EQ0Hii2i1x0XtyNzohoLGdjVnt2IMi/LPBgebKcaKOgWqD6ztDbd0J8OhbV9LeNi63oUOp4rWB0Dw+JpR1J9lgmagG2155ySb7EmsuOEBmYxYlTvpwF2gXhGlw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2xoVzd3MmNFN2ZhZW9rYkpSazlNVUJHT1lFMHAwSWdGTnNMaXhhOFpFcWo5?=
- =?utf-8?B?dnVPekFJd1Rwejh2bzBSeTBYQ1lHNlN5d2JrcTlPdGMydU4rUGdndVpUMjBp?=
- =?utf-8?B?V0xWc0dNSkltMUtWUGMxMGtZNDM0MnNidHRJVzVseHkvZlVpRnBBZm9jTnhr?=
- =?utf-8?B?WHlMcVFRNE5QUnlJUXZYZGc5dDZ1RE1FNUdCYUJQcHVrRlRTMENVejBoYWRa?=
- =?utf-8?B?Z0w1YllTUHdhSkNacVpqSDY4dkZqcXdoOG5RRXJDalZlMUR1MGhNeExwUnpR?=
- =?utf-8?B?aEpCT3UxNmtHemozcEp4c0tTQU1MdHZ1cFkyeVFJMWtPTERDZ01WWFlOK05U?=
- =?utf-8?B?NWJySHc0eHdpa1dIWFFkcUo0Ty9MZzFLLzZDb0RuSzhwS1VPWG1RSG1ZOHQ2?=
- =?utf-8?B?Y3AwUDlzcUtBYWlDYTdLYzlUM2pKaFZHSTUrTUZtWFlCWGNXSm5hRzVZMnFS?=
- =?utf-8?B?aHFCcjlpTWx6S2hRTElaTWR5VHl2T2FBZEowMzNzM2pKWVZHWU96RklFc1Ro?=
- =?utf-8?B?MVJ6VkZTVmNMaGRMdUlncVh3dXF4Ui9ZNVhJcXd0cVY0OHJXL1BFZ05uZjdH?=
- =?utf-8?B?U3F4eEtwY2F2a2RZNW9OZGNnR0d1dkZET1pjUUVVelc5SlgrWVNDMDBhQzJ5?=
- =?utf-8?B?ejlYMVRES2VsTUVYU1ZTczlrOWdnY3BLMGlwQ1NqUlhXR292VlI2aGczNkw4?=
- =?utf-8?B?aGQrdHAxbTVKZEJsMkJ2TEhKTGlTbWd1OEpKeVVWNmJ6QWJLbWdWaDVkWk1j?=
- =?utf-8?B?YWlZdEpiRkNmQlVyU2FMQzcyMk1reldPeG94Rk1yTHRKSVlzNm0vTFVCZUg5?=
- =?utf-8?B?L0NiQVROM3dpYlFaeVYrVDdOYmFJbVprR1YvTkt1RE9zbk1XWlVEalpaTFdG?=
- =?utf-8?B?RGVOck1QeUxIdTd6d2pGNUtUOVNtOWdVVnhxMG4xZVlNYmdJYU1OU21tMkhD?=
- =?utf-8?B?M3EvbWVQYzBtdDdpaXN5TkVzbUpLdUpiSHBMOW1CdGczdXFzVEdLK2tnQ0hB?=
- =?utf-8?B?d0VPWjFhdTdiM2ZBRzQ1cmlnZ2xuNmwyRGpCZTUyZnczN3FUYmlQTkxIUjFm?=
- =?utf-8?B?TFd5eGdUeDMzTGF3U2wxdmpVZ05kRG5nQmUxemppWmtOdDJXYzJUZVkzWnJw?=
- =?utf-8?B?UTRJY0RTNEdSMXhkTmVORWN3NWFvd3M3MGtxWmpnekVqUmhyUHVJWmtnYmNu?=
- =?utf-8?B?aXRYcDhDVVhZOU1XSTZRTkYrVkRpdDVlaUFnWXk2NC9qTG5RVHZHU0RqUENp?=
- =?utf-8?B?eitVTDFpTWw4enRKOWh3MjdpRG1QanpvTlFMdVdmbVg2dktyRDF5K1c4NnVu?=
- =?utf-8?B?YVVuR0dZOFBrdHRQTGNxbllxbFZNdG9GSkdNZ3p0UFIrdm4zczVBcVE5RDRE?=
- =?utf-8?B?cjdDZ0I0ZExOblRBSThUbC9yUWZuNDhNRDNsVTk5dHczTmkrbktpT0toaWRF?=
- =?utf-8?B?VDNIUllpcFd1aHJ1T21tdk9sVmQxQnk2QjZlcHVSVTRERnIyenFrL2h6L25w?=
- =?utf-8?B?clBVd2t5NTF5eGN4eDBtazdmVmlMMU1kay8rVm5jVkxKUllMcnREMVhjNDFX?=
- =?utf-8?B?b1E4MEhhWFlSdDlUelVVaWZlUXVEZ0dQSWR0L1ZLVmxxakNDTEU4cjd2NjZv?=
- =?utf-8?B?bEZsbVdYQlY0dmsxaFFLOC9nanJvSFBBcWJ1eFhNVnYxZXo4a3lJT2tuWjJa?=
- =?utf-8?B?S2FjMlBiTWFFMEVBZzhWWlVmZWcxK29xTEhuZmx6dGZ5a0pQclM5d015UjFs?=
- =?utf-8?B?bmZxU3BxaHVvWit3QWZneWp6ZkVEVGFTVWJEU05ST0FTQ08wTTluUjF5c0hP?=
- =?utf-8?B?di9sTU1XOWY5aGdueDZzRDNMTVByWXh0WTMxUDcxWjZDMHYrc0cvTURYK3BD?=
- =?utf-8?B?cnlSaVRrNjdBald1QUExa2tNVVFySDQxcm42KzR6QWlpNEhKNm1pYTdvbGVJ?=
- =?utf-8?B?MkZ0MnRCcHhYeTF1OFhtemdHVWRsTGxaWjRPNCtueWlVUVdkeWFDY2VGdDJo?=
- =?utf-8?B?ay8vc0xuek9TRVpQWlB0MmRmYWNWcStoeGhEazVQUS8za2FNRFhJd1VneVZL?=
- =?utf-8?B?ZUlLMmQrZmFTWWJ2WlFna0krdmUybDRHeVpoYndoOU9vYTg2aW9NSVFiOERD?=
- =?utf-8?B?amlDWnBFb3U5eDY3STlwT3RhRG5tZ3JyWjhpWmMvUlVqOCtBZWdocTNpREt1?=
- =?utf-8?B?SGNJS045TWRlbXNpWGpXakJvU2R4VFEzUGphQ3N3OXhmVVJ3UVR3Q2lnMzNY?=
- =?utf-8?B?K25QYjVCREhuRGFLZ1lMV3JOL3ZBaXJxYWpFb1RhM200Ym92TEllNlBKVmhz?=
- =?utf-8?B?Z3ZDVmlBMDNCV1h4WGhUOXlaV3V3VHlZNytkb2xrb3JFa2gxYm5VdWE1a3dW?=
- =?utf-8?Q?EavzeT0dh+RXH9hE=3D?=
-X-Exchange-RoutingPolicyChecked: NRB3tjOUXTJxiXtNCPpQBxvfIv5jpZbhitk+vZF+r+20UQQhdA5zyAmzLjnUkhLBk2YC0/Dk9wHwedY3yafSVoYlHb/Wf6HrnifdspzWeCFHB+aMN/gAQRAIXkeVtoHROeyuJm5PRKweqUPgPHaDRBKMe45EtAvwG8raLnMnXT5RMgClDrmr583oGntXdInPeQ89AtU7zSr2D1N7SNjyUPS9M7DRfEVf18clEV1Wf7bPClD4J5GrwfBa4LfCD6WNOw1aJDAebUFaLYEH++jX/A28J3I8YtsP6g7qUfvtmwiLreII9okWY//snLMXIskWzIIPoGeMDDNfL8bH0X29kA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1124913d-358a-43d2-b4c3-08df0eefa8a3
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:57:40.0559
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ue5cZLzliV6lhiY32CDLr8g20GnGBcykxyb1z2b3ws2IQJztv7zX+9BgdSzY9y+ZpBg/vK1fpJkAbdNFFLJXeTZ9aLmU31lv6aDMHNsoauU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5979
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and
+ io_uring
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <2026090913-landline-encroach-c544@gregkh>
+ <6aed7ecf-d125-40d1-a82d-1a7f62049605@kylinos.cn>
+ <2026090924-corsage-shout-833d@gregkh>
+ <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
+Content-Language: en-GB
+From: Li Wang <liwang@kylinos.cn>
+In-Reply-To: <33c9db65-fa30-4d34-9026-98144ce1ed95@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Tony,
+Hi Christian,
 
-On 8/31/26 10:44 AM, Tony Luck wrote:
-> resctrl_mon_capable() indicates whether any monitoring resources
-> are enabled on the system. It does this by scanning all resources.
+>>>> Nor why "fgds" is the name, that's going to be hard to remember, does it
+>>>> stand for something?
+>>>>
+>>> "FGDS" stands for Fast GPUDirect Storage. GPUDirect Storage (GDS) is NVIDIA's 
+>>> technology enabling direct I/O between GPU memory and files on NVMe, 
+>>> widely used in LLM workloads to bypass CPU overhead.
+>>
+>> That's nvidia's specific solution, but this works on other devices,
+>> right?  Or just for that one platform?
 > 
-> Redundant calls to resctrl_arch_mon_capable() in hot code paths should
+> That was nvidia's specific and very hacky out of tree solution 
+Exactly, I completely agree with your viewpoint. In fact, we previously conducted 
+a deep analysis of NVIDIA's GDS implementation code, which was also one of the 
+motivations for us to develop fgds.
 
-resctrl_arch_mon_capable() -> resctrl_mon_capable()
+Please allow me to introduce NVIDIA's GDS implementation briefly:
+NVIDIA introduced two kernel modules: one module called nvidia-fs, and the other module 
+is a customized NVMe driver replacing the Linux kernel's default NVMe driver. 
+nvidia-fs creates a device file for every NVIDIA GPU on the machine: /dev/nvidia-fs<gpu-id>.
 
-> be eliminated. There are two prime examples:
+Applications call cuFileBufRegister to register the GPU memory buffer to perform I/O. 
+cuFileBufRegister executes the following operations: calls nvidia-fs via ioctl. The 
+implementation of this ioctl allocates a corresponding phony buffer of the same size 
+in the host memory, and establishes a mapping between the CPU memory phony buffer 
+and the GPU memory buffer.
+
+Then, the application calls cuFileRead/cuFileWrite to perform file I/O operations. 
+Its implementation calls ioctl on nvidia-fs with NVFS_IOCTL_READ/NVFS_IOCTL_WRITE 
+as parameters. Inside the ioctl implementation, it calls the common kernel interface 
+filp->f_op->read_iter/write_iter() on the file on NVME. These interfaces can only take 
+the CPU memory phony buffer address as a input, constructing read/write requests sent 
+through the block layer to the customized NVMe driver.
+
+The customized NVMe driver intercepts the I/O operations, calls the nvidia-fs interface to 
+query, replaces the phony buffer address with the GPU memory dma address, and performs 
+DMA transfer between GPU memory and NVMe.
+
+As we can see, this implementation is indeed very hacky and non-elegant. Furthermore, 
+as evaluated in this paper published in SC'25 [1], the phony buffer brings a considerable 
+performance overhead.
+
+> which as far as I know is pretty much abandoned everywhere.
+However, despite the overhead of phony buffers, GDS performance is still significantly higher 
+than transferring through CPU host memory (as shown in our performance benchmark tests [2]). 
+Therefore, GDS is actually still widely used in the LLM ecosystem. For instance, model loading 
+plugins used in inference engines like vLLM and SGLang—such as fastsafetensors and InstantTensor—
+both support acceleration via GDS [3,4], with fastsafetensors enabling GDS by default for model loading. 
+Furthermore, LMCache, a plugin used for KV cache offloading in vLLM and SGLang, also supports 
+GDS acceleration [5]. PyTorch itself also provides file access APIs based on GDS [6].
+
 > 
-> 1) mbm_handle_overflow()
-> This function is called once per second from worker threads running on
-> each L3 domain. The call is clearly redundant because worker threads are
-> only created if the MBM monitoring feature is enabled.
+> AMD came up with something similar, but all those approaches are so fundamentally broken that we didn't even considered upstreaming it.
+>> And you are using this as a "bypass" for the normal accel subsystem,
+>> shouldn't this be part of that subsystem instead of a custom user/kernel
+>> api like you are creating here?
 > 
-> 2) is_rmid_match()
-> This is called for every task on the system so making it less expensive is
-> appealing.  The call is redundant because the function also checks "r->type
-> == RDTMON_GROUP" and this type of group can only be created on systems that
-> support monitoring.
+> As far as I know there is a patch set under review and even already partially merged which enables exactly that functionality as general feature for DMA-buf which is vendor independent and should at least in theory work with all drivers.
 > 
-> Remove the call to resctrl_mon_capable() from both of these
-> functions.
+> I'm really surprised that somebody is still working on the vendor specific stuff.
+As you pointed out, every vendor has been inventing their own way and interfaces to support GDS, 
+introducing custom kernel modules and proprietary UAPI interfaces, with varying performance that 
+leaves developers heavily frustrated. Apologies for not making this clear enough in our commit 
+messages, which understandably caused some confusion. We merely borrowed the name "GDS" to describe 
+the functional purpose of fgds.
 
-(unnecessary line break)
+In fact, we believe fgds offers four key advantages: 
+(1) GPU platform independence; 
+(2) POSIX/io_uring interface compatibility;
+(3) Higher performance than GDS;
+(4) Minimal kernel footprint and UAPI footprint
 
-Patch looks good to me. I agree that sashiko's suggestion of an addition looks good.
+Regarding (1), (2), and (3), please allow me to briefly explain the design mechanism of fgds:
+fgds turns a GPU memory buffer into a POSIX/io_uring-compatible user-space virtual address via 
+three main steps:
 
-Reinette
+Step 1: Utilizing ZONE_DEVICE support, we remap the GPU memory exposed via PCIe BAR into struct pages 
+using devm_memremap_pages();
+
+Step 2: Utilizing dma-buf support, the GPU memory buffer is exported as a dma-buf file descriptor (fd). 
+Using this fd as a bridge, we look up the corresponding DMA addresses for the GPU memory buffer inside 
+the kernel;
+
+Step 3: Through mmap, we insert the struct pages corresponding to the GPU memory buffer into the userspace 
+VMA, mapping their physical/DMA addresses directly. The virtual address returned by mmap can then be directly 
+passed into standard POSIX or io_uring interfaces.
+
+As you can see, since almost all major GPU vendors support exporting GPU memory buffers via dma-buf, 
+all remaining technical dependencies of fgds rely on standard Linux kernel infrastructure. Therefore, 
+fgds is completely vendor-agnostic and natively compatible with POSIX/io_uring without introducing any proprietary 
+vendor interfaces, which greatly simplifies development, deployment, operations and unifies standard usage. 
+Furthermore, because this technique completely eliminates the phony buffer, its performance is significantly 
+better than NVIDIA's GDS (as shown in our benchmarks [2]).
+
+In addition, since fgds uses only the most fundamental dma-buf mechanisms, it relies on baseline dma-buf features 
+that have been supported in the upstream kernel for a long time, rather than any new dma-buf features currently 
+under active development. In fact, before we recently ported fgds to the latest kernel tree, it was developed 
+and ran on our internal 6.6 kernel. It has been running stably in our production clusters for over half a year 
+across various hardware platforms (including NVIDIA, AMD, and several other vendors) without requiring a single 
+line of GPU-platform-specific fgds code modification.
+
+Regarding (4): We believe that implementing GDS-like functionality inherently requires kernel assistance to map 
+the GPU memory buffer to a valid userspace virtual address. This inevitably requires userspace-kernel interaction. 
+To the best of our knowledge, the mainline kernel currently lacks a dedicated, unified path for this specific interaction, 
+which is why various vendors ended up writing their own out-of-tree interfaces. In contrast, fgds introduces 
+only one single new ioctl parameter (REG_BUFFER, excluding UNREG_BUFFER), and confines its scope strictly to a 
+standalone device driver. We believe this achieves a minimal kernel footprint and minimal UAPI addition.
+
+[1] https://dl.acm.org/doi/10.1145/3712285.3759862
+[2] https://github.com/Storage-and-OS-for-AI/fgds
+[3] https://github.com/foundation-model-stack/fastsafetensors/blob/main/docs/configuration.md
+[4] https://github.com/scitix/InstantTensor/blob/main/csrc/loader_io_cufile.cpp
+[5] https://github.com/LMCache/LMCache/blob/dev/lmcache/v1/storage_backend/gds_backend.py
+[6] https://docs.pytorch.org/docs/2.14/generated/torch.cuda.gds.GdsFile.html
+
+Thanks,
+Li Wang> Regards,
+> Christian.
+> 
+>>
+>> thanks,
+>>
+>> greg k-h
 
