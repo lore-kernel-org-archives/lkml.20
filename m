@@ -1,199 +1,299 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011012.outbound.protection.outlook.com [52.101.70.12])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA355474F;
-	Thu, 10 Sep 2026 20:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789072658; cv=fail; b=Sun+UUpoTXgeUU8WaEgaDdiSC0uoyAly1CfwISX0yvjD7i9QrZJ7VwI7vyfqNLxt+cd3gGN5F54G3uMiz5O6BQKLg7Jqn8ycpISG5+zUvKaBuSU4A9knW0qRmAYYZ3xTm5gd1+i60PGU8y/npaUisbGxzyxWK83YvrcN90+9Bfk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789072658; c=relaxed/simple;
-	bh=BwkhcFyLliPVPZoV5FZXmnhrZe46+83E870KVQqpYqw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dRLCs8qGac6hPODQlimwZ09LJnd7/Jha3Z16/H6ZHA1pjs0497vkXAM8nl3DmmV/A8TXS8hFcWe2q4bIx/iWjXYfGt1RrMYKnQtgFucFbae4X/eyWXlmTOaDHfOmEPup30FTkHHb0aHJJ0LQ5PH3vk/S5iuhhCIeDgKJrigYL+I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fVa2YKVR; arc=fail smtp.client-ip=52.101.70.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE473AFCF2;
+	Thu, 10 Sep 2026 20:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789072772; cv=none; b=ZlFTujJ7qzsV4RMBG767fNqB+2yRyOSrcOiqoiCCswiwTGlBPg7R2c0XIHqyU7aMkGFWTrQjzdLM5SbYVTZ/28UuuKDnjgP6xvJ7JmRfEzjtzxoDk2Q86Noph5o+JWRt1m+/n7Sbq4cM1zoEp1+JwinlCLvoe20SQHF0+1pddPU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789072772; c=relaxed/simple;
+	bh=g3qfImC2h01KshJfrIk7NdD5XezlhQP1j+AVRMUy4XA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UlexLLNmkzkLE6/cUPJGNrfFF5yMcIakpst0sREyE2kKqV3T59cwCawMGz03TlLX6L5hJqtftOlDXFGJREGfY9R7sn2FrC/mQcd6BtxfILMeQgz6dK6tnVepyp91DU2dnFQ77TTK0PnCw0FIK1O7KdMqG90o+yjW3yNqFLnRr1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.b=QIeRQfLh; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fVa2YKVR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h7VSFgFuMGFB7hD8XQ0cb41Qacnd/sD4Nq+UQ2BxdJlMKLtma8xwrUO6F1+884d7BdNI9ezvvj3ku++Srl8qhexIqmtHEB7Ntt4i6yezTcIHfPuiPWd4nGVFaomlvh2s4fdBRWjgLeT3kKj7WIqRN+PitmfSjg03jDisfWyqRbDrxozbP4jPcONK1ukfQL+D5AqXX4Rlk9gFYYiVB9d/U24xeavctfFNXWqU1lU7eBpaO+JHmVZkDu6IiXwgkG2+TZhK+Lfxha7O8R+K5zMMlOSc09c1oShD8JPSx5R5eDI8gWSfcGqtyqGV14vzrlcpKZQn1kr+9wNYFfo/WI4ksg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eZ7ZXsnCUAQTYC3E96kxY/lFhI1O8FPk1ZGcdlaqnBI=;
- b=OVGBjPKR7zlQcCWgg0EWf002Q8sb78u6U9wa381QwFa6Ec7uc5lQLPMb/od50UZSConc+m1C4nObZdtkBQyKNjDSRTWrmQr9uhsHmestKDvxuATdzx5LxuyDCdK8980zLFK+h2INqioEzlCi3VsSEtHCtHxtjpSeSYwZzgkomoJkdNZPIlPwF17XLneFoEnIKPhzwHBhgMScSCQIBkDwA+qiEAha7Auh13GylBCdRp0Jtj9q2xp2A/SzCVURQky3QCI5gpDlrB3LjY1KoUuxzNgS5x1ndmY08/1axfuKJgeF/+zpdHnmyNongsR+IDKZ1FH+Jvz6A+rbXRavbchFcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eZ7ZXsnCUAQTYC3E96kxY/lFhI1O8FPk1ZGcdlaqnBI=;
- b=fVa2YKVRFjaf8VcV5e9xSWWHg3Fv8pr/q+eS3o78qe6w29az/C7y6F66Y5VE5LDeiM+ubs+yEYLqgjpN45UO7qwWpBxCbyawMdwRhbJK2VNyREd+sT5u5la55P42JXXNyavr6KwORfOjqvUdskZ5rtTb1rKTRFLb+hvpQ9UYIK9DVyxGzIgLR+pbaGnOIN4xTt284a2oLkBGiZKDR+Qy9CQDZ+EHVHkrstt6X6F1LxJHbhmyY3Z/Z5k18slKj1GDjdT257x8npFXD+zlGA563kPrVEs8vK8ALr5xdwkYRwpWGj/gCBXJlGYyB2LU6SNn9owoL5qDe3lLuKJ1h5le0A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8745.eurprd04.prod.outlook.com (2603:10a6:20b:43e::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 20:37:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 20:37:34 +0000
-Date: Thu, 10 Sep 2026 16:37:25 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>
-Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, shawnguo@kernel.org,
-	s.hauer@pengutronix.de, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-imx@nxp.com, linux-arm-kernel@lists.infradead.org,
-	jackson.lee@chipsnmedia.com, lafley.kim@chipsnmedia.com,
-	marek.vasut@mailbox.org, Ming Qian <ming.qian@oss.nxp.com>
-Subject: Re: [PATCH v7 4/9] media: chips-media: wave6: Add v4l2 m2m driver
- support
-Message-ID: <aqMVBbzCnEsxx54Y@lizhi-Precision-Tower-5810>
-References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <235b2de7057182d619a361dffc247f1c1f438a3c.1788496816.git.nas.chung@chipsnmedia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <235b2de7057182d619a361dffc247f1c1f438a3c.1788496816.git.nas.chung@chipsnmedia.com>
-X-ClientProxiedBy: PH7PR17CA0072.namprd17.prod.outlook.com
- (2603:10b6:510:325::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.b="QIeRQfLh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1789072760; x=1789677560; i=deller@gmx.de;
+	bh=g3qfImC2h01KshJfrIk7NdD5XezlhQP1j+AVRMUy4XA=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=QIeRQfLhojnKorSQliIn+PTcUqwOlvEG8c+g460eDkWgej7Oyn7MPlWRyxlq/fms
+	 kj3D6uunWVLUUdUTDa3E9VXkDm6RD8uV1n9CbHau8gtEMOncDVoj4MkRhHoCZSscJ
+	 2J8LhtluYRFHqYp/cnc9TbSeeVvCaeWT1DFa0akn+rG1zCoQF+7o/82VZQXBsaeWz
+	 MXPIERkreX70ACoMzRAIXoR+VZZWyc/EiUS64Ax5vpsvwaqUnaF6EST4ps0sA4MWD
+	 vN6CXYhLUKoiXwoJHoLnB7M2xlw1KUtyrPhxO1TTk+KmGTd72kAIT944bD7b2d17U
+	 8asJOJd0AZgtEQl1BA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MxDkw-1wtxrM0vjE-00yzkv; Thu, 10
+ Sep 2026 22:39:20 +0200
+Message-ID: <a8cb0e4f-a2fd-4478-99d6-fdb043a9d15c@gmx.de>
+Date: Thu, 10 Sep 2026 22:39:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8745:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97a80ddb-eb4e-4d54-dcfe-08df0f7b57e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|19092799006|22082099003|56012099006|4143699003|3023799007|11063799006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	X8jR5XTVS3DR+uzV3a5i7/Gb5AZQAElB7F7G0Cxaup3CgLuKN5KtNheS+sv/FNF2jo58WMG1D0F4HgL3d+WhorOtFF9kYaHUb4+xOrO4eIiPz63dnmQIVqSR6RKZCKz4GTRpdBrCeCrYoaTnAFpI2hb/Hq7kyvKlO9+gheYE6eCGjC0tJVWhPJw0pYHf/ZKnKEHBPvE448cdPOL84YlN25m61QYvI1JQY2iFoWGxLNX6/S9OdFqNF4ZA7VEijdcV3RvznG0Bd+NxlO7BUGlPEBBtXCNYtj+TFZyZ96eLEEkzfDMcpS275l3qIf+VSeLLRyi/jVDGT3g9Kipdur0WJjSYoZrPqpHRxqG2PICTse26tso1BlqJBkKenNyiCO3aqIMssJpQ5eBHLcDfdpZ3ViJK86/q/6qp55OnvBy4BxiN5Lf0a1qKEunf2tIjMjidM3SdhiI3Uo+xgYFQgvECM/e2+ostarF0p8kjN/BtOlNJ7y3AaRk39C51W1BZIUzMWnOfKRebSB7FiHNvjlv0BJJjLMOvWw2StaX6VQh3h09Qwur+gDaAtbh5jRlj6x+sUOXR2YPfkt6+H48GzXjgJlmiv434/3/gF/Ix0+R7YLxDOnVzm2fFoWrKna6IrD0RZfruF3QZq6zB69MxN8DQM8beB+f5q0A/EJPg3AodUAU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(19092799006)(22082099003)(56012099006)(4143699003)(3023799007)(11063799006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?p/CBQxa7ZXstuOMr1AJr0alGjeHmqTUInpyOt0SKn10BSlqvGhv6NubqRABU?=
- =?us-ascii?Q?2LNpdra1jqSr00PqA8DMf0+q0BUz8Z0aPWBlDOKf0u7+rQYCN0pc3EeR9agG?=
- =?us-ascii?Q?zaZ3AIyO4ArzzH1SmRRxSL84TiKfdAfkO8xR9soJCmFakoZHswNVv0dqXeyT?=
- =?us-ascii?Q?Cj8Slg4LZ0KLnTxB0/neAuXTdhCS3lNH7yZWY94VZyUILnNs5CFPN6/gmGWN?=
- =?us-ascii?Q?pcAnT9fnmxg+ywqWB+TO+NNaUtKr8TlsYhz/m8OZlYZrzIItroinQs9mDFoU?=
- =?us-ascii?Q?okCdVu2hZmwzxbDbn0jAO8Re6yFyA2Z1ERr+zXNB1f0ZwfsmdOrYaC8rhyKi?=
- =?us-ascii?Q?qKsS3DK090Kj8pCrT20zA9CuCBtZDZbbj9ZT7uaYdrkt3sjqr9inP7UZD/0c?=
- =?us-ascii?Q?yW/J7f2LB0a6VDyKRb0Lum+GLROuxJ2XEMLnh0wh2wJ3yU7WF6QGslzEdIt8?=
- =?us-ascii?Q?ArJNtrUiwmNK0omnsQ+sBTa6OmC9yxnwlQ69xLyGj5eaUwRNr3GSyLMEtvX7?=
- =?us-ascii?Q?gwJ1m8IPhdnHQeB1c48gcn/VCb+LqC0NeFFxrGghLG5bBidxGb0QK3w1JEuj?=
- =?us-ascii?Q?kk2uUQa0t95OxwPjTOL3bD9usrb0XWG0Xa58jcQdUJBxaPsIIGSe3eYplLoU?=
- =?us-ascii?Q?zMYxxkpzpjHA5nnxwqK4WLZCQQvhveD18sWGvYyZ2Y3tp//8aX6VyFgMJ0J1?=
- =?us-ascii?Q?/vmZiAQL457q3HseHV/Cgd2ZKNLMlOob6W2yHJMMpj0pf9fFri+Pvs39RF0j?=
- =?us-ascii?Q?6aI8TDahoLnQXl7/u7uBwC+kpRbTzUJS4hoBcAy45JS3lhrP2h3Q8RFOlI0P?=
- =?us-ascii?Q?gtQZ094R0eLuewiuv6XNpdmR51pIHSLNtJ10O73av3dBdhXzzaV03Q2PnXfR?=
- =?us-ascii?Q?VG2bzHdzJbTM5AE+CGSr9ddu2zuwgfp046SxjtF7yKefyWsUoqbs9bSdYvb9?=
- =?us-ascii?Q?SPUbdw3dW6+OPP0SxZuZiCO4738e6XZ1C3IQK2eTEnECzc6e7fRIH24ePsPl?=
- =?us-ascii?Q?MrO4xa2frlu2aX/cFnLNn5n81cuamdj8/Mdb/wa2Zw3yLw3tuiT9EhoTunbA?=
- =?us-ascii?Q?x4dUKmNN0lnP6VcxRtoPmOAb5gx+VO5Wg5cv4JQ+g7f6Tlb4JIou450buHt8?=
- =?us-ascii?Q?kubIJ+5c6gCBlqqHGFfdfCmTVuOrQvEdjxSHX0XYXsCpiZJL5/kNtG+tneCt?=
- =?us-ascii?Q?y8HX+TD/R5+q1H/bQ2bWY6+jF5Lqb7z7SoqW8RAXJVpUDn7kkeGGGC1drTO9?=
- =?us-ascii?Q?KkBhJkQrUi/K9HiLgvDNk46LrHpThVPCC3yKuj31TUQyr0jAveajOjuckM9X?=
- =?us-ascii?Q?rOAAQqJSz8NuPnRqb6WfjNuqGxR62Ug4QvWFDm1HY74gybSrJ5fzFGrGdj/S?=
- =?us-ascii?Q?Oga/m7148nhA1dtsQ8PF/GjF6rh1BDym5Ga994O7/mW2TKG2sWC1TwbKlW+H?=
- =?us-ascii?Q?j6vL3pJJk5IoXl4TRTSBCW3AGFHD06buwgWn7iKXMNlHDz6ZP+//TP96ADsm?=
- =?us-ascii?Q?CuS30bqMxC0NR8+kTyuTB/5uv6MEI9VNlIODOpyUIJwwhV+Xpm8hYbSVDzNt?=
- =?us-ascii?Q?ymcJUYa5ywI2zoZcV+uPxU4SeJK6YfWPdAB9moMBiHyD8ojAb/WCWWP3Wl0u?=
- =?us-ascii?Q?tZDfeIC1k5hEhqTHO7d8E9EvrVbHDT+bBnMtRZ/Ko5MDAV1Kx38e+eGieWWy?=
- =?us-ascii?Q?iGhJ8Xz/X1m12xp63BR/S2Igzcw06X3Fu0ZVd1r322ThM98j2sbtKR9blPw7?=
- =?us-ascii?Q?l2bsTFgG/6HX6RffzHsPn0m2bC65EOMhxgpopB/GlBcK7DM8D54R?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97a80ddb-eb4e-4d54-dcfe-08df0f7b57e8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 20:37:34.2164
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xqtb5wOAUb9pTCsNZt32Sj0/v1HmFXKeqfxHcx56B1iZBtXBmnzbi8TXetCtvp5cEoHKhkZtWFhEg8iX8jwwCcx9n0Q7K7Vg09+/WV1d95GMiOqIroVX2nbCNGWpH4Eo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8745
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
+To: Michael Schmitz <schmitzmic@gmail.com>,
+ =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>
+Cc: Linmao Li <lilinmao@kylinos.cn>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
+ <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
+ <CAN5rfbSh9ZoUkReAqv9rHYowqKcZFa-Svy6LP-MHvqfBVhjdBQ@mail.gmail.com>
+ <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:UCX50ZVdrjHwz3CDgvpmsdIHQgqeN6o5bv/KOFkGJaElwjwoeR3
+ FxfTjSWG42PhNUY1mVlXTZ1G+v4maE4BIsQdHnhKj7st8Rwa2k5rRyp5Mtw1DpUz+bYsr/F
+ wxDJagGew+JayxC0q0L+th6ZMNA8HFyt9Nd29/NG/bg1mVVwJDVjNUtKKXCW1L42YZO5Uji
+ h1vvN2xRenVRkwMCZIAUg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:pFZam9D5Weg=;/vQO37QL9GlPPTYv6vPKtU6QI8y
+ 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
+ VcwU7FyLDsp1L9dEmlu46jd6BAVyINzyLxQ==
 
-On Fri, Sep 04, 2026 at 03:46:30PM +0900, Nas Chung wrote:
-> Add v4l2 m2m stateful driver support for the
-> Chips&Media Wave6 video codec IP, including both encoder and decoder.
->
-> The following features and formats are supported:
-> Encoder (8bit only):
-> - Supported codecs: AVC, HEVC
-> - Supported input formats:
->   * V4L2_PIX_FMT_YUV420/NV12/NV21
->   * V4L2_PIX_FMT_YUV422P/NV16/NV61
->   * V4L2_PIX_FMT_YUYV
->   * V4L2_PIX_FMT_YUV24/NV24/NV42
->   * V4L2_PIX_FMT_RGB24
->   * V4L2_PIX_FMT_P010
->   * V4L2_PIX_FMT_ARGB32
->   * V4L2_PIX_FMT_RGBA32
->   * V4L2_PIX_FMT_XRGB32
->   * V4L2_PIX_FMT_ARGB2101010
-> - Supports multiplanar format
-> - Although 10-bit input formats are supported (e.g., P010, ARGB2101010),
->   encoded output is limited to 8-bit streams
-> - Supports crop
-> - Supports extensive v4l2 encoder control
->
-> Decoder (8bit only):
-> - Supported codecs: AVC, HEVC (8bit only)
-> - Supported output formats: V4L2_PIX_FMT_YUV420/NV12/NV21
-> - Supports multiplanar format
-> - Supports scale down
-> - Supports dynamic resolution change
->
-> Note: While other versions of the Wave6 IP may support VP9 decoding and
-> AV1 decoding and encoding those formats are not implemented or validated
-> in this driver at this time.
->
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
-> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
-> ---
-...
-> +
-> +u64 wave6_vpu_cycle_to_ns(struct vpu_core_device *core, u64 cycle)
-> +{
-> +	unsigned long rate;
-> +
-> +	if (!core->num_clks || !core->clks)
-> +		return 0;
-> +
-> +	rate = clk_get_rate(core->clks[0].clk);
-> +	if (!rate)
-> +		return 0;
-> +
-> +	return (cycle * NSEC_PER_SEC) / rate;
+On 9/7/26 22:14, Michael Schmitz wrote:
+> Hi Miro,
+>=20
+> On 7/09/26 23:14, Miro Krop=C3=A1=C4=8Dek wrote:
+>> Hi Linmao, hi Michael,
+>>
+>> On Sun, 6 Sept 2026 at 11:49, Michael Schmitz <schmitzmic@gmail.com> wr=
+ote:
+>>> Hi Linmao,
+>>>
+>>> thanks for your patch!
+>>>
+>>> Am 27.08.2026 um 21:39 schrieb Linmao Li:
+>>>> The SuperBlitter operations derive an integer byte count per pixel.=
+=C2=A0 The
+>>>> accelerated fill path handles only one-, two- and four-byte pixels.
+>>>> However, the operations are currently installed for every external
+>>>> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bp=
+p
+>>>> truecolor modes accepted by the external video parser.
+>>>>
+>>>> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copi=
+es do
+>>>> nothing and fills fall through to 32-bit stores.=C2=A0 Planar 8-bpp u=
+ses an
+>>>> incompatible memory layout.=C2=A0 For 24-bpp modes, fills also use 32=
+-bit stores
+>>>> despite advancing addresses by three bytes per pixel.=C2=A0 These cas=
+es can
+>>>> corrupt the framebuffer beyond the requested rectangle.
+>>> I believe 24 bpp mode can be rescued using something like this (entire=
+ly
+>>> untested):
+>>>
+>>> --- a/drivers/video/fbdev/atafb.c
+>>> +++ b/drivers/video/fbdev/atafb.c
+>>> @@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *inf=
+o,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case 2:
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset16((u16 *)line, pix, rect->width);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case 3:
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 memset(line, pix, ((rect->width * bytespp) % 4));
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 line +=3D ((rect->width * bytespp) % 4);
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 memset32((u32 *)line, pix, (rect->width * bytespp) / 4);
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 break;
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 default:
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset32((u32 *)line, pix, rect->width);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
+>>>
+>>> Can't test this on hardware, and would need Miro to confirm it works a=
+s
+>>> intended.
+>> Linmao's patch: I ran it on a Falcon with SuperVidel at
+>> 1920x1080x32bpp, all good.
+>>
+>> Michael's 24bpp fill: I cannot test it because the SuperVidel has no
+>> 24bpp video mode. It was planned but never implemented. Its mode
+>> register offers 1/2/4/8-bit bitplane, 8-bit chunky, 16-bit highcolor
+>> and 32-bit truecolor (24-bit RGB plus an alpha byte), with the
+>> remaining code reserved - and TOS offers no 24bpp mode to set.
+> Without a 24 bpp mode, the 24 bpp fill is pointless, so no point trying =
+to keep that mode alive.
+>> Unless I overlooked something, the fill also looks wrong on paper: the
+>> first line is filled with a repeated byte and then with repeated
+>> 32-bit words of the same value, which cannot reproduce a 3-byte pixel
+>> pattern unless all three bytes are equal.
+>=20
+> You're correct - we'd need a memset24() to account for that. Without har=
+dware support this is an academic exercise that I don't have time for :-)
+>=20
+>> On the fbset question: no, the pixel format, depth and geometry of an
+>> external framebuffer cannot be changed at runtime here. fbset -depth
+>> 16 and fbset -xres 1024 -yres 768 both return success and change
+>> nothing, because ext_decode_var() only validates against the values
+>> from the boot argument, ext_encode_var() re-derives every field from
+>> the external_* globals and ext_set_par() is empty. Only a reboot with
+>> a different atafb:external: argument changes the mode.
+>=20
+> All good then - do you need my Acked-by for Linmao's patch, Helge?
 
-div_u64, otherwise 32bit compiler build failure.
+No, I think your Reviewed-by is sufficient.
 
-Frank
-> +}
-> +
-> +int wave6_vpu_wait_interrupt(struct vpu_instance *inst, unsigned int timeout)
-> +{
-> +	int ret;
-> +
-> +	ret = wait_for_completion_timeout(&inst->irq_done,
-> +					  msecs_to_jiffies(timeout));
-> +	if (!ret)
-> +		return -ETIMEDOUT;
-> +
-> +	reinit_completion(&inst->irq_done);
-> +
-> +	return 0;
-> +}
-> +
+But I added a
+Tested-by: Miro Krop=C3=A1=C4=8Dek <miro.kropacek@gmail.com>
+tag, if that's Ok for you, Miro?
+It's always good to know if a patch has been tested.
+
+With that, I just added the patch to the fbdev git tree.
+
+Thanks!
+Helge
