@@ -1,120 +1,134 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83E534752D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:46:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789019174; cv=none; b=VbGsXqEVcgIKt4pNVgLmtthf7guf/AIGvBDTkNh9VLzW8lT8FI6ZsD+AxpI+6M+qnGLYw8gZWWo5z36Vh5s590R5BWnJwEEXueNu3Z6GGfn56Ug65xx6QVd5iazswVyGgOxime26EEgWVfDLft5WcycnumUFYWCbMgjF03LCbww=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789019174; c=relaxed/simple;
-	bh=fnx/8AcbTnHH8l1xfCXH1t30VnijkM4gl54BXgr1S1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=erB1vkloMgL8jTENfKwN9gBfa6igLz8x2+HXZiNJH/JOnSwlB+qJ71qKDdsMyz+TSqmm80MFsHPpNvLJYD7A0AOAn+U0izdjs2WHoBcYbmr5AG18/zwa2wonzH+iiIIO/lXjoKbnMy2aA/hMwf/qrkHLRjaD/wJEnkWNJo96be0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fiyTwTVv; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8348336EDA;
+	Thu, 10 Sep 2026 05:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789019192; cv=pass; b=TSK0tig6tIbVoeGZyxY2U15yjjIDjhzLyqHlTff+qiQLX8jVwg1ubGVEjZgwm79vYaWQjI9EL7W+4VI7xZDzBE0IXRIZNie3CtF3I+lsU1l2NARKHNylXGwldTmiegqKT85nKbixWrXBljVhiAy746YOoi0o3Re8TBcNTG9uaYM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789019192; c=relaxed/simple;
+	bh=YtdP46YGsVfg6Y0jNMmBJjB9UHdT/wZMDHv9ZbhZUD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pNO9f9WQLVeOjGDdCZsmvxbcUPcus6fElZ09QMOAvEXt1RPfXpwCK9+W1rfDFyKqFfAM6ZOYw6SdDjcALrP/P+DtXhRkkg1+PlCPU1Equpnu/LJSiZYN9rckjcG8eCw4rdCfpcRaclThpGZF1TbaoVN2RvseZmgtaDcqUVTIOdA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=BViIfc2j; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fiyTwTVv"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso791745a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 22:46:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789019172; x=1789623972; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lE5bmYQSEcccsYl1AnANvihWUXVywi9TBbBYgSROwSo=;
-        b=fiyTwTVvnXgcM9xzwQeZjk7Jlawo/hh1+7mnEJJbWxdluNOQ8lVCCXPX1z/+MLY/4C
-         19rL2Cvwsi0iJZ7+DHqhJttB5Fa+47opHiRmwqSCE0ebKpBl5JkvE+J5/ysggVfv/arM
-         qA+nzukveLjqnzTIibGjlgvmUhBZUltDk1m0a1EH65uxbdCzgeukYqDFFewjFyif/Jpn
-         VW3416iAh/2gOP/mlI+ApronND8IRPwkxnpwAnchR+p3J1c6azkEQH7xCRoeMGKzObQi
-         1v4lNG/+K6kQkQ+Q1J9QH73xa0/5hTeuTgBGc+2MGEBpWDSN0I1Rl2tPKYsspOdf/gPC
-         piyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789019172; x=1789623972;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lE5bmYQSEcccsYl1AnANvihWUXVywi9TBbBYgSROwSo=;
-        b=W/70SSEDwe5t4qxxRC5BgkYAp2inbxGrkL0QMu8FQRrwJd8hJGgmkZ0XTU4lqH5BXQ
-         DsfUoiRoCkroOHrD2rjyxwbW+Kkrg2LdH45xRmw3TKGASpMWnXALE2Cq5jOBj1mUEDC9
-         OS0DUh2UopbJHMcgEuax3rFJCjy+Rq0XCzaAVZjqUopa/JWA4BXXtUEMqoFxAE+UWzjZ
-         JY8PmTbUCvJy/hAPvPHBxetAAiKTwVJQgYK5r5+Vj9FzZ1dZDaex9FKyx7qkWP+3vHaQ
-         ySH1WEUZOSO6XVSSXJt+XhZLKKG88NTbZgrZIVAgaz+fu0RIYJU8SWVWdnxEuz03sEnH
-         1mFw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6eDMGXa9IOkSBr2fbfMsjiKBTWcguy5rFlj907oG7JTvYRWCkoBJCTX/EAjEdkd3drmt1hLeX/vwWUtc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nw5aKvnu1Sf7hl9bsQci7Vc9jmfMaSWLhZmhFqoJnCYUuhfH9T
-	wM3mWLbC1YoZEtJcHMyygAQqA49txqIQHSQWr1P9L7+b167av2gA6XwTa75E5Fw=
-X-Gm-Gg: AYBFou09xnaz5+kObhMqh3Z8Ikfr7gVHaWJlG08eKVho/ovE1wPJIEV6k9S6eQ4RTxA
-	Riamnc69e95kqS1BoWlj2kd0ZqpyEeaQT1XJdU/FMZk9VwmXw44NeFFPYbbbzPCi1kqwZnd/FcZ
-	Z0LtczpZ0LZf+p342t7EJfi5fhoFT6yUubWDGk05oVzPIQHFpkwzHhZu2p8mwungNMKveDa8zse
-	OMtzfWlL4X50mdHQSY5GqaIhcxlN6bobS5fajcJMVPIZWT8tfLy1DTFdb3r5MZytkJvVAfXsVBP
-	6mg1yy0d9z3R1oz9a405hdgWhSngGY98/lBYtn7PUvNknPvzqS9mPO1aKKxR35ek3AEYitsCAKN
-	e06SeCaUe/q8iT+tusvnZpZk0dDxGDWvKWpXRPx+K6NSe/IM9CcfXqw0wL91xVoqlAjYFZZMaJx
-	uMmrfCj2isL40rHUJE2elmdIoUQohg5dgVBmMwgXc2P5PhXlKW/dBquzXNIdWRV0Hz6j+rNpfUt
-	tCpnLLyJQrPtXtz1cyVBReMkA==
-X-Received: by 2002:a05:6a21:6487:b0:3d4:52bd:b89d with SMTP id adf61e73a8af0-3da3a0b2671mr57967347637.23.1789019171857;
-        Wed, 09 Sep 2026 22:46:11 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455451b46sm7572279a12.18.2026.09.09.22.46.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 22:46:11 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Luben Tuikov <ltuikov89@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Matthew Brost <matthew.brost@intel.com>,
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="BViIfc2j"
+ARC-Seal: i=1; a=rsa-sha256; t=1789019110; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AkQWj5X2/WfkO6AuIy0TCQ1tG9312gOD3opHqvuSuXenAlsy6sjD8nEWUM6u/OxbXtSB7rcldEYAOYPoLVUDRc3tNkihEMnZYibMnkYG4XrnYV0wNB1Igh2Eo/Zw8VVBx4QtiYQvhe3grL3qBDxP4SVeMQuEcg7+mDfob1QDJ2o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789019110; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=gSn3Fj7xFgo+r0eHxl6g7t6RSpvjjOk+wb4fUejubdY=; 
+	b=AUn5a2goTpVrQ8O17s8qeAvcAcpm9jWzPaN0TbprNnbB9r3ctPRCjjKZ3MKeIKWvfS271CSpRJ2O26M9Aa4xMRlxnIx4qhGruvbBHgCpGLGFdeNB7kbfDviPssfXPgqhKrhEvl5YyFB5gVisclvKa2Sh56s3OBL8e8Rp795XK0o=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789019110;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=gSn3Fj7xFgo+r0eHxl6g7t6RSpvjjOk+wb4fUejubdY=;
+	b=BViIfc2jSXaV5qCndq2qxXIi/yhYpkr2fIHGSTQY7C4N4AQCC9L6shvguAwLLpa0
+	j0qgMZqfiWXFbLn3PMCzSfWmSGbsBCDRA1/uHBlxujS0Pjg/14q42l7vJdoewV+jxAJ
+	CnuNfTLwDFbsmRBBK0fKAAGmWU47BjYfznWfx104=
+Received: by mx.zohomail.com with SMTPS id 1789019108502587.6996467974229;
+	Wed, 9 Sep 2026 22:45:08 -0700 (PDT)
+Date: Thu, 10 Sep 2026 05:44:50 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Inochi Amaoto <inochiama@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Alex Elder <elder@riscstar.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Randolph Lin <randolph@andestech.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
 	Danilo Krummrich <dakr@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: drm/sched: run queues freed before the TDR that drm_sched_fini() waits for
-Date: Thu, 10 Sep 2026 14:46:05 +0900
-Message-ID: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>, Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH v5 1/6] PCI: spacemit-k1: Add device data support
+Message-ID: <aqJDvogeo3avWWQ3@pie>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-2-inochiama@gmail.com>
+ <ap_i5Pw4nVB4LZ-7@ashevche-desk.local>
+ <aqESGs3_BxOd4PYg@inochi.infowork>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqESGs3_BxOd4PYg@inochi.infowork>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.6.0
+X-ZohoMailClient: External
 
-Hi Philipp,
+On Wed, Sep 09, 2026 at 04:00:33PM +0800, Inochi Amaoto wrote:
+> On Tue, Sep 08, 2026 at 01:26:44PM +0300, Andy Shevchenko wrote:
+> > On Mon, Sep 07, 2026 at 07:26:00PM +0800, Inochi Amaoto wrote:
+> > > To reuse the K1 PCIe driver logic for K3 PCIe controller, add device
+> > > data to handle the K1 specific logic and make room for the incoming
+> > > logic for K3.
+> > 
+> > ...
+> > 
+> > >  static int k1_pcie_probe(struct platform_device *pdev)
+> > >  {
+> > > +	const struct k1_pcie_device_data *data;
+> > >  	struct device *dev = &pdev->dev;
+> > >  	struct k1_pcie *k1;
+> > >  	int ret;
+> > >  
+> > > +	data = device_get_match_data(dev);
+> > > +	if (!data)
+> > > +		return -ENODEV;
+> > 
+> > It's better to use -ENODATA which will help to distinguish from other ENODEV
+> > cases (which are more often to happen).
+> > 
+> 
+> OK, thanks
 
-drm_sched_fini() frees the run queues above the two steps that wait for
-users of them:
+Honestly, I don't think this should even happen, since every compatible
+supported by the driver carries its own of_match_data, and failing to
+do so is obviously a driver bug, so I think this branch could be
+dropped.
 
-	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++)
-		kfree(sched->sched_rq[i]);
+> > >  	k1 = devm_kzalloc(dev, sizeof(*k1), GFP_KERNEL);
+> > >  	if (!k1)
+> > >  		return -ENOMEM;
+> > 
+> > -- 
+> > With Best Regards,
+> > Andy Shevchenko
+> > 
+> > 
+> 
 
-	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
-	wake_up_all(&sched->job_scheduled);
-
-	/* Confirm no work left behind accessing device structures */
-	cancel_delayed_work_sync(&sched->work_tdr);
-
-4827d6d83f07 ("drm/sched: Remove racy hack from drm_sched_fini()") did not
-change that ordering - the kfree() was above the wakeup before it as well,
-and has been since 56e449603f0a ("drm/sched: Convert the GPU scheduler to
-variable number of run-queues") made the run queues separately allocated.
-But with the loop body gone there no longer seems to be anything holding
-the free up there.
-
-A KUnit case that keeps the TDR inside timedout_job() while drm_sched_fini()
-runs, with the callback calling drm_sched_increase_karma() as amdgpu does:
-
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock+0x2b/0x40
-  Workqueue: events drm_sched_job_timedout
-   drm_sched_increase_karma+0x138/0x3e0
-   fini_uaf_timedout_job+0x4c/0x140
-   drm_sched_job_timedout+0x1b4/0x620
-  allocated by drm_sched_init+0x49c, freed by drm_sched_fini+0xec
-
-Moving the loop down beside kfree(sched->sched_rq) silences it, and nothing
-between the two positions reads the run queues. Is that the right fix, or is
-the intended rule that the TDR can never still be running at that point?
-
-Resent: the original did not reach dri-devel - I was not subscribed at the
-time. Apologies to those seeing it twice.
-
-Thanks,
-Donggeun
+Best regards,
+Yao Zi
