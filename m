@@ -1,203 +1,222 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5884A33ED
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054650; cv=pass; b=ReKimExY5OknGxhhusnz/gVhUfZaFk/3FMHQ9K7/bF1/OKYm0EEIo9pFn55fWRYFpXPcmfYwdmwMRSLDdvCbEL8SIReI7/MQGJ7Sru++j1oN/OvWR26JfCWbYxBxetH2M18CHpXUEi7wyHTbvJHGTBnremFlq5pISO+8yXIKw0I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054650; c=relaxed/simple;
-	bh=ynSxNuDkxhKdE/yGw9XYokMd7L14dEwjnifpIUDbrDQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MHYWb9BPL2Ykl2U7XGwiRZuZDoUZZ9vTdEqkFyOSqedNPyKkcWBDQDwP+kpV9nP5+WhIKIVHXbzWpFOGmBnFwBFslInFmssm17CQnBdgmugdClvHsja5BQQpcQNA+xHil+i8bdFYEc8oa5TsqzuviesWsbQL96bBAEkNuVYg5KY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wd8vwnNR; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C0D38A73B;
+	Thu, 10 Sep 2026 15:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789054652; cv=none; b=NR+lglqAzqKMjnNF6fqxmKWEMCNwj6QJcUpunJ8UEOnK5ZFZSoK5O0mFie8TsDYsMzETp1M7k6vhqaOa9ipa62H6PiKDGnBJHaru8Y5YGiB2UymmAFnaP0nDa8ukMlIs6ON49iqcQr1dqjvN0GHdYUH3JSCMRtXc1ZN8phStC5k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789054652; c=relaxed/simple;
+	bh=tzfrxLbW18XBupQQO4Z4sOHkODX/2tTbZQV7+HM+Wto=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=o9gmHhbgfS7YaE4d0/rGWIVWtnCsIpAuTCOi80iM60upLPJl+eLqSYqlWQu3fdF8kQUFKHiVs/0jLYiyddPJ2vWPiAB20pr57UevVvmPxNozPvHqsuUrfa9zl2pLe0VSbdM99a7FcMbN87ERQ1qtZcucDjs/yl5xO9Djaiz2tUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=ikywC8+h; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=R8SmDbAP; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wd8vwnNR"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5307425f44bso265991cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:37:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789054648; cv=none;
-        d=google.com; s=arc-20260327;
-        b=An7ozgTyjqI/r82lTYlfVUCBcuuXTfo/7O56xm2koAFcMagPKanLcvkUtFNayqlw8i
-         wXMoZlvqJBdSEDn5l8LajypR+elGaQTwH5V/f0O/DUYTdYw9Ls2G60qcYl5UBPB8/FOB
-         +aJxx3llx7YtINBrA4UaGjap9M45J95PkbMkVujddm9bUAVrRnbUjQd9W1KqvZF5ifdZ
-         CRdqa25Rx0OCKuV3bL1Y/6r2GmduEbT63L7n1NkQMvNRdtTdM2GJn7FwkRt8XROAWJO7
-         M9RBONS16DwFYT1ceBzbaXZ7i1OsNx0REgPJ+T82Zw4KnHkg0agUltsKoiXShQv/FQuk
-         N9fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2fzJmHe53im+RdRlFHTdcZykU88bTlrtsEb9uv7A3KM=;
-        fh=930kFkRYFwPGuGN4iCPxDt/37XAD/2r6BWDmkIdHVyg=;
-        b=hRAfIJgRZMf3DmoiBFCLBiYIfVyj/9p2Q9N87LcOqhUhn1N2nPcCdJx0j+Q8Lsy0Pq
-         L+b+cx9TOBIrZQMblN5sVcLAmg3XCLehfWnd29Df5F7R9TXXaYCrCXpjbtF+DX65kLj1
-         58mCdobSr6/aiQSsWlIimfkWOzus2NPXYPaXlFCP+nJZYX8vuXbe25Ac2pdspTDznGig
-         q7dFv+nU959XEYF+EID7zBZrJZYoZPLvtdV0Ip9jke7Bjj3BvwsPJZx/plzdmTr0+Ew9
-         vqVK0ZOaUchZYgzLPDufKXa8uil9ZSzbe/NMq7W/0lqikK4PF00C/cgF/XDQM/VU4/V2
-         YfHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789054648; x=1789659448; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2fzJmHe53im+RdRlFHTdcZykU88bTlrtsEb9uv7A3KM=;
-        b=wd8vwnNRXgVHoy9xVoIX50iGQJxor55X1x214F6cv6Zb/Q/yCojNIy4Gn8J+JUJs+i
-         l6r9+FoVQpzxjJD404IOrhPh8ClFNuYMakxyuaMSEtiYXhlA1GRDfliYP4raZMb+bIT5
-         FeYl+tzvOPCyRohKGWRodf61Ad69RnbUVYyVsBHmo91dTKkvN1sVleiTiEzOZZj/PEK8
-         exo7Gzzqhgkv+J2lkuaRCRmKxXL2VbU1zUvjpO3pB8e9eHtMzO3IP7xt2/n2Uvm1OFft
-         +o1JxutEq7GJLzi6mkY0CMr7+6qWWVQsfm0c5pTHFxmrp3di7UYD0RsF83f9jZ+scD+O
-         bt7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789054648; x=1789659448;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2fzJmHe53im+RdRlFHTdcZykU88bTlrtsEb9uv7A3KM=;
-        b=ifzj1NXM/NvPxA4nlI2JoXarxnkGK4V6oTRSnLIqA3fF9d0Z4+YeAOgVCPZQTkqDFq
-         O1ak5mPulllcNS8GbmysTcM+zadOx8e0OEBfDuGW/eRpmW0ECAqcycabnbQLblY5HOqT
-         +C9741reESvSFRp7iCxnAvMbMjYiggnRWcHs65L/x2MQZx9gEwiRzgEgp7+wCl8pEQ26
-         2AZWYhwzgSAL2jEb4EPlemwp+7xhF9EMWImeZYlXS8eTK45KZajaWeTW0djGtyVkGF0T
-         JA7t6AuW4zTlKbER7GXWi9nDxcI2AlGWYUOSZtGofSBX9AnKxQqc25DSuKLhG3xQcLcX
-         hSsA==
-X-Forwarded-Encrypted: i=1; AKwUvBx19ntkWBMYHb14QbZuQF/dmy/vaLjkH/URdnSH6fYH44Pes8DJqjMb1ozzr45Osp9Lj7PZGl4RROYTcgw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYWdsfbJCA2KmEhyI549awRFX8A7dxnMBlPGBijLWfne25hqjj
-	Kq5f7NzqOOVSq6xTZ9z7Gg6PF0Q6/pCki0ng3IQ/2CVYu7ET+SWfdKHlwkkOogUnebFpYDda0Cr
-	rH++yAI4oNPU0aCdbGsFWnWIPnDdJrTO760Brwp/vI2mtuW6qNBFhgYBHN2A=
-X-Gm-Gg: AYBFou0dczkWs/tRvHC9eKBnnBWXzbdvElGVRKaaoY7ajcM7QEzGzDt2wnbqFApUG3j
-	N/zT74v2XLRJIugVBoAd5OI/NNFx/ZlMmCToudCy4KXlnHpp4+GfpiMdBfOcXSnZr9DiI+cv7N/
-	3/JekPIoAWMytnwEs/bPbNSR/Puaj3aOeqodStrNA7qO4NLmB3YtMptgQ1yKoO4J8/WptvJoB73
-	rk8XQ2jKn1ajeocBHAUEsA6ALTg2UEwjLgIt5dsjfo1+xQ6oSU87lEeKkqFYteQAOwE+dDbmdxJ
-	OOL1yXv6dk/+krFiX31LSWjjsdwnFLQF5cYPocCv1eY+E89BsEOzqFMAHkt+Oywst5a3koqpPHb
-	VekjfiT743y6q2u5X+f2Q
-X-Received: by 2002:ac8:5711:0:b0:527:f08f:56a2 with SMTP id
- d75a77b69052e-530b48fee7bmr20271511cf.8.1789054646975; Thu, 10 Sep 2026
- 08:37:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="ikywC8+h";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="R8SmDbAP"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 92D541D00107;
+	Thu, 10 Sep 2026 11:37:25 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 11:37:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789054644;
+	 x=1789141044; bh=VJHi3AALrojUsaiH2K9JRyFh6yN6vM9XW4bo5EfCLvk=; b=
+	ikywC8+hP0FbgWYJ7JpppZwhmFT+TaVIwwfxZl3vKzlLdmM0Nux3yd+Im/GnBBxf
+	IsZhMPrU2CfaPOS3llPqcCh1/W6YupvRhqHnEPijgkiGE9FTjWByE5rH7xSz2+YS
+	+dblIgCXim5mQ79MRnnVj+HTE2oO78sbNkVr8Q34RjdHugoTrgiFbcREeHekftYd
+	aasBFCSTYq2bdjS9VoWdHFfCLjJ+zkroUH2SWQzQIfie7Rv6jWKaRIke0inoGzby
+	3B6POzhhAouDRYljXpkPjgMNSje743iQ78SiKVtE7Ge4+Dx7VPOmk/C6xBZz2BmT
+	VpnxDlhl6rU/FOoxhy83wA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789054644; x=
+	1789141044; bh=VJHi3AALrojUsaiH2K9JRyFh6yN6vM9XW4bo5EfCLvk=; b=R
+	8SmDbAPjSEISBwANGL6NRU+VAUlWXrSQUFPgdkRsPNjMk/TQ6vTirkIvq0MISnMb
+	JKylqUisx/ovnCt8n5NY8n38p8Z0r7qneBX+3zXxCDi2CJwC02WhAFRI2seVrGL3
+	Dht2ceJo7GLlQMaxoAoPjc+jE/IjH4l6GZIuGYTnjn702MzCG2sJXfo7DJD6Mu+D
+	GdeuLOmK0EtS1BFwVrocZNEiHVquy2r7T6MQ/O53GTtfpHRB1FMWSHdFtJfVd492
+	huhQSYBkjqtlp54u32TtmpwCcuYi2jrpIaJFlHxn0OmcDjswJ7KPJQwv8vayUgpM
+	tlajKtuLqV1QATBx5g5yg==
+X-ME-Sender: <xms:qs6iaoxcZdBS5-tZ6559r51Ysxn8ibK0iu94a23oAy3L7zkGsUDSIA>
+    <xme:qs6ianED7WC-Q5vvqjBq8s_u2Wqo8da3kDi_H8X5KWUsVSaHxUeQXmRrU2dFDuKW5
+    iSmQx6sT9tJCQ5Fwo1WTe4NJLY27B0TnB0PK74fvos-BO3OvrbH46Csjw>
+X-ME-Proxy-Cause: dmFkZTGzGT8QWaj5+IaF+j+BCEPEbeETmKmrh3i3QL1egfRXUvJOsOFxmKhTHJ5EJ0IvJ/
+    yrlbR57KqxmsqFYmHcxuNy7TxmyGimBY78fjpHyUy7vT/Q0OO0SF55UVJhaG/0alhtMMXP
+    gjrK4qv4Oymi20VFNGCTKHWPZM5dFQKAOC2iaHsd5PeiJ4bs06wqZiiNHoe9XtdI3wlCFz
+    dEvEW43MKZZojMIQ8Q2c5X4bpnwolr0T0c9O2qf0ntNk3rSE8d6qS+QV3WNpllSo8oIEPE
+    0cc52GAipoXJvmvdUNZM110yBhTc2CiUmuHzJTc3cgyXm93V2vumdIDzmA8tmt3nNU7Ug9
+    6+EvyqPEl/qJxhZSe/GxKdDq3P6XS8ocwRwYw1486eMhQ8woArvfJmN4iQRnrsRc0L86xi
+    FUFH72TMYxAZF+4RLrewGwWAm7BC/aWgYoMWJVSKwJbmsjXvsdGICOjD+m5FtnEZ/5B3FP
+    ahodQdjEW2UaaKlW69gdjKCiX5d3NjOm/upXNL0N5y/EL6C6fZpWiYQwvfBSI0XAN/+wiA
+    Cg1M8xRvHSmGMT5y0DNGWni2mwje4hoY8BKcu/+UhH04cABAYvBHYbSRHFVgnSoVo66ZEv
+    OhpSnSjBxC5zHMZ3qKuAHlvC9yX9G19i9o4NyzQqHNi8cGyFHrxA19niVE+A
+X-ME-Proxy: <xmx:r86iavuQaXSkajUGbGTxZOGm2llWg7fiaco8bOamAUQDeRL2Pd6HAQ>
+    <xmx:r86iavvdlBlZMz41c6a0PxU_zWsdsuHayQoajn_EtgnSKkrZC7QCwA>
+    <xmx:r86iau-ali-YMTcHW9nYfAeB8WFBwz4N3Kf6nVVNyNffsE_5Xex2YA>
+    <xmx:r86iao_ql0S4UwfTN7PSvF8rKrygtY-dHqzr4ZJBcaIKblcgxjNTZw>
+    <xmx:tM6iaqEzjEAmXefpeuCydSJA9LXJ7HlJinKnl2fmwVfK7B-jCn25-y5y>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A91DC32A007B; Thu, 10 Sep 2026 11:37:14 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909204122.1993010-1-irogers@google.com> <20260909204122.1993010-4-irogers@google.com>
- <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
-In-Reply-To: <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 10 Sep 2026 08:37:15 -0700
-X-Gm-Features: AcwNN1VPdFbSJ00CKGszV1vwicAKF7OS9Ew-KRRognhOG4ktLaQZIRP5UUupJ2I
-Message-ID: <CAP-5=fUC+2+qafs=GjfC6K5X1o8t8BTxj8L7NuGAm40n_UTYWg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] bpftool: Add explicitly sequenced -lzstd to libbfd
- feature fallback
-To: Quentin Monnet <qmo@kernel.org>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>, 
-	Costa Shulyupin <costa.shul@redhat.com>, Michael Jeanson <mjeanson@efficios.com>, 
-	Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, bpf@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: Ay04W235egbV
+Date: Thu, 10 Sep 2026 17:36:54 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Nicolai Buchwitz" <nb@tipi-net.de>,
+ "Fernando Fernandez Mancera" <fmancera@suse.de>
+Cc: Netdev <netdev@vger.kernel.org>, "Simon Horman" <horms@kernel.org>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Eric Dumazet" <edumazet@google.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>,
+ "Anthony L Nguyen" <anthony.l.nguyen@intel.com>,
+ "Przemek Kitszel" <przemyslaw.kitszel@intel.com>,
+ "Elad Nachman" <enachman@marvell.com>,
+ "Saeed Mahameed" <saeedm@nvidia.com>, "Tariq Toukan" <tariqt@nvidia.com>,
+ "Mark Bloch" <mbloch@nvidia.com>, "Ido Schimmel" <idosch@nvidia.com>,
+ "Petr Machata" <petrm@nvidia.com>,
+ "Edward Cree" <ecree.xilinx@gmail.com>,
+ "Maxime Chevallier" <maxime.chevallier@bootlin.com>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Arend van Spriel" <arend.vanspriel@broadcom.com>,
+ "Miri Korenblit" <miriam.rachel.korenblit@intel.com>,
+ "Keith Busch" <kbusch@kernel.org>, "Jens Axboe" <axboe@kernel.dk>,
+ "Christoph Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>,
+ "Chaitanya Kulkarni" <kch@nvidia.com>,
+ "Saurav Kashyap" <skashyap@marvell.com>,
+ "Javed Hasan" <jhasan@marvell.com>,
+ GR-QLogic-Storage-Upstream@marvell.com,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ "Nilesh Javali" <njavali@marvell.com>,
+ "Manish Rangankar" <mrangankar@marvell.com>,
+ "Varun Prakash" <varun@chelsio.com>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>,
+ "David Howells" <dhowells@redhat.com>,
+ "Marc Dionne" <marc.dionne@auristor.com>,
+ "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, "Chuck Lever" <cel@kernel.org>,
+ "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>,
+ "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
+ "Marek Lindner" <marek.lindner@mailbox.org>,
+ "Simon Wunderlich" <sw@simonwunderlich.de>,
+ "Antonio Quartulli" <antonio@mandelbit.com>,
+ "Sven Eckelmann" <sven@narfation.org>,
+ "Nikolay Aleksandrov" <razor@blackwall.org>,
+ "Pablo Neira Ayuso" <pablo@netfilter.org>,
+ "Florian Westphal" <fw@strlen.de>, "Phil Sutter" <phil@nwl.cc>,
+ "Johannes Berg" <johannes@sipsolutions.net>,
+ "Matthieu Baerts" <matttbe@kernel.org>,
+ "Mat Martineau" <martineau@kernel.org>,
+ "Geliang Tang" <geliang@kernel.org>, "Julian Anastasov" <ja@ssi.bg>,
+ "Aaron Conole" <aconole@redhat.com>,
+ "Eelco Chaudron" <echaudro@redhat.com>,
+ "Ilya Maximets" <i.maximets@ovn.org>,
+ "Allison Henderson" <achender@kernel.org>,
+ "Jamal Hadi Salim" <jhs@mojatatu.com>, "Jiri Pirko" <jiri@resnulli.us>,
+ "Marcelo Ricardo Leitner" <marcelo.leitner@gmail.com>,
+ "Xin Long" <lucien.xin@gmail.com>,
+ "D. Wythe" <alibuda@linux.alibaba.com>,
+ "Dust Li" <dust.li@linux.alibaba.com>,
+ "Sidraya Jayagond" <sidraya@linux.ibm.com>,
+ "Mahanta Jambigi" <mjambigi@linux.ibm.com>,
+ "Tony Lu" <tonylu@linux.alibaba.com>, "Wen Gu" <guwen@linux.alibaba.com>,
+ "Jon Maloy" <jmaloy@redhat.com>,
+ "Tung Quang Nguyen" <tung.quang.nguyen@est.tech>,
+ "Steffen Klassert" <steffen.klassert@secunet.com>,
+ "Herbert Xu" <herbert@gondor.apana.org.au>,
+ "Casey Schaufler" <casey@schaufler-ca.com>,
+ "Paul Moore" <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ "Vikas Gupta" <vikas.gupta@broadcom.com>,
+ "Bhargava Marreddy" <bhargava.marreddy@broadcom.com>,
+ "Rajashekar Hudumula" <rajashekar.hudumula@broadcom.com>,
+ =?UTF-8?Q?Markus_Bl=C3=B6chl?= <markus@blochl.de>,
+ "Heiner Kallweit" <hkallweit1@gmail.com>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Qingfang Deng" <qingfang.deng@linux.dev>,
+ "Julian Braha" <julianbraha@gmail.com>,
+ "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Eric Biggers" <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>,
+ "Neal Cardwell" <ncardwell@google.com>,
+ "Kuniyuki Iwashima" <kuniyu@google.com>,
+ "Willem de Bruijn" <willemb@google.com>, "Alyssa Ross" <hi@alyssa.is>,
+ "Joel Granados" <joel.granados@kernel.org>,
+ "Oleg Nesterov" <oleg@redhat.com>, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "open list:NETRONOME ETHERNET DRIVERS" <oss-drivers@corigine.com>,
+ linux-net-drivers@amd.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+ linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-afs@lists.infradead.org, linux-nfs@vger.kernel.org,
+ b.a.t.m.a.n@lists.open-mesh.org,
+ "open list:ETHERNET BRIDGE" <bridge@lists.linux.dev>,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ mptcp@lists.linux.dev, lvs-devel@vger.kernel.org, dev@openvswitch.org,
+ rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org,
+ linux-s390@vger.kernel.org,
+ "open list:TIPC NETWORK LAYER" <tipc-discussion@lists.sourceforge.net>,
+ linux-security-module@vger.kernel.org
+Message-Id: <cda5d4e9-49a5-4d6f-93d4-fb50d74ed5ce@app.fastmail.com>
+In-Reply-To: <aeb37452e976f5d44540ac3a0999d07b@tipi-net.de>
+References: <20260910144914.8025-1-fmancera@suse.de>
+ <20260910144914.8025-2-fmancera@suse.de>
+ <aeb37452e976f5d44540ac3a0999d07b@tipi-net.de>
+Subject: Re: [PATCH 01/13 net-next] net: ipv4: introduce CONFIG_IPV4 to decouple the
+ IPv4 stack
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 2:20=E2=80=AFAM Quentin Monnet <qmo@kernel.org> wro=
-te:
+On Thu, Sep 10, 2026, at 17:11, Nicolai Buchwitz wrote:
+>> diff --git a/net/packet/Kconfig b/net/packet/Kconfig
+>> index 2997382d597c..00fda9e08cb0 100644
+>> --- a/net/packet/Kconfig
+>> +++ b/net/packet/Kconfig
+>> @@ -5,6 +5,7 @@
+>> 
+>>  config PACKET
+>>  	tristate "Packet socket"
+>> +	depends on IPV4
 >
-> On 09/09/2026 21:41, Ian Rogers wrote:
-> > Distributions like Fedora currently ship a statically compiled binutils
-> > libbfd that natively depends on zstd to decompress sections (e.g.
-> > undefined reference to 'ZSTD_decompress').
-> >
-> > Extend the newly supplemented libbfd-liberty-z-zstd feature probe into
-> > bpftool's Makefile so it can natively build against static binutils
-> > distributions.
-> >
-> > Signed-off-by: Ian Rogers <irogers@google.com>
-> > Assisted-by: Antigravity:gemini-3.1-pro
-> > ---
-> >  tools/bpf/bpftool/Makefile | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
-> > index b0f7168e7943..1cac4508eb0c 100644
-> > --- a/tools/bpf/bpftool/Makefile
-> > +++ b/tools/bpf/bpftool/Makefile
-> > @@ -125,6 +125,7 @@ FEATURE_TESTS +=3D libcap
-> >  FEATURE_TESTS +=3D libbfd
-> >  FEATURE_TESTS +=3D libbfd-liberty
-> >  FEATURE_TESTS +=3D libbfd-liberty-z
-> > +FEATURE_TESTS +=3D libbfd-liberty-z-zstd
-> >  FEATURE_TESTS +=3D disassembler-four-args
-> >  FEATURE_TESTS +=3D disassembler-init-styled
-> >  FEATURE_TESTS +=3D libelf-zstd
-> > @@ -135,6 +136,7 @@ FEATURE_DISPLAY +=3D libcap
-> >  FEATURE_DISPLAY +=3D libbfd
-> >  FEATURE_DISPLAY +=3D libbfd-liberty
-> >  FEATURE_DISPLAY +=3D libbfd-liberty-z
-> > +FEATURE_DISPLAY +=3D libbfd-liberty-z-zstd
-> >  endif
-> >
-> >  check_feat :=3D 1
-> > @@ -201,6 +203,8 @@ else
-> >      LIBS +=3D -lbfd -ldl -lopcodes -liberty
-> >    else ifeq ($(feature-libbfd-liberty-z),1)
-> >      LIBS +=3D -lbfd -ldl -lopcodes -liberty -lz
-> > +  else ifeq ($(feature-libbfd-liberty-z-zstd),1)
-> > +    LIBS +=3D -lbfd -ldl -lopcodes -liberty -lz -lzstd
-> >    endif
-> >
-> >    # If one of the above feature combinations is set, we support libbfd
+>    depends on IPV4 || !INET
 >
->
-> Hi Ian, thanks for this!
->
-> Just checking: my understanding is that if libbfd depends on libzstd,
-> then it always also depends on zlib, so we never need to check some
-> variant such as "feature-libbfd-liberty-zstd" (without the "-z"), is
-> this correct?
+> Otherwise this would break existing configs with INET=n. The same 
+> applies to other affected options that currently permit INET=n.
 
-Hi,
+Since that's a lot of symbols that all need the same dependency,
+maybe we could have an intermediate symbol for it:
 
-You make a good point. Normally we want to use pkg-config to get the
-libraries necessary for a dependency. Unfortunately pkg-config is
-generally broken around binutils/libbfd. This is why we have all of
-these tests to determine the list of libraries we need to link with
-libbfd for things to work, which pkg-config normally provides. It is
-perfectly possible to build libbfd with libzstd and without libz, but
-currently, we haven't encountered a distribution doing this. I can
-imagine a memory hardened future where libz has become zlib-rs that
-conveniently provides C headers.
+config IPV4_IF_INET # or any better name you can think of
+      def_bool IPV4 || !INET
 
-For perf we don't build with binutils by default; this matter is only
-an issue for our build tests. We don't depend on libbfd because its
-GPLv3+ license isn't compatible with perf's GPLv2 license, which would
-create an undistributable binary. This isn't an issue for bpftool
-because its BSD 2-clause license is compatible with libbfd. In perf
-we've been replacing libbfd based functionality with that in elfutils.
-libLLVM is another consideration, but it's generally too heavyweight
-for the effort to be worthwhile (it is generally large, distributions
-don't want a dependency on it, and it runs many initialization hooks
-at startup that don't benefit perf). Hopefully elfutils can provide a
-stable API for its disassembler (libasm) as that would cover pretty
-much everything perf needs without requiring us to fork objdump, use
-libcapstone or use libLLVM.
+Similarly, everything that currently has 'depends on INET && IPV4'
+could be simplified to just 'depends on IPV4', and the leftover
+'depends on INET && IPV6' from the days of modular IPV6 can now
+become 'depends on IPV4'. We only needed to list both in the past
+to deal with the IPV6=m case.
 
-Anyway, we could add another flavor (zstd without libz) to the feature
-tests for libbfd but since this isn't currently an issue I think we
-can cross our fingers for binutils to fix pkg-config or for other
-tools in the kernel, like perf, to migrate away from the use of
-libbfd. If we add every flavor of libbfd's dependencies, it feels like
-a lot of build clutter (imo) and I don't know where we stop.
-
-Thanks,
-Ian
-
-> Quentin
+       Arnd
