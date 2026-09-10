@@ -1,97 +1,69 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6B73D333F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825653CD8CC;
+	Thu, 10 Sep 2026 08:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028271; cv=none; b=P62sdMe3qQyvJWFzMF7lbnD6EOfIxbkLacNeoP1AbcY2wZFIvrzTDwdO3NSqsFDgCfl50mTAKrRPwDmsAZ7t29iYXz5W2kfhZ1tb5A9Qkdk59k3Oh1vO4i3V4wAPTHrHnLrUJWh6fgMzDcd7TnC5u5oKRsqK5ySbWxSvslbUXow=
+	t=1789028296; cv=none; b=qXlkR7OGYjpQUcfK+1otwc4u2w5B5zsISB6jUV9sX0OrvDmByV27zWuIZyZYrICdI67Qdlbk7GYCDK5mzdJ1mKKoxeGV9ziC3APtwaRklzlxSnexekABaAQ9NrbFqXsxoy/HYtpzOmMlQckFqR1uSgvp9hTLHDGjk+CuJQp0Fww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028271; c=relaxed/simple;
-	bh=PAqcHXy8LZXAS6z3iAsn07s1vKnAVd/2G6kkS2rSYHo=;
+	s=arc-20240116; t=1789028296; c=relaxed/simple;
+	bh=rrUUzX+UUVWO/hoSOxwTjwJnCphjOpRWXMOMq296ubM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SHkrCp4QJER64zQIueArAIX4e7uyyF6o0Q9uafLp2EXgPOro+6Ajr2eKi7J62fLxyPAQtfasqpeyDQf9cx8lDXqAIGxPPizsJsX47FZUhvayb1rpJ9lyWsbL9xI7jgsPxeqFO3SQl/K9x81LVK2CYaOO1kgv/8ME2o5pmHhmHeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m8gWiCW/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L0UwHL/D; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VOlzQECgvwC+TdUPXZYIcmjgURTIhqGuNlCVswUJUHKSfKZnJ+mubA0AfmJIBZ6WWmlVx6Gck029lOefri7EjrUjFVuL4mDanXqSIHBYRBaPW4IoBIUmOeB4ZAeQW6KuOh3Sz4Lah5Sa/5DGsi5bzjh33JjI478ZTav6Ys+dGk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=dk8yarjf; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m8gWiCW/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L0UwHL/D"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Gx5D4142698
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:17:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=j5AEaRW4+Q+4g0E3CSuLIXhC
-	YjcEmOyKhDjUtjMfI/o=; b=m8gWiCW/244l48na8aW2DVd+CEhL+jS12sUq5UU9
-	00s48fgPxh+/ghXT/IqYQjaAwvE7myfYikUraIQVkBoTqxC1WoLwd25DSjDrp1bY
-	NpU6F5ZqwFhXiI4KhwVVyRuLSokyos+Eezh9ButWZ2HyPRtaMr7j6i6Siudi0+Vh
-	+tzfWH2THZ81xKfaoazS3lI5CiE9MxOW0ZQkxR/3SzYNX0OWjazx94WwQzDKlvxe
-	K5ZnAF9WcIIc6ovwt2nRX9a5ymQSC0LKaZfgm2S5CNvQ2H4wXKrmsr7SV08fQCdG
-	hXlkp4qs76clZcaJueJn/1GMpTqbWOYYi2j0Q1l0ME6TRA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyd2sj2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:17:46 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so1350779885a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:17:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789028265; x=1789633065; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j5AEaRW4+Q+4g0E3CSuLIXhCYjcEmOyKhDjUtjMfI/o=;
-        b=L0UwHL/D49jwbq5b3pNdQR6BGrr8+/5mbnAkafklr61jyAhdwtuuzfux8SsBc8YHwM
-         aJlAO+kaN5NysW0ZAHdT55u5icEHPxh/XvfnOI4K2xNEKy8u5GrYnKWw3hk9RU8pOpni
-         DeDXYTWVFuTPFUUv4bLbbIZoh+b41CDXSCN3XC7gQrDGc5tSK0A+4UqtbdtYWHwsLqxM
-         YomlZ8F2Uglt02qtQnSHb3yf4WNEuV8VD7kQnmK67DX4UqkIio2rQC35cn0xTB6N16s+
-         lMaQFeDIZsYWV3oEFL+WBC3HmJQAGjQVmxkS0BOsDfD8Bp5vmJEQ2ilT/Z6YPzQ53f0Q
-         /PVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789028265; x=1789633065;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j5AEaRW4+Q+4g0E3CSuLIXhCYjcEmOyKhDjUtjMfI/o=;
-        b=SLnLLU0GZ0IH9Gm8f0fEvBi5bpsu0qGx16NWVy/lY/BbqqMVjvtr0FmS0/N4j8237B
-         slOvVlf19DWhhHgYb8Z9D+EJW4rEL2Dfd/lQ1P3VmfsWD6fXFNnp+cS4W/KP6WINDXAk
-         xRt32TGNbyjcM5lBd2Kg39/58G6qNgIu9qtUXSDwxY+0UcDPsUTsP3Q7f/ElgByHIbga
-         lji+cQsMPO0hVdB0TjDKMKbvhZr9iHEl2mV9WBJqEUZ8NFJfqfhLcxxXeC1Z6NGN3G7A
-         Hb/Wtahqk80jpp8P+MOZmwR5CHodepjq+glnu7DpUFaJqkBF2rRGqpYFD7kN8PIhnKXq
-         +TWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxfpwcFxL3POs1ufchpFLuKtA/e4deMDYPOj5RxKxG4aJK4eMW5DLz01p0mNGjj9vgGRAWCorQq6G6kDvk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l53+vEY5z/lohtx9aVXCZWZT3mbyibZu2AbT/jPHzDaB7vI8as
-	hBddEsUNM5IMj9u5ZwaL2go2iPLxD6g1W/rMHRMGXsJV5N1O/480SAcCuR1KiYcrkLWY72tC6Lc
-	VsfT0yGGSb2xirnn3NibhL4PWL92UaAVhCyySpA8WD+YAC0Ldrb7SY6pKtxA2PrflbQc=
-X-Gm-Gg: AYBFou3bNBLoDUsvViSxDvK7WRZgao0tJuhoMm2bzeJxwJW9Z8KRf1s8gQF4Z9H2ei7
-	7aSTx1xNSqVmhGO1auLMbogcyIf4nBqFDSzatqdqYSooFCcyNhJSav6Va2ZHvFmvV3PD+yT0XtL
-	/ba4lq1DuYc7+827wepOf6Pz8dvp4JQlqlE5RYUa3feHCuU9hv6YQzjG3vwvvJmFJJ/VfeJUAPv
-	9uiEfONgVpfo4gSmhqWmEzLLMTM4RHe6Ya7CoVu6zbAHAq/yeK9iaMTsaiouW6adRzym3n4FZ5P
-	JBBjZQwNNRZi4JwVunoOGQ8sKcy5C5OI+1CWjQMcCO4E51mXSIhtv8lENnk4kSrJSwYw+peeaW0
-	T037yR3z+QFC5
-X-Received: by 2002:a05:620a:40c7:b0:939:57ca:7e08 with SMTP id af79cd13be357-939c939d179mr1371900585a.2.1789028265241;
-        Thu, 10 Sep 2026 01:17:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:40c7:b0:939:57ca:7e08 with SMTP id af79cd13be357-939c939d179mr1371896185a.2.1789028264730;
-        Thu, 10 Sep 2026 01:17:44 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.7.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm52018039f8f.4.2026.09.10.01.17.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 01:17:43 -0700 (PDT)
-Date: Thu, 10 Sep 2026 11:17:41 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Fix up the
- mic sample rate
-Message-ID: <iavjnu7emwyxrw2ozzuwa4uvk74to3fwi4janpijkrpg4x6g3t@ftzeyvnok4d2>
-References: <20260910-topic-zenbook_mic_sampling-v1-1-2532136d5a9b@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="dk8yarjf"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5VRg91973303;
+	Thu, 10 Sep 2026 08:17:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=xcWA8OfzIl/1JTdb9sWCRDlEAq0Lde
+	xvG/EQYE67/ZM=; b=dk8yarjf+v67cjKOBbQ/MqLsczPKBVoloH+HWWrzn2JJ4p
+	UdIreN/0B9rkH5dLv/lBMUUlmTRLHVKpyk1Lj7g/GElQ0sXUCIICQkH5dYmzKTFb
+	91wyw08dEeruqo/Pc2sjgqWmCp4DjYGi2Vfyg6R4nkc5tj22X9VxCnhWh6bM/LrZ
+	vLGIKkUO1TrDO5SmlfM0Rn4ZsLYh3E6ViawfKocYf+DOWmI26QT48gNs/GYJKQWT
+	/YbAybq6GT9iGVINKQxrF0QqWEVV6j3JKVU2ydhTSSzLKPNdurSOl8U49LpRXOGZ
+	B2qNMnaY0AZ4Q2r5mun4Y1cElJxPF6oFdkudy5/w==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8pk98g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 08:17:58 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A7uYGw014691;
+	Thu, 10 Sep 2026 08:17:57 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkcr3bahv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 08:17:56 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A8Hs9M26542796
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 10 Sep 2026 08:17:55 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D00212004B;
+	Thu, 10 Sep 2026 08:17:54 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2C6B020043;
+	Thu, 10 Sep 2026 08:17:53 +0000 (GMT)
+Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 10 Sep 2026 08:17:52 +0000 (GMT)
+Date: Thu, 10 Sep 2026 13:47:50 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Jordan Niethe <jniethe5@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: PPC: Fix guest state buffer kernel-doc names and
+ parameters
+Message-ID: <aqJnrkTAeSM2RVvt@dhcp-9-123-3-18.bl1-in.ibm.com>
+References: <20260910033655.16127-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,45 +72,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910-topic-zenbook_mic_sampling-v1-1-2532136d5a9b@oss.qualcomm.com>
-X-Proofpoint-GUID: Re2KQgsohBEwYNAAWTPzH3BOBN4wJBqa
-X-Authority-Analysis: v=2.4 cv=ef+o7LEH c=1 sm=1 tr=0 ts=6aa267aa cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dePp4Gl7O00gmbwhyVsZwA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=uZU3vtNHNVMDsrlGVi8A:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: Re2KQgsohBEwYNAAWTPzH3BOBN4wJBqa
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA5MiBTYWx0ZWRfXxqcg5tnftOkt
- Hq931xG59vTVyoK9YAZavks/G/+a6g5ky7rdjo1UbDJWq+niewmD4NAQP+mo7s+kkFvUvykNTpQ
- beovqQN6/snrPYnkQzxNp6XRcQxQcAo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA5MiBTYWx0ZWRfX6acbwsFweLry
- dKsELCITrfKo2/dwMlK/vTJNvR9LNzgGlbeijn8ME82b5fc9gczMegXbMfzvyAYydrXizR3DitF
- 3EzqXj7dStbCFg20CXN9i2OM5v2EunThK7enElULXCpfVCcnIAF+J9Rq+21SmZyfo4CXqlNS0Rk
- 1lu6ZoEPLk8fFfJ6Gs6ffJnu7H70YGH7jeBrHwQPDh50JC7IrLMK8eF+O9S4m8c99LmzDoG5FqE
- RGArJ90dny9oTZZzhtaeRHfg+FABAKdUT8fvJU3Wgy4n9uGvOSmZKT/sCHniLXvEzC2L3v3xDx9
- 7V/9qAEkJMjrRJ7VsBz2kb9QZtb/6eYXmFWv7G1/EGH4r7W7BMTvx0hEmpan0SgY5qOCLtV0hpI
- CqTQriomx5mZSQLA2O0kugVupzO1o23EKQeX+9mc36J+Sg6lwgoVEztP8AopyDg9W9dyXf6ulQ0
- HVXL91KP1PjM7VruXVg==
+In-Reply-To: <20260910033655.16127-1-kmehltretter@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=eM2GH3p1 c=1 sm=1 tr=0 ts=6aa267b6 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=yuWOQlAcragr5604HYQA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: grMzTpSfcn7vjL6lM51qlosSdQ48hvBv
+X-Proofpoint-GUID: UoFhnGY08Fqpin8o9UUgksUaWgwqtvAq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfXxczAwHCyde6w
+ 8V6g3h52xGBXOUycrqDaYhveMOfnXbbwR8dLu1WmmiNNXH/lqmu+n6tvT9Tw38i4leF9DhKERzq
+ TSV1ErkPpTHNyKvksOWYoGEGeDDwjXI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX9vg6g7JjztSX
+ u+0b/U14RRhohrRhWa4EvKpHcbxyjhLwL9wrJFPWgUXEjXp/xZMBkYpJsTqqyxu0tWyKQUCsIXq
+ YYYIrQJDr0nKzfsVduJsmlYFPmLqWuZBg849WpQlBWxolvwiQImGP/Sr+lTujC1U6HKlH4CDG+t
+ uzc/I//4tbfE8yLi7E5tMHE6vFPvQZgEcyoRF6Jv0I5FdnQwD1wJeebh7C2xZ+tzuKSAN3/UcZb
+ jflRTNoc3pJOiClK/jzWT9UHMFh0Mn8MKwI2h7dwetQIpS7Kbb9WwhzoEJ/J26P3gzB8h3NYCTv
+ 1Lnaf7YQTJgRwS/IxYFqY9tfi5t63MpAZHxsnuB3Qf8SMZ/GcesjEH3/5xx0WMnlRQMK8oyXlt+
+ MBEoilpZIXe07PvzhzaQg8ShbG94SeN5WnGRqy0k8Q+9YRtsfqJXkn4r9dToY2ray8ysIjvf5H8
+ /gAU8K2EZ610mA4I1+w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100092
+ clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100088
 
-On 26-09-10 10:15:42, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Thu, Sep 10, 2026 at 05:36:55AM +0200, Karl Mehltretter wrote:
+> Several guest state buffer comments use copied function or parameter
+> names. In particular, kvmppc_gsm_for_each() describes a parser and an
+> element argument, although it takes a message and yields IDs.
+> kvmppc_gsm_include_all() also describes an ID argument it does not take.
 > 
-> Set the correct value for the hardware, matching the readout from
-> Windows during audio recording.
+> Match the headings and parameter descriptions to their declarations,
+> and describe the parser argument and vector output with their actual
+> roles.
 > 
-> The microphone seems to work fine either way.
+> Fixes: 6ccbbc33f06a ("KVM: PPC: Add helper library for Guest State Buffers")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>  arch/powerpc/include/asm/guest-state-buffer.h | 17 ++++++++---------
+>  1 file changed, 8 insertions(+), 9 deletions(-)
 > 
-> Fixes: e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16 (UX3607OA)")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> diff --git a/arch/powerpc/include/asm/guest-state-buffer.h b/arch/powerpc/include/asm/guest-state-buffer.h
+> index acd61eb36d59..95d50ec7f2a9 100644
+> --- a/arch/powerpc/include/asm/guest-state-buffer.h
+> +++ b/arch/powerpc/include/asm/guest-state-buffer.h
+> @@ -224,7 +224,7 @@ struct kvmppc_gs_buff_info {
+>  
+>  /**
+>   * struct kvmppc_gs_header - serialized guest state buffer header
+> - * @nelem: count of guest state elements in the buffer
+> + * @nelems: count of guest state elements in the buffer
+>   * @data: start of the stream of elements in the buffer
+>   */
+>  struct kvmppc_gs_header {
+> @@ -779,6 +779,7 @@ static inline u64 kvmppc_gse_get_u64(const struct kvmppc_gs_elem *gse)
+>  /**
+>   * kvmppc_gse_get_vector128() - return the data of a vector element
+>   * @gse: guest state element
+> + * @v: output vector in host endianness
+>   */
+>  static inline void kvmppc_gse_get_vector128(const struct kvmppc_gs_elem *gse,
+>  					    vector128 *v)
+> @@ -849,7 +850,7 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
+>  /**
+>   * kvmppc_gsp_for_each - iterate the <guest state IDs, guest state element>
+>   * pairs
+> - * @gsp: guest state buffer bitmap
+> + * @gsp: guest state parser
+>   * @iden: current guest state ID
+>   * @gse: guest state element
+>   */
+> @@ -866,9 +867,8 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
+>  /**
+>   * kvmppc_gsm_for_each - iterate the guest state IDs included in a guest state
+>   * message
+> - * @gsp: guest state buffer bitmap
+> + * @gsm: guest state message
+>   * @iden: current guest state ID
+> - * @gse: guest state element
+>   */
+>  #define kvmppc_gsm_for_each(gsm, iden)                            \
+>  	for (iden = kvmppc_gsbm_next(&gsm->bitmap, 0); iden != 0; \
+> @@ -908,10 +908,9 @@ static inline bool kvmppc_gsm_includes(struct kvmppc_gs_msg *gsm, u16 iden)
+>  }
+>  
+>  /**
+> - * kvmppc_gsm_includes - indicate all guest state IDs should be included when
+> + * kvmppc_gsm_include_all - indicate all guest state IDs should be included when
+>   * serializing
+>   * @gsm: guest state message
+> - * @iden: guest state ID
+>   */
+>  static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
+>  {
+> @@ -919,7 +918,7 @@ static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
+>  }
+>  
+>  /**
+> - * kvmppc_gsm_include - clear the guest state IDs that should be included when
+> + * kvmppc_gsm_reset - clear the guest state IDs that should be included when
+>   * serializing
+>   * @gsm: guest state message
+>   */
+> @@ -958,7 +957,7 @@ static inline int kvmppc_gsb_receive_data(struct kvmppc_gs_buff *gsb,
+>  }
+>  
+>  /**
+> - * kvmppc_gsb_recv - receive a single guest state ID
+> + * kvmppc_gsb_receive_datum - receive a single guest state ID
+>   * @gsb: guest state buffer
+>   * @gsm: guest state message
+>   * @iden: guest state identity
+> @@ -998,7 +997,7 @@ static inline int kvmppc_gsb_send_data(struct kvmppc_gs_buff *gsb,
+>  }
+>  
+>  /**
+> - * kvmppc_gsb_recv - send a single guest state ID
+> + * kvmppc_gsb_send_datum - send a single guest state ID
+>   * @gsb: guest state buffer
+>   * @gsm: guest state message
+>   * @iden: guest state identity
+> 
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
+> 
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+Reviewed-by: Gautam Menghani <gautam@linux.ibm.com>
