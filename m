@@ -1,236 +1,107 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E91D559315
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:44:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B848E523789
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062282; cv=none; b=LkuiHEYZ7smJ5QEe9BkhkK9W74cesR84/chfLMt/Smpu+WRn3R2V6p/V2RsGrrm8U/QKCy2plptL2dRajYGArdhg+WOR9aB3rkJadsSmh2MNE+HvmZjAe1mHr+4ErmJI5IwijQfWM4pZj8PCr9FcAy51nBrYLCE5THL6QQtYtrk=
+	t=1789062318; cv=none; b=IDPnStD/xNkUUgqiWy26hSoqGa5rnp2Z69Z5jo005mJIJDQlD/3zq2CEjOuL8QD4IC753eRKtYzL8+X3QhzkGS28lNaJxt+a+SXBT1oTPwWaeuEvXC3BvWlSJujec7hdvf8yCIMqIuDMBm1GDjtEzrmDxoB72dbuY5mvyjf9jeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062282; c=relaxed/simple;
-	bh=Kp1fVntnUgpr5dPhYFwdUa7mOtBV/Q8lqDeqvvAUmb8=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=h67OXpIyKvGyUD7z1JANtSZLA80qJiTcdWassuZSoAGl0KOofpdOQNMPSjHOMh6Q85j4lA53FRmYjPF3LwWyaK6H4fUwMKs5eJ3cF+sq26WXBv4uSFAx/JmAFTOOUn2MBfe3B1f7LiIkZbF6GQApnlgVRiNTaOkSk/wPBZsXUAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=REyomxt3; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1789062318; c=relaxed/simple;
+	bh=lQQkO6iZXqi0Y8a4ze7AN9SoD32y+6oFDlGAoHjbyWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uWqt6nLSTDoh+1gjlgIj75ufhT7E3Cc4Axng05gAgeEv07JRiCzDyAd8DLEiNW1J3RyUEMDBPe4oLXyQEVK1zHMvta6SeAE2aXzNBPTy50791ZYZ2Wh7R22dvnFx5qRU6lv5H9WLjdbid0qx1KUoCOKARevz5cGKXPGkl7rXrVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZrUxtQll; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="REyomxt3"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso94832a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:44:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789062267; x=1789667067; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:mime-version:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+sBL53TWpOY5F37MHtUIstN8/huNjNwzJ60aXWk3Bq4=;
-        b=REyomxt347b3jaYBWkXjwJMzs1Nptet9BNnn7ReTcM6l8ou3N/d/OCOHt5AFNYQsfK
-         beVxlUCqx2IqkEbbnTE3hAnBx/e/9lXxmgzoiXP0h8znfPIAFKyjklsPwBP0jcxuMoTo
-         8OZj6MkQIUb7we9BkXX7vGJNkfnZuu86FfQQ6pvlcxIDpKjpLNVsKH+1Vgm821UUoMBc
-         wEpu/Cfqq9xIZlSPipwLNj4m6hI2HlZkEf3ygGZ+k41TNKWb1HFiBTU4VbDd86cVcwlB
-         l5GKb9b2VXmMbwI3F5wGm/TwmAz9k9D6v0o6URarZacX9G90/HWM9+3Nrol6JES22pyP
-         n0gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789062267; x=1789667067;
-        h=content-type:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+sBL53TWpOY5F37MHtUIstN8/huNjNwzJ60aXWk3Bq4=;
-        b=Oip5Mpm7yDFPkbqeqSzrdiFz09bA93O+8lhrT4vrpa2aV6f5RSCO+v1Nld+DqCLcxF
-         STmdXODQGsMmVQ/18u4spW0GOzjZUWMEZ0/whM3mdeWTDUdDxT2K+5mROislFakJwo9I
-         SkgZpkHkjNqxQ7+R8c56cqZWiwA+BHMzLl9YU+B2bDWRpCRCeuVbFgknu4lNvCuP2aQO
-         qnTH545o3pZgNNO/8fgMZU1rUzs0ID/LKi7+NW9yB1DS/2V68wjZULbQLI3UpNinQGdF
-         Xf4w22S7+BG6zXTENHDSqC685xHp3Z05rWIFXis4VZpM1epNEGDqgRalkwKYHcGLelsF
-         +Diw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJMHXKBc+sAi9NaXSkDydEzjfVHqgqWUsVikykqXA7fdfAJygtpQOOESA0N4BW3RlyDHoAvNH1z615G5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++niG8FDhVkP2VYIHLIqP6IPeFxbqoMJguKpfd/qFfgN/NPalduF
-	fQYbKjZ0EQgP81jHCClq7eKf6otlgwZ6qF4WeDbT1MsqsYN1Y1pmiNgC15BYPW41LmHFj35Q4/L
-	qM81E6f0MpQ==
-X-Received: from dlbrd11.prod.google.com ([2002:a05:7022:f10b:b0:13d:1c4d:901f])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:458f:b0:3c3:a20f:f729
- with SMTP id adf61e73a8af0-3da39beaa21mr67910330637.7.1789062267123; Thu, 10
- Sep 2026 10:44:27 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:44:20 -0700
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZrUxtQll"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CAFC4237B;
+	Thu, 10 Sep 2026 10:45:03 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6CE533F59E;
+	Thu, 10 Sep 2026 10:45:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789062307; bh=lQQkO6iZXqi0Y8a4ze7AN9SoD32y+6oFDlGAoHjbyWM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZrUxtQllsN28zYKXkkk3IqRKzVHUtFYqVDaNn5BTdoE46m6pFaNHLm2iQ7TheaNid
+	 /ac3HDUb3O60bLD7dBYjM36MNMRCNDS5zA9UZQle/VLwVrcGmpTcyXBrlDWT18u5s9
+	 EKEuy4XThJnYTB/SWuZ4ZiQbnXzQbEs4+0I4Y+8M=
+Date: Thu, 10 Sep 2026 18:45:02 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, will@kernel.org,
+	linux-kernel@vger.kernel.org, maz@kernel.org,
+	pavan.kondeti@oss.qualcomm.com, tabba@google.com,
+	aneesh.kumar@kernel.org, mark.rutland@arm.com,
+	sdonthineni@nvidia.com, steven.price@arm.com, gshan@redhat.com,
+	yuzenghui@huawei.com, kvmarm@lists.linux.dev
+Subject: Re: [PATCH v17 1/1] arm64: mm: Handle Granule Protection Faults
+ (GPFs)
+Message-ID: <aqLsnngKRbMRu211@arm.com>
+References: <20260907162204.1479401-1-suzuki.poulose@arm.com>
+ <20260907162204.1479401-2-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260910174420.3002597-1-irogers@google.com>
-Subject: [PATCH v1] perf python: Fix ilist TreeNode string type drift
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907162204.1479401-2-suzuki.poulose@arm.com>
 
-Updates Tree type hints to correctly use TreeNode[TreeValue]
-across all assignments preventing mypy strictness mismatches.
+On Mon, Sep 07, 2026 at 05:22:04PM +0100, Suzuki K Poulose wrote:
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 0b52557652be6..ad00997b1a873 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -910,6 +910,22 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
+>  	return 0;
+>  }
+>  
+> +static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> +{
+> +	const struct fault_info *inf = esr_to_fault_info(esr);
+> +
+> +	die_kernel_fault(inf->name, far, esr, regs);
+> +	return 0;
+> +}
+> +
+> +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> +{
+> +	if (!is_el1_instruction_abort(esr) && fixup_exception(regs, esr))
+> +		return 0;
+> +
+> +	return 1;
+> +}
 
-Address some other minor stylistic issues reported by mypy, pylint and
-Sashiko.
+If we end up with a user PC here, we correctly return 1 but only because
+fixup_exception() won't find the PC. I'd rather have this explicit with
+a user_mode() check.
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/python/ilist.py | 70 ++++++++++++++++++++------------------
- 1 file changed, 37 insertions(+), 33 deletions(-)
+> +
+>  static const struct fault_info fault_info[] = {
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"ttbr address size fault"	},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"level 1 address size fault"	},
+> @@ -946,12 +962,12 @@ static const struct fault_info fault_info[] = {
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 32"			},
+>  	{ do_alignment_fault,	SIGBUS,  BUS_ADRALN,	"alignment fault"		},
+>  	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 34"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 35"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 36"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 37"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 38"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 39"			},
+> -	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 40"			},
+> +	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level -1 granule protection fault (translation table walk)" },
+> +	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 0 granule protection fault (translation table walk)" },
+> +	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 1 granule protection fault (translation table walk)" },
+> +	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 2 granule protection fault (translation table walk)" },
+> +	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 3 granule protection fault (translation table walk)" },
+> +	{ do_gpf,		SIGBUS,  SI_KERNEL,	"granule protection fault" },
 
-diff --git a/tools/perf/python/ilist.py b/tools/perf/python/ilist.py
-index 0d757ddb4795..4797818ef42e 100755
---- a/tools/perf/python/ilist.py
-+++ b/tools/perf/python/ilist.py
-@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
- import argparse
- from dataclasses import dataclass
- import math
--from typing import Any, Dict, Optional, Tuple
-+from typing import Any, Dict, List, Optional, Set, Tuple
- import perf
- from textual import on
- from textual.app import App, ComposeResult
-@@ -19,7 +19,7 @@ from textual.widgets import Button, Footer, Header, Input, Label, Sparkline, Sta
- from textual.widgets.tree import TreeNode
- 
- 
--def get_info(info: Dict[str, str], key: str):
-+def get_info(info: Dict[str, Any], key: str):
-     return (info[key] + "\n") if key in info else ""
- 
- 
-@@ -234,7 +234,7 @@ class IListApp(App):
- 
-     def __init__(self, interval: float) -> None:
-         self.interval = interval
--        self.evlist = None
-+        self.evlist: Optional[perf.evlist] = None
-         self.selected: Optional[TreeValue] = None
-         self.search_results: list[TreeNode[TreeValue]] = []
-         self.cur_search_result: TreeNode[TreeValue] | None = None
-@@ -290,12 +290,12 @@ class IListApp(App):
-             event = event.lower()
-             search_label.update(f'Searching for events matching "{event}"')
- 
--            tree: Tree[str] = self.query_one("#root", Tree)
-+            tree: Tree[TreeValue] = self.query_one("#root", Tree)
- 
--            def find_search_results(event: str, node: TreeNode[str],
-+            def find_search_results(event: str, node: TreeNode[TreeValue],
-                                     cursor_seen: bool = False,
--                                    match_after_cursor: Optional[TreeNode[str]] = None
--                                    ) -> Tuple[bool, Optional[TreeNode[str]]]:
-+                                    match_after_cursor: Optional[TreeNode[TreeValue]] = None
-+                                    ) -> Tuple[bool, Optional[TreeNode[TreeValue]]]:
-                 """Find nodes that match the search remembering the one after the cursor."""
-                 if not cursor_seen and node == tree.cursor_node:
-                     cursor_seen = True
-@@ -332,7 +332,7 @@ class IListApp(App):
- 
-     def action_collapse(self) -> None:
-         """Collapse the part of the tree currently on."""
--        tree: Tree[str] = self.query_one("#root", Tree)
-+        tree: Tree[TreeValue] = self.query_one("#root", Tree)
-         node = tree.cursor_node
-         if node and node.parent:
-             node.parent.collapse_all()
-@@ -343,31 +343,34 @@ class IListApp(App):
-         if not self.selected or not self.evlist:
-             return
- 
--        def update_count(cpu: int, count: int):
-+        def update_count(cpu: int, count: int | float):
-             # Update the raw count display.
--            counter: Label = self.query(f"#counter_cpu{cpu}" if cpu >= 0 else "#counter_total")
--            if not counter:
-+            counter_query = self.query(f"#counter_cpu{cpu}" if cpu >= 0 else "#counter_total")
-+            if not counter_query:
-                 return
--            counter = counter.first(Label)
-+            counter: Label = counter_query.first(Label)
-             counter.update(str(count))
- 
-             # Update the sparkline.
--            line: Sparkline = self.query(f"#sparkline_cpu{cpu}" if cpu >= 0 else "#sparkline_total")
--            if not line:
-+            line_query = self.query(f"#sparkline_cpu{cpu}" if cpu >= 0 else "#sparkline_total")
-+            if not line_query:
-                 return
--            line = line.first(Sparkline)
-+            line: Sparkline = line_query.first(Sparkline)
-             # If there are more events than the width, remove the front event.
--            if len(line.data) > line.size.width:
--                line.data.pop(0)
--            line.data.append(count)
--            line.mutate_reactive(Sparkline.data)
-+            if line.data is not None:
-+                if len(line.data) > line.size.width:
-+                    line.data = line.data[1:]
-+                line.data = list(line.data) + [float(count)]
-+            else:
-+                line.data = [float(count)]
-+            line.refresh()
- 
-         # Update the total and each CPU counts, assume there's just 1 evsel.
--        total = 0
-+        total: float = 0.0
-         self.evlist.disable()
-         for evsel in self.evlist:
-             for cpu in evsel.cpus():
--                aggr = 0
-+                aggr: float = 0.0
-                 for thread in evsel.threads():
-                     aggr += self.selected.value(self.evlist, evsel, cpu, thread)
-                 update_count(cpu, aggr)
-@@ -424,16 +427,16 @@ class IListApp(App):
-         # Add spark lines for all the CPUs. Note, must be done after
-         # open so that the evlist CPUs have been computed by propagate
-         # maps.
--        line = CounterSparkline(cpu=-1)
--        lines.mount(line)
-+        line_sp = CounterSparkline(cpu=-1)
-+        lines.mount(line_sp)
-         for cpu in self.evlist.all_cpus():
--            line = CounterSparkline(cpu)
--            lines.mount(line)
--        line = Counter(cpu=-1)
--        lines.mount(line)
-+            c_sp = CounterSparkline(cpu)
-+            lines.mount(c_sp)
-+        c_val = Counter(cpu=-1)
-+        lines.mount(c_val)
-         for cpu in self.evlist.all_cpus():
--            line = Counter(cpu)
--            lines.mount(line)
-+            c_val2 = Counter(cpu)
-+            lines.mount(c_val2)
- 
-     def compose(self) -> ComposeResult:
-         """Draws the app."""
-@@ -459,17 +462,18 @@ class IListApp(App):
-                     # Reading events may fail with EPERM, ignore.
-                     pass
-             metrics = tree.root.add("Metrics")
--            groups = set()
-+            groups: Set[str] = set()
-             for metric in perf.metrics():
-                 groups.update(metric["MetricGroup"])
- 
--            def add_metrics_to_tree(node: TreeNode[TreeValue], parent: str, pmu: str = None):
-+            def add_metrics_to_tree(node: TreeNode[TreeValue], parent: str, pmu: Optional[str] = None):
-                 for metric in sorted(perf.metrics(), key=lambda x: x["MetricName"]):
--                    metric_pmu = metric.get('PMU')
-+                    metric_pmu_raw = metric.get('PMU')
-+                    metric_pmu = str(metric_pmu_raw) if metric_pmu_raw else ''
-                     if pmu and metric_pmu and metric_pmu != pmu:
-                         continue
-                     if parent in metric["MetricGroup"]:
--                        name = metric["MetricName"]
-+                        name = str(metric["MetricName"])
-                         display_name = name
-                         if metric_pmu:
-                             display_name += f" ({metric_pmu})"
--- 
-2.55.0.1007.g17ff1f9808-goog
+For SIGBUS, we should use BUS_OBJERR like we do for do_sea().
 
+Otherwise it looks fine to me.
+
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
