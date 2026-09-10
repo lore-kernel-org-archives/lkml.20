@@ -1,335 +1,194 @@
-Received: from out-2uec-a106.jellyfish.systems (out-2uec-a106.jellyfish.systems [63.250.43.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1F927703
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE263D994;
+	Thu, 10 Sep 2026 00:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788998469; cv=none; b=Kyfv5faKqKiJx0EC6JaeBOBGiRTVvJlgwi7SxJTohIs3Aow9yd704H4fbLrQiixHcmeIQNa8R2i0CcHMunLj7c2YM4rAzNzT4FmCplVoIbYgaFALEBqFXW2aYKwWDApEJm7cNu7WKGoevKtREcxZlDrnuTzMYSmYeFsFwJNJGGE=
+	t=1788998555; cv=none; b=LJ9EU/nGhT9yeORMUABwbxQzz6Pa2umtXB8QBLWFAsbMTMBKEE/aU+IzEsqrglgIgubvoikMPCSVQmQ7waM80PaTSMAuz29DUN3yVkdeLkP5Tva+OxiyxQBCb3di8jjOtRuLYK4a78IbaTbZ3UdM2K3txvAupJ002TMhmnzKS7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788998469; c=relaxed/simple;
-	bh=SX+bMZ0aI4X8SyepNmkC/cEyz+B2CQ3mjUz4PL0X4Gg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sfWsrKDroBxyzzOPRZgb88AEzspDby9gsbQwfvQuVXiEvrGX+9ifz5psx+F3c+Gt9pyK5TTvbCadYYlNwrguKbkQIosLeWoob9siE0Tz34CSbPOu+Lrb3PQ7WCq66V3aFd55PhQ/gElmyxffeR6cXw3TPweKCkGj8GGGsc2bsBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=PRwKdnpQ; arc=none smtp.client-ip=63.250.43.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1788998555; c=relaxed/simple;
+	bh=eJTgmYA++G8fltGHK+h3OY47C6U3jfKniJ7A20zKO74=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IUqeJus/m2MEZLA5TNOWUPKljTHi00zocPJIMZ8ahvDp9cuvvTwo1oG+Sei2tzbkblJJT3g5ajL+hxuA8Nh2SK/yW5DAP0sbm/u9gVqQCYG/ayKvDilbZfoItLE9IgdbVuG6g6zg2X1lPx3GHpKqYU0tX5DbuX4xfLPWc1TQSmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b=dt0nv/Ce; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="PRwKdnpQ"
-Received: from 192.168.5.7 (unknown [23.142.132.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hgHkJ4BJqz8sWx;
-	Wed, 09 Sep 2026 23:55:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788998139;
-	bh=gqlhQP7/rcLpP1L94OJdJPvDYnSuPnzWrOMZcm1+ctk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PRwKdnpQCuj0IQlh8gj0eKl/m+Que9hj8iaNZSqqYUjrOnMMubtS4vz6X0U7E3SEl
-	 hXwT4TyghX12pxYDv59MvDg7afpBenbENFnvcN5ZGC7OZ558ZU6tS2+YxZtMik+e4J
-	 DEupObNhAO9WG2ynZE8X3Vfto9wRhXyR+GTZG7iFpUf5ulUKXI/7ogQwJe9PQA9e2o
-	 5bMn+z8fdautAj13feG2mz9d22B3FKoZtD0oquAPr5ZSTQsTzdL+Y+6NcRy8BNvwtf
-	 eyKKqeTmc6n28mIBWYV73rDWFlf+MoH7DHodYKdD39IAWRmuKd5zOaopqD8MdEw5hM
-	 JFZcRmHaw4fKA==
-From: Tianyi Chen <hi@tychen.cc>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	hi@tychen.cc
-Subject: [PATCH v3 2/2] memblock tests: cover allocations below the low address limit
-Date: Thu, 10 Sep 2026 07:55:33 +0800
-Message-ID: <142ab1025fd1e4b5dcd2a1591b964626ebce9d23.1788997523.git.hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788997523.git.hi@tychen.cc>
-References: <cover.1788997523.git.hi@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="dt0nv/Ce"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1788998549; x=1789603349; i=quwenruo.btrfs@gmx.com;
+	bh=eJTgmYA++G8fltGHK+h3OY47C6U3jfKniJ7A20zKO74=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=dt0nv/CeWH3Jt2GqwAiWN0/W4UsptWOqO+02qsNgfQLmoscvJSnFrV4c70sqJqHl
+	 GGeFDshHxiK+OSSSIHBYRPQ2ou2HuK7M1zWCfVV4Z8ZFSAz9iveXaVaIbpwohzCzy
+	 40XTa5knWqdNF+QDRpbAhimWiMAvIA0Pit0Tbk9nIqTQ8US6RmTbNvp9BZVTz9mdO
+	 6b3m99rspoIftBqKSAnZ5Q8wASkwXhRW0CdT+HJtYOz0aFX73fNMC4aRnky+gTiFY
+	 ONWAnB8vAgXLS/oLkytWYkNyjT4oiyO/XSCuzj5Bv+Jtv6cZD5hexcTKHaa0FStEz
+	 vLSfehlVLe6ZlQQLXw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MulqN-1wmvA60FhT-00ycgx; Thu, 10
+ Sep 2026 02:02:29 +0200
+Message-ID: <7e0ab4e0-5859-44e0-a697-38eb422b6302@gmx.com>
+Date: Thu, 10 Sep 2026 09:32:25 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+User-Agent: Mozilla Thunderbird
+Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
+ update-grub on btrfs root filesystem
+To: Hanabishi <i.r.e.c.c.a.k.u.n+kernel.org@gmail.com>,
+ Qu Wenruo <wqu@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-btrfs <linux-btrfs@vger.kernel.org>
+References: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+ <20260909002506.GF9053@twin.jikos.cz>
+ <7c331e23-d0ea-4611-9bed-d7099dcb41ab@gmail.com>
+ <9ca6e653-f89e-4ed2-8f97-783a5663f97c@suse.com>
+ <d27ef15e-2b34-4113-8913-93f4387fb48a@gmail.com>
+Content-Language: en-US
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
+ BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1YAUJEP5a
+ sQAKCRDCPZHzoSX+qF+mB/9gXu9C3BV0omDZBDWevJHxpWpOwQ8DxZEbk9b9LcrQlWdhFhyn
+ xi+l5lRziV9ZGyYXp7N35a9t7GQJndMCFUWYoEa+1NCuxDs6bslfrCaGEGG/+wd6oIPb85xo
+ naxnQ+SQtYLUFbU77WkUPaaIU8hH2BAfn9ZSDX9lIxheQE8ZYGGmo4wYpnN7/hSXALD7+oun
+ tZljjGNT1o+/B8WVZtw/YZuCuHgZeaFdhcV2jsz7+iGb+LsqzHuznrXqbyUQgQT9kn8ZYFNW
+ 7tf+LNxXuwedzRag4fxtR+5GVvJ41Oh/eygp8VqiMAtnFYaSlb9sjia1Mh+m+OBFeuXjgGlG
+ VvQFzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
+ CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
+ /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
+ GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
+ q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
+ ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1gQUJEP5a0gAK
+ CRDCPZHzoSX+qHGpB/kB8A7M7KGL5qzat+jBRoLwB0Y3Zax0QWuANVdZM3eJDlKJKJ4HKzjo
+ B2Pcn4JXL2apSan2uJftaMbNQbwotvabLXkE7cPpnppnBq7iovmBw++/d8zQjLQLWInQ5kNq
+ Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
+ +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
+ HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
+In-Reply-To: <d27ef15e-2b34-4113-8913-93f4387fb48a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:GpUdd5AsqNw3H7iVU+CS3laj0CHFRu7hRwDOSW87qYkTcZ2lPQ0
+ shnGz4F/nfEMJJQMTb7w+baPPZRFe2Mi0B+Jivzd0uvF9y87TaSUGm4WT4wSOMZ22Q4/4pw
+ 1DDeu4sN5RqJPlKbNBborpP1yiLPQkvYMWIcXXsEd442AFtZAZa29FZq1UXms88+aW7lGtK
+ fylkY6QuyggKjv/53ysaw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:qJPqrTiIiX8=;2eDvy+AGRZ7GrrPJO0V6KhHZ1Zk
+ 9QzE/wiKPuDpSdFEY5T37xYYhBHeSLczT6FjIlnGGYN6kUUhCcT+gMADWQtIQYgmJtsjQoAKb
+ /s1NQ4x+MwTMJdmnS4KOGXZ9eUUGs2YktV1OrZsKmxQHt2OgIJyi4To7xe2bf1m+7Eh1M8FCG
+ HGjmU+w7nB3CK+zFXJVQLUVR7Lzg3nSuc2+eZYPSJ7QFhf0eK8lgARAbdOlUH1+DUFTHoabiT
+ xUEu4nSi0ROvA1K0KjTpJ+hTzujPAEkXzH9AT4qoLPZRcRaJa0vdHiIjH4v0uMRUzu2ArVGzk
+ H64Hw6CSwmeG1A6tvE+g6NwoxjAwYOyGB4dmApa3IibBaI+jJvu3tjydNf7xtNAnKfa9pNz1v
+ 6joOwYEc9/PnaIo63fgY7/nz88KEmxjP1Kdm/t+59ZOunuvV2kA6YDn7ORGHNdFpU0GYpWRG2
+ RfmaH3XOyCxbNTkhYs6Yz8OyT6QAGH3hXSZakwL5HVE1yPGIw/PwBIlTpPZGgPuBzHS6ckZZ0
+ HnNvk6xNbMLG/n4T4i5FturNvYvgfvkgSX8/ST5Wu31wJ9MC+mJ3GKAgKZbxm9Cp+2hECKz8U
+ yPrU6UymvRR6EvznBv8Cln34NjE8lcPAkvQnpUZWJMCDMq5Go4L2QupimZ6j1/xrA7jLAUcDy
+ EOg05vBorUocCRi4+rpiW3eC8McOBaQBsyNHv207OnM/A2He4dt9+yKEL34eyWedIyWa4vBR0
+ PD/whVpN2A+KTCMC8ycwUbIr5/dwrkGxhgLh30r+scovt4YCeGLHi50xWyr6xuQ9mFkDc53E5
+ 76un5OkXATkgkGCJbRTeDbWej16wmjLUNmW37HRL4L87b6/ll6aHOred40BKRJ6aQR0e4s9ZG
+ Cl1589q/Lb1Fg+EVRD6D39sDKlRcRWiJSI9CcjbdH6s9qUpvwamh0SbcTfF0Wikpe4pm48Nwj
+ o3Jrk6WYNxmUvvMjBKsCYSJlma2TOWnTmYV+bc0OeuNemFrDBFMAMHN58C55C6ZCHug2qMFs3
+ pB6+8d12XX+UnRfN1tzmwosjiHB7y2gfM9P7uM5NjJBtVKlq7LSUDLi8UL9GYIvaR/7FU2kde
+ PvRN3EDPXUIysxpU8l9tKNP1XUl4KM3PEjPQ8ZZYmPDliS2FlVAr3s7AhDpbmjYjLtqNUWXz2
+ aMDcBy7DI0YU2S4HdAKHslY0E/+wLngMdxNnv0dnWBOvuWV9a7SUSvCL13P6p1551x/Q8rI3B
+ eHONMswff/qrPoIBGTE4yaVDWu1sCCkHbg+CY0VvYOEunzKXQJSBaETy31Ce2vcAhdWfCv4eV
+ iibS3RqpymIjr3hBxE0IMutnnb95D74VZGULd/VhG7WcLwEzb0wZkKZNZqkSySubx1cJWX3BB
+ vpNtrL0LqHJiCGUZDPvYqJhsRv0kxs5mJyGQK+XAFnnGcRVvRf+O6WflwRBsyDaoYS57FtTqV
+ AU4bOZTppUobN0dd8rVjxcJGgqBJ+MmGDLvXBKtmDrEo6sWfJkClCzr5Dq5DlyMTBtAr+z/ZL
+ Na4v8hwpfTxoOlI2ZXktxAS2AUaCP8dAU9a0uaTeIKi82OUIo4WAmaDvFItAWfzhkka+PmjMJ
+ Gux7RP+Cyxvp/NV6M5qedinQzWYcK0G7ZWDgghCyn+54NIyTBKc+oSjOO56D7Bbr6a4HjUpRG
+ dfHgHAyad5RAyOrs9f+2WsofOCYxMSJvhI9l5HZDZudxlPF/ow9dWpChCCdvyJL5I6+PEvYIT
+ nYD2e7kcdcptnw5t8DUZOemIqD6Cc42hnZ061jypPQEMk53NOA2jgmr3vfM/rKPMTafHyQKCF
+ aDrTICnJhMrEJWXBxVF97GuV3c2wrYFDiu/I59JE0GZ6MfYpW7tqCqq0ov4Qj+a+Py4AXpLXQ
+ t7TUh1rqFEjz7DSIJhIOOJxPiQI6wcghRyNeWyrjice8ywf/GvczNrZ8O7qO9Z7eJSjEf7SM/
+ RJG+uwqN01PcvpVJf9e258WRFRjy8ye/KXrQDWUcmTJhV58UGvrqN3Rh3PCYS4i2VKVXoDTxn
+ hRtyFO+568+bJadCZLdZaMU2jQJlJg4ss2CH/l7ZSvqr2ryIyyFfG2+PvxaldqFZHfB+uZvHq
+ Xt9OD8vVU5mQs4wfIGKDJWuXsa1DLYhMVAUWDLWipEGTLAQq0yh9XaCFX4LCmja4fchCvDwvK
+ cBS7br2OJx/ao84xQ6v6RK3kJEk9OTBl+xGN4CGTkcZgiMqfqZGGoJacm9pdiBKCGsWmJHQEV
+ I4TQKebOLtk5Q5nKrSSRHyGMQ1N4mAV7W0QvODRlElhxgfZUb5VES+9y4vCiHLmShx0H8evTf
+ eo5YtTj7XtjGMnTQDucJdVUr/XKP98NF8M/AyFa93LijON9UFXVtmPlSXCljEGiR8evdGkZWU
+ Hb7LGGIUUJq7j9iOsi8asjeVGzNSUkDTWzL6Xnqrp4OLTa/XoxIGMipjiKnF8F4abvCvZ5YgH
+ M7mn7CL624st+PkJtVJ7sI7JOxANa1oGbD2m92oc8z3vaaWMPmEXYNM8gtiGKzkn+bHk9gli2
+ tWJmfNyd7EVblU5gBrlLdhEnSUeXAVdNaRwpElC/Zyg6/uEh/JfKOnGP2/+9W9U6+dXntPoyv
+ E5LfXopk8LT0Ao/x6FDm3JMRY+xmO1+lquxuO3VqK4yhXntQKW9LEHeU0oQ2lXZ4pcImvQFFF
+ jmwBMmq97SwePVbwGx3Vy1hI2s79pASJZdjetnO55qUUVoWIWTsEGpicPXhMpsbtBpDVH/H1r
+ Oer4rBsDQDhep2S5UQoAN8Ujz/eQuWBIqhFj9AxG+82WdpyuJ/di3HeAqSl5k4N8jfRnG5o4P
+ nq1SXw3oeVk0B1czQHoBeGQK8USdJ60l+IgBQPLE8pCDrJWa3GZySpuYAFo40IkuRyi0F0Tfu
+ jelsVE5gKrLC/miIGn2mbTw3xFc7oyTfPLjwH85xlQ/CeEu0WIF4Hwt2L7RFAepq9R079ouHl
+ ukqDqGamsQ6Jy9v1xImCF32E6B06ptxv3SMGQ+LxlZIGuZRIAOmcTMYXRb9MGvrhbRZ7Iv9wI
+ 4b+pyv+aABRx6Yjl1KVwcP/FP41nDhp1Zl0lSI7wsMx+kvLatIvOUjfcBrDg8v88PU4H8LGFs
+ Q0oicByPNiyfdyTAv6WphgplSWg1Op6gN6k/CqsmTG0SSBh+/DhewIzffiUFEDaiZ6YMir91Q
+ Jh38uXRvlaiTTJX9Vcjus1YCI1z07rW75t48AyXYn3ng9KM1bczQcqPPAT1JK5qzWMeduAeBj
+ 91BYd8hHkuJltJUOOKfSoBcO956M92WMm9tc6Im7ILatdtXQtuVDWHoX61HPq3Pbawz5pzlY2
+ RkoVR4qUUk3X4oevqv7wbshCUC5U/RnGlu3nzQQUO3BKnePXLCPQKbmKRihKMJqqqATN9ZQ0H
+ ujLsHzGkCIT8W56bCT8ze9NqYrXLAiULvlvHAKI7hptU+9YrRf1HUJkPz3e7Fs0PTnuJBXkP8
+ HzI9GJY8vC1V7HdO7oanatciqxlImYi3uQaH71fDEKIh3pju5E/xF1gIo/T1axO2UaMHvfI81
+ KFEavU6j/h5BjmFoHb1IGplOLr5fuWRai2loM8qOYJUGMov284aL7B6ZKpx5Ey1x7IiD635FY
+ yqbwc+gNXIevWlhFJWA2lpM6phUdyqR04iTVuflHjRz5yLKawdIwdUIWj3Zt/B+H1VebszDIm
+ pnb8rzQyB3SfB9PKuuFpgfblJ0xa6pl0sY2lmXOqM3Lbc8Xhmz4jr8FRhUtkzA6sdG/abW5zd
+ q9Koc43Bx6yPza9Pb3aCebKDja/y2FDPwK0MUR7dJoPE86Nt2utd78r00ari4+LGBWzxswWB5
+ UOZ3i0SWWM51A5IM5PpaiUrCzXRNlphxwKr+AlW0076yLFTS8/NSHbM1YFQcm+yn9jkL/80NB
+ 4f28ZMpy1ProjvUEv1ZOO73daUZJRbR8j0Xdfkwj5p86hSR5dgZyvV4ayAoUAkHE3o6UQmGK2
+ kzmwbuGvBLMK2YFpRgnOqjfSUoqa93W/vG9+g4v9aiZiLdHeL+1SJW+jbQ2azFH4ssmqwWzWE
+ Jy4Zd4RoZvv9JNtRreKUOQhT5Dv+McFT0u8NVdiPLzP2uynqiDMOsclLxkw1YlZWu+1lXuSiA
+ NW3B0fcxGQQGTbBwL9Oo1ucGbG3WBWfQyMuAzziiasfZ8TXlakyBdmnYL27mAfEOJVuV9M/jI
+ Iwn2/5o9RLwV0ODVXjP27sGqGivkQYdFDHSMDU+8D05aC1FGJLJueB8uISky1EJw7HZD2JHrs
+ xT1yCvC0l5PKgyMZ8MuWs8x/3aBXMPsl1azEkvEWhlWFHpTr8ON2vtIj3kERUgSZhU9bcLeaG
+ yyKZu9yFBmX3pktNKjXLUt/CSjAWSW10AR8a9F1hG0r2jIlbSshfLhWn1XEtiCnmgDXD4lHDY
+ HT7OzH6oLatTzHuDExNuiLDS03L5RUoYlL1e63zt1dI6+dMTN+zlPf5lhs4BjTKeINyCI7/t/
+ BsypVHx/7nEuOy6xuG9trJ+6/pfpvq8JkEHgLwtuRtIumwB0oqDTrS8xsphUZZ5qfm+imOhcn
+ buzBmJL6NXDiP40DXQ4I+fuEhc0ETX8rOhLuNDlnNivjxYB2wEdtQ9CxB0IJEx5laRoaqWmXA
+ bUljJ3eZLiZauP574c4Ka4M0ltYPWmwM0cvcdNOhBGy9rFqNRYQvnPvbsKchSsVD4Kdn7vJB7
+ 2UbrqHTYdmSWGVJwh2NtqLm2dTXMQN9wGQFMQaq3+/70CN0bceE8hbTsTiat/JFsJvHaPTxKJ
+ hxiLsPXKqrzMiu5WU9sNxV65H3ct0FM/YaxO6WjIi8plpX8hRWqoywuLX+axbyXQV4I6bGiiF
+ yEfwzTgAYRB9U4f1Cy56GA8toFecU5+vUMvmVLRWqFqcwJpBiaDWg5OrK5pT4iCq6DbnewB4H
+ UINQiwHhi92Gy/4Gc+eeMKB1p0jYugHMOVnjStacqS1Pj6LUBzYlITTyo6vzkKYoZ4EdbISEF
+ d2Rr275tcaRhy7lIUBJoOOPVcm1Dvy1BPnloU82k7hovOuetiK5097dRdIxqXontu6bo+x3Ao
+ XFDyL1ErbjZRtRsxOhJWaUoDLvAuSQ8x2RfdtNG7z4olbcJzeRdcJmjWdlJFqtDt+hzHrKuWB
+ 4+qRdSRcm/bLKoQu/wz165S9RKNPZ2JchyYojLEXBseCZFQdv2l9VMYuXOFsGeFfi+5z5eS7k
+ IU/EXuBexonFvKWZFTONidGifMjZbMio+ND/ED6O1jSkyACCi5GwY6iWxabIeklS5OEoCL44O
+ Na0bw0R0IHqU0ze8rhSsPJBUzyuCBB/B04L1ZyLAnmycLQdg+imyePIcHqVESlBKAyriB1QyF
+ fu3q2RoEzOjBU0kjXKhNp3DLTk9UmwilOBWjbRmIZoxNyK5qlaAgrAWmW/aRRmTclwOxDxlRw
+ rlYpTAWw9Tb21LiieKmLbgEMY8LeK7XP8nB/k8airBvCkqBhs02xs5g3EE0B8qWQi86gVLN6P
+ W5qOGjwv+uzQYvVEgBe21gy5sK+yF9o/Z4s/PoKtx/JEg5ws2kJP8TcQWbj9kHDHEQ/KQv1CK
+ pnrKT/bgiH01PbkVwLlg69Caf3NaCP2TDjXbRmlQGKwWy++Y9HKPfcnNrA8vS4bHLLiAq6u7E
+ Ba+Bvii2OfMjd9W0vsg+yxPQmNe4nSg3AXfZnVM9NzHEVLlpvolUKBquUtoHiIsw2EnR/axqI
+ Qa0DYs+i/94MS8fqA1+MfqndPK6xbQsgD6GNZz+EFI2SDhh7vRveVALVQ9mKZVnXKksNnIpRm
+ s1Rr+FXsZUMrIMclFulYyVRwSsB8d/1vg99J7k5Iu+UH50uR3bioBmGcxrOmMTcY4y9iJODQw
+ N7hJRR7sFNazxErX6B784zIwNjE9aJyp7aKJYYzcQz7HbRbNr5JhVx4hzguKNfNGzCDWKWaG1
+ dwjTIUxi830eew5RmatWDwzsI43jXpkIK0G5JecHxcHSp2pqJb09rNBYHYluJNBP2bJnrljT4
+ sBpHe80ph+ye5mMcoqNqQsi2s7bkXTSyISCVVO8oKnI1CWSJPD+c5/ZIdb16mqHReru46K8pP
+ +Xi1Z2ZEvWCco8sJYY7UesPWAYszU8XUlQM52ns5GjNQWT80JsprbnT0cKSTCYBMZuV0lci4z
+ Bx5ThggfOH27tSfTOhLp25GhyR1LNidna3xoOmhGxONGq2AJ0JoBPtiNPn/Glo2WgKOtTWfb1
+ vMpR18xOUVgKCvVHJrHb+7EPQVO+AQf
 
-Add memblock_alloc_low() coverage using the simulator's low address
-limit. Exercise aligned allocation, an allocation whose last byte is
-immediately below the limit, an alignment constraint that prevents
-fitting below it, and fully reserved low memory with high memory still
-available.
 
-Run each case with bottom-up and top-down allocation. Check zeroing
-and reserved-region accounting as well as returned addresses. Verify
-that an unrestricted allocation can use the free high memory after
-the low allocation fails.
 
-Document the simulated limit and remove the completed TODO.
+=E5=9C=A8 2026/9/10 09:05, Hanabishi =E5=86=99=E9=81=93:
+> I think human reporters deserve more attention than bots. But anyway,=20
+> thanks for responding.
 
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
- tools/testing/memblock/Makefile              |   3 +-
- tools/testing/memblock/README                |  12 +-
- tools/testing/memblock/TODO                  |   5 -
- tools/testing/memblock/main.c                |   2 +
- tools/testing/memblock/tests/alloc_low_api.c | 148 +++++++++++++++++++
- tools/testing/memblock/tests/alloc_low_api.h |   9 ++
- 6 files changed, 166 insertions(+), 13 deletions(-)
- delete mode 100644 tools/testing/memblock/TODO
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.c
- create mode 100644 tools/testing/memblock/tests/alloc_low_api.h
+BTW, I may consider a different flag/cmd for btrfs device scan ioctl.
 
-diff --git a/tools/testing/memblock/Makefile b/tools/testing/memblock/Makefile
-index d80982ccdc20..20524fcbe3c7 100644
---- a/tools/testing/memblock/Makefile
-+++ b/tools/testing/memblock/Makefile
-@@ -7,7 +7,8 @@ CFLAGS += -I. -I../../include -Wall -O2 -fsanitize=address \
- LDFLAGS += -fsanitize=address -fsanitize=undefined
- TARGETS = main
- TEST_OFILES = tests/alloc_nid_api.o tests/alloc_helpers_api.o tests/alloc_api.o \
--		  tests/basic_api.o tests/common.o tests/alloc_exact_nid_api.o
-+		  tests/basic_api.o tests/common.o tests/alloc_exact_nid_api.o \
-+		  tests/alloc_low_api.o
- DEP_OFILES = memblock.o lib/slab.o mmzone.o slab.o cmdline.o
- OFILES = main.o $(DEP_OFILES) $(TEST_OFILES)
- EXTR_SRC = ../../../mm/memblock.c
-diff --git a/tools/testing/memblock/README b/tools/testing/memblock/README
-index b435f48d8a70..4ea293209548 100644
---- a/tools/testing/memblock/README
-+++ b/tools/testing/memblock/README
-@@ -67,13 +67,13 @@ memblock
- |-- tests
- |    |-- alloc_api.(c|h)         -- memblock_alloc tests
- |    |-- alloc_helpers_api.(c|h) -- memblock_alloc_from tests
-+|    |-- alloc_low_api.(c|h)     -- memblock_alloc_low tests
- |    |-- alloc_nid_api.(c|h)     -- memblock_alloc_try_nid tests
- |    |-- basic_api.(c|h)         -- memblock_add/memblock_reserve/... tests
- |    |-- common.(c|h)            -- helper functions for resetting memblock;
- |-- main.c        --------------.   dummy physical memory definition
- |-- Makefile                     `- test runner
- |-- README
--|-- TODO
- |-- .gitignore
- 
- Simulating physical memory
-@@ -101,12 +101,10 @@ There's no need to explicitly free the dummy memory from memblock via
- memblock_free() call. The entry will be erased by reset_memblock_regions(),
- called at the beginning of each test.
- 
--Known issues
--============
--
--1. Tests for memblock_alloc_low() can't be easily implemented. The function uses
--   ARCH_LOW_ADDRESS_LIMIT marco, which can't be changed to point at the low
--   memory of the memory_block.
-+The simulator defines ARCH_LOW_ADDRESS_LIMIT in asm/dma.h using the midpoint
-+of the MEM_SIZE range registered by setup_memblock(). This leaves registered
-+memory both below and above the limit. The limit is the first address an
-+allocation must not use; an allocation's base plus its size may equal the limit.
- 
- References
- ==========
-diff --git a/tools/testing/memblock/TODO b/tools/testing/memblock/TODO
-deleted file mode 100644
-index c13ad0dae776..000000000000
---- a/tools/testing/memblock/TODO
-+++ /dev/null
-@@ -1,5 +0,0 @@
--TODO
--=====
--
--1. Add tests for memblock_alloc_low() once the simulator can model
--   ARCH_LOW_ADDRESS_LIMIT against the low memory in memory_block
-diff --git a/tools/testing/memblock/main.c b/tools/testing/memblock/main.c
-index 278f9dec5008..9a96e178551b 100644
---- a/tools/testing/memblock/main.c
-+++ b/tools/testing/memblock/main.c
-@@ -4,6 +4,7 @@
- #include "tests/alloc_helpers_api.h"
- #include "tests/alloc_nid_api.h"
- #include "tests/alloc_exact_nid_api.h"
-+#include "tests/alloc_low_api.h"
- #include "tests/common.h"
- 
- int main(int argc, char **argv)
-@@ -12,6 +13,7 @@ int main(int argc, char **argv)
- 	memblock_basic_checks();
- 	memblock_alloc_checks();
- 	memblock_alloc_helpers_checks();
-+	memblock_alloc_low_checks();
- 	memblock_alloc_nid_checks();
- 	memblock_alloc_exact_nid_checks();
- 
-diff --git a/tools/testing/memblock/tests/alloc_low_api.c b/tools/testing/memblock/tests/alloc_low_api.c
-new file mode 100644
-index 000000000000..a117431f1f71
---- /dev/null
-+++ b/tools/testing/memblock/tests/alloc_low_api.c
-@@ -0,0 +1,148 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+#include "alloc_low_api.h"
-+#include <linux/align.h>
-+
-+/* Allocate at the first or last aligned address below the low limit. */
-+static int alloc_low_simple_check(void)
-+{
-+	struct memblock_region *rgn = &memblock.reserved.regions[0];
-+	phys_addr_t size = SZ_64;
-+	phys_addr_t expected;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+
-+	/* Simulated physical RAM is not necessarily SMP_CACHE_BYTES aligned. */
-+	if (memblock_bottom_up())
-+		expected = ALIGN(memblock_start_of_DRAM(), SMP_CACHE_BYTES);
-+	else
-+		expected = ALIGN_DOWN(ARCH_LOW_ADDRESS_LIMIT - size,
-+				      SMP_CACHE_BYTES);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_EQ((phys_addr_t)(uintptr_t)allocated_ptr, expected);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+	ASSERT_EQ(rgn->base, expected);
-+	ASSERT_EQ(rgn->size, size);
-+	ASSERT_LE(region_end(rgn), ARCH_LOW_ADDRESS_LIMIT);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.total_size, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/* The last byte of the allocation is immediately below the low limit. */
-+static int alloc_low_exact_limit_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = ALIGN_DOWN(limit - SZ_64, SMP_CACHE_BYTES);
-+	phys_addr_t size = limit - base;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_remove(memblock_start_of_DRAM(),
-+				  base - memblock_start_of_DRAM()), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_EQ((phys_addr_t)(uintptr_t)allocated_ptr, base);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+	ASSERT_EQ(memblock.reserved.regions[0].base, base);
-+	ASSERT_EQ(region_end(&memblock.reserved.regions[0]), limit);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.total_size, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/*
-+ * There are size bytes below the limit, but aligning the start makes the
-+ * allocation cross it. Memory above the limit must not satisfy the request.
-+ */
-+static int alloc_low_alignment_crosses_limit_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = ALIGN_DOWN(limit, SMP_CACHE_BYTES) - 1;
-+	phys_addr_t size = limit - base;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_remove(memblock_start_of_DRAM(),
-+				  base - memblock_start_of_DRAM()), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_EQ(allocated_ptr, NULL);
-+	ASSERT_EQ(memblock.reserved.cnt, 0);
-+	ASSERT_EQ(memblock.reserved.total_size, 0);
-+	ASSERT_MEM_EQ((void *)(uintptr_t)base, 1, memblock_end_of_DRAM() - base);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+/* Allocation must fail after reserving all low memory, with high memory free. */
-+static int alloc_low_reserved_check(void)
-+{
-+	phys_addr_t limit = ARCH_LOW_ADDRESS_LIMIT;
-+	phys_addr_t base = dummy_physical_memory_base();
-+	phys_addr_t size = SZ_64;
-+	void *allocated_ptr;
-+
-+	PREFIX_PUSH();
-+	setup_memblock();
-+	ASSERT_EQ(memblock_reserve(base, limit - base), 0);
-+
-+	allocated_ptr = memblock_alloc_low(size, SMP_CACHE_BYTES);
-+
-+	ASSERT_EQ(allocated_ptr, NULL);
-+	ASSERT_EQ(memblock.reserved.cnt, 1);
-+	ASSERT_EQ(memblock.reserved.regions[0].base, base);
-+	ASSERT_EQ(memblock.reserved.regions[0].size, limit - base);
-+	ASSERT_EQ(memblock.reserved.total_size, limit - base);
-+	ASSERT_MEM_EQ((void *)(uintptr_t)base, 1, MEM_SIZE);
-+
-+	allocated_ptr = memblock_alloc(size, SMP_CACHE_BYTES);
-+	ASSERT_NE(allocated_ptr, NULL);
-+	ASSERT_LE(limit, (phys_addr_t)(uintptr_t)allocated_ptr);
-+	ASSERT_MEM_EQ(allocated_ptr, 0, size);
-+
-+	test_pass_pop();
-+	return 0;
-+}
-+
-+static int alloc_low_checks(void)
-+{
-+	alloc_low_simple_check();
-+	alloc_low_exact_limit_check();
-+	alloc_low_alignment_crosses_limit_check();
-+	alloc_low_reserved_check();
-+
-+	return 0;
-+}
-+
-+int memblock_alloc_low_checks(void)
-+{
-+	prefix_reset();
-+	prefix_push("memblock_alloc_low");
-+	test_print("Running memblock_alloc_low tests...\n");
-+
-+	reset_memblock_attributes();
-+	dummy_physical_memory_init();
-+
-+	run_top_down(alloc_low_checks);
-+	run_bottom_up(alloc_low_checks);
-+
-+	dummy_physical_memory_cleanup();
-+	prefix_pop();
-+
-+	return 0;
-+}
-diff --git a/tools/testing/memblock/tests/alloc_low_api.h b/tools/testing/memblock/tests/alloc_low_api.h
-new file mode 100644
-index 000000000000..2e3cbe336f5d
---- /dev/null
-+++ b/tools/testing/memblock/tests/alloc_low_api.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef _MEMBLOCK_ALLOC_LOW_H
-+#define _MEMBLOCK_ALLOC_LOW_H
-+
-+#include "common.h"
-+
-+int memblock_alloc_low_checks(void);
-+
-+#endif
--- 
-2.55.0
+So that one can force a device rename, and I can finally put all the=20
+responsibility to the end user.
 
+But that will not be landed anytime soon.
+
+Meanwhile I would suggest just to use a initramfs to workaround it, so=20
+that btrfs can be mounted with proper device name (initialized by=20
+initramfs).
