@@ -1,47 +1,35 @@
-Received: from mta0.migadu.com (out-25.mta0.migadu.com [91.218.175.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D0E3B27D1
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B353C13D886;
+	Thu, 10 Sep 2026 20:51:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073441; cv=none; b=UVEjZ//S2LWh5H4g5F/9DgZZHznQ0PR249IeBf0KTtcN5B+dWHkEUjIjvjWZo1Hi7zV40wVXZf51mKYMpFui0km0959fPi99d9lBEXgx2x+sc/kkFb0VW7e4LFp6MCSe74AD7ocZW7aHYR/ZogPlD4Gflq2b6nOOg7TynNOhER0=
+	t=1789073469; cv=none; b=d1cjhQTU1SOgfomBxZpOBWJEGHRFvPYvGjqPKGP5NhgJzHjyhBnzfGDYYcozRs86W5b7lKCqJ6lC0m8KafNQyKF+3JgJ68W3nEnYoxUuRUCnCV1aKDvs20zCI4Oqg50732iBc6z679cwU4Wq8GF1O6s0IxqUi+QS2nuLE76TWfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073441; c=relaxed/simple;
-	bh=41+fTgHWFKSBVVp4XifXvnE3VNYqFnKT69tOOkfc8gY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VX5OBeedZSoPTpUJANLzeUG7cjB88QP0YgVW4KAwoAiDqyTcVzSw5q5JcknZKLXGg3KO2/J8Qdrn2X7OxhfsOnhr1Yc8OP9hWhYmr+W2QH16+W6O5X0wzgCINSI3yp99r4U1bzUSlO60SUFBIBhUkcHcCvnyz8PmKsWfCaKpka8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rQkMT9+A; arc=none smtp.client-ip=91.218.175.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789073469; c=relaxed/simple;
+	bh=AlJPBMFmsgTS/RClPRSjhWfqCN0P1AfreTGMXRFBCFk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=C3OpcuB5ighSTUQZMpgPra0iJ5hovttoocww/SpDaTm4GwBpFptQrh3VcVj4J7ZhER93ezM1A1kevh7c3N6hFEv11HoMWsveK8OSH3yD4s0brvJmfIjVtrTYQGw8nzxcoIhrXoYqDKH2+U5feiHG0lsYlF2q4ibPHdgM1KiQceY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VC8t0Ab4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rQkMT9+A"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=41+fTgHWFKSBVVp4XifXvnE3VNYqFnKT69tOOkfc8gY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789073434; v=1; x=1789678234;
- b=rQkMT9+AFs0iblo3j+iJZOJA2LmX0DrfPjU4gvhUX377dDIE2CTu8PMLlM5TFxYOKargiM4h
- I7A2JR04gvd/+ecFkie0bIHvFZmTwi8WglQ0YKwcbuS+5zBhY7ejUBU8zuOi2YlGxANOClDenfa
- 2b6c02hxY0JEdxmduu6nq9zY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 997b8a268c56b9b3;
-	Thu, 10 Sep 2026 20:50:34 +0000
-X-Mizu-Trace-ID: 997b8a268c56b9b3
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	"Hans de Goede" <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schyboll" <dragonn@op.pl>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	Cymirk <Cymirk@icloud.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH] platform/x86: asus-armoury: add support for GX651AR
-Date: Thu, 10 Sep 2026 20:50:32 +0000
-Message-ID: <20260910205032.153165-1-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VC8t0Ab4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E3FF1F000FF;
+	Thu, 10 Sep 2026 20:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789073468;
+	bh=O8zy2lKt1el3me1n5nB1vmemC/4WW44jiXtQPOUxDeI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=VC8t0Ab4FhzfOWShXrMBptbPe1foN5rb9Tl/bG3dOKPpj788SOOGyM5HJj68g//Z7
+	 ElQ5mMNZP5CY23mO+Ca7+dAArO9Ueg2AnVtoZjDRcJ8T6qg2RiYQDA5FHaZ5YiurKE
+	 5wHGRzx9f6Bp4SG+MThPAFSkq61yD9+SGx4d1ZYF9hhS0fj5uuUeNB3nxoIa1+XgQy
+	 TIS6U7jHfwOd0OMHKeI2MwzAW/Wysx4b7f1gar6nyWafdxjm7ZgD66YI7h8RGRy9js
+	 DEKF9hi7xCnQunnC3MmUyd8u9ijyCEGPy0z+549yBkTWcW+lYJHp+wuboWFMZO5vLu
+	 rddTJffS6Pzlg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A0F380DBDC;
+	Thu, 10 Sep 2026 20:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,64 +37,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] Bluetooth: SMP: Zeroize raw key data on the stack in
+ smp_e()
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178907340539.2075844.9772843571255871634.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Sep 2026 20:50:05 +0000
+References: <20260910123254.408963-1-thuth@redhat.com>
+In-Reply-To: <20260910123254.408963-1-thuth@redhat.com>
+To: Thomas Huth <thuth@redhat.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
 
-From: Cymirk <Cymirk@icloud.com>
+Hello:
 
-Add power limit data for the ASUS ROG Zephyrus Duo GX651AR.
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-The GX651AR uses the following limits:
-- CPU PL1: 30-75 W
-- CPU PL2: 38-80 W
-- NVIDIA Dynamic Boost: 5-25 W
-- NVIDIA TGP: 80-115 W
-- NVIDIA temperature target: 75-87 C
+On Thu, 10 Sep 2026 14:32:54 +0200 you wrote:
+> smp_e() already clears the AES key in its "struct aes_enckey aes"
+> on the stack before leaving the function - but the very same
+> information is also available as raw key data in the tmp[] array,
+> so this should get cleared, too.
+> 
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> 
+> [...]
 
-The same CPU limits and temperature target are available on DC power.
+Here is the summary with links:
+  - Bluetooth: SMP: Zeroize raw key data on the stack in smp_e()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/e40edfa049b9
 
-Signed-off-by: Cymirk <Cymirk@icloud.com>
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- drivers/platform/x86/asus-armoury.h | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
-diff --git a/drivers/platform/x86/asus-armoury.h b/drivers/platform/x86/asus-armoury.h
-index 0e301d663d0c..44ea9519560d 100644
---- a/drivers/platform/x86/asus-armoury.h
-+++ b/drivers/platform/x86/asus-armoury.h
-@@ -1881,6 +1881,33 @@ static const struct dmi_system_id power_limits[] = {
- 			},
- 		},
- 	},
-+		{
-+			.matches = {
-+				DMI_MATCH(DMI_BOARD_NAME, "GX651AR"),
-+			},
-+			.driver_data = &(struct power_data) {
-+				.ac_data = &(struct power_limits) {
-+					.ppt_pl1_spl_min = 30,
-+					.ppt_pl1_spl_max = 75,
-+					.ppt_pl2_sppt_min = 38,
-+					.ppt_pl2_sppt_max = 80,
-+					.nv_dynamic_boost_min = 5,
-+					.nv_dynamic_boost_max = 25,
-+					.nv_temp_target_min = 75,
-+					.nv_temp_target_max = 87,
-+					.nv_tgp_min = 80,
-+					.nv_tgp_max = 115,
-+				},
-+				.dc_data = &(struct power_limits) {
-+					.ppt_pl1_spl_min = 30,
-+					.ppt_pl1_spl_max = 75,
-+					.ppt_pl2_sppt_min = 38,
-+					.ppt_pl2_sppt_max = 80,
-+					.nv_temp_target_min = 75,
-+					.nv_temp_target_max = 87,
-+				},
-+			},
-+		},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_NAME, "GZ302EA"),
+You are awesome, thank you!
 -- 
-2.47.3
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
