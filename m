@@ -1,113 +1,114 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CC930D3ED
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789013461; cv=none; b=sT2dtxcKHUaHxPkNkry6qse4t0XwMMjNA1oZjLBORXewRz6iYC0q1bPsNjom8hHG26XT8aCDCQCe4MX5u39kYbtbuOJ46veZpR9EaJH0l184hxLBiSRNwe7gbGnv4dbCYMsCR3eb6D/TRCzG6RHS8KdTm6spDa8Qg3mwSQIl0G0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789013461; c=relaxed/simple;
-	bh=VBRMGDnmTSoBVAayF4EJRhtYQQ+ry7lr4E1+xx5Eja8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L9Ho9yCPbqIGezQ8V+3DEoza1h0AA4GKl4GRxOBis34jJoa3qnc1vOiHo5x0ILtZHHHXpJtkrTDLpI7yswETM19Zf9BpovnHPdjMHsvnC+0g63wtK1niZn2nFcN+jk7qrG/MGpgOma6lXuX92nkKENiyqGbfySaUu+3ytIdp7/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YPlmY8+A; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284BC33938D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789013657; cv=pass; b=RgR6sWPq52+opqszU3A4XgEq2Izb5Dr5vk1craVaSjJ+qpsMpBW9+IrhoAnFKSau2fjfLD3cRoSeobUD7BqZsCTFOVXbacaa3gX2m3yT70azpq3mie1Sq00oZTmZox9Qvkdtvjykr1qBbQt/JhJtM/F14YCtWiAfuEIPlq1dN5Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789013657; c=relaxed/simple;
+	bh=PfbASwnYRFDckXUlVC/ifoAWFmyWh3yvGwIK5j4t4Fo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KQ39q2KppcGVzNWfc90Ji5+is4ZBgQsJz3GnxIhHy/mlVjNVgnUU/SVbAyN7rW8FxRbqFupUxnPhf708P9M4ova7vQ8k+vyyt26hJwHGJ6+CzJP+oJ+rK9gqKmPXakU12FxZJCiap/yvvlnw/Rkv/C1w3pqq6pHMa8rTYzULb9g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dzRMhbT/; arc=pass smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YPlmY8+A"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db18e5cb56so66475115ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:10:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dzRMhbT/"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc147d86bebso710097a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:14:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789013655; cv=none;
+        d=google.com; s=arc-20260327;
+        b=glRKI+0yNh8SvMv9sz8BpSKa4XjBA7Fv40OoI+ffGjh+OZdqO8MOlA9oTXvIGKSiFa
+         cAK17LswvyavvJ6R0Qv7u5l6egg0xSMlokGUSXZMvjTI0B2LEikaP1znQShKStm9C8IQ
+         vALWujI5MemKWLDLrZcs1YXEEQ6wDSg9GSfAbpdQEGaWeYsz1FQ9gmC1HjzXAVCLXxUP
+         kj4IXICBBrLJ+KWRsQAGtB3Mwq1hoDyidnn5YWsme38e00OhQPc1wrV2pNM4TKhoqYGg
+         9CXSW2mrxse+lSL0Qpdt5ZAx77dPin12drVzvZ+SYhku1OA1S8//fMnJJlbYg+z/rFJE
+         Z3FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PfbASwnYRFDckXUlVC/ifoAWFmyWh3yvGwIK5j4t4Fo=;
+        fh=rLhs0CR597M4/vNuOpLTVaATdX3PeIlrtGKeknl7ovk=;
+        b=cSHuaSs/FlDGdRTnBMKf//37CmvNek9/mG7m18xKZ04Z/9bSfH/4Qi1NMOuK754+tC
+         Gu7au5SZnBdp/E4L9S67OlAyRPFjjRsZK8esMWxVwY65ESaRKtZvB2mfkXZFi3WIKAOq
+         W5PsDLT4hQW8CWJ+XjOjAZYMc0LafKac4QqMN0iMzXQROrK0N3DkFh/rDlKm4ewpHTfO
+         +EveyoqCc694ldurUCzmwwZh0KHOHpOVHcjeeAL3yYhPKbkm31ZAZbYc3KyfKWT4basq
+         Qa9bIEjfanHzHtdtTk7GGjGokp4cjQh3H3NIgRWkhb+8JjWNLLVmpmhAgQuoEd2zIIWg
+         TmJw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789013455; x=1789618255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cFzG545OB84YQ9peVUsBUfgFXji1m++Ini1JNnUg6R8=;
-        b=YPlmY8+ASz0JGYPLS4Et91RzYmWDa0yn59n0tNEyjYa/kUKSVysvSUGZMQRssIXQqr
-         klZ78DneUR9kq8rcwosahdk+rWi81E4PCgzTsjh4n7HvAwQN2fn23hJxnAleUgIS/bvG
-         pzlxN5btWvOiYRB3CXVFY/RV6pYBPAATlrGum/QNohpqJnBHfhKNjyPT1aEg5OxfjT+I
-         UnZwMEkz6y9kX6R62AGXVEVch3AT2hxYtfWcsV/B0oMIYAMhMla3oIJP/HJzZiHFf4Li
-         Rd+26vd8VNoUZBtPmEPwrkBUXDfp7brX2we7E13KSVBEKXz7tzu+Ad1NUpXLytjNr6lt
-         tkBA==
+        d=google.com; s=20251104; t=1789013655; x=1789618455; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PfbASwnYRFDckXUlVC/ifoAWFmyWh3yvGwIK5j4t4Fo=;
+        b=dzRMhbT/4WSBdYt4p+UNMBCgWiHNmOfmnCh/4EzpwuoNyUEKo5mAHVh1yeMjVHO6FI
+         bP/muVJOLbEMT+x6LTLb6HJk7lbhlmandyGa98XVuB+QH9wpZxFMQyheLE3Ua4/2MaU1
+         gqIKZxtBbVYAmywMp0QG1+gyN9QZaGEU0+drhCmP4XkMc929kFvR5fPWH/+BEhHEuhAL
+         bMgr8D/YdfpqFCCAxqWQCfk8UwWMNsHduIrCzBmxghxN6/Dnh5AFzNoxvgK0bHOc4U+M
+         qau5XH+uSy29Zolnjmj+63GCrsyEtVEq1cmpBrLp4HH1CN6KQs8du/qQJ/dI8+g+5hu8
+         APTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789013455; x=1789618255;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cFzG545OB84YQ9peVUsBUfgFXji1m++Ini1JNnUg6R8=;
-        b=pPCK4WxonG8LDAqitci+S4ZZSbjz2wzYSGG95Odn6U7VMbu+lwxgfRlD0XsGbTfWjq
-         Y19NMnEM2LMeybL18iE0f5u4G87v5E2BXulFbZCg+UWxR5Btd4qd2RnOx4GhbHSK68KH
-         Fl9HlC3GM3TxcwwF7wm5vf2ncKkZ/HzKaOxCJXMNYjeT4xuvG0oo/MKE3OFKDKgPFmSm
-         eCrEWDzTDK+sqpChI/T2i1/bL6MtcFWrgR3BdmxZnDPuiCdbojUWeVVuW/5PCMvvHPp3
-         hHE2IrAcwqK8xixme0XgoBxjVaJHV9tsSgo8TbxQQBvZS50WOwiagzLFXjPQH+Lyz1k5
-         n4pQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6/mJew9cK2bl1HGKLId/fZvtCJa0a83nBVnrMX721jrjNtcR1r7yzPZkLk5Yd8ZQLiQqoizLVSmOhm8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNrpPT9MJpKltt9Rs9zLeUcQKQuL6XuKX9z8KXupbUml1VJCyH
-	6ePCO78Um1F0oKnlCpvGh+Op70ObI8zdHPYjt98MXCjJ3ABzAjt5lZtO
-X-Gm-Gg: AYBFou1yQz8FEuiFNsxe9jTII2iF++4JyfwQL6XdtyzlOEd/FSkKisyGjEsUBXAaGPI
-	vMV8cfZz9iCYFaXffWO+sKd9w+ZUats1LioWMmyn4sPcviZSJ+jGHdR6Mo4CCygx57V6XyLmoVl
-	wA4j+EmVVqhlAE15rRLnePGDBDBH3EqsINavC/bepPYh9GjMfc9oG6OMNLZZOZCDT1d5v/zNudB
-	pL8HfLs7/d3nLho2HI64W5fK8SbmWdeHYw6j5QPZt5+rU0dHrjy62GOUO8eaU8/Wl02FdI5S5Zf
-	0vwmUVXyZj877JJ7XJneeyvzSQxY/+6HnaAcZkQTcwP5MTa2G7iDBBS6zXR1J3cBVJOS6AzC5jI
-	vI4qkjvrDmMdVGATU1Gl6iyoEYkU3mvkDGM6F+/uuuMRdKeduPwN9t63ajDZxSaEmiKS1N3nocn
-	SfAwvVTSN+S+a1aoRswNOn3jwiD19UVggalv9eo/9zHPCbJUGDmmhdiLrzqjj1ahIRzhAoHx0sE
-	fHXV3RKaTjSW0KSP5k24RNQ63kv8IpyjA==
-X-Received: by 2002:a17:903:284:b0:2d9:464f:d45f with SMTP id d9443c01a7336-2db125ca396mr552411175ad.5.1789013454662;
-        Wed, 09 Sep 2026 21:10:54 -0700 (PDT)
-Received: from deepanshu.. ([2405:201:682f:383f:19a1:b573:237:5f99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c2850sm82946945ad.62.2026.09.09.21.10.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 21:10:53 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: johannes@sipsolutions.net
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com
-Subject: [PATCH] mac80211: fix using smp_processor_id() in preemptible code in ieee80211_tx_control_port()
-Date: Thu, 10 Sep 2026 09:40:47 +0530
-Message-Id: <20260910041047.24437-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20251104; t=1789013655; x=1789618455;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PfbASwnYRFDckXUlVC/ifoAWFmyWh3yvGwIK5j4t4Fo=;
+        b=LQz5kohZ5NHKp6IPglHCfPtIxyuup+x6J+gSL5XtZpiNWt53vwVfDedKx//OOMb4PD
+         Nvy7k8Rcx9IQkj2/baA2KRVqAiLwT6FdqQPSuBqNewGHhpTLbXZu7WjYbU1qkRmwCzqW
+         aSJ4KITYUTAeM1UH30+i+em/p4GlnWpyy/sg05CNBL7QsCFQktLKdf33yPBi2fA7IZyH
+         Y6s+DEltKVTl+Rbr42aTiDm//7x8pzO4ie3CW/KVSzLXRkk1XMUUceCHn2qQ29ihUk0E
+         4a27UR1btto7dQdIpeqZ+zekxvkbknSTiKj5cEgCBuZd2q3mUbiM2P9b8c0AjY2YpavC
+         tWLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNPm3m4q6lnIQdoIXXG0w6f8raS/3wGb7YK/TQjjjBQsTzcRWWV16WQbRpXcWrjnI87D9H4aQL66EV2as=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2nG6bK9XtExHN2lG6ngGbHEIEHXdzCpCWVWWb0HR0vRbSo4ja
+	PYUbPaYb/SRq3cIWU/F7eecPR0jZt1TpydEZt6CiAP/ZAMWs/ADPgGj8ZgW/KwSO/kKK6nQcsON
+	LyoFy5OOopikBVFH3KfJruRWob9dXCA2rlvM7uMfY
+X-Gm-Gg: AYBFou3HSOGz7EjEVGYAshTEflN8djkEwMMUoeCeRgdq9TKm9Fwl63Nf805/MwS5p8g
+	jtSbINqaB+064Ln4SAlbnpdIJqWZwzf5CNNf1LL17Z+qdkpGzEiTXQNvCBed+h1g9uPSj3JWtzM
+	RGwod5kITTjQS3xMyI0c8trYM3ZhjLKZRImS+yUS2Acr6Oc6ybr6w+ALRPEb7z/Pn03BpP8El8W
+	V6FG5MyR320aFaS1eyFjy37ZCv6b4KUp4/CP4Q2ciZzrvE9RemN3NL4DYGhGYjyK+qux38BOx+4
+	zf/FqpxfEzXx05Z886LCKjkEUPR7aLAbb169nE1ceMVwRezMI5uZ/Qg1/FthLmhl4DQTB6OfnO9
+	+uugtYPMPr0qtLhRiRYKZS9AMXS+sjoiwfPVs2XEM1RkiLe4WV6Gq1aB7aNV0tDFMtb8KW2PqlV
+	TUQc/ue+73ExFDiPzo7XYyMK2s
+X-Received: by 2002:a17:90a:fc4f:b0:396:669c:b5f6 with SMTP id
+ 98e67ed59e1d1-39d7796cf16mr3552487a91.12.1789013654775; Wed, 09 Sep 2026
+ 21:14:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org> <20260909-work-unix-passpidfd-v2-1-7bd342abb2d1@kernel.org>
+In-Reply-To: <20260909-work-unix-passpidfd-v2-1-7bd342abb2d1@kernel.org>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Wed, 9 Sep 2026 21:14:02 -0700
+X-Gm-Features: AcwNN1U7qcy0Xgw28VWEZVf5s3od5zIgdwEciEhER1kE6b7z6Yof-RR_xDF3wvU
+Message-ID: <CAAVpQUBC0zZqv5iECj4YvE=oA2hWR1kbxiG6zOBBNkaALwQXEg@mail.gmail.com>
+Subject: Re: [PATCH v2 01/10] pid: add helpers to operate on a struct pid array
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ieee80211_tx_control_port() can be called from nl80211_tx_control_port()
-in normal process context via netlink sendmsg(), where BH/preemption
-is not disabled. dev_sw_netstats_tx_add() uses this_cpu_ptr() internally,
-which requires preemption to be disabled, triggering a
-"BUG: using smp_processor_id() in preemptible code" warning.
+On Wed, Sep 9, 2026 at 3:43=E2=80=AFAM Christian Brauner <brauner@kernel.or=
+g> wrote:
+>
+> We're about to extend af_unix sockets and coredump code with the ability
+> to hand out thread-specific pidfds. Add a few simple helpers that allow
+> to operate on multiple struct pids up to PIDTYPE_MAX with automatic
+> bounds checking.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Fix this by moving the local_bh_disable()/local_bh_enable() section to
-also cover dev_sw_netstats_tx_add() and ieee80211_tpt_led_trig_tx().
-
-Fixes: d5a014204a3b ("wifi: mac80211: tx: simplify control port frame transmission")
-Reported-by: syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d979bd35c8a76fd1b6f5
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- net/mac80211/tx.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index 74ab27534076..7b1a3c63e5dc 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -6687,10 +6687,9 @@ int ieee80211_tx_control_port(struct wiphy *wiphy, struct net_device *dev,
- 		return -EINVAL;
- 	}
- 
-+	local_bh_disable();
- 	dev_sw_netstats_tx_add(dev, 1, skb->len);
- 	ieee80211_tpt_led_trig_tx(local, skb->len);
--
--	local_bh_disable();
- 	ieee80211_xmit(sdata, sta, skb);
- 	local_bh_enable();
- 	rcu_read_unlock();
--- 
-2.34.1
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
