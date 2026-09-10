@@ -1,398 +1,334 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013014.outbound.protection.outlook.com [40.107.159.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8CC48E0CB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D98388E72;
+	Thu, 10 Sep 2026 20:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070360; cv=pass; b=ia9saneRLzz29MsMByiLWzl2YxLEvzY9ezdBGbc5GGWqQv4QtyjrqBJgObK/wZRUEoIUaC7TL3qPSFWO9++2thHktPNgS4eX2odJLt0Gj2C/IAqRY33SnEH0pspFOraI+g5fX6g3rAwKExbTyfBvi5v4DeOqxyMmiyfvHhg36Ko=
+	t=1789070461; cv=fail; b=n62KEOQ7iNFYXeaxdW7aSl2CayGb79S/TfS6KZycpCWJ50Nq6fraL03rYNc3mqnMCrTB8VeOTciGQdqze9ilzXSQM7J8CPnz3vftRv8ra9seGCkxBOf4SFIg/SW7ZHOYmufUlrpZtqS/d+UL8pXFR+dp8uljaPAfgq5eTgkd8ZM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070360; c=relaxed/simple;
-	bh=JchUOFNEfs5wh4pNvKmd9qD8EFyuY0p7RtNx2nArRgs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ehKxIbPHpH5frJHyOqA2ksPBFizy6BmCzaTWWytDrLjOPuADk7xn1FF3G7S/3zr7KMiws82VTa62iBVdc9OiA/A7JJlQDo+lRNFZOM0h/UBXOHmq4J/Vk/ANxv6jKIOc1XqBRM0CGKtMa3A8KO1jgF26YX3F9DXEU1k/76A/eEE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WDAdJCDz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ms8SB+WJ; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789070461; c=relaxed/simple;
+	bh=YoDAxxmRKDVuXgQxPJ0/0P4cVR4tz9BvxoLLFoqvN8A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gkzsgjCMZPQ2kF326d/fA5Asb38fknqYMobIPqrtvTgutnRYKF4qUfwQJqdW1vv8ihF6GID6S3nKjqbGO+wChWLhwYvTeMAzybW5NEuXQdP/6VvppRJChPrjVZtHm/Hiu8uLR065xPST+U4JXYLANCZFV09KBoi4PyZFIcLe8jI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dLiJFZWW; arc=fail smtp.client-ip=40.107.159.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WDAdJCDz";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ms8SB+WJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789070357;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CTU1eHyeb2Ws2GlcVytRUEMUfdoHDb4fUJ8XssecKvI=;
-	b=WDAdJCDzp91xLIusxaI05dCl71sXC4YhUXAHgydztAPMPF8BKN8FpjUpzlUyFX9a4yZlNO
-	W0JoRmOoCD/iLTY2/SiHzSGY7RbGgy265Dtj27dEVflfUJSMYNykzgEbX1HmJYtR17N7a+
-	+uo1invNqbOgHqMkMCQ8SKUCQJHU1dc=
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-499-5npzu41uNSevRkmnCR2adQ-1; Thu, 10 Sep 2026 15:59:13 -0400
-X-MC-Unique: 5npzu41uNSevRkmnCR2adQ-1
-X-Mimecast-MFC-AGG-ID: 5npzu41uNSevRkmnCR2adQ_1789070353
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-980a896f53eso186562241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:59:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789070353; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oyRJ0Er/nWXnrIPYq0FrUSYHnhcMmfHtYSBiSjiVNZQV4m0TRs+QEXsR4yDFbyxEj4
-         7kocntWDG0yX1f1dRWT+y4i83uYAQPn4D0PBDJ0AWGRr2SuKT1tdI5Jr1xMSW4QBv7cN
-         cZeQkuqX4bNsBk6JppDH+MXzNxy7/+xy2Km7i9U35uz0gwJsGL8VKjAuPZI4eeP/lziS
-         g123G8R65FikCYf8P/5I1MWIuzYe/wob2Z+3DmO5HXuVoGtPBmVTw4mSjHxFzHW//cTF
-         H6+F5DFQF+ndTKFyk1VKjnw+ZbSozCg4yEsuC8AcDNBKJ6cbrIXmmARv+P12OjR/6y4N
-         RGew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CTU1eHyeb2Ws2GlcVytRUEMUfdoHDb4fUJ8XssecKvI=;
-        fh=AOvgLJiGMHa4j8RhGykGjhMPBEjvIq+VRL+vnEZEvIw=;
-        b=TWZbx8cdv8BtbiukQCzTtu7P9Hk6nDRRCRDH8scmy3CRPGaqbXhwBrzYYPXtqG09yN
-         t60+EpDC5IBxZepNWrkSUQunkMVRuzt7/TG82/JwHULTLgzAJGNE2Q/0o24wuH/oiNPf
-         8VtRMbPoPaIDiwsO9uVxCLcExjT/v0bOWVNT+YhgGokdcBHbuRFAzJIc1doJEH7vpDXL
-         OTkjKQjcf+BTD4M2+jqUo5y9e+DwzDS5T2/1S43n90rfO4axS63AJtRGjdj/CfGijTLW
-         gEgrpZJeNJqalEdS8f5I6QkDcYHaxrZA3t9TUWeUfAYyjt13GO8qErzCvKRAb4bLBSoL
-         PZ6g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789070353; x=1789675153; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CTU1eHyeb2Ws2GlcVytRUEMUfdoHDb4fUJ8XssecKvI=;
-        b=Ms8SB+WJQPgzu+ifoGh1ksBcVbhzgdk4wYdfokadeUvjomqimwpCht3e/qRtZ45QBQ
-         mIf4VTmLiTWWD73rHzzCrT33rNbH2mY9h9O5FjSMGb60rZPn9C6j9jNA1U5mgvHMYS+F
-         N+6/8QL3dqq3lVSJvflF6HExGupnuf0Ont5lyvfgQwcB6w+/tqFzOncGxtcWEbBB41a1
-         RPKSmLxrz9SK2DZ5+aSxxEnJIWBMw5gooincIOz4JrYjGSBcPIieeUYoxCF4d+38uABE
-         K3G1OKV4rzCvWNZZix3DWpSFmMbS85Mm4xfUPLW13raUSzVjeovI0IXGvY5ln/VPEkWt
-         7fIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789070353; x=1789675153;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CTU1eHyeb2Ws2GlcVytRUEMUfdoHDb4fUJ8XssecKvI=;
-        b=ZqbV0EyJRv35BYQ8atoLmSjspYCSM5Qowm6K73q0hiEVTPXMWfFf5mx1NxcIgZOPuD
-         UkEVFYWgBgxVBEflpxK8iMD3H+XrirvBHdHCfHd2YMccB6tLNrcmbQTJ0LqsSuP5ZsgO
-         XD7Ojkxb2E/dt85QnoozIXZAQPlcma3aidv1QWonpnXGkzNXBlLeMVgKG5I2EfSyaMR7
-         e6USor5UUJBKFYau7Tp4U4nZ4MUJaJZdLVUaYv52AZBSffrWsOeuoRuNqVhKT+KN7tBc
-         tMEkDIWTD4+86BgS7JMUY9bDadij+0YFfrnYx406Y5CG2Ve27xBy/cHD3mpnvgJXzval
-         ZUJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbFMmm6827ohn6Pr5c784tK/XioKKbW9j95jMktI0VeuvzTwCFZ/eWEK/yQC5BZJrw1ZrE99OFH0h/x34=@vger.kernel.org
-X-Gm-Message-State: AFuF++nR4q2md3U7zSP4C+1l5hxHAyWs7Nq4GWNR7KkoCUDbDk55Vdk4
-	KuNNqOZksBJJHBTzz1ShohcOjyNkbWpAbuMMk3UMrVrTscqTfuyhBrHkQh5AvkHLyEuVadxGmju
-	SRAUi7fBXTUohm5FsJoWcnhcHoUFN0tDNCbvTBxyG/k5PY5eWtxo/E+doQl15zOWuFeB9Ze4lds
-	PBTiGg/ECPvV4yKPBWbGNwVFXxBT3YBQlk0diN+B5Z
-X-Gm-Gg: AYBFou1iDVT9Y0h5IxKx1XEPm1XQ6c6WTu6GrSKycZgJpe+p/SiYgdPD2y2DV5Xwfav
-	qIU+Wvd4S5ZuI+Zszwy3AHroYlO1nw7299K1L2J5G5Cnc2WYRHH7nLRjyWL7mUnAREA4S4PLV+2
-	yZm409Q1IaPLh+LYqg6jkoOQ+B4JMYL5Z2tipMNAn6S5tZUD8zVXAa5wA=
-X-Received: by 2002:a05:6102:604e:b0:78e:45f7:54a0 with SMTP id ada2fe7eead31-792a7f05698mr1390256137.8.1789070352607;
-        Thu, 10 Sep 2026 12:59:12 -0700 (PDT)
-X-Received: by 2002:a05:6102:604e:b0:78e:45f7:54a0 with SMTP id
- ada2fe7eead31-792a7f05698mr1390212137.8.1789070352085; Thu, 10 Sep 2026
- 12:59:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dLiJFZWW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e5DAa4eatw0ZujFPE2zNAAbfmJQ2slY6X0Hd/4DKk0tVjO16wHXpL3Hg1kAW2E3L68FJkJVP9OmVBOEzSp/2svVRpSwC69qq3ne/9JccQhLEVk2pkVHNqu2gu8pI5phXBPbreSrKtXnhIKcjgOklswgRZKZRLfLMX6foHtXmp1SCdzk+gjLtfWwHTxsB8ColWLiVSn0VcmpKYFebWCQiwRpukmQ2if3gn0GDUTejn5MkVZhVszyutL5AEQcVEpBsSfqIPyqXefhXfZ5h4OPDyjWgm/UcBg4NH5fJIgj+u2pfs9JffzXuTbWF/GPjOQkzxsKxZoSIsTtLu9BVcNIIDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GXk0qLzumkeWHKGn2E4m00nTu6We02N0NBhHR8mYOJQ=;
+ b=Aj6TG4U2M+BFftjNAa0vFU22d0reYqnyH1kLlEpNST9q4fkNZkf0x8973/t8TEN6WF+hjtirLEa2xHuVhcFEYrIorihUyrYfXnVwamrDHLYKLwPE85LgrCmWpKSuFzS4Oe6jpNdZSveuU9b6wXtylt/MPipAVhrzBzFgnator1rjVgW6f4VfgZcF7lIBtXlbS4GJ6cIcGBm4mNLjvLjoxLr5pjCYGgqSLMhI1e7BP5PQaEvfB1WTHBeOVIkzrswNDAErKlyA/EGwb0aVtLJ1pdEnUv489UuSR+OuKDQjtI6yhuNIiCJ8uQi5Qmmzittvg7Hf9H4S1gPzgjlhh5BzJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GXk0qLzumkeWHKGn2E4m00nTu6We02N0NBhHR8mYOJQ=;
+ b=dLiJFZWWTuZVqJPgMguw64gsmMnQG+YJ/jg/vJ7CdsnCznckXUP0cFJeD0+8wtsNK8oQUVHWHORcdJtckbGys8pDzlUYLzXc7G1wlBIOww8peGrm63rZu7WbmOqvbltGxStLcRIGDY34W/P6S8Q8kW2/C1VprQhLv/mVO7HrKU2Zr5QwHkt45v8GbSdv6SBlidARt4PjtU0wWZ0wh9UQltmVwSntiPzgiuQvtraS+TSxFLsSylM6wUzza/TEjBqwOp4uX3kUReJy5GjPRXUHT6apgfntImcjtojNYEcLkpcmpie1W0uAPDN/HF+SM/EIGsl9C/vVIdAqG2Emy6lAvg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB9091.eurprd04.prod.outlook.com (2603:10a6:102:229::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 20:00:51 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 20:00:51 +0000
+Date: Thu, 10 Sep 2026 16:00:42 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>
+Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, shawnguo@kernel.org,
+	s.hauer@pengutronix.de, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-imx@nxp.com, linux-arm-kernel@lists.infradead.org,
+	jackson.lee@chipsnmedia.com, lafley.kim@chipsnmedia.com,
+	marek.vasut@mailbox.org
+Subject: Re: [PATCH v7 0/9] Add support for Wave6 video codec driver
+Message-ID: <aqMMap6NHllxh1st@lizhi-Precision-Tower-5810>
+References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+X-ClientProxiedBy: PH7P222CA0014.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:33a::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260427122742.210074-1-mkchauras@gmail.com> <CAE4VaGACd2es4NPQyhbR9pMEoGiTVBSE7Lw7x9VOb1Qbpvc6nw@mail.gmail.com>
- <amsapeQ2Kp6rwPpF@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <CAE4VaGB_EhbWq8_X6FLtOx2MqoP7JEkOKkKSjKB7N--tt-sCeA@mail.gmail.com>
- <aqAMpawvpB7g1XdK@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <CAE4VaGBCmA0+28G=V_Qs37cR2GKYDUTGQWW_uRe0qvEp5io3qQ@mail.gmail.com> <CAE4VaGCp7A7NuBC9Hwgzs5xg3bGBuRiDC8PRCu+yXnUZEXmt-g@mail.gmail.com>
-In-Reply-To: <CAE4VaGCp7A7NuBC9Hwgzs5xg3bGBuRiDC8PRCu+yXnUZEXmt-g@mail.gmail.com>
-From: Jirka Hladky <jhladky@redhat.com>
-Date: Thu, 10 Sep 2026 21:58:59 +0200
-X-Gm-Features: AcwNN1WZWaGZqHQqCKl0JdGsW9fRspFbj7NuVeH481kOvPAKWQ8HCEdpVsfXCNY
-Message-ID: <CAE4VaGATCET9F4XXS2oj47aNEZx3HN__Zp1CH4+ASec6BjhjGA@mail.gmail.com>
-Subject: Re: [PATCH v5 0/8] Generic IRQ entry/exit support for powerpc
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
-	chleroy@kernel.org, ryabinin.a.a@gmail.com, glider@google.com, 
-	andreyknvl@gmail.com, dvyukov@google.com, vincenzo.frascino@arm.com, 
-	oleg@redhat.com, kees@kernel.org, luto@amacapital.net, wad@chromium.org, 
-	mchauras@linux.ibm.com, sshegde@linux.ibm.com, thuth@redhat.com, 
-	ruanjinjie@huawei.com, akpm@linux-foundation.org, macro@orcam.me.uk, 
-	ldv@strace.io, charlie@rivosinc.com, deller@gmx.de, kevin.brodsky@arm.com, 
-	ritesh.list@gmail.com, yeoreum.yun@arm.com, agordeev@linux.ibm.com, 
-	segher@kernel.crashing.org, mark.rutland@arm.com, ryan.roberts@arm.com, 
-	pmladek@suse.com, feng.tang@linux.alibaba.com, peterz@infradead.org, 
-	kan.liang@linux.intel.com, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB9091:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1d7ec78-fc33-4b62-a8f7-08df0f7636c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|7416014|376014|366016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5BhybztGiAbriC4ZkbQc4hshTAuhmCYm1VjHnEmaXKNaiWSpZ0wvsoDxbHbXDwfKBg27a7K0IlNhqBiNcsuRhKBGW6BioBlebiCNSQdFynQpgWWVZPsj2FAHFCUBwnag0QTxRhARr1MF99ZlKLjCDLhvRxDP8bSD9zZe+eGlYFsVlRYqXmCwDLzlWAjwqHkxu6nYlsn9/BEJv4Dc7ZJUPIApiRKnlXyt/t+bIzFEDh2HTm/F6UuHKA1uFsLwUOFG42reQ1s53i1ca1hS6+ZRKpgGe/K4yPvLny5apUfsgKZJxHn+noQewVMAQAKv+fPu5RTBqWgxVXQC6bK8FdPYZcHHNw5hjH+0548Y8QSV8PyqZ8ltLfEL7wv/4ztUzFnk4XEOAWtabDELQo2dggSjnOoVDs5QBBflmmUYAO87VOcCvQVK2/SvKegV6iFoAv9KikB7B5An6bu2gwfZz26Mort55oX9goX/T8BSKb7w+NvG1Chwpev7B87QrGKdsH1U6X8py60hh0u4qjK4ANFbEf4wLJqnEAWue94mc+C7tqaEcszZgorBGJH25BZh89AjlZpELHLzLgfgvMbmMMV1VOQS9yLZGFez5D/ole4TAkEoaX3VfzQ121DvyrFm43b21NLLq59nrGuD4bk0ALTsBE1R3KXBtXJMqbzYE+ExcLE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(7416014)(376014)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?c+8mEBPKfCVF/KotcP9Lmo0jGXjz4tflH8LRcL2wa6w1kskMwID+lDpkrp5i?=
+ =?us-ascii?Q?7Bdr3NrlMfnhbN319YS14tRpNmp5e5WXdpYNrJS6Q0vn+6E+TFJ16iiEBzy+?=
+ =?us-ascii?Q?7/DKr1Z18mucfhqO2pFUyPb0vjDvwc3yD6AlzKUoo33EsJtIiaUUMaQLnqWn?=
+ =?us-ascii?Q?fNX14eN8l4GBueSYM2sAtEhFEsrpY8wFUVs2T41wsAISovma7QsOf7OIIvcu?=
+ =?us-ascii?Q?4Ho/0y6ik+3mmcULHKzeKipN62l75X16Z7jcitv90m5Czm2eolhSMbbNAFU8?=
+ =?us-ascii?Q?DSExowNQyGH8bO5Wix6p2JnEH8qrKYHGAUpdNRmkbgorhViwjwwB17XM9hW0?=
+ =?us-ascii?Q?pGlvBKbGYkEbSiwHZEUaAYXdeiWmYy/EbwH+WbVZaG7ikYgpKcaMPKR6Fe3p?=
+ =?us-ascii?Q?64OrtDm44XTLziOdc/ZhTKRU9Bl0V+2jzdneBcquo2Psg+j+2PpJlPkdIoGy?=
+ =?us-ascii?Q?w8PVUuAsEwTRJZveYGn6PpxG4gQ8Xlu7MceamIdG89qnHd0DKg6LdN4ujyzI?=
+ =?us-ascii?Q?lkqwKWZ3Nyn8T+Eg6M/8Bro1GP30Sw9kYzpQ+T8f8pOxC3VhiIvO/dHgZNxi?=
+ =?us-ascii?Q?lmPaThKqVPvxjtROFFMZqDwA/oalX+dZ7GxJQr516I/jLy6VV22I0iwDn+ah?=
+ =?us-ascii?Q?L5HAm//pnG1/TANmw8r8NLbtydXJUOoCr6dIUZ5nPmeYyjAK4RtrQM6Y+Qlb?=
+ =?us-ascii?Q?VKqQFe33Nnvh9c/7lL0LL2fJozmkNkFBAaTYT321po+w/9neXBqCG70Enp6d?=
+ =?us-ascii?Q?8plcHn3SztfqYJ6HcUUz6s3fVbcT6BwS4xfoG1pICbGMUfl8GYDRtub2ApsZ?=
+ =?us-ascii?Q?UeL1FkKUlURUjg5tABl7SzqhvQZJ6EfKxp4li3pTtFK8MAG1zFlc1+JHbOeY?=
+ =?us-ascii?Q?fYIIePnDJWGRLgDg8D870fy5DFN3umCm5yctbSXnwywWxJWzSPOiYpE2JOpz?=
+ =?us-ascii?Q?0Aqt2vJkrE9jwoVxZp83rjMCjhhA62vvHR4gjKLmrPtYgI4ElTSl2XsFIB4X?=
+ =?us-ascii?Q?/7YXBRJaDC8SeInPkYaJ606XDxVgv2iDE6MhWIKjPCmLCTFTHzwb0wOhsME4?=
+ =?us-ascii?Q?WaXqk5gTzv1/aD9e65+LqX3oIqshuiThwS9slMG+t+D7TgDrJTBCXxeuNCpa?=
+ =?us-ascii?Q?+cg/D2AVs/WWdb4t2bnEJsX4QCgLHxUdWbzR2U6RrbJ2dU7fH993k95t5buQ?=
+ =?us-ascii?Q?+7AXefr1SKtsbWWv8FcbfzQA0AIZ/ZhNfM4ir/YLwXwRFhq79vye3Jj78puT?=
+ =?us-ascii?Q?PqFETnayWMCgmfrUgnrvx5b5tsoQ1Bq8pTbXAZGdnsTTnxVsSzPJ86b4fW9G?=
+ =?us-ascii?Q?7yZbdJMdO1ughJZShfPP6ZRvFXvn0FhmUX9gGURGvn7Va1/+ZCXAvZgnAyqT?=
+ =?us-ascii?Q?fxdNzrEVBjoDNLoxJAEgTYMUzeGo+P7JItvNPnG9jgRUdE+NHAKtvao0hvc8?=
+ =?us-ascii?Q?sn7+3LcMyd1OCYC7Okcl+m527sLA1eXyQjJstOylih1P4+AMiKqsX/u52c5B?=
+ =?us-ascii?Q?jd9ArjeaDUEV3sjOlW9rts5+vN6yNh+6QfiRMgaEwX5YIpanI0phLie8zWto?=
+ =?us-ascii?Q?Vccfhu3sAwjZo4gJ55/b+SojLuy8SBIkBdmXygIbjqdLUNIB+tYqBaF5s3M7?=
+ =?us-ascii?Q?GV3DoUtdR3+0+OWfAPtcxSz++AZe8NiGlw73DWTI9WbOXVvE1cKpOcVy9vmK?=
+ =?us-ascii?Q?L+eqdrGj+HOeBAHS+lC4c4eyUetbD3Cn3v3RZwwN66OI3dGX4Kjyb8Te2zVu?=
+ =?us-ascii?Q?pLbtVBhmSMWLN4zJunDOpKFQEwq/ZhqkwiU12QU5E8QOAJxQD6aY?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1d7ec78-fc33-4b62-a8f7-08df0f7636c6
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 20:00:51.2923
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GmkIjnTMADovvo5ebAfimGDUrI5BygY70DtHWvWu4DB7uwMDtxX9AnsjJ/jcSEV7x91fluMu5l66xtHKpBks4I5aETJJKChHMEw/GXpKuUEIPSNynZywIFCHmFpynsFx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9091
 
-Oh, I forgot to add the actual results from the LPAR:
+On Fri, Sep 04, 2026 at 03:46:26PM +0900, Nas Chung wrote:
+> This patch series introduces support for the Chips&Media Wave6 video
+> codec IP, a completely different hardware architecture compared to Wave5.
+>
+> The wave6 driver is a M2M stateful encoder/decoder driver.
+> It supports various video formats, including H.264 and H.265, for both encoding
+> and decoding.
+> While other versions of the Wave6 IP may support VP9 decoding and AV1 decoding
+> and encoding those formats are not implemented or validated in this driver at
+> this time.
+>
+> On NXP i.MX SoCs, the Wave6 hardware exposes one control register region and
+> four interface register regions for one shared video processing engine.
+> VPU Control region, Manages shared resources such as firmware memory.
+> VPU Core region, Provides encoding and decoding capabilities.
+> The control and interface regions are distinct DMA requesters and can be
+> associated with separate IOMMU stream IDs, allowing DMA isolation between them.
+>
+> The interface regions are described as child nodes of the VPU node rather
+> than folded into the parent with reg-names/interrupt-names, because each
+> one is a separate DMA requester. This follows the same structure already
+> accepted for the Qualcomm video codec bindings, and was mentioned on the v6
+> thread.
+>
+> The firmware tested by this driver has been upstreamed in linux-firmware:
+> - Path: cnm/wave633c_imx9_codec_fw.bin
+>
+> This driver has been tested with GStreamer on:
+> - NXP i.MX95 board
+> - pre-silicon FPGA environment
+>
+> Test results for decoder fluster with -j2 option:
+> - JVT-AVC_V1, Ran 77/135 tests successfully              in 24.180 secs
+> - JVT-FR-EXT, Ran 25/69 tests successfully               in 11.157 secs
+> - JCT-VC-HEVC_V1, Ran 132/147 tests successfully         in 45.534 secs
+> - All failures are due to unsupported hardware features:
+> -- 10bit, Resolutions higher than 4K, FMO, MBAFF
+> -- Extended profile, Field encoding and High422 sreams.
+>
+> Test results for v4l2-compliance:
+> v4l2-compliance 1.31.0-5386, 64 bits, 64-bit time_t
+> v4l2-compliance SHA: 48316b8a20aa 2025-08-12 12:44:56
+>
+> Compliance test for wave6-dec device /dev/video0:
+>                 fail: v4l2-test-controls.cpp(1204): !have_source_change || !have_eos
+>         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
+> Total for wave6-dec device /dev/video0: 48, Succeeded: 47, Failed: 1, Warnings: 0
+>
+> Compliance test for wave6-enc device /dev/video1:
+>                 fail: v4l2-test-controls.cpp(1193): node->codec_mask & STATEFUL_ENCODER
+>         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
+> Total for wave6-enc device /dev/video1: 48, Succeeded: 47, Failed: 1, Warnings: 0
+>
+> Note: the failures are all related with the eos event.
+>
+> Changelog:
+>
+> v7:
+> - Moved the sram property from imx95-19x19-evk.dts to imx95.dtsi
+> - Simplified the sram binding property to maxItems: 1
+> - Fixed the issues reported by the sashiko-bot review of v6:
+>   - Bounded frame buffer and aux buffer counts before indexing
+>   - Added vb2_is_busy() checks to the decoder S_FMT handlers
+>   - Fixed video_device lifetime and driver teardown ordering
+>   - Propagated hardware init, runtime PM and thermal failures upward
+>   - Fixed tracepoint field widths and debugfs handling
+> - Balanced the VPU reference on the core activation error path
+>
+> v6:
+> - Fixed the existing P010 format_info entry
+> - Moved all encoder parameter validation from the HW layer into the V4L2 layer
+> - Removed redundant HW-abstraction wrappers from the VPU API layer
+> - Computed frame stride and sizeimage in the V4L2 layer
+> - Added explicit instance lifecycle helpers to the core driver
+> - Enabled the VPU only on the tested imx95-19x19-evk board
+>
+> RFC v5:
+> - Move all shared resources to the parent node
+> - Drop child compatible and use data-only interface child nodes
+> - Update the VPU driver to create child devices and load the core driver
+>
+> v4:
+> - Fixed build issues reported by CI tools
+> - Updated commit messages to use imperative mood
+> - Avoided using the same name for both nodes and labels in devicetree
+> - Removed unused labels from YAML examples
+> - Added description for child(vpu-core) node
+> - Added iommus property to both parent(vpu) and child(vpu-core) nodes
+> - Updated probe() functions to use dev_err_probe() when returning -EPROBE_DEFER
+> - Added wave6_vpu prefix to trace functions
+> - Updated HEVC decoder profile control to report MAIN_STILL profile
+> - Fixed bug in multiple instance creation by pre-allocating work buffer
+> - Fixed interrupt handling by checking INSTANCE_INFO register and instance list
+>
+> v3:
+> - Removed ambiguous SUPPORT_FOLLOWER feature
+> - Used WARN_ON() for unexpected programming errors
+> - Split thermal device code into wave6-vpu-thermal.c/h
+> - Dropped wave6_cooling_disable module parameter
+> - Replaced mutex_lock() with guard()
+> - Added lockdep_assert_held() to clarify locking regions
+> - Removed exported function due to dual-license and used function pointer
+> - Added documentation and validation for state transitions
+> - Added documentation for device structures
+> - Added patch to enable VPU device in imx95 DTS
+> - Updated DT bindings and driver to align with parent(vpu) and child(vpu-core)
+> - Replaced magic numbers with mask and offset macros when accessing registers
+> - Placed goto statements after an empty line
+> - Printed HW info (e.g. product_code) via dev_dbg() for debugging
+> - Replaced wave6_vpu_dec_give_command() with dedicated functions
+>
+> v2:
+> - Refined DT bindings to better represent the hardware
+> - Reworked driver to align with the parent(VPU) and child(CTRL, CORE)
+> - Fixed build issues reported by CI tools (Smatch, Sparse, TRACE)
+> - Improved commit messages with clearer descriptions
+> - Added kernel-doc for exported functions
+> - Removed redundant print statements and unused code
+> - Reordered patches to prevent build failures
+>
+> Nas Chung (9):
+>   media: v4l2-common: Fix P010 format info
+>   dt-bindings: media: nxp: Add Wave6 video codec device
+>   media: chips-media: wave6: Add Wave6 VPU interface
+>   media: chips-media: wave6: Add v4l2 m2m driver support
+>   media: chips-media: wave6: Add Wave6 core driver
+>   media: chips-media: wave6: Improve debugging capabilities
+>   media: chips-media: wave6: Add Wave6 thermal cooling device
+>   media: chips-media: wave6: Add Wave6 control driver
 
-Model name:                  POWER10 (architected), altivec supported
-Model:                     2.0 (pvr 0080 0200)
-Type                                         : Dedicated
-Mode                                         : Capped
-Entitled Capacity                            : 1.00
-Memory Mode                                  : Dedicated
+This is quite big drivers. You enable build at finial patches, it is not
+good. Each patch expect built-able.
 
-Results (median bogo-ops/sec, N=3D15 per cell):
-  Mode          7.1        7.2-rc4      Delta
-  Enforcing     68,275     70,154       +2.7%
-  Permissive    68,082     67,166       -1.3%
-  Disabled      99,654     100,510      +0.9%
+I suggest split
 
-On Thu, Sep 10, 2026 at 9:54=E2=80=AFPM Jirka Hladky <jhladky@redhat.com> w=
-rote:
+1. core part with simplest decode driver. "You use git add -p to choose
+which trunk to add"
+2. Add encode part
+3. Add m2m part
+4. add debug and tracing
+5. add performance profile
+6. add thermal cooling device
+
+Maintainer may pick subset.
+
+binding + simplest decode + dts can be merged firstly.
+
+Then gradulately add encode, m2m and other advance features.
+
+Frank
+
+>   arm64: dts: freescale: imx95: Add video codec node
 >
-> Hi Mukesh,
->
-> Following up on the ppc64le SELinux/kill() regression - it doesn't reprod=
-uce
-> with proper multi-iteration sampling. stress-ng --kill has ~30%
-> run-to-run variance
-> on our LPARs. Part of the variance comes from LPARs being much less
-> isolated than I'd assumed - we saw contention bleed across LPARs on the s=
-ame
-> physical server, even between "Dedicated" partitions. With 15 iterations =
-per
-> config, 7.1 and 7.2-rc4 are statistically even (within ~3%) across enforc=
-ing/
-> permissive/disabled, confirmed on a second, physically separate LPAR (7.1=
- vs
-> 7.2-rc6). This matches what you said - you couldn't reproduce it either.
->
-> I also built 7.2-rc4 from source with your proposed
-> rcu_ct_kernel_exit_qs() patch and re-ran the same sweep - it shows no
-> consistent effect vs. stock 7.2-rc4 (differences within the same noise
-> band), which is consistent with there being no real regression here for i=
-t
-> to address.
->
-> Sorry for the false alarm, and thank you for the patch and for taking the
-> time to look into this - I don't think it's needed for this issue, though
-> it may still be a reasonable efficiency improvement on its own merits (it
-> does avoid the unconditional rcu_preempt_deferred_qs() call on the common
-> fast path). I'll update the internal RHEL tracking ticket (RHEL-216740) t=
-o
-> reflect that this doesn't reproduce.
->
-> Thank you!
-> Jirka
->
->
-> On Tue, Sep 8, 2026 at 6:01=E2=80=AFPM Jirka Hladky <jhladky@redhat.com> =
-wrote:
-> >
-> > Hi Mukesh,
-> >
-> > Re: policy details -  I'm running an ELN kernel on RHEL-10.2, with SELi=
-nux
-> > in enforcing mode using the default (targeted) policy, nothing custom
-> > or hardened on top of it. Let me know if you need anything more specifi=
-c
-> > (policy version, booleans, etc.) and I'll pull it.
-> >
-> > Re: the rcu_ct_kernel_exit_qs() diff =E2=80=94 thanks, that guard again=
-st the
-> > unconditional rcu_preempt_deferred_qs() call lines up well with what I
-> > was seeing on the RCU-barrier side. I'll apply it on top of 7.2 on
-> > POWER10 box and re-run the stress-ng --kill numbers
-> > (enforcing/permissive/disabled) to see how much of the SELinux tax it
-> > recovers. No need to prepare anything separately.
-> >
-> > I'm OOO tomorrow, but I'll get to this by the end of the week and repor=
-t
-> > back with results.
-> >
-> > Thanks
-> > Jirka
-> >
-> >
-> > On Tue, Sep 8, 2026 at 3:26=E2=80=AFPM Mukesh Kumar Chaurasiya
-> > <mkchauras@gmail.com> wrote:
-> > >
-> > > On Thu, Jul 30, 2026 at 01:24:46PM +0200, Jirka Hladky wrote:
-> > > > On Thu, Jul 30, 2026 at 11:36=E2=80=AFAM Mukesh Kumar Chaurasiya
-> > > > <mkchauras@gmail.com> wrote:
-> > > > >
-> > > > > On Mon, Jul 27, 2026 at 11:41:07AM +0200, Jirka Hladky wrote:
-> > > > > > Hi Mukesh, Shrikanth, Madhavan,
-> > > > > >
-> > > > > > I'm seeing a ~19% throughput regression on ppc64le (POWER10) in
-> > > > > > syscall-heavy workloads between kernel 7.1 and 7.2-rc4, which I=
-'ve
-> > > > > > narrowed down to the GENERIC_ENTRY enablement for powerpc (comm=
-it
-> > > > > > bee25f97ad24 "powerpc: Enable GENERIC_ENTRY feature").
-> > > > > >
-> > > > > > The regression manifests specifically when SELinux is enabled. =
-Regression
-> > > > > > disappears with selinux=3D0. With SELinux disabled, 7.2 is actu=
-ally
-> > > > > > slightly *faster* than 7.1.
-> > > > > >
-> > > > > > Test: stress-ng --kill 1 -t 23 (single-thread kill() syscall lo=
-op)
-> > > > > > Machine: IBM,9080-HEX POWER10, 8 vCPUs (1 core SMT-8), 64 GiB
-> > > > > >
-> > > > > > Results (bogo-ops/sec, higher is better):
-> > > > > >
-> > > > > > Kernel   Enforcing   Permissive   Disabled    SELinux tax
-> > > > > > ------   ---------   ----------   --------    -----------
-> > > > > > 7.1      69,107      70,248       93,566      -26.1%
-> > > > > > 7.2-rc4  56,247      59,075       99,240      -43.3%
-> > > > > > Delta    -18.6%      -15.9%       +6.1%
-> > > > > >
-> > > > > > Key observations:
-> > > > > > - SELinux permissive ~ enforcing on both kernels (overhead is i=
-n the
-> > > > > >   code path, not policy evaluation)
-> > > > > > - SELinux disabled: 7.2 is 6% faster than 7.1 -- the generic en=
-try
-> > > > > >   path itself is not slower for the base syscall
-> > > > > > - The SELinux "tax" nearly doubles from 26% to 43% between 7.1-=
->7.2
-> > > > > > - No changes to security/selinux/avc.c between v7.1 and v7.2-rc=
-4
-> > > > > >
-> > > > > > The kill() hot path (sys_kill -> check_kill_permission -> secur=
-ity_task_kill
-> > > > > > -> selinux_task_kill -> avc_has_perm -> avc_lookup) wraps every=
- AVC lookup
-> > > > > > in rcu_read_lock()/rcu_read_unlock(). On ppc64le with PREEMPT_R=
-CU, each
-> > > > > > pair requires lwsync/isync barriers. I suspect the generic entr=
-y path
-> > > > > > changes something in how context tracking, tracing, or RCU inte=
-racts
-> > > > > > with the syscall fast path that amplifies the per-call RCU cost=
-.
-> > > > > >
-> > > > > > Note: this is on top of a separate ~36% regression from 6.12->7=
-.1 caused
-> > > > > > by HAVE_PREEMPT_DYNAMIC_KEY enabling CONFIG_PREEMPT_RCU on ppc6=
-4le
-> > > > > > (commit 6ad7751537e8), which I reported separately on the v4 th=
-read.
-> > > > > >
-> > > > > > Thank you
-> > > > > > Jirka
-> > > > > [...]
-> > > > > Hey Jirka,
-> > > > >
-> > > > > Thanks for reporting this.
-> > > > > I'll take a look.
-> > > > >
-> > > > > Thanks,
-> > > > > Mukesh
-> > > > >
-> > > >
-> > > > Thank you, Mukesh! I'm happy to run additional tests on the POWER10=
- machine
-> > > > if you have patches to try or specific experiments you'd like me to=
- do.
-> > > >
-> > > > Jirka
-> > > >
-> > >
-> > > can you try this with the below diff?
-> > >
-> > > diff --git a/include/linux/rcutiny.h b/include/linux/rcutiny.h
-> > > index e56ded733b1b..dcad641eb2c2 100644
-> > > --- a/include/linux/rcutiny.h
-> > > +++ b/include/linux/rcutiny.h
-> > > @@ -120,6 +120,7 @@ static inline bool rcu_preempt_need_deferred_qs(s=
-truct task_struct *t)
-> > >         return false;
-> > >  }
-> > >  static inline void rcu_preempt_deferred_qs(struct task_struct *t) { =
-}
-> > > +static inline void rcu_ct_kernel_exit_qs(void) { }
-> > >  void rcu_scheduler_starting(void);
-> > >  static inline void rcu_end_inkernel_boot(void) { }
-> > >  static inline bool rcu_inkernel_boot_has_ended(void) { return true; =
-}
-> > > diff --git a/include/linux/rcutree.h b/include/linux/rcutree.h
-> > > index 16a04202888b..d623f2a7d3fc 100644
-> > > --- a/include/linux/rcutree.h
-> > > +++ b/include/linux/rcutree.h
-> > > @@ -87,6 +87,7 @@ static inline void rcu_irq_exit_check_preempt(void)=
- { }
-> > >
-> > >  struct task_struct;
-> > >  void rcu_preempt_deferred_qs(struct task_struct *t);
-> > > +void rcu_ct_kernel_exit_qs(void);
-> > >
-> > >  void exit_rcu(void);
-> > >
-> > > diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
-> > > index a743e7ffa6c0..011018214c6d 100644
-> > > --- a/kernel/context_tracking.c
-> > > +++ b/kernel/context_tracking.c
-> > > @@ -118,7 +118,7 @@ static void noinstr ct_kernel_exit(bool user, int=
- offset)
-> > >         lockdep_assert_irqs_disabled();
-> > >         trace_rcu_watching(TPS("End"), ct_nesting(), 0, ct_rcu_watchi=
-ng());
-> > >         WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !user && !is=
-_idle_task(current));
-> > > -       rcu_preempt_deferred_qs(current);
-> > > +       rcu_ct_kernel_exit_qs();
-> > >
-> > >         // instrumentation for the noinstr ct_kernel_exit_state()
-> > >         instrument_atomic_write(&ct->state, sizeof(ct->state));
-> > > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> > > index 96848fc1f02b..c23478f70c17 100644
-> > > --- a/kernel/rcu/tree.c
-> > > +++ b/kernel/rcu/tree.c
-> > > @@ -368,6 +368,25 @@ notrace void rcu_momentary_eqs(void)
-> > >  }
-> > >  EXPORT_SYMBOL_GPL(rcu_momentary_eqs);
-> > >
-> > > +/**
-> > > + * rcu_ct_kernel_exit_qs - report deferred QS on syscall/exception e=
-xit if needed
-> > > + *
-> > > + * Called from ct_kernel_exit() on every return to userspace.  Guard=
-s the
-> > > + * rcu_preempt_deferred_qs() call with rcu_preempt_need_deferred_qs(=
-) so that
-> > > + * on the common fast path -- where nothing is deferred -- we avoid =
-the
-> > > + * cache-line traffic on current->rcu_read_unlock_special that the u=
-nconditional
-> > > + * call causes.  This is particularly significant on weakly-ordered =
-architectures
-> > > + * (e.g. ppc64le) where rcu_read_lock/unlock issue lwsync/isync barr=
-iers and
-> > > + * already touch that cache line in the syscall body.
-> > > + *
-> > > + * Follows the same pattern used by rcu_flavor_sched_clock_irq().
-> > > + */
-> > > +notrace void rcu_ct_kernel_exit_qs(void)
-> > > +{
-> > > +       if (rcu_preempt_need_deferred_qs(current))
-> > > +               rcu_preempt_deferred_qs(current);
-> > > +}
-> > > +
-> > >  /**
-> > >   * rcu_is_cpu_rrupt_from_idle - see if 'interrupted' from idle
-> > >   *
-> > >
-> > >
-> >
-> >
-> > --
-> > -Jirka
->
->
+>  .../bindings/media/nxp,imx95-vpu.yaml         |  162 +
+>  MAINTAINERS                                   |    8 +
+>  .../boot/dts/freescale/imx95-19x19-evk.dts    |   10 +
+>  arch/arm64/boot/dts/freescale/imx95.dtsi      |   37 +
+>  drivers/media/platform/chips-media/Kconfig    |    1 +
+>  drivers/media/platform/chips-media/Makefile   |    1 +
+>  .../media/platform/chips-media/wave6/Kconfig  |   17 +
+>  .../media/platform/chips-media/wave6/Makefile |   17 +
+>  .../platform/chips-media/wave6/wave6-hw.c     | 2030 ++++++++++++
+>  .../platform/chips-media/wave6/wave6-hw.h     |   56 +
+>  .../chips-media/wave6/wave6-regdefine.h       |  649 ++++
+>  .../platform/chips-media/wave6/wave6-trace.h  |  289 ++
+>  .../platform/chips-media/wave6/wave6-vdi.h    |   92 +
+>  .../chips-media/wave6/wave6-vpu-core.c        |  448 +++
+>  .../chips-media/wave6/wave6-vpu-core.h        |  126 +
+>  .../chips-media/wave6/wave6-vpu-dbg.c         |  183 ++
+>  .../chips-media/wave6/wave6-vpu-dbg.h         |   14 +
+>  .../chips-media/wave6/wave6-vpu-dec.c         | 1843 +++++++++++
+>  .../chips-media/wave6/wave6-vpu-enc.c         | 2764 +++++++++++++++++
+>  .../chips-media/wave6/wave6-vpu-thermal.c     |  143 +
+>  .../chips-media/wave6/wave6-vpu-thermal.h     |   24 +
+>  .../chips-media/wave6/wave6-vpu-v4l2.c        |  516 +++
+>  .../platform/chips-media/wave6/wave6-vpu.c    |  826 +++++
+>  .../platform/chips-media/wave6/wave6-vpu.h    |  143 +
+>  .../platform/chips-media/wave6/wave6-vpuapi.c |  336 ++
+>  .../platform/chips-media/wave6/wave6-vpuapi.h | 1007 ++++++
+>  .../chips-media/wave6/wave6-vpuconfig.h       |   72 +
+>  .../chips-media/wave6/wave6-vpuerror.h        |  262 ++
+>  drivers/media/v4l2-core/v4l2-common.c         |    2 +-
+>  29 files changed, 12077 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+>  create mode 100644 drivers/media/platform/chips-media/wave6/Kconfig
+>  create mode 100644 drivers/media/platform/chips-media/wave6/Makefile
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-hw.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-hw.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-regdefine.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-trace.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vdi.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-core.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-dec.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-thermal.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-thermal.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuapi.c
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuapi.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
+>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuerror.h
 >
 > --
-> -Jirka
-
-
-
---=20
--Jirka
-
+> 2.31.1
+>
