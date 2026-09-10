@@ -1,313 +1,230 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C51E30ACF6
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045261; cv=pass; b=h1cOuItTuCNuwXaNegouJnhBPCHx1DT5La79EP4XqEMkfnU8cYRTvk6g3dn2ZC2Hz85ewY0ZTsmo5vLWrm9tC2pylgSH4sHrueF22M6BlR7HOwUp4NdEcrvsQm6YB75aFBhVkx9nj0LIkQ5QnLmMMZLCUpUzk26abJolUnXCUh8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045261; c=relaxed/simple;
-	bh=NXUxQk7Ksy0lqFKZ/eFB7Gaj7G6butbDvH5VMceVmw8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jPDOFVnKJlgL1SET3Bf7V5bELIVxcbEBSQk2rEBMiTRUoT6q6txP/Y3ynxL+b2EFclapkfczhQqJtCIZwUnUB5/7ZHC2jYowM3DJ3sFTGMtT4+N8qrOKHj7fbUo8CtvvDKpOyxbbZLLCZsCRSPKA7SGuGY/AYWcqGjFYuyh8oQI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GxYLJgsY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OTXfSpdZ; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5510648A8B7
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789045277; cv=none; b=TN5kWeBISesq8Z2K0+GMQbMVsPSdFi5s3s2lyRZ7ZK7Z5+mmKk03RUlKyKrRp5ss9Fv6C75xMKnkK7yLuDPjfm+u1uXvkuWLHFGOwo8rYP13J9WKNQMgMCRpt45qbTPMmYZY+vzeY1Yb7BhSSIBFhYTMBQMVv/oxeDNYEBp3l20=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789045277; c=relaxed/simple;
+	bh=LC9mRgiYkzTZ2U6TbeyqAk3KahVEL9js5PsQVWbvhA8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OxFKhVmWh2J9A6w4p/Ene7gfGZDzkMflhajTQCGmfcXyEeRjKoep59/Mevl34wbsWiVexFHrs6qntrjacEyR1Csa32LYWiWIdI9XXVpP+7nQJeMn1FGAV/Lh6345oNPvqlyhAsh9YqI9rX0wFStZnndv9hamVlmzwAM2G+7qcv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mCvyfCQX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rr0eBuXQ; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GxYLJgsY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OTXfSpdZ"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7jvd1241999
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:00:58 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mCvyfCQX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rr0eBuXQ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7h3R244653
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:01:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=; b=GxYLJgsYjgWyzCI2
-	QcuubqvIGDgqdIx4CCxwDI1y5pSwfE+7uwz3MqrQvkkfMHUobpueTOGRnT95Wmrl
-	uyUkzNdpL/+f+9Vo7V6XBfQVzYBEqWjRnltya32G4yAtFT/SloJnY3seUnhaG83E
-	qOZFkJVBhlUj9fevl0y3Rb4Xkyq2rNvtDhTPFYetkaVp03ONapSbdx9e9BieW5C8
-	1vjguqf8G4gSji8yxVHHNo1J0uucbZxuYH5tHpDRMt0wTh+7XgJ7RX2Kgp5K7b2J
-	qVcikPcIEXe1qOFCc8lZ80Zs7huiwRM3+L1/IpK6EACoUKQB6gTev1yWBg0jiQw7
-	WXbhNQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrcjs7a9-1
+	MVJBTgr37Q4yEUm2p6q7VSV+p5wOBSjPWPCp+q7El5w=; b=mCvyfCQXtZJyq348
+	ODy5xXFurIYF6Hyc3nz2MKKpygNb3CjPCvpnjY4QNMdD3yct2SBXgiRkqYQwxSA6
+	g+9a8+ihNiDIu1pqv2h+Ls1Ue4pBJtQt+GsT5EGETrUSdzQKJWtGICbHvIxx9xqt
+	zBt4DHIlnNHFHdtkzEcQnEgjwIhMyKxu+Bo2ZJ7yQ4KmAW55T+DC/7JZ3PUKeZ3n
+	8J9eIHg3/OnK1bohwQpjc4OnUITzpZl4Mq8yV4MMW/kcWkuCk4mHi0A2c2CMWYJP
+	4JmiC+5/xmlZmo12wT4ZkjkoxhLGJX+xav5j8oU1S5CMNNznOLmK3M6TKmRHa7Ai
+	eaDB5A==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfkywn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:00:58 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d94f086fedso98833215ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:00:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789045257; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iDHqsjk3tBDSt+rcQtDJne2hdA55lvr66y6aU38m+mFYefM3lddnN/er/eHa42qCLU
-         eCzKQdxjuXOU2PLvWXbqT0zpv0XEexD1kvGgH3HID5aWAXQd2RkxwfSg9JRf7B23mT5U
-         QkuXwHvHmRCqZSatZxh08Ko1iOYi7NSKQO3DAaKc5hXVy/wx/EnXVmEp0ni1Hkxgixvx
-         CxwzMUzL0BDhb6krjDtB/pjTwtVDliMMleg6Gzt2KQcx3kti8x96mgfLe2KITvtGWm+E
-         WUYWMsoIRUsQxBxxeln1LhaqbJrlN+Twjg2GPw964SIOv/JkfRryc8xHzjydmX9IJ/Ju
-         I6Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=;
-        fh=dtgxN1hR/ny/RtFPg8sgOqNWe6bxtgXjbhxF/xc49DI=;
-        b=jNJ4Qwec94wKWuiCOcpnx6CFaBy1ldvzrJpYsol9wctYNFTJtW4jWwymm5iKx7T/OH
-         X0hZrgpOvKtIkBBUCRGTsu+Dg9btO8l5mhZB+me92EG3DVsyLjGwPbaEUYxTLBhk6La+
-         oYqPfpOPN04CmO9+zUv+SxzPP5S1+jgbnALEQcxaVM04IYYempvmL0cUrEPMCf6wRyS7
-         ZK7kr0baNgFROdjs7hITcORmeGkHd1Ye7tc4HfSiz7A4GBtxguqHAy4RIIpy6pe3wv0g
-         cCo+JI16mYIa1Xf6nvUHZ1wmMD1jM0sn8wBCILm27dTY0CzHhNi+qivreVy7oMfrU5V2
-         uPGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:01:14 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso97770655ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:01:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789045257; x=1789650057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=;
-        b=OTXfSpdZjAfuGSkqsTdshprHXM0s4t9ZNrr2eUXHLL0zThFWpsBgCMu0qjKeB2UZxn
-         YI5Rqvvw2EIr/f3zuEpol/i5qAQlSkkJCxInVeiR28DaV/zpS0q4U2NDeWsfLGUetnz1
-         sLy8GhnT+8puLwwjo3XARkJIWLKADP90G6POiCiLHNJmaCXiRAf4iIqYG//lGTWLr1Hy
-         U8saljizsiiZ1HBbtNkg/P4wrL/AeOHHwg42dZRSyS+o9UNEq1JHXWpQJmFELztOFf6A
-         AcnjIZL20NCAvxAVKIfcq0W4JLw5Yo3HX2/ZJPCi1/Hm45axFxEbYFNbWJOnH7jpYnSH
-         nZ0g==
+        d=oss.qualcomm.com; s=google; t=1789045273; x=1789650073; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MVJBTgr37Q4yEUm2p6q7VSV+p5wOBSjPWPCp+q7El5w=;
+        b=Rr0eBuXQK/5T6BCoA4cMTiW+jqTrhRGz3HtLxWD6ZL/NncI5wfRyl+TiApntPZctxU
+         8UpJV4hiFOQq88lyd/SesPH1xTL+yrhxqr7LFruo1nsD1uzyPM1BQRZnKBLQjcPjI2Ct
+         70GB0o/r0NBae2FdBE3MtEg6Mzv4wYt9H9pg+GvzNqNLYJjRqDxR+0wKXVHfvoAAquJM
+         RQdkYfnUEQmdSlZwluETEqheW60JXe0BhAY9GJYJh5uPhxNTTX5r/DQwAlokll2ifmnT
+         SfPXcR0v9FIC0pGY3GCU75znJINSFZe/ZW/DYIgO/xan0rXXwcF5R8BkkxkzPbaghvYm
+         6nJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789045257; x=1789650057;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789045273; x=1789650073;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=;
-        b=V33ZjqGhUZhRPP8Gfv/SY+Z7Dut+OuNJMQtEd8JfGp9bqstX3E3lqa4Jl4VceACfO3
-         d57gOpCxnkmN9h4wDiFML0/CZ9SrAkK8FK30CaJ/SCsAUE3sTN1OQu86kdpLNjavrrt1
-         2xHHE81DY5WTyb9Z1QQ+JSzOy6W+sVKupXA+NkbCi3sNBzToK1Zfs99/xcXfUGIuTYq6
-         gZjobCVSI2OGkNzJZdr2xYTV9GQGn4ZCOec1JSDdionvWjWSpYLYSwPt/zMnXBxmgIWf
-         3f6I3cVqdf+si73K0g/L6d7BcSEGfR5ndNqR9lE13wp7iaP68HlDRpa1zX/NekRmGJwI
-         DLag==
-X-Forwarded-Encrypted: i=1; AKwUvBxycXf0R0NX5p9iAyO/i1CEJMxz1zjgcyW/pMn2+WuET5X91qNtxWCEeWieKm8nG9WcDuR8X6WbFZDJ0B8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ny8eL1beYrS0SFJVF1pae0AKDpsCFKKmL9FKZf0XcOYONJH1ET
-	2JVQvW7ZLe/5zyEfQPqYMzJRFb9JHV8QDa+nHFIKr3JSdKx/lOSzwEXaC5aexwqWFlvhCXLIrJr
-	q7GL/YsjBV6RZnIWmnTxc7L5BSs9wLW2X1+hjHlqnT+XEmFOD8mbGgIYhz4qQc24j21IPzEFoZX
-	rB/zFg+QeoYDymDtF+Qh4AW3+GWOxOQB8JekZLP71J2Q==
-X-Gm-Gg: AYBFou2anONvTVP5kFGvJl2AduZAj3P4TfYJjRZM0YoTxDEeA2tTd9prAk3Qlib+6im
-	sgIBOBwrwjSqM+FQUyfIDFPgJjsIzwkDVUC0V3n+/qQ9boryWtypHVKUsD/oqCKaU2CnCEu/3XX
-	drL223QjY/Ty7Qmq7nUDVIaKNfeETn50qYTxt+INmAO0gNVcSQbTa3XYZcLQ==
-X-Received: by 2002:a17:902:da8e:b0:2da:eb8f:b4e4 with SMTP id d9443c01a7336-2db124c35f8mr558469435ad.7.1789045239130;
-        Thu, 10 Sep 2026 06:00:39 -0700 (PDT)
-X-Received: by 2002:a17:902:da8e:b0:2da:eb8f:b4e4 with SMTP id
- d9443c01a7336-2db124c35f8mr558440465ad.7.1789045226507; Thu, 10 Sep 2026
- 06:00:26 -0700 (PDT)
+        bh=MVJBTgr37Q4yEUm2p6q7VSV+p5wOBSjPWPCp+q7El5w=;
+        b=F8KvfwbDlQaPMlKgwKF1IGY6NPJxaBnwqjcccoCV5X5ULQ3+8HDyQ/EtdQYTlq6+//
+         QpsMSleIBuPR2em9RoRA1pL2rgXSiSqrFZD15X/Y4MA14JOkxqvmYj87P0STW/BR7Jvs
+         NJGsAd1N/eoLpl4LYy/8u5cU3VbkejTYDXS5zG4UeQ0H7/xT94HxRHFuasmFWyuAhHzk
+         UFCITE6QCgxEQrj5xGe9uB8rWx9haI0CBrh3a5O26gB7/AoHN5j2+uvbRo4i9mBle4WD
+         ljmUpjQ+Tuur/6DDtFW+G6ZuahRi+lKHij5B1R5uVBnwKD9N9oquKubYwtZ4UvSywCUM
+         vL5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzxfWmAEnwfMYSARl1PmBEA4VAthBZW/26Yk16wqT6arU1f1WX+448YhHyr+he5Fjlx9ETGIKjRLsMRGeg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mT8s96V/KdARdt4Ym6jRF5cAMBkDT06c37e+8Qq51Dzac4Bq68
+	VZCyjZDHDFxw8BEnzQvC1hmJXDf4yIg2AaK9Y+NaxNZoO3R/POl0vNrJkChjCn0oJrmjZ2NIVZx
+	hff0CSUqXikkNwjc5Ngq8y11X52+ZAbqyXAFD6kl7brvmVaF/PQWq2+Z1qfBr4o1mVIY=
+X-Gm-Gg: AYBFou1zt/9Ul4a8I05nXoVYIryT+/FIoNW4XS167WIMMspTrCIXgvMLL2MvaYt7LuU
+	Xynu/AbjVcqJQlwKAfiMh7OiIVHm7pJ+PNnEO0bPzwkGbYS4jdkc1A3Q7H258OXNV0YN0WbB5yY
+	vgYSEa7d3IT4n3N1saWQQO+Ca4pJpCWe+iZ5g6Nka1BowUYyVa2Xd6Sp0fEQOEzyimfHssi4jzT
+	MyQhxY6FkYSeua3DsXbdbxg2hkQbEXpkLXrAL5UyQouss/T1la+RJVVHofQfKr4hS1vZB14s4IH
+	SX1hJDhIrfNKENlbbt754x234UoOnQ9K4WyAcmSBl9BIVZic3h6JzcziMoEZW/BWc7LH+1LJEbT
+	9yvFn44XKrq+DtAieKzPkzXwi2QVoZuzB9Mb2
+X-Received: by 2002:a17:903:46cd:b0:2d8:de9f:9a44 with SMTP id d9443c01a7336-2db8dfe7322mr175297925ad.19.1789045273114;
+        Thu, 10 Sep 2026 06:01:13 -0700 (PDT)
+X-Received: by 2002:a17:903:46cd:b0:2d8:de9f:9a44 with SMTP id d9443c01a7336-2db8dfe7322mr175296835ad.19.1789045272576;
+        Thu, 10 Sep 2026 06:01:12 -0700 (PDT)
+Received: from hu-apateriy-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b9f0sm88424805ad.20.2026.09.10.06.01.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:01:12 -0700 (PDT)
+From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 18:30:43 +0530
+Subject: [PATCH 1/2] dt-bindings: cache: qcom,llcc: Add Nord compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
-In-Reply-To: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 15:00:15 +0200
-X-Gm-Features: AcwNN1XNQ4fZJTTzmnpDFbrWjbGQV9imP4SmqvlRa9AkoN1LbCwNPREdmY8YGvM
-Message-ID: <CAPx+jO8Lc3iNNBVjBB33aJYUfdr2EJqpL8mS8weKnZcBaDf0vA@mail.gmail.com>
-Subject: Re: [PATCH] mmc: core: Modify the CMD1 transmission interval
-To: Xiaojie Li <xiaojie.li2@unisoc.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Wenchao.Chen@unisoc.com,
-        Rain.Zhang@unisoc.com, Yuelin.Tang@unisoc.com, cixi.geng@linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NSBTYWx0ZWRfX2VOUUsxew63f
- 07ClYviSbQk3bapMMfjb6sqQfIhdKUhjRjx0kxp20eowkaO9pXVz41qff23i+7x4648r85WLWF/
- s32dvft9sBAyPMvuYmzi6cbOdliZCOY=
-X-Proofpoint-GUID: ULUqBxpaDv2Z1tOavFGsjiCj-0SlFogI
-X-Authority-Analysis: v=2.4 cv=aef0Dhot c=1 sm=1 tr=0 ts=6aa2aa0a cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=icsG72s9AAAA:8 a=7Y93FPtxMF3Rj5v4aZMA:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=T89tl0cgrjxRNoSN2Dv0:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NSBTYWx0ZWRfXz9it+i+DFBb4
- 2l+3IAkoMzmyUudFo5fbCK4ISH9ILh/r/S5E0jyG+nfqik946pKSS5m4z5Qc5GHGmAu+huOUymO
- HTEgLgcCfMfbfD/nwsK2Ex8LOZplj9srihCuyq3e9/kpKOgmAsV8W5boCPkv00x1TynYvBeG9gJ
- WjFlYN6cjFKAXMw4IjIbzuXTqOZqaBAH8luK6f/yj6P+upvrYzvF25c6OK/nw7qWqw24gCjzkS7
- 4c1f3MkCcjzY2r5wjyqfSqtz5VuRfVUU3ih4XpIi7kZjwg71a4L30y+fNu4CCyfNe0vdDEt+/St
- Fh0SVTg5FsO8C12LikTKdwhFaYE/sifJyWngq419wLUKF+6XxaKB8LbgH8wDoyQ1vCnGPLa2d5U
- GQERq6WHnDQUl2VobvX/bWom9X3LvpodEP+LqlXClKNdUMzGq6+wXdqtrRKXws9PQFkQ1Ge3+1f
- R4igQufffWrozdS6aYQ==
-X-Proofpoint-ORIG-GUID: ULUqBxpaDv2Z1tOavFGsjiCj-0SlFogI
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-nord_llcc-v1-1-30fd1cca65fe@oss.qualcomm.com>
+References: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
+In-Reply-To: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        zhangfei.gao@oss.qualcomm.com, shengchao.guo@oss.qualcomm.com
+X-Mailer: b4 0.13.0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NiBTYWx0ZWRfX6tQidfTPwgj2
+ oNdbUxGlgvXEQdsunVJS7gXA2ZaVaS7VRf3GAGfn+H+lqw8DKEl8/zQ49APPRMZzBoFP0bfjdJL
+ S0fKqCO9FOtRO2LP6DdWMOWH8XOMWeA=
+X-Proofpoint-ORIG-GUID: NjVTpXegpdCGQW3-a4BoExOGMrkW7g4d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NiBTYWx0ZWRfX5rpj1RxwXS5e
+ Bvywe593zEL9rqPXonLgLwnLdOo2y07HdxnN0dDvudbVbr4UU4m1IZTHAJfLwLFzvkoWyNQI8rT
+ nxd/EUkBLjv6hX7InRKxJVUN8nBLT2tCquo0lJB62skKAzg0UJG7sFjefgWHE9Mek9IFpZ/gppo
+ TWO18v3wQc8vpHTOeLET341/l+w9dJKadHmMK9Q9YW0Xsx+zIM7goxppQW/PSlxSQb3P9dAn32R
+ RLUcjJWg4iDgR+cJgVPH0AJgGVvTiX77ui/V1UpVdupYGPFoCdXnkDxvPX/D4WKL/TV76Cop+iv
+ 6vo+EiiSDHY7w8Nn223YR5EQA6T5WsgrrW73Uyn1djeo/Ph8LWs60WZ8HyX/UoUlxHTJj9t/8I1
+ 5pE5W706jbAR8eGouRRM3QsiqqnQ/VqkzQfSjGQ9eNxq0A1V+bLSCNf2OGf1oBuv2VLQHElf8nG
+ EPkAYg4pUC84uQpAxwg==
+X-Authority-Analysis: v=2.4 cv=H5pOUOYi c=1 sm=1 tr=0 ts=6aa2aa1a cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=Nsn_4hRXuT6My6vqaXwA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: NjVTpXegpdCGQW3-a4BoExOGMrkW7g4d
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ clxscore=1011 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100155
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100156
 
-On Thu, Aug 27, 2026 at 11:15=E2=80=AFAM Xiaojie Li <xiaojie.li2@unisoc.com=
-> wrote:
->
-> The current code's maximum udelay value is set to
-> 64ms. Since it uses usleep_range(udelay, udelay*2),
-> this results in a maximum wait time of 128ms between
-> two consecutive CMD1 commands. For lower-performance eMMC chips,
-> local testing shows that compared to the old code which used
-> mmc_delay(10), the total time required to wait for the busy
-> bit in the CMD1 response to change has increased by approximately
-> 300ms, negatively impacting the overall eMMC initialization time.
+Nord has four DDR slices with four MACH9 LLCC banks each, so it exposes
+sixteen bank regions plus the shared broadcast OR/AND pair. Add its
+compatible with a matching reg/reg-names group and raise the top level
+maxItems to eighteen.
 
-Okay, that's not good.
+Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+---
+ .../devicetree/bindings/cache/qcom,llcc.yaml       | 55 +++++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 2 deletions(-)
 
->
-> Although the current code sends the CMD1 command fewer times than
-> the old version, the total waiting time is significantly longer.
-> To address this, it's proposed to modify the CMD1 sending interval
-> to follow a pattern like 4ms, 6ms, 8ms, 10ms, 10ms, etc., effectively
-> capping the longest single wait at 10ms. Local testing confirms that
-> this approach can bring the total time waiting for the busy state
-> change very close to the performance level of the old code.
+diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
+index a1340226a0d0..2141e5d4de63 100644
+--- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
++++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
+@@ -26,6 +26,7 @@ properties:
+           - qcom,hawi-llcc
+           - qcom,ipq5424-llcc
+           - qcom,kaanapali-llcc
++          - qcom,nord-llcc
+           - qcom,qcs615-llcc
+           - qcom,qcs8300-llcc
+           - qcom,qdu1000-llcc
+@@ -56,11 +57,11 @@ properties:
+ 
+   reg:
+     minItems: 1
+-    maxItems: 14
++    maxItems: 18
+ 
+   reg-names:
+     minItems: 1
+-    maxItems: 14
++    maxItems: 18
+ 
+   interrupts:
+     maxItems: 1
+@@ -355,6 +356,56 @@ allOf:
+             - const: llcc3_base
+             - const: llcc_broadcast_base
+             - const: llcc_broadcast_and_base
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,nord-llcc
++    then:
++      properties:
++        reg:
++          items:
++            - description: LLCC0 base register region
++            - description: LLCC1 base register region
++            - description: LLCC2 base register region
++            - description: LLCC3 base register region
++            - description: LLCC4 base register region
++            - description: LLCC5 base register region
++            - description: LLCC6 base register region
++            - description: LLCC7 base register region
++            - description: LLCC8 base register region
++            - description: LLCC9 base register region
++            - description: LLCC10 base register region
++            - description: LLCC11 base register region
++            - description: LLCC12 base register region
++            - description: LLCC13 base register region
++            - description: LLCC14 base register region
++            - description: LLCC15 base register region
++            - description: LLCC broadcast OR register region
++            - description: LLCC broadcast AND register region
++        reg-names:
++          items:
++            - const: llcc0_base
++            - const: llcc1_base
++            - const: llcc2_base
++            - const: llcc3_base
++            - const: llcc4_base
++            - const: llcc5_base
++            - const: llcc6_base
++            - const: llcc7_base
++            - const: llcc8_base
++            - const: llcc9_base
++            - const: llcc10_base
++            - const: llcc11_base
++            - const: llcc12_base
++            - const: llcc13_base
++            - const: llcc14_base
++            - const: llcc15_base
++            - const: llcc_broadcast_base
++            - const: llcc_broadcast_and_base
++
+   - if:
+       properties:
+         compatible:
 
-The code you refer to has been changed and fixed several times. We
-need to be careful to not break support for some other cards. Please
-have a look at the below commit for better understanding.
+-- 
+2.43.0
 
-e949dee3625e ("mmc: core: Fix busy polling for MMC_SEND_OP_COND again")
-1760fdb6fe9f ("mmc: core: Restore (almost) the busy polling for
-MMC_SEND_OP_COND")
-76bfc7ccc2fa ("mmc: core: adjust polling interval for CMD1")
-
-That said, let's try to figure out how to improve this. See some more
-comments below.
-
->
-> The eMMC chip used for testing: manfid=3D 0x00009b, name=3D Y0S128, mdt=
-=3D 2022-10
-> The eMMC part number is: YMEC8B0TE2A2C3
->
-> Signed-off-by: Xiaojie Li <xiaojie.li2@unisoc.com>
-> ---
->  drivers/mmc/core/mmc_ops.c | 85 ++++++++++++++++----------------------
->  1 file changed, 36 insertions(+), 49 deletions(-)
->
-> diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
-> index a952cc8265af..3076666cf2ca 100644
-> --- a/drivers/mmc/core/mmc_ops.c
-> +++ b/drivers/mmc/core/mmc_ops.c
-> @@ -189,64 +189,51 @@ int mmc_go_idle(struct mmc_host *host)
->         return err;
->  }
->
-> -static int __mmc_send_op_cond_cb(void *cb_data, bool *busy)
-> -{
-> -       struct mmc_op_cond_busy_data *data =3D cb_data;
-> -       struct mmc_host *host =3D data->host;
-> -       struct mmc_command *cmd =3D data->cmd;
-> -       u32 ocr =3D data->ocr;
-> -       int err =3D 0;
-> -
-> -       err =3D mmc_wait_for_cmd(host, cmd, 0);
-> -       if (err)
-> -               return err;
-> -
-> -       if (mmc_host_is_spi(host)) {
-> -               if (!(cmd->resp[0] & R1_SPI_IDLE)) {
-> -                       *busy =3D false;
-> -                       return 0;
-> -               }
-> -       } else {
-> -               if (cmd->resp[0] & MMC_CARD_BUSY) {
-> -                       *busy =3D false;
-> -                       return 0;
-> -               }
-> -       }
-> -
-> -       *busy =3D true;
-> -
-> -       /*
-> -        * According to eMMC specification v5.1 section 6.4.3, we
-> -        * should issue CMD1 repeatedly in the idle state until
-> -        * the eMMC is ready. Otherwise some eMMC devices seem to enter
-> -        * the inactive mode after mmc_init_card() issued CMD0 when
-> -        * the eMMC device is busy.
-> -        */
-> -       if (!ocr && !mmc_host_is_spi(host))
-> -               cmd->arg =3D cmd->resp[0] | BIT(30);
-> -
-> -       return 0;
-> -}
-> -
->  int mmc_send_op_cond(struct mmc_host *host, u32 ocr, u32 *rocr)
->  {
->         struct mmc_command cmd =3D {};
-> +       unsigned int udelay =3D MMC_OP_COND_PERIOD_US;
-> +       unsigned int udelay_max =3D 10000;
-> +       unsigned long timeout =3D jiffies + msecs_to_jiffies(MMC_OP_COND_=
-TIMEOUT_MS) + 1;
->         int err =3D 0;
-> -       struct mmc_op_cond_busy_data cb_data =3D {
-> -               .host =3D host,
-> -               .ocr =3D ocr,
-> -               .cmd =3D &cmd
-> -       };
->
->         cmd.opcode =3D MMC_SEND_OP_COND;
->         cmd.arg =3D mmc_host_is_spi(host) ? 0 : ocr;
->         cmd.flags =3D MMC_RSP_SPI_R1 | MMC_RSP_R3 | MMC_CMD_BCR;
->
-> -       err =3D __mmc_poll_for_busy(host, MMC_OP_COND_PERIOD_US,
-> -                                 MMC_OP_COND_TIMEOUT_MS,
-> -                                 &__mmc_send_op_cond_cb, &cb_data);
-> -       if (err)
-> -               return err;
-> +       while (!time_after(jiffies, timeout)) {
-> +               err =3D mmc_wait_for_cmd(host, &cmd, 0);
-> +               if (err)
-> +                       break;
-> +
-> +               if (mmc_host_is_spi(host)) {
-> +                       if (!(cmd.resp[0] & R1_SPI_IDLE))
-> +                               break;
-> +               } else {
-> +                       if (cmd.resp[0] & MMC_CARD_BUSY)
-> +                               break;
-> +               }
-> +
-> +               /*
-> +                * According to eMMC specification v5.1 section 6.4.3, we
-> +                * should issue CMD1 repeatedly in the idle state until
-> +                * the eMMC is ready. Otherwise some eMMC devices seem to=
- enter
-> +                * the inactive mode after mmc_init_card() issued CMD0 wh=
-en
-> +                * the eMMC device is busy.
-> +                */
-> +               if (!ocr && !mmc_host_is_spi(host))
-> +                       cmd.arg =3D cmd.resp[0] | BIT(30);
-> +
-> +               usleep_range(udelay, udelay + 1000);
-> +
-> +               if (udelay < udelay_max)
-> +                       udelay +=3D 2000;
-> +               else
-> +                       udelay =3D udelay_max;
-> +       }
-> +
-> +       if (time_after(jiffies, timeout))
-> +               err =3D -ETIMEDOUT;
-
-We really need to avoid open coding of busy loops like this, as it
-becomes a nightmare to maintain for us.
-
-We have moved to use __mmc_poll_for_busy() for this reason, so let's
-instead try to extend it to fit better for MMC_SEND_OP_COND.
-
-I guess the most simple approach would be to add another parameter to
-__mmc_poll_for_busy(), to allow us to specify a maximum polling
-period. Can you please explore that approach instead?
-
->
->         if (rocr && !mmc_host_is_spi(host))
->                 *rocr =3D cmd.resp[0];
-> --
-> 2.34.1
->
-
-Kind regards
-Uffe
