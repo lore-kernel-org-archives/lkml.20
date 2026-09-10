@@ -1,80 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A96486B8B;
-	Thu, 10 Sep 2026 13:19:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C837489FB6;
+	Thu, 10 Sep 2026 13:21:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046367; cv=none; b=o1Li8dwTPR03It/1xLzBuQujw+wPNy2AZGtRpPmXLF1PUS7MqASOtH0BheP2dZ0eR1Or76UeLrbfOozGwWG7eoPYsS2Ozdd/b5VoPSDx6Ut2OdsRGvzBuLwiRrhJWwDXMozS5+kbzy9/h3gCGRChDjyr5XNnaeJgWmapL87cb98=
+	t=1789046467; cv=none; b=YCI+viXed9926LNzFV/JBdEyFM+MjVF5vCsjRQWsY4r3afY+7IT+IN4HfclXry+p1HY4BrE1Q8I9Ysg2w5BBTlmCwrq7CtVgbgIrs/nT+5xg05RldXVQAKSz4zhcWuf6p5EfwIgBNN2KVjpsMeegFNmeydbCaa5mIfVUBqqfyqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046367; c=relaxed/simple;
-	bh=qlkCU4bd/ziz0I1k4W0EYD7P1bY2O3KnGvomBXzVu+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=mVEzPSIZWNXt8voICI3tupa7iIST65xYIskMeO/BGmCvqA7tMDXv6t10BpyYlATW2rqXepYkI29VwYSQZ3DsN03VdeBbJ+susB6pOMW/J1icnDm+sIB5JKavf4Bw6ld1TJveIXA3QId6ntlKoN7fyktaE93OnpFjLXQhq8GW6cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M0lofyxX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789046467; c=relaxed/simple;
+	bh=J7AkbIU0w67j8L7UI7Z+8H4Cfckn7EIW71gNSZ9YqbU=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=ViFHCpS1lmsovZ2Nsl49CI6AQs+gKzf0OZRwYowxfFT3iZjorI4l1nC5bV+eqwwYjJ2Xh0omCSAjxed7go2E1PlHSAlkuyWsba8y9bVym57AfkGNrQrt2Sa9qcsLoe8U2oO/wpG7ua775+C6v8QpERXZDNfBtaCltce/APkasQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZKRF+bD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M0lofyxX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312781F000FF;
-	Thu, 10 Sep 2026 13:19:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZKRF+bD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4091F000FF;
+	Thu, 10 Sep 2026 13:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046366;
-	bh=EmN0YUs0zg3/eR5WqsbGvMfqkpFUal7coFDJ8WpI/ic=;
-	h=Date:From:To:Cc:Subject;
-	b=M0lofyxX3ia8+tA4nKTdop8wrI9i5dSk5dTQbiB2SuzERdVUicqHB2mwIA5DpTRMm
-	 DUHmFGGR3ZH1Q5EWvFOTLys6ZDTOF9sWDw2dN5RwCLf3UFfrdC0m7EPEObVVNGO09c
-	 pk0NXRvXXlAxHrvw976hX4BxYHIN/uH0s/Ay47AU4lnCN5UNYIewFSw5RfUUOVTc0n
-	 04MoSYJswy2pif8PraqK9UnQacCZ6rDIJllSvgMVbhOQtUBgRUGyR+OtmQldodiWn5
-	 A5OomxmeuZcaVN81ecBWii7mQl2Za/Nk5RpgXV7+FQcw4YrmJieBVaQu/aXTnjjuvh
-	 zZSG96d1vT1Zw==
-Date: Thu, 10 Sep 2026 14:19:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Ath10k List <ath10k@lists.infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Fixes tags need work in the ath tree
-Message-ID: <aqKuWv0oUjGHSMIV@sirena.org.uk>
+	s=k20260515; t=1789046466;
+	bh=6kdWNS6qHpM7rESSd5+lK0SElqpcsXbcuIlVAkccGBw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=IZKRF+bDhD2JRkiUmK8/qwpQjOpJ0SEt+UbUezBmtBjmrOkYFeIQzDMnZ6sg7nn6r
+	 J/NAtOrz6N6EtQGiwbKTCPajmsL+dlvfizk3Ed/o8D+Zm680q/sKaEW47mh0mOWidQ
+	 G4k6fvRK4jXjxUOUUu+CDcZO2uMAWJzVhW8n98JAAt+F7KHywzSkaT1eyjsqdXjjUb
+	 MPBIU7qJexOVheocobi/gtvOPvyZ6URTGOHTx9kDsY+k/vhyOgyNgCgUFb7o806hv0
+	 8Qw8hXqIz3+9pbE7x/hEeMDcd4j8NNbWZXmIRwdl9BPJViW5SyxsXatUrqqyVdxLw+
+	 4194iCEEQsq8g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09F0380CFEE;
+	Thu, 10 Sep 2026 13:20:04 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aDFfQRaCh0DaRwIg"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 net-next] net: phy: air_en8811h: select LED GPIO pins
+ based
+ on AN8811HB package variant
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178904640364.1426497.6750503287059225933.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Sep 2026 13:20:03 +0000
+References: <20260907015638.2875763-1-weiting.lee@airoha.com>
+In-Reply-To: <20260907015638.2875763-1-weiting.lee@airoha.com>
+To: Weiting Lee <weiting.lee@airoha.com>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, kuba@kernel.org,
+ edumazet@google.com, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ bjorn@mork.no, ericwouds@gmail.com, frank-w@public-files.de,
+ joseph.lin@airoha.com, wenshin.chung@airoha.com, lucien.jheng@airoha.com,
+ albert-al.lee@airoha.com
+
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Mon, 7 Sep 2026 09:56:37 +0800 you wrote:
+> The AN8811HB comes in two package variants, AN8811HBCN and AN8811HBN,
+> which use different GPIO pins to drive LED outputs. AN8811HBCN uses
+> GPIOs 0, 1, and 15, while AN8811HBN uses GPIOs 3, 4, and 5. Using a
+> fixed GPIO assignment causes incorrect LED behavior on one of the
+> variants.
+> 
+> Read the package variant from the read-only silicon identification bits
+> in AN8811HB_HWTRAP2 at probe time and store it in priv->is_an8811hbcn.
+> Add an8811hb_led_gpio_setup() to configure the correct GPIO output pins
+> and select lines based on the detected variant, and call it from
+> config_init.
+> 
+> [...]
+
+Here is the summary with links:
+  - [v3,net-next] net: phy: air_en8811h: select LED GPIO pins based on AN8811HB package variant
+    https://git.kernel.org/netdev/net-next/c/10ca508878b6
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
---aDFfQRaCh0DaRwIg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-In commit
-
-  bea22601ee301 ("wifi: cfg80211: don't free driver-owned scan requests")
-
-Fixes tag
-
-  Fixes: 4a58e7c38443 ("cfg80211: don't 'leak' uncompleted scans")
-
-has these problem(s):
-
-  - Subject does not match target commit subject
-    Just use
-	git log -1 --format='Fixes: %h ("%s")'
-
---aDFfQRaCh0DaRwIg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqirloACgkQJNaLcl1U
-h9A1jQf8CO7N0SEODx9gQ+e9UFkQd2Tb82JAEKDSZh0xlMxQYRe9lWCf1TmqMKey
-cmTQgbc5b15JF++dIexZTfJR7YW7oCv69zdTUMs0CIz3dreuXVwNKPSJXP6Ycw1Q
-LWxM4FN+V5fQ8OmCQ3edJxpVZYXNCtZjLnPN/cH/d1+4xt7qvniJKwahUOnZB56y
-xFmuTRUZBL0NnKAMexB666SlRb8afpPVJpMTI6C32s4NczDfYFt9kIKyrrKMt3Zj
-RTxwe/R1D0+SFFkvFV98p7eLyTK3NI9aAq5Pw7NSH67dpPsMKSEkFKo6qjAtngfp
-prcOVf5z1uaUlkQCx4lL5PR+/byYUQ==
-=lLQZ
------END PGP SIGNATURE-----
-
---aDFfQRaCh0DaRwIg--
