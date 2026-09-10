@@ -1,194 +1,182 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1F5582BBF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066663; cv=pass; b=TBIGLnYAit0h4BY1zKJcmFGbEdUNyl6iPzNHvPbNityb5W5kFsESsHMx727QEdiQp3ipTmTuEIU5iq6AM03hURmt/EN03kzdE4QGyJ8xC3vtFFamEImTAyNYssPtHlj4Ahnudp9dCf4fGKYGK+4PBikbcVe3bzJADjajBV3vXkE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066663; c=relaxed/simple;
-	bh=LvLi2WG97zBBaTutxiZFhYxTjRdgTSJJxA2epdOyf9k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VoQMnQUQ61hpC6rN7ra1pswym+3w9URiNX/AZWlAGbH6uiOHBjyA/kdVvclRxw8HR8oBkpr0wN8nizq9z6k60RhELYnaXzOVmUUrYpGaGkdBFknk6DVkEJEak5y4a3LXIO+Ffuct4SaXZs6rsIiMbjEaYBNMPG5Fh3XTthsGpgs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oJOtVM85; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF4594805
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789066817; cv=none; b=OhMnAceWr0c4/JNs56rH/P7n39gwfTD7oHEvvhzhpzcd3NU/OSPaPCN/l6Xeejcf1CKrWTNjv57GrzOaldiGcfJg9ahIadh50U2zc4sDoIz1bkurD+fR1cffXeiFrkTbiJGGGviP9G54oPEkAtChhXHzxHVTdjhakXUwHWJkJh4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789066817; c=relaxed/simple;
+	bh=XsWWzJ3IPV9YHVEnX8wdPH+IKbTWzfHSnvzKc+j31FA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SHkE7SzoaT/fGz51v52Nm7ZYXyi+sX4lqt5N1629fSw1X2M2YHODMsoQyx/fjl8Fof6mKgb/tbAcJU0UYRgZnwNt5xJ9ijtCXqn64SNdcA7UuQFT0f76bRFhWxHA7Vo2ThW79tKQwc+GxPRiy6XS4NaTX5DDis4YTz6jsTkqdOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=POlXFFrj; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oJOtVM85"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so10178e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:57:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789066660; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vq179HujvJA8MmQtlkN5YlpRST9PT/imqYlSImfxl/dh3BMGLjj6EWYoWm+HpiFzKQ
-         vncP9vrmFhCmtURd9VQU0i5DFsW+APwpAFug9nrztx1Hm/VOKQuYnLA5FDlTDUYJnIj4
-         HiTQIrekeuc2H3mSXxFLv5+qSBFElRgWRm+HfM09qwoZHRBvpBr4ykmsRkI3T7NSXwcz
-         79pk1ipHTUWVsdjSOxA6HICv7cTBCUJKLjXtCV44T/rTGyy16NqiQn0JwsGbcJ2UxpAd
-         cADMoj0fq2/FGL7jST5DOd9O1beXvAuegaxeVizUXyPLBSC6aefHgkA8MIxtxS0RiXP2
-         YIIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ZrdVF7ALBocEe70y9+Oret+TDRXY2tEOhMpJsYsf+II=;
-        fh=8vNU7s8HLxlP3SyWYbmHPLx40MehlYBK6UJ2RO5w0nw=;
-        b=H6JWl3LBE47H1PyPFhXE9vMliCejEI/7CBL8yTKqULPar0YmYLTeTxGKEdhe4nlth5
-         dHfMr7uqDWh47ZIBNO+XfDnQgvqYWiqP7mblyXO8/cMv+g2q/cP4XeKQwDOiFE0KwJhS
-         OjW4+VvlfPqVtpvI0JOkdztBuLON2uWLQgZXRniuWszxlfX/1bM8yZIqnwLpZ9Y6VO3x
-         gMk/hve9P9KJRyQgMzDuGtb0XnruaXVct+m0CxubBkSjv5WTaLvGd06y1ZDbD6d2hwRX
-         PtLP6PIoduegieGBilzU2BKOtPULfr61JwonsVpGO6AsHiS6BZazlrSSzdqa/atjGtIj
-         TSjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="POlXFFrj"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4902427c1so124111a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:00:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789066660; x=1789671460; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789066816; x=1789671616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZrdVF7ALBocEe70y9+Oret+TDRXY2tEOhMpJsYsf+II=;
-        b=oJOtVM85a9xcyN7YMuseSSWyp8vAN2Qfn8tI8OVrWxUeIsBShlbI0OEAysQ6gLuG6p
-         IyfC+Azdn+tz1fniwC4FOS+kyKTdW7UlptpNUrd3+w0KiBiNevQSPciVjvpiExxAsQIa
-         NSl5/L4pB2ug9R3/9LdXDkcE27tmYnbD89oOi2w6ZXnee5diXL15ovuRmc7o+MbuW5nA
-         AauSZEoUy+qpV51brEhIaXQd60IPDVLI6vVI4p6IGVMBvZYRtnaOF2vve6vofXJ2srJ/
-         9x759VHui0Fg02/EFz97Tn+v0DYbCg4VPdsQOP+BdTq0+l6E1HV7FgkkSwETo2zHn1Ap
-         fyag==
+        bh=MbRV6E8Gg+PMhfe4AgURv+79xV19fYMyihA7ZKo+a9I=;
+        b=POlXFFrjixHIGR6Bu/9r5WMFTFPOetGjD34RXwPeQ2LF4kQfEwm+jO25U2R2u4w5Ar
+         V1KO7N8D3QiuQLGHfchfEyIDsU/5F32zi8sbcw4XbmbNU6MRyz1/qcV4MB4/+IW1VGp3
+         yZ6B2SXnbQYHml1xW+57PO088dFqe4qSlugN5m7WRBzZIXByQCBUufEjraxGtB2qV9lD
+         uOENiPs09V5apLvJlmCX8RnXghY1UqPf2jZSVeYJ0kYlPKV3z8NK5qKUlr6ua0vk1804
+         vDQ95PRxvWtLG6S/IHJQXH23S9aTUbFMXfv1VSCxYvRXePwQo7lGHEQbsMfWHsnMmhin
+         zw+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066660; x=1789671460;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1789066816; x=1789671616;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=ZrdVF7ALBocEe70y9+Oret+TDRXY2tEOhMpJsYsf+II=;
-        b=P3pfN4719LyUf7vQ18jDElXS0WVvf8uXeJldawpHyNQXRasunkYc5Pny4AGzGJSi4u
-         YXATxzNfExhzOTCb3pknqF3VbIVxh9Yg8wKFznyU7zI683H6/7VJqfeP94GDhWqGUusK
-         rBf25fFvctQ5eTRvGHeFwdzWiS8IIILlQxC+EyL9xJRiQvsibxBotG6alqdMHZ0VJjDs
-         imwpC2n0MAsqKRcpcAvZrRZDtpX70MTX1Mv82sHCQ3JubJnwcDmDFFHeqFj+YvnvojoW
-         y4DxVRX5Ad2JpHisZHg/nqPtMrZ2njpgBQ/qHSep9qQesTY/g6U8p0b7qrfvCMQEG0L6
-         1A+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwk4oH0I0TDEpQ4mDKgkzypq8Dqa5soGTCw28Ra4O2Xi+ImVVnc//uSXppgdXuHXCXs2pc9M9m8RPdAz5M=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2ym0eWkj6OoN+I6XKB15Z8V7DK3ZfOa8d+EYNrxJC9RYVkl2S
-	Ooy7H+jBfx3Rjw44xCDjR1fizeqjJxaj3yrT05K0xk4ufmyACSMaCNge7ywqHzUOHo9VoVtewox
-	1T3lKelILFSLwaNM3IgjemUrXbxTrFPtizrYyo2QF
-X-Gm-Gg: AYBFou2QJ3W+dUMAgtOYaHI+zduFkp7d+S0hmBlXWGQUUzNb++1IPm8FCTYMMo27KP9
-	E5T4GRFxAeW3OnN1v15Pyl+YTwwhTaesF6fdTJ3awSJ00nRozvlby4tp4r9DexlbOB3D/zBdx0X
-	efTB0b5y0e+UqFlZPlGVfbMH58nwppa/CfsLHDRF14aHfL0bNECjMgtNSAs96p/WWiKQlYtPF0m
-	NsvspwZdwVythSEXI0pJksu4LsvNDerMoAaW/fffcBnvw17Qk4RICvytvBI67ArK36GUAI1H84T
-	V6f0Tv/KGdZZEHc452l6HyGkXhE5lctMVZgtK3EHVTrObZTMOSRArFv4iaNGp1FjCB7Wggg5Xyy
-	zFXLB4mTV7Kfz2nd/8CDc1QHU
-X-Received: by 2002:a05:6512:108c:b0:5b2:a967:c0c9 with SMTP id
- 2adb3069b0e04-5b8a07ad04amr18706e87.7.1789066659207; Thu, 10 Sep 2026
- 11:57:39 -0700 (PDT)
+        bh=MbRV6E8Gg+PMhfe4AgURv+79xV19fYMyihA7ZKo+a9I=;
+        b=R7t8vjMVZ6XRnr5farHMbbVPyhrH51JlPGfGKpWLlNY/2PZjeTbR9bqZLexBlxpATq
+         JtnRy99oyQVp/ZDJwgXIYn4Zx39qMB6XN7m3zr5+UgDVTHgJEQl6Twcc+2rYFBsRSnS+
+         zH56MG5r+aIxkGu07RRJXL5E8pQOAZQXL6d3SjJzbQ4OF6TuWJ17nbtvLyfibKaAaVWm
+         YIA9o88B618EMlMAzaRVrvV1KFHUwDdUPicCjEo8sNbMaJLmLAI/OFo401lGdW1+Ec0Q
+         xpBHVbPKEB+kbPksOwNpOwdDyEgAAlcoqLokCHrHBL/00YLpp0iJ/mIZ0XnEvpv2AS21
+         E5+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzlJwT05jQj6hjU2ak1mpV5RB6H5zdvqlFBeUfOt+8ZG+AKQOofxIo/9wMhYfyVE4X2SvMBHpIl12otGcI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nETqyhsjzgme1xn0gpAyiceBYB511FyMyPp5OKrh+vioTgXXXT
+	vHKArQ0DWdwBCZjJwloSPNE/UYWAn/90bBNq0z2U9x7yle1In+n6pSqh
+X-Gm-Gg: AYBFou3eUQd05CEjAFkcR0NIVZKIvD8r7/dJRN4VTYsY/NiovP+3An3Gh7nHJfyjEBU
+	/NoUFXMXkxTPQAWcxwXQPVvieTsKpckYuMWkZubIXvUKuTawGkAYXxJAW/pIxJMi/JZIMEzVgPh
+	rTlasOODi6wzHBCe8P+iCM1BlVTDNwrsf9hFvrhnv188Wj26btsOc08KZSKCNV7WFmcwqY8hcij
+	ga/eei/ST02ICDGzVQLF2l0TYnFwG/VZt87+SC2FjYK6Ofj+WClBu+XHVaLCIavLRTAOcgJASpl
+	NUTzd4AWSiNwi1kqm+q59X7JVoBr5z9SVRon7rstBZ0vufh9LDNb+t2PCbJ5ar6WVXSiezns+Np
+	ND0K6RGPeQU5bfaWvmuns2vxgm9YAmTKSlaTFioNYeMUNeRNtsiJ6dvXRHJ2PGG79mj9yVYv0cS
+	FYx61SpJVliziA+oBpkRJw1fAbsCDlufyu9zHxr0hp6DL65wK3mnjOWL9RU0s2oTOHbDCc0NV+8
+	SRj9sAw4QLce4mRHSYICsGp+Oh8lZVz+98UJONQmhf24vnm
+X-Received: by 2002:a05:6a20:258b:b0:3bf:b7e8:68ab with SMTP id adf61e73a8af0-3dad26bda32mr7053932637.2.1789066815615;
+        Thu, 10 Sep 2026 12:00:15 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6549ec0sm134989a12.15.2026.09.10.12.00.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 12:00:15 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <54a5620c-36cb-4dc1-bbd8-9647ff7cb708@roeck-us.net>
+Date: Thu, 10 Sep 2026 12:00:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org> <20260825-kvm-arm-prefault-v1-8-befe8947702e@kernel.org>
-In-Reply-To: <20260825-kvm-arm-prefault-v1-8-befe8947702e@kernel.org>
-From: Fuad Tabba <tabba@google.com>
-Date: Thu, 10 Sep 2026 19:57:03 +0100
-X-Gm-Features: AcwNN1WRbRt_RViN6lNXEa633ZkRLMSCIUfMJ0FeZLRCcdVLjr-AEUXzwXInRdA
-Message-ID: <CA+EHjTy8m=b8D6sLOTv3AW05vXqFPRrTYvG7-t3D64Vt1+jAWQ@mail.gmail.com>
-Subject: Re: [PATCH 8/8] KVM: selftests: Add nested pre-fault test for arm64
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (k10temp) Fix model id range of Zen5 Turin
+To: Rong Zhang <i@rong.moe>, Clemens Ladisch <clemens@ladisch.de>,
+ Gabriel Ford <gabriel@gford.dev>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 9/10/26 11:39, Rong Zhang wrote:
+> Model 20h-2Fh are mobile processors with single CCD. For example, model
+> 24h is Strix Point, i.e., Ryzen AI 7 (PRO) (H/HX) 360/365/370.
+> 
+> Including mobile processors in the model id range of Zen5 Turin
+> processors leads to bogus reporting:
+> 
+>    k10temp-pci-00c3
+>    Adapter: PCI adapter
+>    Tctl:         +54.1°C
+>    Tccd4:       +148.6°C
+>    Tccd6:       +148.4°C
+>    Tccd7:       +149.1°C
+>    Tccd8:       +149.2°C
+>    Tccd9:       +149.2°C
+>    Tccd12:      +149.1°C
+>    Tccd14:       +22.0°C
+>    Tccd15:       +22.0°C
+>    Tccd16:       +22.0°C
+> 
+> Fix it by removing the said range.
+> 
+> Fixes: 8440d5aca227 ("hwmon: (k10temp) Add per-CCD temperature monitoring for Zen5 Turin")
+> Signed-off-by: Rong Zhang <i@rong.moe>
+> ---
+>   drivers/hwmon/k10temp.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
+> index 75a45010d687..3e7e63edc6a3 100644
+> --- a/drivers/hwmon/k10temp.c
+> +++ b/drivers/hwmon/k10temp.c
+> @@ -523,7 +523,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>   		}
+>   	} else if (boot_cpu_data.x86 == 0x1a) {
+>   		switch (boot_cpu_data.x86_model) {
+> -		case 0x00 ... 0x2f:	/* Zen5 Turin */
+> +		case 0x00 ... 0x1f:	/* Zen5 Turin */
 
-On Tue, 25 Aug 2026 at 17:02, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-..
-> +int main(void)
-> +{
-> +       struct nested_s2_state s2;
-> +       struct kvm_vcpu_init init;
-> +       struct kvm_vcpu *vcpu;
-> +       struct kvm_vm *vm;
-> +       struct ucall uc;
-> +       u64 npages;
-> +
-> +       TEST_REQUIRE(kvm_check_cap(KVM_CAP_ARM_EL2));
+Doesn't that drop _all_ CCD temperature reporting for those chips ?
 
-Would test_supports_el2() work better here? It honours the NV=0
-opt-out, and since HAS_EL2 is set unconditionally below, NV=0 doesn't
-disable this test as things stand.
+Guenter
 
-Cheers,
-/fuad
+>   			data->ccd_offset = 0x1F0;
+>   			k10temp_get_ccd_support(data, 16);
+>   			break;
+> 
+> ---
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> change-id: 7b515a4b-k10temp-fix-zen5-epyc-14334e85a3b9
+> 
+> Thanks,
+> Rong
 
-> +       TEST_REQUIRE(kvm_check_cap(KVM_CAP_PRE_FAULT_MEMORY));
-> +
-> +       vm = vm_create(1);
-> +
-> +       kvm_get_default_vcpu_target(vm, &init);
-> +       init.features[0] |= BIT(KVM_ARM_VCPU_HAS_EL2);
-> +       vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
-> +       kvm_arch_vm_finalize_vcpus(vm);
-> +
-> +       npages = TEST_MEM_SIZE / vm->page_size;
-> +       vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, TEST_MEM_GPA,
-> +                                   TEST_MEM_SLOT, npages, 0);
-> +       virt_map(vm, TEST_MEM_GPA, TEST_MEM_GPA, npages);
-> +
-> +       vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
-> +                                   NESTED_S2_ROOT_GPA, NESTED_S2_ROOT_SLOT,
-> +                                   vm_adjust_num_guest_pages(vm->mode, 1), 0);
-> +
-> +       /* Run the guest until it has ERET'd from vEL2 to vEL1. */
-> +       vcpu_run(vcpu);
-> +       switch (get_ucall(vcpu, &uc)) {
-> +       case UCALL_SYNC:
-> +               TEST_ASSERT_EQ(uc.args[1], 1);
-> +               break;
-> +       case UCALL_ABORT:
-> +               REPORT_GUEST_ASSERT(uc);
-> +               break;
-> +       default:
-> +               TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
-> +       }
-> +
-> +       /*
-> +        * The vCPU's last-run context is vEL1, backed by a shadow stage-2
-> +        * MMU. Enable nested stage-2 with an empty root so that the ioctl
-> +        * fails if it tries to interpret the userspace GPA as an L2 IPA.
-> +        *
-> +        * Prefault in two halves so that the second ioctl exercises a
-> +        * repeated shadow-MMU attach and canonical stage-2 swap.
-> +        *
-> +        * (Note that an implementation that wrongly populates shadow
-> +        * stage-2 page tables would not be caught as userland can't
-> +        * inspect these.)
-> +        */
-> +       s2 = enable_empty_nested_s2(vcpu);
-> +       pre_fault(vcpu, TEST_MEM_GPA, TEST_MEM_SIZE / 2);
-> +       pre_fault(vcpu, TEST_MEM_GPA + TEST_MEM_SIZE / 2, TEST_MEM_SIZE / 2);
-> +       restore_nested_s2(vcpu, &s2);
-> +
-> +       /* Resume at vEL1 and touch the prefaulted range. */
-> +       vcpu_run(vcpu);
-> +       switch (get_ucall(vcpu, &uc)) {
-> +       case UCALL_DONE:
-> +               break;
-> +       case UCALL_ABORT:
-> +               REPORT_GUEST_ASSERT(uc);
-> +               break;
-> +       default:
-> +               TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
-> +       }
-> +
-> +       kvm_vm_free(vm);
-> +       return 0;
-> +}
->
-> --
-> 2.55.0
->
