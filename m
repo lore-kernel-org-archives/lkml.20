@@ -1,653 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E3449B1EE;
-	Thu, 10 Sep 2026 14:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C214A46D0A0;
+	Thu, 10 Sep 2026 14:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049142; cv=none; b=pTUrftqLkr9UFNMsLykurLJadmT73YtAOBxMbreX8EUJmgbOL71yeqOh6wECdA/7roc0E7uAetACsG2W8zjl0Q9z9kOSEAyx4hyGKF7NAYX1wZmKu9b0QCcRJvqeeVcNP0yRIO8bYu6zp/WOeKDDoJoI7B73FE10EkkmPhEBbWU=
+	t=1789049146; cv=none; b=lpdw5kIY2WgSgdEIDkoCgMQQFtCe2vTbZGTXSz1jdMxjm8Lbpat43oDBwIy5n2Lnx63R/GyGKVghi0P6pHVmIpXaN54R/sSWtJX00pkz0sbmkhWy0uGej9pZE91E3tMIKCOPezLemY9AcFC/SflqR2OMhq6oK2Y2svIGygFsyzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049142; c=relaxed/simple;
-	bh=7mPuM/AZRJSXKP7wuU+io+gr1+VytF+OXT2cLGSx4fA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iMHvEM4JW/6JuTFs5okvxeWuAtMcI6NHVsZANF4D2bU3d+ZnQXGaYs+KoFFLyZh2toa9eI4CAJleWd9PP6mLVZh2Yf4kfC/yneXc5WzDVrDu9rfjle/Nn6A5WqySUgNxHPwwEK68jEZ0weJlNFoYoHjN5mLRLCxNocK5p7VCUWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUvZB22J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789049146; c=relaxed/simple;
+	bh=sjtmy2p2wdjuUNejH3/RjfbpmPb2S2/naDgBFlc3ICk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JWqpdVLKRS56tx1HU7vW6nhWbTapeTe5SBKVgQJgZxadRNbkNt0g43sx8+1MqXzzsa8ol5gfPfwMALcwe2VEJuwt3b7XHzw7lvwfYO5UGWDBX6Ge5VIQ2t9bXWxpDK7lw67M/ysU179dT2YPJmjom60bSEYmVBuMyu8+NFuVZyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGpYPw3z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUvZB22J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1F71F00893;
-	Thu, 10 Sep 2026 14:05:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGpYPw3z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885AF1F00898;
+	Thu, 10 Sep 2026 14:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049139;
-	bh=UHHL5Xy41RFnE2N8BFozRzMEXVLR7j90JEEQ4uUfGlE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nUvZB22J+8U8Vtlshl0vdKHsFiyxB4LitKDQLFAc1j3p+LfmL5UbS6izofLwXSQ8I
-	 Jn/FmJxCIppaRv/R1yiyQzNehyUn11GHf5IyTnuUhqharYaleH6mnExfwCEOyBLsyY
-	 MuSM33tJx+jIzDo0/pVVfgwxZ8dS/CW3yFHwjp8ZwapWMy7VShBsVl+WtZtXhSnaz1
-	 eWdT18ahpFg4JqcIKxhvGRqnkczNYQS40pDUqD8K9Ortazp7AggJvNiHfQTecMqbLG
-	 Ggn28djz173LLEyp+eGmnrvTWZmJcCQk43vk757i7ijGDyIWqeHUZlXBHpGRQEI7Km
-	 FM+YloDpS8Oqw==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>
-Subject: [PATCH v5 03/15] coco: host: arm64: Add RMM pdev communication plumbing
-Date: Thu, 10 Sep 2026 19:34:56 +0530
-Message-ID: <20260910140509.868402-4-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910140509.868402-1-aneesh.kumar@kernel.org>
-References: <20260910140509.868402-1-aneesh.kumar@kernel.org>
+	s=k20260515; t=1789049144;
+	bh=HpY/0qr1NmSJmaEjfxtlR2WtShxMgTAWgjuD+oZDOjg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CGpYPw3zqBXNmNmA9nnlmU0xXRzgHMea+gRGS9PR09mQpB7WK6Ti0Gu0r8PIshKd8
+	 tj2Arc7mmoBkKdeCgkiId7UyWjO9G+eUcJnDTDBUja0fkPKDdozGja+MTDzSCKD7mx
+	 ZQrwI8PFlfPymduhXGGwsaSxd4lbtbwaJ2NneYRVxPgb3JINq53ezzfp/Jv2KdwWDW
+	 +Rn1VGv7Ciw5xIV03BbXHPtfz5W5V0n35VGX61F0KO1lRNDqekEcxNy0q6C3Vut9Na
+	 QBoCGageiJ6XRJFlhNSZCgbZvOjyTNuZ4TEnJ+Lo4Ef085NsYhvZ1KHMrLrJzlI0ok
+	 UmzzUzvg7pXMg==
+Message-ID: <6285ebc9-fee5-4f51-9ce6-b840f9dba65a@kernel.org>
+Date: Thu, 10 Sep 2026 16:05:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] KVM: guest_memfd: bind backing memory to a NUMA node
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, pbonzini@redhat.com,
+ seanjc@google.com, akpm@linux-foundation.org, ziy@nvidia.com,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ shuah@kernel.org
+References: <20260902194657.79075-1-gourry@gourry.net>
+ <9b67424d-70e5-442b-9ec7-22b1d3db12f4@kernel.org>
+ <aqKzIO3DD66Dhkdw@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqKzIO3DD66Dhkdw@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-RMM pdev state transitions and SPDM exchanges are driven through
-RMI_PDEV_COMMUNICATE after the pdev object has been created. Add the
-host-side communication infrastructure needed to service those requests.
+On 9/10/26 15:40, Gregory Price wrote:
+> On Thu, Sep 10, 2026 at 01:30:04PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/2/26 21:46, Gregory Price wrote:
+>>> guest_memfd allocates its folios through a per-inode shared mempolicy.
+>>>
+>>> Today that policy can only be set after the fact, with mbind() on a host
+>>> mmap of the fd. That requires the fd to be mappable, and it cannot reach
+>>> folios that are only ever guest-faulted. Neither holds for a
+>>> non-mappable (confidential) guest_memfd.
+>>
+>> That looks like an investment into a mechanism we will soon consider legacy, so
+>> I am not convinced this is the right approach?
+>>
+> 
+> Hm, I think i've missed recent work in this space / this context.
+> Any suggested reading here? Don't want to eat too much of your time.
 
-Define the RMI device communication ABI, add the PDEV_COMMUNICATE and
-PDEV_ABORT SMCCC wrappers, and allocate the per-PF0 communication pages and
-ordered workqueue. Add helpers that submit communication requests to RMM,
-perform the requested DOE SPDM/Secure SPDM transfers, cache multi-part
-device data such as VCA and certificate-chain objects, and wait for target
-RMM pdev states under the pdev object lock.
+So the big development happening right now is in-place conversion (having shared
+and private pages managed in guest_memfd):
 
-This only adds the shared communication machinery. Later patches use it for
-public-key registration, pdev initialization, stream setup, and the final
-connect/disconnect callbacks.
+https://lore.kernel.org/r/20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com
 
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- drivers/virt/coco/arm-cca-host/main.c   |  50 +++++
- drivers/virt/coco/arm-cca-host/rmi-da.c | 276 ++++++++++++++++++++++++
- drivers/virt/coco/arm-cca-host/rmi-da.h |  65 ++++++
- include/linux/arm-rmi-cmds.h            |  20 ++
- include/linux/arm-smccc-rmi.h           |  62 ++++++
- 5 files changed, 473 insertions(+)
 
-diff --git a/drivers/virt/coco/arm-cca-host/main.c b/drivers/virt/coco/arm-cca-host/main.c
-index df2cc761f68b..ce16ce108db7 100644
---- a/drivers/virt/coco/arm-cca-host/main.c
-+++ b/drivers/virt/coco/arm-cca-host/main.c
-@@ -44,6 +44,7 @@ static struct pci_tsm *cca_tsm_pci_probe(struct tsm_dev *tsm_dev, struct pci_dev
- 	ret = pci_tsm_pf0_constructor(pdev, &pf0_ep_dsc->pci, tsm_dev);
- 	if (ret)
- 		return NULL;
-+	mutex_init(&pf0_ep_dsc->pdev.object_lock);
- 
- 	pci_dbg(pdev, "tsm enabled\n");
- 	return &no_free_ptr(pf0_ep_dsc)->pci.base_tsm;
-@@ -63,6 +64,55 @@ static void cca_tsm_pci_remove(struct pci_tsm *tsm)
- 	}
- }
- 
-+static __maybe_unused int init_dev_communication_buffers(struct pci_dev *pdev,
-+		struct cca_host_comm_data *comm_data)
-+{
-+	int ret = -ENOMEM;
-+
-+	comm_data->io_params = (struct rmi_dev_comm_data *)get_zeroed_page(GFP_KERNEL);
-+	if (!comm_data->io_params)
-+		goto err_out;
-+
-+	comm_data->rsp_buff = (void *)__get_free_page(GFP_KERNEL);
-+	if (!comm_data->rsp_buff)
-+		goto err_res_buff;
-+
-+	comm_data->req_buff = (void *)__get_free_page(GFP_KERNEL);
-+	if (!comm_data->req_buff)
-+		goto err_req_buff;
-+
-+	comm_data->work_queue = alloc_ordered_workqueue("%s %s DEV_COMM", 0,
-+						dev_bus_name(&pdev->dev),
-+						pci_name(pdev));
-+	if (!comm_data->work_queue)
-+		goto err_work_queue;
-+
-+	comm_data->io_params->enter.status = RMI_DEV_COMM_NONE;
-+	comm_data->io_params->enter.resp_addr = virt_to_phys(comm_data->rsp_buff);
-+	comm_data->io_params->enter.req_addr  = virt_to_phys(comm_data->req_buff);
-+	comm_data->io_params->enter.resp_len = 0;
-+
-+	return 0;
-+
-+err_work_queue:
-+	free_page((unsigned long)comm_data->req_buff);
-+err_req_buff:
-+	free_page((unsigned long)comm_data->rsp_buff);
-+err_res_buff:
-+	free_page((unsigned long)comm_data->io_params);
-+err_out:
-+	return ret;
-+}
-+
-+static inline void free_dev_communication_buffers(struct cca_host_comm_data *comm_data)
-+{
-+	destroy_workqueue(comm_data->work_queue);
-+
-+	free_page((unsigned long)comm_data->req_buff);
-+	free_page((unsigned long)comm_data->rsp_buff);
-+	free_page((unsigned long)comm_data->io_params);
-+}
-+
- static inline bool cca_pdev_need_sel_ide_streams(struct pci_dev *pdev)
- {
- 	return pci_pcie_type(pdev) == PCI_EXP_TYPE_ENDPOINT;
-diff --git a/drivers/virt/coco/arm-cca-host/rmi-da.c b/drivers/virt/coco/arm-cca-host/rmi-da.c
-index 863bb425e5c9..495a3bd2798f 100644
---- a/drivers/virt/coco/arm-cca-host/rmi-da.c
-+++ b/drivers/virt/coco/arm-cca-host/rmi-da.c
-@@ -6,6 +6,8 @@
- #include <linux/arm-rmi-cmds.h>
- #include <linux/pci.h>
- #include <linux/pci-ecam.h>
-+#include <linux/pci-doe.h>
-+#include <linux/delay.h>
- 
- #include "rmi-da.h"
- 
-@@ -144,3 +146,277 @@ int cca_pdev_create(struct pci_dev *pci_dev)
- 		free_page((unsigned long)rmm_pdev);
- 	return ret;
- }
-+
-+static int doe_send_req_resp(struct pci_tsm *tsm)
-+{
-+	int data_obj_type;
-+	struct cca_host_comm_data *comm_data = to_cca_comm_data(tsm->pdev);
-+	struct rmi_dev_comm_exit *io_exit = &comm_data->io_params->exit;
-+	u8 protocol = io_exit->protocol;
-+
-+	if (protocol == RMI_PROTOCOL_SPDM)
-+		data_obj_type = PCI_DOE_FEATURE_CMA;
-+	else if (protocol == RMI_PROTOCOL_SECURE_SPDM)
-+		data_obj_type = PCI_DOE_FEATURE_SSESSION;
-+	else
-+		return -EINVAL;
-+
-+	/* delay the send */
-+	if (io_exit->req_delay)
-+		fsleep(io_exit->req_delay);
-+
-+	return pci_tsm_doe_transfer(tsm->dsm_dev, data_obj_type,
-+				    comm_data->req_buff, io_exit->req_len,
-+				    comm_data->rsp_buff, PAGE_SIZE);
-+}
-+
-+static inline bool pending_dev_communicate(struct rmi_dev_comm_exit *io_exit)
-+{
-+	bool pending = io_exit->flags & (RMI_DEV_COMM_EXIT_CACHE_REQ |
-+					 RMI_DEV_COMM_EXIT_CACHE_RSP |
-+					 RMI_DEV_COMM_EXIT_SEND |
-+					 RMI_DEV_COMM_EXIT_WAIT |
-+					 RMI_DEV_COMM_EXIT_MULTI);
-+	return pending;
-+}
-+
-+static inline gfp_t cache_obj_id_to_gfp_flags(u8 cache_obj_id)
-+{
-+	/* These two cache objects are system objects. */
-+	if (cache_obj_id == RMI_DEV_VCA || cache_obj_id == RMI_DEV_CERTIFICATE)
-+		return GFP_KERNEL;
-+	/* rest are per TDI which is associated to a VM */
-+	return GFP_KERNEL_ACCOUNT;
-+}
-+
-+static int _do_dev_communicate(enum dev_comm_type type, struct pci_tsm *tsm)
-+{
-+	unsigned long rmi_ret;
-+	gfp_t cache_alloc_flags;
-+	int nbytes, cp_len;
-+	struct cache_object **cache_objp, *cache_obj;
-+	struct cca_host_pdev_dsc *pdev_dsc = to_cca_pdev_dsc(tsm->dsm_dev);
-+	struct cca_host_comm_data *comm_data = to_cca_comm_data(tsm->pdev);
-+	struct rmi_dev_comm_enter *io_enter = &comm_data->io_params->enter;
-+	struct rmi_dev_comm_exit *io_exit = &comm_data->io_params->exit;
-+
-+redo_communicate:
-+
-+	if (type == PDEV_COMMUNICATE)
-+		rmi_ret = rmi_pdev_communicate(virt_to_phys(pdev_dsc->rmm_pdev),
-+					       virt_to_phys(comm_data->io_params));
-+	else
-+		rmi_ret = RMI_ERROR_INPUT;
-+	if (rmi_ret != RMI_SUCCESS) {
-+		if (rmi_ret == RMI_BUSY)
-+			return -EBUSY;
-+		return -EIO;
-+	}
-+
-+	if (io_exit->flags & RMI_DEV_COMM_EXIT_CACHE_REQ ||
-+	    io_exit->flags & RMI_DEV_COMM_EXIT_CACHE_RSP) {
-+		struct cca_host_pf0_ep_dsc *pf0_ep_dsc = to_cca_pf0_ep_dsc(tsm->dsm_dev);
-+
-+		if (!pf0_ep_dsc) {
-+			WARN(1,
-+			     "Device communication got cache request on wrong device\n");
-+			return -EINVAL;
-+		}
-+
-+		switch (io_exit->cache_object_id) {
-+		case RMI_DEV_VCA:
-+			cache_objp = &pf0_ep_dsc->vca;
-+			break;
-+		case RMI_DEV_CERTIFICATE:
-+			cache_objp = &pf0_ep_dsc->cert_chain.cache;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+		cache_obj = *cache_objp;
-+		cache_alloc_flags = cache_obj_id_to_gfp_flags(io_exit->cache_object_id);
-+		int cache_remaining;
-+
-+		if (io_exit->flags & RMI_DEV_COMM_EXIT_CACHE_REQ)
-+			cp_len = io_exit->req_cache_len;
-+		else
-+			cp_len = io_exit->rsp_cache_len;
-+
-+		/* response and request len should be <= SZ_4k */
-+		if (cp_len > CACHE_CHUNK_SIZE)
-+			return -EINVAL;
-+
-+		/* new allocation */
-+		if (!cache_obj) {
-+			int obj_size = struct_size(cache_obj, buf,
-+						   CACHE_CHUNK_SIZE);
-+
-+			cache_obj = kvmalloc(obj_size, cache_alloc_flags);
-+			if (!cache_obj)
-+				return -ENOMEM;
-+
-+			cache_obj->size = CACHE_CHUNK_SIZE;
-+			cache_obj->offset = 0;
-+			*cache_objp = cache_obj;
-+		}
-+
-+		cache_remaining = cache_obj->size - cache_obj->offset;
-+		if (cp_len > cache_remaining) {
-+			struct cache_object *new_obj;
-+			int new_size = struct_size(cache_obj, buf,
-+						   cache_obj->size +
-+						   CACHE_CHUNK_SIZE);
-+
-+			if (cache_obj->size + CACHE_CHUNK_SIZE > MAX_CACHE_OBJ_SIZE)
-+				return -EINVAL;
-+
-+			new_obj = kvrealloc(cache_obj, new_size, cache_alloc_flags);
-+			if (!new_obj)
-+				return -ENOMEM;
-+			new_obj->size = cache_obj->size + CACHE_CHUNK_SIZE;
-+			*cache_objp = new_obj;
-+		}
-+
-+		/* cache object can change above. */
-+		cache_obj = *cache_objp;
-+	}
-+
-+
-+	if (io_exit->flags & RMI_DEV_COMM_EXIT_CACHE_REQ) {
-+		memcpy(cache_obj->buf + cache_obj->offset,
-+		       (comm_data->req_buff + io_exit->req_cache_offset), io_exit->req_cache_len);
-+		cache_obj->offset += io_exit->req_cache_len;
-+	}
-+
-+	if (io_exit->flags & RMI_DEV_COMM_EXIT_CACHE_RSP) {
-+		memcpy(cache_obj->buf + cache_obj->offset,
-+		       (comm_data->rsp_buff + io_exit->rsp_cache_offset), io_exit->rsp_cache_len);
-+		cache_obj->offset += io_exit->rsp_cache_len;
-+	}
-+
-+	/*
-+	 * wait for last packet request from RMM.
-+	 * We should not find this because our device communication is synchronous
-+	 */
-+	if (io_exit->flags & RMI_DEV_COMM_EXIT_WAIT)
-+		return -EIO;
-+
-+	/* next packet to send */
-+	if (io_exit->flags & RMI_DEV_COMM_EXIT_SEND) {
-+		nbytes = doe_send_req_resp(tsm);
-+		if (nbytes < 0) {
-+			/* report error back to RMM */
-+			io_enter->status = RMI_DEV_COMM_ERROR;
-+		} else {
-+			/* send response back to RMM */
-+			io_enter->resp_len = nbytes;
-+			io_enter->status = RMI_DEV_COMM_RESPONSE;
-+		}
-+	} else {
-+		/* no data transmitted => no data received */
-+		io_enter->resp_len = 0;
-+		io_enter->status = RMI_DEV_COMM_NONE;
-+	}
-+
-+	if (pending_dev_communicate(io_exit))
-+		goto redo_communicate;
-+
-+	return 0;
-+}
-+
-+static int do_dev_communicate(enum dev_comm_type type,
-+		struct pci_tsm *tsm, unsigned long error_state)
-+{
-+	int ret, state = error_state;
-+	struct rmi_dev_comm_enter *io_enter;
-+	struct cca_host_pdev_dsc *pdev_dsc = to_cca_pdev_dsc(tsm->dsm_dev);
-+
-+	io_enter = &pdev_dsc->comm_data.io_params->enter;
-+	io_enter->resp_len = 0;
-+	io_enter->status = RMI_DEV_COMM_NONE;
-+
-+	ret = _do_dev_communicate(type, tsm);
-+	if (ret) {
-+		if (type == PDEV_COMMUNICATE)
-+			rmi_pdev_abort(virt_to_phys(pdev_dsc->rmm_pdev));
-+	} else {
-+		/*
-+		 * Some device communication error will transition the
-+		 * device to error state. Report that.
-+		 */
-+		if (type == PDEV_COMMUNICATE) {
-+			if (rmi_pdev_get_state(virt_to_phys(pdev_dsc->rmm_pdev),
-+					       (enum rmi_pdev_state *)&state))
-+				state = error_state;
-+		}
-+	}
-+
-+	if (state == error_state)
-+		pci_err(tsm->pdev, "device communication error\n");
-+
-+	return state;
-+}
-+
-+static int wait_for_dev_state(enum dev_comm_type type, struct pci_tsm *tsm,
-+		unsigned long target_state, unsigned long error_state)
-+{
-+	int state;
-+
-+	do {
-+		state = do_dev_communicate(type, tsm, error_state);
-+
-+		if (state == target_state || state == error_state)
-+			return state;
-+	} while (1);
-+
-+	/* can't reach */
-+	return error_state;
-+}
-+
-+static int wait_for_pdev_state(struct pci_tsm *tsm, enum rmi_pdev_state target_state)
-+{
-+	return wait_for_dev_state(PDEV_COMMUNICATE, tsm, target_state, RMI_PDEV_ERROR);
-+}
-+
-+static void pdev_state_transition_workfn(struct work_struct *work)
-+{
-+	unsigned long state;
-+	struct pci_tsm *tsm;
-+	struct dev_comm_work *setup_work;
-+	struct cca_host_pdev_dsc *pdev_dsc;
-+
-+	setup_work = container_of(work, struct dev_comm_work, work);
-+	tsm = setup_work->tsm;
-+	pdev_dsc = to_cca_pdev_dsc(tsm->dsm_dev);
-+
-+	guard(mutex)(&pdev_dsc->object_lock);
-+	state = wait_for_pdev_state(tsm, setup_work->target_state);
-+	WARN_ON(state != setup_work->target_state);
-+}
-+
-+static int __maybe_unused submit_pdev_state_transition_work(struct pci_dev *pdev,
-+		enum rmi_pdev_state target_state)
-+{
-+	enum rmi_pdev_state state;
-+	struct dev_comm_work comm_work;
-+	struct cca_host_pdev_dsc *pdev_dsc = to_cca_pdev_dsc(pdev);
-+	struct cca_host_comm_data *comm_data = to_cca_comm_data(pdev);
-+
-+	INIT_WORK_ONSTACK(&comm_work.work, pdev_state_transition_workfn);
-+	comm_work.tsm = pdev->tsm;
-+	comm_work.target_state = target_state;
-+
-+	queue_work(comm_data->work_queue, &comm_work.work);
-+
-+	flush_work(&comm_work.work);
-+	destroy_work_on_stack(&comm_work.work);
-+
-+	/* check if we reached target state */
-+	if (rmi_pdev_get_state(virt_to_phys(pdev_dsc->rmm_pdev), &state))
-+		return -EIO;
-+
-+	if (state != target_state)
-+		/* no specific error for this */
-+		return -1;
-+	return 0;
-+}
-diff --git a/drivers/virt/coco/arm-cca-host/rmi-da.h b/drivers/virt/coco/arm-cca-host/rmi-da.h
-index f1580308777b..07034b034b53 100644
---- a/drivers/virt/coco/arm-cca-host/rmi-da.h
-+++ b/drivers/virt/coco/arm-cca-host/rmi-da.h
-@@ -11,13 +11,44 @@
- #include <linux/pci.h>
- #include <linux/pci-ide.h>
- #include <linux/pci-tsm.h>
-+#include <linux/sizes.h>
-+
-+#define MAX_CACHE_OBJ_SIZE	SZ_16M
-+#define CACHE_CHUNK_SIZE	SZ_4K
-+struct cache_object {
-+	int size;
-+	int offset;
-+	u8 buf[] __counted_by(size);
-+};
-+
-+struct dev_comm_work {
-+	struct pci_tsm *tsm;
-+	int target_state;
-+	struct work_struct work;
-+};
-+
-+struct cca_host_comm_data {
-+	void *rsp_buff;
-+	void *req_buff;
-+	struct rmi_dev_comm_data *io_params;
-+	/*
-+	 * Only one device communication request can be active at
-+	 * a time. This limitation comes from using the DOE mailbox
-+	 * at the pdev level. Requests such as get_measurements may
-+	 * span multiple mailbox messages, which must not be
-+	 * interleaved with other SPDM requests.
-+	 */
-+	struct workqueue_struct *work_queue;
-+};
- 
- /**
-  * struct cca_host_pdev_dsc - Common RMM pdev context
-+ * @comm_data: Shared device communication state for the DSM-owned pdev
-  * @rmm_pdev: Delegated page backing the RMM pdev object
-  * @object_lock: Serializes access to the RMM pdev object and PF0/TDI caches
-  */
- struct cca_host_pdev_dsc {
-+	struct cca_host_comm_data comm_data;
- 	void *rmm_pdev;
- 	/* lock kept here to simplify the generic lock/unlock paths. */
- 	struct mutex object_lock;
-@@ -28,17 +59,33 @@ struct cca_host_pdev_dsc {
-  * @pci: Physical Function 0 TDISP link context
-  * @pdev: pdev communication context
-  * @sel_stream: Selective IDE Stream descriptor
-+ * @cert_chain: cetrificate chain
-+ * @vca: SPDM's Version-Capabilities-Algorithms cache object
-  */
- struct cca_host_pf0_ep_dsc {
- 	struct pci_tsm_pf0 pci;
- 	struct cca_host_pdev_dsc pdev;
- 	struct pci_ide *sel_stream;
-+
-+	struct {
-+		struct cache_object *cache;
-+
-+		void *public_key;
-+		size_t public_key_size;
-+
-+		bool valid;
-+	} cert_chain;
-+	struct cache_object *vca;
- };
- 
- struct cca_host_fn_dsc {
- 	struct pci_tsm pci;
- };
- 
-+enum dev_comm_type {
-+	PDEV_COMMUNICATE = 0x1,
-+};
-+
- static inline struct cca_host_pf0_ep_dsc *to_cca_pf0_ep_dsc(struct pci_dev *pdev)
- {
- 	struct pci_tsm *tsm = pdev->tsm;
-@@ -67,6 +114,24 @@ static inline struct cca_host_pdev_dsc *to_cca_pdev_dsc(struct pci_dev *pdev)
- 	return NULL;
- }
- 
-+static inline struct cca_host_comm_data *to_cca_comm_data(struct pci_dev *pdev)
-+{
-+	struct cca_host_pdev_dsc *pdev_dsc;
-+
-+	pdev_dsc = to_cca_pdev_dsc(pdev);
-+	if (pdev_dsc)
-+		return &pdev_dsc->comm_data;
-+
-+	if (!pdev->tsm || !pdev->tsm->dsm_dev)
-+		return NULL;
-+
-+	pdev_dsc = to_cca_pdev_dsc(pdev->tsm->dsm_dev);
-+	if (pdev_dsc)
-+		return &pdev_dsc->comm_data;
-+
-+	return NULL;
-+}
-+
- int cca_pdev_create(struct pci_dev *pdev);
- 
- #endif
-diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-index 850ac8e230e2..c2fc80dd19cc 100644
---- a/include/linux/arm-rmi-cmds.h
-+++ b/include/linux/arm-rmi-cmds.h
-@@ -686,4 +686,24 @@ static inline unsigned long rmi_pdev_get_state(unsigned long pdev_phys, enum rmi
- 	return res.a0;
- }
- 
-+static inline unsigned long rmi_pdev_communicate(unsigned long pdev_phys,
-+						 unsigned long pdev_comm_data_phys)
-+{
-+	struct arm_smccc_res res;
-+
-+	arm_smccc_1_1_invoke(SMC_RMI_PDEV_COMMUNICATE,
-+			     pdev_phys, pdev_comm_data_phys, &res);
-+
-+	return res.a0;
-+}
-+
-+static inline unsigned long rmi_pdev_abort(unsigned long pdev_phys)
-+{
-+	struct arm_smccc_res res;
-+
-+	arm_smccc_1_1_invoke(SMC_RMI_PDEV_ABORT, pdev_phys, &res);
-+
-+	return res.a0;
-+}
-+
- #endif
-diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc-rmi.h
-index 7241da55c753..3133b34354ce 100644
---- a/include/linux/arm-smccc-rmi.h
-+++ b/include/linux/arm-smccc-rmi.h
-@@ -534,4 +534,66 @@ struct rmi_pdev_params {
- 	};
- };
- 
-+#define RMI_DEV_COMM_EXIT_CACHE_REQ	BIT(0)
-+#define RMI_DEV_COMM_EXIT_CACHE_RSP	BIT(1)
-+#define RMI_DEV_COMM_EXIT_SEND		BIT(2)
-+#define RMI_DEV_COMM_EXIT_WAIT		BIT(3)
-+#define RMI_DEV_COMM_EXIT_RSP_RESET	BIT(4)
-+#define RMI_DEV_COMM_EXIT_MULTI		BIT(5)
-+
-+#define RMI_DEV_COMM_NONE	0
-+#define RMI_DEV_COMM_RESPONSE	1
-+#define RMI_DEV_COMM_ERROR	2
-+
-+#define RMI_PROTOCOL_SPDM		0
-+#define RMI_PROTOCOL_SECURE_SPDM	1
-+
-+#define RMI_DEV_VCA			0
-+#define RMI_DEV_CERTIFICATE		1
-+#define RMI_DEV_MEASUREMENTS		2
-+#define RMI_DEV_INTERFACE_REPORT	3
-+
-+struct rmi_dev_comm_enter {
-+	union {
-+		u8 status;
-+		u64 padding0;
-+	};
-+	u64 req_addr;
-+	u64 resp_addr;
-+	u64 resp_len;
-+	u8 padding1[0xe0];
-+};
-+
-+struct rmi_dev_comm_exit {
-+	u64 flags;
-+	u64 req_cache_offset;
-+	u64 req_cache_len;
-+	u64 rsp_cache_offset;
-+	u64 rsp_cache_len;
-+	union {
-+		u8 cache_object_id;
-+		u8 padding0[0x8];
-+	};
-+
-+	union {
-+		u8 protocol;
-+		u8 padding1[0x8];
-+	};
-+	u64 req_delay;
-+	u64 req_len;
-+	u64 rsp_timeout;
-+	u8 padding2[0xb0];
-+};
-+
-+struct rmi_dev_comm_data {
-+	union { /* 0x0 */
-+		struct rmi_dev_comm_enter enter;
-+		u8 padding0[0x800];
-+	};
-+	union { /* 0x800 */
-+		struct rmi_dev_comm_exit exit;
-+		u8 padding1[0x800];
-+	};
-+};
-+
- #endif /* __LINUX_ARM_SMCCC_RMI_H_ */
+The final series where we added mempolicy support should be:
+
+https://lore.kernel.org/linux-mm/20250827175247.83322-2-shivankg@amd.com/
+
+(I think you are aware of that, you commented on some)
+
+See my other reply regarding the use of GUEST_MEMFD_FLAG_MMAP on private-only
+guest_memfd.
+
 -- 
-2.43.0
+Cheers,
 
+David
