@@ -1,97 +1,97 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781E047013F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE293F823D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039011; cv=pass; b=KLNKPpfHcHVPDtpRt+drp2j6lHWxpZ5C/aQJ1cz2WmiPZmAR5YGG4PRS27HTyGLXEISMdQGMEHm23T0NIkcJMHMtfozK9AidpwDWAS0E6BOERzB5s93vBwKqMN+SxryVLtLzf2d9MfAES9R49ZswbTwQMaxBMrNybtp00rXkDsE=
+	t=1789039038; cv=pass; b=HA+1+zWVQoSjAWo0FXDbv28dTY06wg9JPv85OOUWPSzs9vEXcDY0XlHIE7dBIcvidYf6W99+hvbazulXS1LvYFmXMkuARxlZxnpIiLwVo/O8tJq2ngsxITgt2ZDYaWczJIeZtm/sx3TdfOWyRwkN1+A2Bv62IQipKwDTYNbKuC4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039011; c=relaxed/simple;
-	bh=+W3Wfbrm9l0QBxIY85+kvJuwhr0yXrpNOQry462mnzo=;
+	s=arc-20240116; t=1789039038; c=relaxed/simple;
+	bh=VjbPOkEoh1HzrTuoA8ZplNF97fKAdN/R4Sa7sm9fIvE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QRiBlNzPK5G89Lg7rhkwyi6trB4YggD8I97w6FxNp03LiMEemMTjxmld2QmRw5ac4QCMe5Zlj1XHHSIJtXs78I9g6QT5IQhvkjBDevMTcxmFq1aG/B09LusU0+r3MDSoRGFWrxPjq57MUV3kmEY8CytjK7vnTZMhHPDbRr8JYpU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZpGbzV/r; arc=pass smtp.client-ip=209.85.218.44
+	 To:Cc:Content-Type; b=kifaNYPnuirDjtBk1deYMUhMfjeTR8dMfGqyDiLel93QCCkQUjx3aZPFidthDoSratHKTKQTk07cfHJiYH4LoPowP62+wTXdMlo/KQcD+TOzlHA+WP03Qd4hgxRRTQSrWL42fsQALsM9qAez0Z+YIvLMa6tigLlwZNfaeMIkPLE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hne2rbCe; arc=pass smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZpGbzV/r"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c259e5c22ffso848185866b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:16:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789039007; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hne2rbCe"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c25b661d37dso1026577566b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:17:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789039035; cv=none;
         d=google.com; s=arc-20260327;
-        b=VlSVAzeGfMGK6GLCFXEy+RQRWQPbrAZybaYDDwkRq1emxCdDFfqVMB6QFHbew9WGnK
-         Jo4bwSo9E7Ehmcwte9JQCz9PzJ3He4HhPzThs6Ns5ZN+h3iGeeXFxRlhIhuGVzSM1OyB
-         YTONU3XYLwCz+L8lYO09Hn0pFvtlN3/O/H4HvpSjodZCj5tgMXqEVp+2w/V4JS/ibm1M
-         +7/ELFcbeCTiLqhAKQaEF3kBvCD0A2ohpAYHS9Blpgw0JF7E9j2ANoCFgrQxkuLBiiKa
-         nKJLZHSKpIfhGg6NkpWcBKPyGxLUEG/FJ4doIBNiDtw4Bskr+u0VhuwoSXXmU4of2WZq
-         bvQg==
+        b=Q61v9/KLbcVmflwwlFy9NoqjCFm0589yoZrkMfuqyqosWLOZkgT7HtjEjdDJ6TeRWD
+         aE47ahULCkc7/A0TaR2lTlOYPDkL+BMZgBSmaq+430lc4pGqoCAhFq3Y6a3tbh0btJg9
+         Q2MDGxs/gtp807WAC53xe2JPIC7Rk7ZE45hx32MdmmVYrmgmtBvp8MVdeltjNIO7gn5d
+         yhZLVkxdJv1GihCD+yCMja+FtUZJus7ncrgjcl/LPnwuaMD2/h5b9btUNhUQ24ifs9iR
+         qOpU5VcLw74Uebbkc3kTY4RfpaT9iS3XeyMMS8dMpoFoJmQJx/fYJ5S+uK7iEqKZ8NIm
+         TFtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=XO6VaobXZGWia1X7kMvnC3RKOfj+R33S1pbngB91qrc=;
-        fh=R62R57hkFr2CmmddTVut53d5sWkeunSJxgnhAYTuZKs=;
-        b=KZZSq8x0qghoXHUDHCsZtDyS61XBAU5LBAXdie4r9iONY5l6DHeBCYq0jFFQkZm7ON
-         MPRELuevmTEUyofJpOWc7+M7wTN1l7HNlzB72GanvEKNFgu6AH3gy/oe2oXm0pn7ygQD
-         wVjD66c9tjGng/VZRaTAf8mK04nAbSazavbmgRn0a1JxY3Q2eE17Mf/6bN097cgt49/x
-         qE8nxnJtsUJq7wKcEHP2SGDYJSuZTgALteNeW+WXqCHsdGrpgp71FQVM6Bo04QwLdjVN
-         rdF78GIVMUY/+7eQwwlHEpUzWENrt3OL26LXExeERF0X2CgmCR4xVT3AzCwD7sPYwhVj
-         v+AQ==;
+        bh=O8wrxnj4OMvMbiSwJsqwkcf28whDxJ7CnUQ3M8VzxBM=;
+        fh=vYq2h4OndP2+/YJAbw5Dtxfr1NVMUIInW+L5tNETaeA=;
+        b=lG+1cNsW/loB1D84uiP7NsaVi45YyG/KSJdQicOXDU0q0QWxC+cZvbZHxkFiqDCRn3
+         ziewfffPY6QK+4us5maEu6/nB2eOI4Woqh/7MCrEO9Wm5sgHV31CsKvFXPfFS399xFXd
+         YASUY4Wjc68gMzsP79mjEansRxPFKJ/I5dGI2bVmgH71DManDLvcdWlYS+aIp7RvyrcM
+         kBrVmFa1R2YwL0bfdoCGtZoyQ9fbYZmcsq2euELRxkLbf2GKmM908t7y6EwbJsNa+6yz
+         izvvgG8sRxDIkshW7jiLPwMmozPmSxvH2ncQ+MtCcQhwKtAG5nqNPB0HimVQEcVMxB64
+         hFUw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789039007; x=1789643807; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789039035; x=1789643835; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XO6VaobXZGWia1X7kMvnC3RKOfj+R33S1pbngB91qrc=;
-        b=ZpGbzV/ruwuUYdUDp34niY+2i8QFR9nc673L3bL/ilboA0OUbcpHMaUtKiEH3Q05F5
-         pdj+8souSj9hkCLDbJjrL1a0Py5oNkVG2h6hOvm2e/rwzU8n97ibBWpZNzLei9rmIKFe
-         /ic9AGkwHVZ3JRPESMJ4lulYIAVFhi4grng6M+B1jSg6AclE9vIWStLi3SIby+Qc4APv
-         sFYmZgIF9BXlzoTb0iXsweY9q9ZSiK37W8BLU2ahvH+0ui0GpWlMsFWqk7tH+QB1uNVN
-         oSYOHuLND/TirFn5vAToOYWmby/seKDuXhcawaNf7MuREXDsZXG77PKZ5E2kQrkEeV9v
-         SuHg==
+        bh=O8wrxnj4OMvMbiSwJsqwkcf28whDxJ7CnUQ3M8VzxBM=;
+        b=Hne2rbCe2H8hXYnuwNgnUcQhC9nlHWZSoSJvCV4Y/RBoGRaJUC5x2YMtTGNPBB+Vdw
+         eRtbpSLlbsQvbVQvPwbbmleEq1svCzyNLzBj7jPEHS/EzbqQKUYhozk0IqXxOzF7UEOG
+         dxTnTBoSdSNG2bLf32xNi1TdQy63sMSEguH5/TVGceMiU0RDLU/CBx4J7AGb3jr8ncc8
+         5xrcRBSikuEnIBJ94ntR2/dz2Eok/jzE/i8VuruZdI9yUiCDiEJcTxH1Sz1/3iyoMTiv
+         ZDJY0WbtnhU/6e/TupIfo6alK1BPgfuWR+VexCN+n92VXBs5IFVsgME81R7ugNCd567p
+         Ifng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789039007; x=1789643807;
+        d=1e100.net; s=20251104; t=1789039035; x=1789643835;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XO6VaobXZGWia1X7kMvnC3RKOfj+R33S1pbngB91qrc=;
-        b=prNKBF6xbCcvPoqKWpVqbU+hkzOsIImSe4XTwXWwvYU8hauDYk8yLimOmrALB0y7ad
-         i266/Sl8ILmw5+TLxPLve15TVFophm3hYp8xrlJ6VPUmjbiJn9qgdM4YsEguj4p2VHDM
-         TDr43CsaG6y8ePQcmRnbWT9l5IbmW+f2DhtdWiXYiaejkDtiJmdIqRVT+QIm5T6LM6a4
-         aL8726xrPyFefI3DRzOzYoJVINROBLLDLQvcwcRtrt1meOPupkEFTDNQmfnjfnIhwxHL
-         BU+PEdZR+yU0gxrPwHQnjEkiwTzjkOyMjJp71iwHi1Jz/ugF98UQ30L8TQQrl81F+kxi
-         tMGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdOAzHZlyUrziqhV2LBbiOpKq0Ns2FORNDmlN6x9RwaCzAKabpeAbkiQlp83oGejYrZmXXego6TuZ+f2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUBiGEjy54fyOTH4Wx1lEtWXEPG8VwqxI6AcYLNI1d8HEvlQyv
-	TuxoDH1zLgqeAtpun6lmn7woysR5xJAVt/6xgXijxBBTkOjhk9d/27iKJfL6khMfuiueK8PpOZI
-	QRoE0h+8NW6rhFCW5/qL0e9Axybc7rq69lLxN9Hc=
-X-Gm-Gg: AYBFou2a/X6Bdb4tLLkYF+vJEANXynOPND6skBA2F4Nn9VGNvHEG5C9jHSu3/Rq61Pl
-	cVnfwIIZC7Y261Q8WDpoBMOji1XdDwyDbt5OvoHcaIoyPupPq0nVmg4AE3B6aNPkDRGOlSCcekT
-	JHXOkAKl2BY3CORQR/oVYUquIs4HxRwu9zbqc7xK2OReYaDZ4lj/j+AjxloIzJS3vzMG6ZfNiqV
-	m7SI3B8AwwuS2RjcNdJ1Rr3ANskao0Dzfm8LDnORqJ1A2P987xvybzgBURpgZ9nq2pV1I/LGD54
-	bSaHVmuJBckdJ5OAXB07rl4ueYrmQQERiLYKZYl+rE3IZwUsw95MQZzvCzYzNVE=
-X-Received: by 2002:a17:907:940b:b0:c26:1691:b366 with SMTP id
- a640c23a62f3a-c261691b9d4mr1569867666b.31.1789039007375; Thu, 10 Sep 2026
- 04:16:47 -0700 (PDT)
+        bh=O8wrxnj4OMvMbiSwJsqwkcf28whDxJ7CnUQ3M8VzxBM=;
+        b=cVY1BZieqz6DILaQpuP5PyCBl2dP2GDoIQVjYWP3ITM6hk1gyqj2XfCm5qPc9Pmi1A
+         wlZ2divBG1gStreoqjVSu5G1Ii+uiXXIi48/95MlZdvcnKZBN58q1OM7T1afUuU6Yo/q
+         obFC/DNArPSurbEM3tb63EL83pwc9OCr2SMgBrppPfuHGjJEIyFS8IkYS9yHC+7xZK1+
+         rRkcbCAd5m41hoYAxQMo1Q6mfB2dwZB85QrPQsR96qRrhjMmJsqgyFKZ0BCIVfXo8WMi
+         1GI7uviSB+fYnOQ4ddoKik4ENS7p0ssFsIWqNkesp0M2pnYzpbgmBTanPr82KwNTsSnF
+         vcNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKi0PK8zrbDGHGjRswPffyzG8Gu/0+bxRMrdNTA7DbZFJtLBhyVX9DlnwNE1UXevGFIAusVvNlOhUR0Q0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjwTma9isjj7PR3yjfeX2rMPmF3gQzxBMtOYzO+WQ4mCuWUoNH
+	S+pOSPWn+J/bfITpsj1f8oke29MG00Px5mbwNAP3tipb1HyacIs4/9grOAUJQ1qufU4q1oqBoHV
+	zWm6+K2azpu3he+TMM/K9HDFiSvCUIbU=
+X-Gm-Gg: AYBFou1kUioYBUSgW+hthU53pXba1/IAxNtnp4IcuPAGJ0VkXN5zzciXBMAe/0TOdQD
+	AlF/UgKFqSDmAMVhToJGE/HFoNETsMmbuqqDaEVs7PIUmBk+2IkghgTsJuMl1Nt3RDC0h7vNgMh
+	z0/0xKRq0t6Fh1V7ViPwIMVn1zFPbtOjqQ6UCbNPqCx2O6T3ARo7h4Zgq9uDxY1QhaTxKwUr+6W
+	RmKho6N33e+pNMAkFSmwuZRdvXP4mkQA4SlJpnP6cZ0vNT7HXELqbIbIAIXtLS+WVlYc4qlkwq9
+	+CO85wmN+5yj7DKQUMjummNxJCRSvlcwd9jqQRSGfX6v9Aco7OY2qnn+njnRZrY=
+X-Received: by 2002:a17:907:5cb:b0:c25:afb6:2d91 with SMTP id
+ a640c23a62f3a-c260c65c15amr1681216466b.2.1789039035136; Thu, 10 Sep 2026
+ 04:17:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829224500.14278-1-drifabdelmalekmohamedsaid@gmail.com>
-In-Reply-To: <20260829224500.14278-1-drifabdelmalekmohamedsaid@gmail.com>
+References: <20260829194528.5652-1-drifabdelmalekmohamedsaid@gmail.com>
+In-Reply-To: <20260829194528.5652-1-drifabdelmalekmohamedsaid@gmail.com>
 From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
-Date: Thu, 10 Sep 2026 12:16:36 +0100
-X-Gm-Features: AcwNN1VS3paqKY9JiTjA9U6ccb_T4MIJg3qpXTm9q7N8BpiXIyE1ikzKXupgueo
-Message-ID: <CA+xk8n8Ox61s-o4JXjzf_A-V77Dsg92jYQS4XUUcYohCWSCcNg@mail.gmail.com>
-Subject: Re: [PATCH] cachefiles: convert deprecated simple_strtoul() to
- kstrtoul() in percentage command handlers
-To: David Howells <dhowells@redhat.com>
-Cc: netfs@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 12:17:03 +0100
+X-Gm-Features: AcwNN1XvJGPKxPZRv4cwqSlHsRRpfczT2zZPhhAg0zo53rIir_AxYRQBpcV8EbA
+Message-ID: <CA+xk8n8v_fR2ockBgGL-Q7QWjHZ8i_AALux98WphJigvv9zbhQ@mail.gmail.com>
+Subject: Re: [PATCH] ecryptfs: replace ecryptfs_from_hex() with hex2bin()
+To: Tyler Hicks <code@tyhicks.com>
+Cc: Thorsten Blum <blum@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
+	Christian Brauner <brauner@kernel.org>, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -100,214 +100,121 @@ rge window.
 
 Thanks,
 
-
-On Sat, Aug 29, 2026 at 11:45=E2=80=AFPM Drif Abdelmalek Mohamed Said
+On Sat, Aug 29, 2026 at 8:45=E2=80=AFPM Drif Abdelmalek Mohamed Said
 <drifabdelmalekmohamedsaid@gmail.com> wrote:
 >
-> Convert the six <N>% percentage command handlers -
-> cachefiles_daemon_frun(), _fcull(), _fstop(), _brun(), _bcull(), and
-> _bstop() - from the deprecated simple_strtoul() to kstrtoul(). These
-> are the only handlers in this file that take a trailing '%' after
-> the number; other nearby commands take plain values and are
-> unaffected.
+> ecryptfs_from_hex() relied on the deprecated simple_strtoul(). Rather
+> than patching it to use kstrtoul(), its intended replacement, remove it
+> entirely and switch all call sites to the generic hex2bin() helper
+> from <linux/hex.h>, which already provides the same functionality.
 >
-> Since kstrtoul() requires the whole input to be a valid number, each
-> handler now walks the digit run itself, checks it's followed by '%'
-> and NUL, and temporarily null-terminates at the '%' to isolate the
-> number for kstrtoul(), restoring it afterwards.
+> Update call sites with the (u8 *) casts required by hex2bin()'s
+> signature.
+>
+> All call sites guarantee src is composed only of valid hex characters
+> and that src is at least 2*dst_size bytes, so hex2bin()'s stricter
+> error handling is never triggered here.
 >
 > Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gm=
 ail.com>
 > ---
->  fs/cachefiles/daemon.c | 78 +++++++++++++++++++++++++++++++++++-------
->  1 file changed, 66 insertions(+), 12 deletions(-)
+>  fs/ecryptfs/crypto.c          | 18 ------------------
+>  fs/ecryptfs/ecryptfs_kernel.h |  1 -
+>  fs/ecryptfs/keystore.c        |  7 ++++---
+>  3 files changed, 4 insertions(+), 22 deletions(-)
 >
-> diff --git a/fs/cachefiles/daemon.c b/fs/cachefiles/daemon.c
-> index 1a66e0af2837..12c38b366881 100644
-> --- a/fs/cachefiles/daemon.c
-> +++ b/fs/cachefiles/daemon.c
-> @@ -331,16 +331,25 @@ static int cachefiles_daemon_range_error(struct cac=
-hefiles_cache *cache,
->  static int cachefiles_daemon_frun(struct cachefiles_cache *cache, char *=
-args)
->  {
->         unsigned long frun;
-> +       char *end =3D args;
-> +       int ret;
+> diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
+> index e67119b6029c..7e802fd631a6 100644
+> --- a/fs/ecryptfs/crypto.c
+> +++ b/fs/ecryptfs/crypto.c
+> @@ -29,24 +29,6 @@
+>  #define DECRYPT                0
+>  #define ENCRYPT                1
 >
->         _enter(",%s", args);
+> -/**
+> - * ecryptfs_from_hex
+> - * @dst: Buffer to take the bytes from src hex; must be at least of
+> - *       size (src_size / 2)
+> - * @src: Buffer to be converted from a hex string representation to raw =
+value
+> - * @dst_size: size of dst buffer, or number of hex characters pairs to c=
+onvert
+> - */
+> -void ecryptfs_from_hex(char *dst, char *src, int dst_size)
+> -{
+> -       int x;
+> -       char tmp[3] =3D { 0, };
+> -
+> -       for (x =3D 0; x < dst_size; x++) {
+> -               tmp[0] =3D src[x * 2];
+> -               tmp[1] =3D src[x * 2 + 1];
+> -               dst[x] =3D (unsigned char)simple_strtol(tmp, NULL, 16);
+> -       }
+> -}
 >
->         if (!*args)
->                 return -EINVAL;
+>  static int ecryptfs_crypto_api_algify_cipher_name(char **algified_name,
+>                                                   const char *cipher_name=
+,
+> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.=
+h
+> index 58165928ed1e..be91f7c3fc58 100644
+> --- a/fs/ecryptfs/ecryptfs_kernel.h
+> +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> @@ -47,7 +47,6 @@ ecryptfs_to_hex(char *dst, char *src, size_t src_size)
+>         *end =3D '\0';
+>  }
 >
-> -       frun =3D simple_strtoul(args, &args, 10);
-> -       if (args[0] !=3D '%' || args[1] !=3D '\0')
-> +       while (isdigit(*end))
-> +               end++;
-> +       if (end =3D=3D args || *end !=3D '%' || end[1] !=3D '\0')
->                 return -EINVAL;
+> -extern void ecryptfs_from_hex(char *dst, char *src, int dst_size);
 >
-> +       *end =3D '\0';
-> +       ret =3D kstrtoul(args, 10, &frun);
-> +       *end =3D '%';
-> +       if (ret)
-> +               return ret;
-> +
->         if (frun <=3D cache->fcull_percent || frun >=3D 100)
->                 return cachefiles_daemon_range_error(cache, args);
+>  struct ecryptfs_key_record {
+>         unsigned char type;
+> diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+> index 51651314b7a6..dcfb2e5fa88e 100644
+> --- a/fs/ecryptfs/keystore.c
+> +++ b/fs/ecryptfs/keystore.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/random.h>
+>  #include <linux/scatterlist.h>
+>  #include <linux/slab.h>
+> +#include <linux/hex.h>
+>  #include "ecryptfs_kernel.h"
 >
-> @@ -355,16 +364,25 @@ static int cachefiles_daemon_frun(struct cachefiles=
-_cache *cache, char *args)
->  static int cachefiles_daemon_fcull(struct cachefiles_cache *cache, char =
-*args)
->  {
->         unsigned long fcull;
-> +       char *end =3D args;
-> +       int ret;
+>  /*
+> @@ -713,7 +714,7 @@ ecryptfs_write_tag_70_packet(char *dest, size_t *rema=
+ining_bytes,
+>                 goto out_free_unlock;
+>         }
+>         s->i +=3D s->packet_size_len;
+> -       ecryptfs_from_hex(&dest[s->i],
+> +       hex2bin((u8 *)&dest[s->i],
+>                           mount_crypt_stat->global_default_fnek_sig,
+>                           ECRYPTFS_SIG_SIZE);
+>         s->i +=3D ECRYPTFS_SIG_SIZE;
+> @@ -2015,7 +2016,7 @@ write_tag_1_packet(char *dest, size_t *remaining_by=
+tes,
+>         int rc =3D 0;
 >
->         _enter(",%s", args);
+>         (*packet_size) =3D 0;
+> -       ecryptfs_from_hex(key_rec->sig, auth_tok->token.private_key.signa=
+ture,
+> +       hex2bin((u8 *)key_rec->sig, auth_tok->token.private_key.signature=
+,
+>                           ECRYPTFS_SIG_SIZE);
+>         encrypted_session_key_valid =3D 0;
+>         for (i =3D 0; i < crypt_stat->key_size; i++)
+> @@ -2179,7 +2180,7 @@ write_tag_3_packet(char *dest, size_t *remaining_by=
+tes,
+>         int rc =3D 0;
 >
->         if (!*args)
->                 return -EINVAL;
->
-> -       fcull =3D simple_strtoul(args, &args, 10);
-> -       if (args[0] !=3D '%' || args[1] !=3D '\0')
-> +       while (isdigit(*end))
-> +               end++;
-> +       if (end =3D=3D args || *end !=3D '%' || end[1] !=3D '\0')
->                 return -EINVAL;
->
-> +       *end =3D '\0';
-> +       ret =3D kstrtoul(args, 10, &fcull);
-> +       *end =3D '%';
-> +       if (ret)
-> +               return ret;
-> +
->         if (fcull <=3D cache->fstop_percent || fcull >=3D cache->frun_per=
-cent)
->                 return cachefiles_daemon_range_error(cache, args);
->
-> @@ -379,16 +397,25 @@ static int cachefiles_daemon_fcull(struct cachefile=
-s_cache *cache, char *args)
->  static int cachefiles_daemon_fstop(struct cachefiles_cache *cache, char =
-*args)
->  {
->         unsigned long fstop;
-> +       char *end =3D args;
-> +       int ret;
->
->         _enter(",%s", args);
->
->         if (!*args)
->                 return -EINVAL;
->
-> -       fstop =3D simple_strtoul(args, &args, 10);
-> -       if (args[0] !=3D '%' || args[1] !=3D '\0')
-> +       while (isdigit(*end))
-> +               end++;
-> +       if (end =3D=3D args || *end !=3D '%' || end[1] !=3D '\0')
->                 return -EINVAL;
->
-> +       *end =3D '\0';
-> +       ret =3D kstrtoul(args, 10, &fstop);
-> +       *end =3D '%';
-> +       if (ret)
-> +               return ret;
-> +
->         if (fstop >=3D cache->fcull_percent)
->                 return cachefiles_daemon_range_error(cache, args);
->
-> @@ -403,16 +430,25 @@ static int cachefiles_daemon_fstop(struct cachefile=
-s_cache *cache, char *args)
->  static int cachefiles_daemon_brun(struct cachefiles_cache *cache, char *=
-args)
->  {
->         unsigned long brun;
-> +       char *end =3D args;
-> +       int ret;
->
->         _enter(",%s", args);
->
->         if (!*args)
->                 return -EINVAL;
->
-> -       brun =3D simple_strtoul(args, &args, 10);
-> -       if (args[0] !=3D '%' || args[1] !=3D '\0')
-> +       while (isdigit(*end))
-> +               end++;
-> +       if (end =3D=3D args || *end !=3D '%' || end[1] !=3D '\0')
->                 return -EINVAL;
->
-> +       *end =3D '\0';
-> +       ret =3D kstrtoul(args, 10, &brun);
-> +       *end =3D '%';
-> +       if (ret)
-> +               return ret;
-> +
->         if (brun <=3D cache->bcull_percent || brun >=3D 100)
->                 return cachefiles_daemon_range_error(cache, args);
->
-> @@ -427,16 +463,25 @@ static int cachefiles_daemon_brun(struct cachefiles=
-_cache *cache, char *args)
->  static int cachefiles_daemon_bcull(struct cachefiles_cache *cache, char =
-*args)
->  {
->         unsigned long bcull;
-> +       char *end =3D args;
-> +       int ret;
->
->         _enter(",%s", args);
->
->         if (!*args)
->                 return -EINVAL;
->
-> -       bcull =3D simple_strtoul(args, &args, 10);
-> -       if (args[0] !=3D '%' || args[1] !=3D '\0')
-> +       while (isdigit(*end))
-> +               end++;
-> +       if (end =3D=3D args || *end !=3D '%' || end[1] !=3D '\0')
->                 return -EINVAL;
->
-> +       *end =3D '\0';
-> +       ret =3D kstrtoul(args, 10, &bcull);
-> +       *end =3D '%';
-> +       if (ret)
-> +               return ret;
-> +
->         if (bcull <=3D cache->bstop_percent || bcull >=3D cache->brun_per=
-cent)
->                 return cachefiles_daemon_range_error(cache, args);
->
-> @@ -451,16 +496,25 @@ static int cachefiles_daemon_bcull(struct cachefile=
-s_cache *cache, char *args)
->  static int cachefiles_daemon_bstop(struct cachefiles_cache *cache, char =
-*args)
->  {
->         unsigned long bstop;
-> +       char *end =3D args;
-> +       int ret;
->
->         _enter(",%s", args);
->
->         if (!*args)
->                 return -EINVAL;
->
-> -       bstop =3D simple_strtoul(args, &args, 10);
-> -       if (args[0] !=3D '%' || args[1] !=3D '\0')
-> +       while (isdigit(*end))
-> +               end++;
-> +       if (end =3D=3D args || *end !=3D '%' || end[1] !=3D '\0')
->                 return -EINVAL;
->
-> +       *end =3D '\0';
-> +       ret =3D kstrtoul(args, 10, &bstop);
-> +       *end =3D '%';
-> +       if (ret)
-> +               return ret;
-> +
->         if (bstop >=3D cache->bcull_percent)
->                 return cachefiles_daemon_range_error(cache, args);
->
+>         (*packet_size) =3D 0;
+> -       ecryptfs_from_hex(key_rec->sig, auth_tok->token.password.signatur=
+e,
+> +       hex2bin((u8 *)key_rec->sig, auth_tok->token.password.signature,
+>                           ECRYPTFS_SIG_SIZE);
+>         rc =3D ecryptfs_get_tfm_and_mutex_for_cipher_name(&tfm, &tfm_mute=
+x,
+>                                                         crypt_stat->ciphe=
+r);
 > --
 > 2.43.0
 >
