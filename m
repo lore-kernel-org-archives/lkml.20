@@ -1,77 +1,107 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F003AFD0E;
-	Thu, 10 Sep 2026 08:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE7A3BBFB6;
+	Thu, 10 Sep 2026 08:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029498; cv=none; b=sH7xiNrq7g9ud1zeYolQ/xJwtMBeggRFoGrcITumNHwdl+qfv9apdM7PnclCmHtCIo3nhCg4XcOFJiG6ViT3XF4LqcJY/NVSGAdNZ7l8UaC5bxLaTMdd/s1TPb58QewpUyEcVV4JjTNXIPtZsF2pKmhivjy4tEbJGlYp6xEUW5c=
+	t=1789029500; cv=none; b=qtfLGrTmJx7cKxcGds3Y8FRz+QJuoa7QdTNVGS1MA3CTFnChH2lmumN83VElUx1SySviOGlzSPyAo8mi0qT9PfpE0xzHmXTmk0PTgRehobNiJwCAh0tEIWDEJFyARYG2AXu3XVd/o3mBM2Tpl2oamCs46Yc+DIk5hsCELk4bJWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029498; c=relaxed/simple;
-	bh=zK73mQCE7eL25giVjETkO1jHrD9oIHRwKKp1VRgnYrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sPZmyVxZ9I9uh7ZKOCRwk347kEkLXxik/JrqHVtGPz0BzUDwbZGAoaY6dAa3m0I1Gy7VAxhnqynOPkAZST/r5p8WbdlZwn7Ioj7oJARXBYJi1GUb55m57UxJ1Ifb/bR62p3v8yUFsv7V8x4P7BfRf7+If8VUj3f5Kyp/f78XuJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eJEcYmwb; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789029500; c=relaxed/simple;
+	bh=lygJJpzlqT4Z6yEuMq05SHLQSen4aDw7f2iMBLW1mEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=s/tdPGk6XVx7SYwrawoHqqAyThaX8nKmiO3t+uWrp+X0AalNrTpbzM9ThQ6VcFqIWCX6ozM8pcpOM+27DX6ZwRJWHBqOmEdzodx8J1CMUBSgz2OtTrUVxpUR3KSipRHnz9msnoLNdLC8lTkD28UFZAfMSRmSEdqGG8mZCzeo8ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E16Px04i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eJEcYmwb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=mG/4AGN6tjfd63G18lYs6f5vejXgChWS/qvpHpogEEE=; b=eJEcYmwbeaU9Von9rzUqN922Y8
-	/LYSnBHA1uZsh91UEF2DJYRHPrVy6B3UjC1uMfbSG/lv5mtiTb6822MmMms6UJOEgFw+3SQmSLxOQ
-	gTlmt4Ie9xzj3O60Eu+hEM0VlmsLaEyW+OBlBB33IkfTG85xxvnoYRCrrf2SfDWmmU48b1NkProQ+
-	3AUxJZ/JMOZre/1eZRS8kr96tLtZSXxE9WiXuoA5swejH8Qx8FpzP5awusmh0mlCYhHJExWjM5ih/
-	9pcwde1UfS8NSNe1H5bwiI7sac7PnJPz+UDBPcoiT/upywFCOkNt9tzc9T/xq9TpaU7/Fo5s5G44y
-	DPP6Sxnw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4aIF-00000002CmU-1F4p;
-	Thu, 10 Sep 2026 08:38:03 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B502E30056B; Thu, 10 Sep 2026 10:38:01 +0200 (CEST)
-Date: Thu, 10 Sep 2026 10:38:01 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: x86@kernel.org, linux-um@lists.infradead.org,
-	linux-raid@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v5 6/8] x86/fpu: Remove cpu_has_xfeatures()
-Message-ID: <20260910083801.GU4121339@noisy.programming.kicks-ass.net>
-References: <20260901145740.42337-1-ebiggers@kernel.org>
- <20260901145740.42337-7-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E16Px04i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE891F000FF;
+	Thu, 10 Sep 2026 08:38:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789029498;
+	bh=od70uk8YuyRZg30iWu9bkVRGGja46Xc2qik6vdakHAk=;
+	h=Date:From:To:Cc:Subject;
+	b=E16Px04ihprLQqfUXL6AlzyQsqvV6u7064gr/DMD/QnTQBDiGTDgV1uebFKSmglvI
+	 c8MmT9p5GSt8kxCDoxuf3xDp8btnaKq+jcpC6vT0or42K5KWAAx6CJ8fFgJdsfGibS
+	 mHe6hUgoI5r3AJ9qkHfietB2Rx0IlTC0IiXJtCASJ76Uz7PgrhvnrCONxFbxP35Pmk
+	 TGpti17kZNbflWAwnPc3ThCko0F3WDs/Yrs66zcia2Xc6nWAduJHrgSP59wxLBXFFO
+	 N0t/Aa7QZk+2HnCMrSXQoQxGFdAEOPujF0uhCV5VCMMl55Kj1/iOA4I9QMjxNOQTDu
+	 PI1sE/eVLCIaA==
+Date: Thu, 10 Sep 2026 10:38:12 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Kees Cook <kees@kernel.org>, Bradley Morgan <include@grrlz.net>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, Oleg Nesterov <oleg@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] sysctl fixes for v7.3-rc3
+Message-ID: <ioe66sxd6x7ku7sghm4tdq5i2fhh2jfanhsb7wvsqjc5gjq6vq@3r5v7mcphc6s>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n3oqgsadzwn4tyqn"
+Content-Disposition: inline
+
+
+--n3oqgsadzwn4tyqn
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901145740.42337-7-ebiggers@kernel.org>
 
-On Tue, Sep 01, 2026 at 07:57:38AM -0700, Eric Biggers wrote:
-> The only remaining caller of cpu_has_xfeatures() is
-> print_xstate_features(), which uses it only to check and get the name of
-> a single feature.
-> 
-> Remove it and just inline the needed code into print_xstate_features().
-> 
-> This also makes the "unknown xstate feature" entry at index XFEATURE_MAX
-> of xfeature_names[] unnecessary, so remove that too.
-> 
-> Acked-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
+Linus
 
-Turns out there are a few new ones in tip/perf/core, so if you merge
-tip/x86/fpu and tip/perf/core things no longer build.
+This fell through the cracks during the latest merge window. There are
+no more CONFIG_PROC_SYSCTL after this fix.
 
-I'm not entirely sure how to go about fixing this. Some seem trivial
-enough, but others, like XFEATURE_MASK_OPMASK I don't readily see a
-replacement for.
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
 
-Boris, can you have a look? For now I'm reverting this patch locally.
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/sysctl/sysctl.git tags/sysctl-7.03-fixes-rc3
+
+for you to fetch changes up to 353a95f1cd8da8a5436a3f070be07d2f484486cd:
+
+  syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl guard (2026-09-07 14:00:56 +0200)
+
+----------------------------------------------------------------
+Summary
+
+* Replace CONFIG_PROC_SYSCTL with CONFIG_SYSCTL
+
+  CONFIG_SYSCTL is the config string that controls sysctl subsys.
+
+* Testing
+
+  Ran through x86_64 selftest. Skipped linux-next for this trivial fix.
+
+----------------------------------------------------------------
+Karl Mehltretter (1):
+      syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl guard
+
+ Documentation/admin-guide/sysctl/kernel.rst | 2 +-
+ kernel/entry/syscall_user_dispatch.c        | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+
+--n3oqgsadzwn4tyqn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqibHQACgkQupfNUreW
+QU9g1Av/exzpU3gsFHq+L4zPgOFq7Fs9gkTfUXPa36QAEDIM0EQyvd8wRViHHeBu
+R3B6nMyd3r+n8wH/FiUfeSH2K6T4OBg1rSCgLSRg4TMYEoFe4CuVgfVV1HR1SSJu
+NyYFRbrGJGur7sjytlMFPjBjJk1hsIf//kIWyfpBLbtXCV2iw26tInySQ39/NGRH
++Nd7kc5McOBbw8z5Gf09M7hD/PHs+DreaI1pUbUFg2FYzgHeQ3sv20Gqn7pyA4qi
+gfj1KppJcAKccj93WfyditE4gmggJkpqeWJCf//HSysTCEKJOD4+AXRcDIL2BZCB
+rkIfBFi6grHbcwQ+ouOHAq/8Otn+fCCiTtVMEb3T9YgfAXzWkm0fUVFSUjNj+00s
+xbHtOAah/uSBptwdg5y/xpBKzpuTK3AURktG4kdCK2CwlTCH+KuzxF2zg0i3MDR0
+xpa35jALtJqhu4s8Xd1B4QoW50r5hcoMOGESyaTioL3vv6hXwFBnspHCLVr6zc8u
+gVtwj28l
+=c4TW
+-----END PGP SIGNATURE-----
+
+--n3oqgsadzwn4tyqn--
