@@ -1,265 +1,261 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C333B635C;
-	Thu, 10 Sep 2026 09:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033920; cv=none; b=pQBQNYkhK5VimojIVcUDwr6DN0tkWqsYnXk9YKlRmsU60c+GHT+jluR7A0Mnqml9O2FK9vJizxdUsbjhix4dOrif2bWryoTR4Ww8heECYSOwp1r1o3KMn8CDvXLgzAIdiShgtSliPFYyUm4vNq8SYSoEkvkm5g6+eW/2VpgfNxI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033920; c=relaxed/simple;
-	bh=QbVfbTPjA+0nznXPLlbTkBA4zLLyJWykRgFpQ4H7JiA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=tGdCAlgaEls2yC8GCA2iqVMdrs6JsarFWFrZ6of3qtm7vjbWeMiFLfifMDyas/wKQelcRwX0Rq6+tDbKBOokK5k+/z2vfa26QDKtYJg3iqPZqtM/ANKWRhmv3i046xWziVCKpd8wUOIWIp/x3wavmtZVeGCtFfsqcCZB3S11q68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=jlfHboen; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3AC1F30A9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789033952; cv=fail; b=p3PF3z4PlkSq3+NAT5Sp7uV+scQ6qRXeikzRgjL3K883zYSuhfc5aMAAG3dA3CPW6gG9h9oxMDDS30oLdpj58nqmYNIGwtcEByWRflkUE1oxGQ2Bh/gKfFhwaLQUiLHezHpeFo1sl88Az8jiv81uJ7j+HcrqATPFBCWU8hMftGs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789033952; c=relaxed/simple;
+	bh=cwuDeSs6O0WqbtwQDRJJjDgxSv/p4Py1x8HnuY0KXhA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=KwO8a0caCw08ZbSFsC3xGZoyLJD/XAlnqWJqSI3ExZwolWTg8eo0isqwZcLeNKOYrIs7gM1Xp2LNMoBCx/6nGKQzb7Yl7e86krO2H/tVJ0XusGVI7mIMaD+byViAMkT/lhhqMAge+bBvI06byLspz8NAb9v8Hezs75vw//i6CmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NmUqUkhZ; arc=fail smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="jlfHboen"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789033872;
-	bh=/jYHDEeDj6mTSil5AM0ztwiU+xkuIqY7l4GjrURkwMI=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=jlfHboencdVUt2pJfQtKOAB+6e5Ua3ZLRzn6l7ZA6XtNAEuWjYBlSCFNydW2y3CQp
-	 MztbtfMpdJ0Y5bYXe2KRkYYmqCUCzkmW2mF8Gk+HbznMuV8UAJtYD4jiTLXCtcYMsm
-	 6nexYAq5iUD8UPtCIyKxNL97JzAtrEfD6kSshZp4=
-X-QQ-mid: esmtpsz17t1789033870t1eda2e6e
-X-QQ-Originating-IP: f5kVe9DZlbg/hxKYwteXDSAPYMlVF5XmHtXimArN3mo=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 17:51:07 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9185703477099524702
-EX-QQ-RecipientCnt: 41
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NmUqUkhZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789033951; x=1820569951;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=cwuDeSs6O0WqbtwQDRJJjDgxSv/p4Py1x8HnuY0KXhA=;
+  b=NmUqUkhZTm6EOH3FeEgV0nLyUCQLVithtSs8M7//3XRBZZ3RpwAKI3HK
+   oKTzNZxdVWNdzo8cFbfcpnwWQFaSg5L2+vDANzWijtQpaaXmYjqQ0qlI0
+   nE1f47o/q9VxQZdgu5yt8pSvt2SDgcI5KSYnm30EDM7EdWaKkWOByWFAr
+   TkQkjTQx3eJt1LbYxbOics7zOowNe3At7Ab2DtJLDIcz+EfuLh57vCHgw
+   jXPXFomGHjYnrYdseOO1WZiB0Qil7eErOxwGebfRcsbzah1Oo+oGEE1zj
+   MWY/DN6h0A/AayO8l1AOj351KH13uAZUQJBtOPNZOO0CBSH49Iiy1GbMH
+   w==;
+X-CSE-ConnectionGUID: GT797+dASNuxl2yY9VCcmA==
+X-CSE-MsgGUID: d5Ost4hZSC6aApmsqFaHrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106848536"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="106848536"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:52:25 -0700
+X-CSE-ConnectionGUID: M3ag0ds8QqqFEGSJhD8ysQ==
+X-CSE-MsgGUID: hbSwkrdyTCe2eBcSj8r6jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="276836653"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:52:21 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 10 Sep 2026 02:52:21 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 10 Sep 2026 02:52:21 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.3) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 10 Sep 2026 02:52:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RXKl6Am61R3rqm0qyMa0FT2Vm8A2/sAjfbQWWv4/GqN1GBFvPM0q2fj9An0F4vz/k5RojnFjbd6ScSlkql3xWUd9PlV07WXQkCR2FQX+4gVvL1QtwAXkVEphR8EMKLjRBIk9TJHeaNZaOQ7b04ghOomhetZj4kXRm6GhQ5hFEHUvQzvU9cdsBqRfyC/S+VJOaq9k8pao4nCDkLcqc1vHKkeB/wOppLQs6sZd8Xz6qABg/U0otXQ7CcMNnI1EM8+sdGaLIDL68EEWRG1OGZyYtxWUSbhdJcGTHOgEPYdM0bxLgEH72HNsQAd8aMgFOfhoa6PWioz/WmDEe0QKunkMsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gb4mhiu0dcnHqvgj3iouuBiDnBtWxTtZaBv5Fc/fLc8=;
+ b=FuIblAO5ZgLbs+nVNAQKbJyDmmZFxSi8ixgcwK8fyxDEbCiC/RLnPywZAlBaOmbxrEbvvjEvApK5gM6SFDut7/Fx6HCxZa4CcxHaYD2CT/tv71y+5MNXGbdduJHIhc9fH4K6572rpn/+OdvF1TvxA+/ZnSfQxAB9+TyMUNyjkZcOoJy5mTZfmft+r/WKkLQOFhlsxJjhP87E0hCOqDsZ2Om7ILNV1QyAN7QFTf5Ro06m+BV1YrEVg7NpL7INTX24Nvoasdn9in0q9jF11P4u37XiOIQYD6IVCbynuFhyXLKVlIGL3th6SxE81VNb7M5gY1joXdi79jo+BdEdr2CXpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
+ by CH3PR11MB8657.namprd11.prod.outlook.com (2603:10b6:610:1ca::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 09:52:13 +0000
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225%7]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 09:52:12 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+CC: Nicolin Chen <nicolinc@nvidia.com>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "kvmarm@lists.linux.dev"
+	<kvmarm@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Alexey Kardashevskiy <aik@amd.com>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, "Marc
+ Zyngier" <maz@kernel.org>, Pranjal Shrivastava <praan@google.com>, "Robin
+ Murphy" <robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>, "Steven
+ Price" <steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>, Suravee
+ Suthikulpanit <suravee.suthikulpanit@amd.com>
+Subject: RE: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Thread-Topic: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Thread-Index: AQHdN/EwiLvbaU+6lE2MX0oxJV5il7a5dWsAgAAN2ICAAErrgIABNM4AgAA3CgCAABBnAIAAON+AgAB6EYCAAGKGgIAAwE4AgAXLI4CAADRDAIAC9yOAgAAr2QCAAS/H0A==
+Date: Thu, 10 Sep 2026 09:52:12 +0000
+Message-ID: <CO1PR11MB4835512E374074A5F4AD0A6C8CBF2@CO1PR11MB4835.namprd11.prod.outlook.com>
+References: <yq5a8q5kkoz3.fsf@kernel.org> <20260902121700.GC2890729@ziepe.ca>
+ <yq5aik4nztdt.fsf@kernel.org> <yq5aecfbzjyk.fsf@kernel.org>
+ <20260902235609.GG2890729@ziepe.ca> <yq5a8q5izxz4.fsf@kernel.org>
+ <20260903171704.GK2890729@ziepe.ca> <yq5acxupjsy2.fsf@kernel.org>
+ <20260907125228.GB667892@ziepe.ca> <yq5atsnyag84.fsf@kernel.org>
+ <20260909124628.GH2543240@ziepe.ca>
+In-Reply-To: <20260909124628.GH2543240@ziepe.ca>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|CH3PR11MB8657:EE_
+x-ms-office365-filtering-correlation-id: 45778814-e4b9-4764-609c-08df0f21304a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|38070700021|4143699003|6133799003|10067099003|5023799004|11063799006|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info: vsIvw5j76BAI19xDZqr+6Id2yooC6nD8zkuNr7/+SXUMq13ZkMlxBIU/LgnWCAI6SN3HxplBwjkjJla6mVqakHOFisfvs92ibgUI8uabjgVMjSdNflxOWmBPfr8L+ABBigQs3xJ3FSxJdODoov4NSqiKk31nMofzjoKZOrxwB1hhrJX5IWZrzEc+b4U62cmrFt+IZ5HBXOYzqazH9Jebe6qjEWtQIKSwsXWJH6ag+EsY8fQXedsu1tAAjH0g0N0YyFegMcB8JVz7F2dTDRimt3PIELMBoYfNLpgTX29q/0XfPNhApeR8ENxNAo64PDnaYFGXgvUTCns9MGtqoPe8qsv+i22PVb8aXa1QgS3uRxbEBCDveIWq+AP033Gdw53sqxjJfHK90kcdJdojL6CDOzXt2laHIBrspaLBdoNTr5wOMUnAJ+NNjDhy5l/fC5chE4tFaxeGJ1oVYXc1xWQTfkMruVdVvkAxCr9OWiu/pdq76tAPwUoOW3zpdyA5mSnx9y9wgUI/GrzqSarvFc8fw24YH8KEztKW+bFWKFKaZsFXegeWgm/gVWdDdvitkwzKZMiHsTv7BUGz9C13J+o4PPlW57Jwds09WkAhqBHiaq/iTn3gTaNR9GIKuk3geK19Z/z/rAWqXnSQHnpUP/A8H5vbWwJaRv8C8+aV2qnaPY9RqTmFzkTcpIwmiR1FHIegnya/fLY+GKVIRgM8tRBglNDntcLBRP64+mxiHFwOuyk=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(38070700021)(4143699003)(6133799003)(10067099003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?08bc7nFSqTcnuVDe/3nhrnHBCIz86ZKlLuQSAtR+f/Zf+LhuKbTDb1UOfaxd?=
+ =?us-ascii?Q?WGbDOhsjkViNK3ziPWp1DBpWznvPvIhgdxAGedPytVdiVUh+wfr3q0reAcVe?=
+ =?us-ascii?Q?Blv5ReDhNhh4sGfBGJMm1KqDy4kikPrsNccfl1DXsxmOrgjTcYoLYqrXEmfZ?=
+ =?us-ascii?Q?LPVnOmctMBTAvCptALDMSO1kxZfpWYXMiWJKmwWksEwWw8BTkXM8O9ucV7Jz?=
+ =?us-ascii?Q?MKbmNLRQ2trXhSUG/TejFPAbkNizgMjxlwTUdn19yY0idr3KOGtxWsAogsQe?=
+ =?us-ascii?Q?lFOjt0Pizhot7NUAEuoWfWdhP5s85Ych2gHYd83OMaKJ9yn1S/0RXm7PYtjr?=
+ =?us-ascii?Q?rwqt09tFwj1NDgCJFiw8bv4J8HhQq0T4v92eZtoK66nIfJPxsUmXbcQCaXK4?=
+ =?us-ascii?Q?TIdHhs/dYBVyKNipdaSR0+lGRS1mXXVTsSYN00ROWp0eNYgcqdTB/S6O74ph?=
+ =?us-ascii?Q?U5wQZoNtI8ionAlkrsDZLPjDGUuWZBphczyz1C0kvegJcp3cLW/AoO1Ui9lN?=
+ =?us-ascii?Q?MUskTlJFvGbK3MUXe/fqVL4geI8ilHz3wsGBjwRXR6RH5NwS5LadnlrNcllw?=
+ =?us-ascii?Q?b4x4qyx1xVa8t6BFyW6QDikhgvHfAHGt8LMEw+7Bu5y7xNDE7MJombwafpuV?=
+ =?us-ascii?Q?321suHnX9EH1pdLhUWkv8JmDrl5BiKIU8kNCEg145j4ZODKUZAqqpvg+HPHE?=
+ =?us-ascii?Q?OiFuTUeiNEDbRTAvyT26wx+X4GcOjuOv0OowhQxHrHYd8aJJqb9g1fcqfozV?=
+ =?us-ascii?Q?EgmmTJ53z9d19ezeE9v16VqowxKVS32f4IMn98yNzYQ6bmIaSCRTLevmgItZ?=
+ =?us-ascii?Q?bMOezg8J0Z8qQVNkU3uAgSEY/nf9CMMxtcVglMLu/dHQ1cz1t2wTk4BTMzbc?=
+ =?us-ascii?Q?65h42KjpO/EgElUxBN55w72RrdGGyOz1tBxzlKPl1QkcHDzoXio+ESWUhrDj?=
+ =?us-ascii?Q?T457Ubfzwt9xTr3q3vFjYU8ArC2gY5OIPXU4MMaZrWijiLHYMn2laWWMADbt?=
+ =?us-ascii?Q?pIqIwbiwX8eDhlTF7h+A9oMmN9LrBsWfHH1zv+n/F3x1TQJ4gD6GUnSGFHti?=
+ =?us-ascii?Q?DC14pylq+8BpKCHZx4uxAC4o9fXjirsDgH2VFjsxAXrXcCT1OJShU8lrOV12?=
+ =?us-ascii?Q?aWWg2HH6CCVfx3PqcfQG+/+dagzDyuI/xh2tQo3n19AsU5FyB7tW3HRIOGTb?=
+ =?us-ascii?Q?BtTPNd6svWDM+homyOMhY9n15kH3ULzHM9QSzsi62IyHC2qonjZcAIi72Iz4?=
+ =?us-ascii?Q?Ibvg/amqYa6urLXeAKsINJHTfSVYb1SUPDf+VaaGRpNfrSSPqON7BK2lVMNT?=
+ =?us-ascii?Q?LLAf1XJ39jmDfkSknVc/p8ueyNrDlDcKQ6OoQgavZOhTiynhaDVqW0Ll2Tty?=
+ =?us-ascii?Q?9IKqp88n49FWXdsK+mgov05mZYP1PrTwv1cAuLBtdrTczmHM11unraB8Bq/d?=
+ =?us-ascii?Q?Y4kV8acat609oh7IF2iMZ995oVuVQ/JthWv1E4eSgoDHzoBQeD51/OwVCuHB?=
+ =?us-ascii?Q?CZkfVgDCt8jEc/Wi4ApSkx6vJmXd+feVYXnbCSbCVBv26vM0x53bsIWAcF9v?=
+ =?us-ascii?Q?rDh2iG4JCrEWmQL8GbI0BBeN20hn5DYeB7QY+P1PjJrRoxUEAaL0xnjB+Dxg?=
+ =?us-ascii?Q?A3GhiPzFHP20X7SMvecPmUNiOsUv+QF85PBt8ly9K9TAjHD5xYkrGYllQ03j?=
+ =?us-ascii?Q?FpBq9Ln6BDtotNNvN3zevJW/Ds/OaD42SLWlDeI01wMBJH35?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 10 Sep 2026 17:51:04 +0800
-Message-Id: <DLBJKRFHSLZ7.3OKDAR8I7V7JE@linux.spacemit.com>
-Cc: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, "Yixun Lan" <dlan@gentoo.org>, "Longbin Li"
- <looong.bin@gmail.com>
-Subject: Re: [PATCH v5 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Inochi Amaoto" <inochiama@gmail.com>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Jingoo Han" <jingoohan1@gmail.com>,
- "Manivannan Sadhasivam" <mani@kernel.org>, "Lorenzo Pieralisi"
- <lpieralisi@kernel.org>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Frank Li"
- <Frank.Li@nxp.com>, "Niklas Cassel" <cassel@kernel.org>, "Sherry Sun"
- <sherry.sun@nxp.com>, "Arnd Bergmann" <arnd@arndb.de>, "Christian Bruel"
- <christian.bruel@foss.st.com>, "Krishna Chaitanya Chundru"
- <krishna.chundru@oss.qualcomm.com>, "Senchuan Zhang"
- <zhangsenchuan@eswincomputing.com>, "Alex Elder" <elder@riscstar.com>,
- "Xincheng Zhang" <zhangxincheng@ultrarisc.com>, "Randolph Lin"
- <randolph@andestech.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Andy
- Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vidya Sagar"
- <vidyas@nvidia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Danilo
- Krummrich" <dakr@kernel.org>,
- =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
- <u.kleine-koenig@baylibre.com>, "Pengpeng Hou" <pengpeng@iscas.ac.cn>,
- "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Gustavo Pimentel"
- <gustavo.pimentel@synopsys.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260907112606.465778-1-inochiama@gmail.com>
- <20260907112606.465778-7-inochiama@gmail.com>
- <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
- <aqEOHmlKdKqQWYE8@inochi.infowork>
-In-Reply-To: <aqEOHmlKdKqQWYE8@inochi.infowork>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NECtOrwCNQSlNrBcyK36z3/CtNp6rfTkNd6AVsc2jFgfzBvZfHVH9NJ0
-	tiYjkBxkfpKFTJzHTfJihAroeCJZ1zcjHAtMIU+ks+PyPM3CWcnASERQP4SDwDhuJPqbS0x
-	84thvWVVGmdWE9T1d+FL2g+/bwEsUBZVJQM42PRei5/zEhj8KlyJqoU/mJdXTqp26uyqUQX
-	k9VklKaoaxINtGYq5StIfQOQpumV0Q0eGPOSuAMR+9QjJD8lz96vOyJxr67Tvi081+mJJDh
-	miOeCXvPZp/diUzE6FitcpeRq5iSxvXT2TbDJXY9fDewkgU15GD+aVEJSaN96nSvzSafv/8
-	2yXhzIZalpGz3sCEEz0Hv36S0K/8xtwuZXggDonkDcLh66ryP3UCkHSdR6Q+Hm0ISVdPXaC
-	obrkVMBnJMiD22xmM3fr038nqFJf6seigS9xZF4rLxZ+y7GGsQAAbw9pm2C0z4Tz733qFqR
-	ApvYcnGwlhpWckFfMDFH9fwSuk3y63i4crj+bNsFISe9CgpKFeHq9bbBg8WHj1l1ckpuZK3
-	R6nPSnjmC7gvvQCnXkyI1Vl1IN5/5PR0XcHBAHwFsYTPXE7c/bOAD4ncMguxkMhth3J5gwh
-	AcuejJqhKwYGOfLUUibBwVQDCcUf4lYzLulk17C8CmGPL26Pgpq0RTyVsg87W1GMxOfRNOg
-	cZjy8po3lITvvrDhhptCZF2WLzlytlz+n+7QYyqqYtRIcoY3owprlPw3bX784hdIrHmeAl1
-	6b+r38UWALar1r2M93cpO2ANYrX4wpZX3PjwXOoXvXLllFLXzr1YIjr+y25m9XPqZcR5QVE
-	WmStf+0ALueHyJg7erXTEX7iyOkUTQlDMPdOeTgZ/y0+1U8vxjV9UVEnRdGJdbudsJCAncJ
-	BghkTcga83eimeRpYwXmnUiNPuSMc0IRRnA+Oy7EB51F33VoLkCwjSrBmzWHRDL2zlrAFAg
-	kUpSE0VJ8xhbM9Wn5hwbtq8PJjmgQBsXuHmglWCaXuTbHIwzcRVEViqHKRRg3eSneSNULhJ
-	2P6P4omiddX/29PP7nU4KxW0w09NHlMC0xYzcfagCWVweQ4FcEI9n5qENpYVhxS5NlbnUno
-	1xBWH0OGS0DMvZysNHNg/V9FsrCHwVb5g==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: bWQMGJznY2Q4SVynstEjvBgFf1y+nDsfaNNfmVkh+lGtG3TTIRPYGgg/oTfF/OwIKOMV7uvVxTfZw0ws7Pz4/o7FO969bMSojgw13oHif76iW12dUw2KXIwwvsa2EQ7wFmErxlyvt6NDH47gc7IKMU04d20PPR9oCkmI5imaqfjsSXxwQyKWtBSxg1bsPUYiG4fBpGybdX+HENtslKIsVULZAMcta1yvdoVk1y+38yRgSJi7rf0qtnBdDtTerScbHn/U/8xAj851+M3PUUuay394PTyp2IOuouGBMQUXrWidKCuLhPUg+ox0225+U8WlVz0piKcyH8e78ILwI5Pxdg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45778814-e4b9-4764-609c-08df0f21304a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 09:52:12.7953
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Gu3eGyjH5wy6UzveFEbmU9bFjylOUozPZt3tN3MrVUQPPaax18o1qjqsL9cL0khL34kgKpo5ncoGo8y1+XCIhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8657
+X-OriginatorOrg: intel.com
 
---a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+> From: Jason Gunthorpe <jgg@ziepe.ca>
+> Sent: Wednesday, September 9, 2026 8:46 PM
+>=20
+> On Wed, Sep 09, 2026 at 03:39:31PM +0530, Aneesh Kumar K.V wrote:
+[...]
+> > The TSM disconnect path will now fail while any vdevice is alive or
+> > active.
+>=20
+> Yes, that's makes sense.
+>=20
+> > Destroying a vdevice will unlock and destroy the VDEV.
+>=20
+> Yes
+>=20
+> > I think we can also unmap its MMIO mappings at that point, provided
+> > we track the mapping requests in a list alongside the vdevice
+> > details.
+>=20
+> The mmio is owned by vfio, there should be a handshake in VFIO to
+> remove mmio when it becomes private, otherwise I don't think we need
+> to do anything more?
 
-On Wed Sep 9, 2026 at 3:51 PM +08, Inochi Amaoto wrote:
-> On Mon, Sep 07, 2026 at 09:14:23PM +0800, Troy Mitchell wrote:
->> On Mon, Sep 7, 2026 at 07:26:05PM +0800, Inochi Amaoto wrote:
->> > [...]
->> >
->> > @@ -303,6 +316,116 @@ static int k1_pcie_parse_port(struct k1_pcie *k1=
-)
->> > [...]
->> >
->> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
->> > +{
->> > +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
->> > +	struct k1_pcie *k1 =3D to_k1_pcie(pci);
->> > +	u32 reset_ctrl =3D k1->pmu_off + PCIE_CLK_RESET_CONTROL;
->> > +	u32 val;
->> > +	int ret;
->> > +
->> > +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
->> > +
->> > +	k1_pcie_toggle_soft_reset(k1);
->> > +
->> > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
->> > +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
->> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
->> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
->> > +
->> > +	ret =3D k1_pcie_enable_resources(k1);
->> > +	if (ret)
->> > +		goto failed_resources;
->> > +
->> > +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
->> > +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
->> > +
->> > +	ret =3D phy_bulk_init(k1->phy_count, k1->phys);
->> > +	if (ret)
->> > +		goto failed_phy;
->> > +
->> > +	msleep(PCIE_T_PVPERL_MS);
->> > +
->> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
->> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
->> > +
->>=20
->> Should we use pci->pe_rst when reset-gpios is provided, and keep the PMU=
- path as
->> a fallback? The SDK handles both cases. The DWC core requests that GPIO =
-with
->> GPIOD_OUT_HIGH, but this path only releases PERST# through the PMU, so a=
-n
->> endpoint using the GPIO would remain in reset.
->>=20
->
-> I do not think this should be included in this version. I found PICO-ITX
-> has no reset gpio support. This means I can not test this feature.
->
-> I suggest adding this function when there is a board using this function.
-Agreed, we can defer GPIO reset support until a board needs it and
-we can test it. I checked again, and the SDK only added this support
-recently. It provides GPIO-controlled PERST# as an alternative to
-the native PERST# control through the PMU.
->
->> > [...]
->> >
->> > +	/* Finally, as a workaround, disable ASPM L1 */
->> > +	k1_pcie_disable_aspm_l1(k1);
->> > +
->> > +	return 0;
->> > +
->>=20
->> Would we also need to configure IOMMU bypass during initialization? The =
-SDK sets
->> the PCIe A/B/C bypass bits in PMUA_PCIE_SUBSYS_MGMT when there is no usa=
-ble
->> iommu-map. The proposed K3 PCIe DTS has no iommu-map, and I could not fi=
-nd the
->> corresponding bypass setup in this series.
->>=20
->> Is bypass already guaranteed by firmware or the reset state, or should t=
-he
->> driver set it here? My concern is that enumeration could succeed while e=
-ndpoint
->> DMA still goes through an unconfigured IOMMU.
->>=20
->
-> I think the firmware should mark it bypassed as the default, at least
-> I have notice this behavior, but I am not sure whether it is the builtin
-> firmware or the uboot do this trick.
-I checked the register specification. The PCIe A/B/C IOMMU bypass
-bits reset to 1, so bypass is the hardware reset default and does
-not require firmware to enable it. That resolves my concern.
+for TDX a callback in VFIO is invoked to revoke the dmabuf.
 
->
->> > [...]
->> >
->> > +static int k3_pcie_parse_port(struct k1_pcie *k1)
->> > +{
->> > +	u32 status0, status1, status2;
->> > +
->> > +	/* This register require a RAW for cleanup */
->> > +	status0 =3D readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
->> > +	status1 =3D readl_relaxed(k1->link + INTR_STATUS);
->> > +	status2 =3D readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
->> > +
->> > +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
->> > +	writel_relaxed(status1, k1->link + INTR_STATUS);
->> > +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
->> > +
->> > +	return k1_pcie_parse_port(k1);
->> > +}
->> > +
->>=20
->> Are these status registers accessible before the controller clocks are e=
-nabled
->> and resets released? k3_pcie_parse_port() runs before dw_pcie_host_init(=
-), which
->> calls k3_pcie_init() to enable those resources.
->>=20
->
-> Yes they can. It is something interesting.
->
->> The SDK uses the same ordering, but I am not sure whether it relies on f=
-irmware
->> leaving the registers accessible. If so, would it be safer to move this =
-clearing
->> into k3_pcie_init(), after enabling the resources?
->>=20
->
-> In fact, I have no idea about which clock control this MMIO area, if it i=
-s dbi
-> clock (but I guest it is not), it is kind of weird for this clear and sho=
-uld
-> move to the init. Do you have some knowledge on this?
-I have not confirmed which clock controls this MMIO region yet.
-I have asked our clock team about its clock and reset dependencies
-and whether access before resource initialization is guaranteed.
-I will follow up once I have clarification.
+btw I didn't see any dmabuf related in this series (even in a hackish
+way as Yilun sent out last year). Is it not required by CCA or just
+skipped now waiting for the framework to be settled?
 
->
-> Regards,
-> Inochi
+>=20
+> > All CCA operations will use pci_tsm_pf0::lock, though I think the
+> > locking can be made more fine-grained.
+>=20
+> Sure
+>=20
+> > I will send a cleaned-up series so that we can review the code changes.
+>=20
+> Does it seems reasonable to you? Was there any oddness with modeling
+> the vdev/bind through the viommu?
+>=20
 
+Try to catch up the implied changes to other arch's...
 
---=20
-Troy Mitchell
+So viommu will become the abstraction point for tsm operations and
+directly talks to the tsm driver instead of going through the merged=20
+tsm_ops (bind/unbind/guest_req).
 
+currently what tsm_ops provides additionally is more about synchronization
+with connect/disconnect, otherwise just calls into underlying tsm driver. A=
+s
+long as viommu creation holds a reference to tsm then disconnection is
+blocked then it's safe.
 
---a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0
-Content-Type: application/pgp-signature; name="signature.asc"
+Is that the rationale behind?
 
------BEGIN PGP SIGNATURE-----
+and IOMMU_VDEVICE_TSM_BIND will be removed. Seems originally this series
+does SMC_RMI_VDEV_CREATE and SMC_RMI_VDEV_LOCK both in tsm
+bind op. Then the proposal is moving them all to vdevice creation time so
+no separate bind step is required.
 
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqJ9iA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvIEkBAI5lOSUmTC1KRnfbtQZq22dzmqYH4si4e04iOSyS
-qA0iAP4h5FpgcgN1hdhSj0naM37Eexy5IDGOkDub+ZEMcldRBQ==
-=7iXk
------END PGP SIGNATURE-----
+Does it mean that ARM CCA is essentially an early-bind model i.e. the TDI
+starts in locked state from guest p.o.v.?
 
---a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0--
+but https://lore.kernel.org/all/yq5aecfbzjyk.fsf@kernel.org/ seems to indic=
+ate
+that guest_req() still handles the bind request from the guest:
+
+"
+- cca_tsm_guest_req() now handles TSM_REQ_SET_TDI_STATE requests for
+   the unlocked, locked, and running states.
+"
+
+a bit confusing, but maybe due to stale info cited from different timing...
+
+for TDX we're currently pursuing a late-bind model (i.e. TDI starts in shar=
+ed
+state in guest), so a separate bind interface is still necessary. We could =
+look
+at whether it should be an explicit @bind viommu op or carried by=20
+@guest_req (say, if most preparation works can be moved to vdevice creation=
+).
+
+any other suggested changes to think about?
+
+btw per past discussions VFIO should block some operations (reset, etc.)
+while a TDI is locked. Do we expect a callback into VFIO to notify the lock=
+ed
+state, or require VFIO's own interface to place a cdev into a special state
+which prevents sensitive operations even before binding it to iommufd
+(and allow creating TDI vdevice only on such idevice)?
+
+Thanks
+Kevin
