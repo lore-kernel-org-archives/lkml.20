@@ -1,193 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A084A0924;
-	Thu, 10 Sep 2026 15:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048DE46C833
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053503; cv=none; b=dfO1kayzpUEM7/Rcn4riIhiJp3QCODoQaKTv//ul7Ylv0kJHy+i1TwS8iSyboxSRW5ERcFMz/DNC7ofLfjpiNio9BVgh2Jmi84vklGtVpL15IK1FtyTQ83+ffPHf2BG9xezplhrmwLnDYa6w2Ci1TaininTix4nUFFFMcfQsDik=
+	t=1789053531; cv=none; b=E4joRRTU0sNuiyej5AyeMbBeY7F5Uutcc7PaGFDM+Cvq16Wv02e9jyrtccHryR6txpYEF087vkMouot2Etipea2DqTYZo+WEM/GIP5q85FeINt3ZWzWxLefgXv6ecbryPfceO+52i2/V/zRsbxONQNwCi1y3SWasUTypy2hSj9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053503; c=relaxed/simple;
-	bh=T5VnlgTVywjpsC+VSkdtJUpb/TlFFnOO9PLJR4PsFj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i3Aq668vqzqJTBmQ3enEkLih/zONp0gwffy2Pms2YyQmbOSveOVBHQK8Ln5j62PLnknWYDS7XJM2st5atyZlEzAlEHaG8LfxsafVpTdY9zc4IsBO2xEPeKMYG/+I+YPOoiyD6yYhKMOB75mQVq8x9/WFbx5aT52+JRJ7w51XRXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RK55kTVE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789053531; c=relaxed/simple;
+	bh=nmlVxuCmJvwgWzZmLtvEnd6MUk27wZGVvMDVW+s6btM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=urJWtCT574PyVA5WaM7HGL3KcqphaWu9Swv9N4QsuwdCeCLEds8bCmEX4wrabubpKrIQGpBmSiCFyUNmZNajcyjaGZ6TWAid9LfrjR8DWmfoHL1PmsEUWZfOqZDJcpDMljLQjdLviNED4NzA9mTxgxS19fofRamP3MY6sqkD2dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=mriNDERv; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RK55kTVE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 620981F000FF;
-	Thu, 10 Sep 2026 15:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789053496;
-	bh=QrU+td30ipE3gFmbNs5GxY4/VYYApGafrlEXLR3OyV0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RK55kTVETjREQOJJKlZGvtHx1v1hIKvPYukKwHxNZKEQcvQ2Lxo/E5SKvd54RTSH7
-	 UZ61YXOFMnZ+Fhy4Dqzjfdgsr0EAf0dIYHIsDZXAhmtn6Oc08Ydh9s2qXF4sDM/SyK
-	 lN7TLqQ1zMk/BGKfALEMo1SXgwXHwAeeH4t0g/F1vBiG/Q9KFBaTXSWKRJeEDT+Z5R
-	 MAD86peMnr/9ji0BchwEyMbIQzgRlh2OfwdkRcxrNtKXCWqhE+Qs0KrzMfwi7IPfS/
-	 XL2LpsNFjaUDvB5VG0mcJIWB1hl9+0OMLO6hs81jYdZBRS5iabB7ox8ORhVmmNlULh
-	 Dbdl0LDRYkr7w==
-Date: Thu, 10 Sep 2026 08:18:14 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Long Li <longli@microsoft.com>
-Cc: Konstantin Taranov <kotaranov@microsoft.com>, "David S . Miller"
- <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet
- <edumazet@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Jason Gunthorpe
- <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Haiyang Zhang
- <haiyangz@microsoft.com>, "K . Y . Srinivasan" <kys@microsoft.com>, Wei Liu
- <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- shradhagupta@linux.microsoft.com, Simon Horman <horms@kernel.org>,
- ernis@linux.microsoft.com, stephen@networkplumber.org,
- shirazsaleem@microsoft.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="mriNDERv"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c0766cbe64so981859b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:18:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789053525; x=1789658325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i5FCwCz8I5I3vnms5aLJ0rTuKe9JHgwTVrTlpHQrQos=;
+        b=mriNDERvuhBpRVL+3ruZSUxk255Sh6HuqlsnslwAKAsFkNXfguA5YKtnQAqkk9yp0x
+         +n4xsuwo+nMijfPvvlq2saMlJkXJaGWBa7pySsYEwslvOkfFKlcWETDmlFC2t/T1haUv
+         ZEsX0jUYoPPTz+0NeVJwmBP+fWl2GzXLBRiZZtqJZOiQYto+SVBak8WVTOlysVwuubb0
+         +xczuabAA/yv4P5zlt4kT4flBMJywK/3QPN5/McJb7Deyk4H9uAhrYjqka7BHiaiyBeq
+         I5MKx/ZQm1E7X7zXM0z/qW4PRqNLtZ/9QV8AhPez5WrysU+hmY+vs7yw4mmKy3ij3ata
+         NhLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789053525; x=1789658325;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i5FCwCz8I5I3vnms5aLJ0rTuKe9JHgwTVrTlpHQrQos=;
+        b=sA6/zWIIbKN2QmeEeHdsvYDSAc/27IKsM3J0AZ3SczmcMGm5P/PPNsFEVvd+UTV+n3
+         62CCb8aCqgus0VJ/4aRFcqbZjXSHSo8GNKnfc3nxiwHViBCjujqZxlE9cwckkQotUjtG
+         wz7WYxVYz6tNrqDCyVPbmbosBw3LGUyXCPrKsOA/tLk4N0Vtm0394ZnK75V6cJ6YhOlx
+         3AM6fhWV+8K5tF5XiH1DhzafFYDOIkbYqJV2bH//QeW2K6O6K64P+uKLU4XQt+Rpp9Qc
+         SXCRz+PplPmMhhTnn+D4DQWyZHEuXIs1IlevtBs6qlsI9T49KRFMK9xa8EV5XvO/1DdI
+         Y2Ew==
+X-Forwarded-Encrypted: i=1; AKwUvByg/tw0Ah+EBKBrgeri02os2cy/uXkqJNoITThRBzh7ybMP8pQUwhEAQjAxmY/G9ZHWshHhUqTKylRaZPM=@vger.kernel.org
+X-Gm-Message-State: AFuF++na8cw6o9XmXEU9+leDdBAYgde+KsNz1MLPCMyYr6RS5EgOkaHP
+	fdF8/kI1t3NB4BhkMNDa75Ty7yXwXRZoHZJCzTbChXW/ye/nOe6XuUy+htrrJLtkjIfBtpZy5/c
+	9Bl4FAdk=
+X-Gm-Gg: AYBFou0uEDlE67d7Cl9FtCLBGvMTqiXCyfx86PFOZUy7ILthF/7g4D18174hcO/rlEZ
+	YhCNSvZ+gd7OAjIlUdzanJvebUpQVKlSelPU0BmHhPjYKxVY5XOlFvPPV1eYmYZeQfFMdfMwiW/
+	hCWeIDJaeYVflqrRpWOj/sc7cIgEH3r8U23psIh621Oj/voXO7UbC5oxNMw3V9rP8YTfe7wxv6H
+	XZgRUyBypAdQcCBnlFB2eiXkNZzuMX6HEU0bU4ei5+lngEchzUl+FTtOcR4xQYZrZZHSIB9h4+1
+	d0oYsJAObb8qWGx+Bp55+esk3xmtTcsMd8eJgQkUQJV736Zyot8CzNVZ+WOnoGJ6WRG640R70Ku
+	t26/2HIEnlKkckcK5nkoljt/kY9B3pLAsB/58r2hvc66BwrcyN4/SrsiPTf2jslCBPyg7JCUHnC
+	oUsvknHUkQG9xUNMBRqIsZAsnE7K0s4PIpA1c3ZLST+L4YwghrsJjBDGHG6Lzo+6XeSDBGU6JdP
+	uvHzwRFkRN5NudkM+5q7p7KQWP2VYJNOwHwzcKMz3Rd5zh62tg=
+X-Received: by 2002:a05:6808:30a4:b0:495:eb86:6e8f with SMTP id 5614622812f47-4c142e28f2dmr9206435b6e.14.1789053525074;
+        Thu, 10 Sep 2026 08:18:45 -0700 (PDT)
+Received: from [127.0.0.1] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d1cf26sm19089338b6e.4.2026.09.10.08.18.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 08:18:44 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Caleb Sander Mateos <csander@purestorage.com>
+Cc: sashiko-bot@kernel.org, io-uring@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: mana: do not discard an ethtool-configured RSS
- table on a queue rebuild
-Message-ID: <20260910081814.1b5b7b36@kernel.org>
-In-Reply-To: <20260905004401.3937066-1-longli@microsoft.com>
-References: <20260905004401.3937066-1-longli@microsoft.com>
+In-Reply-To: <20260902210200.2336720-1-csander@purestorage.com>
+References: <20260902210200.2336720-1-csander@purestorage.com>
+Subject: Re: [PATCH] io_uring/rw: keep CQE flags on iopoll requests when
+ adding kbuf flags
+Message-Id: <178905352403.347131.15633574006083255030.b4-ty@b4>
+Date: Thu, 10 Sep 2026 09:18:44 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Fri,  4 Sep 2026 17:44:01 -0700 Long Li wrote:
-> mana_alloc_queues() regenerates the RSS indirection table from the driver
-> default every time the queues are built, so a table installed with
-> "ethtool -X" is silently replaced by any operation that rebuilds them:
-> an MTU change, a ring-size, channel-count or private-flag change, an XDP
-> attach, TX-timeout reset recovery, or resume.
+
+On Wed, 02 Sep 2026 15:01:59 -0600, Caleb Sander Mateos wrote:
+> io_do_iopoll() assigns the result of io_put_kbuf() to the request's CQE
+> flags upon completion. This overwrites any CQE flags that may have been
+> set by the opcode-specific layer. (For example, if __io_uring_cmd_done()
+> had set IORING_CQE_F_32, it would be cleared.) Switch the = to an |= so
+> the kbuf flags are added to the existing CQE flags rather than replacing
+> them. io_req_rw_complete() does the same with the io_put_kbuf() result.
 > 
-> The driver never clears the core's IFF_RXFH_CONFIGURED, so
-> netif_is_rxfh_configured() keeps reporting a user table while the
-> hardware has been reprogrammed with the default one. "ethtool -x" then
-> shows a table the user did not ask for, with no indication it changed:
-> 
->   # ethtool -X ens1 equal 2
->   # ethtool -x ens1
->   RX flow hash indirection table for ens1 with 16 RX ring(s):
->       0:      0     1     0     1     0     1     0     1
->       8:      0     1     0     1     0     1     0     1
->   # ip link set ens1 mtu 1400
->   # ethtool -x ens1
->   RX flow hash indirection table for ens1 with 16 RX ring(s):
->       0:      0     1     2     3     4     5     6     7
->       8:      8     9    10    11    12    13    14    15
-> 
-> Keep the table instead, and rebuild it only when it is driver-generated
-> or cannot be honoured. An entry may not be kept if it points past the
-> last queue: mana_config_rss() uses these entries to index apc->rxqs[],
-> which holds apc->num_queues pointers. That is reachable because
-> mana_attach() calls mana_init_port(), which lowers apc->num_queues to the
-> maximum the device reports, so a table configured for more queues can
-> outlive them.
+> [...]
 
-To be clear this is only acceptable if the number of queues drops due 
-to re-negotiation of caps with the device, not for example if XDP
-requires some queues to be used for other purposes. In the latter case
-just refuse the config change.
+Applied, thanks!
 
-> A table that cannot be kept is still replaced by the default silently,
-> without ethtool_rxfh_indir_lost(). That helper sends
-> ETHTOOL_MSG_RSS_NTF, which requires the netdev instance lock, and
-> mana_alloc_queues() runs both with that lock held, from ndo_open, and
-> without it, from mana_attach() on the reset and resume paths. Leaving
-> the core's view untouched is what the driver did for every table before
-> this change.
+[1/1] io_uring/rw: keep CQE flags on iopoll requests when adding kbuf flags
+      (no commit info)
 
-Okay, so you have a problem of not having the lock...
+Best regards,
+-- 
+Jens Axboe
 
-> Opt the RSS ethtool operations into rtnl_lock() while here. Reading the
-> table in mana_alloc_queues() has to be serialized against mana_set_rxfh()
-> replacing it, and the two had no lock in common: mana_set_rxfh() ran under
-> the netdev instance lock alone, while mana_alloc_queues() reaches this
-> point holding only RTNL, from ndo_open and from mana_attach() on the reset
-> and resume paths. Taking the instance lock there instead is not possible,
-> since ndo_open already runs with it held. The same flag covers the netlink
-> and ioctl entry points.
 
-.. and yet your fix is not to try to take it but the reverse, to add 
-a different lock? You need to explain why reset path can't take the
-instance lock. Of course you can't take it _inside_ ndo_open, but the
-caller should be able to.
- 
-> Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
-> Signed-off-by: Long Li <longli@microsoft.com>
-> ---
->  drivers/net/ethernet/microsoft/mana/mana_en.c | 37 ++++++++++++++++++-
->  .../ethernet/microsoft/mana/mana_ethtool.c    |  3 +-
->  2 files changed, 38 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index 7a1ac853e3abcd28c4a1e5c6987ec631a18ad840..97386e17b9421aedefa25bab6fbf0b7b1f2996d4 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> @@ -3306,6 +3306,28 @@ static void mana_rss_table_init(struct mana_port_context *apc)
->  			ethtool_rxfh_indir_default(i, apc->num_queues);
->  }
->  
-> +/* Whether the current indirection table can be kept for apc->num_queues,
-> + * rather than rebuilt from the driver default.
-> + *
-> + * Only a user table ("ethtool -X") is worth keeping; a driver-generated one
-> + * is rebuilt so that it spreads over every queue. An entry pointing past the
-> + * last queue cannot be kept: mana_config_rss() uses these entries to index
-> + * apc->rxqs[], which holds apc->num_queues pointers.
-> + */
-> +static bool mana_rss_table_keep(struct mana_port_context *apc)
-> +{
-> +	u32 i;
-> +
-> +	if (!netif_is_rxfh_configured(apc->ndev))
-> +		return false;
-> +
-> +	for (i = 0; i < apc->indir_table_sz; i++)
-> +		if (apc->indir_table[i] >= apc->num_queues)
-> +			return false;
-> +
-> +	return true;
-> +}
-> +
->  int mana_disable_vport_rx(struct mana_port_context *apc)
->  {
->  	return mana_cfg_vport_steering(apc, TRI_STATE_FALSE, false, false,
-> @@ -3621,7 +3643,20 @@ int mana_alloc_queues(struct net_device *ndev)
->  		goto destroy_rxq;
->  	}
->  
-> -	mana_rss_table_init(apc);
-> +	/* Keep a user-configured table across the rebuild: its entries are
-> +	 * queue indices and stay meaningful while they are all still in range.
-> +	 * Only a driver-generated table is regenerated here.
-> +	 *
-> +	 * A table that cannot be kept is replaced by the default without
-> +	 * telling the core, which keeps reporting the table as user
-> +	 * configured. That is what this function did for every table before,
-> +	 * and reporting it here is not an option: ethtool_rxfh_indir_lost()
-> +	 * sends ETHTOOL_MSG_RSS_NTF, which requires the netdev instance lock,
-> +	 * and this runs both with that lock held (ndo_open) and without it
-> +	 * (mana_attach() from the reset and resume paths).
-> +	 */
-> +	if (!mana_rss_table_keep(apc))
-> +		mana_rss_table_init(apc);
->  
->  	err = mana_config_rss(apc, TRI_STATE_TRUE, true, true);
->  	if (err) {
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-> index ece7ff9cc409a806b6a6de70a85b44874bfa6dad..e3acaf17efabcd62f7cffabdb8404cf16b917272 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-> @@ -871,7 +871,8 @@ const struct ethtool_ops mana_ethtool_ops = {
->  	.op_needs_rtnl		= ETHTOOL_OP_NEEDS_RTNL_SCHANNELS |
->  				  ETHTOOL_OP_NEEDS_RTNL_SRINGPARAM |
->  				  ETHTOOL_OP_NEEDS_RTNL_SPFLAGS |
-> -				  ETHTOOL_OP_NEEDS_RTNL_GLINK,
-> +				  ETHTOOL_OP_NEEDS_RTNL_GLINK |
-> +				  ETHTOOL_OP_NEEDS_RTNL_RSS,
->  	.get_ethtool_stats	= mana_get_ethtool_stats,
->  	.get_sset_count		= mana_get_sset_count,
->  	.get_strings		= mana_get_strings,
 
