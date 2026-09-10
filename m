@@ -1,171 +1,244 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013015.outbound.protection.outlook.com [40.93.201.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26ACB3A7F52;
-	Thu, 10 Sep 2026 22:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078724; cv=fail; b=U+LplhwpsdoPr2uOyTkgYvY1J1doM7BEbOBChpy83BgMjpwASOOrhBeFUX9ez/LkN+EwYCD0/fz9lO8x4qNZ/eF6Gms6Zw/DFw8lNZZsSo0oua4EqHtqlbDP+NUOi+8w1uNRs32Pa1OwaiD+spOvBXME62Z/BPJA7qg+JjWW8XI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078724; c=relaxed/simple;
-	bh=skSZMJCxx5hkdKhii/CR8+Hb56esOFV3bhF6MfbbNWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=K0zASmrymfNtX9KCCOSDRvoWg/yH3XGdxvMfMjozUDdt5OODGe1imavjTkUACYXZo9V0nei0XZFxo6eLQdgFm3BZV6B6LnWHgQ/CO16xCRoRq4R1+xQ011PxG18YkUEB+3sEc56/qYEq91nacM9GNEuVePowoNmnjSshQJFNRl4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uQVXA4ZP; arc=fail smtp.client-ip=40.93.201.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7ECF21ABD7
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789078775; cv=none; b=UVDXjhUvzk5UauHkNYcCn4FHqGlP1XZ0chPUSGbNPTmvKMZjQta1+4lW5qZXbR5e58A4ZrouEdz/vZ6e6dw2yQAJriexmqpVC0OyZQFTDGyy7BcIO49q5zdag5KLwMrnqPB5/OLALnnjK+ibWdL2NCVVvXpvmSvxxufRR4HBnuk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789078775; c=relaxed/simple;
+	bh=e26TYNe2QL8d0T7JPZwSv9gfQXW/AkTljomMDCzK/C0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FsXYf4q+lbLMHpVvOHFiOtqtrV1McBoRY2ehMHKrasB9Dl3hZlyNwaEvp8OB0WRL+IuhXKhQdAiZ6FIvpz1tGGfeLca0EjQ/TT1avTMptMeHQokzdbCMdG1xmw4uaId9+F9JZcbyNymEvWn+bVcW0xOrlbF1UlaePImGcMsEfh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M7jLS46+; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uQVXA4ZP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wHrARG1sxBtLue13PauEtIp4t1lYqz19P2FbbuiJbKcWeFYPvxkPQDHmGH7dN050Z6OHI5xhn7J0KT86X+hxcq0uE0XjHWWFPH55jFUi8WXcIyGj9Q7p3Yp+nDRqo2aMKonMTKg8sOC4s2SX5lw/zaJfoCqf+SCYPJH7+CRiehpCGkmXWgjuUUTQUXWO/R7F8CU2BONeHYThkWz66QH5xk0VPpVFpfdseLXTrybr9nYO2+am0w5ZbZbrStLfWiHgiWTVCvkH3Ti81tk8VuQ1PZHja4u4kGS3ZsNlh3lNFP2me2Yu+XlR/qFTx8j0yYtQVzbhVGQ6q0ADCEOqOgxuww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=skSZMJCxx5hkdKhii/CR8+Hb56esOFV3bhF6MfbbNWk=;
- b=Cvtdvgv+4JvHx5+DgwUv+0AbQ03VB16pgcjq7dVJhqkhGBiqSIG4XFDBudj28y9TTIwtmUZR+WYqAFe/43Rkx9ijHTiEnPQD1K6OTGG6sQmd+rjjmuFH3sQgda0FnyKh2Eq5e/S2TM6lO9XzHinx7KSGBeJL+kDMViq5LEKjnYKDQq7CypGKTDz1+cdKAGq0kQTUKWXbcqeMzxCWtlai2ihBsw6HS1iz7cLNBibyfwvsZsEK272UM61PuTnA5hUG6jbZ1F9fzIPDT/MOe6JKG6zkv787zHBxwLNQcHtrKeTCWgRk5/vCHfDzsOwAiPSJpqKupQ6EKClurVAzyQNI0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=skSZMJCxx5hkdKhii/CR8+Hb56esOFV3bhF6MfbbNWk=;
- b=uQVXA4ZPv1GD/4HvsVpUy2HEyMvmowkDxhAdyjam+XINl5GibTrTCPBBiT+BVw9tZ+oTDDAnp8qCjkqmctCHBBS/sScz3tlG52fNBvJ05VCKRg+EDLIwzBN4DqwTEyYuRjbZXO7kHhBHnUuXG9hYVkSSHewfGDXAfMisZRtx7pW/8QhUxRmXkCzS/iIXaWNsFTHxaXPyVKvb6eXa8ZJBTw4Ud/TQt5pgT8f8pQSohTjKiRWvLIykzyJsyt5fhwRh5UG8Fbu9sd1zOW3IcdFGEnSPhvP6IZ/g0sjeE6FpomKgOJaVv/VLgIjBmyXAfJE05GMrNi5MvsWIm6J+6FB2rA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CY5PR12MB6600.namprd12.prod.outlook.com
- (2603:10b6:930:40::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 22:18:33 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 22:18:33 +0000
-Date: Thu, 10 Sep 2026 19:18:32 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: David Matlack <dmatlack@google.com>
-Cc: Sean Christopherson <seanjc@google.com>,
-	Logan Odell <loganodell@google.com>, arnd@arndb.de,
-	pasha.tatashin@soleen.com, rppt@kernel.org, pratyush@kernel.org,
-	graf@amazon.com, akpm@linux-foundation.org, pbonzini@redhat.com,
-	maz@kernel.org, oupton@kernel.org, bhelgaas@google.com,
-	alex@shazbot.org, kevin.tian@intel.com, dwmw2@infradead.org,
-	baolu.lu@linux.intel.com, joro@8bytes.org, will@kernel.org,
-	robin.murphy@arm.com, linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-pci@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and
- memfd ABI compatibility
-Message-ID: <20260910221832.GH3968357@nvidia.com>
-References: <20260903023452.721732-1-loganodell@google.com>
- <20260904160009.GV4157646@nvidia.com>
- <aptFFYqcSiBdMLE8@google.com>
- <20260905012403.GX4157646@nvidia.com>
- <aqIAtOoew-_6jw29@google.com>
- <20260910143448.GD3968357@nvidia.com>
- <aqLOWkuVKccR-I7W@google.com>
- <20260910171210.GF3968357@nvidia.com>
- <aqMgjXfTJ8u3n7Kj@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqMgjXfTJ8u3n7Kj@google.com>
-X-ClientProxiedBy: YT4PR01CA0436.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10d::8) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M7jLS46+"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so1763495e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:19:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789078772; x=1789683572; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0I3M3rAR5bHQYaKtviGaKS9FP0lfKdn84QYzscvg5IA=;
+        b=M7jLS46+2AgDx5UjgJoVwt87sdFHptFkS2LT6DRjl9wOdCi20yudfx/lIlmzRCg8t4
+         +twO1/lbPelD0r1qjfjnoj6AuO42n+HolkTqZp2wpGZzt2Vtr3Yyf0CU004uDjIvvFC3
+         YSvXXmXpTs8BjH2hPvpwu7Yh6wilhJ3B268B4c9I2cmCJ6dwO8t86++j6t/bZlVAZaqI
+         sM+jwos7TkGacvSU1yiJ49czA3WPM3ntgciKWZ4RLK4mrKLF26sVVWUGV+GgVbOw+7i4
+         bxAG+KbbLDKZBtXo4b1XDaiJHm66TVqeOh0nfA0gl9MyAJhGCfIsC8TzsMUTFCqd5/aJ
+         pGkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789078772; x=1789683572;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0I3M3rAR5bHQYaKtviGaKS9FP0lfKdn84QYzscvg5IA=;
+        b=sTRqlKKtSK8E1M8B4TF04XSQs8Ji/vkiiVAMQ5o+R0XlXRxc1VmiGJYXEzEgoikau6
+         2Z8kU+8mr99Aijy3B8V0+k7gMucXykkD2vvQFMyuB01X7QbSxACjonjjixvJNkZf9H45
+         JPokTj8XmL6Ha2iR1d0pzBTRC4/H9fD0OQGtSLkQySgdygKuuZU7NqAwBllILJl4YXlH
+         +vTwuSj1yq7wRlfS4mpMpfetLAj2X7Ygv8ylOg1lorjeHz5ABY8Qeijv4jS/RCq4EO2m
+         kM2i+dbJzaOfbjDQ09FFWJKx7sftVYsaYpkc4YSxS+S3thHgPzNfXaKU28duPWgmgKOP
+         nSwA==
+X-Forwarded-Encrypted: i=1; AKwUvByE+T4uwOVDMF2I95JGZ1KxTxwVxjQuJ9+h+HDi6d40xaGu0V2YMcrL3z7/4xS3sUrDMktty220e+e/mgs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1w0+N9XQ1aV7Cr7lyrHhea0H5BnBsJ6VjgaKA3djkn+b7PMyi
+	Rlv+nNAkZwAuHL1WFyUhoGIPjEMq44sq1yr2mvvsGkJrPfNPZKmdks54
+X-Gm-Gg: AYBFou0+kBDtD5lp1q8HgY3Ur/k99SvHjOGLDs3vLX/8PhDLElr1K4pi3sjRJTJvWRi
+	y380/lrg7c5VsvMHv4mHJpkJotHjxfDoHAM0wEEv8eWobFlGxRsScLHwLcnbPmHHprcJpE5wmrB
+	YpONS3t43QQU88JNoRLAuU0bfVFuAwS0UzyFJpMJTm+kjGqD+lTQzL37TjBqx9+WLbii/pEuYOD
+	tyCDtoacxxiVKvdsHv4EAKUX2omXPHJ8aHMQMGyxrg7Yu9C8A7CUKBqKdd3YugDaubWhFq1x7of
+	8UAOEXjfM++KQeyvlW4d98jTuOGCzDjePi+5eGUL1G7dNEbn5yEcddQC1emKJ10urmIcD/ypICj
+	Tic3CkaJUcFbFN8xPgoyKclJVDrI8J/AW+bB01/rDgun+v6jP6yutOyACUfWKxeQTmqQ8ij37wI
+	O5q4grhFp2gJys8XxDzV1mU33hWZCKbp8O8nQWVw4ixb6z2Om77L6dUVDJaa4DatUeXLEkd+P4I
+	aYBASk4tfLt/rsZzQz4/6KMuRjKq7tv5+NMWTB9TU73Dl4afjkgzx3bH/JAuHuYFa4=
+X-Received: by 2002:a05:600c:c493:b0:49d:2607:4ada with SMTP id 5b1f17b1804b1-49e619bf31cmr22607875e9.14.1789078771691;
+        Thu, 10 Sep 2026 15:19:31 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bfc1sm123524145e9.4.2026.09.10.15.19.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 15:19:31 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <e21cf89d-6fb0-40a3-85b0-76bcf1cba9b9@gmail.com>
+Date: Thu, 10 Sep 2026 23:19:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY5PR12MB6600:EE_
-X-MS-Office365-Filtering-Correlation-Id: a15d49df-9717-4f83-750c-08df0f897359
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|6133799003|22082099003|18002099003|4143699003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	1MrG7hkEr3/b3LgVUbr3162uj/00KXpgrem1FS0xbTzLzM3PogRZ6ft/V8vIiKXJ8OVtbi8DxkFKxmamRPOP1w6Fn11gb+rXacwmsSNNjmV4uPfLWIkPPTgyGyWvnRqHiyS6Uq2oagzDuU0sdraG+aYdtLYfQS/MUop0XfL5UXF24KveLIiOMxnOnnew2Ld8F8mww4OGPrqAOIGVi1A63zX4HXmE4CRpg+JGsp9KYXvYreTHuUyeBZZ7qHttNIqwgnFOAjmX0gwDzKNha+KwrLEapgcYx3On8gjDmS6D5Paceyzov5QAIwWosma0dZbfzi473LfDrgIlQS3t2QSkMAYi6X52XKYi26SZp+SBo7SN9IrORW8zbVgxTpr4opfnq+U00wxEG8mNKkOhUr3HQ6YpZKrBAPTuAl8m4eQvoKcvGGWO6R6CAhw+vK9bIHdAYQHOSLKI+q63cG4YxysIOUwbtMb2uGzG+M8hESfeEa6dfI3ywOMIIUV3idfV1GmtrRRhvKUu2o5XkmOHN6C13Hnw62pVS0fkEbO/9BvACzmd2Aajrf4UkwJs+1iVJ6PvSyWXiPMBsD1YmrP0yY3R552muNiaaxkcxGeXYSeK7KGXhZZr9E/Ahy40Nfh39DFzC1j9T5eciGxPqzmdz5FPoc1BRAXkuQ49f0/oh42TpJ4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DDe9Xc7gGk3KAGlAubroCNFNm8Bxdjzpg13Pguni19iU70Qbi5dn10yABek7?=
- =?us-ascii?Q?+BbPvjPhOkMMWVPW4ZATvYezSPIri5b1bMC0hkGPf8h+WGU7HXfoNQxpuTtL?=
- =?us-ascii?Q?v6jo90Cgt+p/9c95391WcvrsWRT9cKvgBP7UgNm83M17W1S9gyJEC5cnf4nK?=
- =?us-ascii?Q?giVW2PkEkYA8gwcSBPrNjI0yMN5kvvJwOC73Prt63j+qPnqSkXwvhIf0XG0l?=
- =?us-ascii?Q?rOvHNTF2KSVZMTpp31V2oEWOpy9hTNTgDPtXgkSu0wd0E7M6A3U4hhGtxkxV?=
- =?us-ascii?Q?W4RLjl2WTGQjCe+wEBEF3KkBVbSt4oPITguHm9V1Qr1VzcCfWcsXZrKDmCV9?=
- =?us-ascii?Q?bUp13/PyjWNpWh9MxpElG+BExyyiNOJdUA89xBYH+TYCkPRrb0IB66RwWFIZ?=
- =?us-ascii?Q?PIBrstGRpT2i6K5Eq5sQWNhpqVtImaoig8Noc/wouZqb07XpdC/9M+XU/3vo?=
- =?us-ascii?Q?XrGyYeUth4pM775w8j94D9z2PA2bczU+GF1dSsklciTEkPmOzGz2pplgVHl2?=
- =?us-ascii?Q?lctyduI7G81zuOIJFcej/OoV1VS+a7CYPRL8F4NQW1mkyaeh/7iaTjBUFF2J?=
- =?us-ascii?Q?W0ba4k+kkkEQxfWz4K37Ht+eN6H23hsKNfSaL8FaqV6qV9E94kqmgyOBzLZH?=
- =?us-ascii?Q?NUJer5Z2h7b+HAcr3XmwYqvNIUqKHiY+l8jxicwcIH/6WNcdNKedqLQuW8ND?=
- =?us-ascii?Q?FGzaPt0V4kKXdUO7pUzZDAKQ9PUX+oVrr6S4b539Cs4eiVklioZZd4BgRmBH?=
- =?us-ascii?Q?ehaX2PKmQoS6a1Nw6bGlp5o4OGwslD4GuOtk6LiFtA6St3KLZb0UFtUczR9L?=
- =?us-ascii?Q?0jCLTMbZYtniOqDvRf7HR3KJkxNepSGS1VcNgi5/Ia5CSnKbOrpEAL2kBPGG?=
- =?us-ascii?Q?MbVGtbt12vuPRmSERGI+O/SIwydjWDnOLkrRJyaN3HjoeKb7PFnLX8as2GEF?=
- =?us-ascii?Q?N5504hHIsB2foJ/XgyvYTjlmWFQQLkBoUAbsOxi6OGIJh6++uLJ2UN8sYJSv?=
- =?us-ascii?Q?fZjS1gUPe/PWiGwXnhKsuWAFhnakOZz82LkBQU/0RtIipjJ0UZI6WCG2TqER?=
- =?us-ascii?Q?NnG0CH7Bk5w2/6Ju5CRi+dnwG4ZjjWJVm9NHp0+nvfdY+29YY0a99LJ1U1uv?=
- =?us-ascii?Q?G1ZmDpBNZSz60SHyCgtA8Osum/ORpMVzoqGWQcc/UET12xV4Tvyx0cxNVgTM?=
- =?us-ascii?Q?G1ATxp++dwtYMBQ74GCi0BltsFUg2hpkEGBB70uFuFZJFTYIQiL2R73gIEF4?=
- =?us-ascii?Q?OLxojJrXfZ9/cUJ1PWMA+JlY76t5DkxqIAg111fZRHciNTMWdWhIviT/WDvr?=
- =?us-ascii?Q?zpgnKnaJBP2Eu+MVC1iOTjMN6JUDWO5lSdj2+p4Z3FT1JHQj+SstEmesPhdt?=
- =?us-ascii?Q?CAv2TJhvRTdeTOv7wnTFMjj2BPRh6AbZ2uo5Rn83Krwppf3XGYy8hqz7gykH?=
- =?us-ascii?Q?KJk4AStKO7CPyunikXj5Iu1R9eXnLLMaKffBtvZqXG1yEWsrsJV3VzuGBCbt?=
- =?us-ascii?Q?CvIOec1brUcK6y+VMfbI0skRfx+3RuJ1hu1Faft45fFurHsjNuolQcuHK47F?=
- =?us-ascii?Q?9yNnfLrCiyX0aSE0OrMV0CR+0NDO+c1nzV/9WuwwXvUFQ53fe9jdvzEmgft2?=
- =?us-ascii?Q?YpUZ9XdERVYz27Df/ctIDIdt/5wRvZeXvZEYIO/mJF2vyqjUMVfcVmOZcZgO?=
- =?us-ascii?Q?EUu0IlYo3vyULrlddYZWuDKOBc2pvvHJJNlblcOX8O6NWJv0?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a15d49df-9717-4f83-750c-08df0f897359
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 22:18:33.0913
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tOcwI9WOc7rme2P/95uDNbTYQSUUGV512F92iOcPIekgiYmCZsrw0oFwfPO86YQY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] kconfig: prevent out-of-bounds user input for numeric
+ options
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: nsc@kernel.org, nico@fluxnic.net, rdunlap@infradead.org,
+ grahamr@qti.qualcomm.com, kees@kernel.org, pengpeng@iscas.ac.cn,
+ vegard.nossum@oracle.com, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org
+References: <20260829171902.1510587-1-julianbraha@gmail.com>
+ <20260829171902.1510587-5-julianbraha@gmail.com>
+ <178856431424.3782172.2818215537125415152.b4-review@b4>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <178856431424.3782172.2818215537125415152.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 09:27:58PM +0000, David Matlack wrote:
-> Each ABI is now extensible with a set of structured featured flags that
-> are exposed to userspace. Userspace can inspect the flags that the
-> kernel supports and confirm the next kernel also supports them.
+On 9/5/26 00:25, Nathan Chancellor wrote:
+>> diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
+>> index 4234a51d16fd..2227d89d6328 100644
+>> --- a/scripts/kconfig/confdata.c
+>> +++ b/scripts/kconfig/confdata.c
+>> @@ -354,6 +354,12 @@ static int conf_set_sym_val(struct symbol *sym, int def, int def_flags, char *p)
+>>  	case S_INT:
+>>  	case S_HEX:
+>>  		if (sym_string_valid(sym, p)) {
+>> +			if (def != S_DEF_AUTO &&
+>> +			    !sym_string_check_bounds(sym, p))
+>> +				/* hex uses 64-bit unsigned integer */
+>> +				conf_warning("value '%s' for %s is outside the 64-bit %s integer bounds",
+>> +					     p, sym->name,
+>> +					     sym->type == S_INT ? "signed" : "unsigned");
+>>  			sym->def[def].val = xstrdup(p);
+>>  			sym->flags |= def_flags;
+>>  		} else {
+> ...
+>> diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+>> index 2d8b0c65ce1e..6f99216ee76d 100644
+>> --- a/scripts/kconfig/menu.c
+>> +++ b/scripts/kconfig/menu.c
+>> @@ -4,7 +4,6 @@
+>>   */
+>>  
+>>  #include <ctype.h>
+>> -#include <errno.h>
+>>  #include <stdarg.h>
+>>  #include <stdlib.h>
+>>  #include <string.h>
+>> @@ -255,17 +254,13 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+>>  		return 1;
+>>  	}
+>>  
+>> -	errno = 0;
+>> -	if (sym->type == S_INT) {
+>> +	if (sym->type == S_INT)
+>>  		type_bounds = "64-bit signed integer";
+>> -		strtoll(sym2->name, NULL, 10);
+>> -	} else {
+>> +	else
+>>  		/* hex */
+>>  		type_bounds = "64-bit unsigned integer";
+>> -		strtoull(sym2->name, NULL, 16);
+>> -	}
+>>  
+>> -	if (errno == ERANGE) {
+>> +	if (!sym_string_check_bounds(sym, sym2->name)) {
+>>  		fprintf(stderr,
+>>  			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
+>>  			prop->filename, prop->lineno, sym_type_name(sym->type),
+> 
+> With this, you could inline the type bounds string like you did above:
+> 
+> diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+> index 6f99216ee76d..f4b5b11991b4 100644
+> --- a/scripts/kconfig/menu.c
+> +++ b/scripts/kconfig/menu.c
+> @@ -238,8 +238,6 @@ void menu_add_symbol(enum prop_type type, struct symbol *sym, struct expr *dep)
+>  static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+>  				const struct property *prop)
+>  {
+> -	const char *type_bounds;
+> -
+>  	if (sym->type != S_INT && sym->type != S_HEX)
+>  		return 0;
+>  
+> @@ -254,17 +252,11 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
+>  		return 1;
+>  	}
+>  
+> -	if (sym->type == S_INT)
+> -		type_bounds = "64-bit signed integer";
+> -	else
+> -		/* hex */
+> -		type_bounds = "64-bit unsigned integer";
+> -
+>  	if (!sym_string_check_bounds(sym, sym2->name)) {
+>  		fprintf(stderr,
+> -			"%s:%d: error: %s constant '%s' is outside the %s bounds\n",
+> +			"%s:%d: error: %s constant '%s' is outside the 64-bit %s integer bounds\n",
+>  			prop->filename, prop->lineno, sym_type_name(sym->type),
+> -			sym2->name, type_bounds);
+> +			sym2->name, sym->type == S_INT ? "signed" : "unsigned");
+>  
+>  		return 1;
+>  	}
+> 
+>> diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
+>> index 7e81b3676ee9..2d1c021fa395 100644
+>> --- a/scripts/kconfig/symbol.c
+>> +++ b/scripts/kconfig/symbol.c
+>> @@ -5,6 +5,7 @@
+>>  
+>>  #include <sys/types.h>
+>>  #include <ctype.h>
+>> +#include <errno.h>
+>>  #include <stdlib.h>
+>>  #include <string.h>
+>>  #include <regex.h>
+>> @@ -711,6 +712,21 @@ bool sym_string_valid(struct symbol *sym, const char *str)
+>>  	}
+>>  }
+>>  
+>> +bool sym_string_check_bounds(struct symbol *sym, const char *str)
+>> +{
+>> +	errno = 0;
+>> +
+>> +	if (sym->type == S_INT)
+>> +		strtoll(str, NULL, 10);
+>> +	else if (sym->type == S_HEX)
+>> +		strtoull(str, NULL, 16);
+>> +	else
+>> +		/* string */
+>> +		return true;
+>> +
+>> +	return errno != ERANGE;
+>> +}
+>> +
+>>  bool sym_string_within_range(struct symbol *sym, const char *str)
+>>  {
+>>  	struct property *prop;
+>> @@ -722,6 +738,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
+>>  	case S_INT:
+>>  		if (!sym_string_valid(sym, str))
+>>  			return false;
+>> +		if (!sym_string_check_bounds(sym, str))
+>> +			return false;
+>>  		prop = sym_get_range_prop(sym);
+>>  		if (!prop)
+>>  			return true;
+>> @@ -731,6 +749,8 @@ bool sym_string_within_range(struct symbol *sym, const char *str)
+>>  	case S_HEX:
+>>  		if (!sym_string_valid(sym, str))
+>>  			return false;
+>> +		if (!sym_string_check_bounds(sym, str))
+>> +			return false;
+>>  		prop = sym_get_range_prop(sym);
+>>  		if (!prop)
+>>  			return true;
+> 
+> Sashiko has a comment that seems to be relevant here unless I
+> misunderstand what it is complaining about:
+> 
+> https://sashiko.dev/#/patchset/64934
+> 
+> Otherwise, I like the direction here.
+> 
 
-I'm fine with that bit, it is really just a different way to encode an
-ABI ID #. If ABI 5 is spelled b11111 instead it doesn't materially
-change how things work.
+Thanks, yeah it seems Sashiko found yet another instance where the
+numeric bounds checks could be improved. Including this in v2.
 
-It was always the case you can use the same struct extension techinque
-with a version number. A version can't handle 'holes' in the feature
-mask, but I haven't thought that was a meaningful use case.
+- Julian Braha
 
-"if (id > 10)" instead "if (id & FEAT)" isn't a big coding difference.
-
-My concern is the implied position that the kernel must make full use
-of this to maximize compatability or bust. That's what has always
-concerned me about all these proposals since the start.
-
-I do not want to have arguments upstream about not changing things
-because we didn't do a perfect job preserving luo compatability with
-upgrade and downgrade for arbitary kernel versions. That has always
-been my position and worry.
-
-So, change the simple version to a u64 features[] tuple (be sure to
-use an array, we will need alot of them!!) and I'm fine. But I'm not
-going to promise that every upstream kernel will strictly only have an
-increasing string of 1's. You are going to get some that look like
-b1110000 and still wont work with old kernels.
-
-Sean's initial email was asking for strict never-break ABI
-compatability rules on top, and that is what I've been reacting to.
-
-Jason
