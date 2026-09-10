@@ -1,114 +1,84 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFA4493D38
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE14A4828;
+	Thu, 10 Sep 2026 15:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055898; cv=none; b=OEGnhOjI1VWDrnzgM1brwRT4w3WP2C7+RlPM4cC2z5iYH9ViEJNlblRCx/yK9dHlslLA7gw1j1RHdO4rky4v6WEaPXMRazYYDmlD7Dj8JfH6haD35XlBZGdTw2bqOYmOMgTEG1GwSfnqizmg+j6UajevC7Q5Oj2reCWNONi1G/k=
+	t=1789055915; cv=none; b=DN9NzEdI+awDcFLRXXAaMDNDuvlRVbDgDNwhgZD6np9FccPLQegyQuitX3Ua7eX+ExYMejOK3FJ6rm0OtxwA/owqGRb5Cvrn3q/5xvmzAlgEq7g69Ays58kGhSLwakCkpPU+wYNe/bjWZ2LP8sby7ElOS6eKlid/QWJn46GgLig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055898; c=relaxed/simple;
-	bh=lXXn5TnrFsvI2/Jg+EC17kq4hFlsBRSeCkj7ola1KRo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cl3T57+ltXzYaFFYhQ/6WqKBmvjGQ/uMFwsL7+GEEiu2iY0cteFSl82TTN5ZLCzBcdjMJsDM5hHLh4g6E53q1aT+1S52uJV8yex7EKTMilLzU3EIYB3IR8KJLqju13cs7p8pPjxcMfAux3NKVPlzRIgQI7k+y4XdxTjfhKdWIjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gMqRNITG; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789055915; c=relaxed/simple;
+	bh=mtivQnJuoyYZo/CHk4ap6/0IFAKN/CSN0eD/OxTrYQY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XsUYG1emo4HBP2vbANaQlKEUUlG/z6uGGbpswSqD5m9RLnsOKVyALK30A//HoQOPUjXFPOFkvT7gerAn9ACc9FGDyCPwZ5m4OEOUwWWRIr0P1H5lZs8Ti46tHa2SJSXUNPXtMR3obqtQ/XFFcSjVBwZaYDL8OEDKV0yPqPZH6mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WhFVnzp5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gMqRNITG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
-	Content-Type; bh=ShBXiOQAd5iNbJHGsvsICLBrb6rH8R/rc7VKP2kL1Tk=;
-	b=gMqRNITGldb7vLFOL96Zulvif3U0TgAkVOhPdJIdVxsMBDw9lhOYLlvaqYRQa+
-	R08oQPQbfOa6WKyAAGW15xk3cV4N4gIhHkfCKQMkXRWEWe/HnwFy9xsD1G94/Mi/
-	SaLkwq66Ak+k8utVQvvY68dZdZxayxd/37bjXrhTb06nU=
-Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3hg8z06JqvIV5Bw--.21388S2;
-	Thu, 10 Sep 2026 23:56:36 +0800 (CST)
-From: Xin Zhao <jackzxcui1989@163.com>
-To: vincent.guittot@linaro.org
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	jackzxcui1989@163.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vschneid@redhat.com
-Subject: Re: [RFC PATCH RESEND 05/10] sched/fair: Introduce select_task_rq_fair_thin() to select rq when LB_PROMOTE
-Date: Thu, 10 Sep 2026 23:56:35 +0800
-Message-Id: <20260910155635.2101399-1-jackzxcui1989@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAKfTPtD1NZ=AOdW7z5KyVHqaoEPso-7yqsicj=9t4zM20qJ_eQ@mail.gmail.com>
-References: <CAKfTPtD1NZ=AOdW7z5KyVHqaoEPso-7yqsicj=9t4zM20qJ_eQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WhFVnzp5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A0A1F000FF;
+	Thu, 10 Sep 2026 15:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789055913;
+	bh=mtivQnJuoyYZo/CHk4ap6/0IFAKN/CSN0eD/OxTrYQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WhFVnzp50ZMzAinzBu3+V+LxJiL1ETZLztYuPRaNmD4TM4LKH/tAzaI2k4vHvEpre
+	 KxvckaZoIhhd9MHHc+efQJYCjh4tGIKCBWxLjXNmR94nJsyP9HlJRxsg5Rwiwby43X
+	 7u9k+c9OZpGPuWTZT6YPWziNRLZPks+rO19mGp5zbiLXc++8pB2lTvxzek1tRJssuq
+	 roSU2s26UpZfbbdc0ZX+Hc9873iqBs6UycCnsSn2KTOWvf/9VWMEaJx377cvOpi2gH
+	 CeR18u+EGJTzrdeammoAGOSALcrV9t9ITn16TSRjqTyJ3Sr3bbYqsf0inJDWZNr0yB
+	 k9t5c2vFTaNlA==
+Date: Thu, 10 Sep 2026 16:58:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/2] regulator: Add MPS MPQ4210 buck-boost regulator
+ support
+Message-ID: <cd0d2e42-5fbe-4cf9-81a7-cb102f543e67@sirena.org.uk>
+References: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3hg8z06JqvIV5Bw--.21388S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWfXw1kZw13uw43Kr4fuFg_yoW5Jryfp3
-	95K3W0yws7Xw18J3s2vr1xWF45Cw1rG3y5AF45CryUCrs8u3Z29r13Krs0vFy7Grn2ya1j
-	va1qgw1DCasIvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU0NtsUUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbCvxRFT2qi0zSLtgAA3z
-
-On Thu, 10 Sep 2026 17:31:43 +0200 Vincent Guittot <vincent.guittot@linaro.org> wrote:
-
-> > Adding such a function to the mainline code is indeed not a good idea. What I
-> > actually want is to prioritize selecting idle CPUs within the LLC first, and
-> > then select idle CPUs outside the LLC. However, once the fast path taken, if
-> > I’m not mistaken, it only selects CPUs within the LLC, which is not very
-> > friendly for machines on embedded platforms, as it becomes difficult to bind
-> > tasks without crossing LLC boundaries when the number of CPUs is small.
-> 
-> Ok, I didn't notice that you were looking at all CPUs, not only the
-> last LLC. Do you have more details about your cpu topology to share
-> with us?
-> 
-> we have sched_balance_find_dst_cpu() which looks wider but needs
-> SD_BALANCE_WAKE to be set in your sched domain topology
-
-Our system has a two-level scheduling hierarchy with 18 CPUs and 4 clusters:
-0-1, 2-5, 6-9, 10-13, and 14-17. Each cluster is LLC (Last Level Cache), and
-there are no finer levels of hierarchy.
-
-I did overlook the detail regarding the SD_BALANCE_WAKE flag; our project did
-not change the default state of the SD_BALANCE_WAKE flag, which is set to 0
-Moreover, as far as I know, most embedded Linux projects have real-time
-requirements and generally do not modify this SD_BALANCE_WAKE flag.
-
-Given this situation, is it necessary to create a new branch for such a "_thin"
-select_task_rq_fair() variant when enabling LB_PROMOTE?
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tsE3q8oCInVXG8I9"
+Content-Disposition: inline
+In-Reply-To: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
+X-Cookie: The star of riches is shining upon you.
 
 
-> > BTW,
-> > Regarding nr_idle_scan, I have derived some data and the analysis is as follows:
-> >
-> > If nr_idle_scan is 2, then: y must be at least 512, tmp must be <=512, and tmp
-> > must be <= 512 * 10000 * 1024. This leads to tmp <= sqrt(512 * 10000 * 1024 / 117 / 117),
-> > which is the square of 382,999.488, resulting in approximately 618.8695 after
-> > taking the square root.
-> >
-> > Multiplying this by 4 gives us 2476, so if the estimated utilization of CFS
-> > tasks exceeds 60.54%,nr_idle_scan` must be less than 3 and becomes 2, which
-> > may result in missing idle CPUs within the LLC.
-> 
-> nr_idle_scan has been design with large llc in mind where scanning
-> hundreds of CPU is significant but when you have only few cores, we
-> could be more relax in the number of cpu to scan
+--tsE3q8oCInVXG8I9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I can understand that the logic related to nr_idle_scan is very necessary when
-there are a large number of CPUs. I realize that many x86 machines, even personal
-PCs, have a considerable number of CPUs in their LLC.
+On Thu, Sep 10, 2026 at 08:51:40AM +0000, Tapio Reijonen wrote:
 
+> One consequence of the hardware worth spelling out: the MPQ4210 does not
+> respond on the I2C bus while EN is deasserted. The enable GPIO is
+> therefore claimed and asserted before the first register access and held
+> for the lifetime of the device, rather than being handed to the core as
+> regulator_config::ena_gpiod, which would drop the bus along with the
+> output.
 
---
-Xin Zhao
+This is what regmap's cache only mode is for.
 
+--tsE3q8oCInVXG8I9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqi06QACgkQJNaLcl1U
+h9AwXwf9EhDfR+7s0wsF+PpKppfHYz5n4/Q4A48fnAZvCChWNjKGdobPaZxQry4x
+a9cejgulmZQuLjxj6dgurEKNodEyQaGeSR3hdhwQ4oPEL2ouqbgbeQML0qJDaIEi
+g/rIGulc8gk/2TbV9FNBZcnJcSJo9wW1pD3l+nnHvifNpMvFwuRf587nEJ9DvHGA
+YWZiBaer6qX5qbGSZpAkbWVgZVtsAIPchvTXPVEkZLFRoZ/rLSxWH8mBkBWZbg4L
+Qn9S8gmqo1jehPILbBIF+/cgfFfisdyIUdMuWWMjRYnVUaUzmzGO8ozLfQmDJtak
+9t3YgDAd1xNdbWCmwvq51M1ABOoBrw==
+=ZQQS
+-----END PGP SIGNATURE-----
+
+--tsE3q8oCInVXG8I9--
