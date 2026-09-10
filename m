@@ -1,110 +1,125 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBB6376481
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BDA46AF16;
+	Thu, 10 Sep 2026 11:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038282; cv=none; b=TrAMppKEYBmw6xdKXHuiN6R43s6YGuRj+ijvcfDqtgGpZtQOFXf/AaVSBWxeBgtoeEkjna6Fko9sltFHYmT9Pprf9GqXnlptYMFqHZmmRjhfRbedhsrG+FMkaMj/x+LsOy3oGUDFUDKyyoEiUpXZrME6A2K27mEePvqBaPg1huM=
+	t=1789038297; cv=none; b=Q+mjTE0EtHpOY+2C7TbBMsvM+1WfpTtLmILKsAGHW2yBJemOnHBIzIoPbfZs2QL7N7ko/mNnDjFzXU/onvuwqOWW9SmnXiw9/NITWZ4YFYWB8Se+w6T++o/IBvgetk+jR6I9t7fAjKJbxRBnEkZGac0CvkEUUyfDmSeFphFYmnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789038282; c=relaxed/simple;
-	bh=3q++fkQISw/DqZy/79hTcf7bnPSwjh/Vc1ryjSPvQTA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=T1vFnWPzb0j9G9ksJEPqsCYhxTPFSlHyajIUiSiaQfaTd54Wlq1zSRncny+W3fxWS5eC8T9k7NknWuDEtNMFw3WbPvYu6jHJPxTE6ANjwQyK1Tgp+JHNctOkZgut72JZhxofoQ/Vpm/EoFrPHmQy9JiH1xMMenS55YviQW4ts7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hZkMbrL6; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789038297; c=relaxed/simple;
+	bh=1im50MvfCntX5uK7c0W8zCwLdojckAYXiSk2UfllKYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=azaIxK5AHDaso25pc0YJwhkCb6cDR9guAqPfapCMYBbBkPEbvliND66472tn5cN+yT16Q1ZL0dnDIBd+tIdZX9OiGGDzvNbFX1bl1CBfBZYr9pKDg2ejV/K/Nn//DgRQwyhOR+KNOPCj44cC6uPj0qy6he+84UZTt5DQXjkXfa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMOnMmGX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hZkMbrL6"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hgZZC3897zMlK1;
-	Thu, 10 Sep 2026 13:04:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789038275; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3q++fkQISw/DqZy/79hTcf7bnPSwjh/Vc1ryjSPvQTA=;
-	b=hZkMbrL6XtJaJoOnMcljhximRCiwm8CN4oRKxPI4Hn24Dc2a+jSPEyh8sOfquutCczPYNM
-	KNmj5MO2fuZTmocR+JNC1gf+viriG4PIOqs2gUpQmkyO244fUmMZEib/ilU8R5KtQk0/mg
-	4rCnmFq52cbbAp7wPS7WyKfExRY/DKvBcgtsgTENfyzZf5GLPIDjOsVjE2eOBZwqf5t+Bp
-	uO2bUudrtVlSrsLO2d0H/YrgIMDWc56s0f1YRxrIp0Z7rkj89dcrPjhdzSfSslAyeq+9CS
-	h2noU0RwqW/137XRuycN1pJvVGmOl02newBNdJoXz2d8jrxF3uTLZsKtlVnrEw==
-Message-ID: <f47c44133a976532c0831816f776a879dbf3963a.camel@mailbox.org>
-Subject: Re: drm/sched: run queues freed before the TDR that
- drm_sched_fini() waits for
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
-	 <christian.koenig@amd.com>, phasta@kernel.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Luben Tuikov	
- <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>, Danilo
- Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 13:04:31 +0200
-In-Reply-To: <20260910095053.727808-1-donggeunyoo.kernel@gmail.com>
-References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com>
-	 <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org>
-	 <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com>
-	 <20260910084408.703333-1-donggeunyoo.kernel@gmail.com>
-	 <608f03824420323f9c9d3bc29cfeb0bed714074e.camel@mailbox.org>
-	 <20260910095053.727808-1-donggeunyoo.kernel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMOnMmGX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69E01F000FF;
+	Thu, 10 Sep 2026 11:04:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789038293;
+	bh=usywb2M9MHTVZc0djo6iTxHgi+vEkptg9Xr+YU4YHmA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jMOnMmGXuK3NecCI//t0B9t6h8lLIPnp2kYuAR9vWHEn/MuY+pjzkOBop0UbgSASM
+	 xH0R9KjV0E+1AJzUtqZ5zNEKoZkveC5dg+b4HABq4E+r8MXFhNtjL2Z9n6cW6FWdDU
+	 NHBB13DHLG0wMaNMc/VfTs/Hz9FAwySXxnd2nVaPJVpyw61rCQPqwBxzg97Nzl7hai
+	 OP3E+ogHRTRW0ND/UJQriEVZteW2XfOPKrr5xa5ax3+qyKlTZgjsB1w7ygQLCSEBt9
+	 67XaWRLr5yWAVBWdmcDzumbwtr1lxG8awzsqXPwKJk02w95xQfvh+4AjA0bE3zlNqj
+	 rVpSi2NyZUUDg==
+Date: Thu, 10 Sep 2026 12:04:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 02/23] scripts/mksysmap: fix escape of '$' in the __pi_
+ pattern
+Message-ID: <aqKOnMJdM0XxQHpd@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-2-5dc1ac01672d@kernel.org>
+ <178898323844.67740.17554063026930604280.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: aoxdbofbsfs93fjuw48jj3qxog3659q9
-X-MBO-RS-ID: f6a14d98396b2592022
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178898323844.67740.17554063026930604280.b4-review@b4>
 
-On Thu, 2026-09-10 at 18:50 +0900, Donggeun Yoo wrote:
-> On 9/10/26 10:51, Philipp Stanner wrote:
-> > Which KUnit test case exactly?
->=20
-> A local one. It is not in the tree - I wrote it for this, which is why yo=
-u
-> could not find it. I should have said that explicitly.
+On Wed, Sep 09, 2026 at 09:47:18PM +0200, Nicolas Schier wrote:
+> > Commit b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
+> > converted scripts/mksysmap from a shell script to a sed script.
+> >
+> > However an error was made - escaping of '$' required \\ escaping in shell
+> > but only \ in a sed script.
+> >
+> > This was mostly corrected in commit 7a6c355b55c0 ("scripts/mksysmap: Fix
+> > escape chars '$'"), but this fix missed arm64 PIE namespace local symbols
+> > like __pi_$x and __pi_$d which appear in System.mapand /proc/kallsyms:
+> >
+> > $ grep __pi_\\$ /proc/kallsyms | sort -u
+> > 0000000000000000 d __pi_$d
+> > 0000000000000000 t __pi_$x
+> >
+> > Fix the escaping properly.
+> >
+> > Fixes: b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
+> >
+> > No measurable change in build time.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >
+> > diff --git a/scripts/mksysmap b/scripts/mksysmap
+> > index 56a8b8bbdb37..856b26ba2ac0 100755
+> > --- a/scripts/mksysmap
+> > +++ b/scripts/mksysmap
+> > @@ -35,7 +35,7 @@
+> >  / __efistub_/d
+> >
+> >  # arm64 local symbols in PIE namespace
+> > -/ __pi_\\$/d
+> > +/ __pi_\$/d
+> >  / __pi_\.L/d
+> >
+> >  # arm64 local symbols in non-VHE KVM namespace
+>
+> (Move 'Fixes:' to trailer block)
 
-OK. For the future please provide the reproducer somehow, for example
-through a repo link.
+Yeah similar screw up. I think it was when perf times were appended
+per-patch but then then ended up on the fix patches + I yanked them bit
+didn't correct the tags, ugh!
 
->=20
-> It is a mock scheduler whose run_job() returns a hardware fence that is
-> never signaled,
+>
+> Reviewed-by: Nicolas Schier <nsc@kernel.org>
 
-Alright, so as we agreed on that's then not a bug fix relevant for
-upstream.
+Thanks! :)
 
->=20
-> Right, that's what my patch does: drm_sched_wqueue_stop(), then
-> cancel_delayed_work_sync(&sched->work_tdr), then the frees. The report is
-> gone and nothing else in the suite fails.
->=20
-> As you say, that is closer to a cleanup - or to making the teardown order
-> state its intent - than to a fix. Do you still want the reordering patch?
+>
+> --
+> Nicolas
+>
 
-I think it's a good idea. I'd move the deallocations above the related
-kfree at the bottom.
-
-
-What would be more valuable, though, would be a hint in the docu that
-the hardware fences must have been signaled before drm_sched_fini() is
-called. I thought we had sth like that, but apparently we don't.
-
-@Christian: Could you address this here [1]?
-
-
-Thanks
-P.
-
-
-[1] https://lore.kernel.org/dri-devel/20260909131808.2201-3-christian.koeni=
-g@amd.com/
+--
+Cheers, Lorenzo
