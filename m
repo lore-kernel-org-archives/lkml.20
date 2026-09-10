@@ -1,249 +1,215 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E80245A28B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847ED3ACEF3;
+	Thu, 10 Sep 2026 10:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037852; cv=none; b=h5sOTR4/w1PLvf8ht/myY6ziJlGVyRSpSofkD3YWI0M2xljRwpRHNS2C7ojUqOhJjIDpEyQchVhR3ByHOdu7V/fKqzHz4co2EHyveZGZozoTCRj6VoTHxnzbIcVz5RG/nvF5sdnCQzVSh6yfJwJAtCDEEDufD0ZXA487Q5YnBvU=
+	t=1789037920; cv=none; b=U4tUOzYu5uZEed9TColVAZguPuHHmjItqZZ3+9s6ZyeZgfrN3fp6RTOuYy/TVU1v3VzLKPuAEWRDzMRr2WsYWjWuKSmm/Fqzy7nNU2pyQLtXiDlBeedKMLPXvaVHOkK5CRY4G7uC65ieWVyj6g4H2AZQC+1Ad68H2GonOaWlbkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037852; c=relaxed/simple;
-	bh=YdzrMk8ilrdPcMZUfLVgW8yhf7sgCuNAjKqnreba/YM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nW4tTukw+0R61ns/h0i8E4WkIyW+vE+5U9MZadFZlk4V8XBsKtTiEINzEGikn7xxve/BJM7VBCQcNwpuc1Xg357+V/RqmZhSNVjmQxH0y/24GcVSTX7pgOSGLq1lgoG1jCspsWodrQ2b/UacMDyQR2VkRE74aVKl0xOiGuky36s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SDUP0OXg; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789037920; c=relaxed/simple;
+	bh=I2i7EFsmI1BdsXjAXQnQJ7jpc3St7XZQoXw10X36HdU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a4/C7ABDVl/4ffSzcS4WyqzpHIVAeTfEw4QzLw2lV+LQfU4WkXOJfISOtAqU0NLpwSF2Vjw3vvWw/pIVYQ6JWMBb8bLERvyENqj0fEvyJBAOR4MGChUSho3kEt93FkfC7xBp1BmMd1Dtt1Fzq4wDmqzZd7cONMRVQD8R/MrNbD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=mUqVYflZ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=25lbI7qa; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=HgE8e/jx; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SmlJtXy7; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SDUP0OXg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vI
-	h0xwNIpntqCuDSbP8n7bFxK9BFVqY3UFuS+N7bAuQ=; b=SDUP0OXgNuSCp6cTlb
-	GgZLyHC75GzV3f3ER5bcIgopZS6lmn8B8ybDElv1OKkvNIg6y1ObZ8tk4/tZMXg5
-	CtLLNG3YWvwig4+MEk7Ey+Gdd1SrBK+fYsaAWRe+z2ckxUZTKzVpohx8vIwv3nPA
-	RWHTSPNnSEkJzEkq53Fr8PF10=
-Received: from localhost (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCHaACSjKJq207aRw--.7088S2;
-	Thu, 10 Sep 2026 18:55:15 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com,
-	kprateek.nayak@amd.com
-Cc: juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	connoro@google.com,
-	jstultz@google.com,
-	arighi@nvidia.com,
-	tj@kernel.org,
-	void@manifault.com,
-	changwoo@igalia.com,
-	linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Subject: Re: [PATCH v4 5/5] sched/core: Fix donor slice accounting under proxy execution
-Date: Thu, 10 Sep 2026 19:55:14 +0900
-Message-ID: <20260910105514.2788543-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909092901.2989564-6-sh_def@163.com>
-References: <20260909092901.2989564-1-sh_def@163.com> <20260909092901.2989564-6-sh_def@163.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="mUqVYflZ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="25lbI7qa";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="HgE8e/jx";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SmlJtXy7"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 71C4D1FD96;
+	Thu, 10 Sep 2026 10:58:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789037912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
+	b=mUqVYflZptaXjjpSlJaqxgUtUqYM9gnrnFAgxEZqj3/uqtiktdxPkOuGTpvcWWKVCV3vV+
+	Sy6Y3/qB5emVuZBWHdXQ3Ee+u8mzhiGN+fNx2nYzcczWEIiRrVXuosCiAOBweQF6AtX5JW
+	kKPHLHpeRkr0sjD3inRBAHoy1jR2z4A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789037912;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
+	b=25lbI7qa/heeUJgn+Vs1JbV1qn7ze1i4FZi80Dd8o1zSjgEWvuEKXGHDTHovxGSAATPraG
+	c7SzEF1J9Am92NAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="HgE8e/jx";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=SmlJtXy7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789037908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
+	b=HgE8e/jxPaUeb+Al5xRl6Mg/aZkfutt9PiaATbWONy3v2PjanPMXmbJhEPQwKSNrTnQ3S0
+	T86rueEaz++GXPhVySsTX86bDNryXs4/bdmOrzmhwY2oj+kITkiNSesQjvu5lGvT54iqgo
+	xm8c939ejqdVfSPOGWzYq+rIiDeuFmU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789037908;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
+	b=SmlJtXy7cmv1VE6M+e2kjG9osU0eSHoPIecWZE5OYYK8GIv77lu/mvNM4UNYLpadgtfvyt
+	QHYy9CWPW7cHQNCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 47C8E1321C;
+	Thu, 10 Sep 2026 10:58:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xQmAEVSNompsbQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 10:58:28 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id D374DA12EA; Thu, 10 Sep 2026 12:58:27 +0200 (CEST)
+Date: Thu, 10 Sep 2026 12:58:27 +0200
+From: Jan Kara <jack@suse.cz>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>, 
+	John Garry <john.g.garry@oracle.com>, linux-block@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] ext4: never fall back to buffered I/O for atomic
+ direct writes
+Message-ID: <vgxva24firqq6eqt2wyovm6uqh356nvrsb35exzxtnxftspy3w@gb7uiv4gwets>
+References: <20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCHaACSjKJq207aRw--.7088S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFWDXrW7tr1rWFWfWrWDtwb_yoW3WFWrpF
-	Z0v3WUtw4Dta4jgFWUArs8Wa43K3s3Ja45Xrn5tayFkr1rt3yFqFySqryYyF45Cryv9F12
-	yrsF93y7Crnrt3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UtfHUUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwROK6WqijJNs+QAA3z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002@columbia.edu>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: 71C4D1FD96
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,lst.de,oracle.com,vger.kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim,columbia.edu:email]
+X-Spam-Flag: NO
 
-On Wed, Sep 09, 2026 at 06:29:01PM +0900, Hui Su wrote:
-> Core scheduling uses __entity_slice_used() to decide whether the current
-> scheduling context has consumed enough of its slice to let a force-idled
-> SMT sibling run.
->
-> The check is correctly made against rq->donor, since the slice belongs
-> to the scheduling context. With proxy execution, however, task runtime
-> is accounted to rq->curr. The donor's sum_exec_runtime therefore does
-> not advance while another task executes on its behalf, causing
->
->         se->sum_exec_runtime - se->prev_sum_exec_runtime
->
-> to remain near zero and preventing the force-idle reschedule from
-> triggering.
->
-> Using rq->curr is not correct either, as that would compare the execution
-> task's runtime against its own slice rather than the donor's slice.
->
-> Track the donor's task-clock timestamp when it is selected and measure
-> the elapsed service using se->exec_start. update_se() advances the donor's
-> exec_start from rq_clock_task() even under proxy execution, while the
-> accumulated task runtime itself is charged to rq->curr.
->
-> Keeping the comparison in the task-clock domain also avoids depending on
-> the entity's weight. A vruntime delta accumulated across different
-> weights cannot reliably be compared against a slice converted using only
-> the current weight.
->
-> Only snapshot task entities, as task_tick_core() performs the consumed
-> slice check on the donor task.
->
-> In non-proxy testing, the task-clock predicate matched the existing
-> sum_exec_runtime predicate across HZ=100/250/1000 and nice -10/0/+10.
-> Under proxy execution, the donor's sum_exec_runtime delta remained zero
-> while the task-clock delta advanced and triggered the force-idle
-> reschedule.
+On Wed 09-09-26 16:56:17, Tal Zussman wrote:
+> ext4_dio_write_iter() finishes a short direct write through the page
+> cache. For an atomic write that path only warns and then continues,
+> which would tear the write.
+> 
+> This came out of a block device fix [1], where an IOCB_ATOMIC direct
+> write could complete short when only part of the buffer could be
+> pinned, with the rest going through the buffered fallback. Christoph
+> Hellwig noted that ext4 has the same fallback and only warns in it [2],
+> and John Garry agreed it should reject the write instead [3].
+> 
+> In contrast to the block device, nothing reaches the branch on ext4
+> today: iomap requires the mapping to cover the whole atomic write, a
+> buffer that can't be pinned in full fails in iomap before the bio is
+> submitted, and a failed page cache invalidation returns -EAGAIN rather
+> than reaching the buffered fallback. Exclude atomic writes from the
+> fallback outright instead of WARN()-ing inside it, so any future bug
+> yields an error rather than a torn write with a WARN().
+> 
+> Link: https://lore.kernel.org/linux-block/20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu/ [1]
+> Link: https://lore.kernel.org/linux-block/20260907071217.GD934@lst.de/ [2]
+> Link: https://lore.kernel.org/linux-block/a7752d1e-8ec1-44d1-a266-c287c315e8ab@oracle.com/ [3]
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Following up on the task_tick_core() discussion with Tim and Chen Yu, I
-reworked the implementation while keeping the slice check associated with
-rq->donor, because the slice belongs to the scheduling context.
+I agree your patch makes things better but I have a question: are short
+writes (even 0) allowed for atomic writes? I don't think so as far as my
+understanding of atomic writes goes (and based on what I could find in the
+code). But after your change we'd just return short write (including ret ==
+0) now which doesn't look ideal and also doesn't match your "so any future
+bug yields an error rather than a torn write with a WARN()" description. So
+as a futureproofing I'd maybe suggest just:
 
-The new predicate measures consumed service in the task-clock domain rather
-than using the donor's sum_exec_runtime:
+	if (WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC && ret >= 0 &&
+			 iov_iter_count(from)))
+		ret = -EIO; /* or maybe -ENOPROTOOPT??? */
 
-  rtime = se->exec_start - rq->core_sched_start;
+before the fallback to buffered IO as a more robust solution.
 
-update_se() advances the donor's exec_start from rq_clock_task() during
-proxy execution even though task-level sum_exec_runtime is charged to
-rq->curr. This keeps both sides of the comparison in the task-clock domain.
+								Honza
 
-The deadline/virtual-time prototype did not work reliably in my reproducer:
-update_deadline() can advance the deadline before task_tick_core() evaluates
-the predicate, making the reconstructed virtual service small again after
-the donor has consumed service.
-
-The baseline is stored in struct rq rather than every sched_entity. There is
-one active donor per runqueue, so per-entity storage was unnecessary and
-increased sched_entity from 224 to 256 bytes on i386 with
-CONFIG_SCHED_CORE=y.
-
-One proxy-specific detail is that an execution-owner handoff can retain the
-same donor. The scheduler then uses a synthetic put_prev_task()/
-set_next_task() pair for balance handling. That reselect must not reset the
-donor's core_sched_start, or service before the handoff would be discarded.
-The implementation refreshes the baseline only when selecting a different
-donor or when reactivating a task after a scheduling-class transition.
-
-In non-proxy testing, the new predicate matched the existing
-sum_exec_runtime predicate in 89,900 samples across HZ=100/250/1000 and
-nice -10/0/+10 with zero mismatches. The proxy-enabled
-CONFIG_SCHED_CORE=y scheduler objects and full bzImage also build with this
-change. A focused force-idle test which splits one donor's service across two
-execution owners is still pending; I will not claim owner-handoff runtime
-coverage until that case runs.
-
-Could you take a look at whether this task-clock and per-rq baseline approach
-is reasonable? If so, I will complete the focused owner-handoff test and carry
-the result into v5 before posting the updated series.
-
-For reference, the complete current core-slice patch follows.
-
-Thanks,
-Hui
-
----
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index ed08b287016a..0fea899d61c7 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6469,7 +6469,8 @@ dequeue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
- }
- 
- static void
--set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
-+set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se,
-+		bool reset_core_slice)
- {
- 	/* 'current' is not kept within the tree. */
- 	if (se->on_rq) {
-@@ -6502,6 +6503,10 @@ set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
- 	}
- 
- 	se->prev_sum_exec_runtime = se->sum_exec_runtime;
-+#ifdef CONFIG_SCHED_CORE
-+	if (reset_core_slice && entity_is_task(se))
-+		rq_of(cfs_rq)->core_sched_start = se->exec_start;
-+#endif
- }
- 
- static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags);
-@@ -14786,16 +14791,15 @@ static void rq_offline_fair(struct rq *rq)
- 
- #ifdef CONFIG_SCHED_CORE
- static inline bool
--__entity_slice_used(struct sched_entity *se, int min_nr_tasks)
-+__entity_slice_used(struct rq *rq, struct sched_entity *se, int min_nr_tasks)
- {
--	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
--	u64 slice = se->slice;
-+	u64 rtime = se->exec_start - rq->core_sched_start;
- 
--	return (rtime * min_nr_tasks > slice);
-+	return (rtime * min_nr_tasks > se->slice);
- }
- 
- #define MIN_NR_TASKS_DURING_FORCEIDLE	2
--static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
-+static inline void task_tick_core(struct rq *rq, struct task_struct *donor)
- {
- 	if (!sched_core_enabled(rq))
- 		return;
-@@ -14815,7 +14819,8 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
- 	 * if we need to give up the CPU.
- 	 */
- 	if (rq->core->core_forceidle_count && rq->cfs.h_nr_queued == 1 &&
--	    __entity_slice_used(&curr->se, MIN_NR_TASKS_DURING_FORCEIDLE))
-+	    __entity_slice_used(rq, &donor->se,
-+				MIN_NR_TASKS_DURING_FORCEIDLE))
- 		resched_curr(rq);
- }
- 
-@@ -15049,7 +15054,7 @@ static int task_is_throttled_fair(struct task_struct *p, int cpu)
- 	return throttled_hierarchy(cfs_rq);
- }
- #else /* !CONFIG_SCHED_CORE: */
--static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
-+static inline void task_tick_core(struct rq *rq, struct task_struct *donor) {}
- #endif /* !CONFIG_SCHED_CORE */
- 
- /*
-@@ -15257,6 +15262,8 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
- {
- 	struct sched_entity *se = &p->se;
- 	bool throttled = false;
-+	/* Keep service accumulated across a same-donor proxy reselect. */
-+	bool reset_core_slice = !first || rq->donor != p;
- 	struct cfs_rq *cfs_rq = &rq->cfs;
- 	unsigned long weight = NICE_0_LOAD;
- 	bool on_rq = se->on_rq;
-@@ -15271,7 +15278,7 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
- 
- 		if (!IS_ENABLED(CONFIG_FAIR_GROUP_SCHED) ||
- 		    !first || !cfs_rq->h_curr)
--			set_next_entity(cfs_rq, se);
-+			set_next_entity(cfs_rq, se, reset_core_slice);
- 
- 		/* ensure bandwidth has been allocated on our new cfs_rq */
- 		throttled |= account_cfs_rq_runtime(cfs_rq, 0);
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index bb6f87552220..b430092fc9ad 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1382,6 +1382,7 @@ struct rq {
- 	unsigned int		core_forceidle_seq;
- 	unsigned int		core_forceidle_occupation;
- 	u64			core_forceidle_start;
-+	u64			core_sched_start;
- 	unsigned int		core_pick_in_flight;
- #endif /* CONFIG_SCHED_CORE */
- 
-
+> ---
+>  fs/ext4/file.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
+> 
+> diff --git a/fs/ext4/file.c b/fs/ext4/file.c
+> index 374b4bc25bd5..fb561c701d29 100644
+> --- a/fs/ext4/file.c
+> +++ b/fs/ext4/file.c
+> @@ -666,17 +666,16 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>  	else
+>  		inode_unlock(inode);
+>  
+> -	if (ret >= 0 && iov_iter_count(from)) {
+> +	/*
+> +	 * Buffered I/O provides no torn-write protection, so never finish an
+> +	 * atomic write through the page cache. iomap should not return a short
+> +	 * atomic write anyway.
+> +	 */
+> +	if (ret >= 0 && iov_iter_count(from) &&
+> +	    !(iocb->ki_flags & IOCB_ATOMIC)) {
+>  		ssize_t err;
+>  		loff_t endbyte;
+>  
+> -		/*
+> -		 * There is no support for atomic writes on buffered-io yet,
+> -		 * we should never fallback to buffered-io for DIO atomic
+> -		 * writes.
+> -		 */
+> -		WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC);
+> -
+>  		offset = iocb->ki_pos;
+>  		err = ext4_buffered_write_iter(iocb, from);
+>  		if (err < 0)
+> 
+> ---
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> change-id: 20260909-ext4-atomic-no-fallback-b1550a7a3fcf
+> 
+> Best regards,
+> --  
+> Tal Zussman <tz2294@columbia.edu>
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
