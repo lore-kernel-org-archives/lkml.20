@@ -1,246 +1,128 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4973B0587
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021363; cv=pass; b=CzAUi7MKUJ0b6mh2goX8z+QF7xgK79Cs897rWZSuLfxdDBsAz27YRAf2VaK2P+fUvKELvIR6hYIhqRjhLHbdE7EYxwl8XjDneZ5E+qtU70uwyd8qgSKW0x6RzIP2X5XjrNDGqu91q1GUHq9DApImX6lvGUxQS/6KuDfSPuC4Zd4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021363; c=relaxed/simple;
-	bh=u7YSM2yYmhfX9rcD/8EkJwNBQeACUZpqsYZvaO8VYJk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OrtfS9EE68lfQEQ0A+M/rvHLQoZsIwKS2gjm/6slZt2leS2iFKKpBEsWT+vCqQK+EBtV0oaO6DLvBXv1dLws0offvSxR3hZORMHnZwVK8TcmohlFMNMqUasulEXtOk2/ZIn7MyxB3bNus9FugC8xMMTwyCOHxdsJadmDCVAo5LQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OaE1zHq9; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D80C373C1A;
+	Thu, 10 Sep 2026 06:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789021414; cv=none; b=FpsVIsRrSJGfUtDXh78bMfCjMiRNzaYSGvVOufmEzQ0sfqZz18KvpK7OPif3cK6zRRXrw1aDF+4af02WD3CDBUb1QWpv/kby3Y6NpHnbAA2/e6gSrNUS1xc6Udnj2+0ycacLY1TBdeUp5O9MKSAu2WqQPOdOQjQHIeZfR3hzhe4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789021414; c=relaxed/simple;
+	bh=aqNX+9tAjd2/jVm9O8DWI+lgMgxqRluvBk2uSuJJv/s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=taDO+ayM1XLkFAnCEJHqb5BKsBjXwJ8MUhc2TnMbZX98BJFq7X5e51P9EVJBCEeXLV2NptfCPUw093cuBJg3WqT/gGVX8/YQypPuP9fZMg0B/rMpHxbIjbEZJAq5f4lS8gN5oS6DVNnWdAmGH0w1ejsiNKcAAPktvysE8AAmRmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=y5gn1AHo; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OaE1zHq9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ddd5d0aso1802405e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:22:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789021359; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dAjGB5y2UWgt58cjE/dEykl0Qm6Kg5OzZeIXZlFeakn90PlAPL/ZJgiZhye6PKtbof
-         RnZimLfHVeSFmjep0HYdC+SSmgMc9qVonH6lJFU4A8EarUEpsZQivobuE5W+sz0V0DUp
-         AsMBHb9NQtBjK0V44PK0+JMOVMjFaEdmnKTSPm+ZvU43b/GWuNqq0G5yfifd+6Jsm7wf
-         fJR6bM8xwRCBGqjxsshx/UAwXZti8Ccbc1ahIG8GU58C7Bwoq5LQrwIG01s6Dd8PCCgc
-         5kr5iFwk1HjKhNTXZRCtOOwziYhDw9isINi8P2Lg8xiDAuM/3+Z/Vhe8An262to8YPoG
-         i1iQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VXrMG36LL80IPDG1moLhJVFD+uNkGq7OI7LXnw5lOsI=;
-        fh=fhR9tf3UsyLZ1fCB1BReVW42a6JiL/Gu5w3ett1FKG8=;
-        b=C+n0y8JuwUxV9vBz+SsysMDN8tamjqBD2f0xHuIrkYWF8GuKgr3Bl5z9Q+4ihCB0Bg
-         i39QZZ99lUwbYEQBoRBmF5mJVl6gkvMYhK0k9H/OkeLZUsjKmgwDlXb3IwS2YBVp8Twp
-         Dkf85VjyL9/SURhmcyj7zL2QSYXgIt9McXCT25CkQfXGJD/Vg5HtCtcelSnbSKToY175
-         tu28965ajYLzXYHcITdoDPPcuUx6Wv2PyaytmH1f0Ud0JXw7w/SHkYYE9HhPQ17pzG4S
-         ofiX0MDZo6Xiix3rAweToIA1mlB4AdTkj0fel5oIdd7rfVHaz19Vp2nXaRrlzGaLK+6y
-         bndA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789021359; x=1789626159; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VXrMG36LL80IPDG1moLhJVFD+uNkGq7OI7LXnw5lOsI=;
-        b=OaE1zHq9IWhVZ+cN8BtkX3TasOvP9KLyydOCSFCv+CUtRirgBdTIXoECERwrKWrm7N
-         AqnC+/OE4a1sfvf6I/Nw28OP/a00dpgYQB6phHC9aSTg5TE+MyjyijIwETHEmIKCm7DR
-         F03cys1j1egJwmH3kkQA0/iGP3dXdQ+xIqPYdbEwnSQtmsR1svC4bkqhu9cMO47ldDmh
-         lm48kFAXnyWwMx7AVkeAXZunJrnazcYuGAnn0rrXp/MT37lZE/eYX0qPgdkdaDFbCfUZ
-         GAJ1HdWl3Uj6BftR3fOLjH9Ao+lMQHoXixTpD8ipxCsBhJ806XUNl+3KVfCDYub8laz9
-         T25A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789021359; x=1789626159;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VXrMG36LL80IPDG1moLhJVFD+uNkGq7OI7LXnw5lOsI=;
-        b=IyreRzTxauT8jKNiDK1TvJG5GtQIK1XJlU0p6wlKG5SpoKy4iUpImKoDXrUaDDfmIA
-         wb2l5aGFkTt1p9JeZpVrPsyUbPmb284UBTsnRypsSq1WbdpQkNyXIdNq8WvmOqvdg1CC
-         BU1Sv5XoezxzEBZsFfUWXr4BDtOL0A3fvXvgLuaAHndEGquW4FTFavVaSTPB+OJCMQ/V
-         FGb7xitB3v4TBwgBNSqDN2i5QQiHWWyvstsCJIcuBVyRjCI9OcALwjiHqmhDbdNLZ5Yx
-         IeWhex6IsHH+I/9iEZWjo4OFK91NWpncDbUWtK1PD7LlEWVYbPEWNZ1eJwHodDOiv/Aw
-         PnSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhXri+u73Llm/IGZVx1y0IywHZvsdzFf3NrreTTBLxsZ3FDdSJx2EDbLBKBvPezf49pWtGqAGXaQeU0xc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcN73YxziCnZOaqqVXrLVqabn+4Uund4RFx3ru9arqpLRl2nNY
-	ng7e4/3M5lNRtk79/WoTafdsokbXmAY2R488pjCzk8BbzhSx3Lz6VJwM1edeLcDIch3LHxLYnEY
-	ymN1/GiD5uGwgik8PJyv5IwM/QVhD2mk=
-X-Gm-Gg: AYBFou3IJiORM/IDV80k4vV4AEmbfmZDX/1vsrvKZJR/mKNi1fK0rbeCWBXyY09BZ3T
-	kfdWUkbNYOK1aNEFzEcOqX8LePc491hyScHqnHp3AD6Js1ymNQxTzzV1yMCcmP/86KQaRHEFYz/
-	cxNEhq0tLvAo6mxxmJLpWWgKae69NJ/UOq+qQ5URPTv2y7B1PgPipoagYIGMDWhgw5252bGY+5K
-	KchxVINPVW8Nz9baIxNkVL8IJ/u6jwa5blW88yQpgdpx03ZtfKICkLUxZ1+Dy+MWJ5d122BGidY
-	/DMx2uLVHa3f+7QM3kM2YBF7ZfjrBt7G/zuLjkO+eV20X1+S7iNvZDQ9jCSHSQLEHTkIsYFyNQm
-	HA0PX+DOHSY2XVQzTNU9+JVY07887eYwlPTNJrf5h
-X-Received: by 2002:a05:600c:c48f:b0:49b:9241:7ff0 with SMTP id
- 5b1f17b1804b1-49d010c4f64mr283813775e9.0.1789021358682; Wed, 09 Sep 2026
- 23:22:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="y5gn1AHo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=Nr+oq6PsKxcBle0H0lwiDVCL6Vp35iitzfLcmlTGscQ=; b=y5gn1AHogARHFoH8bdigWxHlqv
+	oS3og6i6V0pacOjdVHdKUUJKc9i7gAvLNrZtuCIauSn0y6DFcaYJuAfe8pwhsaMgwLtY/CrPcTd1T
+	BLGilI8k7TX/dIKzzb+jGTkUorL6NEb7caA38Lx2HWtndY8W73DO7/YrhIfKa5j/mGxT/5/hkZYSP
+	9GlE9FgOec4tHwo4jimppN1N4cHVGi7DGGI8dtn24109Iq4C4F4eEmfFWkd49qo6KmYWNt5LGWyJm
+	fk9XchVlfSziME2QlLO+bVLBaWgW4MMQbvCB1BZhEQkxWs73UO3yaZsv51aov+RGzom8+ZCGl5oVk
+	sykDuO3A==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4YBu-0000000DVWG-4AfW;
+	Thu, 10 Sep 2026 06:23:23 +0000
+Message-ID: <a29070be-02ff-49b6-b0dd-625a3371a780@infradead.org>
+Date: Wed, 9 Sep 2026 23:23:21 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com> <1d5ac9d7-48ce-4fee-b893-f646bade4a86@kernel.org>
- <CA+qSx6yjiXJkQm=hi=F8=_=DU0x_usSuXnL_1yuy0fUU9UU-Zg@mail.gmail.com> <d3723be0-46f4-4025-b526-e1bb3cc2cad6@kernel.org>
-In-Reply-To: <d3723be0-46f4-4025-b526-e1bb3cc2cad6@kernel.org>
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Date: Thu, 10 Sep 2026 14:22:25 +0800
-X-Gm-Features: AcwNN1UCOqtjDA1IEA-_iwUx-h9ia6X61kVWP5KJZ4OCo5OwMJqwEZfSFHyzJMA
-Message-ID: <CA+qSx6x2-Md9uVZo+HV0z5CfmGPDzhL482eJNnM2VYVtn_e72w@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, usama.arif@linux.dev, 
-	ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org, 
-	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org, rppt@kernel.org, 
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com, 
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
-	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] spi: docs: Use the multi-lane mode constants in examples
+To: Karl Mehltretter <kmehltretter@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, linux-spi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
+References: <20260910033219.15996-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260910033219.15996-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 9, 2026 at 11:18=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 9/8/26 16:48, Xueyuan Chen wrote:
-> > On Tue, Sep 8, 2026 at 4:30=E2=80=AFPM David Hildenbrand (Arm) <david@k=
-ernel.org> wrote:
-> >>
-> >> On 9/1/26 17:18, Xueyuan Chen wrote:
-> >>> The persistent huge zero folio is shared globally and should stay zer=
-o
-> >>> after initialization. As Jann Horn pointed out [1], kernel bugs have
-> >>> ended up writing to pages that were meant to be read-only, including =
-in
-> >>> security-sensitive cases. Making the folio read-only in the direct ma=
-p
-> >>> turns such writes into faults instead of silent zero-page corruption.
-> >>>
-> >>> Add a page-based helper consistent with the existing direct-map inter=
-faces.
-> >>> Handle TLB invalidation in the architecture implementation; unsupport=
-ed
-> >>> architectures retain their current behavior.
-> >>>
-> >>> Protect the folio after initialization. Skip highmem folios, which ha=
-ve no
-> >>> permanent direct-map mapping.
-> >>>
-> >>> Inspired by Jann Horn's read-only zero page work [1] and follow-up
-> >>> discussion [3] with Yang Shi.
-> >>>
-> >>> Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b4=
-9@google.com [1]
-> >>> Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@=
-kernel.org [2]
-> >>> Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=3DjDx9E6=
-dLOULohnhBguvi9A@mail.gmail.com [3]
-> >>>
-> >>> Suggested-by: David Hildenbrand <david@kernel.org>
-> >>> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> >>> Co-developed-by: Lance Yang <lance.yang@linux.dev>
-> >>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> >>> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> >>> ---
-> >>>  include/linux/set_memory.h | 17 +++++++++++++++++
-> >>>  mm/huge_memory.c           | 13 ++++++++++---
-> >>>  2 files changed, 27 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-> >>> index 3fe293cfed8c..ed9ce04b18a1 100644
-> >>> --- a/include/linux/set_memory.h
-> >>> +++ b/include/linux/set_memory.h
-> >>> @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
-> >>>  #endif
-> >>>  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
-> >>>
-> >>> +#ifndef set_direct_map_ro
-> >>> +/**
-> >>> + * set_direct_map_ro - make a direct-map range read-only
-> >>> + * @page: first page in the direct-map range
-> >>> + * @nr: number of pages in the range
-> >>> + *
-> >>> + * Make the direct-map range starting at @page read-only and invalid=
-ate stale
-> >>> + * writable translations before returning.
-> >>> + *
-> >>> + * Return: 0 on success, or a negative error code on failure.
-> >>> + */
-> >>> +static inline int set_direct_map_ro(struct page *page, unsigned int =
-nr)
-> >>> +{
-> >>> +     return 0;
-> >>> +}
-> >>> +#endif
-> >>> +
-> >>>  #ifdef CONFIG_X86_64
-> >>>  int set_mce_nospec(unsigned long pfn);
-> >>>  int clear_mce_nospec(unsigned long pfn);
-> >>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> >>> index 54494c3fa983..742283b36d74 100644
-> >>> --- a/mm/huge_memory.c
-> >>> +++ b/mm/huge_memory.c
-> >>> @@ -42,6 +42,7 @@
-> >>>  #include <linux/pgalloc_tag.h>
-> >>>  #include <linux/pagewalk.h>
-> >>>  #include <linux/cleanup.h>
-> >>> +#include <linux/set_memory.h>
-> >>>
-> >>>  #include <asm/tlb.h>
-> >>>  #include "internal.h"
-> >>> @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
-> >>>       huge_zero_folio =3D alloc_huge_zero_folio();
-> >>>       if (!huge_zero_folio) {
-> >>>               pr_warn("Allocating persistent huge zero folio failed\n=
-");
-> >>> -     } else {
-> >>> -             huge_zero_pfn =3D folio_pfn(huge_zero_folio);
-> >>> -             count_vm_event(THP_ZERO_PAGE_ALLOC);
-> >>> +             return 0;
-> >>>       }
-> >>> +
-> >>> +     huge_zero_pfn =3D folio_pfn(huge_zero_folio);
-> >>> +     count_vm_event(THP_ZERO_PAGE_ALLOC);
-> >>> +
-> >>> +     /* Highmem folios have no permanent direct-map mapping to prote=
-ct. */
-> >>> +     if (!folio_test_highmem(huge_zero_folio))
-> >>> +             set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE=
-_PMD_NR);
-> >>
-> >> Assuming we keep the page-based approach, can't we just move the highm=
-em test in
-> >> there?
-> >
-> > Hi David,
-> >
-> > We can move the check into set_direct_map_ro(). However, on x86,
-> > set_direct_map_invalid_noflush() and set_direct_map_default_noflush()
-> > also expect callers to exclude highmem pages.
-> >
-> > Would it make sense to make highmem a documented no-op for those
-> > helpers as well, so the direct-map APIs handle it consistently?
->
-> I think getting something consistent for now is the most important thing.=
- :)
->
-Hi David,
 
-OK, I'll move the highmem check into set_direct_map_ro().
 
-Should I also update the x86 set_direct_map_invalid_noflush() and
-set_direct_map_default_noflush() helpers in this series to skip
-highmem pages?
+On 9/9/26 8:32 PM, Karl Mehltretter wrote:
+> The multi-lane documentation names SPI_MULTI_BUS_MODE_* constants,
+> including in the transfer initializers. The interface introduced with
+> the document uses SPI_MULTI_LANE_MODE_*, so the examples refer to
+> undefined macros.
+> 
+> Use the interface's constants in the descriptions and examples.
+> 
+> Fixes: 05c3bd745bb0 ("spi: Documentation: add page on multi-lane support")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Thanks,
-Xueyuan
-> --
-> Cheers,
->
-> David
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
+
+> ---
+>  Documentation/spi/multiple-data-lanes.rst | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/spi/multiple-data-lanes.rst b/Documentation/spi/multiple-data-lanes.rst
+> index 69cb532d052f..802aece35d56 100644
+> --- a/Documentation/spi/multiple-data-lanes.rst
+> +++ b/Documentation/spi/multiple-data-lanes.rst
+> @@ -127,7 +127,7 @@ field to indicate which mode they want to use for a given transfer.
+>  
+>  The possible values for this field have the following semantics:
+>  
+> -- :c:macro:`SPI_MULTI_BUS_MODE_SINGLE`: Only use the first lane. Other lanes are
+> +- :c:macro:`SPI_MULTI_LANE_MODE_SINGLE`: Only use the first lane. Other lanes are
+>      ignored. This means that it is operating just like a conventional SPI
+>      peripheral. This is the default, so it does not need to be explicitly set.
+>  
+> @@ -149,7 +149,7 @@ The possible values for this field have the following semantics:
+>          ----------   ----------------   ----------
+>              SDO 0    0-0-0-1-0-0-0-1    SDI 0
+>  
+> -- :c:macro:`SPI_MULTI_BUS_MODE_MIRROR`: Send a single data word over all of the
+> +- :c:macro:`SPI_MULTI_LANE_MODE_MIRROR`: Send a single data word over all of the
+>      lanes at the same time. This only makes sense for writes and not
+>      for reads.
+>  
+> @@ -160,7 +160,7 @@ The possible values for this field have the following semantics:
+>          struct spi_transfer xfer = {
+>              .tx_buf = tx_buf,
+>              .len = 1,
+> -            .multi_lane_mode = SPI_MULTI_BUS_MODE_MIRROR,
+> +            .multi_lane_mode = SPI_MULTI_LANE_MODE_MIRROR,
+>          };
+>  
+>          spi_sync_transfer(spi, &xfer, 1);
+> @@ -172,7 +172,7 @@ The possible values for this field have the following semantics:
+>              SDO 0    0-0-0-1-0-0-0-1    SDI 0
+>              SDO 1    0-0-0-1-0-0-0-1    SDI 1
+>  
+> -- :c:macro:`SPI_MULTI_BUS_MODE_STRIPE`: Send or receive two different data words
+> +- :c:macro:`SPI_MULTI_LANE_MODE_STRIPE`: Send or receive two different data words
+>      at the same time, one on each lane. This means that the buffer needs to be
+>      sized to hold data for all lanes. Data is interleaved in the buffer, with
+>      the first word corresponding to lane 0, the second to lane 1, and so on.
+> @@ -185,7 +185,7 @@ The possible values for this field have the following semantics:
+>          struct spi_transfer xfer = {
+>              .rx_buf = rx_buf,
+>              .len = 2,
+> -            .multi_lane_mode = SPI_MULTI_BUS_MODE_STRIPE,
+> +            .multi_lane_mode = SPI_MULTI_LANE_MODE_STRIPE,
+>          };
+>  
+>          spi_sync_transfer(spi, &xfer, 1);
+> 
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+
+-- 
+~Randy
