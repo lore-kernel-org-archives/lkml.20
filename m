@@ -1,211 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9074396B76
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62883AA4F6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014381; cv=none; b=jEB40kD/0QGm+N9cnkwszcE4ZkD1BDewCV+o7k/bRPl1RD91XDMid9EKRbkpv4MboFVhDOKaV1C4G/jNA+j/fhRZLcu90rIx5KbU7a+jZl/OMitzSrh2ZvgCInJ5prgPC9hed3TA3vvcDYVinP7UszI6nNQm4z0kgKCP27PJm1U=
+	t=1789014391; cv=none; b=jd8gMmwELurXKNaP7X9w4/YO4U4NAVMOvyoHnY4BhSHEF+wq5kv0gn6qyRMJWkvEDz6nEN7r5GeiayQZDktEDpz7TO13xAh1PwMNUJ+Q5zEHtJr1fJz+jN+e1iYyL/mYwQUokAstPfYDSxS/hXpKDB9WUvkut39+HMhatm3KmGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789014381; c=relaxed/simple;
-	bh=061LFgQp18L4PupwwtZzn8CT5+cZ0kYlkLMp2SmK5P8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SD94Sso1M/TTZlxu3QZWBAef5d7CXmt4jcr8VYDDTfneOMDPSpQEQGIQjCMDOd2DuPtZgouj6SBiIK1x/DZXonJro9CPG8zBsF9fjO3XtRmK4Yn0ctU4ITFk05leiDsiMAv6AkTG44qWXV+PJL0m61UhgsZqN925du5SSWyD0Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PExRhWUN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789014391; c=relaxed/simple;
+	bh=v0G2sJ1qQREPUV6XVlzPNbY0zKZQxynU/y68N+hdbIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LGGjtTEd7g+GbJzL+SNFglJLD6nmMvjRL40y7e9xesYL4++1ClDQC4c4trFlP0QnZoK/+RQmLb1aeCdh8E1vJNxHzdLtaEvk/9kI2vt0naMl6JjS8ZmdwBuN3VmTaPf/qcFEQsGuLSfStOmunhjNJNZNnq+kQ/7lnUQft3lAn3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RoH8TLsm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d+BGcxXi; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PExRhWUN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3731F000FF;
-	Thu, 10 Sep 2026 04:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789014379;
-	bh=bDcKLcxvVz5jOSgqx4gz4DvfE/OssiYpCZIPKOjIx0o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PExRhWUNzCVae33RzxiWAVbydHGHhUgpEI5j8UnFkOweIb3szOTqIBXqgILowg8Ly
-	 PJeS0MAzyto8lIspWJ/xKgN8xAZegnnGp4bZQpE97DwXieF26zRMiltUXJ249beJq8
-	 W/H6mwSOt8GQsVr+Iex6gbhVHUdovBJpniVQ7Hd2UFeFtJ9mnQT05+uoB3OpRlfj7t
-	 40Ug2Led+waMW3O+/oumKc3nJaPu+xERBkWj4vTx58O/rwkZeKgDHdbmd2BtajcTdX
-	 /3TFjFhN+HvjryJLGbPDvt2x24n/n+3vNQothfpOSkKquCMo/kmUwLM6fLH62nG2TH
-	 vCr2l2y5TpGGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] mtd: spinand: cache the last read page to avoid
- redundant SPI operations
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zongzhen Feng" <1768315307@qq.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, "Richard
- Weinberger" <richard@nod.at>
-In-Reply-To: <tencent_522792EE6F63A5581C238FF17E9862F10A08@qq.com>
-References: <tencent_E818586423F2F16D98DEF1EC2723EE4A6308@qq.com>
- <tencent_522792EE6F63A5581C238FF17E9862F10A08@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 04:26:18 +0000
-Message-Id: <20260910042619.2A3731F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RoH8TLsm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d+BGcxXi"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A1lEkG3063444
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:26:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZeOR4nXYfqSKHwdV3Tld3DkJPSD7Fac5r8vAEoZUvoQ=; b=RoH8TLsmpPeBhKbz
+	KenHoPMWcuZie+A96yRMZF0EsBpdEOdO6g5yROT9FqsLnOmkR3OLsNbwtLCkr1rY
+	qXoqaggKpPGg5zwIB+PRihdKxI/EP8ll1tbXWE/n2iPIW9B7Vq3nXfKeDaq5Y9sS
+	UrPrprj0NxkwaRrYJ33pZ6X68qkyQ+tO/9UEVr+AFx3NimBk6YA04RN8z9OZlAEj
+	6b0ZxIs+22DQuKsZsesDxa4snuJLjkWfkz0xEkH3xIhbn78edI/19pUVn5mdYMLJ
+	jTtn9WXwrbvMBMW2S6jx0webm6xMxzKkk7qLgw5EWs/Q4LBvD7I27oZijPHIZ3OZ
+	zK7eoQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfj4bg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:26:28 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso6382586a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:26:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789014387; x=1789619187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZeOR4nXYfqSKHwdV3Tld3DkJPSD7Fac5r8vAEoZUvoQ=;
+        b=d+BGcxXipXKu0vQ5Hxc+PF1P7e0AzjPKi2ZZytK48MDo7wyWNYWSvIfSUhJGdXzf3/
+         ESpvoYAADfuKIc25RTY7FvuFX1LDGKgyEAKAqBdRlZY8y02fTdGnvNpYuizylR+N0Slq
+         7mwVjKhcYC51t1Dzy4k8AYdAgpC7jz/b9z2ppEpU3NReFwc6fQkgVjTL2sERFfBDgY2a
+         NKovm4ERfXmAGB0KpiIDTdmr4Cy7KVNUPwkC3fmNlUaYqtr2tt/um12st2lospwmqVVy
+         xQNC6BBvqlZ0tgt9loGtKVqFyLadn6knA5tqCaXhYBIjA4doJ1fGcMUCjhcM9DGgkTK4
+         kEeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789014387; x=1789619187;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZeOR4nXYfqSKHwdV3Tld3DkJPSD7Fac5r8vAEoZUvoQ=;
+        b=n+r7X29Al7x4apgZ2q3EvByUCg2mnDH6NF+8O2csucATZ5C9mG0iqmiuCd9wWPFp6g
+         mIb1eF/hXWSsYkJ+B6Hnak0nMx+E06eTd2+TkYByD5NoWxnHXlsNjeS/y0Vgc/+9lyDW
+         EmKHGEoUbmRLtWrMbQP/D0QMHJjM0jQMWKWzCHaoxiajfO3hz6f9yI3qDvk7yCBGxynM
+         +atpovQCmowaP7rBOHIhH0OkhpCEM4a/cIl1RaARAjFFj7ZMl+WFRR6viQ5Mdpk2cguK
+         SMeTjTgyEYxk/boJt18xopzrjgIzp+Xos2WfNyVM+GR0s9X18woxrgddy+shWvRP4gvR
+         BijA==
+X-Forwarded-Encrypted: i=1; AKwUvByjAmSsb7izeFTHf4GHlluwsid2lDM2nTjs48P/RcaHpT43EqVQOAfmBi730UxUVMl0BWS2yoblD+iUDiU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4QFx2aAjPe/L0C4d4d7AunkgT79rrIGenTv0MXIs6HQk4yz1t
+	yTSBowdHABT7Na87Oe+xl+T0HuWwXhr0GiQZr6zJ4AnXs7RwtMDek3YUrUWNzes1eD7xOmdtRt9
+	/N0mhUK1mFZeOXl0dKuX9Zm0nq4jmdhmJlb1v8cyAauWkt8H0ZDY/MwiR6JeBMpdJCTY=
+X-Gm-Gg: AYBFou1MhKpErvU3bZgepjlB7LLSoBZ2qfH8AYprUhfA1KByf5hF4GqvXk/IFKYx6BO
+	vIh0QaQL6fPxUd5q+xSOX1zjCHZNKTNnrLbvc93GvKz5wr2X46RJWzrbuDLCII9sgLn4FHwBWA2
+	Y9rkDeK76zsLU/ZHQhzUUydyiFrq4uLTvfzjtNDqfZGHdj/z+ILSz1cKxUTwQhBbFbnj/zf5Ryh
+	yewG8el/1QaRGqK3P9cmGkO6CRUdsXKLJmiY59Rc7vVWFLi5++rNgXDcmyTMfdS2hvlsuJV4EFb
+	xOOmyF+US9xIeWSrCpVjhs2XJCq4aicsMOhoAUZmGa5gZtENQkI1r04ZnyhQqUKVDngKE8OgEOo
+	V49PCIuryVL+ChjdufdNKH7sS0mW5eXRp1p4K/Hkj/iBnLgmTketYf60n
+X-Received: by 2002:a17:90b:57d0:b0:395:4de0:b78f with SMTP id 98e67ed59e1d1-39b260d28eamr56622909a91.1.1789014387500;
+        Wed, 09 Sep 2026 21:26:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:57d0:b0:395:4de0:b78f with SMTP id 98e67ed59e1d1-39b260d28eamr56622844a91.1.1789014387057;
+        Wed, 09 Sep 2026 21:26:27 -0700 (PDT)
+Received: from [10.133.33.71] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77b1afsm1797507a91.5.2026.09.09.21.26.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 21:26:26 -0700 (PDT)
+Message-ID: <ff7a5250-d026-45ba-866b-f92302e3c87d@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 12:26:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] dt-bindings: remoteproc: qcom,sm8550-pas: make
+ qcom,hawi-cdsp-pas standalone
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260909105049.1317985-1-mukesh.ojha@oss.qualcomm.com>
+ <20260909105049.1317985-3-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Yijie Yang <yijie.yang@oss.qualcomm.com>
+In-Reply-To: <20260909105049.1317985-3-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA0NCBTYWx0ZWRfXy5sWgTLoO1kk
+ 4R6O1bwf7qAfsWmPjQw3ZG0FE4rQfWGIKhofYncq45q8GX/Mi5Om3cpCMVtv3g/Aglk5q7tRdsS
+ 3/ZLI16k62BNDaK3iFuAL0VuU/SdDXY=
+X-Proofpoint-ORIG-GUID: o8FcR7lKb18E3VgoJnmt5HHVkWy8EfG9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA0NCBTYWx0ZWRfX7oe+us5oa8xc
+ J6L+tep1zBGjdDX1SZIdqVG2dxZfhHq107ARU0Hy7LwdBovybv3wXEegCpodN2qN8mNOv6bQsTx
+ viahrvs/AAjZp3ODHN552jdf5JeUgtb4+lkE8aMWyfcdbxMRKR3PDXN4GfIQzxtvOgCnSCWMMtZ
+ zHcjGC5FQecxsxKCCRF2JsqyRqfvYmazSOuuEt3NugIlkX80nRRtvxd//lckynP4n7qQvHdaPiG
+ +WOKEdxDnN/8TCYAmFPyOgmTCtv4KANSP2yjq82Z/rR4ex00/au84zxl8FB+mqzOEQy2TDX5CKI
+ 1FX4JxkBWZkZ5E87kiM4sbTPziQ3V1liUVHRbNlxch0dnzuXT2IMpTbXllaSBIk0OKa1yqe6JXu
+ 5DQ8OlxixO+NYhbwD2xyVY5BppXpujTVlg8qJc17m2lK9X092teu6flm8vE0TVdidsvsjpvX/z0
+ S3lbDh5ZmC/aPi/KbwA==
+X-Authority-Analysis: v=2.4 cv=H5pOUOYi c=1 sm=1 tr=0 ts=6aa23174 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=EK-Lu_RZRIP6TketYm4A:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: o8FcR7lKb18E3VgoJnmt5HHVkWy8EfG9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_01,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100044
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] Partial page reads with software/host ECC cause silent data co=
-rruption on subsequent cache hits due to incomplete cache updates.
-- [Critical] Cache hit logic fails to check the Logical Unit Number (LUN), =
-leading to cross-LUN cache aliasing.
-- [High] Missing cache invalidation on OOB/OTP writes causes cached reads t=
-o return clobbered data.
-- [High] Error handling leaves cache valid with uncorrected data on non-EBA=
-DMSG errors.
---
+Maili faces the same issue, and I have verified that they share the same 
+fix. Please bundle the Maili binding changes into the next version of 
+this patch series.
 
-commit 5e46633e4cdf72f3fb112f28479efe0c2e5ed5d8
-Author: Zongzhen Feng <1768315307@qq.com>
 
-mtd: spinand: cache the last read page to avoid redundant SPI operations
+On 9/9/2026 6:50 PM, Mukesh Ojha wrote:
+> qcom,hawi-cdsp-pas was initially grouped as a fallback to
+> qcom,sm8550-cdsp-pas on the assumption of hardware-level compatibility.
+> Bringup revealed that the NSP proxy power domain on Hawi requires a
+> specific RPMH performance level that the sm8550 driver data does not
+> provide, breaking the compatibility contract the fallback string implies.
+> 
+> Remove qcom,hawi-cdsp-pas from the sm8550-cdsp-pas fallback items block,
+> add it to the standalone compatible enum, and extend the existing
+> cx/mxc/nsp power-domain constraint to cover it explicitly.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>   .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml        | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> index c58e8a6c7fe1..cf57095cd49d 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> @@ -18,6 +18,7 @@ properties:
+>       oneOf:
+>         - enum:
+>             - qcom,eliza-cdsp-pas
+> +          - qcom,hawi-cdsp-pas
+>             - qcom,sdx75-mpss-pas
+>             - qcom,sm8550-adsp-pas
+>             - qcom,sm8550-cdsp-pas
+> @@ -40,7 +41,6 @@ properties:
+>         - items:
+>             - enum:
+>                 - qcom,glymur-cdsp-pas
+> -              - qcom,hawi-cdsp-pas
+>                 - qcom,kaanapali-cdsp-pas
+>                 - qcom,maili-cdsp-pas
+>             - const: qcom,sm8550-cdsp-pas
+> @@ -273,6 +273,7 @@ allOf:
+>           compatible:
+>             contains:
+>               enum:
+> +              - qcom,hawi-cdsp-pas
+>                 - qcom,sm8550-cdsp-pas
+>                 - qcom,sm8650-cdsp-pas
+>                 - qcom,x1e80100-cdsp-pas
 
-This patch caches the last successfully read page in the SPI NAND driver to
-avoid redundant SPI read operations when accessing smaller sectors (like 512
-bytes) within a larger page. It serves repeated reads directly from a bounce
-buffer and attempts to invalidate the cache during writes, erases, and
-errors.
+-- 
+Best Regards,
+Yijie
 
-> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-> index 43bbe2629b85b..a742a1cb572a4 100644
-> --- a/drivers/mtd/nand/spi/core.c
-> +++ b/drivers/mtd/nand/spi/core.c
-[ ... ]
-> @@ -577,6 +578,13 @@ static int spinand_read_from_cache_op(struct spinand=
-_device *spinand,
->  			       req->ooblen);
->  	}
-> =20
-> +	if (req->datalen && !req->continuous && req->mode !=3D MTD_OPS_RAW) {
-> +		spinand->cur_target_cache =3D req->pos.target;
-> +		spinand->cur_block_cache =3D req->pos.eraseblock;
-> +		spinand->cur_page_cache =3D req->pos.page;
-> +		spinand->cache_valid =3D true;
-> +	}
-> +
-
-[Severity: Critical]
-Is it necessary to include the Logical Unit Number (LUN) in this cache logi=
-c?
-
-The SPI NAND subsystem supports devices with multiple LUNs per target. The
-nand_pos structure includes a lun field to address these, but this mechanism
-tracks identity using only the target, eraseblock, and page.
-
-Could this cause a read from one LUN to falsely hit the cache and serve data
-from a different LUN when accessing the exact same eraseblock and page inde=
-x?
-
->  	return 0;
->  }
-> =20
-> @@ -780,7 +788,12 @@ int spinand_read_page(struct spinand_device *spinand,
->  	if (ret)
->  		return ret;
-> =20
-> -	return nand_ecc_finish_io_req(nand, (struct nand_page_io_req *)req);
-> +	ret =3D nand_ecc_finish_io_req(nand, (struct nand_page_io_req *)req);
-> +	if (ret > 0 && req->datalen && !req->continuous && req->mode !=3D MTD_O=
-PS_RAW)
-> +		memcpy(spinand->databuf + req->dataoffs, req->databuf.in,
-> +		       req->datalen);
-> +
-> +	return ret;
->  }
-
-[Severity: Critical]
-Are partial page reads handled correctly here?
-
-When a partial page read occurs, the full page is loaded into the cache and
-marked valid, but only the requested req->datalen bytes are corrected by the
-ECC engine and explicitly copied back to spinand->databuf. The remainder of
-the cached page remains raw and uncorrected.
-
-Will subsequent reads requesting a different chunk of the same page hit the
-cache, bypass the SPI read and ECC correction, and return uncorrected data?
-
-[ ... ]
-> @@ -849,6 +862,20 @@ static int spinand_mtd_regular_page_read(struct mtd_=
-info *mtd, loff_t from,
->  		if (disable_ecc)
->  			iter.req.mode =3D MTD_OPS_RAW;
-> =20
-> +		if (spinand->cache_valid && !disable_ecc &&
-> +		    !iter.req.ooblen &&
-> +		    iter.req.pos.target =3D=3D spinand->cur_target_cache &&
-> +		    iter.req.pos.eraseblock =3D=3D spinand->cur_block_cache &&
-> +		    iter.req.pos.page =3D=3D spinand->cur_page_cache) {
-> +			if (iter.req.datalen)
-> +				memcpy(iter.req.databuf.in,
-> +				       spinand->databuf + iter.req.dataoffs,
-> +				       iter.req.datalen);
-> +			ops->retlen +=3D iter.req.datalen;
-> +			ops->oobretlen +=3D iter.req.ooblen;
-> +			continue;
-> +		}
-> +
->  		ret =3D spinand_select_target(spinand, iter.req.pos.target);
->  		if (ret)
->  			break;
-> @@ -858,6 +885,9 @@ static int spinand_mtd_regular_page_read(struct mtd_i=
-nfo *mtd, loff_t from,
->  		if (ret < 0 && ret !=3D -EBADMSG)
->  			break;
-> =20
-> +		if (ret =3D=3D -EBADMSG)
-> +			spinand->cache_valid =3D false;
-> +
-
-[Severity: High]
-Could the cache be left valid with uncorrected data if a non-EBADMSG error
-occurs?
-
-In spinand_read_from_cache_op(), raw data is loaded into the cache buffer a=
-nd
-spinand->cache_valid is prematurely set to true. If the subsequent
-nand_ecc_finish_io_req() fails with a non-EBADMSG error (such as -ERANGE fr=
-om
-software BCH ECC layout parsing, or -ETIMEDOUT from a hardware engine),
-spinand_read_page() propagates this error.
-
-When the loop breaks here on ret < 0 && ret !=3D -EBADMSG, the cache is not
-invalidated.
-
-Will a subsequent access to the same page incorrectly hit the cache and ret=
-urn
-the uncorrected data as a success?
-
-[ ... ]
-> @@ -1080,6 +1110,8 @@ static int spinand_mtd_write(struct mtd_info *mtd, =
-loff_t to,
->  		if (ret)
->  			break;
-> =20
-> +		spinand->cache_valid =3D false;
-> +
->  		ret =3D spinand_write_page(spinand, &iter.req);
->  		if (ret)
->  			break;
-
-[Severity: High]
-Are other write paths missing cache invalidation?
-
-While this patch correctly invalidates the cache in spinand_mtd_write() and
-spinand_erase(), other write paths like spinand_markbad() and
-spinand_otp_rw() also invoke spinand_write_page().
-
-Because spinand_write_to_cache_op() unconditionally overwrites the shared
-data buffer (spinand->databuf) with 0xFFs during any write operation, this
-can cause the cache buffer to be clobbered while spinand->cache_valid
-remains true.
-
-Will subsequent reads to the cached coordinates falsely hit the cache and
-return clobbered data instead of the actual page contents?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_522792EE6F6=
-3A5581C238FF17E9862F10A08@qq.com?part=3D1
