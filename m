@@ -1,235 +1,187 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472643E4C7B;
-	Thu, 10 Sep 2026 10:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CC53AF640;
+	Thu, 10 Sep 2026 10:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036215; cv=none; b=iVrrhhSAW7YuEthVp2a3dqXwhUmnmRFxtLNOcbX4itP0etXkFK6WveCzGZJQs8PMrk/ZQafutE78/nag/h34w4yYgd11sliNJ9E0P8KGxWftod9QzM4cHKbrJtYwckAWJkcgBcKtQjyi2rSDRRfoUEGLAQpbyw3af2lVw65xm4I=
+	t=1789036221; cv=none; b=kpCx36hWnnW+IA0JcGn/qcE3gcTw/SygHtmNAM18WP3y4NjKIvniY5qm0yVW0dAvwMD45huZh+z0p6QcpVC6OI08amSJmH0z/CAB5iKOIfrX1Ll7tTP0VPYeOamM6rUerBe/Vk1UnHX4qRgiH2LGAWoHBQ9+0/dAy4lapYGiM6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036215; c=relaxed/simple;
-	bh=nMikz4YNyY74FhKkPbaB0M6vAd7E6UR9CkOxWodXgl0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SL3prWZb/VnTJB2Kma9ea5JMR1CzwSTQwmhTAJTADHswg59ioU+vvgdODgZeXeTjjXTMyWZN5uY7lIKkWahdg4x5SNozcDYf7A0fo0rb5LEDbE3T/v3j9YaMALHuNT5Ddl1zlH51N14HuK3CC0/g6hWIkVMB81J8GMw/EOvo7gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=P7+8GjmT; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789036221; c=relaxed/simple;
+	bh=Kj2RTgbjKPC8wB/HcMEFuw5G/Ji5Whd3ExbUlMEZwEk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G5sM66qiTeCun+ox37H3L8svfcS+/BFPLbvgrx5xAp4tx5NSMNJUq75nF+Me8BknQJqO0xJICOLEZG6GyDPEvbq603papmfi5mHpl1DwB1J89pQ5vIrLw+a9j5WTNC7hOK8FyNpCtfBp+/kRAF+JQ0LoMqN7WCUoXUVsbUGnJ28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGIuAwX9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="P7+8GjmT"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A91a2x2483650;
-	Thu, 10 Sep 2026 10:29:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=OYWX0R
-	H8DOHLOCtrZgD5LV0gPTaI8JZ9RGIDCbaQ4cw=; b=P7+8GjmTmfO9IbkbHyUtT3
-	yj4tolE9XvbWiX0nAuk4RwkVuWrJGFN8lpjaL/3/dSmKmkGiML3tFomu/CpR5vUj
-	KxK7yrP1509pfoNhiR3kEb9I9KbYy5R1PyKn6knRYVWis6FnXbe5dETElkEe3kYx
-	g46FRrfzavQ8mx5/VrxBjwygZPWgaxG1NwJLC3VHAh9CMjcqMKCUTFdOoIZjV1jA
-	xVtYDmBTVzuepXootKCPXoigtAz6evR4JYn/P4x75g1on7OPCqscgfDTduenVq2O
-	+ViKXfg10Q6F8v4xLz7Ut5aq29bVX2Rc7HKWOcGzXe5jbgBp9N8pGv8AAxmrD65Q
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8suw2t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 10:29:32 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68AAQGVM004811;
-	Thu, 10 Sep 2026 10:29:31 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkcr33uhh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 10:29:31 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68AATR4D47776036
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 10:29:27 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4F43820043;
-	Thu, 10 Sep 2026 10:29:27 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CCBF52004D;
-	Thu, 10 Sep 2026 10:29:24 +0000 (GMT)
-Received: from p-imbrenda (unknown [9.111.48.108])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Thu, 10 Sep 2026 10:29:24 +0000 (GMT)
-Date: Thu, 10 Sep 2026 12:23:04 +0200
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Paolo
- Bonzini <pbonzini@redhat.com>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>,
-        Bibo
- Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
-        Anup Patel
- <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt
- <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>,
-        Christian
- Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank
- <frankja@linux.ibm.com>,
-        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly
- <joey.gouly@arm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Suzuki K
- Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>,
-        Atish
- Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
-        David
- Hildenbrand <david@kernel.org>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>
-Subject: Re: [PATCH v2 10/20] KVM: selftests: Add a wrapper API to allocate
- multiple page table pages
-Message-ID: <20260910122304.6d40fef8@p-imbrenda>
-In-Reply-To: <20260902164123.2546762-11-seanjc@google.com>
-References: <20260902164123.2546762-1-seanjc@google.com>
-	<20260902164123.2546762-11-seanjc@google.com>
-Organization: IBM
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGIuAwX9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD2B1F000FF;
+	Thu, 10 Sep 2026 10:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789036213;
+	bh=xYuK7QoWI4VcUdxH9EeegsHeKzBVtBmJlcO4ty2/UFM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=DGIuAwX9EoM9lcWFMXWP+cf7L9MLYmWQrH6GJz4Koaj8SwDtikDp1q3vxpZlp0hZj
+	 W6wi0sc3tqqLOkCiewMFyKYO5C/jV0eclp6CHdeCScvx0hNpWi73RKe1V3JtMa7mwW
+	 VUx48vztI7/Gr7LQZpRXxhrQdqht71RIU5PM4xHUu8mmIFD/QUerCxudtodHacTCLJ
+	 6G/KdqtGP6grLEtXuHJ96OnqVpkS0q9qKE9buV8XYtEwbWPlpPkKJh/eSTLz4+nTn/
+	 qmvIxmwE4YJ5105B5nx6EMmAh2RtPuSgn7Dyrk/YKk9iIkzwEQRliWCOikumxPTBOH
+	 cVdgz5xUzAabQ==
+Subject: Re: [PATCH net-next v3 01/10] net: dsa: microchip: add the number of
+ pins to chip infos
+From: netdev-bot+sashiko@kernel.org
+To: bastien.curutchet@bootlin.com
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, richardcochran@gmail.com, pascal.eberhard@se.com,
+ miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 10:30:12 +0000
+Message-ID: <178903621218.219967.2622838231365800209@kernel.org>
+In-Reply-To: <20260908-ksz-perout-v3-1-6722a3f1ca75@bootlin.com>
+References: <20260908-ksz-perout-v3-1-6722a3f1ca75@bootlin.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExNSBTYWx0ZWRfX08DVpiXgVUnP
- 7wkmCcOivwBSbL6mAcR9h5OtqylZU+wRO7T/0OhkHu3k0F9M2m1PhsQsol+Dsr04QAaYbO9LWTA
- AcjtqJBo2ASCE02L2mnZK6R/G5B/GPY=
-X-Proofpoint-ORIG-GUID: IvVTL6gKWZTqBFbywVNu-ekREucvQ5cN
-X-Proofpoint-GUID: fv7SiSZpmApWyfA9kW2K8yKbFXky4vLj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExNSBTYWx0ZWRfX71qI+xHvh4bf
- ctcdWFcJsOpJVKJKIQSGHLkEqRx1ddggdES8ewtJQlfsbA8+JJBYfa5Ed9Ai4+nC8dmntCvvHoN
- loH9eVanahQx/KrTBtVW97tp5nLXdlH9X1zKiu+F8EBFS5YEZpx/lCqiwFTQlKQ5EhWuR3+52BM
- KAGKWMe1qlLPIkt/mbepxWRJfLQMGo4bAJFx2+7TpBKNMNZq6tdhILKXOZJVMz+tb/hVzBDk23J
- mx2lJv2a8fmsh2JeDO1QEQP/r2BGsSNv0F3H6OB3RFK3xBg/w8/vzy5SG+13gLTSpRh4zxdyPsg
- jEeNNMzUAw2/TD7JJDzGIbd+MTxliXTEsQrjVEKmCHWQykj5fSik5DIpSyqe32vLFIKRg33zmhR
- iy/bWzzggvGElTnykzoWsMzxhZ8nIzNZ4wFqF7tmS1nNABKjQShuwgqXBlwXKvUTvu4FXmiYM6C
- VAKXRDsAX7yg7LCXDUQ==
-X-Authority-Analysis: v=2.4 cv=PIGaavqC c=1 sm=1 tr=0 ts=6aa2868d cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=1XWaLZrsAAAA:8
- a=omOdbC7AAAAA:8 a=VnNF1IyMAAAA:8 a=o3jzi3dQArLouIYA8mYA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 bulkscore=0 adultscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100115
 
-On Wed,  2 Sep 2026 09:41:13 -0700
-Sean Christopherson <seanjc@google.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-> Add vm_alloc_page_table_pages() and use it throughout arch code to replace
-> open coded equivalents.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+Critical: 0 · High: 0 · Medium: 0 · Low: 2
 
-Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+- [Low] In ksz_ptp_clock_register()
+  (drivers/net/dsa/microchip/ksz_ptp.c:1053,1060) both caps.n_pins and…
+- [Low] The KSZ8463 entry in ksz_switch_chips[]
+  (drivers/net/dsa/microchip/ksz_common.c, [KSZ8463] block around line…
 
-> ---
->  tools/testing/selftests/kvm/include/kvm_util.h    | 9 +++++++--
->  tools/testing/selftests/kvm/lib/arm64/processor.c | 4 +---
->  tools/testing/selftests/kvm/lib/riscv/processor.c | 4 +---
->  tools/testing/selftests/kvm/lib/s390/processor.c  | 8 ++------
->  4 files changed, 11 insertions(+), 14 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
-> index d9d39a8894e2..c56f342b16fd 100644
-> --- a/tools/testing/selftests/kvm/include/kvm_util.h
-> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
-> @@ -1013,10 +1013,15 @@ static inline gpa_t vm_phy_page_alloc(struct kvm_vm *vm, gpa_t min_gpa,
->  	return vm_phy_pages_alloc(vm, 1, min_gpa, memslot);
->  }
->  
-> +static inline gpa_t vm_alloc_page_table_pages(struct kvm_vm *vm, size_t nr_pages)
-> +{
-> +	return vm_phy_pages_alloc(vm, nr_pages, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> +				  vm->memslots[MEM_REGION_PT]);
-> +}
-> +
->  static inline gpa_t vm_alloc_page_table(struct kvm_vm *vm)
->  {
-> -	return vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -				 vm->memslots[MEM_REGION_PT]);
-> +	return vm_alloc_page_table_pages(vm, 1);
->  }
->  
->  /*
-> diff --git a/tools/testing/selftests/kvm/lib/arm64/processor.c b/tools/testing/selftests/kvm/lib/arm64/processor.c
-> index 01325bf4d36f..2dcaa2c4a038 100644
-> --- a/tools/testing/selftests/kvm/lib/arm64/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/arm64/processor.c
-> @@ -115,9 +115,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
->  	if (vm->mmu.pgd_created)
->  		return;
->  
-> -	vm->mmu.pgd = vm_phy_pages_alloc(vm, nr_pages,
-> -					 KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -					 vm->memslots[MEM_REGION_PT]);
-> +	vm->mmu.pgd = vm_alloc_page_table_pages(vm, nr_pages);
->  	vm->mmu.pgd_created = true;
->  }
->  
-> diff --git a/tools/testing/selftests/kvm/lib/riscv/processor.c b/tools/testing/selftests/kvm/lib/riscv/processor.c
-> index ded5429f3448..c175dcd14114 100644
-> --- a/tools/testing/selftests/kvm/lib/riscv/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/riscv/processor.c
-> @@ -69,9 +69,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
->  	if (vm->mmu.pgd_created)
->  		return;
->  
-> -	vm->mmu.pgd = vm_phy_pages_alloc(vm, nr_pages,
-> -					 KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -					 vm->memslots[MEM_REGION_PT]);
-> +	vm->mmu.pgd = vm_alloc_page_table_pages(vm, nr_pages);
->  	vm->mmu.pgd_created = true;
->  }
->  
-> diff --git a/tools/testing/selftests/kvm/lib/s390/processor.c b/tools/testing/selftests/kvm/lib/s390/processor.c
-> index fb9dab92d4d1..33f49d743b5f 100644
-> --- a/tools/testing/selftests/kvm/lib/s390/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/s390/processor.c
-> @@ -20,9 +20,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
->  	if (vm->mmu.pgd_created)
->  		return;
->  
-> -	gpa = vm_phy_pages_alloc(vm, PAGES_PER_REGION,
-> -				   KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -				   vm->memslots[MEM_REGION_PT]);
-> +	gpa = vm_alloc_page_table_pages(vm, PAGES_PER_REGION);
->  	memset(addr_gpa2hva(vm, gpa), 0xff, PAGES_PER_REGION * vm->page_size);
->  
->  	vm->mmu.pgd = gpa;
-> @@ -38,9 +36,7 @@ static u64 virt_alloc_region(struct kvm_vm *vm, int ri)
->  {
->  	u64 taddr;
->  
-> -	taddr = vm_phy_pages_alloc(vm,  ri < 4 ? PAGES_PER_REGION : 1,
-> -				   KVM_GUEST_PAGE_TABLE_MIN_PADDR,
-> -				   vm->memslots[MEM_REGION_PT]);
-> +	taddr = vm_alloc_page_table_pages(vm, ri < 4 ? PAGES_PER_REGION : 1);
->  	memset(addr_gpa2hva(vm, taddr), 0xff, PAGES_PER_REGION * vm->page_size);
->  
->  	return (taddr & REGION_ENTRY_ORIGIN)
+--
 
+net: dsa: microchip: add the number of pins to chip infos
+
+This adds an n_pins field to struct ksz_chip_data and sets it to 2 for
+every PTP-capable switch, replacing the hardcoded KSZ_PTP_N_GPIO used by
+ksz_ptp_clock_register() for caps.n_pins and for the pin_config[]
+initialization loop.
+
+> diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+> index 1a9d6f83a0232..d01fba253af57 100644
+> --- a/drivers/net/dsa/microchip/ksz_common.c
+> +++ b/drivers/net/dsa/microchip/ksz_common.c
+> @@ -1194,6 +1194,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
+>  		.ptp_capable = true,
+>  		.wr_table = &ksz8563_register_set,
+>  		.rd_table = &ksz8563_register_set,
+> +		.n_pins = 2,
+>  	},
+>  
+>  	[KSZ8795] = {
+
+[Severity: Low]
+The commit message says ".n_pins" is set "for all the PTP-capable
+switches", but the KSZ8463 entry in ksz_switch_chips[] does not get an
+.n_pins value here, so it stays 0.
+
+Is that intentional?  KSZ8463 does register a PTP clock, and the call is
+not gated on info->ptp_capable:
+
+drivers/net/dsa/microchip/ksz8.c:ksz8463_setup() {
+	...
+	if (dev->irq > 0) {
+		...
+		ret = ksz_ptp_clock_register(ds);
+	...
+}
+
+With caps.n_pins coming from dev->info->n_pins, KSZ8463 goes from
+advertising two PTP pins to advertising none: no ptp_pin_desc is
+initialized, the pins directory of the PTP device disappears,
+PTP_PIN_SETFUNC fails, and ptp_find_pin() in ksz_ptp_enable_perout()
+can no longer match a pin:
+
+drivers/net/dsa/microchip/ksz_ptp.c:ksz_ptp_enable_perout() {
+	...
+	pin = ptp_find_pin(ptp_data->clock, PTP_PF_PEROUT, request->index);
+	if (pin < 0)
+		return -EINVAL;
+	...
+}
+
+The last patch of the series does give KSZ8463 ".n_pins = 12", so this
+only affects the intermediate commits, but would it be better to set
+KSZ8463 here as well so no commit in the series shrinks the pin
+interface?
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/microchip/ksz_common.h b/drivers/net/dsa/microchip/ksz_common.h
+> index cbe98494578c3..c678fc6597dc4 100644
+> --- a/drivers/net/dsa/microchip/ksz_common.h
+> +++ b/drivers/net/dsa/microchip/ksz_common.h
+> @@ -139,6 +139,7 @@ struct ksz_chip_data {
+>  	u8 sgmii_port;
+>  	const struct regmap_access_table *wr_table;
+>  	const struct regmap_access_table *rd_table;
+> +	const u8 n_pins;
+>  };
+>  
+>  struct ksz_irq {
+> diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
+> index 39cc70d65900b..c92936bf78d3d 100644
+> --- a/drivers/net/dsa/microchip/ksz_ptp.c
+> +++ b/drivers/net/dsa/microchip/ksz_ptp.c
+> @@ -1050,14 +1050,14 @@ int ksz_ptp_clock_register(struct dsa_switch *ds)
+>  	ptp_data->caps.do_aux_work	= ksz_ptp_do_aux_work;
+>  	ptp_data->caps.enable		= ksz_ptp_enable;
+>  	ptp_data->caps.verify		= ksz_ptp_verify_pin;
+> -	ptp_data->caps.n_pins		= KSZ_PTP_N_GPIO;
+> +	ptp_data->caps.n_pins		= dev->info->n_pins;
+>  	ptp_data->caps.n_per_out	= 3;
+>  
+>  	ret = ksz_ptp_start_clock(dev);
+>  	if (ret)
+>  		return ret;
+>  
+> -	for (i = 0; i < KSZ_PTP_N_GPIO; i++) {
+> +	for (i = 0; i < dev->info->n_pins; i++) {
+>  		struct ptp_pin_desc *ptp_pin = &ptp_data->pin_config[i];
+>  
+>  		snprintf(ptp_pin->name,
+
+[Severity: Low]
+Can this loop overflow ksz_ptp_data.pin_config[]?  The bound is now the
+per-chip n_pins, while the destination array is still sized by the
+compile-time constant:
+
+drivers/net/dsa/microchip/ksz_ptp.h
+#define KSZ_PTP_N_GPIO		2
+
+struct ksz_ptp_data {
+	...
+	struct ptp_pin_desc pin_config[KSZ_PTP_N_GPIO];
+	/* Serializes all operations on the PTP hardware clock */
+	struct mutex lock;
+	...
+};
+
+After this change nothing ties n_pins to ARRAY_SIZE(pin_config): there
+is no clamp, no min(), and no BUILD_BUG_ON.  A chip entry with n_pins
+larger than KSZ_PTP_N_GPIO would write past pin_config[] into lock,
+clock_lock, clock_time and the perout state of struct ksz_device, and
+would also hand the PTP core an n_pins larger than the array it indexes
+from PTP_PIN_GETFUNC, PTP_PIN_SETFUNC, ptp_populate_pin_groups() and
+ptp_find_pin().
+
+Every n_pins initializer in this commit is 2, and the later commit that
+raises KSZ8463 to 12 also changes KSZ_PTP_N_GPIO to 12 in the same diff,
+so no commit in the series can trigger this today.  Would it still be
+worth sizing pin_config[] from a maximum constant and adding a
+BUILD_BUG_ON(dev->info->n_pins > ARRAY_SIZE(ptp_data->pin_config))
+style check, so the two values cannot drift apart?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-ksz-perout-v3-0-6722a3f1ca75%40bootlin.com
