@@ -1,167 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4BE35202C;
-	Thu, 10 Sep 2026 09:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74002FDC28;
+	Thu, 10 Sep 2026 10:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034350; cv=none; b=se2aXF8QOaMovvWIVLv6OQLBDeSP0beHIm48QUsZM1KFcGQXxhQuOHmdh5kcEuAYyle2aMrG64gU3WV2Tc/VcVwE5VgVfL+o5GuIQkS/8C/3N6NW/iWqBULfuH0TmDV3BQpxnxS6QCwX+C/FvucYEhervK5yPRUyHd7PzHeZyl8=
+	t=1789034415; cv=none; b=IZIMBKpa52RygWlyyS338cc0pvdy4JQBPN9KJxCd+uHZQpmtpIRIj3J1sREEULz5E79NkdTwgN7IFRzs4O0Mnvpd9S2gQF0RKxWms3749Uwa21LnZJTfqnjR4dUpUQrwGDd5ycruJ3BdUWV/r+niHPWF4s0Vf2DEIl2AMYPhWDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034350; c=relaxed/simple;
-	bh=fpSdg5Ex7QRSWoXO1/VxBlB62YDI7zyawiewGoJwkZ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iYrLI48p5NQl24wOpfZxvcOi5apCTNERVQxa02kzLr+SoKSFIptrdehS8cXhFwYPedNVDQJFZ5Ybb+fBtQtPOegVTfw0cLKM2SwfzztY3Z5OQDYbDJKpSbzyThziMAv4h6gXIHi/NLaISNcGX9KfzjgJIptgUEBl5H9EiK+5Gxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Btbp/DdQ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Btbp/DdQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D81C1F000FF;
-	Thu, 10 Sep 2026 09:58:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789034349;
-	bh=7E7qL9hnMJksX9Fno6BkugSVMdHcPZ0KaVrs7NYY16s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Btbp/DdQDkYguPGE72KqFMmtU62PXLGOhJ0BVA4TjekaMJ7fvAebinZO9+OCzfBGl
-	 bVNJxH1goP4pUSAi8DwHCvmb7/XxSnj55za6Aw4mxJxj0Qxf8WdK06Nvlk8ir/G2PG
-	 nv3oFP9VVn680YlbepBhluTI4FNqlR2RIac40sfu4z83Dfn7Gs5AnVNYH1AERlO8g/
-	 O/uuq4aKITSnB3CCUCm5KnAiMgGtfX8KByqU3ga68/mWbWbRsGCbQ43yYIMZvxVY8P
-	 6uYoKpLcmcjvXsLJkv8mBTwkXPQJo2m+p2ofMj5WVjmvyVYMna8FhMIvfDN8Tf+KW0
-	 17DPj/qdtxCfA==
-Message-ID: <dedad87b-909d-4d14-b914-ff2e28c414ce@kernel.org>
-Date: Thu, 10 Sep 2026 11:58:53 +0200
+	s=arc-20240116; t=1789034415; c=relaxed/simple;
+	bh=oyDvJsRsZUT5zQUvQL7230aHOCA0gis5Saf2Kq/K7e4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qSnwLaamMmJRGDLACsek9oQo+aZWcfLCatr+Jr2x1N+roCLVcIQVVAiLsQbfxryzho8TUj+GvK+d/uwCEjrWCCpjjdCl1UzsBvUJpJyqce8nKjmiV6m3KaSXPhKU8EPEm3g9V1UzmXtLAJioTmwRtj5ohS6UyKceUwZgcdWCTyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.127])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d45e99d9;
+	Thu, 10 Sep 2026 18:00:03 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Subject: [PATCH 1/1] clk: qcom: ipq8074: set BRANCH_HALT_VOTED flag for usb master clocks
+Date: Thu, 10 Sep 2026 18:00:00 +0800
+Message-Id: <20260910100000.2627799-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] KVM: guest_memfd: take the invalidate lock when
- unbinding a dying file
-To: Shivank Garg <shivankg@amd.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <jackmanb@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Shuah Khan <shuah@kernel.org>, Chao Peng <chao.p.peng@linux.intel.com>,
- Nikunj A Dadhania <nikunj@amd.com>, Michael Roth <michael.roth@amd.com>,
- Pankaj Gupta <pankaj.gupta@amd.com>, Ackerley Tng <ackerleytng@google.com>,
- Sean Christopherson <seanjc@google.com>,
- Vishal Annapurve <vannapurve@google.com>,
- Nikita Kalyazin <nikita.kalyazin@linux.dev>,
- Patrick Roy <patrick.roy@linux.dev>, Pratik Sampat <prsampat@amd.com>,
- Ashish Kalra <Ashish.Kalra@amd.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Peter Shier <pshier@google.com>,
- Jim Mattson <jmattson@google.com>, Ricardo Koller <ricarkol@google.com>,
- Ira Weiny <iweiny@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: linux-fsdevel@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260805-shivank-gmem-migrate-v3-0-00d8bdec4e1d@amd.com>
- <20260805-shivank-gmem-migrate-v3-1-00d8bdec4e1d@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260805-shivank-gmem-migrate-v3-1-00d8bdec4e1d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa08ac2971403a2kunmd372c5e61a4e91
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGkMZVktCHxhLGk9PH0kdQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktJT0
+	9PS1VKS0tVS1kG
 
-On 8/5/26 08:40, Shivank Garg wrote:
-> kvm_gmem_unbind() skips mapping->invalidate_lock when the guest_memfd
-> file is already dying. All other paths that modify f->bindings hold
-> that lock.
-> 
-> kvm_gmem_invalidate_{start,end}() checks f->bindings independently to
-> decide whether to begin or end KVM MMU invalidations. So, the bindings
-> must remain stable between the two calls. If a binding is removed in that
-> window, start increments mmu_invalidate_in_progress but end does not
-> decrement it. Example, unbind race with memory failure:
-> 
->   CPU 0: memory failure               CPU 1: memslot delete
->   ----------------------------------  ---------------------------
->                                       (guest_memfd file is dying)
->   kvm_gmem_error_folio()
->     kvm_gmem_invalidate_start()
->       finds binding
->       mmu_invalidate_in_progress++
->                                       kvm_gmem_unbind()
->                                         get_file_active() fails
->                                         store NULL in bindings
->     kvm_gmem_invalidate_end()
->       no binding found
->       counter stays elevated
-> 
-> mmu_invalidate_retry() then returns 1 forever, so guest page faults
-> retry without ever installing a mapping and the guest hangs.
-> 
-> Take the invalidate lock in the dying-file path too. This prevents unbind
-> from removing a binding and leaking mmu_invalidate_in_progress. This is
-> safe because any caller that reaches this path holds slots_lock, so
-> kvm_gmem_release() cannot nullify the slots->gmem.file, until
-> kvm_gmem_unbind() finishes.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260728092027.225CF1F000E9@smtp.kernel.org
-> Fixes: ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when gmem is dying")
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
+Currently, on some boards with older versions of U-Boot, attempting
+to disable usb master clocks results in a "stuck at on" warning:
 
-This was sent independently in the meantime, correct? (or was it included in
-this series, IOW what's the expected patch flow)
+[    3.005088] gcc_usb1_master_clk status stuck at 'on'
+[    3.187119] gcc_usb0_master_clk status stuck at 'on'
 
+The USB master clocks of IPQ5332 and IPQ5424 have the BRANCH_HALT_VOTED
+flag set, so let's do the same to fix the issue.
+
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+These boards run a vendor-specific version of U-Boot, and upgrading to
+a newer version could brick the device. Therefore, I think this should
+be fixed within the Linux kernel.
+---
+ drivers/clk/qcom/gcc-ipq8074.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/clk/qcom/gcc-ipq8074.c b/drivers/clk/qcom/gcc-ipq8074.c
+index 1329ea28d703..10bd2f80010c 100644
+--- a/drivers/clk/qcom/gcc-ipq8074.c
++++ b/drivers/clk/qcom/gcc-ipq8074.c
+@@ -2612,6 +2612,7 @@ static struct clk_branch gcc_sys_noc_usb0_axi_clk = {
+ 
+ static struct clk_branch gcc_usb0_master_clk = {
+ 	.halt_reg = 0x3e000,
++	.halt_check = BRANCH_HALT_VOTED,
+ 	.clkr = {
+ 		.enable_reg = 0x3e000,
+ 		.enable_mask = BIT(0),
+@@ -2725,6 +2726,7 @@ static struct clk_branch gcc_sys_noc_usb1_axi_clk = {
+ 
+ static struct clk_branch gcc_usb1_master_clk = {
+ 	.halt_reg = 0x3f000,
++	.halt_check = BRANCH_HALT_VOTED,
+ 	.clkr = {
+ 		.enable_reg = 0x3f000,
+ 		.enable_mask = BIT(0),
 -- 
-Cheers,
+2.34.1
 
-David
