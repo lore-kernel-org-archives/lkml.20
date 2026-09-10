@@ -1,182 +1,187 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36382DB7B8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836873C5855;
+	Thu, 10 Sep 2026 08:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027743; cv=none; b=lZD7VBSXqK/4CPREqOntHCOmOjp+pWZbrA6WBUOiJfYv4/DCauOz1LeoOin0ESLDJoipPvaauA4O0wFkjUREtj0NKw4YV0gDcrkbiKSdRSrW35tgP3r9kIiU5C6wAhUskFNEdF6foqMSBV0SehiSCdueHQftaYVFHq7tUkiatSI=
+	t=1789027764; cv=none; b=JCw5jsD9eDrYYQu4QGn0fHO0w40ey0vPucq8wgm2j1yi+oJGMqmMcqMbH5L0scG9rm8ORJoVAT8npkD+9b2SpVS/k+64Ho9WHS7Xlz51x7c9sjjxNBi/kRXaUcN9SBaaxz4ta7Xd83UgXdV4Y1T1Jq+2uBmAYowC6Ehz4hoX8jI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027743; c=relaxed/simple;
-	bh=sZG2eexUBDvxgaq6ysoGTc36spnht+MNulg2i1alcXU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rKkiumgttTPWyluZ24Wz2RbQYWIxym872L1apNugroSr7R2Fa9m1hg6fvEEz1yzV25TFFcgpi3U/jHoUMEEV6VPPVR/47QJf7ZTyV28M3UV1OrMXb0JoYjC+0iql3csXXqyDSFcFjaXMz2qwyFbnogcxBcOWBUl6F+LiyYDso0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pPiRgpa+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UFjQ5zIi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789027764; c=relaxed/simple;
+	bh=UBS1HgDJOYamAJTt+ySk4AAA6KHb0MqlPww8ENDQvJA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jjj6l1zX8GqDCRRUsPV2b3KuG1DR1uXlipRldS7Y9k8z/9CbMSc+AjtMDnWritBBehIu8PQfgYbQYphU1nWXQWqfyECUFHEPNwLkU7XddHxeiEJhW7FZ6p2FwsUGVStfIpE8ATRP+fY5ePgqbtenZXTNU+pqX63ajYTrrsa/1MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=ykWp9MEi; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pPiRgpa+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UFjQ5zIi"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5GrBG3520301
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	P7BTTddhf4N5PrxHybbjlwH7viQ1O+pT1zz2AMFb7tw=; b=pPiRgpa+i0kXlw4m
-	fqepclc9pletqlBQvxnlcD3vbXxI7ffdS3JSAZ6LpjwntoyNwWtXmEKxEQjxoxKU
-	i20i/xkYq+Qbakow9oTJDl44ledqUtNTXWv5ptACP/Owae0VzEI/2LWcDzrlQ+z8
-	Qi2lygGNGUGeHjBcEtx4ceEaPzvtRmWlqiB3fYBhcbirDV2hBWcVjvFdnGlWkFyx
-	06jgq3AIN2EOUIvox3B40s0qrSTx5K+RUgg0OmNad4cAqA5D97+upvOD5bxaPJTH
-	wftptOlTkGJJIl1i9KCxulqNDdbgsnWcdfzGH3aFk8upu0uiTXqwd0SEFfCw45yA
-	fJjunQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfjv4c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:00 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934a8cd3a8bso129004985a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:09:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789027740; x=1789632540; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P7BTTddhf4N5PrxHybbjlwH7viQ1O+pT1zz2AMFb7tw=;
-        b=UFjQ5zIiTxL2Hhr3U9xhbMULcTapKWRVYybuHlT2X0v0jCvZxI0vwM1uorHFX/gOwj
-         xmx8gmErQc2DCycx8KyWcKWC24eH+14A4SWzYAY9m2zcIJCRtzxlC1UCSSaf+vUkR5fT
-         n898IhLQ54zAPXhiOq2RSU0aYZKlwmBJiOcUUz3ccJWIC4z4+s+eZQfediDuZEOhmiLw
-         F4QCHU565iSXfMOUSdfs3kkWsycmZQj/JLto8X8iPp2Y2F+Fj45+1OY+4yjLMWY649ii
-         7EzigQE7uqODhSzTOdmJe9B03/HKgwsn4YPoS0qp+ZosWyA3tDv1P7UiuQASGe05tJYy
-         wFfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789027740; x=1789632540;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P7BTTddhf4N5PrxHybbjlwH7viQ1O+pT1zz2AMFb7tw=;
-        b=DzSfb7KiiWRljU55HAtIa/QlkXW1J4m/hxKFXXkk7zYes3w3G3Fuojv98iAxboMl93
-         WcP6TiC4lqtpALUiVfs9Bi271SrhFG7A1CxMewWSqlGLwWQn2UlAjg0UZtObuLC3HO0I
-         YeH4StGKE3C6c3dOAMoo10Tgi8aFvc7FNvDElvjV/JqLM5l2TaaRxyMY/3s7liBVpwY8
-         IZpCy+f2zwZp0kSHDkAWCJiLHU8XhzlhYCheR5thkXqTGpy2rElB7Yz0QsmECA7QMfyJ
-         GW9ug1jmUerjcrU/tm+xjNwm7HUgN2Jdx1V5jdE3gA0pwP/OiN4lczlAdn3MKC2PvAXf
-         Fmyw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRuo7zZaHJJuYZfTSTUpgli08BlkPQxXignxx+uHqOcNPQHhlZpN9l+p6cZEfNa6fVmCvvUywVqT6vrRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9liy7+cCcVb9jSNakhZWQPntE2sFqDb8trUluBTohBMQWr3mB
-	Y45FeSpcARmRs3FbbczVT4gGxauF7XHS4Tx6llZj01YWBrQKzFKCVNct2H3kGYFsWa7ANVjY3Y2
-	RgxXcCUeZKbfWSPBwFOAp4bwWSKOv5trK1hQJC9hDjgazLPQPU6Rd/ekvWvcUo5VmWa4=
-X-Gm-Gg: AYBFou32cOjIIsKh/lGZUjU3Bu0yPnG+RSEP6FO6BZvG2KolUUsowCLVZ5CL1iO2d0W
-	hU6ng0RAB5lnWZw6Lc2EAYiZwNaIatdYCxJoi4DDmfY4li2m1JGN7cPeMr+PeRNuAO3/YLlVnCO
-	qWlD255hZKL5/yjg18CXa3w3ZILCerNXHxFKcIGyrGdn1dYsuJFz7RiWrw7j5nC21glD9M1RT5i
-	U545C056uE7R74rReg9RZl2JzqT+354fgQLPA8aR2a9GJCOX8ZgNbbE2K9OuTBeMGOd9VWqHWu0
-	O4x9mHni9ha/muxtZjI3QZqY7hTq56bXw0w+z3SN79f9imh/9cpNZf6+VLn6UBjNq4aHLv7C4WY
-	zmTc1mt8/+XTmX2JWw2xr9g==
-X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr3092767185a.2.1789027739723;
-        Thu, 10 Sep 2026 01:08:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr3092763385a.2.1789027739269;
-        Thu, 10 Sep 2026 01:08:59 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a993d6611asm1966906a12.25.2026.09.10.01.08.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 01:08:58 -0700 (PDT)
-Message-ID: <e77d4410-e7fa-4885-9d9f-6dd09fb7cebb@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 10:08:55 +0200
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="ykWp9MEi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1789027646;
+	bh=CHrVd4QupN2Icd5LuQOXtHU8JZxOORarAdWW213eHzg=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=ykWp9MEiSk7Jc+yhTjpeebX8Pp7PdhLcJ3kXtQBnhjKPTXM/xF3iJXF/tNf/kmaX1
+	 to8hx3iKMxszLgigEloFvFEPuVsXusS8aJBdcooKYrYZdbIOzpbpg4+r/EdvN0jJUk
+	 chzaSR1PiSbZDEDANYn56MnQ/I/aVzNnDSrolUHU=
+X-QQ-mid: zesmtpsz6t1789027641tf2e5ab1e
+X-QQ-Originating-IP: v57H0f8v9d+o9uYBjxvMedZTdt78u9k9xEX1xQad5tc=
+Received: from hepeiyang-vm.wu.lxd ( [114.212.83.113])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 10 Sep 2026 16:07:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14959840024138416349
+EX-QQ-RecipientCnt: 8
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: lyude@redhat.com,
+	dakr@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	bskeggs@redhat.com,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [PATCH] drm/nouveau: don't bump pin count on failed re-pin in nouveau_bo_pin_locked()
+Date: Thu, 10 Sep 2026 16:06:59 +0800
+Message-ID: <4C61D1CE5BB7CD58+20260910080659.2798052-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] buffer: fix NULL dereference of bh->b_folio in
- __bh_submit()
-To: Joseph Qi <joseph.qi@linux.alibaba.com>,
-        Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-        ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-        Srikanth Aithal <Srikanth.Aithal@amd.com>,
-        Luca Weiss <luca.weiss@fairphone.com>, Jan Kara <jack@suse.cz>
-References: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX696FaDYW7z2f
- Iq4epZGdWIcguMIQor8fyuO5vIJAcogCIG1xi7FRjJ2kSDKyOspuKiIyV1Xj7bukjcYL3jIHrfg
- ecieuau/j9OTO4hETsIpEc86Vo/eH68=
-X-Proofpoint-ORIG-GUID: gXUTVv-xCdHbJf3F3wVTgBN07U-W15EG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX1gjB8dtwWTWH
- zpRXXUIeuHma85nRWQ7djfxynTa5By6TZWfRXH8F1Z5p5xvYKESY9B6YkM7H4wTk0G+cNLWFQoB
- xhgRZAn7xP5i/SFib0YkFKwz8Kq+Arc1RsUPUAHD9Cs3P3QyT7P2MzPLEXnV83YwCjyd9IXADZB
- sOEnX5wJ0c6U7qNnjn+JOmejXICUHCmykkYzqK8kcFDTRz8WODSHTwtk+9kgnspsosJ2N9NmFf3
- GC1hXpG2BeF/gxkAh0ys4PpE+DLZKo65sWyUCluF0kwHHWc64eSHMxz5A+i5oFrwZPbKTqwDXUr
- 6ErlC2NDisBhGiG2urXYZlAyU2abzoJb3vhfjnhKXgg94ih1j/B3mYlLUhro0G/jt31UU/PRKDk
- xjilCOrpAceXHmPL8XIeuN8kj3q87sGkdhZlgZEELvamxkUmJpaFkpoaFNoEvcXwSTGpM7bUnIk
- s5876PQu83NhcMSQN6w==
-X-Authority-Analysis: v=2.4 cv=H5pOUOYi c=1 sm=1 tr=0 ts=6aa2659c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=zd2uoN0lAAAA:8 a=6H0WHjuAAAAA:8 a=SRrdq9N9AAAA:8 a=EUspDBNiAAAA:8
- a=xELAsZIkk1thdxp-Qi8A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-GUID: gXUTVv-xCdHbJf3F3wVTgBN07U-W15EG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100088
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NpfbsqbTlzxUOvzqVtC/TKNNUMMBZqoi3BMLUiaduAYbs2die1X2i2g/
+	EY9q0s7n+cB+RsdxX2JxQyA8Dos0iPQm3xhb54Q27Mg+MtwpFY9jGMW9QhNwM7xcnrUvSOm
+	5EiQ6lxXtRGw3zjwqaMsL1abWg6J2hEFlsE5Rv+Q35cKLrSkwuzdKts5rOUrlnf7DwUChHr
+	7cyJeZqDuVDkZiIvOM7wbznVZe28kd0Ai4x3ybQUWdA93xWCvSL3Sk16g0xvJqdn5MYBjCG
+	HmdbMTCdWsfay1Dw4kC1OSrsXCMLDIHfGGr07eT/p6Pu6FdKmMpal1XASi0QulNHiX/R5SA
+	Dx6rZPzpWSC2uKJXTd534geCr4H7ZILEZfiM5hppxIHcxVPsyAhSte4ksGl/UmNv9hnSoAU
+	0TULnaPwzCx8Rydg4t6NdlDsH2TPXbF8xnSQN1KaoylvuhC24u7KnQ9uFFKwWdpPP/D94xN
+	BoVSCXucZs7YBN1SGcXYtQ64OAWl3Yopac4bR6UWEaCmu0RW8GVbCLX11lNNKvv2wWDT63X
+	zmDYSluXhUCvxF9v/iVdFaxIv0VVrzPjh6wl/hUyUJe8rDnbMHuuB63NRqkSGPPpMzSkjqU
+	tWJNcuBmb7eBC4Np8IhYiSjWFcOL87/3Hc4P0jE2rpvRa/vE1tD+FaIWVYFTiIzB5vVAsTV
+	GtkJyBu5XhO37hCBap0ta1SOJQgPMbX1D4EGO6Yael08h2DCN3vFFMyyybfxVIarYDEH5Db
+	EelEPOOYfpN1Mk1iyp6hRnL6Nfd8XzT1/15I9vwtSEn5SGLCMsBMbxgmXCERhHd72hVHRku
+	ITT3NzI4Mtb9kcLnhJQsi3V/dzEKWcrBVRCP4Kr44nYBeJE/xUxKlCICg5U1om9A7zAYcNL
+	PY7EOT8e29RDAjXJI+LEpRKI2bMLL/3uY6iwR8Ywd8fS/mBMPYA0i8Coz2fsVgxMV8i8GPi
+	Vf7LyTZLiYOdIho0vf+hsKQzRvaaFW5Wssho+nNB9DdVUuWeRuIQEDdSvNx3nQyuvKGcU7h
+	t8Kmz667Ttb5JbxSL/
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On 9/2/26 3:33 AM, Joseph Qi wrote:
-> Commit a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind
-> writeback") added an unconditional folio_test_dropbehind(bh->b_folio) in
-> __bh_submit().  But jbd2 shadow buffers have a NULL b_folio since commit
-> 5febcba29792 ("jbd2: point the shadow buffer at the frozen data
-> directly") made them point b_data at the kmalloced frozen data rather
-> than a folio.  Submitting such a buffer during journal commit oopses:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   RIP: 0010:__bh_submit.constprop.0+0x87/0x120
->   Call Trace:
->    jbd2_journal_commit_transaction+0x932/0x1b10
->    kjournald2+0xb2/0x250
-> 
-> Hit by the ocfs2-testsuite fill_verify_holes test running with
-> data=writeback.
-> 
-> Dropbehind only applies to buffers backed by a folio, so skip the check
-> when b_folio is NULL.
-> 
-> Fixes: 5febcba29792 ("jbd2: point the shadow buffer at the frozen data directly")
-> Tested-by: Srikanth Aithal <Srikanth.Aithal@amd.com>
-> Tested-by: Luca Weiss <luca.weiss@fairphone.com> # sm7225-fairphone-fp4
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> ---
->  fs/buffer.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/buffer.c b/fs/buffer.c
-> index 427d8a817cd5..f46fa6413032 100644
-> --- a/fs/buffer.c
-> +++ b/fs/buffer.c
-> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
->  
->  	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
->  
-> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
-> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
-> +	    op_is_write(opf))
->  		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+nouveau_bo_pin_locked() checks whether an already pinned BO is in a
+memory domain compatible with a new pin request. When the domains are
+incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
+returning.
 
+Callers treat a failed nouveau_bo_pin() as not having acquired a new pin,
+so the extra pin count is never decreased by a matching unpin.
+This triggers the warning in ttm_bo_release():
 
--next has been broken for a week+ already, please pick this up..
+	WARN_ON_ONCE(bo->pin_count);
 
-Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # multiple QC boards
+Found when fuzzing the nouveau driver with a modified Syzkaller:
 
-Konrad
+	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1: syz.3.24/2212
+	Modules linked in:
+	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24 PREEMPT(lazy) 
+	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19 resp:0x19
+	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+	RIP: 0010:ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256
+	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7 e8
+	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00 00  .........0..-...
+	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
+	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX: ffffffff82bb1b36
+	RDX: ffff888017b68000 RSI: 0000000000000004 RDI: ffff888018e5d2a8
+	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+	RBP: ffff88801261c720 R08: 0000000000000001 R09: ffffed10031cba55
+	R10: ffff888018e5d2ab R11: 00000000000000f3 R12: ffff888018e5d290
+	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15: dffffc0000000000
+	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000) knlGS:0000000000000000
+	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4: 0000000000770ef0
+	PKRU: 80000000
+	Call Trace:
+	<TASK>
+	kref_put include/linux/kref.h:65 [inline]
+	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
+	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
+	nouveau_gem_object_del+0xb2/0x1b0 drivers/gpu/drm/nouveau/nouveau_gem.c:90
+	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
+	kref_put include/linux/kref.h:65 [inline]
+	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
+	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
+	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0 drivers/gpu/drm/nouveau/nouveau_abi16.c:195
+	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle 0x00000000
+	nouveau_abi16_fini+0x1d0/0x340 drivers/gpu/drm/nouveau/nouveau_abi16.c:225
+	nouveau_drm_postclose+0x18b/0x3e0 drivers/gpu/drm/nouveau/nouveau_drm.c:1284
+	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
+	drm_file_free.part.0+0x6d6/0xb60 drivers/gpu/drm/drm_file.c:267
+	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
+	drm_close_helper.isra.0+0x11a/0x160 drivers/gpu/drm/drm_file.c:290
+	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
+	__fput+0x39c/0xa60 fs/file_table.c:512
+	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
+	task_work_run+0x15a/0x230 kernel/task_work.c:233
+	exit_task_work include/linux/task_work.h:40 [inline]
+	do_exit+0x82b/0x25a0 kernel/exit.c:1009
+	do_group_exit+0xc2/0x280 kernel/exit.c:1152
+	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
+	arch_do_signal_or_restart+0x7d/0x6e0 arch/x86/kernel/signal.c:337
+	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
+	__exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+	syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+	syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
+	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+	RIP: 0033:0x7f12bac8594d
+	Code: Unable to access opcode bytes at 0x7f12bac85923.
+	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
+	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX: 00007f12bac8594d
+	RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007f12baf15fac
+	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09: 0000000000000000
+	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+	R13: 00007f12baf16038 R14: 0000000000000006 R15: 00007ffe2ed394b0
+	</TASK>
+	irq event stamp: 47867
+	hardirqs last  enabled at (47883): [<ffffffff815cafc6>] __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
+	hardirqs last disabled at (47892): [<ffffffff815cafab>] __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
+	softirqs last  enabled at (47880): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
+	softirqs last  enabled at (47880): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
+	softirqs last  enabled at (47880): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+	softirqs last disabled at (47875): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
+	softirqs last disabled at (47875): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
+	softirqs last disabled at (47875): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+
+Fix by going to the out path as soon as the incompatible placement
+is detected. This matches the correct bahaviour in other DRM drivers
+such as amdgpu_bo_pin() in amdgpu.
+
+Cc: stable@vger.kernel.org
+Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to force a contig vram allocation")
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.5
+---
+ drivers/gpu/drm/nouveau/nouveau_bo.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+index 0e8de6d4b36f..bdd0390b590e 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -578,6 +578,7 @@ int nouveau_bo_pin_locked(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
+ 				      "0x%08x vs 0x%08x\n", bo,
+ 				 bo->resource->mem_type, domain);
+ 			ret = -EBUSY;
++			goto out;
+ 		}
+ 		ttm_bo_pin(&nvbo->bo);
+ 		goto out;
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.43.0
