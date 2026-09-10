@@ -1,123 +1,240 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E77C472772;
-	Thu, 10 Sep 2026 13:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6488E472772;
+	Thu, 10 Sep 2026 13:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046933; cv=none; b=Wges3tgecEBAQA8UcajQwww03g6y4U+KMHJVEb9cgy05VTiEf09KpaKzbjuzAL1I9PEf4Do6NOe5qF+P+PdH22OiOf7AZibQzRm5hDxCbX0o3mtJbdyPsFZ0uOXrQa5meBLBaUjhctkgfktm73SX74CfZMx2oahxv//psCXNuhc=
+	t=1789046943; cv=none; b=PS8/GGoVKak5FSQEINK5XbkqV41WJ8pfFUcR6RmWiV9Lf/cBZ/40u+TydAjR+bN6o5P2O3LfyHr87smIX7K8hrM2qUs4oTV9YU+xX7qNt4nVz6x35X0goIzLJLubCyCLTxy663guQgkKm+a5VQND2hT7I3bf035WhYwvh2QBsz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046933; c=relaxed/simple;
-	bh=lWzLSzZHZjjl5Rd03l6mA1HRmQISS3LYk6f4XdUtCZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sk1NejnOg6NZrSojtgGqC4xe5ilYh4NQk4TBCHFVnW6zxZJgSDquZfw+AHHME3OdYWmIIXmi0P79H6NWzoZlQBIAQ8TlRS2mywFNilyl1/BxTt85T79wsD7aouEEl8PlqvmaJ5jQsP6+ZZJUdfZ1Zmvi0ocNgB98phtLQkbRvbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pxCdE/HY; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789046943; c=relaxed/simple;
+	bh=rb40kngR/1/9RS1g4ilZmUMdvuVrs61YvMqPlf0788g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HmDJpgUBd1PjIO7mA8e3+LLynjcYQTgEiax9zXe6MzVBjW1Lm3oETF8Q3VoFusPBk8uzKbFI+fjoWR+338EkRkTqDfCSjEPM3sknUDjjPxlQCnhBijC1FNtAI5SOzfPe/iVzWGKTqjwf+i9vVUyzabSqogzKUAlcdHUhDWGdIRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Iv6i5qW3; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pxCdE/HY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=swdcK8vOkwhsl2MmsSoCPD9tJ8Axm4XN7ZjPe7pZqEA=; b=pxCdE/HYU3YGAw/3a48cfXJ29F
-	/XupHHzC8mTjcJCVWK+hEqr3nGWjCp/nzkEVCru9oYERiUYevuYJfsOJLDm2lC8Lud4zPse8gSkrX
-	xcbxO3uXRedRk8qOsGbL48krZCUpfyLXm4Nk8xgSq94E5x9rOhi3BNIsE4hj2hgAQVr7sQZ6F3Lym
-	5UZNsBjR+KcTeoAiNxV42B4Js7ZzOnuLLfFFEq2imjxGHRs7Vrq8YBrKmfqadmZKiEIU6rwsAxnLx
-	ZUj5M/a7/J7XsgYRDm1MYtnEZI6WyZ9JNIwtImZoG0TqD1HohMD8UPLx8ys8QuDEWlxqUNPKZoz2T
-	UUrrMBsA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4epY-00000002X0V-2VX9;
-	Thu, 10 Sep 2026 13:28:44 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 6A18D300400; Thu, 10 Sep 2026 15:28:43 +0200 (CEST)
-Date: Thu, 10 Sep 2026 15:28:43 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Thomas Gleixner <tglx@kernel.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <20260910132843.GS776954@noisy.programming.kicks-ass.net>
-References: <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
- <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
- <aqKu8nJqPsmKOo1d@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Iv6i5qW3"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CA1B8C653DE;
+	Thu, 10 Sep 2026 13:29:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 823AD5FA2F;
+	Thu, 10 Sep 2026 13:28:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9840F11C79B47;
+	Thu, 10 Sep 2026 15:28:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789046924; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rt27fNfNYQQhhwhCnyhkSYUYvGOP98IAFGMQ/8m3Q9E=;
+	b=Iv6i5qW3kPrUMIHFNdkniPlC16wXLoYajlPU9/HH6ZlRjEBv3lJj/552BRZbFE+1AjByfs
+	MOkjduw+/yLbXNMKMzK1Kp4mJQev6R920n8k63gyLzllzf/vnJT5VPR2IIFBg+LmqmaK88
+	LLqX+m+5Ab927TXhT+WjWDJI4INiMI+xASv8xdnMOHf47hxJLYlwILshdYTkX+mC5/adn6
+	le6/Qwrv5O0+VwrKkVuD86ncc2wtFEZSGYFkVjth9FcgaecpwYRAJm9gn39XjrRuUyE5Tp
+	Dk+Vl5a2lACGTmE20oZvnRRnqifzl9QWO962osd15DZF50l43lMckdajoQHLIw==
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Date: Thu, 10 Sep 2026 15:28:22 +0200
+Subject: [PATCH 2/2] hwmon: (cgbc-hwmon): Add some temperature sensors
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqKu8nJqPsmKOo1d@localhost.localdomain>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-2-ef13ae2fa147@bootlin.com>
+References: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-0-ef13ae2fa147@bootlin.com>
+In-Reply-To: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-0-ef13ae2fa147@bootlin.com>
+To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Werner Gartner <Werner.Gartner@congatec.com>, linux-hwmon@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
+ stable@kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 10, 2026 at 03:21:54PM +0200, Frederic Weisbecker wrote:
+Add the following temperature sensors:
+- Alternate Board Temperature (temp11_input)
+- Top DIMM 1-7 temperature (temp12_input to temp18_input)
+- Bottom DIMM 1 temperature (temp19_input)
 
-> So I understand this one. Now unfortunately litmus doesn't support
-> structures, but let's suppose it could. I'm taking the previous script
-> and introduce a small change in P1:
-> 
-> 	C MP+polocks
-> 
-> 	{}
-> 
-> 	P0(int *A, int *B, spinlock_t *mylock)
-> 	{
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*A, 1);
-> 		spin_unlock(mylock);
-> 		spin_lock(mylock);
-> 		WRITE_ONCE(*B, 1);
-> 		spin_unlock(mylock);
-> 	}
-> 
-> 	P1(int *A, int *B)
-> 	{
-> 		int r0;
-> 		int r1
-> 
-> 		r0 = READ_ONCE(*B);
-> 		spin_lock(r0->somelock)
-> 		r1 = READ_ONCE(*A);
-> 		spin_unlock(r0->somelock)
-> 	}
-> 
-> 	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-> 
-> 
-> So instead of doing a LOAD-ACQUIRE on B, I do a plain READ but I also
-> do a spin_lock right after on a data that depends on that READ. I can't
-> run that on litmus but this is the same (simplified) pattern as what we
-> had in this discussion and therefore I assume that it also works (ie: the
-> bad outcome shouldn't happen), is that right?
-> 
-> Would it also work if spin_lock() was just a LOAD-ACQUIRE?
+This fixes the following warning on conga-SA7:
 
-Yes, see below.
+  Board Controller returned an unknown sensor (bc_type=1, bc_id=11), ignore it
 
-> Does it mean that data dependency implies sufficient ordering such that
-> a LOAD-ACQUIRE to a data that depends on B provides the same guarantees as
-> a LOAD-ACQUIRE to B?
+Also update existing labels to match Congatec documentation.
 
-The way data dependencies work in this case is a LOAD->LOAD ordering.
-The LOAD-ACQUIRE that is part of LOCK must happen after the initial
-load. And then the later load is constrained by the ACQUIRE.
+Cc: stable@kernel.org
+Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
+Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+---
+ Documentation/hwmon/cgbc-hwmon.rst | 42 +++++++++++++++++++-------------
+ drivers/hwmon/cgbc-hwmon.c         | 49 +++++++++++++++++++++++++-------------
+ 2 files changed, 58 insertions(+), 33 deletions(-)
 
-So LOAD(B) must resolve in order to do LOAD_ACQUIRE(B->lock.value).
+diff --git a/Documentation/hwmon/cgbc-hwmon.rst b/Documentation/hwmon/cgbc-hwmon.rst
+index 3a5e6e6e8639..c6d09232392a 100644
+--- a/Documentation/hwmon/cgbc-hwmon.rst
++++ b/Documentation/hwmon/cgbc-hwmon.rst
+@@ -28,34 +28,44 @@ system.
+ Name          Description
+ ============= ======================
+ temp1_input   CPU temperature
+-temp2_input   Box temperature
++temp2_input   Case temperature
+ temp3_input   Ambient temperature
+-temp4_input   Board temperature
+-temp5_input   Carrier temperature
+-temp6_input   Chipset temperature
+-temp7_input   Video temperature
++temp4_input   CPU Board temperature
++temp5_input   Carrier Board temperature
++temp6_input   System Chipset temperature
++temp7_input   Video Controller/Board temperature
+ temp8_input   Other temperature
+-temp9_input   TOPDIM temperature
+-temp10_input  BOTTOMDIM temperature
+-in0_input     CPU voltage
++temp9_input   Top DIMM 0 temperature
++temp10_input  Bottom DIMM 0 temperature
++temp11_input  Alternate Board temperature
++temp12_input  Top DIMM 1 temperature
++temp13_input  Top DIMM 2 temperature
++temp14_input  Top DIMM 3 temperature
++temp15_input  Top DIMM 4 temperature
++temp16_input  Top DIMM 5 temperature
++temp17_input  Top DIMM 6 temperature
++temp18_input  Top DIMM 7 temperature
++temp19_input  Bottom DIMM 1 temperature
++in0_input     CPU Core voltage
+ in1_input     DC Runtime voltage
+ in2_input     DC Standby voltage
+ in3_input     CMOS Battery voltage
+-in4_input     Battery voltage
++in4_input     Battery Supply voltage
+ in5_input     AC voltage
+ in6_input     Other voltage
+-in7_input     5V voltage
++in7_input     5V Runtime voltage
+ in8_input     5V Standby voltage
+-in9_input     3V3 voltage
++in9_input     3V3 Runtime voltage
+ in10_input    3V3 Standby voltage
+ in11_input    VCore A voltage
+ in12_input    VCore B voltage
+-in13_input    12V voltage
+-curr1_input   DC current
+-curr2_input   5V current
+-curr3_input   12V current
++in13_input    12V Runtime voltage
++in14_input    12V Standby voltage
++curr1_input   DC Runtime current
++curr2_input   5V Runtime current
++curr3_input   12V Runtime current
+ fan1_input    CPU fan
+-fan2_input    Box fan
++fan2_input    Case fan
+ fan3_input    Ambient fan
+ fan4_input    Chiptset fan
+ fan5_input    Video fan
+diff --git a/drivers/hwmon/cgbc-hwmon.c b/drivers/hwmon/cgbc-hwmon.c
+index 2effa0b56286..098896ec8c6f 100644
+--- a/drivers/hwmon/cgbc-hwmon.c
++++ b/drivers/hwmon/cgbc-hwmon.c
+@@ -41,32 +41,42 @@ enum cgbc_sensor_types {
+ 
+ static const char * const cgbc_hwmon_labels_temp[] = {
+ 	"CPU Temperature",
+-	"Box Temperature",
++	"Case Temperature",
+ 	"Ambient Temperature",
+-	"Board Temperature",
+-	"Carrier Temperature",
+-	"Chipset Temperature",
+-	"Video Temperature",
++	"CPU Board Temperature",
++	"Carrier Board Temperature",
++	"System Chipset Temperature",
++	"Video Controller/Board Temperature",
+ 	"Other Temperature",
+-	"TOPDIM Temperature",
+-	"BOTTOMDIM Temperature",
++	"Top DIMM 0 Temperature",
++	"Bottom DIMM 0 Temperature",
++	"Alternate Board Temperature",
++	"Top DIMM 1 Temperature",
++	"Top DIMM 2 Temperature",
++	"Top DIMM 3 Temperature",
++	"Top DIMM 4 Temperature",
++	"Top DIMM 5 Temperature",
++	"Top DIMM 6 Temperature",
++	"Top DIMM 7 Temperature",
++	"Bottom DIMM 1 Temperature",
+ };
+ 
+ static const char * const cgbc_hwmon_labels_in[] = {
+-	"CPU Voltage",
++	"CPU Core Voltage",
+ 	"DC Runtime Voltage",
+ 	"DC Standby Voltage",
+ 	"CMOS Battery Voltage",
+-	"Battery Voltage",
++	"Battery Supply Voltage",
+ 	"AC Voltage",
+ 	"Other Voltage",
+-	"5V Voltage",
++	"5V Runtime Voltage",
+ 	"5V Standby Voltage",
+-	"3V3 Voltage",
++	"3V3 Runtime Voltage",
+ 	"3V3 Standby Voltage",
+ 	"VCore A Voltage",
+ 	"VCore B Voltage",
+-	"12V Voltage",
++	"12V Runtime Voltage",
++	"12V Standby Voltage",
+ };
+ 
+ /*
+@@ -77,14 +87,14 @@ static const struct {
+ 	const char *label;
+ 	int id;
+ } cgbc_hwmon_labels_curr[] = {
+-	{ "DC Current", 0x12 },
+-	{ "5V Current", 0x18 },
+-	{ "12V Current", 0x1E },
++	{ "DC Runtime Current", 0x12 },
++	{ "5V Runtime Current", 0x18 },
++	{ "12V Runtime Current", 0x1E },
+ };
+ 
+ static const char * const cgbc_hwmon_labels_fan[] = {
+ 	"CPU Fan",
+-	"Box Fan",
++	"Case Fan",
+ 	"Ambient Fan",
+ 	"Chipset Fan",
+ 	"Video Fan",
+@@ -255,7 +265,12 @@ static const struct hwmon_channel_info * const cgbc_hwmon_info[] = {
+ 			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
+ 			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
+ 			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
+-			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL),
++			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL, HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL),
+ 	HWMON_CHANNEL_INFO(in,
+ 			   HWMON_I_INPUT | HWMON_I_LABEL, HWMON_I_INPUT | HWMON_I_LABEL,
+ 			   HWMON_I_INPUT | HWMON_I_LABEL, HWMON_I_INPUT | HWMON_I_LABEL,
 
+-- 
+2.53.0
 
