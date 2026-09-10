@@ -1,107 +1,95 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C673B6367;
-	Thu, 10 Sep 2026 09:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4893E3CB8F5;
+	Thu, 10 Sep 2026 09:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032245; cv=none; b=h6xiE94cepV+8487br/1QABBtADZQeycl3LW9gmqpfQJyPhxeoXcJNU7MCqE81nN/i4tpSfn19N9xbrxQLZ5yRf3IWK1F0LKm//cB5eWyFDERLOhxkGzqgtQEbNOIst1UzOSjTV8yIBqW2SHZxtjw6ZsGU7B/lMFYdrfVDVATc0=
+	t=1789032272; cv=none; b=FWIlnNQvgF9hosxS/89MiYa+gkWG3HaVu70NHd3qdJoSif+xfOhrfbCsRwOpdHlwxUdvpDShLoDR+peXSvx4FtvcxxMAK5VghfVqLXRf0nuG26Ul7BQjaIyLcgyV6/5L3Yq4XBMVtJPwSAAvo2AR2QghjPMw3VUkhiXZljZkmLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032245; c=relaxed/simple;
-	bh=lO8k/xsn9vJJ5dce2sGr/gdsViGjIJvXorKknr/5sps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l1+E4ZM2AcGG0aKgXqgLufhKgXKK2i/9iiJCvwZUXfVkZ7t7mZ+ZgjJoM583HMIWJNWOww3BjEVW7DP99/tkaEe2joxNyudRNKhtO7sL1NEMDEBgO1vBJsS8vwDbnArtvptEKfdgojJMSnnrk2Sca0e7NbFJBl7emI7qi+8P2uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Az8d1rhU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789032272; c=relaxed/simple;
+	bh=RJydT2Dk8RQ1sONS+iE0RGlzWiAtuS02wqiSMmED05k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PCgXcdGpIZ0U9xz2zPdGvAkBuPcgQOD/jT7o/uePcluZmCeQ6aXMjT1u6avDd6F5zDt1hoHMWAnAyIBvgc81ttxNZ8f0v029rxOlLbAnFCRMD8uICFVJyuGZeNE/dfZPrXd/PKflAfA4oQG1GHJ8g2d8ghj1yGjt1cQQtGnENTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=YyUyP2Sj; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Az8d1rhU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789032239;
-	bh=lO8k/xsn9vJJ5dce2sGr/gdsViGjIJvXorKknr/5sps=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Az8d1rhUo17uOQhc71dhaEE2/xhUuVqKZFU2jsJXGj6zzmdUu0vv5IfPqtIn2uXEa
-	 PuGN14rcs/Nho2CLKqI5UbCVOuag1aft5jwFM4oyKSwR0wUTKdECpDJozQXuG80A5C
-	 GYzozCqc6/FLZj+45aO1o11ddToNbIJYL0FjwQpnCDILwBC6AbKidD5yG3bO4Bvkwt
-	 hqGPytp8V5855AXO6bPOF65il6//9ZX1/Qk3C8Qe6sPbdweJj3DZZkBocnDcNfFG2w
-	 l84/tKQpDr0qRjxKgVZz8WVoV7HSjdjzppuyAYJ8mnZDyTeBEIrZ+aHZzc6Bpc2nsp
-	 Wcp3VTZyTFu1Q==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CFFA517E0CA6;
-	Thu, 10 Sep 2026 11:23:58 +0200 (CEST)
-Message-ID: <0c117dbc-facc-4465-a5e0-8fbb822d86a7@collabora.com>
-Date: Thu, 10 Sep 2026 11:23:58 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="YyUyP2Sj"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d445a41d;
+	Thu, 10 Sep 2026 17:24:13 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: qedi: Initialize callback state before registration
+Date: Thu, 10 Sep 2026 17:24:05 +0800
+Message-Id: <20260910092405.1300129-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: mediatek: reset: Fix device registration kernel-doc
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Rex-BC Chen <rex-bc.chen@mediatek.com>, linux-clk@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260910033000.15926-1-kmehltretter@gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260910033000.15926-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa08aa1c9ac03a1kunm63a873ca18fb04
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ0NMVkJPSUwaTx1DGB9OTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=YyUyP2Sjuj55u+kZWrbQOQNVoVEk/1XVBn2fLlOH0xia178XJLGclmQpIc52Rb5RQ+9CW1RduRWYUHF6fjsxBQ77Rit7XwDSrvHVV160gRIGN/14TpEL9uj5UQI4JJPzGTv3d6Ctx3v49OO7wZhxLXyu7p77mTKQm31lfQGHar4=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=2QLnkcGLYs1KfcKJLaEcqelOoy7bY8ls7NzfuQq15P8=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/10/26 05:30, Karl Mehltretter wrote:
-> The comment for mtk_register_reset_controller_with_dev() names the
-> older helper and documents np rather than dev. The new helper takes
-> a struct device and obtains its device node internally.
-> 
-> Use the actual function and parameter names and clarify that failures
-> return negative error codes.
-> 
-> Fixes: 761bc64003e3 ("clk: mediatek: reset: Add new register reset function with device")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->   drivers/clk/mediatek/reset.h | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/clk/mediatek/reset.h b/drivers/clk/mediatek/reset.h
-> index 562ffd290a22..b09cdcab0c4b 100644
-> --- a/drivers/clk/mediatek/reset.h
-> +++ b/drivers/clk/mediatek/reset.h
-> @@ -60,11 +60,11 @@ struct mtk_clk_rst_data {
->   };
->   
->   /**
-> - * mtk_register_reset_controller - Register mediatek clock reset controller with device
-> - * @np: Pointer to device.
-> + * mtk_register_reset_controller_with_dev - Register a MediaTek reset controller
-> + * @dev: Device used to manage the reset controller resources.
->    * @desc: Constant pointer to description of clock reset.
->    *
-> - * Return: 0 on success and errorno otherwise.
-> + * Return: 0 on success, negative errno otherwise.
->    */
->   int mtk_register_reset_controller_with_dev(struct device *dev,
->   					   const struct mtk_clk_rst_desc *desc);
-> 
-> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+qedi_get_protocol_tlv_data() can be called asynchronously by QED after
+qedi_ops->register_ops(). It takes stats_lock and reads ll2_mtu, but
+__qedi_probe() currently registers the callback before initializing the
+mutex and assigning the default MTU on the normal probe path.
 
-Hey, thanks for the patch!
-It's almost perfect - just change the first line with:
+Initialize the callback-visible state before registering qedi_cb_ops. Keep
+the recovery path from reinitializing state because it reuses the existing
+qedi context.
 
-* mtk_register_reset_controller_with_dev() - Register a MediaTek reset controller
+Fixes: 3cc5746e5ad7 ("scsi: qedi: Initialize the stats mutex lock")
+Cc: stable@vger.kernel.org
 
-After which,
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/scsi/qedi/qedi_main.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+diff --git a/drivers/scsi/qedi/qedi_main.c b/drivers/scsi/qedi/qedi_main.c
+index 227ff7bd1..f394fcbb9 100644
+--- a/drivers/scsi/qedi/qedi_main.c
++++ b/drivers/scsi/qedi/qedi_main.c
+@@ -2652,8 +2652,6 @@ static int __qedi_probe(struct pci_dev *pdev, int mode)
+ 	snprintf(host_buf, sizeof(host_buf), "host_%d", qedi->shost->host_no);
+ 	qedi_ops->common->set_name(qedi->cdev, host_buf);
+ 
+-	qedi_ops->register_ops(qedi->cdev, &qedi_cb_ops, qedi);
+-
+ 	memset(&params, 0, sizeof(params));
+ 	params.mtu = DEF_PATH_MTU + IPV6_HDR_LEN + TCP_HDR_LEN;
+ 	qedi->ll2_mtu = DEF_PATH_MTU;
+@@ -2670,6 +2668,7 @@ static int __qedi_probe(struct pci_dev *pdev, int mode)
+ 		spin_lock_init(&qedi->task_idx_lock);
+ 		mutex_init(&qedi->stats_lock);
+ 	}
++	qedi_ops->register_ops(qedi->cdev, &qedi_cb_ops, qedi);
+ 	qedi_ops->ll2->register_cb_ops(qedi->cdev, &qedi_ll2_cb_ops, qedi);
+ 	qedi_ops->ll2->start(qedi->cdev, &params);
+ 
+-- 
+2.34.1
 
-Cheers,
-Angelo
