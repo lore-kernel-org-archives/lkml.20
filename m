@@ -1,99 +1,137 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE393C13EE;
-	Thu, 10 Sep 2026 09:14:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA58361DBA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031692; cv=none; b=iU5D97Iqq+fk3MZOoIURulPKvaCd7fRav9p58OY+PHVtcND3SfsTY8xphDdyHrixPPvJLSvoN2d+iPTyqBKUQyy52eZPMJv8M1q/8uL7UMuGK7XovnEBoKLKroy2ClBwhwrnxhUTot5akX9INctv/5ys4M1kjSpo0km3JT4zNY8=
+	t=1789031696; cv=none; b=gg8NAQGBuUYLMMKr0ODN8kaSjbjionHn/g5HGCMK+NSvqSoIx40SFT1zLzW5R7Gz8aBSASw8pbfi29d4YnJSHTPTHhSpulq4qgKQ4Ux/Bas2KiOgAGJgD2l0OlQcnjfXhRwOkQpUHdvjXk5U9QFEBGl7iFJB6281u4+q4SwH1kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031692; c=relaxed/simple;
-	bh=sLgY3kGNMUhiuDbvekSroJmn4LdKkP1crGpWtw0K8y4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=duc/Ea0JOkCaJEVi9AB/WA+jefnOGC4DGU4eOvcU/IjRYnjh9Uoic41WIVz1G4l8cqVox2OFm5LrfL2lK14CvGwH188hmoE9LKRCk1URS3954iVuuBcc6AKzJkUZ8Rew1X3XElrGvo5Cw7ypD4Fg7vmjccZZCyIVbaz6yvCO0Ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fDWqdEwz; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789031696; c=relaxed/simple;
+	bh=NRKScEnPh0zPdlf0AwpfifvXkF3txZwkPfUFOR044BU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q157vLInCB75TrkH4KQpYCLI9I/a8DuYECJhd2Dh9PIABp8FRy+Z7rf3d/TLI8NGf+AcaGsAi3elgNRTgo2RWoNlZctCIWD0OyiMVCTbbzF9VLKVSkwsXRqrPlJMQXpPrkyDvMKIpv2qQf7MEgBqX6ArWQjAbbnBkHHWscfuL2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pbGJ+MYZ; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fDWqdEwz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=sLgY3kGNMUhiuDbvekSroJmn4LdKkP1crGpWtw0K8y4=; b=f
-	DWqdEwz9pXonBk+xO+4U3bNgelCLO4lj0rllTbkgB1K6xwCo1+/kMnW1ufWvlA28
-	Iyq2f54/PO4/i7l5bPHWh6R+xHAIpsqB5WSVLSDcR2zJY38WDDHHH9k2wXdjs85i
-	XNj05+QQiiZG3crGx/famHpzxYg5kZlNGnnac7tHfs=
-Date: Thu, 10 Sep 2026 17:12:52 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v6 11/13] serial: 8250_dw: add Ambarella CV75 quirks
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <aqJrSnr0rwv4BOJ3@ashevche-desk.local>
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
- <20260904-cv75-v5-v6-11-e918514cb3b1@ambarella.com>
- <aqJrSnr0rwv4BOJ3@ashevche-desk.local>
-X-NTES-SC: AL_Qu2TC/yYvk0s5CmQZekcn0wRhug/UMa4u/sm3YNXc/0EqiX9+T4sR2RaDHjs89yCBiKngRWUTRFQw9phRId03a0R+3XdO1UpGQhOrxxtfQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pbGJ+MYZ"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-482e067e908so5304603f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:14:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789031693; x=1789636493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M4Bwx1DhVI6FUsnbRcI8yiZi82mxSdYhwi0jzDrPMfE=;
+        b=pbGJ+MYZqSXeCbCxdZoTfArzHkOBPnHCD/Cogl5BL1zpbOKh1zAAz9C1IoXQFy3f5Z
+         g4970VGjUkYlUEu7ItdnWUp5SmoZNzkBCd4IY24aygYPgJ/jzNsmWQXEj7aCyFajNg5G
+         +wdLTeTgQshpQcoytCRt+LooPhAmoK90Ir5pHegLYYvANY/2pzbFFJOvG3eqQgwg3LXm
+         /g+PMWgYlP5nFvkAQ97Qgllg5by+weJjGWNsUEP0GtuFf0aHVLYhK9XvqJrxAOEibBoC
+         1JwMPl8HExV2OO1y83oE5WtfreuFaCrqlPz6C589wqnKlaqUqVfaLFkqfr7XKpbUiElM
+         qnbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789031693; x=1789636493;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M4Bwx1DhVI6FUsnbRcI8yiZi82mxSdYhwi0jzDrPMfE=;
+        b=plNDpoullh7XO6AIvZNHnwv4V+sb5WPEbMFCgC5P9E1QN2/N/OIQUUh5jS9bTnOcQL
+         zPMk/dCDbuSPJOab7pPc+v5A8a3ymbeQHxOpoyc1aOuQZeGyTlp8NkNPCCY0C85noXC8
+         MRYIyCR/jUoMr4Q3W7yr3dZF/KcRpx5JXJvFlXcMUyrLMaSqNddwOZt/uftcjQiMnFi2
+         /I51zpkUC//OroC2MqmCw2KQkitjrf047rSnOwCsctf3oLXCptrMyHTlMbSELFN8ZA3b
+         7LZ6wF3iUA5pZNu0IjLA84meycaQSQSQo2vhONbhcKSoKd5E3+Z2O8yqWtrJOp49yY/M
+         j3WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmUJvow5+zRugYM177ykxIFubfzCF4Cdj1DEapbEFan1uojFmVmkKHX6A9csYy8bAX9nJ2nrYOfS6ConA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6s9y7EJNt72HJ3E3FZyY7hu4xW86fPoOq3SkqnW6iCpN+FEf1
+	hUENLQToAI0U1FWoH14yL+8d2EqK7+VpXI0CrSJr6C4PK1IDeum6Jqqj
+X-Gm-Gg: AYBFou1NXogkGl1B/mlE4Yrz2GCvS+8jgXM9SES3/u2vrm7Ls8zEBQlsc7RuUMZ5wUi
+	YwKXALA1wdCCHcRM0yhltp+jl5zYgQCOKj8ttdR4bN2BkLV++dK8ZS/gNG9i6C3wa3IMrV5Tv79
+	NgYiwO/y92NUoZeahhQprqT/DVWTvkcGKwiQXSnhxlTKbFu3rxWU45kfS4UM0S85l7/GQuXLUdN
+	BvwWDD/doOiMYbAq+r0vcZQo5B3y77v3S6UTisITlTNGB5315m0Q32TOA8QKaWIa7VmrQiGMfe1
+	oijhy344ub3Tl2f0UHJ3Flm6jb4HoAwL7craFXkmETRYjD2cj0KLh44+YXI7tLA/LhSfuCR5z7C
+	BpucCHJquXnNivVf/QUAJ9mzRCRwEgOzoPK+Qx1qElmRxAH8CCIl+NkzlLQxq67wJ/+PpD+MvmX
+	bJcI9iKjD5hu9+Hq0KHQMuPQYI94RLUxLgb0pVtvCu810+rGLkF8ZS6W6nxHLIGvfmwHUngS6xE
+	DxzT3pBmoTivw==
+X-Received: by 2002:a5d:5848:0:b0:486:e37d:c58d with SMTP id ffacd0b85a97d-486e37dc646mr2555494f8f.22.1789031692803;
+        Thu, 10 Sep 2026 02:14:52 -0700 (PDT)
+Received: from Empers0n ([193.23.219.104])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm52065435f8f.30.2026.09.10.02.14.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 02:14:52 -0700 (PDT)
+From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Henrik Rydberg <rydberg@bitmath.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+Subject: [PATCH v2 0/2] Input: add Synaptics TouchComm I2C touchscreen driver and bindings
+Date: Thu, 10 Sep 2026 16:14:03 +0700
+Message-ID: <20260910091405.354058-1-sevanevorotov29@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <122573f8.8232.1a08a9765fc.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cygvCgBXLkGVdKJqLs1DAA--.42107W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxRWF9mqidJVRiAAA3T
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-SGkgQW5keSwKVGhhbmtzIGZvciB0aGUgUmV2aWV3ZWQtYnkuCgo+IFdvbmRlcmluZyBpZiB3ZSBz
-aG91bGQgdW5kbyB0aGlzIGluIHRoZSBwb3J0J3MgLnNodXRkb3duKCkgY2FsbGJhY2suCkkgc2F3
-IHRoZSBzaHV0ZG93biBwYXRoIGFscmVhZHkgY292ZXJzIGl0OiBkdzgyNTBfc2h1dGRvd24oKSBj
-YWxscwpzZXJpYWw4MjUwX2RvX3NodXRkb3duKCksIHdoaWNoIGRvZXMKCXVwLT5pZXIgPSAwOwoJ
-c2VyaWFsX3BvcnRfb3V0KHBvcnQsIFVBUlRfSUVSLCAwKTsKc28gYm90aCB0aGUgSUVSIHNoYWRv
-dyBhbmQgaGFyZHdhcmUgSUVSIGFyZSBjbGVhcmVkLCBpbmNsdWRpbmcgRVRPSS4KCkJlc3QgcmVn
-YXJkcywKTG9uZyBaaGFvCgpBdCAyMDI2LTA5LTEwIDE2OjMzOjE0LCAiQW5keSBTaGV2Y2hlbmtv
-IiA8YW5kcml5LnNoZXZjaGVua29AbGludXguaW50ZWwuY29tPiB3cm90ZToKPk9uIEZyaSwgU2Vw
-IDA0LCAyMDI2IGF0IDAyOjM4OjE4UE0gKzA4MDAsIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkgd3Jv
-dGU6Cj4KPj4gVGhlIEFtYmFyZWxsYSBDVjc1IFVBUlQgaXMgQW1iYXJlbGxhIElQLCBub3QgYSBT
-eW5vcHN5cyBEZXNpZ25XYXJlCj4+IGxpY2Vuc2VkIGJsb2NrLiBBdCB0aGUgcmVnaXN0ZXIgbGV2
-ZWwgaXQgaXMgY2xvc2UgZW5vdWdoIHRvIERXIEFQQiBVQVJUCj4+IHRoYXQgYSBmdWxsIGN1c3Rv
-bSBVQVJUIGRyaXZlciBpcyB1bm5lY2Vzc2FyeTogcmV1c2UgODI1MF9kdyB3aXRoIGEKPj4gc21h
-bGwgcGxhdGZvcm0gcXVpcmsuCj4+IAo+PiBRdWlya3M6Cj4+IC0ga2VlcCBJRVIgRVRPSSAoYml0
-IDUpIHNldCBmb3IgUlggdGltZW91dCBiZWhhdmlvdXIKPj4gLSBza2lwIHNldF9yYXRlOyBiYXVk
-IGNsb2NrIGlzIG1hbmFnZWQgb3V0c2lkZSB0aGUgVUFSVCBibG9jawo+Cj5SZXZpZXdlZC1ieTog
-QW5keSBTaGV2Y2hlbmtvIDxhbmRyaXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+Cj4KPi4u
-Lgo+Cj4+ICtzdGF0aWMgaW50IGR3ODI1MF9pZXJfbWFza19zdGFydHVwKHN0cnVjdCB1YXJ0X3Bv
-cnQgKnApCj4+ICt7Cj4+ICsJc3RydWN0IGR3ODI1MF9kYXRhICpkID0gdG9fZHc4MjUwX2RhdGEo
-cC0+cHJpdmF0ZV9kYXRhKTsKPj4gKwlzdHJ1Y3QgdWFydF84MjUwX3BvcnQgKnVwID0gdXBfdG9f
-dTgyNTBwKHApOwo+PiArCWludCByZXQ7Cj4+ICsKPj4gKwlyZXQgPSBzZXJpYWw4MjUwX2RvX3N0
-YXJ0dXAocCk7Cj4+ICsJaWYgKHJldCkKPj4gKwkJcmV0dXJuIHJldDsKPj4gKwo+PiArCS8qCj4+
-ICsJICogQW1iYXJlbGxhIGtlZXBzIHZhcmlhbnQgSUVSIGJpdHMgKGUuZy4gRVRPSSkgc2V0IGZv
-ciBjb3JyZWN0IFJYCj4+ICsJICogdGltZW91dCBiZWhhdmlvdXIuIEZvcmNlIHRoZW0gaW50byB0
-aGUgODI1MCBJRVIgc2hhZG93IHNvIGxhdGVyCj4+ICsJICogZ2VuZXJpYyBJRVIgdXBkYXRlcyBk
-byBub3QgY2xlYXIgdGhlbS4KPj4gKwkgKi8KPgo+V29uZGVyaW5nIGlmIHdlIHNob3VsZCB1bmRv
-IHRoaXMgaW4gdGhlIHBvcnQncyAuc2h1dGRvd24oKSBjYWxsYmFjay4KPgo+PiArCXVwLT5pZXIg
-fD0gZC0+cGRhdGEtPmllcl9tYXNrOwo+PiArCXNlcmlhbF9wb3J0X291dChwLCBVQVJUX0lFUiwg
-dXAtPmllcik7Cj4+ICsKPj4gKwlyZXR1cm4gMDsKPj4gK30KPgo+LS0gCj5XaXRoIEJlc3QgUmVn
-YXJkcywKPkFuZHkgU2hldmNoZW5rbwo+Cg==
+This series adds devicetree schema bindings and an input touchscreen
+driver for Synaptics TouchComm (TCM) generation-1 touchscreen controllers
+connected over I2C, such as the Synaptics S3908 found in the OnePlus 9RT.
+
+The S3908 and compatible generation-1 controllers boot autonomously into
+application mode directly out of their embedded flash memory. The driver
+implements communication using the Synaptics TouchComm packet protocol,
+retrieving device identify information and handling reports through a
+threaded interrupt handler.
+
+Features supported:
+ - Multi-touch reporting using the input_mt framework (Protocol B)
+ - Dynamic touch report layouts and coordinate/pressure decoding
+ - Standard touchscreen properties (axis swapping/inversion)
+ - Low-power wakeup gestures (double-tap to wake)
+ - System suspend / resume with deep sleep transition
+ - Regulator and reset GPIO lifecycle management
+
+Changes in v2:
+ - Fixed continued-read chunking in syna_recv_message(): accurately track
+   stream bytes including the trailing 0x5a padding byte, request full
+   64-byte I2C chunks (up to 62 stream bytes), and ensure trailing padding
+   is consumed and verified even for 60-byte aligned payloads.
+ - Clamped active touch object count in syna_parse_touch_report() to
+   ts->max_objects and guarded offset calculations against integer overflow
+   and OOB access in syna_get_bits().
+ - Made regulator power management idempotent with ts->powered flag to
+   prevent unbalanced regulator disable warnings during teardown if
+   hardware recovery fails; power down controller and propagate error code
+   on recovery failure in syna_resume().
+ - Removed touchscreen-size-x / touchscreen-size-y overrides from driver
+   and DT binding example, relying on native resolution reported by
+   controller firmware.
+ - Documented mutex locking contract on syna_exec_command().
+ - Added explanatory comments for ABS_MT_PRESSURE and TOUCH_MAJOR/MINOR
+   default limits.
+ - Sorted TOUCHSCREEN_SYNAPTICS_TCM_I2C alphabetically in Kconfig.
+ - Fixed commit title casing and checkpatch warnings.
+
+Vsevolod Nevorotov (2):
+  dt-bindings: input: touchscreen: add Synaptics S3908 controller
+  Input: synaptics_tcm_i2c - add Synaptics TouchComm I2C touchscreen
+    driver
+
+ .../input/touchscreen/syna,s3908.yaml         |   69 ++
+ MAINTAINERS                                   |    7 +
+ drivers/input/touchscreen/Kconfig             |   15 +
+ drivers/input/touchscreen/Makefile            |    1 +
+ drivers/input/touchscreen/synaptics_tcm_i2c.c | 1066 +++++++++++++++++
+ 5 files changed, 1158 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
+ create mode 100644 drivers/input/touchscreen/synaptics_tcm_i2c.c
+
+-- 
+2.55.0
+
