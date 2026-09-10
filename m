@@ -1,64 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AE63E2740;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39E43AC0FC;
 	Thu, 10 Sep 2026 09:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030929; cv=none; b=ncfVm9vpCdXc2pjLTWAv+pnofdgBfOPuf4tWlE1wMV/Gn4QrKurlj8QD2+gwoYNr1gTYY2ddW5O+HBj/WAsHjOxzBr0Dh+cvZU9UqJQfrFu1kB+pAYutF+Pgr3WwsIXfivDZnl5EzUxo2azATLT0rK2fuDsxCCogVdKoE637y8U=
+	t=1789030929; cv=none; b=Nvs+MNVfwWewKZr80vsxZQePr9x1FvGQ0su76s2V42LeKgmVc0A/aS+8PYQt9UncsGMZRnF2KfHblIoc8Q+vPW1i7gT2YkmMO3jStBll8uPmCVymrkbs85MSGxHW8ZWaLcHVTuirZGvKp7721ROi/h1xmE7MN/AcSaYrnstuISw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789030929; c=relaxed/simple;
-	bh=01xC+/GvzHMeRlHiaNgiH5sQvwohqbrLesVcfnjyGfM=;
+	bh=bEJUuXBioSS67+lobFaSYctT8AaM90cx4VVR5VuMBJ4=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=kwsXirPh+P/elOrNa1tB+nCV0cPzCiO6BzEi/+2tzMDz2VWzcPefrUWlGQC9+B0ThQhFmMD1Ll+qJXR02nA5tZtJl8bJSNaU9Bv26CluikGgFyyDAQ3Xn7v8f19dMsjIkx3aH57SBEbSkCFMQgtb0jncJYccQK2osIKLoye0A5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=AaLWfYfK; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=5hq49iky; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=qfCawG2EDp/udVTl5O9XJ+s5CDjHn48XgNkQ4gD5GOWc5eiHOhksGYl7bbYvFMEhObeDKwnU1OSDnR4dczS1D6QwD0CAsHOBXys/lsAuPH1NbvaC5WAqjP4j6h9OjQ00m9HG1xR8H3J5tmlJ4K/B9BCrgCi9JIvoRzS6knZJQu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yU46ZSyo; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vJYKniDl; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AaLWfYfK";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="5hq49iky"
-Date: Thu, 10 Sep 2026 09:01:57 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yU46ZSyo";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vJYKniDl"
+Date: Thu, 10 Sep 2026 09:02:02 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789030919;
+	s=2020; t=1789030924;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZtNMsoTZO8vyD+37AOKHx7Q0p7xhx8GBIiFvsg0bsVQ=;
-	b=AaLWfYfKq3sIKyBStPe1Rd+XE5iZzZECloVTz5G2YN2TD1Dqr9fkTAEEq97WlfgnQq1Mh0
-	0UnV4r4Zisb7oV3oC+w4vmRJsk3NkgyvbNb/LOB4YGVE0chiL4kEk+ReD+l7Zyx3riDWkM
-	4fVyR3/oeLGC83XFyO9HjWPQxuqRsSmx4QzuckeB/bf2zIneid+ILU7uAS+TVT0ERcF6PP
-	u/BqKMzD6lKbCx84viT1K+QrH7+d4DeMFXoglKRPr8E48+eDPNMkrFI+0UepPSnWo2elHM
-	G8cTtJDb70GBV6Ghvbt49bzzQP310axcsBVmzp8Lk/VclpN7jZCNasBPSgvTCQ==
+	bh=WLWDlWGJ70mi1URLREdbqQMOOkibZmjUTV0R6CT2W0k=;
+	b=yU46ZSyo4tPrHtmgLiu5FmrIJDt8zc4brzzNWDRi2HqkkhWqF3bxsjDB5jwxJlyMBFH174
+	aAWMoLkQ09oN8DVf16LCuUsk4YbfU8Ka+zxT2oiJqgCgXi9azk253dDgONufdKPOmYNe0t
+	hsT2dgFXNV46NEdxnTpfXgK3/rfVOe1ocnJv9yeVslEaeNHig9CU7OHjxsYPdJ664T/HkK
+	7Qm2nJiMUDw+KN2tVMX+EaTCPxTcep9d/g27GUauuNqIAwb6LqhOeJfXuSM3Lw6OR3E0uS
+	V+MNO9wzS3d0Zfe+CxWa0x/gl0t6flOlhi+yfJDPfMLEKfSgkCNzMfUWxLeSRw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789030919;
+	s=2020e; t=1789030924;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZtNMsoTZO8vyD+37AOKHx7Q0p7xhx8GBIiFvsg0bsVQ=;
-	b=5hq49ikyCnCa3ddWNfWJxiCl7dzKrvcs9hs4mPq+Dr9MqkKBvbf2Bo51+GXSVnbY2N3tyW
-	OQP4JIDzJ/I8+8DA==
-From: "tip-bot2 for Thomas Richter" <tip-bot2@linutronix.de>
+	bh=WLWDlWGJ70mi1URLREdbqQMOOkibZmjUTV0R6CT2W0k=;
+	b=vJYKniDlF7EJo9nZewQItGUQ0KtfRicB3QqzbXsH4OFLiK7wsPYBLp/JMdRjzW0I8GAJ4K
+	JOGlEfyyT3+vFCCA==
+From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: perf/urgent] perf/core: Allow list_del during perf_event_overflow()
-Cc: Thomas Richter <tmricht@linux.ibm.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260908105637.627004-1-tmricht@linux.ibm.com>
-References: <20260908105637.627004-1-tmricht@linux.ibm.com>
+Subject: [tip: sched/urgent] sched/core: Call wq_worker_tick() for the
+ execution context
+Cc: Hui Su <sh_def@163.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Tejun Heo <tj@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260902150208.1209922-2-sh_def@163.com>
+References: <20260902150208.1209922-2-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178903091745.623050.16822770456707355526.tip-bot2@tip-bot2>
+Message-ID: <178903092291.623050.6164374266661576402.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -66,70 +65,72 @@ Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the perf/urgent branch of tip:
+The following commit has been merged into the sched/urgent branch of tip:
 
-Commit-ID:     59e63416f5153e7d58652c616fbdcb7d5e01fff7
-Gitweb:        https://git.kernel.org/tip/59e63416f5153e7d58652c616fbdcb7d5e0=
-1fff7
-Author:        Thomas Richter <tmricht@linux.ibm.com>
-AuthorDate:    Tue, 08 Sep 2026 12:56:37 +02:00
+Commit-ID:     f5741d2b34519d387edf6e9798fc7030c20a35f3
+Gitweb:        https://git.kernel.org/tip/f5741d2b34519d387edf6e9798fc7030c20=
+a35f3
+Author:        Hui Su <sh_def@163.com>
+AuthorDate:    Wed, 02 Sep 2026 23:02:09 +08:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Thu, 10 Sep 2026 10:22:50 +02:00
+CommitterDate: Thu, 10 Sep 2026 10:22:52 +02:00
 
-perf/core: Allow list_del during perf_event_overflow()
+sched/core: Call wq_worker_tick() for the execution context
 
-A PMU might use perf_sched_cb_inc() and perf_sched_cb_dec()
-interface to get the PMU call back function pmu::sched_task
-invoked at schedule in and schedule out. This is achieved
-by walking along the list anchored by sched_cb_list.
+wq_worker_tick() accounts CPU time and detects CPU-intensive work for
+the kworker that is actually running. With proxy execution, rq->donor
+is the scheduling context while rq->curr is the execution context.
 
-The following scenario might lead to a list corruption.
+Calling the hook with rq->donor can skip workqueue accounting when a
+kworker is executing on behalf of a donor task. It can also account a
+blocked kworker when the donor is a worker but rq->curr is the task
+actually executing. The former can delay WORKER_CPU_INTENSIVE handling
+and pool concurrency management, which can delay pending kernel work
+and userspace operations depending on it.
 
-   perf_pmu_sched_task()
-      for_each_list_entry(..., &sched_cb_list)
-      +--> __perf_pmu_sched_task()
-           +--> event->pmu->sched_task())
-                +--> PMU_push_sample()
-                     +--> perf_event_overflow()
-                          +--> __perf_event_overflow()
-                               +--> pmu->stop()
-                                    +--> perf_sched_cb_dec()
-                                         remove entry from sched_cb_list
-                                         while list node in use.
+Use rq->curr for the workqueue tick hook while retaining rq->donor for
+scheduler accounting.
 
-This happens when ioctl(fd, PERF_EVENT_IOC_REFRESH, xxx) has been
-invoked and perf_event::event_limit hits zero.
-
-Prevent the list corruption and convert for_each_list_entry()
-to for_each_list_entry_safe().
-
-Fixes: bd2756811766 ("perf: Rewrite core context handling")
-Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
+Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+Signed-off-by: Hui Su <sh_def@163.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260908105637.627004-1-tmricht@linux.ibm.com
+Acked-by: Tejun Heo <tj@kernel.org>
+Link: https://patch.msgid.link/20260902150208.1209922-2-sh_def@163.com
 ---
- kernel/events/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/sched/core.c |  9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 33210af..fe33fe1 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -3925,13 +3925,13 @@ static void perf_pmu_sched_task(struct task_struct *p=
-rev,
- 				bool sched_in)
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index b998ef6..7885ff7 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5776,8 +5776,8 @@ void sched_tick(void)
  {
- 	struct perf_cpu_context *cpuctx =3D this_cpu_ptr(&perf_cpu_context);
--	struct perf_cpu_pmu_context *cpc;
-+	struct perf_cpu_pmu_context *cpc, *cpc2;
+ 	int cpu =3D smp_processor_id();
+ 	struct rq *rq =3D cpu_rq(cpu);
+-	/* accounting goes to the donor task */
+-	struct task_struct *donor;
++	/* scheduler accounting goes to the donor task */
++	struct task_struct *curr, *donor;
+ 	struct rq_flags rf;
+ 	unsigned long hw_pressure;
+ 	u64 resched_latency;
+@@ -5788,6 +5788,7 @@ void sched_tick(void)
+ 	sched_clock_tick();
 =20
- 	/* cpuctx->task_ctx will be handled in perf_event_context_sched_in/out */
- 	if (prev =3D=3D next || cpuctx->task_ctx)
- 		return;
+ 	rq_lock(rq, &rf);
++	curr =3D rq->curr;
+ 	donor =3D rq->donor;
 =20
--	list_for_each_entry(cpc, this_cpu_ptr(&sched_cb_list), sched_cb_entry)
-+	list_for_each_entry_safe(cpc, cpc2, this_cpu_ptr(&sched_cb_list), sched_cb_=
-entry)
- 		__perf_pmu_sched_task(cpc, sched_in ? next : prev, sched_in);
- }
+ 	psi_account_irqtime(rq, donor, NULL);
+@@ -5813,8 +5814,8 @@ void sched_tick(void)
 =20
+ 	perf_event_task_tick();
+=20
+-	if (donor->flags & PF_WQ_WORKER)
+-		wq_worker_tick(donor);
++	if (curr->flags & PF_WQ_WORKER)
++		wq_worker_tick(curr);
+=20
+ 	if (!scx_switched_all()) {
+ 		rq->idle_balance =3D idle_cpu(cpu);
