@@ -1,222 +1,178 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30C93750CF;
-	Thu, 10 Sep 2026 06:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021178; cv=fail; b=S1KNhZr29j7tzJWz3fF61lUqFXopt8X1pKjT97X/iuhJl8xPbfD52nSocb9MND6C8VrTZeYPqYtKfJMWhS7eCDtSYkV8HX1SVXWv34eH7ISMxQGhWHiGbl9roGlE9yX5QeztfdjEqEarEBeo+CoTHR/wRLDj2Q4JGBrQjYn9kSY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021178; c=relaxed/simple;
-	bh=HzC8OOWiWtcwAWNRVmFkFze9Fj8HexnZscOOJ3EzOgg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=MsMVCXnQNad4qhV+PiAHJWGfLBgmAW1zxHR/s/X5AVKWehuHTuyvfbhVIh1a89n7kLPlEtWPMFO/WR6k9VMvjwdz9o/DIVGHQFn5nKjiDomGpOpCx2DBWq+Geif4Xx8AuQhiRLj4nfHzvAE2rldenbaLYRdIMwgUZ5T28Scl1eo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RNc886Y1; arc=fail smtp.client-ip=52.101.53.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CCB34CFC2
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789021237; cv=none; b=nbfzsT+vIM5hnLZjIPCssbwZ4eUV2TPBVjrzTInXjKmyjYI/UhpOIhNhRLrx0LzhzhOy0Ck/DGS0km+zVGyYxaDs1/0LIhaNmImqjhdbOXLQZughq/OJ4queSeKmnyxTHOFZPDC4WPU7dZ+axNEJ/x23m3BZSR3OR5h2YMXOzTM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789021237; c=relaxed/simple;
+	bh=MQcC4dR8FUCijCCrs52KbxdThXmJ8Dbr/UqfZTiRloM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CKILSUmGe4k1nLZo+Mag3+sIpCziMnF395yTYlFqq7lCtfnxyxQQx2iD3PrufhSDs4LD6mxM486WB3FHzKDVXHdLLBAVYceImSGvuO+os7O7pKGcR4xH9c09d6ldFsEEejbdluH8atEP6RK2uMYBB8dFCEDPt5K9kfn08C8UVTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cuMGrKvC; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RNc886Y1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NHmmdnlsNPGnf+eFEhr36Iky76htILaewsWwa2ksIlrpKl4jMe47JaJcXXO0/AGYkUb9HeHh8JLDEkaiVZNgSvo4Qt8lZBdmGjLLQv2Am+QIpammSQ2kBPs60THZNo5Jnx+f67uAFTU+yiQfjOha7v3EpONxE1G2EK/LCOuLPnduNeSWjC4GstNUNMaOyG4ui0Z/vcLwW7TNCZxO4Yymrf/mGypqs/69RuBPwexWeo0rFsRsveFdcXItdlVnbSwtX9gEPJveNME+GZSYcGZDi0EnQADCqGC1WH2WlGLADSbag9STjJK0TqI7c8LPkYBkJEl5We9LHSaKo42FneXqZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7YCDGLLtbXwScotGX0kgeUwf1qgoYtzFGrKMDFHjqyo=;
- b=sOgHVs9ZZwlJFfyBepPLi+yeXkaxKgIQJ7Z9V0KUMA2xqAZVIz5cbmyZWADci3yN10HuMzN2/DjWp+Y1OjKHXgLwO7SOx3izL8Gg3SZFZhLvzUjrc142FOpcrm1Bo/m5vo0kRlwQbLNuYMTWkukU175Ae446pRdcT71UhZU06HG2zfEZApbeZ9TrS3xt6jKY55z05j9zqAhYnRam5m+uBW4aWRmbZ/+wwPt7sX9zWbBpWwDAkyPBs7/VEXqUlB3K3C3coIjelcNq16mpeZw1Kpy9/qPtJystrz1wfS5LfkTbFWtuWn93In3uR4DjyrFnS6lXE4LZk0JPgTA92wCYmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=roeck-us.net smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7YCDGLLtbXwScotGX0kgeUwf1qgoYtzFGrKMDFHjqyo=;
- b=RNc886Y15HyPNY8dRvnCMBRaY32wM9V3gig9LedVY5+zVkeFn4gVBTBzHOzc+gnoFSxyUOnrtEy3QHxOa0/3aTOaCABR9bEAjfw5rqYxcNrg/hE44IBkLcgiqfSoKrN+mEst5k8sfL3yqhZdCJNHZwF4eWiL7JzCz3XuB4Bz+bY=
-Received: from BN9PR03CA0677.namprd03.prod.outlook.com (2603:10b6:408:10e::22)
- by IA1PR12MB7543.namprd12.prod.outlook.com (2603:10b6:208:42d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
- 2026 06:19:14 +0000
-Received: from BN1PEPF0001806E.namprd04.prod.outlook.com
- (2603:10b6:408:10e:cafe::83) by BN9PR03CA0677.outlook.office365.com
- (2603:10b6:408:10e::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 06:19:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF0001806E.mail.protection.outlook.com (10.167.245.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 06:19:13 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 01:19:13 -0500
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 01:19:11 -0500
-From: Colin Huang <colin.huang2@amd.com>
-Date: Thu, 10 Sep 2026 14:18:55 +0800
-Subject: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cuMGrKvC"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93997065344so516404785a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:20:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789021226; x=1789626026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e7cyj0PhcIGIgu6e9EBrymS4RNeOJ3HjwObgNoqGt1I=;
+        b=cuMGrKvCn9qt+NAdeDKfUYUpXkLo/4hT2KxxI47I1f4zk2Pb8hjhJR9DmFGNRwahsy
+         /rvxwaxsXUbzBIpeChFlU6PCsiAvSfV6Ot1ZPq8w5txgYZb/O7fTQ4bx2FbxhALOoyqX
+         +qrkFUBJim02rdFvG9I2PN0qUr0rsKf3GQsCEaooD8yqxq/VVCLG3/fOcd/WDhbkZ2Mi
+         Hfsi2pgDJFvtaN1wuTC/CzwuF6NqxcS3QQFa3T5sOni7FvMPWadHisGXsKztwbMTlFCv
+         fAfLuOoIxrA1gaNFutIum+3i6basKU82tjPPq7XBmYVigzMCkeCYW0CQPfbVijKyEyUM
+         GVLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789021226; x=1789626026;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e7cyj0PhcIGIgu6e9EBrymS4RNeOJ3HjwObgNoqGt1I=;
+        b=TRC3Bsherlot0IqJ8B0Fylp+6tIb/NKambKHsE/vQPS8foRKR3b9jsNgDRNL4HruOA
+         ykLfwL4Z+sqEiRK/IG3GAdaKov++GQQy90a4ZsLhifgOgkiVxTyGfPNrTfwxvOh6IsYo
+         oEJIP8Ukm/AJxeWIB8TXMaRamoTFERX9efCUgKoGXIBXZnf/wxn0ZdnyquDrq9+EsdLB
+         V/chd6pybS7t3SMuQ6cLIn9PZwqAgTuud4qpwV0eYywXCSzifCVpzC7fVIXkdUyqWreW
+         lhTMM686B1mNBk+HKCPaPXYgAnYvchiX8WT820//3eowOpMh3EeWp6rhCw0qbbEaFnJ1
+         rbiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwT4z0/Y3S0Bf4M3xMdCfTDKfwjUtiApvqkhvblIE58C3DHWPqbrAeeyodqd06cJyrLwxkGaP5dAIbwshg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE60/0eaEtQBDzESG1sn5SwWDawAwhlGCfmTxViGIrUamuPF/3
+	j4cp9X/iArh4UTL3JgC8U/CT2ohEtaMAjIQakgQ9vqM9blru7wtyMcWckYUeHw==
+X-Gm-Gg: AYBFou3lC2xsg+fS1APzlbJkDB0DIaVAuGKTG3d6QJYuiyoJBK3TYLhlbYL0nJ4eTnZ
+	7UuSX+UanmI7ewFwlpm96ZzpAI7DUmZGoHjP68bijXOoLNxBzqF8wDhA6QZz0B1H1XQrsodAvhQ
+	V7q7puvK4bLy7xlyI99g4xM+0E64r5RQtKMLEw90Tsnu/D8iAR1/OyiLq3nIcSi8+rLcqzs48BX
+	IfhBctjOAv41Xajb1jok5yZuB18WYme8lbkt4JthT/P+lmpO0YaSTYGdkBM0Vvv8BfL3ZcPw53p
+	qCD5iGzpnQeYXqN4HGa0FV5o7sXYn9RMAD39iH4AMDHAtcm8CZaDk5tdDeUVYuPxk7u03GM3B/4
+	J+aB+mDB+Wk14RWgufPKW1pfRtc14irlw3mLsZ5WvK6X5hCdN7BR50Lc+9w8xhgR0U3JQ+CmZH3
+	cIDjCtqN0HIEPULKeeUyfHU/vm+uFhCZeC72TILD54zE90TffD/LaRDnd2R++wE2z659RRYX4MJ
+	g5shCfb4Elc0KdrRxNKpv0TiexXn+5cCbC0NfxHKPP407mKzSI8bUdpwBqcG0VcS+QtiK4+oKKx
+	KOsW9DgVsgVnrJkJTVSnUn9FU4lDtgiH1WcX
+X-Received: by 2002:a05:620a:2604:b0:939:4e49:4d3a with SMTP id af79cd13be357-939806da015mr4699071185a.27.1789021225806;
+        Wed, 09 Sep 2026 23:20:25 -0700 (PDT)
+Received: from ?IPV6:2003:ea:8f2c:d400:9135:d56e:c3ce:edd3? (p200300ea8f2cd4009135d56ec3ceedd3.dip0.t-ipconnect.de. [2003:ea:8f2c:d400:9135:d56e:c3ce:edd3])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9ee9fbsm1621645785a.1.2026.09.09.23.20.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 23:20:25 -0700 (PDT)
+Message-ID: <beb23347-b7f1-44df-892d-cf3f49e9b3d0@gmail.com>
+Date: Thu, 10 Sep 2026 08:20:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
-References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
-In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <colin.huang2@amd.com>, Colin Huang
-	<u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789021144; l=3427;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=Rd7BMdMZMcvXuRAglajwrbAEQ9+eWt+Tmr52VCUjOek=;
- b=wBxuliKj0qfk6t3HITTMmc4y3MWS7jWiXxIC6KfNtqJt9s5rCbpSzdM+Sfcqv8+l/9LkQhEeY
- mb3MT4IZTYMAIgvDBNtcL/M/Qtt9gy9fpDXeSnSNvCqyYNfaGPtsnQN
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001806E:EE_|IA1PR12MB7543:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f896e2c-80fa-4d3f-0e33-08df0f036f7f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|13003099007|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ksXU9lSKz415n1r60LSKIQ2qbF7FaK/xhrCm+86GKqbu96o5OEUb220xYg6CJ99JtFzQ8IQOFPu65FZ7Q3q8ePIuETPIjhDw1NjNuVocUynUSpAI9Dep/kF2i7T1W2b+HaZptlsIiKrzk92B+q39r5x2U9v6xLqTBKqdgJZsYCZcgxYudbz75FXR8qRsaM3hsppBKDOBO/BIljFJh2ysHl11wDTkeRCgY6UQ0lmtmZZgQoa6L4VFqQAALEzNH2iko5AFPdSdAHzhK5iTr4pXmhGlg4/oSMUclity9dvhWGsdybwc/ztUzvv7QDYrwDRVY222lAjYSJk3HA/7rK6lIAjR7sBuyJfneE5uFHGW+ZJ97N+lRpBrvwMsVdEnEgysE8gvhZo5VnDOmapr52ZigHdhGaakKxeGjJNOBa7vu21cd42LrUDW9ODzM9tnpY3adkBW9r7lUGeqkhQ9YJ5sp25Y6cfurDvKsLnH8JFJL7Z/NEGUm9xW6d/+TGDtNvP3818V4iV6cij/+aUlyOVbeVrkm4GM1x5tOGeQ4fdFwGzWFlMHEHvFnM3hdxCFwxnhE1bJH97i9nEbAajDGFDguneYfE3rcsg/7N2draoPBmj9mUqKPNU0aRzCXZkOjpAN1JKUtMj1Y2+HW++rvHOjtQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(13003099007)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mwD2OCqJvRxKxKCc+r5ONj2s422vKp/BccFKcdGpzKRbvpCFHtNR6ACk6YHRgodlVEVHr1eIUezns+hk8uX76nw1E9WxFmXMhbv+iaj3rPP/vv3PkYS2TMtenQnWfWjEunDxy0auPGlfHWD4ANDNW4xeDoIEwSa94p1XKKV1s66Hw0ulSGkiq6mhBLJvEYTTu3wa58U3r1BpyxGcH5hySVpEKTnAyncRA6EPalg8aEkdF38Sxv5izEvAaMmOVhQgtbctWj2zjJzYfhkK2k7ItzSNr8smi/C40WwwmBL91zGd9GdxC7MBgiADkQKy3Gh2B6xvGfhR1gH0I63hK3mURs3M3b6E2JMFkwJlZkKo5htu+H6T5Zhgx4RydTF4VF5drXVuGO1ELi/ydbFYmcYXQ2VNJxo9sVnil7mBpCockAXrnncU1fdGLyBWqUeedj4b
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 06:19:13.9372
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f896e2c-80fa-4d3f-0e33-08df0f036f7f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0001806E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7543
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] r8169: don't enable chip LTR when the platform has
+ not enabled LTR
+To: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Cc: nic_swsd@realtek.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Javen Xu <javen_xu@realsil.com.cn>
+References: <20260909110554.1977-1-yogeshgaur.83@gmail.com>
+ <9c34a1dc-6147-4369-8d12-9c5939d07530@gmail.com>
+ <CAG6enPw36egoW=ezg1nnRvKEK5EEQX1h=j_TiRTE7F7PbxY8sg@mail.gmail.com>
+Content-Language: en-US
+From: Heiner Kallweit <hkallweit1@gmail.com>
+In-Reply-To: <CAG6enPw36egoW=ezg1nnRvKEK5EEQX1h=j_TiRTE7F7PbxY8sg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Colin Huang <u8813345@gmail.com>
+On 10.09.2026 08:01, Yogesh Gaur wrote:
+> On Wed, Sep 9, 2026 at 10:05 PM Heiner Kallweit <hkallweit1@gmail.com> wrote:
+>>
+>> On 09.09.2026 13:05, Yogesh Gaur wrote:
+>>> rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,
+>>> LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on
+>>> RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on
+>>> every ASPM enable, then goes on to let the chip trigger L1.2.
+>>>
+>>> The only gate is tp->aspm_manageable, which records that the OS is allowed
+>>> to control ASPM. It says nothing about LTR. LTR is a separate PCIe
+>>> capability that only works if every device on the path to the root port
+>>> supports it. The PCI core determines that in pci_configure_ltr() and
+>>> records the result by setting LTR Mechanism Enable in the endpoint's
+>>> Device Control 2 register; per PCIe r6.0 sec 7.5.3.16 a function must not
+>>> issue LTR messages while that bit is clear.
+>>>
+>>> So on a platform whose hierarchy has no LTR path, the driver now tells the
+>>> chip to start sending LTR messages nothing will honour, and ties ALDPS -
+>>> the PHY's link-down power saving - to them. A report against RTL8125B
+>>> (rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291
+>>> link down/up transitions in one eight-hour boot, with repeated downshifts
+>>> to 100Mbps, against four transitions at boot and then a stable link on the
+>>> kernel before the LTR change.
+>>>
+>>> Read the endpoint's LTR Mechanism Enable bit and leave the chip's LTR
+>>> machinery alone when the platform did not enable it.
+>>> pcie_capability_read_word() zeroes its output on error, so an unreadable
+>>> capability takes the same safe path.
+>>>
+>>
+>> Thanks for the fix!
+>>
+>>> Fixes: 9ab94a32af70 ("r8169: enable LTR support")
+>>> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
+>>> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+>>> ---
+>>>  drivers/net/ethernet/realtek/r8169_main.c | 10 ++++++++++
+>>>  1 file changed, 10 insertions(+)
+>>>
+>>> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+>>> index ec4fc21fa21f..c1ff4e898570 100644
+>>> --- a/drivers/net/ethernet/realtek/r8169_main.c
+>>> +++ b/drivers/net/ethernet/realtek/r8169_main.c
+>>> @@ -3037,6 +3037,16 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
+>>>
+>>>  static void rtl_enable_ltr(struct rtl8169_private *tp)
+>>>  {
+>>> +     u16 ctl2;
+>>> +
+>>> +     /* The chip must not issue LTR messages unless the platform enabled
+>>> +      * LTR on the whole path up to the root port. The PCI core discovers
+>>> +      * that in pci_configure_ltr() and reflects it in LTR Mechanism Enable.
+>>> +      */
+>>> +     pcie_capability_read_word(tp->pci_dev, PCI_EXP_DEVCTL2, &ctl2);
+>>> +     if (!(ctl2 & PCI_EXP_DEVCTL2_LTR_EN))
+>>> +             return;
+>>> +
+>>
+>> Can't you simply query tp->pci_dev->ltr_path instead of doing this low-level
+>> PCI register read? When reading through pci_configure_ltr(), I think this
+>> should do the trick.
+>>
+> Thats was actually my first version, but it does not build: struct
+> pci_dev::ltr_path
+> is inside #ifdef CONFIG_PCIEASPM (include/linux/pci.h), and r8169 can be built
+> with CONFIG_PCIEASPM=n.
+> 
+However, w/o support for PCIe NIC's you don't need rtl_enable_ltr() at all.
+So the complete function could be conditionally compiled.
 
-Add devicetree bindings for the Infineon TDA38740 and TDA38725
-single-voltage synchronous buck regulators with PMBus interface.
+> I think we should keep DEVCTL2 read. It is what other drivers with this need do
+> - rtw89(rtw89_pci_dev_ltr_enabled()), iwlwifi (pcie/gen1_2/trans.c),
+> qed_rdma.c,
+> rtsx_pcr.c all read PCI_EXP_DEVCTL2 and test PCI_ECP_DEVCTL2_LTR_EN.
+> 
+I'd not consider these old drivers as role models. As far as possible
+I'd like to leave dealing with low-level PCI registers to the PCI subsystem.
 
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 87 ++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
-new file mode 100644
-index 000000000000..28e6ff9d9d9c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+
-+$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
-+
-+maintainers:
-+  - Colin Huang <u8813345@gmail.com>
-+
-+description: |
-+  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
-+  buck regulator with a PMBus interface designed for industrial use.
-+
-+  Datasheet:
-+  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: infineon,tda38740
-+      - const: infineon,tda38725
-+    description: |
-+      The Infineon TDA38740 and TDA38725 share the same PMBus programming
-+      model. Use infineon,tda38740 as the preferred compatible string;
-+      infineon,tda38725 is kept as a compatibility alias.
-+
-+  reg:
-+    maxItems: 1
-+
-+  infineon,vout-scale-micro:
-+    description: |
-+      Scaling factor applied to READ_VOUT telemetry.
-+
-+      TDA38740/25 pin strap parts are available in two flavors of
-+      VOUT_SCALE_LOOP: 1:1 and 1:2.
-+
-+      For the 1:1 VOUT_SCALE_LOOP version, output voltage sense pins are
-+      directly connected to the output, and no resistor divider is used.
-+
-+      For the 1:2 version, a resistor divider is typically used (for example,
-+      499 ohms for both top and bottom resistors).
-+
-+      In some designs, users intentionally modify the feedback divider ratio
-+      to obtain an output voltage different from the internally configured
-+      VBOOT or VOUT value.
-+
-+      In such cases, the device telemetry (READ_VOUT) continues to report
-+      the internally programmed voltage and does not reflect the actual
-+      externally adjusted output voltage.
-+
-+      This property provides a multiplier to scale the reported telemetry
-+      value so that the monitoring system reflects the actual output voltage.
-+
-+      The value shall be expressed in micro units where 1,000,000 represents
-+      a scaling factor of 1.0.
-+
-+      Example:
-+        If actual Vout = 0.75V and READ_VOUT reports 0.7V:
-+        scaling factor = 0.75 / 0.7 = 1.071
-+        value = 1071000
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 1000000
-+    minimum: 100000
-+    maximum: 2000000
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        sensor@40 {
-+            compatible = "infineon,tda38740";
-+            reg = <0x40>;
-+            infineon,vout-scale-micro = <1071000>;
-+        };
-+    };
-+
-
--- 
-2.34.1
+> Please suggest.
+> 
+> Yogesh
+> 
+>>>       switch (tp->mac_version) {
+>>>       case RTL_GIGA_MAC_VER_80:
+>>>               r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);
+>>
 
