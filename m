@@ -1,144 +1,143 @@
-Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E8472780;
-	Thu, 10 Sep 2026 13:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3142F47D929;
+	Thu, 10 Sep 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045484; cv=none; b=eZYbHlUhiMBkh/eNXqSyryastQZHsU4hdolVWM9feul6O/p39WpReq7e3ZRDUiA5T6c3e3m9tcnSWlyWbXvEpNt01SErymGuxLOLay1RK/TuVehdH7MxH2tRdtQldfyq5UAdAQnrNJTi3qkSKfREj8bbYeLsLooHUAZXzedXzVo=
+	t=1789045547; cv=none; b=GkO45mpWSCYC50+qcCNiKDHrn1ZY6DTerS9RQRitr6Tpq4QSl1kLKVCvs0XbQPBYcRn0j9hTS74wGmwo9LEdMXda4+BvQYA1/RFGYTFVLklRHEZgBgHC1CL0GpJNGtJxk3/ZHTbY3t/2VELt6isL+gG547+enCz9X8GvBRWpXQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045484; c=relaxed/simple;
-	bh=6SUrTyrFC4X0SauFaRhaOHmqGLiDynswuu7D7Set+T4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WyWI5eqjxGLMZufsBowJ7f9r1DDCNatfVX+o/TzYmTvHrQG9PtaKVLk7gKN9BxKEuAUKJPNtPb0fHGdwQmk9Y9pXaUFblvQ2FnFIhu8cHbVnG72qualPXtGBBEhP24w6LR9quL+xJantTTiDshIXS3h2cCuUCnsBdgTEyjx125U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=HbElgJRM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=oVBZsIV/; arc=none smtp.client-ip=202.12.124.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1789045547; c=relaxed/simple;
+	bh=YfZxjSebQm0KNO16hOubujqCYwvIr86jGOjzNkHJv9M=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Qf241qg1U/AM4VdCMvCuIZotZfxKOhx0KIMMnst5P3tmboC5WB6q6BnQ1+dzxtClTdvwWOKbtzbxDq3ixqf5s5IP6VReaZlzRhcesGPNw0XrQymgzLCRq0+Sqm7t0iwTaB9SY4dcKrQYanjFoc3oLrA3kFsSm3gpm8gt3m7oxQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4c7sph7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="HbElgJRM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="oVBZsIV/"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id 311BC1300DC9;
-	Thu, 10 Sep 2026 09:04:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 10 Sep 2026 09:04:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789045480; x=
-	1789052680; bh=KV7XC8+HfJo2WCcRdFe2DjTL8zq9dSIHiccyK3AlT4Q=; b=H
-	bElgJRMEbERl1+nAd+kW9yaqu2UYYpiIMMfqBOlgxuZCg8RzxiGpYJ3HJLUO1lzO
-	LDl0gXvqTEsdY1A/P6dKgL/PlY39t3HlsPhcsQrC9g7ITFQiNILUVZqLE1lFKvSI
-	hCYWo8hWgzVUu4/uegICPxVIYjvnm+BKURMtflLpLWaolzZJwSYLIiHCDtWpUTU/
-	h1Uot5ZXV5vBIMZycPWrhHBouSonC0RIQn6CLlNKZFa9DrZ2gDkdjQEfn5MoLjzC
-	Wl2+kF+G+77XzuHyHeZIaIDSqsxAIaxGxrc3XYvKLiyUJlf2AFwngH+m7IcT+jL0
-	Xv0w/x+1LhsDBTd0/wwdA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789045480; x=1789052680; bh=KV7XC8+HfJo2WCcRdFe2DjTL8zq9dSIHicc
-	yK3AlT4Q=; b=oVBZsIV/jGPLkFnHK5fKCRceo2RhqyVWgJrMPfTJzhd3TzQxKIW
-	sto0t6rW4VBiR/rPUkK/AdM58b7djr4IS/70B5HeMEQnKLQREe7aU/8gGTCtr5hl
-	/3LxYzRh6P72wjkgGiUTcnvOgr9PB8DSpj/3iGi+tKgeWkA7wZuzeEJo7jjLbAUX
-	ihYq0hMTk8uLu2m15H/zcD0MvC+oR/azRxVj5X6kz8Q5Ypi2IICQIUxD9sqD/tvq
-	N3NE2uwVlXYjb+LpsFPKJwGw7S3JEu3asBHXTSoZS/pzHZTb8gM7EMopILscFFky
-	0gfB6VrfHr5TuZ7fz6ZwsWjlwnRxZA7rsoQ==
-X-ME-Sender: <xms:5qqianj176YN02lMJxSb4EhgK6XJtpxMm5s_wF8HORrZBsSvFLtVQw>
-    <xme:5qqiaktgneoW465jMDoTGJ9mBgF3LIte14lEibp_-xu4Iud84BrOG2uotCs9MMzRu
-    Jem2JRdAplIfXhDt53RLPVOh2ZTPO3Hm0JUc66BNJCgPG55Svj0OvSf>
-X-ME-Received: <xmr:5qqiaiLJoEc6orBizfd_a84A21rAjlmVVDjrAEtHakmiMH2QSSAXngH_Q3Y>
-X-ME-Proxy-Cause: dmFkZTErqcWawBBo4NhlkntMFUoIJIaTUydErcobOOD2qAARaG/wohlBtCRTJcJOM32uP3
-    Su2EbwwCyp3i+tYUvxY2bamyQSTy/GKV369qRr9JqOWEPBUJxU7Z3UmtAq5W/iHR2L9J47
-    tt2BIFncpu5ZNx+sqC5cXqahs97pcgKZbPSGqXMpO/eInoNtlSNtCmaahg1NAfhhBYNSzG
-    mdVcqjwhA4ZOSmHsK3bJ8OZwAmUgnvgizo6JLW2iY+tYJWxkD/JyrUUQkamZ3ACJHeWiut
-    e7fio3BHz99JVq2AIaS7fMDOFkOm4z6epfRVHFGZ37qIK1VIWQ8NJXl+eU3AhPq8T5iYmU
-    Kh3TN5NnQykKmZ6US7nhNTnmJ891tXgs7BvVN5lWXoG1cSxevyWz07UCYd+fVZ1OTe79PL
-    MbYP5qPaBmTkSqT5lzJ0htc4A1Y0PDLTU+jgCIn22Jir/NPJEjDcjtFW1917V6SFWG4qzX
-    IFtc0qLFt+t1dExkY8i9RuPI9QCj174skW5QzCXtckImpPHjb/mT5dOm5k3f8v9tZVPT0+
-    bpHHEZzPhkRCWbEca5c01lLweMm0oZYg1/+cOpHlCpsfwVDYDZNM37VM2do+gv5D5NYyZh
-    7gJVUH9jUCEYaFksK3SHd5B2ovWpO0fZH0AUyFOq2PvNUvlBRdEbHCJz4jyQ
-X-ME-Proxy: <xmx:5qqiakQBUz5ibuwpZUvVFWhzF50qkaTG3wibznBs4EVd7YSkM4w2Ig>
-    <xmx:5qqiansrfVFGHZBlEpqA73jPCfxbZFDsuj6W4a51WSLlNz670Hu3LQ>
-    <xmx:5qqiargQBe4kcB93VgrvSkPR_d15jPamovI07Zy1lehQeVZvpRl5NQ>
-    <xmx:5qqiao2S6dERuJZ6cSe5xZiW-MzHNw7oP6W2AzGNuaO954chXvrvPQ>
-    <xmx:6KqiapOv4Km96vz_Hzt7vlskbffNMNn6M7FRmyBNRq0yuEjl_J8OndKQ>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Sep 2026 09:04:37 -0400 (EDT)
-Date: Thu, 10 Sep 2026 14:04:35 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, nico.pache@linux.dev, 
-	ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
-	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, ryan.roberts@arm.com, 
-	shuah@kernel.org, surenb@google.com, vbabka@kernel.org, agordeev@linux.ibm.com, 
-	jgg@ziepe.ca, leon@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v5 08/19] selftests/mm: add folio-order check for address
- ranges
-Message-ID: <aqKqr62-718Vw35k@thinkstation>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-9-kirill@shutemov.name>
- <feb76c81-db9d-4a36-9a31-0b2b31e3c3fb@linux.alibaba.com>
- <aqKFXlpSELmCtt-z@thinkstation>
- <65bf1722-c1fd-452a-88c1-c030b042cfbc@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4c7sph7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CEDD1F00893;
+	Thu, 10 Sep 2026 13:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789045545;
+	bh=gOi0B08jroi+7YK16BHAVZKLiDfFvFzht6sMRqtKgtk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=m4c7sph70DFrARJ9f/ZMcI/d15wCGz0ci9wqGNd/uOBcnpQDhhrTjyrmhNAv2wZb9
+	 Si687zXj4iJTBVolRj/a6RUQvp9lv14LTFlV7ccna97Cr63304HTQiMqhtQe0SVkS1
+	 acaqnY5rtbAXciTxOpqwhhY4Iyc6OGOJpPo30a/UyGLX4PLs8jHdQoI41MIm9A/v5l
+	 N/M4A8viB/kex3qkocwFkwdFcoignGPnTouI1S7IPEr7enpzWbH8fU2fMLIFdoNvnr
+	 h3PKrdlQOughnzjPHlU9A2/VhjmGTOtZQ2uy6Kc+PmjyD6hPDwMo2L3LNzEMNnil6e
+	 Ml9q66GP8+YiA==
+Subject: Re: [PATCH net-next v6 08/14] net: lan966x: clear FDMA interrupt
+ stickies after switch reset
+From: netdev-bot+sashiko@kernel.org
+To: daniel.machon@microchip.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horatiu.vultur@microchip.com,
+ steen.hegelund@microchip.com, UNGLinuxDriver@microchip.com, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, herve.codina@bootlin.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, mohsin.bashr@gmail.com, richardcochran@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Date: Thu, 10 Sep 2026 13:05:43 +0000
+Message-ID: <178904554399.219967.11177166628090236711@kernel.org>
+In-Reply-To: <20260909-lan966x-pci-fdma-v6-8-6f48dab9d671@microchip.com>
+References: <20260909-lan966x-pci-fdma-v6-8-6f48dab9d671@microchip.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <65bf1722-c1fd-452a-88c1-c030b042cfbc@linux.alibaba.com>
 
-On Thu, Sep 10, 2026 at 07:14:42PM +0800, Baolin Wang wrote:
-> 
-> 
-> On 9/10/26 6:45 PM, Kiryl Shutsemau wrote:
-> > On Wed, Sep 09, 2026 at 06:01:13PM +0800, Baolin Wang wrote:
-> > > 
-> > > 
-> > > On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
-> > > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > > > 
-> > > > An mTHP collapse test needs to know that a range is backed by folios of the
-> > > > target order, and that they sit where a collapse would put them.  Nothing
-> > > > answers that today: is_backed_by_folio() classifies the folio behind a
-> > > > single page, and check_huge_anon() reads smaps AnonHugePages, which only
-> > > > accounts PMD mappings.
-> > > 
-> > > Have you checked check_large_folios() in vm_util.c? It seems to meet your
-> > > requirements, or am I missing something?
-> > 
-> > The changelog is out of date, sorry: since 6dedaf0d46a9 check_huge_anon()
-> > counts mTHP folios through check_large_folios() rather than reading
-> > smaps, and it is what check_huge() already uses for mthp_khugepaged.
-> > 
-> > It could do this job too, called once per window.
-> > 
-> > What is_range_backed_by_order() adds is alignment check: the folio has
-> > to sit at the window start. And check_large_folios() reopens two fds per
-> > per call which kinda wasteful.
-> 
-> OK. But can we extend the check_huge_xxx() functions to meet your
-> requirements, for example by adding a check_aligned_huge_xxx() that wraps
-> the underlying implementation of check_large_folios()?
-> 
-> I still find it confusing that khugepaged.c has two separate sets of
-> functions for checking large folios.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Agreed that two sets is one too many.  Yeoreum's series rewrites
-check_huge_xxx() on top of pagemap and kpageflags, which is what
-is_backed_by_folio() already walks, so once that lands the two can meet:
-the mTHP branch of check_huge() checks each window for a folio of the
-order at its start, and is_range_backed_by_order() goes away or becomes
-its internal.  That also makes the generic mTHP cases stricter for free.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-I would rather do that as a follow-up than fold it into either series
-now, since both touch the same functions.
+- [Low] Commit-message/comment vs. reachability at this revision: the
+  added FDMA sticky clear in lan966x_reset_switch()…
+
+--
+
+net: lan966x: clear FDMA interrupt stickies after switch reset
+
+The patch acks FDMA_ERRORS, FDMA_INTR_ERR and FDMA_INTR_DB right after
+reset_control_reset() in lan966x_reset_switch(), so that spurious sticky
+bits latched by the GCB soft reset in PCI mode do not make the FDMA IRQ
+handler fire as soon as the IRQ is requested. The clear is unconditional and
+is described as a no-op on the platform path.
+
+> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> index 6e6c08bb8eea..11094a381ec2 100644
+> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> @@ -1067,6 +1067,15 @@ static int lan966x_reset_switch(struct lan966x *lan966x)
+>  
+>  	reset_control_reset(switch_reset);
+>  
+> +	/* When in PCI mode, the GCB soft reset issued by the reset
+> +	 * controller can latch spurious bits in the FDMA error stickies.
+> +	 * Clear them before request_irq hooks up the FDMA IRQ line,
+> +	 * otherwise the handler fires immediately on probe.
+> +	 */
+> +	lan_wr(lan_rd(lan966x, FDMA_ERRORS), lan966x, FDMA_ERRORS);
+> +	lan_wr(lan_rd(lan966x, FDMA_INTR_ERR), lan966x, FDMA_INTR_ERR);
+> +	lan_wr(lan_rd(lan966x, FDMA_INTR_DB), lan966x, FDMA_INTR_DB);
+
+[Severity: Low]
+This isn't a bug in the register writes themselves, but is the failure
+described in the changelog reachable at this point in the series?
+
+The commit message says the latched bits "sit in FDMA_INTR_ERR until the FDMA
+IRQ is requested later in probe, at which point the handler fires immediately
+and WARNs". In lan966x_probe() the FDMA handler is only installed when a named
+"fdma" interrupt exists:
+
+	lan966x->fdma_irq = platform_get_irq_byname(pdev, "fdma");
+	if (lan966x->fdma_irq > 0) {
+		err = devm_request_irq(&pdev->dev, lan966x->fdma_irq,
+				       lan966x_fdma_irq_handler, 0,
+				       "fdma irq", lan966x);
+		...
+		lan966x->fdma = true;
+	}
+
+At this commit the PCI overlay in drivers/misc/lan966x_pci.dtso does not
+describe that interrupt:
+
+	interrupts = <12 IRQ_TYPE_LEVEL_HIGH>,
+		     <9 IRQ_TYPE_LEVEL_HIGH>;
+	interrupt-names = "xtr", "ana";
+
+so platform_get_irq_byname(pdev, "fdma") fails and lan966x_fdma_irq_handler()
+is never requested on the PCI path.
+
+The overlay also disagrees with the positional list in
+Documentation/devicetree/bindings/net/microchip,lan966x-switch.yaml, where the
+second entry is reserved for "fdma":
+
+	interrupt-names:
+	  minItems: 1
+	  items:
+	    - const: xtr
+	    - const: fdma
+	    - const: ana
+
+Both points are resolved later in the same series by "misc: lan966x-pci: dts:
+add fdma interrupt to overlay", which switches the overlay to
+interrupts <12>,<14>,<9> and interrupt-names = "xtr", "fdma", "ana", so this is
+only an observation about the ordering of the changelog against the code state
+here rather than an actionable defect.
+
+Would it help to mention in the commit message that the WARN only becomes
+reachable once the overlay gains the "fdma" interrupt?
+
+>  	/* Don't reinitialize the switch core, if it is already initialized. In
+>  	 * case it is initialized twice, some pointers inside the queue system
+>  	 * in HW will get corrupted and then after a while the queue system gets
+
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-lan966x-pci-fdma-v6-0-6f48dab9d671%40microchip.com
