@@ -1,67 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A8F4825D7;
-	Thu, 10 Sep 2026 12:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37BC3F413E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045047; cv=none; b=X7+iv6fmF2oBfTH9/b2fIUt30bzDCqOh1Ydu+qp7PHauzHbOKuNX/+Y6n21GjubSm6/WY31OQ50oUsQ/uuXDMUUhykQgmmqKLZFzAuvey25HM8S95eWufmHbpwretCicWIliYrHO/24bjkaNLIqWHqH6lZI6D0t/Js0xB07yJCc=
+	t=1789045082; cv=none; b=QQwM/dDCEg5dwqVVMK+18PKWfgoevvqVFrjcAwoah9NbwaGFO/7DJzxK+y8ZT+1VIWqk9x/ee9YwBUSfBlJmTOXfh4RwMhJ7b+8Tz0ZKYeGRiRJRTsxbEjG2btHP6mlBgrWMFg8pXT/Q4P+//ZlkDtlfRNVVl1IQcHR1jcvSn+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045047; c=relaxed/simple;
-	bh=DnmztxTXXbQHVTlsrnWRFCspQkAvUMFgOHE7g/BEQ+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XI8m2L5NUzK37qtUCyg+n5MNBo6WGcohGGKZ1VZhrX89qZSWc4aX+MBUr1tDojVw90lFtjSe91LhjzjbiduXr2lF0Tj8t1EuJ18IdsjkAasOYINJzcOxeyeVx77yt7rA0w5nTmUtdZSmFX3aRsggZAq4rDjTYGUaB8dpFrGQ2/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7JQZtCw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789045082; c=relaxed/simple;
+	bh=QU6aWdGrPrs9sm29TPY3TTfbdgnUIvDUFW283zBRxI4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QMTwA7iYviOHoIBmel3zA/I0qDJI9w805xFpmFgcLqD2egT4TbiKzBjqONUMdMlceHlI5UDvpNCLpKMo0RC25JDLSXce1sKN/pV+fx4A4IsF68C/Ih1wKsZ+N0ZyRxigsLrZEl56TJH7PzjZ5HYEcdRhonO7pP3EDErgpTFFFxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpo4a6xu; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7JQZtCw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082941F000FF;
-	Thu, 10 Sep 2026 12:57:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789045046;
-	bh=cz/YkmDWGz3mcK6Dzae3pwfaI2yep5VtJAfvg2O59O0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d7JQZtCw+h4p2K1XQmB3av1dP1Egl/Qvg9JsWc7/olyUQ/itMtSs/FMHJLb8Dmpzt
-	 CNPEhhneUzgqGBwTvVnOkhUJAgBD5Ox4+r5I2xifiBeICKgBBmTXwBJt0WLVeHjotr
-	 mIfQc/ijHAoWBwjQCwGcTyDUjm65/yDnGA67iQdO3ukgm5nU5FtCdAl0E/TWQa4LRb
-	 5FQyoKclPkFzPqZnsdwH8776t4aC8xS++MqTb5Wa2hXn4jOHFKa0VZwuLtyK6QJEl0
-	 dzQ8/K+RoRb3TeCoA9sS7BpXg9PVl308irrhFwVankuyrXfRKpcalUhRlp+dD8mZtg
-	 4BN8gU2s8xxCA==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x4eLD-00000002grF-3Wxy;
-	Thu, 10 Sep 2026 14:57:23 +0200
-Date: Thu, 10 Sep 2026 14:57:23 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	FangpingFP.Cheng@moxa.com, Epson.Chiang@moxa.com,
-	EddieSY.Lin@moxa.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/6] USB: serial: mxuport: add MUX50U support and
- updates
-Message-ID: <aqKpM7QaTyKzmqSe@hovoldconsulting.com>
-References: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
- <aqId-z4u65j7Szqi@moxa-ThinkCentre-M90t>
- <aqKpBqAYm7HKg20H@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpo4a6xu"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so2236495a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:58:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789045080; x=1789649880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4NZ9nNqE+pb8sFgTxYUMCE97tLV2sG+CG+J95kQTKcM=;
+        b=jpo4a6xuGRjX/OPY1hPWy5SI9OoPFfJFzUufWecuNV/9Z5uZC75ns6mf+zAxL3EBVv
+         78paC6OjCZu9pqOhRf8JWSMJCEPfnSOBWXFzANblQypKveJStKoolrpcMEBusvg93aqH
+         iFbLlRv9da5SWck0UnasmG+DkWYGom1Dv1DTxvYfJtnkswDiyCrGU9wPROEfQct/y8mw
+         uBIfy3czjn0yXEUzzF2UOxAjJeRcHJMOTGHfXt5r5Ye9rvUvWT1+JcJQvrH9RxC3/Hh0
+         KtuVSYTXaSlMT8kuFnEeYoAyqJAsL+nWmBqm0Pmiy0kRgusXcT48A7eWL1OnyN1AgRQa
+         PpwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789045080; x=1789649880;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4NZ9nNqE+pb8sFgTxYUMCE97tLV2sG+CG+J95kQTKcM=;
+        b=HxH4pkVzFc7cA7g4ZQFmRrFOPSZoP4wWcD8tHcQlur8vHq3aW63Z5DgOF94ApqeihX
+         76atSUIIl/oTVIhdCPdZ1/GDSq8DxSTtBJL6H+hgZqownRymOPrV1QnF5wQjDWkEoH07
+         oQKiZ8WLWbu1IsKBnVtZVJGUmj2q5MVpAQfJyPyF/E/JLPusCu/L/+GqogbSFXYvgGyB
+         0vm2/qox3igwmryYVhgbh8gDuzYLOIt9XabUJ+r0K42ffuvr8mLi3kQWYceOKkrQtYQ9
+         q7uyqpoB5nDqwHyOP2LQxr0Dk1YAf9b0qeExwddJkMXTqAY/ZmKYt7rgZXrLRpEwrYny
+         NKow==
+X-Forwarded-Encrypted: i=1; AKwUvByptezBaZAQRii8oyOlVY/mwkN1qACbC+4x368XgbMmIT5uSY7GsglhyjuAUdgFFxp9oUyYiXF8pZ+Ddic=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5ojLtkfC1aIGWcWJkN0YQDS/NzWDPYvd/FQI36zDc7Pcg63LM
+	ZOuz+zmN6Bg4N/CC4DIXCVoWnMbmJ+LkqO/kuychzVhwxm4uJTOqftx8
+X-Gm-Gg: AYBFou0nsx7JnefC7ok4g1QBY6jfpZKlE/E+DfVv8dzAxHu2PlCb/U+7paEhtEylK3x
+	FbIhR542U4uslS/7vp6LWMpnQaHc8GvT80rx38xezX7FqqEkbe7R51+hV6O89/QZi+NphkNhoak
+	/wm3spWJXIBbqrc88yYbrVLSIj1SbmrS79LzMMxB+EfoROpPklJWbCHhBZgMuFAQn0PWrs9WSs+
+	kUdcdEoI5wV+tCRnQW2+kesmCW87XYA14FTm8IvNvsz5KiddCFowyLjnv+kJ/JTC4W37yc9dF0G
+	5V30vIQp2Uu08mTRsJSxgfx/RpnyGszJ6sjGhT3J2qKse3/jj20pjYPQsqgK2hJfucNsGSFzBBY
+	LLWsqZmoyH/0Uj9byjxcYQ56Ss+oh12+hTidjrCy7zWlpegaJ7a0VY8IP47yhMbjMgwRGj1AmUr
+	u7XD86eWQqSWhrDDkxQnXS2nnMpaeKVvNz9SWHzVBrgtZiO7lqiNCuUNJrMORA1OjUKIWDjyM0N
+	VL56I3x4P6Ma8EmEdFlmgk2DOo7SaZMBsGqu0ob4LUof0rKXr88aSmofyaq9+2Ih58vvQONmx1n
+	IuO+UsZGwps7hbU=
+X-Received: by 2002:a17:90b:1d45:b0:38f:2168:b9cb with SMTP id 98e67ed59e1d1-39bac1d89b4mr18062671a91.9.1789045080229;
+        Thu, 10 Sep 2026 05:58:00 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77b1afsm4891592a91.5.2026.09.10.05.57.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 05:57:59 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Dan Carpenter <error27@gmail.com>,
+	cassiogabrielcontato@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 00/13] ASoC: mediatek: mt8189: Improve error handling
+Date: Thu, 10 Sep 2026 19:57:29 +0700
+Message-ID: <20260910125742.150902-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqKpBqAYm7HKg20H@hovoldconsulting.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 02:56:38PM +0200, Johan Hovold wrote:
-> On Thu, Sep 10, 2026 at 11:03:23AM +0800, Crescent Hsieh wrote:
-> 
-> > Just a gentle ping on this series. Any comments would be appreciated.
-> 
-> It's only been a bit more than a week since the merge window opened.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-s/opened/closed/
+Hi all,
 
-> This one is still in my queue.
- 
-Johan
+This series addresses part of the error handling in the MT8189 AFE driver.
+
+It propagates errors from clock operations and runtime resume, validates
+clock parameters, and removes redundant error messages.
+
+Compile-tested only.
+
+Best regards,
+Phuc
+
+bui duc phuc (13):
+  ASoC: mediatek: mt8189: Return error for missing regmap
+  ASoC: mediatek: mt8189: Propagate APLL enable errors
+  ASoC: mediatek: mt8189: Propagate MCK enable errors
+  ASoC: mediatek: mt8189: Validate MCK ID
+  ASoC: mediatek: mt8189: Propagate reg_rw clock errors
+  ASoC: mediatek: mt8189: Use dev_err_probe() for clock errors
+  ASoC: mediatek: mt8189: Propagate runtime resume errors
+  ASoC: mediatek: mt8189: Remove redundant error message
+  ASoC: mediatek: mt8189: Propagate APLL errors
+  ASoC: mediatek: mt8189: Propagate MCLK errors
+  ASoC: mediatek: mt8189: Validate sysclk frequency
+  ASoC: mediatek: mt8189: Propagate TDM clock errors
+  ASoC: mediatek: mt8189: Validate TDM MCLK frequency
+
+ sound/soc/mediatek/mt8189/mt8189-afe-clk.c | 136 +++++++++++++++------
+ sound/soc/mediatek/mt8189/mt8189-afe-pcm.c |  49 +++++---
+ sound/soc/mediatek/mt8189/mt8189-dai-i2s.c |  17 ++-
+ sound/soc/mediatek/mt8189/mt8189-dai-tdm.c |  17 ++-
+ 4 files changed, 155 insertions(+), 64 deletions(-)
+
+-- 
+2.43.0
+
