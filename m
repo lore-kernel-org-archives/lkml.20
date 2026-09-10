@@ -1,127 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748A11EF39E;
-	Thu, 10 Sep 2026 20:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD045474F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789072535; cv=none; b=sEZ4ZCbrqibyMZJOnWx9rkhErtZnKO6PKyK/WQsiqG2czN0dcOReTidU90p7HyHlhn3JTPcwsXrP20NrTK/I/Pq/rEQdeEhvJIqc3vaLhSJfwOBzeDZbuaWL6tz+K5t7ux7WACMYBMhu5Xt5PDB93qrhzBmULqnU+85cfJv2gGQ=
+	t=1789072652; cv=none; b=Iwpdo/oEZES2iACMf4tecEA3g3g0g28umYhZnkWmZEzdMzYF+COEfgg5rQJhy028ZDnTBoXgr28On6pk4UJRRVd+HN4PI6WJew4HpdXj8bPaIwsHbBO/U4e+MZWS05JtYaHnBXX4ISqkoXQHQ4KSohztq73wVHTm4nJ9eB9mjg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789072535; c=relaxed/simple;
-	bh=pMq8SZhA/Xg3p1YPO/NbwtP4Wm6z5MseFXO6jJEfZuc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SFHIkPaX3RxFdUwlwDMtud7KoXU1BRICadlNHNs4R3JPxa5f296pAZNupHOPpDXUTVaZePEakxtBoq8VJrXw7nphtCJxDAlTPAAhGP5PMhqQP8wiogKUL1/HKHT0vuIL5nfLjhmqE5hHnndjKPbf81LAYu64Gk4ghQlmAsfni68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckzh9IDE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789072652; c=relaxed/simple;
+	bh=zwGJ3GPA/cKqZXB6RBg3UlMxboJriBQTlXHQ0fTi9LI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=epGgcdR6xi2qd6A29kMU9jfYVS2OaN6vZL1WMDLv57cEq6NGdPUuNWjC2W5avk21V69X7c1eKEgiWZhcU8bte5x0Da5rHgAxP+mzxmXv/AHrXTO+AlvXol6yyeP1mFa4eqRsHq+xaHdLafjC3CCo37QYAJwBE7p8Ce4mN28GyHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JBRsTOHy; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckzh9IDE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFACE1F000FF;
-	Thu, 10 Sep 2026 20:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789072532;
-	bh=ZQnhaXmSgLhv6b/C0ImmE9HKZD9kzA3xPMVL5+NtFDQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ckzh9IDEFqjxyKQRtvPSZY3oXBR0PcbiphmlebE3007MpB8ebh4XIZbjVBFLf09mZ
-	 j8nyNmplCzZEBKXfAaF3FIPNwYCb+amo19K41vsbxappGfN6Nj3OTsQhcuWtgsWvwq
-	 oxGwOY249Ev/oCICz1qvVpwepcw/crbjBL5qGEOXpUgNhohrNI8ZSwStssLm+B7aL8
-	 AHMVYvafztKfTCg9ZqNd2622CaVBMIY784XKmis4v3qKtk+LefxBQwLWCKMiKFeSZN
-	 MkX+7slmrXU8ROfXNBye2aHtWSR5W78ibZvt+1+6b76LOCOevyah6cH1ua3Kvz5Kgu
-	 NxSVcHeIU+qAw==
-Message-ID: <aabc0435-d652-429d-9adc-4dac261d5feb@kernel.org>
-Date: Thu, 10 Sep 2026 15:35:30 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JBRsTOHy"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-52de50e77ffso2427001cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:37:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789072650; x=1789677450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JQ//0wLx0ZrUFKEVfJ2KOKRoOutXC31Ghgf5LXlFB7I=;
+        b=JBRsTOHyWTYRrPmShFHH+ZSdGZeQ8GuHYfnovnz9UbDTPrdhrVTvExEkxqaHJY4bCR
+         L36ymihikorow6QK4la9r7E/dGfD8pGRqJWLSk7AqQgZIZvWBDktEGyxtNqqSuocVkBP
+         5mcpxCkqrl5JSBt2SOUg/K301AtGG0vGGP9Yau+m4MkIvLGAGqFbEjXCsyNfpffu3Akv
+         6LxbPU+eovnPfxI3E47Q3ojQQTqXvvZvcRzVjfdcZ0e6XxHf56eHQdR0fTseHUgJKFh7
+         xkxhU6ixLuMOfoVnFZzmkrN35nPp8gLq9YJ8PhF09lgdyT45s4Q2CSyc0A2LkyRZdZ0r
+         qf6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789072650; x=1789677450;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JQ//0wLx0ZrUFKEVfJ2KOKRoOutXC31Ghgf5LXlFB7I=;
+        b=BnkSt473SP4akDliihHQvIsfW/VM+PMlCo8COnbmkqSjIlJrbpXFcV8ONLlzFkWvLe
+         XCmdOTtHYz1uUbY80j2iJhpRs2aWeJXaChn82UCMWm26UIYCdp1CVljDyatbM4GNqKl/
+         qDHMCgQxJnXWn4TG9h4TQAooBlPacweh9D2YRXKXOvnfh/WxOnQq6J98jpTuK9FCPOi+
+         /Xgw5LWJW7HlNbTshA7DaoMwkN4ro/wKy78Wz94bpGBLtZsFgDRe4ysqv4s90EaT7IyX
+         rZXYVXqQ40iek4pWfIh+fWXYyKg4CqFVFL+aHYxuP3rAEaC25gMeTqkN71VNf8vc8aOE
+         jSsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwEYaVB+9CJzs1yi9CkyKy979Co8npxF6gAP5eREyG6fXwq0pxWRjs8JKnCIKD9s6f+OU+/rj6P6WomryM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lr3AelTP9Qh0XquhW9ME5lJEzetzfwptmqlY3nM2xpAQiQLhak
+	8OHIF/dCZU6QNdu8jBp2bH+Vdn7uL3q6Wpp1qms4YYSJYvYi1NKdDts=
+X-Gm-Gg: AYBFou00jYGkmxE/tFB98+7iZT8R1cRPMsgcJmoqdEamW6js7pyQVS+N9nmN6i2wFri
+	ud1fhjFvtmoohVhSv6VD5nfNCSGcih1O0BdabW5bjZeSEZWx3KOd1PhFw0KMF2ejnWGoIGZ7JUY
+	hwoDmbOg2axTad330njik75ocOHwlWk32B4jaxkt9rGKHtGDSUsV8CpXFeWskXnZaYV9vZdDQfh
+	omvXT/hCgzPcVcTBpmxnGbz11nBJyatBmqrZe0irZE4/7TYA+jeBDskxkeY1nqtkJaB5ODIkNct
+	n/dUlVX3dYcy7hUKt/cgUzCiEXo7azIU6w7DiJ2iQKTEKrKT12XAzm5V3/DeJtcCC6rC3oCbnCj
+	7DSW8iSKXM8z9ki3aRu/itQjyYKkGpFgIz1O7qXg0Bmq18ZqgVXE7woz6HkcCgXHVcTV8R4IqQX
+	ELc8JkGnosTNMOhAcUyIxEU+uBvGLxd5SYh0Lu+A+ssp3I91rxWzlB2/6MH+IPlfol1XAqQevfg
+	NX5Iz5uUm6WMi+eCKD/ipbQPc4ae9qpdFTvNwSfAPTMoPxJghQf4a3KZaSjFojM4h80i//rdbWP
+	CVrFXShOWtnZ1ulhAsDVm2QPUZR1WkNgMg==
+X-Received: by 2002:a05:622a:1446:b0:530:178a:9de8 with SMTP id d75a77b69052e-530c859b375mr17874041cf.22.1789072649848;
+        Thu, 10 Sep 2026 13:37:29 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca3098easm2538941cf.3.2026.09.10.13.37.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 13:37:29 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: rafael@kernel.org
+Cc: linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] PNP: Detach device after resource transition failure
+Date: Thu, 10 Sep 2026 16:37:27 -0400
+Message-ID: <20260910203727.63489-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH] hwmon: (k10temp) Fix model id range of Zen5 Turin
-Content-Language: en-US
-To: Rong Zhang <i@rong.moe>, Guenter Roeck <linux@roeck-us.net>,
- Clemens Ladisch <clemens@ladisch.de>, Gabriel Ford <gabriel@gford.dev>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
- <54a5620c-36cb-4dc1-bbd8-9647ff7cb708@roeck-us.net>
- <9334E4DA-5389-49BE-A9FF-48A7FF5C1C35@rong.moe>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <9334E4DA-5389-49BE-A9FF-48A7FF5C1C35@rong.moe>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+pnp_device_probe() attaches the PNP device before it activates or
+disables its resources.  The attach changes the status from PNP_READY
+to PNP_ATTACHED, but errors from either resource transition return
+directly and leave that status behind.  A later bind or manual PNP
+configuration attempt then sees a device that is still marked in use.
 
+Route both errors through the existing failure path so it restores the
+status to PNP_READY.  Do not disable the device or clean its resources:
+pnp_activate_dev() only marks it active after a successful start, while
+pnp_disable_dev() preserves the active state and resource table when
+stopping fails.
 
-On 9/10/26 15:07, Rong Zhang wrote:
-> Hi Guenter,
-> 
-> Thanks for your review.
-> 
-> 
-> 于 2026年9月11日 GMT+08:00 03:00:13，Guenter Roeck <linux@roeck-us.net> 写道：
->> On 9/10/26 11:39, Rong Zhang wrote:
->>> Model 20h-2Fh are mobile processors with single CCD. For example, model
->>> 24h is Strix Point, i.e., Ryzen AI 7 (PRO) (H/HX) 360/365/370.
->>>
->>> Including mobile processors in the model id range of Zen5 Turin
->>> processors leads to bogus reporting:
->>>
->>>     k10temp-pci-00c3
->>>     Adapter: PCI adapter
->>>     Tctl:         +54.1°C
->>>     Tccd4:       +148.6°C
->>>     Tccd6:       +148.4°C
->>>     Tccd7:       +149.1°C
->>>     Tccd8:       +149.2°C
->>>     Tccd9:       +149.2°C
->>>     Tccd12:      +149.1°C
->>>     Tccd14:       +22.0°C
->>>     Tccd15:       +22.0°C
->>>     Tccd16:       +22.0°C
->>>
->>> Fix it by removing the said range.
->>>
->>> Fixes: 8440d5aca227 ("hwmon: (k10temp) Add per-CCD temperature monitoring for Zen5 Turin")
->>> Signed-off-by: Rong Zhang <i@rong.moe>
->>> ---
->>>    drivers/hwmon/k10temp.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
->>> index 75a45010d687..3e7e63edc6a3 100644
->>> --- a/drivers/hwmon/k10temp.c
->>> +++ b/drivers/hwmon/k10temp.c
->>> @@ -523,7 +523,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->>>    		}
->>>    	} else if (boot_cpu_data.x86 == 0x1a) {
->>>    		switch (boot_cpu_data.x86_model) {
->>> -		case 0x00 ... 0x2f:	/* Zen5 Turin */
->>> +		case 0x00 ... 0x1f:	/* Zen5 Turin */
->>
->> Doesn't that drop _all_ CCD temperature reporting for those chips ?
-> 
-> Yes, it's intentional. Mobile processors don't support Tccd at all, and
-> Tctl is the only available temperature metric on such processors.
-> In the commit message there is an example of bogus Tccd reporting.
-> 
-> Thanks,
-> Rong
-> 
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-Yeah; FWIW I agree with this patch.
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/pnp/driver.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
->>
->> Guenter
->>
->>>    			data->ccd_offset = 0x1F0;
->>>    			k10temp_get_ccd_support(data, 16);
->>>    			break;
->>>
->>> ---
->>> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
->>> change-id: 7b515a4b-k10temp-fix-zen5-epyc-14334e85a3b9
->>>
->>> Thanks,
->>> Rong
->>
-
+diff --git a/drivers/pnp/driver.c b/drivers/pnp/driver.c
+index 6d58b1465081..80c2a0f15b80 100644
+--- a/drivers/pnp/driver.c
++++ b/drivers/pnp/driver.c
+@@ -96,13 +96,13 @@ static int pnp_device_probe(struct device *dev)
+ 		if (!(pnp_drv->flags & PNP_DRIVER_RES_DO_NOT_CHANGE)) {
+ 			error = pnp_activate_dev(pnp_dev);
+ 			if (error < 0)
+-				return error;
++				goto fail;
+ 		}
+ 	} else if ((pnp_drv->flags & PNP_DRIVER_RES_DISABLE)
+ 		   == PNP_DRIVER_RES_DISABLE) {
+ 		error = pnp_disable_dev(pnp_dev);
+ 		if (error < 0)
+-			return error;
++			goto fail;
+ 	}
+ 	error = 0;
+ 	if (pnp_drv->probe) {
+-- 
+2.50.1
