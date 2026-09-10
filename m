@@ -1,256 +1,161 @@
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1163C457D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033267; cv=pass; b=JMQtXtj0L7OMyb17C15XEZSFBi02opY837vMs0Vi1NbVClrPu7nZqZGrXngnxXm9M8oqs20PkLBexZR6FKkSW4NW+iEvv8Rz1er3FaXSlkMOcVuwckaWw1dC7X4qIlWOEKHSVV1spyqql+L8PCC9SRq1NM2tv3LP8tgzHuJs4GI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033267; c=relaxed/simple;
-	bh=0ZHrtRL7bAqsF8X6KNfVbc5fsMeLdeVmsFhcXJx3bTI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dn94/l0kb/nqxGZDtFr1WQWQesrws4PpP6s76h1IPpMXltxUDaUWEbY6NoZ30uurK/RG9zFDNeFh89HZXEqZVbQz0LSMc13YKQiskFy+m6xcAqM4GuyFeg6WjKgyMjcJMc5MmMEc5pHEMG0G5CwkDhDojW+VH0NNmMiV/5JLHNY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kJ5c6sfr; arc=pass smtp.client-ip=209.85.167.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E6F3D954F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789033289; cv=none; b=LeK5KTpVTPMp1lgvGwcfHsQSMhImuj+20JD79cacRYwZP6wFGM5FnK15PzQqRXPe+bM3R86UcSZkQa2pjWAuR6tdzJ2JIFAnr00WcZvG49V0pDg1tV8QI8XdeIULIG3w9kzSmQI9DOJS8ETt+qLmyhusmt2eR5h9rWT4OfpTGk0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789033289; c=relaxed/simple;
+	bh=AtB30fOLmd9xwlz6s0ctJOk/nEgmq4K3+nf0Vx4MVUs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JpC/q4tmOeSxDnwaqHwpeEARilcbEr7bhX41p44vdggfZsN4MuZFLWlR8SRX/krvKrh34oOPv1TQ4SW6zddVivJIC3KAm/xHHFMQgHofcW/BM7/T0LO0LaHLRRiXn6tf4AmOeTzrKT5oXhtFtydQRu1/FNDJmTPL9oX1DuWtQTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pyPZZkr6; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kJ5c6sfr"
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-495c49f8eccso6224783b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:41:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789033264; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rlFFPJh3tPKFSdm7NXEZzpUv4nlri7M0ltaOuKC6gS8hEU409t7di0wDKdg7JgtEVC
-         m7ygIbI5KH9mBw1t6G5VHbasZevtcdqazI0dQe7FAh6K2H2EuLFanXd6k5OH08adFnYH
-         bJ34EnhEgtU4t3RV8a2hvx9j/TK4MgsjmfBY0NypWKDiUo1++0L8UaDhYGU9pe6p5Ud7
-         yMqzQLZYpbZFGp4BEgqmUcE8fpQtnyHy5WJU1cIHrbexxWKdNz+Ytqv3FEBkVeccy2fD
-         tUzaaiC3ks1Iu8gQDrFPCXuubw7geOHIfV914g95BnxAcdYRJtJV7ZAuKrRGWIe8UnJ5
-         Kugw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RY35ZWPwW1bPsR1CMQEBBclXXIBNd/EaLdOjMo9JA90=;
-        fh=0xGX9MtNUDRQ3Pm7RaNCt5H7OM6hSc0lYgtvrf1BJBs=;
-        b=C7PP1yCtvLUgxJ01VGZY5W5cKdKxy1Zz4C+X5Ytr/697xjsLkTR9KHyt+dX4SnNmKv
-         EQWCbJlZmXU9OF4lL2bJvaEzozxnDrjKjUyd2OgO0EnoJKLtRwezKkCxUT8M2RfjDa5Z
-         OYnFuz2ORFSv+KmkpT7CzjEen7m+8/wr36vDkFOLvgxZ6+v6jfuOi0EsabpwyzgJSNcW
-         PwwOKgi2fxb2wE6YV85SFAl6lnydrDs/7gMEhTaHa0RhAQqB4SV0HsYUw8NbA31wsjdp
-         Y6hNr3ACzVV1p6kfIBni8A3LaTqy6Js5tfJ80aMto2850o8sYNq0zy4k8rOdGm+F5MZ8
-         azyA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pyPZZkr6"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fe517774so24801515ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:41:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789033264; x=1789638064; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RY35ZWPwW1bPsR1CMQEBBclXXIBNd/EaLdOjMo9JA90=;
-        b=kJ5c6sfr0y60pC5D86EAK2caU8hDmma5FVZhKAxm5vrYOazDtwwjDjr8GJaV91Uy4o
-         WnbN1Nx83XXKMNEvi4qxNsyVeBzZzBJ4Md94LLA9MA48ZWg9h4Ul5vBKPiG9PYqHadDj
-         ee5nNqH+6SI1GlBa08hATr9EYHoCw9zFkup2UF27wrWOn8CFsMCshJhPcMkI4F75Gx03
-         nCRCRLbUm6BvmMbXGRvh2MlddD9aYWRyn/QaTBw4QssjsGeNA7F9l9KgEIdZFXIrYF19
-         92AYGqfqSttfLAU4cwicEjnYmLQpl10kUvymoCDNgmmNOnqCzE9sC6w8D633/uzn4XdM
-         b/LA==
+        d=gmail.com; s=20251104; t=1789033288; x=1789638088; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fquBE/d9+HqRv4rij8w/7PsKGJjDt7mpnvyWxy9ryZI=;
+        b=pyPZZkr6lBZfjvC8biQrHE2YeNckaxKDXeye51mnAX3xxwcFrbn1T+nMt+SPJugr6g
+         ZCOBv6LqVXxFIwXMC/ccbW/iBAUvectL3DN7KjNINEty02Lu0d8cQ1HQnrF3GyGLwkNJ
+         GYfTU+fsygXgrn5Isp4UfQ05asitPU/8IZpyKTGXlkvtgqs+oahteTMq4eJGieAENLNz
+         iGECnnRzHDkS7hPjrGsi4h5mcRpMyh8Rbp+O6/8xJP7gEPf2cNRFzZ6WHEU9OEAwFTnr
+         bea3Bv9IpFM6buj6WQ80zTLjqXsqvBTHUIcJdlTO23hLatbrb3L3BU2uCfw7aP1TouDX
+         9McQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789033264; x=1789638064;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RY35ZWPwW1bPsR1CMQEBBclXXIBNd/EaLdOjMo9JA90=;
-        b=aQ6NL0Vzcm5wHe+ATtrwcPdiWDAeDHw9oJXRE7Cnld8zskr6ycAoHz0zCUEHpVsuCA
-         4WbFb8VQNPf7lb3ArmD7nyt2h8jXTWHFnfTgEwpeZrFuULCpxt5KWhKYNh3imC0In2Hv
-         zU9A6LIFwg8TvddyyFZpNeixXPdij44j2kaRD8NRcyIlUxDIJ6XmGUETrDvhpuEz1nAO
-         ZUaB0uomuUBgNtBiWiRAhGyKOce4tPBAw1Y3IhJ4hGF4IO6vCAac6yzmaPbw1j2DE+Ob
-         FvZA1y8tqNvTWH1rZlAkjz/b+R66/k92MoodMSIyTAJbcXTisOmydhX53DaTTnB9aHtY
-         Owvw==
-X-Gm-Message-State: AFuF++lFqfav1C1Fca0YM6/VL3XjVADojPMFkDAE7KtuZQhTbl6djcmL
-	YTPJxXb64VLnmMkvn07fue7v2GT5YkIheU7Z5SD9X1XCxn95HCjUDP9kbBKJ2adi370citPCFcn
-	T3w9Wgf7/cxCK9IccANwVO6zf9Zh0OTZ/V0pJj9sT
-X-Gm-Gg: AYBFou2rdZfAJVeNI0zolcbfckF5aeDk7JZ6l5I6ahJAf7pE6UreuWCNujwDeXoiVP1
-	jwLHQdZ9nf/A5j2200b/k2QoMLcT0Y4vc8MurNmXgZ30+5RyTA4RGkyh8GxjQbbHYyZx9Df55cj
-	DcePH5p3EDH511+nIjDPZHb+aStqiWUfZHhE/grLkW+CJDdGnMgdBKjpE1grp5SmpdTXOuiwSoh
-	GxKOV9z0e/gYrKwUfA0OurhfsmDn6EQjMrABOwIVDA8Y4FRgKjs0pc8QrkdohK0Pmft3/TWAN8o
-	v3lGTWQyKj6w4Q6sYZOvPofOba6YLmq5XNL+OyjM2HDYhhyAlTYsNaPOBllgF+6d2SEhUJBnV6E
-	Z8XwMaRg2jHC1Z1f7t2eLz+7+fNPCJIGGw20VUXchU+QNtwvW4NtNbckc6mp/Cleh2eN3cvq3QB
-	zTL23G2UUGj73+XjqAi0H+kro=
-X-Received: by 2002:a05:6809:24d:10b0:4c0:12f3:6007 with SMTP id
- 5614622812f47-4c012f36474mr5831640b6e.4.1789033263935; Thu, 10 Sep 2026
- 02:41:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789033288; x=1789638088;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fquBE/d9+HqRv4rij8w/7PsKGJjDt7mpnvyWxy9ryZI=;
+        b=oGjLdaukNMLa+pr3Yn8etVJz/xXBEFMqxg4OrfrhVpdHIay9lI25RaNrmvbbnWAymU
+         mbaiyIQysLAmWzJpnYFARqmj4uup3em9p178LT5tubb+BUKQIugL4AIrmPZwBZ87eMHW
+         xwWzncDrFTpNg2QrC6f55i4adCmktb1f19HyboZlHuqjuLZ0XatqyYr8TYVeaOGb4GZ9
+         wryn8lZLkA9ABj3KeDCnod/D08psYaozEHax2v2IxY19Rk2IG4d8RTiKMUdcuxnNnXyx
+         XvMHhOpGNTIkw2Kyx2zw0hSAgHhR1+jp/tgaTXolQCK/f9TB+H+ATCOiXQM96XfFqFpk
+         bedQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMBQ44VjC3iQQKVlXziSMYyHkhBKyBo2Dz97D0SfkCTP8M8Y71Xvn0g1TIkByWrWVE/4g8Xo3BebSY9Ts=@vger.kernel.org
+X-Gm-Message-State: AFuF++kV2kXv69rXO1bkpikw+IQA9bJxA1krvtBHBVZhwz/TNhW1bckB
+	IhLVf7KJwtixusZ5eylTcUMDWI2lnmbV2Q1WxBufomrHsVYgUQ+aF6It
+X-Gm-Gg: AYBFou1nRu8c0Nm0ybN462m5FRLnKSxqDUYHuc9M/VPCZYdWzo1SqWC0D/t75FUJkgT
+	BU0rVLn8pP64qeB5vMuW017axVgHUxiQFX51iyhWZHrujxh2swhmps2Nq4hpOBygukaY/2JppnS
+	AJibDAQGZF4AvDuVoQrQGgNLw+bNCFYRCXuzA+7WI+NT+2cBKMgWJUSoVn/SDr+Gnne52G4UH/Y
+	XbrAyBbeW3n8DRlJX3Wbsd+eADepLwqx285+ORtWPikkhAUTEvccveKSq9ALCtCJiw49KqLgste
+	UM64HLUYG1tbCID2tvFgR8XXHZE4xpi0wXRROc79HQ86djA4LCimM8s3jJ4XEotFw51e/k7mZAw
+	FJYt76LQpZhzI9QdUqXOJSWij+hT3G8HPUYiBK1j/F4FQ+qgj+bQ9uqYx/Qpglr6tYzJTjbavjr
+	Wlw68DTJsspuwgDK5PuivfpsuXuN9gIgr6uCbWMNQq2rH3ZP4zxbs3uSYOmA8MmUPp3dSzFBCwN
+	z+G2Kza6weFylrjqaPgcmA2/Mv8Li++lA==
+X-Received: by 2002:a17:903:2301:b0:2d6:fd55:3a9d with SMTP id d9443c01a7336-2db8d8179b5mr148221695ad.3.1789033287530;
+        Thu, 10 Sep 2026 02:41:27 -0700 (PDT)
+Received: from niharika-QEMU-Virtual-Machine ([223.181.118.171])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397d6d1becsm13201260eec.22.2026.09.10.02.41.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 02:41:26 -0700 (PDT)
+Date: Thu, 10 Sep 2026 15:11:23 +0530
+From: Niharika Khare <niharikakhare2101@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: sakari.ailus@linux.intel.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] media: mc: Remove spurious WARN_ON in
+ __media_pipeline_start
+Message-ID: <aqJ7QxGa9s70LXwp@niharika-QEMU-Virtual-Machine>
+References: <20260821165833.10042-1-niharikakhare2101@gmail.com>
+ <20260821193326.GI59206@killaraus.ideasonboard.com>
+ <aokkTcorNSJOnJFj@niharika-QEMU-Virtual-Machine>
+ <apU5O6ahkYlvioju@niharika-QEMU-Virtual-Machine>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6a73ceda.5aeeccc9.207e63.0008.GAE@google.com>
-In-Reply-To: <6a73ceda.5aeeccc9.207e63.0008.GAE@google.com>
-From: Aleksandr Nogikh <nogikh@google.com>
-Date: Thu, 10 Sep 2026 11:40:52 +0200
-X-Gm-Features: AcwNN1V08JJmkHsRxxFOMDjkNrrQxwFVsXGUuQRj2Mfd5Wa4kPqkcdGupiMn18w
-Message-ID: <CANp29Y4DDpr7-aoKH+nQ82jea4vVDsCtx6C2YYcEasbtF1E4sQ@mail.gmail.com>
-Subject: Re: [syzbot] [usb?] BUG: unable to handle kernel paging request in nhi_probe
-To: syzbot <syzbot+901ca72278dfd89daf58@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apU5O6ahkYlvioju@niharika-QEMU-Virtual-Machine>
 
-#syz invalid
+On Mon, Aug 31, 2026 at 01:50:22PM +0530, Niharika Khare wrote:
+> On Sat, Aug 22, 2026 at 09:53:46AM +0530, Niharika Khare wrote:
+> > On Fri, Aug 21, 2026 at 09:33:26PM +0200, Laurent Pinchart wrote:
+> > > On Fri, Aug 21, 2026 at 10:28:07PM +0530, Niharika Khare wrote:
+> > > > Vimc driver's entity topology has three capture nodes and two of
+> > > > those (Raw Capture 0 and RGB/YUV Capture) are reachable from each
+> > > > other via enabled links. The crash report and the C repro show that
+> > > > the two capture nodes attempt to invoke a STREAMON session one after
+> > > > the other, which resulted in the WARNING getting triggered by the
+> > > > media controller.
+> > > > 
+> > > >   vimc link validate: Sensor A:src:640x480 (0x42474752, 0, 0, 0, 0) Raw Capture 0:snk:640x480 (0x42474752, 8, 0, 0, 0)
+> > > >   vimc link validate: Scaler:src:640x480 (0x33424752, 8, 0, 0, 0) RGB/YUV Capture:snk:640x480 (0x33424752, 8, 0, 0, 0)
+> > > >   origin->pipe && origin->pipe != pipe
+> > > >   WARNING: drivers/media/mc/mc-entity.c:785 at __media_pipeline_start+0x1add/0x22b0, CPU#1: syz.0.17/5912
+> > > > 
+> > > > The graph walk originating from Raw Capture 0 (first STREAMON in C
+> > > > repro on /dev/video0) reaches RGB/YUV Capture and marks its origin
+> > > > pad's pipe with its own pipe. When RGB/YUV Capture's graph walk starts
+> > > > (second STREAMON in C repro on /dev/video4), the pad is already
+> > > > claimed. This is a legitimate userspace request but not something that
+> > > 
+> > > No, that's not supposed to be a legitimate use case. The WARN_ON
+> > > indicates a driver bug.
+> > 
+> > Thanks for the direction Laurent, I'll look into vimc's architecture to
+> > check on how the two capture nodes ended up starting the pipeline back
+> > to back.
+> 
+> Hi Laurent,
+> 
+> The WARN reproduces without the syzkaller reproducer by configuring
+> formats with media-ctl, then concurrently running VIDIOC_STREAMON on
+> /dev/video0 and /dev/video2. Both sit in the same connected component
+> via Sensor A.
+> 
+> I tried checking the pad in vimc before video_device_pipeline_start()
+> and returning -EBUSY, and this removes the WARN.
+> 
+> However, a couple of other drivers are structured differently:
+> 
+> 1. rkisp1 embeds a single media_pipeline in struct rkisp1_device; both
+>    capture nodes pass it to video_device_pipeline_start(), serialized
+>    by stream_lock. vimc embeds one per vimc_capture_device, so the
+>    second STREAMON sees a different pipe pointer.
+> 
+> 2. imx8-isi acquires the pipeline with media_entity_pipeline(), falling
+>    back to the node's own pipe, under graph_mutex.
+> 
+> I also tried the imx8-isi approach in vimc. Both nodes stream, but
+> teardown NULL-derefs in kthread_stop() as the core refcounts one
+> pipeline while vimc keeps a kthread per capture node.
+> 
+> Before working on the teardown: should vimc share a pipeline across a
+> connected component like these drivers, or refuse the second STREAMON?
+> 
+> Regards,
+> 
+> Niharika
 
-See the discussion at
-https://lore.kernel.org/all/6a88012e.dbb3a75c.13dd47.0007.GAE@google.com/T/
+Adding the vimc maintainers as well, since the open question is about
+vimc's design rather than the core.
 
-On Thu, Aug 6, 2026 at 2:01=E2=80=AFAM syzbot
-<syzbot+901ca72278dfd89daf58@syzkaller.appspotmail.com> wrote:
->
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    7235a3e71949 Merge branch 'for-next/core' into for-kernel=
-ci
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux=
-.git for-kernelci
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D11edb64958000=
-0
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dccf4bea59f670=
-07
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3D901ca72278dfd89=
-daf58
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e25=
-5-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> userspace arch: arm64
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D10678bb9580=
-000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D1564acc658000=
-0
->
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/fd45635beaae/dis=
-k-7235a3e7.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/d7d2e6507223/vmlinu=
-x-7235a3e7.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/b5b5d8de4cea/I=
-mage-7235a3e7.gz.xz
->
-> IMPORTANT: if you fix the issue, please add the following tag to the comm=
-it:
-> Reported-by: syzbot+901ca72278dfd89daf58@syzkaller.appspotmail.com
->
-> EXT4-fs (nvme0n1p2): shut down requested (2)
-> Aborting journal on device nvme0n1p2-8.
-> Unable to handle kernel paging request at
-> Unable to handle kernel paging request at virtual address ffff800092aad64=
-0
-> KASAN: probably user-memory-access in range [0x000000049556b200-0x0000000=
-49556b207]
-> Mem abort info:
->   ESR =3D 0x0000000096000007
->   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
->   SET =3D 0, FnV =3D 0
->   EA =3D 0, S1PTW =3D 0
->   FSC =3D 0x07: level 3 translation fault
-> Data abort info:
->   ISV =3D 0, ISS =3D 0x00000007, ISS2 =3D 0x00000000
->   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
->   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0
-> swapper pgtable: 4k pages, 48-bit VAs, pgdp=3D000000021b01f000
-> [ffff800092aad640] pgd=3D0000000000000000, p4d=3D10000002212fc003, pud=3D=
-10000002212fd003, pmd=3D1000000105275403, pte=3D0000000000000000
-> Internal error: Oops: 0000000096000007 [#1]  SMP
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 4950 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS G=
-oogle 07/02/2026
-> pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=3D--)
-> pc : __raw_readl arch/arm64/include/asm/io.h:84 [inline]
-> pc : readl include/asm-generic/io.h:231 [inline]
-> pc : ioread32 include/asm-generic/io.h:906 [inline]
-> pc : nhi_probe+0xc0/0x730 drivers/thunderbolt/nhi.c:1198
-> lr : nhi_probe+0x34/0x730 drivers/thunderbolt/nhi.c:1187
-> sp : ffff8000982375b0
-> x29: ffff8000982375c0 x28: 1fffe0001a3c399a x27: ffff0000d1e1ccd0
-> x26: 1fffe0001a3c3998 x25: ffff0000c2f4a0d0 x24: 1fffe0001a3c3999
-> x23: dfff800000000000 x22: 1fffe0001a3c39a7 x21: ffff0000d1e1cd38
-> x20: ffff0000d1e1cc80 x19: ffff0000d1e1ccc8 x18: 1fffe00035bc9e28
-> x17: 0000000000000003 x16: ffff800088b07000 x15: 0000000000000000
-> x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
-> x11: ffff80008a590e28 x10: 0000000000000001 x9 : 0000000000000000
-> x8 : ffff800092aad640 x7 : 0000000000000000 x6 : 0000000000000000
-> x5 : 0000000000000001 x4 : 0000000000000008 x3 : ffff8000801571a8
-> x2 : 0000000000000006 x1 : ffff0000c6899d40 x0 : 0000000000000000
-> Call trace:
->  __raw_readl arch/arm64/include/asm/io.h:84 [inline] (P)
->  readl include/asm-generic/io.h:231 [inline] (P)
->  ioread32 include/asm-generic/io.h:906 [inline] (P)
->  nhi_probe+0xc0/0x730 drivers/thunderbolt/nhi.c:1198 (P)
->  nhi_pci_probe+0x418/0x4e4 drivers/thunderbolt/pci.c:479
->  local_pci_probe+0xc8/0x158 drivers/pci/pci-driver.c:332
->  pci_call_probe drivers/pci/pci-driver.c:394 [inline]
->  __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
->  pci_device_probe+0x460/0x8d4 drivers/pci/pci-driver.c:489
->  call_driver_probe drivers/base/dd.c:-1 [inline]
->  really_probe+0x29c/0x800 drivers/base/dd.c:706
->  __driver_probe_device+0x1e0/0x350 drivers/base/dd.c:868
->  device_driver_attach+0x58/0xac drivers/base/dd.c:1203
->  bind_store+0xf4/0x14c drivers/base/bus.c:267
->  drv_attr_store+0x80/0xa4 drivers/base/bus.c:125
->  sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
->  kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
->  new_sync_write fs/read_write.c:595 [inline]
->  vfs_write+0x51c/0xa0c fs/read_write.c:687
->  ksys_write+0x12c/0x228 fs/read_write.c:739
->  __do_sys_write fs/read_write.c:750 [inline]
->  __se_sys_write fs/read_write.c:747 [inline]
->  __arm64_sys_write+0x84/0x98 fs/read_write.c:747
->  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
->  invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
->  el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
->  do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
->  el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:736
->  el0t_64_sync_handler+0x48/0x148 arch/arm64/kernel/entry-common.c:755
->  el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:594
-> Code: d343feb6 9140e508 91190108 d503201f (b9400109)
-> ---[ end trace 0000000000000000 ]---
-> ----------------
-> Code disassembly (best guess):
->    0:   d343feb6        lsr     x22, x21, #3
->    4:   9140e508        add     x8, x8, #0x39, lsl #12
->    8:   91190108        add     x8, x8, #0x640
->    c:   d503201f        nop
-> * 10:   b9400109        ldr     w9, [x8] <-- trapping instruction
->
->
-> ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
->
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
->
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
->
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
->
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
->
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
->
-> If you want to undo deduplication, reply with:
-> #syz undup
->
-> --
-> You received this message because you are subscribed to the Google Groups=
- "syzkaller-bugs" group.
-> To unsubscribe from this group and stop receiving emails from it, send an=
- email to syzkaller-bugs+unsubscribe@googlegroups.com.
-> To view this discussion visit https://groups.google.com/d/msgid/syzkaller=
--bugs/6a73ceda.5aeeccc9.207e63.0008.GAE%40google.com.
+Short restatement: should vimc share a single media_pipeline across a
+connected component (as rkisp1 does at rkisp1-capture.c:1152), or
+refuse the second STREAMON with -EBUSY?
+
+Details and the rkisp1/imx8-isi comparison are upstream in this thread.
+  
+
+Best Regards,
+
+Niharika Khare
