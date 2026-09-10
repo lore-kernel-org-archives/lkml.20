@@ -1,37 +1,37 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47C44A2A64;
-	Thu, 10 Sep 2026 14:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA1B4A2612;
+	Thu, 10 Sep 2026 14:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051833; cv=none; b=bAAeXLUwP55dIQovqhkXsUT6tk4NCKnKljc16JQ1DfbuSMuiKw9LfFSulWebG7+KI0pE7o1k5E2nyokURtHs3lvwAIZhEYIB8Powpxd4r0TGM++3YonzzE+oejTyabLndUlapWh5jBU+PjvS37BWe3ggjSe2p4KZG/Wk/5FHJxY=
+	t=1789051849; cv=none; b=DskGTAOUWfuMpZ5fh/BdPZIaPeU9GuAf2oYjv0NQgbKVs0HUIraeyUOqXJrDY/EaZY2yrluUovz4phVXW4uJzw1GsCt6BiCw/ZtGNDPJoXKJ1Uzpmq8mxCLuvPy04wVEnBgwF2sMQuNnuzQwMWBihSEd3xjEDeiHPqqhNwmHr04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051833; c=relaxed/simple;
-	bh=g8gTibjR2XyYBeuTVNMjOfSr9cE9kZF0fyueJ2Sa5gY=;
+	s=arc-20240116; t=1789051849; c=relaxed/simple;
+	bh=e+AJlWnamTkw+DNyBUc+OXurn2cOXXYiNh0ifNCxgK8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m3DC0XKhJqs2vBsFHRy522n4hAJf0jGZirAJ+JSK+e/Idi7J1/GqyKw4TDMDGiTqinAjgBdzaMW3VHHUU9ur6Ifm3pZ56soV7bD/YsoIvx8BaITZddiZR18o5sbQWqUcHVZDDYTqGl0VPt7TZiUW+I8wdeR959rSIW/Hcmb3w3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=fWpXU9Oh2oYxKtUwSgZVEmEjCrjbTDMmFz1iFRTvoyeM6hSFYlAEff3gpBitD4nvF1xxMabdp5bMnUT28+5bH9A5v5IRzCQX/Bl8C8QIZ7h5SITzwzcAxACk6zBi+52I5aDIU7UDdgsZB2ExSZbulE87LLPECEwZpYJ7C1dZN2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E5C1621CA0;
-	Thu, 10 Sep 2026 14:50:25 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E086F1FE13;
+	Thu, 10 Sep 2026 14:50:44 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A3DFC13955;
-	Thu, 10 Sep 2026 14:50:24 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1B2913180;
+	Thu, 10 Sep 2026 14:50:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +II3JbDDomogZwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Thu, 10 Sep 2026 14:50:24 +0000
+	id yCWGLMPDomogZwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Thu, 10 Sep 2026 14:50:43 +0000
 From: Fernando Fernandez Mancera <fmancera@suse.de>
 To: netdev@vger.kernel.org
 Cc: horms@kernel.org,
@@ -40,23 +40,21 @@ Cc: horms@kernel.org,
 	edumazet@google.com,
 	davem@davemloft.net,
 	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
 	Neal Cardwell <ncardwell@google.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Florian Westphal <fw@strlen.de>,
 	Willem de Bruijn <willemb@google.com>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
+	Florian Westphal <fw@strlen.de>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	"yuan.gao" <yuan.gao@ucloud.cn>,
 	Kees Cook <kees@kernel.org>,
 	Jeff Layton <jlayton@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 05/13 net-next] net: raw: split IPv4 specific logic into raw_ipv4.c
-Date: Thu, 10 Sep 2026 16:48:30 +0200
-Message-ID: <20260910144914.8025-6-fmancera@suse.de>
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH 08/13 net-next] net: ping: split IPv4 specific logic into ping_ipv4.c
+Date: Thu, 10 Sep 2026 16:48:33 +0200
+Message-ID: <20260910144914.8025-9-fmancera@suse.de>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260910144914.8025-1-fmancera@suse.de>
 References: <20260910144914.8025-1-fmancera@suse.de>
@@ -70,547 +68,195 @@ Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E5C1621CA0
+X-Rspamd-Queue-Id: E086F1FE13
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[];
-	TAGGED_RCPT(0.00)[]
 X-Rspamd-Action: no action
 X-Spam-Flag: NO
 X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-To enable compiling the INET subsystem without IPv4, RAW socket IPv4
-specific functions must be isolated from the generic RAW socket
-infrastructure, similar to how it is done for TCP.
+To enable compiling INET subsystem withot IPv4, ping socket IPv4
+specific functions must be isolated from the generic ping
+infrastructure.
 
-This patch creates raw_ipv4.c and move all the functions for packet
-matching, input/output processing, ICMP filtering and the AF_INET
-raw_prot definition from raw.c to the new file. The Makefile is updated
-to compile raw_ipv4.c only when CONFIG_IPV4 is enabled.
+This patch creates ping_ipv4.c and move all the functions for packet
+transmission and the AF_INET ping_prot definition from ping.c to the new
+file. The Makefile is updated to compile ping_ipv4.c only when
+CONFIG_IPV4 is enabled.
 
 Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
- net/ipv4/Makefile   |   2 +-
- net/ipv4/raw.c      | 853 ------------------------------------------
- net/ipv4/raw_diag.c |   4 +
- net/ipv4/raw_ipv4.c | 883 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 888 insertions(+), 854 deletions(-)
- create mode 100644 net/ipv4/raw_ipv4.c
+ net/ipv4/Makefile    |   2 +-
+ net/ipv4/ping.c      | 215 +++-------------------------------------
+ net/ipv4/ping_ipv4.c | 228 +++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 241 insertions(+), 204 deletions(-)
+ create mode 100644 net/ipv4/ping_ipv4.c
 
 diff --git a/net/ipv4/Makefile b/net/ipv4/Makefile
-index 8b148be79fa4..7ac882ec5d4f 100644
+index 651835073a29..83c25f52eb58 100644
 --- a/net/ipv4/Makefile
 +++ b/net/ipv4/Makefile
-@@ -13,7 +13,7 @@ obj-y     := inetpeer.o protocol.o inet_hashtables.o inet_timewait_sock.o \
+@@ -14,7 +14,7 @@ obj-y     := inetpeer.o protocol.o inet_hashtables.o inet_timewait_sock.o \
  obj-$(CONFIG_IPV4) += route.o ip_input.o ip_fragment.o ip_forward.o ip_options.o \
- 		      ip_sockglue.o tcp_ipv4.o datagram.o icmp.o arp.o devinet.o \
- 		      igmp.o fib_notifier.o ip_output.o fib_frontend.o \
--		      fib_semantics.o fib_trie.o
-+		      fib_semantics.o fib_trie.o raw_ipv4.o
+ 		      ip_sockglue.o tcp_ipv4.o datagram.o arp.o devinet.o igmp.o \
+ 		      fib_notifier.o ip_output.o fib_frontend.o fib_semantics.o \
+-		      fib_trie.o raw_ipv4.o udp_ipv4.o icmp_ipv4.o
++		      fib_trie.o raw_ipv4.o udp_ipv4.o icmp_ipv4.o ping_ipv4.o
  
  obj-$(CONFIG_NET_IP_TUNNEL) += ip_tunnel.o
  obj-$(CONFIG_SYSCTL) += sysctl_net_ipv4.o
-diff --git a/net/ipv4/raw.c b/net/ipv4/raw.c
-index 9d01006d8189..dcd554d92082 100644
---- a/net/ipv4/raw.c
-+++ b/net/ipv4/raw.c
-@@ -38,7 +38,6 @@
- #include <asm/byteorder.h>
- #include <asm/current.h>
- #include <linux/uaccess.h>
--#include <asm/ioctls.h>
- #include <linux/stddef.h>
- #include <linux/slab.h>
- #include <linux/errno.h>
-@@ -48,31 +47,25 @@
- #include <linux/sockios.h>
- #include <linux/socket.h>
- #include <linux/in.h>
--#include <linux/mroute.h>
- #include <linux/netdevice.h>
- #include <linux/in_route.h>
- #include <linux/route.h>
- #include <linux/skbuff.h>
--#include <linux/igmp.h>
- #include <net/net_namespace.h>
- #include <net/dst.h>
- #include <net/sock.h>
- #include <linux/ip.h>
- #include <linux/net.h>
- #include <net/ip.h>
--#include <net/icmp.h>
- #include <net/udp.h>
- #include <net/raw.h>
- #include <net/snmp.h>
- #include <net/tcp_states.h>
- #include <net/inet_common.h>
- #include <net/checksum.h>
--#include <net/xfrm.h>
- #include <linux/rtnetlink.h>
- #include <linux/proc_fs.h>
- #include <linux/seq_file.h>
--#include <linux/netfilter.h>
--#include <linux/netfilter_ipv4.h>
- #include <linux/compat.h>
- #include <linux/uio.h>
- 
-@@ -114,824 +107,6 @@ void raw_unhash_sk(struct sock *sk)
- 	spin_unlock(&h->lock);
+diff --git a/net/ipv4/ping.c b/net/ipv4/ping.c
+index 223a0108b74c..4b953613b695 100644
+--- a/net/ipv4/ping.c
++++ b/net/ipv4/ping.c
+@@ -285,25 +285,13 @@ void ping_close(struct sock *sk, long timeout)
+ 	sk_common_release(sk);
  }
  
--bool raw_v4_match(struct net *net, const struct sock *sk, unsigned short num,
--		  __be32 raddr, __be32 laddr, int dif, int sdif)
+-static int ping_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+-			    int addr_len)
 -{
--	const struct inet_sock *inet = inet_sk(sk);
--	__be32 daddr, rcv_saddr;
--
--	if (!net_eq(sock_net(sk), net) || inet->inet_num != num)
--		return false;
--
--	daddr = READ_ONCE(inet->inet_daddr);
--	if (daddr && daddr != raddr)
--		return false;
--
--	rcv_saddr = READ_ONCE(inet->inet_rcv_saddr);
--	if (rcv_saddr && rcv_saddr != laddr)
--		return false;
--
--	return raw_sk_bound_dev_eq(net, READ_ONCE(sk->sk_bound_dev_if),
--				   dif, sdif);
--}
--EXPORT_SYMBOL_GPL(raw_v4_match);
--
--/*
-- *	0 - deliver
-- *	1 - block
-- */
--static int icmp_filter(const struct sock *sk, const struct sk_buff *skb)
--{
--	struct icmphdr _hdr;
--	const struct icmphdr *hdr;
--
--	hdr = skb_header_pointer(skb, skb_transport_offset(skb),
--				 sizeof(_hdr), &_hdr);
--	if (!hdr)
--		return 1;
--
--	if (hdr->type < 32) {
--		__u32 data = raw_sk(sk)->filter.data;
--
--		return ((1U << hdr->type) & data) != 0;
--	}
--
--	/* Do not block unknown ICMP types */
--	return 0;
--}
--
--/* IP input processing comes here for RAW socket delivery.
-- * Caller owns SKB, so we must make clones.
-- *
-- * RFC 1122: SHOULD pass TOS value up to the transport layer.
-- * -> It does. And not only TOS, but all IP header.
-- */
--static int raw_v4_input(struct net *net, struct sk_buff *skb,
--			const struct iphdr *iph, int hash)
--{
--	int sdif = inet_sdif(skb);
--	struct hlist_head *hlist;
--	int dif = inet_iif(skb);
--	int delivered = 0;
--	struct sock *sk;
--
--	hlist = &raw_v4_hashinfo.ht[hash];
--	rcu_read_lock();
--	sk_for_each_rcu(sk, hlist) {
--		if (!raw_v4_match(net, sk, iph->protocol,
--				  iph->saddr, iph->daddr, dif, sdif))
--			continue;
--
--		if (atomic_read(&sk->sk_rmem_alloc) >=
--		    READ_ONCE(sk->sk_rcvbuf)) {
--			sk_drops_inc(sk);
--			continue;
--		}
--
--		delivered = 1;
--		if ((iph->protocol != IPPROTO_ICMP || !icmp_filter(sk, skb)) &&
--		    ip_mc_sf_allow(sk, iph->daddr, iph->saddr,
--				   skb->dev->ifindex, sdif)) {
--			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
--
--			/* Not releasing hash table! */
--			if (clone)
--				raw_rcv(sk, clone);
--		}
--	}
--	rcu_read_unlock();
--	return delivered;
--}
--
--int raw_local_deliver(struct sk_buff *skb, int protocol)
--{
--	struct net *net = dev_net(skb->dev);
--
--	return raw_v4_input(net, skb, ip_hdr(skb),
--			    raw_hashfunc(net, protocol));
--}
--
--static void raw_err(struct sock *sk, struct sk_buff *skb, u32 info)
--{
--	struct inet_sock *inet = inet_sk(sk);
--	const int type = icmp_hdr(skb)->type;
--	const int code = icmp_hdr(skb)->code;
--	int harderr = 0;
--	bool recverr;
--	int err = 0;
--
--	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED)
--		ipv4_sk_update_pmtu(skb, sk, info);
--	else if (type == ICMP_REDIRECT) {
--		ipv4_sk_redirect(skb, sk);
--		return;
--	}
--
--	/* Report error on raw socket, if:
--	   1. User requested ip_recverr.
--	   2. Socket is connected (otherwise the error indication
--	      is useless without ip_recverr and error is hard.
+-	/* This check is replicated from __ip4_datagram_connect() and
+-	 * intended to prevent BPF program called below from accessing bytes
+-	 * that are out of the bound specified by user in addr_len.
 -	 */
--	recverr = inet_test_bit(RECVERR, sk);
--	if (!recverr && sk->sk_state != TCP_ESTABLISHED)
--		return;
--
--	switch (type) {
--	default:
--	case ICMP_TIME_EXCEEDED:
--		err = EHOSTUNREACH;
--		break;
--	case ICMP_SOURCE_QUENCH:
--		return;
--	case ICMP_PARAMETERPROB:
--		err = EPROTO;
--		harderr = 1;
--		break;
--	case ICMP_DEST_UNREACH:
--		err = EHOSTUNREACH;
--		if (code > NR_ICMP_UNREACH)
--			break;
--		if (code == ICMP_FRAG_NEEDED) {
--			harderr = READ_ONCE(inet->pmtudisc) != IP_PMTUDISC_DONT;
--			err = EMSGSIZE;
--		} else {
--			err = icmp_err_convert[code].errno;
--			harderr = icmp_err_convert[code].fatal;
--		}
--	}
--
--	if (recverr) {
--		const struct iphdr *iph = (const struct iphdr *)skb->data;
--		u8 *payload = skb->data + (iph->ihl << 2);
--
--		if (inet_test_bit(HDRINCL, sk))
--			payload = skb->data;
--		ip_icmp_error(sk, skb, err, 0, info, payload);
--	}
--
--	if (recverr || harderr) {
--		sk->sk_err = err;
--		sk_error_report(sk);
--	}
--}
--
--void raw_icmp_error(struct sk_buff *skb, int protocol, u32 info)
--{
--	struct net *net = dev_net(skb->dev);
--	int dif = skb->dev->ifindex;
--	int sdif = inet_sdif(skb);
--	struct hlist_head *hlist;
--	const struct iphdr *iph;
--	struct sock *sk;
--	int hash;
--
--	hash = raw_hashfunc(net, protocol);
--	hlist = &raw_v4_hashinfo.ht[hash];
--
--	rcu_read_lock();
--	sk_for_each_rcu(sk, hlist) {
--		iph = (const struct iphdr *)skb->data;
--		if (!raw_v4_match(net, sk, iph->protocol,
--				  iph->daddr, iph->saddr, dif, sdif))
--			continue;
--		raw_err(sk, skb, info);
--	}
--	rcu_read_unlock();
--}
--
--static int raw_rcv_skb(struct sock *sk, struct sk_buff *skb)
--{
--	enum skb_drop_reason reason;
--
--	/* Charge it to the socket. */
--
--	ipv4_pktinfo_prepare(sk, skb, true);
--	reason = sock_queue_rcv_skb_reason(sk, skb);
--	if (reason) {
--		sk_skb_reason_drop(sk, skb, reason);
--		return NET_RX_DROP;
--	}
--
--	return NET_RX_SUCCESS;
--}
--
--int raw_rcv(struct sock *sk, struct sk_buff *skb)
--{
--	if (!xfrm4_policy_check(sk, XFRM_POLICY_IN, skb)) {
--		sk_drops_inc(sk);
--		sk_skb_reason_drop(sk, skb, SKB_DROP_REASON_XFRM_POLICY);
--		return NET_RX_DROP;
--	}
--	nf_reset_ct(skb);
--
--	skb_push(skb, -skb_network_offset(skb));
--
--	raw_rcv_skb(sk, skb);
--	return 0;
--}
--
--static int raw_send_hdrinc(struct sock *sk, struct flowi4 *fl4,
--			   struct msghdr *msg, size_t length,
--			   struct rtable **rtp, unsigned int flags,
--			   const struct sockcm_cookie *sockc)
--{
--	struct inet_sock *inet = inet_sk(sk);
--	struct net *net = sock_net(sk);
--	struct iphdr *iph;
--	struct sk_buff *skb;
--	unsigned int iphlen;
--	int err;
--	struct rtable *rt = *rtp;
--	int hlen, tlen;
--
--	if (length > rt->dst.dev->mtu) {
--		ip_local_error(sk, EMSGSIZE, fl4->daddr, inet->inet_dport,
--			       rt->dst.dev->mtu);
--		return -EMSGSIZE;
--	}
--	if (length < sizeof(struct iphdr))
+-	if (addr_len < sizeof(struct sockaddr_in))
 -		return -EINVAL;
 -
--	if (flags&MSG_PROBE)
--		goto out;
+-	return BPF_CGROUP_RUN_PROG_INET4_CONNECT_LOCK(sk, uaddr, &addr_len);
+-}
 -
--	hlen = LL_RESERVED_SPACE(rt->dst.dev);
--	tlen = rt->dst.dev->needed_tailroom;
--	skb = sock_alloc_send_skb(sk,
--				  length + hlen + tlen + 15,
--				  flags & MSG_DONTWAIT, &err);
+ /* Checks the bind address and possibly modifies sk->sk_bound_dev_if. */
+ static int ping_check_bind_addr(struct sock *sk, struct inet_sock *isk,
+ 				struct sockaddr_unsized *uaddr, int addr_len)
+ {
+ 	struct net *net = sock_net(sk);
+ 	if (sk->sk_family == AF_INET) {
++#if IS_ENABLED(CONFIG_IPV4)
+ 		struct sockaddr_in *addr = (struct sockaddr_in *) uaddr;
+ 		u32 tb_id = RT_TABLE_LOCAL;
+ 		int chk_addr_ret;
+@@ -331,6 +319,9 @@ static int ping_check_bind_addr(struct sock *sk, struct inet_sock *isk,
+ 		     !inet_can_nonlocal_bind(net, isk)))
+ 			return -EADDRNOTAVAIL;
+ 
++#else
++		return -EAFNOSUPPORT;
++#endif
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	} else if (sk->sk_family == AF_INET6) {
+ 		struct sockaddr_in6 *addr = (struct sockaddr_in6 *) uaddr;
+@@ -528,6 +519,7 @@ void ping_err(struct sk_buff *skb, int offset, u32 info)
+ 	inet_sock = inet_sk(sk);
+ 
+ 	if (skb->protocol == htons(ETH_P_IP)) {
++#if IS_ENABLED(CONFIG_IPV4)
+ 		switch (type) {
+ 		default:
+ 		case ICMP_TIME_EXCEEDED:
+@@ -565,6 +557,7 @@ void ping_err(struct sk_buff *skb, int offset, u32 info)
+ 			err = EREMOTEIO;
+ 			break;
+ 		}
++#endif
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	} else if (skb->protocol == htons(ETH_P_IPV6)) {
+ 		harderr = pingv6_ops.icmpv6_err_convert(type, code, &err);
+@@ -581,8 +574,10 @@ void ping_err(struct sk_buff *skb, int offset, u32 info)
+ 			goto out;
+ 	} else {
+ 		if (family == AF_INET) {
++#if IS_ENABLED(CONFIG_IPV4)
+ 			ip_icmp_error(sk, skb, err, 0 /* no remote port */,
+ 				      info, (u8 *)icmph);
++#endif
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		} else if (family == AF_INET6) {
+ 			pingv6_ops.ipv6_icmp_error(sk, skb, err, 0,
+@@ -625,21 +620,6 @@ int ping_getfrag(void *from, char *to,
+ 	return 0;
+ }
+ 
+-static int ping_v4_push_pending_frames(struct sock *sk, struct pingfakehdr *pfh,
+-				       struct flowi4 *fl4)
+-{
+-	struct sk_buff *skb = skb_peek(&sk->sk_write_queue);
+-
 -	if (!skb)
--		goto error;
--	skb_reserve(skb, hlen);
--
--	skb->protocol = htons(ETH_P_IP);
--	skb->priority = sockc->priority;
--	skb->mark = sockc->mark;
--	skb_set_delivery_type_by_clockid(skb, sockc->transmit_time, sk->sk_clockid);
--	skb_dst_set(skb, &rt->dst);
--	*rtp = NULL;
--
--	skb_reset_network_header(skb);
--	iph = ip_hdr(skb);
--	skb_put(skb, length);
--
--	skb->ip_summed = CHECKSUM_NONE;
--
--	skb_setup_tx_timestamp(skb, sockc);
--
--	if (flags & MSG_CONFIRM)
--		skb_set_dst_pending_confirm(skb, 1);
--
--	skb->transport_header = skb->network_header;
--	err = -EFAULT;
--	if (memcpy_from_msg(iph, msg, length))
--		goto error_free;
--
--	iphlen = iph->ihl * 4;
--
--	/*
--	 * We don't want to modify the ip header, but we do need to
--	 * be sure that it won't cause problems later along the network
--	 * stack.  Specifically we want to make sure that iph->ihl is a
--	 * sane value.  If ihl points beyond the length of the buffer passed
--	 * in, reject the frame as invalid
--	 */
--	err = -EINVAL;
--	if (iphlen > length || iphlen < sizeof(*iph))
--		goto error_free;
--
--	if (iphlen >= sizeof(*iph)) {
--		if (!iph->saddr)
--			iph->saddr = fl4->saddr;
--		iph->check   = 0;
--		iph->tot_len = htons(length);
--		if (!iph->id)
--			ip_select_ident(net, skb, NULL);
--
--		iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
--		skb->transport_header += iphlen;
--		if (iph->protocol == IPPROTO_ICMP &&
--		    length >= iphlen + sizeof(struct icmphdr))
--			icmp_out_count(net, ((struct icmphdr *)
--				skb_transport_header(skb))->type);
--	}
--
--	err = NF_HOOK(NFPROTO_IPV4, NF_INET_LOCAL_OUT,
--		      net, sk, skb, NULL, rt->dst.dev,
--		      dst_output);
--	if (err > 0)
--		err = net_xmit_errno(err);
--	if (err)
--		goto error;
--out:
--	return 0;
--
--error_free:
--	kfree_skb(skb);
--error:
--	IP_INC_STATS(net, IPSTATS_MIB_OUTDISCARDS);
--	if (err == -ENOBUFS && !inet_test_bit(RECVERR, sk))
--		err = 0;
--	return err;
--}
--
--static int raw_probe_proto_opt(struct raw_frag_vec *rfv, struct flowi4 *fl4)
--{
--	int err;
--
--	if (fl4->flowi4_proto != IPPROTO_ICMP)
 -		return 0;
--
--	/* We only need the first two bytes. */
--	rfv->hlen = 2;
--
--	err = memcpy_from_msg(rfv->hdr.c, rfv->msg, rfv->hlen);
--	if (err)
--		return err;
--
--	fl4->fl4_icmp_type = rfv->hdr.icmph.type;
--	fl4->fl4_icmp_code = rfv->hdr.icmph.code;
--
--	return 0;
+-	pfh->wcheck = csum_partial((char *)&pfh->icmph,
+-		sizeof(struct icmphdr), pfh->wcheck);
+-	pfh->icmph.checksum = csum_fold(pfh->wcheck);
+-	memcpy(icmp_hdr(skb), &pfh->icmph, sizeof(struct icmphdr));
+-	skb->ip_summed = CHECKSUM_NONE;
+-	return ip_push_pending_frames(sk, fl4);
 -}
 -
--static int raw_getfrag(void *from, char *to, int offset, int len, int odd,
--		       struct sk_buff *skb)
--{
--	struct raw_frag_vec *rfv = from;
--
--	if (offset < rfv->hlen) {
--		int copy = min(rfv->hlen - offset, len);
--
--		if (skb->ip_summed == CHECKSUM_PARTIAL)
--			memcpy(to, rfv->hdr.c + offset, copy);
--		else
--			skb->csum = csum_block_add(
--				skb->csum,
--				csum_partial_copy_nocheck(rfv->hdr.c + offset,
--							  to, copy),
--				odd);
--
--		odd = 0;
--		offset += copy;
--		to += copy;
--		len -= copy;
--
--		if (!len)
--			return 0;
--	}
--
--	offset -= rfv->hlen;
--
--	return ip_generic_getfrag(rfv->msg, to, offset, len, odd, skb);
--}
--
--static int raw_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+ int ping_common_sendmsg(int family, struct msghdr *msg, size_t len,
+ 			void *user_icmph, size_t icmph_len)
+ {
+@@ -685,160 +665,6 @@ int ping_common_sendmsg(int family, struct msghdr *msg, size_t len,
+ 	return 0;
+ }
+ 
+-static int ping_v4_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 -{
 -	DEFINE_RAW_FLEX(struct ip_options_rcu, opt_copy, opt.__data,
 -			IP_OPTIONS_DATA_FIXED_SIZE);
--	struct inet_sock *inet = inet_sk(sk);
 -	struct net *net = sock_net(sk);
--	struct ipcm_cookie ipc;
--	struct rtable *rt = NULL;
 -	struct flowi4 fl4;
--	u8 scope;
+-	struct inet_sock *inet = inet_sk(sk);
+-	struct ipcm_cookie ipc;
+-	struct icmphdr user_icmph;
+-	struct pingfakehdr pfh;
+-	struct rtable *rt = NULL;
 -	int free = 0;
--	__be32 daddr;
--	__be32 saddr;
--	int uc_index, err;
--	struct raw_frag_vec rfv;
--	int hdrincl;
+-	__be32 saddr, daddr, faddr;
+-	u8 scope;
+-	int err;
 -
--	err = -EMSGSIZE;
--	if (len > 0xFFFF)
--		goto out;
+-	pr_debug("ping_v4_sendmsg(sk=%p,sk->num=%u)\n", inet, inet->inet_num);
 -
--	hdrincl = inet_test_bit(HDRINCL, sk);
--
--	/*
--	 *	Check the flags.
--	 */
--
--	err = -EOPNOTSUPP;
--	if (msg->msg_flags & MSG_OOB)	/* Mirror BSD error message */
--		goto out;               /* compatibility */
+-	err = ping_common_sendmsg(AF_INET, msg, len, &user_icmph,
+-				  sizeof(user_icmph));
+-	if (err)
+-		return err;
 -
 -	/*
 -	 *	Get and verify the address.
 -	 */
 -
--	if (msg->msg_namelen) {
+-	if (msg->msg_name) {
 -		DECLARE_SOCKADDR(struct sockaddr_in *, usin, msg->msg_name);
--		err = -EINVAL;
 -		if (msg->msg_namelen < sizeof(*usin))
--			goto out;
--		if (usin->sin_family != AF_INET) {
--			pr_info_once("%s: %s forgot to set AF_INET. Fix it!\n",
--				     __func__, current->comm);
--			err = -EAFNOSUPPORT;
--			if (usin->sin_family)
--				goto out;
--		}
+-			return -EINVAL;
+-		if (usin->sin_family != AF_INET)
+-			return -EAFNOSUPPORT;
 -		daddr = usin->sin_addr.s_addr;
--		/* ANK: I did not forget to get protocol from port field.
--		 * I just do not know, who uses this weirdness.
--		 * IP_HDRINCL is much more convenient.
--		 */
+-		/* no remote port */
 -	} else {
--		err = -EDESTADDRREQ;
 -		if (sk->sk_state != TCP_ESTABLISHED)
--			goto out;
+-			return -EDESTADDRREQ;
 -		daddr = inet->inet_daddr;
+-		/* no remote port */
 -	}
 -
 -	ipcm_init_sk(&ipc, inet);
--	/* Keep backward compat */
--	if (hdrincl)
--		ipc.protocol = IPPROTO_RAW;
 -
 -	if (msg->msg_controllen) {
 -		err = ip_cmsg_send(sk, msg, &ipc, false);
 -		if (unlikely(err)) {
 -			kfree(ipc.opt);
--			goto out;
+-			return err;
 -		}
 -		if (ipc.opt)
 -			free = 1;
 -	}
--
--	saddr = ipc.addr;
--	ipc.addr = daddr;
--
 -	if (!ipc.opt) {
 -		struct ip_options_rcu *inet_opt;
 -
@@ -624,107 +270,84 @@ index 9d01006d8189..dcd554d92082 100644
 -		rcu_read_unlock();
 -	}
 -
--	if (ipc.opt) {
--		err = -EINVAL;
--		/* Linux does not mangle headers on raw sockets,
--		 * so that IP options + IP_HDRINCL is non-sense.
--		 */
--		if (hdrincl)
--			goto done;
--		if (ipc.opt->opt.srr) {
--			if (!daddr)
--				goto done;
--			daddr = ipc.opt->opt.faddr;
+-	saddr = ipc.addr;
+-	ipc.addr = faddr = daddr;
+-
+-	if (ipc.opt && ipc.opt->opt.srr) {
+-		if (!daddr) {
+-			err = -EINVAL;
+-			goto out_free;
 -		}
+-		faddr = ipc.opt->opt.faddr;
 -	}
 -	scope = ip_sendmsg_scope(inet, &ipc, msg);
 -
--	uc_index = READ_ONCE(inet->uc_index);
 -	if (ipv4_is_multicast(daddr)) {
 -		if (!ipc.oif || netif_index_is_l3_master(sock_net(sk), ipc.oif))
 -			ipc.oif = READ_ONCE(inet->mc_index);
 -		if (!saddr)
 -			saddr = READ_ONCE(inet->mc_addr);
--	} else if (!ipc.oif) {
--		ipc.oif = uc_index;
--	} else if (ipv4_is_lbcast(daddr) && uc_index) {
--		/* oif is set, packet is to local broadcast
--		 * and uc_index is set. oif is most likely set
--		 * by sk_bound_dev_if. If uc_index != oif check if the
--		 * oif is an L3 master and uc_index is an L3 slave.
--		 * If so, we want to allow the send using the uc_index.
--		 */
--		if (ipc.oif != uc_index &&
--		    ipc.oif == l3mdev_master_ifindex_by_index(sock_net(sk),
--							      uc_index)) {
--			ipc.oif = uc_index;
--		}
--	}
+-	} else if (!ipc.oif)
+-		ipc.oif = READ_ONCE(inet->uc_index);
 -
 -	flowi4_init_output(&fl4, ipc.oif, ipc.sockc.mark,
 -			   ipc.tos & INET_DSCP_MASK, scope,
--			   hdrincl ? ipc.protocol : sk->sk_protocol,
--			   inet_sk_flowi_flags(sk) |
--			    (hdrincl ? FLOWI_FLAG_KNOWN_NH : 0),
--			   daddr, saddr, 0, 0, sk_uid(sk));
+-			   sk->sk_protocol, inet_sk_flowi_flags(sk), faddr,
+-			   saddr, 0, 0, sk_uid(sk));
 -
--	fl4.fl4_icmp_type = 0;
--	fl4.fl4_icmp_code = 0;
--
--	if (!hdrincl) {
--		rfv.msg = msg;
--		rfv.hlen = 0;
--
--		err = raw_probe_proto_opt(&rfv, &fl4);
--		if (err)
--			goto done;
--	}
+-	fl4.fl4_icmp_type = user_icmph.type;
+-	fl4.fl4_icmp_code = user_icmph.code;
 -
 -	security_sk_classify_flow(sk, flowi4_to_flowi_common(&fl4));
 -	rt = ip_route_output_flow(net, &fl4, sk);
 -	if (IS_ERR(rt)) {
 -		err = PTR_ERR(rt);
 -		rt = NULL;
--		goto done;
+-		if (err == -ENETUNREACH)
+-			IP_INC_STATS(net, IPSTATS_MIB_OUTNOROUTES);
+-		goto out;
 -	}
 -
 -	err = -EACCES;
--	if (rt->rt_flags & RTCF_BROADCAST && !sock_flag(sk, SOCK_BROADCAST))
--		goto done;
+-	if ((rt->rt_flags & RTCF_BROADCAST) &&
+-	    !sock_flag(sk, SOCK_BROADCAST))
+-		goto out;
 -
 -	if (msg->msg_flags & MSG_CONFIRM)
 -		goto do_confirm;
 -back_from_confirm:
 -
--	if (hdrincl)
--		err = raw_send_hdrinc(sk, &fl4, msg, len,
--				      &rt, msg->msg_flags, &ipc.sockc);
+-	if (!ipc.addr)
+-		ipc.addr = fl4.daddr;
 -
--	 else {
--		if (!ipc.addr)
--			ipc.addr = fl4.daddr;
--		lock_sock(sk);
--		err = ip_append_data(sk, &fl4, raw_getfrag,
--				     &rfv, len, 0,
--				     &ipc, &rt, msg->msg_flags);
--		if (err)
--			ip_flush_pending_frames(sk);
--		else if (!(msg->msg_flags & MSG_MORE)) {
--			err = ip_push_pending_frames(sk, &fl4);
--			if (err == -ENOBUFS && !inet_test_bit(RECVERR, sk))
--				err = 0;
--		}
--		release_sock(sk);
--	}
--done:
--	if (free)
--		kfree(ipc.opt);
--	ip_rt_put(rt);
+-	lock_sock(sk);
+-
+-	pfh.icmph.type = user_icmph.type; /* already checked */
+-	pfh.icmph.code = user_icmph.code; /* ditto */
+-	pfh.icmph.checksum = 0;
+-	pfh.icmph.un.echo.id = inet->inet_sport;
+-	pfh.icmph.un.echo.sequence = user_icmph.un.echo.sequence;
+-	pfh.msg = msg;
+-	pfh.wcheck = 0;
+-	pfh.family = AF_INET;
+-
+-	err = ip_append_data(sk, &fl4, ping_getfrag, &pfh, len,
+-			     sizeof(struct icmphdr), &ipc, &rt,
+-			     msg->msg_flags);
+-	if (err)
+-		ip_flush_pending_frames(sk);
+-	else
+-		err = ping_v4_push_pending_frames(sk, &pfh, &fl4);
+-	release_sock(sk);
 -
 -out:
--	if (err < 0)
--		return err;
--	return len;
+-	ip_rt_put(rt);
+-out_free:
+-	if (free)
+-		kfree(ipc.opt);
+-	if (!err)
+-		return len;
+-	return err;
 -
 -do_confirm:
 -	if (msg->msg_flags & MSG_PROBE)
@@ -732,805 +355,179 @@ index 9d01006d8189..dcd554d92082 100644
 -	if (!(msg->msg_flags & MSG_PROBE) || len)
 -		goto back_from_confirm;
 -	err = 0;
--	goto done;
+-	goto out;
 -}
 -
--static void raw_close(struct sock *sk, long timeout)
--{
--	/*
--	 * Raw sockets may have direct kernel references. Kill them.
--	 */
--	ip_ra_control(sk, 0, NULL);
--
--	sk_common_release(sk);
--}
--
--static void raw_destroy(struct sock *sk)
--{
--	lock_sock(sk);
--	ip_flush_pending_frames(sk);
--	release_sock(sk);
--}
--
--/* This gets rid of all the nasties in af_inet. -DaveM */
--static int raw_bind(struct sock *sk, struct sockaddr_unsized *uaddr,
--		    int addr_len)
--{
--	struct inet_sock *inet = inet_sk(sk);
--	struct sockaddr_in *addr = (struct sockaddr_in *) uaddr;
--	struct net *net = sock_net(sk);
--	u32 tb_id = RT_TABLE_LOCAL;
--	int ret = -EINVAL;
--	int chk_addr_ret;
--
--	lock_sock(sk);
--	if (sk->sk_state != TCP_CLOSE || addr_len < sizeof(struct sockaddr_in))
--		goto out;
--
--	if (sk->sk_bound_dev_if)
--		tb_id = l3mdev_fib_table_by_index(net,
--						  sk->sk_bound_dev_if) ? : tb_id;
--
--	chk_addr_ret = inet_addr_type_table(net, addr->sin_addr.s_addr, tb_id);
--
--	ret = -EADDRNOTAVAIL;
--	if (!inet_addr_valid_or_nonlocal(net, inet, addr->sin_addr.s_addr,
--					 chk_addr_ret))
--		goto out;
--
--	inet->inet_saddr = addr->sin_addr.s_addr;
--	WRITE_ONCE(inet->inet_rcv_saddr, addr->sin_addr.s_addr);
--	if (chk_addr_ret == RTN_MULTICAST || chk_addr_ret == RTN_BROADCAST)
--		inet->inet_saddr = 0;  /* Use device */
--	sk_dst_reset(sk);
--	ret = 0;
--out:
--	release_sock(sk);
--	return ret;
--}
--
--/*
-- *	This should be easy, if there is something there
-- *	we return it, otherwise we block.
-- */
--
--static int raw_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
--		       int flags)
--{
--	struct inet_sock *inet = inet_sk(sk);
--	size_t copied = 0;
--	int err = -EOPNOTSUPP;
--	DECLARE_SOCKADDR(struct sockaddr_in *, sin, msg->msg_name);
--	struct sk_buff *skb;
--
--	if (flags & MSG_OOB)
--		goto out;
--
--	if (flags & MSG_ERRQUEUE) {
--		err = ip_recv_error(sk, msg, len);
--		goto out;
--	}
--
--	skb = skb_recv_datagram(sk, flags, &err);
--	if (!skb)
--		goto out;
--
--	copied = skb->len;
--	if (len < copied) {
--		msg->msg_flags |= MSG_TRUNC;
--		copied = len;
--	}
--
--	err = skb_copy_datagram_msg(skb, 0, msg, copied);
--	if (err)
--		goto done;
--
--	sock_recv_cmsgs(msg, sk, skb);
--
--	/* Copy the address. */
--	if (sin) {
--		sin->sin_family = AF_INET;
--		sin->sin_addr.s_addr = ip_hdr(skb)->saddr;
--		sin->sin_port = 0;
--		memset(&sin->sin_zero, 0, sizeof(sin->sin_zero));
--		msg->msg_namelen = sizeof(*sin);
--	}
--	if (inet_cmsg_flags(inet))
--		ip_cmsg_recv(msg, skb);
--	if (flags & MSG_TRUNC)
--		copied = skb->len;
--done:
--	skb_free_datagram(sk, skb);
--out:
--	if (err)
--		return err;
--	return copied;
--}
--
--static int raw_sk_init(struct sock *sk)
--{
--	struct raw_sock *rp = raw_sk(sk);
--
--	sk->sk_drop_counters = &rp->drop_counters;
--	if (inet_sk(sk)->inet_num == IPPROTO_ICMP)
--		memset(&rp->filter, 0, sizeof(rp->filter));
--	return 0;
--}
--
--static int raw_seticmpfilter(struct sock *sk, sockptr_t optval, int optlen)
--{
--	if (optlen > sizeof(struct icmp_filter))
--		optlen = sizeof(struct icmp_filter);
--	if (copy_from_sockptr(&raw_sk(sk)->filter, optval, optlen))
--		return -EFAULT;
--	return 0;
--}
--
--static int raw_geticmpfilter(struct sock *sk, sockopt_t *opt)
--{
--	int len = opt->optlen;
--
--	if (len < 0)
--		return -EINVAL;
--	if (len > sizeof(struct icmp_filter))
--		len = sizeof(struct icmp_filter);
--	opt->optlen = len;
--	if (copy_to_iter(&raw_sk(sk)->filter, len, &opt->iter_out) != len)
--		return -EFAULT;
--	return 0;
--}
--
--static int do_raw_setsockopt(struct sock *sk, int optname,
--			     sockptr_t optval, unsigned int optlen)
--{
--	if (optname == ICMP_FILTER) {
--		if (inet_sk(sk)->inet_num != IPPROTO_ICMP)
--			return -EOPNOTSUPP;
--		else
--			return raw_seticmpfilter(sk, optval, optlen);
--	}
--	return -ENOPROTOOPT;
--}
--
--static int raw_setsockopt(struct sock *sk, int level, int optname,
--			  sockptr_t optval, unsigned int optlen)
--{
--	if (level != SOL_RAW)
--		return ip_setsockopt(sk, level, optname, optval, optlen);
--	return do_raw_setsockopt(sk, optname, optval, optlen);
--}
--
--static int do_raw_getsockopt(struct sock *sk, int optname, sockopt_t *opt)
--{
--	if (optname == ICMP_FILTER) {
--		if (inet_sk(sk)->inet_num != IPPROTO_ICMP)
--			return -EOPNOTSUPP;
--		else
--			return raw_geticmpfilter(sk, opt);
--	}
--	return -ENOPROTOOPT;
--}
--
--static int raw_getsockopt(struct sock *sk, int level, int optname,
--			  char __user *optval, int __user *optlen)
--{
--	sockopt_t opt;
--	int err;
--
--	if (level != SOL_RAW)
--		return ip_getsockopt(sk, level, optname, optval, optlen);
--
--	err = sockopt_init_user(&opt, optval, optlen);
--	if (err)
--		return err;
--
--	err = do_raw_getsockopt(sk, optname, &opt);
--	if (err)
--		return err;
--
--	if (put_user(opt.optlen, optlen))
--		return -EFAULT;
--
--	return 0;
--}
--
--static int raw_ioctl(struct sock *sk, int cmd, int *karg)
--{
--	switch (cmd) {
--	case SIOCOUTQ: {
--		*karg = sk_wmem_alloc_get(sk);
--		return 0;
--	}
--	case SIOCINQ: {
--		struct sk_buff *skb;
--
--		spin_lock_bh(&sk->sk_receive_queue.lock);
--		skb = skb_peek(&sk->sk_receive_queue);
--		if (skb)
--			*karg = skb->len;
--		else
--			*karg = 0;
--		spin_unlock_bh(&sk->sk_receive_queue.lock);
--		return 0;
--	}
--
--	default:
--#ifdef CONFIG_IP_MROUTE
--		return ipmr_ioctl(sk, cmd, karg);
--#else
--		return -ENOIOCTLCMD;
--#endif
--	}
--}
--
--#ifdef CONFIG_COMPAT
--static int compat_raw_ioctl(struct sock *sk, unsigned int cmd, unsigned long arg)
--{
--	switch (cmd) {
--	case SIOCOUTQ:
--	case SIOCINQ:
--		return -ENOIOCTLCMD;
--	default:
--#ifdef CONFIG_IP_MROUTE
--		return ipmr_compat_ioctl(sk, cmd, compat_ptr(arg));
--#else
--		return -ENOIOCTLCMD;
--#endif
--	}
--}
--#endif
--
- int raw_abort(struct sock *sk, int err)
+ int ping_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags)
  {
- 	lock_sock(sk);
-@@ -945,34 +120,6 @@ int raw_abort(struct sock *sk, int err)
- 	return 0;
+ 	struct inet_sock *isk = inet_sk(sk);
+@@ -875,6 +701,7 @@ int ping_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags)
+ 
+ 	/* Copy the address and add cmsg data. */
+ 	if (family == AF_INET) {
++#if IS_ENABLED(CONFIG_IPV4)
+ 		DECLARE_SOCKADDR(struct sockaddr_in *, sin, msg->msg_name);
+ 
+ 		if (sin) {
+@@ -888,6 +715,7 @@ int ping_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags)
+ 		if (inet_cmsg_flags(isk))
+ 			ip_cmsg_recv(msg, skb);
+ 
++#endif
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	} else if (family == AF_INET6) {
+ 		struct ipv6hdr *ip6 = ipv6_hdr(skb);
+@@ -911,9 +739,11 @@ int ping_recvmsg(struct sock *sk, struct msghdr *msg, size_t len, int flags)
+ 		if (skb->protocol == htons(ETH_P_IPV6) &&
+ 		    inet6_sk(sk)->rxopt.all)
+ 			pingv6_ops.ip6_datagram_recv_specific_ctl(sk, msg, skb);
++#if IS_ENABLED(CONFIG_IPV4)
+ 		else if (skb->protocol == htons(ETH_P_IP) &&
+ 			 inet_cmsg_flags(isk))
+ 			ip_cmsg_recv(msg, skb);
++#endif
+ #endif
+ 	} else {
+ 		BUG();
+@@ -976,27 +806,6 @@ enum skb_drop_reason ping_rcv(struct sk_buff *skb)
+ 	return SKB_DROP_REASON_NO_SOCKET;
  }
  
--struct proto raw_prot = {
--	.name		   = "RAW",
--	.owner		   = THIS_MODULE,
--	.close		   = raw_close,
--	.destroy	   = raw_destroy,
--	.connect	   = ip4_datagram_connect,
--	.disconnect	   = __udp_disconnect,
--	.ioctl		   = raw_ioctl,
--	.init		   = raw_sk_init,
--	.setsockopt	   = raw_setsockopt,
--	.getsockopt	   = raw_getsockopt,
--	.sendmsg	   = raw_sendmsg,
--	.recvmsg	   = raw_recvmsg,
--	.bind		   = raw_bind,
--	.backlog_rcv	   = raw_rcv_skb,
--	.release_cb	   = ip4_datagram_release_cb,
--	.hash		   = raw_hash_sk,
--	.unhash		   = raw_unhash_sk,
--	.obj_size	   = sizeof(struct raw_sock),
--	.useroffset	   = offsetof(struct raw_sock, filter),
--	.usersize	   = sizeof_field(struct raw_sock, filter),
--	.h.raw_hash	   = &raw_v4_hashinfo,
--#ifdef CONFIG_COMPAT
--	.compat_ioctl	   = compat_raw_ioctl,
--#endif
--	.diag_destroy	   = raw_abort,
+-struct proto ping_prot = {
+-	.name =		"PING",
+-	.owner =	THIS_MODULE,
+-	.init =		ping_init_sock,
+-	.close =	ping_close,
+-	.pre_connect =	ping_pre_connect,
+-	.connect =	ip4_datagram_connect,
+-	.disconnect =	__udp_disconnect,
+-	.setsockopt =	ip_setsockopt,
+-	.getsockopt =	ip_getsockopt,
+-	.sendmsg =	ping_v4_sendmsg,
+-	.recvmsg =	ping_recvmsg,
+-	.bind =		ping_bind,
+-	.backlog_rcv =	ping_queue_rcv_skb,
+-	.release_cb =	ip4_datagram_release_cb,
+-	.unhash =	ping_unhash,
+-	.get_port =	ping_get_port,
+-	.put_port =	ping_unhash,
+-	.obj_size =	sizeof(struct inet_sock),
 -};
 -
  #ifdef CONFIG_PROC_FS
- static struct sock *raw_get_first(struct seq_file *seq, int bucket)
- {
-diff --git a/net/ipv4/raw_diag.c b/net/ipv4/raw_diag.c
-index 943e5998e0ad..015806a12a7f 100644
---- a/net/ipv4/raw_diag.c
-+++ b/net/ipv4/raw_diag.c
-@@ -40,10 +40,14 @@ static bool raw_lookup(struct net *net, const struct sock *sk,
- 	struct inet_diag_req_raw *r = (void *)req;
  
- 	if (r->sdiag_family == AF_INET)
-+#if IS_ENABLED(CONFIG_IPV4)
- 		return raw_v4_match(net, sk, r->sdiag_raw_protocol,
- 				    r->id.idiag_dst[0],
- 				    r->id.idiag_src[0],
- 				    r->id.idiag_if, 0);
-+#else
-+		return false;
-+#endif
- #if IS_ENABLED(CONFIG_IPV6)
- 	else
- 		return raw_v6_match(net, sk, r->sdiag_raw_protocol,
-diff --git a/net/ipv4/raw_ipv4.c b/net/ipv4/raw_ipv4.c
+ static struct sock *ping_get_first(struct seq_file *seq, int start)
+diff --git a/net/ipv4/ping_ipv4.c b/net/ipv4/ping_ipv4.c
 new file mode 100644
-index 000000000000..8d3d6f30b0e8
+index 000000000000..4489aa292a4e
 --- /dev/null
-+++ b/net/ipv4/raw_ipv4.c
-@@ -0,0 +1,883 @@
++++ b/net/ipv4/ping_ipv4.c
+@@ -0,0 +1,228 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * INET		An implementation of the TCP/IP protocol suite for the LINUX
 + *		operating system.  INET is implemented using the  BSD Socket
 + *		interface as the means of communication with the user level.
 + *
-+ *		RAW - implementation of IP "raw" sockets.
++ *		"Ping" sockets
 + *
 + *		IPv4 specific functions
 + *
 + *		code split from:
-+ *		net/ipv4/raw.c
++ *		net/ipv4/ping.c
 + *
-+ *		See raw.c for author information
++ *		See ping.c for author information
 + */
 +
-+#include <asm/ioctls.h>
-+#include <linux/igmp.h>
-+#include <linux/mroute.h>
-+#include <linux/netfilter.h>
-+#include <linux/sockios.h>
-+#include <linux/stddef.h>
++#include <linux/bpf-cgroup.h>
++#include <linux/in.h>
++#include <linux/socket.h>
 +#include <linux/types.h>
-+#include <net/icmp.h>
-+#include <net/ip.h>
-+#include <net/raw.h>
-+#include <net/sock.h>
++#include <net/ping.h>
 +#include <net/udp.h>
-+#include <net/xfrm.h>
 +
-+struct raw_frag_vec {
-+	struct msghdr *msg;
-+	union {
-+		struct icmphdr icmph;
-+		char c[1];
-+	} hdr;
-+	int hlen;
-+};
-+
-+bool raw_v4_match(struct net *net, const struct sock *sk, unsigned short num,
-+		  __be32 raddr, __be32 laddr, int dif, int sdif)
++static int ping_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
++			    int addr_len)
 +{
-+	const struct inet_sock *inet = inet_sk(sk);
-+	__be32 daddr, rcv_saddr;
-+
-+	if (!net_eq(sock_net(sk), net) || inet->inet_num != num)
-+		return false;
-+
-+	daddr = READ_ONCE(inet->inet_daddr);
-+	if (daddr && daddr != raddr)
-+		return false;
-+
-+	rcv_saddr = READ_ONCE(inet->inet_rcv_saddr);
-+	if (rcv_saddr && rcv_saddr != laddr)
-+		return false;
-+
-+	return raw_sk_bound_dev_eq(net, READ_ONCE(sk->sk_bound_dev_if),
-+				   dif, sdif);
-+}
-+EXPORT_SYMBOL_GPL(raw_v4_match);
-+
-+/*
-+ *	0 - deliver
-+ *	1 - block
-+ */
-+static int icmp_filter(const struct sock *sk, const struct sk_buff *skb)
-+{
-+	struct icmphdr _hdr;
-+	const struct icmphdr *hdr;
-+
-+	hdr = skb_header_pointer(skb, skb_transport_offset(skb),
-+				 sizeof(_hdr), &_hdr);
-+	if (!hdr)
-+		return 1;
-+
-+	if (hdr->type < 32) {
-+		__u32 data = raw_sk(sk)->filter.data;
-+
-+		return ((1U << hdr->type) & data) != 0;
-+	}
-+
-+	/* Do not block unknown ICMP types */
-+	return 0;
-+}
-+
-+/* IP input processing comes here for RAW socket delivery.
-+ * Caller owns SKB, so we must make clones.
-+ *
-+ * RFC 1122: SHOULD pass TOS value up to the transport layer.
-+ * -> It does. And not only TOS, but all IP header.
-+ */
-+static int raw_v4_input(struct net *net, struct sk_buff *skb,
-+			const struct iphdr *iph, int hash)
-+{
-+	int sdif = inet_sdif(skb);
-+	struct hlist_head *hlist;
-+	int dif = inet_iif(skb);
-+	int delivered = 0;
-+	struct sock *sk;
-+
-+	hlist = &raw_v4_hashinfo.ht[hash];
-+	rcu_read_lock();
-+	sk_for_each_rcu(sk, hlist) {
-+		if (!raw_v4_match(net, sk, iph->protocol,
-+				  iph->saddr, iph->daddr, dif, sdif))
-+			continue;
-+
-+		if (atomic_read(&sk->sk_rmem_alloc) >=
-+		    READ_ONCE(sk->sk_rcvbuf)) {
-+			sk_drops_inc(sk);
-+			continue;
-+		}
-+
-+		delivered = 1;
-+		if ((iph->protocol != IPPROTO_ICMP || !icmp_filter(sk, skb)) &&
-+		    ip_mc_sf_allow(sk, iph->daddr, iph->saddr,
-+				   skb->dev->ifindex, sdif)) {
-+			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
-+
-+			/* Not releasing hash table! */
-+			if (clone)
-+				raw_rcv(sk, clone);
-+		}
-+	}
-+	rcu_read_unlock();
-+	return delivered;
-+}
-+
-+int raw_local_deliver(struct sk_buff *skb, int protocol)
-+{
-+	struct net *net = dev_net(skb->dev);
-+
-+	return raw_v4_input(net, skb, ip_hdr(skb),
-+			    raw_hashfunc(net, protocol));
-+}
-+
-+static void raw_err(struct sock *sk, struct sk_buff *skb, u32 info)
-+{
-+	struct inet_sock *inet = inet_sk(sk);
-+	const int type = icmp_hdr(skb)->type;
-+	const int code = icmp_hdr(skb)->code;
-+	int harderr = 0;
-+	bool recverr;
-+	int err = 0;
-+
-+	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED) {
-+		ipv4_sk_update_pmtu(skb, sk, info);
-+	} else if (type == ICMP_REDIRECT) {
-+		ipv4_sk_redirect(skb, sk);
-+		return;
-+	}
-+
-+	/* Report error on raw socket, if:
-+	 * 1. User requested ip_recverr.
-+	 * 2. Socket is connected (otherwise the error indication
-+	 *    is useless without ip_recverr and error is hard.
++	/* This check is replicated from __ip4_datagram_connect() and
++	 * intended to prevent BPF program called below from accessing bytes
++	 * that are out of the bound specified by user in addr_len.
 +	 */
-+	recverr = inet_test_bit(RECVERR, sk);
-+	if (!recverr && sk->sk_state != TCP_ESTABLISHED)
-+		return;
-+
-+	switch (type) {
-+	default:
-+	case ICMP_TIME_EXCEEDED:
-+		err = EHOSTUNREACH;
-+		break;
-+	case ICMP_SOURCE_QUENCH:
-+		return;
-+	case ICMP_PARAMETERPROB:
-+		err = EPROTO;
-+		harderr = 1;
-+		break;
-+	case ICMP_DEST_UNREACH:
-+		err = EHOSTUNREACH;
-+		if (code > NR_ICMP_UNREACH)
-+			break;
-+		if (code == ICMP_FRAG_NEEDED) {
-+			harderr = READ_ONCE(inet->pmtudisc) != IP_PMTUDISC_DONT;
-+			err = EMSGSIZE;
-+		} else {
-+			err = icmp_err_convert[code].errno;
-+			harderr = icmp_err_convert[code].fatal;
-+		}
-+	}
-+
-+	if (recverr) {
-+		const struct iphdr *iph = (const struct iphdr *)skb->data;
-+		u8 *payload = skb->data + (iph->ihl << 2);
-+
-+		if (inet_test_bit(HDRINCL, sk))
-+			payload = skb->data;
-+		ip_icmp_error(sk, skb, err, 0, info, payload);
-+	}
-+
-+	if (recverr || harderr) {
-+		sk->sk_err = err;
-+		sk_error_report(sk);
-+	}
-+}
-+
-+void raw_icmp_error(struct sk_buff *skb, int protocol, u32 info)
-+{
-+	struct net *net = dev_net(skb->dev);
-+	int dif = skb->dev->ifindex;
-+	int sdif = inet_sdif(skb);
-+	struct hlist_head *hlist;
-+	const struct iphdr *iph;
-+	struct sock *sk;
-+	int hash;
-+
-+	hash = raw_hashfunc(net, protocol);
-+	hlist = &raw_v4_hashinfo.ht[hash];
-+
-+	rcu_read_lock();
-+	sk_for_each_rcu(sk, hlist) {
-+		iph = (const struct iphdr *)skb->data;
-+		if (!raw_v4_match(net, sk, iph->protocol,
-+				  iph->daddr, iph->saddr, dif, sdif))
-+			continue;
-+		raw_err(sk, skb, info);
-+	}
-+	rcu_read_unlock();
-+}
-+
-+static int raw_rcv_skb(struct sock *sk, struct sk_buff *skb)
-+{
-+	enum skb_drop_reason reason;
-+
-+	/* Charge it to the socket. */
-+
-+	ipv4_pktinfo_prepare(sk, skb, true);
-+	reason = sock_queue_rcv_skb_reason(sk, skb);
-+	if (reason) {
-+		sk_skb_reason_drop(sk, skb, reason);
-+		return NET_RX_DROP;
-+	}
-+
-+	return NET_RX_SUCCESS;
-+}
-+
-+int raw_rcv(struct sock *sk, struct sk_buff *skb)
-+{
-+	if (!xfrm4_policy_check(sk, XFRM_POLICY_IN, skb)) {
-+		sk_drops_inc(sk);
-+		sk_skb_reason_drop(sk, skb, SKB_DROP_REASON_XFRM_POLICY);
-+		return NET_RX_DROP;
-+	}
-+	nf_reset_ct(skb);
-+
-+	skb_push(skb, -skb_network_offset(skb));
-+
-+	raw_rcv_skb(sk, skb);
-+	return 0;
-+}
-+
-+static int raw_send_hdrinc(struct sock *sk, struct flowi4 *fl4,
-+			   struct msghdr *msg, size_t length,
-+			   struct rtable **rtp, unsigned int flags,
-+			   const struct sockcm_cookie *sockc)
-+{
-+	struct inet_sock *inet = inet_sk(sk);
-+	struct net *net = sock_net(sk);
-+	struct iphdr *iph;
-+	struct sk_buff *skb;
-+	unsigned int iphlen;
-+	int err;
-+	struct rtable *rt = *rtp;
-+	int hlen, tlen;
-+
-+	if (length > rt->dst.dev->mtu) {
-+		ip_local_error(sk, EMSGSIZE, fl4->daddr, inet->inet_dport,
-+			       rt->dst.dev->mtu);
-+		return -EMSGSIZE;
-+	}
-+	if (length < sizeof(struct iphdr))
++	if (addr_len < sizeof(struct sockaddr_in))
 +		return -EINVAL;
 +
-+	if (flags & MSG_PROBE)
-+		goto out;
++	return BPF_CGROUP_RUN_PROG_INET4_CONNECT_LOCK(sk, uaddr, &addr_len);
++}
 +
-+	hlen = LL_RESERVED_SPACE(rt->dst.dev);
-+	tlen = rt->dst.dev->needed_tailroom;
-+	skb = sock_alloc_send_skb(sk,
-+				  length + hlen + tlen + 15,
-+				  flags & MSG_DONTWAIT, &err);
++static int ping_v4_push_pending_frames(struct sock *sk, struct pingfakehdr *pfh,
++				       struct flowi4 *fl4)
++{
++	struct sk_buff *skb = skb_peek(&sk->sk_write_queue);
++
 +	if (!skb)
-+		goto error;
-+	skb_reserve(skb, hlen);
-+
-+	skb->protocol = htons(ETH_P_IP);
-+	skb->priority = sockc->priority;
-+	skb->mark = sockc->mark;
-+	skb_set_delivery_type_by_clockid(skb, sockc->transmit_time, sk->sk_clockid);
-+	skb_dst_set(skb, &rt->dst);
-+	*rtp = NULL;
-+
-+	skb_reset_network_header(skb);
-+	iph = ip_hdr(skb);
-+	skb_put(skb, length);
-+
-+	skb->ip_summed = CHECKSUM_NONE;
-+
-+	skb_setup_tx_timestamp(skb, sockc);
-+
-+	if (flags & MSG_CONFIRM)
-+		skb_set_dst_pending_confirm(skb, 1);
-+
-+	skb->transport_header = skb->network_header;
-+	err = -EFAULT;
-+	if (memcpy_from_msg(iph, msg, length))
-+		goto error_free;
-+
-+	iphlen = iph->ihl * 4;
-+
-+	/*
-+	 * We don't want to modify the ip header, but we do need to
-+	 * be sure that it won't cause problems later along the network
-+	 * stack.  Specifically we want to make sure that iph->ihl is a
-+	 * sane value.  If ihl points beyond the length of the buffer passed
-+	 * in, reject the frame as invalid
-+	 */
-+	err = -EINVAL;
-+	if (iphlen > length || iphlen < sizeof(*iph))
-+		goto error_free;
-+
-+	if (iphlen >= sizeof(*iph)) {
-+		if (!iph->saddr)
-+			iph->saddr = fl4->saddr;
-+		iph->check   = 0;
-+		iph->tot_len = htons(length);
-+		if (!iph->id)
-+			ip_select_ident(net, skb, NULL);
-+
-+		iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
-+		skb->transport_header += iphlen;
-+		if (iph->protocol == IPPROTO_ICMP &&
-+		    length >= iphlen + sizeof(struct icmphdr))
-+			icmp_out_count(net, ((struct icmphdr *)
-+				skb_transport_header(skb))->type);
-+	}
-+
-+	err = NF_HOOK(NFPROTO_IPV4, NF_INET_LOCAL_OUT,
-+		      net, sk, skb, NULL, rt->dst.dev,
-+		      dst_output);
-+	if (err > 0)
-+		err = net_xmit_errno(err);
-+	if (err)
-+		goto error;
-+out:
-+	return 0;
-+
-+error_free:
-+	kfree_skb(skb);
-+error:
-+	IP_INC_STATS(net, IPSTATS_MIB_OUTDISCARDS);
-+	if (err == -ENOBUFS && !inet_test_bit(RECVERR, sk))
-+		err = 0;
-+	return err;
-+}
-+
-+static int raw_probe_proto_opt(struct raw_frag_vec *rfv, struct flowi4 *fl4)
-+{
-+	int err;
-+
-+	if (fl4->flowi4_proto != IPPROTO_ICMP)
 +		return 0;
-+
-+	/* We only need the first two bytes. */
-+	rfv->hlen = 2;
-+
-+	err = memcpy_from_msg(rfv->hdr.c, rfv->msg, rfv->hlen);
-+	if (err)
-+		return err;
-+
-+	fl4->fl4_icmp_type = rfv->hdr.icmph.type;
-+	fl4->fl4_icmp_code = rfv->hdr.icmph.code;
-+
-+	return 0;
++	pfh->wcheck = csum_partial((char *)&pfh->icmph,
++				   sizeof(struct icmphdr), pfh->wcheck);
++	pfh->icmph.checksum = csum_fold(pfh->wcheck);
++	memcpy(icmp_hdr(skb), &pfh->icmph, sizeof(struct icmphdr));
++	skb->ip_summed = CHECKSUM_NONE;
++	return ip_push_pending_frames(sk, fl4);
 +}
 +
-+static int raw_getfrag(void *from, char *to, int offset, int len, int odd,
-+		       struct sk_buff *skb)
-+{
-+	struct raw_frag_vec *rfv = from;
-+
-+	if (offset < rfv->hlen) {
-+		int copy = min(rfv->hlen - offset, len);
-+
-+		if (skb->ip_summed == CHECKSUM_PARTIAL)
-+			memcpy(to, rfv->hdr.c + offset, copy);
-+		else
-+			skb->csum = csum_block_add(skb->csum,
-+						   csum_partial_copy_nocheck(rfv->hdr.c + offset,
-+									     to, copy),
-+						    odd);
-+
-+		odd = 0;
-+		offset += copy;
-+		to += copy;
-+		len -= copy;
-+
-+		if (!len)
-+			return 0;
-+	}
-+
-+	offset -= rfv->hlen;
-+
-+	return ip_generic_getfrag(rfv->msg, to, offset, len, odd, skb);
-+}
-+
-+static int raw_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
++static int ping_v4_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 +{
 +	DEFINE_RAW_FLEX(struct ip_options_rcu, opt_copy, opt.__data,
 +			IP_OPTIONS_DATA_FIXED_SIZE);
-+	struct inet_sock *inet = inet_sk(sk);
 +	struct net *net = sock_net(sk);
-+	struct ipcm_cookie ipc;
-+	struct rtable *rt = NULL;
 +	struct flowi4 fl4;
-+	u8 scope;
++	struct inet_sock *inet = inet_sk(sk);
++	struct ipcm_cookie ipc;
++	struct icmphdr user_icmph;
++	struct pingfakehdr pfh;
++	struct rtable *rt = NULL;
 +	int free = 0;
-+	__be32 daddr;
-+	__be32 saddr;
-+	int uc_index, err;
-+	struct raw_frag_vec rfv;
-+	int hdrincl;
++	__be32 saddr, daddr, faddr;
++	u8 scope;
++	int err;
 +
-+	err = -EMSGSIZE;
-+	if (len > 0xFFFF)
-+		goto out;
++	pr_debug("ping_v4_sendmsg(sk=%p,sk->num=%u)\n", inet, inet->inet_num);
 +
-+	hdrincl = inet_test_bit(HDRINCL, sk);
-+
-+	/*
-+	 *	Check the flags.
-+	 */
-+
-+	err = -EOPNOTSUPP;
-+	if (msg->msg_flags & MSG_OOB)	/* Mirror BSD error message */
-+		goto out;               /* compatibility */
++	err = ping_common_sendmsg(AF_INET, msg, len, &user_icmph,
++				  sizeof(user_icmph));
++	if (err)
++		return err;
 +
 +	/*
 +	 *	Get and verify the address.
 +	 */
 +
-+	if (msg->msg_namelen) {
++	if (msg->msg_name) {
 +		DECLARE_SOCKADDR(struct sockaddr_in *, usin, msg->msg_name);
 +
-+		err = -EINVAL;
 +		if (msg->msg_namelen < sizeof(*usin))
-+			goto out;
-+		if (usin->sin_family != AF_INET) {
-+			pr_info_once("%s: %s forgot to set AF_INET. Fix it!\n",
-+				     __func__, current->comm);
-+			err = -EAFNOSUPPORT;
-+			if (usin->sin_family)
-+				goto out;
-+		}
++			return -EINVAL;
++		if (usin->sin_family != AF_INET)
++			return -EAFNOSUPPORT;
 +		daddr = usin->sin_addr.s_addr;
-+		/* ANK: I did not forget to get protocol from port field.
-+		 * I just do not know, who uses this weirdness.
-+		 * IP_HDRINCL is much more convenient.
-+		 */
++		/* no remote port */
 +	} else {
-+		err = -EDESTADDRREQ;
 +		if (sk->sk_state != TCP_ESTABLISHED)
-+			goto out;
++			return -EDESTADDRREQ;
 +		daddr = inet->inet_daddr;
++		/* no remote port */
 +	}
 +
 +	ipcm_init_sk(&ipc, inet);
-+	/* Keep backward compat */
-+	if (hdrincl)
-+		ipc.protocol = IPPROTO_RAW;
 +
 +	if (msg->msg_controllen) {
 +		err = ip_cmsg_send(sk, msg, &ipc, false);
 +		if (unlikely(err)) {
 +			kfree(ipc.opt);
-+			goto out;
++			return err;
 +		}
 +		if (ipc.opt)
 +			free = 1;
 +	}
-+
-+	saddr = ipc.addr;
-+	ipc.addr = daddr;
-+
 +	if (!ipc.opt) {
 +		struct ip_options_rcu *inet_opt;
 +
@@ -1544,106 +541,86 @@ index 000000000000..8d3d6f30b0e8
 +		rcu_read_unlock();
 +	}
 +
-+	if (ipc.opt) {
-+		err = -EINVAL;
-+		/* Linux does not mangle headers on raw sockets,
-+		 * so that IP options + IP_HDRINCL is non-sense.
-+		 */
-+		if (hdrincl)
-+			goto done;
-+		if (ipc.opt->opt.srr) {
-+			if (!daddr)
-+				goto done;
-+			daddr = ipc.opt->opt.faddr;
++	saddr = ipc.addr;
++	ipc.addr = daddr;
++	faddr = daddr;
++
++	if (ipc.opt && ipc.opt->opt.srr) {
++		if (!daddr) {
++			err = -EINVAL;
++			goto out_free;
 +		}
++		faddr = ipc.opt->opt.faddr;
 +	}
 +	scope = ip_sendmsg_scope(inet, &ipc, msg);
 +
-+	uc_index = READ_ONCE(inet->uc_index);
 +	if (ipv4_is_multicast(daddr)) {
 +		if (!ipc.oif || netif_index_is_l3_master(sock_net(sk), ipc.oif))
 +			ipc.oif = READ_ONCE(inet->mc_index);
 +		if (!saddr)
 +			saddr = READ_ONCE(inet->mc_addr);
 +	} else if (!ipc.oif) {
-+		ipc.oif = uc_index;
-+	} else if (ipv4_is_lbcast(daddr) && uc_index) {
-+		/* oif is set, packet is to local broadcast
-+		 * and uc_index is set. oif is most likely set
-+		 * by sk_bound_dev_if. If uc_index != oif check if the
-+		 * oif is an L3 master and uc_index is an L3 slave.
-+		 * If so, we want to allow the send using the uc_index.
-+		 */
-+		if (ipc.oif != uc_index &&
-+		    ipc.oif == l3mdev_master_ifindex_by_index(sock_net(sk),
-+							      uc_index)) {
-+			ipc.oif = uc_index;
-+		}
++		ipc.oif = READ_ONCE(inet->uc_index);
 +	}
 +
 +	flowi4_init_output(&fl4, ipc.oif, ipc.sockc.mark,
 +			   ipc.tos & INET_DSCP_MASK, scope,
-+			   hdrincl ? ipc.protocol : sk->sk_protocol,
-+			   inet_sk_flowi_flags(sk) |
-+			    (hdrincl ? FLOWI_FLAG_KNOWN_NH : 0),
-+			   daddr, saddr, 0, 0, sk_uid(sk));
++			   sk->sk_protocol, inet_sk_flowi_flags(sk), faddr,
++			   saddr, 0, 0, sk_uid(sk));
 +
-+	fl4.fl4_icmp_type = 0;
-+	fl4.fl4_icmp_code = 0;
-+
-+	if (!hdrincl) {
-+		rfv.msg = msg;
-+		rfv.hlen = 0;
-+
-+		err = raw_probe_proto_opt(&rfv, &fl4);
-+		if (err)
-+			goto done;
-+	}
++	fl4.fl4_icmp_type = user_icmph.type;
++	fl4.fl4_icmp_code = user_icmph.code;
 +
 +	security_sk_classify_flow(sk, flowi4_to_flowi_common(&fl4));
 +	rt = ip_route_output_flow(net, &fl4, sk);
 +	if (IS_ERR(rt)) {
 +		err = PTR_ERR(rt);
 +		rt = NULL;
-+		goto done;
++		if (err == -ENETUNREACH)
++			IP_INC_STATS(net, IPSTATS_MIB_OUTNOROUTES);
++		goto out;
 +	}
 +
 +	err = -EACCES;
-+	if (rt->rt_flags & RTCF_BROADCAST && !sock_flag(sk, SOCK_BROADCAST))
-+		goto done;
++	if ((rt->rt_flags & RTCF_BROADCAST) &&
++	    !sock_flag(sk, SOCK_BROADCAST))
++		goto out;
 +
 +	if (msg->msg_flags & MSG_CONFIRM)
 +		goto do_confirm;
 +back_from_confirm:
 +
-+	if (hdrincl) {
-+		err = raw_send_hdrinc(sk, &fl4, msg, len,
-+				      &rt, msg->msg_flags, &ipc.sockc);
-+	} else {
-+		if (!ipc.addr)
-+			ipc.addr = fl4.daddr;
-+		lock_sock(sk);
-+		err = ip_append_data(sk, &fl4, raw_getfrag,
-+				     &rfv, len, 0,
-+				     &ipc, &rt, msg->msg_flags);
-+		if (err) {
-+			ip_flush_pending_frames(sk);
-+		} else if (!(msg->msg_flags & MSG_MORE)) {
-+			err = ip_push_pending_frames(sk, &fl4);
-+			if (err == -ENOBUFS && !inet_test_bit(RECVERR, sk))
-+				err = 0;
-+		}
-+		release_sock(sk);
-+	}
-+done:
-+	if (free)
-+		kfree(ipc.opt);
-+	ip_rt_put(rt);
++	if (!ipc.addr)
++		ipc.addr = fl4.daddr;
++
++	lock_sock(sk);
++
++	pfh.icmph.type = user_icmph.type; /* already checked */
++	pfh.icmph.code = user_icmph.code; /* ditto */
++	pfh.icmph.checksum = 0;
++	pfh.icmph.un.echo.id = inet->inet_sport;
++	pfh.icmph.un.echo.sequence = user_icmph.un.echo.sequence;
++	pfh.msg = msg;
++	pfh.wcheck = 0;
++	pfh.family = AF_INET;
++
++	err = ip_append_data(sk, &fl4, ping_getfrag, &pfh, len,
++			     sizeof(struct icmphdr), &ipc, &rt,
++			     msg->msg_flags);
++	if (err)
++		ip_flush_pending_frames(sk);
++	else
++		err = ping_v4_push_pending_frames(sk, &pfh, &fl4);
++	release_sock(sk);
 +
 +out:
-+	if (err < 0)
-+		return err;
-+	return len;
++	ip_rt_put(rt);
++out_free:
++	if (free)
++		kfree(ipc.opt);
++	if (!err)
++		return len;
++	return err;
 +
 +do_confirm:
 +	if (msg->msg_flags & MSG_PROBE)
@@ -1651,280 +628,28 @@ index 000000000000..8d3d6f30b0e8
 +	if (!(msg->msg_flags & MSG_PROBE) || len)
 +		goto back_from_confirm;
 +	err = 0;
-+	goto done;
++	goto out;
 +}
 +
-+static void raw_close(struct sock *sk, long timeout)
-+{
-+	/*
-+	 * Raw sockets may have direct kernel references. Kill them.
-+	 */
-+	ip_ra_control(sk, 0, NULL);
-+
-+	sk_common_release(sk);
-+}
-+
-+static void raw_destroy(struct sock *sk)
-+{
-+	lock_sock(sk);
-+	ip_flush_pending_frames(sk);
-+	release_sock(sk);
-+}
-+
-+/* This gets rid of all the nasties in af_inet. -DaveM */
-+static int raw_bind(struct sock *sk, struct sockaddr_unsized *uaddr,
-+		    int addr_len)
-+{
-+	struct sockaddr_in *addr = (struct sockaddr_in *)uaddr;
-+	struct inet_sock *inet = inet_sk(sk);
-+	struct net *net = sock_net(sk);
-+	u32 tb_id = RT_TABLE_LOCAL;
-+	int ret = -EINVAL;
-+	int chk_addr_ret;
-+
-+	lock_sock(sk);
-+	if (sk->sk_state != TCP_CLOSE || addr_len < sizeof(struct sockaddr_in))
-+		goto out;
-+
-+	if (sk->sk_bound_dev_if)
-+		tb_id = l3mdev_fib_table_by_index(net,
-+						  sk->sk_bound_dev_if) ? : tb_id;
-+
-+	chk_addr_ret = inet_addr_type_table(net, addr->sin_addr.s_addr, tb_id);
-+
-+	ret = -EADDRNOTAVAIL;
-+	if (!inet_addr_valid_or_nonlocal(net, inet, addr->sin_addr.s_addr,
-+					 chk_addr_ret))
-+		goto out;
-+
-+	inet->inet_saddr = addr->sin_addr.s_addr;
-+	WRITE_ONCE(inet->inet_rcv_saddr, addr->sin_addr.s_addr);
-+	if (chk_addr_ret == RTN_MULTICAST || chk_addr_ret == RTN_BROADCAST)
-+		inet->inet_saddr = 0;  /* Use device */
-+	sk_dst_reset(sk);
-+	ret = 0;
-+out:
-+	release_sock(sk);
-+	return ret;
-+}
-+
-+/*
-+ *	This should be easy, if there is something there
-+ *	we return it, otherwise we block.
-+ */
-+
-+static int raw_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
-+		       int flags)
-+{
-+	struct inet_sock *inet = inet_sk(sk);
-+	size_t copied = 0;
-+	int err = -EOPNOTSUPP;
-+	DECLARE_SOCKADDR(struct sockaddr_in *, sin, msg->msg_name);
-+	struct sk_buff *skb;
-+
-+	if (flags & MSG_OOB)
-+		goto out;
-+
-+	if (flags & MSG_ERRQUEUE) {
-+		err = ip_recv_error(sk, msg, len);
-+		goto out;
-+	}
-+
-+	skb = skb_recv_datagram(sk, flags, &err);
-+	if (!skb)
-+		goto out;
-+
-+	copied = skb->len;
-+	if (len < copied) {
-+		msg->msg_flags |= MSG_TRUNC;
-+		copied = len;
-+	}
-+
-+	err = skb_copy_datagram_msg(skb, 0, msg, copied);
-+	if (err)
-+		goto done;
-+
-+	sock_recv_cmsgs(msg, sk, skb);
-+
-+	/* Copy the address. */
-+	if (sin) {
-+		sin->sin_family = AF_INET;
-+		sin->sin_addr.s_addr = ip_hdr(skb)->saddr;
-+		sin->sin_port = 0;
-+		memset(&sin->sin_zero, 0, sizeof(sin->sin_zero));
-+		msg->msg_namelen = sizeof(*sin);
-+	}
-+	if (inet_cmsg_flags(inet))
-+		ip_cmsg_recv(msg, skb);
-+	if (flags & MSG_TRUNC)
-+		copied = skb->len;
-+done:
-+	skb_free_datagram(sk, skb);
-+out:
-+	if (err)
-+		return err;
-+	return copied;
-+}
-+
-+static int raw_sk_init(struct sock *sk)
-+{
-+	struct raw_sock *rp = raw_sk(sk);
-+
-+	sk->sk_drop_counters = &rp->drop_counters;
-+	if (inet_sk(sk)->inet_num == IPPROTO_ICMP)
-+		memset(&rp->filter, 0, sizeof(rp->filter));
-+	return 0;
-+}
-+
-+static int raw_seticmpfilter(struct sock *sk, sockptr_t optval, int optlen)
-+{
-+	if (optlen > sizeof(struct icmp_filter))
-+		optlen = sizeof(struct icmp_filter);
-+	if (copy_from_sockptr(&raw_sk(sk)->filter, optval, optlen))
-+		return -EFAULT;
-+	return 0;
-+}
-+
-+static int raw_geticmpfilter(struct sock *sk, sockopt_t *opt)
-+{
-+	int len = opt->optlen;
-+
-+	if (len < 0)
-+		return -EINVAL;
-+	if (len > sizeof(struct icmp_filter))
-+		len = sizeof(struct icmp_filter);
-+	opt->optlen = len;
-+	if (copy_to_iter(&raw_sk(sk)->filter, len, &opt->iter_out) != len)
-+		return -EFAULT;
-+	return 0;
-+}
-+
-+static int do_raw_setsockopt(struct sock *sk, int optname,
-+			     sockptr_t optval, unsigned int optlen)
-+{
-+	if (optname == ICMP_FILTER) {
-+		if (inet_sk(sk)->inet_num != IPPROTO_ICMP)
-+			return -EOPNOTSUPP;
-+		else
-+			return raw_seticmpfilter(sk, optval, optlen);
-+	}
-+	return -ENOPROTOOPT;
-+}
-+
-+static int raw_setsockopt(struct sock *sk, int level, int optname,
-+			  sockptr_t optval, unsigned int optlen)
-+{
-+	if (level != SOL_RAW)
-+		return ip_setsockopt(sk, level, optname, optval, optlen);
-+	return do_raw_setsockopt(sk, optname, optval, optlen);
-+}
-+
-+static int do_raw_getsockopt(struct sock *sk, int optname, sockopt_t *opt)
-+{
-+	if (optname == ICMP_FILTER) {
-+		if (inet_sk(sk)->inet_num != IPPROTO_ICMP)
-+			return -EOPNOTSUPP;
-+		else
-+			return raw_geticmpfilter(sk, opt);
-+	}
-+	return -ENOPROTOOPT;
-+}
-+
-+static int raw_getsockopt(struct sock *sk, int level, int optname,
-+			  char __user *optval, int __user *optlen)
-+{
-+	sockopt_t opt;
-+	int err;
-+
-+	if (level != SOL_RAW)
-+		return ip_getsockopt(sk, level, optname, optval, optlen);
-+
-+	err = sockopt_init_user(&opt, optval, optlen);
-+	if (err)
-+		return err;
-+
-+	err = do_raw_getsockopt(sk, optname, &opt);
-+	if (err)
-+		return err;
-+
-+	if (put_user(opt.optlen, optlen))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static int raw_ioctl(struct sock *sk, int cmd, int *karg)
-+{
-+	switch (cmd) {
-+	case SIOCOUTQ: {
-+		*karg = sk_wmem_alloc_get(sk);
-+		return 0;
-+	}
-+	case SIOCINQ: {
-+		struct sk_buff *skb;
-+
-+		spin_lock_bh(&sk->sk_receive_queue.lock);
-+		skb = skb_peek(&sk->sk_receive_queue);
-+		if (skb)
-+			*karg = skb->len;
-+		else
-+			*karg = 0;
-+		spin_unlock_bh(&sk->sk_receive_queue.lock);
-+		return 0;
-+	}
-+
-+	default:
-+#ifdef CONFIG_IP_MROUTE
-+		return ipmr_ioctl(sk, cmd, karg);
-+#else
-+		return -ENOIOCTLCMD;
-+#endif
-+	}
-+}
-+
-+#ifdef CONFIG_COMPAT
-+static int compat_raw_ioctl(struct sock *sk, unsigned int cmd, unsigned long arg)
-+{
-+	switch (cmd) {
-+	case SIOCOUTQ:
-+	case SIOCINQ:
-+		return -ENOIOCTLCMD;
-+	default:
-+#ifdef CONFIG_IP_MROUTE
-+		return ipmr_compat_ioctl(sk, cmd, compat_ptr(arg));
-+#else
-+		return -ENOIOCTLCMD;
-+#endif
-+	}
-+}
-+#endif
-+
-+struct proto raw_prot = {
-+	.name		   = "RAW",
-+	.owner		   = THIS_MODULE,
-+	.close		   = raw_close,
-+	.destroy	   = raw_destroy,
-+	.connect	   = ip4_datagram_connect,
-+	.disconnect	   = __udp_disconnect,
-+	.ioctl		   = raw_ioctl,
-+	.init		   = raw_sk_init,
-+	.setsockopt	   = raw_setsockopt,
-+	.getsockopt	   = raw_getsockopt,
-+	.sendmsg	   = raw_sendmsg,
-+	.recvmsg	   = raw_recvmsg,
-+	.bind		   = raw_bind,
-+	.backlog_rcv	   = raw_rcv_skb,
-+	.release_cb	   = ip4_datagram_release_cb,
-+	.hash		   = raw_hash_sk,
-+	.unhash		   = raw_unhash_sk,
-+	.obj_size	   = sizeof(struct raw_sock),
-+	.useroffset	   = offsetof(struct raw_sock, filter),
-+	.usersize	   = sizeof_field(struct raw_sock, filter),
-+	.h.raw_hash	   = &raw_v4_hashinfo,
-+#ifdef CONFIG_COMPAT
-+	.compat_ioctl	   = compat_raw_ioctl,
-+#endif
-+	.diag_destroy	   = raw_abort,
++struct proto ping_prot = {
++	.name =		"PING",
++	.owner =	THIS_MODULE,
++	.init =		ping_init_sock,
++	.close =	ping_close,
++	.pre_connect =	ping_pre_connect,
++	.connect =	ip4_datagram_connect,
++	.disconnect =	__udp_disconnect,
++	.setsockopt =	ip_setsockopt,
++	.getsockopt =	ip_getsockopt,
++	.sendmsg =	ping_v4_sendmsg,
++	.recvmsg =	ping_recvmsg,
++	.bind =		ping_bind,
++	.backlog_rcv =	ping_queue_rcv_skb,
++	.release_cb =	ip4_datagram_release_cb,
++	.unhash =	ping_unhash,
++	.get_port =	ping_get_port,
++	.put_port =	ping_unhash,
++	.obj_size =	sizeof(struct inet_sock),
 +};
 -- 
 2.55.0
