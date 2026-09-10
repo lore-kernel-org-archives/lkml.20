@@ -1,137 +1,109 @@
-Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E217F3FC5A5;
-	Thu, 10 Sep 2026 10:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05606421235;
+	Thu, 10 Sep 2026 10:53:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037590; cv=none; b=RvFKro9zsLkWoRqahBYFUDnTni4q5A3hM0ejCTOFNMTEh6ivtyfL0dxgChXS38PZWyRTUexwzZb0cEo7f7SPW7CiUFTP8MK7L9fVoV4Zr3iHTqm6s0+pXk3mF4AGfe5lf4MSUWZnGlHgz4c/t+sNcNaly7y1PX6PUG/3u0Z6SEk=
+	t=1789037599; cv=none; b=fI83he8053PKaERvK3YVRziITbwpfrTqBUfOSCUqCNvNl5R6RjVR0++VTjeRLk16CJDmCt0HyAq7oEegZxIu1+DMQ2QfJhcU5rDl5ujyRJC8VQMfyRup9+hQ3s3c4oA2mlPTjwpqRBBd9gMjOE3oHfq6lBtMkoGPOtJ2F/4yurs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037590; c=relaxed/simple;
-	bh=RanAhuVgfYGKMVwe6+jPNBKJGsY9fz/kNrV2Z7HXthI=;
+	s=arc-20240116; t=1789037599; c=relaxed/simple;
+	bh=XQ4bOpWEdg7joI/rHhEM0ntGnna/QHZ0cyWmU7NS4QE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZSRXrPT53+zSBi2BegDQjm8jZvzwCP1iDKYXvGn/PSCLfl4sTN1A+af8D8WUpCqmVzXhru2DVt+0sEORudJ5GQvFvohI9srtR7UAkyygggfkVfPvrPb4+wElQVUkB3FLwl96StCWHbbGn/e+RUB0pRbZcmK/LFk1jPC0rhMQYxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=ULGwQTGo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EurtyFPE; arc=none smtp.client-ip=103.168.172.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	 Content-Type:Content-Disposition:In-Reply-To; b=SCPxaumkUKBAwVWaAVn3ZjvekAMHzEVa/9sGSJBPAlBGdFThzLey2PkIw9/zAW4kjeazfLG1eq+CIs/j2zpe+AsE3pmPX0tf43WuY500qKzQptO44gsWN2Ru8YFFVtcceIMCaOj7UnXvKys8czEtU3JTNwWqpNRuyh7ramjFmBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0qKshY4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="ULGwQTGo";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EurtyFPE"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.phl.internal (Postfix) with ESMTP id 9A3D6138008B;
-	Thu, 10 Sep 2026 06:53:07 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Thu, 10 Sep 2026 06:53:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789037587; x=
-	1789044787; bh=k+8rtwSHSrI9CyOt3ir8SRov9uZb8NBx1Vr6rpUk4gs=; b=U
-	LGwQTGozNl/IPGGjCXuDMOsntcCez3zg/Ha2dGz9tYT3G61pxwfRKRs0EByPsE3i
-	gmDe4gHet0V520BJCZa4WZApFYAmztGqny8uYeuH6MSgfe71z/damSS4VimZiisx
-	uQSSH7IbN5TwStxojrOoiha0msT0YF4RjZIFsxoonJEnCjSAEyDb4aYaI0mKniQB
-	16NEF0NKnM8/CnlF3TIGi5f06y7rNjk4iR9PENFxKXmIoDuoR2XdN/wkii4qp7A9
-	9Ev1sZ5MhM/tCDitZ0+KS21/T7KXKCg8+l+QctESd2ks4PVqbOI9BJiBlWk2hqBK
-	83qJ3kQf7MKsUueNTyVfA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789037587; x=1789044787; bh=k+8rtwSHSrI9CyOt3ir8SRov9uZb8NBx1Vr
-	6rpUk4gs=; b=EurtyFPEo2JWSwfUd3esJ0OVwAFP3GtEbaey2gzLSLaSkJcZYpF
-	im3hyvwRNti5b56UUztde85TylbNRDdBMb/14oIRnvQEmBTx/KfUovjS6k5HaIIA
-	cAXSxeyZjzUqrKxy4bxfqFS81PpXgWqaU4SVn0Ea6NSIHenhzf7v2uClGPgd0Uyl
-	YINnbhB432+Rr445boRrAJ117LZMN+nNnxaDMrdMimuJZCVwLUMpfMGiflTuOxx7
-	R58WlvuFyl6Tw6diqkp1dybjQvAGKH/2MRk6uvelvEGMzLHjybMbdZigNl1ycEAJ
-	86McL9Ltfi2sRcwQRGvLl99xm8Y2Y1p34JQ==
-X-ME-Sender: <xms:E4yianSmG3oq4oWvK7XVEmK26ttXq1bXEEykZOHtIyRiCczvXPIJhw>
-    <xme:E4yiapcjisVyAccKNATpuSjubLw9r1WC5PlgqSPXSvLw5M8fkj-lZELgGQDmrWGEZ
-    G25KUplbXORG1TpgwvN8OrwLbxgLV-0jpc3AdAz48q9xo1Hi7KO7FQDNQ>
-X-ME-Received: <xmr:E4yian449icMacN0l0Ek_WlvkH6qEiVI4LT9Gnv0ocDewhm3SIkeEwcZWYk>
-X-ME-Proxy-Cause: dmFkZTGm5Ju+9RBw0LciogPg7Z02SsGVTwF8bQ54/MSBlaYiHGVbwMnPgwR4nFm7A5aN1G
-    ab90Zq85LRgdUM/dlmRESEm7z20IlJXdxeC6kX5GhjGqwvlB68/Nv0mgLB37gddPMzpnPQ
-    vp9rSZz7wN3LWzRxF0mP7S6VPxGBqvdpzzlswY0dXVqVuVn2Z+rEw/6GeA6qrvATGKiYIv
-    Qy0DlhDB5aF38ZdmPHO0pPN3BhKBOXVShFmZniW8ukI3HgOl/hVw0fF02ROKLxbp64XEwY
-    9Kca43nVc9tLTqn5zCuPcIXBRozBqbzB/gDlgSu6QP3tPP6rKHXjE+bjvXYwMnOtQmWRjj
-    pa6OjPgx7sQ5JfXBq2VE3A4gkJiDRh3y77Ml8S03QUzozR5Xqkypwa9U83xSQK3612BPtL
-    iAghnJJWMO8Lz+ZPfvgXWY68Dx5JKFsApypDKirsgwOV1X/pVYy4IH2SZNUtT0PtacMv7n
-    jPihBak+XGcUxCduNS6qmUnf/qrf55FDJCCKseOBjlNEoEGxdRsf6FZvfOjoGmF7H+izJB
-    06oKvbqm5CPP6basFX6LLqpZ4kCLBCqhSCuYbO3o5rNcBxMawrXGBxKfv93FRJk3ndLNYd
-    HHCf8INfIhEhclCzHJVDroPuiahek7lEArIWASnZIZVfzSQBQWww/6EUQFjg
-X-ME-Proxy: <xmx:E4yianATkPXaSjhj-I8Nr-ewS3NuNvy86-98fHFDzar2UrtxpKe_HA>
-    <xmx:E4yiajdwYR0tCmPfEjFxfRUOJkdfAeDr_z0DkKzrTZ1-gIS0W2j5YA>
-    <xmx:E4yiasQ8RzkNXaR3ONt44CbC5AfsN8zG6YVBl4iMYBJc78bZwkRq1Q>
-    <xmx:E4yiaqkbuVPu5g8_DAWCP1vKZydRQsVRYdbMBsPY9ZBsr4ePvyO63A>
-    <xmx:E4yiagwItsHBApP43P-SOVJ5ikHPgxGZ7aiXTyMBNVEWoPwhK669wPhy>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Sep 2026 06:53:06 -0400 (EDT)
-Date: Thu, 10 Sep 2026 11:53:04 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, nico.pache@linux.dev, 
-	ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
-	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, ryan.roberts@arm.com, 
-	shuah@kernel.org, surenb@google.com, vbabka@kernel.org, agordeev@linux.ibm.com, 
-	jgg@ziepe.ca, leon@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v5 11/19] selftests/mm: add order-parameterized
- khugepaged collapse cases
-Message-ID: <aqKKXuNWf7lUuXps@thinkstation>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-12-kirill@shutemov.name>
- <162af233-ae81-40e6-8c71-d13a41b5d892@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0qKshY4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164071F000FF;
+	Thu, 10 Sep 2026 10:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789037597;
+	bh=MxMwOJOdXW6C8s3622AqqaYNuUGyq5gIDqrLGbv8shM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W0qKshY4SnWlyQeFf9OJC5RXsUxOWyYDDXegchHthqgABJIN3xirFUmn4i1uNv8Ux
+	 l3+QOS1h/8yd092xWjYosXlzvtHo39MMxAWSnhc30V8THpspbyPx4yehKhAikWPd/Y
+	 4tE3rGoG8WhLR+vTOJOSzN/BDBCphWvAS727LqC/TeKzPmo3db7V+/+lajtonOD4xp
+	 Am8Kuwq0RhvAqkefcCgz5wi0aPzrULTufO3DbHweR2OMKMywQNesO3lLkLGUcZHMWd
+	 Xmzi3TUAQm8+sfBxSDYiTpeKkbRc534m+5xPV1Y39TEnceKojuBRHYGXbEOYMn6MyN
+	 5mqKBoeeZEN/A==
+Date: Thu, 10 Sep 2026 12:53:15 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
+ properties
+Message-ID: <aqKL_UX7bFt4BrYE@orome>
+References: <20260902003004.453960-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n4di5mlilxk6ph5q"
 Content-Disposition: inline
-In-Reply-To: <162af233-ae81-40e6-8c71-d13a41b5d892@linux.alibaba.com>
+In-Reply-To: <20260902003004.453960-1-thierry.reding@kernel.org>
 
-On Thu, Sep 10, 2026 at 12:59:14PM +0800, Baolin Wang wrote:
-> > +static bool all_windows_at_order(void *p, size_t len)
-> > +{
-> > +	return is_range_backed_by_order(p, len, collapse_order,
-> > +					pagemap_fd, kpageflags_fd);
-> 
-> Like I mentioned in patch 8, you can implement these helpers using
-> check_large_folios() in vm_util.c. Then you do not need to add new
-> 'pagemap_fd' and 'kpageflags_fd' variables.
 
-As I mentioned in reply to patch 8, I don't like that
-check_large_folios() keeps re-opening file descriptors per call.
+--n4di5mlilxk6ph5q
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
+ properties
+MIME-Version: 1.0
 
-> > @@ -1375,6 +1569,20 @@ int main(int argc, char **argv)
-> >   	parse_test_type(argc, argv);
-> > +	if (mthp_khugepaged_context &&
-> > +	    !(thp_supported_orders() & (1UL << collapse_order)))
-> > +		ksft_exit_skip("Order %d is not a supported anon THP order\n",
-> > +			       collapse_order);
-> 
-> This check can be moved into parse_test_type(), where the 'mthp_khugepaged'
-> parameter is parsed.
+On Wed, Sep 02, 2026 at 02:30:04AM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+> nodes named stmmac-axi-config and phandle references to them using the
+> snps,axi-config property.
+>=20
+> While at it, add the 10gbase-r PHY mode.
+>=20
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+> Changes in v2:
+> - move common properties to snps,dwmac-common.yaml
+> - link to v1: https://lore.kernel.org/linux-tegra/20260716212001.989872-1=
+-thierry.reding@kernel.org/
+>=20
+>  .../bindings/net/nvidia,tegra234-mgbe.yaml    |  8 ++-
+>  .../bindings/net/snps,dwmac-common.yaml       | 66 +++++++++++++++++++
+>  .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +--------------
+>  3 files changed, 73 insertions(+), 53 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/snps,dwmac-comm=
+on.yaml
 
-Patch 14 makes -c optional and turns this into the code that builds the
-list of orders to run, next to the "-c has to be above -s" check.  That
-list wants thp_supported_orders() and belongs after parsing rather than in
-it, so I left parse_test_type() to the range check.
+Any comments on this?
 
-> > @@ -1425,6 +1633,10 @@ int main(int argc, char **argv)
-> >   	TEST(collapse_empty, madvise_context, anon_ops);
-> >   	TEST(collapse_single_mthp, mthp_khugepaged_context, anon_ops);
-> > +	TEST(collapse_order_single_window, mthp_khugepaged_context, anon_ops);
-> > +	TEST(collapse_order_partial_window, mthp_khugepaged_context, anon_ops);
-> > +	TEST(collapse_order_max_ptes_none, mthp_khugepaged_context, anon_ops);
-> > +	TEST(collapse_order_mixed_sources, mthp_khugepaged_context, anon_ops);
-> 
-> These test cases look good to me. Thanks.
+Thanks,
+Thierry
 
-Thanks for going through them!
+--n4di5mlilxk6ph5q
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqijBsACgkQ3SOs138+
+s6ELSQ/6ArQVKQt4jXB8wXAaEC/UVlvgyRp7EHmuns+e8qZygBa0gYbCB3S0jwch
+//6TroJgmHnkUVxkz7B7psQkYKlhXlYeq6vT9+tlQmtzd5iN7gAvt9hWm1ADkdKk
+dsGaSA/0xw2uMTGIG2HheslpcXT4OEQ+2Y/GOXZUipIu9TgR7C9WatqTji75Ihow
+xqu3wv+BrPzo7nrPsO8rjThriPITn/AjpzCq11fEI4Md0NbVC9BC3gfJ9essiHHz
+yEEVyg6ep9ToqFvBB5zJYhJ0L5EUFStBHEk4rCbEhGOxS+N+GnPY5mT+f0kvXSHW
+NJp19GE5W5KsaBmqGz4PFPL1dTXceVUNSpn/RPOIoJvr/PDzvkKwKOa/bkvQSw7j
+fifod9xR57XWt1sSdGN0PD39HeT+cAjYSse0Mbw0U7szectlKohaWHhSZXy13UCB
+kdUdczMOUWZH8ogcSF6sVQkp+xQ/UPqoNVbRNBHdYebxfjv69EhqFXHPHguTZE3/
+YcA7mJ5jPTkT8n5LaVzvz3mcOOtdEHzofWMaP8W+YV8VndYzAHHJPV5Jqyu/lEc6
+UbUiZO3invSj0QYetKPME7ZeHixhWBzRNYCjE6U8UU+ZJxe9ZEIqtAR+ejdUxo5Q
+8G4XErg3wAawe31hDpR8SWfaXe6WnQuB52mAflxtIYZbSV9tWxw=
+=1Fr5
+-----END PGP SIGNATURE-----
+
+--n4di5mlilxk6ph5q--
