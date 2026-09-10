@@ -1,80 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED399499F17
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F30D471D02
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062975; cv=none; b=pcJL0gzkHsvZhKebSg42pmowYV/xG664KVV2QgwilsLKzmheMXkL0u48arFWhb7KIF19Z4YGiJzgpLCeMXtGjwQmTeDhLOMlpXAwW9w9ygC8D0POeKOqcxvfAJxch5d6KHqBX87s+wvD8qUDiX6bSwEOztJBp6w5GqtXpTWi7Yk=
+	t=1789063000; cv=none; b=h4HkGw1LBQ43bDP0WwccdLxUDv4F+AIY0pnfBlMoEtru7KRoJQZHsHuZ1eS18s5qxWXOHoSg6m2d/freBuczWOjganScLuIB5XtRy4AocsAFJQ0KEEKy4MbCdCjLDnKesIH6cacPvl4ExxfxgSD64ymNsAGXtGmpDAAgRefXZqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062975; c=relaxed/simple;
-	bh=BCk0UxVAq3meh2C+LZSGNv3rmbhvKRV7iCfFt/Dz3dw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nWvLkdhGJZ+gIafYtrJN97WM1qTYr8AJPpVRKAlg0Rfq3U233yF4Z1iRoGoXltPpjmfYS30CU9kAMIqcOZ/Giq77XCsWcZTYWs8bAwLXKOcFStgPrhE88L7vnwvnla0kb8kAbDn+bckE331Vw8Fs4EwUQKKfMCFfdyqzox67KmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDUBM3+0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789063000; c=relaxed/simple;
+	bh=J2+jyM9hLucmpNHPPT6PKrP3tm+jy46AwB9bPZDO998=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Content-Type; b=D69ZxBckQwTRl6IgloIrlK27mmX7A0s7N8kgbV7/+KAe4z7EOvCVlKMH902Gjp8dc7ZzDHlPVJ3HIHv/vO0JmBVHHQ2YAFD+X4cdL3baA3Zw4J8fdchVvpvU551GtogJrzL7txhRNFAJEo3Zh+dcirmjmBM23DRLH/9lgT7t/vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ml2QVwHW; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDUBM3+0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BA61F0089A
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789062973;
-	bh=BCk0UxVAq3meh2C+LZSGNv3rmbhvKRV7iCfFt/Dz3dw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HDUBM3+05ZFHDOCV3OjBDW0KT66lt3/q7b/N7uR6w1oUY8uqaEoTzYybov7EbY1rB
-	 xvvcjD5DMhUEfaXLgPCnl/6M9ejGznHr3u4dSXIk55Q8eTsoiNd4mJlB7GZmBjFZdv
-	 AAa9kzInyRyo7DnxOEUnJBk1z3qeH+TJ3wPaHFM2/nsGtajQTFNlFbOgRBo/tlqRte
-	 DTbxZtVrv56Lf5L8UlhriJQK/43QkZNiKkSCxgiEvBqwENT2kge9fIMzDU+ZS2bdaj
-	 93qtzD5Aro7H+jutod11LtKHfucYn1645p8MsJXieZq5P0QL/ISvGRrasx3sn6YA/k
-	 pEq5e4ffn/gqw==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so91768e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:56:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzedjrwXUf12zaus9pZtxaDf6Uiu3ds2uhXc8sdWblc+rZKCbSXpYmyPOsPXU/rMWOyJR2nZkYFmGDiouA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKl1cNoBET8OEDMUgaOxaXLTcjEbVPwwRtJzip6LIQjo2tqzRj
-	fvFjzpnzRZwjWYvZsza/XMezbRHQe2PUJE/FwoaTWSPQRVboVjTELN5NOqmytixumKyCZyaNmCL
-	ZYJwtswyKSZ3SRJobzhMxtBWsmLENaK0=
-X-Received: by 2002:a05:6512:2525:b0:5b2:a919:f9fb with SMTP id
- 2adb3069b0e04-5b8a0329b60mr209078e87.22.1789062972231; Thu, 10 Sep 2026
- 10:56:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ml2QVwHW"
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso131355eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:56:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789062998; x=1789667798; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VpE0xINv8pWnVzg2btWLFzFoWPyU+SnwvICmE2JIiRA=;
+        b=ml2QVwHWI+LYzNUCYiEz3HkFqEwtwCOW56gKD/WclrKMMFWFV7aBz5MYFQ8gynFh+1
+         gPs19v6aefAfi1oQAFZ7Hsg8meDuGL6RRjSQ3WT0QE9ijw1Doa5iPllD1x5XNEksyO97
+         jHv3O0t5j2UC4yEvQxcRIKASOLA5Oo6sJEY1FYhyg3gqGlO0v0Ur5crucdshH1/8UpBq
+         oG9E35/LlZ3XY+pT9hNC0/C49ubvwXatZO6eMWklSVvWH8esK4yeHlWyjRIo8hNqE6AQ
+         yIxJXOBRRJEeC4+KwEzL1Si3E1Eddmb/FzPQ1qMj6KTQ84WS02olRFm7+rc2GAd4e8Ib
+         wIWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789062998; x=1789667798;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VpE0xINv8pWnVzg2btWLFzFoWPyU+SnwvICmE2JIiRA=;
+        b=qtHdh1LsL/I+jsL6gkYnGAM5Rv/SGWp0v/XqCJyrw0f8uStS/OUsWDpEy+2+LZmqST
+         9sjX4aFqHG1YqG0Wvqwm4mIA32FehhI4eJLJ3D4E22OIm5VSKRqwMXwqe978ySG0zp5O
+         7sEjVwWRweX6D9E/8KpzX/cZobWq5jqAfkxuGrX7Uncv0ADdNVUo4IB75SM+rGgMdPHN
+         MbMLtGzqRZ/bgSWHQ+8HLOTwfP+6kGbRyNdYQZxdPX59ro6JOX6pNL09fhe76gY4Gheh
+         Z7vDNFcYPN6yTLRj9P7or5gkZGHLc8tnGevK7tcK/hyagZp7IIWtkNziQIufQX6YHmcy
+         Bh9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzloIr82F97CHge3ORt0b9x88NFFTugcWh65wuQw5goCuZUotqLz0g63Ldneg2YyAeGr22OusKkJT0FD1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFGa9aQjcO0FHIFnd2CBld6gJPeuVEhRjtsSfKgAO3VuMBygUT
+	IMlXlDG0gs5d0602Kz9vkrr0FjKBm5BGz6XFFoP+EMZcfzgYcaut7QhL1mJIw9xq8HCxiP0ec+b
+	AoLSduaBecQ==
+X-Received: from dlii15.prod.google.com ([2002:a05:7022:418f:b0:143:4c40:d675])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:81cb:b0:6b7:46fc:1d5
+ with SMTP id 006d021491bc7-6c0bd77b439mr101041eaf.52.1789062997907; Thu, 10
+ Sep 2026 10:56:37 -0700 (PDT)
+Date: Thu, 10 Sep 2026 10:56:32 -0700
+In-Reply-To: <20260910173715.2996571-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910-ad7768-gpio-v8-0-6aaaa15adeb3@analog.com> <20260910-ad7768-gpio-v8-2-6aaaa15adeb3@analog.com>
-In-Reply-To: <20260910-ad7768-gpio-v8-2-6aaaa15adeb3@analog.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 10 Sep 2026 19:55:59 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmrc41AqZ9dR-dZnHJJZymYSrn3Vbv8AHNmRop9LUCFcA@mail.gmail.com>
-X-Gm-Features: AcwNN1WkiCA2qzwLBb4fggEbAls0tX6BGDPCw5Z3aG869Vzf2_ghI7zbOjrfGGc
-Message-ID: <CAD++jLmrc41AqZ9dR-dZnHJJZymYSrn3Vbv8AHNmRop9LUCFcA@mail.gmail.com>
-Subject: Re: [PATCH v8 2/3] gpio: regmap: Add optional runtime PM support
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Michael Walle <mwalle@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Janani Sunil <jananisunil.dev@gmail.com>
+Mime-Version: 1.0
+References: <20260910173715.2996571-1-irogers@google.com>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910175634.3014018-1-irogers@google.com>
+Subject: [PATCH v2 1/3] perf test x86: Fix missing __msan_unpoison
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Swapnil Sapkal <swapnil.sapkal@amd.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 7:29=E2=80=AFPM Janani Sunil <janani.sunil@analog.c=
-om> wrote:
+__msan_unpoison may need the sanitizer header including for its
+definition.
 
-> Some gpio-regmap consumers share their regmap with a parent device that
-> may be runtime suspended. GPIO register accesses must resume that device
-> first.
->
-> Add an optional pm_dev field and acquire it before register translation
-> or access. Release it using runtime autosuspend after each operation.
-> Keep the device active across the complete direction-output sequence and
-> propagate failure when setting the initial output value.
->
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Reviewed-by: Michael Walle <mwalle@kernel.org>
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/arch/x86/tests/dwarf-unwind.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-This is some nice stuff.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+diff --git a/tools/perf/arch/x86/tests/dwarf-unwind.c b/tools/perf/arch/x86/tests/dwarf-unwind.c
+index 99d2b7ed016f..3c66dadcab75 100644
+--- a/tools/perf/arch/x86/tests/dwarf-unwind.c
++++ b/tools/perf/arch/x86/tests/dwarf-unwind.c
+@@ -8,6 +8,10 @@
+ #include "debug.h"
+ #include "tests/tests.h"
+ 
++#if defined(MEMORY_SANITIZER) && !defined(__msan_unpoison)
++# include <sanitizer/msan_interface.h>
++#endif
++
+ #define STACK_SIZE 8192
+ 
+ static int sample_ustack(struct perf_sample *sample,
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
-Yours,
-Linus Walleij
