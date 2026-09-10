@@ -1,57 +1,77 @@
-Received: from smtpout3.mo539.mail-out.ovh.net (smtpout3.mo539.mail-out.ovh.net [51.210.91.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133A3569F2F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B06545DAB
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789064227; cv=none; b=hIeeRShWxweQHkhOQMftQ8s8fO/U974CfE0/cJHTj6eXydiCFlsQccQb77/V5q6fjhMhTt3BBRtdL5Z31L7V11ZX4EmtoCln2kQyLhrQsj7RILBxqM/VN3ilnGNcDYSKCIzH8CAEBekUS+Qo1s8jWD+DXjiEzC2ACmPaVeDfSM4=
+	t=1789064270; cv=none; b=SRc8/5xCiHZ7ARgbMGih1xFJB4yDtomZf/wcqH2SmjQA56xJFiPg86JJvXSbD22DPumxxf0GtlbtZ+CHv5FjLw8pkYw48fzIp+JVfkNvvUcbC9L9/DkvLOxGKXut51FpOZJ7Fbyt9j8vPBppzO0NO07hKUnVeNrc6T0HPMO1Fvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789064227; c=relaxed/simple;
-	bh=oQnD5ZsFrstnyhcefBMo2sVVt9mSNYZnQWxidYSRXPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aXXlxQCxwzDQg+Ezh3a2LRIpjJcBKmPRyVcfJnh/N5BHs+9Xn1C4yPnhsN1tI6VY6lV3Zi6U3kOCy8wV4NiLvQj5RhdgfyUX2d5/o45wHt93aztqiz4t216KJoemhn4/TwEraf9lnQ2kXWHFIVJigEpoU7dNUDuE7z0aRMjShZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=kybPoW2M; arc=none smtp.client-ip=51.210.91.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
+	s=arc-20240116; t=1789064270; c=relaxed/simple;
+	bh=PkLazTUBfgnHFJX/6j/z6D+G9f+NFxfIEs9XpadXfmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bN4hxQDiPvGgrWcxHt6ANcBca+auZEpUYF8AITV1Yb6c/XzhjJJ2k6yH2hH4wZesaCyLz0j1qS631DXPNXeaHFjmlnQP6EnA3rHG23/yE5DrRUzaoF2YN9RU4tyXEIslptPf60jvlgLP9GOZkKzVea46CVHhwmsMSX9zKNKCUmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJOZ3BS3; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="kybPoW2M"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHW6zDZz4F9T;
-	Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.164.80])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHW5mLnz6MbJ;
-	Thu, 10 Sep 2026 16:52:23 +0000 (UTC)
-Received: from sicoop.com (unknown [10.1.6.2])
-	(Authenticated sender: michaltoma@sicoop.com)
-	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 05683941C3D;
-	Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-100R003a0747e58-7207-4f04-b569-9e5900309981,
-                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
-X-OVh-ClientIp:89.91.4.113
-From: Michal TOMA <michaltoma@sicoop.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Michal TOMA <michaltoma@sicoop.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	ian.forbes@broadcom.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJOZ3BS3"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4956869750eso1322725e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:17:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789064267; x=1789669067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IUTLqgsQRaPjkfGX1A5Z4hZOpq+shaE/5Jc/zgW3F80=;
+        b=qJOZ3BS3KJJDJD5kOy/Ksp7zHq7utotgeahdmTp2zsywk8bqvHTV2zc4S5bbYnjzik
+         GHj8g+zp5xSSGOjEYOrLjbiwTX9+Vx4oaM1CaXX1NS4WR5NKjAyUTmX1z5iY/NBq+oxi
+         ChhNUEUZQeBUlAUu+Be788nOfZwLViHq37IJvAe0csbFL+DGEYWkiUY3HYVQFPyaCqGu
+         uVTQb97VBViS6sPO5fuRIqRG2mlMIErNQCeNqYNICgq0yB0P/Jbq+cH5pC7eA3i8Uel5
+         OEznWIPpDj0qahugyOjjPS1xSAOJNEIP6LyPcztVORus7AhHMBG8sXknov27binfYVsz
+         LCbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789064267; x=1789669067;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IUTLqgsQRaPjkfGX1A5Z4hZOpq+shaE/5Jc/zgW3F80=;
+        b=MWRRDqJTTGVHAJUlPAvl2sdGVKEDr5pFE3QQDKWIEytKm8bX2wzjo5zjybX0kHGgbL
+         0Rd3QQODCAo5U3CMh+VlrV/+JR6hCuevpQCDBtK+z4DoZMbiEsQnXutpFnUyZC+CvCAM
+         dtEREfu5kZMzOBm2zKH6oCdxNvNgqWM+59I8w4AafjTeXPWBWKfqfj+XehiMrFv+7Y0o
+         j6lAADqcD07zfRClPrW5ySfBIEczly6g+TTRSMJGW6VcAOkBwrNir+yEaUr8Cgsw5YwG
+         5P7JvsoN224q10eOLS6ikK7bDljbqukrajd6NmXznE8urdU57KyMX8Uov81uqoJspPM7
+         LEkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzh965dE4Kknw/lUXH/Ejp2o75dWc7Nb2rYK8dTWNCTWyI9/LdMiUhcn92Yh5ZbAKkClQQyVd5zC6VcTCg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntJb8c6DldG4a7nDnWL4hxHMp0s6UIDkNTTeN74Zk0NGJOJQon
+	n2I48zQFi0j7IVYmPvuzMP3//Fj2P4lVZ4P6G4aCC4RT6InEeWH3eYl7
+X-Gm-Gg: AYBFou3Noh+zkOfqzKSKKVmVtxLMb2RsFskeSZUJjrYOP3HmltrbgwO6fKzK9qII/Du
+	dU+Nb4WOhBbuvuHQdcr6kWGZ65ZliVEo0kwZ1+YcORg4StVk8ah5gngC859UnGNP0SfAZNVXZyi
+	lf0r7ZNVta6kKsoNVaUJD7VJ43h7Iv+kf+dn23VvCyHkENMU+LsOxPLxwzpvLDyISQ9EzoEw2K4
+	8kHUDUcj/Q5ZvYDQLPAhhLkP6ppP9CnfIP1bQPIJyFhKMbCJza8+EGdoDTUQDjXnBnBJTXRJrYJ
+	AVyv8ESa0zMdlAPwjoE6IL2jFXFbHwAWbXXIfgEUtG+k9N7DRgvPHZ7dI9R0n7SfW24nZ37Vh9W
+	OF90vdt/w4ty6b6qYMQoqHaftWvchO8xoAo+MJ+Y2DTWhqSCGLOJoWecl67OTy+h2Ubswir9YhD
+	JSEBu0aNpLYu9C85OSfsby8DlAAtMwMwwpPXPK+w92gfIJ0e33CEeYHSIv2yeHHaiJakew8qR4t
+	7KwkyuGHx7jMMI+hZUxovze4lsCv2UDzdeOw1hT/CVUxca4oVrJ8OYdTYXifoh/7z0JzDDXPdEW
+	7uGx4Jq+ACA=
+X-Received: by 2002:a05:600c:3acb:b0:49c:dcec:bd27 with SMTP id 5b1f17b1804b1-49e61987ecfmr3015785e9.8.1789064266810;
+        Thu, 10 Sep 2026 11:17:46 -0700 (PDT)
+Received: from localhost.localdomain ([41.90.145.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fd3bsm221063f8f.19.2026.09.10.11.17.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 11:17:45 -0700 (PDT)
+From: Kenneth Kabogo <kennethkabogo2@gmail.com>
+To: Alex Elder <elder@kernel.org>
+Cc: netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	Michal TOMA <mt@sicoop.com>
-Subject: [PATCH v2 0/3] drm/vmwgfx: Fix dma-buf import leaks and a crash on imported BOs
-Date: Thu, 10 Sep 2026 18:52:18 +0200
-Message-ID: <20260910165221.7558-1-michaltoma@sicoop.com>
-X-Mailer: git-send-email 2.55.0
+	Kenneth Kabogo <kennethkabogo2@gmail.com>
+Subject: [PATCH] net: ipa: validate QMI sender for modem-only server requests
+Date: Thu, 10 Sep 2026 21:17:37 +0300
+Message-ID: <20260910181737.55570-1-kennethkabogo2@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,219 +79,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16160885791526768937
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTE14sWrx7m374hSunvwVZVkMQdJT1m8+gokp34rQLFtzW5Sa9jZXRf5NOGq/bCeiagz5hrElxgUAK41vhINK3nmhgXCtyziNObQoKyzJSmxCRbl0Brel4OYibN24VzbQDnuWVjUN8aionwXI0KD1pTQ1JunSDCwlqaJVYkxSSgUQkzHTBjLz1EJvXjyQTvOEGv3kI2IRxE/Fp7/AKY32L/c5N1GtOCqWiOO11HYiErQKCalE2jMM2XBwQW4eESxdTAJwbtOCjlC4lUI0xUPF1i9HNBmA+zL4KJBuWlG996FWfIpSLqPSBKgZlg/lpvIP1Pt9c5kGg//TzRFS2XErl2gHkFjHnPn2g1966CtioNNZdj2LzMBZ/4+0Syk49sWWdwrx/o5xsb0X71XS0MihMaKRnSJfk1HtuegaK0Rb52IQghQS5EqJjhT4AjCuCorVEbCuj9RrYyFX5iF023QwIbJht71pOqA5B+5ar5MINwPqpCFPVC3VJ/dqiH9hElau29MIMio3egS/QtlmtRozbXGYJ5FZjykcgzH1EYaDCVoWntTGhJ6/cSjh7p8blxF9JoM3RDLhgGZLoVk0sEb/fAEUzwlsJwMlwcbTUVvMb2c5bBHwfoIowXw/wpZq0laediK/6XlN3xlbh+/r4BibpfcCK6V6CKbfggTshmUQhpvKg
-DKIM-Signature: a=rsa-sha256; bh=XsTgs84U0IAxOKk0L+IcUrkWh42l5P9yE0BWfIt9oqM=;
- c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789059144; v=1;
- b=kybPoW2M4UIgZJ2dapCIF4ihptGEldhOUI/Hngxx4Y7Otgnrrf7NK39s7hYzdrb0dh0dfOB0
- oVTWk9nF2ux6r+41AzsAEY0XJnF5+chOk0f5xJKMcL7sev4Ew+4YcVUzr1p8sHpYnHbok0eMHo9
- F3mOB9Fy3xd443dD7Sc+8Ozyg9gZdY+ULxQJAXeE8PV3eZqsR/f7Z/7uuuT5S1/Oy/bbcFu4ZKP
- hjR0keEihdIgKyw0NKrcINWegUyY+mjLJiwFYbJTayR04f+H1dkoQSlvO0hKeyyesykJZT5qGrH
- KR3H+qSx/TPw0Uvstt6TukogmX0/aEbelUGakPCq8P1dQ==
 
-From: Michal TOMA <mt@sicoop.com>
+The IPA driver's QMI server has two request handlers,
+ipa_server_indication_register() and ipa_server_driver_init_complete(),
+that are only ever legitimately sent by the paired modem. Neither checks
+the sender address (struct sockaddr_qrtr *sq) against ipa_qmi->modem_sq,
+which the driver already caches when the modem's QMI service appears in
+ipa_client_new_server().
 
-v1 was a single patch, "drm/vmwgfx: Release PRIME import in the BO
-destroy path":
+Both handlers set a readiness flag (indication_requested, uc_ready) and
+call ipa_qmi_ready(), which starts the modem netdev via ipa_modem_start()
+-> register_netdev() once both flags are set. A local process able to
+send QMI messages on the qrtr socket, other than the modem, can spoof
+both signals and drive ipa_qmi_ready() to completion before the modem
+has confirmed its endpoint configuration, bringing up the modem network
+interface out of sequence with real modem readiness. The realistic
+outcome is a data-path stall requiring a subsystem restart to recover.
+It is not a memory-safety issue.
 
-  https://lore.kernel.org/r/20260910142359.13716-1-michaltoma@sicoop.com
+On Android the qrtr socket is not reachable by untrusted apps (SELinux
+neverallow on qipcrtr_socket), so this is gated to privileged system
+components, hence the low severity. It is still a missing trust check on
+a cross-processor control interface.
 
-Please do not apply that one on its own. An automated review flagged an
-interaction with the existing TTM_TT_FLAG_EXTERNAL handling in
-vmw_ttm_map_dma(), and it turned out to be real: with v1 applied and
-nothing else, an unprivileged render node client can oops the kernel.
-That is what patch 1 of this series fixes, and it has to come first.
+Reject server requests whose sender does not match the cached modem
+address. modem_sq is populated before the modem sends these requests and
+is zeroed in ipa_server_bye(); a zeroed modem_sq does not match any real
+sender's address, so requests arriving during the teardown window are
+rejected without a separate check.
 
-  1/3 drm/vmwgfx: Don't map or free the exporter's sg_table for
-      imported BOs
-      Fixes: b32233acceff, Cc: stable # v6.9+
-  2/3 drm/vmwgfx: Release PRIME import in the BO destroy path
-      (v1, unchanged)
-      Fixes: b32233acceff, Cc: stable # v6.6+
-  3/3 drm/vmwgfx: Don't leak a GEM handle when referencing a surface
-      by fd
-      Fixes: d6667f0ddf46, Cc: stable # v6.11+
+Found by code inspection; no runtime proof-of-concept.
 
-Changes since v1:
- - new 1/3. Without it, 2/3 turns a silent leak into a NULL pointer
-   dereference.
- - new 3/3. It was written before v1 was posted but held back, since
-   the two fixes are independent.
- - 2/3 is byte for byte what was posted as v1.
+Signed-off-by: Kenneth Kabogo <kennethkabogo2@gmail.com>
+---
+Build-tested only (arm64 allmodconfig); I don't have IPA hardware to
+test at runtime.
 
-Why the order matters
----------------------
-For a TTM tt with TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points
-vsgt->sgt at the exporter's sg_table and then calls
-vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt: the inline table, which
-for an imported buffer is never populated. dma_map_sgtable() is called
-with orig_nents == 0, warns, and returns -EIO, and out_map_fail then
-calls sg_free_table() on the exporter's table, leaving sgl == NULL and
-orig_nents unchanged.
+This assumes modem_sq is always populated (via ipa_client_new_server(),
+the NEW_SERVER path) before the modem sends INDICATION_REGISTER /
+DRIVER_INIT_COMPLETE. That ordering looks right from the code, but QMI
+delivery is asynchronous - if the modem's request can legitimately
+arrive before we've processed its NEW_SERVER event, this would wrongly
+drop it, and the check should instead only be enforced when modem_sq is
+non-zero. Happy to respin that way if you prefer.
 
-Today that only corrupts and leaks, because vmwgfx never releases a
-PRIME import, so nothing ever unmaps the attachment. 2/3 fixes exactly
-that leak, and in doing so makes the exporter unmap the table that
-vmwgfx already freed:
+ drivers/net/ipa/ipa_qmi.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-  dma_unmap_sgtable(dev, sg with sgl == NULL, orig_nents == N)
-    dma_direct_unmap_sg() -> for_each_sg(NULL, sg, N, i)
-
-which dereferences NULL, in the TTM delayed-delete worker.
-
-1/3 is worth having on its own: binding an imported dma-buf has never
-worked, it always failed with -EIO and damaged the exporter's table on
-the way out. With 1/3 it works.
-
-Reachability, and how this was reproduced
------------------------------------------
-Three ioctls, all DRM_RENDER_ALLOW, as an ordinary user: import a
-dma-buf with DRM_IOCTL_PRIME_FD_TO_HANDLE (a udmabuf here), create a
-guest-backed surface on it with DRM_VMW_GB_SURFACE_CREATE_EXT
-(base.buffer_handle = the imported handle), then submit
-SVGA_3D_CMD_UPDATE_GB_SURFACE for that surface with DRM_VMW_EXECBUF.
-Validation moves the buffer to VMW_BO_DOMAIN_MOB, which binds the tt.
-
-Without 1/3, with 2/3 applied:
-
-  WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
-   dma_map_sgtable+0x1d/0x30
-   vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
-   vmw_move+0x1cd/0x2c0 [vmwgfx]
-   ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
-   ttm_bo_validate+0xd2/0x1d0 [ttm]
-   vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
-   vmw_execbuf_process+0x852/0x1330 [vmwgfx]
-   vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
-
-  vmwgfx 0000:00:02.0: [drm] VSG table map failed!
-
-and then, when the buffer is released:
-
-  BUG: kernel NULL pointer dereference, address: 000000000000001c
-  Workqueue: ttm ttm_bo_delayed_delete [ttm]
-  RIP: 0010:dma_direct_unmap_sg+0x62/0x200
-   unmap_udmabuf+0x24/0x40
-   dma_buf_unmap_attachment_unlocked+0x46/0x70
-   drm_prime_gem_destroy+0x28/0x50
-   vmw_bo_free+0x15b/0x1f0 [vmwgfx]
-
-The closing process exits normally, since this runs in the delete
-worker; the worker dies holding TTM and dma-resv locks and the machine
-wedges shortly afterwards.
-
-With the full series, the same program logs nothing, the execbuf is
-accepted, and the buffer is released with no entry left in
-/sys/kernel/debug/dma_buf/bufinfo.
-
-Test results
-------------
-Kernel 7.2.3 on the guest below, comparing modules built from its own
-vmwgfx sources, which are identical to drm-misc-fixes for the files
-involved.
-
-  import + surface + execbuf + release, as above:
-    2/3 only:      WARN, "VSG table map failed!", execbuf -EIO,
-                   then an oops in ttm_bo_delayed_delete and a hang
-    1/3 + 2/3 + 3/3: no WARN, execbuf accepted, buffer released, no
-                   oops, kernel taint unchanged
-
-  PRIME_FD_TO_HANDLE reproducer, 8 x 4 MiB udmabufs (2/3):
-    stock:  all 8 remain, count 1, still attached
-    series: none remain, with 3D acceleration on and off
-
-  DRM_VMW_GB_SURFACE_REF_EXT(PRIME) from a second render file (3/3),
-  each checked while that file was still open:
-    udmabuf fd, 8 calls:
-      without 3/3: -EINVAL, 8 imports held (count 3), 8 WARNs
-      with 3/3:    -EINVAL, nothing imported, no WARN
-    dumb buffer fd, 4 calls:
-      without 3/3: -EINVAL, 4 stray GEM handles, 4 WARNs
-      with 3/3:    -EINVAL, no stray handle, no WARN
-    buffer exported before a surface was created on it, 4 calls
-    (reaches the changed function and succeeds):
-      without 3/3: surface returned, 4 stray GEM handles
-      with 3/3:    surface returned, no stray handle
-    buffer created together with its surface (a TTM prime export that
-    never reaches the changed function), 4 calls:
-      unchanged either way
-
-  KWin 6.7.4, 5-minute replay of a terminal workload, 3D on:
-    2/3 only:  udmabufs 4 -> 20 (140 MiB), never released, WARNs
-    2/3 + 3/3: udmabufs 4 -> 6 -> 4, no pinned pages, no WARN
-  (not re-run with 1/3 in place; 1/3 does not touch that path)
-
-Test environment
-----------------
-- VirtualBox 7.2 (Guest Additions 7.2.16), VMSVGA adapter, 4 vCPUs,
-  3.8 GiB RAM. Tested with 3D acceleration on (vmwgfx shader model
-  SM_5) and off (Legacy). DMA map mode is vmw_dma_map_populate.
-- openSUSE Tumbleweed kernel 7.2.3-1-default. The vmwgfx files
-  involved are byte-identical to drm-misc-fixes 4600b4d1a9ee. The test
-  modules were built out of tree from those sources, which adds the E
-  taint.
-- The kernel was already tainted W+O before any test: two boot-time
-  warnings unrelated to vmwgfx (arch/x86/mm/pat/set_memory.c:727 and
-  kernel/rcu/tree_plugin.h:823), plus VirtualBox's out-of-tree
-  vboxguest/vboxsf.
-- KDE Plasma / KWin 6.7.4, Mesa 26.2.1.
-- W=1 build of drivers/gpu/drm/vmwgfx/ on drm-misc-fixes: no warnings
-  before or after. checkpatch.pl --strict is clean on all three.
-
-Not tested
-----------
-- VMware Workstation or ESXi hosts; only VirtualBox VMSVGA.
-- A full kernel built from drm-misc-fixes; only the 7.2.3 kernel with
-  modules built from identical vmwgfx sources.
-- Kernels with KASAN, lockdep or kmemleak enabled. IGT was not run.
-- Stable backports were not built. 3/3 uses
-  drm_gem_is_prime_exported_dma_buf(), added in v6.17 (660cd44659a0);
-  older trees carrying d6667f0ddf46 would need that helper as well.
-
-Not fixed here
---------------
-The review of v1 also pointed out that vmw_prime_import_sg_table()
-returns NULL rather than an ERR_PTR when vmw_bo_create() fails, and
-that drm_gem_prime_import_dev() only checks IS_ERR() before
-dereferencing the result. That is real, but reaching it needs a buffer
-object allocation failure; I have not managed to trigger it, so I am
-not posting an untested patch for it here.
-
-Classification
---------------
-Per Documentation/process/threat-model.rst I am treating these as
-regular bugs. The leaks are bounded by the importing process's memory
-cgroup, and the crash needs 2/3 applied without 1/3, which exists only
-in this posting and in the v1 mail.
-
-Workaround for the leaks
-------------------------
-KWIN_DISABLE_UDMABUF_IMPORT=1 in the session environment makes KWin 6.7
-use its copy path, which avoids the imports entirely.
-
-Tool use
---------
-I found the problem because my VM repeatedly ran out of memory and had
-to be rebooted. An LLM coding assistant (Claude, Anthropic) did the
-diagnostics that traced it back to this code, wrote these patches and
-their changelogs, and built the reproducers and the test tooling used
-to confirm the results above, including the crash that prompted 1/3.
-
-Michal TOMA (3):
-  drm/vmwgfx: Don't map or free the exporter's sg_table for imported BOs
-  drm/vmwgfx: Release PRIME import in the BO destroy path
-  drm/vmwgfx: Don't leak a GEM handle when referencing a surface by fd
-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c         |  3 ++
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c    | 48 +++++++++++++---------
- drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c | 20 +++++++--
- 3 files changed, 47 insertions(+), 24 deletions(-)
-
-
-base-commit: 4600b4d1a9ee730d03ddac5ce409cd2730ce8c0c
+diff --git a/drivers/net/ipa/ipa_qmi.c b/drivers/net/ipa/ipa_qmi.c
+index d771f3a71..a7cc98b27 100644
+--- a/drivers/net/ipa/ipa_qmi.c
++++ b/drivers/net/ipa/ipa_qmi.c
+@@ -168,6 +168,14 @@ static const struct qmi_ops ipa_server_ops = {
+ 	.bye		= ipa_server_bye,
+ };
+ 
++/* True if a QMI request arrived from the modem we are paired with */
++static bool ipa_server_from_modem(const struct ipa_qmi *ipa_qmi,
++				  const struct sockaddr_qrtr *sq)
++{
++	return sq->sq_node == ipa_qmi->modem_sq.sq_node &&
++	       sq->sq_port == ipa_qmi->modem_sq.sq_port;
++}
++
+ /* Callback function to handle an INDICATION_REGISTER request message from the
+  * modem.  This informs the AP that the modem is now ready to receive the
+  * INIT_COMPLETE indication message.
+@@ -185,6 +193,13 @@ static void ipa_server_indication_register(struct qmi_handle *qmi,
+ 	ipa_qmi = container_of(qmi, struct ipa_qmi, server_handle);
+ 	ipa = container_of(ipa_qmi, struct ipa, qmi);
+ 
++	if (!ipa_server_from_modem(ipa_qmi, sq)) {
++		dev_warn_ratelimited(ipa->dev,
++				     "ignoring QMI request from non-modem sender %u:%u\n",
++				     sq->sq_node, sq->sq_port);
++		return;
++	}
++
+ 	rsp.rsp.result = QMI_RESULT_SUCCESS_V01;
+ 	rsp.rsp.error = QMI_ERR_NONE_V01;
+ 
+@@ -214,6 +229,13 @@ static void ipa_server_driver_init_complete(struct qmi_handle *qmi,
+ 	ipa_qmi = container_of(qmi, struct ipa_qmi, server_handle);
+ 	ipa = container_of(ipa_qmi, struct ipa, qmi);
+ 
++	if (!ipa_server_from_modem(ipa_qmi, sq)) {
++		dev_warn_ratelimited(ipa->dev,
++				     "ignoring QMI request from non-modem sender %u:%u\n",
++				     sq->sq_node, sq->sq_port);
++		return;
++	}
++
+ 	rsp.rsp.result = QMI_RESULT_SUCCESS_V01;
+ 	rsp.rsp.error = QMI_ERR_NONE_V01;
+ 
 -- 
-2.55.0
+2.50.1 (Apple Git-155)
 
