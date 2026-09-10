@@ -1,286 +1,230 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC62A3AB29D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014395; cv=none; b=N2ET8R7IluSCB3pS5K3TzEEo6NR8/8u6dBeMDIqwdeDJKEIITF0zhE3cwd1566nauKmOssW/Hiu3Hw9MY4Pagm4rpvubcwXUW5XIFDyaj/hTHNyMnaSr1zJH1Rm8G43zGdwozIhATUpRlVgi6kiKqFoKUBQInAPsgkm5Xms5804=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789014395; c=relaxed/simple;
-	bh=6nJbo+/WV85aYuUhqCqWM8H58kVaynxLOnyOjDLIdpo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=GMYjivb7ziHIqKljvk79ln19AFhEl+IOzgO/5zhnWta3bcA3DbpgiTIWDdSlR4iyNKBXJmWJGUi8rs9nW4Ic3wTFaxDxbDa3yp2otmFJvAOnOtxsrYvkm9lAo/G0HcCF1eMcGTOS3b9TpTlUCSz6g3PxyjPYt+wCt3snadTtG1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b1bebb3ae8so1879387eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:26:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F393955D6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789014469; cv=pass; b=FQIDFWL2LnfApA/4W/fbYC8NPQQSTdXCC9i1IuaVy0zg9fh0ltjFnxsOdkKWbAa5kiiV3OM8oPg7nklf+BhgFu7yGZNJ5JntpHb/PC/2jXcgRtaQf3v+G034xISndi4tiCv3Z6ZtFV/JZAhChYZTgsu5YqvV96wtJosVW34AlMg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789014469; c=relaxed/simple;
+	bh=MYU9OpzBZLsQzkXTlej2bdd+H+Auq3i+G/TlNIgBvxg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kaOyCC/fBvSo1YyrKs4ziLYJd18kOm+TF3g95qmTN5vCFsJ1CeAK1mlnrbugJpPW2aM2kvf8Vbo+0CxiMdPvJ4bG1R4+1W/YmAVjESjKAx1/HJXVvrTy5J44KcEffnrFqgxkplWKxZ8BhtPcy1vnI+0UOEKm85eKIc2cfXp+5AQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WiWlEfyW; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WiWlEfyW"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso10706185e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:27:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789014464; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fj9nEgi6jrirnFKr9XAok0XHJqdkDFpv4ywrx9BDcVefWSiG9wZkJkV/d3aYmNoWyj
+         7WV/nfkwfsqYpbfGqn9AGkyoJfLn5Mg720dYCWKO9BitHY/oHwvd7DAahiypqsZUd0OB
+         rcW6LqWLWzm19ej1mmMhqo9HWH6gM1nVgyAzi0wfoDCoLZKo/L64IizFLnt49Vr532qD
+         lX+g1aHthAJ0HOGXydRvuT60k76rbJicBZeznBj3Svyq93gK8QtXS13aQcgFbNG9BnnA
+         qF/wK8MBsuPnadbZfyymqsWeuUq9yOc6MGD+7ByM9MFG9A/J3yBrceGRZqZw+Bu2A/8x
+         npsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Tmt580Wcn8Bj1vHX81UjDGhgKre8nawir61F+yXmA4Y=;
+        fh=q2sn3OpacaCtN0YuQ9IWmbhZgO1qPjGRt1h6peujIws=;
+        b=D9iqC6YpVt9XFh8NYHjIWx7NLVT5HXyEHLa6gikOWDalL7NT/wniKkHLqwuusdWChc
+         R1VS1mzfNvzhzXWe1Qe/XBKSwXSV2TC4BLgCtoEOaTvbbNMsAfeRBcGVvEmUBVL6nD5i
+         lvXi7jY8ewzwGdT4Rc4JjXDbAgAGph2R734K6U6lt5srTTIYzs0ru88RLVuio2+5/3l8
+         zecEt7/xzzielv2psHFQZihumLuwYp5TX0MBf8Cb27PS1X+2pG3NQsbAXM1Rs5ymUl28
+         Z696VcZJs206Z51gdr81zNgA5+fjj36d+HlCqYw102XdIIhqioBnsf7+uVGmQMYQud6q
+         NKjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789014464; x=1789619264; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tmt580Wcn8Bj1vHX81UjDGhgKre8nawir61F+yXmA4Y=;
+        b=WiWlEfyWxuGErSH0HUXX/lBKE7MB+JX2SBCZu+ONUddVoT6VNGNPOqNIa09ov8r/oT
+         CYwTtXr5jqGjNaL1zAx16s92F3bikzeTsQ4PrMvKdV86sgliO6zBvUa0+a89kY94alIq
+         SawSehRpz9mFgBfwGTT6l3pdfnBu7l33lX7ImT90+XRensBJiMgG15KP5nB5u85f/AyD
+         tglY1/2l4q6gleVUK6N62qZszGTeeYp+ATqvmHYH030KIomwg9ToU489h06Zd95gftiy
+         RLbdPZivkuXvaUCaiFeydCLpIOJmkaDVfR1vBSX5TyIMjugPqCVulA2UMX1GC4PcCM54
+         VTWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789014392; x=1789619192;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20251104; t=1789014464; x=1789619264;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bGVt+gF9GRzPizZo6YMgPCn1yPvcK2inFU5L1aSoS5M=;
-        b=XPfyNrJ9PUvG+xs9lxFBS2+UqnAC2ZIeJ1186V4Y+ObkCNtdlz5BY2ulJK9C+BzXL4
-         K2pDuJ54Syb3eckznDge3O/gOKizBV6qdP4XoXi6u0/qA3+7cZya1v3q2SJAuTt8iEP7
-         fUNE+qFAuB8FzlP+rOlIBnGiwebj58HriaCqcF36p9Y4FCyM0EC22bR86dgdbZ2Ar7at
-         4lRUfedzdc9RTjarVaVAh1pIYVPxUaBvMLPj1CM0ANdpZ2YWY2s13fhExxmCXfrcB9nI
-         9c/Eu3XAYDF4+jaHdKpQO8f9SxtuLjNjX+e7y72qVJ3qpjpbNjC6rwfTDeyOK8Jv4YLZ
-         zTWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTMJ11E0Swe8lhTZx8f88WWoXqggciQEpL+AxwOrNYD2TtO3HANRBB1sheDwI2tgEJ9lGu6y9Ii1/t0CI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnTWImMtaVUTtSiTfLDrgyKbrpkF9X2wBmLzyHv+NR3HXE0XWM
-	/8Ak3vBZJ2aH7xuqtrIL1xQjzw1+dw95l9WXeIpe+S/+ZXgr5Z2oufgQNnhVxbMdlLciqBrS0gF
-	1/wDlxSzWoHhJM2BHyJFHUgSKRMUhxhW+xT8phgiEk48ubwh3O8zVHD3YYjc=
+        bh=Tmt580Wcn8Bj1vHX81UjDGhgKre8nawir61F+yXmA4Y=;
+        b=NtvAkQpMI+XvBBjHAMlCY4my/tfRJL7/3XueuTw9D04J83ttxp6NUyyIgML/tqExo4
+         bz1xgAW2e7eon1YWNdFrFeDIKdthD2MRPP3/3cpd1iD7j1RwM46RQzQgC8kWnaMRQIto
+         xmAK2qDLWEUeGF7EkrwloPM4o8wPKPvxEWRZLElBln946juRP/DcYBOmQrTuycWJCa9U
+         QZaCRQoByqiPM6+Ky5pXYMcOkUq8Zhs2q+YDexvPt+1ur1jQwNtB4t5TSwt1BwPiG2mE
+         Ig+umxjyGfY8KBDs9OUB++itUuV+QpjinWeNLMm0zR8AIehO8eKCVmE/XECfSn1L3ejy
+         ivEQ==
+X-Forwarded-Encrypted: i=1; AKwUvByObXLimhxrMTy7+evLRVHwf5U9ZaSz9JGSRNCJTstRQ+yH75VCufyAgkfxxRk9V31dJDRNmugFXvNwCBY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG+vm3WJfUSfjTwFFRwSMRWPWVCPAPTRWWkgirdGXJCnLFnvKH
+	H+7pK/AVjqaXIuVM/XDh3myaaFIuBWHHLEb28DF9pWId/xvvLMU2DbXuZ4880ZqTGNsLXVBj9zz
+	XfbfJk//pNq2YykvE/OKFNg6OLuQYYP1lb8pOBvGK8g==
+X-Gm-Gg: AYBFou0HKR3YHa2rpkZFtJa6AGAUfDtTQibKfuI9Jqz1mep6HyiAF/MfSEkZpqO+dFJ
+	sNDyEoJRgSCdFSV/mLa4t63qimam4JqsxoSP/KFHaMJP5SeUwvP9vpQ26s9KpcUg7qiHy2zwdtx
+	L2Fmlgtl3nEaXDVRrxfn9uf6ymE4EqyzIJiJgfODDs31g/GL4isHRkUwRt8k82vPJhXgMhjdCsf
+	iGKzRm7SZ4zn6xU5XKJFMF7BVe6eCrmN2dE/ws+MKX4R3cpjXaQwQ0Uy7k0u50HpZy3djooHm6A
+	7hRY1nABgUhKekdwpo53IFf6lwV6PeMaD6nVIzCzVd6xvCJPIY8yF/JT/iiVf+u7jmRVfZjbcSc
+	py9vVwPtVWo5S1g==
+X-Received: by 2002:a05:600c:5307:b0:49c:f617:7cf with SMTP id
+ 5b1f17b1804b1-49d25871d73mr98713615e9.0.1789014463535; Wed, 09 Sep 2026
+ 21:27:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2912:b0:6b3:b9d1:f629 with SMTP id
- 006d021491bc7-6bee5e98160mr5971530eaf.31.1789014392736; Wed, 09 Sep 2026
- 21:26:32 -0700 (PDT)
-Date: Wed, 09 Sep 2026 21:26:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
-Subject: [syzbot] [autofs?] possible deadlock in anon_pipe_prefill_and_lock
-From: syzbot <syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com>
-To: autofs@vger.kernel.org, linux-kernel@vger.kernel.org, raven@themaw.net, 
-	syzkaller-bugs@googlegroups.com
+References: <cb71412b-a688-4c70-9365-3f6bd40c9244@paulmck-laptop>
+ <20260909024515.2429893-1-kunwu.chan@gmail.com> <8d5c8d6f-6788-43bc-b5e3-c8bca8e984be@paulmck-laptop>
+ <CAN_Opa-FsrNsQM5WPCGBkQ43ECps36e_KyTzG9niEnm6KpdBEw@mail.gmail.com> <f093346c-4eaa-4faf-9a18-f1ec43247290@paulmck-laptop>
+In-Reply-To: <f093346c-4eaa-4faf-9a18-f1ec43247290@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 10 Sep 2026 12:27:31 +0800
+X-Gm-Features: AcwNN1XhvE57L4UNELOYOl-j5GVVFtVed7RTvIvW9yPwvKk4l63MZgA59RSJkHY
+Message-ID: <CAN_Opa8OybZ6Ea9LCKPGN3Ntx-ObJ+owTawnP_vvgFzqQe=s8Q@mail.gmail.com>
+Subject: Re: [PATCH 07/13] srcutree: Don't transition atomic SRCU to big in srcu_gp_end()
+To: paulmck@kernel.org
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Thu, Sep 10, 2026 at 11:46=E2=80=AFAM Paul E. McKenney <paulmck@kernel.o=
+rg> wrote:
+>
+> On Thu, Sep 10, 2026 at 11:18:20AM +0800, KunWu Chan wrote:
+> > On Thu, Sep 10, 2026 at 8:13=E2=80=AFAM Paul E. McKenney <paulmck@kerne=
+l.org> wrote:
+> > >
+> > > On Wed, Sep 09, 2026 at 10:45:14AM +0800, Kunwu Chan wrote:
+> > > > On Tue, 8 Sep 2026 16:38:19 -0700 "Paul E. McKenney" <paulmck@kerne=
+l.org> wrote:
+> > > >
+> > > > > On Mon, Sep 07, 2026 at 03:58:23PM +0800, Kunwu Chan wrote:
+> > > > > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > > > > >
+> > > > > > The transition-to-big code path in srcu_gp_end() calls
+> > > > > > init_srcu_struct_nodes() with GFP_KERNEL, which is illegal in t=
+he
+> > > > > > atomic context reachable from synchronize_srcu_atomic().  Atomi=
+c SRCU
+> > > > > > has no use for the srcu_node combining tree: it has neither cal=
+lbacks
+> > > > > > nor srcu_barrier() operations, and its grace periods are serial=
+ized
+> > > > > > by ->srcu_atomic_gp_flag instead.
+> > > > > >
+> > > > > > Skip this transition entirely for atomic SRCU, which is also de=
+fense
+> > > > > > in depth against any path that might wrongly set ->srcu_size_st=
+ate for
+> > > > > > an atomic srcu_struct.
+> > > > > >
+> > > > > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > > > >
+> > > > > Again, given that we have this commit, is this patch needed?
+> > > > >
+> > > > > 4e01d5320a2f ("srcutree: Suppress to-big transition for atomic SR=
+CU")
+> > > > >
+> > > > > And again, if so, please tell me what I am missing.
+> > > >
+> > > > Yes, this is a separate transition path. That commit suppresses the
+> > > > initialization-time transition, while this patch prevents the trans=
+ition
+> > > > from srcu_gp_end(), which can otherwise call
+> > > > init_srcu_struct_nodes(..., GFP_KERNEL) for an atomic SRCU.
+> > > >
+> > > > So this is defense in depth for the atomic path.
+> > >
+> > > Fair point.  But is there any additional pathway other than the
+> > > SRCU_SIZING_IS_TORTURE() check at the end of srcu_torture_stats_print=
+()?
+> >
+> > I checked all transition-to-big pathways for atomic SRCU.
+> > Atomic SRCU can reach srcu_gp_end(), but its srcu_size_state remains
+> > SRCU_SIZE_SMALL,
+> > so the transition condition there cannot be satisfied.
+> >
+> > The contention path is also unreachable:
+> > synchronize_srcu_atomic() calls srcu_gp_start() directly and never
+> > goes through srcu_gp_start_if_needed().
+> > The other callers of that path reject atomic SRCU.
+> >
+> > The only remaining explicit transition is SRCU_SIZING_IS_TORTURE() in
+> > srcu_torture_stats_print(),
+> > which currently lacks an atomic exclusion. I'll send a follow-up patch
+> > to add a srcu_reader_flavor check there.
+>
+> Very good!
+>
+> > So I agree the srcu_gp_end() patch can be dropped.
+>
+> It might not hurt to have a WARN_ON_ONCE() there, just in case someone
+> implements another pathway.
 
-syzbot found the following issue on:
+Thanks, Paul. I'll send a v2 of this patch separately, dropping
+this patch change and adding the WARN_ON_ONCE() before the
+transition check:
++ WARN_ON_ONCE(ssp->srcu_reader_flavor =3D=3D SRCU_READ_FLAVOR_ATOMIC &&
+    ss_state !=3D SRCU_SIZE_SMALL);
 
-HEAD commit:    1fc5a74b108f Merge tag 'kmalloc_obj-v7.3-rc2' of git://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17aeb2f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=002fb7b2d0bc53bf7e75
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+if (ss_state !=3D SRCU_SIZE_SMALL &&
+   ss_state !=3D SRCU_SIZE_BIG) { ... ....
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Thanks,
+Kunwu
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/f5473bcef69a/disk-1fc5a74b.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fc94ec0cede2/vmlinux-1fc5a74b.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/1316ecaf7adb/bzImage-1fc5a74b.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Tainted: G             L     
-------------------------------------------------------
-syz.3.511/7847 is trying to acquire lock:
-ffff88802c68cc60 (&pipe->mutex){+.+.}-{4:4}, at: anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
-
-but task is already holding lock:
-ffff88807d378138 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_write fs/autofs/waitq.c:55 [inline]
-ffff88807d378138 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (&sbi->pipe_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       autofs_write fs/autofs/waitq.c:55 [inline]
-       autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
-       autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
-       autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
-       autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
-       follow_automount fs/namei.c:1565 [inline]
-       __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
-       traverse_mounts fs/namei.c:1647 [inline]
-       handle_mounts fs/namei.c:1749 [inline]
-       step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
-       step_into fs/namei.c:2152 [inline]
-       walk_component fs/namei.c:2288 [inline]
-       lookup_last fs/namei.c:2789 [inline]
-       path_lookupat+0x58b/0xc40 fs/namei.c:2813
-       filename_lookup+0x202/0x590 fs/namei.c:2842
-       kern_path+0x37/0x50 fs/namei.c:3036
-       lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
-       resume_store+0x1d6/0x460 kernel/power/hibernate.c:1278
-       kobj_attr_store+0x58/0x80 lib/kobject.c:842
-       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x6af/0x1050 fs/read_write.c:687
-       ksys_write+0x12a/0x250 fs/read_write.c:739
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (&of->mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
-       iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
-       do_splice_from fs/splice.c:936 [inline]
-       do_splice+0x109c/0x1fa0 fs/splice.c:1349
-       __do_splice+0x33b/0x370 fs/splice.c:1431
-       __do_sys_splice fs/splice.c:1634 [inline]
-       __se_sys_splice fs/splice.c:1616 [inline]
-       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (&pipe->mutex){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
-       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
-       validate_chain kernel/locking/lockdep.c:3924 [inline]
-       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
-       anon_pipe_write+0x164/0x1b50 fs/pipe.c:534
-       __kernel_write_iter+0x6bb/0x930 fs/read_write.c:621
-       __kernel_write+0xf6/0x140 fs/read_write.c:641
-       autofs_write fs/autofs/waitq.c:57 [inline]
-       autofs_notify_daemon+0x50d/0xd90 fs/autofs/waitq.c:164
-       autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
-       autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
-       autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
-       follow_automount fs/namei.c:1565 [inline]
-       __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
-       traverse_mounts fs/namei.c:1647 [inline]
-       handle_mounts fs/namei.c:1749 [inline]
-       step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
-       step_into fs/namei.c:2152 [inline]
-       walk_component fs/namei.c:2288 [inline]
-       lookup_last fs/namei.c:2789 [inline]
-       path_lookupat+0x58b/0xc40 fs/namei.c:2813
-       filename_lookup+0x202/0x590 fs/namei.c:2842
-       kern_path+0x37/0x50 fs/namei.c:3036
-       lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
-       resume_store+0x1d6/0x460 kernel/power/hibernate.c:1278
-       kobj_attr_store+0x58/0x80 lib/kobject.c:842
-       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x6af/0x1050 fs/read_write.c:687
-       ksys_write+0x12a/0x250 fs/read_write.c:739
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &pipe->mutex --> &of->mutex --> &sbi->pipe_mutex
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&sbi->pipe_mutex);
-                               lock(&of->mutex);
-                               lock(&sbi->pipe_mutex);
-  lock(&pipe->mutex);
-
- *** DEADLOCK ***
-
-locks held by syz.3.511/7847: 5, last CPU#0:
- #0: ffff88807334f430 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
- #1: ffff8880339b4460 (sb_writers#8){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
- #2: ffff888056438c80 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
- #3: ffff888020ac5f08 (kn->active#71){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
- #3: ffff888020ac5f08 (kn->active#71){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x332/0x5f0 fs/kernfs/file.c:337
- #4: ffff88807d378138 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_write fs/autofs/waitq.c:55 [inline]
- #4: ffff88807d378138 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 7847 Comm: syz.3.511 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
- check_prevs_add kernel/locking/lockdep.c:3300 [inline]
- validate_chain kernel/locking/lockdep.c:3924 [inline]
- __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
- lock_acquire kernel/locking/lockdep.c:5908 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
- anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
- anon_pipe_write+0x164/0x1b50 fs/pipe.c:534
- __kernel_write_iter+0x6bb/0x930 fs/read_write.c:621
- __kernel_write+0xf6/0x140 fs/read_write.c:641
- autofs_write fs/autofs/waitq.c:57 [inline]
- autofs_notify_daemon+0x50d/0xd90 fs/autofs/waitq.c:164
- autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
- autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
- autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
- follow_automount fs/namei.c:1565 [inline]
- __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
- traverse_mounts fs/namei.c:1647 [inline]
- handle_mounts fs/namei.c:1749 [inline]
- step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
- step_into fs/namei.c:2152 [inline]
- walk_component fs/namei.c:2288 [inline]
- lookup_last fs/namei.c:2789 [inline]
- path_lookupat+0x58b/0xc40 fs/namei.c:2813
- filename_lookup+0x202/0x590 fs/namei.c:2842
- kern_path+0x37/0x50 fs/namei.c:3036
- lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
- resume_store+0x1d6/0x460 kernel/power/hibernate.c:1278
- kobj_attr_store+0x58/0x80 lib/kobject.c:842
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7eff3b99e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007eff3c78c028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007eff3bc25fa0 RCX: 00007eff3b99e159
-RDX: 0000000000000012 RSI: 0000200000000040 RDI: 0000000000000008
-RBP: 00007eff3ba35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007eff3bc26038 R14: 00007eff3bc25fa0 R15: 00007ffdcf0d0ce8
- </TASK>
-PM: Image not found (code -6)
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+>
+>                                                         Thanx, Paul
+>
+> > Thanks,
+> > Kunwu
+> >
+> > >
+> > >                                                         Thanx, Paul
+> > >
+> > > > Thanks,
+> > > > KunWu
+> > > >
+> > > > >
+> > > > >                                                     Thanx, Paul
+> > > > >
+> > > > > > ---
+> > > > > >  kernel/rcu/srcutree.c | 5 +++--
+> > > > > >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > > > > >
+> > > > > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> > > > > > index 01f224a56b41..74acd5645d4c 100644
+> > > > > > --- a/kernel/rcu/srcutree.c
+> > > > > > +++ b/kernel/rcu/srcutree.c
+> > > > > > @@ -1074,8 +1074,9 @@ static void srcu_gp_end(struct srcu_struc=
+t *ssp, bool is_atomic)
+> > > > > >           raw_spin_unlock_irq_rcu_node(sup);
+> > > > > >   }
+> > > > > >
+> > > > > > - /* Transition to big if needed. */
+> > > > > > - if (ss_state !=3D SRCU_SIZE_SMALL && ss_state !=3D SRCU_SIZE_=
+BIG) {
+> > > > > > + /* Transition to big if needed, but never for atomic SRCU. */
+> > > > > > + if (!is_atomic && ss_state !=3D SRCU_SIZE_SMALL &&
+> > > > > > +     ss_state !=3D SRCU_SIZE_BIG) {
+> > > > > >           if (ss_state =3D=3D SRCU_SIZE_ALLOC)
+> > > > > >                   init_srcu_struct_nodes(ssp, GFP_KERNEL);
+> > > > > >           else
+> > > > > > --
+> > > > > > 2.43.0
+> > > > > >
+> > > > >
+> > > >
+> > > > Sent using hkml (https://github.com/sjp38/hackermail)
