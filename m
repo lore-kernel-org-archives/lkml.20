@@ -1,81 +1,88 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013000.outbound.protection.outlook.com [40.107.201.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0B3568FA7;
-	Thu, 10 Sep 2026 19:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067133; cv=fail; b=TMtbth2jYntKtqt7waTmRfXJFZnSp8bzaVTYCoo4Msv+vfWZQyT4jmdTLJgsW0vrPbXtylrXSSnFwY0z9E4CncrD891ShH+93nImFZshd7FgMjAfiW7J5v5inWBTzzi3FbfvyYruALbVLSayIG26Vewogn3l2wGK8WgkYjol3vA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067133; c=relaxed/simple;
-	bh=j6ZWkAhaWpl5Wvfvw5PdFy42tR2wYIrAkGaqLbpAZlg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=W7FClOsh2Degvgn7+JmaNkABKC64CRF15zF9RZr+uCI2xOH+cPBR3U9jdNQ+/ioayjF0xWiTd/vj4LCLuk8Z3BXD1a4mUGLimWct/7FcSRx2wHb0rPTJyxFhyOiIzdbfIbcXZ1yKH3nmLh4GZ6n3wp4Io0J2nWOBWBI2DDI2zoM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dYd1Xm+s; arc=fail smtp.client-ip=40.107.201.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7604E66B8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789067142; cv=none; b=R7dNSyygYGdK/HlfP7DgIQLWzoVH7SB7ct52FHffoJIIEsBWvrCwgHlzohztf4xNMufV3D8RO9Htl3q4ep43HQzCd6Vaq6RDn8MGUP2pbmheo7WM9tW/KfXIlY+8PHkAxSqqZlUZg48PVrBunu0osdiuJPuZrdx3S3tsNf0c/2k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789067142; c=relaxed/simple;
+	bh=BrRosa09qPfnnT8wFRJjyDdW1mX7VGPRwUOLAULnwBw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=iQGvI3gPG6i9OF/udgiucRHXVqY4wyMot51fmDVb/n3VhjuURIeyRIGtSTCW7FoHGNlIauzgIteGmSbZxtruA/EWZkYedhFpGBf4uCDWU29Y5D13j2KbqFjGBVPhrG5dmrcJE2U0quAQWWLH+svaTlcgfV4e7mVZ+wu2I9DGfwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbNpHyg7; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dYd1Xm+s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bEBjM8duFpSRX3x/HtI5GqLbKvF9v+wzufJyAA7QIfcOj1wU5FVY/kMidaHY/IemiaAuUv7QCTNVKRkingFq9sm6kdpNLL882+5NxtKG74KrDin0g+GyqS1uzol7u5055kZQHzt1q755Zdjb4J3GdIxy04qZIMMUg6xDqK5P+6+7F3d483KuUPwCIl8ySmyD5+LU6yHz24maUfNRf3SUdHxq/wEOslSJhvmug8IIeFTA8fguJb0PXOWOEAqEm/M0ffRCKfOj2zqtVWxtc3KybfRcPIyjHSfv/N3pBjJaz9vIkhDpol2RNK5feMScP+v0CXgVc6M44GseZv7P90uPeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HXcEEB/rWlVlM/YCXOy7QLZ2sjE2sbD1MRfMg9Ll+uk=;
- b=L9lcad2MWrca5Lf5kjroaSDBTsxyOJSa0sesz1fuQeq1cXG6kKmBY9Y6YXJ4HFJGf4ovkZaeTm2x4+FmqyUz4ID9PMtfRgNT8A0vsRp0yBM4mNwliC1TJQ6cXSarY049zd2KMPVLDFHy/aBEEBuKVXv4U/dA4n8UaJbGDn342RDiUimCOE2H1fuzzEnu07Q2rU8GEka5/VcqYn+aVPYhHky23DM2L+M9/0De6U66u8cX0ybvahM6EIbX0HjJZZaRrsKqeavkcU9hHhFhk23l8PLLMrGPQLOoHcZmgsPXEgfDg21S9Oa0cnKwTQa77KAvNaArWQE9Y3Cl7yvsnKsIKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXcEEB/rWlVlM/YCXOy7QLZ2sjE2sbD1MRfMg9Ll+uk=;
- b=dYd1Xm+sr/ZLO+MLgtoyZN9fKcQIi9D4tBtkrsLVVpcCNnwlg2qzO6I7Out9BxfjXD5BQIVbrdJMhFThHuRg+8+5m/Wvs/DxgSbLweTUvGsQOvymU4PnkhnFjWDA3OrGpc1XSD+JUMox3lo9vuhBF1b74Lndh7GR4I878hXyPTo=
-Received: from SJ0PR13CA0073.namprd13.prod.outlook.com (2603:10b6:a03:2c4::18)
- by BL1PR12MB5707.namprd12.prod.outlook.com (2603:10b6:208:386::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 19:04:02 +0000
-Received: from SJ1PEPF000023D1.namprd02.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::91) by SJ0PR13CA0073.outlook.office365.com
- (2603:10b6:a03:2c4::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.5 via Frontend Transport; Thu, 10
- Sep 2026 19:04:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023D1.mail.protection.outlook.com (10.167.244.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 19:04:01 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 14:04:01 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 14:04:00 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46
- via Frontend Transport; Thu, 10 Sep 2026 14:03:57 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH 4/8] soundwire: amd: fix ctx leak when sdw_amd_startup() fails
-Date: Fri, 11 Sep 2026 00:30:52 +0530
-Message-ID: <20260910190240.1604447-5-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
-References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbNpHyg7"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so2918585e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:05:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789067139; x=1789671939; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bDPWQKpYK210YH7pdRtFQhVqun7oclqubAHor3TmIiA=;
+        b=cbNpHyg7+15NxTj+DbNi/W+pMuFp6ptpL3MQEGqJ+4pnk7+NKdQ5/e6AEzo5jPiaTb
+         QNNlb773bh4OqnfiG7+DO4VGeo1Bl4nA5o9arpUb/LHWonYiTQmx2qZZYyKo8uAqoKdo
+         8i029AhbxwgRFwvoK2wSrDU3mbLXY48YR+aGe2z9DMDFkJw9XRmGCt2k9odCIn4mZJec
+         wgAvmNgfKxiqsNaZiOuDcaq2yLIRMZ1fvO4JrMy2RNSfj41AA4pEZ4CL5XylPUx9YcEE
+         g/b8BXUWlZEX8PhBRMzXl/DKsQf9TOet1zIld8hIuZpyOvM+i4dc/zOUBy772wIxaKMi
+         sowA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789067139; x=1789671939;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bDPWQKpYK210YH7pdRtFQhVqun7oclqubAHor3TmIiA=;
+        b=bTWUEqy8JWvmusRg4cN2JmojTVREPPX5Uqkuols7dXhFCLr6B6ZvsiqyFKKQS2jF2X
+         Y7zgNQJOtHbRK80p2W8CV5mTXBjmnReyilXw1IE0iVC4MhuLncpI048aK02Lo+GUFYq1
+         3mcXEBMLOSbqAhq9t0AtF3HdV0XVCGUs/SbcgNg/hwGvMOdu23w35kVkhBMTyMWIl8X4
+         Dk3xFpKDXJNgQt0hK2HDvfsD/53PrCKRFh+SOtfmQr41R6NX9j1DxONYGo/msU2h8wY0
+         V/n8nNeOKtT2J6Kb61CCVwBf9avhboabbDpaGaaJdrY39d+6spq/gRlWTvK3PNp3NLA2
+         Q5cw==
+X-Forwarded-Encrypted: i=1; AKwUvBwU5ymUBKGIiav0AoagaQQtusQoxoMCnWLH169e5MqN30nK4cqmAB2FoQnY680MTUU8soHLnD6B1nn+c08=@vger.kernel.org
+X-Gm-Message-State: AFuF++kq6ucd65NJhlfEyFRehRiBLynTZ2GrACTngnyN1MOukbZMlq/n
+	bpbk8r+stI0hw7xAqa/HnmfuXLFxcFOGwbnIego/zWApqlKlZqb60mXk
+X-Gm-Gg: AYBFou0iLvoaTC4X0X4+vHGCnscotK7vLxT2F56w7j3uFgBQAqdRj5T8sSJNWM26gel
+	fUPUHC4tuVR1U11M5A0C0rFFAZDIQebfavx+C3dY+gHXupdl1rIDTjsjqnNM/CwTrbt2CwwLPpJ
+	d3tzL9mYI+lRKTn0AmYWOdD4XYb6lhOt/S2jHqMeRWIVPaUTwiAn7amogqeYr2qFYi4fN87cet0
+	xITXv2xO2eReNPTmLm88NgIMisqeyPLHFBcX6T2ErD8WhNIDwPM6VjH4UcrT74BY7gl8ubkTUPz
+	YuxYujUEWn5/jg/Au5AnQFTENgtUucXGbkr5zKZT/7GJ1+CDbWfo+ZU8I7cd2a2KXCedAUU8yXY
+	92TnAs7t3DvWhShQxf4CJVuolxAaZ5rqDNctwS2vQAt4BJMvHJNSpIiCoYwTmUy8ZuHgrPBLUsq
+	j1xWOpA9kVoZagM10oQCCFE0ZxU5fnkXDf5sUOmkFD2w7uvphUVr5j+0yBm6RBAfTrg0pyhMN8m
+	UD29tdbOI3Pab+hbT/Azx/VuDKUxZO8V8SIfnkMXqSpgUhc1ZSZhZI3KrwV9xRVL9GfqlfijCoa
+	wXJW0mmdUA6/83Y7oysVN8LEfkTh8VKVTLOksjSFrAJvc7cuPvhgmv+7xYlWZfnc+wuMfspqKub
+	8fjr38CQ=
+X-Received: by 2002:a05:600c:1f8d:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49e6198933cmr5181655e9.9.1789067138621;
+        Thu, 10 Sep 2026 12:05:38 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b3d9-b901-601c-58ef-b3f5-74f5.310.pool.telefonica.de. [2a02:3100:b3d9:b901:601c:58ef:b3f5:74f5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adb075sm14811665e9.13.2026.09.10.12.05.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 12:05:38 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: Fix kvm_get_vtcr() kernel-doc
+Date: Thu, 10 Sep 2026 21:05:28 +0200
+Message-Id: <20260910190528.4483-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
+References: <20260909063156.89636-1-kmehltretter@gmail.com> <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,74 +90,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D1:EE_|BL1PR12MB5707:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cb5a959-9413-4df3-1080-08df0f6e46ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	T5H2Kg324QtNxE2abAa3TGSR1loczZ4jobloIehwazBe3Fn3mZ76JQNhLO9wDtMS30G/f07leinFmDP0BoqebPE6Q2RbgKS8kyzIrpi1WdJwrAwTnIZ8/kphsk4GSwkeHG8xDiIWUFlFskdKbPhMsIwAX9UrNQcgJRG+TZSBZazTzLd4Y+q4Lq8euc6FEhDvduxQpWpkRcZfcSyMqScvswEluTR2A+mfjXoq8qbGSjVze2zJEOkQdhmttp4QtUwTwFOPQG+WfF6xjEr1ts1ox5hHwpr6el7XBKzNDfdOKxKxaVKGd4S0vh+R2HhV8VbB1iIy9DQPM+RMxyged+dZYIrXtetMwRXVUka3qA4hGwoxViptQe/ttJUmkndDA83CbGzT+IOD4XkwZev80e9blUyPXxVEywS35y1TQdWj44aZ4x8O6OUbDJ0Z4eQPKUYn/1mX0UVFeFKY0MFIO4NvAOmrs0T6EKJqNdywNRfD2wK7rapgdukuzlqWeI0PTqLpxvm2ZVlB600DI62ymWZUSaBe3Dv5HFJgAGyS/iGqbnBElMMAbuyZnsePVn2EpI5bkubis9LHBMfmZFvmmgrCTPSkFn25ydHklNNbQFUsQrZh2CnLc7zE1FT+Gls1Rf9Xss7qpiFTEHcB/hltaq4yEMP3/cqhCTHE+UCWajxcxFgdnI3BUm5xzato1DkFI8obqGkPvuiFsd4L5Ik50CeZOw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	isYvkZCOZpCKBzEce8/dwfySXvy7tuMbflTfh4p/PFgQfiNEMUAuCOuOnTcItCJI/8Om6Q4QmQBmf5DkGUQqNHJNVp2t7nlAD3RaTF0EFBRwlSaoLydSIuvZNaqFs6baEnQUqMDwpwZqfwq9VcAeMwO+rlnnlnBRMlfUJRv3WWssL3KVqmXwnGay+5fd5JVYyy87bQVAlHTAuPAh1DHxT+sfL7Yd0Bl7mXiC5Yn2/3K85wFT3w3uairh9ZdXidKfK9D3JiorYi7eQjHJJEAztQDP3Ukhx6kXozdUN/NI0TRCMovluubc2ObqySUSuwGNqb30xqGehQap9hvYkT0nyEPCDl+TKfQv7IZ8zPm5MZbjhrj+FZ3yojFqcKXr2zFbghCqHA1zP/piROX+8geDj+ZETcHxRHtPtWFPESHktO/uvHvpllOaYznFPNZwEZJW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 19:04:01.6675
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cb5a959-9413-4df3-1080-08df0f6e46ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D1.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5707
 
-sdw_amd_probe() allocates a context and registers platform devices via
-sdw_amd_probe_controller(), then calls sdw_amd_startup() to start each
-manager. If sdw_amd_startup() fails, the error was returned directly,
-leaving *sdw_ctx non-NULL with the allocated context and its registered
-platform devices leaked.
+kvm_get_vtcr() takes a parameter named phys_shift, but its kernel-doc
+describes phys_shfit. This leaves the real parameter undescribed and
+adds an excess parameter description to the generated documentation.
 
-Call sdw_amd_exit() on the failure path to unregister the platform
-devices and free ctx, then clear *sdw_ctx so callers observe a
-consistent NULL on error.
+Correct the spelling and describe phys_shift as the IPA size in bits.
+The value written to VTCR_EL2.T0SZ is 64 - phys_shift, rather than
+phys_shift itself.
 
-Fixes: ed5e8741b8db ("soundwire: amd: refactor amd soundwire manager device node creation")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Fixes: bcb25a2b86b4 ("KVM: arm64: Refactor kvm_arm_setup_stage2()")
+Suggested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/soundwire/amd_init.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Changes in v2:
+- Describe phys_shift as the IPA size in bits (Fuad).
 
-diff --git a/drivers/soundwire/amd_init.c b/drivers/soundwire/amd_init.c
-index 8e419ddfa516..88004d59322e 100644
---- a/drivers/soundwire/amd_init.c
-+++ b/drivers/soundwire/amd_init.c
-@@ -166,11 +166,18 @@ static int sdw_amd_startup(struct sdw_amd_ctx *ctx)
- 
- int sdw_amd_probe(struct sdw_amd_res *res, struct sdw_amd_ctx **sdw_ctx)
- {
-+	int ret;
-+
- 	*sdw_ctx = sdw_amd_probe_controller(res);
- 	if (!*sdw_ctx)
- 		return -ENODEV;
- 
--	return sdw_amd_startup(*sdw_ctx);
-+	ret = sdw_amd_startup(*sdw_ctx);
-+	if (ret) {
-+		sdw_amd_exit(*sdw_ctx);
-+		*sdw_ctx = NULL;
-+	}
-+	return ret;
- }
- EXPORT_SYMBOL_NS(sdw_amd_probe, "SOUNDWIRE_AMD_INIT");
- 
+ arch/arm64/include/asm/kvm_pgtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+index 41a8687938eb..20d12da3d28e 100644
+--- a/arch/arm64/include/asm/kvm_pgtable.h
++++ b/arch/arm64/include/asm/kvm_pgtable.h
+@@ -532,7 +532,7 @@ u64 kvm_pgtable_hyp_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size);
+  * kvm_get_vtcr() - Helper to construct VTCR_EL2
+  * @mmfr0:	Sanitized value of SYS_ID_AA64MMFR0_EL1 register.
+  * @mmfr1:	Sanitized value of SYS_ID_AA64MMFR1_EL1 register.
+- * @phys_shfit:	Value to set in VTCR_EL2.T0SZ.
++ * @phys_shift:	IPA size, in bits.
+  *
+  * The VTCR value is common across all the physical CPUs on the system.
+  * We use system wide sanitised values to fill in different fields,
+
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
 -- 
-2.48.1
-
+2.53.0
