@@ -1,354 +1,161 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011038.outbound.protection.outlook.com [52.101.125.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAB43C1D67
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030559; cv=none; b=X2e6/LGh71QrgZoKwhzoLcRvlRlRQcIeiPkLaliYXUkoeqlAS4Qnma0Kk+F3tGjpNXDa1IQgGWhvWvlz55xP0HH4l4o6m3nGwlKDPt76AtmU/GFsSS4O492SeqSVIXB2gBUIahTSAvTPuuSU6s5oGDLluZFTXnlWgVywjeTP2ds=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030559; c=relaxed/simple;
-	bh=/999yc4tH43jkknUZe8gFX1LRg3+WirU07Kp5/QxkTE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZilDs+O/vdrZoYDakOpKd7BNDY+ZMMNMPqEnDXsbLqp0Y7hMydKTEukKdOhadOHwL4gPBEhKhEhyFnYRCHTsytEdmwvIxaLkL3Ol2+2ofY+e9iyf/JjmIcFZffGKNiPjsg+rjpaaeoeVuQsm4JazoR0kcyR3ejIQD8r3tQ3Gv10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VTv3o06L; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F823D413C;
+	Thu, 10 Sep 2026 08:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789030560; cv=fail; b=Bhp1IRyQKET9csBBuLaE355WJ7rZO1rbeEgNsGMvlpdiowMT07zFdB20ayZpM77dJWrhH2joEfs4ia5gxBWqTUj78CzGXnjH8XkQio6pBQTdsMcnYEeXe4zIxEpX+iyTzMtnBCZri5d1/2Y3qE6lH3n3c3vZ0oj+8MAIF1C9isQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789030560; c=relaxed/simple;
+	bh=eueDfcwV2zu8sg8drYYC499AFgyDDR53s4Xa/N6nNYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cU+pmbImSncEcOdbFhpp049cJexKSKH4irOKHa1IfjY/G0ZovNcMJLfIgxPsFh/QWQktvXoJO97mTwzrE+rUr/XU5j/fWRm7Fj5Bsx0ek/bzND1HMAmzakWq8z+Cxd7aAnbnsY+i4T791q1g9VdUkDLoUfR1ggZsMZbvex7+VSs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=nxTNWnnk; arc=fail smtp.client-ip=52.101.125.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VTv3o06L"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4be0e5469so97297a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789030556; x=1789635356; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bVyWLODD25OjWObZh6Oc134fmZoV/2Feak56UJf4RC4=;
-        b=VTv3o06LllkP9AX1p8YMxvlf1At1c0x2bT+dGKQ9Ot4AYdEEdn7w3ajQ9Ja7UPIlZu
-         lcxT65i3g4QmBKczsjG+hefqj7+KoHZz8GsBuGipVh1xFxlTrEmkkH1xlTQZV7wJf4ET
-         dJTCdVtZcYy4bUjD+gl1xZrw7op4vGuGEn8pOMEnp1uzvibzva9vnpTjWWfNgiXeH4Ud
-         B/ouJ+kD/IGylHZcot4xuf8rv1Zg2YipQ55+KoflnRwnVNy8SieBcUs3FuXPPZCNtv9/
-         Sa6mgNlEEhx6HOC1q7LjyW+dMzIoVoPpoLDhQxV0cn3hRNlBtaYi5ecmpo7Y5sUJInYx
-         IWzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789030556; x=1789635356;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bVyWLODD25OjWObZh6Oc134fmZoV/2Feak56UJf4RC4=;
-        b=Fxh4lVOvi0WrO+MFoU8pxkKPW2iEukTz3KBc5/54iTBOMJxuTQ1gfrXYgYiagaqyY7
-         a4Hopp56lJVkdbhsLBP+i4/xDefAOjQTInn/M5SYxm/gDGnq3ICnjLRzVuLE0CNS4S1g
-         JFOnltT3dFhup05WwDzaeaM9WAToC0ICzLEGkuqd+GXejVhraI3laKSTUo+A1yfJr7cL
-         XkHM96Cu8uLPgUO3OUXhH2zsvFHQPb/yBEiFyDha71B3z93mR6jcrJ7YvDAPBwTrGsCR
-         C1J6ZAkkLQEqCDweKKk7XOJrpw5JIq5U7rR2bB2MT6qpx1zvMvEkAYCH3oVEEA0LowqZ
-         YlUg==
-X-Forwarded-Encrypted: i=1; AKwUvByPnxxR+npjVFinF0QHxG7kRvsUnZYPLvw7KekAKA/mnaslzlJi35MiIoxplEU0Cpj9//BEW3bgJ7VCZ7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8NazNeMu9nP3TP+pZYhWVFTZjPGn5VsFciQa1SsYVNhxlu1Kb
-	HX0tL8F3D5EFccmQ70B3RhSKBhrTb+StAkNxK90UF5fPa5pfIvTSmYIs
-X-Gm-Gg: AYBFou0gaMlInuv6i9ZbJe8KuJsCEQ/GQDviuKjn0eWqM/60Sq3JEc4GpnTb/YkUG+D
-	IuNJSVNC93YBitoH146Ez2CwfhG+w+hYaSpze18izZ1wDOsNluF8kgwgT+rgwQgocOdGMyvBi4r
-	cwa0a59NhdzRlEI7WUH7GAIuFV8x+Vfi3KGXzXJP48m5ZsR5Io49KVqIVm1JGtabU6AFyT2AApP
-	tNYvn5g21StC4jvvf8GM/YXCeVsPVZf4sSagJYUUtgBgTZAPDayk80aE88gig6FhGhsWfAQAL3f
-	gMDCgNjvk0EWcxQkdga5XTn8LtNnDyLHAXwhuQymjT9E9v+y2aM6v1pN+N32nq/NSFslDJuOcMh
-	VzFd8Ndr9k+K2No1RkYEUhxgFpJUO4/RiGDT7HFLi59Yic9n2pilC3/gqdabOMMI1JCeQBhY2LJ
-	kQbXAhNu5l1jPUCB7c71TRKQAR7vegdYar+7Pg/606f7Cn3d83aSjtyo0SGWNFkCHUK5rDDW77U
-	EvLSQ70qd8irc2xeTT3O0NAxs13OQCzLVRTAQXF5IBXM9e/vwneCbTqUGE=
-X-Received: by 2002:a17:90b:258d:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-39b261323e0mr65034887a91.11.1789030555845;
-        Thu, 10 Sep 2026 01:55:55 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-339770f0489sm20691469eec.8.2026.09.10.01.55.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 01:55:55 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <045b177a-7501-4c73-871e-5d9f78d6bcce@roeck-us.net>
-Date: Thu, 10 Sep 2026 01:55:53 -0700
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="nxTNWnnk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CCxP4mNR+yjLEPEdDFeR7ULcG6h8zck89Ht+SVTG5A+jAHP7S9EIrnmmjxvcZP7Y/M1NghRVwj6Bxd4frukeAnh0yE4U2DLXgRuQVzZRbLiO14HEgqbnEjzolhHLQLF/C+rL1P3WVg4RHRPHyyMU6CYdinyG0rkfB6sORD5v75vfqxbn7w1aBZeKvrGHcd6wWCubzU1olaVFXY5/T/O2sZjfQcn7k7jjAyxCRXDL3sDrK9RpiDe3tfECIjO16guq+0o/oMdHdRuEtA1BBJJG7N8JICjVIXYY7uykIquZ/hHUWyuUyFzjlqEcuhZmJPeUSB9TuVt5O8d/Y4HZpXmyJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MTDYEOKUmqY+BChOLtiRfOy7hClC2Ikj17Z3TNAUmfg=;
+ b=UPuv38x2Ueb5AYZHqsA71tfM/KO6G1CHs3pXjdPx/kXVMaZZUZtppfGPcw5ksOQtoYcmQsxDIJnM32ZWM1hddy5GFH2Tip4C18Nxl7ibwZhAlUxyDQ5bR2CFiVjgGSJPGhMKVIk52QoHHTX0KyB360JnKOKP0jKFoIExWNIIBgxu2lOlmm1PUTwYnKOU9kVKtFSMD6amRny+p0qC8YOsWD1ZjWFatwPJ8Lz29LrxXYxnDdmiii8v+Ap0wC944ZmMQgayiJJOzPUq+8lNyB5UfnqLowouWTdPL2zPOOq0SOwkrfSBSrc2yA25QTtNL4N/MrAcrjMHAN52VVASDT/w9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=analog.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MTDYEOKUmqY+BChOLtiRfOy7hClC2Ikj17Z3TNAUmfg=;
+ b=nxTNWnnkdCRVe3qqY1qb3Hczie33xZnJS9RJrVvwiPxIBMw2HpyuEkr8y9mo1TsKWVpAUxGHScuRN+NXfaPiuzKUK/fz1twGjgZVLNburCZBhZPJ0bUQu89dTA4VU5lav7x6PBmAYVyqjYJY5fwQ1OjiMqfqRZosvRnOFDLTu68=
+Received: from TY4PR01CA0053.jpnprd01.prod.outlook.com (2603:1096:405:372::6)
+ by TYYPR01MB12355.jpnprd01.prod.outlook.com (2603:1096:405:f3::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 08:55:55 +0000
+Received: from TYO1EPF00005024.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:372:cafe::6e) by TY4PR01CA0053.outlook.office365.com
+ (2603:1096:405:372::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 08:55:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ TYO1EPF00005024.mail.protection.outlook.com (10.167.240.21) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Thu, 10 Sep 2026 08:55:54 +0000
+Received: from demon-pc (REE-0064895.adwin.renesas.com [10.226.92.160])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 110F73000228;
+	Thu, 10 Sep 2026 17:55:49 +0900 (JST)
+From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/9] iio: adc: rzt2h: store the physical address in private state
+Date: Thu, 10 Sep 2026 11:54:24 +0300
+Message-ID: <20260910085430.3173166-4-cosmin-gabriel.tanislav.xa@renesas.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
- TDA38740/TDA38725
-To: Colin Huang <colin.huang2@amd.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Colin Huang <u8813345@gmail.com>
-References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
- <20260910-add-tda38740-and-tda38725-v3-2-3e87637da3d6@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-2-3e87637da3d6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYO1EPF00005024:EE_|TYYPR01MB12355:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 0e559282-547f-446a-7c10-08df0f1952ad
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|7416014|18002099003|22082099003|56012099006|10067099003|921020|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	4xjmJLw1ISEyNmqn+SKCV4+NQ5zguaAyp6g7vxGAiWNKnT/s5a7mlOGse+ORvLMJwXhrXZmRok4a3Q0QKqClNXExtNAZBSGid5RDJlY0Lypv2/ffkubSwkC/QzhkCCAR5xWBoh9HQIKY6qbrdlUx2BFsNzDNadcPwbOfBKaAOgTpLquKElwjvby6ScRINcO2e3h4MsuwwC3j5dTcv4XHQwQ4AB0p50kMMSE2mRb311JxdffsuBsKUqE5BY7iV1UC4loHAk7wzOlKpEH9orX6p6nD/JJzCXkxJt1D9omUptlPgWZQrb/Yp9TCfIihGS+yqU0IPmj/d3vgcRojsv6BH33hjRucFSF3WbTSWETbE5mWBuytGg6ZKvzwiDIHz/HPgKTL38zTvp+IhHjYBM/4clSyem7yprrmcoT5P/FJsozREFD5C1mX49+pwk5t8GYTROPGGPMv0uqCjASdsouvfy/FTydi9VfeUJw0gGMdcIF0ElOB/cUYTixI0Ig7hHWkn+0EzrVt4Kd4wLBlDVUHHknmvUvARLPInA690qh4tSAwtkLQ5WxQzpngwOZz+pNfsdgQ9HWTWrYDayvTjB/U1mVPfqZ7kig00Xnki2Pk2vSnwJtThG1RQsOfOmW7X+D8QLfjc6C1Qo5U2Iug6U/01TTIaWBFmKq0qPeQaZRER+IyA4nWFNwWgySjO9R3/tuW5PvLYI5i8n4O3dUCI8EtfD4OLhrgKnTQqC6Vda14uvOprLk3R6pOlKuZ93tIcD4K
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(7416014)(18002099003)(22082099003)(56012099006)(10067099003)(921020)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gZqUaaJuSeD6hKEe+Xanlw0x9w7isFOLYdYBVu5Kb9pWo8feALOq+smMvcSWkwU8QL9CwDC94qX2V8iW56pVG7H+WsY8sHnZqj8jFypLcikfiY8/YVGVFixZv4NRpKedQgH/rgDxZgMlOit6fXtQvjwdUq4GufjvyCzYkDS2xwPdfKpnilZG1MJoBbsDD2vn4lxTo9iFw+crQMIm81P1GsRbV+cyTgokqolx9uAhE38t4dRCrgSCBd12+ewD2P/kk9fqMzcYBzjx4G0M7Hni8/FF4Vpl545KMfI+c27xRDdvbDElFXxUAsXf4Nbh6uTEr2Lp87236oK9XicCwfQ4QGXb07Ip4vhfQ8A2qnBEpbjwBkr/ifPYgk9G5pgFw3bavG7Frar1M3EyLsFUlMj0lF4fPMPJswAbzVySExoYOCONXsN+N771nkdw/bImmdNT
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 08:55:54.5112
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e559282-547f-446a-7c10-08df0f1952ad
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF00005024.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12355
 
-On 9/9/26 23:18, Colin Huang wrote:
-> From: Colin Huang <u8813345@gmail.com>
-> 
-> Add a PMBus driver for Infineon TDA38740 and TDA38725
-> single-voltage synchronous buck regulators.
-> 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
-> ---
->   drivers/hwmon/pmbus/Kconfig    |   9 +++
->   drivers/hwmon/pmbus/Makefile   |   1 +
->   drivers/hwmon/pmbus/tda38740.c | 150 +++++++++++++++++++++++++++++++++++++++++
+To prepare for adding support for DMA-based transfers, store the
+physical address of the device in struct rzt2h_adc::phys_base.
 
-Documentation is missing.
+Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+---
 
->   3 files changed, 160 insertions(+)
-> 
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index bcfdc4ce4c10..e4ca80dd0574 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
->   	  If you say yes here you get regulator support for Infineon
->   	  TDA38640 as regulator.
->   
-> +config SENSORS_TDA38740
-> +	tristate "Infineon TDA38725/TDA38740"
-> +	help
-> +	  If you say yes here you get hardware monitoring support for Infineon
-> +	  TDA38725 and TDA38740.
-> +
-> +	  This driver can also be built as a module. If so, the module will
-> +	  be called tda38740.
-> +
->   config SENSORS_TPS25990
->   	tristate "TI TPS25990"
->   	help
-> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> index e288fe72a437..eb06d47816fd 100644
-> --- a/drivers/hwmon/pmbus/Makefile
-> +++ b/drivers/hwmon/pmbus/Makefile
-> @@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)	+= stef48h28.o
->   obj-$(CONFIG_SENSORS_SQ24860)	+= sq24860.o
->   obj-$(CONFIG_SENSORS_STPDDC60)	+= stpddc60.o
->   obj-$(CONFIG_SENSORS_TDA38640)	+= tda38640.o
-> +obj-$(CONFIG_SENSORS_TDA38740)	+= tda38740.o
->   obj-$(CONFIG_SENSORS_TPS25990)	+= tps25990.o
->   obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
->   obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
-> diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda38740.c
-> new file mode 100644
-> index 000000000000..df5173d8da0c
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/tda38740.c
-> @@ -0,0 +1,150 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Hardware monitoring driver for Infineon TDA38725/TDA38740
-> + *
-> + * Copyright (c) 2023 9elements GmbH
-> + *
-> + */
-> +
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/property.h>
-> +#include "pmbus.h"
-> +
-> +#define TDA38740_VOUT_SCALE_DEFAULT_MICRO	1000000
-> +#define TDA38740_VOUT_SCALE_MIN_MICRO		100000
-> +#define TDA38740_VOUT_SCALE_MAX_MICRO		2000000
-> +
-> +struct tda38740_data {
-> +	struct pmbus_driver_info info;
-> +	u32 vout_scale_micro;
-> +};
-> +
-> +static int tda38740_read_word_data(struct i2c_client *client, int page,
-> +				   int phase, int reg)
-> +{
-> +	const struct tda38740_data *data;
-> +	int ret;
-> +	u64 scaled;
-> +
-> +	if (reg != PMBUS_READ_VOUT)
-> +		return -ENODATA;
-> +
-> +	ret = pmbus_read_word_data(client, page, phase, reg);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	data = container_of(pmbus_get_driver_info(client), struct tda38740_data,
-> +			    info);
-> +
-> +	scaled = (u64)ret * data->vout_scale_micro;
-> +	scaled = DIV_ROUND_CLOSEST_ULL(scaled,
-> +				       TDA38740_VOUT_SCALE_DEFAULT_MICRO);
-> +
+V2:
+ * no changes
 
-The chip supports VOUT_SCALE_LOOP, which should be used for any VOUT scaling.
-VOUT values should not be manipulated manually.
+ drivers/iio/adc/rzt2h_adc.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Also, Sashiko is correct in complaining about not scaling other VOUT
-related commands, both on the read and write side. The chip _does_ support
-limit commands.
-
-> +	return clamp_val(scaled, 0, U16_MAX);
-> +}
-> +
-> +/*
-> + * TDA38725/TDA38740 only support Linear format for VOUT related commands,
-> + * with exponents in the range of -8 to -12 (see datasheet VOUT_MODE
-> + * description). Direct format is not supported by this device.
-> + */
-> +static int tda38740_identify(struct i2c_client *client,
-> +			     struct pmbus_driver_info *info)
-> +{
-> +	int vout_mode;
-> +
-> +	vout_mode = pmbus_read_byte_data(client, 0, PMBUS_VOUT_MODE);
-> +	if (vout_mode < 0 || vout_mode == 0xff)
-> +		return vout_mode < 0 ? vout_mode : -ENODEV;
-> +
-> +	if ((vout_mode >> 5) != 0)
-> +		return -ENODEV;
-> +
-> +	info->format[PSC_VOLTAGE_OUT] = linear;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct pmbus_driver_info tda38740_info = {
-> +	.pages = 1,
-
-The chips support the PAGE command, described as "Allows access
-of each loop via paging". I don't know what exactly that refers to,
-but it does look like it supports multiple pages.
-> +	.format[PSC_VOLTAGE_IN] = linear,
-> +	.format[PSC_CURRENT_OUT] = linear,
-> +	.format[PSC_CURRENT_IN] = linear,
-> +	.format[PSC_POWER] = linear,
-> +	.format[PSC_TEMPERATURE] = linear,
-> +	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
-> +	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-> +	    | PMBUS_HAVE_IIN
-> +	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-> +	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-> +	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
-> +	.identify = tda38740_identify,
-> +};
-> +
-> +static int tda38740_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct tda38740_data *data;
-> +	const char *propname;
-> +	u32 vout_scale_micro;
-> +	int ret;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	propname = "infineon,vout-scale-micro";
-> +	if (device_property_present(dev, propname)) {
-> +		ret = device_property_read_u32(dev, propname, &vout_scale_micro);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "%s property read fail.\n",
-> +					     propname);
-> +	} else {
-> +		vout_scale_micro = TDA38740_VOUT_SCALE_DEFAULT_MICRO;
-> +	}
-> +
-> +	if (vout_scale_micro < TDA38740_VOUT_SCALE_MIN_MICRO ||
-> +	    vout_scale_micro > TDA38740_VOUT_SCALE_MAX_MICRO)
-> +		return -EINVAL;
-> +
-> +	memcpy(&data->info, &tda38740_info, sizeof(tda38740_info));
-> +	data->vout_scale_micro = vout_scale_micro;
-> +	data->info.read_word_data = tda38740_read_word_data;
-> +
-> +	return pmbus_do_probe(client, &data->info);
-> +}
-> +
-> +static const struct i2c_device_id tda38740_id[] = {
-> +	{ .name = "tda38725"},
-> +	{ .name = "tda38740"},
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, tda38740_id);
-> +
-> +static const struct of_device_id __maybe_unused tda38740_of_match[] = {
-> +	{ .compatible = "infineon,tda38725"},
-> +	{ .compatible = "infineon,tda38740"},
-> +	{ },
-
-No "," here.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, tda38740_of_match);
-> +
-> +/* This is the driver that will be inserted */
-
-Pointless comment.
-
-> +static struct i2c_driver tda38740_driver = {
-> +	.driver = {
-> +		.name = "tda38740",
-> +		.of_match_table = of_match_ptr(tda38740_of_match),
-> +	},
-> +	.probe = tda38740_probe,
-> +	.id_table = tda38740_id,
-> +};
-> +
-> +module_i2c_driver(tda38740_driver);
-> +
-> +MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("PMBUS");
-> 
-
+diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+index 470b16b5b9c8..995308a419f1 100644
+--- a/drivers/iio/adc/rzt2h_adc.c
++++ b/drivers/iio/adc/rzt2h_adc.c
+@@ -36,6 +36,7 @@ struct rzt2h_adc {
+ 	void __iomem *base;
+ 	struct device *dev;
+ 
++	phys_addr_t phys_base;
+ 	struct completion completion;
+ 	/* lock to protect against multiple access to the device */
+ 	struct mutex lock;
+@@ -211,6 +212,7 @@ static int rzt2h_adc_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct iio_dev *indio_dev;
+ 	struct rzt2h_adc *adc;
++	struct resource *res;
+ 	int ret;
+ 
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
+@@ -231,10 +233,12 @@ static int rzt2h_adc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	adc->base = devm_platform_ioremap_resource(pdev, 0);
++	adc->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(adc->base))
+ 		return PTR_ERR(adc->base);
+ 
++	adc->phys_base = res->start;
++
+ 	pm_runtime_set_autosuspend_delay(dev, 300);
+ 	pm_runtime_use_autosuspend(dev);
+ 	ret = devm_pm_runtime_enable(dev);
+-- 
+2.55.0
