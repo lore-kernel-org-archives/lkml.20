@@ -1,101 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51310483BD9;
-	Thu, 10 Sep 2026 14:42:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4B0489FD6;
+	Thu, 10 Sep 2026 14:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051322; cv=none; b=gXMpKpVoesGOH/+xOd5OqOQCq6XsIH5teqNje9XsYVza5Iw/wJFF5Gz0K+RPgFBIxcqWTTcF4VxF+dmZUpSRV9F7XcbbuwGY1Z+w4MsCWLAePGtV9o9UjgtGKY/yKqb7yCZ5YM+kGh8S22NZEmFOc24FGPa87IF9pmik7EVmnPc=
+	t=1789051339; cv=none; b=eYnEnl+4heWhRf/Q7ysGi0Ln5e48/RA+l/4SJvlakkt/qMUc/hsHPz+Q4tdP/SwHsuQZvnKTNooIqx2LyODTqjk2wOMI0MoYqHiDVvYj7B1/uiQlePhXagrSUF9NH2vtzoioNc80rx0mYLA635Drc+ZNMiRWu9kNAKFdD+Sd+48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051322; c=relaxed/simple;
-	bh=bXnkLTnssSsY9ddGTL62eQdAZhx+1qqBasXCrl5e9Ao=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N2q3L7QOcYGQ4wENn3T5l+eLaRBJacRxBGpY203dt1JBJARBkOpbNV3yfoVhstqFd7dAGl2FOeceQwBPYyL4aTjYyiX5PdcuFD1Kz/spW7NFawSjaQxX9jymKWrFfqRO83uOmknVdCbUEFFynfAdRhbB2j32Ag4qrDQnB5iuMSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nckwhsbx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789051339; c=relaxed/simple;
+	bh=qPqjuUdASs9Y65n69OhxSNlg/J55Ht5KUqLO2cTCHVk=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fXqeOcOlgCADZvnLrqbRJY9NH8/9p4Ny+72cXQrLkIDhAfLn4r0AwPh0LiLsajnrAUZvmhOsaVNVdOHgOI4/UMuZMDtMJ8zSCmrAntK4hDJWB6/ViRtbocCq1lf6LxMUaznuWHaRbSiSLy06FFgPYQ+2ahmAFNKh3LE4FbupJkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=j22MncXL; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nckwhsbx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7721F00899;
-	Thu, 10 Sep 2026 14:41:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789051320;
-	bh=AC2aVlJGfM8BolgFPYicq3jFdCi6ZcStjOJlfIZLYLI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nckwhsbxifazypO4vMSW527cot3mVYyWVuVZnS2y9QbRQSzX58sMrbJUtkltcSehy
-	 54OcQSYm0JA9oGJgLHLeKRygrkgimIc6WV6T66RYGyAEAcMTlHocy2tTmElNoS7jFl
-	 bGSKek6YA30XoMC+vBx+2s6glRBX7BaqZ9OWguQqtOQ3HyLp6OjlWZSNeqpPpflYJz
-	 1TmPI8aA3QdMbUjfoLoQyh6bHd1VDJsWvjQFvhE3JdimnnvZALWl4zyKJZgpt339C5
-	 fSNBG9AQujVw7zaJk1hSUo0AUypE2bFCTyY7NIZ1qg/elrO5df8RFpMzNlQ3JdUWmu
-	 z9ghuwZPMAuIA==
-Date: Thu, 10 Sep 2026 15:41:51 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 11/12] fs/proc/page: clarify comment in get_max_dump_pfn()
-Message-ID: <aqLBc20gZyDfkhdH@gremlin>
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
- <20260909-b4-sparsemem_cleanups-v1-11-008fc8d579fe@kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="j22MncXL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789051338; x=1820587338;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=qPqjuUdASs9Y65n69OhxSNlg/J55Ht5KUqLO2cTCHVk=;
+  b=j22MncXL8gq3H0/OpbAYkFuxZhAYpw9AyfSfIKgrGhLRtqMaQIYHFId8
+   NoXxtWW4qRr0K2v/0JnEQHWeSUIgVHWlcZEPCVRCmG+iFwTSLFRlaWvIj
+   r8O88JHe1LaCRRlaGqiEwP2MLf/Ri0PzTGoPkGytwK787wTqhnNPqi21c
+   lmLKqr6jenNePLpRjo4eXU1cj3B/2o74qIOQfJCCbc1TtnLEurmvIGVXR
+   SE0Au91JJFLaj9HULcx1w3Mgo6dV2wS+K6QEBJqcgkHR+OwKxoOaxEOBO
+   u5iH95APwNsBaQbtGzu9zuhAJqaFWwPrM2LfZaGJg9OBc/iaZphHv+Mjm
+   w==;
+X-CSE-ConnectionGUID: ++gFX0kJTeughVEf/8o8fA==
+X-CSE-MsgGUID: 9SI3P4RTS8GgOmBtetQaKg==
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="63425380"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 10 Sep 2026 07:42:17 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 10 Sep 2026 07:42:16 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 10 Sep 2026 07:42:12 -0700
+Message-ID: <5ee1b3f9832621686adbde94324e7b6350254f37.camel@microchip.com>
+Subject: Re: [PATCH net-next v12 2/9] dt-bindings: net: lan9645x: add
+ LAN9645X switch bindings
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: <UNGLinuxDriver@microchip.com>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung
+ Huh <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
+ Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
+	<daniel.machon@microchip.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Thu, 10 Sep 2026 16:42:12 +0200
+In-Reply-To: <f745c884-ecfd-4dbd-ae33-6b713f8ab73d@lunn.ch>
+References: <20260908-dsa_lan9645x_switch_driver_base-v12-0-2d6aa59350cd@microchip.com>
+	 <20260908-dsa_lan9645x_switch_driver_base-v12-2-2d6aa59350cd@microchip.com>
+	 <f745c884-ecfd-4dbd-ae33-6b713f8ab73d@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-11-008fc8d579fe@kernel.org>
 
-On Wed, Sep 09, 2026 at 03:33:04PM +0200, David Hildenbrand (Arm) wrote:
-> pfn_to_online_page() will only succeed on some PFNs within the same
-> section, not necessarily all. Let's make that clearer.
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Tue, 2026-09-08 at 14:59 +0200, Andrew Lunn wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> > rx/tx-internal-delay-ps is used to model a direct MAC to MAC fixed link=
+,
+> > using RGMII, where exactly one of them must supply the delay.
+> > Documentation/networking/phy.rst describes plain rgmii as the mode wher=
+e
+> > the MAC or the PCB adds the delay rather than the PHY.
+>=20
+> This is not correct. phy-mode 'rgmii' in DT means the PCB adds the
+> delay.
+>=20
+> If the value is not 'rgmii', then the MAC/PHY pair need to decided on
+> which adds the delay, and by convention, it is normally the PHY.
+>=20
+> Where it gets interesting is MAC to MAC, which you do see in
+> switches. Using rx/tx-internal-delay-ps makes a lot of sense in this
+> setting.
+>=20
+> The binding itself looks O.K, its just this commit message text which
+> is wrong.
+>=20
+>         Andrew
 
-Nit on comment below, but LGTM so:
+This is exactly intended to model the MAC to MAC fixed link situation.
+So no PHYs between, and one side needs to supply the delays.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+I had originally implemented this by using the phy interface mode to progra=
+m
+the MAC delays off of. This is what we had done previously in lan966x say.
 
-> ---
->  fs/proc/page.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/fs/proc/page.c b/fs/proc/page.c
-> index 260772b20bd99..6856ff3e3cf28 100644
-> --- a/fs/proc/page.c
-> +++ b/fs/proc/page.c
-> @@ -31,10 +31,9 @@ static inline unsigned long get_max_dump_pfn(void)
->  {
->  #ifdef CONFIG_SPARSEMEM
->  	/*
-> -	 * The memmap of early sections is completely populated and marked
-> -	 * online even if max_pfn does not fall on a section boundary -
-> -	 * pfn_to_online_page() will succeed on all pages. Allow inspecting
-> -	 * these memmaps.
-> +	 * If max_pfn does not fall on a section boundary, pfn_to_online_page()
-> +	 * can succeed on PFNs beyond max_pfn within the same section. Allow
-> +	 * inspecting these memmaps.
+But I was instructed that the modern approach is to use rx/tx-internal-dela=
+y-ps
+along with phy interface mode rgmii. There are a few other examples of
+dsa bindings doing this:
 
-'Allow inspection of' these memmaps is clearer I think. But this odd turn of
-phrase existed before this change also :)
+Documentation/devicetree/bindings/net/dsa/microchip,lan937x.yaml
+Documentation/devicetree/bindings/net/dsa/realtek.yaml
 
->  	 */
->  	return round_up(max_pfn, PAGES_PER_SECTION);
->  #else
->
-> --
-> 2.43.0
->
+I will remove the paragraph from the commit message if that is wrong. I hav=
+e
+misunderstood that part of phy.rst.
 
---
-Cheers, Lorenzo
+Thanks,
+Emil
