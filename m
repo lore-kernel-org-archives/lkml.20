@@ -1,116 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827974A5C45;
-	Thu, 10 Sep 2026 15:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB44E4A9D50
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054668; cv=none; b=iiceRBQVVaShCGL4ns4W2G5M3vwJeyZd6Q0e+BdJAdxSzy1Gv/ZghEJe7GCcPjejq8Wz9K/6VwlfPqED6ZhyNfqvyGZ9x0Xm8F2EsF1R9V+uRK9R5faCkFntD91Q3HiGpCnNUxgJ9gYDgHdCx/YyOXjiQNXCEJgqXyFjt8r7Kis=
+	t=1789054674; cv=none; b=MsWWpEdFUdQmjnu8Qt04E5qLBcVvgQ2P+Or9E1rJJ9yPHS7V6duTHLv94AtHl2mcDk0Bp+XXTe7gKy914ABzA41qQXKsMb+xFv2IPpHzwWExl8PJ9ulRocgKxRVE0HNQP37NCotixJNlVmcUwCLuhzjYiZcl/bWgmAPM4XFqVdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054668; c=relaxed/simple;
-	bh=0k/4ax+osrPo62uCJ0EU4cIAtOvs8ABizI1aXz+Izp8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pOT0H2tcpvt9y20csLYHB6txK1fO0gaHt3HgX6/nG9BlGAiVXBvgkYV8PW0aCtUmNDQtj6zXo4vOkYQGtJ+oTHMfQpj5bWiR6A4Qha72Tdlq8DtB1g0s5fet1G/b6OQtjGNy+M3VwpKiVTDBy5OPPpO9zcHybYkz+CpZpQO58js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VriTx0Z1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789054674; c=relaxed/simple;
+	bh=HQijiPlwvDLFO+zIPNo2HBbu3dtpiVeMOBm/adtycNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I9cahnvcw+L2ahDWmrpDX4mt/nCScdr77YGJJ3zFfNVF8AA8NnljihBJdTK2M9QIvxSjodIGVXvsI0dz1CbgNwQSk03kYvmjAdwmzTGAzAFyP6TWLogltC0d5lYVwrtvlnoNuS/+J6q+USIJBfFOrjOMWOLE8AjLaJbBt+FrKD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ec/3s7um; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VriTx0Z1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB7A1F000FF;
-	Thu, 10 Sep 2026 15:37:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789054667;
-	bh=4uOGjkG74Wm+sX78i/4FEm2X06d3znZeXMj2+quY1Ho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VriTx0Z1+6noD0EQGTM7piUYegRAzgJglduCw1RaeMRZlbllz9xSu6yTnZ7UEl5vl
-	 whotd+qlDoIYpr4JsafDodioJXAfzTnoS+qbpjRJzc/OxjYEhx8gw8U9IWoPduEJES
-	 GsbH24vd4H2BQJcTReYZXQzsCboLjQmeaf1YRWd+PN/f0xlLAGjn4dssHdtwrJBrLm
-	 /Om5WFlQcP0nZgu6w4psdpdIBUGUPr4RBeLvFwz9r8GjzRCSJ2z40osegFFjsWW5Up
-	 fCb763Q961+NqPZqATF4UMLemfu+ZgJRqQsHx39Rylc93r7sclhafHytagYY0eqxXr
-	 ffcKt16uIxBdQ==
-Date: Thu, 10 Sep 2026 16:37:44 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org, 
-	joelagnelf@nvidia.com, josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com, 
-	rostedt@goodmis.org, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, 
-	qiang.zhang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	surenb@google.com, vbabka@kernel.org, rcu@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] rcu: drain kfree_rcu sheaves from the userspace
- barrier hook
-Message-ID: <aqLI21uo-UglU6XP@thinkstation>
-References: <20260910101112.1648978-1-matthias.goergens@gmail.com>
- <20260910101112.1648978-2-matthias.goergens@gmail.com>
- <aqKZXmlRGsmJPl3r@thinkstation>
- <20260910134640.2044424-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ec/3s7um"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso2110611a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:37:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789054672; x=1789659472; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xf27/e13zSRzdWtLn2ZnVwbWOxwXcFNzloo83ia2tDo=;
+        b=Ec/3s7um9niKH4ZQGpW77I0l8Wi0ooJnlbA9vQrVM2jtjZ0TNh5ZK2Cv1Z+ErO4IP3
+         x8wPBynl1Te1Lul1+svaOTFxXokMbRiTwz7LCEmdNXKjSE1d4KBWKAIzc+9Fte6yU+Zg
+         KLR3PcgnPR7NVqsHoG7GJtU/829CPN0q3ThDxFProQIKU8jDf0RSEI/zvboSdrWz8/9K
+         77R914K5mvYiwewaT2GXaABu3wA7DTAu1UXLnLTEiqwvq+TixaQz2MrwFEhU5cjb29AO
+         kh1GBNotoImdhEHDXiHKxe9R+TqQliIPLQg69VJvSJsOenwuacRc/UzNMtWpejDJx9TG
+         YLZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789054672; x=1789659472;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xf27/e13zSRzdWtLn2ZnVwbWOxwXcFNzloo83ia2tDo=;
+        b=bGAabH8UsnfOSuEZcDsfsKwxg4x5vljNv5VOh1RlK9EKH9soAYqr5Usdx9JJ9HQv2o
+         zOanUiKljxEYrbE8H2q2oS73zs03HIS9AW/tIIdIKNnHk8hpLKvMwzaB9K+q1zitH5BE
+         PCPWJ9sjjnWJ4K3BzimXBKiLTTt15P+K9t4TCZvO3cigH3eBbujAR6ZSX2VtmQu9YBEi
+         v25Qzff+v6MzHo2M3tglTuPWukWrg0LJ6+W+TQ3zVln741qLa4JsHDjBeH9At9biFGJG
+         dZHYfLjiFb3IIeFj0L8qxGBpWVt4pcki6jJ8r/b5Ts7oQ6vNLQUuYoHMVJxT/xFWBX5k
+         HZZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwUoYeKQNIHLCFQfeYTE9vv98mWEw8ODoXB61TQ9DM0fuTdaDZ+iItA9HwZKNgCTgGvSTRFMQNfY3rKqb4=@vger.kernel.org
+X-Gm-Message-State: AFuF++luD7PtV02y7I/gmPs7FM5d+FMh9zFsvsDoXMZpFktrA2Q8CKVq
+	P6UtKDMxmRYZfDGG/XKxcXx26uOUJ3jW8MXO19QbhZuX/XCoDjp44qml
+X-Gm-Gg: AYBFou2nPz1GtXv6VxyjnImWyby3I4FJUwGBT9+ckU1LQ4T7MEnn4ejT2mrCc1XZzmm
+	7JdmMMhUR8evKUqR/vY+f4bIZKRBMygfxUYSo3adOLMcn1xBF0l5mxGWMHzDx0sCJdNM7ABjRHZ
+	HijgHxshDe3/8xdCqgd4c+XEjiyleLh4I9y23O1uMacL/rrgg9LQV6aGcXoVJExaW630pJyvo6+
+	+uPm3wX7uy3Hgvdf4LlrKhruduyBoK0kBm6VkPmiKppGJcfxxsVXfWg6AsgI+xxeKH0RgpKJOtM
+	PfZlsbeGCSv0ehaPrDeGX8NLvkL6Qnt4MSo4npGW+miO+2hI/88cRnlojsEgWdlY2sgCqJ9S1nJ
+	97YBnvHlXkHNbx9/hkJRXYU7wJc/6+BcnEoTF15RGs6UuFHtmo2TDSusi8ZZtK6k9uqQCQUds9L
+	hjQqaXrWWiBC5bIAT2qotPtfP572M1SSXClGDET9CscrsA2GSHu87NlPsbcbZOXf+8Gnuy3/HXr
+	UuaHOAMHEX+HP10S1k=
+X-Received: by 2002:a17:90b:3d89:b0:398:dcfe:968e with SMTP id 98e67ed59e1d1-39bac3f9063mr21283299a91.20.1789054672086;
+        Thu, 10 Sep 2026 08:37:52 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:ced9:ef96:e152:2608])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94b9334dsm170730a91.3.2026.09.10.08.37.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 08:37:51 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH] HID: multitouch: use GFP_ATOMIC for report/application/usage allocations
+Date: Thu, 10 Sep 2026 22:37:46 +0700
+Message-ID: <20260910153746.16222-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910134640.2044424-1-matthias.goergens@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Matthias, thanks for reply.
+mt_allocate_report_data(), mt_allocate_application() and
+mt_allocate_usage() devm_kzalloc() with GFP_KERNEL, but they are
+reachable from mt_event()/mt_report() via hid_report_raw_event(),
+which can run in (soft)irq context off a USB URB completion (e.g.
+dummy_hcd's hrtimer softirq). GFP_KERNEL there may call into
+fs_reclaim, which lockdep flags as an inconsistent {SOFTIRQ-ON-W} ->
+{IN-SOFTIRQ-W} use of fs_reclaim, alongside a "sleeping function
+called from invalid context" splat.
 
-Would you please wraparound the text when writing a reply?
-Each line becomes way too long on text based editors :-)
+Switch all three to GFP_ATOMIC since none of them are on a path that
+needs to sleep.
 
-Anyway, moving on to the topic...
+Reported-by: syzbot+093e05755c2d99caab91@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=093e05755c2d99caab91
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ drivers/hid/hid-multitouch.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-On Thu, Sep 10, 2026 at 09:46:40PM +0800, Matthias Goergens wrote:
-> Thanks. I ran into this while testing bcachefs performance changes.
-> The bcachefs ktest end checks write `do_rcu_barrier` before reading
-> `/proc/allocinfo`, with the expectation that allocations still
-> reported afterwards are leaks. Small objects released with
-> `kfree_rcu()` remained visible after repeated writes to the hook and
-> 20 seconds of waiting, so otherwise clean tests failed their leak
-> check.
-
-Thanks. Some background like this would be nice to be covered in the
-cover letter or commit message :-)
-
-> Strictly, that ktest is assuming a stronger contract than the hook
-> currently documents: `do_rcu_barrier` promises an ordinary
-> `rcu_barrier()`, not a complete drain of objects still held in
-> `kfree_rcu()` batching. I nevertheless think the stronger behaviour
-> is useful for this test-only quiescence hook, because it lets
-> allocation-leak checks reliably separate deferred frees from genuine
-> leaks.
-
-Ack.
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 2c41bacab1ca..6b68e43fd885 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -604,7 +604,8 @@ static struct mt_usages *mt_allocate_usage(struct hid_device *hdev,
+ {
+ 	struct mt_usages *usage;
  
-> I followed those allocations across repeated filesystem lifecycles.
-> Their number eventually fell when an RCU sheaf filled, so I have no
-> evidence that this path grows without bound or causes OOM.
-
-Ah, the reason I mentioned unbounded amount of objects was because
-the commit 16128b1f8c823438dc that introduced the knob explains
-what can go wrong (e.g OOMs during the test) without the
-rcutree.do_rcu_barrier.
-
-> The problem I observed is limited to test isolation: the hook can
-> leave deferred frees behind and make them look like leaks. With the
-> proposed change, the same unmodified bcachefs workload passed the
-> leak check.
-
-It'd be more convincing if this part is included in the changelog ;-)
-
-> I also found that this exact follow-on was discussed when
-> `kvfree_rcu_barrier()` was added in 2024: Paul proposed calling it
-> from `rcu_barrier_throttled()` for clean userspace benchmark
-> baselines, and Uladzislau agreed that adding it and documenting both
-> operations was safest:
-> https://lore.kernel.org/all/20240820155935.1167988-1-urezki@gmail.com/
-
-Didn't notice that, and makes sense given the purpose of the knob.
-
-> I will omit the `Fixes:` tag in v2 and present this as a strengthening
-> of the test interface.
-
-Makes sense to me.
-
+-	usage = devm_kzalloc(&hdev->dev, sizeof(*usage), GFP_KERNEL);
++	/* may run from hid_report_raw_event() in (soft)irq context */
++	usage = devm_kzalloc(&hdev->dev, sizeof(*usage), GFP_ATOMIC);
+ 	if (!usage)
+ 		return NULL;
+ 
+@@ -633,8 +634,9 @@ static struct mt_application *mt_allocate_application(struct mt_device *td,
+ 	unsigned int application = report->application;
+ 	struct mt_application *mt_application;
+ 
++	/* may run from hid_report_raw_event() in (soft)irq context */
+ 	mt_application = devm_kzalloc(&td->hdev->dev, sizeof(*mt_application),
+-				      GFP_KERNEL);
++				      GFP_ATOMIC);
+ 	if (!mt_application)
+ 		return NULL;
+ 
+@@ -692,7 +694,8 @@ static struct mt_report_data *mt_allocate_report_data(struct mt_device *td,
+ 	struct hid_field *field;
+ 	int r, n;
+ 
+-	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_KERNEL);
++	/* may run from hid_report_raw_event() in (soft)irq context */
++	rdata = devm_kzalloc(&td->hdev->dev, sizeof(*rdata), GFP_ATOMIC);
+ 	if (!rdata)
+ 		return NULL;
+ 
 -- 
-Cheers,
-Harry / Hyeonggon
+2.43.0
+
