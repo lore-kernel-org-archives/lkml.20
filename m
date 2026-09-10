@@ -1,87 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E8538E11A
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065830; cv=none; b=CmRD+v7cFLlAgtbxMZxMt1tQkenKVv+RLcgZqAIHeJEO1H7fp63EDV6TiHbapAGeZNLnvs0+Yl6N25uXpT8fC1X8t7r2Gkx7Nl0IE/zuslv0uZcao3UsirM1I8BjYi1vlcYdlc6vSNozJDGC5jEf0Kzzu6mMxEm7d0T6ijq4hyI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065830; c=relaxed/simple;
-	bh=CzOLFf01jrlECz3kkiAI/PQhyIg6Nm9A/E19QSy30/w=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=TsqKnC7zoBn4NClF7+F8xLUW5mc5aMmW+5udo6OW5wngStqofUrOCK3i35gqLXQoEEcciaaGhM77RWLBSU8SOgaV2IlhSDReJM4jZ01iHyhR27GIeq7+qM6piNJjtSUFu7rMc1gvgOOYeNWhG5ef22LbTp8rsaQ64sqttd0yNQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJmvM1zb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB46582BBC
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789065872; cv=pass; b=ChI9EV73CVecgyXzQ8usWHIzd7lg0PHrzI7howt2kfq+sVpCrW2y7biSCLR14bzWoFu4H7jHa9O2XdhZBx+xaf8ej5jEpKQ8hp9qQ7h+yKAxrlEGymXCnMmvV+q07mVvuS/mYUmj4JOJ7jDY8CI5xywaBTCYhak1WFCVHUZf4dc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789065872; c=relaxed/simple;
+	bh=xFtYMESwkraSasJbw3YRh3uL1QWxpB6iuCe15TY2WxQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iFjXtYVXIKGdAdCAoKiB5JW6ScLyGfxpCOOT/DFZeykmOK5uFYIxG0r1ESJgQFX4KA61AaJKlW29gvFx32vTFv6xxadV/f/bPRR1krgHIE6X6c5jrMQcYtObuVZHryqwhcdcR68xCkZnX8tykUt5P6eHhDGEnV9Pw5QLRKnMtb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T/cCd1ME; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJmvM1zb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E98E1F000FF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789065828;
-	bh=7fXv85CXNeQf5/ACIK20zObOnuXNRCrEK97tfYFgOO0=;
-	h=From:Date:Subject:To:Cc;
-	b=DJmvM1zbZrTUYdwbck1XSp0IJleDipWqlFbtEbdT8tdS8kaYN/T5t6Ldxy367Wwl+
-	 85/wxFh+q6Ve6fkNYRZVkhRhbRTDn6eH55kzQfaCKrYA5o2o3ZkkyxarBgYcSl8qlU
-	 ydg/JEaFUQ/Rc2hCsRRFsGkFRZoqI624TsAVltR0N9PyJ3n1HhyTw1pdf/I3xFSSeM
-	 znDzneOnvGW1sb+LDM/tUCIK9DLZ9r3fMXZHaXHQqox4jBnKd4hQDrVcAc1BZGGpZV
-	 WkX5CMHsxPz1PBRxOaYCp3DrvwGHuLldEOPbZrGezcKS5aDrA56h5K70kHhcCCAYVC
-	 xx8+QyQ2e2p+w==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so135404e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:43:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw1AG//49U6b67LQVMume+y9roj5ksCaWkwSidsRkWUTMxAudzLWkfWltZ2Tn+QuneMeUYhokM8PpNoJDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTZIUX4sYgg362nr+LtIs1pMfQVyHapEp8qscTdEA4OKIbNsSd
-	Qh7BbxJKihMM9pEbkWhVVUAcwPsdQUQWgvIIY2DraJvLGUISPzzleTXvyuiZWT3hNNbUCwJpVkZ
-	wEl6D77N0V60WYAJQaiuiZaF+wB2HR3I=
-X-Received: by 2002:a05:6512:2395:b0:5b1:5ccf:5268 with SMTP id
- 2adb3069b0e04-5b8a02dcebemr253654e87.1.1789065827036; Thu, 10 Sep 2026
- 11:43:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T/cCd1ME"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2544ff970dso16873066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:44:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789065868; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ae63zfXXhlK4xNemgNGuNoMQ5DcXj5YqdnjlThoEwQsZgPvLqlbwMD/PqS4ynFBbJX
+         MWYXLFUIvn6L3ji/lMrdd5bKeBLoN5k288fls/DKQwELxIicF8J5SYSGVpZnHjcpF2yN
+         JBgA4p1ygLoqDocetfBRoqP4CbHjPsWY17XAA2+VcCP34U9Je7QhriQbG2iW6oTRDOKa
+         3nrQrPLA6sKT+6ljFUp9rt28HoBO7ufdk5brpfTeZh2mu/ACz8kyAKiUIoRJ9Sw15eqM
+         7NG6kytAuDWFTsp2/QDv0qMtW2W0dmKekt6yCujto7bR7ioUZ45V0rcngGrLXGjxccl/
+         ULKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=K13jkmR1aE3pdZ04hI2AFyUuzFQUQagwS5oXYalfh0c=;
+        fh=qyLnofkjStILwSt7fDFiK+x5IhXPrUHoDl9FvXHTBi4=;
+        b=sh63YLZIR6vIKn7p23jWSHZTr303Ep9wuuYcnVUJ/KoBTJu/5DJNQackJO3Fa2Wc8S
+         MQNQSlzaIb6TVjI16SO/2+ITpKeqBDDr/iF355rx+Sfhe2jUKiCMIVsxj6FxLI+Mc591
+         P8fhfj0Ak1YMOr395fE46pZzebd1Bbc+AN1VRcxsGJwqksE7Fr9ZxlWwgT1Ay8C857lV
+         gX3dyfBAHgU+EWjkwAX1poU3yNvN62/4OBTP1IhL39rHaaoyjIdJz1NiqK3+3+ugTsnZ
+         PTCd+A0wNP97v/5p9yq6PYldLbvAPp9avT8TEr1Ju0qvbsmCxbs731JaGi1pMvylU0bQ
+         X5nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789065868; x=1789670668; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K13jkmR1aE3pdZ04hI2AFyUuzFQUQagwS5oXYalfh0c=;
+        b=T/cCd1ME5NRXUGCBKdhX8bwRvsKABSLaTnAvx0z9CFBEhvHNcQy/Y3q2iGev3CNK+t
+         qbrEy/accuaxO/ff0ksc3CeoVO/fN/1ai0AbsJ9Y0omNOKEpklmV1IRUONhwbvh+xGgd
+         N+Pe7hDn+ewJSVccPtNDSQ2dfUC5Qa4JZXH+W7A9I2l0jPpHYxsgr88txFArfRHcZ6u1
+         6ETWIVj31YH6BCAezYFkwEQMetuCRZcdAfx8+6Rmrl/Mf3QstDZJTJM4oV7f8Y9eJI8A
+         29MzGUmLQae23xNYFTSkp25x42Tdfgcaeb6nImYmyknzfXshODliXYoMYbqwPtYIIpsN
+         /AYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789065868; x=1789670668;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=K13jkmR1aE3pdZ04hI2AFyUuzFQUQagwS5oXYalfh0c=;
+        b=iSwkWkm95fZpmQpUhkKAMuMcJf1nDU3DRb8JX5mquFJ8iE1IvCPfRfzYGNyp2Q71iB
+         Gs90QABYBN5oaDrj5JNsRKAIhD0kjPCc+xD+EAi2XL1cm8WHOIRnAC9/EXqowq4/s5xb
+         WcYNbKKbGIsrUthRBOBCfLB22tk132qpsoMhd4LK/fF35aznuukGYFSf/divkYPc0++8
+         /1mrcTzp8tk1qGgmPsf6vAhbDynMaXkt4aTn1qFYwrGA3TjsvncBm6eSAtL3JdVLhvee
+         CAlJCSAtcrr0/XAQ2zlExFzzuA2t7HhvfP2rDeRQQsgrUYNSgLzLqYgU+ffR8Rs1Ck2+
+         aNEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzVRuA7rISAjB1cWPSoe8IT7KOOcAwWcr+X9FhEUHo04L1ACRXYOT3xwF2uR4+N+lZ2nZuYVBQ0QvE0bo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4eX5yL6rd8tTzjz9mgJcoXvmJRQ5YKuxzyEWZ1p3POH6RSRaW
+	FMK8YokvbB/aaIwrZl4SoLU2itNwUa/SvUTmpVKDgPqsae7/KolrwHvkzById0hwOHE9mikuu4n
+	1A8PMK2/7XXEhnA1JBscZGSy8F6AOaBxnTcHlwt4=
+X-Gm-Gg: AYBFou0yO9/lOTQPQvYHkbXkhiRoFZ90MWvJoCHDf3W24pj+SGlP9BpzZ2uEG2CUc9V
+	mrpT0dkHTyTxTXg1DqnQ3s7lj3mLIzBoakskIwHjl0MyE8S2GKb/+NyuzgFhrqjr5V9kNvyVgTm
+	KKPvRaKvHH8j+mlqxmiOHfnBuNjjxwJtD2nXOMtaiwoqUtB+m1kfC3gowVJHBsAhtpYQW7zE/Qz
+	rs/cENJfS8MrYdLbs3oTvfcb8ocO83dD0YdYiynO+oncJHrbU4KqMPABlvCtL/KqwvNBvmDxdKa
+	cm4fsxwy9n6uDSnGIQgx7EwXINeAPPdgilUUviFHYj6DMm3zuj5VnA==
+X-Received: by 2002:a17:906:628b:b0:c29:3d59:706b with SMTP id
+ a640c23a62f3a-c293d5974b6mr435596166b.44.1789065868035; Thu, 10 Sep 2026
+ 11:44:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 10 Sep 2026 20:42:36 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hu=AqKVTSoLbid21uYiwBJpWQv3_3e4eZwge-DHdwLVA@mail.gmail.com>
-X-Gm-Features: AcwNN1Uqo16JGGE55ShEDwXxtd9xrUD2-5Bp3HEmCwhtMik5RKv2kjCYRwFOC9k
-Message-ID: <CAJZ5v0hu=AqKVTSoLbid21uYiwBJpWQv3_3e4eZwge-DHdwLVA@mail.gmail.com>
-Subject: [GIT PULL] Thermal control fix for 7.3-rc3
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux PM <linux-pm@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>
+References: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
+In-Reply-To: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
+From: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>
+Date: Fri, 11 Sep 2026 00:14:16 +0530
+X-Gm-Features: AcwNN1Wf20eBeoeYCCCCW1ZvWgiNTZDi866Qnqt9Ke_fVgbm7NEAcsBqFh4rYTM
+Message-ID: <CAMfiSebZWbARrZR+CWeTMgo7-LMaCpqxrt_yWfFQVGFLofQ1ig@mail.gmail.com>
+Subject: Re: [PATCH] i2c: amd: fix SMBus block header and PEC handling in the
+ RX path
+To: andi.shyti@kernel.org, shyam-sundar.s-k@amd.com
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Paritosh Potukuchi <paritosh.potukuchi@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Linus,
+Hi Andi and Shyam,
 
-Please pull from the tag
+Friendly ping on this patch.
 
- git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
- thermal-7.3-rc3
+Could you please let me know if there are any comments or concerns?
 
-with top-most commit 5ad0af4f4367202b1bc71813052fe39b5116cdb9
-
- thermal: sysfs: switch to use scnprintf() to suppress truncation warning
-
-on top of commit cee9395acd8043be0644b25c34bfa86623f2b935
-
- Linux 7.3-rc1
-
-to receive a thermal control fix for 7.3-rc3.
-
-This replaces snprintf() with scnprintf() in the thermal core sysfs code
-to avoid compiler warnings about potential truncation of the names of
-the sysfs attributes (Andy Shevchenko)
-
-Thanks!
+Thanks,
+Paritosh
 
 
----------------
-
-Andy Shevchenko (1):
-      thermal: sysfs: switch to use scnprintf() to suppress truncation warning
-
----------------
-
- drivers/thermal/thermal_sysfs.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+On Sat, 27 Jun 2026 at 21:05, Paritosh Potukuchi
+<paritoshpotukuchi@gmail.com> wrote:
+>
+> Strip SMBus block header bytes from the received buffer before
+> forwarding the payload to the upper layers.
+>
+> Handles the optional PEC Byte at the end of the received
+> payload.
+>
+> Signed-off-by: Paritosh Potukuchi <paritosh.potukuchi@amd.com>
+> ---
+>  drivers/i2c/busses/i2c-amd-asf-plat.c | 34 +++++++++++++++++++++++++--
+>  1 file changed, 32 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-amd-asf-plat.c b/drivers/i2c/busses/i2c-amd-asf-plat.c
+> index e1699da838c2..daf318ce3bbb 100644
+> --- a/drivers/i2c/busses/i2c-amd-asf-plat.c
+> +++ b/drivers/i2c/busses/i2c-amd-asf-plat.c
+> @@ -46,6 +46,8 @@
+>  #define ASF_BLOCK_MAX_BYTES    72
+>  #define ASF_ERROR_STATUS       GENMASK(3, 1)
+>
+> +#define SMBUS_BLOCK_HEADER_SIZE 2
+> +
+>  struct amd_asf_dev {
+>         struct i2c_adapter adap;
+>         void __iomem *eoi_base;
+> @@ -61,7 +63,7 @@ static void amd_asf_process_target(struct work_struct *work)
+>         unsigned short piix4_smba = dev->port_addr->start;
+>         u8 data[ASF_BLOCK_MAX_BYTES];
+>         u8 bank, reg, cmd;
+> -       u8 len = 0, idx, val;
+> +       u8 len = 0, idx, val, offset, data_len, payload_len, has_pec;
+>
+>         /* Read target status register */
+>         reg = inb_p(ASFSLVSTA);
+> @@ -110,12 +112,40 @@ static void amd_asf_process_target(struct work_struct *work)
+>         if (cmd & BIT(0))
+>                 return;
+>
+> +
+> +       /*Below is the SMBus block header received on the wire:
+> +        *     Command       --  1 Byte
+> +        *     Data Length   --  1 Byte (number of data bytes)
+> +        *     Data          --  N Bytes
+> +        *     PEC           --  optional, 1 Byte
+> +        *
+> +        *     PEC, if present, is the final byte of the transfer
+> +        */
+> +
+> +       offset = SMBUS_BLOCK_HEADER_SIZE;
+> +       if (len < offset)
+> +               return;
+> +
+> +       payload_len = data[1];
+> +
+> +       if (payload_len > len - offset)
+> +               return;
+> +
+> +       if (len == offset + payload_len + 1)
+> +               has_pec = 1;
+> +       else if (len == offset + payload_len)
+> +               has_pec = 0;
+> +       else
+> +               return;
+> +
+> +       data_len = len - has_pec;
+> +
+>         /*
+>          * Although i2c_slave_event() returns an appropriate error code, we
+>          * don't check it here because we're operating in the workqueue context.
+>          */
+>         i2c_slave_event(dev->target, I2C_SLAVE_WRITE_REQUESTED, &val);
+> -       for (idx = 0; idx < len; idx++) {
+> +       for (idx = offset; idx < data_len; idx++) {
+>                 val = data[idx];
+>                 i2c_slave_event(dev->target, I2C_SLAVE_WRITE_RECEIVED, &val);
+>         }
+> --
+> 2.43.0
+>
