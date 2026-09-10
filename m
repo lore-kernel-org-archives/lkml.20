@@ -1,285 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959D9470136;
-	Thu, 10 Sep 2026 11:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EDE3ADBB4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789038022; cv=none; b=eB9SS1iudThdLiE9+VYbTj42QHU9ARBQJmniZpmfyljH2zfQtGa0oKhEtBt04yaRF4T82gn9LavXckKenqE6CM84ot9lETPNHdzsL5I47dnBmuMLePbQjXqQbB3zwIhr9DOXpxot84G213cs9BRp+FSSEA9i2/lyo+yi0grRXgE=
+	t=1789038022; cv=none; b=I8mEqH7x++R7n2cDVdNiLbY4EHiNU0Iw54iROQrqMTmrKz7j5Lj0EmVgozpBzZ7MXQz4lBYGvz+GuBB4lQbP7D5JM66G2STj+LPb+HNvlXxED0gwjyOp5OPmPiQY62/3nME7WbW7PHAt0OA8qRryBie/6CJ94NddVgFViJ9a6og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789038022; c=relaxed/simple;
-	bh=27W7XaDI53ge61OsV1O82PMbVANHyRB3FsKg1gBZ+r0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K3sq+CeYEV+180Ks//j1FHKZ8ZjRUStD10EZPg61RP5vgyVeTqLSt8w2rVsQCR3sIdjjjEjfI2ktmQUioCLdEU7rZ6/uSfdlHEZDZfwA90v76noXVexRDoE4a5c+1wfw//5vtqWKcyycAd/brvn69eK+DnfTfuk8goxbsqB9Dr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3lnb8PL; arc=none smtp.client-ip=100.103.45.18
+	bh=6RFhPb2Gk9DDHKHVFOt9AK05WlI14WyvLEfFiplc+p4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jUnXBdkP0jNmvr/Zn3rF8Mk4zlBocsgEn8seZ2Hy87h02Ek3AYqffpLwKNAUK4XmiwdTyaAZCANtlyw23DWV3MMwhOLgo1hiNIip/uf8/x8smkwMZflqacPDZtb/dZl3Q2qYbcC2W17ijknYsZKbR+gMpVo83aRkb+twom+gHWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J2CGcStl; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3lnb8PL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020371F00893;
-	Thu, 10 Sep 2026 11:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789038019;
-	bh=/CjaWpeoftE+Wn2hDoCKbw50T/OskJjYcBztwhRMRzs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=B3lnb8PL7M85f75exnh7h0hPNl1h1Lq61Zrk8Os+kTvDlTeUCAJYnm5mzVpXkjslJ
-	 uh3UkmdWeia6McU0ViR7mHavK4KMxc47giLOXDYZf2IBsFSdFLilDFAb0OAqV/reJ3
-	 ODVtoHqN0wFeWIy8nm0QLQiWsii7m6fAS6QXeBnM1YKgLrz7bhlKNCcOiTdTcpjAWh
-	 SUaALEAixjO6ayZLkzj8ipS70ZI4aVMzPXjH9ykyx6zxvMbKV2J4/1KEy1KwBucqsI
-	 qfJkRDJIfxqUm7ejy51Yezli/J4O0/FteUL2Dkvz+16Z73GQajYeMIoiuL5W8tMjLq
-	 NDDVfoHVrX/Fg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Thu, 10 Sep 2026 14:00:05 +0300
-Subject: [PATCH v2 03/13] s390/chsc_sch: Use kzalloc() for CHSC requests
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J2CGcStl"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso10904925e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:00:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789038019; x=1789642819; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GDAmMcZxhMshZjhoUDkLHyRQSZBqRjdcOge6fnAnEeQ=;
+        b=J2CGcStlQMHyri424InUIsHMnqz4LD8FVOhrV8v4cbh1852AI/DfvDRuvfn+ngKlSW
+         +Q9wFIBuFx+nJphVMT87ogAECL7qQLJtDRdJjfn/Z5RExLgbI3QdoqYHKeQEAjyZhI2/
+         HWeHu9WhKpheOPS0VauhPS9+l8WfwvIYICYVTpZIkyC+J4kBrzfVmYrNDTvE2wbwFdlz
+         UFB/wDmyZNPElBCtGRJWZsuPN/qxbr4LvymTRffgxzZfS8Bw7G/c3DgIhs5QbKHIAJOs
+         k7o0JuRC4VngaNQx2AkOK/ubmf8cM49RFupTLeuDu25NlOSxJ7SPf/bLL30/n2iaUq0s
+         9Vyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789038019; x=1789642819;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GDAmMcZxhMshZjhoUDkLHyRQSZBqRjdcOge6fnAnEeQ=;
+        b=rMM11viKcG7tbastcwcLgLzg96IcVfWU0rQwt7nU0iLgMZsYeeU0GdE7IhxIqkvpdC
+         dRSwKcK+4g91Ae0ngBevcOnF+tBirIL8AHZ7L++mq+Mpw800dVgHqXirxTwdSNQK9f1r
+         W1lwKnoi4Wl0x2r6eyV3MBC3alrGN4m9HeGu0ulRE2LopdA2XwBwt5CwAvbQhkYOVoCd
+         ZwwAxLxucnRAiUDvuXFjwX6Wpw2ksLF//cBWQpo8V/jizt2Jj0J5UCQIPqda58SKn09/
+         XgrNSAokExdoWEyVgSKAu5a7+zN0a6SG8ZQEOixXBOPAOahfuqLL5Mm0o+OK5g4Rr4EF
+         e61Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwVpkrZzwPNyEu3JN+HuNYlCBSEdx3Y6EUsvrsX/Yq2VyxHHLm4V+viPgTYhd3UDehav1QgmEjz2QGRsX0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyM7qETYG262i4XejNxFPJ5Gf9D26qCJyPVuXHYWRGe6RYhAW/
+	SFcREWXrGmM1aGAqZfJfFFXLKPXPZniIeP++GNFb0WoaHdavhdB3E6QtafqdOQ==
+X-Gm-Gg: AYBFou1wI/5KOzmRklOw+ejEH7TpkZgwIRjZkJVuyAo39nl1npss2KBkPH+erKt/sxM
+	323tNG2TiRHioLBYzPP1n6YkUdlKi0W8fCNgxfSvWR84VMcyPQoqm+tdRTnM8yRIF9guwH+fUeZ
+	VH1ZXA5k+fME6bRIdiT+bWL9c51j98oJVm96B6yJdNPgln5pKIAPsttl9FuGmqCy+88FBWvS+9A
+	hlvaNNdQRadlx2UuQ0XQK8YipgdvKqgFnTx134y/zhNBlHidFb7z72cqMFrfIf68c7tmsAu7AoE
+	Za6edr/+oGLjHS03aN/rG5phYUC+cIIqbO4AWFWoQUhjgSMArmeVvNHle8v+KxmI5DKccPvsgdL
+	8vFleXeBKUOz73Hr+BPwm5lb4wyU7gLWxc6sJtVhHySDNkjKhUo4qeqGHkYeCzhZo3cnb56GdNc
+	AEjXFgVrqAMTnDy+8JinD970M8HGEdBDLA+2oX2BsRC3obBdVzpXlWGRnvs6WD5PY0TGHGbbW4B
+	Zw1TwEwR69tOPr+gEXbNuJRfuOXLEdubjy6
+X-Received: by 2002:a05:600c:4fcb:b0:49c:f13e:e4c with SMTP id 5b1f17b1804b1-49d26db4274mr42401465e9.9.1789038017825;
+        Thu, 10 Sep 2026 04:00:17 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm272359765e9.4.2026.09.10.04.00.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:00:17 -0700 (PDT)
+Date: Thu, 10 Sep 2026 12:00:16 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Haakon Bugge <haakon.bugge@oracle.com>
+Cc: Waiman Long <longman@redhat.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
+ code
+Message-ID: <20260910120016.04ba8ae1@pumpkin>
+In-Reply-To: <0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+	<CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
+	<20260907182705.54585f73@pumpkin>
+	<89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
+	<44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
+	<dd6a7873-7d23-42e2-adbd-b59c43141d96@redhat.com>
+	<0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-s390-cio-ready-v2-3-e931086fdde1@kernel.org>
-References: <20260910-s390-cio-ready-v2-0-e931086fdde1@kernel.org>
-In-Reply-To: <20260910-s390-cio-ready-v2-0-e931086fdde1@kernel.org>
-To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Mike Rapoport <rppt@kernel.org>, 
- Peter Oberparleiter <oberpar@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Vineeth Vijayan <vneethv@linux.ibm.com>, 
- Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The CHSC ioctl handlers allocate request and response areas for
-CHSC commands issued on behalf of userspace.
+On Thu, 10 Sep 2026 09:45:47 +0000
+Haakon Bugge <haakon.bugge@oracle.com> wrote:
 
-This memory can be allocated with kmalloc() as there's nothing special
-about it to go directly to the page allocator.
+> > On 9 Sep 2026, at 22:33, Waiman Long <longman@redhat.com> wrote: =20
+>=20
+> [snip]
+>=20
+> > > Could you make that change to the existing code and rerun the test=20
+> > > again on arm64 to see if it can pass?  =20
+> >=20
+> > osq_lock/unlock() is special in the sense that lock transfer can happen=
+=20
+> > either in the lock cacheline or the node->locked cacheline. Try the=20
+> > patch below to see if it helps to pass the test.
+> >=20
+> > Thanks,
+> > Longman
+> >=20
+> > diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+> > index b4233dc2c2b0..51cecf297692 100644
+> > --- a/kernel/locking/osq_lock.c
+> > +++ b/kernel/locking/osq_lock.c
+> > @@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+> >          * is implemented with a monitor-wait. vcpu_is_preempted()=20
+> > relies on
+> >          * polling, be careful.
+> >          */
+> > -       if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() =
+||
+> > +       if (smp_cond_load_acquire(&node->locked, VAL || need_resched() =
+||
+> > vcpu_is_preempted(node_cpu(node->prev))))
+> >                 return true;
+> >=20
+> > @@ -224,11 +224,11 @@ void osq_unlock(struct optimistic_spin_queue *loc=
+k)
+> >         node =3D this_cpu_ptr(&osq_node);
+> >         next =3D xchg(&node->next, NULL);
+> >         if (next) {
+> > -               WRITE_ONCE(next->locked, 1);
+> > +               smp_store_release(&next->locked, 1);
+> >                 return;
+> >         }
+> >=20
+> >         next =3D osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
+> >         if (next)
+> > -               WRITE_ONCE(next->locked, 1);
+> > +               smp_store_release(&next->locked, 1);
+> >  } =20
+>=20
+> The test passes with the above patch:
 
-kmalloc() provides a better API that does not require ugly casts and
-kfree() does not need to know the size of the freed object.
+Do you know which part matters?
 
-Performance difference between kmalloc() and __get_free_pages() is not
-measurable as both allocators take an object/page from a per-CPU list for
-fast path allocations.
+>=20
+> # dmesg|grep mx
+> [    7.010502] mx_test: osq_lock                    padding:  8 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.000 seconds
+> [   12.014144] mx_test: osq_lock                    padding: 16 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
+> [   17.017572] mx_test: osq_lock                    padding: 24 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
+> [   22.019636] mx_test: osq_lock                    padding: 32 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
+> [   27.022192] mx_test: osq_lock                    padding: 40 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.000 seconds
+> [   32.024907] mx_test: osq_lock                    padding: 48 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.004 seconds
+> [   37.026035] mx_test: osq_lock                    padding: 56 result: S=
+UCCESS sum: 0 elements: 1000 elapsed: 5.000 seconds
+>=20
+> I'll use David's advise about including the osq_lock code in my test,
+> so I can test it as a module, which will be more thorough.
 
-For the slow path the performance is anyway determined by the amount of
-reclaim involved rather than by what allocator is used.
+At least with a build/run option...
 
-Replace use of get_zeroed_page() with kzalloc() and free_page() with
-kfree().
+> If you submit this patch, feel free to add:
 
-Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-Assisted-by: copilot:claude-opus
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- drivers/s390/cio/chsc_sch.c | 44 ++++++++++++++++++++++----------------------
- 1 file changed, 22 insertions(+), 22 deletions(-)
+I'll roll it into my patches (as 1/n).
 
-diff --git a/drivers/s390/cio/chsc_sch.c b/drivers/s390/cio/chsc_sch.c
-index b6cb8bb8bcc4b..c8d6871d1841e 100644
---- a/drivers/s390/cio/chsc_sch.c
-+++ b/drivers/s390/cio/chsc_sch.c
-@@ -292,7 +292,7 @@ static int chsc_ioctl_start(void __user *user_area)
- 	if (!css_general_characteristics.dynio)
- 		/* It makes no sense to try. */
- 		return -EOPNOTSUPP;
--	chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
-+	chsc_area = kzalloc(PAGE_SIZE, GFP_DMA | GFP_KERNEL);
- 	if (!chsc_area)
- 		return -ENOMEM;
- 	request = kzalloc_obj(*request);
-@@ -321,7 +321,7 @@ static int chsc_ioctl_start(void __user *user_area)
- 	snprintf(dbf, sizeof(dbf), "ret:%d", ret);
- 	CHSC_LOG(0, dbf);
- 	kfree(request);
--	free_page((unsigned long)chsc_area);
-+	kfree(chsc_area);
- 	return ret;
- }
- 
-@@ -340,7 +340,7 @@ static int chsc_ioctl_on_close_set(void __user *user_area)
- 		ret = -ENOMEM;
- 		goto out_unlock;
- 	}
--	on_close_chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
-+	on_close_chsc_area = kzalloc(PAGE_SIZE, GFP_DMA | GFP_KERNEL);
- 	if (!on_close_chsc_area) {
- 		ret = -ENOMEM;
- 		goto out_free_request;
-@@ -353,7 +353,7 @@ static int chsc_ioctl_on_close_set(void __user *user_area)
- 	goto out_unlock;
- 
- out_free_chsc:
--	free_page((unsigned long)on_close_chsc_area);
-+	kfree(on_close_chsc_area);
- 	on_close_chsc_area = NULL;
- out_free_request:
- 	kfree(on_close_request);
-@@ -375,7 +375,7 @@ static int chsc_ioctl_on_close_remove(void)
- 		ret = -ENOENT;
- 		goto out_unlock;
- 	}
--	free_page((unsigned long)on_close_chsc_area);
-+	kfree(on_close_chsc_area);
- 	on_close_chsc_area = NULL;
- 	kfree(on_close_request);
- 	on_close_request = NULL;
-@@ -392,7 +392,7 @@ static int chsc_ioctl_start_sync(void __user *user_area)
- 	struct chsc_sync_area *chsc_area;
- 	int ret, ccode;
- 
--	chsc_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	chsc_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!chsc_area)
- 		return -ENOMEM;
- 	if (copy_from_user(chsc_area, user_area, PAGE_SIZE)) {
-@@ -414,7 +414,7 @@ static int chsc_ioctl_start_sync(void __user *user_area)
- 	else
- 		ret = 0;
- out_free:
--	free_page((unsigned long)chsc_area);
-+	kfree(chsc_area);
- 	return ret;
- }
- 
-@@ -438,7 +438,7 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *scpcd_area;
- 
--	scpcd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	scpcd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!scpcd_area)
- 		return -ENOMEM;
- 	cd = kzalloc_obj(*cd);
-@@ -476,7 +476,7 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
- 		ret = 0;
- out_free:
- 	kfree(cd);
--	free_page((unsigned long)scpcd_area);
-+	kfree(scpcd_area);
- 	return ret;
- }
- 
-@@ -500,7 +500,7 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *scucd_area;
- 
--	scucd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	scucd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!scucd_area)
- 		return -ENOMEM;
- 	cd = kzalloc_obj(*cd);
-@@ -538,7 +538,7 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
- 		ret = 0;
- out_free:
- 	kfree(cd);
--	free_page((unsigned long)scucd_area);
-+	kfree(scucd_area);
- 	return ret;
- }
- 
-@@ -563,7 +563,7 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *sscud_area;
- 
--	sscud_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	sscud_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!sscud_area)
- 		return -ENOMEM;
- 	cud = kzalloc_obj(*cud);
-@@ -602,7 +602,7 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
- 		ret = 0;
- out_free:
- 	kfree(cud);
--	free_page((unsigned long)sscud_area);
-+	kfree(sscud_area);
- 	return ret;
- }
- 
-@@ -625,7 +625,7 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
- 		u8 data[PAGE_SIZE - 20];
- 	} __attribute__ ((packed)) *sci_area;
- 
--	sci_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	sci_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!sci_area)
- 		return -ENOMEM;
- 	ci = kzalloc_obj(*ci);
-@@ -662,7 +662,7 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
- 		ret = 0;
- out_free:
- 	kfree(ci);
--	free_page((unsigned long)sci_area);
-+	kfree(sci_area);
- 	return ret;
- }
- 
-@@ -696,7 +696,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
- 		u32 res;
- 	} __attribute__ ((packed)) *cssids_parm;
- 
--	sccl_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	sccl_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!sccl_area)
- 		return -ENOMEM;
- 	ccl = kzalloc_obj(*ccl);
-@@ -745,7 +745,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
- 		ret = 0;
- out_free:
- 	kfree(ccl);
--	free_page((unsigned long)sccl_area);
-+	kfree(sccl_area);
- 	return ret;
- }
- 
-@@ -756,7 +756,7 @@ static int chsc_ioctl_chpd(void __user *user_chpd)
- 	int ret;
- 
- 	chpd = kzalloc_obj(*chpd);
--	scpd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	scpd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!scpd_area || !chpd) {
- 		ret = -ENOMEM;
- 		goto out_free;
-@@ -775,7 +775,7 @@ static int chsc_ioctl_chpd(void __user *user_chpd)
- 		ret = -EFAULT;
- out_free:
- 	kfree(chpd);
--	free_page((unsigned long)scpd_area);
-+	kfree(scpd_area);
- 	return ret;
- }
- 
-@@ -796,7 +796,7 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
- 		u8 data[PAGE_SIZE - 36];
- 	} __attribute__ ((packed)) *sdcal_area;
- 
--	sdcal_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	sdcal_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!sdcal_area)
- 		return -ENOMEM;
- 	dcal = kzalloc_obj(*dcal);
-@@ -834,7 +834,7 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
- 		ret = 0;
- out_free:
- 	kfree(dcal);
--	free_page((unsigned long)sdcal_area);
-+	kfree(sdcal_area);
- 	return ret;
- }
- 
-@@ -904,7 +904,7 @@ static int chsc_release(struct inode *inode, struct file *filp)
- 	}
- 	snprintf(dbf, sizeof(dbf), "relret:%d", ret);
- 	CHSC_LOG(0, dbf);
--	free_page((unsigned long)on_close_chsc_area);
-+	kfree(on_close_chsc_area);
- 	on_close_chsc_area = NULL;
- 	kfree(on_close_request);
- 	on_close_request = NULL;
+David
 
--- 
-2.53.0
+>=20
+> Tested-by: H=C3=A5kon Bugge <haakon.bugge@oracle.com>
+>=20
+>=20
+> Thxs, H=C3=A5kon
+>=20
+>=20
 
