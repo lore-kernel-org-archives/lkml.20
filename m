@@ -1,146 +1,128 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB9B377AAE
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789072364; cv=pass; b=PMZ+9VwagGhBlMvWq/sSXkMUAb6rqcJWOZYCoZsXDopJTgFtyWp5/D8c0iNH7WKrlPmbjqyy+2leMbVhGbENFcmrkSOKdRaiPm0FV+ykxeQUh7tPS9KaiT+7+ooTJArgAPe+zEkKXNlnhTcxpeSSaNv8SgnhDKjuIKyGfiHtGes=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789072364; c=relaxed/simple;
-	bh=TEweY9mF+kTWSc0jlLx0DqWiq1FtRWhs58OCpKywUiI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bA16Az14a832lVGNOGXREndc8D2+ZlE+7APGV9bBo9XJTByrNviejmiKkNbBhah6IFSRlcgJwKoL3fTSbsXq/jiotm3x8XSyINSZP8RLpQisggF+5MvM5fptzDwPsA5ISAQboakFxilrOVr5XYWqvwA1CHrhhaZ7+NSh8P1qJwY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=dLgdnKuQ; arc=pass smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F31496D43
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789072432; cv=none; b=FoyQIORxzUdNTAzqj8OnHufEVg5MiSWBAOGTMpwVJHMX1dt7JIvS+xgQKU6VB1EeudFpMoINam7nU6xiV6ZQhPxL1HfQWzPgzoH/clLRs9KZd6KnxZjLSMzXrkwzGwllb0KhFrcA8WWYQgCOyuOcOCdxfIXUcOjri75Y+nFtVns=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789072432; c=relaxed/simple;
+	bh=qtx52UK/4LBV9jghu0vT9VRVINLkVe7W5dYSEGtxupE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gMd2zTvMSY+L1oPhTzauRcM979KqNkn8Etf7zt1UCI3LsVoFzJl8gx+pfCbVuxZURpsX9tfQ0rv2U6nK0Ww6Icr0/HIQ+aGyId8kyubm16/kkXQwJybhlFf4i3H9kXb1jGuk0ZiqByyXKkiFfFWFgqq1d34XX+N/Msb8tZXbBCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=A0aIqC/b; arc=none smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="dLgdnKuQ"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-9103228ef53so1372556d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:32:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789072361; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZNV5Fg22yQM4glPp2b/dWbYDcit00fr4FLXhJHBhxTHjnfnsU79dnyFrADUNZPl8wS
-         3jnBcGw5hkmMwKuPLNLcLBNLX5EcvurQEYH+0y48FSh82TGt+SHW0uxLxCDllp8LkBnc
-         bome0v7euJQdVPKWJnOBy9rdNqlkTp7ljcPdnmkkqyOXHjpCfxM8s6h0X+LgMIoHRuRS
-         KtOxHvuhnOzcp6A3Q8nq7Wi1HwV0Icfk3sw6v0qeSCpTrIwqbK4nMcklf4vIuYYIcGku
-         MtbOwlzedzy31IWf1a4zUIJWvFHVAuZKBn8jXx0j+fYveEnaUV08ev6gdgOu0lPtUFQ5
-         O8xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DMs786uqXSKku72JuRf3CgcJHichpdADmzIa67sOeNo=;
-        fh=IayHrPysSzmtZ58rIm5EeG8PLd+M9aAk2IrG9gj3q+8=;
-        b=ifdhHCcYCze0TWuKS4RWkuLIaEE3Cek2WXbV8VVEk6jzfWsA25zhEDkHY8bFICLu+m
-         PNlXUw6wRTgZ+85nZjx0Q/O1FAYvMNb3v6a2la5cjCyE+olcddy8Amy49lW4lpPmItUD
-         8dxFhvdE6kzcGcTaOxe8M5Pc3gJbWOx7PtuTlHu0OeTgdOZCtzluqJVOFUvIy2pVMix4
-         Ax/yVK2PKW6QqU3R6X7aT9eBF4ggIRTQlgc4r1XKf2D9g4489ZSx7m6k2UL1i5jgp1jI
-         vq3w6+yORm5xWsUG3cTLdmxAOcs82agStuBWrzAF04P08TN3qFdW/xMhlzff/JjNNAO9
-         +niw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789072361; x=1789677161; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DMs786uqXSKku72JuRf3CgcJHichpdADmzIa67sOeNo=;
-        b=dLgdnKuQPArVr8AEo+EJQUyAX+YYfrqxWFZyxe1DcgfpyUnoNIA4yVpt91JxtWR3S0
-         WNdqomMwJ9pN+m77ZFL/GBoWrmEGyGUqTvSPDc3g1L9zpsbcu3Eg4sWCeFlqxXmzgUaL
-         /757gq81w0ZRMXlOmZr/4zEot031N7w4muno27NaBx9NOOy8aty/aGsIrRVFxfbOAM5q
-         U4IImfFCPxQov1ABeRXF+ksa6IdVEOG8u0fCROuhoUCW6oC8ARlvTCO0nQC4n5CugwmU
-         hBcwI9y7CgYz2b2VKzZaEuk/7Gwhc4VvinkXRSkg4EM8raQf5ZScdV0Hknshldgnys8e
-         PUAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789072361; x=1789677161;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DMs786uqXSKku72JuRf3CgcJHichpdADmzIa67sOeNo=;
-        b=eWtUNDlU1f1QEvTkSAUwMg+8fe19sBGBb8ES+AaqO5razQY+WgEOkWezEP2sxo7eGp
-         MQF6g5n4zIhegn0kVvTAj9gFH8UK94sH6mJUya2Z2MwvNNlDD9NSPxjsbA/aBTkOyHrS
-         4gvsRn9x45KEM0cNokxlh8WyP1Ak2kle+uJ28V+5QkLPZVJYi3o/iYHyG5lNQpjrHUp9
-         9hU1QQ6L5CJgdUPpZMI+RAAe7BwsckRr0KCQkMDAx8L1gN4q/21S0Yq3gWMTchG2JDq3
-         AFwBgUWPZAYzM+EV4bwLPT5E/e27uGc8DpFv8u6rTLHgdRKx54bhN8ShhzmKk7v+HS7u
-         sssA==
-X-Forwarded-Encrypted: i=1; AKwUvBzHIDj+zTCMRnURDFUJ3/PNVuWSV/oc4l/1bAg2UvWju//i6IEjMtMns0EFa49I1zE6OrwRo0cAPE64SnY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTkoXisODXpk5f16HEGmE37HVjovlML/9NBHLoa8Gef6WXrKpg
-	dwI5iD+tAxjwHKVqZAmzW7XUEtv1+GmvZ0CY5aGKud21iswXsAfwfFAqWRiEBzvB1aILX0tBiis
-	ZyXXkDr4FEKV9/X+awCHgosWbGz6XDW8d9ldTpeImQRfaQqraLneVg+o=
-X-Gm-Gg: AYBFou3GgHAoZqiT1pJstIizPmctyfAjcWJRqvvLx77UUPSH5+1WKs54mCkNkIFUAL8
-	qkOnJLg5aPrgMMSg5rf3SEX59KpJLW0K0qkhR+M2FSCehulJoIvFxwa4E84JD1hYJP6jbCOmn+f
-	R5HE/U8uztqcrfJDDEyvLr4cMMORZ7Abp5xhMyIM/loY8sMRDSG/o+u9o7+3BU3jrm3UDI/LG6O
-	1dEvv8aX+Kk68LjVhVNao4WCipynVyE0cRx0Zg/0bnM3Nfrem/e3/EEPqZZXG/hb/DF9X6yRQO5
-	Hpbpx/Ymb+8ImdPvBOZnWfibpFCtxJbP7z2uTbd8HvR6c/KJdM08O4k=
-X-Received: by 2002:a05:622a:1cc6:b0:530:b2e4:91c4 with SMTP id
- d75a77b69052e-530c87cde3bmr17847751cf.61.1789072361124; Thu, 10 Sep 2026
- 13:32:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="A0aIqC/b"
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AJu1jQ2561856;
+	Thu, 10 Sep 2026 20:33:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=kOWSksod1WPWOtEo6wlFmVMVA9ySi
+	/1QtRNlnIkXk5I=; b=A0aIqC/bO1SgpSk9PrInkbj0Nx+U68SFDW/i/1st46iL9
+	G6ACBCxCYLvwQMCEhxwaUK2VgWRBMoHSR8f9a8ury4533wXS7VKSRlAae2AY85In
+	2oFn0W38rZH3HuFH/9b84kWQ0gf/uIQCfXNvbVzGCFecLs7tKZqzYhdCIYbzlFoB
+	Rutc2jGEKiHC4hMUig4pBmLMo06uGXp2/kLsu/sh8IAqdSOFatSpFdQztvljNa4i
+	UeSBrrG82ymLQJvAbu9LnXt/cpbzu+k2+kzlRgqbfz6L5IZQZasCxvibExi38HWp
+	pFJWvRo27+5Nskd5utaYlmPRgkScCalcityhgyxVQ==
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gkcypj13e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 10 Sep 2026 20:33:32 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68AKUTvI036104;
+	Thu, 10 Sep 2026 20:33:31 GMT
+Received: from aruramak-dev.osdevelopmeniad.oraclevcn.com (aruramak-dev.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.253.155])
+	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4gkrjsh1f5-1;
+	Thu, 10 Sep 2026 20:33:31 +0000 (GMT)
+From: Aruna Ramakrishna <aruna.ramakrishna@oracle.com>
+To: linux-kernel@vger.kernel.org
+Cc: pmladek@suse.com, rostedt@goodmis.org, john.ogness@linutronix.de,
+        senozhatsky@chromium.org
+Subject: [PATCH 0/1] printk: Yield console_sem to blocking waiters
+Date: Thu, 10 Sep 2026 20:33:30 +0000
+Message-ID: <20260910203331.4139656-1-aruna.ramakrishna@oracle.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824225648.316962-1-sgogte@purestorage.com>
- <20260824225648.316962-3-sgogte@purestorage.com> <c98fe50c-172a-4e53-a30c-5416c40cb23f@grimberg.me>
- <CAMof9cWdXR_040SDs2N=3ETvdmxvjx+OokfkSDr7DzVbLbuenQ@mail.gmail.com> <39448561-8877-4e20-98e6-fd85acc3d569@grimberg.me>
-In-Reply-To: <39448561-8877-4e20-98e6-fd85acc3d569@grimberg.me>
-From: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
-Date: Thu, 10 Sep 2026 13:32:05 -0700
-X-Gm-Features: AcwNN1VVO80cI_G7IjWKmJQTZEGiEoTj8YfHr2StmC_4xE_l1DVdfhFj4qx9Qq4
-Message-ID: <CAMof9cUv3EbdppfCSK++QO_-AgmqqpqO8AyajwUTjxt-mBQX0Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] nvme-tcp: parallelize I/O queue allocation and startup
-To: Sagi Grimberg <sagi@grimberg.me>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_06,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ suspectscore=0 phishscore=0 spamscore=0 mlxlogscore=616 mlxscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2609040000 definitions=main-2609100255
+X-Proofpoint-GUID: PebwJykKl9NRzcmXbwFVl_KJvRI1Vwaz
+X-Proofpoint-ORIG-GUID: PebwJykKl9NRzcmXbwFVl_KJvRI1Vwaz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDI1NiBTYWx0ZWRfX5F7XLLyI8ztU
+ ts3Z80sq9StTT1ES9OpxKfqj3OimwAuecZ4rzkKs1aM2n7h4Hj3zEOjTDs2xBmn8mP7Tfsc+6Tt
+ LmYMmuIIZ+SvwQC9HguPRjpOb6NgA8LOGHxCGwOhthabYgezXTUa
+X-Authority-Analysis: v=2.4 cv=F6zC5ahN c=1 sm=1 tr=0 ts=6aa3141c b=1 cx=c_pps
+ a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=BqU2WV_vvsyTyxaotp0D:22 a=b6U0tO9dpqJyuuIM_QMA:9 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12106
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDI1NiBTYWx0ZWRfX5sVyG0OI7dS9
+ hGPpx7Egxp5FWSMXCZN9wQOkIgMNB87fl8gerNWl6KqEjtI+1b+EWP8YIea7Oav20vSzI1Hnlza
+ eqcx6hBVlzFP1jGseCvX9jpKt5XeQSWe0D3jraAHetbfexTc0jDp9f0dATw0axyTtVce4/OqkYw
+ H/q8vPg7GFQ4BZAnp7hx2UQttP+BmSiCx8ZyS45YZDJhUfXoRYlo2ruzyRe7cjsL84vPbyH0QhM
+ KAeUcLkIGjreaEJTLdHlGPC0wKAOp278Ny5+StiQAdywW0QJUJoqJLfuFxSzMDQaGoO7Dp4gq6+
+ 7b+HElZSeB8Uv37DuzLuc2EwUYkUSUd7ZytmUgRcUHAPYkJMRrK32vcOrYvIBI2HP5DSC6w71sC
+ SBtxMdvbiDPztxcX1L7LSdM2lceQ2BAoPi5mgwp/2ZZdMidKmFggeQHg4gfMu4SagRfAsb1fc6A
+ srWUyCrIkLXdvOSqMVCKswEuLaBvRlGBCpVuuiJY=
 
-On Sat, Sep 5, 2026 at 3:30=E2=80=AFPM Sagi Grimberg <sagi@grimberg.me> wro=
-te:
->
-> >>>                qid, queue->io_cpu);
-> >>> @@ -1846,7 +1856,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctr=
-l *nctrl, int qid,
-> >>>                queue->cmnd_capsule_len =3D sizeof(struct nvme_command=
-) +
-> >>>                                                NVME_TCP_ADMIN_CCSZ;
-> >>>
-> >>> -     ret =3D sock_create_kern(current->nsproxy->net_ns,
-> >>> +     ret =3D sock_create_kern(&init_net,
-> >> I don't think we can just change this...
-> > Passing init_net explicitly does change behavior on the synchronous con=
-nect
-> > path. However, with queue allocation now moved into an async worker,
-> > current->nsproxy->net_ns resolves to init_net in that context anyway, s=
-o
-> > the initial connect path already loses the caller's netns regardless of
-> > which argument is passed.
-> >
-> > If the goal is to actually preserve the caller's netns through the full
-> > ctrl lifecycle - initial connect, reconnect, and error recovery; it can
-> > be pinned at ctrl creation like:
-> >
-> >      nvme_tcp_alloc_ctrl():
-> >              to_tcp_ctrl(ctrl)->net =3D get_net(current->nsproxy->net_n=
-s);
-> >
-> >      nvme_tcp_free_ctrl():
-> >              put_net(to_tcp_ctrl(ctrl)->net);
-> >
-> >      nvme_tcp_alloc_queue():
-> >              sock_create_kern(to_tcp_ctrl(ctrl)->net, ...);
-> >
-> > This captures the caller's netns while still in userspace context, then
-> > carries it through all async paths =E2=80=94 so reconnect and error rec=
-overy
-> > also honor the original netns rather than falling back to the kworker's
-> > init_net.
-> >
-> > Is this approach preferred?
->
-> Yes I think so
+Problem context:
 
-Alright, sent the patch with the implementation in v3
+After a reboot, NetworkManager failed to bring up interfaces because
+systemd was stalled, due to a flood of printk warnings. Systemd was
+blocked waiting on the console lock for over 122 seconds:
+
+  __schedule+0x224/0x65b
+  schedule+0x5f/0xdf
+  schedule_timeout+0x110/0x145
+  __down_common+0x14d/0x18c
+  ? srso_alias_return_thunk+0x5/0x7
+  down+0x43/0x54
+  console_lock+0x16/0x3d
+  show_cons_active+0x3d/0x1b6
+  dev_attr_show+0x16/0x50
+  sysfs_kf_seq_show+0x9c/0x124
+  seq_read_iter+0x12b/0x4e3
+  new_sync_read+0x140/0x1db
+  vfs_read+0x106/0x199
+  ksys_read+0x67/0xe8
+  do_syscall_64+0x35/0x87
+  entry_SYSCALL_64_after_hwframe+0x6e/0x0
+
+The loglevel was set to 7, due to which there were a flood of messages
+to the console, which in turn starved systemd due to the chain of direct
+printk handoffs. Direct printk handoffs transfer printing ownership
+between printk callers without releasing console_sem. A continuous
+chain of these handoffs can therefore leave blocking console_lock()
+callers waiting on the semaphore.
+
+Proposed solution:
+
+If there is a blocked console_sem waiter, then:
+1. Prevent new printk-to-printk handoffs.
+2. Stop the current owner from indefinitely flushing all records until
+its done.
+
+This unblocks console_sem waiters who are not doing printk.
+
+Aruna Ramakrishna (1):
+  printk: Yield console_sem to blocking waiters
+
+ kernel/printk/printk.c | 39 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 32 insertions(+), 7 deletions(-)
+
+-- 
+2.43.7
+
