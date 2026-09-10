@@ -1,143 +1,113 @@
-Received: from mta0.migadu.com (out-4.mta0.migadu.com [91.218.175.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D831A807
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD37379C3C;
+	Thu, 10 Sep 2026 03:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011698; cv=none; b=dckF9EyFap6XlwnBEgK2ZjHj9pGNoYaRSmWA9WhnZPyxNclL4/8To6XrzT9x0Bvc8I2UbZX/O304rAZQCz/eqCb6ZEoWBiR7sY8CNEz5lituxsazwJM5ZZiBrsJ/FrT/ntSclGn4qbPnpBqgmNqPJAbb327G2IwYv3ELyCY8Yxg=
+	t=1789011842; cv=none; b=Asq9tLU8KQVxAHsDdWRQnyLILxp+44Xk4fOEEFtpZE5HiJb/FmBfgsvTRcUh2Uyx7te1zLc5xVmcD9+Xwm0FQMdXFnEOt7g+4rE/ro8U+hKzMv1o17qxwyU2noQPhxM7jg9U5ChAAtoLsGdpxJNd+6VD9VeI4CAIpBjY63cGG6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011698; c=relaxed/simple;
-	bh=TO9MO5b8bJXJHjB/YLkQtxGsZmZ1QMZjecPQuYKzAKE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=AJzRT0t01fCLiReuezCb3US8UaieWJ4Cgs7yhnX4+30LMXkOB+P419/JzF3fVe1EQHTpfciq95PXJri+yaHAm9BvYx17d9gMhzUKLR/C2pisG9LJJ2g6ue7UHv3AfuffF+4219RSK3ItZMAqvLs6noAYR8cv40oFNI//+DTMwu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cW5wMLbl; arc=none smtp.client-ip=91.218.175.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789011842; c=relaxed/simple;
+	bh=aHFXpjcIZQG9vX4kBkqYBeDw2g/hbR70cFKTn0d5m1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Pmyj7FSd2f/SPCOQ4R9SXr7DUTgKtDe0oVQcGzrUUcSxlKzJn2UCmc2x83o+O1zxKkq9BOEM95jC5cmP1E8PQBLerhIu9L3Myy0srEnqo4aIq4OtIUFbwhRy7EUCldWvSayr2XXAOMPsCtiVbRKkJmKtmqULxeFy+3e/FfiJAJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IucH3r1E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cW5wMLbl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TO9MO5b8bJXJHjB/YLkQtxGsZmZ1QMZjecPQuYKzAKE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789011693; v=1; x=1789616493;
- b=cW5wMLblkClkgxEJoNh30xAjz8z07O7j7MGgDXw0ZUHBGm8m6eEWiGn9kuvfIm601GaYDbHZ
- 0nheGPlWP/WwYpoKNjmZCysKfpXEj7omqC9ImaylSqoF7ZxXqBAR5TCOU3I8TBMt1fxQ2Mz+vQ3
- eI4WkcRq/FY7MvZyGTvyBVBo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1f201aa16fc70ad7;
-	Thu, 10 Sep 2026 03:41:33 +0000
-X-Mizu-Trace-ID: 1f201aa16fc70ad7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3830e505-70eb-4c0b-8d1c-74074f066142@linux.dev>
-Date: Thu, 10 Sep 2026 11:41:26 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IucH3r1E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C52B1F000FF;
+	Thu, 10 Sep 2026 03:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789011840;
+	bh=ANNG6DdUCxlYuWMbFzSeAUQzUyNQIbPodMwECaISSB4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IucH3r1Ew0YlN89WQk+tOagjPY3acAnwOL3bFDIRIpdNtGQw2KR9pyHhwzq4hkPLj
+	 tEfMzgCNrxRe/3v53B5YCaK/lfCX7/Nc5xLdPmohUr+IT+MxZnU9P59Z9hYD23OvCE
+	 ounljH69wE6SrXwhESgwIlcn7Q7uScbxImgqm47RziwUYXFXTxbCp2j5qzVwPb2z1m
+	 NL/OtgNE8wFVU7i7/7bljfc4fL1sjbSZoWiHrJDovqLFUBiaZb5ApxnwqJtf+tZ0PS
+	 Z5g4fIDH0nw80p0eTXKbN3/omAZL+rOdnaQy4FowCooE/g6XENKGukeEBORrIkM5BW
+	 Sr1RxE2KqYn5g==
+Date: Thu, 10 Sep 2026 04:43:52 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <jananisunil.dev@gmail.com>
+Cc: Janani Sunil <janani.sunil@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, Linus
+ Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Michael Walle <mwalle@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core support
+Message-ID: <20260910044352.6241504b@jic23-hlaptop>
+In-Reply-To: <21704002-3bc7-474a-9e27-dd9b7f01a4bb@gmail.com>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+	<20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
+	<178866660277.3402141.13365217395986099796.b4-review@b4>
+	<21704002-3bc7-474a-9e27-dd9b7f01a4bb@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-Subject: Re: [PATCH 12/17] cgroup/cpuset: Invalidate children outside the new
- CPU mask
-To: Waiman Long <longman@redhat.com>, cgroups@vger.kernel.org
-Cc: ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, shuah@kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260820124202.517160-1-guopeng.zhang@linux.dev>
- <20260820124202.517160-13-guopeng.zhang@linux.dev>
- <3bf50da2-f13a-4cef-bfb8-cd592f862164@redhat.com>
-Content-Language: en-US
-In-Reply-To: <3bf50da2-f13a-4cef-bfb8-cd592f862164@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 7 Sep 2026 13:25:53 +0200
+Janani Sunil <jananisunil.dev@gmail.com> wrote:
 
-
-在 2026/8/25 23:11, Waiman Long 写道:
-> On 8/20/26 8:41 AM, Guopeng Zhang wrote:
->> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>
->> When cpuset.cpus changes, compute_partition_effective_cpumask() builds a
->> new exclusive mask but checks child partitions against
->> cs->effective_xcpus. That field still contains the old mask, so a child
->> that no longer fits can remain valid.
->>
->> Use new_xcpus for the check. A later partcmd_update() may revisit the
->> newly invalid child. Report PERR_INVCPUS if the child CPUs are outside
->> the parent effective exclusive mask so that this visit does not make the
->> child valid again.
->>
->> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
->> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->> ---
->>   kernel/cgroup/cpuset.c | 10 +++++++---
->>   1 file changed, 7 insertions(+), 3 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index b9faadf4af6d..b3e749ede7d1 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1987,12 +1987,16 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>                   adding = cpumask_and(tmp->addmask,
->>                                cs->effective_xcpus,
->>                                parent->effective_xcpus);
->> -        } else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
->> -               cpumask_subset(xcpus, parent->effective_xcpus)) {
->> +        } else if (is_partition_invalid(cs) && !cpumask_empty(xcpus)) {
->>               struct cgroup_subsys_state *css;
->>               struct cpuset *child;
->>               bool exclusive = true;
->>   +            if (!cpumask_subset(xcpus, parent->effective_xcpus)) {
->> +                part_error = PERR_INVCPUS;
->> +                goto write_error;
->> +            }
->> +
-> A invalid partition means part_error should be set to some error code. This change only makes sure the error code is PERR_INVCPUS. Other than that, I don't see any other tangible change here.
-
-Thanks, Longman.
-
-I think there is a functional difference here. `part_error` is a local variable initialized to `PERR_NONE` on every call to `update_parent_effective_cpumask()`; it is not initialized from `cs->prs_err`.
-
-With the current condition:
-
-} else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
-	   cpumask_subset(xcpus, parent->effective_xcpus)) {
-
-an invalid partition whose CPUs are no longer a subset of the parent's effective exclusive mask skips this branch entirely, leaving `part_error` as `PERR_NONE`.
-
-The later state transition then does:
-
-case PRS_INVALID_ROOT:
-case PRS_INVALID_ISOLATED:
-	if (!part_error)
-		new_prs = -old_prs;
-	break;
-
-so the partition can be changed back to a valid state.
-
-Therefore, this change does more than set the error code to `PERR_INVCPUS`; it also prevents an out-of-mask invalid partition from being made valid again.
-
->>               /*
->>                * Convert invalid partition to valid has to
->>                * pass the cpu exclusivity test.
->> @@ -2144,7 +2148,7 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>           WARN_ON_ONCE(is_remote_partition(child));
->>           WRITE_ONCE(child->prs_err, 0);
->>           if (!cpumask_subset(child->effective_xcpus,
->> -                    cs->effective_xcpus))
->> +                    new_xcpus))
->>               WRITE_ONCE(child->prs_err, PERR_INVCPUS);
->>           else if (populated &&
->>                cpumask_subset(new_ecpus, child->effective_xcpus))
+> On 9/6/26 05:50, Jonathan Cameron wrote:
+> >> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
+> >> Configure supplies, clock and reset, use a custom regmap bus for the SPI
+> >> protocol, and parse the enabled channels and input buffer settings from
+> >> devicetree.
+> >>
+> >> Connect the converter to an IIO backend for buffered capture with CRC,
+> >> provide a fixed safe wideband sampling configuration and add runtime
+> >> power management.
+> >>
+> >> Signed-off-by: Janani Sunil <janani.sunil@analog.com>  
+> > ...
+> >  
+> >> +
+> >> +static int ad7768_get_enable_vref(struct device *dev, unsigned int index)
+> >> +{
+> >> +	const char * const *supply = ad7768_vref_supply_names[index];
+> >> +	int refp_uV;
+> >> +	int refn_uV;
+> >> +
+> >> +	refp_uV = devm_regulator_get_enable_read_voltage(dev, supply[0]);
+> >> +	if (refp_uV < 0)
+> >> +		return dev_err_probe(dev, refp_uV,
+> >> +				     "Failed to get %s supply voltage\n", supply[0]);
+> >> +
+> >> +	refn_uV = devm_regulator_get_enable_read_voltage(dev, supply[1]);
+> >> +	if (refn_uV == -ENODEV)
+> >> +		refn_uV = 0;
+> >> +	else if (refn_uV < 0)
+> >> +		return dev_err_probe(dev, refn_uV,
+> >> +				     "Failed to get %s supply voltage\n", supply[1]);
+> >> +
+> >> +	if (refp_uV <= refn_uV)
+> >> +		return dev_err_probe(dev, -EINVAL,
+> >> +				     "Invalid reference %u voltage\n", index + 1);
+> >> +
+> >> +	return refp_uV - refn_uV;  
+> > Do we never care about the offset inherent in where the negative sits?  
 > 
-> This hunk should probably be grouped into the same patch making change to compute_partition_effective_cpumask().
+> The absolute REFx- voltage does not introduce an offset into the ADC transfer function. The datasheet defines VREF as REFx+ - REFx- and the LSB size as (2 * VREF)/2^24. Zero code remains at AINx+ - AINx- = 0.
 
-I have included these changes in v4 and moved both changes from this patch into the earlier patch that modifies compute_partition_effective_cpumask().
+Fair enough - I'm not sure what I had in mind.
 
-I have also temporarily dropped all selftest patches, including those posted in v3, as the current test design needs some rework.
-
-Thanks,
-Guopeng
+Jonathan
+> 
+> Regards,
+> Jan
+> 
 
