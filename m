@@ -1,209 +1,186 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011011.outbound.protection.outlook.com [40.107.130.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A212548EC71
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EAC48EC90;
+	Thu, 10 Sep 2026 15:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055166; cv=pass; b=hKAlWuuE60LWybF+9NoTPydlpXkwx0tl1MK8hcsaqslA91phXUCskm14sOao/2ug+A4n/MnwvHL5968k6Q+FlIcJPS9XHgGuviy0XBKGjommUU8BlqxRtvEjgQfz5NWxMO41UdxotU3/kfMo+bL2TzHIB0xFf55E4Z7Li2rCpHc=
+	t=1789055175; cv=fail; b=LgJgA7r4+5avRaBUoV0/1uNC4nXQY1/jGkE5PTS6yABtGVUr9YmrhxSWO37humfEvxVUAckyolsfqPYCRw5QVg1av5Dgu9TfeZwLvlhL6PBD+NcccVJ2tmQ7FUknsqrZkGMLcZHLBqY9rLNQPvCFtz/k5+1AWlI5tHPDwgietN4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055166; c=relaxed/simple;
-	bh=xy9Lm9WxkQ3Mmgg/H7vfmk5N45FAYtw9hYAWl41XmQs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fYhvUkEAN4h5AFP2EqX2nOJ/MrOY+hn+GItCWxtoNfWR8AmpxCMw9ydsK2GK8+WkC318PFWei7AhXd1jPdKFl7t++/XfKzg4L/b2PGaOkf0U9i/zoGEgL6a5nB8L+wQmXnRAjiTZSZT/4S6rqd+BkA75dGrh18yfCg4dtjIxj8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ktFHgeVI; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789055175; c=relaxed/simple;
+	bh=D7Lpj/KLAfNMyaUO9Xo5Uo6rqPtbNeRhuvVca72Ly3k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=LlXwqqcAdFWXLU3lfscidDvlyx5d2M0M83LF29bFKo6l22bj2gex9SHqIAzj9Lmj/vAx4AuU04alCgKyiZZfefhd6Y5xKJMWAXQL+HJzZeyGgYpKdmcb/1guSL4O31d6/3gr90ivA91ek0+hoYxsPsiuv3JGwS2hNq9Tc4jUeck=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=t0zHjkqS; arc=fail smtp.client-ip=40.107.130.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ktFHgeVI"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5307425f44bso269551cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:46:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789055164; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OFwGFEb61uxKGF7O5xqbF9DOqnCB7705p1nPDMQDMgTeK5QI52sRKL9TAozPF+0UPj
-         dsmZxBHD54kRmf2tc+G97l/5CwbBZW8skOQtqf3dNXuAsmC1wS3WWYDn/pmB8qFJQ34t
-         uGzZ5tk2lbt+0kTa/AGKwEN56Ek6FrhqhKsgaXIyiaAfsisky287MRj/X9CQ3PwACWZH
-         ymhQjkIFQHB1CjsuhwEnxHXTRhmP7tI0hSn705wywyByyvrIOxAOGJV5qBevxH/53H+W
-         iNWJCWT60qJAgCTSdNYzFeTZYgpLyXrfM6rW8baXd4RcZ9uZhGYrHV75nDKlj4sRshfD
-         K2pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m1gukMKgmXXLSe/xkuRtjWvRwSakZxXxaaknc5QrDEs=;
-        fh=KT2DzfSAotxeo7es9edFFoiCc35g1eZPMeJMRxx387M=;
-        b=J8J6SYnY+FhZKhqlL+dX/GMctuGW2HYxFtao5woCSdJ5HpoSAEPe4kr93ionhMmAkQ
-         JIOv0DnsfaZoeQIhSl0r0ysYCV0teZ3IceoU3mcZwULy/5wuDd7PzgEDoRI9l8+ly/2z
-         aURI5CGEzFlvkO1bNYNnlzyk6lQaNilKJDo3qqzwG4gD7QSueL5vFoM0KCspAJLQ8gQ5
-         kDicplzZOYFn9HkYht95kKgXXlqPhDBe2vAOnY78cd0NQcCAS7dLln8z2Gtd+TLuixoR
-         araIhMl6UJiE55iMvy/BoU15JDtlrVue645hZFirFPdw8QWi/7bSLxPLTyb991oT4E+b
-         SG6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789055164; x=1789659964; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m1gukMKgmXXLSe/xkuRtjWvRwSakZxXxaaknc5QrDEs=;
-        b=ktFHgeVIn3uyfy+BilTNctikZIbhSy8oaXCz/fsusNLCn1t9VEIhP2hCIB1dkFsTZ5
-         B/Do9r4/M5VINFADw9QzVvcbRh4zimV7ZcDkTFIIXi29rvDAukvoyRa+eoBYnXYKHj0r
-         fN1ba4baAENhdghHWLWFhJmzCUtOa+QzNSecfiI7MWliBcm4UKf/TmyimK0NJ/9o2M8N
-         gyZoVdWEsLnN8J6UGw9MiAESU6Tg0ewbzqwMA82SlvKa2qx+rBlxbByH18Mb2N7vRZ5f
-         9yAfhh5BfNv3uFn2miaYWF420CyprIYWT4g9lp7njOFQ8+zJeR8eBpUUrjU1MsfmFL4I
-         WO3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789055164; x=1789659964;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m1gukMKgmXXLSe/xkuRtjWvRwSakZxXxaaknc5QrDEs=;
-        b=NS3v3xwFugk8kdMgs44ZpK69JwAwxGVWCn5uYs/mEjQjmxC7zRCGlc4I6llVODWCQT
-         gchsuNcqeDdGS7jSUpBNYWnUUV1Y74IqIjA4kDYT6iWpKPpa2hFUgDxDNEOom6S75sBV
-         481LTrg1z7XRrPqEI3RSQZ5KEsB23bYkn7/auQAXYClYOdmqMXgixkSuReToHDaPhxs6
-         nB/k2GMdL1xtAloFP5JJ9rb8Cr9e0xvTEeMmxjJ9xd21kbL5w8S+TcMnecULoHfuqP9t
-         JN/EeTJ6GDVSvxn8RW/WBy6b5bh3MBbtFt2BN93+lVVs4jyOV4Q1twqklW5ro5+Fr0Mm
-         EjBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxiID5hn5JRQL8wh4mjtYR9cEETRc+zqtRDMFpu2sT/bH1MYDdhIftINrrwyK0kfedJK+fkdfKzB2Q45hE=@vger.kernel.org
-X-Gm-Message-State: AFuF++krgMscHy/I8/lUsA1nd+KmXQFUx1QRSq9xtRSTaXyOu/n1OSJA
-	ESIE83pyCflmJB4+6y8cUcK7hNEPGxHb3nPtSSURVNmNjMcfUby3asngRKnNRZO/7hJe2YnfD5a
-	GBVZlpNQMov3F2Rs5JzrclHtpS4U+TocCtBF2CoEc
-X-Gm-Gg: AYBFou0W+epdntabmePmUEVx1zns5UT7187XEc+gJ39y07jYUy9UsdXiMa/fp03+B72
-	zcAq0kpJ9lI+VfTU96gC2PbMjJsIPOM0mvCUq0Z0LKOko7ig8bwBrWImMvxCayAj3Xwem7W3kZU
-	Rv7Tuu+cwZ7VYwbxOBH6WtmaYPWfJdDa+8PyHLqil1ePKrW7HRlzowgtueTrxjKqxWoyjSJb1KI
-	JVgIv26gWQfyzgS7K2O/9ZD94FohXl/+N+j7RqawDyUucLH11Qgr/3SyJBCxpKCe8n0SGKGBSH0
-	zFy+89C2gudOJdN+QBbmx/HO+qfID/Aa+JCU54CLW62b9IeVhqk9tTU3RoJw1BF4iV/1vvotuSr
-	Czq0ztk4O3g==
-X-Received: by 2002:a05:622a:1c17:b0:52f:9ed4:8d76 with SMTP id
- d75a77b69052e-530b49672bdmr21908571cf.14.1789055162926; Thu, 10 Sep 2026
- 08:46:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="t0zHjkqS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FXBRfEi3E1g6cibKTigPWO02mL1+EAP1yNx9PsCT/bqvQcZdWx3ZgcXRLDOqc9vEGwNNnqh7WksxHyBLZL86GptRezuIEXkBp5KroDmtv4MQyi2Uprx5AAJQNLIx5tDbYOdUseqXnlXBR54tE9rLYS4L85GTeVd9AdDEyU/MUoMwqlqN1uq0KnH6doUG63oFf+1aH8o5ZUu7EULpbfP/s2hA6BrMOPRaLZf7MZajRqSgaA2VjKM1wV73QCZPJGdGazJzTnE6B7KKZumCexeGTS44JHzZEfHAYuOanEN/yTAYv5eBdpwfCEM0lKFWwdwj961w/pcvR78xAVbggcjX7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GhBW4neUTy3SQWHZrBijHwOAD+/7np95Q11BFjhZEzo=;
+ b=PNCeOc3hpS49skTWYhWShkObO0NEvwk4qJNl9zIsFwvbTkvuX+2QmJ78KasToPAPw4jOc6somcG16gSuccJ4qpPL/9o9nWhC1JDiE+vW6rbBIhgqPHHSjYmaqBvfgUu8SAMPlgf6eJtDXTyK2qqQ1zMPbrde535GwmWPLRs5Cr1TN/5Wjc5L5sy6hEsl5SrDu8IhpgW9iMXvZFVdcn47r6pU1FKGXF7EuiXoq4EBKsRPSgPNFJsupg4HCZ3tXHPBa4G4jAt640IDQZim+H8Nv2OC2wi+b7wwtDOuuRuncYQJEwBbyW9wbnfSxguMSbj06OsWKNWYpth8oiKf+yQv1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GhBW4neUTy3SQWHZrBijHwOAD+/7np95Q11BFjhZEzo=;
+ b=t0zHjkqS72fK32O4km010xg59ToB9mlsAilF8R5IAA4ih6U4Dq/tWaUgqZeY5hss5N8/aJPzMqMUk/ExWb40ahV2WQgXd30Vu+Xwr5BDmpNF5no5e4W7RYBQLMDUP1h1qR7VTLcvn7I3Bc9FmHSvzR4G9fAzZ8GUURgro+HEll0A8DERM6QJhbT940tNRMAkOY9Imc3wP17O7LrsDzqv+Y9Cs2d+3ezr/xK/iCX6QAejRRxhkcPWpkrdEaVp8Hqf0+32A3h3cqlorTRaQZhA6AArV+c9Yc3npuY2MxWwrNPHyfpw3bPPuPqhmk1d1ufpCkF5/NkAwrvQDZ7x2eFBUQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS1PR04MB9238.eurprd04.prod.outlook.com (2603:10a6:20b:4c6::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 10 Sep
+ 2026 15:46:10 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 15:46:10 +0000
+Date: Thu, 10 Sep 2026 10:45:59 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Linkai Gong <gonglinkai@kylinos.cn>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>, linux-clk@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: imx: composite-93: return timeout from gate enable
+Message-ID: <aqLQt3vAxqA421qc@SMW015318>
+References: <20260821085616.1129333-1-gonglinkai@kylinos.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821085616.1129333-1-gonglinkai@kylinos.cn>
+X-ClientProxiedBy: PH8P221CA0015.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d8::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-4-surenb@google.com>
- <4825a2fe-f064-45d7-a7c9-e98de7efe86c@kernel.org> <CAJuCfpFL_g7tELjT8p8ExM3tX_v2gNDM9rRKwwefPV_KW=fHfA@mail.gmail.com>
- <8e643f51-a47f-428e-9443-678326288fa6@kernel.org> <CAJuCfpEYdj=u0wczKRrsB8uDkbSzPy+hrsCo9TW9-3J3r3p0xQ@mail.gmail.com>
- <2336140f-c993-467a-b2eb-e99dc9427a59@kernel.org>
-In-Reply-To: <2336140f-c993-467a-b2eb-e99dc9427a59@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 10 Sep 2026 08:45:51 -0700
-X-Gm-Features: AcwNN1U3AJ7bd1wu5DAq47WAQ3768Dp9C-h3ciQoeJdMEez_KO5Qa_LhKJ8PHrw
-Message-ID: <CAJuCfpEL40p+vk6-km6_BBuE3+YY0WqkpbvQnQGFEo_73MAomQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS1PR04MB9238:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf99f35e-fe67-4f66-7392-08df0f52a276
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|23010399003|366016|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	bR9V7faPYDULRugLpdI3V8j2YHAQ2E/odXa9gkdBHz7/OOJZNGt7weMkDq/wQlYztKd2fOA93BxDc8oVoQ8+3CM8+tlcSrdwmxZg7ic3lnjmp28ZD0HWj4HdGJ1drolE82k7zbcNJXSWrSe2hM4361OpGDTbOXi1j9mRA6KXKFi4TrbnCUHb0W3RjT7F/6e7Ci9h4vAoFzG23yG8lY0VZxrpGpAwWsAH/78s82U4kEQ+6Qk7JX+pqse1+uddQBxueNZuWrHp0iy+hYcJWUSKQHwfDJ5/fysoxb551yUGrm0Dj4+d1YGaqansQQ0IuCNEMy+lUBnrAKFlvA6pz+AwcH+4a1791EeJKv4Wvtmxp5aPXi5B5wmPi48gZPUy7kdesnjDwfrfHeRc59OUAY5EoSInGIV+4azqjX7RCUHAup9r+f+RtvzGWKS0mCB8kgGX8Y6o386t9I1wCKkPTD+ptq2UzH+exk+yjxBnhJ29KutDKu43mm2hKFgEKeSxT6FjrH5meIWbz5yzTZgjT8NJoeUr+EPq0VGahfh4nuOvw2Yus43uxTygDJWoJuc2wIt9+X1dcmJxlGLpW31GxhcDxO9B6t61FIs76eBqizfBqO6StVVZIdKzQH37I6NZK6fUZQH9pJxvPYtOYJ0mXOGfWfCOoNlT0zmHgqAc/KnRtB4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?xyiE6lGUBeA7fTFUHwzws6U0jR+3FIwzXDD4bAnsOW4zKiqJ7U0/dzDMssCb?=
+ =?us-ascii?Q?NMHgNkycZekPcTZNpo21Vd/aVRNgepRvkPPK6KkAnryHvNJULdmpmuuZyMIy?=
+ =?us-ascii?Q?AaeEnTE9BuEcfmcAOhTpSH79yt7ujphtLKMLPOE+aenkcjeNKKalI0ZosnFc?=
+ =?us-ascii?Q?PHQL5jRIF1CyhNt/DPmEcR470qtE6/VN28IE3BHl6LIMomeZdqVyEsjNUZhn?=
+ =?us-ascii?Q?2EUjSpm1Szr4AXBoAw90qK5IFHueG6DOSLZdh2fxNaESaItDWlJf6M2QukhV?=
+ =?us-ascii?Q?GfjPDztk6MR04ps4niYyaBLF+ilS937EFK/tAqzlwq14kn8saT3WIrvvnOSi?=
+ =?us-ascii?Q?u48s67LGrYjgzVRbdBNCo0LaTZkdnSmZmjfuebxZd+VEhSZJAbhGgmyo4Byg?=
+ =?us-ascii?Q?oS9GUEwLKSHCMiN4+XxFVYhgpeuG7ZGNPviJo+INc9Uid0dbIwccW/ZgKJ40?=
+ =?us-ascii?Q?VFl17g7ZDJWS6YOMDoJqcZwwQzaLv0uE6f4ey0z0gAUqB2ZonnLKhw37BlVT?=
+ =?us-ascii?Q?umlmDh9StH8VEc+u8uVDg8O2kZ14w38KzcTn1uI5am/iqlh2tlHUFflc+GJT?=
+ =?us-ascii?Q?WUVLWFyVzim8+wafJkXFkl435LNLdBWFuUYWDqy9bS6cbGKwLaUq69gjcSLA?=
+ =?us-ascii?Q?DVcbHHJxAbbYjOK7/ZjnE9kl3YIOYVVz5qhUVUF8hYcFy1lZbCVzZVC1Tq8z?=
+ =?us-ascii?Q?bwpdOfvu0a0FL7JjPLkZHQWp0ue5Jw9MczFkXjxsbasEU80iguGyOPsern0c?=
+ =?us-ascii?Q?EY7rXDivu9Z6bZdUC8EY3AQkcVPiuXKS8v3GwfsDlDjUwxHv71lZTPEZPQqV?=
+ =?us-ascii?Q?mH+cI7Ac5udYbzF7386Ep6hp1702cOwBG71afr4FiWRdVEehc364QM7l+QhP?=
+ =?us-ascii?Q?VSBN2blOmMvCfonlXnpZD3ZorsDBdaRDzOoF41i4juAXzscO6qCFQ4gi7XFQ?=
+ =?us-ascii?Q?WnSc4TeCFNSzwyn15HNm2ckwu4H5cSeKR3tUDvCX37NqNtAmba92z5QzJU0v?=
+ =?us-ascii?Q?WxH2rHEZ/F8Q2REF4aJB/iT06IiQLUH3tjSQPKZcGyLuUC15rabxRZfzdmQn?=
+ =?us-ascii?Q?4yjeg/mKsYE45Xw7r1/kva8WhL8kJawLZQzH1taFHhohTHLzpHYbfLdyut6a?=
+ =?us-ascii?Q?Zz6MQAWu5nD5KeyKUHFdPziBNDNFUzcj6CuNnNNomUCW9+w+I+KzqKNykHtC?=
+ =?us-ascii?Q?yc4yJC27gXlue63/81I7+UfXLWbXkuFmj06zLxKPJe68kUSK99VT0LGyhxoU?=
+ =?us-ascii?Q?y5UjvsT/Ezv1J3e+44znbE/MuD/Viktja1uzkbUBrI7QSlV5vXcJ+Oj95YIu?=
+ =?us-ascii?Q?rRyCu7Y87cHuDOrPGxq8vGYy4GvnjKg5SfAl8Cb8K2e4uCX3fTcZLSGT1ZP0?=
+ =?us-ascii?Q?3hoqltj+u1yyaATzDPpp5IO6dZZfKXMEq/go6m1XbOgbciWKdAT3j9QDjQXL?=
+ =?us-ascii?Q?GY7bYiNtiNtvwyvVMQDH2SpfD/9COB03lMj3pg2VYAtN1Ua5zkL25aNXGiiY?=
+ =?us-ascii?Q?5C33p+jmB6kFjkD37Iv+SLGbbCdUn5dQvQUeR19YHihfTQRo1TTxIu/LsdiX?=
+ =?us-ascii?Q?jApuW3q48REiMUDrA5TzLSWjqi718As0MKgxUlghFi7gGMOGFU6b/b3AKrXS?=
+ =?us-ascii?Q?/SIs2Vp2lKEUGHMrqLX+83qStwzI9E1dHVgDZd/d+7Tac9cNdNEy8fTJg3m3?=
+ =?us-ascii?Q?p7nZtX7wrgPMmxMqGAxDNK+dR/DVUoYJ2E+UhZsaI9M1RFrNj0R/IQn1bEHV?=
+ =?us-ascii?Q?D2qTI8XDSNI0sTsebfYDg2RQgJyYWe7AF6AsUPjaa3HRyPY45zMe?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf99f35e-fe67-4f66-7392-08df0f52a276
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 15:46:10.0873
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YK3IuMkZGDzBo55xdDPGPbVRN+OuRG9WFpu1mNP/amKU2fab0zDvL+Z1XRUso8cTwe8YAs0iNSB1ih2aThaCyqXUivy9+CghN8HznmZO7eJ5+0PRSREJu2pOTmRZCjGG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9238
 
-On Thu, Sep 10, 2026 at 12:41=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
+On Fri, Aug 21, 2026 at 04:56:16PM +0800, Linkai Gong wrote:
+> [You don't often get email from gonglinkai@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> On 9/9/26 23:51, Suren Baghdasaryan wrote:
-> > On Wed, Sep 9, 2026 at 12:16=E2=80=AFPM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> >>
-> >> On 9/9/26 20:28, Suren Baghdasaryan wrote:
-> >>> On Wed, Sep 9, 2026 at 10:16=E2=80=AFAM David Hildenbrand (Arm)
-> >>> <david@kernel.org> wrote:
-> >>>
-> >>> Hmm. So, are you saying that !is_cow always implies shared_or_ro? Or
-> >>> maybe you are stating that vma_is_cow_mapping() was the actual intent
-> >>> here?
-> >>
-> >> So the comment says:
-> >>
-> >> "For private writable mappings, we might have COW pages that  .."
-> >>
-> >> Which translates to:
-> >>
-> >>         private writable =3D=3D vma_is_cow_mapping()
-> >
-> > Ok, just want to make sure I'm not missing something subtle.
-> >
-> >>
-> >>>
-> >>> shared_or_ro =3D VMA_SHARED_BIT || !VMA_WRITE_BIT
-> >>>
-> >>> is_cow =3D !VMA_SHARED_BIT && VMA_MAYWRITE_BIT
-> >>> !is_cow =3D VMA_SHARED_BIT || !VMA_MAYWRITE_BIT
-> >>>
-> >>> so, !is_cow would impy shared_or_ro only if !VMA_MAYWRITE_BIT always
-> >>> implies !VMA_WRITE_BIT. But I think it's possible to have a VMA that
-> >>> has VMA_WRITE_BIT but not VMA_MAYWRITE_BIT, right?
-> >>
-> >> VMA_WRITE should imply VMA_MAYWRITE
-> >
-> > Ah, good to know.
-> >
-> >>
-> >> (in sanitize_fault_flags() we even disallow write faults entirely if V=
-M_MAYWRITE
-> >> is missing)
-> >
-> > I see.
-> >
-> >>
-> >> For example, a
-> >>> driver can create such a VMA to allow writing to the VMA but to lock
-> >>> its content once mprotect(PROT_READ) gets called.
-> >>
-> >> I don't think that would be valid for a driver to do. But it wouldn't =
-matter
-> >> here because
-> >>
-> >>         shmem_mapping(vma->vm_file->f_mapping)
-> >
-> > I was obviously overthinking this :)
-> >
-> >>
-> >>
-> >> I think we could simplify the comment as well to:
-> >>
-> >> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> >> index e671b4fd8dedd..4b7e7089cafa7 100644
-> >> --- a/fs/proc/task_mmu.c
-> >> +++ b/fs/proc/task_mmu.c
-> >> @@ -1303,12 +1303,10 @@ static void smap_gather_stats(struct proc_maps=
-_private
-> >> *priv,if (is_partial || (shmem_swapped && is_cow))
-> >>
-> >>         if (vma->vm_file && shmem_mapping(vma->vm_file->f_mapping)) {
-> >>                 /*
-> >> -                * For shared or readonly shmem mappings we know that =
-all
-> >> -                * swapped out pages belong to the shmem object, and w=
-e can
-> >> -                * obtain the swap value much more efficiently. For pr=
-ivate
-> >> -                * writable mappings, we might have COW pages that are
-> >> -                * not affected by the parent swapped out pages of the=
- shmem
-> >> -                * object, so we have to distinguish them during the p=
-age walk.
-> >> +                * In CoW mappings, we might have anon folios that are
-> >> +                * independent of the shmem object. So fallback to the=
- less
-> >> +                * efficient mechanism in such mappings.
-> >> +                *
-> >
-> > Sounds good. Will update.
+> imx93_clk_composite_gate_enable() always returns 0, even when
+> imx93_clk_composite_wait_ready() times out.
 >
-> Likely worth putting that into a prior cleanup patch, so there is less no=
-ise in
-> this patch.
+> Fixes: 4a3de5aa7743 ("clk: imx: clk-composite-93: check slice busy")
+> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+> ---
 
-Well, this is a cleanup specific for smap_gather_stats() funciton, so
-I would prefer to keep all the pieces in one place.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
+>  drivers/clk/imx/clk-composite-93.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
 >
+> diff --git a/drivers/clk/imx/clk-composite-93.c b/drivers/clk/imx/clk-composite-93.c
+> index ef20ceb2d255..953f67d13978 100644
+> --- a/drivers/clk/imx/clk-composite-93.c
+> +++ b/drivers/clk/imx/clk-composite-93.c
+> @@ -43,11 +43,12 @@ static int imx93_clk_composite_wait_ready(struct clk_hw *hw, void __iomem *reg)
+>         return ret;
+>  }
+>
+> -static void imx93_clk_composite_gate_endisable(struct clk_hw *hw, int enable)
+> +static int imx93_clk_composite_gate_endisable(struct clk_hw *hw, int enable)
+>  {
+>         struct clk_gate *gate = to_clk_gate(hw);
+>         unsigned long flags;
+>         u32 reg;
+> +       int ret;
+>
+>         if (gate->lock)
+>                 spin_lock_irqsave(gate->lock, flags);
+> @@ -61,17 +62,17 @@ static void imx93_clk_composite_gate_endisable(struct clk_hw *hw, int enable)
+>
+>         writel(reg, gate->reg);
+>
+> -       imx93_clk_composite_wait_ready(hw, gate->reg);
+> +       ret = imx93_clk_composite_wait_ready(hw, gate->reg);
+>
+>         if (gate->lock)
+>                 spin_unlock_irqrestore(gate->lock, flags);
+> +
+> +       return ret;
+>  }
+>
+>  static int imx93_clk_composite_gate_enable(struct clk_hw *hw)
+>  {
+> -       imx93_clk_composite_gate_endisable(hw, 1);
+> -
+> -       return 0;
+> +       return imx93_clk_composite_gate_endisable(hw, 1);
+>  }
+>
+>  static void imx93_clk_composite_gate_disable(struct clk_hw *hw)
 > --
-> Cheers,
+> 2.25.1
 >
-> David
+>
