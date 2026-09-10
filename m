@@ -1,187 +1,185 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB46582BBC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065872; cv=pass; b=ChI9EV73CVecgyXzQ8usWHIzd7lg0PHrzI7howt2kfq+sVpCrW2y7biSCLR14bzWoFu4H7jHa9O2XdhZBx+xaf8ej5jEpKQ8hp9qQ7h+yKAxrlEGymXCnMmvV+q07mVvuS/mYUmj4JOJ7jDY8CI5xywaBTCYhak1WFCVHUZf4dc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065872; c=relaxed/simple;
-	bh=xFtYMESwkraSasJbw3YRh3uL1QWxpB6iuCe15TY2WxQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iFjXtYVXIKGdAdCAoKiB5JW6ScLyGfxpCOOT/DFZeykmOK5uFYIxG0r1ESJgQFX4KA61AaJKlW29gvFx32vTFv6xxadV/f/bPRR1krgHIE6X6c5jrMQcYtObuVZHryqwhcdcR68xCkZnX8tykUt5P6eHhDGEnV9Pw5QLRKnMtb4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T/cCd1ME; arc=pass smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD99133D4E9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789065876; cv=none; b=GflLLs65ysvI30WRPwB41jBMbOAX0hj4FLklelgGvchty+/32fg0npYO4Rc+JMopxX7Nfx0i9ZzlwbEDjCzARdjJTW3RDJYRLdkLpcmwh55SgHNQiVhrNcihnPFjwyioRWzwgmqAmSiq917G9io1CbjG5yv8plFhdFTqWExbtzM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789065876; c=relaxed/simple;
+	bh=ADY0E/FRYWRHk7Nt4TCtye/O+NyvQw/YCRQZj37EZz8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=RCse9a2byosvdtYpREAM6s/8Otu2mmZaPhRVHDARWQMSO441VJWmtMox/2cu7KOWNGqKdxSFgohO8iUoKqcMZtTbi98GJBDx036gwsMqdcB8sBcaN8JJ1GJZ4wxw+ZDoQeuhi1QhbKzFumWlmzwLTe8fLzqWn2IRSV1v5/Vria0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--shayba.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vXDLUTzQ; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--shayba.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T/cCd1ME"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2544ff970dso16873066b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:44:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789065868; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ae63zfXXhlK4xNemgNGuNoMQ5DcXj5YqdnjlThoEwQsZgPvLqlbwMD/PqS4ynFBbJX
-         MWYXLFUIvn6L3ji/lMrdd5bKeBLoN5k288fls/DKQwELxIicF8J5SYSGVpZnHjcpF2yN
-         JBgA4p1ygLoqDocetfBRoqP4CbHjPsWY17XAA2+VcCP34U9Je7QhriQbG2iW6oTRDOKa
-         3nrQrPLA6sKT+6ljFUp9rt28HoBO7ufdk5brpfTeZh2mu/ACz8kyAKiUIoRJ9Sw15eqM
-         7NG6kytAuDWFTsp2/QDv0qMtW2W0dmKekt6yCujto7bR7ioUZ45V0rcngGrLXGjxccl/
-         ULKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=K13jkmR1aE3pdZ04hI2AFyUuzFQUQagwS5oXYalfh0c=;
-        fh=qyLnofkjStILwSt7fDFiK+x5IhXPrUHoDl9FvXHTBi4=;
-        b=sh63YLZIR6vIKn7p23jWSHZTr303Ep9wuuYcnVUJ/KoBTJu/5DJNQackJO3Fa2Wc8S
-         MQNQSlzaIb6TVjI16SO/2+ITpKeqBDDr/iF355rx+Sfhe2jUKiCMIVsxj6FxLI+Mc591
-         P8fhfj0Ak1YMOr395fE46pZzebd1Bbc+AN1VRcxsGJwqksE7Fr9ZxlWwgT1Ay8C857lV
-         gX3dyfBAHgU+EWjkwAX1poU3yNvN62/4OBTP1IhL39rHaaoyjIdJz1NiqK3+3+ugTsnZ
-         PTCd+A0wNP97v/5p9yq6PYldLbvAPp9avT8TEr1Ju0qvbsmCxbs731JaGi1pMvylU0bQ
-         X5nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vXDLUTzQ"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39533bb224cso46186a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:44:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789065868; x=1789670668; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789065874; x=1789670674; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K13jkmR1aE3pdZ04hI2AFyUuzFQUQagwS5oXYalfh0c=;
-        b=T/cCd1ME5NRXUGCBKdhX8bwRvsKABSLaTnAvx0z9CFBEhvHNcQy/Y3q2iGev3CNK+t
-         qbrEy/accuaxO/ff0ksc3CeoVO/fN/1ai0AbsJ9Y0omNOKEpklmV1IRUONhwbvh+xGgd
-         N+Pe7hDn+ewJSVccPtNDSQ2dfUC5Qa4JZXH+W7A9I2l0jPpHYxsgr88txFArfRHcZ6u1
-         6ETWIVj31YH6BCAezYFkwEQMetuCRZcdAfx8+6Rmrl/Mf3QstDZJTJM4oV7f8Y9eJI8A
-         29MzGUmLQae23xNYFTSkp25x42Tdfgcaeb6nImYmyknzfXshODliXYoMYbqwPtYIIpsN
-         /AYg==
+        bh=fAhSPIEvBmS+PCKcxa/XH9lFSCc/+FANgNlh9nivbso=;
+        b=vXDLUTzQfEo+OoBDRKutjxh+Ouq56+iMgb7qUbZ/t7FZTNwMCWwPE3Nc6XE7Wfgdyf
+         CXiYbomsH5xh8dxqP/L03dB6JK/26h9psCDHW9RQ+miQ4UVa1z9BfUcA62niLMZL585M
+         FQpx67SW4BT0B+zBM/UdST+PAhl+zz9Phs1dojFyroF5WijApFx4rpmLyL59pBqBx3uU
+         tKNgPx5V726NR+cSdKdcIx9Lm0e3x1srP+ScihAHKD1orQ8OTjDLfn96Z74rjJHJgO4Z
+         Djo7l3jDjKcRZTdywf8fLaoz7UK81KQy1Bkg9EP6FDKkwxpC8gddtVIFewMZ9gSe8JFj
+         d/Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789065868; x=1789670668;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=K13jkmR1aE3pdZ04hI2AFyUuzFQUQagwS5oXYalfh0c=;
-        b=iSwkWkm95fZpmQpUhkKAMuMcJf1nDU3DRb8JX5mquFJ8iE1IvCPfRfzYGNyp2Q71iB
-         Gs90QABYBN5oaDrj5JNsRKAIhD0kjPCc+xD+EAi2XL1cm8WHOIRnAC9/EXqowq4/s5xb
-         WcYNbKKbGIsrUthRBOBCfLB22tk132qpsoMhd4LK/fF35aznuukGYFSf/divkYPc0++8
-         /1mrcTzp8tk1qGgmPsf6vAhbDynMaXkt4aTn1qFYwrGA3TjsvncBm6eSAtL3JdVLhvee
-         CAlJCSAtcrr0/XAQ2zlExFzzuA2t7HhvfP2rDeRQQsgrUYNSgLzLqYgU+ffR8Rs1Ck2+
-         aNEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVRuA7rISAjB1cWPSoe8IT7KOOcAwWcr+X9FhEUHo04L1ACRXYOT3xwF2uR4+N+lZ2nZuYVBQ0QvE0bo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4eX5yL6rd8tTzjz9mgJcoXvmJRQ5YKuxzyEWZ1p3POH6RSRaW
-	FMK8YokvbB/aaIwrZl4SoLU2itNwUa/SvUTmpVKDgPqsae7/KolrwHvkzById0hwOHE9mikuu4n
-	1A8PMK2/7XXEhnA1JBscZGSy8F6AOaBxnTcHlwt4=
-X-Gm-Gg: AYBFou0yO9/lOTQPQvYHkbXkhiRoFZ90MWvJoCHDf3W24pj+SGlP9BpzZ2uEG2CUc9V
-	mrpT0dkHTyTxTXg1DqnQ3s7lj3mLIzBoakskIwHjl0MyE8S2GKb/+NyuzgFhrqjr5V9kNvyVgTm
-	KKPvRaKvHH8j+mlqxmiOHfnBuNjjxwJtD2nXOMtaiwoqUtB+m1kfC3gowVJHBsAhtpYQW7zE/Qz
-	rs/cENJfS8MrYdLbs3oTvfcb8ocO83dD0YdYiynO+oncJHrbU4KqMPABlvCtL/KqwvNBvmDxdKa
-	cm4fsxwy9n6uDSnGIQgx7EwXINeAPPdgilUUviFHYj6DMm3zuj5VnA==
-X-Received: by 2002:a17:906:628b:b0:c29:3d59:706b with SMTP id
- a640c23a62f3a-c293d5974b6mr435596166b.44.1789065868035; Thu, 10 Sep 2026
- 11:44:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789065874; x=1789670674;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fAhSPIEvBmS+PCKcxa/XH9lFSCc/+FANgNlh9nivbso=;
+        b=QiqbCSs8g4WzH3XFtxMxZpJZJsOL4DuuGfeYAGQnyV7g2v332SQ/kY1DtnWzdAgvU9
+         48SXogDyHQZnh+pa9BKxCI7EK2r1BWFtrGwo3DUs14n7ONsEnhgC9jiKSnA+hJk+bnwO
+         6l1b+vbvWLybkXxzq+RO0LfRlWcS6jN6QZFRLkt9pY4sIk2HfgTC9p/OcIdyjzF+SXqc
+         9607cST+tySyJLLv/QD4qEUBkjcZqBmRess6qiy4FTs73fV0QZQ+fIrO2hQL5fHiUve7
+         sG/IxnanUj2ACvUjJxZKAMaL2iTaGTJH5WZGUVUfXIdvbD5Y3QS/ScdnDNuQ2fzAMm71
+         degQ==
+X-Forwarded-Encrypted: i=1; AKwUvBym4ZUEiMWU/aNvG+mNrFXlv0o4HS+X1cTYtheTgxRtc95Saa4ERbNN+XQ2q6dYjGGSQx1f2DCf7O8n7sY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVQOLXq+ZUoBjQwGyeHk7oYAIkQLIOUsp3EEp+FayAzpfBw5O5
+	kL+F5xe+v1bTZC4nBuxbA0CI1WsucxGjiz3RC9A3/WM0I5L5jdZVgA6+h/afzMG4+T+NS4y85Gy
+	DRCbfgQ==
+X-Received: from dlbem1.prod.google.com ([2002:a05:7022:1001:b0:13d:2ef5:67a6])
+ (user=shayba job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4a8c:b0:398:9c0c:7c72
+ with SMTP id 98e67ed59e1d1-39d9c3891d8mr12597a91.25.1789065873654; Thu, 10
+ Sep 2026 11:44:33 -0700 (PDT)
+Date: Thu, 10 Sep 2026 18:44:24 +0000
+In-Reply-To: <20260909232351.1533034-1-shayba@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
-In-Reply-To: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
-From: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>
-Date: Fri, 11 Sep 2026 00:14:16 +0530
-X-Gm-Features: AcwNN1Wf20eBeoeYCCCCW1ZvWgiNTZDi866Qnqt9Ke_fVgbm7NEAcsBqFh4rYTM
-Message-ID: <CAMfiSebZWbARrZR+CWeTMgo7-LMaCpqxrt_yWfFQVGFLofQ1ig@mail.gmail.com>
-Subject: Re: [PATCH] i2c: amd: fix SMBus block header and PEC handling in the
- RX path
-To: andi.shyti@kernel.org, shyam-sundar.s-k@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paritosh Potukuchi <paritosh.potukuchi@amd.com>
+Mime-Version: 1.0
+References: <20260909232351.1533034-1-shayba@google.com>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910184424.156341-1-shayba@google.com>
+Subject: [PATCH v2] fuse: Forward vfs_fadvise to backing_file in passthrough mode
+From: Shai Barack <shayba@google.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Amir Goldstein <amir73il@gmail.com>, Bernd Schubert <bschubert@ddn.com>, 
+	Sandeep Dhavale <dhavale@google.com>, Akilesh Kailash <akailash@google.com>, 
+	Suren Baghdasaryan <surenb@google.com>, fuse-devel@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Shai Barack <shayba@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Andi and Shyam,
+When an application invokes posix_fadvise(..., POSIX_FADV_DONTNEED) or
+other fadvise advice on a FUSE passthrough file descriptor, the VFS
+currently only executes generic_fadvise() on the upper FUSE inode
+mapping.
 
-Friendly ping on this patch.
+Because FUSE passthrough does not forward fadvise operations to the
+underlying backing file, pages residing in the lower filesystem's
+pagecache remain resident in memory.
 
-Could you please let me know if there are any comments or concerns?
+During media-heavy workloads (such as image thumbnail generation or
+streaming), single-access file data accumulates in the inactive pagecache
+of the lower filesystem. Under memory pressure, the kernel retains these
+stale media pages and instead evicts active executable pages from
+running processes, leading to severe direct reclaim latency spikes.
 
-Thanks,
-Paritosh
+Architecturally, Linux VFS supports filesystem-specific fadvise
+delegation via the .fadvise hook in struct file_operations. Implement
+fuse_file_fadvise() in fs/fuse/file.c and register it in
+fuse_file_operations. When passthrough is active on a fuse_file,
+fuse_file_fadvise() forwards the vfs_fadvise() call to the lower
+backing_file under the opened credentials, allowing POSIX_FADV_DONTNEED
+to cleanly invalidate the physical backing filesystem pagecache.
 
+Signed-off-by: Shai Barack <shayba@google.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Amir Goldstein <amir73il@gmail.com>
+Cc: Bernd Schubert <bschubert@ddn.com>
+Cc: Sandeep Dhavale <dhavale@google.com>
+Cc: Akilesh Kailash <akailash@google.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: fuse-devel@lists.linux.dev
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+v2:
+- Remove redundant !backing_file check in fuse_passthrough_fadvise() (Amir Goldstein)
+- Remove unused fuse_passthrough_fadvise() stub under #ifndef CONFIG_FUSE_PASSTHROUGH (Amir Goldstein)
+- Reorder fuse_passthrough_fadvise() above fuse_passthrough_open() alongside other passthrough ops (Amir Goldstein)
+- Add fuse-devel@lists.linux.dev to CC list (Amir Goldstein, TJ Mercier)
 
-On Sat, 27 Jun 2026 at 21:05, Paritosh Potukuchi
-<paritoshpotukuchi@gmail.com> wrote:
->
-> Strip SMBus block header bytes from the received buffer before
-> forwarding the payload to the upper layers.
->
-> Handles the optional PEC Byte at the end of the received
-> payload.
->
-> Signed-off-by: Paritosh Potukuchi <paritosh.potukuchi@amd.com>
-> ---
->  drivers/i2c/busses/i2c-amd-asf-plat.c | 34 +++++++++++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-amd-asf-plat.c b/drivers/i2c/busses/i2c-amd-asf-plat.c
-> index e1699da838c2..daf318ce3bbb 100644
-> --- a/drivers/i2c/busses/i2c-amd-asf-plat.c
-> +++ b/drivers/i2c/busses/i2c-amd-asf-plat.c
-> @@ -46,6 +46,8 @@
->  #define ASF_BLOCK_MAX_BYTES    72
->  #define ASF_ERROR_STATUS       GENMASK(3, 1)
->
-> +#define SMBUS_BLOCK_HEADER_SIZE 2
-> +
->  struct amd_asf_dev {
->         struct i2c_adapter adap;
->         void __iomem *eoi_base;
-> @@ -61,7 +63,7 @@ static void amd_asf_process_target(struct work_struct *work)
->         unsigned short piix4_smba = dev->port_addr->start;
->         u8 data[ASF_BLOCK_MAX_BYTES];
->         u8 bank, reg, cmd;
-> -       u8 len = 0, idx, val;
-> +       u8 len = 0, idx, val, offset, data_len, payload_len, has_pec;
->
->         /* Read target status register */
->         reg = inb_p(ASFSLVSTA);
-> @@ -110,12 +112,40 @@ static void amd_asf_process_target(struct work_struct *work)
->         if (cmd & BIT(0))
->                 return;
->
-> +
-> +       /*Below is the SMBus block header received on the wire:
-> +        *     Command       --  1 Byte
-> +        *     Data Length   --  1 Byte (number of data bytes)
-> +        *     Data          --  N Bytes
-> +        *     PEC           --  optional, 1 Byte
-> +        *
-> +        *     PEC, if present, is the final byte of the transfer
-> +        */
-> +
-> +       offset = SMBUS_BLOCK_HEADER_SIZE;
-> +       if (len < offset)
-> +               return;
-> +
-> +       payload_len = data[1];
-> +
-> +       if (payload_len > len - offset)
-> +               return;
-> +
-> +       if (len == offset + payload_len + 1)
-> +               has_pec = 1;
-> +       else if (len == offset + payload_len)
-> +               has_pec = 0;
-> +       else
-> +               return;
-> +
-> +       data_len = len - has_pec;
-> +
->         /*
->          * Although i2c_slave_event() returns an appropriate error code, we
->          * don't check it here because we're operating in the workqueue context.
->          */
->         i2c_slave_event(dev->target, I2C_SLAVE_WRITE_REQUESTED, &val);
-> -       for (idx = 0; idx < len; idx++) {
-> +       for (idx = offset; idx < data_len; idx++) {
->                 val = data[idx];
->                 i2c_slave_event(dev->target, I2C_SLAVE_WRITE_RECEIVED, &val);
->         }
-> --
-> 2.43.0
->
+ fs/fuse/file.c        | 11 +++++++++++
+ fs/fuse/fuse_i.h      |  1 +
+ fs/fuse/passthrough.c | 13 +++++++++++++
+ 3 files changed, 25 insertions(+)
+
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index a4d736945..81709ab82 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -3537,6 +3537,16 @@ static ssize_t fuse_copy_file_range(struct file *src_file, loff_t src_off,
+ 	return ret;
+ }
+ 
++static int fuse_file_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
++{
++	struct fuse_file *ff = file->private_data;
++
++	if (fuse_file_passthrough(ff))
++		return fuse_passthrough_fadvise(ff, offset, len, advice);
++
++	return generic_fadvise(file, offset, len, advice);
++}
++
+ static const struct file_operations fuse_file_operations = {
+ 	.llseek		= fuse_file_llseek,
+ 	.read_iter	= fuse_file_read_iter,
+@@ -3557,6 +3567,7 @@ static const struct file_operations fuse_file_operations = {
+ 	.fallocate	= fuse_file_fallocate,
+ 	.copy_file_range = fuse_copy_file_range,
+ 	.fop_flags	= FOP_DONTCACHE,
++	.fadvise	= fuse_file_fadvise,
+ };
+ 
+ static const struct address_space_operations fuse_file_aops  = {
+diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
+index 939553b34..6c60716e7 100644
+--- a/fs/fuse/fuse_i.h
++++ b/fs/fuse/fuse_i.h
+@@ -1581,6 +1581,7 @@ ssize_t fuse_passthrough_splice_write(struct pipe_inode_info *pipe,
+ 				      struct file *out, loff_t *ppos,
+ 				      size_t len, unsigned int flags);
+ ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma);
++int fuse_passthrough_fadvise(struct fuse_file *ff, loff_t offset, loff_t len, int advice);
+ 
+ /* backing.c */
+ 
+diff --git a/fs/fuse/passthrough.c b/fs/fuse/passthrough.c
+index 059e57969..8a8fa6b8c 100644
+--- a/fs/fuse/passthrough.c
++++ b/fs/fuse/passthrough.c
+@@ -160,6 +160,19 @@ ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma)
+ 	return backing_file_mmap(backing_file, vma, &ctx);
+ }
+ 
++int fuse_passthrough_fadvise(struct fuse_file *ff, loff_t offset, loff_t len, int advice)
++{
++	struct file *backing_file = fuse_file_passthrough(ff);
++	const struct cred *old_cred;
++	int ret;
++
++	old_cred = override_creds(ff->cred);
++	ret = vfs_fadvise(backing_file, offset, len, advice);
++	revert_creds(old_cred);
++
++	return ret;
++}
++
+ struct fuse_backing *fuse_backing_get(struct fuse_backing *fb)
+ {
+ 	if (fb && refcount_inc_not_zero(&fb->count))
+-- 
+2.43.0
