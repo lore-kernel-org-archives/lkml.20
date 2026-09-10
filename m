@@ -1,145 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048E6400DF9;
-	Thu, 10 Sep 2026 09:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9989418A39;
+	Thu, 10 Sep 2026 09:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030922; cv=none; b=td8nxKd/iLwTvsxdhvURWYpq9TCP6yoiZ8wF3pWgxt82Hww0Tjzft9BAq4cnBINfV2YSV+/bnFuKGvuaybuQskJRM/odeORKbVRU7D4hgy6AvvvgjQ9Is46JP1oCJ5GhoWVeYHjZRpiAui1aCJwAKe3DSPJeMsgkz4G+brqr5A8=
+	t=1789030925; cv=none; b=KJSXqpBKG7F0QnH4rHS6Aj2f/iYwftD+0X21BvvjCxHWjsozktaJ5EYDbU0P+c+sU+PTepk6ThSzwTEE56Zx9Q1oU5vUFx1KhnULvlZVejREZqyCHEWipfFsLoV6FssdEV8UYPfvjT8eJ0o2gLgFdZ6pPXCCsv836tk39fkrbRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030922; c=relaxed/simple;
-	bh=/zjO9zdfV440sS+2/8AsObuBj/yeJcE7efHr9UaL+8Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O5oZKMzOCFGAzLjG3Z0tZ8DXc2dqn8t1qGfzUT/w0KUg5TVB4uZjHbaCeVLyXUkEJznD6qzYy53MkyxHlTOhn/kAD2y6+ZfkLahzfA6GfNq6LinAX+xfn0i4adM6GShZjiAn8IyEsbuDNr9moQfVH/rtBdCSr7cnTOZHBylLQl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLZ5B3fu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789030925; c=relaxed/simple;
+	bh=4/Z/+CdZRnXCUuYCx1OmssYICg1WkFY3bgg0wVVtoyk=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=PQeOOU2XYgEFhbm3bRD/Wi9ITf/sfFBkq806yx2M6HZDLvVUJ2JgAF7ag7D69bW0O9bO+how2q4bVgL0oW9fF1Zrm2XpKTksEFPNBMp8a/UL/LSAxAyW8oUsa6C78fqae8Lkn13VgzW6tipIjTs590vQQ2VbpkTHPteoPEbfsCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=mGvUS3hT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aqu/9/+9; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLZ5B3fu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0B21F000FF;
-	Thu, 10 Sep 2026 09:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789030919;
-	bh=yt5UAGueNm32iTeFR6jcKBb+FhJxYmboaOihvjd/LlU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=OLZ5B3fuSqJeJziVml2J7+SuEmvWItkOgOQyjncwSG2DimnGwv4KyDQJlXLXW5sxM
-	 nvCLV+4THEj2dC4voriGeaOEl5QiGheN3Z2q+ABMVBOmnvBJ8FuiomSDYgcAkjYXpC
-	 WmtKW9WFO9JI1P3g0nUTzXvMxX7Fg2E2spCP2GDThib+uN4W2ZmGUi3s7tMBahhhib
-	 nssJ+bxC5fSWQ5nIEawiqdv8AluaXKDpA29tlDrzi1jNgnhNaksN5SQ2CgBz20IqKC
-	 z8oV75B01Z2KKl9IwRK3SOYnF1oqFwMJIWTDbyu/FS6hpLcCRVklw5rhUr6Y6iWJ7g
-	 7BtR/7T+ldmkw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Thu, 10 Sep 2026 11:00:09 +0200
-Subject: [PATCH v21 5/9] rust: Add missing SAFETY documentation for `ARef`
- example
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mGvUS3hT";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aqu/9/+9"
+Date: Thu, 10 Sep 2026 09:01:54 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789030916;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sLjTMft0CGhBcqZo6FIVbFJNaEeGzUm+j4PFrbCPZg4=;
+	b=mGvUS3hTN4NcsWvzKQ85S37sn/wfihKxiVmAKq/PTzw6SZXYk0+5rvKdpXWruLDsZCk4Cy
+	0M9VQT5DWjGfsuugIADiG63pK6a8go7au29vHIAxDH8YLwX6q0lshbA1MnAKC1PWlqO8+k
+	gRI1P4LYVWNlAH8mtSeOwJgzhp3WXtB/GMjXUMf0v9ivnIbktBW5mKRRVEAWUG2pWa6kjj
+	BacvVQGyADQITwG2mZRasJqXGuzfAcS23j3Q0x9lblxgYTqFmppXi/vznN37qmJQxkz/En
+	uiazijg1TTN6mcL9jO4EXPCb9gach9dGw13L+3JW6KC9pS0fnL3NrzyMsjhCbw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789030916;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sLjTMft0CGhBcqZo6FIVbFJNaEeGzUm+j4PFrbCPZg4=;
+	b=aqu/9/+9fz8gDM9fLy8LPVg1DF+MOsrU51VQO+PPM9zqsV8TAhI/5h7yvvN0U3obwBy5b/
+	seEqsLOIsP1SydCw==
+From: "tip-bot2 for Dapeng Mi" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: perf/urgent] perf/x86/intel: Prevent drain_pebs() reentry
+Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260813064346.335458-1-dapeng1.mi@linux.intel.com>
+References: <20260813064346.335458-1-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-ID: <178903091429.623050.7055375788187665681.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-unique-ref-v21-5-e83257373062@kernel.org>
-References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
-In-Reply-To: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Ira Weiny <iweiny@kernel.org>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- driver-core@lists.linux.dev, linux-block@vger.kernel.org, 
- linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-usb@vger.kernel.org, Oliver Mangold <oliver.mangold@pm.me>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1957; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=BNWtmHgpjNUhrCkbsOHEBA7MTI0LVX3SSpIhyT98+Ow=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqonGlMsJOOFdosQ0jUhYoghNsqo0y4sSrnWOtC
- 1TQjvbumFuJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaqJxpQAKCRD6UCkIqsW9
- 0Cd+D/9nAUfqKWaGoqKv7nfm0hhF9sliL+paN7BmyiCqXpgYuTMfax03XP7wuBLX+p1hrdviAhE
- H1PrBfVWfd3V3zHdCH/GokxiWtF4Uwki/PnMnl8bXFvJby5yN9P2wz1Bzr+ZoeZXdPlcAVwaUYf
- lAZgSE0szcxSq5yZYh5NZ5e1derfpNSOMIS6F/k3KTRFoPA6OpW6thdkVIXZOTacMnm6Gc0ZZW3
- cEKyHvTgntPVD4mYH2VewLR6LRt/3un9vJT2T5oj7/dHNQAaLmguQFggWup1xYA6a65I2dHc7Ol
- 9mPIKE0Rc+s8IJMPX7bLzDvoNu/uBR4+qJTEQbtS5fzpYL/VubrnZpOqDkG+WdgWDbHYS29hpv1
- hOaNVXWUzxLlqPWyXJb0Kxq7nMnROnusibYCYRrnu6y588044SLI8D4h+WprDXV5ikecb+C3oVT
- uZbiWr2DcD406Wq9a1ctobdItGN7JO8tuPmepticFVhV3cd9xwr10q29wJ3DNgWY7Z00GxtadFk
- CxEV8zx8CkgTamGEaSpsZns8tdzXSdPz3lC5bnjzKC33CPk8iUrRGERISKT/xET9BJxqZjEAuHU
- tjAeZT75VZmxlGKiT22VwccqR12Y9eQ580MdcvGQVWbtb5BDrxCo6ka0p9YA+acEkL89XEl3Ljw
- 4AK7zgNZG4eUFqg==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+Content-Transfer-Encoding: quoted-printable
 
-From: Oliver Mangold <oliver.mangold@pm.me>
+The following commit has been merged into the perf/urgent branch of tip:
 
-SAFETY comment in rustdoc example was just 'TODO'. Fixed.
+Commit-ID:     a56c03a397e2cd0c4cf8da96dcd6214f7d0e7d8c
+Gitweb:        https://git.kernel.org/tip/a56c03a397e2cd0c4cf8da96dcd6214f7d0=
+e7d8c
+Author:        Dapeng Mi <dapeng1.mi@linux.intel.com>
+AuthorDate:    Thu, 13 Aug 2026 14:43:46 +08:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Thu, 10 Sep 2026 10:22:50 +02:00
 
-Link: https://github.com/Rust-for-Linux/linux/issues/351
-Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Assisted-by: LLM
-Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+perf/x86/intel: Prevent drain_pebs() reentry
+
+The PEBS buffer is shared by all events on a CPU, so drain_pebs() must
+not be reentered. If so, one instance may observe stale buffer state and
+potentially access out-of-bound memory.
+
+Most invocations happen in NMI context, which naturally prevents reentry.
+However, drain_pebs() is also reachable from process context via
+intel_pmu_drain_pebs_buffer().
+
+In those paths, the PMU is often already disabled, but not guaranteed.
+For example, __intel_pmu_pebs_disable() only disables the target counter,
+so other active counters can still raise a PMI and interrupt an in-flight
+drain_pebs(). Here is an example,
+
+__perf_addr_filters_adjust()
+  perf_event_stop()
+    __perf_event_stop()
+      x86_pmu_stop() (event->pmu->stop)
+        intel_pmu_disable_event()
+          intel_pmu_pebs_disable()
+            __intel_pmu_pebs_disable()
+              intel_pmu_drain_large_pebs()
+                intel_pmu_drain_pebs_buffer()
+
+Introduce __intel_pmu_quiesce() and __intel_pmu_resume() helpers and
+use them in intel_pmu_drain_large_pebs() to disable the full PMU
+around the intel_pmu_drain_pebs_buffer() call, preventing reentry.
+
+Also add a warning in intel_pmu_drain_pebs_buffer() when the full PMU is
+not disabled.
+
+Fixes: b752ea0c28e3 ("perf/x86/intel/ds: Flush PEBS DS when changing PEBS_DAT=
+A_CFG")
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260813064346.335458-1-dapeng1.mi@linux.intel=
+.com
 ---
- rust/kernel/sync/aref.rs | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ arch/x86/events/intel/core.c | 33 ++++++++++++++++++++++++---------
+ arch/x86/events/intel/ds.c   |  8 +++++++-
+ arch/x86/events/perf_event.h |  3 +++
+ 3 files changed, 34 insertions(+), 10 deletions(-)
 
-diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-index 215e7eb139fa..ae76bd9b6c1c 100644
---- a/rust/kernel/sync/aref.rs
-+++ b/rust/kernel/sync/aref.rs
-@@ -147,7 +147,10 @@ pub unsafe fn from_raw(ptr: NonNull<T>) -> Self {
-     ///
-     /// struct Empty {}
-     ///
--    /// # // SAFETY: TODO.
-+    /// // SAFETY: The `RefCounted` implementation for `Empty` does not count references, and
-+    /// // `dec_ref` never frees the underlying object, so a decrement cannot invalidate it. The
-+    /// // object instead lives as long as the `Empty` value itself, so creators of `ARef<Empty>`
-+    /// // must guarantee that the value outlives every `ARef` derived from it (as done below).
-     /// unsafe impl RefCounted for Empty {
-     ///     fn inc_ref(&self) {}
-     ///     unsafe fn dec_ref(_obj: NonNull<Self>) {}
-@@ -155,7 +158,9 @@ pub unsafe fn from_raw(ptr: NonNull<T>) -> Self {
-     ///
-     /// let mut data = Empty {};
-     /// let ptr = NonNull::<Empty>::new(&mut data).unwrap();
--    /// # // SAFETY: TODO.
-+    /// // SAFETY: As the refcount operations of `Empty` are no-ops, we can treat `ptr` as owning
-+    /// // an increment on the refcount. `data` outlives the created `ARef`, upholding the
-+    /// // liveness guarantee required by the `RefCounted` implementation above.
-     /// let data_ref: ARef<Empty> = unsafe { ARef::from_raw(ptr) };
-     /// let raw_ptr: NonNull<Empty> = ARef::into_raw(data_ref);
-     ///
-
--- 
-2.51.2
-
-
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index cc13164..1ac2ca3 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -3125,6 +3125,27 @@ static void intel_pmu_del_event(struct perf_event *eve=
+nt)
+ 		this_cpu_ptr(&cpu_hw_events)->n_late_setup--;
+ }
+=20
++int __intel_pmu_quiesce(void)
++{
++	struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
++	int pmu_enabled =3D cpuc->enabled;
++
++	cpuc->enabled =3D 0;
++	if (pmu_enabled)
++		intel_pmu_disable_all();
++
++	return pmu_enabled;
++}
++
++void __intel_pmu_resume(int pmu_enabled)
++{
++	struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
++
++	cpuc->enabled =3D pmu_enabled;
++	if (pmu_enabled)
++		intel_pmu_enable_all(0);
++}
++
+ static int icl_set_topdown_event_period(struct perf_event *event)
+ {
+ 	struct hw_perf_event *hwc =3D &event->hw;
+@@ -3316,16 +3337,13 @@ static void intel_pmu_read_event(struct perf_event *e=
+vent)
+ 	if (event->hw.flags & (PERF_X86_EVENT_AUTO_RELOAD | PERF_X86_EVENT_TOPDOWN)=
+ ||
+ 	    is_pebs_counter_event_group(event)) {
+ 		struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
+-		bool pmu_enabled =3D cpuc->enabled;
++		int pmu_enabled;
+=20
+ 		/* Only need to call update_topdown_event() once for group read. */
+ 		if (is_metric_event(event) && (cpuc->txn_flags & PERF_PMU_TXN_READ))
+ 			return;
+=20
+-		cpuc->enabled =3D 0;
+-		if (pmu_enabled)
+-			intel_pmu_disable_all();
+-
++		pmu_enabled =3D __intel_pmu_quiesce();
+ 		/*
+ 		 * If the PEBS counters snapshotting is enabled,
+ 		 * the topdown event is available in PEBS records.
+@@ -3334,10 +3352,7 @@ static void intel_pmu_read_event(struct perf_event *ev=
+ent)
+ 			static_call(intel_pmu_update_topdown_event)(event, NULL);
+ 		else
+ 			intel_pmu_drain_pebs_buffer();
+-
+-		cpuc->enabled =3D pmu_enabled;
+-		if (pmu_enabled)
+-			intel_pmu_enable_all(0);
++		__intel_pmu_resume(pmu_enabled);
+=20
+ 		return;
+ 	}
+diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
+index d0bb767..b98029b 100644
+--- a/arch/x86/events/intel/ds.c
++++ b/arch/x86/events/intel/ds.c
+@@ -1242,8 +1242,11 @@ unlock:
+=20
+ void intel_pmu_drain_pebs_buffer(void)
+ {
++	struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
+ 	struct perf_sample_data data;
+=20
++	WARN_ON_ONCE(cpuc->enabled);
++
+ 	static_call(x86_pmu_drain_pebs)(NULL, &data);
+ }
+=20
+@@ -1864,8 +1867,11 @@ static void intel_pmu_pebs_via_pt_enable(struct perf_e=
+vent *event)
+ static inline void intel_pmu_drain_large_pebs(struct cpu_hw_events *cpuc)
+ {
+ 	if (cpuc->n_pebs =3D=3D cpuc->n_large_pebs &&
+-	    cpuc->n_pebs !=3D cpuc->n_pebs_via_pt)
++	    cpuc->n_pebs !=3D cpuc->n_pebs_via_pt) {
++		int enabled =3D __intel_pmu_quiesce();
+ 		intel_pmu_drain_pebs_buffer();
++		__intel_pmu_resume(enabled);
++	}
+ }
+=20
+ static void __intel_pmu_pebs_enable(struct perf_event *event)
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index 71ed5b2..4680cba 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -1638,6 +1638,9 @@ static __always_inline void __intel_pmu_lbr_disable(voi=
+d)
+ 	wrmsrq(MSR_IA32_DEBUGCTLMSR, debugctl);
+ }
+=20
++extern int __intel_pmu_quiesce(void);
++extern void __intel_pmu_resume(int pmu_enabled);
++
+ int intel_pmu_save_and_restart(struct perf_event *event);
+=20
+ struct event_constraint *
