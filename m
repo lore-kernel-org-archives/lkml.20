@@ -1,35 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E253932D5;
-	Thu, 10 Sep 2026 16:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4FA30AD05
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789056068; cv=none; b=V/fjxRSTWDmOhhnEyQIeyPFY5WXxXcqLy9/Ug6Q49yUTJpyx7WcY8hGqdNVw0HPsVHN/xEvGM4jAazqHS62WF/lLzpXsoKcT/611M5f02ZILTib50E7/A9g1ip0OGM3GKiYZkmdqt8rUJ3zGcYMKUGy5Y1llwhnwpNjFlNHMZYU=
+	t=1789056102; cv=none; b=uJHn3nRhP7lQbbULRsm3rBuPuk49DSic1lv6dyg0eiY4VYGedoTwBrCGL5FaeWKFfrF33GZ4s3Oa6tsmDBsDX/ZOGq5KDUTIsB0Zr5MPATNFlZaPG1OTRF4yvfByCN3zr30Uv1Blgm1ZY3515D4/qkwwwEH1BbcdFmVwPihmJZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789056068; c=relaxed/simple;
-	bh=nYOAiLHnVhlq0Tdrl7niE3XueZXcWVh056mMHWJfyk0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=M1Cu1MnpntnjTSECysEVPqkPsay53f3DYMvLxpNZ3xd/UdQuKGjEimf/zJ+NozDvm8z4kYBO/IPnX2L5C7RrSrac5GdDV+3/mM5hR6mg2sv8GcuBosA0LM5wF9PWasPHnYQQ6vCSLhyUk88uHTz+YuZFz28lF/65tG5PPDu+2lA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bf+e+K0k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789056102; c=relaxed/simple;
+	bh=sr0bSd9ynGbTFgNCIZwrhzTqIlzKR4bDn3xzOgSWMQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ejtB+TzcTj9UFx83VBNeZ/XCgR2d7lLRNi/ZByW03ivfodjeY3CoH6bXbWY/+8Wvxc1C4wY5d/2EBVw7j3x9GpFRaaXMKIsblnfiBBDShM6JAHm4KEu8daON4GPbQvt9TVvXCVwGBnl1kfRc//cfqtOm16aolWeJa7/eQnaLGXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mrd+/ORV; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bf+e+K0k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CAE91F000FF;
-	Thu, 10 Sep 2026 16:01:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789056067;
-	bh=sI4wy2pepgKMEe5fr3L5f858dFoevafAETpn/X5YMxw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=bf+e+K0kAEflDHSKsl2nnEEvlmjTek983URq0ruZpPMhHFYBfC2JllZk1QqLKmaii
-	 U2QGO8Byd7k3jfYLMn4GUW+pVCPdvgxJh+D1PYUtcWbU50w77L+gk3A5s6BoDlzvUC
-	 qua3+a7NT211Gr847B0a44NoxQBD1xYtZPsHSodbyL+EhZv5EOEFbc2QX2rNFQaEmQ
-	 gC4UyRouBY+rpLRwl3uUpQcQoX2F7kbUKflqHqZGPaL+MwyDMEHeqe3xngvN7HfGw0
-	 qxm0xC/yA2DIrLT7dE3a37ePlCk28DhyYJ+9+dlIPENBnMWSWfLr4NAFTr9+posi7R
-	 nEGRA5k7ck0EA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D097D380CFFA;
-	Thu, 10 Sep 2026 16:00:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mrd+/ORV"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398e9698a70so6819533a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:01:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789056100; x=1789660900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bKB1T8mcm5Xa8kORYrA70kCPtUYorZOcKwhVmBy0tqY=;
+        b=mrd+/ORVqatNaAW3HbFq4Tmoff7GuFlHsr5r1rCI7HDVcSAeEw+Yxa+bpyr2bBjoec
+         3EpStfQdPhnA0kueZUXkJYFpkuGM/1EHEOg3I7boDfgcvoZN1yyIGn5VxK8YbVWtKiE3
+         2GYSGBYA7/4Wf3AKjYS4EYQi0rfGDbYg0yg005n4XEeUAJhAg6V87DVEeKJUVaNrW7+0
+         +M8Zlv4KttuxO2Cx2fHryQRi1ztSUF+5ypB01dH+rnFi8PHnh9qAmIJl6JS6pHD5gpjP
+         iCkKwLoLQIMq7POdwG8qY6vVfi2lROVDBaXvaw8xc6el4u8h8prU9AtoEZqlguy48Il+
+         cYrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789056100; x=1789660900;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bKB1T8mcm5Xa8kORYrA70kCPtUYorZOcKwhVmBy0tqY=;
+        b=DVrCiLb6NWO7tuNXa8N43UBvDSllYXiuXMDQ/vVu1oK2g5Umlkd+/GahqC2u85xtuE
+         h2VJdm5vhjaS0uWJgN2ygdHulclFta9HPgh/5nf9V7bPmu9j5RE6AWrYsdKlOKHzv/y8
+         EgUSDye4kaLfFpXTOjnDZHfib971LA8/08Wv/UtZLR4s0llp78eXt1OfQWT3Rm0fyCsv
+         53+hJDoCqStO+n7yGhO8pwyQlwAeOtb4QtsapCm4FOXJecF1X5TipIv3gmTJKBGcScFI
+         KLigkBu//yrIeZApCGHRCxqo9wSwQ3PggYAFcCqnS0G/Db28cM8M7XDRfOOsmBh1bzwW
+         /87Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Lawi8XVBDgVR1duJTWDwWX/SuqwW1UUDu9LKng5XhCx1x8DVxMT6L/M95MZoyjq+iSjIERI3riNKfKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpf2LBDzd2L20qoRjwq7CHAmF6K3xqBvsOk+N3gAnKbWd5Ssh7
+	pbWSH3d58EzudszFrhoX+hax9LS89ImWz/TCZYbbF/xWnghu9hbT1KhQ
+X-Gm-Gg: AYBFou0fYGTNSs/aRZMe5ciHG/rvujqG9hNINaEV7qF/TDJBn/bccS1XiGHdSiil3xe
+	6N+p9V0euTki8lJ/4UZRvFc7UTO1TGxNprZsXPKpdM8FSp/btoP/dFNj3pJTuxmIAQxfqIG5vyN
+	IyItPu8oGCMlIokWPqdKkstTrWXXF/gsDMFRZQSsCcn4KpV61YCdqx1VZazgi13U0UVrWdTEFdy
+	UBiATnd7VhAw4X6uJuP0ZKYEgAbwZYHxOXim1Xf/HpdMg4Bg7CaX9Lv6WJyB0FsI6H4hkFBRhWn
+	94m1SYqTXyEdGaiIaZuZQDyYz6tdTdV7V7OZJk5C2pd6HV222gpXcTL9G8GecFjEaLU1wewoXMk
+	P91fzS45qS/ceFArFApA4pVrfFMveaDMUcgI5y7Zs/xyzn4KvsfEdrEin9sn/JrsC3SZoDW9KOw
+	7I1XpX7RI7VmkkLdluTOYZkGJIKus0gLL51liXBJGbiMONFF8QqI6r3qRHgwblHY4GWbdhrOt6V
+	yIAm3Oi3HXhi2uLZu0=
+X-Received: by 2002:a17:90a:616:b0:39d:8222:6436 with SMTP id 98e67ed59e1d1-39d82226893mr4452317a91.7.1789056099650;
+        Thu, 10 Sep 2026 09:01:39 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:ced9:ef96:e152:2608])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9540fd76sm279431a91.9.2026.09.10.09.01.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 09:01:39 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in hfsplus_file_extend()
+Date: Thu, 10 Sep 2026 23:01:33 +0700
+Message-ID: <20260910160133.27143-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <73cc2e394cc0269a62e2e6503aac5fef2a3ac65a.camel@dubeyko.com>
+References: <73cc2e394cc0269a62e2e6503aac5fef2a3ac65a.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,42 +79,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4 0/1] ipmr: unaccounted multicast table memory
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178905600438.1516091.3467977714685054154.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Sep 2026 16:00:04 +0000
-References: <cover.1788784801.git.zihanx@nebusec.ai>
-In-Reply-To: <cover.1788784801.git.zihanx@nebusec.ai>
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, kaber@trash.net, linux-kernel@vger.kernel.org
 
-Hello:
+Hi Slava,
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+> Probably, hfs_bmap_reserve() is the proper place for checking
+> capability of growing Extents Overflow file. But it needs to take
+> into account that if fork has empty extents, then we can grow the
+> b-tree. We have -ENOSPC situation only if we already used all
+> extents in the fork.
 
-On Tue,  8 Sep 2026 11:58:38 +0000 you wrote:
-> Hi Linux kernel maintainers,
-> 
-> We found and validated a issue in net/ipv6/ip6mr.c. The bug is
-> reachable by a non-root user via user and net namespace.
-> We've tested it, and it should not affect any other functionality.
-> 
-> We will provide detailed information about the bug
-> in this email, along with a PoC to trigger it.
-> 
-> [...]
+Right, and it turns out the existing control flow already computes
+exactly that, so I kept the check in extents.c rather than duplicating
+fork-layout knowledge in hfs_bmap_reserve(): hfsplus_add_extent()
+returns -ENOSPC only when it has walked all eight slots and the last
+one can't be extended contiguously (the ++i >= 8 case). If there's an
+empty slot, or the last extent can be grown in place, it consumes that
+and returns 0 -- hfsplus_file_extend() never reaches the
+"insert_extent" label in that case. So arriving at insert_extent
+already means the fork is exhausted; no slot scan needed there.
 
-Here is the summary with links:
-  - [net,v4,1/1] ipmr: account multicast table and route memory
-    https://git.kernel.org/netdev/net/c/b7ee18725f22
+v2, two hunks in the same function:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -458,6 +458,15 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
+ 	if (hip->alloc_blocks == hip->first_blocks)
+ 		goal = hfsplus_ext_lastblock(hip->first_extents);
+ 	else {
++		/*
++		 * The fork already claims more blocks than its eight extents
++		 * describe (a corrupt on-disk fork): looking up the rest
++		 * would re-enter hfs_find_init() on the extents tree, whose
++		 * tree_lock is already held here.
++		 */
++		if (inode->i_ino == HFSPLUS_EXT_CNID) {
++			res = -ENOSPC;
++			goto out;
++		}
+ 		res = hfsplus_ext_read_extent(inode, hip->alloc_blocks);
+ 		if (res)
+ 			goto out;
+@@ -534,6 +543,15 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
+ 	return res;
 
+ insert_extent:
++	/*
++	 * Getting here means the fork's eight extents are exhausted (see
++	 * hfsplus_add_extent()). The extents overflow file can't record
++	 * an overflow extent of its own, so it cannot grow any further.
++	 */
++	if (inode->i_ino == HFSPLUS_EXT_CNID) {
++		res = -ENOSPC;
++		goto out;
++	}
++
+ 	hfs_dbg("insert new extent\n");
+ 	res = hfsplus_ext_write_extent_locked(inode);
+ 	if (res)
 
+First hunk: fork was already inconsistent when read from disk at
+mount. Second hunk: fork was consistent but genuinely ran out of the
+eight slots during this call -- your ENOSPC case. Both land on the
+same tree_lock recursion, so both need the guard.
+
+On the severity split you described (consistent first extent + garbage
+elsewhere -> construct + flag inconsistent + read-only; unusable first
+extent -> hard error, mount fails): agreed, and that's the direction
+I'll take the fork-validator follow-up once this one's in, applying it
+to all three trees as you asked.
+
+Both hunks build cleanly here.
+
+Thanks,
+Thang
