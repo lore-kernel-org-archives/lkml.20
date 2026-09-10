@@ -1,101 +1,146 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58E6D4949FA;
-	Thu, 10 Sep 2026 13:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFAE498908
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048336; cv=none; b=HpWk5e7M5txIIvnpuNTDkc5Q5KeCKRKCy7FVugu6uEnhgnERhFz8iLcXG7cVoQzorxom6tnBznwXgY/OS01Rg4YPRQ+QPaOps7e+BdEbksYC5npkeWQUfAoqkL38prG5P1Fn0pQ68ZpI+ZDx2kSCEDtU4Vhz5Kv3NnTViP8bs4g=
+	t=1789048342; cv=none; b=Fk75ysnh6O5CygjXxDX8s1boICHxC6nyFBjVq9NAOVj0e6bwhvfEIQ2zHO6rzVbuoaPB8fDk5lsk80K57pRB5pgG52xcOGelFxyoD9C/Tx2kP8dAq1xV6pwjO/bgsIElzu9UAMqKGCKEGm6TXfy4LDieQSu+R5w/hlxgt5z0xmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048336; c=relaxed/simple;
-	bh=BLeoWk5uxGFQ/YEtzA3yICYffhVnHkWffEkn9ZTAC5U=;
+	s=arc-20240116; t=1789048342; c=relaxed/simple;
+	bh=glsruDap4efIY2dKE3ki0Euixx2B7cLyCTxErdzSxI8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gNZZqg2MpRN4EWsrb3eovdykvvFYaP7WObuulJlbSaOMTLDo/lH6cKRE7clkB+YlmtfiEl6sFD8SmQoWSCabAs+3iKiu433dPvm2+MMoTkZwrcOwXx5trOjMiohUJgDwD8cX74wvGFgFHuhYYymZ9v8FjPqHKSHjjVIamAO4yo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vARC6GeL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jh79Qd+j9K9sU4RolAQ9FlaW5efj094K14PY1obYby4JDI1rJk4ozQ42oz7UUIuvoZwcARWHo+Q8bgg6cbM2Iuu1VAvGLLLNwMggwMTosorjkb7iBACWHefEbaGkfu7vWJQu1P8ehZDawDWd7osSj7dabjbeYiqZ51ZvIhne3fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NDMqxUVL; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vARC6GeL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A05201570;
-	Thu, 10 Sep 2026 06:52:09 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC7FF3F59E;
-	Thu, 10 Sep 2026 06:52:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789048333; bh=BLeoWk5uxGFQ/YEtzA3yICYffhVnHkWffEkn9ZTAC5U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vARC6GeLbF1eSnLStgikeBQEfsKezRxmbdmUGMAx6++HTEpu/3HCtHdfmAzI3UZYc
-	 ac1ZRP+v5TZhF0i9kwYvN7wTSjvRUVod9/iUe8KlZZ7IVsrEGN3Dl568ewPpLEP2sq
-	 UNWVhKw5mm0nYzLAp6lUmqqigrSBI4rzGyLgwXfM=
-Date: Thu, 10 Sep 2026 14:52:07 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: ;, Re: ;, [PATCH v5 3/3] kselftest: ;, mm:
- introducealloc_isolated_mem;
-Message-ID: <aqK2B_ehcrcGM-kV@e129823.arm.com>
-References: <aqKOVGECsCNtSMIV@e129823.arm.com>
- <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
- <aqKS7CP67X4h6NiM@e129823.arm.com>
- <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
- <aqKU0-Gm4yh78F3V@e129823.arm.com>
- <d6f2e6b2-9dc9-4f02-be37-14329c1a6798@kernel.org>
- <aqKfjqa6ye2AOU5k@e129823.arm.com>
- <11a36d52-89a0-4f43-8a51-a4930e171ba0@kernel.org>
- <aqKj5ojQ3dabOV5g@e129823.arm.com>
- <8d27168e-5443-4073-bc65-24ddbe32e29a@kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NDMqxUVL"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso15420745e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:52:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789048338; x=1789653138; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aaJKu3mrYn3envHbI/vmepj+qnfThCeH0Vyq7uWpNSA=;
+        b=NDMqxUVLUHJb8Lye3dmWVksdoPNt0ID7VxzNFEd6Aol5P6+pTclxMXy5GPAeH5h2S2
+         ErpkUUXeObyrA9VzAQx1xOrYyjqsK02uGB051BDsFcO1sE1/cS4aq//nIJnCmw4xgAft
+         Ao9mmKTlHYBFyUx2Js4+0slzf0VWoYcLdGUybireXLKdv/ehBwbLXPsfGKLWC+Kt2Z2W
+         F5FwQRWD9K80kguULQN0yXujnYcqqPMs5w6D0N+OOlSC/HpkSL6GPn9Yyqe/jTUWOmUq
+         z3R3hv07OGd6p/m9nibMsOZ9OmpS1RNcKfJ2KN4vwryeuh9zLE/G+KMvZjd8TF5siwvu
+         TLZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789048338; x=1789653138;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aaJKu3mrYn3envHbI/vmepj+qnfThCeH0Vyq7uWpNSA=;
+        b=DbSZpPm06fmWLkCz1WhFKJG1PgxcHaT0wNmrHL5YBGnLHbxv9K+zS7fHQUprSQhZ2J
+         RCOPUzbGZ5Un5m9clgUxY6sYOe3j2+spU0sUtA/hYz6f2aBBGMQvOz+oswjf8UJKs1zY
+         e1SgaA+cZJEjLJQRe1zqVAIRJk3HttT9fBCF9slrwFDFhXjWwCnSEU4SZ6R3cKUMFZ4a
+         CxtH6m7kgSACRPTuM2W3cKTMHj0RBOBUvHjoxgPhiua9phwRFtqTQOJ8k7SgTapcjGRN
+         cSzzR01i8fYhW/HY6a5m7Buv1ph3qKnt3LLFmqDkPI9RBgfUYjtiamfzhsAkB0ARrkUD
+         CrkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzj9ykDf+94yCQf3ExV1JLE3GvAqStTj6t/YhW2myk2OybIsqKv59jhwFEHBKjALCDjsbTqJGW+IrEF+Ds=@vger.kernel.org
+X-Gm-Message-State: AFuF++kW3s/FCA8rVlKDg5JR+P4tsuCTrmxYx6BDIFuu3TqP1sImfWUf
+	fHqrlEdScWS8fJYDXXSzB0I22WOwxP+T4QhtQsq8g78HLNdr15PTTt9MoiHOV4kPDS4=
+X-Gm-Gg: AYBFou1a7S4HDI9LFfY3Tymfqg7PivxXvKoW2P8qCeNKnC+yNmDdMMjg3lgN+2miVTT
+	Y6nIMCe9eDACpKiAfmawldpfdImyE2Qrt0h681HyMjQ8p7RIwO/ij5r+IXLnzqmWfLvRGOiakGf
+	hrkbMlr5hPTSWwxtKqF4+QHC73D27G/992lHoR0TLWU0KF1JSWeLwnotoveTqsOFbkubLVLlDwc
+	meBP0oB4w2MPIeoK4qAiVR4BVoH5suibu6sYpp+RFpTTn/Mqj/MMzU2g4URgpaAMcTBxX/3UP8n
+	0yQgAuBRkHgCqoqE7l0aSylN8nmIbFe5LQPIBquhKSmxCncOR11Nt+mf/QLDDGpqvZrfXhGCVSg
+	3gD/fbBsqCi0+4mPNtlq6R4nwnMCHCe8EufAlrkNcvTbyzQAJ7oIW9dM5l0atTJoTetsj5lthRU
+	y3K6J7TWlAwFy81W9fFqXH+MQjdUFX80kWUsKkzosMnAB2XyMdfLlb61RwApFw+CAIxpAkZ+Q3I
+	wHsNSD+JdVjYQPi2/T2dWsqDG2zNDcyPIjzogX9VLBap0kRWzuP8nqDf7Kq
+X-Received: by 2002:a05:600c:68d4:b0:49c:fa21:e747 with SMTP id 5b1f17b1804b1-49d259174d7mr55588115e9.29.1789048338028;
+        Thu, 10 Sep 2026 06:52:18 -0700 (PDT)
+Received: from localhost (p200300f65f19a90462cfe0cd06b88b27.dip0.t-ipconnect.de. [2003:f6:5f19:a904:62cf:e0cd:6b8:8b27])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49d26bc08edsm47086665e9.3.2026.09.10.06.52.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:52:17 -0700 (PDT)
+Date: Thu, 10 Sep 2026 15:52:15 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Kartik Rajput <kkartik@nvidia.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Thierry Reding <treding@nvidia.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
+ driver
+Message-ID: <aqKus9TnDNm3Yt8Q@monoceros>
+References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
+ <20260909-tegra264-ufs-v1-4-e4a9831702a0@nvidia.com>
+ <aqFqhNA50674GtPo@monoceros>
+ <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
+ <aqKOipmg5V4oqZlB@monoceros>
+ <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4yq5mv4s7mho6e3h"
 Content-Disposition: inline
-In-Reply-To: <8d27168e-5443-4073-bc65-24ddbe32e29a@kernel.org>
-
-On Thu, Sep 10, 2026 at 03:14:36PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/10/26 14:34, Yeoreum Yun wrote:
-> > On Thu, Sep 10, 2026 at 02:25:40PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/10/26 14:16, Yeoreum Yun wrote:
-> >>>
-> >>> True. I overlooked guard bit is sticky.
-> >>>
-> >>>
-> >>> It's enough but alloc_isolated_mem() could be modified to allocate with
-> >>> PROT_NONE first and then change the prot.
-> >>>
-> >>> It seems whether make a helper or testcase should write the code
-> >>> properly in case of unwanted VMA merge.
-> >>>
-> >>> IMHO, instead of testcase write them all
-> >>
-> >> So far I am aware of exactly one test case, which others do absolutely need this?
-> > 
-> > True. I'll respin with your suggestion.
-> 
-> Don't get me wrong, if we'll need this for other tests we can add helpers. But
-> for a single user adding a helper is not really worth it.
-
-No worries. Since I thought there is no use case right now except the
-test, I've agreed.
-
-Thanks!
+In-Reply-To: <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
 
 
--- 
-Sincerely,
-Yeoreum Yun
+--4yq5mv4s7mho6e3h
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
+ driver
+MIME-Version: 1.0
+
+Hello Bart,
+
+On Thu, Sep 10, 2026 at 06:09:30AM -0700, Bart Van Assche wrote:
+> On 9/10/26 4:21 AM, Uwe Kleine-K=F6nig wrote:
+> > What makes you claim that {} is preferred?
+>=20
+> There are many more occurrences of " =3D {};" (about 7000) in the Linux
+> kernel than of " =3D { };" (about 1500). Additionally, clang-format
+> changes any occurrence of " =3D { };" into " =3D {};".
+
+clang-format does this due to
+
+	SpaceInEmptyParentheses: false
+
+in .clang-format which I claim we have due to prefering no space between
+() for function calls. It seems only newer clang-format (starting with
+version 22) can configure that individually using SpaceInEmptyBraces.
+
+And IMHO my statistic is more relevant because we're not talking about
+`=3D {};` or `=3D { };`.
+
+But I guess this is all subjective. Having said that I feel offended
+when seeing "=3D {};" and would ask to add a space there, too, when
+spotting that during a review.
+
+Best regards
+Uwe
+
+--4yq5mv4s7mho6e3h
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqitgMACgkQj4D7WH0S
+/k5c1AgAhP3OT2P76z2Ij4muECOIAs0athRcUAms+cyF+w8uuehKZcqDgOD2PR6o
+YQfhjqkPJRbVqyvyyhfsOe2hVvJ8iRZR3SeSvLXuv39US2h2d1mJAnU5aMzM819w
+x2eIN3LdJV3ev/8d2cTQkXcTW+rtsl8d8zKnFkU6UbGzS4ltgn9sbU8M4Jybp62f
+ZEv3P431ilAA4Z80om0L5gJnMBTK1WoskWrIThKaVeDzoKGCsccSzB+snXLbOyz9
+jvCZHXz9DyQM+tbEIBI1zrAclO4Ghh06cxfIRkuBWTkqtQxWt/lhGp8OaTIdJlLG
+M8Niol0XhEcUL+wLnJCBWNywm/axDQ==
+=unfT
+-----END PGP SIGNATURE-----
+
+--4yq5mv4s7mho6e3h--
