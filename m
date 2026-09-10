@@ -1,58 +1,39 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E02E34746B3;
-	Thu, 10 Sep 2026 11:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78D5356A12;
+	Thu, 10 Sep 2026 11:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039839; cv=none; b=gHShipbVT82AwWSJuZ5zASa2GiXL+vl8SwRjLzo66Lq0uWz6/kr9i9tCPafr2QCXMSLr9IPqoFzrqIvGALqY/uSb1htPYCzMLFrtej8okd2Ux0KWA8LLe4ccvVCl7t4M8J8nxW24UDZXbpnwimaPX6EnM8AJGvtm3MPtpY4dloE=
+	t=1789039884; cv=none; b=B3fG9OGYHEA7us5lyNTkwDesaHUsu7zWEWBq9tAkALKuA9pPK8wNcS3MTbTU3guB01HVklyk6AFCxdDRNCenu3VJgnBCgGeEopHB2+w1nOWH+A3irwlodoO/qPQajeKbNJrUR7vZULf0TtImO3yVmLiZQZO1C4Vbqbcpt9Jkr4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039839; c=relaxed/simple;
-	bh=L5i7mVveayCy4P36Os2p3EeZ4N7n15du1C0VbezxZKM=;
+	s=arc-20240116; t=1789039884; c=relaxed/simple;
+	bh=zU3vzRxNIUcnktzrPzbJWxvzmBDjHsD2XrBZqp7kI6c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tlUIaIzPZPam+WSOhULs/pRwPbPrK9AW1TdsUdEt1KvGxLcWJqQhuQtXFSGi/T5YtXNS3M8VkdTPFuiBEraysEO19tThGruZQ4qNiQ2Z+sae8dZiJ94Kd6HPb2/WAILxim8d7GMqIGOTOmj0agtLW+ada0ElSWckJolOyD4qLog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=S3yeQE4F; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qm5lFmzmso4hUr9zBPJVwascBtVv3etOJOlePlGpPef83CST51aYSthKPcHmm5YYDPKwJiS5rXRfDX9jBRJk4ROIiayt4Zo5XSfodaoHQdbfp23H/FBjZGqB0fiQ7rpHkQ3y3lNNfWIphpVHoBUDvx7ooJ4td+HOAVyXEf/f7A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWJWaPd1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="S3yeQE4F"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10E89153B;
-	Thu, 10 Sep 2026 04:30:29 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B80D53F528;
-	Thu, 10 Sep 2026 04:30:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789039832; bh=L5i7mVveayCy4P36Os2p3EeZ4N7n15du1C0VbezxZKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S3yeQE4FGIKitHwxhtAWJo1+SEzcq29goaN6s8K/smUGgoj4iffJqZxc3GUYDMO6u
-	 /B13CWJcxxeZN3brYIv0ZbVP0+FUlYLHBtUDwfD8fELky+hFAiC475N39A2mOmgIcW
-	 WrzseTqc7sPSzeewfQGfJlVRMVpxA2xbY5w+/h0g=
-Date: Thu, 10 Sep 2026 12:30:27 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-Message-ID: <aqKU0-Gm4yh78F3V@e129823.arm.com>
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-3-822b810458bc@arm.com>
- <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
- <aqKOVGECsCNtSMIV@e129823.arm.com>
- <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
- <aqKS7CP67X4h6NiM@e129823.arm.com>
- <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWJWaPd1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7711F000FF;
+	Thu, 10 Sep 2026 11:31:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789039882;
+	bh=sp+g2kf4DjcHYNr0fZESaZatEX+25HJxulaJdt99lS8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BWJWaPd1d+Zc7JDdTCN9K2rRGLgVrvGxMtotAH/+SmbALwSZp/ZRim4cTj7UolVIP
+	 cI5hNqZIXZYV8DrjrK7uSMpS31fcFp/74rpUDEQXh+GsJqkRiys9CwcFff7WdUBghU
+	 kn7Xq1rXNzg4AH0thQm3BoFKKY3/V1A5lzGu/b4wTseWQPgZpKMvxA9hUYWH9QS5Oz
+	 j2GWXBUsxbcbxM9yteMHkAIFoqnUob0PMfhr0ckrJPyNehFKc5sKCpWZQVzEM1e8eC
+	 pADtLQrCDtEWtqM5fgs5d71LN/6qZuVrsMC9AIQ4po+6kY0yweYIffVQbyytB/Ul1w
+	 MG5UAOdnUwMrg==
+Date: Thu, 10 Sep 2026 13:31:13 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Subject: Re: [PATCH] PCI: sysfs: Reject unaligned resource I/O port accesses
+Message-ID: <wmlvf7r5xd6ibcc6kimlqylfkvzgim44n364wmqugrj4tntlrm@mld5ilctx6wa>
+References: <20260809045946.15638-1-kartikey406@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,48 +43,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
+In-Reply-To: <20260809045946.15638-1-kartikey406@gmail.com>
 
-> On 9/10/26 13:22, Yeoreum Yun wrote:
-> > On Thu, Sep 10, 2026 at 01:14:42PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/10/26 13:02, Yeoreum Yun wrote:
-> >>>
-> >>> Since there is no interface to get vm_flags not via /proc/self/smaps,
-> >>> It might be good to have it for preventing unwanted VMA merge.
-> >>>
-> >>> And might be useful for future to prevent unwated VMA merge.
-> >>
-> >> See my reply on why vm flags are generally not a problem. Just like other
-> >> properties that are not changed during VMA merging.
-> >>
-> >> Let's not perform random code changes without a clear picture.
-> >>
-> >> And just to emphasize again: VMA merging could already be a problem before
-> >> memalign() internal changes.
-> >>
-> >> (also observe here how we do a MADV_HUGEPAGE, so this is all rather arbitrary,
-> >> which is not good)
-> > 
-> > As I mentioned in my previous reply, what I’m trying to prevent here is
-> > a failure when checking, immediately after memory allocation,
-> > that a specific vm_flag is not set.
-> > 
-> > Yes, I agree that this could have been a problem even before
-> > the internal changes to memalign(). An unwanted VMA merge could already
-> > occur at the time of memory allocation.
-> > 
-> > So what I’m trying to avoid is a test failure where, due to such an
-> > unexpected VMA merge during allocation, the subsequent check that
-> > a specific vm_flag is not present fails.
-> Which is only a guard-region marker problem?
+On Sun, Aug 09, 2026 at 10:29:46AM +0530, Deepanshu Kartikey wrote:
+> pci_resource_io() validates that off+count stays within the BAR's
+> range but never checks that the resulting port is aligned to the
+> access size. A pwrite64()/pread64() on a resourceN file with an odd
+> offset and count=2 or count=4 reaches outw()/outl() with a misaligned
+> address. On arm64 this becomes a store/load to a Device-memory
+> mapping (PCI_IOBASE + port), which architecturally requires natural
+> alignment, causing an alignment fault and kernel oops.
+> 
+> Reject misaligned accesses before they reach the low-level accessor.
+> 
+> Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=7134530b25073b4ef373
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 
-Yes. so if we remove ASSERT_FALSE(check_vmflag_guard(ptr)), TBH
-we don't need this patch unless other usage comes up to prevent unwanted
-VMA merge.
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Would it be better to drop ASSERT_FALSE(check_vmflag_guard(ptr)) in
-guard test?
+- Mani
 
 -- 
-Sincerely,
-Yeoreum Yun
+மணிவண்ணன் சதாசிவம்
