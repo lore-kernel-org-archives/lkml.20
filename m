@@ -1,295 +1,244 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0DA3546F0
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047927; cv=fail; b=g632oMRD0slLPhhGer1kf/klYoEauery8pEq8aqQG9CP7L6q+pyJS9ffa9KN9dAUPTHB8lnAci9H0wu8qCoPE0BQQrznkEOE+3WVs7BtsLGI8NqOhClcJtPDcx6lTXhTti1womYRooWCRubRK90jU4giNBquaqETdIhBRm232NQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047927; c=relaxed/simple;
-	bh=UYUtAEC42eZ3kXw6ezBWfPAifLU8nNmZPL5kwCHzpUA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dhXAqajMx8+6GZ8hhSb3eNur2ulr4xAggDXwo/WzRpWn+vc5ZP+B4HgAOupNrVU8PhTlofAs6s/MWicd+SoyT3wex6BTiRDJ4SrtFtytwdsTeIXQUT1PEG4yLnWuTo1Bd94XIBbCltrcVB7vdHW5itY2CP6x54gPbmS+FNNK8e0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=IKDhpd4c; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=NOAT59RZ; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF53476694;
+	Thu, 10 Sep 2026 13:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789047974; cv=none; b=ulCYKxdxY96Z9zrYs/sbptdA0VeTVwAQOoUn6Ag0IttH0EnTAO5WLYUqZWc3uVJWGbQMqxhUGmQOPmVCodzXUQDUGjkjaIukmBqQx6x2CNBGuR6+/G5QBizqDtEtapCjxqqpb9zzXzIoPEO2r71MMvAV/XkfgSU9cjTllq3kYZc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789047974; c=relaxed/simple;
+	bh=aLhJvQ9k8qzk2iMyo4DyJKSFKCkfx5AOFPLsl1c0hYQ=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=SzYkgqmEfxRUiix3P/VN0qgGaK6bwhMCrMy4jdtmYaxVm3OaLpiypMNoEEmyP9Be0+l84ae7YrWrYpwuFBtDWsGlTs8xXDDJhGp520KIQdgRSPW72FP7QWrqsCV8mmx0xy9KZc62vpcak+vSzeXWcW1siAMcJCUBvtlbfF8ZJtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER9EkXYV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="IKDhpd4c";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="NOAT59RZ"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68AC9XaO1085740;
-	Thu, 10 Sep 2026 08:44:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=KQxXhUSQqnQRY
-	33aFcXayPIgvZ2x+iDK2sfU5SLLQZA=; b=IKDhpd4cBOE7f6F7ooVIuKemp9vbq
-	v5djWYCTsQknTXgRc1fz//LLwAUvNqyXysULAh7iBnF5fxDAIOJ0FRj9l7GGlTNZ
-	QDjCtwA7Gm+9u37cxnlvmRb8iXRBEwdH26CTsaoKFUF9RU8+FQP3/tF07ypeOqHG
-	4PkoSJqOcSUiCf5xHgVmZzDWfDbeLlvILSL9jnHqw0jyuZWOVlMW0x1jZwLRTxCu
-	UO51YJmoZRcrZ8JQExsHh0LsM2ejvsitd6T/S0rmg64wCWqTOtMLo+q6atVTbkKz
-	yxJblNFm2llqIlYHsCY+mi20TKmqH3BDp0RzAxRtPs8ZJTltGQpv6S2/A==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gkcxgdk59-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 08:44:23 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LQOryLOkJwNsk51FdZInAT5m5AeXhaN63BNmtQRMieoHf6tBv6Q/5mm1Wd/x8QaVzNG6XfyiH+TBZSnD9IfcGP/OQAEg4zaY73Ms/0nZHFMKpRcwQHxuohU8vJgF110QQy34nySA9JZVheQhzSoSdqpY5MZNiev6pzrBK5ZAcw0vD3ePZrIewcQgRySdP5YPymkEObMQKKbqK7K7Z+ne300vytRSgAQIEheRYCqXmaQsnQ+EKuy44qJGyAf9emvy1FniyX7/tpHZeXEGID6ctG3eao4/ep6Dm1+uKe4LU2H+vnK6RZu5+xry5dHxyxiKOg11qbaNjZVWgQz+xtv1HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KQxXhUSQqnQRY33aFcXayPIgvZ2x+iDK2sfU5SLLQZA=;
- b=I9UCRoW+1HnGDDaCJ2IrLNNosvSiZHgDiu7Og2f/+CSOdjHpZcdbGW+E7qX4O2vBHhplOKKkS8v+VORzb6P+PbuhEpcPr1de5ygtuUu0U0UTpXumXfGL9ddfQxbpKi8TyEGiNWOAPMmTPxVo0qW3RUBPpBtAkokr60YRwdVN99DAC4SrSbQM65L5AsI2TRhhXURznSbVx/n9F4+86HqJ0IdJfO78F/WOFs+XhXERPt8imGkCedLzLhsMC93k6jbR03vXltvAgRuNKioVFqMr0R60Hu1+Lb/Jwzw3uqxa0cpKVWymXejYcnCBDYEnhRKigKxABL1VYqWxqIMjaHPqPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KQxXhUSQqnQRY33aFcXayPIgvZ2x+iDK2sfU5SLLQZA=;
- b=NOAT59RZNCL5njCRintOZXPfjnBubltMMIDrfhjSm5lax51OJPSOT4oG/VokwUcfw6tMM1xyaQm1AYHWEd2FXL8zYtcYmajb7iZuKDKjKtOdhn+66lRgtpB12cjcoEfK0zrQKvEAcs+BRbGwPuxf7QHRZMgLqWDb/ZSoaqLGIfI=
-Received: from MW4PR03CA0349.namprd03.prod.outlook.com (2603:10b6:303:dc::24)
- by SJ0PR10MB4573.namprd10.prod.outlook.com (2603:10b6:a03:2ac::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.5; Thu, 10 Sep
- 2026 13:44:21 +0000
-Received: from BY1PEPF0001AE1B.namprd04.prod.outlook.com
- (2603:10b6:303:dc:cafe::ac) by MW4PR03CA0349.outlook.office365.com
- (2603:10b6:303:dc::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Thu, 10
- Sep 2026 13:44:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BY1PEPF0001AE1B.mail.protection.outlook.com (10.167.242.103) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 13:44:20 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 08:44:09 -0500
-Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 10 Sep
- 2026 08:44:09 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 10 Sep 2026 08:44:09 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68ADi9Mh2432799;
-	Thu, 10 Sep 2026 08:44:09 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Nishanth Menon <nm@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        Siddharth Vadapalli <s-vadapalli@ti.com>,
-        Vignesh Raghavendra
-	<vigneshr@ti.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Geert Uytterhoeven
-	<geert+renesas@glider.be>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        "Bjorn
- Andersson" <andersson@kernel.org>,
-        <alexander.sverdlin@siemens.com>, <jan.kiszka@siemens.com>,
-        <ayush@beagleboard.org>, <robertcnelson@gmail.com>,
-        <upstream@lists.phytec.de>, <francesco.dolcini@toradex.com>,
-        <leonardo.costa@toradex.com>, <matthias.schiffer@ew.tq-group.com>,
-        <stefano.r@variscite.com>, <eblanc@baylibre.com>, <msp@baylibre.com>,
-        <thomas.richard@bootlin.com>, <miquel.raynal@bootlin.com>,
-        <mwalle@kernel.org>
-Subject: [PATCH] arm64: configs: defconfig: Convert TISCI to modules
-Date: Thu, 10 Sep 2026 08:44:09 -0500
-Message-ID: <20260910134409.1713610-1-nm@ti.com>
-X-Mailer: git-send-email 2.47.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER9EkXYV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0377C1F000FF;
+	Thu, 10 Sep 2026 13:46:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789047972;
+	bh=XhrA7x52Q28B+clYOZzyqnZ/7ktjb9VO453gBmfr6ic=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ER9EkXYVxl08V6Ycr3YzJLZIiGzmrai+9qupP2+/hBwwayJCnW23h+nvT9BpQxPj/
+	 XvwMX0rl1GZ0EWp2seGGiZ1eDqSJpfi51MnTkHwzB7nEASTwZMmLPwpcsaAGFVzwoB
+	 xp8U9A8lsOdyXG6zZUfgLYwDIXR04O9jMFtIz+1Ueg70nhq3dXe5qamLIdfJqfTaV+
+	 xT08yOL9FZK1o/YOWp7KWVNheAmWvTjzTNS7kDp6cjP8ss3MEexuRfmkOV2WfR8woC
+	 cZa7bPqzGhxPoZYyFgkp4E/UfyXCJuIgVEMTJlbgZBiAs0I93NA53wnlKiSZAqGCpc
+	 QzTOBAN7MfJaw==
+Content-Type: multipart/mixed; boundary="===============5058253262843076192=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1B:EE_|SJ0PR10MB4573:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f562d52-6ed2-412c-4512-08df0f419e2a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|7416014|82310400026|1800799024|10067099003|18002099003|6133799003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	oAAWP0k34nnZHy0OhQhgKpFTEZnPG7T/19lde+P3e8dG/3/Dxt75N9ZpsVU90tqBPkj4nqFDdiFiyDLC/EmyVKEDONzKB7ENJpaAv5MPnmAWzBxmm8br0K7bwpqK1D6894gsitRNBJ3vnCXwxzYve+B9fy5oxShLKJzeBu4cqL+c1RH7Xc75iBdCapQ3bNIBU6m8Q65WYjHSwyzu/3Jg/uUlTf7JwDfqd16ISswT3rkov4KIsUWbqIf6g5Sl+Evdt4dS4RT9mADgdeco5U/8dHx0G3S+C+dnsd/OyepksJ/PzI9ctD3XSpITLikz0AAWV/Pjm2Ug+3SCfwWr6BIfVcf9tzPLoTHm5x3MNgvEXbSb4EibEWfST/aHUVvbp9PWmGAhiCsn+rZjk/HHshnrD4g+3Kce9/w3dKhRNKBbtDr9YLtbBdWbkdwIQAHdWnRjvhrZTrmAzqXkGcqH5e6rtM7b283FQGi/g+qPVFZpg4FPaI1lgGqdkspOFhanfcsqPiyW3o5sDL3a3Ioi2HQqd00tc8yIvoqVwqIKvknGf7Qv5c5+GdneawVCeJCzE1ME+oAopdQUPbWmgR+i0FAqHNHOuDFpCquM4zWsmlP43vkY1Cy0ippkZm4liBa12z3R+j97Tiu+ePlRQJKteEYbtA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(7416014)(82310400026)(1800799024)(10067099003)(18002099003)(6133799003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ApuB4SPQZJKRVQc/lwjFClft8GgFUqyb8jbPBQuDdswqRfs4WyVl6MGu4oHQvBj+uAKXGnAWQx3sT8W18iVyEJ9s0KGESTN1aJlwywIsg0AorLuS5UNSYjBZWPGQg4Pd0G9pstpLXYbkvvH5N/NgcutXk5cTiiZOeMTpbruz0lwGpjEUWIF8QCzJtvNVnCNuc2Nrr9KOVoJOIbttda+N0tddyQB/q4UkShLYjHnCdZvdrRT6wp3kHz5JT/8+3XIMV4se39gFZSB8Nm2H+S8SjpKRPX9M2wYaHEYpGqICI/+u3Bo2xERjR3mEet4i+Pxi1Mg5YGfKOjnUPcgfCmBWA0aHe0t+P9N2gxr/flFmVYF/EZkQ+wR6H1ax/N8bSz2yGh1Lfon1XmIQT7OSIItzBFbEMrCvyqQOxlh6Wl9/K8zUrOKsQItCblx7XOFKR2m9
-X-Exchange-RoutingPolicyChecked:
-	FsC5pt+XkmfZ69GSzCpbVKr3a3qiaoAD/IdIIYKNo1iau7Eef0LjYSnugPp+24uej2yPIYJcPpxCdAwFqnhCCU/P8IKTYXfwLm2rz7XFg4vvU5eXj4RRBgYn/u8frEgtRUV7sHxik04P/A00TXB+dPGndnhJmSiNME0kSeQwpx57mb0EqRCfoVjpk7S7IOLhwr5i8hi1mZwnyHltNEMUWFJNAchBjGMkVmuNi12vSs9xXRvOSrsaufDLDhCAZMHIfEoPEM9M5+mNCP1+HDKVZDxDSns9Ir5XEc/E4VSQpGwWsyq8iGnN6V118iOnI79sD0fhfkIixWfTraKcpbCvew==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 13:44:20.9367
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f562d52-6ed2-412c-4512-08df0f419e2a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE1B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4573
-X-Proofpoint-ORIG-GUID: Ir6yxrI57yfFZ0IzRlXAOapPCBe-cNf3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE2NSBTYWx0ZWRfX2YljUHBxiFjp
- TxMcv+kU58zFgHmRBN22b+msHZJvPQ58ij+NZCFKKzqt82u+3xLMDK5fOHVgGFrRFR2ixSV57+s
- UvBQEDe6R+mz+IE1L065FwTFHivRTR0=
-X-Proofpoint-GUID: Ir6yxrI57yfFZ0IzRlXAOapPCBe-cNf3
-X-Authority-Analysis: v=2.4 cv=MqbHeGae c=1 sm=1 tr=0 ts=6aa2b437 cx=c_pps
- a=F1HhE1toGRAZ88wdd1wKFg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=0Miry4rRAAAA:8 a=sozttTNsAAAA:8 a=7CQSdrXTAAAA:8 a=a_U1oVfrAAAA:8
- a=fGhLjsSNAAAA:8 a=pGLkceISAAAA:8 a=m8ToADvmAAAA:8 a=8f9FM25-AAAA:8
- a=cMDUSdu-AAAA:8 a=IpJZQVW2AAAA:8 a=P-IC7800AAAA:8 a=-oG_GxVZrpTI68_nl-sA:9
- a=UT1Yo3WijKgCWNxi40OF:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=LYKFdyShAPKLkGq8p7WX:22
- a=kCrBFHLFDAq2jDEeoMj9:22 a=uSNRK0Bqq4PXrUp6LDpb:22 a=QRaI_VI5Kbc4sAalow4w:22
- a=IawgGOuG5U0WyFbmm1f5:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE2NSBTYWx0ZWRfX5MVyxQNZ/hWn
- 2UCgGeyqF4BtysItjVkUJ9E22b7HT2jmq0hdtPaH2BG1oKh1fW/1YHqg8alXl88H3R23igmURnN
- MRPN6fe0XVczuxG/2kaqD9sdvZ9ctdplaD3+ZPNed9ajAFqLB1U3XwjRkd+KQqxZLCt99EcNYVH
- QFTdeE4YYdtAvRHs2n9PvBnkPwyka3bkAwMlPlAiZLjfVxqIbSb3y49D4Y0/bgF3CsWldC2/4wo
- ac0UDiR3uz7VIE5AZT97KmZnxGyrNEoeDplDyMBS0QG4w+W0JDVxqGoxIod3Aihjx4LYKXtQdBL
- wnfLNuH+w3WBy8sVEyBtFleLFL0wFC6wwp7QbsQRJ6klw4yfyQCiHEB+IZSzzr5otmQck9mOmIu
- ZPUkTb2gwT2gDXU+hyD99/UTefvvhRepBcXhMKJtHSnU9kNmrQ6/pWOTGOB7RRLZfe6wms8pvlr
- v7xTPtOPg8mez1CMtxQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100165
+Message-Id: <e0531130b2eff0eee7bedec1816125c0a2e193beb291a5688290d0efb9318aae@mail.kernel.org>
+In-Reply-To: <20260910125817.223354-4-cui.tao@linux.dev>
+References: <20260910125817.223354-4-cui.tao@linux.dev>
+Subject: Re: [RFC PATCH v2 3/5] blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
+From: bot+bpf-ci@kernel.org
+To: cui.tao@linux.dev,tj@kernel.org,josef@toxicopanda.com,axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,andrii@kernel.org,ast@kernel.org,daniel@iogearbox.net,linux-kselftest@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 10 Sep 2026 13:46:11 +0000 (UTC)
 
-Now that all relevant drivers have are ready, convert the
-TISCI drivers to modules. This impacts all K3 platforms for
-boot, recommendation (based on empirical evidence) is to use
-deferred_probe_timeout=60 in kernel command line to allow for driver
-probes to complete successfully based on the initrd used.
+--===============5058253262843076192==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-NET Savings: (Ubuntu Clang 23.0.0)
-./scripts/bloat-o-meter vmlinux_previous vmlinux
-add/remove: 4/380 grow/shrink: 0/5 up/down: 32/-143248 (-143216)
+> blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
+>
+> The existing iocost tracepoints are state-change driven: vrate_adj
+> fires only when the adjustment logic runs, inuse_* only on surplus
+> state transitions, activate/idle only on cgroup state changes.  In a
+> steady state none of them fire.  The only other way to observe the
+> controller (period length, vrate, busy level, active cgroup count,
+> device utilization) is iocost_monitor.py, which reads kernel memory
+> through drgn and is not usable in most production environments.
+>
+> Add iocost_ioc_tick, emitted once per period from the tail of
+> ioc_timer_fn() with the overall controller state: period_us, vrate,
+> busy_level, active iocg count, usage percentage and running state.
+> It fires every period the controller runs, including steady states,
+> plus one final tick before the controller goes idle, which makes
+> dormancy (e.g. a device saturated entirely by uncharged IO) directly
+> visible.
+>
+> At the default period this is a couple of events per second per
+> device; the cost is zero while the static key is off.
 
-Signed-off-by: Nishanth Menon <nm@ti.com>
+Both halves of this last sentence overstate the case.
+
+"a couple of events per second per device": the default period comes from
+ioc_refresh_period_us(), and because the autop[] tables leave QOS_RPPM/QOS_WPPM
+at 0, multi is always 2, so period_us = 2 * latency target:
+
+  - AUTOP_HDD:      2 * 250000us = 500ms  ->  2 events/s
+  - AUTOP_SSD_QD1:  2 *  25000us =  50ms  -> 20 events/s
+  - AUTOP_SSD_DFL:  2 *  25000us =  50ms  -> 20 events/s
+  - AUTOP_SSD_FAST: 2 *   5000us =  10ms  -> 100 events/s
+
+Only the rotational default matches "a couple per second"; the SSD defaults -
+the common case - are 20-100 events/s per device, 10-50x higher.
+
+"the cost is zero while the static key is off": the nr_active++ added at
+block/blk-iocost.c:2284 runs unconditionally on every active iocg in every
+period, outside the static key. The cost is negligible, but it is not zero,
+and the claim as written invites the reader to believe no work was added to
+the timer path.
+
+> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+> index 182601ad783f..bccdbd2496d8 100644
+> --- a/block/blk-iocost.c
+> +++ b/block/blk-iocost.c
+
+[ ... ]
+
+> @@ -2280,6 +2281,8 @@ static void ioc_timer_fn(struct timer_list *timer)
+>  		u64 vdone, vtime, usage_us;
+>  		u32 hw_active, hw_inuse;
+>
+> +		nr_active++;
+> +
+>  		/*
+>  		 * Collect unused and wind vtime closer to vnow to prevent
+>  		 * iocgs from accumulating a large amount of budget.
+
+[ ... ]
+
+> @@ -2466,6 +2469,8 @@ static void ioc_timer_fn(struct timer_list *timer)
+>  		ioc_refresh_vrate(ioc, &now);
+>  	}
+>
+> +	trace_iocost_ioc_tick(ioc, nr_active, usage_us_sum);
+> +
+>  	spin_unlock_irq(&ioc->lock);
+>  }
+
+Is the tracepoint emitted at the right point in the function? It is called
+after the period-rollover bookkeeping, so on the one tick the changelog
+specifically advertises, the reported state has already been wiped.
+
+The changelog says: "plus one final tick before the controller goes idle,
+which makes dormancy (e.g. a device saturated entirely by uncharged IO)
+directly visible." That final tick is taken through the else branch at
+block/blk-iocost.c:2464-2467, which executes this:
+
+	} else {
+		ioc->busy_level = 0;
+		ioc->vtime_err = 0;
+		ioc->running = IOC_IDLE;
+	}
+
+	ioc_refresh_vrate(ioc, &now);
+
+immediately before the trace call. The event therefore always reports busy=0
+for the go-idle tick, even though the busy_level computed earlier in this
+very period (from rq_wait_pct / missed_ppm, lines 2401-2420) is the
+interesting number in the named scenario: a device saturated by uncharged IO
+drives rq_wait_pct up, so busy_level was incremented and ioc_adjust_base_vrate()
+already slowed vrate down - and none of that is visible in the emitted record,
+which reads active=0 usage=0% busy=0 running=0.
+
+Same ordering issue for running: it is set to IOC_IDLE at line 2466 before the
+trace, so the field describes the state entered *after* the period rather than
+the state the period ran in. Placing the trace_iocost_ioc_tick() call before
+the `if (ioc->running != IOC_STOP)` block (or capturing busy_level/running into
+locals right after ioc_adjust_base_vrate()) would emit the period's own state.
+
+> diff --git a/include/trace/events/iocost.h b/include/trace/events/iocost.h
+> index e772b1bc60d6..2b9ff348a4f5 100644
+> --- a/include/trace/events/iocost.h
+> +++ b/include/trace/events/iocost.h
+
+[ ... ]
+
+> +/*
+> + * Periodic per-device summary, emitted once per period from the tail of
+> + * ioc_timer_fn().  Unlike the state-change events above, this fires every
+> + * period the controller is running, including steady states, and carries
+> + * the overall controller state so basic monitoring doesn't require drgn.
+> + */
+> +TRACE_EVENT(iocost_ioc_tick,
+> +
+> +	TP_PROTO(struct ioc *ioc, int nr_active, u64 usage_us_sum),
+> +
+> +	TP_ARGS(ioc, nr_active, usage_us_sum),
+> +
+> +	TP_STRUCT__entry (
+> +		__string(devname, ioc_name(ioc))
+> +		__field(u32, period_us)
+> +		__field(u64, vrate)
+> +		__field(int, busy_level)
+> +		__field(int, nr_active)
+> +		__field(u32, usage_pct)
+> +		__field(int, running)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__assign_str(devname);
+> +		__entry->period_us = ioc->period_us;
+> +		__entry->vrate = ioc->vtime_base_rate;
+> +		__entry->busy_level = ioc->busy_level;
+> +		__entry->nr_active = nr_active;
+> +		__entry->usage_pct = ioc->period_us ?
+> +			div_u64(usage_us_sum * 100, ioc->period_us) : 0;
+> +		__entry->running = ioc->running;
+> +	),
+
+Does usage_pct normalise against the right divisor? It uses the *nominal*
+period length read at the very end of ioc_timer_fn(), which is neither the
+interval the usage was accumulated over nor necessarily the period_us that
+was in effect during it.
+
+Two concrete problems:
+
+1. Wrong divisor. usage_us_sum is accumulated over the real interval
+[ioc->period_at, now.now]. ioc_timer_fn() itself never treats that as equal to
+ioc->period_us - the donation loop a few lines above deliberately uses the
+measured duration:
+
+    usage_dur = max_t(u64, now.now - ioc->period_at, 1);
+
+and ioc_forgive_debts() (block/blk-iocost.c:2119) does the same for its own
+percentage:
+
+    dur = now->now - ioc->dfgv_period_at;
+    usage_pct = div64_u64(100 * ioc->dfgv_usage_us_sum, dur);
+
+ioc_start_period() re-arms with a jiffies timer (ioc->timer.expires = jiffies +
+usecs_to_jiffies(ioc->period_us)), so a period routinely runs longer than
+period_us - which is exactly why the code above measures instead of assuming.
+Every microsecond of timer/softirq lateness inflates the reported usage
+percentage proportionally, and the consumer cannot correct for it: the
+tracepoint is emitted *after* ioc_start_period() has already overwritten
+ioc->period_at with now.now, and the event carries neither now.now nor the old
+period_at, so the actual duration is unrecoverable from the trace.
+
+2. Stale-vs-new period_us. ioc_refresh_params(ioc, false) runs before the
+tracepoint (block/blk-iocost.c:2452) and, when the autop index changes, calls
+ioc_refresh_period_us() which rewrites ioc->period_us (e.g. AUTOP_SSD_DFL
+50000us -> AUTOP_SSD_FAST 10000us). On such a period the event divides the old
+period's usage by the new period length, a 5x error, and also reports the
+freshly reset vtime_base_rate (ioc_refresh_params_disk() sets it back to
+VTIME_PER_USEC).
+
+Using the measured duration - captured before ioc_start_period() clobbers
+ioc->period_at - would make the field mean what the changelog says it means
+("device utilization").
+
+Aside on the same line: the `ioc->period_us ?` guard is unreachable.
+ioc_refresh_period_us() ends with `period_us = clamp_t(u32, period_us,
+MIN_PERIOD, MAX_PERIOD)` (MIN_PERIOD = USEC_PER_MSEC) and runs from
+blk_iocost_init()'s ioc_refresh_params_disk(ioc, true, disk) before
+timer_setup() at block/blk-iocost.c:3001, so ioc->period_us is never 0 when
+ioc_timer_fn() executes.
+
+
 ---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-NOTE:
-a) This patch is based off v7.3-rc1 and will create a merge conflict
-  in linux-next (next-20260909), but the resolution is trivial (vs
-  bd94bea7165be450903c6d64bbcb4862e36798f9).
-b) Emperical experiments that Siddharth Vadapalli did,
-  it seems like some driver probes might be taking much
-  longer than the default deferred_probe_timeout of 10
-  seconds that is used when CONFIG_MODULES=y. Testing log[1]
-  a deferred_probe_timeout=60 seems to have worked fine.
-c) Full bloatometer report is available in [1] as well.
-d) related lore discussions[2]
-
-[1] https://gist.github.com/nmenon/5f1587b373e6ca27170593010188d968
-[2] https://lore.kernel.org/all/20260429-defconfig-v2-5-e4ed4186028b@oss.qualcomm.com/
-    See headsup I gave on #linux-ti irc channel https://libera.catirclogs.org/linux-ti/2026-05-20
-    https://lore.kernel.org/linux-arm-kernel/20240821110054.35u5ubgaogzjv6c4@rover/
-    (original thread that triggered various changes)
-
-Cc: Siddharth Vadapalli <s-vadapalli@ti.com>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>
-Cc: alexander.sverdlin@siemens.com
-Cc: jan.kiszka@siemens.com
-Cc: ayush@beagleboard.org
-Cc: robertcnelson@gmail.com
-Cc: upstream@lists.phytec.de
-Cc: francesco.dolcini@toradex.com
-Cc: leonardo.costa@toradex.com
-Cc: matthias.schiffer@ew.tq-group.com
-Cc: stefano.r@variscite.com
-Cc: eblanc@baylibre.com
-Cc: msp@baylibre.com
-Cc: thomas.richard@bootlin.com
-Cc: miquel.raynal@bootlin.com
-Cc: mwalle@kernel.org
-
- arch/arm64/configs/defconfig | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 6ec8d3a69c98..ed5aebf96080 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -267,6 +267,7 @@ CONFIG_RASPBERRYPI_FIRMWARE=y
- CONFIG_INTEL_STRATIX10_SERVICE=y
- CONFIG_INTEL_STRATIX10_RSU=m
- CONFIG_MTK_ADSP_IPC=m
-+CONFIG_TI_SCI_PROTOCOL=m
- CONFIG_GOOGLE_FIRMWARE=y
- CONFIG_GOOGLE_CBMEM=m
- CONFIG_GOOGLE_COREBOOT_TABLE=m
-@@ -1403,8 +1404,8 @@ CONFIG_DW_EDMA=m
- CONFIG_RCAR_DMAC=y
- CONFIG_RENESAS_USB_DMAC=m
- CONFIG_RZ_DMAC=y
--CONFIG_TI_K3_UDMA=y
--CONFIG_TI_K3_UDMA_GLUE_LAYER=y
-+CONFIG_TI_K3_UDMA=m
-+CONFIG_TI_K3_UDMA_GLUE_LAYER=m
- CONFIG_STM32_DMA3=m
- CONFIG_DMABUF_HEAPS=y
- CONFIG_DMABUF_HEAPS_SYSTEM=m
-@@ -1456,7 +1457,7 @@ CONFIG_CLK_IMX8QXP=y
- CONFIG_CLK_IMX8ULP=y
- CONFIG_CLK_IMX93=y
- CONFIG_CLK_IMX95_BLK_CTL=y
--CONFIG_TI_SCI_CLK=y
-+CONFIG_TI_SCI_CLK=m
- CONFIG_COMMON_CLK_MT8192_AUDSYS=y
- CONFIG_COMMON_CLK_MT8192_CAMSYS=y
- CONFIG_COMMON_CLK_MT8192_IMGSYS=y
-@@ -1678,7 +1679,7 @@ CONFIG_QCOM_CPR=y
- CONFIG_QCOM_RPMHPD=y
- CONFIG_QCOM_RPMPD=y
- CONFIG_ROCKCHIP_PM_DOMAINS=y
--CONFIG_TI_SCI_PM_DOMAINS=y
-+CONFIG_TI_SCI_PM_DOMAINS=m
- CONFIG_ARM_IMX_BUS_DEVFREQ=y
- CONFIG_ARM_IMX8M_DDRC_DEVFREQ=m
- CONFIG_ARM_MEDIATEK_CCI_DEVFREQ=m
-@@ -1745,15 +1746,15 @@ CONFIG_SL28CPLD_INTC=y
- CONFIG_XILINX_INTC=y
- CONFIG_QCOM_PDC=y
- CONFIG_QCOM_MPM=y
--CONFIG_TI_SCI_INTR_IRQCHIP=y
--CONFIG_TI_SCI_INTA_IRQCHIP=y
-+CONFIG_TI_SCI_INTR_IRQCHIP=m
-+CONFIG_TI_SCI_INTA_IRQCHIP=m
- CONFIG_RESET_GPIO=m
- CONFIG_RESET_IMX7=y
- CONFIG_RESET_QCOM_AOSS=y
- CONFIG_RESET_QCOM_PDC=m
- CONFIG_RESET_RZG2L_USBPHY_CTRL=y
- CONFIG_RESET_RZV2H_USB2PHY=m
--CONFIG_RESET_TI_SCI=y
-+CONFIG_RESET_TI_SCI=m
- CONFIG_PHY_CAN_TRANSCEIVER=m
- CONFIG_PHY_NXP_PTN3222=m
- CONFIG_PHY_SNPS_EUSB2=m
--- 
-2.47.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34481298417
+--===============5058253262843076192==--
