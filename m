@@ -1,172 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B1241443D;
-	Thu, 10 Sep 2026 19:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6ED3672AA;
+	Thu, 10 Sep 2026 19:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070012; cv=none; b=YMbbbj0cNXXUlzbhM4V+sc7EDNH8QV6EvVc7jyb2HNupqJ+s/yn8W1W4qWJDV9zEbZWFmtk/muLGwK9BmsMyAplCKkd49c7KyaPUxY23DLWIS7c+bMvccLwNdaZodJ0PmuM/nFdglFNPo/blswFxTx22xwCzZ8BtEVR/qH2lLWs=
+	t=1789070050; cv=none; b=jheIbzEMxQ+wbxu3hff6lT9dWp7yyIITojCUH4Myp/yxI37y9OtFMn42wVOr7o0FZ6IHSRmbldaYZZmD/Zhsksnhyo+i7H1HaqohhTShJHopehLzNlft3Ua57sgwUL5YUtR0L/ldQk46EztDxkFolvw4xwwZDlzc4xeLDpmvMwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070012; c=relaxed/simple;
-	bh=iWqOT9+0/3sOX827MIawvxL+XwBkdYbstgbzA9QJIlE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CojKxSA9usXK5Qr3P/n12G1rnw5CVF9uQ2DnCFTQhKoMjNHuBj5Yp1esvvjXlvAOtRyCSlUGcYyZ0Bj/Nm5MdLWMP6i5WlVKGXazjpmp/dF11ZvlYaNhTa6KH+Hd5rHsJ6TEVDLFPSrNUlAYX3W5V0ZiC5W6u9o/hkXEoStEEow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEPF3+3A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789070050; c=relaxed/simple;
+	bh=G3FgjhmjeFD2HGgRcoAVakUIklX5/ERfE8Qmxt5XNfo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KhuZhPCEhFz6VXzevPjgZ+6kHOygeUaKMN/zwQH38yPNQG/H9oos0M7tKRyL3ME/UwDMJYtyG9YoU+DBi6OeEDD0QIE3XRkq85o1J+K0SytgKeiYDiwi4BNbykeY5I259Uyf68niRxYix5wuVYlE2YmKKR4NoMR+RaOX9chhL6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGJ1UgUA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEPF3+3A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD7A1F000FF;
-	Thu, 10 Sep 2026 19:53:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789070011;
-	bh=LWCw1vI1TLupqhlfARjSwb6dKvjuY9OTFIJZELmfBL4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WEPF3+3A1c+SfmoQrIcZuPZ0jMVYuH3HDxDLG54ZBO/Q/dFxt5hdWRGMGAqS4K1PD
-	 twFGnF13OWICRQjXvEWtqtPNLIK4Xu0VKKPiecbW+5c2LBsGZAsY0wMnFXnuDicz1l
-	 CzN8fC6I3erLiP2Vdf4W6BnYzZvnDhrboXw/yq22VleHv3E+jizf1ea9D2w7d4NNus
-	 F4NFRVTrbKBsMnZJ8RngoBDtkCx51MCEPn8bVFAVxMfaRs1hZmNE4qnns7CxSwqWYr
-	 fEVUJSYxCfrp8fRTFZd60REhCyq9cWl1yXUjlfI/k8EypbDEJseBoYEK8Nc/JBPMiC
-	 mti6j3gXJ7A+g==
-Message-ID: <1799b944-535e-4019-9dce-e12e71aa96e0@kernel.org>
-Date: Thu, 10 Sep 2026 20:53:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGJ1UgUA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ACCACC2BCC7;
+	Thu, 10 Sep 2026 19:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789070049;
+	bh=G3FgjhmjeFD2HGgRcoAVakUIklX5/ERfE8Qmxt5XNfo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=WGJ1UgUA5oh1nKEj2B+NESRhfWXSRVyLZumxUClEv9aMlqtxuHv0PkJAexVyOsjhZ
+	 iRWD2ctUFHpYeAdP9HMC8tQcM0NkNnmnoosjcuhja+BDh7msxVaGAmOt0yRFARS7Rt
+	 qqfmfIz6wN9iGxbZbhncS++Eod0BYnTovdn4JumMFWL3pqhYhwdZRHlX2d+1hOR7mX
+	 4hLY3ZYs0Jr14b+fjw12LaxVFxBRBKDWR1vVBMqbqJUcLo9tPegyAvH2f06JJjRnVo
+	 ToBODGY8KKmxfZG+W3kgxtrVhr0/zsmRXJjCrP450L4kfMRzsF9IRoTOhPn317JN5S
+	 1BqgCWCU68MuQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84D9BC88E42;
+	Thu, 10 Sep 2026 19:54:09 +0000 (UTC)
+From: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
+Date: Thu, 10 Sep 2026 13:53:59 -0600
+Subject: [PATCH] usb: gadget: u_serial: fix NULL deref in gs_close() after
+ failed open
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] bpftool: Add explicitly sequenced -lzstd to libbfd
- feature fallback
-To: Ian Rogers <irogers@google.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Josh Poimboeuf
- <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>,
- David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>,
- Costa Shulyupin <costa.shul@redhat.com>,
- Michael Jeanson <mjeanson@efficios.com>,
- Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- bpf@vger.kernel.org
-References: <20260909204122.1993010-1-irogers@google.com>
- <20260909204122.1993010-4-irogers@google.com>
- <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
- <CAP-5=fUC+2+qafs=GjfC6K5X1o8t8BTxj8L7NuGAm40n_UTYWg@mail.gmail.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <CAP-5=fUC+2+qafs=GjfC6K5X1o8t8BTxj8L7NuGAm40n_UTYWg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com>
+X-B4-Tracking: v=1; b=H4sIANYKo2oC/x2MQQqAIBAAvyJ7bkErovpKREhttSAaLkYQ/T1rb
+ nOYuUEoMgn06oZIJwsHn8UUCubd+o2Ql+xQ6rLRndGYpq+wDjfB2QUh9Mk5tK22ddVkqIUcH5F
+ Wvv7xMD7PC/YgSY1oAAAA
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kuen-Han Tsai <khtsai@google.com>, 
+ Prashanth K <prashanth.k@oss.qualcomm.com>, stable@vger.kernel.org, 
+ Brian Ellis <brianellis@gotenna.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789070049; l=2951;
+ i=brianellis@gotenna.com; s=20260910; h=from:subject:message-id;
+ bh=elm183E8ARQLqVNCj2uC/Zn4AQumLckjzIgt6S1EnX0=;
+ b=6fsaZbzfuwEtD5Xr3Gvzr3qRhjpR4OxD/mPqG7UrV+ekUxg3qGiM/kayiEUntWUnUkKA2Sg+o
+ sjH+Mu9jzQqA+4jhG/oFJf93J+k63j1lchrThYPfFdJ8Sa0XbYrWcpe
+X-Developer-Key: i=brianellis@gotenna.com; a=ed25519;
+ pk=JciDR8ctfMqvKeRCDP8VPwNLUDULxCAqDum6H+/ByBY=
+X-Endpoint-Received: by B4 Relay for brianellis@gotenna.com/20260910 with
+ auth_id=1022
+X-Original-From: Brian Ellis <brianellis@gotenna.com>
+Reply-To: brianellis@gotenna.com
 
-2026-09-10 08:37 UTC-0700 ~ Ian Rogers <irogers@google.com>
-> On Thu, Sep 10, 2026 at 2:20 AM Quentin Monnet <qmo@kernel.org> wrote:
->>
->> On 09/09/2026 21:41, Ian Rogers wrote:
->>> Distributions like Fedora currently ship a statically compiled binutils
->>> libbfd that natively depends on zstd to decompress sections (e.g.
->>> undefined reference to 'ZSTD_decompress').
->>>
->>> Extend the newly supplemented libbfd-liberty-z-zstd feature probe into
->>> bpftool's Makefile so it can natively build against static binutils
->>> distributions.
->>>
->>> Signed-off-by: Ian Rogers <irogers@google.com>
->>> Assisted-by: Antigravity:gemini-3.1-pro
->>> ---
->>>  tools/bpf/bpftool/Makefile | 4 ++++
->>>  1 file changed, 4 insertions(+)
->>>
->>> diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
->>> index b0f7168e7943..1cac4508eb0c 100644
->>> --- a/tools/bpf/bpftool/Makefile
->>> +++ b/tools/bpf/bpftool/Makefile
->>> @@ -125,6 +125,7 @@ FEATURE_TESTS += libcap
->>>  FEATURE_TESTS += libbfd
->>>  FEATURE_TESTS += libbfd-liberty
->>>  FEATURE_TESTS += libbfd-liberty-z
->>> +FEATURE_TESTS += libbfd-liberty-z-zstd
->>>  FEATURE_TESTS += disassembler-four-args
->>>  FEATURE_TESTS += disassembler-init-styled
->>>  FEATURE_TESTS += libelf-zstd
->>> @@ -135,6 +136,7 @@ FEATURE_DISPLAY += libcap
->>>  FEATURE_DISPLAY += libbfd
->>>  FEATURE_DISPLAY += libbfd-liberty
->>>  FEATURE_DISPLAY += libbfd-liberty-z
->>> +FEATURE_DISPLAY += libbfd-liberty-z-zstd
->>>  endif
->>>
->>>  check_feat := 1
->>> @@ -201,6 +203,8 @@ else
->>>      LIBS += -lbfd -ldl -lopcodes -liberty
->>>    else ifeq ($(feature-libbfd-liberty-z),1)
->>>      LIBS += -lbfd -ldl -lopcodes -liberty -lz
->>> +  else ifeq ($(feature-libbfd-liberty-z-zstd),1)
->>> +    LIBS += -lbfd -ldl -lopcodes -liberty -lz -lzstd
->>>    endif
->>>
->>>    # If one of the above feature combinations is set, we support libbfd
->>
->>
->> Hi Ian, thanks for this!
->>
->> Just checking: my understanding is that if libbfd depends on libzstd,
->> then it always also depends on zlib, so we never need to check some
->> variant such as "feature-libbfd-liberty-zstd" (without the "-z"), is
->> this correct?
-> 
-> Hi,
-> 
-> You make a good point. Normally we want to use pkg-config to get the
-> libraries necessary for a dependency. Unfortunately pkg-config is
-> generally broken around binutils/libbfd. This is why we have all of
-> these tests to determine the list of libraries we need to link with
-> libbfd for things to work, which pkg-config normally provides. It is
-> perfectly possible to build libbfd with libzstd and without libz, but
-> currently, we haven't encountered a distribution doing this. I can
-> imagine a memory hardened future where libz has become zlib-rs that
-> conveniently provides C headers.
-> 
-> For perf we don't build with binutils by default; this matter is only
-> an issue for our build tests. We don't depend on libbfd because its
-> GPLv3+ license isn't compatible with perf's GPLv2 license, which would
-> create an undistributable binary. This isn't an issue for bpftool
-> because its BSD 2-clause license is compatible with libbfd. In perf
+From: Brian Ellis <brianellis@gotenna.com>
 
+gs_close() dereferences tty->driver_data without checking it:
 
-We still have some issues for bpftool related to libbfd: for Debian
-packaging, building against the shared libbfd is "Not Allowed" [0]. This
-was one of the motivations for introducing the use of LLVM as an
-alternative dependency. I didn't know elfutils offered a similar
-feature, I should look into it.
+	struct gs_port *port = tty->driver_data;
+	struct gserial	*gser;
 
-[0] https://packages.debian.org/sid/amd64/binutils-dev
+	spin_lock_irq(&port->port_lock);
 
+but gs_open() assigns tty->driver_data only after two error returns:
 
-> we've been replacing libbfd based functionality with that in elfutils.
-> libLLVM is another consideration, but it's generally too heavyweight
-> for the effort to be worthwhile (it is generally large, distributions
-> don't want a dependency on it, and it runs many initialization hooks
-> at startup that don't benefit perf). Hopefully elfutils can provide a
-> stable API for its disassembler (libasm) as that would cover pretty
-> much everything perf needs without requiring us to fork objdump, use
-> libcapstone or use libLLVM.
-> 
-> Anyway, we could add another flavor (zstd without libz) to the feature
-> tests for libbfd but since this isn't currently an issue I think we
-> can cross our fingers for binutils to fix pkg-config or for other
-> tools in the kernel, like perf, to migrate away from the use of
-> libbfd. If we add every flavor of libbfd's dependencies, it feels like
-> a lot of build clutter (imo) and I don't know where we stop.
+	if (!port) {
+		status = -ENODEV;
+		goto out;
+	}
+	...
+		status = kfifo_alloc(&port->port_write_buf,
+				     WRITE_BUF_SIZE, GFP_KERNEL);
+		if (status) {
+			...
+			goto out;
+		}
+	...
+	tty->driver_data = port;
+
+and when ->open() returns an error the tty core calls ->close() anyway:
+
+	if (tty->ops->open)
+		retval = tty->ops->open(tty, filp);
+	...
+	if (retval) {
+		tty_debug_hangup(tty, "open error %d, releasing\n", retval);
+		tty_unlock(tty); /* need to call tty_release without BTM */
+		tty_release(inode, filp);
+
+So opening /dev/ttyGS<n> for a port that has already been freed, or when
+the write-buffer allocation fails, oopses in gs_close().
+
+This is not the situation commit ffd603f21423 ("usb: gadget: u_serial: Add
+null pointer check in gs_start_io") was reverted for. That check was
+redundant because gs_start_io()'s callers are required to hold port_lock
+with port.tty and port_usb non-NULL, and the dereference it hid was a race.
+Here the NULL is not a race: the tty core deliberately calls ->close() for
+an ->open() that failed, as its own debug message says, so driver_data is
+legitimately unset on that path and every tty driver has to tolerate it.
+
+Fixes: c1dca562be8a ("usb gadget: split out serial core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Brian Ellis <brianellis@gotenna.com>
+---
+Found on a downstream 6.6-adi BSP kernel, then confirmed present in usb-linus
+by inspection: gs_close() still dereferences tty->driver_data unguarded, and
+gs_open() still assigns it only after its error returns.
+
+Compile-tested against usb-linus with allmodconfig (CONFIG_USB_U_SERIAL=m).
+Not boot-tested on mainline: the board it was found on needs a vendor BSP
+device tree to boot, so the argument here is from source, with both halves
+quoted in the commit message.
+---
+ drivers/usb/gadget/function/u_serial.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc66..5bbb4d04b 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -695,6 +695,13 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+ 	struct gs_port *port = tty->driver_data;
+ 	struct gserial	*gser;
+ 
++	/*
++	 * tty_open() calls tty_release(), and hence this, when ->open()
++	 * failed before gs_open() had set tty->driver_data.
++	 */
++	if (!port)
++		return;
++
+ 	spin_lock_irq(&port->port_lock);
+ 
+ 	if (port->port.count != 1) {
+
+---
+base-commit: be4219dd98608736e13e0b790ef742b76a13254d
+change-id: 20260910-u_serial-gs-close-null-a80a436666e8
+
+Best regards,
+-- 
+Brian Ellis <brianellis@gotenna.com>
 
 
-Thanks for all the context, very much appreciated! I agree, sticking to
-the zlib + zstd variant sounds like a good option for now, thanks.
-
-Acked-by: Quentin Monnet <qmo@kernel.org>
