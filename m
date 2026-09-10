@@ -1,107 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F049352C5B;
-	Thu, 10 Sep 2026 13:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D1648E0F4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046815; cv=none; b=p7PrPXSn/odjMd/MdibJ/KiEZpeVjrqicXHT+hvBSSNzrZjGDlmkd4+MSwzwQ5ihA6sRj/BSjHbCMpAuT0fcoGuEw32rrVooJiKa7vQPg9gsLsz8JimBow/FZHH/ZNW3o+5IX/AOPu8evhAld0dCqR66io6TczwWPp5Bn6DlcP8=
+	t=1789046818; cv=none; b=ugvcLVV6JfLGHG1S7whGrc0mSlGty7+JZFw2uGVFULmjandHmF0PQJ1SpnUdNEEKJTzGDzuPfGS7h4NcmX0pJ+B96zmo2TPTxu9Y8VvgUiC8mT0eYEwFPw0fruO28kLklDgQdmTsDRqOYmrJTtDRaz29nIoltTgtXO5dEQIkB1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046815; c=relaxed/simple;
-	bh=8LwohI+p8DDT76fk9A1VjUcstLsK4BTQ3LgFB0X08yA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=osMYuqS/CXBl1z1ua+pxlNC7LFG9rrcvHux5eK+E0Vr6UBLbDCiEnseIvriciykmCx9Dt0XRfs9g0PIDeGFfqPDYBozuOq2E6uo8l6m7LU9Q3K3dC7f7gqZtA2fQNuX+3Doxq+o2KwXbJu2Fe4LWwEmVZ1CuCE68eqp9w9rLLxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Iany2Wqq; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789046818; c=relaxed/simple;
+	bh=paNGGPZ1uw4B5jdjVSomKJFoJ+yYw0I2G7m3Tm51ufE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jXwf3xH6bq0B1IHleeyAH/o8vSNdT+IL7SyoHpJLwlnxCMu5aqTtFEeJFqP5SDkGds4v2Tk2NNstnwuOXEdE/9msXRh57Sg2kQjYndoMvUkXqdiPtzC79uUospYH22GESqm95VDpG06trOlGqLg6nIbypGXxbYm0tPtT8kj7X3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=prCPmycF; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Iany2Wqq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789046814; x=1820582814;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=8LwohI+p8DDT76fk9A1VjUcstLsK4BTQ3LgFB0X08yA=;
-  b=Iany2Wqq8vJ8VCaadE32nwRNvdAyRR4ADsYnCGYWIQ/fzvBT2WOAhUem
-   kvcNtp2zn7ktFBYmJleLha2VQHmHCKKgtEHAF86H111twfocCecOiy6eA
-   A9OFmsN/7f5Qi9hj/1cq7zFlRcMTPCHlh3ZJzGMRSy1s9gcc8FDLFzqRh
-   q5T1SiHxod0MvbWg2BE+xbo5gVKBrDjrjaycmRcWrTV5GoDa6tqHImyat
-   /YxA/QajRT8tmW2f4Zn8OmBPSRM0jkVNtZSsc8cAl8Sb3k5ERRfF9kcvt
-   JpnKF9Xkf/rAjVZ3RQc1blI5T8Vbg8IUw1cJHHULwxwJXal0Z4udpsiMr
-   A==;
-X-CSE-ConnectionGUID: O42fr/5LS/yuJMR2b6in8w==
-X-CSE-MsgGUID: 5NBr0131QRuMEWi3cY5gig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89368703"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="89368703"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 06:26:53 -0700
-X-CSE-ConnectionGUID: KQ5tpSHfQh2knyhfTWhoxw==
-X-CSE-MsgGUID: iLCqQu/YT5SV3PoFAgxRCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="271154595"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.173]) ([10.245.245.173])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 06:26:48 -0700
-Message-ID: <6b00b20f-a4ce-402b-bdad-9411499e6753@linux.intel.com>
-Date: Thu, 10 Sep 2026 16:26:59 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="prCPmycF"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c262204cc80so858236866b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:26:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789046815; x=1789651615; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EvtswLvPiQHbO1nAALeYzwdSCfuCoM47IC0JhG2+bnc=;
+        b=prCPmycFvHrebUfIJFkIDMn11uHh2RAgvowahlArJhuRJp7/HSPaHwSylXR1oT5T8b
+         lNgaU+anvgeGf2MeAudcf0MuRBhUNFqf7K86QqmgrNH1zXrlJzDlFG75bz9Lv42UZQhE
+         /NijN0p75Qcd4QFP+6wVlKxDWgWo4Gvhk4wAcKYBfXAuXaPtf/HhNIKGmCx7Xwr2boKL
+         muiJqv8xqs7sKODL+AblyxgelWhmIDAYd9zNalqwv7syLcT8vQ8O1P3hsKGsdNkZ0/QY
+         avmvo59GD0S1u5RuxkTKgvAfxAkI8jJPFYEq+9mAdy22CQEslyWbO2LtQyrsbjvBuojP
+         jpDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789046815; x=1789651615;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EvtswLvPiQHbO1nAALeYzwdSCfuCoM47IC0JhG2+bnc=;
+        b=ifcaSEvVMWG1ei9Ysc0Sm7fbs3UBuvI4QrirkovNYAx3P21JGqWmgEHi8c6CZ8BJDO
+         7Hlgd9oQGUHLg1zt5rwE8aHPmQ1dMq+45/H4OAhiKKsXbfs4o6Ju9u8306XD5fjllQEm
+         FfGFu+2C0WmqAPr1ad+Kj7g4Yr2XXEpuX2x6vaFtLTVMb65BaVMVDdgTWz1ykz4X5mTC
+         WksU27mZbh18s4dX6zcJVc4y8n7QI336aCCIxvPGRuGTN5fGEuiKT4Nj+Omn68yJs+x6
+         /h+7kO791w0Io7qmfbspHGNTZnBu8GDJhIaFCS2RiI1N00ZkXb6MU1kaJ5b5nGdbdoNq
+         S7wg==
+X-Forwarded-Encrypted: i=1; AKwUvBzi78+vposfn9K6fYaAAtcVTS+VXq/2FtJ+XUqN2Z8LF4h+XAQ9mieDoeLoFBTJy/QCFOXHAzmWUnxKAZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaTjq7rN0M5IabW/9FLNLTKUWpg1CCH+U2SZCQxRIzvRbSCC+K
+	V8JOdKCfkzG2vJrf0C6ArNbIUqFtazJ7hPDcZy8QiSs9GQPH/Z1Uh1Tn
+X-Gm-Gg: AYBFou3z6/+63yEQLnU50/bsf/ON/ON4mrFqySZ/5z2Q+7WiLqd20N96RdYOSHHiQjF
+	fQHzqnhq9fe4m0eeCs9ss3eS0zXQ56rEAInB24fq6TvPRZDuinxNrv0kL42IbCC2XGE/lqijm5A
+	poaIBe6qauppwIwnxkS7R3duToEIQJLMTic6qqxa1Pyg+/rpoTsp5EEvRxbfntdKlm2J8RGNq85
+	LWZRRpHMG1iPGBwpYU3e9EJrCh9VGELAo71f7taqaEu2HAsyiQV9DOWGuL0GY5QhueXRwWyrbzC
+	OlA65UOC01YE4nP5inRtIcV2VWcabQINibilhhIzhOzPQfNYAn6wSbmv1S22g4itB0d6w4lmGMy
+	em0TiemG13hJIclSI1pY7U/vPXtYkllkV9ogOV6WnM/62vfdyYrm58V+zxeKcIL83S3xSv+tSu6
+	/v6NSFubr1RRagS5MjSB8q6xP0U3zzzYd3PRmlERWKknpeCIpYMJFEFqRAJulVx5ZYEoGeOpsbR
+	Ot5fa8=
+X-Received: by 2002:a17:907:a893:b0:c29:286e:2e3e with SMTP id a640c23a62f3a-c29286e30e9mr574563466b.38.1789046815001;
+        Thu, 10 Sep 2026 06:26:55 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm912526366b.63.2026.09.10.06.26.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:26:53 -0700 (PDT)
+Date: Thu, 10 Sep 2026 16:26:49 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: phucduc.bui@gmail.com
+Cc: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com, linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 11/13] ASoC: mediatek: mt8189: Validate sysclk frequency
+Message-ID: <aqKwGQDkB_HruLyQ@stanley.mountain>
+References: <20260910125742.150902-1-phucduc.bui@gmail.com>
+ <20260910125742.150902-12-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: SOF: imx: Prevent stack OOB read in DSP panic dump
-To: Mark Brown <broonie@kernel.org>, =?UTF-8?B?yJh0ZWZhbiBHaGXIm3U=?=
- <stefanghetu9@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Frank Li
- <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260909204042.46656-1-stefanghetu9@gmail.com>
- <20260909204042.46656-2-stefanghetu9@gmail.com>
- <f64a008a-8bdd-4c06-aa12-a721cebc3a11@sirena.org.uk>
-Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <f64a008a-8bdd-4c06-aa12-a721cebc3a11@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910125742.150902-12-phucduc.bui@gmail.com>
 
-
-
-On 10/09/2026 16:17, Mark Brown wrote:
-> On Wed, Sep 09, 2026 at 11:40:42PM +0300, Ștefan Ghețu wrote:
->> Commit 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore
->> call stack") added a shared Xtensa helper that iterates over a flexible
->> array of AR registers (`ar[]`) controlled by `plat_hdr.numaregs`.
+On Thu, Sep 10, 2026 at 07:57:40PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> You've sent multiple tengentially related patches in a single thread
-> without anything indicating that it's a patch series.  This is really
-> confusing tooling, please resend as either a coherent series or
-> individual patches.
+> mtk_dai_i2s_set_sysclk() accepts zero or negative frequencies.
+                                           ^^^^^^^^^^^^^^^^^^^^
+It's unsigned int so it can't be negative.
 
-I'm not sure if these patches should be applied for few reasons:
-- orchestrating the exploit or error case require access to secret
-signing key
-- deploying the signed firmware needs root access
-- in these cases the firmware could be prepared to pass the defensive
-checks and still cause problems.
-- creates false sense of security through obfuscation
+regards,
+dan carpenter
 
-Stefan, sorry for nacking it and thank you for the patches, I hope you
-understand my side of the argument.
-
--- 
-Péter
-
+> Reject invalid frequencies before configuring the I2S clock.
+> 
+> Fixes: 7eb153585598 ("ASoC: mediatek: mt8189: add platform driver")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+>  sound/soc/mediatek/mt8189/mt8189-dai-i2s.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c b/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+> index f20dbb410223..ca7d786cdeff 100644
+> --- a/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+> +++ b/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+> @@ -1286,6 +1286,9 @@ static int mtk_dai_i2s_set_sysclk(struct snd_soc_dai *dai,
+>  	    dir != SND_SOC_CLOCK_OUT)
+>  		return -EINVAL;
+>  
+> +	if (freq <= 0)
+> +		return -EINVAL;
+> +
+>  	i2s_priv = afe_priv->dai_priv[dai->id];
+>  	if (!i2s_priv)
+>  		return -EINVAL;
+> -- 
+> 2.43.0
