@@ -1,198 +1,99 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6458F395AC6
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8946A361977
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789013233; cv=none; b=sJRXFpkpBhkZX2k+ZZu6y/QR6+LYPSwLPQbrUmsQmdWNxAGfLmzrlMrgitOywLjxHfXkmaCRPBps5+lUZiCyfDHoFv3oUzHZ6SaLjSHMLyU83TGnMW170tC0hEw07Clr1YlFLZ9N2EXe/PDIsc3RwSVTl6fxgbhbXL2EV293TRk=
+	t=1789013263; cv=none; b=pEL1gStT3aXjEnqz3eP65K4/pGpectolHSsXYN/z7Urnp52ksXadKEbjlSUZJp0a9aS3joWRwEPqEg7Rmw23j7+Da5yoFHf5sgbibaRLN9GcdK/Nj/1CDsZbtIKZFRLvmMLPPI1qg1jegTB6V9XsCjhV0HVtVWYcWySwMzmCMms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789013233; c=relaxed/simple;
-	bh=8O7OA7NRtWER2mi1tQYij7c8KguAmXVtwpzGREABKJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BCQ0l25D4RPPZlAdQj3H5PBX823y9BzYKthSqOOUz/SxcEMQBnXSzFjK4yVCvPCz2HtOPSoJiGSXRkv58ohvMvS8B+PK/DzHIqq5zI0givousq+LT7td5w9LqrvV3/gTzIGsNDH0iRUHuXH4AuQk0em54pg6yRd4ZNsqYzB4MZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=NqitI5lq; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="NqitI5lq"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so8357075ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1789013231; x=1789618031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=065Fs6ol/VHxclK2iJqW35+e9V2WVaXBoq05wBkmxdM=;
-        b=NqitI5lqqraeyxaTtJeFIU8Y9O/WfxXwy2uwFDFIwEGiLbffiKw/GTSG+PZq90NkKu
-         +XPk8/R/Lt8NQdQjbMENDnCyOS8OTdVJyrad1HMplyChOrPQ0JS7VwtnX1JvxEQjIgiP
-         55WvgGWwKDLGtQ3wft27KC03vBEHbyVy5e4YznlVB3+xUtefra+dpqjMX9KSzLH228BZ
-         UQC3qu1EaEMYeKbFOmPlt21y6O2zILM4n2at1M02/LcePeoPUHRcY4LzfblNgWJh4VMb
-         Jumrh/9iJf0+2YDdlkwG02zAlGpETxpHjfzIvDUXY49renDPpavC3OIhZq9wjO1jS4q8
-         W1fw==
+	s=arc-20240116; t=1789013263; c=relaxed/simple;
+	bh=fCa743Q9YcLlzoe4YeE+MEEG8mO1QCD47XapiVzdCro=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=biHEfFJdRFnNcyV+yJjvbrcuLZGzJMlA0sLunGwgGS2YS90+SpgsNKV6MQkXYr1AzIDd4AywUGC8AnQbcL0ZKxfZhtV7KtI0oMz8Mp/0t3deQLwCP7REQ0ssn2n7u7JFhs+vzT+gr7umad0e5aCKC+76AYGT/IZHiekwxpYaIK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab7bb257bbso8171786b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:07:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789013231; x=1789618031;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=065Fs6ol/VHxclK2iJqW35+e9V2WVaXBoq05wBkmxdM=;
-        b=qiA/dEW/7U5DsxIOaTNywY/NMdcpagbgl8XMfGVw6aZY5R/WsAto5jIRT4IqIZkOsP
-         MU9Mg+OTj0M2iP0zoO3S4s61JloAAxIctzSt8jyhOw9Mt8bUO+q7cQrIZhE9rxM+3iNT
-         aL8isVb3V384sNVIiHH8llzkJ8dWcvPGxcc5xs4sHsI0xqHkj9KCsvzlq4OJO6y8X1N2
-         mGD5M+wjsSP8OoaCWS7zGmxMcVpzlpSDuC7MIBdN7b4a5leeJfu8ZOyK8nI80QYG3oZq
-         Ifq4buWsAOK8+7yuZFw1JJVLpxTyDs0wAuX3NKa4ag69jdQl+MsttwoOeXx1txEeFA7Q
-         xlfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeEW9bw64N1LfJiZHF9z60glb5r1JzqtBQqpnjifOKOA3j9EXs2m20iveG629PIkdvtl8j5ThOPvteRN8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9YzQPMmomEBurOCd0rJQzcbLZ9iDlOR56Q/g71BaoWwGEdx+z
-	hYWXMS+HcDM77+SdMiNyuvxvvjHwhL1PDUwic0sImJfkichtTYN/xo8vq7EHf603Ug==
-X-Gm-Gg: AYBFou0gznNz6Gx2GcMgHnzrod24TDxgD+LvndrtFECVhMsQGv1ZT9/u2j4XT7UacHD
-	/LO6iqvhEDsZsOT18swU6Mncl5FFvBIntsOE+BnyRbodpnz9vpLpDQglAJt1BsfFmuqOr28p6sB
-	3g9zkKfYECeBbT+ySLL0v4CM21f5AawEc5Uzk4aXC5gIVGdky22OkQHkEsx9KLrfPwN2z0aE697
-	EJl2OxjzhzEDpR1eLkMw18Syxp58yWMewmM85J4sWxhS6omLJn0y+RwsMA7ZaEqpY61oO+XjqgU
-	82IxWwGzmFrZPYi7y0Lz5HM68CRRvvwHhKnJuMM1aq6FtPy7dIXpIrR0SySzPQZWn5yabhl6LTx
-	Z1vS97B86O3H8/GFv+LwlhWuJqLJrKDoWV9+JFjqzFy4MdFOHluRApsYIQE+Ydx5HnP5VZJp9KG
-	6at34WwhhWNIHhyefdJt2xhH1QixVV3uM3qvtbuHY3265E2Ty+vIJUmbwGRRftN0JQ1Xz2/H+9q
-	oXZEJ8=
-X-Received: by 2002:a17:903:32c3:b0:2d9:3083:a3ac with SMTP id d9443c01a7336-2dd07cb7e83mr62965985ad.15.1789013230725;
-        Wed, 09 Sep 2026 21:07:10 -0700 (PDT)
-Received: from mimolette.lan ([58.136.73.233])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149cd817sm81589045ad.72.2026.09.09.21.07.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 21:07:10 -0700 (PDT)
-From: James Clark <jjc@jclark.com>
-To: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	netdev@vger.kernel.org
-Cc: Richard Cochran <richardcochran@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net v2] net: macb: fix ordering around PTP timestamp read
-Date: Thu, 10 Sep 2026 11:06:52 +0700
-Message-ID: <20260910040658.18359-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20251104; t=1789013260; x=1789618060;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fz0Fo3jFb/MBiTiXYkdYyqjl6EDpysPJPmsibOv1j8U=;
+        b=kP2VqyY6s1byyA62LxnZfvOwZCBw1JxzxsAAtTd2jY1Um0Pq01GCXDl2nixeEdEF4V
+         vLjHSuHcW9ShSOtDgKMiL+2QYcXrePPUCtoVzReybF++SDZ/A2rJIlLqchzSO4Fejymo
+         lYGCyay9P9+tb0dGKNCvOH62vnAb+m6TxPj7d47EndU2EdLOdzJz0dCWK1tpyd4K/3y1
+         HS8OYGHPNlPwieKbpnagjzdUKfbUm6aJC3RzLbOKVurJzUsaHbPSa5oxVjw3VoRpKyn7
+         DfKkPNOm6xgfktG6/SSeOp/Q2ZYiIM5Jn+aWvpNl7kAvv8h4yMcMyRDcmQAXefE1KE4w
+         CRQQ==
+X-Gm-Message-State: AFuF++maWsteY9+ew5zae8GynPGx5vglIXdbUu+yw7B/666IIOWBoGKN
+	bShy+6ZEy5lJ8L0zMhga+yseJpIrj+ylxquC4hK21iyThdIsO9v1KsUw3MFH1iTMDZ3LhtdaMT4
+	Iv/usYytnCX6gL6httCc1ojnTdHsR68OTNnXOhlgZIiQcMGeD528SPaoLcJg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:190b:b0:6b7:83c5:fdf1 with SMTP id
+ 006d021491bc7-6b783c6039amr20914594eaf.50.1789013260155; Wed, 09 Sep 2026
+ 21:07:40 -0700 (PDT)
+Date: Wed, 09 Sep 2026 21:07:40 -0700
+In-Reply-To: <6aa1e15e.f81106d8.2ab401.0003.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa22d0c.f81106d8.2ab401.0005.GAE@google.com>
+Subject: Forwarded: [PATCH] mac80211: fix using smp_processor_id() in
+ preemptible code in ieee80211_tx_control_port()
+From: syzbot <syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-PTP_SYS_OFFSET_EXTENDED returns system timestamps that do not correctly
-bracket the PHC register read on MACB/GEM. On a Raspberry Pi 5, the
-returned interval can be as short as 37 ns, while an ordered register
-read takes approximately 1 us. This biases the midpoint used by phc2sys,
-causing CLOCK_REALTIME to run approximately 0.5 us ahead when synchronized
-to the PHC.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-gem_tsu_get_time() reads the nanoseconds register using the driver's
-relaxed MMIO accessor. On weakly ordered systems, the subsequent system
-timestamp can be taken before the register read completes. The internal
-smp_rmb() in the pre-timestamp path also does not guarantee ordering
-against the subsequent MMIO read.
+***
 
-Add rmb() before and after the bracketed nanoseconds read in both the
-normal and seconds rollover paths so the system timestamps bracket the
-PHC read. Adding the post-read barrier increases the minimum interval on
-the same Raspberry Pi 5 to approximately 1 us.
+Subject: [PATCH] mac80211: fix using smp_processor_id() in preemptible code in ieee80211_tx_control_port()
+Author: kartikey406@gmail.com
 
-Fixes: e51bb5c2784c ("net: macb: ptp: Switch to gettimex64() interface")
-Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # Raspberry Pi CM5, min bracket 37 ns -> 981 ns
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: James Clark <jjc@jclark.com>
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+
+
+ieee80211_tx_control_port() can be called from nl80211_tx_control_port()
+in normal process context via netlink sendmsg(), where BH/preemption
+is not disabled. dev_sw_netstats_tx_add() uses this_cpu_ptr() internally,
+which requires preemption to be disabled, triggering a
+"BUG: using smp_processor_id() in preemptible code" warning.
+
+Fix this by moving the local_bh_disable()/local_bh_enable() section to
+also cover dev_sw_netstats_tx_add() and ieee80211_tpt_led_trig_tx().
+
+Reported-by: syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d979bd35c8a76fd1b6f5
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
-Changes in v2:
-- Add rmb() before the PHC read in both paths, following Théo Lebrun's
-  feedback. Explain why the pre-timestamp path's smp_rmb() is insufficient
-  for MMIO ordering.
-- Wrap the post-read barrier comments.
-- Add Nicolai Buchwitz's Tested-by and Reviewed-by tags.
-- Drop RFC.
+ net/mac80211/tx.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-v1: https://lore.kernel.org/netdev/20260908053150.28694-1-jjc@jclark.com/
-
-Nicolai's review and testing were on v1. The additional pre-read barriers
-in v2 address Théo's feedback.
-
-Reproducer:
-
-#include <fcntl.h>
-#include <linux/ptp_clock.h>
-#include <stdio.h>
-#include <sys/ioctl.h>
-
-#define DEVICE "/dev/ptp0"
-
-int main(void)
-{
-	struct ptp_sys_offset_extended ex = { .n_samples = 25 };
-	long long min = -1;
-	int fd = open(DEVICE, O_RDONLY);
-
-	if (fd < 0) {
-		perror(DEVICE);
-		return 1;
-	}
-	for (int batch = 0; batch < 40; batch++) {
-		if (ioctl(fd, PTP_SYS_OFFSET_EXTENDED, &ex) < 0) {
-			perror("PTP_SYS_OFFSET_EXTENDED");
-			return 1;
-		}
-		for (unsigned int i = 0; i < ex.n_samples; i++) {
-			long long bracket = (ex.ts[i][2].sec - ex.ts[i][0].sec) * 1000000000LL
-				+ (long long)ex.ts[i][2].nsec - ex.ts[i][0].nsec;
-			if (min < 0 || bracket < min)
-				min = bracket;
-		}
-	}
-	printf("min bracket: %lld ns\n", min);
-	return 0;
-}
-
- drivers/net/ethernet/cadence/macb_ptp.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7da..4fb287608 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -50,7 +50,15 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts,
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index 74ab27534076..7b1a3c63e5dc 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -6687,10 +6687,9 @@ int ieee80211_tx_control_port(struct wiphy *wiphy, struct net_device *dev,
+ 		return -EINVAL;
+ 	}
  
- 	spin_lock_irqsave(&bp->tsu_clk_lock, flags);
- 	ptp_read_system_prets(sts);
-+	/* ptp_read_system_prets() uses smp_rmb() internally,
-+	 * which does not guarantee ordering against MMIO reads.
-+	 */
-+	rmb();
- 	first = gem_readl(bp, TN);
-+	/* Ensure the PHC read completes before taking
-+	 * the post timestamp.
-+	 */
-+	rmb();
- 	ptp_read_system_postts(sts);
- 	secl = gem_readl(bp, TSL);
- 	sech = gem_readl(bp, TSH);
-@@ -62,7 +70,15 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts,
- 		 * (assume all done within 1s)
- 		 */
- 		ptp_read_system_prets(sts);
-+		/* ptp_read_system_prets() uses smp_rmb() internally,
-+		 * which does not guarantee ordering against MMIO reads.
-+		 */
-+		rmb();
- 		ts->tv_nsec = gem_readl(bp, TN);
-+		/* Ensure the PHC read completes before taking
-+		 * the post timestamp.
-+		 */
-+		rmb();
- 		ptp_read_system_postts(sts);
- 		secl = gem_readl(bp, TSL);
- 		sech = gem_readl(bp, TSH);
++	local_bh_disable();
+ 	dev_sw_netstats_tx_add(dev, 1, skb->len);
+ 	ieee80211_tpt_led_trig_tx(local, skb->len);
+-
+-	local_bh_disable();
+ 	ieee80211_xmit(sdata, sta, skb);
+ 	local_bh_enable();
+ 	rcu_read_unlock();
 -- 
-2.47.3
+2.34.1
 
