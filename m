@@ -1,121 +1,313 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A92249552C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045143; cv=none; b=Duiv60fZ3RsFr4ixNUQGoPUWjFDA+xi3utc3ARDmaglZLz8M+u1dkuDEz1klP3Sdc+aTa4WF1/WuwyxXU4rAN0C8Ul5u18uczZxKkqANnfK9050dJo8VOJyoALQxR6OirL8ZF6rOhH+aqur8kMV718y0xx7ZSg8u4gnkTXI4+KI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045143; c=relaxed/simple;
-	bh=HNQ3yAaTj8Lox9L4v2OsrFX6RIoSfJ6hArRWObXN3VU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cuGOc+4bEXF/B8eLuSqm77n8DznidhMh4jh717iPcXVCq/C9y6KiOA1+l/cOUyUtBzKisMLFB3kCtYvT3exz/IZvDOLVhnouXtyiRiBMkya/hxzD/dCfNf4OdSZsBiTZem/xmQyNSth4HmaOr5J8sbRlU/ivvXbI2tBY+xuHccs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXmG+AmY; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C51E30ACF6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789045261; cv=pass; b=h1cOuItTuCNuwXaNegouJnhBPCHx1DT5La79EP4XqEMkfnU8cYRTvk6g3dn2ZC2Hz85ewY0ZTsmo5vLWrm9tC2pylgSH4sHrueF22M6BlR7HOwUp4NdEcrvsQm6YB75aFBhVkx9nj0LIkQ5QnLmMMZLCUpUzk26abJolUnXCUh8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789045261; c=relaxed/simple;
+	bh=NXUxQk7Ksy0lqFKZ/eFB7Gaj7G6butbDvH5VMceVmw8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jPDOFVnKJlgL1SET3Bf7V5bELIVxcbEBSQk2rEBMiTRUoT6q6txP/Y3ynxL+b2EFclapkfczhQqJtCIZwUnUB5/7ZHC2jYowM3DJ3sFTGMtT4+N8qrOKHj7fbUo8CtvvDKpOyxbbZLLCZsCRSPKA7SGuGY/AYWcqGjFYuyh8oQI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GxYLJgsY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OTXfSpdZ; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXmG+AmY"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso6197383a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:59:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GxYLJgsY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OTXfSpdZ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7jvd1241999
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:00:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=; b=GxYLJgsYjgWyzCI2
+	QcuubqvIGDgqdIx4CCxwDI1y5pSwfE+7uwz3MqrQvkkfMHUobpueTOGRnT95Wmrl
+	uyUkzNdpL/+f+9Vo7V6XBfQVzYBEqWjRnltya32G4yAtFT/SloJnY3seUnhaG83E
+	qOZFkJVBhlUj9fevl0y3Rb4Xkyq2rNvtDhTPFYetkaVp03ONapSbdx9e9BieW5C8
+	1vjguqf8G4gSji8yxVHHNo1J0uucbZxuYH5tHpDRMt0wTh+7XgJ7RX2Kgp5K7b2J
+	qVcikPcIEXe1qOFCc8lZ80Zs7huiwRM3+L1/IpK6EACoUKQB6gTev1yWBg0jiQw7
+	WXbhNQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrcjs7a9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:00:58 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d94f086fedso98833215ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:00:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789045257; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iDHqsjk3tBDSt+rcQtDJne2hdA55lvr66y6aU38m+mFYefM3lddnN/er/eHa42qCLU
+         eCzKQdxjuXOU2PLvWXbqT0zpv0XEexD1kvGgH3HID5aWAXQd2RkxwfSg9JRf7B23mT5U
+         QkuXwHvHmRCqZSatZxh08Ko1iOYi7NSKQO3DAaKc5hXVy/wx/EnXVmEp0ni1Hkxgixvx
+         CxwzMUzL0BDhb6krjDtB/pjTwtVDliMMleg6Gzt2KQcx3kti8x96mgfLe2KITvtGWm+E
+         WUYWMsoIRUsQxBxxeln1LhaqbJrlN+Twjg2GPw964SIOv/JkfRryc8xHzjydmX9IJ/Ju
+         I6Vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=;
+        fh=dtgxN1hR/ny/RtFPg8sgOqNWe6bxtgXjbhxF/xc49DI=;
+        b=jNJ4Qwec94wKWuiCOcpnx6CFaBy1ldvzrJpYsol9wctYNFTJtW4jWwymm5iKx7T/OH
+         X0hZrgpOvKtIkBBUCRGTsu+Dg9btO8l5mhZB+me92EG3DVsyLjGwPbaEUYxTLBhk6La+
+         oYqPfpOPN04CmO9+zUv+SxzPP5S1+jgbnALEQcxaVM04IYYempvmL0cUrEPMCf6wRyS7
+         ZK7kr0baNgFROdjs7hITcORmeGkHd1Ye7tc4HfSiz7A4GBtxguqHAy4RIIpy6pe3wv0g
+         cCo+JI16mYIa1Xf6nvUHZ1wmMD1jM0sn8wBCILm27dTY0CzHhNi+qivreVy7oMfrU5V2
+         uPGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789045141; x=1789649941; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DlX7uEp+xJt+DRWD58MvDXb25/Cat7Ywclf9fNm7ioc=;
-        b=XXmG+AmYeQA5wFVZe4dPHhJnRvIQuS2SddhNcQiHH8MWPBka942XMgjYgqNim3IeLx
-         d5kwADZa1r2xjLVXZS/IRgIuIXmk1EBm+iq4gz1jq2nxgAcm9FcUFxqT3Y+N+k5LRbW5
-         NyWO2uFYIZyvnY6xpaqDDykqGA9ItPmv7/iPBTORP3fZYi9Ce44x3j2otet0gOwLw7U9
-         Ui4lgmQtiJ2tVBiB76vksrXK+3oLxxHYq9frS98i8BA4tfS17PvA99vzc+rp75NK3WMs
-         /Q7Wp6vskMvUGcw4zyXMe7Cn1bPbiv/O3sYTBj4y7bFF3vBznrtc455dH/wuAz2euoRe
-         DKfw==
+        d=oss.qualcomm.com; s=google; t=1789045257; x=1789650057; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=;
+        b=OTXfSpdZjAfuGSkqsTdshprHXM0s4t9ZNrr2eUXHLL0zThFWpsBgCMu0qjKeB2UZxn
+         YI5Rqvvw2EIr/f3zuEpol/i5qAQlSkkJCxInVeiR28DaV/zpS0q4U2NDeWsfLGUetnz1
+         sLy8GhnT+8puLwwjo3XARkJIWLKADP90G6POiCiLHNJmaCXiRAf4iIqYG//lGTWLr1Hy
+         U8saljizsiiZ1HBbtNkg/P4wrL/AeOHHwg42dZRSyS+o9UNEq1JHXWpQJmFELztOFf6A
+         AcnjIZL20NCAvxAVKIfcq0W4JLw5Yo3HX2/ZJPCi1/Hm45axFxEbYFNbWJOnH7jpYnSH
+         nZ0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789045141; x=1789649941;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlX7uEp+xJt+DRWD58MvDXb25/Cat7Ywclf9fNm7ioc=;
-        b=szb+vHxjKG2w1/RIWF5qwlmsiIJ3NwySYkBN6yIR4GgDjkfiAriDpf/QpIv04+qZmW
-         QdG5Vr18qquGWv25VkKm9z58wk0k4YcfWMyVMK8xH27aBcEBQbfkDQHCDflsbGWkO8rP
-         b+aWfX3uLdzM282/sAc9ILNqz+OpAk3ObUxM5r42qc9zPw+Z/wruMyw/HAdiSjyQoawl
-         qXVcTUSwQWEl414/7MYL0U4HMx3XoifSHXXklt4aDExqeg1pkLHdOYDZrHK/hgNb+Xpv
-         wmiLGPP3L7zHaEwUf0zIn8TeglqHzLSCv4Ix00aRr8z0yC1dqESS3CB9conEoVEFz5Hv
-         9Agw==
-X-Forwarded-Encrypted: i=1; AKwUvByRNPjJ8znXDjZdasHPP2vlFI4BnQEZhpCcoMFRmYZG0zrveFC8DUIyt8DJB5Fg+NaIKcCKiabaQNkkzr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntdJtudKIwgiem2oaaUxV6XDd+3kXwjgDkQ7h4YxDkHoeVvTtN
-	J8bru3dyy1O631lmikErdtyYOv882GmmBEGWrHlifiCegp0YtA9SzwY1
-X-Gm-Gg: AYBFou3Gpo0RskMRIdHz+2AUaILJkBgLoaZI9FRKsZ2Gx67DESICyJWlqC0XJKYRfP8
-	Q1EQow8TPAF3jInTorIngvheFw0YhyYylFfOAuvWeuqo2mVgvryagqXjKlfjh2g3p8kFud7b9du
-	8WkiGdYUDfvbG6ZQ6sXUieZd/OE+QS6s4k/5zGv8J+TA83rw8mtoQALHaCjgaHCNIOlJcn4yM+M
-	d3rciW6WFntYIRxnv3kICN6dawze4sf+p5Y0/odi7ss5uzX39hjl1JhMrMVUDzbqQJ3CqwmhGrT
-	YNxQGUgltn+zVerH88FOAxGgSnniJocqvcuJzmlUAWVdB98oW4wfyV6vwcU29VeKmWzuT0BZeGW
-	JvEnK/wB64zjYWGqAtkDd0fHdb1tnSB0GXsAVHGmgZOfpQ4IlX3pNVYfwa64vJmI+LGgS277P8j
-	55f0Od3deQKDLLruY5qr9JjbiQszWewFs5CKCVqBRmHLpd4N038bzooZANFbffWIs/jQo94xOcH
-	TGqTWKQgoVlUZ6hSxBIBz4B8HSKNAN0i2S1IfQIvBj9VtnWA2TJ4z5o36g7Yt3cWqCC0sWSdiI5
-	ct95cIfFnoYwI/w=
-X-Received: by 2002:a17:90b:3a81:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-39b2612eaa4mr58543997a91.10.1789045140953;
-        Thu, 10 Sep 2026 05:59:00 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77b1afsm4891592a91.5.2026.09.10.05.58.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 05:59:00 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Cyril Chao <Cyril.Chao@mediatek.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Dan Carpenter <error27@gmail.com>,
-	cassiogabrielcontato@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 13/13] ASoC: mediatek: mt8189: Validate TDM MCLK frequency
-Date: Thu, 10 Sep 2026 19:57:42 +0700
-Message-ID: <20260910125742.150902-14-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910125742.150902-1-phucduc.bui@gmail.com>
-References: <20260910125742.150902-1-phucduc.bui@gmail.com>
+        d=1e100.net; s=20251104; t=1789045257; x=1789650057;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c7iCVDBT9IIOGDA3clTRXrsTi9McQrVLIhvfbpXQ+Sg=;
+        b=V33ZjqGhUZhRPP8Gfv/SY+Z7Dut+OuNJMQtEd8JfGp9bqstX3E3lqa4Jl4VceACfO3
+         d57gOpCxnkmN9h4wDiFML0/CZ9SrAkK8FK30CaJ/SCsAUE3sTN1OQu86kdpLNjavrrt1
+         2xHHE81DY5WTyb9Z1QQ+JSzOy6W+sVKupXA+NkbCi3sNBzToK1Zfs99/xcXfUGIuTYq6
+         gZjobCVSI2OGkNzJZdr2xYTV9GQGn4ZCOec1JSDdionvWjWSpYLYSwPt/zMnXBxmgIWf
+         3f6I3cVqdf+si73K0g/L6d7BcSEGfR5ndNqR9lE13wp7iaP68HlDRpa1zX/NekRmGJwI
+         DLag==
+X-Forwarded-Encrypted: i=1; AKwUvBxycXf0R0NX5p9iAyO/i1CEJMxz1zjgcyW/pMn2+WuET5X91qNtxWCEeWieKm8nG9WcDuR8X6WbFZDJ0B8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ny8eL1beYrS0SFJVF1pae0AKDpsCFKKmL9FKZf0XcOYONJH1ET
+	2JVQvW7ZLe/5zyEfQPqYMzJRFb9JHV8QDa+nHFIKr3JSdKx/lOSzwEXaC5aexwqWFlvhCXLIrJr
+	q7GL/YsjBV6RZnIWmnTxc7L5BSs9wLW2X1+hjHlqnT+XEmFOD8mbGgIYhz4qQc24j21IPzEFoZX
+	rB/zFg+QeoYDymDtF+Qh4AW3+GWOxOQB8JekZLP71J2Q==
+X-Gm-Gg: AYBFou2anONvTVP5kFGvJl2AduZAj3P4TfYJjRZM0YoTxDEeA2tTd9prAk3Qlib+6im
+	sgIBOBwrwjSqM+FQUyfIDFPgJjsIzwkDVUC0V3n+/qQ9boryWtypHVKUsD/oqCKaU2CnCEu/3XX
+	drL223QjY/Ty7Qmq7nUDVIaKNfeETn50qYTxt+INmAO0gNVcSQbTa3XYZcLQ==
+X-Received: by 2002:a17:902:da8e:b0:2da:eb8f:b4e4 with SMTP id d9443c01a7336-2db124c35f8mr558469435ad.7.1789045239130;
+        Thu, 10 Sep 2026 06:00:39 -0700 (PDT)
+X-Received: by 2002:a17:902:da8e:b0:2da:eb8f:b4e4 with SMTP id
+ d9443c01a7336-2db124c35f8mr558440465ad.7.1789045226507; Thu, 10 Sep 2026
+ 06:00:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
+In-Reply-To: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 15:00:15 +0200
+X-Gm-Features: AcwNN1XNQ4fZJTTzmnpDFbrWjbGQV9imP4SmqvlRa9AkoN1LbCwNPREdmY8YGvM
+Message-ID: <CAPx+jO8Lc3iNNBVjBB33aJYUfdr2EJqpL8mS8weKnZcBaDf0vA@mail.gmail.com>
+Subject: Re: [PATCH] mmc: core: Modify the CMD1 transmission interval
+To: Xiaojie Li <xiaojie.li2@unisoc.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Wenchao.Chen@unisoc.com,
+        Rain.Zhang@unisoc.com, Yuelin.Tang@unisoc.com, cixi.geng@linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NSBTYWx0ZWRfX2VOUUsxew63f
+ 07ClYviSbQk3bapMMfjb6sqQfIhdKUhjRjx0kxp20eowkaO9pXVz41qff23i+7x4648r85WLWF/
+ s32dvft9sBAyPMvuYmzi6cbOdliZCOY=
+X-Proofpoint-GUID: ULUqBxpaDv2Z1tOavFGsjiCj-0SlFogI
+X-Authority-Analysis: v=2.4 cv=aef0Dhot c=1 sm=1 tr=0 ts=6aa2aa0a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=icsG72s9AAAA:8 a=7Y93FPtxMF3Rj5v4aZMA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=T89tl0cgrjxRNoSN2Dv0:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NSBTYWx0ZWRfXz9it+i+DFBb4
+ 2l+3IAkoMzmyUudFo5fbCK4ISH9ILh/r/S5E0jyG+nfqik946pKSS5m4z5Qc5GHGmAu+huOUymO
+ HTEgLgcCfMfbfD/nwsK2Ex8LOZplj9srihCuyq3e9/kpKOgmAsV8W5boCPkv00x1TynYvBeG9gJ
+ WjFlYN6cjFKAXMw4IjIbzuXTqOZqaBAH8luK6f/yj6P+upvrYzvF25c6OK/nw7qWqw24gCjzkS7
+ 4c1f3MkCcjzY2r5wjyqfSqtz5VuRfVUU3ih4XpIi7kZjwg71a4L30y+fNu4CCyfNe0vdDEt+/St
+ Fh0SVTg5FsO8C12LikTKdwhFaYE/sifJyWngq419wLUKF+6XxaKB8LbgH8wDoyQ1vCnGPLa2d5U
+ GQERq6WHnDQUl2VobvX/bWom9X3LvpodEP+LqlXClKNdUMzGq6+wXdqtrRKXws9PQFkQ1Ge3+1f
+ R4igQufffWrozdS6aYQ==
+X-Proofpoint-ORIG-GUID: ULUqBxpaDv2Z1tOavFGsjiCj-0SlFogI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100155
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Thu, Aug 27, 2026 at 11:15=E2=80=AFAM Xiaojie Li <xiaojie.li2@unisoc.com=
+> wrote:
+>
+> The current code's maximum udelay value is set to
+> 64ms. Since it uses usleep_range(udelay, udelay*2),
+> this results in a maximum wait time of 128ms between
+> two consecutive CMD1 commands. For lower-performance eMMC chips,
+> local testing shows that compared to the old code which used
+> mmc_delay(10), the total time required to wait for the busy
+> bit in the CMD1 response to change has increased by approximately
+> 300ms, negatively impacting the overall eMMC initialization time.
 
-mtk_dai_tdm_cal_mclk() accepts zero or negative frequencies.
-Reject invalid frequencies before configuring the TDM clock.
+Okay, that's not good.
 
-Fixes: 9f202872ba04 ("ASoC: mediatek: mt8189: support TDM in platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/mediatek/mt8189/mt8189-dai-tdm.c | 3 +++
- 1 file changed, 3 insertions(+)
+>
+> Although the current code sends the CMD1 command fewer times than
+> the old version, the total waiting time is significantly longer.
+> To address this, it's proposed to modify the CMD1 sending interval
+> to follow a pattern like 4ms, 6ms, 8ms, 10ms, 10ms, etc., effectively
+> capping the longest single wait at 10ms. Local testing confirms that
+> this approach can bring the total time waiting for the busy state
+> change very close to the performance level of the old code.
 
-diff --git a/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c b/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c
-index 1b51027c6cf4..7748b4ff2c72 100644
---- a/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c
-+++ b/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c
-@@ -381,6 +381,9 @@ static int mtk_dai_tdm_cal_mclk(struct mtk_base_afe *afe,
- 	int apll;
- 	int apll_rate;
- 
-+	if (freq <= 0)
-+		return -EINVAL;
-+
- 	apll = mt8189_get_apll_by_rate(afe, freq);
- 	apll_rate = mt8189_get_apll_rate(afe, apll);
- 
--- 
-2.43.0
+The code you refer to has been changed and fixed several times. We
+need to be careful to not break support for some other cards. Please
+have a look at the below commit for better understanding.
 
+e949dee3625e ("mmc: core: Fix busy polling for MMC_SEND_OP_COND again")
+1760fdb6fe9f ("mmc: core: Restore (almost) the busy polling for
+MMC_SEND_OP_COND")
+76bfc7ccc2fa ("mmc: core: adjust polling interval for CMD1")
+
+That said, let's try to figure out how to improve this. See some more
+comments below.
+
+>
+> The eMMC chip used for testing: manfid=3D 0x00009b, name=3D Y0S128, mdt=
+=3D 2022-10
+> The eMMC part number is: YMEC8B0TE2A2C3
+>
+> Signed-off-by: Xiaojie Li <xiaojie.li2@unisoc.com>
+> ---
+>  drivers/mmc/core/mmc_ops.c | 85 ++++++++++++++++----------------------
+>  1 file changed, 36 insertions(+), 49 deletions(-)
+>
+> diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
+> index a952cc8265af..3076666cf2ca 100644
+> --- a/drivers/mmc/core/mmc_ops.c
+> +++ b/drivers/mmc/core/mmc_ops.c
+> @@ -189,64 +189,51 @@ int mmc_go_idle(struct mmc_host *host)
+>         return err;
+>  }
+>
+> -static int __mmc_send_op_cond_cb(void *cb_data, bool *busy)
+> -{
+> -       struct mmc_op_cond_busy_data *data =3D cb_data;
+> -       struct mmc_host *host =3D data->host;
+> -       struct mmc_command *cmd =3D data->cmd;
+> -       u32 ocr =3D data->ocr;
+> -       int err =3D 0;
+> -
+> -       err =3D mmc_wait_for_cmd(host, cmd, 0);
+> -       if (err)
+> -               return err;
+> -
+> -       if (mmc_host_is_spi(host)) {
+> -               if (!(cmd->resp[0] & R1_SPI_IDLE)) {
+> -                       *busy =3D false;
+> -                       return 0;
+> -               }
+> -       } else {
+> -               if (cmd->resp[0] & MMC_CARD_BUSY) {
+> -                       *busy =3D false;
+> -                       return 0;
+> -               }
+> -       }
+> -
+> -       *busy =3D true;
+> -
+> -       /*
+> -        * According to eMMC specification v5.1 section 6.4.3, we
+> -        * should issue CMD1 repeatedly in the idle state until
+> -        * the eMMC is ready. Otherwise some eMMC devices seem to enter
+> -        * the inactive mode after mmc_init_card() issued CMD0 when
+> -        * the eMMC device is busy.
+> -        */
+> -       if (!ocr && !mmc_host_is_spi(host))
+> -               cmd->arg =3D cmd->resp[0] | BIT(30);
+> -
+> -       return 0;
+> -}
+> -
+>  int mmc_send_op_cond(struct mmc_host *host, u32 ocr, u32 *rocr)
+>  {
+>         struct mmc_command cmd =3D {};
+> +       unsigned int udelay =3D MMC_OP_COND_PERIOD_US;
+> +       unsigned int udelay_max =3D 10000;
+> +       unsigned long timeout =3D jiffies + msecs_to_jiffies(MMC_OP_COND_=
+TIMEOUT_MS) + 1;
+>         int err =3D 0;
+> -       struct mmc_op_cond_busy_data cb_data =3D {
+> -               .host =3D host,
+> -               .ocr =3D ocr,
+> -               .cmd =3D &cmd
+> -       };
+>
+>         cmd.opcode =3D MMC_SEND_OP_COND;
+>         cmd.arg =3D mmc_host_is_spi(host) ? 0 : ocr;
+>         cmd.flags =3D MMC_RSP_SPI_R1 | MMC_RSP_R3 | MMC_CMD_BCR;
+>
+> -       err =3D __mmc_poll_for_busy(host, MMC_OP_COND_PERIOD_US,
+> -                                 MMC_OP_COND_TIMEOUT_MS,
+> -                                 &__mmc_send_op_cond_cb, &cb_data);
+> -       if (err)
+> -               return err;
+> +       while (!time_after(jiffies, timeout)) {
+> +               err =3D mmc_wait_for_cmd(host, &cmd, 0);
+> +               if (err)
+> +                       break;
+> +
+> +               if (mmc_host_is_spi(host)) {
+> +                       if (!(cmd.resp[0] & R1_SPI_IDLE))
+> +                               break;
+> +               } else {
+> +                       if (cmd.resp[0] & MMC_CARD_BUSY)
+> +                               break;
+> +               }
+> +
+> +               /*
+> +                * According to eMMC specification v5.1 section 6.4.3, we
+> +                * should issue CMD1 repeatedly in the idle state until
+> +                * the eMMC is ready. Otherwise some eMMC devices seem to=
+ enter
+> +                * the inactive mode after mmc_init_card() issued CMD0 wh=
+en
+> +                * the eMMC device is busy.
+> +                */
+> +               if (!ocr && !mmc_host_is_spi(host))
+> +                       cmd.arg =3D cmd.resp[0] | BIT(30);
+> +
+> +               usleep_range(udelay, udelay + 1000);
+> +
+> +               if (udelay < udelay_max)
+> +                       udelay +=3D 2000;
+> +               else
+> +                       udelay =3D udelay_max;
+> +       }
+> +
+> +       if (time_after(jiffies, timeout))
+> +               err =3D -ETIMEDOUT;
+
+We really need to avoid open coding of busy loops like this, as it
+becomes a nightmare to maintain for us.
+
+We have moved to use __mmc_poll_for_busy() for this reason, so let's
+instead try to extend it to fit better for MMC_SEND_OP_COND.
+
+I guess the most simple approach would be to add another parameter to
+__mmc_poll_for_busy(), to allow us to specify a maximum polling
+period. Can you please explore that approach instead?
+
+>
+>         if (rocr && !mmc_host_is_spi(host))
+>                 *rocr =3D cmd.resp[0];
+> --
+> 2.34.1
+>
+
+Kind regards
+Uffe
