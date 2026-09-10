@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD963955CA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD07333986F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034791; cv=none; b=K+Tp1vchWUJ+HsK3pM9RKwSmgn0MlWO7/yLydqhzMVTtbclAFS7ZUOSOJj0speA5Uc+Mh4SPHzccNyQMRXBNRXBQYirYRHQYEZGMXxRNZCAR2Q6cJv8eC/7jqReD+BhHU7ptS3qxPl1h0ZGgsAI8DtbzWwsVVnCKhIMbexOTaTU=
+	t=1789034809; cv=none; b=Ho4S0dXyLV9cVV1iNdIrPZM8IEXFQV7bvGiFe5rwdysPCoWeY5ov+NjBtzGHo9gV4hJG4LuobSmEHDYoxiD2CmsLawJEHO75tuA6GB2Vr5xm2qGzFIYxoRrDtyOnhNTT2S/76GLwOgFV4bKQHe0rJn2ZuOZtztsBoobuiXwiBuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034791; c=relaxed/simple;
-	bh=9Wbk2L4Zfg3lZZkX6F7XNpS4Si4ZKuf1DAa5Ud3OYM8=;
+	s=arc-20240116; t=1789034809; c=relaxed/simple;
+	bh=Lu+4YHeK869dlBqFjL2cKsywYYlR2fLA8uGutCF0fo8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sbto6+PPpeqY1vT4LKMJcX8MS8kL4wrq0UmcRIhdRUNQTK/Ml51lHGE+pds9DJD0vPOk5zpqkbiwl0r6QWN5/BgXRXDoO2O9XcWqI4paCV4Cp2qQZe/Dgh1QqqrxCqz1BoauCg7KiTDCJ53y6p+ejD9B2nrer+SuwSAPYwDaHvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahs5XVOE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=icwrf6MVD3qI7KwkteLs0IG1Jf/hLgvTvmaz22hqyZr/+JW9zxgPgBV9yU8AoRTvo4lwNpVbeL7r1Y17+i7vLEqAfbAY0tN+bYbvYrHrB0+ghW5VlZVMBm2vFhZu5qOaQzuKESSBn1712ydf+nXdsejpflJaNvLW1HefEi7z/to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MduJzZBu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UwDKeeGE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahs5XVOE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6EBF1F000FF;
-	Thu, 10 Sep 2026 10:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789034781;
-	bh=r2R4POrVaFZfBJpe2LHKJm8IR+bpnnr27W/5UBFn18I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ahs5XVOEXP0b8QXCo8p21pDywAa2MZx9irZbCY3Ffn+ZVpxm3+TCFZQAQ+l5cjIAp
-	 DkgSIFEH1yP5SsDZxK2SzKVoTtZ8W9bRF0LRN5xST3+/9/OTsht1kV+c7vZfhiL9dO
-	 r98m4KnvJ1knih6llePAtjuHBJl9ZDFKzSmQIemjuupJKwdSR0xCsCu5Ii1OIa+unT
-	 QfzQDsl0nKnPOGz75Lu37DlDXOBY+MNUkw+d6SmM6K4cdueYlLuBIui/x3nz/dB4vz
-	 yemKwiobHiNyFc629PPq6vS5cxnvc2XGTkC091X//uhhQrp4Rp748m86ZOTNwD6Erc
-	 P+ConinppiWzQ==
-Message-ID: <d2f4e7fd-b077-4150-8b2f-e81435d04408@kernel.org>
-Date: Thu, 10 Sep 2026 12:06:17 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MduJzZBu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UwDKeeGE"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8q8Al4137093
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	m07hojNF+PinLLd/x/EaU/8bPalFdykfrNtvmsSaQew=; b=MduJzZBuR4WoYLZe
+	K3ACfyBachN01Nz//KQjBXdap9pw4dZ1/TiDtWBr9sD8g9C9GUJEXehopdN5Ulzf
+	OjTawYnYSR0RpIcweJSAtqibfUCyYStMG3RWT8ZQRYnoq+Cqyy89fR3UrjlLgxBj
+	v87Vpc4J1m6HsJ0pVVi5Hiddzl5LMF5T5JKNPz/I5NPfPavHqYMbYWI6tDjnHE04
+	CqWGalcCXywY+w36mu5LMtzBTHc3aKEXoRWmzpaleddSilKbXuxSHSRcJiNCmFgG
+	fFJyv9VqfrEez2hsVgy2BmhAPHTPEfueEtYnuO7R34jsdDR2j8861AFRa7gzjEvV
+	iON1EQ==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydu8t4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:40 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7ec3b429610so10754925a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789034800; x=1789639600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m07hojNF+PinLLd/x/EaU/8bPalFdykfrNtvmsSaQew=;
+        b=UwDKeeGE3DT4gBhts0Z+t0T1OpZZ1yHsFFtEawEwBMclDbpGS5n1E5hpvLBq8rhOPB
+         ITv8HoQzi+TyF2OGy2hK+81vcMdDmvt+X7xzvt7RH7W1K7JqVLSiPTeqQwcwML4wgXQe
+         taQV+addTWi32B8Gq+8PfSf16xBMXiQxmndH0HnSRRXp6LnrsrDrpUShfrORepmBzp8f
+         2Sueqz1s0QNKu5pcZgKGlk5R0OdYcNGkv0Y4S5mtF4W167xFktGK/4XiO0az9RiJ3MVf
+         3qwiT1GIEJtDzpg0Gxn0avtk4ccs3EWlSaO3t8KEZTZtLAMOf0nGLzsONKbkpaUGj4Oo
+         RakA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789034800; x=1789639600;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m07hojNF+PinLLd/x/EaU/8bPalFdykfrNtvmsSaQew=;
+        b=jeE6DLAYFsWowwrMyU5PWMwNKbPxkIRyzC8zEh01/TSxIQYcNKM1i0PiO7/EmSAepJ
+         oPt6smHFvp5Wjm2pZNXqmjReHOl2WxNuBrJWp+2Sl27y8ywTHlaTNwSJ3xepZ2R8dh/A
+         /CRJEV9avqMdOC9rrI1gVB2TRXqQlD4SoumxlfHz+zSvou4nWMS2eFFWgpSxkDMvM0vY
+         jDMVmwno92trxvt4axLncvhiFl0xGSKTHKJ86cIWBzPxta+ToGT2PbFhZSj+kJUIFe2V
+         Rg2q7Jq7VJmibO8ygvflSZraMUsVabgvYDZ1so/rqHcLsvNbFPYXiMw4qH9EDTJm0zcT
+         x6Fw==
+X-Forwarded-Encrypted: i=1; AKwUvByBQfuRnDBiSKPWmAmpC0JR33C+D1VP0RqDi2SSZiEH43AOXhCgRaXgBjXdEmvSTuvH0B6e34HVixJReus=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSfXHDLxrr4xaV7KEtYCHlhmgUHAVss6KFLO9F1+3vetaJU0Ot
+	bRZEMdory4eymMKBUft4rFg5YYT4TIXUea+9YclxFeFmEJsebHfs95NudR+j5uN6WK/2el0aCBx
+	wGZWM5Inpa4SAVPIdMOcuqY9pwri70LZYUPvbcXoCGo/lbN6eu4AYqnm3bWeicKbQ2Ck=
+X-Gm-Gg: AYBFou2IpsaIGnqd5jMoIEWNI/rxV4sYT1iz8rTJko7lCk7L+kR+Sbptxf83dLabMLp
+	CHbl9XIi0sxL+Nvb+ARf/kSR2aiHGQ9H+qDMHxA2fKpjxZtX9wNtQb9nYStdVSdaaqdwOWunsSM
+	S7NknmEKb2nylkByrd2FNTfNWjohmrL1ryDJoC/fKRUpSACrpo56RW9WWdCMdQPUx8A1VJkbQRc
+	3CuUX3ghx18xr+XB4qvlW6aPeD+tbuLYhVfvvt3sYMAW+IhYJqfbE8Du43v6AdjPWzhU11GvmE3
+	n3KPbLEot9OtqfednFu3mcub6maFcBeb1AFbMWZ9MgokdV3PTuNMeLVIQ5uizxQ/VIx+WfBzRsN
+	nRJoCEQoRCQoJPBNytIBkUZADktE=
+X-Received: by 2002:a05:6820:178a:b0:6bd:5506:aae0 with SMTP id 006d021491bc7-6bee57a3e81mr3549598eaf.22.1789034800185;
+        Thu, 10 Sep 2026 03:06:40 -0700 (PDT)
+X-Received: by 2002:a05:6820:178a:b0:6bd:5506:aae0 with SMTP id 006d021491bc7-6bee57a3e81mr3549585eaf.22.1789034799830;
+        Thu, 10 Sep 2026 03:06:39 -0700 (PDT)
+Received: from [10.217.217.79] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm79725666eec.16.2026.09.10.03.06.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 03:06:39 -0700 (PDT)
+Message-ID: <21cc9c5a-aabf-4ab7-8f2a-e8f90d5fb2f3@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 15:36:35 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,86 +89,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] mm/memory: improve insert_pages() error handling
-To: Avi Weiss <thnkslprpt@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <cover.1788022178.git.thnkslprpt@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 1/1] clk: qcom: ipq8074: set BRANCH_HALT_VOTED flag for
+ usb master clocks
+To: Chukun Pan <amadeus@jmu.edu.cn>, Bjorn Andersson <andersson@kernel.org>
+Cc: Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Brian Masney <bmasney+clk@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-clk@vger.kernel.org
+References: <20260910100000.2627799-1-amadeus@jmu.edu.cn>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <cover.1788022178.git.thnkslprpt@gmail.com>
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260910100000.2627799-1-amadeus@jmu.edu.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=IfsSymqa c=1 sm=1 tr=0 ts=6aa28130 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EvhtOw30TdCrwUAivPwA:9 a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
+X-Proofpoint-GUID: YPooI6FyiP96T1VWnHYLOUm-KGNbXcr_
+X-Proofpoint-ORIG-GUID: YPooI6FyiP96T1VWnHYLOUm-KGNbXcr_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfX4h3N/+qk6+kj
+ wPAKPl+p4SC9edlB8WQ5y8eqG9qSA5njcLoOKgW8reO0xPecs84I8yzYC+1cEWP3NUK+3S55YnU
+ HTO0B9MmTciuBFXod/LNlbz3pnEpUyw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfXwMZpwvIkD6La
+ PMQ8/Ek/DOBqS3Gk53LK2+Ed642qgpMlHM3z5nCC7pGKoxBcWYJnt1cwPwb2HV0ccLmIEuLi0KV
+ HMy+jysFCKUhruZ24PjuU+PUwbJDUc5cgIw+59jWF50QOMb75mcV7rlZE+L5X99mUswHGHTzvLe
+ ePT3eozDSgui3KNorbzAVcdDxFYueEDKiT8fcY58ZcRDKYz5pIGAclSSDItnItwx260+3SChEHd
+ x7drHMM3A6MslEYPaPBHYzaeOELK9j6uuMGYkdi/Neyh83v45jxa3Sj85or5I0TYaBDDIlV0ZNY
+ 4U0QYq10HZXTt13lObp9q6aqATS32mgS4Dz51MYeYx5soehh1Qsacj8QqqSEXv8hs+9ViXfjZvp
+ ejL3UwVlRNyUIBnk9aFrUTOtw87V6TgnMbfKO/1WA4VHvbbGbJroVwWxIP5wrtl+Wf8ux/JU+G+
+ wH4xRRBsDHTwID47gEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100116
 
-On 8/29/26 19:11, Avi Weiss wrote:
-> Improve insert_pages() error handling.
-> 
-> The first patch simplifies error handling by initializing the error
-> status to zero and assigning error codes at their respective failure
-> sites.
-> 
-> The second patch returns -ENOMEM when walk_to_pmd() fails. A NULL
-> return from walk_to_pmd() indicates failure to allocate an upper
-> page-table level, so -ENOMEM is more appropriate than -EFAULT and is
-> consistent with the subsequent pte_alloc() failure.
-> 
-> Changes in v3:
-> 
-> * drop the walk_to_pmd() rename following review
-> * use the mm/memory: prefix consistently across the series
-> * carry review tags from v2
-> * rebase onto current mm-new
 
-Double-checked, LGTM.
+
+On 9/10/2026 3:30 PM, Chukun Pan wrote:
+> Currently, on some boards with older versions of U-Boot, attempting
+> to disable usb master clocks results in a "stuck at on" warning:
+> 
+> [    3.005088] gcc_usb1_master_clk status stuck at 'on'
+> [    3.187119] gcc_usb0_master_clk status stuck at 'on'
+> 
+> The USB master clocks of IPQ5332 and IPQ5424 have the BRANCH_HALT_VOTED
+> flag set, so let's do the same to fix the issue.
+> 
+
+Fixes tag?
+
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+> ---
+> These boards run a vendor-specific version of U-Boot, and upgrading to
+> a newer version could brick the device. Therefore, I think this should
+> be fixed within the Linux kernel.
+> ---
+>  drivers/clk/qcom/gcc-ipq8074.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/clk/qcom/gcc-ipq8074.c b/drivers/clk/qcom/gcc-ipq8074.c
+> index 1329ea28d703..10bd2f80010c 100644
+> --- a/drivers/clk/qcom/gcc-ipq8074.c
+> +++ b/drivers/clk/qcom/gcc-ipq8074.c
+> @@ -2612,6 +2612,7 @@ static struct clk_branch gcc_sys_noc_usb0_axi_clk = {
+>  
+>  static struct clk_branch gcc_usb0_master_clk = {
+>  	.halt_reg = 0x3e000,
+> +	.halt_check = BRANCH_HALT_VOTED,
+
+BRANCH_HALT didn't work?
+
+>  	.clkr = {
+>  		.enable_reg = 0x3e000,
+>  		.enable_mask = BIT(0),
+> @@ -2725,6 +2726,7 @@ static struct clk_branch gcc_sys_noc_usb1_axi_clk = {
+>  
+>  static struct clk_branch gcc_usb1_master_clk = {
+>  	.halt_reg = 0x3f000,
+> +	.halt_check = BRANCH_HALT_VOTED,
+
+BRANCH_HALT didn't work?
+
+>  	.clkr = {
+>  		.enable_reg = 0x3f000,
+>  		.enable_mask = BIT(0),
+
 -- 
-Cheers,
+Thanks,
+Taniya Das
 
-David
