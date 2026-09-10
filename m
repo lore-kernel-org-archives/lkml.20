@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6483AE6EB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662B93AAF57
 	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014681; cv=none; b=QX89vzzmdocMJnHwq+h0MFrvOf69XeTc2RAtIzeGpPB6UudDrJufsCPbfVjaGHkjaVmyNvTwHCELkwfn6AKjChTc7ZHrXcaM8NaPDwguL7Ps7mPu8YqD8F2p6Rw9PHuaFoNKtOfQ0S0rJ+5zwYPx1QI2Q1eZHR3z87zanambzMU=
+	t=1789014680; cv=none; b=lDmP+JAYPI4/PHUI65yMZ6F8qnRBJHchz/l2RpQH2FFL7yUYhMnPVRGuAt+oTkh3BLOYrePVMeqn5/xb1JY+feHELaF/A9NC9wumz+AZx58CMHsMn1evcCaNTAENDbaWpNkD1PVHisPMasXYA5VWLWptSs9nHFYxt0x1Q8A0I3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789014681; c=relaxed/simple;
-	bh=9kEKGitU0KGtrdmgg+MeYLoaKIghma4epy46ju6KunM=;
+	s=arc-20240116; t=1789014680; c=relaxed/simple;
+	bh=wrEPrEhzPywTkV5zFcDwTZrPWZGDw0UPGGLR4mG1UIw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=okmFt54gGaLJDcY7/hbhH3MSxaMjSqL85Vot7gzuHbWECj9ZhddbM49i0ZkWUatlY3uSRZ55gVp/+8H545PQ2o+mqOCpPhyesU/9C8M7SQplNr5osZLQe6taZZMsswOJGvatN2VGyR0Yc06taxTJ4HEzjQHaSdmk2lEasSOcQPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ObaLzogi; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=aSUnSVdVBRVdnF+thfr4Bhn2ONVTQ01aL+NG9P8EHruokgCRi5/ogwouHm36HnvYjPZzPqhNS86lX6JIdFVgD4l+GOShQ7QfjD9iHGSdQEsNNQkCxDrnJXweBgHnz49IMtf6ZzuR9B871Vcpkpnr0LHPN8fioXVqPPsjFCKQAjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FsIDDZR7; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ObaLzogi"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FsIDDZR7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2p
-	URnNgagNSzAGeA4erfdSykdqLoBlr6NUXAPfZFKc4=; b=ObaLzogiP9kGptYSMD
-	DDWODHSGqZrNkfOyHEQGQQjc/z4+uJGfOHFVgpvz8LIWoqRJRwU3CMqgBT9KCi9D
-	PNAAaD3i3nKpRbDzZdw6riUtWorq1Tzd6cSFxSvr485bZ1hO9qBtZdcsIH84zb13
-	RhS0SL2zmVu2AUh22RPKSFySE=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=tX
+	BLjoyVcqoSnCe5hTKnzGr+xFkpChqXdUEH+D46IKk=; b=FsIDDZR71g4x3myDUf
+	mOmBD6PhW1IeOqc4w+O/YzKy0O8EkAP6HC1WxSIRVB1bJHvcDf5S/OTZ0LdMgdfv
+	QSmEAGkKFqiZ+jqZwjT1mOtOMGEW+pXvBVeCSZWTa8M5Mjjd/SGlVx3ODuJ6jfm9
+	0XBEPl/D/hqsbG9yNXoeVno4Q=
 Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXgp5AMqJqap0YBw--.51115S8;
-	Thu, 10 Sep 2026 12:30:01 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAXgp5AMqJqap0YBw--.51115S9;
+	Thu, 10 Sep 2026 12:30:03 +0800 (CST)
 From: Xin Zhao <jackzxcui1989@163.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -38,9 +38,9 @@ To: mingo@redhat.com,
 	kprateek.nayak@amd.com
 Cc: linux-kernel@vger.kernel.org,
 	Xin Zhao <jackzxcui1989@163.com>
-Subject: [RFC PATCH RESEND 06/10] sched/fair: Modify active_load_balance_cpu_stop() to accommodate more scenarios
-Date: Thu, 10 Sep 2026 12:29:46 +0800
-Message-Id: <20260910042950.1619727-7-jackzxcui1989@163.com>
+Subject: [RFC PATCH RESEND 07/10] sched/fair: Trigger active balance if a CFS task is preempted when LB_PROMOTE
+Date: Thu, 10 Sep 2026 12:29:47 +0800
+Message-Id: <20260910042950.1619727-8-jackzxcui1989@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260910042950.1619727-1-jackzxcui1989@163.com>
 References: <20260910042950.1619727-1-jackzxcui1989@163.com>
@@ -51,124 +51,170 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXgp5AMqJqap0YBw--.51115S8
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWr47Gw1xtr4kGrWUAr1rtFb_yoW5KF48pr
-	WUKw4agw4DJayUZ390yF4xur1IgwsxWw47Jan2qF4rCF15G3s5tw1F9r1fuF45uFZ5CFna
-	ya1Dtw47CFWUtFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEDGYhUUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC5wrh62qiMkqCDAAA3Z
+X-CM-TRANSID:_____wAXgp5AMqJqap0YBw--.51115S9
+X-Coremail-Antispam: 1Uf129KBjvJXoW3XF4fJry5KF15Zry7CFW3Jrb_yoW7trWfpr
+	Wvya4rJa1DJ3W2q3ySkr48Zr13Wwn5Jayxtan7Jw4rAF15K34rt3Zavw13Wr45Crn5uF4a
+	yr1jv3y2k3W8JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziqYLQUUUUU=
+X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC6Avh62qiMkuC8AAA3q
 
-Modify active_load_balance_cpu_stop() to make it more generalized, no
-longer limited to the context of finding the busiest rq in the
-sched_balance_rq() scenario to migrate to the dst rq. Change the variables
-that start with 'busiest' to start with 'src'.
+When LB_PROMOTE is on, in addition to the scenarios modified in the
+previous patches regarding .select_task_rq implement, preemption of CFS
+tasks also needs to be addressed. Once a CFS task is preempted by a
+real-time task, if that task is executing logic in a critical section that
+does not support priority inheritance, such as read-write locks or
+read-write semaphores, it may lead to performance issues.
 
-Additionally, adjust the reference to the active_balance variable from
-busiest_rq->active_balance to this_rq()->active_balance. With these
-changes, the CPU where the stop task is located can serve as either a dst
-CPU or a src CPU, laying the groundwork for the upcoming preempt active
-balance feature.
+By adding this checkpoint for when a CFS task is preempted, we can migrate
+the task to an idle CPU, thus alleviating such performance problems.
+Additionally, the patch set for the LB_PROMOTE feature does not alter the
+logic of task_hot(), so this patch will not significantly increase the
+frequency of load balance migration.
+
+The newly introduced function preempt_active_balance() will be triggered
+in __schedule() when it detects that the previous task has been preempted
+while the LB_PROMOTE feature is enabled. preempt_active_balance() will
+first check whether the currently preempted task has other CPUs available
+to run on. If there are idle CPUs available, the preempted task will be
+migrated to one of those idle CPUs.
+
+The implementation of preempt_active_balance() considers the desire not to
+introduce additional "holes" of rq locks, so the migration triggering
+action is deferred to the balance_callback which is trigger_preempt_alb().
+trigger_preempt_alb() will issue a stop work to allow the idle target CPU
+to perform the migration.
+
+After the modifications made by the previous patches, we can reuse
+active_load_balance_cpu_stop() to assist in this migration action. In
+preempt_active_balance(), we use list_move_tail to move the currently
+preempted task to position where detach_one_task() will first traverse,
+allowing active_load_balance_cpu_stop() to prioritize finding the task.
 
 Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
 ---
- kernel/sched/fair.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ kernel/sched/core.c  |  3 ++
+ kernel/sched/fair.c  | 80 ++++++++++++++++++++++++++++++++++++++++++++
+ kernel/sched/sched.h |  2 ++
+ 3 files changed, 85 insertions(+)
 
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 2e7cde033a31..757ea5ef303d 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7227,6 +7227,9 @@ static void __sched notrace __schedule(int sched_mode)
+ 
+ 		trace_sched_switch(preempt, prev, next, prev_state);
+ 
++		if (sched_feat(LB_PROMOTE) && preempt)
++			preempt_active_balance(prev);
++
+ 		/* Also unlocks the rq: */
+ 		rq = context_switch(rq, prev, next, &rf);
+ 	} else {
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index f10e709921fd..9ffd01717599 100644
+index 9ffd01717599..d2b538abdf3e 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -13796,33 +13796,33 @@ update_next_balance(struct sched_domain *sd, unsigned long *next_balance)
- 
- /*
-  * active_load_balance_cpu_stop is run by the CPU stopper. It pushes
-- * running tasks off the busiest CPU onto idle CPUs. It requires at
-+ * one running task off the src CPU onto dst CPU. It requires at
-  * least 1 task to be running on each physical CPU where possible, and
-  * avoids physical / logical imbalances.
-  */
- static int active_load_balance_cpu_stop(void *data)
- {
--	struct rq *busiest_rq = data;
--	int busiest_cpu = cpu_of(busiest_rq);
--	int target_cpu = busiest_rq->push_cpu;
-+	struct rq *src_rq = data;
-+	int src_cpu = cpu_of(src_rq);
-+	int target_cpu = this_rq()->push_cpu;
- 	struct rq *target_rq = cpu_rq(target_cpu);
- 	struct sched_domain *sd;
- 	struct task_struct *p = NULL;
- 	struct rq_flags rf;
- 
--	rq_lock_irq(busiest_rq, &rf);
-+	rq_lock_irq(src_rq, &rf);
- 	/*
- 	 * Between queueing the stop-work and running it is a hole in which
- 	 * CPUs can become inactive. We should not move tasks from or to
- 	 * inactive CPUs.
- 	 */
--	if (!cpu_active(busiest_cpu) || !cpu_active(target_cpu))
-+	if (!cpu_active(src_cpu) || !cpu_active(target_cpu))
- 		goto out_unlock;
- 
--	WARN_ON_ONCE(!busiest_rq->active_balance);
-+	WARN_ON_ONCE(!this_rq()->active_balance);
- 
- 	/* Is there any task to move? */
--	if (busiest_rq->nr_running <= 1)
-+	if (src_rq->nr_running <= 1)
- 		goto out_unlock;
- 
- 	/*
-@@ -13830,12 +13830,12 @@ static int active_load_balance_cpu_stop(void *data)
- 	 * we need to fix it. Originally reported by
- 	 * Bjorn Helgaas on a 128-CPU setup.
- 	 */
--	WARN_ON_ONCE(busiest_rq == target_rq);
-+	WARN_ON_ONCE(src_rq == target_rq);
- 
- 	/* Search for an sd spanning us and the target CPU. */
- 	rcu_read_lock();
- 	for_each_domain(target_cpu, sd) {
--		if (cpumask_test_cpu(busiest_cpu, sched_domain_span(sd)))
-+		if (cpumask_test_cpu(src_cpu, sched_domain_span(sd)))
- 			break;
- 	}
- 
-@@ -13844,14 +13844,14 @@ static int active_load_balance_cpu_stop(void *data)
- 			.sd		= sd,
- 			.dst_cpu	= target_cpu,
- 			.dst_rq		= target_rq,
--			.src_cpu	= busiest_rq->cpu,
--			.src_rq		= busiest_rq,
-+			.src_cpu	= src_rq->cpu,
-+			.src_rq		= src_rq,
- 			.idle		= CPU_IDLE,
- 			.flags		= LBF_ACTIVE_LB,
- 		};
- 
- 		schedstat_inc(sd->alb_count);
--		update_rq_clock(busiest_rq);
-+		update_rq_clock(src_rq);
- 
- 		p = detach_one_task(&env);
- 		if (p) {
-@@ -13864,13 +13864,13 @@ static int active_load_balance_cpu_stop(void *data)
- 	}
- 	rcu_read_unlock();
- out_unlock:
--	rq_unlock(busiest_rq, &rf);
-+	rq_unlock(src_rq, &rf);
- 
- 	if (p)
- 		attach_one_task(target_rq, p);
- 
- 	local_irq_enable();
--	busiest_rq->active_balance = 0;
-+	this_rq()->active_balance = 0;
- 
+@@ -13875,6 +13875,86 @@ static int active_load_balance_cpu_stop(void *data)
  	return 0;
  }
+ 
++static DEFINE_PER_CPU(struct balance_callback, preempt_push_head);
++static DEFINE_PER_CPU(int, push_cpu);
++
++static void trigger_preempt_alb(struct rq *rq)
++{
++	unsigned long flags;
++	int active_balance = 0;
++	int src_cpu = rq->cpu;
++	int idle_cpu = per_cpu(push_cpu, src_cpu);
++	struct rq *dst_rq = cpu_rq(idle_cpu);
++
++	preempt_disable();
++	raw_spin_rq_unlock(rq);
++	raw_spin_rq_lock_irqsave(dst_rq, flags);
++	if (dst_rq->active_balance)
++		goto unlock_rq;
++	dst_rq->active_balance = 1;
++	dst_rq->push_cpu = idle_cpu;
++	active_balance = 1;
++
++unlock_rq:
++	raw_spin_rq_unlock_irqrestore(dst_rq, flags);
++	if (active_balance) {
++		stop_one_cpu_nowait(idle_cpu, active_load_balance_cpu_stop, rq,
++				    &dst_rq->active_balance_work);
++	}
++	preempt_enable();
++	raw_spin_rq_lock(rq);
++}
++
++static void queue_preempt_alb_callback(struct rq *rq, int dst_cpu)
++{
++	per_cpu(push_cpu, rq->cpu) = dst_cpu;
++	queue_balance_callback(rq, &per_cpu(preempt_push_head, rq->cpu), trigger_preempt_alb);
++}
++
++void preempt_active_balance(struct task_struct *prev)
++{
++	struct rq *this_rq = this_rq();
++	int this_cpu = smp_processor_id(), cpu;
++	int start = nr_cpu_ids, idle_cpu = nr_cpu_ids;
++	struct sched_domain *sd;
++
++	if (unlikely(prev->sched_class != &fair_sched_class))
++		return;
++
++	if (unlikely(prev->migration_disabled))
++		return;
++
++	cpu = prev->recent_used_cpu;
++	if (cpu != this_cpu && available_idle_cpu(cpu) && !cpu_rq(cpu)->active_balance) {
++		idle_cpu = cpu;
++		goto active_balance;
++	}
++
++	rcu_read_lock();
++
++	sd = rcu_dereference(per_cpu(sd_llc, this_cpu));
++	if (sd)
++		start = cpumask_first_and(sched_domain_span(sd), prev->cpus_ptr);
++	if (start >= nr_cpu_ids)
++		start = cpumask_first(prev->cpus_ptr);
++
++	for_each_cpu_wrap(cpu, prev->cpus_ptr, start) {
++		if (cpu != this_cpu && available_idle_cpu(cpu) && !cpu_rq(cpu)->active_balance) {
++			idle_cpu = cpu;
++			goto unlock;
++		}
++	}
++
++unlock:
++	rcu_read_unlock();
++	if (idle_cpu == nr_cpu_ids)
++		return;
++
++active_balance:
++	list_move_tail(&prev->se.group_node, &this_rq->cfs_tasks);
++	queue_preempt_alb_callback(this_rq, idle_cpu);
++}
++
+ /*
+  * Scale the max sched_balance_rq interval with the number of CPUs in the system.
+  * This trades load-balance latency on larger machines for less cross talk.
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 26ae13c86b69..11848708e5ce 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -4193,6 +4193,8 @@ extern struct balance_callback *splice_balance_callbacks(struct rq *rq);
+ extern void __balance_callbacks(struct rq *rq, struct rq_flags *rf);
+ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
+ 
++extern void preempt_active_balance(struct task_struct *prev);
++
+ /*
+  * The 'sched_change' pattern is the safe, easy and slow way of changing a
+  * task's scheduling properties. It dequeues a task, such that the scheduler
 -- 
 2.34.1
 
