@@ -1,136 +1,148 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46175678CD
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063274; cv=none; b=Cl+c+hhYXtlDYJ9y+cSjXEsJFZtfQwhcRlx1w/n2Zn/+7raOEI26c6g4a1QPLbvX6Gpg9rogo3EhmUdBpBKbP/LoiybuvxA5Oddpd/0maMpTgfwToC9e3U5VZYYbhhC5Ny8et5fSdKsszHh7kMmOx1l9Sjb9syGpEQCJ6NKZE4w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063274; c=relaxed/simple;
-	bh=cNmR3QCqYOVJn8Vw2rwUhPvlJ1Ijvn0auVR+xCz0ug4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UL9r8LDkLrc/QeIsBn/9P6IW3GxqqKVdll1G0djd+NqUDCzJ9kCGbDqiSxq2IGbvC4SFBl9nNsAwZGhrBy+CZfO3G/KRGLQhXScVkcU4ygpLsYvoCTHAGbhA/c4jRD1uU6tYMGnqxvYn3nuxyH8GR/cWFcvbGSlvuWtcP0R4I3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KkhSAblC; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4833B1035
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789063492; cv=pass; b=PGJYKCKSV12p0CNuwAEiUOvmbp2rLj3RDx+VtaQlEgU9hUwEUluUXthD3khQrcXV6uJju1+2o1Qg8ZGtEO4ROidMEMV+qm9yqCwcZ1CX0wvQuVHrbzoByGSJ6xZliTdAR37Hb/zG8f7ZtFEac6yTOdG9dQkNi/emeLTTHKCjfMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789063492; c=relaxed/simple;
+	bh=/JiSL9KtMYW39gs+t7l5GNFcMSkI1SwWlTIMXx+UrPU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rcm6Z4GD0DJ7E3BgLiQ8k9WnQ9skRVUhjcWBM3TyXv1pSdlHF5zbnq6SWN4zC8VAs3xRSUYY1Z8bGCnki5Pcg6Y+PJIf28DtxOqj+kjMl89qwgGF07/1lzkzIPvheNsS0OPgnHqONk/oNl0e2B25aX/1ZVjGviJr0z06mM4wdg8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEskD115; arc=pass smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KkhSAblC"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92f0b5ed131so846215085a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:01:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEskD115"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-485aca32ab7so3989f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:04:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789063487; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TjtYA4x2FCJyaTjGTuD+WeGaOSDd76SC+xb7GPWsMW/1XvgmnCf8/ZXqpOKifjbAOg
+         VQwwFNDkw4sVfrIPzHMGWX+DGkfW3f4N7C29AR4s0Q+wfFnBMgMpHqkNSsxHbXWHEL1o
+         wkl+jut8y96TDs7RfOikIJqaVdplVdxaNio+bJM9JUUvWRxjchJuDwkfh8cNxvgH1CJB
+         b4dF2g8NLlydihXz61RlZGM0UyfV/N8O977OsOX+E5MNYerVSj9c2TrvAMBzDCLqhN3C
+         jya/3RGOt6lFdGOoKdDtZFexSSFKP/b+86HeDoubtzpfOXsuXzxoC/iBQgpmUEvPusZQ
+         P8QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pmlSkBU7Yx6aRJKzEZrvFOirNAsuneJxXll9dWdAM0g=;
+        fh=PiB0KZcpjaHKO9jvkIZvq9yk3Zd8IbE2vFYMs6LUkI0=;
+        b=mPH24zWBQiOmSWjyYSeu5YhthvoytQNzgOcIcgZTqHKcWJ2bmgGcCB8yrj/iNaETY0
+         vb0X0kpulv3Rf0k6hiFwBSwl5hZe8UarwHunDrr5/DaRCBX80+TZM8LDj8ruQdFjVmX6
+         TKc1GUZ1QuSf3x8QO+7zWiQORMvvYgxT+ENv6SRfIKQymRdvIBy4hClR613CcI22/J05
+         1EpimwmwW6owozGNQwjEudVeFvP7PX34h/EmC8W5AecYXZ2bSXLUJR3F1ovbUztyDUhE
+         czM8CTx+GqCsD2JSexFAhBzyMxiMo0tMOttChEisR/wmt9LP8GxcT53LazxUCa4fRPf9
+         Sm0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789063272; x=1789668072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tPSEx2E5juGVh+7+CkjxpWQjRnb00L9DvXVIbF/QJ0E=;
-        b=KkhSAblCiYXpGmopT6CUvYMvZS6CPijAhx7Spz5fhtmTBKwpw9N+tg/OzyRJGpTSLp
-         4IdKJrdtYkWJNjtutcn/Yt+HN9fFcf3YU91NX+ja9ETl15mhkAcuU5NwKUy6qqx39Xxk
-         e9+zTIKuPy+QQn3P9fWxMM/Eqsq0zZl7zjNDfJxhuBbJk51udmijsLUNRKmrvqnewR1v
-         7rwQTKFnBzDiymi5rgKVXw9WV/mbuXz1lEgwInsjezJRXiq/dK2bTilYONyGRI2X8IQ7
-         c0+V0C7FPLzIjWiZLWadZthWcglII6yiFuBC4tMuYgv3536AY8U7O7/15UZvcJU96Xf4
-         wJaA==
+        d=gmail.com; s=20251104; t=1789063487; x=1789668287; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pmlSkBU7Yx6aRJKzEZrvFOirNAsuneJxXll9dWdAM0g=;
+        b=sEskD115CpRrijD4cFzDelRYsF8YWzl7654MOPwh89cY6gbyQnrSMlfZ8+AKtEU6a0
+         yil0X+5Y03DWkpDho47+1NAYo+9/rc5Ntu4BGlZoQvY8681Czq/y3kop9p1YyDoICKUZ
+         Bl/BuaEWMVrX0NR9l6hsA07pLxg3p/uiPEdDDl2wqmLdkocKj3cSuATuNlc55zMhRcXf
+         Yw4XpXsR/QENFv0L1WtfkrnWaBxCIUkK6+UxPETdSNdHUYunrvWKe8sYpr5ECPlUovvX
+         Y4p4bU4kQSYZV/cCZbtjmxVcaudKGD0f5mYvLJEO66Mf2Oe/LztwKisydDQ/AtaAusff
+         op9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789063272; x=1789668072;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tPSEx2E5juGVh+7+CkjxpWQjRnb00L9DvXVIbF/QJ0E=;
-        b=VZlaOgwtpF/cNJDXmKnS5L5nOkXI9nBzoGyQ1vGaLYFccUJOJUYJmzXosVitEwqgpu
-         Pf8IEfgmyt0TCojPHBabTQLJnVbMCH9I/bzPxzPXJ2Y2Spi6c9SPo3ur6Yjvgxa+uv1h
-         uMS+iR13QSyPXLT8gxALIA32rSXnd0Vd1oRTHI+WjXka/b/phM4A8EyCRk6ZZBTL32Ns
-         AUC+rkaFQnGSGZWwDp7OBcDn6kPx1k1c8FF5hQ5PqWAqDmBBubBSTnzZFZIggXufHFWj
-         lI3yd3HVHoPBdbFtF6LOS8ZmOsCKYAvFzGlBc4cijrJhzpfYueeiEmbGaUu/rg9CJ0Ib
-         nqRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCdncBqels/Aq2vBZcdySXkiDvskcDB6hig1dK67BDFjubr68C0mGNdtREyx+nGNF2sLrZYq2k9p1OIuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQEk9MgZIuTyT5w59w2dJM39hGjB4FmWLbaKsYAA8zgEOqcygb
-	kvwOI8stpvS1UNTaGT7SVg61isCIFzQmfGh0w72ghEofBus1TdpL/cFV
-X-Gm-Gg: AYBFou0nUXrO27QxfJYxvUl9/rBYL+qH1NrGvN2R0AW8w+1RTaNLxDR6AS/GiOKIrY2
-	1B+CEwxQyCbuxjyCD9dy/foOqDqVMFsjcB/Hp8ns/1uUIRHnO2nQ+k9KRFCVrLcU3YXwrhPu+7m
-	Exh9ppTeyrDODJ1IomL6avI6yCFsl3TYpIG4GU17yhrpKGTK3J/UcBMoXf2QaGoQK2Kjkrb3bqL
-	uAGf/1hJVU5laDFRxdg68pE4se4eviE2lwyxXH7+aFmapd0Td+E+AjV2hLqF+9sxGWDM7gq7njH
-	E5hzJxcz/wMDYnnGwq/BsDsZdmQp+UKn/B6YVKW2roGBJtXNrn6iDx9tZOaX6v2+NmO3GnrdJVk
-	0K9irFlXKvxbq6EKpddbdOgkgfzwl1ix3+6Rt42yBHKZ9YYUFcYGPxREZC8FyNyO6BiDZ83kfjG
-	d7E8n1VS+1RLnyW8EtTPn17V8s5zppa1QQh/+AQPw2DqexyrmnrxsJ7vhKSzhMknLLLomSvHWBE
-	cCS5SOeE/eY+oFMMKMWSSRT7JvjUNtoc57vSfQqrd1mS4apIt8+wUZ/BsTG3S5rFC2VxFvJoPiF
-	fB4Iaxvvxb+u47PiPooZx/pNxbTE7ksPxWQ7PEgIDkHVkNKw2yPiGXnvmMdetTaNfYV4K7y5fg=
-	=
-X-Received: by 2002:a05:620a:410f:b0:939:112:d526 with SMTP id af79cd13be357-93980361ca2mr4985510785a.18.1789063263268;
-        Thu, 10 Sep 2026 11:01:03 -0700 (PDT)
-Received: from Mac.mynetworksettings.com ([2600:4041:5c28:200:a0f5:ee47:8227:6ffc])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7d9f945sm41280185a.6.2026.09.10.11.01.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 11:01:02 -0700 (PDT)
-Sender: Andrew Stellman <stellman@gmail.com>
-From: Andrew Stellman <astellman@stellman-greene.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	astellman@stellman-greene.com
-Subject: [PATCH] nvmet: derive the CRTO property from CAP, not CSTS
-Date: Thu, 10 Sep 2026 14:00:56 -0400
-Message-ID: <20260910180056.81257-1-astellman@stellman-greene.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1789063487; x=1789668287;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pmlSkBU7Yx6aRJKzEZrvFOirNAsuneJxXll9dWdAM0g=;
+        b=qyLZfrByJ4FKmz/3V5gUmTW6YjnthtcdIsvu+sd9/iLWJ6dzAxt2XeSuCFED6Omo3q
+         JLVBwIhQEgkLKyyFZ+m364+618IFihfH9CXzMOf0DC4bfcDZdgNLosK5BwZIDgducvwW
+         5eRSf0y9N5ODKyYcsRLrva+qTra0q1xJKcttbe2J3TQ6S171qAkJk6lrl2m+sdPn1akv
+         ZlO2EHisdyud8qsHegSQKGFnzobeQxLtC9B+G+VdlNCjitNSTMN9WoiLVswWQl2kjV9f
+         ntjmAAUQMVXiov9/TX/1rXXyVl+iq5Gze90tFkB3/r7S5E8n0tWfUrvCtKfgzETWQro/
+         jPQA==
+X-Forwarded-Encrypted: i=1; AKwUvByPV7NxaGxyE/NbDI3r2bU5aVn4sf8nh/Hmtrz6X1Bz6dLmWwXzZ4ChV7NoqQWZfEMNI6K8S3TCfNTIkzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kt3C6rF/+Xv11W5QpZPnqJp80ofV+Lauh7Suq+nnYiQL7MWIUr
+	r9QxP8ZjIwLGsjqHJshv9qjnZV7MU/Ruk85KletwZ7DsRTc2eHR27StiiLvxlAfaD1thhVtTE4y
+	6LPE39fyuze4NuzrWlV4W5/UCsxi9AFg=
+X-Gm-Gg: AYBFou2P0xs1Pj6Y+dIeoDsjH0DiiWIJ7DxR/qUM86wKiP7xZtIiKyyUqRXNgKRmauV
+	WOM1t3bBzTGpD+Md0yocKsTkygQo0naknqF7AqvCWyxkpsP/wpQqRnXnelsJ/35si4/bqC2vthu
+	NFrZSzI4YdE4sjavx5MZMgjoLLiEhAcQBdOXPEl1oCEPysw62pvnQZgf0WfKr2tqYl8i9a7I5UE
+	U7BSfxN1doRtKpbsWO1L7Ho0YuzX01toY4Ko1fYThlSn/xpZSP2vQXBH4vIb+BfKIDNmSvZHX/A
+	a/+X87u6lYHXaErvAFofZ/OPd1qeh2PLU/IbT1Ca1PuEqQdG2zX7/FOrCSnCkoKOm6LlVs52Afm
+	wxmjrZjv7DkuO/hyVS1rGdmhWKSoaVlsQpULDUQ==
+X-Received: by 2002:a5d:6f10:0:b0:485:8c16:5ef8 with SMTP id
+ ffacd0b85a97d-486eb3104f1mr167913f8f.50.1789063487446; Thu, 10 Sep 2026
+ 11:04:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910022442.3594649-1-xmei5@asu.edu> <20260910022442.3594649-2-xmei5@asu.edu>
+In-Reply-To: <20260910022442.3594649-2-xmei5@asu.edu>
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Thu, 10 Sep 2026 11:04:35 -0700
+X-Gm-Features: AcwNN1UPtHpn5Ju1AbUXHO7M6POxnBVC4rOVn1G8Fc3LCftjvo7b6-mIt_6WkRg
+Message-ID: <CAJnrk1b=WoRPqKLEex-WuTVxjjw95Aj77Azwzv=BeR9VTu4PSA@mail.gmail.com>
+Subject: Re: [PATCH v7 2/2] fuse: return -E2BIG for an oversized SETXATTR over io-uring
+To: Xiang Mei <xmei5@asu.edu>
+Cc: Bernd Schubert <bernd@bsbernd.com>, Baokun Li <libaokun@linux.alibaba.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>, fuse-devel@lists.linux.dev, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Luis Henriques <luis@igalia.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, bestswngs@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-nvmet_execute_prop_get() answers a Property Get of CRTO with
-NVME_CAP_TIMEOUT(ctrl->csts).  NVME_CAP_TIMEOUT() extracts bits 31:24,
-which is the TO field of CAP.  CSTS defines only bits 6:0 and nvmet
-writes only RDY, CFS and SHST into it, so the result is always 0.  The
-same controller sets CAP.TO to 15 in nvmet_init_cap().
+On Wed, Sep 9, 2026 at 7:25=E2=80=AFPM Xiang Mei <xmei5@asu.edu> wrote:
+>
+> fuse_dev_do_read() answers a request that does not fit the server's
+> buffer with -EIO, except for FUSE_SETXATTR, which gets -E2BIG since the
+> value may legitimately be larger than the buffer and setxattr(2) reports
+> that to userspace.
+>
+> Over io-uring the copy fails with -EIO for every opcode, so the two
+> transports report different errnos for the same condition.  Map that
+> -EIO to -E2BIG for SETXATTR.
+>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
 
-NVMe Base Specification 2.4, Figure 36 (CAP), says that when CC.CRIME
-is '0' the TO field "shall be set to: a) the value in the Controller
-Ready With Media Timeout (CRTO.CRWMT) field; or b) FFh if the value in
-the CRTO.CRWMT field is greater than FFh."  nvmet reports 15 in CAP.TO
-and 0 in CRTO.CRWMT.
+Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
 
-Take the value from ctrl->cap, where the timeout is actually stored.
+> ---
+>  fs/fuse/dev_uring.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+> index c6dd420c4034..6351f2470e09 100644
+> --- a/fs/fuse/dev_uring.c
+> +++ b/fs/fuse/dev_uring.c
+> @@ -893,6 +893,8 @@ static int fuse_uring_args_to_ring(struct fuse_req *r=
+eq,
+>         fuse_copy_finish(&cs);
+>         if (err) {
+>                 pr_info_ratelimited("%s fuse_copy_args failed\n", __func_=
+_);
+> +               if (err =3D=3D -EIO && args->opcode =3D=3D FUSE_SETXATTR)
 
-The Linux host reads CRTO only when CAP.CRMS.CRWMS is set, which nvmet
-does not advertise, so Linux initiators have not seen the wrong value.
-A host that reads the property directly does, for example nvme-cli's
-get-property.  Advertising CRWMS is a separate change.
+nit: might be worth a comment above saying something like "fuse uring
+doesn't use pipe buffers, so an -EIO err can only mean the in-args
+didn't fit ent->payload"
 
-Tested on 7.3.0-rc1-qpb-cc-crto-base+ (unpatched) and
-7.3.0-rc1-qpb-cc-crto+ (patched) in an arm64 QEMU guest with nvmet over
-NVMe/TCP to 127.0.0.1, reading the properties with nvme get-property.
-Before: CAP reads 0x8200f0003ff (TO = 15) and CRTO reads 0.  After: CAP
-is unchanged and CRTO reads 0xf, so CRWMT = 15 = CAP.TO.
+Thanks,
+Joanne
 
-The issue was found by Claude Opus 5 running Quality Playbook, an
-LLM-driven code review tool:
-https://github.com/andrewstellman/quality-playbook
-
-Fixes: 1e058089d28f ("nvmet: implement crto property")
-Assisted-by: Claude:claude-opus-5 [Quality Playbook]
-Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
----
- drivers/nvme/target/fabrics-cmd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/target/fabrics-cmd.c b/drivers/nvme/target/fabrics-cmd.c
-index 42d1d1811671..3311b79e8f3b 100644
---- a/drivers/nvme/target/fabrics-cmd.c
-+++ b/drivers/nvme/target/fabrics-cmd.c
-@@ -65,7 +65,7 @@ static void nvmet_execute_prop_get(struct nvmet_req *req)
- 			val = ctrl->csts;
- 			break;
- 		case NVME_REG_CRTO:
--			val = NVME_CAP_TIMEOUT(ctrl->csts);
-+			val = NVME_CAP_TIMEOUT(ctrl->cap);
- 			break;
- 		default:
- 			status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
-
-base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
--- 
-2.53.0
-
+> +                       err =3D -E2BIG;
+>                 return err;
+>         }
+>
+> --
+> 2.43.0
+>
