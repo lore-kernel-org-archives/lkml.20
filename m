@@ -1,137 +1,70 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194D245C713
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D978288505;
+	Thu, 10 Sep 2026 14:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052296; cv=none; b=B8Y2MvmQBdEuZDkpWDgx3/mrG+xRF4WHjqeuVf1qRt4dBBJTVwklHcWR5Y7qvg1xqNUQqIVrC1q2gShjUytASTawikI8yKFxzTYVHDkvkzI/IflsjPcwZ7Ux+zGvY6GJM3bWvty2ryD3/f9tuZTVliPS+raWNvjWGuV9TDC2dfw=
+	t=1789052377; cv=none; b=jRyeEjy4KCDN6n5pBnqmmEeaAxTqBDeuL+BQkOc+48KH1G5OqTh9hVeglcxEjRBTGQ/spjv3EUZ4NgAPewrvScQgMr1VV9JUzr7OgEnZ2OXRsc+xRSiGg3buq2A5IMZ64aFgIgWwdTNB/OLeFjG7hTEiB0kJ1ypgJP3f39pW8yA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052296; c=relaxed/simple;
-	bh=0kFr3D5FvsgC2LOBK21m86A/xV+WAKHLDtmLCDaUSaQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=g6TNAfgNPJ5PLNcoqceIm3KQ7yS4+H0UtZWQzp7f84SJOfEYBYYT5QXG/GF9xdt2wroO9OiEQDIHYeDuRBwPUbF8bQ2RUE9HGJyyMfIbxMcRRyVKu5YmFtW2BIjlirKpFltJ2fPUqtPgHgJDCIt4f1TWpPEzcNZyVqaNRguy+IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eNty05+z; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789052377; c=relaxed/simple;
+	bh=hj9qAXn/zoD3nVtm5EQwtB2Qv72feVVly7L/xTEcPK0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TapMCDMyJGD3SlwSoYugV/r7Pj5ECVkImPZSyiy6t8qklS/VppnEQ65XBoKmXrzjy/SCmWi6Lih98pWWyAcizT5CNFpjnoqc8nG+dJG7A3QZwivtdE7q6DpiDbFfx+Ce5nhpDEmgvoCs3b5q7BpUIaeFtN2MQrHbT/cARRxoIBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZ7xHOSp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eNty05+z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ot
-	+qOFZFVZOItYmYp4bFu2oN34nACjYQS1aVECcSY40=; b=eNty05+zS3WgKpx3X+
-	9LJ4vCKETMFK1shhfbuNJkCswgEv4aJ/ShYqENOZzelleUHL07vjIl1nmM2vhaU+
-	6kk0xC5HuqlStntrvxvJczDdxFSHpB02GHN/kfpf/cfZtrPHdBh5257UjVVGhZ1O
-	Rweozedy2zFWQbYnkTo5hQCQQ=
-Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnu+87xaJqT7Y8Bw--.49711S2;
-	Thu, 10 Sep 2026 22:56:59 +0800 (CST)
-From: Xin Zhao <jackzxcui1989@163.com>
-To: kayracizmeci@gmail.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	jackzxcui1989@163.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [RFC PATCH RESEND 05/10] sched/fair: Introduce select_task_rq_fair_thin() to select rq when LB_PROMOTE
-Date: Thu, 10 Sep 2026 22:56:58 +0800
-Message-Id: <20260910145658.2003786-1-jackzxcui1989@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910120029.1207437-1-kayracizmeci@gmail.com>
-References: <20260910120029.1207437-1-kayracizmeci@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZ7xHOSp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9871F000FF;
+	Thu, 10 Sep 2026 14:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789052375;
+	bh=FK+j2G59O6ul73//uvAAAdQWhLiKdDpmn+7SecJshMg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kZ7xHOSpWAqcLGxA8bC9w6/r5GnM/pOPfZ5pShSmT0+o+nNiquU3wTYupRR2kX1Wg
+	 skUIdKWSAdlz9E+Za1miyJQscx2Uu1qrQ7Y2vZkaDoetB23Vf9slRG+tYbDtNW3wRt
+	 WHmmLZIyWEZaFXyqcAlE5Zy2eZUtSVdF+4uqad1TVpAOCH1CgLN6hLhE0IPSGy656h
+	 nsXpPnxSlIAbykIbhnCpUC/9zdlV8ag+ipshzTp2XWe8+lENWEqF1bCURuT5rNh0d/
+	 FSJjkAPQtkONWai0JxLM69GVIRhSspwKFm/rBKoxu/2VAOekACyPalmnystZgGRO9n
+	 PYfwL5rBbgaqA==
+Date: Thu, 10 Sep 2026 09:59:33 -0500
+From: Eric Biggers <ebiggers@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
+	linux-um@lists.infradead.org, linux-raid@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v5 6/8] x86/fpu: Remove cpu_has_xfeatures()
+Message-ID: <20260910145933.GB5719@quark>
+References: <20260901145740.42337-1-ebiggers@kernel.org>
+ <20260901145740.42337-7-ebiggers@kernel.org>
+ <20260910083801.GU4121339@noisy.programming.kicks-ass.net>
+ <20260910142301.GAaqK9RVdjjmpwX876@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnu+87xaJqT7Y8Bw--.49711S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWFy7AFWUuFWrWr47Xw4Dtwb_yoWrJF1rp3
-	y8Ww1Sy3ykZFW8Z3Z7Gw48try5uws5ZF47urn5J3sYyrs8AF1kWr4Sgw45Z347CFZ5WFy8
-	Ca1xtr13ua4DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRl4iUUUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbCvxzDzWqixTxQwQAA3N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910142301.GAaqK9RVdjjmpwX876@fat_crate.local>
 
-On Thu, 10 Sep 2026 15:00:29 +0300 Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
-
-> > Testing has shown that in our system with 18 CPUs running at 2.1GHz, where
-> > the first three sd_llc domains each contains 4 CPUs and the last sd_llc
-> > contains 2 CPUs, under same fillback scenario, select_task_rq_fair_thin()
-> > executes 25% faster than the original select_task_rq_fair(). It saves 22ms
-> > over a 10-second period, with this optimization accounting for 0.174% of
-> > total system time. Additionally, we measured the execution time of
-> > update_idle_cpu_scan, which took 0.5ms over the same 10-second period. If
-> > we use select_task_rq_fair_thin() instead, this time can be eliminated,
-> > accounting for 0.04% of total system time. Therefore, the overall
-> > optimization contributes to a reduction of 0.214% of total system time.
+On Thu, Sep 10, 2026 at 07:23:01AM -0700, Borislav Petkov wrote:
+> On Thu, Sep 10, 2026 at 10:38:01AM +0200, Peter Zijlstra wrote:
+> > Boris, can you have a look? For now I'm reverting this patch locally.
 > 
-> Okay. Can you specify which tests you ran or what you used? If you can?
+> Yeah, I'll zap it from the x86/fpu lineup and then we can see how to fix up
+> everything later.
 
-I used a relatively crude and straightforward method, which involves
-subtracting the time at the beginning and end of the select_task_rq_fair()
-function and then accumulating the per-CPU time. I retrieve this accumulated
-value a kernel module (ko). The detailed script is as follows:
+How about just applying patches 1-5 and 7-8, and deferring the actual
+removal of cpu_has_xfeatures() to the next cycle?
 
-Below is the test script for comparing the effect of select_task_rq_fair()
-with and without the patch:
+> I'm not entirely sure how to go about fixing this. Some seem trivial
+> enough, but others, like XFEATURE_MASK_OPMASK I don't readily see a
+> replacement for.
 
-#!/bin/bash
+XFEATURE_MASK_OPMASK is just part of the AVX-512 state and it will be
+implied by X86_FEATURE_AVX512F.
 
-insmod testselecttask. patch=0 on=1
-sleep 10
-insmod testselecttask.ko patch=0 on=0
-cat testselecttask_patch_0.txt
-
-sleep 1
-insmod testselecttask.ko patch=1 on=1sleep 10
-insmod testselecttask.ko patch=1 on=0
-cat testselecttask_patch_1.txt
-
-Test results:
-
-root@hobot:/map/zhaoxin# ./smalltest.sh
-ins: ERROR: could not insert module testselecttask.ko: Invalid parameters
-insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-zhaoxin: enable[0] count[179226] timens[09325] avg[460]
-insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-zhaoxin: enable[1 count[180836] timens[59444800] avg[328]
-
-From the test results, combined with the following information:
-
-Currently, the machine's overall sys time is about 7%, multiplied by 18
-cores, which results approximately 126% for a multi-core CPU. The test
-duration is 10 seconds, and within that time, 22 ms is saved, which
-translates to 2.2 ms per second, equating to 0.0022 for multi, or 0.22%.
-The time taken by this function is generally linked to the total sys time,
-and the optimized portion accounts for about 0.174% of the total sys time.
-
-Below are the test results for the execution time ofupdate_idle_cpu_scan`:
-
-root@hobot:/map/zhaoxin# ./smalltest.sh
-insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-insmod: ERROR: could not insert moduleselecttask.ko: Invalid parameters
-zhaoxin: enable[0] count[179226] timens[82509325] avg[460]
-insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-mod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-zhaoxin: enable[1] count[180836] timens[59444800] avg[328]
-
-From the test results, combined with following information:
-
-Currently, the machine's overall sys time is about 7%, multiplied by 18
-cores, which results in approximately 126% for a multi-core CPU. The test
-duration is 10 seconds, and within that time, 22 is saved, which translates
-to 2.2 ms per second, equating to 0.0022 for multi-core, or 0.22%. The time
-taken by this function is generally linked to the total sys time, and the
-optimized accounts for about 0.174% of the total sys time.
-
---
-Xin Zhao
-
+- Eric
