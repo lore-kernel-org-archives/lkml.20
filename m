@@ -1,143 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E888447127D;
-	Thu, 10 Sep 2026 11:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76CF46F48B;
+	Thu, 10 Sep 2026 11:24:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039467; cv=none; b=Q6QSG/2BMgRKH+FiVKMkpGpi6lPvKn3XVbf/xxzJO2Jlqu76h70tecP7aACRcvTTQoNiLmM8VUdbuj8pWKIqBjZT4qxKotnCNkq35x92hNd6+1D0ToEG9Z2ePEBaybtkbQsydZ4Pqje65+bK5J+i2HFKX1GWu4D7E233M3ShyEQ=
+	t=1789039471; cv=none; b=qrssgC93tqdy4lrPPsdGjMm2kt9m+KbDXZBXpWE09p0h88wNSCqVfSbA07aJN32/1db0AtN1JMna23mC9IYthuj76iFz+4DuANabKF7F5rFHFJzNmDTnhJfPFPbOmgt87iTVK8yYP8FgBLtpTOa9nd9ZXyfI6i8mxTnlkbaXuBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039467; c=relaxed/simple;
-	bh=BVBVVjUGIAZgqIbSCdL88puIw63UNRr7Hk0NZHCgLLc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fn0xYAD1IK54ko7+XNL+rH7AScq9T2c4Huk9Hwtsyd0CxEIz7oPIKs5NkcUaXMHF7PYK+NhIpqpytzfkyczoPmUbqhXJX87Y6seZJNbHe7L4lg3QQ3UAg4CYhmBLF5fk7IIReOOi5OhXN5Y44J8bNBLtOM6v3CJNy/ZSOieyQqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+VdKMTZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789039471; c=relaxed/simple;
+	bh=U53K/s0RMCyYoc+aEK0RfYTAbGFsVsgjGR3vSMzJ3tU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lzEHVWCFypp5Dir32Rk73q2fxkhlze6RXqM1h4Jleptzo/HxyDxu/6x4XGD+9JTyz5Lv8jFxl3BILnOG3aJ29zfvokSP+TASIbS2ePLD0v6NTEsiBnGjqEouCTkgWr9QKi3IYIQGONG5KsbfLVghnjdYPfabUvoSBjNAyf9WHJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2ZXxYMr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+VdKMTZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E651F000FF;
-	Thu, 10 Sep 2026 11:24:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2ZXxYMr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989A81F00893;
+	Thu, 10 Sep 2026 11:24:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789039465;
-	bh=D8lcb2nj5Qw+R2h/P0sXPBSrOuWk4kRlxcimVGz/6uc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c+VdKMTZQ/uO5Mf/ZmrRZ1jhqqlUW+oRuXyXaXjT6xqCIEI5zWcPjhGXnkfV14n94
-	 W39+6DQ95wE3xgFYkI09MnVXNlKJyymdRZ1bm1IMuI3vuRful0+ig/zVU2VHwAtLX7
-	 dXoyF40NkApa79X324P9AKBcE+efTSKfGCfW7q7bu5VSMT6r3QDpp1FZg0qqRU6BwJ
-	 pK8zPKHy4O4qHAyc6U5EHgZOlXN3BEjm9FmTjfMNJM8PU2bfe65Eu9dz7TBbN5PwZc
-	 Gv6+G37ITEeP5kcyoQVFEXv++15r1ncXxqvhtHVo5CT1yOGSc1xMMrWmgo+WTAYeoF
-	 d9D9zxr7ArzvA==
-Message-ID: <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
-Date: Thu, 10 Sep 2026 13:24:17 +0200
+	s=k20260515; t=1789039469;
+	bh=K1k3o3/J6R/KX1MVXsWRSnNHFxeXun8U/5rv0FODWwI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j2ZXxYMreCA/KzXhZz1Wt3I28btbeEFVrRjPV26A8Aw9UZ3BghAhEJxp9Nb0KiXk6
+	 k64iHz2ANAE6e71uVeZcP/Ck2CG8kn38rW8mFCHovbxtvNy4GPFc9irLshM8IYgRN9
+	 6QQ1d4as02MH8jEP99AjpeYL3Drp9AEBF2SeVyo+8f1l1H87ALoX/wjzooV5Yvik53
+	 MBuVY/LU6nDTovNpN96vzRTJ9aha5ktvmTObVVm++NOckUPmv9wxrzpE30BKs9l9/+
+	 ESNI3ST2YnvGB45Mo9Rq7KU+D83qSwydsGZCnpS6Bdq6LffbI4rpHTVMrzHzCd7/VC
+	 38yB1OOec8TeA==
+Date: Thu, 10 Sep 2026 12:24:24 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Colin Huang <colin.huang2@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Colin Huang <u8813345@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
+Message-ID: <aqKTZCPto32Ur-CI@squawk>
+References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
+ <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-3-822b810458bc@arm.com>
- <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
- <aqKOVGECsCNtSMIV@e129823.arm.com>
- <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
- <aqKS7CP67X4h6NiM@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqKS7CP67X4h6NiM@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MTvoOTKg1w0CtIdx"
+Content-Disposition: inline
+In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
 
-On 9/10/26 13:22, Yeoreum Yun wrote:
-> On Thu, Sep 10, 2026 at 01:14:42PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/10/26 13:02, Yeoreum Yun wrote:
->>>
->>> Since there is no interface to get vm_flags not via /proc/self/smaps,
->>> It might be good to have it for preventing unwanted VMA merge.
->>>
->>> And might be useful for future to prevent unwated VMA merge.
->>
->> See my reply on why vm flags are generally not a problem. Just like other
->> properties that are not changed during VMA merging.
->>
->> Let's not perform random code changes without a clear picture.
->>
->> And just to emphasize again: VMA merging could already be a problem before
->> memalign() internal changes.
->>
->> (also observe here how we do a MADV_HUGEPAGE, so this is all rather arbitrary,
->> which is not good)
-> 
-> As I mentioned in my previous reply, what I’m trying to prevent here is
-> a failure when checking, immediately after memory allocation,
-> that a specific vm_flag is not set.
-> 
-> Yes, I agree that this could have been a problem even before
-> the internal changes to memalign(). An unwanted VMA merge could already
-> occur at the time of memory allocation.
-> 
-> So what I’m trying to avoid is a test failure where, due to such an
-> unexpected VMA merge during allocation, the subsequent check that
-> a specific vm_flag is not present fails.
-Which is only a guard-region marker problem?
+--MTvoOTKg1w0CtIdx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Cheers,
+On Thu, Sep 10, 2026 at 02:18:55PM +0800, Colin Huang wrote:
+> From: Colin Huang <u8813345@gmail.com>
+>=20
+> Add devicetree bindings for the Infineon TDA38740 and TDA38725
+> single-voltage synchronous buck regulators with PMBus interface.
+>=20
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> ---
+>  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 87 ++++++++++++++++=
+++++++
+>  1 file changed, 87 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38=
+740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.=
+yaml
+> new file mode 100644
+> index 000000000000..28e6ff9d9d9c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +
+> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
+> +
+> +maintainers:
+> +  - Colin Huang <u8813345@gmail.com>
+> +
+> +description: |
+> +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
+> +  buck regulator with a PMBus interface designed for industrial use.
+> +
+> +  Datasheet:
+> +  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-=
+tda38725-datasheet-en.pdf
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: infineon,tda38740
+> +      - const: infineon,tda38725
+> +    description: |
+> +      The Infineon TDA38740 and TDA38725 share the same PMBus programming
+> +      model. Use infineon,tda38740 as the preferred compatible string;
+> +      infineon,tda38725 is kept as a compatibility alias.
 
-David
+This is not how this should be done. Instead, tda38725 should list
+tda38740 as a fallback compatible. Take a look at the example schema for
+how this can be done.
+Otherwise, this looks okay to me.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  infineon,vout-scale-micro:
+> +    description: |
+> +      Scaling factor applied to READ_VOUT telemetry.
+> +
+> +      TDA38740/25 pin strap parts are available in two flavors of
+> +      VOUT_SCALE_LOOP: 1:1 and 1:2.
+> +
+> +      For the 1:1 VOUT_SCALE_LOOP version, output voltage sense pins are
+> +      directly connected to the output, and no resistor divider is used.
+> +
+> +      For the 1:2 version, a resistor divider is typically used (for exa=
+mple,
+> +      499 ohms for both top and bottom resistors).
+> +
+> +      In some designs, users intentionally modify the feedback divider r=
+atio
+> +      to obtain an output voltage different from the internally configur=
+ed
+> +      VBOOT or VOUT value.
+> +
+> +      In such cases, the device telemetry (READ_VOUT) continues to report
+> +      the internally programmed voltage and does not reflect the actual
+> +      externally adjusted output voltage.
+> +
+> +      This property provides a multiplier to scale the reported telemetry
+> +      value so that the monitoring system reflects the actual output vol=
+tage.
+> +
+> +      The value shall be expressed in micro units where 1,000,000 repres=
+ents
+> +      a scaling factor of 1.0.
+> +
+> +      Example:
+> +        If actual Vout =3D 0.75V and READ_VOUT reports 0.7V:
+> +        scaling factor =3D 0.75 / 0.7 =3D 1.071
+> +        value =3D 1071000
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 1000000
+> +    minimum: 100000
+> +    maximum: 2000000
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        sensor@40 {
+> +            compatible =3D "infineon,tda38740";
+> +            reg =3D <0x40>;
+> +            infineon,vout-scale-micro =3D <1071000>;
+> +        };
+> +    };
+> +
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--MTvoOTKg1w0CtIdx
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqKTZAAKCRB4tDGHoIJi
+0uLzAQCdFK45hCT4Cg0De/UHstM132es62S2wjB1mAuE3A/RowD/RfYWwCzGmrze
+CX3dPAce7mNZeQIym60Ia8RfYpwubwY=
+=uDIT
+-----END PGP SIGNATURE-----
+
+--MTvoOTKg1w0CtIdx--
