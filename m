@@ -1,100 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162F63C277B;
-	Thu, 10 Sep 2026 08:38:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC323C09EF;
+	Thu, 10 Sep 2026 08:38:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029487; cv=none; b=LyUPFJXxyR+FJleUqgsaMhuakcdNN7s/6NhRRts+A2vTZjkK1J9WooyNrYueyE9FdkCV88MV82q1bLWHRnkvvhVdocaawAunWEdzckPL0O5R7tN0dcrNmOMdw7BqjgT5ER5eCVMw2JogTwFSL1ILZ654DhkkJhOnuHZ9tHcOLMA=
+	t=1789029497; cv=none; b=G2TTCsz4rqTxsoGv22CL6paoQbTCsb7sUmluTaJSRXBCOO4vSw++GmgBjl1UXh7Bjk+fzyXEWaRf3Gm9ltI41QJ7n72ijCCyOemgyIcIBAGS8912N/nbRU46WgI6/aCuyj8y6caP5qdoA8LGWKxkvO8fEInSBE62H4h+jXG7v4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029487; c=relaxed/simple;
-	bh=yOOXWXHM2+5YroYJ2g1ayyRggEFN5VM6tshAWAfszyI=;
+	s=arc-20240116; t=1789029497; c=relaxed/simple;
+	bh=gzQGhhbVeK7EkXy1JQsNg62SZ3XSyRCbgiGYtc89JFo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J21bTT86lHCsSOZtMeRIHnF91RK1EbYXpjCYQnS557VPjETmCrClc6s4ItZCtStwP2N2GZkeEuZPIJ2L0lQratEVSN/zhhdqj49j+tUO5+0PZDNwOyFI45PcDyX0yQ1pMax+9rNHp+aBPLxUVSrvcXMu/Eo2xz8gVaev0EuG59Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqDayxOB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FZ9hga0Je16Q7LOkNtFE82+JNj5kSnuMT5t/hokcn1P8XXIX5IVPM8FGVS6oETZz/E36YrWviYmJWc5aDo16T/hWDYk9DKII8w6IPAp7jcLDK/oiJUErG6hdOmK8xFsryiINZPQUEYBniFDVA4ucNzaNOTf567aThCOsAqWzat0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vuz6wuD9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqDayxOB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C261F000FF;
-	Thu, 10 Sep 2026 08:37:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789029478;
-	bh=EZGyD4HcrjDRUcR2xnLZUcoNWJUpQvPh9c9ez8Kckcc=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vuz6wuD9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3B161F000FF;
+	Thu, 10 Sep 2026 08:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789029493;
+	bh=xJE0w7P5Xr2Tj1b+BThpv49DkNX1CrBe7rg21sTMgjM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dqDayxOBxh7RZhoahGQfIr5nqGXH1m09RD+JiuwnolPYrMt+KHGlvS9sqRNJrXINB
-	 AQ2AARvY1wPptsSFIQ4l/Mp6QDdD4MsSgiKeO5MuXqRMSmSZTY5eIt/faPDLK8jtQA
-	 KGAn403hcc0XarQhKfmXw5n5QfIxqO1LREKhekOND+u4NjMteJlota8eMUE+bPD6bO
-	 9SM8b6qVaEhkHHeZxrpmGfP/uTOBj4hTNR6CSPKaatn7SIg23PURpI/HPDRlt5yOP7
-	 8VS2JFKZEcCb/Wgds0zeLjWin3qqBM+h7QUWvcJlWtu3taZkeWKWkCu26ah+Pz81Lo
-	 LVrIAcdhmb+oQ==
-Date: Thu, 10 Sep 2026 10:37:55 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
-	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v3 18/19] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-Message-ID: <20260910-determined-fantastic-seriema-3ff701@quoll>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
+	b=Vuz6wuD9Ky9rC7WKEH/vXyWDXvAvGysfbIvmgTJ5XP1mX6PHSvGr1clzzEtBNw1mi
+	 zm+U/nt8Z1pFUpa6x/5rhe2Ie9qc7QvwORg0lovmxAjvzKnQgPXQ9jrSyOfzZkrrpR
+	 ZYGP2oBMZOrwtVK8fktyT7oP6acKZ2UHnofgVYxY=
+Date: Thu, 10 Sep 2026 10:38:04 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+Cc: David Brownell <dbrownell@users.sourceforge.net>,
+	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: gadget: u_serial: fix use-after-free between tty
+ open/close and gserial_free_line
+Message-ID: <2026091034-slicing-same-692a@gregkh>
+References: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
+In-Reply-To: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
 
-On Fri, Sep 04, 2026 at 03:27:19PM +0200, Michal Wilczynski wrote:
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> index 9c3e4598747eb5541effe697044484715569a285..0f981f4c89586269b987be8591037c9461e04703 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
->  		#clock-cells = <0>;
->  	};
->  
-> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
-> -		compatible = "fixed-clock";
-> -		clock-output-names = "hdmitx0_pixelclk";
-> -		#clock-cells = <0>;
-> -	};
-> -
->  	i2srx_bclk_ext: i2srx-bclk-ext-clock {
->  		compatible = "fixed-clock";
->  		clock-output-names = "i2srx_bclk_ext";
-> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
->  		#clock-cells = <0>;
->  	};
->  
-> +	xin24m: xin24m {
+On Thu, Sep 10, 2026 at 01:17:19PM +0500, Syed Tayyab Farooq wrote:
+> syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
+> involving struct gs_port. The port is allocated when a gadget serial
+> function instance is created via configfs mkdir (gserial_alloc_line())
+> and freed via a plain kfree() in gserial_free_port() when the instance
+> is removed via configfs rmdir(). Nothing prevented a concurrent
+> open("/dev/ttyGS*") from racing with rmdir: the tty core could still
+> reach gs_open()/gs_close() and dereference the gs_port after it had
+> already been freed, since the ports[] table entry these functions
+> looked up was a bare pointer with no refcounting tied to the tty core.
+> 
+> Fix this by giving struct gs_port proper tty_port-managed lifetime:
+> 
+>  - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
+>    the port once under ports[idx].lock, takes a tty_port_get()
+>    reference, and stores the result in tty->driver_data. gs_cleanup()
+>    drops that reference when the tty_struct is released. This ties the
+>    gs_port's minimum lifetime to the tty_struct using it, so it can no
+>    longer be freed out from under an open tty.
+> 
+>  - Give tty_port a destructor (gs_port_destruct()) that does the
+>    kfree() that gserial_free_port() used to do directly, and
+>    switch gserial_free_port() to tty_port_put() instead of an
+>    unconditional kfree(). Also, tty_port_destroy is automatically called
+>    when the reference reaches 0. The struct is now only actually freed once
+>    its last reference (held by either the ports[] table or a live tty)
+>    is dropped.
+> 
+>  - Stop gs_open() from independently re-deriving the port from
+>    ports[port_num].port and reassigning tty->driver_data. gs_install()
+>    is now the single place that looks up and pins the port; gs_open()
+>    re-deriving it separately could, on an unlucky race with the port
+>    index being freed and reallocated, leave tty->port and
+>    tty->driver_data pointing at two different gs_port instances, with
+>    the one gs_close() uses left unprotected. gs_open() now just uses
+>    the already-validated tty->driver_data, while still holding
+>    ports[port_num].lock across the first-open kfifo allocation to
+>    serialize concurrent first opens against each other (kfifo_alloc()
+>    needs GFP_KERNEL, so it can't run under port_lock).
+> 
+>  - In gs_close(), a tty's .close() can legitimately run against a port
+>    whose port.count is still 0, e.g. when gs_open() fails and the tty
+>    core unwinds via tty_release(). The previous code treated this as
+>    an impossible state (WARN_ON(1)), which trips panic_on_warn on
+>    syzbot and isn't actually a bug -- it's an expected outcome of a
+>    failed open. Treat count == 0 the same as any other "not the last
+>    closer" case and return quietly instead of warning.
+> 
+> Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
+> Fixes: c1dca562be8a ("usb gadget: split out serial core")
+> Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+> ---
+>  drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
+>  1 file changed, 57 insertions(+), 7 deletions(-)
 
-Other clocks are called foo-clock, so follow this as well (even though
-it does not follow recommended practice of clock-foo, but at least some
-consistency).
+Did you forget an Assisted-by: tag?  And did syzbot test this?
 
-Best regards,
-Krzysztof
+thanks,
 
+greg k-h
