@@ -1,84 +1,74 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC37C3C9ED9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73F33B4E9F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022314; cv=none; b=KlLDDw2EcrQlxE42y4owb70AarsQEybpjRHvZkvEqadta/gY8p9Mg2CN20NEscGC3KeRBjCbehrfDehwk4a+uKvutShdqULEDS1mzucrSPbGZ+pUBR3jmDVFug4vL3JoA//o6xty4mha3T4lOpj9mTBwTKWsjMja4RkAWQZAA84=
+	t=1789022326; cv=none; b=PtdH38LjA85Xi45m4m1NWiLN73bAYptOZwMztLX2unPqouB7QgrQ+3WG5gh+LJC48+GiVO+StVbm3AZP8yQeoXUNb+1KID4gN0HWmWYa730wDyQH8tSEfeAeSjdZ7kn6aDJmh7Kf7NbMnFrLu2XQ1kOO4h/oEQTC4qulU/1bfmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022314; c=relaxed/simple;
-	bh=bjNSDc28hHWXvcVX35AaDBlg4rfbeHeLTtUyF8ssjTA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MIh26ziJ0LR4FXp6EMhLgNE+8VW7geAsfWF3WulV5cOMu1KNHqaJyPR/YHh6WPkNh26YPBOVvj9axUZcPppeFGNuqR75GnCVdvjgicovkyXOwQys08KnaRWQRM8joFEMTf7Iqh01C1WokFi2xnVyX/VJonlDw6tvrH66SDfun6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/KNbG2k; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789022326; c=relaxed/simple;
+	bh=+uVNsC8PLQ5cZxPlsCOIdSwLRtbWGb6Q4b/gIrk0V2U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qRGpm7DcIYT375a5tHGM5t5tYv6jMlTx9oLq/zPVeioMdBPm1AXVnJmLWBrrDofL5LOXb0adN/Ol2SatCE0WnOfvwQ2Aj/tyMU0Bpcsp6lrUvC/DZ407Nf03E4AEkh5iCMDWUll0AflwmHpfDeJYvwl0iXPLnC+cr3Ngz3JxHl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr; spf=pass smtp.mailfrom=korea.ac.kr; dkim=pass (2048-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b=TsGebiqr; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/KNbG2k"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8e6bdso1825868d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:38:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=korea.ac.kr header.i=@korea.ac.kr header.b="TsGebiqr"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso6399171a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789022311; x=1789627111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ncn44ITRBd+HRnqWrq6QWCDEXG0oUGnfioDpZgtbeso=;
-        b=b/KNbG2k6HAtndFBcECyqjH5WMi7lQ5EgFUaUUmEmdr/LHR4XDfKorKBJR04c/3gxX
-         s5J0ulsH1NcZajYyWF7rBf+RUxUWXb2GQqNRgrH3VPsNZMfhd65/SEnSAThwgbPsI0xe
-         qDDoGEE71SIDIczLrPssngSUW6k9RvD/vJwWi0UkIUh/brwKm8pTyely20XMW50c4ACF
-         u1n4fq4nDQsSZ4v7/3qfQXJjbpVdhPDcltokte9z+C6VgyDuP1NEI1wNIm3kqIs7Arsi
-         CBNIvD8VccMxLAWawWmfHVUvPrKyGmmpOyyq8AMGT8nnVdIHWwNp7jIiudQq+k1spW6L
-         +nDw==
+        d=korea.ac.kr; s=google; t=1789022324; x=1789627124; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=04LZdWbbV4h34Pdf4Ddo0m60ir31MT0deNLvhJP7A6A=;
+        b=TsGebiqrDtTO+F6yjW6HW/ddBPtwfC4N8PjJr+BLke/TyRTViW68k5O8urzhmkT5AC
+         k/KLbbezZX+qgdb3ByUkx0Q453NVSXl4+3i2S63QWQMhJEkPlImOiOUOi3bRitrkZ9xs
+         Gc/vMBQ/3tJyfa64Arcj9xq8Ct3p1SVwlx7AdaIrJl3p3wOGSdqYKHuhqqAKiXXfyRlz
+         bU3YyDD9Jm5hyi36sl6P0V+p6SjItN6ySsXBhY6F4rt76QrNK6smBNWhoIR45Qnk2TXQ
+         tXbqcTD9Ip6EUvsUTOF7HBmITYIaizydCf4tRftFMZ/l0L/16I/NcmReWUArXbXu1HRY
+         1FBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022311; x=1789627111;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ncn44ITRBd+HRnqWrq6QWCDEXG0oUGnfioDpZgtbeso=;
-        b=gXR2NBcf26dGOWthvIjNdsa7rzfN0QO+13Sbn5bJbUh1SYJeeAdtSCCDocUO0JK6Ly
-         oKohPNr27WpaMOaD9wG4PV6/kpUCoDkmvU19WB8HWMcnOwbOkE1jVUQ5ABtc4lY45UW4
-         tgE+JeuegebV8V4PQkDmpc0eHyIHr6pqE6HDdZMTssXqCjJpA58ww4ZiCqnWrhROQxWc
-         tvh/A2BUXhOB1k/oaSLet5xJhbHE7zRiMJWXsDDd80NWOdQxVFZSSKWIRi5d1AHJmllZ
-         IaFisSVdce7sTVyVRBcsJvdutJZQw+A5n2R3zpD0iTgjpMLiqNtnGEmBkr0fyCABAtT5
-         Dk5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxkPBr3oBSOZl3MHBfhmMQC1tZRVcignJmKqnbqrMP/DST6R7b47iPgDJwJ4s8n67x6bw39IG3hEOlBXy0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k106A3HZlTIbLdT6ZgqdI1UxSA4WmdIJDDaIUJOVlnl4MR8pxF
-	kCC9P0pVzvTlQTVx1rATMtweT1YHxB3F2XWsYt6lgbRFInOmmNyy2UpBfUouAIdD
-X-Gm-Gg: AYBFou1sAMZpZxoTg7g6Zu32PPZUmkzxAj38zXVn6d5+UkmNC6td9BPErIurzdMrV7U
-	i80mKqDuBQ7PFkPct1Wzp3aOEJHZKWrFiU+ET3tzlAJ/0DSacJN2iZiE3NRUZj5SVQ5+UyAVqmy
-	etqFpO3lf68/uPL8SIQdY4Mu7RgnWtkyqMU7LT43qpQonhYz3DOD7gmnZA3XHGgpZIrKHqV2SMC
-	uyDPDEUL3LpCg1CXprSywMFN5x9URjjsEHKOnIU3JwOYKXTfQzL41fXJ4SRnLoRbKR2GWOzFXYF
-	pWkwkZxIJK2Xvv9mWGwoAmIuZwP2vMV/9yGvv6vAWYmVZlP+kvTEerPLNez+CVMxe+Fe0npxOHG
-	c05MAfhruQjIX9K5ZFYBVTFu7uMGy4L/5eDUN+oTr+1afD2/QvjBmfdgFeZTZQCl6emlASM11h7
-	Fe4uAjWDwUpVxwzY3un+k9qSMaOIJJY2/oLfgpLdv32OaRW/fLuVEj/w==
-X-Received: by 2002:a05:690e:4881:20b0:66e:4677:71e3 with SMTP id 956f58d0204a3-6711364bc1dmr715819d50.0.1789022310642;
-        Wed, 09 Sep 2026 23:38:30 -0700 (PDT)
-Received: from localhost ([2600:1700:5431:250::1e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48f1646sm13517200d50.9.2026.09.09.23.38.28
+        d=1e100.net; s=20251104; t=1789022324; x=1789627124;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=04LZdWbbV4h34Pdf4Ddo0m60ir31MT0deNLvhJP7A6A=;
+        b=SaF0tkjyFI+h2igFDWUUW5PvVGZzN51z6xiOsihHVwRSNHx648EWpDs1L9Hba1FrgD
+         /gVLyQFfxOQz5W0/lX1kMxy76TWUYRnPkhFqT071jlVYoFpVEw/eP3+1zjjl/gSzwOmU
+         +0ggWWYMhHBAwQndPs4hZLDyVB/f5sSpUtLRzE/dcSWJf4if8XDeFiCaLkO2Gg+I0u8R
+         Yf0FjgD6/ah/rA42D+T9hI/j7qBRDLGDv9fRc0NTE3gdcV0jl9Essx8Od7Rr64vHlgdr
+         T+VcarzY2TcOSCA3xuYHp9sQDLK1G/l1+HS4KLnBSVTCXXFTurD/C5PU+UO6a8cTPz8W
+         wNVg==
+X-Forwarded-Encrypted: i=1; AKwUvByIOyAa2whrPA0+WtCxUPipZRUi1E/+L/ZLMmZ0zbNw0G/dcGA+uwLxAlQIx97AtoCtyGYfm0V/bAt9mmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVs8lp3ca+v6XZHL8hqOdlm47+2iutRRbt4b+OBM+uElLac+lB
+	c1WVyRBcWIyS3JTAifK+BmKm4uj7xeHdzokiLJgipk/6GJxoWHRSZ25xKJhklVoArq1bjxpnnqT
+	lvzV/RVg3Hw==
+X-Gm-Gg: AYBFou2Zruxeo12k2MhkqqcdATYPdHsCpSBx46/HP0Yf5053k6xAOau0eDQ1dI+p0W1
+	/rZBd3DHCG9orl8pRoDKAQhS1sfBVYdsZ92CPdCSZ6wGQ0y1mzAehkQDBBEXu5VtqCRPoWkUrEz
+	pAJhdGLCs+zUxtCaKW02KnrCX8WU5oYTG3LI6Y/N8T+o/HK1zWUpF4pIllSFoq8pGIXhIjh6n3z
+	z+WGb9geEeHVmI4FYkk9Gs+IEqDkXVrAfSDgfqkgUGU11Q1G6LRO5cdn1wH4c5fo0RZjGl9B8u3
+	JypezbmOm/lT/z7CvfwwrvS5EsEL6EQ6q7DiWTxzipxF7aC2jC+cRBRWBr53TFeq/z7TgRLGQol
+	VwFI4MSjW8vmM6/aY/s3X6udlXjEGj778b2izExW1C37ODlBqnhmmfGy0IgB4brGmAR4Ee2KB5E
+	VRl2DvBuHnMNUtyztajdTmZUEq3S8EQV6NNSk1MyO+lTUpXlHDjooVKLBx62CFTI0jKZs3HhbYs
+	RdStnlePqpUubY=
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr60877151a91.17.1789022323758;
+        Wed, 09 Sep 2026 23:38:43 -0700 (PDT)
+Received: from icps5-ESC8000-E11.. ([163.152.219.23])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d76aba5d6sm4027882a91.0.2026.09.09.23.38.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:38:29 -0700 (PDT)
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Wed, 09 Sep 2026 23:38:43 -0700 (PDT)
+From: Hohyun Sim <tlaghgus0425@korea.ac.kr>
+To: Abylay Ospan <aospan@amazon.com>,
+	linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH v3 2/2] iio: light: add AS7343 multi-spectral sensor driver
-Date: Wed,  9 Sep 2026 23:38:13 -0700
-Message-ID: <20260910063813.56419-3-marcus.yu.56@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910063813.56419-1-marcus.yu.56@gmail.com>
-References: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+	Hohyun Sim <tlaghgus0425@korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: netup_unidvb: set the vb2 queue lock
+Date: Thu, 10 Sep 2026 15:38:26 +0900
+Message-Id: <20260910063826.112147-1-tlaghgus0425@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,494 +77,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch adds a driver for the AMS AS7343 14-channel multi-spectral
-sensor with I2C interface.
+netup_unidvb_queue_init() fills in a struct vb2_queue but never sets
+vb_queue->lock, and the driver never implemented the old optional
+wait_prepare/wait_finish vb2 ops either. Since commit c780d01cf1a6
+("media: vb2: vb2_core_queue_init(): sanity check lock and
+wait_prepare/finish"), first released in v6.13, vb2_core_queue_init()
+rejects exactly that combination:
 
-The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
-via the IIO sysfs interface. Each channel's raw data is provided as a
-16-bit little-endian unsigned integer.
+  WARNING: drivers/media/common/videobuf2/videobuf2-core.c:2645 at vb2_core_queue_init+0x524/0x540 [videobuf2_common], CPU#0: modprobe/271
+  Call Trace:
+   vb2_queue_init_name+0x1a7/0x240 [videobuf2_v4l2]
+   netup_unidvb_dvb_init+0x294/0xe80 [netup_unidvb]
+   netup_unidvb_initdev+0x90c/0x1100 [netup_unidvb]
+   pci_device_probe+0x46e/0x900
 
-Basic power management (suspend/resume) is supported. Note that power
-management is designed in such a way that we only stop spectrual
-measurements when susepended and do not power off.
+vb2_queue_init() therefore returns -EINVAL for the first frontend, and
+the driver has not probed successfully on any kernel since v6.13.
 
-More complex features such as auto-suspend, interrupts, and
-configurable gain/integration time will be added in future patches.
+The failure then oopses rather than being handled. vb2_queue_init()
+returns -EINVAL, and netup_unidvb_queue_init() logs that through
+dev_err(&dma->ndev->pci_dev->dev, ...) - but dma->ndev is only assigned
+in netup_unidvb_dma_init(), and netup_unidvb_initdev() calls
+netup_unidvb_dvb_setup() before netup_unidvb_dma_setup(), so it is still
+NULL:
 
-Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+  BUG: KASAN: null-ptr-deref in netup_unidvb_dvb_init+0x683/0xe80 [netup_unidvb]
+  Read of size 8 at addr 0000000000000000 by task modprobe/271
+  Call Trace:
+   kasan_report+0xed/0x140
+   netup_unidvb_dvb_init+0x683/0xe80 [netup_unidvb]
+   netup_unidvb_initdev+0x90c/0x1100 [netup_unidvb]
+   pci_device_probe+0x46e/0x900
+
+netup_unidvb_queue_init() is static and was inlined into
+netup_unidvb_dvb_init(), which is why the reports name the caller.
+
+The series that added the check also fixed the drivers it then found
+with no queue lock and no wait ops (atomisp, pwc, msi2500, hackrf,
+airspy, rcar_drif, video-i2c); netup_unidvb was not among them.
+
+Setting q->lock is not optional any more: since commit b70886ff5833
+("media: vb2: drop wait_prepare/finish callbacks") vb2_thread() and
+__vb2_wait_for_done_vb() call mutex_lock(q->lock) unconditionally.
+
+Add a dedicated mutex to struct netup_unidvb_dev, initialize it before
+any queue is set up, and point each queue's lock at it before
+netup_unidvb_queue_init() runs. Neither mutex that already exists can be
+reused. vb2_dvb_stop_feed() calls vb2_thread_stop() while holding
+vb2_dvb::lock, and vb2_thread_stop() waits in kthread_stop() for a
+vb2_thread() that itself takes q->lock, so vb2_dvb::lock cannot be the
+queue lock. vb2_dvb_frontends::lock is the frontend-list lock, held
+across vb2_dvb_register_bus() and vb2_dvb_dealloc_frontends(), and none
+of the existing vb2-dvb users make it the queue lock either. cx23885,
+cx88 and saa7134 are the only other vb2-dvb users, and all three point
+q->lock at their device-wide mutex rather than at either vb2-dvb lock.
+
+With the lock set, vb2_queue_init() succeeds and the error path that
+dereferenced dma->ndev is no longer entered. That path is still wrong -
+dma->ndev is only assigned later - and netup_unidvb_dvb_init() still
+ignores the helper's return value; both are left for a separate change
+so that this fix stays minimal.
+
+Fixes: c780d01cf1a6 ("media: vb2: vb2_core_queue_init(): sanity check lock and wait_prepare/finish")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM KASAN
+Signed-off-by: Hohyun Sim <tlaghgus0425@korea.ac.kr>
 ---
-Changes in v3:
- - Hold a mutex before reading measurements.
- - Add pm_runtime_resume_and_get before reading measurements.
- - Only start measurements after suspend action has been successfully
-   registered
- - Check the return value of regmap_read when verifying device ID.
+Found by automated driver testing (differential replay of the driver against
+an emulated device), on a KASAN-enabled 7.0.0 kernel running under QEMU with
+an emulated NetUP Universal DVB card (PCI 1b55:18f6, revision 0x2) at
+0000:01:00.0.
 
-Changes in v2:
- - Adjust the default gain to x256 and integration time to 50.1ms as
- recommended by the datasheet.
- - Use read_label instead of .extend
- - Remove all unused scan_index related constants.
- - Add missing calls to pm_runtime_* methods in probe.
- - Fix various code style issues
+Reproducer -- with the card present (emulated or real), on any kernel v6.13
+or later:
 
- MAINTAINERS                |   1 +
- drivers/iio/light/Kconfig  |  11 +
- drivers/iio/light/Makefile |   1 +
- drivers/iio/light/as7343.c | 397 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 410 insertions(+)
- create mode 100644 drivers/iio/light/as7343.c
+  modprobe netup_unidvb
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8cf4e1635053..236102b3c28e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1435,6 +1435,7 @@ M:	Chang Yu <marcus.yu.56@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-+F:	drivers/iio/light/as7343.c
+That is the whole reproducer. Both splats are hit on the probe path, before
+any DVB node is opened, so no userspace interaction is needed. Real hardware
+is not required either: an emulated device that reports PCI revision 0x2 and
+lets probe reach netup_unidvb_dvb_setup() is enough. On systems that have the
+card, udev autoloads the module at boot, so the oops happens without anyone
+running modprobe by hand.
+
+Impact: the driver has not probed successfully since v6.13. vb2_queue_init()
+fails, and the error path then oopses in probe. This is not a security issue:
+there is no unprivileged trigger -- the oops happens once, in probe, when the
+module is loaded.
+
+Tested: the patched driver builds without new warnings with the toolchain
+this tree is configured for (version 15.0.7), and the patch applies to v7.0
+with git apply and to a drifted tree with git am -3. Booted under the same
+KASAN kernel against the emulated card: without the patch, loading the module
+trips the WARN and the NULL dereference above; with it, probe passes
+vb2_queue_init() for both frontends and goes on to the demodulator attach
+(which fails on the emulated card, as expected, so probe returns -EIO), and
+the module unloads cleanly. The runtime path that takes q->lock -- vb2_thread(),
+reached only once a demodulator is attached and DMX_START is issued -- is not
+exercised by that setup; the choice of lock rests on the reasoning above.
+
+Deliberately left out of this patch, so that the stable backport stays
+minimal:
+
+ - netup_unidvb_queue_init()'s error path still dereferences dma->ndev, and
+   netup_unidvb_dvb_init() still ignores its return value. With q->lock set
+   the error path is no longer reached, so this is now latent, but it should
+   be cleaned up.
+
+ - netup_unidvb_initdev() calls netup_unidvb_dvb_setup() (line 920) before
+   netup_unidvb_dma_setup() (line 928), and vb2_dvb_register_bus() already
+   publishes demux0/dvr0 via dvb_register_device() (dvb-core/dmxdev.c:1427,
+   1432). Between vb2_dvb_register_bus() for a bus and netup_unidvb_dma_init()
+   for that bus -- for bus 0 the second bus's dvb_init and CI setup, for bus 1
+   additionally the msleep(1000) inside netup_unidvb_dma_init(0) -- a userspace
+   open plus DMX_START reaches the driver's vb2 ops before
+   netup_unidvb_dma_init() has run for that bus, so dma->ndev and dma->regs are
+   still NULL and dma->lock, dma->free_buffers and dma->timeout are
+   uninitialized. Same bug class as above; it needs a probe-order change rather
+   than a lock.
+
+I am happy to send either as a follow-up (or as 2/2 here) if you would
+prefer them together.
+
+ drivers/media/pci/netup_unidvb/netup_unidvb.h      | 3 +++
+ drivers/media/pci/netup_unidvb/netup_unidvb_core.c | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/drivers/media/pci/netup_unidvb/netup_unidvb.h b/drivers/media/pci/netup_unidvb/netup_unidvb.h
+index 2a98202..59f2f62 100644
+--- a/drivers/media/pci/netup_unidvb/netup_unidvb.h
++++ b/drivers/media/pci/netup_unidvb/netup_unidvb.h
+@@ -11,6 +11,7 @@
  
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index ef36824f312f..edbeeba9d873 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -149,6 +149,17 @@ config AS73211
- 	 This driver can also be built as a module.  If so, the module
- 	 will be called as73211.
- 
-+config AS7343
-+	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	 Say Y here to build support for the AMS AS7343 14-channel
-+	 multi-spectral sensor.
-+
-+	 To compile this driver as a module, choose M here: the module will
-+	 be called as7343.
-+
- config BH1745
- 	tristate "ROHM BH1745 colour sensor"
- 	depends on I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index 64e354c49ed8..5d0d33802519 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_APDS9306)		+= apds9306.o
- obj-$(CONFIG_APDS9960)		+= apds9960.o
- obj-$(CONFIG_APDS9999)		+= apds9999.o
- obj-$(CONFIG_AS73211)		+= as73211.o
-+obj-$(CONFIG_AS7343)		+= as7343.o
- obj-$(CONFIG_BH1745)		+= bh1745.o
- obj-$(CONFIG_BH1750)		+= bh1750.o
- obj-$(CONFIG_BH1780)		+= bh1780.o
-diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-new file mode 100644
-index 000000000000..8982cd6ec5d8
---- /dev/null
-+++ b/drivers/iio/light/as7343.c
-@@ -0,0 +1,397 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Support for AMS AS7343 14-channel multi-spectral sensor.
-+ * (7-bit I2C slave address 0x39)
-+ *
-+ * Based on the work of:
-+ *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
-+ *
-+ * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
-+ *
-+ * Datasheets:
-+ *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-+ *
-+ * TODO:
-+ *   - Autosuspend
-+ *   - Support for configurable gain and integration time
-+ *   - Interrupt support
-+ *   - Add support for reading the VIS channel
-+ *   - Flicker detection
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/i2c.h>
 +#include <linux/mutex.h>
-+#include <linux/pm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/sysfs.h>
-+#include <linux/types.h>
+ #include <linux/workqueue.h>
+ #include <media/v4l2-common.h>
+ #include <media/v4l2-device.h>
+@@ -113,6 +114,8 @@ struct netup_unidvb_dev {
+ 	u8				*dma_virt;
+ 	dma_addr_t			dma_phys;
+ 	u32				dma_size;
++	/* protects the vb2 queues, used as vb2_queue::lock */
++	struct mutex			vb2_lock;
+ 	struct vb2_dvb_frontends	frontends[2];
+ 	struct netup_i2c		i2c[2];
+ 	struct workqueue_struct		*wq;
+diff --git a/drivers/media/pci/netup_unidvb/netup_unidvb_core.c b/drivers/media/pci/netup_unidvb/netup_unidvb_core.c
+index ec08023..f205d5b 100644
+--- a/drivers/media/pci/netup_unidvb/netup_unidvb_core.c
++++ b/drivers/media/pci/netup_unidvb/netup_unidvb_core.c
+@@ -422,6 +422,7 @@ static int netup_unidvb_dvb_init(struct netup_unidvb_dev *ndev,
+ 	}
+ 
+ 	for (i = 0; i < fe_count; i++) {
++		fes[i]->dvb.dvbq.lock = &ndev->vb2_lock;
+ 		netup_unidvb_queue_init(&ndev->dma[num], &fes[i]->dvb.dvbq);
+ 		snprintf(fe_name, sizeof(fe_name), "netup_fe%d", i);
+ 		fes[i]->dvb.name = fe_name;
+@@ -803,6 +804,8 @@ static int netup_unidvb_initdev(struct pci_dev *pci_dev,
+ 	if (!ndev)
+ 		goto dev_alloc_err;
+ 
++	mutex_init(&ndev->vb2_lock);
 +
-+#include <asm/byteorder.h>
-+
-+#include <linux/iio/iio.h>
-+
-+/* AS7343 registers */
-+#define AS7343_ID	    0x5a
-+
-+#define AS7343_ENABLE	    0x80
-+#define AS7343_ENABLE_PON   BIT(0)
-+#define AS7343_ENABLE_SP_EN BIT(1)
-+
-+/*
-+ * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-+ * Setting a 30 * 1.67ms = 50.1ms integration test as the default for now.
-+ */
-+#define AS7343_ATIME			   0x81
-+#define AS7343_ATIME_VAL		   29 /* (29 + 1) = 30 steps */
-+#define AS7343_ASTEP			   0xd4
-+#define AS7343_ASTEP_VAL		   599 /* 1.67ms step size */
-+
-+#define AS7343_CFG0			   0xbf
-+#define AS7343_CFG0_REG_BANK		   BIT(4)
-+
-+#define AS7343_CFG1			   0xc6
-+#define AS7343_CFG1_AGAIN		   GENMASK(4, 0)
-+#define AS7343_CFG1_AGAIN_X0_5		   0
-+#define AS7343_CFG1_AGAIN_X1		   1
-+#define AS7343_CFG1_AGAIN_X2		   2
-+#define AS7343_CFG1_AGAIN_X4		   3
-+#define AS7343_CFG1_AGAIN_X8		   4
-+#define AS7343_CFG1_AGAIN_X16		   5
-+#define AS7343_CFG1_AGAIN_X32		   6
-+#define AS7343_CFG1_AGAIN_X64		   7
-+#define AS7343_CFG1_AGAIN_X128		   8
-+#define AS7343_CFG1_AGAIN_X256		   9
-+#define AS7343_CFG1_AGAIN_X512		   10
-+#define AS7343_CFG1_AGAIN_X1024		   11
-+#define AS7343_CFG1_AGAIN_X2048		   12
-+
-+#define AS7343_CFG20			   0xd6
-+#define AS7343_CFG20_AUTO_SMUX		   GENMASK(6, 5)
-+#define AS7343_CFG20_AUTO_SMUX_READOUT_ALL 3 /* all-channel readout */
-+
-+#define AS7343_ASTATUS			   0x94
-+
-+/* AS7343 data registers */
-+#define AS7343_DATA_FZ	0x95
-+#define AS7343_DATA_FY	0x97
-+#define AS7343_DATA_FXL 0x99
-+#define AS7343_DATA_NIR 0x9b
-+#define AS7343_DATA_F2	0xa1
-+#define AS7343_DATA_F3	0xa3
-+#define AS7343_DATA_F4	0xa5
-+#define AS7343_DATA_F6	0xa7
-+#define AS7343_DATA_F1	0xad
-+#define AS7343_DATA_F7	0xaf
-+#define AS7343_DATA_F8	0xb1
-+#define AS7343_DATA_F5	0xb3
-+#define AS7343_MAX	0xff
-+
-+/* AS7343 channel indices. MUST match data register order above. */
-+#define AS7343_CHAN_IDX_FZ  0
-+#define AS7343_CHAN_IDX_FY  1
-+#define AS7343_CHAN_IDX_FXL 2
-+#define AS7343_CHAN_IDX_NIR 3
-+#define AS7343_CHAN_IDX_F2  4
-+#define AS7343_CHAN_IDX_F3  5
-+#define AS7343_CHAN_IDX_F4  6
-+#define AS7343_CHAN_IDX_F6  7
-+#define AS7343_CHAN_IDX_F1  8
-+#define AS7343_CHAN_IDX_F7  9
-+#define AS7343_CHAN_IDX_F8  10
-+#define AS7343_CHAN_IDX_F5  11
-+
-+#define AS7343_CHAN(_chan)                                    \
-+	{                                                     \
-+		.type = IIO_INTENSITY,                        \
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-+		.address = AS7343_DATA_##_chan,               \
-+		.indexed = 1,                                 \
-+		.channel = AS7343_CHAN_IDX_##_chan,           \
-+	}
-+
-+static const struct iio_chan_spec as7343_channels[] = {
-+	AS7343_CHAN(FZ), AS7343_CHAN(FY), AS7343_CHAN(FXL), AS7343_CHAN(NIR),
-+	AS7343_CHAN(F2), AS7343_CHAN(F3), AS7343_CHAN(F4),  AS7343_CHAN(F6),
-+	AS7343_CHAN(F1), AS7343_CHAN(F7), AS7343_CHAN(F8),  AS7343_CHAN(F5),
-+};
-+
-+struct as7343_data {
-+	struct regmap *regmap;
-+	struct mutex mutex;
-+};
-+
-+static int as7343_read_raw(struct iio_dev *indio_dev,
-+			   struct iio_chan_spec const *chan, int *val,
-+			   int *val2, long mask)
-+{
-+	struct as7343_data *data = iio_priv(indio_dev);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+	unsigned int unused;
-+	__le16 result;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		/* Wait until integration time passes for all 3 cycles. */
-+		msleep(160);
-+
-+		/*
-+		 * Reading ASTATUS latches all data registers to this read.
-+		 * We don't care about the returned saturation/gain status for
-+		 * now.
-+		 */
-+		guard(mutex)(&data->mutex);
-+		ret = regmap_read(data->regmap, AS7343_ASTATUS, &unused);
-+		if (ret)
-+			break;
-+
-+		ret = regmap_bulk_read(data->regmap, chan->address, &result, 2);
-+		if (ret)
-+			break;
-+
-+		*val = le16_to_cpu(result);
-+		ret = IIO_VAL_INT;
-+		break;
-+	}
-+
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put(dev);
-+	return ret;
-+}
-+
-+static const char *as7343_channel_label(struct iio_chan_spec const *chan)
-+{
-+	switch (chan->channel) {
-+	case AS7343_CHAN_IDX_FZ:
-+		return "FZ";
-+	case AS7343_CHAN_IDX_FY:
-+		return "FY";
-+	case AS7343_CHAN_IDX_FXL:
-+		return "FXL";
-+	case AS7343_CHAN_IDX_NIR:
-+		return "NIR";
-+	case AS7343_CHAN_IDX_F2:
-+		return "F2";
-+	case AS7343_CHAN_IDX_F3:
-+		return "F3";
-+	case AS7343_CHAN_IDX_F4:
-+		return "F4";
-+	case AS7343_CHAN_IDX_F6:
-+		return "F6";
-+	case AS7343_CHAN_IDX_F1:
-+		return "F1";
-+	case AS7343_CHAN_IDX_F7:
-+		return "F7";
-+	case AS7343_CHAN_IDX_F8:
-+		return "F8";
-+	case AS7343_CHAN_IDX_F5:
-+		return "F5";
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static int as7343_read_label(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan, char *label)
-+{
-+	const char *name;
-+
-+	name = as7343_channel_label(chan);
-+	if (!name)
-+		return -EINVAL;
-+
-+	return sysfs_emit(label, "%s\n", name);
-+}
-+
-+static const struct iio_info as7343_info = {
-+	.read_raw = as7343_read_raw,
-+	.read_label = as7343_read_label,
-+};
-+
-+static const struct regmap_config as7343_regmap_config = {
-+	.name = "as7343",
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = AS7343_MAX,
-+	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-+{
-+	unsigned int val;
-+	__le16 step;
-+	int ret;
-+
-+	/* Power on */
-+	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_PON);
-+	if (ret)
-+		return ret;
-+
-+	/* Need to set REG_BANK to 1 before we can access ID */
-+	ret = regmap_set_bits(data->regmap, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(data->regmap, AS7343_ID, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (val != 0x81)
-+		dev_info(dev, "Unknown device ID: %x\n", val);
-+
-+	ret = regmap_clear_bits(data->regmap, AS7343_CFG0,
-+				AS7343_CFG0_REG_BANK);
-+	if (ret)
-+		return ret;
-+
-+	/* Configure the SMUX to readout all channels */
-+	ret = regmap_update_bits(
-+		data->regmap, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
-+		FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-+			   AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-+	if (ret)
-+		return ret;
-+
-+	/* Set 50.1ms integration time and x256 gain for now */
-+	step = cpu_to_le16(AS7343_ASTEP_VAL);
-+	ret = regmap_bulk_write(data->regmap, AS7343_ASTEP, &step, 2);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(data->regmap, AS7343_ATIME, AS7343_ATIME_VAL);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(data->regmap, AS7343_CFG1, AS7343_CFG1_AGAIN,
-+				  FIELD_PREP(AS7343_CFG1_AGAIN,
-+					     AS7343_CFG1_AGAIN_X256));
-+}
-+
-+static int as7343_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+
-+	return regmap_clear_bits(data->regmap, AS7343_ENABLE,
-+				 AS7343_ENABLE_SP_EN);
-+}
-+
-+static int as7343_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+
-+	return regmap_set_bits(data->regmap, AS7343_ENABLE,
-+			       AS7343_ENABLE_SP_EN);
-+}
-+
-+static void as7343_suspend_action(void *data)
-+{
-+	as7343_suspend(data);
-+}
-+
-+static int as7343_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct as7343_data *data;
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	data = iio_priv(indio_dev);
-+	i2c_set_clientdata(client, indio_dev);
-+	data->regmap = regmap;
-+	mutex_init(&data->mutex);
-+
-+	indio_dev->name = "as7343";
-+	indio_dev->info = &as7343_info;
-+	indio_dev->channels = as7343_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return ret;
-+
-+	ret = as7343_setup_device(dev, data);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to add suspend action\n");
-+
-+	ret = pm_runtime_set_active(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to activate PM runtime\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable PM runtime\n");
-+
-+	/* Start measurements */
-+	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops, as7343_suspend, as7343_resume,
-+				 NULL);
-+
-+static const struct of_device_id as7343_of_match[] = {
-+	{ .compatible = "ams,as7343" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, as7343_of_match);
-+
-+static const struct i2c_device_id as7343_id[] = {
-+	{ .name = "as7343" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(i2c, as7343_id);
-+
-+static struct i2c_driver as7343_driver = {
-+	.driver = {
-+		.name           = "as7343",
-+		.of_match_table = as7343_of_match,
-+		.pm             = pm_ptr(&as7343_pm_ops),
-+	},
-+	.probe      = as7343_probe,
-+	.id_table   = as7343_id,
-+};
-+module_i2c_driver(as7343_driver);
-+
-+MODULE_AUTHOR("Chang Yu <marcus.yu.56@gmail.com>");
-+MODULE_DESCRIPTION("AS7343 14 Channel Multi-Spectral Sensor driver");
-+MODULE_LICENSE("GPL");
+ 	/* detect hardware revision */
+ 	if (pci_dev->device == NETUP_HW_REV_1_3)
+ 		ndev->rev = NETUP_HW_REV_1_3;
 -- 
-2.55.0
+2.34.1
 
