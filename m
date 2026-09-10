@@ -1,59 +1,88 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from flow-a5-smtp.messagingengine.com (flow-a5-smtp.messagingengine.com [103.168.172.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20D445D92D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944DE456E05;
 	Thu, 10 Sep 2026 10:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037144; cv=none; b=sqfB2k3Sz2lQ5Cg7/0oGw2jg3VoS1bZM+5xPkoOfPLLN+HL+trkPEX6ar8wTTn8JBAy8+IDuUkkUxSravNvs60+XdBVkmVFWg/V7zWz/EBNGAmA0LJ6naynlIjcT+a/UNVCXvLm2Mr+Z6FIDzZ4OPUvevAN5mX24Xk0j2jisnXU=
+	t=1789037145; cv=none; b=HMVW5QPRFwU4kAGhZwXMjdRdXydBDJ2MsHoc3j9asJpz3sepo3K0ApkajL4IPEF48GLFM1dXKuVXb8dmPZF7mIpxC+aUYIQJ8rVxx7WhikWZgIMBWSJGLEIAb1CcSNnQn5WC1S0D96PJZjFHm95Fow4/6zw5NGRL4mprbijiQjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037144; c=relaxed/simple;
-	bh=7mB91F2bpOIoDuvFbgbmZ3E1vU8W06FnaPbbY4+0ucs=;
+	s=arc-20240116; t=1789037145; c=relaxed/simple;
+	bh=Dds88dzQqQNYY+IpjafcbCNkuvA4NzQ05JCf4JIrVNM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NYtUOMUxRqz47ch7gXR0yBJVIWL3+bYZCPRjV1ZBi4pJ6aiF9jmkmJKc2OmnlP2Mtv2jIDbjgL4Rj8z7xCf5Bd0ADJmawXPg7fGiF+98ovnQGlulH9Tv90zGVJVwu1HHhFCXAs5c2b0OsxRX4VhbzGgQ4cynBw/uh2Q1LTrBTrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Owjx0cIN; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=ldWjfLsD4taOgro83tWl0T66QaFPj/TTaSt8Dqgn7K/+KfWz6Te3y2tAsnjjKbfbDx6xVQ9RJ1Hn3tvcPLfE+G/doUszROdfvjf7bZKWvDbVcJG6tPu5leLfFD/3dQz7bHexFUpErAmZlmQjQLuJjVRQftaXBXYUmHQfGjAzkLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=FdAfoBX4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RmGKVhSf; arc=none smtp.client-ip=103.168.172.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Owjx0cIN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=yhrca4I4IvshIQRv8T/Y6iGQz4G4HSyXgNE0gKp/I2w=; b=Owjx0cIN4maISN3fg2YEEtJouq
-	rJ20mERSUj35VPVu1S1YijmRi+yYMNSnGsqBvmOhuwBbDBIESlXOUReAVeshafzzfQRM3l9jYeAoy
-	01gvfpuh2U420bB/VZlObpUQpTAOCitD5t/eWLPnd2pmZn4gEy0m+S5knSVx2AYUmDeSHnTtYuTMF
-	6hOT2rEwk5s7xCKqchMS0ZrqpFGGKqWBtul2MJClMa7MgDujrk+8+YqfVRb6APSp5aDRO0qT6aDYi
-	mu5ATQzpvo3u8rc0euJDYaE0HktoIGdbBfX6HnhK+tzqP50woxs7pKwgPkWRPvhWDz9B5hn6bMMJK
-	ofejRszQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4cHZ-0000000FlVb-0nQo;
-	Thu, 10 Sep 2026 10:45:29 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 29FC2300400; Thu, 10 Sep 2026 12:45:28 +0200 (CEST)
-Date: Thu, 10 Sep 2026 12:45:28 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/18] sched: Introduce WF_ON_RQ wake flag
-Message-ID: <20260910104528.GI4120091@noisy.programming.kicks-ass.net>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-9-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="FdAfoBX4";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RmGKVhSf"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id BEBD0138037C;
+	Thu, 10 Sep 2026 06:45:36 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 10 Sep 2026 06:45:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1789037136; x=
+	1789044336; bh=ZYgQzfa2ctP1UICDBHl7m4arCSxFxSkit8FF1mVtkqU=; b=F
+	dAfoBX4AFXFQNQNyJ4iIIMmtIQpz5kX3rzgchRvXVNWGV6sQGY8YJT8N93ucoBpc
+	tBNXjeY7vNbS2Dj7qwj9wJGxgkvwe9bb0FXmhrlset3Ng3gncoTmLDR7w2zwlgSr
+	+Sb+I7shLqMMgFW70uudbRpDQ8SSHMWQX9h2pW3huX+vJmzk1hoOeCZpH9o1A9+I
+	g/idStTOaG1+GQz4y853QQp3M+2LCuC0nB68Uft8MaSfM6h/BqQGxLA38z0PeQJ1
+	F2JfLwdIl0doRpmX4fyrcd0oPvu9X+xIXeBWgPjtv9+27TF3SKybmVXanKJgAsXZ
+	m9DyJNK11W/ghf9vJzziw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789037136; x=1789044336; bh=ZYgQzfa2ctP1UICDBHl7m4arCSxFxSkit8F
+	F1mVtkqU=; b=RmGKVhSf855Dtaopl545RstTURk1eyeXbJk0rz1lc8kD2L3Rcpz
+	BtczOMR+IFNuoqyM+YTdp2hdfFO4UWU5cnwGmwutbYKycEs+dJKjQQDEFO5YxuBb
+	SqijZELFYmwd8Nl4bN2tpbrT7nCLXy/TuPvHfVeKpfWC7YBJxJZzK73uPiXmnR0L
+	9iDDJcEhijs53rmTUwOTLXVcUaGgj7VjCHgfW0sLxin6OSTru2+Jc2Vg+YixIz4c
+	0gNVQKcoajcF80ORo7sDCEUVmCod7ekqxYc5UmAYEg3K70TiNns+iCGGq06qTsSp
+	yyuwrkQ1gmzbzOawyxy3wYR2rTBFC8FkOLg==
+X-ME-Sender: <xms:UIqiaprW4RWq-sJxdABzaweJCI0aZGJ6mAOM2uA0PZZvv4Y0bH60xg>
+    <xme:UIqiasXHNn9xPQaWW5x2ckXZFRrm6bRtFLuN8593ZiSwf97CycBgYMVui4f7lempg
+    Y8HUKeR5fBqzgHlVSOwok-luoGyv6-0Fl7hrJbQyW8SdLCoEVQrdQQo>
+X-ME-Received: <xmr:UIqiahR0YZAyg9ogTPmjBcYs8-AI2C2g8q1WL99GNb5xl-oGQjTSz-F57-Q>
+X-ME-Proxy-Cause: dmFkZTE87Z+QS4xVAJvYfxA5lQAfXmH0aCot7TBmx0IaDvGmQHEsolxxhNS5RvvVKSmZ36
+    P5I61EVYH0sxtNzv6UfnGLrkEFvP4iPAR0jI1D+kk+/PF/Y1RJ5kj2xDd0ncg2Sz8CraWk
+    u+L2Iwu2cZRENajCgjruyidgflkJUEH77Rb6BIFzoc78t6Sw4WNd8m2f0OyKzLQQt7eSn1
+    g9f9ONyeUvOBi9rFwsP4OA3kPHdUz07PfjoaqmSVhELKJ2wz+dS9LGUpQZBrRzWyqWANAd
+    5+/w6NQUhzp3wSMoGE7FubkoTz7CIqwm8JKTAIuYvVwxZ+0HZo2V1psyjnWjFV6VYa46Yn
+    rIqtEnsSrEvQmvGZ9UmpuPRJiZt56xT07GoBSKpbzwiX6Ex9nCbDsJhXu98FV8NtuFL9Pq
+    Tg7Yji7Ydde8GQW9Z0v2E53sk/3QWEyCBI29M6r7KbzNMeiOsgNmwBtyMZLA4mD9uxxleD
+    pMkJFr1kNbQXMrZT4vlPMVPdBtbtrSwX5fwqJ4FQ07fPiW8EHURvX2UUemct1+YYitB2Su
+    IyBuDHMrXG6Azi6KnPGHcu2voQV45mnpPmULjn6PkQzx/BvOEcuPgc4830i3yMsnrgIF0q
+    Sq2Ay8BNNa6JPBhkZL8Qw4CDgRuB8klFITV+mOil2L8sOmho43qUcytcmsEA
+X-ME-Proxy: <xmx:UIqiak42CcUGK_F1X5V-_t3ofOwXq-9uDYKPX6iYFcyEXlbZb-xpgg>
+    <xmx:UIqiar288PFupx6D6bghvoXnWAcNDMcJixd1GNI_eE2xZEb_a0yjXw>
+    <xmx:UIqiatI1kzi2JvBbobn9t6KjZkMd1iWLjZj5dkWIBK0EtKZgG_i_AQ>
+    <xmx:UIqiap-6vAXf4kE-F50L3GYPNzty8L5f-Y0YmaY4633H3aGblG4Lpw>
+    <xmx:UIqiauV-lOCqk1XflcOqoA2znnd7vJOkZY5ZbmFSz-vkxPXHL_G1ywK_>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Sep 2026 06:45:35 -0400 (EDT)
+Date: Thu, 10 Sep 2026 11:45:34 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, nico.pache@linux.dev, 
+	ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
+	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, ryan.roberts@arm.com, 
+	shuah@kernel.org, surenb@google.com, vbabka@kernel.org, agordeev@linux.ibm.com, 
+	jgg@ziepe.ca, leon@kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v5 08/19] selftests/mm: add folio-order check for address
+ ranges
+Message-ID: <aqKFXlpSELmCtt-z@thinkstation>
+References: <20260908125105.1510704-1-kirill@shutemov.name>
+ <20260908125105.1510704-9-kirill@shutemov.name>
+ <feb76c81-db9d-4a36-9a31-0b2b31e3c3fb@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,55 +91,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831134338.1531664-9-arighi@nvidia.com>
+In-Reply-To: <feb76c81-db9d-4a36-9a31-0b2b31e3c3fb@linux.alibaba.com>
 
-On Mon, Aug 31, 2026 at 03:42:18PM +0200, Andrea Righi wrote:
-> ttwu_runnable() handles wakeups for tasks which are already on the
-> runqueue, but scheduling classes cannot distinguish that path from a
-> full wakeup activation in wakeup_preempt().
+On Wed, Sep 09, 2026 at 06:01:13PM +0800, Baolin Wang wrote:
 > 
-> Pass WF_ON_RQ to wakeup_preempt() from ttwu_runnable() so scheduling
-> classes can handle already-runnable wakeups separately.
 > 
-> This is a preparatory change to support proxy execution with sched_ext.
-> No functional change.
+> On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > 
+> > An mTHP collapse test needs to know that a range is backed by folios of the
+> > target order, and that they sit where a collapse would put them.  Nothing
+> > answers that today: is_backed_by_folio() classifies the folio behind a
+> > single page, and check_huge_anon() reads smaps AnonHugePages, which only
+> > accounts PMD mappings.
 > 
-> Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> ---
->  kernel/sched/core.c  | 2 +-
->  kernel/sched/sched.h | 1 +
->  2 files changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index d578dd635f2eb..f142ab455b797 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -3908,7 +3908,7 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
->  		 * When on_rq && !on_cpu the task is preempted, see if
->  		 * it should preempt the task that is current now.
->  		 */
-> -		wakeup_preempt(rq, p, wake_flags);
-> +		wakeup_preempt(rq, p, wake_flags | WF_ON_RQ);
->  	}
->  	ttwu_do_wakeup(p);
->  	return 1;
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index 56ac104f1f825..f30d122909e7b 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -2538,6 +2538,7 @@ static inline int task_on_rq_migrating(struct task_struct *p)
->  #define WF_MIGRATED		0x20 /* Internal use, task got migrated */
->  #define WF_CURRENT_CPU		0x40 /* Prefer to move the wakee to the current CPU. */
->  #define WF_RQ_SELECTED		0x80 /* ->select_task_rq() was called */
-> +#define WF_ON_RQ		0x100 /* Wakeup of an already runnable task */
+> Have you checked check_large_folios() in vm_util.c? It seems to meet your
+> requirements, or am I missing something?
 
-I are confused again... help?
+The changelog is out of date, sorry: since 6dedaf0d46a9 check_huge_anon()
+counts mTHP folios through check_large_folios() rather than reading
+smaps, and it is what check_huge() already uses for mthp_khugepaged.
 
-wakeup_preempt() can only ever be called for tasks that are on the
-runqueue. That is more or less the point of wakeup-preemption.
+It could do this job too, called once per window.
 
-Even the already-runnable distinction would mean things like
-move_queued_task() should also have this. The task is new to this
-runqueue, but was definitely already runnable before.
+What is_range_backed_by_order() adds is alignment check: the folio has
+to sit at the window start. And check_large_folios() reopens two fds per
+per call which kinda wasteful.
 
-What actual distinction are you needing?
+The collapse_order_* cases check three windows per case, so I wanted a
+helper whose contract is "this window is one folio of this order".
+
+I will fix the changelog if the series gets respun.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
