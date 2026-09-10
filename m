@@ -1,90 +1,88 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847ED3ACEF3;
-	Thu, 10 Sep 2026 10:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BD244A3FD;
+	Thu, 10 Sep 2026 10:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037920; cv=none; b=U4tUOzYu5uZEed9TColVAZguPuHHmjItqZZ3+9s6ZyeZgfrN3fp6RTOuYy/TVU1v3VzLKPuAEWRDzMRr2WsYWjWuKSmm/Fqzy7nNU2pyQLtXiDlBeedKMLPXvaVHOkK5CRY4G7uC65ieWVyj6g4H2AZQC+1Ad68H2GonOaWlbkw=
+	t=1789037932; cv=none; b=cobxqCXzjt6IXOndFaQDUpeJ++7ei0qR71lEJ8+85Oqxl9QjhbiUdRKLUZAVFBklHgV4y09zg2E04MyK91zzyVA0n6RSbYut2i9tWb6Sw5TOTInxdWAaYfrmKPSSvZ177cSRwPBrqTVVo+6kKBCgF7VMp4+FDja1xWePvCfyF7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037920; c=relaxed/simple;
-	bh=I2i7EFsmI1BdsXjAXQnQJ7jpc3St7XZQoXw10X36HdU=;
+	s=arc-20240116; t=1789037932; c=relaxed/simple;
+	bh=+k2qBau0oWlN64N8YFbOHW500qTc6a3eTjd7FAaSMTI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a4/C7ABDVl/4ffSzcS4WyqzpHIVAeTfEw4QzLw2lV+LQfU4WkXOJfISOtAqU0NLpwSF2Vjw3vvWw/pIVYQ6JWMBb8bLERvyENqj0fEvyJBAOR4MGChUSho3kEt93FkfC7xBp1BmMd1Dtt1Fzq4wDmqzZd7cONMRVQD8R/MrNbD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=mUqVYflZ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=25lbI7qa; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=HgE8e/jx; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SmlJtXy7; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=H7otUP9IVXJS/J25OeS2NqZifsT6Q4KaYl5K2doourSrIa9TSC65ElZC99chHKM9q7S3yT1TdvDQfZ0aAhE78f7S1xeN4JciwLd3GBfDCw1/BiMq6UUDKtZg3BREdClHJiimjlLz2qJvUa+Mdmn4bO3HdpjRwMBvuuj73mToSbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=MUOd0JGz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xsdlfMfD; arc=none smtp.client-ip=103.168.172.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="mUqVYflZ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="25lbI7qa";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="HgE8e/jx";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SmlJtXy7"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 71C4D1FD96;
-	Thu, 10 Sep 2026 10:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789037912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
-	b=mUqVYflZptaXjjpSlJaqxgUtUqYM9gnrnFAgxEZqj3/uqtiktdxPkOuGTpvcWWKVCV3vV+
-	Sy6Y3/qB5emVuZBWHdXQ3Ee+u8mzhiGN+fNx2nYzcczWEIiRrVXuosCiAOBweQF6AtX5JW
-	kKPHLHpeRkr0sjD3inRBAHoy1jR2z4A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789037912;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
-	b=25lbI7qa/heeUJgn+Vs1JbV1qn7ze1i4FZi80Dd8o1zSjgEWvuEKXGHDTHovxGSAATPraG
-	c7SzEF1J9Am92NAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="HgE8e/jx";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=SmlJtXy7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789037908; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
-	b=HgE8e/jxPaUeb+Al5xRl6Mg/aZkfutt9PiaATbWONy3v2PjanPMXmbJhEPQwKSNrTnQ3S0
-	T86rueEaz++GXPhVySsTX86bDNryXs4/bdmOrzmhwY2oj+kITkiNSesQjvu5lGvT54iqgo
-	xm8c939ejqdVfSPOGWzYq+rIiDeuFmU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789037908;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4W6If5ct6YXEvY3fTVsmQffd0wA87ofNcE9XcLzM1Cc=;
-	b=SmlJtXy7cmv1VE6M+e2kjG9osU0eSHoPIecWZE5OYYK8GIv77lu/mvNM4UNYLpadgtfvyt
-	QHYy9CWPW7cHQNCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 47C8E1321C;
-	Thu, 10 Sep 2026 10:58:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xQmAEVSNompsbQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 10:58:28 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id D374DA12EA; Thu, 10 Sep 2026 12:58:27 +0200 (CEST)
-Date: Thu, 10 Sep 2026 12:58:27 +0200
-From: Jan Kara <jack@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Christoph Hellwig <hch@lst.de>, 
-	John Garry <john.g.garry@oracle.com>, linux-block@vger.kernel.org, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] ext4: never fall back to buffered I/O for atomic
- direct writes
-Message-ID: <vgxva24firqq6eqt2wyovm6uqh356nvrsb35exzxtnxftspy3w@gb7uiv4gwets>
-References: <20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002@columbia.edu>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="MUOd0JGz";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xsdlfMfD"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailflow.phl.internal (Postfix) with ESMTP id C98E91380361;
+	Thu, 10 Sep 2026 06:58:49 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Thu, 10 Sep 2026 06:58:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1789037929; x=
+	1789045129; bh=8rq8+VZe9m3+SZ5mDhMiptVPE8GsBUkNqnozCNT2sD4=; b=M
+	UOd0JGzsof6Tw/f3fKG+9RvFHBo+3ZltjPzRALwV7VMqGVk3VEi67+RwTsR1eSuL
+	pR4ZkGCyPKi/fFrm+188fbknixnrQCMn7UFr/zf9ck3WAbibLb57gI0ToSyadSrG
+	+ND+0v5dZvg6xG+8Ih6qlgbKlpZwnpw5lAh4hrWgTY+xnbUEDcvQf6BvayKxsyNx
+	03ke9OQkhSihmesz8g3W+xhry5ggnBOyHeoUjta9Y6VvW2lyE5qz/yRJaayBwQ8P
+	UmnqAe8WVHcg/kj5G/5609iq/mXgUDkt3HFV/xgAL9xf508wnXl+RrowI55kthVx
+	WjO7DfPj6Zj8MalZ+kYew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789037929; x=1789045129; bh=8rq8+VZe9m3+SZ5mDhMiptVPE8GsBUkNqno
+	zCNT2sD4=; b=xsdlfMfD0LeTIuhdM9cMVGT6gzkW/kR6lP78adODWBI1/nxW1pl
+	E6bRGv4i1R5lUHw204tlLh1Q0iPLitDaiYqNdAFcIwPfvAX82GVbwG23nE+EuM/l
+	I3w+HzWwq6d7650tbGAh16tOx0BpDETwrbyuf/teCS/J3hEuMC7HngtLAVAFp+gb
+	QCyGVKk9iYBDJ2VnwF8l1aPE5r8sHOQQzDP9NBbwez5bsJ5Czshz3ZKlUUfR6Z0+
+	md7M+3W6nQScB9U1nHcP1fYwMPZkH+HvjcC3Wv42WF+jxYhU4b0y97hbBnPdM7P+
+	owOBSlMaTo7OIaCHr4Qix/6IL5Gr74Yl+ww==
+X-ME-Sender: <xms:aY2ialLvl_WCc7qdPqTqmj5eBTFxLCmXxSoABmL8Aoaz-0TBF99LWw>
+    <xme:aY2iah2elLMUfJxA5VCBgApIWBWErk4KmLrga9H3OgS0nNPSpelQzh3_6wNwLWVEX
+    XhU_LARc8u2d_iXAvy43hObRo_HuLeERpNBqKusEaPRlbtyn71cvbA2>
+X-ME-Received: <xmr:aY2iaozHCBSpgemmONXPJlY9FJ4wb3IRR1xdPkqDA-OTePbYja-XRIi2nuU>
+X-ME-Proxy-Cause: dmFkZTExGDeRAc2ZQvQEVOZg05RC7pzdHKVkkxCU4OVzC6eJ1yiq+dkvuNpph491rCSg99
+    ItVtML130B8ODTdy76InRXCLDNaNNaTXWNKl71VlGzapLT/PKpaq/yp6tPxANkNdjNuqob
+    hUhC5q+z3VJokLVhtdnNzOHq8HB3Gu5Ki3O9wHHpqx6QnVCJ6Mwr6zY1sfs6ioIkhduQB2
+    cjK46H5gyRhde+ukXeSmJg7XmiDbNE8++i8Ylsv0wnJwn5W1L9sKPmXxdBB0BYsnvUNs5B
+    4qHkIOL9/2e667KRTruDA/HZANASE9ZIxHm48xWT6Jg9ai0h943Ghn3IVLvfn13XDvCjWC
+    0hRqvm9u9adAy2D+4EpHVZM6yuOMWdhRnjzsZB5kJ0ADlfX1onAmme1T8y2P+48HIFQchS
+    qEjN4eKKs1AF9A4mhjZaVwcsTcCBKxlFqQAbHzVDbf8DzIoi+Jtk/TxXjO/+flg86voCiX
+    dhNKLOMU9XjrndOsqW7MLO4WJzp3yIWBo+yobvdolW0KAaHb5GIbWwJb26nfk816/+Y0ei
+    YILLwinyWechbH064xPUfH9j0eIvLki5zXBc7OicF8o1iEyzSjhXmeI06hKwf9XUhhNHoR
+    yrw/i5fQ96gbg1R3fsb/+xsQTKZDCuda0G9Whk5F232tiBT0k01IIP3DDOaw
+X-ME-Proxy: <xmx:aY2iamaQ5SqHK0oPst2FfYuUfBxWK7qgt3xX8kecxTwzAyPmv5NSZg>
+    <xmx:aY2iavWo1CeHlbBOgBInrtMf8TRHcyZuwHyDue4Wl5HWyca1GH937A>
+    <xmx:aY2iaqoZeUR2u2AenOo45yZHgdJREwfk2QxxYul2TFigf3LwPECzng>
+    <xmx:aY2iapfNcvy3O7uYvLQGZG4cubkpnBqK3r9VnKQXzTNF79KocFpHjw>
+    <xmx:aY2iarJo2Z9jMZyZWMLKPrpfakzi7KOERrmJpOzS78IY3DY6u0dZhjCN>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Sep 2026 06:58:48 -0400 (EDT)
+Date: Thu, 10 Sep 2026 11:58:47 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, nico.pache@linux.dev, 
+	ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
+	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, ryan.roberts@arm.com, 
+	shuah@kernel.org, surenb@google.com, vbabka@kernel.org, agordeev@linux.ibm.com, 
+	jgg@ziepe.ca, leon@kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v5 12/19] selftests/mm: parameterize the mixed-source
+ collapse case by source order
+Message-ID: <aqKNHUI9tuv34Cqy@thinkstation>
+References: <20260908125105.1510704-1-kirill@shutemov.name>
+ <20260908125105.1510704-13-kirill@shutemov.name>
+ <4aeaa283-a417-45a9-9298-8123192dc707@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,123 +91,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260909-ext4-atomic-no-fallback-v1-1-5a6b9539c002@columbia.edu>
-X-Spam-Score: -2.51
-X-Rspamd-Queue-Id: 71C4D1FD96
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,lst.de,oracle.com,vger.kernel.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim,columbia.edu:email]
-X-Spam-Flag: NO
+In-Reply-To: <4aeaa283-a417-45a9-9298-8123192dc707@linux.alibaba.com>
 
-On Wed 09-09-26 16:56:17, Tal Zussman wrote:
-> ext4_dio_write_iter() finishes a short direct write through the page
-> cache. For an atomic write that path only warns and then continues,
-> which would tear the write.
+On Thu, Sep 10, 2026 at 01:09:00PM +0800, Baolin Wang wrote:
 > 
-> This came out of a block device fix [1], where an IOCB_ATOMIC direct
-> write could complete short when only part of the buffer could be
-> pinned, with the rest going through the buffered fallback. Christoph
-> Hellwig noted that ext4 has the same fallback and only warns in it [2],
-> and John Garry agreed it should reject the write instead [3].
 > 
-> In contrast to the block device, nothing reaches the branch on ext4
-> today: iomap requires the mapping to cover the whole atomic write, a
-> buffer that can't be pinned in full fails in iomap before the bio is
-> submitted, and a failed page cache invalidation returns -EAGAIN rather
-> than reaching the buffered fallback. Exclude atomic writes from the
-> fallback outright instead of WARN()-ing inside it, so any future bug
-> yields an error rather than a torn write with a WARN().
+> On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > 
+> > collapse_order_mixed_sources() faults its region as order-2 folios and
+> > collapses them to the -c target.  Order 2 is below the contpte size on
+> > every arm64 page size, so nothing in this suite collapses a contpte-mapped
+> > source on purpose.
+> > 
+> > Let -s name the source order alongside -c.  The case then faults at that
+> > order, keeping order 2 when -s is absent, and the source order has to be a
+> > supported mTHP order below the target.  The other mTHP cases are
+> > unaffected: mthp_push_target_order() enables only the target order.
+> > 
+> > "-s 5 -c 7" on arm64/64K then collapses contpte-mapped sources into a
+> > larger mTHP.
 > 
-> Link: https://lore.kernel.org/linux-block/20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu/ [1]
-> Link: https://lore.kernel.org/linux-block/20260907071217.GD934@lst.de/ [2]
-> Link: https://lore.kernel.org/linux-block/a7752d1e-8ec1-44d1-a266-c287c315e8ab@oracle.com/ [3]
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> Make sense. But we should validate invalid parameter combinations for '-s'
+> and '-c'. For example, when I set the following unreasonable parameters,
+> some test cases fail, so such invalid configurations should be rejected.
 
-I agree your patch makes things better but I have a question: are short
-writes (even 0) allowed for atomic writes? I don't think so as far as my
-understanding of atomic writes goes (and based on what I could find in the
-code). But after your change we'd just return short write (including ret ==
-0) now which doesn't look ideal and also doesn't match your "so any future
-bug yields an error rather than a torn write with a WARN()" description. So
-as a futureproofing I'd maybe suggest just:
+Patch 14 adds that check; with the whole series applied,
+"-s 7 -c 6 mthp_khugepaged:anon" stops before running anything:
 
-	if (WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC && ret >= 0 &&
-			 iov_iter_count(from)))
-		ret = -EIO; /* or maybe -ENOPROTOOPT??? */
+  1..0 # SKIP -c 6 needs a source order below it, -s says 7
 
-before the fallback to buffered IO as a more robust solution.
+So this is a minor bisectability issue: the check should have come with
+this patch rather than two later.  I will move it here if the series gets
+respun.
 
-								Honza
-
-> ---
->  fs/ext4/file.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/fs/ext4/file.c b/fs/ext4/file.c
-> index 374b4bc25bd5..fb561c701d29 100644
-> --- a/fs/ext4/file.c
-> +++ b/fs/ext4/file.c
-> @@ -666,17 +666,16 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
->  	else
->  		inode_unlock(inode);
->  
-> -	if (ret >= 0 && iov_iter_count(from)) {
-> +	/*
-> +	 * Buffered I/O provides no torn-write protection, so never finish an
-> +	 * atomic write through the page cache. iomap should not return a short
-> +	 * atomic write anyway.
-> +	 */
-> +	if (ret >= 0 && iov_iter_count(from) &&
-> +	    !(iocb->ki_flags & IOCB_ATOMIC)) {
->  		ssize_t err;
->  		loff_t endbyte;
->  
-> -		/*
-> -		 * There is no support for atomic writes on buffered-io yet,
-> -		 * we should never fallback to buffered-io for DIO atomic
-> -		 * writes.
-> -		 */
-> -		WARN_ON_ONCE(iocb->ki_flags & IOCB_ATOMIC);
-> -
->  		offset = iocb->ki_pos;
->  		err = ext4_buffered_write_iter(iocb, from);
->  		if (err < 0)
-> 
-> ---
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> change-id: 20260909-ext4-atomic-no-fallback-b1550a7a3fcf
-> 
-> Best regards,
-> --  
-> Tal Zussman <tz2294@columbia.edu>
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+  Kiryl Shutsemau / Kirill A. Shutemov
