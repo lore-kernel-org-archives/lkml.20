@@ -1,162 +1,211 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010011.outbound.protection.outlook.com [52.101.56.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9A2242D67
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789014254; cv=fail; b=II+e4qWI6hmA5gZ2wpD24a4EH/iy8a3cOXbv/Y8BrP4Q/RVWaSvxlpK9uClZxOOoZqq5Uk3B+A1oF/hRfVE6n5NjJqABZeBik2ix/ZqklfKP3bCR+7uZjrl0HkU9LR4XFBW23ZipG0CxwqBkGSZYi1/TmX2gCYgGCqgabs3cb1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789014254; c=relaxed/simple;
-	bh=dj0iXWPCsodIPPxibSA0ZiQs6p/B0Jma0FM54ecQHx4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hJAFJ1QKPbGMcLo8FnrOVNT7Oy6bm6LDicf0GwhfNAd9LMLy2kqyyyv/9Chme/lSjsfwQ0pO7qYDgUtE0ZZe+MjW2Gx4QRuV9Ixfs73MzLoEBjbPql0hbf93An8lxtPekissPznqgwez0ZS3l0vzmq/p2ZUdduLsv0I36wzGv4g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AJlUmYCP; arc=fail smtp.client-ip=52.101.56.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9074396B76
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789014381; cv=none; b=jEB40kD/0QGm+N9cnkwszcE4ZkD1BDewCV+o7k/bRPl1RD91XDMid9EKRbkpv4MboFVhDOKaV1C4G/jNA+j/fhRZLcu90rIx5KbU7a+jZl/OMitzSrh2ZvgCInJ5prgPC9hed3TA3vvcDYVinP7UszI6nNQm4z0kgKCP27PJm1U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789014381; c=relaxed/simple;
+	bh=061LFgQp18L4PupwwtZzn8CT5+cZ0kYlkLMp2SmK5P8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SD94Sso1M/TTZlxu3QZWBAef5d7CXmt4jcr8VYDDTfneOMDPSpQEQGIQjCMDOd2DuPtZgouj6SBiIK1x/DZXonJro9CPG8zBsF9fjO3XtRmK4Yn0ctU4ITFk05leiDsiMAv6AkTG44qWXV+PJL0m61UhgsZqN925du5SSWyD0Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PExRhWUN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AJlUmYCP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dtLinWauMWcVYQtt7CsNQJFC6MAveP4w7UOl0OaGSIvTrq0qFLlHH13WuzOzXs1GWdrqFOZ79VpW1tvVHncfyYvLGWBR1qMJCvcavhKtAL8f4Zn0aak49gLrXmACm6ZndRpf4yEGM3ikyvoz1mfWQc8GjdXvBcmntVWgzObK2gTmB6NFYccB7uYiGjBOSSH9zHM+Nl0acxIjWZ8yRaCjrCz03iJzRWBr6ROgE6WmPPpUZYZymUcXN7hHiXaBlOlAi+WK5if3ubI9owyFv1chX9K0Prs0iRtblPGcG8ovMyQpUtX3/aR6AMVDv/WEvbfp03qpDojwJpPZn9ItF4NnAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zpbah0L05eiHmHOtHjK+Nv7fX2cEcb14L0k+7z5InzE=;
- b=f46DfiIU4TROv1ln2PotB/s2ft+MNWxlBWMMuOi446aX1YSA4TxBgLzV8N/5OsK8rENIjsmln6DVMW+18tTzzujmiWPriMi34wWPp8F828s/hhOWq4rceetd9ZaKLZPJfF2MvFnarn+YwoezBG2fA+iwufEvkB3VysO6kMwvRTrsd3Mj2W1yaI3IvhCUnhOVQ34gsSH7s+1OtgWk9z/vivPuHvupOS2Nku01UcmQbKrhZfxkDZL+LidmtmLLdOAEhsugZZlF0SfMb6WfmJ+kUyfqS6PZ6Pbace6c45mXtOm91RRdZNFpFoXzbBiXXEZkFKIhdoFmWjjF01U3LS0ARA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zpbah0L05eiHmHOtHjK+Nv7fX2cEcb14L0k+7z5InzE=;
- b=AJlUmYCPxxiLrjMyTysSA+DC0ozTDnYjKdCj7iftKBYpmmTpSgwU1AoJ8bPNmbZJv1uineSwCl5xnosomU+AOfuKHSqfPMalPTArUFX0KQBvxbG6rvdxnjk2oBbmH4qDqAfd8oaX+Mh8FcowahY0YBwvTAcSNtSM3dzuSkq/04h9TJ78UwOJbbZrjIpVAcXEpve9mPZKdVqWzbSGK3YxpN0KOBHP6QTKj4E3cMg+QjlqRExMROjbm+K3ete7HguJBLaum+rRJLI857n+AwyEk6SpUXxcWnYTrehTTFAPEE5HV6L+u90YNBaM7ZEcyfbqblg/GPk8E6mWGqMZsjxFgw==
-Received: from CH0PR03CA0062.namprd03.prod.outlook.com (2603:10b6:610:cc::7)
- by PH7PR12MB8428.namprd12.prod.outlook.com (2603:10b6:510:243::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 04:24:00 +0000
-Received: from CH1PEPF0000AD76.namprd04.prod.outlook.com
- (2603:10b6:610:cc:cafe::3a) by CH0PR03CA0062.outlook.office365.com
- (2603:10b6:610:cc::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 04:23:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH1PEPF0000AD76.mail.protection.outlook.com (10.167.244.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 04:23:59 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 21:23:45 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 21:23:44 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Wed, 9 Sep 2026 21:23:36 -0700
-Date: Wed, 9 Sep 2026 21:23:34 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>, <rafael@kernel.org>, Danilo Krummrich
-	<dakr@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
-	<aneesh.kumar@kernel.org>
-CC: Mark Rutland <mark.rutland@arm.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Gavin Shan <gshan@redhat.com>, Vikram Sethi <vsethi@nvidia.com>, "Anshuman
- Khandual" <anshuman.khandual@arm.com>, Shanker Donthineni
-	<sdonthineni@nvidia.com>, Mostafa Saleh <smostafa@google.com>,
-	<rppt@kernel.org>, Thomas Huth <thuth@redhat.com>, Marc Zyngier
-	<maz@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, <kas@kernel.org>,
-	Kohei Enju <enju.kohei@fujitsu.com>, Shaopeng Tan
-	<tan.shaopeng@jp.fujitsu.com>, Ard Biesheuvel <ardb@kernel.org>, James Morse
-	<james.morse@arm.com>, Steven Price <steven.price@arm.com>, Sang-Heon Jeon
-	<ekffu200098@gmail.com>, Omar Sandoval <osandov@fb.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Jinjie Ruan <ruanjinjie@huawei.com>, Sam Edwards
-	<cfsworks@gmail.com>, Douglas Anderson <dianders@chromium.org>, "Florian
- Fainelli" <florian.fainelli@broadcom.com>, Chen-Yu Tsai <wenst@chromium.org>,
-	Huacai Chen <chenhuacai@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Pranjal Shrivastava <praan@google.com>, Ashish Mhetre <amhetre@nvidia.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<iommu@lists.linux.dev>, <driver-core@lists.linux.dev>, Sonang Patel
-	<sonangp@nvidia.com>, Ankit Agrawal <ankita@nvidia.com>
-Subject: Re: [PATCH v1 8/8] iommu/arm-smmu-v3: Probe a guest-level Realm
- VSMMU via RSI commands
-Message-ID: <aqIwxldvOHWlNGRu@nvidia.com>
-References: <cover.1789010941.git.nicolinc@nvidia.com>
- <df25452641dc126eb334a1bfbe5eee16cc8a8953.1789010941.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PExRhWUN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3731F000FF;
+	Thu, 10 Sep 2026 04:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789014379;
+	bh=bDcKLcxvVz5jOSgqx4gz4DvfE/OssiYpCZIPKOjIx0o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PExRhWUNzCVae33RzxiWAVbydHGHhUgpEI5j8UnFkOweIb3szOTqIBXqgILowg8Ly
+	 PJeS0MAzyto8lIspWJ/xKgN8xAZegnnGp4bZQpE97DwXieF26zRMiltUXJ249beJq8
+	 W/H6mwSOt8GQsVr+Iex6gbhVHUdovBJpniVQ7Hd2UFeFtJ9mnQT05+uoB3OpRlfj7t
+	 40Ug2Led+waMW3O+/oumKc3nJaPu+xERBkWj4vTx58O/rwkZeKgDHdbmd2BtajcTdX
+	 /3TFjFhN+HvjryJLGbPDvt2x24n/n+3vNQothfpOSkKquCMo/kmUwLM6fLH62nG2TH
+	 vCr2l2y5TpGGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] mtd: spinand: cache the last read page to avoid
+ redundant SPI operations
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zongzhen Feng" <1768315307@qq.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, "Richard
+ Weinberger" <richard@nod.at>
+In-Reply-To: <tencent_522792EE6F63A5581C238FF17E9862F10A08@qq.com>
+References: <tencent_E818586423F2F16D98DEF1EC2723EE4A6308@qq.com>
+ <tencent_522792EE6F63A5581C238FF17E9862F10A08@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 04:26:18 +0000
+Message-Id: <20260910042619.2A3731F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <df25452641dc126eb334a1bfbe5eee16cc8a8953.1789010941.git.nicolinc@nvidia.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD76:EE_|PH7PR12MB8428:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8622a8be-86b3-47af-3b3c-08df0ef35621
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|7416014|376014|23010399003|18002099003|22082099003|4143699003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	+i4wPFj5cGmEckAhb82HfaZ0U2wR7LoMXv2UBB8KGaydHcVkXQCsrdDQHfhZby0wDmOGWcYz/vaID/yt2LGsa8WyRinztTzK/HelVhUOV+LctuDONR4DnqhGWC69+TstBHLQN5ckzwTb8rpp3vcUDUluhNvmT57yytK13V2tdJ2ELfhk43TXf5cyEJeVqwwtWHdO7axBqiiJAI7SX3RqSMewM5+iZH7AVGcGkY5gDbYrAPWH/BrvnzmggTYuHmnUOmUgFFWOvNgHY2N0E7nYyBmFE2o9oPohKWr99iCohUUx+IYMWpsYrR9eDT5n81/NBkq4zIhb+4+XroWwZxGxh3riblS+Zo8LR2k8EZzxTg2BMliYBRQ35RHtkwIqEXmog8qyZlP8Muq7qHm2/p23EZnX6rXAhfIlIHsmz/ftGT/3fM+1bFjx3+DClZBtDNmiYCzYP7YC1ziUbHMi79URnTMQq/w0DZPm9MkwkasW8y2ofFR5eammDkglXSYaeK2awINlmgVshxt9O9ZwbBZ97Hh7IOW8eZVjtqpmkY6tdoN2QuqqXtwDbq63/08G4u7O2huC7yLUeVucMhXu3A8xM1+sYnzbnGprpD6gX2RvI2BJWyo+uAtMlYPsw0DziOkMy4+vbZI1Gl9yrDqVQ2LHpU1fr5Ug7MT9AfTCdIrvPB93OMb89V8OQz1XTBfS/YnSRcKIP0OlhMVTXYES+xmAbA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(7416014)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LAbdey40vYp7bX9NRE3y0w4lP7WUfJHEyfHTe7IMjC9n9Ppte6FWrr7DERNYPVL1A3MoSvL2bjoj6xoTV1JZ2ZCmFo5aVe2kjGSlpdg+ymL5YNhqg2FxqYedTRjILTQ4+omnQS4qpguv7kzSG96ZAAZBP29pW/IQ0ci8QxvFh3232siXf/r03WFyNRWyQgwERRBEeImDdeHqbSBbNzoq5ed1QN8tuzkW3KBqN9u335VS7onkvwVq65+NsGvJJO4DUb59owdmoymTfpyQ3K881KHjmLl/hM42IUsT1hLQ0ewKPe+15mtkmoLJZd7WiXvnOqXNkyWcWsQuzGzU9pj3TK3GfPboZWq/W4+P7JV8+tKFISbd7UwDcKz7LQSOWw0yULs7rPxgwYch9FYub2uLpvAUHEZAdPtVzvaXwrQjlnXSGLLSsF1Npaee4qaP+I4Y
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 04:23:59.3585
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8622a8be-86b3-47af-3b3c-08df0ef35621
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD76.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8428
 
-On Wed, Sep 09, 2026 at 08:32:51PM -0700, Nicolin Chen wrote:
-> @@ -5542,6 +5591,12 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Critical] Partial page reads with software/host ECC cause silent data co=
+rruption on subsequent cache hits due to incomplete cache updates.
+- [Critical] Cache hit logic fails to check the Logical Unit Number (LUN), =
+leading to cross-LUN cache aliasing.
+- [High] Missing cache invalidation on OOB/OTP writes causes cached reads t=
+o return clobbered data.
+- [High] Error handling leaves cache valid with uncorrected data on non-EBA=
+DMSG errors.
+--
+
+commit 5e46633e4cdf72f3fb112f28479efe0c2e5ed5d8
+Author: Zongzhen Feng <1768315307@qq.com>
+
+mtd: spinand: cache the last read page to avoid redundant SPI operations
+
+This patch caches the last successfully read page in the SPI NAND driver to
+avoid redundant SPI read operations when accessing smaller sectors (like 512
+bytes) within a larger page. It serves repeated reads directly from a bounce
+buffer and attempts to invalidate the cache during writes, erases, and
+errors.
+
+> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+> index 43bbe2629b85b..a742a1cb572a4 100644
+> --- a/drivers/mtd/nand/spi/core.c
+> +++ b/drivers/mtd/nand/spi/core.c
+[ ... ]
+> @@ -577,6 +578,13 @@ static int spinand_read_from_cache_op(struct spinand=
+_device *spinand,
+>  			       req->ooblen);
 >  	}
->  	ioaddr = res->start;
->  
-> +	if (is_realm_world()) {
-> +		ret = arm_smmu_probe_realm_vsmmu(smmu, res);
-> +		if (ret)
-> +			return ret;
+> =20
+> +	if (req->datalen && !req->continuous && req->mode !=3D MTD_OPS_RAW) {
+> +		spinand->cur_target_cache =3D req->pos.target;
+> +		spinand->cur_block_cache =3D req->pos.eraseblock;
+> +		spinand->cur_page_cache =3D req->pos.page;
+> +		spinand->cache_valid =3D true;
+> +	}
+> +
 
-Sashiko pointed out a new finding (didn't appear in my local runs)
-that arm_smmu_impl_probe() would allow an untrusted hypervisor to
-provide a malicious ACPI/DT table specifying a vendor extension.
+[Severity: Critical]
+Is it necessary to include the Logical Unit Number (LUN) in this cache logi=
+c?
 
-I think it's valid, So, we likely need a guard, until impl has RMM
-level support with additional RSI validation:
+The SPI NAND subsystem supports devices with multiple LUNs per target. The
+nand_pos structure includes a lun field to address these, but this mechanism
+tracks identity using only the target, eraseblock, and page.
 
--	smmu = arm_smmu_impl_probe(smmu);
--	if (IS_ERR(smmu))
--		return PTR_ERR(smmu);
-+	if (!is_realm_world()) {
-+		smmu = arm_smmu_impl_probe(smmu);
-+		if (IS_ERR(smmu))
-+			return PTR_ERR(smmu);
-+	}
+Could this cause a read from one LUN to falsely hit the cache and serve data
+from a different LUN when accessing the exact same eraseblock and page inde=
+x?
 
-Nicolin
+>  	return 0;
+>  }
+> =20
+> @@ -780,7 +788,12 @@ int spinand_read_page(struct spinand_device *spinand,
+>  	if (ret)
+>  		return ret;
+> =20
+> -	return nand_ecc_finish_io_req(nand, (struct nand_page_io_req *)req);
+> +	ret =3D nand_ecc_finish_io_req(nand, (struct nand_page_io_req *)req);
+> +	if (ret > 0 && req->datalen && !req->continuous && req->mode !=3D MTD_O=
+PS_RAW)
+> +		memcpy(spinand->databuf + req->dataoffs, req->databuf.in,
+> +		       req->datalen);
+> +
+> +	return ret;
+>  }
+
+[Severity: Critical]
+Are partial page reads handled correctly here?
+
+When a partial page read occurs, the full page is loaded into the cache and
+marked valid, but only the requested req->datalen bytes are corrected by the
+ECC engine and explicitly copied back to spinand->databuf. The remainder of
+the cached page remains raw and uncorrected.
+
+Will subsequent reads requesting a different chunk of the same page hit the
+cache, bypass the SPI read and ECC correction, and return uncorrected data?
+
+[ ... ]
+> @@ -849,6 +862,20 @@ static int spinand_mtd_regular_page_read(struct mtd_=
+info *mtd, loff_t from,
+>  		if (disable_ecc)
+>  			iter.req.mode =3D MTD_OPS_RAW;
+> =20
+> +		if (spinand->cache_valid && !disable_ecc &&
+> +		    !iter.req.ooblen &&
+> +		    iter.req.pos.target =3D=3D spinand->cur_target_cache &&
+> +		    iter.req.pos.eraseblock =3D=3D spinand->cur_block_cache &&
+> +		    iter.req.pos.page =3D=3D spinand->cur_page_cache) {
+> +			if (iter.req.datalen)
+> +				memcpy(iter.req.databuf.in,
+> +				       spinand->databuf + iter.req.dataoffs,
+> +				       iter.req.datalen);
+> +			ops->retlen +=3D iter.req.datalen;
+> +			ops->oobretlen +=3D iter.req.ooblen;
+> +			continue;
+> +		}
+> +
+>  		ret =3D spinand_select_target(spinand, iter.req.pos.target);
+>  		if (ret)
+>  			break;
+> @@ -858,6 +885,9 @@ static int spinand_mtd_regular_page_read(struct mtd_i=
+nfo *mtd, loff_t from,
+>  		if (ret < 0 && ret !=3D -EBADMSG)
+>  			break;
+> =20
+> +		if (ret =3D=3D -EBADMSG)
+> +			spinand->cache_valid =3D false;
+> +
+
+[Severity: High]
+Could the cache be left valid with uncorrected data if a non-EBADMSG error
+occurs?
+
+In spinand_read_from_cache_op(), raw data is loaded into the cache buffer a=
+nd
+spinand->cache_valid is prematurely set to true. If the subsequent
+nand_ecc_finish_io_req() fails with a non-EBADMSG error (such as -ERANGE fr=
+om
+software BCH ECC layout parsing, or -ETIMEDOUT from a hardware engine),
+spinand_read_page() propagates this error.
+
+When the loop breaks here on ret < 0 && ret !=3D -EBADMSG, the cache is not
+invalidated.
+
+Will a subsequent access to the same page incorrectly hit the cache and ret=
+urn
+the uncorrected data as a success?
+
+[ ... ]
+> @@ -1080,6 +1110,8 @@ static int spinand_mtd_write(struct mtd_info *mtd, =
+loff_t to,
+>  		if (ret)
+>  			break;
+> =20
+> +		spinand->cache_valid =3D false;
+> +
+>  		ret =3D spinand_write_page(spinand, &iter.req);
+>  		if (ret)
+>  			break;
+
+[Severity: High]
+Are other write paths missing cache invalidation?
+
+While this patch correctly invalidates the cache in spinand_mtd_write() and
+spinand_erase(), other write paths like spinand_markbad() and
+spinand_otp_rw() also invoke spinand_write_page().
+
+Because spinand_write_to_cache_op() unconditionally overwrites the shared
+data buffer (spinand->databuf) with 0xFFs during any write operation, this
+can cause the cache buffer to be clobbered while spinand->cache_valid
+remains true.
+
+Will subsequent reads to the cached coordinates falsely hit the cache and
+return clobbered data instead of the actual page contents?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_522792EE6F6=
+3A5581C238FF17E9862F10A08@qq.com?part=3D1
