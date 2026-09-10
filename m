@@ -1,80 +1,145 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135B648822D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCE3489867
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044146; cv=none; b=cOkvc83FNa6l8mFRfREkVZ4WzsUrSY6MivAVk2SFO29BogdZNiy8WTsWOkobv0Bs4MhGQDo5YsE8vt34uju0DKx0Lycuj70KVR5oDPQeS+PUZ1RwTTXQtb1idwv6hxu6CBFZF5pWwyKVaF1KHlTegu1IISNQSmyAq6rwq78FvIg=
+	t=1789044151; cv=none; b=DJRGlPq3S4Vrjg8S4ZU3VVE9SfuQteJi7vJEAaDTg0mDN9AeBXdhyC3ttQummXWMXwl/XtNfOBlpoymMsOYQBGeLVIpUI3j1ldmuis47a4ft4Gt5wnH+iD9YeFhHWYRokO1HVCL8CQYnZDwiX1qgzg9k8mmBrp6MhhEXcjE/yDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044146; c=relaxed/simple;
-	bh=emRs8TVGLp7CDj6L8UUWJbEMGYVcjNGljr4x5y1Fbqc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=losywqFCRZ6Wk52T7LQ78fiGqTcIbCMn0ckp8nWTmfBKRlVZYFFnEx+LNGcPGzQ3P42J/bwu9tp2pj2i0MuB74wkiJ/qnlDoXuFdxlA2g4dssIy6zybDLMapVIG89AptS+90jbrVQGWUiFRrWQT7zZaJAqJ6/nLlleMuKD5cfqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0dmmUG20; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789044151; c=relaxed/simple;
+	bh=SMz1n2qZSUfU+2cgkcz49kZ4uQA0DD7hBcMOHyDLDOg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oQmrRgXGha8WD1Ly6xGl2H2jEIKk6kWXVbgTJUPHJubzrWzx9kvC/euGiwPrt9rrHQysnOe7sOYq7qfEtxha9V+htiPOpCFL16fvZwr2WOUuwFwmzAF2u9bp7H1eVl2GUCGheqiqBhvzgz0PxgRYG6+qQnF7XOa6Se5mZ8VZqK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CbPf6LrA; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0dmmUG20"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BF9681A010B;
-	Thu, 10 Sep 2026 12:42:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8C21E5FA2F;
-	Thu, 10 Sep 2026 12:42:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C18A611C7942F;
-	Thu, 10 Sep 2026 14:42:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789044140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=emRs8TVGLp7CDj6L8UUWJbEMGYVcjNGljr4x5y1Fbqc=;
-	b=0dmmUG203ziZOKhEZV0GqNJbH1k9/jQkyT1pomwJQ8GEBIqfbUHEzuhqzjv3u6j3bNxgjT
-	MFPxsxtBFR5vHUKBkE3HJbnlTXnU6vaIuwm/tbNPhuvtl81x9zionvOm7Qy2MlzCruDo8z
-	Ou4upUUzzXb6YpUtw/vDJ4CBNT1qYjrwvorE9JNkoqQGCloESLzdTTZDbcVQ1Mo6UMBbR/
-	bmzvlrFPvhPNs1eeoE8Z9oeC/2/uIoLYJMkPMwIdvlQYWOSzn8XH4pbRYbgNkNCz6VDx8P
-	8UZPpg5zF0j1kfQOSrn6ulI67IYFo49xNwjXN5JDJsf2z43TGpoeq87avrFcbA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: "Zongzhen Feng" <1768315307@qq.com>,  "Vignesh Raghavendra"
- <vigneshr@ti.com>,  sashiko-reviews@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  linux-mtd@lists.infradead.org,  "Richard
- Weinberger" <richard@nod.at>
-Subject: Re: [PATCH v4] mtd: spinand: cache the last read page to avoid
- redundant SPI operations
-In-Reply-To: <20260910042619.2A3731F000FF@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Thu, 10 Sep 2026 04:26:18
-	+0000")
-References: <tencent_E818586423F2F16D98DEF1EC2723EE4A6308@qq.com>
-	<tencent_522792EE6F63A5581C238FF17E9862F10A08@qq.com>
-	<20260910042619.2A3731F000FF@smtp.kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 10 Sep 2026 14:42:15 +0200
-Message-ID: <8733vhs2fs.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CbPf6LrA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789044147;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YFi1wI0axV9T/N/bsBEiFja16TRKzsIA5VOlO65mHUM=;
+	b=CbPf6LrAhPry/eeS1iWXyijC2A8WA0XiWjECfJDs1/jdtkI4S4rLo8Ay3+VhqPenk2jFkD
+	+FgQP91SFELiR1phf56bhxlvwnLlU/UhncT0tNYcKhWV0M4s7OW4j6S9M1f0Dy1Ml3nT0X
+	xkCYDzTOlQEdbmB6BIjwnZ78EprSrnE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-102-6Aw1p6L9MhKmBrjsldD0Gw-1; Thu,
+ 10 Sep 2026 08:42:21 -0400
+X-MC-Unique: 6Aw1p6L9MhKmBrjsldD0Gw-1
+X-Mimecast-MFC-AGG-ID: 6Aw1p6L9MhKmBrjsldD0Gw_1789044139
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E0537180075E;
+	Thu, 10 Sep 2026 12:42:18 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6AE9330001A2;
+	Thu, 10 Sep 2026 12:42:15 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [PATCH v3 08/13] lib/crypto: sha1: Provide functions for zeroizing hmac_sha1 structures
+Date: Thu, 10 Sep 2026 14:41:27 +0200
+Message-ID: <20260910124138.417439-9-thuth@redhat.com>
+In-Reply-To: <20260910124138.417439-1-thuth@redhat.com>
+References: <20260910124138.417439-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Hi Zongzhen,
+In certain cases crypto code needs to zeroize their local hmac_sha1_key
+or hmac_sha1_ctx structures after use to avoid leaking sensitive material.
+Provide hmac_sha1_zeroize_key() and hmac_sha1_zeroize_ctx() helper
+functions that e.g. can be used with __cleanup() to automatically zeroize
+the structures when they go out of scope.
 
-On 10/09/2026 at 04:26:18 GMT, sashiko-bot@kernel.org wrote:
+While we're at it, replace the related memzero_explicit() call in
+lib/crypto/sha1.c with a call to the new helper function.
 
-> Thank you for your contribution! Sashiko AI review found 4 potential issu=
-e(s) to consider:
-> - [Critical] Partial page reads with software/host ECC cause silent data =
-corruption on subsequent cache hits due to incomplete cache updates.
-> - [Critical] Cache hit logic fails to check the Logical Unit Number (LUN)=
-, leading to cross-LUN cache aliasing.
-> - [High] Missing cache invalidation on OOB/OTP writes causes cached reads=
- to return clobbered data.
-> - [High] Error handling leaves cache valid with uncorrected data on
-> non-EBADMSG errors.
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ include/crypto/sha1.h | 19 +++++++++++++++++++
+ lib/crypto/sha1.c     |  2 +-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-These still seem valid :-)
+diff --git a/include/crypto/sha1.h b/include/crypto/sha1.h
+index 4d973e016cd69..bc0046bffeaee 100644
+--- a/include/crypto/sha1.h
++++ b/include/crypto/sha1.h
+@@ -7,6 +7,7 @@
+ #define _CRYPTO_SHA1_H
+ 
+ #include <linux/types.h>
++#include <linux/string.h>
+ 
+ #define SHA1_DIGEST_SIZE        20
+ #define SHA1_BLOCK_SIZE         64
+@@ -96,6 +97,15 @@ struct hmac_sha1_key {
+ 	struct sha1_block_state ostate;
+ };
+ 
++/**
++ * hmac_sha1_zeroize_key() - Zeroize an hmac_sha1_key structure
++ * @key: The hmac_sha1_key to zeroize
++ */
++static inline void hmac_sha1_zeroize_key(struct hmac_sha1_key *key)
++{
++	memzero_explicit(key, sizeof(*key));
++}
++
+ /**
+  * struct hmac_sha1_ctx - Context for computing HMAC-SHA1 of a message
+  * @sha_ctx: private
+@@ -106,6 +116,15 @@ struct hmac_sha1_ctx {
+ 	struct sha1_block_state ostate;
+ };
+ 
++/**
++ * hmac_sha1_zeroize_ctx() - Zeroize an hmac_sha1_ctx structure
++ * @ctx: The hmac_sha1_ctx context to zeroize
++ */
++static inline void hmac_sha1_zeroize_ctx(struct hmac_sha1_ctx *ctx)
++{
++	memzero_explicit(ctx, sizeof(*ctx));
++}
++
+ /**
+  * hmac_sha1_preparekey() - Prepare a key for HMAC-SHA1
+  * @key: (output) the key structure to initialize
+diff --git a/lib/crypto/sha1.c b/lib/crypto/sha1.c
+index b687b89d97cb4..c4361ef77166e 100644
+--- a/lib/crypto/sha1.c
++++ b/lib/crypto/sha1.c
+@@ -275,7 +275,7 @@ void hmac_sha1_final(struct hmac_sha1_ctx *ctx, u8 out[SHA1_DIGEST_SIZE])
+ 	for (size_t i = 0; i < SHA1_DIGEST_SIZE; i += 4)
+ 		put_unaligned_be32(ctx->ostate.h[i / 4], out + i);
+ 
+-	memzero_explicit(ctx, sizeof(*ctx));
++	hmac_sha1_zeroize_ctx(ctx);
+ }
+ EXPORT_SYMBOL_GPL(hmac_sha1_final);
+ 
+-- 
+2.55.0
 
-Miqu=C3=A8l
