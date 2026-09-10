@@ -1,126 +1,124 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11013058.outbound.protection.outlook.com [40.107.44.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43915146D5A;
-	Thu, 10 Sep 2026 03:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009462; cv=fail; b=kvwTnyCsYmQB2G6nbPEDb16xXU+kIt38TC2Bu2/fxvWUzsdjlgkMWsAKHmsLin/bs6X0gJaJt/PQHRTWqSVOTapYu7hM9YB4+7QaC+jpnzxZOUOtN/lFs9FlezesA0fNx4dmCKXToug8juqigyrhYjDRHHdMf9tflr4y/xmfOKI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009462; c=relaxed/simple;
-	bh=Q1ybr7DX3I+DbmV8tYrEiL7orDFZQ0ncEY5WYm8tfrI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dUEJ1MHy3nzDH/QH4bRN/H2K07biWp8aYMdfXJBqG9qMquHQIVSTX/pMXJ554499zP3Jspc5TasP45Gsnxd6iuvtAbQmfUtJuh4cmAIvEjX7FiCsTaKKdxnbofhBlff90HcsVWkcO8uRyP1lGgGAJHdn2dNvOdpBFL+vhlbx0hU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=moxa.com; spf=pass smtp.mailfrom=moxa.com; dkim=pass (1024-bit key) header.d=moxa.com header.i=@moxa.com header.b=X4ZBxshp; arc=fail smtp.client-ip=40.107.44.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=moxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moxa.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797A33859E0
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789009492; cv=none; b=Sym0nDdTpV/W9rSu63XPbsjRUOknbQGnGkSkTg0Iea6LuBkonedzGkCPwe7J8aHAYr2/xtPMwEUuK6yhLsx2XUkzL0q0zxbCGT79/1MVyBLSBSNCVExaxeBFTTHJ+ZyLjL1sDhrxhl1hPlS+zFD9jRGlXc7vu9gD/boG9HrErVs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789009492; c=relaxed/simple;
+	bh=11x8nh4/GocuGyfa6j5tOwvYau3RbR+l13vudjCrR34=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KsHjyUo3SpbLqeOmrVZVEJWffPzgkozYSgQ6aTiMsIs+X/Q33kaGeisDXZTNNcrbqXNRTyMrCzk54oFhh/TsfS0KYMAlmxwxW/mo/XFfLZ0URujcYBT63JXroJT0w3ofuje3I8mdLkCGGCYtwSlf3iYrNaXEUxDdgvHz04rMnCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=compal.corp-partner.google.com; spf=pass smtp.mailfrom=compal.corp-partner.google.com; dkim=pass (2048-bit key) header.d=compal-corp-partner-google-com.20251104.gappssmtp.com header.i=@compal-corp-partner-google-com.20251104.gappssmtp.com header.b=pccOBGhQ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=compal.corp-partner.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=compal.corp-partner.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=moxa.com header.i=@moxa.com header.b="X4ZBxshp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZNkYuz8GSBmCFWQ9kKHXRQxR/TsDdYEVQSUhUhAko7dO8x5LrShGvPh4b3lWCrAzBdoUi4zUEG2uGSE2VeTKBaDxMSLRTfZVmGJ+KIhQPamqn3SfAycIfEteRJa3JXOPm0LLP+nPphqAiTjdne+DnAcnBu0lIEV29t/02OmvdHa0KMlEnHng0K9ABtuPLP4C7nJVBL6mcQ8Nfj+KxgzRTFMEUC+D3N3B4ONWDEp1lekM7fAg3TL0jdXxVc4wG4arkZTVg90BD9jthLd+1K/aZBFmaKbqymPHorBQdgSNt9q0h6a5h0/pG1oJmyCWMBD+RQbAotTXOhS2j6sxMuzV/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q1ybr7DX3I+DbmV8tYrEiL7orDFZQ0ncEY5WYm8tfrI=;
- b=SP4XXpVViB+SA4UCbkKkkwAqoZlerW14CNZmpfytEE3dpKxDiaCic6F0e15et4GcPiBVMkDlHSY91BtKNP58fkKBHzCE7488Tvy8s7IlaHLbT7z92PDpimjp19nSf0fyJjkJEihuMxk0JcCjN/Xv7PnZE42DqU0L/n01gAc30kXRfnD8J0jJoH23IQnpx2lyDMudR/rCOEDQ54F5dS7bU9yH7oqrAqi4aymbpYIXi0KewCZBXmvUryKOUD3bWB6IaqNHe/E67OlabLsF49T89q3cyhH1qno9C7O0eabA1JQB00n2jJdvaMeJ+NsMCV2PUwm0IMBPhNo0mRxuJkpomw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=moxa.com; dmarc=pass action=none header.from=moxa.com;
- dkim=pass header.d=moxa.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=moxa.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q1ybr7DX3I+DbmV8tYrEiL7orDFZQ0ncEY5WYm8tfrI=;
- b=X4ZBxshpG8ZuyhkFtBZYRhnW8imbUg4sE3PN71qQLmGLxuW3PLDC4wq597nSLZpSI1lYtG/w0nrCzaWRZKWyp0mHXwV0XOWx25L2Aemm/dWNu6uQW+j9MrrPd4qtX7skBiShMNTELV6k5AE1nNrQbORU16QCZiXe4qFaylLEQHk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=moxa.com;
-Received: from PUZPR01MB5405.apcprd01.prod.exchangelabs.com
- (2603:1096:301:115::14) by TYZPR01MB6073.apcprd01.prod.exchangelabs.com
- (2603:1096:405:74::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 03:04:17 +0000
-Received: from PUZPR01MB5405.apcprd01.prod.exchangelabs.com
- ([fe80::ae38:e821:cf7d:3717]) by PUZPR01MB5405.apcprd01.prod.exchangelabs.com
- ([fe80::ae38:e821:cf7d:3717%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 03:04:16 +0000
-Date: Thu, 10 Sep 2026 11:03:23 +0800
-From: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: FangpingFP.Cheng@moxa.com, Epson.Chiang@moxa.com, EddieSY.Lin@moxa.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/6] USB: serial: mxuport: add MUX50U support and
- updates
-Message-ID: <aqId-z4u65j7Szqi@moxa-ThinkCentre-M90t>
-References: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
-X-ClientProxiedBy: TP0P295CA0053.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::8)
- To PUZPR01MB5405.apcprd01.prod.exchangelabs.com (2603:1096:301:115::14)
+	dkim=pass (2048-bit key) header.d=compal-corp-partner-google-com.20251104.gappssmtp.com header.i=@compal-corp-partner-google-com.20251104.gappssmtp.com header.b="pccOBGhQ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso948807a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:04:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=compal-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1789009487; x=1789614287; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sLZ97DnFTLkm0PkrD3uKvAkUsl4fwc4lT7Olf3ovjLc=;
+        b=pccOBGhQFadgYvKH3kaA/uZ6H1pE+BCcQUj1eAsGkoc2Zt0xVWXAoMJsllb1XGJEvG
+         7/D+OhctvFOIRhv6IO3dFKpIQA0qfU7Fo12QVy5cuiux8KKTdSPtvSSmSFaSw2Mj2is6
+         zjl12L6u9tfaiviJ2n/UaOwUl9LsErMeXsjgSAb+wnhHuz4AHUaMSgl7YPy0zuTJRrz8
+         fxNPZjuV+jGjwnCv3Ge57LI6/zyknCTUjh6of9aMAhy8JWj5R4DeJfyujikcy6K10jd8
+         bJ5GRxtr4Je84CzuDm/h+bDsGXKKKdFXhyOzkAY6Qf7pNLJhYZQpGBwrtbQS1L50w+Kf
+         s1Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789009487; x=1789614287;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sLZ97DnFTLkm0PkrD3uKvAkUsl4fwc4lT7Olf3ovjLc=;
+        b=SP7T/QjZJqEf0JWiUxfK+agyldto9VAel3ZVp62BOT/Y9BbRO2pDrp2IMasxdeXMA5
+         x4fB+GUE23akl4ifUAgLbdNoGKvhd+P7oDeS4Fd8S7EhDVtz2IJRu3scIu0S3FNcyQnw
+         uw+CciA4CjSLzKC49ZDYMG58YMZFtXlt+sBpy4BIWP4r7GyezmD9WPjw5dAquytVU8ri
+         OkD8oLsbU+jj3XCLDlsLyVZpeAruUf3bAuWwx3SDR2Hdawnq9f7n8b/fEigvkwQVXcQ9
+         W1JRaJnt302Rg/SSmrObn8dZBdXlpw3g6i2beVoaGKCO8H62QisarLP/7Llj4K/M7mtN
+         6b8w==
+X-Gm-Message-State: AFuF++mskHJjUVM0azIqvF5FGsexzzMVcJi1YSNoLtevzFomvp9qzdrY
+	bD4Zr/C4cFsjJ4Tf4GO0ODPZqXBUlJjRANmOhsRbdp4YcKPyUsnwxz7vtcGDXIW0OFwYuqdojW7
+	+abzV
+X-Gm-Gg: AYBFou2cDARd7QOC4qCsHaQEMPeAM8/E+JkaYZJh+Y3uaiNG2FSYr4CbmKgioaQkyv6
+	hA+R9gh2Q7+gbBZMNPlrm6wfxpbZDb9j5HRfRjhhq0TojM3i4PA4RhEiQY4cUujoD0cpGpHW/zK
+	E8wrB/CnPZUQFgk+Ah8tDH4Axk/UJ8mm19mrwebvs4nCPHYP3NMPHtUhCdhapoXWPbxsezGBU+x
+	ZjxfcXQ/AIAdTCf/Nx2jaoHAncBPJeJEXsr7/1JTpgVZlGUqExHtbuaOuXiYQ9jfGlkfL5Wl7sd
+	CufoYgkJChF8G7xw/F7mdjiBAxJAQelE6GfSPTh6fWCjMY/7eBsJw/aXnrEDKdWRVh9aYgFHf7H
+	cVa0IdrI/jRvpG1XFfkEVZeTNYQrfWWlXG2hdGBG3kxfBpK0Mo2FYqe2/uh7lPEVL7JG4LqyCbm
+	VGmi4JyZ9cb0UqqcTvzNKDtPvaf0m0rAsB3jce1OCP3cHJXBBLTxKAUukC0yBtTByIOHge70TSF
+	Q61qxbuPGZJjCQ0Gb0ZIk3iIIQUazvu9QeAxiHGKERM1mFlpS2DtDIhDJwMHu8=
+X-Received: by 2002:a17:90b:558c:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-39d70ae1a5emr7626555a91.13.1789009487545;
+        Wed, 09 Sep 2026 20:04:47 -0700 (PDT)
+Received: from terryhsiao (61-219-175-100.hinet-ip.hinet.net. [61.219.175.100])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39bae865d2csm2733421a91.1.2026.09.09.20.04.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 20:04:47 -0700 (PDT)
+From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Cc: Douglas Anderson <dianders@chromium.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+Subject: [PATCH v1] drm/panel-edp: Add BOE NV140FHM-T0A
+Date: Thu, 10 Sep 2026 11:04:31 +0800
+Message-ID: <20260910030432.1009658-1-terry_hsiao@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PUZPR01MB5405:EE_|TYZPR01MB6073:EE_
-X-MS-Office365-Filtering-Correlation-Id: 372035b4-bf26-4236-332c-08df0ee83329
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|52116014|376014|366016|10067099003|22082099003|18002099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	+LBt/3EccK+k+/xXPop9fpMYek5M96FGY/wYCUIcx6oaldkxEOS0PDOHBbFHjQRM9MrEz/coudeWDs908QGZrco+W6MEUJoQGH7Ao1k7ziNnZQk6Pejp+sIa2g3SEJ9tIMAMeXrBftroZXYXg/324Drtp8mEGKwZDoNqWcvi6u4uiH3UFSM4CLkm5XFZxoOctnMPbwHKbJLdLMBTN8qU5PgSTaABj3Wda4T+najoL3Kq1LC3rv2unCT7UK98YHOfFXdA6Vfb8pVzmO3RRZB0eo/gNgelO91iyZudcXqV6eLach3rdKsA5bREllg7qaX94SV9i2WmQS4z+23ZgF0ezdPa/YunNOLDGjRz8lBIXXsglFUK9Ox6UaU/mvM4FKowfdn+a66lMIIW6D+f081MAsnqlqAKAxo+VNc87yqY8G7+qNLgQx8CPLDc9u6AFOB7UeXZSa1QZbUGTKj/WQdpRidhI7i1IFiHTBZR6QFmBccOZppFVM1t+ohlEB+pgEfa7/6WYppe2RAhcQr7OU1zQFNFlyhGh+67ZenF0pofHsqLeI9rpoWPn7qdX29NQgalqTBjk7x0cDjT4LQ4lRPydQy7q341fDjKbQq0YRj2rh30sY+IVHpFHmAAuFLhCASzpdv4nkLR0hgY+0FXCONQpquUngUk8kSYPqQTJdsIROUjF15oOw88MvTneehmiqz8Q8vPXo3pDa4mnBoBMJgtmUJLZok8wWaj0UcJwfBa3c0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR01MB5405.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(52116014)(376014)(366016)(10067099003)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?T97haQtGrKaf2X8/G5HhD40it0f4EiSs+b88WOQQ8My8e98Wi8yoYcSSbXlq?=
- =?us-ascii?Q?oDzHBb5YSzHu3YszQ4uFuXRWydrSTnjytfEoLLfyIUH1tRNgpm8HoLA+ewOL?=
- =?us-ascii?Q?sgBBMzEbmGr9lcKK6C56AzFE5g7qX99hCl6uTNHg440u/+fLEdDIvqWpzad5?=
- =?us-ascii?Q?y1lhsChp/o6Uvl0addIz+LBQspgKhNysPftCs6AA2Mg2335k9o2+vZ8NZIBz?=
- =?us-ascii?Q?aqF6xgcfjZ77DWd91u5lQh20bvSKPhha05sPNSDtpe4J9NURuFwwiRANveJn?=
- =?us-ascii?Q?EoxBuVWt2+UdLiVv+q97Xs6cbTkZ+EhvE5l4696VGifDU58vJupPgUWd9GGt?=
- =?us-ascii?Q?5oTi8p9pquP2h1ZXMUMw1oD+PKXgmNCo5GiFEYyBmwlMP2OPpn0Q0luvg3yp?=
- =?us-ascii?Q?CQOTyAAYFcO8gUgI9/t/ZfVgeGvNJq/IXjwq1fAD4zQTAhBotv/uJV4Xrx83?=
- =?us-ascii?Q?zC2WTqbB5vtexgM3d3huAawJfJWW2l3YpX0Zg1mXWxqiDgWGBH350dwLkwOo?=
- =?us-ascii?Q?MF71i2CLRFRUCFTnR2X/4u03Ly3EZ/WeaO6vAh60HN9uaPthn+yQ0J/g6eLO?=
- =?us-ascii?Q?9X7kavLZjgSRXQgfvgGZcpa1zNWo46h/OeyZTsPQH8jhFT9vBXjs3st3I2ta?=
- =?us-ascii?Q?5MBbIInF0ENw/Vtgek7TDo7PVKPPeAJTnl9w8XWOpvpGII/ZUIsG251U0yp/?=
- =?us-ascii?Q?elWdT/VamxgIXuxLldKq6x6jlvBTuMcykah4Fvhs47uTRqn8wsSHgyAyJAZO?=
- =?us-ascii?Q?uz2kw9phKSLoq8qAs/BV9IX4jAVJaNEK3DHnOJOr0gXewSac7v7HBemmNu/3?=
- =?us-ascii?Q?embX3H0bf0TWeGtyzTQWkr5fZZlPK9zb0G6GzZaODF6Fd9Bk9Dt5xWjtHUZc?=
- =?us-ascii?Q?J0LLi4VigMEAYn2XLJ3t641U/qqFE+Ry+ShmNbwr4M3VdGfExyAilnho4hJW?=
- =?us-ascii?Q?LT2JYpWKyqIDrEgnJ9LEh3csuiuriF0J3BBSMaFrRhBWhu6ZdFF7NlBP9xhf?=
- =?us-ascii?Q?PH3qlHBi0bnk36GTq06S/KguaQzLZWvGGPfFmZLIUB+zckit/ZpKf7omSs/W?=
- =?us-ascii?Q?9+FjTxfFaXgdfKWE+pBms9CZaQamcwSZypMkZGovd7p2lAubqS953MtdvMIJ?=
- =?us-ascii?Q?KsTJW6c7ZV5GCEfmKnERHROJJagCTunZmbY6bw6l9JEsgBSLtn60IOTNgwr3?=
- =?us-ascii?Q?vHPx/rcU6/XgDN5GIBfQphxYRKuSTk+aBZTQfo7nxjLMBlO5wuuM1OWcAb9R?=
- =?us-ascii?Q?DgM46Okv+Pg2U8oylI1WrBs3OCCnDgRJGxf4uXIIkPxeWipZeBDwUM0/nQSn?=
- =?us-ascii?Q?U+d5Y3R4QdW1tYB/6g+YVg6TzEv7iUqTEoen8o7ctXjIoUpJ6/VToDWeceCP?=
- =?us-ascii?Q?vSywPbnJLtK6qwbyJj2kZA8EGhlxF0xUm5B7JsA6Er44uIp9TBHIv7+vburR?=
- =?us-ascii?Q?6S1dsOQFUJnfg/o/Sgc9hqHlsYxNtZXvM6q4plLxXa/ui/B69WmBKdlr2XfV?=
- =?us-ascii?Q?RZM1TKZ3NBYj75LI65biu8BVoso6XgZiD9Jz5di4Sco0T2RHk84txeAIEJQO?=
- =?us-ascii?Q?S4fckmKmbh6SrCn6OH4cpiaiPrx2WxFqqsK0Peypd4aoRbJyx4dQTVthBbjJ?=
- =?us-ascii?Q?yDcJBMErZmkESvDJQXr1raqdB+VG62khFcu0THTFdVZIx7MWCnDv4iSM2BFQ?=
- =?us-ascii?Q?H0RfMnUHMcDc7nSG7B/3D0MNZmOBCHAZUJFs+2YkoiyBe2JcqnsJDeK0jadV?=
- =?us-ascii?Q?9Qu7A33R6FCBVSVKcCrspPq65Eb4rXI=3D?=
-X-OriginatorOrg: moxa.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 372035b4-bf26-4236-332c-08df0ee83329
-X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB5405.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:04:16.6168
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5571c7d4-286b-47f6-9dd5-0aa688773c8e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ws1PC21IqYpLDbxAkSxcorjPK/x7TqGcjz8FUGQpsM0x2737t+3KYpG8qLXkpZaCe+T6OifOwondNzQWMdYvrXiKVyy+CKlfl7Y5/SuGQBs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR01MB6073
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The raw EDID:
 
-Just a gentle ping on this series. Any comments would be appreciated.
+BOE NV140FHM-T0A
+00 ff ff ff ff ff ff 00 09 e5 ea 38 00 00 00 00
+1c 24 01 04 95 1f 11 78 03 28 65 97 59 54 8e 27
+1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 c0 39 80 18 71 38 28 40 30 20
+35 00 35 ae 10 00 00 1a 80 26 80 18 71 38 28 40
+30 20 35 00 35 ae 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0d 40 ff 0a 3c 7d 0c 10 21 7d 00 00 00 01 38
 
---
-Thanks,
-Crescent Hsieh
+70 20 79 02 00 25 01 09 7f 41 02 7f 41 02 28 3c
+80 81 00 10 6f 1a 00 00 03 01 28 3c 00 00 4a 5a
+4a 5a 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 c8 90
+
+Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+---
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index bfb49b647b96..b66751df502c 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2084,6 +2084,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x3879, &delay_200_500_e80, "NT116WHM-N21"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x388b, &delay_200_500_e80, "NV116FH1-M31"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x388c, &delay_200_500_e80, "NV116FH1-M30"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x38ea, &delay_200_500_e50, "NV140FHM-T0A"),
+ 
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1130, &delay_200_500_e50, "N116BGE-EB2"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1132, &delay_200_500_e80_d50, "N116BGE-EA2"),
+-- 
+2.53.0
+
