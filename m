@@ -1,85 +1,121 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5EE4E476CF1;
-	Thu, 10 Sep 2026 11:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAC946D56B;
+	Thu, 10 Sep 2026 11:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041267; cv=none; b=l9JhV80DQ+2gKEfPEcSTqUynMyX31VHjPLTm53/uEGl5snr4YR03SMnVViGLe6BUapTJDmy6ji+k4iXZXQrfb+Bl8r3f4D6Lz10lKrnOTMlF0665xw/Y35MDFsyb6s7NwGEmmm14i4RLNSVOkPjDy/bmYg1jEBCTeNnWq9yZE98=
+	t=1789041267; cv=none; b=OW9wpqKeUZ6uU5+d9vqbga+Pfr4tUyFhaMjtFEoQPN8M0VgTWTKLN8JVUnwWJrkZ8GrsdUJhHN33gOOJSx+TX3fhLdxazXEiAz4oIWFkDpilbBl3IQPBv0je27Zeva2AlbKvH37ZoKTzr5yVksWCz0H99V0DjCFs8ICqTgcqRvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789041267; c=relaxed/simple;
-	bh=fmF2RIlJj4fCUlE/+4C6JdTPW6Tucs27fKJP9LhOfjM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=evv5IhNDDIBv0eTrRU7kF2eg7RzE6Q54pHpeoisUdDz85Rm+g6lYX0EtQzPv3wp+lqbM7qPNKChvcyL7N6cHOdCIwfEn4S+rXFQ2tibiNeTjQC0SgLjg+1o1LjR7wGDQMuVotw5Rm03hG19GWsn4SOJAQIEa8y7Lh8Z1Ko3z5eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbgf0sZMzbKSss;
-	Thu, 10 Sep 2026 19:54:22 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.208.166])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbgd69nqzbKSsm;
-	Thu, 10 Sep 2026 19:54:21 +0800 (CST)
-Received: from ewan-server.tailb932da.ts.net (ewan-server.tailb932da.ts.net [10.28.24.2])
-	by zhaoxin.com (8.30) with ESMTPa08fc640d01ae08631bd445c109f50e2
-	Thu, 10 Sep 2026 19:54:21 +0800
-X-Eyou-Smtpauth: ewanhai-oc@zhaoxin.com
-X-Eyou-EnvelopeSender: ewanhai-oc@zhaoxin.com
-X-Eyou-From: Ewan Hai <ewanhai-oc@zhaoxin.com>
-From: "=?UTF-8?B?RXdhbiBIYWktb2M=?=" <ewanhai-oc@zhaoxin.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Frank Zhu <frankzhu@zhaoxin.com>,
-	kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ewanhai@zhaoxin.com,
-	cobechen@zhaoxin.com
-Subject: [PATCH v2 3/9] KVM: selftests: nx_huge_pages_test: Add TDP detection for Zhaoxin CPUs
-Date: Thu, 10 Sep 2026 19:54:08 +0800
-Message-Id: <20260910115414.3015260-4-ewanhai-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com>
-References: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com>
+	bh=Y+uakgmLTw/Dr6l7dxl0NA2ApiRxgkY7tsxnZpgnLH4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=JeJh5pMY267+uBkFDutto/gxhgeZYgLMUPHCn5UHHnjz+LunthS2bQqtrHJ5ZFHnjm6sjHIQHju3iveb+80anvllAFjOzQH6gEgzKokZJ4oPazOvl82yQY1hBZOyvuJkoUlkG3PIBtL7VTwauZ2uLdB7cQwWSfEaqE2SgUAs1T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rb3RoQMQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rb3RoQMQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00AF1F000FF;
+	Thu, 10 Sep 2026 11:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789041266;
+	bh=242XIWZSUu69mtRg9ItrK23A7w0eKQWAiDhlvEiRp9A=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Rb3RoQMQ/1hurXRmrj/1KGTRO1KGl1qo/db6tk5xmRdoL9iuVfRpkvP6MnEtyMa3n
+	 FytlXmK6RHJfZ79xt4CdAcxQDYKTjg9ACGW9kSULGb7WtXpkNlT0yEsEFvemS45GYO
+	 FcWRbwNyRpjOGCIHZyozY4f1BFGnZvJhFXGk5vGlIE+8/yaYCF1EvtiYobB+7Lnalu
+	 8Ki/FDS7d+VF8wyNk/AjkEsSp9g/Mz0c3gHLz7voeahdhHjmRW/P6F0zFTYjmP+vdC
+	 /AnxWMCEs/r5Ld3RB5WuBlO0U0MkGYYJ+bMbsPnDP9ES4enW6HIqF3aOlOJcKzyV2d
+	 Qb2AT0Dh55kSA==
+Message-ID: <77440bae-7381-451f-861d-1399bac4d925@kernel.org>
+Date: Thu, 10 Sep 2026 13:54:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <ewanhai-oc@zhaoxin.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: microchip: isc: Initialize DMA lock before
+ requesting IRQ
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, ehristev@kernel.org
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+References: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Frank Zhu <frankzhu@zhaoxin.com>
+On 30/08/2026 04:32, Runyu Xiao wrote:
+> The ISC interrupt can run before asynchronous subdevice completion, but the DMA queue lock was initialized from isc_async_complete().  Initialize it in each SoC probe before requesting the auto-enabled IRQ and remove the late initialization from the asynchronous completion path.
 
-Update the kvm_is_tdp_enabled() function to include Zhaoxin CPUs
-when checking for EPT (Extended Page Tables) support. This ensures
-that Zhaoxin CPUs use the appropriate TDP (Two-Dimensional Paging)
-parameter check, similar to Intel CPUs.
+Line is much too long.
 
-The change modifies the condition to check for both Intel and Zhaoxin
-CPUs before querying the EPT parameter, maintaining compatibility
-with existing Intel systems while extending support to Zhaoxin CPU
-systems.
+> 
+> Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
+> 
 
-Signed-off-by: Frank Zhu <frankzhu@zhaoxin.com>
----
- tools/testing/selftests/kvm/lib/x86/processor.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Spurious empty lines.
 
-diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
-index a183cf005..bd50c1265 100644
---- a/tools/testing/selftests/kvm/lib/x86/processor.c
-+++ b/tools/testing/selftests/kvm/lib/x86/processor.c
-@@ -160,7 +160,7 @@ static void sregs_dump(FILE *stream, struct kvm_sregs *sregs, u8 indent)
- 
- bool kvm_is_tdp_enabled(void)
- {
--	if (host_cpu_is_intel)
-+	if (host_cpu_is_intel_compatible)
- 		return get_kvm_intel_param_bool("ept");
- 	else
- 		return get_kvm_amd_param_bool("npt");
--- 
-2.34.1
+> Cc: stable@vger.kernel.org
+> 
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  drivers/media/platform/microchip/microchip-isc-base.c    | 1 -
+>  drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 ++
+>  drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 ++
+>  3 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+> index a7cdc743f..a2534d8eb 100644
+> --- a/drivers/media/platform/microchip/microchip-isc-base.c
+> +++ b/drivers/media/platform/microchip/microchip-isc-base.c
+> @@ -1792,7 +1792,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+>  
+>  	/* Init video dma queues */
+>  	INIT_LIST_HEAD(&isc->dma_queue);
+> -	spin_lock_init(&isc->dma_queue_lock);
+>  	spin_lock_init(&isc->awb_lock);
+>  
+>  	ret = isc_set_default_fmt(isc);
+> diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+> index 66d3d7891..f0f7ca47f 100644
+> --- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+> +++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+> @@ -432,6 +432,8 @@ static int microchip_isc_probe(struct platform_device *pdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> +	spin_lock_init(&isc->dma_queue_lock);
 
+It's dubious to just init dma_queue_lock here but not INIT_LIST_HEAD(&isc->dma_queue);
+
+I think Eugen needs to look at this as well to see if this is actually a valid
+issue at all.
+
+In any case, this patch doesn't look right to me.
+
+Regards,
+
+	Hans
+
+> +
+>  	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
+>  			       "microchip-sama5d2-isc", isc);
+>  	if (ret < 0) {
+> diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+> index 7383341ec..b1aa3fe55 100644
+> --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+> +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+> @@ -421,6 +421,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> +	spin_lock_init(&isc->dma_queue_lock);
+> +
+>  	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
+>  			       "microchip-sama7g5-xisc", isc);
+>  	if (ret < 0) {
 
