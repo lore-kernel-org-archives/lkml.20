@@ -1,153 +1,209 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBACD48F014;
-	Thu, 10 Sep 2026 15:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055146; cv=none; b=YvVgdMQyerq5ZlrsLxbnxf3VBmkWxOrgjk1f45Z4Rxuhw8pybC+t1l3BTxtqjwnd+jKHN5LcQd0m0m7ipj0/GjXKgHRDGY71UC/MU0QkRqMzQSDyvtyHqKLxtsS2tX0hgAa3ZPcNJ3fW6wV9bpNRnL/Xus6F1CB5K+rLuSod5yw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055146; c=relaxed/simple;
-	bh=7SB5qyohHH+hDP9LCv7Qz6cDndRdllhbweSCueLi6Wk=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=pwamt0rpSubAxEF6aI2JxAoCnNzr6PKWBv352xwb1lzxzyeYmW5YGP/NUysDYv9hHGUt3POkB8jSlzM8WL2+Paq249/9roGm6aQaqMnyZqJ7qfYp5AwX2gRWqn9JfZ2ZtgdQn5t391ALu4ZskEAf62AXg/H1RatmDNuulo01jLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=36slLMdu; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A212548EC71
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789055166; cv=pass; b=hKAlWuuE60LWybF+9NoTPydlpXkwx0tl1MK8hcsaqslA91phXUCskm14sOao/2ug+A4n/MnwvHL5968k6Q+FlIcJPS9XHgGuviy0XBKGjommUU8BlqxRtvEjgQfz5NWxMO41UdxotU3/kfMo+bL2TzHIB0xFf55E4Z7Li2rCpHc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789055166; c=relaxed/simple;
+	bh=xy9Lm9WxkQ3Mmgg/H7vfmk5N45FAYtw9hYAWl41XmQs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fYhvUkEAN4h5AFP2EqX2nOJ/MrOY+hn+GItCWxtoNfWR8AmpxCMw9ydsK2GK8+WkC318PFWei7AhXd1jPdKFl7t++/XfKzg4L/b2PGaOkf0U9i/zoGEgL6a5nB8L+wQmXnRAjiTZSZT/4S6rqd+BkA75dGrh18yfCg4dtjIxj8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ktFHgeVI; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="36slLMdu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:Subject:Cc:To:From:
-	Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=WesXDRHOFhnI+QD4gqp8GWvY93+z4uLfHjnUTfl9m+Y=; b=36slLMduVuNDfk9FShAHoH17SI
-	rcaLfy6kbaxJ3LcqEvsP36RhBT9FySRENpq6pcXs6nUFP/QzJ0xoKaLjh+EkszE8q3G2azABy96/X
-	9pix9qwAeonFfi7f1zbihKjeg7KB/fzVHARvlSNs6vxH7ccGeKkHSICaroeODkkm+Vn9qcmn8mka+
-	avO9Gmkt3uR3d5SQGCakBepvO+/yYJqFuubmPzeQDF9U13XYQ4UBjxIpxjELuqqVysDXay8D0edhU
-	aoY/5kBI9Cv+FNWj9ZUHKwqLNmERwGkT97A1T7PmaU3cP26504e60/stHCBmeiQJylh+RrJTkwTpa
-	oQ1/ecLA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x4gy5-000000018V6-3urn;
-	Thu, 10 Sep 2026 12:45:41 -0300
-Message-ID: <bb769b6f6f976d75cbfca3ed00556bde@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
-Subject: [GIT PULL] smb client fixes for 7.3-rc3
-Date: Thu, 10 Sep 2026 12:45:41 -0300
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ktFHgeVI"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5307425f44bso269551cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:46:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789055164; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OFwGFEb61uxKGF7O5xqbF9DOqnCB7705p1nPDMQDMgTeK5QI52sRKL9TAozPF+0UPj
+         dsmZxBHD54kRmf2tc+G97l/5CwbBZW8skOQtqf3dNXuAsmC1wS3WWYDn/pmB8qFJQ34t
+         uGzZ5tk2lbt+0kTa/AGKwEN56Ek6FrhqhKsgaXIyiaAfsisky287MRj/X9CQ3PwACWZH
+         ymhQjkIFQHB1CjsuhwEnxHXTRhmP7tI0hSn705wywyByyvrIOxAOGJV5qBevxH/53H+W
+         iNWJCWT60qJAgCTSdNYzFeTZYgpLyXrfM6rW8baXd4RcZ9uZhGYrHV75nDKlj4sRshfD
+         K2pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m1gukMKgmXXLSe/xkuRtjWvRwSakZxXxaaknc5QrDEs=;
+        fh=KT2DzfSAotxeo7es9edFFoiCc35g1eZPMeJMRxx387M=;
+        b=J8J6SYnY+FhZKhqlL+dX/GMctuGW2HYxFtao5woCSdJ5HpoSAEPe4kr93ionhMmAkQ
+         JIOv0DnsfaZoeQIhSl0r0ysYCV0teZ3IceoU3mcZwULy/5wuDd7PzgEDoRI9l8+ly/2z
+         aURI5CGEzFlvkO1bNYNnlzyk6lQaNilKJDo3qqzwG4gD7QSueL5vFoM0KCspAJLQ8gQ5
+         kDicplzZOYFn9HkYht95kKgXXlqPhDBe2vAOnY78cd0NQcCAS7dLln8z2Gtd+TLuixoR
+         araIhMl6UJiE55iMvy/BoU15JDtlrVue645hZFirFPdw8QWi/7bSLxPLTyb991oT4E+b
+         SG6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789055164; x=1789659964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m1gukMKgmXXLSe/xkuRtjWvRwSakZxXxaaknc5QrDEs=;
+        b=ktFHgeVIn3uyfy+BilTNctikZIbhSy8oaXCz/fsusNLCn1t9VEIhP2hCIB1dkFsTZ5
+         B/Do9r4/M5VINFADw9QzVvcbRh4zimV7ZcDkTFIIXi29rvDAukvoyRa+eoBYnXYKHj0r
+         fN1ba4baAENhdghHWLWFhJmzCUtOa+QzNSecfiI7MWliBcm4UKf/TmyimK0NJ/9o2M8N
+         gyZoVdWEsLnN8J6UGw9MiAESU6Tg0ewbzqwMA82SlvKa2qx+rBlxbByH18Mb2N7vRZ5f
+         9yAfhh5BfNv3uFn2miaYWF420CyprIYWT4g9lp7njOFQ8+zJeR8eBpUUrjU1MsfmFL4I
+         WO3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789055164; x=1789659964;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m1gukMKgmXXLSe/xkuRtjWvRwSakZxXxaaknc5QrDEs=;
+        b=NS3v3xwFugk8kdMgs44ZpK69JwAwxGVWCn5uYs/mEjQjmxC7zRCGlc4I6llVODWCQT
+         gchsuNcqeDdGS7jSUpBNYWnUUV1Y74IqIjA4kDYT6iWpKPpa2hFUgDxDNEOom6S75sBV
+         481LTrg1z7XRrPqEI3RSQZ5KEsB23bYkn7/auQAXYClYOdmqMXgixkSuReToHDaPhxs6
+         nB/k2GMdL1xtAloFP5JJ9rb8Cr9e0xvTEeMmxjJ9xd21kbL5w8S+TcMnecULoHfuqP9t
+         JN/EeTJ6GDVSvxn8RW/WBy6b5bh3MBbtFt2BN93+lVVs4jyOV4Q1twqklW5ro5+Fr0Mm
+         EjBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiID5hn5JRQL8wh4mjtYR9cEETRc+zqtRDMFpu2sT/bH1MYDdhIftINrrwyK0kfedJK+fkdfKzB2Q45hE=@vger.kernel.org
+X-Gm-Message-State: AFuF++krgMscHy/I8/lUsA1nd+KmXQFUx1QRSq9xtRSTaXyOu/n1OSJA
+	ESIE83pyCflmJB4+6y8cUcK7hNEPGxHb3nPtSSURVNmNjMcfUby3asngRKnNRZO/7hJe2YnfD5a
+	GBVZlpNQMov3F2Rs5JzrclHtpS4U+TocCtBF2CoEc
+X-Gm-Gg: AYBFou0W+epdntabmePmUEVx1zns5UT7187XEc+gJ39y07jYUy9UsdXiMa/fp03+B72
+	zcAq0kpJ9lI+VfTU96gC2PbMjJsIPOM0mvCUq0Z0LKOko7ig8bwBrWImMvxCayAj3Xwem7W3kZU
+	Rv7Tuu+cwZ7VYwbxOBH6WtmaYPWfJdDa+8PyHLqil1ePKrW7HRlzowgtueTrxjKqxWoyjSJb1KI
+	JVgIv26gWQfyzgS7K2O/9ZD94FohXl/+N+j7RqawDyUucLH11Qgr/3SyJBCxpKCe8n0SGKGBSH0
+	zFy+89C2gudOJdN+QBbmx/HO+qfID/Aa+JCU54CLW62b9IeVhqk9tTU3RoJw1BF4iV/1vvotuSr
+	Czq0ztk4O3g==
+X-Received: by 2002:a05:622a:1c17:b0:52f:9ed4:8d76 with SMTP id
+ d75a77b69052e-530b49672bdmr21908571cf.14.1789055162926; Thu, 10 Sep 2026
+ 08:46:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-4-surenb@google.com>
+ <4825a2fe-f064-45d7-a7c9-e98de7efe86c@kernel.org> <CAJuCfpFL_g7tELjT8p8ExM3tX_v2gNDM9rRKwwefPV_KW=fHfA@mail.gmail.com>
+ <8e643f51-a47f-428e-9443-678326288fa6@kernel.org> <CAJuCfpEYdj=u0wczKRrsB8uDkbSzPy+hrsCo9TW9-3J3r3p0xQ@mail.gmail.com>
+ <2336140f-c993-467a-b2eb-e99dc9427a59@kernel.org>
+In-Reply-To: <2336140f-c993-467a-b2eb-e99dc9427a59@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 10 Sep 2026 08:45:51 -0700
+X-Gm-Features: AcwNN1U3AJ7bd1wu5DAq47WAQ3768Dp9C-h3ciQoeJdMEez_KO5Qa_LhKJ8PHrw
+Message-ID: <CAJuCfpEL40p+vk6-km6_BBuE3+YY0WqkpbvQnQGFEo_73MAomQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Thu, Sep 10, 2026 at 12:41=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 9/9/26 23:51, Suren Baghdasaryan wrote:
+> > On Wed, Sep 9, 2026 at 12:16=E2=80=AFPM David Hildenbrand (Arm)
+> > <david@kernel.org> wrote:
+> >>
+> >> On 9/9/26 20:28, Suren Baghdasaryan wrote:
+> >>> On Wed, Sep 9, 2026 at 10:16=E2=80=AFAM David Hildenbrand (Arm)
+> >>> <david@kernel.org> wrote:
+> >>>
+> >>> Hmm. So, are you saying that !is_cow always implies shared_or_ro? Or
+> >>> maybe you are stating that vma_is_cow_mapping() was the actual intent
+> >>> here?
+> >>
+> >> So the comment says:
+> >>
+> >> "For private writable mappings, we might have COW pages that  .."
+> >>
+> >> Which translates to:
+> >>
+> >>         private writable =3D=3D vma_is_cow_mapping()
+> >
+> > Ok, just want to make sure I'm not missing something subtle.
+> >
+> >>
+> >>>
+> >>> shared_or_ro =3D VMA_SHARED_BIT || !VMA_WRITE_BIT
+> >>>
+> >>> is_cow =3D !VMA_SHARED_BIT && VMA_MAYWRITE_BIT
+> >>> !is_cow =3D VMA_SHARED_BIT || !VMA_MAYWRITE_BIT
+> >>>
+> >>> so, !is_cow would impy shared_or_ro only if !VMA_MAYWRITE_BIT always
+> >>> implies !VMA_WRITE_BIT. But I think it's possible to have a VMA that
+> >>> has VMA_WRITE_BIT but not VMA_MAYWRITE_BIT, right?
+> >>
+> >> VMA_WRITE should imply VMA_MAYWRITE
+> >
+> > Ah, good to know.
+> >
+> >>
+> >> (in sanitize_fault_flags() we even disallow write faults entirely if V=
+M_MAYWRITE
+> >> is missing)
+> >
+> > I see.
+> >
+> >>
+> >> For example, a
+> >>> driver can create such a VMA to allow writing to the VMA but to lock
+> >>> its content once mprotect(PROT_READ) gets called.
+> >>
+> >> I don't think that would be valid for a driver to do. But it wouldn't =
+matter
+> >> here because
+> >>
+> >>         shmem_mapping(vma->vm_file->f_mapping)
+> >
+> > I was obviously overthinking this :)
+> >
+> >>
+> >>
+> >> I think we could simplify the comment as well to:
+> >>
+> >> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> >> index e671b4fd8dedd..4b7e7089cafa7 100644
+> >> --- a/fs/proc/task_mmu.c
+> >> +++ b/fs/proc/task_mmu.c
+> >> @@ -1303,12 +1303,10 @@ static void smap_gather_stats(struct proc_maps=
+_private
+> >> *priv,if (is_partial || (shmem_swapped && is_cow))
+> >>
+> >>         if (vma->vm_file && shmem_mapping(vma->vm_file->f_mapping)) {
+> >>                 /*
+> >> -                * For shared or readonly shmem mappings we know that =
+all
+> >> -                * swapped out pages belong to the shmem object, and w=
+e can
+> >> -                * obtain the swap value much more efficiently. For pr=
+ivate
+> >> -                * writable mappings, we might have COW pages that are
+> >> -                * not affected by the parent swapped out pages of the=
+ shmem
+> >> -                * object, so we have to distinguish them during the p=
+age walk.
+> >> +                * In CoW mappings, we might have anon folios that are
+> >> +                * independent of the shmem object. So fallback to the=
+ less
+> >> +                * efficient mechanism in such mappings.
+> >> +                *
+> >
+> > Sounds good. Will update.
+>
+> Likely worth putting that into a prior cleanup patch, so there is less no=
+ise in
+> this patch.
 
-Please consider pulling these smb client fixes for v7.3-rc3. They
-address file type corruption in reparse point handling, uid/gid
-ownership mapping bugs, heap overflows in DACL rewriting, reference
-count leaks, a DFS use-after-free and hardening of legacy smb1 input
-validation. All fixes are for stable.
+Well, this is a cleanup specific for smap_gather_stats() funciton, so
+I would prefer to keep all the pieces in one place.
 
-Thanks,
-Paulo
-
-----------------------------------------------------------------
-The following changes since commit 89a312991dc6e638a36adc43ccb91dbc25504c04:
-
-  Merge tag 'cifs-fixes-7.3-rc2' of https://git.manguebit.org/linux (2026-09-01 13:37:14 -0700)
-
-are available in the Git repository at:
-
-  https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc3
-
-for you to fetch changes up to cb26524ef4ac28fcfa554c0656e8dc412c38a8ff:
-
-  smb: client: fix one-byte OOB read in smb2_parse_native_symlink() (2026-09-09 22:06:05 -0300)
-
-----------------------------------------------------------------
-smb client fixes for v7.3-rc3
-
-A batch of bug fixes for the smb client:
-
- - File type corruption fixes in reparse point handling: setting S_IFMT
-   bits without clearing the existing type first corrupted the file mode
-   (e.g. S_IFREG | S_IFCHR == S_IFLNK). Fixed in the WSL, POSIX and
-   native symlink reparse parsers. Also fixes an uninitialized SID
-   structure in the POSIX readdir path when parsing fails.
-
- - Ownership mapping fixes: forceuid/forcegid mount options were
-   ignored in several code paths (SID-to-id mapping, WSL extended
-   attributes, POSIX extensions getattr), allowing an untrusted server
-   to dictate local file ownership despite explicit mount overrides.
-
- - Heap overflow and overflow fixes in DACL rewriting: replacing short
-   SIDs with long ones could overflow the DACL buffer, and the u16
-   accumulator for DACL size could wrap around with enough ACEs.
-
- - Reference count leak fixes in oplock break and deferred close:
-   duplicate oplock breaks on a queued work item leaked a
-   cifsFileInfo reference, and deferred close had a similar leak when
-   requeueing a running work item. Both cause busy-inode oopses on
-   unmount.
-
- - DFS superblock use-after-free fix: the iterator callback stored a
-   raw superblock pointer without pinning it, racing with automount
-   expiry.
-
- - One-byte slab OOB read in the native symlink parser when handling
-   share-root relative paths.
-
- - Hardening of legacy SMB1 input: reject userspace-crafted
-   cifs.idmap key descriptions that bypass kernel origin checks, and
-   validate DataOffset in CIFSSMBRead() to prevent heap info
-   disclosure from a malicious server.
-
- - DFS cache fix: defer metadata updates until target copying
-   succeeds to prevent partial-state cache entries on allocation
-   failure.
-
-----------------------------------------------------------------
-Aohan Mei (1):
-      smb: client: reject userspace cifs.idmap descriptions
-
-Bjoern Doebel (4):
-      smb: client: avoid leaking refcount in cifs_queue_oplock_break()
-      smb: client: avoid leaking refcount when cifs_sb_tlink() fails
-      smb: client: fix heap overflow in DACL owner/group rewrite
-      smb: client: fail DACL rewrite when the new DACL exceeds 64K
-
-Diego Oliva (2):
-      smb: client: reject short READ responses in CIFSSMBRead()
-      smb: client: reject out-of-bounds DataOffset in CIFSSMBRead()
-
-Fan Wu (1):
-      smb: client: fix cifsFileInfo reference leak in deferred close
-
-Fredric Cover (1):
-      smb: client: fill cache fields after populating cache in copy_ref_data()
-
-Karl Mehltretter (1):
-      smb: client: pin DFS superblock in iterator callback
-
-Paulo Alcantara (8):
-      smb: client: fix uid/gid override in getattr with posix extensions
-      smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
-      smb: client: fix WSL reparse point uid/gid override
-      smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()
-      smb: client: fix file type corruption in wsl_to_fattr()
-      smb: client: fix file type corruption in posix_reparse_to_fattr()
-      smb: client: fix file type corruption in cifs_reparse_point_to_fattr()
-      smb: client: fix one-byte OOB read in smb2_parse_native_symlink()
-
- fs/smb/client/cifsacl.c   | 95 ++++++++++++++++++++++++++++++++---------------
- fs/smb/client/cifssmb.c   | 26 ++++++++++---
- fs/smb/client/dfs_cache.c | 18 ++++-----
- fs/smb/client/file.c      | 22 ++++++++---
- fs/smb/client/inode.c     | 17 ++++++---
- fs/smb/client/misc.c      | 24 ++++++------
- fs/smb/client/readdir.c   | 17 +++++++--
- fs/smb/client/reparse.c   | 33 ++++++++++------
- fs/smb/client/trace.h     |  1 +
- 9 files changed, 172 insertions(+), 81 deletions(-)
+>
+> --
+> Cheers,
+>
+> David
