@@ -1,173 +1,698 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59B92C0296;
-	Thu, 10 Sep 2026 01:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBFF30C164
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002181; cv=none; b=PuaEGBQx7jL/4pBxpDwz00cYrFAKCTNZCcfl7GBsQvlrcz2IZbpBgrIf1MLkpHw8aPJ3u7NL7YfslogqzDO68zGfza4wrvOwIEmBLr004Obxmg9F1mTsdzuVgqCHlElGfk79jW8kL93fHsUVPKZz9HvshScGntBOFgovAPu4WN0=
+	t=1789002268; cv=none; b=MSXzWTxzDqMRXjJTWNs+nQ6fvSpR+pzAkkNtQJAqsOAtGNSPynjxWNpVMUZbPI7jffkWdHJ/2TU5kZQq/+r+2NmHRo9MrvBKmLo3MW6ir0hJvQ0Lh9AVt/7HzPpfITiQDT7K/qfOso+4yOMjTqSrJ0EP+ImaGvNbIjlU3uGjJ6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002181; c=relaxed/simple;
-	bh=EImQn2M/ruRtPTeI8E8bTcdUxMvP88SpDU4RhRpfxqc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NlxDusS646m7OK9WDRpzBW0S9Xj5P5Z3rbs25pcirHPDUgsBH/PBlQWmqJlvzRWchFyhIkJ7URVQNuVsGAYBVaSqRFktDqjeKv3eHJ2xnInC8H+bdm0k3UnNus6DXM42y7ZS7Op+bYRxmDC6Yjae9us5//OZkQ2ms9em9hsimNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=On0NLd6z; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="On0NLd6z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFEBF1F000FF;
-	Thu, 10 Sep 2026 01:02:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002180;
-	bh=QpHgtCi7m1N2CVICFr9WF9LZLdTyvksnq3SP3JzlSQM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=On0NLd6zsLXYHRHso17LB1VIT8XMTZD6VjsXuIb3UEiFFeGoRpIuic1fBWlwB+nHm
-	 psS4p01mhqRx24G/MF0Uz+zdKiB3PExb0xiSxV5E/htGr0bnVUyRGssh2TW+GOGNsV
-	 JL90jjMmme3MeoUDYZFotS1TYiM3OfBG31eRmTswLD2tdq5SfSJhT8nH2n1hLevg0h
-	 jgd8hRWLK+OzBM1NLiWUmaDQHBJLvRUDIh+S1yonVa5MjTwVHJSjh3Hy3qK5P4qOrZ
-	 GEp70hiCPtXGuf/ZuUux3elPzsY/+iQQkDzFl2DAUe4Ju3/EQwg6Yw9r/KcLl8yNH3
-	 kQvF97UIlI7ZQ==
-Subject: Re: [PATCH 1/1] bonding: crypto offload enabled, non-offload slave
- failover, rekey failed
-From: netdev-bot+sashiko@kernel.org
-To: zdai@linux.ibm.com
-Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, pradeeps@linux.ibm.com
-Date: Thu, 10 Sep 2026 01:02:59 +0000
-Message-ID: <178900217942.219967.7472232136755764721@kernel.org>
-In-Reply-To: <20260903220123.475685-1-zdai@linux.ibm.com>
-References: <20260903220123.475685-1-zdai@linux.ibm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789002268; c=relaxed/simple;
+	bh=mWn/tOYN/oYbXIavSes/REld/1aayyzzPz/1/Bfa4gA=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=hZgsSgLcoDVCsjtt3KjVNk0pDNspjImWGmahp7wPI5O3MivNRDBV9MShAxwRbl+rVMItrjqfrT55VcXPOC9C54Gw+a1xbqM+AlNC9hk60NoYVUKJ78W5EZioC3ZZPX14jBBuDK67OxnCfFUjOp0UYhzga6WtZVk/393tZGIyMrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-7e9f9a3167aso2022987a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:04:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789002264; x=1789607064;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iLb09Mp1DQLChGTZFYW0/uDIbPhs1mn+Bc6CziDe9cQ=;
+        b=MI1T4e0yNAicqfgqvHTPviJImaqG00rPWZSFIbHdqIligyUgQqnOF2o+KP45cU21sO
+         f3jhrdWHV2LxIlcjIwc/CTANrzxzf/9ZhOexZeHTreOO1Yy49BU7pf35QZ7k+0XvQacp
+         +CAiJwFKDtncU9S4m11B6uESBxuOhrhyqNVaRDNEcy/azTNyqlY0UVXdPYvuaEwJHJbo
+         GBslIjjdw/T/LyurZYGRZe+sb5eZRilwsxsGWYZd066L2MzlqETQ8AQq7Rr+TC28oc9Z
+         TM/CQqR4NxxyMjy5i8giUKLU3w8mM0XnkQZjFTPChgtPjpbShDycfQG0LyyUHcJlT2NB
+         Cy1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByb5hpavbCtY4Tt8DUIq8kVyttHxkLYi10+l7xFuiuwNgQMP4IEtGdGUTEou+axE5BHWvLG9keBv0ow+cw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNdu7nlCzMCaScAnTHXFoSibO9JgfsPt662X0Qv89Sbsq0RxUQ
+	QC4NieBh4XPStetMiNAxQzvo45QcHdIJdyyw93IMrCtkN18g+JINouesZi7lIvJ/lLP28T04ho/
+	YpnFwveICIJcGG8xyzBPUI6YuXHozWOBnX8Wttxg5fldgIyJ6amZPKwmKAFo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6820:4c09:b0:6b3:5537:8dbe with SMTP id
+ 006d021491bc7-6b6fade3f17mr21596619eaf.11.1789002264645; Wed, 09 Sep 2026
+ 18:04:24 -0700 (PDT)
+Date: Wed, 09 Sep 2026 18:04:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa20218.6e6c5f9e.28f11f.002a.GAE@google.com>
+Subject: [syzbot] [gfs2?] KASAN: slab-use-after-free Read in gfs2_remove_from_ail
+From: syzbot <syzbot+ab91b239b20ae188b9cb@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+Hello,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+syzbot found the following issue on:
 
-- [Medium] Incomplete error-code mapping in `bond_ipsec_add_sa()`: the
-  sibling failure path that fires when the bond has no current active…
-- [Low] Missing `Fixes:` tag / unclear target tree for a user-visible
-  behaviour fix.
-- [Low] No in-tree test covers the behaviour this patch introduces.
+HEAD commit:    c297ed90fbba Merge tag 'configfs-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13eeb125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=19560cab9a915237
+dashboard link: https://syzkaller.appspot.com/bug?extid=ab91b239b20ae188b9cb
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
---
+Unfortunately, I don't have any reproducer for this issue yet.
 
-bonding: crypto offload enabled, non-offload slave failover, rekey failed
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/a5ff72f9f684/disk-c297ed90.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d0681a6a0fbd/vmlinux-c297ed90.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/9182b2171db9/bzImage-c297ed90.xz
 
-This changes bond_ipsec_add_sa() to return -EOPNOTSUPP instead of -EINVAL
-when the current active slave has no xdo_dev_state_add, so that xfrm falls
-back to a software SA instead of failing the SA add outright.  The reported
-symptom is a child SA rekey failing after failover from an offload capable
-slave to a non-offload capable one.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ab91b239b20ae188b9cb@syzkaller.appspotmail.com
 
-No Link: tags were present in the commit header.
+==================================================================
+BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1b1/0x1d0 lib/list_debug.c:62
+Read of size 8 at addr ffff88807c647920 by task kworker/0:6/5768
 
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index a9bff7663eeca..de2489c3d9bf2 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-> @@ -490,7 +490,7 @@ static int bond_ipsec_add_sa(struct net_device *bond_dev,
->  	    !real_dev->xfrmdev_ops->xdo_dev_state_add ||
->  	    netif_is_bond_master(real_dev)) {
->  		NL_SET_ERR_MSG_MOD(extack, "Slave does not support ipsec offload");
-> -		err = -EINVAL;
-> +		err = -EOPNOTSUPP;
->  		goto out;
->  	}
+CPU: 0 UID: 0 PID: 5768 Comm: kworker/0:6 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: events gfs2_withdraw_func
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ __list_del_entry_valid_or_report+0x1b1/0x1d0 lib/list_debug.c:62
+ __list_del_entry_valid include/linux/list.h:140 [inline]
+ __list_del_entry include/linux/list.h:261 [inline]
+ list_del_init include/linux/list.h:333 [inline]
+ gfs2_remove_from_ail+0x138/0x340 fs/gfs2/log.c:79
+ gfs2_ail_empty_tr fs/gfs2/log.c:287 [inline]
+ gfs2_ail_drain+0x39c/0x6b0 fs/gfs2/log.c:954
+ do_withdraw+0xeb/0x300 fs/gfs2/util.c:126
+ gfs2_withdraw_func+0x349/0x3d0 fs/gfs2/util.c:236
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-[Severity: Low]
-Should this carry a Fixes: tag, and which tree does it target?
+Allocated by task 7723:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
+ gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
+ gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
+ gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
+ init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
+ gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-The change fixes a user visible failure (child SA rekey is rejected while a
-non-offload slave is active), so it reads like a net fix rather than a
-net-next cleanup, but neither a Fixes: tag nor a [PATCH net] /
-[PATCH net-next] marker is present.
+Freed by task 7773:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kmem_cache_free+0x127/0x6c0 mm/slub.c:6626
+ gfs2_glock_dealloc+0xd0/0x160 fs/gfs2/glock.c:134
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x56/0xc0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
 
-git blame on the changed line at the baseline points at 2aeeef906d5a52
-("bonding: change ipsec_lock from spin lock to mutex"), which only moved the
-line.  The enclosing capability check goes back to 18cb261afd7bf5
-("bonding: support hardware crypto offload") by way of 907ed83a7583e8.  Would
-one of those be the right anchor for stable backports?
+Last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
+ gfs2_glock_free+0x35/0xa0 fs/gfs2/glock.c:150
+ glock_work_func+0x437/0x4d0 fs/gfs2/glock.c:1003
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Also, the Tested-by: line names the same person as the Signed-off-by:.  Is
-that intentional?
+Second to last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ insert_work+0x36/0x230 kernel/workqueue.c:2272
+ __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
+ __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
+ queue_delayed_work_on+0x180/0x1e0 kernel/workqueue.c:2669
+ queue_delayed_work include/linux/workqueue.h:715 [inline]
+ gfs2_glock_queue_work+0x75/0x120 fs/gfs2/glock.c:198
+ do_xmote+0x453/0x680 fs/gfs2/glock.c:718
+ run_queue+0x555/0x6a0 fs/gfs2/glock.c:757
+ glock_work_func+0x35b/0x4d0 fs/gfs2/glock.c:987
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-[Severity: Medium]
-Should the sibling "no active slave" path in the same function be converted
-too?  Just above this hunk, bond_ipsec_add_sa() still returns a fatal errno
-when there is no current active slave:
+The buggy address belongs to the object at ffff88807c647808
+ which belongs to the cache gfs2_glock(aspace) of size 1176
+The buggy address is located 280 bytes inside of
+ freed 1176-byte region [ffff88807c647808, ffff88807c647ca0)
 
-drivers/net/bonding/bond_main.c:bond_ipsec_add_sa() {
-	slave = rcu_dereference(bond->curr_active_slave);
-	real_dev = slave ? slave->dev : NULL;
-	netdev_hold(real_dev, &tracker, GFP_ATOMIC);
-	rcu_read_unlock();
-	if (!real_dev) {
-		err = -ENODEV;
-		goto out;
-	}
-	...
-}
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7c644
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
+raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
+head: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 7723, tgid 7722 (syz.3.658), ts 220778208215
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
+ gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
+ gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
+ gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
+ init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
+ gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+page last free pid 7723 tgid 7722 ts 220636014324 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ stack_depot_save_flags+0x456/0x9f0 lib/stackdepot.c:735
+ kasan_save_stack+0x3f/0x50 mm/kasan/common.c:58
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x30c/0x720 mm/slub.c:5582
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ alloc_worker kernel/workqueue.c:2755 [inline]
+ init_rescuer+0x19f/0x550 kernel/workqueue.c:5795
+ __alloc_workqueue+0xe82/0x1950 kernel/workqueue.c:5993
+ alloc_workqueue_va kernel/workqueue.c:6033 [inline]
+ alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
+ gfs2_fill_super+0x140f/0x2d00 fs/gfs2/ops_fstype.c:1197
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
 
-The consumer only whitelists -EOPNOTSUPP for the silent software fallback:
+Memory state around the buggy address:
+ ffff88807c647800: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807c647880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88807c647900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                               ^
+ ffff88807c647980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807c647a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+==================================================================
+BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1a4/0x1d0 lib/list_debug.c:65
+Read of size 8 at addr ffff88807c647928 by task kworker/0:6/5768
 
-net/xfrm/xfrm_device.c:xfrm_dev_state_add() {
-	...
-	if ((err != -EOPNOTSUPP && !is_packet_offload) || is_packet_offload) {
-		NL_SET_ERR_MSG_WEAK(extack, "Device failed to offload this state");
-		return err;
-	}
-	...
-}
+CPU: 0 UID: 0 PID: 5768 Comm: kworker/0:6 Tainted: G    B               syzkaller #0 PREEMPT(full) 
+Tainted: [B]=BAD_PAGE
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: events gfs2_withdraw_func
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ __list_del_entry_valid_or_report+0x1a4/0x1d0 lib/list_debug.c:65
+ __list_del_entry_valid include/linux/list.h:140 [inline]
+ __list_del_entry include/linux/list.h:261 [inline]
+ list_del_init include/linux/list.h:333 [inline]
+ gfs2_remove_from_ail+0x138/0x340 fs/gfs2/log.c:79
+ gfs2_ail_empty_tr fs/gfs2/log.c:287 [inline]
+ gfs2_ail_drain+0x39c/0x6b0 fs/gfs2/log.c:954
+ do_withdraw+0xeb/0x300 fs/gfs2/util.c:126
+ gfs2_withdraw_func+0x349/0x3d0 fs/gfs2/util.c:236
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-and xfrm_state_construct() then kills the freshly allocated state:
+Allocated by task 7723:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
+ gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
+ gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
+ gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
+ init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
+ gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-net/xfrm/xfrm_user.c:xfrm_state_construct() {
-	...
-	err = xfrm_dev_state_add(net, x, nla_data(attrs[XFRMA_OFFLOAD_DEV]), extack);
-	if (err)
-		goto error;
-	...
-error:
-	x->km.state = XFRM_STATE_DEAD;
-	xfrm_state_put(x);
-}
+Freed by task 7773:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kmem_cache_free+0x127/0x6c0 mm/slub.c:6626
+ gfs2_glock_dealloc+0xd0/0x160 fs/gfs2/glock.c:134
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x56/0xc0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
 
-So with crypto offload requested and -ENODEV returned, the NEWSA still fails
-hard and no software SA is created.  That is reachable when every slave is
-down, in the window where bond_select_active_slave() has installed a NULL
-curr_active_slave, or trivially with a bond that has no slaves yet:
+Last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
+ gfs2_glock_free+0x35/0xa0 fs/gfs2/glock.c:150
+ glock_work_func+0x437/0x4d0 fs/gfs2/glock.c:1003
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-	ip link add bond0 type bond
-	ip xfrm state add ... offload dev bond0 dir out
+Second to last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ insert_work+0x36/0x230 kernel/workqueue.c:2272
+ __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
+ __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
+ queue_delayed_work_on+0x180/0x1e0 kernel/workqueue.c:2669
+ queue_delayed_work include/linux/workqueue.h:715 [inline]
+ gfs2_glock_queue_work+0x75/0x120 fs/gfs2/glock.c:198
+ do_xmote+0x453/0x680 fs/gfs2/glock.c:718
+ run_queue+0x555/0x6a0 fs/gfs2/glock.c:757
+ glock_work_func+0x35b/0x4d0 fs/gfs2/glock.c:987
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Given the commit message says "network traffic is never interrupted, always
-keeps going", does the -ENODEV case leave the same failure mode reachable in
-a narrower window?
+The buggy address belongs to the object at ffff88807c647808
+ which belongs to the cache gfs2_glock(aspace) of size 1176
+The buggy address is located 288 bytes inside of
+ freed 1176-byte region [ffff88807c647808, ffff88807c647ca0)
 
-[Severity: Low]
-Is there a plan to extend the existing selftest to cover the new fallback?
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7c644
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
+raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
+head: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 7723, tgid 7722 (syz.3.658), ts 220778208215
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
+ gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
+ gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
+ gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
+ init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
+ gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+page last free pid 7723 tgid 7722 ts 220636014324 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ stack_depot_save_flags+0x456/0x9f0 lib/stackdepot.c:735
+ kasan_save_stack+0x3f/0x50 mm/kasan/common.c:58
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x30c/0x720 mm/slub.c:5582
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ alloc_worker kernel/workqueue.c:2755 [inline]
+ init_rescuer+0x19f/0x550 kernel/workqueue.c:5795
+ __alloc_workqueue+0xe82/0x1950 kernel/workqueue.c:5993
+ alloc_workqueue_va kernel/workqueue.c:6033 [inline]
+ alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
+ gfs2_fill_super+0x140f/0x2d00 fs/gfs2/ops_fstype.c:1197
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
 
-tools/testing/selftests/drivers/net/bonding/bond_ipsec_offload.sh enslaves
-two netdevsim ports in setup_bond():
+Memory state around the buggy address:
+ ffff88807c647800: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807c647880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88807c647900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                  ^
+ ffff88807c647980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807c647a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+==================================================================
+BUG: KASAN: slab-use-after-free in __list_del include/linux/list.h:241 [inline]
+BUG: KASAN: slab-use-after-free in __list_del_entry include/linux/list.h:264 [inline]
+BUG: KASAN: slab-use-after-free in __list_del_entry include/linux/list.h:259 [inline]
+BUG: KASAN: slab-use-after-free in list_del_init include/linux/list.h:333 [inline]
+BUG: KASAN: slab-use-after-free in gfs2_remove_from_ail+0x323/0x340 fs/gfs2/log.c:79
+Write of size 8 at addr ffff88807c647928 by task kworker/0:6/5768
 
-	echo "0 2" | ip netns exec "$ns" tee /sys/bus/netdevsim/new_device >/dev/null
+CPU: 0 UID: 0 PID: 5768 Comm: kworker/0:6 Tainted: G    B               syzkaller #0 PREEMPT(full) 
+Tainted: [B]=BAD_PAGE
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: events gfs2_withdraw_func
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ __list_del include/linux/list.h:241 [inline]
+ __list_del_entry include/linux/list.h:264 [inline]
+ __list_del_entry include/linux/list.h:259 [inline]
+ list_del_init include/linux/list.h:333 [inline]
+ gfs2_remove_from_ail+0x323/0x340 fs/gfs2/log.c:79
+ gfs2_ail_empty_tr fs/gfs2/log.c:287 [inline]
+ gfs2_ail_drain+0x39c/0x6b0 fs/gfs2/log.c:954
+ do_withdraw+0xeb/0x300 fs/gfs2/util.c:126
+ gfs2_withdraw_func+0x349/0x3d0 fs/gfs2/util.c:236
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-Both provide xdo_dev_state_add, and the failover leg only moves the active
-slave between those two before re-running test_offload().  No leg enslaves a
-veth or dummy device, fails over to it, and then adds a new SA to check that
-it is accepted with software fallback.
+Allocated by task 7723:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
+ gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
+ gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
+ gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
+ init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
+ gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-As it stands the script passes identically before and after this change, and
-would keep passing if the fallback later regressed back to a hard error.
+Freed by task 7773:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kmem_cache_free+0x127/0x6c0 mm/slub.c:6626
+ gfs2_glock_dealloc+0xd0/0x160 fs/gfs2/glock.c:134
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x56/0xc0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903220123.475685-1-zdai%40linux.ibm.com
+Last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
+ gfs2_glock_free+0x35/0xa0 fs/gfs2/glock.c:150
+ glock_work_func+0x437/0x4d0 fs/gfs2/glock.c:1003
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Second to last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ insert_work+0x36/0x230 kernel/workqueue.c:2272
+ __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
+ __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
+ queue_delayed_work_on+0x180/0x1e0 kernel/workqueue.c:2669
+ queue_delayed_work include/linux/workqueue.h:715 [inline]
+ gfs2_glock_queue_work+0x75/0x120 fs/gfs2/glock.c:198
+ do_xmote+0x453/0x680 fs/gfs2/glock.c:718
+ run_queue+0x555/0x6a0 fs/gfs2/glock.c:757
+ glock_work_func+0x35b/0x4d0 fs/gfs2/glock.c:987
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff88807c647808
+ which belongs to the cache gfs2_glock(aspace) of size 1176
+The buggy address is located 288 bytes inside of
+ freed 1176-byte region [ffff88807c647808, ffff88807c647ca0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7c644
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
+raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
+head: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 7723, tgid 7722 (syz.3.658), ts 220778208215
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
+ gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
+ gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
+ gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
+ init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
+ gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+page last free pid 7723 tgid 7722 ts 220636014324 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ stack_depot_save_flags+0x456/0x9f0 lib/stackdepot.c:735
+ kasan_save_stack+0x3f/0x50 mm/kasan/common.c:58
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x30c/0x720 mm/slub.c:5582
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ alloc_worker kernel/workqueue.c:2755 [inline]
+ init_rescuer+0x19f/0x550 kernel/workqueue.c:5795
+ __alloc_workqueue+0xe82/0x1950 kernel/workqueue.c:5993
+ alloc_workqueue_va kernel/workqueue.c:6033 [inline]
+ alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
+ gfs2_fill_super+0x140f/0x2d00 fs/gfs2/ops_fstype.c:1197
+ get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
+ gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+
+Memory state around the buggy address:
+ ffff88807c647800: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807c647880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88807c647900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                  ^
+ ffff88807c647980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807c647a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
