@@ -1,94 +1,161 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15965352032;
-	Thu, 10 Sep 2026 01:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002730; cv=none; b=S2ZpIr32l3ytfGQo5AGgRZEMSQP1Gjar+dX8AKHhBDaq4m43tZ0sn9B+skdrw40yWIREih963G10uKX+JRlKvPrGPlOC9/hZ50HjqHSloXfwTsZU6ReQduWYwf+4CT5DzaG1pVvWVwblWLxEHZeLbxdkOuMxyG47Bh+0rKSg/9Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002730; c=relaxed/simple;
-	bh=jCcrHF+pJYVkp+pgHVqNx93JGeFZOZz6Oh0TsW6mRnI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qltCuPN+G1i0If6SY3oYVgt9qqjhBgb04iAqZgO1R1AYAgoZObdFfv6qgMfaYTnyVXjtcSzBnBrpiNUIs7qZ5eB8POrKLYgg6SfQ0ByKEaDFhzzXRD0bCe1o36fdOaO/GCfJwBsK3T29SH8RzOw+t8BHWRGB6gcfq7V6Khjc8Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9c01e71cacb411f19a56ed5b684f684d-20260910
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a1c88878-7b05-4cbc-a57b-04b103082ad9,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:a33e1639ab237ca0431f939f701201ab,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9c01e71cacb411f19a56ed5b684f684d-20260910
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <gonglinkai@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 855703371; Thu, 10 Sep 2026 09:11:53 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Xin Ji <xji@analogixsemi.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	gonglinkai@kylinos.cn
-Subject: [PATCH v3] usb: typec: anx7411 - stop the IRQ before destroying the workqueue
-Date: Thu, 10 Sep 2026 09:11:50 +0800
-Message-Id: <20260910011150.2966843-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
-References: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42948346A0A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789002804; cv=pass; b=FrmV/k50Kr6KR74iUXaVwYO1ILhvBo4bSFYuNSvitoZXXkOeXJSH4k/p6SuDudwb9uS3JKnriU3MR8V6FVN1nMqQKYB3l02N25MrBxg9PRQTnOk7Kx0DchOyaQPjAejeYwmRVhpS2OXuNy1k0R0nrWtojhLiNAreLqkSHvbpDbw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789002804; c=relaxed/simple;
+	bh=NtbYCqwvNoQbxAkJGYImOxQJXjVM4h6paJjklirQo4I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qf/9NbsLTFrf6IcZYh5coNZEkxgkkmRFHJyN3SLvGqIt8dG0r3f40tcdn3yiqLwyr+cB09WSyL2XrQf9TFZy/e5HGD8M1l29Yyk57x9g1ztrKHu40zNFhhI9ubN6PKVo5tqarhVK6rIeL1f7feo3e8CGP0d9Sk0OVGN4JuUMpC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=H7rx5XIm; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="H7rx5XIm"
+ARC-Seal: i=1; a=rsa-sha256; t=1789002786; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bejGOkFwk0gMKjPZLgIhBB81SmCmuuydU282fP+0rXGROgzV+W6Q4NFhvTgIGh0ovfSVCwTG2ugMdJJt/RFtt+Ieys3fuhcajLjmUj+duvslqkamWhNE/4JQTnJ+JjjJ6547RACov2g4bTS4RlCyujbJsF0h720a4dnm1iNyvA0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789002786; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QEv3v0xnE9BespRyrtj0H9AtABtlOh89d2viTit7VeE=; 
+	b=TkhHvXnxFgL3VTAWVxt3ZbQq8eAO9Y2zhynSZXAhr+zKdB/JGmTNNhGnSPHLxG5qb7ZwsLimJUOwjkXh+clSbQ3aT0txSwLWJcRsu47YdgyoPZl/BxJtgHc7jla67TrvZKaS2nt83L94HjVoTgGwU4XqjwBJ+bjOGrti9fAwcXk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789002786;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=QEv3v0xnE9BespRyrtj0H9AtABtlOh89d2viTit7VeE=;
+	b=H7rx5XImoakEVEI5RxN3OsPjEHqnyHT0sf/3ucCiXRrJZT85h8iR/6sx3jSK4W6R
+	2X68I+4a/KNcQ5Po/VKPJ4f8/vWBpAmhDw0dI+bzzbz3CLxYNDwc5JGHVPkK3mMSg0T
+	SR8RYLxuJsFFCl9R8vRijSV4oN/7AR/WpK/3eLtg=
+Received: by mx.zohomail.com with SMTPS id 1789002784299626.7674218763597;
+	Wed, 9 Sep 2026 18:13:04 -0700 (PDT)
+Date: Thu, 10 Sep 2026 02:12:58 +0100
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/18] drm/panthor: Disable reset work before unplug
+Message-ID: <aqEiOy6Fe2NMu0Wo@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
 
-The IRQ is devm-managed, so it can still queue plat->work while
-remove() is tearing the queue down. Disable it first.
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Fixes: fe6d8a9c8e64 ("usb: typec: anx7411: Add Analogix PD ANX7411 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
----
-v3:
-- add Cc: stable (Heikki)
-
-v2:
-- keep the minimal remove() race fix; drop the workqueue later if wanted
-  (code unchanged from v1)
-
- drivers/usb/typec/anx7411.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
-index 41df115912b9..c3d36da692e4 100644
---- a/drivers/usb/typec/anx7411.c
-+++ b/drivers/usb/typec/anx7411.c
-@@ -1566,8 +1566,11 @@ static void anx7411_i2c_remove(struct i2c_client *client)
- 	anx7411_partner_unregister_altmode(plat);
- 	anx7411_unregister_partner(plat);
+On 26.08.2026 16:56, Boris Brezillon wrote:
+> Unplug is supposed to be the end of the road, so we need to make sure
+> reset works won't execute while we're cleaning up everything as part
+> of the unplug, otherwise it would mess up the internal state.
+> 
+> In order to be able to call disable_work_sync() in the unplug
+> path, we need to defer the unplug triggered by the reset logic,
+> otherwise we would deadlock.
+> 
+> Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 21 ++++++++++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+>  2 files changed, 23 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 0b25abebb803..7c55d0c45cfd 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -79,6 +79,9 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  		return;
+>  	}
+>  
+> +	/* Make sure we're not interrupted by resets while we're unplugging. */
+> +	disable_work_sync(&ptdev->reset.work);
+> +
+>  	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
+>  
+>  	/* Call drm_dev_unplug() so any access to HW blocks happening after
+> @@ -91,6 +94,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	 */
+>  	mutex_unlock(&ptdev->unplug.lock);
+>  
+> +	/* Unplug triggered by a device removal might race with the deferred
+> +	 * one queued by the reset work. The function covers this concurrent
+> +	 * unplug situation, but if we can disable the work before its
+> +	 * execution, that's still better.
+> +	 */
+> +	disable_work(&ptdev->unplug.work);
+> +
+>  	/* Now, try to cleanly shutdown the GPU before the device resources
+>  	 * get reclaimed.
+>  	 */
+> @@ -114,6 +124,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	complete_all(&ptdev->unplug.done);
+>  }
+>  
+> +static void panthor_device_unplug_work(struct work_struct *work)
+> +{
+> +	struct panthor_device *ptdev = container_of(work, struct panthor_device, unplug.work);
+> +
+> +	panthor_device_unplug(ptdev);
+> +}
+> +
+>  static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
+>  {
+>  	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
+> @@ -148,8 +165,9 @@ static void panthor_device_reset_work(struct work_struct *work)
+>  	drm_dev_exit(cookie);
+>  
+>  	if (ret) {
+> -		panthor_device_unplug(ptdev);
+> +		disable_work(&ptdev->reset.work);
+>  		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
+> +		queue_work(ptdev->reset.wq, &ptdev->unplug.work);
+>  	}
+>  }
+>  
+> @@ -206,6 +224,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	 */
+>  	*dummy_page_virt = 1;
+>  
+> +	INIT_WORK(&ptdev->unplug.work, panthor_device_unplug_work);
+>  	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
+>  	disable_work(&ptdev->reset.work);
+>  	ptdev->reset.wq = alloc_ordered_workqueue("panthor-reset-wq", 0);
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index b55a3f9edd41..6529e01e838d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -268,6 +268,9 @@ struct panthor_device {
+>  		 * operation is done.
+>  		 */
+>  		struct completion done;
+> +
+> +		/** @work: Unplug work. */
+> +		struct work_struct work;
+>  	} unplug;
+>  
+>  	/** @reset: Reset related fields. */
+> 
+> -- 
+> 2.55.0
  
--	if (plat->workqueue)
-+	if (plat->workqueue) {
-+		disable_irq(plat->intp_irq);
-+		cancel_work_sync(&plat->work);
- 		destroy_workqueue(plat->workqueue);
-+	}
- 
- 	i2c_unregister_device(plat->spi_client);
- 
--- 
-2.25.1
+Adrian Larumbe
