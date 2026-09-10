@@ -1,131 +1,99 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E335D3C3F6F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A2D4657D8;
+	Thu, 10 Sep 2026 12:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789042349; cv=none; b=NSZ5KKqobQPvVnFoqkh6235CS8iFir4Fp8fbFizrRMc5ExiVdbBISNXU2QVzff7nKbp7OnaAQGPG93+GUVn3K5A+z0y3MoCcPghkoJqjIDV7NZcbO9MKRBVaoDLKLzgGwz1bcVSQ+LGbNPnT6rTn8uWXOxB4fvWo4ODQ6GN9xJw=
+	t=1789042378; cv=none; b=tGezk8DBm6AJXivZ/cQ6csGnHhhlmAdhq2QF7qoVCq4jzkSLt8JG+HCpEZ2k1ZNMiryE0dHPOZZV63bJFh0oRezc+1f3lVu0RolIYVmzA2IstTBNmCsztTKxqSV+VUtbDhw7wioBGUR4FVUtyB/naF+CmOxbFzowPAwWAKSwkj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789042349; c=relaxed/simple;
-	bh=LFgg9NvNbLg0JHItMJrXrnYTc2H0SFmt0xaGwrerxvo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ijo8N7oDSkxaVSGR9AyQpZtWsXtWavTcZWqzk0hNeg2szgQ6JSxAlIVOPTGN2e3DD3BGyfIBlA6VYN+TFCUp98NRJsJlSMOzPsFD4eBsx0gBNyXDcyNbz2gS6q6uUuxvIGyaxjnP0wmtIJ4caHk84LSEdq3D33mAEm0YmU6m17E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sHhJordf; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789042378; c=relaxed/simple;
+	bh=Px66x/NSI1qxbIE4tMH3Y9GcHCMn5G7N54fP+mRx+Ew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TjE5YpSD+nOH+cO6LhGrmWINGo5AnylfOKxZI1Efb7WVuUsvutRYRNIzBDlnffQ3ZrCJfPyRycdsDeFVrlluAPjIn8o8D9133IHNeRhgYWthFtXU+8BZRPme9tcnfIpGkTosPIDxFVGOd4mP7orfuYe2fOAVDwPe8A2uPu54n/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=HJUgdK3N; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sHhJordf"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D321153B;
-	Thu, 10 Sep 2026 05:12:22 -0700 (PDT)
-Received: from [10.2.198.93] (e142334-100.cambridge.arm.com [10.2.198.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7647A3F7B4;
-	Thu, 10 Sep 2026 05:12:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789042346; bh=LFgg9NvNbLg0JHItMJrXrnYTc2H0SFmt0xaGwrerxvo=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=sHhJordf19MingqIsOLLBqUEPjFQkoeNghwwf0m49YNNGCU5Cj68L681KYb2uV5p6
-	 t0nq02vgM486v9GheUTxY4bQMRaTuMX7cNPWSSQtH1Aya7HHmGyI7ZkWzusq/GtwCh
-	 5LC1YO8K67r2RaN1iKKVBKBv6aat47ZazF/PcHGo=
-Message-ID: <8936784e-9ccb-4c33-9b30-f99552e10f87@arm.com>
-Date: Thu, 10 Sep 2026 13:12:22 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="HJUgdK3N"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=tGyisL244PhSPlcSKvXQ5DNtTUfMaXu/9jASRdndF48=; b=HJUgdK3Nbnq3POGblLGt01dchg
+	2WK2S1IQ+fS+UUEmAXnF/6MuoassAZwvv/gTnVQLz8jLi9mcsJuVg5jxmrXxuTmBFJxeBQiy751m2
+	6jOd3D1kZOlIE/FM0ro3AIwHzWxEDBmt7Uh1JysnBl6Ce7QxJCTQRvyNJqS3gW1V9aBk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4de4-004Ukx-J0; Thu, 10 Sep 2026 14:12:48 +0200
+Date: Thu, 10 Sep 2026 14:12:48 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch
+Message-ID: <ee045b16-978e-4208-b447-bb422a45dbf5@lunn.ch>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
+ <28f8ec21-162a-4c2c-8e01-6586f39f06f8@lunn.ch>
+ <041e2884bc1aa1725a86efd413e2e3301b54d91d.camel@linutronix.de>
+ <df6dc527-8b4a-4775-828a-2633369277cd@lunn.ch>
+ <20612d5a45783ed49927fb1075c7ea1f3293f514.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
- Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [patch 0/3] lib: add synthetic MM benchmarks
-To: David Rientjes <rientjes@google.com>
-References: <d6787a7f-3213-2b2c-2de5-af3b02daa21f@google.com>
- <cec6f48d-8857-49d6-a24d-b072482bf0c8@kernel.org>
- <c76621a4-cc8c-b6a7-732f-633d372477ff@google.com>
- <707b26ac-7f73-430a-a473-cd3409c4505c@kernel.org>
-Content-Language: en-US
-From: Usama Anjum <usama.anjum@arm.com>
-In-Reply-To: <707b26ac-7f73-430a-a473-cd3409c4505c@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20612d5a45783ed49927fb1075c7ea1f3293f514.camel@linutronix.de>
 
-On 10/09/2026 10:38 am, David Hildenbrand (Arm) wrote:
-> On 8/3/26 00:19, David Rientjes wrote:
->> On Fri, 31 Jul 2026, David Hildenbrand (Arm) wrote:
->>
->>> On 7/31/26 06:26, David Rientjes wrote:
->>>> A blast to the past :)
->>>>
->>>
->>> :)
->>>
->>>> We've been carrying these synthetic benchmarks in our kernel tree since 
->>>> 2009 because they've been helpful to identify regressions in hot paths, as 
->>>> well as quantifying any improvements that have been made for new changes.  
->>>> Hopefully they can be useful to others as well.
->>>>
->>>> The synthetic benchmarks are run by loading the module at runtime.  The 
->>>> modprobe will fail intentionally so that the module gets insta-unloaded.  
->>>> The test results are emitted to the kernel log.
->>>
->>>
->>> Ideally we'd have an easy way to actually use them in autoamtic tests.
->>>
->>> E.g., loading fails -> error, loading works -> no error (and unload)
->>>
->>>>
->>>> Proposed with permission from Christoph.
->>>> ---
->>>>  lib/Kconfig.debug    |  30 ++++
->>>>  lib/Makefile         |   3 +
->>>>  lib/test_pagealloc.c | 337 ++++++++++++++++++++++++++++++++++++++
->>>>  lib/test_slab.c      | 375 +++++++++++++++++++++++++++++++++++++++++++
->>>>  lib/test_vmstat.c    |  95 +++++++++++
->>>>  5 files changed, 840 insertions(+)
->>>>  create mode 100644 lib/test_pagealloc.c
->>>>  create mode 100644 lib/test_slab.c
->>>>  create mode 100644 lib/test_vmstat.c
->>>
->>> This looks similar to tools/testing/selftests/mm/test_vmalloc.sh and friends,
->>> that can actually be executed as part of our selftests and do a modprobe.
->>>
->>> Can we have similar scripts to execute them?
->>>
->>
->> Thanks for looking at these tests!
->>
->> Good call, I agree these could be loaded with a wrapper similar to 
->> test_vmalloc.sh.
->>
->> All three of these tests don't take module parameters (yet?) so right now 
->> this wrapper would just do the equivalent of check_test_requirements(), 
->> usage(), and run_test() where we'd pass in a single option for now, 
->> "performance".
->>
->>> But I also wonder if these test modules could be placed then in
->>> tools/testing/selftests/mm/ instead (or some subdirectory for test modules).
->>>
->>
->> I thought about the same and just followed what appears to be the standard 
->> convention (like test_vmalloc above) for lib/ for now.  If they should all 
->> be moved under tools/ somewhere, perhaps we handle that in a separate 
->> series?
+> > Since this is an FPGA, i assume there are no internal PHYs. Mixed mode
+> > is not something FPGAs do. There are sometime "interesting"
+> > relationships between port number and address on the MDIO bus. But
+> > without internal PHYs you don't need to worry about this.
+> > 
 > 
-> Yes. lib/ is just absolutely the wrong place for that.
-> 
-> Maybe lib/tests/mm
-> 
-> But then, I wonder if they could just be somewhere in tests/ directly ...
-> 
-> Anyhow, it was also raised whether some of these could be written as kunit
-> tests. It's been a long time since I worked on these, so just mentioning it.
+> Correct, the FPGA IP has no internal PHYs. Each port is associated with
+> a dedicated external MDIO bus.
 
-I also think it would be best to try to add them as kunit. I'm not exactly sure if
-kunit would accept such benchmark kind of code. Some research is required there.
+How is a port and the MDIO bus associated?
 
-Thanks,
-Usama
+Linux, in general, does not care. You have a collection of MDIO
+busses, and on those busses you have a collection of PHYs. The MACs
+use a phandle, or some other means to point to the PHY it should use.
 
+Given this is a 31 port switch, why would you dedicate 62 pins to
+MDIO, two per port, when you can put 32 PHYs on one MDIO bus?
+
+So i doubt there is a strong association between port and MDIO bus.
+
+What i could image is the one real MDIO bus controller is in global
+scope within the RTL design. And then the logic to provide a port with
+its multiplexor on that shared bus is in the per port RTL design
+scope. I've not done much FPGA design, but i assume if you don't
+connect the per port MDIO lines to anything, while place and route is
+performed, they get optimised out?
+
+> > So in theory, a 0 port switch is possible!
+> 
+> In theory, yes, but I prefer to treat it as invalid until it can be
+> tested.
+
+Yes, i would treat 0, 1 and probably 2 as invalid. 2 ports would
+technically work in the DSA setup, but is pretty much pointless. It
+only gets interesting with 3 ports or more.
+
+     Andrew
