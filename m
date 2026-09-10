@@ -1,180 +1,227 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB5D456E18
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF65455615
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036729; cv=none; b=QjJ+Sv1Ixbnu/EGMpP8TUVMxkMCgQ0dVSYB5UK6+0gj9wZgKCq8MiPTtIDYTrbdoKU7fvuL2mLDc4AoTQU5MR8CuuPKaPKLs0PMLQF6gP7cgnFJREFT6h3yYI/o5dnkyn3maXhC8FNjIycdGbLdTuqrHW4qHp16NaJVLU+fFVvI=
+	t=1789036759; cv=none; b=dljOI/vM2lf3rR1KB28xWEIoqCVsWNZeIHexQHGPOA/tpvEymtBSnbze8QD9SeTSWAwU1K9JvXPHUaAdXf1Of8KrFzSzn6iilYWUbIgsulddQfzJIbheZqQzx2R7taJBM+JX4wH8I2ductAu29Z/ciQ4JfYJbgILUkCW1a2LC+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036729; c=relaxed/simple;
-	bh=unCScM6mPbDKppMrZLCM3FABFYfLuyU55r1WmWOxz60=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=jwquUwZeEQXaFdGgkMQ2LN0KyRbQZnE6woV/ShuRwYJtescotM94mCk7X+ktLA9RABvZECbuwkoLzOoKAxQ+K8D88HV1R0Z2ehyySRC1heD7jE5qjEMzdmL6gODAfD+Cgkxs3ODwj40eyy1ZlstbiRcdrXj0GZYeEF5gkjoJQsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=heWcpwBx; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789036759; c=relaxed/simple;
+	bh=l3+encvT+7yR0el1XEZA0rH1i/3PeUKXEymcp7B8eSA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dcXSgFBiKsqpL9IY0wxT0QogESg6GRAjaikXKkiBSEbVvKoY96ENbTvxsuwBIaeuKCBnyguVPwURJ/gNWeKHQ3xCCVMb65RYRqe9DD+uE9cjPWf2DpW+J3+XxZH8BnFBrpiWXiW8gz9bX9W42onV4lnVQffrNl5lQjxIIJsj25A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mddNkZP1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=swGuJ/c/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RZIR6Ar3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qWd9bLmM; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="heWcpwBx"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so865717666b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789036724; x=1789641524; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CpJbFL+rZz/M4vrqd8/z7ghAMgMKrwdsWiy44eS8/vo=;
-        b=heWcpwBxX6ZcaHtxPHXSYiQGs+EJH9ozZKhadmKqG02fhIDs3JcHYqNTL9PEOD0kzV
-         ao9tKClYZNK5bvVXdesVLVPxJrXccHkyp6w6yyil579G+Geau/DhDInfN/ly6g5Z+XDb
-         jnQkcJM3/T11CR8zAoXmmynmCsYdgQmtFH2GbkdHPmk/fw+2u6Q+fh2YOth60Rf/CVPb
-         MhoSN77qoJVwwFSlemxylEF+NXY256ggHyde8+0uKMztntUdJivV3JXbNnTesnFbq8qV
-         iVV90g66kRe32aPKUutR0BZ+fj2WuW2zb62MLG+yHBDH4D4HxlqwRxvoJbWkfGk1L5a/
-         S4Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789036724; x=1789641524;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CpJbFL+rZz/M4vrqd8/z7ghAMgMKrwdsWiy44eS8/vo=;
-        b=X2lAW+bXPLQQbjY5d/hihBRGlRkdPqAcWumqDp9jrS8oeU9xAjUyb3L4rVlDASvm62
-         ktqAiDuKYN/DT+BrVyXLEgh4sNq1Y7NFwgu/THq42NWZzWtO//TQhl/5TolRX5TYVRQY
-         EZfucn4H59/96zh6kVcoUqRRx9oA76wkKgHNprxiKVVSWmRyJ6WJmRpattyioY6EOB52
-         TMpQn6vHwV9ygwMMAxedJjks9o0PaPfF8YYwXXuUuFRpdwH8stAOUv8zA1lfemJMcMzM
-         OBEdZ4y7uWiNNhzKgYEtIbMqWaoY1epcPSwE4ubYEVW2053jYKX7MXKyi88D1tRF28SK
-         j7ig==
-X-Forwarded-Encrypted: i=1; AKwUvBx0Lyw1lO1a0BNvwyPs4EkPZJDJBb/bQih7rqRyZsBfqFRPstM4gAiKiX3LmOh7YrnqGUCFJQ69SH9kx9E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWMjCvx+Fr4MT2RjjE3PraRUik7Js8Glq2gJjiesGB6lHyXBWz
-	+R/pf6e9LGbpSWX5SiKA9pFGUE+eXtN0fDh/tSTvZchQ7I0RXDPW9K6pXjVR7Ko8Mmw=
-X-Gm-Gg: AYBFou2+iNZBaMdEivoC7cTsVridU4CVsS+SPO5tXyudfvP5UA04CQJrap1Q/3dhNjm
-	ugY4rp53QDJN2cBcDdz5xZlG32lloJ9NGDNpOSTPcFt1pbCJIFOTFAE3YpgNPMR9GlIkBXb3SdN
-	tXrrImZXTmvCeOzus8ORv7JT6/dKuUW3FQw3ttcAwq/pbndTR6LBEQ1Ejj4xQShoqSxtWttcqdt
-	tieLVwaiLa4iBxVsgkK/vHdcVTN/swRr6qpHSgVKCTnxMdreHpYifn3iqusrXNJMhrkHo1W26zK
-	7PhsNxEvIJaZB99a9NtahAuvWjSYv8+lBscQAGuFki5Mcb1KXsw4IVx1BQ74w2CECK8Wttuq8f8
-	K+0z+FN98ZOOdkcvPeiJwH95BvqEb7FxBF9U9zVS5EZrvt0Fqcl+AGRtr3DMit17saH4i7KQr4J
-	sAFdcPvLvEYPcq1muelQcvJ90H9/OIYb34hLmuOVSL1QNnHd1yJ4c9BiexgYN/Zpehv6myrIWy7
-	4f5Rs57TaUFo1/W/9gHrEFC2f3/Bh1LD8E3lHfXQxzf0rG1W2FywLw=
-X-Received: by 2002:a17:907:c0d:b0:c12:74af:51f3 with SMTP id a640c23a62f3a-c260c7ac988mr1629919366b.6.1789036724503;
-        Thu, 10 Sep 2026 03:38:44 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d501662sm911270066b.23.2026.09.10.03.38.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 03:38:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mddNkZP1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="swGuJ/c/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RZIR6Ar3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qWd9bLmM"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 152F021BEC;
+	Thu, 10 Sep 2026 10:39:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789036752; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=R0QmmSMA8pLw3Br2Xr2bAdbBcxs73sYp5ydxmfQe4fQ=;
+	b=mddNkZP127R6SjT9GD2bUu2Z7pTqjzzNOnGONwGBR7KR49qLKUSV7wF+e7PuUbLyMlWpfX
+	dJb+JHHTuP0QwRu5LZgkbs6T1eXViqiqdD1Av7kqjgSezdnSo8TNHAOytW96hfDZtwuxHa
+	Zd7Hg60RbBpkszjcCjBH9tt/w7T7PLg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789036752;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=R0QmmSMA8pLw3Br2Xr2bAdbBcxs73sYp5ydxmfQe4fQ=;
+	b=swGuJ/c/cyqddJOmrMl+K9kQCNQcCj8lB4Ft+7v7VuLBFUveSuIZZK92Lakdk85el+H0vR
+	z678vjneYH7ed8CQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RZIR6Ar3;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qWd9bLmM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789036748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=R0QmmSMA8pLw3Br2Xr2bAdbBcxs73sYp5ydxmfQe4fQ=;
+	b=RZIR6Ar3IwVekY97L4k+cg/TOUXIcTc92v/OEc3BOzaAvDy6rnMBAVwwl+62wEpSk8Ff/T
+	KMSkR1ILC9CSUCMcqnxN7M/tUqNq10kFvnEgZMNKad5D94Sq5+J/6mN53iENPYvs3k0i7W
+	mdvbPJ6gabEJiwS1ybYbn4bsCdZynk4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789036748;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=R0QmmSMA8pLw3Br2Xr2bAdbBcxs73sYp5ydxmfQe4fQ=;
+	b=qWd9bLmMZRsnK+MDjh3hg7TvLtCpHGwjuW2v2qaU26VhEpDCU6G1liN8d3vd/9bK0EfB1D
+	UzGMoeLSN9VY0+DQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B0ED713180;
+	Thu, 10 Sep 2026 10:39:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3yzGHcuIomoMWgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 10:39:07 +0000
+Message-ID: <8c8239e6-4757-4947-872d-a730f738aa91@suse.de>
+Date: Thu, 10 Sep 2026 12:39:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 10 Sep 2026 12:38:43 +0200
-Message-Id: <DLBKL8SJL58R.2XQ76X6JILZ8E@fairphone.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, "Will Deacon" <will@kernel.org>,
- "Robin Murphy" <robin.murphy@arm.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
- Clark" <robin.clark@oss.qualcomm.com>, "Bjorn Andersson"
- <andersson@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <iommu@lists.linux.dev>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 00/12] iommu: qcom_iommu: implement support for
- instances on MSM8974
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com> <DKL6P7G0WTM7.UJ6KZERQZDFK@fairphone.com> <iv5radfllym2bjvkrdu4ffs25bqixyos7k3ymncpcdtc2uobn2@zlhsybrj3pwz> <DKX384NK76OS.3NNOMAH72PV2P@fairphone.com> <ssleznoahzs4wgf5irjiagss2rjwl2s2jjnqrrnlpp74rdkgfs@au6x63ykyjfs>
-In-Reply-To: <ssleznoahzs4wgf5irjiagss2rjwl2s2jjnqrrnlpp74rdkgfs@au6x63ykyjfs>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+ <953008c0-57b3-49b7-ab81-027b7626269c@suse.de>
+ <125d55143d0877b7ed0d84e622eed913e2d58794.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <125d55143d0877b7ed0d84e622eed913e2d58794.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 152F021BEC
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url,iscas.ac.cn:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-Hi Dmitry,
+Hi
 
-On Tue Sep 8, 2026 at 3:28 PM CEST, Dmitry Baryshkov wrote:
-> On Mon, Aug 24, 2026 at 12:04:57PM +0200, Luca Weiss wrote:
->> Hi Dmitry,
->>=20
->> On Tue Aug 11, 2026 at 2:43 PM CEST, Dmitry Baryshkov wrote:
->> > On Mon, Aug 10, 2026 at 12:16:19PM +0200, Luca Weiss wrote:
->> >> Hi Dmitry,
->> >>=20
->> >> Many thanks for working on this and sending this patch series!
->> >>=20
->> >> On Sun Aug 9, 2026 at 10:15 PM CEST, Dmitry Baryshkov wrote:
->> >> > Qualcomm MSM8974 platform has five SMMU instances, used by display,=
- GPU,
->> >> > Venus, VFE (camera) and JPEG encoder. Each of them follows ARM SMMU=
- v1
->> >> > spec, however they differ from other Qualcomm platforms in the
->> >> > implementation-specific registers and also in interaction with TZ.
->> >> > Venus, MDP and VFE SMMUs are secured and require programming only o=
-f
->> >> > CBs, while GPU and JPEG require full programming.
->> >> >
->> >> > This series skips IOMMUs which can't be tested right now (VFE and J=
-PEG),
->> >> > and adds only MDP, GPU and Venus (although untested, it is required=
- for
->> >> > display to work) SMMU instances.
->> >>=20
->> >> I do have a patch series (sent years ago to the mailing lists as well=
-)
->> >> for CAMSS so I can definitely test this in the future.
->> >
->> > Ok, let's land these first, unless VFE IOMMU blocks display on your
->> > platform (Venus was blocking display on APQ8074 DragonBoard).
->> >
->> >> > Note, to get display to work properly one fix is necessary, [1]
->> >> >
->> >> > [1] https://patch.msgid.link/20260809-msm8974-mmcc-fix-v1-1-50f2dcf=
-18d2e@oss.qualcomm.com
->> >>=20
->> >> I've applied this series on v7.2-rc7, with the extra commits between
->> >> that and linux-next for qcom_iommu.c backported so that your series
->> >> applies without conflicts.
->> >>=20
->> >> So far I'm stuck with the GPU not being able to probe, adding some
->> >> printk's shows that in msm_iommu_new() the call for
->> >> iommu_attach_device() is failing.
->> >>=20
->> >> [    5.971154] msm_mdp fd900100.display-controller: failed to load ad=
-reno gpu
->> >> [    5.972991] msm_mdp fd900100.display-controller: failed to bind fd=
-b00000.gpu (ops a3xx_ops [msm]): -16
->> >> [    5.974073] msm_mdp fd900100.display-controller: adev bind failed:=
- -16
->> >> [    5.974152] panel-s6d6fa1 fd922800.dsi.0: error -EBUSY: Failed to =
-attach to DSI host
->> >> [    5.974230] panel-s6d6fa1 fd922800.dsi.0: probe with driver panel-=
-s6d6fa1 failed with error -16
->> >
->> > See the patch [1], it's picked up for 7.3
->>=20
->> I missed replying to you, with this patch the display lights up again!
->>=20
->> Unfortunately the GPU still seems to have issues, I don't have a log
->> right now (I think even SSH was dropping then with a bunch of log lines
->> appearing in kernel log on screen). I assume kmscube + more complex
->> workloads worked fine for you?
+Am 10.09.26 um 11:08 schrieb Icenowy Zheng:
+> 在 2026-09-10四的 10:49 +0200，Thomas Zimmermann写道：
+>>
+>> Am 01.09.26 um 19:17 schrieb Icenowy Zheng:
+>>> Blend modes are now required to expose pixel formats w/ alpha.
+>>>
+>>> As it's the primary plane and blending is explicitly disabled, just
+>>> expose PIXEL_NONE blend mode.
+>>>
+>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>>> ---
+>>>    drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3 +++
+>>>    1 file changed, 3 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>> index 1f2be41ae496c..8d58682d88ef8 100644
+>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>>> @@ -7,6 +7,7 @@
+>>>    
+>>>    #include <drm/drm_atomic.h>
+>>>    #include <drm/drm_atomic_helper.h>
+>>> +#include <drm/drm_blend.h>
+>>>    #include <drm/drm_crtc.h>
+>>>    #include <drm/drm_fourcc.h>
+>>>    #include <drm/drm_framebuffer.h>
+>>> @@ -179,5 +180,7 @@ struct drm_plane *vs_primary_plane_init(struct
+>>> drm_device *drm_dev, struct vs_dc
+>>>    
+>>>    	drm_plane_helper_add(plane,
+>>> &vs_primary_plane_helper_funcs);
+>>>    
+>>> +	drm_plane_create_blend_mode_property(plane,
+>>> +					
+>>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
+>> No empty line before that call. I think it also fits onto a single
+> The plane blend mode call exceeds 80 columns (82 columns for COVERAGE
+> and 83 columns for PIXEL_NONE), although I heard that sometimes the
+> limit is 100 columns instead (but coding-style.rst still says 80
+> columns is preferred).
+
+It's 100 characters now.
+
+Best regards
+Thomas
+
+
 >
-> I was mostly using kmscube, but I can try running the CTS once I get
-> back to it, sorry for the delays.
+> Thanks,
+> Icenowy
+>
+>> line.
+>> Apart from the style
+>>
+>> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>
+>>
+>>>    	return plane;
+>>>    }
 
-Yeah, kmscube doesn't even work for me.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-Bootup works to a tty with screen on (mdss doesn't seem to have any
-problems for me), but then as soon as I run kmscube the device shows a
-few errors on the tty0 on the screen (USB stops working apparently since
-my "dmesg -w" doesn't show anything) and a few seconds later the device
-reboots.
 
-dmesg: https://public.lucaweiss.eu/tmp/fp2-iommu-dmesg.txt
-
-The SoC in my device should be MSM8974PRO-AA (a.k.a. MSM8974AB-AA).
-
-I know there are some differences for some bits between MSM8974
-(Snapdragon 800) and MSM8974PRO (Snapdragon 801), which variant do you
-have? Maybe that's relevant, also since downstream splits devicetree
-based on 8974 and 8974pro.
-
-Regards
-Luca
