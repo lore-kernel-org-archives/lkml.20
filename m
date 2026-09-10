@@ -1,111 +1,127 @@
-Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA47472078
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D75F47276D;
+	Thu, 10 Sep 2026 11:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039283; cv=none; b=VthQkINnNWkMxX1RAf1bAUoFASiR5QaXdbfXXqT14h2Zlmur8M9awEQH+A8KC2+N7KqrQ/Fh8Sikoxa32fT2yAPnAdMAcUBJMPvBdxXt5w3bp4Yjky+KFXOosJ1REKOgyOQaoa9jFNVlkLPsNFIhh3o+TRizJ0Nc9nox00Ut1WA=
+	t=1789039291; cv=none; b=qwQ5E0XzfV0bORbCZiOlImjeq1+I0xw5DtzscRTqls6yi8jhry9pM6NiMA33lL6Gu4tT858+iZItKFHstmsrYkLi92GmsszzUMreuDlCyH7/ciCVThcQfCm5Ta2ly77xUtl0vtdV6nvyC1ucjTq3u8OStC6V3GlSL8vi9E+kkRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039283; c=relaxed/simple;
-	bh=AV/OFTDfC0/OmXuQQ9vQBP4PE/RPxM4KkzhtVQdtba4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4LYgH3MFwPhlvagUvRSJB4vec+at7+KX+RmOAC3ua3NOEwZtPLvY3vkxPF0WUWTlcW2fF5lACSQRUMU3FkMnJnPZB7HssIC1Xj4KpSjtNzEeSJ8/U6dM24+kMQN3MKvt5IU4x1GIjJW/hKPKOwnU97ImBHfzyVBubivkaANJGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F5mjxEth; arc=none smtp.client-ip=91.218.175.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789039291; c=relaxed/simple;
+	bh=FPzIvtgmhSbpU/1pbVMJisRzxaJmuZeATD8N0wykZxk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DRVvF7JFQf1ChKPKCJSa1dC6T36LbypTv95uGrntjNcc7WTbg1IXT+DtGEJJtg01dKxRxenotDY0fNYXwTnxA1tKEI+vTXG8N3UkVRrELHq8OQgHNHIb8YGvnzg5Mp+Z1vWx0/35LzHEHb9qYm3Xqqm8Y9G9CMsLJPYiF6RHDVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kxzxAAUf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F5mjxEth"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AV/OFTDfC0/OmXuQQ9vQBP4PE/RPxM4KkzhtVQdtba4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789039279; v=1; x=1789644079;
- b=F5mjxEthxcmLvx1zZn/bZ01oElUTHrVM/IWUBFaGHPUdnWI/m8MatmvWBVNVrFemoJbfZUUE
- z3nqBm9SBWbC7q97ptjogAszpqsc9K3DJZMDqDkdC8AwTue0X0eJ/aOBgpfLNyeF78ARRe/lpTu
- i+FRybCS6vb1HUM2BWKIn5mk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 83cf4aa7dd699a22;
-	Thu, 10 Sep 2026 11:21:18 +0000
-X-Mizu-Trace-ID: 83cf4aa7dd699a22
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Aditi Ghag <aditi.ghag@isovalent.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v3 0/3] bpf,tcp: Fix bpf_sock_destroy() on TIME_WAIT and listener socks
-Date: Thu, 10 Sep 2026 19:20:44 +0800
-Message-ID: <20260910112107.148770-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kxzxAAUf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6961F000FF;
+	Thu, 10 Sep 2026 11:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789039290;
+	bh=FPzIvtgmhSbpU/1pbVMJisRzxaJmuZeATD8N0wykZxk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kxzxAAUfjYsWGUsxd77ZTX3tE3JJL5QVTDc0CoN+OGKRsVNwA8taMOgIhooTrG+RC
+	 dwnR0jlai7SFJ9MxapDb8HTbs0SXwe63sPA/OQ/0HAk1p7qxIZg1fRSVJLlU43nCZl
+	 Mml1FPN4smCiHdGL3gQjgRXgL7F0ej45TsSHiztJsSrADV6hX4RtKmnD4TJJ1Dzofo
+	 Gab0hIcgNwLcYSZC7AW89krjF+d3XB7egDqIdHoeNNEN08xRs1nHZuRVFuOeNEI+kY
+	 bBFtt8tpbGAdUJvjTV6Y77zp96xkeUlxIhcC8wn68YMAfyNhQ1MqRixMbJb/Ya78xq
+	 WbSFvnPTAlwnQ==
+Date: Thu, 10 Sep 2026 12:21:15 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 02/23] scripts/mksysmap: fix escape of '$' in the __pi_
+ pattern
+Message-ID: <aqKO4idury5TND0u@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-2-5dc1ac01672d@kernel.org>
+ <178901395289.3971858.3678831513020211615.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178901395289.3971858.3678831513020211615.b4-review@b4>
 
-Fix two bugs in bpf_sock_destroy(). One is an out-of-bounds read of
-sk->sk_protocol on TIME_WAIT and NEW_SYN_RECV socks, since the field is
-not in struct sock_common. The other is a might_sleep splat when
-destroying a listener with children in its accept queue, the
-cond_resched() in inet_csk_listen_stop() runs under the iterator's
-rcu_read_lock(). Patch 3 adds a subtest for each.
+On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
+> > Commit b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
+> > converted scripts/mksysmap from a shell script to a sed script.
+> >
+> > However an error was made - escaping of '$' required \\ escaping in shell
+> > but only \ in a sed script.
+> >
+> > This was mostly corrected in commit 7a6c355b55c0 ("scripts/mksysmap: Fix
+> > escape chars '$'"), but this fix missed arm64 PIE namespace local symbols
+> > like __pi_$x and __pi_$d which appear in System.mapand /proc/kallsyms:
+> >
+> > $ grep __pi_\\$ /proc/kallsyms | sort -u
+> > 0000000000000000 d __pi_$d
+> > 0000000000000000 t __pi_$x
+> >
+> > Fix the escaping properly.
+> >
+> > Fixes: b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
+> >
+> > No measurable change in build time.
+>
+> Same comments as before.
 
-v2 -> v3:
- - Patch 1: add Reviewed-by from Kuniyuki.
- - Patch 2: reword why cond_resched() has to go, it can reschedule or
-   report a bogus quiescent state there.
- - Patch 2: keep the cond_resched() for the non-BPF path rather than
-   removing it as Kuniyuki suggested. VOLUNTARY and NONE are still
-   there on some arches, and on x86 in stable where this goes, so a
-   big listener close() still relies on it. Can go once those modes
-   are gone.
- - Selftest: don't leak the fd if accept() unexpectedly succeeds.
-v2: https://lore.kernel.org/bpf/20260906074135.185212-1-jiayuan.chen@linux.dev/
+Yeah sorry same screw up!
 
-v1 -> v2:
- - Patch 1: fix the return comment too.
- - Patch 2: new.
- - Selftest: server recv()s EOF before close so the FINs can't cross,
-   comment style, keep the blank line before RUN_TESTS(), add the
-   tcp_listen_pending subtest.
-v1: https://lore.kernel.org/bpf/20260903125306.299943-1-jiayuan.chen@linux.dev/
+>
+> > Assisted-by: LLM
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Same thing, is this worth taking to stable? Truthfully, you could
 
-Jiayuan Chen (3):
-  bpf: Fix out-of-bounds read of sk_protocol in bpf_sock_destroy()
-  tcp: Skip cond_resched() in inet_csk_listen_stop() under BPF context
-  selftests/bpf: Test bpf_sock_destroy() on TIME_WAIT and listener socks
+Ack I think it's probably worth it yes like patch 1.
 
- net/core/filter.c                             |  13 +-
- net/ipv4/inet_connection_sock.c               |   3 +-
- .../selftests/bpf/prog_tests/sock_destroy.c   | 121 ++++++++++++++++++
- .../selftests/bpf/progs/sock_destroy_prog.c   |  30 +++++
- 4 files changed, 162 insertions(+), 5 deletions(-)
+> probably send these two changes separately from the series so that we
+> could send them to Linus with the other pending Kbuild fixes, unless
+> there are objections from Linus or Nicolas on taking that route? Shaving
+> two patches off of an ~20 patch series is a 10% reduction so seems worth
+> it?
 
--- 
-2.43.0
+Patch 8 relies on 1 + 2, so as long as that ordering was enforced then that's
+OK.
 
+I mean if these go as hotfixes then we naturally get that ordering of cousre!
+
+>
+> I'll review some of the other low hanging fruit now so that we can start
+> chunking this series out, since I too care deeply about build times.
+
+Thanks!
+
+>
+> --
+> Cheers,
+> Nathan
+>
+
+--
+Cheers, Lorenzo
