@@ -1,124 +1,62 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch [109.224.244.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332333C1412;
-	Thu, 10 Sep 2026 06:13:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D443C10B6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020796; cv=none; b=Cdbbn/N81Zr2ksBt41qoFwm7PUb+ZMJP6ZLFvFp4uMaiHWcNH5jovLk0blzlxGU35cE1A6UWVQVOloREKY2tybI0NBy/xdapnRyk9uU97p6wHfi77Q5kmMFxMNpYyEju/M0khFgSxlNmEDU5NJXdpg0YEU7nshMJ6U8SnyQ1xyg=
+	t=1789020826; cv=none; b=FgYC46ld04QgJvsnXd7nca4sX9Amc1DOH09ggLLxjmL9KQC+HIJ0z5kXbfu0Du4j/sulHkFVt31QhOdcUC4STyWi45MRZ84yKE+eVi2J4sJV8ixTaNQ39VzS3/tdo9z/O6UZ7H+QYlI4iOB5pyGKpKZhoYNYCBefYCykidFxUqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020796; c=relaxed/simple;
-	bh=AvynD0BnRA8yFU7izqYnWJydCBcM4nkfFxErdVeNSi4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bb4K/x1CbBZImrHba/dGedQdvPBpBmt8i3xEU7hCFTm2cKkuL0dcAMcmY9yY/4hidAx0llaIRe65oZj/jCjEON/I6816C9bFLuP8yDRcXA1lwTmXxErNww++o252vYNHJ/wiRGlm8wcghLCyB10e7hEpT19aTW9SqjFlJsgM8YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=AXjx859f; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789020826; c=relaxed/simple;
+	bh=4DRjpTmqx3rm6I0hvi9f55+dQTsiCr0e/ow5gOW+LpY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Bw0R040O11MJNtCLUoN91Dy4aHymAzkUjuKGAhLlibO9O5YCum/KTFuu5GGoil1p64BKNqn+Jh33gGB0m1VsJhwICVcM4ffDIbPLoXUOEnntIUQoNlFBtEsx0hG6sNpu0suhPhHWn/hr6fGL1ULlDEJzZWm9mNePHiT3YrTREaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=hEx0l+z5; arc=none smtp.client-ip=109.224.244.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="AXjx859f"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87A5B3FD91A;
-	Thu, 10 Sep 2026 08:12:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789020777; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=L4wB1QYwi0iuakONjjW3MYAY6XW1sNub4WuonJ/8I3E=;
-	b=AXjx859fYzPXthIfMssQwNFMKK2QBvjDlX7RstLkZivfKuuyKQYsvAzQdCDHm+pIx2wOIK
-	vd3yHuXAJfQIftacSw5No4K4DGL3iHlVawNh3oNl9IUJ6ufyUMkFqUXEcFav9LJE0CS8df
-	GH1h7Qmm9a4FoVe+cTakY1NvBRaMsNevhyHXCROaPkQ/dLdyuxJfGbspEJas+TuOOonvqn
-	+NAXS35BzNH7KJr32GSdJNwvXYiAQQOsfDtoGgM4FgwfuGfO01FckfvUwJ0+3h39m3hOqX
-	USGFyFoaNlpPM44D/1h9w8+AJ0x1Mxf2U/YjTvFXpSkdjTVM7ig5G7wiNadQFQ==
-Message-ID: <f1c898c4-2a84-41e8-ad8d-8c79df3feb47@cjdns.fr>
-Date: Thu, 10 Sep 2026 08:12:49 +0200
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="hEx0l+z5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789020801; x=1789280001;
+	bh=Zd0oHaUPampheUnb5yp3fSoD46Zp5JgfaDgEyt/77nc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=hEx0l+z5MazM82bsK0LQVJgbNwzldOr6D7oexcHVXrvG3G6Ut7o8b62vriwR+5SJ0
+	 YB8SDumn52wbJV6r6tr4h8WBBlzPCzoKG/i5CILdZ4aXHgw7dkDXshmHmm1GdNMeSQ
+	 dTRc5Rso1psDPR+y9pH8PGA/6S5VYD0Yev1L00VsGQ8w9aN++17WcVWPLl5cq8mHKt
+	 vXmarUU0bTdc/JA7KfuIWkdtth0noA2pgv/fi8qeLmscI8K/goOiWFzerv2x42dIQr
+	 9YSv5XeDII5b+LN2siBBb3KCs28YaUZLgjRoUPSKueDotjdzyob+FhrpUFaRPRamje
+	 VOyIy7uRVyOHA==
+Date: Thu, 10 Sep 2026 06:13:15 +0000
+To: Andrey Korshunov <razor1702@gmail.com>
+From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
+Cc: Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, "diederik@cknow-tech.com" <diederik@cknow-tech.com>, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY from the MDIO bus
+Message-ID: <VIvc1QJ9XRgfW_Po-U_fVw3BL7qNmB3Zrl4K3PXWt91BLhwpBHvwhN62PaVPq5YFX2VrZNkbrct8X3HfIBBvy1kbd9mQg9O_mGOrmoRLmcs=@proton.me>
+In-Reply-To: <20260909225002.976-1-razor1702@gmail.com>
+References: <20260909-r28s-upstream-v3-1-ee3e1a34a353@proton.me> <20260909225002.976-1-razor1702@gmail.com>
+Feedback-ID: 91982645:user:proton
+X-Pm-Message-ID: 6b1b673b5273e349cfb62c001e3957c12eff0c54
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: netdev@vger.kernel.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-References: <20260909213250.3184238-1-cjd@cjdns.fr>
- <aqHlfmYa249e3HRM@makrotopia.org>
- <7a3479c8-45cc-4b88-b111-c35d59f370e1@cjdns.fr>
- <aqIOGgVujIKT7H2H@makrotopia.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <aqIOGgVujIKT7H2H@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Thanks for the test. It is better evidence than the Zero2 would have
+given on its own. The mechanism lives in the MDIO core instead of the board=
+:
+`__mdiobus_register()` releases the bus reset before `get_phy_device()` rea=
+ds
+the ID, and the two boards wire the same RTL8211F to mdio1 behind the same
+pin, so the R28S result carries to the Zero2. I have annotated the tag
+accordingly:
 
-On 10/09/2026 03:55, Daniel Golle wrote:
-> On Thu, Sep 10, 2026 at 01:26:14AM +0200, Caleb James DeLisle wrote:
->> On 10/09/2026 01:02, Daniel Golle wrote:
->>> On Wed, Sep 09, 2026 at 09:32:50PM +0000, Caleb James DeLisle wrote:
->>>> The EcoNet EN751221 multi-chip module implementation of the MT7530
->>>> requires some additional configuration of the PHYs on startup.
->>>> The reason for this is not known, but it is possible that it has
->>>> to do with the fact that the EN751221 MCM implementation of the
->>>> MT7530 runs at an abnormal PLL frequency (362.5Mhz).
->>>>
->>>> Detect whether the MT7530 PHY is attached to the MDIO bus of an
->>>> EcoNet EN751221 switch and if so, apply the necessary register
->>>> updates.
->>>>
->>>> Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
->>>> Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
->>>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->>>> ---
->>>>    drivers/net/phy/mediatek/mtk-ge.c | 61 +++++++++++++++++++++++++++++++
->>>>    1 file changed, 61 insertions(+)
->>>>
->>>> diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
->>>> index 73d9b72f9d9e..42b06c40d703 100644
->>>> --- a/drivers/net/phy/mediatek/mtk-ge.c
->>>> +++ b/drivers/net/phy/mediatek/mtk-ge.c
->>>> [...]
->>>>    static int mt7530_phy_config_init(struct phy_device *phydev)
->>>>    {
->>>> +	int ret;
->>>> +
->>>> +	if (mt7530_phy_is_en751221_companion(phydev)) {
->>> Please introduce a `.match_phy_device` operation for both, actual
->>> MT7530 and EN751221, similar eg. to `ksz8051_match_phy_device` in
->>> micrel.c.
->> Sounds good, since this will certainly collide with
->> https://lore.kernel.org/netdev/20260827065930.2618729-2-cjd@cjdns.fr/ would
->> you prefer them in the same patch, or as a patch set? If you'd like I can do
->> this and the FE phy as a common patch set. Let me know what you prefer.
-> I'd do it one driver at a time, starting with mtk-ge.c, already adding
-> the .match_phy_device logic so it would also avoid binding the MT7530
-> driver to an ECONET_FEPHY.
->
-> The econet-fe-soc.c driver is much larger and may require more rounds
-> to make all bots and humans happy, so I'd not have the independently
-> useful mtk-ge.c changes depend on that.
-Good point, so I can make mtk-ge so it won't interfere with "any future 
-FE PHY with the same ID" with the understanding that this PHY is moving 
-along at it's own pace.
->
-> Dumping the PHY register space and comparing it with MT7530 could also
-> help to indentify any better way than relying on the parent DT
-> compatible which *is* a bit of a stretch (but could well be
-> unavoidable, of course).
+  Tested-by: Andrey Korshunov <razor1702@gmail.com> # NanoPi R28S
 
-I'll give it a shot but I have low confidence in it because AFAIK this 
-is actually a real MT7530 MCM just like MT7621 but it just happens to be 
-clocked to a weird PLL frequency.
-
-
-Thanks,
-
-Caleb
-
->
+Good to know 2026.07 leaves the pin asserted as well. The commit message
+does not name a U-Boot release, so it stands as written.
