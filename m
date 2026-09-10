@@ -1,81 +1,81 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-9.mta0.migadu.com [91.218.175.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFEE385D6A
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5750D389116
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009567; cv=none; b=DvO+H9BjD+TL2r6J+6JQ6soQjZgL30/0ukC0xl0EoFqkTJL5Vfik2SBWuCH7u3Yz5Ywn8PwI71tnP/qjS9KHdOYNJNHpQnnFOmgVZ1us4Kq/+5NT4LBlrOmAYJkO6pHGVSCvT+C++WNwEhsJWDhfTKVtHLMgkG4K+jviI6OLNPE=
+	t=1789009583; cv=none; b=S9BQU7McVhlbZPX8L3fRm3CpLCWvAu2+08UpkPjHt8niBypEd7MiP0t7oY8ZYjHaDiaiY6leN71j8dIdZd/RCv9fcTroWmGsOfPrvR+k7qNpSsVdjaIUrMOhlDuNKMr5kRL5dBdTgHgyklz6ehhvNijrRl1ShDusOcPxQB/lJMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009567; c=relaxed/simple;
-	bh=5GU69xFQlb5YQhnhsV/epfo4YZzwq4RCfzyAoMRLSBc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:To:
-	 References:In-Reply-To; b=jPA9c3AxsmqQA8xvhZfFMbII9MH/twT+M2V2+8PumndLpmmSs83OKK0YETMLAiuvFb3VgW23dsiBk+PQjq7UVhWdf6ryXB8aNkfrXH8nGwVpESM9nbN8RAJvil2a0yGWSpeQl70FBWG2mAlWNElu7CE8XcXVTKYQ6jS1EjRpIL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=U5Ejrm5T; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789009583; c=relaxed/simple;
+	bh=jF2jIwRiFm/34mwc93YKOP3RWvChYPHbleFmFoZs/g0=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=IJFzMm4vJltFvS2YzTUd1BNrGAJk4OKO1o7709t32c7OmSQNEB19f1FQc0UDuIyIf9QamOjLcngr4Hg90pVjKYqAf7fES4pYb7edPavwd8M/eKfjUyCkzBtZIRIVFpEIC3DGLJo0KBIqWgCkVw5ErN0qt0Ch+WvXDwUkISqpXeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vgH5wo9+; arc=none smtp.client-ip=91.218.175.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="U5Ejrm5T"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0610C1A1A8D;
-	Thu, 10 Sep 2026 03:05:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C03416053C;
-	Thu, 10 Sep 2026 03:05:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 535AA11C7918E;
-	Thu, 10 Sep 2026 05:05:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789009554; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=5GU69xFQlb5YQhnhsV/epfo4YZzwq4RCfzyAoMRLSBc=;
-	b=U5Ejrm5Tg+Jg2eYmeq2sCTMRjV+8A1eP5wp+CcZwNml25WHc7SE/BCSOnHN5AA6jZpCl3m
-	4xMELjgQFepubLMVRAZn8lyjJn8eBdWgCCtcQTv0dfMepayJvETymWkVI93V6sS0qC7zeU
-	viWKmz+e7ox/vlbTAOQOhbPGY2q4/RapNnIkfE3dOyeRHXzjvfyRX496H0k1AJyytxCVqH
-	XvTkCFggEK0Kf7x2R7V9XtAyyrabNfTt2wKXz9htzAs00DnW9FrsUHU4bKtF0+X5ZwN/DX
-	jRdy4EJ2fEpwv5aqqBl+/ClAJtuq++/+DXzwr6xq46OxdtnUPOdzLUQczW5WDg==
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vgH5wo9+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jF2jIwRiFm/34mwc93YKOP3RWvChYPHbleFmFoZs/g0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789009566; v=1; x=1789614366;
+ b=vgH5wo9+oT82lp7DcDYEZ28+NtkZ3zBUXfVeeLjDtP9EZj9RY7L4h9OfFTEOSEbt+TkxIIYp
+ CGb91tXW9QOAK7iX7NqiJQRm2OB20n2YO32itMwJAaUIPtEZq1lB41wZeZyRBbBr1pQ/TcGS8vu
+ fKiP1LHXLEI6rGlBOajGnBHY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 40f81e90980f7168;
+	Thu, 10 Sep 2026 03:06:06 +0000
+X-Mizu-Trace-ID: 40f81e90980f7168
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fb08279a-eb1b-44b1-b4af-f354fb81f112@linux.dev>
+Date: Thu, 10 Sep 2026 11:06:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] LoongArch: KVM: Code cleanup with MSI intterupt
+ injection
+To: Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
+References: <20260909083259.1910290-1-maobibo@loongson.cn>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20260909083259.1910290-1-maobibo@loongson.cn>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 10 Sep 2026 05:05:49 +0200
-Message-Id: <DLBAYH9MDSMY.NHHAKEJE7QRQ@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/omap: dsi: print errors with device prefix
-To: "Andreas Kemnade" <andreas@kemnade.info>,
- <tomi.valkeinen@ideasonboard.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <kees@kernel.org>, <luca.ceresoli@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260908172213.446608-1-andreas@kemnade.info>
-In-Reply-To: <20260908172213.446608-1-andreas@kemnade.info>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hello Andreas,
+Hi, Bibo
 
-On Tue Sep 8, 2026 at 7:22 PM CEST, Andreas Kemnade wrote:
-> There are two dsi controllers on OMAP4/5. If both are in use, messages
-> without device prefix have no indication which controller they are coming
-> from. That makes debugging harder.
-> Replace DSSERR/DBG macros with dev_-prefixed print functions where
-> the device is reliably accessible.
-> Also replace function names by %s ... __func__ constructs and remove
-> some debug outputs to satisfy checkpatch.
->
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+在 2026/9/9 16:32, Bibo Mao 写道:
+> Here is to remove some unnecessary parameter checking when injecting
+> MSI interrupt, include MSI level parameter and vcpu::arch::dmsintc_state
+> NULL pointer etc.
+> 
+> Bibo Mao (2):
+>   LoongArch: KVM: Remove parameter line when inject MSI
+>   LoongArch: KVM: Remove duplicated checking with DMSI irq injection
+> 
+>  arch/loongarch/include/asm/kvm_dmsintc.h |  3 +--
+>  arch/loongarch/include/asm/kvm_pch_pic.h |  2 +-
+>  arch/loongarch/kvm/intc/dmsintc.c        | 19 +++----------------
+>  arch/loongarch/kvm/intc/pch_pic.c        |  6 +++---
+>  arch/loongarch/kvm/irqfd.c               |  6 +++---
+>  5 files changed, 11 insertions(+), 25 deletions(-)
+> 
+> 
+> base-commit: df2908090cda368b01ff43709f51890076c56157
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The series looks good to me.
 
-Are you aiming at doing the same cleanup in other omapdrm files? Removing
-DSSDBG/DSSERR etc entirely would be nice.
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
 
-Luca
+Minor question: kvm_set_msi() now returns -EINVAL for !level instead
+of -1. Since MSI is edge-triggered, returning 0 to ignore a deassert
+would also work, though nothing looks at the return value today.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
