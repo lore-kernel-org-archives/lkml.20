@@ -1,363 +1,97 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3021D4825A3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969E93DCD95
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041888; cv=none; b=itHiQdDJyV6zbuTQdoTq5RRNRoJkvBjKe0hlv6VpQWFtbjpfpkqwivbIM2KSaJn1r9B55WMmqYq6sphrqYn4pozOiI0GAUo8gGZaNs5DV9z8V81Zzr/2yWkR7Zi1jMyHKokUvg6OhlEHcPZzQ0Ssx3IYJVNTIjUg5jULhAjyxWI=
+	t=1789041928; cv=none; b=ImkllBWMQXxxTzPj0QwCGAGG94vVF/zVIiotjdb8U2NmZDW0+0qZ4rEyR51kqjdC+JQTWve6hqFaX0fHpJDQazbe+SOLZP4REsbjCn3Mvmz26kFsDB4nI0Whjy9Yhgow6/W9uXUKtEruoLlwudKNP4hPSf8/ce4NNIjIH1kRjeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789041888; c=relaxed/simple;
-	bh=5BCJaCn7lj4Dda5KpsB/Sy2eIiDD5btvJPiyOMpRLc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LqEbtlgp5kAtE94MTRAoD1s7+KeBtifZgj+fn/ZOhO2G3BwK35XDy0lUu8BAiDgBGQNdoRvOHJC+p3E+xIhnGIbgzbF172DFNQTtrgT8rRl/8y32cRo4YNvngkxJusO+nCdOrUYkYwk5g0zsO2ZG70mox64nbQ9IKhpTHWh9Dw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ilsFd+py; arc=none smtp.client-ip=209.85.167.53
+	s=arc-20240116; t=1789041928; c=relaxed/simple;
+	bh=DthyWf2+A2G2Y75caLR9paCIYHUzGrDRbammkA/3Uc4=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=JbBtXhZuMUTbKimFKd/388kArjW3ymO0RzGjEPigQtokYnf4PNFfVVWf4SA43skDezyLciVlilPK7hogQWSyrS7ZCKw8cWjacBOywCJEQA/UR0cxx75SVSV/XefuxPVfql97h+fkUPaTL6/jJC3RPz34h1aLf/bZpZEFEBkjZVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYWA8wvG; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ilsFd+py"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b754cc3b6aso4463284e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:04:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYWA8wvG"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so1499996a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:05:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789041884; x=1789646684; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IWnclB4BlHw6+LzClpO+RunqN8yE6ZL5SAlCXOJwinA=;
-        b=ilsFd+pyYWGZUlRooQEfgkiQWJ51CCLv+OjC+STkjsbYZLViK0hUDzwhRici5H65JB
-         4zY8H1i3wFXlkZxoet2/pet0c4yn0WC36Wteon/GTvM+7xNJyArNRokPf36fTXJ558uO
-         sUML17rPLYktBIW95xGtd/i+uXTI/Rpj4hJqVMC+SJkwdaJKYpNrhkoaPlw8Lup0Al5Z
-         TonkmT81UJaLyUnzdrZfjBPGFA4F2hO2rotHruKbQxx/HUpFLezj0pbgdYpcDK+1rXwE
-         fiWGnQlO12ZMb1w78I0vI3cKcYJokbqFeEgc6+YnUnra5HGMuT9iYBOU34Xiphv2TVlw
-         HJqA==
+        d=gmail.com; s=20251104; t=1789041927; x=1789646727; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=j5p0fnZhfsutRgdRJoA23rs+n3VC6+9xK2KvWtfvI90=;
+        b=kYWA8wvGeDud4JwysGNjSHcAcd9wE2You1T7agnFoW6lVbpLJkeQE7xg474UwTmARN
+         VkrCyzPBwiJYVncpCLOedeaSI4XclxDvpfgMKqROnPc5iXzk+kbtosbkjx5olJn+fI6n
+         A8lxZFcY4Oviqe3vojSitjY0gVuJQWfTuIQ7lz5DooTciw6jFxIOhzDasmWrMV16NHeD
+         Yd/mY3WewGasK7sHNga3trwcWzjMxc4kQVQAYXCr5LQAMFyLAhRXvBJg8+jivbjp4h8n
+         xewoj7/bGexSpKe6+fL8k6Uk1BnWCvNAvZZ/++hKIk1lAv/zaWTG7lQeo1mpnVi2dP4N
+         Frog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789041884; x=1789646684;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1789041927; x=1789646727;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IWnclB4BlHw6+LzClpO+RunqN8yE6ZL5SAlCXOJwinA=;
-        b=JfKoVd5HaEvOcMBjyrKL7LjVKMzlZW/sNgVrPoyn7Ku28wmgoOg/wIQ3TXSb3IXsBX
-         F7fdpy7fpjN7/8NyFvUOf29SvicG3ylv67K/hlfglXt9fll/HqR2xPwjYr/hIwNLsLGj
-         TcsCbfLUdbrOIC11TAMGtx/mkUiLEEGgJiWRWKgPcJyIgDyp+T7e8OsnYcs8K5MzP5mF
-         LxtWobRRA23D47lwlLhoyU6N/01tQzMQhMCqaagpRNxbf2YetZBsQrOED5myPLIWwSTZ
-         vhNDtpwJKRFq74LO4OAWj9Sr3I8XImnBZU3rnOGtcTvw8o9DmA5qz8tcCE2luiM7wVL/
-         CWEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwTyReeA/20fbeKm0vvJ0K1r10/QHvTuJzB2xyRKQsnnrxruwCKiyMre6YYdb5HOKS3XDM3RixVM5xuOo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM64sPkKBK/r+NULWQLIaFbwLzvwMLP/2KUhE8Nokja3zmcwlD
-	ux68rDV/wVsfc0+i4NT+rZjYx83oIRN35HgKKsqnJrI/qiIH+mYxkT8=
-X-Gm-Gg: AYBFou1QaF4ZkZDTQx4s28wwANtwzWcxwgw8TMe0dRRd+VFqrNiGxMLk5ZNsRv939tJ
-	JYrWT+CNXlkVtvZ8onnaX5NWYggGA4A6miO6drgeaNVVY9ii1toCO/zHJrvWvF2yXSD7Z+dKPSI
-	Dedm25dHW8xijUvTg2scdQD/EXl9/njOO2fdjgWI6WyKRv1bDRB+s9s8BIl/RMt50CPhxu57buC
-	W5S6x4agJoIoV9zYKKj7R9tozm2xWyO3KSyjvK3TRLN7t0VsjXNGiito/DupzrYGOqhGwbYH4g8
-	MTyiQPRCrxkPvC94wC5z2CSGn9Y/aeZ1EaXwZiZ1QBjuSJSJH5ONiqvYX48za5fm0arQwYG/MAB
-	/GCsyHYuQRh90S/3FQYBpJUv/X2ytBV++UXSaeJWct1TiEx+hJHaknufOHstkQ45OWUTjvCBLi3
-	fYtk31yZRdf8/HEpAEmYWQ26QclIHbq9XTOE/ZpjxcfQ3cVHQ6DT9kStj+pWuSC7aVDaukdjbac
-	wvJYPDOqVjseOA1jdinmulYfJYP2jAE1YBYenKMftY23TnV4kgiSXXEU+qLtWIFIwgJ9+1hZDGB
-	sBAXoQ==
-X-Received: by 2002:a05:6512:3092:b0:5ae:ba7a:1789 with SMTP id 2adb3069b0e04-5b616ef5eebmr8287632e87.13.1789041883800;
-        Thu, 10 Sep 2026 05:04:43 -0700 (PDT)
-Received: from insciwin.localdomain (224.105.88.34.bc.googleusercontent.com. [34.88.105.224])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166384aasm4511395e87.0.2026.09.10.05.04.42
+        bh=j5p0fnZhfsutRgdRJoA23rs+n3VC6+9xK2KvWtfvI90=;
+        b=MuiFuM3xTYze6tLy8+HiBff2IZDHIhAIWuSyo53GTTanET3atm7jS+cZFE1CYiOqzq
+         5ZQ034R0/4DSF1VsuW7cpKnvn4aqy2or3DoR5FcbgtFVi/XYGfwRuGK2RM22j/rLwczf
+         mK+mcO8tYZs8V6zoUTe3jdtEhFru6/azAm55J8UfIVFIy5BEM7qCJ+HXvRYcGn5uUEPi
+         2zdc+ar9GHE1MO3goJy1pTWLhFJQxMkDgqTAVLM+KFc0D1AN2g6Ib/j5/yGNoC3vcHsr
+         zBj6o8GuRE683n0e93Qxl4I64gwbdXspaLQRSRd5ymNkDImT/cH+BQ4HWO/0WxK/GrMJ
+         0x4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwhdJCqaTpAcjbS5iNg3jCvxr59BayazNy4nVOxuX21z21pLPkXIjKapk1Xh+Hj8iF+bqKtvvVJgyU/L1U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nygMBHiS8jsYHdBtbkdx3GXyV0zocKtQIO/mqrULDhLdzZv5aG
+	dDnbGesKxHvll9IT4jV6Madb7Sa5KvRE89z5oQB8ytBzTas5FdAQmWt4
+X-Gm-Gg: AYBFou2eY//wbvxhN869jathAGxIe5sy7/HwY2u5TdK1P9/vfufxbmFD8SAKkN1dOv7
+	75B7xdUG7TKOhazdrU/X9KLFmwiqBfNK38m9IxL+DOH+a0N3ggF06OgV4IU+RbPhpE26V9lpEq1
+	NW1tCV2mH4sWKjhqJdhw8JHpZaRfEZaZhq5ZU+4VbBmA7J8L7bfLr3j76GjghGkyQy+i0PkZ05H
+	bQPvYXr/E0MJVRRLwKJmMs64EWz6jBKkfDpuCmJ0TVLopwUDzmvDa3omzlTxxiqmejLNWmsM77C
+	PTQD2l2lfmcB5eI7lH1JOhRl3mykYn32merxDcwLotG3fpE1Gu+n6JHNG8LJJERwUFuxXRhkAnb
+	qJSR1hP5my3in0kVEbEdlcaEEL8munbHbwBC+QP1ziv7W+xrpI9ShLH3a8C13nDtrJ41LF4B2M6
+	Jr2Ui6PS8UHa7WVOKKkblWFiECeKn0T5eVyEEilDwOsnqdbSq75LtycMfqOQOlDI5IMUN8WU1m0
+	PhGQBi1dR1gGGt66LvYGqX+3nCELLWySEb3dOjGzjsLo8RcYR2vmq4=
+X-Received: by 2002:a17:90a:ec8b:b0:399:1b64:e0d7 with SMTP id 98e67ed59e1d1-39d70bb1bd0mr11567376a91.19.1789041926812;
+        Thu, 10 Sep 2026 05:05:26 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm59190560eec.21.2026.09.10.05.05.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 05:04:43 -0700 (PDT)
-From: Dmitrii Tulnov <tulnov.dl@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: julianbraha@gmail.com,
-	jacmet@uclibc.org,
-	yann.morin.1998@free.fr,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] kconfig: warn about malformed KCONFIG_PROBABILITY values
-Date: Thu, 10 Sep 2026 15:04:42 +0300
-Message-ID: <20260910120442.26-1-tulnov.dl@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <71d40a5d-21a7-47ae-aa18-34f640a08779@gmail.com>
-References: <71d40a5d-21a7-47ae-aa18-34f640a08779@gmail.com>
-Content-Type: text/plain; charset="utf-8"
+        Thu, 10 Sep 2026 05:05:25 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, Nicholas Piggin <npiggin@gmail.com>
+Subject: Re: [PATCH v2 20/20] KVM: selftests: Add arch hook to force page tables to be naturally aligned
+In-Reply-To: <20260902164123.2546762-21-seanjc@google.com>
+Date: Thu, 10 Sep 2026 17:27:18 +0530
+Message-ID: <zexpz5cx.ritesh.list@gmail.com>
+References: <20260902164123.2546762-1-seanjc@google.com> <20260902164123.2546762-21-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-randconfig checks the numeric range of each probability but does not
-validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
-accepted as 50:0:0: the '%' is parsed repeatedly as zero. For the
-documented value 50, tristate y/m/n probabilities are 25%/25%/50%.
-With 50%, both y/m probabilities silently become zero, reducing the
-coverage of random configuration builds. Empty fields and extra fields
-are also accepted.
+Sean Christopherson <seanjc@google.com> writes:
 
-Warn when the value does not follow the documented decimal format. For
-malformed inputs whose parsed probabilities are in range, preserve the
-existing interpretation unless KCONFIG_WERROR is set. In that case, exit
-with an error before writing the configuration. Leading whitespace and
-signs are accepted by strtol(), but also trigger the warning because they
-are outside the documented format.
+> Add an arch hook to communicate to the core physical page allocator that
+> page table allocations need to be naturally aligned.  The hook will be used
+> for upcoming PowerPC support, which has MMU tables that are larger than the
+> guest base page size and need to be naturally aligned.
+>
 
-Keep the strtol() result as long until the range check. This rejects
-out-of-range values that narrowing to int previously made valid, such as
-4294967296 becoming zero on a 64-bit host, regardless of KCONFIG_WERROR.
+Thanks Sean, for these patches. I have addressed your review comments on
+v3 of PPC KVM selftests support and ported those on top of this series.
+I am still in the process of running the entire series on a real HW
+(and some todos/minor changes to be done).
 
-Add regression tests for one warning per malformed input, preserved
-configurations, KCONFIG_WERROR, out-of-range values, the supported
-probability formats, and the documented empty-value default.
+Will soon post v4 of PPC KVM selftests on top of this change series.
 
-Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
-Assisted-by: LLM
-Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
----
-Changes since v2:
-- Move the expected tristate distribution into the problem description.
-- Simplify the initial format check to !isdigit((unsigned char)*env).
-- Pass probability values and seeds through conf._run_conf(extra_env=...).
-  Use monkeypatch.delenv only to remove inherited variables.
-- Add -0, +0, bare + and - warning cases, and the +101 range-error case.
-- Honor KCONFIG_WERROR for malformed format warnings, as discussed with
-  Julian. Check unset, empty, 0 and 1 flag behavior.
-- Compare 50% with 50:0:0 and -0 with 0 across 20 fixed seeds and check
-  that each malformed input produces exactly one warning.
-- Clarify that compatibility applies to malformed in-range inputs with
-  KCONFIG_WERROR unset; values previously accepted by narrowing now fail.
+> Bury the hook in the physical page allocator to avoid having to plumb a
+> rarely used param into the main APIs.
+>
+> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-Changes since v1:
-- Warn about malformed in-range values while retaining their previous
-  interpretation by default.
-- Warn about leading whitespace and signs as undocumented input.
-- Clarify that 50 gives tristate y/m/n probabilities of 25%/25%/50%, and
-  compare it with the equivalent input 50:25:25 across 20 fixed seeds.
+As for this change. LGTM. Feel free to add:
 
-Validation on kbuild-next, x86_64, GCC 13.3.0:
-- make testconfig with HOSTCFLAGS=-Werror: 138 passed. With the unpatched
-  conf: 74 failed, 64 passed; failures cover missing format warnings,
-  unchecked narrowing and ignored KCONFIG_WERROR. The previous v3 draft
-  fails only the nine strict-mode regression cases; 129 tests pass.
-- ASan/UBSan at -O1, with leak detection disabled: the same 138 tests passed.
-- Both v3 builds matched the submitted v2 on 1,635 inputs: 916 accepted
-  values and 719 range errors, with KCONFIG_WERROR unset. Each also matched
-  the original on 380 documented-input comparisons with fixed seeds.
-- Each build passed 120 strict format-error checks: no output created in
-  a fresh directory; existing .config, .config.old and input files stayed
-  unchanged, including with KCONFIG_ALLCONFIG and KCONFIG_OVERWRITECONFIG.
-  Valid inputs, range diagnostics and other configuration modes were also
-  checked with KCONFIG_WERROR set.
-- The probability tests also passed with conflicting probability and seed
-  values and KCONFIG_WERROR=1 inherited from the test runner's environment.
-- make defconfig, allnoconfig, allmodconfig and valid randconfig passed.
-  KCONFIG_PROBABILITY=50% now produces a warning and remains compatible.
-- No vmlinux build or boot test; this changes the host configuration tool.
-  32-bit hosts and other libc implementations were not tested.
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
- scripts/kconfig/conf.c                        |  16 +-
- .../tests/randconfig_probability/Kconfig      |  12 ++
- .../tests/randconfig_probability/__init__.py  | 137 ++++++++++++++++++
- 3 files changed, 164 insertions(+), 1 deletion(-)
- create mode 100644 scripts/kconfig/tests/randconfig_probability/Kconfig
- create mode 100644 scripts/kconfig/tests/randconfig_probability/__init__.py
-
-diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index fe8ba09b0..ca6d9d735 100644
---- a/scripts/kconfig/conf.c
-+++ b/scripts/kconfig/conf.c
-@@ -186,12 +186,23 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
- 
- 	if (mode == def_random) {
- 		int n, p[3];
-+		bool warned = false;
- 		char *env = getenv("KCONFIG_PROBABILITY");
- 
- 		n = 0;
- 		while (env && *env) {
- 			char *endp;
--			int tmp = strtol(env, &endp, 10);
-+			long tmp = strtol(env, &endp, 10);
-+
-+			if (!isdigit((unsigned char)*env) ||
-+			    (*endp && *endp != ':') ||
-+			    (*endp == ':' && (!endp[1] || n == 2))) {
-+				if (!warned) {
-+					fprintf(stderr,
-+						"warning: KCONFIG_PROBABILITY has malformed format\n");
-+					warned = true;
-+				}
-+			}
- 
- 			if (tmp >= 0 && tmp <= 100) {
- 				p[n++] = tmp;
-@@ -227,6 +238,9 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
- 			perror("KCONFIG_PROBABILITY");
- 			exit(1);
- 		}
-+
-+		if (warned && getenv("KCONFIG_WERROR"))
-+			exit(1);
- 	}
- 
- 	menu_for_each_entry(menu) {
-diff --git a/scripts/kconfig/tests/randconfig_probability/Kconfig b/scripts/kconfig/tests/randconfig_probability/Kconfig
-new file mode 100644
-index 000000000..84f4e5fcc
---- /dev/null
-+++ b/scripts/kconfig/tests/randconfig_probability/Kconfig
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config MODULES
-+	bool
-+	default y
-+	modules
-+
-+config BOOL
-+	bool "Bool"
-+
-+config TRI
-+	tristate "Tristate"
-diff --git a/scripts/kconfig/tests/randconfig_probability/__init__.py b/scripts/kconfig/tests/randconfig_probability/__init__.py
-new file mode 100644
-index 000000000..76fc39c94
---- /dev/null
-+++ b/scripts/kconfig/tests/randconfig_probability/__init__.py
-@@ -0,0 +1,137 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+"""Validate KCONFIG_PROBABILITY without changing the supported distributions."""
-+
-+import pytest
-+
-+
-+@pytest.fixture(autouse=True)
-+def clear_werror(monkeypatch):
-+    # extra_env can set strict mode, but cannot remove an inherited flag.
-+    monkeypatch.delenv('KCONFIG_WERROR', raising=False)
-+
-+
-+@pytest.mark.parametrize('probability', [
-+    'invalid', ' ', '50%', '50 ', '0x32', '10 20', '10:20x',
-+    '10:20:invalid', '10:20:30x',
-+    ':50', '50:', '10::20', '10:20:', '10:20:30:', '10:20:30:40',
-+    '-0', '+0', '+', '-', '+100:0', ' \t100:0', '0: \t100:0',
-+])
-+def test_malformed_warns(conf, probability):
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': probability,
-+        'KCONFIG_SEED': '0',
-+    }) == 0
-+    assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
-+    assert conf.stderr.count('warning:') == 1
-+    assert conf.config is not None
-+
-+
-+@pytest.mark.parametrize('probability, equivalent', [
-+    ('50%', '50:0:0'),
-+    ('-0', '0'),
-+])
-+@pytest.mark.parametrize('seed', range(20))
-+def test_malformed_preserves_config(conf, probability, equivalent, seed):
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': probability,
-+        'KCONFIG_SEED': hex(seed),
-+    }) == 0
-+    assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
-+    assert conf.stderr.count('warning:') == 1
-+    malformed = conf.config
-+
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': equivalent,
-+        'KCONFIG_SEED': hex(seed),
-+    }) == 0
-+    assert 'warning:' not in conf.stderr
-+    assert conf.config == malformed
-+
-+
-+@pytest.mark.parametrize('werror', ['', '0', '1'])
-+@pytest.mark.parametrize('probability, status', [
-+    ('', 0), ('50', 0), ('50%', 1), ('-0', 1), ('10:20:30:40', 1),
-+])
-+def test_werror(conf, probability, status, werror):
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': probability,
-+        'KCONFIG_SEED': '0',
-+        'KCONFIG_WERROR': werror,
-+    }) == status
-+    if status:
-+        assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
-+        assert conf.stderr.count('warning:') == 1
-+    else:
-+        assert 'warning:' not in conf.stderr
-+
-+
-+@pytest.mark.parametrize('probability', [
-+    '-1', '101', '+101', '0:101', '0:0:101', '60:41', '0:60:41',
-+    '4294967296', '-4294967296',
-+    '999999999999999999999999', '-999999999999999999999999',
-+])
-+def test_out_of_range(conf, probability):
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': probability,
-+        'KCONFIG_SEED': '0',
-+    }) == 1
-+    assert 'KCONFIG_PROBABILITY:' in conf.stderr
-+
-+
-+@pytest.mark.parametrize('probability, boolean, tristate', [
-+    ('0', 'n', 'n'),
-+    ('0:0', 'n', 'n'),
-+    ('100:0', 'y', 'y'),
-+    ('0:100', 'y', 'm'),
-+    ('100:0:0', 'y', 'n'),
-+    ('0:100:0', 'n', 'y'),
-+    ('0:0:100', 'n', 'm'),
-+    ('000:000:100', 'n', 'm'),
-+])
-+def test_valid(conf, probability, boolean, tristate):
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': probability,
-+        'KCONFIG_SEED': '0',
-+    }) == 0
-+    assert 'warning:' not in conf.stderr
-+    for symbol, value in [('BOOL', boolean), ('TRI', tristate)]:
-+        if value == 'n':
-+            expected = '# CONFIG_{} is not set'.format(symbol)
-+        else:
-+            expected = 'CONFIG_{}={}'.format(symbol, value)
-+        assert expected in conf.config.splitlines()
-+
-+
-+@pytest.mark.parametrize('seed', range(20))
-+def test_single_probability_matches_tristate_split(conf, seed):
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': '50',
-+        'KCONFIG_SEED': hex(seed),
-+    }) == 0
-+    assert 'warning:' not in conf.stderr
-+    single = conf.config
-+
-+    # 50% boolean y; 25% tristate y, 25% m, and 50% n.
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': '50:25:25',
-+        'KCONFIG_SEED': hex(seed),
-+    }) == 0
-+    assert 'warning:' not in conf.stderr
-+    assert conf.config == single
-+
-+
-+def test_empty(conf, monkeypatch):
-+    # extra_env overrides inherited variables, but cannot remove them.
-+    monkeypatch.delenv('KCONFIG_PROBABILITY', raising=False)
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_SEED': '0',
-+    }) == 0
-+    assert 'warning:' not in conf.stderr
-+    default_config = conf.config
-+
-+    assert conf._run_conf('--randconfig', extra_env={
-+        'KCONFIG_PROBABILITY': '',
-+        'KCONFIG_SEED': '0',
-+    }) == 0
-+    assert 'warning:' not in conf.stderr
-+    assert conf.config == default_config
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
