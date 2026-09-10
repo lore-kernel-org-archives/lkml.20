@@ -1,115 +1,183 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9D5D3CF21D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F223C454F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035079; cv=none; b=FJhWpkq9VsV9qpYZMwidNEkvy8yO3h4a77B8lQqVhbzGVlc6eAdYkmZ0dww8I1CwSxpCoaeNADC4Mp1mR0BBUvFXr5eb87p6LpVwvHU3G4KMbMywaI2UUIUnq9Ep/HSYpH/8Pxfrte4OKCRSKJyG4pI8ztLkjv4hazK4rwMbugM=
+	t=1789035085; cv=none; b=A+j0lIcCpABjjc1b001UVtuyzK9Ult/YQh+dRaZeZon7VCGGFyezvssN+Wq+/DvtF2DHvfloUx5Mu7G/KqWkaK1tIknT5NAAW6KP7kmLKM/9TaD+xEvrAViGmfK8XwEqTuDG7kqBJIISRMM8QFDBux9vyCxkVqlOiaEf4HjprWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035079; c=relaxed/simple;
-	bh=ze2X4Lma6eVK0EPslJ52ApNw2jBlVa9FG4aUhZ3Oysw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a+A3qhx4+zW07b3IrmfmvFFNrMfJavqGPmrl94OXoHkag9U45hrYZE1/sPxtA1xfgZO5lk6gzffaiwUl8oacwh/uMgue+vZtdA0ZMjm3Fhx1COkrGni86ijEXupfEj+V8iHx0dAr0ImPmdJmMN87UtVnb8ECbphHj5+7wro84cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QffLbUZI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789035085; c=relaxed/simple;
+	bh=I0hyD6QpnF7dhZ5CklyKlcMRFnfbUR0Huh6rVBxwZgA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uh1F6b5V+hMwWSttACS9LszJuByg62HMp+gYOLi24bTOP/WxySeryIM+qDygzwLnSdHbY36M+APrqZrxllL/nxGFDqGRez8wLp7abuM3GVJvDQObNMMXW4fomhN0R4gVafcqDa45mwR4rhTAIXHu5m6A9sMhL9CAXQWKy6C0hAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dAr5fclo; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QffLbUZI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D345E143D;
-	Thu, 10 Sep 2026 03:11:07 -0700 (PDT)
-Received: from [10.57.72.177] (unknown [10.57.72.177])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B53B73F7B4;
-	Thu, 10 Sep 2026 03:11:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789035071; bh=ze2X4Lma6eVK0EPslJ52ApNw2jBlVa9FG4aUhZ3Oysw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QffLbUZIi0x47zAKcQ/fhaBHbAZmRZ2td2tLzmYC9x864r7U8LFVP70Npo+9+3OQu
-	 ieLkWcU0zlFJ4C9oHdGO1eB9Cm30gdZU+DW32guMGOTRWLJKtwI2KR2nrjZWv4QYCU
-	 QCY02mM9LFsznD0dXYbs1pCHO3Lu2ZGkRrVWkR48=
-Message-ID: <1528999e-eb59-416f-b18f-2a7667e61a90@arm.com>
-Date: Thu, 10 Sep 2026 12:11:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dAr5fclo"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso2210735a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:11:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789035079; x=1789639879; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LOI+fb+5x5F9yCJx1orzgkASYHto5WjfhROpPhJVUF4=;
+        b=dAr5fcloy6j65qHPpqZP7N7Nloaue4HKn8r7hI3R9bVHpk8jJuQGcWvcx4BMxmKqZ9
+         jn484cz/Hc5Fkf9dap7aiAk3gV5FOSAHI2IxWIXGc+VGAnxNAKX9a216Wc3vmTlbFyL2
+         W7JjmnmkS5BliY8bxnXxsZbaS2mwi0p+68IoRl/XvSE4KlO98ouqg09YLaokOh+O3Xyw
+         2Rn0sfGF40bTR/TFLH1pm9nwDJL8/S9TbWDb3TQPpAO4+snSynz5bLAJ8pXm4/u+Z8ns
+         Bv62CD+4eBIzjPYdHc0BmFnJx1vdTTCqNYT63EvQv8ZHD4xV3gcuaXziLlSiMmkStjiK
+         H5Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789035079; x=1789639879;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LOI+fb+5x5F9yCJx1orzgkASYHto5WjfhROpPhJVUF4=;
+        b=sec7aIhle6x5pCiCGA3xX7YUqnYMSBqjpvOmZZnIwhg59xjomV7L1EwrWNvRN2cyC0
+         gxGWXoK/A7vq1HaJx8gvql+BNHQfIDhe7gOfhEtUEMGlKTBOYANAHTdsUpgFHeqX/rRA
+         8z7x+V6QBgZ002SP0san1T/pi+JsEM74XbYIuh4MpRWQ8eItRvYK3rSXR0DViO038+oJ
+         pDGIvSdQi2c8eYJF4sDEauyhsOPBN4ePVa6B8RXcNid+ofzjK/rbukWfe8Fz7JLzOuNC
+         UD/Yu/HQQCwwidIWW1Rbr3m1WnCoYxx8AGTLPFMtOm5JH8NLBfBMdgSseEb1zneMMtMH
+         Ctmw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/OXlmZyT+/S0DVmFA5Hns65m1HJMhLfNiVI1vvW/G1t4O+ZOjXFhgp2VIsp0rfQH53LdKcfHCjDpAmQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7oOY21J9VHhgWpTp0fkpIPJARR0+JUlbmzAk+y763wYFp04Em
+	40FstyPtByQlOpbOwBQBKpDIiA/Ttpc1V+j32KQ3/n+I71cD+kpPlZ+a
+X-Gm-Gg: AYBFou0/TC8IcaA4Y7fqDI95ttAiT+ZgHAe1yI8iu99xcMP9G0TUBQrfMdyZVnPFLH5
+	KbXIobrrMbXngB4hUhQ4XQhsREknWm1+dPVXlLVgWwAJmFlK+zbzyiO87A4GeKzIOtAhvt72a1P
+	tIxpTxjjrAbKqnBPQj4OrkkuNqc3u+GajgZa++U2QS6E+DF94N1Mc8ThVbxOazyDm9B3sxa1Bj2
+	p7Fz+9r0TbakZtMGwmBx6WU+vwLQMkyZjVfbhDvfATBwdPoncNwI/GCpMnB6NTrRU8voaKcLfRi
+	adsPlc7GglFJOdTvB1tyFiC+oHhGgBJbEgF9m6bsG6IB7z2REYAgGK10Qkep7mKRU151cfognic
+	vJ5TaaJIaPmfDTzZOWpQwR8XiHiTslmxiYPVGBtNojxTGjCNdiYgwMMAloJ6+sbq3jBzKErpmPi
+	GmFfe6/7Yr6W3AYa4hPpXipyD4ZWPYwjaM4U9Egt5PwvR3/PTF3zKKxLpVzf6A+c+XwQSGzsBGf
+	jMjiD3okl7XIoapxyjGA4bSBide6mq4a6kTYolwzEcm0wpWMqazr7+r1maTPw1Xc3AbXnvOOp1N
+	Nsmbb2oQX1xSra1p80FGe7FdNUmQUrRJ8FgFS9/RfLPIWggXvTaSwRb8QJnRIkI=
+X-Received: by 2002:a17:90b:1d45:b0:38f:2168:b9cb with SMTP id 98e67ed59e1d1-39bac1d89b4mr16724648a91.9.1789035079142;
+        Thu, 10 Sep 2026 03:11:19 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e8acf98sm4232116a91.15.2026.09.10.03.11.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 03:11:18 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: paulmck@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	josh@joshtriplett.org,
+	boqun@kernel.org,
+	urezki@gmail.com
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	harry@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	rcu@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/1] rcu: drain kfree_rcu sheaves from the userspace barrier hook
+Date: Thu, 10 Sep 2026 18:11:11 +0800
+Message-ID: <20260910101112.1648978-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: topology: Prefer PE0 on NVIDIA Olympus SMT
- cores
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Mark Rutland
- <mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>,
- Breno Leitao <leitao@debian.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260909062649.469633-1-arighi@nvidia.com>
- <20260909062649.469633-2-arighi@nvidia.com>
- <89694e14-4be8-4c9e-9d7b-2808f87dd95f@arm.com> <aqGGlNce4TRLS1cW@gpd4>
-Content-Language: en-GB
-From: Dietmar Eggemann <dietmar.eggemann@arm.com>
-In-Reply-To: <aqGGlNce4TRLS1cW@gpd4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.09.26 18:17, Andrea Righi wrote:
-> On Wed, Sep 09, 2026 at 05:19:08PM +0200, Dietmar Eggemann wrote:
->> On 09.09.26 08:26, Andrea Righi wrote:
->>
->> [...]
->>
->>> +void __init arm64_init_sched_topology(void)
->>> +{
->>> +	if (!IS_ENABLED(CONFIG_SCHED_SMT))
->>> +		return;
->>> +
->>> +	if ((read_cpuid_id() & MIDR_CPU_MODEL_MASK) != MIDR_NVIDIA_OLYMPUS)
->>> +		return;
->>> +
->>> +	if (!topology_core_has_smt(smp_processor_id()))
->>> +		return;
->>> +
->>> +	set_sched_topology(arm64_asym_smt_topology);
->>> +	pr_info("Enabling PE0 SMT preference for NVIDIA Olympus\n");
->>
->> I'm not really a big fan of using this arm64 setup for NVIDIA Olympus
->> alone here.
->>
->>> +}
->>> +
->>> +int arch_asym_cpu_priority(int cpu)
->>> +{
->>> +	return MPIDR_AFFINITY_LEVEL(cpu_logical_map(cpu), 0) == 0;
->>> +}
->>> +
->>
->> This is done since it will only be called for NVIDIA Olympus since it's
->> the only CPU model enabling this. I think it will work but it's still
->> ugly :-)
->>
->> [...]
->>
-> 
-> Agreed on both points. As mentioned in the other email, I'll coordinate with the
-> firmware team on a proper ABI for describing the PE0 preference. For the systems
-> with the current firmware, I don't have many ideas on how to enable this... a
-> special scheduler facility enabled via kernel boot option? Other ideas?
-With the explicit kernel boot time option discussed in the other thread,
-how do you want to code arch_asym_cpu_priority()?
+The rcutree.do_rcu_barrier test hook currently waits for ordinary RCU
+callbacks, but it can return while kfree_rcu() still retains an object in a
+partial per-CPU sheaf.  This defeats the hook's purpose of preventing deferred
+frees from one test spilling into the next.
 
-AFAIK, Arm architecture does not require the first/primary HW thread of
-an SMT core to have MPIDR_EL1.Aff0 == 0.
+The patch drains kfree_rcu sheaves and batches before retaining the hook's
+explicit ordinary rcu_barrier().  Four counterbalanced fresh-VM pairs with the
+full validation fixture reported 60 -> 60 active objects on the unpatched
+kernel and 60 -> 59 on the patched kernel.  An ordinary-callback regression
+test passed on both kernels.
 
-The closest I came to you setup in Arm64 is a ThunderX2 SMT-4 machine on
-which I can run 'OpenBLAS benchmark/sgemm.goto'. This machine has
-symmetric CPU capacity though like Power7.
-It has MPIDR_EL1.Aff0 == {0,1,2,3} for HW threads but '== 0' wouldn't
-work here.
+The primary reproducer below removes that separate regression machinery.  One
+fresh control/treatment pair with this exact 41-line source reproduced the
+same 60 -> 60 versus 60 -> 59 split; both cells reached TEST SUCCESS with no
+problem-class kernel records.
 
-[...]
+Save the source as rcu_barrier_sheaf_repro.c and create a Makefile containing:
+
+  obj-m := rcu_barrier_sheaf_repro.o
+
+Build it with:
+
+  make -C /lib/modules/$(uname -r)/build M="$PWD" modules
+
+Then, as root on a disposable test kernel:
+
+  insmod rcu_barrier_sheaf_repro.ko
+  awk '$1 == "rcu_barrier_sheaf_repro" { print $2 }' /proc/slabinfo
+  cat /sys/kernel/slab/rcu_barrier_sheaf_repro/sheaf_capacity
+  echo 1 > /sys/module/rcutree/parameters/do_rcu_barrier
+  awk '$1 == "rcu_barrier_sheaf_repro" { print $2 }' /proc/slabinfo
+  rmmod rcu_barrier_sheaf_repro
+
+The first and second slabinfo readings are 60 and 60 without the patch, and
+60 and 59 with it.  kmem_cache_destroy() performs per-cache deferred-free
+cleanup when the module is removed, after the measurement.
+
+// SPDX-License-Identifier: GPL-2.0
+#include <linux/init.h>
+#include <linux/module.h>
+#include <linux/rcupdate.h>
+#include <linux/slab.h>
+
+struct repro_object {
+	struct rcu_head rcu;
+	unsigned long payload;
+};
+
+static struct kmem_cache *repro_cache;
+
+static int __init rcu_barrier_sheaf_repro_init(void)
+{
+	struct repro_object *object;
+
+	repro_cache = kmem_cache_create("rcu_barrier_sheaf_repro",
+					sizeof(*object), 0, SLAB_NO_MERGE, NULL);
+	if (!repro_cache)
+		return -ENOMEM;
+
+	object = kmem_cache_alloc(repro_cache, GFP_KERNEL);
+	if (!object) {
+		kmem_cache_destroy(repro_cache);
+		return -ENOMEM;
+	}
+
+	kfree_rcu(object, rcu);
+	return 0;
+}
+
+static void __exit rcu_barrier_sheaf_repro_exit(void)
+{
+	kmem_cache_destroy(repro_cache);
+}
+
+module_init(rcu_barrier_sheaf_repro_init);
+module_exit(rcu_barrier_sheaf_repro_exit);
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("Reproduce incomplete rcutree.do_rcu_barrier drains");
+
+Matthias Goergens (1):
+  rcu: drain kfree_rcu sheaves from the userspace barrier hook
+
+ .../admin-guide/kernel-parameters.txt         |  7 ++---
+ kernel/rcu/tree.c                             | 27 ++++++++++++-------
+ 2 files changed, 21 insertions(+), 13 deletions(-)
+
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.55.0
