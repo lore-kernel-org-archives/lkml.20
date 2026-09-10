@@ -1,98 +1,286 @@
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A161737A85E;
-	Thu, 10 Sep 2026 03:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA9438886B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011588; cv=none; b=kaL7mAO/86mFFmKAnniJcn4vIvGqOwHx9HqdWaEPYogFd2veGi3cRE2SHJ3uG2VQzA2Hz1cVLz6syFMWoeVe4p3YYlSmfQ+zu/SbFzmqcjgSa8RAZu3+UBW52QDXMZMKXaaCoUcJW5ItVRIHF/lTG3VmQ/uRYbAlL47/2xR8hXI=
+	t=1789011596; cv=none; b=TrHVsRhTItaAOJTAagDUte9s2Jk80LWHxOvgksjpXj0LRD5rH3h6098IAB1f2mPippmixa0Bdsc63MQbNgPexdARmZLdwj1CUWoui74YOxjCosoCUbtj4vTcBG++aEfBcPufOJ4GIY5iW6jSzBzmlEz87pJFl9I2RIvqbb5oIR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011588; c=relaxed/simple;
-	bh=8fCIF6adVs5KiYe94ZL/UwihnrUJkpLvd67Jl3Tio6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ujTjrXK558/OvlHyK0YY9qQ68LLm0gHfZh52Vu6SwcDmyzCzOZ8pSapLNOZSoRhtrA/oEgF5+sfVH6P8wYk2tlgHOHHPNFpXYSoxhrcXF+BsxCishUJOjczNQ3SPmV1bD99jBNg+NK2gKdn61Y/L+B4tzUHEb05ON9VaS68Yiyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Z0DRuNQ9; arc=none smtp.client-ip=115.124.30.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789011596; c=relaxed/simple;
+	bh=focBHjviQ8M1TBPFAliwj2P5aU3X0nM6mqhHF/eu8mM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SXm6sy4d7mZB9VHVA2LssN3v7cBVc3WWjZtyyEtaNOlv77kvQ9ClXyQyNNONP7Hct/Clpwo5rDd8IE8oUO0a0RK+2s4pwD+HiWW9DPsF4U/1zw+sQC22irzgl/wmmrM+Hd6DRH9vKODG8qZrsJIvrvlvcyC17PY2TndX+hh6O8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Vggpw/+s; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kQxHkbN+; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Z0DRuNQ9"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789011582; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version;
-	bh=IXL95Xrau8/mHF925oI3iaXMYtvfHatKbhqG289Dw2c=;
-	b=Z0DRuNQ9tco4sn77SzRDp6mNnBjYm0KDsLk/oy5GLY0CvLPkxnMW29ZT9RjZ+wnmUDh8KVeSHUB16+XICoOPC47nBG8liNZfpCyGjVskagpDYMi11K0Gg6jUI0GbWAqF5C6LJd0aOCIM6zGG4wxdQWJ5BOR4ONSAlMCp+XdESsg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=chuyf26@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XAgRbOQ_1789011260;
-Received: from x31j07255.sqa.na131(mailfrom:Chuyf26@linux.alibaba.com fp:SMTPD_---0XAgRbOQ_1789011260 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 11:34:21 +0800
-From: Yifei Chu <Chuyf26@linux.alibaba.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Tony Luck <tony.luck@intel.com>, Avadhut Naik <avadhut.naik@amd.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, linux-edac@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/mce: Zero the injected error record before logging it
-Date: Thu, 10 Sep 2026 11:32:17 +0800
-Message-ID: <178901113715.2666699.12712427139715728985@linux.alibaba.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Vggpw/+s";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kQxHkbN+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789011591;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Abwf0alfy8lmdT9uf0Uv5Evj+p5aY96/emuc9X9I3es=;
+	b=Vggpw/+sVBYVI9b1dE8Zz4C1YwZPeVt6BcE1x8KU6gcsPG/WHtQLlfCnZsdmE3wiAgud5r
+	DS1QWjrQYa9yeogInG7wGS7t0k/ZyYeky7+xqLOd75Cz1mqWSgkS9ukVypTIFNC/i0jIFL
+	HZ1q1nh4+6tl0bzDbISmiGRSkyk01A8=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-475-ps-NUxvWMqmPPEZyZjKnmQ-1; Wed, 09 Sep 2026 23:39:50 -0400
+X-MC-Unique: ps-NUxvWMqmPPEZyZjKnmQ-1
+X-Mimecast-MFC-AGG-ID: ps-NUxvWMqmPPEZyZjKnmQ_1789011589
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so8834911a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789011589; x=1789616389; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Abwf0alfy8lmdT9uf0Uv5Evj+p5aY96/emuc9X9I3es=;
+        b=kQxHkbN+tYJnEDGW/lYUrQQY00qwvNB4JEyZBb1V/vOqXyM2WwpmafaUd4lHN3h6MD
+         o70MKnWVFCwM0TvnQ1ZTsqcxSWtCuLfaO+7MehrPEBPOoeJntnNCU1XYpxTGJ1vMq/y+
+         UVcig7g/4ENfMIo5/k83L09qhE/IVn+445Sxs8MiMIOsndxZquM1oH32PbEkCdReHvpu
+         +Cb9BsVwrL+TSKYTYFa0EZ4SHfclQhPleDz9VFQDfPCzStbEoKVahng+HQSlF4Px/fI1
+         a3DWmeKH7NsztJPvCjcEaWPuivwFOnReVsJjlDm60i8jp2jg/ajeCEJNDhUmw9+fyL3a
+         GNEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789011589; x=1789616389;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Abwf0alfy8lmdT9uf0Uv5Evj+p5aY96/emuc9X9I3es=;
+        b=FlIdRjGj0cfUdwJeqfHiVA3acQ5NVHyWvOqiLlcvIWQ5npe/ObFQOcy32VgRfueKUp
+         lTDJknVnjEmozxD/sw8+LmBcdnTfI/eL0bJFvOh3owbk+V0D8GFzseUksWvUq79usFZB
+         CS4FeJlshXeK78+++YLv3PTqesk35EXAwGz2fCz7fSqOdjZBu2xxloEaWHbUl127yWHO
+         h08XXduNEvFmVkUyT7giAPD/ZuKZmqHaWqY3pNBuErJTCneqV6JIJ+SbzGb3c6XRC3pC
+         zjL1P50HV9EvbiY3vCqwO/Xik3iOX8cFC1hghgWBwyj3skcA7YEfVmJNuHinoFkqHmaW
+         t9Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBzwrA1vawYWVkCT70jUudnXbb1xnx9ElU4zV5l47bU4FzI07psZBjPsgW+62Rs7PjcA2T2OhRKd7dRztTg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxl/QD2W+a6usimtGynJmoudDeOO2v/uXTdShNxoi06ebbDwUO
+	U7WzheT9ZPmHxrO6m1VUDlH1Mwb3VcZ+0MA9ZEjn/ZYxWE6xzAM7iDuQedSQNZCvJ2w2BnAyxmA
+	eTf07kImqFSFKGJm+GOKjEmtpH3S0m32dZT2lFbWOING+ElIIPGmivDdwcBCGNGVdwQ==
+X-Gm-Gg: AYBFou3iBMTfD1F2YsPJw4e86DpB+EZ7yEZg1TGINzYfvFgp6QnG/xVS+qiWKXZAvTT
+	gitzXAeZ4S8ZC3pcoSHocLnng/+ai8sOzAVQHDWWRxfbk+RHGpixKCMhqDsr412l6o/Khppxj1t
+	l8/LCgz8VX+tJNhqrj5vqaXRrbJ7lUOsY0i2yAf8FGg9Cx1lmD/kdvdbFNv4jR7TYeYiXG112yU
+	7BP9MlYbMLJMWnIbz2gbYbv4EW+9e5pxxGtJJCdPYA7o9F4qC2CHdEGhlBOAr6p0wLDYL6APSH6
+	JmslG/Nd86YMw2YHmuKwaR/DyqThwcYMO2FjZWrQ/hxBulIPigTpR3XVXM5WIAOqCPA1Ehd1xd/
+	rvSXy90vPPOWes03xuQaFnN1oMUtGN7Em3qfJeE3pSg==
+X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr58682623a91.16.1789011588792;
+        Wed, 09 Sep 2026 20:39:48 -0700 (PDT)
+X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr58682526a91.16.1789011588237;
+        Wed, 09 Sep 2026 20:39:48 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77498csm1527727a91.3.2026.09.09.20.39.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 20:39:47 -0700 (PDT)
+Message-ID: <3cd34b9c-7500-4993-86ff-c1ee9a86b601@redhat.com>
+Date: Thu, 10 Sep 2026 13:39:36 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 03/20] KVM: arm64: Track the type of VM in kvm_arch
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+ <20260908162223.1683432-4-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260908162223.1683432-4-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-do_inject() declares a struct mce_hw_err on the stack and, for a
-software injection, fills in only err.m from i_mce before calling
-mce_log(&err). The err.vendor union (synd1/synd2, 16 bytes) is never
-initialized, so it holds whatever was left on the kernel stack.
+Hi Suzuki,
 
-Those bytes are not dropped: the mce_record tracepoint copies
-err->vendor verbatim into its v_data dynamic array, so a sw-injected
-record publishes 16 bytes of stale stack to anything reading the
-tracepoint. rasdaemon decodes v_data as MCA_SYND1/SYND2 supplemental
-error info (e.g. FRU text), so sw injection - whose whole purpose is to
-exercise the decode path - feeds the decoder nondeterministic garbage
-instead of a clean record.
+On 9/9/26 2:22 AM, Suzuki K Poulose wrote:
+> KVM arm64 has different types of VMs with all the different modes in which the
+> hypervisor code can be run. e.g., VHE, nVHE, PKVM etc. Then there is protected
+> VM and normal VMs with PKVM. We might soon add other types, e.g., Arm CCA Realm.
+> So in an effort to make the handling of these different types of VMs a bit more
+> friendlier to the eyes, add a VM flavor to the kvm_arch and we could then add
+> handlers for different operations based on the VM type.
+> 
+> Keep the flavor initialisation at the beginning to allow for the detection
+> early enough and fail out on any unsupported requests. (e.g., protected on !PKVM)
+> 
+> With that, use the vm_flavor to detect if a VM is protected VM on PKVM.
+> 
+> Based on a patch by Marc Zyngier
+> 
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+>   arch/arm64/include/asm/kvm_host.h | 12 ++++++++++--
+>   arch/arm64/kvm/arm.c              | 27 ++++++++++++++++++++++++---
+>   arch/arm64/kvm/hyp/nvhe/pkvm.c    |  2 +-
+>   arch/arm64/kvm/pkvm.c             |  1 -
+>   4 files changed, 35 insertions(+), 7 deletions(-)
+> 
 
-Every other mce_log() caller builds its record through mce_prep_record(),
-which memsets the whole struct mce_hw_err first. do_inject() is the only
-one that skips it.
+Some nitpicks below. In either way:
 
-Zero-initialize the record so the vendor data of an injected MCE is
-always well defined. err.m is still fully overwritten by i_mce
-immediately afterwards, so the injected machine check fields are
-unchanged.
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
-Reproduced with CONFIG_X86_MCE_INJECT: writing "sw" to flags and
-injecting a bank/status makes the mce_record tracepoint print random
-vendor data, e.g.
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 27fe0cd5b2d7a..d0dccc9ad6aa8 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -257,7 +257,6 @@ struct kvm_protected_vm {
+>   	pkvm_handle_t handle;
+>   	struct kvm_hyp_memcache teardown_mc;
+>   	struct kvm_hyp_memcache stage2_teardown_mc;
+> -	bool is_protected;
+>   	bool is_created;
+>   
+>   	/*
+> @@ -306,9 +305,18 @@ enum fgt_group_id {
+>   	__NR_FGT_GROUP_IDS__
+>   };
+>   
+> +enum kvm_arm_vm_flavor {
+> +	VM_NVHE,
+> +	VM_VHE,
+> +	VM_PKVM,		/* Normal guests on PKVM */
+> +	VM_PROTECTED_PKVM,	/* Protected VM */
+> +	VM_FLAVOR_MAX,
+> +};
+> +
+>   struct kvm_arch {
+>   	struct kvm_s2_mmu mmu;
+>   
+> +	enum kvm_arm_vm_flavor vm_flavor;
+>   	/*
+>   	 * Fine-Grained UNDEF, mimicking the FGT layout defined by the
+>   	 * architecture. We track them globally, as we present the
+> @@ -1504,7 +1512,7 @@ struct kvm *kvm_arch_alloc_vm(void);
+>   
+>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
+>   
+> -#define kvm_vm_is_protected(kvm)	(is_protected_kvm_enabled() && (kvm)->arch.pkvm.is_protected)
+> +#define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM)
+>   
 
-    vendor data: {0xb3,0x8a,0xb5,0x41,0x0,0x0,0x0,0x0,
-                  0x67,0x93,0xbc,0xa8,0xff,0xff,0xff,0xff}
+Here we may introduce one more helper for generic use cases. It's going to
+be used in kvm_arch_init_vm().
 
-Fixes: d4fca1358ea9 ("x86/MCE/AMD: Add support for new MCA_SYND{1,2} register=
-s")
-Cc: stable@vger.kernel.org
-Reported-by: Abaci <abaci@linux.alibaba.com>
-Assisted-by: abaci:qwen3.8-max
-Signed-off-by: Yifei Chu <Chuyf26@linux.alibaba.com>
----
- arch/x86/kernel/cpu/mce/inject.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+#define kvm_vm_flavor_eq(kvm, flavor)	((kvm)->arch.vm_flaor == (flavor))
+#define kvm_vm_is_protected(kvm)	kvm_vm_flavor_eq(kvm, VM_PROTECTED_PKVM)
 
-diff --git a/arch/x86/kernel/cpu/mce/inject.c b/arch/x86/kernel/cpu/mce/injec=
-t.c
-index 6f8a49d..a6d8f8e 100644
---- a/arch/x86/kernel/cpu/mce/inject.c
-+++ b/arch/x86/kernel/cpu/mce/inject.c
-@@ -504,7 +504,7 @@ static void prepare_msrs(void *info)
- static void do_inject(void)
- {
- 	unsigned int cpu =3D i_mce.extcpu;
--	struct mce_hw_err err;
-+	struct mce_hw_err err =3D {};
- 	u64 mcg_status =3D 0;
- 	u8 b =3D i_mce.bank;
-=20
---=20
-2.43.5
+>   #define vcpu_is_protected(vcpu)		kvm_vm_is_protected((vcpu)->kvm)
+>   
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8b080804bc90b..67f1ff9bc4fbe 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -214,6 +214,26 @@ static int kvm_arm_default_max_vcpus(void)
+>   	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
+>   }
+>   
+> +static int kvm_init_vm_flavor(struct kvm *kvm, unsigned long type)
+> +{
+> +	bool protected = type & KVM_VM_TYPE_ARM_PROTECTED;
+> +
+> +	if (is_protected_kvm_enabled()) {
+> +		if (protected)
+> +			kvm->arch.vm_flavor = VM_PROTECTED_PKVM;
+> +		else
+> +			kvm->arch.vm_flavor = VM_PKVM;
+> +	} else if (protected) {
+> +		return -EINVAL;
+> +	} else if (has_vhe()) {
+> +		kvm->arch.vm_flavor = VM_VHE;
+> +	} else {
+> +		kvm->arch.vm_flavor = VM_NVHE;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * kvm_arch_init_vm - initializes a VM data structure
+>    * @kvm:	pointer to the KVM struct
+> @@ -236,6 +256,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+>   	mutex_unlock(&kvm->lock);
+>   #endif
+>   
+> +	ret = kvm_init_vm_flavor(kvm, type);
+> +	if (ret)
+> +		return ret;
+> +
+>   	kvm_init_nested(kvm);
+>   
+>   	ret = kvm_share_hyp(kvm, kvm + 1);
+> @@ -260,9 +284,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+>   		ret = pkvm_init_host_vm(kvm, type);
+>   		if (ret)
+>   			goto err_uninit_mmu;
+> -	} else if (type & KVM_VM_TYPE_ARM_PROTECTED) {
+> -		ret = -EINVAL;
+> -		goto err_uninit_mmu;
+>   	}
+>   
+>   	kvm_vgic_early_init(kvm);
+
+We needn't depend on is_protected_kvm_enabled() to call pkvm_init_host_vm() because
+the output of is_protected_kvm_enabled() has been updated to kvm->arch.vm_flavor
+by previous call kvm_init_vm_flavor().
+
+	if (kvm_vm_is_protected(kvm) || kvm_vm_flavor_eq(kvm, VM_PKVM)) {
+		ret = pkvm_init_host_vm(kvm, type);
+		if (ret)
+			goto err_unit_mmu;
+	}
+
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index 459bd9eb7e4bc..09961c0056f2b 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -432,7 +432,7 @@ static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
+>   
+>   	hyp_vm->host_kvm = host_kvm;
+>   	hyp_vm->kvm.created_vcpus = nr_vcpus;
+> -	hyp_vm->kvm.arch.pkvm.is_protected = READ_ONCE(host_kvm->arch.pkvm.is_protected);
+> +	hyp_vm->kvm.arch.vm_flavor = READ_ONCE(host_kvm->arch.vm_flavor);
+>   	hyp_vm->kvm.arch.flags = 0;
+>   	pkvm_init_features_from_host(hyp_vm, host_kvm);
+>   
+> diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+> index 8e4c6e4bec123..3948fa46f4d75 100644
+> --- a/arch/arm64/kvm/pkvm.c
+> +++ b/arch/arm64/kvm/pkvm.c
+> @@ -240,7 +240,6 @@ int pkvm_init_host_vm(struct kvm *kvm, unsigned long type)
+>   		return ret;
+>   
+>   	kvm->arch.pkvm.handle = ret;
+> -	kvm->arch.pkvm.is_protected = protected;
+>   	if (protected) {
+>   		pr_warn_once("kvm: protected VMs are experimental and for development only, tainting kernel\n");
+>   		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
+
+In pkvm_init_host_vm(), the local variable 'protected' is used for once
+and can be removed by:
+
+	if (kvm_vm_is_protected(kvm)) {
+		pr_warn_once(...);
+		add_taint(...);
+	}
+
+Thanks,
+Gavin
+
