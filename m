@@ -1,178 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE351353A87;
-	Thu, 10 Sep 2026 22:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38C91F91E3
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789079727; cv=none; b=MSwlB7Gi+xjvGS8J3jZOIJBKTXh/pmG2AuCMs/4oS5q8Ox8OX4/xseqmjLLbZcqSqt9DLUjHcwJTbc1wUV4j/cZy++bIoxEVcHNOxi/NK/kWDHeBAyoQKI+XZv+mvnZAILRPA1weIiBBp4IuAfxjZNuqt1MekDRllfgujP5dWRg=
+	t=1789079900; cv=none; b=O4k6Wy1N3cYk5p9N40wsRuBlr2i0EvuzyW2UdsMixT3hyxsk0w33n6jCyHnzoT5yCVSQti/R3B2/GDcj7+tadhT8WufXYm7HQKHgMCxm1J4G54NLYAEurzW7eBJFnz2yWxrH/PH0RUKA1NNyWHGulc8UL99lnTFmF9oJrDEAVRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789079727; c=relaxed/simple;
-	bh=0VW+qtvSUgh4xyQN099hXLbA85ebdbDwoAQ1pLlmu/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u7qI4zCeLWYLpBUX4T4jhgMIAdfubsQ0QX6h/YRfCg1b3J/QYVIPOLraF2822oc1/Fh37a/eH2A4WYzQw8/kSGcKGGD0FOm7HCeXIGCIIciab6/lT11BVYkOTd71HLnCeBvEOkwOZXLPIVjKXiUmIJJ2yVCaAs7aS1PXV39vLeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjfXeFxv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789079900; c=relaxed/simple;
+	bh=SWt2X1DGCJzAIa/CTdS0MH7oV7EwnCVO57QQ71qYkXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TT97yCOtQ2uwEziWJUUgWTajoT/C5CoEAvsN3AXl4VwHuEVC8/ebyFsJzLeUKDnrWu5S7tWBffIZNDXMe6W7w78+5nJuyp5cIy8i/eGnGi0rVTL16byXTPQ/s2uhfEtJck9oyRHBiG34juY9pRclwkWzauNfc919gSNDA1cluTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pakIpUqg; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjfXeFxv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9654F1F000FF;
-	Thu, 10 Sep 2026 22:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789079725;
-	bh=STkBHGrY8NPn9tPJq9ZdQdMGtxmiRBYe6smZsSwC3qI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fjfXeFxvAmvRp5i10QZQUXJHVhAIlZR2E5BxaUeqTMPZBl0d3wuAExfDvBibSwnDC
-	 yr3Bhcxo6q93dW5Yd6zgLhCM36coB5mJgWNID03esCLuLu0gWhkCLFaRmX2mWb5MsA
-	 G6L8IrLiVJDrqChJr1OYCIfA5FtTnxxX4N2tXrPiHuKFpOp0a/DQHmpaVS85/JRMa6
-	 PLVDcSZxU7GRQul6JODgziZN0vnr3e3ZRLQxuU7xxq6jLaDeahBA/ffOeeSPeovLqq
-	 sqQsHclNV/fDSSfL0jSxDleafLFwKzVIiJfEK80fjdeCEsjmMyo9qyc784Hcn02G8W
-	 c2H8RPwQ6cmsg==
-Date: Thu, 10 Sep 2026 15:35:20 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: kernel test robot <lkp@intel.com>
-Cc: Kuan-Wei Chiu <visitorckw@gmail.com>, llvm@lists.linux.dev,
-	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: lib/base64.c:58:18: warning: implicit conversion from 'int' to
- 's8' (aka 'signed char') changes value from 131 to -125
-Message-ID: <20260910223520.GA3375179@ax162>
-References: <202609110514.S0a0FD6a-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pakIpUqg"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca5aa7so28026085a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:38:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789079898; x=1789684698; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lw0J18o8NMgLkUQr/yomujhpoAzqRd78S+D2/pgaPdk=;
+        b=pakIpUqgp5sUVapkWLUxvP8D0dO2dwyymArN7yTqravdZ5UTSC3s+MV/wMFmqwpYw7
+         W2EWmYQw70ki00QQFC5qJsKkk2PAoA8v+TdJQaz5e7PDLWthYL/CZUL8Z8Rn/0aVZNJh
+         uekLFBZzjmXWm5BQVq9Z6TF9lZvzwDvM59CxXp6VZzHoXSh0K0i+pB/P9SMt0zKmyloc
+         S11acJIImcYBwR7hLjmcbVcaeovQk5iqMKVbOU48UenajoliOBcGmkUOhmc29qoZEf0I
+         GSnXzlFYfhhH6gEzU7wJQLe7m2FQpePVCwLg0K0ZBg6q1NKE+gguKWDqNFs0pAb3lkwB
+         bmZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789079898; x=1789684698;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lw0J18o8NMgLkUQr/yomujhpoAzqRd78S+D2/pgaPdk=;
+        b=BRFwoNDUCXmLEWE8v6JF1RQzCzRH4d44Jb5FPk/oT2KldGDUsyykDukzEtACv9KQtj
+         jyPToORgvMHFNLAzkZIXwsAHjHosnaHwBxQ1WhMXK2kMKxAQeXlz/Iu/eyAf6bYAqgj6
+         OcyJearUdLJLiKfhkqf31jOgfksDREnJmMD8isOanuc7AqiUioBfaYChvJ9B7XQ7r3cv
+         Y0JQ/set2ol8afzvJkuDKdsAWK7/Wp88i7Ka9dQ59SQ1lRyxatluKp4mfuawohGsYjc5
+         aaIJbpjD1fGvZO6Y9imWs9xofSNCMkQfHk8uEZ1ruQTlWj4a1vatqLDntk1gYcpO/2z0
+         qROA==
+X-Forwarded-Encrypted: i=1; AKwUvBzynUMyMASev9SAGHqABIA2tndv11GcnbG6nz3g0xJ/eHkUA2YwYwe+MmEFUFcYn266pDbicoVtEh4szDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kacgwi8jLRt5k44WORkN95gCDyLlQLWdXv/FORjBvSWzdM6Wp0
+	E4+a3/emHeUkL3SwCJGtnJfLKhPjU3tDVY+9nPwQx1JHY3dLR1lPO9g=
+X-Gm-Gg: AYBFou3h5GmxbUAMsbnaIaInm0Plw4i3oe8eZ04sude2W8F3svzHmfSxFKg5vcFDz3K
+	VD54a31m12GSB7Qk+cWbi8QGwTljXGFEErV+DTI87BIiI/l+JyiD7uhQrMPeD8R5lP1KmLBHk5R
+	+U2g6yuhZ6tWaQRm/ttTHC4S/ev9onUMYfGC9FtjAet6ixgndMac2C7TxiJr6Dz0YAscOwdAiCr
+	jNZhDONtfMh1aAzcGKNttCZacZxPCYgDv43zjvPape1RS2tVuV6wcO8A9W+6yXLYo/8lNfhvIAX
+	oNJkheTnAKnDjEDkzfZ+5kzxCt++ecEONAJGc8ASquiiSovDptyPim7KZ8eO48XqXGQjbt7sdcJ
+	+9bRAP/LszgUyQHXAxWlUhfe9fxtigU3LDDbUDRbweFRHUfrpuq7z/KkxuAHbXhi5L3U5IGzeZO
+	JoRYufaTAnwRq3gm245r+Z2nA+W4IpRG1ISGLaqCcgAwmrvQbhtUwJZ/GHAcUw5zALJIUL2sc/W
+	yxVMVaElmX7bL7N2AIHZ+chzAJz531BAHf84YJVhpkay9SNMLbZmBFUWscsGaLw4p12Rpl4V40+
+	2NQ3pviFE5SGH41LsYIF9CXV0cJ6E7M0mw==
+X-Received: by 2002:a05:620a:28c4:b0:939:518d:7f6e with SMTP id af79cd13be357-939ea137501mr198587685a.22.1789079893180;
+        Thu, 10 Sep 2026 15:38:13 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e803dc90sm90487685a.17.2026.09.10.15.38.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 15:38:12 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Thierry Reding <treding@nvidia.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] drm/panel: simple: Clean up resources on DSI attach failure
+Date: Thu, 10 Sep 2026 18:38:03 -0400
+Message-ID: <20260910223803.8552-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609110514.S0a0FD6a-lkp@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 06:07:30AM +0800, kernel test robot wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> head:   50d05c7c76c96b90462f24debacca971d2e86713
-> commit: c4eb7ad32eab13ba64cc452c6f43d518b63f5e03 lib/base64: optimize base64_decode() with reverse lookup tables
-> date:   10 months ago
-> config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/config)
-> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202609110514.S0a0FD6a-lkp@intel.com/
-> 
-> All warnings (new ones prefixed by >>):
-> 
-> >> lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Wconstant-conversion]
->       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
->          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
->       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
->          |                                       ~
->       49 |         [0 ... 0x1f] = -1, \
->       50 |         INIT_32(0x20, ch_62, ch_63), \
->       51 |         INIT_32(0x40, ch_62, ch_63), \
->       52 |         INIT_32(0x60, ch_62, ch_63), \
->          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
->       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
->          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
->       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
->          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
->    lib/base64.c:43:48: note: expanded from macro 'INIT_4'
->       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
->          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:42:48: note: expanded from macro 'INIT_2'
->       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
->          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
->       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
->          |                                              ~~~~~~~~~~^~~~
->    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Wconstant-conversion]
->       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
->          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
->       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
->          |                                       ~
->       49 |         [0 ... 0x1f] = -1, \
->       50 |         INIT_32(0x20, ch_62, ch_63), \
->       51 |         INIT_32(0x40, ch_62, ch_63), \
->       52 |         INIT_32(0x60, ch_62, ch_63), \
->          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
->       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
->          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
->       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
->          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
->    lib/base64.c:43:48: note: expanded from macro 'INIT_4'
->       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
->          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:42:24: note: expanded from macro 'INIT_2'
->       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
->          |                        ^~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
->       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
->          |                                              ~~~~~~~~~~^~~~
->    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 129 to -127 [-Wconstant-conversion]
->       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
->          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
->       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
->          |                                       ~
->       49 |         [0 ... 0x1f] = -1, \
->       50 |         INIT_32(0x20, ch_62, ch_63), \
->       51 |         INIT_32(0x40, ch_62, ch_63), \
->       52 |         INIT_32(0x60, ch_62, ch_63), \
->          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
->       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
->          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
->       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
->          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
->    lib/base64.c:43:24: note: expanded from macro 'INIT_4'
->       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
->          |                        ^~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:42:48: note: expanded from macro 'INIT_2'
->       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
->          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
->       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
->          |                                              ~~~~~~~~~~^~~~
->    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Wconstant-conversion]
->       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
->          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
->       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
->          |                                       ~
->       49 |         [0 ... 0x1f] = -1, \
->       50 |         INIT_32(0x20, ch_62, ch_63), \
->       51 |         INIT_32(0x40, ch_62, ch_63), \
->       52 |         INIT_32(0x60, ch_62, ch_63), \
->          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
->       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
->          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
->       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
->          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
->    lib/base64.c:43:24: note: expanded from macro 'INIT_4'
->       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
+If mipi_dsi_attach() fails after panel_simple_probe() succeeds, only the
+panel registration is undone, leaving runtime PM enabled and an optional
+DDC adapter reference unreleased.
 
-I have not looked into the legitimacy of this warning yet but it comes
-about from a recent change to fix -Wconstant-conversion in clang:
+Call panel_simple_remove() to unwind the common probe resources as well.
 
-  https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
+Fixes: 210fcd9d9cf1 ("drm/panel: Add support for Panasonic VVX10F004B0")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/gpu/drm/panel/panel-simple.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index c95964ba25a9..767068de6816 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -6552,11 +6552,8 @@ static int panel_simple_dsi_probe(struct mipi_dsi_device *dsi)
+ 	dsi->lanes = desc->lanes;
+ 
+ 	err = mipi_dsi_attach(dsi);
+-	if (err) {
+-		struct panel_simple *panel = mipi_dsi_get_drvdata(dsi);
+-
+-		drm_panel_remove(&panel->base);
+-	}
++	if (err)
++		panel_simple_remove(&dsi->dev);
+ 
+ 	return err;
+ }
 -- 
-Cheers,
-Nathan
+2.50.1
