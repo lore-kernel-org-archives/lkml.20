@@ -1,54 +1,88 @@
-Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07957492E22
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DE9492E4A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045133; cv=none; b=iWG3NmUzL1T9pcCPNZPffHejGRBht8IJDM5V0yHtutVtorJ3MQkUF5uhU9iBvazoEoRhVwxE9p1TJjKDKE5m4Y7deVYO1P8EpRH1ob+lJsjBs0Iybs3HWPUXCBR00Z/fpWGBtWgu7EJchnInOJsI1umazZETDjnTCI2OpqeNl2w=
+	t=1789045135; cv=none; b=nvboGOqyR+aGu/cSncBUVSbzmuF6mZNIxK0dh5alht0CYkFVZe8YkFGDNSa3DT2amYh24H36pd84ygeOVXczPXXaICIWdWSMGQ5a0bYKaYpnBDO8a27MLmTACscY4dsmPlfzfSUWi5D1OACpt7O7AozYnPKU6ArcnMo60nN1BmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045133; c=relaxed/simple;
-	bh=kuqHBkMBo3V9YxQhfmvAdSRAURGFEJi13xW6az8I9eQ=;
+	s=arc-20240116; t=1789045135; c=relaxed/simple;
+	bh=1dO6s+nzXLmizG7uTVM++KB2+NBkZYoja2P36FVZ+3U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=moWSt5WQqu4+raD6yBYTE4b1mJ1ViPOEKFa3ldjag5oZEZVysa+w1b7967QojGAfvoHwuTDRes6XNLAPCTUXnQUCYhm/XALJqWUx2KNVW1jN8uWZOp6WwNDr37itHNJ5T8VY+TB7Yw+FsmtiNMBowxgrOFH+gb0gENb3s0Q6CCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c949H3Q9; arc=none smtp.client-ip=95.215.58.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=ReMa9IsyfTBMsakaAT8gORsLoa2+sbeBTS3Qe6xbzGNzOkcro0byaE4DHaFrUNCX00z+o5S1sfSvuFtF8SbSo5e5LB4aks38SQ2jbPE+qf9MhKiHIgf+vFZmZN/wUxa1c5zA9j2gM/Qlq0Sj0QHApRCCf0ZHvhFPBNvRZNHXfSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmTQlJl7; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c949H3Q9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kuqHBkMBo3V9YxQhfmvAdSRAURGFEJi13xW6az8I9eQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789045128; v=1; x=1789649928;
- b=c949H3Q9PbRB72Uy+dGsmRmUNkOAaYUX8Sc8tbx/AzkaRmCLQc+oDkIRVqn79FjgGfUtKsHk
- yecC27LjK9cmkO81mYQz1/CHuvfBaYK33JsAFh8yekESXLdBELFhP1zXmMGO+ow4CnFRz+IJX7M
- ePvdgBtn068YrWEYRIuX6Rto=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d248a60d230e97a6;
-	Thu, 10 Sep 2026 12:58:48 +0000
-X-Mizu-Trace-ID: d248a60d230e97a6
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicopanda.com,
-	axboe@kernel.dk
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmTQlJl7"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso5488945a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:58:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789045131; x=1789649931; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9Iq4XFZgztZ/SSg/JPxbN63E3iQJmYKZr/24Kl0mWDQ=;
+        b=OmTQlJl71DndygFybkTVyLn72bpPxKFhrocG7ObEYqCG+6OSiBYAqgZnRyYLCULVdC
+         tKbkp1TPz2oEVZV/RguuLSOcbeY/4sqE8k3NkP9aAE8256P6Pidyq8f63v8Hl2EqP2in
+         u3ea4YJFSlvsa5QwzPtt4yU284iBcnrLoNQtWqkc51U8ar2GIHsV3mCvqJnP+e8Dv1Mg
+         8Tsm5TNsbp8BdlITCBOmw6vvDQ0Wijc7L3HhN704vVvMeNVxCYZxLjuWSGA0yNuPmHzS
+         Ca29JScanFjqmHuYv6Ck2MXp58sPv+LcKk86td5Lhi/W/11Weh3psMrbjSEek6uTfeH4
+         LtBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789045131; x=1789649931;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Iq4XFZgztZ/SSg/JPxbN63E3iQJmYKZr/24Kl0mWDQ=;
+        b=nBMU0Ps2EgkpWAPW4mTNSGoixxs4dnpFJ+/Pb8Wnf0bCxRv4MlH6bzcZXuKCvBWnJl
+         HkJ5BRjf/S2n0ZmAlidW9rCoSeGeHXaBbCM4XwiOJlf4Sbuk2SToXA8h6ssELNUt1psv
+         lLYPMckLSqJRy/67YUiUM928HQrYGfDRC8C6ReeLtIOwn/JLLGPNb7oKBu1WYcPXMcM3
+         tPlwSO/YjvM84RM5CqlK1eR8/4f060FVFnsqkfNlYqd0NowyOIGDnN4HcWfs7eYUnCWv
+         CQiNWPkIv9jzdMqVctux/rdDBlo0GowDfqOBujiDV3AYRPQFu1/t1XZsrx8KFws+62wz
+         hmBg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3L6jzPza3E/LYV9LQufh17AZa3zggYREF9rHKydQVIvowJ7nr9PxcT0MWVTJrLJddBAdn4U8V0Eg4qNk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lydZdXFp55EdwzVpWBV9RDJflafyHEOo8AqKNhR/Vw9k2/zElh
+	gxUGJYfo3wiuHchCS+pJbDDkIoH7wI3LsmINHJqayLMwCNER+5UqMuVC
+X-Gm-Gg: AYBFou2K+gRsbHU/jOSqLdBllZnoOEKIGmlnjDNEQ3xXPJPIbqK9d/al3Ni421vdng5
+	I6alB9WKzwPWmUO4zn1mb2t76TN02MZIevFYD6BT7Zt3UN9yzWpmbI8gCFoBi09vAjgDiqhBKoA
+	cUKEn/CiYd7FPpjALSWCdDSpQLKB3vcff9fQCSeZkgjFsYG2KWabSqij6zlbCSB6Qqsq7g9pxBR
+	fEf2aESUU/+dEWJhe9ZDBC2qibSgnBAYgtgGOPEJKejX1/Oy22kuIZx7Dd4QX4SCcU1maSM/ksw
+	O5GmxsHVsZDHyvIerKJuRYR/oJJY7/6PFKK+IyOZiG+s/oi0e3oHp7L/nInF+MLTbBzwPXKtOvd
+	VOPRci67F57jIBFrZ3+/AxZYbXXZXzGsFDIGopZsvqT2PcGL5gGClKWPK3kudEAkDpyS+pNDpbV
+	q/gZDr2UQFR2nlo0wvOOntIEudSI2H5iXK1vSxNbFmgwI/69DuHEjp1J3NS/r/xkeJuszfU1Zoe
+	5SRfGjA38oHyNeTkzi/X6jQ8u40T1Y52z1DrkmvkZOGfAtAUVYTOU4mIjaYCTuKS/ASenqB/DCG
+	BKxAEfMMjaC7zsA=
+X-Received: by 2002:a17:90b:2d0b:b0:398:c794:ca26 with SMTP id 98e67ed59e1d1-39b263167f7mr60419743a91.25.1789045130914;
+        Thu, 10 Sep 2026 05:58:50 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77b1afsm4891592a91.5.2026.09.10.05.58.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 05:58:50 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Dan Carpenter <error27@gmail.com>,
+	cassiogabrielcontato@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	linux-kselftest@vger.kernel.org,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn
-Subject: [RFC PATCH v2 4/5] selftests/bpf: add multi-stream sequentiality example model
-Date: Thu, 10 Sep 2026 20:58:16 +0800
-Message-ID: <20260910125817.223354-5-cui.tao@linux.dev>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 11/13] ASoC: mediatek: mt8189: Validate sysclk frequency
+Date: Thu, 10 Sep 2026 19:57:40 +0700
+Message-ID: <20260910125742.150902-12-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910125817.223354-1-cui.tao@linux.dev>
-References: <20260910125817.223354-1-cui.tao@linux.dev>
+In-Reply-To: <20260910125742.150902-1-phucduc.bui@gmail.com>
+References: <20260910125742.150902-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,176 +91,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Add a second example cost model which replaces the builtin
-single-cursor sequentiality heuristic with a per-cgroup table of
-stream slots: an IO is sequential iff its sector matches the expected
-next sector of any tracked stream.  Interleaved sequential readers in
-one cgroup keep their own slots instead of ping-ponging a single
-cursor, and random IO inside a hot window rarely matches a moving
-expectation.  Merged bios skip the base cost but still advance the
-matched stream position, so a merge at the expected sector does not
-make the following new IO look random.
+mtk_dai_i2s_set_sysclk() accepts zero or negative frequencies.
+Reject invalid frequencies before configuring the I2S clock.
 
-Stream state lives in a CGRP_STORAGE map keyed by the cgroup of the
-blkcg argument, following the cgroup lifetime; there is no
-fixed-size registry to exhaust.
-
-Measured (QEMU, virtio-blk with the HDD profile, 4k IOs, w=1000):
-two sequential readers in one cgroup are priced 1961us/op by the
-builtin model (judged random) and 23us/op by this model (judged
-sequential), the completed IO count rises from 4495 to 207505;
-random IO inside an 8M window is priced 24us/op by builtin
-(undercharge) and 2607us/op by this model; single-stream sequential
-and whole-disk random pricing are unchanged.
+Fixes: 7eb153585598 ("ASoC: mediatek: mt8189: add platform driver")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- tools/testing/selftests/bpf/progs/iocost_ms.c | 136 ++++++++++++++++++
- 1 file changed, 136 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
+ sound/soc/mediatek/mt8189/mt8189-dai-i2s.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/progs/iocost_ms.c b/tools/testing/selftests/bpf/progs/iocost_ms.c
-new file mode 100644
-index 000000000000..3cc57c03d3c8
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/iocost_ms.c
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Example multi-stream sequentiality detection cost model.
-+ *
-+ * The builtin model keeps a single cursor per cgroup, so two
-+ * interleaved sequential readers in one cgroup are all priced random
-+ * (measured 89x overcharge, 12.9x throughput collapse), while random
-+ * IO inside a hot window smaller than the 16MB seek threshold is
-+ * priced sequential (measured 107x undercharge).  This model replaces
-+ * the single cursor with a per-cgroup table of stream slots: an IO is
-+ * sequential iff its sector matches the expected next sector of any
-+ * tracked stream.  Interleaved streams keep their own slots, and
-+ * windowed random IO rarely matches a moving expectation.
-+ *
-+ * Stream state lives in a CGRP_STORAGE map, so it is created and
-+ * freed with the cgroup.  The model implements the full builtin
-+ * linear formula itself, including flush pricing.
-+ */
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
+diff --git a/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c b/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+index f20dbb410223..ca7d786cdeff 100644
+--- a/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
++++ b/sound/soc/mediatek/mt8189/mt8189-dai-i2s.c
+@@ -1286,6 +1286,9 @@ static int mtk_dai_i2s_set_sysclk(struct snd_soc_dai *dai,
+ 	    dir != SND_SOC_CLOCK_OUT)
+ 		return -EINVAL;
+ 
++	if (freq <= 0)
++		return -EINVAL;
 +
-+/* VTIME_PER_SEC comes from vmlinux.h (a BTF enum constant) */
-+#define IOC_PAGE_SIZE		4096
-+#define IOC_SECT_TO_PAGE_SHIFT	3	/* 512B sectors to 4kB pages */
-+#define LCOEF_RANDIO_PAGES	4096	/* 16MB seek threshold */
-+#define IOCOST_COST_F_MERGE	(1ULL << 0)	/* not in BTF: a plain macro */
-+#define IOCOST_REQ_OP_MASK	0xff		/* REQ_OP_MASK, not in BTF */
-+
-+/*
-+ * DIV64_U64_ROUND_UP / DIV_ROUND_UP_ULL equivalents, folded at
-+ * compile time
-+ */
-+#define RU(x, y)		((x) / (y) + (((x) % (y)) ? 1 : 0))
-+
-+#define RBPS	174019176ULL
-+#define RSEQIOPS	41708ULL
-+#define RRANDIOPS	370ULL
-+#define WBPS	178075866ULL
-+#define WSEQIOPS	42705ULL
-+#define WRANDIOPS	378ULL
-+
-+#define RPAGE	(RU(VTIME_PER_SEC, RU(RBPS, IOC_PAGE_SIZE)))
-+#define RSEQIO	(RU(VTIME_PER_SEC, RSEQIOPS) - RPAGE)
-+#define RRANDIO	(RU(VTIME_PER_SEC, RRANDIOPS) - RPAGE)
-+#define WPAGE	(RU(VTIME_PER_SEC, RU(WBPS, IOC_PAGE_SIZE)))
-+#define WSEQIO	(RU(VTIME_PER_SEC, WSEQIOPS) - WPAGE)
-+#define WRANDIO	(RU(VTIME_PER_SEC, WRANDIOPS) - WPAGE)
-+
-+#define NSLOTS	4
-+
-+struct streams {
-+	__u64 expected[NSLOTS];	/* next expected sector, per stream */
-+	__u64 stamp[NSLOTS];	/* LRU stamp, 0 = empty */
-+};
-+
-+/*
-+ * per-cgroup stream table: keyed by the cgroup, freed with it
-+ */
-+struct {
-+	__uint(type, BPF_MAP_TYPE_CGRP_STORAGE);
-+	__uint(map_flags, BPF_F_NO_PREALLOC);
-+	__type(key, int);
-+	__type(value, struct streams);
-+} stream_tab SEC(".maps");
-+
-+SEC("struct_ops")
-+u64 BPF_PROG(iocost_ms_calc_cost, u64 opf, u64 nbytes, u64 sector,
-+	     struct blkcg *blkcg, u64 model_flags)
-+{
-+	struct streams *s;
-+	u64 pages, base, coef_page, randio, advance, now;
-+	u32 i, victim = 0, found = 0xFFFFFFFF;
-+
-+	if ((opf & IOCOST_REQ_OP_MASK) == REQ_OP_READ) {
-+		base = RSEQIO; coef_page = RPAGE; randio = RRANDIO;
-+	} else if ((opf & IOCOST_REQ_OP_MASK) == REQ_OP_WRITE) {
-+		base = WSEQIO; coef_page = WPAGE; randio = WRANDIO;
-+	} else {
-+		/*
-+		 * a fully owning model must price every op; unknown
-+		 * ops are priced as a single page write
-+		 */
-+		base = 0; coef_page = WPAGE; randio = 0;
-+	}
-+	advance = RU(nbytes, 512);	/* sectors */
-+
-+	s = bpf_cgrp_storage_get(&stream_tab, blkcg->css.cgroup, NULL,
-+				 BPF_LOCAL_STORAGE_GET_F_CREATE);
-+	if (!s)
-+		return base + RU(nbytes, IOC_PAGE_SIZE) * coef_page;
-+
-+	now = bpf_ktime_get_ns();
-+	for (i = 0; i < NSLOTS; i++) {
-+		if (s->expected[i] == sector && s->stamp[i]) {
-+			found = i;
-+			break;
-+		}
-+	}
-+	if (found != 0xFFFFFFFF) {
-+		/* sequential: keep the seq base from the op branch */
-+		s->expected[found] = sector + advance;
-+		s->stamp[found] = now;
-+	} else {
-+		base = randio;
-+		for (i = 1; i < NSLOTS; i++) {
-+			if (s->stamp[i] < s->stamp[victim])
-+				victim = i;
-+		}
-+		s->expected[victim] = sector + advance;
-+		s->stamp[victim] = now;
-+	}
-+
-+	pages = RU(nbytes, IOC_PAGE_SIZE);
-+	if (!pages)
-+		pages = 1;	/* dataless flush: one page */
-+	if (model_flags & IOCOST_COST_F_MERGE) {
-+		/*
-+		 * merged bios skip the base cost but still advance
-+		 * the stream position above, so a merge at the
-+		 * expected sector does not make the following new IO
-+		 * look random
-+		 */
-+		base = 0;
-+	}
-+
-+	return base + pages * coef_page;
-+}
-+
-+SEC(".struct_ops")
-+struct iocost_model_ops iocost_ms = {
-+	.calc_cost = (void *)iocost_ms_calc_cost,
-+	.name = "iocost_ms",
-+};
-+
-+char LICENSE[] SEC("license") = "GPL";
+ 	i2s_priv = afe_priv->dai_priv[dai->id];
+ 	if (!i2s_priv)
+ 		return -EINVAL;
 -- 
 2.43.0
 
