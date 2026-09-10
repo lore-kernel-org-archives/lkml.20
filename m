@@ -1,227 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB9F48C8C1;
-	Thu, 10 Sep 2026 13:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046522; cv=none; b=CJqWQuGuGGdSbJ2OVCCXZ7+g30rBWmwks2k43zX0eSLXL9I/Y+Hlg9xTXjmVKip41vt/A/plJVGIWDVwwTs25GWnDooPLOPEbYyEN5UU5YGlV171+YHEF1N0ONIaVMVs3flt1dsrfZE4AmAktXW9Po+pFHf84/Vf3+pj9VJ7T8M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046522; c=relaxed/simple;
-	bh=aUI8rMwfBHr5u0Y29KLv8bncjijf+J8Ifvm/ilVYFa4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YQoKzsSV4cJs69dvUjwR0REXM0Wbn1kAieQN2GGAiFA0e2cNaZRTD4G2AyAgqFF8cjI8c8f1AIOOMba8WDuKiFU/HlTcPZr6GRudArN7f3B16/5UHAbjcInoYfc98M1DdkvJt1RGErC6WpPCNK+B1cEbHLFqczhMSoZ0t0uDrJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G802fH7K; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6356F3921D6;
+	Thu, 10 Sep 2026 13:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789046652; cv=fail; b=h10JvrMaX6li6Yj6j0yEwdnH423S0eSDXZj09c+TjhaOLmCkiZiwgknZeIFzJjVA4THAXA4mLHQNNnZS2btkvHZ+S/tdM1/jBuJ6KQcc2QX76kWtbOLEy4YIcQXRB/2lqwLjtMtNVx0nG2d5xYw2uWFCgU0dAtTYihz4qWMgf3U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789046652; c=relaxed/simple;
+	bh=MXpwBw+5JcS6S7fMhb4PfcSNnVIxU/pemuNpCrYx7rE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=f8f2ytqeBNEtvK2GDYfAhngW4PPaTw1ktJQwXALMK+hBHihKy75JuMz/0H2gDMebMfxQB7UpzSXklujQE7IRAc6LPCATZpg4W7boHHXNzSLkGDHYxNF2LWQzZlW8tBE3nT3ZSR2KJH3uPBgTucrlEaMfa/5MEAuJCDZgUSTDKEE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=joQeXmad; arc=fail smtp.client-ip=40.107.201.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G802fH7K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545C41F00893;
-	Thu, 10 Sep 2026 13:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046516;
-	bh=rnYfa+N9PX+9bZxCtAHjFNkfKZFEHoRtvGv8uyNBwkw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G802fH7KG4gSIuqmJBJArkiHA+NjZjr2/twJ5t1M0MkahEZXS6sTJDWnyE/yzPtJR
-	 EjPb4BbYZ26mtoCVylPPFLrcJ1AaLTmXPGGjNuvRz8m0XjC/4nQl4kI5WttiIJMVML
-	 4M+hLY29XZIOORDmEX/O6TJbG3VCOwrlMtyHD07gk4YTZpC8GJKDrXUYDS9khtop/t
-	 oytwuiPsevvguH6LWlVqmlZprrhub0wJ1dhtLDm8EwpsLjy3jGISSW0Y/9As5x6fPy
-	 LfLvehubsuaswL3YyNfDJc60Aiq/D8dzDdkUEHNj0VWk7nO6qkrwpXqHoaoJz/83GF
-	 1JIuVFmWDOKZw==
-Date: Thu, 10 Sep 2026 15:21:54 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <aqKu8nJqPsmKOo1d@localhost.localdomain>
-References: <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
- <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="joQeXmad"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MKtNnqmVuKQ53hgVsMPS2MUBb31uAhYhHLIPa6fzZlD9s8k/8JV/DMtTVbQAwCh7B0brAG907r7UZ5ZbmtqPXzmRajSPVJPqgb+vkA7dWLYSLzcvkHYpIbudcpOv6X3NJSSKi6yJDCmbRILRjHrzmKJf80LmoNqbBx249noBv34621Kj7+1ij8bbKLfdePymlifoJwBnO1CEbdvx0uEFafJl6R5Qi3/9dP6nCzKc3WTnF8oYksk3LO5s1RIg2IbVGVxRS9oGRehd/TjNQkstSlUJj9krXGZ+/A3EQk1FfFmm+xx74zh5JebnSs7ieMNfAuj2SITKr08bJ5AGuylJag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p4l4YYc84S79phyNERWD1eyH+Wri8ah5WinZFuY810A=;
+ b=dDI2P1P8zghDfSXY2qdtgvoSt4/+SWlk+MUEwuYjk4klId4SCzX5FquXn4vbX0R1IiGTivK0LKKs53qWMhnEhtHrrvygPnaSKWRKV0BsK0rpmkm+eapWlMWG0mQ9XTl8HhD1tVGDvVDYprE20e9oPDFRiX1jiNra/ORYHQol3CGg2ALIFt6J+MvFyWTucsA9VazeTxn8PrpP3l6iDKfbmu/lasiB8uPQcJ7K6MpFJTAh5ElGKxvsOeknXucsDHeUMZwZSITlvuCE8/celf4Uxe5xbJuu42TJK4Zd6BH33QlTh4dcRgwjxwCl7Yx8ez8eedUHWk/mN4v0RtWn4IXrpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p4l4YYc84S79phyNERWD1eyH+Wri8ah5WinZFuY810A=;
+ b=joQeXmadtBSWNvpowvGf+9VfBfDB4eRY24Ilq/ZVopdd4I0VYuvlzaHKrRPfUalhlNSNilw7f1yaKLo1dU6kg9lnNp7wysauEWIEDAz0cNamPy/0ycUOpFoWOlLarV8Kgn28Ce/WeZ56aACKTayeFCzKZd+Fx/7ku2BNidEDBl8=
+Received: from MN2PR22CA0025.namprd22.prod.outlook.com (2603:10b6:208:238::30)
+ by DM4PR12MB6325.namprd12.prod.outlook.com (2603:10b6:8:a4::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Thu, 10 Sep
+ 2026 13:23:59 +0000
+Received: from BN2PEPF000044A6.namprd04.prod.outlook.com
+ (2603:10b6:208:238:cafe::aa) by MN2PR22CA0025.outlook.office365.com
+ (2603:10b6:208:238::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 13:23:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A6.mail.protection.outlook.com (10.167.243.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 13:23:58 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 08:23:58 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46
+ via Frontend Transport; Thu, 10 Sep 2026 08:23:53 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>,
+	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+	<perex@perex.cz>, <tiwai@suse.com>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
+	<Syed.SabaKareem@amd.com>, <Mario.Limonciello@amd.com>,
+	<Richard.Gong@amd.com>, <linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <sound-open-firmware@alsa-project.org>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: [PATCH 00/11] ASoC: SOF: amd: SoundWire and PDM support and fixes for ACP7.B/7.F
+Date: Thu, 10 Sep 2026 18:50:00 +0530
+Message-ID: <20260910132251.1171943-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A6:EE_|DM4PR12MB6325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63af50ca-9e51-4fea-9715-08df0f3ec5ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|10067099003|6133799003|3023799007|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4WwllXR7ZOEaT0SAs2ahCkGNMmE6b4YUOjvdRIIsJ5rPGw2ZGOoMKRZM8ErMBuO05tPhHX5ZCkaNmG6ODv4uXrxQzMRu3WEXp4KOPvVoOpcQfPa8Y02o5fHjPhRBj7sfGMEpWp2Lu/ti36kaWawtB1pZDR0+n+mQr0HlWMRDo92Sbh5py2ltKiR4mGjTCD+GGpZcHXIFLPP6CW8i6NqPBumtADEJaKSloiWvSEJGzaStMXu/r5e9t0VUKja5eoKYKAmhNrXj4L6PVDizwHTDHUCABxuVQyTBNNKVFISeXhSSM5LO2niuZzE6AZ/sjrI5B218yqfmWwkJrX1Sx1XouXs+vC49alHFm2jkU6g5WH0ehXbxTEXvVuezNZP3gvvRvqzMFZKy98tqZtVnAK3Rs0uh4wQSTy2AosqyYRTwS+hRf1HxAreRhY1dopPQOowmgjHnNF+2MEZlNLWOcnIVReziT36pI5c5gZ/9bf3KTrwkXOC45ooRX97vg071KE/nCB1LdBn7HIzgpmt6CKSGlAzeiE7fTzNZIU5uwyoZYz6xj4K3ukYqw66Q6OOObiDfFnqIMdVs/FfZDBkGRe7WDFwPhHMt0ddRlLbFrfPxUYAOa20ChkHmPYLJE2gmJDHFxShwo53zT1iMbOdwAHGQVubRSJ9Rp8yNdLAYPewjm5Hqy32HTKar4nMn1q2FzoL/i6whZY8ot7bnW0Y5MWj90g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(10067099003)(6133799003)(3023799007)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	51XXwqZScXlJ+1izitUuvL132Wl4jNJrT/p2B5ETYGzyXSkaDD5QbUQBXslmxpLXYSp+Aj1KTpOMUoTFRaoT59dhAwqbhG1TwRzEsXXDKr0CmWqxsLddBGezjYbRV4ClPqGEXVvP02Zcb3jGJ9oWamSqfSfRNvJnSPg2Z+n50GChR30oe0V6m8IgLl4dUveIOoy0PDBqYTUAM8EWj0R09ZeUWnLxVTskL7Xrnj0h88m6zjO1xJpPJwHh7F0+vnNymdTcN+/tCzfyCwxx7CF710c3Nfy2jsj0n2EuAEG9BeKT/IkXpes1jLhO8cdUsZywotxWXpSOAnmtmG/IthxWN6+qk2cTmZHalkw6MG7ejNosw1zKfI7R5k89jM+9xsej+I6qgJb/ftL23D40IMW18+U1cf6VhglHRQgZWH4F3TROtoT0wnvUZhK49Ezngz/v
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 13:23:58.8357
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63af50ca-9e51-4fea-9715-08df0f3ec5ad
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6325
 
-Le Wed, Sep 09, 2026 at 05:11:27PM -0400, Alan Stern a écrit :
-> On Wed, Sep 09, 2026 at 10:49:30PM +0200, Thomas Gleixner wrote:
-> > On Wed, Sep 09 2026 at 15:28, Alan Stern wrote:
-> > > On Wed, Sep 09, 2026 at 04:45:15PM +0200, Frederic Weisbecker wrote:
-> > > I can't tell what you're trying to do here.  The UNLOCK-LOCK ordering 
-> > > in P0 means that P1 sees A=1 before it sees B=1.  But nothing in this 
-> > > litmus test forces P1 to execute READ_ONCE(*b) before READ_ONCE(*A).  If 
-> > > the reads are executed in the opposite order, you can see how P1 might 
-> > > get r0=1 and r1=0.
-> > 
-> > The problem we are debating is:
-> > 
-> >     C = VAL1
-> > 
-> >     CPU0                    CPU1		CPU2
-> >     
-> >     STORE(A0, 0)
-> >     STORE(A1, 0)
-> > 
-> >     LOCK(TLOCK)
-> >     STORE(B, 1) // 0 -> 1
-> >     UNLOCK(TLOCK)
-> > 
-> >                            LOCK(TLOCK)
-> >                            b = LOAD(B)
-> >                            if (b)
-> >                               STORE(C, VAL0)
-> > 
-> >                                                 c = LOAD(C)
-> >                                                 LOCK(c->lock)
-> >                                                   a0 = LOAD(A0)
-> >                                                   if (!a0)
-> >                                                      STORE(A0, X1)
-> >                                                      STORE(A1, X2)
-> > 
-> > The question is whether CPU2 can observe C == VAL0 and A0 == NULL before
-> > A1 has completed.
-> > 
-> > My and Peter's argument is that the sequence
-> > 
-> >    UNLOCK(TLOCK) on CPU0   -> LOCK(TLOCK) on CPU1
-> > 
-> > implies RCtso and therefore the stores to A0 and A1 on CPU0 must be
-> > before the store to C on CPU1.
-> > 
-> > Now because the LOAD(C) on CPU2 depends on that STORE(C) the
-> > LOCK(c->lock) ensures that LOAD(A0) can't be reordered and because of
-> > that STORE(A1, 0) has completed before that.
-> > 
-> > CPU2 LOAD(C) observing VAL0 has a data dependency on the STORE(C, VAL0)
-> > on CPU1, which as argued above can only happen after the UNLOCK/LOCK
-> > sequence CPU1 observes the STORE(B).
-> > 
-> > Subsequently LOCK(c->lock) has a data dependency on LOAD(C) and the LOCK
-> > operation prevents that LOAD(A0) can be reordered before LOCK(c->lock).
-> > 
-> > So despite the fact that c->lock != TLOCK the UNLOCK(TLOCK)/LOCK(TLOCK)
-> > sequence, which implies RCtso, the following takes care of it:
-> > 
-> >     1) the data dependency between the STORE(C, VAL0) on CPU1 and the
-> >        c = LOAD(C) on CPU2 observing VAL0
-> >    
-> >     2) the data dependency of LOCK(c->lock) on #1
-> > 
-> >     3) due to LOCK() in #2 LOAD(A0) cannot observe the STORE(A0, 0) on
-> >        CPU0 without the STORE(A1, 0) on CPU0 has completed.
-> > 
-> > If #3 can happen then that would obviously cause undebuggable data
-> > corruption.
-> > 
-> > I hope this is understandable enough despite my brain having melted
-> > several times by now while writing it up.
-> 
-> I see.  Yes, your analysis is right.  And Frederic's latest LKML litmus 
-> test confirms the result.
+This series contains bug fixes for the existing AMD SOF SoundWire stack
+that affect all ACP platforms, followed by new SoundWire support
+specifically for ACP7.B and ACP7.F.
 
-Alan, let me ask you something, because I'm the only one here puzzled by
-this data dependency.
+The existing stack has three bugs that are fixed here. First,
+amd_sof_acp7x_suspend() silently falls through on an unrecognised PCI
+revision instead of returning an error, leaving ACP_CONTROL with a stale
+value; it now returns -EINVAL. Second, amd_sof_acp_remove() calls
+amd_sof_sdw_exit() before free_irq(), so an IRQ that fires in that window
+can dereference the freed SoundWire context; the teardown order is
+corrected. Third, the same use-after-free hazard exists in the error
+unwind of amd_sof_acp_probe() and is fixed in the same way.
 
-The following scenario works (the bad outcome never happens) because
-UNLOCK+LOCK pairs with smp_load_acquire():
+On top of those fixes, the series brings SoundWire support to ACP7.B/7.F.
+These platforms expose four SoundWire manager instances (SDW0-SDW3) rather
+than the two found on ACP63/ACP70/ACP71/ACP72. The work covers ACPI DSDT
+scanning for SoundWire endpoints, chip descriptor population so the SOF
+core can enumerate all four managers, per-manager IRQ dispatch for data,
+host-wake, PME and error events, selective host-wake interrupt arming based
+on SW_WAKE_EN, and SoundWire-aware PM callbacks that take a clock-stop fast
+path through suspend/resume to preserve SoundWire bus state across power
+transitions.
 
-	C MP+polocks
+ACP7.B/7.F also supports two PDM controllers (PDM0 and PDM1), but only
+one is active at a time. The active controller is determined at probe time
+by scanning the acp-audio-ep-port ACPI _DSD property of the PDM child
+device in the DSDT. The selected controller is then propagated to the
+machine driver via mach->pdata so that the correct SOF DMIC DAI link is
+registered.
 
-	{}
+Vijendar Mukunda (11):
+  ASoC: SOF: amd: return -EINVAL for unknown PCI revision in acp7x
+    suspend
+  ASoC: SOF: amd: fix amd_sof_acp_remove() teardown ordering
+  ASoC: SOF: amd: fix amd_sof_acp_probe() error unwind ordering
+  ASoC: SOF: amd: add ACP7.B/7.F PDM controller scan and pdata
+    propagation
+  ASoC: SOF: amd: update SoundWire specific acp descriptor fields for
+    ACP7.B/7.F
+  ASoC: SOF: amd: enable SoundWire build for ACP7.B/7.F
+  ASoC: SOF: amd: wire SoundWire probe and remove into ACP7.B/7.F paths
+  ASoC: SOF: amd: add ACP7.B/7.F clock-stop detection in
+    check_acp_sdw_enable_status
+  ASoC: SOF: amd: add ACP7.B/7.F SoundWire IO IRQ handling
+  ASoC: SOF: amd: enable SoundWire host wake interrupt in acp_init
+  ASoC: SOF: amd: add SoundWire PM ops for ACP7.B/7.F
 
-	P0(int *A, int *B, spinlock_t *mylock)
-	{
-		spin_lock(mylock);
-		WRITE_ONCE(*A, 1);
-		spin_unlock(mylock);
-		spin_lock(mylock);
-		WRITE_ONCE(*B, 1);
-		spin_unlock(mylock);
-	}
+ sound/soc/amd/acp/soc_amd_sdw_common.h |  13 +
+ sound/soc/sof/amd/Kconfig              |   1 +
+ sound/soc/sof/amd/acp-common.c         |  17 ++
+ sound/soc/sof/amd/acp-dsp-offset.h     |  17 ++
+ sound/soc/sof/amd/acp.c                | 389 +++++++++++++++++++++++--
+ sound/soc/sof/amd/acp.h                |  16 +
+ sound/soc/sof/amd/acp7x.h              |  37 +++
+ sound/soc/sof/amd/pci-acp7x.c          |   2 +
+ 8 files changed, 460 insertions(+), 32 deletions(-)
+ create mode 100644 sound/soc/sof/amd/acp7x.h
 
-	P1(int *A, int *B)
-	{
-		int r0;
-		int r1;
+-- 
+2.48.1
 
-		r0 = smp_load_acquire(B);
-		r1 = READ_ONCE(*A);
-	}
-
-	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-
-
-So I understand this one. Now unfortunately litmus doesn't support
-structures, but let's suppose it could. I'm taking the previous script
-and introduce a small change in P1:
-
-	C MP+polocks
-
-	{}
-
-	P0(int *A, int *B, spinlock_t *mylock)
-	{
-		spin_lock(mylock);
-		WRITE_ONCE(*A, 1);
-		spin_unlock(mylock);
-		spin_lock(mylock);
-		WRITE_ONCE(*B, 1);
-		spin_unlock(mylock);
-	}
-
-	P1(int *A, int *B)
-	{
-		int r0;
-		int r1
-
-		r0 = READ_ONCE(*B);
-		spin_lock(r0->somelock)
-		r1 = READ_ONCE(*A);
-		spin_unlock(r0->somelock)
-	}
-
-	exists (1:r0=1 /\ 1:r1=0) (* Bad outcome. *)
-
-
-So instead of doing a LOAD-ACQUIRE on B, I do a plain READ but I also
-do a spin_lock right after on a data that depends on that READ. I can't
-run that on litmus but this is the same (simplified) pattern as what we
-had in this discussion and therefore I assume that it also works (ie: the
-bad outcome shouldn't happen), is that right?
-
-Would it also work if spin_lock() was just a LOAD-ACQUIRE?
-
-Does it mean that data dependency implies sufficient ordering such that
-a LOAD-ACQUIRE to a data that depends on B provides the same guarantees as
-a LOAD-ACQUIRE to B?
-
-The reason I'm asking that is because, unlike control dependency, data
-dependency and its guarantees are not well documented. It is defined in
-tools/memory-model/Documentation/explanation.txt but not really described
-in Documentation/memory-barriers.txt. There is a mention in a scenario within
-the section "MULTICOPY ATOMICITY" just to show that it's not as strong as
-a full memory barrier.
-
-So if data dependency can provide the guarantee above in my second script
-but it's not as strong as a full barrier, this suggests that data dependencies
-have their own specific properties that should probably be documentated.
-
-Thanks.
