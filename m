@@ -1,217 +1,481 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42223D349E;
-	Thu, 10 Sep 2026 09:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE613E0094;
+	Thu, 10 Sep 2026 09:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031265; cv=none; b=t8e0NuYxaQOp43JwqtR4VJXk1kY4Yho2tJT7lz93l9lsV9c3e3AbFSHVNNJ2RGxkkED33PD04u7wHDgmLawLflvqQ8vZZBYwELZUjAAfwA3O9zqqO2nx9NXW1Q9ZBFZP9YIv/CJU3hzyJpaRh+DJEseE3n1yuh3aCR/VFCXuxFM=
+	t=1789031270; cv=none; b=NFbEXEcMKmnNs1vcYkTZydm5vkzIfVmZbAuJxXDMvonWyaD7Upr3PUj/ia2Pru1WtmLRxlwXySiU3gbhNMO3hF3LV3zc0wYdDf+J6VvwmRhg+ANPIxzNIzCcEUBQfi9rN52SSjhAUh0XaTunXeay1xp3JYGmykPyBvXNABAQm88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031265; c=relaxed/simple;
-	bh=U8Hlo2wkrkvrYeycjwxZvKGRyqP7Th0ecOn6/5niTE0=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=LNE48B3n66ithH2YG7S5Bbm8kTrzVJGekVqiSgXZJah8nWR4UfA7ygrWJWbuZNR7wwCRkwFuCa46QbWrcx6wqNPDsbW1KryhJZ7BnUOAwlcnfh7S7gHkbtbh+JcDw31oJ3Bfb5wMObbS1jPi3LYCwvR5Nzd6uDymw/6Ri2GbSXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0aUICLpB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=napS3j3Y; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789031270; c=relaxed/simple;
+	bh=lmD5/3ZwPUmr1/ChbO9kF822vesFBDrT0YZQx611KaY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HtFluvvXFBT77tBV+Tmto0pTJOGRIbJ9KjyBuhDVkw1TabpDj06eal5dvcA2xm0g1+6d71mjagqc+45QsZx7bpCdOs3XFc2S0qJky1QphZDY9DQpo9biVs9aGOwPDKcdXdaOMiCJSD5ci7EayQgF5TLBcFWbyQ59oOFjbX4WgAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EZDnNCEc; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0aUICLpB";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="napS3j3Y"
-Date: Thu, 10 Sep 2026 09:07:40 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789031261;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7T9nvI18Ju6xu6qvor7q2alm/05RmkN01+L0tyWsp9A=;
-	b=0aUICLpBqA1E6PtAS6Ch3u1IAB5zrmW0Y5rBYdWeFLWa0Hi5ZZX6SfYtAlo26LTSil5hDE
-	HUISumJQ9iuQuGsmT+Ktc6d3FhC4zjxg1C1bw1ka2BBDOHVASbMzPLsnoiEA0/Ex8Qg/zG
-	KmrPtkPB6nwOE55/my4V9cgth/pU4lGOkmIT1VjHwKdCjyIQoSXywrWLOWgY4Wtwp6JcTA
-	Zh/5s2T9X1ES/h868xdAlBFiLn09zKrvkySif0eUlC9roBL40W9WNOgLazRyy7D6Lax+BU
-	XgOgqw6ScUDNXVppyFX1q8LygUlDyjdB+bPkoIVra4TDoLAFk3aqrnh1nCX00Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789031261;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7T9nvI18Ju6xu6qvor7q2alm/05RmkN01+L0tyWsp9A=;
-	b=napS3j3YRxcHLwwg+QzmgKKTiAuzT1WHM6TAoaXY/YEkZp/wI+PyZffRMwScFVX3H9tKcF
-	tot8+nN01RJGxIBQ==
-From: "tip-bot2 for Soheil Hassas Yeganeh" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/cfi: Fix FineIBT hash offset in cfi_get_func_hash()
-Cc: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	stable@vger.kernel.org, #@tip-bot2.tec.linutronix.de,
-	6.18+@tip-bot2.tec.linutronix.de, x86@kernel.org,
-	linux-kernel@vger.kernel.org
-In-Reply-To:
- <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
-References:
- <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EZDnNCEc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789031268; x=1820567268;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lmD5/3ZwPUmr1/ChbO9kF822vesFBDrT0YZQx611KaY=;
+  b=EZDnNCEc+MasBk49kGoPceQXyK++pU5NhsmxqZk4ULUL3nrOd/A6UwgM
+   nc/DGQ5AMdVcaU9g7sW+PpYHi9Cq5Gcui1u/E+pz2UmEwJob73H3ixF0O
+   M6FM0Jfl6m0nC5G6z/zSAM+m9M+D05Phd0siQ6+EJN2NGyXq9LGZgdgET
+   6+01azgu1WB83oUQiknjMEOfqPD4Hj9GGS5CeDdZI3JuE162D7R4xE5hH
+   WSkZ9SfHldabzL1/E5uwMpXA2i5MCAkYjke62duEr8T5LrnTPqCLcztTP
+   3HJyTXuwNinsgVzCAJ4J7dXRO6OJyTfZ3pj7FD8yzeuitGabkf5gEbQTM
+   w==;
+X-CSE-ConnectionGUID: 8kDxi6qtStmZT++bKOrtXQ==
+X-CSE-MsgGUID: NJxbimfjQG2GAkNIfRE+fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88623127"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="88623127"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:07:47 -0700
+X-CSE-ConnectionGUID: KkhIZCjsSyGh8Esa9xlHlQ==
+X-CSE-MsgGUID: U3hWKtEcRLSyLdsSAI+P3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="295064914"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:07:44 -0700
+Date: Thu, 10 Sep 2026 12:07:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v3 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <aqJzXvxHEWi2Ny1g@ashevche-desk.local>
+References: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+ <20260910063813.56419-3-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178903126017.623050.9781792197599239541.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910063813.56419-3-marcus.yu.56@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The following commit has been merged into the x86/urgent branch of tip:
+On Wed, Sep 09, 2026 at 11:38:13PM -0700, Chang Yu wrote:
+> This patch adds a driver for the AMS AS7343 14-channel multi-spectral
+> sensor with I2C interface.
+> 
+> The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
+> via the IIO sysfs interface. Each channel's raw data is provided as a
+> 16-bit little-endian unsigned integer.
+> 
+> Basic power management (suspend/resume) is supported. Note that power
+> management is designed in such a way that we only stop spectrual
+> measurements when susepended and do not power off.
+> 
+> More complex features such as auto-suspend, interrupts, and
+> configurable gain/integration time will be added in future patches.
 
-Commit-ID:     5a5d26f2cfe13467166219f6bf58099326912ddb
-Gitweb:        https://git.kernel.org/tip/5a5d26f2cfe13467166219f6bf580993269=
-12ddb
-Author:        Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-AuthorDate:    Mon, 31 Aug 2026 14:48:44=20
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Thu, 10 Sep 2026 11:01:31 +02:00
+It's v3 already. Can you browse the linux-iio@ mailing list archive and see
+what are the common comments on the new contributions? I think you may ask
+AI to help with the summary. This patch has tons of what has been repeated
+over and over...
 
-x86/cfi: Fix FineIBT hash offset in cfi_get_func_hash()
+...
 
-The switch of the FineIBT preamble from "subl $hash, %r10d" to the
-shorter "subl $hash, %eax" moved the hash immediate from offset 7 to
-offset 5 of the preamble. fineibt_preamble_hash was updated to match,
-but the open-coded offset in cfi_get_func_hash() was missed and it
-still reads the hash at offset 7.
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
 
-cfi_get_func_hash() is used by the BPF JIT to give a struct_ops
-trampoline the CFI hash of the stub function it stands in for. With
-FineIBT the trampoline now gets the upper half of the real hash
-followed by the first two bytes of the next instruction, so the first
-indirect call from the kernel into a struct_ops program,
-tcp_init_congestion_control() calling ->init() of a BPF congestion
-control for example, fails the FineIBT check and the kernel dies with
-a CFI failure.
+> +#include <linux/pm.h>
 
-Move the FineIBT preamble template and its offset defines above
-cfi_get_func_hash() and use fineibt_preamble_hash there, so every
-reader of the preamble shares one definition of its layout. The
-CFI_FINEIBT arm is only built with CONFIG_FINEIBT, the only
-configuration in which cfi_mode can take that value.
-cfi_get_func_arity() does not need the same treatment: the __bhi_args
-call whose displacement it reads still ends at the function address.
+This is implied by pm_runtime.h IIRC.
 
-Fixes: 85a2d4a890dc ("x86,ibt: Use UDB instead of 0xEA")
-Assisted-by: LLM
-Signed-off-by: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: stable@vger.kernel.org # 6.18+
-Link: https://patch.msgid.link/20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ff=
-c0af5c4ec@gmail.com
----
- arch/x86/kernel/alternative.c | 72 +++++++++++++++++-----------------
- 1 file changed, 38 insertions(+), 34 deletions(-)
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/types.h>
 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index add62db..741d876 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -1201,6 +1201,41 @@ static bool cfi_debug __ro_after_init;
- bool cfi_bhi __ro_after_init =3D false;
- #endif
-=20
-+#ifdef CONFIG_FINEIBT
-+/*
-+ * <fineibt_preamble_start>:
-+ *  0:   f3 0f 1e fa             endbr64
-+ *  4:   2d 78 56 34 12          sub    $0x12345678, %eax
-+ *  9:   2e 0f 85 03 00 00 00    jne,pn 13 <fineibt_preamble_start+0x13>
-+ * 10:   0f 1f 40 d6             nopl   -0x2a(%rax)
-+ *
-+ * Note that the JNE target is the 0xD6 byte inside the NOPL, this decodes as
-+ * UDB on x86_64 and raises #UD.
-+ */
-+asm(	".pushsection .rodata				\n"
-+	"fineibt_preamble_start:			\n"
-+	"	endbr64					\n"
-+	"	subl	$0x12345678, %eax		\n"
-+	"fineibt_preamble_bhi:				\n"
-+	"	cs jne.d32 fineibt_preamble_start+0x13	\n"
-+	"#fineibt_func:					\n"
-+	"	nopl	-42(%rax)			\n"
-+	"fineibt_preamble_end:				\n"
-+	".popsection\n"
-+);
-+
-+extern u8 fineibt_preamble_start[];
-+extern u8 fineibt_preamble_bhi[];
-+extern u8 fineibt_preamble_end[];
-+
-+#define fineibt_preamble_size (fineibt_preamble_end - fineibt_preamble_start)
-+#define fineibt_preamble_bhi  (fineibt_preamble_bhi - fineibt_preamble_start)
-+#define fineibt_preamble_ud   0x13
-+#define fineibt_preamble_hash 5
-+
-+#define fineibt_prefix_size (fineibt_preamble_size - ENDBR_INSN_SIZE)
-+#endif /* CONFIG_FINEIBT */
-+
- #ifdef CONFIG_CFI
- u32 cfi_get_func_hash(void *func)
- {
-@@ -1208,9 +1243,11 @@ u32 cfi_get_func_hash(void *func)
-=20
- 	func -=3D cfi_get_offset();
- 	switch (cfi_mode) {
-+#ifdef CONFIG_FINEIBT
- 	case CFI_FINEIBT:
--		func +=3D 7;
-+		func +=3D fineibt_preamble_hash;
- 		break;
-+#endif
- 	case CFI_KCFI:
- 		func +=3D 1;
- 		break;
-@@ -1367,39 +1404,6 @@ early_param("cfi", cfi_parse_cmdline);
-  */
-=20
- /*
-- * <fineibt_preamble_start>:
-- *  0:   f3 0f 1e fa             endbr64
-- *  4:   2d 78 56 34 12          sub    $0x12345678, %eax
-- *  9:   2e 0f 85 03 00 00 00    jne,pn 13 <fineibt_preamble_start+0x13>
-- * 10:   0f 1f 40 d6             nopl   -0x2a(%rax)
-- *
-- * Note that the JNE target is the 0xD6 byte inside the NOPL, this decodes as
-- * UDB on x86_64 and raises #UD.
-- */
--asm(	".pushsection .rodata				\n"
--	"fineibt_preamble_start:			\n"
--	"	endbr64					\n"
--	"	subl	$0x12345678, %eax		\n"
--	"fineibt_preamble_bhi:				\n"
--	"	cs jne.d32 fineibt_preamble_start+0x13	\n"
--	"#fineibt_func:					\n"
--	"	nopl	-42(%rax)			\n"
--	"fineibt_preamble_end:				\n"
--	".popsection\n"
--);
--
--extern u8 fineibt_preamble_start[];
--extern u8 fineibt_preamble_bhi[];
--extern u8 fineibt_preamble_end[];
--
--#define fineibt_preamble_size (fineibt_preamble_end - fineibt_preamble_start)
--#define fineibt_preamble_bhi  (fineibt_preamble_bhi - fineibt_preamble_start)
--#define fineibt_preamble_ud   0x13
--#define fineibt_preamble_hash 5
--
--#define fineibt_prefix_size (fineibt_preamble_size - ENDBR_INSN_SIZE)
--
--/*
-  * <fineibt_caller_start>:
-  *  0:   b8 78 56 34 12          mov    $0x12345678, %eax
-  *  5:   4d 8d 5b f0             lea    -0x10(%r11), %r11
+...
+
+> +/* AS7343 registers */
+> +#define AS7343_ID	    0x5a
+> +
+> +#define AS7343_ENABLE	    0x80
+
+Make sure the indentation of the definition of the same kind are the same.
+
+...
+
+> +/*
+> + * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
+> + * Setting a 30 * 1.67ms = 50.1ms integration test as the default for now.
+> + */
+> +#define AS7343_ATIME			   0x81
+
+I believe this one is related to the register offsets? (see above why)
+
+...
+
+> +static int as7343_read_raw(struct iio_dev *indio_dev,
+> +			   struct iio_chan_spec const *chan, int *val,
+> +			   int *val2, long mask)
+
+Please, split logically.
+
+			   struct iio_chan_spec const *chan,
+			   int *val, int *val2, long mask)
+
+> +{
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +	struct device *dev = regmap_get_device(data->regmap);
+> +	int ret;
+> +	unsigned int unused;
+> +	__le16 result;
+
+Preserve reversed xmas tree order.
+
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return ret;
+
+Use PM_RUNTIME_ACQUIRE*().
+
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		/* Wait until integration time passes for all 3 cycles. */
+> +		msleep(160);
+> +
+> +		/*
+> +		 * Reading ASTATUS latches all data registers to this read.
+> +		 * We don't care about the returned saturation/gain status for
+> +		 * now.
+> +		 */
+> +		guard(mutex)(&data->mutex);
+> +		ret = regmap_read(data->regmap, AS7343_ASTATUS, &unused);
+> +		if (ret)
+> +			break;
+> +
+> +		ret = regmap_bulk_read(data->regmap, chan->address, &result, 2);
+
+sizeof()
+
+> +		if (ret)
+> +			break;
+> +
+> +		*val = le16_to_cpu(result);
+> +		ret = IIO_VAL_INT;
+> +		break;
+> +	}
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	pm_runtime_put(dev);
+> +	return ret;
+> +}
+
+(All comments for the above function is what has been repeated in many
+ contributions for sure.)
+
+ ...
+
+> +static const char *as7343_channel_label(struct iio_chan_spec const *chan)
+> +{
+> +	switch (chan->channel) {
+> +	case AS7343_CHAN_IDX_FZ:
+> +		return "FZ";
+> +	case AS7343_CHAN_IDX_FY:
+> +		return "FY";
+> +	case AS7343_CHAN_IDX_FXL:
+> +		return "FXL";
+> +	case AS7343_CHAN_IDX_NIR:
+> +		return "NIR";
+> +	case AS7343_CHAN_IDX_F2:
+> +		return "F2";
+> +	case AS7343_CHAN_IDX_F3:
+> +		return "F3";
+> +	case AS7343_CHAN_IDX_F4:
+> +		return "F4";
+> +	case AS7343_CHAN_IDX_F6:
+> +		return "F6";
+> +	case AS7343_CHAN_IDX_F1:
+> +		return "F1";
+> +	case AS7343_CHAN_IDX_F7:
+> +		return "F7";
+> +	case AS7343_CHAN_IDX_F8:
+> +		return "F8";
+> +	case AS7343_CHAN_IDX_F5:
+> +		return "F5";
+> +	default:
+> +		return NULL;
+> +	}
+
+Why not keeping this in a static array?
+
+> +}
+> +
+> +static int as7343_read_label(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, char *label)
+> +{
+> +	const char *name;
+> +
+> +	name = as7343_channel_label(chan);
+> +	if (!name)
+> +		return -EINVAL;
+
+Why? Can't it be taken from DT?
+
+> +	return sysfs_emit(label, "%s\n", name);
+> +}
+
+...
+
+> +static const struct regmap_config as7343_regmap_config = {
+> +	.name = "as7343",
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AS7343_MAX,
+> +	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
+> +	.val_format_endian = REGMAP_ENDIAN_LITTLE,
+
+> +	.cache_type = REGCACHE_NONE,
+
+Why?! This needs a very good justification.
+
+> +};
+
+...
+
+> +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
+> +{
+
+	struct regmap *map = data->regmap;
+
+will help to reduce verbosity of the below, and might even save some LoC...
+
+> +	unsigned int val;
+> +	__le16 step;
+> +	int ret;
+> +
+> +	/* Power on */
+> +	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_PON);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Need to set REG_BANK to 1 before we can access ID */
+> +	ret = regmap_set_bits(data->regmap, AS7343_CFG0, AS7343_CFG0_REG_BANK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(data->regmap, AS7343_ID, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val != 0x81)
+> +		dev_info(dev, "Unknown device ID: %x\n", val);
+> +
+> +	ret = regmap_clear_bits(data->regmap, AS7343_CFG0,
+> +				AS7343_CFG0_REG_BANK);
+
+...for example, here:
+
+	ret = regmap_clear_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Configure the SMUX to readout all channels */
+
+> +	ret = regmap_update_bits(
+
+Huh?! Please, check the formatting and indentation style.
+
+> +		data->regmap, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
+> +		FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
+> +			   AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Set 50.1ms integration time and x256 gain for now */
+> +	step = cpu_to_le16(AS7343_ASTEP_VAL);
+> +	ret = regmap_bulk_write(data->regmap, AS7343_ASTEP, &step, 2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, AS7343_ATIME, AS7343_ATIME_VAL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(data->regmap, AS7343_CFG1, AS7343_CFG1_AGAIN,
+> +				  FIELD_PREP(AS7343_CFG1_AGAIN,
+> +					     AS7343_CFG1_AGAIN_X256));
+> +}
+
+...
+
+> +static int as7343_suspend(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +
+> +	return regmap_clear_bits(data->regmap, AS7343_ENABLE,
+> +				 AS7343_ENABLE_SP_EN);
+> +}
+> +
+> +static int as7343_resume(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +
+> +	return regmap_set_bits(data->regmap, AS7343_ENABLE,
+> +			       AS7343_ENABLE_SP_EN);
+> +}
+
+Same, use temporary for struct regmap.
+
+...
+
+> +static int as7343_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct as7343_data *data;
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return PTR_ERR(regmap);
+> +
+> +	data = iio_priv(indio_dev);
+> +	i2c_set_clientdata(client, indio_dev);
+> +	data->regmap = regmap;
+
+> +	mutex_init(&data->mutex);
+
+devm_mutex_init().
+
+> +
+> +	indio_dev->name = "as7343";
+> +	indio_dev->info = &as7343_info;
+> +	indio_dev->channels = as7343_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = as7343_setup_device(dev, data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add suspend action\n");
+> +
+> +	ret = pm_runtime_set_active(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to activate PM runtime\n");
+> +
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable PM runtime\n");
+> +
+> +	/* Start measurements */
+> +	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+...
+
+> +static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops, as7343_suspend, as7343_resume,
+> +				 NULL);
+
+Again, split logically. Options are:
+
+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops, as7343_suspend, as7343_resume, NULL);
+
+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops,
+				 as7343_suspend, as7343_resume, NULL);
+
+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops,
+				 as7343_suspend,
+				 as7343_resume,
+				 NULL);
+
+(I personally prefer compromise as depicted in the second example).
+
+...
+
+> +static const struct of_device_id as7343_of_match[] = {
+> +	{ .compatible = "ams,as7343" },
+> +	{ },
+
+No comma in the terminator entry.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, as7343_of_match);
+> +
+> +static const struct i2c_device_id as7343_id[] = {
+> +	{ .name = "as7343" },
+> +	{ },
+
+Ditto.
+
+> +};
+> +MODULE_DEVICE_TABLE(i2c, as7343_id);
+
+...
+
+> +static struct i2c_driver as7343_driver = {
+> +	.driver = {
+> +		.name           = "as7343",
+> +		.of_match_table = as7343_of_match,
+> +		.pm             = pm_ptr(&as7343_pm_ops),
+> +	},
+> +	.probe      = as7343_probe,
+> +	.id_table   = as7343_id,
+
+Indentation of the assignees with tabs makes it harder to maintain (in case
+more lines got added it might require to reindent all of them).
+
+> +};
+> +module_i2c_driver(as7343_driver);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
