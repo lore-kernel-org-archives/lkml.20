@@ -1,153 +1,155 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C13B495039
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0D14E56F9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:07:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070801; cv=none; b=Y8GkcTeIgUv7ga4vWcfolcw39ZjWhgdN54bDTSdirGHQefFQAucovef/FABx4g8qF4bAswWz8V/MD778wteOK1BqaGD4vP3FoffGC/8nAN4sOfIbmaURwPYVfUm5eTu6zzI38H6SUKv3/smGYUrKjKBReksnGCSGelYGkmKZhw0=
+	t=1789070845; cv=none; b=OW1L9B8ZmsGEI5PL3tM9Wd2EB9yvbiwo9uVokyzgVKVi0i3WO4o6HX5us2bJc2KqiGpAX0kRO90DG8odqbrS7V3F6hSaMlrL5eWtWVdDQB9DbdR/I/gxJADR3Ds0CGlqA/9vwJCRBLVATLCK+NDkHPBOch/I+KRUQXAqTe6vGIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070801; c=relaxed/simple;
-	bh=bIekzr/acASAo8pLqBfoGXi82QPpe9AW/HLpSxdjKu0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WgwBjZGTkxLgU8pyfQCOf+4p4MUXGZrXwZVIGKssQIGqECH15cEMkRidMS3bJhk41WbWAvPOrnWtZLKtWT2atBHC9RE5zmdUz7JX5u4pPuAWoxWsSJfKBFlZYuNFJEZnoivLcrWKZdlVcHFWvRh2Ums5qmzDsvviEbNekcx9SmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jbDeXDsX; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789070845; c=relaxed/simple;
+	bh=sXVKg4EbmRu7yPh3SaS0wsgWNPj96GEMOKxp/SBRHrE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iIUaEjD5cFMM4f3ug52Orz/WWMMc5IQchLz4sO1AHBKG3l6iaBnoL07GD0gdLftubt0/shMaAQcFYOgMTdjWc0QEEvz2LZF/rJScYAML2HtCo3gJDFQDFMxx3TK0ooFzhWa9UPxdT45/t4+lznJnwpP9mwQkzwie2BFOfVbEVQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZVEVtb3F; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jbDeXDsX"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so140537a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:06:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZVEVtb3F"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fe517774so1169725ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789070800; x=1789675600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pw223cD4yf9W0em0F6VzM2Cty/ImT+5nXI2srqsFOi0=;
-        b=jbDeXDsXw+Uec4UjxAbQuevSOKPNPz4x7bO5lVnNfsIGFwY3YxcfgSjwVMp5AnJbkI
-         NBJONACzfzHiwJvhBFU+Jyl1icap1sUMdk/cbMu6mx5MCEWMT904IYIP3O3IPaHrUo7e
-         feEjQfrTx4bCYc0IvoLiylNYl5BiOU29VPt+LFlXTTz4r9BO3o5FjS9k3XkbVLkoGCSV
-         kLCM9QD6dPn45UsC+uEHaW/xyKCsZhVN4kw5eT+DbEyuCJ72JEPTDbWgpv25gMWBEMJk
-         7zHjKIMudYcHbBUcjzz0+io9kc/S+G5tA6kZeZj4sjSybDqbEXOxXrVd4FXNWJdXie0F
-         ejmg==
+        d=gmail.com; s=20251104; t=1789070843; x=1789675643; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/qnsVcp0ygYged1uz6VwSHb140QB2xftDP7LSuWB3m0=;
+        b=ZVEVtb3FeNTwDm6fV4RdYelQuniTtHHMuKCBt3IxPKZNXVzG6Ldtes10sRNyz1Er94
+         9UzOjFindqwSCJwivwRPxwyopCPqSZP/LhIjczJEuJ/nzlR2CZphJnooo8gbtdb4/kRU
+         8N1Dto9eOKTsoFMvBEEcSlj6aTXrjwEzP4YxH9J7NPgxqN1lBFOEjiQ+Rrqw2Yjr9R+m
+         mtfPMJeUFniAg4FJ1JzGtmFEIl2rly7PneL2tV/TaVI4B0JLFBnRJLcOFxdcuFmKah92
+         ymXm9WvZa/zD2Ly2YC1tqnX/RLVuIPR2LxhSkWFIKOCJpyayAA/MTa0WASxxx8qfbPxD
+         T5WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789070800; x=1789675600;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789070843; x=1789675643;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Pw223cD4yf9W0em0F6VzM2Cty/ImT+5nXI2srqsFOi0=;
-        b=ibK0VY/cS502k8pkNNjj56uoV+iEbTzhjiYKwXsIQWsK/omzYE4MPQaWPs+y9NtV6u
-         BWsIAl02LyUU0/UWUv0l+/PfECO0ZvVnu1jaEy9CnNzD4cfMQ3+Fboa87vITtiAs2yIj
-         VWk5jzpVgIbOTifDc5rnKEV62DM+cU9ujXPnSLu0ES9lY4IGyhA01gAgBOlgNyH8i861
-         SN9jiBG4214SEUX4UGB4Kd1rIw+4Suk65yA+dj9ZOcfKNGTWMhNSVcRNdOj6iBlpI2c8
-         gTijhSBc1MBhLnz05qlwpmjoOh9fv5dXWKz5Gha4kaP/wHdklSHdqXEvcl+f/gq37w0O
-         7/Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBwBVsMuSrecnJIfqf09eSj+mv2JvhGc6V1UWExsuz/HGnLXaObPZinU8qjtNBqpQ1wfuoQGW9oWP5EAsEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFxDVVhOEy9MFd1lkdiLeDqrU65crlf+BD5DnM22oMDb4No6iV
-	aiRltYi+Sra6+p1ACdbo4kghQBWjjENJHcg3i63A2D0vlB86aSP4jgSG
-X-Gm-Gg: AYBFou2Vj7PGQPifkLcSFGO72qBNRVRyBMszhyIILQgHG7Rtjmib3TrXOTnpfhWEuhm
-	tJgpnGXNAgOWmuQW3Ti2rjDCuqU8KUtIfxLl5WamjVKS4HLpC1E/fZeSGYVHswqsUAfcA66T/lm
-	ma4qB40bgvbzyVw6sE/h2VUNnjbvGcc1n7i71R2tO31K5vvXWtpL+ESwEy96MNLb2UsaCgwoXPv
-	USnj6ClOZnRPioHlTsu8pH59HSkY7FiyX4PQuS4o+kE/Dw+rKWVPl9Sm3IZDOuepA8vOzp0GDwb
-	SoqiKM7OBe0M2Dww7aPsZnT87eMEwcMtEDvXlpDTVI03jz/gfftH0wm7RgZO7CHcAgYirPdzzFQ
-	sY7EM2AVq8B0SQKjSEknSUhRrOvxqsk62oFR2LL5U+5sHPrtst6uquoxXLdjLTxEdBADzKJwuNB
-	/hmeHO0NkZn+bdJCsWz1T7T23K0Jl3a/TvXmeKFWw8j3T5l0udssiTuYMByWLImF6Lulu23/Tbl
-	5FK7gAuRUFOiNOH9aDDsRVIHlCJwRMLmWDlJJABtxy2aZnqeJSOb1qEd5/PhOCzD6GbWzWTagHM
-	DB2iVkd1+HUzVLKsDEV43oVO+KPdC24XiExC7iAmtd29gPH23w==
-X-Received: by 2002:a17:90b:3dcd:b0:399:ea1:5a82 with SMTP id 98e67ed59e1d1-39d9bc66ab9mr689655a91.3.1789070799543;
-        Thu, 10 Sep 2026 13:06:39 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994cc978sm690227a91.9.2026.09.10.13.06.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 13:06:39 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Xuelin Shi <xuelin.shi@freescale.com>,
-	Harninder Rai <harninder.rai@freescale.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv4] dmaengine: fsl_raid: check fsl_re_chan_probe() return value
-Date: Thu, 10 Sep 2026 13:06:37 -0700
-Message-ID: <20260910200637.41512-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=/qnsVcp0ygYged1uz6VwSHb140QB2xftDP7LSuWB3m0=;
+        b=BbxGTOJbznWPffqcWsPGsvnvKh5zXKG68SCdWx2ir3dsumBxOoVElxdwSXyBXEqmFD
+         f8dwHA8LAvKCSSJfQpkcRk9+qP4w29uS9xnk5N5arcamQ2MBNevRYpU8FI0rZqQAcqwF
+         RGwFUIeDrELZfZjQb6jUDE6fsWOff3jJdI9VKnnxiFmvZZpDCdoO0noxoMmUP8ha+prE
+         YI0m+YDEZGfwa9FFOGfkl+3ZURamrwyS8iymzcAnGilZ753eTglINMhbbCpfsaIGNbS2
+         oMbdPQKbjwsg8LWOvd3k4mA8WPgWHP0EjmBSY5TJ0esZ9H1Yvs3DqcRprsqfL6aMub5V
+         auDg==
+X-Forwarded-Encrypted: i=1; AKwUvBz+ijVt0AIBUO2KxBpTOL5BnAap0Wbb/2qUH7UH6K6AtY+T3jQD8A8oRP6HGX74Hz6aJBIj/kUeYaxIUGk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksxKcdQr3bccPdAyH2ceynONCvJ7F6njQVe1GgVYgZN2b/tX7u
+	/+tmBUiZto/70ja31CeHDbVAb27dbO1rRJI9YbCTYAus09GlpIDpLU67
+X-Gm-Gg: AYBFou1R0z8hNiFtEEkOfRb+mjWKLQ2jJjUCJRQI+RETh+jre6r+HDui/nJQhE9ZN8Z
+	qqKbRiLqUa343S5ORQOB/OsbrFWhLfx2NbTjOPdHf7pyWbz1+KK0Dm+qVnt3zstCO2dfQedeg4Y
+	gxcHurEr9q52MxhMtJm/5C70GvqScTMaH79+BrY8tVzkmwdLOXbFqvz1bdZgzSdw+IojhKDwo+k
+	fC4w+iPD+rUbScr+BhJu6BfvsvexF/zZne6ieZa5Hm5Cand2YBurYY1kl+21etm8olKa8fjcc5N
+	5HqDevHO2XWaLO2RCLxUievZ/WO7b2W9JI6Y9grUcZ7LIVC32eDBXFwcmLWniEJqbzFnxUj7ucd
+	59z+OPkKdxtiQ4px+tkkwkMN8/3r+cLIzYkG9WkJbfonw3jt2bHKDmzToz9j3iT3SuSu7jJPOL9
+	0zEdmGj1VtKMAkyf0IaRDBGROLICVi8Mm4+Jz49nnEOYa7iDSZLzZidDBDmxN3sI0AmIUHJuiGr
+	fW1QMqfASAI9u/Hs9mUDiqiqrffbDHnqDICqra0p4mkSCnOkJnjhFHvI5IyMdS2SQ==
+X-Received: by 2002:a17:902:ce10:b0:2db:3729:22de with SMTP id d9443c01a7336-2dd29e0ecddmr24004245ad.0.1789070842839;
+        Thu, 10 Sep 2026 13:07:22 -0700 (PDT)
+Received: from [192.168.0.158] (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f06423sm387884eec.20.2026.09.10.13.07.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 13:07:22 -0700 (PDT)
+Message-ID: <20057caf-aac9-4288-a82d-0f87fe1d3fc0@gmail.com>
+Date: Thu, 10 Sep 2026 13:07:21 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/15] HID: hid-oxp: fix multicolor LED intensity scaling
+To: Andrei Aldea <andrei1998@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ linux-leds@vger.kernel.org
+References: <20260910032115.28669-1-andrei1998@gmail.com>
+ <20260910032115.28669-6-andrei1998@gmail.com>
+Content-Language: en-US
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+In-Reply-To: <20260910032115.28669-6-andrei1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-fsl_re_probe() ignores the return value of fsl_re_chan_probe() and
-unconditionally increments total_chans. When a channel fails to probe
-(for example, an IRQ mapping failure) its re_jrs[] slot is left NULL, yet
-total_chans still advances, so fsl_re_remove_chan() later dereferences the
-NULL pointer during device removal.
 
-Check return value and only count successfully probed channels, and guard
-fsl_re_remove() against NULL entries.
+On 9/9/26 20:21, Andrei Aldea wrote:
+> The controller accepts eight-bit RGB components, but the sub-LED channel
+> maximum currently inherits the 0-100 overall brightness range. This
+> prevents userspace from selecting channel intensities above 100.
+>
+> Set each channel maximum to 255 and use the multicolor LED core helper to
+> scale components with the requested brightness. This also replaces the
+> private truncating calculation with the LED core's rounded calculation.
+>
+> Keep the existing Gen1 and Gen2 color packet layouts unchanged.
+>
+> Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
+> Assisted-by: LLM
+> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
+> ---
+>   drivers/hid/hid-oxp.c | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
+> index c3cfa95..bee1317 100644
+> --- a/drivers/hid/hid-oxp.c
+> +++ b/drivers/hid/hid-oxp.c
+> @@ -1088,7 +1088,6 @@ static ssize_t oxp_rgb_status_show(void)
+>   
+>   static int oxp_rgb_color_set(void)
+>   {
+> -	u8 max_br = drvdata.led_mc->led_cdev.max_brightness;
+>   	u8 br = drvdata.led_mc->led_cdev.brightness;
+>   	u16 up = get_usage_page(drvdata.hdev);
+>   	u8 green, red, blue;
+> @@ -1096,9 +1095,10 @@ static int oxp_rgb_color_set(void)
+>   	u8 *data;
+>   	int i;
+>   
+> -	red = br * drvdata.led_mc->subled_info[0].intensity / max_br;
+> -	green = br * drvdata.led_mc->subled_info[1].intensity / max_br;
+> -	blue = br * drvdata.led_mc->subled_info[2].intensity / max_br;
+> +	led_mc_calc_color_components(drvdata.led_mc, br);
+> +	red = drvdata.led_mc->subled_info[0].brightness;
+> +	green = drvdata.led_mc->subled_info[1].brightness;
+> +	blue = drvdata.led_mc->subled_info[2].brightness;
+>   
+>   	switch (up) {
+>   	case GEN1_USAGE_PAGE:
+> @@ -1383,16 +1383,19 @@ static struct mc_subled oxp_rgb_subled_info[] = {
+>   	{
+>   		.color_index = LED_COLOR_ID_RED,
+>   		.intensity = 0x24,
+> +		.max_intensity = 0xff,
+>   		.channel = 0x1,
+>   	},
+>   	{
+>   		.color_index = LED_COLOR_ID_GREEN,
+>   		.intensity = 0x22,
+> +		.max_intensity = 0xff,
+>   		.channel = 0x2,
+>   	},
+>   	{
+>   		.color_index = LED_COLOR_ID_BLUE,
+>   		.intensity = 0x99,
+> +		.max_intensity = 0xff,
+>   		.channel = 0x3,
+>   	},
+>   };
 
-Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
-Assisted-by: opencode:hy3-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v4: use break;
- v3: fix sashiko review
- v2: fix description
- drivers/dma/fsl_raid.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-index 9cc289f7129e..6167fa652e96 100644
---- a/drivers/dma/fsl_raid.c
-+++ b/drivers/dma/fsl_raid.c
-@@ -836,18 +836,32 @@ static int fsl_re_probe(struct platform_device *ofdev)
- 		}
- 		/* Find out the Job Rings present under each JQ */
- 		for_each_child_of_node(np, child) {
-+			if (ridx >= FSL_RE_MAX_CHANS) {
-+				dev_warn(dev,
-+					"too many job rings, max %d\n",
-+					FSL_RE_MAX_CHANS);
-+				of_node_put(child);
-+				break;
-+			}
-+
- 			rc = of_device_is_compatible(child,
- 					     "fsl,raideng-v1.0-job-ring");
-+			if (!rc)
-+				continue;
-+
-+			rc = fsl_re_chan_probe(ofdev, child, ridx, off);
- 			if (rc) {
--				fsl_re_chan_probe(ofdev, child, ridx++, off);
--				re_priv->total_chans++;
-+				dev_err(dev,
-+					"job ring %d probe failed: %d\n",
-+					ridx, rc);
-+				continue;
- 			}
-+			ridx++;
-+			re_priv->total_chans++;
- 		}
- 	}
- 
--	dma_async_device_register(dma_dev);
--
--	return 0;
-+	return dma_async_device_register(dma_dev);
- }
- 
- static void fsl_re_remove_chan(struct fsl_re_chan *chan)
-@@ -872,7 +886,8 @@ static void fsl_re_remove(struct platform_device *ofdev)
- 
- 	/* Cleanup chan related memory areas */
- 	for (i = 0; i < re_priv->total_chans; i++)
--		fsl_re_remove_chan(re_priv->re_jrs[i]);
-+		if (re_priv->re_jrs[i])
-+			fsl_re_remove_chan(re_priv->re_jrs[i]);
- 
- 	/* Unregister the driver */
- 	dma_async_device_unregister(&re_priv->dma_dev);
--- 
-2.55.0
-
+Tested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
