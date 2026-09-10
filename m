@@ -1,238 +1,226 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6BC48F031
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DAB43DECD
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789075205; cv=none; b=t728UaxUME+19k8xe+pINzWc5cGuPuFUz5HD+BMV0VInQDGsSE9EIyU2bBA0xHs7suQ7czc4R9ti120xZZCt2OGhkO+MeWhpThQJY4ljhMPVDSieIzSn3LeBJdsg5Ie/xhMWqjShMW2VeyuZZown9AyHeY4q6MB8pj7CvoBJQ/k=
+	t=1789075236; cv=none; b=AiKaiHFhEmepITcJIQ6FHoEe7P5XFZRElO0q7EBxgadTEfV1Lsc6LSupotJc9UebAt1nhRgl8CDnU1IppXOGdO1GdIejLkPeCwPcrZq9bYxRV7V9LvnqPlc5/yZ77yL4jjQhj0Z4cs84GjVQQqrXdNNs6fBVE/yz+fVfs/Py0Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789075205; c=relaxed/simple;
-	bh=0aH1/xZq6BqoJ8NBok0Fya68fVfmA8ZB4sdGtLgyxas=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SJYwU2hfB7i4DlDpzH5Ath7LFcrmMp9inqL4YdC8u53UCK9GVYEZMj335EzvyOk1QMSaMf10jrLPfDTKK3whYjK9iqfcwU3UKuiBBvDbcdO88a9qIYZWhPR5+g38S0FmcbNOOJqvK/0eM/8w3Zb8Kh2RBB4afyIQLtImKcKODTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rowc8lce; arc=none smtp.client-ip=74.125.227.139
+	s=arc-20240116; t=1789075236; c=relaxed/simple;
+	bh=dIpPv2LDgNjkqLCjQTco+SsfikFQw6to+dKf+3PmTkw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NGRmb0yk2Bx5ZGSOJnEXTWH23EWkvJukzzWkVaJCzJN3yaN4xoSb0anOGm0WeCeDpNeS8gC4MMIsgh9pB32S2KMgi6EyN3LoEjpKwnTND/EHNLthkCwsvG1hNFhg/GiT1lwJr8t4jOtNFGRBQadsemZC5avEO5u+xSUSyYzhscw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jUuk10hi; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rowc8lce"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-38de693676dso127163a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:19:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jUuk10hi"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-86908cbc011so238777b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:20:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789075182; x=1789679982; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u1rqc5jPkp4qWs7zOMQ/40kpJI2gBjFB0iGuKAIdw1E=;
-        b=Rowc8lcevd/wERc/j0B+/EZnNBqPzlzXXHuaSQETM0R8azx35V+0fkb7kUe/JkCuI+
-         aL/uqFD3M8fSe7R0CvlHJO26ZeLp4QPC6ttRcdiwBQ15+ZSORiWVcwoG/pw7PFyh2jtT
-         fOzLf83G6hosKeWYkcYPB/MzTptXgsaQClTNSxwSCVW+lddxHmm72Hfv17LGe0oPWGkc
-         0u3/Bhhz7HpbFFkq28avgX6psamoxh5e37DQN0BWYcNPRpB85zjLFpNYxxaMcls+6cpK
-         SSkGn4MHP5X2lCY6t1Vcd2/C1IV308Qk2lBnx/Nyehu0tpW5x21gIRcMydUUd+9DPKg1
-         ST1Q==
+        d=gmail.com; s=20251104; t=1789075221; x=1789680021; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WcaRkjFLJlQ6IrC07cf6523DmJ46vlkl5Xth5RPErjY=;
+        b=jUuk10hi71DWKjBkJdBjHpbLkA31mE9n5trbOgwLTS1RcmudiPnAn8CF6wX7kcHThC
+         SThez5aXJEixt2F12BScnEfiDzaHtHH60mKSQ8HgbprKZ6xGxBeSMxrMetpvQFk8Bpfu
+         GTAZVzaUDu/6aeOIA/X1lwNKwctlwvJyZ7gBHcn48OO5aaiHB0ELOaj3TiFYS37fe4R7
+         FIaJMhOPT1yAmq0T+r0qzYWnEjIY0sg3CPr+2YzRPE49fdCKdn7nhS8E9GplcoYPa/eZ
+         uiaZCm3yW6lb51U6pcxA47wsCPw0wjFOwf7usSVPx1A2viVmgF5i2usbACQnQzoteyuT
+         YeLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789075182; x=1789679982;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u1rqc5jPkp4qWs7zOMQ/40kpJI2gBjFB0iGuKAIdw1E=;
-        b=OPc8lMnoxssYGIk3q+fNb4b0mPXmDRMMFjsOboZ7xxaZQJOhlY8MxZLG+/HiDkyrw6
-         S3qmMLuFjeGwCiNxN+aO2Pt92PLys8nyVD4Hw2U7ljA8xCXerSM2fViVxKLXSfQLIUnR
-         St/JwjRxZraNOPrUH+wWbp0WT00WiaPpiIuwpMyPdVwnAnwPgXkdiMDZryiWZPjhbDZu
-         +iwrE2cGzKluiFHjMYXYFp2lQ6xYP8Zg3p1TlUi76nr/WRe32ak8Pz4PB9oR4WN3wFvo
-         NJt/XYvFn7zXGlLyJFj0V4ST9rnZhjk8wFsuIHZV+gOZXaw48I23xVKxtAMkDreImfB7
-         CHTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWSZjXMqMyFiYau+AkktI9w5kdvIGu6fam6uWtKgI3jJ9Bpd0H7vvvilngdIQ/+WyTizjvsSK4zTX538A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuDZNFnUnZRMJKkn6upG+yk76CCzL01avWdNzbIbEcnG+s2pzu
-	ZALflADHOGX6wkQAidiZPtIDf9OOjxI2CwjTWzaXQ5qFKUevvZgoQuTq
-X-Gm-Gg: AYBFou3L0okHND610vtxUGxoHyvqA+dqARKruijJcViCxt90x/mtdKiZeHMY+6Z2MFx
-	AFccxfStmJ000YqkrZigWRV69M4M53Lm0s4XuRW0FM2/2f4kHNsWlAT/n0SUaWB3qizddTdfc4R
-	FGpeLOOkX90TW8lSol33kI340pN+97Yeh/2xLeNDXZHRLdAt0BmlaDVqEr5wKOe6Kn3N+FCijJx
-	B1uUCSvbFu5pqbCkPP0Lv4ga39P0UxiE/otpisWW0zSERptJIGEboQrNJ9Da9NQKkNCh+hyHZAq
-	ZRNVJC3HnikrvInMTz/117GkdaIQ03rAOho9CIqcD7kR2DGs+c9ml298+Yi1ykjxlWjOZh9iv1Y
-	Ok1bEotzTE/LkoRbhmewOURxdd2i0Hc3aE+OSaqHlak4QdgRIaEUjDvpiRaVhWiFzWKcUOAl0vn
-	1kwc9EP9KneaW6RRYMnQ+mW+KbBtR1cxt2MW/lsf4wlpJl/ld7AUz4ZbJhoDCekwoS
-X-Received: by 2002:a05:6a00:4fc9:b0:846:bc60:5bf7 with SMTP id d2e1a72fcca58-86b31401661mr1235255b3a.6.1789075181652;
-        Thu, 10 Sep 2026 14:19:41 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:47::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb760sm146528b3a.46.2026.09.10.14.19.41
+        d=1e100.net; s=20251104; t=1789075221; x=1789680021;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WcaRkjFLJlQ6IrC07cf6523DmJ46vlkl5Xth5RPErjY=;
+        b=C17WNsoW6U6omRxAA48o+Ks8J3bRznRpbA3Gg/uq3DTLHchv0BhECaNGmU5HCEDu08
+         dSw3ADRapiWFtB2f4YW8TMCbBx7CIlNvZ931DtsH+0Hlw/QH334ybphR89TJ863X8asa
+         DO9s4cdHyD8bXXFIIJpvA1JTHTaOBMEA21fs/v3btLdI9n2ottlm/gU1sZ6eCnhv0HIZ
+         pQaqZTGQYvCPp0rJ4fGCKH1TsjSeLPTu6fdcKGAU31OIZ8P+99CQy/Oafp1dwEb+Gdtq
+         RlYVfvsf/psfz/IXwsVwd1CZkhgfb7OSBYJ/4Io2pubYMdx78GBoqEnj4COrkjXh/N3B
+         ZIHw==
+X-Forwarded-Encrypted: i=1; AKwUvBxB4eIyFVk6UqpSV8ynveUhrcUR45mheMfATvP5UpmERb2vxom31qZHrkYuzT0+FwOCYPLshW1fd5D3l3k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEuk0h5l0cQ4ii/YP9G6mXInFYyYjB3nTaqefXBXAvVwjDmqNq
+	14D/TDQgZYMZw+pW1CkTs/qsD6GHP1yxiZNY1cmx1+pBdakgMfOmExQr
+X-Gm-Gg: AYBFou39D6Wb6DbVENj51CO9dFbh0MF+22OrUCWNWFTdlLWkSU0d254hnXjbXNeqtfp
+	8oJT36sLOdDpIAkcSHyPWGwdxCnuTE2LXhL4kQciJTKDTC1qwBHsjSi15/7+si2iCOCT8NSBmP/
+	IG1n3sRgHtZUN3eesYrxIZqqNqDoCtywgr8oNfwxxdHbYWiPeX8TAR40eU0kAT9VHXEUvGRJkw0
+	GYdEH5xBi4rgLyVL7bapOwicxvFltlNv2ErzFoeswnaCj9YS3e1+NdLOHa1k2JgF9LkvUiYZjNw
+	kqAkGdQL1En5rvNhlGMQbagomdJhE7X9rUR4gSepa0yxizQ1yoG/SVc9SGdaNTklwhakEsUMa1N
+	ABpASWNpXgyUE49eEHbJiHud2OfmkEaou1GSmLF6MtE9LN4RxxXn8byzIopP9Ml/ajS2rruuL8y
+	vgMXHKfLsfLZrzhhpeyVIqNSWfm6IGDM1jd4EpgtMfofidXtNdljCCDbeWTWXGLKW8ndVbo4QHL
+	DV9rOtMOPVdSyQAzRglHVXFibX0fK8bX2i0/Z2ZgC3aVO6Yk2uIHUKy2ciKZS3gn4WpDn9Z9diS
+	WkcbVH86WaySUZbKMEyR/fa+e50hG5q8z3yrcPpTCwejGD7p
+X-Received: by 2002:a05:6a00:348f:b0:84e:7ec:aa42 with SMTP id d2e1a72fcca58-86b30122689mr1431259b3a.10.1789075220699;
+        Thu, 10 Sep 2026 14:20:20 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a3c2ce7sm138814b3a.56.2026.09.10.14.20.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 14:19:41 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:19:35 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Fernando Fernandez Mancera <fmancera@suse.de>
-Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, edumazet@google.com, davem@davemloft.net, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	Willem de Bruijn <willemb@google.com>, Kees Cook <kees@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Richard Gobert <richardbgobert@gmail.com>, 
-	Marc Kleine-Budde <mkl@pengutronix.de>, Jeff Layton <jlayton@kernel.org>, Qi Tang <tpluszz77@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/13 net-next] net: inet: relocate ip_generic_getfrag
- and guard IPv4 socket logic
-Message-ID: <aqMeeDnj4pcuvz7-@devvm7509.cco0.facebook.com>
-References: <20260910144914.8025-1-fmancera@suse.de>
- <20260910144914.8025-4-fmancera@suse.de>
+        Thu, 10 Sep 2026 14:20:20 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dmaengine: ppc4xx: use devm_platform_ioremap_resource()
+Date: Thu, 10 Sep 2026 14:20:18 -0700
+Message-ID: <20260910212018.67728-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260910144914.8025-4-fmancera@suse.de>
+Content-Transfer-Encoding: 8bit
 
-On 09/10, Fernando Fernandez Mancera wrote:
-> To enable compiling the INET subsystem without IPv4, shared generic
-> utilities must be relocated and IPv4 socket logic must be guarded for
-> CONFIG_IPV4.
-> 
-> This patch moves the generic ip_generec_getfrag() from ip_output.c to
-> af_inet.c. It also introduces CONFIG_IPV4 guards around af_inet.c to
-> reject IPv4-specific ioctls, protocol registrations and bind requests.
-> The same guard is added to reject IPv4-mapped IPv6.
-> 
-> Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
-> ---
->  net/ipv4/af_inet.c   | 96 +++++++++++++++++++++++++++++++++++++-------
->  net/ipv4/ip_output.c | 18 ---------
->  net/ipv6/af_inet6.c  |  5 +++
->  net/ipv6/datagram.c  | 12 ++++++
->  4 files changed, 99 insertions(+), 32 deletions(-)
-> 
-> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-> index d9421ac38d78..b0c48ba544bf 100644
-> --- a/net/ipv4/af_inet.c
-> +++ b/net/ipv4/af_inet.c
-> @@ -129,6 +129,28 @@
->  int disable_ipv6_mod;
->  EXPORT_SYMBOL(disable_ipv6_mod);
->  
-> +/* Keep the function here for now as it is generic, it should be moved
-> + * to a common L3 place
-> + */
-> +int
-> +ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
-> +{
-> +	struct msghdr *msg = from;
-> +
-> +	if (skb->ip_summed == CHECKSUM_PARTIAL) {
-> +		if (!copy_from_iter_full(to, len, &msg->msg_iter))
-> +			return -EFAULT;
-> +	} else {
-> +		__wsum csum = 0;
-> +
-> +		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
-> +			return -EFAULT;
-> +		skb->csum = csum_block_add(skb->csum, csum, odd);
-> +	}
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(ip_generic_getfrag);
-> +
->  /* The inetsw table contains everything that inet_create needs to
->   * build a new socket.
->   */
-> @@ -425,8 +447,10 @@ int inet_release(struct socket *sock)
->  		if (!sk->sk_kern_sock)
->  			BPF_CGROUP_RUN_PROG_INET_SOCK_RELEASE(sk);
->  
-> +#if IS_ENABLED(CONFIG_IPV4)
->  		/* Applications forget to leave groups before exiting */
->  		ip_mc_drop_socket(sk);
-> +#endif
->  
->  		/* If linger is set, we don't return until the close
->  		 * is complete.  Otherwise we return immediately. The
-> @@ -478,6 +502,7 @@ EXPORT_SYMBOL(inet_bind);
->  int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
->  		u32 flags)
->  {
-> +#if IS_ENABLED(CONFIG_IPV4)
->  	struct sockaddr_in *addr = (struct sockaddr_in *)uaddr;
->  	struct inet_sock *inet = inet_sk(sk);
->  	struct net *net = sock_net(sk);
-> @@ -570,6 +595,9 @@ int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
->  		release_sock(sk);
->  out:
->  	return err;
-> +#else
-> +	return -EAFNOSUPPORT;
-> +#endif
->  }
->  
->  int inet_dgram_connect(struct socket *sock, struct sockaddr_unsized *uaddr,
-> @@ -962,18 +990,24 @@ EXPORT_SYMBOL(inet_shutdown);
->  int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
->  {
->  	struct sock *sk = sock->sk;
-> -	int err = 0;
-> -	struct net *net = sock_net(sk);
-> +#if IS_ENABLED(CONFIG_IPV4)
->  	void __user *p = (void __user *)arg;
-> -	struct ifreq ifr;
-> +	struct net *net = sock_net(sk);
->  	struct rtentry rt;
-> +	struct ifreq ifr;
-> +#endif
-> +	int err = 0;
->  
->  	switch (cmd) {
->  	case SIOCADDRT:
->  	case SIOCDELRT:
-> +#if IS_ENABLED(CONFIG_IPV4)
->  		if (copy_from_user(&rt, p, sizeof(struct rtentry)))
->  			return -EFAULT;
->  		err = ip_rt_ioctl(net, cmd, &rt);
-> +#else
-> +		err = -EOPNOTSUPP;
-> +#endif
->  		break;
->  	case SIOCRTMSG:
->  		err = -EINVAL;
-> @@ -981,18 +1015,26 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
->  	case SIOCDARP:
->  	case SIOCGARP:
->  	case SIOCSARP:
-> +#if IS_ENABLED(CONFIG_IPV4)
->  		err = arp_ioctl(net, cmd, (void __user *)arg);
-> +#else
-> +		err = -EOPNOTSUPP;
-> +#endif
->  		break;
->  	case SIOCGIFADDR:
->  	case SIOCGIFBRDADDR:
->  	case SIOCGIFNETMASK:
->  	case SIOCGIFDSTADDR:
->  	case SIOCGIFPFLAGS:
-> +#if IS_ENABLED(CONFIG_IPV4)
->  		if (get_user_ifreq(&ifr, NULL, p))
->  			return -EFAULT;
->  		err = devinet_ioctl(net, cmd, &ifr);
->  		if (!err && put_user_ifreq(&ifr, p))
->  			err = -EFAULT;
-> +#else
-> +		err = -EOPNOTSUPP;
-> +#endif
->  		break;
->  
->  	case SIOCSIFADDR:
-> @@ -1001,9 +1043,13 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
->  	case SIOCSIFDSTADDR:
->  	case SIOCSIFPFLAGS:
->  	case SIOCSIFFLAGS:
-> +#if IS_ENABLED(CONFIG_IPV4)
->  		if (get_user_ifreq(&ifr, NULL, p))
->  			return -EFAULT;
->  		err = devinet_ioctl(net, cmd, &ifr);
-> +#else
-> +		err = -EOPNOTSUPP;
-> +#endif
+Replace the open-coded sequence of of_address_to_resource(),
+request_mem_region(), and ioremap() with devm_platform_ioremap_resource().
+This eliminates error-path cleanup for both the memory region and the
+ioremap, and lets the devm framework handle automatic release on probe
+failure or device removal.
 
-(passing by comment)
+The two separate initcodes PPC_ADMA_INIT_MEMRES and PPC_ADMA_INIT_MEMREG
+are collapsed into PPC_ADMA_INIT_MEMRES since the combined call covers
+both steps.
 
-Don't we have a coding style rule to avoid ifdef conditional in C code?
-Should we add some new devinet4_ioctl/etc wrappers that we can conditionally
-compile out in the headers?
+Also emove unused PPC_ADMA_INIT_MEMREG enum value
+
+The PPC_ADMA_INIT_MEMREG error code is no longer used after converting
+to devm_platform_ioremap_resource().  Remove it from the enum and the
+corresponding error string.
+
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/dma/ppc4xx/adma.c | 46 +++++----------------------------------
+ 1 file changed, 6 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+index bcc54d584e2b..9decdd04a51e 100644
+--- a/drivers/dma/ppc4xx/adma.c
++++ b/drivers/dma/ppc4xx/adma.c
+@@ -37,7 +37,6 @@
+ enum ppc_adma_init_code {
+ 	PPC_ADMA_INIT_OK = 0,
+ 	PPC_ADMA_INIT_MEMRES,
+-	PPC_ADMA_INIT_MEMREG,
+ 	PPC_ADMA_INIT_ALLOC,
+ 	PPC_ADMA_INIT_COHERENT,
+ 	PPC_ADMA_INIT_CHANNEL,
+@@ -49,7 +48,6 @@ enum ppc_adma_init_code {
+ static char *ppc_adma_errors[] = {
+ 	[PPC_ADMA_INIT_OK] = "ok",
+ 	[PPC_ADMA_INIT_MEMRES] = "failed to get memory resource",
+-	[PPC_ADMA_INIT_MEMREG] = "failed to request memory region",
+ 	[PPC_ADMA_INIT_ALLOC] = "failed to allocate memory for adev "
+ 				"structure",
+ 	[PPC_ADMA_INIT_COHERENT] = "failed to allocate coherent memory for "
+@@ -4003,7 +4001,6 @@ static void ppc440spe_adma_release_irqs(struct ppc440spe_adma_device *adev,
+ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ {
+ 	struct device_node *np = ofdev->dev.of_node;
+-	struct resource res;
+ 	struct ppc440spe_adma_device *adev;
+ 	struct ppc440spe_adma_chan *chan;
+ 	struct ppc_dma_chan_ref *ref, *_ref;
+@@ -4046,28 +4043,12 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ 		pool_size <<= 2;
+ 	}
+ 
+-	if (of_address_to_resource(np, 0, &res)) {
+-		dev_err(&ofdev->dev, "failed to get memory resource\n");
+-		initcode = PPC_ADMA_INIT_MEMRES;
+-		ret = -ENODEV;
+-		goto out;
+-	}
+-
+-	if (!request_mem_region(res.start, resource_size(&res),
+-				dev_driver_string(&ofdev->dev))) {
+-		dev_err(&ofdev->dev, "failed to request memory region %pR\n",
+-			&res);
+-		initcode = PPC_ADMA_INIT_MEMREG;
+-		ret = -EBUSY;
+-		goto out;
+-	}
+-
+ 	/* create a device */
+ 	adev = kzalloc_obj(*adev);
+ 	if (!adev) {
+ 		initcode = PPC_ADMA_INIT_ALLOC;
+ 		ret = -ENOMEM;
+-		goto err_adev_alloc;
++		goto out;
+ 	}
+ 
+ 	adev->id = id;
+@@ -4087,10 +4068,10 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ 	dev_dbg(&ofdev->dev, "allocated descriptor pool virt 0x%p phys 0x%llx\n",
+ 		adev->dma_desc_pool_virt, (u64)adev->dma_desc_pool);
+ 
+-	regs = ioremap(res.start, resource_size(&res));
+-	if (!regs) {
+-		dev_err(&ofdev->dev, "failed to ioremap regs!\n");
+-		ret = -ENOMEM;
++	regs = devm_platform_ioremap_resource(ofdev, 0);
++	if (IS_ERR(regs)) {
++		ret = PTR_ERR(regs);
++		initcode = PPC_ADMA_INIT_MEMRES;
+ 		goto err_regs_alloc;
+ 	}
+ 
+@@ -4127,7 +4108,7 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ 	if (!chan) {
+ 		initcode = PPC_ADMA_INIT_CHANNEL;
+ 		ret = -ENOMEM;
+-		goto err_chan_alloc;
++		goto err_regs_alloc;
+ 	}
+ 
+ 	spin_lock_init(&chan->lock);
+@@ -4206,19 +4187,12 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ 	}
+ err_page_alloc:
+ 	kfree(chan);
+-err_chan_alloc:
+-	if (adev->id == PPC440SPE_XOR_ID)
+-		iounmap(adev->xor_reg);
+-	else
+-		iounmap(adev->dma_reg);
+ err_regs_alloc:
+ 	dma_free_coherent(adev->dev, adev->pool_size,
+ 			  adev->dma_desc_pool_virt,
+ 			  adev->dma_desc_pool);
+ err_dma_alloc:
+ 	kfree(adev);
+-err_adev_alloc:
+-	release_mem_region(res.start, resource_size(&res));
+ out:
+ 	if (id < PPC440SPE_ADMA_ENGINES_NUM)
+ 		ppc440spe_adma_devices[id] = initcode;
+@@ -4232,8 +4206,6 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ static void ppc440spe_adma_remove(struct platform_device *ofdev)
+ {
+ 	struct ppc440spe_adma_device *adev = platform_get_drvdata(ofdev);
+-	struct device_node *np = ofdev->dev.of_node;
+-	struct resource res;
+ 	struct dma_chan *chan, *_chan;
+ 	struct ppc_dma_chan_ref *ref, *_ref;
+ 	struct ppc440spe_adma_chan *ppc440spe_chan;
+@@ -4270,12 +4242,6 @@ static void ppc440spe_adma_remove(struct platform_device *ofdev)
+ 
+ 	dma_free_coherent(adev->dev, adev->pool_size,
+ 			  adev->dma_desc_pool_virt, adev->dma_desc_pool);
+-	if (adev->id == PPC440SPE_XOR_ID)
+-		iounmap(adev->xor_reg);
+-	else
+-		iounmap(adev->dma_reg);
+-	of_address_to_resource(np, 0, &res);
+-	release_mem_region(res.start, resource_size(&res));
+ 	kfree(adev);
+ }
+ 
+-- 
+2.55.0
+
