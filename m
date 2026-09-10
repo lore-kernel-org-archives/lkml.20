@@ -1,150 +1,287 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2623CB2F8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E6B33BBAF
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789025197; cv=pass; b=gskPmiIBl7DU59XCqKe/ZVi45rQ4xFBk5HToQFCW3tNnUZYO+ZbEUGLHyoaFL34hZynB8WcoSJvFWW+bgqE3zfMR9nKa1+p6LCY9w9xYHeWkxhLYn/AE/rS+VbuLcxN92YFaRXbjjIozoyZsbuKD5YQS3rKE+XRxB1pKmILYvKE=
+	t=1789025234; cv=pass; b=XxSpWxl+7juU8OEpMRO8JXF/ptFNTY4ZT0+vWeToAd7mRA8rfs9bw837CbE7IGPEPRwhcOYn129IZrQq2xZUbmA6DthJdDI072+cqnnFDt7Wxnz+KznBWI+H0Py0rOkoibEQq+7w+Zhc+y8oqH/sbKdhL23efW5T5wSA9/RYmOM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789025197; c=relaxed/simple;
-	bh=dVjw4ljiCFw+ESWsURmLdu8hWv/DpVWzvl8Lc62Ew7c=;
+	s=arc-20240116; t=1789025234; c=relaxed/simple;
+	bh=bZxWK4/oaCwKffC7eILmS9hf1WFNkZfOkRz6Aks28xc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QVFg/bIqKLTZjc++RfrNEgX9Ibqzq8fZKHA26G2RVSh9korx7+PcwIQPG1GF7PPJTO9n4cXOG5r/ANWp0ZaI4IXNq+l5acTrtxWTD01cFPMP+vMs2/peuqG6nHPYqew7LNSo/OkTBnY78nKntGRZjaclUM574usNpv+LmalXj8w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=suHkh6UL; arc=pass smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	 To:Cc:Content-Type; b=Y+aJ2jh1J/UfYIyhlkWhGF66INguXWL+mT0ihe4+FZD0leipIhjPBdnzMYzv2Z3C+0cwoJDkSXITRWxILmBAG4vjPNuiZL6dPr7iGfLXuJG9CpljiXBeH4Ku1wEvZ4VMFGWVlG8rXcDgK6IdTfm/40aZOj5rsD/LxQ0ALNIaeno=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R7I/PT09; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HEJ9d5VE; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="suHkh6UL"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836c4474028so67327877b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:26:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789025192; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R7I/PT09";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HEJ9d5VE"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Gpi83655281
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:27:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	taZQwJTu7Xj2QDuBpgX98mgl88qdgGujFrGGLJjeO/Y=; b=R7I/PT09opctkmDP
+	AtysNWExZ3Hw0+R+zBCwUyJ8Sn0N+LZ1p+JCqyJXtuKSJY1XwAeJwx/QwWWvv3oG
+	e4f5kj3ra2K5GX3nwyrdemh7pdQRA2dkCO6dxjaknGFVceuypSuwYvIIr3UEZgKF
+	witAiNhxaN5ePeNxct7pd6lpeiHLRHHCCWLfLQcNh9gSsxDcEWKj/vgrNgBFgcNh
+	xSNDT6X9eBd34ghP8DpkY7qJkwn14h9MSFgXjt256gXtweedZkiTRFgGrDFQS/PE
+	Y1GuxJiAfSRk/zdi9JqCqDxm5xmUw7znzIZij+yW7nQgtiYC5uVIS/ANxJvS1KEX
+	E4U5Pw==
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydtmgs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:27:11 +0000 (GMT)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66e44d96aa0so7340693d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:27:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789025230; cv=none;
         d=google.com; s=arc-20260327;
-        b=AAKY+ZuFZLwQ+XmMrxz11ssvXX9HEEGUKJc8cx4Tz5NPmRsy1jfDcFu7w4f7uVScAt
-         8jZe4cmTdHvtfuoHDXTCcaH/7/XDhAkWOln3tJSNwN2g+VijYXxcS9hb3Y8gWZJlsupB
-         gXyyce6jrSvVUFxoi7i93xd31cCTyb02vWXA1CfRNzA5CTBGL7TghlPcS9oPEtXkzQRW
-         7xnqO8L3jFWU8VVMN/y715rE8osevZY5z6Q5dZvHSVCa96/ROT5KZTyN3BoCNHOXT6KW
-         2htY/Db1/54r7h58CtVRhcYHfmNGn5FqUFHA+ojxgluKqh3rAVSRPxGRCZt8Hu4/6nqO
-         ebyQ==
+        b=MLlm355Mj7/pzBNQp4crxoh90bTid2gs1uEEa+ygS3rFiU+FuwoSlKmqB2Wm7KfY8l
+         ixhceDFnI47rPFMarnkYot8kitLwK2Nil5HlF7DW+s+k3TLhR13qGt8anK2TZuG9cXfd
+         IJA3oQon4ihA1B/u04ycEWs/y5/cwm4Yx6NrxLw7Pu1UvBpTeGJt9zJlduKJVfekchkQ
+         cV2FlKm+7s4bYjQNNJUgdsuc+CRQuSfcu/v5cVZlMKT60VhgARbNleVIGXM+1yt2DxRw
+         QyfBYetplAEGIU3ucf/0UE6fz/AHH7jEelvmLONllPXEUHjvXoBunmlo52jliVhYXwos
+         F9Zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/vXglpmyQqtm2vQGfMHWvnjy2MGvK+hpILt4Bijo3TU=;
-        fh=Jr6RAlgZsCzsbL96R1hK8ZCxFN4em94pHPSQV2MEjQM=;
-        b=osxitiGBMxCo8hhclmd0fWmL9mbZL1z4YYHf2dqvkfTZpdho1o0tfEqmdx4XDQ+2iD
-         8xuSRCtj8uTmSjidR9TKPpyZ/SKAVfpIWJRFncmY56N1ZTrp2uL+lHMGYA6oV//I2pHK
-         yniZWNL0W+DtXHSaOJuKhxeezV4i3pQrOxFxrbb7KPsu69uGSHSs1NZawWsyzTKru6uw
-         8fwUn1WerPR055yT3IP5+gZP6iT+SU7IncGiTFjUFrJHjdNsANF5z/namJ1zxZ4O2cD3
-         xok7U2t+bjHdLDw20JxjSzf6GMAwUP0F7waSm6XaOwf1H0F8RLQJeAICfIw1cBEoQtqe
-         tkqg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=taZQwJTu7Xj2QDuBpgX98mgl88qdgGujFrGGLJjeO/Y=;
+        fh=fllxkjCVuTKT23ARZevi2B9A/OocLAuHn7yBK0XXt4g=;
+        b=Q4jV104YK/9x3PvYr5gwXf2+BsnD5BE+0y0lr5hDvlgUkCC9pyUCQr6agpQ7aDBg0r
+         x/J5W2uTshIWMqiSuRVpG2R85DBmf/qooF2/6GQb9YfbCJDko7xqUCzqMyuxzWsn8KpO
+         b0bN6ivvQ9lMcoMyyZXhMA4CGutc/4eHvRpmQYfq97AT3u8PJDMll6hoi0KFaaZAr2h0
+         j4k+n3vQ+RPxKLZnXGRbco3m2W0BQTE5XWJX5QPowZIeE5z32BF8gukDj/xje92LHfXz
+         230QBiJey2V0emvAdnY3Dxg1Pgzzj/SL7KLJ+wHyqt8SzzTrSG5mFiNS0CPg7OUPJhG5
+         ERkw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1789025192; x=1789629992; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/vXglpmyQqtm2vQGfMHWvnjy2MGvK+hpILt4Bijo3TU=;
-        b=suHkh6ULwnDEWuDq436Z0xkKK71gJkFK5kmNpji9DlmfxQ5sg6C3wx1SaMmP/hGw9r
-         nMzsMW3AJhSurvDdseK61b388tLYVv/KE1m8IVKsI+cCEe0LjMhWqdlNjE7heQ1CvMPX
-         2iDyssSW8uJoF1oYtyIjgzL64c7gwbna6Is3NmFQVRnTogqO6vIme6ZQvBxqRhsgne11
-         T3RBsGh6Rc3859z5Cqk64eMxHkhCATZn/B2eu4/zZBIYgzkhQbNXI/vHhW0WXJcFhA0u
-         KdxakDtzeD2BwwLbkXKsjpeoTbZkpD/G6+ATxRurL6Tlb8mFv+j3Q1GkoXNk+8dl3o+L
-         BV1w==
+        d=oss.qualcomm.com; s=google; t=1789025230; x=1789630030; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=taZQwJTu7Xj2QDuBpgX98mgl88qdgGujFrGGLJjeO/Y=;
+        b=HEJ9d5VEkO2oKknCn1tH1/f3rbbmic7IBHCLN8IAUqJa8R9ehJrrXXAWOfYScjXvkf
+         YBfNru2XeEWSkpLh0U0elO5q/TngWrn6vgbLWUeuro/3i9//qubGj06BlRDSPxt+99nY
+         hA5TyziUqsoxwr5tRop6SE5Bhp6pFk0XjFUsQP6Z2vl7EUuHevyp6x873qMZe0mnIC5W
+         0lGVfuviFetrDtKAbvx7mcZxCP6vV79OllnEaKqZBbcDSlja3kt2YkPjZAdzO1Skdbsy
+         5vkoJL92DAu+grfRzlY0LdCkNqs7iuCIJM3t5rPZ27QCR1jcOEdvktBeAb+vgedvi6Ru
+         W0Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789025192; x=1789629992;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/vXglpmyQqtm2vQGfMHWvnjy2MGvK+hpILt4Bijo3TU=;
-        b=MIYQQc5GAsVWHP7BFFU+/I22aPxJ5XmanTXCpUwvyRhAJOGWvtC+tNwIHCn1KhSK6Y
-         UTZ4fKHKhq2ytqVQXP3n96UyjGOknHXWtjHUY5QHw/f7EgpsSmWlsSrZE3Hrm3ZUJGTv
-         P3E8BEkmzmYyLVKQvDxQSZYcMxviVyayg9tKFy8cORX9JnDyBpEVs4iJTN8f6+4j4JvM
-         CjvcHWx/FMdFXmDP7BlhfqSmDlFolVXzZ0rzr7qXmDpQvm3vsmjL7nHr1KdpsVUcqW1v
-         cBvT0mUeY0AprUJggsUiBVOgWXxrmG6KVkMBRhZySaRU5Zx/Ub2sFfkK89wpGwebdB7J
-         CUWw==
-X-Forwarded-Encrypted: i=1; AKwUvBygQg+LesNoad27pCPXIjF4TkBpqdJ1D0ovrVWKYPfBcQg4j0wyeux8AeY2HoBEs9ft1x3xY/yIYThqTHc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5lnqpL5bfK+Pa+b0mZlHdmtrBiINlfmN2HxJc180Ky374uG8p
-	BhVZfvyfiTIXQwo25ydkAOvv/ZLZsd37uRLB6zcflGl5+4RXoXUqYSWdhXFDpunxmkXlSo8Y8Fb
-	EMw9k4ubvQSDFZRsEAvI3VJxUZ8G5yOhf/ZJDHNs8vSuXwE4VpjBTDuwkML6pomcm
-X-Gm-Gg: AYBFou198ZJZvqdu2ZYZIduQVwJN+8q8nc+7uQyF5rP/1uhhcIvvd8H699nvQPSWdi7
-	rYf4jx2xlSMQMtX28j++VXpPM+ApnRPgwrMwaBXqd9maRxfzVFyWda/m1GVHgUd4Ak+jsqWTet7
-	Y405xHVWdl3kJ38N8ygDHAYf8pLvDM8GRAjikD/C8qMQaZyZSAMmhXu3FngNQkXbag0tDLt2wru
-	TGdQGZL712oMDb+q9qbVWFUzmBXdjm2XCItCyIgxGskFK8uC5Q9HWSAl4QCbiXjwP5xahQesNKR
-	idZY5BKkyr3hPvjMF2ZA8xIWLxqUv4IN7sNK+zT7A6mSahIvp9LG7q8nxRdI1hli1QzZ9g9iHvG
-	m11Z63koTPZW1KnaiRBNrGmgE4Mnp9tFG9eOOKKmOUnYF9/vDJ+wEKGjyu48q8LIdK0e3UXcy5T
-	DzefhWTItiWgIUV3IFia64H0jiHLkH6wDf79gbeYjhx2crT7i1nyQhAqRY1Azou3R818KvnMB9L
-	JC+Cavqa4I9YSqOaL/L5nEJtZhOWYnnEYPzQShgCirmH/ZT5KKfE4nl0EX8eng72211JcGfNZMs
-	FYa43T3x8QUsxWWGPZHO3GJb
-X-Received: by 2002:a05:690c:e28a:10b0:873:5bb2:6c0a with SMTP id
- 00721157ae682-8735bb26e53mr93150277b3.52.1789025191861; Thu, 10 Sep 2026
- 00:26:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789025230; x=1789630030;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=taZQwJTu7Xj2QDuBpgX98mgl88qdgGujFrGGLJjeO/Y=;
+        b=XK0ZltLQ7zkpKxES+J8/D364V/ov0AtlIQF067hHRrlUsWihmiEa/2Hl/pAkjotK6a
+         k4zw7X0aZ90Xe1EFhMITaXyW3SbRupdyUUcjRY2oepc3QMQVnkeDLZzI1AdqrGaiWYbZ
+         bINUvWdb7IF4WFoLG7lOVnLY0GLx/C6fU0uU5TyeXxIF596SaXqs/OkdJ4VJicMInk6J
+         FfOnH/xLL1vLbBlTQ1bNkZauEwFY7yDZFaJ2z6RcmptGtR1vhtWLqRYPrvLYHhkjuWjn
+         XG5IADeWXa5X+AYLEKG/byialuW68+IG/6tz1P2QK8i73EhB5zWFZYSrFMngwKWyf87n
+         Ocgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVbWrEdrnGAmpiIK+yIofTpNIfH1YJSLfoMYdKEhA4ypMBxk/bcDpD4a4u8yipC0sIYKKyr5JTAs74s9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUX6Aie55tPIKxj2ErMGk/KGeCGbtY/fK3ubx/Fr+qk836LUyo
+	48iCDD+BaJRNiekK6L+Eaq2ofAUkiK8kswTsfJ3P3EB70DWQNmP5c0cotbUc4VbV7O4dxSWiClW
+	bBSYklMPQUcm3jAvU4nM1CWDnlZ/T86LREkPSh1CqSMaK/jHDY9In6kLXbz3p+vO0A/u33l7UoS
+	qRE3zG4MsWal+GoetjZJMwySqVIJHSPuvtqqrr2GxYag==
+X-Gm-Gg: AYBFou2udmfo1DyfC/krd5nIbqNnNsMIHoX0HKrO8yt+Ap8jEp5JVN372SFo/qZQBDD
+	T/6sVzS2hsX69wuWrL6xYn/9MaWiV4Fuo4d4kPMNXlefALUyk3FWNMTT9pbWGlfw/yUP+kh1THj
+	wQz6zASNqA4XBdcDlv0jhVi7RylpZpc6trJwaIPgZfGkgbOm8w65WebiGRQA==
+X-Received: by 2002:a05:690e:4188:b0:666:396e:bf59 with SMTP id 956f58d0204a3-6710feea457mr1891107d50.1.1789025230006;
+        Thu, 10 Sep 2026 00:27:10 -0700 (PDT)
+X-Received: by 2002:a05:690e:4188:b0:666:396e:bf59 with SMTP id
+ 956f58d0204a3-6710feea457mr1891087d50.1.1789025229603; Thu, 10 Sep 2026
+ 00:27:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910071838.1983652-1-julius@bairaktaris.de>
-In-Reply-To: <20260910071838.1983652-1-julius@bairaktaris.de>
-From: Julius Bairaktaris <julius@bairaktaris.de>
-Date: Thu, 10 Sep 2026 07:25:56 +0000
-X-Gm-Features: AcwNN1WlZOuuaCW-CiTDQ_naRpa8Ngn8cqeQa6DliN7h_89pveR3c7oHeLWNBjo
-Message-ID: <CAC1t37+f7+CJ+kBSe25g31fMWE65hme1m1gvB7ZZ_Ydvmce4vQ@mail.gmail.com>
-Subject: Re: [PATCH] wifi: ath11k: request firmware-2.bin directly
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+References: <20260821081325.89088-1-phollinsky@holtechnik.com>
+In-Reply-To: <20260821081325.89088-1-phollinsky@holtechnik.com>
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 12:56:57 +0530
+X-Gm-Features: AcwNN1Vn6UxHVxU9O2c-HcaEnhmPjnjZ2yWHOjiTvHE8Ao96P_jBheKuiWTFEXE
+Message-ID: <CAGptzHM1tuR+JPoT4CmA9fO77pheTq6d+14XnpxtNysrBW71jQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/msm/adreno: Only check for PAS when a zap shader is present
+To: Paul Hollinsky <phollinsky@holtechnik.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Konrad Dybcio <konradybcio@gmail.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, regressions@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=IfsSymqa c=1 sm=1 tr=0 ts=6aa25bcf cx=c_pps
+ a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=8dbcrQVTAAAA:8 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=L0M3gnoWJ22_1Ho6GyMA:9 a=QEXdDO2ut3YA:10
+ a=nd2WpGr1bMy9NW-iytEl:22 a=2958AbVqUNA9gn3SDOjC:22
+X-Proofpoint-GUID: 4NsXLgMw6pGa_e0LbG7PAXX32GbgIkQf
+X-Proofpoint-ORIG-GUID: 4NsXLgMw6pGa_e0LbG7PAXX32GbgIkQf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4MCBTYWx0ZWRfXxLgW9t3xnDSy
+ ht7vSK3YI4HV0v7+KF6LtvaUJU0qHiAUU7+H/GyBqcNrQMLf/35e8TZUe1r5bV827keKmFtr8/Y
+ 5x/gAO51P3SQbExaaAZ+qiq91aI2A0w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4MCBTYWx0ZWRfXwkD3MCJvN4Rf
+ /8dxYqPoi+ABhAHgSET+jXSRBPVndKs5b5hYW5Ds310WQcy6T42eIMtoqG0IfZviuPWUiSPev4u
+ BqFxUljbtD7225vPcRBOIl3Ppoh5gfWieUvmOKSSXT5gOnLl22p/plAusjl8MKC7WjbYbFVzES4
+ j+a4UzgKeC6abT1TiQ0LrOoUcqoCfy0pvV3jHTF/3zd1uZj8tgkP0oBFxDmI+B1EqHnJIp0bzBw
+ 7dHuC3uhw+OPf8LRJI/Tery+Pt4RbRMQJ3r1n9PV29ZlQrQ6OFYHpY1d/5KSXSkCpk942JJGFJq
+ JCRi0HrSDka4qayXyHunfpwB71CTUMD8WCU2nYUMG9J8pb9Yo5D0MvPm45Kv+f3BdCNkTJltk6a
+ HZEWHUWuIZKJf74ZCZr9a9cSnvJGMBXqkRmsVAAEdjgojL0F9+aDDv9FFrHmRstL/89XsQD+If1
+ M/9YpDG2FsTUXDd+3xg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100080
 
-Hi,
-
-This doesn't change functionality, but log lines like
-
-    Could not find firmware /lib/firmware/ath11k/IPQ8074/hw2.0/firmware-2.bin
-
-confuse the average user.
-
-linux-firmware does not ship firmware-2.bin for IPQ5424. I don't have the
-hardware, so the fix would be unverified there. Would you like the same
-change for ath12k?
-
-Julius
-
-Am Do., 10. Sept. 2026 um 07:18 Uhr schrieb Julius Bairaktaris
-<julius@bairaktaris.de>:
+On Fri, Aug 21, 2026 at 1:44=E2=80=AFPM Paul Hollinsky
+<phollinsky@holtechnik.com> wrote:
 >
-> ath11k treats firmware-2.bin as optional and falls back to API 1 when
-> the file is not present. Request it with request_firmware_direct(),
-> which does not fall back to the userspace firmware helper.
+> Commit 0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs") replaced
+> the qcom_scm_is_available() check in adreno_zap_shader_load() with
+> qcom_pas_is_available(). These are not equivalent: the former reports
+> whether the SCM transport is up, the latter whether the TrustZone
+> firmware implements the peripheral authentication service.
 >
-> Closes: https://github.com/openwrt/openwrt/issues/24743
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+> On SC7180 Chromebooks (trogdor) TZ does not implement PAS at all. SCM
+> call-availability queries return 0 for every PAS command while other
+> services answer normally:
+>
+>   svc 0x06 cmd 0x01 IS_CALL_AVAIL    -> 1
+>   svc 0x02 cmd 0x01 PAS_INIT_IMAGE   -> 0
+>   svc 0x02 cmd 0x05 PAS_AUTH_RESET   -> 0
+>   svc 0x02 cmd 0x07 PAS_IS_SUPPORTED -> 0
+>   svc 0x0c cmd 0x16 MP_ASSIGN        -> 1
+>   svc 0x05 cmd 0x01 IO_READ          -> 1
+>
+> so qcom_scm_probe() never registers a PAS backend and
+> qcom_pas_is_available() is false for the lifetime of the boot.
+>
+> That on its own need not matter, because sc7180-trogdor.dtsi does
+> /delete-node/ &gpu_zap_shader;, and the intended path for such a board
+> is for zap_shader_load_mdt() to find no zap-shader child, clear
+> zap_available, return -ENODEV, and let the caller fall back to
+> SECVID_TRUST_CNTL.
+>
+> The problem is the ordering. zap_available is a static initialised to
+> true and is only ever cleared inside zap_shader_load_mdt(), but
+> adreno_zap_shader_load() consults PAS before calling it. The discovery
+> that decides whether a zap shader is needed at all can therefore never
+> run, the flag is never cleared, and every call returns -EPROBE_DEFER:
+>
+>   adreno 5000000.gpu: [drm:adreno_zap_shader_load] *ERROR* PAS is not ava=
+ilable
+>   msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu h=
+w init failed: -517
+>
+> Nothing retries that deferral, either. adreno_zap_shader_load() is
+> called from a6xx_hw_init() rather than from probe, so the -EPROBE_DEFER
+> is not a probe return value: it propagates up until adreno_load_gpu()
+> returns NULL. load_gpu() re-attempts on every DRM open while priv->gpu
+> is NULL, each open fails identically, and PAS cannot become available in
+> between - which is why the error repeats and userspace stays on
+> llvmpipe.
+>
+> Move the availability check into zap_shader_load_mdt(), behind the
+> zap-shader node lookup, so the driver only consults PAS once it knows it
+> needs PAS. Boards with no zap-shader node take the intended -ENODEV
+> fallback without ever asking, and boards that do have one keep the
+> qcom_pas_is_available() gate.
+>
+> Fixes: 0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs")
+> Link: https://lore.kernel.org/r/20260808034716.58888-1-phollinsky@holtech=
+nik.com
+> Signed-off-by: Paul Hollinsky <phollinsky@holtechnik.com>
 > ---
->  drivers/net/wireless/ath/ath11k/fw.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+> Reported and analysed in:
+> https://lore.kernel.org/linux-arm-msm/20260808034716.58888-1-phollinsky@h=
+oltechnik.com/
+> Konrad agreed with this shape in
+> https://lore.kernel.org/linux-arm-msm/b63e93e4-2f4c-4cad-b726-e1b0565379d=
+7@gmail.com/
 >
-> diff --git a/drivers/net/wireless/ath/ath11k/fw.c b/drivers/net/wireless/ath/ath11k/fw.c
-> index ef1b4c81843a..88ec2ffd9f00 100644
-> --- a/drivers/net/wireless/ath/ath11k/fw.c
-> +++ b/drivers/net/wireless/ath/ath11k/fw.c
-> @@ -16,10 +16,12 @@ static int ath11k_fw_request_firmware_api_n(struct ath11k_base *ab,
->         struct ath11k_fw_ie *hdr;
->         const u8 *data;
->         __le32 *timestamp;
-> +       char path[100];
+> 0be72be03ca7 landed in mainline during the v7.3 merge window (via the
+> soc-drivers-7.3 pull), so this is based on Linus' tree. Note that
+> msm-fixes and msm-next both still predate it as I write this, so it
+> needs a base that includes the merge window; happy to respin against
+> whatever base you prefer, and it can equally go via the qcom tree the
+> culprit came through.
 >
-> -       ab->fw.fw = ath11k_core_firmware_request(ab, name);
-> -       if (IS_ERR(ab->fw.fw)) {
-> -               ret = PTR_ERR(ab->fw.fw);
-> +       ath11k_core_create_firmware_path(ab, name, path, sizeof(path));
+> Tested on a Lenovo IdeaPad Duet 3 (sc7180-trogdor-wormdingler) on
+> next-20260805, which carries the same code: with this applied the GPU
+> initialises and logs "Zap shader not enabled - using SECVID_TRUST_CNTL
+> instead", and userspace gets a6xx rather than llvmpipe.
+>
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
+>
+
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+
+-Sumit
+
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 489462065ea9..995161215ad5 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -52,6 +52,12 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, co=
+nst char *fwname,
+>                 return -ENODEV;
+>         }
+>
+> +       /* We need PAS to be able to load the firmware */
+> +       if (!qcom_pas_is_available()) {
+> +               DRM_DEV_ERROR(dev, "PAS is not available\n");
+> +               return -EPROBE_DEFER;
+> +       }
 > +
-> +       ret = request_firmware_direct(&ab->fw.fw, path, ab->dev);
-> +       if (ret) {
->                 ath11k_dbg(ab, ATH11K_DBG_BOOT, "failed to load %s: %d\n", name, ret);
->                 ab->fw.fw = NULL;
->                 return ret;
+>         ret =3D of_reserved_mem_region_to_resource(np, 0, &r);
+>         if (ret) {
+>                 zap_available =3D false;
+> @@ -170,18 +176,11 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu,=
+ const char *fwname,
+>  int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>  {
+>         struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> -       struct platform_device *pdev =3D gpu->pdev;
+>
+>         /* Short cut if we determine the zap shader isn't available/neede=
+d */
+>         if (!zap_available)
+>                 return -ENODEV;
+>
+> -       /* We need PAS to be able to load the firmware */
+> -       if (!qcom_pas_is_available()) {
+> -               DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
+> -               return -EPROBE_DEFER;
+> -       }
+> -
+>         return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+>  }
+>
+>
+> base-commit: 818bebeb63dd6bf5f4e07e145f6cdbace520a34c
 > --
-> 2.53.0
+> 2.55.0
 >
