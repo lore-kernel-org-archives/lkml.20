@@ -1,46 +1,45 @@
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FAB3E5A03
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC95355048
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027063; cv=none; b=co2ZrK5stfZ65RYHVRw4RCcpV8GcfyzTYDTRGqaoXtcTaFdARDR1HCZb8HkwM9IUPWkvjHNGJNp8FE13/rW7D7nXfm31KRIcANwgCH6LaNOYOu2yGwkEBfL+1SuiyQabgNQFRCEM0n2ZrX766a/lpxAzXN+id4I96Hh/hmGyncY=
+	t=1789027067; cv=none; b=F8AaRv8L0eNVAHpLdUeLxLAagrqi9P2N4UJB0eRdxCsC01kw2fp2n++oqnJHMeEy29lzy46CfR1lQUsCFWn8g8MldV0b9tlf6vfA366EpBpRsM8lV8Ofxok44nkP1JuK3Um8z7cLeXf5fLBEWXzYMb3AYiB29NbtFNOQH0Ylc2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027063; c=relaxed/simple;
-	bh=9SBdC3oYUVUpWXhL3sEn6jIHmadyR3ZZCDPWG3Y61II=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=VZgcDqKspDmwJ5VWqqdKMtZQzCm3UWKxa5dKAYTiOuLV7JgLvVaEA69RROBWI0NfYMUoxog1CX0YxUS4TCU2PrHxqOxZSHN0JDuh3bqtCsnnf2Lai57rxMXqESLx42fGgFi7Y8BCXq8Lddn4C3e8nm8Nuf3Nfqc7WsJoPltsJE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=HlYsmJjA; arc=none smtp.client-ip=185.132.180.163
+	s=arc-20240116; t=1789027067; c=relaxed/simple;
+	bh=OZjNLF8/joe/xN9JTvPqoL646UfiED62pe+qsMacBDU=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=uvXw8qFGibcNEZSbwjEBaGtxymJ2NvKHb0PlM3bGxwOlvt8pMNs++lwZAsuZsfDJ58ywoN7q0ubMBuxh9TF/HD2Oc6x0L8ltFy98EpDAZ2oibrVLxDMqYTmhUa/AqgZVH8TNjFWLKWixOgk1r+tb9VpYzsgti9PRud3FoqF20FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=DzFhTZKY; arc=none smtp.client-ip=185.132.180.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="HlYsmJjA"
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="DzFhTZKY"
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5FBNH1603590;
-	Thu, 10 Sep 2026 08:57:11 +0100
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A7Ex6t1819620;
+	Thu, 10 Sep 2026 08:57:09 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=Z
-	w8fjKrjLwxOinKxvcIokMsm1ckLmARdYYiaNUrTCMc=; b=HlYsmJjAyFZJeV4us
-	Q2vRF+OB4RgUFHtZa2eU12i88Z+CcSHM2Uqzb990wCdWO8Cpax8ZQOi82L0u0R/w
-	FpQM82zwI8qutSAvKT47Z9423gx28yWh6GnBM85QTE+CXhujAEu02JAujZs2Hozf
-	dzrl0TmYl3rCpI+4OaBc9Zm+XPlHa8tqLWjIoa9rOoWkIjiregbzZHR72pqUjDta
-	ry89clA15v5Fi3zOAwkt20NN7qQjfyGl3+TsxYvb/1tWCQljefMe85Wk4yszan2I
-	2GUHQjwcFBN91N6gyMBfQChVCZN5D7N/8h5YySL16t8tvruW1HkSWjKkjL2EwDJt
-	Sm/Kg==
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=7QjWMb9ZKUDwiFH95RP1smg
+	tpL1nnRhIe6920/E4hyw=; b=DzFhTZKYhD00hFFGf1AxBc/QdqDmbHUewwTAHen
+	F+NgI+MoYZ4TMA0QeJ7Bwa2xk2ypyZSGvHEtADgfa+U0S9a5fMcV+4DoN4MvybNj
+	fN1dHZ/5CbHB1VHbRXK3JcuzV3lMjg+vQchHdXlZLT8skh9b76ux1wsC/+/+fyAH
+	bBP0mwWmYQktklQDc3QulDQYCTFOHkhqceoEzWaXJUh4RMbgE+bqBeN/6yGLiYE9
+	WBO2mpA75S/pLIf1ZtDgBrAIZqeBUDikEoHHAxVcG8r99jcMQW4OfvpyT0XcYv3u
+	4rDt9nvh3kBpbJR1MN4D6YvApKjcRVzrwuiaRc+PNmw32Wg==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gkk71r74r-1
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gkk71r74m-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 08:57:11 +0100 (BST)
+	Thu, 10 Sep 2026 08:57:09 +0100 (BST)
 Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 08:57:09 +0100
+ 2026 08:57:06 +0100
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Thu, 10 Sep 2026 10:56:40 +0300
-Subject: [PATCH 2/2] drm/imagination: Avoid initialisation of unused FW
- trace buffer pointer
+Subject: [PATCH 0/2] drm/imagination: Firmware interface cleanup and
+ improvements
+Date: Thu, 10 Sep 2026 10:56:38 +0300
+Message-ID: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,9 +48,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-2-7e10274384c2@imgtec.com>
-References: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
-In-Reply-To: <20260910-b4-avoid-init-of-unused-fw-trace-buffer-pointer-v1-0-7e10274384c2@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIALZiomoC/yXNywrCMBCF4Vcps3YglqYlvoq4yGWi4yIpk6QKp
+ e9u1NXh25x/h0LCVOAy7CC0ceGcOs6nAfzDpjshh24Y1Tgrowy6Ce2WOSAnrpgjttQKBYwvrGI
+ 9oWsxkuCaOdW+NiwzaacXM2nor6tQ5PeveL39XZp7kq/fDBzHB6FTLB2TAAAA
+X-Change-ID: 20260909-b4-avoid-init-of-unused-fw-trace-buffer-pointer-ad76e5b57945
 To: Alessio Belle <alessio.belle@imgtec.com>,
         Luigi Santivetti
 	<luigi.santivetti@imgtec.com>,
@@ -62,61 +62,57 @@ To: Alessio Belle <alessio.belle@imgtec.com>,
         David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
         <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
+        Alexandru Dadu <alexandru.dadu@imgtec.com>,
+        Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789027026; l=968;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789027026; l=858;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=JqRrO6Qd3Tyqf3v2PAYTjQFo1c/RhL6uaEW90GjZc6M=;
- b=E67U1+xf88wnZef874mmjfn5Wt636bPCSnA9Qppcim0KLHsnju8jaPet2uDK1Plg4Ty8EemYH
- QnTuXONjzxYCqgycRO5Xr91hdr6rFwHg50wLgn9HO6SH9MjQaeUmGGP
+ bh=OZjNLF8/joe/xN9JTvPqoL646UfiED62pe+qsMacBDU=;
+ b=5KoCO5hxgz/B/O7KffaJTPlWLTMAVS/1DcH2CzhRAQba7UUQoEjqJs0trAYNH8NYaq1FhOpIN
+ I0uYv0r6OGiB8ajWmBFKEI2LFZny50W2N3dfIlq5lJUn1moCypAIeFt
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4NyBTYWx0ZWRfX0qhvHzwQYm1P
- xde4xCWuq/GpV8osIdUUfFNh7xBuo/+i0jpu539xUl92IiFelShFT48qIUX4BJMDpS9DiOn6j4w
- sLCT8ykU6bL5Hm71ILNz2X5afHe2Hsc=
-X-Proofpoint-ORIG-GUID: YcBR4iaFUL213iUJeNnWJZ5IZ_rHTplu
-X-Authority-Analysis: v=2.4 cv=IqGL47/g c=1 sm=1 tr=0 ts=6aa262d7 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4NyBTYWx0ZWRfX5RVY8vwduGMu
+ 0mY2wPpxNGLxHUYWbgQubJDdueDP5BZ1wIkUo3ktOv6iLmwoB/X32yOYgRGDwR+ORurhAj5COWA
+ LqTW3RcfBAc66hyQUju6S8RZQRgb7bU=
+X-Proofpoint-ORIG-GUID: 7NWqo0gB-AKc_U3--aOYfdkdvgYRN_90
+X-Authority-Analysis: v=2.4 cv=IqGL47/g c=1 sm=1 tr=0 ts=6aa262d5 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=VN25UFedZO8qgD5FeVEA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=r_1tXGB3AAAA:8 a=VXORRRnKDO12mk7tN3MA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: YcBR4iaFUL213iUJeNnWJZ5IZ_rHTplu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4NyBTYWx0ZWRfXyRZgVv9rukH6
- dmkMztILNr2RuN9Js6ZRj3e6VjfxAIYCAj7kgA3CV3hDnSUh9rYORIdLvHBzgFB1UnLCfU6gSA1
- 1E3r7EsWi1rY+HeDftZBE69IN0rrc0hbMH0EC9/4Js/re2oKj4fjKfYtf/hKXhb9lrg1NPaXsos
- ktvmcur1eawrfrXAkt1PHPt5Lb0l+Ms8T+SIFItZ0MU24rs/vv/aFwNVjjMJxvgw1VMwBlyMSex
- 5cKAaXf7Zf2MQswMSTNblYnSm9qYHiAVwZz+ywF8vSckkW+/LggawthcCg+3Eahb4evALojVYuS
- FyNIsUmNBEwBH2WxIBrXc7JEdNJLZe/cMN+p8qFFepoto2rpdDnoeS8+yOO2F6Z6dibTXKoVOK/
- o2RyOFsl3DSnYOMP1mYYpNPKD5tq9e9LYmTYnlXqMHkhQyL7pZfp23n5/5+COEmWn44ppM8w3tR
- NKGGSRETOlUk7JQI5mA==
+X-Proofpoint-GUID: 7NWqo0gB-AKc_U3--aOYfdkdvgYRN_90
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4NyBTYWx0ZWRfX6M0G0mJj4Rvw
+ zEL8vAEHgpF+qR6EfLtkdt1MxqsvQ0nC4BJHLbmiXGYRYvIATdCHi7MnLo7AbAki/UKGE4QDj6w
+ /6AvYi7mh4vnBaaHsa6evauLu0YLduBhptb3Z4kRiQPddD+72/rozoa/3PLDspJ8W3lJy/qZBIN
+ VGEL3H1jvbaNElaM9B+L3xWL6p54XKjz/ZKjf/aN2EAQTaNAeXMOJIQDzr8jVH6XgxthDMSfU66
+ SSpGO/Gx2XGAZ10YysSbbeQxiBa9fhRuDv1cRH6ChIpckz55VciplHY8HeCJ0nBVCaqE0GIbPc+
+ 6kwy/38cZ/UfGX6IEpcdAT8dF979NC26fbB6B6XLnDSWmWVgxmNWjRk/Z+/YXTo8RCgsYQkECRq
+ 7M+k5E6AQVdAEwwbhwwmfXE3zZk0yt/4B7vb0nO8cXpD7F48gIIuEtcN8G8qTD8tpXYeUK+i/pJ
+ N0RyKP7Yt3wklptYLtg==
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+Series contains cleanup commits targeted to FW interface.
+    - Avoid initialization of never used data.
+    - KCCB member initialized in the correct place.
 
-This pointer, which is part of struct rogue_fwif_tracebuf_space (a FW
-interface structure), was initialised but never used to access the FW
-trace buffer - only the source pointer in the initialisation being
-removed is used.
-
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 1 -
- 1 file changed, 1 deletion(-)
+Alessio Belle (1):
+      drm/imagination: Avoid initialisation of unused FW trace buffer pointer
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-index 6bb5baa6c41b..813b7b0c8d4e 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-@@ -101,7 +101,6 @@ tracebuf_ctrl_init(void *cpu_ptr, void *priv)
- 		pvr_fw_object_get_fw_addr(trace_buffer->buf_obj,
- 					  &tracebuf_space->trace_buffer_fw_addr);
- 
--		tracebuf_space->trace_buffer = trace_buffer->buf;
- 		tracebuf_space->trace_pointer = 0;
- 	}
- }
+Matt Coster (1):
+      drm/imagination: Collect KCCB initialisation
 
--- 
-2.43.0
+ drivers/gpu/drm/imagination/pvr_ccb.c      | 38 ++++++++++++++++++++++++++----
+ drivers/gpu/drm/imagination/pvr_fw.c       | 17 +------------
+ drivers/gpu/drm/imagination/pvr_fw_trace.c |  1 -
+ 3 files changed, 35 insertions(+), 21 deletions(-)
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260909-b4-avoid-init-of-unused-fw-trace-buffer-pointer-ad76e5b57945
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
