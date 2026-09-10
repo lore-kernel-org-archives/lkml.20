@@ -1,299 +1,153 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138B1362120
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055141; cv=pass; b=Sdsx1H5LqlYEw7P/UWAxPx9+dJgYjHdZwkU6g8daR3fNHdx6lmg7q8sfjkFbfSeokmh8uY2tg/BCMQ7T7DGkAhD4mEU8U0rFgo1jfjtYX4xVPlbsmFK2cv3mf5F0tfgZ84SkI82i9USZEv8IFx8vX2WOFygTqFEVvyzJPq1Uhzo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055141; c=relaxed/simple;
-	bh=tNMD9jaaAoiM5HIHauNaGThj4A1PZWuOXh1Xmlg4seg=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=lYpWkdH2UDjYI1SS3nbLSJX9v6NlKshfq6Qs6TfMmjYhBS73gqPuMWN8eCbyQRHgzxTxGJGRD6zg8t20Av3kKCCLcxGzDj6HulJ7OZkCQiwDNKrBM8KFdHi3uFmMGK0t2o9IbbKArN7yfjfD1q4YL412xasipBBZokpENFZAaHo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QCNbF+nA; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBACD48F014;
+	Thu, 10 Sep 2026 15:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789055146; cv=none; b=YvVgdMQyerq5ZlrsLxbnxf3VBmkWxOrgjk1f45Z4Rxuhw8pybC+t1l3BTxtqjwnd+jKHN5LcQd0m0m7ipj0/GjXKgHRDGY71UC/MU0QkRqMzQSDyvtyHqKLxtsS2tX0hgAa3ZPcNJ3fW6wV9bpNRnL/Xus6F1CB5K+rLuSod5yw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789055146; c=relaxed/simple;
+	bh=7SB5qyohHH+hDP9LCv7Qz6cDndRdllhbweSCueLi6Wk=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=pwamt0rpSubAxEF6aI2JxAoCnNzr6PKWBv352xwb1lzxzyeYmW5YGP/NUysDYv9hHGUt3POkB8jSlzM8WL2+Paq249/9roGm6aQaqMnyZqJ7qfYp5AwX2gRWqn9JfZ2ZtgdQn5t391ALu4ZskEAf62AXg/H1RatmDNuulo01jLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=36slLMdu; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QCNbF+nA"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2940d16190so267046266b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:45:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789055138; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NmC/HNbxsfSaPWDZs5dQHLLgdM99HS+0O2jxPHoq5Zx429n+8onVHW43sjfk45PSAm
-         wIBxRdp6wo7q4CNPQ5EbGmVQRvDR84k4MfxbelCWGAL08VOBgk2TMBX52QBGWxCBbab5
-         29IIPmVc4oH2zbUxe0aWzO2KU1kuCYT2xN9WSRPuQxLfyH3XPsXNII/Z5vzNAminjee8
-         0azoUstX+qEk+A9tzgQyULJ5XO1uR3h/U4+2mtSj4SMlswmBZ02FgM/QvNuvABZNOteq
-         VQ8UHXGbP8KKHB9da6eAU25/oQTUdH0ubbyp7vmhHl+jLmNmy9w2j9qVQ//1sDqowCkA
-         k4zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=MlQ4rFKTwWyoMEkW1u8Rf4R2+/mUltCh0nILf514HPE=;
-        fh=FyThfcM1Y9uxDNcCqPEHsyb4ppnqIkldNBoodDG82tk=;
-        b=rAQnDdSFr4bHcShADP2rlpxRqAoYAGR0pbAhvgEPVNByTImvzBns+giDZ41B5VW30m
-         hiRzpFrf7ydS1cXux8/7Car1QVz0VeiFK9TqmsZPtZHE9ZNG3EDtmlPLbVG3bUmIXeFo
-         CXyvlbgU9D6Jkchaw1jjk4u1ubxZC20ijiZG5UXz+IHg0Ucl82LM3tK/eXuxQ6Hve/Ji
-         +Npc33RKFlg/p2BuK9IWQ7Um78mPyDuwaQc7YIOlyxIOk6O4gnbSY9WN8DyHHvHhIUHV
-         4OWyDs2xRfP0h3VxA7WZ9N8oK/YYwZVLUqOf5gJJ3ZbUFcMIjMYFtoujIMRWCi3xbiLE
-         EOcg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789055138; x=1789659938; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MlQ4rFKTwWyoMEkW1u8Rf4R2+/mUltCh0nILf514HPE=;
-        b=QCNbF+nApYiEjTOgfUb7ykTvOm7AHBafbUA7YKyP675ZAdFaWWMtz1FGa1qrKXcvxD
-         l3Xw7ZxefOfgeWvacsInmvESWLTAPISIll9AoZo/MY8A/koJUvqghWJqE7PlT8uq3AvG
-         55Rke4hMddv4rgGYdIv4Rrn5Ddqv7v9asOG0wLDsOEVxUU+eQ1pCe6pvHmF6Pwj0F8DX
-         N1JJrVLeChKvc54Hvopsi3B7tTca3uhAX2GHe7ocP5nhSmk/N5a8Vh1FWKYDUKBASztu
-         EYOEqniARW3eRZezhh79tU9/FKZhFfV+MpRpkZTJxM3JsYEo6Eg2B1LvfZjqIegY4JIM
-         68rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789055138; x=1789659938;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MlQ4rFKTwWyoMEkW1u8Rf4R2+/mUltCh0nILf514HPE=;
-        b=KP/Ecm0MQJH8pP3ypS44L/PRoUtItrX5JjcHY+Vvkn8kfPC9R4EPK3LTRQV/9CXfg1
-         5ikBdijVHGWMXaLN01Ck9opsq5lTVOdxTtHMcM81+aHeJUWq8BYsApOIbJ8BQl+zSmaC
-         UQLTqVkEupgcxUUCuVPNW9oVqLH/izX9I5jkKJtpx560qHqDM71j3S/V255gcIg8MIZB
-         Tmpj0XfB9rgE6Zn+2MgBfNTVQaTrggwKW7EW6NWJwE92UV0oiNrUCdOK1kYDWFOWrq0U
-         6qrQQYBARcDxPnLgI4hlqc3ouvy3O+FfHBrPYCy8mDOjHchHZuSH+UDf9dwRw/ZtBCyO
-         FMkA==
-X-Forwarded-Encrypted: i=1; AKwUvBymMV+mdRUF2WzxlJGNRmhDs+kXvktOBztSncxmQyZu+2tfY7qOsAM1g1hPbl6gTWealqd+ClbyzTGi3/c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbCSdoXBpzTpdRAxCXdB0axzc0pWYczhmx+8lX9cPSWhueN+vu
-	rL5X04aYeoA/Ql6tgEhtQUeBsn9q2gqqvkTQDgmDfZgXIdTyz76R9agEUBlINNTBnzfgI5XkN6p
-	ciTmu82+lR9x8TOswTU7KZUquIjN9RuTDX9CpcVH4lw==
-X-Gm-Gg: AYBFou1QyV8UwbZJfwHDd0sCKNuIi6wuq0mc7jnDxffNBzQUffzjmpgid+y80Ra+TYa
-	mMpV9ng1SdcQDWQRY7fKlYz3cnqCX+WkW0OV5h8tz2r8MhbazKx82g7YGpvZGUQoLjoTJWtA7et
-	YJw4DbATtVN9gB22g100+lu9/YGpQpOSBwq7B0E6FvUHSNDRMy1puShx8ftvNNVyk8fllF20Uc2
-	D5UR0+OVs6ApmQOscG9l/jomEJ3ATZ5ETN+7XKoZgBQq+nEk41ckvOaX3KC2Q3fIbgXBHRw9gEZ
-	dKR1yC+Pi2GfjfIxCI8CsnF5CX9mEgfI9pym542bJkaBMYsw3xUR/2AUWZi+UwWLFgXNK0pSIm7
-	gSAYygvAa8r67ozoaSnODRn4AwWfB73I/PZz1MZGi3i2WxJfINJUAOPyv1UmiF+V818J2Ypd0/r
-	0loGghOSYKyFW0RQxgxXl35XGnGvlKgKJHTt23XBN7FA==
-X-Received: by 2002:a17:907:7a8e:b0:c26:19e3:e97d with SMTP id
- a640c23a62f3a-c2619e3eefbmr1540707066b.29.1789055138082; Thu, 10 Sep 2026
- 08:45:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="36slLMdu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:Subject:Cc:To:From:
+	Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=WesXDRHOFhnI+QD4gqp8GWvY93+z4uLfHjnUTfl9m+Y=; b=36slLMduVuNDfk9FShAHoH17SI
+	rcaLfy6kbaxJ3LcqEvsP36RhBT9FySRENpq6pcXs6nUFP/QzJ0xoKaLjh+EkszE8q3G2azABy96/X
+	9pix9qwAeonFfi7f1zbihKjeg7KB/fzVHARvlSNs6vxH7ccGeKkHSICaroeODkkm+Vn9qcmn8mka+
+	avO9Gmkt3uR3d5SQGCakBepvO+/yYJqFuubmPzeQDF9U13XYQ4UBjxIpxjELuqqVysDXay8D0edhU
+	aoY/5kBI9Cv+FNWj9ZUHKwqLNmERwGkT97A1T7PmaU3cP26504e60/stHCBmeiQJylh+RrJTkwTpa
+	oQ1/ecLA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x4gy5-000000018V6-3urn;
+	Thu, 10 Sep 2026 12:45:41 -0300
+Message-ID: <bb769b6f6f976d75cbfca3ed00556bde@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
+Subject: [GIT PULL] smb client fixes for 7.3-rc3
+Date: Thu, 10 Sep 2026 12:45:41 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: =?UTF-8?B?2K3Zhtin2YYg2KfZhNmF2LfZitix2Yo=?= <ha2020anan@gmail.com>
-Date: Thu, 10 Sep 2026 18:45:26 +0300
-X-Gm-Features: AcwNN1W7ipGTBvTBjeLBQjyXiPRmLzeN_Sk4LWMur1Ju8wfsMqjbFDUxxbJE9eM
-Message-ID: <CANai08MgfRTOw3Ryx=QTfkbwu7OyjkWg9UfpWmSw5JVmDWof2Q@mail.gmail.com>
-Subject: [PATCH] arch/um: Add security sandboxing by enforcing read-only on
- host system
-To: richard@nod.at
-Cc: linux-um@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hi,
+Linus,
 
-I have developed a security feature for arch/um that protects the host
-filesystem. It boots directly from the host system files (making it
-fast and lightweight) but enforces a strict Read-Only policy on the
-host, while allowing full Read/Write operations only within a specific
-sandbox directory (/tmp/sandbox). Any write or modifications outside
-this path will be blocked with an -EACCES error.
+Please consider pulling these smb client fixes for v7.3-rc3. They
+address file type corruption in reparse point handling, uid/gid
+ownership mapping bugs, heap overflows in DACL rewriting, reference
+count leaks, a DFS use-after-free and hardening of legacy smb1 input
+validation. All fixes are for stable.
 
-Since I don't use Git locally, I am sending the configuration, file
-path, and explanations directly below. The actual implementation code
-is appended at the very bottom of this message.
+Thanks,
+Paulo
 
----
+----------------------------------------------------------------
+The following changes since commit 89a312991dc6e638a36adc43ccb91dbc25504c04:
 
-### 1. File Path to Modify:
-arch/um/kernel/skas/syscall.c
+  Merge tag 'cifs-fixes-7.3-rc2' of https://git.manguebit.org/linux (2026-09-01 13:37:14 -0700)
 
-### 2. How it Works:
-- The modified handle_syscall acts as a dynamic firewall for the kernel.
-- It intercepts critical file manipulation syscalls (open, openat,
-unlink, unlinkat, mkdir, mkdirat, rmdir, rename, renameat, renameat2)
-right before execution.
-- If a syscall attempts to modify, create, or delete a file, it checks
-the path string using strncpy_from_user.
-- If the path is absolute and doesn't start with /tmp/sandbox, or if
-it contains relative path traversal (..), it rejects the request
-instantly by injecting -EACCES into the return register, thus
-protecting the underlying host filesystem from any modifications.
+are available in the Git repository at:
 
-### 3. Why the Custom Command and Script are Required:
-- **Why the Command is necessary (rootfstype=hostfs):** Traditionally,
-UML boots from an isolated disk image (rootfs). By passing this exact
-command, we force UML to mount the real host directory (/) as its root
-filesystem. This allows the sandbox to boot instantly using the host's
-native system binaries and configurations without duplication.
-- **Why the Script must be changed:** Since we are booting directly
-from the host files, the boot and initialization scripts within the
-runtime environment must be adapted to redirect their active system
-state, logging, and temporary data writing exclusively into
-/tmp/sandbox. If they attempt to write to the regular host paths (like
-/var/log or /etc), the kernel security logic will drop the request.
+  https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc3
 
-Recommended Kernel Boot Command (Ensure CONFIG_HOSTFS=y is enabled):
-./linux root=/dev/root rootfstype=hostfs rootflags=/ init=/sbin/init rw
+for you to fetch changes up to cb26524ef4ac28fcfa554c0656e8dc412c38a8ff:
 
----
+  smb: client: fix one-byte OOB read in smb2_parse_native_symlink() (2026-09-09 22:06:05 -0300)
 
-### 4. Implementation Code (Please append this at the end of the file):
+----------------------------------------------------------------
+smb client fixes for v7.3-rc3
 
-// SPDX-License-Identifier: GPL-2.0
-/*
- * Copyright (C) 2026 Tamim N. Almutairi (Tamimdevlopment@hotmail.com)
- */
+A batch of bug fixes for the smb client:
 
-#include <linux/kernel.h>
-#include <linux/ptrace.h>
-#include <linux/seccomp.h>
-#include <kern_util.h>
-#include <sysdep/ptrace.h>
-#include <sysdep/ptrace_user.h>
-#include <linux/time-internal.h>
-#include <asm/syscall.h>
-#include <asm/unistd.h>
-#include <asm/delay.h>
-#include <linux/fcntl.h>
-#include <linux/slab.h>
-#include <linux/uaccess.h>
+ - File type corruption fixes in reparse point handling: setting S_IFMT
+   bits without clearing the existing type first corrupted the file mode
+   (e.g. S_IFREG | S_IFCHR == S_IFLNK). Fixed in the WSL, POSIX and
+   native symlink reparse parsers. Also fixes an uninitialized SID
+   structure in the POSIX readdir path when parsing fails.
 
-void handle_syscall(struct uml_pt_regs *r)
-{
-struct pt_regs *regs = container_of(r, struct pt_regs, regs);
-int syscall;
+ - Ownership mapping fixes: forceuid/forcegid mount options were
+   ignored in several code paths (SID-to-id mapping, WSL extended
+   attributes, POSIX extensions getattr), allowing an untrusted server
+   to dictate local file ownership despite explicit mount overrides.
 
-UPT_SYSCALL_NR(r) = PT_SYSCALL_NR(r->gp);
-PT_REGS_SET_SYSCALL_RETURN(regs, -ENOSYS);
+ - Heap overflow and overflow fixes in DACL rewriting: replacing short
+   SIDs with long ones could overflow the DACL buffer, and the u16
+   accumulator for DACL size could wrap around with enough ACEs.
 
-if (syscall_trace_enter(regs))
-goto out;
+ - Reference count leak fixes in oplock break and deferred close:
+   duplicate oplock breaks on a queued work item leaked a
+   cifsFileInfo reference, and deferred close had a similar leak when
+   requeueing a running work item. Both cause busy-inode oopses on
+   unmount.
 
-if (!seccomp_permit_syscall())
-goto out;
+ - DFS superblock use-after-free fix: the iterator callback stored a
+   raw superblock pointer without pinning it, racing with automount
+   expiry.
 
-syscall = UPT_SYSCALL_NR(r);
+ - One-byte slab OOB read in the native symlink parser when handling
+   share-root relative paths.
 
-if ((time_travel_mode == TT_MODE_INFCPU ||
-    time_travel_mode == TT_MODE_EXTERNAL) &&
-   syscall == __NR_sched_yield)
-tt_extra_sched_jiffies += 1;
+ - Hardening of legacy SMB1 input: reject userspace-crafted
+   cifs.idmap key descriptions that bypass kernel origin checks, and
+   validate DataOffset in CIFSSMBRead() to prevent heap info
+   disclosure from a malicious server.
 
-if (syscall >= 0 && syscall < __NR_syscalls) {
-unsigned long ret;
-int violate_sandbox = 0;
+ - DFS cache fix: defer metadata updates until target copying
+   succeeds to prevent partial-state cache entries on allocation
+   failure.
 
-if (syscall == __NR_openat || syscall == __NR_open ||
-   syscall == __NR_unlinkat || syscall == __NR_unlink ||
-   syscall == __NR_mkdirat || syscall == __NR_mkdir ||
-   syscall == __NR_rmdir ||
-   syscall == __NR_renameat2 || syscall == __NR_renameat || syscall ==
-__NR_rename) {
-unsigned long arg_flags = 0;
-unsigned long uptr = 0;
-unsigned long uptr2 = 0;
-int check_path = 0;
+----------------------------------------------------------------
+Aohan Mei (1):
+      smb: client: reject userspace cifs.idmap descriptions
 
-if (syscall == __NR_openat) {
-uptr = UPT_SYSCALL_ARG2(&regs->regs);
-arg_flags = UPT_SYSCALL_ARG3(&regs->regs);
-if ((arg_flags & O_ACCMODE) == O_WRONLY ||
-   (arg_flags & O_ACCMODE) == O_RDWR ||
-   (arg_flags & O_CREAT) ||
-   (arg_flags & O_TRUNC)) {
-check_path = 1;
-}
-} else if (syscall == __NR_open) {
-uptr = UPT_SYSCALL_ARG1(&regs->regs);
-arg_flags = UPT_SYSCALL_ARG2(&regs->regs);
-if ((arg_flags & O_ACCMODE) == O_WRONLY ||
-   (arg_flags & O_ACCMODE) == O_RDWR ||
-   (arg_flags & O_CREAT) ||
-   (arg_flags & O_TRUNC)) {
-check_path = 1;
-}
-} else if (syscall == __NR_unlinkat || syscall == __NR_mkdirat) {
-uptr = UPT_SYSCALL_ARG2(&regs->regs);
-check_path = 1;
-} else if (syscall == __NR_renameat2 || syscall == __NR_renameat) {
-uptr = UPT_SYSCALL_ARG2(&regs->regs);
-uptr2 = UPT_SYSCALL_ARG4(&regs->regs);
-check_path = 1;
-} else if (syscall == __NR_rename) {
-uptr = UPT_SYSCALL_ARG1(&regs->regs);
-uptr2 = UPT_SYSCALL_ARG2(&regs->regs);
-check_path = 1;
-} else {
-uptr = UPT_SYSCALL_ARG1(&regs->regs);
-check_path = 1;
-}
+Bjoern Doebel (4):
+      smb: client: avoid leaking refcount in cifs_queue_oplock_break()
+      smb: client: avoid leaking refcount when cifs_sb_tlink() fails
+      smb: client: fix heap overflow in DACL owner/group rewrite
+      smb: client: fail DACL rewrite when the new DACL exceeds 64K
 
-if (check_path && uptr && !violate_sandbox) {
-char *kname = kmalloc(256, GFP_KERNEL);
-if (kname) {
-long res = strncpy_from_user(kname, (const char __user *)uptr, 255);
-if (res > 0) {
-kname[res] = '\0';
-if (kname[0] == '/') {
-if (strncmp(kname, "/tmp/sandbox", 12) != 0)
-violate_sandbox = 1;
-} else {
-if (strstr(kname, "..") != NULL)
-violate_sandbox = 1;
-}
-}
-kfree(kname);
-}
-}
+Diego Oliva (2):
+      smb: client: reject short READ responses in CIFSSMBRead()
+      smb: client: reject out-of-bounds DataOffset in CIFSSMBRead()
 
-if (uptr2 && !violate_sandbox) {
-char *kname2 = kmalloc(256, GFP_KERNEL);
-if (kname2) {
-long res2 = strncpy_from_user(kname2, (const char __user *)uptr2, 255);
-if (res2 > 0) {
-kname2[res2] = '\0';
-if (kname2[0] == '/') {
-if (strncmp(kname2, "/tmp/sandbox", 12) != 0)
-violate_sandbox = 1;
-} else {
-if (strstr(kname2, "..") != NULL)
-violate_sandbox = 1;
-}
-}
-kfree(kname2);
-}
-}
-}
+Fan Wu (1):
+      smb: client: fix cifsFileInfo reference leak in deferred close
 
-if (violate_sandbox) {
-PT_REGS_SET_SYSCALL_RETURN(regs, -EACCES);
-goto out;
-}
+Fredric Cover (1):
+      smb: client: fill cache fields after populating cache in copy_ref_data()
 
-ret = (*sys_call_table[syscall])(UPT_SYSCALL_ARG1(&regs->regs),
-UPT_SYSCALL_ARG2(&regs->regs),
-UPT_SYSCALL_ARG3(&regs->regs),
-UPT_SYSCALL_ARG4(&regs->regs),
-UPT_SYSCALL_ARG5(&regs->regs),
-UPT_SYSCALL_ARG6(&regs->regs));
+Karl Mehltretter (1):
+      smb: client: pin DFS superblock in iterator callback
 
-PT_REGS_SET_SYSCALL_RETURN(regs, ret);
+Paulo Alcantara (8):
+      smb: client: fix uid/gid override in getattr with posix extensions
+      smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
+      smb: client: fix WSL reparse point uid/gid override
+      smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()
+      smb: client: fix file type corruption in wsl_to_fattr()
+      smb: client: fix file type corruption in posix_reparse_to_fattr()
+      smb: client: fix file type corruption in cifs_reparse_point_to_fattr()
+      smb: client: fix one-byte OOB read in smb2_parse_native_symlink()
 
-if (IS_ERR_VALUE(ret) &&
-   (time_travel_mode == TT_MODE_INFCPU ||
-    time_travel_mode == TT_MODE_EXTERNAL)) {
-um_udelay(1);
-schedule();
-}
-}
-
-out:
-syscall_trace_leave(regs);
-}
-
----
-Please review this architectural enhancement and let me know your feedback.
-
-Best regards,
-Tamim N. Almutairi
+ fs/smb/client/cifsacl.c   | 95 ++++++++++++++++++++++++++++++++---------------
+ fs/smb/client/cifssmb.c   | 26 ++++++++++---
+ fs/smb/client/dfs_cache.c | 18 ++++-----
+ fs/smb/client/file.c      | 22 ++++++++---
+ fs/smb/client/inode.c     | 17 ++++++---
+ fs/smb/client/misc.c      | 24 ++++++------
+ fs/smb/client/readdir.c   | 17 +++++++--
+ fs/smb/client/reparse.c   | 33 ++++++++++------
+ fs/smb/client/trace.h     |  1 +
+ 9 files changed, 172 insertions(+), 81 deletions(-)
