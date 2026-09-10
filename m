@@ -1,213 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8644A1DEE;
-	Thu, 10 Sep 2026 15:09:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F92489FDA;
+	Thu, 10 Sep 2026 15:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052946; cv=none; b=MSUdWglxrFcDStB3xn2KobjkGh4k1pLCEddseY3vpefzQqC1lGTvWBR/OSm6XHUsepzeQnjVSyip3e8xeN36NCsAh/t00pShUA+CxCrvvwlpkAMPscTs6PkMNkmE+JRjGCkV3Xpii8hK/qGMQ2M4YKTkJ2amF8mJ4dmOrmenb/s=
+	t=1789052950; cv=none; b=tw+WxOUs/uuVHGG3HbdXiYQc/4aKOfqIy730VM4tRznG+Il1H/wxZcuIHdBxY+uhFrzPzSKDNkv+Qha4GXpOSIh8lqrohNfEFdqVBOEZv21P2y5kuN8WjdyOeQA//1+ZZDe8QvRoG6xUM45JZe6HPmUhqZHvSnNzX10YE6NcSxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052946; c=relaxed/simple;
-	bh=E+bCaqLa5JsCu/ya4ZosVIdin/DGLmTcw6GYXeHy71I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r+e+nluF600wU43dbWEn4/qWYIkkI9evyhyoeDV28yrjOfhFG4GQf6Fww5qldPXfqTqfxC3UHj3ZgOUjRDmeMp3/bT9XZL8lXjR1cGZ/SDjDyth4UZVghAuqc7LRlmdPSMJ3Lvv/BV15EQ/Sr2KL/gvu0uDlhZ8sRdQHvcRhQNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fw0TDgul; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789052950; c=relaxed/simple;
+	bh=8HB14MvdFmkHRUTTsBGAm9PIq6Mxc9lmyHmpfkhwwJo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nYP7gBZwozWYsFzFvF2MC7miKvCiNQ/D971Ga7uCsnWlhCD4Hf7uGxX6/thUHWCytjj8bgtK11I3BdlYlk/mEytSILBrzgsHAFWF5nEI3BdyXfZksaMrsXQKTKvSn1FyUM+d0kmUmeGTRNDMzqHSGqg0YPzU7gK1E+i92uo5Ywo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZSZaMkN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fw0TDgul"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A17E1F000FF;
-	Thu, 10 Sep 2026 15:08:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZSZaMkN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509261F00898;
+	Thu, 10 Sep 2026 15:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789052936;
-	bh=mQXXn4qhJ4aChLx2QAED5a/xeQKG/2zmtNcuT7UoMHE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Fw0TDgulMnT8zjUzucAUywAXhKdwFptF1XubEt8K4TOL0zMtDRw6xCMEnhSlhL6WV
-	 dt4zgR+488zDolV+m0gKYVeqJ2WNZ/aTuJvlmQOilF+7/2UffuW4IzPCo2ylc69wb8
-	 V2FfTr+KbdcTZMqJi0jxVOVr6OHMFLWpzHRT0x8Pr0s1HE6rH85HvN1GTe9VPUW63k
-	 KdYwTdNWsrmT4iidxQk6++iVr+EWhDoi8IhC2kSD3vrN5fXKgS2RlL6AG9Glryw47s
-	 H4Eo6Aspwu4IYhQ7hF5gPFM88yD9bEnE3Tvcbg6bb1vKMtVf5B/E84Rkoq+BakHPr8
-	 FrozPsKSM4smw==
-Message-ID: <ffd8e0c3-0d78-46ee-9ab1-59dbfe0b6d27@kernel.org>
-Date: Thu, 10 Sep 2026 17:08:48 +0200
+	s=k20260515; t=1789052943;
+	bh=ag5kdB5nVoUMpWa4wv9K4ZCNqIybIgFc6wNvxV8nHo4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kZSZaMkNXfmYCFviLz1CkkSHLEDNHi+7bsOg0CdjAG91pRURgcZMRmjNU/77Y/+ao
+	 z6FfynS+DaBH8jHzSu3O5TMiyyuBSffs2aXguhhXh2fg/cTsdEBKdAgwd8UHsERF4b
+	 3qPRjdXaJ8AlrYNSWdESunxelg5ZBCPsreqjnB2E/7ZUHu+hF2g75/rli/QcAT042d
+	 H90uEMqtY+pJwfFsC8rYQh7JOJWq8sZCQCgXSx96jtfpdKca+NfDvibGvkA1YcnvSH
+	 Wb7GIBTx1eZbED2Nhot3Xoa5W8jJpPdaBKGYshohp9FOcVzso7hsh5uc63XPNtJvSC
+	 TJmODUmNWIYIg==
+Date: Thu, 10 Sep 2026 10:09:00 -0500
+From: Eric Biggers <ebiggers@kernel.org>
+To: Thomas Huth <thuth@redhat.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v3 13/13] lib/crypto: Add documentation about zeroization
+ of key and context data
+Message-ID: <20260910150900.GC5719@quark>
+References: <20260910124138.417439-1-thuth@redhat.com>
+ <20260910124138.417439-14-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3] powerpc/bug: Add ARCH_WARN_ASM and refactor
- _EMIT_BUG_ENTRY for Rust support
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- linkmauve@linkmauve.fr, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- rust-for-linux@vger.kernel.org
-Cc: FUJITA Tomonori <tomo@flapping.org>
-References: <20260910100801.2159785-2-mkchauras@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260910100801.2159785-2-mkchauras@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910124138.417439-14-thuth@redhat.com>
 
-
-
-Le 10/09/2026 à 12:08, Mukesh Kumar Chaurasiya (IBM) a écrit :
-> The Rust kernel infrastructure generates inline asm for WARN() via
-> ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
-> preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
-> arch-specific asm template string for use in Rust's core::arch macros.
+On Thu, Sep 10, 2026 at 02:41:32PM +0200, Thomas Huth wrote:
+> Add a central document about zeroization in libcrypto so we don't
+> have to repeat this information in the individual kernel docs of
+> the zeroization functions all over the place.
 > 
-> powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
-> Rust builds to fail on powerpc with
-> ```
-> error: no rules expected `ARCH_WARN_ASM`
->     --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_warn_asm.rs:1:28
->      |
->    1 | ::kernel::concat_literals!(ARCH_WARN_ASM("{file}", "{line}", "{flags}", "{size}"))
->      |                            ^^^^^^^^^^^^^ no rules expected this token in macro call
->      |
->     ::: ../rust/kernel/lib.rs:279:1
->      |
-> 279 | macro_rules! concat_literals {
->      | ---------------------------- when calling this macro
->      |
->      = note: while trying to match sequence start
-> 
-> error: no rules expected `ARCH_WARN_REACHABLE`
->     --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_reachable_asm.rs:1:28
->      |
->    1 | ::kernel::concat_literals!(ARCH_WARN_REACHABLE)
->      |                            ^^^^^^^^^^^^^^^^^^^ no rules expected this token in macro call
->      |
->     ::: ../rust/kernel/lib.rs:279:1
->      |
-> 279 | macro_rules! concat_literals {
->      | ---------------------------- when calling this macro
->      |
->      = note: while trying to match sequence start
-> 
-> error: aborting due to 2 previous errors
-> ```
-> 
-> To add ARCH_WARN_ASM, _EMIT_BUG_ENTRY first needs to be refactored.
-> The old definition was a bare macro with no parameters, relying on
-> positional asm operand references (%0-%3), hardcoding the backward
-> reference to local label 1b, and including .org/.previous directives
-> inline. That made it impossible to compose as a plain string outside of
-> an asm operand context, and left an invisible contract that callers must
-> always emit their trap at label 1:.
-> 
-> Refactor _EMIT_BUG_ENTRY to take explicit (label, file, line, flags)
-> string arguments via string concatenation. This removes the dependency
-> on asm operand numbering and makes the trap label an explicit argument,
-> so the caller's intent is visible at the call site and a future caller
-> using a different label cannot silently produce a wrong bug table entry.
-> 
-> Move the .org and .previous directives out of _EMIT_BUG_ENTRY and into
-> each call site, so BUG_ENTRY() can still pass sizeof(struct bug_entry)
-> as an asm operand while ARCH_WARN_ASM can supply its own size string
-> independently.
-> 
-> Add ARCH_WARN_REACHABLE as an empty define, matching the arm64
-> convention, indicating that no additional reachability annotation is
-> needed after a WARN on powerpc.
-> 
-> This brings powerpc into line with x86, arm64, s390, and riscv, all of
-> which already define ARCH_WARN_ASM and ARCH_WARN_REACHABLE.
-> 
-> Reported-by: FUJITA Tomonori <tomo@flapping.org>
-> Closes: https://lore.kernel.org/all/anG67Q6Y59kDqh-c@desktop
-> Fixes: 73b741adb264 ("rust: Add PowerPC support")
-> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
 > ---
-> Changelog:
-> V2 -> V3:
->   - Add label argument in _EMIT_BUG_ENTRY
-> V2: https://lore.kernel.org/all/20260910071252.1950488-2-mkchauras@gmail.com
+>  .../crypto/libcrypto-zeroization.rst          | 129 ++++++++++++++++++
+>  Documentation/crypto/libcrypto.rst            |   1 +
+>  2 files changed, 130 insertions(+)
+>  create mode 100644 Documentation/crypto/libcrypto-zeroization.rst
 > 
-> V1 -> V2:
-> - commit message now has error, fixes tag and closes tag
-> V1: https://lore.kernel.org/all/20260819084825.969116-1-mkchauras@gmail.com
-> 
->   arch/powerpc/include/asm/bug.h | 36 +++++++++++++++++++---------------
->   1 file changed, 20 insertions(+), 16 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
-> index 0db48977c70c..df2183c35945 100644
-> --- a/arch/powerpc/include/asm/bug.h
-> +++ b/arch/powerpc/include/asm/bug.h
-> @@ -32,34 +32,38 @@
->   #endif /* verbose */
->   
->   #else /* !__ASSEMBLER__ */
-> -/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
-> -   sizeof(struct bug_entry), respectively */
->   #ifdef CONFIG_DEBUG_BUGVERBOSE
-> -#define _EMIT_BUG_ENTRY				\
-> -	".section __bug_table,\"aw\"\n"		\
-> -	"2:	.4byte 1b - .\n"		\
-> -	"	.4byte %0 - .\n"		\
-> -	"	.short %1, %2\n"		\
-> -	".org 2b+%3\n"				\
-> -	".previous\n"
-> +#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
-> +	".section __bug_table,\"aw\"\n"			\
-> +	"2:	.4byte " label "b - .\n"		\
-
-Ah, you left the b here. The label is 1b which mean "the first 1: you 
-find going backward". Could as well be "1f" instead meaning "the first 
-1: you find going forward".
-
-So I think you should use 1b or 1f as the label, not just 1.
-
-I would also try to use #label to stringigy the label in order to avoid 
-having to put the arguments into quotes (untested), same for other ones.
-
-Cdlt
-Christophe
-
-> +	"	.4byte " file " - .\n"			\
-> +	"	.short " line ", " flags "\n"
->   #else
-> -#define _EMIT_BUG_ENTRY				\
-> -	".section __bug_table,\"aw\"\n"		\
-> -	"2:	.4byte 1b - .\n"		\
-> -	"	.short %2\n"			\
-> -	".org 2b+%3\n"				\
-> -	".previous\n"
-> +#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
-> +	".section __bug_table,\"aw\"\n"			\
-> +	"2:	.4byte " label "b - .\n"		\
-> +	"	.short " flags "\n"
->   #endif
->   
->   #define BUG_ENTRY(cond_str, insn, flags, ...)		\
->   	__asm__ __volatile__(				\
->   		"1:	" insn "\n"			\
-> -		_EMIT_BUG_ENTRY				\
-> +		_EMIT_BUG_ENTRY("1", "%0", "%1", "%2")	\
-> +		".org 2b+%3\n"				\
-> +		".previous\n"				\
->   		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
->   		  "i" (flags),				\
->   		  "i" (sizeof(struct bug_entry)),	\
->   		  ##__VA_ARGS__)
->   
-> +#define ARCH_WARN_ASM(file, line, flags, size)		\
-> +		"1:	twi 31, 0, 0\n"			\
-> +		_EMIT_BUG_ENTRY("1", file, line, flags)	\
-> +		".org 2b+" size "\n"			\
-> +		".previous\n"
+> diff --git a/Documentation/crypto/libcrypto-zeroization.rst b/Documentation/crypto/libcrypto-zeroization.rst
+> new file mode 100644
+> index 0000000000000..2a12417e335a3
+> --- /dev/null
+> +++ b/Documentation/crypto/libcrypto-zeroization.rst
+> @@ -0,0 +1,129 @@
+> +.. SPDX-License-Identifier: GPL-2.0-or-later
 > +
-> +#define ARCH_WARN_REACHABLE
+> +Crypto Key Zeroization
+> +======================
 > +
->   /*
->    * BUG_ON() and WARN_ON() do their best to cooperate with compile-time
->    * optimisations. However depending on the complexity of the condition
+> +This document describes the conventions for zeroizing crypto structures in the
+> +kernel.
 
+There should be a note about why it's being called "zeroizing" and not
+just "zeroing".  Something like:
+
+    Note: the kernel follows traditional cryptographic terminology by using
+    the term "zeroizing" to mean erasing sensitive parameters to prevent
+    their disclosure if the system is later compromised.  This distinguishes
+    it from zeroing memory for other purposes such as initialization.
+
+> +These helpers should include kernel-doc comments following the standard
+> +conventions::
+> +
+> +    /**
+> +     * hmac_sha256_zeroize_ctx() - Zeroize an hmac_sha256_ctx structure
+> +     * @ctx: The hmac_sha256_ctx context to zeroize
+> +     */
+
+We might as well have these kerneldoc comments, but I don't it's helpful
+to repeat them here in this Documentation/ file like this.  It's just
+another thing that could get out of sync.
+
+> +Using __cleanup for automatic zeroization
+> +-----------------------------------------
+> +
+> +The preferred way to zeroize stack-allocated key and context structures is
+> +with the __cleanup() attribute.  This ensures zeroization happens on all
+> +exit paths, including error returns and early exits.
+
+Could use a (minimal) code example.
+
+- Eric
