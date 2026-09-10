@@ -1,122 +1,91 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5439535C69C;
-	Thu, 10 Sep 2026 02:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D55B3806C8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789008054; cv=none; b=VsuOWYimh4RceU4yZFNxAyTrpEbCOyf6dfpciIeQD/0RERMxCKXklMaNs4oVXsPLPItgRPnF60nwdJVD/RFkSs4kl+PGHvTsO3/tisebob0c6t8g1Vikr2ApmK/zdDTOJWj+A3kr54J//rpsE00cULmxSPtnmv5AYDayn2EnGAw=
+	t=1789008056; cv=none; b=eSv9LivhjsbQLSjznASemxtryu/+gl9qPgRWPPZsNTQu4k+0O4BjXqs/ohA7SBqrsT7vZhIr49xDry6Xk2yOnZ8FSMeBmU43hxiHvyPJR+AEhFo2tYdOc34hmvn4D48h/V+W6zuEF3yVX8UhB+8q20ohq5qoSgHkoes5Z7eSJ18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789008054; c=relaxed/simple;
-	bh=qFO0jTQBXXaL45Ge3elu9TFhAI69oOsEtteNa/WXtI0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=eM4rS2B3bbOASN/+gC+d1ksPCA5wM3swVUzReN15eTjZnK3aj+lbn8R/+uG7x5aZ/1qwTe2Tv2KkT/KPtjgYBSlOQ4NpyzR81ay3qPGkq5t1/hkQGhHKuvPf/fAYNN9OyQ08EIOqW/TOndAJD8AGQOBOb/AoEMD5g6p8OK7RGOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=kU1lrjN1; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789008056; c=relaxed/simple;
+	bh=siWXtLb4Xqmxb+MLE0LPwHO76t1ByGk2lm2zULLyDaY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tASrc3/9lHclgL6YHbNsCNJ06tXqWDKnXv3fKap2+lUBQKyVjsNEg2Pj9/WI0ql28xRNA8JwG8nTtMqrvMPkw/zadRvtMYzKL8znu+5asyYbUO7qVdOtKFE9AnHQbyfasmfLG4OdovrqmKVYbjGGHkt5lzahOZjejE7i75kCE28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=XkUcM+h6 reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="kU1lrjN1"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68A2edk771120726, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789008040; bh=qFO0jTQBXXaL45Ge3elu9TFhAI69oOsEtteNa/WXtI0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=kU1lrjN1n360TdCM2PL9ElRKy9vYf0KHFmo8gapxnki7dXs+C+VyW5nHRNrzOvcEr
-	 OOYdgR4Sv2EgKHcyft6wpS5UrMhNG2bAkcG0FoR/t3XKNALKfOjeORoaRrRuMozBvY
-	 HLOGWjAgTkfsYXLEF/GaYGoj6fRpxnKz+YRwxcUfJNsNgHORZ4W5wcwYybrOFCRJqK
-	 YeTtgApB57LEYoK/AieJkYxT1mrTj226cSLWpvsjYUYhEZI2e/s3CXDiQBx6vD6azp
-	 eTxvEsMnkmkLVIFHq7aennmuXrr5E6XmHxRmiZbUuTt7C4odpVgEDaLjwWuaKOWzFr
-	 jAL3EkqEd33vw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68A2edk771120726
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 10 Sep 2026 10:40:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 10 Sep 2026 10:40:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 10 Sep 2026 10:40:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Thu, 10 Sep 2026 10:40:39 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "luka.gejak@linux.dev" <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v11 5/7] wifi: rtw88: sdio: track free TX pages and OQT
- credits for RTL8723BS
-Thread-Topic: [PATCH v11 5/7] wifi: rtw88: sdio: track free TX pages and OQT
- credits for RTL8723BS
-Thread-Index: AQHdQC9YAxgQ7t6BwEqCwzl3Ie3kvbbHGw6g
-Date: Thu, 10 Sep 2026 02:40:39 +0000
-Message-ID: <351ffe7fa4d94b34ae6ce9984bb8b5b9@realtek.com>
-References: <20260909074556.55709-1-luka.gejak@linux.dev>
- <20260909074556.55709-6-luka.gejak@linux.dev>
-In-Reply-To: <20260909074556.55709-6-luka.gejak@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="XkUcM+h6"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1BF2B40E00B9;
+	Thu, 10 Sep 2026 02:40:52 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id YaY_fvoXfRlm; Thu, 10 Sep 2026 02:40:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789008041; bh=BpyKVZT1wDHvJHUW2EuXx8uzbo4ht0yONe1YaFsU0Tg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XkUcM+h6Q06RK56GTBZcG0Qi2nsmVQMYf8P0hvBSSScJP7QfPxuF0UwdmWeJMpg8i
+	 grBYr6jyBJ+WHf7gKtFQ6wuVpblMFmxkaGgxpXz3wHCcy/r7ReR1TNIfEIOUgXXKoG
+	 x4LA2Aqzl4sNzAvMd4NdpKTcT3TRMCcMnB7cjm9tY/EkHYhDixZS8bRexi/mUGUwoG
+	 9FzL9axQnEU/EIWUJg+Te9i5Ruddtb0MOB41lEEvpF6qMrnBxzCKawvlDkE26crqNi
+	 SGr6OAbpXks3W5ZMb6sBzkGs4p5eM2fv6S4jTFzlCWoTkQEE4tL63iShWal2yDq1vF
+	 1WeW0Nuv0ov2tAaefIQBN5VQ4GchwA6Y8een/NdtVzWAm/ArN/QKpbLWOXLkT9F0EA
+	 rC1kj+JrmzlY6FyVxlMFh84YMd0apDn6i3/PutNSmQmlSIxDz6fcc6Vvvz3uko/K88
+	 SWj0dGaT4uThaPCPsLwC1ZC8EX++Y8CXch2Dg1eSWPaelxx5F2G+V9bcAnjXOs8BZq
+	 YXLeWpeXcILd5fnM4KHlm7cgpm2cmAOyxjKHTOQmdcz5X6IbSUXLOqaXPEjv7yXaBg
+	 awPcJ6hjXp9MzoUClC1gAnLeuaWr5a2V8MXw8AqyvT/cwk9BWBUlfZakdXB0IhFO5o
+	 tIZg4AHVZQ25VjnTU7LK3BpI=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7E79C40E01DD;
+	Thu, 10 Sep 2026 02:40:30 +0000 (UTC)
+Date: Wed, 9 Sep 2026 19:40:27 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	hpa@zytor.com, Tom Lendacky <thomas.lendacky@amd.com>,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Joerg Roedel <joerg.roedel@amd.com>
+Subject: Re: [PATCH 1/3] x86/coco: Add CC_ATTR_GUEST_SEV
+Message-ID: <20260910024027.GEaqIYmy___31vI-iZ@fat_crate.local>
+References: <20260803125827.718024-1-joro@8bytes.org>
+ <20260803125827.718024-2-joro@8bytes.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260803125827.718024-2-joro@8bytes.org>
+Content-Transfer-Encoding: quoted-printable
 
-luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
-> From: Luka Gejak <luka.gejak@linux.dev>
+On Mon, Aug 03, 2026 at 02:58:25PM +0200, J=C3=B6rg R=C3=B6del wrote:
+> From: Joerg Roedel <joerg.roedel@amd.com>
 >=20
-> The RTL8723BS reports free TX page counts that the generic 8051 path
-> reads back from the chip on every transfer, which is both slow over SDIO
-> and unreliable on this part: the register frequently reads back zero
-> while pages are in fact available. It also gates transmission on a free
-> count in the SDIO output queue, REG_SDIO_OQT_FREE_PG, which rtw88 does
-> not track at all. The vendor driver calls this the OQT free space and
-> never expands the acronym; the register holds the number of further
-> transfers the SDIO output queue can accept, and the chip discards
-> writes that arrive when it has run out.
->=20
-> Mirror the vendor driver and keep the per-queue and public page counts
-> in software, seeded at start and resynchronised from the chip only when
-> the cached counts say there is not enough room. Wait for a free output
-> queue entry before writing, and account for the pages consumed after a
-> successful transfer.
->=20
-> rtw_sdio_write_port() becomes a dispatcher. It works out the transfer
-> address and the aligned transfer size, which both paths need, and hands
-> them to rtw_sdio_write_port_8723bs() or rtw_sdio_write_port_generic().
-> The transfer itself moves into rtw_sdio_write_to_port(), which both
-> call, so the generic path is step for step what it was. The padding
-> added by the previous patch stays in rtw_sdio_write_port(), so it still
-> runs once for both paths and stays outside the credit mutex.
->=20
-> The RTL8723BS path keeps a separate length for the accounting. The chip
-> charges pages by the frame length rather than by the padded transfer, as
-> the vendor driver does, and the two differ just above a block boundary:
-> a 1025 byte frame is nine pages by length and twelve by the padded size.
->=20
-> The check, the output queue wait and the accounting are serialised by
-> a mutex. The TX worker and the H2C path reach this function
-> concurrently, and two writers that both pass the checks can otherwise
-> claim the same pages and output queue entry, after which the chip
-> silently discards whichever transfer arrives second. The vendor driver
-> avoids the same race by funnelling all transmission through one thread.
->=20
-> Measured on RTL8723BS hardware against an iperf3 server one hop behind
-> the AP, with the wlan0 byte counters as ground truth. On the generic
-> path the association completes but no data passes at all: TCP and UDP
-> both measure 0 bit/s in either direction. With this patch TCP is
-> 25.3 Mbit/s up and 37.3 Mbit/s down, and UDP is 25.0 Mbit/s up at 0%
-> loss.
->=20
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> Add a new attribute to the CC platform code to check whether the
+> kernel runs in an environment using SEV memory encryption. This will
+> be used to establish the an sev/ directory in SYSFS (which is
+> currently SEV-SNP-only).
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Yeah, the initial intention for cc_plaform_has() is to use it in arch-agn=
+ostic
+code and for something which you're going to use in coco code itself, you=
+'re
+better off simply doing:
 
+	if (sev_status & MSR_AMD64_SEV_ENABLED)
 
+I can fix that up when applying if you prefer - it is easy enough.
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
