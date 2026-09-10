@@ -1,381 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80568377A82;
-	Thu, 10 Sep 2026 03:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60BE34F24E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010722; cv=none; b=mYhMQTIo2wVKzFhwq9vMPR/NiBuq6PfqN5/6Vm8o1feXwvhRGvx/rJke+F8usDEjJ7n5nt1XYhyvRsh8wL3o2SwWFTOg0u0k19C19qYPjNdvNWi4xsjVUbqCwZ75DM3SbOGIVFUxbRLuVip/lvEizguqrbrW+Z+IjmFjBkPNXKk=
+	t=1789010808; cv=none; b=KjKC/Q9hz8WHwRIYZYIVB6TfZfkPXdmzTeyq0XWEvHXFxHddjTQ+3wbsyfj2OtgC9jj1MP+owvO0pKsL5HaV66yyviP9QuzXDRk3u+SVZ407+XbDQdrsC6Q6Ng58QKnCGFrGfbUCYLc9Ca51OspwAePUDeyGzyQmU3vzi1Jz7zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010722; c=relaxed/simple;
-	bh=5idCJhAH6K+ZGLCAouPIMuXtgRNA8TEtHE7Rqr2RXig=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uf/5D/IFMJr0VYLSHmp1lrFEWVrDidiZRdD6LX0ng/V/+5FKmOJ9POEXseOVnh6Z+pMgrt4qfvGzq4wIdW7Tj2cYJAuhZig2JqVJ03CIwukulPPpioJMtTSwRc0tQhZ+HqM5Jt3PtSVAEAdeSYhh/Lwa6fKEenFfngEwlTvR4YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmTm8a7n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789010808; c=relaxed/simple;
+	bh=UJnFcG6qwNrgHEmfO6bvSB+lMsHMJEjnj9V4eTIYsac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HVwB4xSRJJVUqcRxzC6PKlzvf0inH39zjH2toxLtbyidJB0vv3U98Qmdx7+cJeqbkx0oT+HEWp1PH83iaAC2KEoaCAzPHYFAN33CnLXkiaE4o3fBhM97bkIUoV2tmiKxjlhzPz1CKHD2r2tSz3a+c2T0Zb6YQ86m9ksxlzwKpT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hfSOz5C8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N15ccGIZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmTm8a7n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EAC1F000FF;
-	Thu, 10 Sep 2026 03:25:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789010716;
-	bh=q+BlV7VQo9im4yYboK9tVVbGi59nDBacCVPPiY5YtAU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VmTm8a7n2UBbQkz/rSNRB7uL5dklu4BuzXdXXtYGRueQDnK31gzLsAdc52MKt3Hcd
-	 1HzcM/ES908gW+609Tdiyl1x7JudiPFpze8VHTWwGbnPS6m81U4ZctVv+r8msl7HF7
-	 fsWy/DKBe2c1zJ4b7ghln0CqD6vLnB9yeeqWjMmlTGyZ/Ra6stFyVES16xMQcwckEQ
-	 6jICF0wEJzFMFAwmY9aMYfA1Om9MTc03bfHMLd7lKNiuLNiECFjiyBabiF26RDb76Y
-	 RU0sDWNR1PikNKxzFntARndHZJTyYdlvRrEL8HW/onK920DgAVuf7s3SMFYh+d9l06
-	 q2tDk9nRzoQZw==
-Subject: Re: [PATCH net v3] octeontx2-pf: Fix ethtool timestamping
- capabilities for SDP representors
-From: netdev-bot+sashiko@kernel.org
-To: nshettyj@marvell.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, rfranz@marvell.com,
- sgoutham@marvell.com, gakula@marvell.com, rkannoth@marvell.com,
- sbhatta@marvell.com, bbhushan2@marvell.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, horms@kernel.org
-Date: Thu, 10 Sep 2026 03:25:14 +0000
-Message-ID: <178901071460.219967.16897602981271759339@kernel.org>
-In-Reply-To: <20260907032311.3228168-1-nshettyj@marvell.com>
-References: <20260907032311.3228168-1-nshettyj@marvell.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hfSOz5C8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N15ccGIZ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A1lsZR3604845
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:26:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	szOFuM63HR18UcmMmXnvtaunzOu+6qWLkKEnlyU6mwk=; b=hfSOz5C8U5Y22/cP
+	JwVkDDbJUsmcSEr5wkd3kn0qRZkuG9n6C6wjTXRr2kDpZpdrltlMWklgkWB6PhmU
+	ZSpetBymH4hRGjEGdHvd4oQuDRbOOS4IJi69+mEVIZIbmIjOJ+plKF0YkLjF/qw8
+	5iSQeIwcwsJHEG7lGFZUEiOR1ddV2g+jDizeU/3ClE++P3ik8UZGcww6ygCUCHjK
+	m/vJTiSk4b49l2BKVxTLx5TVIV3ISsJSzAoWbbyZwJkVaK7F28AOwrMKU8jF86dT
+	0rsPeFfRSWoo3iueJKFdCd0eheC801Qkf1DW/GSjISbRuEntb3vQQGMxpI2s+vo2
+	fKE8bA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfswbw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:26:45 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8699b293a80so263118b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:26:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789010804; x=1789615604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=szOFuM63HR18UcmMmXnvtaunzOu+6qWLkKEnlyU6mwk=;
+        b=N15ccGIZi9yg9U9oQpsYhMMFXmU2vFEGcM+5qA7y1YxEqmc7Pi8D4JOImTXghdPqTK
+         n9s38mNSpTPXJ7aNrCGdqYmttj9GUUjM5GuFsJJFgakHLEgxDn675iu1NMpN1n9oDJp5
+         P0r+SnLkASuHFvvy5Lqn7gVXMJgsMO12ipxjyxcHecupCTpQkX9/2uPkfc7Lg9JGT3KD
+         7SAKm2PE0rfgZ0LuAINda8tD7NZGwftytiIvvo1NpS5C7djZ6HfuYrPZC4lqH8KMW+DH
+         NC0Z38CYe/Zm0Ee26IMxAzhII3KJlthDnuupnYIDx9dTnxvWvWEvhXVsxUia1IvuOOTm
+         z/dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789010804; x=1789615604;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=szOFuM63HR18UcmMmXnvtaunzOu+6qWLkKEnlyU6mwk=;
+        b=r2vxp9R+vlja3I3O32U2AR44JmC6vgYv2ajLX3rF2373vz5hdx2FU2haHHTyfYwtSU
+         /SEVpqWTVN5ve3POhy5NpwWEV+X17rWc9Q0uQ/GOVBFoNE1sZHUpmddUk2qCJRVjaD3G
+         Wqxvnlu4RHVn5YrrqPL1m1wViZ2bMBcE1PeUF0zhPyp++q96ltkF+h6JYjbG6ZOnV3uZ
+         UXaH0pPuaYfAQ8lMp/vr+bCZ9JGKIOoPIuLP+waLZF86Kp1P5O6Ew/3iL8+9dwI6Miic
+         D8RtIdsthzSX56XUdzPZwAhR50IAR3H3FHdXfIHNIQZ95IVxoE0g5AfD7U07nsFWLC8M
+         sTqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhB+ipTDhQCFuFnnCrP/T4YtouDsx2p4mOqNWuw0/IrPx7lx7s1nnKc81am7XH15dShsTcpGyqh25Z0q0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAuul5fHC6u0K5aWIOv8CGvH5Onoir/zPl5c53CtEzEmU9PO7h
+	/TQDeSsYbLkxsgrNXUyKaxxfGu9zKhcB9kjNusppqrIwZN7Xvcl2fLfUsdzJHKJFNAbokx3vibU
+	Pu8Hdcc4OjvwgWBbzkgW5JtjgRwZSnjxPB/ysfBydC7NSaLQXoC6WyMOo6PJoxXePbQk=
+X-Gm-Gg: AYBFou2C0Lky+z57+s552o7jZ3quy82tvsm8WLIF3PVCPt/fZwBPovBUfxUhLVkMD/r
+	Q2Ho9ZNbOQ9pJVeK06fbxqb2yw6apS1XYgyVyIQ26mZvwvJGhCCXpftHGZ8p7D2mShsfZf9vmlw
+	U9GF4z8ZmI8TzMoW/OEPmUJWYMLlNW6lwLr1zQ3CNmqPXfdlxW6k/3H1e20QHn6Qa86cRYRYKdE
+	rjAGMijgebNCxvQ/Us9xYw7vTaWLYgb08cJip3cTphzk0vhXOWAI+FLmBkH5NyIfe8xze2vsIwk
+	aBrhgl/GVWWyQqwjR6z/n3iLjsjFy/eTdoOHA0a+nR9cd1b6yeY6HZMM4YPlgzNultc0rwawFSm
+	Gjvfrde3Jm4KlT9k19ybOCwAL6WsMcFke
+X-Received: by 2002:a05:6a20:1605:b0:3d1:66cb:d49 with SMTP id adf61e73a8af0-3da39b71971mr63167023637.4.1789010804541;
+        Wed, 09 Sep 2026 20:26:44 -0700 (PDT)
+X-Received: by 2002:a05:6a20:1605:b0:3d1:66cb:d49 with SMTP id adf61e73a8af0-3da39b71971mr63166947637.4.1789010803991;
+        Wed, 09 Sep 2026 20:26:43 -0700 (PDT)
+Received: from [10.218.35.45] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333959d5f69sm45688920eec.0.2026.09.09.20.26.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 20:26:43 -0700 (PDT)
+Message-ID: <8293c4b5-948c-4859-b63e-835ec35ea90d@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 08:56:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] PCI: qcom: Implement shutdown() callback
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Jingoo Han <jingoohan1@gmail.com>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+References: <20260909-shutdown-v6-0-62b7bd123236@oss.qualcomm.com>
+ <20260909-shutdown-v6-3-62b7bd123236@oss.qualcomm.com>
+ <562fd574-a798-4b57-98fd-dc8e7c09f7f0@oss.qualcomm.com>
+ <468f4ca4-e52e-48b3-bd60-20cadf7f311e@oss.qualcomm.com>
+ <80f626f9-8a0d-49cb-a592-14195900e997@oss.qualcomm.com>
+Content-Language: en-US
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+In-Reply-To: <80f626f9-8a0d-49cb-a592-14195900e997@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 6dzKfXy3CN8veUFswT_90lwiw3Fbbqzj
+X-Authority-Analysis: v=2.4 cv=GNqdgeNK c=1 sm=1 tr=0 ts=6aa22375 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=EfmTqkNx2LSR9vyAH8wA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 6dzKfXy3CN8veUFswT_90lwiw3Fbbqzj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDAzNSBTYWx0ZWRfX6LH9hrF9jELm
+ k+MStvfjGQYSsOc0dRhfxXm71S8woElmWHDpoFKxobUC+VOJHXBRLaAkiOZStYQa9zIlIOQlYUz
+ WOO2WdosEU8712L61W/dLfZyUCz6iU5BdpTztZ/P+72rPipjEeNHm/Hs2Xd2d01kHFReeRyIcWk
+ nnlVtPderhnX7Tn6q3zWKyI0K6FEq1q5vx3OzXYtK0PRIOca+HHQ169NUc9YkQPYoxiK63Rhye0
+ ScxJR7FyZA9obeuh22G7tdgaDKbBkc9nym3lTd/IozkB9czXmaYTrk3gQQbqxIbA0JNxoLM2Dz3
+ WvHUtLhnfwRXpSF2gXArPZvjqDw+QO0c0UFzKXWhmjAD1Oid//NY8MveRIE15wAgPpBB8aCcPBb
+ Y58aIYPToFAEnskygvMOV5DpFLzwiS+XHCdMxq745FCPUbZQK0inTn4Uubb2MOEvEH+qcE+eBG6
+ +7Rvr+bnq9otq6UblBA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDAzNSBTYWx0ZWRfX2r+t3Wux8/MV
+ sBNTDzB02OiDVt6yobS1O0CXzqF/JTt+cGbmM3fP8wkdzxG45hB3Cv1whf7jLTsEqqsidS4AI/c
+ rY2Rc75GwwjU2aeNu1WmprPZ3S+WEXI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_01,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 adultscore=0 phishscore=0
+ malwarescore=0 bulkscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100035
+
+
+
+On 9/9/2026 6:48 PM, Konrad Dybcio wrote:
+> On 9/9/26 2:40 PM, Krishna Chaitanya Chundru wrote:
+>>
+>> On 9/9/2026 6:06 PM, Konrad Dybcio wrote:
+>>> On 9/9/26 2:24 PM, Krishna Chaitanya Chundru wrote:
+>>>> From: Manivannan Sadhasivam <mani@kernel.org>
+>>>>
+>>>> PCIe host controllers should bring the link down cleanly before system
+>>>> shutdown/reboot proceeds to remove power/clocks from the controller.
+>>>> Without this, the link may still be up and endpoints still have
+>>>> transactions in flight when power/clocks are cut, which can trip SMMU
+>>>> translation faults or NoC protocol errors.
+>>>>
+>>>> Reuse dw_pcie_suspend_noirq() in the shutdown path to force the link
+>>>> into L2, putting it into D3cold.
+>>>>
+>>>> device_shutdown() runs with interrupts enabled, unlike suspend_noirq().
+>>>> Mask the chained MSI IRQ(s) and the Global IRQ before tearing down the
+>>>> link and clocks/PHY, since a late/spurious interrupt could otherwise
+>>>> reach a handler that touches now-unclocked PARF/DBI registers.
+>>>>
+>>>> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+>>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>>>> ---
+>>> [...]
+>>>
+>>>> +static void qcom_pcie_shutdown(struct platform_device *pdev)
+>>>> +{
+>>>> +	const struct qcom_pcie_cfg *pcie_cfg = of_device_get_match_data(&pdev->dev);
+>>>> +	struct qcom_pcie *pcie;
+>>>> +	struct dw_pcie *pci;
+>>>> +
+>>>> +	if (pcie_cfg && pcie_cfg->firmware_managed) {
+>>>> +		/*
+>>>> +		 * Firmware owns the link teardown and clock/PHY shutdown in
+>>>> +		 * this mode; Linux only owns the chained MSI IRQ(s), which
+>>>> +		 * still need to be masked off before shutdown proceeds.
+>>>> +		 */
+>>>> +		pci = platform_get_drvdata(pdev);
+>>>> +	} else {
+>>>> +		pcie = platform_get_drvdata(pdev);
+>>> This is no less than an intriguing choice.. please store the same
+>>> element in both cases so we don't have to do this
+>> for firmware_managed solutions struct qcom_pcie *pcie is not being
+>> used/allocated at all. it will waste of memory if we allocate memory for just
+>> this use case. - Krishna Chaitanya.
+> Should we move it to a separate file/driver then, perhaps?
+> We could share the ECAM ops in e.g. pcie-qcom-common.c
+I will let Mani to comment on this.
+
+- Krishna Chaitanya.
+>
+> Konrad
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
-
-Critical: 0 · High: 2 · Medium: 2 (3) · Low: 0 (1)
-
-- [High] The otx2_txrx.c hunk is presented as defensive hardening ("add
-  null checks ... to avoid a potential NULL dereference") and is carried…
-- [High] The fix is incomplete: the TX *completion* peer of the hardened
-  code, otx2_snd_pkt_handler() (otx2_txrx.c:148-152), still dereferences…
-- [Medium] Skipping otx2_ptp_init() entirely for SDP representors does
-  more than stop advertising hardware timestamping: it also skips…
-- [Medium] The new `sq->timestamps` test in otx2_set_txtstamp() silently
-  converts a per-SQ resource gap into a silent capability gap: every…
-
-Pre-existing issues:
-- [Medium] otx2_set_txtstamp() still never consults
-  OTX2_FLAG_TX_TSTAMP_ENABLED, so on a PTP-capable interface where…
-- [Medium] otx2_config_hwtstamp_set() discards the return values of
-  otx2_config_hw_tx_tstamp() and otx2_config_hw_rx_tstamp().
-- [Medium] Inside the one-step-sync branch guarded by the condition this
-  patch modifies, otx2_ptp_is_sync() computes *offset purely from packet…
-- [Low] In otx2_config_hwtstamp_set(), the HWTSTAMP_TX_OFF branch uses
-  the non-synchronous cancel_delayed_work() on…
-
---
-
-octeontx2-pf: Fix ethtool timestamping capabilities for SDP representors
-
-The patch skips PTP initialization for SDP representors so that
-otx2_get_ts_info() only advertises software timestamping, changes
-otx2_config_hwtstamp_set() to return -EOPNOTSUPP with an extack message
-when pfvf->ptp is NULL, and adds pfvf->ptp / sq->timestamps NULL checks
-to otx2_set_txtstamp().
-
-A few questions about the changes below.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-> index c995f29008590..d82a71c0a5d82 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-> @@ -2455,8 +2455,11 @@ int otx2_config_hwtstamp_set(struct net_device *netdev,
->  {
->  	struct otx2_nic *pfvf = netdev_priv(netdev);
->  
-> -	if (!pfvf->ptp)
-> -		return -ENODEV;
-> +	if (!pfvf->ptp) {
-> +		NL_SET_ERR_MSG_MOD(extack,
-> +				   "Hardware timestamping is not supported");
-> +		return -EOPNOTSUPP;
-> +	}
->  
->  	switch (config->tx_type) {
->  	case HWTSTAMP_TX_OFF:
-
-[Severity: Medium]
-This is a pre-existing issue and not something introduced here, but since
-this hunk rewrites the error prologue of otx2_config_hwtstamp_set(), should
-the rest of the function propagate errors too?
-
-The results of otx2_config_hw_tx_tstamp() and otx2_config_hw_rx_tstamp() are
-discarded, yet both can fail with -ENOMEM from the mbox message allocation
-or with the otx2_sync_mbox_msg() error:
-
-otx2_config_hw_tx_tstamp() {
-	...
-	err = otx2_sync_mbox_msg(&pfvf->mbox);
-	if (err) {
-		mutex_unlock(&pfvf->mbox.lock);
-		return err;
-	}
-	...
-}
-
-The caller then still does:
-
-	pfvf->tstamp = *config;
-
-	return 0;
-
-so userspace is told hardware timestamping was configured while the NIX LF
-was never programmed.
-
-For HWTSTAMP_TX_ONESTEP_SYNC the ordering makes it worse, since the flag and
-the periodic work are armed before the unchecked call:
-
-		pfvf->flags |= OTX2_FLAG_PTP_ONESTEP_SYNC;
-		schedule_delayed_work(&pfvf->ptp->synctstamp_work,
-				      msecs_to_jiffies(500));
-		fallthrough;
-	case HWTSTAMP_TX_ON:
-		otx2_config_hw_tx_tstamp(pfvf, true);
-
-On mbox failure the driver is left patching origin timestamps and running
-synctstamp_work with hardware timestamping off. Should these return values
-be checked and the one-step state be unwound?
-
-[Severity: Low]
-This isn't a bug introduced by this patch either, but in the
-HWTSTAMP_TX_OFF branch of the same function:
-
-	case HWTSTAMP_TX_OFF:
-		if (pfvf->flags & OTX2_FLAG_PTP_ONESTEP_SYNC)
-			pfvf->flags &= ~OTX2_FLAG_PTP_ONESTEP_SYNC;
-
-		cancel_delayed_work(&pfvf->ptp->synctstamp_work);
-
-the non-synchronous cancel races with the callback, which unconditionally
-re-arms itself:
-
-otx2_sync_tstamp() {
-	...
-	schedule_delayed_work(&ptp->synctstamp_work, msecs_to_jiffies(250));
-}
-
-If otx2_sync_tstamp() is running on another CPU, cancel_delayed_work()
-returns false and the work re-queues, so the 250 ms PTP_OP_GET_CLOCK mailbox
-traffic continues after the user asked for timestamping to be turned off.
-The call site is process context under rtnl, so would
-cancel_delayed_work_sync() be usable here? Note otx2_ptp_destroy() already
-uses the sync variant, so this is only a state/overhead question, not a
-use-after-free.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
-> index 95b0a1e7c936d..7b0a51f453cec 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
-> @@ -386,7 +386,7 @@ int otx2_ptp_init(struct otx2_nic *pfvf)
->  	struct ptp_req *req;
->  	int err;
->  
-> -	if (is_otx2_lbkvf(pfvf->pdev)) {
-> +	if (is_otx2_lbkvf(pfvf->pdev) || is_otx2_sdp_rep(pfvf->pdev)) {
->  		pfvf->ptp = NULL;
->  		return 0;
->  	}
-
-[Severity: Medium]
-Does this also remove the PTP hardware clock device from SDP representors?
-
-SDP representors are probed by the VF driver (PCI_DEVID_OCTEONTX2_SDP_REP is
-in the otx2_vf_id_table) and otx2vf_probe() calls otx2_ptp_init(vf), so up
-to now these interfaces registered a PHC via ptp_clock_register() with
-working gettime64/settime64/adjfine and the extts pin. With the early return
-that registration never happens, and otx2_get_ts_info() falls back:
-
-otx2_get_ts_info() {
-	if (!pfvf->ptp)
-		return ethtool_op_get_ts_info(netdev, info);
-	...
-	info->phc_index = otx2_ptp_clock_index(pfvf);
-
-so /dev/ptpN for the interface and the phc_index reported by ethtool -T both
-disappear.
-
-The changelog only mentions the packet timestamping limitation. Could it
-state that the PHC is being removed as well, and why that is acceptable,
-given the Fixes tag will send this to stable trees?
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-> index 8d2d607bc92f9..94da021d452ed 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-> @@ -1135,7 +1135,8 @@ static void otx2_set_txtstamp(struct otx2_nic *pfvf, struct sk_buff *skb,
->  	__wsum skb_csum;
->  	u64 iova;
->  
-> -	if (unlikely(!skb_shinfo(skb)->gso_size &&
-> +	if (unlikely(pfvf->ptp && sq->timestamps &&
-> +		     !skb_shinfo(skb)->gso_size &&
->  		     (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP))) {
-
-[Severity: High]
-The changelog describes this as avoiding "a potential NULL dereference", but
-is it actually closing a live one that has nothing to do with SDP
-representors?
-
-sq->timestamps is only allocated under two conditions:
-
-otx2_sq_init() {
-	...
-	if (pfvf->ptp && qidx < pfvf->hw.tx_queues) {
-		err = qmem_alloc(pfvf->dev, &sq->timestamps, qset->sqe_cnt,
-				 sizeof(*sq->timestamps));
-
-so it is NULL for LBK VFs and RVU_REP devices, where otx2_ptp_init() has
-forced pfvf->ptp = NULL since long before SDP representor support, and it is
-NULL for QoS/HTB send queues with qidx >= pfvf->hw.tx_queues on fully
-PTP-capable PFs.
-
-Before this patch the guard was only:
-
-	if (unlikely(!skb_shinfo(skb)->gso_size &&
-		     (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP))) {
-
-and the body dereferences both pointers:
-
-		iova = sq->timestamps->iova + (sq->head * sizeof(u64));
-		otx2_sqe_add_mem(sq, offset, NIX_SENDMEMALG_E_SETTSTMP, iova,
-				 ptp_offset, pfvf->ptp->base_ns, udp_csum_crt);
-
-SKBTX_HW_TSTAMP is set purely from the socket's SO_TIMESTAMPING request in
-__sock_tx_timestamp() with no device capability check, so any unprivileged
-socket asking for SOF_TIMESTAMPING_TX_HARDWARE and sending a non-GSO packet
-over an LBK VF or a QoS SQ reaches those dereferences.
-
-Since the only tag is Fixes: 2f7f33a09516 ("octeontx2-pf: Add representors
-for sdp MAC"), stable trees that predate SDP representors will not pick up
-this hunk and keep the oops. Would it make sense to split the otx2_txrx.c
-change into its own patch with a Fixes tag pointing at the commit that
-introduced the unguarded dereference? The errno and extack change in
-otx2_config_hwtstamp_set() is also a separate user-visible change for the
-pre-existing LBK VF case rather than part of the SDP fix.
-
-[Severity: High]
-Should the matching completion path be guarded too? otx2_snd_pkt_handler()
-still dereferences both pointers with only the skb flag as a gate:
-
-	if (skb_shinfo(skb)->tx_flags & SKBTX_IN_PROGRESS) {
-		timestamp = ((u64 *)sq->timestamps->base)[snd_comp->sqe_id];
-		if (timestamp != 1) {
-			timestamp = pfvf->ptp->convert_tx_ptp_tstmp(timestamp);
-			err = otx2_ptp_tstamp2time(pfvf, timestamp, &tsns);
-
-SKBTX_IN_PROGRESS lives in skb_shared_info, which skb_clone() shares, and it
-is not cleared here, so it can have been set by a different transmit of the
-same buffer. With a bridge or a tc mirred mirror spanning one PTP-capable
-otx2 port and one port whose SQ has no timestamp area:
-
-otx2_set_txtstamp()            /* PTP-capable port, sets the shared flag */
-    skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
-
-otx2_snd_pkt_handler()         /* clone completing on the other port */
-    timestamp = ((u64 *)sq->timestamps->base)[snd_comp->sqe_id];
-
-sq->timestamps is NULL there (SDP rep, LBK VF, or any QoS SQ), so this reads
-through a NULL pointer in NAPI context. Note otx2_ptp_tstamp2time(), called
-two lines later, already does:
-
-	if (!pfvf->ptp)
-		return -ENODEV;
-
-so the driver already treats pfvf->ptp as nullable in this exact path. This
-patch newly creates the NULL-ptp state for SDP representors, which
-previously had a registered ptp and allocated per-SQ timestamps.
-
-[Severity: Medium]
-On a PTP-capable PF with tc HTB offload, does the new sq->timestamps test
-silently turn a per-queue resource gap into a silent capability gap?
-
-QoS/HTB SQs have qidx >= pfvf->hw.tx_queues, so otx2_sq_init() never
-allocates their timestamp area, while NIX_AF_LFX_TX_CFG.PTP_EN is set for
-the whole LF and otx2_get_ts_info() keeps advertising:
-
-	info->so_timestamping = SOF_TIMESTAMPING_TX_SOFTWARE |
-				SOF_TIMESTAMPING_TX_HARDWARE |
-
-Packets egressing those queues now take the else-branch, no
-NIX_SENDMEMALG_E_SETTSTMP SEND_MEM_S subdescriptor is emitted, and
-SKBTX_IN_PROGRESS is never set, so two-step users get no hardware timestamp
-at all. In HWTSTAMP_TX_ONESTEP_SYNC mode the Sync frame's originTimestamp
-and correctionField are also left unpatched, so the frame goes out with a
-stale value.
-
-Would allocating the SETTSTMP scratch area for all SQs of an LF that can
-have PTP_EN set be a better fix than the NULL test in the fast path?
-
-[Severity: Medium]
-This isn't something the patch introduces, but since the condition is being
-touched: otx2_set_txtstamp() never consults OTX2_FLAG_TX_TSTAMP_ENABLED,
-which otx2_config_hw_tx_tstamp() maintains:
-
-	if (enable)
-		pfvf->flags |= OTX2_FLAG_TX_TSTAMP_ENABLED;
-	else
-		pfvf->flags &= ~OTX2_FLAG_TX_TSTAMP_ENABLED;
-
-That flag is never read in otx2_txrx.c. So on a PTP-capable interface where
-userspace never enabled hardware TX timestamping, a socket that requested
-both SOF_TIMESTAMPING_TX_SOFTWARE and SOF_TIMESTAMPING_TX_HARDWARE still
-takes the hardware branch, skb_tx_timestamp() is never called, and the
-hardware writes the "no timestamp" value 1 which otx2_snd_pkt_handler()
-drops. The result is no timestamp of either kind. Should the enable flag be
-part of this condition?
-
->  		if (unlikely(pfvf->flags & OTX2_FLAG_PTP_ONESTEP_SYNC &&
->  			     otx2_ptp_is_sync(skb, &ptp_offset, &udp_csum_crt))) {
-
-[Severity: Medium]
-This is a pre-existing issue rather than something added here, but it sits
-directly behind the condition being modified. Can a short frame make
-otx2_ptp_is_sync() read past skb->len?
-
-The offset comes entirely from packet header values, and the message-type
-byte is read without any skb->len, skb_headlen() or pskb_may_pull() check:
-
-otx2_ptp_is_sync() {
-	...
-	case ETH_P_1588:
-		if (network_depth)
-			*offset = network_depth;
-		else
-			*offset = ETH_HLEN + nix_offload_hlen +
-				  inner_vhlen;
-	...
-	msgtype = data + *offset;
-	/* Check PTP messageId is SYNC or not */
-	is_sync = !(*msgtype & 0xf);
-}
-
-For a 14-byte AF_PACKET SOCK_RAW frame with h_proto set to 0x88F7, that byte
-is past the data. If the low nibble happens to be zero, otx2_set_txtstamp()
-then writes 10 bytes at an offset derived from the same untrusted value:
-
-			origin_tstamp = (struct ptpv2_tstamp *)
-					((u8 *)skb->data + ptp_offset +
-					 PTP_SYNC_SEC_OFFSET);
-			ts = ns_to_timespec64(pfvf->ptp->tstamp);
-			origin_tstamp->seconds_msb = htons((ts.tv_sec >> 32) & 0xffff);
-
-and passes ptp_offset to the hardware as the in-packet correction-field
-offset. The write can land up to roughly 44 bytes past skb->len; whether it
-crosses skb_end_pointer() into skb_shared_info depends on the head buffer's
-kmalloc slack, so this is speculative on that last point. Would a
-pskb_may_pull() covering ptp_offset + PTP_SYNC_SEC_OFFSET +
-sizeof(struct ptpv2_tstamp) be appropriate before both the read and the
-write?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907032311.3228168-1-nshettyj%40marvell.com
