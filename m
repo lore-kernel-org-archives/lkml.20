@@ -1,133 +1,243 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout10.mo539.mail-out.ovh.net (smtpout10.mo539.mail-out.ovh.net [51.210.91.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBD55427EA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E6D53FD3D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789060249; cv=none; b=t6c9tYTGPSp4rFZaMrXC/Qyu7CXwG4TCIO6MSBhuPfr7CwGJRyP1i+Y4ImfOuKaFUigUMR1RfdNJcGu0z02cVrwvomCukHGX2XLvUPK1D1clb00BiFY29QpOy7wcUxKwCRqJVAlFfyYgfJGSfoCze0uFfs1M86znpyLd7sfaRu8=
+	t=1789060335; cv=none; b=oGvESloTSs06ybZXr4KtO570mCtPWVrjdYo0Jc9ZZ1bBQ8o6IGqpO4E+nvvnTdvDTHaPsTwjxi/MG8EcLGN2Ca9f+raWPhCRnZ++5XDAJo3JRZwUFJVb2KM0MFQU+5mTRZRGhEf1oTAGTbEfztRv9q8fmy9js36T/7FPCT3MUSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789060249; c=relaxed/simple;
-	bh=AwlQr01gOaB0513mqpwbFOstgch6p4TPUaapjmXe+RY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BJACBRFrRkQ9N3kOL+3D9yMVkXpO+yyi/OkNT/CCAXII6cK3owQ4KX9ih9Kiv6fGlOG+gR/DkWfwszHt+Q4fB1C94dnc8MuOhsZQ8HG/BT1HU86mQrnOkT7w6zNu4aNONgK+3nP5fJjI3oVzXSkHFrfjpGj5Wc8tjZSj6RDOmzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCZlT8j0; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789060335; c=relaxed/simple;
+	bh=aD4Um39WbledhYr7SdEqmJ3kSOvm6MJQ4tGFJWrMPSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a7PaOfQ+hfQqiXG99vZbA3nJtZzrEUsYLU0B2EAAaKV/Tq8rWbh5ADgsDFYL96LsA4TVmlG2l4LEC83WcK36ebXsYX4CGDibW4MTMrHyyBucgbxTwhzyHKuyU6czodqL8fLULKPSc4k6mtxNkAJxfPk3nLWTP5FqO+vMG6JjcT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=nVtWOBaH; arc=none smtp.client-ip=51.210.91.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCZlT8j0"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7f64ea07036so6770061a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:10:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789060233; x=1789665033; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SKblG7QGgHAKfTpoP5V52jptdTaAh+yb1fvW/oZI/IE=;
-        b=OCZlT8j0W2JHYXYuFrVsfFyBxVmmuswYK2evkd+cQVjm4wogqIAXwfkXYm3TDRigyU
-         LrWNq+tV3Iq/Mk4R0UZZTxQIm0HW3z4H2EvIyMbz3dp9AtxADgl/oBAdclNEq4cKKmi1
-         INzVHWPGQDzygJc+grrGVlDqrCyNTfoZamId2UOaDTVXUZvCoxvIrT76q4kGNsbUbMKz
-         xsVR84gssQUocZLpWf1/QED5StTp7baWw3NlrmL0Vcr0opFYtqj3rGthmsixO4HGQsP9
-         5ULnT2jrYy0EiPIms6jJC+DK6RCezYFZe7CfOY0uoxfiw5n4osqL31IMjeO0UAVD+5/j
-         Zi3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789060233; x=1789665033;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SKblG7QGgHAKfTpoP5V52jptdTaAh+yb1fvW/oZI/IE=;
-        b=aTIAlvicbWYRJIuzhxZ0kQbPuvsQho/O8P/FiLmmpXVIfDjzI/EQmK4EuBb343mhU3
-         bc1Yxq0faR5IPY++qAWrtUhsR2V1DBcnWi1pWWqfwfqG4QWjhgouLHmhMuquwgw1vTmK
-         BtBpPVhmMuH4qoVSj4RYiGlVbV5Sht1SLxfj9BQ0an69LRRRiSPrb8uSuY30YS+Sn8pC
-         K+fuEhsKYyLuuDbBVP8Dn2fOzOLrzbh1JtGJnAwZm4Aa7Qtpj6L/YpgqvyZMSqTBNmrs
-         8mvwjMuIewUig3+nJFYKRVuSqvGuubjAxuJ8VY89+2gfmRSCi0aUj91BHF3yqgRheciC
-         oPBA==
-X-Forwarded-Encrypted: i=1; AKwUvByshzWH0sjx0we2SqywfSVQFmhqaptVGt4CuBrUYqASFZa1qI6SDb7og5MFZcLA+29z/4qmKWRixw23QRM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvPoyWgokPN729Y4MLF+WZznCSfNarjoGI0ijcTfjbdcusfRXc
-	l/dHolz/W+SUS7xLfTqqlb2zW2lBKCL/WmAWaZUzBt/knjki4kMQ+GPBfzitCygj
-X-Gm-Gg: AYBFou34+AOpqrgT6p6x3LiVWXbltUBzQLKAcBTkSK9TkhAhfgg/oP6AN4e2/+iGnGZ
-	7Zy/K2w41kfFyuJlD5U5+RDtNjvUZQefYMW0VJS8e1W7PC5tNdNJSNKx4SrxwPvUvdIJZuPAsY6
-	SMj/AURj5ib/Wd1uhz/RppGjzuYPSkx4+hiVS8s/X3X94X7yLYqTT34W1EdgsS/H5azgvcloY8M
-	OQ87gf4QaTidZWUVqSu4o5YvPxQNL+iH3O9Hwb9tEuwYOXpvGe9ApvEpzngSBDKISWVCBbY/ngi
-	oz0V5IpZc5LFWccemi/n+DtV36YH5E9Qc9gvpcTp6XAg3UjBQIoGG+zkMTJn+IByclLPhVFcgwf
-	3pl+IXwEdZye4KuD5xrzbjdz4X8XYuC+/CvaSxjKI21sFXWD1ABjCItfn8Gb+XfCW7gtASOp48/
-	JXVgclBzuozqO5JXFiIeSwkpMUqr6Pg5/7thyEiLxDaM5Ah34k3u1kUSg4elc7498PXaV2knGB6
-	y2X5+7MmYDOEyL8BruDYjcbDHeHag==
-X-Received: by 2002:a05:6830:258d:b0:7f6:6618:e506 with SMTP id 46e09a7af769-7fa207af645mr26042050a34.14.1789060233518;
-        Thu, 10 Sep 2026 10:10:33 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:8::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fcc45d7852sm14860896a34.20.2026.09.10.10.10.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 10:10:32 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:10:29 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	matttbe@kernel.org, Stanislav Fomichev <sdf@fomichev.me>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next] tools: ynl: Fix out-of-tree build for ynltool
-Message-ID: <aqLkhcMb8uSKhQZl@devvm29614.prn0.facebook.com>
-References: <20260909071155.1234922-1-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="nVtWOBaH"
+Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
+	by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHT4sWrz4FCb;
+	Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
+        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <bcm-kernel-feedback-list@broadcom.com>; Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.188.201])
+	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHT3lz0z6Ntd;
+	Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
+Received: from sicoop.com (unknown [10.1.6.7])
+	(Authenticated sender: michaltoma@sicoop.com)
+	by mta6.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 828AD1B4403C;
+	Thu, 10 Sep 2026 16:52:20 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-113S0075acc4155-acff-4418-ad16-683ae0a87b58,
+                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
+X-OVh-ClientIp:89.91.4.113
+From: Michal TOMA <michaltoma@sicoop.com>
+To: sashiko-bot@kernel.org,
+	Zack Rusin <zack.rusin@broadcom.com>
+Cc: Michal TOMA <michaltoma@sicoop.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	ian.forbes@broadcom.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/vmwgfx: Release PRIME import in the BO destroy path
+Date: Thu, 10 Sep 2026 18:52:19 +0200
+Message-ID: <20260910165219.7542-1-michaltoma@sicoop.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910150035.788AF1F000FF@smtp.kernel.org>
+References: <20260910150035.788AF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909071155.1234922-1-maxime.chevallier@bootlin.com>
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16160322842110546236
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTF6pX5vpcS80JPTmqNLuphRsGggG7qnKK0W447olTa8x18xHywiZHYwydWM01Edd3/niP30dpypJk6tKYscP/iVZhW5lCbcZYPL/wCEgEKOD1gltMXAM9TrNqpjqxvW1DMOF/22a1MsuLQGdr7sp0Mt33UVLr1ITPXP6K2OdH7uLpjzOitg93bjz2Rb7LBHnNbr3CtsPP2g+YZqf4GKSyCLkt+AZADNZi9Wa9W1cPItB0C2ynbvLozOHyMUch2H9RsfsyWbGkTRHomPIsz6OhkaUdZLiu4DPVZ6Y3ji2Bf1A5Gabwar3DpGf4/zDdSwIgn4zZBK4uC3k5XJm0wKqbg/NgnE7MySnY0afWpLJ7PT+pSrq9fwOC5eZmQZdJQT0HRGazJJCCn16If3Hq5zUacuJutsdhY8Ea0DDgaECNQFzZg4jNDuMnVO+icN0fl/lWUK28hjJ2DO8HSXL+b3OWO+MGHYdS4CwQ1oig3FuGVr505+UAZN109ajHXBQBtENPVIMsU0M+gTiagewmTSzzHLharV/A1ht9DHp1tg7TfIs/8d7P5/8fKJpQlm04BnDglN50JvfZO5vP+9gzEhioKqOs+/lHwu+QxhTXWFgq50AIVMTGqd2RsHQ+TYN26VYUa6lDsw/Ap1aJ3Lyzfl7FoCjK6mqbHjjUXaL+ICnWhThw
+DKIM-Signature: a=rsa-sha256; bh=zb+8StDB0wlJEo55QkYEs4giHU7INXOi+GpJyXdAHy4=;
+ c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
+ t=1789059142; v=1;
+ b=nVtWOBaHAAcOKF2ivFxsHYG5bvZ9P+F32khHW5wMlWw/IAh8wN18KJFVNtlt4Z61rtXCdInI
+ 38fIzK9xXg314SflNg3zGMG0yY0n2sO6hHsEoY3QxESdm30oTRLdxYxvWUm2WrIgKsmJfTHK2LJ
+ P3i8OdXlKnHfNAREdK0QctQjWjp4vf2+ZNCb4t3ijowL2mCiPulQxotksMEuqrjFHVJqv+1bnuj
+ PFPAu4REzY/UwsPHsNCLpktnnxf+7h3N40DzqyXyP1dMPJ0DC+DUawdEaCL+0RaaKPy3xU4DONR
+ 4UPZrzk8ZH9a2eX7GUkvtIB0KksBtov57zj9Z00tDSL2Q==
 
-On Wed, Sep 09, 2026 at 09:11:54AM +0200, Maxime Chevallier (Netdev Foundation) wrote:
-> After the blamed commit, running a out-of-tree build for ynltool fails :
-> 
->   # make -C tools/net/ynl/ynltool O=/tmp/o1
->   make: Entering directory 'tools/net/ynl/ynltool'
->   make: *** No rule to make target '/tmp/o1/json_writer.o', needed by '/tmp/o1/ynltool'.  Stop.
-> 
-> ynltool's Makefile correctly accounts for $(OUTPUT) to get the list of
-> object files to generate :
-> 
-> OBJS := $(patsubst %.c,$(OUTPUT)%.o,$(SRCS))
-> 
-> but it never actually set $(OUTPUT) before the blamed commit, meaning
-> that out-of-tree buils of ynltool were always actually in-tree.
-> 
-> Now, the O= parameter is correctly accounted for, and the %o: %c rule fails.
-> 
-> Let's update the %o: %c rule to also use $(OUTPUT).
-> 
-> Reported-by: Bobby Eshleman <bobbyeshleman@gmail.com>
-> Closes: https://lore.kernel.org/all/aqCyWQxqKDuQnZYR@devvm29614.prn0.facebook.com/
-> Fixes: 917f713b4ec4 ("tools: ynl: Allow cross-compiling ynl and associated tools")
-> Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
-> ---
-> Targetting net-next, as the blamed commit lives there.
-> 
->  tools/net/ynl/ynltool/Makefile | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/net/ynl/ynltool/Makefile b/tools/net/ynl/ynltool/Makefile
-> index b8c67cdb4fdf..1053e7606c86 100644
-> --- a/tools/net/ynl/ynltool/Makefile
-> +++ b/tools/net/ynl/ynltool/Makefile
-> @@ -31,7 +31,7 @@ $(YNLTOOL): ../libynl.a $(OBJS)
->  	$(Q)echo -e "\tLINK $@"
->  	$(Q)$(CC) $(CFLAGS) -o $@ $(OBJS) ../libynl.a -lm
->  
-> -%.o: %.c ../libynl.a
-> +$(OUTPUT)%.o: %.c ../libynl.a
->  	$(Q)echo -e "\tCC $@"
->  	$(Q)$(COMPILE.c) -MMD -c -o $@ $<
->  
-> -- 
-> 2.55.0
-> 
+On Thu, Sep 10, 2026 at 03:00:34PM +0000, sashiko-bot@kernel.org wrote:
+> - [High] Double free of the exporter's sg_table triggered by combining
+> the newly added drm_prime_gem_destroy() with a pre-existing incorrect
+> error path in vmw_ttm_map_dma().
 
-Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
+Thanks - this is real, and it means the patch as posted must not be
+applied on its own. I reproduced it on the affected guest. The
+mechanism differs a little from the one described, and the outcome is
+worse than a double free: it is a NULL pointer dereference in a TTM
+workqueue, which wedged the machine.
+
+Corrected mechanism
+-------------------
+sg_free_table() sets table->sgl = NULL but leaves table->orig_nents
+alone, so the second sg_free_table() from the exporter is in fact a
+no-op. The crash comes one step earlier, in the unmap:
+
+  drm_prime_gem_destroy()
+    dma_buf_unmap_attachment_unlocked()
+      udmabuf unmap_udmabuf() -> put_sg_table()
+        dma_unmap_sgtable(dev, sg, ...)
+          dma_unmap_sg_attrs(dev, sgt->sgl = NULL, sgt->orig_nents = N)
+            dma_direct_unmap_sg() -> for_each_sg(NULL, sg, N, i)
+
+which dereferences NULL on the first iteration.
+
+Why vmw_ttm_map_dma() fails for every imported buffer
+-----------------------------------------------------
+For TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points vsgt->sgt at the
+exporter's table:
+
+	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
+		vsgt->sgt = vmw_tt->dma_ttm.sg;
+	} else {
+		vsgt->sgt = &vmw_tt->sgt;
+		ret = sg_alloc_table_from_pages_segment(&vmw_tt->sgt, ...);
+
+but then calls vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt - the
+inline table, not the one vsgt->sgt points to. For an imported buffer
+that inline table is never populated (vmw_ttm_tt_create() kzallocs the
+vmw_ttm_tt), so dma_map_sgtable() is called with orig_nents == 0,
+trips the WARN_ON_ONCE in __dma_map_sg_attrs() and returns -EIO. Then
+out_map_fail calls sg_free_table() on the *exporter's* table.
+
+That path is therefore taken on every attempt to bind an imported
+buffer object, not only in some rare error case. vmw_ttm_unmap_dma()
+would free the exporter's table too, if a map ever succeeded.
+
+Note also that the exporter has already DMA-mapped that table for our
+device in dma_buf_map_attachment(), so vmwgfx should not be mapping it
+a second time at all.
+
+Reachability
+------------
+An unprivileged process with access to the render node can get there
+with three ioctls, all DRM_RENDER_ALLOW: import a dma-buf
+(DRM_IOCTL_PRIME_FD_TO_HANDLE, e.g. a udmabuf), create a GB surface
+backed by that buffer (DRM_VMW_GB_SURFACE_CREATE_EXT with
+base.buffer_handle set), then submit SVGA_3D_CMD_UPDATE_GB_SURFACE for
+that surface with DRM_VMW_EXECBUF. Validation moves the backing buffer
+to VMW_BO_DOMAIN_MOB, which binds the TTM tt:
+
+ WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
+ Call Trace:
+  dma_map_sgtable+0x1d/0x30
+  vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
+  vmw_move+0x1cd/0x2c0 [vmwgfx]
+  ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
+  ttm_bo_validate+0xd2/0x1d0 [ttm]
+  vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
+  vmw_execbuf_process+0x852/0x1330 [vmwgfx]
+  vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
+  drm_ioctl_kernel+0xa6/0x100
+  drm_ioctl+0x2ad/0x590
+  __x64_sys_ioctl+0xb9/0x100
+  do_syscall_64+0xe1/0x610
+
+ vmwgfx 0000:00:02.0: [drm] VSG table map failed!
+
+execbuf returns -EIO, but the exporter's sg_table has already been
+freed. Releasing the buffer afterwards, with my patch applied:
+
+ BUG: kernel NULL pointer dereference, address: 000000000000001c
+ Oops: 0000 [#1] SMP NOPTI
+ Workqueue: ttm ttm_bo_delayed_delete [ttm]
+ RIP: 0010:dma_direct_unmap_sg+0x62/0x200
+ Call Trace:
+  unmap_udmabuf+0x24/0x40
+  dma_buf_unmap_attachment+0x43/0x80
+  dma_buf_unmap_attachment_unlocked+0x46/0x70
+  drm_prime_gem_destroy+0x28/0x50
+  vmw_bo_free+0x15b/0x1f0 [vmwgfx]
+  process_one_work+0x19f/0x370
+  worker_thread+0x1b1/0x310
+  kthread+0xe4/0x120
+
+Since this runs in the TTM delayed-delete worker rather than in the
+caller, the closing process exits normally and the worker dies holding
+TTM/dma-resv locks. The desktop wedged a few seconds later and the VM
+had to be reset.
+
+Without my patch the same sequence only corrupts and leaks the
+exporter's mapping, because nothing ever unmaps the attachment - which
+is exactly the leak I was fixing. So the patch does not create the bug,
+but it does turn it into a locally triggerable crash.
+
+What I intend to send
+---------------------
+Please do not apply the posted patch as it stands. I will send a
+series instead:
+
+  1) fix vmw_ttm_map_dma()/vmw_ttm_unmap_dma() for external TTM tt:
+     use the exporter's already-mapped sg_table as-is, and never map,
+     unmap or free it. Fixes: b32233acceff ("drm/vmwgfx: Fix prime
+     import/export")
+  2) the drm_prime_gem_destroy() cleanup posted here, unchanged
+  3) a second leak that was ready but held back: the GEM handle
+     vmw_buffer_prime_to_surface_base() creates for the fd passed to
+     DRM_VMW_GB_SURFACE_REF_EXT is never returned to userspace and
+     never deleted. Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of
+     dumb buffers")
+
+The other point in the review, vmw_prime_import_sg_table() returning
+NULL rather than an ERR_PTR when vmw_bo_create() fails, is real as
+well. I am leaving it out of the series: it needs a buffer object
+allocation failure to reach, I have not managed to trigger it, and I
+would rather not post a patch I could not test. It is called out in the
+cover letter.
+
+The proposed 1) looks like this; I will post it with test results:
+
+@@ vmw_ttm_map_dma()
+ 	case vmw_dma_map_bind:
+ 	case vmw_dma_map_populate:
+ 		if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
++			/*
++			 * The exporter has already mapped its sg_table for
++			 * this device in dma_buf_map_attachment(). Use it
++			 * as-is; it is not ours to map or to free.
++			 */
+ 			vsgt->sgt = vmw_tt->dma_ttm.sg;
+-		} else {
+-			vsgt->sgt = &vmw_tt->sgt;
+-			ret = sg_alloc_table_from_pages_segment(...);
+-			if (ret)
+-				goto out_sg_alloc_fail;
++			break;
+ 		}
++		vsgt->sgt = &vmw_tt->sgt;
++		ret = sg_alloc_table_from_pages_segment(...);
++		if (ret)
++			goto out_sg_alloc_fail;
+ 		ret = vmw_ttm_map_for_dma(vmw_tt);
+
+@@ vmw_ttm_unmap_dma()
++	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
++		vmw_tt->vsgt.sgt = NULL;
++		vmw_tt->mapped = false;
++		return;
++	}
+
+I have 1) built and tested here. With it, the reproducer above logs
+nothing at all: no WARN_ON_ONCE(), no "VSG table map failed!", and
+DRM_VMW_EXECBUF is accepted instead of returning -EIO, so an imported
+buffer object can now be bound at all. Releasing the buffer afterwards
+leaves no entry in /sys/kernel/debug/dma_buf/bufinfo and no oops, and
+the reproducers for the two leaks from the original posting still
+behave as they did.
+
+The reproducer for the crash above, and the ones for the two leaks, are
+small C and Python programs; each is included below the cut of the
+patch it belongs to in the series.
+
+The analysis and the reproducers here were produced the same way as
+described in the tool-use note of the original patch.
