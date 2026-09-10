@@ -1,88 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690013C09EF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BAF3C10BA
 	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029298; cv=none; b=UrahnwwFXmyGNMa4mhFfADozqmbJ07r/P95PnKTTh7O/GZYP2pCudY6n6ilOVBmNobCtWe7Xj4qPlULTvxxSaSOsEEmmhPJdU3mphxCyO8+whro6DJWSW8Orr+q9275PcvRXiL6G02MFwY94l9AJdNCHRojiBst+YKo35KmvHE4=
+	t=1789029298; cv=none; b=Q8iZa9/rQr2okqdAfkBCK+7pTHx9F0a8Bh3jSnN7scLRlsdy1Br7uKGxFyhgcSmnLCBwYsYHGJbHB7CIvhuL3Exv1POPZOgw95gUGBuu7P6HOuhU7x70rdv9GEtb3rGcpLT/MlzrMNm+S4kobekIHDo2+SXVtKEar1Lx9MgNpVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789029298; c=relaxed/simple;
-	bh=TpuLBKMPFct48AFRYHZZ24jG1FdoNN7ANXjZgpBiaUQ=;
+	bh=1VG49kK4fNZl7JgRGZ2R0lXCv5A3AAINFdkFYWuVzrg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aSdDuYx/u0onB87UDchX43vtRMBSFRGsm3doERhuzcM9KKN83Ia4ShMP5DK65Tp6HrwqqKpvtzuJNrxOcFnmEE3/5Qy7fPqZ9IXfWk9zbl5e14SCAe5cmoWbGFMYqomjGADJJTz1Cq+vEC4xH54gnNBPv5JEs7SujNJQQo+5nCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aGZ9239b; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=XQ1BEbSF; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=GLnjdEX+xFEv27ZrUV9BdWg+B6K80pqy/v/lhCxGzdxlXl8pJ6PHYv7veQepZL+xbdI+JRrz231p7391jXXz4QuPl08LNHjvThCyvJ7HKs5/JiB5E8epW+iOxUsFiQJqJ87tvSTBXzzDg4EJAFScQa0UuN/KpScnf2aCoF6y8qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j+EgQV9N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OGrvcbFb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aGZ9239b";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="XQ1BEbSF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789029295;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tNvBbi3elEz1nStREMnqxozxYEg4vrtCAI0Kppph1j0=;
-	b=aGZ9239bE6ZiSHfUmPCNSYDSArSRPR6jzRwAmasoMK98NlybIyxfXN5TpwF0RAgTDf65m/
-	3+5Ucl8Fi3RYvwxe4+W1usAiQkwUpTWWDCVV2fUZqrzV9zKo5UB099Ckr6/MlNWNQbHbJw
-	Mbed2bhMtJzL94J07RhskBbvcAR2/j8=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-57-7QQZhD13PTCH57liAN7iaQ-1; Thu, 10 Sep 2026 04:34:54 -0400
-X-MC-Unique: 7QQZhD13PTCH57liAN7iaQ-1
-X-Mimecast-MFC-AGG-ID: 7QQZhD13PTCH57liAN7iaQ_1789029293
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49b8c651ac0so99912915e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:34:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j+EgQV9N";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OGrvcbFb"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5HM0u2974671
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:34:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZDtD7s+88cPFkDJa10PZ92cfoS/KlLMFXDnVCuSEkiw=; b=j+EgQV9Nr/E6JoKp
+	V7juIRxiQ/FGbc4XOkpjrhmPem8YQAfkfFj5y08XCxsW82OGEdjLTycIKS59/oL3
+	JaYlvBYdgO+IofwTSv8lul5Ii/GkQ2hXP4jYu9le79S5kU8BOE1NZt0p7OgFpPDA
+	SxI4bs9F8LrVkAk2Y/t4nOyt3gD5fiLgNohIiiyRRhpD3YD433UURPftyhwcyb30
+	EATMWh08rciW8CXfQK5z/9nbltTZMIhVzHX0uO99L2k9Q/AikSJ6D26klrliopXE
+	5R9mof55HSj4hXGokrYpPICw8N4g6PkJNIn9fUV/2uM8Fh7XZrKN66N4FEqYoEah
+	eZvbhQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg2vqb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:34:55 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a63cca6ffso321296b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:34:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789029293; x=1789634093; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789029295; x=1789634095; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tNvBbi3elEz1nStREMnqxozxYEg4vrtCAI0Kppph1j0=;
-        b=XQ1BEbSFtrpicE+LpNm2KKtJGMlnjVqh2M8sqkEx6DMpCcRP6wFhYbnGizJalq85P7
-         zYcQ7z3gRqIhewPlEFHNgI4h/n500pK2LvpjxGjuk7ekiYjzNDZkEsN8o6JgNWhJfSbY
-         Ypn9OyeCDYGUJ6auOVgm7tdbaS159ZgTDsglVCuX/wvWuS25xqa26WaIPVhIVhzCspfs
-         46dIKvGfGu7tTDIVPEW6AL5kAzGGsHi22NaZQ7SC0grtgKy5fjJx8xQMhOlRh+k+c6Ni
-         v4eQ5MdIGWU5S9JJ2B5AEukpvH5qCLYIVH1k9erTf1/y+/MGwGXC73Qhm8tXF14MIR5t
-         49Pw==
+        bh=ZDtD7s+88cPFkDJa10PZ92cfoS/KlLMFXDnVCuSEkiw=;
+        b=OGrvcbFbnYdVdOx82uWgj5DcTcLuONp58GHgIzDuWYAiVUu8pTYWq4LNbWNkgK83OK
+         Qd7814deOKVRZfW87nKOfLS6b2pPd0+GzXm31GLW9lZYArW+vGTEbu4M6Bioj5F1zSJL
+         dnLS761ACK2QWVGhWbfl31oBoBCB48LRP54IGpqc0JaZdjZpf7ckFAwgb2F0aslBJLk/
+         x4wRpMJuQd+KczT0CHPMLVSLeQMe//jsVsjVcSeDMBmKwtTJm2kyRp5wvIpWwvCRE9Yf
+         i31ABl7p/iQCQPupM6TSlPw+iGXRwmS8TM602Hdh90ZHCv0cHkbrEZwB3d/gwexJTOJq
+         vHHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789029293; x=1789634093;
+        d=1e100.net; s=20251104; t=1789029295; x=1789634095;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tNvBbi3elEz1nStREMnqxozxYEg4vrtCAI0Kppph1j0=;
-        b=DAzAKGcefUAJw126W3o0MoruQT5/ABtzd89f7/f5bOWjLBaFmT+iXYaTtvZ8I9MNWz
-         gIVkgstqMrsFZjl8DBwEg5vSHMNSrBud7LXlh1xsVx16bIrKGqtRS3YCUYCbnrrQE1LL
-         TBS7tjzFV5EA459NLk9MzO6SX1MWEZIegC32L+q+oS3ru8HHkxlT2Hc6/woXS9/koWgj
-         TyjCdQE+2OQR7xQz0dIiDKsBRa7BWG2naoJ9yBNdKCzDFZImxZNWIcNF9/yPdJYZQbqR
-         U25GlFS9SohZIwQlKZDF9a4vzg9wyvcwEkK8KOWee2L01SmWLAm/FcM+g1Pdr8O+dS9X
-         kOJw==
-X-Forwarded-Encrypted: i=1; AKwUvByIJxfwev+bYKrubOFZMWayZ6GTUdQ8zBCIvzqbAh5dn0/M/4xCC9CvUTF97z6EesFxuansLG09P42qrMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkw3R1iPswyG/hcRqhpcugRvOlkEeZiX71suXx871SbEDqwJAu
-	GTnT6lCcvGUEF3LPtNq2+hov3B19P9XFs4S4DGURQYyueaGt4BITh4wDD0/zXo9Dh7ZFGni3/c5
-	FIQsiYolB5eGKV8WBOwgrPEOFralifDqMSLrPX0OK/l1ZhJQnnRsDcxa6EcwEmE3xeawoe60SVQ
-	==
-X-Gm-Gg: AYBFou0cCozqLHeS4iDW11OyGVKEzYn3yehbzD/WyxCQ6WVbEMNfQPFlBQyv5+920ze
-	1tZEjnxxFfaQ2sjOhi+BeDXZTklxjeReoBKTh9GQThMPvkXRRe1PSdwoJyeExNj06aJlm9DcnL0
-	A09sw1b7RmqCp8fiQZV0sZxFjeUCzW3PHAsiX8qyxMvA/+txjsIKdXJhSUViLy5nwayYayyOWTF
-	2fp1jOM9L/Ib46wfZAlLTPuu0OL2PjJXVkjXTNwW7SlsskLjJbDIkp2/Jz5qyS716CmBGCAV8Mh
-	ASMBUkZD4GkNMYVWLUdfpPCy1diAFI7U6eHI2QOfmTf8CATyKZQeYhajCi2v4NngYzSGQwo7X9/
-	1kdgcCW+qmLLPbv9TOFgjZ8SAsVUd/scYRc2vQqL42si61LLozb0uOgYvUpc2J+0L8yZtlXGq9Q
-	==
-X-Received: by 2002:a05:600c:34c2:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49d10d6fdeemr237638985e9.1.1789029292748;
-        Thu, 10 Sep 2026 01:34:52 -0700 (PDT)
-X-Received: by 2002:a05:600c:34c2:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49d10d6fdeemr237638595e9.1.1789029292375;
-        Thu, 10 Sep 2026 01:34:52 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm256356735e9.4.2026.09.10.01.34.50
+        bh=ZDtD7s+88cPFkDJa10PZ92cfoS/KlLMFXDnVCuSEkiw=;
+        b=evzD8ZIfwAyMByFiMXn0i36oxprpHRJMaXmgIjsMCOs6KKGQCV0OibYtu9kAx7Ylru
+         sUFfu7UsRnPWBdou30lNJvewakaEEvPzDUuZ8XKhBCwHF3iKfrALq+bw1Em5Fud4gPtO
+         tydDOIT9Gd9GlglrZnvjrIXzjpCdetFkveZSpzjU8h1IhIF2e7V2jmnXPAKWQowlaGHx
+         5vfJt0YXzxxlvFGTdg5iw0Frz4oX94Rv3lLRPDJ9Mcj5eGoHhmD0RwPXrykRjh9SpY3n
+         amH6Szo1Sinxe8ZDa+h/ihfPo5wmZ/2SKkWxUgz8xvQwqNZpi6ymUde5GaJ/aVayYdRB
+         wQjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSILHnNpyGjTDfkW2fvpZpsA8824Ak5fHGXTzkZAWN0jlxTHFENekrOH2nhxqsgi2aR2jYKjUSQtkmP40=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBfCjzeY0KtkNSm40qDQSwiIbxnoIISK+GuPmjrZb59o8f7y9R
+	H5YzWCNDfz4pH1XDP9LOPzdo+i/3DGL3OYuqnSNIp/ngWvycB3s6yM/cE1GgDChGOozmLMMjKRC
+	M/4WH2jpADkF6bYUkPUYa0gLDgXqsSvCPzESkT8EBbhqznncn+zQbGO69oYkGCLaq1DBJ54EDII
+	s=
+X-Gm-Gg: AYBFou0iFU302SaMGXIXVGNdd6SpITv9oH292y6YsLws6oIbdPHycb8LHDRY3TuYaqS
+	PNn2fmHaE/9B6/Mi8ExQi7ruPgBfxM57lEVuzvKNaQGAb49ruWC28JPcWL9D/gJsjur81rqMjcp
+	Jl1I7JDEhTT10T+/69Lj6qItPA4qurn5Aq4354XMeRvW7Aa+4cXDNUQj8XYhEaPc9yRilRv2V04
+	whgtbQBLO4c7R3yIqFnPiK5hsq/yY6o0b+JUBj5K3lp9jTtQELVeuyByY1KkB0RGITfoSv3EIe1
+	+BCiSL4+oQVpLTIGKcSKjbYrZGm41W1bL0SMoxOfwdrryNbvx42NWCqNODtJTal7qC/8RBVociJ
+	jLrTE/T0PPdcf1sbaZ8dtCqnh+VeX8xU=
+X-Received: by 2002:a05:6a21:6e8d:b0:3d3:af44:ee12 with SMTP id adf61e73a8af0-3dacbf4c52bmr12033307637.27.1789029294868;
+        Thu, 10 Sep 2026 01:34:54 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6e8d:b0:3d3:af44:ee12 with SMTP id adf61e73a8af0-3dacbf4c52bmr12033198637.27.1789029294111;
+        Thu, 10 Sep 2026 01:34:54 -0700 (PDT)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-339770f0489sm20481499eec.8.2026.09.10.01.34.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 01:34:51 -0700 (PDT)
-Message-ID: <5d4ad86d-9c30-4fc7-8f4a-0ee1ce6df62d@redhat.com>
-Date: Thu, 10 Sep 2026 10:34:50 +0200
+        Thu, 10 Sep 2026 01:34:53 -0700 (PDT)
+Message-ID: <f39b118b-b100-4063-bc4c-ded1f9ce0233@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 14:04:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,43 +90,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] octeontx2-pf: Fix autoneg reporting in ethtool
-To: nshettyj@marvell.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Hariprasad Kelam <hkelam@marvell.com>,
- Sunil Goutham <sgoutham@marvell.com>, Geetha sowjanya <gakula@marvell.com>,
- Ratheesh Kannoth <rkannoth@marvell.com>,
- Subbaraya Sundeep <sbhatta@marvell.com>,
- Bharat Bhushan <bbhushan2@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Christina Jacob <cjacob@marvell.com>,
- Jesse Brandeburg <jbrandeb@kernel.org>
-References: <20260903161117.2856633-1-nshettyj@marvell.com>
+Subject: Re: [PATCH 2/2] firmware: tpm: Introduce tpm-qcom driver
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+        Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+        linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
+References: <20260831-tpm_qcom_driver-v1-0-6f16fa6924fa@oss.qualcomm.com>
+ <20260831-tpm_qcom_driver-v1-2-6f16fa6924fa@oss.qualcomm.com>
+ <apbXKZrjFdK1vrny@kernel.org>
+ <38984608-4b5c-4355-ad85-8c5a1fb78cb2@oss.qualcomm.com>
+ <aqGDL2qZ0sZNMG0f@kernel.org>
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260903161117.2856633-1-nshettyj@marvell.com>
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <aqGDL2qZ0sZNMG0f@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=bMqDs/+Z c=1 sm=1 tr=0 ts=6aa26baf cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pUs6DziAekBCN6WXSR0A:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: XoMWvCGsjGHV1t8K8vMZ5WNwb75g6dsW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA5NSBTYWx0ZWRfX/M3bJuiUu7pO
+ kYBHadddEqaSXL2gAu4pbYRgPO38V7TswTu//v1JoSZYJuSHiYBShBXg0MXMcbTJEDFzXXSYQPG
+ osj6Hhl7//DszeBSdboLIf6RFybAtT37lihsatOB9ZoCm4svdYR7mIX6+KUNivDH03X6+k4Pdeh
+ qLCdvtUMGZJ4K24KZDfdgXE3uVkxpmkNHFUxu9sg8WAtyCqWE3WfX31ajqNfX6m33UmGmDM77u+
+ kp/IHYFM0sx45i/70x3W43IMjmiP5MxRl0hRXTaS/ISiZj/3IYZ1CmxM5GKyZNezSqp5QBk8AN8
+ DuwjD626WBddCdNH5uorxiJitWo4Tvbr3XY5tyAzZouQRu0V+YpWQybH2iaBO51K779Z5wIx/na
+ mAHvpWpl98HIKoq7k7msFSwNFtpqLFi8svisBh4KJ2/v0SQzV6oXGnnwYH5WDcKwebcRf9EGF1O
+ NhiGz3mgW3nnjMhh1FA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA5NSBTYWx0ZWRfX+UyrPSm33gZY
+ BYB12bjNBvHbihegNvkpTyl2egLbzX4AoA46rHPROj5Dotbdypt6H0d4S7qhRn8v7nbI78On9a8
+ B1gOe/5+c8F18PAgcVrm8YwW3obiPEU=
+X-Proofpoint-ORIG-GUID: XoMWvCGsjGHV1t8K8vMZ5WNwb75g6dsW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 adultscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100095
 
-On 9/3/26 6:11 PM, nshettyj@marvell.com wrote:
-> From: Hariprasad Kelam <hkelam@marvell.com>
+On 09-09-2026 21:32, Jarkko Sakkinen wrote:
+> On Wed, Sep 02, 2026 at 02:52:17PM +0530, Kuldeep Singh wrote:
+>> On 01-09-2026 19:16, Jarkko Sakkinen wrote:
+>>> Short summary has a different driver name that is implemented i.e.,
+>>> it should has "tpm_qcom", not "tpm-qcom".
+>>
+>> True, let me make more generic like "Introduce Qualcomm TPM driver"
+>> instead of having driver filename in commit title for any confusion.
+>>
+>>>>  MAINTAINERS                 |   7 +
+>>>>  drivers/char/tpm/Kconfig    |   9 ++
+>>>>  drivers/char/tpm/Makefile   |   1 +
+>>>>  drivers/char/tpm/tpm_qcom.c | 371 ++++++++++++++++++++++++++++++++++++++++++++
+>>>>  drivers/char/tpm/tpm_qcom.h |  82 ++++++++++
+>>>
+>>> Rename it as tpm_qcom_tee just to be aligned on how Microsoft's fTPM
+>>> driver is named.
+>>
+>> I'd say firstly microsoft ftpm driver should be renamed.
+>> For example, MS ftpm is based on optee(session based context) whereas
+>> Qcom tpm driver is based on qcomtee(part of same TEE subsystem but uses
+>> completely different mink-ipc based sharing mechanism).
+>> So, it's completely different driver compared to MS.
+>>
+>> My suggestions:
+>>  - Rename MS driver i.e tpm_ftpm_tee.c -> tpm_microsoft.c
+>>  - Rename Qcom driver i.e tpm_qcom.c -> tpm_qcom.c
 > 
-> The driver adds the supported autoneg bit before copying the supported
-> link modes. The copy clears the bit, so ethtool does not report
-> supported autoneg correctly.
-> 
-> Add the supported autoneg bit after copying the supported link modes.
-> Also add the advertised autoneg bit when firmware reports it.
-> 
-> Fixes: 1a50280c25ec ("octeontx2-pf: ethtool physical link status")
-> Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
-> Signed-off-by: Hariprasad Kelam <hkelam@marvell.com>
-The SoB chain looks wrong, likely Hariprasad' SoB should come first.
+> This goes for argument using tpm_qcom.c but we don't rename ko's in
+> normal circumstances (unfortunately so).
 
-Please have a look at commit c82ff94592fb68f529afe63ca7f5ddb7dae4ba83:
-you are expected to reply to the LLM comments.
+Sure, we can keep tpm_qcom.c then and don't update tpm_ftpm_tee.c
+I hope I understand you correctly.
 
-FTR lacking the H/W specific knowledge on your NIC, all the comments
-looked valid to me, I'm setting your patches to changes requested.
+Kindly check v2 posted after addressing comments for latest.
+https://lore.kernel.org/lkml/20260907-tpm_qcom_driver-v2-0-71a6b1752da8@oss.qualcomm.com/
 
-/P
+-- 
+Regards
+Kuldeep
 
