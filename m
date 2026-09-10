@@ -1,104 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9098328B7F;
-	Thu, 10 Sep 2026 07:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BAF33D4E4
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024017; cv=none; b=Su+ICR9EicmL62Ow6kUFGGFSBkoln1xOWzmfQ56BPE87GeXMoS4UxquXszuFvzUfzYlGVD+3C+aa7xn1X1Wk8bRJS9WopIsmpJTIljE77UsxAGCWJeK/4s493j7O6ewrhYSwSsYiOuwDwA4gN3bh1FOyqk5ZJ1WI1INQxMd00zI=
+	t=1789024066; cv=none; b=LtRT/j3Ya13hLWFDIGG8J4SKgXyPdAhv0fc8Tbb2GMdutGGQh3cNxfxHxLcgde+7VdT7RL1uRXy6Gzo+jTIO1q0zCSdj16hG5y2AgVwOyj9z32s7Hn2rX02F8zjjb5f0mJ4aIug3oteiOrL+QKgakW+VJLX8kpJWGTdbpKmdPVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024017; c=relaxed/simple;
-	bh=4s4UqO1fBxQv9AyWmVnt50A582KPLonm1IFwa5Ve7Cg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/fiKx/k9inYnm5Rz7GOhBF2l5CvAm+V7CJwzHtPso7IdG4JIqYs5A8SmdAe6xln3NCXVUIfysi0fgWr8PWIai9uKnUiAU1NZyoknTjheXRUtq5Bm7wTcLK8vOjp3Qtv1ZR5Na4DUOZBsFj6RevDS7YYS5MeUSX+NL739G/giLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FOJSsZwj; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789024066; c=relaxed/simple;
+	bh=7TGmcQ0ut3jQv55/l3p0mRfZ3tCXRLFJyZ/GoBCAVyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iM0SQvQuozwk7kIR8qLEC68cHVha65lx+9q830Hg+dKmD/spRdAfxSfc4dOekXlfC0AO3dFwaC3b6xXmOAML/dEkJ5uTHPSLJM19QgALbVGo/ShUJ2iLReuj6aUi1N3rrCIg3AR4jz+z43crCqe3BTtIxS7UZCtMGmrBJeHfRu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtNe3wmN; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FOJSsZwj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789024015; x=1820560015;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4s4UqO1fBxQv9AyWmVnt50A582KPLonm1IFwa5Ve7Cg=;
-  b=FOJSsZwjPdeX5OI+58r4VrcV+Axu5cM/KvLiWGgpnvqw45DYaZEXRm1C
-   BWkoRSgOR9YP6l5II/IFFTjvTueC8l41SELwGfNdKGBK1JVJAesbvqZvE
-   v61c+8x1smhLM9spqhS/Atwr8+9WnQmwJidyid6g2ye6TpQ3worQL/wVI
-   VJ9+qDMflA4dVErPkHtCrYm/TuVXts4RFraNmQX2BLugWs2OSIOJ+T96W
-   tWWjw2PAyE8umOOVoMit1tH+S9jbsXk83KGwV8rSodwTr51BiMezUC82T
-   ZiEdfdXwCyaj6xs2XHCWejAjPh1r0ItmPgP35wL8sxDBZj9iU3lL3ijx1
-   Q==;
-X-CSE-ConnectionGUID: UV60inUkT9C8ODJ+G5gemQ==
-X-CSE-MsgGUID: 4uTC2wNQRBucRt4/gl6+pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="91981881"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="91981881"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:06:52 -0700
-X-CSE-ConnectionGUID: eIP53DZdRTiOObWLcz/VUQ==
-X-CSE-MsgGUID: sOokH2uqSU2NMn7ZwSLm5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="301444430"
-Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.189])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 00:06:48 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 43D83121BCD;
-	Thu, 10 Sep 2026 10:06:51 +0300 (EEST)
-Date: Thu, 10 Sep 2026 10:06:51 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "Su, Jimmy" <jimmy.su@intel.com>
-Cc: "Zhang, Qingwu" <qingwu.zhang@intel.com>,
-	Pierre Pinon <pierre@pinon1.fr>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Vadillo, Miguel" <miguel.vadillo@intel.com>,
-	"Yeh, Serin" <serin.yeh@intel.com>
-Subject: Re: [PATCH 2/2] media: i2c: ov08x40: Do not expose the broken
- 1928x1088 binned mode
-Message-ID: <aqJXC9SbhJCz2KFJ@kekkonen.localdomain>
-References: <20260904134604.595685-1-pierre@pinon1.fr>
- <ap_YYNDTG7Va4MD8@kekkonen.localdomain>
- <PH3PPF7708D4D9D95D62B6929DEB21637B888B02@PH3PPF7708D4D9D.namprd11.prod.outlook.com>
- <DM4SPRMB0091FCB6C62990275CABC68F9DBF2@DM4SPRMB0091.namprd11.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtNe3wmN"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48441fa5c37so4761167f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:07:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789024061; x=1789628861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3B+mk67NOh14yB8lu79Jka4GJUJbwG6mwKbpmyJ82rg=;
+        b=KtNe3wmN3dphauQGw6bTwU6OfYofoixT2zuTabC6+aHghgOZvlKJn1hRieE6REu1/q
+         bKmA9GDmmChky3wBLv+be/e/YchqTjFLTOhAOYb6pIqQQKqZQff8u8e8cH5A9wCLdFg7
+         QehRIYJiN5ylzL/wT6QSsXQMXOWAR3SNQ0snsJfb1uaoiHJrN6YWpEyiRl/t84dhZbEC
+         ENDIYJPoWBjeeQ6dcM//+MqxITSE+I4aNjjsKgJ94aAD/OmxsDPh0KmlmYQxwm6qlJef
+         rGaqEexVjkaN4R53mYjWWQfE3YkseFfqzmCK5+1vGRBx6xE0ynGo8MG2eMooGsM6kUMq
+         WDfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789024061; x=1789628861;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3B+mk67NOh14yB8lu79Jka4GJUJbwG6mwKbpmyJ82rg=;
+        b=Z7dmjOfepByLtsXNrCJyBRMNhIuHeehYseeZbR8qdr84qLo2gP7BMncqUlIhTrac3v
+         kOIHOF8uLV4mByj2fb2rR7lmCJYsNLcejKAW6K9hWHYIP/ziUQ/d/omYJzj8qSTRj2mL
+         AjNSHGAfEbrqpfQThep2ICItmUKvBEs9/ZpgPr+VB4Rhq9r7sXDUvKmcJGAOh8VlRIpe
+         9GlxVlV56ppfzCNWv/kJJ9EYHHmR/VoHE8/M4AqaVzuu3/smKHmAbxfWUWJx7+a9IAXO
+         M7AonPeLCOVZXSLmUn6M1aMjrt6/WwjjwWdOUfGEBSTJsQSlJIzGTDGBwqnsbkDktZh7
+         Hxdg==
+X-Forwarded-Encrypted: i=1; AKwUvBzuW93UVhUjQf+t+ELpRVp+oZzRhN8gKwLCZYlv+YjAVD48N6AE7BcSO07yHcWRfK39An9VZqg0JlOLyqY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFaPccGxPpM8+DvOG4+Uxv24PRAM40HxCk+BINNyO4mVflygrF
+	b7fOm0++OvXKYMNA78oCGS90dJUJl1MhyZ3nm5UiTt6j3O0MhhB5XNFU
+X-Gm-Gg: AYBFou0izv5kgZ7RI0MLqxSqaOj/VI+1kXmZVnJ5hEgFvDgiY/J4rtDxxGVwGs0mHz7
+	jePYiE60u060ndMfMjzoGUtK18Aws6P/DlRcwLOfJyi/JMFd00xGjDZxXP0P5cvvc1gH0l7vuu3
+	kLJz1cl/OK6wPFxwTn+kMYVMCjD3nCfYwou847m5UpWxDW7pk7UgaZ0utpg0h0Q1s64zgSspD63
+	b5ezwQoS5l0WQjcphst4gJmIANJMsv2ne6wvyTAXIpq8GwEAspNGBkk+3HxXCj5eI/eAc3f7Zr2
+	dnBAyKrdYlnvLX2gT2F6pNY3Wa+WsnCP8WQi8jZeC8UsmVo9GtYbd27vAEgRaCf15DbtKshVJm6
+	F+YAZcELGscSfUiKMmiNcVUDgCSNnwv3diFuvbstzA8VCKel58NcRv7/T6gsP9PggGKvP425oLr
+	xTmtTT8U8Z2zs/souA7BhOGOIPyBVEvC7ZThPYivMyRVw7iyGKq7PLIkWCt9hzauOp5bnIzVFoj
+	Qs=
+X-Received: by 2002:a05:6000:4703:b0:485:93c5:856e with SMTP id ffacd0b85a97d-48593c58629mr30970075f8f.9.1789024061125;
+        Thu, 10 Sep 2026 00:07:41 -0700 (PDT)
+Received: from Empers0n ([193.23.219.104])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm52244311f8f.10.2026.09.10.00.07.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 00:07:40 -0700 (PDT)
+From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Henrik Rydberg <rydberg@bitmath.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+Subject: [PATCH 0/2] Input: add Synaptics TouchComm I2C touchscreen driver and bindings
+Date: Thu, 10 Sep 2026 14:07:21 +0700
+Message-ID: <20260910070723.347768-1-sevanevorotov29@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM4SPRMB0091FCB6C62990275CABC68F9DBF2@DM4SPRMB0091.namprd11.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Jimmy,
+This series adds devicetree schema bindings and an input touchscreen
+driver for Synaptics TouchComm (TCM) generation-1 touchscreen controllers
+connected over I2C, such as the Synaptics S3908 found in the OnePlus 9RT.
 
-On Thu, Sep 10, 2026 at 06:28:59AM +0000, Su, Jimmy wrote:
-> Hi Sakari, 
-> As I know, one of Chrome MTL project is using ov08x40 sensor. 
-> It supports "3856x2416@4 lanes linear mode" & "1928x1208@ 4 lanes linear mode".
-> 
-> Then Linux projects support 3856x2176@ 4 lanes & 2 lanes linear mode.   
-> BTW, Some Linux projects have CV solution. 
-> From one CV vendor's feedback, 1928x1088 resolution only supports sHDR mode. 
+The S3908 and compatible generation-1 controllers boot autonomously into
+application mode directly out of their embedded flash memory. The driver
+implements communication using the Synaptics TouchComm packet protocol,
+retrieving device identify information and handling reports through a
+threaded interrupt handler.
 
-But this CVS device still works in non-binned mode. Are the exact
-limitations known? Is this CVS device used in other systems?
+Features supported:
+ - Multi-touch reporting using the input_mt framework (Protocol B)
+ - Dynamic touch report layouts and coordinate/pressure decoding
+ - Standard touchscreen properties (axis swapping/inversion)
+ - Low-power wakeup gestures (double-tap to wake)
+ - System suspend / resume with deep sleep transition
+ - Regulator and reset GPIO lifecycle management
 
-Staggered HDR isn't supported in upstream in any case.
+Vsevolod Nevorotov (2):
+  dt-bindings: input: touchscreen: add Synaptics S3908 controller
+  Input: synaptics_tcm_i2c - add Synaptics TouchComm I2C touchscreen
+    driver
 
-> But our sensor driver only supports 1928x1088@linear mode. 
-> It could have unexpected issue while this device has CVS board. 
-
-One way to address this would be to set the minimum image size to some
-larger, known to work size, for that CVS device in the CVS driver. This may
-require changes on libcamera side, too, but that's a separate issue.
+ .../input/touchscreen/syna,s3908.yaml         |   69 ++
+ MAINTAINERS                                   |    7 +
+ drivers/input/touchscreen/Kconfig             |   15 +
+ drivers/input/touchscreen/Makefile            |    1 +
+ drivers/input/touchscreen/synaptics_tcm_i2c.c | 1033 +++++++++++++++++
+ 5 files changed, 1125 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
+ create mode 100644 drivers/input/touchscreen/synaptics_tcm_i2c.c
 
 -- 
-Kind regards,
+2.55.0
 
-Sakari Ailus
