@@ -1,33 +1,67 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AD513D3CED;
-	Thu, 10 Sep 2026 10:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9493D88F0
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036080; cv=none; b=Qpp/LNKwPAGHr1j4lBvWtIPNXOIX/AjBdHZfGonFbtZNuqr1MFhW+ZCXQ/jbarXZr5ginIXYe1FjlHroZn2d7ReMTJOK9woAaoRExtSqNjJekyMJhKhRevx2z5QopXnMCMtnnwvhuk+pdNmMTcydThhtUP1O9/mjlWQnd3X2aEI=
+	t=1789036109; cv=none; b=SGuBe/mBEDLF+vEbO46bL/AO0x97PMb3zpwo5lh2OeWZk8XDSPw6CQLyAHc68GnoTs8WCxk915LyaaOHguAaB0HZGI5/O/RbNEmRTud4V8N3IA3KIF5QCWzgcZ+NFgcM3tqtminPEIR5FwMShe3ffJxRMF284uboCaS5BDnqzmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036080; c=relaxed/simple;
-	bh=aWQt/+Tvo/ggfRTd82k5+d6xlXw8sI7UgTyynHOeLvI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HsjgUsh+IvACOco7ge83wrpyPh1AmVPbCHZjMHOn/LJFfDSZNi80Iy8O7hggkuGynibbGIGKBkIXtxaUs7Fh1HnRMDW18B2jjLIlzccSRK4H9n8bXXJB/CMmy90UGnxGt+/ZCbAMcDjQ3eQbiVx3HHqyLhIFB6xpsdu38HSD/Rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KYlafta4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789036109; c=relaxed/simple;
+	bh=Kwg0jRhI4AL52qrVXNsJrV+EGSUWuM2aS1H343i+kdU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gsW4hGxISetvzXSHyYy+fBSpK7DeQCQy2SkwPT7Q2v9y4GsH1KDAGCqaMAFVyT9vttN6ByNaa7lz1HhRZcgPmP5BIKeX2w1iDVCT96z2Zz/pQZS/e7ohgMLU55YKaAzjGIXS0rwXFjNPWLeu1DI3T4uaXxSfLaxOtNN3u/DZoGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvnI50Zk; arc=none smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KYlafta4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C4E8D143D;
-	Thu, 10 Sep 2026 03:27:54 -0700 (PDT)
-Received: from [10.0.129.245] (unknown [10.0.129.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7E7D23F7B4;
-	Thu, 10 Sep 2026 03:27:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789036078; bh=aWQt/+Tvo/ggfRTd82k5+d6xlXw8sI7UgTyynHOeLvI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KYlafta4EkjMZWOAfvdk24/OlQIy6uIrL0Nvg71duaejrS5Ng65DY7mkcYqZLh0um
-	 5Im0f/4WGHfB13DFvJ55+kmxVIWDjNT3YvQ4WS4QtFD4gpq3nRSLPdfuh5Aai2eUDj
-	 Sizaon0gsCgqril8nrlevqCxDdy7//RcewiBGgl4=
-Message-ID: <d22c863b-ea81-472c-b2a9-28f99e5b6f92@arm.com>
-Date: Thu, 10 Sep 2026 11:27:54 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvnI50Zk"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b7a9882e19so1667276e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789036105; x=1789640905; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hNjN2MCvI+l2IUk5fOZ8Pe9I5UOq5joh0GqvRN5Xis0=;
+        b=qvnI50Zkt0pjkEU9aF59fBFZaTUOS/S5SQFkLcwooks1q4XdfJuohsRh7RZipHN3j0
+         26aAbc6CDsHj5BjzjgQi8g0I+ocUvUMN58/qS32/1L316/Nyug4cpwZURpXw1UL7ryYt
+         JUBso1tUNgC0gcVQPhQ4Hg23LZZSn/HoSWu/xfkGUfzBt9l2yjT5bmmyyS9+M7rOg5HB
+         QSFcND0NMJxGO12nL1Aj3ZKJrx86MFLVP8Yko+/qJ8QV2FS2z8iPn56YpPG//rJKmOYP
+         I69VTegKVQKfD+tnfO0MtO36Yee4HSbNAljHv8hYKgIpjIzWeHjBN+QpLVifzrmMuLV7
+         Hr8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789036105; x=1789640905;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hNjN2MCvI+l2IUk5fOZ8Pe9I5UOq5joh0GqvRN5Xis0=;
+        b=rM6bu50wsBKKrbGjwXHaAyRDlL/xyqwNJ/o6HrjuQJe132MxliEtcL3vhExmCpzNLV
+         CJoVUVl8l9wNOjiUGYuNV2dAp1KJ3oQthYT1SYfFwWDm3zrdtTLCaSzuV3+S3mjI+cLl
+         UqvoR/uNSc5rsO/vIcsco+ytvp1lMgkSw9m68ttE3yLX04ZvJECC5+HZDAj5cIHCzAcz
+         9ngzkty14fHLFim/76q/G+osYlfQ8aRhmNw0gogTKG+ACVrOILXJOjDCZ2Nl6yjv9VT8
+         m6hiPeCCAGmgWInASjnWYydCymRd/3nTl3PaYZghI8K3dmK7zn+EKCyTHX1nTtZOOt2A
+         lMrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrsHM2v5tPa8jxzRV+5OhqT4K6+cwO+h9DO1pL0IsmpoTbgabCfFr5xQVifH7eKIjaOzsjuOWXXHXc1l4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDgEP0PvA1oDL81AW6KmZ3KLVv1Xgo+lMMFA6g4KGmYnZHmGJi
+	F00aKeUiIbrwRyDGUjPqFZul5mI0mv8q5+/FeyFvePm5IZuVJ5jw34rfMcIQDezL
+X-Gm-Gg: AYBFou3/p3S0osBEEH+AU09LKe9s1Ui9xml60MEO5Th9o5G7ES5rblLMVFRTVZ2lWSx
+	P0J0zsyFwYwlUbeu+ysn690WbVI98OKpxZmW6TgqgyeIhY4s5Wa8XL1wtpZ7Nfh1x9rtlKWwkz4
+	MDqI0AWQtjp/ssuBCywMsi8xYDkfjc5GPFVjk5OL5DYhyt/TnsFNIrUfkK5gDB59R2u1EbXMx0u
+	IWU++TkMKuTasZ+7dVkEOiTswQmAuJ2+RMXoPjsxI437h5pm/Fv3vG/kRGqn05wtwO/Q5Da+Eyz
+	bfnZ7OsiRYa7+GU7Y3zzn8E5daubEShWdZxX2mAdSEcU9dSe3Q6ho62y/tv3lk7tVb1Rf+vcmW1
+	yr/RJXW+kI+rKw9Ux5bEQ87wKigd+n8YnXPMcGfzklj2aUx/g8dxtFq18U6u4gW+d1qTEMzeIgS
+	squIaaP1lRxefIaPEpjx3dMQH50RZHovtnFaVaPpmh/9aA//TjT925VTwwRqTgekrJetv9P/KWj
+	zWjlXQtB4OUseD71tFxIbl+tVIAxnSKGt0yGkHMiybPTCPt/409Lz8=
+X-Received: by 2002:a05:6512:3daa:b0:5b7:b242:52 with SMTP id 2adb3069b0e04-5b7b24201e7mr1755659e87.46.1789036104567;
+        Thu, 10 Sep 2026 03:28:24 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166fe6cbsm4355052e87.49.2026.09.10.03.28.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 03:28:23 -0700 (PDT)
+Message-ID: <af4854a4-d626-4896-af62-312b49b94f71@gmail.com>
+Date: Thu, 10 Sep 2026 13:28:23 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,128 +69,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 10/20] KVM: arm64: coco: Disable Steal time accounting
- for coco guests
-Content-Language: en-GB
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
- gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
- alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
- lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <20260908162223.1683432-11-suzuki.poulose@arm.com>
- <CA+EHjTw9ReyvsNT=y+-P6ng7VQ6Pvz9PFK9bO71qvTR1pOxx5Q@mail.gmail.com>
- <6152fc41-65f0-460f-90b4-1454c11bcba6@arm.com>
- <CA+EHjTxjk1JLR7Tf5LEfB_xypbUWnw3G3H-FT7bTE=nWTTRgAA@mail.gmail.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <CA+EHjTxjk1JLR7Tf5LEfB_xypbUWnw3G3H-FT7bTE=nWTTRgAA@mail.gmail.com>
+Subject: Re: [PATCH] rtc: bd70528: properly enable wakeup
+To: Andreas Kemnade <andreas@kemnade.info>, alexandre.belloni@bootlin.com,
+ linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910092558.1008998-1-andreas@kemnade.info>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260910092558.1008998-1-andreas@kemnade.info>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Fuad
-
-On 09/09/2026 13:23, Fuad Tabba wrote:
-> Hi Suzuki,
+On 10/09/2026 12:25, Andreas Kemnade wrote:
+> Wakeup on RTC alarm now only accidentially works when wakeup for the power
+> button connected to the same PMIC is also enabled. Fix that by properly
+> specifying the wakeup irq.
 > 
-> On Wed, 9 Sept 2026 at 12:52, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> ...
+> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+
+Thanks!
+
+By the way, I am not 100% sure all of the PMICs using this driver even 
+have a power button input. I suspect some doesn't (maybe bd71815). I 
+wouldn't be against Fixes -tag :)
+
+> ---
+>   drivers/rtc/rtc-bd70528.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
->>> I think it would be better to leave KVM_CAP_STEAL_TIME reported and
->>> instead reject the configuration for these VMs, returning -EPERM from
->>> the KVM_ARM_VCPU_PVTIME_CTRL attr. A capability query should report
->>> what the kernel supports, not whether a given VM may use it; gating it
->>> per-VM here is also inconsistent, since the !kvm clause leaves the
->>> system-fd cap at 1 while the VM-fd cap reads 0. And -EPERM says that
->>
->>
->> But isn't that we want from a VMM perspective ? i.e., enable PVTIME if
->> it is supported for the given VM (type). Rather than PVTIME is supported
->> by the KVM, so I can go enable it by default. But, we endup getting a
->> failure while we enable it. I encountered this with kvmtool, where
->> CAP_STEAL_TIME is reported true and even the HAS_DEVICE_ATTR goes
->> through fine, but SET_DEVICE_ATTR seemed to fail.
->>
->> Isn't it better to allow the VM to decide if the capability is supported
->> for the given VM type, like we are doing for other capabilities ?
-> 
-> You're right, per-VM capability reporting. My wires got crossed from
-> the pKVM series and the kvmtool fixes. However, I'd still return
-> -EPERM rather than -ENXIO from the attribute. The capability exists,
+> diff --git a/drivers/rtc/rtc-bd70528.c b/drivers/rtc/rtc-bd70528.c
+> index 482810b61495d..dc86882562abd 100644
+> --- a/drivers/rtc/rtc-bd70528.c
+> +++ b/drivers/rtc/rtc-bd70528.c
+> @@ -11,6 +11,7 @@
+>   #include <linux/module.h>
+>   #include <linux/of.h>
+>   #include <linux/platform_device.h>
+> +#include <linux/pm_wakeirq.h>
+>   #include <linux/regmap.h>
+>   #include <linux/rtc.h>
+>   
+> @@ -320,6 +321,7 @@ static int bd70528_probe(struct platform_device *pdev)
+>   
+>   	device_set_wakeup_capable(&pdev->dev, true);
+>   	device_wakeup_enable(&pdev->dev);
+> +	devm_pm_set_wake_irq(&pdev->dev, irq);
+>   
+>   	rtc = devm_rtc_allocate_device(&pdev->dev);
+>   	if (IS_ERR(rtc)) {
 
-Just to make sure I understand the picture:
 
-For coco VMs:
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
-  - check extension on coco KVM, KVM_CAP_STEAL_TIME => 0
-
-And a follow up DEVICE_HAS_ATTR => -EPERM ?
-
-But we tell the VMM, look you don't have the capabilit on this VM.
-But if you try to set the attribute isn't it more appropriate to
-say:
-  -ENXIO - No you don't have that feature on this VM (-ENXIO)
-rather than
-  -EPERM - No, I won't let you do that.
-
-Remember we are doing only in the "VM" context. It is a minor nit
-but I wanted to make sure we understand what we are thinking.
-
-Cheers
-Suzuki
-
-> it's just not permitted for a confidential VM, and -EPERM says exactly
-> that, whereas -ENXIO reads as "no such feature".
-> 
-> Cheers,
-> /fuad
-> 
->>
->>> steal-time exists but isn't permitted for a confidential VM, whereas
->>> -ENXIO reads as "no such feature".
->>
->> Cheers
->> Suzuki
->>
->>
->>>
->>> Cheers,
->>> /fuad
->>>
->>>>
->>>>    int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
->>>> @@ -81,7 +81,7 @@ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
->>>>           int ret = 0;
->>>>           int idx;
->>>>
->>>> -       if (!kvm_arm_pvtime_supported() ||
->>>> +       if (!kvm_arm_pvtime_supported(kvm) ||
->>>>               attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
->>>>                   return -ENXIO;
->>>>
->>>> @@ -110,7 +110,7 @@ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
->>>>           u64 __user *user = (u64 __user *)attr->addr;
->>>>           u64 ipa;
->>>>
->>>> -       if (!kvm_arm_pvtime_supported() ||
->>>> +       if (!kvm_arm_pvtime_supported(vcpu->kvm) ||
->>>>               attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
->>>>                   return -ENXIO;
->>>>
->>>> @@ -126,7 +126,7 @@ int kvm_arm_pvtime_has_attr(struct kvm_vcpu *vcpu,
->>>>    {
->>>>           switch (attr->attr) {
->>>>           case KVM_ARM_VCPU_PVTIME_IPA:
->>>> -               if (kvm_arm_pvtime_supported())
->>>> +               if (kvm_arm_pvtime_supported(vcpu->kvm))
->>>>                           return 0;
->>>>           }
->>>>           return -ENXIO;
->>>> --
->>>> 2.43.0
->>>>
->>
-
+~~ When things go utterly wrong vim users can always type :help! ~~
