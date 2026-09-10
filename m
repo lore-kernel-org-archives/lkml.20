@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F183B3D667D;
-	Thu, 10 Sep 2026 10:05:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD963955CA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034743; cv=none; b=H01EL34jnHAu9GAYL70WcKc1BQmvhjOi3PrR9hcJr+TEB7Y0/lK5HyWQhmmmJuHm2Sbn40Ugp4+S3YUNAMJbfbpdqJM5iV2fsLK/K/h3v5IICKM/Qz2UMRCy/e9HUYNsb6jdeeghdC/dkIQZKtOBGa6YN87qRYThOi/2sxqdO8A=
+	t=1789034791; cv=none; b=K+Tp1vchWUJ+HsK3pM9RKwSmgn0MlWO7/yLydqhzMVTtbclAFS7ZUOSOJj0speA5Uc+Mh4SPHzccNyQMRXBNRXBQYirYRHQYEZGMXxRNZCAR2Q6cJv8eC/7jqReD+BhHU7ptS3qxPl1h0ZGgsAI8DtbzWwsVVnCKhIMbexOTaTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034743; c=relaxed/simple;
-	bh=3z0WN4zi1UJFms75zdwhQXh4Qlgba5XU53bM7EcRgQc=;
+	s=arc-20240116; t=1789034791; c=relaxed/simple;
+	bh=9Wbk2L4Zfg3lZZkX6F7XNpS4Si4ZKuf1DAa5Ud3OYM8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=REgr2EKzHmDrVQ78r0ArI/VNnJ49rwMYyyl45ol6WNh+PJwQefvkK5A4eNY+tuVrOFVGyOJTUyiP1Nda4oPb9o+TYnoqxTVJqonn1a0hmY/QzWb7HZHmlW7SQtI16J4krtTUO91QMyZH28zUfsV9k9zUH5yBBsa957fgjpcIhUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzBHpLL7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=sbto6+PPpeqY1vT4LKMJcX8MS8kL4wrq0UmcRIhdRUNQTK/Ml51lHGE+pds9DJD0vPOk5zpqkbiwl0r6QWN5/BgXRXDoO2O9XcWqI4paCV4Cp2qQZe/Dgh1QqqrxCqz1BoauCg7KiTDCJ53y6p+ejD9B2nrer+SuwSAPYwDaHvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahs5XVOE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzBHpLL7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A3C1F000FF;
-	Thu, 10 Sep 2026 10:05:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahs5XVOE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6EBF1F000FF;
+	Thu, 10 Sep 2026 10:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789034729;
-	bh=foN56LOD6/Sr9Fuua4UGrrARCTUwXc66j3xzHR63FGE=;
+	s=k20260515; t=1789034781;
+	bh=r2R4POrVaFZfBJpe2LHKJm8IR+bpnnr27W/5UBFn18I=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QzBHpLL73o0QRHBq1BtDWHfKhjgH7vYQlOQTmd/7CsBCnteHkCGmQ//nhe1xBe+XC
-	 B+J/EOTATm18+r68ByFk08E1DHO/jGR+rAnUx1rseFVGhpIozwzwFhzDF7sOLJLeQ+
-	 I9XUGlHlf+t7B+P5tn0YTppgcLchcfIELLFXodhjEkX4ufh+VLtkzkBdboHmg+39OE
-	 6g/BYc6mcelHh8Dvj1YRbZL2cncQvh7KDpBKn2qNLUqTx/qsd0Ozx7Dp6POJfFAdiR
-	 tfvp/PiJB/ZsLE17ZTAn6ACIgPYGEels8eKnoLC09LSAs9Q4EgK8NWvE4szHuqmUUQ
-	 HqOFKQ1qoF9QQ==
-Message-ID: <e0120f1a-d53b-46a3-9542-030212250135@kernel.org>
-Date: Thu, 10 Sep 2026 12:05:15 +0200
+	b=ahs5XVOEXP0b8QXCo8p21pDywAa2MZx9irZbCY3Ffn+ZVpxm3+TCFZQAQ+l5cjIAp
+	 DkgSIFEH1yP5SsDZxK2SzKVoTtZ8W9bRF0LRN5xST3+/9/OTsht1kV+c7vZfhiL9dO
+	 r98m4KnvJ1knih6llePAtjuHBJl9ZDFKzSmQIemjuupJKwdSR0xCsCu5Ii1OIa+unT
+	 QfzQDsl0nKnPOGz75Lu37DlDXOBY+MNUkw+d6SmM6K4cdueYlLuBIui/x3nz/dB4vz
+	 yemKwiobHiNyFc629PPq6vS5cxnvc2XGTkC091X//uhhQrp4Rp748m86ZOTNwD6Erc
+	 P+ConinppiWzQ==
+Message-ID: <d2f4e7fd-b077-4150-8b2f-e81435d04408@kernel.org>
+Date: Thu, 10 Sep 2026 12:06:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,38 +35,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/9] KVM: guest_memfd: implement folio migration for
- non-confidential VMs
-To: Shivank Garg <shivankg@amd.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <jackmanb@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Shuah Khan <shuah@kernel.org>, Chao Peng <chao.p.peng@linux.intel.com>,
- Nikunj A Dadhania <nikunj@amd.com>, Michael Roth <michael.roth@amd.com>,
- Pankaj Gupta <pankaj.gupta@amd.com>, Ackerley Tng <ackerleytng@google.com>,
- Sean Christopherson <seanjc@google.com>,
- Vishal Annapurve <vannapurve@google.com>,
- Nikita Kalyazin <nikita.kalyazin@linux.dev>,
- Patrick Roy <patrick.roy@linux.dev>, Pratik Sampat <prsampat@amd.com>,
- Ashish Kalra <Ashish.Kalra@amd.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Peter Shier <pshier@google.com>,
- Jim Mattson <jmattson@google.com>, Ricardo Koller <ricarkol@google.com>,
- Ira Weiny <iweiny@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: linux-fsdevel@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20260805-shivank-gmem-migrate-v3-0-00d8bdec4e1d@amd.com>
- <20260805-shivank-gmem-migrate-v3-3-00d8bdec4e1d@amd.com>
+Subject: Re: [PATCH v3 0/2] mm/memory: improve insert_pages() error handling
+To: Avi Weiss <thnkslprpt@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1788022178.git.thnkslprpt@gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -113,78 +90,30 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260805-shivank-gmem-migrate-v3-3-00d8bdec4e1d@amd.com>
+In-Reply-To: <cover.1788022178.git.thnkslprpt@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/5/26 08:40, Shivank Garg wrote:
-> Implement kvm_gmem_migrate_folio() using filemap_migrate_folio() for
-> non-confidential VMs but don't enable it yet. guest_memfd mappings
-> are still marked unmovable, so MM never calls it.
+On 8/29/26 19:11, Avi Weiss wrote:
+> Improve insert_pages() error handling.
 > 
-> MM invokes ->migrate_folio() callback with folios already locked and
-> acquires the invalidate lock afterwards. kvm_gmem_punch_hole() takes
-> the invalidate lock before locking folios during truncation, so
-> taking invalidate lock in migration callback can cause an ABBA-deadlock
-> situation. Use filemap_invalidate_trylock_shared() to avoid this.
+> The first patch simplifies error handling by initializing the error
+> status to zero and assigning error codes at their respective failure
+> sites.
 > 
-> A subsequent patch adds an opt-in flag to change the mapping to
-> movable and enable migration. Non-confidential VMs can use
-> host-side copy via folio_mc_copy(), whereas confidential VMs will
-> require firmware-assisted copying before they can opt in.
+> The second patch returns -ENOMEM when walk_to_pmd() fails. A NULL
+> return from walk_to_pmd() indicates failure to allocate an upper
+> page-table level, so -ENOMEM is more appropriate than -EFAULT and is
+> consistent with the subsequent pte_alloc() failure.
 > 
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
-> ---
->  virt/kvm/guest_memfd.c | 36 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 34 insertions(+), 2 deletions(-)
+> Changes in v3:
 > 
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 169f75f95433..583341d593c9 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -488,13 +488,45 @@ static struct file_operations kvm_gmem_fops = {
->  	.fallocate	= kvm_gmem_fallocate,
->  };
->  
-> +#ifdef CONFIG_MIGRATION
->  static int kvm_gmem_migrate_folio(struct address_space *mapping,
->  				  struct folio *dst, struct folio *src,
->  				  enum migrate_mode mode)
->  {
-> -	WARN_ON_ONCE(1);
-> -	return -EINVAL;
-> +	struct inode *inode = mapping->host;
-> +	pgoff_t start, end;
-> +	int ret;
-> +
-> +	/*
-> +	 * Migration invokes ->migrate_folio() while holding the folio lock.
-> +	 * Use a non-blocking trylock to avoid inverting the lock order with
-> +	 * truncation, which takes the invalidate lock before locking the
-> +	 * folios.
-> +	 */
-> +	if (!filemap_invalidate_trylock_shared(mapping))
-> +		return -EAGAIN;
-> +
-> +	start = src->index;
-> +	end = start + folio_nr_pages(src);
-> +
-> +	kvm_gmem_invalidate_start(inode, start, end);
-> +
-> +	/*
-> +	 * For non-confidential guests the folio is host-readable, so
-> +	 * filemap_migrate_folio() can copy the contents itself via
-> +	 * folio_mc_copy().
-> +	 * For confidential guests, this would need firmware assistance.
-> +	 */
+> * drop the walk_to_pmd() rename following review
+> * use the mm/memory: prefix consistently across the series
+> * carry review tags from v2
+> * rebase onto current mm-new
 
-I think this is all more closely related to mapping_inaccessible().
-
-If accessible, this is just trivially true that we can support this.
-
-So I would not comment on what to do for confidential VMs for now, and limit it
-only to the shared-only case where pages are accessible.
-
+Double-checked, LGTM.
 -- 
 Cheers,
 
