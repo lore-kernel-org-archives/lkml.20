@@ -1,169 +1,120 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D8B3C9880;
-	Thu, 10 Sep 2026 10:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269363C8717
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035784; cv=none; b=rLDGSpHhyEnCHXwC3UeixtdplnpuCFD7eZjaXQuTKA1FG07YM/lcy1I3xrZiMgHNjEOppUJhTy6jLNVPIzQo7EqM5wvrEuyKJrKgYoCB5rSgCSS6pAPybZKri5YwEzRc26iodUal0f1hWoKtpwZs3L0PRZ4AzrfgcMSUyBeHFgg=
+	t=1789035832; cv=none; b=fLX6TfmnpNlbSHn6DeqfGjOqLULLi5KjOkiczHvgxTJA/PBunoXy37Sp7TdCYew3JnvK58sB6Zq2a8js4HSokM8MJMuQvWH7XIxxlRbMnPdnINaZvC7M0Yo/EnqPHY7rkEohKUu7VNWFS+TkXu2wUSMSedBkklbLGanV3W8KG+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035784; c=relaxed/simple;
-	bh=rVXLyktI7mSIOkIkcRQzt6dAq357+68etA3pY8cy8wE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YRD+15B+5idLC/c5/iyCFJefEHbUvKkkLX4lTxxoBszO52M4SDzlJu8QMryrHtjTI+9KYIaeyfI42Ypw3MaCJduHrtisxJMPua6KY9QDmkPWP7waGbVVwQSlNuJOCFWyXhW/uKA144EffsTIF9acalzWkMa/dyCWKmQUo/YfVgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=l3iuTWrm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=FC0Z9UxO; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oXjWKpGG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=gYcg7YLo; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789035832; c=relaxed/simple;
+	bh=eESLYcWn+SwBCFsdy2YBFXWmSLMh18Tg3jYtJbGyuaU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=SyBq16FmDD7CICXBD9TJtW0Ql2z8+yySZDMlRj2JIJixWAk/tUIXhIHNDcl69VVDvbAUtOeDQ1kChydWoS7CIUdu3fdURoWxmvF4Qytbjtu1ctn5exFFI83z2AAsxicWVxaAnGDFm5A4gnAD1jRI5F3Q0zMVklI5N/JWVt+UM7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EbDQ5r3a; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="l3iuTWrm";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="FC0Z9UxO";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oXjWKpGG";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="gYcg7YLo"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F14231F7C4;
-	Thu, 10 Sep 2026 10:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789035777; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
-	b=l3iuTWrmmY9bMCANceEGo6myn19W/R43VaVu5FQfS7UcrlwgkMc+RiAgVmi4A5tIP1uVm2
-	4FLEe2O9n2Cx4kIY5OyZmX2p1ag75DZb0bvG9HR7zIdBn9IqDSPc1zo9F0g8AS7f32+Urx
-	L91nFzBkI7c2B8XvFbXm+RmG6tAU6D0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789035777;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
-	b=FC0Z9UxOApeStL1uaOisFAv+nO3iyNp66qL3nOWC2u0H59Jr+6eTh5Kqy65FsWiqYMDw3i
-	B5kdZSLyRu4wZdCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789035772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
-	b=oXjWKpGGg4KPUi5gPx7N2ku2nBkWBVmqpfnZDTjZb6UIl5YgYNL3aoOBxqOlYtsKGpS7eK
-	dfbIxn8TCMarJvIVcbDq6r2cPO9sgGaK83kA+PhrEkJZCKfdY3zn1ulj5AcuuVyguzPJic
-	GVVShiLlUlGPvkQtOfYiYb+rV6J+js8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789035772;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=52OTDoALsBNCnl8n4229Bf8YRuEzVPHoMH2vem2ddgU=;
-	b=gYcg7YLoLf+2bTzgCi4Z8zZOwPQd0dAbEQykeXfKoQT5ex65FiB3Lcdjtg0XJJMZwG8e/e
-	FIt/JYpphzYH41CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C832113180;
-	Thu, 10 Sep 2026 10:22:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ssndMPyEompZSgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 10:22:52 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 51DBEA12EA; Thu, 10 Sep 2026 12:22:52 +0200 (CEST)
-Date: Thu, 10 Sep 2026 12:22:52 +0200
-From: Jan Kara <jack@suse.cz>
-To: Yichong Chen <chenyichong@uniontech.com>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, aneesh.kumar@linux.vnet.ibm.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext4: cap migration extent length at EXT_INIT_MAX_LEN
-Message-ID: <w2gsa6zrn2tbeuha3jsruqtw5g3b4fg6524xq44a6dwp57can5@vfo4m6scjdsu>
-References: <20260910034000.3155420-1-chenyichong@uniontech.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EbDQ5r3a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789035829; x=1820571829;
+  h=date:from:to:cc:subject:message-id;
+  bh=eESLYcWn+SwBCFsdy2YBFXWmSLMh18Tg3jYtJbGyuaU=;
+  b=EbDQ5r3acAiQwCa03WQix9tOa66o7ecVzObeXVzid+ESFFPGDEbVRt9B
+   0fiTNHWtUpjDrg6dM78SNgO2pFKJuA5MsaRAp7eRIf60C1X/0iwj+lGJb
+   Sl1wlJNt4IL2n1YlCnlcu9fifks5up6F1tpIT2scD20fh7wbRat3uD3cN
+   koku6ZU+d9NFteYBFQ0z4S2tpzHkO/yWknlJEymYsZa+nL1BXYWJtmtAF
+   VXkZ8i5AvHyTYx7yfynHFIgSqwwVlRgk+/yS9YM3aUFH1DszCLTtOCXbf
+   vTnZ6gKF4+4bmvSHAVzGJ9K6rcqYdpzNfQn1hA+9p54DOt0+iibjFsM9T
+   Q==;
+X-CSE-ConnectionGUID: iJKj+gDsR+KkRPwGF8BU3g==
+X-CSE-MsgGUID: hnZf9AUSQ2WDOzjClAiI2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89245546"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="89245546"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 03:23:48 -0700
+X-CSE-ConnectionGUID: B20D3oFmSDyR4dGDO7qdiA==
+X-CSE-MsgGUID: AcpV/YdOT4aa5lx0u0P7+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="271095830"
+Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 10 Sep 2026 03:23:47 -0700
+Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4bwV-000000001h3-46pI;
+	Thu, 10 Sep 2026 10:23:43 +0000
+Date: Thu, 10 Sep 2026 18:23:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: include/linux/firmware/qcom/qcom_pas.h:29:22: error: call to
+ undeclared function 'ioremap_prot'; ISO C99 and later do not support implicit
+ function declarations
+Message-ID: <202609101812.rvVl2iE2-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910034000.3155420-1-chenyichong@uniontech.com>
-X-Spam-Level: 
-X-Spam-Score: -2.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,linux.vnet.ibm.com,vger.kernel.org];
-	MISSING_XM_UA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,uniontech.com:email,suse.cz:email]
 
-On Thu 10-09-26 11:40:00, Yichong Chen wrote:
-> update_extent_range() keeps merging physically and logically contiguous
-> blocks without limiting the accumulated range.  The maximum length of an
-> initialized extent is EXT_INIT_MAX_LEN, because the MSB of the 16-bit
-> ee_len field is used to mark unwritten extents.
-> 
-> finish_range() can therefore store a range longer than EXT_INIT_MAX_LEN
-> in ee_len.  A range of 32769 blocks is stored as 0x8001, which
-> ext4_ext_is_unwritten() treats as an unwritten extent and
-> ext4_ext_get_actual_len() reports as 1 block, so the migrated file
-> silently loses its data.
-> 
-> Stop merging once the accumulated range reaches EXT_INIT_MAX_LEN, so
-> migration creates several valid extents instead.
+Hi Mukesh,
 
-Yeah, or the extent length could overflow the u16 type. The fix looks good.
-Feel free to add:
+FYI, the error/warning still remains.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   50d05c7c76c96b90462f24debacca971d2e86713
+commit: 0b0379fcf9ce395bb51cadb6552ec3b1380436bb remoteproc: qcom: pas: Map/unmap subsystem region before auth_and_reset
+date:   6 weeks ago
+config: s390-randconfig-r122-20260910 (https://download.01.org/0day-ci/archive/20260910/202609101812.rvVl2iE2-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609101812.rvVl2iE2-lkp@intel.com/reproduce)
 
-								Honza
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 0b0379fcf9ce ("remoteproc: qcom: pas: Map/unmap subsystem region before auth_and_reset")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609101812.rvVl2iE2-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/firmware/qcom/qcom_pas.c:9:
+>> include/linux/firmware/qcom/qcom_pas.h:29:22: error: call to undeclared function 'ioremap_prot'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      29 |         void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
+         |                             ^
+   arch/s390/include/asm/io.h:36:2: note: expanded from macro 'ioremap_wc'
+      36 |         ioremap_prot((addr), (size), pgprot_writecombine(PAGE_KERNEL))
+         |         ^
+   arch/s390/include/asm/io.h:30:22: note: expanded from macro 'ioremap_prot'
+      30 | #define ioremap_prot ioremap_prot
+         |                      ^
+   In file included from drivers/firmware/qcom/qcom_pas.c:9:
+>> include/linux/firmware/qcom/qcom_pas.h:29:16: error: incompatible integer to pointer conversion initializing 'void *' with an expression of type 'int' [-Wint-conversion]
+      29 |         void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
+         |                       ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
 
 
-> 
-> Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
-> Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
-> ---
->  fs/ext4/migrate.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-> index d467b5a13c62..2aa6572088cf 100644
-> --- a/fs/ext4/migrate.c
-> +++ b/fs/ext4/migrate.c
-> @@ -70,7 +70,8 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
->  	 */
->  	if (lb->first_pblock &&
->  		(lb->last_pblock+1 == pblock) &&
-> -		(lb->last_block+1 == lb->curr_block)) {
-> +		(lb->last_block+1 == lb->curr_block) &&
-> +		(lb->last_block - lb->first_block + 1 < EXT_INIT_MAX_LEN)) {
->  		lb->last_pblock = pblock;
->  		lb->last_block = lb->curr_block;
->  		lb->curr_block++;
-> -- 
-> 2.51.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+vim +/ioremap_prot +29 include/linux/firmware/qcom/qcom_pas.h
+
+    26	
+    27	static inline void __iomem *qcom_pas_ctx_map(struct qcom_pas_context *ctx)
+    28	{
+  > 29		void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
+    30	
+    31		if (!ptr)
+    32			dev_err(ctx->dev, "unable to map memory region: %pa+%zx\n",
+    33				&ctx->mem_phys, ctx->mem_size);
+    34		return ptr;
+    35	}
+    36	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
