@@ -1,123 +1,230 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 430E14746C9;
-	Thu, 10 Sep 2026 11:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B04471CF9;
+	Thu, 10 Sep 2026 11:36:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040159; cv=none; b=L9U21OLOce/UFpeSs3LeV4EMYUeuqCTYIJzoUpugYLAur1mik47oUNWZs3gdPtalbXBSHa5NVQuQPfcclU+tPRGwuTmY52ppDDkkLNR1fhSMVkz4wQrW6phJJshy7qrJNjF+VUA1c+biIAsvKzue57KE6QUpjKg4+HIxrk+9eWU=
+	t=1789040213; cv=none; b=hUvkmLRi2FFIkPIfJY77nI42Unn+0mcvm3kcuYcYWwnT7Oau1ziswKmfPB0cKGRJDggibg8KcHAN9/DYFpbALjoNTf+EPrHMnVM+oKYuX1mIQB8kRdwLgcU/KfA/0shFb6n3+lXM4FftykQsiLtYCPZCopAie95gZqGzx0uwKzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040159; c=relaxed/simple;
-	bh=aczfw/OR9qUx8B3t8k1OQ/240hod4So0X5+xLV4/xTA=;
+	s=arc-20240116; t=1789040213; c=relaxed/simple;
+	bh=hzA+PKRN3l+0eV9u08hF04ntXIlnZzwgSTvjaGi2g28=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bZRi7PqJXhbmHt609FyFycyjPpB3gLrn/rKkeHYJ8P5SQpeOCDAoZqGVCo87nngSqhNkzXUCHE2i7UqadcI4OBwjf2EVeKQ/efvICo6G9q2mzGIAsSoBMt062Cc8wHoM1NTE4Glhzx3khVZ7Tygph2/QDzNTzW26fcuxXtryk0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CgX/mRT0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aZl9KADmZIs5FDiM1KbgAlWTqiPnDVaEb/R3uTksCG+8qZPEcr9cpUybTfmGbg2KpwauSUr5bUaAsxaTN3sTLg0AfHz7QznHOq82AZcck+dWj/MvCnxWfVbI3T4eSWOBfPxU+Rsjw4x0VwtdCFm71lByKtYMelhIXRQQIsOJmJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1uZvkej; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CgX/mRT0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE4EF153B;
-	Thu, 10 Sep 2026 04:35:52 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E863B3F528;
-	Thu, 10 Sep 2026 04:35:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789040156; bh=aczfw/OR9qUx8B3t8k1OQ/240hod4So0X5+xLV4/xTA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CgX/mRT04r6IGfuQdDy64iV7rk9c3tmgqtkbP4fAHIXXQyY1qGDmqhzrIGyBV/x4d
-	 6VCv3Ejrr5df0vlUe/MKPJyXEN0lFj6n7DXxd5v6HhF8nC2JCBMcBt1BitEZZ0JtGb
-	 G6tL2+pAkuCeWX/2qbtSouG74LXKcFbRexY4TzWA=
-Date: Thu, 10 Sep 2026 12:35:50 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/3] kselftest: mm: fix some failure of
- split_huge_page_test
-Message-ID: <aqKWFihYpLrLILcZ@e129823.arm.com>
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <b923f63c-db7c-4ecb-949d-368bc6311626@kernel.org>
- <aqKHHWKvOonYZPy0@e129823.arm.com>
- <21e0a933-63b6-42b4-8cd7-df05b0c9acfc@kernel.org>
- <aqKRdIjAYB2PEwRN@e129823.arm.com>
- <9750125c-49b4-48b1-adab-3a1cbec4255a@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1uZvkej"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009761F000FF;
+	Thu, 10 Sep 2026 11:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789040211;
+	bh=ThJ5CqwafEWn7XoTc54OwhK6KqK1K1MTq5Aj8JGokpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K1uZvkej+yYDPQfTsV+J/nVuEtDGZdVwjfbQyfu8myQADImAAivzhjpslJAL+FIfA
+	 W45dppLv8e1OYMmLHZfhyHtYnce4cCpq6D6XegQtCfxRJkID7/03s+gjVgAWbfjwvF
+	 eL8QNIe9dPU5edSzRcYiRbgqNJtuxbG7JDpeFcwPpY6k5YJnzX7B/BDTe7IWWq/yGN
+	 2XsXMXcARR9dvHzAbGuRzVk/sDILjxVtfLzOQSwPJ2BWfl8Pw8o94sPPt+gAevqfVf
+	 H92fervzHtQSbVUbot/jNt70T758gQHy8MEqotEJ4Ki9urRA+mBF4XMLoRk31exKPZ
+	 IpR7LOL8hlvwA==
+Date: Thu, 10 Sep 2026 12:36:45 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <aqKWTT47S_zPzvbN@squawk>
+References: <20260908094257.3196120-1-shubhamsanjay.patil@amd.com>
+ <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
+ <20260908-groin-undivided-0af701135404@spud>
+ <aqGHlWpQjpHEft3j@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="u9z4G+LSlEVaHeGX"
+Content-Disposition: inline
+In-Reply-To: <aqGHlWpQjpHEft3j@SMW015318>
+
+--u9z4G+LSlEVaHeGX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9750125c-49b4-48b1-adab-3a1cbec4255a@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 01:23:15PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/10/26 13:16, Yeoreum Yun wrote:
-> > On Thu, Sep 10, 2026 at 12:45:39PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/10/26 12:31, Yeoreum Yun wrote:
-> >>>
-> >>> Well, users currently for using /proc/self/smaps are for check vm-flags:
-> >>>   - guard-regions where using check_vmflags_guard()
-> >>>   - pfnmap test where uses check_vmflag_pfnmap()
-> >>
-> >> Most vm-flags should not be an issue when it comes to merging. The only
-> >> exception are vmflags that do not prevent VMA merging.
-> >>
-> >> So it's VM_SOFTDIRTY and VM_MAYBE_GUARD. And I agree that for guard-regions.c we
-> >> likely have to care such that we don't merge by accident with other VMAs (guard
-> >> regions).
-> >>
-> >> But that's independent of memalign.
-> >>
-> >> ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
-> >> ASSERT_FALSE(check_vmflag_guard(ptr));
-> >>
-> >> could be problematic on its own (unlikely but possible).
-> > 
-> > Yes. That's why I'm think it would be good to use alloc_isolated_mem()
-> > in case of ANON mapping for this case.
-> 
-> It's really only guest-region code that needs this.
-> 
-> > 
-> >>
-> >> For other flags, you really only have to find the smaps area that covers the
-> >> given address and look at the vm-flags.
-> >>
-> >> Or am I missing something important?
-> >>
-> >> (merging vnas with VM_PFNMAP is impossible right now IIRC)
-> > 
-> > No. what I want to say including the patch #3 is for the above case
-> > where you point out -- ASSERT_FALSE(check_vmflag_guard(ptr)).
-> > 
-> > Since we don't have any interface to check vm_flags execpt smap
-> > and for memory mmaped with anon would have a chance to merge,
-> > We need something to replace memalign() with preventing unexpected VMA
-> > merge. 
-> Only for the cases that actually really needs this, which is in my understanding
-> guard-regions.
-> 
-> And I repeat, this is not a memalign() problem.
+On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley wrote:
+> > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
+> > > In-Band Interrupt and Hot-Join are synthesis-time options of the AXI =
+I3C
+> > > IP. Describe them with two boolean properties.
+> > >
+> > > A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+> > > capable design is always IBI capable as well. Both events are reported
+> > > through the controller interrupt, which is therefore required whenever
+> > > the capability is present.
+> > >
+> > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> > > ---
+> > > Changes in V3:
+> > > - Move in-band-interrupt-capable and hot-join-capable into the common
+> > >   i3c.yaml schema and drop the xlnx, prefix.
+> > > - Keep dependencies in the AMD binding.
+> > > - Update the commit description accordingly.
+> > > - Conor Dooley acked v2 with the xlnx,-prefixed properties in the AMD
+> > >   binding [1].
+> > >   That Acked-by is not carried here: the names lost the vendor prefix
+> > >   and the definitions moved to i3c.yaml after Frank Li's comment.
+> > >   [1]:https://lore.kernel.org/all/20260824-tightwad-impose-4954765990=
+87@spud/
+> >
+> > I disagree with Frank. These properties make sense for Xilinx because it
+> > is an FPGA IP and synthesis options impact this. For other devices, this
+> > should be determined from the compatible.
+> > Please revert to how things were done in v2, especially as no rationale
+> > was provided for why these should be common.
+>=20
+> It is common problems, when IP intergrate by SOC, which may defeature some
+> part, It is not appeared now just because IBI and HJ have not enabled
+> widely.
+>=20
+> IBI and HJ is optional features of I3C. Ideally it should be indicated by
+> some registers. But not all vendor implement provide this CAP registers.
+>=20
+> IBI and HJ depend on some slow clocks, which monitor SDA line change.
+> Some instances of IP may not have such slow clocks. Some IP's IBI and HJ
+> use seperate IRQ line, but these irq line may not connect of difference
+> instances.
 
-Yes. I'm not claim memalign() is problem but want to prevent unwanted
-VMA merge. That's all.
+All of this should be able to be dealt with by appropriate use of
+specific compatibles.
 
-And as I mentioned in another reply, if we get rid of
-ASSERT_FALSE(check_vmflag_guard(ptr)), this patch would be droppable.
+> like previous SPI vendor customized property, we takes efforts to convert
+> to common one and also meet back compatiblity problem at convert. I don't
+> want to do it again. This kind property is most likely as below.
 
--- 
-Sincerely,
-Yeoreum Yun
+What SPI controller specific properties are you talking about here?
+There are relatively few properties in spi-controller.yaml, and none of
+them deal with these kinds of capabilities.
+
+>=20
+> default: 	decide by comaptible string or hardware cap
+> force-disabled: force disable for some reason, like, miss connect irq line
+> or missed some clock, or IP bugs, or board desgin's some level shift chip
+> broken IBI/HJ timing requirements.
+
+Of these, only the last would be a valid reason for having a property
+for it. Missing interrupts, clocks or IP bugs should all be dealt with
+using device specific compatibles.
+If board wiring causes the breakage, the property may be more
+appropriate at the i3c device level rather than the controller given
+that wiring to some devices on the bus may not have the problems?
+That said, I think that problem should be dealt with when it arises,
+rather than starting a trend of adding capabilities properties at the
+controller level when I am not convinced that there's going to be other
+users in the same vein.
+
+Thanks,
+Conor.
+
+
+>=20
+> Frank
+>=20
+> >
+> > pw-bot: changes-requested
+> >
+> > Thanks,
+> > Conor.
+> >
+> > >
+> > > Changes in V2:
+> > > - Rename the properties to "xlnx,in-band-interrupt-capable" and
+> > >   "xlnx,hot-join-capable", and expand their descriptions.
+> > > - Express the interrupt requirement with dependencies: instead of an
+> > >   allOf/if-then clause.
+> > > ---
+> > >  Documentation/devicetree/bindings/i3c/i3c.yaml    | 15 +++++++++++++=
+++
+> > >  .../devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml |  6 ++++++
+> > >  2 files changed, 21 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documen=
+tation/devicetree/bindings/i3c/i3c.yaml
+> > > index e25fa72fd7857..7430394cc6b9b 100644
+> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> > > @@ -61,6 +61,21 @@ properties:
+> > >        Indicates that the system is accessible via this bus as an end=
+point for
+> > >        MCTP over I3C transport.
+> > >
+> > > +  in-band-interrupt-capable:
+> > > +    type: boolean
+> > > +    description:
+> > > +      The controller supports In-Band Interrupts. A target can reque=
+st
+> > > +      attention on SDA/SCL by driving its dynamic address during bus
+> > > +      arbitration, instead of using a dedicated side-band interrupt =
+line.
+> > > +
+> > > +  hot-join-capable:
+> > > +    type: boolean
+> > > +    description:
+> > > +      The controller supports Hot-Join. A target attached or powered=
+ up
+> > > +      after the bus is already running can announce itself using the
+> > > +      reserved Hot-Join address so the controller can assign it a dy=
+namic
+> > > +      address.
+> > > +
+> > >  required:
+> > >    - "#address-cells"
+> > >    - "#size-cells"
+> > > diff --git a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.y=
+aml b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > index 2caa245a86568..9480de3fe8e1d 100644
+> > > --- a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > +++ b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > @@ -37,6 +37,10 @@ required:
+> > >    - reg
+> > >    - clocks
+> > >
+> > > +dependentRequired:
+> > > +  hot-join-capable: [ in-band-interrupt-capable ]
+> > > +  in-band-interrupt-capable: [ interrupts ]
+> > > +
+> > >  allOf:
+> > >    - $ref: i3c.yaml#
+> > >
+> > > @@ -54,5 +58,7 @@ examples:
+> > >          interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+> > >          #address-cells =3D <3>;
+> > >          #size-cells =3D <0>;
+> > > +        hot-join-capable;
+> > > +        in-band-interrupt-capable;
+> > >      };
+> > >  ...
+> > > --
+> > > 2.34.1
+> > >
+>=20
+>=20
+
+--u9z4G+LSlEVaHeGX
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqKWTQAKCRB4tDGHoIJi
+0iJOAQC8eOJkK82i1/wTArxsBsu7JrEGjDFKq8k0XZV3od2KzAD/dVNEgZgMrJH7
+BUgqpRKcb56INesvFsFPgUJ8KnjY6wM=
+=fjec
+-----END PGP SIGNATURE-----
+
+--u9z4G+LSlEVaHeGX--
