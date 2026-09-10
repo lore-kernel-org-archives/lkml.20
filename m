@@ -1,330 +1,147 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E53372B26
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF72222A9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789071415; cv=none; b=q++BNc9hRPFVTAaLc8qf6RdNMbPd4DVFK+xHfzGm9+a1D2N22pkT/JI7qOXyI4D68UFNZLMg9YeiF8C9EcV16Ai3BPlumQQZJ1fVS/02WDoG7ofMqLwoG9mD+tQ7cxKPP3i7k+vchR/DlHchiePRDqvfb5dB2EOm4sqltgrLt/8=
+	t=1789071442; cv=none; b=iZlNDe3DIG8MRajlrNSkoJYCTw8pYbi+7lP+KRJzyT33wXdLrJHd/YV66+xe+YfKOcayeMe0iSNv0GxsTC40ATn1oVAMdEuYi9SDyq/+uFRmwTwKiuSRJLIGqakLfErHHZu7jUF717wUufainFwA+k+nmAnTY2Sz95Qy6N6uQ0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789071415; c=relaxed/simple;
-	bh=IyP7LT/mGVrQ6WYR81tOSt1zWfPflkzZqpUahjdvtgI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vm37siaH0vxma30DaWag4/D2exfq8mYiWuN++i8vw4Z7FMybVhACuQM5G9YtWzTGFTnu1tq5gum6cOSoLqpvHbB/Q5O+IldarQ2DUJWr0W/T3jIGHuSmQA81VcImo7dtjSZEOBmJQ+Sa0vom2n6AU5DkqACUriQdIgmX/6rEfe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PgLYTFdl; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1789071442; c=relaxed/simple;
+	bh=G/cP6UqyeX+HmALzm0d1PxDkYH2O1I4EirGf6HRRVMc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XroP+P7hu+vkhJg4xG2s4qvGx3Hk5uC/KWfD14eYH04slxkqchv8qzwOQ8QIUvSUog0Y5LvgqQsHbM5AU+KGu2aq3ss9XHJM+biPy9DA1jq3MlsmJSHHKC/BMCIwh5oRQ8WufHtEor98CqQJIeKMEIkO7NtARFo0WBvo/HyxCuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U+foB0yz; arc=none smtp.client-ip=209.85.222.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PgLYTFdl"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso184617a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:16:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U+foB0yz"
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-97cc20c05d3so150889241.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:17:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789071414; x=1789676214; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m8KQqxLyRIhER5q9An5jkJG2c5Mj68qpghEp6MeEZDA=;
-        b=PgLYTFdltBhejYo5iIwFGzf4RDYGRfF/sz+A84glWVzJpZdM4FkNoiplW4TZz9Y2af
-         TaTGNJRZfd8HS9fgUUeXKS8qz1rHoZbC+NQqMI0oDCKpXALCKaAX8eKDhu1ycgfdxvBI
-         rA/mCxKynsrwrIciokSAoJmAFWW3jgSsA8jAfE7DWrYDpWb6AEP2yIfT6yA3VzSPf6GZ
-         gguQR9d8s4pnD5sJe/uFoawLtC8By85l10r3q1c7BmSqcH9nLAwZBHIHfVjJIIOyRtWh
-         0UD7r9pUNp5tiDnYnOeRyhWP1aBn5IveSyHtQc3efvYEfChdIGsAbvjmEe4f9EU7D+aG
-         SiLg==
+        d=gmail.com; s=20251104; t=1789071440; x=1789676240; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KwhPXIRNKGfA57MPcx1w8oLAn8z573P69PHwnx4/WWA=;
+        b=U+foB0yz8j6kgQdnmcKTlL3ZHria6fQgEJOUUWxNa36CEDxiB9Gb7/Sl6pw+idS+7E
+         B5r5bMIIYrxtf6665CMdQgQxgzGBQqqXv3lpijSDG3sMelHt1aJ2oCQCvENZAckXrTda
+         oTS7nHxnxRTgG6ffAIB8Ntu32BDk7ZQ2L4H8K2Dz4XKgRN5T4B3kO8ztBCUHmXGrRS15
+         rDt9LhnHM7lj2JZS3KMOIJd1y8xCvTwgr91l+nkCxrnCtr3MtNBIxDr52HNK4Vbpw4oy
+         Sc7ab/X9ZCHR1CH7l9atIGgMCf2ERBAss47M6xopJMDXliX6N79u23N7fBQkmYl/09iY
+         ki/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789071414; x=1789676214;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789071440; x=1789676240;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m8KQqxLyRIhER5q9An5jkJG2c5Mj68qpghEp6MeEZDA=;
-        b=Pc18fr9HgoA80LIVOf2pdpydrUv8rCP96cTSkX3mD6F9RLMHpKX1I8FQhF0uQocCbI
-         3PM+W8+MaKd0O/+YcQnc/QnCORNPkhG/2kBrnHSMgzZ8alIClTjAE36lyXq/vDLC3Vfa
-         NPHOctpHNto7hwW/RiYRFxeV1lLdNQOL2frad3gONAQYrtEnxNJZhrek2vFDhlcJtr8l
-         Ci7E+UHDsKeK3d4ST2rTQXTgUaVp5ncybXBO8TWvaOtdi7iBzQ/2J6DxTye/mPr6Dlbm
-         qXzP6bWlXhVdseuyyb0oIZPjHynysGpsSFIrJaqavH58VR9RTVhrrJsAwf6RZqaX+SuI
-         E1RQ==
-X-Forwarded-Encrypted: i=1; AKwUvByD71pXuz95qHuWvtpk47DngsuDKvujLMT+JNjUeNHp8VQNBLtmv3QvLSn/yieGvGJpzu2ZhpK5MCZBU5k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMoCramvS4TyLB0ssSYb/r+ihChLZQcsImUJ8Hhpq/MYSMF1Z/
-	+1055OcH1NbYITQl1AG6h0qWoBEm9Y1RXDcZulZUDvLnymFRvcnZX9I3
-X-Gm-Gg: AYBFou2ouZ/EnbMta9PL+jbZbW3PviywmPG1U7qLbFSvoJlVvnRf5yh4gNAzBdp3dhH
-	xJjLujUd7lk+R1csnZgCJ/9o7agvnWWd4EswuCqH4cyZ5XRqdPDwzu+cFORyRxckTDucu/f3JOc
-	ML5WfvNS8iBL/2O+R6pvJt44WWTmbNzp2+1xX254aZjsIK7J3jvxfYzGDQNvj0haZ2npT8dOSo/
-	3Y8v8HbAuXFiKNAqd/vgD2PZO0DmnxWyYlK/mgxfLacFbXyuI8nZo3G8IShuaZpNyh51hn9JzMC
-	Ohj8WxxfMW4UiuFsUtrvUhOvHQ95U86L/qnznmLm/FcVdGlWF5Ev+V6PvSO4fDCbOlOwloxhd77
-	aCQ3nrsJKUUSRjajVB94I5dZ/xZwVtn0rMaWrg3IeKmPfirjhPuobgH67+6DV85n+Ue/87dRQkf
-	gosIXUFB9lfUf3Idze9K9d2cGw8LSLK+2rpMk+GyJGUmg9EOnyImvwDIpspDepgiaAZ2UgFCOJN
-	sznlaDMnU32zyHfDxMHco6lvnPTgVe6lOT3lDIrINMVjE1WQjs/w+0jJ9O0YtzL1AQMHLNTqqcy
-X-Received: by 2002:a17:90b:51c3:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39d9c2276fdmr686220a91.19.1789071413551;
-        Thu, 10 Sep 2026 13:16:53 -0700 (PDT)
-Received: from [192.168.0.158] (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143659a9a06sm1091390c88.0.2026.09.10.13.16.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 13:16:53 -0700 (PDT)
-Message-ID: <9b629895-d489-46de-a8fc-4ecfc08ae96b@gmail.com>
-Date: Thu, 10 Sep 2026 13:16:52 -0700
+        bh=KwhPXIRNKGfA57MPcx1w8oLAn8z573P69PHwnx4/WWA=;
+        b=owk1LWtB5gj4QcYpBj/XguZ9z/Vs1SMkfBnT2gQoR8k9bAnJ6Y8MS6F+KVstiSGD+z
+         MZ6G7cvOqKnKOvtJXEX3VOjw/Npydl08PxN5Ls28HgMmAbNhhjdzyqV8gj7o6WNk7g5m
+         ER+fXZveITtCCh4kGarvzfXXcQhd3QBfRexcY9wNH84TTph84sG+TelUvp1Dljv+6sZL
+         xQiRLej7KXXS4ZYzFca2W3mIDBg/3xDNY2Czy1JX90yH7B8kRQWEdSz5XYz+Z3CP2bMR
+         lRJo9e7Mb8Frak5Sm2UsfQB58bdso3ho3Dd1e3GDa9iZkw6ior8WrYcQN8poCepJZO4A
+         rmaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxslzTnVY2+iAmn/sicI/Y3K9pFbSSJBL1lyGSR755bVr7HYb/y/iiBG0pJJwd0IyGfK6Pmqto1KbnkVYo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEiQbv/Y6sNa2EV9RQUATJgeSAjh5mFKUKx8fvoKHwJ8oOg0+R
+	pWj3bstyF67JfQ3TGymAKsuEc3CrYA8f91xFx3/5Ak2TQ8JAja8iS5mpJx9CXw==
+X-Gm-Gg: AYBFou194XwOPZEDXOZbk2YYYi2/rKY3ElImlC0m7oZQmt1ohbnqK1QwXl4SqBL4cwc
+	V570ByQ/P1+51cLeKThGTRFu0CPmTaYvtLo6MkWrBoo2tseLWi25WdFziL7VfYp4NXRH/ZVHZTy
+	MBlyNU9GPQKT8QesPEoiYLCRnktrn5TQl2PdM2XXCm2PUugDtOwkw3QeHDSy0FaVVUvm2dpjBWh
+	BXEJHjwwnryzWwdtzCAhyqy1q4RsTlKUonxEbNzP9xUO5rG9Oxavx+/wHApXpXnx8KYJsmYRIFA
+	BjhEBazcInzAVHMJuBKB5g4w9HydtuwQTAoyRhMOw4F5cFRvHv/GGYTUOnYX/d7BYBd9TugPGtH
+	mZmUAUdI+ZYUbkHOGlgbBdVv1x19f3KSKB4Fgk96eM/PY65SGmbLpK+Lb3y9oFtkY5DxTn9TTdu
+	mDAXFlTBMzdLkunVmhecyN0DPd2r5F25RGsekwAQRDqh0+zL8Kht/hT+kZJ3+JHiaIzhfLJ+0Sw
+	L7TENUwIkvSxn5Bfy2j/Fa4+v0egGZU1eL2RoncIpKf/nTW0ndwMtnT/2aGj9RA2wtulkM71k+N
+	MIMgmU3+GsaBFOd/AVYi0E6SizfI56YiW7gK09cA6eF6vuZs
+X-Received: by 2002:a05:6122:e20e:b0:5c8:2ad8:1484 with SMTP id 71dfb90a1353d-5c84606d388mr3029053e0c.1.1789071440114;
+        Thu, 10 Sep 2026 13:17:20 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f202516sm4432646d6.3.2026.09.10.13.17.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 13:17:19 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Xuelin Shi <xuelin.shi@freescale.com>,
+	Harninder Rai <harninder.rai@freescale.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dmaengine: fsl_raid: fix 64-bit ring base address programming
+Date: Thu, 10 Sep 2026 13:17:17 -0700
+Message-ID: <20260910201717.44891-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/15] HID: hid-oxp: support three-page button maps on X2
- controllers
-To: Andrei Aldea <andrei1998@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910032115.28669-1-andrei1998@gmail.com>
- <20260910032115.28669-13-andrei1998@gmail.com>
-Content-Language: en-US
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-In-Reply-To: <20260910032115.28669-13-andrei1998@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The driver claims a 40-bit DMA mask via dma_set_mask(40), but the
+inbound/outbound ring base addresses were programmed by masking the
+physical address with FSL_RE_ADDR_BIT_MASK (0xF) into the high register
+and shifting it right by FSL_RE_ADDR_BIT_SHIFT (4) into the low register.
 
-On 9/9/26 20:21, Andrei Aldea wrote:
-> The ONEXPLAYER 3 and X2 Mini Pro need mapping format 0x02 and a third
-> page preserving the extra buttons' factory mappings. Use exact DMI
-> matches and select configuration interface 2; the other HID interfaces
-> remain available without duplicate configuration or LED registration.
->
-> Initialize each page with the selected format. Page three is fixed because
-> its factory encodings have no entries in the public mapping table.
-> Legacy devices keep their two-page format 0x20 transaction.
->
-> Fixes: e4c850a6e750 ("HID: hid-oxp: Add Button Mapping Interface")
-> Assisted-by: LLM
-> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
-> ---
->   drivers/hid/hid-oxp.c | 94 ++++++++++++++++++++++++++++++++++++-------
->   1 file changed, 79 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
-> index 8c44f57..48fa916 100644
-> --- a/drivers/hid/hid-oxp.c
-> +++ b/drivers/hid/hid-oxp.c
-> @@ -19,6 +19,7 @@
->   #include <linux/spinlock.h>
->   #include <linux/sysfs.h>
->   #include <linux/types.h>
-> +#include <linux/usb.h>
->   #include <linux/workqueue.h>
->   
->   #include "hid-ids.h"
-> @@ -35,6 +36,8 @@
->   
->   #define OXP_MAPPING_GAMEPAD	0x01
->   #define OXP_MAPPING_KEYBOARD	0x02
-> +#define OXP_BMAP_FORMAT_DEFAULT	0x20
-> +#define OXP_BMAP_FORMAT_X2	0x02
->   #define OXP_FILL_PAGE_SLOT(page, btn)            \
->   	{ .button_idx = (page)->btn.button_idx,  \
->   	  .mapping_idx = (page)->btn.mapping_idx }
-> @@ -159,9 +162,9 @@ enum oxp_joybutton_index {
->   	BUTTON_DRIGHT,
->   	BUTTON_M1 =	0x22,
->   	BUTTON_M2,
-> -	/* These are unused currently, reserved for future devices */
->   	BUTTON_M3,
->   	BUTTON_M4,
-> +	/* These are unused currently, reserved for future devices */
->   	BUTTON_M5,
->   	BUTTON_M6,
->   };
-> @@ -209,8 +212,10 @@ struct oxp_hid_cfg {
->   	struct oxp_bmap_page_1 *bmap_1;
->   	struct oxp_bmap_page_2 *bmap_2;
->   	bool gen2_work_initialized;
-> +	bool bmap_page_3;
->   	u8 rumble_intensity;
->   	u8 gamepad_mode;
-> +	u8 bmap_format;
->   
->   	/* RGB state */
->   	struct delayed_work oxp_rgb_queue;
-> @@ -337,6 +342,9 @@ struct oxp_attr {
->   
->   struct quirk_entry {
->   	bool hybrid_mcu;
-> +	bool bmap_page_3;
-> +	u8 cfg_interface_num;
-> +	u8 bmap_format;
->   };
->   
->   static u16 get_usage_page(struct hid_device *hdev)
-> @@ -735,8 +743,17 @@ static void oxp_page_fill_data(char *buf, const struct oxp_button_idx *buttons,
->   
->   static int oxp_set_buttons(struct oxp_hid_cfg *cfg)
->   {
-> -	u8 page_1[59] = { 0x02, 0x38, 0x20, 0x01, 0x01 };
-> -	u8 page_2[59] = { 0x02, 0x38, 0x20, 0x02, 0x01 };
-> +	u8 page_1[59] = { 0x02, 0x38, cfg->bmap_format, 0x01, 0x01 };
-> +	u8 page_2[59] = { 0x02, 0x38, cfg->bmap_format, 0x02, 0x01 };
-> +	u8 page_3[59] = {
-> +		0x02, 0x38, cfg->bmap_format, 0x03, 0x01,
-> +		/*
-> +		 * M3/M4 have no mutable sysfs mapping slots. Keep their factory
-> +		 * encodings, which are not entries in oxp_button_table.
-> +		 */
-> +		BUTTON_M3, OXP_MAPPING_KEYBOARD, 0x02, 0x05, 0x00, 0x00,
-> +		BUTTON_M4, OXP_MAPPING_GAMEPAD, 0x21, 0x00, 0x00, 0x00,
-> +	};
->   	u16 up = get_usage_page(cfg->hdev);
->   	int ret;
->   
-> @@ -774,7 +791,11 @@ static int oxp_set_buttons(struct oxp_hid_cfg *cfg)
->   	if (ret)
->   		return ret;
->   
-> -	return oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_2, ARRAY_SIZE(page_2));
-> +	ret = oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_2, ARRAY_SIZE(page_2));
-> +	if (ret || !cfg->bmap_page_3)
-> +		return ret;
-> +
-> +	return oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_3, ARRAY_SIZE(page_3));
->   }
->   
->   static void oxp_reset_buttons(struct oxp_hid_cfg *cfg)
-> @@ -1550,7 +1571,13 @@ static struct quirk_entry quirk_hybrid_mcu = {
->   	.hybrid_mcu = true,
->   };
->   
-> -static const struct dmi_system_id oxp_hybrid_mcu_list[] = {
-> +static struct quirk_entry quirk_x2_bmap = {
-> +	.bmap_format = OXP_BMAP_FORMAT_X2,
-> +	.bmap_page_3 = true,
-> +	.cfg_interface_num = 2,
-> +};
-> +
-> +static const struct dmi_system_id oxp_quirk_list[] = {
->   	{
->   		.ident = "OneXPlayer Apex",
->   		.matches = {
-> @@ -1575,21 +1602,34 @@ static const struct dmi_system_id oxp_hybrid_mcu_list[] = {
->   		},
->   		.driver_data = &quirk_hybrid_mcu,
->   	},
-> +	{
-> +		.ident = "OneXPlayer 3",
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ONE-NETBOOK"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ONEXPLAYER 3"),
-> +		},
-> +		.driver_data = &quirk_x2_bmap,
-> +	},
-> +	{
-> +		.ident = "OneXPlayer X2 Mini Pro",
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ONE-NETBOOK"),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ONEXPLAYER X2Mini PRO"),
-> +		},
-> +		.driver_data = &quirk_x2_bmap,
-> +	},
->   	{},
->   };
->   
-> -static bool oxp_hybrid_mcu_device(void)
-> +static const struct quirk_entry *oxp_get_quirks(void)
->   {
->   	const struct dmi_system_id *dmi_id;
-> -	struct quirk_entry *quirks;
->   
-> -	dmi_id = dmi_first_match(oxp_hybrid_mcu_list);
-> +	dmi_id = dmi_first_match(oxp_quirk_list);
->   	if (!dmi_id)
-> -		return false;
-> +		return NULL;
->   
-> -	quirks = dmi_id->driver_data;
-> -
-> -	return quirks->hybrid_mcu;
-> +	return dmi_id->driver_data;
->   }
->   
->   static void oxp_drain_output(struct oxp_hid_cfg *cfg)
-> @@ -1613,6 +1653,21 @@ static void oxp_quiesce_work(struct oxp_hid_cfg *cfg)
->   	oxp_drain_output(cfg);
->   }
->   
-> +static bool oxp_is_cfg_interface(struct hid_device *hdev,
-> +				 const struct quirk_entry *quirks)
-> +{
-> +	struct usb_interface *intf;
-> +
-> +	if (!quirks || !quirks->cfg_interface_num)
-> +		return true;
-> +	if (hdev->bus != BUS_USB)
-> +		return false;
-> +
-> +	intf = to_usb_interface(hdev->dev.parent);
-> +	return intf->cur_altsetting->desc.bInterfaceNumber ==
-> +	       quirks->cfg_interface_num;
-> +}
-> +
->   static void oxp_cfg_release(void *data)
->   {
->   	struct oxp_hid_cfg *cfg = data;
-> @@ -1620,7 +1675,8 @@ static void oxp_cfg_release(void *data)
->   	hid_set_drvdata(cfg->hdev, NULL);
->   }
->   
-> -static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
-> +static int oxp_cfg_probe(struct hid_device *hdev, u16 up,
-> +			 const struct quirk_entry *quirks)
->   {
->   	struct oxp_bmap_page_1 *bmap_1;
->   	struct oxp_bmap_page_2 *bmap_2;
-> @@ -1642,7 +1698,7 @@ static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
->   	if (ret)
->   		return ret;
->   
-> -	if (up == GEN2_USAGE_PAGE && oxp_hybrid_mcu_device())
-> +	if (up == GEN2_USAGE_PAGE && quirks && quirks->hybrid_mcu)
->   		goto skip_rgb;
->   
->   	cfg->cdev = oxp_cdev_rgb;
-> @@ -1693,6 +1749,9 @@ skip_rgb:
->   
->   	cfg->bmap_1 = bmap_1;
->   	cfg->bmap_2 = bmap_2;
-> +	cfg->bmap_format = quirks && quirks->bmap_format ?
-> +			   quirks->bmap_format : OXP_BMAP_FORMAT_DEFAULT;
-> +	cfg->bmap_page_3 = quirks && quirks->bmap_page_3;
->   	oxp_reset_buttons(cfg);
->   	INIT_DELAYED_WORK(&cfg->oxp_btn_queue, oxp_btn_queue_fn);
->   
-> @@ -1720,6 +1779,7 @@ err_quiesce:
->   static int oxp_hid_probe(struct hid_device *hdev,
->   			 const struct hid_device_id *id)
->   {
-> +	const struct quirk_entry *quirks;
->   	int ret;
->   	u16 up;
->   
-> @@ -1738,12 +1798,16 @@ static int oxp_hid_probe(struct hid_device *hdev,
->   	}
->   
->   	up = get_usage_page(hdev);
-> +	quirks = oxp_get_quirks();
->   	dev_dbg(&hdev->dev, "Got usage page %04x\n", up);
->   
->   	switch (up) {
->   	case GEN1_USAGE_PAGE:
->   	case GEN2_USAGE_PAGE:
-> -		ret = oxp_cfg_probe(hdev, up);
-> +		if (!oxp_is_cfg_interface(hdev, quirks))
-> +			return 0;
-> +
-> +		ret = oxp_cfg_probe(hdev, up, quirks);
->   		if (ret) {
->   			hid_hw_close(hdev);
->   			hid_hw_stop(hdev);
+This truncates the upper address bits and, worse, places the lowest 4
+bits of the address into the high register. For any ring allocated above
+the 64 GB boundary the hardware reads/writes the wrong physical memory,
+causing silent data corruption.
 
-I'm unable to test as these features are not present on my OneXPlayer F1 
-Pro.
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Program the registers correctly: the low register takes bits [31:0] and
+the high register takes bits [39:32] of the 40-bit DMA address. Replace
+the broken FSL_RE_ADDR_BIT_* macros with FSL_RE_ADDR_HIGH_MASK.
 
+Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
+Assisted-by: opencode:hy3-free
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/dma/fsl_raid.c | 14 +++++++++-----
+ drivers/dma/fsl_raid.h |  3 +--
+ 2 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
+index befb4bb69d54..7343833b3b34 100644
+--- a/drivers/dma/fsl_raid.c
++++ b/drivers/dma/fsl_raid.c
+@@ -715,15 +715,19 @@ static int fsl_re_chan_probe(struct platform_device *ofdev,
+ 		goto err_free_1;
+ 	}
+ 
+-	/* Program the Inbound/Outbound ring base addresses and size */
++	/* Program the Inbound/Outbound ring base addresses and size.
++	 * The DMA rings are 64-bit addresses split into high/low registers.
++	 * The driver supports a 40-bit DMA mask, so the low register holds
++	 * bits [31:0] and the high register holds bits [39:32].
++	 */
+ 	out_be32(&chan->jrregs->inbring_base_h,
+-		 chan->inb_phys_addr & FSL_RE_ADDR_BIT_MASK);
++		 upper_32_bits(chan->inb_phys_addr) & FSL_RE_ADDR_HIGH_MASK);
+ 	out_be32(&chan->jrregs->oubring_base_h,
+-		 chan->oub_phys_addr & FSL_RE_ADDR_BIT_MASK);
++		 upper_32_bits(chan->oub_phys_addr) & FSL_RE_ADDR_HIGH_MASK);
+ 	out_be32(&chan->jrregs->inbring_base_l,
+-		 chan->inb_phys_addr >> FSL_RE_ADDR_BIT_SHIFT);
++		 lower_32_bits(chan->inb_phys_addr));
+ 	out_be32(&chan->jrregs->oubring_base_l,
+-		 chan->oub_phys_addr >> FSL_RE_ADDR_BIT_SHIFT);
++		 lower_32_bits(chan->oub_phys_addr));
+ 	out_be32(&chan->jrregs->inbring_size,
+ 		 FSL_RE_RING_SIZE << FSL_RE_RING_SIZE_SHIFT);
+ 	out_be32(&chan->jrregs->oubring_size,
+diff --git a/drivers/dma/fsl_raid.h b/drivers/dma/fsl_raid.h
+index adbfede330a7..748047996bbc 100644
+--- a/drivers/dma/fsl_raid.h
++++ b/drivers/dma/fsl_raid.h
+@@ -66,8 +66,7 @@
+ #define FSL_RE_RING_SIZE		0x400
+ #define FSL_RE_RING_SIZE_MASK		(FSL_RE_RING_SIZE - 1)
+ #define FSL_RE_RING_SIZE_SHIFT		8
+-#define FSL_RE_ADDR_BIT_SHIFT		4
+-#define FSL_RE_ADDR_BIT_MASK		(BIT(FSL_RE_ADDR_BIT_SHIFT) - 1)
++#define FSL_RE_ADDR_HIGH_MASK		0xFF
+ #define FSL_RE_ERROR			0x40000000
+ #define FSL_RE_INTR			0x80000000
+ #define FSL_RE_CLR_INTR			0x80000000
+-- 
+2.55.0
 
