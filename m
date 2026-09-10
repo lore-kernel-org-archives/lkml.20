@@ -1,141 +1,154 @@
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE3855C1B7
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9429951FCD1;
+	Thu, 10 Sep 2026 18:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063746; cv=none; b=sZt1RHyjGQK1/ghVZ7LKXx03O09sbr3h7Aybq8czREB6mPgcO2JMA1Yuc/dAvEhJW65N2E/pckDLGaKNY/sQS5OrJrRs0Zshzb4ID5OJRJ0/4yC9f7BnNL3NYXrjaOEMf7/oL7oAsnGS3+cw7TJi4bk7kgl0TeNhylqdls2psAs=
+	t=1789063761; cv=none; b=mzk/6geBiqTlKMEHFonrVQSlYRtP0ndbTy9Nx6jP8ydp6IbGzzeZNZeDIAXBWr7pCtWOSyLPpqM5rFfBBVEc0FAZbOtK905o+8XNXShYNk0KLIkQdwWxMzTdjIDHdFuzv8qFLluGa4WnkVnrrlkmgeMnS4ZpJDDp14wnJulbLgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063746; c=relaxed/simple;
-	bh=mR/DAY2vioPzeVAm250nz2mhuErFnhJX7v2W9wjjva8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PXM9hUYX1iJBJG3OiJ9k+asDXy77JX3uGalICh5LpsFbereibwlgv9JHVY127R7KA99rPcxGue44kZF20o6lZPm++pcWcY4OsJkMvESanK9hkxdYFBSxEC1SL+GL5xKixaohHzxcSD72PzLP+FR/+pJohXNZMyOjjycxbZExklQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=lRYGnypg; arc=none smtp.client-ip=79.135.106.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789063761; c=relaxed/simple;
+	bh=qorGJyYS6nvMoW+R7pQhQnJEdYbo6NknBhgmEyCxpbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kG5VNKrOBybQ52Tk97J+AU1K46R93rr+Nb6AR026S1bu4q+i/Uh59G/ZLif/28nKTwOUoZXXf/w05JJZ0dVDlAhUtJO6pf6rMzRYbUiN8fJv9+mQprOSexceeQNeDL2vIuo35gRkZG8s44l0qeksHh2yIAdpV6P1OIcNE7kwsaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KIh6DKnL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="lRYGnypg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789063734; x=1789322934;
-	bh=/TGmrt7DQ3mPK72IszjZ09gHVIOLgSzkYdtDkfG0Tos=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=lRYGnypg+fdwYgr+aDCNCn/HdTfcidkIXCKYXVwbN7RVNP59te3uSHaNpmTDJJpBS
-	 vnfcYyDXhEowdX5IS30dT7qXJoL0OOAKXFqXPOkvmfd27rlWdtGdKcG8nDJ6mrT8DZ
-	 kIvMokzBdPBgJ8sqr0syCYoIQIXl21YfSqeMRKakes+wHPPqyFMy2c8M3kHAb0dQ5J
-	 fGUTh/0plYEXRW6FC7FkC5bigVK02QkUrqqbV57FALMRt0OkML/EVN9Lmq1qvfWUrv
-	 KKwUxqAHAWDEyS1nSXF1FFnPfRjHU7g9c8zvPULqmHHbvKShPNzW2Gv1bAT6hG0gF+
-	 szhCRcanH18AQ==
-Date: Thu, 10 Sep 2026 18:08:48 +0000
-To: "dan.carpenter@linaro.org" <dan.carpenter@linaro.org>
-From: contectforbusiness@proton.me
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "rmfrfs@gmail.com" <rmfrfs@gmail.com>, "johan@kernel.org" <johan@kernel.org>, "elder@kernel.org" <elder@kernel.org>, "greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>, "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] staging: greybus: camera: fix potential overflow in debugfs buffers
-Message-ID: <Fl0v3Y5q1hoeNzFDtQUUvhQt0RbeB45YL1Qbe9l2ZvHtwDdM6v37dcSesA8HNOPHB9gieRUi_RkcaE3gjO4xyT59b4sj_HRH6s4rDv7gGbM=@proton.me>
-In-Reply-To: <aqG3NyxZE-Sj63vb@stanley.mountain>
-References: <cfUNtu1Qjzp-pieopsMQtanXUJTuVi9kZQ14w2f_jp55EwWn7Pnu5EwFUNI2vAWw1vWe3jD7Mz4IK6t1iZLQLE1fEnjfYfQdBV8tZF6Q4aM=@proton.me> <aqG3NyxZE-Sj63vb@stanley.mountain>
-Feedback-ID: 147676893:user:proton
-X-Pm-Message-ID: 8c89ad55daf4caf738dcff7fe559f7d33bb35af4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KIh6DKnL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CFD51F000FF;
+	Thu, 10 Sep 2026 18:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789063760;
+	bh=91suzAE6OB+CHTM049kw/QY2viLYB5QINw6In2HnGy4=;
+	h=From:To:Cc:Subject:Date;
+	b=KIh6DKnLn+XFP2Iw49SqoiqxlJBtNdHaIjvQsvVxu9tqdNDhctSv5BVMV35qv1Ous
+	 QsFerCRVpB1YNlFtevXuSu0YYkJ8oW9aArNF562FygwWipuhcaPzhxmCTCShIfKxAj
+	 PcPgHtNqc0BwSPrCJ8rvQdbjR9YC9ATA5TndHuXWniOlIFzRV0AUHaNm8+UK2z0VgD
+	 nzAgNeeHmKCVAg0sHxo7ZvdXrRJouS9bRkmeBM4yPSTvD+SPL0iSBDB8hPCRyvyyyo
+	 z48IhpOtpzA/KF8w/XvuksRQtsUbCiPKB962C/DzYc+6RZSvFT9rFnBf+zhCN07MIv
+	 6SgKOOABXzNTA==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Tao Cui <cuitao@kylinos.cn>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	David Wei <dw@davidwei.uk>
+Subject: [PATCH net-next v2 0/5] fbnic: Support larger RX pages
+Date: Thu, 10 Sep 2026 20:09:00 +0200
+Message-ID: <20260910180908.1506533-1-bjorn@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Dan,
+Hi!
 
-Thanks for the detailed review.
+The v1 was out end-of-May! I hope you didn't hold your breath! ;-)
+Here goes...
 
-- Fixed the From header so it matches the Signed-off-by.
-- Dropped the review-style commentary from the commit message.
-- Switched every site to sizeof(buffer->data) instead of PAGE_SIZE
-  (I'd only done this in one of the four spots in v1 - fixed the
-  other three too).
-- You're right that none of these can actually overflow today:
-  capabilities tops out around 3 bytes per input byte on a payload
-  that's at most ~1KB, nstreams is on the order of 4, and req_id is
-  just a u32 printed as a string. So no Fixes tag, and I reworded
-  the commit message so it doesn't reference any current or
-  hypothetical overflow - it's a plain style/robustness change now.
+This series adds support for large io_uring zero-copy RX buffers to
+fbnic.
 
-v2 below.
+fbnic hardware consumes receive memory in 4 KiB device pages, while
+io_uring may expose a larger software buffer, such as 256 KiB. Track
+the device-page geometry per BDQ, represent each large buffer with
+consecutive descriptors, and decode completions to the corresponding
+offset within the buffer. HPQ keeps its existing PAGE_SIZE geometry.
 
-Thanks,
-Vaibhav
+Larger buffers also reduce pressure on the memory provider. One
+provider allocation supplies multiple 4 KiB device pages, so the same
+amount of receive memory needs fewer net_iov objects and fewer
+allocation, refill, and recycle operations. Hardware descriptor use
+remains unchanged.
 
----
+Ring depth and buffer size must be validated together. An ethtool ring
+change can otherwise make an active memory-provider configuration
+invalid. Store accepted ring depths in netdev_config, stage proposed
+values in cfg_pending, and validate the default and each RX queue
+before committing the change. Both netlink and ioctl use the same
+transaction helpers.
 
-From: Vaibhav Agarwal <contectforbusiness@proton.me>
-Subject: [PATCH v2] staging: greybus: camera: use scnprintf() for debugfs b=
-uffers
+The selftest requests a buffer larger than twice the MTU and requires
+a receive CQE to end past the first MTU-sized region. Drivers which
+reject the size are skipped. Drivers which accept it but only use that
+first region fail.
 
-The debugfs buffers in gb_camera are written with sprintf(). Use
-scnprintf() with sizeof(buffer->data) instead, which is the usual
-kernel pattern for writing into a fixed-size buffer and makes the
-code easier to audit.
+Changes in v2
+=============
 
-No functional change.
+- Add generic netdev_config lifecycle helpers, and use
+  netdev_reconfig_start() and __netdev_free_config() from both the
+  netlink and ioctl paths.
+- Store ring parameters in netdev_config and revalidate the default and
+  each RX queue before committing a ring change.
+- Preserve the distinction between accepted and applied HDS state:
+  unrelated SET operations retain an accepted auto value, while
+  RINGS_GET reports the state applied by the driver.
+- Track the fbnic device-page geometry per BDQ and use it when posting
+  buffers and decoding completions.
+- Validate fbnic RX page size, payload fragment count, and the number of
+  software entries available in the payload queue.
+- Replace the manual-only offset check with a portable check run by the
+  Python large-buffer test, and include the received byte count on
+  timeout.
+- Rebase on net-next.
 
-Signed-off-by: Vaibhav Agarwal <contectforbusiness@proton.me>
----
-Changes in v2:
-- Fix From header to match Signed-off-by
-- Drop review-thread commentary from the commit message
-- Use sizeof(buffer->data) instead of PAGE_SIZE at all four sites
-  (v1 only did this at one of the four)
-- Reword commit message to not reference any overflow, current or
-  hypothetical - none of the three call sites can overflow today
+v1: https://lore.kernel.org/netdev/20260522113225.241337-1-bjorn@kernel.org/
 
- drivers/staging/greybus/camera.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Björn Töpel (4):
+  fbnic: Track BDQ device-page geometry per ring
+  net: Revalidate queue config for ringparam changes
+  fbnic: Support larger memory-provider RX pages
+  selftests: drv-net: Test large zcrx buffers
 
-diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/cam=
-era.c
-index 62b55bb28..0e9d7642a 100644
---- a/drivers/staging/greybus/camera.c
-+++ b/drivers/staging/greybus/camera.c
-@@ -890,7 +890,8 @@ static ssize_t gb_camera_debugfs_capabilities(struct gb=
-_camera *gcam,
- =09for (i =3D 0; i < size; i +=3D 16) {
- =09=09unsigned int nbytes =3D min_t(unsigned int, size - i, 16);
-=20
--=09=09buffer->length +=3D sprintf(buffer->data + buffer->length,
-+=09=09buffer->length +=3D scnprintf(buffer->data + buffer->length,
-+=09=09=09=09  sizeof(buffer->data) - buffer->length,
- =09=09=09=09=09  "%*ph\n", nbytes, caps + i);
- =09}
-=20
-@@ -973,12 +974,13 @@ static ssize_t gb_camera_debugfs_configure_streams(st=
-ruct gb_camera *gcam,
- =09if (ret < 0)
- =09=09goto done;
-=20
--=09buffer->length =3D sprintf(buffer->data, "%u;%u;", nstreams, flags);
-+=09buffer->length =3D scnprintf(buffer->data, sizeof(buffer->data), "%u;%u=
-;", nstreams, flags);
-=20
- =09for (i =3D 0; i < nstreams; ++i) {
- =09=09struct gb_camera_stream_config *stream =3D &streams[i];
-=20
--=09=09buffer->length +=3D sprintf(buffer->data + buffer->length,
-+=09=09buffer->length +=3D scnprintf(buffer->data + buffer->length,
-+=09=09=09=09  sizeof(buffer->data) - buffer->length,
- =09=09=09=09=09  "%u;%u;%u;%u;%u;%u;%u;",
- =09=09=09=09=09  stream->width, stream->height,
- =09=09=09=09=09  stream->format, stream->vc,
-@@ -1046,7 +1048,7 @@ static ssize_t gb_camera_debugfs_flush(struct gb_came=
-ra *gcam,
- =09if (ret < 0)
- =09=09return ret;
-=20
--=09buffer->length =3D sprintf(buffer->data, "%u", req_id);
-+=09buffer->length =3D scnprintf(buffer->data, sizeof(buffer->data), "%u", =
-req_id);
-=20
- =09return len;
- }
+Jakub Kicinski (1):
+  net: Add netdev_config helpers
+
+ drivers/net/ethernet/meta/fbnic/fbnic_csr.h   |  34 +---
+ .../net/ethernet/meta/fbnic/fbnic_debugfs.c   |   5 +-
+ .../net/ethernet/meta/fbnic/fbnic_ethtool.c   |   8 +-
+ .../net/ethernet/meta/fbnic/fbnic_netdev.c    |   5 +
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c  | 165 ++++++++++++++----
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.h  |  12 ++
+ include/net/netdev_queues.h                   |  48 ++++-
+ net/core/dev.c                                |   7 +-
+ net/core/dev.h                                |   7 +
+ net/core/netdev_config.c                      |  75 +++++++-
+ net/ethtool/common.c                          |   9 +
+ net/ethtool/common.h                          |   2 +
+ net/ethtool/ioctl.c                           |  24 ++-
+ net/ethtool/netlink.c                         |  15 +-
+ net/ethtool/rings.c                           |  13 +-
+ .../selftests/drivers/net/hw/iou-zcrx.c       |  33 +++-
+ .../selftests/drivers/net/hw/iou-zcrx.py      |   6 +-
+ 17 files changed, 374 insertions(+), 94 deletions(-)
+
+
+base-commit: 0abe8777490ebc008635ecb20297761d1b317697
+-- 
+2.55.0
+
