@@ -1,252 +1,166 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4541B342CB0
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311D1355F5F;
+	Thu, 10 Sep 2026 09:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031480; cv=none; b=OIHCwJ7ChwccMi8jhpfVN8hyPb4VFm7XQ6CQQlJ1eNCXToUN/lK6z/vJI5kNV9j1zqnku7TqkcOG7E01NZUQC/oZcqOiCzVOppwedGcE4Z4h6/OGySCTe2UbOJoYv5PfcqKmtFH0PqhzevRVwhtC5VtUSFx7g7iCvxczD59CYSs=
+	t=1789031497; cv=none; b=eV//fw6pE7jjVueTe1kLOti6j/HLKLy+bd3s9+zk9zB4NsFETZJPejDE0YZP7GvheQXzEk4qLRlk4JHywxN/xNAoWoHm7kQXpEA+uH+21IuELTLs2zp5XzopjKx9TXKrdSno6Na4lsluBMZq0i3KWDwVU345h6PVsefs+si2fEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031480; c=relaxed/simple;
-	bh=kMEHw+Y3oxJLN5/a3m5XLxvsK4JfTnqmaIt3Wohnmgc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=skUqy5XghegDQZwFra2Iu4vLpZQOz9euAZdFyO+y2j2+ALWdkr2ZDoahWJPO/1doEnm34WNJfcNX7m8L4PMSzUUIXNy5FnBvT9KpTDWZSIa4q1zxQH/8zRHEgbAKojnhcqdUD1mmN/hLqULrxNOiA9N5L99fcUSA8g1P8LyVsGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Plu+9tRM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HR+wu/55; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xb2igSyS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5rnmJToy; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789031497; c=relaxed/simple;
+	bh=Xu+ovBLPoUOc7ueWlJ/+QdACri4Bx0jLtI3Yyc4O42Y=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Zn1uK92GjU9ASyhojs5YRS6k1fWRvIfLcGZN+aSs27SUAFdozgME7YhupxHPdBLqae8dV7ZDR1BuFpk8qevfpE5aGDk4PSIbo2vsx4YiuMtb6Yqxhz7zqELC0fWdq8dE17uiBNVrhiWv5gJ0+bZYBR4P5/aLCBcwzABwcCMH3Ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=nGKUCrua; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Plu+9tRM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HR+wu/55";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xb2igSyS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5rnmJToy"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 04CFB21BC3;
-	Thu, 10 Sep 2026 09:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789031472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NnEMHNqY8E0v8UjNtFeQvZzmCm7Z3QTfHoi6Ew4qBBg=;
-	b=Plu+9tRMSFQ4ytBwTiLeITnqBf8bIKtJ1j+nCuPQHs8VF5uSbkn2FYjgNPJssXdsepKOwT
-	MzQFFLu7ksfaSGmMd+YY+alyGCCWfwkrKIGlvj/Bqby5dyC021CtlsW0OxFunNA1nNijxw
-	4KCL52+9CfGCWjTTaWauGeRXg8RhSHI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789031472;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NnEMHNqY8E0v8UjNtFeQvZzmCm7Z3QTfHoi6Ew4qBBg=;
-	b=HR+wu/55XYmJBdwcSiCyb6Zp6d3A6wy9QZcrIGnZ2yZdknfWoa4NMn3DtTdcWBn+T0YiGy
-	n78cwg6Gi9pVu0Bw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xb2igSyS;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5rnmJToy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789031467; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NnEMHNqY8E0v8UjNtFeQvZzmCm7Z3QTfHoi6Ew4qBBg=;
-	b=xb2igSySTwiwKpELmIynGQLq5ncK6ia3QH+RZPZdN/QOXwZmCYOv6WiXhQ8OO4qX4Z4JPr
-	8SmQiBy7CN1rNbyiIpzdWv55oeIuYNWSzqk/HfgF+xiLcVrb4WwSO30UGw34ojRCQAjf0g
-	RTt7RlqP8kmhUEC2S6Ugq8j9KsbtTGI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789031467;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=NnEMHNqY8E0v8UjNtFeQvZzmCm7Z3QTfHoi6Ew4qBBg=;
-	b=5rnmJToyjIBSDojUMbRobyVtbPshtYv9jUvmHumnRCCICjEZpcC8DV3MCtjhKFG3Fgqhj+
-	TrlzJaHviAn+NOAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 21FC71321C;
-	Thu, 10 Sep 2026 09:11:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id LsKKNyl0omo3AQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 10 Sep 2026 09:11:05 +0000
-Message-ID: <de6b8deb-090c-4950-8b6d-33f6dca5a999@suse.de>
-Date: Thu, 10 Sep 2026 11:11:05 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="nGKUCrua"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68A9BFZh81359564, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789031476; bh=Xu+ovBLPoUOc7ueWlJ/+QdACri4Bx0jLtI3Yyc4O42Y=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=nGKUCruax52ik9lEdrF2C1kE2qNZRN2qd8PGR59mvlXeQ5KVeBgTyPUfSl+WO0eoE
+	 skePmBKmGqoO92sHxvPwPMoX+f7dzEqy0yUX5Fp3bRmnU48vfELvXmAE4+Yk+9Lsw+
+	 b47A9Y8FQbA6qepwldHBwdquUOm+Zw9bw4aRhiTsmvKKvbqQ/FPiuFffXZq1tHjCbA
+	 M1GEfgLkSDurWmIo2KSAyeLPQO4vJYEJjjCogahKJdGcw5hmk2WK2BjnS1GN0W4nWR
+	 c4W01zWgpcIBAWP/yixLuHM7o+mS7h8hsysRHqGLDvRzcl/QgLJ3pDirCJXtqd3oCO
+	 /GcwI26SBt4Jg==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68A9BFZh81359564
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 10 Sep 2026 17:11:16 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 10 Sep 2026 17:11:16 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 10 Sep 2026 17:11:15 +0800
+Received: from RTKEXHMBS05.realtek.com.tw ([::1]) by
+ RTKEXHMBS05.realtek.com.tw ([fe80::a236:c445:ce4a:140a%4]) with mapi id
+ 15.02.2562.043; Thu, 10 Sep 2026 17:11:15 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, "broonie@kernel.org"
+	<broonie@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>
+CC: =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
+	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
+	"linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v4 2/2] spi: spi-mem: Add Realtek SPI NOR flash controller
+ driver
+Thread-Topic: [PATCH v4 2/2] spi: spi-mem: Add Realtek SPI NOR flash
+ controller driver
+Thread-Index: AQHdQFq13CkcfsxNVEy+ga/cyUbwnrbFvsSAgAHI7qA=
+Date: Thu, 10 Sep 2026 09:11:15 +0000
+Message-ID: <217f74ab36be487ebe874e2fd340756b@realtek.com>
+References: <20260909125701.273314-1-eleanor.lin@realtek.com>
+	 <20260909125701.273314-3-eleanor.lin@realtek.com>
+ <c647c66bdb3d87157a5684b755c95123fe9ba198.camel@pengutronix.de>
+In-Reply-To: <c647c66bdb3d87157a5684b755c95123fe9ba198.camel@pengutronix.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/verisilicon: set blend mode for the primary plane
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
- <35cf76a67f7473d5ef86d01c812d680abc41687e.camel@iscas.ac.cn>
- <e2a2f02f-13c4-4919-9344-db7afcd3368b@suse.de>
- <d36bc08a7f954be25b0d3e0fe649698b3944f98a.camel@iscas.ac.cn>
- <e61e51fb-9e29-46c9-888d-5ad377a89311@suse.de>
- <0f79f3bd5175285de4b2112e6419a8f373b0ff81.camel@iscas.ac.cn>
- <924e1372-6fe2-42ae-a57a-d44d3cf08f5a@suse.de>
- <76f48282eb5deb217dd1c8b6dc547e4a058580ad.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <76f48282eb5deb217dd1c8b6dc547e4a058580ad.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: 04CFB21BC3
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,iscas.ac.cn:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
 
-Hi
-
-Am 10.09.26 um 11:02 schrieb Icenowy Zheng:
-[...]
-> As the DC8000 support is being developed (a new revision of that
-> patchset just appeared on this Tuesday), and on that hardware the A
-> channel has no meaning except for being ignored (no blend configuration
-> register for the primary plane), maybe I still need to remove alpha
-> formats (at least for DC8000)?
->
-> Although in such case, when the overlay support is going to be
-> introduced, two format tables need to be present -- one with alpha and
-> one without.
-
-Sure. In my opinion, there should be a dedicated format table for each 
-type of plane. These "super tables" that sometimes try to catch all 
-cases in a single place are not great.
-
-Best regards
-Thomas
-
->
-> Thanks,
-> Icenowy
->
->> Best regards
->> Thomas
->>
->>
->>> Thanks,
->>> Icenowy
->>>
->>>> In pl111, we now remove the ARGB foramts because the hardware
->>>> does
->>>> not
->>>> handle them at all. The situation seems less clear in
->>>> verisilicon.
->>>>
->>>> Best regards
->>>> Thomas
->>>>
->>>>
->>>>> Thanks,
->>>>> Icenowy
->>>>>
->>>>>> Best regards
->>>>>> Thomas
->>>>>>
->>>>>>> Thanks,
->>>>>>> Icenowy
->>>>>>>
->>>>>>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>>>>>>> ---
->>>>>>>>      drivers/gpu/drm/verisilicon/vs_primary_plane.c | 3
->>>>>>>> +++
->>>>>>>>      1 file changed, 3 insertions(+)
->>>>>>>>
->>>>>>>> diff --git
->>>>>>>> a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> index 1f2be41ae496c..8d58682d88ef8 100644
->>>>>>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> @@ -7,6 +7,7 @@
->>>>>>>>      
->>>>>>>>      #include <drm/drm_atomic.h>
->>>>>>>>      #include <drm/drm_atomic_helper.h>
->>>>>>>> +#include <drm/drm_blend.h>
->>>>>>>>      #include <drm/drm_crtc.h>
->>>>>>>>      #include <drm/drm_fourcc.h>
->>>>>>>>      #include <drm/drm_framebuffer.h>
->>>>>>>> @@ -179,5 +180,7 @@ struct drm_plane
->>>>>>>> *vs_primary_plane_init(struct
->>>>>>>> drm_device *drm_dev, struct vs_dc
->>>>>>>>      
->>>>>>>>      	drm_plane_helper_add(plane,
->>>>>>>> &vs_primary_plane_helper_funcs);
->>>>>>>>      
->>>>>>>> +	drm_plane_create_blend_mode_property(plane,
->>>>>>>> +					
->>>>>>>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
->>>>>>>>      	return plane;
->>>>>>>>      }
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+SGkgUGhpbGlwcCwNCg0KVGhhbmtzIGZvciB5b3VyIHJldmlldy4NCg0KPiA+ICtzdGF0aWMgaW50
+IHJ0a19zcGlfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikgew0KPiA+ICsgICAg
+IHN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7DQo+ID4gKyAgICAgc3RydWN0IHNwaV9j
+b250cm9sbGVyICpjdHJsOw0KPiA+ICsgICAgIHN0cnVjdCBydGtfc3BpX2hvc3QgKmhvc3Q7DQo+
+ID4gKyAgICAgc3RydWN0IHJlc291cmNlICpyZXM7DQo+ID4gKyAgICAgaW50IHJldDsNCj4gPiAr
+DQo+ID4gKyAgICAgY3RybCA9IGRldm1fc3BpX2FsbG9jX2hvc3QoZGV2LCBzaXplb2YoKmhvc3Qp
+KTsNCj4gPiArICAgICBpZiAoIWN0cmwpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gLUVOT01F
+TTsNCj4gPiArDQo+ID4gKyAgICAgcGxhdGZvcm1fc2V0X2RydmRhdGEocGRldiwgY3RybCk7DQo+
+ID4gKyAgICAgaG9zdCA9IHNwaV9jb250cm9sbGVyX2dldF9kZXZkYXRhKGN0cmwpOw0KPiA+ICsg
+ICAgIGhvc3QtPmRldiA9IGRldjsNCj4gPiArDQo+ID4gKyAgICAgaG9zdC0+Y2xrID0gZGV2bV9j
+bGtfZ2V0KGRldiwgTlVMTCk7DQo+ID4gKyAgICAgaWYgKElTX0VSUihob3N0LT5jbGspKQ0KPiA+
+ICsgICAgICAgICAgICAgcmV0dXJuIFBUUl9FUlIoaG9zdC0+Y2xrKTsNCj4gPiArDQo+ID4gKyAg
+ICAgcmV0ID0gY2xrX3ByZXBhcmVfZW5hYmxlKGhvc3QtPmNsayk7DQo+ID4gKyAgICAgaWYgKHJl
+dCkNCj4gPiArICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+ID4gKw0KPiA+ICsgICAgIGhvc3Qt
+PnJzdGMgPSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0X29wdGlvbmFsX2V4Y2x1c2l2ZShkZXYsIE5V
+TEwpOw0KPiA+ICsgICAgIGlmIChJU19FUlIoaG9zdC0+cnN0YykpIHsNCj4gPiArICAgICAgICAg
+ICAgIHJldCA9IFBUUl9FUlIoaG9zdC0+cnN0Yyk7DQo+ID4gKyAgICAgICAgICAgICBnb3RvIGVy
+cl9kaXNhYmxlX2NsazsNCj4gDQo+IElmIHlvdSBtb3ZlZCBjbGtfcHJlcGFyZV9lbmFibGUoKSBi
+ZWxvdyB0aGlzLCB5b3UgY291bGQganVzdCByZXR1cm4gaGVyZS4NCj4gDQoNCkFjay4NCg0KPiA+
+ICsgICAgIH0NCj4gPiArDQo+ID4gKyAgICAgcmVzZXRfY29udHJvbF9hc3NlcnQoaG9zdC0+cnN0
+Yyk7DQo+ID4gKyAgICAgdXNsZWVwX3JhbmdlKDEwLCAyMCk7DQo+ID4gKyAgICAgcmVzZXRfY29u
+dHJvbF9kZWFzc2VydChob3N0LT5yc3RjKTsNCj4gPiArDQo+ID4gKyAgICAgcmV0ID0gZG1hX3Nl
+dF9tYXNrX2FuZF9jb2hlcmVudChkZXYsIERNQV9CSVRfTUFTSygzNSkpOw0KPiA+ICsgICAgIGlm
+IChyZXQpIHsNCj4gPiArICAgICAgICAgICAgIGRldl9lcnIoZGV2LCAiRmFpbGVkIHRvIHNldCBk
+bWEgbWFza1xuIik7DQo+ID4gKyAgICAgICAgICAgICBnb3RvIGVycl9kaXNhYmxlX2NsazsNCj4g
+DQo+IE5vIHJlc2V0X2NvbnRyb2xfYXNzZXJ0KCkgaW4gdGhpcyBlcnJvciBwYXRoPw0KPiANCj4g
+PiArICAgICB9DQo+ID4gKw0KPiA+ICsgICAgIGhvc3QtPmJ1ZmZlciA9IGRtYW1fYWxsb2NfY29o
+ZXJlbnQoZGV2LCBTRkNfRE1BX01BWF9MRU4sDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAmaG9zdC0+ZG1hX2J1ZmZlciwNCj4gR0ZQX0tFUk5FTCk7DQo+ID4g
+KyAgICAgaWYgKCFob3N0LT5idWZmZXIpIHsNCj4gPiArICAgICAgICAgICAgIHJldCA9IC1FTk9N
+RU07DQo+ID4gKyAgICAgICAgICAgICBnb3RvIGVycl9kaXNhYmxlX2NsazsNCj4gPiArICAgICB9
+DQo+ID4gKw0KPiA+ICsgICAgIGhvc3QtPnJlZ2Jhc2UgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBf
+cmVzb3VyY2VfYnluYW1lKHBkZXYsDQo+ICJjdHJsIik7DQo+ID4gKyAgICAgaWYgKElTX0VSUiho
+b3N0LT5yZWdiYXNlKSkgew0KPiA+ICsgICAgICAgICAgICAgcmV0ID0gUFRSX0VSUihob3N0LT5y
+ZWdiYXNlKTsNCj4gPiArICAgICAgICAgICAgIGdvdG8gZXJyX2Rpc2FibGVfY2xrOw0KPiA+ICsg
+ICAgIH0NCj4gPiArDQo+ID4gKyAgICAgaG9zdC0+bWRiYXNlID0gZGV2bV9wbGF0Zm9ybV9pb3Jl
+bWFwX3Jlc291cmNlX2J5bmFtZShwZGV2LA0KPiAiZG1hIik7DQo+ID4gKyAgICAgaWYgKElTX0VS
+Uihob3N0LT5tZGJhc2UpKSB7DQo+ID4gKyAgICAgICAgICAgICByZXQgPSBQVFJfRVJSKGhvc3Qt
+Pm1kYmFzZSk7DQo+ID4gKyAgICAgICAgICAgICBnb3RvIGVycl9kaXNhYmxlX2NsazsNCj4gPiAr
+ICAgICB9DQo+ID4gKw0KPiA+ICsgICAgIHJlcyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZV9ieW5h
+bWUocGRldiwgSU9SRVNPVVJDRV9NRU0sDQo+ICJkaXJtYXAiKTsNCj4gPiArICAgICBob3N0LT5p
+b2Jhc2UgPSBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoZGV2LCByZXMpOw0KPiA+ICsgICAgIGlmIChJ
+U19FUlIoaG9zdC0+aW9iYXNlKSkgew0KPiA+ICsgICAgICAgICAgICAgcmV0ID0gUFRSX0VSUiho
+b3N0LT5pb2Jhc2UpOw0KPiA+ICsgICAgICAgICAgICAgZ290byBlcnJfZGlzYWJsZV9jbGs7DQo+
+ID4gKyAgICAgfQ0KPiANCj4gSXQgbG9va3MgdG8gbWUgbGlrZSBhbGwgdGhlc2UgZG1hbV8gYW5k
+IGRldm1fIGluaXRpYWxpemF0aW9uIGNhbGxzIHNob3VsZCBiZQ0KPiBtb3ZlZCB1cCBiZWZvcmUg
+dGhlIGNsb2NrIGVuYWJsZSBhbmQgcmVzZXQgYXNzZXJ0L2RlYXNzZXJ0Lg0KPiANCj4gPiArDQo+
+ID4gKyAgICAgaG9zdC0+ZGlybWFwX3NpemUgPSByZXNvdXJjZV9zaXplKHJlcyk7DQo+ID4gKyAg
+ICAgaG9zdC0+Zmxhc2hfcGh5c19iYXNlID0gcmVzLT5zdGFydDsNCj4gPiArICAgICBob3N0LT5p
+c180Ynl0ZSA9IGZhbHNlOw0KPiA+ICsNCj4gPiArICAgICBjdHJsLT5tb2RlX2JpdHMgPSBTUElf
+UlhfRFVBTCB8IFNQSV9UWF9EVUFMOw0KPiA+ICsgICAgIGN0cmwtPmJ1c19udW0gPSAtMTsNCj4g
+PiArICAgICBjdHJsLT5tZW1fb3BzID0gJnJ0a19zcGlfbWVtX29wczsNCj4gPiArICAgICBjdHJs
+LT5udW1fY2hpcHNlbGVjdCA9IDE7DQo+ID4gKyAgICAgY3RybC0+YXV0b19ydW50aW1lX3BtID0g
+dHJ1ZTsNCj4gPiArDQo+ID4gKyAgICAgcnRrX3NwaV9pbml0KGhvc3QpOw0KPiANCj4gVGhpcyBp
+cyB0aGUgZmlyc3QgY2FsbCB0aGF0IGFjdHVhbGx5IG5lZWRzIGNsb2NrcyBydW5uaW5nIGFuZCBy
+ZXNldCB0cmlnZ2VyZWQuDQo+IA0KDQpJIHdpbGwgdXBkYXRlIHRoZSBzZXF1ZW5jZSBhcyBmb2xs
+b3dzOg0KDQoxLiBHZXQgdGhlIGNsb2NrIGFuZCByZXNldCBjb250cm9scywgdGhlbiBjb21wbGV0
+ZSBvdGhlciByZXNvdXJjZSBpbml0aWFsaXphdGlvbi4NCjIuIEVuYWJsZSB0aGUgY2xvY2sgYW5k
+IHBlcmZvcm0gdGhlIHJlc2V0IHNlcXVlbmNlLg0KMy4gQ2FsbCBydGtfc3BpX2luaXQoKS4NCg0K
+PiA+ICsNCj4gPiArICAgICBwbV9ydW50aW1lX3NldF9hdXRvc3VzcGVuZF9kZWxheShkZXYsDQo+
+IFNGQ19BVVRPU1VTUEVORF9USU1FT1VUKTsNCj4gPiArICAgICBwbV9ydW50aW1lX3VzZV9hdXRv
+c3VzcGVuZChkZXYpOw0KPiA+ICsgICAgIHBtX3J1bnRpbWVfc2V0X2FjdGl2ZShkZXYpOw0KPiA+
+ICsgICAgIHBtX3J1bnRpbWVfZW5hYmxlKGRldik7DQo+ID4gKyAgICAgcG1fcnVudGltZV9nZXRf
+bm9yZXN1bWUoZGV2KTsNCj4gPiArDQo+ID4gKyAgICAgcmV0ID0gc3BpX3JlZ2lzdGVyX2NvbnRy
+b2xsZXIoY3RybCk7DQo+ID4gKyAgICAgaWYgKHJldCA8IDApIHsNCj4gPiArICAgICAgICAgICAg
+IGRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIHJlZ2lzdGVyIGNvbnRyb2xsZXJcbiIpOw0KPiA+ICsg
+ICAgICAgICAgICAgZ290byBlcnJfcG1fZGlzYWJsZTsNCj4gPiArICAgICB9DQo+ID4gKw0KPiA+
+ICsgICAgIHBtX3J1bnRpbWVfcHV0X2F1dG9zdXNwZW5kKGRldik7DQo+ID4gKw0KPiA+ICsgICAg
+IHJldHVybiAwOw0KPiA+ICsNCj4gPiArZXJyX3BtX2Rpc2FibGU6DQo+ID4gKyAgICAgcG1fcnVu
+dGltZV9wdXRfbm9pZGxlKGRldik7DQo+ID4gKyAgICAgcG1fcnVudGltZV9kaXNhYmxlKGRldik7
+DQo+ID4gKyAgICAgcG1fcnVudGltZV9zZXRfc3VzcGVuZGVkKGRldik7DQo+ID4gKyAgICAgcG1f
+cnVudGltZV9kb250X3VzZV9hdXRvc3VzcGVuZChkZXYpOw0KPiA+ICsgICAgIHJlc2V0X2NvbnRy
+b2xfYXNzZXJ0KGhvc3QtPnJzdGMpOw0KPiA+ICsNCj4gPiArZXJyX2Rpc2FibGVfY2xrOg0KPiA+
+ICsgICAgIGNsa19kaXNhYmxlX3VucHJlcGFyZShob3N0LT5jbGspOw0KPiA+ICsNCj4gPiArICAg
+ICByZXR1cm4gcmV0Ow0KPiA+ICt9DQo+ID4gKw0KPiA+ICtzdGF0aWMgdm9pZCBydGtfc3BpX3Jl
+bW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KSB7DQo+ID4gKyAgICAgc3RydWN0IHNw
+aV9jb250cm9sbGVyICpjdHJsID0gcGxhdGZvcm1fZ2V0X2RydmRhdGEocGRldik7DQo+ID4gKyAg
+ICAgc3RydWN0IHJ0a19zcGlfaG9zdCAqaG9zdCA9IHNwaV9jb250cm9sbGVyX2dldF9kZXZkYXRh
+KGN0cmwpOw0KPiA+ICsgICAgIHN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7DQo+ID4g
+Kw0KPiA+ICsgICAgIHNwaV91bnJlZ2lzdGVyX2NvbnRyb2xsZXIoY3RybCk7DQo+ID4gKw0KPiA+
+ICsgICAgIHBtX3J1bnRpbWVfZ2V0X3N5bmMoZGV2KTsNCj4gPiArICAgICBwbV9ydW50aW1lX2Rp
+c2FibGUoZGV2KTsNCj4gPiArICAgICByZXNldF9jb250cm9sX2Fzc2VydChob3N0LT5yc3RjKTsN
+Cj4gPiArICAgICBjbGtfZGlzYWJsZV91bnByZXBhcmUoaG9zdC0+Y2xrKTsNCj4gPiArICAgICBw
+bV9ydW50aW1lX3B1dF9ub2lkbGUoZGV2KTsNCj4gPiArICAgICBwbV9ydW50aW1lX3NldF9zdXNw
+ZW5kZWQoZGV2KTsNCj4gDQo+IFdoeSBpcyB0aGlzIGNsZWFudXAgb3JkZXIgZGlmZmVyZW50IGZy
+b20gdGhlIHByb2JlIGVycm9yIHBhdGg/DQo+IA0KDQpJIHdpbGwgdXBkYXRlIGJvdGggcGF0aHMg
+dG8gdXNlIHRoZSBzYW1lIGNsZWFudXAgc2VxdWVuY2UuDQoNCkJlc3QgUmVnYXJkcywNCll1LUNo
+dW4NCg0KPiANCj4gcmVnYXJkcw0KPiBQaGlsaXBwDQo=
