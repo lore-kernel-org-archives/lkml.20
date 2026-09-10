@@ -1,121 +1,164 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-qv2-f5.google.com (mail-qv2-f5.google.com [74.125.230.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D724A0905
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050434; cv=none; b=WRldFhG1IAUGsq5jZqjXm2ITFU9Sr7ZOXC4gKdFtiOZVTcziJmwTVZBotu1S4+CzGJ53XE4Zgy5HAMZK6S4SJHzJZaQPIu2WuE5lYVs7qhgMU3cX8jLiG3TMdlX16l7gS/9n50mjz8eO7D0gmUJ61hXz7GDxgqub0tVxSlGBCLQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050434; c=relaxed/simple;
-	bh=0zK3NdZdAEIF+fY7bnFJa022HywxKyfReyEg/39UFm0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=f9o/csoV9+mVdLibnR+5p5H/lpyB9+5pSdYQmWG2TSR89WoGdjQ9GrNxTceT9LU1doVj4iqeY3KE2bC38qXG0bNkaO7e6kJwPJobcFOdokpWS8hpueY43pJhmVO2s3mkxe0l/yuTusLumbcrQ0kziWI9x7vYdoZC38BUGsMhPpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LTu+r/PZ; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA044A3D3B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.133
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789050436; cv=pass; b=C7fhtEnn7aVSQ0Q99UnlrpvOxBj87jX2Q+KxoOJdBypXF27WGpD9PMtVUYkDDGig7rc86uvT+xloMZRWrn2wpZ/5iI9c9LAyN9lqm8RWiwVqXGwpDCaeeGUT1v94201PA6E23gyGXBl4jnknRWYWOc5cKy0cQ13HJlniQIOwi0o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789050436; c=relaxed/simple;
+	bh=XFUFazfuIMQ64hRY9FwhIfv1FUgZ4NvEXMyfvgwl6Ks=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=i+3X/LXTtxto9CGsEpWP3kRSdmwzuHoVshYCSeqkzK6vbsWlI0n1rlwzhqIlZ3lzQBVbcPNGExoSmhXO/Bvo924ewse9GwUan0ijBru9gwaWAcLQC0aj8vaS6Ux8Rz7bgT+Bt04G5u96fjhFLBDzj/BnkpshSHf3UqWRX72TYAk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J9O8MTi0; arc=pass smtp.client-ip=74.125.230.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LTu+r/PZ"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dc92350888so40414475ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:27:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J9O8MTi0"
+Received: by mail-qv2-f5.google.com with SMTP id 6a1803df08f44-90cd1be1f12so26532606d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:27:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789050433; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a5VUbRZMIS88djtXVZnCgndHPQMTx6bCDF/5E8JhqHXJ/p9wiAbaDDa8aVcg8Z2V6+
+         vsdlr8XGjOuOi25uRWwh1Azq9hWoT6+ClHDvw32EFl2bXr+1vyoJAA04tQi7EyXVMjvq
+         YqcYI3ZM89OeNeRwH4V4ksY6/zvH4mQwoLrFiy/vYxkivBksbNQeTM0uaNdiBsAZ3Rt3
+         Fb+C1RMaX789dE7qnha3vMFvVW0r3/1/BhbsQ1jzErMNZDhYwcLzJuLlaPkta6GkJCib
+         VOEAC03H9c/CQ1xPFPK3WIrhCX97WAcK0lVxi4cOqgfeRgy2BVZYAbEzQq2HaUoAYY+y
+         Kt3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=OYzPALwbkpEJNy0Fg9Fok6IzjwexhNaARMkyqte3Eow=;
+        fh=uD0Qsam+2IaOEIojKIC14yS2TcPKyj4WZ18hiGzarLA=;
+        b=ZyO8dMsKZolg1Gt6B+iKcNHcbylFZbIMwwn2x+HLGf0Z2dKUQlqYBvJLumI76DlsDd
+         MeaQPmeUjA78K9GO4MFMQG2Zy8nf6VC8hxgFCLhpHRu6W/oWI/IKXKMWNY9p/Y01sGIP
+         Jn3HrNgFpuJvEM0+U0Tx77t8m41faxQG3QMTF++DvQmCy4o6Jl77uSBVChW0PfKcWBOt
+         lYHPVzv9FS+3W6rW+AjK8TlqHRZ1oVKjbi/vgOwVJOaMP16QTp+47A0I1mGLdlAJLxJq
+         JmkHcy+wEnmAkGxdXF/Mv+tEaz12SKfYS4UgT8AQvtZFZqcOtqthXYT71v4LznUqmdL0
+         oDyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789050430; x=1789655230; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789050433; x=1789655233; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6VbiO+0ZZ336AV1ci1nySmnPdcf0jBOH8n5u+L52730=;
-        b=LTu+r/PZwX8VG7iB3g9kR8vc4+IugjkneVG+1FxDEQ37E/A5gJM3q5tg5UxNIAhlgd
-         IQy31sf48+FfjEAQ+zsSUqHgKFY+PekSpYd+hUnX0PQAJfo+AVJhGUoDl+/XDmfdYQZN
-         3RRqyWoI64h4JfpVhU5MeFkCzgTnEcUoQZeJNSzthfhp9EvaqdkfRgnO+8bGjgAll5TE
-         s1r3W4gXqitYR8AzPXjRXJ9Vkk9F0Yi6iCuxY7NWCirxwCxEsKhdm+ZbswLwblkquYKb
-         pGTbiQf6mFtPi0ZTZFJW4wkX/QOQOh+npZ4KVjFc3x5qT9MLDCKYVQCGUAR0sWZegS2D
-         wBHw==
+        bh=OYzPALwbkpEJNy0Fg9Fok6IzjwexhNaARMkyqte3Eow=;
+        b=J9O8MTi0woVNoOAZdV26REOvKbFFx/YFkGKAP260++XR2HweQ/35AXzA2HkiFAPjQI
+         fvpcaNl43CdYxfQkY+4puMg4UBuCUg6MbMY1Hwiv0pZLoFQKwilKpvIC1F1wxSvQX32F
+         1+ScEiE0tXEbOED9spP8CXxPfTUWN9nvP7HNhDqdG3Z4BqbXn5p7Oh2uieRKDMfJTPto
+         twHNpRKIUmpySqYv+5YWcnsPpsVNrKrPmDHqHTYneUh73hRaUbXWDv2sY1UrmHT4S2so
+         G+We7zctjNX89c2Yc7ctP5FXLTN27ibey+5RjqWEVr4UrYlUHDLQu1DFa6ryGGtKFUeH
+         26ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050430; x=1789655230;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789050433; x=1789655233;
+        h=content-type:cc:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6VbiO+0ZZ336AV1ci1nySmnPdcf0jBOH8n5u+L52730=;
-        b=cEMFKb2VcIT4YY2hwZNpqOFbnvAnrSf/rcnOIQvRquRWIPy9FFxAlUdcnhTYUR7syN
-         PINQeMigYUHIK0r6z4D7XYKghQuoIDHYZG/AROOBZJRXNmlM74ue0/wBhoDPYdnEEhIF
-         BpGUviHF8na49M91iu58M/9IvgV7B0lQNqN+214mxduY/D874pS+qfazOw0RFXqPpJ5I
-         bF7Euhfeik7Upz7D1rUEcE+8v2KorVNuN/I3jY0GXK2rSTvzVR28tTyn1XwqGWW9jp/z
-         8gSfTG4SrYQ1y7oRwMJa8/PKlx3hzTBNpCFN/l/GltfhjED/jXgYdnzJ9ThQb2NQsgoV
-         RXWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTtpkaNfcM6q6EBEQh+k+EaP6E3lOlSf72a7R8uyr+8kDcbrm6US7PLsZ24GScn6VO3npV/PicOi6jJ54=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYV4nI9RqcIGMhUu5Y9fASgd9wFxnEPicihrF5JPQM+sqlTpl0
-	8GDDqjGRxmxgFrXIzrc4wxmNc7QrRSARDzDbus2VeOt+KwKrN4u0Wo+RveZXB9/vPVtd9wu5ZV+
-	lHA==
-X-Received: from plkq16.prod.google.com ([2002:a17:902:edd0:b0:2db:49e4:272])
- (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e548:b0:2d9:2fc9:5706
- with SMTP id d9443c01a7336-2dd077e0c3amr105542405ad.2.1789050430169; Thu, 10
- Sep 2026 07:27:10 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:26:55 +0000
-In-Reply-To: <20260910142655.3281464-1-praan@google.com>
+        bh=OYzPALwbkpEJNy0Fg9Fok6IzjwexhNaARMkyqte3Eow=;
+        b=M6aMT/mn1wHp45Qe9ZjBgV2X4v4+fyEjLdpAn8cWeIRjZcyQN7EYU0JWFcmhc7+d5q
+         v/KPlp5uVCuOW9WplfCYxOMCk7pWZMzC4vR7m7iS1KtnXWl5qt76bK7DUCsnXbjtiWC2
+         MKBLxp5MVI+SUNeJ2jbWjbWs+EP+uZUpXuiqFJeDkE/tKLD/G/IIiyw91DizJ0lzcZc5
+         LiJCi0F44f+UGhX/WDDWtV+H0TQUozKp3J0lD7JvoOvM8EoqOXRX82QGUsG58lGkspUH
+         lao72Qxqj/7KiXX3u8Y1llNwedDhbcYf8fGm6UUv6Yy5pFTPVBvkVwUzOIys0LuRHqm9
+         Show==
+X-Forwarded-Encrypted: i=1; AKwUvBwpAsVS3WPgtNt1RUFXCecTc/1wUJ5pQ5LbpRC7qOP5RBSWeuzM95YfQkTDz9Sr6361Ba3kZqruG+GwvSE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLuaYxk8bdbjK8XdY3Kn6I6wdEmniwF7xhtrbN6WXjluYrN5aH
+	PCFZjigEI/9mDTQSpSQQBoTtBtALoUZyGJ/KCApQKzLbaDi2Jndpc2ucEaNpvlvzfOKKNW/cCrM
+	oskqnBB0I4TsEDLO52jxt1uaC16AFTNg=
+X-Gm-Gg: AYBFou3fXUPscmrNO6cV+crG8Y7Rt4flIPhmAm3a+mlETLAKAoq4xUKkZon4MQfHEad
+	OnGpTq75XTVJxr+Gf8r5LSqaw9lNw9ve+kRgMt2p9Z6M8yOV9XhL5btjS368tjezFvKUeduSzSU
+	7a2vPKstrEGVoQhXyJ/QGHXLpM85Tsfdc5wiZBDs9jDwcPMcGdAIo9WRJmXPDAzZBtKDC01x7Hf
+	kUZXUr/Zh/krwdVH3Wm5hlR/W3Un5r0UeXtvnUhBZl6fLGWDvbY4QTuzP9ZNXHQGBfPeEaWqIzs
+	VEeugG+Tobm/dUBsdfgpS3qrnV42hcnwdiDozvCjID1Y/9C51FL0Tb5Yu7A8C4WAEaBsTEn/qxY
+	EU1rwM5yCTAcYEF0U1jaCkCP5J+7rjUkq3tri4A9CHBTxVkv0cBOQW1FZSQ46sQ6RyQoX
+X-Received: by 2002:a05:6214:3286:b0:910:3451:343 with SMTP id
+ 6a1803df08f44-9103efc9b37mr581362186d6.34.1789050432428; Thu, 10 Sep 2026
+ 07:27:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910142655.3281464-1-praan@google.com>
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260910142655.3281464-5-praan@google.com>
-Subject: [PATCH v4 4/4] PCI/ATS: Mandate checking pci_ats_supported() before pci_prepare_ats()
-From: Pranjal Shrivastava <praan@google.com>
-To: iommu@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, 
-	Ankit Soni <ankit.soni@amd.com>, Jason Gunthorpe <jgg@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Samiullah Khawaja <skhawaja@google.com>, Pranjal Shrivastava <praan@google.com>, 
-	Baolu Lu <baolu.lu@linux.intel.com>, Nicolin Chen <nicolinc@nvidia.com>
+MIME-Version: 1.0
+Reply-To: www.rokinthanp03@gmail.com
+From: Rokinthan p <rokinthanp03@gmail.com>
+Date: Thu, 10 Sep 2026 19:56:56 +0530
+X-Gm-Features: AcwNN1X3UnoP8H6Z6eWKfUNDNvz-s_6kgXnqM_hKUbLJ0lQsk-0h86K8BJvN2XI
+Message-ID: <CAHzb5FF62brMQkynL3oCoxA_XtiF3n00h7kVzJ=EDWJOGVLojg@mail.gmail.com>
+Subject: [PATCH v2] media: hackrf: defer v4l2_ctrl_auto_cluster() until after
+ error check
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	cf896de36144391bcde1@syzkaller.appspotmail.com, 
+	syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
 
-Currently, pci_prepare_ats() internally calls pci_ats_supported() and
-returns -EINVAL if the device does not support ATS. While this provides
-a silent safety check, it conflates support detection with configuration.
+In hackrf_probe(), v4l2_ctrl_auto_cluster() is called immediately after
+    allocating the auto and manual bandwidth controls for both the receiver
+    and transmitter.
 
-Update pci_prepare_ats() to wrap the internal pci_ats_supported check in
-a WARN_ON(). This mandates all callers to call pci_prepare_ats() only if
-the function supports ATS.
+    If allocating the master control (dev->rx_bandwidth_auto or
+    dev->tx_bandwidth_auto) fails, e.g. due to memory allocation failure,
+    the pointer is NULL and the error is recorded in the control handler.
+    Calling v4l2_ctrl_auto_cluster() with a NULL master control causes
+    v4l2_ctrl_cluster() to trigger a WARNING:
 
-Update the function documentation to mention that callers must verify
-ATS support (via pci_ats_supported()) before calling pci_prepare_ats().
+      ncontrols == 0 || controls[0] == NULL
+      WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at
+  v4l2_ctrl_cluster
 
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
-Suggested-by: Baolu Lu <baolu.lu@linux.intel.com>
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Pranjal Shrivastava <praan@google.com>
----
- drivers/pci/ats.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+    Fix this by moving the v4l2_ctrl_auto_cluster() invocations down after
+    checking dev->rx_ctrl_handler.error and dev->tx_ctrl_handler.error.
+    If control allocation fails, probe cleanly aborts with an error without
+    attempting to cluster NULL controls.
 
-diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
-index 9cb23780093d..f1434f86ac40 100644
---- a/drivers/pci/ats.c
-+++ b/drivers/pci/ats.c
-@@ -56,7 +56,9 @@ EXPORT_SYMBOL_GPL(pci_ats_supported);
-  * @ps: the IOMMU page shift
-  *
-  * This must be done by the IOMMU driver on the PF before any VFs are created to
-- * ensure that the VF can have ATS enabled.
-+ * ensure that the VF can have ATS enabled. Callers must verify that ATS is
-+ * supported by the device (e.g. via pci_ats_supported()) before calling this
-+ * function.
-  *
-  * Returns 0 on success, or negative on failure.
-  */
-@@ -64,7 +66,7 @@ int pci_prepare_ats(struct pci_dev *dev, int ps)
- {
- 	u16 ctrl;
- 
--	if (!pci_ats_supported(dev))
-+	if (WARN_ON(!pci_ats_supported(dev)))
- 		return -EINVAL;
- 
- 	if (WARN_ON(dev->ats_enabled))
--- 
-2.55.0.1003.g10538fe699-goog
+    Fixes: 969ec1f6bd92 ("[media] hackrf: HackRF SDR driver")
+    Reported-by: syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
+    Closes: https://syzkaller.appspot.com/bug?extid=cf896de36144391bcde1
+    Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
+    ---
+    v1 -> v2:
+    - Correct the Fixes tag commit hash and title to match git history
+    - Fix email formatting and whitespace
 
+     drivers/media/usb/hackrf/hackrf.c | 4 ++--
+     1 file changed, 2 insertions(+), 2 deletions(-)
+
+    diff --git a/drivers/media/usb/hackrf/hackrf.c
+  b/drivers/media/usb/hackrf/hackrf.c
+    --- a/drivers/media/usb/hackrf/hackrf.c
+    +++ b/drivers/media/usb/hackrf/hackrf.c
+    @@ -1427,7 +1427,6 @@ static int hackrf_probe(struct usb_interface *intf,
+         dev->rx_bandwidth = v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+             &hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_BANDWIDTH,
+             1750000, 28000000, 50000, 1750000);
+    -    v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+         dev->rx_rf_gain = v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+             &hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_RF_GAIN, 0, 12,
+12, 0);
+         dev->rx_lna_gain = v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+    @@ -1439,6 +1438,7 @@ static int hackrf_probe(struct usb_interface *intf,
+             dev_err(dev->dev, "Could not initialize controls\n");
+             goto err_v4l2_ctrl_handler_free_rx;
+         }
+    +    v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+         v4l2_ctrl_grab(dev->rx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+         v4l2_ctrl_handler_setup(&dev->rx_ctrl_handler);
+
+    @@ -1450,7 +1450,6 @@ static int hackrf_probe(struct usb_interface *intf,
+         dev->tx_bandwidth = v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+             &hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_BANDWIDTH,
+             1750000, 28000000, 50000, 1750000);
+    -    v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+         dev->tx_lna_gain = v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+             &hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_LNA_GAIN, 0, 47,
+1, 0);
+         dev->tx_rf_gain = v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+    @@ -1460,6 +1459,7 @@ static int hackrf_probe(struct usb_interface *intf,
+             dev_err(dev->dev, "Could not initialize controls\n");
+             goto err_v4l2_ctrl_handler_free_tx;
+         }
+    +    v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+         v4l2_ctrl_grab(dev->tx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+         v4l2_ctrl_handler_setup(&dev->tx_ctrl_handler);
