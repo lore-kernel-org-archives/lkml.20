@@ -1,84 +1,40 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m3284.qiye.163.com (mail-m3284.qiye.163.com [220.197.32.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4315047ACC9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09D34BFE60;
+	Thu, 10 Sep 2026 11:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789040975; cv=none; b=SEXmI9zATM8/bml28C+yvsq7UwNun2Sj9Og5/Y4Vyg66DbD4BsDcdndp5+PiowBEnh4ImtzgP1PARm2/kkhbBQWgybh9ANj4bLlv9xIljTR0uWVJL+Kj6epbGLdJyT5QlgeNyFePVsnqkv9nAO6MH2n+aTZhISfP7tCdYr3oXSw=
+	t=1789041101; cv=none; b=ibk0UsNQLHpxrCk7laPP9EQpzam6mOil0Q4S7sL4j+6oC9dI+26GDKDgYMJ1CWMmD/LnjPBkyO0KA/gIiAZcrZZ8LKl9BNg/QqA+/orGcUcIN2O7WDD3Gn0pHAR8yYJEZxtX+5M8qbT9uDkn+9s8OPt9QvA/nFuRs1vpOM71dDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789040975; c=relaxed/simple;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	s=arc-20240116; t=1789041101; c=relaxed/simple;
+	bh=IcbK5OnRmor1GXU0aRmXmQZqa3x0nOC2ovckJmKEYz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eJ96MVvT/P7KivyKlVbNfLTzjZxAAxFJ2Fz5+9Nf5v3SgTKyZnh9ZfvODOw2dBume22ZK/mTVXrwB/02Vq81JNwyc++BSkL9yiOmmIjlzakuDQtQDNNR3htC81iBwU92YJjegUgVSH5oCQBHSt3lA6PWhes2XBKZeETmQp7tz0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TMpqcJka; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=uTqvaiw6gdA3UBduZiLhYkkbqT1hD0tBolW3xGuEFdTLNrrJBrLyY0qMBeruCy7rHnNvudm1BN/upbGnjZ7Yv4Tr91Bn1ql9pbliDQWdF573+Yry1iQ4p6QAbnSujA/iJc3O2lhNf7tXkfVrq9fz0Kjpboqy/C6ep4c7uazUWRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com; spf=pass smtp.mailfrom=hj-micro.com; dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b=eCDGr7su; arc=none smtp.client-ip=220.197.32.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hj-micro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TMpqcJka"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso66771305e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:49:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789040971; x=1789645771; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-        b=TMpqcJka2KQuxG0qAKpWZfFv6ebd8fY5pG3h1BfeZxsqpWA09BOTuZ9QqLWHJtB9ar
-         Ofig8B2TD+K261SrOlYCOxrvNakZ/CAdtHnvDxasg5dLDK8SpbW14k5zLNvBg2VnG2aE
-         on/ChJwLTJWY6b2vQTV6Dcovrs12jQrvpING+6JJui29QgRVLsLxxzoqtDCwDEHhlifo
-         Q1MEIj5BEi2U4rD2jm6THKkk/J/1I2ATerBYPi32GcenhymmCXp3ufjCdRiENxsU7eP0
-         ELaqtaIOV55+s07GeHRMxvHTBmFAQHqXXsDsgZG53ZoF/p/mTycqhGsdC8DvIF3Et0Iv
-         X4fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789040971; x=1789645771;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-        b=EOVlvs9EZ7QVv9yNUH09NmefGpVOyPyYe3Bbq5E2Jdn1uv/WPRIl+5rpaGUcJRTMBQ
-         4AS/LBgVe1bp//GANl09IisPUcE6r8ytJF0zHNkCMy3n+kjamdHIoqa0/WIm9x0tsqcS
-         TLIKiMQ49idp/7vSSSOh3RSKTg8mK0+gNDRD0DQKMsLgrpTgeBMK37ant2tKVxJ5xzzY
-         N7BAsRFD0WB7BdPY/ziSN+CIdyCuOc6Klv13cZSIoepdrk0kmqIyybUkWuNASHUHCEuF
-         a+MEl0SMBa/SQNilS+g7g+zNsSymx3mUQlMIuH2x721jpnD69mMJq7c83PJ0fXhug1Xp
-         Hu4A==
-X-Forwarded-Encrypted: i=1; AKwUvByg0jhGDQyY/J8h9WmY3gZDEwltGYfgxL7GPjEoD7x0eSpaP8lJjdgkqi+3zf52Xgdde9H93/xKcIhXW6E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7HNcXk2Dj+APIkIvIwHJmfOI6W6Mtu/Er8C5vtmbzY5QyvUVb
-	dArJGHujznWrlJ0saXQwpWXSaJvXm9H6FnXajQcaqAL9A0N+e1mYXC4j
-X-Gm-Gg: AYBFou1UfvV5q1QQCgfib0d9+eshgJSSVAIZmVI7qeHAPX/gM+K65b2JQ2f8KKh2r8t
-	NyZP4rj9BHRyKG5uN5atBiV5fUWCBrOH3aM9IvP1vigrPxgYdpQbp8ggLMxfqzHYGyGI9WmUFRN
-	G+zmnGhOQQLDj15HUzVvT0ugZr2S2VudS7IgqKY7XWkuSkjhkFoxsAKwZvKpF8dLfJ4sEeW57GX
-	Qcr+AacEynHbix5uKoGCy8NgvDKDzQ5lwnABem0VSK7azAZrGKsxCpcI1NAQCPyOrOpvc8Q4Zpk
-	k6MbjAhmglC6BzpDl5LHuV7NeSLMpfetcl+UOfROo0XJ+ixN7S155O8YU6LMMGH8az8JXN9Z3v/
-	qAANBc4lHqJF38nZwCuz4Gi21Dvz+DDz29SkpE9fMkAu4LQPAwnYx7Ro8ceT1fOJp+B2ragZARK
-	Qs/lB3V27foN01yPCwpvVLuQtMCO4fFn0OWknEw6PYwqbG7b1LRPC2C8RPo1jG+futomnCKcc73
-	tJF5E4GEIf0KEuYFtybeaakvVKgYl74E/+ehdA5gE/9+Le/PQSeOA==
-X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr438196315e9.6.1789040971053;
-        Thu, 10 Sep 2026 04:49:31 -0700 (PDT)
-Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb058c8sm62353075e9.0.2026.09.10.04.49.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 04:49:30 -0700 (PDT)
-From: German <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: andre.gilerson@gmail.com,
-	conor+dt@kernel.org,
-	dan.scally@ideasonboard.com,
-	devicetree@vger.kernel.org,
-	germanpapulindez@gmail.com,
-	hansg@kernel.org,
-	krzk+dt@kernel.org,
+	dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b="eCDGr7su"
+Received: from localhost.localdomain (unknown [122.224.147.158])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d496048e;
+	Thu, 10 Sep 2026 19:46:13 +0800 (GMT+08:00)
+From: Shouping Wang <allen.wang@hj-micro.com>
+To: robin.murphy@arm.com,
+	will@kernel.org
+Cc: mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Test on another machine and userspace for [PATCH v3 0/3] media: Add support for the Sony IMX681 Thanks for clarifying the origin of the errors I am more than happy to provide the tag Tested-by: German <germanpapulindez@gmail.com>
-Date: Thu, 10 Sep 2026 13:48:33 +0200
-Message-ID: <20260910114833.4801-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910112210.44432-1-lsa.uz@pm.me>
-References: <20260910112210.44432-1-lsa.uz@pm.me>
+	peter.du@hj-micro.com,
+	andy.xu@hj-micro.com,
+	allen.wang@hj-micro.com
+Subject: [PATCH v2] perf/arm-cmn: Fix wp_dev_sel2 setting for multi-DTM configurations
+Date: Thu, 10 Sep 2026 19:46:01 +0800
+Message-ID: <20260910114601.165237-1-allen.wang@hj-micro.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2fb3bda7-cd64-4dc0-99f8-c0fda8d42cf9@arm.com>
+References: <2fb3bda7-cd64-4dc0-99f8-c0fda8d42cf9@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,4 +42,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa08b23c9a409d8kunm705001594eab80
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH0kZVkoaTU5CSB1OSRpLSlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSUlVSUlPVUpPTFVKTkNZV1kWGg8SFR0UWUFZT0tIVU
+	JCSU5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=eCDGr7sur2hFENqnVzpUbneaLM6v6XGlzZ9IlGCCuAhQXla7vsuVMdg1br0rpq6NvxqmyunxGvyKK5dpNP9F60rDT6u2UaTXABD4G8IZpYdKNGKvtWQHC/ePus3uc1fPABj6AQJLYjY21+8b1zNw4YLmHJfvaFPPka2k16PqRVw=; c=relaxed/relaxed; s=default; d=hj-micro.com; v=1;
+	bh=JtP12fD9RNAVyfG5BtMp8f1T+aWMSPi7iFymj737lEo=;
+	h=date:mime-version:subject:message-id:from;
+
+When MXP_MULTIPLE_DTM_EN is TRUE, each DTM will monitor at most
+two device ports. In this case, {wp_dev_sel2, wp_dev_sel} will
+only use values 2'b00 and 2'b01 per DTM.
+
+Previously the setting allowed values beyond the supported range
+per DTM, which could cause each DTM to select invalid ports when
+MXP_MULTIPLE_DTM_EN is TRUE.
+
+Fix this by only setting CMN_DTM_WPn_CONFIG_WP_DEV_SEL2 when
+!multi_dtm.
+
+Fixes: 60d1504070c2 ("perf/arm-cmn: Support new IP features")
+Signed-off-by: Shouping Wang <allen.wang@hj-micro.com>
+---
+
+Changes in v2:
+- Made the setting of CMN_DTM_WPn_CONFIG_WP_DEV_SEL2 conditional on
+  !multi_dtm, instead of clamping with dev %= 2.
+- Refactored is_cmn600 to use cmn->part directly.
+- Updated the commit message.
+
+Link to v1: https://lore.kernel.org/lkml/20260819105443.668784-1-allen.wang@hj-micro.com/
+
+ drivers/perf/arm-cmn.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
+index 6e5cc4086a9e..7e7590381171 100644
+--- a/drivers/perf/arm-cmn.c
++++ b/drivers/perf/arm-cmn.c
+@@ -1393,13 +1393,14 @@ static void arm_cmn_claim_wp_idx(struct arm_cmn_dtm *dtm,
+ 
+ static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
+ {
++	struct arm_cmn *cmn = to_cmn(event->pmu);
+ 	u32 config;
+ 	u32 dev = CMN_EVENT_WP_DEV_SEL(event);
+ 	u32 chn = CMN_EVENT_WP_CHN_SEL(event);
+ 	u32 grp = CMN_EVENT_WP_GRP(event);
+ 	u32 exc = CMN_EVENT_WP_EXCLUSIVE(event);
+ 	u32 combine = CMN_EVENT_WP_COMBINE(event);
+-	bool is_cmn600 = to_cmn(event->pmu)->part == PART_CMN600;
++	bool is_cmn600 = cmn->part == PART_CMN600;
+ 
+ 	/* CMN-600 supports only primary and secondary matching groups */
+ 	if (is_cmn600)
+@@ -1407,8 +1408,11 @@ static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
+ 
+ 	config = FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL, dev) |
+ 		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_CHN_SEL, chn) |
+-		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_GRP, grp) |
+-		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL2, dev >> 1);
++		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_GRP, grp);
++
++	if (!cmn->multi_dtm)
++		config |= FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL2, dev >> 1);
++
+ 	if (exc)
+ 		config |= is_cmn600 ? CMN600_WPn_CONFIG_WP_EXCLUSIVE :
+ 				      CMN_DTM_WPn_CONFIG_WP_EXCLUSIVE;
+-- 
+2.43.0
 
