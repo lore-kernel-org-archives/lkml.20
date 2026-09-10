@@ -1,64 +1,64 @@
-Received: from mail-yx2-f6.google.com (mail-yx2-f6.google.com [74.125.224.134])
+Received: from mail-yx2-f8.google.com (mail-yx2-f8.google.com [74.125.224.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A6B361DDC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DC754CF50
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789060600; cv=none; b=OsT9OEaM8O1txfRbDtHyq51C226emZ+/eOUFDeRYjRv1abjGGC6o8Q3lCa9bmItGqfogHiSCAQ5hDZfAhdSQYUmtGbf6JZK11XgwRNeMG/pTpiobGXg9ziyBc4bJj2yO+8+jHNrLorl1LFRFhvcRrhnPnwJX/u0hUIBWEf3OQ3w=
+	t=1789060607; cv=none; b=qxVHIm3IrsyPesM4F0PQ+KEJoqFI8zlG2RBnIwqN19Ux/3w1WLPcFBNRwtdNlD3rnbo1IlC95YZlqs6K8raTnq5JUIfCN77D7WoV0xnoE/hovfNQzZx08mOjzVW/nUptVMAQzfPfs+FKw2ainXopkpUdZM1xEkbJ2VzyyGoUp8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789060600; c=relaxed/simple;
-	bh=YZfMs3Go3WSABp0x0N8hUDVtHdzAJjFeURZfcGTcgG0=;
+	s=arc-20240116; t=1789060607; c=relaxed/simple;
+	bh=A8owNqUmKrddFiv3sxwqZAYgp8IhOnZKxvxLH1qdKhM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aMpjOMWZN3mFce3A4ltTe3wmVAJlBek1BnIKA2+jeHLdBs9Erq2mxe33LvDb/FiBFxEDpJjSDR9YUtRBujPHai0DEppcNCZMd7kTTkGPkJSNG2LfLOqIm3u57IaRgrXhmS/+185DrC89gfvYT5/bYqYCdqGnHxn82iD2EAT4RUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jv4GjPBj; arc=none smtp.client-ip=74.125.224.134
+	 MIME-Version; b=o1p/rf/081pqci9XXeoG5FaX7rL8Cd3bS86ztf5ljCB3PQ/3Pg4JO7L18/zRtd4o4nPA12ye/Ai1SC6/rVD4UrD1DesheRC49mhelXyIYGwxs10DKPgTPJxv1pnUDYr258FKKt0waVOnt6mx/XCDEV9rno0pVmRN1Y9HYzhACj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qrJ3CWhm; arc=none smtp.client-ip=74.125.224.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jv4GjPBj"
-Received: by mail-yx2-f6.google.com with SMTP id 956f58d0204a3-66e61475fa7so2071452d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:16:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qrJ3CWhm"
+Received: by mail-yx2-f8.google.com with SMTP id 00721157ae682-854f090ff98so38506087b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:16:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789060592; x=1789665392; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789060590; x=1789665390; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yQvOpBVSB7EFzma+xoAdOHr/Eyr0ApRMjSY0dpxZAoA=;
-        b=jv4GjPBjRLLxlXy5GOj7/6O5jYvBjmemYz8L6xQHaoUQ7VGX3KtF6M7N1jE9Elg1Ch
-         k9IKA9M5iVyPsj/XkTYXJSHvRCsb5e4098X6bsMLHlJtx0UDL3pRHXMybVSG8Zuick+z
-         Xi9rfqVhj2QI5bIMRwPSUDHVfMvRC2kV/rxwAaAMXfthuj4E9Ek2bBo55fMk0s6GYnCq
-         q/Jo1IwoDJ60Em7LRkzcsw9oazPMU4Y4/U45f3acO624OFwXljqvaVDqlsVQ+XJJfvQd
-         V07zC4b3ZAuSweZWIOMo1Xc1akOJGTWPbUwTTZlEuuy1IGqAim09OnQIt65sv8nSzawn
-         1LhA==
+        bh=U8F+pCWHvp6Bk2nFVk5sf15ui0cPT96FgZ/ARqD+0QM=;
+        b=qrJ3CWhmkn+hm8I336WdOty0svct7OmSILWZLxrHDDy7NUGJOpZloBtMYQOH/b7qIp
+         vv2qRQQqROTCQw3XTlo63pdiHS0AEHQ+r2kmfh2oQ0mbOFN4+z14TrulZPg8SbHfbHrV
+         /eIYyCXTIys/nPYQNPPrXA3gCZGciItADMyvop4QD4H9bLdyiHoqaQzjyDILQukabRJe
+         qPMZsROyEdWWLuqz1PqM7aGXUiEOFVstwWt6ISvnd5bpNrmA117S9S7Fq8+MpJDMYt+G
+         LUB6R80h1TEZ8pRG9l86GGObZLK5buzl3ZTfUHVzymtZr2elxh2HICSaeka84rRR78/8
+         KwEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789060592; x=1789665392;
+        d=1e100.net; s=20251104; t=1789060590; x=1789665390;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yQvOpBVSB7EFzma+xoAdOHr/Eyr0ApRMjSY0dpxZAoA=;
-        b=XGs+XQRMPOpuTv7KKTU5N17wb4FrurD3q6SJ5M6nrmAJRUXAw/2+Rdra9phoV0ih+Y
-         gb+l/QGYhZj/PSXlhPcfTMR8t24s1nbHJ9Qczdj/8fSL5688nyxO8iZvgEmN/1/MF0JQ
-         oE+bjMsmiXE3Ryvb4zm9bRem2V2/0PnFRpuJcHsTwq7L1RhZhdRU49b6vYWrQFQ7hooz
-         G7VFMq/mkYEbRr9f+pCPFhoXFBNRt9PdIiR+xTCrzJ8n8SRs4JCkPa3JAxzERZngfHNT
-         M+W/4CNrI9dSvITiWf9nbRtzytocF7IAlfhfQ6BaPxNBklHjqG7vfex3o13XjuRC8PX1
-         MHoQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGn6Cz4NmOUWwQexfkoViOKnhV3VBhKLRgOwrl9hOsTi8EvQIELV/+rpJwP3G2w5d9Fdp4YYrbZmXdllg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNbyxahChh1H0/wJvzaj1t0X0bFDfKNCEP1PWOhJ4MpmZ0YJYf
-	jSJxl7zu79MDwSJE2o9zwl2Ev5HRuMkC228xvlpZKnvc2BG6Ftp1YA4=
-X-Gm-Gg: AYBFou0L7J0FAcVOc5O/ZouWi82mRGNHaKjtdohcLhTcB+K+Gwu4hl2Kd9Mk/e/3hea
-	seK6iAY5fgNKtmEo2Ag4Flyx1jHrWPM2Dwnc5SgCgigHYIQ5PCMWLRHxHUaAtGMmkU1VtL+zj4t
-	AQhLbrZWYZV7hcCt2B0inzc5QJf/s8leMYbI9oqomAfNeXv5DPEXRK7BvSaZghbpNXIHZdTd3dK
-	JYBXKzVJs8pRuEQncrueClkXjiYZ4oqWwEZjobAox0Q/8LvOVm1d1MHnQJV1t4k00lWBuwwhk8U
-	9Fwd2kF2T7Dt+/TTpAbjb1d3oPp/tG/3AwLfNBro7xe/Qs/EqPle9wu8CMAFCeC1OKP27t2iwBe
-	fLTR69jBHOLiwuD4dY22ijOjCvoynOeGluPI+9tYCAgxr7OWMAejWh35cq/aI5yd3b3EpjyappS
-	Uaw9iCOBTTSnzTRSpCE3qG83zUEnEXnUSjSyJB37yVh/Ev4UmHoGui2eImfagE26JermpccCtvf
-	2sKkmRumUn0iqDh4lsuCUtTfNZ9+kkNUG5lFjxyqUm0r2HsEA==
-X-Received: by 2002:a05:690c:e289:20b0:858:41d4:c28 with SMTP id 00721157ae682-884afc19817mr1025287b3.8.1789060592200;
-        Thu, 10 Sep 2026 10:16:32 -0700 (PDT)
+        bh=U8F+pCWHvp6Bk2nFVk5sf15ui0cPT96FgZ/ARqD+0QM=;
+        b=nm8Eb42BJX2b1qqPfYVuctld77D+YDgsL3y9BUW6P4ZjKP4ezSLqwBFpY8ORsLh16D
+         ZaxeDAZnzaWhsMGOmXxjiD8sVCXN0LpVMavumWIhHuIjz1NRqmPpMnYdYp6xloOQJy92
+         fL5H4+hbtuQMweGp+EVxdw9daWmgCtuefjkMFQmOKJZZ2L67xHwVmTDrbHAiSbNqXGOu
+         DzykMDiqMIKnE/QoYIX6oozUhxFfcTCB/AMKFoQTWerzXyg9Et7Ftp7HoqXeN1fwt7+p
+         lprCu6mew+lLnYly3dSL/G39ttAXbAwKNajPgGS1RAyZnPENKZMV1VAZeU88Pme8p6P3
+         w7UA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLMP3xSSHMxbwHKLZE4iLd3tsqfU0KTxD+klW5tiVB4vdXj1sFyeg2Ie5R5waNI3E+Xg5bh+Zy47qzw5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmGSXlm91dmJa0PdFCTzTR7nMTV+Pi2HraeKrCxmZdh4HxYvqG
+	bMsjp4gbkfGojertKh36O/b7hcDMhlZ2GWBOHH783JwW1Y3K5q4ZEUg=
+X-Gm-Gg: AYBFou0L9kXcGjjj/BgPvnBGvy713Vd/S1dNmad0GPiCiyF1Wjtq4EixGWWKQAFOg6M
+	DzjG+ezBn5XLniY+rr7eylf1y8yIzMf3GEBVjSjXLs0W7lAUFKa5dWHUf+tvlQep1kfaOK3FNOo
+	syLx2ZeFl0yTcnqz2NPN/bd0vQCBsT2FTT2KiMaTPvQfuwWgG0ciszMjN8Q5kPhfJRDMwZVI5La
+	kZDzsAqfwXezdMLP67iBLrV7TCFBCj/nSvYsYppJTDp9wPMUPCU+b4oOiw6R3e51/9lndwjBdPS
+	IhZPK/fyv4Lu34GR/oDhzNRZbKCF/jAZ3L00YbaKBHR5cZYtB2TQxBh0ZuwhJeoQPTAv+XC57CA
+	ihiWYnHbJ3wlBwu9VF0VZb7bIXCGlmnwVko/+rI01nVDulNZXkO3P2O0rUvNnU4raKU46AJG0JD
+	5NdQK3BUH27YO24zBzt6XxpHTHzaes/BTu0cEKVvnuw9/E46P1CqQTC94R2Dnum1EXpUBBaYCo3
+	9LchA3ZKbNpOc10wWJGC84BEA7MPpKG5UvLuFy23m8PviB+RHMhATTgWiBd
+X-Received: by 2002:a05:690c:d83:b0:865:838f:485b with SMTP id 00721157ae682-884ad14f632mr2358197b3.4.1789060590335;
+        Thu, 10 Sep 2026 10:16:30 -0700 (PDT)
 Received: from localhost (23-116-43-216.lightspeed.sntcca.sbcglobal.net. [23.116.43.216])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8848608617fsm2387337b3.9.2026.09.10.10.16.31
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-884890160bbsm2241007b3.42.2026.09.10.10.16.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 10:16:31 -0700 (PDT)
+        Thu, 10 Sep 2026 10:16:29 -0700 (PDT)
 From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
 To: sj@kernel.org,
 	akinobu.mita@gmail.com,
@@ -77,9 +77,9 @@ Cc: akpm@linux-foundation.org,
 	weixugc@google.com,
 	jic23@kernel.org,
 	gourry@gourry.net
-Subject: [RFC PATCH v2 2/9] mm/damon/core: read the CPU number with preemption disabled
-Date: Thu, 10 Sep 2026 10:16:16 -0700
-Message-ID: <20260910171623.6638-3-ravis.opensrc@gmail.com>
+Subject: [RFC PATCH v2 1/9] mm/damon/vaddr: support page fault access check primitive
+Date: Thu, 10 Sep 2026 10:16:15 -0700
+Message-ID: <20260910171623.6638-2-ravis.opensrc@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260910171623.6638-1-ravis.opensrc@gmail.com>
 References: <20260910171623.6638-1-ravis.opensrc@gmail.com>
@@ -91,47 +91,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_report_page_fault() runs in fault context, which is preemptible, so
-reading the CPU number there triggers a "using smp_processor_id() in
-preemptible" report.
+The page-fault sampling primitive was implemented for the physical
+address space only, so a virtual address space context had no way to
+enable it.
 
-Read it with preemption disabled, and keep it disabled across the report
-so the recorded CPU stays consistent with the per-CPU ring the report is
-queued to, which is selected the same way.
+Implement it for the virtual address space.  The prep installs the marker
+whose fault reports the access on the sampling address of each region,
+mirroring the physical address space primitive, and prepare_access_checks()
+now dispatches on the enabled primitive as the physical address space one
+does.
+
+The target mm and the vma of the sampling address are both available
+here, so the marker is installed on the mapping directly.  The physical
+address space primitive has only a physical address and reaches its
+mappings through a reverse mapping walk.
 
 Signed-off-by: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
 ---
- mm/damon/core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ mm/damon/vaddr.c | 65 +++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 64 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 5fdb5922edb78..991ddb9a09414 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2514,7 +2514,6 @@ void damon_report_page_fault(struct vm_fault *vmf, bool huge_pmd)
- 	struct damon_access_report access_report = {
- 		.vaddr = vmf->address,
- 		.size = 1,	/* todo: set appripriately */
--		.cpu = smp_processor_id(),
- 		.tid = task_pid_vnr(current),
- 		.is_write = vmf->flags & FAULT_FLAG_WRITE,
- 	};
-@@ -2524,7 +2523,15 @@ void damon_report_page_fault(struct vm_fault *vmf, bool huge_pmd)
- 	else
- 		access_report.paddr = PFN_PHYS(pte_pfn(vmf->orig_pte));
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index d5dde97b3cd0d..1f2d923e569d6 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -13,6 +13,7 @@
+ #include <linux/pagemap.h>
+ #include <linux/pagewalk.h>
+ #include <linux/sched/mm.h>
++#include <asm/tlb.h>
  
-+	/*
-+	 * This runs in fault context, which is preemptible, so the CPU number
-+	 * is read with preemption disabled.  Holding it across the report also
-+	 * keeps the recorded CPU consistent with the per-CPU ring the report is
-+	 * queued to, which damon_report_access() selects the same way.
-+	 */
-+	access_report.cpu = get_cpu();
- 	damon_report_access(&access_report);
-+	put_cpu();
+ #include "../internal.h"
+ #include "ops-common.h"
+@@ -329,7 +330,8 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
+ 	damon_va_mkold(mm, r->sampling_addr);
  }
- #endif
  
+-static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
++/* Use page table accessed bits */
++static void damon_va_prepare_access_checks_abit(struct damon_ctx *ctx)
+ {
+ 	struct damon_target *t;
+ 	struct mm_struct *mm;
+@@ -345,6 +347,67 @@ static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
+ 	}
+ }
+ 
++/*
++ * Install the page table marker whose fault reports the access.  The target
++ * mm and the vma of the address are available here, so the marker is set on
++ * the mapping directly, without a reverse mapping walk.
++ */
++static void damon_va_change_protection(struct mm_struct *mm,
++		unsigned long addr)
++{
++	struct vm_area_struct *vma;
++	struct mmu_gather tlb;
++
++	/*
++	 * The sampling address is a random offset within the region, so round
++	 * it down to the page it falls in.  change_protection() walks whole
++	 * page table entries and expects a page aligned range.
++	 */
++	addr = ALIGN_DOWN(addr, PAGE_SIZE);
++
++	mmap_read_lock(mm);
++
++	vma = vma_lookup(mm, addr);
++	if (!vma || !vma_is_accessible(vma) || (vma->vm_flags & VM_PFNMAP))
++		goto unlock;
++
++	tlb_gather_mmu(&tlb, mm);
++	/* todo: batch or remove tlb flushing */
++	change_protection(&tlb, vma, addr, addr + PAGE_SIZE, MM_CP_DAMON);
++	tlb_finish_mmu(&tlb);
++
++unlock:
++	mmap_read_unlock(mm);
++}
++
++/* Use page faults */
++static void damon_va_prepare_access_checks_faults(struct damon_ctx *ctx)
++{
++	struct damon_target *t;
++	struct mm_struct *mm;
++	struct damon_region *r;
++
++	damon_for_each_target(t, ctx) {
++		mm = damon_get_mm(t);
++		if (!mm)
++			continue;
++		damon_for_each_region(r, t) {
++			r->sampling_addr = damon_rand(ctx, r->ar.start,
++					r->ar.end);
++			damon_va_change_protection(mm, r->sampling_addr);
++		}
++		mmput(mm);
++	}
++}
++
++static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
++{
++	if (ctx->sample_control.primitives_enabled.page_table)
++		damon_va_prepare_access_checks_abit(ctx);
++	if (ctx->sample_control.primitives_enabled.page_fault)
++		damon_va_prepare_access_checks_faults(ctx);
++}
++
+ struct damon_young_walk_private {
+ 	bool young;
+ };
 -- 
 2.43.0
 
