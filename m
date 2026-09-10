@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2C7576ED2;
-	Thu, 10 Sep 2026 18:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C30857982A;
+	Thu, 10 Sep 2026 18:09:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063780; cv=none; b=fxbxlgb6vk2OZbodc41hXxXFRDwITDuP5D/aVSnxVNw6xWoGfUbJhkUOdMj0/CPgc7SB32B/NDP7R8/1bbGLrCTbYW9VkGAnW7cp1tMXbR/z3TfeSc5Cyb9VoHwdKVpsr3bTgKmOuQpFILd+rtTLDVNm1bg3NqhXhV8nPOyst9M=
+	t=1789063791; cv=none; b=ByO6xQSYLo3yCJVt3hWIdVYIdmE+uYBfdPNsBHjbnUMnBaagIkB4VadGG5Ao7rpSYuxJ967tGh5TQvYceWEBMlgtiQJp8AsnBM4nc15omhJVmhjeD44ykGbjuNSXOzEI0C+2UPNA2zuMZsNBTNhlcBUzDR3UzCxuZjGtK9+RgnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063780; c=relaxed/simple;
-	bh=itED+FPnTuuYMTVf0aT7/l0YAOO4jYS5kDe0sd3IKjQ=;
+	s=arc-20240116; t=1789063791; c=relaxed/simple;
+	bh=W8EE3u46dp8cHeR4vyIuI1eHp+oIhfLynDuPDtL+npk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q7/JSK56Olqs7LoDH+thiADF99yyjqRvpvRO0s3RRQutGrekYu1HIEEqD+04C03wD7Yw8VjwUzopjtuiXaB+g874uEVzvEXfSa8QmIq/3fszf0GtXV1ZkbBNKMcIkICISFPv7YNvVblZNZyTks93rW9rp4HyJ6NnNkytia5IrPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AM6yX1G2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ql2d9/8BrO8T9Vqlcfm+OvjdLkUJvPRD/JmUooz/Oq/tWNR74RniI2PVQrmcrb/2W+cFxw2b0esKSZxMUnz0zGDKDQu+Pb8bFZGjxVQ6W3glGsDSRXIwyujZHDIzTBX0BQcB5znEdDBDuuSX9kMldb6/V7L2oRKDQtY6LoQbh/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCWIsRaa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AM6yX1G2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D221F00898;
-	Thu, 10 Sep 2026 18:09:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCWIsRaa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D151F000FF;
+	Thu, 10 Sep 2026 18:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789063777;
-	bh=TyuxKJFpKoXV0EnfwakjYX5wWgMU/Zoar3sFBUrB1Y4=;
+	s=k20260515; t=1789063788;
+	bh=2kx4i/5vuO1bwBYb/SFslZeM845NWdOIhPQSfY8uSPU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AM6yX1G2G0zYJ48YmVr9iylxaYJfmHA6PYsPOZAN1QrC0dznBav3O8029BZzwCkpU
-	 A8oqjPAMJdJwsmxTZj22dJmSTI2rpj8Z1p/gFqVsxuF1E9ggAgfWsnoWTI6MjaDCRf
-	 dpbd1hTsFhgqeWROiFlQljIsrN3IVa09jfG0Oo0W3BchGLPZD0/oiOVPgN800kwf10
-	 4wv+OIXxY12To+BDCTY0SQG4MhQaxQne/xIT3P4KX/7hBGWnBuUDrr35dq/YtCtqEg
-	 X8Qummpf/T1HoyNrTb+HE5rKh/pdeINhoCQxG1aDUT+9W9xAjPUUHAQUPgyILl/6rV
-	 x6tDqEk0UL6gg==
+	b=aCWIsRaazdlT9pc/pa+zVL11V8omSJdY/oDvLyLze5Vp7+yNgwMJ7iaH+l6FKsGC1
+	 aES/9Ulo8PnuqKYa6F6eN0pKNX92YtnvxoADcNDQuq7Ltmq+0ezPcXWv8GSccMzxqA
+	 jIZtga21NM7cjvOJri0ls/NuWKQnKMpCIgiJ3IHvHWiMS8KDgLCv7LT17zpaSA//qY
+	 R9S70NnqN1WZub8M7sbvnT+G+fNslkhjLB2RLpnXzTXynGvo+igT9GB2EMew3W5DEP
+	 A+vbeBCL81oyli6V1IzKWm5MpQZPQLF8bSzHlc4ilM9JoqprXorzrb9WiidFxU/+Ww
+	 6EMdW8UhZoNkw==
 From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
 To: Alexander Duyck <alexanderduyck@fb.com>,
 	Jakub Kicinski <kuba@kernel.org>,
@@ -53,9 +53,9 @@ Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
 	Tao Cui <cuitao@kylinos.cn>,
 	Pavel Begunkov <asml.silence@gmail.com>,
 	David Wei <dw@davidwei.uk>
-Subject: [PATCH net-next v2 3/5] net: Revalidate queue config for ringparam changes
-Date: Thu, 10 Sep 2026 20:09:03 +0200
-Message-ID: <20260910180908.1506533-4-bjorn@kernel.org>
+Subject: [PATCH net-next v2 5/5] selftests: drv-net: Test large zcrx buffers
+Date: Thu, 10 Sep 2026 20:09:05 +0200
+Message-ID: <20260910180908.1506533-6-bjorn@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910180908.1506533-1-bjorn@kernel.org>
 References: <20260910180908.1506533-1-bjorn@kernel.org>
@@ -68,307 +68,130 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Memory-provider queue configuration is validated when the provider is
-bound. A later ethtool ring change may invalidate it because drivers
-can size queue memory from both ring depth and RX page size. For
-example, fbnic uses multiple PPQ entries for each RX page larger than
-PAGE_SIZE, which reduces the usable software ring depth.
+A zcrx RX buffer larger than PAGE_SIZE does not prove that the
+driver uses space beyond the first MTU-sized part of the buffer.
 
-Keep accepted ring depths in netdev_config and stage proposed values
-in cfg_pending. Validate every RX queue before calling the driver.
-Each check validates the device defaults, then the queue's
-memory-provider override when present. Commit the values only after
-the driver accepts them.
+The test assumes that a driver which accepts a large rx_buf_len uses
+space beyond the first MTU-sized region during sustained receive
+traffic. Drivers which do not support large buffers are expected to
+reject the requested size; the feature probe then skips them. A driver
+which accepts the size but only uses the first MTU-sized region fails.
 
-The callback receives a rendered configuration rather than a queue ID.
-Validation should depend on the configuration, not queue identity.
-Checking defaults also covers the case where every queue has a
-memory-provider override.
+Request a power-of-two RX buffer larger than twice the device MTU and
+require one zero-copy receive CQE to end past the first MTU-sized
+region.
 
-Use the same transaction for ioctl and netlink. Drivers without
-ndo_validate_qcfg skip the new validation.
-
-Link: https://lore.kernel.org/all/20250421222827.283737-14-kuba@kernel.org/
 Signed-off-by: Björn Töpel <bjorn@kernel.org>
 ---
- include/net/netdev_queues.h | 48 +++++++++++++++++++++++++++++++++----
- net/core/dev.h              |  2 ++
- net/core/netdev_config.c    | 38 ++++++++++++++++++++++++++---
- net/ethtool/common.c        |  9 +++++++
- net/ethtool/common.h        |  2 ++
- net/ethtool/ioctl.c         | 24 +++++++++++++++++--
- net/ethtool/rings.c         | 13 +++++++++-
- 7 files changed, 126 insertions(+), 10 deletions(-)
+ .../selftests/drivers/net/hw/iou-zcrx.c       | 33 ++++++++++++++++---
+ .../selftests/drivers/net/hw/iou-zcrx.py      |  6 +++-
+ 2 files changed, 34 insertions(+), 5 deletions(-)
 
-diff --git a/include/net/netdev_queues.h b/include/net/netdev_queues.h
-index 70c9fe9e83cc..31121900aac8 100644
---- a/include/net/netdev_queues.h
-+++ b/include/net/netdev_queues.h
-@@ -4,18 +4,59 @@
+diff --git a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+index f6a8fc5fac24..c0d9065b2103 100644
+--- a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
++++ b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+@@ -84,6 +84,9 @@ static int cfg_oneshot_recvs;
+ static int cfg_send_size = SEND_SIZE;
+ static struct sockaddr_in6 cfg_addr;
+ static unsigned int cfg_rx_buf_len;
++static unsigned int cfg_min_data_end;
++static bool cfg_check_data_end;
++static bool seen_data_end;
+ static bool cfg_dry_run;
  
- #include <linux/netdevice.h>
+ static char *payload;
+@@ -298,6 +301,15 @@ static void process_recvzc(struct io_uring *ring, struct io_uring_cqe *cqe)
+ 	mask = (1ULL << IORING_ZCRX_AREA_SHIFT) - 1;
+ 	data = (char *)area_ptr + (rcqe->off & mask);
  
-+/**
-+ * struct netdev_ring_config - accepted RX/TX ring depth configuration
-+ * @rx_pending:		Size of the regular RX ring.
-+ * @rx_mini_pending:	Size of the RX mini ring.
-+ * @rx_jumbo_pending:	Size of the RX jumbo ring.
-+ * @tx_pending:		Size of the TX ring.
-+ *
-+ * This stores only persistent configuration values. Capability fields,
-+ * such as max ring sizes, are reported by drivers but are not part of the
-+ * accepted configuration.
-+ *
-+ * Note: these values are only used for queue-configuration validation
-+ * today. Some drivers update their ring sizes without reflecting the change
-+ * in @cfg. Before using the stored values for anything else, those cases
-+ * need to be audited, and the core likely needs a driver notification API
-+ * similar to ethtool_rxfh_context_lost().
-+ */
-+struct netdev_ring_config {
-+	u32	rx_pending;
-+	u32	rx_mini_pending;
-+	u32	rx_jumbo_pending;
-+	u32	tx_pending;
-+};
++	if (cfg_check_data_end) {
++		unsigned int rx_buf_len = cfg_rx_buf_len ?: page_size;
++		unsigned int data_end_off;
 +
- /**
-  * struct netdev_config - queue-related configuration for a netdev
-  * @hds_thresh:		HDS Threshold value.
-  * @hds_config:		HDS value from userspace.
-+ * @rings:		Accepted RX/TX ring depths.
-+ *
-+ * Direct values, such as @hds_thresh and @rings, hold the current
-+ * accepted configuration. Drivers which use them for queue rendering
-+ * must initialize them with their defaults.
-  */
- struct netdev_config {
- 	u32	hds_thresh;
- 	u8	hds_config;
-+
-+	struct netdev_ring_config rings;
- };
- 
-+/**
-+ * struct netdev_queue_config - rendered configuration for an RX queue
-+ * @rx_page_size:	Size of one RX page-pool allocation.
-+ * @rx_ring_size:	Effective size of the regular RX ring.
-+ * @rx_mini_ring_size:	Effective size of the RX mini ring.
-+ * @rx_jumbo_ring_size:	Effective size of the RX jumbo ring.
-+ */
- struct netdev_queue_config {
- 	u32	rx_page_size;
-+	u32	rx_ring_size;
-+	u32	rx_mini_ring_size;
-+	u32	rx_jumbo_ring_size;
- };
- 
- /* See the netdev.yaml spec for definition of each statistic */
-@@ -145,10 +186,9 @@ enum {
-  *
-  * @ndo_validate_qcfg: (Optional) Check if queue config is supported.
-  *			Called when configuration affecting a queue may be
-- *			changing, either due to NIC-wide config, or config
-- *			scoped to the queue at a specified index.
-- *			When NIC-wide config is changed the callback will
-- *			be invoked for all queues.
-+ *			changing. When NIC-wide config is changed the
-+ *			callback will be invoked for the defaults and all
-+ *			queue overrides.
-  *
-  * @ndo_queue_create:	Create a new RX queue on a virtual device that will
-  *			be paired with a physical device's queue via leasing.
-diff --git a/net/core/dev.h b/net/core/dev.h
-index 4b52ff779cba..567e7b82ef24 100644
---- a/net/core/dev.h
-+++ b/net/core/dev.h
-@@ -110,6 +110,8 @@ int netdev_reconfig_start(struct net_device *dev);
- int netdev_queue_config_validate(struct net_device *dev, int rxq_idx,
- 				 struct netdev_queue_config *qcfg,
- 				 struct netlink_ext_ack *extack);
-+int netdev_queue_config_revalidate(struct net_device *dev,
-+				   struct netlink_ext_ack *extack);
- 
- bool netif_rxq_has_mp(struct net_device *dev, unsigned int rxq_idx);
- bool netif_rxq_is_leased(struct net_device *dev, unsigned int rxq_idx);
-diff --git a/net/core/netdev_config.c b/net/core/netdev_config.c
-index b101341e3251..1975de42a60d 100644
---- a/net/core/netdev_config.c
-+++ b/net/core/netdev_config.c
-@@ -50,6 +50,15 @@ static int netdev_nop_validate_qcfg(struct net_device *dev,
- 	return 0;
- }
- 
-+static void netdev_qcfg_apply_dev(struct netdev_queue_config *qcfg,
-+				  const struct netdev_config *cfg)
-+{
-+	/* Device config overrides callback-provided fallbacks. */
-+	qcfg->rx_ring_size = cfg->rings.rx_pending;
-+	qcfg->rx_mini_ring_size = cfg->rings.rx_mini_pending;
-+	qcfg->rx_jumbo_ring_size = cfg->rings.rx_jumbo_pending;
-+}
-+
- static int __netdev_queue_config(struct net_device *dev, int rxq_idx,
- 				 struct netdev_queue_config *qcfg,
- 				 struct netlink_ext_ack *extack,
-@@ -70,6 +79,7 @@ static int __netdev_queue_config(struct net_device *dev, int rxq_idx,
- 	/* Get defaults from the driver, in case user config not set */
- 	if (dev->queue_mgmt_ops->ndo_default_qcfg)
- 		dev->queue_mgmt_ops->ndo_default_qcfg(dev, qcfg);
-+	netdev_qcfg_apply_dev(qcfg, dev->cfg_pending);
- 	err = validate_cb(dev, qcfg, extack);
- 	if (err)
- 		return err;
-@@ -91,9 +101,11 @@ static int __netdev_queue_config(struct net_device *dev, int rxq_idx,
-  * @rxq_idx:  index of the queue of interest
-  * @qcfg: queue configuration struct (output)
-  *
-- * Render the configuration for a given queue. This helper should be used
-- * by drivers which support queue configuration to retrieve config for
-- * a particular queue.
-+ * Render the configuration for a given queue. During a configuration
-+ * transaction this includes the proposed device-wide values in
-+ * @dev->cfg_pending; otherwise @dev->cfg_pending points to the accepted
-+ * configuration. This helper should be used by drivers which support queue
-+ * configuration to retrieve config for a particular queue.
-  *
-  * @qcfg is an output parameter and is always fully initialized by this
-  * function. Some values may not be set by the user, drivers may either
-@@ -113,3 +125,23 @@ int netdev_queue_config_validate(struct net_device *dev, int rxq_idx,
- {
- 	return __netdev_queue_config(dev, rxq_idx, qcfg, extack, true);
- }
-+
-+int netdev_queue_config_revalidate(struct net_device *dev,
-+				   struct netlink_ext_ack *extack)
-+{
-+	const struct netdev_queue_mgmt_ops *qops = dev->queue_mgmt_ops;
-+	struct netdev_queue_config qcfg;
-+	unsigned int i;
-+	int err;
-+
-+	if (!qops || !qops->ndo_validate_qcfg)
-+		return 0;
-+
-+	for (i = 0; i < dev->real_num_rx_queues; i++) {
-+		err = netdev_queue_config_validate(dev, i, &qcfg, extack);
-+		if (err)
-+			return err;
++		data_end_off = (rcqe->off & mask) % rx_buf_len + n;
++		if (data_end_off > cfg_min_data_end)
++			seen_data_end = true;
 +	}
 +
-+	return 0;
-+}
-diff --git a/net/ethtool/common.c b/net/ethtool/common.c
-index 23db40618fed..05ed22fd1f90 100644
---- a/net/ethtool/common.c
-+++ b/net/ethtool/common.c
-@@ -956,6 +956,15 @@ void ethtool_ringparam_get_cfg(struct net_device *dev,
- 	kparam->hds_thresh = dev->cfg->hds_thresh;
+ 	for (i = 0; i < n; i++) {
+ 		if (*(data + i) != payload[(received + i)])
+ 			error(1, 0, "payload mismatch at %d", i);
+@@ -373,7 +385,10 @@ static void run_server(void)
+ 		server_loop(&ring);
+ 
+ 	if (!stop)
+-		error(1, 0, "test failed\n");
++		error(1, 0, "test failed after receiving %zu bytes", received);
++	if (cfg_check_data_end && !seen_data_end)
++		error(1, 0, "no payload CQE ending past offset %u",
++		      cfg_min_data_end);
  }
  
-+void ethtool_ringparam_set_cfg(struct netdev_config *cfg,
-+			       const struct ethtool_ringparam *param)
-+{
-+	cfg->rings.rx_pending = param->rx_pending;
-+	cfg->rings.rx_mini_pending = param->rx_mini_pending;
-+	cfg->rings.rx_jumbo_pending = param->rx_jumbo_pending;
-+	cfg->rings.tx_pending = param->tx_pending;
-+}
-+
- static void ethtool_init_tsinfo(struct kernel_ethtool_ts_info *info)
+ static void run_client(void)
+@@ -406,8 +421,11 @@ static void run_client(void)
+ 
+ static void usage(const char *filepath)
  {
- 	memset(info, 0, sizeof(*info));
-diff --git a/net/ethtool/common.h b/net/ethtool/common.h
-index 4e5356e26f40..a27944d4cbf8 100644
---- a/net/ethtool/common.h
-+++ b/net/ethtool/common.h
-@@ -53,6 +53,8 @@ void ethtool_ringparam_get_cfg(struct net_device *dev,
- 			       struct ethtool_ringparam *param,
- 			       struct kernel_ethtool_ringparam *kparam,
- 			       struct netlink_ext_ack *extack);
-+void ethtool_ringparam_set_cfg(struct netdev_config *cfg,
-+			       const struct ethtool_ringparam *param);
- 
- int ethtool_get_rx_ring_count(struct net_device *dev);
- 
-diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
-index 4b0bc503f930..1320289025b2 100644
---- a/net/ethtool/ioctl.c
-+++ b/net/ethtool/ioctl.c
-@@ -35,6 +35,7 @@
- #include <net/netdev_queues.h>
- 
- #include "common.h"
-+#include "../core/dev.h"
- 
- /* State held across locks and calls for commands which have devlink fallback */
- struct ethtool_devlink_compat {
-@@ -2239,10 +2240,29 @@ static int ethtool_set_ringparam(struct net_device *dev, void __user *useraddr)
- 	    ringparam.tx_pending > max.tx_max_pending)
- 		return -EINVAL;
- 
-+	ret = netdev_reconfig_start(dev);
-+	if (ret)
-+		return ret;
-+
-+	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
-+
-+	ret = netdev_queue_config_revalidate(dev, NULL);
-+	if (ret)
-+		goto out_free_cfg;
-+
- 	ret = dev->ethtool_ops->set_ringparam(dev, &ringparam,
- 					      &kernel_ringparam, NULL);
--	if (!ret)
--		ethtool_notify(dev, ETHTOOL_MSG_RINGS_NTF);
-+	if (ret)
-+		goto out_free_cfg;
-+
-+	/* The driver may adjust the accepted ring depths. */
-+	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
-+	swap(dev->cfg, dev->cfg_pending);
-+	ethtool_notify(dev, ETHTOOL_MSG_RINGS_NTF);
-+
-+out_free_cfg:
-+	__netdev_free_config(dev->cfg_pending);
-+	dev->cfg_pending = dev->cfg;
- 	return ret;
+-	error(1, 0, "Usage: %s (-4|-6) (-s|-c) -h<server_ip> -p<port> "
+-		    "-l<payload_size> -i<ifname> -q<rxq_id>", filepath);
++	error(1, 0,
++	      "Usage: %s (-4|-6) (-s|-c) -h<server_ip> -p<port>\n"
++	      "\t-l<payload_size> -i<ifname> -q<rxq_id>\n"
++	      "\t[-x<rx_buf_pages>] [-E<min_data_end>] [-d]\n",
++	      filepath);
  }
  
-diff --git a/net/ethtool/rings.c b/net/ethtool/rings.c
-index 9054c89c5d7b..c04312fc0d06 100644
---- a/net/ethtool/rings.c
-+++ b/net/ethtool/rings.c
-@@ -4,6 +4,7 @@
+ static void parse_opts(int argc, char **argv)
+@@ -425,7 +443,7 @@ static void parse_opts(int argc, char **argv)
+ 		usage(argv[0]);
+ 	cfg_payload_len = max_payload_len;
  
- #include "common.h"
- #include "netlink.h"
-+#include "../core/dev.h"
+-	while ((c = getopt(argc, argv, "sch:p:l:i:q:o:z:x:d")) != -1) {
++	while ((c = getopt(argc, argv, "sch:p:l:i:q:o:z:x:E:d")) != -1) {
+ 		switch (c) {
+ 		case 's':
+ 			if (cfg_client)
+@@ -463,6 +481,10 @@ static void parse_opts(int argc, char **argv)
+ 		case 'x':
+ 			cfg_rx_buf_len = page_size * strtoul(optarg, NULL, 0);
+ 			break;
++		case 'E':
++			cfg_check_data_end = true;
++			cfg_min_data_end = strtoul(optarg, NULL, 0);
++			break;
+ 		case 'd':
+ 			cfg_dry_run = true;
+ 			break;
+@@ -484,6 +506,9 @@ static void parse_opts(int argc, char **argv)
  
- struct rings_req_info {
- 	struct ethnl_req_info		base;
-@@ -299,10 +300,20 @@ ethnl_set_rings(struct ethnl_req_info *req_info, struct genl_info *info)
- 
- 	dev->cfg_pending->hds_config = kernel_ringparam.tcp_data_split;
- 	dev->cfg_pending->hds_thresh = kernel_ringparam.hds_thresh;
-+	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
-+
-+	ret = netdev_queue_config_revalidate(dev, info->extack);
-+	if (ret)
-+		return ret;
- 
- 	ret = dev->ethtool_ops->set_ringparam(dev, &ringparam,
- 					      &kernel_ringparam, info->extack);
--	return ret < 0 ? ret : 1;
-+	if (ret < 0)
-+		return ret;
-+
-+	/* The driver may adjust the accepted ring depths. */
-+	ethtool_ringparam_set_cfg(dev->cfg_pending, &ringparam);
-+	return 1;
+ 	if (cfg_payload_len > max_payload_len)
+ 		error(1, 0, "-l: payload exceeds max (%d)", max_payload_len);
++	if (cfg_check_data_end &&
++	    cfg_min_data_end >= (cfg_rx_buf_len ?: page_size))
++		error(1, 0, "-E: offset outside rx_buf_len");
  }
  
- const struct ethnl_request_ops ethnl_rings_request_ops = {
+ int main(int argc, char **argv)
+diff --git a/tools/testing/selftests/drivers/net/hw/iou-zcrx.py b/tools/testing/selftests/drivers/net/hw/iou-zcrx.py
+index b7a225fe4bea..a9f62c6b950b 100755
+--- a/tools/testing/selftests/drivers/net/hw/iou-zcrx.py
++++ b/tools/testing/selftests/drivers/net/hw/iou-zcrx.py
+@@ -175,9 +175,13 @@ def test_zcrx_large_chunks(cfg) -> None:
+ 
+     single(cfg)
+     page_size = resource.getpagesize()
++    mtu = cfg.dev["mtu"]
+     nr_pages = 2
++    while nr_pages * page_size <= 2 * mtu:
++        nr_pages *= 2
+     rx_buf_len = nr_pages * page_size
+-    rx_cmd = f"{cfg.bin_local} -s -p {cfg.port} -i {cfg.ifname} -q {cfg.target} -x {nr_pages}"
++    rx_cmd = (f"{cfg.bin_local} -s -p {cfg.port} -i {cfg.ifname} "
++              f"-q {cfg.target} -x {nr_pages} -E {mtu}")
+     tx_cmd = f"{cfg.bin_remote} -c -h {cfg.addr_v['6']} -p {cfg.port} -l 12840"
+ 
+     probe = cmd(rx_cmd + " -d", fail=False)
 -- 
 2.55.0
 
