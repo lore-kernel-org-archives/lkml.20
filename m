@@ -1,86 +1,83 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C3D49BD74;
-	Thu, 10 Sep 2026 14:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C7149BD74;
+	Thu, 10 Sep 2026 14:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050192; cv=none; b=YXNyfTTvkYIhDCzvb3rPAXT+ubw95x1MIBchZgw4tG36i6ARV2TQHDVjQDyxDuFsX6I7DDXi5FW1anjkipq47zkVJ6R1WS+1nBhAhxLIwJwrNgvOo55LBosMm1agL/Gg3Y0aytmuQAtpjROgonaz1fhiPHRiIyweZPyb+mHQXvw=
+	t=1789050212; cv=none; b=XjlI6Ew1ZckaHU+uMRa4B39ori134ROXnE69XvvTXRdNmM7a4DndUkGNk+dMu6CBAfv0LvHmioq4cNW5DrJWxYjtBaVSR3ErEWOsRONlcoc9VVMoXFQZR5KVKKHx2FRLY+Pq9tLyi7w5218lVEo8IdrBrTzsTtg0ESXPc5AOspw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050192; c=relaxed/simple;
-	bh=ti8kd7bEqkBT7HXe7Yim/PquTqtR73r9syJa0QU9N4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oMlAxITCTKVPW+3gpgPrdYQ9gODyife7b0AbsL5unY/PB5vLvHJvHzmT11ewP9QPLU8Pegx6OA9DpqWP8IvmwgYox2c2i8bYMnGycLT4SJtAJCR+JMzyAC0mE+YtFZI3Qv7G4sJhtQbm6BffnMtJObKZG2piRVG0i9l8lRpR1yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=7WROJipb; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1789050212; c=relaxed/simple;
+	bh=oQLfe0josw0afgf5qbypjfJkfaRgUMkwMRxthXux920=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fOgLqTAVkn1YkUS/ednn6pYe4iUQ/udGHmJV9uQkB/Z4dOYeOmrckf+l6cjHb+CGudBrjp9K1r8POi2kXCmtkBHg+b+njxf3BLBd3Rcqz0gdNox2hgkxQPrTMAI32i4O/t8DfmNhq2aOSXuHuMv94MDDdmrC9Azp+DP6h2OE3p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=D1meaicj; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="7WROJipb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=OaoMGEiP4AsMRzVKZhmJSQKoGC7nrXJGkFzbJ+5Ffyk=; t=1789050191; x=1790259791; 
-	b=7WROJipbB932NzD9i4EPpYZ5zoeKPnpe0570TvMYexS8+27gK9v6/nryei7AIQ6zW1VGCNnpsmt
-	Qfm2zgOjpWBY79FIdliAmvRQ3JTDfLeh+bZDMgklVAKg3XHjU/7P/GBYBcHR6HkkUVFb4LLhfYPDD
-	cBzZWuM2Q3w+/x+fxvooIYPneArAOtAs2FYvizMzTpfDjrNQkfGYwxJZMRXBCFTlEDzCkXG+1DZ3H
-	0iPz3BxzmFSSoaqcEP6fRLWZ0gdhYlUu3wvJkVgtrCGlW4MGkcefDyKaw9k/ZDNJ6zdjcE16fne+H
-	Z13ghxUAIAKfJm/m0+xGvnt0IY74HiIfDe+Q==;
-Date: Thu, 10 Sep 2026 16:23:04 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: alexandre.belloni@bootlin.com, linux-rtc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rtc: bd70528: properly enable wakeup
-Message-ID: <20260910162304.25333671@kemnade.info>
-In-Reply-To: <af4854a4-d626-4896-af62-312b49b94f71@gmail.com>
-References: <20260910092558.1008998-1-andreas@kemnade.info>
-	<af4854a4-d626-4896-af62-312b49b94f71@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="D1meaicj"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 60AA540E01DD;
+	Thu, 10 Sep 2026 14:23:25 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id JlEgMq8cfcwl; Thu, 10 Sep 2026 14:23:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789050195; bh=oazBnerJKBXfynp5uGUgQGCP5CJIKWsROgSUMUbl4yM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=D1meaicjse+es/+8OSM9lXaQVJ22Ma8RICYFH+AKCVCVtmrIEV50ALRE1EIaKXaaO
+	 zUz983449jzmJzwfllrEDiPSDk+NDzDt+n1J1sBFavIj4kDdN+zE1YnIgBs7H2P9d9
+	 mcpPTfbPDTeZhklPoT7pWxFmOlGoT2vOzbv3eajeBP9g5rNGK7Fi7UKYqB5a1Dqps4
+	 TJfhj9EJoZj0FXuAyFeuAW+NCHjPB+CS3YcAOkioiBkz2YiABsTfCueSf+mW+SXIRx
+	 qd3em2EQ7l9u8pSKrzT5Bqv2ho1agTxx1RoeUrWB2BV2RUMg0ebjNa17HUu3ON6e7d
+	 nVQ02h/1AaLAfriIgs+TNjHxHc+VY+GYOnoJlk9GHbPu7kJ9EIo9C9aXnVgb6PMn5I
+	 TKLe8CXssgvuYzAeUvwc7XpkVWQhlNr6WtXZQ6zPvxC3czTysE75mmR9JgLSludc01
+	 1jfcf4ruW7Sj6u1EXYE6F7d6I/nXg2uAX21EqH7q/0TjlUrFh9mNPOlWGo2XQaEgBf
+	 VVRYB/lMQNCa0cxitws60mOodDHxp3zYn2kXrIdPVxWA9YtML9eXV8QLl0rAjh0pOi
+	 Nix2IeAnQJxv2yvHcIHqSV6yddrGQEXRc186uIkRWFaEwGdEqRt8KtrIDHxe1wse9W
+	 jiiPVvzzi4wMbo+xQmcAma3s=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C01DB40E00E8;
+	Thu, 10 Sep 2026 14:23:05 +0000 (UTC)
+Date: Thu, 10 Sep 2026 07:23:01 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, x86@kernel.org,
+	linux-um@lists.infradead.org, linux-raid@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v5 6/8] x86/fpu: Remove cpu_has_xfeatures()
+Message-ID: <20260910142301.GAaqK9RVdjjmpwX876@fat_crate.local>
+References: <20260901145740.42337-1-ebiggers@kernel.org>
+ <20260901145740.42337-7-ebiggers@kernel.org>
+ <20260910083801.GU4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910083801.GU4121339@noisy.programming.kicks-ass.net>
 
-On Thu, 10 Sep 2026 13:28:23 +0300
-Matti Vaittinen <mazziesaccount@gmail.com> wrote:
+On Thu, Sep 10, 2026 at 10:38:01AM +0200, Peter Zijlstra wrote:
+> Boris, can you have a look? For now I'm reverting this patch locally.
 
-> On 10/09/2026 12:25, Andreas Kemnade wrote:
-> > Wakeup on RTC alarm now only accidentially works when wakeup for the power
-> > button connected to the same PMIC is also enabled. Fix that by properly
-> > specifying the wakeup irq.
-> > 
-> > Signed-off-by: Andreas Kemnade <andreas@kemnade.info>  
-> 
-> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> 
-> Thanks!
-> 
-> By the way, I am not 100% sure all of the PMICs using this driver even 
-> have a power button input. I suspect some doesn't (maybe bd71815). I 
-> wouldn't be against Fixes -tag :)
-> 
-looking at mfd driver:
+Yeah, I'll zap it from the x86/fpu lineup and then we can see how to fix up
+everything later.
 
-                 * BD71815 data-sheet does not list the power-button IRQ so we
-                 * don't use it.
-                 */
-                button_irq = 0;
-....
+Thx.
 
- if (button_irq) {
-                ret = rohm_register_pwrbutton(&i2c->dev, button_irq,
-                                              "bd71828-pwrkey", true, irq_domain);
-                if (ret)
-                        return ret;
-        }
-....
-so you are right about the power button.
-Sashiko wants some error-checking there, so I'll send a
-v2 with a fixes-tag and error checking.
+-- 
+Regards/Gruss,
+    Boris.
 
-Regards,
-Andreas
+https://people.kernel.org/tglx/notes-about-netiquette
