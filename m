@@ -1,220 +1,238 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazolkn19012062.outbound.protection.outlook.com [52.103.66.62])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010026.outbound.protection.outlook.com [40.93.198.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F00039CCFD;
-	Thu, 10 Sep 2026 04:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349D63B52EF;
+	Thu, 10 Sep 2026 04:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015030; cv=fail; b=WaiIFxTG6jyi76itg/YeFNRSM6GtupZoEz7GZGB/hVBs3Y4vhNh5XIVYZ4HzfL81wlbB8m8NAjtjVHBofXFJcngBIayYqegInvJHO24SEAlxyOQRP4+c9eMtsHPKYHZ3HyEsiZM+qJCSQHfKEwRy0OnA1PfUP7hQKG/0bXcNNnA=
+	t=1789015110; cv=fail; b=AZlHWV+RRecPcBNIgKHbe2Hu/3HV0fk94m/Nzgj+kUQ3eoal+6hoCBnVlzxByLYIy5DeysOLcO5B76z9sv9xYQQsCSkXe9nkgQ5A8yWCZsPBnIpXoyaRgSTb5R+c4sqXw6TTXmr7JXAsCcD2gk4sw0bJEG85Is6zPacCV8Baz8A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015030; c=relaxed/simple;
-	bh=C+x7q5XNYmlOMG1emDx0nc0E+0SV7iDt3vZkG22NYhM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cjdgFThyz6sp8Umke+UfIABHJsiiSmBP/mnTZ2XB9vMNAqokHfVgEGEOzOswbGOqmgW3MTnxaXs7rIwTssTNEjFSpb/+aQnVz1sX8kdqHxeo3CRx7zPTUSWnnpNMUsGFo3b04pd3NpW2KqsF0jphb0KDIOvIlApznLDNp9lGsLQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in; spf=pass smtp.mailfrom=outlook.in; dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b=sifhoKhH; arc=fail smtp.client-ip=52.103.66.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.in
+	s=arc-20240116; t=1789015110; c=relaxed/simple;
+	bh=6pEKbmh8GQ8jKPq73kYyl0IwcqE9jMqG3BZQxmKnkXg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=OAPxbhPHUZc8Oorv8Z+bDFiF1jO4oQASUAH6iWajQAo1SI/fn2P0c8Hm52xcK30KY+jc35YNKGBa9vSE1UFc2uiF7EqZJsJBaRSXnZzICgQlHkHDKOKPVBYqViftmEvKBhUwMuMOkD3mOkkf/rHwsP3Eg2Hq9ygvm6SUS8XDXt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=L2ByhT/a; arc=fail smtp.client-ip=40.93.198.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b="sifhoKhH"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="L2ByhT/a"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R/kJMNAWn4sSA5y+GNGrGp2vLbHA3lAg4V2jBHu6/jl3Lp02+Us4on2YfruPqtbkoFqrhu4xC4J82xpO/xmtodHWke3vkFiH/nEsUoBtktTUAogZWeGBxhLMLa8OFilfXYhcx7Hc0t/904mbsNV13oUxk1DZe5jTZkpLUfKi3qbDwEEAISDB2mSlokJybmOaEYLcVrhKWIXREwnGNL6McAGnDJLtXMqra2bi/7TdXNckULx+dNJPa6oz2sYJBV2wTldJaj23nJ8ZBEAYPw3VJ9EegNB9i5CtBpm21EnQqHcd+h62UW36dLkg5CdW7cfWNtZDqptM0GFGOueikBKvAQ==
+ b=FggLrpQvPJJPJuGP0bbRjNRpx4L8Y4BV+j31C51p7fzV8kJW/CoTQwb4sAquFm4XZi11lFwHKW9UpWIJOHRGd4v+8zJ5dGi27kGXhuYvbHMNgmq2VeuNJCptMbjmoEU3Z9EWz42VOvR+PNGlXuf6SyTeg/ByNZkKAxbWSX4p9802e1qsPxBSE4EUdSusF1q3ujGji/UeaTTDA7SmvaQFfQGh+kbz4eHcNGJPG6DLBtm7ZSoDyir48DRKvX4emaxZn6S4fCeYRjf/rHqkEwiGWeahp70jwp2FqQYafODi/L/Vq7Tsi1t5h9iQP0wE1FwO3gloWhPIDi7MEZ382Ik6rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RzdTwSfFf4H+wlT1KaHz8Gf+O1PZTSlolEb/cX15l18=;
- b=lCbOoqI5Z6+pQmj3zexUOd9idoblm7xf0mobrYqaJeH4XUXeVIEffXDIjePbIl7UEn9SX8iWey4sf8+m7QgcjP0v1AmQAVsUjPrT4pFsi06344cwFwJQnKacb5FrxTqdO79l9Nv3hkvtuUHm6auTbijjC+nyQJDyuz/2dvL7eXOWzmUGsSjx3VqYdUnUznKFfO5dE/9p/4kTgE02SwtLYOIFsT/9uSpD7uL1QxXFt1BrsHhP8QYnSd4cjwXzy4vgHnIJwgMJKCT/P4iqJWbVed6NliS63zaccn90teWiOo26cZSd6WcfgAos2Er1GTImo1ApQeD4/Ql6FhtAoZ366A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IN;
- s=selector1;
+ bh=4avYTOybJcphXh+dSShvT7IkPONnC3MAzVpxKuyAUIA=;
+ b=phAgrFM2UaRjWiN+g2ELLFmxoRCzjamZ+iQxgqOVCHl6sg8KDDqja9Fwh+pMy3jG+/uPOpEd7I1PXY8EvSoGbXIuJGu+26keFmgUjhcWWJULIHbdvBjf+e9kPkOntGi9p4HOc8MoE4pQ+3OLSAHkIR74OGQVsasI0tARDU26hGHK6Czx3GHjRaEbO/WZN8mZw/xoQCmprLezOCEhUr6mNXzxV9K6+1Nyg3FUS5zbHpJmmoSb/8odqz/CmloKr1n+uWySVGpQ6dCrrYBxKJ0gSl7AvD+S/2lWbGD6T3ueJTMayfDGWKWolh0JyPMBnpbQJNuHFkNAnAI8OihLu1p4BQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RzdTwSfFf4H+wlT1KaHz8Gf+O1PZTSlolEb/cX15l18=;
- b=sifhoKhHn/FfRpLS/w5zdv9xBoo/r5LsFB3bgThz6BNREnDqEkdjo455otaadVo0d9HkYgrnQHM9mS0DXQkFIA4tz7qaeh45TlX/ZXSlEXX8U87qUJabu2vObpV0Z6My4SFFts59+7IobRldg7ekzFvTunt7nx+gUzB/0Qil0CUbY/JmD1EHHfhIMtgT1FmGZUyVoZ3y6KSri2h93zmnAvbR3sHb8ilBU2hh39et9cItT1fMJ2zIW3qd6LwsnbxzOmUrCdQwiksMAuASHi9Yq24sH0YZJ2HJcV3EZZwe2amFtX4+2XmgKs5mb1sWagXbZ8Ksfz8S4sQ6JQ/NG2yjcQ==
-Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- (2603:1096:301:118::8) by SEZPR01MB7608.apcprd01.prod.exchangelabs.com
- (2603:1096:101:2a5::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 04:36:59 +0000
-Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- ([fe80::3e9c:908e:6430:83]) by PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- ([fe80::3e9c:908e:6430:83%5]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 04:36:59 +0000
-From: Shujath Mohd <shujath@outlook.in>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shujath Mohd <shujath@outlook.in>
-Subject: [PATCH v3] arm64: dts: qcom: sdm845-sony-tama: Add battery properties
-Date: Thu, 10 Sep 2026 10:06:48 +0530
-Message-ID:
- <PUZPR01MB51414E1C0843688784B069C4C3BF2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <PUZPR01MB51418AF84C1FC5F640144D57C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-References: <PUZPR01MB51418AF84C1FC5F640144D57C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+ bh=4avYTOybJcphXh+dSShvT7IkPONnC3MAzVpxKuyAUIA=;
+ b=L2ByhT/a8E1GNplgDWy1+HFG8QumkZj9XBULy9Gj2Up0k/dKr/vzU2BongAGq3u6BIie1VfSfgQwsdmhXAVFJ07JSo1QqoAZ726nNqo3FcFjKXWVUg89mKfFwBHRxtYRMImH9htEmeS0FZm5Hu22weVUqTC72ydvjeGc4DnENZi6CfZJv4N0jFoiSPaJWGRgnPbjGX1SI05A+F1rIJ5zVoFbW2XfOmR2AQ9cS+oMDERikfnhQop7HYeS1RofPXMOi5hV1upusANcN6VqAMrqQmn+bn76j0qUVRNQcuFyFEznBK5O3+HAOyZGvQ8UY1AjCiOZDuCFzpkP8uobX1QRTg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ1PR12MB6051.namprd12.prod.outlook.com (2603:10b6:a03:48a::18)
+ by SA1PR12MB8968.namprd12.prod.outlook.com (2603:10b6:806:388::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
+ 2026 04:38:08 +0000
+Received: from SJ1PR12MB6051.namprd12.prod.outlook.com
+ ([fe80::96e1:b300:7b78:d3a9]) by SJ1PR12MB6051.namprd12.prod.outlook.com
+ ([fe80::96e1:b300:7b78:d3a9%6]) with mapi id 15.21.0382.014; Thu, 10 Sep 2026
+ 04:38:08 +0000
+Message-ID: <b78b8e6a-2fab-489f-aa1b-a2ab23051794@nvidia.com>
+Date: Thu, 10 Sep 2026 05:38:01 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 03/25] mtd: spi-nor: Refactor Read Status/Write Status
+ support
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: Steam Lin <STLin2@winbond.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+References: <20260904-winbond-v7-1-spi-nor-rv-addition-v5-0-2909a45fe4fa@bootlin.com>
+ <20260904-winbond-v7-1-spi-nor-rv-addition-v5-3-2909a45fe4fa@bootlin.com>
+Content-Language: en-US
+From: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <20260904-winbond-v7-1-spi-nor-rv-addition-v5-3-2909a45fe4fa@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0364.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:219::14) To PUZPR01MB5141.apcprd01.prod.exchangelabs.com
- (2603:1096:301:118::8)
-X-Microsoft-Original-Message-ID: <20260910043648.17886-1-shujath@outlook.in>
+X-ClientProxiedBy: AS4P195CA0023.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d6::14) To SJ1PR12MB6051.namprd12.prod.outlook.com
+ (2603:10b6:a03:48a::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PUZPR01MB5141:EE_|SEZPR01MB7608:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee9001de-e0b7-43a0-1437-08df0ef526ca
-X-MS-Exchange-SLBlob-MailProps:
-	WaIXnCbdHrO+2YmbT5jW+WUSUt4IT5vRXkWCT5qSsztaDdcUplpRLPv2AayQpQQk7SrPMGNaJBnbDU3KKuf5mY3GDzhgim4kQdL7unv5HJT/TXMrn8xP/dck/A0PSrQWqyeEDszMOJZucxiiZrmajvsTRXuDSUkizuJW9G4MUj+5wpOM04nogx4jl/Xw2IBECKCcNbIUgwiXxFqHr+tfTa+5vRe+teT+Yr4lEveqfWQ91U5GtOZ+vdHCSCuNCCZk/uxMukgx5nhfTFxhDqZaiyB/vENAcyXciG/AOnns3HcrHxlQXvUUqzZECegTUTK8XLcbZDUwHSGMobazFj+bfegVYPvPUpoRhwlXmktCoUtIwOOIIWCnIh6rIAkejTFNAqhMzT4y2DYP9IhJk9NLvlZV6edapQGj+D6uxS75ufzUTOpa79Vz8OydV8+DjOwBHtPrT2iKX+h1IK+Ml91lBpHrbdUO9e++mfOHm4/mMQg2j1b5ks60ObT4XWpgfdDE2ObDiyromOrMXk+kG7VqOKFekDPqAPDa6qlBFItJXA6n9iwDKseEb586A48704DNjgT2GAF67MWZ69qKUiusL2mjFNlIUSOmxewE2mriu1ckZ9een6qd9ZD8PeC0uCAqsUDb16xSSW04VjNCyCSpgaHd5bAFO1Pktv65foD3XuM4n690m8bS1C9bSrFV8JKjXAXaD3AZvz2vGKoU1NMxQUopbBqGxoYUFHwP+xjN8k+KNiFv0CumGigINaNYgEhwS2qRPDAIl3A=
+X-MS-TrafficTypeDiagnostic: SJ1PR12MB6051:EE_|SA1PR12MB8968:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99bcb86d-52a7-475d-ae6a-08df0ef55002
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|5072599009|23021999003|10092599007|8060799015|19110799012|15080799012|51005399006|24021099003|440099028|3412199025|26104999009|40105399003|2607281247196008|1710799026;
+	BCL:0;ARA:13230040|7416014|1800799024|376014|10070799003|23010399003|366016|921020|6133799003|3023799007|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?LKR6mgz42/7Lcsj6d5FF1vhPvaziNnT3wetRGO/5WBr3iEg7/But9Wfiuz67?=
- =?us-ascii?Q?0vAIjSp98ET6Yh+LZTiMD3Gwn09ThZcbE8tB0bYz8ZaA0+gWIVC+pUnauhyO?=
- =?us-ascii?Q?AT470GbjuJGKQU91ax4EMfQnsdH30bCBk7Da3MbM7uSctyOBEgmOnl3UMD/a?=
- =?us-ascii?Q?a1q2ZQfD7ylcYOvQbdRo5t97OVfW0l3jGS1b7MC30X5sJjtDiOr0+PRASYBI?=
- =?us-ascii?Q?VCD+onJ8LbREuGCJ2fhfFkbEq/pqdo9h9ata6GAQZ3kBjqLrLw3pbDOel+Nq?=
- =?us-ascii?Q?0tYt1kjbXUoPJUIyYCG9rndqhSp3/JPSvhNzSIgcDaHE2EK5bRhWtI9hC7uu?=
- =?us-ascii?Q?oirrB94J/yQuWKak0h4/GUPEoUCyHg+uBEMIo6ttswJSkNLoKa9Q68Ea0uAc?=
- =?us-ascii?Q?TkXePPDY17p8+4e3RrA3czQXTAGYa3mWYKSLBmXyKHOrARmnRWSDNau1bJRc?=
- =?us-ascii?Q?/ZjkoqKefFINg9L/A2cNFMmhuNn6OhnNLrUJnYq2MwglG7mrU5hrBa4JT0G8?=
- =?us-ascii?Q?PXsWpuL7vBcIBR7Hj9L2c2yO82HVyXLapDcayKAQM+yQAapF1ttnH5MPQJtf?=
- =?us-ascii?Q?0TExUz3Jhr7dJ0axrX7tL1tbXrVdNWwXmUWC++TDEeakhvTcc+3TwDhvV9S9?=
- =?us-ascii?Q?vHc2ZPstlxx7mvH1aAVFKVXgbWMAJ3JZvxXBAQMDR+9UwSkLbW7M8yW3qajv?=
- =?us-ascii?Q?0SV6Yr9jpyQeSvzWGCuPfIMBTCzQgil447YcHjwoivj7D2NZSCuSxkoJJ32q?=
- =?us-ascii?Q?Bcjx+vweZryjO+s5o8Jee9M7fQEB7+GFEX78ZsHNvJS9Y+N6CcwAQzoxadFi?=
- =?us-ascii?Q?WIXK8Fibi3vLgOTHlS2PR+3fJdq8o7Xsh0n6RPQ3XuSIoH9wPhRNTmKAfhA4?=
- =?us-ascii?Q?VqFFHHQgRobBR1DznFc7EVGKujIdLLXmUTYj6lO3DyyB8S9lkP/UFk7+tAZ1?=
- =?us-ascii?Q?LQ1THeq2KuEI52NbgvuGsYBsIbjxlAMX5vx7UskNjev5ak1Tvgfg9REY0LwX?=
- =?us-ascii?Q?FjB4?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	S1HI7Nkdoko/UKaBcqLQVCZqXTLngbxUBRih2HsLKd6cFAw7szBVQnOlzTn7vdY04hL+EC9O4e2pFLF0mQQqZjDdzRJ7m5K4fAutQG2rfkIf92K/ELAi5el3BUNNGREcfG7xsALI8044IqvEofcruy/4i7hWwf2jx/RVfRvI6A3OrfXVXLhRB91tUWp2bQijzYyXLUxRitepMjH3ERI3iQQK0quFhsoWODBsTyrORiU1tzMFI9GxRKGA4GeTT55eL49oGTt87BKhHL3LRtCuVHJEaRp3nTWqBQBptDn2ttdiExxY6bw8/8dMlI6wSXdutJBUM2GQcxsKejTwqA4Rb55maFdnZXRbxJKSjEReqhWm+saFZ3bLkghLdBEADDK8uOs0edKrNFxSqbkWiBSwdtObKkA53ayEbr0fKMK+F7aB1hgP5TH27KVYnyvh7i/GpkfuPtQO2McVjbeVhdIXbx4LHSHgIuN1PA9L+wz9/Hl5G54ogv67j7pWfRbQM3vnp87+m1CUxXaGNDFNKaUKivuAWBFlCUA2CM6P3H6CQmixFb6GFClS0k8Kqz0uRraHwXmlwN8Mc4+2d2nQOj+kWBeQJxH/UcDVJIpnLCzav9aD/thYLLRpPAwyozxKWNPr6UW6Yk04aaXiP81S7p3tQ2ha4iPctlutaOkC3HHNYaxqyaUVfSqVPA/JDlVvWxHHELnH7RI7VK42wpkl3qJn0A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR12MB6051.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(10070799003)(23010399003)(366016)(921020)(6133799003)(3023799007)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7teQIWRunzpMg8v/1mzlDwSZ6Ob3LeRnPuyifBQ04Ik1vNcyOl0deZQVgNWn?=
- =?us-ascii?Q?v4X8kl9lGalkQjPyUyms3gwZs3zhB6ATLvyzDwlRHV0tBPFbqmp30UCHsSIg?=
- =?us-ascii?Q?Qoa6tpkyZCM/Qf0P6uPdArRCXHAhkzf+z1/knceU77zYbywvG9ytssVtBzQD?=
- =?us-ascii?Q?8G7SNIQynNrbMyfXWLOadvPUuic3lBeaS9uNmFLhtTJCMaKoy43S1E99CgLq?=
- =?us-ascii?Q?qcvjNpQGDcMQ6HAIXwHnoTGhM8rD+5Kge3Zhxruoh2MwhVLkhuAC1gABPjpU?=
- =?us-ascii?Q?6mSK+dCVin7m4BOQ0V/1lQL0A1AGzlANmS6jkdKpPktNmoI0UPaJt62Z4SNT?=
- =?us-ascii?Q?6k8Vr5JWXKNLYJ8Jm7IqnWmawMqgT0kDRycljq6zZH0y3tgqTntpTwmmlBJy?=
- =?us-ascii?Q?4XLkAbvMUNc2aJHVzkFkOAr9PfkpPVvS8mWQh69P5lSCewbqfDmYrANMRuSV?=
- =?us-ascii?Q?Yk0cR4Zx/MFBOqvgaTTMr/2PYQePQRQspyl/0Q21d0XfOWCEMH188DyixVxr?=
- =?us-ascii?Q?HEpfdiU71fkmGjVjwjDuzScnLXtHHEhsbvX+N5sKi5TEqRmpHA6ZPeecw+8J?=
- =?us-ascii?Q?GLdixunvSNBm9i67Mrlrjj+VFcKp3YmVSM8IcKHwekp+dVlo4K3k9Am+4Bf9?=
- =?us-ascii?Q?Dl9A1YVxlAIxIqT+pn2y6N40WPSR9UtCksr5DZ2yRSb/727HRKZfGgrq2CTj?=
- =?us-ascii?Q?xfCRrw+tXgXI2p/BNODEAanak6LSmVTeu6JRyCdFTCHdgdq9kt5uv7wHK04P?=
- =?us-ascii?Q?ZkdoBPhGMtmAZiTPk679UOwiamnY9bPKrh5pJzGWb3AbS/+93fR21+MnSjA7?=
- =?us-ascii?Q?87BvIg4lL9hHIGWCBElba1J1KLZeCz7M3lRVjd+0mgV/0PU7SfXEeLqpIZo7?=
- =?us-ascii?Q?VyDU8xgeVYW3TSVVO2uFWkMVO/JarhZ3gcxcD+o4ExOKzxv6tOhyrtQeuHcC?=
- =?us-ascii?Q?Bh69LVCX7R3CSzvE9wYQmunN676sSW6tFMJKkgHOg1cTHMlr3tu50aaGjlGK?=
- =?us-ascii?Q?Q3QUxV3OiIGmT6dgwju23lHGkcsaiiCiNVYlN1+LDtydHX5FqyNBIId2cO97?=
- =?us-ascii?Q?TrdFqcAaFPFdHv6fetIRRF/rgASrXlA6j7sdkgjTN7/AuD02NgBq5g6jokET?=
- =?us-ascii?Q?7sAn+va65KxJ/rGXimyS/a73SuvodpXS8wJJ1svebbHh3LWcdAytFFEpfyAp?=
- =?us-ascii?Q?8P2GTil48jTPuicUx0Ad25gqDbA5MiCrbsNZhdmbENu6wvLYrjgQR6y1lUiY?=
- =?us-ascii?Q?Fhkt9q/onkg8y5UO7D6I42e4B50X1wEgFXKlPa8hed9R0KZ5Bb0gENpHDMNt?=
- =?us-ascii?Q?ORb/kQFKwoROhw4pWLqDhC2PpfX74sSjwbuiMvkMz5DxQnWnNza70vnTi/3L?=
- =?us-ascii?Q?jVGv7X2L8+sC2jW1z8oDaZEqAic0?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-3e488.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee9001de-e0b7-43a0-1437-08df0ef526ca
-X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+	=?utf-8?B?aFdHYUhvSzQ1ajE2Q1haVjVIRXJ3UUx6bTZ5TEEvY2N1VEhsbWRFNjF1cEs1?=
+ =?utf-8?B?RnFtZzQzenVPTGluUE96aGtlQ1pVS1VoM0VTWUQrd2I2YmZNeVBMNGx3UjFm?=
+ =?utf-8?B?eHNJdnhMSFZyT1BRZzN2OG1qRitNNjlMVC9tb0hYNTlDNkF3bjVFaHNoOU5O?=
+ =?utf-8?B?Z0FyT0dBM2lLeU5kbHEvbmVwMVNnVGFVSzJHdDZjNXJvc3NVcDcrWStxOHFo?=
+ =?utf-8?B?UDI4a2pybEhlbGNEbk1sMUE0bkVFbkM2Qm5FNUhaUXB1cnIwaVc2ZTlNVUt0?=
+ =?utf-8?B?SEcyWEpzNVpuU3RZK0Z6MXlOMnJMRHBGc25JRTM1NFVoSXpneFZvTjc0dWRP?=
+ =?utf-8?B?eXRlb0VrRU9ZQXpiM2VMcG9pRFVwVTRDSGRISWFFV0tXZmh5SUFSVUVTYlN0?=
+ =?utf-8?B?MFdqOWQ3Qk5laURZQU5DOXpRN0FvcGtwOGNqNTI5d0dzcmh1Z0xEbEV1Tmxp?=
+ =?utf-8?B?T1pDSTFJNXVickE2YVczRDJEZEVtd3hIYlJUTE5oQmZUMnA3akNzNkZYSk9X?=
+ =?utf-8?B?UTQ2elJhUXpxZFFCQ2Y1Z0xVNyt5OTh5UE5VMFBZdktQZlJDZ3FXOGI3dDlU?=
+ =?utf-8?B?dDFUcTZDcEt4b09mUjR3cm9NVlpSajNGRzFLTzhTNTVrTGpENTJEUmVhZHpC?=
+ =?utf-8?B?U1ZxSFJkZmdqRVV2Z3BJK0ZnemVlbXg1K0t1R042U3NwVXBoZ1NBbTZaWWNl?=
+ =?utf-8?B?Y1pzaDQrcW11Vk1LdU45bTRMa2hvQkJYekR6UU9CZ3hPSFV3VGtQTkJjeWlK?=
+ =?utf-8?B?Z010NEh3SzNSVUNRQWNlaXRUYUVvY2RKUCtDSzI0UjdkZnJVeEN5WUxzNmk2?=
+ =?utf-8?B?Nm0weWtYTWZzRW1ZS0lZTUdZeXkrS1VxcWZNZEVvcFFhbkFTTkNwK3JFRXQ0?=
+ =?utf-8?B?RkwveHliWnprS0pQWnJFa1V2R21nOVFqb1oxNmg0S1NZMXB2WVR6Sm5OY0dV?=
+ =?utf-8?B?Y3M2U1NJQUJ5OTg3b1NsRDZ3K1N5bUhPWjYrZHhYNklESlBMZjk5a0swM21L?=
+ =?utf-8?B?Zk1CcURZV3ZJTng2UWxaU25jdnU2amZSalRtVVk2cWM2eTFzMGhpUXdRdFhH?=
+ =?utf-8?B?U3RLY3FYRHJVSVRpRkhTTTVWM1loMFg0c1U2MnlNQ2t4a28wWWJ6RFlTQlcr?=
+ =?utf-8?B?M29Mb21rc3o4MHFHNzE5TzZJN3FaQVY3Q3BnN1ZZcVdwd1dWWHlVTEk0c2Vp?=
+ =?utf-8?B?aUZyWnNoeTFFakNsbVdzSlFpMWlJcGptbkVZaDd4Tk5PdnJmdURjSDJ6QmZT?=
+ =?utf-8?B?amxWV3I5U1phMTFpK2VVc1JURWRBc1g3OSttT2dBMFh2SzFkV2tySEM1bG1t?=
+ =?utf-8?B?dnlkR1UydWlzejlUc3Yyc1lqZkRaS1daeUlCcEc0SUtGT29LYXduOTY3WVhW?=
+ =?utf-8?B?YUFzRkhLM0dhb3h5RFBjTTlXeUdjSklmZFZrU0VqTncrN0JaOWc3RDEvWlhJ?=
+ =?utf-8?B?QWJkUnNuT1pLTVJUVlpvUUZsWFNUMldHWkdYWDc5QkR2SDhicmU3VFo1VWpH?=
+ =?utf-8?B?S1B1OGtmYTVKMDNmVlFKYUVYSmZHQTVYTXVnWlYrSXMzSWdVb3VEWnNsd2FZ?=
+ =?utf-8?B?YmtOU0ZrTGFHbDFSVDdKSFlTblNZdUtzTk9Xc3lKSDJiTE5JUG5ObkZLSE41?=
+ =?utf-8?B?RGdESmxXbHFpUkN2TUpmVTllQXR5d3VPQWovNnltOWlLYkNOTUtXclZib3Mx?=
+ =?utf-8?B?OThDSDZPeUg0aitPa0xOUUFWdjd1Tnp0NFduN2ZCeXl3bFJyWlM5UGEzZ1J5?=
+ =?utf-8?B?TjVyeFd0a1ZUSlFObWNiL2o1eWg4MnFlVk85RzlEZkpnSjlnbVo0dXFnWmtk?=
+ =?utf-8?B?Yi9DQ1NBSzk2L0xVUlhJWW5lV1pQVitYRnQ4bUhncDB6a25mdENucGRKOE5I?=
+ =?utf-8?B?VHF3V3lZdGpGQW5ZcW43QXVielhjcjNyd3JpSHB5NG1wRzE0WXh5dEJHekZM?=
+ =?utf-8?B?OEdUdnBjSExxREc4TXR1akxSUlJzV1k2a3JXTWRGOHNzckJxVFdPZkVpOVIy?=
+ =?utf-8?B?OU1EdmdzcDlLbnl5aGw2a3JUMlgwaEZwaU9rL210dW0yQUlGQW9JWnBRZFJq?=
+ =?utf-8?B?OW44L2hQZjRDSUx5WUlPWDhyajBGdEhycTlBWE90QTc0T0pBNnpJS2Zwb0lZ?=
+ =?utf-8?B?Zm1HTnhzemEwVTlsRXlZczFTUGExdFE3T3h0K3k2d24zZlIvc0IxaFRZRGVz?=
+ =?utf-8?B?QVJibXBHNnUrcU1IRGs1Vk9seVM3L2lKWCthUTlHVHdlWkQydkp3VENpY3Fo?=
+ =?utf-8?B?S240QnZSUTROVzJmRzVwYkt2MnU1Z3lSMjQvWDNJRjJhcmJYOFBiMjNLY1Zw?=
+ =?utf-8?B?NWQ3bG9TNWtwSEpGb1cvZE5ZQU4vYUZmQmNjTHd3RjdJeUdHZHBqRlhDcFlC?=
+ =?utf-8?Q?gXTBqS0qI8RKyl+VxRd5JEaVCSZQojxTGa2L0mGYXXqmj?=
+X-MS-Exchange-AntiSpam-MessageData-1: 0UPG8OkRCKJDTw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99bcb86d-52a7-475d-ae6a-08df0ef55002
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6051.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 04:36:59.2935
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 04:38:08.6133
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB7608
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +v4UATILjxhlu4VhQg6rUF8vfdwu4+0Skyk3rewkboq6oV3ZkzMa575omK20SPuY7psUs07k6BrdqDOkF2yzyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8968
 
-Add simple-battery nodes describing the design capacity and voltage
-limits of the Xperia TAMA batteries.
+Hi Miguel,
 
-Use the TMM fuel-gauge profile values from the downstream kernel
-(`somc,initial-capacity-uah` and `qcom,max-voltage-uv` on the 4250 mV
-bins). Akari also shipped a BYD cell (3056000 uAh); a single
-simple-battery node cannot express both, so prefer TMM as on the other
-TAMA devices.
+On 04/09/2026 19:12, Miquel Raynal wrote:
 
-Voltage limits match the fresh 4250 mV profiles: 3.4 V drained and
-4.245 V fully charged. Aging bins raise max voltage / CC-CV up to
-4.380 V / 4370 mV and are not modelled here.
+...
 
-Signed-off-by: Shujath Mohd <shujath@outlook.in>
----
-Changes in v3:
-- Document TMM vs BYD dual-supplier situation in Akari
-- Set charge-full design from downstream TMM initial capacities (akari 3217000, apollo 2899000, akatsuki 3325000 uAh)
-- Explain voltage limits vs aging/CC-CV bins
+> This is a really hard to review patch, it is big, full of changes
+> everywhere, but I cannot really split it further. The commit log is
+> really important, it tries to explain the steps I went through when
+> trying to refactor the whole QE/SR handling for which I received
+> feedback from Michael, Tudor and Sashiko.
+> 
+> Ideally we could expect test coverage of each case:
+> - BFPT_DWORD15_QER_NONE: Probably not needed
+> - BFPT_DWORD15_QER_SR2_BIT1_BUGGY: Expected from Hsin-Yi (flag is being
+>    renamed _NO_1B_WR)
+> - BFPT_DWORD15_QER_SR2_BIT1_NO_RD: Tested with a chip re-enabling RDCR
+>    in a fixup
+> - BFPT_DWORD15_QER_SR1_BIT6: TBD
+> - BFPT_DWORD15_QER_SR2_BIT7: TBD
+> - BFPT_DWORD15_QER_SR2_BIT1: TBD
+> - BFPT_DWORD15_QER_SR2_BIT1_1B: Done.
+> There will probably be breakages on older chips. These cannot be
+> guessed because they are not properly listed in manufacturer
+> fixups (yet). If we want a cleanup/simplification, we will have to cope
+> with this risk.
+> 
+> I hope the diff stats will motivate people to have a look and report
+> their testing.
+> 
+> I will also eagerly monitor Sashiko's output which will probably be
+> very useful to catch niche weird cases where these changes might break.
 
-Changes in v2:
-- Retitle subject to include "tama" (commit message only) 
 
- arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts | 7 +++++++
- .../boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts     | 7 +++++++
- .../arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts | 7 +++++++
- 3 files changed, 21 insertions(+)
+Since this landed in -next I am seeing a flash/boot issue on one of our
+Jetson boards. This board, Tegra234 Jetson Orin Nano
+(tegra234-p3768-0000+p3767-0005.dts), uses a QSPI flash device and the
+kernel is used to flash this device. Following this commit, on boot I
+now see ...
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
-index 6e65909ab582..c76708ad537b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
-@@ -10,6 +10,13 @@
- / {
- 	model = "Sony Xperia XZ2";
- 	compatible = "sony,akari-row", "qcom,sdm845";
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+		charge-full-design-microamp-hours = <3217000>;
-+		voltage-min-design-microvolt = <3400000>;
-+		voltage-max-design-microvolt = <4245000>;
-+	};
- };
- 
- &panel {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
-index 82e59e453354..87279392f7eb 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
-@@ -26,6 +26,13 @@ ts_vddio_supply: ts-vddio-regulator {
- 		enable-active-high;
- 		regulator-boot-on;
- 	};
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+		charge-full-design-microamp-hours = <3325000>;
-+		voltage-min-design-microvolt = <3400000>;
-+		voltage-max-design-microvolt = <4245000>;
-+	};
- };
- 
- &ibb {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
-index dc15ab1a2716..08c0837d7e5e 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
-@@ -10,6 +10,13 @@
- / {
- 	model = "Sony Xperia XZ2 Compact";
- 	compatible = "sony,apollo-row", "qcom,sdm845";
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+		charge-full-design-microamp-hours = <2899000>;
-+		voltage-min-design-microvolt = <3400000>;
-+		voltage-max-design-microvolt = <4245000>;
-+	};
- };
- 
- &panel {
+spi-nor spi0.0: probe with driver spi-nor failed with error -22
+
+Some quick AI analysis states ...
+
+"The commit contains a probe-blocking regression in its new generic
+  quad-enable path.
+
+   ### Finding: -EINVAL from an unavailable SR2 read
+
+   For BFPT_DWORD15_QER_SR1_BIT6 flashes, commit 63489002d397
+   configures:
+
+   params->opcodes.read_sr2 = 0;
+   params->opcodes.write_sr1_and_sr2 = 0;
+   params->qe_mask[0] = BIT(6);
+
+   That correctly describes Macronix-style parts whose QE bit lives
+   in SR1. However, spi_nor_generic_quad_enable() then unconditionally
+   calls:
+
+   spi_nor_read_sr1_and_sr2(nor, sr);
+
+   That helper always calls spi_nor_read_sr2(), which does:
+
+   if (!params->opcodes.read_sr2)
+           return -EINVAL;
+
+   The resulting probe path is:
+
+   spi_nor_scan()
+     → spi_nor_setup() selects quad I/O
+     → spi_nor_init()
+     → spi_nor_quad_enable()
+     → spi_nor_generic_quad_enable()
+     → spi_nor_read_sr1_and_sr2()
+     → spi_nor_read_sr2()
+     → -EINVAL
+
+   This exactly explains:
+
+   spi-nor spi0.0: probe with driver spi-nor failed with error -22"
+
+
+I added a dump_stack() in spi_nor_read_sr2() and this does appear to
+correlate with the above.
+
+Let me know if you any any further inputs.
+
+Thanks
+Jon
+
 -- 
-2.55.0
+nvpublic
 
