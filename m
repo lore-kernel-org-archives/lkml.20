@@ -1,68 +1,68 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2BD3D969E
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EA03DCD95
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032705; cv=none; b=ISedx8Prz/7V/5TbDhTcP50HyYGpLtKQFz1sBIF01D2q2eWr762TThH/SfnI97pq95jNC3EsC6+c7IOn1UcwObWKzKb5cTSomqSFPlSmu9ATGZ2kHd81LpkaxtDUhZi41K9pZzN+hmJegYUVerC+NVl8G0rjxWkSKtZAQdm/1w8=
+	t=1789032710; cv=none; b=ey7HxlNO/FuaQlWqBYSKoB+oeB/oWINcRY7psrhrLrxxgZdoJL1+duy6nEUDkRJZAQJ1vEIaV5RnZ7oNhcJBNltqCyn4pAH+Nb/ldMx6M5d8PIud61HlxktTAyPCZt+2d9Bwhxb8ay+I7XrgPJvgVBJa7DUEWhp9oi+keWeXD6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032705; c=relaxed/simple;
-	bh=6WS2gG4eQGvXIRMEkRovIFW0AaWwhRZ2tj+ICuFq6Q8=;
+	s=arc-20240116; t=1789032710; c=relaxed/simple;
+	bh=27AUzsKR9CssdEaQkSlsPLqzbRGUpmaiIW0xyEpwgkM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Nuxb9ElCw/Rtj9FWPdbthtmjosEi76UpBBq8lYQsImBF87MSiLUlcfDiapRCzAJSZQnzZqhm3CtDZjBOeN4At1ghwer9VeOo3CkA2i10XkyHxrLJ30wHCV/ukMBeP4aGMUzwiB4URxSY19CnWN/UdGORifLxpyuyDbu4oiaTrGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PlKqjpk1; arc=none smtp.client-ip=209.85.221.48
+	 In-Reply-To:To:Cc; b=MyP0vD+OV+I1YvItgEEBTEyD1QJgrKsNuaPKl3bsK0hG4f3Bj3y56uWtOMQs2GHLvn8v09QvKtscVQ6M9REzxGllGX7nKhQzSxOjfDBhDfwCph/hmHrpWCxRrR4+BeKHjLf6lTRmviBGZ+L9XL32nvmAVfBdaJ441luUyI2n8yM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gVBzWivr; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PlKqjpk1"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482e257a23aso4551418f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:31:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gVBzWivr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so6052845e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:31:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789032698; x=1789637498; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1789032704; x=1789637504; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eC2Iu7WVN9Kv8E55jimB5I9lAFW6apWINO+cxwm+DSo=;
-        b=PlKqjpk1n5h7yzEQwty/xB9VYAUshz6v0YPGI2B17P1+pDTs2vdB/6UYLbsxEzU0e7
-         T6y0FWeAF44lLxlwJSpEBs2RRPYZZM5FUlLVVIiaSACFW2yhIn7V4ZADj/FZnUQ1hJqo
-         a/5aYJRRABFAyJgI68PFhNf/rcBmjhdwyx24yKmR1L8kUYkUYGS33Ifn03lgKWwAs10E
-         NL+YFMfrFLusEIhqXMrDbJe1MnaltHt5hziFAVJTxOWesuhtxoo6acTgnHissbzMsFj/
-         L3h4O306Kh/zThoYE+M6PUas4bzmA1TlZ2/zi62kiYZGF1tdf/OCHQ9Is0QY0snMNhIO
-         c1dg==
+        bh=6SzfhZfkD1FSheSAa+udFpbhKZgNVoMqgCB2AIjzHwc=;
+        b=gVBzWivrFVqeho13k1tdUGlCxp1SjodY4Gt6FkLv0CS+9BYqRUHdTwUn1Biyn1oU1s
+         CRqZVExen0k3lbeKk2odhR+sfYiGAgL/h8LRItGty/vVOUj5DgzCcHNe0smF4uYzTISg
+         hVezGGPrTV9mfHEW91nWhcwDYucq8xQymAwcBHpS7F7ehyqOtGBb2vhrOs87uVGETt/k
+         Bvfuj7ORaM6JSG3klSMi01llIxbBhzwRV5Pc2XH2JV7VF2Kh7zdvk2H8k/1XM52xYbFa
+         5l46fsb6DOTCXmKUWMNlRPKrb3SmhWfkf1OKNOIaQ9zeihFs2qykabmBWGUZf7qJSh6p
+         OLjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789032698; x=1789637498;
+        d=1e100.net; s=20251104; t=1789032704; x=1789637504;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eC2Iu7WVN9Kv8E55jimB5I9lAFW6apWINO+cxwm+DSo=;
-        b=BtYf+MRo/zdF7DgkKywF0431sdKW/M+ZYoKABC1DjhsXcJ43EsoPWYVT85PO+CJFbS
-         c/22VWXY4i/1O9zbp10dqFIauMw4iInhOpd8z8A8k+TgBQWMon587SyLlRbQqbSMr/CQ
-         pr+KWf5TJD0VHshRDMCtSBjQDgGfM5HlYag0Hgh2ZhVYRGjy3dBwr8hm0wePRm3BR1Uz
-         ot2KvQ+EYOjV4gYBz4/fftUergmcGxHUcny2Q8nd4HOIJA+4Iii/OV0qvA9lmRUM8lEV
-         uqIeZNrookkTmt8o43/lmCE5+t3mO5/gCAYSF8YI3aHB1Qt+wOHU+qXdZQjz2UgAOqNj
-         cQTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzX/Vb/YpV6BEPLNXaC8YwmebYq0oliDerQ6fAkst3GqmUZ0/QoS8gTHj5pN7So+80snMB1fIiTqJVuUhQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgMz3oB3IpMP/UCVmEVsFj8/k8HO0z0mscWWba48BuM9z0Cqc8
-	nuCw92GeTwF7POxlY15bR2FTnEgnKBpEZTbIn889sgnBF/1D+7R02N/UM+q2RVK5N20=
-X-Gm-Gg: AYBFou1CGBujxrppf2jdoos0BjM9qY8Zm4vO9LZOWixOjM4qdIgDgfQvYGEVows3Ujw
-	g0MznBQ0Tq0ndZO1i3KHcqMVRuDABCmfuGUie97AEaWKbQuqAzFD4pSiW2fcS9GXdcRSSS7ZucV
-	OXJzdh4jrXxU0Hjoo49a0qn3DjhKCJNqkfv19cLf6GKT6fKw/dQ1E7bOQlk70Cm3eNdqVLTa0q2
-	Yrbh2fCgbj/1cbk2ZZxJ+t3/+1vJZxUgsBrjCFu5o1NnqCao5Qhzpg1RqnUvRoblVgdBgHQneRb
-	XfrJkPxszHahKPc/F7i+ow7LHz8sOwQJPZnHdTUrsrHkcD7kBBlE/2NEcpxTXIa0zBtUMH+9/F+
-	K3FYROQd3Tp92ztKDjQ1B5umh5L36kYnAbhP8YBHViPG8Cw1V11Fqo0vy9Guv+X+JXM4s9keMDl
-	pXoENOIf/GOt5CTpTZU/0UP0m5ALZF/g38g3ICULL7r65vwzapkogGPRktUEYQU2bGsvyMAuYY4
-	X+k4CzXbezt1UZWPLVBhX3aAcSc
-X-Received: by 2002:a05:6000:491c:b0:486:e727:d4a9 with SMTP id ffacd0b85a97d-486e727d4bamr267531f8f.55.1789032698493;
-        Thu, 10 Sep 2026 02:31:38 -0700 (PDT)
+        bh=6SzfhZfkD1FSheSAa+udFpbhKZgNVoMqgCB2AIjzHwc=;
+        b=hEKJ+MQpjIh+sAEMHEtgyS86hlZyIrO6V4BWFWhvOFMylRK+PeW7DL74ri3sy6qiD+
+         seJy0K+sLj6MwGQ5fbD0Ps3CeBvCzSMBPCMzlR7jueIhQ1M0ZuJYhGMgMZI+vu9MAu0Y
+         UPG6fov9Kvq5w2Y8XufLQDahxFHCG7Bk5EXDgJL8cVmkrw4w0sW8oHbuJjZIHWY8S1QS
+         wG9uuczETuFWapAaqDkrvMDgevxHGLLjBOtxQ9pXsf4KYLTLd1HyJrJAf62rgGcTeqCh
+         1rOrV2zH3ybLwhtHjeLRUBuRFsbA87kBYmHwldSiiThCnv6ncMuftF7CgfdItdjnwzKM
+         ft/g==
+X-Forwarded-Encrypted: i=1; AKwUvBziPh9gUIQ81nVbMUPHcoKprZAGatJYbMipsl0/2HK7D5vHIPZMySaBlKh5nXBlEWdHjPUJdgyfOjYFu2o=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+O4uD6CJv4Svl7MSiarHpov4q7JDbHblSKdscHN9R1MByRRwt
+	ItBpElJrN7zb5swVl0UwnOHNY7Y8oygiQWJnXkRzNUs/H06KwzFsDuDEDTyo/4Z25FA=
+X-Gm-Gg: AYBFou1DmlnN3XB6LhRr2XyXe4iH/MMu1+Lust1bFaW8emoJiAsJQZeLEYcMRKhlmTZ
+	asybkhWLzYlui9lsI4aPS7I04s8uefjQkTArs24NTIuC52+vZV/NxOC4gObV0+SWWoVPiL/7cpJ
+	qi1MpjJEbDIFGZarnA0uvFqPpbJZj115y7sLLLubaBiZTYxRNKNwZVz0EJmvOVst3iQPTL4fBRe
+	f7iJjbSBeeQBxo3QVAhF4JBiEihTNqDuHV4wA/HYa3aD9AKKvFPrmDfEpLbNHsIg0y5P5tzatBT
+	FMLHnP5WZuptn2y5RUAIhyKsmSmJgKTp/v8o3H09XFKhKjzfD/wlYVtklB39t/aX9ZQII22dZ9G
+	p6TNT+AeU+GKBLwJs0laYqpE7lwf/lkenPtfcw0/8YLjYblufs9rqdrlB5bBmGbDHC6z1GH00Nk
+	a5+cyaVehtmV7HZBpX5cJhH6BDC8o7YTFNvupNBqvfGBPCNS+grmf07a0uAk5ry+1q/xBJsEIgP
+	drakHVszNYMWlDgwQ==
+X-Received: by 2002:a05:600c:c48f:b0:499:4e47:eaf2 with SMTP id 5b1f17b1804b1-49d258cda4emr58183465e9.6.1789032704515;
+        Thu, 10 Sep 2026 02:31:44 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858dd90e1fsm54098918f8f.28.2026.09.10.02.31.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26bf332esm54965505e9.8.2026.09.10.02.31.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 02:31:37 -0700 (PDT)
+        Thu, 10 Sep 2026 02:31:43 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 10 Sep 2026 11:31:08 +0200
-Subject: [PATCH v7 1/5] mfd: axp20x: Constify axp313 and axp717 cells
+Date: Thu, 10 Sep 2026 11:31:10 +0200
+Subject: [PATCH v7 3/5] dt-bindings: mfd: x-powers,axp152: Document AXP318W
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-axp318-regulator-v7-1-de720ceb9bac@baylibre.com>
+Message-Id: <20260910-axp318-regulator-v7-3-de720ceb9bac@baylibre.com>
 References: <20260910-axp318-regulator-v7-0-de720ceb9bac@baylibre.com>
 In-Reply-To: <20260910-axp318-regulator-v7-0-de720ceb9bac@baylibre.com>
 To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
@@ -81,57 +81,135 @@ To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>,
  Hans de Goede <hansg@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
+ Conor Dooley <conor.dooley@microchip.com>, 
  Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1161; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=6WS2gG4eQGvXIRMEkRovIFW0AaWwhRZ2tj+ICuFq6Q8=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqonjuqKxu8UNJHq0DCQAWeUf5/7Y3PNX51fj8j
- RwHioty2leJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqJ47gAKCRDm/A8cN/La
- hfhdD/9PQSp8YB79F9eYZ31MRivxo7VTk8yHo2WHgTfXaGtRTfjp9JvsSb/KXSnXm1mkXgSDKF/
- 1qKGGwWOg2SDh+0/gc195UoHaT7SBPOGUOS7WuyIuXdLAIEURQpsUjuNlmK2aKITGtlSXu7IlfK
- 6EZZapEDo5HMn7h07BKKCdaraVW0Dnkw3Q29VHrnU4Vt+2Y1fL4IhwK+mVvjYtrzmwL+Cj89hcn
- 8BziLEW2Id7SUD3TNpb/t+kfqdQ507IKS3Zh4y1Sx2zmS/R7MggQQjm5jVmL5KHLM4DTTKIJnLK
- GcdngZL14h1BzQRc6VyJjoD4iJnShD7BkcnFE9LnFq4HdHxP83iC0ki1E28iApVmmD843/Pr+ud
- XyNn5mTkpyjSvMFsUdpJwu/S8/5FpSiHTbHqxM4AXEtmsvHYvraEj0GsTBrUtmduGL2w6ncFW6I
- 5gMOWdniEQXZRDBNUR74eBZG5yJKAjHdzl7YWazuo8IyVtcRVgFpKQmZxI7UgLK0MONTR2RSDrE
- q/U03CaNG7XBfU2Y/p+vZWek4zxBiATbJksSPsb6I2bOlURjlc2BPa7YUAD7woYaGVIR8qfxue5
- o2TYBOrh6ODPkxuTU+VwqGvFc3h6K7iq9HL2NdzIFs4SPtpgwW42j/OF5vhkjLuOpjufjyR4Ume
- LVznEVirXAmuMUg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3753; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=6eSLEgss9n7JCsvVnaFzT4hYnTeTkd6TBh6eqWPLl0E=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqonjwMfjSAPRNpZoCxaIrK3onAQOeCgr2fiRTu
+ ejAQpLKhbCJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqJ48AAKCRDm/A8cN/La
+ he5CD/0ZJJKGnyLNZ+C4njPLmH4FrE2JTONJCh6Q2ouaK6jRE1+pKnhUOJ5/b9ZA8VUJX1ehb9Q
+ VJEGB4+eQNZG9vKc4z0EsBnQgj2s9HIG5v5GyvSskGy1yqQ6PTyoOdWGKvN+6ZlCT2LRmJkqYxf
+ qvV3vH2H79OvEBGTGWZgjFmJEYOyjpAITKCcfNsD4gVAkohoVLbOMa90BVA1LH8MeRUyxFMDNC1
+ PXfKfC1rvi2Mh1x2wC6qp7Kc/iGMzLweL8MmkOSzEOvDUHSNeoNqrqQS4u9N+jJRssKjXxGlU2S
+ 4Zdc/aHaFkKBTJoOXpc6B6bhBp0du2h+opFJURQTpHXo6sx2J0MpnVQ3ZX9yHCDDdLkIHdqWMq6
+ MRySKTofNx592rOO2KYXplXC2bTsKcvXhfM7KQ/EKu9LrgAa+bqTlGx4S+k1cVjz3+kSCMQRjX1
+ ZwQGK8t/oUOB68lyiJNEYCYGpiyVqLxEKqHbsNzP02paU9t5bN35DjhIcuqTNlCGSEuIDKnC+9Z
+ DuVZSwRcUftsAF2WKl8q62wJ85l4RdFXUhWPN9GWR9LC+DJO0B4/5n4iVwTTNJog715QSMjws/A
+ ErzwlN7r1+IKfRJbZGUpGOoSyu6FbWGyh2YZ/bSa153RVVr9np3Yo7/paNDGW7c4854M7dtgDg/
+ qslxEgM3551cxww==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-mfd_cells array should generally be const and there does not seem to be
-anything against it for the axp313 and axp717.
+From: Andre Przywara <andre.przywara@arm.com>
 
-Constify the mfd_cells array for the axp313 and axp717 to be consistent
-with the other supported chips
+The X-Powers AXP318W is a PMIC used on some newer Allwinner devices.
+Among a large number of both DCDC and LDO regulators it features the usual
+ADC/IRQ/power key parts.
+Like other recent PMICs, it lacks the DC/DC converter PWM frequency control
+register, that rate is fixed here (1.5MHz on DCDC1, 3 MHz on the others).
 
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
+Add the new compatible string, and add that to the list of PMICs without
+the PWM frequency property.
+Also add more input supply properties, for the split DCDC and ALDO
+supplies.
+The PMIC features *two* switched outputs, hanging of DCDC1, and the
+manual calls them swout1 and swout2, so follow suit here and add those
+names to the pattern for matching the node names.
+
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- drivers/mfd/axp20x.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/mfd/x-powers,axp152.yaml   | 28 +++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index 50df66de24e0..4d770e718716 100644
---- a/drivers/mfd/axp20x.c
-+++ b/drivers/mfd/axp20x.c
-@@ -1055,13 +1055,13 @@ static const struct mfd_cell axp152_cells[] = {
- 	},
- };
+diff --git a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+index 45f015d63df1..38556c32417b 100644
+--- a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
++++ b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+@@ -83,6 +83,7 @@ allOf:
+           contains:
+             enum:
+               - x-powers,axp313a
++              - x-powers,axp318w
+               - x-powers,axp323
+               - x-powers,axp15060
+               - x-powers,axp717
+@@ -102,6 +103,7 @@ properties:
+           - x-powers,axp221
+           - x-powers,axp223
+           - x-powers,axp313a
++          - x-powers,axp318w
+           - x-powers,axp323
+           - x-powers,axp717
+           - x-powers,axp803
+@@ -156,10 +158,18 @@ properties:
+     description: >
+       DCDC1 power supply node, if present.
  
--static struct mfd_cell axp313a_cells[] = {
-+static const struct mfd_cell axp313a_cells[] = {
- 	/* AXP323 is sometimes paired with AXP717 as sub-PMIC */
- 	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
- 	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
- };
++  vin19-supply:
++    description: >
++      Combined DCDC1/DCDC9 power supply node, if present.
++
+   vin2-supply:
+     description: >
+       DCDC2 power supply node, if present.
  
--static struct mfd_cell axp717_cells[] = {
-+static const struct mfd_cell axp717_cells[] = {
- 	MFD_CELL_NAME("axp20x-regulator"),
- 	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
- 	MFD_CELL_OF("axp717-adc",
++  vin23-supply:
++    description: >
++      Combined DCDC2/DCDC3 power supply node, if present.
++
+   vin3-supply:
+     description: >
+       DCDC3 power supply node, if present.
+@@ -168,6 +178,10 @@ properties:
+     description: >
+       DCDC4 power supply node, if present.
+ 
++  vin45-supply:
++    description: >
++      Combined DCDC4/DCDC5 power supply node, if present.
++
+   vin5-supply:
+     description: >
+       DCDC5 power supply node, if present.
+@@ -176,6 +190,10 @@ properties:
+     description: >
+       DCDC6 power supply node, if present.
+ 
++  vin678-supply:
++    description: >
++      Combined DCDC6/DCDC7/DCDC8 power supply node, if present.
++
+   vin7-supply:
+     description: >
+       DCDC7 power supply node, if present.
+@@ -220,6 +238,14 @@ properties:
+     description: >
+       ALDO* power supply node, if present.
+ 
++  aldo156in-supply:
++    description: >
++      ALDO* power supply node, if present.
++
++  aldo234in-supply:
++    description: >
++      ALDO* power supply node, if present.
++
+   bldoin-supply:
+     description: >
+       BLDO* power supply node, if present.
+@@ -277,7 +303,7 @@ properties:
+           Defines the work frequency of DC-DC in kHz.
+ 
+     patternProperties:
+-      "^(([a-f])?ldo[0-9]|dcdc[0-7a-e]|ldo(_|-)io(0|1)|(dc1)?sw|rtc(_|-)ldo|cpusldo|drivevbus|dc5ldo|boost)$":
++      "^(([a-f])?ldo[0-9]|dcdc[0-9a-e]|ldo(_|-)io(0|1)|(dc1)?sw|swout[1-2]|rtc(_|-)ldo|cpusldo|drivevbus|dc5ldo|boost)$":
+         $ref: /schemas/regulator/regulator.yaml#
+         type: object
+         unevaluatedProperties: false
 
 -- 
 2.53.0
