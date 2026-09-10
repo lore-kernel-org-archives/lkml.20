@@ -1,101 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2009429CE8;
-	Thu, 10 Sep 2026 21:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEDA42F6FD
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:12:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074757; cv=none; b=UXSOgoTTshXG3nlrDQ8G/8BagvXlUTrDZ/1gmbmqAgfiIfAHm+b2GoMhOrS5z4LXby+l5WsLBQfmrxCJv5AGFVNqlUk1U7QJFwDW1DzvMiAk2xdl/95W2hVWejc6kS3CCa7L2u2HTyar1hcQ9sg/MySi7lv7Drh7qbW6Iz9B1cI=
+	t=1789074769; cv=none; b=G13se87D+RZ/BOYttL6uAws9dlL3sI/OPhHkL2E2lojNAskh/IRE/wIRezK/VTYI2gDlcoh74tsq87vDJq9J0Wc2zLJ5VfyylIwDp/zZNCsxdHq81kgkoPo5o0E4cKJFrsnxUyM6Xy4Hl0Cs6IjugJaZvKasLXQl+rHAhH3P1TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074757; c=relaxed/simple;
-	bh=guLM49YgNyVFb9uZfhXIehQg/5R97Nz9UbY8pbHQJBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tb1OnlBqDzIZ3Vp331yIdIxu9+Jg1jeni3K4YQFNc9/n1cRKDzFqdfZAnZh6f03EVZRe/dkO2n9i+hyu8Wf2i5yJl+/bneDVfm+hR1mTf2ziUpnCB107pEHw8y0+VFohiMKnZ2LKd01rtXqePigsmb7MTq2gLApQB5CpzEiFTTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MYOiTSC0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789074769; c=relaxed/simple;
+	bh=/EzAoEUS2YE8bsBvoGE3Tm/8BjynJFrFkU9MDyxB9Zo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Content-Type; b=OtFgcS+X5gf+4M4WVQs5MXJNZ3cfLHhL+K25zh6InGFFlD+pT1hjBtwsUR1L9SN5zJCTKW8AxkgaUEYYrO8Qg04NGNd9DtLjhdk/ZP+Hy6QqgDZLWE4R9WIQkrunWjXJEFdmEHKHCzf6BbzaciIg0WK/TTdL7//wmBf9InmuSEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e4yspzZf; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MYOiTSC0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC091F000FF;
-	Thu, 10 Sep 2026 21:12:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789074743;
-	bh=MCGkKlQ8M0AsOqyjrZvFPwfseu14cQ6jl3sxq1qsu5c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MYOiTSC0JmzJcB8xgUbyhKTmzwLz5Ufnt/u0n81P8iPUb9zUbM91Cjqpn8ZytueFC
-	 tPFJvLAIAmIsfl7XWL6Wn8XY7iIIhPZb6Up/u7p/mRdss47JVzreNh1ZZ/ar1Uc759
-	 U2tnUj/z9UMMi6NDzr0oo3SCoJJnNuIXtv5MTXmzuNsJEgnknPpxdJ8z5mgg+zNgca
-	 VJzNF+QFKEDJqNeq+ygl7BM69QaL8z8ns2LE6OrrZjiAW308UhuhRZKnf2G9KEcQDT
-	 +uPDPvgsn+KNVmvV9TignjF2IycDQhJs8lMhyAJIlIAZ9qbJI959DofyCm4X1lmiME
-	 tqOq+MNEaK80w==
-Date: Thu, 10 Sep 2026 11:12:22 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Christian Brauner <christian@brauner.io>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-fsdevel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kernfs: don't hold kernfs_rwsem across notification
- delivery
-Message-ID: <aqMdNoXA0LIYFpQW@slm.duckdns.org>
-References: <20260910045406.485295-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e4yspzZf"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b6416441eso324984a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:12:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789074755; x=1789679555; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tr7m1319nZL5iERS06+kdvt+gsbg/YAeXusZ5Kgx2bw=;
+        b=e4yspzZfHIlNEPoOJtGJp+NTRzzz6b0aMqy3sSWTovQGomYSzyG1FV+WO0Nkstnb2o
+         4zgXUZT/PLqrCPvWQCMFVY94EqE9yrIQKh2AElnYhIPkPV0X05JDPq9adfrZLlnvx10N
+         J7keGd70FfUt7bMj0C9EYj6osJYywH5V7H8w/HCczKV8l/JWyehcf6xhDXNX7VlY7ykG
+         PxW6PAAHrUdNQ645hs+mGPUcKt0QnLXT3KQx0/3eq7nuJLtulfcQVeL7dhlatJWfmJbt
+         x7Np89RXdl1HV2verdDUUjdIV6Dt7ALbm80tllEp/WWfTieW+hCmhM4NXZ76zFdTxZhY
+         iICw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789074755; x=1789679555;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tr7m1319nZL5iERS06+kdvt+gsbg/YAeXusZ5Kgx2bw=;
+        b=JYYx3GI1UTHc/hnXu+ngt3ObhCtmZR/UnaKeHWJio5mqq1pFTuEOwk9LvI+S4MD0qY
+         CvxvSjjEboJ2GR1m5HYDyKKtqNrG2qpqtsjOzz8NalfSm5kzmqF/RRdDz+McEhNpXzEX
+         q2GRw+ENoxalyVHjh16T756QhMMGrNWJMRKrRCRCAseRSs0yNRcXeUIqRyQLWePPQftJ
+         SMUFTPHQGcyWwyt4+W1LkmtpsPKgs0yLHPGYFO9DaUd4gN3YGTUZTN1JLAlQZX7yHBQV
+         9/KA5OfDDUpSDlhTEWb83CSIUI9GCecFWxDFhX+4tcFy2JCkEj4vAtaVH02fbCp/vIVw
+         3uzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzCbLyUCP90IGpHGGFflS2VFcRG+Teeb3iMgKW5571geQID00tzm2u+EshBsDZ6U+RWlVoTmWMOkRJXSfc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncHxkT15HL4ZO1i6G9XeNow5fm0jdqx2W8xJwzdnwDDWUmPYhF
+	hC9Bcq82tC8LLr6IcR00c8+ABV8x/TZwtswcHIawXT3Jlj4TdHsrYTahmZXXhQNi3sisL285oxe
+	0QxSsH+U94w==
+X-Received: from dld34.prod.google.com ([2002:a05:7022:322:b0:13b:2a9e:ffc])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2741:b0:393:19a3:4f1
+ with SMTP id 98e67ed59e1d1-39d9bdbb0e4mr920398a91.6.1789074754460; Thu, 10
+ Sep 2026 14:12:34 -0700 (PDT)
+Date: Thu, 10 Sep 2026 14:12:17 -0700
+In-Reply-To: <20260910175634.3014018-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910045406.485295-1-shakeel.butt@linux.dev>
+Mime-Version: 1.0
+References: <20260910175634.3014018-1-irogers@google.com>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910211221.3154261-1-irogers@google.com>
+Subject: [PATCH v3 0/3] perf header: Fix memory corruption and unnecessary warning
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Swapnil Sapkal <swapnil.sapkal@amd.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 09:54:06PM -0700, Shakeel Butt wrote:
-> Recently at Meta we noticed that on multi-tenant systems, a workload
-> under extreme memory pressure negatively impacts unrelated workloads and
-> system daemons like below [1] and fb-oomd [2]. Mainly we observed that
-> system daemons were stuck on kernfs_rwsem in cgroup-related interfaces
-> for long periods of time.
-> 
-> On further inspection, we found that the workload under pressure had
-> registered inotify watches on its memory.events and was continuously
-> receiving limit-hitting notifications. The cgroup notification is done in
-> kernfs_notify_workfn(), which holds kernfs_supers_rwsem and kernfs_rwsem
-> and calls fsnotify(), which allocates the event with
-> kmalloc(GFP_KERNEL_ACCOUNT|__GFP_RETRY_MAYFAIL) charged to the watching
-> cgroup, which is already under memory pressure. So the notify worker
-> ended up in memory reclaim of a cgroup already under pressure, and itself
-> kept triggering the limit notifications.
-> 
-> This notification path takes the locks in read mode, but a waiting writer
-> blocks all future readers. That is exactly what is happening in the Meta
-> fleet, and it leaves daemons that are critical to the reliability of the
-> system stuck for long periods of time.
-> 
-> Commit 400188ae361a ("kernfs: Acquire kernfs_rwsem in
-> kernfs_notify_workfn().") added kernfs_rwsem just to safely read
-> kernfs_node::name.  Let's sample the name once before the loop and drop
-> the lock.  kernfs_supers_rwsem still covers the list, and the removal
-> paths take that one for reading too, so a stalled worker can still hold
-> a removal up once a mount or unmount is queued behind it.
-> 
-> Two things change for a watcher.  A name longer than NAME_MAX now gives
-> an event with no name, where before it gave one with the full name;
-> fsnotify() takes the name as optional, so the event still arrives.  And
-> the name and the parent are no longer sampled under one lock, so a rename
-> between the two would name a file against the directory it moved to.
-> That cannot happen today: kernfs_notify() rejects anything that is not a
-> file, and no caller of kernfs_rename_ns() renames one.
-> 
-> [1] https://github.com/facebookincubator/below
-> [2] https://github.com/facebookincubator/oomd
-> 
-> Fixes: 400188ae361a ("kernfs: Acquire kernfs_rwsem in kernfs_notify_workfn().")
-> Assisted-by: LLM
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Some minor fixes that have shown up during testing.
 
-Acked-by: Tejun Heo <tj@kernel.org>
+v3: Fix Sashiko include nit. Accidentally posted wrong 1st patch in v2 (sorry :-( )
+v2: Fix missing newling for pr_warning:
+https://lore.kernel.org/linux-perf-users/20260910175634.3014018-1-irogers@google.com/
+v1:
+https://lore.kernel.org/linux-perf-users/20260910173715.2996571-1-irogers@google.com/
 
-Thanks.
+Ian Rogers (3):
+  perf header: Fix HEADER_COMPRESSED validation for comp_mmap_len
+  perf header: Fix potential memory corruption in cpu_cache_level__read
+  perf header: Transition WARN macros to debug.h equivalents
+
+ tools/perf/util/header.c | 122 ++++++++++++++++++++++++---------------
+ 1 file changed, 74 insertions(+), 48 deletions(-)
 
 -- 
-tejun
+2.55.0.1007.g17ff1f9808-goog
+
