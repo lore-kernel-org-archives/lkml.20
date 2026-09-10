@@ -1,334 +1,264 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B248139CCEA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789012302; cv=none; b=WMnlgnwWMZnVfTqsLU0rwwx9TR9fZMEVy23UGeDRCHwpqH2L0t3U5bm166YyKsjsAMcPfWF57Z2GcRjm6zcvjMY/3h0PkiPedHU54qKtgkW0UFE6d1n52FLdpEq/S+FNsrdMu7aLOyVIG3Tp1kLv+TE1QEQ0o8iGFMPXd8nbiFc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789012302; c=relaxed/simple;
-	bh=JhvBrHDUqvarV0avpz2ohvq9hMGegsfN5Z9V33aSmfs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=hK6Wa/LDweTBVUYI8GWNBpQuYrz4cABBsrUJff85ewNMB4LsnJVFPK1hxpviT9a/JNLXQ/B2L+1NpTvPs3sijOz0F8QHvUZFLcKaTRCbvIrYFCl+Wsm952j1nErxsFAv/hz15uNAFmwWjZPFf5SfDkLvZjZtPqT7NOor0WGdWmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=MA8iBiA5; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9F3379C34
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789012367; cv=fail; b=WQrn3V8A+Yl1eXApzJSJLrU2y13IRT3+uGkeEE1tXoQrpTVSR6UhjuRzYkCM9V14DIwH8tZogrnKwPw54xjUDL1gJ0RI84tHvfVB7TN2vsY0MJ4TYrGaGjf6EYY5C5fu1SW1A5jOsiN97OnT6Xtl3WFiGOAdM1GKoG3KO+N9sFU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789012367; c=relaxed/simple;
+	bh=0ekgyaC8ZvKxXSBrjaakcnRjy4Piq8RX/SSYRfZmhmc=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=k0wm5QEP7Dhld+DGZ1jxyYhdlbgolC9voJkZQ2qg7ZhJYwrJheyLPzfvve9k1i+9TapFfq+IQGdQSMQZnkmAthnfutLHjP+jY6Q6TPSYdHakya1JBMDvDypwevQnwW6avMK6uDXKC8ucQL0n0YyxNvb9PtluB6sHXeH2VOl9r2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aVxtgEA+; arc=fail smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="MA8iBiA5"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1a4c62804so4787894a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:51:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1789012295; x=1789617095; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fqlRI6bdXm7vucXWj9GaOa9S6fjYOLaD1e7oy5x25kA=;
-        b=MA8iBiA5IfIf9Kru8X5xmXy7MI2eWBUGFwFvjr8P+6W3Q1V8MTo8pLuLnrJb9Rhsp0
-         vwrNgt1ktTK8L01pmePy73GufnjcNTNzyw4gUQL21Z09e0XB86z6Uk9nFmnMmmT0JU94
-         N5b4ZdrzdA8PQ5ubHoEefJmgh5A67zrPR7fuj2S7w3CzmFxRtKC0WnGl88Z5ffoukD6r
-         so23LEqyuQybKU9STDM6y1Hnvd1hvpiNvbuYsEBYaQS3OiD4Q0Pn91H640kl4BqMvFma
-         +uWVSUMR42bgCidJcAlG9nbXFGf8MdR4eFaSK0vLYhYaI7qHtgiC5H6U6ggb6NXnzppV
-         uvmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789012295; x=1789617095;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fqlRI6bdXm7vucXWj9GaOa9S6fjYOLaD1e7oy5x25kA=;
-        b=To3hHyeWY+9kJiLsD/54dLnjx7vfv4w5upBdPklPVv8GBBODizxM5N5o3XZBystapK
-         it6WycdAVq5LvqWiyNdJPEfIWfF9QjwSQXohoSCJaORA5mTDu2K6mPrLswerE7IaETp9
-         SgfnCZ4uQMpmCkIpvNQqFhY91TNHQ+9GRV8GCOs0MFXDAjbxS2sYzOKO87sRoOK58A4l
-         ioTV1lqS7R8Q58RO0q26zIe87q94wCjYVTnpByeFEBsT6sxC7SATqOmEx2hQEwSPNfG2
-         DY+82/AQmzo+QyBYomstAYKSzXbj4ave81cMkRTHxZLPJygs/3gwVd5owupCgWh6New0
-         FffQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFkBPznwldoZ4OAaSochi6xmip5vwYVpKlCG/IPtgaHStXh1dqYbFVARf0CSwU8TNFS7ceXgmWNuvy/WE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAzv2Eczi8Fq0YfqoFo6JReeDgH97kHHvp1T6FmhoIdgE1C+sA
-	CSuekQs+viY/Ap2ewaQFpewWgR0EOxNwjEIIMqw2JFAC3S81rusPW4QsRDhGsiE69mM=
-X-Gm-Gg: AYBFou0Qd+fch+wIsz9Mkz1WoAGi2+/i5hudp2/MdOLxWcrgx7JaeaENaVPgDi9qwRZ
-	IDuwX8wOKBCK+00RYcqmhZplop46WvjrExwDYLIqQvaIRS2Gtf21e/ut3iGGRtkkoNldRFCxi2x
-	QofrduNxnCJ0tSzRP0TN2Fyjf8+d/slkf4V/eHrCrsCFX6+aLogfH4t/dj9oH7X2NSkbt31bk5M
-	gaiEJmcHlPVw9J0C+IECeVhIdMyeD8pObVLS+0BOQaMKB5dw0OvmsR3BkortAWRm8RahQpR4f2/
-	fWMm4hb6S8K5lr+lEzLbEKuOpo5Zn+jGsluGg2l9gtOsYerbw1+Hw3+Ilhu4q8soA7No/RUhqCI
-	xaW9WbT3xFufaPUwZe2WekWc6lyKC8c7R7AFfmIrRUM4x+OUTNIJr1DIXjZ8g2AsqZjjBKKaTv1
-	KQ9zqiv8vS+4gEVPeKLRjY0ocSrECTV1keZPt1JRHPYH7rf3q0MGrShrbkefnnJqAaOZ0ybU0=
-X-Received: by 2002:a17:90b:2687:b0:398:9c0c:7c71 with SMTP id 98e67ed59e1d1-39b26277b88mr58988980a91.24.1789012295153;
-        Wed, 09 Sep 2026 20:51:35 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm41158832c88.6.2026.09.09.20.51.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 20:51:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aVxtgEA+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789012366; x=1820548366;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=0ekgyaC8ZvKxXSBrjaakcnRjy4Piq8RX/SSYRfZmhmc=;
+  b=aVxtgEA+/84J2IffDnpsCRg595Fc5k3UdfYedwH5h2L3sQYRn4+/p7un
+   7PYL9hb+7Myl8MCTnoWeFG/mYqS62CLNcQkIC+8oUWsH45xV5Vabl17dU
+   EgUiGDPlMGykPxPmWNpUpjuncAV0H4yJGgPu0AMmlL6zA3oBi8Cd/ikET
+   IP6y+6XrUnxWc8d+GRgi6+i0Gq2iFDB4dcTnYLiAb+NVvaXibJneD2kqy
+   IgoXzC4E1HucvXM4OpnwQ1dr0cHudwEm5kFeiYhHxOvH2CAFVhvx27h8q
+   0AJ1L1sOH9NDe/TUj13eJAlnG2onnd+tQZXwXeHS5NFACRdhQKoqfcl4f
+   g==;
+X-CSE-ConnectionGUID: sZf83uLHRcmLpGGkGCWNVA==
+X-CSE-MsgGUID: BoRPFPGVQBCyfxtGPZ8s0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106822006"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="106822006"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:52:45 -0700
+X-CSE-ConnectionGUID: 8GCG3eHUR9WpVk6EWc1ZLw==
+X-CSE-MsgGUID: EBnTmZPCR4GTdM7ugZbgPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="276754752"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:52:44 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 20:52:44 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:52:44 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.66) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 20:52:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JALgNa6gbapWXEd1HQZG4fkZ6Vc0F1M/AYibqzTq+WwDLqOoWemUnfHaBjw0wGI2Xb/iPt86SS3ZPXWkIwKr0nu3OrrWla3QjlbB6bISJGzxj3B8O2QSAz4/NviIfiZf0gLlyLLMSh2Gj9oWSEh1gK7oFXs8LPI2HYw4BijPuOqz6ztUAHghil5apwkeDiorfbW5HuSgU8brnprm4AvdLCkkAaps1TTVuVFNvnzPSgOGePr95QOzEyrkuwL/3Dx1kvr83jQgWYCpDMH/7FtNmHfOAOjIYzXOYDOdCLjkkZ4yrWyYfAOYq/AV+BQ0tVTHbFGzbO9952+ykkDMjQM1/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zwQzS/M4Y07F85VkquLJKr1wpcljirZJywa/5RvuBdI=;
+ b=bePFCwO1DGq3sxfMPTXVQhwSLzpLFwB/8+6A6Njq8WSjn2xMI8E9pFiiPvdCmmgt30H5ONKCWEGl85AyrdLZ1kSxlqJF7zVycehOilBFwHMq1urk83Iacl/vEAIKjFLPC5NsP2+qGEfuavZHJlDdp+qSP8XdVgvzsn81Kvoz4khH0q9aclSos6VInQh1cYxSrB9S3CmUhixlPMqvGTOZxeBMgCjZEaXx8L6m6LUd2W4jmgZOV8Jku7EEE1z6D4iNliAOOldySbp0cYd6NdtS+7BXiCjUfWze8IPgu8zM7yI5CN75vSYnrFKbShVdRKwe7sWTQoYeD32iJySKEFyejw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by SA3PR11MB8073.namprd11.prod.outlook.com (2603:10b6:806:301::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 03:52:41 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 03:52:41 +0000
+Message-ID: <e063f882-ebf3-4a25-9d43-b23acf5db4c5@intel.com>
+Date: Wed, 9 Sep 2026 20:52:39 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 02/23] x86/resctrl: Check if monitoring features are
+ enabled
+To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, "Maciej
+ Wieczor-Retman" <maciej.wieczor-retman@intel.com>, Peter Newman
+	<peternewman@google.com>, James Morse <james.morse@arm.com>, Babu Moger
+	<babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, Dave Martin
+	<Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E Box
+	<david.e.box@intel.com>, <x86@kernel.org>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <20260831174421.13921-1-tony.luck@intel.com>
+ <20260831174421.13921-3-tony.luck@intel.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260831174421.13921-3-tony.luck@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0274.namprd04.prod.outlook.com
+ (2603:10b6:303:89::9) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 09 Sep 2026 20:51:33 -0700
-Message-Id: <DLBBXHXIVHZL.BIOFL7T9OAM7@nexthop.ai>
-Subject: Re: [PATCH v7] i2c: xiic: restore non-managed runtime PM to fix clk
- WARN flood
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>, "Michal Simek"
- <michal.simek@amd.com>, "Andi Shyti" <andi.shyti@kernel.org>, "Andy
- Shevchenko" <andriy.shevchenko@intel.com>
-Cc: <linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260821-i2c-xiic-restore-runtime-pm-teardown-v7-1-954e06765144@nexthop.ai>
-In-Reply-To: <20260821-i2c-xiic-restore-runtime-pm-teardown-v7-1-954e06765144@nexthop.ai>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA3PR11MB8073:EE_
+X-MS-Office365-Filtering-Correlation-Id: d19e983e-d62e-4864-3f94-08df0eeef668
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|11063799006|56012099006|4143699003|10067099003|921020|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: LywsjB6MNIb1HXANTY/AA12ePLYMXFXBt3TSHLf+HNDlHTfhVvKNctSeslqMpivt3uD/rac4io7XSxL0Qiya7L6yysH/vI7M3iFOAqbNt3pz0iLCsxVtjibE3lfRBmbOJxpnB/BdE7OpQBqgWLrUyjXzi1yDN48LEVL2Xw2RnJbcAm6Sh3BaReXg7MZrQaISQ9xF6wLnUAjpzrYQPef7PUadTV0e59CIQFN0O/RbR7TJ/VBlZo4Ri6VuxYCWZI9IRtvxb12bQAnk4jaWhacajYvwFzJFKg5st7tJM7ZijQrDZJoFrwQI2cOFtsxeIzJCJJtFr+aCpPKoXcT9ymXGKMkFOtmOxeFYOfDtoljXREIHb3LIlqYosnlNnHfpoY1gcGSMvVs10kKy3Lh9dMwvr4pCLQ8APFsG1tEsNLLhG3tnDY7Op5SlwJzAN6ZtHdwy8BONAliQQjrSpFbOUE2ikrB/XYe6EJ9XJ6WT1to5Mv0IAJFhGOgxWXG+BJ+2dWvltfpxkiqZHnxnuFsAQmJfWc3+OhQsKlbFCqXGq5Ne1vJKeYT3vOsIyR+WRh88yaSacgHUI6SEtiDtJRHSAVa8F3GuJeg9iyA0PS8AKjhgsYAr2Q5DJyWzMQgQ7N+d7iPSZDviMmQQebpjA0tUG07rSfop+cEc9Jv84baNUmvM9Rzaz32MakiMQXSf69oqaaMxG3NeXZpelurXb75cn3/I0A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTZyVUlVQ3g4K2ZQc0dvNEZsKzBjY2FmeDhuM08wRE5iZkpyazQyb2t1bWEx?=
+ =?utf-8?B?cndWK3ZoV3pvNHk4ZXZBNkpTK2U3MURubnlSdFFmTzJiY0M2dnk2VmFYS1lU?=
+ =?utf-8?B?ZGVGZEx5aXFRVEdNSk96dzZJMHhPb1ljNmhjTU1ReVN6WStVNnJSbVQyTzYy?=
+ =?utf-8?B?b2FCQUJYelYwa3RNY1ZVeHBqZE5FVmtEcHJBTjdOcC85Vm1IcFBxM2JIL0ZQ?=
+ =?utf-8?B?TmpqVUZlMGpqK3U0Vy9xV2FFazZ4Ukc5TzE3aXZQS0ZoaEZsV280S3pvTzJz?=
+ =?utf-8?B?eFNxTVozYWJ5TVovbFlkK21ZZ1o5VkF1NjJXQ1BxKzRpNUpCNUxtbHRuVzZO?=
+ =?utf-8?B?ZzVqVGhiMXhGUkJjbGZvY2tBWUlDRTFNUVBtY0lzUThMeml0c1BmWDBubXBr?=
+ =?utf-8?B?VkFHWE1aa3YxQWxTYkd3czZsdlR6SVp3d2EreHMwWHdRck8zcGFZTS9sOXZN?=
+ =?utf-8?B?Mkl1ZHVGdXZBcTJ6NGlHamZDdDJnaytIQ3pmd2RIUlJVaHJNZGRUdEpyRFU0?=
+ =?utf-8?B?ak1uV09qaVU1eldqWWZSZmR4akNNakQ5aVRBa01JbGdQVy9QaFpjMmxYeE1s?=
+ =?utf-8?B?QWVkQjV3Y0hiVFBZQXdhMVUxWElxektiL29IT1JJU011MnNLMnNFSUVZZjNh?=
+ =?utf-8?B?YkhFYkxCL0JjUis1Z3J5R3ZmRFc5VU5BaGw2Nm1uS25MeXJIZWRKQ2JCa1h4?=
+ =?utf-8?B?RjhWVy9ER2lBakZYa1llUW5QbEZaeW9pVGI1UldpT21QUG16MU9FRFVCNzl6?=
+ =?utf-8?B?WGt3MHZIc0ZscllaaU92eVZDQmhpVU9lNzJ5QlVrN1EwZURQUkNrbW9lU2hq?=
+ =?utf-8?B?M3dPeFdqZlhrcHkxZ3FUUG16eGZNVmpTaDVNT2NmNGR2MkFwRm5jVEFBZU9O?=
+ =?utf-8?B?OHROK2dSa05YdDRaUFhxenFJYkl2eDF5UklSdk95ZFh1NzhDZUhWK21nVnpw?=
+ =?utf-8?B?THkwUEFwczFwY1hhQmsxYm1ueG9BcmhkdTdpalpSV0VPWlJqK0dodG1VVWRS?=
+ =?utf-8?B?U2pQSXcvOWlqMWd4b1hZc1VYb204QWRLaEVacGY5ZmRqeU9mMWc4WU9zU3kz?=
+ =?utf-8?B?bVpwSTUvVVN3UGk0WDRUdWZEVEIxZzFnRlZkVlUvMUJKZGZaTFo1cTQ1SWVG?=
+ =?utf-8?B?Q01sUmxiVW05NnpvQlNMbVVwQjdkVjBwd1JISVFzNGg1TXJDSVV0cW10K3Y0?=
+ =?utf-8?B?T3lEdEFhVWUxWUlZV1ladzh1aHZaa1c3aVljMHpmRWgzdUV5aDRCcmhZODRH?=
+ =?utf-8?B?cXhtRUdkeTQ3M0M5aWdhYVZCdlkrYlRpRXZHcjVwVWIzeTdISTNUb2szV09v?=
+ =?utf-8?B?U0N6RnZwSlRrTzQrd1ZKS0p0ZEdZbUdpV2hkOVRIQy83QUo1clZVQzFGQzhm?=
+ =?utf-8?B?OG1RL1I4aS9oaUtWSDVDY0YveFFONUYveWE5VVJVdXZkRzdwVmFaV2Z4OTZ6?=
+ =?utf-8?B?aVFPMDNiNnZNVEZaTEcyM3ZEaUhteW1YT21BMWtobWxleCtSNThtSDZaLzJq?=
+ =?utf-8?B?RkdsVWFIKzNMdDhwa2VuZ1d5N3ZNWDdKSTJ6bDhuNmtTVmU0bzNsLys3VU8w?=
+ =?utf-8?B?YlFNY0lRT0lacklLQjF0Z2NvM2NXSi9qcTE2emI3QWllWGQ1N3JDSWhZdTVu?=
+ =?utf-8?B?eVpEMzRONGk2MGVxY0VEQUYrOEljandhNGNwUDJFamVWWDJIaEt0dHRnTXNr?=
+ =?utf-8?B?VGRGbmFCL01kT0xuTG9HRHhPV0dZWlpIVTZNSVF2ZTNKZjA2S2RSYUYwei9S?=
+ =?utf-8?B?b0svMGNxUzgyNkVhNHBKT0dIY2F4ZHgveDdhZnJFeC96bGIzVFZWSVN4UDRX?=
+ =?utf-8?B?NW5zNjRWcUhnZEZGVkdVUkpMTHRwaUk5bE9LL0dCL3VmVXh2a1NwR25EcCtq?=
+ =?utf-8?B?V2tBYzlvT2JWWTN1UDdPRVBXTHU0S2szcDNuVnQ5bG9laU1FWVVDYWR1MEFU?=
+ =?utf-8?B?RkZqd0pna2E5OFZBTGorV1JuTHVqTC9lak9CaC9ZS1NzbENVVnN4d3dJK3Fj?=
+ =?utf-8?B?RWhpUnE0TGUrUVdBUDNnTUlnaHdCbjQ1T1orR0NVRy9DMDY0N1JBWmxsUFBM?=
+ =?utf-8?B?cXcvbU5kd2lRMnZVbHVCSjM2TE1LWDZWQmx6VG9yeHNUMmRuRTQ5T1lTODJ2?=
+ =?utf-8?B?MXA3WUEwUGNHcXl4TVZNcGR6WVdPc3FFSlM4Q3Fha0tDbzdoZ2FjeDhsQVhK?=
+ =?utf-8?B?V2NzK1JPcnpYdU54QmFEZ2VrNTJMdGNDQkdST3FGNlNsdG5yd2dFdUMwbHRv?=
+ =?utf-8?B?YzdlRkxTYmcxVzRQSTRHT1RFeGl3ZTNMS2VwVFRTSE1GbVMyOWJTRmlhb1Ux?=
+ =?utf-8?B?SkN5alpaWXE3eTJWR0s2QjlBdVBtd0dwV2FnVXp1WlpURjdnQm12UUxtd0lq?=
+ =?utf-8?Q?S00tG+ssrnfkubB4=3D?=
+X-Exchange-RoutingPolicyChecked: oHUiVeWGi2RjFHFZilTHgoL8/jru6aAotPC9J6a7me3RzaZOtlw3dWE8Wh2KjkF6qUpIjq7NdzsmkE4abK/dulBV0519haxDE+JCbFEEQBzMDuMX7H6Rx6HAgjh2iL9jJ5r6y0T6wXFlnHK5DKoy+BFYS4H/IL35Mi7YdUfBUUZPUYGRNoNd75i5/96rHeh+X4EVEZLvHXeeSSMl0jogXnunJkEY+xgooLvO53Y9qOBzeG1NE/9AjrbGKJd4sXyBKzfA4vOK8/wLpLJ3e1jv9/kHPUP+DhKt5P829CLlt9X5DMl+iDwj4aLoLeWvHHz5Wybp5wWvbB6a9zkNsw9CdA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d19e983e-d62e-4864-3f94-08df0eeef668
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 03:52:41.0153
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 03OqPtySQpSpcvfPM2QNeueKAtX0ZkbiNvztnX1Tic+bgazwx061GuGWC+aNQ7C1z4wzyNEeW/HROIemu14pxQBXTWjaV27XyU9VWDV0sPU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB8073
+X-OriginatorOrg: intel.com
 
-On Fri Aug 21, 2026 at 6:12 PM PDT, Abdurrahman Hussain wrote:
-> The devres conversion replaced manual pm_runtime_enable()/disable() with
-> devm_pm_runtime_set_active_enabled() and dropped the remove-time runtime
-> PM teardown. The managed release tears runtime PM down in the wrong
-> order: it calls pm_runtime_dont_use_autosuspend() before
-> pm_runtime_disable(), i.e. while runtime PM is still enabled, and devres
-> is LIFO so the devm_clk_get_enabled() release runs afterwards.
->
-> At remove(), pm_runtime_put_sync() leaves the device active with the
-> autosuspend timer armed. Clearing use_autosuspend then makes rpm_idle()
-> suspend immediately, and xiic_i2c_runtime_suspend() clk_disable()s the
-> clock. The later devm_clk_get_enabled() release clk_disable_unprepare()s
-> the already-disabled clock, so clk_core_disable() WARNs ("clkN already
-> disabled") on every teardown.
->
-> Drop the managed helper and restore the non-managed runtime PM setup and
-> teardown, so runtime PM is enabled once in probe and disabled once in
-> remove and the clock enable count stays balanced.
->
-> Order the remove teardown so runtime PM is disabled before the usage
-> count is dropped: pm_runtime_disable() followed by pm_runtime_put_noidle(=
-)
-> instead of pm_runtime_put_sync(). Dropping the count first with autosuspe=
-nd
-> still enabled arms the autosuspend timer, and a preemption before
-> pm_runtime_disable() lets it expire, suspend the device and clk_disable()
-> the clock, which the devm release then disables again - the same WARN.
->
-> Restore the non-managed IRQ request as well. The probe error paths now
-> unwind runtime PM by hand via goto, and a devm-registered handler is only
-> freed later during devres unwind, so it would stay live across the manual
-> teardown (and across any future failing step added after it). Request the
-> IRQ with request_threaded_irq() and free it explicitly in the probe error
-> path and in remove. The probe error path also clears use_autosuspend, to
-> match the teardown in remove().
->
-> Fixes: 50c63491ff26 ("i2c: xiic: switch to devres managed APIs")
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> ---
-> Changes in v7:
-> - Add the missing kernel-doc entry for the new @irq member of struct
->   xiic_i2c (the non-managed IRQ request added in v4 introduced the field
->   but not its doc), fixing a "struct member 'irq' not described" W=3D1
->   kernel-doc warning. No functional change.
-> - Link to v6: https://patch.msgid.link/20260820-i2c-xiic-restore-runtime-=
-pm-teardown-v6-1-5db5c3703ea0@nexthop.ai
->
-> Changes in v6:
-> - probe: check the pm_runtime_set_active() return value and unwind on
->   failure (undo pm_runtime_use_autosuspend()) instead of ignoring it.
->   On failure runtime PM would stay suspended while the clock is left
->   enabled, and remove()'s pm_runtime_get_sync() would then resume, enable
->   the clock a second time and leak the enable across the manual teardown
->   (Sashiko).
-> - Link to v5: https://patch.msgid.link/20260820-i2c-xiic-restore-runtime-=
-pm-teardown-v5-1-ca5db9605508@nexthop.ai
->
-> Changes in v5:
-> - remove(): disable runtime PM before dropping the usage count
->   (pm_runtime_disable() + pm_runtime_put_noidle() instead of
->   pm_runtime_put_sync()), so the armed autosuspend timer can no longer
->   race pm_runtime_disable() and re-trigger the clk double-disable.
-> - probe error path: also call pm_runtime_dont_use_autosuspend() so it
->   mirrors the teardown in remove().
-> - Link to v4: https://patch.msgid.link/20260819-i2c-xiic-restore-runtime-=
-pm-teardown-v4-1-6999eb434d1c@nexthop.ai
->
-> Changes in v4:
-> - Request the IRQ non-managed (request_threaded_irq/free_irq) and free it
->   in the probe error path and in remove(), instead of a devm handler that
->   would only be released during devres unwind and so stay live across the
->   manual runtime PM teardown in the goto error paths (Andy).
-> - Link to v3: https://patch.msgid.link/20260818-i2c-xiic-restore-runtime-=
-pm-teardown-v3-1-5fd315b078e1@nexthop.ai
->
-> Changes in v3:
-> - Drop the managed devm_pm_runtime_set_active_enabled() helper entirely
->   and restore the non-managed runtime PM setup (pm_runtime_set_active +
->   pm_runtime_enable, with probe error unwinding) and teardown
->   (pm_runtime_disable + set_suspended + dont_use_autosuspend), so the
->   disable depth stays balanced rather than being disabled twice (Andi).
-> - Link to v2: https://patch.msgid.link/20260814-i2c-xiic-restore-runtime-=
-pm-teardown-v2-1-7ae5d0c30ff2@nexthop.ai
->
-> Changes in v2:
-> - Move the Signed-off-by into the commit message proper (Andy).
-> - Link to v1: https://patch.msgid.link/20260813-i2c-xiic-restore-runtime-=
-pm-teardown-v1-1-0e7dfb206790@nexthop.ai
->
-> To: Michal Simek <michal.simek@amd.com>
-> To: Andi Shyti <andi.shyti@kernel.org>
-> To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> To: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/i2c/busses/i2c-xiic.c | 49 +++++++++++++++++++++++++++++++++++--=
-------
->  1 file changed, 40 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.=
-c
-> index 3e7735e1dae0..92cefc7e221b 100644
-> --- a/drivers/i2c/busses/i2c-xiic.c
-> +++ b/drivers/i2c/busses/i2c-xiic.c
-> @@ -67,6 +67,7 @@ enum i2c_scl_freq {
->   * @rx_pos: Position within current RX message
->   * @endianness: big/little-endian byte order
->   * @clk: Pointer to AXI4-lite input clock
-> + * @irq: Interrupt number
->   * @state: See STATE_
->   * @singlemaster: Indicates bus is single master
->   * @dynamic: Mode of controller
-> @@ -92,6 +93,7 @@ struct xiic_i2c {
->  	int rx_pos;
->  	enum xiic_endian endianness;
->  	struct clk *clk;
-> +	int irq;
->  	enum xilinx_i2c_state state;
->  	bool singlemaster;
->  	bool dynamic;
-> @@ -1475,9 +1477,17 @@ static int xiic_i2c_probe(struct platform_device *=
-pdev)
-> =20
->  	pm_runtime_set_autosuspend_delay(dev, XIIC_PM_TIMEOUT);
->  	pm_runtime_use_autosuspend(dev);
-> -	ret =3D devm_pm_runtime_set_active_enabled(dev);
-> -	if (ret)
-> +	/*
-> +	 * Enable runtime PM by hand: devm_pm_runtime_set_active_enabled()
-> +	 * tears down in an order that races the devm-enabled clock release and
-> +	 * makes clk_core_disable() WARN (see xiic_i2c_remove()).
-> +	 */
-> +	ret =3D pm_runtime_set_active(dev);
-> +	if (ret) {
-> +		pm_runtime_dont_use_autosuspend(dev);
->  		return ret;
-> +	}
-> +	pm_runtime_enable(dev);
-> =20
->  	/* SCL frequency configuration */
->  	i2c->input_clk =3D clk_get_rate(i2c->clk);
-> @@ -1486,10 +1496,15 @@ static int xiic_i2c_probe(struct platform_device =
-*pdev)
->  	if (ret || i2c->i2c_clk > I2C_MAX_FAST_MODE_PLUS_FREQ)
->  		i2c->i2c_clk =3D 0;
-> =20
-> -	ret =3D devm_request_threaded_irq(dev, irq, NULL, xiic_process,
-> -					IRQF_ONESHOT, pdev->name, i2c);
-> +	/*
-> +	 * Request the IRQ non-managed: later probe steps unwind manually via
-> +	 * goto, so a devm handler could still be live after that teardown runs=
-.
-> +	 */
-> +	i2c->irq =3D irq;
-> +	ret =3D request_threaded_irq(irq, NULL, xiic_process, IRQF_ONESHOT,
-> +				   pdev->name, i2c);
->  	if (ret)
-> -		return ret;
-> +		goto err_pm_disable;
-> =20
->  	i2c->singlemaster =3D device_property_read_bool(dev, "single-master");
-> =20
-> @@ -1506,14 +1521,16 @@ static int xiic_i2c_probe(struct platform_device =
-*pdev)
->  		i2c->endianness =3D BIG;
-> =20
->  	ret =3D xiic_reinit(i2c);
-> -	if (ret)
-> -		return dev_err_probe(dev, ret, "Cannot xiic_reinit\n");
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Cannot xiic_reinit\n");
-> +		goto err_free_irq;
-> +	}
-> =20
->  	/* add i2c adapter to i2c tree */
->  	ret =3D i2c_add_numbered_adapter(&i2c->adap);
->  	if (ret) {
->  		xiic_deinit(i2c);
-> -		return ret;
-> +		goto err_free_irq;
+Hi Tony,
+
+On 8/31/26 10:44 AM, Tony Luck wrote:
+> Both Intel and AMD manuals say that software must first check
+> CPUID(0x7,0x0).EBX[12] to see if any monitoring features are enabled
+> before checking for specific features enabled in subleaves.
+> 
+> Each of the L3-based monitoring features is gated by X86_FEATURE_L3_MON
+
+(nit: Sentence should end with period. There goes the promise that the available
+AI tools means reviewers only need to focus on what matters :()
+
+To support this change above could perhaps be expanded with "... which in
+turn is gated by X86_FEATURE_RDT_M."
+
+> 
+> Add check feature bits.
+
+This sentence does not sound right. How about something like "Add checks for these feature bits."?
+
+> 
+> Fixes: cbc82b172638 ("x86: Add support for Intel Cache QoS Monitoring (CQM) detection")
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
+
+...
+
+> diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+> index 2435eddd24eb..fcbecf677914 100644
+> --- a/arch/x86/kernel/cpu/resctrl/core.c
+> +++ b/arch/x86/kernel/cpu/resctrl/core.c
+> @@ -968,20 +968,27 @@ static __init bool get_rdt_mon_resources(void)
+>  	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
+>  	bool ret = false;
+>  
+> -	if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
+> -		resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
+> -		ret = true;
+> -	}
+> -	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
+> -		resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
+> -		ret = true;
+> -	}
+> -	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
+> -		resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
+> -		ret = true;
+> +	/* Any monitoring at all? */
+> +	if (!cpu_feature_enabled(X86_FEATURE_RDT_M))
+
+Previous patch aimed for "symmetry with X86_FEATURE_RDT_A" ... but the "symmetrical"
+code in get_rdt_alloc_resources() is:
+
+	if (!boot_cpu_has(X86_FEATURE_RDT_A))
+		return false;
+
+Why is enumeration of these feature bits done differently (cpu_feature_enabled() vs
+boot_cpu_has())?
+
+
+> +		return false;
+> +
+> +	/* Any of the L3 monitoring features? */
+> +	if (cpu_feature_enabled(X86_FEATURE_L3_MON)) {
+
+Could this reduce indentation and churn by negating the check? Patch #12 and #13 seem
+to build on the flow introduced here so my comments about this function are split between
+these patches.
+
+> +		if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
+> +			resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
+> +			ret = true;
+> +		}
+> +		if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
+> +			resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
+> +			ret = true;
+> +		}
+> +		if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
+> +			resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
+> +			ret = true;
+> +		}
+> +		if (rdt_cpu_has(X86_FEATURE_ABMC))
+> +			ret = true;
 >  	}
-> =20
->  	if (pdata) {
-> @@ -1526,6 +1543,15 @@ static int xiic_i2c_probe(struct platform_device *=
-pdev)
->  		res, irq, i2c->i2c_clk);
-> =20
->  	return 0;
-> +
-> +err_free_irq:
-> +	free_irq(irq, i2c);
-> +err_pm_disable:
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +
-> +	return ret;
->  }
-> =20
->  static void xiic_i2c_remove(struct platform_device *pdev)
-> @@ -1537,6 +1563,8 @@ static void xiic_i2c_remove(struct platform_device =
-*pdev)
->  	/* remove adapter & data */
->  	i2c_del_adapter(&i2c->adap);
-> =20
-> +	free_irq(i2c->irq, i2c);
-> +
->  	ret =3D pm_runtime_get_sync(dev);
->  	if (ret < 0)
->  		dev_warn(dev, "Failed to activate device for removal (%pe)\n",
-> @@ -1544,7 +1572,10 @@ static void xiic_i2c_remove(struct platform_device=
- *pdev)
->  	else
->  		xiic_deinit(i2c);
-> =20
-> -	pm_runtime_put_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_dont_use_autosuspend(dev);
->  }
-> =20
->  static const struct dev_pm_ops xiic_dev_pm_ops =3D {
->
-> ---
-> base-commit: d58772d8520c7ef247c4b95c9bd76d3a25da9ff5
-> change-id: 20260813-i2c-xiic-restore-runtime-pm-teardown-dd0ab1db2c02
->
-> Best regards,
-> -- =20
-> Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> -	if (rdt_cpu_has(X86_FEATURE_ABMC))
+> -		ret = true;
+>  
+>  	if (!ret)
+>  		return false;
 
-Hi Andi, Andy,
+In further support of above suggestion the code below calls rdt_get_l3_mon_config(), the
+enumeration depending on X86_FEATURE_L3_MON, outside the block where this feature bit is
+confirmed to be set.
 
-Gentle ping on this one. It has been quiet since v7 went out on Aug 21.
+Reinette
 
-Andy, v4 onwards switched to request_threaded_irq()/free_irq() with the
-explicit free in the probe error path and in remove(), per your comment on
-v3. Does that address your concern, or is there anything else you would
-like changed?
 
-Andi, this is a regression fix for 50c63491ff26 (the devres conversion),
-and the WARN fires on every unbind/rmmod of the driver, so it would be
-good to get it into 7.2 or early 7.3 fixes if the patch looks OK to you.
-
-Happy to respin if anything is still open.
-
-Thanks,
-Abdurrahman
