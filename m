@@ -1,64 +1,64 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76D13905F0
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0036391E7A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010493; cv=none; b=Fxz2LwUfeW0W2mGYrgOqrJsp2K4PNR/7sZE9x6gEYx4V63Y/K+m6OUIY3s2p5mrYCR1HQnbgVjgyhWl5LYwAeCyYS2xYONMsWLkkl3tJz+8Aeth4KrfzO8xscKyXLwNgKHWMDWd/bkl94KjXcNHaDSaqDLwfJf/7kKTV2huqJII=
+	t=1789010494; cv=none; b=PzO0LWBMbQ/eY8o28Joe8VmCpsimI57kG20qCxpg5vnOjhyGsK0/S3vJTPUebI542OMEsP2ArVPiGZY8uswr6Zd3bkItGZXA7OYRBfbN93FWifWsQjhwYgzXi6hhMrTVkoWuDe7zwt5/sXhQVUO2ISZ7vCdl5TPt1qqJzxGfWyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010493; c=relaxed/simple;
-	bh=jHHrb1gkKCrQofVQkjlJcoMNCA+FXIvxVOvLoWJQF5s=;
+	s=arc-20240116; t=1789010494; c=relaxed/simple;
+	bh=8jNRGrzAMfC74cF7QqblcNHcIj2RnLHXXe610hq/Vjw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X2MDTdrQoKbyKawlhZT/+hnGzNOpg0DAdR03vGQQ9DS9Z75Ni9PhCNl2R9jjDAS0j/AQPBMoMJYfc4JpDvMqyvDKy+vSyApjwyJdPpsYKHI65z7wBMnJVFPxKU2verbjPLsVfxluJM2ocu25mT1DAvcwZca5qRgNfkhFlNbD1mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAlfqRO+; arc=none smtp.client-ip=74.125.231.170
+	 MIME-Version; b=IJXauTGBmBFQ0XrkcrnZhO4A56DhQsq8rhyJThk3OQoUzsrat1Z2fgz44B/ZHo/N7ypnFwCqJT3dOjxfHEScDx6IizJ5JQHHDCNyHrFqoeVsuoPjLGr4HoDzE2KK6J318NhTKOO7nDNWBWfLJVz27YDwFgB5hkW+SnBCVmHjo/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sUgJu/pa; arc=none smtp.client-ip=74.125.231.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAlfqRO+"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4bdf4f0e7so686405a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:21:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sUgJu/pa"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46af36be149so1557533fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:21:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789010491; x=1789615291; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CrGYYRXsocnHt4R7I9PwAhwsbtA+DaKDKrj9nTvfp+g=;
-        b=tAlfqRO+dj20/CslGq/8CS4REHc87cHhZWBpneqL8yMS2KHPSlExi9EXp5TlN1rrRS
-         PX2OyQ1DtohPQQRFc67f0x0miEKxBTChmN2ULNPoLG+UR6mtijVXO/Va6ldkadtre3u7
-         oMRlBYfJU943iYcE4k9P3m+E2EFUhvBm7Y23tLy36EPqHRY9bPlOizI+APFjlzqhqbYn
-         s6KDyttuSzqf2WTx38JEeNET3x/CNTWy3FSl/5K+UyQ2+GQpJqGlOuNToXSzPLRYhX71
-         jCp95ltzfAc1quD8WprcCOWNBZ06nDx/xd0PnTndPeemFPlMUngikvyLvvCtAGfl37lU
-         tMAQ==
+        bh=NSfuMa1PaK7LxfGHLbiVRQmOmAt7jKjptTGVArTkaVc=;
+        b=sUgJu/pa74fYdEWss+vwiyBP7BlMRkYj4+FdiZvmMBt5IY8z3hueuEWyU+xmevdXQU
+         AkI2yGuxd5iBaC5x0B0NLJk6sMMCt94EpuXYPZ39/HtdDNruzwE1x27Ju3DAO3S7qpNB
+         ewY4Gb1FdTKFR4ISANInAS3sDP/LJtgWrpXUUrqW2ErnN+A1h0p4dfRGs5+gX0glqZ6A
+         eknYnDfE244YEpRAWTX3By1fQZr5NJqS998zYksccEnc+05IEAng+BWNZVKiGoDFQYf4
+         UsRK8nOUb50gjGyt7f7WkGHetAabx0w48aFZ5SeU2LjdygYjDvBmob+dajT2hKEfuHha
+         3Gog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789010491; x=1789615291;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CrGYYRXsocnHt4R7I9PwAhwsbtA+DaKDKrj9nTvfp+g=;
-        b=dHPU/WZv7mcNm85+fuue0q/TqAjIW6uZ6PwOrSGyUPVW/LZDZRBT/wfMn4IdxyisEa
-         AZksDA/lsjs9PXVR7As+LHNlCbma22P1jYnDSzUNnXz3Fb3lrWIXMquVdS35ePBx36gx
-         Lw8hRNFqH4YpWBMHNaZZ3+Ne5q+gCquBAU7AYq65H4fq2uXn+unQPhMmUo3B7mfB5LQz
-         sCqN9/6UTdT8Ac1l7pDq0xCvd97hdcTI5hNKrRj2do2TLLN+R1w4ZAhMWNUNV614VQdS
-         769WghC301UIF8OU8FYh8gvk2fda9PxIZHwBubkbJ+t/EV/L/uNj79ROwUMo2OQCyKXV
-         NqOA==
-X-Forwarded-Encrypted: i=1; AKwUvBxgMpLRRN35bTBCXph7TSe/82mCyaKtx2lMJb+RmiB8UKOqvE51VTA6Rcl8JTtuJDj82sJ2jqccEDcfHN4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mux9yuV8VADFegUSd/GcPKGA5T8ux28vdbvBehzkNUJEGFDGHJ
-	WsW1lB2gYaDsWJ+6EYaomNjkyLebJ5GOCYTCJ/Ee1D+WbJDEXgIbKRB6
-X-Gm-Gg: AYBFou15W32JygVR9thOFpvUSMu9iWqQJnlfLQV3/4sPkzCuvu2wJihu9gINcJajKf2
-	n2nu+36cbMK0ioXHVCO9APo6E7UmDg7WomLGmibqO2/NL78K1QQYFIMRAFcDmqQYqdwCd9lET8Y
-	Ns8/dC6buX05RZ/Zm6835WRPuIlQKMoPe0h0JevOd37HfqpESSvqhPiAVCJiJPzvwgjDFiej2UZ
-	+M/jvBj7f6lit/DjPQV8Ofv811nXZkvel0QX5B36GcEipzcd2grdrJOVXCcTJj+js2HcOFGZ1K+
-	TUM9Ss6SFqIjMxDX9LTig08LmHLC1kCqhGm0x2uKLptJ51o4h+VSkpp0db5lsuIBeLK/AjgVFlI
-	w3y5mTR9z8QHI7rbsNoPFdXgdDmU0lWX/0DWR04vfVvpIGgM0hye/BwLVPy6PG3tkaCqgXQfAlN
-	P0orudno+EmyCyHp/sl2vIUdEgNdjqnXaz5q/Pain4mEw583FUbUrrhF4qSiPgzZlAGyRtwN9um
-	21FXUq21neNEtfomXesRmkCGxP5ODusZFK/2Uj3USxOUWs+XaRTVoc=
-X-Received: by 2002:a05:6830:3495:b0:801:b3e8:25ab with SMTP id 46e09a7af769-801b3e8a6c8mr4013717a34.2.1789010490678;
-        Wed, 09 Sep 2026 20:21:30 -0700 (PDT)
+        bh=NSfuMa1PaK7LxfGHLbiVRQmOmAt7jKjptTGVArTkaVc=;
+        b=mBEk88tjohNji2jD3QS0ppLogyknJ2scCGp5CvmnYWxasft16QeDY25a0V7OfNwNZF
+         IwBUI5M2V/Wl0yWYMEmdP0/DlonytVga334bqsrniZS8AUJl5AZn5zzGjW1v7fNM1vbM
+         iZ+JcmfW7Ovwd3NY4rFOhYbiXC8XoDu2zcKESVl1PmG7Awekozwr3hgZcKvm+tg75iZ9
+         UYlvQxwHCYOkBRHaHSblwT47er5ggZyMk+MDpuHZDs6T+82qEZHyMZJGbDHuL1gmAeUd
+         DespGPUW/afBhDcoP+JowzCqJFhpvKcEMt9EvDuSdupjLVgGFN1fFvjDsqYv+rfeF/jI
+         8xkw==
+X-Forwarded-Encrypted: i=1; AKwUvBzc0sxTOuhJUhVrUnJ1vh3F4i8ocnPTJ0KUnuM0LwLLe08A6ml4GVYtuZ0ImZ1jo7f2VLL3uL+Bv5EvQjA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDamdKgohtyiP9lTJNyd30or9231a6cA0J7f1e1PAImh3IH1sD
+	lA7sqHFbeHJSSByTGPM02LxzB5kFjtn+ymQSAuOZ8rkeCLR7y05PPY2g4EEbGw/zeU+0ylPp
+X-Gm-Gg: AYBFou1hkIFQvSZGYX8RfjJ2zXNZi85MLPawueuTvGeL2JuMJ1YdLzK5C+g5BSi6w//
+	tG9MuDc0PCZiBJFkiv1h3eXIE8wkF+pR3KNotIT7Eu6A4OOuqWYCSTwQsarTXW5qOIzditx4Y/U
+	P6DKZFbmKBMCiGxlvLODcyogx6h/Uvge9r11eSY24xmup8xsasTWc4o1gXf7RYPzPLsauwLT+be
+	KZuiKS3Zp5555bQHYDlZVZcqckp+YRy8lNM1sqdfE+KDrm2lR2b3Eh/HtYiqzJ4f6N4uRQFfctC
+	U582T9hfDQ/47BEFpX2H4xrSLpXZKjarp7QOsyPsbreuDjHS0v7HjOFS+sO9oGnGQQlDFGi+33V
+	gWI64r/Ui+vuI5/roaqM+AHssNEDVyK17HzTJoNkNsVNLU8gxKk+h6NG4LdOnsm7I7VZd+z59Wc
+	v8zwTNN9XFn2U0P/zWKRsZ73f6eeEhbHO+dOnhpnpana5ucu1nfQ6NItT30VfywlkdgE9TVbwk2
+	xRNe51/Qp+09mLVIi3Pqqzhqr2e9dxw+gVYMC+B/0KH7XvGRDvNNDA=
+X-Received: by 2002:a05:6830:67d2:b0:7e6:6ced:992f with SMTP id 46e09a7af769-7fb7bba55e3mr17226582a34.2.1789010491566;
+        Wed, 09 Sep 2026 20:21:31 -0700 (PDT)
 Received: from localhost ([76.187.192.44])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6da9a49sm19758315a34.13.2026.09.09.20.21.29
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6da9a49sm19758315a34.13.2026.09.09.20.21.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 20:21:30 -0700 (PDT)
+        Wed, 09 Sep 2026 20:21:31 -0700 (PDT)
 From: Andrei Aldea <andrei1998@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
@@ -68,9 +68,9 @@ Cc: linux-input@vger.kernel.org,
 	Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>,
 	linux-leds@vger.kernel.org
-Subject: [PATCH 03/15] HID: hid-oxp: retain fractional brightness when reading RGB status
-Date: Wed,  9 Sep 2026 22:21:03 -0500
-Message-ID: <20260910032115.28669-4-andrei1998@gmail.com>
+Subject: [PATCH 04/15] HID: hid-oxp: reject invalid Gen2 RGB status values
+Date: Wed,  9 Sep 2026 22:21:04 -0500
+Message-ID: <20260910032115.28669-5-andrei1998@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910032115.28669-1-andrei1998@gmail.com>
 References: <20260910032115.28669-1-andrei1998@gmail.com>
@@ -82,41 +82,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Multiply the hardware brightness level by the LED brightness range before
-dividing by four. Dividing first reported every intermediate hardware
-level as zero instead of 25, 50 or 75 percent.
+Do not replace the cached RGB state with a Gen2 status report whose enable,
+speed or hardware brightness fields are outside the supported ranges.
 
-Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
+Fixes: 252c4bf1d931 ("HID: hid-oxp: Add Second Generation RGB Control")
 Assisted-by: LLM
 Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
 Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
 ---
- drivers/hid/hid-oxp.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/hid/hid-oxp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
-index 0c895bd..86a559c 100644
+index 86a559c..c3cfa95 100644
 --- a/drivers/hid/hid-oxp.c
 +++ b/drivers/hid/hid-oxp.c
-@@ -334,8 +334,8 @@ static int oxp_hid_raw_event_gen_1(struct hid_device *hdev,
- 	drvdata.rgb_en = rgb_rep->enabled == 0 ? OXP_FEAT_DISABLED :
- 						 OXP_FEAT_ENABLED;
- 	drvdata.rgb_brightness = rgb_rep->brightness;
--	led_mc->led_cdev.brightness = rgb_rep->brightness / 4 *
--				      led_mc->led_cdev.max_brightness;
-+	led_mc->led_cdev.brightness = rgb_rep->brightness *
-+				      led_mc->led_cdev.max_brightness / 4;
- 	/* If monocolor had less than 100% brightness on the previous boot,
- 	 * there will be no reliable way to determine the real intensity.
- 	 * Since intensity scaling is used with a hardware brightness set at max,
-@@ -423,8 +423,8 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
- 	drvdata.rgb_en = rgb_rep->enabled == 0 ? OXP_FEAT_DISABLED :
- 						 OXP_FEAT_ENABLED;
- 	drvdata.rgb_brightness = rgb_rep->brightness;
--	led_mc->led_cdev.brightness = rgb_rep->brightness / 4 *
--				      led_mc->led_cdev.max_brightness;
-+	led_mc->led_cdev.brightness = rgb_rep->brightness *
-+				      led_mc->led_cdev.max_brightness / 4;
- 	/* If monocolor had less than 100% brightness on the previous boot,
- 	 * there will be no reliable way to determine the real intensity.
- 	 * Since intensity scaling is used with a hardware brightness set at max,
+@@ -415,6 +415,10 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
+ 		return 0;
+ 
+ 	rgb_rep = (struct oxp_gen_2_rgb_report *)data;
++	if (rgb_rep->enabled > OXP_FEAT_ENABLED || rgb_rep->speed > 9 ||
++	    rgb_rep->brightness > 4)
++		return 0;
++
+ 	/* Ensure we save monocolor as the list value */
+ 	drvdata.rgb_effect = rgb_rep->effect == OXP_EFFECT_MONO_TRUE ?
+ 			     OXP_EFFECT_MONO_LIST :
