@@ -1,160 +1,158 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AE148822F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE6E33D503
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:34:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050891; cv=none; b=c24PsFdB7ZB8cHhcuQrILDQ1DoOhD80ZQLsNslk5zj/62FNXSD8Yd+8mFP/gnDbc2miAIf6lgWPR5imaJGJKszPrcd9en0UjMRPTSsIBNhb5l5oSDU/vPdZU3ybmhz2rlXaGsCjnp9laQeeKD78sLZdgGpbV54keo98zdcSxCkQ=
+	t=1789050901; cv=none; b=dgj1yw+B2BZDdbsou+lkawP+sS+hD8A5RnTP9wAgi37VNGq689pVPT5xF1fPj2ag4b5S/laLrQ1IXxvt9UpMl+tdjvorSc6hC2GXsk9TSHLs9h8Tf258GMmiw/sn3YT1dUCpu8ypSPpU/8OZuLbMOAxRdaKnVcsTdFsgtFhwwVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050891; c=relaxed/simple;
-	bh=XoYviOluGOh0kAc7Ou8Iyf2cJk4TW8ChouuzVOQrax0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F1Oykj+mjudEoF5alAhadl/9IbZnfF7q1p9OHIul/CeEOvVP1521cQkTQOPMhjug3bU9AUdBXPExcKAmrfwbYpiykzAoYi/VDjRDnDsNEBgMMku6pshvgdSGnepmlUdZW6RMX7HXbf4YSpLvjvV4INTnTUWQmr0sqx/HLN0wdA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TK/FGm0T; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789050901; c=relaxed/simple;
+	bh=ha/G3dQOHNOkYRKWPJia3wRwrtSelDlCsigpRGS/33A=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=rT7jnvOKjj57bd3yZ82JTRyuM3HoFYkIdPbINSmZc/p9s4MkQ/MOY7/TffDueYkgs+hK7fJgivtp1QktzYJRBOWIj9SN+K2fJ68muS2FNUcHP6E0pyv68YxEkQ/E/VVPo42AooJvOezP0oxXfV8FwuSP1rnfwsse1U+TT/2B0Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l+/SInvH; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TK/FGm0T"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so56288635e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:34:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l+/SInvH"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49545071724so64662295e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:34:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789050888; x=1789655688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qMHaNRwMVaU/4ShlWKS0ohcj5wLlVwszTrw60OyUR3Y=;
-        b=TK/FGm0TnoxfuxAzK7Jk1eTyU4xZelpK/ASmseK2EUKUjgu7OR3+JoiyiuUsh0WBaP
-         c1ztFDjYGBTFR3WjPX0+xFLZzi6+XqSuXtf7AdgqMff6AOysWeaaW8bSQke9zZ8p4x0r
-         71aUtb7Zor029tilo/1ISFQFjY+q2hYIkaoZedEORm8Dq6DAc5UJf3ZfAKXyUgaunhYx
-         U3KjqxQY/9lfZ8g1ib6/eFz1vKtaO2dyCNEkpnv0383GrL4RSb6KB1CE55TaKlN2Y9Ba
-         bzegYyTL2ynnrcRi31TccqJn5dqBEcEjkv7Hs+rAyZnMb7S9AoquMMc3WAEkXFzXYsNM
-         Gulw==
+        d=google.com; s=20251104; t=1789050898; x=1789655698; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vLdGOSaZKVRiQ2yqyODIPDHphzpEsgnt6OvmN+p7ZKI=;
+        b=l+/SInvHlpM8SQ3WZf+NFDSYvChYdilqkq6ZZD7O4TaX2NQs9zmTg6te3gb1vkvIuF
+         4SWGWitDRfviYg03mEZca4vpq3SNLK0LtMX5URss/eYrMdijOmq3/2QQkuArzF4Avi7B
+         27TU/9YRr5jCSVkQwLYDTVC7259oSxBZR5Y5VQ/xrSKFA6LUGyFM4aGSi7+/6tO0AAfQ
+         vFtt1y//3syVDUIYj4iwF16XNNVgJgFAWT8nrdrg+sMZoJuS0t9/1fdOOSaMZevTTEuW
+         ugmCbQ365gBnsrN4hWxONO843uOESSjTBy9BErOrxGEECwjamP1k7JFpLbqQzU3zCf2h
+         n+2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050888; x=1789655688;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qMHaNRwMVaU/4ShlWKS0ohcj5wLlVwszTrw60OyUR3Y=;
-        b=cEs52PHNQDfnik0im+IW06Ox45rgW/OPuOONv1KKSL/MENtAPUDJZcftyk3RwuaSXb
-         MlZBOifBxrGjz0Qa4/tD7KFYyVPIZJvhAZmRLMmocFm9CGIfuAJ5mO/r/zV5H7OF/lLc
-         PcADfNME5EWgwQcy2h7Ug6g8oWkH3c5KHdCVQNpK9rzA4w1N7NG851aTpEVZupWUC4iL
-         2BDkndCDhXz6Vpzm/m0A5lO2gkCylQGJ+R9a3/xeZmeAYGWNbKrHkQb9hx7fVKOxg5us
-         suzfYG41/eOcb4r7zfyAYyL9p/OQ9hfZ7+upE0b0OoIRlH1o/F7ccKmfy7/IARWuodzS
-         bwnw==
-X-Gm-Message-State: AFuF++mHUcRmNZFy32+0yqZSdiTawUwmr7YTc+b774voQtddtoxiOxe5
-	FchHyUg6VJbNc6aX0mcOsEpA593xG3asXnm+OhRHbsk6RTMEH0vn0/Sc
-X-Gm-Gg: AYBFou331lOPPEWAi6ZGPO2dkQjZbM9MHFSnhawSgcAnlci+lRB67UXm5hBbW9VA4bF
-	+GtpMrSSZ6hqXTQCZ+ht5HlWri4L4LQLRbSdm01KxXrtwstQHnqpz/LOxvweT4EvaOL6IJRH1A4
-	wV39Qi/2YJG802VjDgn2cWePBtCzhg1wcqAYC9Antbyfak3P5YuBp4k5wRmHSFLfN32IfPv9DxA
-	pZ37phceiLRysj2CLAV77dYWYmSM84RtmX1/xz+brrjb+Da4krWk0tDjSZsMrfCNJ4iYn3Ms2kA
-	Od+qvwexM7QsdnzUSm7mm3RzddfBRhznYzqOMrE677GEsYG0LcUPQpRJun1NUY2niaJoFmlw1xF
-	kNKTgeCRd6aq89cAac/VA4K6z3pqBfHQicbeCuinfxHomFQ7wi3fTJGy6ClaJ6ME9UPncspJu0y
-	XZSM/B360HEYEwpt0HPeuWC9tzsHy1WGge/pwQZMIWV7+fazIL64GTfcumkpRfR+y7kaKy2SSkG
-	7uiJFLuV88TMkeYinuFWHU=
-X-Received: by 2002:a05:600c:1d0d:b0:49d:99c:3bd9 with SMTP id 5b1f17b1804b1-49d099c3fc9mr271461415e9.33.1789050887625;
-        Thu, 10 Sep 2026 07:34:47 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.90.101])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb02bffsm94977835e9.0.2026.09.10.07.34.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:34:47 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org,
-	Andrea Parri <parri.andrea@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] hrtimer: Use hard expiry when updating timers on the same base
-Date: Thu, 10 Sep 2026 16:34:42 +0200
-Message-ID: <20260910143442.2018-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1789050898; x=1789655698;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vLdGOSaZKVRiQ2yqyODIPDHphzpEsgnt6OvmN+p7ZKI=;
+        b=XwvL7N+9TnclkxNbcjy48FyF1Ttkm/y6mkL1FuBqHhb28pfRCefVAGcR70+Z+1iH1K
+         8/XQJOhFFNAFBNNI7VJz/hcI+6uv0IzJSHRihfpvK+UsSEg6jW8i4oAakfznWsx3F++O
+         x76DOBjDvMRoD8YyIMHoyGoPi5MD+FA8jrPqt1P0trdaGojU3J1UwjA+5HK3yhrrQXrW
+         yqr25xXar+mWKHohrogAHtmR0nz9eXLlJiUyn4qCju8dbvBRNaeOnzjImyFnghZ3RW+h
+         FkY440g5f0E9qhehKQWqdSMyt26eRRM55u/G8VVprlafKHKFURO7zinuopBRkEvbvbKi
+         Mv+g==
+X-Gm-Message-State: AFuF++k9h3j2TwKqOvR+xNIkJGRTLGRYFvEms1+vLNLppB6KzDf5uNBT
+	QMp0RcAEF/dyn6P9SeQQOOqqMqcHm3Ut9Ztz6lWH0A5ssCXEdnE706AI074hft+0EHs3bPTRlw=
+	=
+X-Received: from wrck19.prod.google.com ([2002:a5d:5253:0:b0:481:42c1:a3f])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6000:4804:b0:482:e451:6810
+ with SMTP id ffacd0b85a97d-4858703f65cmr46225743f8f.1.1789050897441; Thu, 10
+ Sep 2026 07:34:57 -0700 (PDT)
+Date: Thu, 10 Sep 2026 16:34:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3113; i=ardb@kernel.org;
+ h=from:subject; bh=d0ouAXSJJKlPEcoAofimBWCt5MeyJAw1y1ceFAVT0fQ=;
+ b=kA0DAAoWMG4JVi59LVwByyZiAGqiwAGg7JiMNdgBxG/csgtc6YaVRLSrODPmBtIV+lbgDCIQG
+ 4h1BAAWCgAdFiEEEJv97rnLkRp9Q5odMG4JVi59LVwFAmqiwAEACgkQMG4JVi59LVxY3gD/RAOg
+ XhLaWgkX74KmgFPKBOAtUuXpKmxVQAfcGk2+3NUA/0LzFhVedW97oukbC3wii5l9fXuBCkUWCX9 mERYBPBMG
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260910143440.3865663-2-ardb+git@google.com>
+Subject: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in
+ prefetchable windows
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, 
+	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Rearming a queued timer with nonzero slack can leave the timerqueue out
-of order. remove_and_enqueue_same_base() checks the new soft expiry
-against its neighbours' hard expiries, then stores the new hard expiry
-in the node without requeueing it.
+From: Ard Biesheuvel <ardb@kernel.org>
 
-For example, with A at 10 and B at 20, rearming A at 11 with slack 30
-passes the neighbour check but leaves A's hard expiry of 41 before B's
-20. The same function also caches the soft expiry in base->expires_next
-when updating or inserting the first timer, giving next-event selection
-an earlier deadline than the queue head's hard expiry.
+The prefetchable vs. non-prefetchable distinction is a relic of
+conventional PCI, to denote from which regions PCI-PCI bridges were
+permitted to perform speculative readahead.
 
-Set the timer expiry before handling the queue. Use its stored hard
-expiry for the in-place ordering check and both updates to
-base->expires_next.
+For software compatibility reasons, PCI Express inherited the Type 1
+header and models PCIe root ports as PCI-PCI bridges. However, this
+readahead behavior does not exist in PCIe, and so this distinction has
+mostly become meaningless on the bridge level.
 
-The early update is safe because remove_and_enqueue_same_base() runs
-with base->cpu_base->lock held. The lock keeps the queue stable while
-hrtimer_can_update_in_place() checks the new expiry against both
-neighbours. If the check fails, timerqueue_linked_del() removes the node
-without comparing expiry values before it is reinserted.
+As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
+'prefetchable' designation has been removed from the specification
+entirely, on the basis that it is obsolete, and is being abused to
+inform memory mapping attributes and other device/BAR level properties
+that it was never intended for.
 
-Fixes: eddffab8282e3 ("hrtimer: Keep track of first expiring timer per clock base")
-Fixes: 343f2f4dc5425 ("hrtimer: Try to modify timers in place")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Given the limited range for non-prefetchable windows in the Type 1
+header, and the fact that the distinction no longer exists for PCIe,
+resource allocation performed by firmware may result in non-prefetchable
+64-bit BARs being allocated inside prefetchable bridge windows.
+
+Linux rejects such allocations ("can't claim; no compatible bridge
+window") when it encounters them, but will usually fail to produce an
+alternative allocation, given that firmware wouldn't have placed them
+there in the first place if there was sufficient space in the
+non-prefetchable window.
+
+So at the very least, let's not reject such allocations when they were
+made by the firmware.
+
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
-Changes in v3:
-- Explain why updating the expiry before handling the queue is safe, as
-  requested by Thomas Gleixner.
+Link: https://github.com/tianocore/edk2/issues/13104
 
-Changes in v2:
-- Set the timer expiry before handling the queue and use the resulting hard
-  expiry for the in-place update check, as suggested by Peter Zijlstra.
+ drivers/pci/pci.c   | 3 ++-
+ include/linux/pci.h | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-v2: https://lore.kernel.org/r/20260909102749.7677-1-parri.andrea@gmail.com/
-v1: https://lore.kernel.org/r/20260907211134.3854-1-parri.andrea@gmail.com/
-
- kernel/time/hrtimer.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-index 530d61257b9a0..cbf1693c86b38 100644
---- a/kernel/time/hrtimer.c
-+++ b/kernel/time/hrtimer.c
-@@ -1263,13 +1263,23 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..e33eb9f3a139 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(const struct =
+pci_dev *dev,
+ 			 * not, the allocator made a mistake.
+ 			 */
+ 			if (r->flags & IORESOURCE_PREFETCH &&
+-			    !(res->flags & IORESOURCE_PREFETCH))
++			    !(res->flags & IORESOURCE_PREFETCH) &&
++			    !pci_is_pcie(dev))
+ 				return NULL;
+=20
+ 			/*
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index d31a8d107b1e..1cbb4b6c02c3 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -2684,7 +2684,7 @@ static inline void pci_vf_drivers_autoprobe(struct pc=
+i_dev *dev, bool probe) { }
+  * need to calculate PCIe capability offset from raw device for some
+  * reasons, please use pci_find_capability() instead.
+  */
+-static inline int pci_pcie_cap(struct pci_dev *dev)
++static inline int pci_pcie_cap(const struct pci_dev *dev)
  {
- 	bool was_first = false;
- 
-+	/*
-+	 * Updating the sort key while @timer is queued can temporarily
-+	 * make the tree inconsistent. This is safe under cpu_base->lock:
-+	 * no other queue operation can observe that state.
-+	 * hrtimer_can_update_in_place() either confirms that the new expiry
-+	 * fits between the neighbours or timerqueue_linked_del() removes the
-+	 * timer without consulting the expiry.
-+	 */
-+	hrtimer_set_expires_range_ns(timer, expires, delta_ns);
-+	expires = hrtimer_get_expires(timer);
-+
- 	/* Remove it from the timer queue if active */
- 	if (timer->is_queued) {
- 		was_first = !timerqueue_linked_prev(&timer->node);
- 
- 		/* Try to update in place to avoid the de/enqueue dance */
- 		if (hrtimer_can_update_in_place(timer, base, expires)) {
--			hrtimer_set_expires_range_ns(timer, expires, delta_ns);
- 			trace_hrtimer_start(timer, mode, true);
- 			if (was_first)
- 				base->expires_next = expires;
-@@ -1280,9 +1290,6 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
- 		timerqueue_linked_del(&base->active, &timer->node);
- 	}
- 
--	/* Set the new expiry time */
--	hrtimer_set_expires_range_ns(timer, expires, delta_ns);
--
- 	debug_activate(timer, mode, timer->is_queued);
- 	base->cpu_base->active_bases |= 1 << base->index;
- 
--- 
-2.53.0
+ 	return dev->pcie_cap;
+ }
+@@ -2695,7 +2695,7 @@ static inline int pci_pcie_cap(struct pci_dev *dev)
+  *
+  * Returns: true if the PCI device is PCI Express capable, false otherwise=
+.
+  */
+-static inline bool pci_is_pcie(struct pci_dev *dev)
++static inline bool pci_is_pcie(const struct pci_dev *dev)
+ {
+ 	return pci_pcie_cap(dev);
+ }
+--=20
+2.55.0.1003.g10538fe699-goog
+
